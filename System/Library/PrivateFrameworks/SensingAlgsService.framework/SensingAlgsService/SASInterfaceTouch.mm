@@ -11,6 +11,7 @@
 - (id)generateFingerEvent:(id *)event interpolated:(BOOL)interpolated now:(unint64_t)now;
 - (id)generateHandEvent:(id *)event interpolated:(BOOL)interpolated now:(unint64_t)now;
 - (id)generateSwipeUp:(unint64_t)up;
+- (id)generateTapEvent:(id *)event transducerType:(unsigned int)type now:(unint64_t)now;
 - (id)generateTouchSystemReady:(unint64_t)ready;
 - (id)generateWakeEvent:(int)event timestamp:(unint64_t)timestamp;
 - (int64_t)getValidTimestamp:(unint64_t)timestamp now:(unint64_t)now;
@@ -37,7 +38,7 @@
     PacketCollection::PacketCollection(v3, 1, 1);
     v4 = 0;
     v5 = 0;
-    v3[0] = &unk_2876F6BD0;
+    *v3 = &unk_2876F6BD0;
     AlgDataExtractor::callbackFor(v3, 0x42BD12136436D303, 0x1AE6533682FB2CLL, 2);
     AlgsDevice::configureInternalClient(self->_device, v3, 0);
   }
@@ -52,7 +53,7 @@
     PacketCollection::PacketCollection(v3, 13, 1);
     v4 = 0;
     v5 = 0;
-    v3[0] = &unk_2876F6BD0;
+    *v3 = &unk_2876F6BD0;
     AlgDataExtractor::callbackFor(v3, 0xAF83667BDA1FDB60, 0xBB59337C2FBD0775, 2);
     AlgDataExtractor::callbackFor(v3, 0xAF83667BDA1FDB60, 0xA6CEC30BA0ABCAE0, 2);
     AlgDataExtractor::callbackFor(v3, 0xAF83667BDA1FDB60, 0x377A1603BFB01C2, 2);
@@ -74,7 +75,7 @@
 
 - (void)callEventCallback
 {
-  v94 = *MEMORY[0x277D85DE8];
+  v93 = *MEMORY[0x277D85DE8];
   if (self->_hand)
   {
     v3 = self->_fingers != 0;
@@ -96,7 +97,7 @@
   }
 
   v5 = self->_atomic_wake_event || self->_cover_gesture.state;
-  v75 = 0;
+  v74 = 0;
   mach_get_times();
   v6 = [(SASInterfaceTouch *)self timestampMachToUs:0];
   v7 = v6 - self->_last_frame_time_us;
@@ -113,7 +114,7 @@
       do
       {
         v11 = v10;
-        v12 = [(SASInterfaceTouch *)self generateTapEvent:self->_tap transducerType:3 now:v6, v75];
+        v12 = [(SASInterfaceTouch *)self generateTapEvent:self->_tap transducerType:3 now:v6, v74];
         v13 = [(SASInterfaceTouch *)self generateTapEvent:self->_tap transducerType:2 now:v6];
         v14 = [(SASInterfaceTouch *)self generateWakeEvent:0 timestamp:[(SASInterfaceTouch *)self getValidTimestamp:self->_tap->var0 now:v6]];
         [v8 addObject:v12];
@@ -140,10 +141,13 @@
       v16 = SALoggingHIDEventSignpost();
       v17 = v16;
       var1 = self->_tap->var1;
-      if (var1 && os_signpost_enabled(v16))
+      if (var1)
       {
-        *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_2655B3000, v17, OS_SIGNPOST_EVENT, var1, "GenerateWakeEvent", "Wake Event TTW", buf, 2u);
+        if (os_signpost_enabled(v16))
+        {
+          *buf = 0;
+          _os_signpost_emit_with_name_impl(&dword_2655B3000, v17, OS_SIGNPOST_EVENT, var1, "GenerateWakeEvent", "Wake Event TTW", buf, 2u);
+        }
       }
 
       goto LABEL_77;
@@ -160,7 +164,7 @@
         v26 = 8;
         do
         {
-          v27 = [(SASInterfaceTouch *)self generateFingerEvent:interpolated_fingers + v26 interpolated:1 now:v6, v75];
+          v27 = [(SASInterfaceTouch *)self generateFingerEvent:interpolated_fingers + v26 interpolated:1 now:v6, v74];
           [v23 appendEvent:v27];
 
           ++v25;
@@ -204,23 +208,23 @@
         }
 
         *buf = 134351105;
-        v77 = v33;
-        v78 = 1024;
-        v79 = var0;
-        v80 = 1024;
-        v81 = var4;
-        v82 = 1024;
-        v83 = var14;
-        v84 = 1024;
-        v85 = var13;
-        v86 = 2053;
-        v87 = var5;
-        v88 = 2053;
-        v89 = var6;
-        v90 = 1024;
-        v91 = v42;
-        v92 = 1024;
-        v93 = v41;
+        v76 = v33;
+        v77 = 1024;
+        v78 = var0;
+        v79 = 1024;
+        v80 = var4;
+        v81 = 1024;
+        v82 = var14;
+        v83 = 1024;
+        v84 = var13;
+        v85 = 2053;
+        v86 = var5;
+        v87 = 2053;
+        v88 = var6;
+        v89 = 1024;
+        v90 = v42;
+        v91 = 1024;
+        v92 = v41;
         _os_signpost_emit_with_name_impl(&dword_2655B3000, v31, OS_SIGNPOST_EVENT, v32, "GenerateDigitizer", "%{public, signpost.description:begin_time}llu fingers=%u mask=0x%x touch/range=%u/%u pos=(%{sensitive}.5f,%{sensitive}.5f) interp=1 next=%u info=%u", buf, 0x44u);
       }
     }
@@ -236,7 +240,7 @@
         v46 = 8;
         do
         {
-          v47 = [(SASInterfaceTouch *)self generateFingerEvent:fingers + v46 interpolated:0 now:v6, v75];
+          v47 = [(SASInterfaceTouch *)self generateFingerEvent:fingers + v46 interpolated:0 now:v6, v74];
           [v43 appendEvent:v47];
 
           ++v45;
@@ -263,7 +267,7 @@
         {
           wake_event_detected = self->_wake_event_detected;
           *buf = 67109120;
-          LODWORD(v77) = wake_event_detected;
+          LODWORD(v76) = wake_event_detected;
           _os_log_impl(&dword_2655B3000, v51, OS_LOG_TYPE_DEFAULT, "Wake Event %d", buf, 8u);
         }
 
@@ -274,7 +278,7 @@
         {
           v56 = self->_wake_event_detected;
           *buf = 67109120;
-          LODWORD(v77) = v56;
+          LODWORD(v76) = v56;
           _os_signpost_emit_with_name_impl(&dword_2655B3000, v54, OS_SIGNPOST_EVENT, v55, "GenerateWakeEvent", "Wake Event %d", buf, 8u);
         }
       }
@@ -305,23 +309,23 @@
         }
 
         *buf = 134351105;
-        v77 = v60;
-        v78 = 1024;
-        v79 = v61;
-        v80 = 1024;
-        v81 = v63;
-        v82 = 1024;
-        v83 = v64;
-        v84 = 1024;
-        v85 = v65;
-        v86 = 2053;
-        v87 = v66;
-        v88 = 2053;
-        v89 = v67;
-        v90 = 1024;
-        v91 = v69;
-        v92 = 1024;
-        v93 = v68;
+        v76 = v60;
+        v77 = 1024;
+        v78 = v61;
+        v79 = 1024;
+        v80 = v63;
+        v81 = 1024;
+        v82 = v64;
+        v83 = 1024;
+        v84 = v65;
+        v85 = 2053;
+        v86 = v66;
+        v87 = 2053;
+        v88 = v67;
+        v89 = 1024;
+        v90 = v69;
+        v91 = 1024;
+        v92 = v68;
         _os_signpost_emit_with_name_impl(&dword_2655B3000, v58, OS_SIGNPOST_EVENT, v59, "GenerateDigitizer", "%{public, signpost.description:begin_time}llu fingers=%u mask=0x%x touch/range=%u/%u pos=(%{sensitive}.5f,%{sensitive}.5f) interp=0 next=%u info=%u", buf, 0x44u);
       }
     }
@@ -333,13 +337,13 @@
 LABEL_71:
         if (self->_touch_system_ready)
         {
-          v70 = [(SASInterfaceTouch *)self generateTouchSystemReady:v75];
+          v70 = [(SASInterfaceTouch *)self generateTouchSystemReady:v74];
           [v8 addObject:v70];
         }
 
         if (self->_atomic_wake_event == 1)
         {
-          v71 = [(SASInterfaceTouch *)self generateSwipeUp:v75];
+          v71 = [(SASInterfaceTouch *)self generateSwipeUp:v74];
           [v8 addObject:v71];
         }
 
@@ -358,7 +362,7 @@ LABEL_78:
         (*(self->_eventCallback + 2))();
         [(SASInterfaceTouch *)self cleanNodes];
 
-        goto LABEL_79;
+        return;
       }
 
       v43 = SALoggingGeneral();
@@ -390,8 +394,6 @@ LABEL_78:
   }
 
   [(SASInterfaceTouch *)self cleanNodes];
-LABEL_79:
-  v74 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cleanNodes
@@ -409,7 +411,7 @@ LABEL_79:
 - (void)callCoreAnalyticsCallback
 {
   selfCopy6 = self;
-  v76[1] = *MEMORY[0x277D85DE8];
+  v75[1] = *MEMORY[0x277D85DE8];
   if (self->_coreAnalyticsCallback)
   {
     if (self->_duration_between_touches)
@@ -419,11 +421,11 @@ LABEL_79:
       if ((v3 >> 2) <= 0x28F5C28)
       {
         coreAnalyticsCallback = selfCopy6->_coreAnalyticsCallback;
-        v75 = @"Duration";
+        v74 = @"Duration";
         *&v4 = *selfCopy6->_duration_between_touches;
-        v51 = [MEMORY[0x277CCABB0] numberWithFloat:v4];
-        v76[0] = v51;
-        v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v76 forKeys:&v75 count:1];
+        v50 = [MEMORY[0x277CCABB0] numberWithFloat:v4];
+        v75[0] = v50;
+        v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v75 forKeys:&v74 count:1];
         coreAnalyticsCallback[2](coreAnalyticsCallback, @"com.apple.Multitouch.EmbeddedStatistics.DurationBetweenTouches", v6);
 
         selfCopy6 = self;
@@ -442,29 +444,29 @@ LABEL_79:
         if ((v10 >> 2) <= 0x28F5C28)
         {
           v12 = self->_coreAnalyticsCallback;
-          v73[0] = @"MinGeometricMean";
+          v72[0] = @"MinGeometricMean";
           LODWORD(v11) = LODWORD(path_stats->var1[v8].var0);
-          v52 = [MEMORY[0x277CCABB0] numberWithFloat:v11];
-          v74[0] = v52;
-          v73[1] = @"MaxGeometricMean";
+          v51 = [MEMORY[0x277CCABB0] numberWithFloat:v11];
+          v73[0] = v51;
+          v72[1] = @"MaxGeometricMean";
           LODWORD(v13) = LODWORD(path_stats->var1[v8].var1);
           v14 = [MEMORY[0x277CCABB0] numberWithFloat:v13];
-          v74[1] = v14;
-          v73[2] = @"EccentricityForMin";
+          v73[1] = v14;
+          v72[2] = @"EccentricityForMin";
           LODWORD(v15) = LODWORD(path_stats->var1[v8].var2);
           v16 = [MEMORY[0x277CCABB0] numberWithFloat:v15];
-          v74[2] = v16;
-          v73[3] = @"EccentricityForMax";
+          v73[2] = v16;
+          v72[3] = @"EccentricityForMax";
           LODWORD(v17) = LODWORD(path_stats->var1[v8].var3);
           v18 = [MEMORY[0x277CCABB0] numberWithFloat:v17];
-          v74[3] = v18;
-          v73[4] = @"InitialTouchIdentity";
+          v73[3] = v18;
+          v72[4] = @"InitialTouchIdentity";
           v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:path_stats->var1[v8].var4];
-          v74[4] = v19;
-          v73[5] = @"LiftoffTouchIdentity";
+          v73[4] = v19;
+          v72[5] = @"LiftoffTouchIdentity";
           v20 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:path_stats->var1[v8].var5];
-          v74[5] = v20;
-          v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v74 forKeys:v73 count:6];
+          v73[5] = v20;
+          v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v73 forKeys:v72 count:6];
           v12[2](v12, @"com.apple.Multitouch.EmbeddedStatistics.LiftoffPathStats", v21);
         }
 
@@ -482,13 +484,13 @@ LABEL_79:
       if (selfCopy6->_phone_telemetry.baseline_inversion_occurred)
       {
         v22 = selfCopy6->_coreAnalyticsCallback;
-        v71[0] = @"Lockscreen_Status";
-        v53 = [MEMORY[0x277CCABB0] numberWithBool:selfCopy6->_phone_telemetry.is_on_coversheet];
-        v71[1] = @"Touch_Frequency";
-        v72[0] = v53;
+        v70[0] = @"Lockscreen_Status";
+        v52 = [MEMORY[0x277CCABB0] numberWithBool:selfCopy6->_phone_telemetry.is_on_coversheet];
+        v70[1] = @"Touch_Frequency";
+        v71[0] = v52;
         v23 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:self->_phone_telemetry.scan_frequency_index];
-        v72[1] = v23;
-        v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v72 forKeys:v71 count:2];
+        v71[1] = v23;
+        v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v71 forKeys:v70 count:2];
         v22[2](v22, @"com.apple.multitouch.baseline.inversion", v24);
 
         v25 = SALoggingGeneral();
@@ -508,13 +510,13 @@ LABEL_79:
           }
 
           *buf = 67109890;
-          v62 = baseline_adaption_interval_ms;
-          v63 = 1024;
-          v64 = time_since_last_baseline_change_ms;
-          v65 = 1024;
-          v66 = scan_frequency_index;
-          v67 = 2080;
-          v68 = v29;
+          v61 = baseline_adaption_interval_ms;
+          v62 = 1024;
+          v63 = time_since_last_baseline_change_ms;
+          v64 = 1024;
+          v65 = scan_frequency_index;
+          v66 = 2080;
+          v67 = v29;
           _os_log_impl(&dword_2655B3000, v25, OS_LOG_TYPE_INFO, "Baseline Inversion: Interval=%dms SinceLast=%dms FreqIdx=%d %s", buf, 0x1Eu);
         }
 
@@ -546,35 +548,35 @@ LABEL_79:
           }
 
           *buf = 67110146;
-          v62 = v31;
-          v63 = 1024;
-          v64 = v32;
-          v65 = 1024;
-          v66 = v33;
-          v67 = 2080;
-          v68 = v35;
-          v69 = 2080;
-          v70 = v34;
+          v61 = v31;
+          v62 = 1024;
+          v63 = v32;
+          v64 = 1024;
+          v65 = v33;
+          v66 = 2080;
+          v67 = v35;
+          v68 = 2080;
+          v69 = v34;
           _os_log_impl(&dword_2655B3000, v30, OS_LOG_TYPE_INFO, "Non Default Baseline: Interval=%dms SinceLast=%dms FreqIdx=%d %s %s", buf, 0x28u);
         }
 
         v36 = self->_coreAnalyticsCallback;
-        v59[0] = @"AdaptationInterval";
-        v54 = [MEMORY[0x277CCABB0] numberWithInt:self->_phone_telemetry.baseline_adaption_interval_ms];
-        v60[0] = v54;
-        v59[1] = @"FreqDuringAdaptation";
+        v58[0] = @"AdaptationInterval";
+        v53 = [MEMORY[0x277CCABB0] numberWithInt:self->_phone_telemetry.baseline_adaption_interval_ms];
+        v59[0] = v53;
+        v58[1] = @"FreqDuringAdaptation";
         v37 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:self->_phone_telemetry.scan_frequency_index];
-        v60[1] = v37;
-        v59[2] = @"Lockscreen_Status";
+        v59[1] = v37;
+        v58[2] = @"Lockscreen_Status";
         v38 = [MEMORY[0x277CCABB0] numberWithBool:self->_phone_telemetry.is_on_coversheet];
-        v60[2] = v38;
-        v59[3] = @"TimeSinceLastAdapt";
+        v59[2] = v38;
+        v58[3] = @"TimeSinceLastAdapt";
         v39 = [MEMORY[0x277CCABB0] numberWithInt:self->_phone_telemetry.time_since_last_baseline_change_ms];
-        v60[3] = v39;
-        v59[4] = @"Touching";
+        v59[3] = v39;
+        v58[4] = @"Touching";
         v40 = [MEMORY[0x277CCABB0] numberWithBool:self->_phone_telemetry.has_touch_above_threshold];
-        v60[4] = v40;
-        v41 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v60 forKeys:v59 count:5];
+        v59[4] = v40;
+        v41 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v59 forKeys:v58 count:5];
         v36[2](v36, @"com.apple.multitouch.baseline.adaptation", v41);
 
         selfCopy6 = self;
@@ -599,24 +601,24 @@ LABEL_79:
           }
 
           *buf = 67109890;
-          v62 = v43;
-          v63 = 1024;
-          v64 = v44;
-          v65 = 1024;
-          v66 = v45;
-          v67 = 2080;
-          v68 = v46;
+          v61 = v43;
+          v62 = 1024;
+          v63 = v44;
+          v64 = 1024;
+          v65 = v45;
+          v66 = 2080;
+          v67 = v46;
           _os_log_impl(&dword_2655B3000, v42, OS_LOG_TYPE_INFO, "All Columns Covered: Interval=%dms SinceLast=%dms FreqIdx=%d %s", buf, 0x1Eu);
         }
 
         v47 = self->_coreAnalyticsCallback;
-        v57[0] = @"Lockscreen_Status";
-        v55 = [MEMORY[0x277CCABB0] numberWithBool:self->_phone_telemetry.is_on_coversheet];
-        v57[1] = @"Touch_Frequency";
-        v58[0] = v55;
+        v56[0] = @"Lockscreen_Status";
+        v54 = [MEMORY[0x277CCABB0] numberWithBool:self->_phone_telemetry.is_on_coversheet];
+        v56[1] = @"Touch_Frequency";
+        v57[0] = v54;
         v48 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:self->_phone_telemetry.scan_frequency_index];
-        v58[1] = v48;
-        v49 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v58 forKeys:v57 count:2];
+        v57[1] = v48;
+        v49 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v57 forKeys:v56 count:2];
         v47[2](v47, @"com.apple.multitouch.dtn.allcolumnscovered", v49);
 
         selfCopy6 = self;
@@ -627,7 +629,6 @@ LABEL_79:
   selfCopy6->_phone_telemetry.event_occurred = 0;
   selfCopy6->_path_stats = 0;
   selfCopy6->_duration_between_touches = 0;
-  v50 = *MEMORY[0x277D85DE8];
 }
 
 - (SASInterfaceTouch)initWithStreamSize:(unint64_t)size platformId:(unint64_t)id streamCallback:(id)callback
@@ -681,22 +682,20 @@ LABEL_79:
 
 - (void)initProperties
 {
-  v9[3] = *MEMORY[0x277D85DE8];
+  v8[3] = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   propertyDatabase = self->_propertyDatabase;
   self->_propertyDatabase = v3;
 
-  v8[0] = @"WorkNodeId";
-  v8[1] = @"DataNodeId";
-  v9[0] = &unk_2876F7840;
-  v9[1] = &unk_2876F7858;
-  v8[2] = @"Type";
-  v9[2] = &unk_2876F7870;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
+  v7[0] = @"WorkNodeId";
+  v7[1] = @"DataNodeId";
+  v8[0] = &unk_2876F7840;
+  v8[1] = &unk_2876F7858;
+  v7[2] = @"Type";
+  v8[2] = &unk_2876F7870;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
   v6 = [v5 mutableCopy];
   [(NSMutableDictionary *)self->_propertyDatabase setObject:v6 forKeyedSubscript:@"QuantizationDPI"];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isContactReclassificationNeeded
@@ -713,23 +712,23 @@ LABEL_79:
 
 - (void)initContactReclassificationParams
 {
-  v23[4] = *MEMORY[0x277D85DE8];
-  memset(&v17[1], 0, 32);
-  v21 = 0;
-  v19 = 0u;
-  v20 = 0u;
+  v22[4] = *MEMORY[0x277D85DE8];
+  memset(&v16[1], 0, 32);
+  v20 = 0;
   v18 = 0u;
-  v17[0] = 2047803400;
-  LOWORD(v17[1]) = 28;
+  v19 = 0u;
+  v17 = 0u;
+  v16[0] = 2047803400;
+  LOWORD(v16[1]) = 28;
   isContactReclassificationNeeded = [(SASInterfaceTouch *)self isContactReclassificationNeeded];
   if (isContactReclassificationNeeded)
   {
     v4 = 1;
-    HIWORD(v17[1]) = 1;
-    *&v17[2] = xmmword_2655C5680;
-    *&v17[6] = 0x10000000001FLL;
-    LOWORD(v17[8]) = 0x4000;
-    BYTE2(v17[8]) = 4;
+    HIWORD(v16[1]) = 1;
+    *&v16[2] = xmmword_2655C5680;
+    *&v16[6] = 0x10000000001FLL;
+    LOWORD(v16[8]) = 0x4000;
+    BYTE2(v16[8]) = 4;
   }
 
   else
@@ -742,8 +741,8 @@ LABEL_79:
   if (v5)
   {
     bytes = [v5 bytes];
-    HIWORD(v17[1]) = v4 + 1;
-    v8 = &v17[7 * v4 + 2];
+    HIWORD(v16[1]) = v4 + 1;
+    v8 = &v16[7 * v4 + 2];
     v9 = *(bytes + 8);
     v10 = *(bytes + 24);
     v11 = 1.0 - (v9 + v10 * -0.5);
@@ -757,16 +756,16 @@ LABEL_79:
     *(v8 + 26) = 4;
     v12 = (28 * v4 + 36);
 LABEL_8:
-    v23[0] = &unk_2876F7840;
-    v22[0] = @"WorkNodeId";
-    v22[1] = @"DataNodeId";
-    v23[1] = &unk_2876F7888;
-    v23[2] = &unk_2876F78A0;
-    v22[2] = @"Type";
-    v22[3] = @"Value";
-    v13 = [MEMORY[0x277CBEA90] dataWithBytes:v17 length:v12];
-    v23[3] = v13;
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:4];
+    v22[0] = &unk_2876F7840;
+    v21[0] = @"WorkNodeId";
+    v21[1] = @"DataNodeId";
+    v22[1] = &unk_2876F7888;
+    v22[2] = &unk_2876F78A0;
+    v21[2] = @"Type";
+    v21[3] = @"Value";
+    v13 = [MEMORY[0x277CBEA90] dataWithBytes:v16 length:v12];
+    v22[3] = v13;
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:4];
     v15 = [v14 mutableCopy];
     [(NSMutableDictionary *)self->_propertyDatabase setObject:v15 forKeyedSubscript:@"ContactReclassificationParams"];
 
@@ -780,17 +779,15 @@ LABEL_8:
   }
 
 LABEL_9:
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)handleInputStream:(id)stream
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   streamCopy = stream;
-  v32 = 0;
-  v33 = 0;
   v31 = 0;
+  v32 = 0;
+  v30 = 0;
   if ([streamCopy length])
   {
     bytes = [streamCopy bytes];
@@ -799,27 +796,27 @@ LABEL_9:
     {
       if (self->_cover_gesture_state == 1)
       {
-        v21 = objc_opt_new();
-        v22 = [(SASInterfaceTouch *)self generateCoverGesture:mach_absolute_time() state:3 surfaceCovered:0.0];
-        [v21 addObject:v22];
+        v20 = objc_opt_new();
+        v21 = [(SASInterfaceTouch *)self generateCoverGesture:mach_absolute_time() state:3 surfaceCovered:0.0];
+        [v20 addObject:v21];
         (*(self->_eventCallback + 2))();
       }
 
-      memset(v30, 0, sizeof(v30));
-      v29[1] = 24;
-      v29[0] = 0x2000;
-      v29[2] = v30;
-      AlgDataPacket::AlgDataPacket(v28, 0xAF83667BDA1FDB60, 0x310DDDD485, 12288, 1, 1, [(NSData *)self->_emptyPaths bytes], [(NSData *)self->_emptyPaths length], 0, 0);
-      PacketCollection::PacketCollection(v27, 1, 1);
-      v27[0] = &unk_2876F6C30;
-      AlgDataInjector::add(v27, v28);
-      v33 = [(NSMutableData *)self->_outputBuffer length]- 1;
-      v7 = (*(*self->_device + 24))(self->_device, v29, v27, [(NSMutableData *)self->_outputBuffer mutableBytes]+ 1, &v33);
-      [(SASInterfaceTouch *)self callStreamCallback:v33];
+      memset(v29, 0, sizeof(v29));
+      v28[1] = 24;
+      v28[0] = 0x2000;
+      v28[2] = v29;
+      AlgDataPacket::AlgDataPacket(v27, 0xAF83667BDA1FDB60, 0x310DDDD485, 12288, 1, 1, [(NSData *)self->_emptyPaths bytes], [(NSData *)self->_emptyPaths length], 0, 0);
+      PacketCollection::PacketCollection(v26, 1, 1);
+      v26[0] = &unk_2876F6C30;
+      AlgDataInjector::add(v26, v27);
+      v32 = [(NSMutableData *)self->_outputBuffer length]- 1;
+      v7 = (*(*self->_device + 24))(self->_device, v28, v26, [(NSMutableData *)self->_outputBuffer mutableBytes]+ 1, &v32);
+      [(SASInterfaceTouch *)self callStreamCallback:v32];
       [(SASInterfaceTouch *)self callEventCallback];
       [(SASInterfaceTouch *)self callCoreAnalyticsCallback];
-      PacketCollection::~PacketCollection(v27);
-      AlgDataPacket::~AlgDataPacket(v28);
+      PacketCollection::~PacketCollection(v26);
+      AlgDataPacket::~AlgDataPacket(v27);
     }
 
     else
@@ -827,21 +824,21 @@ LABEL_9:
       v7 = 1;
     }
 
-    v28[0] = 0;
-    v33 = [(NSMutableData *)self->_outputBuffer length]- 1;
+    v27[0] = 0;
+    v32 = [(NSMutableData *)self->_outputBuffer length]- 1;
     mutableBytes = [(NSMutableData *)self->_outputBuffer mutableBytes];
     device = self->_device;
     v10 = streamCopy;
-    AlgsDevice::handleInputStream(device, ([streamCopy bytes] + 1), objc_msgSend(streamCopy, "length") - 1, mutableBytes + 1, &v33, v28, &v31, &v32);
+    AlgsDevice::handleInputStream(device, ([streamCopy bytes] + 1), objc_msgSend(streamCopy, "length") - 1, mutableBytes + 1, &v32, v27, &v30, &v31);
     v12 = v11;
-    [(SASInterfaceTouch *)self callStreamCallback:v33];
+    [(SASInterfaceTouch *)self callStreamCallback:v32];
     [(SASInterfaceTouch *)self callEventCallback];
     [(SASInterfaceTouch *)self callCoreAnalyticsCallback];
-    v13 = v28[0];
-    if (v28[0] == 1)
+    v13 = v27[0];
+    if (v27[0] == 1)
     {
-      [(SASInterfaceTouch *)self callResetRequestCallback:v31 arg_ptr:v32];
-      v13 = v28[0];
+      [(SASInterfaceTouch *)self callResetRequestCallback:v30 arg_ptr:v31];
+      v13 = v27[0];
     }
 
     if (v13 == 2)
@@ -857,28 +854,28 @@ LABEL_9:
 
     if (v6 >= 2 && *(bytes + 1) == 1 && *(bytes + 2) == 1 && !self->_planId)
     {
-      v25 = 0u;
-      v26 = 0u;
-      v23 = 0u;
       v24 = 0u;
+      v25 = 0u;
+      v22 = 0u;
+      v23 = 0u;
       v14 = self->_propertyDatabase;
-      v15 = [(NSMutableDictionary *)v14 countByEnumeratingWithState:&v23 objects:v34 count:16];
+      v15 = [(NSMutableDictionary *)v14 countByEnumeratingWithState:&v22 objects:v33 count:16];
       if (v15)
       {
-        v16 = *v24;
+        v16 = *v23;
         do
         {
           for (i = 0; i != v15; ++i)
           {
-            if (*v24 != v16)
+            if (*v23 != v16)
             {
               objc_enumerationMutation(v14);
             }
 
-            [(SASInterfaceTouch *)self injectProperty:*(*(&v23 + 1) + 8 * i)];
+            [(SASInterfaceTouch *)self injectProperty:*(*(&v22 + 1) + 8 * i)];
           }
 
-          v15 = [(NSMutableDictionary *)v14 countByEnumeratingWithState:&v23 objects:v34 count:16];
+          v15 = [(NSMutableDictionary *)v14 countByEnumeratingWithState:&v22 objects:v33 count:16];
         }
 
         while (v15);
@@ -893,13 +890,12 @@ LABEL_9:
     v18 = 0;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
 - (BOOL)injectProperty:(id)property
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   propertyCopy = property;
   v5 = [(NSMutableDictionary *)self->_propertyDatabase objectForKeyedSubscript:propertyCopy];
   v6 = v5;
@@ -957,17 +953,17 @@ LABEL_8:
   *v16 = unsignedIntValue;
   v17 = 4;
 LABEL_10:
-  AlgDataPacket::AlgDataPacket(v32, unsignedLongLongValue, unsignedLongLongValue2, unsignedShortValue, 1, 1, v16, v17, 0, 0);
-  PacketCollection::PacketCollection(v31, 1, 1);
-  v31[0] = &unk_2876F6C30;
-  PacketCollection::PacketCollection(v30, 0, 1);
-  v30[10] = 0;
-  v30[11] = 0;
-  v30[0] = &unk_2876F6BD0;
-  AlgDataInjector::add(v31, v32);
-  v29 = [(NSMutableData *)self->_outputBuffer length]- 1;
-  v19 = (*(*self->_device + 32))(self->_device, v31, v30, [(NSMutableData *)self->_outputBuffer mutableBytes]+ 1, &v29);
-  [(SASInterfaceTouch *)self callStreamCallback:v29];
+  AlgDataPacket::AlgDataPacket(v31, unsignedLongLongValue, unsignedLongLongValue2, unsignedShortValue, 1, 1, v16, v17, 0, 0);
+  PacketCollection::PacketCollection(v30, 1, 1);
+  v30[0] = &unk_2876F6C30;
+  PacketCollection::PacketCollection(v29, 0, 1);
+  v29[10] = 0;
+  v29[11] = 0;
+  v29[0] = &unk_2876F6BD0;
+  AlgDataInjector::add(v30, v31);
+  v28 = [(NSMutableData *)self->_outputBuffer length]- 1;
+  v19 = (*(*self->_device + 32))(self->_device, v30, v29, [(NSMutableData *)self->_outputBuffer mutableBytes]+ 1, &v28);
+  [(SASInterfaceTouch *)self callStreamCallback:v28];
   v23 = SALoggingGeneral();
   if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
   {
@@ -975,26 +971,25 @@ LABEL_10:
     v25 = v24;
     v26 = "Error";
     *buf = 138412802;
-    v34 = propertyCopy;
+    v33 = propertyCopy;
     if (v19)
     {
       v26 = "OK";
     }
 
-    v35 = 2112;
-    v36 = v24;
-    v37 = 2080;
-    v38 = v26;
+    v34 = 2112;
+    v35 = v24;
+    v36 = 2080;
+    v37 = v26;
     _os_log_impl(&dword_2655B3000, v23, OS_LOG_TYPE_INFO, "InjectProperty: %@=%@ result %s", buf, 0x20u);
   }
 
   operator delete[](v16);
+  PacketCollection::~PacketCollection(v29);
   PacketCollection::~PacketCollection(v30);
-  PacketCollection::~PacketCollection(v31);
-  AlgDataPacket::~AlgDataPacket(v32);
+  AlgDataPacket::~AlgDataPacket(v31);
 LABEL_15:
 
-  v27 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
@@ -1151,7 +1146,6 @@ LABEL_15:
   [v7 setDoubleValue:720922 forField:event->var9];
   [v7 setIntegerValue:event->var13 forField:720904];
   [v7 setIntegerValue:event->var14 forField:720905];
-  var16 = event->var16;
   IOHIDEventSetPhase();
 
   return v7;
@@ -1160,7 +1154,7 @@ LABEL_15:
 - (id)generateEventInfo:(id *)info interpolated:(BOOL)interpolated timestamp:(unint64_t)timestamp
 {
   interpolatedCopy = interpolated;
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   if (interpolated)
   {
     v9 = 33;
@@ -1171,73 +1165,71 @@ LABEL_15:
     v9 = 1;
   }
 
+  v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  LOWORD(v18) = *&info->var0;
-  *(&v18 + 1) = [(SASInterfaceTouch *)self timestampUsToAbsoluteMach:self->_timestamp_offset + info->var2];
-  *&v19 = [(SASInterfaceTouch *)self timestampUsToAbsoluteMach:self->_timestamp_offset + info->var3];
-  BYTE8(v19) = info->var4;
-  LODWORD(v17) = v9;
-  v10 = [MEMORY[0x277CD2858] vendorDefinedEvent:timestamp usagePage:65308 usage:32 version:1 data:&v18 length:32 options:v17];
+  LOWORD(v17) = *&info->var0;
+  *(&v17 + 1) = [(SASInterfaceTouch *)self timestampUsToAbsoluteMach:self->_timestamp_offset + info->var2];
+  *&v18 = [(SASInterfaceTouch *)self timestampUsToAbsoluteMach:self->_timestamp_offset + info->var3];
+  BYTE8(v18) = info->var4;
+  LODWORD(v16) = v9;
+  v10 = [MEMORY[0x277CD2858] vendorDefinedEvent:timestamp usagePage:65308 usage:32 version:1 data:&v17 length:32 options:v16];
   v11 = SALoggingGeneral();
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
-    v14 = &unk_2655C62F3;
-    v15 = "NO";
+    v13 = &unk_2655C62F3;
+    v14 = "NO";
     if (interpolatedCopy)
     {
-      v14 = "Interpolated ";
+      v13 = "Interpolated ";
     }
 
-    if (v18)
-    {
-      v16 = "YES";
-    }
-
-    else
-    {
-      v16 = "NO";
-    }
-
-    *buf = 136316674;
-    if (BYTE1(v18))
+    if (v17)
     {
       v15 = "YES";
     }
 
-    v21 = v14;
-    v22 = 2080;
-    v23 = v16;
-    v24 = 2080;
-    v25 = v15;
-    v26 = 1024;
-    v27 = BYTE8(v19);
-    v28 = 2048;
-    v29 = *(&v18 + 1);
-    v30 = 2048;
-    v31 = v19;
-    v32 = 2048;
+    else
+    {
+      v15 = "NO";
+    }
+
+    *buf = 136316674;
+    if (BYTE1(v17))
+    {
+      v14 = "YES";
+    }
+
+    v20 = v13;
+    v21 = 2080;
+    v22 = v15;
+    v23 = 2080;
+    v24 = v14;
+    v25 = 1024;
+    v26 = BYTE8(v18);
+    v27 = 2048;
+    v28 = *(&v17 + 1);
+    v29 = 2048;
+    v30 = v18;
+    v31 = 2048;
     timestampCopy = timestamp;
     _os_log_debug_impl(&dword_2655B3000, v11, OS_LOG_TYPE_DEBUG, "Generating %sEvent Info: expectNext=%s information=%s reason=%u deadline=%llu nextTimestamp=%llu now=%llu", buf, 0x44u);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
 
 - (id)generateTouchSystemReady:(unint64_t)ready
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v11 = 1;
-  LODWORD(v10) = 1;
-  v4 = [MEMORY[0x277CD2858] vendorDefinedEvent:ready usagePage:65376 usage:9 version:1 data:&v11 length:1 options:v10];
+  v13 = *MEMORY[0x277D85DE8];
+  v10 = 1;
+  LODWORD(v9) = 1;
+  v4 = [MEMORY[0x277CD2858] vendorDefinedEvent:ready usagePage:65376 usage:9 version:1 data:&v10 length:1 options:v9];
   v5 = SALoggingGeneral();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     prev_frame_diff_us = self->_prev_frame_diff_us;
     *buf = 134217984;
-    v13 = prev_frame_diff_us;
+    v12 = prev_frame_diff_us;
     _os_log_impl(&dword_2655B3000, v5, OS_LOG_TYPE_DEFAULT, "Generating Touch System Ready (%lluus since last frame)\n", buf, 0xCu);
   }
 
@@ -1248,27 +1240,25 @@ LABEL_15:
     _os_signpost_emit_with_name_impl(&dword_2655B3000, v7, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "TouchSystemReady", "Touch System Ready", buf, 2u);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
 - (id)generateCoverGesture:(unint64_t)gesture state:(unsigned __int8)state surfaceCovered:(float)covered
 {
   stateCopy = state;
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   coveredCopy = covered;
   self->_cover_gesture_state = state;
-  LODWORD(v11) = 0;
-  v6 = [MEMORY[0x277CD2858] vendorDefinedEvent:gesture usagePage:65280 usage:89 version:1 data:&coveredCopy length:4 options:v11];
+  LODWORD(v10) = 0;
+  v6 = [MEMORY[0x277CD2858] vendorDefinedEvent:gesture usagePage:65280 usage:89 version:1 data:&coveredCopy length:4 options:v10];
   IOHIDEventSetPhase();
   v7 = SALoggingGeneral();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109376;
-    v14 = stateCopy;
-    v15 = 2048;
-    v16 = coveredCopy;
+    v13 = stateCopy;
+    v14 = 2048;
+    v15 = coveredCopy;
     _os_log_impl(&dword_2655B3000, v7, OS_LOG_TYPE_DEFAULT, "Generate CoverGesture %d surface %0.2f", buf, 0x12u);
   }
 
@@ -1276,33 +1266,30 @@ LABEL_15:
   if (os_signpost_enabled(v8))
   {
     *buf = 67109376;
-    v14 = stateCopy;
-    v15 = 2048;
-    v16 = coveredCopy;
+    v13 = stateCopy;
+    v14 = 2048;
+    v15 = coveredCopy;
     _os_signpost_emit_with_name_impl(&dword_2655B3000, v8, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "GenerateCoverGesture", "Cover Gesture %d surface %0.2f", buf, 0x12u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 - (id)generateSwipeUp:(unint64_t)up
 {
-  v3 = *MEMORY[0x277CBECE8];
   NavigationSwipeEvent = IOHIDEventCreateNavigationSwipeEvent();
-  v5 = SALoggingGeneral();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v4 = SALoggingGeneral();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_2655B3000, v5, OS_LOG_TYPE_DEFAULT, "Generate Swipe Up Wake Event", buf, 2u);
+    _os_log_impl(&dword_2655B3000, v4, OS_LOG_TYPE_DEFAULT, "Generate Swipe Up Wake Event", buf, 2u);
   }
 
-  v6 = SALoggingHIDEventSignpost();
-  if (os_signpost_enabled(v6))
+  v5 = SALoggingHIDEventSignpost();
+  if (os_signpost_enabled(v5))
   {
-    *v8 = 0;
-    _os_signpost_emit_with_name_impl(&dword_2655B3000, v6, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "GenerateWakeEvent", "Atomic Swipe Up Wake Event", v8, 2u);
+    *v7 = 0;
+    _os_signpost_emit_with_name_impl(&dword_2655B3000, v5, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "GenerateWakeEvent", "Atomic Swipe Up Wake Event", v7, 2u);
   }
 
   return NavigationSwipeEvent;
@@ -1310,7 +1297,7 @@ LABEL_15:
 
 - (int64_t)getValidTimestamp:(unint64_t)timestamp now:(unint64_t)now
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v6 = now - timestamp;
   if (now - timestamp - 1 >= 0xF423F)
   {
@@ -1318,17 +1305,17 @@ LABEL_15:
     if ((v6 - timestamp_offset) >= 0xF4240)
     {
       self->_timestamp_offset = v6;
-      v15 = SALoggingGeneral();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v14 = SALoggingGeneral();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        v17 = self->_timestamp_offset;
-        v18 = 134218496;
+        v15 = self->_timestamp_offset;
+        v16 = 134218496;
         nowCopy3 = now;
-        v20 = 2048;
+        v18 = 2048;
         timestampCopy2 = timestamp;
-        v22 = 2048;
-        v23 = v17;
-        _os_log_error_impl(&dword_2655B3000, v15, OS_LOG_TYPE_ERROR, "New timestamp offset: now=%llu timestamp=%llu offset=%lld", &v18, 0x20u);
+        v20 = 2048;
+        v21 = v15;
+        _os_log_error_impl(&dword_2655B3000, v14, OS_LOG_TYPE_ERROR, "New timestamp offset: now=%llu timestamp=%llu offset=%lld", &v16, 0x20u);
       }
 
       selfCopy2 = self;
@@ -1337,36 +1324,53 @@ LABEL_15:
 
     else
     {
-      v11 = timestamp_offset + timestamp;
-      v12 = SALoggingGeneral();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+      v10 = timestamp_offset + timestamp;
+      v11 = SALoggingGeneral();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
-        v18 = 134218496;
+        v16 = 134218496;
         nowCopy3 = now;
-        v20 = 2048;
+        v18 = 2048;
         timestampCopy2 = timestamp;
-        v22 = 2048;
-        v23 = v11;
-        _os_log_debug_impl(&dword_2655B3000, v12, OS_LOG_TYPE_DEBUG, "Adjusting timestamp: now=%llu timestamp=%llu adjusted=%llu", &v18, 0x20u);
+        v20 = 2048;
+        v21 = v10;
+        _os_log_debug_impl(&dword_2655B3000, v11, OS_LOG_TYPE_DEBUG, "Adjusting timestamp: now=%llu timestamp=%llu adjusted=%llu", &v16, 0x20u);
       }
 
       selfCopy2 = self;
-      nowCopy2 = v11;
+      nowCopy2 = v10;
     }
 
-    result = [(SASInterfaceTouch *)selfCopy2 timestampUsToAbsoluteMach:nowCopy2];
-    v16 = *MEMORY[0x277D85DE8];
+    return [(SASInterfaceTouch *)selfCopy2 timestampUsToAbsoluteMach:nowCopy2];
   }
 
   else
   {
     self->_timestamp_offset = 0;
-    v7 = *MEMORY[0x277D85DE8];
 
     return [(SASInterfaceTouch *)self timestampUsToAbsoluteMach:?];
   }
+}
 
-  return result;
+- (id)generateTapEvent:(id *)event transducerType:(unsigned int)type now:(unint64_t)now
+{
+  if (type == 3)
+  {
+    v6 = 3;
+  }
+
+  else
+  {
+    v6 = 1;
+  }
+
+  v7 = [MEMORY[0x277CD2858] digitizerEvent:-[SASInterfaceTouch getValidTimestamp:now:](self transducerType:"getValidTimestamp:now:" x:event->var0 y:now) z:*&type options:{v6, event->var5, event->var6, 0.0}];
+  [v7 setIntegerValue:event->var4 forField:720903];
+  [v7 setIntegerValue:event->var13 forField:720904];
+  [v7 setIntegerValue:event->var14 forField:720905];
+  [v7 setIntegerValue:1 forField:720921];
+
+  return v7;
 }
 
 - (id)generateWakeEvent:(int)event timestamp:(unint64_t)timestamp
@@ -1413,29 +1417,26 @@ LABEL_15:
 
 - (void)isContactReclassificationNeeded
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = self & 1;
-  _os_log_debug_impl(&dword_2655B3000, a2, OS_LOG_TYPE_DEBUG, "GreyMatter eligibility: 0x%x", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = self & 1;
+  _os_log_debug_impl(&dword_2655B3000, a2, OS_LOG_TYPE_DEBUG, "GreyMatter eligibility: 0x%x", v2, 8u);
 }
 
 - (void)injectProperty:(int)a1 .cold.1(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_error_impl(&dword_2655B3000, a2, OS_LOG_TYPE_ERROR, "InjectProperty: cannot handle type 0x%x", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_error_impl(&dword_2655B3000, a2, OS_LOG_TYPE_ERROR, "InjectProperty: cannot handle type 0x%x", v2, 8u);
 }
 
 - (void)injectProperty:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_2655B3000, a2, OS_LOG_TYPE_ERROR, "InjectProperty: %@ key not found", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_2655B3000, a2, OS_LOG_TYPE_ERROR, "InjectProperty: %@ key not found", &v2, 0xCu);
 }
 
 @end

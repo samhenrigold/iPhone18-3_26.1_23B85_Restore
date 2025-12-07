@@ -36,6 +36,7 @@
 - (int64_t)preferredCustomLayout;
 - (int64_t)preferredLayoutMode;
 - (unint64_t)presentationBehaviors;
+- (void)_invalidateOtherSceneClientSettingsRepresentation;
 - (void)_updateStorageForViewProperties;
 - (void)_updateStorageForViewPropertiesIfNeeded;
 - (void)setAppliedLayoutMode:(int64_t)mode;
@@ -264,7 +265,7 @@
   [currentHandler handleFailureInMethod:self object:a2 file:@"SBUISystemApertureElementConfiguration.m" lineNumber:552 description:@"Elements that don't support dynamic layout must implement -[SBUISystemApertureElement preferredHeightForBottomSafeArea]"];
 }
 
-void __73__SBUISystemApertureElementConfiguration__updateStorageForViewProperties__block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+void __73__SBUISystemApertureElementConfiguration__updateStorageForViewProperties__block_invoke(uint64_t a1, void *a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   v53 = a2;
   v10 = (a1 + 32);
@@ -1154,6 +1155,13 @@ LABEL_45:
   result.height = v14;
   result.width = v13;
   return result;
+}
+
+- (void)_invalidateOtherSceneClientSettingsRepresentation
+{
+  otherSceneClientSettingsRepresentation = self->_otherSceneClientSettingsRepresentation;
+  self->_otherSceneClientSettingsRepresentation = 0;
+  MEMORY[0x1EEE66BB8](self, otherSceneClientSettingsRepresentation);
 }
 
 - (CGSize)preferredContentSizeClampedToMaximumExpandedSize

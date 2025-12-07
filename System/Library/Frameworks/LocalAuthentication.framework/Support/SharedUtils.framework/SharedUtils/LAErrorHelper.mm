@@ -23,15 +23,15 @@
 
 + (id)errorWithCode:(int64_t)code message:(id)message suberror:(id)suberror
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   if (suberror)
   {
-    v16 = *MEMORY[0x1E696AA08];
-    v17[0] = suberror;
+    v15 = *MEMORY[0x1E696AA08];
+    v16[0] = suberror;
     v7 = MEMORY[0x1E695DF20];
     suberrorCopy = suberror;
     messageCopy = message;
-    v10 = [v7 dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    v10 = [v7 dictionaryWithObjects:v16 forKeys:&v15 count:1];
     v11 = [LAErrorHelper errorWithCode:code message:messageCopy moreInfo:v10];
   }
 
@@ -41,8 +41,6 @@
     messageCopy2 = message;
     v11 = [LAErrorHelper errorWithCode:code message:messageCopy2 moreInfo:0];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -81,16 +79,14 @@ id __56__LAErrorHelper_errorWithCode_subcode_message_suberror___block_invoke(uin
 
 + (id)errorWithCode:(int64_t)code subcode:(int64_t)subcode message:(id)message
 {
-  v15[1] = *MEMORY[0x1E69E9840];
-  v14 = @"Subcode";
+  v14[1] = *MEMORY[0x1E69E9840];
+  v13 = @"Subcode";
   v7 = MEMORY[0x1E696AD98];
   messageCopy = message;
   v9 = [v7 numberWithInteger:subcode];
-  v15[0] = v9;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+  v14[0] = v9;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
   v11 = [LAErrorHelper errorWithCode:code message:messageCopy moreInfo:v10];
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -124,37 +120,37 @@ id __56__LAErrorHelper_errorWithCode_subcode_message_suberror___block_invoke(uin
 
 + (id)errorWithCode:(int64_t)code withUnderlyingErrors:(id)errors
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   errorsCopy = errors;
   v6 = [MEMORY[0x1E695E0F0] mutableCopy];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v7 = errorsCopy;
-  v8 = [v7 countByEnumeratingWithState:&v18 objects:v26 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v17 objects:v25 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v19;
+    v10 = *v18;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v19 != v10)
+        if (*v18 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v18 + 1) + 8 * i);
+        v12 = *(*(&v17 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          [v6 addObject:{v12, v18}];
+          [v6 addObject:{v12, v17}];
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v18 objects:v26 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v17 objects:v25 count:16];
     }
 
     while (v9);
@@ -164,10 +160,10 @@ id __56__LAErrorHelper_errorWithCode_subcode_message_suberror___block_invoke(uin
   {
     if ([v6 count] == 1)
     {
-      v24 = *MEMORY[0x1E696AA08];
+      v23 = *MEMORY[0x1E696AA08];
       v13 = [v6 objectAtIndexedSubscript:0];
-      v25 = v13;
-      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+      v24 = v13;
+      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
       v15 = [LAErrorHelper errorWithCode:code userInfo:v14];
     }
 
@@ -178,9 +174,9 @@ id __56__LAErrorHelper_errorWithCode_subcode_message_suberror___block_invoke(uin
         +[LAErrorHelper errorWithCode:withUnderlyingErrors:];
       }
 
-      v22 = *MEMORY[0x1E696A750];
-      v23 = v6;
-      v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
+      v21 = *MEMORY[0x1E696A750];
+      v22 = v6;
+      v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
       v15 = [LAErrorHelper errorWithCode:code userInfo:v13];
     }
   }
@@ -189,8 +185,6 @@ id __56__LAErrorHelper_errorWithCode_subcode_message_suberror___block_invoke(uin
   {
     v15 = [LAErrorHelper errorWithCode:code];
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
@@ -219,7 +213,7 @@ id __56__LAErrorHelper_errorWithCode_subcode_message_suberror___block_invoke(uin
 + (id)internalErrorWithMessage:(id)message suberror:(id)suberror
 {
   v4 = [LAErrorHelper errorWithCode:-1000 message:message suberror:suberror];
-  v5 = LA_LOG_LAErrorHelper();
+  v5 = LA_LOG_LAErrorHelper(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     +[LAErrorHelper internalErrorWithMessage:suberror:];
@@ -231,7 +225,7 @@ id __56__LAErrorHelper_errorWithCode_subcode_message_suberror___block_invoke(uin
 + (id)parameterErrorWithMessage:(id)message
 {
   v3 = [LAErrorHelper errorWithCode:-1001 message:message];
-  v4 = LA_LOG_LAErrorHelper();
+  v4 = LA_LOG_LAErrorHelper(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     +[LAErrorHelper internalErrorWithMessage:suberror:];
@@ -264,7 +258,7 @@ id __56__LAErrorHelper_errorWithCode_subcode_message_suberror___block_invoke(uin
 {
   error = [MEMORY[0x1E696AEC0] stringWithFormat:@"Caller is missing the required '%@' entitlement.", error];
   v4 = [LAErrorHelper errorWithCode:-1007 message:error];
-  v5 = LA_LOG_LAErrorHelper();
+  v5 = LA_LOG_LAErrorHelper(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     +[LAErrorHelper internalErrorWithMessage:suberror:];
@@ -298,7 +292,7 @@ id __56__LAErrorHelper_errorWithCode_subcode_message_suberror___block_invoke(uin
 {
   v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ is not supported on %@.", action, on];
   v5 = [LAErrorHelper errorWithCode:-1020 message:v4];
-  v6 = LA_LOG_LAErrorHelper();
+  v6 = LA_LOG_LAErrorHelper(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     +[LAErrorHelper internalErrorWithMessage:suberror:];
@@ -316,13 +310,17 @@ id __56__LAErrorHelper_errorWithCode_subcode_message_suberror___block_invoke(uin
     domain = [errorCopy domain];
     v6 = [domain isEqualToString:@"com.apple.LocalAuthentication"];
 
-    if (v6 && [v4 code] == -1001)
+    if (v6)
     {
-      [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D940] format:{@"%@", v4}];
+      code = [v4 code];
+      if (code == -1001)
+      {
+        code = [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D940] format:{@"%@", v4}];
+      }
     }
 
-    v7 = LA_LOG_LAErrorHelper();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = LA_LOG_LAErrorHelper(code);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       +[LAErrorHelper raiseExceptionOnError:];
     }
@@ -415,22 +413,6 @@ id __56__LAErrorHelper_errorWithCode_subcode_message_suberror___block_invoke(uin
   v5 = [(LAErrorRedactor *)v4 redactError:errorCopy];
 
   return v5;
-}
-
-+ (void)internalErrorWithMessage:suberror:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1DF403000, v0, v1, "%{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)raiseExceptionOnError:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1DF403000, v0, v1, "Raising exception due to error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

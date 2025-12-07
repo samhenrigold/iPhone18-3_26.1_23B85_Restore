@@ -17,7 +17,7 @@
 
 - (int)pid
 {
-  [(UAAuditToken *)self auditTokenValue];
+  objc_msgSend_auditTokenValue(self, a2);
   pidp = 0;
   atoken = v3;
   audit_token_to_au32(&atoken, 0, 0, 0, 0, 0, &pidp, 0, 0);
@@ -26,7 +26,7 @@
 
 - (unsigned)egid
 {
-  [(UAAuditToken *)self auditTokenValue];
+  objc_msgSend_auditTokenValue(self, a2);
   egidp = 0;
   atoken = v3;
   audit_token_to_au32(&atoken, 0, 0, &egidp, 0, 0, 0, 0, 0);
@@ -54,7 +54,7 @@
 
 - (int)pidVersion
 {
-  [(UAAuditToken *)self auditTokenValue];
+  objc_msgSend_auditTokenValue(self, a2);
   tidp = 0;
   atoken = v3;
   audit_token_to_au32(&atoken, 0, 0, 0, 0, 0, 0, 0, &tidp);
@@ -63,7 +63,7 @@
 
 - (unsigned)euid
 {
-  [(UAAuditToken *)self auditTokenValue];
+  objc_msgSend_auditTokenValue(self, a2);
   ruidp = 0;
   atoken = v3;
   audit_token_to_au32(&atoken, 0, 0, 0, &ruidp, 0, 0, 0, 0);
@@ -72,7 +72,7 @@
 
 - (unsigned)ruid
 {
-  [(UAAuditToken *)self auditTokenValue];
+  objc_msgSend_auditTokenValue(self, a2);
   ruidp = 0;
   atoken = v3;
   audit_token_to_au32(&atoken, 0, 0, 0, &ruidp, 0, 0, 0, 0);
@@ -81,7 +81,7 @@
 
 - (unsigned)rgid
 {
-  [(UAAuditToken *)self auditTokenValue];
+  objc_msgSend_auditTokenValue(self, a2);
   rgidp = 0;
   atoken = v3;
   audit_token_to_au32(&atoken, 0, 0, 0, 0, &rgidp, 0, 0, 0);
@@ -91,14 +91,14 @@
 - (BOOL)isSandboxed
 {
   v4 = 0;
-  [(UAAuditToken *)self auditTokenValue:0];
+  objc_msgSend_auditTokenValue(self, a2, 0, 0, 0, 0);
   sub_100002A44(&v3, &v4);
   return v4;
 }
 
 - (int)asid
 {
-  [(UAAuditToken *)self auditTokenValue];
+  objc_msgSend_auditTokenValue(self, a2);
   asidp = 0;
   atoken = v3;
   audit_token_to_au32(&atoken, 0, 0, 0, 0, 0, 0, &asidp, 0);

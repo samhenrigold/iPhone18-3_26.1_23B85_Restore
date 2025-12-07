@@ -38,7 +38,7 @@
   v3 = objc_opt_new();
   selfCopy = self;
   v4 = [self pluginBundlesAtSubpath:@"Authentication"];
-  v5 = _ACDLogSystem();
+  v5 = _ACDLogSystem(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     +[ACDPluginLoader _buildPluginCache];
@@ -83,15 +83,16 @@
             v14 = *v31;
             do
             {
-              for (i = 0; i != v13; ++i)
+              v15 = 0;
+              do
               {
                 if (*v31 != v14)
                 {
                   objc_enumerationMutation(v11);
                 }
 
-                v16 = *(*(&v30 + 1) + 8 * i);
-                v17 = _ACDLogSystem();
+                v16 = *(*(&v30 + 1) + 8 * v15);
+                v17 = _ACDLogSystem(v12);
                 if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
                 {
                   *buf = 138412546;
@@ -105,38 +106,41 @@
 
                 if (v18)
                 {
-                  v19 = _ACDLogSystem();
-                  if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+                  v20 = _ACDLogSystem(v19);
+                  if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
                   {
-                    v20 = [v3 objectForKeyedSubscript:v16];
+                    v21 = [v3 objectForKeyedSubscript:v16];
                     *buf = 138412802;
-                    v39 = v20;
+                    v39 = v21;
                     v40 = 2112;
                     v41 = v16;
                     v42 = 2112;
                     v43 = lastPathComponent;
-                    _os_log_error_impl(&dword_221D2F000, v19, OS_LOG_TYPE_ERROR, "The plugin %@ for accountType %@ is being overwritten with plugin %@", buf, 0x20u);
+                    _os_log_error_impl(&dword_221D2F000, v20, OS_LOG_TYPE_ERROR, "The plugin %@ for accountType %@ is being overwritten with plugin %@", buf, 0x20u);
                   }
                 }
 
-                [v3 setObject:lastPathComponent forKey:v16];
+                v12 = [v3 setObject:lastPathComponent forKey:v16];
+                ++v15;
               }
 
-              v13 = [v11 countByEnumeratingWithState:&v30 objects:v44 count:16];
+              while (v13 != v15);
+              v12 = [v11 countByEnumeratingWithState:&v30 objects:v44 count:16];
+              v13 = v12;
             }
 
-            while (v13);
+            while (v12);
           }
         }
 
         else
         {
-          v21 = _ACDLogSystem();
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+          v22 = _ACDLogSystem(0);
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
             v39 = lastPathComponent;
-            _os_log_error_impl(&dword_221D2F000, v21, OS_LOG_TYPE_ERROR, "Plugin %@ does not have any supported account types in its plist!", buf, 0xCu);
+            _os_log_error_impl(&dword_221D2F000, v22, OS_LOG_TYPE_ERROR, "Plugin %@ does not have any supported account types in its plist!", buf, 0xCu);
           }
         }
 
@@ -150,10 +154,8 @@
     while (v28);
   }
 
-  v22 = [selfCopy gameCenterPluginNameFromPlugins:obj modernPluginEnabled:_os_feature_enabled_impl() fallbackPluginID:@"com.apple.AAGKAuthenticationPlugin" modernPluginID:@"com.apple.gamecenter.GameCenterAccountAuthenticationPlugin"];
-  [v3 setObject:v22 forKeyedSubscript:*MEMORY[0x277CB8C38]];
-
-  v23 = *MEMORY[0x277D85DE8];
+  v23 = [selfCopy gameCenterPluginNameFromPlugins:obj modernPluginEnabled:_os_feature_enabled_impl() fallbackPluginID:@"com.apple.AAGKAuthenticationPlugin" modernPluginID:@"com.apple.gamecenter.GameCenterAccountAuthenticationPlugin"];
+  [v3 setObject:v23 forKeyedSubscript:*MEMORY[0x277CB8C38]];
 
   return v3;
 }
@@ -205,10 +207,10 @@
   bundlePath = [v21 bundlePath];
   lastPathComponent = [bundlePath lastPathComponent];
 
-  if (enabledCopy && [lastPathComponent length])
+  if (enabledCopy && (v24 = [lastPathComponent length]) != 0)
   {
-    v24 = _ACDLogSystem();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+    v25 = _ACDLogSystem(v24);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
     {
       +[ACDPluginLoader gameCenterPluginNameFromPlugins:modernPluginEnabled:fallbackPluginID:modernPluginID:];
     }
@@ -218,18 +220,16 @@
 
   else
   {
-    v26 = _ACDLogSystem();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+    v27 = _ACDLogSystem(v24);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
     {
       +[ACDPluginLoader gameCenterPluginNameFromPlugins:modernPluginEnabled:fallbackPluginID:modernPluginID:];
     }
 
-    v27 = [v12 objectForKeyedSubscript:dCopy];
-    bundlePath2 = [v27 bundlePath];
+    v28 = [v12 objectForKeyedSubscript:dCopy];
+    bundlePath2 = [v28 bundlePath];
     lastPathComponent2 = [bundlePath2 lastPathComponent];
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return lastPathComponent2;
 }
@@ -245,40 +245,41 @@
     subpathCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"%@PluginCache", subpathCopy];
     v10 = CFPreferencesCopyAppValue(subpathCopy, @"com.apple.accountsd");
     v11 = CFPreferencesCopyAppValue(@"LastSystemVersion", @"com.apple.accountsd");
-    if (v11 && [v10 count] && CFStringCompare(_currentSystemVersion, v11, 1uLL) == kCFCompareEqualTo)
+    v12 = v11;
+    if (v11 && (v11 = [v10 count]) != 0 && (v11 = CFStringCompare(_currentSystemVersion, v12, 1uLL)) == 0)
     {
-      v14 = 0;
+      v15 = 0;
     }
 
     else
     {
-      v12 = _ACDLogSystem();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v13 = _ACDLogSystem(v11);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v22 = v11;
+        v22 = v12;
         v23 = 2112;
         v24 = _currentSystemVersion;
-        _os_log_impl(&dword_221D2F000, v12, OS_LOG_TYPE_DEFAULT, "System build version changed from %@ to %@", buf, 0x16u);
+        _os_log_impl(&dword_221D2F000, v13, OS_LOG_TYPE_DEFAULT, "System build version changed from %@ to %@", buf, 0x16u);
       }
 
       _buildPluginCache = [self _buildPluginCache];
 
       CFPreferencesSetAppValue(subpathCopy, _buildPluginCache, @"com.apple.accountsd");
       CFPreferencesSetAppValue(@"LastSystemVersion", _currentSystemVersion, @"com.apple.accountsd");
-      v14 = 1;
+      v15 = 1;
       v10 = _buildPluginCache;
     }
 
-    v15 = [v10 objectForKey:identifierCopy];
-    if (v15)
+    v16 = [v10 objectForKey:identifierCopy];
+    if (v16)
     {
-      v16 = [(ACPluginLoader *)ACDPluginLoader pluginWithName:v15 inSubpath:@"Authentication"];
-      v17 = _ACDLogSystem();
-      v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG);
-      if (v16)
+      v17 = [(ACPluginLoader *)ACDPluginLoader pluginWithName:v16 inSubpath:@"Authentication"];
+      v18 = _ACDLogSystem(v17);
+      v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG);
+      if (v17)
       {
-        if (v18)
+        if (v19)
         {
           +[ACDPluginLoader pluginForIdentifier:subpath:];
         }
@@ -286,7 +287,7 @@
         goto LABEL_20;
       }
 
-      if (v18)
+      if (v19)
       {
         +[ACDPluginLoader pluginForIdentifier:subpath:];
       }
@@ -294,22 +295,22 @@
 
     else
     {
-      v17 = _ACDLogSystem();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+      v18 = _ACDLogSystem(0);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
       {
         +[ACDPluginLoader pluginForIdentifier:subpath:];
       }
     }
 
-    v16 = 0;
+    v17 = 0;
 LABEL_20:
 
-    if (v11)
+    if (v12)
     {
-      CFRelease(v11);
+      CFRelease(v12);
     }
 
-    if (v14)
+    if (v15)
     {
       CFPreferencesAppSynchronize(@"com.apple.accountsd");
     }
@@ -317,18 +318,16 @@ LABEL_20:
     goto LABEL_25;
   }
 
-  subpathCopy = _ACDLogSystem();
+  subpathCopy = _ACDLogSystem(0);
   if (os_log_type_enabled(subpathCopy, OS_LOG_TYPE_ERROR))
   {
     +[ACDPluginLoader pluginForIdentifier:subpath:];
   }
 
-  v16 = 0;
+  v17 = 0;
 LABEL_25:
 
-  v19 = *MEMORY[0x277D85DE8];
-
-  return v16;
+  return v17;
 }
 
 + (void)_buildPluginCache
@@ -350,30 +349,6 @@ LABEL_25:
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-+ (void)pluginForIdentifier:subpath:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)pluginForIdentifier:subpath:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)pluginForIdentifier:subpath:.cold.3()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

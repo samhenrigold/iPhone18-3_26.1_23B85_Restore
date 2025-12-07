@@ -34,16 +34,15 @@
 {
   v3 = sub_24938A37C();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x28223BE20](v3);
-  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v10 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   selfCopy = self;
-  sub_249378F84(v7);
+  sub_249378F84(v6);
 
-  v9 = sub_24938A32C();
-  (*(v4 + 8))(v7, v3);
+  v8 = sub_24938A32C();
+  (*(v4 + 8))(v6, v3);
 
-  return v9;
+  return v8;
 }
 
 - (void)fetchURL:(id)l

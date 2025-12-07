@@ -1,20 +1,20 @@
 @interface MPLibraryObjectDatabase
 - (MPLibraryObjectDatabase)initWithLibrary:(id)library;
+- (char)updateTokensForResults:(char *)results;
 - (id)identifiersMatchingIdentifierSet:(id)set propertySet:(id)propertySet options:(unint64_t)options error:(id *)error;
 - (id)modelObjectForResult:(id)result inContext:(id)context error:(id *)error;
 - (id)objectBuildingContextForResults:(id)results propertySet:(id)set;
+- (uint64_t)updateIdentifiersForResults:(float *)results options:(_BYTE *)options;
 - (uint64_t)updateIdentifiersForResults:(uint64_t)results options:;
-- (uint64_t)updateIdentifiersForResults:(void *)results options:(unsigned __int8 *)options;
 - (uint64_t)updateTokensForResults:(uint64_t)results;
 - (void)_enumerateEntityRevisionsFromRevision:(int64_t)revision block:(id)block;
 - (void)dealloc;
 - (void)enumerateRelatedTokensForResult:(id)result childKey:(id)key block:(id)block;
 - (void)updateIdentifiersForResults:(id)results options:(unint64_t)options;
 - (void)updateIdentifiersForResults:(uint64_t)results options:;
+- (void)updateTokensForResults:(char *)results;
 - (void)updateTokensForResults:(id)results;
-- (void)updateTokensForResults:(uint64_t *)results;
 - (void)updateTokensForResults:(uint64_t)results;
-- (void)updateTokensForResults:(void *)results;
 @end
 
 @implementation MPLibraryObjectDatabase
@@ -81,7 +81,7 @@ LABEL_3:
 
 - (id)modelObjectForResult:(id)result inContext:(id)context error:(id *)error
 {
-  v81 = *MEMORY[0x1E69E9840];
+  v82 = *MEMORY[0x1E69E9840];
   resultCopy = result;
   contextCopy = context;
   currentEntityRevision = [(MPMediaLibrary *)self->_library currentEntityRevision];
@@ -91,12 +91,12 @@ LABEL_3:
     id = self->_id;
     *buf = 67109890;
     *&buf[4] = id;
-    *v77 = 2112;
-    *&v77[2] = resultCopy;
-    *&v77[10] = 2048;
-    *&v77[12] = contextCopy;
-    *&v77[20] = 2048;
-    *&v77[22] = currentEntityRevision;
+    *v78 = 2112;
+    *&v78[2] = resultCopy;
+    *&v78[10] = 2048;
+    *&v78[12] = contextCopy;
+    *&v78[20] = 2048;
+    *&v78[22] = currentEntityRevision;
     _os_log_impl(&dword_1A238D000, v10, OS_LOG_TYPE_DEBUG, "[LOD:%{sonic:fourCC}u] modelObjectForResult:inContext: | begin [] result=%@ context=%p entityRevision=%lld", buf, 0x26u);
   }
 
@@ -108,16 +108,16 @@ LABEL_3:
     v16 = self->_id;
     *buf = 67110402;
     *&buf[4] = v16;
-    *v77 = 2112;
-    *&v77[2] = resultCopy;
-    *&v77[10] = 2048;
-    *&v77[12] = contextCopy;
-    *&v77[20] = 2048;
-    *&v77[22] = v12;
-    *&v77[30] = 1024;
-    v78 = v14;
-    v79 = 1024;
-    v80 = HIBYTE(v14);
+    *v78 = 2112;
+    *&v78[2] = resultCopy;
+    *&v78[10] = 2048;
+    *&v78[12] = contextCopy;
+    *&v78[20] = 2048;
+    *&v78[22] = v12;
+    *&v78[30] = 1024;
+    v79 = v14;
+    v80 = 1024;
+    v81 = HIBYTE(v14);
     _os_log_impl(&dword_1A238D000, v15, OS_LOG_TYPE_DEBUG, "[LOD:%{sonic:fourCC}u] modelObjectForResult:inContext: | inspect [token] result=%@ context=%p token={ .tokenID=%lld, .tokenRevision=%d, .databaseStorage={ .entityType=%d } }", buf, 0x32u);
   }
 
@@ -150,10 +150,10 @@ LABEL_3:
         v59 = self->_id;
         *buf = 67109634;
         *&buf[4] = v59;
-        *v77 = 2112;
-        *&v77[2] = resultCopy;
-        *&v77[10] = 2048;
-        *&v77[12] = contextCopy;
+        *v78 = 2112;
+        *&v78[2] = resultCopy;
+        *&v78[10] = 2048;
+        *&v78[12] = contextCopy;
         v26 = "[LOD:%{sonic:fourCC}u] modelObjectForResult:inContext: | skipping [no token] result=%@ context=%p";
         goto LABEL_64;
       }
@@ -164,10 +164,10 @@ LABEL_3:
       v25 = self->_id;
       *buf = 67109634;
       *&buf[4] = v25;
-      *v77 = 2112;
-      *&v77[2] = resultCopy;
-      *&v77[10] = 2048;
-      *&v77[12] = contextCopy;
+      *v78 = 2112;
+      *&v78[2] = resultCopy;
+      *&v78[10] = 2048;
+      *&v78[12] = contextCopy;
       v26 = "[LOD:%{sonic:fourCC}u] modelObjectForResult:inContext: | skipping [tombstone] result=%@ context=%p";
 LABEL_64:
       _os_log_impl(&dword_1A238D000, v23, OS_LOG_TYPE_DEBUG, v26, buf, 0x1Cu);
@@ -202,14 +202,14 @@ LABEL_64:
   {
     if (contextCopy)
     {
-      v29 = contextCopy[24];
-      v28 = contextCopy[25];
+      v29 = *(contextCopy + 24);
+      v28 = *(contextCopy + 25);
       if (v28)
       {
         atomic_fetch_add_explicit(&v28->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      v30 = contextCopy[3];
+      v30 = *(contextCopy + 24);
       if (!*&v30)
       {
         goto LABEL_41;
@@ -231,7 +231,7 @@ LABEL_64:
         v32 = (*&v30 - 1) & v12;
       }
 
-      v36 = *(contextCopy[2] + 8 * v32);
+      v36 = *(*(contextCopy + 2) + 8 * v32);
       if (!v36 || (v37 = *v36) == 0)
       {
 LABEL_41:
@@ -291,10 +291,10 @@ LABEL_42:
         v58 = self->_id;
         *buf = 67109634;
         *&buf[4] = v58;
-        *v77 = 2112;
-        *&v77[2] = resultCopy;
-        *&v77[10] = 2048;
-        *&v77[12] = contextCopy;
+        *v78 = 2112;
+        *&v78[2] = resultCopy;
+        *&v78[10] = 2048;
+        *&v78[12] = contextCopy;
         _os_log_impl(&dword_1A238D000, v57, OS_LOG_TYPE_DEBUG, "[LOD:%{sonic:fourCC}u] modelObjectForResult:inContext: | skipping [index out of bounds] result=%@ context=%p", buf, 0x1Cu);
       }
 
@@ -303,13 +303,13 @@ LABEL_42:
 
     else
     {
-      mlcore::EntityQueryResult::entityAtIndex(v29);
+      mlcore::EntityQueryResult::entityAtIndex(&v73, v29);
       if (v73)
       {
         v68 = +[MPModelGenericObject relationshipKeyForGenericObjectType:](MPModelGenericObject, "relationshipKeyForGenericObjectType:", [modelClass genericObjectType]);
         if (contextCopy)
         {
-          v40 = contextCopy[23];
+          v40 = *(contextCopy + 23);
         }
 
         else
@@ -329,12 +329,12 @@ LABEL_42:
             v60 = self->_id;
             *buf = 67109890;
             *&buf[4] = v60;
-            *v77 = 2112;
-            *&v77[2] = resultCopy;
-            *&v77[10] = 2048;
-            *&v77[12] = contextCopy;
-            *&v77[20] = 2112;
-            *&v77[22] = v68;
+            *v78 = 2112;
+            *&v78[2] = resultCopy;
+            *&v78[10] = 2048;
+            *&v78[12] = contextCopy;
+            *&v78[20] = 2112;
+            *&v78[22] = v68;
             _os_log_impl(&dword_1A238D000, p_super, OS_LOG_TYPE_DEBUG, "[LOD:%{sonic:fourCC}u] modelObjectForResult:inContext: | skipping [empty properties] result=%@ context=%p key=%@", buf, 0x26u);
           }
 
@@ -360,7 +360,7 @@ LABEL_42:
           }
 
           v66 = [MPMediaLibraryEntityTranslator translatorForMPModelClass:modelClass];
-          v49 = (*(*v73 + 48))();
+          v49 = (*(*v73 + 48))(v73);
           v50 = [v66 objectForPropertySet:v69 entityClass:v49 propertyCache:mlcore::Entity::propertyCache(v73) context:v67];
           v51 = os_log_create("com.apple.amp.mediaplayer", "LibraryObjects");
           v52 = v51;
@@ -370,18 +370,18 @@ LABEL_42:
             _os_signpost_emit_with_name_impl(&dword_1A238D000, v52, OS_SIGNPOST_INTERVAL_END, v18, "modelObject:build", &unk_1A2797D62, buf, 2u);
           }
 
-          aBlock[5] = v12;
-          aBlock[6] = v14;
+          v76[0] = v12;
+          v76[1] = v14;
           if (contextCopy)
           {
             os_unfair_lock_lock_with_options();
             *buf = MEMORY[0x1E69E9820];
-            *v77 = 3221225472;
-            *&v77[8] = __70___MPLibraryObjectDatabaseProgressiveContext__didBuildObjectForToken___block_invoke;
-            *&v77[16] = &unk_1E7682518;
-            *&v77[24] = contextCopy;
+            *v78 = 3221225472;
+            *&v78[8] = __70___MPLibraryObjectDatabaseProgressiveContext__didBuildObjectForToken___block_invoke;
+            *&v78[16] = &unk_1E7682518;
+            *&v78[24] = contextCopy;
             v53 = _Block_copy(buf);
-            std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__emplace_unique_key_args<long long,long long const&>(contextCopy + 7, v12);
+            std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__emplace_unique_key_args<long long,long long const&>(contextCopy + 14, v12, v76);
             v53[2](v53);
           }
 
@@ -392,12 +392,12 @@ LABEL_42:
             v55 = self->_id;
             *buf = 67109890;
             *&buf[4] = v55;
-            *v77 = 2112;
-            *&v77[2] = resultCopy;
-            *&v77[10] = 2048;
-            *&v77[12] = contextCopy;
-            *&v77[20] = 2112;
-            *&v77[22] = v35;
+            *v78 = 2112;
+            *&v78[2] = resultCopy;
+            *&v78[10] = 2048;
+            *&v78[12] = contextCopy;
+            *&v78[20] = 2112;
+            *&v78[22] = v35;
             _os_log_impl(&dword_1A238D000, v54, OS_LOG_TYPE_DEBUG, "[LOD:%{sonic:fourCC}u] modelObjectForResult:inContext: | done [] result=%@ context=%p object=%@", buf, 0x26u);
           }
 
@@ -415,10 +415,10 @@ LABEL_42:
           v62 = self->_id;
           *buf = 67109634;
           *&buf[4] = v62;
-          *v77 = 2112;
-          *&v77[2] = resultCopy;
-          *&v77[10] = 2048;
-          *&v77[12] = contextCopy;
+          *v78 = 2112;
+          *&v78[2] = resultCopy;
+          *&v78[10] = 2048;
+          *&v78[12] = contextCopy;
           _os_log_impl(&dword_1A238D000, v61, OS_LOG_TYPE_DEBUG, "[LOD:%{sonic:fourCC}u] modelObjectForResult:inContext: | skipping [null entity] result=%@ context=%p", buf, 0x1Cu);
         }
 
@@ -446,12 +446,12 @@ LABEL_42:
       v34 = self->_id;
       *buf = 67109890;
       *&buf[4] = v34;
-      *v77 = 2112;
-      *&v77[2] = resultCopy;
-      *&v77[10] = 2048;
-      *&v77[12] = contextCopy;
-      *&v77[20] = 256;
-      v77[22] = HIBYTE(v14);
+      *v78 = 2112;
+      *&v78[2] = resultCopy;
+      *&v78[10] = 2048;
+      *&v78[12] = contextCopy;
+      *&v78[20] = 256;
+      v78[22] = HIBYTE(v14);
       _os_log_impl(&dword_1A238D000, v33, OS_LOG_TYPE_DEBUG, "[LOD:%{sonic:fourCC}u] modelObjectForResult:inContext: | skipping [unknown entity type] result=%@ context=%p entityType=%d", buf, 0x1Fu);
     }
 
@@ -896,7 +896,7 @@ void __74__MPLibraryObjectDatabase_enumerateRelatedTokensForResult_childKey_bloc
 
 - (void)updateIdentifiersForResults:(id)results options:(unint64_t)options
 {
-  v80 = *MEMORY[0x1E69E9840];
+  v81 = *MEMORY[0x1E69E9840];
   resultsCopy = results;
   v57 = [[MPMediaLibraryView alloc] initWithLibrary:self->_library filteringOptions:4];
   v5 = os_log_create("com.apple.amp.mediaplayer", "LibraryObjects");
@@ -930,18 +930,18 @@ void __74__MPLibraryObjectDatabase_enumerateRelatedTokensForResult_childKey_bloc
   aBlock[3] = &__block_descriptor_40_e5_v8__0l;
   aBlock[4] = spid;
   _Block_copy(aBlock);
-  v71 = 0u;
   v72 = 0u;
-  v73 = 1065353216;
-  v68 = 0u;
+  v73 = 0u;
+  v74 = 1065353216;
   v69 = 0u;
-  v70 = 1065353216;
-  v64 = 0u;
+  v70 = 0u;
+  v71 = 1065353216;
   v65 = 0u;
   v66 = 0u;
   v67 = 0u;
+  v68 = 0u;
   obj = resultsCopy;
-  v10 = [obj countByEnumeratingWithState:&v64 objects:v79 count:16];
+  v10 = [obj countByEnumeratingWithState:&v65 objects:v80 count:16];
   if (!v10)
   {
 LABEL_55:
@@ -953,7 +953,7 @@ LABEL_55:
       *buf = 67109376;
       *&buf[4] = v51;
       *&buf[8] = 2048;
-      *&buf[10] = *(&v72 + 1);
+      *&buf[10] = *(&v73 + 1);
       _os_log_impl(&dword_1A238D000, v50, OS_LOG_TYPE_DEBUG, "[LOD:%{sonic:fourCC}u] updateIdentifiersForResults: | setting up multi-query [] entityTypes=%zu", buf, 0x12u);
     }
 
@@ -962,9 +962,9 @@ LABEL_55:
     if (v59 < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v52))
     {
       *buf = 134218240;
-      *&buf[4] = *(&v69 + 1);
+      *&buf[4] = *(&v70 + 1);
       *&buf[12] = 2048;
-      *&buf[14] = *(&v72 + 1);
+      *&buf[14] = *(&v73 + 1);
       _os_signpost_emit_with_name_impl(&dword_1A238D000, v53, OS_SIGNPOST_EVENT, spid, "updateIdentifiers", "count=%zu entityTypes=%zu", buf, 0x16u);
     }
 
@@ -976,20 +976,20 @@ LABEL_55:
       _os_signpost_emit_with_name_impl(&dword_1A238D000, v55, OS_SIGNPOST_INTERVAL_BEGIN, spid, "updateIdentifiers:querySetup", &unk_1A2797D62, buf, 2u);
     }
 
-    _ZNSt3__115allocate_sharedB8ne200100IN6mlcore16MultiEntityQueryENS_9allocatorIS2_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_();
+    _ZNSt3__115allocate_sharedB8ne200100IN6mlcore16MultiEntityQueryENS_9allocatorIS2_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_(&v64);
   }
 
-  v61 = *v65;
+  v61 = *v66;
 LABEL_8:
   v11 = 0;
   while (1)
   {
-    if (*v65 != v61)
+    if (*v66 != v61)
     {
       objc_enumerationMutation(obj);
     }
 
-    v12 = *(*(&v64 + 1) + 8 * v11);
+    v12 = *(*(&v65 + 1) + 8 * v11);
     v63 = 0uLL;
     *&v63 = [v12 tokenForDatabase:selfCopy];
     *(&v63 + 1) = v13;
@@ -1005,8 +1005,8 @@ LABEL_8:
       *&buf[20] = DWORD2(v63);
       *&buf[24] = 1024;
       *&buf[26] = HIBYTE(v63);
-      v77 = 2112;
-      v78 = v12;
+      v78 = 2112;
+      v79 = v12;
       _os_log_impl(&dword_1A238D000, v14, OS_LOG_TYPE_DEBUG, "[LOD:%{sonic:fourCC}u] updateIdentifiersForResults: | inspect [token] token={ .tokenID=%lld, .tokenRevision=%d, .databaseStorage={ .entityType=%d } } result=%@", buf, 0x28u);
     }
 
@@ -1014,10 +1014,10 @@ LABEL_8:
     if (v63 && DWORD2(v63))
     {
       v17 = HIBYTE(HIDWORD(v63));
-      v75[0] = HIBYTE(v63);
+      v76[0] = HIBYTE(v63);
       if (HIBYTE(HIDWORD(v63)))
       {
-        if (!*std::unordered_map<mlcore::ModelEntityType,[MPLibraryObjectDatabase updateIdentifiersForResults:options:]::Node>::operator[](&v71, v75))
+        if (!*std::unordered_map<mlcore::ModelEntityType,[MPLibraryObjectDatabase updateIdentifiersForResults:options:]::Node>::operator[](&v72, v76))
         {
           if ((v17 - 1) > 8u)
           {
@@ -1029,10 +1029,10 @@ LABEL_8:
             identityKind = [(__objc2_class *)*off_1E767C208[(v17 - 1)] identityKind];
           }
 
-          v24 = std::unordered_map<mlcore::ModelEntityType,[MPLibraryObjectDatabase updateIdentifiersForResults:options:]::Node>::operator[](&v71, v75);
+          v24 = std::unordered_map<mlcore::ModelEntityType,[MPLibraryObjectDatabase updateIdentifiersForResults:options:]::Node>::operator[](&v72, v76);
           objc_storeStrong(v24, identityKind);
           v25 = +[MPMediaLibraryEntityTranslator translatorForMPModelClass:](MPMediaLibraryEntityTranslator, "translatorForMPModelClass:", [identityKind modelClass]);
-          v26 = std::unordered_map<mlcore::ModelEntityType,[MPLibraryObjectDatabase updateIdentifiersForResults:options:]::Node>::operator[](&v71, v75);
+          v26 = std::unordered_map<mlcore::ModelEntityType,[MPLibraryObjectDatabase updateIdentifiersForResults:options:]::Node>::operator[](&v72, v76);
           v27 = v26[1];
           v26[1] = v25;
 
@@ -1063,10 +1063,10 @@ LABEL_8:
           _os_log_impl(&dword_1A238D000, v30, OS_LOG_TYPE_DEBUG, "[LOD:%{sonic:fourCC}u] updateIdentifiersForResults: | adding result to query list [] result=%@ pid=%lld", buf, 0x1Cu);
         }
 
-        v32 = std::unordered_map<mlcore::ModelEntityType,[MPLibraryObjectDatabase updateIdentifiersForResults:options:]::Node>::operator[](&v71, v75);
+        v32 = std::unordered_map<mlcore::ModelEntityType,[MPLibraryObjectDatabase updateIdentifiersForResults:options:]::Node>::operator[](&v72, v76);
         std::vector<long long>::push_back[abi:ne200100]((v32 + 2), &v63);
         *buf = &v63;
-        v33 = std::__hash_table<std::__hash_value_type<long long,std::vector<objc_object  {objcproto33MPObjectDatabaseProgressiveResult}* {__strong}>>,std::__unordered_map_hasher<long long,std::vector<objc_object  {objcproto33MPObjectDatabaseProgressiveResult}* {__strong}>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::vector<objc_object  {objcproto33MPObjectDatabaseProgressiveResult}* {__strong}>,std::equal_to,std::hash,true>,objc_object  {objcproto33MPObjectDatabaseProgressiveResult}* {__strong}<std::vector<objc_object  {objcproto33MPObjectDatabaseProgressiveResult}* {__strong}>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::piecewise_construct_t const&<>>(&v68, v63);
+        v33 = std::__hash_table<std::__hash_value_type<long long,std::vector<objc_object  {objcproto33MPObjectDatabaseProgressiveResult}* {__strong}>>,std::__unordered_map_hasher<long long,std::vector<objc_object  {objcproto33MPObjectDatabaseProgressiveResult}* {__strong}>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::vector<objc_object  {objcproto33MPObjectDatabaseProgressiveResult}* {__strong}>,std::equal_to,std::hash,true>,objc_object  {objcproto33MPObjectDatabaseProgressiveResult}* {__strong}<std::vector<objc_object  {objcproto33MPObjectDatabaseProgressiveResult}* {__strong}>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::piecewise_construct_t const&<>>(&v69, v63, buf);
         v34 = v33;
         v36 = v33[4];
         v35 = v33[5];
@@ -1189,7 +1189,7 @@ LABEL_8:
 LABEL_53:
     if (++v11 == v10)
     {
-      v10 = [obj countByEnumeratingWithState:&v64 objects:v79 count:16];
+      v10 = [obj countByEnumeratingWithState:&v65 objects:v80 count:16];
       if (!v10)
       {
         goto LABEL_55;
@@ -1212,10 +1212,10 @@ void __63__MPLibraryObjectDatabase_updateIdentifiersForResults_options___block_i
   }
 }
 
-- (uint64_t)updateIdentifiersForResults:(void *)results options:(unsigned __int8 *)options
+- (uint64_t)updateIdentifiersForResults:(float *)results options:(_BYTE *)options
 {
   v2 = *options;
-  v3 = results[1];
+  v3 = *(results + 2);
   if (!*&v3)
   {
     goto LABEL_18;
@@ -1228,7 +1228,7 @@ void __63__MPLibraryObjectDatabase_updateIdentifiersForResults_options___block_i
     v5 = *options;
     if (*&v3 <= v2)
     {
-      v5 = v2 % results[1];
+      v5 = v2 % *(results + 1);
     }
   }
 
@@ -1283,7 +1283,7 @@ LABEL_17:
     goto LABEL_17;
   }
 
-  return (v7 + 3);
+  return v7 + 3;
 }
 
 - (uint64_t)updateIdentifiersForResults:(uint64_t)results options:
@@ -1854,9 +1854,9 @@ LABEL_94:
           std::vector<mlcore::PropertyCache>::__throw_out_of_range[abi:ne200100]();
         }
 
-        v96 = &v258[2 * v94];
+        v96 = &v258[16 * v94];
         v97 = *v96;
-        v98 = v96[1];
+        v98 = *(v96 + 1);
         v99 = v97;
         v100 = os_log_create("com.apple.amp.mediaplayer", "LibraryObjects");
         if (os_log_type_enabled(v100, OS_LOG_TYPE_DEBUG))
@@ -1933,7 +1933,7 @@ LABEL_94:
       }
 
       v203 = m;
-      v210 = v258[2 * m];
+      v210 = *&v258[16 * m];
       inputIdentifiers2 = [v210 inputIdentifiers];
       universalStore7 = [inputIdentifiers2 universalStore];
       subscriptionAdamID2 = [universalStore7 subscriptionAdamID];
@@ -2412,7 +2412,7 @@ void __50__MPLibraryObjectDatabase_updateTokensForResults___block_invoke(uint64_
   v3 = *results;
 }
 
-- (void)updateTokensForResults:(uint64_t *)results
+- (void)updateTokensForResults:(char *)results
 {
   v3 = results[1];
   v4 = results[2];
@@ -2470,11 +2470,11 @@ void __50__MPLibraryObjectDatabase_updateTokensForResults___block_invoke(uint64_
     *(v16 + 80) = v18;
     v19 = *results;
     v20 = results[1];
-    v21 = v16 + *results - v20;
+    v21 = (v16 + *results - v20);
     if (*results != v20)
     {
       v22 = *results;
-      v23 = v16 + *results - v20;
+      v23 = (v16 + *results - v20);
       do
       {
         v24 = *v22;
@@ -2482,19 +2482,19 @@ void __50__MPLibraryObjectDatabase_updateTokensForResults___block_invoke(uint64_
         *v23 = v24;
         v25 = *(v22 + 1);
         *(v22 + 1) = 0uLL;
-        *(v23 + 16) = v25;
+        *(v23 + 1) = v25;
         v26 = *(v22 + 4);
         *(v22 + 4) = 0;
-        *(v23 + 32) = v26;
-        *(v23 + 40) = 0;
-        *(v23 + 48) = 0uLL;
+        *(v23 + 4) = v26;
+        *(v23 + 5) = 0;
+        *(v23 + 3) = 0uLL;
         *(v23 + 40) = *(v22 + 40);
-        *(v23 + 56) = *(v22 + 7);
+        *(v23 + 7) = *(v22 + 7);
         *(v22 + 7) = 0;
         *(v22 + 40) = 0uLL;
         v27 = *(v22 + 5);
-        *(v23 + 64) = *(v22 + 4);
-        *(v23 + 80) = v27;
+        *(v23 + 4) = *(v22 + 4);
+        *(v23 + 5) = v27;
         v22 += 96;
         v23 += 96;
       }
@@ -2510,7 +2510,7 @@ void __50__MPLibraryObjectDatabase_updateTokensForResults___block_invoke(uint64_
       v19 = *results;
     }
 
-    v9 = v16 + 96;
+    v9 = (v16 + 96);
     *results = v21;
     results[1] = v9;
     results[2] = 0;
@@ -2527,19 +2527,19 @@ void __50__MPLibraryObjectDatabase_updateTokensForResults___block_invoke(uint64_
     *v3 = v5;
     v6 = a2[1];
     a2[1] = 0u;
-    *(v3 + 16) = v6;
+    *(v3 + 1) = v6;
     v7 = *(a2 + 4);
     *(a2 + 4) = 0;
-    *(v3 + 32) = v7;
-    *(v3 + 40) = 0;
-    *(v3 + 48) = 0u;
+    *(v3 + 4) = v7;
+    *(v3 + 5) = 0;
+    *(v3 + 3) = 0u;
     *(v3 + 40) = *(a2 + 40);
-    *(v3 + 56) = *(a2 + 7);
+    *(v3 + 7) = *(a2 + 7);
     *(a2 + 7) = 0;
     *(a2 + 40) = 0u;
     v8 = a2[5];
-    *(v3 + 64) = a2[4];
-    *(v3 + 80) = v8;
+    *(v3 + 4) = a2[4];
+    *(v3 + 5) = v8;
     v9 = v3 + 96;
   }
 
@@ -2558,7 +2558,7 @@ void __50__MPLibraryObjectDatabase_updateTokensForResults___block_invoke(uint64_
   return results;
 }
 
-- (void)updateTokensForResults:(void *)results
+- (char)updateTokensForResults:(char *)results
 {
   v2 = *results;
   if (*results)

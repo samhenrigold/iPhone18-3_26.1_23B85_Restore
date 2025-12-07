@@ -16,7 +16,7 @@
 
 - (NSArray)colors
 {
-  sub_188A34624(0, qword_1ED4913C0);
+  sub_188A34624(0, qword_1ED4913C0, off_1E70E96C8);
 
   v2 = sub_18A4A7518();
 
@@ -27,7 +27,7 @@
 {
   if (*(&self->super.super.super.isa + OBJC_IVAR____UISliderFluidColorConfiguration__locations))
   {
-    sub_188A34624(0, &qword_1ED48FD80);
+    sub_188A34624(0, &qword_1ED48FD80, 0x1E696AD98);
 
     v2 = sub_18A4A7518();
   }
@@ -42,15 +42,15 @@
 
 - (_UISliderFluidColorConfiguration)initWithColors:(id)colors locations:(id)locations ticks:(id)ticks tickBehavior:(int64_t)behavior
 {
-  sub_188A34624(0, qword_1ED4913C0);
+  sub_188A34624(0, qword_1ED4913C0, off_1E70E96C8);
   v9 = sub_18A4A7548();
   if (locations)
   {
-    sub_188A34624(0, &qword_1ED48FD80);
+    sub_188A34624(0, &qword_1ED48FD80, 0x1E696AD98);
     locations = sub_18A4A7548();
   }
 
-  sub_188A34624(0, &unk_1EA92FD90);
+  sub_188A34624(0, &unk_1EA92FD90, off_1E70EC298);
   sub_18A4A7548();
   v10 = OBJC_IVAR____UISliderFluidColorConfiguration__locations;
   *(&self->super.super.super.isa + OBJC_IVAR____UISliderFluidColorConfiguration__locations) = 0;
@@ -72,7 +72,7 @@
   locationsCopy = locations;
   if (locations)
   {
-    sub_188A34624(0, &qword_1ED48FD80);
+    sub_188A34624(0, &qword_1ED48FD80, 0x1E696AD98);
     sub_18A4A7548();
     colorsCopy = colors;
     locationsCopy = sub_18A4A7518();
@@ -84,7 +84,7 @@
   }
 
   sub_189017030(ticks);
-  sub_188A34624(0, &unk_1EA92FD90);
+  sub_188A34624(0, &unk_1EA92FD90, off_1E70EC298);
   v13 = sub_18A4A7518();
 
   v14 = [(_UISliderFluidColorConfiguration *)self initWithColors:colors locations:locationsCopy ticks:v13 tickBehavior:behavior];
@@ -94,11 +94,11 @@
 
 - (_UISliderFluidColorConfiguration)initWithColors:(id)colors locations:(id)locations
 {
-  sub_188A34624(0, qword_1ED4913C0);
+  sub_188A34624(0, qword_1ED4913C0, off_1E70E96C8);
   v6 = sub_18A4A7548();
   if (locations)
   {
-    sub_188A34624(0, &qword_1ED48FD80);
+    sub_188A34624(0, &qword_1ED48FD80, 0x1E696AD98);
     v7 = sub_18A4A7548();
   }
 
@@ -113,7 +113,7 @@
   *(&self->super.super.super.isa + OBJC_IVAR____UISliderFluidColorConfiguration_showCheckerboard) = 0;
   *(&self->super.super.super.isa + OBJC_IVAR____UISliderFluidColorConfiguration__colors) = v6;
   *(&self->super.super.super.isa + v8) = v7;
-  sub_188A34624(0, &unk_1EA92FD90);
+  sub_188A34624(0, &unk_1EA92FD90, off_1E70EC298);
   v9 = sub_18A4A7518();
   v12.receiver = self;
   v12.super_class = _UISliderFluidColorConfiguration;
@@ -124,7 +124,7 @@
 
 - (_UISliderFluidColorConfiguration)initWithColors:(id)colors
 {
-  sub_188A34624(0, qword_1ED4913C0);
+  sub_188A34624(0, qword_1ED4913C0, off_1E70E96C8);
   v4 = sub_18A4A7548();
   v5 = OBJC_IVAR____UISliderFluidColorConfiguration__locations;
   *(&self->super.super.super.isa + OBJC_IVAR____UISliderFluidColorConfiguration__locations) = 0;
@@ -132,7 +132,7 @@
   *(&self->super.super.super.isa + OBJC_IVAR____UISliderFluidColorConfiguration_showCheckerboard) = 0;
   *(&self->super.super.super.isa + OBJC_IVAR____UISliderFluidColorConfiguration__colors) = v4;
   *(&self->super.super.super.isa + v5) = 0;
-  sub_188A34624(0, &unk_1EA92FD90);
+  sub_188A34624(0, &unk_1EA92FD90, off_1E70EC298);
   v6 = sub_18A4A7518();
   v9.receiver = self;
   v9.super_class = _UISliderFluidColorConfiguration;
@@ -143,7 +143,7 @@
 
 - (_UISliderFluidColorConfiguration)initWithTicks:(id)ticks behavior:(int64_t)behavior
 {
-  sub_188A34624(0, &unk_1EA92FD90);
+  sub_188A34624(0, &unk_1EA92FD90, off_1E70EC298);
   sub_18A4A7548();
   v6 = OBJC_IVAR____UISliderFluidColorConfiguration__locations;
   *(&self->super.super.super.isa + OBJC_IVAR____UISliderFluidColorConfiguration__locations) = 0;
@@ -175,7 +175,7 @@
 
 - (_UISliderFluidColorConfiguration)init
 {
-  sub_188A34624(0, qword_1ED4913C0);
+  sub_188A34624(0, qword_1ED4913C0, off_1E70E96C8);
   v3 = sub_18A4A7518();
   v4 = [(_UISliderFluidColorConfiguration *)self initWithColors:v3 locations:0];
 

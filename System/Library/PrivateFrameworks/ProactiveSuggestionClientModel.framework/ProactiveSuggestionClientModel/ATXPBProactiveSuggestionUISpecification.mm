@@ -6,15 +6,16 @@
 - (BOOL)isEqual:(id)equal;
 - (double)contextEndDate;
 - (double)contextStartDate;
+- (id)clearPreferredLayoutConfigs;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
 - (id)preferredLayoutConfigsAtIndex:(id *)index;
+- (id)preferredLayoutConfigsCount;
 - (uint64_t)addPreferredLayoutConfigs:(uint64_t)configs;
 - (uint64_t)allowedOnHomeScreen;
 - (uint64_t)allowedOnLockscreen;
 - (uint64_t)allowedOnSpotlight;
-- (uint64_t)clearPreferredLayoutConfigs;
 - (uint64_t)hasAllowedOnHomeScreen;
 - (uint64_t)hasAllowedOnLockscreen;
 - (uint64_t)hasAllowedOnSpotlight;
@@ -24,7 +25,6 @@
 - (uint64_t)hasShouldClearOnEngagement;
 - (uint64_t)predictionReasons;
 - (uint64_t)preferredLayoutConfigs;
-- (uint64_t)preferredLayoutConfigsCount;
 - (uint64_t)reason;
 - (uint64_t)setAllowedOnHomeScreen:(uint64_t)result;
 - (uint64_t)setAllowedOnLockscreen:(uint64_t)result;
@@ -224,7 +224,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   v4 = dictionary;
   title = self->_title;
@@ -248,30 +248,30 @@
   if ([(NSMutableArray *)self->_preferredLayoutConfigs count])
   {
     v8 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSMutableArray count](self->_preferredLayoutConfigs, "count")}];
+    v24 = 0u;
     v25 = 0u;
     v26 = 0u;
     v27 = 0u;
-    v28 = 0u;
     v9 = self->_preferredLayoutConfigs;
-    v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v26;
+      v12 = *v25;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v26 != v12)
+          if (*v25 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          dictionaryRepresentation = [*(*(&v25 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v24 + 1) + 8 * i) dictionaryRepresentation];
           [v8 addObject:dictionaryRepresentation];
         }
 
-        v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
       }
 
       while (v11);
@@ -283,8 +283,8 @@
   has = self->_has;
   if ((has & 0x10) != 0)
   {
-    v19 = [MEMORY[0x1E696AD98] numberWithBool:self->_allowedOnLockscreen];
-    [v4 setObject:v19 forKey:@"allowedOnLockscreen"];
+    v18 = [MEMORY[0x1E696AD98] numberWithBool:self->_allowedOnLockscreen];
+    [v4 setObject:v18 forKey:@"allowedOnLockscreen"];
 
     has = self->_has;
     if ((has & 8) == 0)
@@ -304,8 +304,8 @@ LABEL_18:
     goto LABEL_18;
   }
 
-  v20 = [MEMORY[0x1E696AD98] numberWithBool:{self->_allowedOnHomeScreen, v25}];
-  [v4 setObject:v20 forKey:@"allowedOnHomeScreen"];
+  v19 = [MEMORY[0x1E696AD98] numberWithBool:{self->_allowedOnHomeScreen, v24}];
+  [v4 setObject:v19 forKey:@"allowedOnHomeScreen"];
 
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -320,8 +320,8 @@ LABEL_19:
   }
 
 LABEL_29:
-  v21 = [MEMORY[0x1E696AD98] numberWithBool:{self->_allowedOnSpotlight, v25}];
-  [v4 setObject:v21 forKey:@"allowedOnSpotlight"];
+  v20 = [MEMORY[0x1E696AD98] numberWithBool:{self->_allowedOnSpotlight, v24}];
+  [v4 setObject:v20 forKey:@"allowedOnSpotlight"];
 
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -336,8 +336,8 @@ LABEL_20:
   }
 
 LABEL_30:
-  v22 = [MEMORY[0x1E696AD98] numberWithBool:{self->_shouldClearOnEngagement, v25}];
-  [v4 setObject:v22 forKey:@"shouldClearOnEngagement"];
+  v21 = [MEMORY[0x1E696AD98] numberWithBool:{self->_shouldClearOnEngagement, v24}];
+  [v4 setObject:v21 forKey:@"shouldClearOnEngagement"];
 
   has = self->_has;
   if ((has & 4) == 0)
@@ -352,8 +352,8 @@ LABEL_21:
   }
 
 LABEL_31:
-  v23 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:{self->_predictionReasons, v25}];
-  [v4 setObject:v23 forKey:@"predictionReasons"];
+  v22 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:{self->_predictionReasons, v24}];
+  [v4 setObject:v22 forKey:@"predictionReasons"];
 
   has = self->_has;
   if ((has & 2) == 0)
@@ -368,25 +368,24 @@ LABEL_22:
   }
 
 LABEL_32:
-  v24 = [MEMORY[0x1E696AD98] numberWithDouble:{self->_contextStartDate, v25}];
-  [v4 setObject:v24 forKey:@"contextStartDate"];
+  v23 = [MEMORY[0x1E696AD98] numberWithDouble:{self->_contextStartDate, v24}];
+  [v4 setObject:v23 forKey:@"contextStartDate"];
 
   if (*&self->_has)
   {
 LABEL_23:
-    v16 = [MEMORY[0x1E696AD98] numberWithDouble:{self->_contextEndDate, v25}];
+    v16 = [MEMORY[0x1E696AD98] numberWithDouble:{self->_contextEndDate, v24}];
     [v4 setObject:v16 forKey:@"contextEndDate"];
   }
 
 LABEL_24:
-  v17 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
 
 - (void)writeTo:(id)to
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if (self->_title)
   {
@@ -403,30 +402,29 @@ LABEL_24:
     PBDataWriterWriteStringField();
   }
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
-  v21 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v5 = self->_preferredLayoutConfigs;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v21;
+    v8 = *v12;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v21 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v20 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
@@ -435,7 +433,6 @@ LABEL_24:
   has = self->_has;
   if ((has & 0x10) != 0)
   {
-    allowedOnLockscreen = self->_allowedOnLockscreen;
     PBDataWriterWriteBOOLField();
     has = self->_has;
     if ((has & 8) == 0)
@@ -455,7 +452,6 @@ LABEL_16:
     goto LABEL_16;
   }
 
-  allowedOnHomeScreen = self->_allowedOnHomeScreen;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -470,7 +466,6 @@ LABEL_17:
   }
 
 LABEL_25:
-  allowedOnSpotlight = self->_allowedOnSpotlight;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -485,7 +480,6 @@ LABEL_18:
   }
 
 LABEL_26:
-  shouldClearOnEngagement = self->_shouldClearOnEngagement;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 4) == 0)
@@ -497,7 +491,6 @@ LABEL_19:
     }
 
 LABEL_28:
-    contextStartDate = self->_contextStartDate;
     PBDataWriterWriteDoubleField();
     if ((*&self->_has & 1) == 0)
     {
@@ -508,7 +501,6 @@ LABEL_28:
   }
 
 LABEL_27:
-  predictionReasons = self->_predictionReasons;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 2) != 0)
@@ -520,18 +512,15 @@ LABEL_20:
   if (has)
   {
 LABEL_21:
-    contextEndDate = self->_contextEndDate;
     PBDataWriterWriteDoubleField();
   }
 
 LABEL_22:
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = [(NSString *)self->_title copyWithZone:zone];
   v7 = *(v5 + 56);
@@ -545,30 +534,30 @@ LABEL_22:
   v11 = *(v5 + 40);
   *(v5 + 40) = v10;
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v12 = self->_preferredLayoutConfigs;
-  v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v22;
+    v15 = *v21;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v22 != v15)
+        if (*v21 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = [*(*(&v21 + 1) + 8 * i) copyWithZone:{zone, v21}];
+        v17 = [*(*(&v20 + 1) + 8 * i) copyWithZone:{zone, v20}];
         [(ATXPBProactiveSuggestionUISpecification *)v5 addPreferredLayoutConfigs:v17];
       }
 
-      v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v14);
@@ -643,7 +632,7 @@ LABEL_22:
     *(v5 + 68) |= 2u;
     if ((*&self->_has & 1) == 0)
     {
-      goto LABEL_16;
+      return v5;
     }
 
     goto LABEL_15;
@@ -666,8 +655,6 @@ LABEL_15:
     *(v5 + 68) |= 1u;
   }
 
-LABEL_16:
-  v19 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -722,7 +709,6 @@ LABEL_16:
       goto LABEL_56;
     }
 
-    v9 = *(equalCopy + 65);
     if (self->_allowedOnLockscreen)
     {
       if ((*(equalCopy + 65) & 1) == 0)
@@ -749,7 +735,6 @@ LABEL_16:
       goto LABEL_56;
     }
 
-    v10 = *(equalCopy + 64);
     if (self->_allowedOnHomeScreen)
     {
       if ((*(equalCopy + 64) & 1) == 0)
@@ -776,7 +761,6 @@ LABEL_16:
       goto LABEL_56;
     }
 
-    v11 = *(equalCopy + 66);
     if (self->_allowedOnSpotlight)
     {
       if ((*(equalCopy + 66) & 1) == 0)
@@ -804,7 +788,7 @@ LABEL_16:
     }
 
 LABEL_56:
-    v13 = 0;
+    v9 = 0;
     goto LABEL_57;
   }
 
@@ -813,7 +797,6 @@ LABEL_56:
     goto LABEL_56;
   }
 
-  v12 = *(equalCopy + 67);
   if (self->_shouldClearOnEngagement)
   {
     if ((*(equalCopy + 67) & 1) == 0)
@@ -854,7 +837,7 @@ LABEL_18:
     goto LABEL_56;
   }
 
-  v13 = (*(equalCopy + 68) & 1) == 0;
+  v9 = (*(equalCopy + 68) & 1) == 0;
   if (*&self->_has)
   {
     if ((*(equalCopy + 68) & 1) == 0 || self->_contextEndDate != *(equalCopy + 1))
@@ -862,12 +845,12 @@ LABEL_18:
       goto LABEL_56;
     }
 
-    v13 = 1;
+    v9 = 1;
   }
 
 LABEL_57:
 
-  return v13;
+  return v9;
 }
 
 - (unint64_t)hash
@@ -1045,11 +1028,11 @@ LABEL_17:
   return result;
 }
 
-- (uint64_t)clearPreferredLayoutConfigs
+- (id)clearPreferredLayoutConfigs
 {
   if (result)
   {
-    return [*(result + 32) removeAllObjects];
+    return [result[4] removeAllObjects];
   }
 
   return result;
@@ -1079,11 +1062,11 @@ LABEL_17:
   return MEMORY[0x1EEE66BB8](v3, v4);
 }
 
-- (uint64_t)preferredLayoutConfigsCount
+- (id)preferredLayoutConfigsCount
 {
   if (result)
   {
-    return [*(result + 32) count];
+    return [result[4] count];
   }
 
   return result;
@@ -1366,7 +1349,7 @@ LABEL_17:
   }
 
   v4 = *(to + 56);
-  v37 = v3;
+  v18 = v3;
   if (v4)
   {
     [(ATXPBProactiveSuggestionUISpecification *)v3 setTitle:v4];
@@ -1375,20 +1358,20 @@ LABEL_17:
   v5 = *(to + 48);
   if (v5)
   {
-    [(ATXPBProactiveSuggestionUISpecification *)v37 setSubtitle:v5];
+    [(ATXPBProactiveSuggestionUISpecification *)v18 setSubtitle:v5];
   }
 
   v6 = *(to + 40);
   if (v6)
   {
-    [(ATXPBProactiveSuggestionUISpecification *)v37 setReason:v6];
+    [(ATXPBProactiveSuggestionUISpecification *)v18 setReason:v6];
   }
 
   if ([OUTLINED_FUNCTION_6() count])
   {
-    if (v37)
+    if (v18)
     {
-      [*(v37 + 32) removeAllObjects];
+      [*(v18 + 32) removeAllObjects];
     }
 
     v7 = [OUTLINED_FUNCTION_6() count];
@@ -1398,21 +1381,18 @@ LABEL_17:
       for (i = 0; i != v8; ++i)
       {
         v10 = [(ATXPBProactiveSuggestionUISpecification *)to preferredLayoutConfigsAtIndex:?];
-        [(ATXPBProactiveSuggestionUISpecification *)v37 addPreferredLayoutConfigs:v10];
+        [(ATXPBProactiveSuggestionUISpecification *)v18 addPreferredLayoutConfigs:v10];
       }
     }
   }
 
-  v11 = 0x1ECDF6000uLL;
-  v12 = 68;
-  v13 = *(to + 68);
-  if ((v13 & 0x10) != 0)
+  v11 = 68;
+  v12 = *(to + 68);
+  if ((v12 & 0x10) != 0)
   {
-    v14 = *(to + 65);
-    v15 = OUTLINED_FUNCTION_4_1(v37, 0x1ECDF6000);
-    v17 = *(v15 + v16) | 0x10u;
-    v3 = OUTLINED_FUNCTION_1_0(v15, v18);
-    if ((v13 & 8) == 0)
+    v13 = OUTLINED_FUNCTION_4_1(v18);
+    v3 = OUTLINED_FUNCTION_1_0(v13);
+    if ((v12 & 8) == 0)
     {
       goto LABEL_19;
     }
@@ -1420,39 +1400,34 @@ LABEL_17:
     goto LABEL_18;
   }
 
-  v3 = v37;
+  v3 = v18;
   if ((*(to + 68) & 8) != 0)
   {
 LABEL_18:
-    v19 = *(to + 64);
-    v20 = OUTLINED_FUNCTION_4_1(v3, v11);
-    v22 = *(v20 + v21) | 8u;
-    v3 = OUTLINED_FUNCTION_1_0(v20, v23);
+    v14 = OUTLINED_FUNCTION_4_1(v3);
+    v3 = OUTLINED_FUNCTION_1_0(v14);
   }
 
 LABEL_19:
-  if ((v13 & 0x20) != 0)
+  if ((v12 & 0x20) != 0)
   {
-    v24 = *(to + 66);
-    v25 = OUTLINED_FUNCTION_4_1(v3, v11);
-    v27 = *(v25 + v26) | 0x20u;
-    v3 = OUTLINED_FUNCTION_1_0(v25, v28);
-    if ((v13 & 0x40) == 0)
+    v15 = OUTLINED_FUNCTION_4_1(v3);
+    v3 = OUTLINED_FUNCTION_1_0(v15);
+    if ((v12 & 0x40) == 0)
     {
 LABEL_21:
-      if ((v13 & 4) == 0)
+      if ((v12 & 4) == 0)
       {
         goto LABEL_22;
       }
 
 LABEL_30:
       v3[3] = *(to + 24);
-      v34 = *(v3 + v12) | 4u;
-      v3 = OUTLINED_FUNCTION_1_0(v3, v11);
-      if ((v13 & 2) == 0)
+      v3 = OUTLINED_FUNCTION_1_0(v3);
+      if ((v12 & 2) == 0)
       {
 LABEL_23:
-        if ((v13 & 1) == 0)
+        if ((v12 & 1) == 0)
         {
           goto LABEL_25;
         }
@@ -1464,35 +1439,32 @@ LABEL_23:
     }
   }
 
-  else if ((v13 & 0x40) == 0)
+  else if ((v12 & 0x40) == 0)
   {
     goto LABEL_21;
   }
 
-  v29 = *(to + 67);
-  v30 = OUTLINED_FUNCTION_4_1(v3, v11);
-  v32 = *(v30 + v31) | 0x40u;
-  v3 = OUTLINED_FUNCTION_1_0(v30, v33);
-  if ((v13 & 4) != 0)
+  v16 = OUTLINED_FUNCTION_4_1(v3);
+  v3 = OUTLINED_FUNCTION_1_0(v16);
+  if ((v12 & 4) != 0)
   {
     goto LABEL_30;
   }
 
 LABEL_22:
-  if ((v13 & 2) == 0)
+  if ((v12 & 2) == 0)
   {
     goto LABEL_23;
   }
 
 LABEL_31:
   v3[2] = *(to + 16);
-  v35 = *(v3 + v12) | 2u;
-  v3 = OUTLINED_FUNCTION_1_0(v3, v11);
-  if (v36)
+  v3 = OUTLINED_FUNCTION_1_0(v3);
+  if (v17)
   {
 LABEL_24:
     v3[1] = *(to + 8);
-    *(v3 + v12) |= 1u;
+    *(v3 + v11) |= 1u;
   }
 
 LABEL_25:
@@ -1524,7 +1496,7 @@ LABEL_25:
 
 - (void)mergeFrom:(uint64_t)from
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (!from)
@@ -1538,33 +1510,33 @@ LABEL_25:
     objc_storeStrong((from + 56), v5);
   }
 
-  v6 = *(v4 + 6);
+  v6 = v4[6];
   if (v6)
   {
     objc_storeStrong((from + 48), v6);
   }
 
-  v7 = *(v4 + 5);
+  v7 = v4[5];
   if (v7)
   {
     objc_storeStrong((from + 40), v7);
   }
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
-  v25 = 0u;
-  v8 = *(v4 + 4);
-  v9 = [v8 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v8 = v4[4];
+  v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v25;
+    v11 = *v17;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v25 != v11)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(v8);
         }
@@ -1572,23 +1544,22 @@ LABEL_25:
         [(ATXPBProactiveSuggestionUISpecification *)from addPreferredLayoutConfigs:?];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v10);
   }
 
-  v13 = 0x1ECDF6000uLL;
-  v14 = 68;
-  v15 = *(v4 + 68);
-  if ((v15 & 0x10) != 0)
+  v13 = 68;
+  v14 = *(v4 + 68);
+  if ((v14 & 0x10) != 0)
   {
-    OUTLINED_FUNCTION_3(0x1ECDF6000);
-    OUTLINED_FUNCTION_2(v17);
-    if ((v15 & 8) == 0)
+    OUTLINED_FUNCTION_3();
+    OUTLINED_FUNCTION_2();
+    if ((v14 & 8) == 0)
     {
 LABEL_17:
-      if ((v15 & 0x20) == 0)
+      if ((v14 & 0x20) == 0)
       {
         goto LABEL_18;
       }
@@ -1602,12 +1573,12 @@ LABEL_17:
     goto LABEL_17;
   }
 
-  OUTLINED_FUNCTION_3(v13);
-  OUTLINED_FUNCTION_2(v18);
-  if ((v15 & 0x20) == 0)
+  OUTLINED_FUNCTION_3();
+  OUTLINED_FUNCTION_2();
+  if ((v14 & 0x20) == 0)
   {
 LABEL_18:
-    if ((v15 & 0x40) == 0)
+    if ((v14 & 0x40) == 0)
     {
       goto LABEL_19;
     }
@@ -1616,12 +1587,12 @@ LABEL_18:
   }
 
 LABEL_26:
-  OUTLINED_FUNCTION_3(v13);
-  OUTLINED_FUNCTION_2(v19);
-  if ((v15 & 0x40) == 0)
+  OUTLINED_FUNCTION_3();
+  OUTLINED_FUNCTION_2();
+  if ((v14 & 0x40) == 0)
   {
 LABEL_19:
-    if ((v15 & 4) == 0)
+    if ((v14 & 4) == 0)
     {
       goto LABEL_20;
     }
@@ -1630,21 +1601,20 @@ LABEL_19:
   }
 
 LABEL_27:
-  OUTLINED_FUNCTION_3(v13);
-  OUTLINED_FUNCTION_2(v20);
-  if ((v15 & 4) == 0)
+  OUTLINED_FUNCTION_3();
+  OUTLINED_FUNCTION_2();
+  if ((v14 & 4) == 0)
   {
 LABEL_20:
-    if ((v15 & 2) == 0)
+    if ((v14 & 2) == 0)
     {
       goto LABEL_21;
     }
 
 LABEL_29:
-    *(from + 16) = *(v4 + 2);
-    v22 = *(from + v14) | 2u;
-    OUTLINED_FUNCTION_2(v13);
-    if ((v23 & 1) == 0)
+    *(from + 16) = v4[2];
+    OUTLINED_FUNCTION_2();
+    if ((v15 & 1) == 0)
     {
       goto LABEL_23;
     }
@@ -1653,25 +1623,22 @@ LABEL_29:
   }
 
 LABEL_28:
-  *(from + 24) = *(v4 + 3);
-  v21 = *(from + v14) | 4u;
-  OUTLINED_FUNCTION_2(v13);
-  if ((v15 & 2) != 0)
+  *(from + 24) = v4[3];
+  OUTLINED_FUNCTION_2();
+  if ((v14 & 2) != 0)
   {
     goto LABEL_29;
   }
 
 LABEL_21:
-  if (v15)
+  if (v14)
   {
 LABEL_22:
-    *(from + 8) = *(v4 + 1);
-    *(from + v14) |= 1u;
+    *(from + 8) = v4[1];
+    *(from + v13) |= 1u;
   }
 
 LABEL_23:
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setPreferredLayoutConfigs:(uint64_t)configs

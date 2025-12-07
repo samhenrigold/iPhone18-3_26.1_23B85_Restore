@@ -85,7 +85,7 @@
 
 void __78__HFAccessoryDiagnosticInfoManager_fetchDiagnosticInfoForFirstPartyAccessory___block_invoke(id *a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -93,12 +93,12 @@ void __78__HFAccessoryDiagnosticInfoManager_fetchDiagnosticInfoForFirstPartyAcce
     v7 = HFLogForCategory(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v14 = [a1[4] debugDescription];
-      v15 = 138412546;
-      v16 = v14;
-      v17 = 2112;
-      v18 = v6;
-      _os_log_error_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_ERROR, "There was an error fetching diagnostic info for accessory: %@, with error: %@", &v15, 0x16u);
+      v13 = [a1[4] debugDescription];
+      v14 = 138412546;
+      v15 = v13;
+      v16 = 2112;
+      v17 = v6;
+      _os_log_error_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_ERROR, "There was an error fetching diagnostic info for accessory: %@, with error: %@", &v14, 0x16u);
     }
   }
 
@@ -109,11 +109,11 @@ void __78__HFAccessoryDiagnosticInfoManager_fetchDiagnosticInfoForFirstPartyAcce
     {
       v9 = [v5 debugDescription];
       v10 = [a1[4] debugDescription];
-      v15 = 138412546;
-      v16 = v9;
-      v17 = 2112;
-      v18 = v10;
-      _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEFAULT, "Fetched diagnostic info: %@ for accessory: %@", &v15, 0x16u);
+      v14 = 138412546;
+      v15 = v9;
+      v16 = 2112;
+      v17 = v10;
+      _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEFAULT, "Fetched diagnostic info: %@ for accessory: %@", &v14, 0x16u);
     }
 
     v11 = [a1[5] accessoryUniqueIDToDiagnosticInfoMapTable];
@@ -124,8 +124,6 @@ void __78__HFAccessoryDiagnosticInfoManager_fetchDiagnosticInfoForFirstPartyAcce
   }
 
   [a1[6] finishWithResult:v5 error:v6];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)hasDiagnosticInfoForAccessory:(id)accessory
@@ -140,8 +138,8 @@ void __78__HFAccessoryDiagnosticInfoManager_fetchDiagnosticInfoForFirstPartyAcce
 {
   accessoryCopy = accessory;
   v5 = +[HFHomeKitDispatcher sharedDispatcher];
-  home = [v5 home];
-  hf_currentUserIsOwner = [home hf_currentUserIsOwner];
+  v6 = objc_msgSend_home(v5);
+  hf_currentUserIsOwner = [v6 hf_currentUserIsOwner];
 
   if (hf_currentUserIsOwner && [(HFAccessoryDiagnosticInfoManager *)self hasDiagnosticInfoForAccessory:accessoryCopy])
   {
@@ -175,49 +173,47 @@ void __78__HFAccessoryDiagnosticInfoManager_fetchDiagnosticInfoForFirstPartyAcce
 
 - (void)_notifyObserversOfReceivedDiagnosticInfo:(id)info forAccessory:(id)accessory
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   accessoryCopy = accessory;
   observers = [(HFAccessoryDiagnosticInfoManager *)self observers];
   v9 = [observers copy];
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v10 = v9;
-  v11 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v18;
+    v13 = *v17;
     do
     {
       v14 = 0;
       do
       {
-        if (*v18 != v13)
+        if (*v17 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v17 + 1) + 8 * v14);
+        v15 = *(*(&v16 + 1) + 8 * v14);
         if (objc_opt_respondsToSelector())
         {
-          [v15 didUpdateDiagnosticInfo:infoCopy forAccessory:{accessoryCopy, v17}];
+          [v15 didUpdateDiagnosticInfo:infoCopy forAccessory:{accessoryCopy, v16}];
         }
 
         ++v14;
       }
 
       while (v12 != v14);
-      v12 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v12);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_diagnosticInfoForAccessory:(id)accessory

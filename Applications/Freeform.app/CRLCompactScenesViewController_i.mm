@@ -62,6 +62,7 @@
 
 - (void)dismissScenesPopoverWithAnimated:(BOOL)animated completion:(id)completion
 {
+  animatedCopy = animated;
   v6 = _Block_copy(completion);
   if (v6)
   {
@@ -76,8 +77,8 @@
   }
 
   selfCopy = self;
-  sub_10069931C(animated, v6, v7);
-  sub_1000C1014(v6);
+  sub_10069931C(animatedCopy, v6, v7);
+  sub_1000C1014(v6, v7);
 }
 
 - (void)updateSheetPresentationDetents
@@ -88,7 +89,7 @@
   {
     v3 = sheetPresentationController;
     sub_100699634();
-    sub_100006370(0, &qword_1019FB500);
+    sub_100006370(0, &qword_1019FB500, UISheetPresentationControllerDetent_ptr);
     isa = Array._bridgeToObjectiveC()().super.isa;
 
     [v3 setDetents:isa];

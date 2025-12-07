@@ -27,19 +27,19 @@
 - (_GCGamepadEventKeyboardEventAdapterDescription)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v12.receiver = self;
-  v12.super_class = _GCGamepadEventKeyboardEventAdapterDescription;
-  v5 = [(_GCGamepadEventKeyboardEventAdapterDescription *)&v12 init];
+  v13.receiver = self;
+  v13.super_class = _GCGamepadEventKeyboardEventAdapterDescription;
+  v5 = [(_GCGamepadEventKeyboardEventAdapterDescription *)&v13 init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"config"];
     config = v5->_config;
     v5->_config = v6;
 
-    v8 = _GCKeyboardEventSourceDescription_Classes();
-    v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"source"];
+    v9 = _GCKeyboardEventSourceDescription_Classes(v8);
+    v10 = [coderCopy decodeObjectOfClasses:v9 forKey:@"source"];
     sourceDescription = v5->_sourceDescription;
-    v5->_sourceDescription = v9;
+    v5->_sourceDescription = v10;
   }
 
   return v5;

@@ -10,10 +10,10 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  v5 = sub_2193AAE88();
+  v6 = sub_2193AAE88(action);
   swift_unknownObjectRelease();
 
-  return v5;
+  return v6;
 }
 
 - (void)commitViewController:(id)controller action:(id)action
@@ -21,7 +21,7 @@
   controllerCopy = controller;
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_2193AB554();
+  sub_2193AB554(action);
 
   swift_unknownObjectRelease();
 }

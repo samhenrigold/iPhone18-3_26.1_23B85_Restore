@@ -37,15 +37,16 @@
 
   if (v6 >> 62)
   {
-    v7 = _CocoaArrayWrapper.endIndex.getter();
+    v14 = _CocoaArrayWrapper.endIndex.getter();
   }
 
   else
   {
-    v7 = *((v6 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    v14 = *((v6 & 0xFFFFFFFFFFFFFF8) + 0x10);
   }
 
-  sub_1000E9D04(subviewCopy, v7, 0);
+  v6, v7, v8, v9, v10, v11, v12, v13;
+  sub_1000E9D04(subviewCopy, v14, 0);
 }
 
 - (void)insertArrangedSubview:(id)subview atIndex:(int64_t)index
@@ -71,7 +72,7 @@
   v7 = (&self->super.super.super.super.super.isa + OBJC_IVAR____TtC11Diagnostics13CardStackView_layoutUpdateHandler);
   *v7 = 0;
   v7[1] = 0;
-  *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC11Diagnostics13CardStackView_heightConstraints) = _swiftEmptyArrayStorage;
+  *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC11Diagnostics13CardStackView_heightConstraints) = &_swiftEmptyArrayStorage;
   v9.receiver = self;
   v9.super_class = type metadata accessor for CardStackView();
   return [(BaseStackView *)&v9 initWithFrame:x, y, width, height];
@@ -82,7 +83,7 @@
   v4 = (&self->super.super.super.super.super.isa + OBJC_IVAR____TtC11Diagnostics13CardStackView_layoutUpdateHandler);
   *v4 = 0;
   v4[1] = 0;
-  *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC11Diagnostics13CardStackView_heightConstraints) = _swiftEmptyArrayStorage;
+  *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC11Diagnostics13CardStackView_heightConstraints) = &_swiftEmptyArrayStorage;
   v6.receiver = self;
   v6.super_class = type metadata accessor for CardStackView();
   return [(BaseStackView *)&v6 initWithCoder:coder];

@@ -17,9 +17,9 @@
 {
   equalCopy = equal;
   v5 = objc_opt_class();
-  if (objc_msgSend_isMemberOfClass_(equalCopy, v6, v5, v7, v8))
+  if (objc_msgSend_isMemberOfClass_(equalCopy, v6, v5, v7))
   {
-    isEqualToSelection = objc_msgSend_isEqualToSelection_(self, v9, equalCopy, v10, v11);
+    isEqualToSelection = objc_msgSend_isEqualToSelection_(self, v8, equalCopy, v9);
   }
 
   else

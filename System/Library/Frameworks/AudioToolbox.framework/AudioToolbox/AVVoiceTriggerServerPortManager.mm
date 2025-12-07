@@ -1,5 +1,6 @@
 @interface AVVoiceTriggerServerPortManager
 - (AVVoiceTriggerServerPortManager)initWithPortType:(unint64_t)type hysteresisDurationSeconds:(float)seconds notificationBlock:(id)block;
+- (void)callNotificationBlock:(BOOL)block;
 - (void)notifyStateChanged:(BOOL)changed onQueue:(id)queue;
 @end
 
@@ -61,7 +62,7 @@ void __62__AVVoiceTriggerServerPortManager_notifyStateChanged_onQueue___block_in
   }
 }
 
-uint64_t __62__AVVoiceTriggerServerPortManager_notifyStateChanged_onQueue___block_invoke_2(uint64_t a1)
+void *__62__AVVoiceTriggerServerPortManager_notifyStateChanged_onQueue___block_invoke_2(uint64_t a1)
 {
   v2 = *(a1 + 40);
   result = [*(a1 + 32) generation];
@@ -74,6 +75,57 @@ uint64_t __62__AVVoiceTriggerServerPortManager_notifyStateChanged_onQueue___bloc
   }
 
   return result;
+}
+
+- (void)callNotificationBlock:(BOOL)block
+{
+  blockCopy = block;
+  v16 = *MEMORY[0x1E69E9840];
+  if (self->_lastStateSent != block && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
+  {
+    portType = self->_portType;
+    v10 = 136315906;
+    v11 = "AVVoiceTriggerServer.mm";
+    v12 = 1024;
+    v13 = 213;
+    v14 = 1024;
+    *v15 = blockCopy;
+    *&v15[4] = 2048;
+    *&v15[6] = portType;
+    _os_log_impl(&dword_1B9A08000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "%25s:%-5d setting cached active state: %d for port: %lu", &v10, 0x22u);
+  }
+
+  self->_lastStateSent = blockCopy;
+  if (blockCopy)
+  {
+    v6 = "com.apple.coreaudio.speaker.active";
+  }
+
+  else
+  {
+    v6 = "com.apple.coreaudio.speaker.inactive";
+  }
+
+  notify_post(v6);
+  if (self->_listeningEnabled && (notificationBlock = self->_notificationBlock) != 0)
+  {
+    notificationBlock[2](notificationBlock, self->_portType, blockCopy);
+  }
+
+  else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
+  {
+    v8 = _Block_copy(self->_notificationBlock);
+    listeningEnabled = self->_listeningEnabled;
+    v10 = 136315906;
+    v11 = "AVVoiceTriggerServer.mm";
+    v12 = 1024;
+    v13 = 229;
+    v14 = 2048;
+    *v15 = v8;
+    *&v15[8] = 1024;
+    *&v15[10] = listeningEnabled;
+    _os_log_impl(&dword_1B9A08000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "%25s:%-5d not calling notificationBlock(%p), listening is : %d ", &v10, 0x22u);
+  }
 }
 
 - (AVVoiceTriggerServerPortManager)initWithPortType:(unint64_t)type hysteresisDurationSeconds:(float)seconds notificationBlock:(id)block

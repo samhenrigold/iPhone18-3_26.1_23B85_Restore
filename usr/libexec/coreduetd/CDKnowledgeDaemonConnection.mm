@@ -9,6 +9,7 @@
 - (void)disableSyncPolicyForFeature:(unint64_t)feature transportType:(int64_t)type withReply:(id)reply;
 - (void)executeQuery:(id)query reply:(id)reply;
 - (void)isSyncPolicyDisabledForFeature:(unint64_t)feature transportType:(int64_t)type withReply:(id)reply;
+- (void)requestBiomeEndpoint:(BOOL)endpoint reply:(id)reply;
 - (void)saveObjects:(id)objects reply:(id)reply;
 - (void)sourceDeviceIdentityWithReply:(id)reply;
 - (void)synchronizeWithReply:(id)reply;
@@ -258,6 +259,14 @@ LABEL_9:
   replyCopy = reply;
   daemon = [(CDKnowledgeDaemonConnection *)self daemon];
   [daemon confirmDatabaseConnectionWithReply:replyCopy];
+}
+
+- (void)requestBiomeEndpoint:(BOOL)endpoint reply:(id)reply
+{
+  endpointCopy = endpoint;
+  replyCopy = reply;
+  daemon = [(CDKnowledgeDaemonConnection *)self daemon];
+  [daemon requestBiomeEndpoint:endpointCopy reply:replyCopy];
 }
 
 @end

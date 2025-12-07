@@ -20,20 +20,19 @@
 - (void)publishImmediatelyWithCompletion:(id)completion
 {
   v4 = sub_1000BC4D4(&qword_101698C00, &qword_10138B570);
-  v5 = *(*(v4 - 8) + 64);
   __chkstk_darwin(v4 - 8);
-  v7 = &v12 - v6;
-  v8 = _Block_copy(completion);
-  v9 = swift_allocObject();
-  *(v9 + 16) = v8;
-  v10 = type metadata accessor for TaskPriority();
-  (*(*(v10 - 8) + 56))(v7, 1, 1, v10);
-  v11 = swift_allocObject();
-  v11[2] = 0;
-  v11[3] = 0;
-  v11[4] = sub_1001BC108;
-  v11[5] = v9;
-  sub_10025EDD4(0, 0, v7, &unk_1013BF5C0, v11);
+  v6 = &v11 - v5;
+  v7 = _Block_copy(completion);
+  v8 = swift_allocObject();
+  *(v8 + 16) = v7;
+  v9 = type metadata accessor for TaskPriority();
+  (*(*(v9 - 8) + 56))(v6, 1, 1, v9);
+  v10 = swift_allocObject();
+  v10[2] = 0;
+  v10[3] = 0;
+  v10[4] = sub_1001BC108;
+  v10[5] = v8;
+  sub_10025EDD4(0, 0, v6, &unk_1013BF5C0, v10);
 }
 
 - (_TtC12searchpartydP33_8F16B571022752B5A0333344EAF60C1619SchedulerTrampoline)init

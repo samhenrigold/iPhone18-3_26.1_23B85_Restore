@@ -3,6 +3,7 @@
 - (BOOL)axShouldDisableAutoHidingControls;
 - (void)_accessibilityLoadAccessibilityInformation;
 - (void)_axSpeakUpdateToStatusPill;
+- (void)enableWorldModeControl:(BOOL)control;
 - (void)startAutoHideControlsTimer;
 - (void)updateStatusPill;
 @end
@@ -67,6 +68,14 @@
     v3.super_class = ARQuickLookOverlayControllerAccessibility;
     [(ARQuickLookOverlayControllerAccessibility *)&v3 startAutoHideControlsTimer];
   }
+}
+
+- (void)enableWorldModeControl:(BOOL)control
+{
+  v3.receiver = self;
+  v3.super_class = ARQuickLookOverlayControllerAccessibility;
+  [(ARQuickLookOverlayControllerAccessibility *)&v3 enableWorldModeControl:control];
+  UIAccessibilityPostNotification(*MEMORY[0x29EDC7ED8], 0);
 }
 
 - (void)_axSpeakUpdateToStatusPill

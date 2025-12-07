@@ -2286,7 +2286,7 @@ void __53__RTVisitMonitor_fetchVisitsFromDate_toDate_handler___block_invoke(id *
   [v11 _batchProcess:v13 fromDate:v10 toDate:v12 handler:v14];
 }
 
-uint64_t __53__RTVisitMonitor_fetchVisitsFromDate_toDate_handler___block_invoke_135(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
+void *__53__RTVisitMonitor_fetchVisitsFromDate_toDate_handler___block_invoke_135(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 {
   v18 = *MEMORY[0x277D85DE8];
   if (a4)
@@ -3133,36 +3133,36 @@ void __61__RTVisitMonitor__setupGeoFencesForVisit_pipelineType_error___block_inv
   }
 }
 
-void __61__RTVisitMonitor__setupGeoFencesForVisit_pipelineType_error___block_invoke_2_160(uint64_t a1)
+void __61__RTVisitMonitor__setupGeoFencesForVisit_pipelineType_error___block_invoke_2_160(uint64_t a1, uint64_t a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
-  v2 = objc_opt_class();
-  v3 = [*(a1 + 40) location];
-  v4 = [v3 location];
-  v5 = [v2 regionWithRegionIdentifier:@"EntryForLastVisitExit" location:v4 shouldNotifyForEntry:1];
+  v22 = *MEMORY[0x277D85DE8];
+  v3 = objc_opt_class();
+  v4 = [*(a1 + 40) location];
+  v5 = [v4 location];
+  v6 = [v3 regionWithRegionIdentifier:@"EntryForLastVisitExit" location:v5 shouldNotifyForEntry:1];
 
-  v6 = [*(a1 + 32) locationManager];
-  v7 = *(a1 + 48);
-  v12 = 0;
-  [v6 startMonitoringForRegion:v5 clientIdentifier:v7 error:&v12];
-  v8 = v12;
+  v7 = [*(a1 + 32) locationManager];
+  v8 = *(a1 + 48);
+  v13 = 0;
+  [v7 startMonitoringForRegion:v6 clientIdentifier:v8 error:&v13];
+  v9 = v13;
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
-    v9 = _rt_log_facility_get_os_log(RTLogFacilityVisit);
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v10 = _rt_log_facility_get_os_log(RTLogFacilityVisit);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      v10 = NSStringFromSelector(*(a1 + 56));
-      v11 = *(a1 + 48);
+      v11 = NSStringFromSelector(*(a1 + 56));
+      v12 = *(a1 + 48);
       *buf = 138413059;
-      v14 = v10;
-      v15 = 2112;
-      v16 = v11;
-      v17 = 2117;
-      v18 = v5;
-      v19 = 2112;
-      v20 = v8;
-      _os_log_impl(&dword_2304B3000, v9, OS_LOG_TYPE_INFO, "%@, clientIdentifier, %@, start monitoring for region, %{sensitive}@, error, %@", buf, 0x2Au);
+      v15 = v11;
+      v16 = 2112;
+      v17 = v12;
+      v18 = 2117;
+      v19 = v6;
+      v20 = 2112;
+      v21 = v9;
+      _os_log_impl(&dword_2304B3000, v10, OS_LOG_TYPE_INFO, "%@, clientIdentifier, %@, start monitoring for region, %{sensitive}@, error, %@", buf, 0x2Au);
     }
   }
 }

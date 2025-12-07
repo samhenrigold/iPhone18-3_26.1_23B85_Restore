@@ -79,28 +79,29 @@ LABEL_15:
 
 - (id)description
 {
-  powerState = self->_powerState;
-  NSAppendPrintF_safe();
-  v15 = 0;
-  statusFlags = self->_statusFlags;
+  v16 = 0;
+  NSAppendPrintF_safe(&v16, "BatteryLevelStatus %@", self->_powerState);
+  v3 = v16;
+  v15 = v3;
   v4 = CUPrintFlags32();
-  NSAppendPrintF_safe();
+  NSAppendPrintF_safe(&v15, ", SF %@", v4);
   v5 = v15;
 
-  identifier = self->_identifier;
-  NSAppendPrintF_safe();
-  v6 = v5;
+  v14 = v5;
+  NSAppendPrintF_safe(&v14, ", ID 0x%04X", self->_identifier);
+  v6 = v14;
 
-  batteryLevel = self->_batteryLevel;
-  NSAppendPrintF_safe();
-  v7 = v6;
+  v13 = v6;
+  NSAppendPrintF_safe(&v13, ", Level %u%%", self->_batteryLevel);
+  v7 = v13;
 
-  additionalFlags = self->_additionalFlags;
-  v14 = CUPrintFlags32();
-  NSAppendPrintF_safe();
-  v9 = v7;
+  v12 = v7;
+  v8 = CUPrintFlags32();
+  NSAppendPrintF_safe(&v12, ", AdSt %@", v8);
+  v9 = v12;
+  v10 = v12;
 
-  return v7;
+  return v9;
 }
 
 @end

@@ -53,7 +53,7 @@
         {
           v8 = v12;
           array = v12;
-          v64 = MEMORY[0x277CBEBF8];
+          v65 = MEMORY[0x277CBEBF8];
           goto LABEL_106;
         }
 
@@ -133,7 +133,7 @@
             {
 
               objc_autoreleasePoolPop(v105);
-              v64 = MEMORY[0x277CBEBF8];
+              v65 = MEMORY[0x277CBEBF8];
               v8 = v102;
               goto LABEL_104;
             }
@@ -205,7 +205,7 @@
   if (v47)
   {
     v48 = objc_autoreleasePoolPush();
-    v49 = BMLog();
+    v49 = BMLog(v48);
     if (os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
     {
       [BMEventExtractor extractEventsFilteredByTypes:? taskSpecificEventProviders:? error:?];
@@ -215,80 +215,80 @@
 
     if (bmMiningTaskConfig)
     {
-      v51 = BMLog();
-      if (os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
+      v52 = BMLog(v51);
+      if (os_log_type_enabled(v52, OS_LOG_TYPE_DEBUG))
       {
         [BMEventExtractor extractEventsFilteredByTypes:? taskSpecificEventProviders:? error:?];
       }
     }
 
-    v52 = [BMInteractionProvider alloc];
+    v53 = [BMInteractionProvider alloc];
     bmMiningTaskConfig2 = [(BMEventExtractor *)self bmMiningTaskConfig];
-    v54 = [(BMInteractionProvider *)v52 initWithBMMiningTaskConfig:bmMiningTaskConfig2];
+    v55 = [(BMInteractionProvider *)v53 initWithBMMiningTaskConfig:bmMiningTaskConfig2];
 
     v142 = 0;
-    v55 = [(BMInteractionProvider *)v54 interactionEventsForTypes:v8 error:&v142];
+    v56 = [(BMInteractionProvider *)v55 interactionEventsForTypes:v8 error:&v142];
     v32 = v142;
-    if (v55)
+    if (v56)
     {
-      obja = v54;
+      obja = v55;
       contexta = v48;
       v140 = 0u;
       v141 = 0u;
       v138 = 0u;
       v139 = 0u;
-      v108 = v55;
-      v121 = v55;
-      v56 = [v121 countByEnumeratingWithState:&v138 objects:v163 count:16];
-      if (!v56)
+      v108 = v56;
+      v121 = v56;
+      v57 = [v121 countByEnumeratingWithState:&v138 objects:v163 count:16];
+      if (!v57)
       {
         goto LABEL_52;
       }
 
-      v57 = v56;
-      v58 = *v139;
+      v58 = v57;
+      v59 = *v139;
       v111 = v32;
       while (1)
       {
-        for (m = 0; m != v57; ++m)
+        for (m = 0; m != v58; ++m)
         {
-          if (*v139 != v58)
+          if (*v139 != v59)
           {
             objc_enumerationMutation(v121);
           }
 
-          v60 = *(*(&v138 + 1) + 8 * m);
+          v61 = *(*(&v138 + 1) + 8 * m);
           if ([(BMEventExtractor *)self shouldStop])
           {
 LABEL_101:
 
             objc_autoreleasePoolPop(contexta);
-            v64 = MEMORY[0x277CBEBF8];
+            v65 = MEMORY[0x277CBEBF8];
 LABEL_104:
             v32 = v111;
             goto LABEL_105;
           }
 
-          item = [v60 item];
+          item = [v61 item];
           type = [item type];
-          v63 = [v8 containsObject:type];
+          v64 = [v8 containsObject:type];
 
-          if (v63)
+          if (v64)
           {
-            [array addObject:v60];
+            [array addObject:v61];
           }
         }
 
-        v57 = [v121 countByEnumeratingWithState:&v138 objects:v163 count:16];
+        v58 = [v121 countByEnumeratingWithState:&v138 objects:v163 count:16];
         v32 = v111;
-        if (!v57)
+        if (!v58)
         {
 LABEL_52:
 
           v45 = 0x278D06000;
           v48 = contexta;
-          v54 = obja;
-          v55 = v108;
+          v55 = obja;
+          v56 = v108;
           break;
         }
       }
@@ -315,62 +315,62 @@ LABEL_52:
 
 LABEL_59:
 LABEL_60:
-    v67 = objc_autoreleasePoolPush();
-    v68 = objc_alloc_init(BMCoreRoutineProvider);
-    locationEvents = [(BMCoreRoutineProvider *)v68 locationEvents];
+    v68 = objc_autoreleasePoolPush();
+    v69 = objc_alloc_init(BMCoreRoutineProvider);
+    locationEvents = [(BMCoreRoutineProvider *)v69 locationEvents];
     if (locationEvents)
     {
-      obja = v68;
-      contexta = v67;
+      obja = v69;
+      contexta = v68;
       v136 = 0u;
       v137 = 0u;
       v134 = 0u;
       v135 = 0u;
       v109 = locationEvents;
       v121 = locationEvents;
-      v70 = [v121 countByEnumeratingWithState:&v134 objects:v162 count:16];
-      if (v70)
+      v71 = [v121 countByEnumeratingWithState:&v134 objects:v162 count:16];
+      if (v71)
       {
-        v71 = v70;
-        v72 = *v135;
+        v72 = v71;
+        v73 = *v135;
         do
         {
-          for (n = 0; n != v71; ++n)
+          for (n = 0; n != v72; ++n)
           {
-            if (*v135 != v72)
+            if (*v135 != v73)
             {
               objc_enumerationMutation(v121);
             }
 
-            v74 = *(*(&v134 + 1) + 8 * n);
+            v75 = *(*(&v134 + 1) + 8 * n);
             if ([(BMEventExtractor *)self shouldStop])
             {
               goto LABEL_101;
             }
 
-            item2 = [v74 item];
+            item2 = [v75 item];
             type2 = [item2 type];
-            v77 = [v8 containsObject:type2];
+            v78 = [v8 containsObject:type2];
 
-            if (v77)
+            if (v78)
             {
-              [array addObject:v74];
+              [array addObject:v75];
             }
           }
 
-          v71 = [v121 countByEnumeratingWithState:&v134 objects:v162 count:16];
+          v72 = [v121 countByEnumeratingWithState:&v134 objects:v162 count:16];
         }
 
-        while (v71);
+        while (v72);
       }
 
       locationEvents = v109;
       v32 = v111;
-      v67 = contexta;
-      v68 = obja;
+      v68 = contexta;
+      v69 = obja;
     }
 
-    objc_autoreleasePoolPop(v67);
+    objc_autoreleasePoolPop(v68);
     goto LABEL_73;
   }
 
@@ -387,78 +387,78 @@ LABEL_73:
   v133 = 0u;
   v130 = 0u;
   v131 = 0u;
-  v78 = providersCopy;
-  v79 = [v78 countByEnumeratingWithState:&v130 objects:v161 count:16];
-  if (!v79)
+  v79 = providersCopy;
+  v80 = [v79 countByEnumeratingWithState:&v130 objects:v161 count:16];
+  if (!v80)
   {
     goto LABEL_96;
   }
 
-  v80 = v79;
-  v81 = *v131;
-  v106 = v78;
+  v81 = v80;
+  v82 = *v131;
+  v106 = v79;
   v100 = *v131;
   do
   {
-    v82 = 0;
+    v83 = 0;
     do
     {
-      if (*v131 != v81)
+      if (*v131 != v82)
       {
-        objc_enumerationMutation(v78);
+        objc_enumerationMutation(v79);
       }
 
-      objb = v82;
-      v83 = *(*(&v130 + 1) + 8 * v82);
+      objb = v83;
+      v84 = *(*(&v130 + 1) + 8 * v83);
       v129 = 0;
-      v84 = [v83 eventsForTypes:v8 error:&v129];
-      v85 = v129;
-      contextb = v85;
-      if (v84)
+      v85 = [v84 eventsForTypes:v8 error:&v129];
+      v86 = v129;
+      contextb = v86;
+      if (v85)
       {
         v127 = 0u;
         v128 = 0u;
         v125 = 0u;
         v126 = 0u;
-        v110 = v84;
-        v122 = v84;
-        v86 = [v122 countByEnumeratingWithState:&v125 objects:v160 count:16];
-        if (v86)
+        v110 = v85;
+        v122 = v85;
+        v87 = [v122 countByEnumeratingWithState:&v125 objects:v160 count:16];
+        if (v87)
         {
-          v87 = v86;
-          v104 = v80;
-          v88 = v8;
-          v89 = *v126;
+          v88 = v87;
+          v104 = v81;
+          v89 = v8;
+          v90 = *v126;
           while (2)
           {
-            for (ii = 0; ii != v87; ++ii)
+            for (ii = 0; ii != v88; ++ii)
             {
-              if (*v126 != v89)
+              if (*v126 != v90)
               {
                 objc_enumerationMutation(v122);
               }
 
-              v91 = *(*(&v125 + 1) + 8 * ii);
+              v92 = *(*(&v125 + 1) + 8 * ii);
               if ([(BMEventExtractor *)self shouldStop])
               {
 
-                v64 = MEMORY[0x277CBEBF8];
-                v8 = v88;
+                v65 = MEMORY[0x277CBEBF8];
+                v8 = v89;
                 goto LABEL_104;
               }
 
-              item3 = [v91 item];
+              item3 = [v92 item];
               type3 = [item3 type];
-              v94 = [v88 containsObject:type3];
+              v95 = [v89 containsObject:type3];
 
-              if (v94)
+              if (v95)
               {
-                [array addObject:v91];
+                [array addObject:v92];
               }
             }
 
-            v87 = [v122 countByEnumeratingWithState:&v125 objects:v160 count:16];
-            if (v87)
+            v88 = [v122 countByEnumeratingWithState:&v125 objects:v160 count:16];
+            if (v88)
             {
               continue;
             }
@@ -466,44 +466,44 @@ LABEL_73:
             break;
           }
 
-          v8 = v88;
+          v8 = v89;
           v32 = v111;
-          v80 = v104;
-          v78 = v106;
-          v81 = v100;
+          v81 = v104;
+          v79 = v106;
+          v82 = v100;
         }
       }
 
       else
       {
-        if (!v85)
+        if (!v86)
         {
           goto LABEL_94;
         }
 
         v110 = 0;
-        v122 = BMLog();
+        v122 = BMLog(v86);
         if (os_log_type_enabled(v122, OS_LOG_TYPE_FAULT))
         {
           *buf = 138412546;
           v157 = contextb;
           v158 = 2112;
-          v159 = v83;
+          v159 = v84;
           _os_log_fault_impl(&dword_241ACA000, v122, OS_LOG_TYPE_FAULT, "Unexpected error in taskSpecificEventProvider {error: %@, provider: %@}", buf, 0x16u);
         }
       }
 
-      v84 = v110;
+      v85 = v110;
 LABEL_94:
 
-      v82 = objb + 1;
+      v83 = objb + 1;
     }
 
-    while (objb + 1 != v80);
-    v80 = [v78 countByEnumeratingWithState:&v130 objects:v161 count:16];
+    while (objb + 1 != v81);
+    v81 = [v79 countByEnumeratingWithState:&v130 objects:v161 count:16];
   }
 
-  while (v80);
+  while (v81);
 LABEL_96:
 
   if (v32)
@@ -515,38 +515,35 @@ LABEL_97:
 
   if (error)
   {
-    v95 = v32;
+    v96 = v32;
     *error = v32;
   }
 
   array = array;
-  v64 = array;
+  v65 = array;
 LABEL_105:
 
 LABEL_106:
-  v96 = *MEMORY[0x277D85DE8];
 
-  return v64;
+  return v65;
 }
 
 - (void)extractEventsFilteredByTypes:(void *)a1 taskSpecificEventProviders:error:.cold.1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 bmMiningTaskConfig];
-  OUTLINED_FUNCTION_0_0(&dword_241ACA000, v2, v3, "Passing bmMiningTaskConfig to BMInteractionProvider %@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_0(&dword_241ACA000, v2, v3, "Passing bmMiningTaskConfig to BMInteractionProvider %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 - (void)extractEventsFilteredByTypes:(void *)a1 taskSpecificEventProviders:error:.cold.2(void *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v1 = MEMORY[0x277CCABB0];
   v2 = [a1 bmMiningTaskConfig];
   v3 = [v1 numberWithBool:{objc_msgSend(v2, "interactionExtractedTopicFromAttachmentFactorInUse")}];
-  OUTLINED_FUNCTION_0_0(&dword_241ACA000, v4, v5, "Passing bmMiningTaskConfig to BMInteractionProvider with interactionExtractedTopicFromAttachmentFactorInUse as %@", v6, v7, v8, v9, 2u);
-
-  v10 = *MEMORY[0x277D85DE8];
+  LODWORD(v10) = 138412290;
+  *(&v10 + 4) = v3;
+  OUTLINED_FUNCTION_0_0(&dword_241ACA000, v4, v5, "Passing bmMiningTaskConfig to BMInteractionProvider with interactionExtractedTopicFromAttachmentFactorInUse as %@", v6, v7, v8, v9, v10, DWORD2(v10));
 }
 
 @end

@@ -77,7 +77,7 @@
 
 void __54__VUIJSSettingsInterface_updateFeaturesConfiguration___block_invoke(uint64_t a1)
 {
-  v2 = VUISignpostLogObject();
+  v2 = VUISignpostLogObject(a1);
   if (os_signpost_enabled(v2))
   {
     *buf = 0;
@@ -87,11 +87,11 @@ void __54__VUIJSSettingsInterface_updateFeaturesConfiguration___block_invoke(uin
   v3 = +[VUIFeaturesConfiguration sharedInstance];
   [v3 updateWithDictionary:*(a1 + 32)];
 
-  v4 = VUISignpostLogObject();
-  if (os_signpost_enabled(v4))
+  v5 = VUISignpostLogObject(v4);
+  if (os_signpost_enabled(v5))
   {
-    *v5 = 0;
-    _os_signpost_emit_with_name_impl(&dword_1E323F000, v4, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "FeaturesConfiguration.Update", "", v5, 2u);
+    *v6 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1E323F000, v5, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "FeaturesConfiguration.Update", "", v6, 2u);
   }
 }
 

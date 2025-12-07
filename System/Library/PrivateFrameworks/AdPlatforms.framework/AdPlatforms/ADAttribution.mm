@@ -4,6 +4,7 @@
 - (void)initiateRequestOnConnection:(id)connection withBlock:(id)block;
 - (void)requestAttributionDetailsWithBlock:(id)block;
 - (void)setServerToTest:(int64_t)test;
+- (void)setStocksAdEnabled:(BOOL)enabled;
 @end
 
 @implementation ADAttribution
@@ -100,7 +101,7 @@ void __55__ADAttribution_initiateRequestOnConnection_withBlock___block_invoke(ui
 
 void __52__ADAttribution_requestAttributionDetailsWithBlock___block_invoke(uint64_t a1)
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   objc_sync_enter(v2);
   if (([*(a1 + 32) hasCompletedResponse] & 1) == 0)
@@ -110,11 +111,11 @@ void __52__ADAttribution_requestAttributionDetailsWithBlock___block_invoke(uint6
     {
       if (*(a1 + 48))
       {
-        v10 = *MEMORY[0x277CCA450];
+        v9 = *MEMORY[0x277CCA450];
         v4 = [MEMORY[0x277CCA8D8] mainBundle];
         v5 = [v4 localizedStringForKey:@"A serious error occurred. No data was returned from the Attribution Servers." value:&stru_28510C320 table:0];
-        v11[0] = v5;
-        v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+        v10[0] = v5;
+        v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
 
         v7 = *(a1 + 48);
         v8 = [MEMORY[0x277CCA9B8] errorWithDomain:@"ADClientErrorDomain" code:2 userInfo:v6];
@@ -130,8 +131,20 @@ void __52__ADAttribution_requestAttributionDetailsWithBlock___block_invoke(uint6
   }
 
   objc_sync_exit(v2);
+}
 
-  v9 = *MEMORY[0x277D85DE8];
+- (void)setStocksAdEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v6 = [objc_alloc(MEMORY[0x277CCAE80]) initWithMachServiceName:@"com.apple.ap.adprivacyd.attribution" options:4096];
+  v4 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_28510DC58];
+  [v6 setRemoteObjectInterface:v4];
+
+  [v6 resume];
+  v5 = [v6 synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_25];
+  [v5 setStocksAdEnabled:enabledCopy];
+
+  [v6 invalidate];
 }
 
 - (void)setServerToTest:(int64_t)test

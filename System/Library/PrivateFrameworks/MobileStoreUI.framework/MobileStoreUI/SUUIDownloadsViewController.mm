@@ -198,12 +198,12 @@ void __54__SUUIDownloadsViewController_initWithNibName_bundle___block_invoke(uin
     v6 = 0;
   }
 
-  if (([v4 isEqualToString:*MEMORY[0x277D69F40]] & 1) == 0)
+  if ((objc_msgSend_isEqualToString_(v4) & 1) == 0)
   {
-    v7 = [v4 isEqualToString:*MEMORY[0x277D69F60]];
+    isEqualToString = objc_msgSend_isEqualToString_(v4);
     if ((v6 & 1) == 0)
     {
-      if (!v7)
+      if (!isEqualToString)
       {
         goto LABEL_11;
       }
@@ -515,7 +515,7 @@ LABEL_11:
       v14 = [downloads2 objectAtIndex:v11];
       v15 = [v14 valueForProperty:v12];
 
-      if ([v15 isEqualToString:stringCopy])
+      if (objc_msgSend_isEqualToString_(v15))
       {
         [indexSet addIndex:v11];
       }

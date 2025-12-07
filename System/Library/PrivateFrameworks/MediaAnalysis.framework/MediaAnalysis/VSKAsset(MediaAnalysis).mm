@@ -61,11 +61,11 @@
 
 - (id)mad_photosLocalIdentifier
 {
-  v2 = objc_opt_class();
+  v3 = objc_opt_class();
   stringIdentifier = [self stringIdentifier];
-  v4 = [v2 mad_localIdentifierFromStringIdentifier:stringIdentifier];
+  v5 = [v3 mad_localIdentifierFromStringIdentifier:stringIdentifier];
 
-  return v4;
+  return v5;
 }
 
 - (uint64_t)mad_hasImageEmbedding
@@ -247,7 +247,7 @@ LABEL_14:
 
 + (id)mad_imageAssetWithLocalIdentifier:()MediaAnalysis mediaAnalysisResults:error:
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   v7 = a3;
   v8 = MEMORY[0x1E6978628];
   v9 = a4;
@@ -256,79 +256,80 @@ LABEL_14:
 
   v12 = [vcp_results objectForKeyedSubscript:@"ImageEmbeddingResults"];
 
-  v13 = VCPSignPostLog();
-  v14 = os_signpost_id_generate(v13);
+  v14 = VCPSignPostLog(v13);
+  v15 = os_signpost_id_generate(v14);
 
-  v15 = VCPSignPostLog();
-  v16 = v15;
-  if (v14 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
+  v17 = VCPSignPostLog(v16);
+  v18 = v17;
+  if (v15 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
   {
     *buf = 138412290;
-    v37 = v7;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v16, OS_SIGNPOST_INTERVAL_BEGIN, v14, "VSKAsset_preferredImageEmbeddingsForAssetUUID", "_%@", buf, 0xCu);
+    v40 = v7;
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v18, OS_SIGNPOST_INTERVAL_BEGIN, v15, "VSKAsset_preferredImageEmbeddingsForAssetUUID", "_%@", buf, 0xCu);
   }
 
-  v32 = 0;
-  v33 = 0;
-  v17 = [MADEmbeddingStore preferredImageEmbeddingsForAssetUUID:v10 version:&v33 fromImageEmbeddingResults:v12 error:&v32];
-  v18 = v32;
-  if ([v17 count])
+  v35 = 0;
+  v36 = 0;
+  v19 = [MADEmbeddingStore preferredImageEmbeddingsForAssetUUID:v10 version:&v36 fromImageEmbeddingResults:v12 error:&v35];
+  v20 = v35;
+  v21 = [v19 count];
+  if (v21)
   {
-    v19 = v33 == 0;
+    v22 = v36 == 0;
   }
 
   else
   {
-    v19 = 1;
+    v22 = 1;
   }
 
-  if (v19)
+  if (v22)
   {
-    v20 = 0;
+    v23 = 0;
     if (a5)
     {
-      *a5 = [v18 copy];
+      *a5 = [v20 copy];
     }
   }
 
   else
   {
-    v21 = VCPSignPostLog();
-    v22 = v21;
-    if (v14 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v21))
+    v24 = VCPSignPostLog(v21);
+    v25 = v24;
+    if (v15 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v24))
     {
       *buf = 138412290;
-      v37 = v7;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v22, OS_SIGNPOST_INTERVAL_END, v14, "VSKAsset_preferredImageEmbeddingsForAssetUUID", "_%@", buf, 0xCu);
+      v40 = v7;
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v25, OS_SIGNPOST_INTERVAL_END, v15, "VSKAsset_preferredImageEmbeddingsForAssetUUID", "_%@", buf, 0xCu);
     }
 
-    v23 = [MEMORY[0x1E69DF5F8] mad_stringIdentifierFromLocalIdentifier:v7 embeddingType:1];
-    v24 = [MEMORY[0x1E69DF5F8] mad_attributesWithEmbeddingVersion:v33];
-    v25 = [objc_alloc(MEMORY[0x1E69DF5F8]) initWithStringIdentifier:v23 vectors:v17 attributes:v24 payload:0];
-    v20 = v25;
-    if (v25)
+    v26 = [MEMORY[0x1E69DF5F8] mad_stringIdentifierFromLocalIdentifier:v7 embeddingType:1];
+    v27 = [MEMORY[0x1E69DF5F8] mad_attributesWithEmbeddingVersion:v36];
+    v28 = [objc_alloc(MEMORY[0x1E69DF5F8]) initWithStringIdentifier:v26 vectors:v19 attributes:v27 payload:0];
+    v23 = v28;
+    if (v28)
     {
-      v26 = v25;
+      v29 = v28;
     }
 
     else if (a5)
     {
-      v31 = MEMORY[0x1E696ABC0];
-      v30 = *MEMORY[0x1E696A768];
-      v34 = *MEMORY[0x1E696A578];
-      v29 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[%@] Failed to create VSKAsset %@ with image embeddings %@", v7, v23, v17];
-      v35 = v29;
-      v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
-      *a5 = [v31 errorWithDomain:v30 code:-18 userInfo:v27];
+      v34 = MEMORY[0x1E696ABC0];
+      v33 = *MEMORY[0x1E696A768];
+      v37 = *MEMORY[0x1E696A578];
+      v32 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[%@] Failed to create VSKAsset %@ with image embeddings %@", v7, v26, v19];
+      v38 = v32;
+      v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
+      *a5 = [v34 errorWithDomain:v33 code:-18 userInfo:v30];
     }
   }
 
-  return v20;
+  return v23;
 }
 
 + (id)mad_videoAssetWithLocalIdentifier:()MediaAnalysis mediaAnalysisResults:error:
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = MEMORY[0x1E6978628];
   v8 = a4;
@@ -343,67 +344,68 @@ LABEL_14:
 
   v15 = [vcp_results3 objectForKeyedSubscript:@"SummarizedEmbeddingResults"];
 
-  v16 = VCPSignPostLog();
-  v17 = os_signpost_id_generate(v16);
+  v17 = VCPSignPostLog(v16);
+  v18 = os_signpost_id_generate(v17);
 
-  v18 = VCPSignPostLog();
-  v19 = v18;
-  if (v17 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
+  v20 = VCPSignPostLog(v19);
+  v21 = v20;
+  if (v18 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v20))
   {
     *buf = 138412290;
-    v41 = v6;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v19, OS_SIGNPOST_INTERVAL_BEGIN, v17, "VSKAsset_preferredVideoEmbeddingsForAssetUUID", "_%@", buf, 0xCu);
+    v44 = v6;
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v21, OS_SIGNPOST_INTERVAL_BEGIN, v18, "VSKAsset_preferredVideoEmbeddingsForAssetUUID", "_%@", buf, 0xCu);
   }
 
-  v36 = 0;
-  v37 = 0;
-  v20 = [MADEmbeddingStore preferredVideoEmbeddingsForAssetUUID:v9 version:&v37 fromVideoEmbeddingResults:v11 audioFusedVideoEmbeddingResults:v13 summarizedVideoEmbeddingResults:v15 error:&v36];
-  v21 = v36;
-  if ([v20 count] && v37)
+  v39 = 0;
+  v40 = 0;
+  v22 = [MADEmbeddingStore preferredVideoEmbeddingsForAssetUUID:v9 version:&v40 fromVideoEmbeddingResults:v11 audioFusedVideoEmbeddingResults:v13 summarizedVideoEmbeddingResults:v15 error:&v39];
+  v23 = v39;
+  v24 = [v22 count];
+  if (v24 && v40)
   {
-    v34 = v9;
-    v22 = VCPSignPostLog();
-    v23 = v22;
-    if (v17 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v22))
+    v37 = v9;
+    v25 = VCPSignPostLog(v24);
+    v26 = v25;
+    if (v18 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v25))
     {
       *buf = 138412290;
-      v41 = v6;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v23, OS_SIGNPOST_INTERVAL_END, v17, "VSKAsset_preferredVideoEmbeddingsForAssetUUID", "_%@", buf, 0xCu);
+      v44 = v6;
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v26, OS_SIGNPOST_INTERVAL_END, v18, "VSKAsset_preferredVideoEmbeddingsForAssetUUID", "_%@", buf, 0xCu);
     }
 
-    v24 = [MEMORY[0x1E69DF5F8] mad_stringIdentifierFromLocalIdentifier:v6 embeddingType:2];
-    v25 = [MEMORY[0x1E69DF5F8] mad_attributesWithEmbeddingVersion:v37];
-    v26 = [objc_alloc(MEMORY[0x1E69DF5F8]) initWithStringIdentifier:v24 vectors:v20 attributes:v25 payload:0];
-    v27 = v26;
-    if (v26)
+    v27 = [MEMORY[0x1E69DF5F8] mad_stringIdentifierFromLocalIdentifier:v6 embeddingType:2];
+    v28 = [MEMORY[0x1E69DF5F8] mad_attributesWithEmbeddingVersion:v40];
+    v29 = [objc_alloc(MEMORY[0x1E69DF5F8]) initWithStringIdentifier:v27 vectors:v22 attributes:v28 payload:0];
+    v30 = v29;
+    if (v29)
     {
-      v28 = v26;
+      v31 = v29;
     }
 
     else if (a5)
     {
-      v33 = MEMORY[0x1E696ABC0];
-      v32 = *MEMORY[0x1E696A768];
-      v38 = *MEMORY[0x1E696A578];
-      v31 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[%@] Failed to create VSKAsset %@ with video embeddings %@", v6, v24, v20];
-      v39 = v31;
-      v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
-      *a5 = [v33 errorWithDomain:v32 code:-18 userInfo:v29];
+      v36 = MEMORY[0x1E696ABC0];
+      v35 = *MEMORY[0x1E696A768];
+      v41 = *MEMORY[0x1E696A578];
+      v34 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[%@] Failed to create VSKAsset %@ with video embeddings %@", v6, v27, v22];
+      v42 = v34;
+      v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
+      *a5 = [v36 errorWithDomain:v35 code:-18 userInfo:v32];
     }
 
-    v9 = v34;
+    v9 = v37;
   }
 
   else
   {
-    v27 = 0;
+    v30 = 0;
     if (a5)
     {
-      *a5 = [v21 copy];
+      *a5 = [v23 copy];
     }
   }
 
-  return v27;
+  return v30;
 }
 
 + (id)mad_fetchEmbeddingForPhotosAsset:()MediaAnalysis embeddingType:

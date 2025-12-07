@@ -16,13 +16,13 @@
 
 - (void)setChannel_type:(int64_t)channel_type
 {
-  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInteger:channel_type];
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInteger:?];
   [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
 - (int64_t)channel_type
 {
-  v2 = [(NSMutableDictionary *)self->super._storage objectForKeyedSubscript:@"channel_type"];
+  v2 = [(NSMutableDictionary *)self->super._storage objectForKeyedSubscript:?];
   integerValue = [v2 integerValue];
 
   return integerValue;
@@ -30,7 +30,7 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v4 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
+  v4 = [objc_msgSend(objc_opt_class() "allocWithZone:"init"")];
   v5 = [(NSMutableDictionary *)self->super._storage copy];
   v6 = v4[1];
   v4[1] = v5;

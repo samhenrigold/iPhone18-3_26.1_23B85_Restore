@@ -38,7 +38,7 @@
   v4 = formattedDurationTextForAsset___CMTimeGetSeconds;
   if (assetCopy)
   {
-    [assetCopy duration];
+    objc_msgSend_duration(assetCopy);
   }
 
   else

@@ -141,11 +141,11 @@
 
 - (MTRAttributeRequestPath)initWithCoder:(id)coder
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v23.receiver = self;
-  v23.super_class = MTRAttributeRequestPath;
-  v5 = [(MTRAttributeRequestPath *)&v23 init];
+  v21.receiver = self;
+  v21.super_class = MTRAttributeRequestPath;
+  v5 = [(MTRAttributeRequestPath *)&v21 init];
   v6 = v5;
   if (v5)
   {
@@ -160,16 +160,14 @@
       {
         attribute = v5->_attribute;
         *buf = 138412290;
-        v25 = attribute;
+        v23 = attribute;
         _os_log_impl(&dword_238DAE000, v14, OS_LOG_TYPE_ERROR, "MTRAttributeRequestPath decoded %@ for endpoint, not NSNumber.", buf, 0xCu);
       }
 
-      if (!sub_2393D5398(1u))
+      if (sub_2393D5398(1u))
       {
-        goto LABEL_21;
+        sub_2393D5320(0, 1, "MTRAttributeRequestPath decoded %@ for endpoint, not NSNumber.", v5->_attribute);
       }
-
-      p_attribute = &v5->_attribute;
     }
 
     else
@@ -185,16 +183,14 @@
         {
           v17 = v5->_attribute;
           *buf = 138412290;
-          v25 = v17;
+          v23 = v17;
           _os_log_impl(&dword_238DAE000, v16, OS_LOG_TYPE_ERROR, "MTRAttributeRequestPath decoded %@ for cluster, not NSNumber.", buf, 0xCu);
         }
 
-        if (!sub_2393D5398(1u))
+        if (sub_2393D5398(1u))
         {
-          goto LABEL_21;
+          sub_2393D5320(0, 1, "MTRAttributeRequestPath decoded %@ for cluster, not NSNumber.", v5->_attribute);
         }
-
-        p_attribute = &v5->_attribute;
       }
 
       else
@@ -215,27 +211,22 @@
         {
           v19 = *p_attribute;
           *buf = 138412290;
-          v25 = v19;
+          v23 = v19;
           _os_log_impl(&dword_238DAE000, v18, OS_LOG_TYPE_ERROR, "MTRAttributeRequestPath decoded %@ for attribute, not NSNumber.", buf, 0xCu);
         }
 
-        if (!sub_2393D5398(1u))
+        if (sub_2393D5398(1u))
         {
-LABEL_21:
-          v5 = 0;
-          goto LABEL_22;
+          sub_2393D5320(0, 1, "MTRAttributeRequestPath decoded %@ for attribute, not NSNumber.", *p_attribute);
         }
       }
     }
 
-    v22 = *p_attribute;
-    sub_2393D5320(0, 1);
-    goto LABEL_21;
+    v5 = 0;
   }
 
 LABEL_22:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

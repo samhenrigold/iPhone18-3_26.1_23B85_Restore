@@ -1,18 +1,473 @@
+uint64_t icu::number::impl::AffixUtils::getFieldForType(unsigned int a1)
+{
+  if (a1 <= 0xFFFFFFF0 || ((0x7FE1u >> (a1 + 15)) & 1) == 0)
+  {
+    abort();
+  }
+
+  return byte_1954907BE[a1 + 15];
+}
+
+uint64_t icu::number::impl::AffixUtils::unescape(icu::UnicodeString *a1, icu::FormattedStringBuilder *a2, int a3, uint64_t a4, char a5, UErrorCode *a6)
+{
+  v28[8] = *MEMORY[0x1E69E9840];
+  v26 = 0;
+  v27 = 0;
+  v11 = 0;
+  if (icu::number::impl::AffixUtils::hasNext(&v26, a1))
+  {
+    v13 = v26;
+    v12 = v27;
+    do
+    {
+      Token = icu::number::impl::AffixUtils::nextToken(v13, v12, a1, a6);
+      v26 = Token;
+      v27 = v15;
+      if (*a6 > 0)
+      {
+        return v11;
+      }
+
+      v13 = Token;
+      v12 = v15;
+      v16 = HIDWORD(v15);
+      if (HIDWORD(v15) == 4294967281)
+      {
+        v17 = v11 + a3;
+        v18 = a2;
+        LODWORD(v19) = 65533;
+        v20 = 39;
+      }
+
+      else
+      {
+        if ((v15 & 0x8000000000000000) != 0)
+        {
+          (*(*a4 + 16))(v28, a4, HIDWORD(v15));
+          FieldForType = icu::number::impl::AffixUtils::getFieldForType(v16);
+          inserted = icu::FormattedStringBuilder::insert(a2, v11 + a3, v28, FieldForType, 0, a6);
+          icu::UnicodeString::~UnicodeString(v23, v28);
+          goto LABEL_9;
+        }
+
+        v19 = HIDWORD(Token);
+        v17 = v11 + a3;
+        v20 = a5;
+        v18 = a2;
+      }
+
+      inserted = icu::FormattedStringBuilder::insertCodePoint(v18, v17, v19, v20, a6);
+LABEL_9:
+      v11 = (inserted + v11);
+    }
+
+    while (icu::number::impl::AffixUtils::hasNext(&v26, a1));
+  }
+
+  return v11;
+}
+
+BOOL icu::number::impl::AffixUtils::hasNext(unsigned int *a1, uint64_t a2)
+{
+  v2 = *a1;
+  if ((v2 & 0x80000000) != 0)
+  {
+    return 0;
+  }
+
+  if (v2)
+  {
+    v3 = a1[2];
+    if (v3)
+    {
+      if (v3 == 2)
+      {
+        v4 = *(a2 + 8);
+        v5 = *(a2 + 8) < 0 ? *(a2 + 12) : v4 >> 5;
+        if (v2 == v5 - 1 && v5 > v2)
+        {
+          v13 = (v4 & 2) != 0 ? a2 + 10 : *(a2 + 24);
+          if (*(v13 + 2 * v2) == 39)
+          {
+            return 0;
+          }
+        }
+      }
+
+      return 1;
+    }
+
+    else
+    {
+      v10 = *(a2 + 8);
+      v11 = v10;
+      v12 = v10 >> 5;
+      if (v11 < 0)
+      {
+        v12 = *(a2 + 12);
+      }
+
+      return v2 < v12;
+    }
+  }
+
+  else
+  {
+    v6 = *(a2 + 8);
+    v7 = v6;
+    v8 = v6 >> 5;
+    if (v7 < 0)
+    {
+      v8 = *(a2 + 12);
+    }
+
+    return v8 > 0;
+  }
+}
+
+unint64_t icu::number::impl::AffixUtils::nextToken(unint64_t a1, int a2, icu::UnicodeString *this, _DWORD *a4)
+{
+  v6 = a1;
+  v7 = *(this + 4);
+  v8 = v7;
+  v9 = v7 >> 5;
+  if (v8 < 0)
+  {
+    v9 = *(this + 3);
+  }
+
+  if (v9 <= a1)
+  {
+LABEL_39:
+    if (a2 > 4)
+    {
+      if (a2 <= 6)
+      {
+        if (a2 == 5)
+        {
+LABEL_52:
+          a1 = 0;
+        }
+
+        else
+        {
+LABEL_51:
+          a1 = 0;
+        }
+      }
+
+      else
+      {
+        switch(a2)
+        {
+          case 7:
+LABEL_54:
+            a1 = 0;
+            break;
+          case 8:
+LABEL_53:
+            a1 = 0;
+            break;
+          case 9:
+LABEL_47:
+            a1 = 0;
+            break;
+          default:
+            goto LABEL_89;
+        }
+      }
+    }
+
+    else
+    {
+      v14 = -1;
+      if (a2 <= 2)
+      {
+        if ((a2 - 1) < 2)
+        {
+          *a4 = 1;
+          v14 = -1;
+          return v14 | (a1 << 32);
+        }
+
+        if (!a2)
+        {
+          return v14 | (a1 << 32);
+        }
+
+        goto LABEL_89;
+      }
+
+      if (a2 == 3)
+      {
+        return v14 | (a1 << 32);
+      }
+
+      a1 = 0;
+    }
+
+LABEL_55:
+    v14 = v6;
+    return v14 | (a1 << 32);
+  }
+
+  while (1)
+  {
+    a1 = icu::UnicodeString::char32At(this, v6);
+    if (a2 > 4)
+    {
+      if (a2 <= 6)
+      {
+        if (a2 == 5)
+        {
+          if (a1 != 164)
+          {
+            goto LABEL_52;
+          }
+
+          ++v6;
+          a2 = 6;
+        }
+
+        else
+        {
+          if (a1 != 164)
+          {
+            goto LABEL_51;
+          }
+
+          ++v6;
+          a2 = 7;
+        }
+      }
+
+      else if (a2 == 7)
+      {
+        if (a1 != 164)
+        {
+          goto LABEL_54;
+        }
+
+        ++v6;
+        a2 = 8;
+      }
+
+      else
+      {
+        if (a2 == 8)
+        {
+          if (a1 != 164)
+          {
+            goto LABEL_53;
+          }
+        }
+
+        else
+        {
+          if (a2 != 9)
+          {
+            goto LABEL_89;
+          }
+
+          if (a1 != 164)
+          {
+            goto LABEL_47;
+          }
+        }
+
+        ++v6;
+        a2 = 9;
+      }
+
+      goto LABEL_36;
+    }
+
+    if (a2 > 2)
+    {
+      if (a2 == 3)
+      {
+        if (a1 == 39)
+        {
+          v14 = v6 + 1;
+          a1 = 39;
+          return v14 | (a1 << 32);
+        }
+
+        a2 = 0;
+        goto LABEL_36;
+      }
+
+      if (a1 == 164)
+      {
+        ++v6;
+        a2 = 5;
+        goto LABEL_36;
+      }
+
+      a1 = 0;
+      goto LABEL_55;
+    }
+
+    if (!a2)
+    {
+      break;
+    }
+
+    if (a2 != 2)
+    {
+      if (a2 == 1)
+      {
+        if (a1 < 0x10000)
+        {
+          v16 = 1;
+        }
+
+        else
+        {
+          v16 = 2;
+        }
+
+        v14 = v16 + v6;
+        v17 = a1 == 39;
+        if (a1 == 39)
+        {
+          a1 = 39;
+        }
+
+        else
+        {
+          a1 = a1;
+        }
+
+        if (v17)
+        {
+          v14 = v6 + 1;
+        }
+
+        return v14 | (a1 << 32);
+      }
+
+LABEL_89:
+      abort();
+    }
+
+    if (a1 != 39)
+    {
+      if (a1 < 0x10000)
+      {
+        v18 = 1;
+      }
+
+      else
+      {
+        v18 = 2;
+      }
+
+      v14 = v18 + v6;
+      return v14 | (a1 << 32);
+    }
+
+    ++v6;
+    a2 = 3;
+LABEL_36:
+    v11 = *(this + 4);
+    v12 = v11;
+    v13 = v11 >> 5;
+    if (v12 < 0)
+    {
+      v13 = *(this + 3);
+    }
+
+    if (v6 >= v13)
+    {
+      goto LABEL_39;
+    }
+  }
+
+  if (a1 > 44)
+  {
+    if (a1 <= 163)
+    {
+      if (a1 == 45)
+      {
+        a1 = 0;
+        v14 = v6 + 1;
+        return v14 | (a1 << 32);
+      }
+
+      if (a1 == 126)
+      {
+        a1 = 0;
+        v14 = v6 + 1;
+        return v14 | (a1 << 32);
+      }
+
+      goto LABEL_85;
+    }
+
+    if (a1 != 164)
+    {
+      if (a1 == 8240)
+      {
+        a1 = 0;
+        v14 = v6 + 1;
+        return v14 | (a1 << 32);
+      }
+
+      goto LABEL_85;
+    }
+
+    ++v6;
+    a2 = 4;
+    goto LABEL_36;
+  }
+
+  switch(a1)
+  {
+    case '\'':
+      ++v6;
+      a2 = 1;
+      goto LABEL_36;
+    case '%':
+      a1 = 0;
+      v14 = v6 + 1;
+      return v14 | (a1 << 32);
+    case '+':
+      a1 = 0;
+      v14 = v6 + 1;
+      return v14 | (a1 << 32);
+  }
+
+LABEL_85:
+  if (a1 < 0x10000)
+  {
+    v19 = 1;
+  }
+
+  else
+  {
+    v19 = 2;
+  }
+
+  v14 = v19 + v6;
+  return v14 | (a1 << 32);
+}
+
 uint64_t icu::number::impl::AffixUtils::unescapedCodePointCount(icu::number::impl::AffixUtils *this, const icu::UnicodeString *a2, const icu::number::impl::SymbolProvider *a3, UErrorCode *a4)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
+  v15 = 0;
   v16 = 0;
-  v17 = 0;
   v7 = 0;
-  if (icu::number::impl::AffixUtils::hasNext(&v16, this))
+  if (icu::number::impl::AffixUtils::hasNext(&v15, this))
   {
-    v9 = v16;
-    v8 = v17;
+    v9 = v15;
+    v8 = v16;
     do
     {
       Token = icu::number::impl::AffixUtils::nextToken(v9, v8, this, a3);
-      v16 = Token;
-      v17 = v11;
+      v15 = Token;
+      v16 = v11;
       if (*a3 > 0)
       {
         break;
@@ -27,11 +482,11 @@ uint64_t icu::number::impl::AffixUtils::unescapedCodePointCount(icu::number::imp
 
       else if ((v11 & 0x8000000000000000) != 0)
       {
-        (*(*a2 + 16))(&v18, a2);
-        LODWORD(v13) = v19 >> 5;
-        v13 = (v19 & 0x8000u) == 0 ? v13 : v20;
+        (*(*a2 + 16))(&v17, a2);
+        LODWORD(v13) = v18 >> 5;
+        v13 = (v18 & 0x8000u) == 0 ? v13 : v19;
         v7 = (v13 + v7);
-        icu::UnicodeString::~UnicodeString(v13, &v18);
+        icu::UnicodeString::~UnicodeString(v13, &v17);
       }
 
       else
@@ -41,14 +496,13 @@ uint64_t icu::number::impl::AffixUtils::unescapedCodePointCount(icu::number::imp
       }
     }
 
-    while ((icu::number::impl::AffixUtils::hasNext(&v16, this) & 1) != 0);
+    while (icu::number::impl::AffixUtils::hasNext(&v15, this));
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
-uint64_t icu::number::impl::AffixUtils::containsType(uint64_t a1, int a2, int *a3)
+BOOL icu::number::impl::AffixUtils::containsType(uint64_t a1, int a2, int *a3)
 {
   v3 = *(a1 + 8);
   v4 = v3;
@@ -94,7 +548,7 @@ uint64_t icu::number::impl::AffixUtils::containsType(uint64_t a1, int a2, int *a
   return result;
 }
 
-uint64_t icu::number::impl::AffixUtils::hasCurrencySymbols(icu::number::impl::AffixUtils *this, const icu::UnicodeString *a2, UErrorCode *a3)
+BOOL icu::number::impl::AffixUtils::hasCurrencySymbols(icu::number::impl::AffixUtils *this, const icu::UnicodeString *a2, UErrorCode *a3)
 {
   v3 = *(this + 4);
   v4 = v3;
@@ -133,7 +587,7 @@ uint64_t icu::number::impl::AffixUtils::hasCurrencySymbols(icu::number::impl::Af
         break;
       }
 
-      if ((icu::number::impl::AffixUtils::hasNext(&v13, this) & 1) == 0)
+      if (!icu::number::impl::AffixUtils::hasNext(&v13, this))
       {
         return 0;
       }
@@ -235,14 +689,14 @@ uint64_t icu::number::impl::AffixUtils::containsOnlySymbolsAndIgnorables(icu::nu
     v10 = v13;
     if (!HIDWORD(v13))
     {
-      result = icu::UnicodeSet::contains(a2, SHIDWORD(Token));
+      result = icu::UnicodeSet::contains(a2, HIDWORD(Token));
       if (!result)
       {
         return result;
       }
     }
 
-    if ((icu::number::impl::AffixUtils::hasNext(&v15, this) & 1) == 0)
+    if (!icu::number::impl::AffixUtils::hasNext(&v15, this))
     {
       return 1;
     }
@@ -305,53 +759,50 @@ icu::number::impl::LocalizedNumberFormatterAsFormat *icu::number::impl::Localize
   return this;
 }
 
-void icu::number::impl::LocalizedNumberFormatterAsFormat::~LocalizedNumberFormatterAsFormat(icu::number::impl::LocalizedNumberFormatterAsFormat *this)
+void icu::number::impl::LocalizedNumberFormatterAsFormat::~LocalizedNumberFormatterAsFormat(icu::number::impl::LocalizedNumberFormatterAsFormat *this@<X0>, void *a2@<X8>)
 {
   *this = &unk_1F093EC48;
-  icu::Locale::~Locale((this + 824));
+  icu::Locale::~Locale(a2, (this + 824));
   icu::number::LocalizedNumberFormatter::~LocalizedNumberFormatter((this + 328));
 
   icu::Format::~Format(this);
 }
 
 {
-  icu::number::impl::LocalizedNumberFormatterAsFormat::~LocalizedNumberFormatterAsFormat(this);
+  icu::number::impl::LocalizedNumberFormatterAsFormat::~LocalizedNumberFormatterAsFormat(this, a2);
 
   JUMPOUT(0x19A8B2600);
 }
 
-uint64_t icu::number::impl::LocalizedNumberFormatterAsFormat::operator==(int a1, char **lpsrc)
+uint64_t icu::number::impl::LocalizedNumberFormatterAsFormat::operator==(uint64_t a1, void *lpsrc)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v2 = **lpsrc;
   {
     icu::number::NumberFormatterSettings<icu::number::LocalizedNumberFormatter>::toSkeleton();
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 icu::UnicodeString *icu::number::impl::LocalizedNumberFormatterAsFormat::format(icu::number::impl::LocalizedNumberFormatterAsFormat *this, const icu::Formattable *a2, icu::UnicodeString *a3, icu::FieldPosition *a4, UErrorCode *a5)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   if (*a5 <= 0)
   {
-    v25 = 0;
-    memset(v24, 0, sizeof(v24));
+    v24 = 0;
     memset(v23, 0, sizeof(v23));
-    sub_1952FDFB0(v23);
-    icu::Formattable::populateDecimalQuantity(a2, v24, a5);
-    if (*a5 > 0 || (icu::number::LocalizedNumberFormatter::formatImpl((this + 328), v23, a5), *a5 > 0))
+    memset(v22, 0, sizeof(v22));
+    sub_1952FDFB0(v22);
+    icu::Formattable::populateDecimalQuantity(a2, v23, a5);
+    if (*a5 > 0 || (icu::number::LocalizedNumberFormatter::formatImpl((this + 328), v22, a5), *a5 > 0))
     {
 LABEL_16:
-      icu::number::impl::UFormattedNumberData::~UFormattedNumberData(v23);
-      goto LABEL_17;
+      icu::number::impl::UFormattedNumberData::~UFormattedNumberData(v22);
+      return a3;
     }
 
     *(a4 + 3) = 0;
     *(a4 + 4) = 0;
-    if (icu::FormattedValueStringBuilderImpl::nextFieldPosition(v23, a4, a5))
+    if (icu::FormattedValueStringBuilderImpl::nextFieldPosition(v22, a4, a5))
     {
       if (*(a3 + 4) < 0)
       {
@@ -384,74 +835,71 @@ LABEL_9:
       }
     }
 
-    icu::FormattedValueStringBuilderImpl::toTempString(v23, &v20);
-    if ((v21 & 0x8000u) == 0)
+    icu::FormattedValueStringBuilderImpl::toTempString(v22, &v19);
+    if ((v20 & 0x8000u) == 0)
     {
-      v16 = v21 >> 5;
+      v16 = v20 >> 5;
     }
 
     else
     {
-      v16 = v22;
+      v16 = v21;
     }
 
-    icu::UnicodeString::doAppend(a3, &v20, 0, v16);
-    icu::UnicodeString::~UnicodeString(v17, &v20);
+    icu::UnicodeString::doAppend(a3, &v19, 0, v16);
+    icu::UnicodeString::~UnicodeString(v17, &v19);
     goto LABEL_16;
   }
 
-LABEL_17:
-  v18 = *MEMORY[0x1E69E9840];
   return a3;
 }
 
 icu::UnicodeString *icu::number::impl::LocalizedNumberFormatterAsFormat::format(icu::number::impl::LocalizedNumberFormatterAsFormat *this, const icu::Formattable *a2, icu::UnicodeString *a3, icu::FieldPositionIterator *a4, UErrorCode *a5)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (*a5 <= 0)
   {
-    v18 = 0;
-    memset(v17, 0, sizeof(v17));
+    v17 = 0;
     memset(v16, 0, sizeof(v16));
-    sub_1952FDFB0(v16);
-    icu::Formattable::populateDecimalQuantity(a2, v17, a5);
+    memset(v15, 0, sizeof(v15));
+    sub_1952FDFB0(v15);
+    icu::Formattable::populateDecimalQuantity(a2, v16, a5);
     if (*a5 <= 0)
     {
-      icu::number::LocalizedNumberFormatter::formatImpl((this + 328), v16, a5);
+      icu::number::LocalizedNumberFormatter::formatImpl((this + 328), v15, a5);
       if (*a5 <= 0)
       {
-        icu::FormattedValueStringBuilderImpl::toTempString(v16, v14);
-        if ((SWORD4(v14[0]) & 0x8000u) == 0)
+        icu::FormattedValueStringBuilderImpl::toTempString(v15, v13);
+        if ((SWORD4(v13[0]) & 0x8000u) == 0)
         {
-          v10 = WORD4(v14[0]) >> 5;
+          v10 = WORD4(v13[0]) >> 5;
         }
 
         else
         {
-          v10 = HIDWORD(v14[0]);
+          v10 = HIDWORD(v13[0]);
         }
 
-        icu::UnicodeString::doAppend(a3, v14, 0, v10);
-        icu::UnicodeString::~UnicodeString(v11, v14);
+        icu::UnicodeString::doAppend(a3, v13, 0, v10);
+        icu::UnicodeString::~UnicodeString(v11, v13);
         if (a4)
         {
-          v15 = 0;
-          memset(v14, 0, sizeof(v14));
-          icu::FieldPositionIteratorHandler::FieldPositionIteratorHandler(v14, a4, a5);
-          icu::FormattedValueStringBuilderImpl::getAllFieldPositions(v16, v14, a5);
-          icu::FieldPositionIteratorHandler::~FieldPositionIteratorHandler(v14);
+          v14 = 0;
+          memset(v13, 0, sizeof(v13));
+          icu::FieldPositionIteratorHandler::FieldPositionIteratorHandler(v13, a4, a5);
+          icu::FormattedValueStringBuilderImpl::getAllFieldPositions(v15, v13, a5);
+          icu::FieldPositionIteratorHandler::~FieldPositionIteratorHandler(v13);
         }
       }
     }
 
-    icu::number::impl::UFormattedNumberData::~UFormattedNumberData(v16);
+    icu::number::impl::UFormattedNumberData::~UFormattedNumberData(v15);
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return a3;
 }
 
-uint64_t icu::number::LocalizedNumberFormatter::toFormat(icu::number::LocalizedNumberFormatter *this, UErrorCode *a2)
+icu::number::impl::LocalizedNumberFormatterAsFormat *icu::number::LocalizedNumberFormatter::toFormat(const char **this, UErrorCode *a2)
 {
   if (*a2 <= 0)
   {
@@ -599,7 +1047,7 @@ LABEL_8:
   }
 }
 
-_DWORD *unumf_formatInt(_DWORD *result, unint64_t a2, uint64_t a3, UErrorCode *a4)
+_DWORD *unumf_formatInt(_DWORD *result, uint64_t a2, void **a3, UErrorCode *a4)
 {
   if (*a4 > 0)
   {
@@ -615,32 +1063,32 @@ _DWORD *unumf_formatInt(_DWORD *result, unint64_t a2, uint64_t a3, UErrorCode *a
   if (*result != 1313231360)
   {
 LABEL_10:
-    v8 = 3;
+    v8 = U_INVALID_FORMAT_ERROR;
     goto LABEL_11;
   }
 
   if (!a3)
   {
 LABEL_9:
-    v8 = 1;
+    v8 = U_ILLEGAL_ARGUMENT_ERROR;
 LABEL_11:
     *a4 = v8;
     return result;
   }
 
-  if (*(a3 + 16) != 1178881536)
+  if (*(a3 + 4) != 1178881536)
   {
     goto LABEL_10;
   }
 
-  icu::FormattedValueStringBuilderImpl::resetString((a3 + 48));
-  icu::number::impl::DecimalQuantity::clear((a3 + 352));
-  icu::number::impl::DecimalQuantity::setToLong((a3 + 352), a2);
+  icu::FormattedValueStringBuilderImpl::resetString((a3 + 6));
+  icu::number::impl::DecimalQuantity::clear(a3 + 44);
+  icu::number::impl::DecimalQuantity::setToLong(a3 + 44, a2);
 
-  return icu::number::LocalizedNumberFormatter::formatImpl((v5 + 2), (a3 + 48), a4);
+  return icu::number::LocalizedNumberFormatter::formatImpl((v5 + 2), (a3 + 6), a4);
 }
 
-_DWORD *unumf_formatDouble(_DWORD *result, uint64_t a2, UErrorCode *a3, double a4)
+_DWORD *unumf_formatDouble(_DWORD *result, void **a2, UErrorCode *a3, double a4)
 {
   if (*a3 > 0)
   {
@@ -656,32 +1104,32 @@ _DWORD *unumf_formatDouble(_DWORD *result, uint64_t a2, UErrorCode *a3, double a
   if (*result != 1313231360)
   {
 LABEL_10:
-    v8 = 3;
+    v8 = U_INVALID_FORMAT_ERROR;
     goto LABEL_11;
   }
 
   if (!a2)
   {
 LABEL_9:
-    v8 = 1;
+    v8 = U_ILLEGAL_ARGUMENT_ERROR;
 LABEL_11:
     *a3 = v8;
     return result;
   }
 
-  if (*(a2 + 16) != 1178881536)
+  if (*(a2 + 4) != 1178881536)
   {
     goto LABEL_10;
   }
 
-  icu::FormattedValueStringBuilderImpl::resetString((a2 + 48));
-  icu::number::impl::DecimalQuantity::clear((a2 + 352));
-  icu::number::impl::DecimalQuantity::setToDouble((a2 + 352), a4);
+  icu::FormattedValueStringBuilderImpl::resetString((a2 + 6));
+  icu::number::impl::DecimalQuantity::clear(a2 + 44);
+  icu::number::impl::DecimalQuantity::setToDouble(a2 + 44, a4);
 
-  return icu::number::LocalizedNumberFormatter::formatImpl((v5 + 2), (a2 + 48), a3);
+  return icu::number::LocalizedNumberFormatter::formatImpl((v5 + 2), (a2 + 6), a3);
 }
 
-_DWORD *unumf_formatDecimal(_DWORD *result, const char *a2, int a3, uint64_t a4, UErrorCode *a5)
+_DWORD *unumf_formatDecimal(_DWORD *result, const char *a2, unsigned int a3, void **a4, UErrorCode *a5)
 {
   if (*a5 > 0)
   {
@@ -697,39 +1145,39 @@ _DWORD *unumf_formatDecimal(_DWORD *result, const char *a2, int a3, uint64_t a4,
   if (*result != 1313231360)
   {
 LABEL_11:
-    v10 = 3;
+    v10 = U_INVALID_FORMAT_ERROR;
     goto LABEL_12;
   }
 
   if (!a4)
   {
 LABEL_10:
-    v10 = 1;
+    v10 = U_ILLEGAL_ARGUMENT_ERROR;
 LABEL_12:
     *a5 = v10;
     return result;
   }
 
-  if (*(a4 + 16) != 1178881536)
+  if (*(a4 + 4) != 1178881536)
   {
     goto LABEL_11;
   }
 
-  icu::FormattedValueStringBuilderImpl::resetString((a4 + 48));
-  icu::number::impl::DecimalQuantity::clear((a4 + 352));
-  result = icu::number::impl::DecimalQuantity::setToDecNumber(a4 + 352, a2, a3, a5);
+  icu::FormattedValueStringBuilderImpl::resetString((a4 + 6));
+  icu::number::impl::DecimalQuantity::clear(a4 + 44);
+  result = icu::number::impl::DecimalQuantity::setToDecNumber((a4 + 44), a2, a3, a5);
   if (*a5 <= 0)
   {
 
-    return icu::number::LocalizedNumberFormatter::formatImpl((v6 + 2), (a4 + 48), a5);
+    return icu::number::LocalizedNumberFormatter::formatImpl((v6 + 2), (a4 + 6), a5);
   }
 
   return result;
 }
 
-uint64_t unumf_resultToString(uint64_t a1, UChar *a2, int a3, UErrorCode *a4)
+uint64_t unumf_resultToString(uint64_t a1, UChar *a2, uint64_t a3, UErrorCode *a4)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (*a4 <= 0)
   {
     if (a1)
@@ -741,12 +1189,12 @@ uint64_t unumf_resultToString(uint64_t a1, UChar *a2, int a3, UErrorCode *a4)
           if ((a3 & 0x80000000) == 0)
           {
 LABEL_7:
-            icu::FormattedValueStringBuilderImpl::toTempString((a1 + 48), v13);
-            v12 = a2;
-            v4 = icu::UnicodeString::extract(v13, &v12, a3, a4);
-            v11 = v12;
-            icu::UnicodeString::~UnicodeString(&v11, v13);
-            goto LABEL_12;
+            icu::FormattedValueStringBuilderImpl::toTempString((a1 + 48), v12);
+            v11 = a2;
+            v4 = icu::UnicodeString::extract(v12, &v11, a3, a4);
+            v10 = v11;
+            icu::UnicodeString::~UnicodeString(&v10, v12);
+            return v4;
           }
         }
 
@@ -759,7 +1207,7 @@ LABEL_7:
         v8 = U_ILLEGAL_ARGUMENT_ERROR;
 LABEL_11:
         *a4 = v8;
-        goto LABEL_12;
+        return v4;
       }
 
       v8 = U_INVALID_FORMAT_ERROR;
@@ -774,10 +1222,7 @@ LABEL_11:
     goto LABEL_11;
   }
 
-  v4 = 0;
-LABEL_12:
-  v9 = *MEMORY[0x1E69E9840];
-  return v4;
+  return 0;
 }
 
 BOOL unumf_resultNextFieldPosition(uint64_t a1, uint64_t a2, UErrorCode *a3)
@@ -790,29 +1235,29 @@ BOOL unumf_resultNextFieldPosition(uint64_t a1, uint64_t a2, UErrorCode *a3)
       {
         if (a2)
         {
-          *(&v8 + 1) = 0;
-          v7 = &unk_1F093AD90;
-          *&v8 = *a2;
-          DWORD2(v8) = *(a2 + 8);
-          v3 = icu::FormattedValueStringBuilderImpl::nextFieldPosition((a1 + 48), &v7, a3) != 0;
-          *(a2 + 4) = *(&v8 + 4);
-          icu::FieldPosition::~FieldPosition(&v7);
+          *(&v9 + 1) = 0;
+          v8 = &unk_1F093AD90;
+          *&v9 = *a2;
+          DWORD2(v9) = *(a2 + 8);
+          v3 = icu::FormattedValueStringBuilderImpl::nextFieldPosition((a1 + 48), &v8, a3) != 0;
+          *(a2 + 4) = *(&v9 + 4);
+          icu::FieldPosition::~FieldPosition(v5, &v8);
           return v3;
         }
 
         v3 = 0;
-        v5 = 1;
+        v6 = U_ILLEGAL_ARGUMENT_ERROR;
 LABEL_10:
-        *a3 = v5;
+        *a3 = v6;
         return v3;
       }
 
-      v5 = 3;
+      v6 = U_INVALID_FORMAT_ERROR;
     }
 
     else
     {
-      v5 = 1;
+      v6 = U_ILLEGAL_ARGUMENT_ERROR;
     }
 
     v3 = 0;
@@ -853,59 +1298,56 @@ LABEL_8:
   }
 }
 
-uint64_t unumf_resultToDecimalNumber(uint64_t a1, char *a2, int a3, UErrorCode *a4)
+uint64_t unumf_resultToDecimalNumber(uint64_t a1, char *a2, uint64_t a3, UErrorCode *a4)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   if (*a4 > 0)
   {
-    v4 = 0;
-    goto LABEL_12;
+    return 0;
   }
 
   if (!a1)
   {
-    v10 = 1;
+    v10 = U_ILLEGAL_ARGUMENT_ERROR;
 LABEL_11:
     v4 = 0;
     *a4 = v10;
-    goto LABEL_12;
+    return v4;
   }
 
   if (*(a1 + 16) != 1178881536)
   {
-    v10 = 3;
+    v10 = U_INVALID_FORMAT_ERROR;
     goto LABEL_11;
   }
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
-  *v15 = 0u;
+  v19 = 0u;
   v16 = 0u;
-  icu::number::impl::DecNum::DecNum(v15);
-  v9 = icu::number::impl::DecimalQuantity::toDecNum((a1 + 352), v15, a4);
-  memset(&v14[1], 0, 56);
-  v13[1] = 0;
-  v14[0] = &v14[1] + 5;
-  LODWORD(v14[1]) = 40;
-  v13[0] = 0;
-  icu::CharStringByteSink::CharStringByteSink(v13, v14);
-  icu::number::impl::DecNum::toString(v9, v13, a4);
-  icu::CharStringByteSink::~CharStringByteSink(v13);
-  v4 = icu::CharString::extract(v14, a2, a3, a4);
+  v17 = 0u;
+  *v14 = 0u;
+  v15 = 0u;
+  icu::number::impl::DecNum::DecNum(v14);
+  v9 = icu::number::impl::DecimalQuantity::toDecNum((a1 + 352), v14, a4);
+  memset(&v13[1], 0, 56);
+  v12[1] = 0;
+  v13[0] = &v13[1] + 5;
+  LODWORD(v13[1]) = 40;
+  v12[0] = 0;
+  icu::CharStringByteSink::CharStringByteSink(v12, v13);
+  icu::number::impl::DecNum::toString(v9, v12, a4);
+  icu::CharStringByteSink::~CharStringByteSink(v12);
+  v4 = icu::CharString::extract(v13, a2, a3, a4);
+  if (BYTE4(v13[1]))
+  {
+    free(v13[0]);
+  }
+
   if (BYTE4(v14[1]))
   {
     free(v14[0]);
   }
 
-  if (BYTE4(v15[1]))
-  {
-    free(v15[0]);
-  }
-
-LABEL_12:
-  v11 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -926,7 +1368,7 @@ _DWORD *unumf_close(_DWORD *result)
   return result;
 }
 
-_DWORD *usnum_setToInt64(_DWORD *result, icu::number::SimpleNumber *this, int *a3)
+_DWORD *usnum_setToInt64(_DWORD *result, icu::number::SimpleNumber *this, UErrorCode *a3)
 {
   if (*a3 <= 0)
   {
@@ -937,7 +1379,7 @@ _DWORD *usnum_setToInt64(_DWORD *result, icu::number::SimpleNumber *this, int *a
     {
       if (*result == 1397640448)
       {
-        icu::number::SimpleNumber::forInt64(a3, &v7);
+        icu::number::SimpleNumber::forInt64(&v7, a3);
         icu::number::SimpleNumber::cleanup((v5 + 2));
         *(v5 + 1) = v7;
         v5[4] = v8;
@@ -945,12 +1387,12 @@ _DWORD *usnum_setToInt64(_DWORD *result, icu::number::SimpleNumber *this, int *a
         return icu::number::SimpleNumber::cleanup(&v7);
       }
 
-      v6 = 3;
+      v6 = U_INVALID_FORMAT_ERROR;
     }
 
     else
     {
-      v6 = 1;
+      v6 = U_ILLEGAL_ARGUMENT_ERROR;
     }
 
     *a3 = v6;
@@ -970,12 +1412,12 @@ _DWORD *usnum_multiplyByPowerOfTen(_DWORD *result, int a2, UErrorCode *a3)
         return icu::number::SimpleNumber::multiplyByPowerOfTen((result + 2), a2, a3);
       }
 
-      v3 = 3;
+      v3 = U_INVALID_FORMAT_ERROR;
     }
 
     else
     {
-      v3 = 1;
+      v3 = U_ILLEGAL_ARGUMENT_ERROR;
     }
 
     *a3 = v3;
@@ -984,15 +1426,15 @@ _DWORD *usnum_multiplyByPowerOfTen(_DWORD *result, int a2, UErrorCode *a3)
   return result;
 }
 
-void usnum_roundTo(uint64_t a1, int a2, unsigned int a3, int *a4)
+void usnum_roundTo(_DWORD *result, uint64_t a2, uint64_t a3, int *a4)
 {
   if (*a4 <= 0)
   {
-    if (a1)
+    if (result)
     {
-      if (*a1 == 1397640448)
+      if (*result == 1397640448)
       {
-        icu::number::SimpleNumber::roundTo((a1 + 8), a2, a3, a4);
+        icu::number::SimpleNumber::roundTo(result + 1, a2, a3, a4);
         return;
       }
 
@@ -1008,7 +1450,7 @@ void usnum_roundTo(uint64_t a1, int a2, unsigned int a3, int *a4)
   }
 }
 
-void *usnum_setMinimumIntegerDigits(void *result, int a2, UErrorCode *a3)
+_DWORD *usnum_setMinimumIntegerDigits(_DWORD *result, int a2, UErrorCode *a3)
 {
   if (*a3 <= 0)
   {
@@ -1019,12 +1461,12 @@ void *usnum_setMinimumIntegerDigits(void *result, int a2, UErrorCode *a3)
         return icu::number::SimpleNumber::setMinimumIntegerDigits(result + 1, a2, a3);
       }
 
-      v3 = 3;
+      v3 = U_INVALID_FORMAT_ERROR;
     }
 
     else
     {
-      v3 = 1;
+      v3 = U_ILLEGAL_ARGUMENT_ERROR;
     }
 
     *a3 = v3;
@@ -1033,7 +1475,7 @@ void *usnum_setMinimumIntegerDigits(void *result, int a2, UErrorCode *a3)
   return result;
 }
 
-void *usnum_setMinimumFractionDigits(void *result, int a2, UErrorCode *a3)
+_DWORD *usnum_setMinimumFractionDigits(_DWORD *result, int a2, UErrorCode *a3)
 {
   if (*a3 <= 0)
   {
@@ -1044,12 +1486,12 @@ void *usnum_setMinimumFractionDigits(void *result, int a2, UErrorCode *a3)
         return icu::number::SimpleNumber::setMinimumFractionDigits(result + 1, a2, a3);
       }
 
-      v3 = 3;
+      v3 = U_INVALID_FORMAT_ERROR;
     }
 
     else
     {
-      v3 = 1;
+      v3 = U_ILLEGAL_ARGUMENT_ERROR;
     }
 
     *a3 = v3;
@@ -1058,31 +1500,31 @@ void *usnum_setMinimumFractionDigits(void *result, int a2, UErrorCode *a3)
   return result;
 }
 
-void usnum_setMaximumIntegerDigits(_DWORD *a1, int a2, UErrorCode *a3)
+void usnum_setMaximumIntegerDigits(_DWORD *result, int a2, UErrorCode *a3)
 {
   if (*a3 <= 0)
   {
-    if (a1)
+    if (result)
     {
-      if (*a1 == 1397640448)
+      if (*result == 1397640448)
       {
-        icu::number::SimpleNumber::setMaximumIntegerDigits((a1 + 2), a2, a3);
+        icu::number::SimpleNumber::setMaximumIntegerDigits((result + 2), a2, a3);
         return;
       }
 
-      v3 = 3;
+      v3 = U_INVALID_FORMAT_ERROR;
     }
 
     else
     {
-      v3 = 1;
+      v3 = U_ILLEGAL_ARGUMENT_ERROR;
     }
 
     *a3 = v3;
   }
 }
 
-_DWORD *usnum_setSign(_DWORD *result, int a2, int *a3)
+_DWORD *usnum_setSign(_DWORD *result, uint64_t a2, int *a3)
 {
   if (*a3 <= 0)
   {
@@ -1168,7 +1610,7 @@ LABEL_12:
   icu::number::FormattedNumber::~FormattedNumber(v12);
 }
 
-void usnumf_formatInt64(_DWORD *a1, int a2, uint64_t a3, int *a4)
+void usnumf_formatInt64(_DWORD *a1, icu::number::SimpleNumber *a2, uint64_t a3, UErrorCode *a4)
 {
   if (*a4 > 0)
   {
@@ -1196,7 +1638,7 @@ LABEL_9:
     if (*(a3 + 16) == 1178881536)
     {
       memset(v10, 0, 24);
-      sub_195355DAC((a1 + 2), a4, v10);
+      sub_195355DAC(v10, (a1 + 2), a4);
       icu::number::FormattedNumber::FormattedNumber(v9, v10);
       sub_195354884(a3 + 48, v9[1]);
       icu::number::FormattedNumber::~FormattedNumber(v9);
@@ -1215,10 +1657,10 @@ LABEL_9:
   *a4 = v8;
 }
 
-uint64_t sub_195355DAC@<X0>(uint64_t a1@<X0>, int *a2@<X2>, uint64_t a3@<X8>)
+uint64_t *sub_195355DAC@<X0>(uint64_t *__return_ptr a1@<X8>, uint64_t a3@<X0>, UErrorCode *a4@<X2>)
 {
-  icu::number::SimpleNumber::forInt64(a2, v8);
-  icu::number::SimpleNumberFormatter::format(a1, v8, a2, a3);
+  icu::number::SimpleNumber::forInt64(v8, a4);
+  icu::number::SimpleNumberFormatter::format(a3, v8, a4, a1);
   return icu::number::SimpleNumber::cleanup(v8);
 }
 
@@ -1244,9 +1686,10 @@ _DWORD *usnumf_close(_DWORD *result)
   if (result)
   {
     v1 = result;
-    if (*result == 1397638656)
+    v2 = *result;
+    if (v2 == 1397638656)
     {
-      icu::number::SimpleNumberFormatter::cleanup((result + 2));
+      icu::number::SimpleNumberFormatter::cleanup((result + 2), v2);
       *v1 = 0;
 
       JUMPOUT(0x19A8B2600);
@@ -1256,43 +1699,45 @@ _DWORD *usnumf_close(_DWORD *result)
   return result;
 }
 
-void sub_195355EF8(uint64_t a1, uint64_t a2, const char *a3, int a4, int a5, UErrorCode *a6)
+void sub_195355EF8(uint64_t a1, uint64_t a2, const char *a3, uint64_t a4, uint64_t a5, UErrorCode *a6)
 {
-  v17[8] = *MEMORY[0x1E69E9840];
-  v16[0] = &unk_1F093ED00;
-  v16[1] = a1;
+  v7 = a5;
+  v8 = a4;
+  v16[8] = *MEMORY[0x1E69E9840];
+  v15[0] = &unk_1F093ED00;
+  v15[1] = a1;
   v11 = ures_open(0, *(a2 + 40), a6);
   if (*a6 <= 0)
   {
     v12 = strcmp(a3, "latn");
-    memset(&v17[1], 0, 56);
-    v17[0] = &v17[1] + 5;
-    LODWORD(v17[1]) = 40;
-    sub_195356114(a3, a4, a5, v17, a6);
-    v15 = 0;
-    ures_getAllItemsWithFallback(v11, v17[0], v16, &v15);
+    memset(&v16[1], 0, 56);
+    v16[0] = &v16[1] + 5;
+    LODWORD(v16[1]) = 40;
+    sub_195356114(a3, v8, v7, v16, a6);
+    v14 = 0;
+    ures_getAllItemsWithFallback(v11, v16[0], v15, &v14);
     v13 = *(a1 + 1374);
     if (*(a1 + 1374) && v12)
     {
-      sub_195356114("latn", a4, a5, v17, a6);
-      v15 = 0;
-      ures_getAllItemsWithFallback(v11, v17[0], v16, &v15);
+      sub_195356114("latn", v8, v7, v16, a6);
+      v14 = 0;
+      ures_getAllItemsWithFallback(v11, v16[0], v15, &v14);
       v13 = *(a1 + 1374);
     }
 
-    if (a4 && v13)
+    if (v8 && v13)
     {
-      sub_195356114(a3, 0, a5, v17, a6);
-      v15 = 0;
-      ures_getAllItemsWithFallback(v11, v17[0], v16, &v15);
+      sub_195356114(a3, 0, v7, v16, a6);
+      v14 = 0;
+      ures_getAllItemsWithFallback(v11, v16[0], v15, &v14);
       v13 = *(a1 + 1374);
     }
 
-    if (a4 && v13 && v12)
+    if (v8 && v13 && v12)
     {
-      sub_195356114("latn", 0, a5, v17, a6);
-      v15 = 0;
-      ures_getAllItemsWithFallback(v11, v17[0], v16, &v15);
+      sub_195356114("latn", 0, v7, v16, a6);
+      v14 = 0;
+      ures_getAllItemsWithFallback(v11, v16[0], v15, &v14);
       v13 = *(a1 + 1374);
     }
 
@@ -1301,9 +1746,9 @@ void sub_195355EF8(uint64_t a1, uint64_t a2, const char *a3, int a4, int a5, UEr
       *a6 = U_INTERNAL_PROGRAM_ERROR;
     }
 
-    if (BYTE4(v17[1]))
+    if (BYTE4(v16[1]))
     {
-      free(v17[0]);
+      free(v16[0]);
     }
   }
 
@@ -1312,8 +1757,7 @@ void sub_195355EF8(uint64_t a1, uint64_t a2, const char *a3, int a4, int a5, UEr
     ures_close(v11);
   }
 
-  icu::ResourceSink::~ResourceSink(v16);
-  v14 = *MEMORY[0x1E69E9840];
+  icu::ResourceSink::~ResourceSink(v15);
 }
 
 icu::CharString *sub_195356114(const char *a1, int a2, int a3, icu::CharString *a4, UErrorCode *a5)
@@ -1368,11 +1812,10 @@ uint64_t sub_195356218(uint64_t a1, int a2)
 
 char *sub_19535623C(uint64_t a1, int a2, icu::PluralRules *a3, icu::number::impl::DecimalQuantity *a4)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (a2 < 0)
   {
-    result = 0;
-    goto LABEL_22;
+    return 0;
   }
 
   if (*(a1 + 1373) >= a2)
@@ -1395,7 +1838,7 @@ LABEL_11:
       result = *(a1 + 8 * (v9 | (8 * v7)) + 8);
       if (result)
       {
-        goto LABEL_22;
+        return result;
       }
 
       goto LABEL_12;
@@ -1409,24 +1852,20 @@ LABEL_11:
   }
 
 LABEL_12:
-  if (!a3 || ((memset(v16, 0, sizeof(v16)), icu::PluralRules::select(a3, a4, v16), v12 = icu::StandardPlural::indexOrNegativeFromString(v16, v11), v12 < 0) ? (v13 = 5) : (v13 = v12), (icu::UnicodeString::~UnicodeString(5, v16), v14 = *(a1 + 8 * (v13 + 8 * v7) + 8), v13 != 5) && !v14))
+  if (!a3 || ((memset(v15, 0, sizeof(v15)), icu::PluralRules::select(v15, a3, a4), v12 = icu::StandardPlural::indexOrNegativeFromString(v15, v11), v12 < 0) ? (v13 = 5) : (v13 = v12), (icu::UnicodeString::~UnicodeString(5, v15), v14 = *(a1 + 8 * (v13 + 8 * v7) + 8), v13 != 5) && !v14))
   {
     v14 = *(a1 + 64 * v7 + 48);
   }
 
   if (v14 == "<")
   {
-    result = 0;
+    return 0;
   }
 
   else
   {
-    result = v14;
+    return v14;
   }
-
-LABEL_22:
-  v15 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 uint64_t sub_195356388(uint64_t result, icu::UVector *this, UErrorCode *a3)
@@ -1612,7 +2051,7 @@ LABEL_22:
   }
 }
 
-uint64_t sub_1953566CC(uint64_t a1, int a2, uint64_t a3, const char *a4, int a5, uint64_t a6, icu::number::impl::MutablePatternModifier *a7, int a8, uint64_t a9, UErrorCode *a10)
+uint64_t sub_1953566CC(uint64_t a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, icu::number::impl::MutablePatternModifier *a7, int a8, uint64_t a9, UErrorCode *a10)
 {
   *a1 = &unk_1F093ECD8;
   *(a1 + 8) = a6;
@@ -1643,34 +2082,34 @@ uint64_t sub_1953566CC(uint64_t a1, int a2, uint64_t a3, const char *a4, int a5,
 
 void sub_1953567D8(uint64_t a1, icu::number::impl::MutablePatternModifier *a2, UErrorCode *a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if (*a3 <= 0)
   {
-    v16 = 0;
-    memset(v15, 0, sizeof(v15));
-    icu::UVector::UVector(v15, 12, a3);
+    v14 = 0;
+    memset(v13, 0, sizeof(v13));
+    icu::UVector::UVector(v13, 12, a3);
     if (*a3 <= 0)
     {
-      sub_195356388(a1 + 240, v15, a3);
+      sub_195356388(a1 + 240, v13, a3);
       if (*a3 <= 0)
       {
-        v7 = DWORD2(v15[0]);
-        *(a1 + 232) = DWORD2(v15[0]);
-        if (*(a1 + 32) < v7)
+        v6 = DWORD2(v13[0]);
+        *(a1 + 232) = DWORD2(v13[0]);
+        if (*(a1 + 32) < v6)
         {
-          if (v7 >= 1)
+          if (v6 >= 1)
           {
-            v8 = malloc_type_malloc(16 * v7, 0x70040105F9A77uLL);
-            if (v8)
+            v7 = malloc_type_malloc(16 * v6, 0x70040105F9A77uLL);
+            if (v7)
             {
-              v9 = v8;
+              v8 = v7;
               if (*(a1 + 36))
               {
                 free(*(a1 + 24));
               }
 
-              *(a1 + 24) = v9;
-              *(a1 + 32) = v7;
+              *(a1 + 24) = v8;
+              *(a1 + 32) = v6;
               *(a1 + 36) = 1;
             }
           }
@@ -1680,38 +2119,35 @@ void sub_1953567D8(uint64_t a1, icu::number::impl::MutablePatternModifier *a2, U
             goto LABEL_4;
           }
 
-          LODWORD(v7) = *(a1 + 232);
+          LODWORD(v6) = *(a1 + 232);
         }
 
-        if (v7 >= 1)
+        if (v6 >= 1)
         {
-          v14 = icu::UVector::elementAt(v15, 0);
-          memset(v20, 0, 64);
-          sub_1951F3478(v20, &v14);
-          v10 = *(a1 + 24);
-          v19 = 0;
-          memset(v18, 0, sizeof(v18));
-          sub_195356DD8(v18);
-          sub_1951F3478(v17, &v14);
-          icu::number::impl::PatternParser::parseToPatternInfo(v17, v18, a3, v11);
-          icu::UnicodeString::~UnicodeString(v12, v17);
+          v12 = icu::UVector::elementAt(v13, 0);
+          memset(v18, 0, 64);
+          sub_1951F3478(v18, &v12);
+          v17 = 0;
+          memset(v16, 0, sizeof(v16));
+          sub_195356DD8(v16);
+          sub_1951F3478(v15, &v12);
+          icu::number::impl::PatternParser::parseToPatternInfo(v15, v16, a3, v9);
+          icu::UnicodeString::~UnicodeString(v10, v15);
           if (*a3 <= 0)
           {
-            icu::number::impl::MutablePatternModifier::setPatternInfo(a2, v18, 44);
+            icu::number::impl::MutablePatternModifier::setPatternInfo(a2, v16, 44);
             icu::number::impl::MutablePatternModifier::createImmutable(a2, a3);
           }
 
-          sub_195356ED0(v18);
-          icu::UnicodeString::~UnicodeString(v13, v20);
+          sub_195356ED0(v16);
+          icu::UnicodeString::~UnicodeString(v11, v18);
         }
       }
     }
 
 LABEL_4:
-    icu::UVector::~UVector(v15);
+    icu::UVector::~UVector(v13);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t sub_195356A44(uint64_t a1)
@@ -1735,7 +2171,7 @@ uint64_t sub_195356A44(uint64_t a1)
   }
 
   sub_195356ED0((a1 + 1616));
-  nullsub_17(a1 + 240);
+  nullsub_17();
   if (*(a1 + 36))
   {
     free(*(a1 + 24));
@@ -1751,7 +2187,7 @@ void sub_195356B0C(uint64_t a1)
   JUMPOUT(0x19A8B2600);
 }
 
-void sub_195356B44(uint64_t a1, icu::number::impl::DecimalQuantity *a2, uint64_t a3, int *a4)
+double sub_195356B44(uint64_t a1, icu::number::impl::DecimalQuantity *a2, uint64_t a3, UErrorCode *a4)
 {
   v27 = *MEMORY[0x1E69E9840];
   (*(**(a1 + 16) + 16))(*(a1 + 16));
@@ -1760,13 +2196,13 @@ void sub_195356B44(uint64_t a1, icu::number::impl::DecimalQuantity *a2, uint64_t
     if (icu::number::impl::DecimalQuantity::isZeroish(a2))
     {
       sub_195374000(a3 + 104, a2, a4);
-      v8 = 0;
       v9 = 0;
+      v10 = 0;
     }
 
     else
     {
-      v8 = sub_195373EE8(a3 + 104, a2, a1 + 240, a4);
+      v9 = sub_195373EE8(a3 + 104, a2, a1 + 240, a4);
       if (icu::number::impl::DecimalQuantity::isZeroish(a2))
       {
         Magnitude = 0;
@@ -1777,74 +2213,75 @@ void sub_195356B44(uint64_t a1, icu::number::impl::DecimalQuantity *a2, uint64_t
         Magnitude = icu::number::impl::DecimalQuantity::getMagnitude(a2);
       }
 
-      v9 = Magnitude - v8;
+      v10 = Magnitude - v9;
     }
 
-    v11 = sub_19535623C(a1 + 240, v9, *(a1 + 8), a2);
-    v24 = v11;
-    if (v11)
+    v12 = sub_19535623C(a1 + 240, v10, *(a1 + 8), a2);
+    v24 = v12;
+    if (v12)
     {
       if (*(a1 + 2064))
       {
         if (*(a1 + 232) >= 1)
         {
-          v12 = v11;
-          v13 = 0;
+          v13 = v12;
           v14 = 0;
+          v15 = 0;
           while (1)
           {
-            v15 = *(a1 + 24);
-            if (!u_strcmp(v12, *(v15 + v13 + 8)))
+            v16 = *(a1 + 24);
+            if (!u_strcmp(v13, *(v16 + v14 + 8)))
             {
               break;
             }
 
-            ++v14;
-            v13 += 16;
-            if (v14 >= *(a1 + 232))
+            ++v15;
+            v14 += 16;
+            if (v15 >= *(a1 + 232))
             {
               goto LABEL_20;
             }
           }
 
-          icu::number::impl::ImmutablePatternModifier::applyToMicros(*(v15 + v13), a3, a2, a4);
+          icu::number::impl::ImmutablePatternModifier::applyToMicros(*(v16 + v14), a3, a2, a4);
         }
       }
 
       else
       {
         sub_1951F3478(&v25, &v24);
-        icu::number::impl::PatternParser::parseToPatternInfo(&v25, (a1 + 1616), a4, v16);
-        icu::UnicodeString::~UnicodeString(v17, &v25);
+        icu::number::impl::PatternParser::parseToPatternInfo(&v25, (a1 + 1616), a4, v17);
+        icu::UnicodeString::~UnicodeString(v18, &v25);
         icu::number::impl::MutablePatternModifier::setPatternInfo(*(a1 + 2056), a1 + 1616, 44);
-        v18 = *(a1 + 2056);
-        v19 = icu::number::impl::DecimalQuantity::signum(a2);
-        icu::number::impl::MutablePatternModifier::setNumberProperties(v18, v19, 8);
-        v20 = *(a1 + 2056);
-        if (v20)
+        v19 = *(a1 + 2056);
+        v20 = icu::number::impl::DecimalQuantity::signum(a2);
+        icu::number::impl::MutablePatternModifier::setNumberProperties(v19, v20, 8);
+        v21 = *(a1 + 2056);
+        if (v21)
         {
-          v21 = v20 + 8;
+          v22 = v21 + 8;
         }
 
         else
         {
-          v21 = 0;
+          v22 = 0;
         }
 
-        *(a3 + 200) = v21;
+        *(a3 + 200) = v22;
       }
     }
 
 LABEL_20:
-    icu::number::impl::DecimalQuantity::adjustExponent(a2, -v8);
+    icu::number::impl::DecimalQuantity::adjustExponent(a2, -v9);
     sub_195373EC0(&v25);
-    v22 = v26[0];
+    result = *&v25;
+    v23 = v26[0];
     *(a3 + 104) = v25;
-    *(a3 + 120) = v22;
+    *(a3 + 120) = v23;
     *(a3 + 133) = *(v26 + 13);
   }
 
-  v23 = *MEMORY[0x1E69E9840];
+  return result;
 }
 
 void sub_195356D68(icu::ResourceSink *a1)
@@ -1854,9 +2291,9 @@ void sub_195356D68(icu::ResourceSink *a1)
   JUMPOUT(0x19A8B2600);
 }
 
-void sub_195356DA0(uint64_t a1)
+void sub_195356DA0()
 {
-  nullsub_17(a1);
+  nullsub_17();
 
   JUMPOUT(0x19A8B2600);
 }
@@ -1968,7 +2405,7 @@ uint64_t icu::number::impl::CurrencySymbols::CurrencySymbols(uint64_t a1, const 
   return a1;
 }
 
-uint64_t icu::number::impl::CurrencySymbols::loadSymbol@<X0>(uint64_t a1@<X0>, unsigned int a2@<W1>, int *a3@<X2>, uint64_t a4@<X8>)
+icu::UnicodeString *icu::number::impl::CurrencySymbols::loadSymbol@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, UErrorCode *a3@<X2>, icu::UnicodeString *a4@<X8>)
 {
   v5 = a1 + 28;
   v9 = 0;
@@ -1979,10 +2416,10 @@ uint64_t icu::number::impl::CurrencySymbols::loadSymbol@<X0>(uint64_t a1@<X0>, u
   }
 
   v8 = Name;
-  return icu::UnicodeString::UnicodeString(a4, 1, &v8);
+  return icu::UnicodeString::UnicodeString(a4, 1, &v8, v9);
 }
 
-icu::UnicodeString *icu::number::impl::CurrencySymbols::getCurrencySymbol@<X0>(UChar **this@<X0>, UErrorCode *a2@<X1>, icu::UnicodeString *a3@<X8>)
+UChar **icu::number::impl::CurrencySymbols::getCurrencySymbol@<X0>(UChar **this@<X0>, UErrorCode *a2@<X1>, icu::UnicodeString *a3@<X8>)
 {
   if (this[14])
   {
@@ -1995,7 +2432,7 @@ icu::UnicodeString *icu::number::impl::CurrencySymbols::getCurrencySymbol@<X0>(U
   }
 }
 
-icu::UnicodeString *icu::number::impl::CurrencySymbols::getIntlCurrencySymbol@<X0>(UChar **this@<X0>, icu::UnicodeString *a2@<X8>)
+UChar **icu::number::impl::CurrencySymbols::getIntlCurrencySymbol@<X0>(UChar **this@<X0>, icu::UnicodeString *a2@<X8>)
 {
   if (this[22])
   {
@@ -2008,7 +2445,7 @@ icu::UnicodeString *icu::number::impl::CurrencySymbols::getIntlCurrencySymbol@<X
   }
 }
 
-uint64_t icu::number::impl::CurrencySymbols::getPluralName@<X0>(uint64_t a1@<X0>, int a2@<W1>, int *a3@<X2>, uint64_t a4@<X8>)
+icu::UnicodeString *icu::number::impl::CurrencySymbols::getPluralName@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, UErrorCode *a3@<X2>, icu::UnicodeString *a4@<X8>)
 {
   v6 = (a1 + 28);
   v12 = 0;
@@ -2021,39 +2458,34 @@ uint64_t icu::number::impl::CurrencySymbols::getPluralName@<X0>(uint64_t a1@<X0>
   }
 
   v11 = PluralName;
-  return icu::UnicodeString::UnicodeString(a4, 1, &v11);
+  return icu::UnicodeString::UnicodeString(a4, 1, &v11, v12);
 }
 
-icu::CurrencyUnit *sub_1953572E0@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, icu::CurrencyUnit *a4@<X8>)
+icu::CurrencyUnit *sub_1953572E0@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, int *a3@<X2>, icu::CurrencyUnit *a4@<X8>)
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   if (*(a1 + 8))
   {
-    v10 = 0;
-    v11[0] = 0;
-    ucurr_forLocale(*(a2 + 40), v11, 4, &v10);
-    if (v10 <= 0)
+    v8 = 0;
+    v9[0] = 0;
+    ucurr_forLocale(*(a2 + 40), v9, 4, &v8);
+    if (v8 <= 0)
     {
-      v9 = v11;
-      result = icu::CurrencyUnit::CurrencyUnit(a4, &v9, a3);
+      v7 = v9;
+      return icu::CurrencyUnit::CurrencyUnit(a4, &v7, a3);
     }
 
     else
     {
-      result = icu::CurrencyUnit::CurrencyUnit(a4);
+      return icu::CurrencyUnit::CurrencyUnit(a4);
     }
-
-    v8 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v7 = *MEMORY[0x1E69E9840];
 
     return icu::CurrencyUnit::CurrencyUnit(a4, (a1 + 16));
   }
-
-  return result;
 }
 
 icu::number::impl::DecimalQuantity *icu::number::impl::DecimalQuantity::DecimalQuantity(icu::number::impl::DecimalQuantity *this)
@@ -2157,15 +2589,6 @@ icu::number::impl::DecimalQuantity *icu::number::impl::DecimalQuantity::DecimalQ
   return icu::number::impl::DecimalQuantity::operator=(this, a2);
 }
 
-{
-  *this = &unk_1F093EDA8;
-  *(this + 8) = 0;
-  *(this + 5) = 0;
-  *(this + 9) = 0;
-  *(this + 32) = 0;
-  return icu::number::impl::DecimalQuantity::operator=(this, a2);
-}
-
 icu::number::impl::DecimalQuantity *icu::number::impl::DecimalQuantity::operator=(icu::number::impl::DecimalQuantity *this, uint64_t a2)
 {
   if (this != a2)
@@ -2197,6 +2620,16 @@ icu::number::impl::DecimalQuantity *icu::number::impl::DecimalQuantity::operator
   }
 
   return this;
+}
+
+icu::number::impl::DecimalQuantity *icu::number::impl::DecimalQuantity::DecimalQuantity(icu::number::impl::DecimalQuantity *a1, uint64_t a2)
+{
+  *a1 = &unk_1F093EDA8;
+  *(a1 + 8) = 0;
+  *(a1 + 5) = 0;
+  *(a1 + 9) = 0;
+  *(a1 + 32) = 0;
+  return icu::number::impl::DecimalQuantity::operator=(a1, a2);
 }
 
 void icu::number::impl::DecimalQuantity::copyBcdFrom(void **this, const icu::number::impl::DecimalQuantity *a2)
@@ -2448,55 +2881,54 @@ LABEL_16:
   }
 }
 
-void icu::number::impl::DecimalQuantity::roundToIncrement(icu::number::impl::DecimalQuantity *a1, unint64_t a2, int a3, unsigned int a4, UErrorCode *a5)
+void icu::number::impl::DecimalQuantity::roundToIncrement(icu::number::impl::DecimalQuantity *a1, uint64_t a2, int a3, uint64_t a4, UErrorCode *a5)
 {
-  v21 = *MEMORY[0x1E69E9840];
-  *v13 = 0u;
-  v14 = 0u;
+  v6 = a4;
+  v20 = *MEMORY[0x1E69E9840];
+  *v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
-  v10 = &unk_1F093EDA8;
-  BYTE8(v14) = 0;
-  *(&v11 + 4) = 0;
-  WORD6(v11) = 0;
-  icu::number::impl::DecimalQuantity::setToLong(&v10, a2);
-  icu::number::impl::DecimalQuantity::adjustMagnitude(&v10, a3);
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
+  v9 = &unk_1F093EDA8;
+  BYTE8(v13) = 0;
+  *(&v10 + 4) = 0;
+  WORD6(v10) = 0;
+  icu::number::impl::DecimalQuantity::setToLong(&v9, a2);
+  icu::number::impl::DecimalQuantity::adjustMagnitude(&v9, a3);
   v18 = 0u;
-  *v15 = 0u;
+  v19 = 0u;
   v16 = 0u;
-  icu::number::impl::DecNum::DecNum(v15);
-  icu::number::impl::DecimalQuantity::toDecNum(&v10, v15, a5);
+  v17 = 0u;
+  *v14 = 0u;
+  v15 = 0u;
+  icu::number::impl::DecNum::DecNum(v14);
+  icu::number::impl::DecimalQuantity::toDecNum(&v9, v14, a5);
   if (*a5 <= 0)
   {
-    icu::number::impl::DecimalQuantity::divideBy(a1, v15, a5);
+    icu::number::impl::DecimalQuantity::divideBy(a1, v14, a5);
     if (*a5 <= 0)
     {
-      icu::number::impl::DecimalQuantity::roundToMagnitude(a1, 0, a4, 0, a5);
+      icu::number::impl::DecimalQuantity::roundToMagnitude(a1, 0, v6, 0, a5);
       if (*a5 <= 0)
       {
-        icu::number::impl::DecimalQuantity::multiplyBy(a1, v15, a5);
+        icu::number::impl::DecimalQuantity::multiplyBy(a1, v14, a5);
       }
     }
   }
 
-  if (BYTE4(v15[1]))
+  if (BYTE4(v14[1]))
   {
-    free(v15[0]);
+    free(v14[0]);
   }
 
-  v10 = &unk_1F093EDA8;
-  if (BYTE8(v14) == 1)
+  v9 = &unk_1F093EDA8;
+  if (BYTE8(v13) == 1)
   {
-    free(v13[1]);
+    free(v12[1]);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
-void **icu::number::impl::DecimalQuantity::setToLong(void **this, unint64_t a2)
+void **icu::number::impl::DecimalQuantity::setToLong(void **this, uint64_t a2)
 {
   icu::number::impl::DecimalQuantity::setBcdToZero(this);
   *(this + 20) = 0;
@@ -2533,14 +2965,14 @@ BOOL icu::number::impl::DecimalQuantity::adjustMagnitude(icu::number::impl::Deci
 
 void **icu::number::impl::DecimalQuantity::toDecNum(icu::number::impl::DecimalQuantity *this, void **a2, UErrorCode *a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v5 = *(this + 4);
   if (v5)
   {
-    v16 = 0;
-    *v14 = 0u;
-    v15 = 0u;
-    sub_195359A14(v14, v5, *a3);
+    v15 = 0;
+    *v13 = 0u;
+    v14 = 0u;
+    sub_195359A14(v13, v5, *a3);
     if (*a3 <= 0)
     {
       LODWORD(v7) = *(this + 4);
@@ -2566,7 +2998,7 @@ void **icu::number::impl::DecimalQuantity::toDecNum(icu::number::impl::DecimalQu
             LOBYTE(v11) = 0;
           }
 
-          v14[0][v7 + v10] = v11;
+          v13[0][v7 + v10] = v11;
           ++v9;
           v7 = *(this + 4);
           --v10;
@@ -2576,12 +3008,12 @@ void **icu::number::impl::DecimalQuantity::toDecNum(icu::number::impl::DecimalQu
         while (v9 < v7);
       }
 
-      icu::number::impl::DecNum::setTo(a2, v14[0], v7, *(this + 3), *(this + 20) & 1, a3);
+      icu::number::impl::DecNum::setTo(a2, v13[0], v7, *(this + 3), *(this + 20) & 1, a3);
     }
 
-    if (BYTE4(v14[1]))
+    if (BYTE4(v13[1]))
     {
-      free(v14[0]);
+      free(v13[0]);
     }
   }
 
@@ -2590,74 +3022,69 @@ void **icu::number::impl::DecimalQuantity::toDecNum(icu::number::impl::DecimalQu
     icu::number::impl::DecNum::setTo(a2, "0", a3);
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return a2;
 }
 
-void icu::number::impl::DecimalQuantity::divideBy(icu::number::impl::DecimalQuantity *this, const icu::number::impl::DecNum *a2, UErrorCode *a3)
+void icu::number::impl::DecimalQuantity::divideBy(icu::number::impl::DecimalQuantity *this, unsigned int **a2, UErrorCode *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (*(this + 4))
   {
-    v11 = 0u;
-    v12 = 0u;
-    v9 = 0u;
     v10 = 0u;
-    *v7 = 0u;
+    v11 = 0u;
     v8 = 0u;
-    icu::number::impl::DecNum::DecNum(v7);
-    icu::number::impl::DecimalQuantity::toDecNum(this, v7, a3);
+    v9 = 0u;
+    *v6 = 0u;
+    v7 = 0u;
+    icu::number::impl::DecNum::DecNum(v6);
+    icu::number::impl::DecimalQuantity::toDecNum(this, v6, a3);
     if (*a3 <= 0)
     {
-      icu::number::impl::DecNum::divideBy(v7, a2, a3);
+      icu::number::impl::DecNum::divideBy(v6, a2, a3);
       if (*a3 <= 0)
       {
         icu::number::impl::DecimalQuantity::setBcdToZero(this);
         *(this + 20) = 0;
-        icu::number::impl::DecimalQuantity::_setToDecNum(this, v7, a3);
+        icu::number::impl::DecimalQuantity::_setToDecNum(this, v6, a3);
       }
     }
 
-    if (BYTE4(v7[1]))
+    if (BYTE4(v6[1]))
     {
-      free(v7[0]);
+      free(v6[0]);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
-void icu::number::impl::DecimalQuantity::multiplyBy(icu::number::impl::DecimalQuantity *this, const icu::number::impl::DecNum *a2, UErrorCode *a3)
+void icu::number::impl::DecimalQuantity::multiplyBy(icu::number::impl::DecimalQuantity *this, unsigned int **a2, UErrorCode *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (*(this + 4))
   {
-    v11 = 0u;
-    v12 = 0u;
-    v9 = 0u;
     v10 = 0u;
-    *v7 = 0u;
+    v11 = 0u;
     v8 = 0u;
-    icu::number::impl::DecNum::DecNum(v7);
-    icu::number::impl::DecimalQuantity::toDecNum(this, v7, a3);
+    v9 = 0u;
+    *v6 = 0u;
+    v7 = 0u;
+    icu::number::impl::DecNum::DecNum(v6);
+    icu::number::impl::DecimalQuantity::toDecNum(this, v6, a3);
     if (*a3 <= 0)
     {
-      icu::number::impl::DecNum::multiplyBy(v7, a2, a3);
+      icu::number::impl::DecNum::multiplyBy(v6, a2, a3);
       if (*a3 <= 0)
       {
         icu::number::impl::DecimalQuantity::setBcdToZero(this);
         *(this + 20) = 0;
-        icu::number::impl::DecimalQuantity::_setToDecNum(this, v7, a3);
+        icu::number::impl::DecimalQuantity::_setToDecNum(this, v6, a3);
       }
     }
 
-    if (BYTE4(v7[1]))
+    if (BYTE4(v6[1]))
     {
-      free(v7[0]);
+      free(v6[0]);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void **icu::number::impl::DecimalQuantity::setToDecNum(void **this, const icu::number::impl::DecNum *a2, UErrorCode *a3)
@@ -2897,68 +3324,67 @@ uint64_t icu::number::impl::DecimalQuantity::fractionCount(icu::number::impl::De
 
 double icu::number::impl::DecimalQuantity::toDouble(icu::number::impl::DecimalQuantity *this)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if ((*(*this + 24))(this))
   {
-    v2 = NAN;
+    return NAN;
   }
 
-  else if ((*(*this + 32))(this))
+  if ((*(*this + 32))(this))
   {
     if (*(this + 20))
     {
-      v2 = -INFINITY;
+      return -INFINITY;
     }
 
     else
     {
-      v2 = INFINITY;
+      return INFINITY;
     }
   }
 
   else
   {
-    v10 = 0;
-    v13 = 0;
-    v9 = 0u;
+    v9 = 0;
+    v12 = 0;
+    v8 = 0u;
+    v10 = "";
     v11 = "";
-    v12 = "";
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
-    icu::number::impl::DecimalQuantity::toScientificString(this, &v14);
-    v8 = 0;
-    if ((BYTE8(v14) & 0x11) != 0)
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
+    icu::number::impl::DecimalQuantity::toScientificString(this, &v13);
+    v7 = 0;
+    if ((BYTE8(v13) & 0x11) != 0)
     {
       v3 = 0;
     }
 
-    else if ((BYTE8(v14) & 2) != 0)
+    else if ((BYTE8(v13) & 2) != 0)
     {
-      v3 = (&v14 | 0xA);
+      v3 = (&v13 | 0xA);
     }
 
     else
     {
-      v3 = *(&v15 + 1);
+      v3 = *(&v14 + 1);
     }
 
-    if ((SWORD4(v14) & 0x8000u) == 0)
+    if ((SWORD4(v13) & 0x8000u) == 0)
     {
-      v4 = WORD4(v14) >> 5;
+      v4 = WORD4(v13) >> 5;
     }
 
     else
     {
-      v4 = HIDWORD(v14);
+      v4 = HIDWORD(v13);
     }
 
-    v2 = sub_195300C94(&v9, v3, v4, &v8);
-    icu::UnicodeString::~UnicodeString(v5, &v14);
+    v2 = sub_195300C94(&v8, v3, v4, &v7);
+    icu::UnicodeString::~UnicodeString(v5, &v13);
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -3020,7 +3446,7 @@ LABEL_6:
   return v2;
 }
 
-uint64_t icu::number::impl::DecimalQuantity::getDigitPos(icu::number::impl::DecimalQuantity *this, unsigned int a2)
+uint64_t icu::number::impl::DecimalQuantity::getDigitPos(icu::number::impl::DecimalQuantity *this, signed int a2)
 {
   if (*(this + 64) != 1)
   {
@@ -3033,7 +3459,7 @@ uint64_t icu::number::impl::DecimalQuantity::getDigitPos(icu::number::impl::Deci
     goto LABEL_6;
   }
 
-  if ((a2 & 0x80000000) != 0 || *(this + 4) <= a2)
+  if (a2 < 0 || *(this + 4) <= a2)
   {
 LABEL_6:
     LOBYTE(v2) = 0;
@@ -3163,7 +3589,7 @@ uint64_t icu::number::impl::DecimalQuantity::_setToInt(uint64_t this, int a2)
   return this;
 }
 
-void icu::number::impl::DecimalQuantity::readLongToBcd(icu::number::impl::DecimalQuantity *this, uint64_t a2)
+void icu::number::impl::DecimalQuantity::readLongToBcd(uint64_t this, uint64_t a2)
 {
   v2 = a2;
   if (a2 <= 0x2386F26FC0FFFFLL)
@@ -3185,8 +3611,8 @@ void icu::number::impl::DecimalQuantity::readLongToBcd(icu::number::impl::Decima
       while (v9 > 0x12);
     }
 
-    *(this + 6) = v6 >> (4 * v7);
-    *(this + 3) = 0;
+    *(this + 48) = v6 >> (4 * v7);
+    *(this + 12) = 0;
     LODWORD(v4) = 16 - v7;
   }
 
@@ -3196,16 +3622,16 @@ void icu::number::impl::DecimalQuantity::readLongToBcd(icu::number::impl::Decima
     v4 = 0;
     do
     {
-      *(*(this + 6) + v4++) = v2 % 10;
+      *(*(this + 48) + v4++) = v2 % 10;
       v5 = v2 + 9;
       v2 /= 10;
     }
 
     while (v5 > 0x12);
-    *(this + 3) = 0;
+    *(this + 12) = 0;
   }
 
-  *(this + 4) = v4;
+  *(this + 16) = v4;
 }
 
 uint64_t icu::number::impl::DecimalQuantity::readIntToBcd(uint64_t this, int a2)
@@ -3235,35 +3661,37 @@ uint64_t icu::number::impl::DecimalQuantity::readIntToBcd(uint64_t this, int a2)
 
 void icu::number::impl::DecimalQuantity::_setToLong(icu::number::impl::DecimalQuantity *this, uint64_t a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (a2 == 0x8000000000000000)
   {
-    v14 = 0u;
-    v15 = 0u;
     v12 = 0u;
     v13 = 0u;
-    *v10 = 0u;
+    v10 = 0u;
     v11 = 0u;
-    icu::number::impl::DecNum::DecNum(v10);
-    v9 = U_ZERO_ERROR;
-    icu::number::impl::DecNum::setTo(v10, "9.223372036854775808E+18", &v9);
-    if (v9 <= U_ZERO_ERROR)
+    *v8 = 0u;
+    v9 = 0u;
+    icu::number::impl::DecNum::DecNum(v8);
+    v7 = U_ZERO_ERROR;
+    icu::number::impl::DecNum::setTo(v8, "9.223372036854775808E+18", &v7);
+    if (v7 <= U_ZERO_ERROR)
     {
       *(this + 20) |= 1u;
-      icu::number::impl::DecimalQuantity::readDecNumberToBcd(this, v10);
+      icu::number::impl::DecimalQuantity::readDecNumberToBcd(this, v8);
     }
 
-    if (BYTE4(v10[1]))
+    if (BYTE4(v8[1]))
     {
-      free(v10[0]);
+      free(v8[0]);
     }
-
-LABEL_10:
-    v7 = *MEMORY[0x1E69E9840];
-    return;
   }
 
-  if (a2 <= 0x7FFFFFFF)
+  else if (a2 > 0x7FFFFFFF)
+  {
+
+    icu::number::impl::DecimalQuantity::readLongToBcd(this, a2);
+  }
+
+  else
   {
     v3 = 0;
     v4 = 16;
@@ -3285,15 +3713,10 @@ LABEL_10:
     *(this + 6) = v3 >> (4 * v4);
     *(this + 3) = 0;
     *(this + 4) = 16 - v4;
-    goto LABEL_10;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
-
-  icu::number::impl::DecimalQuantity::readLongToBcd(this, a2);
 }
 
-void icu::number::impl::DecimalQuantity::readDecNumberToBcd(icu::number::impl::DecimalQuantity *this, int **a2)
+void icu::number::impl::DecimalQuantity::readDecNumberToBcd(const void **this, unsigned int **a2)
 {
   v3 = *a2;
   v4 = **a2;
@@ -3319,7 +3742,7 @@ void icu::number::impl::DecimalQuantity::readDecNumberToBcd(icu::number::impl::D
       while (4 * v4 != v7);
     }
 
-    *(this + 6) = v5;
+    this[6] = v5;
     LODWORD(v5) = *v3;
   }
 
@@ -3332,7 +3755,7 @@ void icu::number::impl::DecimalQuantity::readDecNumberToBcd(icu::number::impl::D
       v6 = 0;
       do
       {
-        *(*(this + 6) + v6) = *(v3 + v6 + 9);
+        *(this[6] + v6) = *(v3 + v6 + 9);
         ++v6;
         v5 = *v3;
       }
@@ -3459,23 +3882,22 @@ void icu::number::impl::DecimalQuantity::_setToDoubleFast(icu::number::impl::Dec
 
 void icu::number::impl::DecimalQuantity::convertToAccurateDouble(icu::number::impl::DecimalQuantity *this)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = *(this + 8);
-  *v7 = 0;
+  *v6 = 0;
+  v7 = 0;
   v8 = 0;
-  v9 = 0;
-  v6 = 0;
-  v4 = 0;
   v5 = 0;
-  icu::double_conversion::DoubleToStringConverter::DoubleToAscii(0, 0, v7, 0x12u, &v6, &v5, &v4, *(this + 3));
+  v3 = 0;
+  v4 = 0;
+  icu::double_conversion::DoubleToStringConverter::DoubleToAscii(0, 0, v6, 0x12u, &v5, &v4, &v3, *(this + 3));
   icu::number::impl::DecimalQuantity::setBcdToZero(this);
-  icu::number::impl::DecimalQuantity::readDoubleConversionToBcd(this, v7, v5, v4);
+  icu::number::impl::DecimalQuantity::readDoubleConversionToBcd(this, v6, v4, v3);
   *(this + 3) += v2;
   *(this + 65) = 1;
-  v3 = *MEMORY[0x1E69E9840];
 }
 
-void icu::number::impl::DecimalQuantity::readDoubleConversionToBcd(icu::number::impl::DecimalQuantity *this, const char *a2, int a3, int a4)
+void icu::number::impl::DecimalQuantity::readDoubleConversionToBcd(const void **this, const char *a2, int a3, int a4)
 {
   if (a3 <= 16)
   {
@@ -3499,7 +3921,7 @@ void icu::number::impl::DecimalQuantity::readDoubleConversionToBcd(icu::number::
       while (v12);
     }
 
-    *(this + 6) = v11;
+    this[6] = v11;
   }
 
   else
@@ -3509,7 +3931,7 @@ void icu::number::impl::DecimalQuantity::readDoubleConversionToBcd(icu::number::
     v9 = a3;
     do
     {
-      *(*(this + 6) + v8++) = a2[--v9] - 48;
+      *(this[6] + v8++) = a2[--v9] - 48;
     }
 
     while (v9);
@@ -3519,26 +3941,26 @@ void icu::number::impl::DecimalQuantity::readDoubleConversionToBcd(icu::number::
   *(this + 4) = a3;
 }
 
-uint64_t icu::number::impl::DecimalQuantity::setToDecNumber(uint64_t a1, const char *a2, int a3, UErrorCode *a4)
+uint64_t icu::number::impl::DecimalQuantity::setToDecNumber(uint64_t a1, const char *a2, uint64_t a3, UErrorCode *a4)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v5 = a3;
+  v15 = *MEMORY[0x1E69E9840];
   icu::number::impl::DecimalQuantity::setBcdToZero(a1);
   *(a1 + 20) = 0;
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
-  *v10 = 0u;
+  v14 = 0u;
   v11 = 0u;
-  icu::number::impl::DecNum::DecNum(v10);
-  icu::number::impl::DecNum::setTo(v10, a2, a3, a4);
-  icu::number::impl::DecimalQuantity::_setToDecNum(a1, v10, a4);
-  if (BYTE4(v10[1]))
+  v12 = 0u;
+  *v9 = 0u;
+  v10 = 0u;
+  icu::number::impl::DecNum::DecNum(v9);
+  icu::number::impl::DecNum::setTo(v9, a2, v5, a4);
+  icu::number::impl::DecimalQuantity::_setToDecNum(a1, v9, a4);
+  if (BYTE4(v9[1]))
   {
-    free(v10[0]);
+    free(v9[0]);
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return a1;
 }
 
@@ -3576,7 +3998,7 @@ LABEL_8:
 
 void icu::number::impl::DecimalQuantity::fromExponentString(uint64_t a1@<X0>, UErrorCode *a2@<X1>, uint64_t a3@<X8>)
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   if (*(a1 + 8) < 0)
   {
     v6 = *(a1 + 12);
@@ -3595,18 +4017,18 @@ void icu::number::impl::DecimalQuantity::fromExponentString(uint64_t a1@<X0>, UE
     *a3 = 0u;
     *(a3 + 16) = 0u;
     icu::number::impl::DecimalQuantity::DecimalQuantity(a3);
-    icu::UnicodeString::UnicodeString(v35, a1);
-    VisibleFractionCount = icu::number::impl::DecimalQuantity::getVisibleFractionCount(v35);
-    icu::UnicodeString::~UnicodeString(v16, v35);
-    memset(&v37[1], 0, 56);
-    v37[0] = &v37[1] + 5;
-    LODWORD(v37[1]) = 40;
-    icu::CharString::appendInvariantChars(v37, a1, a2);
-    icu::number::impl::DecimalQuantity::setToDecNumber(a3, v37[0], v37[7], a2);
+    icu::UnicodeString::UnicodeString(v34, a1);
+    VisibleFractionCount = icu::number::impl::DecimalQuantity::getVisibleFractionCount(v34);
+    icu::UnicodeString::~UnicodeString(v16, v34);
+    memset(&v36[1], 0, 56);
+    v36[0] = &v36[1] + 5;
+    LODWORD(v36[1]) = 40;
+    icu::CharString::appendInvariantChars(v36, a1, a2);
+    icu::number::impl::DecimalQuantity::setToDecNumber(a3, v36[0], LODWORD(v36[7]), a2);
     *(a3 + 40) = -VisibleFractionCount;
-    if (BYTE4(v37[1]))
+    if (BYTE4(v36[1]))
     {
-      free(v37[0]);
+      free(v36[0]);
     }
   }
 
@@ -3650,7 +4072,7 @@ void icu::number::impl::DecimalQuantity::fromExponentString(uint64_t a1@<X0>, UE
 
     v17 = IndexOf;
     v18 = IndexOf + 1;
-    memset(v44, 0, 64);
+    memset(v43, 0, 64);
     v19 = *(a1 + 8);
     if ((v19 & 0x8000) != 0)
     {
@@ -3662,7 +4084,7 @@ void icu::number::impl::DecimalQuantity::fromExponentString(uint64_t a1@<X0>, UE
       v20 = v19 >> 5;
     }
 
-    icu::UnicodeString::tempSubString(a1, v18, v20 - v18, v44);
+    icu::UnicodeString::tempSubString(v43, a1, v18, v20 - v18);
     v22 = *(a1 + 8);
     if (*(a1 + 8) < 0)
     {
@@ -3694,9 +4116,9 @@ void icu::number::impl::DecimalQuantity::fromExponentString(uint64_t a1@<X0>, UE
       v25 = *(v24 + 2 * v18) == 45;
     }
 
-    v34 = v25;
-    v26 = icu::ICU_Utility::parseAsciiInteger(v44, &v34, v21);
-    memset(&v43[4], 0, 32);
+    v33 = v25;
+    v26 = icu::ICU_Utility::parseAsciiInteger(v43, &v33, v21);
+    memset(&v42[4], 0, 32);
     if (v25)
     {
       v27 = -v26;
@@ -3707,19 +4129,19 @@ void icu::number::impl::DecimalQuantity::fromExponentString(uint64_t a1@<X0>, UE
       v27 = v26;
     }
 
-    memset(v43, 0, 32);
-    icu::UnicodeString::tempSubString(a1, 0, v17, v43);
-    memset(&v40[1], 0, 48);
-    v42 = 0;
-    v40[0] = &v40[1] + 5;
-    LODWORD(v40[1]) = 40;
+    memset(v42, 0, 32);
+    icu::UnicodeString::tempSubString(v42, a1, 0, v17);
+    memset(&v39[1], 0, 48);
     v41 = 0;
-    icu::CharString::appendInvariantChars(v40, v43, a2);
+    v39[0] = &v39[1] + 5;
+    LODWORD(v39[1]) = 40;
+    v40 = 0;
+    icu::CharString::appendInvariantChars(v39, v42, a2);
+    v37 = 0u;
     v38 = 0u;
-    v39 = 0u;
-    memset(v37, 0, sizeof(v37));
-    icu::number::impl::DecNum::DecNum(v37);
-    icu::number::impl::DecNum::setTo(v37, v40[0], v41, a2);
+    memset(v36, 0, sizeof(v36));
+    icu::number::impl::DecNum::DecNum(v36);
+    icu::number::impl::DecNum::setTo(v36, v39[0], v40, a2);
     *(a3 + 24) = 0u;
     *(a3 + 40) = 0u;
     *(a3 + 56) = 0u;
@@ -3732,29 +4154,27 @@ void icu::number::impl::DecimalQuantity::fromExponentString(uint64_t a1@<X0>, UE
     *(a3 + 20) = 0;
     icu::number::impl::DecimalQuantity::setBcdToZero(a3);
     *(a3 + 20) = 0;
-    icu::number::impl::DecimalQuantity::_setToDecNum(a3, v37, a2);
-    icu::UnicodeString::UnicodeString(v36, v43);
-    v28 = icu::number::impl::DecimalQuantity::getVisibleFractionCount(v36);
-    icu::UnicodeString::~UnicodeString(v29, v36);
+    icu::number::impl::DecimalQuantity::_setToDecNum(a3, v36, a2);
+    icu::UnicodeString::UnicodeString(v35, v42);
+    v28 = icu::number::impl::DecimalQuantity::getVisibleFractionCount(v35);
+    icu::UnicodeString::~UnicodeString(v29, v35);
     v30 = *(a3 + 44) + v27;
     *(a3 + 40) = -v28;
     *(a3 + 44) = v30;
-    if (BYTE4(v37[1]))
+    if (BYTE4(v36[1]))
     {
-      free(v37[0]);
+      free(v36[0]);
     }
 
-    v31 = BYTE4(v40[1]);
-    if (BYTE4(v40[1]))
+    v31 = BYTE4(v39[1]);
+    if (BYTE4(v39[1]))
     {
-      free(v40[0]);
+      free(v39[0]);
     }
 
-    icu::UnicodeString::~UnicodeString(v31, v43);
-    icu::UnicodeString::~UnicodeString(v32, v44);
+    icu::UnicodeString::~UnicodeString(v31, v42);
+    icu::UnicodeString::~UnicodeString(v32, v43);
   }
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t icu::number::impl::DecimalQuantity::getVisibleFractionCount(uint64_t a1)
@@ -4712,7 +5132,6 @@ LABEL_230:
     return;
   }
 
-  v43 = *(a1 + 64);
   if (!((v12 < 5) | v42 & 1))
   {
     if (*(a1 + 64))
@@ -4731,54 +5150,54 @@ LABEL_230:
 LABEL_212:
     if ((v42 & 1) == 0)
     {
-      v44 = *(a1 + 64);
+      v43 = *(a1 + 64);
       if (v12 == 9)
       {
+        v44 = 0;
         v45 = 0;
-        v46 = 0;
         if (*(a1 + 64))
         {
           goto LABEL_217;
         }
 
 LABEL_215:
-        if (v46 <= 0xF)
+        if (v45 <= 0xF)
         {
-          for (i = (*(a1 + 48) >> v45) & 0xFLL; i == 9; LODWORD(i) = *(*(a1 + 48) + v46))
+          for (i = (*(a1 + 48) >> v44) & 0xFLL; i == 9; LODWORD(i) = *(*(a1 + 48) + v45))
           {
-            ++v46;
-            v45 += 4;
+            ++v45;
+            v44 += 4;
             if ((*(a1 + 64) & 1) == 0)
             {
               goto LABEL_215;
             }
 
 LABEL_217:
-            if (v46 >= *(a1 + 16))
+            if (v45 >= *(a1 + 16))
             {
               break;
             }
           }
         }
 
-        icu::number::impl::DecimalQuantity::shiftRight(a1, v46);
-        v44 = *(a1 + 64);
+        icu::number::impl::DecimalQuantity::shiftRight(a1, v45);
+        v43 = *(a1 + 64);
       }
 
-      if (v44)
+      if (v43)
       {
         if (*(a1 + 16) < 1)
         {
-          v48 = 1;
+          v47 = 1;
         }
 
         else
         {
-          v48 = **(a1 + 48) + 1;
+          v47 = **(a1 + 48) + 1;
         }
 
         icu::number::impl::DecimalQuantity::ensureCapacity(a1, 1);
-        **(a1 + 48) = v48;
+        **(a1 + 48) = v47;
       }
 
       else
@@ -4954,25 +5373,25 @@ LABEL_2:
   return a2 & 1;
 }
 
-void icu::number::impl::DecimalQuantity::setDigitPos(const void **this, int a2, int a3)
+void icu::number::impl::DecimalQuantity::setDigitPos(uint64_t this, unsigned int a2, int a3)
 {
   v3 = a3;
   if (*(this + 64) == 1)
   {
     icu::number::impl::DecimalQuantity::ensureCapacity(this, a2 + 1);
-    *(this[6] + a2) = v3;
+    *(*(this + 48) + a2) = v3;
   }
 
   else if (a2 < 16)
   {
-    this[6] = (this[6] & ~(15 << (4 * a2)) | (a3 << (4 * a2)));
+    *(this + 48) = *(this + 48) & ~(15 << (4 * a2)) | (a3 << (4 * a2));
   }
 
   else
   {
     icu::number::impl::DecimalQuantity::switchStorage(this);
     icu::number::impl::DecimalQuantity::ensureCapacity(this, a2 + 1);
-    *(this[6] + a2) = v3;
+    *(*(this + 48) + a2) = v3;
   }
 }
 
@@ -5562,12 +5981,7 @@ BOOL icu::number::impl::DecimalQuantity::operator==(uint64_t a1, uint64_t a2)
   }
 
   v3 = *(a1 + 16);
-  if (v3 != *(a2 + 16))
-  {
-    return 0;
-  }
-
-  if (*(a1 + 20) != *(a2 + 20))
+  if (__PAIR64__(*(a1 + 20), v3) != __PAIR64__(*(a2 + 20), *(a2 + 16)))
   {
     return 0;
   }
@@ -5663,14 +6077,14 @@ BOOL icu::number::impl::DecimalQuantity::operator==(uint64_t a1, uint64_t a2)
   return v6;
 }
 
-void icu::number::impl::DecimalQuantity::toString(icu::number::impl::DecimalQuantity *this@<X0>, uint64_t a2@<X8>)
+void icu::number::impl::DecimalQuantity::toString(icu::number::impl::DecimalQuantity *this@<X0>, icu::UnicodeString *a2@<X8>)
 {
-  v27 = *MEMORY[0x1E69E9840];
-  memset(v25, 0, sizeof(v25));
-  v26 = 0;
+  v26 = *MEMORY[0x1E69E9840];
+  memset(v24, 0, sizeof(v24));
+  v25 = 0;
   v4 = *(this + 4);
-  v24 = v25 + 5;
-  LODWORD(v25[0]) = 30;
+  v23 = v24 + 5;
+  LODWORD(v24[0]) = 30;
   if (v4 >= 30)
   {
     v5 = v4 + 1;
@@ -5678,14 +6092,14 @@ void icu::number::impl::DecimalQuantity::toString(icu::number::impl::DecimalQuan
     if (v6)
     {
       v7 = v6;
-      if (BYTE4(v25[0]))
+      if (BYTE4(v24[0]))
       {
-        free(v24);
+        free(v23);
       }
 
-      v24 = v7;
-      LODWORD(v25[0]) = v5;
-      BYTE4(v25[0]) = 1;
+      v23 = v7;
+      LODWORD(v24[0]) = v5;
+      BYTE4(v24[0]) = 1;
     }
   }
 
@@ -5716,7 +6130,7 @@ void icu::number::impl::DecimalQuantity::toString(icu::number::impl::DecimalQuan
         LOBYTE(v12) = 0;
       }
 
-      *(v24 + v9++) = v12 + 48;
+      *(v23 + v9++) = v12 + 48;
       v8 = *(this + 4);
       --v10;
     }
@@ -5724,14 +6138,14 @@ void icu::number::impl::DecimalQuantity::toString(icu::number::impl::DecimalQuan
     while (v9 < v8);
   }
 
-  *(v24 + v8) = 0;
-  v23 = 0;
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
+  *(v23 + v8) = 0;
+  v22 = 0;
   v20 = 0u;
-  *__str = 0u;
+  v21 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  *__str = 0u;
+  v17 = 0u;
   if (*(this + 64))
   {
     v13 = "bytes";
@@ -5748,20 +6162,18 @@ void icu::number::impl::DecimalQuantity::toString(icu::number::impl::DecimalQuan
     v14 = "";
   }
 
-  v15 = v24;
+  v15 = v23;
   if (!*(this + 4))
   {
     v15 = "0";
   }
 
   snprintf(__str, 0x64uLL, "<DecimalQuantity %d:%d %s %s%s%s%d>", *(this + 9), *(this + 10), v13, v14, v15, "E", *(this + 3));
-  icu::UnicodeString::UnicodeString(a2, __str, 0xFFFFFFFFLL, 0);
-  if (BYTE4(v25[0]))
+  icu::UnicodeString::UnicodeString(a2, __str, -1);
+  if (BYTE4(v24[0]))
   {
-    free(v24);
+    free(v23);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 icu::number::impl::DecimalFormatProperties *icu::number::impl::DecimalFormatProperties::DecimalFormatProperties(icu::number::impl::DecimalFormatProperties *this)
@@ -5874,7 +6286,7 @@ uint64_t icu::number::impl::DecimalFormatProperties::_equals(icu::number::impl::
     }
   }
 
-  else if ((icu::MeasureUnit::operator==(this + 16, a2 + 16) & 1) == 0)
+  else if (!icu::MeasureUnit::operator==(this + 16, a2 + 16))
   {
     return 0;
   }
@@ -6158,7 +6570,7 @@ uint64_t icu::number::NumberFormatterSettings<icu::number::UnlocalizedNumberForm
   a3[3] = 0u;
   *a3 = 0u;
   a3[1] = 0u;
-  v4 = (a3 + 1);
+  v4 = a3 + 1;
   icu::number::UnlocalizedNumberFormatter::UnlocalizedNumberFormatter(a3, a1);
 
   return icu::MeasureUnit::operator=(v4, a2);
@@ -6195,7 +6607,7 @@ uint64_t icu::number::NumberFormatterSettings<icu::number::UnlocalizedNumberForm
   a3[3] = 0u;
   *a3 = 0u;
   a3[1] = 0u;
-  v4 = (a3 + 1);
+  v4 = a3 + 1;
   icu::number::UnlocalizedNumberFormatter::UnlocalizedNumberFormatter(a3, a1);
 
   return icu::MeasureUnit::operator=(v4, a2);
@@ -6598,8 +7010,9 @@ uint64_t icu::number::NumberFormatterSettings<icu::number::UnlocalizedNumberForm
   return result;
 }
 
-uint64_t icu::number::NumberFormatterSettings<icu::number::UnlocalizedNumberFormatter>::grouping@<X0>(uint64_t a1@<X0>, unsigned int a2@<W1>, uint64_t a3@<X8>)
+uint64_t icu::number::NumberFormatterSettings<icu::number::UnlocalizedNumberFormatter>::grouping@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
+  v3 = a2;
   *(a3 + 448) = 0u;
   *(a3 + 464) = 0u;
   *(a3 + 416) = 0u;
@@ -6631,13 +7044,14 @@ uint64_t icu::number::NumberFormatterSettings<icu::number::UnlocalizedNumberForm
   *a3 = 0u;
   *(a3 + 16) = 0u;
   icu::number::UnlocalizedNumberFormatter::UnlocalizedNumberFormatter(a3, a1);
-  result = icu::number::impl::Grouper::forStrategy(a2);
+  result = icu::number::impl::Grouper::forStrategy(v3);
   *(a3 + 100) = result;
   *(a3 + 108) = v6;
   return result;
 }
 
 {
+  v3 = a2;
   *(a3 + 448) = 0u;
   *(a3 + 464) = 0u;
   *(a3 + 416) = 0u;
@@ -6669,7 +7083,7 @@ uint64_t icu::number::NumberFormatterSettings<icu::number::UnlocalizedNumberForm
   *a3 = 0u;
   *(a3 + 16) = 0u;
   icu::number::UnlocalizedNumberFormatter::UnlocalizedNumberFormatter(a3, a1);
-  result = icu::number::impl::Grouper::forStrategy(a2);
+  result = icu::number::impl::Grouper::forStrategy(v3);
   *(a3 + 100) = result;
   *(a3 + 108) = v6;
   return result;
@@ -6823,7 +7237,7 @@ void icu::number::NumberFormatterSettings<icu::number::UnlocalizedNumberFormatte
   icu::number::impl::SymbolsWrapper::setTo(v4, a2);
 }
 
-void *icu::number::NumberFormatterSettings<icu::number::UnlocalizedNumberFormatter>::adoptSymbols@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _OWORD *a3@<X8>)
+void *icu::number::NumberFormatterSettings<icu::number::UnlocalizedNumberFormatter>::adoptSymbols@<X0>(uint64_t a1@<X0>, const icu::NumberingSystem *a2@<X1>, _OWORD *a3@<X8>)
 {
   a3[28] = 0u;
   a3[29] = 0u;
@@ -7188,8 +7602,9 @@ uint64_t icu::number::NumberFormatterSettings<icu::number::UnlocalizedNumberForm
   return icu::number::Scale::operator=(v4, a2);
 }
 
-char *icu::number::NumberFormatterSettings<icu::number::UnlocalizedNumberFormatter>::usage@<X0>(uint64_t a1@<X0>, const char *a2@<X1>, __int16 a3@<W2>, _OWORD *a4@<X8>)
+char *icu::number::NumberFormatterSettings<icu::number::UnlocalizedNumberFormatter>::usage@<X0>(uint64_t a1@<X0>, const char *a2@<X1>, uint64_t a3@<X2>, _OWORD *a4@<X8>)
 {
+  v4 = a3;
   a4[28] = 0u;
   a4[29] = 0u;
   a4[26] = 0u;
@@ -7220,13 +7635,14 @@ char *icu::number::NumberFormatterSettings<icu::number::UnlocalizedNumberFormatt
   *a4 = 0u;
   a4[1] = 0u;
   a4[12] = 0u;
-  v6 = (a4 + 12);
+  v6 = a4 + 12;
   icu::number::UnlocalizedNumberFormatter::UnlocalizedNumberFormatter(a4, a1);
 
-  return icu::number::impl::StringProp::set(v6, a2, a3);
+  return icu::number::impl::StringProp::set(v6, a2, v4);
 }
 
 {
+  v4 = a3;
   a4[28] = 0u;
   a4[29] = 0u;
   a4[26] = 0u;
@@ -7257,10 +7673,10 @@ char *icu::number::NumberFormatterSettings<icu::number::UnlocalizedNumberFormatt
   *a4 = 0u;
   a4[1] = 0u;
   a4[12] = 0u;
-  v6 = (a4 + 12);
+  v6 = a4 + 12;
   icu::number::UnlocalizedNumberFormatter::UnlocalizedNumberFormatter(a4, a1);
 
-  return icu::number::impl::StringProp::set(v6, a2, a3);
+  return icu::number::impl::StringProp::set(v6, a2, v4);
 }
 
 char *icu::number::NumberFormatterSettings<icu::number::UnlocalizedNumberFormatter>::displayOptions@<X0>(uint64_t a1@<X0>, unsigned int *a2@<X1>, _OWORD *a3@<X8>)
@@ -7295,7 +7711,7 @@ char *icu::number::NumberFormatterSettings<icu::number::UnlocalizedNumberFormatt
   a3[2] = 0u;
   *a3 = 0u;
   a3[13] = 0u;
-  v4 = (a3 + 13);
+  v4 = a3 + 13;
   icu::number::UnlocalizedNumberFormatter::UnlocalizedNumberFormatter(a3, a1);
   if (*a2)
   {
@@ -7342,7 +7758,7 @@ char *icu::number::NumberFormatterSettings<icu::number::UnlocalizedNumberFormatt
   a3[2] = 0u;
   *a3 = 0u;
   a3[13] = 0u;
-  v4 = (a3 + 13);
+  v4 = a3 + 13;
   icu::number::UnlocalizedNumberFormatter::UnlocalizedNumberFormatter(a3, a1);
   if (*a2)
   {
@@ -7358,8 +7774,9 @@ char *icu::number::NumberFormatterSettings<icu::number::UnlocalizedNumberFormatt
   }
 }
 
-char *icu::number::NumberFormatterSettings<icu::number::UnlocalizedNumberFormatter>::unitDisplayCase@<X0>(uint64_t a1@<X0>, const char *a2@<X1>, __int16 a3@<W2>, _OWORD *a4@<X8>)
+char *icu::number::NumberFormatterSettings<icu::number::UnlocalizedNumberFormatter>::unitDisplayCase@<X0>(uint64_t a1@<X0>, const char *a2@<X1>, uint64_t a3@<X2>, _OWORD *a4@<X8>)
 {
+  v4 = a3;
   a4[28] = 0u;
   a4[29] = 0u;
   a4[26] = 0u;
@@ -7390,13 +7807,14 @@ char *icu::number::NumberFormatterSettings<icu::number::UnlocalizedNumberFormatt
   a4[2] = 0u;
   *a4 = 0u;
   a4[13] = 0u;
-  v6 = (a4 + 13);
+  v6 = a4 + 13;
   icu::number::UnlocalizedNumberFormatter::UnlocalizedNumberFormatter(a4, a1);
 
-  return icu::number::impl::StringProp::set(v6, a2, a3);
+  return icu::number::impl::StringProp::set(v6, a2, v4);
 }
 
 {
+  v4 = a3;
   a4[28] = 0u;
   a4[29] = 0u;
   a4[26] = 0u;
@@ -7427,10 +7845,10 @@ char *icu::number::NumberFormatterSettings<icu::number::UnlocalizedNumberFormatt
   a4[2] = 0u;
   *a4 = 0u;
   a4[13] = 0u;
-  v6 = (a4 + 13);
+  v6 = a4 + 13;
   icu::number::UnlocalizedNumberFormatter::UnlocalizedNumberFormatter(a4, a1);
 
-  return icu::number::impl::StringProp::set(v6, a2, a3);
+  return icu::number::impl::StringProp::set(v6, a2, v4);
 }
 
 uint64_t icu::number::NumberFormatterSettings<icu::number::UnlocalizedNumberFormatter>::padding@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _OWORD *a3@<X8>)
@@ -8066,7 +8484,7 @@ uint64_t icu::number::NumberFormatterSettings<icu::number::LocalizedNumberFormat
   a3[2] = 0u;
   *a3 = 0u;
   a3[1] = 0u;
-  v4 = (a3 + 1);
+  v4 = a3 + 1;
   icu::number::LocalizedNumberFormatter::LocalizedNumberFormatter(a3, a1);
 
   return icu::MeasureUnit::operator=(v4, a2);
@@ -8104,7 +8522,7 @@ uint64_t icu::number::NumberFormatterSettings<icu::number::LocalizedNumberFormat
   a3[2] = 0u;
   *a3 = 0u;
   a3[1] = 0u;
-  v4 = (a3 + 1);
+  v4 = a3 + 1;
   icu::number::LocalizedNumberFormatter::LocalizedNumberFormatter(a3, a1);
 
   return icu::MeasureUnit::operator=(v4, a2);
@@ -8517,8 +8935,9 @@ uint64_t icu::number::NumberFormatterSettings<icu::number::LocalizedNumberFormat
   return result;
 }
 
-uint64_t icu::number::NumberFormatterSettings<icu::number::LocalizedNumberFormatter>::grouping@<X0>(uint64_t a1@<X0>, unsigned int a2@<W1>, uint64_t a3@<X8>)
+uint64_t icu::number::NumberFormatterSettings<icu::number::LocalizedNumberFormatter>::grouping@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
+  v3 = a2;
   *(a3 + 464) = 0u;
   *(a3 + 480) = 0u;
   *(a3 + 432) = 0u;
@@ -8551,13 +8970,14 @@ uint64_t icu::number::NumberFormatterSettings<icu::number::LocalizedNumberFormat
   *(a3 + 32) = 0u;
   *a3 = 0u;
   icu::number::LocalizedNumberFormatter::LocalizedNumberFormatter(a3, a1);
-  result = icu::number::impl::Grouper::forStrategy(a2);
+  result = icu::number::impl::Grouper::forStrategy(v3);
   *(a3 + 100) = result;
   *(a3 + 108) = v6;
   return result;
 }
 
 {
+  v3 = a2;
   *(a3 + 464) = 0u;
   *(a3 + 480) = 0u;
   *(a3 + 432) = 0u;
@@ -8590,7 +9010,7 @@ uint64_t icu::number::NumberFormatterSettings<icu::number::LocalizedNumberFormat
   *(a3 + 32) = 0u;
   *a3 = 0u;
   icu::number::LocalizedNumberFormatter::LocalizedNumberFormatter(a3, a1);
-  result = icu::number::impl::Grouper::forStrategy(a2);
+  result = icu::number::impl::Grouper::forStrategy(v3);
   *(a3 + 100) = result;
   *(a3 + 108) = v6;
   return result;
@@ -8748,7 +9168,7 @@ void icu::number::NumberFormatterSettings<icu::number::LocalizedNumberFormatter>
   icu::number::impl::SymbolsWrapper::setTo(v4, a2);
 }
 
-void *icu::number::NumberFormatterSettings<icu::number::LocalizedNumberFormatter>::adoptSymbols@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _OWORD *a3@<X8>)
+void *icu::number::NumberFormatterSettings<icu::number::LocalizedNumberFormatter>::adoptSymbols@<X0>(uint64_t a1@<X0>, const icu::NumberingSystem *a2@<X1>, _OWORD *a3@<X8>)
 {
   a3[29] = 0u;
   a3[30] = 0u;
@@ -9123,8 +9543,9 @@ uint64_t icu::number::NumberFormatterSettings<icu::number::LocalizedNumberFormat
   return icu::number::Scale::operator=(v4, a2);
 }
 
-char *icu::number::NumberFormatterSettings<icu::number::LocalizedNumberFormatter>::usage@<X0>(uint64_t a1@<X0>, const char *a2@<X1>, __int16 a3@<W2>, _OWORD *a4@<X8>)
+char *icu::number::NumberFormatterSettings<icu::number::LocalizedNumberFormatter>::usage@<X0>(uint64_t a1@<X0>, const char *a2@<X1>, uint64_t a3@<X2>, _OWORD *a4@<X8>)
 {
+  v4 = a3;
   a4[29] = 0u;
   a4[30] = 0u;
   a4[27] = 0u;
@@ -9156,13 +9577,14 @@ char *icu::number::NumberFormatterSettings<icu::number::LocalizedNumberFormatter
   *a4 = 0u;
   a4[1] = 0u;
   a4[12] = 0u;
-  v6 = (a4 + 12);
+  v6 = a4 + 12;
   icu::number::LocalizedNumberFormatter::LocalizedNumberFormatter(a4, a1);
 
-  return icu::number::impl::StringProp::set(v6, a2, a3);
+  return icu::number::impl::StringProp::set(v6, a2, v4);
 }
 
 {
+  v4 = a3;
   a4[29] = 0u;
   a4[30] = 0u;
   a4[27] = 0u;
@@ -9194,10 +9616,10 @@ char *icu::number::NumberFormatterSettings<icu::number::LocalizedNumberFormatter
   *a4 = 0u;
   a4[1] = 0u;
   a4[12] = 0u;
-  v6 = (a4 + 12);
+  v6 = a4 + 12;
   icu::number::LocalizedNumberFormatter::LocalizedNumberFormatter(a4, a1);
 
-  return icu::number::impl::StringProp::set(v6, a2, a3);
+  return icu::number::impl::StringProp::set(v6, a2, v4);
 }
 
 char *icu::number::NumberFormatterSettings<icu::number::LocalizedNumberFormatter>::displayOptions@<X0>(uint64_t a1@<X0>, unsigned int *a2@<X1>, _OWORD *a3@<X8>)
@@ -9233,7 +9655,7 @@ char *icu::number::NumberFormatterSettings<icu::number::LocalizedNumberFormatter
   a3[2] = 0u;
   *a3 = 0u;
   a3[13] = 0u;
-  v4 = (a3 + 13);
+  v4 = a3 + 13;
   icu::number::LocalizedNumberFormatter::LocalizedNumberFormatter(a3, a1);
   if (*a2)
   {
@@ -9281,7 +9703,7 @@ char *icu::number::NumberFormatterSettings<icu::number::LocalizedNumberFormatter
   a3[2] = 0u;
   *a3 = 0u;
   a3[13] = 0u;
-  v4 = (a3 + 13);
+  v4 = a3 + 13;
   icu::number::LocalizedNumberFormatter::LocalizedNumberFormatter(a3, a1);
   if (*a2)
   {
@@ -9297,8 +9719,9 @@ char *icu::number::NumberFormatterSettings<icu::number::LocalizedNumberFormatter
   }
 }
 
-char *icu::number::NumberFormatterSettings<icu::number::LocalizedNumberFormatter>::unitDisplayCase@<X0>(uint64_t a1@<X0>, const char *a2@<X1>, __int16 a3@<W2>, _OWORD *a4@<X8>)
+char *icu::number::NumberFormatterSettings<icu::number::LocalizedNumberFormatter>::unitDisplayCase@<X0>(uint64_t a1@<X0>, const char *a2@<X1>, uint64_t a3@<X2>, _OWORD *a4@<X8>)
 {
+  v4 = a3;
   a4[29] = 0u;
   a4[30] = 0u;
   a4[27] = 0u;
@@ -9330,13 +9753,14 @@ char *icu::number::NumberFormatterSettings<icu::number::LocalizedNumberFormatter
   a4[2] = 0u;
   *a4 = 0u;
   a4[13] = 0u;
-  v6 = (a4 + 13);
+  v6 = a4 + 13;
   icu::number::LocalizedNumberFormatter::LocalizedNumberFormatter(a4, a1);
 
-  return icu::number::impl::StringProp::set(v6, a2, a3);
+  return icu::number::impl::StringProp::set(v6, a2, v4);
 }
 
 {
+  v4 = a3;
   a4[29] = 0u;
   a4[30] = 0u;
   a4[27] = 0u;
@@ -9368,10 +9792,10 @@ char *icu::number::NumberFormatterSettings<icu::number::LocalizedNumberFormatter
   a4[2] = 0u;
   *a4 = 0u;
   a4[13] = 0u;
-  v6 = (a4 + 13);
+  v6 = a4 + 13;
   icu::number::LocalizedNumberFormatter::LocalizedNumberFormatter(a4, a1);
 
-  return icu::number::impl::StringProp::set(v6, a2, a3);
+  return icu::number::impl::StringProp::set(v6, a2, v4);
 }
 
 uint64_t icu::number::NumberFormatterSettings<icu::number::LocalizedNumberFormatter>::padding@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _OWORD *a3@<X8>)
@@ -9449,408 +9873,4 @@ uint64_t icu::number::NumberFormatterSettings<icu::number::LocalizedNumberFormat
   *(result + 112) = *a2;
   *(result + 120) = *(a2 + 8);
   return result;
-}
-
-uint64_t icu::number::NumberFormatterSettings<icu::number::LocalizedNumberFormatter>::threshold@<X0>(uint64_t a1@<X0>, int a2@<W1>, _OWORD *a3@<X8>)
-{
-  a3[29] = 0u;
-  a3[30] = 0u;
-  a3[27] = 0u;
-  a3[28] = 0u;
-  a3[25] = 0u;
-  a3[26] = 0u;
-  a3[23] = 0u;
-  a3[24] = 0u;
-  a3[21] = 0u;
-  a3[22] = 0u;
-  a3[19] = 0u;
-  a3[20] = 0u;
-  a3[17] = 0u;
-  a3[18] = 0u;
-  a3[15] = 0u;
-  a3[16] = 0u;
-  a3[13] = 0u;
-  a3[14] = 0u;
-  a3[11] = 0u;
-  a3[12] = 0u;
-  a3[9] = 0u;
-  a3[10] = 0u;
-  a3[7] = 0u;
-  a3[8] = 0u;
-  a3[5] = 0u;
-  a3[6] = 0u;
-  a3[3] = 0u;
-  a3[4] = 0u;
-  a3[1] = 0u;
-  a3[2] = 0u;
-  *a3 = 0u;
-  result = icu::number::LocalizedNumberFormatter::LocalizedNumberFormatter(a3, a1);
-  *(result + 240) = a2;
-  return result;
-}
-
-{
-  a3[29] = 0u;
-  a3[30] = 0u;
-  a3[27] = 0u;
-  a3[28] = 0u;
-  a3[25] = 0u;
-  a3[26] = 0u;
-  a3[23] = 0u;
-  a3[24] = 0u;
-  a3[21] = 0u;
-  a3[22] = 0u;
-  a3[19] = 0u;
-  a3[20] = 0u;
-  a3[17] = 0u;
-  a3[18] = 0u;
-  a3[15] = 0u;
-  a3[16] = 0u;
-  a3[13] = 0u;
-  a3[14] = 0u;
-  a3[11] = 0u;
-  a3[12] = 0u;
-  a3[9] = 0u;
-  a3[10] = 0u;
-  a3[7] = 0u;
-  a3[8] = 0u;
-  a3[5] = 0u;
-  a3[6] = 0u;
-  a3[3] = 0u;
-  a3[4] = 0u;
-  a3[1] = 0u;
-  a3[2] = 0u;
-  *a3 = 0u;
-  result = icu::number::LocalizedNumberFormatter::LocalizedNumberFormatter(a3, a1);
-  *(result + 240) = a2;
-  return result;
-}
-
-uint64_t icu::number::NumberFormatterSettings<icu::number::LocalizedNumberFormatter>::forDateFormat@<X0>(uint64_t a1@<X0>, char a2@<W1>, _OWORD *a3@<X8>)
-{
-  a3[29] = 0u;
-  a3[30] = 0u;
-  a3[27] = 0u;
-  a3[28] = 0u;
-  a3[25] = 0u;
-  a3[26] = 0u;
-  a3[23] = 0u;
-  a3[24] = 0u;
-  a3[21] = 0u;
-  a3[22] = 0u;
-  a3[19] = 0u;
-  a3[20] = 0u;
-  a3[17] = 0u;
-  a3[18] = 0u;
-  a3[15] = 0u;
-  a3[16] = 0u;
-  a3[13] = 0u;
-  a3[14] = 0u;
-  a3[11] = 0u;
-  a3[12] = 0u;
-  a3[9] = 0u;
-  a3[10] = 0u;
-  a3[7] = 0u;
-  a3[8] = 0u;
-  a3[5] = 0u;
-  a3[6] = 0u;
-  a3[3] = 0u;
-  a3[4] = 0u;
-  a3[1] = 0u;
-  a3[2] = 0u;
-  *a3 = 0u;
-  result = icu::number::LocalizedNumberFormatter::LocalizedNumberFormatter(a3, a1);
-  *(result + 245) = a2;
-  return result;
-}
-
-{
-  a3[29] = 0u;
-  a3[30] = 0u;
-  a3[27] = 0u;
-  a3[28] = 0u;
-  a3[25] = 0u;
-  a3[26] = 0u;
-  a3[23] = 0u;
-  a3[24] = 0u;
-  a3[21] = 0u;
-  a3[22] = 0u;
-  a3[19] = 0u;
-  a3[20] = 0u;
-  a3[17] = 0u;
-  a3[18] = 0u;
-  a3[15] = 0u;
-  a3[16] = 0u;
-  a3[13] = 0u;
-  a3[14] = 0u;
-  a3[11] = 0u;
-  a3[12] = 0u;
-  a3[9] = 0u;
-  a3[10] = 0u;
-  a3[7] = 0u;
-  a3[8] = 0u;
-  a3[5] = 0u;
-  a3[6] = 0u;
-  a3[3] = 0u;
-  a3[4] = 0u;
-  a3[1] = 0u;
-  a3[2] = 0u;
-  *a3 = 0u;
-  result = icu::number::LocalizedNumberFormatter::LocalizedNumberFormatter(a3, a1);
-  *(result + 245) = a2;
-  return result;
-}
-
-icu::Locale *icu::number::NumberFormatterSettings<icu::number::LocalizedNumberFormatter>::macros@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  *(a3 + 464) = 0u;
-  *(a3 + 480) = 0u;
-  *(a3 + 432) = 0u;
-  *(a3 + 448) = 0u;
-  *(a3 + 400) = 0u;
-  *(a3 + 416) = 0u;
-  *(a3 + 368) = 0u;
-  *(a3 + 384) = 0u;
-  *(a3 + 336) = 0u;
-  *(a3 + 352) = 0u;
-  *(a3 + 304) = 0u;
-  *(a3 + 320) = 0u;
-  *(a3 + 272) = 0u;
-  *(a3 + 288) = 0u;
-  *(a3 + 240) = 0u;
-  *(a3 + 256) = 0u;
-  *(a3 + 224) = 0u;
-  *(a3 + 160) = 0u;
-  *(a3 + 176) = 0u;
-  *(a3 + 128) = 0u;
-  *(a3 + 144) = 0u;
-  *(a3 + 96) = 0u;
-  *(a3 + 112) = 0u;
-  *(a3 + 64) = 0u;
-  *(a3 + 80) = 0u;
-  *(a3 + 32) = 0u;
-  *(a3 + 48) = 0u;
-  *a3 = 0u;
-  *(a3 + 208) = 0u;
-  v5 = a3 + 208;
-  *(a3 + 192) = 0u;
-  v6 = a3 + 192;
-  *(a3 + 16) = 0u;
-  v7 = a3 + 16;
-  icu::number::LocalizedNumberFormatter::LocalizedNumberFormatter(a3, a1);
-  *(a3 + 4) = *(a2 + 4);
-  *(a3 + 12) = *(a2 + 12);
-  icu::MeasureUnit::operator=(v7, a2 + 16);
-  icu::MeasureUnit::operator=(a3 + 40, a2 + 40);
-  v8 = *(a2 + 112);
-  *(a3 + 96) = *(a2 + 96);
-  *(a3 + 112) = v8;
-  *(a3 + 125) = *(a2 + 125);
-  v9 = *(a2 + 80);
-  *(a3 + 64) = *(a2 + 64);
-  *(a3 + 80) = v9;
-  icu::number::impl::SymbolsWrapper::operator=((a3 + 136), (a2 + 136));
-  *(a3 + 152) = *(a2 + 152);
-  icu::number::Scale::operator=(a3 + 168, a2 + 168);
-  icu::number::impl::StringProp::operator=(v6, a2 + 192);
-  icu::number::impl::StringProp::operator=(v5, a2 + 208);
-  *(a3 + 224) = *(a2 + 224);
-  *(a3 + 238) = *(a2 + 238);
-
-  return icu::Locale::operator=((a3 + 248), a2 + 248);
-}
-
-{
-  *(a3 + 464) = 0u;
-  *(a3 + 480) = 0u;
-  *(a3 + 432) = 0u;
-  *(a3 + 448) = 0u;
-  *(a3 + 400) = 0u;
-  *(a3 + 416) = 0u;
-  *(a3 + 368) = 0u;
-  *(a3 + 384) = 0u;
-  *(a3 + 336) = 0u;
-  *(a3 + 352) = 0u;
-  *(a3 + 304) = 0u;
-  *(a3 + 320) = 0u;
-  *(a3 + 272) = 0u;
-  *(a3 + 288) = 0u;
-  *(a3 + 240) = 0u;
-  *(a3 + 256) = 0u;
-  *(a3 + 224) = 0u;
-  *(a3 + 160) = 0u;
-  *(a3 + 176) = 0u;
-  *(a3 + 128) = 0u;
-  *(a3 + 144) = 0u;
-  *(a3 + 96) = 0u;
-  *(a3 + 112) = 0u;
-  *(a3 + 64) = 0u;
-  *(a3 + 80) = 0u;
-  *(a3 + 32) = 0u;
-  *(a3 + 48) = 0u;
-  *a3 = 0u;
-  *(a3 + 208) = 0u;
-  v5 = a3 + 208;
-  *(a3 + 192) = 0u;
-  v6 = a3 + 192;
-  *(a3 + 16) = 0u;
-  v7 = a3 + 16;
-  icu::number::LocalizedNumberFormatter::LocalizedNumberFormatter(a3, a1);
-  *(a3 + 4) = *(a2 + 4);
-  *(a3 + 12) = *(a2 + 12);
-  icu::MeasureUnit::operator=(v7, a2 + 16);
-  icu::MeasureUnit::operator=(a3 + 40, a2 + 40);
-  v8 = *(a2 + 112);
-  *(a3 + 96) = *(a2 + 96);
-  *(a3 + 112) = v8;
-  *(a3 + 125) = *(a2 + 125);
-  v9 = *(a2 + 80);
-  *(a3 + 64) = *(a2 + 64);
-  *(a3 + 80) = v9;
-  icu::number::impl::SymbolsWrapper::operator=((a3 + 136), (a2 + 136));
-  *(a3 + 152) = *(a2 + 152);
-  icu::number::Scale::operator=(a3 + 168, a2 + 168);
-  icu::number::impl::StringProp::operator=(v6, a2 + 192);
-  icu::number::impl::StringProp::operator=(v5, a2 + 208);
-  *(a3 + 224) = *(a2 + 224);
-  *(a3 + 238) = *(a2 + 238);
-
-  return icu::Locale::operator=((a3 + 248), a2 + 248);
-}
-
-uint64_t icu::number::NumberFormatterSettings<icu::number::LocalizedNumberFormatter>::macros@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  *(a3 + 464) = 0u;
-  *(a3 + 480) = 0u;
-  *(a3 + 432) = 0u;
-  *(a3 + 448) = 0u;
-  *(a3 + 400) = 0u;
-  *(a3 + 416) = 0u;
-  *(a3 + 368) = 0u;
-  *(a3 + 384) = 0u;
-  *(a3 + 336) = 0u;
-  *(a3 + 352) = 0u;
-  *(a3 + 304) = 0u;
-  *(a3 + 320) = 0u;
-  *(a3 + 272) = 0u;
-  *(a3 + 288) = 0u;
-  *(a3 + 240) = 0u;
-  *(a3 + 256) = 0u;
-  *(a3 + 224) = 0u;
-  *(a3 + 160) = 0u;
-  *(a3 + 176) = 0u;
-  *(a3 + 128) = 0u;
-  *(a3 + 144) = 0u;
-  *(a3 + 96) = 0u;
-  *(a3 + 112) = 0u;
-  *(a3 + 64) = 0u;
-  *(a3 + 80) = 0u;
-  *(a3 + 32) = 0u;
-  *(a3 + 48) = 0u;
-  *a3 = 0u;
-  *(a3 + 208) = 0u;
-  v5 = a3 + 208;
-  *(a3 + 192) = 0u;
-  v6 = a3 + 192;
-  *(a3 + 16) = 0u;
-  v7 = a3 + 16;
-  icu::number::LocalizedNumberFormatter::LocalizedNumberFormatter(a3, a1);
-  *(a3 + 4) = *(a2 + 4);
-  *(a3 + 12) = *(a2 + 12);
-  icu::MeasureUnit::operator=(v7, a2 + 16);
-  icu::MeasureUnit::operator=(a3 + 40, a2 + 40);
-  v8 = *(a2 + 112);
-  *(a3 + 96) = *(a2 + 96);
-  *(a3 + 112) = v8;
-  *(a3 + 125) = *(a2 + 125);
-  v9 = *(a2 + 80);
-  *(a3 + 64) = *(a2 + 64);
-  *(a3 + 80) = v9;
-  icu::number::impl::SymbolsWrapper::operator=((a3 + 136), (a2 + 136));
-  *(a3 + 152) = *(a2 + 152);
-  icu::number::Scale::operator=(a3 + 168, a2 + 168);
-  icu::number::impl::StringProp::operator=(v6, a2 + 192);
-  icu::number::impl::StringProp::operator=(v5, a2 + 208);
-  *(a3 + 224) = *(a2 + 224);
-  *(a3 + 238) = *(a2 + 238);
-
-  return icu::Locale::operator=(a3 + 248, a2 + 248);
-}
-
-{
-  *(a3 + 464) = 0u;
-  *(a3 + 480) = 0u;
-  *(a3 + 432) = 0u;
-  *(a3 + 448) = 0u;
-  *(a3 + 400) = 0u;
-  *(a3 + 416) = 0u;
-  *(a3 + 368) = 0u;
-  *(a3 + 384) = 0u;
-  *(a3 + 336) = 0u;
-  *(a3 + 352) = 0u;
-  *(a3 + 304) = 0u;
-  *(a3 + 320) = 0u;
-  *(a3 + 272) = 0u;
-  *(a3 + 288) = 0u;
-  *(a3 + 240) = 0u;
-  *(a3 + 256) = 0u;
-  *(a3 + 224) = 0u;
-  *(a3 + 160) = 0u;
-  *(a3 + 176) = 0u;
-  *(a3 + 128) = 0u;
-  *(a3 + 144) = 0u;
-  *(a3 + 96) = 0u;
-  *(a3 + 112) = 0u;
-  *(a3 + 64) = 0u;
-  *(a3 + 80) = 0u;
-  *(a3 + 32) = 0u;
-  *(a3 + 48) = 0u;
-  *a3 = 0u;
-  *(a3 + 208) = 0u;
-  v5 = a3 + 208;
-  *(a3 + 192) = 0u;
-  v6 = a3 + 192;
-  *(a3 + 16) = 0u;
-  v7 = a3 + 16;
-  icu::number::LocalizedNumberFormatter::LocalizedNumberFormatter(a3, a1);
-  *(a3 + 4) = *(a2 + 4);
-  *(a3 + 12) = *(a2 + 12);
-  icu::MeasureUnit::operator=(v7, a2 + 16);
-  icu::MeasureUnit::operator=(a3 + 40, a2 + 40);
-  v8 = *(a2 + 112);
-  *(a3 + 96) = *(a2 + 96);
-  *(a3 + 112) = v8;
-  *(a3 + 125) = *(a2 + 125);
-  v9 = *(a2 + 80);
-  *(a3 + 64) = *(a2 + 64);
-  *(a3 + 80) = v9;
-  icu::number::impl::SymbolsWrapper::operator=((a3 + 136), (a2 + 136));
-  *(a3 + 152) = *(a2 + 152);
-  icu::number::Scale::operator=(a3 + 168, a2 + 168);
-  icu::number::impl::StringProp::operator=(v6, a2 + 192);
-  icu::number::impl::StringProp::operator=(v5, a2 + 208);
-  *(a3 + 224) = *(a2 + 224);
-  *(a3 + 238) = *(a2 + 238);
-
-  return icu::Locale::operator=(a3 + 248, a2 + 248);
-}
-
-void icu::number::NumberFormatterSettings<icu::number::LocalizedNumberFormatter>::clone()
-{
-  operator new();
-}
-
-{
-  operator new();
-}
-
-BOOL icu::number::NumberFormatterSettings<icu::number::LocalizedNumberFormatter>::copyErrorTo(uint64_t a1, int *a2)
-{
-  if (*a2 > 0)
-  {
-    return 1;
-  }
-
-  sub_19535D604(a1, a2);
-  return *a2 > 0;
 }

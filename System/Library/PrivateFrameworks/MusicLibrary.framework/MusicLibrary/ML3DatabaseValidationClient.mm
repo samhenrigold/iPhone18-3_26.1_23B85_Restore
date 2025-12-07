@@ -12,9 +12,11 @@
 
 uint64_t __43__ML3DatabaseValidationClient_sharedClient__block_invoke()
 {
-  sharedClient___sharedValidator = objc_alloc_init(ML3DatabaseValidationClient);
+  v0 = objc_alloc_init(ML3DatabaseValidationClient);
+  v1 = sharedClient___sharedValidator;
+  sharedClient___sharedValidator = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (ML3DatabaseValidationClient)init
@@ -106,7 +108,7 @@ void __59__ML3DatabaseValidationClient_isValidatingDatabaseForPath___block_invok
   return v10;
 }
 
-uint64_t __69__ML3DatabaseValidationClient__validateDatabaseForPath_usingLibrary___block_invoke(uint64_t a1)
+void *__69__ML3DatabaseValidationClient__validateDatabaseForPath_usingLibrary___block_invoke(uint64_t a1)
 {
   v19 = *MEMORY[0x277D85DE8];
   result = [*(a1 + 32) validationState];

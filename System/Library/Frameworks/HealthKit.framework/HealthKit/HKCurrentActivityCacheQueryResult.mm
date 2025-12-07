@@ -31,11 +31,11 @@
 
 - (HKCurrentActivityCacheQueryResult)initWithCoder:(id)coder
 {
-  v40[2] = *MEMORY[0x1E69E9840];
+  v39[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v36.receiver = self;
-  v36.super_class = HKCurrentActivityCacheQueryResult;
-  v5 = [(HKCurrentActivityCacheQueryResult *)&v36 init];
+  v35.receiver = self;
+  v35.super_class = HKCurrentActivityCacheQueryResult;
+  v5 = [(HKCurrentActivityCacheQueryResult *)&v35 init];
   if (v5)
   {
     v6 = objc_opt_class();
@@ -45,9 +45,9 @@
     v5->_currentActivityCache = v8;
 
     v10 = MEMORY[0x1E695DFD8];
-    v40[0] = objc_opt_class();
-    v40[1] = objc_opt_class();
-    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v40 count:2];
+    v39[0] = objc_opt_class();
+    v39[1] = objc_opt_class();
+    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v39 count:2];
     v12 = [v10 setWithArray:v11];
     v13 = NSStringFromSelector(sel_activeEnergyResults);
     v14 = [coderCopy decodeObjectOfClasses:v12 forKey:v13];
@@ -55,9 +55,9 @@
     v5->_activeEnergyResults = v14;
 
     v16 = MEMORY[0x1E695DFD8];
-    v39[0] = objc_opt_class();
-    v39[1] = objc_opt_class();
-    v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v39 count:2];
+    v38[0] = objc_opt_class();
+    v38[1] = objc_opt_class();
+    v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v38 count:2];
     v18 = [v16 setWithArray:v17];
     v19 = NSStringFromSelector(sel_appleMoveTimeResults);
     v20 = [coderCopy decodeObjectOfClasses:v18 forKey:v19];
@@ -65,9 +65,9 @@
     v5->_appleMoveTimeResults = v20;
 
     v22 = MEMORY[0x1E695DFD8];
-    v38[0] = objc_opt_class();
-    v38[1] = objc_opt_class();
-    v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v38 count:2];
+    v37[0] = objc_opt_class();
+    v37[1] = objc_opt_class();
+    v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v37 count:2];
     v24 = [v22 setWithArray:v23];
     v25 = NSStringFromSelector(sel_appleExerciseTimeResults);
     v26 = [coderCopy decodeObjectOfClasses:v24 forKey:v25];
@@ -75,9 +75,9 @@
     v5->_appleExerciseTimeResults = v26;
 
     v28 = MEMORY[0x1E695DFD8];
-    v37[0] = objc_opt_class();
-    v37[1] = objc_opt_class();
-    v29 = [MEMORY[0x1E695DEC8] arrayWithObjects:v37 count:2];
+    v36[0] = objc_opt_class();
+    v36[1] = objc_opt_class();
+    v29 = [MEMORY[0x1E695DEC8] arrayWithObjects:v36 count:2];
     v30 = [v28 setWithArray:v29];
     v31 = NSStringFromSelector(sel_appleStandHourResults);
     v32 = [coderCopy decodeObjectOfClasses:v30 forKey:v31];
@@ -85,7 +85,6 @@
     v5->_appleStandHourResults = v32;
   }
 
-  v34 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

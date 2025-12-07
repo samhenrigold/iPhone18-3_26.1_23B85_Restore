@@ -800,7 +800,7 @@ LABEL_9:
     return 0;
   }
 
-  [(MRLayer *)self duration];
+  objc_msgSend_duration(self, a2);
   return v5 + 0.1 > time;
 }
 
@@ -811,7 +811,7 @@ LABEL_9:
     return 0;
   }
 
-  [(MRLayer *)self duration];
+  objc_msgSend_duration(self, a2);
   return v5 > time;
 }
 
@@ -1091,7 +1091,7 @@ LABEL_7:
       v40 = v38;
       [(MRLayerClock *)self->mClock containerTime];
       v42 = v41;
-      [(MRLayer *)self duration];
+      objc_msgSend_duration(self);
       v44 = v43 - v40;
       v45 = 0.0;
       if (v40 <= 0.0)
@@ -1714,7 +1714,7 @@ LABEL_11:
       if (objc_opt_isKindOfClass())
       {
         [v19 timeOffset];
-        [v19 duration];
+        objc_msgSend_duration(v19);
         TimeForKeyframeAttributesInPlug([v19 timeOffsetKind], 0, self->mPlug);
       }
 
@@ -1952,7 +1952,7 @@ LABEL_11:
 - (double)doMotionTrigger:(id)trigger
 {
   mcAction = [trigger mcAction];
-  [mcAction duration];
+  objc_msgSend_duration(mcAction);
   v7 = v6;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -2265,40 +2265,44 @@ LABEL_10:
 
 - (void)_updateStateWithContext:(id)context
 {
-  MRMatrix_SetRotationFromAnglesYXZDeg(self->mRenderingState->var12, self->mRenderingState->var8, self->mRenderingState->var7, self->mRenderingState->var9);
   mRenderingState = self->mRenderingState;
-  v6 = (mRenderingState->f32[0] * mRenderingState[2].f32[1]) * 0.5;
-  if (v6 != 1.0)
+  v4.n128_u32[0] = LODWORD(mRenderingState->var7);
+  v3.n128_u32[0] = LODWORD(mRenderingState->var8);
+  v5.n128_u32[0] = LODWORD(mRenderingState->var9);
+  MRMatrix_SetRotationFromAnglesYXZDeg(v3, v4, v5, mRenderingState->var12);
+  v9 = self->mRenderingState;
+  v10 = (v9->f32[0] * v9[2].f32[1]) * 0.5;
+  if (v10 != 1.0)
   {
-    mRenderingState[6] = vmul_n_f32(mRenderingState[6], v6);
-    mRenderingState[7].f32[0] = v6 * mRenderingState[7].f32[0];
-    mRenderingState[8] = vmul_n_f32(mRenderingState[8], v6);
-    mRenderingState[9].f32[0] = v6 * mRenderingState[9].f32[0];
-    mRenderingState[10] = vmul_n_f32(mRenderingState[10], v6);
-    mRenderingState[11].f32[0] = v6 * mRenderingState[11].f32[0];
+    v9[6] = vmul_n_f32(v9[6], v10);
+    v9[7].f32[0] = v10 * v9[7].f32[0];
+    v9[8] = vmul_n_f32(v9[8], v10);
+    v9[9].f32[0] = v10 * v9[9].f32[0];
+    v9[10] = vmul_n_f32(v9[10], v10);
+    v9[11].f32[0] = v10 * v9[11].f32[0];
   }
 
-  v7 = mRenderingState[3].f32[0];
-  if (v7 != 1.0)
+  v11 = v9[3].f32[0];
+  if (v11 != 1.0)
   {
-    mRenderingState[7].f32[0] = v7 * mRenderingState[7].f32[0];
-    mRenderingState[9].f32[0] = v7 * mRenderingState[9].f32[0];
-    mRenderingState[11].f32[0] = v7 * mRenderingState[11].f32[0];
+    v9[7].f32[0] = v11 * v9[7].f32[0];
+    v9[9].f32[0] = v11 * v9[9].f32[0];
+    v9[11].f32[0] = v11 * v9[11].f32[0];
   }
 
-  mRenderingState[12] = mRenderingState[1];
+  v9[12] = v9[1];
   if (self->mSuperlayer)
   {
     [context localAspectRatio];
-    mRenderingState = self->mRenderingState;
-    mRenderingState[12].f32[1] = mRenderingState[12].f32[1] / v8;
+    v9 = self->mRenderingState;
+    v9[12].f32[1] = v9[12].f32[1] / v12;
   }
 
-  mRenderingState[13].i32[0] = mRenderingState[2].i32[0];
+  v9[13].i32[0] = v9[2].i32[0];
   mSuperlayer = self->mSuperlayer;
   if (!mSuperlayer)
   {
-    var12 = &mRenderingState[6];
+    var12 = &v9[6];
     goto LABEL_11;
   }
 
@@ -2307,22 +2311,22 @@ LABEL_10:
   if (renderingState->var17)
   {
 LABEL_11:
-    *&v14 = MRMatrix_MultiplyWithMatrix(var12, [context modelViewMatrix], self->mRenderingState->var13);
+    *&v18 = MRMatrix_MultiplyWithMatrix(var12, [context modelViewMatrix], self->mRenderingState->var13);
     projectionMatrix = [context projectionMatrix];
     goto LABEL_12;
   }
 
-  *&v12 = MRMatrix_MultiplyWithMatrix(var12, [(MRLayer *)self->mSuperlayer renderingState]+ 28, self->mRenderingState->var13);
+  *&v16 = MRMatrix_MultiplyWithMatrix(var12, [(MRLayer *)self->mSuperlayer renderingState]+ 28, self->mRenderingState->var13);
   projectionMatrix = ([(MRLayer *)self->mSuperlayer renderingState]+ 176);
 LABEL_12:
-  v15 = self->mRenderingState;
-  v16 = *projectionMatrix;
-  v17 = projectionMatrix[1];
-  v18 = projectionMatrix[3];
-  *&v15->var14[8] = projectionMatrix[2];
-  *&v15->var14[12] = v18;
-  *v15->var14 = v16;
-  *&v15->var14[4] = v17;
+  v19 = self->mRenderingState;
+  v20 = *projectionMatrix;
+  v21 = projectionMatrix[1];
+  v22 = projectionMatrix[3];
+  *&v19->var14[8] = projectionMatrix[2];
+  *&v19->var14[12] = v22;
+  *v19->var14 = v20;
+  *&v19->var14[4] = v21;
 }
 
 - (void)_sendAction:(id)action withStates:(id)states async:(BOOL)async yesterday:(BOOL)yesterday
@@ -2453,7 +2457,7 @@ LABEL_12:
             v16 = v15;
             if ([v13 durationIsDefined])
             {
-              [v13 duration];
+              objc_msgSend_duration(v13);
               v18 = v17;
               if (!v14)
               {

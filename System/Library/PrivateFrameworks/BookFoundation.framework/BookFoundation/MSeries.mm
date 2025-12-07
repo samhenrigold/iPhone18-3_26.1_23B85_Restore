@@ -74,26 +74,23 @@
 
 - (NSString)name
 {
-  v2 = *(self + OBJC_IVAR____TtC14BookFoundation7MSeries_name);
-  v3 = *(self + OBJC_IVAR____TtC14BookFoundation7MSeries_name + 8);
 
-  v4 = sub_241CF9008();
+  v2 = sub_241CF9008();
 
-  return v4;
+  return v2;
 }
 
 - (NSURL)url
 {
   v3 = sub_241CF8CF8();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x28223BE20](v3);
-  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v4 + 16))(v7, self + OBJC_IVAR____TtC14BookFoundation7MSeries_url, v3);
-  v8 = sub_241CF8C98();
-  (*(v4 + 8))(v7, v3);
+  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v4 + 16))(v6, self + OBJC_IVAR____TtC14BookFoundation7MSeries_url, v3);
+  v7 = sub_241CF8C98();
+  (*(v4 + 8))(v6, v3);
 
-  return v8;
+  return v7;
 }
 
 - (BOOL)isBookSeries

@@ -233,7 +233,7 @@ LABEL_23:
 
 - (id)uniqueIdentifier
 {
-  v12[3] = *MEMORY[0x1E69E9840];
+  v11[3] = *MEMORY[0x1E69E9840];
   operation = [(WFToggleFocusModeContextualAction *)self operation];
   if (operation > 3)
   {
@@ -248,13 +248,11 @@ LABEL_23:
   identifier = [(WFContextualAction *)self identifier];
   focusMode = [(WFToggleFocusModeContextualAction *)self focusMode];
   identifier2 = [focusMode identifier];
-  v12[1] = identifier2;
-  v12[2] = v4;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:3];
+  v11[1] = identifier2;
+  v11[2] = v4;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:3];
 
   v9 = [v8 componentsJoinedByString:@"."];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -370,7 +368,7 @@ LABEL_21:
 
 - (WFToggleFocusModeContextualAction)initWithFocusMode:(id)mode operation:(unint64_t)operation event:(id)event
 {
-  v47[1] = *MEMORY[0x1E69E9840];
+  v46[1] = *MEMORY[0x1E69E9840];
   modeCopy = mode;
   eventCopy = event;
   eventCopy2 = event;
@@ -392,26 +390,26 @@ LABEL_21:
   selfCopy = self;
   v13 = [(WFToggleFocusModeContextualAction *)self displayStringFromOperation:operation isDND:v12 focusMode:modeCopy eventDescriptor:eventCopy2];
   v14 = [WFContextualActionParameter alloc];
-  v45[0] = @"Identifier";
+  v44[0] = @"Identifier";
   identifier2 = [modeCopy identifier];
-  v45[1] = @"DisplayString";
-  v46[0] = identifier2;
+  v44[1] = @"DisplayString";
+  v45[0] = identifier2;
   name = [modeCopy name];
-  v46[1] = name;
-  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v46 forKeys:v45 count:2];
+  v45[1] = name;
+  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v45 forKeys:v44 count:2];
   v18 = [(WFContextualActionParameter *)v14 initWithType:@"WFDictionaryContentItem" displayString:0 wfParameterKey:@"FocusModes" wfSerializedRepresentation:v17];
-  v47[0] = v18;
-  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v47 count:1];
+  v46[0] = v18;
+  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v46 count:1];
 
   if (operation > 1)
   {
     if (operation == 3)
     {
       v20 = [[WFContextualActionParameter alloc] initWithType:@"WFStringContentItem" displayString:0 wfParameterKey:@"AssertionType" wfSerializedRepresentation:@"Turned Off"];
-      v42[0] = v20;
+      v41[0] = v20;
       v22 = [[WFContextualActionParameter alloc] initWithType:@"WFStringContentItem" displayString:0 wfParameterKey:@"Operation" wfSerializedRepresentation:@"Toggle"];
-      v42[1] = v22;
-      v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v42 count:2];
+      v41[1] = v22;
+      v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v41 count:2];
       v29 = [v19 arrayByAddingObjectsFromArray:v23];
       goto LABEL_15;
     }
@@ -430,26 +428,26 @@ LABEL_21:
     }
 
     v20 = [[WFContextualActionParameter alloc] initWithType:@"WFStringContentItem" displayString:0 wfParameterKey:@"AssertionType" wfSerializedRepresentation:@"Event Ends"];
-    v43[0] = v20;
+    v42[0] = v20;
     v21 = [WFContextualActionParameter alloc];
     v22 = [(WFContextualActionParameter *)v21 initWithType:@"WFNumberContentItem" displayString:0 wfParameterKey:@"Enabled" wfSerializedRepresentation:MEMORY[0x1E695E118]];
-    v43[1] = v22;
+    v42[1] = v22;
     v23 = [[WFContextualActionParameter alloc] initWithType:@"WFCalendarEventContentItem" displayString:0 wfParameterKey:@"Event" isActionInput:1];
-    v43[2] = v23;
+    v42[2] = v23;
     v24 = MEMORY[0x1E695DEC8];
-    v25 = v43;
+    v25 = v42;
     v26 = 3;
     goto LABEL_13;
   }
 
   v20 = [[WFContextualActionParameter alloc] initWithType:@"WFStringContentItem" displayString:0 wfParameterKey:@"AssertionType" wfSerializedRepresentation:@"Turned Off"];
-  v44[0] = v20;
+  v43[0] = v20;
   v27 = [WFContextualActionParameter alloc];
   v22 = [MEMORY[0x1E696AD98] numberWithBool:operation == 0];
   v23 = [(WFContextualActionParameter *)v27 initWithType:@"WFNumberContentItem" displayString:0 wfParameterKey:@"Enabled" wfSerializedRepresentation:v22];
-  v44[1] = v23;
+  v43[1] = v23;
   v24 = MEMORY[0x1E695DEC8];
-  v25 = v44;
+  v25 = v43;
   v26 = 2;
 LABEL_13:
   v28 = [v24 arrayWithObjects:v25 count:v26];
@@ -474,7 +472,6 @@ LABEL_16:
     v34 = v33;
   }
 
-  v35 = *MEMORY[0x1E69E9840];
   return v33;
 }
 

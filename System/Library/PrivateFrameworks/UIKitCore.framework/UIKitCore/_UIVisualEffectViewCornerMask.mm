@@ -252,7 +252,7 @@
         goto LABEL_14;
       }
 
-      if ([(UIImage *)image isEqual:?])
+      if (objc_msgSend_isEqual_(image))
       {
         v9 = CGRectEqualToRect(self->_imageCenter, v6->_imageCenter);
       }

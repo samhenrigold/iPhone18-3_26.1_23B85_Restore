@@ -152,7 +152,7 @@
 
 - (BOOL)fillPIN:(id)n intoAPDUTemplate:(id)template PINByteOffset:(int64_t)offset error:(id *)error
 {
-  v38[1] = *MEMORY[0x1E69E9840];
+  v37[1] = *MEMORY[0x1E69E9840];
   nCopy = n;
   templateCopy = template;
   if (*([templateCopy bytes] + 4))
@@ -177,12 +177,12 @@
     if (error)
     {
       v15 = MEMORY[0x1E696ABC0];
-      v37 = *MEMORY[0x1E696A578];
+      v36 = *MEMORY[0x1E696A578];
       v16 = [TKSmartCard _localizedString:@"INVALID_PIN"];
-      v38[0] = v16;
+      v37[0] = v16;
       v17 = MEMORY[0x1E695DF20];
-      v18 = v38;
-      v19 = &v37;
+      v18 = v37;
+      v19 = &v36;
       goto LABEL_10;
     }
 
@@ -277,12 +277,12 @@ LABEL_38:
   if (error)
   {
     v15 = MEMORY[0x1E696ABC0];
-    v35 = *MEMORY[0x1E696A578];
+    v34 = *MEMORY[0x1E696A578];
     v16 = [TKSmartCard _localizedString:@"INVALID_PIN"];
-    v36 = v16;
+    v35 = v16;
     v17 = MEMORY[0x1E695DF20];
-    v18 = &v36;
-    v19 = &v35;
+    v18 = &v35;
+    v19 = &v34;
 LABEL_10:
     v20 = [v17 dictionaryWithObjects:v18 forKeys:v19 count:1];
     *error = [v15 errorWithDomain:@"CryptoTokenKit" code:-5 userInfo:v20];
@@ -292,7 +292,6 @@ LABEL_10:
 
 LABEL_37:
 
-  v33 = *MEMORY[0x1E69E9840];
   return error;
 }
 
@@ -315,7 +314,7 @@ LABEL_37:
     return (encoding == TKSmartCardPINEncodingBCD) | (2 * (encoding2 == TKSmartCardPINEncodingASCII)) | (4 * (pINJustification == TKSmartCardPINJustificationRight)) | (8 * v11) | (((pINBitOffset & 7) == 0) << 7);
   }
 
-  v12 = TK_LOG_smartcard();
+  v12 = TK_LOG_smartcard(pINBitOffset2);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     [TKSmartCardPINFormat PINFormatStringWithError:];
@@ -348,7 +347,7 @@ LABEL_37:
     return v8 | (16 * ((pINLengthBitOffset & 7) == 0));
   }
 
-  v9 = TK_LOG_smartcard();
+  v9 = TK_LOG_smartcard(pINLengthBitOffset2);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     [TKSmartCardPINFormat PINLengthFormatWithError:];

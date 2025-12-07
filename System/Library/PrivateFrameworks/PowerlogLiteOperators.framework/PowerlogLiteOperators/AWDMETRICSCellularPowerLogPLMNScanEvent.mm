@@ -3,6 +3,9 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)reasonForScanAsString:(int)string;
+- (id)scanResultAsString:(int)string;
+- (id)scanTypeAsString:(int)string;
 - (int)StringAsReasonForScan:(id)scan;
 - (int)StringAsScanResult:(id)result;
 - (int)StringAsScanType:(id)type;
@@ -178,6 +181,21 @@ LABEL_8:
   *&self->_has = *&self->_has & 0xF7 | v3;
 }
 
+- (id)scanResultAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278259DA0[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsScanResult:(id)result
 {
   resultCopy = result;
@@ -232,6 +250,29 @@ LABEL_8:
   *&self->_has = *&self->_has & 0xEF | v3;
 }
 
+- (id)scanTypeAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"ACQ_DB";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"FULL_BAND";
+  }
+
+  return v4;
+}
+
 - (int)StringAsScanType:(id)type
 {
   typeCopy = type;
@@ -274,6 +315,21 @@ LABEL_8:
   }
 
   *&self->_has = *&self->_has & 0xFB | v3;
+}
+
+- (id)reasonForScanAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278259DB8[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsReasonForScan:(id)scan
@@ -350,7 +406,6 @@ LABEL_8:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 8) == 0)
@@ -370,7 +425,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  scanResult = self->_scanResult;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -385,7 +439,6 @@ LABEL_4:
   }
 
 LABEL_13:
-  scanType = self->_scanType;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -400,7 +453,6 @@ LABEL_5:
   }
 
 LABEL_14:
-  reasonForScan = self->_reasonForScan;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -415,12 +467,10 @@ LABEL_6:
   }
 
 LABEL_15:
-  duration = self->_duration;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x20) != 0)
   {
 LABEL_7:
-    subsId = self->_subsId;
     PBDataWriterWriteUint32Field();
   }
 

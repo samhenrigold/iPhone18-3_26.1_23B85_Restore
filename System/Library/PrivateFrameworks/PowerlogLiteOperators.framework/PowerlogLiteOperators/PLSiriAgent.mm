@@ -34,188 +34,176 @@
 
 + (id)entryEventPointDefinitions
 {
-  v9[2] = *MEMORY[0x277D85DE8];
-  v8[0] = @"SiriWakes";
+  v8[2] = *MEMORY[0x277D85DE8];
+  v7[0] = @"SiriWakes";
   entryEventPointDefinitionSiriWakes = [self entryEventPointDefinitionSiriWakes];
-  v8[1] = @"SelfTriggerSuppressionDetected";
-  v9[0] = entryEventPointDefinitionSiriWakes;
+  v7[1] = @"SelfTriggerSuppressionDetected";
+  v8[0] = entryEventPointDefinitionSiriWakes;
   entryEventPointSelfTriggerSuppressionDetected = [self entryEventPointSelfTriggerSuppressionDetected];
-  v9[1] = entryEventPointSelfTriggerSuppressionDetected;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v8[1] = entryEventPointSelfTriggerSuppressionDetected;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
 
   return v5;
 }
 
 + (id)entryEventPointDefinitionSiriWakes
 {
-  v18[2] = *MEMORY[0x277D85DE8];
-  v17[0] = *MEMORY[0x277D3F4E8];
-  v15 = *MEMORY[0x277D3F568];
-  v16 = &unk_282C1BDF8;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
-  v18[0] = v2;
-  v17[1] = *MEMORY[0x277D3F540];
-  v13[0] = @"phID";
+  v17[2] = *MEMORY[0x277D85DE8];
+  v16[0] = *MEMORY[0x277D3F4E8];
+  v14 = *MEMORY[0x277D3F568];
+  v15 = &unk_282C1BDF8;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
+  v17[0] = v2;
+  v16[1] = *MEMORY[0x277D3F540];
+  v12[0] = @"phID";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat];
-  v14[0] = commonTypeDict_IntegerFormat;
-  v13[1] = @"secondPassState";
+  v13[0] = commonTypeDict_IntegerFormat;
+  v12[1] = @"secondPassState";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]2 commonTypeDict_IntegerFormat];
-  v14[1] = commonTypeDict_IntegerFormat2;
-  v13[2] = @"secondPassScore";
+  v13[1] = commonTypeDict_IntegerFormat2;
+  v12[2] = @"secondPassScore";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_RealFormat = [mEMORY[0x277D3F198]3 commonTypeDict_RealFormat];
-  v14[2] = commonTypeDict_RealFormat;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:3];
-  v18[1] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v13[2] = commonTypeDict_RealFormat;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:3];
+  v17[1] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
 
   return v10;
 }
 
 + (id)entryEventPointSelfTriggerSuppressionDetected
 {
-  v18[2] = *MEMORY[0x277D85DE8];
-  v17[0] = *MEMORY[0x277D3F4E8];
-  v15 = *MEMORY[0x277D3F568];
-  v16 = &unk_282C1BDF8;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
-  v18[0] = v2;
-  v17[1] = *MEMORY[0x277D3F540];
-  v13[0] = @"AudioClientType";
+  v17[2] = *MEMORY[0x277D85DE8];
+  v16[0] = *MEMORY[0x277D3F4E8];
+  v14 = *MEMORY[0x277D3F568];
+  v15 = &unk_282C1BDF8;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
+  v17[0] = v2;
+  v16[1] = *MEMORY[0x277D3F540];
+  v12[0] = @"AudioClientType";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat];
-  v14[0] = commonTypeDict_IntegerFormat;
-  v13[1] = @"AudioPlaybackRouteType";
+  v13[0] = commonTypeDict_IntegerFormat;
+  v12[1] = @"AudioPlaybackRouteType";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]2 commonTypeDict_IntegerFormat];
-  v14[1] = commonTypeDict_IntegerFormat2;
-  v13[2] = @"AudioSourceType";
+  v13[1] = commonTypeDict_IntegerFormat2;
+  v12[2] = @"AudioSourceType";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat3 = [mEMORY[0x277D3F198]3 commonTypeDict_IntegerFormat];
-  v14[2] = commonTypeDict_IntegerFormat3;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:3];
-  v18[1] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v13[2] = commonTypeDict_IntegerFormat3;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:3];
+  v17[1] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
 
   return v10;
 }
 
 + (id)entryEventForwardDefinitions
 {
-  v10[3] = *MEMORY[0x277D85DE8];
-  v9[0] = @"ASR";
+  v9[3] = *MEMORY[0x277D85DE8];
+  v8[0] = @"ASR";
   entryEventForwardASREvent = [self entryEventForwardASREvent];
-  v10[0] = entryEventForwardASREvent;
-  v9[1] = @"DictationConnection";
+  v9[0] = entryEventForwardASREvent;
+  v8[1] = @"DictationConnection";
   entryEventForwardDefinitionDictationConnection = [self entryEventForwardDefinitionDictationConnection];
-  v10[1] = entryEventForwardDefinitionDictationConnection;
-  v9[2] = @"SiriConfig";
+  v9[1] = entryEventForwardDefinitionDictationConnection;
+  v8[2] = @"SiriConfig";
   entryEventForwardDefinitionSiriConfig = [self entryEventForwardDefinitionSiriConfig];
-  v10[2] = entryEventForwardDefinitionSiriConfig;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:3];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9[2] = entryEventForwardDefinitionSiriConfig;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
 
   return v6;
 }
 
 + (id)entryEventForwardASREvent
 {
-  v21[2] = *MEMORY[0x277D85DE8];
-  v20[0] = *MEMORY[0x277D3F4E8];
+  v20[2] = *MEMORY[0x277D85DE8];
+  v19[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F4A0];
-  v18[0] = *MEMORY[0x277D3F568];
-  v18[1] = v2;
-  v19[0] = &unk_282C1BDF8;
-  v19[1] = MEMORY[0x277CBEC38];
-  v18[2] = *MEMORY[0x277D3F4F0];
-  v19[2] = &unk_282C14088;
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:3];
-  v21[0] = v15;
-  v20[1] = *MEMORY[0x277D3F540];
-  v16[0] = @"ASREvent";
+  v17[0] = *MEMORY[0x277D3F568];
+  v17[1] = v2;
+  v18[0] = &unk_282C1BDF8;
+  v18[1] = MEMORY[0x277CBEC38];
+  v17[2] = *MEMORY[0x277D3F4F0];
+  v18[2] = &unk_282C14088;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:3];
+  v20[0] = v14;
+  v19[1] = *MEMORY[0x277D3F540];
+  v15[0] = @"ASREvent";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat];
-  v17[0] = commonTypeDict_IntegerFormat;
-  v16[1] = @"ApplicationName";
+  v16[0] = commonTypeDict_IntegerFormat;
+  v15[1] = @"ApplicationName";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat_withBundleID = [mEMORY[0x277D3F198]2 commonTypeDict_StringFormat_withBundleID];
-  v17[1] = commonTypeDict_StringFormat_withBundleID;
-  v16[2] = @"Language";
+  v16[1] = commonTypeDict_StringFormat_withBundleID;
+  v15[2] = @"Language";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat = [mEMORY[0x277D3F198]3 commonTypeDict_StringFormat];
-  v17[2] = commonTypeDict_StringFormat;
-  v16[3] = @"ModelVersion";
+  v16[2] = commonTypeDict_StringFormat;
+  v15[3] = @"ModelVersion";
   mEMORY[0x277D3F198]4 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat2 = [mEMORY[0x277D3F198]4 commonTypeDict_StringFormat];
-  v17[3] = commonTypeDict_StringFormat2;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:4];
-  v21[1] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:2];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v16[3] = commonTypeDict_StringFormat2;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:4];
+  v20[1] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
 
   return v12;
 }
 
 + (id)entryEventForwardDefinitionDictationConnection
 {
-  v25[2] = *MEMORY[0x277D85DE8];
-  v24[0] = *MEMORY[0x277D3F4E8];
+  v24[2] = *MEMORY[0x277D85DE8];
+  v23[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F4A0];
-  v22[0] = *MEMORY[0x277D3F568];
-  v22[1] = v2;
-  v23[0] = &unk_282C1BDF8;
-  v23[1] = MEMORY[0x277CBEC38];
-  v22[2] = *MEMORY[0x277D3F4F0];
-  v23[2] = &unk_282C140A0;
-  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:3];
-  v25[0] = v19;
-  v24[1] = *MEMORY[0x277D3F540];
-  v20[0] = @"SiriEvent";
+  v21[0] = *MEMORY[0x277D3F568];
+  v21[1] = v2;
+  v22[0] = &unk_282C1BDF8;
+  v22[1] = MEMORY[0x277CBEC38];
+  v21[2] = *MEMORY[0x277D3F4F0];
+  v22[2] = &unk_282C140A0;
+  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:3];
+  v24[0] = v18;
+  v23[1] = *MEMORY[0x277D3F540];
+  v19[0] = @"SiriEvent";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat];
-  v21[0] = commonTypeDict_IntegerFormat;
-  v20[1] = @"Mode";
+  v20[0] = commonTypeDict_IntegerFormat;
+  v19[1] = @"Mode";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]2 commonTypeDict_IntegerFormat];
-  v21[1] = commonTypeDict_IntegerFormat2;
-  v20[2] = @"startReason";
+  v20[1] = commonTypeDict_IntegerFormat2;
+  v19[2] = @"startReason";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat = [mEMORY[0x277D3F198]3 commonTypeDict_StringFormat];
-  v21[2] = commonTypeDict_StringFormat;
-  v20[3] = @"stopReason";
+  v20[2] = commonTypeDict_StringFormat;
+  v19[3] = @"stopReason";
   mEMORY[0x277D3F198]4 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat2 = [mEMORY[0x277D3F198]4 commonTypeDict_StringFormat];
-  v21[3] = commonTypeDict_StringFormat2;
-  v20[4] = @"appBundleID";
+  v20[3] = commonTypeDict_StringFormat2;
+  v19[4] = @"appBundleID";
   mEMORY[0x277D3F198]5 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat_withBundleID = [mEMORY[0x277D3F198]5 commonTypeDict_StringFormat_withBundleID];
-  v21[4] = commonTypeDict_StringFormat_withBundleID;
-  v20[5] = @"Recognition";
+  v20[4] = commonTypeDict_StringFormat_withBundleID;
+  v19[5] = @"Recognition";
   mEMORY[0x277D3F198]6 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat3 = [mEMORY[0x277D3F198]6 commonTypeDict_IntegerFormat];
-  v21[5] = commonTypeDict_IntegerFormat3;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:6];
-  v25[1] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:2];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v20[5] = commonTypeDict_IntegerFormat3;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:6];
+  v24[1] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:2];
 
   return v12;
 }
 
 + (id)entryEventForwardDefinitionSiriConfig
 {
-  v18[2] = *MEMORY[0x277D85DE8];
+  v17[2] = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D3F208] isAppleTV])
   {
     v2 = MEMORY[0x277CBEC10];
@@ -223,85 +211,79 @@
 
   else
   {
-    v17[0] = *MEMORY[0x277D3F4E8];
-    v15 = *MEMORY[0x277D3F568];
-    v16 = &unk_282C1BDF8;
-    v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
-    v18[0] = v3;
-    v17[1] = *MEMORY[0x277D3F540];
-    v13[0] = @"HeySiriEnabled";
+    v16[0] = *MEMORY[0x277D3F4E8];
+    v14 = *MEMORY[0x277D3F568];
+    v15 = &unk_282C1BDF8;
+    v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
+    v17[0] = v3;
+    v16[1] = *MEMORY[0x277D3F540];
+    v12[0] = @"HeySiriEnabled";
     mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_BoolFormat = [mEMORY[0x277D3F198] commonTypeDict_BoolFormat];
-    v14[0] = commonTypeDict_BoolFormat;
-    v13[1] = @"Language";
+    v13[0] = commonTypeDict_BoolFormat;
+    v12[1] = @"Language";
     mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_StringFormat = [mEMORY[0x277D3F198]2 commonTypeDict_StringFormat];
-    v14[1] = commonTypeDict_StringFormat;
-    v13[2] = @"ModelVersion";
+    v13[1] = commonTypeDict_StringFormat;
+    v12[2] = @"ModelVersion";
     mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_StringFormat2 = [mEMORY[0x277D3F198]3 commonTypeDict_StringFormat];
-    v14[2] = commonTypeDict_StringFormat2;
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:3];
-    v18[1] = v10;
-    v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
+    v13[2] = commonTypeDict_StringFormat2;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:3];
+    v17[1] = v10;
+    v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
 
 + (id)entryEventIntervalDefinitions
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"SelfTriggerSuppression";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"SelfTriggerSuppression";
   entryEventIntervalSelfTriggerSuppression = [self entryEventIntervalSelfTriggerSuppression];
-  v7[0] = entryEventIntervalSelfTriggerSuppression;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = entryEventIntervalSelfTriggerSuppression;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
 
 + (id)entryEventIntervalSelfTriggerSuppression
 {
-  v24[2] = *MEMORY[0x277D85DE8];
-  v23[0] = *MEMORY[0x277D3F4E8];
-  v21 = *MEMORY[0x277D3F568];
-  v22 = &unk_282C1BDF8;
-  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
-  v24[0] = v18;
-  v23[1] = *MEMORY[0x277D3F540];
-  v19[0] = @"AudioClientType";
+  v23[2] = *MEMORY[0x277D85DE8];
+  v22[0] = *MEMORY[0x277D3F4E8];
+  v20 = *MEMORY[0x277D3F568];
+  v21 = &unk_282C1BDF8;
+  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
+  v23[0] = v17;
+  v22[1] = *MEMORY[0x277D3F540];
+  v18[0] = @"AudioClientType";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat];
-  v20[0] = commonTypeDict_IntegerFormat;
-  v19[1] = @"AudioPlaybackRouteType";
+  v19[0] = commonTypeDict_IntegerFormat;
+  v18[1] = @"AudioPlaybackRouteType";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]2 commonTypeDict_IntegerFormat];
-  v20[1] = commonTypeDict_IntegerFormat2;
-  v19[2] = @"AudioSourceType";
+  v19[1] = commonTypeDict_IntegerFormat2;
+  v18[2] = @"AudioSourceType";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat3 = [mEMORY[0x277D3F198]3 commonTypeDict_IntegerFormat];
-  v20[2] = commonTypeDict_IntegerFormat3;
-  v19[3] = @"NumSelfTriggers";
+  v19[2] = commonTypeDict_IntegerFormat3;
+  v18[3] = @"NumSelfTriggers";
   mEMORY[0x277D3F198]4 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat4 = [mEMORY[0x277D3F198]4 commonTypeDict_IntegerFormat];
-  v20[3] = commonTypeDict_IntegerFormat4;
-  v19[4] = @"DurationSec";
+  v19[3] = commonTypeDict_IntegerFormat4;
+  v18[4] = @"DurationSec";
   mEMORY[0x277D3F198]5 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat5 = [mEMORY[0x277D3F198]5 commonTypeDict_IntegerFormat];
-  v20[4] = commonTypeDict_IntegerFormat5;
-  v19[5] = @"timestampEnd";
+  v19[4] = commonTypeDict_IntegerFormat5;
+  v18[5] = @"timestampEnd";
   mEMORY[0x277D3F198]6 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_DateFormat = [mEMORY[0x277D3F198]6 commonTypeDict_DateFormat];
-  v20[5] = commonTypeDict_DateFormat;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:6];
-  v24[1] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:2];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v19[5] = commonTypeDict_DateFormat;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:6];
+  v23[1] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:2];
 
   return v11;
 }
@@ -375,98 +357,92 @@
 
 void __39__PLSiriAgent_initOperatorDependancies__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v6 = a5;
   v7 = PLLogSiri();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v9 = 138412290;
-    v10 = v6;
-    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "ESConnection payload: %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v6;
+    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "ESConnection payload: %@", &v8, 0xCu);
   }
 
   [*(a1 + 32) logEventForwardASREvent:v6];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __39__PLSiriAgent_initOperatorDependancies__block_invoke_114(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v6 = a5;
   v7 = PLLogSiri();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v9 = 138412290;
-    v10 = v6;
-    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "DictationConnection payload: %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v6;
+    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "DictationConnection payload: %@", &v8, 0xCu);
   }
 
   [*(a1 + 32) logEventForwardDictationConnection:v6];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __39__PLSiriAgent_initOperatorDependancies__block_invoke_119(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v6 = a5;
   v7 = PLLogSiri();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v9 = 138412290;
-    v10 = v6;
-    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "SelfTriggerSuppressionDetected payload: %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v6;
+    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "SelfTriggerSuppressionDetected payload: %@", &v8, 0xCu);
   }
 
   [*(a1 + 32) logEventPointSelfTriggerSuppressionDetected:v6];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __39__PLSiriAgent_initOperatorDependancies__block_invoke_127(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v6 = a5;
   v7 = PLLogSiri();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v9 = 138412290;
-    v10 = v6;
-    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "SelfTriggerSuppressionEvent payload: %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v6;
+    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "SelfTriggerSuppressionEvent payload: %@", &v8, 0xCu);
   }
 
   [*(a1 + 32) logEventIntervalSelfTriggerSuppression:v6];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __39__PLSiriAgent_initOperatorDependancies__block_invoke_132(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v6 = a5;
   v7 = PLLogSiri();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v9 = 138412290;
-    v10 = v6;
-    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "SiriWakes payload: %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v6;
+    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "SiriWakes payload: %@", &v8, 0xCu);
   }
 
   [*(a1 + 32) logEventPointSiriWakes:v6];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __39__PLSiriAgent_initOperatorDependancies__block_invoke_137(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v6 = a5;
   v7 = PLLogSiri();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v9 = 138412290;
-    v10 = v6;
-    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "SiriConfig payload: %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v6;
+    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "SiriConfig payload: %@", &v8, 0xCu);
   }
 
   [*(a1 + 32) logEventForwardSiriConfig:v6];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logEventPointSelfTriggerSuppressionDetected:(id)detected
@@ -496,7 +472,7 @@ void __39__PLSiriAgent_initOperatorDependancies__block_invoke_137(uint64_t a1, u
 
 - (void)logEventPointSiriWakes:(id)wakes
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v4 = *MEMORY[0x277D3F5E8];
   wakesCopy = wakes;
   v6 = [(PLOperator *)PLSiriAgent entryKeyForType:v4 andName:@"SiriWakes"];
@@ -505,10 +481,10 @@ void __39__PLSiriAgent_initOperatorDependancies__block_invoke_137(uint64_t a1, u
   v8 = PLLogSiri();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v12 = [v7 objectForKeyedSubscript:@"secondPassState"];
-    v13 = 138412290;
-    v14 = v12;
-    _os_log_debug_impl(&dword_21A4C6000, v8, OS_LOG_TYPE_DEBUG, "logEventPointSiriWakes: secondPassState value: %@", &v13, 0xCu);
+    v11 = [v7 objectForKeyedSubscript:@"secondPassState"];
+    v12 = 138412290;
+    v13 = v11;
+    _os_log_debug_impl(&dword_21A4C6000, v8, OS_LOG_TYPE_DEBUG, "logEventPointSiriWakes: secondPassState value: %@", &v12, 0xCu);
   }
 
   v9 = [v7 objectForKeyedSubscript:@"secondPassState"];
@@ -520,13 +496,11 @@ void __39__PLSiriAgent_initOperatorDependancies__block_invoke_137(uint64_t a1, u
   }
 
   [(PLOperator *)self logEntry:v7];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)convertASREvent:(id)event
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   if ([eventCopy isEqualToString:@"preheatSpeechRecognitionWithAssetConfig"])
   {
@@ -558,15 +532,14 @@ void __39__PLSiriAgent_initOperatorDependancies__block_invoke_137(uint64_t a1, u
     v5 = PLLogSiri();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      v8 = 138412290;
-      v9 = eventCopy;
-      _os_log_debug_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEBUG, "Unknown/Other ASR siriEvent %@", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = eventCopy;
+      _os_log_debug_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEBUG, "Unknown/Other ASR siriEvent %@", &v7, 0xCu);
     }
 
     v4 = 5;
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -587,7 +560,7 @@ void __39__PLSiriAgent_initOperatorDependancies__block_invoke_137(uint64_t a1, u
 
 - (unint64_t)convertMode:(id)mode
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   modeCopy = mode;
   if ([modeCopy isEqualToString:@"Location"])
   {
@@ -614,21 +587,20 @@ void __39__PLSiriAgent_initOperatorDependancies__block_invoke_137(uint64_t a1, u
     v5 = PLLogSiri();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      v8 = 138412290;
-      v9 = modeCopy;
-      _os_log_debug_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEBUG, "Unknown Dictation mode %@", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = modeCopy;
+      _os_log_debug_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEBUG, "Unknown Dictation mode %@", &v7, 0xCu);
     }
 
     v4 = 4;
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 - (unint64_t)convertRecognition:(id)recognition
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   recognitionCopy = recognition;
   if ([recognitionCopy isEqualToString:@"on-device"])
   {
@@ -645,21 +617,20 @@ void __39__PLSiriAgent_initOperatorDependancies__block_invoke_137(uint64_t a1, u
     v5 = PLLogSiri();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      v8 = 138412290;
-      v9 = recognitionCopy;
-      _os_log_debug_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEBUG, "Unknown/Other Dictation recognition %@", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = recognitionCopy;
+      _os_log_debug_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEBUG, "Unknown/Other Dictation recognition %@", &v7, 0xCu);
     }
 
     v4 = 2;
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 - (unint64_t)convertSiriEvent:(id)event
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   if ([eventCopy isEqualToString:@"Dictation start"])
   {
@@ -691,15 +662,14 @@ void __39__PLSiriAgent_initOperatorDependancies__block_invoke_137(uint64_t a1, u
     v5 = PLLogSiri();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      v8 = 138412290;
-      v9 = eventCopy;
-      _os_log_debug_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEBUG, "Unknown/Other Dictation siriEvent %@", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = eventCopy;
+      _os_log_debug_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEBUG, "Unknown/Other Dictation siriEvent %@", &v7, 0xCu);
     }
 
     v4 = 5;
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v4;
 }
 

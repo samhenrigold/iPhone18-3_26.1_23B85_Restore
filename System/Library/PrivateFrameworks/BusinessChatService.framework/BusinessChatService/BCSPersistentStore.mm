@@ -54,7 +54,7 @@
 
 void __51__BCSPersistentStore_queue_openDatabaseIfNecessary__block_invoke(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = ABSLogCommon();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
@@ -65,20 +65,7 @@ void __51__BCSPersistentStore_queue_openDatabaseIfNecessary__block_invoke(uint64
   }
 
   v5 = *(a1 + 32);
-  if (!v5)
-  {
-    goto LABEL_20;
-  }
-
-  v6 = *(v5 + 24);
-  v7 = *(a1 + 40);
-  dispatch_assert_queue_V2(v6);
-  *ppDb = 0;
-  v8 = [v7 UTF8String];
-
-  v9 = sqlite3_open_v2(v8, ppDb, 65542, 0) ? 0 : *ppDb;
-  v10 = *(a1 + 32);
-  if (v10)
+  if (v5 && ((v6 = *(v5 + 24), v7 = *(a1 + 40), dispatch_assert_queue_V2(v6), *ppDb = 0, v8 = [v7 UTF8String], v7, sqlite3_open_v2(v8, ppDb, 65542, 0)) ? (v9 = 0) : (v9 = *ppDb), (v10 = *(a1 + 32)) != 0))
   {
     dispatch_assert_queue_V2(v10[3]);
     v11 = sqlite3_exec(v9, [(dispatch_queue_t *)v10 schema], 0, 0, 0);
@@ -120,7 +107,6 @@ void __51__BCSPersistentStore_queue_openDatabaseIfNecessary__block_invoke(uint64
 
   else
   {
-LABEL_20:
     [0 schemaVersion];
   }
 
@@ -136,7 +122,6 @@ LABEL_20:
   [v19 removeItemAtPath:*(a1 + 40) error:0];
 
 LABEL_19:
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)beginBatch
@@ -170,7 +155,7 @@ void __32__BCSPersistentStore_beginBatch__block_invoke(uint64_t a1)
     {
 LABEL_18:
       *(v1 + 16) = v2 + 1;
-      goto LABEL_19;
+      return;
     }
 
     dispatch_assert_queue_V2(*(v1 + 24));
@@ -181,10 +166,10 @@ LABEL_18:
       *buf = MEMORY[0x277D85DD0];
       *&buf[8] = 3221225472;
       *&buf[16] = __51__BCSPersistentStore_queue_openDatabaseIfNecessary__block_invoke;
-      v21 = &unk_278D38CA0;
-      v22 = v1;
+      v20 = &unk_278D38CA0;
+      v21 = v1;
       v5 = v4;
-      v23 = v5;
+      v22 = v5;
       v6 = MEMORY[0x245D07100](buf);
       v7 = [MEMORY[0x277CCAA00] defaultManager];
       v8 = [v7 fileExistsAtPath:v5];
@@ -206,24 +191,24 @@ LABEL_18:
 
         else
         {
-          v15 = ppDb;
+          v14 = ppDb;
           dispatch_assert_queue_V2(*(v1 + 24));
-          if (v15 && (errmsg[0] = 0, !sqlite3_prepare_v2(v15, "PRAGMA user_version", -1, errmsg, 0)))
+          if (v14 && (errmsg[0] = 0, !sqlite3_prepare_v2(v14, "PRAGMA user_version", -1, errmsg, 0)))
           {
             if (sqlite3_step(errmsg[0]) == 100)
             {
               do
               {
-                LODWORD(v16) = sqlite3_column_int(errmsg[0], 0);
+                LODWORD(v15) = sqlite3_column_int(errmsg[0], 0);
               }
 
               while (sqlite3_step(errmsg[0]) == 100);
-              v16 = v16;
+              v15 = v15;
             }
 
             else
             {
-              v16 = -1;
+              v15 = -1;
             }
 
             sqlite3_finalize(errmsg[0]);
@@ -231,21 +216,21 @@ LABEL_18:
 
           else
           {
-            v16 = -1;
+            v15 = -1;
           }
 
-          v17 = [v1 schemaVersion];
-          if (v16 == v17)
+          v16 = [v1 schemaVersion];
+          if (v15 == v16)
           {
             *(v1 + 8) = ppDb;
           }
 
           else
           {
-            v18 = v17;
-            [v1 schemaVersionWillChangeForDatabase:ppDb fromSchemaVersion:v16 toSchemaVersion:v17];
+            v17 = v16;
+            [v1 schemaVersionWillChangeForDatabase:ppDb fromSchemaVersion:v15 toSchemaVersion:v16];
             (v6)[2](v6, v5);
-            [v1 schemaVersionDidChangeForDatabase:ppDb fromSchemaVersion:v16 toSchemaVersion:v18];
+            [v1 schemaVersionDidChangeForDatabase:ppDb fromSchemaVersion:v15 toSchemaVersion:v17];
           }
         }
       }
@@ -284,9 +269,6 @@ LABEL_18:
       }
     }
   }
-
-LABEL_19:
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)endBatch
@@ -311,7 +293,7 @@ LABEL_19:
 
 void __30__BCSPersistentStore_endBatch__block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   if (v1)
   {
@@ -329,9 +311,9 @@ void __30__BCSPersistentStore_endBatch__block_invoke(uint64_t a1)
           if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
           {
             *buf = 136315394;
-            v10 = "[BCSPersistentStore endTransaction]";
-            v11 = 2080;
-            v12 = errmsg;
+            v9 = "[BCSPersistentStore endTransaction]";
+            v10 = 2080;
+            v11 = errmsg;
             _os_log_error_impl(&dword_242072000, v4, OS_LOG_TYPE_ERROR, "%s Error on ending sqlite transaction: %s", buf, 0x16u);
           }
 
@@ -352,8 +334,6 @@ void __30__BCSPersistentStore_endBatch__block_invoke(uint64_t a1)
       }
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

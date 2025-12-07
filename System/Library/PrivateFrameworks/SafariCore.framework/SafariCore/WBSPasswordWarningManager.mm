@@ -99,32 +99,32 @@
 
 - (int64_t)numberOfNonHiddenWarningsWithSpecifiedPriority
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&self->_cachedDataLock);
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v3 = self->_cachedWarnings;
-  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(v3);
         }
 
-        v6 += [*(*(&v11 + 1) + 8 * i) hasBeenHidden] ^ 1;
+        v6 += [*(*(&v10 + 1) + 8 * i) hasBeenHidden] ^ 1;
       }
 
-      v5 = [(NSArray *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [(NSArray *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
@@ -136,7 +136,6 @@
   }
 
   os_unfair_lock_unlock(&self->_cachedDataLock);
-  v9 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -165,7 +164,7 @@ uint64_t __66__WBSPasswordWarningManager_preWarmWarningsWithCompletionHandler___
 
 - (void)getAllWarningsForcingUpdate:(BOOL)update completionHandler:(id)handler
 {
-  v65 = *MEMORY[0x1E69E9840];
+  v66 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   dispatch_suspend(self->_callbackQueue);
   callbackQueue = self->_callbackQueue;
@@ -175,7 +174,7 @@ uint64_t __66__WBSPasswordWarningManager_preWarmWarningsWithCompletionHandler___
   block[3] = &unk_1E7CF1888;
   v8 = handlerCopy;
   block[4] = self;
-  v63 = v8;
+  v64 = v8;
   dispatch_async(callbackQueue, block);
   os_unfair_lock_lock(&self->_cachedDataLock);
   if (self->_updateInProgress || !update && self->_cachedWarnings)
@@ -189,130 +188,128 @@ uint64_t __66__WBSPasswordWarningManager_preWarmWarningsWithCompletionHandler___
     updateCopy = update;
     self->_updateInProgress = 1;
     os_unfair_lock_unlock(&self->_cachedDataLock);
-    v9 = WBS_LOG_CHANNEL_PREFIXPasswords();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v11 = WBS_LOG_CHANNEL_PREFIXPasswords(v9, v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_1B8447000, v9, OS_LOG_TYPE_INFO, "Beginning password warning manager update.", buf, 2u);
+      _os_log_impl(&dword_1B8447000, v11, OS_LOG_TYPE_INFO, "Beginning password warning manager update.", buf, 2u);
     }
 
-    v10 = dispatch_group_create();
+    v12 = dispatch_group_create();
     savedAccountsExcludingNeverSaveMarkerPasswords = [(WBSSavedAccountStore *)self->_accountStore savedAccountsExcludingNeverSaveMarkerPasswords];
-    v31 = [savedAccountsExcludingNeverSaveMarkerPasswords safari_filterObjectsUsingBlock:&__block_literal_global_26_0];
+    v32 = [savedAccountsExcludingNeverSaveMarkerPasswords safari_filterObjectsUsingBlock:&__block_literal_global_26_0];
 
     if (self->_historyHighLevelDomainsProvider)
     {
-      dispatch_group_enter(v10);
+      dispatch_group_enter(v12);
       historyHighLevelDomainsProvider = self->_historyHighLevelDomainsProvider;
-      v60[0] = MEMORY[0x1E69E9820];
-      v60[1] = 3221225472;
-      v60[2] = __75__WBSPasswordWarningManager_getAllWarningsForcingUpdate_completionHandler___block_invoke_2;
-      v60[3] = &unk_1E7CF16E0;
-      v61 = v10;
-      [(WBSHistoricalHighLevelDomainsProvider *)historyHighLevelDomainsProvider performBlockAfterHistoryHasLoaded:v60];
+      v61[0] = MEMORY[0x1E69E9820];
+      v61[1] = 3221225472;
+      v61[2] = __75__WBSPasswordWarningManager_getAllWarningsForcingUpdate_completionHandler___block_invoke_2;
+      v61[3] = &unk_1E7CF16E0;
+      v62 = v12;
+      [(WBSHistoricalHighLevelDomainsProvider *)historyHighLevelDomainsProvider performBlockAfterHistoryHasLoaded:v61];
     }
 
     *buf = 0;
-    v55 = buf;
-    v56 = 0x3032000000;
-    v57 = __Block_byref_object_copy__12;
-    v58 = __Block_byref_object_dispose__12;
-    v59 = 0;
-    dispatch_group_enter(v10);
-    v51[0] = MEMORY[0x1E69E9820];
-    v51[1] = 3221225472;
-    v51[2] = __75__WBSPasswordWarningManager_getAllWarningsForcingUpdate_completionHandler___block_invoke_27;
-    v51[3] = &unk_1E7CF3950;
-    v53 = buf;
-    v13 = v10;
-    v52 = v13;
-    [(WBSPasswordWarningManager *)self _getBreachResultRecordsForPasswords:v31 startSessionIfNecessary:1 withCompletionHandler:v51];
-    v49[0] = 0;
-    v49[1] = v49;
-    v49[2] = 0x3032000000;
-    v49[3] = __Block_byref_object_copy__12;
-    v49[4] = __Block_byref_object_dispose__12;
-    v50 = 0;
-    dispatch_group_enter(v13);
+    v56 = buf;
+    v57 = 0x3032000000;
+    v58 = __Block_byref_object_copy__12;
+    v59 = __Block_byref_object_dispose__12;
+    v60 = 0;
+    dispatch_group_enter(v12);
+    v52[0] = MEMORY[0x1E69E9820];
+    v52[1] = 3221225472;
+    v52[2] = __75__WBSPasswordWarningManager_getAllWarningsForcingUpdate_completionHandler___block_invoke_27;
+    v52[3] = &unk_1E7CF3950;
+    v54 = buf;
+    v15 = v12;
+    v53 = v15;
+    [(WBSPasswordWarningManager *)self _getBreachResultRecordsForPasswords:v32 startSessionIfNecessary:1 withCompletionHandler:v52];
+    v50[0] = 0;
+    v50[1] = v50;
+    v50[2] = 0x3032000000;
+    v50[3] = __Block_byref_object_copy__12;
+    v50[4] = __Block_byref_object_dispose__12;
+    v51 = 0;
+    dispatch_group_enter(v15);
     topFraudTargetsManager = self->_topFraudTargetsManager;
-    v46[0] = MEMORY[0x1E69E9820];
-    v46[1] = 3221225472;
-    v46[2] = __75__WBSPasswordWarningManager_getAllWarningsForcingUpdate_completionHandler___block_invoke_2_29;
-    v46[3] = &unk_1E7CF3978;
-    v48 = v49;
-    v15 = v13;
-    v47 = v15;
-    [(WBSPasswordWarningTopFraudTargetsManager *)topFraudTargetsManager getTopFraudTargetsWithCompletionHandler:v46];
+    v47[0] = MEMORY[0x1E69E9820];
+    v47[1] = 3221225472;
+    v47[2] = __75__WBSPasswordWarningManager_getAllWarningsForcingUpdate_completionHandler___block_invoke_2_29;
+    v47[3] = &unk_1E7CF3978;
+    v49 = v50;
+    v17 = v15;
+    v48 = v17;
+    [(WBSPasswordWarningTopFraudTargetsManager *)topFraudTargetsManager getTopFraudTargetsWithCompletionHandler:v47];
     if (self->_shouldInitializePasswordEvaluationCache)
     {
       self->_shouldInitializePasswordEvaluationCache = 0;
-      dispatch_group_enter(v15);
-      v16 = objc_alloc_init(MEMORY[0x1E695DF90]);
-      v44 = 0u;
+      dispatch_group_enter(v17);
+      v18 = objc_alloc_init(MEMORY[0x1E695DF90]);
       v45 = 0u;
-      v42 = 0u;
+      v46 = 0u;
       v43 = 0u;
+      v44 = 0u;
       savedAccountsWithPasswords = [(WBSSavedAccountStore *)self->_accountStore savedAccountsWithPasswords];
-      v18 = [savedAccountsWithPasswords countByEnumeratingWithState:&v42 objects:v64 count:16];
-      if (v18)
+      v20 = [savedAccountsWithPasswords countByEnumeratingWithState:&v43 objects:v65 count:16];
+      if (v20)
       {
-        v19 = *v43;
+        v21 = *v44;
         do
         {
-          for (i = 0; i != v18; ++i)
+          for (i = 0; i != v20; ++i)
           {
-            if (*v43 != v19)
+            if (*v44 != v21)
             {
               objc_enumerationMutation(savedAccountsWithPasswords);
             }
 
-            v21 = *(*(&v42 + 1) + 8 * i);
-            v22 = [(WBSSavedAccountStore *)self->_accountStore persistentIdentifierForSavedAccount:v21];
-            if (v22)
+            v23 = *(*(&v43 + 1) + 8 * i);
+            v24 = [(WBSSavedAccountStore *)self->_accountStore persistentIdentifierForSavedAccount:v23];
+            if (v24)
             {
-              [v16 setObject:v21 forKeyedSubscript:v22];
+              [v18 setObject:v23 forKeyedSubscript:v24];
             }
           }
 
-          v18 = [savedAccountsWithPasswords countByEnumeratingWithState:&v42 objects:v64 count:16];
+          v20 = [savedAccountsWithPasswords countByEnumeratingWithState:&v43 objects:v65 count:16];
         }
 
-        while (v18);
+        while (v20);
       }
 
       _passwordBreachHelperProxy = [(WBSPasswordWarningManager *)self _passwordBreachHelperProxy];
-      allKeys = [v16 allKeys];
-      v38[0] = MEMORY[0x1E69E9820];
-      v38[1] = 3221225472;
-      v38[2] = __75__WBSPasswordWarningManager_getAllWarningsForcingUpdate_completionHandler___block_invoke_3;
-      v38[3] = &unk_1E7CF39A0;
-      v25 = v16;
-      v39 = v25;
+      allKeys = [v18 allKeys];
+      v39[0] = MEMORY[0x1E69E9820];
+      v39[1] = 3221225472;
+      v39[2] = __75__WBSPasswordWarningManager_getAllWarningsForcingUpdate_completionHandler___block_invoke_3;
+      v39[3] = &unk_1E7CF39A0;
+      v27 = v18;
+      v40 = v27;
       selfCopy = self;
-      v41 = v15;
-      [_passwordBreachHelperProxy getPasswordEvaluationsForPersistentIdentifiers:allKeys completionHandler:v38];
+      v42 = v17;
+      [_passwordBreachHelperProxy getPasswordEvaluationsForPersistentIdentifiers:allKeys completionHandler:v39];
     }
 
     workQueue = self->_workQueue;
-    v32[0] = MEMORY[0x1E69E9820];
-    v32[1] = 3221225472;
-    v32[2] = __75__WBSPasswordWarningManager_getAllWarningsForcingUpdate_completionHandler___block_invoke_4;
-    v32[3] = &unk_1E7CF3A18;
-    v37 = updateCopy;
-    v32[4] = self;
-    v33 = v31;
-    v34 = v15;
-    v35 = buf;
-    v36 = v49;
-    v27 = v15;
-    v28 = v31;
-    dispatch_group_notify(v27, workQueue, v32);
+    v33[0] = MEMORY[0x1E69E9820];
+    v33[1] = 3221225472;
+    v33[2] = __75__WBSPasswordWarningManager_getAllWarningsForcingUpdate_completionHandler___block_invoke_4;
+    v33[3] = &unk_1E7CF3A18;
+    v38 = updateCopy;
+    v33[4] = self;
+    v34 = v32;
+    v35 = v17;
+    v36 = buf;
+    v37 = v50;
+    v29 = v17;
+    v30 = v32;
+    dispatch_group_notify(v29, workQueue, v33);
 
-    _Block_object_dispose(v49, 8);
+    _Block_object_dispose(v50, 8);
     _Block_object_dispose(buf, 8);
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 void __75__WBSPasswordWarningManager_getAllWarningsForcingUpdate_completionHandler___block_invoke(uint64_t a1)
@@ -322,11 +319,11 @@ void __75__WBSPasswordWarningManager_getAllWarningsForcingUpdate_completionHandl
     os_unfair_lock_lock((*(a1 + 32) + 96));
     v2 = [*(*(a1 + 32) + 104) copy];
     os_unfair_lock_unlock((*(a1 + 32) + 96));
-    v3 = WBS_LOG_CHANNEL_PREFIXPasswords();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+    v5 = WBS_LOG_CHANNEL_PREFIXPasswords(v3, v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      *v4 = 0;
-      _os_log_impl(&dword_1B8447000, v3, OS_LOG_TYPE_INFO, "Calling back.", v4, 2u);
+      *v6 = 0;
+      _os_log_impl(&dword_1B8447000, v5, OS_LOG_TYPE_INFO, "Calling back.", v6, 2u);
     }
 
     (*(*(a1 + 40) + 16))();
@@ -366,31 +363,31 @@ void __75__WBSPasswordWarningManager_getAllWarningsForcingUpdate_completionHandl
 
 void __75__WBSPasswordWarningManager_getAllWarningsForcingUpdate_completionHandler___block_invoke_3(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (v3)
   {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     v5 = [v3 allKeys];
-    v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v17;
+      v8 = *v16;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v17 != v8)
+          if (*v16 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v16 + 1) + 8 * i);
+          v10 = *(*(&v15 + 1) + 8 * i);
           v11 = [*(a1 + 32) objectForKeyedSubscript:v10];
           v12 = [v11 password];
           if (v12)
@@ -405,7 +402,7 @@ void __75__WBSPasswordWarningManager_getAllWarningsForcingUpdate_completionHandl
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v7);
@@ -413,8 +410,6 @@ void __75__WBSPasswordWarningManager_getAllWarningsForcingUpdate_completionHandl
   }
 
   dispatch_group_leave(*(a1 + 48));
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __75__WBSPasswordWarningManager_getAllWarningsForcingUpdate_completionHandler___block_invoke_4(uint64_t a1)
@@ -479,12 +474,12 @@ void __75__WBSPasswordWarningManager_getAllWarningsForcingUpdate_completionHandl
   objc_storeStrong((*(a1 + 32) + 112), v2);
   *(*(a1 + 32) + 100) = 0;
   os_unfair_lock_unlock((*(a1 + 32) + 96));
-  [*(a1 + 32) _updateUserDefaultsWithWarningHashes:v7];
-  v12 = WBS_LOG_CHANNEL_PREFIXPasswords();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+  v12 = [*(a1 + 32) _updateUserDefaultsWithWarningHashes:v7];
+  v14 = WBS_LOG_CHANNEL_PREFIXPasswords(v12, v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_1B8447000, v12, OS_LOG_TYPE_INFO, "Password warning manager update complete.", buf, 2u);
+    _os_log_impl(&dword_1B8447000, v14, OS_LOG_TYPE_INFO, "Password warning manager update complete.", buf, 2u);
   }
 
   dispatch_resume(*(*(a1 + 32) + 16));
@@ -492,23 +487,21 @@ void __75__WBSPasswordWarningManager_getAllWarningsForcingUpdate_completionHandl
 
 - (void)getWarningForSavedAccount:(id)account completionHandler:(id)handler
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   accountCopy = account;
   handlerCopy = handler;
-  v15[0] = accountCopy;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __73__WBSPasswordWarningManager_getWarningForSavedAccount_completionHandler___block_invoke;
-  v12[3] = &unk_1E7CF3A90;
-  v12[4] = self;
-  v13 = accountCopy;
-  v14 = handlerCopy;
+  v14[0] = accountCopy;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __73__WBSPasswordWarningManager_getWarningForSavedAccount_completionHandler___block_invoke;
+  v11[3] = &unk_1E7CF3A90;
+  v11[4] = self;
+  v12 = accountCopy;
+  v13 = handlerCopy;
   v9 = handlerCopy;
   v10 = accountCopy;
-  [(WBSPasswordWarningManager *)self _getBreachResultRecordsForPasswords:v8 startSessionIfNecessary:0 withCompletionHandler:v12];
-
-  v11 = *MEMORY[0x1E69E9840];
+  [(WBSPasswordWarningManager *)self _getBreachResultRecordsForPasswords:v8 startSessionIfNecessary:0 withCompletionHandler:v11];
 }
 
 void __73__WBSPasswordWarningManager_getWarningForSavedAccount_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -590,15 +583,13 @@ void __73__WBSPasswordWarningManager_getWarningForSavedAccount_completionHandler
 
 - (void)acknowledgeHighPriorityWarnings
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = *(self + 56);
   v3 = a2;
   v4 = [v2 arrayForKey:@"lastPasswordWarningManagerUpdateHashes"];
-  v6 = 134217984;
-  v7 = [v4 count];
-  _os_log_debug_impl(&dword_1B8447000, v3, OS_LOG_TYPE_DEBUG, "Acknowledging %lu existing warnings.", &v6, 0xCu);
-
-  v5 = *MEMORY[0x1E69E9840];
+  v5 = 134217984;
+  v6 = [v4 count];
+  _os_log_debug_impl(&dword_1B8447000, v3, OS_LOG_TYPE_DEBUG, "Acknowledging %lu existing warnings.", &v5, 0xCu);
 }
 
 - (WBSPasswordEvaluator)passwordEvaluator
@@ -890,58 +881,58 @@ id __72__WBSPasswordWarningManager__warningForSavedAccount_breachResultRecord___
 - (void)_getBreachResultRecordsForPasswords:(id)passwords startSessionIfNecessary:(BOOL)necessary withCompletionHandler:(id)handler
 {
   selfCopy = self;
-  v52 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   passwordsCopy = passwords;
   handlerCopy = handler;
   v7 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v8 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v44 = 0u;
   v45 = 0u;
   v46 = 0u;
   v47 = 0u;
+  v48 = 0u;
   obj = passwordsCopy;
-  v35 = [obj countByEnumeratingWithState:&v44 objects:v51 count:16];
-  if (v35)
+  v36 = [obj countByEnumeratingWithState:&v45 objects:v52 count:16];
+  if (v36)
   {
-    v33 = 0;
-    v34 = *v45;
-    v31 = *MEMORY[0x1E696A798];
+    v34 = 0;
+    v35 = *v46;
+    v32 = *MEMORY[0x1E696A798];
     do
     {
-      for (i = 0; i != v35; ++i)
+      for (i = 0; i != v36; ++i)
       {
-        if (*v45 != v34)
+        if (*v46 != v35)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v44 + 1) + 8 * i);
+        v10 = *(*(&v45 + 1) + 8 * i);
         persistentIdentifiersForWarningManager = [v10 persistentIdentifiersForWarningManager];
         v12 = [persistentIdentifiersForWarningManager count];
 
         if (v12)
         {
-          v36 = i;
-          v42 = 0u;
+          v37 = i;
           v43 = 0u;
-          v40 = 0u;
+          v44 = 0u;
           v41 = 0u;
+          v42 = 0u;
           persistentIdentifiersForWarningManager2 = [v10 persistentIdentifiersForWarningManager];
-          v14 = [persistentIdentifiersForWarningManager2 countByEnumeratingWithState:&v40 objects:v48 count:16];
+          v14 = [persistentIdentifiersForWarningManager2 countByEnumeratingWithState:&v41 objects:v49 count:16];
           if (v14)
           {
             v15 = v14;
-            v16 = *v41;
+            v16 = *v42;
             do
             {
               for (j = 0; j != v15; ++j)
               {
-                if (*v41 != v16)
+                if (*v42 != v16)
                 {
                   objc_enumerationMutation(persistentIdentifiersForWarningManager2);
                 }
 
-                v18 = *(*(&v40 + 1) + 8 * j);
+                v18 = *(*(&v41 + 1) + 8 * j);
                 [v7 setObject:v10 forKeyedSubscript:v18];
                 v19 = [WBSPasswordBreachResultQuery alloc];
                 lastModifiedDate = [v10 lastModifiedDate];
@@ -950,178 +941,172 @@ id __72__WBSPasswordWarningManager__warningForSavedAccount_breachResultRecord___
                 [v8 addObject:v21];
               }
 
-              v15 = [persistentIdentifiersForWarningManager2 countByEnumeratingWithState:&v40 objects:v48 count:16];
+              v15 = [persistentIdentifiersForWarningManager2 countByEnumeratingWithState:&v41 objects:v49 count:16];
             }
 
             while (v15);
           }
 
-          i = v36;
+          i = v37;
         }
 
         else
         {
-          v22 = [MEMORY[0x1E696ABC0] safari_errorWithDomain:v31 code:14 privacyPreservingDescription:@"Couldn't find persistent identifier for saved password."];
+          v22 = [MEMORY[0x1E696ABC0] safari_errorWithDomain:v32 code:14 privacyPreservingDescription:@"Couldn't find persistent identifier for saved password."];
 
-          v23 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-          if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+          v25 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(v23, v24);
+          if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
           {
-            [(WBSPasswordWarningManager *)v49 _getBreachResultRecordsForPasswords:v23 startSessionIfNecessary:v22 withCompletionHandler:&v50];
+            [(WBSPasswordWarningManager *)v50 _getBreachResultRecordsForPasswords:v25 startSessionIfNecessary:v22 withCompletionHandler:&v51];
           }
 
-          v33 = v22;
+          v34 = v22;
         }
       }
 
-      v35 = [obj countByEnumeratingWithState:&v44 objects:v51 count:16];
+      v36 = [obj countByEnumeratingWithState:&v45 objects:v52 count:16];
     }
 
-    while (v35);
+    while (v36);
   }
 
   else
   {
-    v33 = 0;
+    v34 = 0;
   }
 
-  v24 = [WBSPasswordBreachResultQuery dictionaryRepresentationsForResultQueries:v8];
+  v26 = [WBSPasswordBreachResultQuery dictionaryRepresentationsForResultQueries:v8];
   _passwordBreachHelperProxy = [(WBSPasswordWarningManager *)selfCopy _passwordBreachHelperProxy];
-  v37[0] = MEMORY[0x1E69E9820];
-  v37[1] = 3221225472;
-  v37[2] = __111__WBSPasswordWarningManager__getBreachResultRecordsForPasswords_startSessionIfNecessary_withCompletionHandler___block_invoke;
-  v37[3] = &unk_1E7CF3AD8;
-  v38 = v7;
-  v39 = handlerCopy;
-  v26 = v7;
-  v27 = handlerCopy;
-  [_passwordBreachHelperProxy getResultRecordDictionariesForResultQueryDictionaries:v24 withCompletionHandler:v37];
+  v38[0] = MEMORY[0x1E69E9820];
+  v38[1] = 3221225472;
+  v38[2] = __111__WBSPasswordWarningManager__getBreachResultRecordsForPasswords_startSessionIfNecessary_withCompletionHandler___block_invoke;
+  v38[3] = &unk_1E7CF3AD8;
+  v39 = v7;
+  v40 = handlerCopy;
+  v28 = v7;
+  v29 = handlerCopy;
+  [_passwordBreachHelperProxy getResultRecordDictionariesForResultQueryDictionaries:v26 withCompletionHandler:v38];
   [_passwordBreachHelperProxy runLookupSessionIgnoringMinimumDelay:0 completionHandler:&__block_literal_global_62];
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 void __111__WBSPasswordWarningManager__getBreachResultRecordsForPasswords_startSessionIfNecessary_withCompletionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if ([v3 count])
   {
-    v18 = v3;
-    v4 = [WBSPasswordBreachResultRecord resultRecordsFromDictionaryRepresentations:v3];
-    v5 = [MEMORY[0x1E696AD18] strongToStrongObjectsMapTable];
-    v21 = 0u;
+    v19 = v3;
+    v5 = [WBSPasswordBreachResultRecord resultRecordsFromDictionaryRepresentations:v3];
+    v6 = [MEMORY[0x1E696AD18] strongToStrongObjectsMapTable];
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v6 = v4;
-    v7 = [v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
-    if (v7)
+    v25 = 0u;
+    v7 = v5;
+    v8 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    if (v8)
     {
-      v8 = v7;
-      v9 = *v22;
+      v9 = v8;
+      v10 = *v23;
       do
       {
-        for (i = 0; i != v8; ++i)
+        for (i = 0; i != v9; ++i)
         {
-          if (*v22 != v9)
+          if (*v23 != v10)
           {
-            objc_enumerationMutation(v6);
+            objc_enumerationMutation(v7);
           }
 
-          v11 = *(*(&v21 + 1) + 8 * i);
-          v12 = [v11 persistentIdentifier];
-          v13 = [*(a1 + 32) objectForKeyedSubscript:v12];
-          if (v13)
+          v12 = *(*(&v22 + 1) + 8 * i);
+          v13 = [v12 persistentIdentifier];
+          v15 = [*(a1 + 32) objectForKeyedSubscript:v13];
+          if (v15)
           {
-            [v5 setObject:v11 forKey:v13];
+            [v6 setObject:v12 forKey:v15];
           }
 
           else
           {
-            v14 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-            if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+            v16 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(0, v14);
+            if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
             {
-              __111__WBSPasswordWarningManager__getBreachResultRecordsForPasswords_startSessionIfNecessary_withCompletionHandler___block_invoke_cold_1(&buf, v20, v14);
+              __111__WBSPasswordWarningManager__getBreachResultRecordsForPasswords_startSessionIfNecessary_withCompletionHandler___block_invoke_cold_1(&buf, v21, v16);
             }
           }
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
       }
 
-      while (v8);
+      while (v9);
     }
 
     (*(*(a1 + 40) + 16))();
-    v3 = v18;
+    v3 = v19;
   }
 
   else
   {
-    v15 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v17 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(0, v4);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      __111__WBSPasswordWarningManager__getBreachResultRecordsForPasswords_startSessionIfNecessary_withCompletionHandler___block_invoke_cold_2(v15);
+      __111__WBSPasswordWarningManager__getBreachResultRecordsForPasswords_startSessionIfNecessary_withCompletionHandler___block_invoke_cold_2(v17);
     }
 
-    v16 = *(a1 + 40);
-    v6 = [MEMORY[0x1E696AD18] strongToStrongObjectsMapTable];
-    (*(v16 + 16))(v16, v6);
+    v18 = *(a1 + 40);
+    v7 = [MEMORY[0x1E696AD18] strongToStrongObjectsMapTable];
+    (*(v18 + 16))(v18, v7);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
-void __111__WBSPasswordWarningManager__getBreachResultRecordsForPasswords_startSessionIfNecessary_withCompletionHandler___block_invoke_60()
+void __111__WBSPasswordWarningManager__getBreachResultRecordsForPasswords_startSessionIfNecessary_withCompletionHandler___block_invoke_60(uint64_t a1, uint64_t a2)
 {
-  v0 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  v2 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(a1, a2);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1B8447000, v0, OS_LOG_TYPE_INFO, "Lookup session request completed.", v1, 2u);
+    *v3 = 0;
+    _os_log_impl(&dword_1B8447000, v2, OS_LOG_TYPE_INFO, "Lookup session request completed.", v3, 2u);
   }
 }
 
 - (void)_scoreWarnings:(id)warnings topFraudTargets:(id)targets
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   warningsCopy = warnings;
   targetsCopy = targets;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v8 = [warningsCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [warningsCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v16;
+    v10 = *v15;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v16 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(warningsCopy);
         }
 
-        v12 = *(*(&v15 + 1) + 8 * i);
+        v12 = *(*(&v14 + 1) + 8 * i);
         savedAccount = [v12 savedAccount];
         [v12 setSeverityScore:{-[WBSPasswordWarningManager _scoreForSavedAccount:issueTypes:topFraudTargets:](self, "_scoreForSavedAccount:issueTypes:topFraudTargets:", savedAccount, objc_msgSend(v12, "issueTypes"), targetsCopy)}];
       }
 
-      v9 = [warningsCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v9 = [warningsCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v9);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_sortWarningsBySeverity:(id)severity intoHighPriorityBucket:(id)bucket standardPriorityBucket:(id)priorityBucket informationalPriorityBucket:(id)informationalPriorityBucket unspecifiedSeverityBucket:(id)severityBucket savedAccountMap:(id)map highPriorityWarningHashes:(id)hashes
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   severityCopy = severity;
   bucketCopy = bucket;
   priorityBucketCopy = priorityBucket;
@@ -1129,25 +1114,25 @@ void __111__WBSPasswordWarningManager__getBreachResultRecordsForPasswords_startS
   severityBucketCopy = severityBucket;
   mapCopy = map;
   hashesCopy = hashes;
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
-  v19 = [severityCopy countByEnumeratingWithState:&v31 objects:v35 count:16];
+  v19 = [severityCopy countByEnumeratingWithState:&v30 objects:v34 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v32;
+    v21 = *v31;
     do
     {
       for (i = 0; i != v20; ++i)
       {
-        if (*v32 != v21)
+        if (*v31 != v21)
         {
           objc_enumerationMutation(severityCopy);
         }
 
-        v23 = *(*(&v31 + 1) + 8 * i);
+        v23 = *(*(&v30 + 1) + 8 * i);
         savedAccount = [v23 savedAccount];
         [mapCopy setObject:v23 forKey:savedAccount];
 
@@ -1188,13 +1173,11 @@ LABEL_15:
         }
       }
 
-      v20 = [severityCopy countByEnumeratingWithState:&v31 objects:v35 count:16];
+      v20 = [severityCopy countByEnumeratingWithState:&v30 objects:v34 count:16];
     }
 
     while (v20);
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateUserDefaultsWithWarningHashes:(id)hashes
@@ -1207,50 +1190,54 @@ LABEL_15:
 
   [(NSUserDefaults *)self->_userDefaults setObject:hashesCopy forKey:@"lastPasswordWarningManagerUpdateHashes"];
   v8 = [hashesCopy count];
-  if (v8 <= [v5 count])
+  v9 = [v5 count];
+  if (v8 <= v9)
   {
-    v10 = [hashesCopy count];
-    if (v10 == [v5 count])
+    v12 = [hashesCopy count];
+    v9 = [v5 count];
+    if (v12 == v9)
     {
-      v9 = [hashesCopy isEqualToArray:v5] ^ 1;
+      v9 = [hashesCopy isEqualToArray:v5];
+      v11 = v9 ^ 1;
     }
 
     else
     {
-      v9 = 0;
+      v11 = 0;
     }
   }
 
   else
   {
-    v9 = 1;
+    v11 = 1;
   }
 
-  v11 = WBS_LOG_CHANNEL_PREFIXPasswords();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  v13 = WBS_LOG_CHANNEL_PREFIXPasswords(v9, v10);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
-    [(WBSPasswordWarningManager *)v11 _updateUserDefaultsWithWarningHashes:hashesCopy, v5];
+    [(WBSPasswordWarningManager *)v13 _updateUserDefaultsWithWarningHashes:hashesCopy, v5];
   }
 
-  v12 = [(NSUserDefaults *)self->_userDefaults BOOLForKey:@"lastPasswordWarningManagerUpdateHasNewWarnings"];
-  v13 = WBS_LOG_CHANNEL_PREFIXPasswords();
-  v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG);
-  if (v12)
+  v14 = [(NSUserDefaults *)self->_userDefaults BOOLForKey:@"lastPasswordWarningManagerUpdateHasNewWarnings"];
+  v15 = v14;
+  v17 = WBS_LOG_CHANNEL_PREFIXPasswords(v14, v16);
+  v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG);
+  if (v15)
   {
-    if (v14)
+    if (v18)
     {
-      [WBSPasswordWarningManager _updateUserDefaultsWithWarningHashes:v13];
+      [WBSPasswordWarningManager _updateUserDefaultsWithWarningHashes:v17];
     }
   }
 
   else
   {
-    if (v14)
+    if (v18)
     {
-      [(WBSPasswordWarningManager *)v9 _updateUserDefaultsWithWarningHashes:v13];
+      [(WBSPasswordWarningManager *)v11 _updateUserDefaultsWithWarningHashes:v17];
     }
 
-    [(NSUserDefaults *)self->_userDefaults setBool:v9 forKey:@"lastPasswordWarningManagerUpdateHasNewWarnings"];
+    [(NSUserDefaults *)self->_userDefaults setBool:v11 forKey:@"lastPasswordWarningManagerUpdateHasNewWarnings"];
   }
 }
 
@@ -1267,11 +1254,11 @@ LABEL_15:
   }
 }
 
-void __61__WBSPasswordWarningManager__writePasswordEvaluationsToCache__block_invoke(uint64_t a1, char a2)
+void __61__WBSPasswordWarningManager__writePasswordEvaluationsToCache__block_invoke(uint64_t result, uint64_t a2)
 {
   if ((a2 & 1) == 0)
   {
-    v2 = WBS_LOG_CHANNEL_PREFIXPasswords();
+    v2 = WBS_LOG_CHANNEL_PREFIXPasswords(result, a2);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       __61__WBSPasswordWarningManager__writePasswordEvaluationsToCache__block_invoke_cold_1(v2);
@@ -1298,30 +1285,27 @@ void __111__WBSPasswordWarningManager__getBreachResultRecordsForPasswords_startS
 
 - (void)_updateUserDefaultsWithWarningHashes:(void *)a3 .cold.1(void *a1, void *a2, void *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = a1;
-  v7 = 134218240;
-  v8 = [a2 count];
-  v9 = 2048;
-  v10 = [a3 count];
-  _os_log_debug_impl(&dword_1B8447000, v5, OS_LOG_TYPE_DEBUG, "Current update has %lu warnings. Previous update had %lu warnings.", &v7, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v6 = 134218240;
+  v7 = [a2 count];
+  v8 = 2048;
+  v9 = [a3 count];
+  _os_log_debug_impl(&dword_1B8447000, v5, OS_LOG_TYPE_DEBUG, "Current update has %lu warnings. Previous update had %lu warnings.", &v6, 0x16u);
 }
 
 - (void)_updateUserDefaultsWithWarningHashes:(char)a1 .cold.2(char a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = "does not have";
   if (a1)
   {
     v2 = "has";
   }
 
-  v4 = 136315138;
-  v5 = v2;
-  _os_log_debug_impl(&dword_1B8447000, a2, OS_LOG_TYPE_DEBUG, "User %s new warnings.", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 136315138;
+  v4 = v2;
+  _os_log_debug_impl(&dword_1B8447000, a2, OS_LOG_TYPE_DEBUG, "User %s new warnings.", &v3, 0xCu);
 }
 
 @end

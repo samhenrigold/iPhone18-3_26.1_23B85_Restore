@@ -57,7 +57,7 @@
     resourceType = [resource resourceType];
 
     [(NSMutableDictionary *)self->_lock_taskIdentifierToCompletionHandler removeObjectForKey:identifierCopy];
-    if (![(NSMutableDictionary *)self->_lock_taskIdentifierToCompletionHandler count])
+    if (!objc_msgSend_count(self->_lock_taskIdentifierToCompletionHandler))
     {
       lock_transferTask = self->_lock_transferTask;
       if (lock_transferTask)

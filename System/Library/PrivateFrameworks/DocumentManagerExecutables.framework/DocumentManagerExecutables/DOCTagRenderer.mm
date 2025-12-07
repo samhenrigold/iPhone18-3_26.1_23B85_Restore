@@ -632,8 +632,9 @@ void __40__DOCTagRenderer__spacerImageWithWidth___block_invoke()
   v3 = DOCLogHandle();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
-    [v2 UTF8String];
-    OUTLINED_FUNCTION_0(&dword_2493AC000, v5, v6, "%s", v7, v8, v9, v10, 2u);
+    LODWORD(v11) = 136315138;
+    *(&v11 + 4) = [v2 UTF8String];
+    OUTLINED_FUNCTION_0(&dword_2493AC000, v5, v6, "%s", v7, v8, v9, v10, v11, DWORD2(v11));
   }
 
   result = objc_alloc_init(MEMORY[0x277D755B8]);
@@ -649,14 +650,15 @@ void __40__DOCTagRenderer__spacerImageWithWidth___block_invoke()
   _os_log_fault_impl(&dword_2493AC000, a2, OS_LOG_TYPE_FAULT, "%s", &v3, 0xCu);
 }
 
-- (uint64_t)renderAttributedStringWithRequest:(uint64_t *)a1 titleHighlighter:.cold.1(uint64_t *a1)
+- (void)renderAttributedStringWithRequest:(void *)a1 titleHighlighter:.cold.1(void *a1)
 {
   v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid parameter"];
   v3 = DOCLogHandle();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
-    [v2 UTF8String];
-    OUTLINED_FUNCTION_0(&dword_2493AC000, v5, v6, "%s", v7, v8, v9, v10, 2u);
+    LODWORD(v11) = 136315138;
+    *(&v11 + 4) = [v2 UTF8String];
+    OUTLINED_FUNCTION_0(&dword_2493AC000, v5, v6, "%s", v7, v8, v9, v10, v11, DWORD2(v11));
   }
 
   result = [objc_alloc(MEMORY[0x277CCA898]) initWithString:&stru_285CBC3C8];

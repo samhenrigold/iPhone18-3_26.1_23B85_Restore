@@ -23,7 +23,7 @@
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFBatteryRemainingRangeObservable.batteryRemainingRangeService(_:didUpdateHidden:)();
+  CAFBatteryRemainingRangeObservable.batteryRemainingRangeService(_:didUpdateHidden:)(selfCopy, hidden);
 }
 
 - (void)serviceDidUpdate:(id)update characteristic:(id)characteristic fromGroupUpdate:(BOOL)groupUpdate

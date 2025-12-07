@@ -7,7 +7,7 @@
 
 - (void)refreshContentsForDataType:(unsigned int)type userInfo:(id)info
 {
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27F21B570);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27F21B570, &qword_24F93B020);
   MEMORY[0x28223BE20](v6 - 8);
   v8 = &v12 - v7;
   v9 = sub_24F92AE38();

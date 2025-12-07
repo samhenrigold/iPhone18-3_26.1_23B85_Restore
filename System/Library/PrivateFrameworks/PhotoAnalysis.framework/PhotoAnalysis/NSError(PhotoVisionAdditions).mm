@@ -15,7 +15,7 @@
 
 + (id)errorForPhotoVisionVisionKitErrorWithLocalizedDescription:()PhotoVisionAdditions underlyingError:
 {
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjectsAndKeys:{*MEMORY[0x277CCA450], a4, *MEMORY[0x277CCA7E8], 0}];
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjectsAndKeys:{a3, *MEMORY[0x277CCA450], a4, *MEMORY[0x277CCA7E8], 0}];
   v6 = [self errorForPhotoVisionStorageErrorWithUserInfo:v5];
 
   return v6;
@@ -23,7 +23,7 @@
 
 + (id)errorForPhotoVisionStorageErrorWithLocalizedDescription:()PhotoVisionAdditions underlyingError:
 {
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjectsAndKeys:{*MEMORY[0x277CCA450], a4, *MEMORY[0x277CCA7E8], 0}];
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjectsAndKeys:{a3, *MEMORY[0x277CCA450], a4, *MEMORY[0x277CCA7E8], 0}];
   v6 = [self errorForPhotoVisionStorageErrorWithUserInfo:v5];
 
   return v6;

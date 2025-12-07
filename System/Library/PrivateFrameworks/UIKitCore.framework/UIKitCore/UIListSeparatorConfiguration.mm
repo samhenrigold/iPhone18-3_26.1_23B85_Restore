@@ -168,72 +168,72 @@ void __105__UIListSeparatorConfiguration__dynamicMultiselectSeparatorColor_UICol
 
 id __103__UIListSeparatorConfiguration__dynamicMultiselectSeparatorColor_UICollectionLayoutListAppearancePlain__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v4 = [_UIListMetrics sharedMetrics:0];
-  v5 = v4;
-  if (v4)
+  v2 = [_UIListMetrics sharedMetrics:0];
+  v3 = v2;
+  if (v2)
   {
-    [v4 metricsForSeparatorWithListStyle:*(a1 + 32) traitCollection:a2];
+    objc_msgSend_metricsForSeparatorWithListStyle_traitCollection_(v2);
   }
 
-  v6 = 0;
+  v4 = 0;
 
-  return v6;
+  return v4;
 }
 
 id __105__UIListSeparatorConfiguration__dynamicMultiselectSeparatorColor_UICollectionLayoutListAppearanceGrouped__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v4 = [_UIListMetrics sharedMetrics:0];
-  v5 = v4;
-  if (v4)
+  v2 = [_UIListMetrics sharedMetrics:0];
+  v3 = v2;
+  if (v2)
   {
-    [v4 metricsForSeparatorWithListStyle:*(a1 + 32) traitCollection:a2];
+    objc_msgSend_metricsForSeparatorWithListStyle_traitCollection_(v2);
   }
 
-  v6 = 0;
+  v4 = 0;
 
-  return v6;
+  return v4;
 }
 
 id __110__UIListSeparatorConfiguration__dynamicMultiselectSeparatorColor_UICollectionLayoutListAppearanceInsetGrouped__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v4 = [_UIListMetrics sharedMetrics:0];
-  v5 = v4;
-  if (v4)
+  v2 = [_UIListMetrics sharedMetrics:0];
+  v3 = v2;
+  if (v2)
   {
-    [v4 metricsForSeparatorWithListStyle:*(a1 + 32) traitCollection:a2];
+    objc_msgSend_metricsForSeparatorWithListStyle_traitCollection_(v2);
   }
 
-  v6 = 0;
+  v4 = 0;
 
-  return v6;
+  return v4;
 }
 
 id __105__UIListSeparatorConfiguration__dynamicMultiselectSeparatorColor_UICollectionLayoutListAppearanceSidebar__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v4 = [_UIListMetrics sharedMetrics:0];
-  v5 = v4;
-  if (v4)
+  v2 = [_UIListMetrics sharedMetrics:0];
+  v3 = v2;
+  if (v2)
   {
-    [v4 metricsForSeparatorWithListStyle:*(a1 + 32) traitCollection:a2];
+    objc_msgSend_metricsForSeparatorWithListStyle_traitCollection_(v2);
   }
 
-  v6 = 0;
+  v4 = 0;
 
-  return v6;
+  return v4;
 }
 
 id __110__UIListSeparatorConfiguration__dynamicMultiselectSeparatorColor_UICollectionLayoutListAppearanceSidebarPlain__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v4 = [_UIListMetrics sharedMetrics:0];
-  v5 = v4;
-  if (v4)
+  v2 = [_UIListMetrics sharedMetrics:0];
+  v3 = v2;
+  if (v2)
   {
-    [v4 metricsForSeparatorWithListStyle:*(a1 + 32) traitCollection:a2];
+    objc_msgSend_metricsForSeparatorWithListStyle_traitCollection_(v2);
   }
 
-  v6 = 0;
+  v4 = 0;
 
-  return v6;
+  return v4;
 }
 
 - (id)_multiselectSeparatorColorForListAppearance:(int64_t)appearance
@@ -279,9 +279,9 @@ LABEL_13:
 
 - (UIListSeparatorConfiguration)initWithListAppearance:(UICollectionLayoutListAppearance)listAppearance
 {
-  v15.receiver = self;
-  v15.super_class = UIListSeparatorConfiguration;
-  v4 = [(UIListSeparatorConfiguration *)&v15 init];
+  v14.receiver = self;
+  v14.super_class = UIListSeparatorConfiguration;
+  v4 = [(UIListSeparatorConfiguration *)&v14 init];
   if (v4)
   {
     *obj = 0u;
@@ -289,17 +289,7 @@ LABEL_13:
     v6 = +[UITraitCollection _fallbackTraitCollection];
     if (v5)
     {
-      if ((listAppearance - 1) >= 4)
-      {
-        v7 = UICollectionLayoutListAppearancePlain;
-      }
-
-      else
-      {
-        v7 = listAppearance;
-      }
-
-      [v5 metricsForSeparatorWithListStyle:v7 traitCollection:v6];
+      objc_msgSend_metricsForSeparatorWithListStyle_traitCollection_(v5);
     }
 
     else
@@ -312,16 +302,16 @@ LABEL_13:
     v4->_bottomSeparatorInsets = UIListSeparatorAutomaticInsets;
     v4->_topSeparatorInsets = UIListSeparatorAutomaticInsets;
     objc_storeStrong(&v4->_color, obj[1]);
-    v8 = [(UIListSeparatorConfiguration *)v4 _multiselectSeparatorColorForListAppearance:listAppearance];
+    v7 = [(UIListSeparatorConfiguration *)v4 _multiselectSeparatorColorForListAppearance:listAppearance];
     multipleSelectionColor = v4->_multipleSelectionColor;
-    v4->_multipleSelectionColor = v8;
+    v4->_multipleSelectionColor = v7;
 
     if (obj[0] != 0x8000000000000000)
     {
-      v10 = [UIBlurEffect effectWithStyle:?];
-      v11 = [UIVibrancyEffect effectForBlurEffect:v10 style:7];
+      v9 = [UIBlurEffect effectWithStyle:?];
+      v10 = [UIVibrancyEffect effectForBlurEffect:v9 style:7];
       visualEffect = v4->_visualEffect;
-      v4->_visualEffect = v11;
+      v4->_visualEffect = v10;
     }
   }
 
@@ -407,7 +397,7 @@ LABEL_13:
 
   equalCopy = equal;
   v6 = equalCopy;
-  v7 = self->_topSeparatorVisibility == *(equalCopy + 2) && self->_bottomSeparatorVisibility == *(equalCopy + 3) && (vminv_u16(vmovn_s32(vuzp1q_s32(vceqq_f64(*&self->_bottomSeparatorInsets.top, *(equalCopy + 88)), vceqq_f64(*&self->_bottomSeparatorInsets.bottom, *(equalCopy + 104))))) & 1) != 0 && (vminv_u16(vmovn_s32(vuzp1q_s32(vceqq_f64(*&self->_topSeparatorInsets.top, *(equalCopy + 56)), vceqq_f64(*&self->_topSeparatorInsets.bottom, *(equalCopy + 72))))) & 1) != 0 && [(UIColor *)self->_color isEqual:*(equalCopy + 4)]&& [(UIColor *)self->_multipleSelectionColor isEqual:*(v6 + 5)]&& _deferringTokenEqualToToken(self->_visualEffect, *(v6 + 6)) && self->_ignoreTopSeparatorInsetsFromCell == v6[8] && self->_ignoreBottomSeparatorInsetsFromCell == v6[9];
+  v7 = self->_topSeparatorVisibility == *(equalCopy + 2) && self->_bottomSeparatorVisibility == *(equalCopy + 3) && (vminv_u16(vmovn_s32(vuzp1q_s32(vceqq_f64(*&self->_bottomSeparatorInsets.top, *(equalCopy + 88)), vceqq_f64(*&self->_bottomSeparatorInsets.bottom, *(equalCopy + 104))))) & 1) != 0 && (vminv_u16(vmovn_s32(vuzp1q_s32(vceqq_f64(*&self->_topSeparatorInsets.top, *(equalCopy + 56)), vceqq_f64(*&self->_topSeparatorInsets.bottom, *(equalCopy + 72))))) & 1) != 0 && objc_msgSend_isEqual_(self->_color) && objc_msgSend_isEqual_(self->_multipleSelectionColor) && _deferringTokenEqualToToken(self->_visualEffect, v6[6]) && self->_ignoreTopSeparatorInsetsFromCell == *(v6 + 8) && self->_ignoreBottomSeparatorInsetsFromCell == *(v6 + 9);
 
   return v7;
 }

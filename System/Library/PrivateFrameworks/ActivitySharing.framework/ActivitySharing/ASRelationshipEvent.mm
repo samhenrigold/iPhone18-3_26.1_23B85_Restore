@@ -50,54 +50,55 @@
 + (id)relationshipEventWithRecord:(id)record
 {
   recordCopy = record;
-  if (_ASCloudKitSchemaVersionForRecord(recordCopy) == 2)
+  v4 = _ASCloudKitSchemaVersionForRecord(recordCopy);
+  if (v4 == 2)
   {
     encryptedValues = [recordCopy encryptedValues];
-    v5 = [encryptedValues objectForKeyedSubscript:@"EncryptedData"];
+    v7 = [encryptedValues objectForKeyedSubscript:@"EncryptedData"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v6 = v5;
+      v8 = v7;
     }
 
     else
     {
-      v6 = 0;
+      v8 = 0;
     }
 
-    if (v6)
+    if (v8)
     {
-      v8 = [[ASCodableCloudKitRelationshipEvent alloc] initWithData:v6];
-      anchor = [(ASCodableCloudKitRelationshipEvent *)v8 anchor];
-      type = [(ASCodableCloudKitRelationshipEvent *)v8 type];
+      v12 = [[ASCodableCloudKitRelationshipEvent alloc] initWithData:v8];
+      anchor = [(ASCodableCloudKitRelationshipEvent *)v12 anchor];
+      type = [(ASCodableCloudKitRelationshipEvent *)v12 type];
       creationDate = [recordCopy creationDate];
-      v7 = [[ASRelationshipEvent alloc] initWithType:type anchor:anchor timestamp:creationDate];
+      v9 = [[ASRelationshipEvent alloc] initWithType:type anchor:anchor timestamp:creationDate];
     }
 
     else
     {
-      ASLoggingInitialize();
+      ASLoggingInitialize(v10, v11);
       if (os_log_type_enabled(ASLogCloudKit, OS_LOG_TYPE_ERROR))
       {
         +[ASRelationshipEvent(CloudKitCoding) relationshipEventWithRecord:];
       }
 
-      v7 = 0;
+      v9 = 0;
     }
   }
 
   else
   {
-    ASLoggingInitialize();
+    ASLoggingInitialize(v4, v5);
     if (os_log_type_enabled(ASLogCloudKit, OS_LOG_TYPE_ERROR))
     {
       +[ASRelationshipEvent(CloudKitCoding) relationshipEventWithRecord:];
     }
 
-    v7 = 0;
+    v9 = 0;
   }
 
-  return v7;
+  return v9;
 }
 
 - (ASRelationshipEvent)initWithType:(unsigned __int16)type anchor:(unsigned __int16)anchor timestamp:(id)timestamp

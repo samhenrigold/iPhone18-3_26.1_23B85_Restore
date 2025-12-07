@@ -70,19 +70,18 @@ LABEL_8:
 
 - (uint64_t)initWithMRError:()MRAdditions description:underlyingError:
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v8 = a4;
   if (a5)
   {
-    v14 = a5;
+    v13 = a5;
     v9 = MEMORY[0x1E695DEC8];
     v10 = a5;
-    a5 = [v9 arrayWithObjects:&v14 count:1];
+    a5 = [v9 arrayWithObjects:&v13 count:1];
   }
 
-  v11 = [self initWithMRError:a3 description:v8 underlyingErrors:{a5, v14, v15}];
+  v11 = [self initWithMRError:a3 description:v8 underlyingErrors:{a5, v13, v14}];
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -108,14 +107,12 @@ LABEL_8:
 
 - (id)mr_errorByEnvelopingWithMRError:()MRAdditions
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   v5 = objc_alloc(MEMORY[0x1E696ABC0]);
-  v10 = *MEMORY[0x1E696AA08];
-  v11[0] = self;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v9 = *MEMORY[0x1E696AA08];
+  v10[0] = self;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
   v7 = [v5 initWithMRError:a3 userInfo:v6];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -203,9 +200,9 @@ LABEL_8:
 - (uint64_t)mr_isMediaRemoteError
 {
   domain = [self domain];
-  v2 = [domain isEqualToString:@"kMRMediaRemoteFrameworkErrorDomain"];
+  isEqualToString = objc_msgSend_isEqualToString_(domain);
 
-  return v2;
+  return isEqualToString;
 }
 
 - (id)mr_initWithProtobuf:()MRAdditions

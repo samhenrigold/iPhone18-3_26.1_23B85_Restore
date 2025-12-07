@@ -614,7 +614,7 @@ LABEL_15:
     v15 = v14;
     if (v14)
     {
-      [v14 timerange];
+      objc_msgSend_timerange(v14);
     }
 
     else
@@ -698,7 +698,7 @@ LABEL_15:
         memset(&v24, 0, sizeof(v24));
         if (v9)
         {
-          [v9 timerange];
+          objc_msgSend_timerange(v9);
         }
 
         memset(&v23, 0, sizeof(v23));
@@ -722,7 +722,7 @@ LABEL_15:
               v16 = v15;
               if (v15)
               {
-                [v15 timerange];
+                objc_msgSend_timerange(v15);
               }
 
               else
@@ -794,7 +794,7 @@ LABEL_15:
         v10 = *(*(&v27 + 1) + 8 * v9);
         if (v10)
         {
-          [*(*(&v27 + 1) + 8 * v9) timerange];
+          objc_msgSend_timerange(*(*(&v27 + 1) + 8 * v9));
         }
 
         else
@@ -814,7 +814,7 @@ LABEL_15:
 
         if (v10)
         {
-          [v10 timerange];
+          objc_msgSend_timerange(v10);
         }
 
         else
@@ -834,7 +834,7 @@ LABEL_15:
 
         if (v10)
         {
-          [v10 timerange];
+          objc_msgSend_timerange(v10);
         }
 
         else
@@ -854,7 +854,7 @@ LABEL_15:
 
         if (v10)
         {
-          [v10 timerange];
+          objc_msgSend_timerange(v10);
         }
 
         else
@@ -874,7 +874,7 @@ LABEL_15:
 
         if (v10)
         {
-          [v10 timerange];
+          objc_msgSend_timerange(v10);
         }
 
         else
@@ -993,7 +993,7 @@ LABEL_3:
       v13 = *(*(&v21 + 1) + 8 * v12);
       if (v13)
       {
-        [*(*(&v21 + 1) + 8 * v12) timerange];
+        objc_msgSend_timerange(*(*(&v21 + 1) + 8 * v12));
       }
 
       else
@@ -1016,7 +1016,7 @@ LABEL_3:
       *&time1.duration.timescale = *&range->var1.var1;
       if (v13)
       {
-        [v13 timerange];
+        objc_msgSend_timerange(v13);
       }
 
       else
@@ -1102,7 +1102,7 @@ LABEL_3:
           v13 = v12;
           if (v11)
           {
-            [v11 timerange];
+            objc_msgSend_timerange(v11);
           }
 
           else
@@ -1191,7 +1191,7 @@ LABEL_3:
           v13 = *(*(&v29 + 1) + 8 * i);
           if (v13)
           {
-            [*(*(&v29 + 1) + 8 * i) timerange];
+            objc_msgSend_timerange(*(*(&v29 + 1) + 8 * i));
           }
 
           else
@@ -1204,7 +1204,7 @@ LABEL_3:
           Seconds = CMTimeGetSeconds(&time);
           if (v13)
           {
-            [v13 timerange];
+            objc_msgSend_timerange(v13);
           }
 
           else

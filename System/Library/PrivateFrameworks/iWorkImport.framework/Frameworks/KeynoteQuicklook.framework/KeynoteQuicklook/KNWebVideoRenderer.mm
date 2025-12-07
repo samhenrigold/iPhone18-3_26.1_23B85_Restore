@@ -23,17 +23,16 @@
 {
   self->_needsToSendAmbientBuildStartCallback = 1;
   self->_needsToSendBuildEndCallback = 1;
-  v3 = CACurrentMediaTime();
-  if (objc_msgSend_addAnimationsAtLayerTime_(self, v4, v5, v3))
+  if ([(KNWebVideoRenderer *)self addAnimationsAtLayerTime:CACurrentMediaTime()])
   {
 
-    MEMORY[0x2821F9670](self, sel_p_scheduleVideoAtStartTime, v6);
+    MEMORY[0x2821F9670](self, sel_p_scheduleVideoAtStartTime);
   }
 
   else
   {
 
-    MEMORY[0x2821F9670](self, sel_p_didFailWithError_, 0);
+    MEMORY[0x2821F9670](self, sel_p_didFailWithError_);
   }
 }
 
@@ -41,29 +40,29 @@
 {
   if (self->_startTime <= time)
   {
-    (MEMORY[0x2821F9670])(self, sel_p_startVideo);
+    MEMORY[0x2821F9670](self, sel_p_startVideo);
   }
 }
 
 - (void)removeAnimationsAndFinish:(BOOL)finish
 {
-  objc_msgSend_p_stopVideo(self, a2, finish);
+  [(KNWebVideoRenderer *)self p_stopVideo];
 
-  MEMORY[0x2821F9670](self, sel_p_didStopVideo, v4);
+  MEMORY[0x2821F9670](self, sel_p_didStopVideo);
 }
 
 - (void)forceRemoveAnimations
 {
-  objc_msgSend_p_stopVideo(self, a2, v2);
+  [(KNWebVideoRenderer *)self p_stopVideo];
 
-  MEMORY[0x2821F9670](self, sel_p_didStopVideo, v4);
+  MEMORY[0x2821F9670](self, sel_p_didStopVideo);
 }
 
 - (void)stopAnimations
 {
-  objc_msgSend_p_stopVideo(self, a2, v2);
+  [(KNWebVideoRenderer *)self p_stopVideo];
 
-  MEMORY[0x2821F9670](self, sel_p_didStopVideo, v4);
+  MEMORY[0x2821F9670](self, sel_p_didStopVideo);
 }
 
 - (void)pauseAnimations
@@ -72,7 +71,7 @@
   {
     if (self->_needsVideoAtStartTime)
     {
-      objc_msgSend_p_unscheduleVideoAtStartTime(self, a2, v2);
+      [(KNWebVideoRenderer *)self p_unscheduleVideoAtStartTime];
       self->_playbackAtStartTimePauseTime = CACurrentMediaTime();
     }
 
@@ -89,16 +88,16 @@
     {
       self->_playbackAtStartTimePauseOffset = CACurrentMediaTime() - self->_playbackAtStartTimePauseTime + self->_playbackAtStartTimePauseOffset;
 
-      MEMORY[0x2821F9670](self, sel_p_scheduleVideoAtStartTime, v3);
+      MEMORY[0x2821F9670](self, sel_p_scheduleVideoAtStartTime);
     }
   }
 }
 
 - (void)interruptAndReset
 {
-  objc_msgSend_p_stopVideo(self, a2, v2);
+  [(KNWebVideoRenderer *)self p_stopVideo];
 
-  MEMORY[0x2821F9670](self, sel_p_didStopVideo, v4);
+  MEMORY[0x2821F9670](self, sel_p_didStopVideo);
 }
 
 - (void)registerForAmbientBuildStartCallback:(SEL)callback target:(id)target
@@ -150,7 +149,7 @@
   needsToSendAmbientBuildStartCallback = self->_needsToSendAmbientBuildStartCallback;
   if (!self->_hasAmbientBuildStarted)
   {
-    objc_msgSend_p_didStartVideo(self, a2, v2);
+    [(KNWebVideoRenderer *)self p_didStartVideo];
   }
 
   if (self->_needsToSendBuildEndCallback)
@@ -163,13 +162,15 @@
       {
         if (buildEndCallbackSelector)
         {
-          objc_msgSend_performSelector_withObject_afterDelay_(buildEndCallbackTarget, a2, buildEndCallbackSelector, self, 0.0);
+          v6 = self->super._buildEndCallbackSelector;
         }
 
         else
         {
-          objc_msgSend_performSelector_withObject_afterDelay_(buildEndCallbackTarget, a2, 0, self, 0.0);
+          v6 = 0;
         }
+
+        [buildEndCallbackTarget performSelector:v6 withObject:self afterDelay:0.0];
       }
 
       else if (buildEndCallbackSelector)
@@ -191,21 +192,21 @@
 
 - (void)p_startVideo
 {
-  selfCopy = objc_msgSend_buildInRenderer(self, a2, v2);
-  v9 = selfCopy;
+  selfCopy = [(KNWebVideoRenderer *)self buildInRenderer];
+  v6 = selfCopy;
   if (!selfCopy)
   {
     selfCopy = self;
   }
 
-  v7 = objc_msgSend_textureSet(selfCopy, v5, v6);
+  textureSet = [selfCopy textureSet];
   posterImageTextureSet = self->_posterImageTextureSet;
-  self->_posterImageTextureSet = v7;
+  self->_posterImageTextureSet = textureSet;
 }
 
 - (void)p_stopVideo
 {
-  objc_msgSend_p_cancelVideoAtStartTime(self, a2, v2);
+  [(KNWebVideoRenderer *)self p_cancelVideoAtStartTime];
   posterImageTextureSet = self->_posterImageTextureSet;
   self->_posterImageTextureSet = 0;
 }
@@ -220,17 +221,17 @@
 
   else
   {
-    v4 = fmax(self->_startTime + self->_playbackAtStartTimePauseOffset - CACurrentMediaTime(), 0.0);
+    v3 = fmax(self->_startTime + self->_playbackAtStartTimePauseOffset - CACurrentMediaTime(), 0.0);
 
-    objc_msgSend_performSelector_withObject_afterDelay_(self, v3, sel_p_showVideoAtStartTime, 0, v4);
+    [(KNWebVideoRenderer *)self performSelector:sel_p_showVideoAtStartTime withObject:0 afterDelay:v3];
   }
 }
 
 - (void)p_didFailWithError:(id)error
 {
-  objc_msgSend_p_stopVideo(self, a2, error);
+  [(KNWebVideoRenderer *)self p_stopVideo];
 
-  MEMORY[0x2821F9670](self, sel_p_didStopVideo, v4);
+  MEMORY[0x2821F9670](self, sel_p_didStopVideo);
 }
 
 - (KNBuildRenderer)buildInRenderer

@@ -80,11 +80,10 @@ void __80__DarwinNotificationInvalidationSource_initWithPreflightCache_notificat
 
 - (void)initWithPreflightCache:(int)a1 notificationName:(NSObject *)a2 .cold.2(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_fault_impl(&dword_238B7F000, a2, OS_LOG_TYPE_FAULT, "Failed to register for kMobileKeyBagLockStatusNotificationID: %u", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_fault_impl(&dword_238B7F000, a2, OS_LOG_TYPE_FAULT, "Failed to register for kMobileKeyBagLockStatusNotificationID: %u", v2, 8u);
 }
 
 @end

@@ -18,7 +18,7 @@
   sub_1A3D86C10(configurationCopy, regions, imageCopy, classification, x, y, width, height);
 
   swift_unknownObjectRelease();
-  sub_1A3C52C70(0, &unk_1EB12BC70);
+  sub_1A3C52C70(0, &unk_1EB12BC70, 0x1E69C0768);
   v19 = sub_1A524CA14();
 
   return v19;

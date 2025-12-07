@@ -26,27 +26,27 @@
 
 - (id)accessibilityLabel
 {
-  v18 = *MEMORY[0x29EDCA608];
+  v17 = *MEMORY[0x29EDCA608];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   _axArrangedSubviews = [(NUIContainerStackViewAccessibility *)self _axArrangedSubviews];
-  v4 = [_axArrangedSubviews countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = [_axArrangedSubviews countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v14;
+    v6 = *v13;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v14 != v6)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(_axArrangedSubviews);
         }
 
-        v8 = *(*(&v13 + 1) + 8 * i);
+        v8 = *(*(&v12 + 1) + 8 * i);
         MEMORY[0x29C2E3980](@"UILabel");
         if (objc_opt_isKindOfClass())
         {
@@ -56,7 +56,7 @@
         }
       }
 
-      v5 = [_axArrangedSubviews countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [_axArrangedSubviews countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v5)
       {
         continue;
@@ -66,11 +66,10 @@
     }
   }
 
-  v12.receiver = self;
-  v12.super_class = NUIContainerStackViewAccessibility;
-  accessibilityLabel = [(NUIContainerStackViewAccessibility *)&v12 accessibilityLabel];
+  v11.receiver = self;
+  v11.super_class = NUIContainerStackViewAccessibility;
+  accessibilityLabel = [(NUIContainerStackViewAccessibility *)&v11 accessibilityLabel];
 LABEL_11:
-  v10 = *MEMORY[0x29EDCA608];
 
   return accessibilityLabel;
 }

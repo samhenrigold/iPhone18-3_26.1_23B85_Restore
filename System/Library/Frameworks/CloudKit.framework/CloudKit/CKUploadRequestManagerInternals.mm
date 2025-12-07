@@ -32,6 +32,7 @@
 - (void)dispatchEvent:(int64_t)event synchronously:(BOOL)synchronously;
 - (void)fetchRepairContainerMetadata;
 - (void)fetchServerChanges:(id)changes;
+- (void)finishSchedulerCallbackWithDeferral:(BOOL)deferral;
 - (void)invokeCallbackForOverridePoint:(int64_t)point withError:(id)error onCallbackQueue:(BOOL)queue;
 - (void)manuallyTriggerUploadRequests;
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context;
@@ -41,6 +42,7 @@
 - (void)registerForFetchAllNotifications;
 - (void)registerForNetworkReachability;
 - (void)registerForRepairScheduler;
+- (void)respondToStateMachineAction:(int64_t)action isRetry:(BOOL)retry;
 - (void)respondToStateMachineChangeState:(int64_t)state enter:(BOOL)enter;
 - (void)scheduleNextSync;
 - (void)scheduleOrInvokeRepairsNow;
@@ -175,7 +177,7 @@
   self->_assetRepairSchedulerRepairBatchCountLimit = -1;
   self->_assetRepairSchedulerDefaultSuspensionTime = -1.0;
   self->_assetRepairSchedulerRepairRetryCount = -1;
-  if (__sTestOverridesAvailable[0] == 1)
+  if (__sTestOverridesAvailable == 1)
   {
     overridesCopy = overrides;
     v12 = objc_alloc(sub_1885188C0());
@@ -913,6 +915,25 @@ LABEL_12:
   return v4;
 }
 
+- (void)respondToStateMachineAction:(int64_t)action isRetry:(BOOL)retry
+{
+  retryCopy = retry;
+  v7 = objc_msgSend_stateMachineQueue(self, a2, action);
+  dispatch_assert_queue_V2(v7);
+
+  v10 = objc_msgSend_responseActionThrottler(self, v8, v9);
+  objc_msgSend_gateResponseAction_isRetry_(v10, v11, action, retryCopy);
+
+  v14 = objc_msgSend_stateQueue(self, v12, v13);
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = sub_188634078;
+  v15[3] = &unk_1E70BF2B8;
+  v15[4] = self;
+  v15[5] = action;
+  dispatch_async(v14, v15);
+}
+
 - (void)respondToStateMachineChangeState:(int64_t)state enter:(BOOL)enter
 {
   v7 = objc_msgSend_stateMachineQueue(self, a2, state);
@@ -998,6 +1019,57 @@ LABEL_12:
   os_activity_scope_leave(&state);
 }
 
+- (void)finishSchedulerCallbackWithDeferral:(BOOL)deferral
+{
+  deferralCopy = deferral;
+  v24 = *MEMORY[0x1E69E9840];
+  v5 = objc_msgSend_stateQueue(self, a2, deferral);
+  dispatch_assert_queue_V2(v5);
+
+  v8 = objc_msgSend_repairActivityHandler(self, v6, v7);
+
+  if (v8)
+  {
+    if (ck_log_initialization_predicate != -1)
+    {
+      dispatch_once(&ck_log_initialization_predicate, ck_log_initialization_block);
+    }
+
+    v9 = ck_log_facility_data_repair;
+    if (os_log_type_enabled(ck_log_facility_data_repair, OS_LOG_TYPE_DEBUG))
+    {
+      v21 = @"Finished";
+      if (deferralCopy)
+      {
+        v21 = @"Deferred";
+      }
+
+      v22 = 138543362;
+      v23 = v21;
+      _os_log_debug_impl(&dword_1883EA000, v9, OS_LOG_TYPE_DEBUG, "Invoking persisted repair handler with %{public}@ result", &v22, 0xCu);
+    }
+
+    v12 = objc_msgSend_observedRepairActivity(self, v10, v11);
+    v13 = NSStringFromSelector(sel_shouldDefer);
+    objc_msgSend_removeObserver_forKeyPath_context_(v12, v14, self, v13, qword_1EA9108E0);
+
+    objc_msgSend_setObservedRepairActivity_(self, v15, 0);
+    v18 = objc_msgSend_repairActivityHandler(self, v16, v17);
+    objc_msgSend_setRepairActivityHandler_(self, v19, 0);
+    if (deferralCopy)
+    {
+      v20 = 2;
+    }
+
+    else
+    {
+      v20 = 1;
+    }
+
+    v18[2](v18, v20);
+  }
+}
+
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
 {
   objectCopy = object;
@@ -1048,7 +1120,7 @@ LABEL_12:
     v25 = objc_msgSend_initWithDatabase_dataSource_metadata_(v11, v24, v17, self, v23);
 
     objc_msgSend_setApsMachServiceName_(v25, v26, v34);
-    if (__sTestOverridesAvailable[0] == 1)
+    if (__sTestOverridesAvailable == 1)
     {
       v28 = xpc_dictionary_create(0, 0, 0);
       xpc_dictionary_set_int64(v28, *MEMORY[0x1E69E9C68], 5);
@@ -1317,7 +1389,7 @@ LABEL_12:
 
 - (void)scheduleRecurringFetch
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   v4 = objc_msgSend_stateQueue(self, a2, v2);
   dispatch_assert_queue_V2(v4);
 
@@ -1343,8 +1415,8 @@ LABEL_12:
       v33 = ck_log_facility_data_repair;
       if (os_log_type_enabled(ck_log_facility_data_repair, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v38) = 0;
-        _os_log_impl(&dword_1883EA000, v33, OS_LOG_TYPE_INFO, "Fetching upload requests on schedule", &v38, 2u);
+        LOWORD(v37) = 0;
+        _os_log_impl(&dword_1883EA000, v33, OS_LOG_TYPE_INFO, "Fetching upload requests on schedule", &v37, 2u);
         if (ck_log_initialization_predicate != -1)
         {
           dispatch_once(&ck_log_initialization_predicate, ck_log_initialization_block);
@@ -1354,9 +1426,9 @@ LABEL_12:
       v34 = ck_log_facility_data_repair;
       if (os_log_type_enabled(ck_log_facility_data_repair, OS_LOG_TYPE_DEBUG))
       {
-        v38 = 138543362;
-        v39 = v17;
-        _os_log_debug_impl(&dword_1883EA000, v34, OS_LOG_TYPE_DEBUG, "Setting last fetch date to %{public}@", &v38, 0xCu);
+        v37 = 138543362;
+        v38 = v17;
+        _os_log_debug_impl(&dword_1883EA000, v34, OS_LOG_TYPE_DEBUG, "Setting last fetch date to %{public}@", &v37, 0xCu);
       }
 
       objc_msgSend_dispatchEvent_(self, v35, 14);
@@ -1372,9 +1444,9 @@ LABEL_12:
       v22 = ck_log_facility_data_repair;
       if (os_log_type_enabled(ck_log_facility_data_repair, OS_LOG_TYPE_DEBUG))
       {
-        v38 = 138543362;
-        v39 = v10;
-        _os_log_debug_impl(&dword_1883EA000, v22, OS_LOG_TYPE_DEBUG, "Last fetch was on %{public}@, so no need to fetch yet", &v38, 0xCu);
+        v37 = 138543362;
+        v38 = v10;
+        _os_log_debug_impl(&dword_1883EA000, v22, OS_LOG_TYPE_DEBUG, "Last fetch was on %{public}@, so no need to fetch yet", &v37, 0xCu);
       }
     }
   }
@@ -1391,9 +1463,9 @@ LABEL_12:
     v26 = ck_log_facility_data_repair;
     if (os_log_type_enabled(ck_log_facility_data_repair, OS_LOG_TYPE_DEBUG))
     {
-      v38 = 138543362;
-      v39 = v17;
-      _os_log_debug_impl(&dword_1883EA000, v26, OS_LOG_TYPE_DEBUG, "Initializing last fetch date to %{public}@", &v38, 0xCu);
+      v37 = 138543362;
+      v38 = v17;
+      _os_log_debug_impl(&dword_1883EA000, v26, OS_LOG_TYPE_DEBUG, "Initializing last fetch date to %{public}@", &v37, 0xCu);
     }
 
     v29 = objc_msgSend_database(self, v27, v28);
@@ -1401,7 +1473,6 @@ LABEL_12:
   }
 
   objc_msgSend_invokeCallbackForOverridePoint_withError_onCallbackQueue_(self, v36, 2, 0, 1);
-  v37 = *MEMORY[0x1E69E9840];
 }
 
 - (void)scheduleNextSync

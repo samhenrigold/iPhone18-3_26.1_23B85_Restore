@@ -21,6 +21,8 @@
 - (void)invitationResponseController:(id)controller stateDidChange:(unint64_t)change;
 - (void)invitationUtilityDidUpdateInformation:(id)information;
 - (void)viewDidLayoutSubviews;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation HOOnboardingIncomingInvitationViewController
@@ -141,6 +143,47 @@
   v3.super_class = HOOnboardingIncomingInvitationViewController;
   [(HOOnboardingIncomingInvitationViewController *)&v3 viewDidLayoutSubviews];
   [(HOOnboardingIncomingInvitationViewController *)self _updateImageConstraints];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v8.receiver = self;
+  v8.super_class = HOOnboardingIncomingInvitationViewController;
+  [(HOOnboardingIncomingInvitationViewController *)&v8 viewWillAppear:appear];
+  v4 = +[HFHomeKitDispatcher sharedDispatcher];
+  [v4 addHomeManagerObserver:self];
+  [(HOOnboardingIncomingInvitationViewController *)self setDidUserTriggerOnboardingDismissal:0];
+  v5 = HFLogForCategory();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    invitation = [(HOOnboardingIncomingInvitationViewController *)self invitation];
+    hf_prettyDescription = [invitation hf_prettyDescription];
+    *buf = 136315394;
+    v10 = "[HOOnboardingIncomingInvitationViewController viewWillAppear:]";
+    v11 = 2112;
+    v12 = hf_prettyDescription;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%s invitation = %@.", buf, 0x16u);
+  }
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v8.receiver = self;
+  v8.super_class = HOOnboardingIncomingInvitationViewController;
+  [(HOOnboardingIncomingInvitationViewController *)&v8 viewWillDisappear:disappear];
+  v4 = +[HFHomeKitDispatcher sharedDispatcher];
+  [v4 removeHomeManagerObserver:self];
+  v5 = HFLogForCategory();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    invitation = [(HOOnboardingIncomingInvitationViewController *)self invitation];
+    hf_prettyDescription = [invitation hf_prettyDescription];
+    *buf = 136315394;
+    v10 = "[HOOnboardingIncomingInvitationViewController viewWillDisappear:]";
+    v11 = 2112;
+    v12 = hf_prettyDescription;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%s invitation = %@.", buf, 0x16u);
+  }
 }
 
 - (HOOnboardingChildViewController)nextViewController

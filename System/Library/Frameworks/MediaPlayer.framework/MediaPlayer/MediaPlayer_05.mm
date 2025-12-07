@@ -1,89 +1,3 @@
-void *___ZL28_MPMLInitPropertyTVSeasonMapv_block_invoke_14(uint64_t a1, void *a2, void *a3, int8x8_t *a4)
-{
-  v6 = a2;
-  std::string::basic_string[abi:ne200100]<0>(__p, "sortType");
-  v7 = std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::find<std::string>(a3, __p);
-  if (!v7)
-  {
-    std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
-  }
-
-  v8 = MPMediaLibraryPropertyCacheValueForProperty(v7[5], a4);
-  v9 = [v8 integerValue];
-
-  if (v13 < 0)
-  {
-    operator delete(__p[0]);
-  }
-
-  if (v9 == 2)
-  {
-    v10 = &unk_1F1509B38;
-  }
-
-  else
-  {
-    v10 = &unk_1F1509BF8;
-  }
-
-  return v10;
-}
-
-void sub_1A263E7C4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-id ___ZL28_MPMLInitPropertyTVSeasonMapv_block_invoke_13(uint64_t a1, void *a2, void *a3, int8x8_t *a4)
-{
-  v6 = a2;
-  v7 = MEMORY[0x1E696AD98];
-  std::string::basic_string[abi:ne200100]<0>(__p, "representativeItemExplicit");
-  v8 = std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::find<std::string>(a3, __p);
-  if (!v8)
-  {
-    std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
-  }
-
-  v9 = MPMediaLibraryPropertyCacheValueForProperty(v8[5], a4);
-  v10 = [v7 numberWithBool:{objc_msgSend(v9, "BOOLValue") ^ 1}];
-
-  if (v13 < 0)
-  {
-    operator delete(__p[0]);
-  }
-
-  return v10;
-}
-
-id ___ZL28_MPMLInitPropertyTVSeasonMapv_block_invoke_9(uint64_t a1, void *a2, void *a3, int8x8_t *a4)
-{
-  v6 = a2;
-  std::string::basic_string[abi:ne200100]<0>(__p, "downloadedDate");
-  v7 = std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::find<std::string>(a3, __p);
-  if (!v7)
-  {
-    std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
-  }
-
-  v8 = MPMediaLibraryPropertyCacheValueForProperty(v7[5], a4);
-  v9 = [v8 longLongValue];
-
-  if (v13 < 0)
-  {
-    operator delete(__p[0]);
-  }
-
-  v10 = _MPMLDateFromStoredInt64(v9);
-
-  return v10;
-}
-
 id ___ZL28_MPMLInitPropertyTVSeasonMapv_block_invoke_8(uint64_t a1, void *a2, void *a3, int8x8_t *a4)
 {
   v6 = a2;
@@ -770,7 +684,7 @@ id ___ZL29_MPMLInitPropertyTVEpisodeMapv_block_invoke_11(uint64_t a1, void *a2, 
   return v8;
 }
 
-void ___ZL29_MPMLInitPropertyTVEpisodeMapv_block_invoke_10(void *a1@<X1>, void *a2@<X2>, void *a3@<X8>)
+void ___ZL29_MPMLInitPropertyTVEpisodeMapv_block_invoke_10(void *a1@<X1>, void *a2@<X2>, uint64_t *a3@<X8>)
 {
   v10 = *MEMORY[0x1E69E9840];
   v5 = a2;
@@ -864,7 +778,7 @@ id ___ZL29_MPMLInitPropertyTVEpisodeMapv_block_invoke_8(uint64_t a1, void *a2, v
   return v8;
 }
 
-void ___ZL29_MPMLInitPropertyTVEpisodeMapv_block_invoke_7(void *a1@<X1>, void *a2@<X2>, void *a3@<X8>)
+void ___ZL29_MPMLInitPropertyTVEpisodeMapv_block_invoke_7(void *a1@<X1>, void *a2@<X2>, uint64_t *a3@<X8>)
 {
   v8 = *MEMORY[0x1E69E9840];
   v5 = a2;
@@ -917,10 +831,10 @@ void sub_1A2640B2C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void ___ZL29_MPMLInitPropertyTVEpisodeMapv_block_invoke_5(uint64_t a1, void *a2, uint64_t *a3)
 {
-  v78[3] = *MEMORY[0x1E69E9840];
+  v77[3] = *MEMORY[0x1E69E9840];
+  v70 = 0;
   v71 = 0;
   v72 = 0;
-  v73 = 0;
   v49 = a2;
   v48 = [v49 modelKind];
   v4 = [v48 identityKind];
@@ -935,17 +849,17 @@ void ___ZL29_MPMLInitPropertyTVEpisodeMapv_block_invoke_5(uint64_t a1, void *a2,
   }
 
   v7 = a3[1];
-  v69 = *a3;
-  v70 = v7;
+  v68 = *a3;
+  v69 = v7;
   if (v7)
   {
     atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  [v48 applyToView:&v69 withContext:v49];
-  if (v70)
+  [v48 applyToView:&v68 withContext:v49];
+  if (v69)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v70);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v69);
   }
 
   v8 = [v49 allowedEntityIdentifiers];
@@ -956,7 +870,7 @@ void ___ZL29_MPMLInitPropertyTVEpisodeMapv_block_invoke_5(uint64_t a1, void *a2,
   v13 = mlcore::ItemPropertySyncID(v12);
   v14 = mlcore::ItemPropertyStoreCloudUniversalLibraryID(v13);
   v15 = mlcore::ItemPropertyStoreCloudAlbumID(v14);
-  _MPMLInsertPredicatesForIdentifierSet(&v71, v8, v9, v10, v11, v12, 0, v13, v14, v15);
+  _MPMLInsertPredicatesForIdentifierSet(&v70, v8, v9, v10, v11, v12, 0, v13, v14, v15);
 
   v16 = [v49 filterText];
   v17 = [v16 length] == 0;
@@ -968,31 +882,31 @@ void ___ZL29_MPMLInitPropertyTVEpisodeMapv_block_invoke_5(uint64_t a1, void *a2,
     std::string::basic_string[abi:ne200100]<0>(&__p, [v18 UTF8String]);
 
     *&v55 = mlcore::ItemPropertyTitle(v20);
-    std::allocate_shared[abi:ne200100]<mlcore::SearchPredicate,std::allocator<mlcore::SearchPredicate>,mlcore::ModelProperty<std::string> *,std::string&,0>();
+    std::allocate_shared[abi:ne200100]<mlcore::SearchPredicate,std::allocator<mlcore::SearchPredicate>,mlcore::ModelProperty<std::string> *,std::string&,0>(v61, &v55, &__p);
   }
 
-  v78[0] = 0;
-  v78[1] = 0;
-  v77 = v78;
+  v77[0] = 0;
+  v77[1] = 0;
+  v76 = v77;
+  v64 = 0u;
   v65 = 0u;
   v66 = 0u;
   v67 = 0u;
-  v68 = 0u;
   obj = [v49 scopedContainers];
-  v21 = [obj countByEnumeratingWithState:&v65 objects:v76 count:16];
+  v21 = [obj countByEnumeratingWithState:&v64 objects:v75 count:16];
   if (v21)
   {
-    v22 = *v66;
+    v22 = *v65;
     do
     {
       for (i = 0; i != v21; ++i)
       {
-        if (*v66 != v22)
+        if (*v65 != v22)
         {
           objc_enumerationMutation(obj);
         }
 
-        v24 = [*(*(&v65 + 1) + 8 * i) identifiers];
+        v24 = [*(*(&v64 + 1) + 8 * i) identifiers];
         v25 = [v24 library];
         v26 = [v25 persistentID];
 
@@ -1000,7 +914,7 @@ void ___ZL29_MPMLInitPropertyTVEpisodeMapv_block_invoke_5(uint64_t a1, void *a2,
         v27 = [v24 universalStore];
         v28 = [v27 adamID];
 
-        v61 = v28;
+        v61[0] = v28;
         v29 = [v24 universalStore];
         v30 = [v29 subscriptionAdamID];
 
@@ -1011,10 +925,10 @@ void ___ZL29_MPMLInitPropertyTVEpisodeMapv_block_invoke_5(uint64_t a1, void *a2,
           if (v26)
           {
             v56 = &v55;
-            v33 = std::__tree<std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>,std::__map_value_compare<objc_class * {__strong},std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>,std::less<objc_class * {__strong}>,true>,std::allocator<std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>>>::__emplace_unique_key_args<objc_class * {__strong},std::piecewise_construct_t const&,std::tuple<objc_class * const {__strong}&>,std::tuple<>>(&v77, v55);
+            v33 = std::__tree<std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>,std::__map_value_compare<objc_class * {__strong},std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>,std::less<objc_class * {__strong}>,true>,std::allocator<std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>>>::__emplace_unique_key_args<objc_class * {__strong},std::piecewise_construct_t const&,std::tuple<objc_class * const {__strong}&>,std::tuple<>>(&v76, v55, &v56);
             *&v54 = mlcore::ItemPropertyAlbumPersistentID(v33);
             v56 = &v54;
-            v34 = std::__tree<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::__map_value_compare<mlcore::ModelProperty<long long> *,std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::less<mlcore::ModelProperty<long long> *>,true>,std::allocator<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>>>::__emplace_unique_key_args<mlcore::ModelProperty<long long> *,std::piecewise_construct_t const&,std::tuple<mlcore::ModelProperty<long long> *&&>,std::tuple<>>(v33 + 40, v54);
+            v34 = std::__tree<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::__map_value_compare<mlcore::ModelProperty<long long> *,std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::less<mlcore::ModelProperty<long long> *>,true>,std::allocator<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>>>::__emplace_unique_key_args<mlcore::ModelProperty<long long> *,std::piecewise_construct_t const&,std::tuple<mlcore::ModelProperty<long long> *&&>,std::tuple<>>(v33 + 5, v54, &v56);
             std::vector<long long>::push_back[abi:ne200100]((v34 + 5), &__p);
           }
 
@@ -1023,20 +937,20 @@ void ___ZL29_MPMLInitPropertyTVEpisodeMapv_block_invoke_5(uint64_t a1, void *a2,
             if (v28)
             {
               v56 = &v55;
-              v37 = std::__tree<std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>,std::__map_value_compare<objc_class * {__strong},std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>,std::less<objc_class * {__strong}>,true>,std::allocator<std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>>>::__emplace_unique_key_args<objc_class * {__strong},std::piecewise_construct_t const&,std::tuple<objc_class * const {__strong}&>,std::tuple<>>(&v77, v55);
+              v37 = std::__tree<std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>,std::__map_value_compare<objc_class * {__strong},std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>,std::less<objc_class * {__strong}>,true>,std::allocator<std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>>>::__emplace_unique_key_args<objc_class * {__strong},std::piecewise_construct_t const&,std::tuple<objc_class * const {__strong}&>,std::tuple<>>(&v76, v55, &v56);
               *&v54 = mlcore::ItemPropertyStorePlaylistID(v37);
               v56 = &v54;
-              v38 = std::__tree<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::__map_value_compare<mlcore::ModelProperty<long long> *,std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::less<mlcore::ModelProperty<long long> *>,true>,std::allocator<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>>>::__emplace_unique_key_args<mlcore::ModelProperty<long long> *,std::piecewise_construct_t const&,std::tuple<mlcore::ModelProperty<long long> *&&>,std::tuple<>>(v37 + 40, v54);
-              std::vector<long long>::push_back[abi:ne200100]((v38 + 5), &v61);
+              v38 = std::__tree<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::__map_value_compare<mlcore::ModelProperty<long long> *,std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::less<mlcore::ModelProperty<long long> *>,true>,std::allocator<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>>>::__emplace_unique_key_args<mlcore::ModelProperty<long long> *,std::piecewise_construct_t const&,std::tuple<mlcore::ModelProperty<long long> *&&>,std::tuple<>>(v37 + 5, v54, &v56);
+              std::vector<long long>::push_back[abi:ne200100]((v38 + 5), v61);
             }
 
             if (v30)
             {
               v56 = &v55;
-              v39 = std::__tree<std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>,std::__map_value_compare<objc_class * {__strong},std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>,std::less<objc_class * {__strong}>,true>,std::allocator<std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>>>::__emplace_unique_key_args<objc_class * {__strong},std::piecewise_construct_t const&,std::tuple<objc_class * const {__strong}&>,std::tuple<>>(&v77, v55);
+              v39 = std::__tree<std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>,std::__map_value_compare<objc_class * {__strong},std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>,std::less<objc_class * {__strong}>,true>,std::allocator<std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>>>::__emplace_unique_key_args<objc_class * {__strong},std::piecewise_construct_t const&,std::tuple<objc_class * const {__strong}&>,std::tuple<>>(&v76, v55, &v56);
               *&v54 = mlcore::ItemPropertyStorePlaylistID(v39);
               v56 = &v54;
-              v40 = std::__tree<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::__map_value_compare<mlcore::ModelProperty<long long> *,std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::less<mlcore::ModelProperty<long long> *>,true>,std::allocator<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>>>::__emplace_unique_key_args<mlcore::ModelProperty<long long> *,std::piecewise_construct_t const&,std::tuple<mlcore::ModelProperty<long long> *&&>,std::tuple<>>(v39 + 40, v54);
+              v40 = std::__tree<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::__map_value_compare<mlcore::ModelProperty<long long> *,std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::less<mlcore::ModelProperty<long long> *>,true>,std::allocator<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>>>::__emplace_unique_key_args<mlcore::ModelProperty<long long> *,std::piecewise_construct_t const&,std::tuple<mlcore::ModelProperty<long long> *&&>,std::tuple<>>(v39 + 5, v54, &v56);
               std::vector<long long>::push_back[abi:ne200100]((v40 + 5), v60);
             }
           }
@@ -1050,10 +964,10 @@ void ___ZL29_MPMLInitPropertyTVEpisodeMapv_block_invoke_5(uint64_t a1, void *a2,
             if (v26)
             {
               v56 = &v55;
-              v35 = std::__tree<std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>,std::__map_value_compare<objc_class * {__strong},std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>,std::less<objc_class * {__strong}>,true>,std::allocator<std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>>>::__emplace_unique_key_args<objc_class * {__strong},std::piecewise_construct_t const&,std::tuple<objc_class * const {__strong}&>,std::tuple<>>(&v77, v55);
+              v35 = std::__tree<std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>,std::__map_value_compare<objc_class * {__strong},std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>,std::less<objc_class * {__strong}>,true>,std::allocator<std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>>>::__emplace_unique_key_args<objc_class * {__strong},std::piecewise_construct_t const&,std::tuple<objc_class * const {__strong}&>,std::tuple<>>(&v76, v55, &v56);
               *&v54 = mlcore::ItemPropertyItemArtistPersistentID(v35);
               v56 = &v54;
-              v36 = std::__tree<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::__map_value_compare<mlcore::ModelProperty<long long> *,std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::less<mlcore::ModelProperty<long long> *>,true>,std::allocator<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>>>::__emplace_unique_key_args<mlcore::ModelProperty<long long> *,std::piecewise_construct_t const&,std::tuple<mlcore::ModelProperty<long long> *&&>,std::tuple<>>(v35 + 40, v54);
+              v36 = std::__tree<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::__map_value_compare<mlcore::ModelProperty<long long> *,std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::less<mlcore::ModelProperty<long long> *>,true>,std::allocator<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>>>::__emplace_unique_key_args<mlcore::ModelProperty<long long> *,std::piecewise_construct_t const&,std::tuple<mlcore::ModelProperty<long long> *&&>,std::tuple<>>(v35 + 5, v54, &v56);
               std::vector<long long>::push_back[abi:ne200100]((v36 + 5), &__p);
             }
           }
@@ -1069,43 +983,43 @@ void ___ZL29_MPMLInitPropertyTVEpisodeMapv_block_invoke_5(uint64_t a1, void *a2,
         }
       }
 
-      v21 = [obj countByEnumeratingWithState:&v65 objects:v76 count:16];
+      v21 = [obj countByEnumeratingWithState:&v64 objects:v75 count:16];
     }
 
     while (v21);
   }
 
-  v41 = v77;
-  if (v77 != v78)
+  v41 = v76;
+  if (v76 != v77)
   {
     do
     {
       std::pair<objc_class * const {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long>>,std::vector<std::pair<mlcore::ModelProperty<long long> const,std::allocator<long long>>>>>::pair[abi:ne200100](&__p, v41 + 4);
-      std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>::map[abi:ne200100](&v61, v64);
+      std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>::map[abi:ne200100](v61, v63);
       memset(v60, 0, sizeof(v60));
-      if (v61 != &v62)
+      if (v61[0] != &v61[1])
       {
-        v42 = *(v61 + 40);
-        v56 = *(v61 + 32);
+        v42 = *(v61[0] + 40);
+        v56 = *(v61[0] + 32);
         v58 = 0;
         v59 = 0;
         v57 = 0;
-        std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v57, v42, *(v61 + 48), (*(v61 + 48) - v42) >> 3);
+        std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v57, v42, *(v61[0] + 48), (*(v61[0] + 48) - v42) >> 3);
         if (v58 - v57 == 8)
         {
-          v75 = v56;
-          v74 = 0;
-          std::allocate_shared[abi:ne200100]<mlcore::ComparisonPredicate<long long>,std::allocator<mlcore::ComparisonPredicate<long long>>,mlcore::ModelProperty<long long> *&,mlcore::ComparisonOperator,long long const&,0>();
+          v74 = v56;
+          v73 = 0;
+          std::allocate_shared[abi:ne200100]<mlcore::ComparisonPredicate<long long>,std::allocator<mlcore::ComparisonPredicate<long long>>,mlcore::ModelProperty<long long> *&,mlcore::ComparisonOperator,long long const&,0>(&v54, &v74, &v73, v57);
         }
 
-        v75 = v56;
-        std::allocate_shared[abi:ne200100]<mlcore::InPredicate<long long>,std::allocator<mlcore::InPredicate<long long>>,mlcore::ModelProperty<long long> *&,std::vector<long long> const&,0>();
+        v74 = v56;
+        std::allocate_shared[abi:ne200100]<mlcore::InPredicate<long long>,std::allocator<mlcore::InPredicate<long long>>,mlcore::ModelProperty<long long> *&,std::vector<long long> const&,0>(&v54, &v74, &v57);
       }
 
       memset(v53, 0, sizeof(v53));
       std::vector<std::shared_ptr<mlcore::Predicate>>::__init_with_size[abi:ne200100]<std::shared_ptr<mlcore::Predicate>*,std::shared_ptr<mlcore::Predicate>*>(v53, 0, 0, 0);
       mlcore::CreateOrPredicate();
-      std::vector<std::shared_ptr<mlcore::Predicate>>::push_back[abi:ne200100](&v71, &v56);
+      std::vector<std::shared_ptr<mlcore::Predicate>>::push_back[abi:ne200100](&v70, &v56);
       if (v57)
       {
         std::__shared_weak_count::__release_shared[abi:ne200100](v57);
@@ -1115,8 +1029,8 @@ void ___ZL29_MPMLInitPropertyTVEpisodeMapv_block_invoke_5(uint64_t a1, void *a2,
       std::vector<std::shared_ptr<mlcore::Predicate>>::__destroy_vector::operator()[abi:ne200100](&v55);
       v56 = v60;
       std::vector<std::shared_ptr<mlcore::Predicate>>::__destroy_vector::operator()[abi:ne200100](&v56);
-      std::__tree<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::__map_value_compare<mlcore::ModelProperty<long long> *,std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::less<mlcore::ModelProperty<long long> *>,true>,std::allocator<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>>>::destroy(v62);
-      std::__tree<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::__map_value_compare<mlcore::ModelProperty<long long> *,std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::less<mlcore::ModelProperty<long long> *>,true>,std::allocator<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>>>::destroy(v64[1]);
+      std::__tree<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::__map_value_compare<mlcore::ModelProperty<long long> *,std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::less<mlcore::ModelProperty<long long> *>,true>,std::allocator<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>>>::destroy(v61[1]);
+      std::__tree<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::__map_value_compare<mlcore::ModelProperty<long long> *,std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::less<mlcore::ModelProperty<long long> *>,true>,std::allocator<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>>>::destroy(v63[1]);
 
       v43 = v41[1];
       if (v43)
@@ -1145,11 +1059,11 @@ void ___ZL29_MPMLInitPropertyTVEpisodeMapv_block_invoke_5(uint64_t a1, void *a2,
       v41 = v44;
     }
 
-    while (v44 != v78);
+    while (v44 != v77);
   }
 
   memset(v51, 0, sizeof(v51));
-  std::vector<std::shared_ptr<mlcore::Predicate>>::__init_with_size[abi:ne200100]<std::shared_ptr<mlcore::Predicate>*,std::shared_ptr<mlcore::Predicate>*>(v51, v71, v72, (v72 - v71) >> 4);
+  std::vector<std::shared_ptr<mlcore::Predicate>>::__init_with_size[abi:ne200100]<std::shared_ptr<mlcore::Predicate>*,std::shared_ptr<mlcore::Predicate>*>(v51, v70, v71, (v71 - v70) >> 4);
   mlcore::CreateAndPredicate();
   mlcore::EntityQuery::tvEpisodesQuery();
   if (v52)
@@ -1159,9 +1073,9 @@ void ___ZL29_MPMLInitPropertyTVEpisodeMapv_block_invoke_5(uint64_t a1, void *a2,
 
   __p = v51;
   std::vector<std::shared_ptr<mlcore::Predicate>>::__destroy_vector::operator()[abi:ne200100](&__p);
-  std::__tree<std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>,std::__map_value_compare<objc_class * {__strong},std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>,std::less<objc_class * {__strong}>,true>,std::allocator<std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>>>::destroy(v78[0]);
+  std::__tree<std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>,std::__map_value_compare<objc_class * {__strong},std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>,std::less<objc_class * {__strong}>,true>,std::allocator<std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>>>::destroy(v77[0]);
 
-  __p = &v71;
+  __p = &v70;
   std::vector<std::shared_ptr<mlcore::Predicate>>::__destroy_vector::operator()[abi:ne200100](&__p);
 }
 
@@ -1173,10 +1087,10 @@ void sub_1A2641338(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::__tree<std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>,std::__map_value_compare<objc_class * {__strong},std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>,std::less<objc_class * {__strong}>,true>,std::allocator<std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>>>::__emplace_unique_key_args<objc_class * {__strong},std::piecewise_construct_t const&,std::tuple<objc_class * const {__strong}&>,std::tuple<>>(uint64_t a1, unint64_t a2)
+uint64_t **std::__tree<std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>,std::__map_value_compare<objc_class * {__strong},std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>,std::less<objc_class * {__strong}>,true>,std::allocator<std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>>>::__emplace_unique_key_args<objc_class * {__strong},std::piecewise_construct_t const&,std::tuple<objc_class * const {__strong}&>,std::tuple<>>(uint64_t **a1, unint64_t a2, id **a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = a1[1];
+  if (!v3)
   {
 LABEL_7:
     operator new();
@@ -1186,37 +1100,37 @@ LABEL_7:
   {
     while (1)
     {
-      v3 = v2;
-      v4 = v2[4];
-      if (v4 <= a2)
+      v4 = v3;
+      v5 = v3[4];
+      if (v5 <= a2)
       {
         break;
       }
 
-      v2 = *v3;
-      if (!*v3)
+      v3 = *v4;
+      if (!*v4)
       {
         goto LABEL_7;
       }
     }
 
-    if (v4 >= a2)
+    if (v5 >= a2)
     {
-      return v3;
+      return v4;
     }
 
-    v2 = v3[1];
-    if (!v2)
+    v3 = v4[1];
+    if (!v3)
     {
       goto LABEL_7;
     }
   }
 }
 
-void *std::__tree<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::__map_value_compare<mlcore::ModelProperty<long long> *,std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::less<mlcore::ModelProperty<long long> *>,true>,std::allocator<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>>>::__emplace_unique_key_args<mlcore::ModelProperty<long long> *,std::piecewise_construct_t const&,std::tuple<mlcore::ModelProperty<long long> *&&>,std::tuple<>>(uint64_t a1, unint64_t a2)
+uint64_t *std::__tree<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::__map_value_compare<mlcore::ModelProperty<long long> *,std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::less<mlcore::ModelProperty<long long> *>,true>,std::allocator<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>>>::__emplace_unique_key_args<mlcore::ModelProperty<long long> *,std::piecewise_construct_t const&,std::tuple<mlcore::ModelProperty<long long> *&&>,std::tuple<>>(uint64_t **a1, unint64_t a2, uint64_t **a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = a1[1];
+  if (!v3)
   {
 LABEL_7:
     operator new();
@@ -1226,27 +1140,27 @@ LABEL_7:
   {
     while (1)
     {
-      v3 = v2;
-      v4 = v2[4];
-      if (v4 <= a2)
+      v4 = v3;
+      v5 = v3[4];
+      if (v5 <= a2)
       {
         break;
       }
 
-      v2 = *v3;
-      if (!*v3)
+      v3 = *v4;
+      if (!*v4)
       {
         goto LABEL_7;
       }
     }
 
-    if (v4 >= a2)
+    if (v5 >= a2)
     {
-      return v3;
+      return v4;
     }
 
-    v2 = v3[1];
-    if (!v2)
+    v3 = v4[1];
+    if (!v3)
     {
       goto LABEL_7;
     }
@@ -1261,25 +1175,25 @@ void *std::pair<objc_class * const {__strong},std::map<mlcore::ModelProperty<lon
   return a1;
 }
 
-void *std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>::map[abi:ne200100](void *result, void *a2)
+void *std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>::map[abi:ne200100](void *a1, void *a2)
 {
-  result[1] = 0;
-  result[2] = 0;
-  *result = result + 1;
+  a1[1] = 0;
+  a1[2] = 0;
+  *a1 = a1 + 1;
   v2 = *a2;
   if (*a2 != a2 + 1)
   {
     do
     {
-      v3 = result[1];
-      v4 = result + 1;
-      if (*result == result + 1)
+      v3 = a1[1];
+      v4 = a1 + 1;
+      if (*a1 == a1 + 1)
       {
         goto LABEL_8;
       }
 
-      v5 = result[1];
-      v6 = result + 1;
+      v5 = a1[1];
+      v6 = a1 + 1;
       if (v3)
       {
         do
@@ -1314,16 +1228,16 @@ LABEL_8:
 
         else
         {
-          v9 = result + 1;
+          v9 = a1 + 1;
         }
       }
 
       else
       {
-        v9 = result + 1;
+        v9 = a1 + 1;
         if (v3)
         {
-          v9 = result + 1;
+          v9 = a1 + 1;
           while (1)
           {
             while (1)
@@ -1394,7 +1308,7 @@ LABEL_12:
     while (v11 != a2 + 1);
   }
 
-  return result;
+  return a1;
 }
 
 void std::__tree<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::__map_value_compare<mlcore::ModelProperty<long long> *,std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::less<mlcore::ModelProperty<long long> *>,true>,std::allocator<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>>>::destroy(void *a1)
@@ -2066,7 +1980,7 @@ id ___ZL25_MPMLInitPropertyMovieMapv_block_invoke_8(uint64_t a1, void *a2, void 
   return v8;
 }
 
-void ___ZL25_MPMLInitPropertyMovieMapv_block_invoke_7(void *a1@<X1>, void *a2@<X2>, void *a3@<X8>)
+void ___ZL25_MPMLInitPropertyMovieMapv_block_invoke_7(void *a1@<X1>, void *a2@<X2>, uint64_t *a3@<X8>)
 {
   v8 = *MEMORY[0x1E69E9840];
   v5 = a2;
@@ -2119,11 +2033,11 @@ void sub_1A26433A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void ___ZL25_MPMLInitPropertyMovieMapv_block_invoke_5(uint64_t a1, void *a2, uint64_t *a3)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v4 = a2;
-  v30 = 0;
   v31 = 0;
   v32 = 0;
+  v33 = 0;
   v5 = [v4 modelKind];
   v6 = [v5 identityKind];
   v7 = +[MPModelMovieKind identityKind];
@@ -2137,17 +2051,17 @@ void ___ZL25_MPMLInitPropertyMovieMapv_block_invoke_5(uint64_t a1, void *a2, uin
   }
 
   v9 = a3[1];
-  v28 = *a3;
-  v29 = v9;
+  v29 = *a3;
+  v30 = v9;
   if (v9)
   {
     atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  [v5 applyToView:&v28 withContext:v4];
-  if (v29)
+  [v5 applyToView:&v29 withContext:v4];
+  if (v30)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v29);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v30);
   }
 
   v10 = [v4 allowedEntityIdentifiers];
@@ -2158,7 +2072,7 @@ void ___ZL25_MPMLInitPropertyMovieMapv_block_invoke_5(uint64_t a1, void *a2, uin
   v15 = mlcore::ItemPropertySyncID(v14);
   v16 = mlcore::ItemPropertyStoreCloudUniversalLibraryID(v15);
   v17 = mlcore::ItemPropertyStoreCloudAlbumID(v16);
-  _MPMLInsertPredicatesForIdentifierSet(&v30, v10, v11, v12, v13, v14, 0, v15, v16, v17);
+  _MPMLInsertPredicatesForIdentifierSet(&v31, v10, v11, v12, v13, v14, 0, v15, v16, v17);
 
   v18 = [v4 filterText];
   LOBYTE(v11) = [v18 length] == 0;
@@ -2170,11 +2084,11 @@ void ___ZL25_MPMLInitPropertyMovieMapv_block_invoke_5(uint64_t a1, void *a2, uin
     std::string::basic_string[abi:ne200100]<0>(__p, [v19 UTF8String]);
 
     v26 = mlcore::ItemPropertyTitle(v21);
-    std::allocate_shared[abi:ne200100]<mlcore::SearchPredicate,std::allocator<mlcore::SearchPredicate>,mlcore::ModelProperty<std::string> *,std::string&,0>();
+    std::allocate_shared[abi:ne200100]<mlcore::SearchPredicate,std::allocator<mlcore::SearchPredicate>,mlcore::ModelProperty<std::string> *,std::string&,0>(&v27, &v26, __p);
   }
 
   memset(v24, 0, sizeof(v24));
-  std::vector<std::shared_ptr<mlcore::Predicate>>::__init_with_size[abi:ne200100]<std::shared_ptr<mlcore::Predicate>*,std::shared_ptr<mlcore::Predicate>*>(v24, v30, v31, (v31 - v30) >> 4);
+  std::vector<std::shared_ptr<mlcore::Predicate>>::__init_with_size[abi:ne200100]<std::shared_ptr<mlcore::Predicate>*,std::shared_ptr<mlcore::Predicate>*>(v24, v31, v32, (v32 - v31) >> 4);
   mlcore::CreateAndPredicate();
   mlcore::EntityQuery::moviesQuery();
   if (v25)
@@ -2185,7 +2099,7 @@ void ___ZL25_MPMLInitPropertyMovieMapv_block_invoke_5(uint64_t a1, void *a2, uin
   __p[0] = v24;
   std::vector<std::shared_ptr<mlcore::Predicate>>::__destroy_vector::operator()[abi:ne200100](__p);
 
-  __p[0] = &v30;
+  __p[0] = &v31;
   std::vector<std::shared_ptr<mlcore::Predicate>>::__destroy_vector::operator()[abi:ne200100](__p);
 }
 
@@ -2402,7 +2316,7 @@ id ___ZL40_MPMLInitPropertyPodcastEpisodeAuthorMapv_block_invoke_5(uint64_t a1, 
   return v8;
 }
 
-void ___ZL40_MPMLInitPropertyPodcastEpisodeAuthorMapv_block_invoke_4(void *a1@<X1>, void *a2@<X2>, void *a3@<X8>)
+void ___ZL40_MPMLInitPropertyPodcastEpisodeAuthorMapv_block_invoke_4(void *a1@<X1>, void *a2@<X2>, uint64_t *a3@<X8>)
 {
   v9 = *MEMORY[0x1E69E9840];
   v5 = a2;
@@ -2631,7 +2545,7 @@ id ___ZL34_MPMLInitPropertyPodcastEpisodeMapv_block_invoke_7(uint64_t a1, void *
   return v8;
 }
 
-void ___ZL34_MPMLInitPropertyPodcastEpisodeMapv_block_invoke_6(void *a1@<X1>, void *a2@<X2>, void *a3@<X8>)
+void ___ZL34_MPMLInitPropertyPodcastEpisodeMapv_block_invoke_6(void *a1@<X1>, void *a2@<X2>, uint64_t *a3@<X8>)
 {
   v8 = *MEMORY[0x1E69E9840];
   v5 = a2;
@@ -2680,10 +2594,10 @@ void sub_1A2644B6C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void ___ZL34_MPMLInitPropertyPodcastEpisodeMapv_block_invoke_4(uint64_t a1, void *a2, uint64_t *a3)
 {
-  v62 = *MEMORY[0x1E69E9840];
-  v56 = 0;
+  v63 = *MEMORY[0x1E69E9840];
   v57 = 0;
   v58 = 0;
+  v59 = 0;
   v34 = a2;
   v33 = [v34 modelKind];
   v4 = [v33 identityKind];
@@ -2698,76 +2612,76 @@ void ___ZL34_MPMLInitPropertyPodcastEpisodeMapv_block_invoke_4(uint64_t a1, void
   }
 
   v7 = a3[1];
-  v54 = *a3;
-  v55 = v7;
+  v55 = *a3;
+  v56 = v7;
   if (v7)
   {
     atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  [v33 applyToView:&v54 withContext:v34];
-  if (v55)
+  [v33 applyToView:&v55 withContext:v34];
+  if (v56)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v55);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v56);
   }
 
   v8 = [v34 allowedEntityIdentifiers];
   v9 = mlcore::ItemPropertyStoreID(v8);
   v10 = mlcore::ItemPropertyPersistentID(v9);
   v11 = mlcore::ItemPropertySyncID(v10);
-  _MPMLInsertPredicatesForIdentifierSet(&v56, v8, v9, 0, v10, 0, 0, v11, 0, 0);
+  _MPMLInsertPredicatesForIdentifierSet(&v57, v8, v9, 0, v10, 0, 0, v11, 0, 0);
 
-  v53[0] = 0;
-  v53[1] = 0;
-  v52 = v53;
-  v48 = 0u;
+  v54[0] = 0;
+  v54[1] = 0;
+  v53 = v54;
   v49 = 0u;
   v50 = 0u;
   v51 = 0u;
+  v52 = 0u;
   v12 = [v34 scopedContainers];
-  v13 = [v12 countByEnumeratingWithState:&v48 objects:v61 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v49 objects:v62 count:16];
   if (v13)
   {
-    v14 = *v49;
+    v14 = *v50;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v49 != v14)
+        if (*v50 != v14)
         {
           objc_enumerationMutation(v12);
         }
 
-        v16 = [*(*(&v48 + 1) + 8 * i) identifiers];
+        v16 = [*(*(&v49 + 1) + 8 * i) identifiers];
         v17 = [v16 library];
         v18 = [v17 persistentID];
 
-        v46 = v18;
+        v47 = v18;
         v19 = [v16 universalStore];
         v20 = [v19 adamID];
 
-        v44 = v20;
-        v43[0] = objc_opt_class();
-        if (v43[0] == objc_opt_class())
+        v45 = v20;
+        v44[0] = objc_opt_class();
+        if (v44[0] == objc_opt_class())
         {
           if (v18)
           {
-            v39 = v43;
-            v22 = std::__tree<std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>,std::__map_value_compare<objc_class * {__strong},std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>,std::less<objc_class * {__strong}>,true>,std::allocator<std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>>>::__emplace_unique_key_args<objc_class * {__strong},std::piecewise_construct_t const&,std::tuple<objc_class * const {__strong}&>,std::tuple<>>(&v52, v43[0]);
-            *&v38 = mlcore::ItemPropertyAlbumPersistentID(v22);
-            v39 = &v38;
-            v23 = std::__tree<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::__map_value_compare<mlcore::ModelProperty<long long> *,std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::less<mlcore::ModelProperty<long long> *>,true>,std::allocator<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>>>::__emplace_unique_key_args<mlcore::ModelProperty<long long> *,std::piecewise_construct_t const&,std::tuple<mlcore::ModelProperty<long long> *&&>,std::tuple<>>(v22 + 40, v38);
-            std::vector<long long>::push_back[abi:ne200100]((v23 + 5), &v46);
+            v40 = v44;
+            v22 = std::__tree<std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>,std::__map_value_compare<objc_class * {__strong},std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>,std::less<objc_class * {__strong}>,true>,std::allocator<std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>>>::__emplace_unique_key_args<objc_class * {__strong},std::piecewise_construct_t const&,std::tuple<objc_class * const {__strong}&>,std::tuple<>>(&v53, v44[0], &v40);
+            *&v39 = mlcore::ItemPropertyAlbumPersistentID(v22);
+            v40 = &v39;
+            v23 = std::__tree<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::__map_value_compare<mlcore::ModelProperty<long long> *,std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::less<mlcore::ModelProperty<long long> *>,true>,std::allocator<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>>>::__emplace_unique_key_args<mlcore::ModelProperty<long long> *,std::piecewise_construct_t const&,std::tuple<mlcore::ModelProperty<long long> *&&>,std::tuple<>>(v22 + 5, v39, &v40);
+            std::vector<long long>::push_back[abi:ne200100]((v23 + 5), &v47);
           }
 
           else if (v20)
           {
-            v39 = v43;
-            v24 = std::__tree<std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>,std::__map_value_compare<objc_class * {__strong},std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>,std::less<objc_class * {__strong}>,true>,std::allocator<std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>>>::__emplace_unique_key_args<objc_class * {__strong},std::piecewise_construct_t const&,std::tuple<objc_class * const {__strong}&>,std::tuple<>>(&v52, v43[0]);
-            *&v38 = mlcore::ItemPropertyStorePlaylistID(v24);
-            v39 = &v38;
-            v25 = std::__tree<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::__map_value_compare<mlcore::ModelProperty<long long> *,std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::less<mlcore::ModelProperty<long long> *>,true>,std::allocator<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>>>::__emplace_unique_key_args<mlcore::ModelProperty<long long> *,std::piecewise_construct_t const&,std::tuple<mlcore::ModelProperty<long long> *&&>,std::tuple<>>(v24 + 40, v38);
-            std::vector<long long>::push_back[abi:ne200100]((v25 + 5), &v44);
+            v40 = v44;
+            v24 = std::__tree<std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>,std::__map_value_compare<objc_class * {__strong},std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>,std::less<objc_class * {__strong}>,true>,std::allocator<std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>>>::__emplace_unique_key_args<objc_class * {__strong},std::piecewise_construct_t const&,std::tuple<objc_class * const {__strong}&>,std::tuple<>>(&v53, v44[0], &v40);
+            *&v39 = mlcore::ItemPropertyStorePlaylistID(v24);
+            v40 = &v39;
+            v25 = std::__tree<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::__map_value_compare<mlcore::ModelProperty<long long> *,std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::less<mlcore::ModelProperty<long long> *>,true>,std::allocator<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>>>::__emplace_unique_key_args<mlcore::ModelProperty<long long> *,std::piecewise_construct_t const&,std::tuple<mlcore::ModelProperty<long long> *&&>,std::tuple<>>(v24 + 5, v39, &v40);
+            std::vector<long long>::push_back[abi:ne200100]((v25 + 5), &v45);
           }
         }
 
@@ -2781,54 +2695,54 @@ void ___ZL34_MPMLInitPropertyPodcastEpisodeMapv_block_invoke_4(uint64_t a1, void
         }
       }
 
-      v13 = [v12 countByEnumeratingWithState:&v48 objects:v61 count:16];
+      v13 = [v12 countByEnumeratingWithState:&v49 objects:v62 count:16];
     }
 
     while (v13);
   }
 
-  v26 = v52;
-  if (v52 != v53)
+  v26 = v53;
+  if (v53 != v54)
   {
     do
     {
-      std::pair<objc_class * const {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long>>,std::vector<std::pair<mlcore::ModelProperty<long long> const,std::allocator<long long>>>>>::pair[abi:ne200100](&v46, v26 + 4);
-      std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>::map[abi:ne200100](&v44, v47);
-      memset(v43, 0, sizeof(v43));
-      if (v44 != &v45)
+      std::pair<objc_class * const {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long>>,std::vector<std::pair<mlcore::ModelProperty<long long> const,std::allocator<long long>>>>>::pair[abi:ne200100](&v47, v26 + 4);
+      std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>::map[abi:ne200100](&v45, v48);
+      memset(v44, 0, sizeof(v44));
+      if (v45 != &v46)
       {
-        v27 = *(v44 + 40);
-        v39 = *(v44 + 32);
-        v41 = 0;
+        v27 = *(v45 + 40);
+        v40 = *(v45 + 32);
         v42 = 0;
+        v43 = 0;
         __p = 0;
-        std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&__p, v27, *(v44 + 48), (*(v44 + 48) - v27) >> 3);
-        if (v41 - __p == 8)
+        std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&__p, v27, *(v45 + 48), (*(v45 + 48) - v27) >> 3);
+        if (v42 - __p == 8)
         {
-          v60 = v39;
-          v59 = 0;
-          std::allocate_shared[abi:ne200100]<mlcore::ComparisonPredicate<long long>,std::allocator<mlcore::ComparisonPredicate<long long>>,mlcore::ModelProperty<long long> *&,mlcore::ComparisonOperator,long long const&,0>();
+          v61 = v40;
+          v60 = 0;
+          std::allocate_shared[abi:ne200100]<mlcore::ComparisonPredicate<long long>,std::allocator<mlcore::ComparisonPredicate<long long>>,mlcore::ModelProperty<long long> *&,mlcore::ComparisonOperator,long long const&,0>(&v38, &v61, &v60, __p);
         }
 
-        v60 = v39;
-        std::allocate_shared[abi:ne200100]<mlcore::InPredicate<long long>,std::allocator<mlcore::InPredicate<long long>>,mlcore::ModelProperty<long long> *&,std::vector<long long> const&,0>();
+        v61 = v40;
+        std::allocate_shared[abi:ne200100]<mlcore::InPredicate<long long>,std::allocator<mlcore::InPredicate<long long>>,mlcore::ModelProperty<long long> *&,std::vector<long long> const&,0>(&v38, &v61, &__p);
       }
 
       memset(v37, 0, sizeof(v37));
       std::vector<std::shared_ptr<mlcore::Predicate>>::__init_with_size[abi:ne200100]<std::shared_ptr<mlcore::Predicate>*,std::shared_ptr<mlcore::Predicate>*>(v37, 0, 0, 0);
       mlcore::CreateOrPredicate();
-      std::vector<std::shared_ptr<mlcore::Predicate>>::push_back[abi:ne200100](&v56, &v39);
+      std::vector<std::shared_ptr<mlcore::Predicate>>::push_back[abi:ne200100](&v57, &v40);
       if (__p)
       {
         std::__shared_weak_count::__release_shared[abi:ne200100](__p);
       }
 
-      *&v38 = v37;
-      std::vector<std::shared_ptr<mlcore::Predicate>>::__destroy_vector::operator()[abi:ne200100](&v38);
-      v39 = v43;
+      *&v39 = v37;
       std::vector<std::shared_ptr<mlcore::Predicate>>::__destroy_vector::operator()[abi:ne200100](&v39);
-      std::__tree<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::__map_value_compare<mlcore::ModelProperty<long long> *,std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::less<mlcore::ModelProperty<long long> *>,true>,std::allocator<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>>>::destroy(v45);
-      std::__tree<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::__map_value_compare<mlcore::ModelProperty<long long> *,std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::less<mlcore::ModelProperty<long long> *>,true>,std::allocator<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>>>::destroy(v47[1]);
+      v40 = v44;
+      std::vector<std::shared_ptr<mlcore::Predicate>>::__destroy_vector::operator()[abi:ne200100](&v40);
+      std::__tree<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::__map_value_compare<mlcore::ModelProperty<long long> *,std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::less<mlcore::ModelProperty<long long> *>,true>,std::allocator<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>>>::destroy(v46);
+      std::__tree<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::__map_value_compare<mlcore::ModelProperty<long long> *,std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::less<mlcore::ModelProperty<long long> *>,true>,std::allocator<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>>>::destroy(v48[1]);
 
       v28 = v26[1];
       if (v28)
@@ -2857,11 +2771,11 @@ void ___ZL34_MPMLInitPropertyPodcastEpisodeMapv_block_invoke_4(uint64_t a1, void
       v26 = v29;
     }
 
-    while (v29 != v53);
+    while (v29 != v54);
   }
 
   memset(v35, 0, sizeof(v35));
-  std::vector<std::shared_ptr<mlcore::Predicate>>::__init_with_size[abi:ne200100]<std::shared_ptr<mlcore::Predicate>*,std::shared_ptr<mlcore::Predicate>*>(v35, v56, v57, (v57 - v56) >> 4);
+  std::vector<std::shared_ptr<mlcore::Predicate>>::__init_with_size[abi:ne200100]<std::shared_ptr<mlcore::Predicate>*,std::shared_ptr<mlcore::Predicate>*>(v35, v57, v58, (v58 - v57) >> 4);
   mlcore::CreateAndPredicate();
   mlcore::EntityQuery::podcastEpisodesQuery();
   if (v36)
@@ -2869,12 +2783,12 @@ void ___ZL34_MPMLInitPropertyPodcastEpisodeMapv_block_invoke_4(uint64_t a1, void
     std::__shared_weak_count::__release_shared[abi:ne200100](v36);
   }
 
-  v46 = v35;
-  std::vector<std::shared_ptr<mlcore::Predicate>>::__destroy_vector::operator()[abi:ne200100](&v46);
-  std::__tree<std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>,std::__map_value_compare<objc_class * {__strong},std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>,std::less<objc_class * {__strong}>,true>,std::allocator<std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>>>::destroy(v53[0]);
+  v47 = v35;
+  std::vector<std::shared_ptr<mlcore::Predicate>>::__destroy_vector::operator()[abi:ne200100](&v47);
+  std::__tree<std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>,std::__map_value_compare<objc_class * {__strong},std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>,std::less<objc_class * {__strong}>,true>,std::allocator<std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>>>::destroy(v54[0]);
 
-  v46 = &v56;
-  std::vector<std::shared_ptr<mlcore::Predicate>>::__destroy_vector::operator()[abi:ne200100](&v46);
+  v47 = &v57;
+  std::vector<std::shared_ptr<mlcore::Predicate>>::__destroy_vector::operator()[abi:ne200100](&v47);
 }
 
 void sub_1A264519C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, void *a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, void *__p, uint64_t a29, uint64_t a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char *a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, char a54)
@@ -2991,7 +2905,7 @@ id ___ZL33_MPMLInitPropertyPodcastAuthorMapv_block_invoke_5(uint64_t a1, void *a
   return v8;
 }
 
-void ___ZL33_MPMLInitPropertyPodcastAuthorMapv_block_invoke_4(void *a1@<X1>, void *a2@<X2>, void *a3@<X8>)
+void ___ZL33_MPMLInitPropertyPodcastAuthorMapv_block_invoke_4(void *a1@<X1>, void *a2@<X2>, uint64_t *a3@<X8>)
 {
   v9 = *MEMORY[0x1E69E9840];
   v5 = a2;
@@ -3243,7 +3157,7 @@ id ___ZL27_MPMLInitPropertyPodcastMapv_block_invoke_6(uint64_t a1, void *a2, voi
   return v8;
 }
 
-void ___ZL27_MPMLInitPropertyPodcastMapv_block_invoke_5(void *a1@<X1>, void *a2@<X2>, void *a3@<X8>)
+void ___ZL27_MPMLInitPropertyPodcastMapv_block_invoke_5(void *a1@<X1>, void *a2@<X2>, uint64_t *a3@<X8>)
 {
   v9 = *MEMORY[0x1E69E9840];
   v5 = a2;
@@ -3565,7 +3479,7 @@ uint64_t ___ZL33_MPMLInitPropertyPlaylistEntryMapv_block_invoke_12(uint64_t a1, 
   v6 = a2;
   std::string::basic_string[abi:ne200100]<0>(__p, "itemPID");
   v15 = __p;
-  v7 = std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a3, __p);
+  v7 = std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a3, __p, &v15);
   v8 = MPMediaLibraryPropertyCacheValueForProperty(v7[5], a4);
   if (v14 < 0)
   {
@@ -3574,7 +3488,7 @@ uint64_t ___ZL33_MPMLInitPropertyPlaylistEntryMapv_block_invoke_12(uint64_t a1, 
 
   std::string::basic_string[abi:ne200100]<0>(__p, "mediaType");
   v15 = __p;
-  v9 = std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a3, __p);
+  v9 = std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a3, __p, &v15);
   v10 = MPMediaLibraryPropertyCacheValueForProperty(v9[5], a4);
   if (v14 < 0)
   {
@@ -3609,7 +3523,7 @@ uint64_t ___ZL33_MPMLInitPropertyPlaylistEntryMapv_block_invoke_11(uint64_t a1, 
   v6 = a2;
   std::string::basic_string[abi:ne200100]<0>(__p, "itemPID");
   v15 = __p;
-  v7 = std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a3, __p);
+  v7 = std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a3, __p, &v15);
   v8 = MPMediaLibraryPropertyCacheValueForProperty(v7[5], a4);
   if (v14 < 0)
   {
@@ -3618,7 +3532,7 @@ uint64_t ___ZL33_MPMLInitPropertyPlaylistEntryMapv_block_invoke_11(uint64_t a1, 
 
   std::string::basic_string[abi:ne200100]<0>(__p, "mediaType");
   v15 = __p;
-  v9 = std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a3, __p);
+  v9 = std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a3, __p, &v15);
   v10 = MPMediaLibraryPropertyCacheValueForProperty(v9[5], a4);
   if (v14 < 0)
   {
@@ -3653,7 +3567,7 @@ BOOL ___ZL33_MPMLInitPropertyPlaylistEntryMapv_block_invoke_10(uint64_t a1, void
   v6 = a2;
   std::string::basic_string[abi:ne200100]<0>(__p, "itemPID");
   v15 = __p;
-  v7 = std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a3, __p);
+  v7 = std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a3, __p, &v15);
   v8 = MPMediaLibraryPropertyCacheValueForProperty(v7[5], a4);
   if (v14 < 0)
   {
@@ -3662,7 +3576,7 @@ BOOL ___ZL33_MPMLInitPropertyPlaylistEntryMapv_block_invoke_10(uint64_t a1, void
 
   std::string::basic_string[abi:ne200100]<0>(__p, "mediaType");
   v15 = __p;
-  v9 = std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a3, __p);
+  v9 = std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a3, __p, &v15);
   v10 = MPMediaLibraryPropertyCacheValueForProperty(v9[5], a4);
   if (v14 < 0)
   {
@@ -3793,31 +3707,31 @@ id ___ZL33_MPMLInitPropertyPlaylistEntryMapv_block_invoke_7(uint64_t a1, void *a
   return v8;
 }
 
-void ___ZL33_MPMLInitPropertyPlaylistEntryMapv_block_invoke_5(uint64_t a1, void *a2, uint64_t *a3)
+void ___ZL33_MPMLInitPropertyPlaylistEntryMapv_block_invoke_5(void x0_0, void *a1, uint64_t *a2)
 {
-  v70 = *MEMORY[0x1E69E9840];
-  v4 = a2;
-  v60 = 0u;
-  v61 = 0u;
+  v72 = *MEMORY[0x1E69E9840];
+  v4 = a1;
   v62 = 0u;
   v63 = 0u;
+  v64 = 0u;
+  v65 = 0u;
   v5 = [v4 scopedContainers];
   v6 = [v5 reverseObjectEnumerator];
 
-  v7 = [v6 countByEnumeratingWithState:&v60 objects:v69 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v62 objects:v71 count:16];
   if (v7)
   {
-    v8 = *v61;
+    v8 = *v63;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v61 != v8)
+        if (*v63 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v60 + 1) + 8 * i);
+        v10 = *(*(&v62 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -3837,18 +3751,18 @@ void ___ZL33_MPMLInitPropertyPlaylistEntryMapv_block_invoke_5(uint64_t a1, void 
               [v43 handleFailureInFunction:v44 file:@"MPMediaLibraryTranslatorSchema.mm" lineNumber:2381 description:@"Must have PlaylistEntry kind to generate PlaylistEntry entity query."];
             }
 
-            v15 = a3[1];
-            v58 = *a3;
-            v59 = v15;
+            v15 = a2[1];
+            v60 = *a2;
+            v61 = v15;
             if (v15)
             {
               atomic_fetch_add_explicit(&v15->__shared_owners_, 1uLL, memory_order_relaxed);
             }
 
-            [v45 applyToView:&v58 withContext:v4];
-            if (v59)
+            [v45 applyToView:&v60 withContext:v4];
+            if (v61)
             {
-              std::__shared_weak_count::__release_shared[abi:ne200100](v59);
+              std::__shared_weak_count::__release_shared[abi:ne200100](v61);
             }
 
             std::string::basic_string[abi:ne200100]<0>(__p, "");
@@ -3859,40 +3773,40 @@ void ___ZL33_MPMLInitPropertyPlaylistEntryMapv_block_invoke_5(uint64_t a1, void 
             {
               v18 = [v4 filterText];
               v19 = v18;
-              std::string::basic_string[abi:ne200100]<0>(v66, [v18 UTF8String]);
-              if (SHIBYTE(v57) < 0)
+              std::string::basic_string[abi:ne200100]<0>(v68, [v18 UTF8String]);
+              if (SHIBYTE(v59) < 0)
               {
                 operator delete(__p[0]);
               }
 
-              *__p = *v66;
-              v57 = v67;
-              BYTE7(v67) = 0;
-              LOBYTE(v66[0]) = 0;
+              *__p = *v68;
+              v59 = v69;
+              BYTE7(v69) = 0;
+              LOBYTE(v68[0]) = 0;
             }
 
-            v55 = 0;
-            [v11 identifiers];
-            v20 = [objc_claimAutoreleasedReturnValue() library];
+            v57 = 0;
+            v56 = [v11 identifiers];
+            v20 = [v56 library];
             v21 = [v20 persistentID];
 
-            v54 = v21;
-            std::allocate_shared[abi:ne200100]<mlcore::Playlist,std::allocator<mlcore::Playlist>,long long &,0>();
+            v55 = v21;
+            std::allocate_shared[abi:ne200100]<mlcore::Playlist,std::allocator<mlcore::Playlist>,long long &,0>(&v54, &v55);
           }
 
 LABEL_22:
-          v66[1] = 0;
-          v66[0] = 0;
-          *&v67 = 0;
+          v68[1] = 0;
+          v68[0] = 0;
+          *&v69 = 0;
           __p[1] = 0;
           __p[0] = 0;
-          v57 = 0;
+          v59 = 0;
           v50 = 0u;
           v51 = 0u;
           v52 = 0u;
           v53 = 0u;
           v22 = [v4 allowedEntityIdentifiers];
-          v23 = [v22 countByEnumeratingWithState:&v50 objects:v65 count:16];
+          v23 = [v22 countByEnumeratingWithState:&v50 objects:v67 count:16];
           if (v23)
           {
             v24 = *v51;
@@ -3912,12 +3826,12 @@ LABEL_22:
                 if (!v28)
                 {
                   v29 = [v26 library];
-                  v68 = [v29 persistentID];
-                  std::vector<long long>::push_back[abi:ne200100](__p, &v68);
+                  v70 = [v29 persistentID];
+                  std::vector<long long>::push_back[abi:ne200100](__p, &v70);
                 }
               }
 
-              v23 = [v22 countByEnumeratingWithState:&v50 objects:v65 count:16];
+              v23 = [v22 countByEnumeratingWithState:&v50 objects:v67 count:16];
             }
 
             while (v23);
@@ -3928,7 +3842,7 @@ LABEL_22:
           v46 = 0u;
           v47 = 0u;
           v30 = [v4 scopedContainers];
-          v31 = [v30 countByEnumeratingWithState:&v46 objects:v64 count:16];
+          v31 = [v30 countByEnumeratingWithState:&v46 objects:v66 count:16];
           if (v31)
           {
             v32 = *v47;
@@ -3950,12 +3864,12 @@ LABEL_22:
                 {
                   v38 = [v34 identifiers];
                   v39 = [v38 library];
-                  v68 = [v39 persistentID];
-                  std::vector<long long>::push_back[abi:ne200100](__p, &v68);
+                  v70 = [v39 persistentID];
+                  std::vector<long long>::push_back[abi:ne200100](__p, &v70);
                 }
               }
 
-              v31 = [v30 countByEnumeratingWithState:&v46 objects:v64 count:16];
+              v31 = [v30 countByEnumeratingWithState:&v46 objects:v66 count:16];
             }
 
             while (v31);
@@ -3968,12 +3882,12 @@ LABEL_22:
             [v41 handleFailureInFunction:v42 file:@"MPMediaLibraryTranslatorSchema.mm" lineNumber:2467 description:@"Attempted to query playlist entries without scoping to a playlist or allowed identifiers"];
           }
 
-          v68 = mlcore::PlaylistItemPropertyPersistentID(v40);
-          std::allocate_shared[abi:ne200100]<mlcore::InPredicate<long long>,std::allocator<mlcore::InPredicate<long long>>,mlcore::ModelProperty<long long> *&,std::vector<long long> const&,0>();
+          v70 = mlcore::PlaylistItemPropertyPersistentID(v40);
+          std::allocate_shared[abi:ne200100]<mlcore::InPredicate<long long>,std::allocator<mlcore::InPredicate<long long>>,mlcore::ModelProperty<long long> *&,std::vector<long long> const&,0>(&v54, &v70, __p);
         }
       }
 
-      v7 = [v6 countByEnumeratingWithState:&v60 objects:v69 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v62 objects:v71 count:16];
     }
 
     while (v7);
@@ -4004,7 +3918,7 @@ void _ZNSt3__110__function6__funcIZZL33_MPMLInitPropertyPlaylistEntryMapvEUb_E3_
   *(a2 + 8) = 0;
   if (mlcore::EntityQueryResult::entityCount(v4))
   {
-    mlcore::EntityQueryResult::entityAtIndex(v4);
+    mlcore::EntityQueryResult::entityAtIndex(&v19, v4);
     std::dynamic_pointer_cast[abi:ne200100]<mlcore::Playlist,mlcore::Entity>(buf, &v19);
     v5 = *(a1 + 16);
     v6 = *(v5 + 8);
@@ -4415,19 +4329,19 @@ id ___ZL25_MPMLInitPropertyGenreMapv_block_invoke_7(uint64_t a1, void *a2, void 
   return v8;
 }
 
-void ___ZL25_MPMLInitPropertyGenreMapv_block_invoke_6(uint64_t a1, void *a2, void *a3, uint64_t a4)
+void ___ZL25_MPMLInitPropertyGenreMapv_block_invoke_6(void x0_0, void *a1, void *a2, uint64_t a3)
 {
-  v6 = a3;
-  std::string::basic_string[abi:ne200100]<0>(&v13, [v6 UTF8String]);
+  v6 = a2;
+  std::string::basic_string[abi:ne200100]<0>(v15, [v6 UTF8String]);
   std::string::basic_string[abi:ne200100]<0>(__p, "name");
-  v7 = std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::find<std::string>(a2, __p);
+  v7 = std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::find<std::string>(a1, __p);
   if (!v7)
   {
     std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
   }
 
   v8 = v7[5];
-  if (v12 < 0)
+  if (v14 < 0)
   {
     operator delete(__p[0]);
   }
@@ -4439,19 +4353,22 @@ void ___ZL25_MPMLInitPropertyGenreMapv_block_invoke_6(uint64_t a1, void *a2, voi
     [v9 handleFailureInFunction:v10 file:@"MPMediaLibraryTranslatorSchema.mm" lineNumber:2302 description:@"The base property key for Genre's property[name] is not a string and thus cannot be used to create a SearchPredicate"];
   }
 
-  if (a4 == 1)
+  v12 = v8;
+  if (a3 == 1)
   {
-    std::allocate_shared[abi:ne200100]<mlcore::SearchPredicate,std::allocator<mlcore::SearchPredicate>,mlcore::ModelProperty<std::string> *&,std::string&,mediaplatform::UnicodeSearch::MatchType,0>();
+    v11 = 0;
+    std::allocate_shared[abi:ne200100]<mlcore::SearchPredicate,std::allocator<mlcore::SearchPredicate>,mlcore::ModelProperty<std::string> *&,std::string&,mediaplatform::UnicodeSearch::MatchType,0>(__p, &v12, v15, &v11);
   }
 
-  if (!a4)
+  if (!a3)
   {
-    std::allocate_shared[abi:ne200100]<mlcore::SearchPredicate,std::allocator<mlcore::SearchPredicate>,mlcore::ModelProperty<std::string> *&,std::string&,mediaplatform::UnicodeSearch::MatchType,0>();
+    v11 = 4;
+    std::allocate_shared[abi:ne200100]<mlcore::SearchPredicate,std::allocator<mlcore::SearchPredicate>,mlcore::ModelProperty<std::string> *&,std::string&,mediaplatform::UnicodeSearch::MatchType,0>(__p, &v12, v15, &v11);
   }
 
-  if (v14 < 0)
+  if (v16 < 0)
   {
-    operator delete(v13);
+    operator delete(v15[0]);
   }
 }
 
@@ -4472,7 +4389,7 @@ void sub_1A2649BC8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void ___ZL25_MPMLInitPropertyGenreMapv_block_invoke_5(void *a1@<X1>, void *a2@<X2>, void *a3@<X8>)
+void ___ZL25_MPMLInitPropertyGenreMapv_block_invoke_5(void *a1@<X1>, void *a2@<X2>, uint64_t *a3@<X8>)
 {
   v9 = *MEMORY[0x1E69E9840];
   v5 = a2;
@@ -4532,9 +4449,9 @@ void sub_1A2649DFC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 void ___ZL25_MPMLInitPropertyGenreMapv_block_invoke_3(uint64_t a1, void *a2, uint64_t *a3)
 {
   v4 = a2;
-  v24 = 0;
   v25 = 0;
   v26 = 0;
+  v27 = 0;
   v5 = [v4 modelKind];
   v6 = [v5 identityKind];
   v7 = +[MPModelGenreKind identityKind];
@@ -4548,22 +4465,22 @@ void ___ZL25_MPMLInitPropertyGenreMapv_block_invoke_3(uint64_t a1, void *a2, uin
   }
 
   v9 = a3[1];
-  v22 = *a3;
-  v23 = v9;
+  v23 = *a3;
+  v24 = v9;
   if (v9)
   {
     atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  [v5 applyToView:&v22 withContext:v4];
-  if (v23)
+  [v5 applyToView:&v23 withContext:v4];
+  if (v24)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v23);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v24);
   }
 
   v10 = [v4 allowedEntityIdentifiers];
   v11 = mlcore::GenrePropertyPersistentID(v10);
-  _MPMLInsertPredicatesForIdentifierSet(&v24, v10, 0, 0, v11, 0, 0, 0, 0, 0);
+  _MPMLInsertPredicatesForIdentifierSet(&v25, v10, 0, 0, v11, 0, 0, 0, 0, 0);
 
   v12 = [v4 filterText];
   v13 = [v12 length];
@@ -4574,11 +4491,11 @@ void ___ZL25_MPMLInitPropertyGenreMapv_block_invoke_3(uint64_t a1, void *a2, uin
     std::string::basic_string[abi:ne200100]<0>(__p, [v14 UTF8String]);
 
     v20 = mlcore::GenrePropertyName(v15);
-    std::allocate_shared[abi:ne200100]<mlcore::SearchPredicate,std::allocator<mlcore::SearchPredicate>,mlcore::ModelProperty<std::string> *,std::string&,0>();
+    std::allocate_shared[abi:ne200100]<mlcore::SearchPredicate,std::allocator<mlcore::SearchPredicate>,mlcore::ModelProperty<std::string> *,std::string&,0>(&v21, &v20, __p);
   }
 
   memset(v18, 0, sizeof(v18));
-  std::vector<std::shared_ptr<mlcore::Predicate>>::__init_with_size[abi:ne200100]<std::shared_ptr<mlcore::Predicate>*,std::shared_ptr<mlcore::Predicate>*>(v18, v24, v25, (v25 - v24) >> 4);
+  std::vector<std::shared_ptr<mlcore::Predicate>>::__init_with_size[abi:ne200100]<std::shared_ptr<mlcore::Predicate>*,std::shared_ptr<mlcore::Predicate>*>(v18, v25, v26, (v26 - v25) >> 4);
   mlcore::CreateAndPredicate();
   mlcore::EntityQuery::genresQuery();
   if (v19)
@@ -4589,7 +4506,7 @@ void ___ZL25_MPMLInitPropertyGenreMapv_block_invoke_3(uint64_t a1, void *a2, uin
   __p[0] = v18;
   std::vector<std::shared_ptr<mlcore::Predicate>>::__destroy_vector::operator()[abi:ne200100](__p);
 
-  __p[0] = &v24;
+  __p[0] = &v25;
   std::vector<std::shared_ptr<mlcore::Predicate>>::__destroy_vector::operator()[abi:ne200100](__p);
 }
 
@@ -4677,19 +4594,19 @@ id ___ZL28_MPMLInitPropertyComposerMapv_block_invoke_6(uint64_t a1, void *a2, vo
   return v8;
 }
 
-void ___ZL28_MPMLInitPropertyComposerMapv_block_invoke_5(uint64_t a1, void *a2, void *a3, uint64_t a4)
+void ___ZL28_MPMLInitPropertyComposerMapv_block_invoke_5(void x0_0, void *a1, void *a2, uint64_t a3)
 {
-  v6 = a3;
-  std::string::basic_string[abi:ne200100]<0>(&v13, [v6 UTF8String]);
+  v6 = a2;
+  std::string::basic_string[abi:ne200100]<0>(v15, [v6 UTF8String]);
   std::string::basic_string[abi:ne200100]<0>(__p, "name");
-  v7 = std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::find<std::string>(a2, __p);
+  v7 = std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::find<std::string>(a1, __p);
   if (!v7)
   {
     std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
   }
 
   v8 = v7[5];
-  if (v12 < 0)
+  if (v14 < 0)
   {
     operator delete(__p[0]);
   }
@@ -4701,19 +4618,22 @@ void ___ZL28_MPMLInitPropertyComposerMapv_block_invoke_5(uint64_t a1, void *a2, 
     [v9 handleFailureInFunction:v10 file:@"MPMediaLibraryTranslatorSchema.mm" lineNumber:2163 description:@"The base property key for Composer's property[name] is not a string and thus cannot be used to create a SearchPredicate"];
   }
 
-  if (a4 == 1)
+  v12 = v8;
+  if (a3 == 1)
   {
-    std::allocate_shared[abi:ne200100]<mlcore::SearchPredicate,std::allocator<mlcore::SearchPredicate>,mlcore::ModelProperty<std::string> *&,std::string&,mediaplatform::UnicodeSearch::MatchType,0>();
+    v11 = 0;
+    std::allocate_shared[abi:ne200100]<mlcore::SearchPredicate,std::allocator<mlcore::SearchPredicate>,mlcore::ModelProperty<std::string> *&,std::string&,mediaplatform::UnicodeSearch::MatchType,0>(__p, &v12, v15, &v11);
   }
 
-  if (!a4)
+  if (!a3)
   {
-    std::allocate_shared[abi:ne200100]<mlcore::SearchPredicate,std::allocator<mlcore::SearchPredicate>,mlcore::ModelProperty<std::string> *&,std::string&,mediaplatform::UnicodeSearch::MatchType,0>();
+    v11 = 4;
+    std::allocate_shared[abi:ne200100]<mlcore::SearchPredicate,std::allocator<mlcore::SearchPredicate>,mlcore::ModelProperty<std::string> *&,std::string&,mediaplatform::UnicodeSearch::MatchType,0>(__p, &v12, v15, &v11);
   }
 
-  if (v14 < 0)
+  if (v16 < 0)
   {
-    operator delete(v13);
+    operator delete(v15[0]);
   }
 }
 
@@ -4727,7 +4647,7 @@ void sub_1A264A67C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void ___ZL28_MPMLInitPropertyComposerMapv_block_invoke_4(void *a1@<X1>, void *a2@<X2>, void *a3@<X8>)
+void ___ZL28_MPMLInitPropertyComposerMapv_block_invoke_4(void *a1@<X1>, void *a2@<X2>, uint64_t *a3@<X8>)
 {
   v9 = *MEMORY[0x1E69E9840];
   v5 = a2;
@@ -4769,11 +4689,11 @@ void sub_1A264A81C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void ___ZL28_MPMLInitPropertyComposerMapv_block_invoke_3(uint64_t a1, void *a2, uint64_t *a3)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v4 = a2;
-  v25 = 0;
   v26 = 0;
   v27 = 0;
+  v28 = 0;
   v5 = [v4 modelKind];
   v6 = [v5 identityKind];
   v7 = +[MPModelComposerKind identityKind];
@@ -4787,22 +4707,22 @@ void ___ZL28_MPMLInitPropertyComposerMapv_block_invoke_3(uint64_t a1, void *a2, 
   }
 
   v9 = a3[1];
-  v23 = *a3;
-  v24 = v9;
+  v24 = *a3;
+  v25 = v9;
   if (v9)
   {
     atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  [v5 applyToView:&v23 withContext:v4];
-  if (v24)
+  [v5 applyToView:&v24 withContext:v4];
+  if (v25)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v24);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v25);
   }
 
   v10 = [v4 allowedEntityIdentifiers];
   v11 = mlcore::ComposerPropertyPersistentID(v10);
-  _MPMLInsertPredicatesForIdentifierSet(&v25, v10, 0, 0, v11, 0, 0, 0, 0, 0);
+  _MPMLInsertPredicatesForIdentifierSet(&v26, v10, 0, 0, v11, 0, 0, 0, 0, 0);
 
   v12 = [v4 filterText];
   v13 = [v12 length] == 0;
@@ -4814,11 +4734,11 @@ void ___ZL28_MPMLInitPropertyComposerMapv_block_invoke_3(uint64_t a1, void *a2, 
     std::string::basic_string[abi:ne200100]<0>(__p, [v14 UTF8String]);
 
     v21 = mlcore::ComposerPropertyName(v16);
-    std::allocate_shared[abi:ne200100]<mlcore::SearchPredicate,std::allocator<mlcore::SearchPredicate>,mlcore::ModelProperty<std::string> *,std::string&,0>();
+    std::allocate_shared[abi:ne200100]<mlcore::SearchPredicate,std::allocator<mlcore::SearchPredicate>,mlcore::ModelProperty<std::string> *,std::string&,0>(&v22, &v21, __p);
   }
 
   memset(v19, 0, sizeof(v19));
-  std::vector<std::shared_ptr<mlcore::Predicate>>::__init_with_size[abi:ne200100]<std::shared_ptr<mlcore::Predicate>*,std::shared_ptr<mlcore::Predicate>*>(v19, v25, v26, (v26 - v25) >> 4);
+  std::vector<std::shared_ptr<mlcore::Predicate>>::__init_with_size[abi:ne200100]<std::shared_ptr<mlcore::Predicate>*,std::shared_ptr<mlcore::Predicate>*>(v19, v26, v27, (v27 - v26) >> 4);
   mlcore::CreateAndPredicate();
   mlcore::EntityQuery::composersQuery();
   if (v20)
@@ -4829,7 +4749,7 @@ void ___ZL28_MPMLInitPropertyComposerMapv_block_invoke_3(uint64_t a1, void *a2, 
   __p[0] = v19;
   std::vector<std::shared_ptr<mlcore::Predicate>>::__destroy_vector::operator()[abi:ne200100](__p);
 
-  __p[0] = &v25;
+  __p[0] = &v26;
   std::vector<std::shared_ptr<mlcore::Predicate>>::__destroy_vector::operator()[abi:ne200100](__p);
 }
 
@@ -4964,19 +4884,19 @@ id ___ZL30_MPMLInitPropertyItemArtistMapv_block_invoke_6(uint64_t a1, void *a2, 
   return v8;
 }
 
-void ___ZL30_MPMLInitPropertyItemArtistMapv_block_invoke_5(uint64_t a1, void *a2, void *a3, uint64_t a4)
+void ___ZL30_MPMLInitPropertyItemArtistMapv_block_invoke_5(void x0_0, void *a1, void *a2, uint64_t a3)
 {
-  v6 = a3;
-  std::string::basic_string[abi:ne200100]<0>(&v13, [v6 UTF8String]);
+  v6 = a2;
+  std::string::basic_string[abi:ne200100]<0>(v15, [v6 UTF8String]);
   std::string::basic_string[abi:ne200100]<0>(__p, "name");
-  v7 = std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::find<std::string>(a2, __p);
+  v7 = std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::find<std::string>(a1, __p);
   if (!v7)
   {
     std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
   }
 
   v8 = v7[5];
-  if (v12 < 0)
+  if (v14 < 0)
   {
     operator delete(__p[0]);
   }
@@ -4988,19 +4908,22 @@ void ___ZL30_MPMLInitPropertyItemArtistMapv_block_invoke_5(uint64_t a1, void *a2
     [v9 handleFailureInFunction:v10 file:@"MPMediaLibraryTranslatorSchema.mm" lineNumber:2065 description:@"The base property key for Artist's property[name] is not a string and thus cannot be used to create a SearchPredicate"];
   }
 
-  if (a4 == 1)
+  v12 = v8;
+  if (a3 == 1)
   {
-    std::allocate_shared[abi:ne200100]<mlcore::SearchPredicate,std::allocator<mlcore::SearchPredicate>,mlcore::ModelProperty<std::string> *&,std::string&,mediaplatform::UnicodeSearch::MatchType,0>();
+    v11 = 0;
+    std::allocate_shared[abi:ne200100]<mlcore::SearchPredicate,std::allocator<mlcore::SearchPredicate>,mlcore::ModelProperty<std::string> *&,std::string&,mediaplatform::UnicodeSearch::MatchType,0>(__p, &v12, v15, &v11);
   }
 
-  if (!a4)
+  if (!a3)
   {
-    std::allocate_shared[abi:ne200100]<mlcore::SearchPredicate,std::allocator<mlcore::SearchPredicate>,mlcore::ModelProperty<std::string> *&,std::string&,mediaplatform::UnicodeSearch::MatchType,0>();
+    v11 = 4;
+    std::allocate_shared[abi:ne200100]<mlcore::SearchPredicate,std::allocator<mlcore::SearchPredicate>,mlcore::ModelProperty<std::string> *&,std::string&,mediaplatform::UnicodeSearch::MatchType,0>(__p, &v12, v15, &v11);
   }
 
-  if (v14 < 0)
+  if (v16 < 0)
   {
-    operator delete(v13);
+    operator delete(v15[0]);
   }
 }
 
@@ -5014,7 +4937,7 @@ void sub_1A264B368(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void ___ZL30_MPMLInitPropertyItemArtistMapv_block_invoke_4(void *a1@<X1>, void *a2@<X2>, void *a3@<X8>)
+void ___ZL30_MPMLInitPropertyItemArtistMapv_block_invoke_4(void *a1@<X1>, void *a2@<X2>, uint64_t *a3@<X8>)
 {
   v9 = *MEMORY[0x1E69E9840];
   v5 = a2;
@@ -5337,19 +5260,19 @@ id ___ZL26_MPMLInitPropertyArtistMapv_block_invoke_9(uint64_t a1, void *a2, void
   return v8;
 }
 
-void ___ZL26_MPMLInitPropertyArtistMapv_block_invoke_8(uint64_t a1, void *a2, void *a3, uint64_t a4)
+void ___ZL26_MPMLInitPropertyArtistMapv_block_invoke_8(void x0_0, void *a1, void *a2, uint64_t a3)
 {
-  v6 = a3;
-  std::string::basic_string[abi:ne200100]<0>(&v13, [v6 UTF8String]);
+  v6 = a2;
+  std::string::basic_string[abi:ne200100]<0>(v15, [v6 UTF8String]);
   std::string::basic_string[abi:ne200100]<0>(__p, "name");
-  v7 = std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::find<std::string>(a2, __p);
+  v7 = std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::find<std::string>(a1, __p);
   if (!v7)
   {
     std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
   }
 
   v8 = v7[5];
-  if (v12 < 0)
+  if (v14 < 0)
   {
     operator delete(__p[0]);
   }
@@ -5361,19 +5284,22 @@ void ___ZL26_MPMLInitPropertyArtistMapv_block_invoke_8(uint64_t a1, void *a2, vo
     [v9 handleFailureInFunction:v10 file:@"MPMediaLibraryTranslatorSchema.mm" lineNumber:1951 description:@"The base property key for Artist's property[name] is not a string and thus cannot be used to create a SearchPredicate"];
   }
 
-  if (a4 == 1)
+  v12 = v8;
+  if (a3 == 1)
   {
-    std::allocate_shared[abi:ne200100]<mlcore::SearchPredicate,std::allocator<mlcore::SearchPredicate>,mlcore::ModelProperty<std::string> *&,std::string&,mediaplatform::UnicodeSearch::MatchType,0>();
+    v11 = 0;
+    std::allocate_shared[abi:ne200100]<mlcore::SearchPredicate,std::allocator<mlcore::SearchPredicate>,mlcore::ModelProperty<std::string> *&,std::string&,mediaplatform::UnicodeSearch::MatchType,0>(__p, &v12, v15, &v11);
   }
 
-  if (!a4)
+  if (!a3)
   {
-    std::allocate_shared[abi:ne200100]<mlcore::SearchPredicate,std::allocator<mlcore::SearchPredicate>,mlcore::ModelProperty<std::string> *&,std::string&,mediaplatform::UnicodeSearch::MatchType,0>();
+    v11 = 4;
+    std::allocate_shared[abi:ne200100]<mlcore::SearchPredicate,std::allocator<mlcore::SearchPredicate>,mlcore::ModelProperty<std::string> *&,std::string&,mediaplatform::UnicodeSearch::MatchType,0>(__p, &v12, v15, &v11);
   }
 
-  if (v14 < 0)
+  if (v16 < 0)
   {
-    operator delete(v13);
+    operator delete(v15[0]);
   }
 }
 
@@ -5387,7 +5313,7 @@ void sub_1A264C304(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void ___ZL26_MPMLInitPropertyArtistMapv_block_invoke_7(void *a1@<X1>, void *a2@<X2>, void *a3@<X8>)
+void ___ZL26_MPMLInitPropertyArtistMapv_block_invoke_7(void *a1@<X1>, void *a2@<X2>, uint64_t *a3@<X8>)
 {
   v9 = *MEMORY[0x1E69E9840];
   v5 = a2;
@@ -5447,11 +5373,11 @@ void sub_1A264C574(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void ___ZL26_MPMLInitPropertyArtistMapv_block_invoke_5(uint64_t a1, void *a2, uint64_t *a3)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v4 = a2;
-  v25 = 0;
   v26 = 0;
   v27 = 0;
+  v28 = 0;
   v5 = [v4 modelKind];
   v6 = [v5 identityKind];
   v7 = +[MPModelArtistKind identityKind];
@@ -5465,23 +5391,23 @@ void ___ZL26_MPMLInitPropertyArtistMapv_block_invoke_5(uint64_t a1, void *a2, ui
   }
 
   v9 = a3[1];
-  v23 = *a3;
-  v24 = v9;
+  v24 = *a3;
+  v25 = v9;
   if (v9)
   {
     atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  [v5 applyToView:&v23 withContext:v4];
-  if (v24)
+  [v5 applyToView:&v24 withContext:v4];
+  if (v25)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v24);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v25);
   }
 
   v10 = [v4 allowedEntityIdentifiers];
   v11 = mlcore::ArtistPropertyStoreID(v10);
   v12 = mlcore::ArtistPropertyPersistentID(v11);
-  _MPMLInsertPredicatesForIdentifierSet(&v25, v10, v11, 0, v12, 0, 0, 0, 0, 0);
+  _MPMLInsertPredicatesForIdentifierSet(&v26, v10, v11, 0, v12, 0, 0, 0, 0, 0);
 
   v13 = [v4 filterText];
   LOBYTE(v11) = [v13 length] == 0;
@@ -5493,11 +5419,11 @@ void ___ZL26_MPMLInitPropertyArtistMapv_block_invoke_5(uint64_t a1, void *a2, ui
     std::string::basic_string[abi:ne200100]<0>(__p, [v14 UTF8String]);
 
     v21 = mlcore::ArtistPropertyName(v16);
-    std::allocate_shared[abi:ne200100]<mlcore::SearchPredicate,std::allocator<mlcore::SearchPredicate>,mlcore::ModelProperty<std::string> *,std::string&,0>();
+    std::allocate_shared[abi:ne200100]<mlcore::SearchPredicate,std::allocator<mlcore::SearchPredicate>,mlcore::ModelProperty<std::string> *,std::string&,0>(&v22, &v21, __p);
   }
 
   memset(v19, 0, sizeof(v19));
-  std::vector<std::shared_ptr<mlcore::Predicate>>::__init_with_size[abi:ne200100]<std::shared_ptr<mlcore::Predicate>*,std::shared_ptr<mlcore::Predicate>*>(v19, v25, v26, (v26 - v25) >> 4);
+  std::vector<std::shared_ptr<mlcore::Predicate>>::__init_with_size[abi:ne200100]<std::shared_ptr<mlcore::Predicate>*,std::shared_ptr<mlcore::Predicate>*>(v19, v26, v27, (v27 - v26) >> 4);
   mlcore::CreateAndPredicate();
   mlcore::EntityQuery::artistsQuery();
   if (v20)
@@ -5508,7 +5434,7 @@ void ___ZL26_MPMLInitPropertyArtistMapv_block_invoke_5(uint64_t a1, void *a2, ui
   __p[0] = v19;
   std::vector<std::shared_ptr<mlcore::Predicate>>::__destroy_vector::operator()[abi:ne200100](__p);
 
-  __p[0] = &v25;
+  __p[0] = &v26;
   std::vector<std::shared_ptr<mlcore::Predicate>>::__destroy_vector::operator()[abi:ne200100](__p);
 }
 
@@ -6026,7 +5952,7 @@ id ___ZL28_MPMLInitPropertyPlaylistMapv_block_invoke_34(uint64_t a1, void *a2, v
   return v29;
 }
 
-void sub_1A264DE9C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, void *__p, uint64_t a20, int a21, __int16 a22, char a23, char a24)
+void sub_1A264DE9C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *__p, uint64_t a20, int a21, __int16 a22, char a23, char a24)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -7153,19 +7079,19 @@ id ___ZL28_MPMLInitPropertyPlaylistMapv_block_invoke_9(uint64_t a1, void *a2, vo
   return v8;
 }
 
-void ___ZL28_MPMLInitPropertyPlaylistMapv_block_invoke_8(uint64_t a1, void *a2, void *a3, uint64_t a4)
+void ___ZL28_MPMLInitPropertyPlaylistMapv_block_invoke_8(void x0_0, void *a1, void *a2, uint64_t a3)
 {
-  v6 = a3;
-  std::string::basic_string[abi:ne200100]<0>(&v13, [v6 UTF8String]);
+  v6 = a2;
+  std::string::basic_string[abi:ne200100]<0>(v15, [v6 UTF8String]);
   std::string::basic_string[abi:ne200100]<0>(__p, "name");
-  v7 = std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::find<std::string>(a2, __p);
+  v7 = std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::find<std::string>(a1, __p);
   if (!v7)
   {
     std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
   }
 
   v8 = v7[5];
-  if (v12 < 0)
+  if (v14 < 0)
   {
     operator delete(__p[0]);
   }
@@ -7177,19 +7103,22 @@ void ___ZL28_MPMLInitPropertyPlaylistMapv_block_invoke_8(uint64_t a1, void *a2, 
     [v9 handleFailureInFunction:v10 file:@"MPMediaLibraryTranslatorSchema.mm" lineNumber:1423 description:@"The base property key for Playlist's property[name] is not a string and thus cannot be used to create a SearchPredicate"];
   }
 
-  if (a4 == 1)
+  v12 = v8;
+  if (a3 == 1)
   {
-    std::allocate_shared[abi:ne200100]<mlcore::SearchPredicate,std::allocator<mlcore::SearchPredicate>,mlcore::ModelProperty<std::string> *&,std::string&,mediaplatform::UnicodeSearch::MatchType,0>();
+    v11 = 0;
+    std::allocate_shared[abi:ne200100]<mlcore::SearchPredicate,std::allocator<mlcore::SearchPredicate>,mlcore::ModelProperty<std::string> *&,std::string&,mediaplatform::UnicodeSearch::MatchType,0>(__p, &v12, v15, &v11);
   }
 
-  if (!a4)
+  if (!a3)
   {
-    std::allocate_shared[abi:ne200100]<mlcore::SearchPredicate,std::allocator<mlcore::SearchPredicate>,mlcore::ModelProperty<std::string> *&,std::string&,mediaplatform::UnicodeSearch::MatchType,0>();
+    v11 = 4;
+    std::allocate_shared[abi:ne200100]<mlcore::SearchPredicate,std::allocator<mlcore::SearchPredicate>,mlcore::ModelProperty<std::string> *&,std::string&,mediaplatform::UnicodeSearch::MatchType,0>(__p, &v12, v15, &v11);
   }
 
-  if (v14 < 0)
+  if (v16 < 0)
   {
-    operator delete(v13);
+    operator delete(v15[0]);
   }
 }
 
@@ -7203,7 +7132,7 @@ void sub_1A26506B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void ___ZL28_MPMLInitPropertyPlaylistMapv_block_invoke_7(void *a1@<X1>, void *a2@<X2>, void *a3@<X8>)
+void ___ZL28_MPMLInitPropertyPlaylistMapv_block_invoke_7(void *a1@<X1>, void *a2@<X2>, uint64_t *a3@<X8>)
 {
   v8 = *MEMORY[0x1E69E9840];
   v5 = a2;
@@ -7409,7 +7338,7 @@ LABEL_32:
     std::string::basic_string[abi:ne200100]<0>(&__p, [v30 UTF8String]);
 
     v67 = mlcore::PlaylistPropertyName(v32);
-    std::allocate_shared[abi:ne200100]<mlcore::SearchPredicate,std::allocator<mlcore::SearchPredicate>,mlcore::ModelProperty<std::string> *,std::string&,0>();
+    std::allocate_shared[abi:ne200100]<mlcore::SearchPredicate,std::allocator<mlcore::SearchPredicate>,mlcore::ModelProperty<std::string> *,std::string&,0>(&v68, &v67, &__p);
   }
 
   if (v12)
@@ -7422,8 +7351,8 @@ LABEL_32:
     if (v35)
     {
       IsFolder = mlcore::PlaylistPropertyCloudAuthorStoreID(v36);
-      LODWORD(v66) = 0;
-      std::allocate_shared[abi:ne200100]<mlcore::ComparisonPredicate<long long>,std::allocator<mlcore::ComparisonPredicate<long long>>,mlcore::ModelProperty<long long> *&,mlcore::ComparisonOperator,long long const&,0>();
+      LODWORD(v66[0]) = 0;
+      std::allocate_shared[abi:ne200100]<mlcore::ComparisonPredicate<long long>,std::allocator<mlcore::ComparisonPredicate<long long>>,mlcore::ModelProperty<long long> *&,mlcore::ComparisonOperator,long long const&,0>(&__p, &IsFolder, v66, &v68);
     }
   }
 
@@ -7446,10 +7375,10 @@ LABEL_32:
     v41 = [v40 library];
     v42 = [v41 persistentID];
 
-    v66 = v42;
+    v66[0] = v42;
     if (([v39 options] & 8) == 0)
     {
-      std::allocate_shared[abi:ne200100]<mlcore::Playlist,std::allocator<mlcore::Playlist>,long long &,0>();
+      std::allocate_shared[abi:ne200100]<mlcore::Playlist,std::allocator<mlcore::Playlist>,long long &,0>(v81, v66);
     }
 
     v44 = [v58 mediaLibrary];
@@ -7499,7 +7428,7 @@ LABEL_32:
     }
 
     v68 = mlcore::PlaylistPropertyPersistentID([v46 invalidate]);
-    std::allocate_shared[abi:ne200100]<mlcore::InPredicate<long long>,std::allocator<mlcore::InPredicate<long long>>,mlcore::ModelProperty<long long> *&,std::vector<long long> const&,0>();
+    std::allocate_shared[abi:ne200100]<mlcore::InPredicate<long long>,std::allocator<mlcore::InPredicate<long long>>,mlcore::ModelProperty<long long> *&,std::vector<long long> const&,0>(&IsFolder, &v68, v81);
   }
 
   v43 = [v38 variants];
@@ -7507,15 +7436,15 @@ LABEL_32:
   {
     IsFolder = mlcore::PlaylistPropertySmartIsFolder(v43);
     LODWORD(v68) = 1;
-    std::allocate_shared[abi:ne200100]<mlcore::UnaryPredicate<int>,std::allocator<mlcore::UnaryPredicate<int>>,mlcore::ModelProperty<int> *&,mlcore::UnaryOperator,0>();
+    std::allocate_shared[abi:ne200100]<mlcore::UnaryPredicate<int>,std::allocator<mlcore::UnaryPredicate<int>>,mlcore::ModelProperty<int> *&,mlcore::UnaryOperator,0>(&__p, &IsFolder, &v68);
   }
 
   if (![v57 count])
   {
     v68 = 0;
     IsFolder = mlcore::PlaylistPropertyParentPersistentID(0);
-    LODWORD(v66) = 0;
-    std::allocate_shared[abi:ne200100]<mlcore::ComparisonPredicate<long long>,std::allocator<mlcore::ComparisonPredicate<long long>>,mlcore::ModelProperty<long long> *&,mlcore::ComparisonOperator,long long const&,0>();
+    LODWORD(v66[0]) = 0;
+    std::allocate_shared[abi:ne200100]<mlcore::ComparisonPredicate<long long>,std::allocator<mlcore::ComparisonPredicate<long long>>,mlcore::ModelProperty<long long> *&,mlcore::ComparisonOperator,long long const&,0>(&__p, &IsFolder, v66, &v68);
   }
 
   memset(v59, 0, sizeof(v59));
@@ -7536,7 +7465,7 @@ LABEL_32:
 
 void sub_1A2651258(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, void *a13, void *a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, void *a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  STACK[0x280] = &a69;
+  STACK[0x280] = &a65;
   std::vector<std::shared_ptr<mlcore::Predicate>>::__destroy_vector::operator()[abi:ne200100](&STACK[0x280]);
 
   _Unwind_Resume(a1);
@@ -8449,19 +8378,19 @@ id ___ZL25_MPMLInitPropertyAlbumMapv_block_invoke_11(uint64_t a1, void *a2, void
   return v8;
 }
 
-void ___ZL25_MPMLInitPropertyAlbumMapv_block_invoke_10(uint64_t a1, void *a2, void *a3, uint64_t a4)
+void ___ZL25_MPMLInitPropertyAlbumMapv_block_invoke_10(void x0_0, void *a1, void *a2, uint64_t a3)
 {
-  v6 = a3;
-  std::string::basic_string[abi:ne200100]<0>(&v13, [v6 UTF8String]);
+  v6 = a2;
+  std::string::basic_string[abi:ne200100]<0>(v15, [v6 UTF8String]);
   std::string::basic_string[abi:ne200100]<0>(__p, "title");
-  v7 = std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::find<std::string>(a2, __p);
+  v7 = std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::find<std::string>(a1, __p);
   if (!v7)
   {
     std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
   }
 
   v8 = v7[5];
-  if (v12 < 0)
+  if (v14 < 0)
   {
     operator delete(__p[0]);
   }
@@ -8473,19 +8402,22 @@ void ___ZL25_MPMLInitPropertyAlbumMapv_block_invoke_10(uint64_t a1, void *a2, vo
     [v9 handleFailureInFunction:v10 file:@"MPMediaLibraryTranslatorSchema.mm" lineNumber:1022 description:@"The base property key for Album's property[name] is not a string and thus cannot be used to create a SearchPredicate"];
   }
 
-  if (a4 == 1)
+  v12 = v8;
+  if (a3 == 1)
   {
-    std::allocate_shared[abi:ne200100]<mlcore::SearchPredicate,std::allocator<mlcore::SearchPredicate>,mlcore::ModelProperty<std::string> *&,std::string&,mediaplatform::UnicodeSearch::MatchType,0>();
+    v11 = 0;
+    std::allocate_shared[abi:ne200100]<mlcore::SearchPredicate,std::allocator<mlcore::SearchPredicate>,mlcore::ModelProperty<std::string> *&,std::string&,mediaplatform::UnicodeSearch::MatchType,0>(__p, &v12, v15, &v11);
   }
 
-  if (!a4)
+  if (!a3)
   {
-    std::allocate_shared[abi:ne200100]<mlcore::SearchPredicate,std::allocator<mlcore::SearchPredicate>,mlcore::ModelProperty<std::string> *&,std::string&,mediaplatform::UnicodeSearch::MatchType,0>();
+    v11 = 4;
+    std::allocate_shared[abi:ne200100]<mlcore::SearchPredicate,std::allocator<mlcore::SearchPredicate>,mlcore::ModelProperty<std::string> *&,std::string&,mediaplatform::UnicodeSearch::MatchType,0>(__p, &v12, v15, &v11);
   }
 
-  if (v14 < 0)
+  if (v16 < 0)
   {
-    operator delete(v13);
+    operator delete(v15[0]);
   }
 }
 
@@ -8499,7 +8431,7 @@ void sub_1A26539DC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void ___ZL25_MPMLInitPropertyAlbumMapv_block_invoke_9(void *a1@<X1>, void *a2@<X2>, void *a3@<X8>)
+void ___ZL25_MPMLInitPropertyAlbumMapv_block_invoke_9(void *a1@<X1>, void *a2@<X2>, uint64_t *a3@<X8>)
 {
   v9 = *MEMORY[0x1E69E9840];
   v5 = a2;
@@ -8617,7 +8549,7 @@ void ___ZL25_MPMLInitPropertyAlbumMapv_block_invoke_5(uint64_t a1, void *a2, uin
     std::string::basic_string[abi:ne200100]<0>(&v47, [v24 UTF8String]);
 
     v44 = mlcore::AlbumPropertyTitle(v26);
-    std::allocate_shared[abi:ne200100]<mlcore::SearchPredicate,std::allocator<mlcore::SearchPredicate>,mlcore::ModelProperty<std::string> *,std::string&,0>();
+    std::allocate_shared[abi:ne200100]<mlcore::SearchPredicate,std::allocator<mlcore::SearchPredicate>,mlcore::ModelProperty<std::string> *,std::string&,0>(&v45, &v44, &v47);
   }
 
   v27 = [v13 firstObject];
@@ -8653,7 +8585,7 @@ void ___ZL25_MPMLInitPropertyAlbumMapv_block_invoke_5(uint64_t a1, void *a2, uin
     {
       v46 = mlcore::ItemPropertyArtistStoreID(v35);
       LODWORD(v43) = 0;
-      std::allocate_shared[abi:ne200100]<mlcore::ComparisonPredicate<long long>,std::allocator<mlcore::ComparisonPredicate<long long>>,mlcore::ModelProperty<long long> *&,mlcore::ComparisonOperator,long long const&,0>();
+      std::allocate_shared[abi:ne200100]<mlcore::ComparisonPredicate<long long>,std::allocator<mlcore::ComparisonPredicate<long long>>,mlcore::ModelProperty<long long> *&,mlcore::ComparisonOperator,long long const&,0>(&v47, &v46, &v43, &v45);
     }
   }
 
@@ -9307,4 +9239,48 @@ LABEL_18:
 LABEL_19:
 
   return v17;
+}
+
+void sub_1A2655960(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void sub_1A26559C0(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  JUMPOUT(0x1A26559B0);
+}
+
+void sub_1A26559D8(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  JUMPOUT(0x1A26559B4);
+}
+
+void ___ZL30_MPMLInitPropertyStoreAssetMapv_block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, void *a5)
+{
+  v8 = a5;
+  v9 = [a2 mediaLibrary];
+  v10 = [v9 uniqueIdentifier];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = ___ZL30_MPMLInitPropertyStoreAssetMapv_block_invoke_2;
+  v11[3] = &__block_descriptor_48_e44_v16__0___MPMutableLocalLibraryIdentifiers__8l;
+  v11[4] = a3;
+  v11[5] = a4;
+  [v8 setLibraryIdentifiersWithDatabaseID:v10 block:v11];
 }

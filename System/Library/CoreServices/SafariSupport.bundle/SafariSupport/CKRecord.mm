@@ -125,37 +125,39 @@
   if (v2)
   {
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
+    isKindOfClass = objc_opt_isKindOfClass();
+    if ((isKindOfClass & 1) == 0)
     {
-      v5 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+      v9 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(isKindOfClass, v4);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
       {
-        sub_100040A90(v5);
+        sub_100040A90(v9, v2);
       }
 
       goto LABEL_9;
     }
 
     integerValue = [v2 integerValue];
+    v7 = integerValue;
     if (integerValue >= 3)
     {
-      v4 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+      v8 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(integerValue, v6);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
       {
-        sub_100040B38(v2, v4);
+        sub_100040B38(v2, v8);
       }
 
 LABEL_9:
-      integerValue = -1;
+      v7 = -1;
     }
   }
 
   else
   {
-    integerValue = 0;
+    v7 = 0;
   }
 
-  return integerValue;
+  return v7;
 }
 
 - (void)safari_setMigrationState:(int64_t)state

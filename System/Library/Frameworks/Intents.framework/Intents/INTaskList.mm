@@ -44,8 +44,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v28[6] = *MEMORY[0x1E69E9840];
-  v22 = @"title";
+  v27[6] = *MEMORY[0x1E69E9840];
+  v21 = @"title";
   title = self->_title;
   null = title;
   if (!title)
@@ -53,9 +53,9 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v21 = null;
-  v28[0] = null;
-  v23 = @"tasks";
+  v20 = null;
+  v27[0] = null;
+  v22 = @"tasks";
   tasks = self->_tasks;
   null2 = tasks;
   if (!tasks)
@@ -63,9 +63,9 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v20 = null2;
-  v28[1] = null2;
-  v24 = @"groupName";
+  v19 = null2;
+  v27[1] = null2;
+  v23 = @"groupName";
   groupName = self->_groupName;
   null3 = groupName;
   if (!groupName)
@@ -73,9 +73,9 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18 = null3;
-  v28[2] = null3;
-  v25 = @"createdDateComponents";
+  v17 = null3;
+  v27[2] = null3;
+  v24 = @"createdDateComponents";
   createdDateComponents = self->_createdDateComponents;
   null4 = createdDateComponents;
   if (!createdDateComponents)
@@ -83,8 +83,8 @@
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v28[3] = null4;
-  v26 = @"modifiedDateComponents";
+  v27[3] = null4;
+  v25 = @"modifiedDateComponents";
   modifiedDateComponents = self->_modifiedDateComponents;
   null5 = modifiedDateComponents;
   if (!modifiedDateComponents)
@@ -92,8 +92,8 @@
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v28[4] = null5;
-  v27 = @"identifier";
+  v27[4] = null5;
+  v26 = @"identifier";
   identifier = self->_identifier;
   null6 = identifier;
   if (!identifier)
@@ -101,8 +101,8 @@
     null6 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v28[5] = null6;
-  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:&v22 count:{6, v18}];
+  v27[5] = null6;
+  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:&v21 count:{6, v17}];
   if (identifier)
   {
     if (modifiedDateComponents)
@@ -173,7 +173,6 @@ LABEL_18:
 LABEL_27:
 
 LABEL_19:
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
@@ -232,13 +231,13 @@ LABEL_19:
 
 - (INTaskList)initWithCoder:(id)coder
 {
-  v20[2] = *MEMORY[0x1E69E9840];
+  v19[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"title"];
   v6 = MEMORY[0x1E695DFD8];
-  v20[0] = objc_opt_class();
-  v20[1] = objc_opt_class();
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:2];
+  v19[0] = objc_opt_class();
+  v19[1] = objc_opt_class();
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:2];
   v8 = [v6 setWithArray:v7];
   v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"tasks"];
 
@@ -251,7 +250,6 @@ LABEL_19:
   v16 = [coderCopy decodeObjectOfClasses:v15 forKey:@"identifier"];
 
   v17 = [(INTaskList *)self initWithTitle:v5 tasks:v9 groupName:v10 createdDateComponents:v11 modifiedDateComponents:v12 identifier:v16];
-  v18 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
@@ -405,73 +403,71 @@ LABEL_19:
 
 - (void)_intents_updateContainerWithCache:(id)cache
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   cacheCopy = cache;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   tasks = [(INTaskList *)self tasks];
-  v6 = [tasks countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [tasks countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(tasks);
         }
 
-        [*(*(&v11 + 1) + 8 * v9++) _intents_updateContainerWithCache:cacheCopy];
+        [*(*(&v10 + 1) + 8 * v9++) _intents_updateContainerWithCache:cacheCopy];
       }
 
       while (v7 != v9);
-      v7 = [tasks countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [tasks countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_intents_cacheableObjects
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   tasks = [(INTaskList *)self tasks];
-  v5 = [tasks countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [tasks countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       v8 = 0;
       do
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(tasks);
         }
 
-        _intents_cacheableObjects = [*(*(&v14 + 1) + 8 * v8) _intents_cacheableObjects];
+        _intents_cacheableObjects = [*(*(&v13 + 1) + 8 * v8) _intents_cacheableObjects];
         [v3 unionSet:_intents_cacheableObjects];
 
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [tasks countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [tasks countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
@@ -489,7 +485,6 @@ LABEL_19:
 
   v11 = v10;
 
-  v12 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

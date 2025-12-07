@@ -6,6 +6,7 @@
 - (void)appendItem:(unsigned __int8)item data:(id)data isIndexable:(BOOL)indexable;
 - (void)appendItem:(unsigned __int8)item string:(id)string isIndexable:(BOOL)indexable;
 - (void)dealloc;
+- (void)setCommand:(int)command;
 @end
 
 @implementation APSSharedEncoder
@@ -97,6 +98,17 @@ LABEL_9:
   v6.receiver = self;
   v6.super_class = APSSharedEncoder;
   [(APSSharedEncoder *)&v6 dealloc];
+}
+
+- (void)setCommand:(int)command
+{
+  if (self->_courierMessage)
+  {
+    v5 = +[NSAssertionHandler currentHandler];
+    [v5 handleFailureInMethod:a2 object:self file:@"APSSharedCoder.mm" lineNumber:71 description:@"The courier message is expected to be deleted by the time we create a new one."];
+  }
+
+  operator new();
 }
 
 - (void)appendItem:(unsigned __int8)item data:(id)data isIndexable:(BOOL)indexable

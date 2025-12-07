@@ -1,5 +1,6 @@
 @interface CTXPCGetSignalStrengthMeasurementsRequest
 + (id)allowedClassesForArguments;
+- (CTXPCGetSignalStrengthMeasurementsRequest)initWithDescriptor:(id)descriptor synchronous:(BOOL)synchronous;
 - (void)performRequestWithHandler:(id)handler completionHandler:(id)completionHandler;
 @end
 
@@ -13,6 +14,22 @@
   v3 = [v2 setByAddingObject:objc_opt_class()];
 
   return v3;
+}
+
+- (CTXPCGetSignalStrengthMeasurementsRequest)initWithDescriptor:(id)descriptor synchronous:(BOOL)synchronous
+{
+  synchronousCopy = synchronous;
+  v13[1] = *MEMORY[0x1E69E9840];
+  descriptorCopy = descriptor;
+  v12 = @"synchronous";
+  v7 = [MEMORY[0x1E696AD98] numberWithBool:synchronousCopy];
+  v13[0] = v7;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v11.receiver = self;
+  v11.super_class = CTXPCGetSignalStrengthMeasurementsRequest;
+  v9 = [(CTXPCSubscriptionContextRequest *)&v11 initWithDescriptor:descriptorCopy namedArguments:v8];
+
+  return v9;
 }
 
 - (void)performRequestWithHandler:(id)handler completionHandler:(id)completionHandler

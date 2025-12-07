@@ -375,25 +375,17 @@ LABEL_7:
 
 - (Class)_optionClassForCustomEditMode:(int64_t)mode
 {
-  if (mode == 12)
+  if (mode == 12 || mode == 10)
   {
-    v4 = off_1C300;
-LABEL_5:
-    v5 = *v4;
-    v6 = objc_opt_class();
-
-    return v6;
+    v4 = objc_opt_class();
   }
 
-  if (mode == 10)
+  else
   {
-    v4 = off_1C2F8;
-    goto LABEL_5;
+    v4 = 0;
   }
 
-  v6 = 0;
-
-  return v6;
+  return v4;
 }
 
 - (unint64_t)_selectedCharacter

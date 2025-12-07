@@ -879,7 +879,7 @@ LABEL_196:
         goto LABEL_217;
       }
 
-      v16 = *(v79[0] + v12 + 24);
+      v16 = LOBYTE(v79[0][v12 / 4 + 6]);
       if (v60 == 255)
       {
         if (v16 == 255)
@@ -894,7 +894,7 @@ LABEL_196:
       }
 
       v76[0] = &v58;
-      v17 = (v79[0] + v12 + 8);
+      v17 = &v79[0][v12 / 4 + 2];
     }
 
     else
@@ -929,7 +929,7 @@ LABEL_47:
         goto LABEL_217;
       }
 
-      v18 = *(v81[0] + v12 + 24);
+      v18 = LOBYTE(v81[0][v12 / 4 + 6]);
       if (v62 == 255)
       {
         if (v18 == 255)
@@ -944,7 +944,7 @@ LABEL_47:
       }
 
       v76[0] = v61;
-      v19 = (v81[0] + v12 + 8);
+      v19 = &v81[0][v12 / 4 + 2];
     }
 
     else
@@ -979,7 +979,7 @@ LABEL_60:
         goto LABEL_217;
       }
 
-      v20 = *(v83[0] + v12 + 24);
+      v20 = LOBYTE(v83[0][v12 / 4 + 6]);
       if (v64 == 255)
       {
         if (v20 == 255)
@@ -994,7 +994,7 @@ LABEL_60:
       }
 
       v76[0] = v63;
-      v21 = (v83[0] + v12 + 8);
+      v21 = &v83[0][v12 / 4 + 2];
     }
 
     else
@@ -1054,7 +1054,7 @@ LABEL_217:
       goto LABEL_223;
     }
 
-    v22 = *(v85[0] + v12 + 24);
+    v22 = LOBYTE(v85[0][v12 / 4 + 6]);
     if (v66 == 255)
     {
       if (v22 == 255)
@@ -1069,7 +1069,7 @@ LABEL_217:
     }
 
     v76[0] = v65;
-    v23 = (v85[0] + v12 + 8);
+    v23 = &v85[0][v12 / 4 + 2];
 LABEL_85:
     _ZN5mpark6detail10visitation3alt12visit_alt_atIZNS0_10assignmentINS0_6traitsIJfDhdijxbN4WGSL13ConstantArrayENS6_14ConstantVectorENS6_14ConstantMatrixENS6_14ConstantStructEEEEE14generic_assignIRKNS0_15copy_assignmentISB_LNS0_5TraitE1EEEEEvOT_EUlRSJ_OT0_E_JRSC_SI_EEEDcmSK_DpOT0_(v22, v76, v65, v23);
 LABEL_86:
@@ -1569,8 +1569,8 @@ LABEL_88:
       JUMPOUT(0x225844350);
     }
 
-    v14 = (v49[0] + v9 * 4 - 16);
-    v13 = *(v49[0] + v9 * 4);
+    v14 = &v49[0][v9 - 4];
+    v13 = LOBYTE(v49[0][v9]);
     if (v42 == 255)
     {
       if (v13 == 255)
@@ -1925,14 +1925,14 @@ LABEL_134:
 
         if (v40 < 1025)
         {
-          __x[0] = ldexp(*v5, v40);
+          __x[0] = COERCE_UNSIGNED_INT8_(ldexp(*v5, v40));
           v41 = 2;
           v57 = 2;
           *a2 = __x[0];
           goto LABEL_134;
         }
 
-        WTF::tryFastCompactMalloc(0x39);
+        WTF::tryFastCompactMalloc(__x, 0x39);
         v44 = __x[0];
         if (!__x[0])
         {
@@ -1941,9 +1941,9 @@ LABEL_134:
         }
 
         *__x[0] = 0x2500000002;
-        qmemcpy((v44 + 20), "e2 must be less than or equal to 1024", 37);
-        *(v44 + 8) = v44 + 20;
-        *(v44 + 16) = 4;
+        qmemcpy(v44 + 20, "e2 must be less than or equal to 1024", 37);
+        *(v44 + 1) = v44 + 20;
+        *(v44 + 4) = 4;
         goto LABEL_123;
       }
 
@@ -2056,7 +2056,7 @@ LABEL_136:
   v11 = WTF::fastMalloc((24 * v10 + 8));
   *v11 = v10;
   v12 = v11 + 2;
-  v13 = 24;
+  v13 = 6;
   bzero(v11 + 2, 24 * ((24 * v10 - 24) / 0x18uLL) + 24);
   v14 = 0;
   v57 = 0;
@@ -2075,8 +2075,8 @@ LABEL_136:
         goto LABEL_145;
       }
 
-      v17 = (v66[0] + v13 - 16);
-      v16 = *(v66[0] + v13);
+      v17 = &v66[0][v13 - 4];
+      v16 = LOBYTE(v66[0][v13]);
       if (v57 == 255)
       {
         if (v16 == 255)
@@ -2129,8 +2129,8 @@ LABEL_145:
         JUMPOUT(0x225844DF4);
       }
 
-      v19 = (v68[0] + v13 - 16);
-      v18 = *(v68[0] + v13);
+      v19 = &v68[0][v13 - 4];
+      v18 = LOBYTE(v68[0][v13]);
       if (v59 == 255)
       {
         if (v18 == 255)
@@ -2189,7 +2189,7 @@ LABEL_47:
 
       if (*__e >= 1025)
       {
-        WTF::tryFastCompactMalloc(0x39);
+        WTF::tryFastCompactMalloc(v60, 0x39);
         v22 = v60[0];
         if (!v60[0])
         {
@@ -2366,7 +2366,7 @@ LABEL_77:
       JUMPOUT(0x225844E60);
     }
 
-    if (LOBYTE(v11[v13 / 4]) == 255)
+    if (LOBYTE(v11[v13]) == 255)
     {
       if (v64 == 255)
       {
@@ -2377,7 +2377,7 @@ LABEL_77:
     else if (v64 == 255)
     {
       mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(v60, v12);
-      LOBYTE(v11[v13 / 4]) = -1;
+      LOBYTE(v11[v13]) = -1;
       goto LABEL_83;
     }
 
@@ -2439,7 +2439,7 @@ LABEL_91:
 LABEL_20:
     ++v14;
     v12 += 24;
-    v13 += 24;
+    v13 += 6;
   }
 
   while (v10 != v14);
@@ -3149,8 +3149,8 @@ LABEL_88:
       JUMPOUT(0x225845CD4);
     }
 
-    v14 = (v50[0] + v9 * 4 - 16);
-    v13 = *(v50[0] + v9 * 4);
+    v14 = &v50[0][v9 - 4];
+    v13 = LOBYTE(v50[0][v9]);
     if (v43 == 255)
     {
       if (v13 == 255)
@@ -3526,8 +3526,8 @@ LABEL_88:
       JUMPOUT(0x225846350);
     }
 
-    v14 = (v50[0] + v9 * 4 - 16);
-    v13 = *(v50[0] + v9 * 4);
+    v14 = &v50[0][v9 - 4];
+    v13 = LOBYTE(v50[0][v9]);
     if (v43 == 255)
     {
       if (v13 == 255)
@@ -4011,8 +4011,8 @@ LABEL_164:
 
   v12 = WTF::fastMalloc((24 * v11 + 8));
   *v12 = v11;
-  v13 = (v12 + 2);
-  v14 = 24;
+  v13 = v12 + 2;
+  v14 = 6;
   bzero(v12 + 2, 24 * ((24 * v11 - 24) / 0x18uLL) + 24);
   v15 = 0;
   v50 = 0;
@@ -4031,8 +4031,8 @@ LABEL_164:
         goto LABEL_158;
       }
 
-      v18 = (v59[0] + v14 - 16);
-      v17 = *(v59[0] + v14);
+      v18 = &v59[0][v14 - 4];
+      v17 = LOBYTE(v59[0][v14]);
       if (v50 == 255)
       {
         if (v17 == 255)
@@ -4085,8 +4085,8 @@ LABEL_158:
         goto LABEL_164;
       }
 
-      v20 = (v61[0] + v14 - 16);
-      v19 = *(v61[0] + v14);
+      v20 = &v61[0][v14 - 4];
+      v19 = LOBYTE(v61[0][v14]);
       if (v52 == 255)
       {
         if (v19 == 255)
@@ -4137,13 +4137,13 @@ LABEL_45:
             goto LABEL_156;
           }
 
-          v23 = *v49;
+          v23 = v49[0];
           if (SLODWORD(v51[0]) > SLODWORD(v49[0]))
           {
-            v23 = *v51;
+            v23 = v51[0];
           }
 
-          v53[0] = v23;
+          LODWORD(v53[0]) = v23;
           v24 = 3;
           break;
         case 4u:
@@ -4152,13 +4152,13 @@ LABEL_45:
             goto LABEL_156;
           }
 
-          v23 = *v49;
+          v23 = v49[0];
           if (LODWORD(v51[0]) > LODWORD(v49[0]))
           {
-            v23 = *v51;
+            v23 = v51[0];
           }
 
-          v53[0] = v23;
+          LODWORD(v53[0]) = v23;
           v24 = 4;
           break;
         case 5u:
@@ -4176,7 +4176,7 @@ LABEL_156:
             v29 = v51[0];
           }
 
-          *v53 = v29;
+          v53[0] = v29;
           v24 = 5;
           v54 = 5;
           v56[0] = v29;
@@ -4200,7 +4200,7 @@ LABEL_162:
       }
 
       v54 = v24;
-      *v56 = v23;
+      LODWORD(v56[0]) = v23;
       goto LABEL_83;
     }
 
@@ -4244,7 +4244,7 @@ LABEL_162:
           v28 = v51[0];
         }
 
-        *v53 = v28;
+        v53[0] = v28;
         v54 = v52;
         v56[0] = v28;
       }
@@ -4285,7 +4285,7 @@ LABEL_84:
         v25 = *v51;
       }
 
-      v53[0] = v25;
+      *v53 = v25;
       v54 = 0;
       *v56 = v25;
       v57 = 0;
@@ -4307,7 +4307,7 @@ LABEL_74:
       JUMPOUT(0x225846D38);
     }
 
-    if (LOBYTE(v12[v14 / 4]) == 255)
+    if (LOBYTE(v12[v14]) == 255)
     {
       if (v57 == 255)
       {
@@ -4318,11 +4318,11 @@ LABEL_74:
     else if (v57 == 255)
     {
       mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(v53, v13);
-      LOBYTE(v12[v14 / 4]) = -1;
+      LOBYTE(v12[v14]) = -1;
       goto LABEL_90;
     }
 
-    *v53 = v13;
+    v53[0] = v13;
     _ZN5mpark6detail10visitation3alt12visit_alt_atIZNS0_10assignmentINS0_6traitsIJfDhdijxbN4WGSL13ConstantArrayENS6_14ConstantVectorENS6_14ConstantMatrixENS6_14ConstantStructEEEEE14generic_assignINS0_15move_assignmentISB_LNS0_5TraitE1EEEEEvOT_EUlRSH_OT0_E_JRSC_SG_EEEDcmSI_DpOT0_(v57, v53, v13, v56);
 LABEL_90:
     if (v58 != 255)
@@ -4356,8 +4356,8 @@ LABEL_90:
     }
 
     ++v15;
-    v13 += 3;
-    v14 += 24;
+    v13 += 24;
+    v14 += 6;
   }
 
   while (v11 != v15);
@@ -4683,8 +4683,8 @@ LABEL_164:
 
   v12 = WTF::fastMalloc((24 * v11 + 8));
   *v12 = v11;
-  v13 = (v12 + 2);
-  v14 = 24;
+  v13 = v12 + 2;
+  v14 = 6;
   bzero(v12 + 2, 24 * ((24 * v11 - 24) / 0x18uLL) + 24);
   v15 = 0;
   v50 = 0;
@@ -4703,8 +4703,8 @@ LABEL_164:
         goto LABEL_158;
       }
 
-      v18 = (v59[0] + v14 - 16);
-      v17 = *(v59[0] + v14);
+      v18 = &v59[0][v14 - 4];
+      v17 = LOBYTE(v59[0][v14]);
       if (v50 == 255)
       {
         if (v17 == 255)
@@ -4757,8 +4757,8 @@ LABEL_158:
         goto LABEL_164;
       }
 
-      v20 = (v61[0] + v14 - 16);
-      v19 = *(v61[0] + v14);
+      v20 = &v61[0][v14 - 4];
+      v19 = LOBYTE(v61[0][v14]);
       if (v52 == 255)
       {
         if (v19 == 255)
@@ -4809,13 +4809,13 @@ LABEL_45:
             goto LABEL_156;
           }
 
-          v23 = *v49;
+          v23 = v49[0];
           if (SLODWORD(v51[0]) < SLODWORD(v49[0]))
           {
-            v23 = *v51;
+            v23 = v51[0];
           }
 
-          v53[0] = v23;
+          LODWORD(v53[0]) = v23;
           v24 = 3;
           break;
         case 4u:
@@ -4824,13 +4824,13 @@ LABEL_45:
             goto LABEL_156;
           }
 
-          v23 = *v49;
+          v23 = v49[0];
           if (LODWORD(v51[0]) < LODWORD(v49[0]))
           {
-            v23 = *v51;
+            v23 = v51[0];
           }
 
-          v53[0] = v23;
+          LODWORD(v53[0]) = v23;
           v24 = 4;
           break;
         case 5u:
@@ -4848,7 +4848,7 @@ LABEL_156:
             v29 = v51[0];
           }
 
-          *v53 = v29;
+          v53[0] = v29;
           v24 = 5;
           v54 = 5;
           v56[0] = v29;
@@ -4872,7 +4872,7 @@ LABEL_162:
       }
 
       v54 = v24;
-      *v56 = v23;
+      LODWORD(v56[0]) = v23;
       goto LABEL_83;
     }
 
@@ -4916,7 +4916,7 @@ LABEL_162:
           v28 = v51[0];
         }
 
-        *v53 = v28;
+        v53[0] = v28;
         v54 = v52;
         v56[0] = v28;
       }
@@ -4957,7 +4957,7 @@ LABEL_84:
         v25 = *v51;
       }
 
-      v53[0] = v25;
+      *v53 = v25;
       v54 = 0;
       *v56 = v25;
       v57 = 0;
@@ -4979,7 +4979,7 @@ LABEL_74:
       JUMPOUT(0x2258476ECLL);
     }
 
-    if (LOBYTE(v12[v14 / 4]) == 255)
+    if (LOBYTE(v12[v14]) == 255)
     {
       if (v57 == 255)
       {
@@ -4990,11 +4990,11 @@ LABEL_74:
     else if (v57 == 255)
     {
       mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(v53, v13);
-      LOBYTE(v12[v14 / 4]) = -1;
+      LOBYTE(v12[v14]) = -1;
       goto LABEL_90;
     }
 
-    *v53 = v13;
+    v53[0] = v13;
     _ZN5mpark6detail10visitation3alt12visit_alt_atIZNS0_10assignmentINS0_6traitsIJfDhdijxbN4WGSL13ConstantArrayENS6_14ConstantVectorENS6_14ConstantMatrixENS6_14ConstantStructEEEEE14generic_assignINS0_15move_assignmentISB_LNS0_5TraitE1EEEEEvOT_EUlRSH_OT0_E_JRSC_SG_EEEDcmSI_DpOT0_(v57, v53, v13, v56);
 LABEL_90:
     if (v58 != 255)
@@ -5028,8 +5028,8 @@ LABEL_90:
     }
 
     ++v15;
-    v13 += 3;
-    v14 += 24;
+    v13 += 24;
+    v14 += 6;
   }
 
   while (v11 != v15);
@@ -5306,7 +5306,7 @@ LABEL_168:
         goto LABEL_168;
       }
 
-      v60[0] = *(v3 + 1) - *(v3 + 1) * *v8 + *v8 * *v6;
+      v60[0] = (*(v3 + 1) - *(v3 + 1) * *v8 + *v8 * *v6);
       v55 = 5;
       v61 = 5;
       *a2 = v60[0];
@@ -5364,7 +5364,7 @@ LABEL_176:
   v12 = WTF::fastMalloc((24 * v11 + 8));
   *v12 = v11;
   v13 = v12 + 2;
-  v14 = 24;
+  v14 = 6;
   bzero(v12 + 2, 24 * ((24 * v11 - 24) / 0x18uLL) + 24);
   v15 = 0;
   v61 = 0;
@@ -5385,8 +5385,8 @@ LABEL_176:
         goto LABEL_169;
       }
 
-      v18 = (v72[0] + v14 - 16);
-      v17 = *(v72[0] + v14);
+      v18 = &v72[0][v14 - 4];
+      v17 = LOBYTE(v72[0][v14]);
       if (v61 == 255)
       {
         if (v17 == 255)
@@ -5435,8 +5435,8 @@ LABEL_38:
         goto LABEL_169;
       }
 
-      v20 = (v74[0] + v14 - 16);
-      v19 = *(v74[0] + v14);
+      v20 = &v74[0][v14 - 4];
+      v19 = LOBYTE(v74[0][v14]);
       if (v63 == 255)
       {
         if (v19 == 255)
@@ -5489,8 +5489,8 @@ LABEL_169:
         goto LABEL_176;
       }
 
-      v21 = (v76[0] + v14 - 16);
-      v10 = *(v76[0] + v14);
+      v21 = &v76[0][v14 - 4];
+      v10 = LOBYTE(v76[0][v14]);
       if (v65 == 255)
       {
         if (v10 == 255)
@@ -5564,7 +5564,7 @@ LABEL_167:
             goto LABEL_168;
           }
 
-          v66[0] = (v60[0] - v60[0] * v64[0] + v64[0] * v62[0]);
+          v66[0] = &v60[0][v64[0] * v62[0] - v60[0] * v64[0]];
           v35 = 5;
           v67 = 5;
           v69[0] = v66[0];
@@ -5700,7 +5700,7 @@ LABEL_88:
       JUMPOUT(0x2258482DCLL);
     }
 
-    if (LOBYTE(v12[v14 / 4]) == 255)
+    if (LOBYTE(v12[v14]) == 255)
     {
       if (v70 == 255)
       {
@@ -5711,7 +5711,7 @@ LABEL_88:
     else if (v70 == 255)
     {
       mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(v66, v13);
-      LOBYTE(v12[v14 / 4]) = -1;
+      LOBYTE(v12[v14]) = -1;
       goto LABEL_103;
     }
 
@@ -5750,7 +5750,7 @@ LABEL_103:
 
     ++v15;
     v13 += 24;
-    v14 += 24;
+    v14 += 6;
   }
 
   while (v11 != v15);
@@ -6439,7 +6439,7 @@ LABEL_80:
     {
       if (*(v3 + 48) == 2)
       {
-        __x[0] = pow(*v5, *v8);
+        __x[0] = COERCE_UNSIGNED_INT8_(pow(*v5, *v8));
         v47 = 2;
         v53 = 2;
         *a2 = __x[0];
@@ -6507,7 +6507,7 @@ LABEL_116:
   v12 = WTF::fastMalloc((24 * v11 + 8));
   *v12 = v11;
   v13 = v12 + 2;
-  v14 = 24;
+  v14 = 6;
   bzero(v12 + 2, 24 * ((24 * v11 - 24) / 0x18uLL) + 24);
   v15 = 0;
   v53 = 0;
@@ -6526,8 +6526,8 @@ LABEL_116:
         goto LABEL_110;
       }
 
-      v18 = (v62[0] + v14 - 16);
-      v17 = *(v62[0] + v14);
+      v18 = &v62[0][v14 - 4];
+      v17 = LOBYTE(v62[0][v14]);
       if (v53 == 255)
       {
         if (v17 == 255)
@@ -6580,8 +6580,8 @@ LABEL_110:
         goto LABEL_116;
       }
 
-      v20 = (v64[0] + v14 - 16);
-      v19 = *(v64[0] + v14);
+      v20 = &v64[0][v14 - 4];
+      v19 = LOBYTE(v64[0][v14]);
       if (v55 == 255)
       {
         if (v19 == 255)
@@ -6723,7 +6723,7 @@ LABEL_59:
       JUMPOUT(0x225849560);
     }
 
-    if (LOBYTE(v12[v14 / 4]) == 255)
+    if (LOBYTE(v12[v14]) == 255)
     {
       if (v60 == 255)
       {
@@ -6734,7 +6734,7 @@ LABEL_59:
     else if (v60 == 255)
     {
       mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(v56, v13);
-      LOBYTE(v12[v14 / 4]) = -1;
+      LOBYTE(v12[v14]) = -1;
       goto LABEL_65;
     }
 
@@ -6773,7 +6773,7 @@ LABEL_65:
 
     ++v15;
     v13 += 24;
-    v14 += 24;
+    v14 += 6;
   }
 
   while (v11 != v15);
@@ -6988,7 +6988,7 @@ LABEL_94:
   v6 = WTF::fastMalloc((24 * v5 + 8));
   *v6 = v5;
   v7 = (v6 + 1);
-  v8 = 3;
+  v8 = 24;
   bzero(v6 + 1, 24 * ((24 * v5 - 24) / 0x18uLL) + 24);
   v9 = 0;
   LODWORD(v36[0]) = 0;
@@ -7008,8 +7008,8 @@ LABEL_94:
         JUMPOUT(0x225849CC0);
       }
 
-      v13 = (v42[0] + v8 * 8 - 16);
-      v12 = *(v42[0] + v8 * 8);
+      v13 = &v42[0][v8 / 4 - 4];
+      v12 = LOBYTE(v42[0][v8 / 4]);
       if (v37 == 255)
       {
         if (v12 == 255)
@@ -7099,7 +7099,7 @@ LABEL_121:
 LABEL_57:
           if (v9 < *v6)
           {
-            if (LOBYTE(v6[v8]) == 255)
+            if (LOBYTE(v6[v8 / 8]) == 255)
             {
               if (v40 != 255)
               {
@@ -7112,7 +7112,7 @@ LABEL_57:
               if (v40 == 255)
               {
                 mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(&v44, v7);
-                LOBYTE(v6[v8]) = -1;
+                LOBYTE(v6[v8 / 8]) = -1;
                 goto LABEL_63;
               }
 
@@ -7251,7 +7251,7 @@ LABEL_64:
 
     ++v9;
     v7 = (v7 + 24);
-    v8 += 3;
+    v8 += 24;
   }
 
   while (v5 != v9);
@@ -7456,8 +7456,8 @@ LABEL_88:
       JUMPOUT(0x22584A344);
     }
 
-    v14 = (v52[0] + v9 * 4 - 16);
-    v13 = *(v52[0] + v9 * 4);
+    v14 = &v52[0][v9 - 4];
+    v13 = LOBYTE(v52[0][v9]);
     if (v45 == 255)
     {
       if (v13 == 255)
@@ -7771,7 +7771,7 @@ void WGSL::constantReflect(mpark *a1@<X0>, int **a2@<X1>, uint64_t a3@<X8>)
     }
 
     v129 = v20;
-    WGSL::constantDot(v7, &v137);
+    WGSL::constantDot(v7, &v129, &v137);
     v22 = *v20;
     if (v22)
     {
@@ -8282,7 +8282,7 @@ LABEL_150:
       }
 
       v129 = v27;
-      WGSL::constantDot(v7, &v137);
+      WGSL::constantDot(v7, &v129, &v137);
       v29 = *v27;
       if (v29)
       {
@@ -8779,7 +8779,7 @@ LABEL_433:
   }
 
   v129 = v11;
-  WGSL::constantDot(v7, &v137);
+  WGSL::constantDot(v7, &v129, &v137);
   v13 = *v11;
   if (v13)
   {
@@ -9415,7 +9415,7 @@ void WGSL::constantRefract(const WGSL::Type **a1@<X0>, unsigned int **a2@<X1>, u
     }
 
     v254 = v21;
-    WGSL::constantDot(v18, &v262);
+    WGSL::constantDot(v18, &v254, &v262);
     v23 = *v21;
     if (v23)
     {
@@ -10377,7 +10377,7 @@ LABEL_152:
       }
 
       v254 = v30;
-      WGSL::constantDot(v27, &v262);
+      WGSL::constantDot(v27, &v254, &v262);
       v32 = *v30;
       if (v32)
       {
@@ -11261,7 +11261,7 @@ LABEL_803:
   }
 
   v254 = v12;
-  WGSL::constantDot(v9, &v262);
+  WGSL::constantDot(v9, &v254, &v262);
   v14 = *v12;
   if (v14)
   {

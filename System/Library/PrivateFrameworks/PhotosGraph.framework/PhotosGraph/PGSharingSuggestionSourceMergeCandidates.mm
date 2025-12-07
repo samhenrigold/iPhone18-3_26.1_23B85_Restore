@@ -8,62 +8,62 @@
 
 - (id)suggestedResultsForInput:(id)input withOptions:(id)options
 {
-  v118 = *MEMORY[0x277D85DE8];
+  v117 = *MEMORY[0x277D85DE8];
   inputCopy = input;
   optionsCopy = options;
   momentNodes = [inputCopy momentNodes];
-  v70 = inputCopy;
+  v69 = inputCopy;
   graph = [inputCopy graph];
   v7 = objc_opt_new();
-  v83 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(momentNodes, "count")}];
+  v82 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(momentNodes, "count")}];
+  v105 = 0u;
   v106 = 0u;
   v107 = 0u;
   v108 = 0u;
-  v109 = 0u;
   obj = momentNodes;
-  v8 = [obj countByEnumeratingWithState:&v106 objects:v117 count:16];
+  v8 = [obj countByEnumeratingWithState:&v105 objects:v116 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v107;
+    v10 = *v106;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v107 != v10)
+        if (*v106 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v106 + 1) + 8 * i);
+        v12 = *(*(&v105 + 1) + 8 * i);
         v13 = objc_opt_new();
-        v104[0] = MEMORY[0x277D85DD0];
-        v104[1] = 3221225472;
-        v104[2] = __81__PGSharingSuggestionSourceMergeCandidates_suggestedResultsForInput_withOptions___block_invoke;
-        v104[3] = &unk_278889240;
+        v103[0] = MEMORY[0x277D85DD0];
+        v103[1] = 3221225472;
+        v103[2] = __81__PGSharingSuggestionSourceMergeCandidates_suggestedResultsForInput_withOptions___block_invoke;
+        v103[3] = &unk_278889240;
         v14 = v13;
-        v105 = v14;
-        [v12 enumeratePersonNodesUsingBlock:v104];
+        v104 = v14;
+        [v12 enumeratePersonNodesUsingBlock:v103];
         localIdentifier = [v12 localIdentifier];
         if ([localIdentifier length])
         {
-          [v83 setObject:v14 forKeyedSubscript:localIdentifier];
+          [v82 setObject:v14 forKeyedSubscript:localIdentifier];
         }
       }
 
-      v9 = [obj countByEnumeratingWithState:&v106 objects:v117 count:16];
+      v9 = [obj countByEnumeratingWithState:&v105 objects:v116 count:16];
     }
 
     while (v9);
   }
 
-  moments = [v70 moments];
+  moments = [v69 moments];
   photoLibrary = [moments photoLibrary];
-  v18 = [(PGSharingSuggestionSourceMergeCandidates *)self filterMeNodePredicateForInput:v70 photoLibrary:photoLibrary];
+  v18 = [(PGSharingSuggestionSourceMergeCandidates *)self filterMeNodePredicateForInput:v69 photoLibrary:photoLibrary];
   librarySpecificFetchOptions = [photoLibrary librarySpecificFetchOptions];
   [librarySpecificFetchOptions setIncludeGuestAssets:1];
   v20 = [MEMORY[0x277CCAC30] predicateWithFormat:@"kindSubtype != %d && kindSubtype != %d", 10, 103];
-  v75 = librarySpecificFetchOptions;
+  v74 = librarySpecificFetchOptions;
   [librarySpecificFetchOptions setInternalPredicate:v20];
 
   librarySpecificFetchOptions2 = [photoLibrary librarySpecificFetchOptions];
@@ -73,17 +73,17 @@
     [librarySpecificFetchOptions2 setPredicate:v18];
   }
 
-  v69 = photoLibrary;
+  v68 = photoLibrary;
   librarySpecificFetchOptions3 = [photoLibrary librarySpecificFetchOptions];
   v23 = [MEMORY[0x277CCAC30] predicateWithFormat:@"(verifiedType == %d || verifiedType == %d) && type != %d", 2, 1, -1];
-  v67 = v23;
-  v68 = v18;
+  v66 = v23;
+  v67 = v18;
   if (v18)
   {
     v24 = MEMORY[0x277CCA920];
-    v116[0] = v23;
-    v116[1] = v18;
-    v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v116 count:2];
+    v115[0] = v23;
+    v115[1] = v18;
+    v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v115 count:2];
     v26 = [v24 andPredicateWithSubpredicates:v25];
     [librarySpecificFetchOptions3 setPredicate:v26];
   }
@@ -93,32 +93,32 @@
     [librarySpecificFetchOptions3 setPredicate:v23];
   }
 
-  v102 = 0u;
-  v103 = 0u;
-  v100 = 0u;
   v101 = 0u;
-  v71 = moments;
-  v78 = [v71 countByEnumeratingWithState:&v100 objects:v115 count:16];
-  if (v78)
+  v102 = 0u;
+  v99 = 0u;
+  v100 = 0u;
+  v70 = moments;
+  v77 = [v70 countByEnumeratingWithState:&v99 objects:v114 count:16];
+  if (v77)
   {
-    v73 = librarySpecificFetchOptions2;
-    v74 = *v101;
+    v72 = librarySpecificFetchOptions2;
+    v73 = *v100;
     do
     {
-      for (j = 0; j != v78; ++j)
+      for (j = 0; j != v77; ++j)
       {
-        if (*v101 != v74)
+        if (*v100 != v73)
         {
-          objc_enumerationMutation(v71);
+          objc_enumerationMutation(v70);
         }
 
-        v28 = *(*(&v100 + 1) + 8 * j);
+        v28 = *(*(&v99 + 1) + 8 * j);
         v29 = objc_autoreleasePoolPush();
-        v30 = [MEMORY[0x277CD97A8] fetchAssetsInAssetCollection:v28 options:v75];
+        v30 = [MEMORY[0x277CD97A8] fetchAssetsInAssetCollection:v28 options:v74];
         if ([v30 count])
         {
-          v81 = v29;
-          v82 = j;
+          v80 = v29;
+          v81 = j;
           v31 = v28;
           v32 = [v30 count];
           v33 = v31;
@@ -127,34 +127,34 @@
             v33 = [MEMORY[0x277CD97B8] transientAssetCollectionWithAssetFetchResult:v30 title:0];
           }
 
-          v79 = v33;
-          v80 = v30;
+          v78 = v33;
+          v79 = v30;
           v34 = [MEMORY[0x277CD9938] fetchPersonsForAssetCollection:v33 options:librarySpecificFetchOptions2];
           localIdentifier2 = [v31 localIdentifier];
-          v36 = [v83 objectForKeyedSubscript:localIdentifier2];
+          v36 = [v82 objectForKeyedSubscript:localIdentifier2];
 
-          v98 = 0u;
-          v99 = 0u;
-          v96 = 0u;
           v97 = 0u;
+          v98 = 0u;
+          v95 = 0u;
+          v96 = 0u;
           v37 = v34;
-          v38 = [v37 countByEnumeratingWithState:&v96 objects:v114 count:16];
+          v38 = [v37 countByEnumeratingWithState:&v95 objects:v113 count:16];
           if (v38)
           {
             v39 = v38;
-            v86 = v36;
-            v87 = *v97;
-            v85 = v37;
+            v85 = v36;
+            v86 = *v96;
+            v84 = v37;
             do
             {
               for (k = 0; k != v39; ++k)
               {
-                if (*v97 != v87)
+                if (*v96 != v86)
                 {
                   objc_enumerationMutation(v37);
                 }
 
-                v41 = *(*(&v96 + 1) + 8 * k);
+                v41 = *(*(&v95 + 1) + 8 * k);
                 v42 = objc_autoreleasePoolPush();
                 if ([v41 verifiedType])
                 {
@@ -173,37 +173,37 @@
                   if ([v45 count])
                   {
                     v46 = librarySpecificFetchOptions3;
-                    v94 = 0u;
-                    v95 = 0u;
-                    v92 = 0u;
                     v93 = 0u;
+                    v94 = 0u;
+                    v91 = 0u;
+                    v92 = 0u;
                     v47 = v45;
-                    v48 = [v47 countByEnumeratingWithState:&v92 objects:v113 count:16];
+                    v48 = [v47 countByEnumeratingWithState:&v91 objects:v112 count:16];
                     if (v48)
                     {
                       v49 = v48;
-                      v50 = *v93;
+                      v50 = *v92;
                       do
                       {
                         for (m = 0; m != v49; ++m)
                         {
-                          if (*v93 != v50)
+                          if (*v92 != v50)
                           {
                             objc_enumerationMutation(v47);
                           }
 
-                          [v7 addObject:*(*(&v92 + 1) + 8 * m)];
+                          [v7 addObject:*(*(&v91 + 1) + 8 * m)];
                         }
 
-                        v49 = [v47 countByEnumeratingWithState:&v92 objects:v113 count:16];
+                        v49 = [v47 countByEnumeratingWithState:&v91 objects:v112 count:16];
                       }
 
                       while (v49);
                     }
 
                     librarySpecificFetchOptions3 = v46;
-                    v37 = v85;
-                    v36 = v86;
+                    v37 = v84;
+                    v36 = v85;
                   }
 
                   else if ([optionsCopy includeUnverified] && objc_msgSend(v41, "faceCount") >= 8)
@@ -215,28 +215,28 @@
                 objc_autoreleasePoolPop(v42);
               }
 
-              v39 = [v37 countByEnumeratingWithState:&v96 objects:v114 count:16];
+              v39 = [v37 countByEnumeratingWithState:&v95 objects:v113 count:16];
             }
 
             while (v39);
           }
 
-          librarySpecificFetchOptions2 = v73;
-          v29 = v81;
-          j = v82;
-          v30 = v80;
+          librarySpecificFetchOptions2 = v72;
+          v29 = v80;
+          j = v81;
+          v30 = v79;
         }
 
         objc_autoreleasePoolPop(v29);
       }
 
-      v78 = [v71 countByEnumeratingWithState:&v100 objects:v115 count:16];
+      v77 = [v70 countByEnumeratingWithState:&v99 objects:v114 count:16];
     }
 
-    while (v78);
+    while (v77);
   }
 
-  if (![v71 count])
+  if (![v70 count])
   {
     v52 = +[PGLogging sharedLogging];
     loggingConnection = [v52 loggingConnection];
@@ -244,32 +244,32 @@
     if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v112 = obj;
+      v111 = obj;
       _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "No asset collections fetched for %@", buf, 0xCu);
     }
   }
 
   v54 = [objc_alloc(MEMORY[0x277CBEB58]) initWithCapacity:{objc_msgSend(v7, "count")}];
+  v87 = 0u;
   v88 = 0u;
   v89 = 0u;
   v90 = 0u;
-  v91 = 0u;
   v55 = v7;
-  v56 = [v55 countByEnumeratingWithState:&v88 objects:v110 count:16];
+  v56 = [v55 countByEnumeratingWithState:&v87 objects:v109 count:16];
   if (v56)
   {
     v57 = v56;
-    v58 = *v89;
+    v58 = *v88;
     do
     {
       for (n = 0; n != v57; ++n)
       {
-        if (*v89 != v58)
+        if (*v88 != v58)
         {
           objc_enumerationMutation(v55);
         }
 
-        v60 = *(*(&v88 + 1) + 8 * n);
+        v60 = *(*(&v87 + 1) + 8 * n);
         localIdentifier4 = [v60 localIdentifier];
         v62 = [graph personNodeForPersonLocalIdentifier:localIdentifier4];
 
@@ -287,13 +287,11 @@
         [v54 addObject:v64];
       }
 
-      v57 = [v55 countByEnumeratingWithState:&v88 objects:v110 count:16];
+      v57 = [v55 countByEnumeratingWithState:&v87 objects:v109 count:16];
     }
 
     while (v57);
   }
-
-  v65 = *MEMORY[0x277D85DE8];
 
   return v54;
 }

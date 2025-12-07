@@ -95,13 +95,13 @@ void __31__SecAsyncPiper_dictWithError___block_invoke(uint64_t a1)
 
 void __25__SecAsyncPiper_moreData__block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = secLogObjForScope("SecAsyncPiper");
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    LOWORD(v19[0]) = 0;
-    _os_log_debug_impl(&dword_1887D2000, v2, OS_LOG_TYPE_DEBUG, "Attempting to read data...", v19, 2u);
+    LOWORD(v18[0]) = 0;
+    _os_log_debug_impl(&dword_1887D2000, v2, OS_LOG_TYPE_DEBUG, "Attempting to read data...", v18, 2u);
   }
 
   v3 = [WeakRetained semaForTestingOnly];
@@ -118,10 +118,10 @@ void __25__SecAsyncPiper_moreData__block_invoke(uint64_t a1)
   v7 = secLogObjForScope("SecAsyncPiper");
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v18 = [v6 length];
-    v19[0] = 67109120;
-    v19[1] = v18;
-    _os_log_debug_impl(&dword_1887D2000, v7, OS_LOG_TYPE_DEBUG, "Read %u bytes", v19, 8u);
+    v17 = [v6 length];
+    v18[0] = 67109120;
+    v18[1] = v17;
+    _os_log_debug_impl(&dword_1887D2000, v7, OS_LOG_TYPE_DEBUG, "Read %u bytes", v18, 8u);
   }
 
   if (v6 && [v6 length])
@@ -156,16 +156,14 @@ void __25__SecAsyncPiper_moreData__block_invoke(uint64_t a1)
     v16 = [WeakRetained semaForTestingOnly];
     dispatch_semaphore_signal(v16);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (SecAsyncPiper)initWithError:(id *)error
 {
-  v25 = *MEMORY[0x1E69E9840];
-  v21.receiver = self;
-  v21.super_class = SecAsyncPiper;
-  v4 = [(SecAsyncPiper *)&v21 init];
+  v24 = *MEMORY[0x1E69E9840];
+  v20.receiver = self;
+  v20.super_class = SecAsyncPiper;
+  v4 = [(SecAsyncPiper *)&v20 init];
   if (!v4)
   {
     goto LABEL_17;
@@ -188,7 +186,7 @@ LABEL_6:
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        v23 = v5;
+        v22 = v5;
         v7 = "Could not create pipe: %d";
 LABEL_8:
         _os_log_impl(&dword_1887D2000, v6, OS_LOG_TYPE_DEFAULT, v7, buf, 8u);
@@ -250,7 +248,7 @@ LABEL_17:
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    v23 = v5;
+    v22 = v5;
     v7 = "Could not box FD: %d";
     goto LABEL_8;
   }
@@ -265,7 +263,6 @@ LABEL_9:
   v8 = 0;
 LABEL_18:
 
-  v19 = *MEMORY[0x1E69E9840];
   return v8;
 }
 

@@ -396,7 +396,7 @@ uint64_t __47__EKDayOccurrenceTravelTimeView_layoutSubviews__block_invoke(uint64
   return [v3 setAlpha:v2];
 }
 
-uint64_t __47__EKDayOccurrenceTravelTimeView_layoutSubviews__block_invoke_2(uint64_t a1)
+void *__47__EKDayOccurrenceTravelTimeView_layoutSubviews__block_invoke_2(uint64_t a1)
 {
   [*(a1 + 32) setAnimatingAlpha:0];
   v2 = *(a1 + 40);

@@ -1,10 +1,18 @@
 @interface MSParsecSearchEmbeddingState
++ (MSParsecSearchEmbeddingState)embeddingStateWithQueryStatus:(int)status hasQueryEmbedding:(BOOL)embedding hasKeywordResults:(BOOL)results hasEmbeddingResults:(BOOL)embeddingResults;
 - (MSParsecSearchEmbeddingState)initWithQueryStatus:(int)status hasQueryEmbedding:(BOOL)embedding hasKeywordResults:(BOOL)results hasEmbeddingResults:(BOOL)embeddingResults;
 - (id)description;
 - (id)feedbackEmbedding;
 @end
 
 @implementation MSParsecSearchEmbeddingState
+
++ (MSParsecSearchEmbeddingState)embeddingStateWithQueryStatus:(int)status hasQueryEmbedding:(BOOL)embedding hasKeywordResults:(BOOL)results hasEmbeddingResults:(BOOL)embeddingResults
+{
+  v6 = [[self alloc] initWithQueryStatus:*&status hasQueryEmbedding:embedding hasKeywordResults:results hasEmbeddingResults:embeddingResults];
+
+  return v6;
+}
 
 - (MSParsecSearchEmbeddingState)initWithQueryStatus:(int)status hasQueryEmbedding:(BOOL)embedding hasKeywordResults:(BOOL)results hasEmbeddingResults:(BOOL)embeddingResults
 {

@@ -1,99 +1,4 @@
-void SVG::consumeDigitSequence(uint64_t *a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  memset(v21, 170, sizeof(v21));
-  v4 = *(a1 + 23);
-  v5 = v4;
-  if ((v4 & 0x80u) != 0)
-  {
-    v4 = a1[1];
-  }
-
-  if (v4 <= a2 || (v5 >= 0 ? (v7 = a1) : (v7 = *a1), v8 = *(v7 + a2) - 48, v8 >= 0xA))
-  {
-    *a3 = 0;
-    *(a3 + 32) = 0;
-  }
-
-  else
-  {
-    v9 = a2 + 1;
-    LOBYTE(v21[0]) = v8;
-    v21[1] = a2 + 1;
-    LOBYTE(v21[2]) = 1;
-    v18 = 0;
-    v19 = 0;
-    v20 = 0;
-    std::vector<unsigned char>::push_back[abi:nn200100](&v18, v21);
-    memset(v17, 170, sizeof(v17));
-    v10 = *(a1 + 23);
-    v11 = a1[1];
-    if ((v10 & 0x80000000) == 0)
-    {
-      v11 = *(a1 + 23);
-    }
-
-    if (v11 > v9)
-    {
-      v12 = v10 >> 63;
-      do
-      {
-        if (v12)
-        {
-          v13 = *a1;
-        }
-
-        else
-        {
-          v13 = a1;
-        }
-
-        v14 = *(v13 + v9) - 48;
-        if (v14 >= 0xA)
-        {
-          break;
-        }
-
-        ++v9;
-        LOBYTE(v17[0]) = v14;
-        v17[1] = v9;
-        LOBYTE(v17[2]) = 1;
-        std::vector<unsigned char>::push_back[abi:nn200100](&v18, v17);
-        memset(v17, 170, sizeof(v17));
-        v15 = *(a1 + 23);
-        v12 = v15 >> 63;
-        if ((v15 & 0x80000000) != 0)
-        {
-          v15 = a1[1];
-        }
-      }
-
-      while (v15 > v9);
-    }
-
-    v16 = v18;
-    if (v19 != v18)
-    {
-      if (v19 - v18 >= 0)
-      {
-        operator new();
-      }
-
-      std::vector<SVG::Length>::__throw_length_error[abi:nn200100]();
-    }
-
-    *a3 = 0;
-    *(a3 + 8) = 0;
-    *(a3 + 16) = 0;
-    *(a3 + 24) = v9;
-    *(a3 + 32) = 1;
-    if (v16)
-    {
-      operator delete(v16);
-    }
-  }
-}
-
-void SVG::consumeIntegerConstant(uint64_t *a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X8>)
+void SVG::consumeIntegerConstant(uint64_t **a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   v14 = 0xAAAAAAAAAAAAAAAALL;
   *&v4 = 0xAAAAAAAAAAAAAAAALL;
@@ -655,7 +560,7 @@ LABEL_27:
   }
 }
 
-void std::vector<unsigned char>::push_back[abi:nn200100](uint64_t a1, _BYTE *a2)
+void std::vector<unsigned char>::push_back[abi:nn200100](uint64_t a1, char *a2)
 {
   v4 = *(a1 + 8);
   v3 = *(a1 + 16);
@@ -931,11 +836,11 @@ void SVG::consumeCSSLength(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X8>
   }
 }
 
-void *std::vector<unsigned char>::vector[abi:nn200100](void *result, uint64_t a2, uint64_t a3)
+void *std::vector<unsigned char>::vector[abi:nn200100](void *a1, char *a2, uint64_t a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a3)
   {
     if ((a3 & 0x8000000000000000) == 0)
@@ -946,7 +851,7 @@ void *std::vector<unsigned char>::vector[abi:nn200100](void *result, uint64_t a2
     std::vector<SVG::Length>::__throw_length_error[abi:nn200100]();
   }
 
-  return result;
+  return a1;
 }
 
 unint64_t SVG::consumeString<3ul>(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -1214,7 +1119,7 @@ uint64_t SVG::Element::appendChild(void *a1, uint64_t *a2)
   v4 = a1[6];
   if (v5 >= v4)
   {
-    v8 = (a1 + 4);
+    v8 = a1 + 4;
     v9 = a1[4];
     v10 = v5 - v9;
     v11 = (v5 - v9) >> 3;
@@ -2099,39 +2004,39 @@ uint64_t SVG::LinearGradientElement::LinearGradientElement(uint64_t a1, uint64_t
   return a1;
 }
 
-void SVG::LinearGradientElement::specifiedLinearState(void *a1@<X0>, uint64_t a2@<X8>)
+void SVG::LinearGradientElement::specifiedLinearState(void *a1@<X0>, uint64_t a3@<X8>)
 {
-  *(a2 + 160) = 0xAAAAAAAAAAAAAAAALL;
-  *(a2 + 96) = xmmword_25D1D6B88;
-  *(a2 + 112) = unk_25D1D6B98;
-  *(a2 + 128) = xmmword_25D1D6BA8;
-  *(a2 + 144) = unk_25D1D6BB8;
-  *(a2 + 32) = xmmword_25D1D6B48;
-  *(a2 + 48) = unk_25D1D6B58;
-  *(a2 + 64) = xmmword_25D1D6B68;
-  *(a2 + 80) = unk_25D1D6B78;
-  *a2 = xmmword_25D1D6B28;
-  *(a2 + 16) = unk_25D1D6B38;
-  *a2 = 0;
-  *(a2 + 4) = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 56) = 0;
-  *(a2 + 64) = 0;
-  *(a2 + 68) = 0;
-  *(a2 + 72) = 0;
-  *(a2 + 88) = 0;
-  *(a2 + 96) = 0;
-  *(a2 + 112) = 0;
-  *(a2 + 120) = 0;
-  *(a2 + 136) = 0;
-  *(a2 + 144) = 0;
-  *(a2 + 160) = 0;
-  memset(v5, 0, sizeof(v5));
-  v2[0] = a1;
-  std::vector<std::reference_wrapper<SVG::GradientElement const>>::push_back[abi:nn200100](v5, v2);
-  *v2 = 0u;
+  *(a3 + 160) = 0xAAAAAAAAAAAAAAAALL;
+  *(a3 + 96) = xmmword_25D1D6B88;
+  *(a3 + 112) = unk_25D1D6B98;
+  *(a3 + 128) = xmmword_25D1D6BA8;
+  *(a3 + 144) = unk_25D1D6BB8;
+  *(a3 + 32) = xmmword_25D1D6B48;
+  *(a3 + 48) = unk_25D1D6B58;
+  *(a3 + 64) = xmmword_25D1D6B68;
+  *(a3 + 80) = unk_25D1D6B78;
+  *a3 = xmmword_25D1D6B28;
+  *(a3 + 16) = unk_25D1D6B38;
+  *a3 = 0;
+  *(a3 + 4) = 0;
+  *(a3 + 8) = 0;
+  *(a3 + 56) = 0;
+  *(a3 + 64) = 0;
+  *(a3 + 68) = 0;
+  *(a3 + 72) = 0;
+  *(a3 + 88) = 0;
+  *(a3 + 96) = 0;
+  *(a3 + 112) = 0;
+  *(a3 + 120) = 0;
+  *(a3 + 136) = 0;
+  *(a3 + 144) = 0;
+  *(a3 + 160) = 0;
+  memset(v6, 0, sizeof(v6));
+  v3[0] = a1;
+  std::vector<std::reference_wrapper<SVG::GradientElement const>>::push_back[abi:nn200100](v6, v3);
+  *v3 = 0u;
   *__p = 0u;
-  *&v4 = 0xAAAAAAAA3F800000;
+  *&v5 = 0xAAAAAAAA3F800000;
   operator new();
 }
 
@@ -2337,7 +2242,7 @@ uint64_t SVG::ClipPathElement::appendChild(void *a1, uint64_t *a2)
   return SVG::Element::appendChild(a1, a2);
 }
 
-void SVG::clipPaths(CGFloat a1@<X0>, void *a2@<X1>, void *a3@<X2>, void *a4@<X3>, uint64_t a5@<X8>, CGFloat a6@<D0>, CGFloat a7@<D1>, CGFloat a8@<D2>, CGFloat a9@<D3>, double a10@<D4>, double a11@<D5>, double a12@<D6>, double a13@<D7>)
+void SVG::clipPaths(CGFloat a1@<X0>, void *a2@<X1>, void *a3@<X2>, float *a4@<X3>, uint64_t a5@<X8>, CGFloat a6@<D0>, CGFloat a7@<D1>, CGFloat a8@<D2>, CGFloat a9@<D3>, double a10@<D4>, double a11@<D5>, double a12@<D6>, double a13@<D7>)
 {
   v97 = a6;
   v98 = a7;
@@ -2368,7 +2273,7 @@ void SVG::clipPaths(CGFloat a1@<X0>, void *a2@<X1>, void *a3@<X2>, void *a4@<X3>
 
   v20 = 0x9DDFEA08EB382D69 * (((((*&a1 >> 3) & 0x3FFFFFFLL) << 6) | 8) ^ HIDWORD(*&a1));
   v21 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (HIDWORD(*&a1) ^ (v20 >> 47) ^ v20)) ^ ((0x9DDFEA08EB382D69 * (HIDWORD(*&a1) ^ (v20 >> 47) ^ v20)) >> 47));
-  v22 = a4[1];
+  v22 = *(a4 + 2);
   if (!*&v22)
   {
     goto LABEL_20;
@@ -2498,7 +2403,7 @@ LABEL_111:
   v87 = 0u;
   if (LOBYTE(v105[1]) == 1)
   {
-    std::allocate_shared[abi:nn200100]<SVG::ClipToPaths::ParentClipNode,std::allocator<SVG::ClipToPaths::ParentClipNode>,SVG::ClipToPaths::ParentClipNode&,0>();
+    std::allocate_shared[abi:nn200100]<SVG::ClipToPaths::ParentClipNode,std::allocator<SVG::ClipToPaths::ParentClipNode>,SVG::ClipToPaths::ParentClipNode&,0>(&t1, &v102);
   }
 
   v92[0] = a3;
@@ -2670,7 +2575,7 @@ LABEL_79:
                       atomic_fetch_add_explicit((*&v57 + 8), 1uLL, memory_order_relaxed);
                     }
 
-                    v58 = *&v56 + 16;
+                    v58 = (*&v56 + 16);
                   }
 
                   *&t2.b = v58;
@@ -2695,7 +2600,7 @@ LABEL_79:
               SVG::clipPaths(SVG::ClipPathElement const&,std::unordered_map<__CFURL const*,std::reference_wrapper<SVG::Element const>> const&,std::unordered_map<SVG::Element const*,SVG::Presentation> const&,CGRect,CGRect,std::unordered_set<SVG::ClipPathElement const*> &)::$_1::operator()(&v102, v93, (v53 + 22));
               if (LOBYTE(v105[1]) == 1)
               {
-                std::allocate_shared[abi:nn200100]<SVG::ClipToPaths::ParentClipNode,std::allocator<SVG::ClipToPaths::ParentClipNode>,SVG::ClipToPaths::ParentClipNode&,0>();
+                std::allocate_shared[abi:nn200100]<SVG::ClipToPaths::ParentClipNode,std::allocator<SVG::ClipToPaths::ParentClipNode>,SVG::ClipToPaths::ParentClipNode&,0>(&t1, &v102);
               }
 
               v86 = 0uLL;
@@ -2779,9 +2684,9 @@ LABEL_26:
   v32 = std::__hash_table<SVG::Element const*,std::hash<SVG::Element const*>,std::equal_to<SVG::Element const*>,std::allocator<SVG::Element const*>>::find<SVG::Element const*>(a4, *&a1);
   if (v32)
   {
-    v33 = a4[1];
+    v33 = *(a4 + 2);
     v34 = *v32;
-    v35 = v32[1];
+    v35 = *(v32 + 1);
     v36 = vcnt_s8(v33);
     v36.i16[0] = vaddlv_u8(v36);
     if (v36.u32[0] > 1uLL)
@@ -2805,12 +2710,12 @@ LABEL_26:
     }
 
     while (v37 != v32);
-    if (v38 == a4 + 2)
+    if (v38 == a4 + 4)
     {
       goto LABEL_92;
     }
 
-    v39 = v38[1];
+    v39 = *(v38 + 1);
     if (v36.u32[0] > 1uLL)
     {
       if (v39 >= *&v33)
@@ -2888,7 +2793,7 @@ LABEL_96:
 
     *v38 = v34;
     *v32 = 0;
-    --a4[3];
+    --*(a4 + 3);
     operator delete(v32);
   }
 }
@@ -2904,7 +2809,7 @@ void SVG::clipPaths(SVG::ClipPathElement const&,std::unordered_map<__CFURL const
 {
   {
     v8 = *(a2 + 16);
-    SVG::clipPaths(v13, v7, *a2, *(a2 + 8), *(a2 + 32), *v8, v8[1], v8[2], v8[3], **(a2 + 24), *(*(a2 + 24) + 8), *(*(a2 + 24) + 16), *(*(a2 + 24) + 24));
+    SVG::clipPaths(*&v7, *a2, *(a2 + 8), *(a2 + 32), v13, *v8, v8[1], v8[2], v8[3], **(a2 + 24), *(*(a2 + 24) + 8), *(*(a2 + 24) + 16), *(*(a2 + 24) + 24));
     v10 = v13[1];
     v9 = v14;
     *a1 = &unk_286EB9D48;
@@ -2961,7 +2866,7 @@ BOOL SVG::countChildren(SVG *this, SVG::ClipToPaths::BaseClipNode *a2)
   {
     v8 = *v5;
     v5 += 2;
-    v7 = SVG::countChildren(v8, v4) + v7;
+    v7 = (SVG::countChildren(v8, v4) + v7);
   }
 
   while (v5 != v6);
@@ -3040,55 +2945,55 @@ void std::__allocate_at_least[abi:nn200100]<std::allocator<std::shared_ptr<SVG::
   std::vector<SVG::Length>::__throw_length_error[abi:nn200100]();
 }
 
-_DWORD *SVG::clipPaths(SVG::ClipPathElement const&,std::unordered_map<__CFURL const*,std::reference_wrapper<SVG::Element const>> const&,std::unordered_map<SVG::Element const*,SVG::Presentation> const&,CGRect,CGRect,std::unordered_set<SVG::ClipPathElement const*> &)::$_2::operator()(void *a1, uint64_t a2, uint64_t a3)
+void SVG::clipPaths(SVG::ClipPathElement const&,std::unordered_map<__CFURL const*,std::reference_wrapper<SVG::Element const>> const&,std::unordered_map<SVG::Element const*,SVG::Presentation> const&,CGRect,CGRect,std::unordered_set<SVG::ClipPathElement const*> &)::$_2::operator()(void *a1, uint64_t a2, uint64_t a3)
 {
   v6 = *a2;
-  v11[0] = a3;
-  result = std::__hash_table<std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>,std::__unordered_map_hasher<__CFURL const*,std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>,std::hash<__CFURL const*>,std::equal_to<__CFURL const*>,true>,std::__unordered_map_equal<__CFURL const*,std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>,std::equal_to<__CFURL const*>,std::hash<__CFURL const*>,true>,std::allocator<std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>>>::find<__CFURL const*>(v6, v11);
-  if (result[149] == 2)
+  v12[0] = a3;
+  v7 = std::__hash_table<std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>,std::__unordered_map_hasher<__CFURL const*,std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>,std::hash<__CFURL const*>,std::equal_to<__CFURL const*>,true>,std::__unordered_map_equal<__CFURL const*,std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>,std::equal_to<__CFURL const*>,std::hash<__CFURL const*>,true>,std::allocator<std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>>>::find<__CFURL const*>(v6, v12);
+  if (v7[149] == 2)
   {
-    v8 = result;
-    if (result[148])
+    v8 = v7;
+    if (v7[148])
     {
 LABEL_5:
       *a1 = 0;
       a1[1] = 0;
-      return result;
+      return;
     }
 
-    if (result[40] == 2)
+    if (v7[40] == 2)
     {
-      if (result[39] == 2)
+      if (v7[39] == 2)
       {
         goto LABEL_5;
       }
 
-      v12 = 0xAAAAAAAAAAAAAAAALL;
-      (*(*a3 + 32))(&v12, a3, **(a2 + 8), *(*(a2 + 8) + 8), *(*(a2 + 8) + 16), *(*(a2 + 8) + 24));
-      if (!v12)
+      v13 = 0xAAAAAAAAAAAAAAAALL;
+      (*(*a3 + 32))(&v13, a3, **(a2 + 8), *(*(a2 + 8) + 8), *(*(a2 + 8) + 16), *(*(a2 + 8) + 24));
+      if (!v13)
       {
         v9 = CGPathCreateWithRect(*MEMORY[0x277CBF3A0], 0);
-        if (v12)
+        if (v13)
         {
-          CFRelease(v12);
+          CFRelease(v13);
         }
 
-        v12 = v9;
+        v13 = v9;
       }
 
       if (v8[29] == 2)
       {
-        memset(&v11[4], 255, 32);
-        *&v11[8] = xmmword_25D1D6CC8;
-        memset(&v11[10], 170, 24);
-        *v11 = xmmword_25D1D6C88;
-        *&v11[2] = unk_25D1D6C98;
+        memset(&v12[4], 255, 32);
+        *&v12[8] = xmmword_25D1D6CC8;
+        memset(&v12[10], 170, 24);
+        *v12 = *byte_25D1D6C88;
+        *&v12[2] = *&byte_25D1D6C88[16];
         if (v8[26] == 2)
         {
-          SVG::clipPaths(SVG::ClipPathElement const&,std::unordered_map<__CFURL const*,std::reference_wrapper<SVG::Element const>> const&,std::unordered_map<SVG::Element const*,SVG::Presentation> const&,CGRect,CGRect,std::unordered_set<SVG::ClipPathElement const*> &)::$_1::operator()(v11, *(a2 + 16), (v8 + 22));
-          if (LOBYTE(v11[12]) == 1)
+          SVG::clipPaths(SVG::ClipPathElement const&,std::unordered_map<__CFURL const*,std::reference_wrapper<SVG::Element const>> const&,std::unordered_map<SVG::Element const*,SVG::Presentation> const&,CGRect,CGRect,std::unordered_set<SVG::ClipPathElement const*> &)::$_1::operator()(v12, *(a2 + 16), (v8 + 22));
+          if (LOBYTE(v12[12]) == 1)
           {
-            std::allocate_shared[abi:nn200100]<SVG::ClipToPaths::ParentClipNode,std::allocator<SVG::ClipToPaths::ParentClipNode>,SVG::ClipToPaths::ParentClipNode&,0>();
+            std::allocate_shared[abi:nn200100]<SVG::ClipToPaths::ParentClipNode,std::allocator<SVG::ClipToPaths::ParentClipNode>,SVG::ClipToPaths::ParentClipNode&,0>(&v11, v12);
           }
 
           operator new();
@@ -3098,7 +3003,7 @@ LABEL_5:
   }
 
   v10 = std::__throw_bad_variant_access[abi:nn200100]();
-  return std::__shared_ptr_emplace<SVG::ClipToPaths::LeafClipNode>::~__shared_ptr_emplace(v10);
+  std::__shared_ptr_emplace<SVG::ClipToPaths::LeafClipNode>::~__shared_ptr_emplace(v10);
 }
 
 void std::__shared_ptr_emplace<SVG::ClipToPaths::LeafClipNode>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
@@ -3109,7 +3014,7 @@ void std::__shared_ptr_emplace<SVG::ClipToPaths::LeafClipNode>::~__shared_ptr_em
   JUMPOUT(0x25F894240);
 }
 
-uint64_t std::vector<std::shared_ptr<SVG::ClipToPaths::BaseClipNode>>::__emplace_back_slow_path<std::shared_ptr<SVG::ClipToPaths::LeafClipNode> const>(uint64_t a1, __int128 *a2)
+_OWORD *std::vector<std::shared_ptr<SVG::ClipToPaths::BaseClipNode>>::__emplace_back_slow_path<std::shared_ptr<SVG::ClipToPaths::LeafClipNode> const>(uint64_t a1, __int128 *a2)
 {
   v2 = (*(a1 + 8) - *a1) >> 4;
   v3 = v2 + 1;
@@ -3391,7 +3296,7 @@ void SVG::ApplyPresentationFill::~ApplyPresentationFill(SVG::ApplyPresentationFi
     v12 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG21ApplyPresentationFill4NoneENS9_8FillPathENS9_8GradientEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSE_1EJSA_SB_SC_EEEEEEDcSG_DpT0_;
     v13 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG21ApplyPresentationFill4NoneENS9_8FillPathENS9_8GradientEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSE_1EJSA_SB_SC_EEEEEEDcSG_DpT0_;
     v14 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG21ApplyPresentationFill4NoneENS9_8FillPathENS9_8GradientEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSE_1EJSA_SB_SC_EEEEEEDcSG_DpT0_;
-    (*(&v12 + v6))(&v9, this + 18);
+    (*(&v12 + v6))(&v9, this + 144);
   }
 
   *(this + 56) = -1;
@@ -3407,7 +3312,7 @@ void SVG::ApplyPresentationFill::~ApplyPresentationFill(SVG::ApplyPresentationFi
     v12 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG2CFIP7CGColorEENS8_7SetFill12CurrentColorENSD_11PatternDataEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSH_1EJSC_SE_SF_EEEEEEDcSJ_DpT0_;
     v13 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG2CFIP7CGColorEENS8_7SetFill12CurrentColorENSD_11PatternDataEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSH_1EJSC_SE_SF_EEEEEEDcSJ_DpT0_;
     v14 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG2CFIP7CGColorEENS8_7SetFill12CurrentColorENSD_11PatternDataEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSH_1EJSC_SE_SF_EEEEEEDcSJ_DpT0_;
-    (*(&v12 + v8))(&v9, this + 1);
+    (*(&v12 + v8))(&v9, this + 8);
   }
 
   *(this + 28) = -1;
@@ -4079,12 +3984,12 @@ LABEL_39:
     atomic_fetch_add_explicit(&v51->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  SVG::PatternElement::computeRecordingRect(v19, v46, v47, v48, v49, v50);
+  SVG::PatternElement::computeRecordingRect(v47, v48, v49, v50, v19, v46);
   v54 = v53;
   v56 = v55;
   v58 = v57;
   v60 = v59;
-  SVG::PatternElement::computePlaybackRect(v22, v46, v47, v48, v49, v50);
+  SVG::PatternElement::computePlaybackRect(v47, v48, v49, v50, v22, v46);
   v74 = v61;
   v75 = v62;
   *&v63 = -1;
@@ -4093,7 +3998,7 @@ LABEL_39:
   v88 = v63;
   v86 = v63;
   v89 = 0xAAAAAAAAAAAAAAAALL;
-  SVG::PatternElement::contentsTransform(v22, v46, &v86, v47, v48, v49, v50, v54, v56, v58, v60);
+  SVG::PatternElement::contentsTransform(&v86, v47, v48, v49, v50, v54, v56, v58, v60, v22, v46);
   if (v89 != 1 || (*&v64 = -1, *(&v64 + 1) = -1, *&t1.c = v64, *&t1.tx = v64, *&t1.a = v64, v85 = 0xAAAAAAAAAAAAAAAALL, *t2 = v86, *&t2[16] = v87, *&t2[32] = v88, SVG::invert(t2, &t1), v85 != 1) || (*t2 = t1, v97.origin.x = v54, v97.origin.y = v56, v97.size.width = v58, v97.size.height = v60, v98 = CGRectApplyAffineTransform(v97, t2), v98.size.width <= 0.0) || (height = v98.size.height, v98.size.height <= 0.0))
   {
     if (v51)
@@ -4114,7 +4019,7 @@ LABEL_39:
   *&v83.tx = v70;
   *&v83.a = v70;
   CGAffineTransformMakeTranslation(&v83, v74 - v54, v75 - v56);
-  SVG::PatternElement::specifiedState(v22, v46, t2);
+  SVG::PatternElement::specifiedState(t2, v22, v46);
   v81 = v94;
   *t2 = v86;
   *&t2[16] = v87;
@@ -4136,14 +4041,14 @@ LABEL_39:
   t2[8] = 0;
   v92 = -1;
   std::__variant_detail::__ctor<std::__variant_detail::__traits<SVG::CF<CGColor *>,SVG::SetFill::CurrentColor,SVG::SetFill::PatternData>>::__generic_construct[abi:nn200100]<std::__variant_detail::__move_constructor<std::__variant_detail::__traits<SVG::CF<CGColor *>,SVG::SetFill::CurrentColor,SVG::SetFill::PatternData>,(std::__variant_detail::_Trait)1>>(&t2[8], &v76.b);
-  v93 = 9;
+  LODWORD(v93) = 9;
   SVG::Recorder::append(v44, t2);
   if (v93 != -1)
   {
     (*(&off_286EBABF8 + v93))(&v82, t2);
   }
 
-  v93 = -1;
+  LODWORD(v93) = -1;
   *&v76.a = &unk_286EB9598;
   if (v80 != -1)
   {
@@ -4157,34 +4062,33 @@ LABEL_39:
   a3[20] = 1;
 }
 
-uint64_t std::__variant_detail::__visitation::__base::__dispatcher<4ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<SVG::Visitor<SVG::ApplyPresentationFill::ApplyPresentationFill(SVG::Recorder &,std::unordered_map<__CFURL const*,std::reference_wrapper<SVG::Element const>> const&,std::unordered_map<SVG::GradientElement const*,SVG::CF<CGGradient *>> const&,std::unordered_map<SVG::PatternElement const*,SVG::Document::PatternData> const&,SVG::Presentation::Paint const&,double,BOOL,CGRect,CGRect,CGPath const*,SVG::ApplyPresentationState const&)::$_0,SVG::ApplyPresentationFill::(SVG::Recorder &,std::unordered_map<__CFURL const*,std::reference_wrapper<SVG::Element const>> const&,std::unordered_map<SVG::GradientElement const*,SVG::CF<CGGradient *>> const&,std::unordered_map<SVG::PatternElement const*,SVG::Document::PatternData> const&,SVG::Presentation::Paint const&,double,BOOL,CGRect,CGRect,CGPath const*,SVG::ApplyPresentationState const&)::$_1,SVG::ApplyPresentationFill::(SVG::Recorder &,std::unordered_map<__CFURL const*,std::reference_wrapper<SVG::Element const>> const&,std::unordered_map<SVG::GradientElement const*,SVG::CF<CGGradient *>> const&,std::unordered_map<SVG::PatternElement const*,SVG::Document::PatternData> const&,SVG::Presentation::Paint const&,double,BOOL,CGRect,CGRect,CGPath const*,SVG::ApplyPresentationState const&)::$_2,SVG::ApplyPresentationFill::(SVG::Recorder &,std::unordered_map<__CFURL const*,std::reference_wrapper<SVG::Element const>> const&,std::unordered_map<SVG::GradientElement const*,SVG::CF<CGGradient *>> const&,std::unordered_map<SVG::PatternElement const*,SVG::Document::PatternData> const&,SVG::Presentation::Paint const&,double,BOOL,CGRect,CGRect,CGPath const*,SVG::ApplyPresentationState const&)::$_4,SVG::ApplyPresentationFill::(SVG::Recorder &,std::unordered_map<__CFURL const*,std::reference_wrapper<SVG::Element const>> const&,std::unordered_map<SVG::GradientElement const*,SVG::CF<CGGradient *>> const&,std::unordered_map<SVG::PatternElement const*,SVG::Document::PatternData> const&,SVG::Presentation::Paint const&,double,BOOL,CGRect,CGRect,CGPath const*,SVG::ApplyPresentationState const&)::$_3>> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,SVG::Presentation::None,SVG::Presentation::CurrentColor,SVG::Presentation::Color,SVG::Presentation::IRIWithFallback,SVG::Presentation::FromContext> const&>@<X0>(uint64_t a1@<X0>, _DWORD *a2@<X8>)
+void std::__variant_detail::__visitation::__base::__dispatcher<4ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<SVG::Visitor<SVG::ApplyPresentationFill::ApplyPresentationFill(SVG::Recorder &,std::unordered_map<__CFURL const*,std::reference_wrapper<SVG::Element const>> const&,std::unordered_map<SVG::GradientElement const*,SVG::CF<CGGradient *>> const&,std::unordered_map<SVG::PatternElement const*,SVG::Document::PatternData> const&,SVG::Presentation::Paint const&,double,BOOL,CGRect,CGRect,CGPath const*,SVG::ApplyPresentationState const&)::$_0,SVG::ApplyPresentationFill::(SVG::Recorder &,std::unordered_map<__CFURL const*,std::reference_wrapper<SVG::Element const>> const&,std::unordered_map<SVG::GradientElement const*,SVG::CF<CGGradient *>> const&,std::unordered_map<SVG::PatternElement const*,SVG::Document::PatternData> const&,SVG::Presentation::Paint const&,double,BOOL,CGRect,CGRect,CGPath const*,SVG::ApplyPresentationState const&)::$_1,SVG::ApplyPresentationFill::(SVG::Recorder &,std::unordered_map<__CFURL const*,std::reference_wrapper<SVG::Element const>> const&,std::unordered_map<SVG::GradientElement const*,SVG::CF<CGGradient *>> const&,std::unordered_map<SVG::PatternElement const*,SVG::Document::PatternData> const&,SVG::Presentation::Paint const&,double,BOOL,CGRect,CGRect,CGPath const*,SVG::ApplyPresentationState const&)::$_2,SVG::ApplyPresentationFill::(SVG::Recorder &,std::unordered_map<__CFURL const*,std::reference_wrapper<SVG::Element const>> const&,std::unordered_map<SVG::GradientElement const*,SVG::CF<CGGradient *>> const&,std::unordered_map<SVG::PatternElement const*,SVG::Document::PatternData> const&,SVG::Presentation::Paint const&,double,BOOL,CGRect,CGRect,CGPath const*,SVG::ApplyPresentationState const&)::$_4,SVG::ApplyPresentationFill::(SVG::Recorder &,std::unordered_map<__CFURL const*,std::reference_wrapper<SVG::Element const>> const&,std::unordered_map<SVG::GradientElement const*,SVG::CF<CGGradient *>> const&,std::unordered_map<SVG::PatternElement const*,SVG::Document::PatternData> const&,SVG::Presentation::Paint const&,double,BOOL,CGRect,CGRect,CGPath const*,SVG::ApplyPresentationState const&)::$_3>> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,SVG::Presentation::None,SVG::Presentation::CurrentColor,SVG::Presentation::Color,SVG::Presentation::IRIWithFallback,SVG::Presentation::FromContext> const&>(uint64_t a1@<X0>, _DWORD *a2@<X8>)
 {
   v3 = *(*a1 + 104);
-  v5[0] = 0;
-  v6 = 1;
-  v7 = &unk_286EB9598;
-  v8[0] = 0;
-  v9 = -1;
-  std::__variant_detail::__ctor<std::__variant_detail::__traits<SVG::CF<CGColor *>,SVG::SetFill::CurrentColor,SVG::SetFill::PatternData>>::__generic_construct[abi:nn200100]<std::__variant_detail::__move_constructor<std::__variant_detail::__traits<SVG::CF<CGColor *>,SVG::SetFill::CurrentColor,SVG::SetFill::PatternData>,(std::__variant_detail::_Trait)1>>(v8, v5);
-  v10 = 9;
-  result = SVG::Recorder::append(v3, &v7);
-  if (v10 != -1)
+  v4[0] = 0;
+  v5 = 1;
+  v6 = &unk_286EB9598;
+  v7[0] = 0;
+  v8 = -1;
+  std::__variant_detail::__ctor<std::__variant_detail::__traits<SVG::CF<CGColor *>,SVG::SetFill::CurrentColor,SVG::SetFill::PatternData>>::__generic_construct[abi:nn200100]<std::__variant_detail::__move_constructor<std::__variant_detail::__traits<SVG::CF<CGColor *>,SVG::SetFill::CurrentColor,SVG::SetFill::PatternData>,(std::__variant_detail::_Trait)1>>(v7, v4);
+  v9 = 9;
+  SVG::Recorder::append(v3, &v6);
+  if (v9 != -1)
   {
-    result = (*(&off_286EBABF8 + v10))(v12, &v7);
+    (*(&off_286EBABF8 + v9))(v11, &v6);
   }
 
-  v10 = -1;
-  if (v6 != -1)
+  v9 = -1;
+  if (v5 != -1)
   {
-    v12[0] = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG2CFIP7CGColorEENS8_7SetFill12CurrentColorENSD_11PatternDataEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSH_1EJSC_SE_SF_EEEEEEDcSJ_DpT0_;
-    v12[1] = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG2CFIP7CGColorEENS8_7SetFill12CurrentColorENSD_11PatternDataEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSH_1EJSC_SE_SF_EEEEEEDcSJ_DpT0_;
-    v12[2] = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG2CFIP7CGColorEENS8_7SetFill12CurrentColorENSD_11PatternDataEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSH_1EJSC_SE_SF_EEEEEEDcSJ_DpT0_;
-    result = (v12[v6])(&v11, v5);
+    v11[0] = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG2CFIP7CGColorEENS8_7SetFill12CurrentColorENSD_11PatternDataEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSH_1EJSC_SE_SF_EEEEEEDcSJ_DpT0_;
+    v11[1] = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG2CFIP7CGColorEENS8_7SetFill12CurrentColorENSD_11PatternDataEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSH_1EJSC_SE_SF_EEEEEEDcSJ_DpT0_;
+    v11[2] = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG2CFIP7CGColorEENS8_7SetFill12CurrentColorENSD_11PatternDataEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSH_1EJSC_SE_SF_EEEEEEDcSJ_DpT0_;
+    (v11[v5])(&v10, v4);
   }
 
   *a2 = 0;
   a2[20] = 1;
-  return result;
 }
 
 void SVG::ApplyPresentationFill::ApplyPresentationFill(SVG::Recorder &,std::unordered_map<__CFURL const*,std::reference_wrapper<SVG::Element const>> const&,std::unordered_map<SVG::GradientElement const*,SVG::CF<CGGradient *>> const&,std::unordered_map<SVG::PatternElement const*,SVG::Document::PatternData> const&,SVG::Presentation::Paint const&,double,BOOL,CGRect,CGRect,CGPath const*,SVG::ApplyPresentationState const&)::$_2::operator()(_DWORD *a1, float **a2, uint64_t a3)
@@ -4248,15 +4152,15 @@ void std::vector<SVG::DrawLinearGradient>::__destroy_vector::operator()[abi:nn20
     v5 = **a1;
     if (v4 != v2)
     {
-      v6 = v4 - 56;
-      v7 = v4 - 56;
-      v8 = v4 - 56;
+      v6 = v4 - 7;
+      v7 = v4 - 7;
+      v8 = v4 - 7;
       do
       {
         v9 = *v8;
-        v8 -= 56;
+        v8 -= 7;
         (*v9)(v7);
-        v6 -= 56;
+        v6 -= 7;
         v10 = v7 == v2;
         v7 = v8;
       }
@@ -4329,7 +4233,7 @@ uint64_t std::__split_buffer<SVG::DrawLinearGradient>::~__split_buffer(uint64_t 
   return a1;
 }
 
-__n128 std::__variant_detail::__assignment<std::__variant_detail::__traits<std::vector<SVG::DrawLinearGradient>,std::vector<SVG::DrawRadialGradient>>>::__assign_alt[abi:nn200100]<0ul,std::vector<SVG::DrawLinearGradient>,std::vector<SVG::DrawLinearGradient>>(uint64_t a1, void **a2, __n128 *a3)
+__n128 std::__variant_detail::__assignment<std::__variant_detail::__traits<std::vector<SVG::DrawLinearGradient>,std::vector<SVG::DrawRadialGradient>>>::__assign_alt[abi:nn200100]<0ul,std::vector<SVG::DrawLinearGradient>,std::vector<SVG::DrawLinearGradient>>(uint64_t a1, char **a2, __n128 *a3)
 {
   v5 = *(a1 + 24);
   if (v5 == -1)
@@ -4365,11 +4269,11 @@ LABEL_12:
     {
       v10 = v8 - 56;
       v11 = v8 - 56;
-      v12 = v8 - 56;
+      v12 = (v8 - 56);
       do
       {
         v13 = *v12;
-        v12 -= 56;
+        v12 -= 7;
         (*v13)(v11);
         v10 -= 56;
         v14 = v11 == v7;
@@ -4406,15 +4310,15 @@ void std::vector<SVG::DrawRadialGradient>::__destroy_vector::operator()[abi:nn20
     v5 = **a1;
     if (v4 != v2)
     {
-      v6 = v4 - 72;
-      v7 = v4 - 72;
-      v8 = v4 - 72;
+      v6 = v4 - 9;
+      v7 = v4 - 9;
+      v8 = v4 - 9;
       do
       {
         v9 = *v8;
-        v8 -= 72;
+        v8 -= 9;
         (*v9)(v7);
-        v6 -= 72;
+        v6 -= 9;
         v10 = v7 == v2;
         v7 = v8;
       }
@@ -4463,8 +4367,7 @@ __n128 std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispatc
   result = *a2;
   *v2 = *a2;
   v2[1].n128_u64[0] = a2[1].n128_u64[0];
-  a2->n128_u64[0] = 0;
-  a2->n128_u64[1] = 0;
+  *a2 = 0uLL;
   a2[1].n128_u64[0] = 0;
   return result;
 }
@@ -4478,8 +4381,7 @@ __n128 std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispatc
   result = *a2;
   *v2 = *a2;
   v2[1].n128_u64[0] = a2[1].n128_u64[0];
-  a2->n128_u64[0] = 0;
-  a2->n128_u64[1] = 0;
+  *a2 = 0uLL;
   a2[1].n128_u64[0] = 0;
   return result;
 }
@@ -4554,7 +4456,7 @@ uint64_t std::__split_buffer<SVG::DrawRadialGradient>::~__split_buffer(uint64_t 
   return a1;
 }
 
-__n128 std::__variant_detail::__assignment<std::__variant_detail::__traits<std::vector<SVG::DrawLinearGradient>,std::vector<SVG::DrawRadialGradient>>>::__assign_alt[abi:nn200100]<1ul,std::vector<SVG::DrawRadialGradient>,std::vector<SVG::DrawRadialGradient>>(uint64_t a1, void **a2, __n128 *a3)
+__n128 std::__variant_detail::__assignment<std::__variant_detail::__traits<std::vector<SVG::DrawLinearGradient>,std::vector<SVG::DrawRadialGradient>>>::__assign_alt[abi:nn200100]<1ul,std::vector<SVG::DrawRadialGradient>,std::vector<SVG::DrawRadialGradient>>(uint64_t a1, char **a2, __n128 *a3)
 {
   v5 = *(a1 + 24);
   if (v5 == -1)
@@ -4590,11 +4492,11 @@ LABEL_12:
     {
       v10 = v8 - 72;
       v11 = v8 - 72;
-      v12 = v8 - 72;
+      v12 = (v8 - 72);
       do
       {
         v13 = *v12;
-        v12 -= 72;
+        v12 -= 9;
         (*v13)(v11);
         v10 -= 72;
         v14 = v11 == v7;
@@ -4621,34 +4523,33 @@ LABEL_12:
   return result;
 }
 
-uint64_t std::__variant_detail::__visitation::__base::__dispatcher<3ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<SVG::Visitor<SVG::ApplyPresentationFill::ApplyPresentationFill(SVG::Recorder &,std::unordered_map<__CFURL const*,std::reference_wrapper<SVG::Element const>> const&,std::unordered_map<SVG::GradientElement const*,SVG::CF<CGGradient *>> const&,std::unordered_map<SVG::PatternElement const*,SVG::Document::PatternData> const&,SVG::Presentation::Paint const&,double,BOOL,CGRect,CGRect,CGPath const*,SVG::ApplyPresentationState const&)::$_0,SVG::ApplyPresentationFill::(SVG::Recorder &,std::unordered_map<__CFURL const*,std::reference_wrapper<SVG::Element const>> const&,std::unordered_map<SVG::GradientElement const*,SVG::CF<CGGradient *>> const&,std::unordered_map<SVG::PatternElement const*,SVG::Document::PatternData> const&,SVG::Presentation::Paint const&,double,BOOL,CGRect,CGRect,CGPath const*,SVG::ApplyPresentationState const&)::$_1,SVG::ApplyPresentationFill::(SVG::Recorder &,std::unordered_map<__CFURL const*,std::reference_wrapper<SVG::Element const>> const&,std::unordered_map<SVG::GradientElement const*,SVG::CF<CGGradient *>> const&,std::unordered_map<SVG::PatternElement const*,SVG::Document::PatternData> const&,SVG::Presentation::Paint const&,double,BOOL,CGRect,CGRect,CGPath const*,SVG::ApplyPresentationState const&)::$_2,SVG::ApplyPresentationFill::(SVG::Recorder &,std::unordered_map<__CFURL const*,std::reference_wrapper<SVG::Element const>> const&,std::unordered_map<SVG::GradientElement const*,SVG::CF<CGGradient *>> const&,std::unordered_map<SVG::PatternElement const*,SVG::Document::PatternData> const&,SVG::Presentation::Paint const&,double,BOOL,CGRect,CGRect,CGPath const*,SVG::ApplyPresentationState const&)::$_3>> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)0,SVG::Presentation::None,SVG::Presentation::CurrentColor,SVG::Presentation::Color,SVG::Presentation::FromContext> const&>@<X0>(uint64_t a1@<X0>, _DWORD *a2@<X8>)
+void std::__variant_detail::__visitation::__base::__dispatcher<3ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<SVG::Visitor<SVG::ApplyPresentationFill::ApplyPresentationFill(SVG::Recorder &,std::unordered_map<__CFURL const*,std::reference_wrapper<SVG::Element const>> const&,std::unordered_map<SVG::GradientElement const*,SVG::CF<CGGradient *>> const&,std::unordered_map<SVG::PatternElement const*,SVG::Document::PatternData> const&,SVG::Presentation::Paint const&,double,BOOL,CGRect,CGRect,CGPath const*,SVG::ApplyPresentationState const&)::$_0,SVG::ApplyPresentationFill::(SVG::Recorder &,std::unordered_map<__CFURL const*,std::reference_wrapper<SVG::Element const>> const&,std::unordered_map<SVG::GradientElement const*,SVG::CF<CGGradient *>> const&,std::unordered_map<SVG::PatternElement const*,SVG::Document::PatternData> const&,SVG::Presentation::Paint const&,double,BOOL,CGRect,CGRect,CGPath const*,SVG::ApplyPresentationState const&)::$_1,SVG::ApplyPresentationFill::(SVG::Recorder &,std::unordered_map<__CFURL const*,std::reference_wrapper<SVG::Element const>> const&,std::unordered_map<SVG::GradientElement const*,SVG::CF<CGGradient *>> const&,std::unordered_map<SVG::PatternElement const*,SVG::Document::PatternData> const&,SVG::Presentation::Paint const&,double,BOOL,CGRect,CGRect,CGPath const*,SVG::ApplyPresentationState const&)::$_2,SVG::ApplyPresentationFill::(SVG::Recorder &,std::unordered_map<__CFURL const*,std::reference_wrapper<SVG::Element const>> const&,std::unordered_map<SVG::GradientElement const*,SVG::CF<CGGradient *>> const&,std::unordered_map<SVG::PatternElement const*,SVG::Document::PatternData> const&,SVG::Presentation::Paint const&,double,BOOL,CGRect,CGRect,CGPath const*,SVG::ApplyPresentationState const&)::$_3>> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)0,SVG::Presentation::None,SVG::Presentation::CurrentColor,SVG::Presentation::Color,SVG::Presentation::FromContext> const&>(uint64_t a1@<X0>, _DWORD *a2@<X8>)
 {
   v3 = *(*a1 + 16);
-  v5[0] = 0;
-  v6 = 1;
-  v7 = &unk_286EB9598;
-  v8[0] = 0;
-  v9 = -1;
-  std::__variant_detail::__ctor<std::__variant_detail::__traits<SVG::CF<CGColor *>,SVG::SetFill::CurrentColor,SVG::SetFill::PatternData>>::__generic_construct[abi:nn200100]<std::__variant_detail::__move_constructor<std::__variant_detail::__traits<SVG::CF<CGColor *>,SVG::SetFill::CurrentColor,SVG::SetFill::PatternData>,(std::__variant_detail::_Trait)1>>(v8, v5);
-  v10 = 9;
-  result = SVG::Recorder::append(v3, &v7);
-  if (v10 != -1)
+  v4[0] = 0;
+  v5 = 1;
+  v6 = &unk_286EB9598;
+  v7[0] = 0;
+  v8 = -1;
+  std::__variant_detail::__ctor<std::__variant_detail::__traits<SVG::CF<CGColor *>,SVG::SetFill::CurrentColor,SVG::SetFill::PatternData>>::__generic_construct[abi:nn200100]<std::__variant_detail::__move_constructor<std::__variant_detail::__traits<SVG::CF<CGColor *>,SVG::SetFill::CurrentColor,SVG::SetFill::PatternData>,(std::__variant_detail::_Trait)1>>(v7, v4);
+  v9 = 9;
+  SVG::Recorder::append(v3, &v6);
+  if (v9 != -1)
   {
-    result = (*(&off_286EBABF8 + v10))(v12, &v7);
+    (*(&off_286EBABF8 + v9))(v11, &v6);
   }
 
-  v10 = -1;
-  if (v6 != -1)
+  v9 = -1;
+  if (v5 != -1)
   {
-    v12[0] = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG2CFIP7CGColorEENS8_7SetFill12CurrentColorENSD_11PatternDataEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSH_1EJSC_SE_SF_EEEEEEDcSJ_DpT0_;
-    v12[1] = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG2CFIP7CGColorEENS8_7SetFill12CurrentColorENSD_11PatternDataEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSH_1EJSC_SE_SF_EEEEEEDcSJ_DpT0_;
-    v12[2] = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG2CFIP7CGColorEENS8_7SetFill12CurrentColorENSD_11PatternDataEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSH_1EJSC_SE_SF_EEEEEEDcSJ_DpT0_;
-    result = (v12[v6])(&v11, v5);
+    v11[0] = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG2CFIP7CGColorEENS8_7SetFill12CurrentColorENSD_11PatternDataEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSH_1EJSC_SE_SF_EEEEEEDcSJ_DpT0_;
+    v11[1] = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG2CFIP7CGColorEENS8_7SetFill12CurrentColorENSD_11PatternDataEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSH_1EJSC_SE_SF_EEEEEEDcSJ_DpT0_;
+    v11[2] = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG2CFIP7CGColorEENS8_7SetFill12CurrentColorENSD_11PatternDataEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSH_1EJSC_SE_SF_EEEEEEDcSJ_DpT0_;
+    (v11[v5])(&v10, v4);
   }
 
   *a2 = 0;
   a2[20] = 1;
-  return result;
 }
 
 void SVG::SetContextFill::~SetContextFill(SVG::SetContextFill *this)
@@ -4741,7 +4642,7 @@ uint64_t _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1ELm1
   return result;
 }
 
-uint64_t _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2ELm2EEE10__dispatchB8nn200100IOZNS0_12__assignmentINS0_8__traitsIJN3SVG21ApplyPresentationFill4NoneENS9_8FillPathENS9_8GradientEEEEE16__generic_assignB8nn200100INS0_17__move_assignmentISD_LNS0_6_TraitE1EEEEEvOT_EUlRSJ_OT0_E_JRNS0_6__baseILSH_1EJSA_SB_SC_EEEOSR_EEEDcSJ_DpT0_(uint64_t result, uint64_t a2, __int128 *a3)
+uint64_t *_ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2ELm2EEE10__dispatchB8nn200100IOZNS0_12__assignmentINS0_8__traitsIJN3SVG21ApplyPresentationFill4NoneENS9_8FillPathENS9_8GradientEEEEE16__generic_assignB8nn200100INS0_17__move_assignmentISD_LNS0_6_TraitE1EEEEEvOT_EUlRSJ_OT0_E_JRNS0_6__baseILSH_1EJSA_SB_SC_EEEOSR_EEEDcSJ_DpT0_(uint64_t *result, uint64_t a2, __int128 *a3)
 {
   v4 = *result;
   v5 = *(*result + 80);
@@ -5045,7 +4946,7 @@ uint64_t SVG::ImageElement::ImageElement(uint64_t a1, uint64_t a2, void *a3)
           v42.location = v31.location + v31.length;
           v32 = CFStringCreateWithSubstring(*MEMORY[0x277CBECE8], v30, v42);
           data[0] = 0xAAAAAAAAAAAAAAAALL;
-          SVG::decodeBase64(v32, data);
+          SVG::decodeBase64(data, v32);
           v33 = CGImageSourceCreateWithData(data[0], 0);
           ImageAtIndex = CGImageSourceCreateImageAtIndex(v33, 0, 0);
           if (v33)
@@ -5090,11 +4991,11 @@ LABEL_69:
   return a1;
 }
 
-CGAffineTransform *SVG::ImageElement::totalTransform@<X0>(SVG::ImageElement *this@<X0>, CGRect a2@<0:D0, 8:D1, 16:D2, 24:D3>, uint64_t a3@<X8>)
+CGAffineTransform *SVG::ImageElement::totalTransform@<X0>(CGAffineTransform *__return_ptr a1@<X8>, SVG::ImageElement *this@<X0>, CGRect a3@<0:D0, 8:D1, 16:D2, 24:D3>)
 {
-  height = a2.size.height;
-  width = a2.size.width;
-  v7 = SVG::Length::computeValue((this + 696), a2.size.width);
+  height = a3.size.height;
+  width = a3.size.width;
+  v7 = SVG::Length::computeValue((this + 696), a3.size.width);
   v8 = SVG::Length::computeValue((this + 712), height);
   v9 = SVG::Length::computeValue((this + 728), width);
   v10 = SVG::Length::computeValue((this + 744), height);
@@ -5114,17 +5015,17 @@ CGAffineTransform *SVG::ImageElement::totalTransform@<X0>(SVG::ImageElement *thi
     *&v17.a = *(this + 648);
     *&v17.c = v15;
     *&v17.tx = *(this + 680);
-    result = CGAffineTransformConcat(a3, &t1, &v17);
+    result = CGAffineTransformConcat(a1, &t1, &v17);
     v16 = 1;
   }
 
   else
   {
     v16 = 0;
-    *a3 = 0;
+    LOBYTE(a1->a) = 0;
   }
 
-  *(a3 + 48) = v16;
+  LOBYTE(a1[1].a) = v16;
   return result;
 }
 
@@ -5360,7 +5261,7 @@ void std::vector<std::reference_wrapper<SVG::Element>>::push_back[abi:nn200100](
   *(a1 + 8) = v5;
 }
 
-void *__copy_helper_atomic_property_(void *result, void *a2)
+uint64_t *__copy_helper_atomic_property_(uint64_t *result, void *a2)
 {
   *result = 0;
   result[1] = 0;
@@ -5558,25 +5459,25 @@ LABEL_24:
   }
 }
 
-void __assign_helper_atomic_property__53(uint64_t a1, uint64_t a2)
+void __assign_helper_atomic_property__53(uint64_t result, uint64_t a2)
 {
-  if (a1 != a2)
+  if (result != a2)
   {
     v51 = v2;
     v52 = v3;
-    *(a1 + 32) = *(a2 + 32);
+    *(result + 32) = *(a2 + 32);
     v5 = *(a2 + 16);
-    v6 = *(a1 + 8);
+    v6 = *(result + 8);
     if (v6)
     {
       for (i = 0; i != v6; ++i)
       {
-        *(*a1 + 8 * i) = 0;
+        *(*result + 8 * i) = 0;
       }
 
-      v8 = *(a1 + 16);
-      *(a1 + 16) = 0;
-      *(a1 + 24) = 0;
+      v8 = *(result + 16);
+      *(result + 16) = 0;
+      *(result + 24) = 0;
       if (v8)
       {
         v9 = v5 == 0;
@@ -5748,7 +5649,7 @@ LABEL_21:
 
 LABEL_48:
           v10 = *v8;
-          std::__hash_table<std::__hash_value_type<std::string,std::stack<std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::stack<std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::stack<std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::stack<std::string>>>>::__node_insert_multi(a1, v8);
+          std::__hash_table<std::__hash_value_type<std::string,std::stack<std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::stack<std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::stack<std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::stack<std::string>>>>::__node_insert_multi(result, v8);
           v5 = *v5;
           if (v10)
           {
@@ -5780,7 +5681,7 @@ LABEL_53:
   }
 }
 
-uint64_t OTSVGDocumentCreate(std::mutex **a1, unint64_t a2, uint64_t a3)
+uint64_t *OTSVGDocumentCreate(std::mutex **a1, unint64_t a2, const __CFArray *a3)
 {
   v6 = *a1;
   std::mutex::lock(*a1);
@@ -5877,13 +5778,13 @@ uint64_t OTSVGDocumentCreate(std::mutex **a1, unint64_t a2, uint64_t a3)
   v17 = *MEMORY[0x277CBECE8];
   BytePtr = CFDataGetBytePtr(*&(*a1)[1].__m_.__opaque[8]);
   v19 = CFDataCreate(v17, &BytePtr[*&(*a1)[1].__m_.__opaque[16] + bswap32(*(v14 + 4))], bswap32(*(v14 + 8)));
-  v15 = OTSVGDocumentCreateWithData(v19, *&(*a1)[1].__m_.__opaque[24], a3);
+  v15 = OTSVGDocumentCreateWithData(v19, *&(*a1)[1].__m_.__opaque[24], a3, *&(*a1)[1].__m_.__opaque[32]);
   v20 = *a1;
   std::mutex::lock(*a1);
   v21 = *a1;
   if (v15)
   {
-    v22 = *(v15 + 8);
+    v22 = v15[1];
     if (v22)
     {
       atomic_fetch_add_explicit(&v22->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -5977,12 +5878,12 @@ LABEL_44:
   return v15;
 }
 
-uint64_t OTSVGDocumentCreateWithData(SVG *a1, uint64_t a2, uint64_t a3)
+uint64_t *OTSVGDocumentCreateWithData(SVG *a1, uint64_t a2, const __CFArray *a3, double a4)
 {
-  v72 = *MEMORY[0x277D85DE8];
-  v35 = 0;
-  v5 = [[_OTSVGParserDelegate alloc] initWithUnitsPerEm:a2];
-  [(_OTSVGParserDelegate *)v5 setRoot:&v35];
+  v73 = *MEMORY[0x277D85DE8];
+  v36 = 0;
+  v6 = [[_OTSVGParserDelegate alloc] initWithUnitsPerEm:a2];
+  [(_OTSVGParserDelegate *)v6 setRoot:&v36];
   cf = 0xAAAAAAAAAAAAAAAALL;
   SVG::unzipData(a1, &cf);
   if (cf)
@@ -5990,221 +5891,221 @@ uint64_t OTSVGDocumentCreateWithData(SVG *a1, uint64_t a2, uint64_t a3)
     a1 = cf;
   }
 
-  v6 = [objc_alloc(MEMORY[0x277CCAE70]) initWithData:a1];
-  [v6 setShouldProcessNamespaces:1];
-  [v6 setShouldReportNamespacePrefixes:1];
-  [v6 setDelegate:v5];
-  [v6 parse];
-  if (![(_OTSVGParserDelegate *)v5 errorOccurred])
+  v7 = [objc_alloc(MEMORY[0x277CCAE70]) initWithData:a1];
+  [v7 setShouldProcessNamespaces:1];
+  [v7 setShouldReportNamespacePrefixes:1];
+  [v7 setDelegate:v6];
+  [v7 parse];
+  if (![(_OTSVGParserDelegate *)v6 errorOccurred])
   {
-    v7 = v35;
-    if (v35)
+    v8 = v36;
+    if (v36)
     {
-      *v31 = 0u;
       *v32 = 0u;
-      v33 = 0xAAAAAAAA3F800000;
-      SVG::populateIdMapWithRealIds(v31, v35);
-      SVG::populateIdMapWithFakeIds(v31, v7, 0);
-      memset(v29, 0, sizeof(v29));
-      v30 = 0xAAAAAAAA3F800000;
-      SVG::populateReferenceMap(v29, v31, v35);
-      *v26 = 0u;
+      *v33 = 0u;
+      v34 = 0xAAAAAAAA3F800000;
+      SVG::populateIdMapWithRealIds(v32, v36);
+      SVG::populateIdMapWithFakeIds(v32, v8, 0);
+      memset(v30, 0, sizeof(v30));
+      v31 = 0xAAAAAAAA3F800000;
+      SVG::populateReferenceMap(v30, v32, v36);
       *v27 = 0u;
-      v28 = 0xAAAAAAAA3F800000;
-      SVG::Presentation::defaultPresentation(v61);
-      SVG::Presentation::defaultPresentation(&v40);
-      SVG::populateDirectlyInheritedPresentationMap(v26, v61, &v40, v35);
-      if (v60 != -1)
+      *v28 = 0u;
+      v29 = 0xAAAAAAAA3F800000;
+      SVG::Presentation::defaultPresentation(v62);
+      SVG::Presentation::defaultPresentation(&v41);
+      SVG::populateDirectlyInheritedPresentationMap(v27, v62, &v41, v36);
+      if (v61 != -1)
       {
-        v22[0] = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS_6vectorINS8_6LengthENS_9allocatorISE_EEEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
-        v22[1] = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS_6vectorINS8_6LengthENS_9allocatorISE_EEEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
-        v23[0] = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS_6vectorINS8_6LengthENS_9allocatorISE_EEEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
-        (v22[v60])(v18, &v59);
+        v23[0] = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS_6vectorINS8_6LengthENS_9allocatorISE_EEEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
+        v23[1] = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS_6vectorINS8_6LengthENS_9allocatorISE_EEEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
+        v24[0] = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS_6vectorINS8_6LengthENS_9allocatorISE_EEEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
+        (v23[v61])(v19, &v60);
       }
 
-      v60 = -1;
-      if (v58 != -1)
+      v61 = -1;
+      if (v59 != -1)
       {
-        v22[0] = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_5PaintEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSE_1EJSA_SB_SC_EEEEEEDcSG_DpT0_;
-        v22[1] = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_5PaintEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSE_1EJSA_SB_SC_EEEEEEDcSG_DpT0_;
-        v23[0] = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_5PaintEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSE_1EJSA_SB_SC_EEEEEEDcSG_DpT0_;
-        (v22[v58])(v18, &v57);
+        v23[0] = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_5PaintEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSE_1EJSA_SB_SC_EEEEEEDcSG_DpT0_;
+        v23[1] = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_5PaintEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSE_1EJSA_SB_SC_EEEEEEDcSG_DpT0_;
+        v24[0] = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_5PaintEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSE_1EJSA_SB_SC_EEEEEEDcSG_DpT0_;
+        (v23[v59])(v19, &v58);
       }
 
-      v58 = -1;
-      if (v56 != -1)
+      v59 = -1;
+      if (v57 != -1)
       {
-        v22[0] = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS8_2CFIPK7__CFURLEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
-        v22[1] = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS8_2CFIPK7__CFURLEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
-        v23[0] = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS8_2CFIPK7__CFURLEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
-        (v22[v56])(v18, &v55);
+        v23[0] = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS8_2CFIPK7__CFURLEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
+        v23[1] = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS8_2CFIPK7__CFURLEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
+        v24[0] = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS8_2CFIPK7__CFURLEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
+        (v23[v57])(v19, &v56);
       }
 
-      v56 = -1;
-      if (v54 != -1)
+      v57 = -1;
+      if (v55 != -1)
       {
-        v22[0] = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_5PaintEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSE_1EJSA_SB_SC_EEEEEEDcSG_DpT0_;
-        v22[1] = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_5PaintEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSE_1EJSA_SB_SC_EEEEEEDcSG_DpT0_;
-        v23[0] = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_5PaintEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSE_1EJSA_SB_SC_EEEEEEDcSG_DpT0_;
-        (v22[v54])(v18, &v53);
+        v23[0] = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_5PaintEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSE_1EJSA_SB_SC_EEEEEEDcSG_DpT0_;
+        v23[1] = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_5PaintEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSE_1EJSA_SB_SC_EEEEEEDcSG_DpT0_;
+        v24[0] = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_5PaintEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSE_1EJSA_SB_SC_EEEEEEDcSG_DpT0_;
+        (v23[v55])(v19, &v54);
       }
 
-      v54 = -1;
-      if (v49 != -1)
+      v55 = -1;
+      if (v50 != -1)
       {
-        v22[0] = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS8_2CFIPK7__CFURLEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
-        v22[1] = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS8_2CFIPK7__CFURLEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
-        v23[0] = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS8_2CFIPK7__CFURLEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
-        (v22[v49])(v18, v48);
+        v23[0] = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS8_2CFIPK7__CFURLEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
+        v23[1] = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS8_2CFIPK7__CFURLEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
+        v24[0] = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS8_2CFIPK7__CFURLEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
+        (v23[v50])(v19, v49);
       }
 
-      if (v71 != -1)
+      if (v72 != -1)
       {
-        v40 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS_6vectorINS8_6LengthENS_9allocatorISE_EEEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
-        v41 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS_6vectorINS8_6LengthENS_9allocatorISE_EEEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
-        v42 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS_6vectorINS8_6LengthENS_9allocatorISE_EEEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
-        (*(&v40 + v71))(v22, v70);
+        v41 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS_6vectorINS8_6LengthENS_9allocatorISE_EEEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
+        v42 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS_6vectorINS8_6LengthENS_9allocatorISE_EEEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
+        v43 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS_6vectorINS8_6LengthENS_9allocatorISE_EEEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
+        (*(&v41 + v72))(v23, v71);
       }
 
-      v71 = -1;
-      if (v69 != -1)
+      v72 = -1;
+      if (v70 != -1)
       {
-        v40 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_5PaintEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSE_1EJSA_SB_SC_EEEEEEDcSG_DpT0_;
-        v41 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_5PaintEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSE_1EJSA_SB_SC_EEEEEEDcSG_DpT0_;
-        v42 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_5PaintEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSE_1EJSA_SB_SC_EEEEEEDcSG_DpT0_;
-        (*(&v40 + v69))(v22, v68);
+        v41 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_5PaintEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSE_1EJSA_SB_SC_EEEEEEDcSG_DpT0_;
+        v42 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_5PaintEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSE_1EJSA_SB_SC_EEEEEEDcSG_DpT0_;
+        v43 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_5PaintEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSE_1EJSA_SB_SC_EEEEEEDcSG_DpT0_;
+        (*(&v41 + v70))(v23, v69);
       }
 
-      v69 = -1;
-      if (v67 != -1)
+      v70 = -1;
+      if (v68 != -1)
       {
-        v40 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS8_2CFIPK7__CFURLEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
-        v41 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS8_2CFIPK7__CFURLEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
-        v42 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS8_2CFIPK7__CFURLEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
-        (*(&v40 + v67))(v22, v66);
+        v41 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS8_2CFIPK7__CFURLEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
+        v42 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS8_2CFIPK7__CFURLEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
+        v43 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS8_2CFIPK7__CFURLEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
+        (*(&v41 + v68))(v23, v67);
       }
 
-      v67 = -1;
-      if (v65 != -1)
+      v68 = -1;
+      if (v66 != -1)
       {
-        v40 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_5PaintEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSE_1EJSA_SB_SC_EEEEEEDcSG_DpT0_;
-        v41 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_5PaintEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSE_1EJSA_SB_SC_EEEEEEDcSG_DpT0_;
-        v42 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_5PaintEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSE_1EJSA_SB_SC_EEEEEEDcSG_DpT0_;
-        (*(&v40 + v65))(v22, v64);
+        v41 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_5PaintEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSE_1EJSA_SB_SC_EEEEEEDcSG_DpT0_;
+        v42 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_5PaintEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSE_1EJSA_SB_SC_EEEEEEDcSG_DpT0_;
+        v43 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_5PaintEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSE_1EJSA_SB_SC_EEEEEEDcSG_DpT0_;
+        (*(&v41 + v66))(v23, v65);
       }
 
-      v65 = -1;
-      if (v63 != -1)
+      v66 = -1;
+      if (v64 != -1)
       {
-        v40 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS8_2CFIPK7__CFURLEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
-        v41 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS8_2CFIPK7__CFURLEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
-        v42 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS8_2CFIPK7__CFURLEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
-        (*(&v40 + v63))(v22, v62);
+        v41 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS8_2CFIPK7__CFURLEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
+        v42 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS8_2CFIPK7__CFURLEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
+        v43 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS8_2CFIPK7__CFURLEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
+        (*(&v41 + v64))(v23, v63);
       }
 
-      *v22 = 0u;
       *v23 = 0u;
-      v24 = 1065353216;
-      v25 = -1431655766;
-      SVG::populateGradientMap(v22, v29, v26, a3, v35);
-      *v18 = 0u;
+      *v24 = 0u;
+      v25 = 1065353216;
+      v26 = -1431655766;
+      SVG::populateGradientMap(v23, v30, v27, a3, v36);
       *v19 = 0u;
-      v20 = 1065353216;
-      v21 = -1431655766;
+      *v20 = 0u;
+      v21 = 1065353216;
+      v22 = -1431655766;
       *__p = 0u;
-      *v15 = 0u;
-      v16 = 1065353216;
-      v17 = -1431655766;
-      SVG::Presentation::defaultPresentation(v61);
-      v8 = v35;
-      v37 = a3;
-      memset(v36, 170, sizeof(v36));
-      SVG::analyzeDependencies(v29, v26, v61, v35, v36);
-      v10 = v36[0];
-      v9 = v36[1];
-      if (v36[0] != v36[1])
+      *v16 = 0u;
+      v17 = 1065353216;
+      v18 = -1431655766;
+      SVG::Presentation::defaultPresentation(v62);
+      v9 = v36;
+      v38 = a3;
+      memset(v37, 170, sizeof(v37));
+      SVG::analyzeDependencies(v30, v27, v62, v36, v37);
+      v11 = v37[0];
+      v10 = v37[1];
+      if (v37[0] != v37[1])
       {
         do
         {
-          v40 = &v37;
-          v41 = v29;
-          v42 = v22;
-          v43 = v18;
-          v44 = __p;
-          v45 = v26;
-          v46 = v8;
-          v47 = &v37;
-          v48[0] = v29;
-          v48[1] = v22;
-          v49 = v18;
-          v50 = __p;
-          v51 = v26;
-          v52 = v8;
-          v11 = v10[2];
-          if (v11 == -1)
+          v41 = &v38;
+          v42 = v30;
+          v43 = v23;
+          v44 = v19;
+          v45 = __p;
+          v46 = v27;
+          v47 = v9;
+          v48 = &v38;
+          v49[0] = v30;
+          v49[1] = v23;
+          v50 = v19;
+          v51 = __p;
+          v52 = v27;
+          v53 = v9;
+          v12 = v11[2];
+          if (v12 == -1)
           {
             std::__throw_bad_variant_access[abi:nn200100]();
           }
 
-          v38 = &v40;
-          v39[0] = std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<SVG::Visitor<SVG::populatePatternAndMaskMaps(std::unordered_map<SVG::PatternElement const*,SVG::Document::PatternData> &,std::unordered_map<SVG::MaskElement const*,SVG::Document::MaskData> &,std::unordered_map<__CFURL const*,std::reference_wrapper<SVG::Element const>> const&,std::unordered_map<SVG::GradientElement const*,SVG::CF<CGGradient *>> const&,std::unordered_map<SVG::Element const*,SVG::Presentation> const&,__CFArray const*,SVG::Presentation const&,SVG::SVGElement const&)::$_0,SVG::populatePatternAndMaskMaps(std::unordered_map<SVG::PatternElement const*,SVG::Document::PatternData> &,std::unordered_map<SVG::MaskElement const*,SVG::Document::MaskData> &,std::unordered_map<__CFURL const*,std::reference_wrapper<SVG::Element const>> const&,std::unordered_map<SVG::GradientElement const*,SVG::CF<CGGradient *>> const&,std::unordered_map<SVG::Element const*,SVG::Presentation> const&,__CFArray const*,SVG::Presentation const&,SVG::SVGElement const&)::$_1>> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)0,std::reference_wrapper<SVG::PatternElement const>,std::reference_wrapper<SVG::MaskElement const>> const&>;
-          v39[1] = std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<SVG::Visitor<SVG::populatePatternAndMaskMaps(std::unordered_map<SVG::PatternElement const*,SVG::Document::PatternData> &,std::unordered_map<SVG::MaskElement const*,SVG::Document::MaskData> &,std::unordered_map<__CFURL const*,std::reference_wrapper<SVG::Element const>> const&,std::unordered_map<SVG::GradientElement const*,SVG::CF<CGGradient *>> const&,std::unordered_map<SVG::Element const*,SVG::Presentation> const&,__CFArray const*,SVG::Presentation const&,SVG::SVGElement const&)::$_0,SVG::populatePatternAndMaskMaps(std::unordered_map<SVG::PatternElement const*,SVG::Document::PatternData> &,std::unordered_map<SVG::MaskElement const*,SVG::Document::MaskData> &,std::unordered_map<__CFURL const*,std::reference_wrapper<SVG::Element const>> const&,std::unordered_map<SVG::GradientElement const*,SVG::CF<CGGradient *>> const&,std::unordered_map<SVG::Element const*,SVG::Presentation> const&,__CFArray const*,SVG::Presentation const&,SVG::SVGElement const&)::$_1>> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)0,std::reference_wrapper<SVG::PatternElement const>,std::reference_wrapper<SVG::MaskElement const>> const&>;
-          (v39[v11])(&v38, v10);
-          v10 += 4;
+          v39 = &v41;
+          v40[0] = std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<SVG::Visitor<SVG::populatePatternAndMaskMaps(std::unordered_map<SVG::PatternElement const*,SVG::Document::PatternData> &,std::unordered_map<SVG::MaskElement const*,SVG::Document::MaskData> &,std::unordered_map<__CFURL const*,std::reference_wrapper<SVG::Element const>> const&,std::unordered_map<SVG::GradientElement const*,SVG::CF<CGGradient *>> const&,std::unordered_map<SVG::Element const*,SVG::Presentation> const&,__CFArray const*,SVG::Presentation const&,SVG::SVGElement const&)::$_0,SVG::populatePatternAndMaskMaps(std::unordered_map<SVG::PatternElement const*,SVG::Document::PatternData> &,std::unordered_map<SVG::MaskElement const*,SVG::Document::MaskData> &,std::unordered_map<__CFURL const*,std::reference_wrapper<SVG::Element const>> const&,std::unordered_map<SVG::GradientElement const*,SVG::CF<CGGradient *>> const&,std::unordered_map<SVG::Element const*,SVG::Presentation> const&,__CFArray const*,SVG::Presentation const&,SVG::SVGElement const&)::$_1>> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)0,std::reference_wrapper<SVG::PatternElement const>,std::reference_wrapper<SVG::MaskElement const>> const&>;
+          v40[1] = std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<SVG::Visitor<SVG::populatePatternAndMaskMaps(std::unordered_map<SVG::PatternElement const*,SVG::Document::PatternData> &,std::unordered_map<SVG::MaskElement const*,SVG::Document::MaskData> &,std::unordered_map<__CFURL const*,std::reference_wrapper<SVG::Element const>> const&,std::unordered_map<SVG::GradientElement const*,SVG::CF<CGGradient *>> const&,std::unordered_map<SVG::Element const*,SVG::Presentation> const&,__CFArray const*,SVG::Presentation const&,SVG::SVGElement const&)::$_0,SVG::populatePatternAndMaskMaps(std::unordered_map<SVG::PatternElement const*,SVG::Document::PatternData> &,std::unordered_map<SVG::MaskElement const*,SVG::Document::MaskData> &,std::unordered_map<__CFURL const*,std::reference_wrapper<SVG::Element const>> const&,std::unordered_map<SVG::GradientElement const*,SVG::CF<CGGradient *>> const&,std::unordered_map<SVG::Element const*,SVG::Presentation> const&,__CFArray const*,SVG::Presentation const&,SVG::SVGElement const&)::$_1>> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)0,std::reference_wrapper<SVG::PatternElement const>,std::reference_wrapper<SVG::MaskElement const>> const&>;
+          (v40[v12])(&v39, v11);
+          v11 += 4;
         }
 
-        while (v10 != v9);
-        v10 = v36[0];
+        while (v11 != v10);
+        v11 = v37[0];
       }
 
-      if (v10)
+      if (v11)
       {
-        v36[1] = v10;
-        operator delete(v10);
+        v37[1] = v11;
+        operator delete(v11);
       }
 
-      if (v71 != -1)
+      if (v72 != -1)
       {
-        v40 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS_6vectorINS8_6LengthENS_9allocatorISE_EEEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
-        v41 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS_6vectorINS8_6LengthENS_9allocatorISE_EEEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
-        v42 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS_6vectorINS8_6LengthENS_9allocatorISE_EEEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
-        (*(&v40 + v71))(v36, v70);
+        v41 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS_6vectorINS8_6LengthENS_9allocatorISE_EEEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
+        v42 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS_6vectorINS8_6LengthENS_9allocatorISE_EEEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
+        v43 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS_6vectorINS8_6LengthENS_9allocatorISE_EEEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
+        (*(&v41 + v72))(v37, v71);
       }
 
-      v71 = -1;
-      if (v69 != -1)
+      v72 = -1;
+      if (v70 != -1)
       {
-        v40 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_5PaintEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSE_1EJSA_SB_SC_EEEEEEDcSG_DpT0_;
-        v41 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_5PaintEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSE_1EJSA_SB_SC_EEEEEEDcSG_DpT0_;
-        v42 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_5PaintEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSE_1EJSA_SB_SC_EEEEEEDcSG_DpT0_;
-        (*(&v40 + v69))(v36, v68);
+        v41 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_5PaintEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSE_1EJSA_SB_SC_EEEEEEDcSG_DpT0_;
+        v42 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_5PaintEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSE_1EJSA_SB_SC_EEEEEEDcSG_DpT0_;
+        v43 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_5PaintEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSE_1EJSA_SB_SC_EEEEEEDcSG_DpT0_;
+        (*(&v41 + v70))(v37, v69);
       }
 
-      v69 = -1;
-      if (v67 != -1)
+      v70 = -1;
+      if (v68 != -1)
       {
-        v40 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS8_2CFIPK7__CFURLEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
-        v41 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS8_2CFIPK7__CFURLEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
-        v42 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS8_2CFIPK7__CFURLEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
-        (*(&v40 + v67))(v36, v66);
+        v41 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS8_2CFIPK7__CFURLEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
+        v42 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS8_2CFIPK7__CFURLEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
+        v43 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS8_2CFIPK7__CFURLEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
+        (*(&v41 + v68))(v37, v67);
       }
 
-      v67 = -1;
-      if (v65 != -1)
+      v68 = -1;
+      if (v66 != -1)
       {
-        v40 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_5PaintEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSE_1EJSA_SB_SC_EEEEEEDcSG_DpT0_;
-        v41 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_5PaintEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSE_1EJSA_SB_SC_EEEEEEDcSG_DpT0_;
-        v42 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_5PaintEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSE_1EJSA_SB_SC_EEEEEEDcSG_DpT0_;
-        (*(&v40 + v65))(v36, v64);
+        v41 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_5PaintEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSE_1EJSA_SB_SC_EEEEEEDcSG_DpT0_;
+        v42 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_5PaintEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSE_1EJSA_SB_SC_EEEEEEDcSG_DpT0_;
+        v43 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_5PaintEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSE_1EJSA_SB_SC_EEEEEEDcSG_DpT0_;
+        (*(&v41 + v66))(v37, v65);
       }
 
-      v65 = -1;
-      if (v63 != -1)
+      v66 = -1;
+      if (v64 != -1)
       {
-        v40 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS8_2CFIPK7__CFURLEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
-        v41 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS8_2CFIPK7__CFURLEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
-        v42 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS8_2CFIPK7__CFURLEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
-        (*(&v40 + v63))(v36, v62);
+        v41 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS8_2CFIPK7__CFURLEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
+        v42 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS8_2CFIPK7__CFURLEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
+        v43 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS8_2CFIPK7__CFURLEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
+        (*(&v41 + v64))(v37, v63);
       }
 
       operator new();
@@ -6216,11 +6117,11 @@ uint64_t OTSVGDocumentCreateWithData(SVG *a1, uint64_t a2, uint64_t a3)
     CFRelease(cf);
   }
 
-  v12 = v35;
-  v35 = 0;
-  if (v12)
+  v13 = v36;
+  v36 = 0;
+  if (v13)
   {
-    (*(*v12 + 8))(v12);
+    ((*v13)[1])(v13);
   }
 
   return 0;
@@ -6234,20 +6135,24 @@ void SVG::populateReferenceMap(void *a1, void *a2, void *a3)
     if (*(v6 + 20) == 2 && *(v6 + 72) == 1)
     {
       v8 = v6[8];
-      v32 = v8;
+      v39 = v8;
       if (v8)
       {
         *&v9 = 0xAAAAAAAAAAAAAAAALL;
         *(&v9 + 1) = 0xAAAAAAAAAAAAAAAALL;
         *__p = v9;
-        v31 = v9;
+        v38 = v9;
         SVG::extractValidFragment(__p, v8);
-        if (BYTE8(v31) == 1 && std::__hash_table<std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>>>::find<std::string>(a2, __p))
+        if (BYTE8(v38) == 1)
         {
-          std::__hash_table<std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>,std::__unordered_map_hasher<__CFURL const*,std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>,std::hash<__CFURL const*>,std::equal_to<__CFURL const*>,true>,std::__unordered_map_equal<__CFURL const*,std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>,std::equal_to<__CFURL const*>,std::hash<__CFURL const*>,true>,std::allocator<std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>>>::__emplace_unique_key_args<__CFURL const*,__CFURL const* const&,std::reference_wrapper<SVG::Element> const&>(a1, v8);
+          v10 = std::__hash_table<std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>>>::find<std::string>(a2, __p);
+          if (v10)
+          {
+            std::__hash_table<std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>,std::__unordered_map_hasher<__CFURL const*,std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>,std::hash<__CFURL const*>,std::equal_to<__CFURL const*>,true>,std::__unordered_map_equal<__CFURL const*,std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>,std::equal_to<__CFURL const*>,std::hash<__CFURL const*>,true>,std::allocator<std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>>>::__emplace_unique_key_args<__CFURL const*,__CFURL const* const&,std::reference_wrapper<SVG::Element> const&>(a1, v8, &v39, v10 + 5);
+          }
         }
 
-        if (BYTE8(v31) == 1 && SBYTE7(v31) < 0)
+        if (BYTE8(v38) == 1 && SBYTE7(v38) < 0)
         {
           operator delete(__p[0]);
         }
@@ -6256,21 +6161,25 @@ void SVG::populateReferenceMap(void *a1, void *a2, void *a3)
 
     if (*(v7 + 66) == 2 && *(v7 + 256) == 1)
     {
-      v10 = v7[31];
-      v32 = v10;
-      if (v10)
+      v11 = v7[31];
+      v39 = v11;
+      if (v11)
       {
-        *&v11 = 0xAAAAAAAAAAAAAAAALL;
-        *(&v11 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        *__p = v11;
-        v31 = v11;
-        SVG::extractValidFragment(__p, v10);
-        if (BYTE8(v31) == 1 && std::__hash_table<std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>>>::find<std::string>(a2, __p))
+        *&v12 = 0xAAAAAAAAAAAAAAAALL;
+        *(&v12 + 1) = 0xAAAAAAAAAAAAAAAALL;
+        *__p = v12;
+        v38 = v12;
+        SVG::extractValidFragment(__p, v11);
+        if (BYTE8(v38) == 1)
         {
-          std::__hash_table<std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>,std::__unordered_map_hasher<__CFURL const*,std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>,std::hash<__CFURL const*>,std::equal_to<__CFURL const*>,true>,std::__unordered_map_equal<__CFURL const*,std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>,std::equal_to<__CFURL const*>,std::hash<__CFURL const*>,true>,std::allocator<std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>>>::__emplace_unique_key_args<__CFURL const*,__CFURL const* const&,std::reference_wrapper<SVG::Element> const&>(a1, v10);
+          v13 = std::__hash_table<std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>>>::find<std::string>(a2, __p);
+          if (v13)
+          {
+            std::__hash_table<std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>,std::__unordered_map_hasher<__CFURL const*,std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>,std::hash<__CFURL const*>,std::equal_to<__CFURL const*>,true>,std::__unordered_map_equal<__CFURL const*,std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>,std::equal_to<__CFURL const*>,std::hash<__CFURL const*>,true>,std::allocator<std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>>>::__emplace_unique_key_args<__CFURL const*,__CFURL const* const&,std::reference_wrapper<SVG::Element> const&>(a1, v11, &v39, v13 + 5);
+          }
         }
 
-        if (BYTE8(v31) == 1 && SBYTE7(v31) < 0)
+        if (BYTE8(v38) == 1 && SBYTE7(v38) < 0)
         {
           operator delete(__p[0]);
         }
@@ -6279,21 +6188,25 @@ void SVG::populateReferenceMap(void *a1, void *a2, void *a3)
 
     if (*(v7 + 50) == 2 && *(v7 + 48) == 3)
     {
-      v13 = v7[20];
-      if (v13)
+      v15 = v7[20];
+      if (v15)
       {
-        *&v14 = 0xAAAAAAAAAAAAAAAALL;
-        *(&v14 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        *__p = v14;
-        v31 = v14;
-        SVG::extractValidFragment(__p, v13);
-        if (BYTE8(v31) == 1 && std::__hash_table<std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>>>::find<std::string>(a2, __p))
+        *&v16 = 0xAAAAAAAAAAAAAAAALL;
+        *(&v16 + 1) = 0xAAAAAAAAAAAAAAAALL;
+        *__p = v16;
+        v38 = v16;
+        SVG::extractValidFragment(__p, v15);
+        if (BYTE8(v38) == 1)
         {
-          v32 = v7[20];
-          std::__hash_table<std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>,std::__unordered_map_hasher<__CFURL const*,std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>,std::hash<__CFURL const*>,std::equal_to<__CFURL const*>,true>,std::__unordered_map_equal<__CFURL const*,std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>,std::equal_to<__CFURL const*>,std::hash<__CFURL const*>,true>,std::allocator<std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>>>::__emplace_unique_key_args<__CFURL const*,__CFURL const* const&,std::reference_wrapper<SVG::Element> const&>(a1, v32);
+          v17 = std::__hash_table<std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>>>::find<std::string>(a2, __p);
+          if (v17)
+          {
+            v39 = v7[20];
+            std::__hash_table<std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>,std::__unordered_map_hasher<__CFURL const*,std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>,std::hash<__CFURL const*>,std::equal_to<__CFURL const*>,true>,std::__unordered_map_equal<__CFURL const*,std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>,std::equal_to<__CFURL const*>,std::hash<__CFURL const*>,true>,std::allocator<std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>>>::__emplace_unique_key_args<__CFURL const*,__CFURL const* const&,std::reference_wrapper<SVG::Element> const&>(a1, v39, &v39, v17 + 5);
+          }
         }
 
-        if (BYTE8(v31) == 1 && SBYTE7(v31) < 0)
+        if (BYTE8(v38) == 1 && SBYTE7(v38) < 0)
         {
           operator delete(__p[0]);
         }
@@ -6302,21 +6215,25 @@ void SVG::populateReferenceMap(void *a1, void *a2, void *a3)
 
     if (*(v7 + 100) == 2 && *(v7 + 98) == 3)
     {
-      v16 = v7[45];
-      if (v16)
+      v19 = v7[45];
+      if (v19)
       {
-        *&v17 = 0xAAAAAAAAAAAAAAAALL;
-        *(&v17 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        *__p = v17;
-        v31 = v17;
-        SVG::extractValidFragment(__p, v16);
-        if (BYTE8(v31) == 1 && std::__hash_table<std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>>>::find<std::string>(a2, __p))
+        *&v20 = 0xAAAAAAAAAAAAAAAALL;
+        *(&v20 + 1) = 0xAAAAAAAAAAAAAAAALL;
+        *__p = v20;
+        v38 = v20;
+        SVG::extractValidFragment(__p, v19);
+        if (BYTE8(v38) == 1)
         {
-          v32 = v7[45];
-          std::__hash_table<std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>,std::__unordered_map_hasher<__CFURL const*,std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>,std::hash<__CFURL const*>,std::equal_to<__CFURL const*>,true>,std::__unordered_map_equal<__CFURL const*,std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>,std::equal_to<__CFURL const*>,std::hash<__CFURL const*>,true>,std::allocator<std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>>>::__emplace_unique_key_args<__CFURL const*,__CFURL const* const&,std::reference_wrapper<SVG::Element> const&>(a1, v32);
+          v21 = std::__hash_table<std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>>>::find<std::string>(a2, __p);
+          if (v21)
+          {
+            v39 = v7[45];
+            std::__hash_table<std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>,std::__unordered_map_hasher<__CFURL const*,std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>,std::hash<__CFURL const*>,std::equal_to<__CFURL const*>,true>,std::__unordered_map_equal<__CFURL const*,std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>,std::equal_to<__CFURL const*>,std::hash<__CFURL const*>,true>,std::allocator<std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>>>::__emplace_unique_key_args<__CFURL const*,__CFURL const* const&,std::reference_wrapper<SVG::Element> const&>(a1, v39, &v39, v21 + 5);
+          }
         }
 
-        if (BYTE8(v31) == 1 && SBYTE7(v31) < 0)
+        if (BYTE8(v38) == 1 && SBYTE7(v38) < 0)
         {
           operator delete(__p[0]);
         }
@@ -6324,91 +6241,103 @@ void SVG::populateReferenceMap(void *a1, void *a2, void *a3)
     }
   }
 
-  if (v18)
+  if (v22)
   {
-    v19 = *(v18 + 94);
-    v32 = v19;
-    if (v19)
+    v23 = *(v22 + 94);
+    v39 = v23;
+    if (v23)
     {
-      *&v20 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v20 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      *__p = v20;
-      v31 = v20;
-      SVG::extractValidFragment(__p, v19);
-      if (BYTE8(v31) == 1 && std::__hash_table<std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>>>::find<std::string>(a2, __p))
+      *&v24 = 0xAAAAAAAAAAAAAAAALL;
+      *(&v24 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      *__p = v24;
+      v38 = v24;
+      SVG::extractValidFragment(__p, v23);
+      if (BYTE8(v38) == 1)
       {
-        std::__hash_table<std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>,std::__unordered_map_hasher<__CFURL const*,std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>,std::hash<__CFURL const*>,std::equal_to<__CFURL const*>,true>,std::__unordered_map_equal<__CFURL const*,std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>,std::equal_to<__CFURL const*>,std::hash<__CFURL const*>,true>,std::allocator<std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>>>::__emplace_unique_key_args<__CFURL const*,__CFURL const* const&,std::reference_wrapper<SVG::Element> const&>(a1, v19);
+        v25 = std::__hash_table<std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>>>::find<std::string>(a2, __p);
+        if (v25)
+        {
+          std::__hash_table<std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>,std::__unordered_map_hasher<__CFURL const*,std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>,std::hash<__CFURL const*>,std::equal_to<__CFURL const*>,true>,std::__unordered_map_equal<__CFURL const*,std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>,std::equal_to<__CFURL const*>,std::hash<__CFURL const*>,true>,std::allocator<std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>>>::__emplace_unique_key_args<__CFURL const*,__CFURL const* const&,std::reference_wrapper<SVG::Element> const&>(a1, v23, &v39, v25 + 5);
+        }
       }
 
-      if (BYTE8(v31) == 1 && SBYTE7(v31) < 0)
+      if (BYTE8(v38) == 1 && SBYTE7(v38) < 0)
       {
         operator delete(__p[0]);
       }
     }
   }
 
-  if (v21)
+  if (v26)
   {
-    v22 = *(v21 + 80);
-    v32 = v22;
-    if (v22)
+    v27 = *(v26 + 80);
+    v39 = v27;
+    if (v27)
     {
-      *&v23 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v23 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      *__p = v23;
-      v31 = v23;
-      SVG::extractValidFragment(__p, v22);
-      if (BYTE8(v31) == 1 && std::__hash_table<std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>>>::find<std::string>(a2, __p))
+      *&v28 = 0xAAAAAAAAAAAAAAAALL;
+      *(&v28 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      *__p = v28;
+      v38 = v28;
+      SVG::extractValidFragment(__p, v27);
+      if (BYTE8(v38) == 1)
       {
-        std::__hash_table<std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>,std::__unordered_map_hasher<__CFURL const*,std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>,std::hash<__CFURL const*>,std::equal_to<__CFURL const*>,true>,std::__unordered_map_equal<__CFURL const*,std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>,std::equal_to<__CFURL const*>,std::hash<__CFURL const*>,true>,std::allocator<std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>>>::__emplace_unique_key_args<__CFURL const*,__CFURL const* const&,std::reference_wrapper<SVG::Element> const&>(a1, v22);
+        v29 = std::__hash_table<std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>>>::find<std::string>(a2, __p);
+        if (v29)
+        {
+          std::__hash_table<std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>,std::__unordered_map_hasher<__CFURL const*,std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>,std::hash<__CFURL const*>,std::equal_to<__CFURL const*>,true>,std::__unordered_map_equal<__CFURL const*,std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>,std::equal_to<__CFURL const*>,std::hash<__CFURL const*>,true>,std::allocator<std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>>>::__emplace_unique_key_args<__CFURL const*,__CFURL const* const&,std::reference_wrapper<SVG::Element> const&>(a1, v27, &v39, v29 + 5);
+        }
       }
 
-      if (BYTE8(v31) == 1 && SBYTE7(v31) < 0)
+      if (BYTE8(v38) == 1 && SBYTE7(v38) < 0)
       {
         operator delete(__p[0]);
       }
     }
   }
 
-  if (v24)
+  if (v30)
   {
-    v25 = *(v24 + 108);
-    v32 = v25;
-    if (v25)
+    v31 = *(v30 + 108);
+    v39 = v31;
+    if (v31)
     {
-      *&v26 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v26 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      *__p = v26;
-      v31 = v26;
-      SVG::extractValidFragment(__p, v25);
-      if (BYTE8(v31) == 1 && std::__hash_table<std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>>>::find<std::string>(a2, __p))
+      *&v32 = 0xAAAAAAAAAAAAAAAALL;
+      *(&v32 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      *__p = v32;
+      v38 = v32;
+      SVG::extractValidFragment(__p, v31);
+      if (BYTE8(v38) == 1)
       {
-        std::__hash_table<std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>,std::__unordered_map_hasher<__CFURL const*,std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>,std::hash<__CFURL const*>,std::equal_to<__CFURL const*>,true>,std::__unordered_map_equal<__CFURL const*,std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>,std::equal_to<__CFURL const*>,std::hash<__CFURL const*>,true>,std::allocator<std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>>>::__emplace_unique_key_args<__CFURL const*,__CFURL const* const&,std::reference_wrapper<SVG::Element> const&>(a1, v25);
+        v33 = std::__hash_table<std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>>>::find<std::string>(a2, __p);
+        if (v33)
+        {
+          std::__hash_table<std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>,std::__unordered_map_hasher<__CFURL const*,std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>,std::hash<__CFURL const*>,std::equal_to<__CFURL const*>,true>,std::__unordered_map_equal<__CFURL const*,std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>,std::equal_to<__CFURL const*>,std::hash<__CFURL const*>,true>,std::allocator<std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>>>::__emplace_unique_key_args<__CFURL const*,__CFURL const* const&,std::reference_wrapper<SVG::Element> const&>(a1, v31, &v39, v33 + 5);
+        }
       }
 
-      if (BYTE8(v31) == 1 && SBYTE7(v31) < 0)
+      if (BYTE8(v38) == 1 && SBYTE7(v38) < 0)
       {
         operator delete(__p[0]);
       }
     }
   }
 
-  v28 = a3[4];
-  v27 = a3[5];
-  while (v28 != v27)
+  v35 = a3[4];
+  v34 = a3[5];
+  while (v35 != v34)
   {
-    v29 = *v28++;
-    SVG::populateReferenceMap(a1, a2, v29);
+    v36 = *v35++;
+    SVG::populateReferenceMap(a1, a2, v36);
   }
 }
 
-void SVG::populateDirectlyInheritedPresentationMap(void *a1, const SVG::Presentation *a2, const SVG::Presentation *a3, unint64_t a4)
+void SVG::populateDirectlyInheritedPresentationMap(float *a1, const SVG::Presentation *a2, const SVG::Presentation *a3, unint64_t **a4)
 {
   v30 = *MEMORY[0x277D85DE8];
   if (!v8)
   {
-    v17 = *(a4 + 32);
-    v16 = *(a4 + 40);
+    v17 = a4[4];
+    v16 = a4[5];
     while (v17 != v16)
     {
       v18 = *v17++;
@@ -6421,10 +6350,10 @@ void SVG::populateDirectlyInheritedPresentationMap(void *a1, const SVG::Presenta
   v9 = v8;
   memcpy(__dst, &unk_25D1D6F00, sizeof(__dst));
   SVG::Presentation::inherit(v9, a2, a3, __dst);
-  v10 = 0x9DDFEA08EB382D69 * (((((a4 >> 3) & 0x3FFFFFF) << 6) | 8) ^ HIDWORD(a4));
-  v11 = 0x9DDFEA08EB382D69 * (HIDWORD(a4) ^ (v10 >> 47) ^ v10);
+  v10 = 0x9DDFEA08EB382D69 * (((((a4 >> 3) & 0x3FFFFFF) << 6) | 8) ^ (a4 >> 32));
+  v11 = 0x9DDFEA08EB382D69 * ((a4 >> 32) ^ (v10 >> 47) ^ v10);
   v12 = 0x9DDFEA08EB382D69 * (v11 ^ (v11 >> 47));
-  v13 = a1[1];
+  v13 = *(a1 + 2);
   if (!*&v13)
   {
     goto LABEL_22;
@@ -6492,8 +6421,8 @@ LABEL_21:
     goto LABEL_21;
   }
 
-  v23 = *(a4 + 32);
-  v22 = *(a4 + 40);
+  v23 = a4[4];
+  v22 = a4[5];
   while (v23 != v22)
   {
     v24 = *v23++;
@@ -6545,11 +6474,11 @@ LABEL_21:
   }
 }
 
-void *SVG::populateGradientMap(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, void *a5)
+void SVG::populateGradientMap(float *a1, void *a2, void *a3, const __CFArray *a4, void *a5)
 {
-  if (result)
+  if (v10)
   {
-    SVG::GradientElement::getGradient(result, a2, a3);
+    SVG::GradientElement::getGradient(v10, a2, a3);
   }
 
   v12 = a5[4];
@@ -6557,10 +6486,8 @@ void *SVG::populateGradientMap(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, 
   while (v12 != v11)
   {
     v13 = *v12++;
-    result = SVG::populateGradientMap(a1, a2, a3, a4, v13);
+    SVG::populateGradientMap(a1, a2, a3, a4, v13);
   }
-
-  return result;
 }
 
 void OTSVGDocumentEnumerateIDs(uint64_t a1, void *a2)
@@ -6732,7 +6659,7 @@ LABEL_19:
   return a1;
 }
 
-void std::vector<std::reference_wrapper<SVG::Element>>::__vallocate[abi:nn200100](uint64_t a1, unint64_t a2)
+void std::vector<std::reference_wrapper<SVG::Element>>::__vallocate[abi:nn200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -6742,9 +6669,8 @@ void std::vector<std::reference_wrapper<SVG::Element>>::__vallocate[abi:nn200100
   std::vector<SVG::Length>::__throw_length_error[abi:nn200100]();
 }
 
-uint64_t SVG::populateIdMapWithRealIds(uint64_t result, uint64_t a2)
+void SVG::populateIdMapWithRealIds(void *a1, uint64_t a2)
 {
-  v3 = result;
   v4 = *(a2 + 31);
   if (v4 >= 0)
   {
@@ -6770,7 +6696,7 @@ uint64_t SVG::populateIdMapWithRealIds(uint64_t result, uint64_t a2)
 
     v7 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](&v19, v6, v5);
     v8 = v7;
-    v9 = v3[1];
+    v9 = a1[1];
     if (v9)
     {
       v10 = vcnt_s8(v9);
@@ -6790,7 +6716,7 @@ uint64_t SVG::populateIdMapWithRealIds(uint64_t result, uint64_t a2)
         v12 = (*&v9 - 1) & v7;
       }
 
-      v13 = *(*v3 + 8 * v12);
+      v13 = *(*a1 + 8 * v12);
       if (v13)
       {
         for (i = *v13; i; i = *i)
@@ -6798,8 +6724,7 @@ uint64_t SVG::populateIdMapWithRealIds(uint64_t result, uint64_t a2)
           v15 = i[1];
           if (v15 == v8)
           {
-            result = std::equal_to<std::string>::operator()[abi:nn200100](v3, i + 2, (a2 + 8));
-            if (result)
+            if (std::equal_to<std::string>::operator()[abi:nn200100](a1, i + 2, (a2 + 8)))
             {
               goto LABEL_26;
             }
@@ -6838,10 +6763,8 @@ LABEL_26:
   while (v17 != v16)
   {
     v18 = *v17++;
-    result = SVG::populateIdMapWithRealIds(v3, v18);
+    SVG::populateIdMapWithRealIds(a1, v18);
   }
-
-  return result;
 }
 
 uint64_t SVG::populateIdMapWithFakeIds(void *a1, uint64_t a2, uint64_t a3)
@@ -7151,35 +7074,117 @@ LABEL_7:
   CFRelease(v4);
 }
 
-void *std::__hash_table<std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>,std::__unordered_map_hasher<__CFURL const*,std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>,std::hash<__CFURL const*>,std::equal_to<__CFURL const*>,true>,std::__unordered_map_equal<__CFURL const*,std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>,std::equal_to<__CFURL const*>,std::hash<__CFURL const*>,true>,std::allocator<std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>>>::__emplace_unique_key_args<__CFURL const*,__CFURL const* const&,std::reference_wrapper<SVG::Element> const&>(void *result, unint64_t a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>>>::find<std::string>(void *a1, unsigned __int8 *a2)
 {
-  v2 = 0x9DDFEA08EB382D69 * ((8 * (a2 & 0x1FFFFFFF) + 8) ^ HIDWORD(a2));
-  v3 = 0x9DDFEA08EB382D69 * (HIDWORD(a2) ^ (v2 >> 47) ^ v2);
-  v4 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-  v5 = result[1];
-  if (!*&v5)
+  v2 = a2;
+  v4 = *(a2 + 1);
+  if ((a2[23] & 0x80u) == 0)
   {
-    goto LABEL_18;
+    v5 = a2[23];
   }
 
-  v6 = vcnt_s8(v5);
-  v6.i16[0] = vaddlv_u8(v6);
-  if (v6.u32[0] > 1uLL)
+  else
   {
-    v7 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-    if (v4 >= *&v5)
+    a2 = *a2;
+    v5 = v4;
+  }
+
+  v6 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](&v16, a2, v5);
+  v7 = a1[1];
+  if (!*&v7)
+  {
+    return 0;
+  }
+
+  v8 = v6;
+  v9 = vcnt_s8(v7);
+  v9.i16[0] = vaddlv_u8(v9);
+  v10 = v9.u32[0];
+  if (v9.u32[0] > 1uLL)
+  {
+    v11 = v6;
+    if (v6 >= *&v7)
     {
-      v7 = v4 % *&v5;
+      v11 = v6 % *&v7;
     }
   }
 
   else
   {
-    v7 = (*&v5 - 1) & v4;
+    v11 = (*&v7 - 1) & v6;
   }
 
-  v8 = *(*result + 8 * v7);
-  if (!v8 || (v9 = *v8) == 0)
+  v12 = *(*a1 + 8 * v11);
+  if (!v12)
+  {
+    return 0;
+  }
+
+  for (i = *v12; i; i = *i)
+  {
+    v14 = i[1];
+    if (v8 == v14)
+    {
+      if (std::equal_to<std::string>::operator()[abi:nn200100](a1, i + 2, v2))
+      {
+        return i;
+      }
+    }
+
+    else
+    {
+      if (v10 > 1)
+      {
+        if (v14 >= *&v7)
+        {
+          v14 %= *&v7;
+        }
+      }
+
+      else
+      {
+        v14 &= *&v7 - 1;
+      }
+
+      if (v14 != v11)
+      {
+        return 0;
+      }
+    }
+  }
+
+  return i;
+}
+
+void std::__hash_table<std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>,std::__unordered_map_hasher<__CFURL const*,std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>,std::hash<__CFURL const*>,std::equal_to<__CFURL const*>,true>,std::__unordered_map_equal<__CFURL const*,std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>,std::equal_to<__CFURL const*>,std::hash<__CFURL const*>,true>,std::allocator<std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>>>::__emplace_unique_key_args<__CFURL const*,__CFURL const* const&,std::reference_wrapper<SVG::Element> const&>(void *a1, unint64_t a2, void *a3, uint64_t *a4)
+{
+  v4 = 0x9DDFEA08EB382D69 * ((8 * (a2 & 0x1FFFFFFF) + 8) ^ HIDWORD(a2));
+  v5 = 0x9DDFEA08EB382D69 * (HIDWORD(a2) ^ (v4 >> 47) ^ v4);
+  v6 = 0x9DDFEA08EB382D69 * (v5 ^ (v5 >> 47));
+  v7 = a1[1];
+  if (!*&v7)
+  {
+    goto LABEL_18;
+  }
+
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  if (v8.u32[0] > 1uLL)
+  {
+    v9 = 0x9DDFEA08EB382D69 * (v5 ^ (v5 >> 47));
+    if (v6 >= *&v7)
+    {
+      v9 = v6 % *&v7;
+    }
+  }
+
+  else
+  {
+    v9 = (*&v7 - 1) & v6;
+  }
+
+  v10 = *(*a1 + 8 * v9);
+  if (!v10 || (v11 = *v10) == 0)
   {
 LABEL_18:
     operator new();
@@ -7187,47 +7192,45 @@ LABEL_18:
 
   while (1)
   {
-    v10 = v9[1];
-    if (v10 == v4)
+    v12 = v11[1];
+    if (v12 == v6)
     {
       break;
     }
 
-    if (v6.u32[0] > 1uLL)
+    if (v8.u32[0] > 1uLL)
     {
-      if (v10 >= *&v5)
+      if (v12 >= *&v7)
       {
-        v10 %= *&v5;
+        v12 %= *&v7;
       }
     }
 
     else
     {
-      v10 &= *&v5 - 1;
+      v12 &= *&v7 - 1;
     }
 
-    if (v10 != v7)
+    if (v12 != v9)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v9 = *v9;
-    if (!v9)
+    v11 = *v11;
+    if (!v11)
     {
       goto LABEL_18;
     }
   }
 
-  if (v9[2] != a2)
+  if (v11[2] != a2)
   {
     goto LABEL_17;
   }
-
-  return result;
 }
 
-void std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<SVG::Visitor<SVG::populatePatternAndMaskMaps(std::unordered_map<SVG::PatternElement const*,SVG::Document::PatternData> &,std::unordered_map<SVG::MaskElement const*,SVG::Document::MaskData> &,std::unordered_map<__CFURL const*,std::reference_wrapper<SVG::Element const>> const&,std::unordered_map<SVG::GradientElement const*,SVG::CF<CGGradient *>> const&,std::unordered_map<SVG::Element const*,SVG::Presentation> const&,__CFArray const*,SVG::Presentation const&,SVG::SVGElement const&)::$_0,SVG::populatePatternAndMaskMaps(std::unordered_map<SVG::PatternElement const*,SVG::Document::PatternData> &,std::unordered_map<SVG::MaskElement const*,SVG::Document::MaskData> &,std::unordered_map<__CFURL const*,std::reference_wrapper<SVG::Element const>> const&,std::unordered_map<SVG::GradientElement const*,SVG::CF<CGGradient *>> const&,std::unordered_map<SVG::Element const*,SVG::Presentation> const&,__CFArray const*,SVG::Presentation const&,SVG::SVGElement const&)::$_1>> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)0,std::reference_wrapper<SVG::PatternElement const>,std::reference_wrapper<SVG::MaskElement const>> const&>(uint64_t *a1, uint64_t *a2)
+void std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<SVG::Visitor<SVG::populatePatternAndMaskMaps(std::unordered_map<SVG::PatternElement const*,SVG::Document::PatternData> &,std::unordered_map<SVG::MaskElement const*,SVG::Document::MaskData> &,std::unordered_map<__CFURL const*,std::reference_wrapper<SVG::Element const>> const&,std::unordered_map<SVG::GradientElement const*,SVG::CF<CGGradient *>> const&,std::unordered_map<SVG::Element const*,SVG::Presentation> const&,__CFArray const*,SVG::Presentation const&,SVG::SVGElement const&)::$_0,SVG::populatePatternAndMaskMaps(std::unordered_map<SVG::PatternElement const*,SVG::Document::PatternData> &,std::unordered_map<SVG::MaskElement const*,SVG::Document::MaskData> &,std::unordered_map<__CFURL const*,std::reference_wrapper<SVG::Element const>> const&,std::unordered_map<SVG::GradientElement const*,SVG::CF<CGGradient *>> const&,std::unordered_map<SVG::Element const*,SVG::Presentation> const&,__CFArray const*,SVG::Presentation const&,SVG::SVGElement const&)::$_1>> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)0,std::reference_wrapper<SVG::PatternElement const>,std::reference_wrapper<SVG::MaskElement const>> const&>(uint64_t *a1, unint64_t *a2)
 {
   v71 = *MEMORY[0x277D85DE8];
   v2 = *a1;
@@ -7472,11 +7475,11 @@ LABEL_10:
     (*(&v32 + v40))(&v31, v39);
   }
 
-  SVG::Recorder::takeRecording(v30, &v35);
+  SVG::Recorder::takeRecording(&v35, v30);
   operator new();
 }
 
-void std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<SVG::Visitor<SVG::populatePatternAndMaskMaps(std::unordered_map<SVG::PatternElement const*,SVG::Document::PatternData> &,std::unordered_map<SVG::MaskElement const*,SVG::Document::MaskData> &,std::unordered_map<__CFURL const*,std::reference_wrapper<SVG::Element const>> const&,std::unordered_map<SVG::GradientElement const*,SVG::CF<CGGradient *>> const&,std::unordered_map<SVG::Element const*,SVG::Presentation> const&,__CFArray const*,SVG::Presentation const&,SVG::SVGElement const&)::$_0,SVG::populatePatternAndMaskMaps(std::unordered_map<SVG::PatternElement const*,SVG::Document::PatternData> &,std::unordered_map<SVG::MaskElement const*,SVG::Document::MaskData> &,std::unordered_map<__CFURL const*,std::reference_wrapper<SVG::Element const>> const&,std::unordered_map<SVG::GradientElement const*,SVG::CF<CGGradient *>> const&,std::unordered_map<SVG::Element const*,SVG::Presentation> const&,__CFArray const*,SVG::Presentation const&,SVG::SVGElement const&)::$_1>> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)0,std::reference_wrapper<SVG::PatternElement const>,std::reference_wrapper<SVG::MaskElement const>> const&>(uint64_t *a1, void *a2)
+void std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<SVG::Visitor<SVG::populatePatternAndMaskMaps(std::unordered_map<SVG::PatternElement const*,SVG::Document::PatternData> &,std::unordered_map<SVG::MaskElement const*,SVG::Document::MaskData> &,std::unordered_map<__CFURL const*,std::reference_wrapper<SVG::Element const>> const&,std::unordered_map<SVG::GradientElement const*,SVG::CF<CGGradient *>> const&,std::unordered_map<SVG::Element const*,SVG::Presentation> const&,__CFArray const*,SVG::Presentation const&,SVG::SVGElement const&)::$_0,SVG::populatePatternAndMaskMaps(std::unordered_map<SVG::PatternElement const*,SVG::Document::PatternData> &,std::unordered_map<SVG::MaskElement const*,SVG::Document::MaskData> &,std::unordered_map<__CFURL const*,std::reference_wrapper<SVG::Element const>> const&,std::unordered_map<SVG::GradientElement const*,SVG::CF<CGGradient *>> const&,std::unordered_map<SVG::Element const*,SVG::Presentation> const&,__CFArray const*,SVG::Presentation const&,SVG::SVGElement const&)::$_1>> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)0,std::reference_wrapper<SVG::PatternElement const>,std::reference_wrapper<SVG::MaskElement const>> const&>(uint64_t *a1, unint64_t *a2)
 {
   v42 = *MEMORY[0x277D85DE8];
   v2 = *a1;
@@ -7579,7 +7582,7 @@ void std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispatch[
     (*(&v26 + v31))(&v25, &v30);
   }
 
-  SVG::Recorder::takeRecording(v24, &v29);
+  SVG::Recorder::takeRecording(&v29, v24);
   operator new();
 }
 
@@ -7591,7 +7594,7 @@ void std::__shared_ptr_emplace<SVG::Recording>::~__shared_ptr_emplace(std::__sha
   JUMPOUT(0x25F894240);
 }
 
-uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::stack<std::string>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::stack<std::string>>,void *>>>>::~unique_ptr[abi:nn200100](uint64_t a1)
+char **std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::stack<std::string>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::stack<std::string>>,void *>>>>::~unique_ptr[abi:nn200100](char **a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -7649,11 +7652,11 @@ LABEL_8:
 
   v14 = v13 - v9 + 170 * ((8 * v12 - 8 * v6) >> 3);
 LABEL_9:
-  std::deque<std::string>::__append_with_size[abi:nn200100]<std::__deque_iterator<std::string,std::string const*,std::string const&,std::string const* const*,long,170l>>(this[1].__r_.__value_.__r.__words, v8, v10, v14);
+  std::deque<std::string>::__append_with_size[abi:nn200100]<std::__deque_iterator<std::string,std::string const*,std::string const&,std::string const* const*,long,170l>>(&this[1], v8, v10, v14);
   return this;
 }
 
-void std::deque<std::string>::__append_with_size[abi:nn200100]<std::__deque_iterator<std::string,std::string const*,std::string const&,std::string const* const*,long,170l>>(void *a1, void *a2, __int128 *a3, unint64_t a4)
+void std::deque<std::string>::__append_with_size[abi:nn200100]<std::__deque_iterator<std::string,std::string const*,std::string const&,std::string const* const*,long,170l>>(unint64_t *a1, void *a2, __int128 *a3, unint64_t a4)
 {
   v8 = a1[1];
   v9 = a1[2];
@@ -7712,7 +7715,7 @@ void std::deque<std::string>::__append_with_size[abi:nn200100]<std::__deque_iter
       {
         v26 = a1[1];
         v38 = *v26;
-        a1[1] = v26 + 1;
+        a1[1] = (v26 + 1);
         std::__split_buffer<SVG::Recorder::State *>::emplace_back<SVG::Recorder::State *&>(a1, &v38);
       }
     }
@@ -7761,7 +7764,7 @@ void std::deque<std::string>::__append_with_size[abi:nn200100]<std::__deque_iter
       {
         v27 = a1[1];
         v38 = *v27;
-        a1[1] = v27 + 1;
+        a1[1] = (v27 + 1);
         std::__split_buffer<SVG::Recorder::State *>::emplace_back<SVG::Recorder::State *&>(a1, &v38);
       }
     }
@@ -7785,7 +7788,7 @@ void std::deque<std::string>::__append_with_size[abi:nn200100]<std::__deque_iter
     v30 = v29;
   }
 
-  v38 = (v8 + 8 * (v14 / 0xAA));
+  v38 = v8 + 8 * (v14 / 0xAA);
   v39 = v30;
   std::__deque_iterator<std::string,std::string*,std::string&,std::string**,long,170l>::operator+=[abi:nn200100](&v38, a4);
   v31 = v39;
@@ -7857,14 +7860,13 @@ void std::deque<std::string>::__append_with_size[abi:nn200100]<std::__deque_iter
   }
 }
 
-const void **std::__split_buffer<std::string *>::emplace_front<std::string *>(const void **result, void *a2)
+void std::__split_buffer<std::string *>::emplace_front<std::string *>(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -7884,22 +7886,21 @@ const void **std::__split_buffer<std::string *>::emplace_front<std::string *>(co
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = &v6[8 * v8];
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
   *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  a1[1] = a1[1] - 8;
 }
 
 void *std::__deque_iterator<std::string,std::string*,std::string&,std::string**,long,170l>::operator+=[abi:nn200100](void *result, uint64_t a2)
@@ -8207,12 +8208,12 @@ void std::__hash_table<std::__hash_value_type<std::string,std::stack<std::string
   }
 }
 
-double std::__for_each_segment[abi:nn200100]<std::__deque_iterator<std::string,std::string const*,std::string const&,std::string const* const*,long,170l>,std::__copy_impl::_CopySegment<std::__deque_iterator<std::string,std::string const*,std::string const&,std::string const* const*,long,170l>,std::__deque_iterator<std::string,std::string*,std::string&,std::string**,long,170l>>>(std::string **a1, std::string *a2, std::string **a3, std::string *a4, uint64_t a5)
+double std::__for_each_segment[abi:nn200100]<std::__deque_iterator<std::string,std::string const*,std::string const&,std::string const* const*,long,170l>,std::__copy_impl::_CopySegment<std::__deque_iterator<std::string,std::string const*,std::string const&,std::string const* const*,long,170l>,std::__deque_iterator<std::string,std::string*,std::string&,std::string**,long,170l>>>(std::string **a1, std::string *a2, std::string **a3, std::string *a4, std::string::size_type *a5)
 {
   if (a1 == a3)
   {
     size = *a5;
-    v8 = *(a5 + 8);
+    v8 = a5[1];
     memset(&v15, 170, sizeof(v15));
   }
 
@@ -8221,7 +8222,7 @@ double std::__for_each_segment[abi:nn200100]<std::__deque_iterator<std::string,s
     v11 = a1 + 1;
     v10 = *a1;
     size = *a5;
-    v8 = *(a5 + 8);
+    v8 = a5[1];
     memset(&v15, 170, sizeof(v15));
     for (i = v10 + 170; ; i = v13 + 170)
     {
@@ -8229,7 +8230,7 @@ double std::__for_each_segment[abi:nn200100]<std::__deque_iterator<std::string,s
       v8 = v15.__r_.__value_.__r.__words[2];
       size = v15.__r_.__value_.__l.__size_;
       *a5 = v15.__r_.__value_.__l.__size_;
-      *(a5 + 8) = v8;
+      a5[1] = v8;
       if (v11 == a3)
       {
         break;
@@ -8254,7 +8255,7 @@ std::string *std::__copy_impl::operator()[abi:nn200100]<std::string const*,std::
 {
   v6 = a4;
   v7 = __str;
-  words = result->__r_.__value_.__r.__words;
+  v8 = result;
   if (__str == a3)
   {
     v12 = __str;
@@ -8305,9 +8306,9 @@ LABEL_10:
   }
 
 LABEL_14:
-  *words = v12;
-  words[1] = v6;
-  words[2] = this;
+  v8->__r_.__value_.__r.__words[0] = v12;
+  v8->__r_.__value_.__l.__size_ = v6;
+  v8->__r_.__value_.__r.__words[2] = this;
   return result;
 }
 
@@ -8348,9 +8349,9 @@ uint64_t std::__hash_table<std::__hash_value_type<std::string,std::stack<std::st
   return a1;
 }
 
-uint64_t std::__hash_table<std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>>>::~__hash_table(uint64_t a1)
+void **std::__hash_table<std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>>>::~__hash_table(void **a1)
 {
-  std::__hash_table<std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>>>::__deallocate_node(*(a1 + 16));
+  std::__hash_table<std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>>>::__deallocate_node(a1[2]);
   v2 = *a1;
   *a1 = 0;
   if (v2)
@@ -8382,9 +8383,9 @@ void std::__hash_table<std::__hash_value_type<std::string,std::reference_wrapper
   }
 }
 
-uint64_t std::__hash_table<std::__hash_value_type<SVG::Element const*,SVG::Presentation>,std::__unordered_map_hasher<SVG::Element const*,std::__hash_value_type<SVG::Element const*,SVG::Presentation>,std::hash<SVG::Element const*>,std::equal_to<SVG::Element const*>,true>,std::__unordered_map_equal<SVG::Element const*,std::__hash_value_type<SVG::Element const*,SVG::Presentation>,std::equal_to<SVG::Element const*>,std::hash<SVG::Element const*>,true>,std::allocator<std::__hash_value_type<SVG::Element const*,SVG::Presentation>>>::~__hash_table(uint64_t a1)
+void **std::__hash_table<std::__hash_value_type<SVG::Element const*,SVG::Presentation>,std::__unordered_map_hasher<SVG::Element const*,std::__hash_value_type<SVG::Element const*,SVG::Presentation>,std::hash<SVG::Element const*>,std::equal_to<SVG::Element const*>,true>,std::__unordered_map_equal<SVG::Element const*,std::__hash_value_type<SVG::Element const*,SVG::Presentation>,std::equal_to<SVG::Element const*>,std::hash<SVG::Element const*>,true>,std::allocator<std::__hash_value_type<SVG::Element const*,SVG::Presentation>>>::~__hash_table(void **a1)
 {
-  std::__hash_table<std::__hash_value_type<SVG::Element const*,SVG::Presentation>,std::__unordered_map_hasher<SVG::Element const*,std::__hash_value_type<SVG::Element const*,SVG::Presentation>,std::hash<SVG::Element const*>,std::equal_to<SVG::Element const*>,true>,std::__unordered_map_equal<SVG::Element const*,std::__hash_value_type<SVG::Element const*,SVG::Presentation>,std::equal_to<SVG::Element const*>,std::hash<SVG::Element const*>,true>,std::allocator<std::__hash_value_type<SVG::Element const*,SVG::Presentation>>>::__deallocate_node(*(a1 + 16));
+  std::__hash_table<std::__hash_value_type<SVG::Element const*,SVG::Presentation>,std::__unordered_map_hasher<SVG::Element const*,std::__hash_value_type<SVG::Element const*,SVG::Presentation>,std::hash<SVG::Element const*>,std::equal_to<SVG::Element const*>,true>,std::__unordered_map_equal<SVG::Element const*,std::__hash_value_type<SVG::Element const*,SVG::Presentation>,std::equal_to<SVG::Element const*>,std::hash<SVG::Element const*>,true>,std::allocator<std::__hash_value_type<SVG::Element const*,SVG::Presentation>>>::__deallocate_node(a1[2]);
   v2 = *a1;
   *a1 = 0;
   if (v2)
@@ -8460,9 +8461,9 @@ void std::__hash_table<std::__hash_value_type<SVG::Element const*,SVG::Presentat
   }
 }
 
-uint64_t std::__hash_table<std::__hash_value_type<SVG::GradientElement const*,SVG::CF<CGGradient *>>,std::__unordered_map_hasher<SVG::GradientElement const*,std::__hash_value_type<SVG::GradientElement const*,SVG::CF<CGGradient *>>,std::hash<SVG::GradientElement const*>,std::equal_to<SVG::GradientElement const*>,true>,std::__unordered_map_equal<SVG::GradientElement const*,std::__hash_value_type<SVG::GradientElement const*,SVG::CF<CGGradient *>>,std::equal_to<SVG::GradientElement const*>,std::hash<SVG::GradientElement const*>,true>,std::allocator<std::__hash_value_type<SVG::GradientElement const*,SVG::CF<CGGradient *>>>>::~__hash_table(uint64_t a1)
+void **std::__hash_table<std::__hash_value_type<SVG::GradientElement const*,SVG::CF<CGGradient *>>,std::__unordered_map_hasher<SVG::GradientElement const*,std::__hash_value_type<SVG::GradientElement const*,SVG::CF<CGGradient *>>,std::hash<SVG::GradientElement const*>,std::equal_to<SVG::GradientElement const*>,true>,std::__unordered_map_equal<SVG::GradientElement const*,std::__hash_value_type<SVG::GradientElement const*,SVG::CF<CGGradient *>>,std::equal_to<SVG::GradientElement const*>,std::hash<SVG::GradientElement const*>,true>,std::allocator<std::__hash_value_type<SVG::GradientElement const*,SVG::CF<CGGradient *>>>>::~__hash_table(void **a1)
 {
-  std::__hash_table<std::__hash_value_type<SVG::GradientElement const*,SVG::CF<CGGradient *>>,std::__unordered_map_hasher<SVG::GradientElement const*,std::__hash_value_type<SVG::GradientElement const*,SVG::CF<CGGradient *>>,std::hash<SVG::GradientElement const*>,std::equal_to<SVG::GradientElement const*>,true>,std::__unordered_map_equal<SVG::GradientElement const*,std::__hash_value_type<SVG::GradientElement const*,SVG::CF<CGGradient *>>,std::equal_to<SVG::GradientElement const*>,std::hash<SVG::GradientElement const*>,true>,std::allocator<std::__hash_value_type<SVG::GradientElement const*,SVG::CF<CGGradient *>>>>::__deallocate_node(*(a1 + 16));
+  std::__hash_table<std::__hash_value_type<SVG::GradientElement const*,SVG::CF<CGGradient *>>,std::__unordered_map_hasher<SVG::GradientElement const*,std::__hash_value_type<SVG::GradientElement const*,SVG::CF<CGGradient *>>,std::hash<SVG::GradientElement const*>,std::equal_to<SVG::GradientElement const*>,true>,std::__unordered_map_equal<SVG::GradientElement const*,std::__hash_value_type<SVG::GradientElement const*,SVG::CF<CGGradient *>>,std::equal_to<SVG::GradientElement const*>,std::hash<SVG::GradientElement const*>,true>,std::allocator<std::__hash_value_type<SVG::GradientElement const*,SVG::CF<CGGradient *>>>>::__deallocate_node(a1[2]);
   v2 = *a1;
   *a1 = 0;
   if (v2)
@@ -8495,9 +8496,9 @@ void std::__hash_table<std::__hash_value_type<SVG::GradientElement const*,SVG::C
   }
 }
 
-uint64_t std::__hash_table<std::__hash_value_type<SVG::PatternElement const*,SVG::Document::PatternData>,std::__unordered_map_hasher<SVG::PatternElement const*,std::__hash_value_type<SVG::PatternElement const*,SVG::Document::PatternData>,std::hash<SVG::PatternElement const*>,std::equal_to<SVG::PatternElement const*>,true>,std::__unordered_map_equal<SVG::PatternElement const*,std::__hash_value_type<SVG::PatternElement const*,SVG::Document::PatternData>,std::equal_to<SVG::PatternElement const*>,std::hash<SVG::PatternElement const*>,true>,std::allocator<std::__hash_value_type<SVG::PatternElement const*,SVG::Document::PatternData>>>::~__hash_table(uint64_t a1)
+void **std::__hash_table<std::__hash_value_type<SVG::PatternElement const*,SVG::Document::PatternData>,std::__unordered_map_hasher<SVG::PatternElement const*,std::__hash_value_type<SVG::PatternElement const*,SVG::Document::PatternData>,std::hash<SVG::PatternElement const*>,std::equal_to<SVG::PatternElement const*>,true>,std::__unordered_map_equal<SVG::PatternElement const*,std::__hash_value_type<SVG::PatternElement const*,SVG::Document::PatternData>,std::equal_to<SVG::PatternElement const*>,std::hash<SVG::PatternElement const*>,true>,std::allocator<std::__hash_value_type<SVG::PatternElement const*,SVG::Document::PatternData>>>::~__hash_table(void **a1)
 {
-  std::__hash_table<std::__hash_value_type<SVG::PatternElement const*,SVG::Document::PatternData>,std::__unordered_map_hasher<SVG::PatternElement const*,std::__hash_value_type<SVG::PatternElement const*,SVG::Document::PatternData>,std::hash<SVG::PatternElement const*>,std::equal_to<SVG::PatternElement const*>,true>,std::__unordered_map_equal<SVG::PatternElement const*,std::__hash_value_type<SVG::PatternElement const*,SVG::Document::PatternData>,std::equal_to<SVG::PatternElement const*>,std::hash<SVG::PatternElement const*>,true>,std::allocator<std::__hash_value_type<SVG::PatternElement const*,SVG::Document::PatternData>>>::__deallocate_node(*(a1 + 16));
+  std::__hash_table<std::__hash_value_type<SVG::PatternElement const*,SVG::Document::PatternData>,std::__unordered_map_hasher<SVG::PatternElement const*,std::__hash_value_type<SVG::PatternElement const*,SVG::Document::PatternData>,std::hash<SVG::PatternElement const*>,std::equal_to<SVG::PatternElement const*>,true>,std::__unordered_map_equal<SVG::PatternElement const*,std::__hash_value_type<SVG::PatternElement const*,SVG::Document::PatternData>,std::equal_to<SVG::PatternElement const*>,std::hash<SVG::PatternElement const*>,true>,std::allocator<std::__hash_value_type<SVG::PatternElement const*,SVG::Document::PatternData>>>::__deallocate_node(a1[2]);
   v2 = *a1;
   *a1 = 0;
   if (v2)
@@ -8568,12 +8569,12 @@ uint64_t std::__shared_ptr_pointer<SVG::Document *,std::shared_ptr<SVG::Document
       operator delete(v5);
     }
 
-    std::__hash_table<std::__hash_value_type<SVG::Element const*,SVG::Presentation>,std::__unordered_map_hasher<SVG::Element const*,std::__hash_value_type<SVG::Element const*,SVG::Presentation>,std::hash<SVG::Element const*>,std::equal_to<SVG::Element const*>,true>,std::__unordered_map_equal<SVG::Element const*,std::__hash_value_type<SVG::Element const*,SVG::Presentation>,std::equal_to<SVG::Element const*>,std::hash<SVG::Element const*>,true>,std::allocator<std::__hash_value_type<SVG::Element const*,SVG::Presentation>>>::~__hash_table(v1 + 296);
-    std::__hash_table<std::__hash_value_type<SVG::PatternElement const*,SVG::Document::PatternData>,std::__unordered_map_hasher<SVG::PatternElement const*,std::__hash_value_type<SVG::PatternElement const*,SVG::Document::PatternData>,std::hash<SVG::PatternElement const*>,std::equal_to<SVG::PatternElement const*>,true>,std::__unordered_map_equal<SVG::PatternElement const*,std::__hash_value_type<SVG::PatternElement const*,SVG::Document::PatternData>,std::equal_to<SVG::PatternElement const*>,std::hash<SVG::PatternElement const*>,true>,std::allocator<std::__hash_value_type<SVG::PatternElement const*,SVG::Document::PatternData>>>::~__hash_table(v1 + 256);
-    std::__hash_table<std::__hash_value_type<SVG::PatternElement const*,SVG::Document::PatternData>,std::__unordered_map_hasher<SVG::PatternElement const*,std::__hash_value_type<SVG::PatternElement const*,SVG::Document::PatternData>,std::hash<SVG::PatternElement const*>,std::equal_to<SVG::PatternElement const*>,true>,std::__unordered_map_equal<SVG::PatternElement const*,std::__hash_value_type<SVG::PatternElement const*,SVG::Document::PatternData>,std::equal_to<SVG::PatternElement const*>,std::hash<SVG::PatternElement const*>,true>,std::allocator<std::__hash_value_type<SVG::PatternElement const*,SVG::Document::PatternData>>>::~__hash_table(v1 + 216);
-    std::__hash_table<std::__hash_value_type<SVG::GradientElement const*,SVG::CF<CGGradient *>>,std::__unordered_map_hasher<SVG::GradientElement const*,std::__hash_value_type<SVG::GradientElement const*,SVG::CF<CGGradient *>>,std::hash<SVG::GradientElement const*>,std::equal_to<SVG::GradientElement const*>,true>,std::__unordered_map_equal<SVG::GradientElement const*,std::__hash_value_type<SVG::GradientElement const*,SVG::CF<CGGradient *>>,std::equal_to<SVG::GradientElement const*>,std::hash<SVG::GradientElement const*>,true>,std::allocator<std::__hash_value_type<SVG::GradientElement const*,SVG::CF<CGGradient *>>>>::~__hash_table(v1 + 176);
+    std::__hash_table<std::__hash_value_type<SVG::Element const*,SVG::Presentation>,std::__unordered_map_hasher<SVG::Element const*,std::__hash_value_type<SVG::Element const*,SVG::Presentation>,std::hash<SVG::Element const*>,std::equal_to<SVG::Element const*>,true>,std::__unordered_map_equal<SVG::Element const*,std::__hash_value_type<SVG::Element const*,SVG::Presentation>,std::equal_to<SVG::Element const*>,std::hash<SVG::Element const*>,true>,std::allocator<std::__hash_value_type<SVG::Element const*,SVG::Presentation>>>::~__hash_table((v1 + 296));
+    std::__hash_table<std::__hash_value_type<SVG::PatternElement const*,SVG::Document::PatternData>,std::__unordered_map_hasher<SVG::PatternElement const*,std::__hash_value_type<SVG::PatternElement const*,SVG::Document::PatternData>,std::hash<SVG::PatternElement const*>,std::equal_to<SVG::PatternElement const*>,true>,std::__unordered_map_equal<SVG::PatternElement const*,std::__hash_value_type<SVG::PatternElement const*,SVG::Document::PatternData>,std::equal_to<SVG::PatternElement const*>,std::hash<SVG::PatternElement const*>,true>,std::allocator<std::__hash_value_type<SVG::PatternElement const*,SVG::Document::PatternData>>>::~__hash_table((v1 + 256));
+    std::__hash_table<std::__hash_value_type<SVG::PatternElement const*,SVG::Document::PatternData>,std::__unordered_map_hasher<SVG::PatternElement const*,std::__hash_value_type<SVG::PatternElement const*,SVG::Document::PatternData>,std::hash<SVG::PatternElement const*>,std::equal_to<SVG::PatternElement const*>,true>,std::__unordered_map_equal<SVG::PatternElement const*,std::__hash_value_type<SVG::PatternElement const*,SVG::Document::PatternData>,std::equal_to<SVG::PatternElement const*>,std::hash<SVG::PatternElement const*>,true>,std::allocator<std::__hash_value_type<SVG::PatternElement const*,SVG::Document::PatternData>>>::~__hash_table((v1 + 216));
+    std::__hash_table<std::__hash_value_type<SVG::GradientElement const*,SVG::CF<CGGradient *>>,std::__unordered_map_hasher<SVG::GradientElement const*,std::__hash_value_type<SVG::GradientElement const*,SVG::CF<CGGradient *>>,std::hash<SVG::GradientElement const*>,std::equal_to<SVG::GradientElement const*>,true>,std::__unordered_map_equal<SVG::GradientElement const*,std::__hash_value_type<SVG::GradientElement const*,SVG::CF<CGGradient *>>,std::equal_to<SVG::GradientElement const*>,std::hash<SVG::GradientElement const*>,true>,std::allocator<std::__hash_value_type<SVG::GradientElement const*,SVG::CF<CGGradient *>>>>::~__hash_table((v1 + 176));
     std::__hash_table<SVG::Element const*,std::hash<SVG::Element const*>,std::equal_to<SVG::Element const*>,std::allocator<SVG::Element const*>>::~__hash_table(v1 + 136);
-    std::__hash_table<std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>>>::~__hash_table(v1 + 96);
+    std::__hash_table<std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>>>::~__hash_table((v1 + 96));
     v6 = *(v1 + 88);
     if (v6)
     {
@@ -9210,7 +9211,7 @@ unint64_t SVG::CSS::consumeWhitespace(uint64_t *a1, unint64_t a2)
   return v9 | v10;
 }
 
-uint64_t SVG::CSS::consumeAName@<X0>(uint64_t *a1@<X0>, unint64_t a2@<X1>, std::string *a3@<X8>)
+uint64_t SVG::CSS::consumeAName@<X0>(uint64_t **a1@<X0>, unint64_t a2@<X1>, std::string *a3@<X8>)
 {
   v25 = 0xAAAAAAAAAAAAAAAALL;
   *&v6 = 0xAAAAAAAAAAAAAAAALL;
@@ -9346,14 +9347,14 @@ uint64_t SVG::CSS::consumeAName@<X0>(uint64_t *a1@<X0>, unint64_t a2@<X1>, std::
   return MEMORY[0x25F894220](v24);
 }
 
-uint64_t *SVG::CSS::consumeCodePoint@<X0>(uint64_t *result@<X0>, unint64_t a2@<X1>, uint64_t a3@<X8>)
+uint64_t **SVG::CSS::consumeCodePoint@<X0>(uint64_t **result@<X0>, unint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   v3 = *(result + 23);
   if ((v3 & 0x8000000000000000) == 0)
   {
     if (v3 > a2)
     {
-      v4 = a2 + 1;
+      v4 = (a2 + 1);
       v5 = *(result + a2);
       if (*(result + a2) < 0)
       {
@@ -9376,7 +9377,7 @@ LABEL_10:
     goto LABEL_10;
   }
 
-  v4 = a2 + 1;
+  v4 = (a2 + 1);
   v5 = *(*result + a2);
   if (*(*result + a2) < 0)
   {
@@ -9411,13 +9412,13 @@ LABEL_8:
         v20 = v5 - 240;
         v10 = *result;
         v21 = (v3 & 0x80000000) == 0 ? result : *result;
-        v22 = *(v21 + v4);
+        v22 = *(v4 + v21);
         if (((byte_25D1D74D3[v22 >> 4] >> v20) & 1) == 0)
         {
           goto LABEL_8;
         }
 
-        v4 = a2 + 2;
+        v4 = (a2 + 2);
         if ((v3 & 0x80000000) != 0)
         {
           v23 = *result;
@@ -9438,7 +9439,7 @@ LABEL_8:
           }
         }
 
-        v13 = *(v23 + v4) ^ 0x80;
+        v13 = *(v4 + v23) ^ 0x80;
         if (v13 > 0x3F)
         {
           goto LABEL_8;
@@ -9462,7 +9463,7 @@ LABEL_8:
           v11 = *result;
         }
 
-        v12 = *(v11 + v4);
+        v12 = *(v4 + v11);
         if (((v9 >> (v12 >> 5)) & 1) == 0)
         {
           goto LABEL_8;
@@ -9471,7 +9472,7 @@ LABEL_8:
         v13 = v12 & 0x3F;
       }
 
-      ++v4;
+      v4 = (v4 + 1);
       v14 = result[1];
       if ((v3 & 0x80000000) == 0)
       {
@@ -9496,7 +9497,7 @@ LABEL_8:
       v16 = v10;
     }
 
-    v17 = *(v16 + v4) ^ 0x80;
+    v17 = *(v4 + v16) ^ 0x80;
     v18 = v17 > 0x3F;
     v19 = v17 | (v15 << 6);
     if (v18)
@@ -9506,7 +9507,7 @@ LABEL_8:
 
     else
     {
-      ++v4;
+      v4 = (v4 + 1);
       v5 = v19;
     }
   }
@@ -9579,7 +9580,7 @@ void *SVG::CSS::appendToStringStream(void *result, unsigned int a2)
   return result;
 }
 
-const void *std::ostringstream::str[abi:nn200100]@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
+void *std::ostringstream::str[abi:nn200100]@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
   result = std::stringbuf::view[abi:nn200100](a1 + 8);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -9593,17 +9594,17 @@ const void *std::ostringstream::str[abi:nn200100]@<X0>(uint64_t a1@<X0>, _BYTE *
     operator new();
   }
 
-  a2[23] = v4;
+  *(a2 + 23) = v4;
   if (v4)
   {
     result = memmove(a2, result, v4);
   }
 
-  a2[v5] = 0;
+  *(a2 + v5) = 0;
   return result;
 }
 
-uint64_t SVG::CSS::preprocess@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
+uint64_t SVG::CSS::preprocess@<X0>(uint64_t **a1@<X0>, void *a2@<X8>)
 {
   v17 = 0xAAAAAAAAAAAAAAAALL;
   *&v4 = 0xAAAAAAAAAAAAAAAALL;
@@ -9693,7 +9694,7 @@ LABEL_16:
   return MEMORY[0x25F894220](v16);
 }
 
-uint64_t *SVG::CSS::consumeHexDigit(uint64_t a1, uint64_t *a2, unint64_t a3)
+uint64_t **SVG::CSS::consumeHexDigit(uint64_t a1, uint64_t **a2, unint64_t a3)
 {
   memset(v7, 170, sizeof(v7));
   result = SVG::CSS::consumeCodePoint(a2, a3, v7);
@@ -9751,53 +9752,4 @@ uint64_t std::stringbuf::view[abi:nn200100](uint64_t a1)
   {
     return 0;
   }
-}
-
-uint64_t SVG::parseUnits(uint64_t a1)
-{
-  v2 = 0;
-  do
-  {
-    v3 = v2;
-    v2 = SVG::consumeWsp(a1, v2);
-  }
-
-  while ((v4 & 1) != 0);
-  memset(v13, 170, sizeof(v13));
-  SVG::consumeUnits(a1, v3, v13);
-  if (LOBYTE(v13[2]) != 1)
-  {
-    goto LABEL_10;
-  }
-
-  v5 = v13[1];
-  do
-  {
-    v6 = v5;
-    v5 = SVG::consumeWsp(a1, v5);
-  }
-
-  while ((v7 & 1) != 0);
-  v8 = *(a1 + 23);
-  if ((v8 & 0x80u) != 0)
-  {
-    v8 = *(a1 + 8);
-  }
-
-  if (v6 == v8)
-  {
-    v9 = v13[0] & 0xFFFFFF00;
-    v10 = LOBYTE(v13[0]);
-    v11 = 0x100000000;
-  }
-
-  else
-  {
-LABEL_10:
-    v11 = 0;
-    v10 = 0;
-    v9 = 0;
-  }
-
-  return v11 | v9 | v10;
 }

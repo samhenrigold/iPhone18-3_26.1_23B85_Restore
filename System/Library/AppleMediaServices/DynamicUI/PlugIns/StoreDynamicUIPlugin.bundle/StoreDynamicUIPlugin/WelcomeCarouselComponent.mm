@@ -8,7 +8,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_131F94();
+  sub_131F94(selfCopy);
 }
 
 - (CGSize)systemLayoutSizeFittingSize:(CGSize)size withHorizontalFittingPriority:(float)priority verticalFittingPriority:(float)fittingPriority

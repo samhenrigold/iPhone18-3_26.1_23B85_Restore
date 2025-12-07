@@ -318,7 +318,7 @@ LABEL_59:
       goto LABEL_60;
     }
 
-    drawingOptions = [(RB::Symbol::Model *)v46[0] drawingOptions];
+    drawingOptions = [v46.n128_u64[0] drawingOptions];
     v7 = drawingOptions;
     v8 = vandq_s8(vandq_s8(vceqq_f64(v54, xmmword_195E42770), vceqq_f64(v53, xmmword_195E42760)), vceqzq_f64(v55));
     if ((vandq_s8(vdupq_laneq_s64(v8, 1), v8).u64[0] & 0x8000000000000000) != 0 && (drawingOptions & 2) == 0 && (RB::Symbol::Presentation::style_mask(v47) & 0x1000) == 0)
@@ -329,10 +329,10 @@ LABEL_59:
       {
         v10 = v59.n128_f64[1];
         v11 = v60;
-        if (*(v46[0] + 96) != 3 || (v12 = [-[RB::Symbol::Model sublayers](v46[0] "sublayers")]) == 0)
+        if (*(v46.n128_u64[0] + 96) != 3 || (v12 = [objc_msgSend(v46.n128_u64[0] "sublayers")]) == 0)
         {
           v12 = objc_opt_new();
-          [(RB::Symbol::Model *)v46[0] configureSublayer:v12 type:0];
+          [v46.n128_u64[0] configureSublayer:v12 type:0];
           if (color_symbols())
           {
             {
@@ -341,13 +341,13 @@ LABEL_59:
 
           [v12 setContentsGravity:*MEMORY[0x1E6979DC0]];
           [v12 setContentsSwizzle:*MEMORY[0x1E6979E30]];
-          [v12 setDelegate:v46[0]];
+          [v12 setDelegate:v46.n128_u64[0]];
           v63[0] = v12;
-          -[RB::Symbol::Model setSublayers:](v46[0], "setSublayers:", [MEMORY[0x1E695DEC8] arrayWithObjects:v63 count:1]);
+          [v46.n128_u64[0] setSublayers:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v63, 1)}];
 
-          if (v46[0] && *(v46[0] + 96) != 3)
+          if (v46.n128_u64[0] && *(v46.n128_u64[0] + 96) != 3)
           {
-            *(v46[0] + 96) = 3;
+            *(v46.n128_u64[0] + 96) = 3;
           }
         }
 
@@ -357,7 +357,7 @@ LABEL_59:
         [v12 setOpacity:v13];
         if (color_symbols())
         {
-          [(RB::Symbol::Model *)v46[0] bounds];
+          [v46.n128_u64[0] bounds];
           [v12 setFrame:?];
         }
 
@@ -382,7 +382,7 @@ LABEL_59:
         v17 = v16[7];
         if (v17 == -32768.0)
         {
-          [(RB::Symbol::Model *)v46[0] resolveStyle:0 colorName:0];
+          [v46.n128_u64[0] resolveStyle:0 colorName:0];
           v17 = v21;
           if (v21 == -32768.0)
           {
@@ -432,7 +432,7 @@ LABEL_59:
       v25 = 1;
     }
 
-    if (*(v46[0] + 96) == v25 && (v26 = [-[RB::Symbol::Model sublayers](v46[0] "sublayers")], (v27 = v26) != 0))
+    if (*(v46.n128_u64[0] + 96) == v25 && (v26 = [objc_msgSend(v46.n128_u64[0] "sublayers")], (v27 = v26) != 0))
     {
       [(CALayer *)v26 position];
       if (v29 == rect2.origin.x && v28 == rect2.origin.y)
@@ -448,7 +448,7 @@ LABEL_55:
             v63[1] = 3221225472;
             v63[2] = ___ZN12_GLOBAL__N_17Updater13update_mergedEv_block_invoke;
             v63[3] = &__block_descriptor_40_e66_B60__0__RBFill_8_CGRect__CGPoint_dd__CGSize_dd__16I48__NSString_52l;
-            v63[4] = v46;
+            v63[4] = &v46;
             if (v7)
             {
               v33 = objc_opt_new();
@@ -458,10 +458,10 @@ LABEL_55:
               [v33 concat:&v59];
               State = RBDisplayListGetState(v33);
               RB::Symbol::Presentation::draw(v47, State, 0, v63, 1.0);
-              v37 = v46[0];
+              v37 = v46.n128_u64[0];
               moveContents = [v33 moveContents];
 
-              *(v37 + 9) = moveContents;
+              *(v37 + 72) = moveContents;
               [(CALayer *)v27 setNeedsDisplay];
             }
 
@@ -472,7 +472,7 @@ LABEL_55:
               *&v60 = ___ZN12_GLOBAL__N_17Updater13update_mergedEv_block_invoke_2;
               *(&v60 + 1) = &unk_1E744CD10;
               *(&v61 + 1) = v63;
-              v62 = v46;
+              v62 = &v46;
               *&v61 = v27;
               [(CALayer *)v27 displayWithBounds:&v59 callback:rect2.origin.x, rect2.origin.y, rect2.size.width, rect2.size.height];
               if ([(CALayer *)v27 needsDisplay])
@@ -500,7 +500,7 @@ LABEL_55:
         v31 = 1;
       }
 
-      [(RB::Symbol::Model *)v46[0] configureSublayer:v27 type:v31];
+      [v46.n128_u64[0] configureSublayer:v27 type:v31];
       if (color_symbols())
       {
         {
@@ -518,13 +518,13 @@ LABEL_55:
 
       [(CALayer *)v27 setOpaque:0];
       [(CALayer *)v27 setAnchorPoint:*MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8)];
-      [(CALayer *)v27 setDelegate:v46[0]];
+      [(CALayer *)v27 setDelegate:v46.n128_u64[0]];
       v59.n128_u64[0] = v27;
-      -[RB::Symbol::Model setSublayers:](v46[0], "setSublayers:", [MEMORY[0x1E695DEC8] arrayWithObjects:&v59 count:1]);
+      [v46.n128_u64[0] setSublayers:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", &v59, 1)}];
 
-      if (v46[0] && *(v46[0] + 96) != v25)
+      if (v46.n128_u64[0] && *(v46.n128_u64[0] + 96) != v25)
       {
-        *(v46[0] + 96) = v25;
+        *(v46.n128_u64[0] + 96) = v25;
       }
     }
 
@@ -588,7 +588,7 @@ LABEL_55:
       v22[4] = self;
       v20 = 0;
       v21 = 1.0;
-      v9 = RBDrawingStateFromCGContext(context, &v21, &v20);
+      v9 = RBDrawingStateFromCGContext();
       v10 = v9;
       if (v9)
       {

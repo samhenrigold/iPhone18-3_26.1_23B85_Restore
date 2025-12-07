@@ -1,13 +1,13 @@
-id sub_100001624()
+id sub_100001624(uint64_t a1)
 {
   if (qword_10001A7A0 != -1)
   {
     sub_10000B1A4();
   }
 
-  v1 = qword_10001A7A8;
+  v2 = qword_10001A7A8;
 
-  return v1;
+  return v2;
 }
 
 void sub_1000018A8(uint64_t a1)
@@ -89,9 +89,9 @@ void sub_1000025C8(uint64_t a1)
   v5 = [v2 kerberosForRealm:v4];
 
   v6 = [*(a1 + 32) currentUIContext];
-  v34[0] = 0;
-  LODWORD(v4) = [v5 changePasswordWithContext:v6 withError:v34];
-  v7 = v34[0];
+  v36[0] = 0;
+  LODWORD(v4) = [v5 changePasswordWithContext:v6 withError:v36];
+  v7 = v36[0];
 
   if (v4)
   {
@@ -127,10 +127,10 @@ LABEL_6:
       v12 = [*(a1 + 32) keychainHelper];
       v13 = [*(a1 + 32) currentUIContext];
       v17 = [v13 serviceName];
-      v29 = [*(a1 + 32) currentUIContext];
-      v18 = [v29 userPrincipalName];
-      v28 = [*(a1 + 32) currentUIContext];
-      v19 = [v28 password];
+      v31 = [*(a1 + 32) currentUIContext];
+      v18 = [v31 userPrincipalName];
+      v30 = [*(a1 + 32) currentUIContext];
+      v19 = [v30 password];
       v20 = [*(a1 + 32) currentUIContext];
       v21 = [v20 extensionData];
       [v12 addCredentialsToKeychainWithService:v17 withUsername:v18 withPassword:v19 requireUserPresence:{objc_msgSend(v21, "requireUserPresence")}];
@@ -141,38 +141,38 @@ LABEL_6:
 
   if (v7)
   {
-    v23 = [*(a1 + 32) process];
-    v24 = [v23 mapKnownPasswordErrorToString:v7];
+    v24 = [*(a1 + 32) process];
+    v25 = [v24 mapKnownPasswordErrorToString:v7];
 
-    v25 = sub_100001624();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    v27 = sub_100001624(v26);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
-      sub_10000B344(v24, v25);
+      sub_10000B344(v25, v27);
     }
 
-    v31[0] = _NSConcreteStackBlock;
-    v31[1] = 3221225472;
-    v31[2] = sub_100002AB4;
-    v31[3] = &unk_100014428;
-    v31[4] = *(a1 + 32);
-    v32 = v24;
-    v26 = v24;
-    dispatch_async(&_dispatch_main_q, v31);
+    v33[0] = _NSConcreteStackBlock;
+    v33[1] = 3221225472;
+    v33[2] = sub_100002AB4;
+    v33[3] = &unk_100014428;
+    v33[4] = *(a1 + 32);
+    v34 = v25;
+    v28 = v25;
+    dispatch_async(&_dispatch_main_q, v33);
   }
 
   else
   {
-    v30[0] = _NSConcreteStackBlock;
-    v30[1] = 3221225472;
-    v30[2] = sub_100002B30;
-    v30[3] = &unk_100014358;
-    v30[4] = *(a1 + 32);
-    dispatch_async(&_dispatch_main_q, v30);
+    v32[0] = _NSConcreteStackBlock;
+    v32[1] = 3221225472;
+    v32[2] = sub_100002B30;
+    v32[3] = &unk_100014358;
+    v32[4] = *(a1 + 32);
+    dispatch_async(&_dispatch_main_q, v32);
   }
 
 LABEL_12:
-  v27 = sub_100001624();
-  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+  v29 = sub_100001624(v23);
+  if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
   {
     sub_10000B3BC();
   }
@@ -249,10 +249,11 @@ void sub_100003894(id a1)
   _objc_release_x1();
 }
 
-void sub_1000038D8(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1000038D8(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 2u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 2u);
 }
 
 void sub_100003F24(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location)
@@ -262,16 +263,16 @@ void sub_100003F24(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-id sub_100003F48()
+id sub_100003F48(uint64_t a1)
 {
   if (qword_10001A7B0 != -1)
   {
     sub_10000B3F0();
   }
 
-  v1 = qword_10001A7B8;
+  v2 = qword_10001A7B8;
 
-  return v1;
+  return v2;
 }
 
 void sub_100003F8C(uint64_t a1, void *a2)
@@ -494,7 +495,7 @@ void sub_100005A60(uint64_t a1)
 
 uint64_t sub_100005EB4(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_100003F48();
+  v4 = sub_100003F48(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v10[0] = 67109120;
@@ -627,7 +628,7 @@ void sub_100007230(uint64_t a1, int a2, void *a3)
   v6 = v5;
   if (a2)
   {
-    v7 = sub_100003F48();
+    v7 = sub_100003F48(v5);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       sub_10000B6FC(a1, v7);
@@ -654,7 +655,7 @@ void sub_100007230(uint64_t a1, int a2, void *a3)
   {
     if (v5)
     {
-      v10 = sub_100003F48();
+      v10 = sub_100003F48(v5);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         sub_10000B688();
@@ -825,23 +826,24 @@ id sub_100007D00(uint64_t a1)
 void sub_10000806C(uint64_t a1, char a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if (a2)
   {
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_100008160;
     block[3] = &unk_1000146C8;
-    v6 = *(a1 + 40);
+    v7 = *(a1 + 40);
     block[4] = *(a1 + 32);
-    v9 = v6;
-    v10 = *(a1 + 48);
+    v10 = v7;
+    v11 = *(a1 + 48);
     dispatch_async(&_dispatch_main_q, block);
   }
 
   else
   {
-    v7 = sub_100003F48();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = sub_100003F48(v5);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_10000B7F4();
     }
@@ -900,7 +902,7 @@ void sub_1000094BC(id a1)
 
 void sub_10000976C(uint64_t a1)
 {
-  v2 = sub_1000099B0();
+  v2 = sub_1000099B0(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     sub_10000B868(a1, v2);
@@ -983,16 +985,16 @@ LABEL_11:
   }
 }
 
-id sub_1000099B0()
+id sub_1000099B0(uint64_t a1)
 {
   if (qword_10001A7C0 != -1)
   {
     sub_10000B964();
   }
 
-  v1 = qword_10001A7C8;
+  v2 = qword_10001A7C8;
 
-  return v1;
+  return v2;
 }
 
 void sub_100009BE8(uint64_t a1)
@@ -1029,10 +1031,10 @@ void sub_100009BE8(uint64_t a1)
   v15 = [*(a1 + 40) passwordViewController];
   [v15 handleKerberosOperation:*(a1 + 32) withMessage:0];
 
-  v16 = sub_1000099B0();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+  v17 = sub_1000099B0(v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
   {
-    sub_10000BB00(v16);
+    sub_10000BB00(v17);
   }
 }
 
@@ -1046,7 +1048,7 @@ void sub_10000A864(uint64_t a1, int a2)
 
   else
   {
-    v3 = sub_1000099B0();
+    v3 = sub_1000099B0(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       sub_10000BB44(v3);
@@ -1095,7 +1097,7 @@ void *sub_10000ACDC(uint64_t a1)
 
     else
     {
-      v3 = abort_report_np();
+      v3 = abort_report_np("%s", v5[0]);
     }
 
     free(v3);
@@ -1112,16 +1114,16 @@ LABEL_5:
 
 uint64_t sub_10000AE1C(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_10001A7D8 = result;
   return result;
 }
 
-void sub_10000AE90(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10000AE90(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
 void sub_10000B000(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location)
@@ -1202,8 +1204,8 @@ void sub_10000B868(uint64_t a1, NSObject *a2)
 
 void sub_10000B940()
 {
-  dlerror();
-  abort_report_np();
+  v0 = dlerror();
+  abort_report_np("%s", v0);
   sub_10000B964();
 }
 
@@ -1217,13 +1219,17 @@ void sub_10000B978(uint64_t a1, NSObject *a2)
 void sub_10000B9F0(void *a1)
 {
   v1 = [a1 realm];
-  sub_10000AE90(&_mh_execute_header, v2, v3, "handleKerberosOperations: %{public}@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = v1;
+  sub_10000AE90(&_mh_execute_header, v2, v3, "handleKerberosOperations: %{public}@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 void sub_10000BA78(void *a1)
 {
   v1 = [a1 realm];
-  sub_10000AE90(&_mh_execute_header, v2, v3, "handleChangePasswordWithRequest: %{public}@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = v1;
+  sub_10000AE90(&_mh_execute_header, v2, v3, "handleChangePasswordWithRequest: %{public}@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 void sub_10000BB9C(void *a1, void *a2)

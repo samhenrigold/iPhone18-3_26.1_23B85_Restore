@@ -29,8 +29,9 @@
 - (void)releaseLock
 {
   selfCopy = self;
-  __error();
-  OUTLINED_FUNCTION_1_7(&dword_1BB6F3000, v2, v3, "Failed to close coordination lock: %{errno}d", v4, v5, v6, v7, 0);
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = *__error();
+  OUTLINED_FUNCTION_1_7(&dword_1BB6F3000, v2, v3, "Failed to close coordination lock: %{errno}d", v4, v5, v6, v7, v8);
 }
 
 - (void)dealloc

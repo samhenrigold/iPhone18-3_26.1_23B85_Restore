@@ -1,40 +1,48 @@
 uint64_t sub_100000F48(uint64_t a1, int a2, char *const *a3)
 {
-  v19 = a1;
-  v18 = a2;
-  v17 = a3;
-  v16 = -1;
+  v17 = a1;
+  v16 = a2;
   v15 = a3;
   v14 = -1;
-  v13 = 0;
+  v13 = a3;
+  v12 = -1;
+  v11 = 0;
   memset(__b, 0, sizeof(__b));
   LOBYTE(__b[9]) = 0;
   sub_1000480E0();
   while (1)
   {
-    v14 = getopt_long(v18, v15, *(v19 + 32), *(v19 + 40), &v13);
-    if (v14 == -1)
+    v12 = getopt_long(v16, v13, *(v17 + 32), *(v17 + 40), &v11);
+    if (v12 == -1)
     {
       break;
     }
 
+    v9 = (*(v17 + 40) + 32 * v11);
+    v8 = v15[optind - 1];
     if (optind < 1)
     {
-      memset(&v20[8], 0, 0x50uLL);
-      os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-      sub_1000013C8(v20, optind);
-      _os_log_send_and_compose_impl();
+      v7 = 0;
+      memset(v19, 0, sizeof(v19));
+      v6 = 3;
+      if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+      {
+        v6 = 2;
+      }
+
+      sub_1000013C8(v18, optind);
+      _os_log_send_and_compose_impl(v6, &v7, v19, 80, &_mh_execute_header, &_os_log_default, 16, "unexpected failure: bogus optind: %d", v18);
       _os_crash_msg();
       __break(1u);
       JUMPOUT(0x100001130);
     }
 
-    switch(v14)
+    switch(v12)
     {
       case ':':
-        errx(64, "missing argument for option: %s", *(*(v19 + 40) + 32 * v13));
+        errx(64, "missing argument for option: %s", *v9);
       case '?':
-        errx(64, "unknown option: %s", v17[optind - 1]);
+        errx(64, "unknown option: %s", v8);
       case 'P':
         LOBYTE(__b[9]) = 1;
         break;
@@ -45,7 +53,7 @@ uint64_t sub_100000F48(uint64_t a1, int a2, char *const *a3)
         __b[1] = optarg;
         break;
       case 'p':
-        sub_10004860C(0, 1uLL, "will create new process", v3, v4, v5, v6, v7, v9);
+        sub_10004860C(0, 1uLL, "will create new process");
         __b[0] |= 1uLL;
         break;
       case 's':
@@ -61,32 +69,32 @@ uint64_t sub_100000F48(uint64_t a1, int a2, char *const *a3)
     }
   }
 
-  v17 += optind;
-  v18 -= optind;
-  if (v18 < 2)
+  v15 += optind;
+  v16 -= optind;
+  if (v16 < 2)
   {
     errx(64, "both a binary to exec and a subsystem root must be provided");
   }
 
-  __b[3] = *v17;
-  __b[4] = v17[1];
-  v17 += 2;
-  v18 -= 2;
-  if (v18 >= 1)
+  __b[3] = *v15;
+  __b[4] = v15[1];
+  v15 += 2;
+  v16 -= 2;
+  if (v16 >= 1)
   {
-    v11 = v18;
-    v10 = v17;
-    if (!strcmp(*v17, "--"))
+    v5 = v16;
+    v4 = v15;
+    if (!strcmp(*v15, "--"))
     {
-      ++v10;
-      --v11;
+      ++v4;
+      --v5;
     }
 
-    __b[5] = v11;
-    __b[6] = v10;
+    __b[5] = v5;
+    __b[6] = v4;
   }
 
-  v16 = sub_100001400();
+  v14 = sub_100001400();
   return sysexit_np();
 }
 
@@ -102,229 +110,230 @@ uint64_t sub_1000013C8(uint64_t result, int a2)
 
 uint64_t sub_100001400()
 {
-  v178 = __chkstk_darwin();
-  v177 = -1;
-  v176 = sub_100048090();
-  v175 = -1;
-  v174 = 0;
-  v173 = 0;
+  v138 = __chkstk_darwin();
+  v137 = -1;
+  v136 = sub_100048090();
+  v135 = -1;
+  v134 = 0;
+  v133 = 0;
   i = 0;
-  v171 = *(v178 + 32);
-  v170 = 0;
-  v169 = 0;
-  v168 = 2;
+  v131 = *(v138 + 32);
+  v130 = 0;
+  v129 = 0;
+  v128 = 2;
   __argv = 0;
-  v166 = 0;
-  v165 = 0;
-  v164 = -1;
+  v126 = 0;
+  v125 = 0;
+  v124 = -1;
   bzero(__value, 0x400uLL);
-  bzero(v230, 0x400uLL);
-  if ((*v178 & 1) == 0)
+  bzero(v197, 0x400uLL);
+  if ((*v138 & 1) == 0)
   {
-    v174 |= 0x40u;
+    v134 |= 0x40u;
   }
 
-  if (*(v178 + 8))
+  if (*(v138 + 8))
   {
-    v177 = sub_100002E20(&v170, &v169, *(v178 + 32), *(v178 + 8), *(v178 + 16), *(v178 + 56));
-    if (v177)
+    v137 = sub_100002E20(&v130, &v129, *(v138 + 32), *(v138 + 8), *(v138 + 16), *(v138 + 56));
+    if (v137)
     {
-      sub_10004860C(0, 1uLL, "cannot find program inside cryptex, fallback to system path: %d", v0, v1, v2, v3, v4, v177);
+      sub_10004860C(0, 1uLL, "cannot find program inside cryptex, fallback to system path: %d", v137);
     }
 
     else
     {
-      sub_10004860C(0, 1uLL, "program = %s", v0, v1, v2, v3, v4, v171);
-      v171 = v170;
+      sub_10004860C(0, 1uLL, "program = %s", v131);
+      v131 = v130;
     }
   }
 
-  if (*(v178 + 72))
+  if (*(v138 + 72))
   {
-    v71 = *(v178 + 24);
-    v5 = sub_10001B738();
-    __snprintf_chk(__value, 0x400uLL, 0, 0x400uLL, "%s/%s", v71, v5);
-    v163 = setenv("PYTHONPATH", __value, 1);
-    if (v163 == -1)
+    v31 = *(v138 + 24);
+    v0 = sub_10001B738();
+    __snprintf_chk(__value, 0x400uLL, 0, 0x400uLL, "%s/%s", v31, v0);
+    v123 = setenv("PYTHONPATH", __value, 1);
+    if (v123 == -1)
     {
-      v162 = 0;
-      memset(&v229[16], 0, 0x50uLL);
-      v160 = 0;
-      v159 = 3;
+      v122 = 0;
+      memset(__b, 0, sizeof(__b));
+      v120 = 0;
+      v119 = 3;
       oslog = &_os_log_default;
       type = OS_LOG_TYPE_ERROR;
       if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
-        v159 &= ~1u;
+        v119 &= ~1u;
       }
 
-      if (v159)
+      if (v119)
       {
-        v6 = *__error();
-        sub_1000013C8(v229, v6);
-        v156 = _os_log_send_and_compose_impl();
-        v160 = v156;
+        v1 = *__error();
+        sub_1000013C8(v195, v1);
+        LODWORD(v11) = 8;
+        v116 = _os_log_send_and_compose_impl(v119, &v122, __b, 80, &_mh_execute_header, oslog, type, "assertion failure: setenv(PYTHONPATH, pythonpath, 1) -> %{errno}d", v195, v11);
+        v120 = v116;
       }
 
-      v155 = v160;
-      v161 = v160;
+      v115 = v120;
+      v121 = v120;
       _os_crash_msg();
       __break(1u);
     }
   }
 
-  v177 = posix_spawn_file_actions_init(&v166);
-  v154 = v177;
-  if (v177)
+  v137 = posix_spawn_file_actions_init(&v126);
+  v114 = v137;
+  if (v137)
   {
-    v153 = 0;
-    memset(&v228[16], 0, 0x50uLL);
-    v151 = 0;
-    v150 = 3;
-    v149 = &_os_log_default;
-    v148 = OS_LOG_TYPE_ERROR;
+    v113[0] = 0;
+    memset(v194, 0, sizeof(v194));
+    v111 = 0;
+    v110 = 3;
+    v109 = &_os_log_default;
+    v108 = OS_LOG_TYPE_ERROR;
     if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      v150 &= ~1u;
+      v110 &= ~1u;
     }
 
-    if (v150)
+    if (v110)
     {
-      sub_100003098(v228, v154);
-      v147 = _os_log_send_and_compose_impl();
-      v151 = v147;
+      sub_100003098(v193, v114);
+      v107 = _os_log_send_and_compose_impl(v110, v113, v194, 80, &_mh_execute_header, v109, v108, "assertion failure: error -> %llu", v193);
+      v111 = v107;
     }
 
-    v146 = v151;
-    v152 = v151;
+    v106 = v111;
+    v112 = v111;
     _os_crash_msg();
     __break(1u);
   }
 
-  v177 = posix_spawn_file_actions_addinherit_np(&v166, 0);
-  v145 = v177;
-  if (v177)
+  v137 = posix_spawn_file_actions_addinherit_np(&v126, 0);
+  v105 = v137;
+  if (v137)
   {
-    v144 = 0;
-    memset(&v227[16], 0, 0x50uLL);
-    v142 = 0;
-    v141 = 3;
-    v140 = &_os_log_default;
-    v139 = OS_LOG_TYPE_ERROR;
+    v104[0] = 0;
+    memset(v192, 0, sizeof(v192));
+    v102 = 0;
+    v101 = 3;
+    v100 = &_os_log_default;
+    v99 = OS_LOG_TYPE_ERROR;
     if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      v141 &= ~1u;
+      v101 &= ~1u;
     }
 
-    if (v141)
+    if (v101)
     {
-      sub_100003098(v227, v145);
-      v138 = _os_log_send_and_compose_impl();
-      v142 = v138;
+      sub_100003098(v191, v105);
+      v98 = _os_log_send_and_compose_impl(v101, v104, v192, 80, &_mh_execute_header, v100, v99, "assertion failure: error -> %llu", v191);
+      v102 = v98;
     }
 
-    v137 = v142;
-    v143 = v142;
+    v97 = v102;
+    v103 = v102;
     _os_crash_msg();
     __break(1u);
   }
 
-  v177 = posix_spawn_file_actions_addinherit_np(&v166, 1);
-  v136 = v177;
-  if (v177)
+  v137 = posix_spawn_file_actions_addinherit_np(&v126, 1);
+  v96 = v137;
+  if (v137)
   {
-    v135 = 0;
-    memset(&v226[16], 0, 0x50uLL);
-    v133 = 0;
-    v132 = 3;
-    v131 = &_os_log_default;
-    v130 = OS_LOG_TYPE_ERROR;
+    v95[0] = 0;
+    memset(v190, 0, sizeof(v190));
+    v93 = 0;
+    v92 = 3;
+    v91 = &_os_log_default;
+    v90 = OS_LOG_TYPE_ERROR;
     if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      v132 &= ~1u;
+      v92 &= ~1u;
     }
 
-    if (v132)
+    if (v92)
     {
-      sub_100003098(v226, v136);
-      v129 = _os_log_send_and_compose_impl();
-      v133 = v129;
+      sub_100003098(v189, v96);
+      v89 = _os_log_send_and_compose_impl(v92, v95, v190, 80, &_mh_execute_header, v91, v90, "assertion failure: error -> %llu", v189);
+      v93 = v89;
     }
 
-    v128 = v133;
-    v134 = v133;
+    v88 = v93;
+    v94 = v93;
     _os_crash_msg();
     __break(1u);
   }
 
-  v177 = posix_spawn_file_actions_addinherit_np(&v166, 2);
-  v127 = v177;
-  if (v177)
+  v137 = posix_spawn_file_actions_addinherit_np(&v126, 2);
+  v87 = v137;
+  if (v137)
   {
-    v126 = 0;
-    memset(&v225[16], 0, 0x50uLL);
-    v124 = 0;
-    v123 = 3;
-    v122 = &_os_log_default;
-    v121 = OS_LOG_TYPE_ERROR;
+    v86[0] = 0;
+    memset(v188, 0, sizeof(v188));
+    v84 = 0;
+    v83 = 3;
+    v82 = &_os_log_default;
+    v81 = OS_LOG_TYPE_ERROR;
     if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      v123 &= ~1u;
+      v83 &= ~1u;
     }
 
-    if (v123)
+    if (v83)
     {
-      sub_100003098(v225, v127);
-      v120 = _os_log_send_and_compose_impl();
-      v124 = v120;
+      sub_100003098(v187, v87);
+      v80 = _os_log_send_and_compose_impl(v83, v86, v188, 80, &_mh_execute_header, v82, v81, "assertion failure: error -> %llu", v187);
+      v84 = v80;
     }
 
-    v119 = v124;
-    v125 = v124;
+    v79 = v84;
+    v85 = v84;
     _os_crash_msg();
     __break(1u);
   }
 
-  v177 = posix_spawnattr_init(&v165);
-  v118 = v177;
-  if (v177)
+  v137 = posix_spawnattr_init(&v125);
+  v78 = v137;
+  if (v137)
   {
-    v117 = 0;
-    memset(&v224[16], 0, 0x50uLL);
-    v115 = 0;
-    v114 = 3;
-    v113 = &_os_log_default;
-    v112 = OS_LOG_TYPE_ERROR;
+    v77[0] = 0;
+    memset(v186, 0, sizeof(v186));
+    v75 = 0;
+    v74 = 3;
+    v73 = &_os_log_default;
+    v72 = OS_LOG_TYPE_ERROR;
     if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      v114 &= ~1u;
+      v74 &= ~1u;
     }
 
-    if (v114)
+    if (v74)
     {
-      sub_100003098(v224, v118);
-      v111 = _os_log_send_and_compose_impl();
-      v115 = v111;
+      sub_100003098(v185, v78);
+      v71 = _os_log_send_and_compose_impl(v74, v77, v186, 80, &_mh_execute_header, v73, v72, "assertion failure: error -> %llu", v185);
+      v75 = v71;
     }
 
-    v110[1] = v115;
-    v116 = v115;
+    v70[1] = v75;
+    v76 = v75;
     _os_crash_msg();
     __break(1u);
   }
 
-  if (*(v178 + 56))
+  if (*(v138 + 56))
   {
-    v110[0] = sub_100026694(*(v178 + 56));
-    if (!v110[0])
+    v70[0] = sub_100026694(*(v138 + 56));
+    if (!v70[0])
     {
-      errx(2, "cannot find session with uuid %s", *(v178 + 56));
+      errx(2, "cannot find session with uuid %s", *(v138 + 56));
     }
 
     uid = session_get_uid();
     *__error() = 0;
-    v108 = getpwuid(uid);
-    if (!v108)
+    v68 = getpwuid(uid);
+    if (!v68)
     {
       if (*__error())
       {
@@ -334,112 +343,110 @@ uint64_t sub_100001400()
       errx(67, "session has uid %u, but that uid does not exist", uid);
     }
 
-    v107 = 0;
-    v106 = bootstrap_look_up_per_user();
-    if (v106 == 144)
+    v67 = 0;
+    v66 = bootstrap_look_up_per_user();
+    if (v66 == 144)
     {
       errx(77, "Not entitled to perform bootstrap lookup, may need to run as superuser");
     }
 
-    v105 = v106;
-    if (v106)
+    v65 = v66;
+    if (v66)
     {
-      v104 = 0;
-      memset(&v223[16], 0, 0x50uLL);
-      v102 = 0;
-      v101 = 3;
-      v100 = &_os_log_default;
-      v99 = OS_LOG_TYPE_ERROR;
+      v64[0] = 0;
+      memset(v184, 0, sizeof(v184));
+      v62 = 0;
+      v61 = 3;
+      v60 = &_os_log_default;
+      v59 = OS_LOG_TYPE_ERROR;
       if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
-        v101 &= ~1u;
+        v61 &= ~1u;
       }
 
-      if (v101)
+      if (v61)
       {
-        sub_100003098(v223, v105);
-        v98 = _os_log_send_and_compose_impl();
-        v102 = v98;
+        sub_100003098(v183, v65);
+        v58 = _os_log_send_and_compose_impl(v61, v64, v184, 80, &_mh_execute_header, v60, v59, "assertion failure: kr -> %llu", v183);
+        v62 = v58;
       }
 
-      v97 = v102;
-      v103 = v102;
+      v57 = v62;
+      v63 = v62;
       _os_crash_msg();
       __break(1u);
     }
 
-    v177 = posix_spawnattr_setspecialport_np(&v165, v107, 4);
-    v96 = v177;
-    if (v177)
+    v137 = posix_spawnattr_setspecialport_np(&v125, v67, 4);
+    v56 = v137;
+    if (v137)
     {
-      v95 = 0;
-      memset(&v222[16], 0, 0x50uLL);
-      v93 = 0;
-      v92 = 3;
-      v91 = &_os_log_default;
-      v90 = OS_LOG_TYPE_ERROR;
+      v55[0] = 0;
+      memset(v182, 0, sizeof(v182));
+      v53 = 0;
+      v52 = 3;
+      v51 = &_os_log_default;
+      v50 = OS_LOG_TYPE_ERROR;
       if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
-        v92 &= ~1u;
+        v52 &= ~1u;
       }
 
-      if (v92)
+      if (v52)
       {
-        sub_100003098(v222, v96);
-        v89 = _os_log_send_and_compose_impl();
-        v93 = v89;
+        sub_100003098(v181, v56);
+        v49 = _os_log_send_and_compose_impl(v52, v55, v182, 80, &_mh_execute_header, v51, v50, "assertion failure: error -> %llu", v181);
+        v53 = v49;
       }
 
-      v88 = v93;
-      v94 = v93;
+      v48 = v53;
+      v54 = v53;
       _os_crash_msg();
       __break(1u);
     }
 
-    v87 = 0;
-    v86 = 0;
-    if (*(v178 + 64))
+    v47 = 0;
+    v46 = 0;
+    if (*(v138 + 64))
     {
-      v70 = *(v178 + 64);
+      v30 = *(v138 + 64);
     }
 
     else
     {
-      v70 = "/System/Library/Sandbox/Profiles/cryptex-session-default.sb";
+      v30 = "/System/Library/Sandbox/Profiles/cryptex-session-default.sb";
     }
 
-    v85 = v70;
+    v45 = v30;
     params = sandbox_create_params();
-    pw_dir = v108->pw_dir;
     if (sandbox_set_param())
     {
       err(71, "sandbox_set_param: _HOME");
     }
 
-    if (setenv("HOME", v108->pw_dir, 1))
+    if (setenv("HOME", v68->pw_dir, 1))
     {
       err(71, "setenv: HOME");
     }
 
-    pw_name = v108->pw_name;
     if (sandbox_set_param())
     {
       err(71, "sandbox_set_param: _USER");
     }
 
-    if (setenv("USER", v108->pw_name, 1))
+    if (setenv("USER", v68->pw_name, 1))
     {
       err(71, "setenv: USER");
     }
 
-    if (setenv("LOGNAME", v108->pw_name, 1))
+    if (setenv("LOGNAME", v68->pw_name, 1))
     {
       err(71, "setenv: LOGNAME");
     }
 
-    v87 = sandbox_compile_file();
+    v47 = sandbox_compile_file();
     sandbox_free_params();
-    if (v87)
+    if (v47)
     {
       if (sandbox_apply())
       {
@@ -449,122 +456,129 @@ uint64_t sub_100001400()
       sandbox_free_profile();
     }
 
-    else if (*(v178 + 64))
+    else if (*(v138 + 64))
     {
-      errc(71, 22, "sandbox_compile_file: %s", v86);
+      errc(71, 22, "sandbox_compile_file: %s", v46);
     }
 
-    v177 = setuid(uid);
-    if (v177)
+    v137 = setuid(uid);
+    if (v137)
     {
       err(71, "setuid");
     }
 
-    sub_1000030D0(v110);
+    sub_1000030D0(v70);
   }
 
-  v177 = posix_spawnattr_setflags(&v165, v174);
-  if (v177)
+  v137 = posix_spawnattr_setflags(&v125, v134);
+  if (v137)
   {
-    errc(71, v177, "posix_spawnattr_setflags");
+    errc(71, v137, "posix_spawnattr_setflags");
   }
 
-  v83 = 0;
-  if (*(v178 + 24) && v169)
+  v43 = 0;
+  if (*(v138 + 24) && v129)
   {
-    v82 = __snprintf_chk(v230, 0x400uLL, 0, 0x400uLL, "%s:%s", v169, *(v178 + 24));
-    v196 = v82;
-    v195 = 1024;
-    if (v82 < 0)
+    v42 = __snprintf_chk(v197, 0x400uLL, 0, 0x400uLL, "%s:%s", v129, *(v138 + 24));
+    v155 = v42;
+    v154 = 1024;
+    if (v42 < 0)
     {
-      v194 = 0;
-      memset(&v233[16], 0, 0x50uLL);
-      v192 = 0;
-      v191 = 3;
-      v190 = &_os_log_default;
-      v189 = OS_LOG_TYPE_ERROR;
+      v153 = 0;
+      memset(v202, 0, sizeof(v202));
+      v151 = 0;
+      v150 = 3;
+      v149 = &_os_log_default;
+      v148 = OS_LOG_TYPE_ERROR;
       if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
-        v191 &= ~1u;
+        v150 &= ~1u;
       }
 
-      if (v191)
+      if (v150)
       {
-        v15 = __error();
-        v16 = strerror(*v15);
-        sub_100003120(v233, v16);
-        v188 = _os_log_send_and_compose_impl();
-        v192 = v188;
+        v27 = v150;
+        v28 = v149;
+        v29 = v148;
+        v2 = __error();
+        v3 = strerror(*v2);
+        sub_100003120(v201, v3);
+        v147 = _os_log_send_and_compose_impl(v27, &v153, v202, 80, &_mh_execute_header, v28, v29, "error printing buffer: %s", v201);
+        v151 = v147;
       }
 
-      v187 = v192;
-      v193 = v192;
+      v146[1] = v151;
+      v152 = v151;
       _os_crash_msg();
       __break(1u);
     }
 
-    if (v196 > v195)
+    if (v155 > v154)
     {
-      v186 = 0;
-      memset(&v232[32], 0, 0x50uLL);
-      v184 = 0;
-      v183 = 3;
-      v182 = &_os_log_default;
-      v181 = OS_LOG_TYPE_ERROR;
+      v146[0] = 0;
+      memset(v200, 0, sizeof(v200));
+      v144 = 0;
+      v143 = 3;
+      v142 = &_os_log_default;
+      v141 = OS_LOG_TYPE_ERROR;
       if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
-        v183 &= ~1u;
+        v143 &= ~1u;
       }
 
-      if (v183)
+      if (v143)
       {
-        sub_100003160(v232, v196, v195);
-        v180 = _os_log_send_and_compose_impl();
-        v184 = v180;
+        v24 = v143;
+        v25 = v142;
+        v26 = v141;
+        sub_100003160(v199, v155, v154);
+        LODWORD(v11) = 18;
+        v140 = _os_log_send_and_compose_impl(v24, v146, v200, 80, &_mh_execute_header, v25, v26, "buffer too small: needed = %d, actual = %lu", v199, v11);
+        v144 = v140;
       }
 
-      v179 = v184;
-      v185 = v184;
+      v139 = v144;
+      v145 = v144;
       _os_crash_msg();
       __break(1u);
     }
 
-    v83 = v230;
+    v43 = v197;
   }
 
-  else if (*(v178 + 24))
+  else if (*(v138 + 24))
   {
-    v83 = *(v178 + 24);
+    v43 = *(v138 + 24);
   }
 
-  else if (v169)
+  else if (v129)
   {
-    v83 = v169;
+    v43 = v129;
   }
 
-  if (v83)
+  if (v43)
   {
-    sub_1000483C8(2uLL, "subsystem_root = %s", v9, v10, v11, v12, v13, v14, v83);
-    v177 = posix_spawnattr_set_subsystem_root_path_np();
-    if (v177)
+    sub_1000483C8(2uLL, "subsystem_root = %s", v43);
+    v137 = posix_spawnattr_set_subsystem_root_path_np();
+    if (v137)
     {
-      errc(71, v177, "posix_spawnattr_set_subsystem_root_path_np");
+      errc(71, v137, "posix_spawnattr_set_subsystem_root_path_np");
     }
   }
 
-  v168 += *(v178 + 40);
-  v81 = 0;
-  v80 = 8;
-  v79 = v168;
+  v128 += *(v138 + 40);
+  v41 = 0;
+  v40 = 8;
+  v39 = v128;
   if (_dispatch_is_multithreaded())
   {
-    v212 = v79;
-    v211 = v80;
-    v210 = 0;
+    v171 = v39;
+    v170 = v40;
+    v169 = 0;
     while (1)
     {
-      v210 = malloc_type_calloc(v212, v211, 0x8A375538uLL);
-      if (v210)
+      v169 = malloc_type_calloc(v171, v170, 0x8A375538uLL);
+      if (v169)
       {
         break;
       }
@@ -572,173 +586,185 @@ uint64_t sub_100001400()
       __os_temporary_resource_shortage();
     }
 
-    v81 = v210;
+    v41 = v169;
   }
 
   else
   {
-    count = v79;
-    size = v80;
-    v81 = malloc_type_calloc(v79, v80, 0x8709206FuLL);
-    v209 = "known-constant allocation";
-    v208 = v81;
-    v207 = v80;
-    if (!v81)
+    count = v39;
+    size = v40;
+    v41 = malloc_type_calloc(v39, v40, 0x8709206FuLL);
+    v168 = "known-constant allocation";
+    v167 = v41;
+    v166 = v40;
+    if (!v41)
     {
-      v206 = 0;
-      memset(&v234[32], 0, 0x50uLL);
-      v204 = 0;
-      v203 = 3;
-      v202 = &_os_log_default;
-      v201 = OS_LOG_TYPE_ERROR;
+      v165 = 0;
+      memset(v204, 0, sizeof(v204));
+      v163 = 0;
+      v162 = 3;
+      v161 = &_os_log_default;
+      v160 = OS_LOG_TYPE_ERROR;
       if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
-        v203 &= ~1u;
+        v162 &= ~1u;
       }
 
-      if (v203)
+      if (v162)
       {
-        v68 = v209;
-        v69 = v207;
-        v23 = __error();
-        v24 = strerror(*v23);
-        sub_1000031B0(v234, v68, v69, v24);
-        v200 = _os_log_send_and_compose_impl();
-        v204 = v200;
+        v21 = v162;
+        v22 = v161;
+        v23 = v160;
+        v19 = v168;
+        v20 = v166;
+        v4 = __error();
+        v5 = strerror(*v4);
+        sub_1000031B0(v203, v19, v20, v5);
+        LODWORD(v11) = 32;
+        v159 = _os_log_send_and_compose_impl(v21, &v165, v204, 80, &_mh_execute_header, v22, v23, "allocation failed: obj = %s, size = %lu, error = %s", v203, v11, v12);
+        v163 = v159;
       }
 
-      v199 = v204;
-      v205 = v204;
+      v158 = v163;
+      v164 = v163;
       _os_crash_msg();
       __break(1u);
     }
   }
 
-  v78 = v81;
-  __argv = v81;
-  v81[v173] = v171;
-  v64 = __argv[v173];
-  sub_1000483C8(2uLL, "argv[%lu] = %s", v17, v18, v19, v20, v21, v22, v173++);
-  for (i = 0; i < *(v178 + 40); ++i)
+  v38 = v41;
+  __argv = v41;
+  v41[v133] = v131;
+  sub_1000483C8(2uLL, "argv[%lu] = %s", v133, __argv[v133]);
+  ++v133;
+  for (i = 0; i < *(v138 + 40); ++i)
   {
-    __argv[v173] = *(*(v178 + 48) + 8 * i);
-    if (__argv[v173])
+    __argv[v133] = *(*(v138 + 48) + 8 * i);
+    if (__argv[v133])
     {
-      v67 = __argv[v173];
+      v18 = __argv[v133];
     }
 
-    sub_1000483C8(2uLL, "argv[%lu] = %s", v25, v26, v27, v28, v29, v30, v173++);
+    else
+    {
+      v18 = "NULL";
+    }
+
+    sub_1000483C8(2uLL, "argv[%lu] = %s", v133++, v18);
   }
 
-  if (v176[1])
+  if (v136[1])
   {
-    v77 = -1;
-    v76 = 0;
-    for (i = 0; i < v168 - 1; ++i)
+    v37 = -1;
+    v36 = 0;
+    for (i = 0; i < v128 - 1; ++i)
     {
-      v75 = v76;
-      v74 = "";
-      if (v76)
+      v35 = v36;
+      v34 = "";
+      if (v36)
       {
-        v74 = " ";
+        v34 = " ";
       }
 
-      if (v75)
+      if (v35)
       {
-        v66 = v75;
+        v17 = v35;
       }
 
       else
       {
-        v66 = "";
+        v17 = "";
       }
 
-      v77 = asprintf(&v76, "%s%s%s", v66, v74, __argv[i]);
-      v221 = v77;
-      if (v77 < 0)
+      v37 = asprintf(&v36, "%s%s%s", v17, v34, __argv[i]);
+      v180 = v37;
+      if (v37 < 0)
       {
-        v220 = 0;
-        memset(&v235[24], 0, 0x50uLL);
-        v218 = 0;
-        v217 = 3;
-        v216 = &_os_log_default;
-        v215 = OS_LOG_TYPE_ERROR;
+        v179 = 0;
+        memset(v206, 0, sizeof(v206));
+        v177 = 0;
+        v176 = 3;
+        v175 = &_os_log_default;
+        v174 = OS_LOG_TYPE_ERROR;
         if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
         {
-          v217 &= ~1u;
+          v176 &= ~1u;
         }
 
-        if (v217)
+        if (v176)
         {
-          v31 = __error();
-          v32 = strerror(*v31);
-          sub_100003120(v235, v32);
-          v214 = _os_log_send_and_compose_impl();
-          v218 = v214;
+          v14 = v176;
+          v15 = v175;
+          v16 = v174;
+          v6 = __error();
+          v7 = strerror(*v6);
+          sub_100003120(v205, v7);
+          v173 = _os_log_send_and_compose_impl(v14, &v179, v206, 80, &_mh_execute_header, v15, v16, "error printing buffer: %s", v205);
+          v177 = v173;
         }
 
-        v213 = v218;
-        v219 = v218;
+        v172 = v177;
+        v178 = v177;
         _os_crash_msg();
         __break(1u);
       }
 
-      sub_100002DE4(&v75);
+      sub_100002DE4(&v35);
     }
 
-    sub_100002DE4(&v76);
+    sub_100002DE4(&v36);
   }
 
-  v177 = posix_spawnp(&v175, v171, &v166, &v165, __argv, environ);
-  if (v177)
+  v137 = posix_spawnp(&v135, v131, &v126, &v125, __argv, environ);
+  if (v137)
   {
-    warnc(v177, "posix_spawnp: %s", v171);
+    warnc(v137, "posix_spawnp: %s", v131);
   }
 
   else
   {
-    if ((v174 & 0x40) != 0)
+    if ((v134 & 0x40) != 0)
     {
       _os_crash();
       __break(1u);
     }
 
-    sub_10004860C(0, 1uLL, "spawned as pid %d", v33, v34, v35, v36, v37, v175);
+    sub_10004860C(0, 1uLL, "spawned as pid %d", v135);
     while (1)
     {
-      v73 = waitpid(v175, &v164, 0);
-      if (v73 != -1)
+      v33 = waitpid(v135, &v124, 0);
+      if (v33 != -1)
       {
         break;
       }
 
       if (*__error() != 4)
       {
-        err(71, "waitpid[%d]", v175);
+        err(71, "waitpid[%d]", v135);
       }
 
       warnx("waitpid: interrupted");
     }
 
-    if (v73 != v175)
+    if (v33 != v135)
     {
-      errx(71, "waitpid: %d != %d", v73, v175);
+      errx(71, "waitpid: %d != %d", v33, v135);
     }
 
-    sub_1000483C8(2uLL, "waitpid returned", v38, v39, v40, v41, v42, v43, v62);
-    if ((v164 & 0x7F) != 0)
+    sub_1000483C8(2uLL, "waitpid returned");
+    if ((v124 & 0x7F) != 0)
     {
-      if ((v164 & 0x7F) != 0x7F && (v164 & 0x7F) != 0)
+      if ((v124 & 0x7F) != 0x7F && (v124 & 0x7F) != 0)
       {
-        v49 = strsignal(v164 & 0x7F);
-        sub_10004860C(0, 1uLL, "child signaled: %s", v50, v51, v52, v53, v54, v49);
+        v8 = strsignal(v124 & 0x7F);
+        sub_10004860C(0, 1uLL, "child signaled: %s", v8);
         exit(70);
       }
 
-      if ((v164 & 0x7F) == 0x7F && v164 >> 8 != 19)
+      if ((v124 & 0x7F) == 0x7F && v124 >> 8 != 19)
       {
-        v55 = strsignal(v164 >> 8);
-        sub_10004860C(0, 1uLL, "child stopped: %s", v56, v57, v58, v59, v60, v55);
+        v9 = strsignal(v124 >> 8);
+        sub_10004860C(0, 1uLL, "child stopped: %s", v9);
         exit(71);
       }
 
@@ -747,57 +773,57 @@ uint64_t sub_100001400()
 
     else
     {
-      v72 = BYTE1(v164);
-      if (!BYTE1(v164))
+      v32 = BYTE1(v124);
+      if (!BYTE1(v124))
       {
-        sub_10004860C(0, 1uLL, "child exited successfully", v44, v45, v46, v47, v48, v63);
-LABEL_161:
-        exit(v72);
+        sub_10004860C(0, 1uLL, "child exited successfully");
+LABEL_162:
+        exit(v32);
       }
 
-      if (BYTE1(v164) != 127)
+      if (BYTE1(v124) != 127)
       {
-        sub_10004860C(0, 1uLL, "child exited with code: %d", v44, v45, v46, v47, v48, SBYTE1(v164));
-        goto LABEL_161;
+        sub_10004860C(0, 1uLL, "child exited with code: %d", BYTE1(v124));
+        goto LABEL_162;
       }
 
-      v177 = 88;
+      v137 = 88;
       warnx("no interpreter for image");
     }
   }
 
-  v65 = v177;
+  v13 = v137;
   sub_100002DE4(&__argv);
-  sub_100002DE4(&v169);
-  sub_100002DE4(&v170);
-  return v65;
+  sub_100002DE4(&v129);
+  sub_100002DE4(&v130);
+  return v13;
 }
 
-uint64_t sub_100002E20(uint64_t a1, uint64_t a2, uint64_t a3, char *a4, char *a5, uint64_t a6)
+uint64_t sub_100002E20(char **a1, char **a2, const char *a3, char *a4, char *a5, uint64_t a6)
 {
-  v19 = a1;
-  v18 = a2;
-  v17 = a3;
+  v14 = a1;
+  v13 = a2;
+  v12 = a3;
   __s2 = a4;
-  v15 = a5;
-  *&v14[4] = a6;
-  v13 = 0;
+  v10 = a5;
+  *&v9[4] = a6;
+  v8 = 0;
   bzero(__s1, 0x400uLL);
-  *v14 = _cryptex_copy_list();
-  if (*v14 && !*&v14[4])
+  *v9 = _cryptex_copy_list();
+  if (*v9 && !*&v9[4])
   {
-    *v14 = _cryptex_copy_list_lossy();
+    *v9 = _cryptex_copy_list_lossy();
   }
 
-  if (!*v14)
+  if (!*v9)
   {
-    *v14 = 2;
-    sub_10004860C(0, 1uLL, "cannot find installed cryptex with identifier %s and version %s", v6, v7, v8, v9, v10, __s2);
+    *v9 = 2;
+    sub_10004860C(0, 1uLL, "cannot find installed cryptex with identifier %s and version %s", __s2, v10);
   }
 
-  v12 = *v14;
-  sub_100002DE4(&v13);
-  return v12;
+  v7 = *v9;
+  sub_100002DE4(&v8);
+  return v7;
 }
 
 uint64_t sub_100003098(uint64_t result, uint64_t a2)
@@ -857,15 +883,15 @@ uint64_t sub_1000031B0(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
   return result;
 }
 
-uint64_t sub_100003218(uint64_t a1, int a2, char **a3)
+uint64_t sub_100003218(uint64_t a1, int a2, const char **a3)
 {
-  v33 = a1;
-  v32 = a2;
-  v31 = a3;
-  v30 = -1;
-  v29 = a3;
-  v28 = -1;
-  v27 = 0;
+  v37 = a1;
+  v36 = a2;
+  v35 = a3;
+  v34 = -1;
+  v33 = a3;
+  v32 = -1;
+  v31 = 0;
   memset(__b, 0, sizeof(__b));
   i = 0;
   sub_1000480E0();
@@ -873,89 +899,92 @@ uint64_t sub_100003218(uint64_t a1, int a2, char **a3)
   __b[2] = &__b[1];
   while (1)
   {
-    v28 = getopt_long(v32, v29, *(v33 + 32), *(v33 + 40), &v27);
-    if (v28 == -1)
+    v32 = getopt_long(v36, v33, *(v37 + 32), *(v37 + 40), &v31);
+    if (v32 == -1)
     {
       break;
     }
 
-    v24 = (*(v33 + 40) + 32 * v27);
-    v23 = v31[optind - 1];
+    v28 = (*(v37 + 40) + 32 * v31);
+    v27 = v35[optind - 1];
     if (optind < 1)
     {
-      v22 = 0;
-      memset(&v48[16], 0, 0x50uLL);
-      v20 = 0;
-      v19 = 3;
+      v26 = 0;
+      memset(v53, 0, sizeof(v53));
+      v24 = 0;
+      v23 = 3;
       oslog = &_os_log_default;
       type = OS_LOG_TYPE_ERROR;
       if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
-        v19 &= ~1u;
+        v23 &= ~1u;
       }
 
-      if (v19)
+      if (v23)
       {
-        sub_1000013C8(v48, optind);
-        v20 = _os_log_send_and_compose_impl();
+        sub_1000013C8(v52, optind);
+        v24 = _os_log_send_and_compose_impl(v23, &v26, v53, 80, &_mh_execute_header, oslog, type, "unexpected failure: bogus optind: %d", v52);
       }
 
-      v16 = v20;
-      v21 = v20;
+      v20 = v24;
+      v25 = v24;
       _os_crash_msg();
       __break(1u);
       JUMPOUT(0x100003418);
     }
 
-    switch(v28)
+    switch(v32)
     {
       case ':':
-        errx(64, "missing argument for option: %s", *v24);
+        errx(64, "missing argument for option: %s", *v28);
       case '?':
-        errx(64, "unknown option: %s", v23);
+        errx(64, "unknown option: %s", v27);
       case 'C':
-        v14 = 24;
-        v13 = 1;
+        v18 = 24;
+        v17 = 1;
         count = 1;
         size = 24;
-        v15 = malloc_type_calloc(1uLL, 0x18uLL, 0x8709206FuLL);
-        v46 = "known-constant allocation";
-        v45 = v15;
-        v44 = 24;
-        if (!v15)
+        v19 = malloc_type_calloc(1uLL, 0x18uLL, 0x8709206FuLL);
+        v50 = "known-constant allocation";
+        v49 = v19;
+        v48 = 24;
+        if (!v19)
         {
-          v43 = 0;
-          memset(&v49[40], 0, 0x50uLL);
-          v41 = 0;
-          v40 = 3;
-          v39 = &_os_log_default;
-          v38 = OS_LOG_TYPE_ERROR;
+          v47 = 0;
+          memset(v55, 0, sizeof(v55));
+          v45 = 0;
+          v44 = 3;
+          v43 = &_os_log_default;
+          v42 = OS_LOG_TYPE_ERROR;
           if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
           {
-            v40 &= ~1u;
+            v44 &= ~1u;
           }
 
-          if (v40)
+          if (v44)
           {
-            v7 = v46;
-            v8 = v44;
+            v10 = v44;
+            v11 = v43;
+            v12 = v42;
+            v8 = v50;
+            v9 = v48;
             v3 = __error();
             v4 = strerror(*v3);
-            sub_1000031B0(v49, v7, v8, v4);
-            v37 = _os_log_send_and_compose_impl();
-            v41 = v37;
+            sub_1000031B0(v54, v8, v9, v4);
+            v41 = _os_log_send_and_compose_impl(v10, &v47, v55, 80, &_mh_execute_header, v11, v12, "allocation failed: obj = %s, size = %lu, error = %s", v54, 32, v7);
+            v45 = v41;
           }
 
-          v36 = v41;
-          v42 = v41;
+          v40 = v45;
+          v46 = v45;
           _os_crash_msg();
           __break(1u);
           JUMPOUT(0x1000035F8);
         }
 
-        v12 = v15;
-        i = v15;
-        *(v15 + 1) = optarg;
+        v16 = v19;
+        i = v19;
+        *(v19 + 1) = optarg;
         v5 = __b[1];
         *i = __b[1];
         if (!v5)
@@ -983,59 +1012,68 @@ uint64_t sub_100003218(uint64_t a1, int a2, char **a3)
     }
   }
 
-  v31 += optind;
-  v32 -= optind;
-  if (v32 < 1)
+  v35 += optind;
+  v36 -= optind;
+  if (v36 < 1)
   {
     errx(64, "a property list must be provided");
   }
 
-  __b[0] = *v31;
+  __b[0] = *v35;
   for (i = __b[1]; i; i = *i)
   {
-    v11 = -1;
-    memset(v10, 0, 0x38uLL);
-    v11 = open(*(i + 1), 0);
-    v47 = v11;
-    if (v11 < 0)
+    v15 = -1;
+    memset(v14, 0, 0x38uLL);
+    v15 = open(*(i + 1), 0);
+    v51 = v15;
+    if (v15 < 0)
     {
       err(66, "failed to read certificate: %s", *(i + 1));
     }
 
-    v30 = sub_10004B524(v11, v10);
-    if (v30)
+    v34 = sub_10004B524(v15, v14);
+    if (v34)
     {
-      errc(66, v30, "failed to read certificate: %s", *(i + 1));
+      errc(66, v34, "failed to read certificate: %s", *(i + 1));
     }
 
-    v9 = sub_10003AC40(v10, 0);
-    v30 = sub_10003AE8C(v9);
-    if (v30)
+    v13 = sub_10003AC40(v14, 0);
+    v34 = sub_10003AE8C(v13);
+    if (v34)
     {
-      errc(66, v30, "failed to parse certificate: %s", *(i + 1));
+      errc(66, v34, "failed to parse certificate: %s", *(i + 1));
     }
 
-    __b[4] += *(*(v9 + 20) + 8);
-    *(i + 2) = v9;
-    sub_1000038DC(&v11);
+    __b[4] += *(*(v13 + 20) + 8);
+    *(i + 2) = v13;
+    sub_1000038DC(&v15);
   }
 
-  v30 = sub_100003A70(__b);
+  v34 = sub_100003A70(__b);
   return sysexit_np();
 }
 
 int *sub_1000038DC(int *result)
 {
-  if (*result != -1)
+  v6 = result;
+  v5 = *result;
+  if (v5 != -1)
   {
-    result = close(*result);
+    result = close(v5);
+    v4 = result;
     if (result == -1)
     {
-      memset(&v2[8], 0, 0x50uLL);
-      os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
+      v3 = 0;
+      memset(__b, 0, sizeof(__b));
+      v2 = 3;
+      if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+      {
+        v2 = 2;
+      }
+
       v1 = __error();
-      sub_1000013C8(v2, *v1);
-      _os_log_send_and_compose_impl();
+      sub_1000013C8(v7, *v1);
+      _os_log_send_and_compose_impl(v2, &v3, __b, 80, &_mh_execute_header, &_os_log_default, 16, "assertion failure: close(fd) -> %{errno}d", v7, 8);
       _os_crash_msg();
       __break(1u);
       JUMPOUT(0x100003A40);
@@ -1047,127 +1085,127 @@ int *sub_1000038DC(int *result)
 
 uint64_t sub_100003A70(const char **a1)
 {
-  v22 = a1;
+  v26 = a1;
+  v25 = -1;
+  v24 = sub_100048084();
+  v23 = -1;
+  v22 = -1;
   v21 = -1;
-  v20 = sub_100048084();
-  v19 = -1;
-  v18 = -1;
-  v17 = -1;
   __s = 0;
   memset(__b, 0, sizeof(__b));
+  v19 = 0;
+  v18 = 0;
+  memset(v17, 0, sizeof(v17));
+  memset(v16, 0, sizeof(v16));
   v15 = 0;
-  v14 = 0;
+  memset(v14, 0, sizeof(v14));
+  v14[0] = v26;
   memset(v13, 0, sizeof(v13));
-  memset(v12, 0, sizeof(v12));
-  v11 = 0;
-  memset(v10, 0, sizeof(v10));
-  v10[0] = v22;
-  memset(v9, 0, sizeof(v9));
-  v9[0] = v22;
-  memset(&v9[1], 0, 116);
-  v9[8].n128_u64[1] = 0;
-  v8 = 0;
+  v13[0] = v26;
+  memset(&v13[1], 0, 116);
+  v13[8].n128_u64[1] = 0;
+  v12 = 0;
   xdict = 0;
   dictionary = 0;
-  v5 = 0;
+  v9 = 0;
   __fd = -1;
-  __s = basename_r(*v22, __b);
-  v15 = strrchr(__s, 46);
-  if (v15)
+  __s = basename_r(*v26, __b);
+  v19 = strrchr(__s, 46);
+  if (v19)
   {
-    *v15 = 0;
+    *v19 = 0;
   }
 
   __snprintf_chk(__b, 0xFFuLL, 0, 0xFFuLL, "%s.im4m", __s);
-  if (v22[6])
+  if (v26[6])
   {
-    v14 = v22[6];
+    v18 = v26[6];
   }
 
   else
   {
-    v14 = __s;
+    v18 = __s;
   }
 
-  v17 = open(*v22, 0);
-  v24 = v17;
-  if (v17 < 0)
+  v21 = open(*v26, 0);
+  v28 = v21;
+  if (v21 < 0)
   {
-    v21 = *__error();
-    warn("failed to open plist: %s", *v22);
+    v25 = *__error();
+    warn("failed to open plist: %s", *v26);
   }
 
   else
   {
-    v21 = sub_10004B524(v17, v13);
-    if (v21)
+    v25 = sub_10004B524(v21, v17);
+    if (v25)
     {
-      warnc(v21, "failed to read plist");
+      warnc(v25, "failed to read plist");
     }
 
     else
     {
-      v8 = xpc_create_from_plist();
-      if (v8)
+      v12 = xpc_create_from_plist();
+      if (v12)
       {
-        object = v8;
-        v25 = &_xpc_type_dictionary;
-        type = xpc_get_type(v8);
-        if (type == v25)
+        object = v12;
+        v29 = &_xpc_type_dictionary;
+        type = xpc_get_type(v12);
+        if (type == v29)
         {
-          v27 = object;
+          v31 = object;
         }
 
         else
         {
-          v27 = 0;
+          v31 = 0;
         }
 
-        xdict = v27;
-        if (v27)
+        xdict = v31;
+        if (v31)
         {
           dictionary = xpc_dictionary_get_dictionary(xdict, "MANP");
           if (dictionary)
           {
-            v5 = xpc_dictionary_get_dictionary(xdict, "OBJP");
-            v10[1] = dictionary;
-            v10[2] = v5;
-            v21 = sub_100004044(v22, v9);
-            if (!v21)
+            v9 = xpc_dictionary_get_dictionary(xdict, "OBJP");
+            v14[1] = dictionary;
+            v14[2] = v9;
+            v25 = sub_100004044(v26, v13);
+            if (!v25)
             {
-              v18 = sub_10004E2F0(0, sub_1000045E0, sub_100004768, sub_100004878, v9[4].n128_u64[1], v9[8].n128_u32[0], v12, &v11, v10, v9);
-              if (v18 == 100)
+              v22 = sub_10004E2F0(0, sub_1000045E0, sub_100004768, sub_100004878, v13[4].n128_u64[1], v13[8].n128_u32[0], v16, &v15, v14, v13);
+              if (v22 == 100)
               {
-                v12[1] = v11;
-                v12[5] = j__free;
-                __fd = openat(v20[584], __s, 513, 438);
-                v23 = __fd;
+                v16[1] = v15;
+                v16[5] = j__free;
+                __fd = openat(v24[584], __s, 513, 438);
+                v27 = __fd;
                 if (__fd < 0)
                 {
-                  v21 = *__error();
-                  warnc(v21, "failed to write manifest");
+                  v25 = *__error();
+                  warnc(v25, "failed to write manifest");
                 }
 
                 else
                 {
-                  v21 = sub_10004B8CC(__fd, v12);
-                  if (v21)
+                  v25 = sub_10004B8CC(__fd, v16);
+                  if (v25)
                   {
-                    warnc(v21, "failed to write manifest");
+                    warnc(v25, "failed to write manifest");
                   }
 
                   else
                   {
-                    v19 = renameat(v20[584], __s, -2, v14);
-                    if (v19)
+                    v23 = renameat(v24[584], __s, -2, v18);
+                    if (v23)
                     {
-                      v21 = *__error();
+                      v25 = *__error();
                       warn("failed to rename manifest to final location");
                     }
 
                     else
                     {
-                      v21 = 0;
+                      v25 = 0;
                     }
                   }
                 }
@@ -1175,63 +1213,63 @@ uint64_t sub_100003A70(const char **a1)
 
               else
               {
-                v21 = 92;
-                warnc(92, "failed to create manifest: %d", v18);
+                v25 = 92;
+                warnc(92, "failed to create manifest: %d", v22);
               }
             }
           }
 
           else
           {
-            v21 = 2;
+            v25 = 2;
             warnc(2, "plist does not have a MANP dictionary");
           }
         }
 
         else
         {
-          v21 = 22;
+          v25 = 22;
           warnc(22, "plist root not a dictionary");
         }
       }
 
       else
       {
-        v21 = 92;
+        v25 = 92;
         warnc(92, "invalid plist");
       }
     }
   }
 
-  sub_10004C66C(v13);
-  sub_10004C66C(v12);
-  sub_10004C66C(&v9[4].n128_u64[1]);
-  sub_10004C66C(v9[1].n128_u64);
-  v3 = v21;
+  sub_10004C66C(v17, v1);
+  sub_10004C66C(v16, v3);
+  sub_10004C66C(&v13[4].n128_u64[1], v4);
+  sub_10004C66C(v13[1].n128_u64, v5);
+  v7 = v25;
   sub_1000038DC(&__fd);
-  sub_1000030D0(&v8);
-  sub_1000038DC(&v17);
-  return v3;
+  sub_1000030D0(&v12);
+  sub_1000038DC(&v21);
+  return v7;
 }
 
-uint64_t sub_100004044(uint64_t a1, __n128 *a2)
+uint64_t sub_100004044(void *a1, __n128 *a2)
 {
-  v27 = a1;
-  v26 = a2;
-  v25 = -1;
+  v24 = a1;
+  v23 = a2;
+  v22 = -1;
   memset(__b, 0, 0x38uLL);
-  v23 = *(*(v27 + 24) + 16);
+  v20 = *(v24[3] + 16);
   i = 0;
-  v21 = 0;
-  v19 = *(v27 + 32);
+  v18 = 0;
+  v16 = v24[4];
   if (_dispatch_is_multithreaded())
   {
-    v41 = v19;
-    v40 = 0;
+    v38 = v16;
+    v37 = 0;
     while (1)
     {
-      v40 = malloc_type_malloc(v41, 0x5C008F58uLL);
-      if (v40)
+      v37 = malloc_type_malloc(v38, 0x5C008F58uLL);
+      if (v37)
       {
         break;
       }
@@ -1239,58 +1277,60 @@ uint64_t sub_100004044(uint64_t a1, __n128 *a2)
       __os_temporary_resource_shortage();
     }
 
-    v18 = v40;
+    v15 = v37;
   }
 
   else
   {
-    v39 = v19;
-    v18 = malloc_type_malloc(v19, 0x2F48DA65uLL);
-    v38 = "known-constant allocation";
-    v37 = v18;
-    v36 = v19;
-    if (!v18)
+    v36 = v16;
+    v15 = malloc_type_malloc(v16, 0x2F48DA65uLL);
+    v35 = "known-constant allocation";
+    v34 = v15;
+    v33 = v16;
+    if (!v15)
     {
-      v35 = 0;
-      memset(&v42[40], 0, 0x50uLL);
-      v33 = 0;
-      v32 = 3;
-      v31 = &_os_log_default;
-      v30 = 16;
+      v32 = 0;
+      memset(v40, 0, sizeof(v40));
+      v30 = 0;
+      v29 = 3;
+      v28 = &_os_log_default;
+      v27 = 16;
       if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
-        v32 &= ~1u;
+        v29 &= ~1u;
       }
 
-      if (v32)
+      if (v29)
       {
-        v15 = v38;
-        v16 = v36;
+        v11 = v29;
+        v12 = v28;
+        v13 = v27;
+        v9 = v35;
+        v10 = v33;
         v2 = __error();
         v3 = strerror(*v2);
-        sub_1000031B0(v42, v15, v16, v3);
-        v29 = _os_log_send_and_compose_impl();
-        v33 = v29;
+        sub_1000031B0(v39, v9, v10, v3);
+        v26 = _os_log_send_and_compose_impl(v11, &v32, v40, 80, &_mh_execute_header, v12, v13, "allocation failed: obj = %s, size = %lu, error = %s", v39, 32, v7);
+        v30 = v26;
       }
 
-      v28 = v33;
-      v34 = v33;
+      v25 = v30;
+      v31 = v30;
       _os_crash_msg();
       __break(1u);
       JUMPOUT(0x100004294);
     }
   }
 
-  v21 = v18;
-  v20 = v18;
-  for (i = *(v27 + 8); i; i = *i)
+  v18 = v15;
+  v17 = v15;
+  for (i = v24[1]; i; i = *i)
   {
-    v17 = *(*(i[2] + 160) + 8);
-    v4 = **(i[2] + 160);
+    v14 = *(*(i[2] + 160) + 8);
     __memcpy_chk();
-    v20 += v17;
-    v19 -= v17;
-    if (v19 > *(v27 + 32))
+    v17 += v14;
+    v16 -= v14;
+    if (v16 > v24[4])
     {
       _os_crash();
       __break(1u);
@@ -1298,221 +1338,218 @@ uint64_t sub_100004044(uint64_t a1, __n128 *a2)
     }
   }
 
-  if (*(v27 + 32) > 0xFFFFFFFFuLL)
+  if (v24[4] > 0xFFFFFFFFuLL)
   {
     _os_crash();
     __break(1u);
     JUMPOUT(0x1000043DCLL);
   }
 
-  v26[8].n128_u32[0] = *(v27 + 32);
-  v5 = sub_100004A00(*(v27 + 40), __b, &AMSupportRsaCreatePrivateKeyFromPEMBuffer);
-  v25 = v5;
-  if (!v5)
+  v23[8].n128_u32[0] = v24[4];
+  v4 = sub_100004A00(v24[5], __b, &AMSupportRsaCreatePrivateKeyFromPEMBuffer);
+  v22 = v4;
+  if (!v4)
   {
-    if (*(*(v23 + 200) + 8) == &off_10007ED28)
+    if (*(*(v20 + 200) + 8) == &off_10007ED28)
     {
-      sub_1000483C8(1uLL, "leaf certificate is rsa sha1", v6, v7, v8, v9, v10, v11, v13);
-      v26[8].n128_u64[1] = &AMSupportRsaCreateSignatureSha1;
+      sub_1000483C8(1uLL, "leaf certificate is rsa sha1");
+      v23[8].n128_u64[1] = &AMSupportRsaCreateSignatureSha1;
 LABEL_31:
-      sub_10004C358(&v26[4].n128_u64[1], 0, j__free, v21, *(v27 + 32));
-      v21 = 0;
-      sub_10004C42C(v26 + 1, __b);
-      v25 = 0;
+      sub_10004C358(&v23[4].n128_u64[1], 0, j__free, v18, v24[4]);
+      v18 = 0;
+      sub_10004C42C(v23 + 1, __b);
+      v22 = 0;
       goto LABEL_32;
     }
 
-    if (*(*(v23 + 200) + 8) == &off_10007ED38)
+    if (*(*(v20 + 200) + 8) == &off_10007ED38)
     {
-      sub_1000483C8(1uLL, "leaf certificate is rsa sha2-256", v6, v7, v8, v9, v10, v11, v13);
-      v26[8].n128_u64[1] = &AMSupportRsaCreateSignatureSha256;
+      sub_1000483C8(1uLL, "leaf certificate is rsa sha2-256");
+      v23[8].n128_u64[1] = &AMSupportRsaCreateSignatureSha256;
       goto LABEL_31;
     }
 
-    if (*(*(v23 + 200) + 8) == &off_10007ED48)
+    if (*(*(v20 + 200) + 8) == &off_10007ED48)
     {
-      sub_1000483C8(1uLL, "leaf certificate is rsa sha2-384", v6, v7, v8, v9, v10, v11, v13);
-      v26[8].n128_u64[1] = &AMSupportRsaCreateSignatureSha384;
+      sub_1000483C8(1uLL, "leaf certificate is rsa sha2-384");
+      v23[8].n128_u64[1] = &AMSupportRsaCreateSignatureSha384;
       goto LABEL_31;
     }
 
-    if (*(*(v23 + 200) + 8) == &off_10007ED58)
+    if (*(*(v20 + 200) + 8) == &off_10007ED58)
     {
-      sub_1000483C8(1uLL, "leaf certificate is rsa sha2-512", v6, v7, v8, v9, v10, v11, v13);
-      v26[8].n128_u64[1] = &AMSupportRsaCreateSignatureSha512;
+      sub_1000483C8(1uLL, "leaf certificate is rsa sha2-512");
+      v23[8].n128_u64[1] = &AMSupportRsaCreateSignatureSha512;
       goto LABEL_31;
     }
 
-    warnx("unsupported digest algorithm: output size = %lu", **(v23 + 200));
-    v25 = 45;
+    warnx("unsupported digest algorithm: output size = %lu", **(v20 + 200));
+    v22 = 45;
   }
 
 LABEL_32:
-  sub_10004C66C(__b);
-  v14 = v25;
-  sub_100002DE4(&v21);
-  return v14;
+  sub_10004C66C(__b, v5);
+  v8 = v22;
+  sub_100002DE4(&v18);
+  return v8;
 }
 
 uint64_t sub_1000045E0(void *a1, unsigned int *a2, uint64_t a3)
 {
-  v16 = a1;
-  v15 = a2;
-  v14 = a3;
-  v13 = 0;
-  v12 = a3;
-  v11 = 0;
-  v13 = sub_10004D4E4(&v11, 1296125520);
-  if (v13 != 100)
+  v9 = a1;
+  v8 = a2;
+  v7 = a3;
+  v6 = 0;
+  v5 = a3;
+  v4 = 0;
+  v6 = sub_10004D4E4(&v4, 1296125520);
+  if (v6 != 100)
   {
     goto LABEL_2;
   }
 
-  *(v12 + 24) = v11;
-  v3 = *(v12 + 8);
+  *(v5 + 24) = v4;
   xpc_dictionary_apply_f();
-  if (*(v12 + 44))
+  if (*(v5 + 44))
   {
-    v13 = 103;
-    warnc(*(v12 + 44), "failed to encode manifest");
+    v6 = 103;
+    warnc(*(v5 + 44), "failed to encode manifest");
     goto LABEL_9;
   }
 
-  v13 = sub_10004D5EC(v11, 0x4D414E50u);
-  if (v13 == 100)
+  v6 = sub_10004D5EC(v4, 1296125520);
+  if (v6 == 100)
   {
-    v13 = sub_10004E098(v11, v16, v15);
-    if (v13 == 100)
+    v6 = sub_10004E098(v4, v9, v8);
+    if (v6 == 100)
     {
-      sub_1000483C8(1uLL, "finalized manifest length: %u", v4, v5, v6, v7, v8, v9, *v15);
+      sub_1000483C8(1uLL, "finalized manifest length: %u", *v8);
     }
 
     else
     {
-      warnx("failed to finalize manifest: %d", v13);
+      warnx("failed to finalize manifest: %d", v6);
     }
   }
 
   else
   {
 LABEL_2:
-    warnx("failed to begin manifest: %d", v13);
+    warnx("failed to begin manifest: %d", v6);
   }
 
 LABEL_9:
-  sub_10004E028(v11);
-  return v13;
+  sub_10004E028(v4);
+  return v6;
 }
 
 uint64_t sub_100004768(void *a1, unsigned int *a2, uint64_t a3)
 {
-  v11 = 0;
-  v3 = *(a3 + 16);
+  v4 = 0;
   xpc_dictionary_apply_f();
   if (*(a3 + 44))
   {
-    v13 = 103;
+    v6 = 103;
     warnc(*(a3 + 44), "failed to encode manifest");
   }
 
   else
   {
-    v11 = *(a3 + 32);
+    v4 = *(a3 + 32);
     *(a3 + 32) = 0;
-    v13 = sub_10004E098(v11, a1, a2);
-    if (v13 == 100)
+    v6 = sub_10004E098(v4, a1, a2);
+    if (v6 == 100)
     {
-      sub_1000483C8(1uLL, "finalized object section length: %u", v4, v5, v6, v7, v8, v9, *a2);
+      sub_1000483C8(1uLL, "finalized object section length: %u", *a2);
     }
 
     else
     {
-      warnx("failed to finalize manifest: %d", v13);
+      warnx("failed to finalize manifest: %d", v6);
     }
   }
 
-  sub_10004E028(v11);
-  return v13;
+  sub_10004E028(v4);
+  return v6;
 }
 
-uint64_t sub_100004878(int a1, unsigned __int8 *a2, uint64_t a3, void *a4, void *a5, uint64_t a6)
+uint64_t sub_100004878(int a1, unsigned __int8 *a2, uint64_t a3, void *a4, uint64_t *a5, uint64_t a6)
 {
-  v33 = a1;
-  v32 = a2;
-  v31 = a3;
-  v30 = a4;
-  v29 = a5;
-  v28 = a6;
-  v27 = a6;
-  v26 = -1;
-  v25 = 0;
-  v24 = 0;
-  v23 = 0;
-  v22 = 0;
-  v21 = 0;
-  sub_100049834(&v22, a2, a3);
-  v19 = *(v27 + 24);
-  sub_1000483C8(1uLL, "signing data: version = %d, data = %s, length = %lu, key length = %lu", v6, v7, v8, v9, v10, v11, v33);
-  v25 = (*(v27 + 136))(v32, v31, *(v27 + 16), *(v27 + 24), &v24, &v23);
-  if (v25)
+  v20 = a1;
+  v19 = a2;
+  v18 = a3;
+  v17 = a4;
+  v16 = a5;
+  v15 = a6;
+  v14 = a6;
+  v13 = -1;
+  v12 = 0;
+  v11 = 0;
+  v10 = 0;
+  v9 = 0;
+  v8 = 0;
+  sub_100049834(&v9, a2, a3);
+  sub_1000483C8(1uLL, "signing data: version = %d, data = %s, length = %lu, key length = %lu", v20, v9, v18, *(v14 + 24));
+  v12 = (*(v14 + 136))(v19, v18, *(v14 + 16), *(v14 + 24), &v11, &v10);
+  if (v12)
   {
-    v26 = 103;
-    warnx("failed to sign manifest: %d", v25);
+    v13 = 103;
+    warnx("failed to sign manifest: %d", v12);
   }
 
   else
   {
-    sub_100049834(&v21, v24, v23);
-    sub_1000483C8(1uLL, "signed data: signature = %s, length = %lu", v12, v13, v14, v15, v16, v17, v21);
-    *v30 = v24;
-    *v29 = v23;
-    v26 = 100;
+    sub_100049834(&v8, v11, v10);
+    sub_1000483C8(1uLL, "signed data: signature = %s, length = %lu", v8, v10);
+    *v17 = v11;
+    *v16 = v10;
+    v13 = 100;
   }
 
-  v20 = v26;
-  sub_100002DE4(&v21);
-  sub_100002DE4(&v22);
-  return v20;
+  v7 = v13;
+  sub_100002DE4(&v8);
+  sub_100002DE4(&v9);
+  return v7;
 }
 
-uint64_t sub_100004A00(const char *a1, void *a2, uint64_t (*a3)(void, void, uint64_t *, uint64_t *))
+uint64_t sub_100004A00(const char *a1, void *a2, uint64_t (*a3)(void, void, void **, uint64_t *))
 {
-  v10 = a1;
-  v9 = a2;
-  v8 = a3;
+  v11 = a1;
+  v10 = a2;
+  v9 = a3;
+  v8 = -1;
   v7 = -1;
-  v6 = -1;
   memset(__b, 0, sizeof(__b));
-  v6 = open(v10, 0);
-  v11 = v6;
-  if (v6 < 0)
+  v7 = open(v11, 0);
+  v12 = v7;
+  if (v7 < 0)
   {
-    v7 = *__error();
-    warn("failed to open pem file: %s", v10);
+    v8 = *__error();
+    warn("failed to open pem file: %s", v11);
   }
 
   else
   {
-    v7 = sub_10004B524(v6, __b);
-    if (v7 || (v7 = sub_10003AA7C(__b, v9, v8)) != 0)
+    v8 = sub_10004B524(v7, __b);
+    if (v8 || (v8 = sub_10003AA7C(__b, v10, v9)) != 0)
     {
-      warnc(v7, "failed to read pem file: %s", v10);
+      warnc(v8, "failed to read pem file: %s", v11);
     }
   }
 
-  sub_10004C66C(__b);
-  v4 = v7;
-  sub_1000038DC(&v6);
-  return v4;
+  sub_10004C66C(__b, v3);
+  v5 = v8;
+  sub_1000038DC(&v7);
+  return v5;
 }
 
-uint64_t sub_100004B30(uint64_t result, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+char *sub_100004B30(char *result, void *a2, uint64_t a3)
 {
-  v10 = result;
+  v5 = result;
   if (!*(a3 + 44))
   {
-    sub_1000483C8(1uLL, "adding property to manifest: %s", a3, a4, a5, a6, a7, a8, result);
-    result = sub_100004BC8(*(a3 + 24), 1296125520, v10, a2);
+    sub_1000483C8(1uLL, "adding property to manifest: %s", result);
+    result = sub_100004BC8(*(a3 + 24), 1296125520, v5, a2);
     *(a3 + 44) = result;
   }
 
@@ -1521,119 +1558,119 @@ uint64_t sub_100004B30(uint64_t result, void *a2, uint64_t a3, uint64_t a4, uint
 
 uint64_t sub_100004BC8(_DWORD *a1, int a2, char *a3, void *a4)
 {
-  v37 = a1;
-  v36 = a2;
-  v35 = a3;
-  v34 = a4;
-  v33 = -1;
+  v19 = a1;
+  v18 = a2;
+  v17 = a3;
+  v16 = a4;
+  v15 = -1;
   type = 0;
-  v30 = 0;
-  v31 = 0;
-  v29 = 0;
-  v27 = 0xFFFFFFFFLL;
-  v26 = 4;
-  v25 = 0;
-  v28 = strstr(a3, "_64");
-  if (!v28 || v28[3])
+  v12 = 0;
+  v13 = 0;
+  v11 = 0;
+  v9 = 0xFFFFFFFFLL;
+  v8 = 4;
+  v7 = 0;
+  v10 = strstr(a3, "_64");
+  if (!v10 || v10[3])
   {
-    v28 = strstr(v35, "_32");
-    if (!v28 || v28[3])
+    v10 = strstr(v17, "_32");
+    if (!v10 || v10[3])
     {
-      v28 = strstr(v35, "_0X");
-      if (!v28 || v28[3])
+      v10 = strstr(v17, "_0X");
+      if (!v10 || v10[3])
       {
-        sub_1000483C8(1uLL, "no key extension: %s", v16, v17, v18, v19, v20, v21, v35);
-        v28 = 0;
+        sub_1000483C8(1uLL, "no key extension: %s", v17);
+        v10 = 0;
       }
 
       else
       {
-        sub_1000483C8(1uLL, "found key extension: %s", v16, v17, v18, v19, v20, v21, v28);
-        v26 = 7;
+        sub_1000483C8(1uLL, "found key extension: %s", v10);
+        v8 = 7;
       }
     }
 
     else
     {
-      sub_1000483C8(1uLL, "found key extension: %s", v10, v11, v12, v13, v14, v15, v28);
-      v27 = 0xFFFFFFFFLL;
-      v26 = 7;
+      sub_1000483C8(1uLL, "found key extension: %s", v10);
+      v9 = 0xFFFFFFFFLL;
+      v8 = 7;
     }
   }
 
   else
   {
-    sub_1000483C8(1uLL, "found key extension: %s", v4, v5, v6, v7, v8, v9, v28);
-    v27 = -1;
-    v26 = 7;
+    sub_1000483C8(1uLL, "found key extension: %s", v10);
+    v9 = -1;
+    v8 = 7;
   }
 
-  if (strlen(v35) != v26)
+  if (strlen(v17) != v8)
   {
-    v33 = 22;
+    v15 = 22;
     goto LABEL_28;
   }
 
   __strlcpy_chk();
-  v29 = sub_10004B478(&v30);
-  type = xpc_get_type(v34);
+  v11 = sub_10004B478(&v12);
+  type = xpc_get_type(v16);
   if (type == &_xpc_type_int64)
   {
-    v25 = sub_100004FA4(v35, v28, v34);
-    if (!v25)
+    v7 = sub_100004FA4(v17, v10, v16);
+    if (!v7)
     {
-      v33 = 34;
+      v15 = 34;
       goto LABEL_28;
     }
 
-    v34 = v25;
-    type = xpc_get_type(v25);
+    v16 = v7;
+    type = xpc_get_type(v7);
   }
 
   else if (type == &_xpc_type_string)
   {
-    v25 = sub_100005004(v35, v28, v34);
-    if (v25)
+    v7 = sub_100005004(v17, v10, v16);
+    if (v7)
     {
-      v34 = v25;
+      v16 = v7;
     }
 
-    type = xpc_get_type(v34);
+    type = xpc_get_type(v16);
   }
 
   if (type == &_xpc_type_BOOL)
   {
-    v33 = sub_10000511C(v37, v36, v29, v34);
+    v15 = sub_10000511C(v19, v18, v11, v16);
   }
 
   else if (type == &_xpc_type_uint64)
   {
-    v33 = sub_100005184(v37, v36, v29, v34, v27);
+    v15 = sub_100005184(v19, v18, v11, v16, v9);
   }
 
   else if (type == &_xpc_type_data)
   {
-    v33 = sub_1000052B0(v37, v36, v29, v34);
+    v15 = sub_1000052B0(v19, v18, v11, v16);
   }
 
   else
   {
-    warnx("unsupported object type in property list for tag: %s", v35);
-    v33 = 79;
+    warnx("unsupported object type in property list for tag: %s", v17);
+    v15 = 79;
   }
 
 LABEL_28:
-  if (v33)
+  if (v15)
   {
-    v24 = 0;
-    v24 = xpc_copy_description(v34);
-    warnc(v33, "failed to encode value: %s => %s", v35, v24);
-    sub_100002DE4(&v24);
+    v6 = 0;
+    v6 = xpc_copy_description(v16);
+    warnc(v15, "failed to encode value: %s => %s", v17, v6);
+    sub_100002DE4(&v6);
   }
 
-  v23 = v33;
-  sub_1000030D0(&v25);
-  return v23;
+  v5 = v15;
+  sub_1000030D0(&v7);
+  return v5;
 }
 
 xpc_object_t sub_100004FA4(uint64_t a1, uint64_t a2, void *a3)
@@ -1650,7 +1687,7 @@ xpc_object_t sub_100004FA4(uint64_t a1, uint64_t a2, void *a3)
   }
 }
 
-xpc_object_t sub_100005004(uint64_t a1, const char *a2, void *a3)
+xpc_object_t sub_100005004(const char *a1, const char *a2, void *a3)
 {
   if (!a2)
   {
@@ -1708,25 +1745,25 @@ uint64_t sub_10000511C(_DWORD *a1, int a2, unsigned int a3, void *a4)
   return sub_1000055B4(v6);
 }
 
-uint64_t sub_100005184(_DWORD *a1, int a2, unsigned int a3, void *a4, unint64_t a5)
+uint64_t sub_100005184(_DWORD *a1, int a2, unsigned int a3, void *a4, uint64_t a5)
 {
   value = xpc_uint64_get_value(a4);
   if (value <= a5)
   {
     if (a5 <= 0xFFFFFFFF)
     {
-      sub_1000483C8(1uLL, "encoding uint value as u32: %#x", v5, v6, v7, v8, v9, v10, value);
-      v19 = sub_10004DDC0(a1, a2, a3, value);
+      sub_1000483C8(1uLL, "encoding uint value as u32: %#x", value);
+      v7 = sub_10004DDC0(a1, a2, a3, value);
     }
 
     else
     {
-      sub_1000483C8(1uLL, "encoding uint value as u64: %#llx", v5, v6, v7, v8, v9, v10, value);
-      v19 = sub_10004DEF4(a1, a2, a3, value);
+      sub_1000483C8(1uLL, "encoding uint value as u64: %#llx", value);
+      v7 = sub_10004DEF4(a1, a2, a3, value);
     }
 
-    sub_1000483C8(1uLL, "encode result: %d", v11, v12, v13, v14, v15, v16, v19);
-    return sub_1000055B4(v19);
+    sub_1000483C8(1uLL, "encode result: %d", v7);
+    return sub_1000055B4(v7);
   }
 
   else
@@ -1751,48 +1788,48 @@ uint64_t sub_1000052B0(_DWORD *a1, int a2, unsigned int a3, void *a4)
   }
 }
 
-xpc_object_t sub_100005364(char a1, void *a2)
+xpc_object_t sub_100005364(const char *a1, void *a2)
 {
-  v18 = 0;
+  v6 = 0;
   string_ptr = xpc_string_get_string_ptr(a2);
   *__error() = 0;
-  v16 = strtoull(string_ptr, 0, 0);
+  v4 = strtoull(string_ptr, 0, 0);
   if (*__error())
   {
-    v15 = *__error();
-    sub_1000483C8(1uLL, "invalid string for unsigned integer conversion: %s => %s: %d", v2, v3, v4, v5, v6, v7, a1);
+    v2 = __error();
+    sub_1000483C8(1uLL, "invalid string for unsigned integer conversion: %s => %s: %d", a1, string_ptr, *v2);
   }
 
   else
   {
-    v18 = xpc_uint64_create(v16);
-    sub_1000483C8(1uLL, "interpreting string value as unsigned integer: %s: %s => %#llx", v8, v9, v10, v11, v12, v13, a1);
+    v6 = xpc_uint64_create(v4);
+    sub_1000483C8(1uLL, "interpreting string value as unsigned integer: %s: %s => %#llx", a1, string_ptr, v4);
   }
 
-  return v18;
+  return v6;
 }
 
-xpc_object_t sub_100005484(uint64_t a1, void *a2)
+xpc_object_t sub_100005484(const char *a1, void *a2)
 {
-  v14 = a1;
-  v13 = a2;
+  v8 = a1;
+  v7 = a2;
   string_ptr = 0;
   length = 0;
-  v10 = 0;
+  v4 = 0;
   string_ptr = xpc_string_get_string_ptr(a2);
-  length = xpc_string_get_length(v13);
-  sub_100049A08(&v10, &length, string_ptr);
-  sub_1000483C8(1uLL, "interpreting string value as hex data: %s: cstr = %s, data length = %lu", v2, v3, v4, v5, v6, v7, v14);
-  v9 = xpc_data_create(v10, length);
-  sub_100002DE4(&v10);
-  return v9;
+  length = xpc_string_get_length(v7);
+  sub_100049A08(&v4, &length, string_ptr);
+  sub_1000483C8(1uLL, "interpreting string value as hex data: %s: cstr = %s, data length = %lu", v8, string_ptr, length);
+  v3 = xpc_data_create(v4, length);
+  sub_100002DE4(&v4);
+  return v3;
 }
 
-xpc_object_t sub_10000553C(char a1, void *a2)
+xpc_object_t sub_10000553C(const char *a1, void *a2)
 {
   bytes = xpc_string_get_string_ptr(a2);
   length = xpc_string_get_length(a2);
-  sub_1000483C8(1uLL, "interpreting string value as data: %s: %s", v2, v3, v4, v5, v6, v7, a1);
+  sub_1000483C8(1uLL, "interpreting string value as data: %s: %s", a1, bytes);
   return xpc_data_create(bytes, length + 1);
 }
 
@@ -1817,88 +1854,88 @@ uint64_t sub_1000055B4(int a1)
   }
 }
 
-void sub_10000567C(unsigned int *a1, void *a2, uint64_t a3)
+void sub_10000567C(const char *a1, void *a2, uint64_t a3)
 {
-  v16 = a1;
-  v15 = a2;
-  v14 = a3;
-  v13 = a3;
-  v12 = 0;
-  v11 = -1;
-  v10 = 0;
-  v9 = 0;
+  v10 = a1;
+  v9 = a2;
+  v8 = a3;
+  v7 = a3;
+  v6 = 0;
+  v5 = -1;
+  v4 = 0;
+  v3 = 0;
   if (!*(a3 + 44))
   {
-    v10 = xpc_copy_description(v15);
-    if (xpc_get_type(v15) == &_xpc_type_dictionary)
+    v4 = xpc_copy_description(v9);
+    if (xpc_get_type(v9) == &_xpc_type_dictionary)
     {
-      if (strlen(v16) == 4)
+      if (strlen(v10) == 4)
       {
-        v9 = sub_10004B478(v16);
-        if (*(v13 + 32))
+        v3 = sub_10004B478(v10);
+        if (*(v7 + 32))
         {
-          v12 = *(v13 + 32);
+          v6 = *(v7 + 32);
         }
 
-        v11 = sub_10004D4E4(&v12, v9);
-        if (v11 == 100)
+        v5 = sub_10004D4E4(&v6, v3);
+        if (v5 == 100)
         {
-          sub_1000483C8(1uLL, "adding object to manifest: %s => %s", v3, v4, v5, v6, v7, v8, v16);
-          *(v13 + 40) = v9;
-          *(v13 + 32) = v12;
+          sub_1000483C8(1uLL, "adding object to manifest: %s => %s", v10, v4);
+          *(v7 + 40) = v3;
+          *(v7 + 32) = v6;
           xpc_dictionary_apply_f();
         }
 
         else
         {
-          warnx("failed to begin manifest: %d", v11);
+          warnx("failed to begin manifest: %d", v5);
         }
       }
 
       else
       {
-        *(v13 + 44) = 79;
-        warnx("illegal tag for object: %s => %s", v16, v10);
+        *(v7 + 44) = 79;
+        warnx("illegal tag for object: %s => %s", v10, v4);
       }
     }
 
     else
     {
-      *(v13 + 44) = 79;
-      warnx("illegal object specifier: %s => %s", v16, v10);
+      *(v7 + 44) = 79;
+      warnx("illegal object specifier: %s => %s", v10, v4);
     }
   }
 
-  while (v12)
+  while (v6)
   {
-    v11 = sub_10004D5EC(v12, v9);
-    if (v11 == 100)
+    v5 = sub_10004D5EC(v6, v3);
+    if (v5 == 100)
     {
       break;
     }
 
-    warnx("failed to end %s object: %d", v16, v11);
+    warnx("failed to end %s object: %d", v10, v5);
   }
 
-  sub_100002DE4(&v10);
+  sub_100002DE4(&v4);
 }
 
 char *sub_100005894(char *result, void *a2, uint64_t a3)
 {
-  v17 = result;
-  v16 = a2;
-  v15 = a3;
-  v14 = a3;
-  v13 = -1;
-  v11 = 0;
-  v12 = 0;
-  v10 = *(a3 + 40);
+  v11 = result;
+  v10 = a2;
+  v9 = a3;
+  v8 = a3;
+  v7 = -1;
+  v5 = 0;
+  v6 = 0;
+  v4 = *(a3 + 40);
   if (!*(a3 + 44))
   {
-    v3 = sub_10004B484(v10, &v11);
-    sub_1000483C8(1uLL, "adding property to object: %s: %s", v4, v5, v6, v7, v8, v9, v3);
-    result = sub_100004BC8(*(v14 + 32), v10, v17, v16);
-    *(v14 + 44) = result;
+    v3 = sub_10004B484(v4, &v5);
+    sub_1000483C8(1uLL, "adding property to object: %s: %s", v3, v11);
+    result = sub_100004BC8(*(v8 + 32), v4, v11, v10);
+    *(v8 + 44) = result;
   }
 
   return result;
@@ -1939,7 +1976,7 @@ uint64_t sub_1000059D4(uint64_t a1, int a2, char *const *a3)
     if (optind < 1)
     {
       v9 = 0;
-      memset(&v20[8], 0, 0x50uLL);
+      memset(v21, 0, sizeof(v21));
       v7 = 0;
       v6 = 3;
       oslog = &_os_log_default;
@@ -1951,7 +1988,7 @@ uint64_t sub_1000059D4(uint64_t a1, int a2, char *const *a3)
       if (v6)
       {
         sub_1000013C8(v20, optind);
-        v7 = _os_log_send_and_compose_impl();
+        v7 = _os_log_send_and_compose_impl(v6, &v9, v21, 80, &_mh_execute_header, oslog, 16, "unexpected failure: bogus optind: %d", v20);
       }
 
       v4 = v7;
@@ -2068,39 +2105,39 @@ uint64_t sub_100005EEC(uint64_t a1)
 
 uint64_t sub_100005FB0(uint64_t a1)
 {
-  v59 = a1;
-  v58 = 0;
+  v68 = a1;
+  v67 = 0;
   obj[1] = ((*(a1 + 8) & 1) == 0);
   obj[0] = simple_session_create();
   location = 0;
-  v55 = 0;
-  *(v59 + 32) = simple_session_copy_name();
-  if (!*(v59 + 56))
+  v64 = 0;
+  *(v68 + 32) = simple_session_copy_name();
+  if (!*(v68 + 56))
   {
     goto LABEL_72;
   }
 
-  v1 = sub_100006B90(*(v59 + 56), &v58);
+  v1 = sub_100006B90(*(v68 + 56), &v67);
   v2 = location;
   location = v1;
   _objc_release(v2);
-  if (v58)
+  if (v67)
   {
-    warnc(v58, "create_xpc_object_from_plist_path returned an error");
+    warnc(v67, "create_xpc_object_from_plist_path returned an error");
     goto LABEL_66;
   }
 
-  v58 = simple_session_add_session_environment();
-  if (v58)
+  v67 = simple_session_add_session_environment();
+  if (v67)
   {
-    v54 = sub_100048090();
-    v35 = 1;
-    if (v54[1] <= 1uLL)
+    v63 = sub_100048090();
+    v44 = 1;
+    if (v63[1] <= 1uLL)
     {
-      v35 = v54[2] > 1uLL;
+      v44 = v63[2] > 1uLL;
     }
 
-    if (v35)
+    if (v44)
     {
       v3 = 999;
     }
@@ -2110,253 +2147,262 @@ uint64_t sub_100005FB0(uint64_t a1)
       v3 = 3;
     }
 
-    v53 = v3;
-    v34 = 1;
-    if (v54[1] <= 1uLL)
+    v62 = v3;
+    v43 = 1;
+    if (v63[1] <= 1uLL)
     {
-      v34 = v54[2] > 1uLL;
+      v43 = v63[2] > 1uLL;
     }
 
     v4 = 2000;
-    if (!v34)
+    if (!v43)
     {
       v4 = 200;
     }
 
-    v52 = v4;
-    if (v55)
+    v61 = v4;
+    if (v64)
     {
-      v33 = sub_100017530(v55, v53, v52);
+      v42 = sub_100017530(v64, v62, v61);
     }
 
     else
     {
       __s = "unknown error";
       __s1 = "unknown error";
-      v50 = strdup("unknown error");
+      v59 = strdup("unknown error");
       v5 = strlen("unknown error");
-      v95 = "known-constant allocation";
-      v94 = v50;
-      v93 = v5;
-      if (!v50)
+      v104 = "known-constant allocation";
+      v103 = v59;
+      v102 = v5;
+      if (!v59)
       {
-        v92 = 0;
-        memset(&v98[40], 0, 0x50uLL);
-        v90 = 0;
-        v89 = 3;
+        v101 = 0;
+        memset(__b, 0, sizeof(__b));
+        v99 = 0;
+        v98 = 3;
         oslog = &_os_log_default;
         type = OS_LOG_TYPE_ERROR;
         if (!os_log_type_enabled(oslog, OS_LOG_TYPE_ERROR))
         {
-          v89 &= ~1u;
+          v98 &= ~1u;
         }
 
-        if (v89)
+        if (v98)
         {
-          v30 = v95;
-          v31 = v93;
-          v32 = __error();
-          v29 = strerror(*v32);
-          sub_1000031B0(v98, v30, v31, v29);
-          v86 = _os_log_send_and_compose_impl();
-          v90 = v86;
+          v36 = v98;
+          v37 = oslog;
+          v38 = type;
+          v39 = v104;
+          v40 = v102;
+          v41 = __error();
+          v35 = strerror(*v41);
+          sub_1000031B0(v109, v39, v40, v35);
+          v95 = _os_log_send_and_compose_impl(v36, &v101, __b, 80, &_mh_execute_header, v37, v38, "allocation failed: obj = %s, size = %lu, error = %s", v109, 32, v13);
+          v99 = v95;
         }
 
-        v85 = v90;
+        v94 = v99;
         objc_storeStrong(&oslog, 0);
-        v91 = v85;
+        v100 = v94;
         _os_crash_msg();
         __break(1u);
         JUMPOUT(0x100006388);
       }
 
-      v48 = v50;
-      v33 = v50;
+      v57 = v59;
+      v42 = v59;
     }
 
-    v51 = v33;
-    warnx("session_add_session_environment returned an error\n%s", v33);
-    sub_100002DE4(&v51);
+    v60 = v42;
+    warnx("session_add_session_environment returned an error\n%s", v42);
+    sub_100002DE4(&v60);
   }
 
   else
   {
 LABEL_72:
-    if (*(v59 + 16) && (v6 = *(v59 + 16), (v58 = simple_session_set_homedir_size() ^ 1) != 0))
+    if (*(v68 + 16) && (v67 = simple_session_set_homedir_size() ^ 1) != 0)
     {
-      v47 = sub_100048090();
-      v28 = 1;
-      if (v47[1] <= 1uLL)
+      v56 = sub_100048090();
+      v34 = 1;
+      if (v56[1] <= 1uLL)
       {
-        v28 = v47[2] > 1uLL;
+        v34 = v56[2] > 1uLL;
       }
 
-      if (v28)
+      if (v34)
       {
-        v7 = 999;
-      }
-
-      else
-      {
-        v7 = 3;
-      }
-
-      v46 = v7;
-      v27 = 1;
-      if (v47[1] <= 1uLL)
-      {
-        v27 = v47[2] > 1uLL;
-      }
-
-      v8 = 2000;
-      if (!v27)
-      {
-        v8 = 200;
-      }
-
-      v45 = v8;
-      if (v55)
-      {
-        v26 = sub_100017530(v55, v46, v45);
+        v6 = 999;
       }
 
       else
       {
-        v42 = "unknown error";
-        v61 = "unknown error";
-        v43 = strdup("unknown error");
-        v9 = strlen("unknown error");
-        v84 = "known-constant allocation";
-        v83 = v43;
-        v82 = v9;
-        if (!v43)
+        v6 = 3;
+      }
+
+      v55 = v6;
+      v33 = 1;
+      if (v56[1] <= 1uLL)
+      {
+        v33 = v56[2] > 1uLL;
+      }
+
+      v7 = 2000;
+      if (!v33)
+      {
+        v7 = 200;
+      }
+
+      v54 = v7;
+      if (v64)
+      {
+        v32 = sub_100017530(v64, v55, v54);
+      }
+
+      else
+      {
+        v51 = "unknown error";
+        v70 = "unknown error";
+        v52 = strdup("unknown error");
+        v8 = strlen("unknown error");
+        v93 = "known-constant allocation";
+        v92 = v52;
+        v91 = v8;
+        if (!v52)
         {
-          v81 = 0;
-          memset(&v97[32], 0, 0x50uLL);
-          v79 = 0;
-          v78 = 3;
-          v77 = &_os_log_default;
-          v76 = OS_LOG_TYPE_ERROR;
-          if (!os_log_type_enabled(v77, OS_LOG_TYPE_ERROR))
+          v90 = 0;
+          memset(v108, 0, sizeof(v108));
+          v88 = 0;
+          v87 = 3;
+          v86 = &_os_log_default;
+          v85 = OS_LOG_TYPE_ERROR;
+          if (!os_log_type_enabled(v86, OS_LOG_TYPE_ERROR))
           {
-            v78 &= ~1u;
+            v87 &= ~1u;
           }
 
-          if (v78)
+          if (v87)
           {
-            v23 = v84;
-            v24 = v82;
-            v25 = __error();
-            v22 = strerror(*v25);
-            sub_1000031B0(v97, v23, v24, v22);
-            v75 = _os_log_send_and_compose_impl();
-            v79 = v75;
+            v26 = v87;
+            v27 = v86;
+            v28 = v85;
+            v29 = v93;
+            v30 = v91;
+            v31 = __error();
+            v25 = strerror(*v31);
+            sub_1000031B0(v107, v29, v30, v25);
+            v84 = _os_log_send_and_compose_impl(v26, &v90, v108, 80, &_mh_execute_header, v27, v28, "allocation failed: obj = %s, size = %lu, error = %s", v107, 32, v13);
+            v88 = v84;
           }
 
-          v74 = v79;
-          objc_storeStrong(&v77, 0);
-          v80 = v74;
+          v83 = v88;
+          objc_storeStrong(&v86, 0);
+          v89 = v83;
           _os_crash_msg();
           __break(1u);
           JUMPOUT(0x1000066D8);
         }
 
-        v41 = v43;
-        v26 = v43;
+        v50 = v52;
+        v32 = v52;
       }
 
-      v44 = v26;
-      warnx("session_set_homedir_size returned an error\n%s", v26);
-      sub_100002DE4(&v44);
+      v53 = v32;
+      warnx("session_set_homedir_size returned an error\n%s", v32);
+      sub_100002DE4(&v53);
     }
 
     else
     {
-      v58 = simple_session_activate() ^ 1;
-      if (v58)
+      v67 = simple_session_activate() ^ 1;
+      if (v67)
       {
-        v40 = sub_100048090();
-        v21 = 1;
-        if (v40[1] <= 1uLL)
+        v49 = sub_100048090();
+        v24 = 1;
+        if (v49[1] <= 1uLL)
         {
-          v21 = v40[2] > 1uLL;
+          v24 = v49[2] > 1uLL;
         }
 
-        if (v21)
+        if (v24)
         {
-          v10 = 999;
-        }
-
-        else
-        {
-          v10 = 3;
-        }
-
-        v39 = v10;
-        v20 = 1;
-        if (v40[1] <= 1uLL)
-        {
-          v20 = v40[2] > 1uLL;
-        }
-
-        v11 = 2000;
-        if (!v20)
-        {
-          v11 = 200;
-        }
-
-        v38 = v11;
-        if (v55)
-        {
-          v19 = sub_100017530(v55, v39, v38);
+          v9 = 999;
         }
 
         else
         {
-          v60 = "unknown error";
-          v36 = strdup("unknown error");
-          v12 = strlen("unknown error");
-          v73 = "known-constant allocation";
-          v72 = v36;
-          v71 = v12;
-          if (!v36)
+          v9 = 3;
+        }
+
+        v48 = v9;
+        v23 = 1;
+        if (v49[1] <= 1uLL)
+        {
+          v23 = v49[2] > 1uLL;
+        }
+
+        v10 = 2000;
+        if (!v23)
+        {
+          v10 = 200;
+        }
+
+        v47 = v10;
+        if (v64)
+        {
+          v22 = sub_100017530(v64, v48, v47);
+        }
+
+        else
+        {
+          v69 = "unknown error";
+          v45 = strdup("unknown error");
+          v11 = strlen("unknown error");
+          v82 = "known-constant allocation";
+          v81 = v45;
+          v80 = v11;
+          if (!v45)
           {
-            v70 = 0;
-            memset(&v96[32], 0, 0x50uLL);
-            v68 = 0;
-            v67 = 3;
-            v66 = &_os_log_default;
-            v65 = OS_LOG_TYPE_ERROR;
-            if (!os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
+            v79 = 0;
+            memset(v106, 0, sizeof(v106));
+            v77 = 0;
+            v76 = 3;
+            v75 = &_os_log_default;
+            v74 = OS_LOG_TYPE_ERROR;
+            if (!os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
             {
-              v67 &= ~1u;
+              v76 &= ~1u;
             }
 
-            if (v67)
+            if (v76)
             {
-              v16 = v73;
-              v17 = v71;
-              v18 = __error();
-              v15 = strerror(*v18);
-              sub_1000031B0(v96, v16, v17, v15);
-              v64 = _os_log_send_and_compose_impl();
-              v68 = v64;
+              v16 = v76;
+              v17 = v75;
+              v18 = v74;
+              v19 = v82;
+              v20 = v80;
+              v21 = __error();
+              v15 = strerror(*v21);
+              sub_1000031B0(v105, v19, v20, v15);
+              v73 = _os_log_send_and_compose_impl(v16, &v79, v106, 80, &_mh_execute_header, v17, v18, "allocation failed: obj = %s, size = %lu, error = %s", v105, 32, v13);
+              v77 = v73;
             }
 
-            v63 = v68;
-            objc_storeStrong(&v66, 0);
-            v69 = v63;
+            v72 = v77;
+            objc_storeStrong(&v75, 0);
+            v78 = v72;
             _os_crash_msg();
             __break(1u);
             JUMPOUT(0x100006A10);
           }
 
-          v19 = v36;
+          v22 = v45;
         }
 
-        v37 = v19;
-        warnx("Activation error\n%s", v19);
-        sub_100002DE4(&v37);
+        v46 = v22;
+        warnx("Activation error\n%s", v22);
+        sub_100002DE4(&v46);
       }
 
       else
@@ -2367,8 +2413,8 @@ LABEL_72:
   }
 
 LABEL_66:
-  v14 = v58;
-  sub_100006B40(&v55);
+  v14 = v67;
+  sub_100006B40(&v64);
   objc_storeStrong(&location, 0);
   objc_storeStrong(obj, 0);
   return v14;
@@ -2394,48 +2440,48 @@ void sub_100006B40(CFTypeRef *a1)
 
 id sub_100006B90(const char *a1, int *a2)
 {
-  v13 = a1;
-  v12 = a2;
-  v11 = 0;
+  v14 = a1;
+  v13 = a2;
+  v12 = 0;
   memset(__b, 0, sizeof(__b));
-  v9 = open(v13, 0);
-  v14 = v9;
-  if (v9 < 0)
+  v10 = open(v14, 0);
+  v15 = v10;
+  if (v10 < 0)
   {
-    v7 = __error();
-    v8 = *v7;
-    warnc(*v7, "Could not open file at %s.", v13);
+    v8 = __error();
+    v9 = *v8;
+    warnc(*v8, "Could not open file at %s.", v14);
   }
 
   else
   {
-    v8 = sub_10004B524(v9, __b);
-    if (v8)
+    v9 = sub_10004B524(v10, __b);
+    if (v9)
     {
-      warnc(v8, "Unable to read plist: %s", v13);
+      warnc(v9, "Unable to read plist: %s", v14);
     }
 
     else
     {
-      v6 = xpc_create_from_plist();
-      v2 = v11;
-      v11 = v6;
-      _objc_release(v2);
-      if (!v11)
+      v7 = xpc_create_from_plist();
+      v3 = v12;
+      v12 = v7;
+      _objc_release(v3);
+      if (!v12)
       {
-        v8 = 212;
-        warnc(212, "Failed to parse plist: %s", v13);
+        v9 = 212;
+        warnc(212, "Failed to parse plist: %s", v14);
       }
     }
   }
 
-  sub_10004C66C(__b);
-  *v12 = v8;
-  v5 = v11;
-  sub_100006D80(&v9);
-  objc_storeStrong(&v11, 0);
-  v3 = v5;
-  return v5;
+  sub_10004C66C(__b, v2);
+  *v13 = v9;
+  v6 = v12;
+  sub_100006D80(&v10);
+  objc_storeStrong(&v12, 0);
+  v4 = v6;
+  return v6;
 }
 
 int *sub_100006D80(int *result)
@@ -2449,7 +2495,7 @@ int *sub_100006D80(int *result)
     if (result == -1)
     {
       v7 = 0;
-      memset(&v11[8], 0, 0x50uLL);
+      memset(__b, 0, sizeof(__b));
       v5 = 0;
       v4 = 3;
       oslog = &_os_log_default;
@@ -2462,7 +2508,7 @@ int *sub_100006D80(int *result)
       {
         v1 = __error();
         sub_1000013C8(v11, *v1);
-        v5 = _os_log_send_and_compose_impl();
+        v5 = _os_log_send_and_compose_impl(v4, &v7, __b, 80, &_mh_execute_header, oslog, 16, "assertion failure: close(fd) -> %{errno}d", v11, 8);
       }
 
       v2 = v5;
@@ -2479,63 +2525,62 @@ int *sub_100006D80(int *result)
 
 BOOL sub_100006F2C()
 {
-  v8 = __chkstk_darwin();
-  v7 = -1;
-  v6 = 0;
-  bzero(&v12, 0x848uLL);
+  v7 = __chkstk_darwin();
+  v6 = -1;
+  v5 = 0;
+  bzero(&v11, 0x848uLL);
   image_asset = 0;
-  v4 = 0;
+  v3 = 0;
   __s1 = 0;
-  bzero(v11, 0x400uLL);
   bzero(v10, 0x400uLL);
-  v2 = 0;
-  v0 = *(v8 + 48);
+  bzero(v9, 0x400uLL);
+  v1 = 0;
   image_asset = cryptex_core_get_image_asset();
-  v12 = *(image_asset + 16);
-  v15 = *(v8 + 32);
-  v7 = sub_100009F44(&v12, &v4);
-  if (v7)
+  v11 = *(image_asset + 16);
+  v14 = *(v7 + 32);
+  v6 = sub_100009F44(&v11, &v3);
+  if (v6)
   {
-    v6 = "failed to attach dmg";
+    v5 = "failed to attach dmg";
   }
 
   else
   {
-    v7 = sub_10000AD54(&v12, v4, &__s1, v11, v10);
-    if (v7)
+    v6 = sub_10000AD54(&v11, v3, &__s1, v10, v9);
+    if (v6)
     {
-      v6 = "failed to find attached dmg";
+      v5 = "failed to find attached dmg";
     }
 
     else
     {
-      v13 = open(v11, 0);
-      v9 = v13;
-      if (v13 < 0)
+      v12 = open(v10, 0);
+      v8 = v12;
+      if (v12 < 0)
       {
-        v7 = *__error();
-        v6 = "failed to open device handle";
+        v6 = *__error();
+        v5 = "failed to open device handle";
       }
 
       else
       {
-        if (ioctl(v13, 0x20006415uLL))
+        if (ioctl(v12, 0x20006415uLL))
         {
-          warn("failed to detach virtual device: %s (not fatal)", v14);
+          warn("failed to detach virtual device: %s (not fatal)", v13);
         }
 
-        v2 = strcmp(__s1, "apfs") == 0;
+        v1 = strcmp(__s1, "apfs") == 0;
       }
     }
   }
 
-  if (v7)
+  if (v6)
   {
-    errc(71, v7, "%s", v6);
+    errc(71, v6, "%s", v5);
   }
 
-  sub_100006B40(&v4);
-  return v2;
+  sub_100006B40(&v3);
+  return v1;
 }
 
 uint64_t sub_100007174()
@@ -2562,7 +2607,6 @@ uint64_t sub_100007174()
   bzero(v128, 0x400uLL);
   bzero(v127, 0x400uLL);
   bzero(v126, 0x400uLL);
-  v2 = *(v88 + 48);
   if (cryptex_core_is_cryptex1())
   {
     v85 = sub_10004B3B0(v80[584], v131, &v79);
@@ -2612,7 +2656,6 @@ uint64_t sub_100007174()
         __snprintf_chk(v128, 0x400uLL, 0, 0x400uLL, "%s/sealed.dmg", v130);
         __snprintf_chk(v127, 0x400uLL, 0, 0x400uLL, "%s/sealed.dmg.roothash.data", v130);
         __snprintf_chk(v126, 0x400uLL, 0, 0x400uLL, "%s/sealed.dmg.roothash.im4p", v130);
-        v3 = *(v88 + 48);
         v83 = cryptex_core_pop_asset();
         if (v83)
         {
@@ -2761,7 +2804,7 @@ uint64_t sub_100007174()
                   if (!v42)
                   {
                     v102 = 0;
-                    memset(&v132[40], 0, 0x50uLL);
+                    memset(v133, 0, sizeof(v133));
                     v100 = 0;
                     v99 = 3;
                     v98 = &_os_log_default;
@@ -2773,12 +2816,15 @@ uint64_t sub_100007174()
 
                     if (v99)
                     {
-                      v10 = v105;
-                      v11 = v103;
-                      v4 = __error();
-                      v5 = strerror(*v4);
-                      sub_1000031B0(v132, v10, v11, v5);
-                      v96 = _os_log_send_and_compose_impl();
+                      v9 = v99;
+                      v10 = v98;
+                      v11 = v97;
+                      v7 = v105;
+                      v8 = v103;
+                      v2 = __error();
+                      v3 = strerror(*v2);
+                      sub_1000031B0(v132, v7, v8, v3);
+                      v96 = _os_log_send_and_compose_impl(v9, &v102, v133, 80, &_mh_execute_header, v10, v11, "allocation failed: obj = %s, size = %lu, error = %s", v132, 32, v5);
                       v100 = v96;
                     }
 
@@ -2960,9 +3006,7 @@ uint64_t sub_100007174()
                               v81 = cryptex_asset_new();
                               if (v81)
                               {
-                                v6 = *(v88 + 48);
                                 cryptex_core_set_asset();
-                                v7 = *(v88 + 48);
                                 cryptex_core_set_asset();
                               }
 
@@ -3103,12 +3147,12 @@ uint64_t sub_100007174()
 
   cryptex_asset_destroy();
   v83 = 0;
-  v9 = v85;
+  v6 = v85;
   sub_1000038DC(&v75);
   sub_1000038DC(&v76);
   sub_1000038DC(&v77);
   sub_1000038DC(&v79);
-  return v9;
+  return v6;
 }
 
 uint64_t sub_1000095D4(uint64_t result, uint64_t a2)
@@ -3327,83 +3371,84 @@ uint64_t sub_100009EF8(uint64_t result, int a2, int a3)
 
 uint64_t sub_100009F44(unsigned int *a1, CFTypeRef *a2)
 {
-  v42 = a1;
-  v41 = a2;
-  v40 = -1;
-  v38 = 0;
-  v37 = 0;
-  v36 = 0;
-  v35 = 0;
-  v34 = 0;
-  v33 = 0;
+  v53 = a1;
+  v52 = a2;
+  v51 = -1;
+  v49 = 0;
+  v48 = 0;
+  v47 = 0;
+  v46 = 0;
+  v45 = 0;
+  v44 = 0;
   Data = 0;
-  v31 = 5;
-  v30 = -536870212;
+  v42 = 5;
+  v41 = -536870212;
   MatchingService = 0;
   connect = 0;
   memset(__b, 0, sizeof(__b));
   __b[0] = 0x1BEEFFEEDLL;
   outputStruct = 0;
   outputStructCnt = 4;
-  bzero(v70, 0x400uLL);
-  v39 = sub_100018434();
-  sub_1000173C8(v39, "CFMutableDictionary");
-  if (*(v42 + 2))
+  bzero(v82, 0x400uLL);
+  v50 = sub_100018434();
+  sub_1000173C8(v50, "CFMutableDictionary");
+  if (*(v53 + 2))
   {
-    v37 = sub_100018314(*(v42 + 2));
+    v48 = sub_100018314(*(v53 + 2));
   }
 
   else
   {
-    v38 = CFUUIDCreate(0);
-    sub_1000173C8(v38, "CFUUID");
-    v37 = CFUUIDCreateString(0, v38);
-    sub_1000173C8(v37, "CFString");
+    v49 = CFUUIDCreate(0);
+    sub_1000173C8(v49, "CFUUID");
+    v48 = CFUUIDCreateString(0, v49);
+    sub_1000173C8(v48, "CFString");
   }
 
-  CFDictionarySetValue(v39, @"hdik-unique-identifier", v37);
-  CFDictionarySetValue(v39, @"autodiskmount", kCFBooleanFalse);
-  if ((v42[8] & 1) == 0)
+  CFDictionarySetValue(v50, @"hdik-unique-identifier", v48);
+  CFDictionarySetValue(v50, @"autodiskmount", kCFBooleanFalse);
+  if ((v53[8] & 1) == 0)
   {
-    CFDictionarySetValue(v39, @"write-protected", kCFBooleanTrue);
+    CFDictionarySetValue(v50, @"write-protected", kCFBooleanTrue);
 LABEL_13:
-    v4 = *v42;
-    v40 = realpath_np();
-    if (v40)
+    v51 = realpath_np();
+    if (v51)
     {
-      v21 = *__error();
-      v20 = *(v42 + 261);
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v30 = *__error();
+      v29 = *(v53 + 261);
+      v28 = OS_LOG_TYPE_ERROR;
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
       {
-        sub_1000013C8(v66, v40);
-        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "realpath_np hdi_dmgfd: %{darwin.errno}d", v66, 8u);
+        sub_1000013C8(v78, v51);
+        _os_log_impl(&_mh_execute_header, v29, v28, "realpath_np hdi_dmgfd: %{darwin.errno}d", v78, 8u);
       }
 
-      *__error() = v21;
+      *__error() = v30;
     }
 
     else
     {
-      v5 = strlen(v70);
-      v35 = CFDataCreate(0, v70, v5);
-      sub_1000173C8(v35, "CFData");
-      CFDictionarySetValue(v39, @"image-path", v35);
-      v36 = sub_10001810C(*v42);
-      sub_1000173C8(v36, "CFNumber");
-      CFDictionarySetValue(v39, @"image-fd", v36);
-      v19 = *__error();
-      v18 = *(v42 + 261);
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+      v3 = strlen(v82);
+      v46 = CFDataCreate(0, v82, v3);
+      sub_1000173C8(v46, "CFData");
+      CFDictionarySetValue(v50, @"image-path", v46);
+      v47 = sub_10001810C(*v53);
+      sub_1000173C8(v47, "CFNumber");
+      CFDictionarySetValue(v50, @"image-fd", v47);
+      v27 = *__error();
+      v26 = *(v53 + 261);
+      v25 = OS_LOG_TYPE_DEBUG;
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
       {
-        sub_10000ACC8(v65, v39);
-        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEBUG, "attach args = %@", v65, 0xCu);
+        sub_10000ACC8(v77, v50);
+        _os_log_impl(&_mh_execute_header, v26, v25, "attach args = %@", v77, 0xCu);
       }
 
-      *__error() = v19;
-      Data = CFPropertyListCreateData(0, v39, kCFPropertyListXMLFormat_v1_0, 0, 0);
+      *__error() = v27;
+      Data = CFPropertyListCreateData(0, v50, kCFPropertyListXMLFormat_v1_0, 0, 0);
       sub_1000173C8(Data, "CFData");
       BytePtr = CFDataGetBytePtr(Data);
-      v34 = BytePtr;
+      v45 = BytePtr;
       Length = CFDataGetLength(Data);
       if (Length < 0)
       {
@@ -3412,180 +3457,195 @@ LABEL_13:
         JUMPOUT(0x10000A5B8);
       }
 
-      v33 = Length;
-      __b[1] = v34;
+      v44 = Length;
+      __b[1] = v45;
       __b[2] = Length;
-      v6 = IOServiceMatching("IOHDIXController");
-      MatchingService = IOServiceGetMatchingService(0, v6);
+      v4 = IOServiceMatching("IOHDIXController");
+      MatchingService = IOServiceGetMatchingService(0, v4);
       if (MatchingService)
       {
-        v30 = IOServiceOpen(MatchingService, mach_task_self_, 0, &connect);
-        if (v30)
+        v41 = IOServiceOpen(MatchingService, mach_task_self_, 0, &connect);
+        if (v41)
         {
-          v15 = *__error();
-          v14 = *(v42 + 261);
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+          v21 = *__error();
+          v20 = *(v53 + 261);
+          v19 = OS_LOG_TYPE_ERROR;
+          if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
           {
-            sub_1000013C8(v63, v31);
-            _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "IOServiceOpen: %{mach.errno}x", v63, 8u);
+            sub_1000013C8(v75, v42);
+            _os_log_impl(&_mh_execute_header, v20, v19, "IOServiceOpen: %{mach.errno}x", v75, 8u);
           }
 
-          *__error() = v15;
-          v40 = 61;
+          *__error() = v21;
+          v51 = 61;
         }
 
         else
         {
-          v31 = IOConnectCallStructMethod(connect, 0, __b, 0x100uLL, &outputStruct, &outputStructCnt);
-          if (v31)
+          v42 = IOConnectCallStructMethod(connect, 0, __b, 0x100uLL, &outputStruct, &outputStructCnt);
+          if (v42)
           {
-            v40 = 83;
-            v13 = *__error();
-            v12 = *(v42 + 261);
-            if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+            v51 = 83;
+            v18 = *__error();
+            v17 = *(v53 + 261);
+            v16 = OS_LOG_TYPE_ERROR;
+            if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
             {
-              sub_1000013C8(v62, v31);
-              _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "kIOHDIXControllerCreateDriveMethod: %{mach.errno}x", v62, 8u);
+              sub_1000013C8(v74, v42);
+              _os_log_impl(&_mh_execute_header, v17, v16, "kIOHDIXControllerCreateDriveMethod: %{mach.errno}x", v74, 8u);
             }
 
-            *__error() = v13;
+            *__error() = v18;
           }
 
           else
           {
             if (outputStructCnt != 4)
             {
-              memset(&v61[32], 0, 0x50uLL);
-              os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-              sub_10000AD08(v61, outputStructCnt, 4);
-              _os_log_send_and_compose_impl();
+              v15 = 0;
+              memset(v73, 0, sizeof(v73));
+              v14 = 3;
+              if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+              {
+                v14 = 2;
+              }
+
+              sub_10000AD08(v72, outputStructCnt, 4);
+              LODWORD(v6) = 22;
+              _os_log_send_and_compose_impl(v14, &v15, v73, 80, &_mh_execute_header, &_os_log_default, 16, "unexpected failure: kIOHDIXControllerCreateDriveMethod returned bogus drive number length: actual = %lu, expected = %lu", v72, v6);
               _os_crash_msg();
               __break(1u);
               JUMPOUT(0x10000A9A4);
             }
 
-            v11 = *__error();
-            v10 = *(v42 + 261);
-            if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+            v13 = *__error();
+            v12 = *(v53 + 261);
+            if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
             {
-              sub_1000013C8(v60, outputStruct);
-              _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEBUG, "drive number: %d", v60, 8u);
+              sub_1000013C8(v71, outputStruct);
+              _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEBUG, "drive number: %d", v71, 8u);
             }
 
-            *__error() = v11;
-            *v41 = CFRetain(v37);
-            v40 = 0;
+            *__error() = v13;
+            *v52 = CFRetain(v48);
+            v51 = 0;
           }
         }
       }
 
       else
       {
-        v17 = *__error();
-        oslog = *(v42 + 261);
+        v24 = *__error();
+        oslog = *(v53 + 261);
+        v22 = OS_LOG_TYPE_ERROR;
         if (os_log_type_enabled(oslog, OS_LOG_TYPE_ERROR))
         {
-          sub_100003120(v64, "IOHDIXController");
-          _os_log_impl(&_mh_execute_header, oslog, OS_LOG_TYPE_ERROR, "could not find %s", v64, 0xCu);
+          sub_100003120(v76, "IOHDIXController");
+          _os_log_impl(&_mh_execute_header, oslog, v22, "could not find %s", v76, 0xCu);
         }
 
-        *__error() = v17;
-        v40 = 78;
+        *__error() = v24;
+        v51 = 78;
       }
     }
 
-    goto LABEL_38;
+    goto LABEL_40;
   }
 
   bzero(__s, 0x400uLL);
-  v2 = **(v42 + 1);
-  v40 = realpath_np();
-  if (!v40)
+  v51 = realpath_np();
+  if (!v51)
   {
     __snprintf_chk(__s, 0x400uLL, 0, 0x400uLL, "%s/%s", __s, "shadow");
-    v23 = *__error();
-    v22 = *(v42 + 261);
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+    v33 = *__error();
+    v32 = *(v53 + 261);
+    v31 = OS_LOG_TYPE_DEBUG;
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
     {
-      sub_100003120(v67, __s);
-      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEBUG, "shdwpath = %s", v67, 0xCu);
+      sub_100003120(v79, __s);
+      _os_log_impl(&_mh_execute_header, v32, v31, "shdwpath = %s", v79, 0xCu);
     }
 
-    *__error() = v23;
-    v3 = strlen(__s);
-    v35 = CFDataCreate(0, __s, v3);
-    sub_1000173C8(v35, "CFData");
-    CFDictionarySetValue(v39, @"shadow-path", v35);
+    *__error() = v33;
+    v2 = strlen(__s);
+    v46 = CFDataCreate(0, __s, v2);
+    sub_1000173C8(v46, "CFData");
+    CFDictionarySetValue(v50, @"shadow-path", v46);
     goto LABEL_13;
   }
 
-  v25 = *__error();
-  v24 = *(v42 + 261);
-  if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+  v36 = *__error();
+  v35 = *(v53 + 261);
+  type = OS_LOG_TYPE_ERROR;
+  if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
   {
-    sub_1000013C8(v68, v40);
-    _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "realpath_np shdwfd: %{darwin.errno}d", v68, 8u);
+    sub_1000013C8(v80, v51);
+    _os_log_impl(&_mh_execute_header, v35, type, "realpath_np shdwfd: %{darwin.errno}d", v80, 8u);
   }
 
-  *__error() = v25;
-LABEL_38:
-  v54 = connect;
-  v53 = 5;
+  *__error() = v36;
+LABEL_40:
+  v65 = connect;
+  v64 = 5;
   if (connect)
   {
-    v53 = IOServiceClose(v54);
-    if (v53)
+    v64 = IOServiceClose(v65);
+    if (v64)
     {
-      v52 = 0;
-      memset(&v72[8], 0, 0x50uLL);
-      v50 = 0;
-      v49 = 3;
-      v48 = &_os_log_default;
-      v47 = OS_LOG_TYPE_ERROR;
+      v63 = 0;
+      memset(v85, 0, sizeof(v85));
+      v61 = 0;
+      v60 = 3;
+      v59 = &_os_log_default;
+      v58 = OS_LOG_TYPE_ERROR;
       if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
-        v49 &= ~1u;
+        v60 &= ~1u;
       }
 
-      if (v49)
+      if (v60)
       {
-        sub_1000013C8(v72, v53);
-        v46 = _os_log_send_and_compose_impl();
-        v50 = v46;
+        v9 = v60;
+        v10 = v59;
+        v11 = v58;
+        sub_1000013C8(v84, v64);
+        LODWORD(v6) = 8;
+        v57 = _os_log_send_and_compose_impl(v9, &v63, v85, 80, &_mh_execute_header, v10, v11, "unexpected failure: IOServiceClose: %{mach.errno}d", v84, v6);
+        v61 = v57;
       }
 
-      v45 = v50;
-      v51 = v50;
+      v56 = v61;
+      v62 = v61;
       _os_crash_msg();
       __break(1u);
       JUMPOUT(0x10000ABD0);
     }
   }
 
-  v56 = MatchingService;
-  v57 = MatchingService;
-  v58 = MatchingService;
-  v55 = MatchingService;
-  v59 = MatchingService;
-  v9 = 0;
+  v67 = MatchingService;
+  v68 = MatchingService;
+  v69 = MatchingService;
+  v66 = MatchingService;
+  v70 = MatchingService;
+  v8 = 0;
   if (MatchingService)
   {
-    v9 = v59 != -1;
+    v8 = v70 != -1;
   }
 
-  if (v9)
+  if (v8)
   {
     mach_right_send_release();
   }
 
-  v8 = v40;
+  v7 = v51;
   sub_100006B40(&Data);
-  sub_100006B40(&v35);
-  sub_100006B40(&v36);
-  sub_100006B40(&v37);
-  sub_100006B40(&v38);
-  sub_100006B40(&v39);
-  return v8;
+  sub_100006B40(&v46);
+  sub_100006B40(&v47);
+  sub_100006B40(&v48);
+  sub_100006B40(&v49);
+  sub_100006B40(&v50);
+  return v7;
 }
 
 uint64_t sub_10000ACC8(uint64_t result, uint64_t a2)
@@ -3771,16 +3831,26 @@ uint64_t sub_10000AD54(uint64_t a1, const void *a2, const char **a3, char *a4, c
 
 io_object_t *sub_10000B3D8(io_object_t *result)
 {
-  if (*result)
+  v6 = result;
+  v5 = 5;
+  v4 = result;
+  object = *result;
+  if (object)
   {
-    result = IOObjectRelease(*result);
-    v1 = result;
+    result = IOObjectRelease(object);
+    v5 = result;
     if (result)
     {
-      memset(&v2[8], 0, 0x50uLL);
-      os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-      sub_1000013C8(v2, v1);
-      _os_log_send_and_compose_impl();
+      v2 = 0;
+      memset(__b, 0, sizeof(__b));
+      v1 = 3;
+      if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+      {
+        v1 = 2;
+      }
+
+      sub_1000013C8(v7, v5);
+      _os_log_send_and_compose_impl(v1, &v2, __b, 80, &_mh_execute_header, &_os_log_default, 16, "IOObjectRetain: %{mach.errno}d", v7, 8);
       _os_crash_msg();
       __break(1u);
       JUMPOUT(0x10000B540);
@@ -3804,7 +3874,7 @@ uint64_t sub_10000B574(NSObject *a1, io_object_t a2, const char **a3, uint64_t *
   if (v82)
   {
     v81 = 0;
-    memset(&v94[8], 0, 0x50uLL);
+    memset(__b, 0, sizeof(__b));
     v79 = 0;
     v78 = 3;
     v77 = &_os_log_default;
@@ -3816,8 +3886,8 @@ uint64_t sub_10000B574(NSObject *a1, io_object_t a2, const char **a3, uint64_t *
 
     if (v78)
     {
-      sub_1000013C8(v94, v82);
-      v79 = _os_log_send_and_compose_impl();
+      sub_1000013C8(v95, v82);
+      v79 = _os_log_send_and_compose_impl(v78, &v81, __b, 80, &_mh_execute_header, v77, type, "unexpected failure: IOObjectRetain: %{mach.errno}d", v95, 8);
     }
 
     v75 = v79;
@@ -3833,7 +3903,7 @@ uint64_t sub_10000B574(NSObject *a1, io_object_t a2, const char **a3, uint64_t *
   if (v73)
   {
     v72 = 0;
-    memset(&v93[16], 0, 0x50uLL);
+    memset(v94, 0, sizeof(v94));
     v70 = 0;
     v69 = 3;
     v68 = &_os_log_default;
@@ -3846,7 +3916,7 @@ uint64_t sub_10000B574(NSObject *a1, io_object_t a2, const char **a3, uint64_t *
     if (v69)
     {
       sub_1000013C8(v93, v73);
-      v70 = _os_log_send_and_compose_impl();
+      v70 = _os_log_send_and_compose_impl(v69, &v72, v94, 80, &_mh_execute_header, v68, v67, "unexpected failure: IOObjectRetain: %{mach.errno}d", v93, 8);
     }
 
     v66 = v70;
@@ -4047,166 +4117,179 @@ uint64_t sub_10000B574(NSObject *a1, io_object_t a2, const char **a3, uint64_t *
   return v6;
 }
 
-uint64_t sub_10000C09C(int *a1, int a2, unsigned int *a3)
+uint64_t sub_10000C09C(unsigned int *a1, int a2, unsigned int *a3)
 {
-  v27 = a1;
-  v26 = a2;
-  v25 = a3;
-  v24 = -1;
-  v23 = *a1;
-  v22 = -1;
-  v21 = os_log_create("com.apple.libcryptex", "hdi");
-  if (!*(v25 + 261))
+  v36 = a1;
+  v35 = a2;
+  v34 = a3;
+  v33 = -1;
+  v32 = *a1;
+  v31 = -1;
+  v30 = os_log_create("com.apple.libcryptex", "hdi");
+  if (!*(v34 + 261))
   {
-    *(v25 + 261) = v21;
+    *(v34 + 261) = v30;
   }
 
-  v29 = *v25;
-  if ((v29 & 0x80000000) == 0)
+  v38 = *v34;
+  if ((v38 & 0x80000000) == 0)
   {
-    v24 = sub_10000C930(v23, v26, v25);
-    if (v24)
+    v33 = sub_10000C930(v32, v35, v34);
+    if (v33)
+    {
+      v29 = *__error();
+      v28 = *(v34 + 261);
+      type = OS_LOG_TYPE_ERROR;
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+      {
+        sub_1000013C8(v47, v33);
+        _os_log_impl(&_mh_execute_header, v28, type, "hdi_mount_slow: %{darwin.errno}d", v47, 8u);
+      }
+
+      *__error() = v29;
+      goto LABEL_35;
+    }
+
+    v26 = *__error();
+    v25 = *(v34 + 261);
+    v24 = OS_LOG_TYPE_DEBUG;
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+    {
+      sub_100003120(v46, v34 + 1057);
+      _os_log_impl(&_mh_execute_header, v25, v24, "attached as: %s", v46, 0xCu);
+    }
+
+    *__error() = v26;
+    v31 = v34[1];
+  }
+
+  if (!*(v34 + 3))
+  {
+    v33 = 22;
+    v23 = *__error();
+    v22 = *(v34 + 261);
+    v21 = OS_LOG_TYPE_ERROR;
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    {
+      sub_1000013C8(v45, v33);
+      _os_log_impl(&_mh_execute_header, v22, v21, "FS type not specified: %{darwin.errno}d", v45, 8u);
+    }
+
+    *__error() = v23;
+    goto LABEL_35;
+  }
+
+  if (!strcmp(*(v34 + 3), "hfs"))
+  {
+    v33 = sub_10000CC58(v32, v35, v34);
+    if (v33)
     {
       v20 = *__error();
-      v19 = *(v25 + 261);
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      oslog = *(v34 + 261);
+      v18 = OS_LOG_TYPE_ERROR;
+      if (os_log_type_enabled(oslog, OS_LOG_TYPE_ERROR))
       {
-        sub_1000013C8(v37, v24);
-        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "hdi_mount_slow: %{darwin.errno}d", v37, 8u);
+        sub_1000013C8(v44, v33);
+        _os_log_impl(&_mh_execute_header, oslog, v18, "mount hfs failed: %{darwin.errno}d", v44, 8u);
       }
 
       *__error() = v20;
-      goto LABEL_33;
-    }
-
-    v18 = *__error();
-    v17 = *(v25 + 261);
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
-    {
-      sub_100003120(v36, v25 + 1057);
-      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEBUG, "attached as: %s", v36, 0xCu);
-    }
-
-    *__error() = v18;
-    v22 = v25[1];
-  }
-
-  if (!*(v25 + 3))
-  {
-    v24 = 22;
-    v16 = *__error();
-    v15 = *(v25 + 261);
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
-    {
-      sub_1000013C8(v35, v24);
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "FS type not specified: %{darwin.errno}d", v35, 8u);
-    }
-
-    *__error() = v16;
-    goto LABEL_33;
-  }
-
-  if (!strcmp(*(v25 + 3), "hfs"))
-  {
-    v24 = sub_10000CC58(v23, v26, v25);
-    if (v24)
-    {
-      v14 = *__error();
-      oslog = *(v25 + 261);
-      if (os_log_type_enabled(oslog, OS_LOG_TYPE_ERROR))
-      {
-        sub_1000013C8(v34, v24);
-        _os_log_impl(&_mh_execute_header, oslog, OS_LOG_TYPE_ERROR, "mount hfs failed: %{darwin.errno}d", v34, 8u);
-      }
-
-      *__error() = v14;
-      goto LABEL_33;
+      goto LABEL_35;
     }
 
     goto LABEL_30;
   }
 
-  if (!strcmp(*(v25 + 3), "apfs"))
+  if (!strcmp(*(v34 + 3), "apfs"))
   {
-    v24 = sub_10000D680(v23, v26, v25);
-    if (!v24)
+    v33 = sub_10000D680(v32, v35, v34);
+    if (!v33)
     {
 LABEL_30:
-      if (close(v23) == -1)
+      v11 = close(v32);
+      if (v11 == -1)
       {
-        memset(&v31[16], 0, 0x50uLL);
-        os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
+        v10 = 0;
+        memset(__b, 0, sizeof(__b));
+        v9 = 3;
+        if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+        {
+          v9 = 2;
+        }
+
         v3 = __error();
-        sub_1000013C8(v31, *v3);
-        _os_log_send_and_compose_impl();
+        sub_1000013C8(v40, *v3);
+        _os_log_send_and_compose_impl(v9, &v10, __b, 80, &_mh_execute_header, &_os_log_default, 16, "assertion failure: close(scope_fd) -> %{errno}d", v40, 8);
         _os_crash_msg();
         __break(1u);
         JUMPOUT(0x10000C77CLL);
       }
 
-      *v27 = -1;
-      v24 = 0;
-      goto LABEL_33;
+      *v36 = -1;
+      v33 = 0;
+      goto LABEL_35;
     }
 
-    v12 = *__error();
-    v11 = *(v25 + 261);
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v17 = *__error();
+    v16 = *(v34 + 261);
+    v15 = OS_LOG_TYPE_ERROR;
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      sub_1000013C8(v33, v24);
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "mount apfs failed: %{darwin.errno}d", v33, 8u);
+      sub_1000013C8(v43, v33);
+      _os_log_impl(&_mh_execute_header, v16, v15, "mount apfs failed: %{darwin.errno}d", v43, 8u);
     }
 
-    *__error() = v12;
+    *__error() = v17;
   }
 
   else
   {
-    v24 = 22;
-    v10 = *__error();
-    v9 = *(v25 + 261);
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v33 = 22;
+    v14 = *__error();
+    v13 = *(v34 + 261);
+    v12 = OS_LOG_TYPE_ERROR;
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      sub_100009EA4(v32, *(v25 + 3), v24);
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "Invalid FS type: %s: %{darwin.errno}d", v32, 0x12u);
+      sub_100009EA4(v42, *(v34 + 3), v33);
+      _os_log_impl(&_mh_execute_header, v13, v12, "Invalid FS type: %s: %{darwin.errno}d", v42, 0x12u);
     }
 
-    *__error() = v10;
+    *__error() = v14;
   }
 
-LABEL_33:
-  if (v24)
+LABEL_35:
+  if (v33)
   {
-    v28 = v22;
-    if ((v22 & 0x80000000) == 0)
+    v37 = v31;
+    if ((v31 & 0x80000000) == 0)
     {
-      if (ioctl(v22, 0x20006415uLL))
+      if (ioctl(v31, 0x20006415uLL))
       {
         v8 = *__error();
-        v7 = *(v25 + 261);
+        v7 = *(v34 + 261);
         if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
         {
           v4 = __error();
-          sub_1000013C8(v30, *v4);
-          _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "failed to clean up device: %{darwin.errno}d", v30, 8u);
+          sub_1000013C8(v39, *v4);
+          _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "failed to clean up device: %{darwin.errno}d", v39, 8u);
         }
 
         *__error() = v8;
       }
 
-      *(v25 + 33) = 0;
-      *(v25 + 1057) = 0;
-      v25[1] = -1;
+      *(v34 + 33) = 0;
+      *(v34 + 1057) = 0;
+      v34[1] = -1;
     }
   }
 
-  if (*(v25 + 261) == v21)
+  if (*(v34 + 261) == v30)
   {
-    *(v25 + 261) = 0;
+    *(v34 + 261) = 0;
   }
 
-  v6 = v24;
-  sub_1000030D0(&v21);
+  v6 = v33;
+  sub_1000030D0(&v30);
   return v6;
 }
 
@@ -4283,14 +4366,14 @@ uint64_t sub_10000C930(int a1, int a2, unsigned int *a3)
 
 uint64_t sub_10000CC58(int a1, int a2, uint64_t a3)
 {
-  v31 = a1;
-  v30 = a2;
-  v29 = a3;
-  v28 = -1;
-  v27 = -1;
-  bzero(v51, 0x400uLL);
+  v36 = a1;
+  v35 = a2;
+  v34 = a3;
+  v33 = -1;
+  v32 = -1;
+  bzero(v57, 0x400uLL);
   memset(__b, 0, sizeof(__b));
-  __b[0] = v29 + 1057;
+  __b[0] = v34 + 1057;
   LODWORD(__b[1]) = getuid();
   HIDWORD(__b[1]) = getgid();
   LOWORD(__b[2]) = 511;
@@ -4298,55 +4381,64 @@ uint64_t sub_10000CC58(int a1, int a2, uint64_t a3)
   __b[3] = 0;
   __b[4] = 4;
   __b[5] = 0;
-  v30 |= 0x100001u;
-  v25 = *__error();
-  v24 = *(v29 + 2088);
-  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+  v35 |= 0x100001u;
+  v30 = *__error();
+  v29 = *(v34 + 2088);
+  type = OS_LOG_TYPE_DEBUG;
+  if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
   {
-    sub_100003120(v50, v29 + 1057);
-    _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEBUG, "mounting device = %s", v50, 0xCu);
+    sub_100003120(v56, v34 + 1057);
+    _os_log_impl(&_mh_execute_header, v29, type, "mounting device = %s", v56, 0xCu);
   }
 
-  *__error() = v25;
-  if (os_log_type_enabled(*(v29 + 2088), OS_LOG_TYPE_DEBUG))
+  *__error() = v30;
+  if (os_log_type_enabled(*(v34 + 2088), OS_LOG_TYPE_DEBUG))
   {
-    v28 = realpath_np();
-    if (!v28)
+    v33 = realpath_np();
+    if (!v33)
     {
-      v23 = *__error();
-      oslog = *(v29 + 2088);
+      v27 = *__error();
+      oslog = *(v34 + 2088);
+      v25 = OS_LOG_TYPE_DEBUG;
       if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEBUG))
       {
-        sub_100003120(v49, v51);
-        _os_log_impl(&_mh_execute_header, oslog, OS_LOG_TYPE_DEBUG, "mount point = %s", v49, 0xCu);
+        sub_100003120(v55, v57);
+        _os_log_impl(&_mh_execute_header, oslog, v25, "mount point = %s", v55, 0xCu);
       }
 
-      *__error() = v23;
+      *__error() = v27;
     }
   }
 
-  v27 = gettimeofday(0, &__b[3]);
-  if (v27 == -1)
+  v32 = gettimeofday(0, &__b[3]);
+  v24 = v32;
+  if (v32 == -1)
   {
-    memset(&v48[16], 0, 0x50uLL);
-    os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
+    v23 = 0;
+    memset(v54, 0, sizeof(v54));
+    v22 = 3;
+    if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      v22 = 2;
+    }
+
     v3 = *__error();
-    sub_1000013C8(v48, v3);
-    _os_log_send_and_compose_impl();
+    sub_1000013C8(v53, v3);
+    _os_log_send_and_compose_impl(v22, &v23, v54, 80, &_mh_execute_header, &_os_log_default, 16, "assertion failure: ret -> %{errno}d", v53, 8);
     _os_crash_msg();
     __break(1u);
     JUMPOUT(0x10000CFE0);
   }
 
-  v28 = sub_10000DC70(v29, (v29 + 1057), &__b[2] + 1);
-  if (v28)
+  v33 = sub_10000DC70(v34, (v34 + 1057), &__b[2] + 1);
+  if (v33)
   {
     v21 = *__error();
-    v20 = *(v29 + 2088);
+    v20 = *(v34 + 2088);
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      sub_1000013C8(v47, v28);
-      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "could not get encoding: %{darwin.errno}d", v47, 8u);
+      sub_1000013C8(v52, v33);
+      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "could not get encoding: %{darwin.errno}d", v52, 8u);
     }
 
     *__error() = v21;
@@ -4355,111 +4447,111 @@ uint64_t sub_10000CC58(int a1, int a2, uint64_t a3)
   else
   {
     v19 = *__error();
-    v18 = *(v29 + 2088);
+    v18 = *(v34 + 2088);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
-      sub_10000E0C4(v46, *(v29 + 24), v31, v30);
-      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEBUG, "mount args: fs = %s, fd = %d, flags = %#x", v46, 0x18u);
+      sub_10000E0C4(v51, *(v34 + 24), v36, v35);
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEBUG, "mount args: fs = %s, fd = %d, flags = %#x", v51, 0x18u);
     }
 
     *__error() = v19;
-    v44 = *(v29 + 2088);
-    v43 = "mntfd";
-    v42 = v31;
-    v41 = 0;
-    bzero(v54, 0x400uLL);
-    memset(&v40, 0, sizeof(v40));
-    v39 = -1;
-    v38 = 0;
-    if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
+    v49 = *(v34 + 2088);
+    v48 = "mntfd";
+    v47 = v36;
+    v46 = 0;
+    bzero(v60, 0x400uLL);
+    memset(&v45, 0, sizeof(v45));
+    v44 = -1;
+    v43 = 0;
+    if (os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
     {
-      v39 = fstat(v42, &v40);
-      if (v39 == -1)
+      v44 = fstat(v47, &v45);
+      if (v44 == -1)
       {
-        v37 = *__error();
-        v36 = v44;
-        v35 = OS_LOG_TYPE_ERROR;
-        if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+        v42 = *__error();
+        v41 = v49;
+        v40 = OS_LOG_TYPE_ERROR;
+        if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
         {
-          v14 = v36;
-          v15 = v35;
-          v12 = v43;
-          v13 = v42;
+          v14 = v41;
+          v15 = v40;
+          v12 = v48;
+          v13 = v47;
           v4 = *__error();
-          sub_10000E0C4(v53, v12, v13, v4);
-          _os_log_impl(&_mh_execute_header, v14, v15, "%s fd[%d] : [invalid descriptor]: %{darwin.errno}d", v53, 0x18u);
+          sub_10000E0C4(v59, v12, v13, v4);
+          _os_log_impl(&_mh_execute_header, v14, v15, "%s fd[%d] : [invalid descriptor]: %{darwin.errno}d", v59, 0x18u);
         }
 
-        v11 = v37;
+        v11 = v42;
         *__error() = v11;
       }
 
       else
       {
-        v39 = fcntl(v42, 50, v54);
-        if (v39)
+        v44 = fcntl(v47, 50, v60);
+        if (v44)
         {
           v5 = __error();
           v6 = strerror(*v5);
-          __snprintf_chk(v54, 0x400uLL, 0, 0x400uLL, "[%s]", v6);
+          __snprintf_chk(v60, 0x400uLL, 0, 0x400uLL, "[%s]", v6);
         }
 
-        switch(v40.st_mode & 0xF000)
+        switch(v45.st_mode & 0xF000)
         {
           case 24576:
-            v41 = "S_IFBLK";
+            v46 = "S_IFBLK";
             break;
           case 8192:
-            v41 = "S_IFCHR";
+            v46 = "S_IFCHR";
             break;
           case 16384:
-            v41 = "S_IFDIR";
+            v46 = "S_IFDIR";
             break;
           case 4096:
-            v41 = "S_IFIFO";
+            v46 = "S_IFIFO";
             break;
           case 32768:
-            v41 = "S_IFREG";
+            v46 = "S_IFREG";
             break;
           case 40960:
-            v41 = "S_IFLNK";
+            v46 = "S_IFLNK";
             break;
           case 49152:
-            v41 = "S_IFSOCK";
+            v46 = "S_IFSOCK";
             break;
           default:
-            v41 = "[unknown]";
+            v46 = "[unknown]";
             break;
         }
 
-        v38 = os_flagset_copy_string();
-        v34 = *__error();
-        v33 = v44;
-        v32 = OS_LOG_TYPE_DEBUG;
-        if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
+        v43 = os_flagset_copy_string();
+        v39 = *__error();
+        v38 = v49;
+        v37 = OS_LOG_TYPE_DEBUG;
+        if (os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
         {
-          v9 = v33;
-          v10 = v32;
-          sub_10000EBF8(v52, v43, v42, v41, v40.st_size, v38, v54);
-          _os_log_impl(&_mh_execute_header, v9, v10, "%s fd[%d]: type = %s, size = %lld, flags = %s, path = %s", v52, 0x3Au);
+          v9 = v38;
+          v10 = v37;
+          sub_10000EBF8(v58, v48, v47, v46, v45.st_size, v43, v60);
+          _os_log_impl(&_mh_execute_header, v9, v10, "%s fd[%d]: type = %s, size = %lld, flags = %s, path = %s", v58, 0x3Au);
         }
 
-        v8 = v34;
+        v8 = v39;
         *__error() = v8;
-        free(v38);
+        free(v43);
       }
     }
 
-    v27 = fmount("hfs", v31, v30, __b);
-    if (v27)
+    v32 = fmount("hfs", v36, v35, __b);
+    if (v32)
     {
-      v28 = *__error();
+      v33 = *__error();
       v17 = *__error();
-      v16 = *(v29 + 2088);
+      v16 = *(v34 + 2088);
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        sub_1000013C8(v45, v28);
-        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "fmount: %{darwin.errno}d", v45, 8u);
+        sub_1000013C8(v50, v33);
+        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "fmount: %{darwin.errno}d", v50, 8u);
       }
 
       *__error() = v17;
@@ -4471,112 +4563,112 @@ uint64_t sub_10000CC58(int a1, int a2, uint64_t a3)
     }
   }
 
-  return v28;
+  return v33;
 }
 
 uint64_t sub_10000D680(int a1, int a2, uint64_t a3)
 {
-  v24 = a1;
-  v23 = a2;
-  v22 = a3;
-  v21 = 0;
-  v20 = -1;
-  bzero(&v30, 0x14CuLL);
-  v19 = *(v22 + 2108);
-  v18 = *(v22 + 2100);
-  v17 = *(v22 + 2104);
-  v16 = *(v22 + 2112);
+  v26 = a1;
+  v25 = a2;
+  v24 = a3;
+  v23 = 0;
+  v22 = -1;
+  bzero(&v32, 0x14CuLL);
+  v21 = *(v24 + 2108);
+  v20 = *(v24 + 2100);
+  v19 = *(v24 + 2104);
+  v18 = *(v24 + 2112);
   memset(__b, 0, sizeof(__b));
-  memset(v14, 0, sizeof(v14));
-  v23 |= 0x100000u;
-  if ((*(v22 + 32) & 1) == 0)
+  memset(v16, 0, sizeof(v16));
+  v25 |= 0x100000u;
+  if ((*(v24 + 32) & 1) == 0)
   {
-    v23 |= 1u;
+    v25 |= 1u;
   }
 
-  v30 = v22 + 1057;
-  v39 = getuid();
-  v40 = getgid();
-  v32 = 1;
-  v31 = v23;
-  if (*(v22 + 2096))
+  v32 = v24 + 1057;
+  v41 = getuid();
+  v42 = getgid();
+  v34 = 1;
+  v33 = v25;
+  if (*(v24 + 2096))
   {
-    v21 = sub_10004B524(v19, __b);
-    if (v21)
+    v23 = sub_10004B524(v21, __b);
+    if (v23)
     {
-      v13 = *__error();
-      oslog = *(v22 + 2088);
+      v15 = *__error();
+      oslog = *(v24 + 2088);
       if (os_log_type_enabled(oslog, OS_LOG_TYPE_ERROR))
       {
-        sub_1000013C8(v29, v21);
-        _os_log_impl(&_mh_execute_header, oslog, OS_LOG_TYPE_ERROR, "Failed to read im4m.: %{darwin.errno}d", v29, 8u);
+        sub_1000013C8(v31, v23);
+        _os_log_impl(&_mh_execute_header, oslog, OS_LOG_TYPE_ERROR, "Failed to read im4m.: %{darwin.errno}d", v31, 8u);
+      }
+
+      *__error() = v15;
+      goto LABEL_21;
+    }
+
+    v23 = sub_10004B524(v20, v16);
+    if (v23)
+    {
+      v13 = *__error();
+      v12 = *(v24 + 2088);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      {
+        sub_1000013C8(v30, v23);
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "Failed to read root volume hash.: %{darwin.errno}d", v30, 8u);
       }
 
       *__error() = v13;
       goto LABEL_21;
     }
 
-    v21 = sub_10004B524(v18, v14);
-    if (v21)
+    v11 = *__error();
+    v10 = *(v24 + 2088);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
-      v11 = *__error();
-      v10 = *(v22 + 2088);
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-      {
-        sub_1000013C8(v28, v21);
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "Failed to read root volume hash.: %{darwin.errno}d", v28, 8u);
-      }
-
-      *__error() = v11;
-      goto LABEL_21;
+      sub_100003098(v29, __b[1]);
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEBUG, "im4m len: %lu", v29, 0xCu);
     }
 
+    *__error() = v11;
     v9 = *__error();
-    v8 = *(v22 + 2088);
+    v8 = *(v24 + 2088);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      sub_100003098(v27, __b[1]);
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEBUG, "im4m len: %lu", v27, 0xCu);
+      sub_100003098(v28, v16[1]);
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEBUG, "im4p len: %lu", v28, 0xCu);
     }
 
     *__error() = v9;
+    v34 = 8;
+    v39 = v19;
+    v40 = v18;
+    v37 = __b[0];
+    v38 = __b[1];
+    v35 = v16[0];
+    v36 = v16[1];
+  }
+
+  v22 = fmount("apfs", v26, v25, &v32);
+  if (v22)
+  {
+    v23 = *__error();
     v7 = *__error();
-    v6 = *(v22 + 2088);
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v6 = *(v24 + 2088);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      sub_100003098(v26, v14[1]);
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEBUG, "im4p len: %lu", v26, 0xCu);
+      sub_1000013C8(v27, v23);
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "fmount: %{darwin.errno}d", v27, 8u);
     }
 
     *__error() = v7;
-    v32 = 8;
-    v37 = v17;
-    v38 = v16;
-    v35 = __b[0];
-    v36 = __b[1];
-    v33 = v14[0];
-    v34 = v14[1];
-  }
-
-  v20 = fmount("apfs", v24, v23, &v30);
-  if (v20)
-  {
-    v21 = *__error();
-    v5 = *__error();
-    v4 = *(v22 + 2088);
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
-    {
-      sub_1000013C8(v25, v21);
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "fmount: %{darwin.errno}d", v25, 8u);
-    }
-
-    *__error() = v5;
   }
 
 LABEL_21:
-  sub_10004C66C(__b);
-  sub_10004C66C(v14);
-  return v21;
+  sub_10004C66C(__b, v3);
+  sub_10004C66C(v16, v4);
+  return v23;
 }
 
 uint64_t sub_10000DC04(uint64_t result, uint64_t a2, uint64_t a3)
@@ -4719,27 +4811,44 @@ uint64_t sub_10000E0C4(uint64_t result, uint64_t a2, int a3, int a4)
 
 uint64_t sub_10000E174()
 {
-  *v10 = 3;
-  v11 = 1;
+  *v23 = 3;
+  v24 = 1;
   memset(&__b, 0, sizeof(__b));
-  v5 = -1;
-  v4 = 4;
-  v6 = getvfsbyname("hfs", &__b);
-  if (v6 == -1)
+  v16 = -1;
+  v15 = 4;
+  v17 = getvfsbyname("hfs", &__b);
+  v14 = v17;
+  if (v17 == -1)
   {
-    memset(&v8[16], 0, 0x50uLL);
-    os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-    v0 = __error();
-    sub_1000013C8(v8, *v0);
-    _os_log_send_and_compose_impl();
+    v13 = 0;
+    memset(v21, 0, sizeof(v21));
+    v11 = 0;
+    v10 = 3;
+    oslog = &_os_log_default;
+    type = OS_LOG_TYPE_ERROR;
+    if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      v10 &= ~1u;
+    }
+
+    if (v10)
+    {
+      v0 = __error();
+      sub_1000013C8(v20, *v0);
+      v11 = _os_log_send_and_compose_impl(v10, &v13, v21, 80, &_mh_execute_header, oslog, type, "assertion failure: ret -> %{errno}d", v20, 8);
+    }
+
+    v7 = v11;
+    v12 = v11;
     _os_crash_msg();
     __break(1u);
     JUMPOUT(0x10000E310);
   }
 
-  v10[1] = __b.vfc_typenum;
-  v6 = sysctl(v10, 3u, &v5, &v4, 0, 0);
-  if ((v6 & 0x80000000) == 0)
+  v23[1] = __b.vfc_typenum;
+  *v6 = 3;
+  v17 = sysctl(v23, 3u, &v16, &v15, 0, 0);
+  if ((v17 & 0x80000000) == 0)
   {
     *__error() = 0;
   }
@@ -4749,13 +4858,19 @@ uint64_t sub_10000E174()
   {
     if (v2 != 45)
     {
-      v3 = *__error();
-      if (v3)
+      v5 = *__error();
+      if (v5)
       {
-        memset(&v7[16], 0, 0x50uLL);
-        os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-        sub_100003098(v7, v3);
-        _os_log_send_and_compose_impl();
+        v4 = 0;
+        memset(v19, 0, sizeof(v19));
+        v3 = 3;
+        if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+        {
+          v3 = 2;
+        }
+
+        sub_100003098(v18, v5);
+        _os_log_send_and_compose_impl(v3, &v4, v19, 80, &_mh_execute_header, &_os_log_default, 16, "assertion failure: (*__error()) -> %llu", v18);
         _os_crash_msg();
         __break(1u);
         JUMPOUT(0x10000E4ACLL);
@@ -4763,7 +4878,7 @@ uint64_t sub_10000E174()
     }
   }
 
-  return v5;
+  return v16;
 }
 
 uint64_t sub_10000E4F4(uint64_t a1)
@@ -4777,7 +4892,7 @@ uint64_t sub_10000E4F4(uint64_t a1)
   if (!v36)
   {
     v33 = 0;
-    memset(&v43[8], 0, 0x50uLL);
+    memset(__b, 0, sizeof(__b));
     v31 = 0;
     v30 = 3;
     v29 = &_os_log_default;
@@ -4790,8 +4905,8 @@ uint64_t sub_10000E4F4(uint64_t a1)
     if (v30)
     {
       v1 = __error();
-      sub_1000013C8(v43, *v1);
-      v31 = _os_log_send_and_compose_impl();
+      sub_1000013C8(v44, *v1);
+      v31 = _os_log_send_and_compose_impl(v30, &v33, __b, 80, &_mh_execute_header, v29, type, "unexpected failure: getpwuid: %{darwin.errno}d", v44, 8);
     }
 
     v27 = v31;
@@ -4820,7 +4935,7 @@ uint64_t sub_10000E4F4(uint64_t a1)
     if (v26)
     {
       v25 = 0;
-      memset(&v42[16], 0, 0x50uLL);
+      memset(v43, 0, sizeof(v43));
       v23 = 0;
       v22 = 3;
       oslog = &_os_log_default;
@@ -4833,7 +4948,7 @@ uint64_t sub_10000E4F4(uint64_t a1)
       if (v22)
       {
         sub_100003098(v42, v26);
-        v23 = _os_log_send_and_compose_impl();
+        v23 = _os_log_send_and_compose_impl(v22, &v25, v43, 80, &_mh_execute_header, oslog, v20, "assertion failure: (*__error()) -> %llu", v42);
       }
 
       v19 = v23;
@@ -4936,65 +5051,73 @@ uint64_t sub_10000EBF8(uint64_t result, uint64_t a2, int a3, uint64_t a4, uint64
 
 uint64_t sub_10000ECA0(uint64_t a1, int a2, char *const *a3)
 {
-  v20 = a1;
-  v19 = a2;
-  v18 = a3;
-  v17 = -1;
-  v16 = a3;
-  v15 = -1;
-  v14 = 0;
+  v17 = a1;
+  v16 = a2;
+  v15 = a3;
+  v14 = -1;
+  v13 = a3;
+  v12 = -1;
+  v11 = 0;
   __endptr = 0;
-  v11 = 0u;
-  v12 = 0u;
+  v8 = 0u;
+  v9 = 0u;
   sub_1000480E0();
   while (1)
   {
-    v15 = getopt_long(v19, v16, *(v20 + 32), *(v20 + 40), &v14);
-    if (v15 == -1)
+    v12 = getopt_long(v16, v13, *(v17 + 32), *(v17 + 40), &v11);
+    if (v12 == -1)
     {
       break;
     }
 
+    v7 = (*(v17 + 40) + 32 * v11);
+    v6 = v15[optind - 1];
     if (optind < 1)
     {
-      memset(&v21[8], 0, 0x50uLL);
-      os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-      sub_1000013C8(v21, optind);
-      _os_log_send_and_compose_impl();
+      v5 = 0;
+      memset(__b, 0, sizeof(__b));
+      v4 = 3;
+      if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+      {
+        v4 = 2;
+      }
+
+      sub_1000013C8(v18, optind);
+      _os_log_send_and_compose_impl(v4, &v5, __b, 80, &_mh_execute_header, &_os_log_default, 16, "unexpected failure: bogus optind: %d", v18);
       _os_crash_msg();
       __break(1u);
       JUMPOUT(0x10000EE84);
     }
 
-    switch(v15)
+    switch(v12)
     {
       case ':':
-        errx(64, "missing argument for option: %s", *(*(v20 + 40) + 32 * v14));
+        errx(64, "missing argument for option: %s", *v7);
       case '?':
-        errx(64, "unknown option: %s", v18[optind - 1]);
+        errx(64, "unknown option: %s", v6);
       case 'c':
-        DWORD2(v12) = strtoul(optarg, &__endptr, 0);
-        if (!DWORD2(v12) && __endptr == optarg)
+        DWORD2(v9) = strtoul(optarg, &__endptr, 0);
+        if (!DWORD2(v9) && __endptr == optarg)
         {
           errx(64, "Invalid nonce domain provided.");
         }
 
-        *&v12 = img4_nonce_domain_get_from_handle();
+        *&v9 = img4_nonce_domain_get_from_handle();
         break;
       case 'd':
         if (!strcmp(optarg, "pdi"))
         {
-          *&v12 = &_img4_nonce_domain_pdi;
+          *&v9 = &_img4_nonce_domain_pdi;
         }
 
         else if (!strcmp(optarg, "research"))
         {
-          *&v12 = &_img4_nonce_domain_cryptex;
+          *&v9 = &_img4_nonce_domain_cryptex;
         }
 
         else if (!strcmp(optarg, "diavlo"))
         {
-          *&v12 = &_img4_nonce_domain_pdi;
+          *&v9 = &_img4_nonce_domain_pdi;
         }
 
         else
@@ -5004,15 +5127,15 @@ uint64_t sub_10000ECA0(uint64_t a1, int a2, char *const *a3)
             errx(64, "invalid nonce domain: %s", optarg);
           }
 
-          *&v12 = &_img4_nonce_domain_ddi;
+          *&v9 = &_img4_nonce_domain_ddi;
         }
 
         break;
       case 'g':
-        *&v11 = v11 | 2;
+        *&v8 = v8 | 2;
         break;
       case 'r':
-        *&v11 = v11 | 1;
+        *&v8 = v8 | 1;
         break;
       default:
         _os_crash();
@@ -5021,499 +5144,506 @@ uint64_t sub_10000ECA0(uint64_t a1, int a2, char *const *a3)
     }
   }
 
-  v18 += optind;
-  v19 -= optind;
-  if ((v11 & 2) == 0)
+  v15 += optind;
+  v16 -= optind;
+  if ((v8 & 2) == 0)
   {
-    if (v19 < 1)
+    if (v16 < 1)
     {
       errx(64, "a cryptex identifier must be provided");
     }
 
-    sub_10004860C(0, 1uLL, "using cryptex identifier: %s", v5, v6, v7, v8, v9, SBYTE8(v11));
-    *(&v11 + 1) = v18[1];
+    sub_10004860C(0, 1uLL, "using cryptex identifier: %s", *(&v8 + 1));
+    *(&v8 + 1) = v15[1];
   }
 
-  if (!v12)
+  if (!v9)
   {
     errx(64, "a valid nonce domain is required, must be provided through either the domain or cryptex1-ndom argument.");
   }
 
-  v17 = sub_10000F1B4(&v11, v3, v4, v5, v6, v7, v8, v9);
+  v14 = sub_10000F1B4(&v8);
   return sysexit_np();
 }
 
-uint64_t sub_10000F1B4(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_10000F1B4(void *a1)
 {
   if ((*a1 & 2) != 0)
   {
-    sub_10004860C(0, 1uLL, "operating on global nonce", a4, a5, a6, a7, a8, v9);
-    v10 = sub_10000F260(a1);
+    sub_10004860C(0, 1uLL, "operating on global nonce");
+    v2 = sub_10000F260(a1);
   }
 
   else
   {
-    v10 = 78;
+    v2 = 78;
     warnx("individual cryptex nonces not yet implemented");
   }
 
-  if (v10 == 45)
+  if (v2 == 45)
   {
     warnx("nonce management is not available on this platform");
   }
 
-  return v10;
+  return v2;
 }
 
 uint64_t sub_10000F260(void *a1)
 {
   if (*a1)
   {
-    v1 = a1[2];
-    v15 = img4_nonce_domain_roll_nonce();
-    if (v15)
+    v2 = img4_nonce_domain_roll_nonce();
+    if (v2)
     {
-      if (v15 == 45)
+      if (v2 == 45)
       {
         warnx("nonce management not supported on this platform");
       }
 
       else
       {
-        warnc(v15, "failed to roll nonce");
+        warnc(v2, "failed to roll nonce");
       }
     }
 
     else
     {
-      sub_10004860C(0, 1uLL, "nonce has been rolled; new value will not be generated until next boot", v2, v3, v4, v5, v6, v14);
+      sub_10004860C(0, 1uLL, "nonce has been rolled; new value will not be generated until next boot");
     }
   }
 
   else
   {
     memset(__str, 0, sizeof(__str));
-    v7 = a1[2];
-    v15 = img4_nonce_domain_copy_nonce();
-    if (v15)
+    v2 = img4_nonce_domain_copy_nonce();
+    if (v2)
     {
-      if (v15 == 45)
+      if (v2 == 45)
       {
         warnx("nonce management not supported on this platform");
       }
 
-      else if (v15 == 70)
+      else if (v2 == 70)
       {
         warnx("nonce has been rolled; new value will not be available until next reboot");
       }
 
       else
       {
-        warnc(v15, "failed to copy nonce");
+        warnc(v2, "failed to copy nonce");
       }
     }
 
     else
     {
       sub_100049764(__str, &__str[99], *&__str[149]);
-      sub_10004860C(__stdoutp, 0, "%s", v8, v9, v10, v11, v12, __str);
+      sub_10004860C(__stdoutp, 0, "%s", __str);
     }
   }
 
-  return v15;
+  return v2;
 }
 
 CFErrorRef sub_10000F434(int a1, int a2, NSObject *a3)
 {
-  v126 = a1;
-  v125 = a2;
-  v124 = a3;
-  v123 = 0;
-  v122 = -1;
+  v135 = a1;
+  v134 = a2;
+  v133 = a3;
+  v132 = 0;
+  v131 = -1;
   MatchingService = 0;
+  v129 = 0;
+  v128 = -536870212;
+  v127 = 0;
+  memset(v126, 0, sizeof(v126));
+  v125 = 0;
+  memset(v124, 0, sizeof(v124));
+  v123 = 5;
+  v122 = 16;
+  v121 = -1;
   v120 = 0;
-  v119 = -536870212;
+  memset(v119, 0, sizeof(v119));
   v118 = 0;
-  memset(v117, 0, sizeof(v117));
+  v117 = 0;
   v116 = 0;
-  memset(v115, 0, sizeof(v115));
-  v114 = 5;
-  v113 = 16;
-  v112 = -1;
-  v111 = 0;
-  memset(v110, 0, sizeof(v110));
-  v109 = 0;
-  v108 = 0;
-  v107 = 0;
-  v106 = 0;
+  v115 = 0;
   if (!a3)
   {
-    v107 = os_log_create("com.apple.libcryptex", "amfi");
-    v124 = v107;
+    v116 = os_log_create("com.apple.libcryptex", "amfi");
+    v133 = v116;
   }
 
   v3 = IOServiceMatching("AppleMobileFileIntegrity");
   MatchingService = IOServiceGetMatchingService(0, v3);
   if (MatchingService)
   {
-    v122 = sub_10004B524(v125, v115);
-    if (v122)
+    v131 = sub_10004B524(v134, v124);
+    if (v131)
     {
-      v90 = 0;
-      v89 = v122;
-      if (v124)
+      v99 = 0;
+      v98 = v131;
+      if (v133)
       {
-        v88 = 0;
-        v87 = 3;
-        v86 = v124;
-        v85 = 16;
-        if (!os_log_type_enabled(v124, OS_LOG_TYPE_ERROR))
+        v97 = 0;
+        v96 = 3;
+        v95 = v133;
+        v94 = 16;
+        if (!os_log_type_enabled(v133, OS_LOG_TYPE_ERROR))
         {
-          v87 &= ~1u;
+          v96 &= ~1u;
         }
 
-        if (v87)
+        if (v96)
         {
-          sub_1000013C8(v153, v122);
-          v84 = _os_log_send_and_compose_impl();
-          v88 = v84;
+          sub_1000013C8(v164, v131);
+          v93 = _os_log_send_and_compose_impl(v96, 0, 0, 0, &_mh_execute_header, v95, v94, "failed to read im4m %{darwin.errno}d", v164, 8);
+          v97 = v93;
         }
 
-        v83 = v88;
-        v90 = v88;
+        v92 = v97;
+        v99 = v97;
       }
 
       else
       {
-        v82 = 0;
-        v81 = 2;
-        v80 = &_os_log_default;
-        v79 = 16;
+        v91 = 0;
+        v90 = 2;
+        v89 = &_os_log_default;
+        v88 = 16;
         if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
         {
-          v81 &= ~1u;
+          v90 &= ~1u;
         }
 
-        if (v81)
+        if (v90)
         {
-          sub_1000013C8(v152, v122);
-          v78 = _os_log_send_and_compose_impl();
-          v82 = v78;
+          sub_1000013C8(v163, v131);
+          v87 = _os_log_send_and_compose_impl(v90, 0, 0, 0, &_mh_execute_header, v89, v88, "failed to read im4m %{darwin.errno}d", v163, 8);
+          v91 = v87;
         }
 
-        v77 = v82;
-        v90 = v82;
+        v86 = v91;
+        v99 = v91;
       }
 
       if (strrchr("/Library/Caches/com.apple.xbs/Sources/libcryptex_executables/hlutil/amfi.c", 47))
       {
-        v11 = strrchr("/Library/Caches/com.apple.xbs/Sources/libcryptex_executables/hlutil/amfi.c", 47) + 1;
+        v18 = strrchr("/Library/Caches/com.apple.xbs/Sources/libcryptex_executables/hlutil/amfi.c", 47) + 1;
       }
 
       else
       {
-        v11 = "/Library/Caches/com.apple.xbs/Sources/libcryptex_executables/hlutil/amfi.c";
+        v18 = "/Library/Caches/com.apple.xbs/Sources/libcryptex_executables/hlutil/amfi.c";
       }
 
-      v76 = sub_1000185D8("_amfi_load_trust_cache", v11, 48, "com.apple.security.cryptex.posix", v89, 0, v90);
-      sub_100002DE4(&v90);
-      v123 = v76;
+      v85 = sub_1000185D8("_amfi_load_trust_cache", v18, 48, "com.apple.security.cryptex.posix", v98, 0, v99);
+      sub_100002DE4(&v99);
+      v132 = v85;
     }
 
     else
     {
-      v122 = sub_10004B524(v126, v117);
-      if (v122)
+      v131 = sub_10004B524(v135, v126);
+      if (v131)
       {
-        v75 = 0;
-        v74 = v122;
-        if (v124)
+        v84 = 0;
+        v83 = v131;
+        if (v133)
         {
-          v73 = 0;
-          v72 = 3;
-          v71 = v124;
-          v70 = 16;
-          if (!os_log_type_enabled(v124, OS_LOG_TYPE_ERROR))
+          v82 = 0;
+          v81 = 3;
+          v80 = v133;
+          v79 = 16;
+          if (!os_log_type_enabled(v133, OS_LOG_TYPE_ERROR))
           {
-            v72 &= ~1u;
+            v81 &= ~1u;
           }
 
-          if (v72)
+          if (v81)
           {
-            sub_1000013C8(v151, v122);
-            v69 = _os_log_send_and_compose_impl();
-            v73 = v69;
+            sub_1000013C8(v162, v131);
+            v78 = _os_log_send_and_compose_impl(v81, 0, 0, 0, &_mh_execute_header, v80, v79, "failed to read trust cache %{darwin.errno}d", v162, 8);
+            v82 = v78;
           }
 
-          v68 = v73;
-          v75 = v73;
+          v77 = v82;
+          v84 = v82;
         }
 
         else
         {
-          v67 = 0;
-          v66 = 2;
-          v65 = &_os_log_default;
-          v64 = 16;
+          v76 = 0;
+          v75 = 2;
+          v74 = &_os_log_default;
+          v73 = 16;
           if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
           {
-            v66 &= ~1u;
+            v75 &= ~1u;
           }
 
-          if (v66)
+          if (v75)
           {
-            sub_1000013C8(v150, v122);
-            v63 = _os_log_send_and_compose_impl();
-            v67 = v63;
+            sub_1000013C8(v161, v131);
+            v72 = _os_log_send_and_compose_impl(v75, 0, 0, 0, &_mh_execute_header, v74, v73, "failed to read trust cache %{darwin.errno}d", v161, 8);
+            v76 = v72;
           }
 
-          v62 = v67;
-          v75 = v67;
+          v71 = v76;
+          v84 = v76;
         }
 
         if (strrchr("/Library/Caches/com.apple.xbs/Sources/libcryptex_executables/hlutil/amfi.c", 47))
         {
-          v10 = strrchr("/Library/Caches/com.apple.xbs/Sources/libcryptex_executables/hlutil/amfi.c", 47) + 1;
+          v17 = strrchr("/Library/Caches/com.apple.xbs/Sources/libcryptex_executables/hlutil/amfi.c", 47) + 1;
         }
 
         else
         {
-          v10 = "/Library/Caches/com.apple.xbs/Sources/libcryptex_executables/hlutil/amfi.c";
+          v17 = "/Library/Caches/com.apple.xbs/Sources/libcryptex_executables/hlutil/amfi.c";
         }
 
-        v61 = sub_1000185D8("_amfi_load_trust_cache", v10, 54, "com.apple.security.cryptex.posix", v74, 0, v75);
-        sub_100002DE4(&v75);
-        v123 = v61;
+        v70 = sub_1000185D8("_amfi_load_trust_cache", v17, 54, "com.apple.security.cryptex.posix", v83, 0, v84);
+        sub_100002DE4(&v84);
+        v132 = v70;
       }
 
       else
       {
-        v119 = IOServiceOpen(MatchingService, mach_task_self_, 0, &v120);
-        if (v119)
+        v128 = IOServiceOpen(MatchingService, mach_task_self_, 0, &v129);
+        if (v128)
         {
-          v60 = 0;
-          v59 = 34;
-          if (v124)
+          v69 = 0;
+          v68 = 34;
+          if (v133)
           {
-            v58 = 0;
-            v57 = 3;
-            v56 = v124;
-            v55 = 16;
-            if (!os_log_type_enabled(v124, OS_LOG_TYPE_ERROR))
+            v67 = 0;
+            v66 = 3;
+            v65 = v133;
+            v64 = 16;
+            if (!os_log_type_enabled(v133, OS_LOG_TYPE_ERROR))
             {
-              v57 &= ~1u;
+              v66 &= ~1u;
             }
 
-            if (v57)
+            if (v66)
             {
-              sub_1000013C8(v149, v119);
-              v54 = _os_log_send_and_compose_impl();
-              v58 = v54;
+              sub_1000013C8(v160, v128);
+              v63 = _os_log_send_and_compose_impl(v66, 0, 0, 0, &_mh_execute_header, v65, v64, "IOServiceOpen: %#x", v160);
+              v67 = v63;
             }
 
-            v53 = v58;
-            v60 = v58;
+            v62 = v67;
+            v69 = v67;
           }
 
           else
           {
-            v52 = 0;
-            v51 = 2;
-            v50 = &_os_log_default;
-            v49 = 16;
+            v61 = 0;
+            v60 = 2;
+            v59 = &_os_log_default;
+            v58 = 16;
             if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
             {
-              v51 &= ~1u;
+              v60 &= ~1u;
             }
 
-            if (v51)
+            if (v60)
             {
-              sub_1000013C8(v148, v119);
-              v48 = _os_log_send_and_compose_impl();
-              v52 = v48;
+              sub_1000013C8(v159, v128);
+              v57 = _os_log_send_and_compose_impl(v60, 0, 0, 0, &_mh_execute_header, v59, v58, "IOServiceOpen: %#x", v159);
+              v61 = v57;
             }
 
-            v47 = v52;
-            v60 = v52;
+            v56 = v61;
+            v69 = v61;
           }
 
           if (strrchr("/Library/Caches/com.apple.xbs/Sources/libcryptex_executables/hlutil/amfi.c", 47))
           {
-            v9 = strrchr("/Library/Caches/com.apple.xbs/Sources/libcryptex_executables/hlutil/amfi.c", 47) + 1;
+            v16 = strrchr("/Library/Caches/com.apple.xbs/Sources/libcryptex_executables/hlutil/amfi.c", 47) + 1;
           }
 
           else
           {
-            v9 = "/Library/Caches/com.apple.xbs/Sources/libcryptex_executables/hlutil/amfi.c";
+            v16 = "/Library/Caches/com.apple.xbs/Sources/libcryptex_executables/hlutil/amfi.c";
           }
 
-          v46 = sub_1000185D8("_amfi_load_trust_cache", v9, 60, "com.apple.security.cryptex", v59, 0, v60);
-          sub_100002DE4(&v60);
-          v123 = v46;
+          v55 = sub_1000185D8("_amfi_load_trust_cache", v16, 60, "com.apple.security.cryptex", v68, 0, v69);
+          sub_100002DE4(&v69);
+          v132 = v55;
         }
 
         else
         {
-          v113 += *(&v115[0] + 1) + *(&v117[0] + 1);
-          v112 = mmap(0, v113, 3, 4098, -1, 0);
-          if (v112 == -1)
+          v122 += *(&v124[0] + 1) + *(&v126[0] + 1);
+          v121 = mmap(0, v122, 3, 4098, -1, 0);
+          if (v121 == -1)
           {
-            v122 = *__error();
-            v45 = 0;
-            v44 = v122;
-            if (v124)
+            v131 = *__error();
+            v54 = 0;
+            v53 = v131;
+            if (v133)
             {
-              v43 = 0;
-              v42 = 3;
-              v41 = v124;
-              v40 = 16;
-              if (!os_log_type_enabled(v124, OS_LOG_TYPE_ERROR))
+              v52 = 0;
+              v51 = 3;
+              v50 = v133;
+              v49 = 16;
+              if (!os_log_type_enabled(v133, OS_LOG_TYPE_ERROR))
               {
-                v42 &= ~1u;
+                v51 &= ~1u;
               }
 
-              if (v42)
+              if (v51)
               {
-                sub_1000013C8(&v147, v122);
-                v39 = _os_log_send_and_compose_impl();
-                v43 = v39;
+                sub_1000013C8(v158, v131);
+                v48 = _os_log_send_and_compose_impl(v51, 0, 0, 0, &_mh_execute_header, v50, v49, "mmap %{darwin.errno}d", v158, 8);
+                v52 = v48;
               }
 
-              v38 = v43;
-              v45 = v43;
+              v47 = v52;
+              v54 = v52;
             }
 
             else
             {
-              v37 = 0;
-              v36 = 2;
-              v35 = &_os_log_default;
-              v34 = 16;
+              v46 = 0;
+              v45 = 2;
+              v44 = &_os_log_default;
+              v43 = 16;
               if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
               {
-                v36 &= ~1u;
+                v45 &= ~1u;
               }
 
-              if (v36)
+              if (v45)
               {
-                sub_1000013C8(&v146, v122);
-                v33 = _os_log_send_and_compose_impl();
-                v37 = v33;
+                sub_1000013C8(v157, v131);
+                v42 = _os_log_send_and_compose_impl(v45, 0, 0, 0, &_mh_execute_header, v44, v43, "mmap %{darwin.errno}d", v157, 8);
+                v46 = v42;
               }
 
-              v32 = v37;
-              v45 = v37;
+              v41 = v46;
+              v54 = v46;
             }
 
             if (strrchr("/Library/Caches/com.apple.xbs/Sources/libcryptex_executables/hlutil/amfi.c", 47))
             {
-              v8 = strrchr("/Library/Caches/com.apple.xbs/Sources/libcryptex_executables/hlutil/amfi.c", 47) + 1;
+              v15 = strrchr("/Library/Caches/com.apple.xbs/Sources/libcryptex_executables/hlutil/amfi.c", 47) + 1;
             }
 
             else
             {
-              v8 = "/Library/Caches/com.apple.xbs/Sources/libcryptex_executables/hlutil/amfi.c";
+              v15 = "/Library/Caches/com.apple.xbs/Sources/libcryptex_executables/hlutil/amfi.c";
             }
 
-            v31 = sub_1000185D8("_amfi_load_trust_cache", v8, 76, "com.apple.security.cryptex.posix", v44, 0, v45);
-            sub_100002DE4(&v45);
-            v123 = v31;
+            v40 = sub_1000185D8("_amfi_load_trust_cache", v15, 76, "com.apple.security.cryptex.posix", v53, 0, v54);
+            sub_100002DE4(&v54);
+            v132 = v40;
           }
 
           else
           {
-            *v112 = *(&v115[0] + 1);
-            *(v112 + 8) = *(&v117[0] + 1);
-            sub_10004C358(v110, 0, sub_10004C2F8, v112, v113);
-            v109 = sub_10004C5C0(v110, "rw", 0x10uLL);
-            v108 = fwrite(*&v115[0], *(&v115[0] + 1), 1uLL, v109);
-            v30 = fcheck_np();
-            if (v30)
+            *v121 = *(&v124[0] + 1);
+            *(v121 + 8) = *(&v126[0] + 1);
+            sub_10004C358(v119, 0, sub_10004C2F8, v121, v122);
+            v118 = sub_10004C5C0(v119, "rw", 0x10uLL);
+            v117 = fwrite(*&v124[0], *(&v124[0] + 1), 1uLL, v118);
+            v39 = fcheck_np();
+            if (v39)
             {
-              v29 = 0;
-              memset(&v145[16], 0, 80);
-              v27 = 0;
-              v26 = 3;
-              v25 = &_os_log_default;
-              v24 = 16;
+              v38 = 0;
+              memset(v156, 0, sizeof(v156));
+              v36 = 0;
+              v35 = 3;
+              v34 = &_os_log_default;
+              v33 = 16;
               if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
               {
-                v26 &= ~1u;
+                v35 &= ~1u;
               }
 
-              if (v26)
+              if (v35)
               {
-                sub_100003098(v145, v30);
-                v27 = _os_log_send_and_compose_impl();
+                sub_100003098(v155, v39);
+                v36 = _os_log_send_and_compose_impl(v35, &v38, v156, 80, &_mh_execute_header, v34, v33, "assertion failure: fcheck_np(cursor, fr, 1) -> %llu", v155);
               }
 
-              v23 = v27;
-              v28 = v27;
+              v32 = v36;
+              v37 = v36;
               _os_crash_msg();
               __break(1u);
               JUMPOUT(0x100010864);
             }
 
-            v108 = fwrite(*&v117[0], *(&v117[0] + 1), 1uLL, v109);
-            v22 = fcheck_np();
-            if (v22)
+            v117 = fwrite(*&v126[0], *(&v126[0] + 1), 1uLL, v118);
+            v31 = fcheck_np();
+            if (v31)
             {
-              v21 = 0;
-              memset(&v144[16], 0, 80);
-              v19 = 0;
-              v18 = 3;
-              v17 = &_os_log_default;
-              v16 = 16;
+              v30 = 0;
+              memset(v154, 0, sizeof(v154));
+              v28 = 0;
+              v27 = 3;
+              v26 = &_os_log_default;
+              v25 = 16;
               if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
               {
-                v18 &= ~1u;
+                v27 &= ~1u;
               }
 
-              if (v18)
+              if (v27)
               {
-                sub_100003098(v144, v22);
-                v19 = _os_log_send_and_compose_impl();
+                sub_100003098(v153, v31);
+                v28 = _os_log_send_and_compose_impl(v27, &v30, v154, 80, &_mh_execute_header, v26, v25, "assertion failure: fcheck_np(cursor, fr, 1) -> %llu", v153);
               }
 
-              v15[1] = v19;
-              v20 = v19;
+              v24[1] = v28;
+              v29 = v28;
               _os_crash_msg();
               __break(1u);
               JUMPOUT(0x1000109B8);
             }
 
-            v114 = IOConnectCallMethod(v120, 7u, 0, 0, v112, v113, 0, 0, 0, 0);
-            if (v114)
+            v123 = IOConnectCallMethod(v129, 7u, 0, 0, v121, v122, 0, 0, 0, 0);
+            if (v123)
             {
-              v122 = sub_1000372A8(v114);
-              v15[0] = 0;
-              v14 = v122;
-              if (v124)
+              v131 = sub_1000372A8(v123);
+              v24[0] = 0;
+              v23 = v131;
+              if (v133)
               {
-                os_log_type_enabled(v124, OS_LOG_TYPE_ERROR);
-                sub_100009EF8(&v143, v114, v122);
+                v22 = 3;
+                v21 = v133;
+                if (!os_log_type_enabled(v133, OS_LOG_TYPE_ERROR))
+                {
+                  v22 = 2;
+                }
+
+                sub_100009EF8(v152, v123, v131);
+                LODWORD(outputStructCnt) = 14;
+                v24[0] = _os_log_send_and_compose_impl(v22, 0, 0, 0, &_mh_execute_header, v21, 16, "load trust cache: %#x %{darwin.errno}d", v152, outputStructCnt);
               }
 
               else
               {
                 os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-                sub_100009EF8(&v142, v114, v122);
+                sub_100009EF8(v151, v123, v131);
+                LODWORD(outputStructCnt) = 14;
+                v24[0] = _os_log_send_and_compose_impl(2, 0, 0, 0, &_mh_execute_header, &_os_log_default, 16, "load trust cache: %#x %{darwin.errno}d", v151, outputStructCnt);
               }
 
-              v15[0] = _os_log_send_and_compose_impl();
               if (strrchr("/Library/Caches/com.apple.xbs/Sources/libcryptex_executables/hlutil/amfi.c", 47))
               {
-                v7 = strrchr("/Library/Caches/com.apple.xbs/Sources/libcryptex_executables/hlutil/amfi.c", 47) + 1;
+                v14 = strrchr("/Library/Caches/com.apple.xbs/Sources/libcryptex_executables/hlutil/amfi.c", 47) + 1;
               }
 
               else
               {
-                v7 = "/Library/Caches/com.apple.xbs/Sources/libcryptex_executables/hlutil/amfi.c";
+                v14 = "/Library/Caches/com.apple.xbs/Sources/libcryptex_executables/hlutil/amfi.c";
               }
 
-              v13 = sub_1000185D8("_amfi_load_trust_cache", v7, 106, "com.apple.security.cryptex.posix", v14, 0, v15[0]);
-              sub_100002DE4(v15);
-              v123 = v13;
+              v20 = sub_1000185D8("_amfi_load_trust_cache", v14, 106, "com.apple.security.cryptex.posix", v23, 0, v24[0]);
+              sub_100002DE4(v24);
+              v132 = v20;
             }
           }
         }
@@ -5523,149 +5653,159 @@ CFErrorRef sub_10000F434(int a1, int a2, NSObject *a3)
 
   else
   {
-    v122 = 78;
-    v105 = 0;
-    v104 = 78;
-    if (v124)
+    v131 = 78;
+    v114 = 0;
+    v113 = 78;
+    if (v133)
     {
-      v103 = 0;
-      v102 = 3;
-      v101 = v124;
-      v100 = 16;
-      if (!os_log_type_enabled(v124, OS_LOG_TYPE_ERROR))
+      v112 = 0;
+      v111 = 3;
+      v110 = v133;
+      v109 = 16;
+      if (!os_log_type_enabled(v133, OS_LOG_TYPE_ERROR))
       {
-        v102 &= ~1u;
+        v111 &= ~1u;
       }
 
-      if (v102)
+      if (v111)
       {
-        sub_1000013C8(v155, v122);
-        v99 = _os_log_send_and_compose_impl();
-        v103 = v99;
+        sub_1000013C8(v166, v131);
+        v108 = _os_log_send_and_compose_impl(v111, 0, 0, 0, &_mh_execute_header, v110, v109, "could not find AppleMobileFileIntegrity %{darwin.errno}d", v166, 8);
+        v112 = v108;
       }
 
-      v98 = v103;
-      v105 = v103;
+      v107 = v112;
+      v114 = v112;
     }
 
     else
     {
-      v97 = 0;
-      v96 = 2;
-      v95 = &_os_log_default;
-      v94 = 16;
+      v106 = 0;
+      v105 = 2;
+      v104 = &_os_log_default;
+      v103 = 16;
       if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
-        v96 &= ~1u;
+        v105 &= ~1u;
       }
 
-      if (v96)
+      if (v105)
       {
-        sub_1000013C8(v154, v122);
-        v93 = _os_log_send_and_compose_impl();
-        v97 = v93;
+        sub_1000013C8(v165, v131);
+        v102 = _os_log_send_and_compose_impl(v105, 0, 0, 0, &_mh_execute_header, v104, v103, "could not find AppleMobileFileIntegrity %{darwin.errno}d", v165, 8);
+        v106 = v102;
       }
 
-      v92 = v97;
-      v105 = v97;
+      v101 = v106;
+      v114 = v106;
     }
 
     if (strrchr("/Library/Caches/com.apple.xbs/Sources/libcryptex_executables/hlutil/amfi.c", 47))
     {
-      v12 = strrchr("/Library/Caches/com.apple.xbs/Sources/libcryptex_executables/hlutil/amfi.c", 47) + 1;
+      v19 = strrchr("/Library/Caches/com.apple.xbs/Sources/libcryptex_executables/hlutil/amfi.c", 47) + 1;
     }
 
     else
     {
-      v12 = "/Library/Caches/com.apple.xbs/Sources/libcryptex_executables/hlutil/amfi.c";
+      v19 = "/Library/Caches/com.apple.xbs/Sources/libcryptex_executables/hlutil/amfi.c";
     }
 
-    v91 = sub_1000185D8("_amfi_load_trust_cache", v12, 42, "com.apple.security.cryptex.posix", v104, 0, v105);
-    sub_100002DE4(&v105);
-    v123 = v91;
+    v100 = sub_1000185D8("_amfi_load_trust_cache", v19, 42, "com.apple.security.cryptex.posix", v113, 0, v114);
+    sub_100002DE4(&v114);
+    v132 = v100;
   }
 
-  if (!v119)
+  if (!v128)
   {
-    v136 = v120;
-    v135 = 5;
-    if (v120)
+    v145 = v129;
+    v144 = 5;
+    if (v129)
     {
-      v135 = IOServiceClose(v136);
-      if (v135)
+      v144 = IOServiceClose(v145);
+      if (v144)
       {
-        v134 = 0;
-        v161 = 0u;
-        v160 = 0u;
-        v159 = 0u;
-        v158 = 0u;
-        v157 = 0u;
-        v132 = 0;
-        v131 = 3;
-        v130 = &_os_log_default;
-        v129 = 16;
+        v143 = 0;
+        memset(v168, 0, sizeof(v168));
+        v141 = 0;
+        v140 = 3;
+        v139 = &_os_log_default;
+        v138 = 16;
         if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
         {
-          v131 &= ~1u;
+          v140 &= ~1u;
         }
 
-        if (v131)
+        if (v140)
         {
-          sub_1000013C8(v156, v135);
-          v128 = _os_log_send_and_compose_impl();
-          v132 = v128;
+          v11 = v140;
+          v12 = v139;
+          v13 = v138;
+          sub_1000013C8(v167, v144);
+          LODWORD(outputStructCnt) = 8;
+          v137 = _os_log_send_and_compose_impl(v11, &v143, v168, 80, &_mh_execute_header, v12, v13, "unexpected failure: IOServiceClose: %{mach.errno}d", v167, outputStructCnt);
+          v141 = v137;
         }
 
-        v127 = v132;
-        v133 = v132;
+        v136 = v141;
+        v142 = v141;
         _os_crash_msg();
         __break(1u);
         JUMPOUT(0x100010EC8);
       }
     }
 
-    v138 = MatchingService;
-    v139 = MatchingService;
-    v140 = MatchingService;
-    v137 = MatchingService;
-    v141 = MatchingService;
-    v6 = 0;
+    v147 = MatchingService;
+    v148 = MatchingService;
+    v149 = MatchingService;
+    v146 = MatchingService;
+    v150 = MatchingService;
+    v10 = 0;
     if (MatchingService)
     {
-      v6 = v141 != -1;
+      v10 = v150 != -1;
     }
 
-    if (v6)
+    if (v10)
     {
       mach_right_send_release();
     }
   }
 
-  sub_10004C66C(v110);
-  sub_10004C66C(v117);
-  sub_10004C66C(v115);
-  v5 = v123;
-  sub_100002DE4(&v106);
-  sub_1000030D0(&v107);
-  sub_100010FB4(&v109);
-  return v5;
+  sub_10004C66C(v119, v4);
+  sub_10004C66C(v126, v5);
+  sub_10004C66C(v124, v6);
+  v9 = v132;
+  sub_100002DE4(&v115);
+  sub_1000030D0(&v116);
+  sub_100010FB4(&v118);
+  return v9;
 }
 
 int *sub_100010FB4(int *result)
 {
-  if (*result)
+  v6 = result;
+  v5 = *result;
+  v4 = -1;
+  if (v5)
   {
-    result = fclose(*result);
+    result = fclose(v5);
+    v4 = result;
     if (result == -1)
     {
       result = __error();
-      v1 = *result;
-      if (*result)
+      v3 = *result;
+      if (v3)
       {
-        memset(&v2[24], 0, 0x50uLL);
-        os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-        sub_100003098(v2, v1);
-        _os_log_send_and_compose_impl();
+        v2 = 0;
+        memset(__b, 0, sizeof(__b));
+        v1 = 3;
+        if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+        {
+          v1 = 2;
+        }
+
+        sub_100003098(v7, v3);
+        _os_log_send_and_compose_impl(v1, &v2, __b, 80, &_mh_execute_header, &_os_log_default, 16, "assertion failure: (*__error()) -> %llu", v7);
         _os_crash_msg();
         __break(1u);
         JUMPOUT(0x100011138);
@@ -5678,27 +5818,36 @@ int *sub_100010FB4(int *result)
 
 char *sub_100011170(__n128 *a1, uint64_t a2)
 {
-  v5 = malloc_type_calloc(1uLL, 0x70uLL, 0x8709206FuLL);
-  if (!v5)
+  v6 = malloc_type_calloc(1uLL, 0x70uLL, 0x8709206FuLL);
+  v13 = "known-constant allocation";
+  v12 = v6;
+  v11 = 112;
+  if (!v6)
   {
-    memset(&v8[40], 0, 0x50uLL);
-    os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
+    v10 = 0;
+    memset(__b, 0, sizeof(__b));
+    v9 = 3;
+    if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      v9 = 2;
+    }
+
     v2 = __error();
     v3 = strerror(*v2);
-    sub_1000031B0(v8, "known-constant allocation", 112, v3);
-    _os_log_send_and_compose_impl();
+    sub_1000031B0(v14, v13, v11, v3);
+    _os_log_send_and_compose_impl(v9, &v10, __b, 80, &_mh_execute_header, &_os_log_default, 16, "allocation failed: obj = %s, size = %lu, error = %s", v14, 32, v5);
     _os_crash_msg();
     __break(1u);
     JUMPOUT(0x100011324);
   }
 
-  *(v5 + 3) = a2;
-  sub_10004C42C((v5 + 40), a1);
-  *(v5 + 12) = v5 + 40;
-  sub_1000496F4(v5, "com.apple.security.cryptexctl", "dyld-cache");
-  *(v5 + 13) = sub_1000216E4(*(v5 + 2));
-  **(v5 + 13) |= 1uLL;
-  return v5;
+  *(v6 + 3) = a2;
+  sub_10004C42C((v6 + 40), a1);
+  *(v6 + 12) = v6 + 40;
+  sub_1000496F4(v6, "com.apple.security.cryptexctl", "dyld-cache");
+  *(v6 + 13) = sub_1000216E4(*(v6 + 2));
+  **(v6 + 13) |= 1uLL;
+  return v6;
 }
 
 uint64_t sub_1000113E0(uint64_t a1)
@@ -5713,7 +5862,7 @@ uint64_t sub_1000113E0(uint64_t a1)
   v33 = 0;
   v23 = sub_10004C5C0(*(v25 + 96), "rb", 0);
   v22 = fread(v34, 0x228uLL, 1uLL, v23);
-  v24 = sub_10004887C("dyld cache header", v23, 1, 92, *(v25 + 16));
+  v24 = sub_10004887C("dyld cache header", v23, 1, 0x5Cu, *(v25 + 16));
   if (!v24)
   {
     v32 = 0;
@@ -5900,108 +6049,117 @@ uint64_t sub_100011C90(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, i
   return result;
 }
 
-void sub_100011D0C(void **a1)
+void sub_100011D0C(void **a1, uint64_t a2)
 {
-  v1 = *a1;
+  v2 = *a1;
   if (*a1)
   {
-    sub_10004C66C(*(v1 + 12));
-    sub_100049728(v1);
-    sub_100023DE0(v1 + 13);
-    free(v1);
+    sub_10004C66C(*(v2 + 12), a2);
+    sub_100049728(v2);
+    sub_100023DE0(v2 + 13);
+    free(v2);
     *a1 = 0;
   }
 }
 
 char *sub_100011D7C(uint64_t a1, _WORD *a2, uint64_t a3)
 {
-  v6 = malloc_type_calloc(1uLL, 0x1B0uLL, 0x8709206FuLL);
-  if (!v6)
+  v7 = malloc_type_calloc(1uLL, 0x1B0uLL, 0x8709206FuLL);
+  v15 = "known-constant allocation";
+  v14 = v7;
+  v13 = 432;
+  if (!v7)
   {
-    memset(&v10[40], 0, 0x50uLL);
-    os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
+    v12 = 0;
+    memset(__b, 0, sizeof(__b));
+    v11 = 3;
+    if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      v11 = 2;
+    }
+
     v3 = __error();
     v4 = strerror(*v3);
-    sub_1000031B0(v10, "known-constant allocation", 432, v4);
-    _os_log_send_and_compose_impl();
+    sub_1000031B0(v16, v15, v13, v4);
+    _os_log_send_and_compose_impl(v11, &v12, __b, 80, &_mh_execute_header, &_os_log_default, 16, "allocation failed: obj = %s, size = %lu, error = %s", v16, 32, v6);
     _os_crash_msg();
     __break(1u);
     JUMPOUT(0x100011F34);
   }
 
-  *(v6 + 3) = a3;
-  *(v6 + 4) = a1;
+  *(v7 + 3) = a3;
+  *(v7 + 4) = a1;
   if (a2)
   {
-    *(v6 + 20) = *a2;
+    *(v7 + 20) = *a2;
   }
 
   else
   {
-    v6[40] = 0;
-    v6[41] = -1;
+    v7[40] = 0;
+    v7[41] = -1;
   }
 
-  sub_1000493EC(v6 + 120);
-  *(v6 + 11) = 0;
-  *(v6 + 12) = v6 + 88;
-  *(v6 + 13) = 0;
-  *(v6 + 14) = v6 + 104;
-  uuid_generate(v6 + 72);
-  sub_1000496F4(v6, "com.apple.security.cryptexctl", "trust-cache");
-  return v6;
+  sub_1000493EC(v7 + 120);
+  *(v7 + 11) = 0;
+  *(v7 + 12) = v7 + 88;
+  *(v7 + 13) = 0;
+  *(v7 + 14) = v7 + 104;
+  uuid_generate(v7 + 72);
+  sub_1000496F4(v7, "com.apple.security.cryptexctl", "trust-cache");
+  return v7;
 }
 
 uint64_t sub_100012044(const char **a1, char *a2, uint64_t a3, uint64_t (*a4)(uint64_t, uint64_t, uint64_t, void, uint64_t, uint64_t))
 {
-  v43 = a1;
-  v42 = a2;
-  v41 = a3;
-  v40 = a4;
-  v39 = 0;
-  v38 = 0;
-  v52[0] = a2;
-  v52[1] = 0;
-  v37 = 85;
-  v36 = *a1;
-  if (!v36)
+  v51 = a1;
+  v50 = a2;
+  v49 = a3;
+  v48 = a4;
+  v47 = 0;
+  v46 = 0;
+  v62[0] = a2;
+  v62[1] = 0;
+  v45 = 85;
+  v44 = *a1;
+  if (!v44)
   {
-    v36 = "[anonymous]";
+    v44 = "[anonymous]";
   }
 
-  v35 = *__error();
-  oslog = v43[2];
+  v43 = *__error();
+  oslog = v51[2];
   type = OS_LOG_TYPE_DEBUG;
   if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEBUG))
   {
-    sub_100011BEC(v51, v36, v42);
-    _os_log_impl(&_mh_execute_header, oslog, type, "%{public}s: building trust cache from: %s", v51, 0x16u);
+    sub_100011BEC(v61, v44, v50);
+    _os_log_impl(&_mh_execute_header, oslog, type, "%{public}s: building trust cache from: %s", v61, 0x16u);
   }
 
-  *__error() = v35;
-  v39 = fts_open(v52, 85, 0);
-  if (!v39)
+  *__error() = v43;
+  v47 = fts_open(v62, 85, 0);
+  if (!v47)
   {
-    v32 = 0;
-    memset(&v50[16], 0, 0x50uLL);
-    v30 = 0;
-    v29 = 3;
-    v28 = &_os_log_default;
-    v27 = OS_LOG_TYPE_ERROR;
+    v40 = 0;
+    memset(__b, 0, sizeof(__b));
+    v38 = 0;
+    v37 = 3;
+    v36 = &_os_log_default;
+    v35 = OS_LOG_TYPE_ERROR;
     if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      v29 &= ~1u;
+      v37 &= ~1u;
     }
 
-    if (v29)
+    if (v37)
     {
       v4 = __error();
-      sub_1000013C8(v50, *v4);
-      v30 = _os_log_send_and_compose_impl();
+      sub_1000013C8(v59, *v4);
+      v38 = _os_log_send_and_compose_impl(v37, &v40, __b, 80, &_mh_execute_header, v36, v35, "unexpected failure: fts_open: %{darwin.errno}d", v59, 8);
     }
 
-    v26 = v30;
-    v31 = v30;
+    v34 = v38;
+    v39 = v38;
     _os_crash_msg();
     __break(1u);
     JUMPOUT(0x10001228CLL);
@@ -6009,145 +6167,163 @@ uint64_t sub_100012044(const char **a1, char *a2, uint64_t a3, uint64_t (*a4)(ui
 
   while (1)
   {
-    v38 = fts_read(v39);
-    if (!v38)
+    v46 = fts_read(v47);
+    if (!v46)
     {
       break;
     }
 
-    v25 = -1;
-    bzero(v49, 0x400uLL);
-    v24 = -1;
-    memset(v23, 0, sizeof(v23));
-    v22 = 0;
-    memset(v21, 0, sizeof(v21));
-    if (v38->fts_info == 8)
+    v33 = -1;
+    bzero(v58, 0x400uLL);
+    v32 = -1;
+    memset(v31, 0, sizeof(v31));
+    v30 = 0;
+    memset(v29, 0, sizeof(v29));
+    if (v46->fts_info == 8)
     {
-      fts_path = v38->fts_path;
       __strlcpy_chk();
-      v20 = *v43;
-      if (!*v43)
+      v27 = *v51;
+      if (!v27)
       {
-        v20 = "[anonymous]";
+        v27 = "[anonymous]";
       }
 
-      v19 = *__error();
-      v18 = v43[2];
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+      v26 = *__error();
+      v25 = v51[2];
+      v24 = OS_LOG_TYPE_DEBUG;
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
       {
-        sub_100011BEC(v48, v20, v49);
-        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEBUG, "%{public}s: found regular file: %s", v48, 0x16u);
+        sub_100011BEC(v57, v27, v58);
+        _os_log_impl(&_mh_execute_header, v25, v24, "%{public}s: found regular file: %s", v57, 0x16u);
       }
 
-      *__error() = v19;
-      v24 = open(v39->fts_path, 0);
-      if ((v24 & 0x80000000) == 0)
+      *__error() = v26;
+      v32 = open(v47->fts_path, 0);
+      if ((v32 & 0x80000000) == 0)
       {
         *__error() = 0;
       }
 
       if (*__error())
       {
-        v25 = *__error();
-        v17 = *v43;
-        if (!*v43)
+        v33 = *__error();
+        v23 = *v51;
+        if (!v23)
         {
-          v17 = "[anonymous]";
+          v23 = "[anonymous]";
         }
 
-        v16 = *__error();
-        v15 = v43[2];
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+        v22 = *__error();
+        v21 = v51[2];
+        v20 = OS_LOG_TYPE_ERROR;
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
         {
-          sub_100011B7C(v47, v17, v49, v25);
-          _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "%{public}s: open: %s: %{darwin.errno}d", v47, 0x1Cu);
+          sub_100011B7C(v56, v23, v58, v33);
+          _os_log_impl(&_mh_execute_header, v21, v20, "%{public}s: open: %s: %{darwin.errno}d", v56, 0x1Cu);
         }
 
-        *__error() = v16;
+        *__error() = v22;
+        v28 = 8;
       }
 
       else
       {
-        v6 = sub_100012990(v43, v24, v38->fts_statp, v23);
-        v25 = v6;
-        if (v6)
+        v5 = sub_100012990(v51, v32, v46->fts_statp, v31);
+        v33 = v5;
+        if (v5)
         {
-          v14 = *v43;
-          if (!*v43)
+          v19 = *v51;
+          if (!v19)
           {
-            v14 = "[anonymous]";
+            v19 = "[anonymous]";
           }
 
-          v13 = *__error();
-          v12 = v43[2];
-          if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+          v18 = *__error();
+          v17 = v51[2];
+          v16 = OS_LOG_TYPE_ERROR;
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
           {
-            sub_100009614(v46, v14, v25);
-            _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "%{public}s: failed to map file; skipping: %{darwin.errno}d", v46, 0x12u);
+            sub_100009614(v55, v19, v33);
+            _os_log_impl(&_mh_execute_header, v17, v16, "%{public}s: failed to map file; skipping: %{darwin.errno}d", v55, 0x12u);
           }
 
-          *__error() = v13;
+          *__error() = v18;
+          v28 = 8;
         }
 
         else
         {
-          v22 = sub_10001C334(v23, 0);
-          v25 = sub_10001C58C(v22);
-          if (v25)
+          v30 = sub_10001C334(v31, 0);
+          v33 = sub_10001C58C(v30);
+          if (v33)
           {
-            if (v25 == 79)
+            if (v33 == 79)
             {
-              sub_10004C42C(v21, *(v22 + 14));
-              sub_100012E20(v43, v21, v49, v42, v41, v40);
+              sub_10004C42C(v29, *(v30 + 14));
+              sub_100012E20(v51, v29, v58, v50, v49, v48);
             }
 
-            else if (v25 == 92)
+            else if (v33 == 92)
             {
-              sub_100013110(v43, v23, v49, v42, v41, v40);
+              sub_100013110(v51, v31, v58, v50, v49, v48);
             }
 
             else
             {
-              v11 = *v43;
-              if (!*v43)
+              v15 = *v51;
+              if (!v15)
               {
-                v11 = "[anonymous]";
+                v15 = "[anonymous]";
               }
 
-              v10 = *__error();
-              v9 = v43[2];
-              if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+              v14 = *__error();
+              v13 = v51[2];
+              v12 = OS_LOG_TYPE_ERROR;
+              if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
               {
-                sub_100011B7C(v45, v11, v49, v25);
-                _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "%{public}s: failed to init mach header: %s: %{darwin.errno}d", v45, 0x1Cu);
+                sub_100011B7C(v54, v15, v58, v33);
+                _os_log_impl(&_mh_execute_header, v13, v12, "%{public}s: failed to init mach header: %s: %{darwin.errno}d", v54, 0x1Cu);
               }
 
-              *__error() = v10;
-              v40(v43, v49, 0, v25, v42, v41);
+              *__error() = v14;
+              v48(v51, v58, 0, v33, v50, v49);
             }
           }
 
           else
           {
-            sub_100012CCC(v43, &v22, v49, v42, v41, v40);
+            sub_100012CCC(v51, &v30, v58, v50, v49, v48);
           }
 
-          sub_10001E9CC(&v22);
+          sub_10001E9CC(&v30, v6);
+          v28 = 0;
         }
       }
     }
 
-    sub_1000038DC(&v24);
+    else
+    {
+      v28 = 8;
+    }
+
+    sub_1000038DC(&v32);
   }
 
-  result = fts_close(v39);
+  result = fts_close(v47);
+  v11 = result;
   if (result == -1)
   {
-    memset(&v44[16], 0, 0x50uLL);
-    os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
+    v10 = 0;
+    memset(v53, 0, sizeof(v53));
+    v9 = 3;
+    if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      v9 = 2;
+    }
+
     v8 = __error();
-    sub_1000013C8(v44, *v8);
-    _os_log_send_and_compose_impl();
+    sub_1000013C8(v52, *v8);
+    _os_log_send_and_compose_impl(v9, &v10, v53, 80, &_mh_execute_header, &_os_log_default, 16, "assertion failure: fts_close(fts) -> %{errno}d", v52, 8);
     _os_crash_msg();
     __break(1u);
     JUMPOUT(0x10001295CLL);
@@ -6158,42 +6334,75 @@ uint64_t sub_100012044(const char **a1, char *a2, uint64_t a3, uint64_t (*a4)(ui
 
 uint64_t sub_100012990(uint64_t a1, int a2, uint64_t a3, void *a4)
 {
-  v12 = *(a3 + 96);
-  if ((v12 & 0x8000000000000000) != 0)
+  v21 = a1;
+  v20 = a2;
+  v19 = a3;
+  v18 = a4;
+  v17 = -1;
+  v16 = -1;
+  v22 = *(a3 + 96);
+  if ((v22 & 0x8000000000000000) != 0)
   {
     _os_crash();
     __break(1u);
     JUMPOUT(0x100012A0CLL);
   }
 
-  v8 = mmap(0, v12, 1, 1, a2, 0);
-  if (v8 == -1)
+  v15 = v22;
+  v14 = 1;
+  v13 = 1;
+  v16 = mmap(0, v22, 1, 1, v20, 0);
+  if (v16 == -1)
   {
-    v9 = *__error();
-    v7 = *a1;
-    if (!*a1)
+    v17 = *__error();
+    v12 = *v21;
+    if (!v12)
     {
-      v7 = "[anonymous]";
+      v12 = "[anonymous]";
     }
 
-    v6 = *__error();
-    oslog = *(a1 + 16);
+    v11 = *__error();
+    oslog = *(v21 + 16);
+    type = OS_LOG_TYPE_ERROR;
     if (os_log_type_enabled(oslog, OS_LOG_TYPE_ERROR))
     {
-      sub_100009614(v13, v7, v9);
-      _os_log_impl(&_mh_execute_header, oslog, OS_LOG_TYPE_ERROR, "%{public}s: mmap: %{darwin.errno}d", v13, 0x12u);
+      sub_100009614(v25, v12, v17);
+      _os_log_impl(&_mh_execute_header, oslog, type, "%{public}s: mmap: %{darwin.errno}d", v25, 0x12u);
     }
 
-    *__error() = v6;
+    *__error() = v11;
   }
 
   else
   {
-    sub_10004C358(a4, 0, sub_10004C2F8, v8, v12);
-    return 0;
+    sub_10004C358(v18, 0, sub_10004C2F8, v16, v15);
+    v16 = -1;
+    v17 = 0;
   }
 
-  return v9;
+  if (v16 != -1)
+  {
+    v8 = munmap(v16, v15);
+    if (v8 == -1)
+    {
+      v7 = 0;
+      memset(__b, 0, sizeof(__b));
+      v6 = 3;
+      if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+      {
+        v6 = 2;
+      }
+
+      v4 = __error();
+      sub_1000013C8(v23, *v4);
+      _os_log_send_and_compose_impl(v6, &v7, __b, 80, &_mh_execute_header, &_os_log_default, 16, "assertion failure: munmap(p, size) -> %{errno}d", v23, 8);
+      _os_crash_msg();
+      __break(1u);
+      JUMPOUT(0x100012C88);
+    }
+  }
+
+  return v17;
 }
 
 uint64_t sub_100012CCC(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t (*a6)(uint64_t, uint64_t, uint64_t, void, uint64_t, uint64_t))
@@ -6251,143 +6460,143 @@ uint64_t sub_100012CCC(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint
 
 void sub_100012E20(const char **a1, __n128 *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t (*a6)(uint64_t, uint64_t, uint64_t, void, uint64_t, uint64_t))
 {
-  v22 = a1;
-  v21 = a2;
-  v20 = a3;
-  v19 = a4;
-  v18 = a5;
-  v17 = a6;
-  v14 = 0;
-  v13 = 0;
-  v15 = sub_1000423F4(a2, 0);
-  v16 = sub_10004263C(v15);
-  if (v16)
+  v24 = a1;
+  v23 = a2;
+  v22 = a3;
+  v21 = a4;
+  v20 = a5;
+  v19 = a6;
+  v16 = 0;
+  v15 = 0;
+  v17 = sub_1000423F4(a2, 0);
+  v18 = sub_10004263C(v17);
+  if (v18)
   {
-    v12 = *v22;
-    if (!*v22)
+    v14 = *v24;
+    if (!*v24)
     {
-      v12 = "[anonymous]";
+      v14 = "[anonymous]";
     }
 
-    v11 = *__error();
-    oslog = v22[2];
+    v13 = *__error();
+    oslog = v24[2];
     if (os_log_type_enabled(oslog, OS_LOG_TYPE_ERROR))
     {
-      sub_100009614(v24, v12, v16);
-      _os_log_impl(&_mh_execute_header, oslog, OS_LOG_TYPE_ERROR, "%{public}s: failed to init fat header: %{darwin.errno}d", v24, 0x12u);
+      sub_100009614(v26, v14, v18);
+      _os_log_impl(&_mh_execute_header, oslog, OS_LOG_TYPE_ERROR, "%{public}s: failed to init fat header: %{darwin.errno}d", v26, 0x12u);
     }
 
-    *__error() = v11;
+    *__error() = v13;
   }
 
   else
   {
     while (1)
     {
-      v14 = sub_100042B70(v15, v13);
-      if (!v14)
+      v16 = sub_100042B70(v17, v15);
+      if (!v16)
       {
         break;
       }
 
-      v9 = v14;
-      v16 = sub_10001C58C(v14);
-      if (v16)
+      v11 = v16;
+      v18 = sub_10001C58C(v16);
+      if (v18)
       {
-        v8 = *v22;
-        if (!*v22)
+        v10 = *v24;
+        if (!*v24)
         {
-          v8 = "[anonymous]";
+          v10 = "[anonymous]";
         }
 
-        v7 = *__error();
-        v6 = v22[2];
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+        v9 = *__error();
+        v8 = v24[2];
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
         {
-          sub_100009614(v23, v8, v16);
-          _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "%{public}s: failed to init mach object header: %{darwin.errno}d", v23, 0x12u);
+          sub_100009614(v25, v10, v18);
+          _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "%{public}s: failed to init mach object header: %{darwin.errno}d", v25, 0x12u);
         }
 
-        *__error() = v7;
+        *__error() = v9;
       }
 
       else
       {
-        sub_100012CCC(v22, &v14, v20, v19, v18, v17);
+        sub_100012CCC(v24, &v16, v22, v21, v20, v19);
       }
 
-      sub_100043B30(v15, v9);
-      sub_10001E9CC(&v14);
-      ++v13;
+      sub_100043B30(v17, v11);
+      sub_10001E9CC(&v16, v7);
+      ++v15;
     }
   }
 
-  sub_100043B68(&v15);
+  sub_100043B68(&v17, v6);
 }
 
 void sub_100013110(uint64_t a1, __n128 *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v20 = a1;
-  v19 = a2;
-  v18 = a3;
-  v17 = a4;
-  v16 = a5;
-  v15 = a6;
-  v12 = 0;
-  v13 = sub_100011170(a2, 0);
-  v14 = sub_1000113E0(v13);
-  if (v14)
+  v21 = a1;
+  v20 = a2;
+  v19 = a3;
+  v18 = a4;
+  v17 = a5;
+  v16 = a6;
+  v13 = 0;
+  v14 = sub_100011170(a2, 0);
+  v15 = sub_1000113E0(v14);
+  if (v15)
   {
-    if (v14 == 88 || v14 == 92)
+    if (v15 == 88 || v15 == 92)
     {
-      v11 = *v20;
-      if (!*v20)
+      v12 = *v21;
+      if (!*v21)
       {
-        v11 = "[anonymous]";
+        v12 = "[anonymous]";
       }
 
-      v10 = *__error();
-      oslog = *(v20 + 16);
+      v11 = *__error();
+      oslog = *(v21 + 16);
       if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEBUG))
       {
-        sub_1000095D4(v22, v11);
-        _os_log_impl(&_mh_execute_header, oslog, OS_LOG_TYPE_DEBUG, "%{public}s: not a shared cache", v22, 0xCu);
+        sub_1000095D4(v23, v12);
+        _os_log_impl(&_mh_execute_header, oslog, OS_LOG_TYPE_DEBUG, "%{public}s: not a shared cache", v23, 0xCu);
       }
 
-      *__error() = v10;
+      *__error() = v11;
     }
 
     else
     {
-      v8 = *v20;
-      if (!*v20)
+      v9 = *v21;
+      if (!*v21)
       {
-        v8 = "[anonymous]";
+        v9 = "[anonymous]";
       }
 
-      v7 = *__error();
-      v6 = *(v20 + 16);
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v8 = *__error();
+      v7 = *(v21 + 16);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        sub_100009614(v21, v8, v14);
-        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "%{public}s: failed to read shared cache: %{darwin.errno}d", v21, 0x12u);
+        sub_100009614(v22, v9, v15);
+        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "%{public}s: failed to read shared cache: %{darwin.errno}d", v22, 0x12u);
       }
 
-      *__error() = v7;
+      *__error() = v8;
     }
   }
 
   else
   {
-    v12 = *(v13 + 13);
-    sub_1000149F8(v20, &v12);
-    *(v13 + 4) = 0;
-    **(v20 + 112) = v13;
-    *(v20 + 112) = v13 + 32;
-    v13 = 0;
+    v13 = *(v14 + 13);
+    sub_1000149F8(v21, &v13);
+    *(v14 + 4) = 0;
+    **(v21 + 112) = v14;
+    *(v21 + 112) = v14 + 32;
+    v14 = 0;
   }
 
-  sub_100011D0C(&v13);
+  sub_100011D0C(&v14, v6);
 }
 
 uint64_t sub_1000133D0(uint64_t a1, int a2)
@@ -6400,7 +6609,7 @@ uint64_t sub_1000133D0(uint64_t a1, int a2)
   v82 = 0;
   i = 0;
   v80 = 6;
-  bzero(v107, 0x1C8uLL);
+  bzero(v108, 0x1C8uLL);
   v79 = 0;
   v77 = 0;
   v78 = 0;
@@ -6418,19 +6627,19 @@ uint64_t sub_1000133D0(uint64_t a1, int a2)
     type = OS_LOG_TYPE_ERROR;
     if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
     {
-      sub_100009614(v106, v76, v85);
-      _os_log_impl(&_mh_execute_header, v74, type, "%{public}s: failed to read trust cache: %{darwin.errno}d", v106, 0x12u);
+      sub_100009614(v107, v76, v85);
+      _os_log_impl(&_mh_execute_header, v74, type, "%{public}s: failed to read trust cache: %{darwin.errno}d", v107, 0x12u);
     }
 
     *__error() = v75;
     goto LABEL_117;
   }
 
-  sub_10004EEEC(__b[0], __b[1], v107);
+  sub_10004EEEC(__b[0], __b[1], v108);
   v80 = v2;
   if (v2)
   {
-    sub_10004EFD4(__b[0], __b[1], v107);
+    sub_10004EFD4(__b[0], __b[1], v108);
     v80 = v3;
     if (v3)
     {
@@ -6448,8 +6657,8 @@ uint64_t sub_1000133D0(uint64_t a1, int a2)
         v61 = OS_LOG_TYPE_DEBUG;
         if (os_log_type_enabled(v62, OS_LOG_TYPE_DEBUG))
         {
-          sub_100009614(v103, v64, v80);
-          _os_log_impl(&_mh_execute_header, v62, v61, "%{public}s: DER decode error: %u", v103, 0x12u);
+          sub_100009614(v104, v64, v80);
+          _os_log_impl(&_mh_execute_header, v62, v61, "%{public}s: DER decode error: %u", v104, 0x12u);
         }
 
         *__error() = v63;
@@ -6469,8 +6678,8 @@ uint64_t sub_1000133D0(uint64_t a1, int a2)
       v65 = OS_LOG_TYPE_DEBUG;
       if (os_log_type_enabled(v66, OS_LOG_TYPE_DEBUG))
       {
-        sub_1000095D4(v104, v68);
-        _os_log_impl(&_mh_execute_header, v66, v65, "%{public}s: not Image4-wrapped", v104, 0xCu);
+        sub_1000095D4(v105, v68);
+        _os_log_impl(&_mh_execute_header, v66, v65, "%{public}s: not Image4-wrapped", v105, 0xCu);
       }
 
       *__error() = v67;
@@ -6489,8 +6698,8 @@ uint64_t sub_1000133D0(uint64_t a1, int a2)
       v69 = OS_LOG_TYPE_DEBUG;
       if (os_log_type_enabled(v70, OS_LOG_TYPE_DEBUG))
       {
-        sub_1000095D4(v105, v72);
-        _os_log_impl(&_mh_execute_header, v70, v69, "%{public}s: Image4-wrapped", v105, 0xCu);
+        sub_1000095D4(v106, v72);
+        _os_log_impl(&_mh_execute_header, v70, v69, "%{public}s: Image4-wrapped", v106, 0xCu);
       }
 
       *__error() = v71;
@@ -6510,8 +6719,8 @@ uint64_t sub_1000133D0(uint64_t a1, int a2)
     v57 = OS_LOG_TYPE_DEBUG;
     if (os_log_type_enabled(v58, OS_LOG_TYPE_DEBUG))
     {
-      sub_1000095D4(v102, v60);
-      _os_log_impl(&_mh_execute_header, v58, v57, "%{public}s: Image4 manifest + payload", v102, 0xCu);
+      sub_1000095D4(v103, v60);
+      _os_log_impl(&_mh_execute_header, v58, v57, "%{public}s: Image4 manifest + payload", v103, 0xCu);
     }
 
     *__error() = v59;
@@ -6524,7 +6733,7 @@ uint64_t sub_1000133D0(uint64_t a1, int a2)
 
   v55 = 0;
   v56 = 0;
-  v80 = sub_10004ED54(v107, &v55);
+  v80 = sub_10004ED54(v108, &v55);
   if (v80)
   {
     v85 = 92;
@@ -6539,8 +6748,8 @@ uint64_t sub_1000133D0(uint64_t a1, int a2)
     v51 = OS_LOG_TYPE_DEBUG;
     if (os_log_type_enabled(v52, OS_LOG_TYPE_DEBUG))
     {
-      sub_100009614(v101, v54, v80);
-      _os_log_impl(&_mh_execute_header, v52, v51, "%{public}s: DER decode error: %u", v101, 0x12u);
+      sub_100009614(v102, v54, v80);
+      _os_log_impl(&_mh_execute_header, v52, v51, "%{public}s: DER decode error: %u", v102, 0x12u);
     }
 
     *__error() = v53;
@@ -6551,7 +6760,7 @@ uint64_t sub_1000133D0(uint64_t a1, int a2)
   if (!v83)
   {
     v50 = 0;
-    memset(&v100[16], 0, 0x50uLL);
+    memset(v101, 0, sizeof(v101));
     v48 = 0;
     v47 = 3;
     v46 = &_os_log_default;
@@ -6565,7 +6774,7 @@ uint64_t sub_1000133D0(uint64_t a1, int a2)
     {
       v4 = __error();
       sub_1000013C8(v100, *v4);
-      v48 = _os_log_send_and_compose_impl();
+      v48 = _os_log_send_and_compose_impl(v47, &v50, v101, 80, &_mh_execute_header, v46, v45, "unexpected failure: fmemopen: %{darwin.errno}d", v100, 8);
     }
 
     v44 = v48;
@@ -6575,7 +6784,7 @@ uint64_t sub_1000133D0(uint64_t a1, int a2)
     JUMPOUT(0x100013C28);
   }
 
-  v80 = sub_10004ED98(v107, (v87 + 68));
+  v80 = sub_10004ED98(v108, (v87 + 68));
   if (v80)
   {
     v85 = 92;
@@ -6625,7 +6834,7 @@ uint64_t sub_1000133D0(uint64_t a1, int a2)
     *__error() = v38;
 LABEL_78:
     v82 = fread((v87 + 42), 0x18uLL, 1uLL, v83);
-    v85 = sub_10004887C("read header", v83, 1, 88, *(v87 + 16));
+    v85 = sub_10004887C("read header", v83, 1, 0x58u, *(v87 + 16));
     if (!v85)
     {
       v31 = *v87;
@@ -6717,7 +6926,7 @@ LABEL_78:
             }
 
             v82 = fread(&__ptr, __size, 1uLL, v83);
-            v85 = sub_10004887C("read entry", v83, v82, 88, *(v87 + 16));
+            v85 = sub_10004887C("read entry", v83, v82, 0x58u, *(v87 + 16));
             if (v85)
             {
               break;
@@ -6851,7 +7060,7 @@ uint64_t sub_100014934(uint64_t result, uint64_t a2, int a3, int a4, int a5, int
   return result;
 }
 
-_DWORD *sub_1000149F8(uint64_t a1, uint64_t *a2)
+int *sub_1000149F8(uint64_t a1, uint64_t *a2)
 {
   v13 = *a2;
   v12 = *a2 + 16;
@@ -6930,70 +7139,72 @@ _DWORD *sub_1000149F8(uint64_t a1, uint64_t *a2)
 
 uint64_t sub_100014D78(uint64_t a1, int a2)
 {
-  v45 = a1;
-  v44 = a2;
-  v43 = -1;
-  v42 = -1;
-  v41 = 0;
-  v40 = 0;
-  v39 = 0;
+  v60 = a1;
+  v59 = a2;
+  v58 = -1;
+  v57 = -1;
+  v56 = 0;
+  v55 = 0;
+  v54 = 0;
   __ptr[0] = 1;
   __ptr[1] = 0;
-  v70 = 0;
-  v10 = __ptr + 5;
+  v87 = 0;
+  v14 = __ptr + 5;
   do
   {
-    *v10++ = 0;
+    *v14++ = 0;
   }
 
-  while (v10 != &v70 + 4);
-  HIDWORD(v70) = *(v45 + 424);
-  v38 = 0;
-  v37 = 0;
-  v36 = 0;
-  v35 = 0;
+  while (v14 != &v87 + 4);
+  HIDWORD(v87) = *(v60 + 424);
+  v53 = 0;
+  v52 = 0;
+  v51 = 0;
+  v50 = 0;
   memset(__b, 0, sizeof(__b));
-  v33 = 0;
-  v9 = *(v45 + 32);
-  if (v9)
+  v48 = 0;
+  i = 0;
+  v13 = *(v60 + 32);
+  if (v13)
   {
-    switch(v9)
+    switch(v13)
     {
       case 1:
-        v37 = "rtsc";
+        v52 = "rtsc";
         break;
       case 2:
-        v37 = "btrs";
+        v52 = "btrs";
         break;
       case 3:
-        v37 = "ltrs";
+        v52 = "ltrs";
         break;
       case 4:
-        v37 = "dtrs";
+        v52 = "dtrs";
         break;
       case 5:
-        v37 = "gtcd";
+        v52 = "gtcd";
         break;
     }
   }
 
   else
   {
-    v37 = "trst";
+    v52 = "trst";
   }
 
-  uuid_copy(__ptr + 4, (v45 + 72));
-  v41 += 24;
-  v41 += 22 * *(v45 + 424);
-  v30 = v41;
+  uuid_copy(__ptr + 4, (v60 + 72));
+  v56 += 24;
+  v56 += 22 * *(v60 + 424);
+  v46 = 0;
+  v45 = v56;
   if (_dispatch_is_multithreaded())
   {
-    v59 = v30;
-    v58 = 0;
+    v74 = v45;
+    v73 = 0;
     while (1)
     {
-      v58 = malloc_type_malloc(v59, 0x5C008F58uLL);
-      if (v58)
+      v73 = malloc_type_malloc(v74, 0x5C008F58uLL);
+      if (v73)
       {
         break;
       }
@@ -7001,248 +7212,278 @@ uint64_t sub_100014D78(uint64_t a1, int a2)
       __os_temporary_resource_shortage();
     }
 
-    v31 = v58;
+    v46 = v73;
   }
 
   else
   {
-    v57 = v30;
-    v31 = malloc_type_malloc(v30, 0x2F48DA65uLL);
-    v56 = "known-constant allocation";
-    v55 = v31;
-    v54 = v30;
-    if (!v31)
+    v72 = v45;
+    v46 = malloc_type_malloc(v45, 0x2F48DA65uLL);
+    v71 = "known-constant allocation";
+    v70 = v46;
+    v69 = v45;
+    if (!v46)
     {
-      v53 = 0;
-      memset(&v71[40], 0, 0x50uLL);
-      v51 = 0;
-      v50 = 3;
-      v49 = &_os_log_default;
+      v68 = 0;
+      memset(v89, 0, sizeof(v89));
+      v66 = 0;
+      v65 = 3;
+      v64 = &_os_log_default;
       type = OS_LOG_TYPE_ERROR;
       if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
-        v50 &= ~1u;
+        v65 &= ~1u;
       }
 
-      if (v50)
+      if (v65)
       {
-        v7 = v56;
-        v8 = v54;
+        v10 = v65;
+        v11 = v64;
+        v12 = type;
+        v8 = v71;
+        v9 = v69;
         v2 = __error();
         v3 = strerror(*v2);
-        sub_1000031B0(v71, v7, v8, v3);
-        v47 = _os_log_send_and_compose_impl();
-        v51 = v47;
+        sub_1000031B0(v88, v8, v9, v3);
+        v62 = _os_log_send_and_compose_impl(v10, &v68, v89, 80, &_mh_execute_header, v11, v12, "allocation failed: obj = %s, size = %lu, error = %s", v88, 32, v6);
+        v66 = v62;
       }
 
-      v46 = v51;
-      v52 = v51;
+      v61 = v66;
+      v67 = v66;
       _os_crash_msg();
       __break(1u);
       JUMPOUT(0x10001511CLL);
     }
   }
 
-  v40 = v31;
-  v39 = fmemopen(v31, v41, "rw");
-  if (!v39)
+  v44[1] = v46;
+  v55 = v46;
+  v54 = fmemopen(v46, v56, "rw");
+  if (!v54)
   {
-    memset(&v68[8], 0, 0x50uLL);
-    os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-    v4 = __error();
-    sub_1000013C8(v68, *v4);
-    _os_log_send_and_compose_impl();
+    v44[0] = 0;
+    memset(v85, 0, sizeof(v85));
+    v42 = 0;
+    v41 = 3;
+    v40 = &_os_log_default;
+    v39 = OS_LOG_TYPE_ERROR;
+    if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      v41 &= ~1u;
+    }
+
+    if (v41)
+    {
+      v4 = __error();
+      sub_1000013C8(v84, *v4);
+      v42 = _os_log_send_and_compose_impl(v41, v44, v85, 80, &_mh_execute_header, v40, v39, "unexpected failure: fdopen: %{darwin.errno}d", v84, 8);
+    }
+
+    v38 = v42;
+    v43 = v42;
     _os_crash_msg();
     __break(1u);
     JUMPOUT(0x1000152D4);
   }
 
-  v38 = fwrite(__ptr, 0x18uLL, 1uLL, v39);
-  v43 = sub_10004887C("write module", v39, v38, 88, *(v45 + 16));
-  if (v43)
+  v53 = fwrite(__ptr, 0x18uLL, 1uLL, v54);
+  v58 = sub_10004887C("write module", v54, v53, 0x58u, *(v60 + 16));
+  if (v58)
   {
-    v29 = *v45;
-    if (!*v45)
+    v37 = *v60;
+    if (!v37)
     {
-      v29 = "[anonymous]";
+      v37 = "[anonymous]";
     }
 
-    v28 = *__error();
-    v27 = *(v45 + 16);
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v36 = *__error();
+    v35 = *(v60 + 16);
+    v34 = OS_LOG_TYPE_ERROR;
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
     {
-      sub_100009614(v67, v29, v43);
-      _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_ERROR, "%{public}s: failed to write trust cache module: %{darwin.errno}d", v67, 0x12u);
+      sub_100009614(v83, v37, v58);
+      _os_log_impl(&_mh_execute_header, v35, v34, "%{public}s: failed to write trust cache module: %{darwin.errno}d", v83, 0x12u);
     }
 
-    *__error() = v28;
+    *__error() = v36;
   }
 
   else
   {
-    v26 = *v45;
-    if (!*v45)
+    v33 = *v60;
+    if (!v33)
     {
-      v26 = "[anonymous]";
+      v33 = "[anonymous]";
     }
 
-    v25 = *__error();
-    v24 = *(v45 + 16);
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+    v32 = *__error();
+    v31 = *(v60 + 16);
+    v30 = OS_LOG_TYPE_DEBUG;
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
     {
-      sub_1000148C0(v66, v26, 24, __ptr);
-      _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEBUG, "%{public}s: wrote module header: %.*P", v66, 0x1Cu);
+      sub_1000148C0(v82, v33, 24, __ptr);
+      _os_log_impl(&_mh_execute_header, v31, v30, "%{public}s: wrote module header: %.*P", v82, 0x1Cu);
     }
 
-    *__error() = v25;
-    v33 = sub_100015C98(v45);
-    for (i = 0; i < *(v45 + 424); ++i)
+    *__error() = v32;
+    v48 = sub_100015C98(v60);
+    for (i = 0; i < *(v60 + 424); ++i)
     {
-      v23 = v33[i];
-      *v65 = 0;
-      *&v65[8] = 0;
-      *&v65[14] = 0;
-      v65[20] = *(v23 + 104);
-      v65[21] = *(v23 + 120);
-      if (*(v23 + 112) < 0x14uLL)
+      v29 = v48[i];
+      *v81 = 0;
+      *&v81[8] = 0;
+      *&v81[14] = 0;
+      v81[20] = *(v29 + 104);
+      v81[21] = *(v29 + 120);
+      if (*(v29 + 112) < 0x14uLL)
       {
-        memset(&v64[16], 0, 0x50uLL);
-        os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-        sub_100003098(v64, *(v23 + 112));
-        _os_log_send_and_compose_impl();
+        v28 = 0;
+        memset(v80, 0, sizeof(v80));
+        v27 = 3;
+        if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+        {
+          v27 = 2;
+        }
+
+        sub_100003098(v79, *(v29 + 112));
+        _os_log_send_and_compose_impl(v27, &v28, v80, 80, &_mh_execute_header, &_os_log_default, 16, "unexpected failure: bogus hash length: %lu", v79);
         _os_crash_msg();
         __break(1u);
         JUMPOUT(0x1000156C0);
       }
 
-      *v65 = *(v23 + 56);
-      *&v65[16] = *(v23 + 72);
-      v38 = fwrite(v65, 0x16uLL, 1uLL, v39);
-      v43 = sub_10004887C("write entry", v39, v38, 88, *(v45 + 16));
-      if (v43)
+      *v81 = *(v29 + 56);
+      *&v81[16] = *(v29 + 72);
+      v53 = fwrite(v81, 0x16uLL, 1uLL, v54);
+      v58 = sub_10004887C("write entry", v54, v53, 0x58u, *(v60 + 16));
+      if (v58)
       {
-        v22 = *v45;
-        if (!*v45)
+        v26 = *v60;
+        if (!*v60)
         {
-          v22 = "[anonymous]";
+          v26 = "[anonymous]";
         }
 
-        v21 = *__error();
-        oslog = *(v45 + 16);
+        v25 = *__error();
+        oslog = *(v60 + 16);
         if (os_log_type_enabled(oslog, OS_LOG_TYPE_ERROR))
         {
-          sub_10001601C(v63, v22, 20, v65, v43);
-          _os_log_impl(&_mh_execute_header, oslog, OS_LOG_TYPE_ERROR, "%{public}s: failed to write trust cache entry: %.*P: %{darwin.errno}d", v63, 0x22u);
+          sub_10001601C(v78, v26, 20, v81, v58);
+          _os_log_impl(&_mh_execute_header, oslog, OS_LOG_TYPE_ERROR, "%{public}s: failed to write trust cache entry: %.*P: %{darwin.errno}d", v78, 0x22u);
         }
 
-        *__error() = v21;
-        goto LABEL_80;
+        *__error() = v25;
+        goto LABEL_86;
       }
 
-      v19 = *v45;
-      if (!*v45)
+      v23 = *v60;
+      if (!*v60)
       {
-        v19 = "[anonymous]";
+        v23 = "[anonymous]";
       }
 
-      v18 = *__error();
-      v17 = *(v45 + 16);
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+      v22 = *__error();
+      v21 = *(v60 + 16);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
       {
-        sub_1000148C0(v62, v19, 20, v65);
-        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEBUG, "%{public}s: wrote cdhash: %.*P", v62, 0x1Cu);
+        sub_1000148C0(v77, v23, 20, v81);
+        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEBUG, "%{public}s: wrote cdhash: %.*P", v77, 0x1Cu);
       }
 
-      *__error() = v18;
+      *__error() = v22;
     }
 
-    v42 = sub_10004E124(v37, "cptx", v40, v41, 0, 0, &v36, &v35);
-    switch(v42)
+    v57 = sub_10004E124(v52, "cptx", v55, v56, 0, 0, &v51, &v50);
+    switch(v57)
     {
       case 'd':
-        v43 = 0;
+        v58 = 0;
         break;
       case 'e':
-        v43 = 22;
+        v58 = 22;
         break;
       case 'f':
-        v43 = 12;
+        v58 = 12;
         break;
       case 'g':
-        v43 = 104;
+        v58 = 104;
         break;
       case 'h':
-        v43 = 14;
+        v58 = 14;
         break;
       case 'i':
-        v43 = 78;
+        v58 = 78;
         break;
     }
 
-    if (v43)
+    if (v58)
     {
-      v16 = *v45;
-      if (!*v45)
+      v20 = *v60;
+      if (!*v60)
       {
-        v16 = "[anonymous]";
+        v20 = "[anonymous]";
       }
 
-      v15 = *__error();
-      v14 = *(v45 + 16);
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v19 = *__error();
+      v18 = *(v60 + 16);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
-        sub_100009E38(v61, v16, v42, v43);
-        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "%{public}s: failed to wrap trust cache: %d: %{darwin.errno}d", v61, 0x18u);
+        sub_100009E38(v76, v20, v57, v58);
+        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "%{public}s: failed to wrap trust cache: %d: %{darwin.errno}d", v76, 0x18u);
       }
 
-      *__error() = v15;
+      *__error() = v19;
     }
 
     else
     {
-      sub_10004C358(__b, 0, 0, v36, v35);
-      v43 = sub_10004B8CC(v44, __b);
-      if (v43)
+      sub_10004C358(__b, 0, 0, v51, v50);
+      v58 = sub_10004B8CC(v59, __b);
+      if (v58)
       {
-        v13 = *v45;
-        if (!*v45)
+        v17 = *v60;
+        if (!*v60)
         {
-          v13 = "[anonymous]";
+          v17 = "[anonymous]";
         }
 
-        v12 = *__error();
-        v11 = *(v45 + 16);
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+        v16 = *__error();
+        v15 = *(v60 + 16);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
-          sub_100009614(v60, v13, v43);
-          _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "%{public}s: failed to write im4p: %{darwin.errno}d", v60, 0x12u);
+          sub_100009614(v75, v17, v58);
+          _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "%{public}s: failed to write im4p: %{darwin.errno}d", v75, 0x12u);
         }
 
-        *__error() = v12;
+        *__error() = v16;
       }
     }
   }
 
-LABEL_80:
-  v6 = v43;
-  sub_100002DE4(&v33);
-  sub_100002DE4(&v36);
-  sub_100010FB4(&v39);
-  sub_100002DE4(&v40);
-  return v6;
+LABEL_86:
+  v7 = v58;
+  sub_100002DE4(&v48);
+  sub_100002DE4(&v51);
+  sub_100010FB4(&v54);
+  sub_100002DE4(&v55);
+  return v7;
 }
 
 void *sub_100015C98(uint64_t a1)
 {
+  v12 = 0;
   v11 = 0;
-  v10 = 0;
-  v8 = *(a1 + 424);
+  v9 = *(a1 + 424);
   if (_dispatch_is_multithreaded())
   {
+    v21 = v9;
+    v20 = 8;
+    v19 = 0;
     while (1)
     {
-      v13 = malloc_type_calloc(v8, 8uLL, 0x8A375538uLL);
-      if (v13)
+      v19 = malloc_type_calloc(v21, v20, 0x8A375538uLL);
+      if (v19)
       {
         break;
       }
@@ -7250,53 +7491,62 @@ void *sub_100015C98(uint64_t a1)
       __os_temporary_resource_shortage();
     }
 
-    v9 = v13;
+    v10 = v19;
   }
 
   else
   {
-    v9 = malloc_type_calloc(v8, 8uLL, 0x8709206FuLL);
-    if (!v9)
+    v10 = malloc_type_calloc(v9, 8uLL, 0x8709206FuLL);
+    v18 = "known-constant allocation";
+    v17 = v10;
+    v16 = 8;
+    if (!v10)
     {
-      memset(&v14[40], 0, 0x50uLL);
-      os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
+      v15 = 0;
+      memset(__b, 0, sizeof(__b));
+      v14 = 3;
+      if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+      {
+        v14 = 2;
+      }
+
       v1 = __error();
       v2 = strerror(*v1);
-      sub_1000031B0(v14, "known-constant allocation", 8, v2);
-      _os_log_send_and_compose_impl();
+      sub_1000031B0(v22, v18, v16, v2);
+      _os_log_send_and_compose_impl(v14, &v15, __b, 80, &_mh_execute_header, &_os_log_default, 16, "allocation failed: obj = %s, size = %lu, error = %s", v22, 32, v4);
       _os_crash_msg();
       __break(1u);
       JUMPOUT(0x100015E74);
     }
   }
 
-  v5 = 0;
-  v7 = 0;
-  while (v5 < 0x25)
+  v6 = 0;
+  v8 = 0;
+  while (v6 < 0x25)
   {
-    for (i = *(a1 + 120 + 8 * v5); ; i = v7)
+    for (i = *(a1 + 120 + 8 * v6); ; i = v8)
     {
-      v4 = 0;
+      v5 = 0;
       if (i)
       {
-        v7 = *(i + 8);
-        v11 = i - 16;
-        v4 = 1;
+        v8 = *(i + 8);
+        v12 = i - 16;
+        v5 = 1;
       }
 
-      if ((v4 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
         break;
       }
 
-      v9[v10++] = v11;
+      v10[v11++] = v12;
     }
 
-    ++v5;
+    ++v6;
   }
 
-  qsort(v9, *(a1 + 424), 8uLL, sub_1000160A0);
-  return v9;
+  qsort(v10, *(a1 + 424), 8uLL, sub_1000160A0);
+  return v10;
 }
 
 uint64_t sub_10001601C(uint64_t result, uint64_t a2, int a3, uint64_t a4, int a5)
@@ -7318,51 +7568,91 @@ uint64_t sub_10001601C(uint64_t result, uint64_t a2, int a3, uint64_t a4, int a5
   return result;
 }
 
-void sub_1000160F8(void **a1)
+void sub_1000160F8(void **a1, uint64_t a2)
 {
-  v19 = a1;
-  v18 = *a1;
-  v17 = 0;
+  v20 = a1;
+  v19 = *a1;
+  v18 = 0;
   j = 0;
-  v15 = 0;
+  v16 = 0;
   m = 0;
+  v14 = 0;
+  v11 = 0;
   v13 = 0;
-  v10 = 0;
-  v12 = 0;
-  while (v10 < 0x25)
+  while (v11 < 0x25)
   {
-    for (i = v18[v10 + 15]; ; i = v12)
+    for (i = v19[v11 + 15]; ; i = v13)
     {
-      v7 = 0;
+      v8 = 0;
       if (i)
       {
-        v12 = *(i + 8);
-        v17 = (i - 16);
-        v7 = 1;
+        v13 = *(i + 8);
+        v18 = (i - 16);
+        v8 = 1;
       }
 
-      if ((v7 & 1) == 0)
+      if ((v8 & 1) == 0)
       {
         break;
       }
 
-      sub_100049570((v18 + 15), (v17 + 2));
-      --*(v18 + 106);
-      if ((*v17 & 1) == 0)
+      sub_100049570((v19 + 15), (v18 + 2));
+      --*(v19 + 106);
+      if ((*v18 & 1) == 0)
       {
-        sub_100023DE0(&v17);
+        sub_100023DE0(&v18);
       }
     }
 
-    ++v10;
+    ++v11;
   }
 
-  for (j = v18[11]; ; j = v15)
+  for (j = v19[11]; ; j = v16)
   {
-    v6 = 0;
+    v7 = 0;
     if (j)
     {
-      v15 = j[3];
+      v16 = j[3];
+      v7 = 1;
+    }
+
+    if ((v7 & 1) == 0)
+    {
+      break;
+    }
+
+    if (v19[11] == j)
+    {
+      v2 = *(v19[11] + 24);
+      v19[11] = v2;
+      if (!v2)
+      {
+        v19[12] = v19 + 11;
+      }
+    }
+
+    else
+    {
+        ;
+      }
+
+      v3 = *(*(k + 24) + 24);
+      *(k + 24) = v3;
+      if (!v3)
+      {
+        v19[12] = k + 24;
+      }
+    }
+
+    sub_10001E9CC(&j, a2);
+  }
+
+  for (m = v19[13]; ; m = v14)
+  {
+    v6 = 0;
+    if (m)
+    {
+      v14 = m[4];
       v6 = 1;
     }
 
@@ -7371,75 +7661,35 @@ void sub_1000160F8(void **a1)
       break;
     }
 
-    if (v18[11] == j)
+    if (v19[13] == m)
     {
-      v1 = *(v18[11] + 24);
-      v18[11] = v1;
-      if (!v1)
-      {
-        v18[12] = v18 + 11;
-      }
-    }
-
-    else
-    {
-        ;
-      }
-
-      v2 = *(*(k + 24) + 24);
-      *(k + 24) = v2;
-      if (!v2)
-      {
-        v18[12] = k + 24;
-      }
-    }
-
-    sub_10001E9CC(&j);
-  }
-
-  for (m = v18[13]; ; m = v13)
-  {
-    v5 = 0;
-    if (m)
-    {
-      v13 = m[4];
-      v5 = 1;
-    }
-
-    if ((v5 & 1) == 0)
-    {
-      break;
-    }
-
-    if (v18[13] == m)
-    {
-      v3 = *(v18[13] + 32);
-      v18[13] = v3;
-      if (!v3)
-      {
-        v18[14] = v18 + 13;
-      }
-    }
-
-    else
-    {
-        ;
-      }
-
-      v4 = *(*(n + 32) + 32);
-      *(n + 32) = v4;
+      v4 = *(v19[13] + 32);
+      v19[13] = v4;
       if (!v4)
       {
-        v18[14] = n + 32;
+        v19[14] = v19 + 13;
       }
     }
 
-    sub_100011D0C(&m);
+    else
+    {
+        ;
+      }
+
+      v5 = *(*(n + 32) + 32);
+      *(n + 32) = v5;
+      if (!v5)
+      {
+        v19[14] = n + 32;
+      }
+    }
+
+    sub_100011D0C(&m, a2);
   }
 
-  sub_100049728(v18);
-  free(v18);
-  *v19 = 0;
+  sub_100049728(v19);
+  free(v19);
+  *v20 = 0;
 }
 
 BOOL sub_1000164C0(const char *a1)
@@ -7469,75 +7719,82 @@ BOOL sub_1000164C0(const char *a1)
   }
 }
 
-uint64_t sub_10001659C(uint64_t a1, int a2, char **a3)
+uint64_t sub_10001659C(uint64_t a1, int a2, const char **a3)
 {
-  v11 = a1;
-  v10 = a2;
-  v9 = a3;
-  v8 = -1;
-  v7 = a3;
-  v6 = -1;
-  v5 = 0;
-  v4 = 0;
+  v15 = a1;
+  v14 = a2;
+  v13 = a3;
+  v12 = -1;
+  v11 = a3;
+  v10 = -1;
+  v9 = 0;
+  v8 = 0;
   sub_1000480E0();
-  v6 = getopt_long(v10, v7, *(v11 + 32), *(v11 + 40), &v5);
-  if (v6 != -1)
+  v10 = getopt_long(v14, v11, *(v15 + 32), *(v15 + 40), &v9);
+  if (v10 != -1)
   {
+    v7 = (*(v15 + 40) + 32 * v9);
+    v6 = v13[optind - 1];
     if (optind < 1)
     {
-      memset(&v12[8], 0, 0x50uLL);
-      os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-      sub_1000013C8(v12, optind);
-      _os_log_send_and_compose_impl();
+      v5 = 0;
+      memset(__b, 0, sizeof(__b));
+      v4 = 3;
+      if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+      {
+        v4 = 2;
+      }
+
+      sub_1000013C8(v16, optind);
+      _os_log_send_and_compose_impl(v4, &v5, __b, 80, &_mh_execute_header, &_os_log_default, 16, "unexpected failure: bogus optind: %d", v16);
       _os_crash_msg();
       __break(1u);
       JUMPOUT(0x100016774);
     }
 
-    if (v6 != 58)
+    if (v10 != 58)
     {
-      if (v6 != 63)
+      if (v10 != 63)
       {
         _os_crash();
         __break(1u);
         JUMPOUT(0x1000167F0);
       }
 
-      errx(64, "unknown option: %s", v9[optind - 1]);
+      errx(64, "unknown option: %s", v6);
     }
 
-    errx(64, "missing argument for option: %s", *(*(v11 + 40) + 32 * v5));
+    errx(64, "missing argument for option: %s", *v7);
   }
 
-  v9 += optind;
-  v10 -= optind;
-  if (v10 < 1)
+  v13 += optind;
+  v14 -= optind;
+  if (v14 < 1)
   {
     errx(64, "a dev node must be provided");
   }
 
-  v4 = *v9;
-  v8 = sub_10001689C(&v4);
+  v8 = *v13;
+  v12 = sub_10001689C(&v8);
   return sysexit_np();
 }
 
 uint64_t sub_10001689C(const char **a1)
 {
-  v20 = a1;
-  v19 = -1;
-  v18 = -1;
+  v9 = a1;
+  v8 = -1;
+  v7 = -1;
   bzero(__s1, 0x400uLL);
   __s = 0;
-  v16 = -1;
-  if (**v20 == 47)
+  v5 = -1;
+  if (**v9 == 47)
   {
-    v1 = *v20;
     __strlcpy_chk();
   }
 
   else
   {
-    __snprintf_chk(__s1, 0x400uLL, 0, 0x400uLL, "%s%s", "/dev/", *v20);
+    __snprintf_chk(__s1, 0x400uLL, 0, 0x400uLL, "%s%s", "/dev/", *v9);
   }
 
   __s = strstr(__s1, "disk");
@@ -7548,120 +7805,126 @@ uint64_t sub_10001689C(const char **a1)
 
   while (1)
   {
-    sub_10004860C(0, 1uLL, "attempting to detach: %s", v2, v3, v4, v5, v6, __s1);
-    v16 = open(__s1, 0);
-    v21 = v16;
-    if (v16 < 0)
+    sub_10004860C(0, 1uLL, "attempting to detach: %s", __s1);
+    v5 = open(__s1, 0);
+    v10 = v5;
+    if (v5 < 0)
     {
-      v19 = *__error();
-      warn("open: %s", *v20);
+      v8 = *__error();
+      warn("open: %s", *v9);
       goto LABEL_18;
     }
 
-    v18 = ioctl(v16, 0x20006415uLL);
-    if ((v18 & 0x80000000) == 0)
+    v7 = ioctl(v5, 0x20006415uLL);
+    if ((v7 & 0x80000000) == 0)
     {
       *__error() = 0;
     }
 
-    v14 = *__error();
-    if (v14)
+    v3 = *__error();
+    if (v3)
     {
       break;
     }
 
-    sub_10004860C(0, 1uLL, "detached: %s", v7, v8, v9, v10, v11, __s1);
-    v19 = 0;
+    sub_10004860C(0, 1uLL, "detached: %s", __s1);
+    v8 = 0;
 LABEL_17:
-    if (v19 != 25)
+    if (v8 != 25)
     {
       goto LABEL_18;
     }
   }
 
-  if (v14 == 25)
+  if (v3 == 25)
   {
-    v19 = *__error();
+    v8 = *__error();
     if (!__s)
     {
       goto LABEL_18;
     }
 
-    v15 = strrchr(__s, 115);
-    if (v15)
+    v4 = strrchr(__s, 115);
+    if (v4)
     {
-      *v15 = 0;
+      *v4 = 0;
     }
 
     goto LABEL_17;
   }
 
-  v19 = *__error();
+  v8 = *__error();
 LABEL_18:
-  if (v19)
+  if (v8)
   {
-    warn("failed to detach: %s", *v20);
+    warn("failed to detach: %s", *v9);
   }
 
-  v13 = v19;
-  sub_1000038DC(&v16);
-  return v13;
+  v2 = v8;
+  sub_1000038DC(&v5);
+  return v2;
 }
 
-uint64_t sub_100016B84(uint64_t a1, int a2, char *const *a3)
+uint64_t sub_100016B84(uint64_t a1, int a2, const char **a3)
 {
-  v27 = a1;
-  v26 = a2;
-  v25 = a3;
-  v24 = -1;
-  v23 = a3;
-  v22 = -1;
-  v21 = 0;
-  v18 = 0;
-  v19 = 0;
+  v17 = a1;
+  v16 = a2;
+  v15 = a3;
+  v14 = -1;
+  v13 = a3;
+  v12 = -1;
+  v11 = 0;
+  v8 = 0;
+  v9 = 0;
   sub_1000480E0();
-  v20 = img4_chip_select_personalized_ap();
+  v10 = img4_chip_select_personalized_ap();
   while (1)
   {
-    v22 = getopt_long(v26, v23, *(v27 + 32), *(v27 + 40), &v21);
-    if (v22 == -1)
+    v12 = getopt_long(v16, v13, *(v17 + 32), *(v17 + 40), &v11);
+    if (v12 == -1)
     {
       break;
     }
 
-    v17 = (*(v27 + 40) + 32 * v21);
-    v16 = v25[optind - 1];
+    v7 = (*(v17 + 40) + 32 * v11);
+    v6 = v15[optind - 1];
     if (optind < 1)
     {
-      memset(&v28[8], 0, 0x50uLL);
-      os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-      sub_1000013C8(v28, optind);
-      _os_log_send_and_compose_impl();
+      v5 = 0;
+      memset(__b, 0, sizeof(__b));
+      v4 = 3;
+      if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+      {
+        v4 = 2;
+      }
+
+      sub_1000013C8(v18, optind);
+      _os_log_send_and_compose_impl(v4, &v5, __b, 80, &_mh_execute_header, &_os_log_default, 16, "unexpected failure: bogus optind: %d", v18);
       _os_crash_msg();
       __break(1u);
       JUMPOUT(0x100016D6CLL);
     }
 
-    sub_1000483C8(1uLL, "parsing: %c", v3, v4, v5, v6, v7, v8, v22);
-    switch(v22)
+    sub_1000483C8(1uLL, "parsing: %c", v12);
+    switch(v12)
     {
       case ':':
-        errx(64, "missing argument for option: %s", *v17);
+        errx(64, "missing argument for option: %s", *v7);
       case '?':
-        errx(64, "unknown option: %s", v16);
+        errx(64, "unknown option: %s", v6);
       case 'm':
-        v19 = optarg;
-        sub_1000483C8(1uLL, "will write trust cache to: %s", v9, v10, v11, v12, v13, v14, optarg);
+        v9 = optarg;
+        sub_1000483C8(1uLL, "will write trust cache to: %s", optarg);
         break;
       case 't':
         if (!strcmp(optarg, "personalized"))
         {
-          v20 = img4_chip_select_personalized_ap();
+          v10 = img4_chip_select_personalized_ap();
         }
 
         else if (!strcmp(optarg, "global-ff00"))
         {
-          v20 = &_img4_chip_ap_software_ff00;
+          v10 = &_img4_chip_ap_software_ff00;
         }
 
         else
@@ -7671,7 +7934,7 @@ uint64_t sub_100016B84(uint64_t a1, int a2, char *const *a3)
             errx(64, "invalid trust cache type: %s", optarg);
           }
 
-          v20 = &_img4_chip_ap_software_ff00;
+          v10 = &_img4_chip_ap_software_ff00;
         }
 
         break;
@@ -7682,103 +7945,111 @@ uint64_t sub_100016B84(uint64_t a1, int a2, char *const *a3)
     }
   }
 
-  v25 += optind;
-  v26 -= optind;
-  if (v26 < 1)
+  v15 += optind;
+  v16 -= optind;
+  if (v16 < 1)
   {
     errx(64, "a directory path is required");
   }
 
-  v18 = *v25;
-  if (!v19)
+  v8 = *v15;
+  if (!v9)
   {
-    v19 = v18;
+    v9 = v8;
   }
 
-  v24 = sub_100016FD4(&v18);
+  v14 = sub_100016FD4(&v8);
   return sysexit_np();
 }
 
 uint64_t sub_100016FD4(const char **a1)
 {
-  v20 = a1;
-  v19 = 0;
-  v18 = -1;
-  v17 = -1;
-  v16 = -1;
-  v17 = open(*a1, 0);
-  v22 = v17;
-  if (v17 < 0)
+  v14 = a1;
+  v13 = 0;
+  v12 = -1;
+  v11 = -1;
+  v10 = -1;
+  v11 = open(*a1, 0);
+  v16 = v11;
+  if (v11 < 0)
   {
-    v18 = *__error();
-    warnc(v18, "open");
+    v12 = *__error();
+    warnc(v12, "open");
   }
 
   else
   {
-    v16 = open(v20[1], 0);
-    v21 = v17;
-    v19 = sub_10000F434(v17, v16, 0);
-    if (v19)
+    v10 = open(v14[1], 0);
+    v15 = v11;
+    v13 = sub_10000F434(v11, v10, 0);
+    if (v13)
     {
-      v18 = sub_100018A78(v19);
-      v15 = sub_100048090();
-      v12 = 1;
-      if (v15[1] <= 1uLL)
+      v12 = sub_100018A78(v13);
+      v9 = sub_100048090();
+      v6 = 1;
+      if (v9[1] <= 1uLL)
       {
-        v12 = v15[2] > 1uLL;
+        v6 = v9[2] > 1uLL;
       }
 
-      if (v12)
+      if (v6)
       {
-        v6 = 999;
+        v1 = 999;
       }
 
       else
       {
-        v6 = 3;
+        v1 = 3;
       }
 
-      v14 = v6;
-      v11 = 1;
-      if (v15[1] <= 1uLL)
+      v8 = v1;
+      v5 = 1;
+      if (v9[1] <= 1uLL)
       {
-        v11 = v15[2] > 1uLL;
+        v5 = v9[2] > 1uLL;
       }
 
-      v7 = 2000;
-      if (!v11)
+      v2 = 2000;
+      if (!v5)
       {
-        v7 = 200;
+        v2 = 200;
       }
 
-      v13[1] = v7;
-      v13[0] = sub_100017530(v19, v14, v7);
-      warnx("failed to load trust cache\n%s", v13[0]);
-      sub_100002DE4(v13);
+      v7[1] = v2;
+      v7[0] = sub_100017530(v13, v8, v2);
+      warnx("failed to load trust cache\n%s", v7[0]);
+      sub_100002DE4(v7);
     }
 
     else
     {
-      sub_10004860C(0, 1uLL, "loaded trust cache", v1, v2, v3, v4, v5, v9);
+      sub_10004860C(0, 1uLL, "loaded trust cache");
     }
   }
 
-  v10 = v18;
-  sub_1000038DC(&v16);
-  sub_1000038DC(&v17);
-  sub_100006B40(&v19);
-  return v10;
+  v4 = v12;
+  sub_1000038DC(&v10);
+  sub_1000038DC(&v11);
+  sub_100006B40(&v13);
+  return v4;
 }
 
 uint64_t sub_1000173C8(uint64_t result, uint64_t a2)
 {
+  v5 = result;
+  v4 = a2;
   if (!result)
   {
-    memset(&v3[24], 0, 0x50uLL);
-    os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-    sub_100003120(v3, a2);
-    _os_log_send_and_compose_impl();
+    v3 = 0;
+    memset(__b, 0, sizeof(__b));
+    v2 = 3;
+    if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      v2 = 2;
+    }
+
+    sub_100003120(v6, v4);
+    _os_log_send_and_compose_impl(v2, &v3, __b, 80, &_mh_execute_header, &_os_log_default, 16, "cf create failed: obj = %s", v6);
     _os_crash_msg();
     __break(1u);
     JUMPOUT(0x100017500);
@@ -7790,10 +8061,10 @@ uint64_t sub_1000173C8(uint64_t result, uint64_t a2)
 char *sub_100017530(__CFError *a1, unsigned int a2, CFIndex a3)
 {
   err = a1;
-  v43 = a2;
-  v42 = a3;
-  v40 = 0;
-  v39 = 0;
+  v51 = a2;
+  v50 = a3;
+  v48 = 0;
+  v47 = 0;
   Mutable = CFStringCreateMutable(0, 0);
   while (err)
   {
@@ -7803,8 +8074,8 @@ char *sub_100017530(__CFError *a1, unsigned int a2, CFIndex a3)
     cf1 = CFErrorGetDomain(err);
     appendedString = 0;
     Value = 0;
-    v32 = 0;
-    v31 = &stru_1000822B0;
+    v40 = 0;
+    v39 = &stru_1000822B0;
     if (theDict)
     {
       Value = CFDictionaryGetValue(theDict, kCFErrorUnderlyingErrorKey);
@@ -7815,19 +8086,19 @@ char *sub_100017530(__CFError *a1, unsigned int a2, CFIndex a3)
       MutableCopy = CFStringCreateMutableCopy(0, 0, theString);
       if (MutableCopy)
       {
-        if ((v42 & 0x8000000000000000) == 0)
+        if ((v50 & 0x8000000000000000) == 0)
         {
-          v25 = MutableCopy;
-          v26 = v42;
-          if (v26 >= CFStringGetLength(MutableCopy))
+          v33 = MutableCopy;
+          v34 = v50;
+          if (v34 >= CFStringGetLength(MutableCopy))
           {
             length = CFStringGetLength(MutableCopy);
-            CFStringPad(v25, 0, length, 0);
+            CFStringPad(v33, 0, length, 0);
           }
 
           else
           {
-            CFStringPad(v25, 0, v42, 0);
+            CFStringPad(v33, 0, v50, 0);
           }
         }
       }
@@ -7837,88 +8108,93 @@ char *sub_100017530(__CFError *a1, unsigned int a2, CFIndex a3)
     {
       Code = CFErrorGetCode(err);
       v4 = sub_100017CB8(Code);
-      asprintf(&v32, " (%s)", v4);
+      asprintf(&v40, " (%s)", v4);
     }
 
     else if (CFEqual(cf1, @"com.apple.security.cryptex.posix"))
     {
       v5 = CFErrorGetCode(err);
       v6 = strerror(v5);
-      asprintf(&v32, " (%s)", v6);
+      asprintf(&v40, " (%s)", v6);
     }
 
     else
     {
       __s1 = "";
-      v30 = strdup("");
+      v38 = strdup("");
       v7 = strlen("");
-      v68 = "known-constant allocation";
-      v67 = v30;
-      v66 = v7;
-      if (!v30)
+      v76 = "known-constant allocation";
+      v75 = v38;
+      v74 = v7;
+      if (!v38)
       {
-        v65 = 0;
-        memset(&v70[40], 0, 0x50uLL);
-        v63 = 0;
-        v62 = 3;
+        v73 = 0;
+        memset(__b, 0, sizeof(__b));
+        v71 = 0;
+        v70 = 3;
         oslog = &_os_log_default;
         type = OS_LOG_TYPE_ERROR;
         if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
         {
-          v62 &= ~1u;
+          v70 &= ~1u;
         }
 
-        if (v62)
+        if (v70)
         {
-          v22 = v68;
-          v23 = v66;
+          v29 = v70;
+          v30 = oslog;
+          v31 = type;
+          v27 = v76;
+          v28 = v74;
           v8 = __error();
           v9 = strerror(*v8);
-          sub_1000031B0(v70, v22, v23, v9);
-          v59 = _os_log_send_and_compose_impl();
-          v63 = v59;
+          sub_1000031B0(v79, v27, v28, v9);
+          LODWORD(v16) = 32;
+          v67 = _os_log_send_and_compose_impl(v29, &v73, __b, 80, &_mh_execute_header, v30, v31, "allocation failed: obj = %s, size = %lu, error = %s", v79, v16, v17);
+          v71 = v67;
         }
 
-        v58 = v63;
-        v64 = v63;
+        v66 = v71;
+        v72 = v71;
         _os_crash_msg();
         __break(1u);
         JUMPOUT(0x100017884);
       }
 
-      v32 = v30;
+      v40 = v38;
     }
 
     if (os_variant_allows_internal_security_policies())
     {
-      v20 = CFDictionaryGetValue(theDict, @"FileName");
-      v21 = CFDictionaryGetValue(theDict, @"LineNumber");
+      v25 = CFDictionaryGetValue(theDict, @"FileName");
+      v26 = CFDictionaryGetValue(theDict, @"LineNumber");
       v10 = CFDictionaryGetValue(theDict, @"FunctionName");
-      v31 = CFStringCreateWithFormat(0, 0, @"  Source: %@:%@ (%@)", v20, v21, v10);
+      v39 = CFStringCreateWithFormat(0, 0, @"  Source: %@:%@ (%@)", v25, v26, v10);
     }
 
     Domain = CFErrorGetDomain(err);
     v11 = CFErrorGetCode(err);
-    appendedString = CFStringCreateWithFormat(0, 0, @"Error Domain: %@  Code: %ld%s%@  Detail: %@\n", Domain, v11, v32, v31, MutableCopy);
-    if (v39 >= v43 && Value)
+    v17 = v40;
+    appendedString = CFStringCreateWithFormat(0, 0, @"Error Domain: %@  Code: %ld%s%@  Detail: %@\n", Domain, v11);
+    if (v47 >= v51 && Value)
     {
-      if (v39 == v43)
+      if (v47 == v51)
       {
-        for (i = 0; i < v39; ++i)
+        for (i = 0; i < v47; ++i)
         {
           CFStringAppend(Mutable, @"    ");
         }
 
         CFStringAppend(Mutable, @"...\n");
-        ++v39;
+        ++v47;
       }
     }
 
     else
     {
-      if (v39)
+      if (v47)
       {
-        for (j = 0; j < v39 - 1; ++j)
+        for (j = 0; j < v47 - 1; ++j)
         {
           CFStringAppend(Mutable, @"    ");
         }
@@ -7927,64 +8203,68 @@ char *sub_100017530(__CFError *a1, unsigned int a2, CFIndex a3)
       }
 
       CFStringAppend(Mutable, appendedString);
-      ++v39;
+      ++v47;
     }
 
     err = Value;
-    sub_100006B40(&v31);
-    sub_100002DE4(&v32);
+    sub_100006B40(&v39);
+    sub_100002DE4(&v40);
     sub_100006B40(&appendedString);
     sub_100006B40(&MutableCopy);
     sub_100006B40(&theString);
     sub_100006B40(&theDict);
   }
 
-  v40 = sub_100018014(Mutable);
-  if (!v40)
+  v48 = sub_100018014(Mutable);
+  if (!v48)
   {
-    v45 = "[CFString translation failure]";
-    v27 = strdup("[CFString translation failure]");
+    v53 = "[CFString translation failure]";
+    v35 = strdup("[CFString translation failure]");
     v12 = strlen("[CFString translation failure]");
-    v57 = "known-constant allocation";
-    v56 = v27;
-    v55 = v12;
-    if (!v27)
+    v65 = "known-constant allocation";
+    v64 = v35;
+    v63 = v12;
+    if (!v35)
     {
-      v54 = 0;
-      memset(&v69[32], 0, 0x50uLL);
-      v52 = 0;
-      v51 = 3;
-      v50 = &_os_log_default;
-      v49 = OS_LOG_TYPE_ERROR;
+      v62 = 0;
+      memset(v78, 0, sizeof(v78));
+      v60 = 0;
+      v59 = 3;
+      v58 = &_os_log_default;
+      v57 = OS_LOG_TYPE_ERROR;
       if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
-        v51 &= ~1u;
+        v59 &= ~1u;
       }
 
-      if (v51)
+      if (v59)
       {
-        v17 = v57;
-        v18 = v55;
+        v21 = v59;
+        v22 = v58;
+        v23 = v57;
+        v19 = v65;
+        v20 = v63;
         v13 = __error();
         v14 = strerror(*v13);
-        sub_1000031B0(v69, v17, v18, v14);
-        v48 = _os_log_send_and_compose_impl();
-        v52 = v48;
+        sub_1000031B0(v77, v19, v20, v14);
+        LODWORD(v16) = 32;
+        v56 = _os_log_send_and_compose_impl(v21, &v62, v78, 80, &_mh_execute_header, v22, v23, "allocation failed: obj = %s, size = %lu, error = %s", v77, v16, v17);
+        v60 = v56;
       }
 
-      v47 = v52;
-      v53 = v52;
+      v55 = v60;
+      v61 = v60;
       _os_crash_msg();
       __break(1u);
       JUMPOUT(0x100017C5CLL);
     }
 
-    v40 = v27;
+    v48 = v35;
   }
 
-  v16 = v40;
+  v18 = v48;
   sub_100006B40(&Mutable);
-  return v16;
+  return v18;
 }
 
 const char *sub_100017CB8(int a1)
@@ -8157,10 +8437,16 @@ uint64_t sub_10001813C(const __CFNumber *a1)
 
   if (valuePtr[0] > 0xFFFFFFFFLL || valuePtr[0] < 0)
   {
-    memset(&v3[24], 0, 0x50uLL);
-    os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-    sub_100003098(v3, valuePtr[0]);
-    _os_log_send_and_compose_impl();
+    v3 = 0;
+    memset(__b, 0, sizeof(__b));
+    v2 = 3;
+    if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      v2 = 2;
+    }
+
+    sub_100003098(v6, valuePtr[0]);
+    _os_log_send_and_compose_impl(v2, &v3, __b, 80, &_mh_execute_header, &_os_log_default, 16, "unexpected failure: not representable as 32-bit unsigned integer: %lld", v6);
     _os_crash_msg();
     __break(1u);
     JUMPOUT(0x1000182CCLL);
@@ -8556,38 +8842,46 @@ CFTypeRef sub_100018E24(const void *a1)
   }
 }
 
-uint64_t sub_100018E70(uint64_t a1, int a2, char *const *a3)
+uint64_t sub_100018E70(uint64_t a1, int a2, const char **a3)
 {
-  v29 = a1;
-  v28 = a2;
-  v27 = a3;
-  v26 = -1;
-  v25 = a3;
-  v24 = -1;
-  v23 = 0;
+  v15 = a1;
+  v14 = a2;
+  v13 = a3;
+  v12 = -1;
+  v11 = a3;
+  v10 = -1;
+  v9 = 0;
   memset(__b, 0, sizeof(__b));
   __b[3] = off_100084100;
   sub_1000480E0();
   while (1)
   {
-    v24 = getopt_long(v28, v25, *(v29 + 32), *(v29 + 40), &v23);
-    if (v24 == -1)
+    v10 = getopt_long(v14, v11, *(v15 + 32), *(v15 + 40), &v9);
+    if (v10 == -1)
     {
       break;
     }
 
+    v7 = (*(v15 + 40) + 32 * v9);
+    v6 = v13[optind - 1];
     if (optind < 1)
     {
-      memset(&v30[8], 0, 0x50uLL);
-      os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-      sub_1000013C8(v30, optind);
-      _os_log_send_and_compose_impl();
+      v5 = 0;
+      memset(v17, 0, sizeof(v17));
+      v4 = 3;
+      if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+      {
+        v4 = 2;
+      }
+
+      sub_1000013C8(v16, optind);
+      _os_log_send_and_compose_impl(v4, &v5, v17, 80, &_mh_execute_header, &_os_log_default, 16, "unexpected failure: bogus optind: %d", v16);
       _os_crash_msg();
       __break(1u);
       JUMPOUT(0x10001907CLL);
     }
 
-    switch(v24)
+    switch(v10)
     {
       case '4':
         if (strlen(optarg) != 4)
@@ -8599,9 +8893,9 @@ uint64_t sub_100018E70(uint64_t a1, int a2, char *const *a3)
         __b[2] = optarg;
         break;
       case ':':
-        errx(64, "missing argument for option: %s", *(*(v29 + 40) + 32 * v23));
+        errx(64, "missing argument for option: %s", *v7);
       case '?':
-        errx(64, "unknown option: %s", v27[optind - 1]);
+        errx(64, "unknown option: %s", v6);
       case 'c':
         __b[3] = sub_1000192F0(optarg);
         if (!__b[3])
@@ -8609,12 +8903,12 @@ uint64_t sub_100018E70(uint64_t a1, int a2, char *const *a3)
           errx(64, "invalid crypto chain: %s", optarg);
         }
 
-        sub_1000483C8(1uLL, "crypto chain: %s", v9, v10, v11, v12, v13, v14, optarg);
-        sub_1000483C8(1uLL, "digest length = %lu", v15, v16, v17, v18, v19, v20, **(*__b[3] + 32));
+        sub_1000483C8(1uLL, "crypto chain: %s", optarg);
+        sub_1000483C8(1uLL, "digest length = %lu", **(*__b[3] + 32));
         break;
       case 'r':
         __b[4] = optarg;
-        sub_1000483C8(1uLL, "root certificate: %s", v3, v4, v5, v6, v7, v8, optarg);
+        sub_1000483C8(1uLL, "root certificate: %s", optarg);
         break;
       default:
         _os_crash();
@@ -8623,15 +8917,15 @@ uint64_t sub_100018E70(uint64_t a1, int a2, char *const *a3)
     }
   }
 
-  v27 += optind;
-  v28 -= optind;
-  if (v28 < 1)
+  v13 += optind;
+  v14 -= optind;
+  if (v14 < 1)
   {
     errx(64, "a path to an Image4 file must be provided");
   }
 
-  __b[0] = *v27;
-  v26 = sub_100019390(__b);
+  __b[0] = *v13;
+  v12 = sub_100019390(__b);
   return sysexit_np();
 }
 
@@ -8650,372 +8944,403 @@ uint64_t (**sub_1000192F0(const char *a1))()
 
 uint64_t sub_100019390(const char **a1)
 {
-  v20 = a1;
-  v19 = -1;
-  v18 = -1;
-  bzero(v24, 0x1C8uLL);
-  v17 = 6;
+  v17 = a1;
+  v16 = -1;
+  v15 = -1;
+  bzero(v21, 0x1C8uLL);
+  v14 = 6;
   memset(__b, 0, sizeof(__b));
   i = 0;
-  v14 = 0;
-  v13 = 0;
-  v13 = sub_1000411D0(*v20[3]);
-  v18 = open(*v20, 0);
-  v23 = v18;
-  if (v18 < 0)
+  v11 = 0;
+  v10 = 0;
+  v10 = sub_1000411D0(*v17[3]);
+  v15 = open(*v17, 0);
+  v20 = v15;
+  if (v15 < 0)
   {
-    v19 = *__error();
-    warn("open: %s", *v20);
+    v16 = *__error();
+    warn("open: %s", *v17);
   }
 
   else
   {
-    v19 = sub_10004B524(v18, __b);
-    if (v19)
+    v16 = sub_10004B524(v15, __b);
+    if (v16)
     {
-      warnc(v19, "failed to read file");
+      warnc(v16, "failed to read file");
     }
 
     else
     {
       for (i = 0; ; ++i)
       {
-        v12 = 4;
+        v9 = 4;
         if (i >= 4)
         {
           break;
         }
 
-        v14 = &unk_10007A4A8 + 24 * i;
-        v17 = (*(v14 + 1))(__b[0], __b[1], v24);
-        sub_1000483C8(2uLL, "%s -> %d", v1, v2, v3, v4, v5, v6, *(v14 + 2));
-        if (!v17)
+        v11 = &unk_10007A4A8 + 24 * i;
+        v14 = (*(v11 + 1))(__b[0], __b[1], v21);
+        sub_1000483C8(2uLL, "%s -> %d", *(v11 + 2), v14);
+        if (!v14)
         {
           break;
         }
       }
 
-      if (v17)
+      if (v14)
       {
-        v19 = 79;
+        v16 = 79;
         warnx("file is not Image4");
       }
 
       else
       {
-        if (!v20[4])
+        if (!v17[4])
         {
           goto LABEL_32;
         }
 
-        v11 = -1;
-        memset(v10, 0, 0x38uLL);
-        v9 = 0;
-        v11 = open(v20[4], 0);
-        v22 = v11;
-        if (v11 < 0)
+        v8 = -1;
+        memset(v7, 0, 0x38uLL);
+        v6 = 0;
+        v8 = open(v17[4], 0);
+        v19 = v8;
+        if (v8 < 0)
         {
-          v19 = *__error();
-          warn("open: %s", v20[4]);
+          v16 = *__error();
+          warn("open: %s", v17[4]);
         }
 
         else
         {
-          v19 = sub_10004B524(v11, v10);
-          if (v19)
+          v16 = sub_10004B524(v8, v7);
+          if (v16)
           {
-            warnc(v19, "failed to read: %s", v20[4]);
+            warnc(v16, "failed to read: %s", v17[4]);
           }
 
           else
           {
-            v9 = sub_10003AC40(v10, 0);
-            v19 = sub_10003AE8C(v9);
-            if (v19)
+            v6 = sub_10003AC40(v7, 0);
+            v16 = sub_10003AE8C(v6);
+            if (v16)
             {
-              warnc(v19, "failed to parse root: %s", v20[4]);
+              warnc(v16, "failed to parse root: %s", v17[4]);
             }
 
             else
             {
-              v19 = sub_100041404(v13, &v9);
-              if (v19)
+              v16 = sub_100041404(v10, &v6);
+              if (v16)
               {
-                warnc(v19, "failed to set root: %s", v20[4]);
+                warnc(v16, "failed to set root: %s", v17[4]);
               }
             }
           }
         }
 
-        sub_10004C66C(v10);
-        sub_10003BF44(&v9);
-        v8 = v19 ? 2 : 0;
-        sub_1000038DC(&v11);
-        if (!v8)
+        sub_10004C66C(v7, v1);
+        sub_10003BF44(&v6, v2);
+        v5 = v16 ? 2 : 0;
+        sub_1000038DC(&v8);
+        if (!v5)
         {
 LABEL_32:
-          if (((*v14 & 1) == 0 || (v19 = sub_100019820(v20, v24, v13)) == 0) && ((*v14 & 2) == 0 || (v19 = sub_10001A0D0(v20, v24, v13)) == 0))
+          if (((*v11 & 1) == 0 || (v16 = sub_100019820(v17, v21, v10)) == 0) && ((*v11 & 2) == 0 || (v16 = sub_10001A0D0(v17, v21, v10)) == 0))
           {
-            v19 = 0;
+            v16 = 0;
           }
         }
       }
     }
   }
 
-  sub_10004230C(&v13);
-  sub_10004C66C(__b);
-  v21 = v19;
-  sub_1000038DC(&v18);
-  return v21;
+  sub_10004230C(&v10);
+  sub_10004C66C(__b, v3);
+  v18 = v16;
+  sub_1000038DC(&v15);
+  return v18;
 }
 
 uint64_t sub_100019820(uint64_t a1, void *a2, uint64_t a3)
 {
-  v53 = a1;
+  v36 = a1;
   __src = a2;
-  v51 = a3;
-  v50 = 35;
-  v46 = a1;
-  v47 = 0;
-  v48 = 0;
-  bzero(v59, 0x1C8uLL);
-  memcpy(v59, __src, sizeof(v59));
-  v45[0] = 0;
-  v45[1] = 0;
-  v44 = 0;
-  v43 = 0;
-  v42 = 0;
-  v49 = sub_10004EBEC(__src, __src + 40, __src + 56);
-  if (v49)
+  v34 = a3;
+  v33 = 35;
+  v29 = a1;
+  v30 = 0;
+  v31 = 0;
+  bzero(v44, 0x1C8uLL);
+  memcpy(v44, __src, sizeof(v44));
+  v28[0] = 0;
+  v28[1] = 0;
+  v27 = 0;
+  v26 = 0;
+  v25 = 0;
+  v32 = sub_10004EBEC(__src, __src + 40, __src + 56);
+  if (v32)
   {
-    v50 = sub_10004C9A8(v49);
-    v41 = sub_10004C9DC(v49);
-    warnx("failed to parse manifest properties: [%d %s]", v49, v41);
+    v33 = sub_10004C9A8(v32);
+    v24 = sub_10004C9DC(v32);
+    warnx("failed to parse manifest properties: [%d %s]", v32, v24);
   }
 
   else
   {
-    v49 = sub_100051400(__src + 5, v45);
-    if (v49)
+    v32 = sub_100051400(__src + 5, v28);
+    if (v32)
     {
-      v50 = sub_10004C9A8(v49);
-      v40 = sub_10004C9DC(v49);
-      warnx("failed to init sequence: [%d %s]", v49, v40);
+      v33 = sub_10004C9A8(v32);
+      v23 = sub_10004C9DC(v32);
+      warnx("failed to init sequence: [%d %s]", v32, v23);
     }
 
     else
     {
-      v43 = sub_1000419D8(v51, &v46);
-      v42 = *v43[4];
-      v44 = 0;
-      while (v50 == 35)
+      v26 = sub_1000419D8(v34, &v29);
+      v25 = *v26[4];
+      v27 = 0;
+      while (v33 == 35)
       {
-        memset(v39, 0, sizeof(v39));
-        v37 = 0;
-        v38 = 0;
-        bzero(v58, 0x1C8uLL);
-        memcpy(v58, v59, sizeof(v58));
-        v49 = sub_10005142C(v45, v39);
-        if (v49)
+        memset(v22, 0, sizeof(v22));
+        v20 = 0;
+        v21 = 0;
+        v19 = 0;
+        v18 = 0;
+        bzero(v43, 0x1C8uLL);
+        memcpy(v43, v44, sizeof(v43));
+        v32 = sub_10005142C(v28, v22);
+        if (v32)
         {
-          if (v49 == 1)
+          if (v32 == 1)
           {
-            v50 = 0;
+            v33 = 0;
           }
 
           else
           {
-            v50 = sub_10004C9A8(v49);
-            v31 = sub_10004C9DC(v49);
-            warnx("failed to decode item at index %lu: [%d %s]", v44, v49, v31);
+            v33 = sub_10004C9A8(v32);
+            v5 = sub_10004C9DC(v32);
+            warnx("failed to decode item at index %lu: [%d %s]", v27, v32, v5);
           }
         }
 
         else
         {
-          v35 = v39[0];
-          v36 = sub_10004B484(v39[0], &v37);
-          sub_1000483C8(1uLL, "decoded: idx = %lu, tag = %llx, 4cc = %s", v3, v4, v5, v6, v7, v8, v44);
-          if (!*(v53 + 16) || v35 == *(v53 + 8))
+          v18 = v22[0];
+          v19 = sub_10004B484(v22[0], &v20);
+          sub_1000483C8(1uLL, "decoded: idx = %lu, tag = %llx, 4cc = %s", v27, v22[0], v19);
+          if (!*(v36 + 16) || v18 == *(v36 + 8))
           {
-            if (v35 == 1296125520)
+            if (v18 == 1296125520)
             {
-              sub_10004860C(0, 1uLL, "skipping %s", v9, v10, v11, v12, v13, v36);
+              sub_10004860C(0, 1uLL, "skipping %s", v19);
             }
 
             else
             {
-              HIDWORD(v47) = v35;
-              v48 = v36;
-              if ((v47 & 1) == 0)
+              HIDWORD(v30) = v18;
+              v31 = v19;
+              if ((v30 & 1) == 0)
               {
                 memset(__b, 0, sizeof(__b));
                 memset(__str, 0, sizeof(__str));
-                if (v42 > 0x40)
+                if (v25 > 0x40)
                 {
-                  memset(&v55[23], 0, 0x50uLL);
-                  os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-                  sub_10001ADE8(v55, *(*(v53 + 24) + 8), v42);
-                  _os_log_send_and_compose_impl();
+                  v17 = 0;
+                  memset(v40, 0, sizeof(v40));
+                  v15 = 0;
+                  v14 = 3;
+                  oslog = &_os_log_default;
+                  type = OS_LOG_TYPE_ERROR;
+                  if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+                  {
+                    v14 &= ~1u;
+                  }
+
+                  if (v14)
+                  {
+                    sub_10001ADE8(v39, *(*(v36 + 24) + 8), v25);
+                    LODWORD(v4) = 22;
+                    v15 = _os_log_send_and_compose_impl(v14, &v17, v40, 80, &_mh_execute_header, oslog, type, "unexpected failure: unsupported digest length: chain = %s, length = %lu", v39, v4);
+                  }
+
+                  v11 = v15;
+                  v16 = v15;
                   _os_crash_msg();
                   __break(1u);
                   JUMPOUT(0x100019C84);
                 }
 
-                sub_1000483C8(1uLL, "digest length = %lu", v14, v15, v16, v17, v18, v19, v42);
-                if (v42 > 0x30)
+                sub_1000483C8(1uLL, "digest length = %lu", v25);
+                if (v25 > 0x30)
                 {
-                  v50 = 45;
+                  v33 = 45;
                   warnx("Image4 max digest length is 384 bits/64 bytes");
-                  goto LABEL_37;
+                  goto LABEL_43;
                 }
 
-                v49 = sub_1000579B0(__src, __b, v42, v43);
-                if (v49)
+                v32 = sub_1000579B0(__src, __b, v25, v26);
+                if (v32)
                 {
-                  v50 = sub_10004C9A8(v49);
-                  v34 = sub_10004C9DC(v49);
-                  warnx("failed to compute manifest digest: [%d %s]", v49, v34);
-                  goto LABEL_37;
+                  v33 = sub_10004C9A8(v32);
+                  v10 = sub_10004C9DC(v32);
+                  warnx("failed to compute manifest digest: [%d %s]", v32, v10);
+                  goto LABEL_43;
                 }
 
-                sub_100049764(__str, __b, v42);
-                sub_10004860C(__stdoutp, 0, "manifest digest = %s", v20, v21, v22, v23, v24, __str);
+                sub_100049764(__str, __b, v25);
+                sub_10004860C(__stdoutp, 0, "manifest digest = %s", __str);
                 if (qword_100084858)
                 {
-                  sub_10004860C(__stdoutp, 0, "tss server version = %s", v25, v26, v27, v28, v29, qword_100084858);
+                  sub_10004860C(__stdoutp, 0, "tss server version = %s", qword_100084858);
                 }
               }
 
-              v49 = sub_10004F1C0(v35, v58, sub_10001AE38, v43, *(v51 + 168));
-              if (v49 == -1)
+              v32 = sub_10004F1C0(v18, v43, sub_10001AE38, v26, *(v34 + 168));
+              if (v32 == -1)
               {
-                v50 = 80;
-                v33 = sub_10004C9DC(-1);
-                if (*(v51 + 160))
+                v33 = 80;
+                v7 = sub_10004C9DC(-1);
+                if (*(v34 + 160))
                 {
-                  warnx("manifest failed trust evaluation: ct error = %#x: [%d %s]", *(*(v51 + 160) + 32), v49, v33);
+                  warnx("manifest failed trust evaluation: ct error = %#x: [%d %s]", *(*(v34 + 160) + 32), v32, v7);
                 }
 
                 else
                 {
-                  warnx("manifest failed trust evaluation: ct error = %#x: [%d %s]", -1431655766, v49, v33);
+                  warnx("manifest failed trust evaluation: ct error = %#x: [%d %s]", -1431655766, v32, v7);
                 }
 
-                goto LABEL_37;
+                goto LABEL_43;
               }
 
-              if (v49)
+              if (v32)
               {
-                if (v49 == 1)
+                if (v32 == 1)
                 {
-                  memset(&v54[16], 0, 0x50uLL);
-                  os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-                  sub_100003120(v54, v36);
-                  _os_log_send_and_compose_impl();
+                  v9 = 0;
+                  memset(v38, 0, sizeof(v38));
+                  v8 = 3;
+                  if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+                  {
+                    v8 = 2;
+                  }
+
+                  sub_100003120(v37, v19);
+                  _os_log_send_and_compose_impl(v8, &v9, v38, 80, &_mh_execute_header, &_os_log_default, 16, "unexpected failure: object not found: %s", v37);
                   _os_crash_msg();
                   __break(1u);
                   JUMPOUT(0x100019F1CLL);
                 }
 
-                v32 = sub_10004C9DC(v49);
-                warnx("Img4DecodePerformTrustEvaluation: [%d %s]", v49, v32);
-                goto LABEL_37;
+                v6 = sub_10004C9DC(v32);
+                warnx("Img4DecodePerformTrustEvaluation: [%d %s]", v32, v6);
+                goto LABEL_43;
               }
 
-              LOWORD(v47) = 1;
+              LOWORD(v30) = 1;
             }
           }
 
           else
           {
-            sub_10004860C(0, 1uLL, "object not %s; skipping", v9, v10, v11, v12, v13, *(v53 + 16));
+            sub_10004860C(0, 1uLL, "object not %s; skipping", *(v36 + 16));
           }
         }
 
-        ++v44;
+        ++v27;
       }
 
-      if ((v47 & 1) == 0)
+      if ((v30 & 1) == 0)
       {
-        v50 = 2;
-        warnx("manifest does not contain object: %s", *(v53 + 16));
+        v33 = 2;
+        warnx("manifest does not contain object: %s", *(v36 + 16));
       }
     }
   }
 
-LABEL_37:
-  sub_10004212C(v51, v43);
-  return v50;
+LABEL_43:
+  sub_10004212C(v34, v26);
+  return v33;
 }
 
 uint64_t sub_10001A0D0(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v81 = a1;
-  v80 = a2;
-  v79 = a3;
-  v78 = 35;
-  v77 = 6;
-  v76 = 0;
-  v74 = 0;
-  v75 = 0;
-  v73 = 0;
-  v71 = 0;
-  v72 = 0;
-  v70 = 0;
-  v68 = 0;
-  v69 = 0;
+  v38 = a1;
+  v37 = a2;
+  v36 = a3;
+  v35 = 35;
+  v34 = 6;
+  v33 = 0;
+  v31 = 0;
+  v32 = 0;
+  v30 = 0;
+  v28 = 0;
+  v29 = 0;
+  v27 = 0;
+  v25 = 0;
+  v26 = 0;
   memset(__b, 0, sizeof(__b));
   memset(__str, 0, sizeof(__str));
-  v67 = sub_1000419D8(v79, 0);
-  v66 = **(*(v79 + 32) + 32);
-  if (v66 > 0x30)
+  v23 = 0;
+  v24 = sub_1000419D8(v36, 0);
+  v23 = **(*(v36 + 32) + 32);
+  if (v23 > 0x30)
   {
-    memset(&v98[31], 0, 0x50uLL);
-    os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-    sub_10001ADE8(v98, *(*(v81 + 24) + 8), v66);
-    _os_log_send_and_compose_impl();
+    v22 = 0;
+    memset(v56, 0, sizeof(v56));
+    v21 = 3;
+    if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      v21 = 2;
+    }
+
+    sub_10001ADE8(v55, *(*(v38 + 24) + 8), v23);
+    _os_log_send_and_compose_impl(v21, &v22, v56, 80, &_mh_execute_header, &_os_log_default, 16, "unexpected failure: unsupported digest length: chain = %s, length = %lu", v55, 22);
     _os_crash_msg();
     __break(1u);
     JUMPOUT(0x10001A2A8);
   }
 
-  v77 = sub_10004ED98(v80, &v76);
-  if (v77)
+  v34 = sub_10004ED98(v37, &v33);
+  if (v34)
   {
-    v78 = sub_10004C9A8(v77);
-    v65 = sub_10004C9DC(v77);
-    warnx("failed to get payload type: [%d %s]", v77, v65);
+    v35 = sub_10004C9A8(v34);
+    v20 = sub_10004C9DC(v34);
+    warnx("failed to get payload type: [%d %s]", v34, v20);
   }
 
   else
   {
-    v73 = sub_10004B484(v76, &v74);
-    sub_1000483C8(2uLL, "%#x -> %s", v3, v4, v5, v6, v7, v8, v76);
-    if (!*(v81 + 16) || v76 == *(v81 + 8))
+    v30 = sub_10004B484(v33, &v31);
+    sub_1000483C8(2uLL, "%#x -> %s", v33, v30);
+    if (!*(v38 + 16) || v33 == *(v38 + 8))
     {
-      v77 = sub_10004EDF8(v80, &v71);
-      if (v77)
+      v34 = sub_10004EDF8(v37, &v28);
+      if (v34)
       {
-        v78 = sub_10004C9A8(v77);
-        v64 = sub_10004C9DC(v77);
-        warnx("failed to get payload version: [%d %s]", v77, v64);
+        v35 = sub_10004C9A8(v34);
+        v19 = sub_10004C9DC(v34);
+        warnx("failed to get payload version: [%d %s]", v34, v19);
       }
 
       else
       {
-        sub_1000483C8(2uLL, "%s version length = %lu", v9, v10, v11, v12, v13, v14, v73);
-        v62 = v72 + 1;
+        sub_1000483C8(2uLL, "%s version length = %lu", v30, v29);
+        v17 = v29 + 1;
         if (_dispatch_is_multithreaded())
         {
-          v97 = 1;
-          v96 = v62;
-          v95 = 0;
+          v54 = 1;
+          v53 = v17;
+          v52 = 0;
           while (1)
           {
-            v95 = malloc_type_calloc(v97, v96, 0x8A375538uLL);
-            if (v95)
+            v52 = malloc_type_calloc(v54, v53, 0x8A375538uLL);
+            if (v52)
             {
               break;
             }
@@ -9023,81 +9348,85 @@ uint64_t sub_10001A0D0(uint64_t a1, uint64_t a2, uint64_t a3)
             __os_temporary_resource_shortage();
           }
 
-          v63 = v95;
+          v18 = v52;
         }
 
         else
         {
           count = 1;
-          size = v62;
-          v63 = malloc_type_calloc(1uLL, v62, 0x8709206FuLL);
-          v94 = "known-constant allocation";
-          v93 = v63;
-          v92 = v62;
-          if (!v63)
+          size = v17;
+          v18 = malloc_type_calloc(1uLL, v17, 0x8709206FuLL);
+          v51 = "known-constant allocation";
+          v50 = v18;
+          v49 = v17;
+          if (!v18)
           {
-            v91 = 0;
-            memset(&v101[40], 0, 0x50uLL);
-            v89 = 0;
-            v88 = 3;
-            v87 = &_os_log_default;
-            v86 = OS_LOG_TYPE_ERROR;
+            v48 = 0;
+            memset(v60, 0, sizeof(v60));
+            v46 = 0;
+            v45 = 3;
+            v44 = &_os_log_default;
+            v43 = OS_LOG_TYPE_ERROR;
             if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
             {
-              v88 &= ~1u;
+              v45 &= ~1u;
             }
 
-            if (v88)
+            if (v45)
             {
-              v58 = v94;
-              v59 = v92;
-              v15 = __error();
-              v16 = strerror(*v15);
-              sub_1000031B0(v101, v58, v59, v16);
-              v85 = _os_log_send_and_compose_impl();
-              v89 = v85;
+              v12 = v45;
+              v13 = v44;
+              v14 = v43;
+              v10 = v51;
+              v11 = v49;
+              v3 = __error();
+              v4 = strerror(*v3);
+              sub_1000031B0(v59, v10, v11, v4);
+              LODWORD(v7) = 32;
+              v42 = _os_log_send_and_compose_impl(v12, &v48, v60, 80, &_mh_execute_header, v13, v14, "allocation failed: obj = %s, size = %lu, error = %s", v59, v7, v8);
+              v46 = v42;
             }
 
-            v84 = v89;
-            v90 = v89;
+            v41 = v46;
+            v47 = v46;
             _os_crash_msg();
             __break(1u);
             JUMPOUT(0x10001A5C8);
           }
         }
 
-        v70 = v63;
+        v27 = v18;
         __strlcpy_chk();
-        sub_1000483C8(2uLL, "%s version = %s", v17, v18, v19, v20, v21, v22, v73);
-        v77 = sub_10004ED54(v80, &v68);
-        if (v77)
+        sub_1000483C8(2uLL, "%s version = %s", v30, v18);
+        v34 = sub_10004ED54(v37, &v25);
+        if (v34)
         {
-          v78 = sub_10004C9A8(v77);
-          v61 = sub_10004C9DC(v77);
-          warnx("failed to get payload: [%d %s]", v77, v61);
+          v35 = sub_10004C9A8(v34);
+          v16 = sub_10004C9DC(v34);
+          warnx("failed to get payload: [%d %s]", v34, v16);
         }
 
         else
         {
-          sub_1000483C8(2uLL, "%s length = %lu", v23, v24, v25, v26, v27, v28, v73);
-          sub_1000578B0(v80, __b, v66, **(v81 + 24));
-          v77 = v29;
-          if (v29)
+          sub_1000483C8(2uLL, "%s length = %lu", v30, v26);
+          sub_1000578B0(v37, __b, v23, **(v38 + 24));
+          v34 = v5;
+          if (v5)
           {
-            v78 = sub_10004C9A8(v77);
-            v60 = sub_10004C9DC(v77);
-            warnx("failed to compute payload hash: [%d %s]", v77, v60);
+            v35 = sub_10004C9A8(v34);
+            v15 = sub_10004C9DC(v34);
+            warnx("failed to compute payload hash: [%d %s]", v34, v15);
           }
 
           else
           {
-            sub_100049764(__str, __b, v66);
-            sub_1000483C8(2uLL, "%s digest = %s", v30, v31, v32, v33, v34, v35, v73);
-            sub_10004860C(__stdoutp, 0, "payload digest = %s", v36, v37, v38, v39, v40, __str);
-            sub_10004860C(__stdoutp, 0, "    4cc = %s", v41, v42, v43, v44, v45, v73);
-            sub_10004860C(__stdoutp, 0, "    version = %s", v46, v47, v48, v49, v50, v70);
-            sub_10004860C(__stdoutp, 0, "    length = %lu", v51, v52, v53, v54, v55, v69);
-            v78 = 0;
+            sub_100049764(__str, __b, v23);
+            sub_1000483C8(2uLL, "%s digest = %s", v30, __str);
+            sub_10004860C(__stdoutp, 0, "payload digest = %s", __str);
+            sub_10004860C(__stdoutp, 0, "    4cc = %s", v30);
+            sub_10004860C(__stdoutp, 0, "    version = %s", v27);
+            sub_10004860C(__stdoutp, 0, "    length = %lu", v26);
+            v35 = 0;
           }
         }
       }
@@ -9105,79 +9434,79 @@ uint64_t sub_10001A0D0(uint64_t a1, uint64_t a2, uint64_t a3)
 
     else
     {
-      v78 = 79;
-      warnx("payload not of type: %s", *(v81 + 16));
+      v35 = 79;
+      warnx("payload not of type: %s", *(v38 + 16));
     }
   }
 
-  sub_10004212C(v79, v67);
-  v57 = v78;
-  sub_100002DE4(&v70);
-  return v57;
+  sub_10004212C(v36, v24);
+  v9 = v35;
+  sub_100002DE4(&v27);
+  return v9;
 }
 
 uint64_t sub_10001A898(const UInt8 *a1, unint64_t a2, uint64_t a3)
 {
-  v48 = a1;
-  v47 = a2;
-  v46 = a3;
-  v45 = 6;
-  v44 = 0;
-  v43 = a2;
-  v42 = 0;
+  v30 = a1;
+  v29 = a2;
+  v28 = a3;
+  v27 = 6;
+  v26 = 0;
+  v25 = a2;
+  v24 = 0;
   format = 0;
-  v40 = 0;
+  v22 = 0;
   error = 0;
-  v38 = 0;
+  v20 = 0;
   Value = 0;
-  v36 = 0;
-  v35 = 0;
-  v34 = 0;
+  v18 = 0;
+  v17 = 0;
+  v16 = 0;
   i = 0;
-  v32 = 0;
+  v14 = 0;
   if (a2 <= 0x7FFFFFFFFFFFFFFFLL)
   {
-    v44 = CFDataCreate(0, v48, v43);
-    sub_1000173C8(v44, "CFData");
-    v42 = CFPropertyListCreateWithData(0, v44, v40, &format, &error);
-    if (v42)
+    v26 = CFDataCreate(0, v30, v25);
+    sub_1000173C8(v26, "CFData");
+    v24 = CFPropertyListCreateWithData(0, v26, v22, &format, &error);
+    if (v24)
     {
-      v29 = 0;
-      v55 = v42;
-      v54 = &CFDictionaryGetTypeID;
-      v24 = CFGetTypeID(v42);
-      if (v24 == (v54)())
+      v11 = 0;
+      v37 = v24;
+      v36 = &CFDictionaryGetTypeID;
+      v6 = CFGetTypeID(v24);
+      if (v6 == (v36)())
       {
-        v29 = v42;
+        v11 = v24;
       }
 
-      v38 = v29;
-      if (v29)
+      v20 = v11;
+      if (v11)
       {
-        v42 = 0;
-        Value = CFDictionaryGetValue(v38, @"ApImg4Ticket");
+        v24 = 0;
+        Value = CFDictionaryGetValue(v20, @"ApImg4Ticket");
         if (Value)
         {
-          v28 = 0;
-          v53 = Value;
-          v52 = &CFDataGetTypeID;
-          v23 = CFGetTypeID(Value);
-          if (v23 == (v52)())
+          v10 = 0;
+          v35 = Value;
+          v34 = &CFDataGetTypeID;
+          v5 = CFGetTypeID(Value);
+          if (v5 == (v34)())
           {
-            v28 = Value;
+            v10 = Value;
           }
 
-          v36 = v28;
-          if (v28)
+          v18 = v10;
+          if (v10)
           {
             Value = 0;
             for (i = 0; i < 4; ++i)
             {
-              v32 = (&unk_10007A4A8 + 24 * i);
-              if (v32[1] != sub_10001A898)
+              v14 = (&unk_10007A4A8 + 24 * i);
+              if (v14[1] != sub_10001A898)
               {
-                BytePtr = CFDataGetBytePtr(v36);
-                Length = CFDataGetLength(v36);
+                BytePtr = CFDataGetBytePtr(v18);
+                Length = CFDataGetLength(v18);
                 if (Length < 0)
                 {
                   _os_crash();
@@ -9185,42 +9514,42 @@ uint64_t sub_10001A898(const UInt8 *a1, unint64_t a2, uint64_t a3)
                   JUMPOUT(0x10001AC28);
                 }
 
-                v26 = Length;
-                sub_1000483C8(2uLL, "ApImg4Ticket length = %lu", v9, v10, v11, v12, v13, v14, Length);
-                v45 = v32[1](BytePtr, v26, v46);
-                sub_1000483C8(2uLL, "%s -> %d", v15, v16, v17, v18, v19, v20, v32[2]);
-                if (!v45)
+                v8 = Length;
+                sub_1000483C8(2uLL, "ApImg4Ticket length = %lu", Length);
+                v27 = v14[1](BytePtr, v8, v28);
+                sub_1000483C8(2uLL, "%s -> %d", v14[2], v27);
+                if (!v27)
                 {
                   break;
                 }
               }
             }
 
-            if (v45)
+            if (v27)
             {
-              v45 = 3;
+              v27 = 3;
               warnx("ApImg4Ticket is not Image4 data");
             }
 
             else
             {
-              qword_100084850 = CFRetain(v36);
-              v35 = CFDictionaryGetValue(v38, @"@ServerVersion");
-              if (v35)
+              qword_100084850 = CFRetain(v18);
+              v17 = CFDictionaryGetValue(v20, @"@ServerVersion");
+              if (v17)
               {
-                v25 = 0;
-                v51 = v35;
-                v50 = &CFStringGetTypeID;
-                v22 = CFGetTypeID(v35);
-                if (v22 == (v50)())
+                v7 = 0;
+                v33 = v17;
+                v32 = &CFStringGetTypeID;
+                v4 = CFGetTypeID(v17);
+                if (v4 == (v32)())
                 {
-                  v25 = v35;
+                  v7 = v17;
                 }
 
-                v34 = v25;
-                if (v25)
+                v16 = v7;
+                if (v7)
                 {
-                  qword_100084858 = sub_100018014(v34);
+                  qword_100084858 = sub_100018014(v16);
                 }
               }
             }
@@ -9228,50 +9557,50 @@ uint64_t sub_10001A898(const UInt8 *a1, unint64_t a2, uint64_t a3)
 
           else
           {
-            v45 = 3;
+            v27 = 3;
             warnx("ApImg4Ticket is not a data object");
           }
         }
 
         else
         {
-          v45 = 3;
+          v27 = 3;
           warnx("plist has no ApImg4Ticket");
         }
       }
 
       else
       {
-        v45 = 3;
+        v27 = 3;
         warnx("plist root must be a dictionary");
       }
     }
 
     else
     {
-      v31 = 0;
-      v30 = 0;
-      v31 = CFErrorCopyDescription(error);
-      sub_1000173C8(v31, "CFString");
-      v30 = sub_100018014(v31);
-      v45 = 3;
-      sub_1000483C8(1uLL, "could not decode as plist: %s", v3, v4, v5, v6, v7, v8, v30);
-      sub_100002DE4(&v30);
-      sub_100006B40(&v31);
+      v13 = 0;
+      v12 = 0;
+      v13 = CFErrorCopyDescription(error);
+      sub_1000173C8(v13, "CFString");
+      v12 = sub_100018014(v13);
+      v27 = 3;
+      sub_1000483C8(1uLL, "could not decode as plist: %s", v12);
+      sub_100002DE4(&v12);
+      sub_100006B40(&v13);
     }
   }
 
   else
   {
-    v45 = 7;
+    v27 = 7;
   }
 
-  v49 = v45;
-  sub_100006B40(&v38);
+  v31 = v27;
+  sub_100006B40(&v20);
   sub_100006B40(&error);
-  sub_100006B40(&v42);
-  sub_100006B40(&v44);
-  return v49;
+  sub_100006B40(&v24);
+  sub_100006B40(&v26);
+  return v31;
 }
 
 uint64_t sub_10001ADE8(uint64_t result, uint64_t a2, uint64_t a3)
@@ -9287,11 +9616,11 @@ uint64_t sub_10001ADE8(uint64_t result, uint64_t a2, uint64_t a3)
   return result;
 }
 
-uint64_t sub_10001AE38(unsigned int a1, uint64_t *a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_10001AE38(unsigned int a1, uint64_t *a2, int a3, uint64_t a4)
 {
   if (a3)
   {
-    return sub_10001AFAC(a1, a2, a3, a4, a5, a6, a7, a8);
+    return sub_10001AFAC(a1, a2, a3, a4);
   }
 
   else
@@ -9302,103 +9631,106 @@ uint64_t sub_10001AE38(unsigned int a1, uint64_t *a2, int a3, uint64_t a4, uint6
 
 uint64_t sub_10001AEB0(unsigned int a1, uint64_t *a2, int a3, uint64_t a4)
 {
-  v24 = a1;
-  v23 = a2;
-  v22 = a3;
-  v21 = a4;
-  v27 = a4;
-  v29 = a4;
-  v28 = a4;
-  v26 = *(a4 + 40);
-  v20 = *(v26 + 176);
-  v18 = 0;
-  v19 = 0;
-  v17 = 0;
-  v16 = 0;
-  if ((*(v20 + 8) & 1) == 0)
+  v19 = a1;
+  v18 = a2;
+  v17 = a3;
+  v16 = a4;
+  v22 = a4;
+  v24 = a4;
+  v23 = a4;
+  v21 = *(a4 + 40);
+  v15 = *(v21 + 176);
+  v13 = 0;
+  v14 = 0;
+  v12 = 0;
+  v11 = 0;
+  if ((*(v15 + 8) & 1) == 0)
   {
-    v17 = sub_10004B484(v24, &v18);
-    v16 = sub_10001B0CC(v23, v24, v4, v5, v6, v7, v8, v9);
-    sub_10004860C(__stdoutp, 0, "    %s = %s", v10, v11, v12, v13, v14, v17);
+    v12 = sub_10004B484(v19, &v13);
+    v11 = sub_10001B0CC(v18, v19, v4, v5, v6, v7, v8, v9);
+    sub_10004860C(__stdoutp, 0, "    %s = %s", v12, v11);
   }
 
-  v25 = 0;
-  sub_100002DE4(&v16);
-  return v25;
+  v20 = 0;
+  sub_100002DE4(&v11);
+  return v20;
 }
 
-uint64_t sub_10001AFAC(unsigned int a1, uint64_t *a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_10001AFAC(unsigned int a1, uint64_t *a2, int a3, uint64_t a4)
 {
-  v28 = a1;
-  v27 = a2;
-  v26 = a3;
-  v25 = a4;
-  v30 = a4;
-  v32 = a4;
-  v31 = a4;
-  v29 = *(a4 + 40);
-  v24 = *(v29 + 176);
-  v22 = 0;
-  v23 = 0;
-  v21 = 0;
-  v20 = 0;
-  if ((*(v24 + 9) & 1) == 0)
+  v19 = a1;
+  v18 = a2;
+  v17 = a3;
+  v16 = a4;
+  v21 = a4;
+  v23 = a4;
+  v22 = a4;
+  v20 = *(a4 + 40);
+  v15 = *(v20 + 176);
+  v13 = 0;
+  v14 = 0;
+  v12 = 0;
+  v11 = 0;
+  if ((*(v15 + 9) & 1) == 0)
   {
-    sub_10004860C(__stdoutp, 0, "    %s =", a4, a5, a6, a7, a8, *(v24 + 16));
-    *(v24 + 9) = 1;
+    sub_10004860C(__stdoutp, 0, "    %s =", *(v15 + 16));
+    *(v15 + 9) = 1;
   }
 
-  v21 = sub_10004B484(v28, &v22);
-  v20 = sub_10001B0CC(v27, v28, v8, v9, v10, v11, v12, v13);
-  sub_10004860C(__stdoutp, 0, "        %s = %s", v14, v15, v16, v17, v18, v21);
-  sub_100002DE4(&v20);
+  v12 = sub_10004B484(v19, &v13);
+  v11 = sub_10001B0CC(v18, v19, v4, v5, v6, v7, v8, v9);
+  sub_10004860C(__stdoutp, 0, "        %s = %s", v12, v11);
+  sub_100002DE4(&v11);
   return 0;
 }
 
 char *sub_10001B0CC(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v28 = a1;
-  v27 = a2;
-  v26 = 0;
-  v25 = -1;
-  v24 = 6;
-  v23 = 0;
-  v22 = 0;
-  v21 = 0;
-  v20 = 0;
-  v18 = a1[2];
-  switch(v18)
+  v40 = a1;
+  v39 = a2;
+  v38 = 0;
+  v37 = -1;
+  v36 = 6;
+  v35 = 0;
+  v34 = 0;
+  v33 = 0;
+  v32 = 0;
+  v30 = a1[2];
+  switch(v30)
   {
     case 1:
-      v24 = sub_100057AFC(v28, v27, &v23);
-      if (!v24)
+      v36 = sub_100057AFC(v40, v39, &v35);
+      if (!v36)
       {
-        v25 = asprintf(&v26, "%#x", v23 & 1);
-        v64 = v25;
-        if (v25 < 0)
+        v37 = asprintf(&v38, "%#x", v35 & 1);
+        v76 = v37;
+        if (v37 < 0)
         {
-          v63 = 0;
-          memset(&v68[24], 0, 0x50uLL);
-          v61 = 0;
-          v60 = 3;
+          v75 = 0;
+          memset(__b, 0, sizeof(__b));
+          v73 = 0;
+          v72 = 3;
           oslog = &_os_log_default;
           type = OS_LOG_TYPE_ERROR;
           if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
           {
-            v60 &= ~1u;
+            v72 &= ~1u;
           }
 
-          if (v60)
+          if (v72)
           {
+            v27 = v72;
+            v28 = oslog;
+            v29 = type;
             v8 = __error();
             v9 = strerror(*v8);
-            sub_100003120(v68, v9);
-            v57 = _os_log_send_and_compose_impl();
-            v61 = v57;
+            sub_100003120(v83, v9);
+            v69 = _os_log_send_and_compose_impl(v27, &v75, __b, 80, &_mh_execute_header, v28, v29, "error printing buffer: %s", v83);
+            v73 = v69;
           }
 
-          v56 = v61;
-          v62 = v61;
+          v68 = v73;
+          v74 = v73;
           _os_crash_msg();
           __break(1u);
           JUMPOUT(0x10001B2B4);
@@ -9407,35 +9739,38 @@ char *sub_10001B0CC(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_
 
       break;
     case 2:
-      v24 = sub_100057A98(v28, v27, &v22, a4, a5, a6, a7, a8);
-      if (!v24)
+      v36 = sub_100057A98(v40, v39, &v34, a4, a5, a6, a7, a8);
+      if (!v36)
       {
-        v25 = asprintf(&v26, "%#llx", v22);
-        v55 = v25;
-        if (v25 < 0)
+        v37 = asprintf(&v38, "%#llx", v34);
+        v67 = v37;
+        if (v37 < 0)
         {
-          v54 = 0;
-          memset(&v67[16], 0, 0x50uLL);
-          v52 = 0;
-          v51 = 3;
-          v50 = &_os_log_default;
-          v49 = OS_LOG_TYPE_ERROR;
+          v66 = 0;
+          memset(v82, 0, sizeof(v82));
+          v64 = 0;
+          v63 = 3;
+          v62 = &_os_log_default;
+          v61 = OS_LOG_TYPE_ERROR;
           if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
           {
-            v51 &= ~1u;
+            v63 &= ~1u;
           }
 
-          if (v51)
+          if (v63)
           {
+            v24 = v63;
+            v25 = v62;
+            v26 = v61;
             v10 = __error();
             v11 = strerror(*v10);
-            sub_100003120(v67, v11);
-            v48 = _os_log_send_and_compose_impl();
-            v52 = v48;
+            sub_100003120(v81, v11);
+            v60 = _os_log_send_and_compose_impl(v24, &v66, v82, 80, &_mh_execute_header, v25, v26, "error printing buffer: %s", v81);
+            v64 = v60;
           }
 
-          v47 = v52;
-          v53 = v52;
+          v59 = v64;
+          v65 = v64;
           _os_crash_msg();
           __break(1u);
           JUMPOUT(0x10001B41CLL);
@@ -9444,74 +9779,80 @@ char *sub_10001B0CC(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_
 
       break;
     case 4:
-      v24 = sub_10004EE3C(v28, v27, &v21, &v20);
-      if (!v24)
+      v36 = sub_10004EE3C(v40, v39, &v33, &v32);
+      if (!v36)
       {
-        v19 = 0;
-        sub_100049834(&v19, v21, v20);
-        v25 = asprintf(&v26, "%s", v19);
-        v46 = v25;
-        if (v25 < 0)
+        v31 = 0;
+        sub_100049834(&v31, v33, v32);
+        v37 = asprintf(&v38, "%s", v31);
+        v58 = v37;
+        if (v37 < 0)
         {
-          v45 = 0;
-          memset(&v66[16], 0, 0x50uLL);
-          v43 = 0;
-          v42 = 3;
-          v41 = &_os_log_default;
-          v40 = OS_LOG_TYPE_ERROR;
+          v57 = 0;
+          memset(v80, 0, sizeof(v80));
+          v55 = 0;
+          v54 = 3;
+          v53 = &_os_log_default;
+          v52 = OS_LOG_TYPE_ERROR;
           if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
           {
-            v42 &= ~1u;
+            v54 &= ~1u;
           }
 
-          if (v42)
+          if (v54)
           {
+            v21 = v54;
+            v22 = v53;
+            v23 = v52;
             v12 = __error();
             v13 = strerror(*v12);
-            sub_100003120(v66, v13);
-            v39 = _os_log_send_and_compose_impl();
-            v43 = v39;
+            sub_100003120(v79, v13);
+            v51 = _os_log_send_and_compose_impl(v21, &v57, v80, 80, &_mh_execute_header, v22, v23, "error printing buffer: %s", v79);
+            v55 = v51;
           }
 
-          v38 = v43;
-          v44 = v43;
+          v50 = v55;
+          v56 = v55;
           _os_crash_msg();
           __break(1u);
           JUMPOUT(0x10001B5A0);
         }
 
-        sub_100002DE4(&v19);
+        sub_100002DE4(&v31);
       }
 
       break;
     default:
-      v14 = asprintf(&v26, "[unsupported type %#llx]", v28[2]);
-      v25 = v14;
+      v14 = asprintf(&v38, "[unsupported type %#llx]", v40[2]);
       v37 = v14;
+      v49 = v14;
       if (v14 < 0)
       {
-        v36 = 0;
-        memset(&v65[16], 0, 0x50uLL);
-        v34 = 0;
-        v33 = 3;
-        v32 = &_os_log_default;
-        v31 = OS_LOG_TYPE_ERROR;
+        v48 = 0;
+        memset(v78, 0, sizeof(v78));
+        v46 = 0;
+        v45 = 3;
+        v44 = &_os_log_default;
+        v43 = OS_LOG_TYPE_ERROR;
         if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
         {
-          v33 &= ~1u;
+          v45 &= ~1u;
         }
 
-        if (v33)
+        if (v45)
         {
+          v18 = v45;
+          v19 = v44;
+          v20 = v43;
           v15 = __error();
           v16 = strerror(*v15);
-          sub_100003120(v65, v16);
-          v30 = _os_log_send_and_compose_impl();
-          v34 = v30;
+          sub_100003120(v77, v16);
+          v42 = _os_log_send_and_compose_impl(v18, &v48, v78, 80, &_mh_execute_header, v19, v20, "error printing buffer: %s", v77);
+          v46 = v42;
         }
 
-        v29 = v34;
-        v35 = v34;
+        v41 = v46;
+        v47 = v46;
         _os_crash_msg();
         __break(1u);
         JUMPOUT(0x10001B6F4);
@@ -9520,487 +9861,5 @@ char *sub_10001B0CC(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_
       break;
   }
 
-  return v26;
-}
-
-void *sub_10001B738()
-{
-  predicate = &unk_100084860;
-  block = 0;
-  objc_storeStrong(&block, &stru_10007A528);
-  if (*predicate != -1)
-  {
-    dispatch_once(predicate, block);
-  }
-
-  objc_storeStrong(&block, 0);
-  return &unk_100084868;
-}
-
-uint64_t sub_10001B814(uint64_t a1, int a2, char *const *a3)
-{
-  v18 = a1;
-  v17 = a2;
-  v16 = a3;
-  v15 = -1;
-  v14 = a3;
-  v13 = -1;
-  v12 = 0;
-  v10 = 0;
-  v11 = 0;
-  sub_1000480E0();
-  while (1)
-  {
-    v13 = getopt_long(v17, v14, *(v18 + 32), *(v18 + 40), &v12);
-    if (v13 == -1)
-    {
-      break;
-    }
-
-    if (optind < 1)
-    {
-      memset(&v19[8], 0, 0x50uLL);
-      os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-      sub_1000013C8(v19, optind);
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-      JUMPOUT(0x10001B9F0);
-    }
-
-    switch(v13)
-    {
-      case ':':
-        errx(64, "missing argument for option: %s", *(*(v18 + 40) + 32 * v12));
-      case '?':
-        errx(64, "unknown option: %s", v16[optind - 1]);
-      case 'f':
-        if (strcmp(optarg, "plist") && strcmp(optarg, "json"))
-        {
-          errx(64, "invalid output format: %s", optarg);
-        }
-
-        v11 = optarg;
-        sub_1000483C8(1uLL, "output format: %s", v3, v4, v5, v6, v7, v8, optarg);
-        break;
-      case 'l':
-        v10 |= 1uLL;
-        break;
-      default:
-        _os_crash();
-        __break(1u);
-        JUMPOUT(0x10001BB30);
-    }
-  }
-
-  v16 += optind;
-  v17 -= optind;
-  v15 = sub_10001BBB0(&v10);
-  return sysexit_np();
-}
-
-uint64_t sub_10001BBB0(void *a1)
-{
-  v3 = sub_100048090();
-  v2 = "";
-  if (v3[4])
-  {
-    return sub_10001BE3C(a1, v3[4]);
-  }
-
-  else
-  {
-    if (*a1)
-    {
-      v2 = "lossy ";
-    }
-
-    v4 = cryptex_copy_list_4MSM();
-    if (v4)
-    {
-      warnc(v4, "failed to copy %scryptex list", v2);
-    }
-
-    return v4;
-  }
-}
-
-uint64_t sub_10001BE3C(uint64_t a1, void *a2)
-{
-  v25 = a1;
-  v24[1] = a2;
-  v24[0] = 0;
-  v23 = -1;
-  v22 = 0;
-  v21 = 0;
-  count = 0;
-  v2 = a2[1];
-  if (cryptex_remote_service_copy_installed2())
-  {
-    count = cryptex_remote_array_get_count();
-    if (!count)
-    {
-      goto LABEL_23;
-    }
-
-    v21 = malloc_type_malloc(32 * count, 0x50040BBB33FCDuLL);
-    if (!v21)
-    {
-      v23 = *__error();
-      warn("malloc");
-      goto LABEL_24;
-    }
-
-    cryptex_remote_array_apply();
-    v23 = sub_100049044(v21, count, *(v25 + 8), v7, v8, v9, v10, v11);
-    if (v23)
-    {
-      warnc(v23, "failed to print cryptex information");
-    }
-
-    else
-    {
-LABEL_23:
-      v23 = 0;
-    }
-  }
-
-  else
-  {
-    v19 = sub_100048090();
-    v15 = 1;
-    if (v19[1] <= 1uLL)
-    {
-      v15 = v19[2] > 1uLL;
-    }
-
-    if (v15)
-    {
-      v3 = 999;
-    }
-
-    else
-    {
-      v3 = 3;
-    }
-
-    v18 = v3;
-    v14 = 1;
-    if (v19[1] <= 1uLL)
-    {
-      v14 = v19[2] > 1uLL;
-    }
-
-    v4 = 2000;
-    if (!v14)
-    {
-      v4 = 200;
-    }
-
-    v17[1] = v4;
-    v26 = "unknown error";
-    v16 = strdup("unknown error");
-    v36 = "known-constant allocation";
-    v35 = v16;
-    v34 = strlen("unknown error");
-    if (!v16)
-    {
-      v33 = 0;
-      memset(&v37[40], 0, 0x50uLL);
-      v31 = 0;
-      v30 = 3;
-      v29 = &_os_log_default;
-      v28 = 16;
-      if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
-      {
-        v30 &= ~1u;
-      }
-
-      if (v30)
-      {
-        v5 = __error();
-        v6 = strerror(*v5);
-        sub_1000031B0(v37, v36, v34, v6);
-        v31 = _os_log_send_and_compose_impl();
-      }
-
-      v27 = v31;
-      v32 = v31;
-      _os_crash_msg();
-      __break(1u);
-      JUMPOUT(0x10001C0E4);
-    }
-
-    v17[0] = v16;
-    warnx("failed to copy installed cryptexes from remote device\n%s", v16);
-    sub_100002DE4(v17);
-    v23 = sub_100018A78(v24[0]);
-  }
-
-LABEL_24:
-  if (v21)
-  {
-    free(v21);
-  }
-
-  v13 = v23;
-  sub_1000030D0(&v22);
-  sub_100006B40(v24);
-  return v13;
-}
-
-uint64_t sub_10001C2A4(uint64_t a1, uint64_t a2)
-{
-  *&v5 = cryptex_remote_cryptex_get_identifier();
-  *(&v5 + 1) = cryptex_remote_cryptex_get_version_string();
-  v2 = (*(a1 + 32) + 32 * a2);
-  *v2 = v5;
-  v2[1] = 0uLL;
-  return 1;
-}
-
-char *sub_10001C334(__n128 *a1, uint64_t a2)
-{
-  v5 = malloc_type_calloc(1uLL, 0x98uLL, 0x8709206FuLL);
-  if (!v5)
-  {
-    memset(&v8[40], 0, 0x50uLL);
-    os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-    v2 = __error();
-    v3 = strerror(*v2);
-    sub_1000031B0(v8, "known-constant allocation", 152, v3);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    JUMPOUT(0x10001C4E8);
-  }
-
-  *(v5 + 4) = a2;
-  *(v5 + 5) = 0;
-  sub_10004C42C((v5 + 56), a1);
-  *(v5 + 14) = v5 + 56;
-  sub_1000496F4(v5, "com.apple.security.cryptexctl", "mach-object");
-  return v5;
-}
-
-uint64_t sub_10001C58C(uint64_t a1)
-{
-  v29 = a1;
-  v28 = -1;
-  v27 = 0;
-  v26 = 0;
-  v25 = 0;
-  memset(v24, 0, 32);
-  v27 = sub_10004C5C0(*(a1 + 112), "rb", 0);
-  v26 = fread(&v25, 4uLL, 1uLL, v27);
-  v28 = sub_10004887C("mach-o magic", v27, v26, 88, *(v29 + 16));
-  if (v28 && v28 != 84)
-  {
-    v22 = *v29;
-    if (!*v29)
-    {
-      v22 = "[anonymous]";
-    }
-
-    v21 = *__error();
-    v20 = *(v29 + 16);
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
-    {
-      sub_100009614(v34, v22, v28);
-      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "%{public}s: failed to read magic number: %{darwin.errno}d", v34, 0x12u);
-    }
-
-    *__error() = v21;
-  }
-
-  else
-  {
-    if (v25 == -1095041334)
-    {
-LABEL_22:
-      v28 = 79;
-      v19 = *v29;
-      if (!*v29)
-      {
-        v19 = "[anonymous]";
-      }
-
-      v18 = *__error();
-      v17 = *(v29 + 16);
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
-      {
-        sub_100009E38(v33, v19, v25, v28);
-        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "%{public}s: fat file: %#x: %{darwin.errno}d", v33, 0x18u);
-      }
-
-      *__error() = v18;
-      goto LABEL_64;
-    }
-
-    if (v25 != -1091568946)
-    {
-      switch(v25)
-      {
-        case 0xBFBAFECA:
-        case 0xCAFEBABF:
-        case 0xCAFEBABE:
-          goto LABEL_22;
-        case 0xCEFAEDFE:
-        case 0xCEFAEFBE:
-        case 0xCFFAEDFE:
-          *(v29 + 32) |= 1uLL;
-          v25 = sub_10000E154(v25);
-          break;
-        case 0xFEEDFACF:
-        case 0xFEEDFACE:
-          break;
-        default:
-          v28 = 92;
-          v16 = *v29;
-          if (!*v29)
-          {
-            v16 = "[anonymous]";
-          }
-
-          v15 = *__error();
-          oslog = *(v29 + 16);
-          if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEBUG))
-          {
-            sub_100009E38(v32, v16, v25, v28);
-            _os_log_impl(&_mh_execute_header, oslog, OS_LOG_TYPE_DEBUG, "%{public}s: not a mach binary: %#x: %{darwin.errno}d", v32, 0x18u);
-          }
-
-          *__error() = v15;
-          goto LABEL_64;
-      }
-    }
-
-    if (v25 == -17958193 || v25 == -1091568946)
-    {
-      *(v29 + 32) |= 2uLL;
-      v23 = 32;
-      if (v25 == -1091568946)
-      {
-        *(v29 + 32) |= 4uLL;
-        *(v29 + 48) = 2;
-      }
-    }
-
-    else
-    {
-      v23 = 28;
-    }
-
-    rewind(v27);
-    v26 = fread(v24, v23, 1uLL, v27);
-    v28 = sub_10004887C("mach-o header", v27, v26, 88, *(v29 + 16));
-    if (!v28)
-    {
-      if (*(v29 + 32))
-      {
-        if ((*(v29 + 32) & 2) != 0)
-        {
-          v1 = *&v24[1];
-          if ((v24[1] & 0x80000000) != 0 || (v24[2] & 0x80000000) != 0)
-          {
-            v28 = 84;
-            goto LABEL_64;
-          }
-
-          v24[0] = sub_10000E154(v24[0]);
-          v24[1] = sub_10000E154(v1);
-          v24[2] = sub_10000E154(HIDWORD(v1));
-          v24[3] = sub_10000E154(v24[3]);
-          v24[4] = sub_10000E154(v24[4]);
-          v24[5] = sub_10000E154(v24[5]);
-          v24[6] = sub_10000E154(v24[6]);
-          v2 = v29;
-          *(v29 + 120) = *v24;
-          *(v2 + 136) = *&v24[4];
-        }
-
-        else
-        {
-          v3 = *&v24[1];
-          if ((v24[1] & 0x80000000) != 0 || (v24[2] & 0x80000000) != 0)
-          {
-            v28 = 84;
-            goto LABEL_64;
-          }
-
-          v24[0] = sub_10000E154(v24[0]);
-          v24[1] = sub_10000E154(v3);
-          v24[2] = sub_10000E154(HIDWORD(v3));
-          v24[3] = sub_10000E154(v24[3]);
-          v24[4] = sub_10000E154(v24[4]);
-          v24[5] = sub_10000E154(v24[5]);
-          v24[6] = sub_10000E154(v24[6]);
-          v4 = v29;
-          *(v29 + 120) = *v24;
-          *(v4 + 132) = *&v24[3];
-        }
-      }
-
-      else
-      {
-        v5 = v29;
-        if ((*(v29 + 32) & 2) != 0)
-        {
-          *(v29 + 120) = *v24;
-          *(v5 + 136) = *&v24[4];
-        }
-
-        else
-        {
-          *(v29 + 120) = *v24;
-          *(v5 + 132) = *&v24[3];
-        }
-      }
-
-      if ((*(v29 + 32) & 2) != 0)
-      {
-        v13 = *v29;
-        if (!*v29)
-        {
-          v13 = "[anonymous]";
-        }
-
-        v12 = *__error();
-        v11 = *(v29 + 16);
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
-        {
-          sub_10001D174(v31, v13, *(v29 + 120), *(v29 + 124), *(v29 + 128), *(v29 + 132), *(v29 + 136), *(v29 + 140), *(v29 + 144));
-          _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEBUG, "%{public}s: initialized header:\n    magic = %#x\n    cpu type = %#x\n    cpu subtype = %#x\n    file type = %#x\n    ncmds = %u\n    sizeofcmds = %u\n    flags = %#x", v31, 0x36u);
-        }
-
-        *__error() = v12;
-      }
-
-      else
-      {
-        v10 = *v29;
-        if (!*v29)
-        {
-          v10 = "[anonymous]";
-        }
-
-        v9 = *__error();
-        v8 = *(v29 + 16);
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
-        {
-          sub_10001D174(v30, v10, *(v29 + 120), *(v29 + 124), *(v29 + 128), *(v29 + 132), *(v29 + 136), *(v29 + 140), *(v29 + 144));
-          _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEBUG, "%{public}s: initialized header:\n    magic = %#x\n    cpu type = %#x\n    cpu subtype = %#x\n    file type = %#x\n    ncmds = %u\n    sizeofcmds = %u\n    flags = %#x", v30, 0x36u);
-        }
-
-        *__error() = v9;
-      }
-
-      v28 = 0;
-    }
-  }
-
-LABEL_64:
-  v7 = v28;
-  sub_100010FB4(&v27);
-  return v7;
+  return v38;
 }

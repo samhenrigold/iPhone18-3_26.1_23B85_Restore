@@ -9,9 +9,9 @@
 {
   stateCopy = state;
   value = [stateCopy value];
-  v5 = [value isEqualToString:@"Best"];
+  isEqualToString = objc_msgSend_isEqualToString_(value);
 
-  if (v5)
+  if (isEqualToString)
   {
     v6 = @"Best";
 LABEL_11:
@@ -20,7 +20,7 @@ LABEL_11:
   }
 
   value2 = [stateCopy value];
-  v8 = [value2 isEqualToString:@"NearestTenMeters"];
+  v8 = objc_msgSend_isEqualToString_(value2);
 
   if (v8)
   {
@@ -29,7 +29,7 @@ LABEL_11:
   }
 
   value3 = [stateCopy value];
-  v10 = [value3 isEqualToString:@"HundredMeters"];
+  v10 = objc_msgSend_isEqualToString_(value3);
 
   if (v10)
   {
@@ -38,7 +38,7 @@ LABEL_11:
   }
 
   value4 = [stateCopy value];
-  v12 = [value4 isEqualToString:@"Kilometer"];
+  v12 = objc_msgSend_isEqualToString_(value4);
 
   if (v12)
   {
@@ -47,7 +47,7 @@ LABEL_11:
   }
 
   value5 = [stateCopy value];
-  v14 = [value5 isEqualToString:@"ThreeKilometers"];
+  v14 = objc_msgSend_isEqualToString_(value5);
 
   if (v14)
   {
@@ -63,16 +63,14 @@ LABEL_12:
 
 - (id)possibleStates
 {
-  v6[5] = *MEMORY[0x1E69E9840];
-  v6[0] = @"Best";
-  v6[1] = @"NearestTenMeters";
-  v6[2] = @"HundredMeters";
-  v6[3] = @"Kilometer";
-  v6[4] = @"ThreeKilometers";
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:5];
+  v5[5] = *MEMORY[0x1E69E9840];
+  v5[0] = @"Best";
+  v5[1] = @"NearestTenMeters";
+  v5[2] = @"HundredMeters";
+  v5[3] = @"Kilometer";
+  v5[4] = @"ThreeKilometers";
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:5];
   v3 = [v2 if_map:&__block_literal_global_9489];
-
-  v4 = *MEMORY[0x1E69E9840];
 
   return v3;
 }

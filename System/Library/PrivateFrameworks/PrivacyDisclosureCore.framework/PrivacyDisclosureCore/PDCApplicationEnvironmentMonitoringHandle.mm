@@ -37,7 +37,7 @@
 
 - (void)applicationsDidUninstall:(id)uninstall
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   uninstallCopy = uninstall;
   delegate = [(PDCApplicationEnvironmentMonitoringHandle *)self delegate];
   if (delegate)
@@ -45,27 +45,27 @@
     if (objc_opt_respondsToSelector())
     {
       array = [MEMORY[0x277CBEB18] array];
+      v22 = 0u;
       v23 = 0u;
       v24 = 0u;
       v25 = 0u;
-      v26 = 0u;
-      v18 = uninstallCopy;
+      v17 = uninstallCopy;
       v7 = uninstallCopy;
-      v8 = [v7 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v24;
+        v10 = *v23;
         do
         {
           for (i = 0; i != v9; ++i)
           {
-            if (*v24 != v10)
+            if (*v23 != v10)
             {
               objc_enumerationMutation(v7);
             }
 
-            v12 = *(*(&v23 + 1) + 8 * i);
+            v12 = *(*(&v22 + 1) + 8 * i);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -75,7 +75,7 @@
             }
           }
 
-          v9 = [v7 countByEnumeratingWithState:&v23 objects:v27 count:16];
+          v9 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
         }
 
         while (v9);
@@ -86,13 +86,13 @@
       block[1] = 3221225472;
       block[2] = __70__PDCApplicationEnvironmentMonitoringHandle_applicationsDidUninstall___block_invoke;
       block[3] = &unk_279AA1E08;
-      v20 = array;
+      v19 = array;
       selfCopy = self;
-      v22 = delegate;
+      v21 = delegate;
       v16 = array;
       dispatch_async(queue, block);
 
-      uninstallCopy = v18;
+      uninstallCopy = v17;
     }
   }
 
@@ -100,33 +100,31 @@
   {
     [(PDCApplicationEnvironmentMonitoringHandle *)self invalidate];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __70__PDCApplicationEnvironmentMonitoringHandle_applicationsDidUninstall___block_invoke(id *a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v2 = a1[4];
-  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v11;
+    v5 = *v10;
 LABEL_3:
     v6 = 0;
     while (1)
     {
-      if (*v11 != v5)
+      if (*v10 != v5)
       {
         objc_enumerationMutation(v2);
       }
 
-      v7 = *(*(&v10 + 1) + 8 * v6);
+      v7 = *(*(&v9 + 1) + 8 * v6);
       v8 = [a1[5] delegate];
 
       if (!v8)
@@ -137,7 +135,7 @@ LABEL_3:
       [a1[6] applicationDidUninstall:v7];
       if (v4 == ++v6)
       {
-        v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+        v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
         if (v4)
         {
           goto LABEL_3;
@@ -147,8 +145,6 @@ LABEL_3:
       }
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (PDCApplicationEnvironmentMonitoring)delegate

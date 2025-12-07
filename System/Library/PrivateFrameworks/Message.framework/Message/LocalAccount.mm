@@ -6,6 +6,9 @@
 - (id)_infoForMatchingURL:(id)l;
 - (id)legacySQLExpressionToMatchAllMailboxes;
 - (id)mailboxUidForFileSystemPath:(id)path;
+- (id)mailboxUidForRelativePath:(id)path create:(BOOL)create withOption:(int64_t)option;
+- (id)sendLaterFolderShouldCreate:(BOOL)create;
+- (id)transientDraftsFolderShouldCreate:(BOOL)create;
 - (void)_synchronouslyLoadListingForParent:(id)parent;
 - (void)resetSpecialMailboxes;
 @end
@@ -203,12 +206,72 @@ LABEL_11:
   return v9;
 }
 
+- (id)mailboxUidForRelativePath:(id)path create:(BOOL)create withOption:(int64_t)option
+{
+  createCopy = create;
+  pathCopy = path;
+  pathComponents = [pathCopy pathComponents];
+  v10 = [pathComponents count];
+
+  if (v10 < 2)
+  {
+    v14.receiver = self;
+    v14.super_class = LocalAccount;
+    v12 = [(MailAccount *)&v14 mailboxUidForRelativePath:pathCopy create:createCopy withOption:option];
+  }
+
+  else
+  {
+    lastPathComponent = [pathCopy lastPathComponent];
+    v15.receiver = self;
+    v15.super_class = LocalAccount;
+    v12 = [(MailAccount *)&v15 mailboxUidForRelativePath:lastPathComponent create:createCopy withOption:option];
+  }
+
+  return v12;
+}
+
 - (void)resetSpecialMailboxes
 {
   v4.receiver = self;
   v4.super_class = LocalAccount;
   [(MailAccount *)&v4 resetSpecialMailboxes];
   v3 = [(LocalAccount *)self transientDraftsFolderShouldCreate:0];
+}
+
+- (id)transientDraftsFolderShouldCreate:(BOOL)create
+{
+  createCopy = create;
+  [(LocalAccount *)self mf_lock];
+  v5 = [(MailAccount *)self mailboxUidForRelativePath:@"x-apple-transient-drafts" create:createCopy];
+  [v5 setMailboxType:5];
+  if ([v5 isValid])
+  {
+    account = [v5 account];
+    [account saveState];
+  }
+
+  [(LocalAccount *)self mf_unlock];
+
+  return v5;
+}
+
+- (id)sendLaterFolderShouldCreate:(BOOL)create
+{
+  createCopy = create;
+  [(LocalAccount *)self mf_lock];
+  v5 = [(MailAccount *)self mailboxUidForRelativePath:@"x-apple-send-later" create:createCopy];
+  [v5 setMailboxType:0];
+  [v5 _markAsSendLaterMailbox];
+  if ([v5 isValid])
+  {
+    account = [v5 account];
+    [account saveState];
+  }
+
+  [(LocalAccount *)self mf_unlock];
+
+  return v5;
 }
 
 - (id)_infoForMatchingURL:(id)l

@@ -381,7 +381,7 @@ LABEL_36:
 
 + (uint64_t)vcp_requestFileURLForAssetResource:()MediaAnalysis withTaskID:timeoutHandler:urlHandler:andCompletionHandler:
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   v12 = a3;
   v13 = a5;
   v14 = a6;
@@ -390,9 +390,9 @@ LABEL_36:
   {
     assetLocalIdentifier = [v12 assetLocalIdentifier];
     *buf = 138412546;
-    v49 = assetLocalIdentifier;
-    v50 = 2112;
-    v51 = v12;
+    v50 = assetLocalIdentifier;
+    v51 = 2112;
+    v52 = v12;
     _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "[FileBasedDownload][%@] Downloading %@", buf, 0x16u);
   }
 
@@ -400,62 +400,61 @@ LABEL_36:
   [v17 setNetworkAccessAllowed:1];
   [v17 setDownloadPriority:0];
   [v17 setDownloadIntent:6];
-  [v17 setPruneAfterAvailableOnLowDisk:1];
-  v18 = VCPSignPostLog();
+  v18 = VCPSignPostLog([v17 setPruneAfterAvailableOnLowDisk:1]);
   v19 = os_signpost_id_generate(v18);
 
-  v20 = VCPSignPostLog();
-  v21 = v20;
-  if (v19 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v20))
+  v21 = VCPSignPostLog(v20);
+  v22 = v21;
+  if (v19 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v21))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v21, OS_SIGNPOST_INTERVAL_BEGIN, v19, "VCPDownloadResource", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v22, OS_SIGNPOST_INTERVAL_BEGIN, v19, "VCPDownloadResource", "", buf, 2u);
   }
 
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __134__PHAssetResourceManager_MediaAnalysis__vcp_requestFileURLForAssetResource_withTaskID_timeoutHandler_urlHandler_andCompletionHandler___block_invoke;
   aBlock[3] = &unk_1E83520E8;
-  v22 = v12;
-  v46 = v22;
-  v47 = v13;
-  v23 = v13;
-  v24 = _Block_copy(aBlock);
-  [v17 setProgressHandler:v24];
-  v40[0] = MEMORY[0x1E69E9820];
-  v40[1] = 3221225472;
-  v40[2] = __134__PHAssetResourceManager_MediaAnalysis__vcp_requestFileURLForAssetResource_withTaskID_timeoutHandler_urlHandler_andCompletionHandler___block_invoke_200;
-  v40[3] = &unk_1E8352110;
-  v25 = v22;
-  v43 = v19;
-  v44 = 0;
-  v41 = v25;
-  v42 = v14;
-  v26 = v14;
-  v27 = _Block_copy(v40);
-  v35[0] = MEMORY[0x1E69E9820];
-  v35[1] = 3221225472;
-  v35[2] = __134__PHAssetResourceManager_MediaAnalysis__vcp_requestFileURLForAssetResource_withTaskID_timeoutHandler_urlHandler_andCompletionHandler___block_invoke_202;
-  v35[3] = &unk_1E8352138;
-  v28 = v25;
+  v23 = v12;
+  v47 = v23;
+  v48 = v13;
+  v24 = v13;
+  v25 = _Block_copy(aBlock);
+  [v17 setProgressHandler:v25];
+  v41[0] = MEMORY[0x1E69E9820];
+  v41[1] = 3221225472;
+  v41[2] = __134__PHAssetResourceManager_MediaAnalysis__vcp_requestFileURLForAssetResource_withTaskID_timeoutHandler_urlHandler_andCompletionHandler___block_invoke_200;
+  v41[3] = &unk_1E8352110;
+  v26 = v23;
+  v44 = v19;
+  v45 = 0;
+  v42 = v26;
+  v43 = v14;
+  v27 = v14;
+  v28 = _Block_copy(v41);
+  v36[0] = MEMORY[0x1E69E9820];
+  v36[1] = 3221225472;
+  v36[2] = __134__PHAssetResourceManager_MediaAnalysis__vcp_requestFileURLForAssetResource_withTaskID_timeoutHandler_urlHandler_andCompletionHandler___block_invoke_202;
+  v36[3] = &unk_1E8352138;
+  v29 = v26;
   selfCopy = self;
-  v39 = a4;
-  v36 = v28;
-  v37 = v15;
-  v29 = v15;
-  v30 = _Block_copy(v35);
+  v40 = a4;
+  v37 = v29;
+  v38 = v15;
+  v30 = v15;
+  v31 = _Block_copy(v36);
   defaultManager = [self defaultManager];
-  v32 = [defaultManager requestFileURLForAssetResource:v28 options:v17 urlReceivedHandler:v27 completionHandler:v30];
+  v33 = [defaultManager requestFileURLForAssetResource:v29 options:v17 urlReceivedHandler:v28 completionHandler:v31];
 
-  if (!v32 && MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+  if (!v33 && MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    assetLocalIdentifier2 = [v28 assetLocalIdentifier];
+    assetLocalIdentifier2 = [v29 assetLocalIdentifier];
     *buf = 138412290;
-    v49 = assetLocalIdentifier2;
+    v50 = assetLocalIdentifier2;
     _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[FileBasedDownload][%@] Failed to issue resource request", buf, 0xCu);
   }
 
-  return v32;
+  return v33;
 }
 
 @end

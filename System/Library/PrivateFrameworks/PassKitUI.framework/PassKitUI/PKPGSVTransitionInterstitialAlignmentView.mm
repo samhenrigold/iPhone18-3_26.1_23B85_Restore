@@ -98,15 +98,30 @@
 
 - (void)layoutSubviews
 {
-  v9.receiver = self;
-  v9.super_class = PKPGSVTransitionInterstitialAlignmentView;
-  [(PKPGSVTransitionInterstitialAlignmentView *)&v9 layoutSubviews];
+  v27.receiver = self;
+  v27.super_class = PKPGSVTransitionInterstitialAlignmentView;
+  [(PKPGSVTransitionInterstitialAlignmentView *)&v27 layoutSubviews];
   [(PKPGSVTransitionInterstitialAlignmentView *)self bounds];
+  top = self->_effectiveAlignmentInsets.top;
+  left = self->_effectiveAlignmentInsets.left;
+  v6 = v5 + left;
+  v8 = v7 + top;
+  v10 = v9 - (left + self->_effectiveAlignmentInsets.right);
+  v12 = v11 - (top + self->_effectiveAlignmentInsets.bottom);
   [(UIView *)self->_view bounds];
-  v7 = v3;
-  v8 = v4;
-  PKSizeAlignedInRect();
-  [(UIView *)self->_view setFrame:v5 - self->_effectiveAlignmentInsets.left - self->_alignmentInsets.left, v6 - self->_effectiveAlignmentInsets.top - self->_alignmentInsets.top, v7, v8];
+  v25 = v13;
+  v26 = v14;
+  v15.f64[0] = v14;
+  v15.f64[1] = v13;
+  v16 = vsubq_f64(v15, vaddq_f64(*&self->_effectiveAlignmentInsets.top, *&self->_effectiveAlignmentInsets.bottom));
+  v17 = vmaxnmq_f64(v16, 0);
+  v16.n128_u64[0] = v17.n128_u64[1];
+  v18.n128_f64[0] = v6;
+  v19.n128_f64[0] = v8;
+  v20.n128_f64[0] = v10;
+  v21.n128_f64[0] = v12;
+  PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v16, v17, v18, v19, v20, v21, v22);
+  [(UIView *)self->_view setFrame:v23 - self->_effectiveAlignmentInsets.left - self->_alignmentInsets.left, v24 - self->_effectiveAlignmentInsets.top - self->_alignmentInsets.top, v25, v26];
 }
 
 - (CGPoint)alignmentRectAnchorPoint

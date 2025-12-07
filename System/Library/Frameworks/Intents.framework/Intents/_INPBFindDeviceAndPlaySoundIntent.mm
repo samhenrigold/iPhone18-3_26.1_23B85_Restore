@@ -14,35 +14,35 @@
 
 - (id)dictionaryRepresentation
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   if ([(NSArray *)self->_devices count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
     v5 = self->_devices;
-    v6 = [(NSArray *)v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v6 = [(NSArray *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v17;
+      v8 = *v16;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v17 != v8)
+          if (*v16 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          dictionaryRepresentation = [*(*(&v16 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v15 + 1) + 8 * i) dictionaryRepresentation];
           [array addObject:dictionaryRepresentation];
         }
 
-        v7 = [(NSArray *)v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v7 = [(NSArray *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v7);
@@ -60,8 +60,6 @@
     v13 = [MEMORY[0x1E696AD98] numberWithBool:{-[_INPBFindDeviceAndPlaySoundIntent isStopRequest](self, "isStopRequest")}];
     [dictionary setObject:v13 forKeyedSubscript:@"isStopRequest"];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -203,35 +201,34 @@ LABEL_13:
 
 - (void)writeTo:(id)to
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   toCopy = to;
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v17 = 0u;
-  v18 = 0u;
   v5 = self->_devices;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v13;
     do
     {
       v9 = 0;
       do
       {
-        if (*v16 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * v9);
         PBDataWriterWriteSubmessage();
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
@@ -247,11 +244,8 @@ LABEL_13:
 
   if ([(_INPBFindDeviceAndPlaySoundIntent *)self hasIsStopRequest])
   {
-    isStopRequest = self->_isStopRequest;
     PBDataWriterWriteBOOLField();
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addDevice:(id)device

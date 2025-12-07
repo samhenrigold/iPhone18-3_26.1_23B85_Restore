@@ -143,18 +143,16 @@ void __71__TPSPhonebookController_updateSubscriptionTelephoneNumber_completion__
 {
   v11 = *MEMORY[0x277D85DE8];
   infoCopy = info;
-  v6 = TPSLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = TPSLog(infoCopy, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 138412290;
     v10 = infoCopy;
-    _os_log_impl(&dword_21B8E9000, v6, OS_LOG_TYPE_DEFAULT, "Phone number info changed to %@.", &v9, 0xCu);
+    _os_log_impl(&dword_21B8E9000, v7, OS_LOG_TYPE_DEFAULT, "Phone number info changed to %@.", &v9, 0xCu);
   }
 
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter postNotificationName:TPSPhonebookControllerSubscriptionDidChangeNotification object:self];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (TPSPhonebookControllerDelegate)delegate

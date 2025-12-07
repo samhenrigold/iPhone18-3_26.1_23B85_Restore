@@ -109,7 +109,7 @@
   [(PNPPencilView *)v38 setTransform:v53];
   [(PNPPencilView *)self->_pencilView setFrame:v20, v19, v17, v18];
   v40 = self->_pencilView;
-  [(PNPPairingView *)self _pencilTransformForState:state deviceState:deviceState3];
+  objc_msgSend__pencilTransformForState_deviceState_(self);
   [(PNPPencilView *)v40 setTransform:v53];
   [MEMORY[0x277CD9FF0] commit];
   chargingStatusView = [(PNPPairingView *)self chargingStatusView];
@@ -231,7 +231,7 @@
     if (pencilView)
     {
       v13 = v9;
-      pencilView = [(PNPPencilView *)pencilView transformForDeviceState:v9];
+      pencilView = objc_msgSend_transformForDeviceState_(pencilView, v9, v9);
       v9 = v13;
     }
 

@@ -3,7 +3,7 @@
 
 @implementation DepthWrapperEncoder
 
-void __DepthWrapperEncoder_EncodeFrame_block_invoke(void *a1, uint64_t a2, unsigned int a3, CMSampleBufferRef sbuf)
+void __DepthWrapperEncoder_EncodeFrame_block_invoke(void *a1, uint64_t a2, uint64_t a3, CMSampleBufferRef sbuf)
 {
   v33 = *MEMORY[0x1E69E9840];
   if (a2)
@@ -75,6 +75,7 @@ LABEL_7:
               CopyWithNewFormatDescription = CMVideoFormatDescriptionCreate(v21, v13, Dimensions.width, Dimensions.height, v25, &formatDescriptionOut);
               if (CopyWithNewFormatDescription)
               {
+                a3 = a3;
                 if (formatDescriptionOut)
                 {
                   CFRelease(formatDescriptionOut);
@@ -85,6 +86,7 @@ LABEL_7:
               {
                 *(v10 + 48) = formatDescriptionOut;
                 formatDescriptionOut = 0;
+                a3 = a3;
               }
 
               CFRelease(v25);
@@ -145,7 +147,7 @@ void __DepthWrapperEncoder_EncodeFrame_block_invoke_cold_1(const void *a1, _DWOR
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_2();
-  *a2 = FigSignalErrorAtGM();
+  *a2 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v5, v6);
   CFRelease(a1);
 }
 
@@ -153,7 +155,7 @@ uint64_t __DepthWrapperEncoder_EncodeFrame_block_invoke_cold_2(_DWORD *a1)
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_2();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
@@ -162,7 +164,7 @@ uint64_t __DepthWrapperEncoder_EncodeFrame_block_invoke_cold_3(_DWORD *a1)
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_2();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
@@ -171,7 +173,7 @@ uint64_t __DepthWrapperEncoder_EncodeFrame_block_invoke_cold_4(_DWORD *a1)
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_2();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
@@ -180,7 +182,7 @@ uint64_t __DepthWrapperEncoder_EncodeFrame_block_invoke_cold_5(_DWORD *a1)
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_2();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }

@@ -60,6 +60,7 @@
 - (void)setFinishedStateUserSetsUnfinished;
 - (void)setLastOpenDate:(id)date;
 - (void)unsetFinishedDate;
+- (void)userUpdateDateFinished:(id)finished ofKind:(signed __int16)kind;
 - (void)willSave;
 @end
 
@@ -93,18 +94,19 @@
 
 - (NSString)finishedCollectionSectionName
 {
-  if ([(BKLibraryAsset *)self hasSpecifiedFinishedDate])
+  hasSpecifiedFinishedDate = [(BKLibraryAsset *)self hasSpecifiedFinishedDate];
+  if (hasSpecifiedFinishedDate)
   {
-    v2 = 0;
+    v3 = 0;
   }
 
   else
   {
-    v3 = BKLibraryFrameworkBundle();
-    v2 = [v3 localizedStringForKey:@"Date Not Set" value:&stru_D8298 table:&stru_D8298];
+    v4 = BKLibraryFrameworkBundle(hasSpecifiedFinishedDate);
+    v3 = [v4 localizedStringForKey:@"Date Not Set" value:&stru_D8298 table:&stru_D8298];
   }
 
-  return v2;
+  return v3;
 }
 
 - (BOOL)_validateIsState1
@@ -175,6 +177,36 @@
   v10 = v9;
 
   return v9;
+}
+
+- (void)userUpdateDateFinished:(id)finished ofKind:(signed __int16)kind
+{
+  kindCopy = kind;
+  finishedCopy = finished;
+  v10 = finishedCopy;
+  if (finishedCopy)
+  {
+    v7 = finishedCopy;
+  }
+
+  else
+  {
+    v7 = +[NSDate date];
+  }
+
+  v8 = v7;
+  if (kindCopy == 2)
+  {
+    v9 = [(BKLibraryAsset *)self _dateFinishedForYearOnly:v7];
+
+    v8 = v9;
+  }
+
+  [(BKLibraryAsset *)self setDifferentDate:v8 forKey:@"dateFinished"];
+  if ([(BKLibraryAsset *)self finishedDateKind]!= kindCopy)
+  {
+    [(BKLibraryAsset *)self setFinishedDateKind:kindCopy];
+  }
 }
 
 - (void)cleanupDateFinished
@@ -624,47 +656,51 @@ LABEL_11:
       goto LABEL_21;
     }
 
-    if ([v7 intValue] == 2 && objc_msgSend(authorNames, "count") >= 2)
+    if ([v7 intValue] == 2 && (v9 = objc_msgSend(authorNames, "count"), v9 >= 2))
     {
-      v9 = BKLibraryFrameworkBundle();
-      v10 = [v9 localizedStringForKey:@"Library.Item.TwoArtists" value:@"%@ & %@" table:&stru_D8298];
+      v10 = BKLibraryFrameworkBundle(v9);
+      v11 = [v10 localizedStringForKey:@"Library.Item.TwoArtists" value:@"%@ & %@" table:&stru_D8298];
 
-      v11 = [authorNames objectAtIndexedSubscript:0];
-      v12 = [authorNames objectAtIndexedSubscript:1];
-      v13 = v12;
+      v12 = [authorNames objectAtIndexedSubscript:0];
+      v13 = [authorNames objectAtIndexedSubscript:1];
+      v14 = v13;
     }
 
     else
     {
-      if ([v7 intValue] == 3 && objc_msgSend(authorNames, "count") >= 3)
+      if ([v7 intValue] == 3)
       {
-        v14 = BKLibraryFrameworkBundle();
-        v10 = [v14 localizedStringForKey:@"Library.Item.ThreeArtists" value:@"%@ table:{%@, & %@", &stru_D8298}];
+        v15 = [authorNames count];
+        if (v15 >= 3)
+        {
+          v16 = BKLibraryFrameworkBundle(v15);
+          v11 = [v16 localizedStringForKey:@"Library.Item.ThreeArtists" value:@"%@ table:{%@, & %@", &stru_D8298}];
 
-        v11 = [authorNames objectAtIndexedSubscript:0];
-        v13 = [authorNames objectAtIndexedSubscript:1];
-        v15 = [authorNames objectAtIndexedSubscript:2];
-        v16 = [NSString stringWithFormat:v10, v11, v13, v15];
+          v12 = [authorNames objectAtIndexedSubscript:0];
+          v14 = [authorNames objectAtIndexedSubscript:1];
+          v17 = [authorNames objectAtIndexedSubscript:2];
+          v18 = [NSString stringWithFormat:v11, v12, v14, v17];
 
 LABEL_16:
-        goto LABEL_22;
+          goto LABEL_22;
+        }
       }
 
       if ([v7 intValue] < 4 || objc_msgSend(authorNames, "count") < 2)
       {
         author = [(BKLibraryAsset *)self author];
-        v20 = [author isEqualToString:@"UnknownAuthor"];
+        v23 = [author isEqualToString:@"UnknownAuthor"];
 
-        if (v20)
+        if (v23)
         {
           author3 = +[BKLibraryAsset unknownAuthor];
           goto LABEL_21;
         }
 
         author2 = [(BKLibraryAsset *)self author];
-        v22 = [author2 isEqualToString:@"MultipleAuthors"];
+        v25 = [author2 isEqualToString:@"MultipleAuthors"];
 
-        if (!v22)
+        if (!v25)
         {
           author3 = [(BKLibraryAsset *)self author];
           goto LABEL_21;
@@ -673,27 +709,28 @@ LABEL_16:
         goto LABEL_2;
       }
 
-      v17 = [v7 intValue] - 2;
-      v18 = BKLibraryFrameworkBundle();
-      v10 = [v18 localizedStringForKey:@"Library.Item.TwoAndOtherArtists" value:@"%@ table:{%@, & %d others", &stru_D8298}];
+      intValue = [v7 intValue];
+      v20 = (intValue - 2);
+      v21 = BKLibraryFrameworkBundle(intValue);
+      v11 = [v21 localizedStringForKey:@"Library.Item.TwoAndOtherArtists" value:@"%@ table:{%@, & %d others", &stru_D8298}];
 
-      v11 = [authorNames objectAtIndexedSubscript:0];
-      v12 = [authorNames objectAtIndexedSubscript:1];
-      v13 = v12;
-      v24 = v17;
+      v12 = [authorNames objectAtIndexedSubscript:0];
+      v13 = [authorNames objectAtIndexedSubscript:1];
+      v14 = v13;
+      v27 = v20;
     }
 
-    v16 = [NSString stringWithFormat:v10, v11, v12, v24];
+    v18 = [NSString stringWithFormat:v11, v12, v13, v27];
     goto LABEL_16;
   }
 
 LABEL_2:
   author3 = +[BKLibraryAsset multipleAuthors];
 LABEL_21:
-  v16 = author3;
+  v18 = author3;
 LABEL_22:
 
-  return v16;
+  return v18;
 }
 
 - (BOOL)isStore
@@ -1147,29 +1184,29 @@ LABEL_17:
   v7 = modificationDate;
   if (!(assetDetailsModificationDate | modificationDate))
   {
-    v12 = +[BULogUtilities shared];
-    verboseLoggingEnabled = [v12 verboseLoggingEnabled];
+    v13 = +[BULogUtilities shared];
+    verboseLoggingEnabled = [v13 verboseLoggingEnabled];
 
     if (!verboseLoggingEnabled)
     {
       goto LABEL_40;
     }
 
-    v14 = BKLibraryAssetDetailsDevelopmentLog();
-    if (!os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v16 = BKLibraryAssetDetailsDevelopmentLog(v15);
+    if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_39;
     }
 
     title = [(BKLibraryAsset *)self title];
-    *v54 = 138412290;
-    *&v54[4] = title;
-    v16 = "\\configureFromAssetDetail No local modDate, No assetDetail modDate for assetDetail %@\\"";
+    *v61 = 138412290;
+    *&v61[4] = title;
+    v18 = "\\configureFromAssetDetail No local modDate, No assetDetail modDate for assetDetail %@\";
 LABEL_11:
-    v17 = v14;
-    v18 = 12;
+    v19 = v16;
+    v20 = 12;
 LABEL_38:
-    _os_log_impl(&dword_0, v17, OS_LOG_TYPE_DEFAULT, v16, v54, v18);
+    _os_log_impl(&dword_0, v19, OS_LOG_TYPE_DEFAULT, v18, v61, v20);
 
     goto LABEL_39;
   }
@@ -1181,15 +1218,15 @@ LABEL_38:
 
     if (verboseLoggingEnabled2)
     {
-      v10 = BKLibraryAssetDetailsDevelopmentLog();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v11 = BKLibraryAssetDetailsDevelopmentLog(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         title2 = [(BKLibraryAsset *)self title];
-        *v54 = 138412546;
-        *&v54[4] = v7;
-        *&v54[12] = 2112;
-        *&v54[14] = title2;
-        _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "\\No local modDate, assetDetail has modDate:%@  for assetDetail %@ \\"", v54, 0x16u);
+        *v61 = 138412546;
+        *&v61[4] = v7;
+        *&v61[12] = 2112;
+        *&v61[14] = title2;
+        _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "\\No local modDate, assetDetail has modDate:%@  for assetDetail %@ \", v61, 0x16u);
       }
     }
 
@@ -1198,22 +1235,22 @@ LABEL_38:
 
   if (assetDetailsModificationDate && modificationDate)
   {
-    v19 = +[BULogUtilities shared];
-    verboseLoggingEnabled3 = [v19 verboseLoggingEnabled];
+    v21 = +[BULogUtilities shared];
+    verboseLoggingEnabled3 = [v21 verboseLoggingEnabled];
 
     if (verboseLoggingEnabled3)
     {
-      v21 = BKLibraryAssetDetailsDevelopmentLog();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      v24 = BKLibraryAssetDetailsDevelopmentLog(v23);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
         title3 = [(BKLibraryAsset *)self title];
-        *v54 = 138412802;
-        *&v54[4] = assetDetailsModificationDate;
-        *&v54[12] = 2112;
-        *&v54[14] = v7;
-        *&v54[22] = 2112;
-        v55 = title3;
-        _os_log_impl(&dword_0, v21, OS_LOG_TYPE_DEFAULT, "\\local has modDate:%@, assetDetail has modDate:%@ for assetDetail %@\\"", v54, 0x20u);
+        *v61 = 138412802;
+        *&v61[4] = assetDetailsModificationDate;
+        *&v61[12] = 2112;
+        *&v61[14] = v7;
+        *&v61[22] = 2112;
+        v62 = title3;
+        _os_log_impl(&dword_0, v24, OS_LOG_TYPE_DEFAULT, "\\local has modDate:%@, assetDetail has modDate:%@ for assetDetail %@\", v61, 0x20u);
       }
     }
   }
@@ -1232,28 +1269,28 @@ LABEL_38:
   }
 
   [v7 timeIntervalSinceReferenceDate];
-  v24 = v23;
+  v27 = v26;
   [assetDetailsModificationDate timeIntervalSinceReferenceDate];
-  if (v24 <= v25)
+  if (v27 <= v28)
   {
     [v7 timeIntervalSinceReferenceDate];
-    v52 = v51;
-    [assetDetailsModificationDate timeIntervalSinceReferenceDate];
-    if (v52 >= v53)
+    v58 = v57;
+    timeIntervalSinceReferenceDate = [assetDetailsModificationDate timeIntervalSinceReferenceDate];
+    if (v58 >= v60)
     {
       goto LABEL_40;
     }
 
-    v14 = BKLibraryAssetDetailsLog();
-    if (!os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v16 = BKLibraryAssetDetailsLog(timeIntervalSinceReferenceDate);
+    if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_39;
     }
 
     title = [(BKLibraryAsset *)self assetID];
-    *v54 = 138412290;
-    *&v54[4] = title;
-    v16 = "BKLibraryAsset Not Taking changes from asset detail as my mod date is > detail mod date for asset: %@";
+    *v61 = 138412290;
+    *&v61[4] = title;
+    v18 = "BKLibraryAsset Not Taking changes from asset detail as my mod date is > detail mod date for asset: %@";
     goto LABEL_11;
   }
 
@@ -1296,39 +1333,38 @@ LABEL_21:
 
   if ([(BKLibraryAsset *)self hasChanges])
   {
-    [(BKLibraryAsset *)self setAssetDetailsModificationDate:v7];
-    v14 = BKLibraryAssetDetailsLog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v16 = BKLibraryAssetDetailsLog([(BKLibraryAsset *)self setAssetDetailsModificationDate:v7]);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       title = [(BKLibraryAsset *)self assetID];
-      *v54 = 138412546;
-      *&v54[4] = title;
-      *&v54[12] = 2112;
-      *&v54[14] = detailCopy;
-      v16 = "BKLibraryAsset %@ Configured with changes: %@";
+      *v61 = 138412546;
+      *&v61[4] = title;
+      *&v61[12] = 2112;
+      *&v61[14] = detailCopy;
+      v18 = "BKLibraryAsset %@ Configured with changes: %@";
 LABEL_37:
-      v17 = v14;
-      v18 = 22;
+      v19 = v16;
+      v20 = 22;
       goto LABEL_38;
     }
 
     goto LABEL_39;
   }
 
-  v31 = +[BULogUtilities shared];
-  verboseLoggingEnabled4 = [v31 verboseLoggingEnabled];
+  v34 = +[BULogUtilities shared];
+  verboseLoggingEnabled4 = [v34 verboseLoggingEnabled];
 
   if (verboseLoggingEnabled4)
   {
-    v14 = BKLibraryAssetDetailsDevelopmentLog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v16 = BKLibraryAssetDetailsDevelopmentLog(v36);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       title = [(BKLibraryAsset *)self assetID];
-      *v54 = 138412546;
-      *&v54[4] = title;
-      *&v54[12] = 2112;
-      *&v54[14] = detailCopy;
-      v16 = "\\BKLibraryAsset %@ Configure - No changes for libraryAsset from assetDetail %@\\"";
+      *v61 = 138412546;
+      *&v61[4] = title;
+      *&v61[12] = 2112;
+      *&v61[14] = detailCopy;
+      v18 = "\\BKLibraryAsset %@ Configure - No changes for libraryAsset from assetDetail %@\";
       goto LABEL_37;
     }
 
@@ -1336,7 +1372,7 @@ LABEL_39:
   }
 
 LABEL_40:
-  if (![(BKLibraryAsset *)self isAudiobook:*v54])
+  if (![(BKLibraryAsset *)self isAudiobook:*v61])
   {
     goto LABEL_54;
   }
@@ -1350,39 +1386,39 @@ LABEL_40:
 
   readingProgress = [(BKLibraryAsset *)self readingProgress];
   [readingProgress doubleValue];
-  v36 = v35;
+  v40 = v39;
   [detailCopy readingProgress];
-  v38 = vabdd_f64(v36, v37);
+  v42 = vabdd_f64(v40, v41);
 
-  if (v38 >= 0.00001)
+  if (v42 >= 0.00001)
   {
     [detailCopy readingProgress];
-    v39 = [NSNumber numberWithFloat:?];
-    [(BKLibraryAsset *)self setReadingProgress:v39];
+    v43 = [NSNumber numberWithFloat:?];
+    [(BKLibraryAsset *)self setReadingProgress:v43];
   }
 
   bookHighWaterMarkProgress = [(BKLibraryAsset *)self bookHighWaterMarkProgress];
   [bookHighWaterMarkProgress doubleValue];
-  v42 = v41;
+  v46 = v45;
   [detailCopy readingProgressHighWaterMark];
-  v44 = vabdd_f64(v42, v43);
+  v48 = vabdd_f64(v46, v47);
 
-  if (v44 >= 0.00001)
+  if (v48 >= 0.00001)
   {
     [detailCopy readingProgressHighWaterMark];
-    v50 = [NSNumber numberWithFloat:?];
-    [(BKLibraryAsset *)self setBookHighWaterMarkProgress:v50];
+    v56 = [NSNumber numberWithFloat:?];
+    [(BKLibraryAsset *)self setBookHighWaterMarkProgress:v56];
 
 LABEL_50:
-    v47 = BKLibraryAssetDetailsLog();
-    if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+    v53 = BKLibraryAssetDetailsLog(v49);
+    if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
     {
       assetID = [(BKLibraryAsset *)self assetID];
-      *v54 = 138412546;
-      *&v54[4] = assetID;
-      *&v54[12] = 2112;
-      *&v54[14] = detailCopy;
-      v49 = "BKLibraryAsset %@ Configured with reading progress changes: %@";
+      *v61 = 138412546;
+      *&v61[4] = assetID;
+      *&v61[12] = 2112;
+      *&v61[14] = detailCopy;
+      v55 = "BKLibraryAsset %@ Configured with reading progress changes: %@";
       goto LABEL_52;
     }
 
@@ -1391,27 +1427,27 @@ LABEL_53:
     goto LABEL_54;
   }
 
-  if (v38 >= 0.00001)
+  if (v42 >= 0.00001)
   {
     goto LABEL_50;
   }
 
-  v45 = +[BULogUtilities shared];
-  verboseLoggingEnabled5 = [v45 verboseLoggingEnabled];
+  v50 = +[BULogUtilities shared];
+  verboseLoggingEnabled5 = [v50 verboseLoggingEnabled];
 
   if (verboseLoggingEnabled5)
   {
-    v47 = BKLibraryAssetDetailsDevelopmentLog();
-    if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+    v53 = BKLibraryAssetDetailsDevelopmentLog(v52);
+    if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
     {
       assetID = [(BKLibraryAsset *)self assetID];
-      *v54 = 138412546;
-      *&v54[4] = assetID;
-      *&v54[12] = 2112;
-      *&v54[14] = detailCopy;
-      v49 = "\\BKLibraryAsset %@ Configure - No reading progress changes for libraryAsset from assetDetail %@\\"";
+      *v61 = 138412546;
+      *&v61[4] = assetID;
+      *&v61[12] = 2112;
+      *&v61[14] = detailCopy;
+      v55 = "\\BKLibraryAsset %@ Configure - No reading progress changes for libraryAsset from assetDetail %@\";
 LABEL_52:
-      _os_log_impl(&dword_0, v47, OS_LOG_TYPE_DEFAULT, v49, v54, 0x16u);
+      _os_log_impl(&dword_0, v53, OS_LOG_TYPE_DEFAULT, v55, v61, 0x16u);
 
       goto LABEL_53;
     }
@@ -1435,10 +1471,10 @@ LABEL_54:
   cloudAssetType = [(BKLibraryAsset *)self cloudAssetType];
   [v5 setCloudAssetType:cloudAssetType];
 
-  v8 = BKLibraryAssetDetailsLog();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v9 = BKLibraryAssetDetailsLog(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    sub_8FF48(self, v5, v8);
+    sub_8FF48(self, v5, v9);
   }
 
   return v5;
@@ -1466,39 +1502,40 @@ LABEL_54:
 
   if (v7 == &dword_0 + 1)
   {
-    v8 = BKLibraryAssetDetailsLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v9 = BKLibraryAssetDetailsLog(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       assetID = [(BKLibraryAsset *)self assetID];
-      v19 = 138412546;
-      v20 = assetID;
-      v21 = 2112;
-      v22 = detailCopy;
-      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_INFO, "BKLibraryAsset %@ received unexpected Reading Now changes: %@", &v19, 0x16u);
+      v22 = 138412546;
+      v23 = assetID;
+      v24 = 2112;
+      v25 = detailCopy;
+      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_INFO, "BKLibraryAsset %@ received unexpected Reading Now changes: %@", &v22, 0x16u);
     }
   }
 
-  v10 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [detailCopy isTrackedAsRecent]);
-  [(BKLibraryAsset *)self setDifferentNumber:v10 forKey:@"isTrackedAsRecent"];
+  v11 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [detailCopy isTrackedAsRecent]);
+  [(BKLibraryAsset *)self setDifferentNumber:v11 forKey:@"isTrackedAsRecent"];
 
   lastEngagedDate3 = [detailCopy lastEngagedDate];
   [(BKLibraryAsset *)self setDifferentDate:lastEngagedDate3 forKey:@"lastEngagedDate"];
 
-  if ([(BKLibraryAsset *)self hasChanges])
+  hasChanges = [(BKLibraryAsset *)self hasChanges];
+  if (hasChanges)
   {
-    v12 = BKLibraryAssetDetailsLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    v14 = BKLibraryAssetDetailsLog(hasChanges);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       assetID2 = [(BKLibraryAsset *)self assetID];
-      v19 = 138412546;
-      v20 = assetID2;
-      v21 = 2112;
-      v22 = detailCopy;
-      v14 = "BKLibraryAsset %@ Configured with Reading Now changes: %@";
-      v15 = v12;
-      v16 = OS_LOG_TYPE_INFO;
+      v22 = 138412546;
+      v23 = assetID2;
+      v24 = 2112;
+      v25 = detailCopy;
+      v16 = "BKLibraryAsset %@ Configured with Reading Now changes: %@";
+      v17 = v14;
+      v18 = OS_LOG_TYPE_INFO;
 LABEL_11:
-      _os_log_impl(&dword_0, v15, v16, v14, &v19, 0x16u);
+      _os_log_impl(&dword_0, v17, v18, v16, &v22, 0x16u);
 
       goto LABEL_12;
     }
@@ -1506,22 +1543,22 @@ LABEL_11:
     goto LABEL_12;
   }
 
-  v17 = +[BULogUtilities shared];
-  verboseLoggingEnabled = [v17 verboseLoggingEnabled];
+  v19 = +[BULogUtilities shared];
+  verboseLoggingEnabled = [v19 verboseLoggingEnabled];
 
   if (verboseLoggingEnabled)
   {
-    v12 = BKLibraryAssetDetailsDevelopmentLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v14 = BKLibraryAssetDetailsDevelopmentLog(v21);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       assetID2 = [(BKLibraryAsset *)self assetID];
-      v19 = 138412546;
-      v20 = assetID2;
-      v21 = 2112;
-      v22 = detailCopy;
-      v14 = "\\BKLibraryAsset %@ Configure - No changes for libraryAsset from Reading Now %@\\"";
-      v15 = v12;
-      v16 = OS_LOG_TYPE_DEFAULT;
+      v22 = 138412546;
+      v23 = assetID2;
+      v24 = 2112;
+      v25 = detailCopy;
+      v16 = "\\BKLibraryAsset %@ Configure - No changes for libraryAsset from Reading Now %@\";
+      v17 = v14;
+      v18 = OS_LOG_TYPE_DEFAULT;
       goto LABEL_11;
     }
 

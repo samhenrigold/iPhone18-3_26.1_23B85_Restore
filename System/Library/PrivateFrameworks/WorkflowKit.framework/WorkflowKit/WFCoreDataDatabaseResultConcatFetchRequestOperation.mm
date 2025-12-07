@@ -101,32 +101,32 @@ LABEL_15:
 
 - (int64_t)countWithContext:(id)context error:(id *)error
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   contextCopy = context;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   fetchRequests = [(WFCoreDataDatabaseResultConcatFetchRequestOperation *)self fetchRequests];
-  v8 = [fetchRequests countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v8 = [fetchRequests countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v8)
   {
     v9 = v8;
     v10 = 0;
-    v11 = *v17;
+    v11 = *v16;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v17 != v11)
+        if (*v16 != v11)
         {
           objc_enumerationMutation(fetchRequests);
         }
 
-        v10 += [contextCopy countForFetchRequest:*(*(&v16 + 1) + 8 * i) error:error];
+        v10 += [contextCopy countForFetchRequest:*(*(&v15 + 1) + 8 * i) error:error];
       }
 
-      v9 = [fetchRequests countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v9 = [fetchRequests countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v9);
@@ -146,35 +146,34 @@ LABEL_15:
     }
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 - (id)resultsWithContext:(id)context error:(id *)error
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   v7 = objc_opt_new();
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   fetchRequests = [(WFCoreDataDatabaseResultConcatFetchRequestOperation *)self fetchRequests];
-  v9 = [fetchRequests countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v9 = [fetchRequests countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v25;
+    v11 = *v24;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v25 != v11)
+        if (*v24 != v11)
         {
           objc_enumerationMutation(fetchRequests);
         }
 
-        v13 = *(*(&v24 + 1) + 8 * i);
+        v13 = *(*(&v23 + 1) + 8 * i);
         if ([(WFCoreDataDatabaseResultConcatFetchRequestOperation *)self resultsLimit]>= 1)
         {
           resultsLimit = [(WFCoreDataDatabaseResultConcatFetchRequestOperation *)self resultsLimit];
@@ -214,7 +213,7 @@ LABEL_15:
         }
       }
 
-      v10 = [fetchRequests countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v10 = [fetchRequests countByEnumeratingWithState:&v23 objects:v27 count:16];
       if (v10)
       {
         continue;
@@ -228,8 +227,6 @@ LABEL_19:
 
   v21 = v7;
 LABEL_20:
-
-  v22 = *MEMORY[0x1E69E9840];
 
   return v21;
 }

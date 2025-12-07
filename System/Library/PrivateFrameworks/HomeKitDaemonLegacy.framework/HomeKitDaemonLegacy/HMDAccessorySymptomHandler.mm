@@ -77,7 +77,7 @@ void __63__HMDAccessorySymptomHandler_symptomManager_didChangeSymptoms___block_i
 
 - (void)_handleSetSymptomsMessage:(id)message
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   workQueue = [(HMDAccessorySymptomHandler *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -90,9 +90,9 @@ void __63__HMDAccessorySymptomHandler_symptomManager_didChangeSymptoms___block_i
     v9 = HMFGetLogIdentifier();
     shortDescription = [messageCopy shortDescription];
     *buf = 138543618;
-    v55 = v9;
-    v56 = 2112;
-    v57 = shortDescription;
+    v54 = v9;
+    v55 = 2112;
+    v56 = shortDescription;
     _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Handling set symptoms message: %@", buf, 0x16u);
   }
 
@@ -114,34 +114,34 @@ void __63__HMDAccessorySymptomHandler_symptomManager_didChangeSymptoms___block_i
   if (v13)
   {
     v14 = *MEMORY[0x277CD11F8];
-    v53[0] = objc_opt_class();
-    v53[1] = objc_opt_class();
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v53 count:2];
+    v52[0] = objc_opt_class();
+    v52[1] = objc_opt_class();
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v52 count:2];
     v16 = [messageCopy unarchivedObjectForKey:v14 ofClasses:v15];
 
     if (v16)
     {
-      v50 = 0u;
-      v51 = 0u;
-      v48 = 0u;
       v49 = 0u;
+      v50 = 0u;
+      v47 = 0u;
+      v48 = 0u;
       v17 = v16;
-      v18 = [v17 countByEnumeratingWithState:&v48 objects:v52 count:16];
+      v18 = [v17 countByEnumeratingWithState:&v47 objects:v51 count:16];
       if (v18)
       {
         v19 = v18;
-        v20 = *v49;
+        v20 = *v48;
         while (2)
         {
           v21 = 0;
           do
           {
-            if (*v49 != v20)
+            if (*v48 != v20)
             {
               objc_enumerationMutation(v17);
             }
 
-            v22 = *(*(&v48 + 1) + 8 * v21);
+            v22 = *(*(&v47 + 1) + 8 * v21);
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
@@ -152,9 +152,9 @@ void __63__HMDAccessorySymptomHandler_symptomManager_didChangeSymptoms___block_i
               {
                 v33 = HMFGetLogIdentifier();
                 *buf = 138543618;
-                v55 = v33;
-                v56 = 2112;
-                v57 = v22;
+                v54 = v33;
+                v55 = 2112;
+                v56 = v22;
                 _os_log_impl(&dword_2531F8000, v32, OS_LOG_TYPE_ERROR, "%{public}@Invalid type of symptom is pass in: %@", buf, 0x16u);
               }
 
@@ -169,7 +169,7 @@ void __63__HMDAccessorySymptomHandler_symptomManager_didChangeSymptoms___block_i
           }
 
           while (v19 != v21);
-          v19 = [v17 countByEnumeratingWithState:&v48 objects:v52 count:16];
+          v19 = [v17 countByEnumeratingWithState:&v47 objects:v51 count:16];
           if (v19)
           {
             continue;
@@ -180,14 +180,14 @@ void __63__HMDAccessorySymptomHandler_symptomManager_didChangeSymptoms___block_i
       }
 
       workQueue2 = [(HMDAccessorySymptomHandler *)selfCopy workQueue];
-      v42 = MEMORY[0x277D85DD0];
-      v43 = 3221225472;
-      v44 = __56__HMDAccessorySymptomHandler__handleSetSymptomsMessage___block_invoke;
-      v45 = &unk_2797359B0;
-      v46 = selfCopy;
+      v41 = MEMORY[0x277D85DD0];
+      v42 = 3221225472;
+      v43 = __56__HMDAccessorySymptomHandler__handleSetSymptomsMessage___block_invoke;
+      v44 = &unk_2797359B0;
+      v45 = selfCopy;
       v17 = v17;
-      v47 = v17;
-      dispatch_async(workQueue2, &v42);
+      v46 = v17;
+      dispatch_async(workQueue2, &v41);
 
       [messageCopy respondWithSuccess];
     }
@@ -202,9 +202,9 @@ void __63__HMDAccessorySymptomHandler_symptomManager_didChangeSymptoms___block_i
         v38 = HMFGetLogIdentifier();
         shortDescription2 = [messageCopy shortDescription];
         *buf = 138543618;
-        v55 = v38;
-        v56 = 2112;
-        v57 = shortDescription2;
+        v54 = v38;
+        v55 = 2112;
+        v56 = shortDescription2;
         _os_log_impl(&dword_2531F8000, v37, OS_LOG_TYPE_ERROR, "%{public}@Symptom values not found in message payload: %@", buf, 0x16u);
       }
 
@@ -227,11 +227,11 @@ void __63__HMDAccessorySymptomHandler_symptomManager_didChangeSymptoms___block_i
       v28 = objc_opt_class();
       transport2 = [messageCopy transport];
       *buf = 138543874;
-      v55 = v27;
-      v56 = 2112;
-      v57 = v28;
-      v58 = 2112;
-      v59 = transport2;
+      v54 = v27;
+      v55 = 2112;
+      v56 = v28;
+      v57 = 2112;
+      v58 = transport2;
       _os_log_impl(&dword_2531F8000, v26, OS_LOG_TYPE_ERROR, "%{public}@Set symptoms transport was not of expected class %@: %@", buf, 0x20u);
     }
 
@@ -241,13 +241,11 @@ void __63__HMDAccessorySymptomHandler_symptomManager_didChangeSymptoms___block_i
   }
 
 LABEL_26:
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleUnsubscribeMessage:(id)message
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   workQueue = [(HMDAccessorySymptomHandler *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -259,11 +257,11 @@ LABEL_26:
   {
     v9 = HMFGetLogIdentifier();
     shortDescription = [messageCopy shortDescription];
-    v23 = 138543618;
-    v24 = v9;
-    v25 = 2112;
-    v26 = shortDescription;
-    _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Handling unsubscribe message: %@", &v23, 0x16u);
+    v22 = 138543618;
+    v23 = v9;
+    v24 = 2112;
+    v25 = shortDescription;
+    _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Handling unsubscribe message: %@", &v22, 0x16u);
   }
 
   objc_autoreleasePoolPop(v6);
@@ -299,26 +297,24 @@ LABEL_26:
       v18 = HMFGetLogIdentifier();
       v19 = objc_opt_class();
       transport2 = [messageCopy transport];
-      v23 = 138543874;
-      v24 = v18;
-      v25 = 2112;
-      v26 = v19;
-      v27 = 2112;
-      v28 = transport2;
-      _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_ERROR, "%{public}@Unsubscribing transport was not of expected class %@: %@", &v23, 0x20u);
+      v22 = 138543874;
+      v23 = v18;
+      v24 = 2112;
+      v25 = v19;
+      v26 = 2112;
+      v27 = transport2;
+      _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_ERROR, "%{public}@Unsubscribing transport was not of expected class %@: %@", &v22, 0x20u);
     }
 
     objc_autoreleasePoolPop(v15);
     v21 = [MEMORY[0x277CCA9B8] hmErrorWithCode:48];
     [messageCopy respondWithError:v21];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleSubscribeMessage:(id)message
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   workQueue = [(HMDAccessorySymptomHandler *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -330,11 +326,11 @@ LABEL_26:
   {
     v9 = HMFGetLogIdentifier();
     shortDescription = [messageCopy shortDescription];
-    v23 = 138543618;
-    v24 = v9;
-    v25 = 2112;
-    v26 = shortDescription;
-    _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Handling subscribe message: %@", &v23, 0x16u);
+    v22 = 138543618;
+    v23 = v9;
+    v24 = 2112;
+    v25 = shortDescription;
+    _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Handling subscribe message: %@", &v22, 0x16u);
   }
 
   objc_autoreleasePoolPop(v6);
@@ -370,26 +366,24 @@ LABEL_26:
       v18 = HMFGetLogIdentifier();
       v19 = objc_opt_class();
       transport2 = [messageCopy transport];
-      v23 = 138543874;
-      v24 = v18;
-      v25 = 2112;
-      v26 = v19;
-      v27 = 2112;
-      v28 = transport2;
-      _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_ERROR, "%{public}@Subscribing transport was not of expected class %@: %@", &v23, 0x20u);
+      v22 = 138543874;
+      v23 = v18;
+      v24 = 2112;
+      v25 = v19;
+      v26 = 2112;
+      v27 = transport2;
+      _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_ERROR, "%{public}@Subscribing transport was not of expected class %@: %@", &v22, 0x20u);
     }
 
     objc_autoreleasePoolPop(v15);
     v21 = [MEMORY[0x277CCA9B8] hmErrorWithCode:48];
     [messageCopy respondWithError:v21];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleInitiateFixMessage:(id)message
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   workQueue = [(HMDAccessorySymptomHandler *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -402,9 +396,9 @@ LABEL_26:
     v9 = HMFGetLogIdentifier();
     shortDescription = [messageCopy shortDescription];
     *buf = 138543618;
-    v26 = v9;
-    v27 = 2112;
-    v28 = shortDescription;
+    v25 = v9;
+    v26 = 2112;
+    v27 = shortDescription;
     _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Handling initiate fix message: %@", buf, 0x16u);
   }
 
@@ -426,14 +420,14 @@ LABEL_26:
   if (v13)
   {
     symptomManager = [(HMDAccessorySymptomHandler *)selfCopy symptomManager];
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __56__HMDAccessorySymptomHandler__handleInitiateFixMessage___block_invoke;
-    v22[3] = &unk_279734D88;
-    v22[4] = selfCopy;
-    v23 = v13;
-    v24 = messageCopy;
-    [symptomManager initiateFixForAccessory:v23 completion:v22];
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __56__HMDAccessorySymptomHandler__handleInitiateFixMessage___block_invoke;
+    v21[3] = &unk_279734D88;
+    v21[4] = selfCopy;
+    v22 = v13;
+    v23 = messageCopy;
+    [symptomManager initiateFixForAccessory:v22 completion:v21];
   }
 
   else
@@ -446,9 +440,9 @@ LABEL_26:
       v18 = HMFGetLogIdentifier();
       accessory2 = [(HMDAccessorySymptomHandler *)v16 accessory];
       *buf = 138543618;
-      v26 = v18;
-      v27 = 2112;
-      v28 = accessory2;
+      v25 = v18;
+      v26 = 2112;
+      v27 = accessory2;
       _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_ERROR, "%{public}@Cannot initiate fix for non-Apple-media accessory %@", buf, 0x16u);
     }
 
@@ -456,13 +450,11 @@ LABEL_26:
     v20 = [MEMORY[0x277CCA9B8] hmErrorWithCode:48];
     [messageCopy respondWithError:v20];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __56__HMDAccessorySymptomHandler__handleInitiateFixMessage___block_invoke(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -474,13 +466,13 @@ void __56__HMDAccessorySymptomHandler__handleInitiateFixMessage___block_invoke(u
     {
       v8 = HMFGetLogIdentifier();
       v9 = *(a1 + 40);
-      v13 = 138543874;
-      v14 = v8;
-      v15 = 2112;
-      v16 = v9;
-      v17 = 2112;
-      v18 = v3;
-      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_ERROR, "%{public}@Failed to initiate fix for accessory %@: %@", &v13, 0x20u);
+      v12 = 138543874;
+      v13 = v8;
+      v14 = 2112;
+      v15 = v9;
+      v16 = 2112;
+      v17 = v3;
+      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_ERROR, "%{public}@Failed to initiate fix for accessory %@: %@", &v12, 0x20u);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -493,23 +485,21 @@ void __56__HMDAccessorySymptomHandler__handleInitiateFixMessage___block_invoke(u
     {
       v10 = HMFGetLogIdentifier();
       v11 = *(a1 + 40);
-      v13 = 138543618;
-      v14 = v10;
-      v15 = 2112;
-      v16 = v11;
-      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Successfully initiated fix for accessory: %@", &v13, 0x16u);
+      v12 = 138543618;
+      v13 = v10;
+      v14 = 2112;
+      v15 = v11;
+      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Successfully initiated fix for accessory: %@", &v12, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
     [*(a1 + 48) respondWithSuccess];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_notifySubscribedClientConnections:(id)connections
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   connectionsCopy = connections;
   workQueue = [(HMDAccessorySymptomHandler *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -522,28 +512,28 @@ void __56__HMDAccessorySymptomHandler__handleInitiateFixMessage___block_invoke(u
   sfDeviceIdentifier = [(HMDAccessorySymptomHandler *)self sfDeviceIdentifier];
   [dictionary setObject:sfDeviceIdentifier forKeyedSubscript:*MEMORY[0x277CD11D8]];
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   obj = connectionsCopy;
-  v10 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v10 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v24;
+    v12 = *v23;
     v13 = *MEMORY[0x277CD11F0];
     do
     {
       v14 = 0;
       do
       {
-        if (*v24 != v12)
+        if (*v23 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v23 + 1) + 8 * v14);
+        v15 = *(*(&v22 + 1) + 8 * v14);
         v16 = [MEMORY[0x277D0F848] entitledMessageWithName:v13 messagePayload:dictionary];
         [v16 setTransport:v15];
         v17 = objc_alloc(MEMORY[0x277D0F820]);
@@ -558,18 +548,16 @@ void __56__HMDAccessorySymptomHandler__handleInitiateFixMessage___block_invoke(u
       }
 
       while (v11 != v14);
-      v11 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v11 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v11);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_notifySubscribedClientConnection:(id)connection
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   workQueue = [(HMDAccessorySymptomHandler *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -580,23 +568,21 @@ void __56__HMDAccessorySymptomHandler__handleInitiateFixMessage___block_invoke(u
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v12 = 138543618;
-    v13 = v9;
-    v14 = 2112;
-    v15 = connectionCopy;
-    _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Notifying subscribed client of updated symptom state: %@", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = v9;
+    v13 = 2112;
+    v14 = connectionCopy;
+    _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Notifying subscribed client of updated symptom state: %@", &v11, 0x16u);
   }
 
   objc_autoreleasePoolPop(v6);
   v10 = [MEMORY[0x277CBEB98] setWithObject:connectionCopy];
   [(HMDAccessorySymptomHandler *)selfCopy _notifySubscribedClientConnections:v10];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_notifyAllSubscribedClientConnections
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDAccessorySymptomHandler *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -613,11 +599,11 @@ void __56__HMDAccessorySymptomHandler__handleInitiateFixMessage___block_invoke(u
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       v11 = HMFGetLogIdentifier();
-      v14 = 138543618;
-      v15 = v11;
-      v16 = 2048;
-      v17 = [clientConnections count];
-      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Notifying all %lu subscribed clients of updated symptom state", &v14, 0x16u);
+      v13 = 138543618;
+      v14 = v11;
+      v15 = 2048;
+      v16 = [clientConnections count];
+      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Notifying all %lu subscribed clients of updated symptom state", &v13, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
@@ -629,20 +615,18 @@ void __56__HMDAccessorySymptomHandler__handleInitiateFixMessage___block_invoke(u
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       v12 = HMFGetLogIdentifier();
-      v14 = 138543362;
-      v15 = v12;
-      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_DEBUG, "%{public}@No subscribed clients to notify of updated symptom state", &v14, 0xCu);
+      v13 = 138543362;
+      v14 = v12;
+      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_DEBUG, "%{public}@No subscribed clients to notify of updated symptom state", &v13, 0xCu);
     }
 
     objc_autoreleasePoolPop(v7);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_shouldFilterWiFiMismatchSymptomForAccessory:(id)accessory
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   home = [accessoryCopy home];
   device = [accessoryCopy device];
@@ -676,17 +660,17 @@ LABEL_19:
     v9 = softwareVersion;
     if (softwareVersion)
     {
-      [softwareVersion operatingSystemVersion];
+      objc_msgSend_operatingSystemVersion(softwareVersion);
     }
 
     else
     {
       buf = 0uLL;
-      v25 = 0;
+      v24 = 0;
     }
 
-    v22 = *MEMORY[0x277D0F5A0];
-    v23 = *(MEMORY[0x277D0F5A0] + 16);
+    v21 = *MEMORY[0x277D0F5A0];
+    v22 = *(MEMORY[0x277D0F5A0] + 16);
     v15 = HMFOperatingSystemVersionCompare();
 
     if (v15 == -1)
@@ -744,13 +728,12 @@ LABEL_19:
   v18 = 0;
 LABEL_20:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
 - (id)_filteredSymptomsForSymptoms:(id)symptoms
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   symptomsCopy = symptoms;
   workQueue = [(HMDAccessorySymptomHandler *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -787,11 +770,11 @@ LABEL_20:
       if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
         v15 = HMFGetLogIdentifier();
-        v20 = 138543618;
-        v21 = v15;
-        v22 = 2112;
-        v23 = v9;
-        _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_INFO, "%{public}@Remove NeedCaptiveLeaseRenewal symptom as accessory %@ does not support captive networks", &v20, 0x16u);
+        v19 = 138543618;
+        v20 = v15;
+        v21 = 2112;
+        v22 = v9;
+        _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_INFO, "%{public}@Remove NeedCaptiveLeaseRenewal symptom as accessory %@ does not support captive networks", &v19, 0x16u);
       }
 
       objc_autoreleasePoolPop(v12);
@@ -800,49 +783,45 @@ LABEL_20:
     }
   }
 
-  v17 = [v6 copy];
-
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = objc_msgSend_copy(v6);
 
   return v17;
 }
 
 - (void)_registerMessages
 {
-  v26[2] = *MEMORY[0x277D85DE8];
+  v25[2] = *MEMORY[0x277D85DE8];
   msgDispatcher = [(HMDAccessorySymptomHandler *)self msgDispatcher];
   v4 = *MEMORY[0x277CD11D0];
   v5 = [HMDXPCMessagePolicy policyWithEntitlements:5];
-  v26[0] = v5;
+  v25[0] = v5;
   accessory = [(HMDAccessorySymptomHandler *)self accessory];
   home = [accessory home];
   v8 = [HMDUserMessagePolicy userMessagePolicyWithHome:home userPrivilege:4 remoteAccessRequired:0];
-  v26[1] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
+  v25[1] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:2];
   [msgDispatcher registerForMessage:v4 receiver:self policies:v9 selector:sel__handleInitiateFixMessage_];
 
   msgDispatcher2 = [(HMDAccessorySymptomHandler *)self msgDispatcher];
   v11 = *MEMORY[0x277CD11E8];
   v12 = [HMDXPCMessagePolicy policyWithEntitlements:5];
-  v25 = v12;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v25 count:1];
+  v24 = v12;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v24 count:1];
   [msgDispatcher2 registerForMessage:v11 receiver:self policies:v13 selector:sel__handleSubscribeMessage_];
 
   msgDispatcher3 = [(HMDAccessorySymptomHandler *)self msgDispatcher];
   v15 = *MEMORY[0x277CD1200];
   v16 = [HMDXPCMessagePolicy policyWithEntitlements:5];
-  v24 = v16;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v24 count:1];
+  v23 = v16;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v23 count:1];
   [msgDispatcher3 registerForMessage:v15 receiver:self policies:v17 selector:sel__handleUnsubscribeMessage_];
 
   msgDispatcher4 = [(HMDAccessorySymptomHandler *)self msgDispatcher];
   v19 = *MEMORY[0x277CD11E0];
   v20 = [HMDXPCMessagePolicy policyWithEntitlements:5];
-  v23 = v20;
-  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v23 count:1];
+  v22 = v20;
+  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v22 count:1];
   [msgDispatcher4 registerForMessage:v19 receiver:self policies:v21 selector:sel__handleSetSymptomsMessage_];
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateSFDeviceIdentifier:(id)identifier
@@ -863,7 +842,7 @@ LABEL_20:
 
 - (void)updateSymptoms:(id)symptoms
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   symptomsCopy = symptoms;
   workQueue = [(HMDAccessorySymptomHandler *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -881,11 +860,11 @@ LABEL_20:
     {
       v12 = HMFGetLogIdentifier();
       symptoms2 = [(HMDAccessorySymptomHandler *)selfCopy symptoms];
-      v17 = 138543618;
-      v18 = v12;
-      v19 = 2112;
-      v20 = symptoms2;
-      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Not updating accessory symptoms from %@", &v17, 0x16u);
+      v16 = 138543618;
+      v17 = v12;
+      v18 = 2112;
+      v19 = symptoms2;
+      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Not updating accessory symptoms from %@", &v16, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
@@ -897,21 +876,19 @@ LABEL_20:
     {
       v14 = HMFGetLogIdentifier();
       symptoms3 = [(HMDAccessorySymptomHandler *)selfCopy symptoms];
-      v17 = 138543874;
-      v18 = v14;
-      v19 = 2112;
-      v20 = symptoms3;
-      v21 = 2112;
-      v22 = symptomsCopy;
-      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Updating accessory symptoms from %@ to %@", &v17, 0x20u);
+      v16 = 138543874;
+      v17 = v14;
+      v18 = 2112;
+      v19 = symptoms3;
+      v20 = 2112;
+      v21 = symptomsCopy;
+      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Updating accessory symptoms from %@ to %@", &v16, 0x20u);
     }
 
     objc_autoreleasePoolPop(v8);
     [(HMDAccessorySymptomHandler *)selfCopy setSymptoms:symptomsCopy];
     [(HMDAccessorySymptomHandler *)selfCopy _notifyAllSubscribedClientConnections];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleAccessoryDeviceUpdated
@@ -1050,10 +1027,11 @@ LABEL_20:
 
 uint64_t __41__HMDAccessorySymptomHandler_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  logCategory__hmf_once_v30 = HMFCreateOSLogHandle();
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v30;
+  logCategory__hmf_once_v30 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

@@ -46,7 +46,7 @@ void __68___DDUIAccountManager__updateMemberDataForiCloudAccount_completion___bl
 
 void __69___DDUIAccountManager__findMemberForiCloudAccount_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -61,27 +61,27 @@ void __69___DDUIAccountManager__findMemberForiCloudAccount_completionHandler___b
     (*(*(a1 + 48) + 16))();
   }
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v8 = [v5 members];
-  v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v17;
+    v11 = *v16;
     while (2)
     {
       v12 = 0;
       do
       {
-        if (*v17 != v11)
+        if (*v16 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = [*(*(&v16 + 1) + 8 * v12) appleID];
+        v13 = [*(*(&v15 + 1) + 8 * v12) appleID];
         v14 = [v13 isEqualToString:*(a1 + 40)];
 
         if (v14)
@@ -95,7 +95,7 @@ void __69___DDUIAccountManager__findMemberForiCloudAccount_completionHandler___b
       }
 
       while (v10 != v12);
-      v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v10)
       {
         continue;
@@ -107,17 +107,14 @@ void __69___DDUIAccountManager__findMemberForiCloudAccount_completionHandler___b
 
   (*(*(a1 + 48) + 16))();
 LABEL_15:
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __69___DDUIAccountManager__findMemberForiCloudAccount_completionHandler___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_238060000, a2, OS_LOG_TYPE_ERROR, "There was an error fetching from the family circle %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_238060000, a2, OS_LOG_TYPE_ERROR, "There was an error fetching from the family circle %@", &v2, 0xCu);
 }
 
 @end

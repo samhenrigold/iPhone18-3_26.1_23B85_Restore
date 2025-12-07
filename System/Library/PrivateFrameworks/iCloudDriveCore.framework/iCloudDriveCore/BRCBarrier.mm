@@ -38,25 +38,56 @@
 
 - (void)signalBarrier
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = *self;
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v2, v3, "[DEBUG] Signalling barrier %@%@");
-  v4 = *MEMORY[0x277D85DE8];
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  v3 = selfCopy->_barrierGroup;
+  barrierGroup = selfCopy->_barrierGroup;
+  selfCopy->_barrierGroup = 0;
+
+  objc_sync_exit(selfCopy);
+  if (v3)
+  {
+    if (selfCopy->_name)
+    {
+      v5 = brc_bread_crumbs();
+      v6 = brc_default_log();
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+      {
+        [BRCBarrier signalBarrier];
+      }
+    }
+
+    dispatch_group_leave(v3);
+  }
 }
 
 - (void)signalAndRetakeBarrier
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = *self;
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v2, v3, "[DEBUG] Signalling and retaking barrier %@%@");
-  v4 = *MEMORY[0x277D85DE8];
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  v3 = selfCopy->_barrierGroup;
+  objc_sync_exit(selfCopy);
+
+  if (v3)
+  {
+    if (selfCopy->_name)
+    {
+      v4 = brc_bread_crumbs();
+      v5 = brc_default_log();
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+      {
+        [BRCBarrier signalAndRetakeBarrier];
+      }
+    }
+
+    dispatch_group_leave(v3);
+    dispatch_group_enter(v3);
+  }
 }
 
 - (BOOL)waitForBarrierWithTimeout:(unint64_t)timeout
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   v5 = selfCopy->_barrierGroup;
@@ -72,7 +103,7 @@
       v9 = brc_default_log();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
-        [BRCBarrier waitForBarrierWithTimeout:?];
+        [BRCBarrier waitForBarrierWithTimeout:];
       }
     }
 
@@ -85,20 +116,20 @@
       v14 = brc_default_log();
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
-        v17 = *p_name;
-        v18 = @"timeout";
-        v19 = 138412802;
+        v16 = *p_name;
+        v17 = @"timeout";
+        v18 = 138412802;
         if (!v12)
         {
-          v18 = @"success";
+          v17 = @"success";
         }
 
-        v20 = v17;
-        v21 = 2112;
-        v22 = v18;
-        v23 = 2112;
-        v24 = v13;
-        _os_log_debug_impl(&dword_223E7A000, v14, OS_LOG_TYPE_DEBUG, "[DEBUG] Done Waiting for barrier %@ with result %@%@", &v19, 0x20u);
+        v19 = v16;
+        v20 = 2112;
+        v21 = v17;
+        v22 = 2112;
+        v23 = v13;
+        _os_log_debug_impl(&dword_223E7A000, v14, OS_LOG_TYPE_DEBUG, "[DEBUG] Done Waiting for barrier %@ with result %@%@", &v18, 0x20u);
       }
     }
   }
@@ -108,17 +139,7 @@
     v11 = 1;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v11;
-}
-
-- (void)waitForBarrierWithTimeout:(uint64_t *)a1 .cold.1(uint64_t *a1)
-{
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = *a1;
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v2, v3, "[DEBUG] Waiting for barrier %@%@");
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 @end

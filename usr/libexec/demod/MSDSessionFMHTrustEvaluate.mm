@@ -9,7 +9,7 @@
   v5 = CFDataCreate(kCFAllocatorDefault, byte_1001A4CB8, dword_1001A5040);
   if (!v5)
   {
-    sub_1000E41BC();
+    sub_1000E41BC(0);
     return 0;
   }
 
@@ -26,55 +26,56 @@
   v10 = SecTrustSetAnchorCertificates(server, v9);
   if (v10)
   {
-    v14 = v10;
-    v11 = sub_100063A54();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v15 = v10;
+    v12 = sub_100063A54(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v17 = "[MSDSessionFMHTrustEvaluate trustServer:isRedirect:]";
-      v18 = 2048;
-      v19 = v14;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%s: Cannot set demounit anchor certificates: %ld", buf, 0x16u);
+      v18 = "[MSDSessionFMHTrustEvaluate trustServer:isRedirect:]";
+      v19 = 2048;
+      v20 = v15;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%s: Cannot set demounit anchor certificates: %ld", buf, 0x16u);
     }
 
     goto LABEL_21;
   }
 
   result = kSecTrustResultInvalid;
-  if (SecTrustEvaluate(server, &result))
+  v11 = SecTrustEvaluate(server, &result);
+  if (v11)
   {
-    v11 = sub_100063A54();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = sub_100063A54(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       sub_1000E40A0();
     }
 
 LABEL_21:
-    v12 = 0;
+    v13 = 0;
     goto LABEL_10;
   }
 
   if (result != kSecTrustResultUnspecified && result != kSecTrustResultProceed)
   {
-    v12 = 0;
+    v13 = 0;
     goto LABEL_12;
   }
 
-  v11 = sub_100063A54();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = sub_100063A54(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Demounit server certificate is valid.", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Demounit server certificate is valid.", buf, 2u);
   }
 
-  v12 = 1;
+  v13 = 1;
 LABEL_10:
 
 LABEL_12:
   CFRelease(v6);
   CFRelease(v8);
 
-  return v12;
+  return v13;
 }
 
 @end

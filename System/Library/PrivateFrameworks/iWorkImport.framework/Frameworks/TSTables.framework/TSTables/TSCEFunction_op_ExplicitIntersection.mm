@@ -8,38 +8,38 @@
 + (id)evaluateForArgsWithContext:(id)context functionSpec:(id)spec arguments:(const void *)arguments
 {
   v7 = **arguments;
-  v12 = objc_msgSend_intersectionRangeContext(context, v8, v9, v10, v11);
-  v17 = objc_msgSend_nativeType(v7, v13, v14, v15, v16);
-  if (v17 == 1)
+  v11 = objc_msgSend_intersectionRangeContext(context, v8, v9, v10);
+  v15 = objc_msgSend_nativeType(v7, v12, v13, v14);
+  if (v15 == 1)
   {
-    v35 = objc_msgSend_asGridValue(v7, v18, v19, v20, v21);
-    if (objc_msgSend_gridKind(v35, v36, v37, v38, v39) == 2)
+    v29 = objc_msgSend_asGridValue(v7, v16, v17, v18);
+    if (objc_msgSend_gridKind(v29, v30, v31, v32) == 2)
     {
-      v44 = objc_msgSend_abstractBackingGrid(v35, v40, v41, v42, v43);
+      v36 = objc_msgSend_abstractBackingGrid(v29, v33, v34, v35);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v52 = objc_msgSend_apparentReference_(v44, v45, context, v46, v47);
+        v42 = objc_msgSend_apparentReference_(v36, v37, context, v38);
         if (context)
         {
-          objc_msgSend_containingCellRef(context, v48, v49, v50, v51);
+          objc_msgSend_containingCellRef(context, v39, v40, v41);
         }
 
         else
         {
           contextCopy = 0;
           specCopy = 0;
-          v61 = 0;
+          v49 = 0;
         }
 
-        v30 = objc_msgSend_intersectionWithHostCellRef_rangeContext_evaluationContext_(v52, v48, &contextCopy, v12, context);
+        v25 = objc_msgSend_intersectionWithHostCellRef_rangeContext_evaluationContext_(v42, v39, &contextCopy, v11, context);
 
-        v7 = v30;
+        v7 = v25;
       }
 
       else
       {
-        v30 = 0;
+        v25 = 0;
       }
     }
 
@@ -47,60 +47,60 @@
     {
       contextCopy = context;
       specCopy = spec;
-      v61 = 0;
-      v62[0] = 0;
-      *(v62 + 7) = 0;
-      v63 = vdupq_n_s64(0x7FFF7FFFFFFFuLL);
-      v64 = 0;
-      v65 = 0;
-      v30 = objc_msgSend_valueAtIndex_accessContext_(v35, v53, 0, &contextCopy, v54);
+      v49 = 0;
+      v50[0] = 0;
+      *(v50 + 7) = 0;
+      v51 = vdupq_n_s64(0x7FFF7FFFFFFFuLL);
+      v52 = 0;
+      v53 = 0;
+      v25 = objc_msgSend_valueAtIndex_accessContext_(v29, v43, 0, &contextCopy);
 
-      v7 = v30;
+      v7 = v25;
     }
 
-    if (!v30)
+    if (!v25)
     {
       goto LABEL_23;
     }
 
 LABEL_22:
-    objc_msgSend_addDynamicPrecedent_(context, v55, v30, v56, v57);
+    objc_msgSend_addDynamicPrecedent_(context, v44, v25, v45);
     goto LABEL_23;
   }
 
-  if (v17 == 6)
+  if (v15 == 6)
   {
-    v22 = objc_msgSend_asReferenceValue(v7, v18, v19, v20, v21);
+    v19 = objc_msgSend_asReferenceValue(v7, v16, v17, v18);
     if (context)
     {
-      objc_msgSend_containingCellRef(context, v31, v32, v33, v34);
+      objc_msgSend_containingCellRef(context, v26, v27, v28);
     }
 
     else
     {
       contextCopy = 0;
       specCopy = 0;
-      v61 = 0;
+      v49 = 0;
     }
 
-    v30 = objc_msgSend_intersectionWithHostCellRef_rangeContext_evaluationContext_(v22, v31, &contextCopy, v12, context);
+    v25 = objc_msgSend_intersectionWithHostCellRef_rangeContext_evaluationContext_(v19, v26, &contextCopy, v11, context);
   }
 
   else
   {
-    if (v17 != 16)
+    if (v15 != 16)
     {
-      v30 = 0;
+      v25 = 0;
       goto LABEL_23;
     }
 
-    v22 = objc_msgSend_asValueGridValue(v7, v18, v19, v20, v21);
-    v27 = objc_msgSend_valueGrid(v22, v23, v24, v25, v26);
-    v30 = objc_msgSend_intersectionWithEvalContext_rangeContext_(v27, v28, context, v12, v29);
+    v19 = objc_msgSend_asValueGridValue(v7, v16, v17, v18);
+    v23 = objc_msgSend_valueGrid(v19, v20, v21, v22);
+    v25 = objc_msgSend_intersectionWithEvalContext_rangeContext_(v23, v24, context, v11);
   }
 
-  v7 = v30;
-  if (v30)
+  v7 = v25;
+  if (v25)
   {
     goto LABEL_22;
   }
@@ -113,25 +113,25 @@ LABEL_23:
 + (BOOL)hasValidNontrivialIntersection:(const TSCERangeRef *)intersection containingCellRef:(TSCECellRef *)ref calcEngine:(id)engine
 {
   engineCopy = engine;
-  v11 = objc_msgSend_tableResolverWrapperForTableUID_(engineCopy, v8, &intersection->_tableUID, v9, v10);
-  if (v11 && !TSCERangeRef::isSingleCell(intersection))
+  v10 = objc_msgSend_tableResolverWrapperForTableUID_(engineCopy, v8, &intersection->_tableUID, v9);
+  if (v10 && (TSCERangeRef::isSingleCell(intersection) & 1) == 0)
   {
-    v13 = [TSCEEvalRef alloc];
+    v12 = [TSCEEvalRef alloc];
     topLeft = intersection->range._topLeft;
     bottomRight = intersection->range._bottomRight;
-    v23 = topLeft;
-    v21 = 15;
-    v16 = objc_msgSend_initWithTableResolver_topLeft_bottomRight_preserveFlags_(v13, v15, v11, &v23, &bottomRight, &v21);
-    v19 = objc_msgSend_intersectionWithHostCellRef_rangeContext_(v16, v17, ref, 1, v18);
-    v12 = v19 != 0;
+    v21 = topLeft;
+    v19 = 15;
+    v15 = objc_msgSend_initWithTableResolver_topLeft_bottomRight_preserveFlags_(v12, v14, v10, &v21, &bottomRight, &v19);
+    v17 = objc_msgSend_intersectionWithHostCellRef_rangeContext_(v15, v16, ref, 1);
+    v11 = v17 != 0;
   }
 
   else
   {
-    v12 = 0;
+    v11 = 0;
   }
 
-  return v12;
+  return v11;
 }
 
 @end

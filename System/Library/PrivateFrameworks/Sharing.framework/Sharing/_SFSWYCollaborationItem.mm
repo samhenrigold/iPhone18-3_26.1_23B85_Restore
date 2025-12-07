@@ -41,7 +41,7 @@
 
 - (void)_loadOptionsIfNeeded
 {
-  v2 = share_sheet_log();
+  v2 = share_sheet_log(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v3 = 0;

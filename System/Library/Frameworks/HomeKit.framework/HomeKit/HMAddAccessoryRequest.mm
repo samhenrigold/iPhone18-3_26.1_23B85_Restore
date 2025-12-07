@@ -16,32 +16,30 @@
 
 - (NSArray)attributeDescriptions
 {
-  v22[5] = *MEMORY[0x1E69E9840];
+  v21[5] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E69A29C8]);
   requestIdentifier = [(HMAddAccessoryRequest *)self requestIdentifier];
-  v20 = [v3 initWithName:@"ID" value:requestIdentifier];
-  v22[0] = v20;
+  v19 = [v3 initWithName:@"ID" value:requestIdentifier];
+  v21[0] = v19;
   v4 = objc_alloc(MEMORY[0x1E69A29C8]);
   home = [(HMAddAccessoryRequest *)self home];
   name = [home name];
   v7 = [v4 initWithName:@"Home Name" value:name];
-  v22[1] = v7;
+  v21[1] = v7;
   v8 = objc_alloc(MEMORY[0x1E69A29C8]);
   accessoryName = [(HMAddAccessoryRequest *)self accessoryName];
   v10 = [v8 initWithName:@"Accessory Name" value:accessoryName];
-  v22[2] = v10;
+  v21[2] = v10;
   v11 = objc_alloc(MEMORY[0x1E69A29C8]);
   accessoryCategory = [(HMAddAccessoryRequest *)self accessoryCategory];
   v13 = [v11 initWithName:@"Accessory Category" value:accessoryCategory];
-  v22[3] = v13;
+  v21[3] = v13;
   v14 = objc_alloc(MEMORY[0x1E69A29C8]);
   [(HMAddAccessoryRequest *)self requiresSetupPayloadURL];
   v15 = HMFBooleanToString();
   v16 = [v14 initWithName:@"Requires Setup Payload URL" value:v15];
-  v22[4] = v16;
-  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:5];
-
-  v18 = *MEMORY[0x1E69E9840];
+  v21[4] = v16;
+  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:5];
 
   return v17;
 }
@@ -174,7 +172,7 @@
 
 - (HMAccessorySetupPayload)payloadWithURL:(NSURL *)setupPayloadURL ownershipToken:(HMAccessoryOwnershipToken *)ownershipToken
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v6 = setupPayloadURL;
   v7 = ownershipToken;
   v8 = objc_autoreleasePoolPush();
@@ -183,21 +181,20 @@
   if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
     v11 = HMFGetLogIdentifier();
-    v14 = 138543618;
-    v15 = v11;
-    v16 = 2080;
-    v17 = "[HMAddAccessoryRequest payloadWithURL:ownershipToken:]";
-    _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_ERROR, "%{public}@%s is not supported", &v14, 0x16u);
+    v13 = 138543618;
+    v14 = v11;
+    v15 = 2080;
+    v16 = "[HMAddAccessoryRequest payloadWithURL:ownershipToken:]";
+    _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_ERROR, "%{public}@%s is not supported", &v13, 0x16u);
   }
 
   objc_autoreleasePoolPop(v8);
-  v12 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 - (HMAccessorySetupPayload)payloadWithOwnershipToken:(HMAccessoryOwnershipToken *)ownershipToken
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v4 = ownershipToken;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -205,15 +202,14 @@
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     v8 = HMFGetLogIdentifier();
-    v11 = 138543618;
-    v12 = v8;
-    v13 = 2080;
-    v14 = "[HMAddAccessoryRequest payloadWithOwnershipToken:]";
-    _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_ERROR, "%{public}@%s is not supported", &v11, 0x16u);
+    v10 = 138543618;
+    v11 = v8;
+    v12 = 2080;
+    v13 = "[HMAddAccessoryRequest payloadWithOwnershipToken:]";
+    _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_ERROR, "%{public}@%s is not supported", &v10, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
-  v9 = *MEMORY[0x1E69E9840];
   return 0;
 }
 

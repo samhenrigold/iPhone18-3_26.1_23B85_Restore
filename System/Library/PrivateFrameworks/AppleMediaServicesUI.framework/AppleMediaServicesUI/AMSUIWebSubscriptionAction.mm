@@ -55,10 +55,10 @@
 
 - (id)runAction
 {
-  v21 = *MEMORY[0x1E69E9840];
-  v14.receiver = self;
-  v14.super_class = AMSUIWebSubscriptionAction;
-  runAction = [(AMSUIWebAction *)&v14 runAction];
+  v20 = *MEMORY[0x1E69E9840];
+  v13.receiver = self;
+  v13.super_class = AMSUIWebSubscriptionAction;
+  runAction = [(AMSUIWebAction *)&v13 runAction];
   mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedWebUIConfig];
   if (!mEMORY[0x1E698C968])
   {
@@ -72,11 +72,11 @@
     v7 = AMSLogKey();
     mediaType = [(AMSUIWebSubscriptionAction *)self mediaType];
     *buf = 138543874;
-    v16 = v6;
-    v17 = 2114;
-    v18 = v7;
-    v19 = 2048;
-    v20 = mediaType;
+    v15 = v6;
+    v16 = 2114;
+    v17 = v7;
+    v18 = 2048;
+    v19 = mediaType;
     _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Started subscription lookup for media type: %ld", buf, 0x20u);
   }
 
@@ -85,8 +85,6 @@
   [v9 setExtendedCarrierCheck:{-[AMSUIWebSubscriptionAction extendedCarrierCheck](self, "extendedCarrierCheck")}];
   performExternalLookup = [v9 performExternalLookup];
   v11 = [performExternalLookup thenWithBlock:&__block_literal_global_33];
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }

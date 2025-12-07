@@ -407,9 +407,9 @@ void __88__SKUIPhysicalCirclesDocumentViewController_onboardingCircles_didRemove
 {
   v8 = a2;
   v6 = [v8 itemIdentifier];
-  v7 = [v6 isEqualToString:*(a1 + 32)];
+  isEqualToString = objc_msgSend_isEqualToString_(v6);
 
-  if (v7)
+  if (isEqualToString)
   {
     [*(*(a1 + 40) + 1112) dispatchRemovedEventWithChildViewElement:v8];
     *a4 = 1;
@@ -432,10 +432,10 @@ void __88__SKUIPhysicalCirclesDocumentViewController_onboardingCircles_didRemove
 void __96__SKUIPhysicalCirclesDocumentViewController_onboardingCircles_didSelectAffiliationItem_atIndex___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   v7 = a2;
-  v6 = [v7 itemIdentifier];
-  LODWORD(a1) = [v6 isEqualToString:*(a1 + 32)];
+  v5 = [v7 itemIdentifier];
+  isEqualToString = objc_msgSend_isEqualToString_(v5);
 
-  if (a1)
+  if (isEqualToString)
   {
     [v7 dispatchEventOfType:2 canBubble:1 isCancelable:1 extraInfo:0 completionBlock:0];
     *a4 = 1;
@@ -688,9 +688,9 @@ LABEL_5:
           v35 = objc_alloc_init(SKUIOnboardingCircleImageDataConsumer);
           [(SKUIOnboardingCircleImageDataConsumer *)v35 setOutputSize:v26, v26];
           imageTreatment = [v28 imageTreatment];
-          v37 = [imageTreatment isEqualToString:0x282809088];
+          isEqualToString = objc_msgSend_isEqualToString_(imageTreatment);
 
-          if (v37)
+          if (isEqualToString)
           {
             fillColor = [v28 fillColor];
             v39 = fillColor;

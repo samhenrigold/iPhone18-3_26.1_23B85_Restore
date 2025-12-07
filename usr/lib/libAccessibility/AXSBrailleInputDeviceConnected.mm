@@ -3,7 +3,7 @@
 
 @implementation AXSBrailleInputDeviceConnected
 
-uint64_t ___AXSBrailleInputDeviceConnected_block_invoke()
+void *___AXSBrailleInputDeviceConnected_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

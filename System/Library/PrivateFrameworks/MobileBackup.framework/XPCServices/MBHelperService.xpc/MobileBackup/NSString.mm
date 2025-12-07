@@ -77,7 +77,7 @@ LABEL_8:
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v3 = MBSQLiteJournalSuffixes();
+  v3 = MBSQLiteJournalSuffixes(self, a2);
   v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {

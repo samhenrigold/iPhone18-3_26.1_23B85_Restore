@@ -33,7 +33,7 @@
 
 - (BOOL)parseFileHandle:(id)handle error:(id *)error
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   if (error)
   {
     *error = 0;
@@ -56,9 +56,9 @@
   if (!self->_foundVisitArray && !v12)
   {
     v13 = MEMORY[0x1E696ABC0];
-    v20 = *MEMORY[0x1E696A578];
-    v21[0] = @"Could not find history visit array in JSON file";
-    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+    v19 = *MEMORY[0x1E696A578];
+    v20[0] = @"Could not find history visit array in JSON file";
+    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:&v19 count:1];
     v15 = [v13 errorWithDomain:@"com.apple.Safari.Core.WBSHistoryImporterErrorDomain" code:2 userInfo:v14];
     v16 = self->_lastError;
     self->_lastError = v15;
@@ -75,56 +75,51 @@
 
   v17 = v12 == 0;
 
-  v18 = *MEMORY[0x1E69E9840];
   return v17 && v11;
 }
 
 - (BOOL)_checkNotAtRootLevel
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   v3 = [(NSMutableArray *)self->_stack count];
   if (!v3)
   {
     v4 = MEMORY[0x1E696ABC0];
-    v10 = *MEMORY[0x1E696A578];
-    v11[0] = @"Root node is expected to be a dictionary";
-    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+    v9 = *MEMORY[0x1E696A578];
+    v10[0] = @"Root node is expected to be a dictionary";
+    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
     v6 = [v4 errorWithDomain:@"com.apple.Safari.Core.WBSHistoryImporterErrorDomain" code:1 userInfo:v5];
     lastError = self->_lastError;
     self->_lastError = v6;
   }
 
-  result = v3 != 0;
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return v3 != 0;
 }
 
 - (BOOL)_isParsingVisitArray
 {
-  v6[3] = *MEMORY[0x1E69E9840];
+  v5[3] = *MEMORY[0x1E69E9840];
   stack = self->_stack;
-  v6[0] = &unk_1F308E450;
-  v6[1] = @"history";
-  v6[2] = &unk_1F308E468;
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:3];
+  v5[0] = &unk_1F308E450;
+  v5[1] = @"history";
+  v5[2] = &unk_1F308E468;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:3];
   LOBYTE(stack) = [(NSMutableArray *)stack isEqual:v3];
 
-  v4 = *MEMORY[0x1E69E9840];
   return stack;
 }
 
 - (BOOL)_isParsingVisit
 {
-  v6[4] = *MEMORY[0x1E69E9840];
+  v5[4] = *MEMORY[0x1E69E9840];
   stack = self->_stack;
-  v6[0] = &unk_1F308E450;
-  v6[1] = @"history";
-  v6[2] = &unk_1F308E468;
-  v6[3] = &unk_1F308E450;
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:4];
+  v5[0] = &unk_1F308E450;
+  v5[1] = @"history";
+  v5[2] = &unk_1F308E468;
+  v5[3] = &unk_1F308E450;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:4];
   LOBYTE(stack) = [(NSMutableArray *)stack isEqual:v3];
 
-  v4 = *MEMORY[0x1E69E9840];
   return stack;
 }
 
@@ -169,8 +164,8 @@
           goto LABEL_38;
         }
 
-        v11 = WBS_LOG_CHANNEL_PREFIXImport();
-        if (!os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+        v13 = WBS_LOG_CHANNEL_PREFIXImport(v11, v12);
+        if (!os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_38;
         }
@@ -221,17 +216,17 @@
 
     if ([_popKeyFromStackIfPossible isEqualToString:@"source_url"] && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
     {
-      v12 = [MEMORY[0x1E695DFF8] URLWithString:valueCopy];
+      v14 = [MEMORY[0x1E695DFF8] URLWithString:valueCopy];
       redirectSourceURL = self->_redirectSourceURL;
-      self->_redirectSourceURL = v12;
+      self->_redirectSourceURL = v14;
 
       if (self->_redirectSourceURL)
       {
         goto LABEL_38;
       }
 
-      v14 = WBS_LOG_CHANNEL_PREFIXImport();
-      if (!os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v18 = WBS_LOG_CHANNEL_PREFIXImport(v16, v17);
+      if (!os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_38;
       }
@@ -268,11 +263,11 @@
         goto LABEL_38;
       }
 
-      v15 = [MEMORY[0x1E695DFF8] URLWithString:valueCopy];
+      v19 = [MEMORY[0x1E695DFF8] URLWithString:valueCopy];
       redirectDestinationURL = self->_redirectDestinationURL;
-      self->_redirectDestinationURL = v15;
+      self->_redirectDestinationURL = v19;
 
-      if (self->_redirectDestinationURL || (v17 = WBS_LOG_CHANNEL_PREFIXImport(), !os_log_type_enabled(v17, OS_LOG_TYPE_ERROR)))
+      if (self->_redirectDestinationURL || (v23 = WBS_LOG_CHANNEL_PREFIXImport(v21, v22), !os_log_type_enabled(v23, OS_LOG_TYPE_ERROR)))
       {
 LABEL_38:
 
@@ -341,10 +336,11 @@ LABEL_39:
   if ([(WBSHistoryImporter *)self _isParsingVisit])
   {
     v5 = objc_autoreleasePoolPush();
+    v7 = v5;
     if (!self->_url)
     {
-      v6 = WBS_LOG_CHANNEL_PREFIXImport();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v8 = WBS_LOG_CHANNEL_PREFIXImport(v5, v6);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         [WBSHistoryImporter jsonReaderEndObject:];
       }
@@ -353,8 +349,8 @@ LABEL_39:
     visitTime = self->_visitTime;
     if (!visitTime)
     {
-      v8 = WBS_LOG_CHANNEL_PREFIXImport();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v10 = WBS_LOG_CHANNEL_PREFIXImport(0, v6);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         [WBSHistoryImporter jsonReaderEndObject:];
       }
@@ -362,32 +358,32 @@ LABEL_39:
       visitTime = self->_visitTime;
     }
 
-    v9 = WBSUnixTimeInMicrosecondsToTimeInterval(visitTime);
+    v11 = WBSUnixTimeInMicrosecondsToTimeInterval(visitTime);
     if (self->_url)
     {
       if (self->_visitTime)
       {
-        v10 = v9;
-        if (v9 >= self->_ageLimit)
+        v12 = v11;
+        if (v11 >= self->_ageLimit)
         {
-          v11 = 0.0;
-          v12 = 0.0;
+          v13 = 0.0;
+          v14 = 0.0;
           if (self->_redirectSourceURL)
           {
-            v12 = WBSUnixTimeInMicrosecondsToTimeInterval(self->_redirectSourceVisitTime);
+            v14 = WBSUnixTimeInMicrosecondsToTimeInterval(self->_redirectSourceVisitTime);
           }
 
           if (self->_redirectDestinationURL)
           {
-            v11 = WBSUnixTimeInMicrosecondsToTimeInterval(self->_redirectDestinationVisitTime);
+            v13 = WBSUnixTimeInMicrosecondsToTimeInterval(self->_redirectDestinationVisitTime);
           }
 
-          if (v12 < self->_ageLimit)
+          if (v14 < self->_ageLimit)
           {
             redirectSourceURL = self->_redirectSourceURL;
             self->_redirectSourceURL = 0;
 
-            v12 = 0.0;
+            v14 = 0.0;
           }
 
           WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -397,12 +393,12 @@ LABEL_39:
           httpGet = self->_httpGet;
           absoluteString2 = [(NSURL *)self->_redirectSourceURL absoluteString];
           absoluteString3 = [(NSURL *)self->_redirectDestinationURL absoluteString];
-          [WeakRetained addVisitWithURLString:absoluteString visitTime:title title:!loadFailure loadSuccessful:httpGet httpGet:absoluteString2 redirectSourceURLString:absoluteString3 redirectSourceVisitTime:v10 redirectDestinationURLString:v12 redirectDestinationVisitTime:v11 visitCount:self->_visitCount];
+          [WeakRetained addVisitWithURLString:absoluteString visitTime:title title:!loadFailure loadSuccessful:httpGet httpGet:absoluteString2 redirectSourceURLString:absoluteString3 redirectSourceVisitTime:v12 redirectDestinationURLString:v14 redirectDestinationVisitTime:v13 visitCount:self->_visitCount];
         }
       }
     }
 
-    objc_autoreleasePoolPop(v5);
+    objc_autoreleasePoolPop(v7);
   }
 
   [(NSMutableArray *)self->_stack removeLastObject];
@@ -420,11 +416,9 @@ LABEL_39:
 
 - (void)jsonReader:scalarValue:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

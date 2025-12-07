@@ -2,6 +2,7 @@
 - (BOOL)containsOutgoingRestrictedHandle:(id)handle forBundleIdentifier:(id)identifier performSynchronously:(BOOL)synchronously;
 - (BOOL)containsRecentsRestrictedHandle:(id)handle;
 - (BOOL)containsRestrictedHandle:(id)handle;
+- (BOOL)isRestrictedExclusivelyByScreenTime:(id)time forBundleIdentifier:(id)identifier performSynchronously:(BOOL)synchronously;
 - (BOOL)isUnknownAddress:(id)address normalizedAddress:(id)normalizedAddress forBundleIdentifier:(id)identifier;
 - (BOOL)isUnknownCaller:(id)caller;
 - (BOOL)shouldFilterIncomingCall:(id)call from:(id)from;
@@ -295,6 +296,60 @@ LABEL_10:
 
   os_unfair_lock_unlock(&self->_accessorLock);
   return v11;
+}
+
+- (BOOL)isRestrictedExclusivelyByScreenTime:(id)time forBundleIdentifier:(id)identifier performSynchronously:(BOOL)synchronously
+{
+  synchronouslyCopy = synchronously;
+  timeCopy = time;
+  identifierCopy = identifier;
+  os_unfair_lock_lock(&self->_accessorLock);
+  v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  selfCopy = self;
+  filters = [(CSDCallFilterController *)self filters];
+  v11 = [filters countByEnumeratingWithState:&v17 objects:v21 count:16];
+  if (v11)
+  {
+    v12 = 0;
+    v13 = *v18;
+    do
+    {
+      for (i = 0; i != v11; i = i + 1)
+      {
+        if (*v18 != v13)
+        {
+          objc_enumerationMutation(filters);
+        }
+
+        if ([*(*(&v17 + 1) + 8 * i) containsOutgoingRestrictedHandle:timeCopy forBundleIdentifier:identifierCopy performSynchronously:synchronouslyCopy])
+        {
+          objc_opt_class();
+          if ((objc_opt_isKindOfClass() & 1) == 0)
+          {
+            goto LABEL_12;
+          }
+
+          v12 = 1;
+        }
+      }
+
+      v11 = [filters countByEnumeratingWithState:&v17 objects:v21 count:16];
+    }
+
+    while (v11);
+  }
+
+  else
+  {
+LABEL_12:
+    v12 = 0;
+  }
+
+  os_unfair_lock_unlock(&selfCopy->_accessorLock);
+  return v12 & 1;
 }
 
 @end

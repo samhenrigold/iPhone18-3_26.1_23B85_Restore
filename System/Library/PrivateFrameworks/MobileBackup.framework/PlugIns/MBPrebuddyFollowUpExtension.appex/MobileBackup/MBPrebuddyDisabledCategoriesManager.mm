@@ -6,6 +6,7 @@
 - (id)disabledSyncDataclasses:(id *)dataclasses;
 - (void)_enableKeychainSync:(id)sync completion:(id)completion;
 - (void)_saveEnabledSyncDataclasses:(id)dataclasses;
+- (void)enableDisabledBackupDomains:(BOOL)domains;
 - (void)enableDisabledSyncCategories:(id)categories completion:(id)completion;
 @end
 
@@ -90,7 +91,7 @@
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "enableDisabledSyncCategories: couldn't get primary Apple Account", buf, 2u);
-      _MBLog();
+      _MBLog(@"Df", "enableDisabledSyncCategories: couldn't get primary Apple Account");
     }
 
     block[0] = _NSConcreteStackBlock;
@@ -112,7 +113,7 @@
     *buf = 138412290;
     v8 = dataclassesCopy;
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Saving enabled sync data classes: %@", buf, 0xCu);
-    _MBLog();
+    _MBLog(@"Df", "Saving enabled sync data classes: %@", dataclassesCopy);
   }
 
   v5 = objc_alloc_init(MBManager);
@@ -129,7 +130,7 @@
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Enabling Keychain Sync.", buf, 2u);
-    _MBLog();
+    _MBLog(@"Df", "Enabling Keychain Sync.");
   }
 
   v10[0] = _NSConcreteStackBlock;
@@ -141,6 +142,55 @@
   v8 = completionCopy;
   v9 = syncCopy;
   [CDPKeychainSync setUserVisibleKeychainSyncEnabled:1 withCompletion:v10];
+}
+
+- (void)enableDisabledBackupDomains:(BOOL)domains
+{
+  domainsCopy = domains;
+  v5 = objc_alloc_init(MBManager);
+  v6 = [(MBPrebuddyDisabledCategoriesManager *)self disabledBackupDomains:domainsCopy];
+  v13 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v19 count:16];
+  if (v7)
+  {
+    v8 = v7;
+    v9 = *v14;
+    do
+    {
+      v10 = 0;
+      do
+      {
+        if (*v14 != v9)
+        {
+          objc_enumerationMutation(v6);
+        }
+
+        domainName = [*(*(&v13 + 1) + 8 * v10) domainName];
+        [v5 setBackupEnabled:1 forDomainName:domainName];
+
+        v10 = v10 + 1;
+      }
+
+      while (v8 != v10);
+      v8 = [v6 countByEnumeratingWithState:&v13 objects:v19 count:16];
+    }
+
+    while (v8);
+  }
+
+  v12 = MBGetDefaultLog();
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412290;
+    v18 = v6;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Saving enabled backup domains: %@", buf, 0xCu);
+    _MBLog(@"Df", "Saving enabled backup domains: %@", v6);
+  }
+
+  [v5 saveBackupDomainsEnabledForMegaBackup:v6];
 }
 
 - (id)disabledBackupDomains:(BOOL)domains
@@ -188,7 +238,7 @@
     {
       *v10 = 0;
       _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "enableDisabledSyncCategories: couldn't get primary Apple Account", v10, 2u);
-      _MBLog();
+      _MBLog(@"Df", "enableDisabledSyncCategories: couldn't get primary Apple Account");
     }
 
     if (dataclasses)

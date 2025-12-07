@@ -9,11 +9,11 @@
 
 - (FCNewsPersonalizationTrainingBias)initWithDictionary:(id)dictionary
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v17.receiver = self;
-  v17.super_class = FCNewsPersonalizationTrainingBias;
-  v5 = [(FCNewsPersonalizationTrainingBias *)&v17 init];
+  v16.receiver = self;
+  v16.super_class = FCNewsPersonalizationTrainingBias;
+  v5 = [(FCNewsPersonalizationTrainingBias *)&v16 init];
   if (v5)
   {
     v6 = FCAppConfigurationStringValue(dictionaryCopy, @"eventType", 0);
@@ -24,15 +24,15 @@
     {
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT))
       {
-        v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Was supplied a group bias with no event, feed or group type"];
+        v14 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Was supplied a group bias with no event, feed or group type"];
         *buf = 136315906;
-        v19 = "[FCNewsPersonalizationTrainingBias initWithDictionary:]";
-        v20 = 2080;
-        v21 = "FCNewsPersonalizationTrainingBias.m";
-        v22 = 1024;
-        v23 = 37;
-        v24 = 2114;
-        v25 = v15;
+        v18 = "[FCNewsPersonalizationTrainingBias initWithDictionary:]";
+        v19 = 2080;
+        v20 = "FCNewsPersonalizationTrainingBias.m";
+        v21 = 1024;
+        v22 = 37;
+        v23 = 2114;
+        v24 = v14;
         _os_log_fault_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "*** Assertion failure (Identifier: InvalidGroupBias) : %s %s:%d %{public}@", buf, 0x26u);
       }
 
@@ -56,15 +56,15 @@ LABEL_15:
     {
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT))
       {
-        v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Was supplied a group bias with no bias"];
+        v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Was supplied a group bias with no bias"];
         *buf = 136315906;
-        v19 = "[FCNewsPersonalizationTrainingBias initWithDictionary:]";
-        v20 = 2080;
-        v21 = "FCNewsPersonalizationTrainingBias.m";
-        v22 = 1024;
-        v23 = 44;
-        v24 = 2114;
-        v25 = v16;
+        v18 = "[FCNewsPersonalizationTrainingBias initWithDictionary:]";
+        v19 = 2080;
+        v20 = "FCNewsPersonalizationTrainingBias.m";
+        v21 = 1024;
+        v22 = 44;
+        v23 = 2114;
+        v24 = v15;
         _os_log_fault_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "*** Assertion failure (Identifier: InvalidGroupBias) : %s %s:%d %{public}@", buf, 0x26u);
       }
 
@@ -81,7 +81,6 @@ LABEL_15:
   v12 = v5;
 LABEL_16:
 
-  v13 = *MEMORY[0x1E69E9840];
   return v12;
 }
 

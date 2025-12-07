@@ -36,12 +36,12 @@
 
 - (void)initWithOwnedCXXStringNoCopy:()SNN
 {
-  v0[0] = 0;
-  v0[1] = v0;
-  v0[2] = 0x3812000000;
-  v0[3] = __Block_byref_object_copy_;
-  v0[4] = __Block_byref_object_dispose_;
-  v0[5] = &unk_25BD203B9;
+  v3[0] = 0;
+  v3[1] = v3;
+  v3[2] = 0x3812000000;
+  v3[3] = __Block_byref_object_copy_;
+  v3[4] = __Block_byref_object_dispose_;
+  v3[5] = &unk_25BD203B9;
   operator new();
 }
 
@@ -60,13 +60,13 @@
     operator new();
   }
 
-  a2[23] = result;
+  *(a2 + 23) = result;
   if (result)
   {
     result = memmove(a2, uTF8String, result);
   }
 
-  a2[v5] = 0;
+  *(a2 + v5) = 0;
   return result;
 }
 

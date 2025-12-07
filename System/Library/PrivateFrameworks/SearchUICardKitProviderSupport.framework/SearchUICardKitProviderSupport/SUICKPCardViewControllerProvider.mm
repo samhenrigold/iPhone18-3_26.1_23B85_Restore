@@ -127,15 +127,15 @@
 
 void __62__SUICKPCardViewControllerProvider_cardViewControllerForCard___block_invoke(uint64_t a1, void *a2)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = MEMORY[0x277CF93F0];
   v5 = *MEMORY[0x277CF93F0];
   if (os_log_type_enabled(*MEMORY[0x277CF93F0], OS_LOG_TYPE_DEFAULT))
   {
-    v28 = 138412290;
-    v29 = v3;
-    _os_log_impl(&dword_264EDF000, v5, OS_LOG_TYPE_DEFAULT, "Asynchronous card loading completed for first level card\n    Card: %@", &v28, 0xCu);
+    v27 = 138412290;
+    v28 = v3;
+    _os_log_impl(&dword_264EDF000, v5, OS_LOG_TYPE_DEFAULT, "Asynchronous card loading completed for first level card\n    Card: %@", &v27, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 64));
@@ -174,13 +174,11 @@ void __62__SUICKPCardViewControllerProvider_cardViewControllerForCard___block_in
       __62__SUICKPCardViewControllerProvider_cardViewControllerForCard___block_invoke_cold_2(a1, v20, v21, v22, v23, v24, v25, v26);
     }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unregisterCardViewController:(id)controller
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   card = [controllerCopy card];
   cardIdentifier = [card cardIdentifier];
@@ -196,42 +194,42 @@ void __62__SUICKPCardViewControllerProvider_cardViewControllerForCard___block_in
       if (os_log_type_enabled(*MEMORY[0x277CF93F0], OS_LOG_TYPE_INFO))
       {
         *buf = 138412546;
-        v26 = card2;
-        v27 = 2112;
-        v28 = controllerCopy;
+        v25 = card2;
+        v26 = 2112;
+        v27 = controllerCopy;
         _os_log_impl(&dword_264EDF000, v10, OS_LOG_TYPE_INFO, "Unregistering SearchUICardViewController\n    Card: %@\n    Card view controller: %@", buf, 0x16u);
       }
 
-      v22 = 0u;
-      v23 = 0u;
-      v20 = 0u;
       v21 = 0u;
-      v19 = card2;
+      v22 = 0u;
+      v19 = 0u;
+      v20 = 0u;
+      v18 = card2;
       resolvedCardSections = [card2 resolvedCardSections];
-      v12 = [resolvedCardSections countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v12 = [resolvedCardSections countByEnumeratingWithState:&v19 objects:v23 count:16];
       if (v12)
       {
         v13 = v12;
-        v14 = *v21;
+        v14 = *v20;
         do
         {
           v15 = 0;
           do
           {
-            if (*v21 != v14)
+            if (*v20 != v14)
             {
               objc_enumerationMutation(resolvedCardSections);
             }
 
             cardsByCardSectionIdentifiers = self->_cardsByCardSectionIdentifiers;
-            cardSectionIdentifier = [*(*(&v20 + 1) + 8 * v15) cardSectionIdentifier];
+            cardSectionIdentifier = [*(*(&v19 + 1) + 8 * v15) cardSectionIdentifier];
             [(NSMutableDictionary *)cardsByCardSectionIdentifiers removeObjectForKey:cardSectionIdentifier];
 
             ++v15;
           }
 
           while (v13 != v15);
-          v13 = [resolvedCardSections countByEnumeratingWithState:&v20 objects:v24 count:16];
+          v13 = [resolvedCardSections countByEnumeratingWithState:&v19 objects:v23 count:16];
         }
 
         while (v13);
@@ -252,13 +250,11 @@ void __62__SUICKPCardViewControllerProvider_cardViewControllerForCard___block_in
   {
     [SUICKPCardViewControllerProvider unregisterCardViewController:];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)presentation:(id)presentation didApplyCardSectionViewSource:(id)source toCardViewController:(id)controller
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   presentationCopy = presentation;
   sourceCopy = source;
   controllerCopy = controller;
@@ -274,27 +270,27 @@ void __62__SUICKPCardViewControllerProvider_cardViewControllerForCard___block_in
       if ([delegate conformsToProtocol:&unk_2876CC9F8])
       {
         [v10 setSnippetUIDelegate:delegate];
-        v41 = delegate;
+        v40 = delegate;
       }
 
       else
       {
-        v41 = 0;
+        v40 = 0;
       }
     }
 
     else
     {
-      v41 = 0;
+      v40 = 0;
     }
   }
 
   else
   {
-    v41 = 0;
+    v40 = 0;
   }
 
-  v38 = presentationCopy;
+  v37 = presentationCopy;
   v12 = *MEMORY[0x277CF93F0];
   if (os_log_type_enabled(*MEMORY[0x277CF93F0], OS_LOG_TYPE_INFO))
   {
@@ -305,26 +301,26 @@ void __62__SUICKPCardViewControllerProvider_cardViewControllerForCard___block_in
   card = [controllerCopy card];
   resolvedCardSections = [card resolvedCardSections];
 
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
   v45 = 0u;
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
   obj = resolvedCardSections;
-  v15 = [obj countByEnumeratingWithState:&v44 objects:v52 count:16];
+  v15 = [obj countByEnumeratingWithState:&v43 objects:v51 count:16];
   if (v15)
   {
     v16 = v15;
-    v42 = *v45;
+    v41 = *v44;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v45 != v42)
+        if (*v44 != v41)
         {
           objc_enumerationMutation(obj);
         }
 
-        v18 = *(*(&v44 + 1) + 8 * i);
+        v18 = *(*(&v43 + 1) + 8 * i);
         v19 = [sourceCopy viewConfigurationForCardSection:v18];
         if (v19)
         {
@@ -354,31 +350,29 @@ void __62__SUICKPCardViewControllerProvider_cardViewControllerForCard___block_in
             [feedbackDelegatesByCardSectionViewIds setObject:v25 forKey:cardSectionViewIdentifier2];
           }
 
-          [v24 setSnippetUIDelegate:v41];
+          [v24 setSnippetUIDelegate:v40];
           v35 = *MEMORY[0x277CF93F0];
           if (os_log_type_enabled(*MEMORY[0x277CF93F0], OS_LOG_TYPE_INFO))
           {
             *buf = 138412546;
-            v49 = v24;
-            v50 = 2112;
-            v51 = v19;
+            v48 = v24;
+            v49 = 2112;
+            v50 = v19;
             _os_log_impl(&dword_264EDF000, v35, OS_LOG_TYPE_INFO, "Configured demux %@ for card section view configuration: %@", buf, 0x16u);
           }
         }
       }
 
-      v16 = [obj countByEnumeratingWithState:&v44 objects:v52 count:16];
+      v16 = [obj countByEnumeratingWithState:&v43 objects:v51 count:16];
     }
 
     while (v16);
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (id)customViewControllerForCardSection:(id)section
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   sectionCopy = section;
   v5 = [(SUICKPCardViewControllerProvider *)self _cardViewControllerForCardSection:sectionCopy];
   cardSectionViewSource = [v5 cardSectionViewSource];
@@ -393,9 +387,9 @@ void __62__SUICKPCardViewControllerProvider_cardViewControllerForCard___block_in
     {
       v11 = v9;
       _providerIdentifier = [v7 _providerIdentifier];
-      v23 = 138412290;
-      v24 = _providerIdentifier;
-      _os_log_impl(&dword_264EDF000, v11, OS_LOG_TYPE_DEFAULT, "Found custom card section view configuration to provide to SearchUI from provider: %@", &v23, 0xCu);
+      v22 = 138412290;
+      v23 = _providerIdentifier;
+      _os_log_impl(&dword_264EDF000, v11, OS_LOG_TYPE_DEFAULT, "Found custom card section view configuration to provide to SearchUI from provider: %@", &v22, 0xCu);
     }
 
     _cardKitCardSectionViewController = [v7 _cardKitCardSectionViewController];
@@ -408,13 +402,13 @@ void __62__SUICKPCardViewControllerProvider_cardViewControllerForCard___block_in
     {
       if (v17)
       {
-        v23 = 138412802;
-        v24 = sectionCopy;
-        v25 = 2112;
-        v26 = _cardKitCardSectionViewController;
-        v27 = 2112;
-        v28 = v5;
-        _os_log_impl(&dword_264EDF000, v16, OS_LOG_TYPE_DEFAULT, "NOT providing custom view controller for card section to SearchUI because it originated from the SearchUI provider\n    Card section: %@\n    Card section view controller: %@\n    Card view controller: %@", &v23, 0x20u);
+        v22 = 138412802;
+        v23 = sectionCopy;
+        v24 = 2112;
+        v25 = _cardKitCardSectionViewController;
+        v26 = 2112;
+        v27 = v5;
+        _os_log_impl(&dword_264EDF000, v16, OS_LOG_TYPE_DEFAULT, "NOT providing custom view controller for card section to SearchUI because it originated from the SearchUI provider\n    Card section: %@\n    Card section view controller: %@\n    Card view controller: %@", &v22, 0x20u);
       }
 
       v18 = 0;
@@ -424,13 +418,13 @@ void __62__SUICKPCardViewControllerProvider_cardViewControllerForCard___block_in
     {
       if (v17)
       {
-        v23 = 138412802;
-        v24 = sectionCopy;
-        v25 = 2112;
-        v26 = _cardKitCardSectionViewController;
-        v27 = 2112;
-        v28 = v5;
-        _os_log_impl(&dword_264EDF000, v16, OS_LOG_TYPE_DEFAULT, "Providing custom view controller for card section to SearchUI\n    Card section: %@\n    Card section view controller: %@\n    Card view controller: %@", &v23, 0x20u);
+        v22 = 138412802;
+        v23 = sectionCopy;
+        v24 = 2112;
+        v25 = _cardKitCardSectionViewController;
+        v26 = 2112;
+        v27 = v5;
+        _os_log_impl(&dword_264EDF000, v16, OS_LOG_TYPE_DEFAULT, "Providing custom view controller for card section to SearchUI\n    Card section: %@\n    Card section view controller: %@\n    Card view controller: %@", &v22, 0x20u);
       }
 
       v18 = _cardKitCardSectionViewController;
@@ -443,19 +437,17 @@ void __62__SUICKPCardViewControllerProvider_cardViewControllerForCard___block_in
     {
       v19 = v9;
       cardSectionViewSource2 = [v5 cardSectionViewSource];
-      v23 = 138412802;
-      v24 = sectionCopy;
-      v25 = 2112;
-      v26 = cardSectionViewSource2;
-      v27 = 2112;
-      v28 = v5;
-      _os_log_impl(&dword_264EDF000, v19, OS_LOG_TYPE_DEFAULT, "NOT providing custom view controller for card section to SearchUI because card section view provider manager didn't vend a configuration\n    Card section: %@\n    Card section view provider manager: %@\n    Card view controller: %@", &v23, 0x20u);
+      v22 = 138412802;
+      v23 = sectionCopy;
+      v24 = 2112;
+      v25 = cardSectionViewSource2;
+      v26 = 2112;
+      v27 = v5;
+      _os_log_impl(&dword_264EDF000, v19, OS_LOG_TYPE_DEFAULT, "NOT providing custom view controller for card section to SearchUI because card section view provider manager didn't vend a configuration\n    Card section: %@\n    Card section view provider manager: %@\n    Card view controller: %@", &v22, 0x20u);
     }
 
     v18 = 0;
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
@@ -484,7 +476,7 @@ void __62__SUICKPCardViewControllerProvider_cardViewControllerForCard___block_in
 
 - (id)extractLinkID:(id)d
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   resultIdentifier = [d resultIdentifier];
   v4 = MEMORY[0x277CF93F0];
   v5 = *MEMORY[0x277CF93F0];
@@ -492,8 +484,8 @@ void __62__SUICKPCardViewControllerProvider_cardViewControllerForCard___block_in
   {
     if (os_log_type_enabled(*MEMORY[0x277CF93F0], OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v11) = 0;
-      _os_log_impl(&dword_264EDF000, v5, OS_LOG_TYPE_DEFAULT, "ResultIdentifier on card section set, using that for Link Identifier", &v11, 2u);
+      LOWORD(v10) = 0;
+      _os_log_impl(&dword_264EDF000, v5, OS_LOG_TYPE_DEFAULT, "ResultIdentifier on card section set, using that for Link Identifier", &v10, 2u);
     }
 
     uUIDString = resultIdentifier;
@@ -513,12 +505,10 @@ void __62__SUICKPCardViewControllerProvider_cardViewControllerForCard___block_in
   v8 = *v4;
   if (os_log_type_enabled(*v4, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412290;
-    v12 = uUIDString;
-    _os_log_impl(&dword_264EDF000, v8, OS_LOG_TYPE_DEFAULT, "Using linkIdentifier: %@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = uUIDString;
+    _os_log_impl(&dword_264EDF000, v8, OS_LOG_TYPE_DEFAULT, "Using linkIdentifier: %@", &v10, 0xCu);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return uUIDString;
 }
@@ -570,13 +560,13 @@ LABEL_7:
 
 - (id)_createCardViewControllerForCard:(id)card
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   cardCopy = card;
   v5 = objc_alloc_init(SUICKPFeedbackDelegateDemultiplexer);
   v6 = [objc_alloc(MEMORY[0x277D4C840]) initWithCard:cardCopy feedbackListener:v5];
   v7 = objc_alloc_init(SUICKPFeedbackAdapter);
   [(SUICKPFeedbackAdapter *)v7 setFeedbackDelegate:v6];
-  v22 = v5;
+  v21 = v5;
   [(SUICKPFeedbackDelegateDemultiplexer *)v5 setDefaultDelegate:v7];
   [v6 setDefaultFeedbackAdapter:v7];
   [v6 setScrollEnabled:0];
@@ -586,37 +576,37 @@ LABEL_7:
   if (os_log_type_enabled(*MEMORY[0x277CF93F0], OS_LOG_TYPE_INFO))
   {
     *buf = 138412546;
-    v29 = cardCopy;
-    v30 = 2112;
-    v31 = v6;
+    v28 = cardCopy;
+    v29 = 2112;
+    v30 = v6;
     _os_log_impl(&dword_264EDF000, v8, OS_LOG_TYPE_INFO, "Instantiating SearchUICardViewController\n    Card: %@\n    Card view controller: %@", buf, 0x16u);
   }
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   resolvedCardSections = [cardCopy resolvedCardSections];
-  v10 = [resolvedCardSections countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v10 = [resolvedCardSections countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v24;
+    v12 = *v23;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v24 != v12)
+        if (*v23 != v12)
         {
           objc_enumerationMutation(resolvedCardSections);
         }
 
         cardsByCardSectionIdentifiers = self->_cardsByCardSectionIdentifiers;
-        cardSectionIdentifier = [*(*(&v23 + 1) + 8 * i) cardSectionIdentifier];
+        cardSectionIdentifier = [*(*(&v22 + 1) + 8 * i) cardSectionIdentifier];
         [(NSMutableDictionary *)cardsByCardSectionIdentifiers setObject:cardCopy forKey:cardSectionIdentifier];
       }
 
-      v11 = [resolvedCardSections countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v11 = [resolvedCardSections countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v11);
@@ -624,61 +614,59 @@ LABEL_7:
 
   feedbackDelegateDemultiplexersByCardIdentifiers = self->_feedbackDelegateDemultiplexersByCardIdentifiers;
   cardIdentifier = [cardCopy cardIdentifier];
-  [(NSMutableDictionary *)feedbackDelegateDemultiplexersByCardIdentifiers setObject:v22 forKey:cardIdentifier];
+  [(NSMutableDictionary *)feedbackDelegateDemultiplexersByCardIdentifiers setObject:v21 forKey:cardIdentifier];
 
   cardViewControllersByCardIdentifiers = self->_cardViewControllersByCardIdentifiers;
   cardIdentifier2 = [cardCopy cardIdentifier];
   [(NSMutableDictionary *)cardViewControllersByCardIdentifiers setObject:v6 forKey:cardIdentifier2];
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 - (BOOL)performCommand:(id)command forCardSectionViewController:(id)controller
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   commandCopy = command;
   controllerCopy = controller;
   v8 = *MEMORY[0x277CF93F0];
   if (os_log_type_enabled(*MEMORY[0x277CF93F0], OS_LOG_TYPE_INFO))
   {
     *buf = 138412546;
-    v49 = commandCopy;
-    v50 = 2112;
-    v51 = controllerCopy;
+    v48 = commandCopy;
+    v49 = 2112;
+    v50 = controllerCopy;
     _os_log_impl(&dword_264EDF000, v8, OS_LOG_TYPE_INFO, "Got command %@ from card section view controller: %@", buf, 0x16u);
   }
 
   if ([commandCopy conformsToProtocol:&unk_2876D4660])
   {
     v9 = commandCopy;
-    v36 = controllerCopy;
+    v35 = controllerCopy;
     [controllerCopy cardSection];
-    v35 = v37 = self;
+    v34 = v36 = self;
     [(SUICKPCardViewControllerProvider *)self _cardViewControllerForCardSection:?];
+    v41 = 0u;
     v42 = 0u;
     v43 = 0u;
-    v44 = 0u;
-    v34 = v45 = 0u;
-    card = [v34 card];
+    v33 = v44 = 0u;
+    card = [v33 card];
     dismissalCommands = [card dismissalCommands];
 
-    v12 = [dismissalCommands countByEnumeratingWithState:&v42 objects:v47 count:16];
+    v12 = [dismissalCommands countByEnumeratingWithState:&v41 objects:v46 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v43;
+      v14 = *v42;
       while (2)
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v43 != v14)
+          if (*v42 != v14)
           {
             objc_enumerationMutation(dismissalCommands);
           }
 
-          v16 = *(*(&v42 + 1) + 8 * i);
+          v16 = *(*(&v41 + 1) + 8 * i);
           if ([v16 conformsToProtocol:&unk_2876D4660])
           {
             referenceIdentifier = [v16 referenceIdentifier];
@@ -688,38 +676,38 @@ LABEL_7:
             if (v19)
             {
 
-              v40 = 0u;
-              v41 = 0u;
-              v38 = 0u;
               v39 = 0u;
-              v23 = v37->_pendingDismissalCommands;
-              v24 = [(NSMutableArray *)v23 countByEnumeratingWithState:&v38 objects:v46 count:16];
+              v40 = 0u;
+              v37 = 0u;
+              v38 = 0u;
+              v23 = v36->_pendingDismissalCommands;
+              v24 = [(NSMutableArray *)v23 countByEnumeratingWithState:&v37 objects:v45 count:16];
               if (v24)
               {
                 v25 = v24;
-                v26 = *v39;
+                v26 = *v38;
                 while (2)
                 {
                   for (j = 0; j != v25; ++j)
                   {
-                    if (*v39 != v26)
+                    if (*v38 != v26)
                     {
                       objc_enumerationMutation(v23);
                     }
 
-                    v28 = *(*(&v38 + 1) + 8 * j);
+                    v28 = *(*(&v37 + 1) + 8 * j);
                     referenceIdentifier3 = [v28 referenceIdentifier];
                     referenceIdentifier4 = [v9 referenceIdentifier];
                     v31 = [referenceIdentifier3 isEqualToString:referenceIdentifier4];
 
                     if (v31)
                     {
-                      [(NSMutableArray *)v37->_pendingDismissalCommands removeObject:v28];
+                      [(NSMutableArray *)v36->_pendingDismissalCommands removeObject:v28];
                       goto LABEL_28;
                     }
                   }
 
-                  v25 = [(NSMutableArray *)v23 countByEnumeratingWithState:&v38 objects:v46 count:16];
+                  v25 = [(NSMutableArray *)v23 countByEnumeratingWithState:&v37 objects:v45 count:16];
                   if (v25)
                   {
                     continue;
@@ -731,15 +719,15 @@ LABEL_7:
 
 LABEL_28:
 
-              [(NSMutableArray *)v37->_pendingDismissalCommands addObject:v9];
+              [(NSMutableArray *)v36->_pendingDismissalCommands addObject:v9];
               v21 = 1;
-              cardViewControllerDelegate = v35;
+              cardViewControllerDelegate = v34;
               goto LABEL_29;
             }
           }
         }
 
-        v13 = [dismissalCommands countByEnumeratingWithState:&v42 objects:v47 count:16];
+        v13 = [dismissalCommands countByEnumeratingWithState:&v41 objects:v46 count:16];
         if (v13)
         {
           continue;
@@ -749,11 +737,11 @@ LABEL_28:
       }
     }
 
-    cardViewControllerDelegate = v35;
-    v21 = [(SUICKPCardViewControllerProvider *)v37 _askDelegateToPerformReferentialCommand:v9 forCardSection:v35];
+    cardViewControllerDelegate = v34;
+    v21 = [(SUICKPCardViewControllerProvider *)v36 _askDelegateToPerformReferentialCommand:v9 forCardSection:v34];
 LABEL_29:
 
-    controllerCopy = v36;
+    controllerCopy = v35;
     goto LABEL_30;
   }
 
@@ -776,7 +764,6 @@ LABEL_30:
   v21 = 0;
 LABEL_31:
 
-  v32 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
@@ -901,60 +888,18 @@ LABEL_31:
   }
 }
 
-- (void)cardViewControllerForCard:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_264EDF000, v0, v1, "SearchUI couldn't fetch cardViewController for card: %@ as the card is not a search foundation card.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)cardViewControllerForCard:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_264EDF000, v0, v1, "Attempted to double-leave dispatch group loading card: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)cardViewControllerForCard:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_264EDF000, v0, v1, "Timed out loading card : %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 void __62__SUICKPCardViewControllerProvider_cardViewControllerForCard___block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*(a1 + 32));
-  OUTLINED_FUNCTION_0(&dword_264EDF000, a2, a3, "Error loading asynchrounous first level card: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(a1 + 32);
+  OUTLINED_FUNCTION_0(&dword_264EDF000, a2, a3, "Error loading asynchrounous first level card: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __62__SUICKPCardViewControllerProvider_cardViewControllerForCard___block_invoke_cold_2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*(a1 + 32));
-  OUTLINED_FUNCTION_0(&dword_264EDF000, a2, a3, "Attempted to double-leave dispatch group loading card: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-- (void)unregisterCardViewController:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_264EDF000, v0, v1, "Failed to unregister view controller: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)unregisterCardViewController:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_264EDF000, v0, v1, "Failed to unregister view controller due to invalid identifier: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(a1 + 32);
+  OUTLINED_FUNCTION_0(&dword_264EDF000, a2, a3, "Attempted to double-leave dispatch group loading card: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

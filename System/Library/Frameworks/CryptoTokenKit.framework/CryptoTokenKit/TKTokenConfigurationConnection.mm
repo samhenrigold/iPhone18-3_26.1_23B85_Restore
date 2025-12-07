@@ -54,7 +54,7 @@
 void __55__TKTokenConfigurationConnection_configurationProtocol__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = TK_LOG_tokencfg();
+  v3 = TK_LOG_tokencfg(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __55__TKTokenConfigurationConnection_configurationProtocol__block_invoke_cold_1(v2, v3);
@@ -80,50 +80,48 @@ void __55__TKTokenConfigurationConnection_configurationProtocol__block_invoke(ui
 
 - (void)tokenConfigurationChanged:(id)changed
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   changedCopy = changed;
   v5 = self->_configurationConnections;
   objc_sync_enter(v5);
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v6 = self->_configurationConnections;
-  v7 = [(NSHashTable *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v7 = [(NSHashTable *)v6 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v7)
   {
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        [*(*(&v11 + 1) + 8 * v9++) tokenConfigurationChanged:{changedCopy, v11}];
+        [*(*(&v10 + 1) + 8 * v9++) tokenConfigurationChanged:{changedCopy, v10}];
       }
 
       while (v7 != v9);
-      v7 = [(NSHashTable *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [(NSHashTable *)v6 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
 
   objc_sync_exit(v5);
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __55__TKTokenConfigurationConnection_configurationProtocol__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_1DF413000, a2, OS_LOG_TYPE_ERROR, "Failed to send configuration request: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_1DF413000, a2, OS_LOG_TYPE_ERROR, "Failed to send configuration request: %{public}@", &v2, 0xCu);
 }
 
 @end

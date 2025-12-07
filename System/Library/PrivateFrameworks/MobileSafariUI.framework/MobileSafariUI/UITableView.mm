@@ -33,9 +33,9 @@
         {
           while (1)
           {
-            v7 = v2 + v5;
+            v7 = &v2[v5];
             v8 = indexPathForSelectedRow;
-            if (v2 + v5 >= 0)
+            if (&v2[v5] >= 0)
             {
               break;
             }
@@ -58,7 +58,7 @@
 
           if (section + 1 == [offset numberOfSections])
           {
-            v7 = v6 - 1;
+            v7 = (v6 - 1);
             v8 = indexPathForSelectedRow;
             break;
           }

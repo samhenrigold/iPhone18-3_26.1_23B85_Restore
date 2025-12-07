@@ -64,10 +64,7 @@
 
 uint64_t __47__UNCLocalizationService_bundleWithIdentifier___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _queue_bundleWithIdentifier:*(a1 + 40)];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) _queue_bundleWithIdentifier:*(a1 + 40)];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -157,27 +154,27 @@ uint64_t __47__UNCLocalizationService_bundleWithIdentifier___block_invoke(uint64
 
 - (void)_queue_notificationSourcesDidInstall:(id)install
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   installCopy = install;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v5 = [installCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [installCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(installCopy);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         bundleIdentifier = [v9 bundleIdentifier];
         bundleIdentifierToBundleURL = self->_bundleIdentifierToBundleURL;
         bundleURL = [v9 bundleURL];
@@ -186,39 +183,37 @@ uint64_t __47__UNCLocalizationService_bundleWithIdentifier___block_invoke(uint64
         [(NSMutableDictionary *)self->_bundleIdentifierToBundle removeObjectForKey:bundleIdentifier];
       }
 
-      v6 = [installCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [installCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_queue_notificationSourcesDidUninstall:(id)uninstall
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   uninstallCopy = uninstall;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v5 = [uninstallCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [uninstallCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       v8 = 0;
       do
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(uninstallCopy);
         }
 
-        bundleIdentifier = [*(*(&v11 + 1) + 8 * v8) bundleIdentifier];
+        bundleIdentifier = [*(*(&v10 + 1) + 8 * v8) bundleIdentifier];
         [(NSMutableDictionary *)self->_bundleIdentifierToBundleURL removeObjectForKey:bundleIdentifier];
         [(NSMutableDictionary *)self->_bundleIdentifierToBundle removeObjectForKey:bundleIdentifier];
 
@@ -226,13 +221,11 @@ uint64_t __47__UNCLocalizationService_bundleWithIdentifier___block_invoke(uint64
       }
 
       while (v6 != v8);
-      v6 = [uninstallCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [uninstallCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 @end

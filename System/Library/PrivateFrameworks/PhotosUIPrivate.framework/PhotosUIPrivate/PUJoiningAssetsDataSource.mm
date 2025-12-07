@@ -106,8 +106,8 @@ LABEL_3:
         if (startingAssetReference)
         {
           v13 = startingAssetReference;
-          indexPath = [startingAssetReference indexPath];
-          v12 = [(PUJoiningAssetsDataSource *)self _externalIndexPathForLocalIndexPath:indexPath inAssetsDataSource:v9];
+          v14 = objc_msgSend_indexPath(startingAssetReference);
+          v12 = [(PUJoiningAssetsDataSource *)self _externalIndexPathForLocalIndexPath:v14 inAssetsDataSource:v9];
 
           if (v12)
           {
@@ -240,9 +240,9 @@ LABEL_11:
 
     if (v8)
     {
-      indexPath = [reverseObjectEnumerator indexPath];
+      v9 = objc_msgSend_indexPath(reverseObjectEnumerator);
       containedAssetReference = v44[5];
-      v44[5] = indexPath;
+      v44[5] = v9;
     }
 
     else
@@ -269,8 +269,8 @@ LABEL_11:
 
       if (v25)
       {
-        indexPath2 = [containedAssetReference indexPath];
-        v27 = [(PUJoiningAssetsDataSource *)self _externalIndexPathForLocalIndexPath:indexPath2 inAssetsDataSource:v22];
+        v26 = objc_msgSend_indexPath(containedAssetReference);
+        v27 = [(PUJoiningAssetsDataSource *)self _externalIndexPathForLocalIndexPath:v26 inAssetsDataSource:v22];
         v28 = v44[5];
         v44[5] = v27;
       }
@@ -296,7 +296,7 @@ LABEL_11:
         v40 = containedAssetReference;
         [_dataSources4 px_enumerateObjectsFromIndex:hintDataSourceIndex2 usingBlock:v39];
 
-        indexPath2 = v40;
+        v26 = v40;
       }
     }
 
@@ -326,7 +326,7 @@ LABEL_23:
           }
 
           v15 = *(*(&v35 + 1) + 8 * i);
-          containedAssetReference = [v15 indexPathForAssetReference:referenceCopy];
+          containedAssetReference = objc_msgSend_indexPathForAssetReference_(v15);
           if (containedAssetReference)
           {
             v16 = [(PUJoiningAssetsDataSource *)self _externalIndexPathForLocalIndexPath:containedAssetReference inAssetsDataSource:v15];
@@ -357,7 +357,7 @@ LABEL_23:
 void __56__PUJoiningAssetsDataSource_indexPathForAssetReference___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   v10 = a2;
-  v6 = [v10 indexPathForAssetReference:*(a1 + 32)];
+  v6 = objc_msgSend_indexPathForAssetReference_(v10);
   if (v6)
   {
     v7 = [*(a1 + 40) _externalIndexPathForLocalIndexPath:v6 inAssetsDataSource:v10];

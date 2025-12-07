@@ -442,7 +442,7 @@
   }
 }
 
-uint64_t __110__NSMutableAttributedString_NSInflection___addAttributesIfNotPresentMergingInlinePresentationIntents_toRange___block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
+void *__110__NSMutableAttributedString_NSInflection___addAttributesIfNotPresentMergingInlinePresentationIntents_toRange___block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
   v22 = *MEMORY[0x1E69E9840];
   v8 = [a2 objectForKeyedSubscript:?];
@@ -479,7 +479,7 @@ uint64_t __110__NSMutableAttributedString_NSInflection___addAttributesIfNotPrese
           [*(a1 + 40) addAttribute:v15 value:objc_msgSend(*(a1 + 32) range:{"objectForKeyedSubscript:", v15), a3, a4}];
         }
 
-        ++v14;
+        v14 = v14 + 1;
       }
 
       while (v12 != v14);
@@ -725,7 +725,7 @@ LABEL_37:
   _NSInflect(locale, replacements, concepts, v11, v23, preflight, v22, v21, v20, v19, v18, v17, v16, v15, v14, v13, v12);
 }
 
-uint64_t __94__NSMutableAttributedString_NSInflection___inflectWithLocale_replacements_concepts_preflight___block_invoke_6(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t __94__NSMutableAttributedString_NSInflection___inflectWithLocale_replacements_concepts_preflight___block_invoke_6(uint64_t a1, char *a2, uint64_t a3)
 {
   if (!a3)
   {
@@ -742,8 +742,8 @@ uint64_t __94__NSMutableAttributedString_NSInflection___inflectWithLocale_replac
     }
 
     v8 = v6;
-    v9 = a2 + v3;
-    if (v6 > v9 - 2)
+    v9 = &a2[v3];
+    if (v6 > (v9 - 2))
     {
       return 0;
     }
@@ -754,8 +754,8 @@ uint64_t __94__NSMutableAttributedString_NSInflection___inflectWithLocale_replac
       break;
     }
 
-    a2 = v8 + v10;
-    v3 = v9 - (v8 + v10);
+    a2 = (v8 + v10);
+    v3 = &v9[-v8 - v10];
     if (!v3)
     {
       return 0;
@@ -849,10 +849,10 @@ uint64_t __88__NSMutableAttributedString_NSInflection__enumerateInflectableBlock
   }
 
   v9 = *(*(a1[5] + 8) + 40);
-  if (v9 == v8 || (v13 = v8, [(_NSInflectionRuleExplicit *)v9 isEqual:v8]))
+  if (v9 == v8 || (v13 = v8, v9 = [v9 isEqual:v8], v8 = v13, (v9 & 1) != 0))
   {
 
-    return MEMORY[0x1EEE66BB8]();
+    return MEMORY[0x1EEE66BB8](v9, v8);
   }
 
   else
@@ -910,7 +910,7 @@ uint64_t __88__NSMutableAttributedString_NSInflection__enumerateInflectableBlock
   _Block_object_dispose(&v19, 8);
 }
 
-uint64_t __88__NSMutableAttributedString_NSInflection__enumerateFormattableBlocksInRange_usingBlock___block_invoke(void *a1, void *a2, uint64_t a3, uint64_t a4)
+void *__88__NSMutableAttributedString_NSInflection__enumerateFormattableBlocksInRange_usingBlock___block_invoke(void *a1, void *a2, uint64_t a3, uint64_t a4)
 {
   v7 = [a2 objectForKeyedSubscript:@"NSLocalizedNumberFormat"];
   objc_opt_class();

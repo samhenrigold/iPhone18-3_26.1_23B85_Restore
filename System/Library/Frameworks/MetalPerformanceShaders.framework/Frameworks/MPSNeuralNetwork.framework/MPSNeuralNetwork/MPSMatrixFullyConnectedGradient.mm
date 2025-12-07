@@ -33,66 +33,66 @@
     if (!commandBuffer && MTLReportFailureTypeEnabled())
     {
       v252 = objc_opt_class();
-      v259 = NSStringFromClass(v252);
-      MTLReportFailure();
+      v291 = NSStringFromClass(v252);
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSMatrixFullyConnectedGradient.mm", 0xEC, @"[%@ apply...] commandBuffer may not be nil]", v253, v254, v255, v256);
     }
 
     if (!gradientMatrix && MTLReportFailureTypeEnabled())
     {
-      v253 = objc_opt_class();
-      v259 = NSStringFromClass(v253);
-      MTLReportFailure();
+      v257 = objc_opt_class();
+      v291 = NSStringFromClass(v257);
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSMatrixFullyConnectedGradient.mm", 0xEE, @"[%@ apply...] input gradient matrix may not be nil", v258, v259, v260, v261);
     }
 
     if (!weightMatrix && MTLReportFailureTypeEnabled())
     {
-      v254 = objc_opt_class();
-      v259 = NSStringFromClass(v254);
-      MTLReportFailure();
+      v262 = objc_opt_class();
+      v291 = NSStringFromClass(v262);
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSMatrixFullyConnectedGradient.mm", 0xEF, @"[%@ apply...] weight matrix may not be nil", v263, v264, v265, v266);
     }
 
     if (!resultGradientForDataMatrix && MTLReportFailureTypeEnabled())
     {
-      v255 = objc_opt_class();
-      v259 = NSStringFromClass(v255);
-      MTLReportFailure();
+      v267 = objc_opt_class();
+      v291 = NSStringFromClass(v267);
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSMatrixFullyConnectedGradient.mm", 0xF0, @"[%@ apply...] result gradient for weight matrix may not be nil", v268, v269, v270, v271);
     }
 
-    objc_msgSend_primarySourceMatrixOrigin(self, a2, commandBuffer, gradientMatrix, weightMatrix, resultGradientForDataMatrix, v6, v7, v259);
+    objc_msgSend_primarySourceMatrixOrigin(self, a2, commandBuffer, gradientMatrix, weightMatrix, resultGradientForDataMatrix, v6, v7, v291);
     objc_msgSend_primarySourceMatrixOrigin(self, v14, v15, v16, v17, v18, v19, v20);
-    if (v265 && MTLReportFailureTypeEnabled())
+    if (v297 && MTLReportFailureTypeEnabled())
     {
-      v256 = objc_opt_class();
-      v260 = NSStringFromClass(v256);
-      MTLReportFailure();
+      v272 = objc_opt_class();
+      v292 = NSStringFromClass(v272);
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSMatrixFullyConnectedGradient.mm", 0xF2, @"[%@ apply...] input matrix origin z component must be 0", v273, v274, v275, v276);
     }
 
-    objc_msgSend_secondarySourceMatrixOrigin(self, v21, v22, v23, v24, v25, v26, v27, v260);
+    objc_msgSend_secondarySourceMatrixOrigin(self, v21, v22, v23, v24, v25, v26, v27, v292);
     objc_msgSend_secondarySourceMatrixOrigin(self, v28, v29, v30, v31, v32, v33, v34);
-    if (v265 && MTLReportFailureTypeEnabled())
+    if (v297 && MTLReportFailureTypeEnabled())
     {
-      v257 = objc_opt_class();
-      v261 = NSStringFromClass(v257);
-      MTLReportFailure();
+      v277 = objc_opt_class();
+      v293 = NSStringFromClass(v277);
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSMatrixFullyConnectedGradient.mm", 0xF3, @"[%@ apply...] weight matrix origin z component must be 0", v278, v279, v280, v281);
     }
 
-    objc_msgSend_resultMatrixOrigin(self, v35, v36, v37, v38, v39, v40, v41, v261);
+    objc_msgSend_resultMatrixOrigin(self, v35, v36, v37, v38, v39, v40, v41, v293);
     objc_msgSend_resultMatrixOrigin(self, v42, v43, v44, v45, v46, v47, v48);
-    if (v265 && MTLReportFailureTypeEnabled())
+    if (v297 && MTLReportFailureTypeEnabled())
     {
-      v258 = objc_opt_class();
-      v262 = NSStringFromClass(v258);
-      MTLReportFailure();
+      v282 = objc_opt_class();
+      v294 = NSStringFromClass(v282);
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSMatrixFullyConnectedGradient.mm", 0xF4, @"[%@ apply...] result matrix origin z component must be 0", v283, v284, v285, v286);
     }
 
-    if (objc_msgSend_dataType(gradientMatrix, v49, v50, v51, v52, v53, v54, v55, v262) == 268435488 && objc_msgSend_dataType(weightMatrix, v56, v57, v58, v59, v60, v61, v62) == 268435488)
+    if (objc_msgSend_dataType(gradientMatrix, v49, v50, v51, v52, v53, v54, v55, v294) == 268435488 && objc_msgSend_dataType(weightMatrix, v56, v57, v58, v59, v60, v61, v62) == 268435488)
     {
       objc_msgSend_dataType(resultGradientForDataMatrix, v56, v57, v58, v59, v60, v61, v62);
     }
 
     if ((objc_msgSend_dataType(gradientMatrix, v56, v57, v58, v59, v60, v61, v62) != 268435488 || objc_msgSend_dataType(weightMatrix, v63, v64, v65, v66, v67, v68, v69) != 268435488 || objc_msgSend_dataType(resultGradientForDataMatrix, v70, v71, v72, v73, v74, v75, v76) != 268435488) && MTLReportFailureTypeEnabled())
     {
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSMatrixFullyConnectedGradient.mm", 0xFA, @"Only MPSDataTypeFloat32 is supported.", v80, v81, v82, v83);
     }
 
     if (objc_msgSend_matrices(gradientMatrix, v77, v78, v79, v80, v81, v82, v83) == 1 && objc_msgSend_matrices(weightMatrix, v84, v85, v86, v87, v88, v89, v90) == 1)
@@ -102,43 +102,43 @@
 
     if ((objc_msgSend_matrices(gradientMatrix, v84, v85, v86, v87, v88, v89, v90) != 1 || objc_msgSend_matrices(weightMatrix, v91, v92, v93, v94, v95, v96, v97) != 1 || objc_msgSend_matrices(resultGradientForDataMatrix, v98, v99, v100, v101, v102, v103, v104) != 1) && MTLReportFailureTypeEnabled())
     {
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSMatrixFullyConnectedGradient.mm", 0xFE, @"Matrices contain batches, batching not supported.", v108, v109, v110, v111);
     }
 
     objc_msgSend_columns(weightMatrix, v105, v106, v107, v108, v109, v110, v111);
     objc_msgSend_secondarySourceMatrixOrigin(self, v112, v113, v114, v115, v116, v117, v118);
     v126 = objc_msgSend_columns(weightMatrix, v119, v120, v121, v122, v123, v124, v125);
     objc_msgSend_secondarySourceMatrixOrigin(self, v127, v128, v129, v130, v131, v132, v133);
-    if (v126 <= v264 && MTLReportFailureTypeEnabled())
+    if (v126 <= v296 && MTLReportFailureTypeEnabled())
     {
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSMatrixFullyConnectedGradient.mm", 0x100, @"secondarySourceMatrixOrigin.y not within domain of weight matrix.", v137, v138, v139, v140);
     }
 
     objc_msgSend_rows(weightMatrix, v134, v135, v136, v137, v138, v139, v140);
     objc_msgSend_secondarySourceMatrixOrigin(self, v141, v142, v143, v144, v145, v146, v147);
     v155 = objc_msgSend_rows(weightMatrix, v148, v149, v150, v151, v152, v153, v154);
     objc_msgSend_secondarySourceMatrixOrigin(self, v156, v157, v158, v159, v160, v161, v162);
-    if (v155 <= v263 && MTLReportFailureTypeEnabled())
+    if (v155 <= v295 && MTLReportFailureTypeEnabled())
     {
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSMatrixFullyConnectedGradient.mm", 0x101, @"secondarySourceMatrixOrigin.x not within domain of weight matrix.", v166, v167, v168, v169);
     }
 
     objc_msgSend_columns(gradientMatrix, v163, v164, v165, v166, v167, v168, v169);
     objc_msgSend_primarySourceMatrixOrigin(self, v170, v171, v172, v173, v174, v175, v176);
     v184 = objc_msgSend_columns(gradientMatrix, v177, v178, v179, v180, v181, v182, v183);
     objc_msgSend_primarySourceMatrixOrigin(self, v185, v186, v187, v188, v189, v190, v191);
-    if (v184 <= v264 && MTLReportFailureTypeEnabled())
+    if (v184 <= v296 && MTLReportFailureTypeEnabled())
     {
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSMatrixFullyConnectedGradient.mm", 0x102, @"primarySourceMatrixOrigin not within domain of input gradient matrix.", v195, v196, v197, v198);
     }
 
     objc_msgSend_rows(gradientMatrix, v192, v193, v194, v195, v196, v197, v198);
     objc_msgSend_primarySourceMatrixOrigin(self, v199, v200, v201, v202, v203, v204, v205);
     v213 = objc_msgSend_rows(gradientMatrix, v206, v207, v208, v209, v210, v211, v212);
     objc_msgSend_primarySourceMatrixOrigin(self, v214, v215, v216, v217, v218, v219, v220);
-    if (v213 <= v263 && MTLReportFailureTypeEnabled())
+    if (v213 <= v295 && MTLReportFailureTypeEnabled())
     {
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSMatrixFullyConnectedGradient.mm", 0x103, @"primarySourceMatrixOrigin not within domain of input gradient matrix.", v287, v288, v289, v290);
     }
   }
 
@@ -178,73 +178,73 @@
     if (!commandBuffer && MTLReportFailureTypeEnabled())
     {
       v267 = objc_opt_class();
-      v275 = NSStringFromClass(v267);
-      MTLReportFailure();
+      v311 = NSStringFromClass(v267);
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSMatrixFullyConnectedGradient.mm", 0x117, @"[%@ apply...] commandBuffer may not be nil]", v268, v269, v270, v271);
     }
 
     if (!gradientMatrix && MTLReportFailureTypeEnabled())
     {
-      v268 = objc_opt_class();
-      v275 = NSStringFromClass(v268);
-      MTLReportFailure();
+      v272 = objc_opt_class();
+      v311 = NSStringFromClass(v272);
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSMatrixFullyConnectedGradient.mm", 0x119, @"[%@ apply...] input gradient matrix may not be nil", v273, v274, v275, v276);
     }
 
     if (!inputMatrix && MTLReportFailureTypeEnabled())
     {
-      v269 = objc_opt_class();
-      v275 = NSStringFromClass(v269);
-      MTLReportFailure();
+      v277 = objc_opt_class();
+      v311 = NSStringFromClass(v277);
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSMatrixFullyConnectedGradient.mm", 0x11A, @"[%@ apply...] input data matrix may not be nil", v278, v279, v280, v281);
     }
 
     if (!resultGradientForWeightMatrix && MTLReportFailureTypeEnabled())
     {
-      v270 = objc_opt_class();
-      v275 = NSStringFromClass(v270);
-      MTLReportFailure();
+      v282 = objc_opt_class();
+      v311 = NSStringFromClass(v282);
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSMatrixFullyConnectedGradient.mm", 0x11B, @"[%@ apply...] result gradient for weight matrix may not be nil", v283, v284, v285, v286);
     }
 
     if (!resultGradientForBiasVector && MTLReportFailureTypeEnabled())
     {
-      v271 = objc_opt_class();
-      v275 = NSStringFromClass(v271);
-      MTLReportFailure();
+      v287 = objc_opt_class();
+      v311 = NSStringFromClass(v287);
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSMatrixFullyConnectedGradient.mm", 0x11C, @"[%@ apply...] result gradient for bias vector may not be nil", v288, v289, v290, v291);
     }
 
-    objc_msgSend_primarySourceMatrixOrigin(self, a2, commandBuffer, gradientMatrix, inputMatrix, resultGradientForWeightMatrix, resultGradientForBiasVector, v7, v275);
+    objc_msgSend_primarySourceMatrixOrigin(self, a2, commandBuffer, gradientMatrix, inputMatrix, resultGradientForWeightMatrix, resultGradientForBiasVector, v7, v311);
     objc_msgSend_primarySourceMatrixOrigin(self, v15, v16, v17, v18, v19, v20, v21);
-    if (v281 && MTLReportFailureTypeEnabled())
+    if (v317 && MTLReportFailureTypeEnabled())
     {
-      v272 = objc_opt_class();
-      v276 = NSStringFromClass(v272);
-      MTLReportFailure();
+      v292 = objc_opt_class();
+      v312 = NSStringFromClass(v292);
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSMatrixFullyConnectedGradient.mm", 0x11E, @"[%@ apply...] input matrix origin z component must be 0", v293, v294, v295, v296);
     }
 
-    objc_msgSend_secondarySourceMatrixOrigin(self, v22, v23, v24, v25, v26, v27, v28, v276);
+    objc_msgSend_secondarySourceMatrixOrigin(self, v22, v23, v24, v25, v26, v27, v28, v312);
     objc_msgSend_secondarySourceMatrixOrigin(self, v29, v30, v31, v32, v33, v34, v35);
-    if (v281 && MTLReportFailureTypeEnabled())
+    if (v317 && MTLReportFailureTypeEnabled())
     {
-      v273 = objc_opt_class();
-      v277 = NSStringFromClass(v273);
-      MTLReportFailure();
+      v297 = objc_opt_class();
+      v313 = NSStringFromClass(v297);
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSMatrixFullyConnectedGradient.mm", 0x11F, @"[%@ apply...] weight matrix origin z component must be 0", v298, v299, v300, v301);
     }
 
-    objc_msgSend_resultMatrixOrigin(self, v36, v37, v38, v39, v40, v41, v42, v277);
+    objc_msgSend_resultMatrixOrigin(self, v36, v37, v38, v39, v40, v41, v42, v313);
     objc_msgSend_resultMatrixOrigin(self, v43, v44, v45, v46, v47, v48, v49);
-    if (v281 && MTLReportFailureTypeEnabled())
+    if (v317 && MTLReportFailureTypeEnabled())
     {
-      v274 = objc_opt_class();
-      v278 = NSStringFromClass(v274);
-      MTLReportFailure();
+      v302 = objc_opt_class();
+      v314 = NSStringFromClass(v302);
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSMatrixFullyConnectedGradient.mm", 0x120, @"[%@ apply...] result matrix origin z component must be 0", v303, v304, v305, v306);
     }
 
-    if (objc_msgSend_dataType(gradientMatrix, v50, v51, v52, v53, v54, v55, v56, v278) == 268435488 && objc_msgSend_dataType(inputMatrix, v57, v58, v59, v60, v61, v62, v63) == 268435488 && objc_msgSend_dataType(resultGradientForWeightMatrix, v57, v58, v59, v60, v61, v62, v63) == 268435488)
+    if (objc_msgSend_dataType(gradientMatrix, v50, v51, v52, v53, v54, v55, v56, v314) == 268435488 && objc_msgSend_dataType(inputMatrix, v57, v58, v59, v60, v61, v62, v63) == 268435488 && objc_msgSend_dataType(resultGradientForWeightMatrix, v57, v58, v59, v60, v61, v62, v63) == 268435488)
     {
       objc_msgSend_dataType(resultGradientForBiasVector, v57, v58, v59, v60, v61, v62, v63);
     }
 
     if ((objc_msgSend_dataType(gradientMatrix, v57, v58, v59, v60, v61, v62, v63) != 268435488 || objc_msgSend_dataType(inputMatrix, v64, v65, v66, v67, v68, v69, v70) != 268435488 || objc_msgSend_dataType(resultGradientForWeightMatrix, v71, v72, v73, v74, v75, v76, v77) != 268435488 || objc_msgSend_dataType(resultGradientForBiasVector, v78, v79, v80, v81, v82, v83, v84) != 268435488) && MTLReportFailureTypeEnabled())
     {
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSMatrixFullyConnectedGradient.mm", 0x127, @"Only MPSDataTypeFloat32 is supported.", v88, v89, v90, v91);
     }
 
     if (objc_msgSend_matrices(gradientMatrix, v85, v86, v87, v88, v89, v90, v91) == 1 && objc_msgSend_matrices(inputMatrix, v92, v93, v94, v95, v96, v97, v98) == 1 && objc_msgSend_matrices(resultGradientForWeightMatrix, v92, v93, v94, v95, v96, v97, v98) == 1)
@@ -254,43 +254,43 @@
 
     if ((objc_msgSend_matrices(gradientMatrix, v92, v93, v94, v95, v96, v97, v98) != 1 || objc_msgSend_matrices(inputMatrix, v99, v100, v101, v102, v103, v104, v105) != 1 || objc_msgSend_matrices(resultGradientForWeightMatrix, v106, v107, v108, v109, v110, v111, v112) != 1 || objc_msgSend_vectors(resultGradientForBiasVector, v113, v114, v115, v116, v117, v118, v119) != 1) && MTLReportFailureTypeEnabled())
     {
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSMatrixFullyConnectedGradient.mm", 0x12C, @"Matrices contain batches, batching not supported.", v123, v124, v125, v126);
     }
 
     objc_msgSend_columns(inputMatrix, v120, v121, v122, v123, v124, v125, v126);
     objc_msgSend_secondarySourceMatrixOrigin(self, v127, v128, v129, v130, v131, v132, v133);
     v141 = objc_msgSend_columns(inputMatrix, v134, v135, v136, v137, v138, v139, v140);
     objc_msgSend_secondarySourceMatrixOrigin(self, v142, v143, v144, v145, v146, v147, v148);
-    if (v141 <= v280 && MTLReportFailureTypeEnabled())
+    if (v141 <= v316 && MTLReportFailureTypeEnabled())
     {
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSMatrixFullyConnectedGradient.mm", 0x12E, @"secondarySourceMatrixOrigin.y not within domain of input data matrix.", v152, v153, v154, v155);
     }
 
     objc_msgSend_rows(inputMatrix, v149, v150, v151, v152, v153, v154, v155);
     objc_msgSend_secondarySourceMatrixOrigin(self, v156, v157, v158, v159, v160, v161, v162);
     v170 = objc_msgSend_rows(inputMatrix, v163, v164, v165, v166, v167, v168, v169);
     objc_msgSend_secondarySourceMatrixOrigin(self, v171, v172, v173, v174, v175, v176, v177);
-    if (v170 <= v279 && MTLReportFailureTypeEnabled())
+    if (v170 <= v315 && MTLReportFailureTypeEnabled())
     {
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSMatrixFullyConnectedGradient.mm", 0x12F, @"secondarySourceMatrixOrigin.x not within domain of input data matrix.", v181, v182, v183, v184);
     }
 
     objc_msgSend_columns(gradientMatrix, v178, v179, v180, v181, v182, v183, v184);
     objc_msgSend_primarySourceMatrixOrigin(self, v185, v186, v187, v188, v189, v190, v191);
     v199 = objc_msgSend_columns(gradientMatrix, v192, v193, v194, v195, v196, v197, v198);
     objc_msgSend_primarySourceMatrixOrigin(self, v200, v201, v202, v203, v204, v205, v206);
-    if (v199 <= v280 && MTLReportFailureTypeEnabled())
+    if (v199 <= v316 && MTLReportFailureTypeEnabled())
     {
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSMatrixFullyConnectedGradient.mm", 0x130, @"primarySourceMatrixOrigin not within domain of input gradient matrix.", v210, v211, v212, v213);
     }
 
     objc_msgSend_rows(gradientMatrix, v207, v208, v209, v210, v211, v212, v213);
     objc_msgSend_primarySourceMatrixOrigin(self, v214, v215, v216, v217, v218, v219, v220);
     v228 = objc_msgSend_rows(gradientMatrix, v221, v222, v223, v224, v225, v226, v227);
     objc_msgSend_primarySourceMatrixOrigin(self, v229, v230, v231, v232, v233, v234, v235);
-    if (v228 <= v279 && MTLReportFailureTypeEnabled())
+    if (v228 <= v315 && MTLReportFailureTypeEnabled())
     {
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSMatrixFullyConnectedGradient.mm", 0x131, @"primarySourceMatrixOrigin not within domain of input gradient matrix.", v307, v308, v309, v310);
     }
   }
 
@@ -336,9 +336,9 @@
 
 - (MPSMatrixFullyConnectedGradient)initWithCoder:(NSCoder *)aDecoder device:(id)device
 {
-  v34.receiver = self;
-  v34.super_class = MPSMatrixFullyConnectedGradient;
-  v5 = [(MPSMatrixBinaryKernel *)&v34 initWithCoder:aDecoder device:device];
+  v38.receiver = self;
+  v38.super_class = MPSMatrixFullyConnectedGradient;
+  v5 = [(MPSMatrixBinaryKernel *)&v38 initWithCoder:aDecoder device:device];
   v12 = v5;
   if (!v5)
   {
@@ -359,7 +359,7 @@
   {
     v33 = objc_opt_class();
     NSStringFromClass(v33);
-    MTLReportFailure();
+    MTLReportFailure(1, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSMatrixFullyConnectedGradient.mm", 0x158, @"[%@ initWithCoder:device:] Failed: unsupported file version.", v34, v35, v36, v37);
   }
 
   return 0;

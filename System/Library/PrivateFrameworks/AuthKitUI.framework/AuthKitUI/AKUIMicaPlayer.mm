@@ -361,7 +361,6 @@
   objc_storeStrong(&v29, 0);
   objc_storeStrong(&v30, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -614,7 +613,6 @@
   [location[0] setInheritsTiming:0];
   objc_storeStrong(&selfCopy->_rootLayer, location[0]);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)notifyDelegateDidStartPlaying

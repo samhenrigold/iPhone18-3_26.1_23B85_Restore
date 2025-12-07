@@ -1,6 +1,7 @@
 @interface CHFriendListTableViewCellAccessibility
 + (void)_accessibilityPerformValidations:(id)validations;
 - (void)_accessibilityLoadAccessibilityInformation;
+- (void)setFriend:(id)friend snapshot:(id)snapshot formattingManager:(id)manager animated:(BOOL)animated;
 @end
 
 @implementation CHFriendListTableViewCellAccessibility
@@ -56,6 +57,14 @@ id __84__CHFriendListTableViewCellAccessibility__accessibilityLoadAccessibilityI
   v3 = [v2 stringByReplacingOccurrencesOfString:@"•" withString:&stru_1F138];
 
   return v3;
+}
+
+- (void)setFriend:(id)friend snapshot:(id)snapshot formattingManager:(id)manager animated:(BOOL)animated
+{
+  v7.receiver = self;
+  v7.super_class = CHFriendListTableViewCellAccessibility;
+  [(CHFriendListTableViewCellAccessibility *)&v7 setFriend:friend snapshot:snapshot formattingManager:manager animated:animated];
+  [(CHFriendListTableViewCellAccessibility *)self _accessibilityLoadAccessibilityInformation];
 }
 
 @end

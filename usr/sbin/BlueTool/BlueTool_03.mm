@@ -1,3 +1,43 @@
+uint64_t sub_100039B50()
+{
+  result = sub_100019B78("power off", 0);
+  if (!result)
+  {
+    result = sub_100019B78("device -D", 0);
+    if (!result)
+    {
+      result = sub_100019B78("bcm -W", 0);
+      if (!result)
+      {
+        result = sub_100019B78("bcm -A", 0);
+        if (!result)
+        {
+          result = sub_100019B78("bcm -N", 0);
+          if (!result)
+          {
+            result = sub_100019B78("bcm -Q", 0);
+            if (!result)
+            {
+              result = sub_100019B78("bcm -x", 0);
+              if (!result)
+              {
+                result = sub_100019B78("bcm -s 0x0f,0x00,0x02,0x00,0x01,0x00,0x00,0x00,0x00,0x00,0x00,0x00", 0);
+                if (!result)
+                {
+
+                  return sub_100019B78("quit", 0);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  return result;
+}
+
 uint64_t sub_100039C38()
 {
   result = sub_100019B78("device -D", 0);
@@ -5820,7 +5860,7 @@ uint64_t sub_100041E74(const char *a1)
   return v1;
 }
 
-uint64_t sub_100041FEC()
+uint64_t sub_100041FEC(uint64_t a1, uint64_t a2)
 {
   if (qword_1004EDF40 != -1)
   {
@@ -6227,15 +6267,20 @@ BOOL sub_100042B14(int a1, uint64_t a2)
 {
   if (a1 != 2)
   {
-    goto LABEL_6;
+    goto LABEL_5;
   }
 
   v2 = *(a2 + 8);
-  if (*v2 == 111 && *(v2 + 1) == 110 && !*(v2 + 2))
+  if (__PAIR64__(*(v2 + 1), *v2) == 0x6E0000006FLL && !v2[2])
   {
-    if (sub_100041FEC() != 7 && sub_100041FEC() != 9 && sub_100041FEC() != 6 && access("/dev/btpoweroff", 0))
+    v15 = sub_100041FEC(v2, a2);
+    if (v15 != 7)
     {
-      return 0;
+      v17 = sub_100041FEC(v15, v16);
+      if (v17 != 9 && sub_100041FEC(v17, v18) != 6 && access("/dev/btpoweroff", 0))
+      {
+        return 0;
+      }
     }
 
     if (qword_1004EE428 != -1)
@@ -6243,40 +6288,42 @@ BOOL sub_100042B14(int a1, uint64_t a2)
       sub_10004F828();
     }
 
-    v7 = qword_1004EE430;
-    if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_DEFAULT))
+    v19 = qword_1004EE430;
+    v20 = os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_DEFAULT);
+    if (v20)
     {
-      v8 = 67109634;
-      *v9 = sub_100041FEC();
-      *&v9[4] = 1024;
-      *&v9[6] = access("/dev/btpoweroff", 0);
-      v10 = 2080;
-      v11 = "bluetool_command_power";
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "ready to power on with HCI transport %d, access powerOff %d from %s", &v8, 0x18u);
+      v22 = 67109634;
+      *v23 = sub_100041FEC(v20, v21);
+      *&v23[4] = 1024;
+      *&v23[6] = access("/dev/btpoweroff", 0);
+      v24 = 2080;
+      v25 = "bluetool_command_power";
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "ready to power on with HCI transport %d, access powerOff %d from %s", &v22, 0x18u);
     }
 
-    sub_100043AC0();
+    sub_100043AC0(v20, v21);
     if (qword_1004EE428 != -1)
     {
       sub_10004F83C();
     }
 
-    v5 = qword_1004EE430;
+    v13 = qword_1004EE430;
     result = os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_DEFAULT);
     if (result)
     {
-      v8 = 136315138;
-      *v9 = "bluetool_command_power";
-      v6 = "bluetooth power is now ON in %s";
-      goto LABEL_36;
+      v22 = 136315138;
+      *v23 = "bluetool_command_power";
+      v14 = "bluetooth power is now ON in %s";
+      goto LABEL_35;
     }
   }
 
   else
   {
-    if (strcmp(v2, "off"))
+    v3 = strcmp(v2, "off");
+    if (v3)
     {
-LABEL_6:
+LABEL_5:
       if (qword_1004EE428 != -1)
       {
         sub_10004F798();
@@ -6290,9 +6337,14 @@ LABEL_6:
       return 1;
     }
 
-    if (sub_100041FEC() != 7 && sub_100041FEC() != 9 && sub_100041FEC() != 6 && access("/dev/btpoweroff", 0))
+    v6 = sub_100041FEC(v3, v4);
+    if (v6 != 7)
     {
-      return 0;
+      v8 = sub_100041FEC(v6, v7);
+      if (v8 != 9 && sub_100041FEC(v8, v9) != 6 && access("/dev/btpoweroff", 0))
+      {
+        return 0;
+      }
     }
 
     if (qword_1004EE428 != -1)
@@ -6300,33 +6352,34 @@ LABEL_6:
       sub_10004F7EC();
     }
 
-    v4 = qword_1004EE430;
-    if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_DEFAULT))
+    v10 = qword_1004EE430;
+    v11 = os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_DEFAULT);
+    if (v11)
     {
-      v8 = 67109634;
-      *v9 = sub_100041FEC();
-      *&v9[4] = 1024;
-      *&v9[6] = access("/dev/btpoweroff", 0);
-      v10 = 2080;
-      v11 = "bluetool_command_power";
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "ready to power off with HCI transport %d, access powerOff %d from %s", &v8, 0x18u);
+      v22 = 67109634;
+      *v23 = sub_100041FEC(v11, v12);
+      *&v23[4] = 1024;
+      *&v23[6] = access("/dev/btpoweroff", 0);
+      v24 = 2080;
+      v25 = "bluetool_command_power";
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "ready to power off with HCI transport %d, access powerOff %d from %s", &v22, 0x18u);
     }
 
-    sub_100043C84();
+    sub_100043C84(v11, v12);
     if (qword_1004EE428 != -1)
     {
       sub_10004F800();
     }
 
-    v5 = qword_1004EE430;
+    v13 = qword_1004EE430;
     result = os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_DEFAULT);
     if (result)
     {
-      v8 = 136315138;
-      *v9 = "bluetool_command_power";
-      v6 = "bluetooth power is now OFF in %s";
-LABEL_36:
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, v6, &v8, 0xCu);
+      v22 = 136315138;
+      *v23 = "bluetool_command_power";
+      v14 = "bluetooth power is now OFF in %s";
+LABEL_35:
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, v14, &v22, 0xCu);
       return 0;
     }
   }
@@ -6347,8 +6400,8 @@ LABEL_8:
     v5 = qword_1004EE430;
     if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v16[0]) = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "usage: reset [on|off|pulse ms]", v16, 2u);
+      LOWORD(v24[0]) = 0;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "usage: reset [on|off|pulse ms]", v24, 2u);
     }
 
     v6 = *(a2 + 8);
@@ -6357,9 +6410,10 @@ LABEL_8:
 
   if (*v3 == 111 && *(v3 + 1) == 110 && !*(v3 + 2))
   {
-    if (!access("/dev/btpoweroff", 0))
+    v22 = access("/dev/btpoweroff", 0);
+    if (!v22)
     {
-      sub_100043C84();
+      sub_100043C84(v22, v23);
     }
 
     if (qword_1004EE428 != -1)
@@ -6367,28 +6421,29 @@ LABEL_8:
       sub_10004F88C();
     }
 
-    v8 = qword_1004EE430;
+    v10 = qword_1004EE430;
     result = os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_INFO);
     if (!result)
     {
       return result;
     }
 
-    LOWORD(v16[0]) = 0;
-    v9 = "bluetooth reset is now ON";
+    LOWORD(v24[0]) = 0;
+    v11 = "bluetooth reset is now ON";
 LABEL_44:
-    v14 = v8;
-    v15 = 2;
+    v20 = v10;
+    v21 = 2;
 LABEL_45:
-    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, v9, v16, v15);
+    _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, v11, v24, v21);
     return 0;
   }
 
   if (!strcmp(*(a2 + 8), "off"))
   {
-    if (!access("/dev/btpoweroff", 0))
+    v8 = access("/dev/btpoweroff", 0);
+    if (!v8)
     {
-      sub_100043AC0();
+      sub_100043AC0(v8, v9);
     }
 
     if (qword_1004EE428 != -1)
@@ -6396,15 +6451,15 @@ LABEL_45:
       sub_10004F878();
     }
 
-    v8 = qword_1004EE430;
+    v10 = qword_1004EE430;
     result = os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_INFO);
     if (!result)
     {
       return result;
     }
 
-    LOWORD(v16[0]) = 0;
-    v9 = "bluetooth reset is now OFF";
+    LOWORD(v24[0]) = 0;
+    v11 = "bluetooth reset is now OFF";
     goto LABEL_44;
   }
 
@@ -6418,61 +6473,63 @@ LABEL_45:
     return 0;
   }
 
-  v10 = strtoul(*(a2 + 16), 0, 0);
-  if (access("/dev/btpoweroff", 0))
+  v12 = strtoul(*(a2 + 16), 0, 0);
+  v13 = access("/dev/btpoweroff", 0);
+  if (v13)
   {
     return 0;
   }
 
-  sub_100043C84();
-  if (v10)
+  sub_100043C84(v13, v14);
+  if (v12)
   {
-    if (v10 <= 10)
+    if (v12 <= 10)
     {
-      v11 = 0;
+      v17 = 0;
     }
 
     else
     {
-      v11 = 1000 * v10 - 10000;
+      v17 = 1000 * v12 - 10000;
     }
 
-    usleep(v11);
+    v15 = usleep(v17);
   }
 
-  sub_100043AC0();
+  sub_100043AC0(v15, v16);
   if (qword_1004EE428 != -1)
   {
     sub_10004F864();
   }
 
-  v12 = qword_1004EE430;
+  v18 = qword_1004EE430;
   result = os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_INFO);
   if (result)
   {
-    if (v10 <= 10)
+    if (v12 <= 10)
     {
-      v13 = 10;
+      v19 = 10;
     }
 
     else
     {
-      v13 = v10;
+      v19 = v12;
     }
 
-    v16[0] = 67109120;
-    v16[1] = v13;
-    v9 = "bluetooth reset was pulsed %d ms";
-    v14 = v12;
-    v15 = 8;
+    v24[0] = 67109120;
+    v24[1] = v19;
+    v11 = "bluetooth reset was pulsed %d ms";
+    v20 = v18;
+    v21 = 8;
     goto LABEL_45;
   }
 
   return result;
 }
 
-BOOL sub_100043340(int a1, uint64_t a2)
+BOOL sub_100043340(uint64_t a1, uint64_t a2)
 {
+  v3 = a1;
   v4 = *(a2 + 8);
   v5 = *v4;
   if ((a1 - 4) > 0xFFFFFFFD)
@@ -6482,22 +6539,27 @@ BOOL sub_100043340(int a1, uint64_t a2)
 
   if (v5 != 111 || v4[1] != 110 || v4[2])
   {
-    if (strcmp(v4, "off") && strcmp(v4, "pulse"))
+    a1 = strcmp(v4, "off");
+    if (a1)
     {
-      if (qword_1004EE428 != -1)
+      a1 = strcmp(v4, "pulse");
+      if (a1)
       {
-        sub_10004F8B4();
-      }
+        if (qword_1004EE428 != -1)
+        {
+          sub_10004F8B4();
+        }
 
-      v6 = qword_1004EE430;
-      if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_INFO))
-      {
-        LOWORD(v15[0]) = 0;
-        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "usage: wake [on|off|pulse ms]", v15, 2u);
-      }
+        v6 = qword_1004EE430;
+        if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_INFO))
+        {
+          LOWORD(v17[0]) = 0;
+          _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "usage: wake [on|off|pulse ms]", v17, 2u);
+        }
 
-      v7 = *(a2 + 8);
-      return *v7 != 45 || v7[1] != 104 || v7[2] != 0;
+        v7 = *(a2 + 8);
+        return *v7 != 45 || v7[1] != 104 || v7[2] != 0;
+      }
     }
 
 LABEL_14:
@@ -6509,86 +6571,87 @@ LABEL_14:
 
   if (v4[1] == 110 && !v4[2])
   {
-    sub_100043610();
+    sub_100043610(a1, a2);
     return 0;
   }
 
 LABEL_17:
-  if (!strcmp(v4, "off"))
+  v9 = strcmp(v4, "off");
+  if (!v9)
   {
-    sub_1000436A8();
+    sub_1000436A8(v9, v10);
     return 0;
   }
 
-  v9 = strcmp(v4, "pulse");
+  v11 = strcmp(v4, "pulse");
   result = 0;
-  if (a1 != 3 || v9)
+  if (v3 != 3 || v11)
   {
     return result;
   }
 
-  v10 = strtoul(*(a2 + 16), 0, 0);
+  v12 = strtoul(*(a2 + 16), 0, 0);
   if (dword_1004ECA34 != -1)
   {
     close(dword_1004ECA34);
   }
 
-  v11 = open("/dev/btwake", 0);
-  dword_1004ECA34 = v11;
-  if (v11 == -1)
+  v13 = open("/dev/btwake", 0);
+  dword_1004ECA34 = v13;
+  if (v13 == -1)
   {
     return 0;
   }
 
-  if (v10)
+  if (v12)
   {
-    if (v10 <= 10)
+    if (v12 <= 10)
     {
-      v12 = 0;
+      v14 = 0;
     }
 
     else
     {
-      v12 = 1000 * v10 - 10000;
+      v14 = 1000 * v12 - 10000;
     }
 
-    usleep(v12);
-    v11 = dword_1004ECA34;
+    usleep(v14);
+    v13 = dword_1004ECA34;
   }
 
-  close(v11);
+  close(v13);
   dword_1004ECA34 = -1;
   if (qword_1004EE428 != -1)
   {
     sub_10004F8C8();
   }
 
-  v13 = qword_1004EE430;
+  v15 = qword_1004EE430;
   result = os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_INFO);
   if (result)
   {
-    if (v10 <= 10)
+    if (v12 <= 10)
     {
-      v14 = 10;
+      v16 = 10;
     }
 
     else
     {
-      v14 = v10;
+      v16 = v12;
     }
 
-    v15[0] = 67109120;
-    v15[1] = v14;
-    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "bluetooth wake was pulsed %d ms", v15, 8u);
+    v17[0] = 67109120;
+    v17[1] = v16;
+    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "bluetooth wake was pulsed %d ms", v17, 8u);
     return 0;
   }
 
   return result;
 }
 
-void sub_100043610()
+void sub_100043610(uint64_t a1, uint64_t a2)
 {
-  if (sub_100041FEC() != 7 && dword_1004ECA34 == -1)
+  if (sub_100041FEC(a1, a2) != 7 && dword_1004ECA34 == -1)
   {
     dword_1004ECA34 = open("/dev/btwake", 0);
     if (dword_1004ECA34 == -1)
@@ -6606,9 +6669,9 @@ void sub_100043610()
   }
 }
 
-void sub_1000436A8()
+void sub_1000436A8(uint64_t a1, uint64_t a2)
 {
-  if (sub_100041FEC() == 7)
+  if (sub_100041FEC(a1, a2) == 7)
   {
     if (qword_1004EE428 != -1)
     {
@@ -6628,12 +6691,12 @@ void sub_1000436A8()
       sub_10004F970();
     }
 
-    v0 = qword_1004EE430;
+    v2 = qword_1004EE430;
     if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = 136315138;
-      v4 = "bluetool_wake_off";
-      _os_log_impl(&_mh_execute_header, v0, OS_LOG_TYPE_DEFAULT, "non-PCIE transport in %s", &v3, 0xCu);
+      v5 = 136315138;
+      v6 = "bluetool_wake_off";
+      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "non-PCIE transport in %s", &v5, 0xCu);
     }
 
     if (dword_1004ECA34 != -1)
@@ -6643,12 +6706,12 @@ void sub_1000436A8()
         sub_10004F984();
       }
 
-      v1 = qword_1004EE430;
+      v3 = qword_1004EE430;
       if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_DEFAULT))
       {
-        v3 = 136315138;
-        v4 = "bluetool_wake_off";
-        _os_log_impl(&_mh_execute_header, v1, OS_LOG_TYPE_DEFAULT, "ready to close wake file descriptor from %s", &v3, 0xCu);
+        v5 = 136315138;
+        v6 = "bluetool_wake_off";
+        _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "ready to close wake file descriptor from %s", &v5, 0xCu);
       }
 
       close(dword_1004ECA34);
@@ -6657,12 +6720,12 @@ void sub_1000436A8()
         sub_10004F9AC();
       }
 
-      v2 = qword_1004EE430;
+      v4 = qword_1004EE430;
       if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_DEFAULT))
       {
-        v3 = 136315138;
-        v4 = "bluetool_wake_off";
-        _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Wake file descriptor is closed from %s", &v3, 0xCu);
+        v5 = 136315138;
+        v6 = "bluetool_wake_off";
+        _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Wake file descriptor is closed from %s", &v5, 0xCu);
       }
 
       dword_1004ECA34 = -1;
@@ -6702,25 +6765,26 @@ uint64_t sub_100043984()
   return result;
 }
 
-void sub_100043AC0()
+void sub_100043AC0(uint64_t a1, uint64_t a2)
 {
-  if (sub_100041FEC() == 7 || sub_100041FEC() == 9)
+  v2 = sub_100041FEC(a1, a2);
+  if (v2 == 7 || (v4 = sub_100041FEC(v2, v3), v4 == 9))
   {
     if (qword_1004EE428 != -1)
     {
       sub_10004FB84();
     }
 
-    v0 = qword_1004EE430;
+    v6 = qword_1004EE430;
     if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_DEFAULT))
     {
-      v1 = 136315138;
-      v2 = "command_regon_power_on";
-      _os_log_impl(&_mh_execute_header, v0, OS_LOG_TYPE_DEFAULT, "PCIE transport and return direclty from %s", &v1, 0xCu);
+      v7 = 136315138;
+      v8 = "command_regon_power_on";
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "PCIE transport and return direclty from %s", &v7, 0xCu);
     }
   }
 
-  else if (sub_100041FEC() == 6)
+  else if (sub_100041FEC(v4, v5) == 6)
   {
     if (sub_1000185FC())
     {
@@ -6743,82 +6807,88 @@ void sub_100043AC0()
   }
 }
 
-void sub_100043C84()
+void sub_100043C84(uint64_t a1, uint64_t a2)
 {
-  if (sub_100041FEC() == 7)
+  v2 = sub_100041FEC(a1, a2);
+  if (v2 == 7)
   {
     if (qword_1004EE428 != -1)
     {
       sub_10004FCC8();
     }
 
-    v0 = qword_1004EE430;
+    v4 = qword_1004EE430;
     if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_DEFAULT))
     {
-      v2 = 136315138;
-      v3 = "command_regon_power_off";
-      _os_log_impl(&_mh_execute_header, v0, OS_LOG_TYPE_DEFAULT, "PCIE transport and ready to call pcie_flr from %s", &v2, 0xCu);
+      v8 = 136315138;
+      v9 = "command_regon_power_off";
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "PCIE transport and ready to call pcie_flr from %s", &v8, 0xCu);
     }
 
     sub_1000015DC();
   }
 
-  else if (sub_100041FEC() == 9)
+  else
   {
-    if (qword_1004EE428 != -1)
-    {
-      sub_10004FCB4();
-    }
-
-    v1 = qword_1004EE430;
-    if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_DEFAULT))
-    {
-      v2 = 136315138;
-      v3 = "command_regon_power_off";
-      _os_log_impl(&_mh_execute_header, v1, OS_LOG_TYPE_DEFAULT, "APPLE PCIE transport and ready to call apple_pcie_function_level_reset from %s", &v2, 0xCu);
-    }
-
-    sub_100012960();
-  }
-
-  else if (sub_100041FEC() == 6)
-  {
-    if (sub_100018848())
+    v5 = sub_100041FEC(v2, v3);
+    if (v5 == 9)
     {
       if (qword_1004EE428 != -1)
       {
-        sub_10004FC2C();
+        sub_10004FCB4();
       }
 
-      if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_ERROR))
+      v7 = qword_1004EE430;
+      if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_DEFAULT))
       {
-        sub_10004FC40();
+        v8 = 136315138;
+        v9 = "command_regon_power_off";
+        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "APPLE PCIE transport and ready to call apple_pcie_function_level_reset from %s", &v8, 0xCu);
+      }
+
+      sub_100012960();
+    }
+
+    else if (sub_100041FEC(v5, v6) == 6)
+    {
+      if (sub_100018848())
+      {
+        if (qword_1004EE428 != -1)
+        {
+          sub_10004FC2C();
+        }
+
+        if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_ERROR))
+        {
+          sub_10004FC40();
+        }
       }
     }
-  }
 
-  else if (dword_1004ECA3C == -1)
-  {
-    dword_1004ECA3C = open("/dev/btpoweroff", 0);
-    if (dword_1004ECA3C == -1)
+    else if (dword_1004ECA3C == -1)
     {
-      if (qword_1004EE428 != -1)
+      dword_1004ECA3C = open("/dev/btpoweroff", 0);
+      if (dword_1004ECA3C == -1)
       {
-        sub_10004FB98();
-      }
+        if (qword_1004EE428 != -1)
+        {
+          sub_10004FB98();
+        }
 
-      if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_ERROR))
-      {
-        sub_10004FBAC();
+        if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_ERROR))
+        {
+          sub_10004FBAC();
+        }
       }
     }
   }
 }
 
-void sub_100043F84(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100043F84(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 8u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 8u);
 }
 
 uint64_t sub_100043FA8()
@@ -6832,7 +6902,7 @@ uint64_t sub_100043FA8()
   if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v5 = "int getManufacturer()";
+    v7 = "int getManufacturer()";
     _os_log_impl(&_mh_execute_header, v0, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
   }
 
@@ -6840,9 +6910,13 @@ uint64_t sub_100043FA8()
   if ((dword_1004ECA40 - 1) >= 0xFFFFFFFE)
   {
     v2 = 1634758764;
-    if ((MGIsDeviceOneOfType() & 1) == 0 && (MGIsDeviceOneOfType() & 1) == 0 && (MGIsDeviceOneOfType() & 1) == 0 && (MGIsDeviceOneOfType() & 1) == 0 && sub_100041FEC() != 9)
+    if ((MGIsDeviceOneOfType() & 1) == 0 && (MGIsDeviceOneOfType() & 1) == 0 && (MGIsDeviceOneOfType() & 1) == 0)
     {
-      v2 = sub_1000441F0();
+      v3 = MGIsDeviceOneOfType();
+      if ((v3 & 1) == 0 && sub_100041FEC(v3, v4) != 9)
+      {
+        v2 = sub_1000441F0();
+      }
     }
 
     dword_1004ECA40 = v2;
@@ -6851,12 +6925,12 @@ uint64_t sub_100043FA8()
       sub_10004FCF0();
     }
 
-    v3 = qword_1004EE430;
+    v5 = qword_1004EE430;
     if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      LODWORD(v5) = dword_1004ECA40;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Manufacturer is %d", buf, 8u);
+      LODWORD(v7) = dword_1004ECA40;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Manufacturer is %d", buf, 8u);
     }
 
     return dword_1004ECA40;
@@ -7142,7 +7216,7 @@ char *sub_10004499C()
   return v6;
 }
 
-uint64_t sub_100044C84()
+const char *sub_100044C84()
 {
   if (qword_1004EE428 != -1)
   {
@@ -7150,23 +7224,25 @@ uint64_t sub_100044C84()
   }
 
   v0 = qword_1004EE430;
-  if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_DEFAULT))
+  v1 = os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_DEFAULT);
+  if (v1)
   {
     LODWORD(buf[0]) = 136315138;
     *(buf + 4) = "const char *getChipset(void)";
     _os_log_impl(&_mh_execute_header, v0, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
   }
 
-  v15 = 0;
-  v14 = 0;
-  v13 = 0;
-  v12 = 0;
-  v11 = 0;
+  v21 = 0;
+  v20 = 0;
+  v19 = 0;
+  v18 = 0;
+  v17 = 0;
   memset(buf, 0, 255);
-  v1 = qword_1004EDF78;
+  v3 = qword_1004EDF78;
   if (!qword_1004EDF78)
   {
-    if (sub_100041FEC() == 7)
+    v4 = sub_100041FEC(v1, v2);
+    if (v4 == 7)
     {
       if (qword_1004EDF90 != -1)
       {
@@ -7176,210 +7252,211 @@ uint64_t sub_100044C84()
       return qword_1004EDF78;
     }
 
-    if (sub_100041FEC() == 6)
+    v6 = sub_100041FEC(v4, v5);
+    if (v6 == 6)
     {
-      v25 = 1737149739;
-      v24 = xmmword_1004CE300;
+      v31 = 1737149739;
+      v30 = xmmword_1004CE300;
       if (MGIsDeviceOneOfType())
       {
         qword_1004EDF78 = "APPLE_M2";
       }
 
-      v23 = -1918230744;
-      v22 = xmmword_1004CE314;
-      v1 = "APPLE_M2_5";
+      v29 = -1918230744;
+      v28 = xmmword_1004CE314;
+      v3 = "APPLE_M2_5";
       if (MGIsDeviceOneOfType())
       {
         qword_1004EDF78 = "APPLE_M2_5";
       }
 
-      v21 = -584398440;
-      v20 = xmmword_1004CE328;
+      v27 = -584398440;
+      v26 = xmmword_1004CE328;
       if (MGIsDeviceOneOfType())
       {
         qword_1004EDF78 = "APPLE_M2_5";
       }
 
-      v19 = -879476163;
-      v18 = xmmword_1004CE33C;
+      v25 = -879476163;
+      v24 = xmmword_1004CE33C;
       if (!MGIsDeviceOneOfType())
       {
-        v1 = qword_1004EDF78;
+        v3 = qword_1004EDF78;
         if (qword_1004EDF78)
         {
-          return v1;
+          return v3;
         }
 
 LABEL_23:
-        v2 = sub_100016D1C(&v15, &v14, &v13, &v12, &v11, 0);
-        if (v2)
+        v8 = sub_100016D1C(&v21, &v20, &v19, &v18, &v17, 0);
+        if (v8)
         {
           return 0;
         }
 
-        v4 = "ALL";
-        if (v15 > 0xEu)
+        v10 = "ALL";
+        if (v21 > 0xEu)
         {
-          if (v15 == 15)
+          if (v21 == 15)
           {
-            if (v11 <= 0x420Du)
+            if (v17 <= 0x420Du)
             {
-              if (v11 <= 0x4108u)
+              if (v17 <= 0x4108u)
               {
-                if (v11 > 0x2201u)
+                if (v17 > 0x2201u)
                 {
-                  if (v11 == 8706)
+                  if (v17 == 8706)
                   {
-                    v4 = "BCM4330A1";
+                    v10 = "BCM4330A1";
                     goto LABEL_39;
                   }
 
-                  if (v11 == 16643)
+                  if (v17 == 16643)
                   {
-                    v4 = "BCM4330B1";
+                    v10 = "BCM4330B1";
                     goto LABEL_39;
                   }
                 }
 
                 else
                 {
-                  if (v11 == 8469)
+                  if (v17 == 8469)
                   {
                     sub_100016BA8(buf, 0, 0);
-                    v10 = strstr(buf, "4364");
-                    v6 = "BCM4364A0";
-                    v7 = "BCM";
-                    v8 = v10 == 0;
+                    v16 = strstr(buf, "4364");
+                    v12 = "BCM4364A0";
+                    v13 = "BCM";
+                    v14 = v16 == 0;
 LABEL_33:
-                    if (v8)
+                    if (v14)
                     {
-                      v4 = v7;
+                      v10 = v13;
                     }
 
                     else
                     {
-                      v4 = v6;
+                      v10 = v12;
                     }
 
                     goto LABEL_39;
                   }
 
-                  if (v11 == 8472)
+                  if (v17 == 8472)
                   {
-                    v4 = "BCM20710";
+                    v10 = "BCM20710";
                     goto LABEL_39;
                   }
                 }
               }
 
-              else if (v11 <= 0x4112u)
+              else if (v17 <= 0x4112u)
               {
-                if (v11 == 16649)
+                if (v17 == 16649)
                 {
                   sub_100016BA8(buf, 0, 0);
-                  v4 = "BCM43430B0";
+                  v10 = "BCM43430B0";
                   if (!strstr(buf, "43430B") && !strstr(buf, "BCM43435B"))
                   {
-                    v4 = "BCM";
+                    v10 = "BCM";
                   }
 
                   goto LABEL_39;
                 }
 
-                if (v11 == 16654)
+                if (v17 == 16654)
                 {
-                  v4 = "BCM4355B0";
+                  v10 = "BCM4355B0";
                   goto LABEL_39;
                 }
               }
 
               else
               {
-                switch(v11)
+                switch(v17)
                 {
                   case 0x4113u:
-                    v4 = "BCM4330B0";
+                    v10 = "BCM4330B0";
                     goto LABEL_39;
                   case 0x4207u:
-                    v4 = "BCM4355B2";
+                    v10 = "BCM4355B2";
                     goto LABEL_39;
                   case 0x420Au:
-                    v4 = "BCM43430B1";
+                    v10 = "BCM43430B1";
                     goto LABEL_39;
                 }
               }
             }
 
-            else if (v11 > 0x610Cu)
+            else if (v17 > 0x610Cu)
             {
-              if (v11 <= 0x6213u)
+              if (v17 <= 0x6213u)
               {
-                if (v11 == 24845)
+                if (v17 == 24845)
                 {
-                  v4 = "BCM4329C0";
+                  v10 = "BCM4329C0";
                   goto LABEL_39;
                 }
 
-                if (v11 == 25094)
+                if (v17 == 25094)
                 {
-                  v4 = "BCM43452A2";
+                  v10 = "BCM43452A2";
                   goto LABEL_39;
                 }
               }
 
               else
               {
-                switch(v11)
+                switch(v17)
                 {
                   case 0x6214u:
-                    v4 = "BCM4355C1";
+                    v10 = "BCM4355C1";
                     goto LABEL_39;
                   case 0x6607u:
-                    v4 = "BCM4350C5";
+                    v10 = "BCM4350C5";
                     goto LABEL_39;
                   case 0x8107u:
-                    v4 = "BCM4325";
+                    v10 = "BCM4325";
                     goto LABEL_39;
                 }
               }
             }
 
-            else if (v11 <= 0x4309u)
+            else if (v17 <= 0x4309u)
             {
-              if (v11 == 16910)
+              if (v17 == 16910)
               {
-                v4 = "BCM4357B1";
+                v10 = "BCM4357B1";
                 goto LABEL_39;
               }
 
-              if (v11 == 16919)
+              if (v17 == 16919)
               {
-                v4 = "BCM4329B1";
+                v10 = "BCM4329B1";
                 goto LABEL_39;
               }
             }
 
             else
             {
-              switch(v11)
+              switch(v17)
               {
                 case 0x430Au:
-                  v4 = "BCM4355B3";
+                  v10 = "BCM4355B3";
                   goto LABEL_39;
                 case 0x6103u:
-                  v4 = "BCM4355C0";
+                  v10 = "BCM4355C0";
                   goto LABEL_39;
                 case 0x610Cu:
-                  v4 = "BCM4350C2";
+                  v10 = "BCM4350C2";
                   goto LABEL_39;
               }
             }
 
-            v4 = "BCM";
+            v10 = "BCM";
             goto LABEL_39;
           }
 
-          if (v15 != 76)
+          if (v21 != 76)
           {
             goto LABEL_39;
           }
@@ -7387,64 +7464,64 @@ LABEL_33:
 
         else
         {
-          if (v15 == 10)
+          if (v21 == 10)
           {
-            if (v11 == 4841)
+            if (v17 == 4841)
             {
-              v4 = "BC6";
+              v10 = "BC6";
             }
 
             else
             {
-              v4 = "CSR";
+              v10 = "CSR";
             }
 
             goto LABEL_39;
           }
 
-          if (v15 != 13)
+          if (v21 != 13)
           {
 LABEL_39:
-            qword_1004EDF78 = v4;
+            qword_1004EDF78 = v10;
             if (qword_1004EE428 != -1)
             {
               sub_10004FEB4();
             }
 
-            v9 = qword_1004EE430;
+            v15 = qword_1004EE430;
             if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_DEFAULT))
             {
-              *v16 = 136315138;
-              v17 = qword_1004EDF78;
-              _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Chip is %s", v16, 0xCu);
+              *v22 = 136315138;
+              v23 = qword_1004EDF78;
+              _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Chip is %s", v22, 0xCu);
             }
 
             return qword_1004EDF78;
           }
         }
 
-        v5 = sub_100007CD4(v2);
-        v6 = "ACIBGA";
-        v7 = "ACIFPGA";
-        v8 = v5 == 0;
+        v11 = sub_100007CD4(v8);
+        v12 = "ACIBGA";
+        v13 = "ACIFPGA";
+        v14 = v11 == 0;
         goto LABEL_33;
       }
     }
 
     else
     {
-      if (sub_100041FEC() != 9)
+      if (sub_100041FEC(v6, v7) != 9)
       {
         goto LABEL_23;
       }
 
-      v1 = "PROXIMA";
+      v3 = "PROXIMA";
     }
 
-    qword_1004EDF78 = v1;
+    qword_1004EDF78 = v3;
   }
 
-  return v1;
+  return v3;
 }
 
 void sub_1000452AC(id a1)
@@ -7614,7 +7691,7 @@ LABEL_14:
   IOObjectRelease(v4);
 }
 
-unint64_t sub_100045914()
+uint64_t sub_100045914()
 {
   if (!dword_1004EDF9C)
   {
@@ -7760,7 +7837,7 @@ void sub_100045BA8(uint64_t a1, xpc_object_t object)
         dispatch_source_set_event_handler(v9, &stru_1004EAC88);
         dispatch_resume(v9);
         value = xpc_dictionary_get_value(object, "kMsgArgs");
-        *v77 = 0;
+        *v81 = 0;
         v12 = xpc_dictionary_get_value(value, "command");
         if (v12)
         {
@@ -7797,16 +7874,16 @@ void sub_100045BA8(uint64_t a1, xpc_object_t object)
               v31 = 0;
               do
               {
-                *v77 = 0;
-                v32 = sub_100019B78(v30, v77);
-                if (*v77)
+                *v81 = 0;
+                v32 = sub_100019B78(v30, v81);
+                if (*v81)
                 {
-                  v33 = strlen(*v77);
+                  v33 = strlen(*v81);
                   v34 = reallocf(v17, v33 + v31 + 1);
                   v17 = v34;
                   if (v34)
                   {
-                    memcpy(&v34[v31], *v77, v33);
+                    memcpy(&v34[v31], *v81, v33);
                     v35 = v31 + v33;
                     v31 += v33 + 1;
                     v17[v35] = 10;
@@ -7829,7 +7906,7 @@ void sub_100045BA8(uint64_t a1, xpc_object_t object)
                     v32 = 1;
                   }
 
-                  free(*v77);
+                  free(*v81);
                 }
 
                 if (v32)
@@ -7918,8 +7995,8 @@ LABEL_112:
       v23 = qword_1004EE430;
       if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_DEFAULT))
       {
-        *v77 = 0;
-        _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Running xpcRunBuiltinScript", v77, 2u);
+        *v81 = 0;
+        _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Running xpcRunBuiltinScript", v81, 2u);
       }
 
       v24 = xpc_dictionary_get_value(v22, "script");
@@ -7959,9 +8036,9 @@ LABEL_74:
         v39 = qword_1004EE430;
         if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_DEFAULT))
         {
-          *v77 = 67109120;
-          *&v77[4] = v38;
-          _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "builtin script completed with result %d", v77, 8u);
+          *v81 = 67109120;
+          *&v81[4] = v38;
+          _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "builtin script completed with result %d", v81, 8u);
         }
 
         v40 = xpc_dictionary_create_reply(object);
@@ -7989,9 +8066,9 @@ LABEL_74:
           v44 = qword_1004EE430;
           if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_DEFAULT))
           {
-            *v77 = 136315138;
-            *&v77[4] = v43;
-            _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEFAULT, "Firmware is %s", v77, 0xCu);
+            *v81 = 136315138;
+            *&v81[4] = v43;
+            _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEFAULT, "Firmware is %s", v81, 0xCu);
           }
         }
 
@@ -8010,13 +8087,13 @@ LABEL_74:
       v46 = qword_1004EE430;
       if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_DEFAULT))
       {
-        *v77 = 136315650;
-        *&v77[4] = v45;
-        v78 = 2080;
-        *v79 = "xpcRunBuiltinScript";
-        *&v79[8] = 2080;
-        v80 = "21:28:41";
-        _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_DEFAULT, "get arg = %s from %s at %s", v77, 0x20u);
+        *v81 = 136315650;
+        *&v81[4] = v45;
+        v82 = 2080;
+        *v83 = "xpcRunBuiltinScript";
+        *&v83[8] = 2080;
+        v84 = "21:28:41";
+        _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_DEFAULT, "get arg = %s from %s at %s", v81, 0x20u);
       }
 
       if (!v45)
@@ -8036,21 +8113,21 @@ LABEL_74:
       }
 
       v47 = 30000000000;
-      v73 = strncmp(v45, "boot", 5uLL);
-      if (v73)
+      v77 = strncmp(v45, "boot", 5uLL);
+      if (v77)
       {
         if (strncmp(v45, "init", 5uLL))
         {
           if (!strncmp(v45, "deepsleep", 0xAuLL))
           {
             v48 = 0;
-            v75 = 3;
+            v79 = 3;
             v47 = 4000000000;
           }
 
           else
           {
-            v75 = 0;
+            v79 = 0;
             v48 = 1;
           }
 
@@ -8061,20 +8138,21 @@ LABEL_126:
             v53 = v52;
             if (xpc_get_type(v52) == &_xpc_type_string)
             {
-              v54 = xpc_string_get_string_ptr(v53);
-              strlen(v54);
+              v56 = xpc_string_get_string_ptr(v53);
+              strlen(v56);
               __memcpy_chk();
               if (qword_1004EE428 != -1)
               {
                 sub_100050558();
               }
 
-              v55 = qword_1004EE430;
-              if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_DEFAULT))
+              v57 = qword_1004EE430;
+              v54 = os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_DEFAULT);
+              if (v54)
               {
-                *v77 = 136315138;
-                *&v77[4] = &unk_1004EE438;
-                _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_DEFAULT, "xpc address %s", v77, 0xCu);
+                *v81 = 136315138;
+                *&v81[4] = &unk_1004EE438;
+                _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_DEFAULT, "xpc address %s", v81, 0xCu);
               }
             }
 
@@ -8085,7 +8163,8 @@ LABEL_126:
                 sub_1000504FC();
               }
 
-              if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_DEBUG))
+              v54 = os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_DEBUG);
+              if (v54)
               {
                 sub_100050524();
               }
@@ -8099,7 +8178,8 @@ LABEL_126:
               sub_100050580();
             }
 
-            if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_ERROR))
+            v54 = os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_ERROR);
+            if (v54)
             {
               sub_1000505A8();
             }
@@ -8107,23 +8187,23 @@ LABEL_126:
 
           if ((v48 & 1) == 0)
           {
-            v56 = sub_100041FEC();
-            if (v73)
+            v58 = sub_100041FEC(v54, v55);
+            if (v77)
             {
-              v57 = 0;
+              v59 = 0;
             }
 
             else
             {
-              v57 = v56 == 7;
+              v59 = v58 == 7;
             }
 
-            v58 = v57;
-            v59 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, 0);
-            v60 = dispatch_time(0, v47);
-            dispatch_source_set_timer(v59, v60, 0xFFFFFFFFFFFFFFFFLL, 0x3B9ACA00uLL);
-            dispatch_source_set_event_handler(v59, &stru_1004EAFC8);
-            dispatch_resume(v59);
+            v60 = v59;
+            v61 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, 0);
+            v62 = dispatch_time(0, v47);
+            dispatch_source_set_timer(v61, v62, 0xFFFFFFFFFFFFFFFFLL, 0x3B9ACA00uLL);
+            dispatch_source_set_event_handler(v61, &stru_1004EAFC8);
+            dispatch_resume(v61);
             if (byte_1004EDFA0 == 1)
             {
               if (qword_1004EE428 != -1)
@@ -8131,18 +8211,18 @@ LABEL_126:
                 sub_1000505E4();
               }
 
-              v61 = qword_1004EE430;
+              v63 = qword_1004EE430;
               if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_DEFAULT))
               {
-                *v77 = 136315138;
-                *&v77[4] = v45;
-                _os_log_impl(&_mh_execute_header, v61, OS_LOG_TYPE_DEFAULT, "%s script powercycling entire wifi/BT chip", v77, 0xCu);
+                *v81 = 136315138;
+                *&v81[4] = v45;
+                _os_log_impl(&_mh_execute_header, v63, OS_LOG_TYPE_DEFAULT, "%s script powercycling entire wifi/BT chip", v81, 0xCu);
               }
 
-              v62 = sub_100001930();
-              if (v62)
+              v64 = sub_100001930();
+              if (v64)
               {
-                v38 = v62;
+                v38 = v64;
                 if (qword_1004EE428 != -1)
                 {
                   sub_10005060C();
@@ -8153,8 +8233,8 @@ LABEL_126:
                   sub_100050634();
                 }
 
-                dispatch_source_cancel(v59);
-                dispatch_release(v59);
+                dispatch_source_cancel(v61);
+                dispatch_release(v61);
                 goto LABEL_160;
               }
 
@@ -8163,12 +8243,12 @@ LABEL_126:
                 sub_1000506A4();
               }
 
-              v63 = qword_1004EE430;
+              v65 = qword_1004EE430;
               if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_DEFAULT))
               {
-                *v77 = 136315138;
-                *&v77[4] = "xpcRunBuiltinScript";
-                _os_log_impl(&_mh_execute_header, v63, OS_LOG_TYPE_DEFAULT, "succeed from calling pcie_powercycle in %s", v77, 0xCu);
+                *v81 = 136315138;
+                *&v81[4] = "xpcRunBuiltinScript";
+                _os_log_impl(&_mh_execute_header, v65, OS_LOG_TYPE_DEFAULT, "succeed from calling pcie_powercycle in %s", v81, 0xCu);
                 byte_1004EDFA0 = 0;
                 if (qword_1004EE428 != -1)
                 {
@@ -8181,78 +8261,78 @@ LABEL_126:
                 byte_1004EDFA0 = 0;
               }
 
-              v64 = qword_1004EE430;
+              v66 = qword_1004EE430;
               if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_DEFAULT))
               {
-                *v77 = 136315138;
-                *&v77[4] = "xpcRunBuiltinScript";
-                _os_log_impl(&_mh_execute_header, v64, OS_LOG_TYPE_DEFAULT, "changed variable pendingPCIEPowerCycle to be false in %s", v77, 0xCu);
+                *v81 = 136315138;
+                *&v81[4] = "xpcRunBuiltinScript";
+                _os_log_impl(&_mh_execute_header, v66, OS_LOG_TYPE_DEFAULT, "changed variable pendingPCIEPowerCycle to be false in %s", v81, 0xCu);
               }
             }
 
-            source = v59;
-            v74 = v45;
-            v65 = 0;
-            if (v58)
+            source = v61;
+            v78 = v45;
+            v67 = 0;
+            if (v60)
             {
-              v66 = 2;
+              v68 = 2;
             }
 
             else
             {
-              v66 = 1;
+              v68 = 1;
             }
 
             do
             {
-              v67 = sub_100045914();
+              v69 = sub_100045914();
               if (qword_1004EE428 != -1)
               {
                 sub_1000506F4();
               }
 
-              v68 = qword_1004EE430;
+              v70 = qword_1004EE430;
               if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_DEFAULT))
               {
-                *v77 = 136315138;
-                *&v77[4] = "xpcRunBuiltinScript";
-                _os_log_impl(&_mh_execute_header, v68, OS_LOG_TYPE_DEFAULT, "right before calling runCommandForCurrentConfig from %s", v77, 0xCu);
+                *v81 = 136315138;
+                *&v81[4] = "xpcRunBuiltinScript";
+                _os_log_impl(&_mh_execute_header, v70, OS_LOG_TYPE_DEFAULT, "right before calling runCommandForCurrentConfig from %s", v81, 0xCu);
               }
 
-              v38 = sub_100014158(v75);
+              v38 = sub_100014158(v79);
               if (qword_1004EE428 != -1)
               {
                 sub_10005071C();
               }
 
-              v69 = qword_1004EE430;
+              v71 = qword_1004EE430;
               if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_DEFAULT))
               {
-                *v77 = 136315138;
-                *&v77[4] = "xpcRunBuiltinScript";
-                _os_log_impl(&_mh_execute_header, v69, OS_LOG_TYPE_DEFAULT, "right after calling runCommandForCurrentConfig from %s", v77, 0xCu);
+                *v81 = 136315138;
+                *&v81[4] = "xpcRunBuiltinScript";
+                _os_log_impl(&_mh_execute_header, v71, OS_LOG_TYPE_DEFAULT, "right after calling runCommandForCurrentConfig from %s", v81, 0xCu);
               }
 
-              v70 = sub_100045914();
+              v72 = sub_100045914();
               if (qword_1004EE428 != -1)
               {
                 sub_100050744();
               }
 
-              v71 = qword_1004EE430;
+              v73 = qword_1004EE430;
               if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_DEFAULT))
               {
-                *v77 = 136316162;
-                *&v77[4] = v74;
-                v78 = 1024;
-                *v79 = v65 + 1;
-                *&v79[4] = 1024;
-                *&v79[6] = v66;
-                LOWORD(v80) = 1024;
-                *(&v80 + 2) = v38;
-                HIWORD(v80) = 2048;
-                v81 = v70 - v67;
-                _os_log_impl(&_mh_execute_header, v71, OS_LOG_TYPE_DEFAULT, "%s script attempt %u of %u: result %d execution time:%llu(MS)", v77, 0x28u);
+                *v81 = 136316162;
+                *&v81[4] = v78;
+                v82 = 1024;
+                *v83 = v67 + 1;
+                *&v83[4] = 1024;
+                *&v83[6] = v68;
+                LOWORD(v84) = 1024;
+                *(&v84 + 2) = v38;
+                HIWORD(v84) = 2048;
+                v85 = v72 - v69;
+                _os_log_impl(&_mh_execute_header, v73, OS_LOG_TYPE_DEFAULT, "%s script attempt %u of %u: result %d execution time:%llu(MS)", v81, 0x28u);
               }
 
               if (!v38)
@@ -8261,13 +8341,13 @@ LABEL_126:
               }
 
               usleep(0x7A120u);
-              ++v65;
+              ++v67;
             }
 
-            while (v66 != v65);
+            while (v68 != v67);
             dispatch_source_cancel(source);
             dispatch_release(source);
-            if (!v73 && v38 && sub_100041FEC() == 7)
+            if (!v77 && v38 && sub_100041FEC(v74, v75) == 7)
             {
               if (qword_1004EE428 != -1)
               {
@@ -8306,7 +8386,7 @@ LABEL_160:
         v51 = 1;
       }
 
-      v75 = v51;
+      v79 = v51;
       goto LABEL_126;
     }
 
@@ -8400,8 +8480,8 @@ LABEL_120:
   v50 = qword_1004EE430;
   if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_DEFAULT))
   {
-    *v77 = 0;
-    _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_DEFAULT, "Completed handling of dictionary-xpc event", v77, 2u);
+    *v81 = 0;
+    _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_DEFAULT, "Completed handling of dictionary-xpc event", v81, 2u);
   }
 }
 
@@ -8474,10 +8554,11 @@ void sub_1000470B0(id a1)
   exit(1);
 }
 
-void sub_100047474(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100047474(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 2u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 2u);
 }
 
 void sub_1000474A4()
@@ -8678,12 +8759,11 @@ void sub_100048B4C()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_100048BEC(unsigned int *a1)
+void sub_100048BEC()
 {
-  v1 = *a1;
   sub_10000448C();
   sub_10000447C();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x12u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
 void sub_100048D74()
@@ -8706,13 +8786,6 @@ void sub_100048F70()
   sub_10000448C();
   sub_10000447C();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-}
-
-void sub_1000490BC(uint64_t *a1)
-{
-  v6 = *a1;
-  sub_10000447C();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x20u);
 }
 
 void sub_1000491C8()
@@ -8765,13 +8838,6 @@ void sub_1000496BC()
   sub_100004470();
   sub_100004464();
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-void sub_100049770(unsigned __int8 *a1)
-{
-  v6 = *a1;
-  sub_100004464();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
 }
 
 void sub_100049860()
@@ -8858,13 +8924,6 @@ void sub_10004A204()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_10004A2EC(unsigned __int8 *a1)
-{
-  v6 = *a1;
-  sub_100004464();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-}
-
 void sub_10004A38C()
 {
   sub_100004470();
@@ -8921,12 +8980,11 @@ void sub_10004A750()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_10004A890(unsigned __int8 *a1)
+void sub_10004A890()
 {
-  v1 = *a1;
   sub_100011884();
   sub_100004464();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_10004A968()
@@ -8955,79 +9013,4 @@ void sub_10004AD04()
   sub_100009E08();
   sub_100004464();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-}
-
-void sub_10004AD9C()
-{
-  sub_100009E08();
-  sub_100011890();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-}
-
-void sub_10004AE84()
-{
-  sub_100004470();
-  sub_100004464();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-void sub_10004AED4()
-{
-  sub_100004470();
-  sub_100004464();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-void sub_10004AF60()
-{
-  sub_100009E08();
-  sub_100011890();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-}
-
-void sub_10004B15C(CFErrorRef *a1)
-{
-  CFErrorGetCode(*a1);
-  sub_100009E08();
-  sub_100011874();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-}
-
-void sub_10004B390()
-{
-  sub_100004470();
-  sub_100004464();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-void sub_10004B3F4(unsigned int *a1)
-{
-  v1 = *a1;
-  sub_100011884();
-  sub_100004464();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 8u);
-}
-
-void sub_10004B490()
-{
-  sub_100004470();
-  sub_100004464();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-void sub_10004B5C0(uint8_t *buf, char a2, const char **a3, os_log_t log)
-{
-  if (a2 == 5)
-  {
-    v4 = "Wrong MSF version";
-  }
-
-  else
-  {
-    v4 = &unk_1004CFB46;
-  }
-
-  *buf = 136315138;
-  *a3 = v4;
-  _os_log_error_impl(&_mh_execute_header, log, OS_LOG_TYPE_ERROR, "CRC error in Cal data %s", buf, 0xCu);
 }

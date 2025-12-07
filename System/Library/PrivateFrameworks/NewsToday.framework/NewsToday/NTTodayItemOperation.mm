@@ -135,7 +135,7 @@
 
 void __40__NTTodayItemOperation_performOperation__block_invoke(uint64_t a1, void *a2, void *a3, uint64_t a4)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   if (a4)
@@ -149,44 +149,42 @@ void __40__NTTodayItemOperation_performOperation__block_invoke(uint64_t a1, void
     v10 = [*(a1 + 32) operationInfo];
     v11 = [*(a1 + 32) contentContext];
     v12 = MEMORY[0x277CBEA60];
-    v30[0] = MEMORY[0x277D85DD0];
-    v30[1] = 3221225472;
-    v30[2] = __40__NTTodayItemOperation_performOperation__block_invoke_2;
-    v30[3] = &unk_2799826A0;
+    v29[0] = MEMORY[0x277D85DD0];
+    v29[1] = 3221225472;
+    v29[2] = __40__NTTodayItemOperation_performOperation__block_invoke_2;
+    v29[3] = &unk_2799826A0;
     v13 = v7;
-    v31 = v13;
+    v30 = v13;
     v14 = v10;
-    v32 = v14;
-    v15 = [v12 fc_array:v30];
-    v16 = NTSharedLog();
+    v31 = v14;
+    v15 = [v12 fc_array:v29];
+    v16 = NTSharedLog(v15);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v34 = v15;
+      v33 = v15;
       _os_log_impl(&dword_25BF21000, v16, OS_LOG_TYPE_INFO, "Start downloading assetHandles: %@", buf, 0xCu);
     }
 
     [v15 makeObjectsPerformSelector:sel_downloadIfNeededWithGroup_ withObject:v9];
     [*(a1 + 32) qualityOfService];
     v17 = FCDispatchQueueForQualityOfService();
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __40__NTTodayItemOperation_performOperation__block_invoke_28;
-    v23[3] = &unk_279982768;
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __40__NTTodayItemOperation_performOperation__block_invoke_28;
+    v22[3] = &unk_279982768;
     v18 = *(a1 + 32);
-    v24 = v15;
-    v25 = v18;
-    v26 = v13;
-    v27 = v11;
-    v28 = v14;
-    v29 = v8;
+    v23 = v15;
+    v24 = v18;
+    v25 = v13;
+    v26 = v11;
+    v27 = v14;
+    v28 = v8;
     v19 = v14;
     v20 = v11;
     v21 = v15;
-    dispatch_group_notify(v9, v17, v23);
+    dispatch_group_notify(v9, v17, v22);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __40__NTTodayItemOperation_performOperation__block_invoke_2(uint64_t a1, void *a2)
@@ -205,83 +203,79 @@ void __40__NTTodayItemOperation_performOperation__block_invoke_2(uint64_t a1, vo
 
 void __40__NTTodayItemOperation_performOperation__block_invoke_3(uint64_t a1, uint64_t a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v4 = a3;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       v8 = 0;
       do
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = [*(*(&v11 + 1) + 8 * v8) assetHandlesWithOperationInfo:*(a1 + 32)];
+        v9 = [*(*(&v10 + 1) + 8 * v8) assetHandlesWithOperationInfo:*(a1 + 32)];
         [*(a1 + 40) addObjectsFromArray:v9];
 
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __40__NTTodayItemOperation_performOperation__block_invoke_28(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v2 = NTSharedLog();
+  v19 = *MEMORY[0x277D85DE8];
+  v2 = NTSharedLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
     *buf = 138412290;
-    v19 = v3;
+    v18 = v3;
     _os_log_impl(&dword_25BF21000, v2, OS_LOG_TYPE_INFO, "Finished downloading assetHandles: %@", buf, 0xCu);
   }
 
   v4 = objc_opt_new();
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __40__NTTodayItemOperation_performOperation__block_invoke_30;
-  v13[3] = &unk_279982718;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __40__NTTodayItemOperation_performOperation__block_invoke_30;
+  v12[3] = &unk_279982718;
   v5 = *(a1 + 48);
-  v14 = *(a1 + 56);
+  v13 = *(a1 + 56);
   v6 = *(a1 + 64);
   v7 = *(a1 + 40);
-  v15 = v6;
-  v16 = v7;
-  v17 = v4;
+  v14 = v6;
+  v15 = v7;
+  v16 = v4;
   v8 = v4;
-  v9 = [v5 fc_dictionaryByTransformingValuesWithKeyAndValueBlock:v13];
+  v9 = [v5 fc_dictionaryByTransformingValuesWithKeyAndValueBlock:v12];
   [*(a1 + 40) setResultTodayItemsBySectionDescriptor:v9];
 
   [*(a1 + 40) setResultAssetFileURLsByRemoteURL:v8];
   [*(a1 + 40) setResultRecordsHoldToken:*(a1 + 72)];
   [*(a1 + 40) setResultAssetsHoldToken:*(a1 + 32)];
   v10 = *(a1 + 40);
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __40__NTTodayItemOperation_performOperation__block_invoke_3_34;
-  v12[3] = &unk_279982740;
-  v12[4] = v10;
-  [v10 _saveWithCompletion:v12];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __40__NTTodayItemOperation_performOperation__block_invoke_3_34;
+  v11[3] = &unk_279982740;
+  v11[4] = v10;
+  [v10 _saveWithCompletion:v11];
 }
 
 id __40__NTTodayItemOperation_performOperation__block_invoke_30(uint64_t a1, void *a2, void *a3)
@@ -462,19 +456,19 @@ uint64_t __55__NTTodayItemOperation__fetchProtoitemsWithCompletion___block_invok
 
 void __55__NTTodayItemOperation__fetchProtoitemsWithCompletion___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [v5 count];
   if (v7 < [*(a1 + 32) count])
   {
     v8 = *(a1 + 32);
-    v36[0] = MEMORY[0x277D85DD0];
-    v36[1] = 3221225472;
-    v36[2] = __55__NTTodayItemOperation__fetchProtoitemsWithCompletion___block_invoke_3;
-    v36[3] = &unk_279982880;
-    v37 = v5;
-    v9 = [v8 fc_arrayOfObjectsPassingTest:v36];
+    v35[0] = MEMORY[0x277D85DD0];
+    v35[1] = 3221225472;
+    v35[2] = __55__NTTodayItemOperation__fetchProtoitemsWithCompletion___block_invoke_3;
+    v35[3] = &unk_279982880;
+    v36 = v5;
+    v9 = [v8 fc_arrayOfObjectsPassingTest:v35];
     v10 = [v9 count];
     v11 = MEMORY[0x277D30B40];
     if (v10)
@@ -492,30 +486,30 @@ void __55__NTTodayItemOperation__fetchProtoitemsWithCompletion___block_invoke_2(
       v15 = *v11;
       if (os_log_type_enabled(*v11, OS_LOG_TYPE_ERROR))
       {
-        v28 = *(a1 + 40);
-        v29 = v15;
-        v30 = [v28 shortOperationDescription];
-        v31 = *(a1 + 32);
+        v27 = *(a1 + 40);
+        v28 = v15;
+        v29 = [v27 shortOperationDescription];
+        v30 = *(a1 + 32);
         *buf = 138543874;
-        v41 = v30;
-        v42 = 2114;
-        v43 = v14;
-        v44 = 2114;
-        v45 = v31;
-        _os_log_error_impl(&dword_25BF21000, v29, OS_LOG_TYPE_ERROR, "%{public}@ has duplicate feed items, articleIDs=%{public}@, items=%{public}@", buf, 0x20u);
+        v40 = v29;
+        v41 = 2114;
+        v42 = v14;
+        v43 = 2114;
+        v44 = v30;
+        _os_log_error_impl(&dword_25BF21000, v28, OS_LOG_TYPE_ERROR, "%{public}@ has duplicate feed items, articleIDs=%{public}@, items=%{public}@", buf, 0x20u);
       }
     }
 
-    v16 = &v37;
+    v16 = &v36;
     v17 = [MEMORY[0x277CBEB38] dictionary];
     v18 = [*(a1 + 40) catchUpOperationResultsBySectionDescriptor];
-    v34[0] = MEMORY[0x277D85DD0];
-    v34[1] = 3221225472;
-    v34[2] = __55__NTTodayItemOperation__fetchProtoitemsWithCompletion___block_invoke_48;
-    v34[3] = &unk_279982808;
+    v33[0] = MEMORY[0x277D85DD0];
+    v33[1] = 3221225472;
+    v33[2] = __55__NTTodayItemOperation__fetchProtoitemsWithCompletion___block_invoke_48;
+    v33[3] = &unk_279982808;
     v19 = v17;
-    v35 = v19;
-    [v18 enumerateKeysAndObjectsUsingBlock:v34];
+    v34 = v19;
+    [v18 enumerateKeysAndObjectsUsingBlock:v33];
 
     v20 = *v11;
     if (os_log_type_enabled(*v11, OS_LOG_TYPE_ERROR))
@@ -524,9 +518,9 @@ void __55__NTTodayItemOperation__fetchProtoitemsWithCompletion___block_invoke_2(
     }
 
     v21 = [v9 fc_arrayByTransformingWithBlock:&__block_literal_global_54];
-    v38 = *MEMORY[0x277D309D0];
-    v39 = v21;
-    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
+    v37 = *MEMORY[0x277D309D0];
+    v38 = v21;
+    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
     v23 = [MEMORY[0x277CCA9B8] fc_partialFailureErrorWithUserInfo:v22];
 
     v13 = 0;
@@ -536,16 +530,16 @@ void __55__NTTodayItemOperation__fetchProtoitemsWithCompletion___block_invoke_2(
   if (!v6)
   {
     v24 = [*(a1 + 40) catchUpOperationResultsBySectionDescriptor];
-    v32[0] = MEMORY[0x277D85DD0];
-    v32[1] = 3221225472;
-    v32[2] = __55__NTTodayItemOperation__fetchProtoitemsWithCompletion___block_invoke_2_57;
-    v32[3] = &unk_279982938;
-    v16 = v33;
+    v31[0] = MEMORY[0x277D85DD0];
+    v31[1] = 3221225472;
+    v31[2] = __55__NTTodayItemOperation__fetchProtoitemsWithCompletion___block_invoke_2_57;
+    v31[3] = &unk_279982938;
+    v16 = v32;
     v25 = v5;
     v26 = *(a1 + 40);
-    v33[0] = v25;
-    v33[1] = v26;
-    v13 = [v24 fc_dictionaryByTransformingValuesWithKeyAndValueBlock:v32];
+    v32[0] = v25;
+    v32[1] = v26;
+    v13 = [v24 fc_dictionaryByTransformingValuesWithKeyAndValueBlock:v31];
 
     v23 = 0;
 LABEL_14:
@@ -557,8 +551,6 @@ LABEL_14:
   v13 = 0;
 LABEL_15:
   (*(*(a1 + 48) + 16))(*(a1 + 48), v13, v5, v6);
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 BOOL __55__NTTodayItemOperation__fetchProtoitemsWithCompletion___block_invoke_3(uint64_t a1, uint64_t a2)
@@ -654,68 +646,56 @@ id __55__NTTodayItemOperation__fetchProtoitemsWithCompletion___block_invoke_3_58
 
 - (void)validateOperation
 {
-  v7 = *MEMORY[0x277D85DE8];
   v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"today item operation requires a completion"];
+  v6 = 136315906;
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_3_0(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_0(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (void)_saveWithCompletion:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "completion"];
   *buf = 136315906;
-  v3 = "[NTTodayItemOperation _saveWithCompletion:]";
-  v4 = 2080;
-  v5 = "NTTodayItemOperation.m";
-  v6 = 1024;
+  v2 = "[NTTodayItemOperation _saveWithCompletion:]";
+  v3 = 2080;
+  v4 = "NTTodayItemOperation.m";
+  v5 = 1024;
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(&dword_25BF21000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_fetchProtoitemsWithCompletion:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "completion"];
   *buf = 136315906;
-  v3 = "[NTTodayItemOperation _fetchProtoitemsWithCompletion:]";
-  v4 = 2080;
-  v5 = "NTTodayItemOperation.m";
-  v6 = 1024;
+  v2 = "[NTTodayItemOperation _fetchProtoitemsWithCompletion:]";
+  v3 = 2080;
+  v4 = "NTTodayItemOperation.m";
+  v5 = 1024;
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(&dword_25BF21000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 void __55__NTTodayItemOperation__fetchProtoitemsWithCompletion___block_invoke_2_cold_1(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 40);
   v3 = a2;
   v4 = [v2 shortOperationDescription];
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_6(&dword_25BF21000, v5, v6, "%{public}@ is missing headlines for feed items: %{public}@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_6(&dword_25BF21000, v5, v6, "%{public}@ is missing headlines for feed items: %{public}@", v7, v8, v9, v10);
 }
 
 void __55__NTTodayItemOperation__fetchProtoitemsWithCompletion___block_invoke_2_cold_2(void **a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
   v2 = *a1;
   v3 = a2;
   v4 = [v2 shortOperationDescription];
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_6(&dword_25BF21000, v5, v6, "%{public}@ will fail with input sections: %{public}@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_6(&dword_25BF21000, v5, v6, "%{public}@ will fail with input sections: %{public}@", v7, v8, v9, v10);
 }
 
 @end

@@ -2,16 +2,21 @@
 - (WiFiUsageLinkSession)initWithInterfaceName:(id)name andCapabilities:(id)capabilities;
 - (void)addDictionary:(id)dictionary withKeysPrefix:(id)prefix toFlatDictionary:(id)flatDictionary;
 - (void)applicationStateDidChange:(id)change withAttributes:(id)attributes;
+- (void)displayStateDidChange:(BOOL)change;
 - (void)faultEventDetected:(unint64_t)detected event:(id)event;
 - (void)getLazyNSNumberPreference:(id)preference exists:(id)exists;
 - (void)joinStateDidChange:(id)change withReason:(unint64_t)reason lastDisconnectReason:(int64_t)disconnectReason lastJoinFailure:(int64_t)failure andNetworkDetails:(id)details;
 - (void)linkQualityDidChange:(id)change;
+- (void)linkStateDidChange:(BOOL)change isInvoluntary:(BOOL)involuntary linkChangeReason:(int64_t)reason linkChangeSubreason:(int64_t)subreason withNetworkDetails:(id)details;
+- (void)lockStateDidChange:(BOOL)change;
 - (void)performLinkTestFor:(id)for isTriggeredByFault:(BOOL)fault;
 - (void)processDHCPChanges:(id)changes;
+- (void)processDriverAvailability:(id)availability available:(BOOL)available version:(unint64_t)version flags:(unint64_t)flags eventID:(unint64_t)d reason:(int64_t)reason subReason:(int64_t)subReason minorReason:(int64_t)self0 reasonString:(id)self1;
 - (void)processIPv4Changes:(id)changes;
 - (void)processIPv6Changes:(id)changes;
 - (void)rangingCompleted;
 - (void)retryLinkTestInOneMinute;
+- (void)systemWakeStateDidChange:(BOOL)change wokenByWiFi:(BOOL)fi;
 @end
 
 @implementation WiFiUsageLinkSession
@@ -59,7 +64,7 @@
 
 - (void)joinStateDidChange:(id)change withReason:(unint64_t)reason lastDisconnectReason:(int64_t)disconnectReason lastJoinFailure:(int64_t)failure andNetworkDetails:(id)details
 {
-  v80 = *MEMORY[0x277D85DE8];
+  v79 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   detailsCopy = details;
   if (failure)
@@ -82,30 +87,30 @@
   {
     disconnectReasonCopy = disconnectReason;
     failureCopy = failure;
-    v55 = detailsCopy;
+    v54 = detailsCopy;
     reasonCopy = reason;
     selfCopy = self;
-    v54 = changeCopy;
-    v64 = 0u;
-    v65 = 0u;
-    v62 = 0u;
+    v53 = changeCopy;
     v63 = 0u;
+    v64 = 0u;
+    v61 = 0u;
+    v62 = 0u;
     v15 = self->_deferredFailureSessions;
-    v16 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v62 objects:v79 count:16];
+    v16 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v61 objects:v78 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v63;
+      v18 = *v62;
       do
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v63 != v18)
+          if (*v62 != v18)
           {
             objc_enumerationMutation(v15);
           }
 
-          v20 = *(*(&v62 + 1) + 8 * i);
+          v20 = *(*(&v61 + 1) + 8 * i);
           completionHandler = [v20 completionHandler];
           if (completionHandler)
           {
@@ -125,7 +130,7 @@
           }
         }
 
-        v17 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v62 objects:v79 count:16];
+        v17 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v61 objects:v78 count:16];
       }
 
       while (v17);
@@ -134,8 +139,8 @@
     self = selfCopy;
     [(NSMutableArray *)selfCopy->_deferredFailureSessions removeAllObjects];
     ++selfCopy->_joinSeqNo;
-    changeCopy = v54;
-    detailsCopy = v55;
+    changeCopy = v53;
+    detailsCopy = v54;
     disconnectReason = disconnectReasonCopy;
     failure = failureCopy;
     reason = reasonCopy;
@@ -157,33 +162,33 @@
 
     joinSeqNo = self->_joinSeqNo;
     [WiFiUsageSession joinReasonString:reason];
-    v28 = v58 = reason;
+    v28 = v57 = reason;
     *buf = 136316418;
-    v68 = "[WiFiUsageLinkSession joinStateDidChange:withReason:lastDisconnectReason:lastJoinFailure:andNetworkDetails:]";
-    v69 = 2080;
-    v70 = v26;
+    v67 = "[WiFiUsageLinkSession joinStateDidChange:withReason:lastDisconnectReason:lastJoinFailure:andNetworkDetails:]";
+    v68 = 2080;
+    v69 = v26;
     disconnectReason = disconnectReasonCopy2;
-    v71 = 2112;
-    v72 = changeCopy;
-    v73 = 1024;
-    v74 = joinSeqNo;
-    v75 = 2112;
-    v76 = v28;
-    v77 = 1024;
+    v70 = 2112;
+    v71 = changeCopy;
+    v72 = 1024;
+    v73 = joinSeqNo;
+    v74 = 2112;
+    v75 = v28;
+    v76 = 1024;
     failureCopy2 = failure;
     _os_log_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: %s joining %@, seqNo %d, reason %@, failure %d", buf, 0x36u);
 
-    reason = v58;
+    reason = v57;
   }
 
-  v60.receiver = self;
-  v60.super_class = WiFiUsageLinkSession;
-  [(WiFiUsageSession *)&v60 joinStateDidChange:changeCopy withReason:reason lastDisconnectReason:disconnectReason lastJoinFailure:failure andNetworkDetails:detailsCopy];
+  v59.receiver = self;
+  v59.super_class = WiFiUsageLinkSession;
+  [(WiFiUsageSession *)&v59 joinStateDidChange:changeCopy withReason:reason lastDisconnectReason:disconnectReason lastJoinFailure:failure andNetworkDetails:detailsCopy];
   if (v14)
   {
-    v59.receiver = self;
-    v59.super_class = WiFiUsageLinkSession;
-    [(WiFiUsageSession *)&v59 updateAssociatedNetworkDetails:detailsCopy];
+    v58.receiver = self;
+    v58.super_class = WiFiUsageLinkSession;
+    [(WiFiUsageSession *)&v58 updateAssociatedNetworkDetails:detailsCopy];
     if ((!failure && [(WiFiUsageSession *)self consecutiveJoinFailureCount]> 4 || [(WiFiUsageSession *)self consecutiveJoinFailureCount]>= 0xA) && !self->_joinFailSoftError)
     {
       v29 = [[WiFiSoftError alloc] initWithName:@"JoinFailure"];
@@ -197,7 +202,7 @@
       [v32 setObject:v34 forKeyedSubscript:@"consecutiveJoinFailureCount"];
 
       [WiFiUsageLQMTransformations numberForKeyPath:@"rssiAtSessionStart" ofObject:self];
-      v35 = v56 = detailsCopy;
+      v35 = v55 = detailsCopy;
       [v32 setObject:v35 forKeyedSubscript:@"rssiAtSessionStart"];
 
       networkDetails = [(WiFiUsageSession *)self networkDetails];
@@ -216,14 +221,14 @@
       apProfile = [connectedBss2 apProfile];
       [v32 setObject:apProfile forKeyedSubscript:@"apProfile"];
 
-      v66 = v32;
-      v45 = [MEMORY[0x277CBEA60] arrayWithObjects:&v66 count:1];
+      v65 = v32;
+      v45 = [MEMORY[0x277CBEA60] arrayWithObjects:&v65 count:1];
       v46 = v38->_joinFailSoftError;
       v47 = [MEMORY[0x277CCACA8] stringWithFormat:@"%ld", v31];
       v48 = [(WiFiSoftError *)v46 submitABCReportWithReason:v47 event:v45];
 
       failure = v31;
-      detailsCopy = v56;
+      detailsCopy = v55;
     }
 
     [(WiFiUsageSession *)self sessionDidEnd];
@@ -236,8 +241,6 @@
     v49 = self->_joinFailSoftError;
     self->_joinFailSoftError = 0;
   }
-
-  v50 = *MEMORY[0x277D85DE8];
 }
 
 void __109__WiFiUsageLinkSession_joinStateDidChange_withReason_lastDisconnectReason_lastJoinFailure_andNetworkDetails___block_invoke(uint64_t a1)
@@ -245,6 +248,192 @@ void __109__WiFiUsageLinkSession_joinStateDidChange_withReason_lastDisconnectRea
   v3 = [*(a1 + 32) completionHandler];
   v2 = [*(a1 + 32) completionContext];
   v3[2](v3, v2, *(a1 + 32));
+}
+
+- (void)linkStateDidChange:(BOOL)change isInvoluntary:(BOOL)involuntary linkChangeReason:(int64_t)reason linkChangeSubreason:(int64_t)subreason withNetworkDetails:(id)details
+{
+  involuntaryCopy = involuntary;
+  changeCopy = change;
+  v50 = *MEMORY[0x277D85DE8];
+  detailsCopy = details;
+  linkUp = self->_linkUp;
+  v14 = changeCopy & ~linkUp;
+  v15 = !changeCopy & linkUp;
+  connectedBss = [detailsCopy connectedBss];
+  self->_band = [connectedBss band];
+
+  if (v15 == 1 && [(WiFiUsageSession *)self isAssociated])
+  {
+    networkDetails = [(WiFiUsageSession *)self networkDetails];
+    v18 = [networkDetails copy];
+    [(WiFiUsageSession *)self setNetworkDetailsAtEnd:v18];
+  }
+
+  v43.receiver = self;
+  v43.super_class = WiFiUsageLinkSession;
+  [(WiFiUsageSession *)&v43 linkStateDidChange:changeCopy isInvoluntary:involuntaryCopy linkChangeReason:reason linkChangeSubreason:subreason withNetworkDetails:detailsCopy];
+  if (!v14)
+  {
+    if (!v15)
+    {
+      goto LABEL_23;
+    }
+
+    if (reason == 6)
+    {
+      [(WiFiUsageSession *)self setDeferCompletion:1];
+      [(WiFiUsageSession *)self sessionDidEnd];
+      if (self->_lastSubmittedSessionSeqNo != self->_joinSeqNo)
+      {
+        deferredFailureSessions = self->_deferredFailureSessions;
+        v32 = [(WiFiUsageLinkSession *)self copy];
+        [(NSMutableArray *)deferredFailureSessions addObject:v32];
+      }
+
+      if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+      {
+        goto LABEL_22;
+      }
+
+      networkDetails2 = [(WiFiUsageSession *)self networkDetails];
+      v34 = [(NSMutableArray *)self->_deferredFailureSessions count];
+      *buf = 136315651;
+      v45 = "[WiFiUsageLinkSession linkStateDidChange:isInvoluntary:linkChangeReason:linkChangeSubreason:withNetworkDetails:]";
+      v46 = 2113;
+      v47 = networkDetails2;
+      v48 = 1024;
+      v49 = v34;
+      v35 = MEMORY[0x277D86220];
+      v36 = "%s: link session completion deferred for %{private}@, deferred count %d";
+    }
+
+    else
+    {
+      [(WiFiUsageSession *)self sessionDidEnd];
+      if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+      {
+LABEL_22:
+        self->_linkUp = 0;
+        lastLinkTest = self->_lastLinkTest;
+        self->_lastLinkTest = 0;
+
+        self->_didBecomePrimary = 0;
+        self->_foundSuccessfulLinkTest = 0;
+        self->_numLinkTestFailures = 0;
+        self->_numLinkRecoverySkips = 0;
+        bssid = self->_bssid;
+        self->_bssid = 0;
+
+        ssid = self->_ssid;
+        self->_ssid = 0;
+
+        self->_faultCountOnBss = 0;
+        goto LABEL_23;
+      }
+
+      networkDetails2 = [(WiFiUsageSession *)self networkDetails];
+      v37 = [(NSMutableArray *)self->_deferredFailureSessions count];
+      *buf = 136315651;
+      v45 = "[WiFiUsageLinkSession linkStateDidChange:isInvoluntary:linkChangeReason:linkChangeSubreason:withNetworkDetails:]";
+      v46 = 2113;
+      v47 = networkDetails2;
+      v48 = 1024;
+      v49 = v37;
+      v35 = MEMORY[0x277D86220];
+      v36 = "%s: link session ended for %{private}@, deferred count %d";
+    }
+
+    _os_log_impl(&dword_2332D7000, v35, OS_LOG_TYPE_DEFAULT, v36, buf, 0x1Cu);
+
+    goto LABEL_22;
+  }
+
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+  {
+    networkDetails3 = [(WiFiUsageSession *)self networkDetails];
+    *buf = 136315395;
+    v45 = "[WiFiUsageLinkSession linkStateDidChange:isInvoluntary:linkChangeReason:linkChangeSubreason:withNetworkDetails:]";
+    v46 = 2113;
+    v47 = networkDetails3;
+    _os_log_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: link session started for %{private}@", buf, 0x16u);
+  }
+
+  [(WiFiUsageSession *)self sessionDidStart];
+  self->_linkUp = 1;
+  connectedBss2 = [detailsCopy connectedBss];
+  v21 = +[WiFiUsageLQMTransformations maxPhyModeFrom:](WiFiUsageLQMTransformations, "maxPhyModeFrom:", [connectedBss2 phyMode]);
+
+  v42.receiver = self;
+  v42.super_class = WiFiUsageLinkSession;
+  if (v21 > [(WiFiUsageSession *)&v42 maxPhyMode])
+  {
+    v41.receiver = self;
+    v41.super_class = WiFiUsageLinkSession;
+    [(WiFiUsageSession *)&v41 setMaxPhyMode:v21];
+  }
+
+  v22 = self->_bssid;
+  if (!v22 || ([detailsCopy connectedBss], v23 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v23, "bssid"), v24 = objc_claimAutoreleasedReturnValue(), v25 = -[NSString isEqual:](v22, "isEqual:", v24), v24, v23, (v25 & 1) == 0))
+  {
+    self->_faultCountOnBss = 0;
+  }
+
+  connectedBss3 = [detailsCopy connectedBss];
+  bssid = [connectedBss3 bssid];
+  v28 = self->_bssid;
+  self->_bssid = bssid;
+
+  networkName = [detailsCopy networkName];
+  v30 = self->_ssid;
+  self->_ssid = networkName;
+
+LABEL_23:
+}
+
+- (void)lockStateDidChange:(BOOL)change
+{
+  changeCopy = change;
+  date = [MEMORY[0x277CBEAA8] date];
+  v6 = date;
+  if (!self->_lastLinkTest || ([date timeIntervalSinceDate:?], v7 > 600.0))
+  {
+    if (!changeCopy)
+    {
+      [(WiFiUsageLinkSession *)self performLinkTestFor:@"LockStateChanged" isTriggeredByFault:0];
+    }
+  }
+
+  v8.receiver = self;
+  v8.super_class = WiFiUsageLinkSession;
+  [(WiFiUsageSession *)&v8 lockStateDidChange:changeCopy];
+}
+
+- (void)displayStateDidChange:(BOOL)change
+{
+  changeCopy = change;
+  date = [MEMORY[0x277CBEAA8] date];
+  v6 = date;
+  if (!self->_lastLinkTest)
+  {
+    if (!changeCopy)
+    {
+      goto LABEL_5;
+    }
+
+    goto LABEL_4;
+  }
+
+  [date timeIntervalSinceDate:?];
+  if (v7 > 600.0 && changeCopy)
+  {
+LABEL_4:
+    [(WiFiUsageLinkSession *)self performLinkTestFor:@"DisplayStateChanged" isTriggeredByFault:0];
+  }
+
+LABEL_5:
+  v8.receiver = self;
+  v8.super_class = WiFiUsageLinkSession;
+  [(WiFiUsageSession *)&v8 displayStateDidChange:changeCopy];
 }
 
 - (void)applicationStateDidChange:(id)change withAttributes:(id)attributes
@@ -626,7 +815,7 @@ LABEL_65:
 
 void __62__WiFiUsageLinkSession_performLinkTestFor_isTriggeredByFault___block_invoke(uint64_t a1, void *a2)
 {
-  v138[2] = *MEMORY[0x277D85DE8];
+  v137[2] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 statusForDNS];
   v5 = [v3 statusForLocal];
@@ -635,19 +824,7 @@ void __62__WiFiUsageLinkSession_performLinkTestFor_isTriggeredByFault___block_in
   if (v7)
   {
     v8 = [v3 dnsServers];
-    v100 = [v8 count] == 0;
-  }
-
-  else
-  {
-    v100 = 1;
-  }
-
-  v9 = [v3 gatewayAddress];
-  if (v9)
-  {
-    v10 = [v3 gatewayAddress];
-    v99 = [v10 length] == 0;
+    v99 = [v8 count] == 0;
   }
 
   else
@@ -655,12 +832,24 @@ void __62__WiFiUsageLinkSession_performLinkTestFor_isTriggeredByFault___block_in
     v99 = 1;
   }
 
+  v9 = [v3 gatewayAddress];
+  if (v9)
+  {
+    v10 = [v3 gatewayAddress];
+    v98 = [v10 length] == 0;
+  }
+
+  else
+  {
+    v98 = 1;
+  }
+
   v11 = [v3 statusForSiriTCP];
   v12 = [v3 statusForSiriTLS];
   v13 = [MEMORY[0x277CBEB38] dictionary];
   v14 = [MEMORY[0x277CCAB68] stringWithString:@"LinkTestFailure"];
   [v14 appendFormat:@"_%@", *(a1 + 32)];
-  v102 = (a1 + 32);
+  v101 = (a1 + 32);
   [v13 setObject:*(a1 + 32) forKey:@"Invoke"];
   if (v4)
   {
@@ -682,7 +871,7 @@ void __62__WiFiUsageLinkSession_performLinkTestFor_isTriggeredByFault___block_in
     [v13 setObject:v11 forKey:@"SiriTCP"];
     if (!v12)
     {
-      v101 = 0;
+      v100 = 0;
 LABEL_18:
       v15 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(v3, "siriTrafficClass")}];
       [v13 setObject:v15 forKey:@"SiriTrafficClass"];
@@ -692,7 +881,7 @@ LABEL_18:
 
 LABEL_17:
     [v13 setObject:v12 forKey:@"SiriTLS"];
-    v101 = 1;
+    v100 = 1;
     goto LABEL_18;
   }
 
@@ -701,7 +890,7 @@ LABEL_17:
     goto LABEL_17;
   }
 
-  v101 = 0;
+  v100 = 0;
 LABEL_19:
   if ([v3 backhaulResultsValid])
   {
@@ -722,13 +911,13 @@ LABEL_19:
     [v13 setObject:v18 forKey:@"FltBadAC"];
   }
 
-  v105 = v11;
-  v106 = v5;
-  v107 = v12;
-  v108 = v6;
+  v104 = v11;
+  v105 = v5;
+  v106 = v12;
+  v107 = v6;
   if (v4 == kWFMeasureStatusOK)
   {
-    v104 = 0;
+    v103 = 0;
     v28 = v4;
   }
 
@@ -739,18 +928,18 @@ LABEL_19:
     {
       v20 = [MEMORY[0x277CCAB98] defaultCenter];
       v21 = *(a1 + 40);
-      v138[0] = &unk_2848B95F0;
-      v137[0] = @"SessionNotificationFaultType";
-      v137[1] = @"SessionNotificationInterfaceName";
+      v137[0] = &unk_2848B95F0;
+      v136[0] = @"SessionNotificationFaultType";
+      v136[1] = @"SessionNotificationInterfaceName";
       v22 = [v21 interfaceName];
-      v138[1] = v22;
-      v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v138 forKeys:v137 count:2];
+      v137[1] = v22;
+      v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v137 forKeys:v136 count:2];
       v24 = v21;
-      v12 = v107;
+      v12 = v106;
       [v20 postNotificationName:@"SessionNotificationFaultEventDetected" object:v24 userInfo:v23];
 
-      v5 = v106;
-      v6 = v108;
+      v5 = v105;
+      v6 = v107;
 
       v19 = kWFMeasureStatusBroken;
     }
@@ -766,7 +955,7 @@ LABEL_19:
     }
 
     v26 = v25;
-    v104 = v26;
+    v103 = v26;
     if (v25)
     {
       if (v4)
@@ -774,7 +963,7 @@ LABEL_19:
         v27 = @"_DNS";
       }
 
-      else if (v100 && v99)
+      else if (v99 && v98)
       {
         v27 = @"_DNSNoGDNS";
       }
@@ -782,12 +971,12 @@ LABEL_19:
       else
       {
         v29 = @"_DNSNil";
-        if (v99)
+        if (v98)
         {
           v29 = @"_DNSNoG";
         }
 
-        if (v100)
+        if (v99)
         {
           v27 = @"_DNSNoDNS";
         }
@@ -805,7 +994,7 @@ LABEL_19:
     v28 = kWFMeasureStatusOK;
   }
 
-  v103 = v4;
+  v102 = v4;
   if (v6 == v28)
   {
     v37 = 0;
@@ -819,20 +1008,20 @@ LABEL_19:
     {
       v31 = [MEMORY[0x277CCAB98] defaultCenter];
       v32 = *(a1 + 40);
-      v136[0] = &unk_2848B9608;
-      v135[0] = @"SessionNotificationFaultType";
-      v135[1] = @"SessionNotificationInterfaceName";
+      v135[0] = &unk_2848B9608;
+      v134[0] = @"SessionNotificationFaultType";
+      v134[1] = @"SessionNotificationInterfaceName";
       v33 = [v32 interfaceName];
-      v136[1] = v33;
-      v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v136 forKeys:v135 count:2];
+      v135[1] = v33;
+      v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v135 forKeys:v134 count:2];
       v35 = v32;
-      v11 = v105;
+      v11 = v104;
       [v31 postNotificationName:@"SessionNotificationFaultEventDetected" object:v35 userInfo:v34];
 
-      v6 = v108;
-      v12 = v107;
+      v6 = v107;
+      v12 = v106;
 
-      v5 = v106;
+      v5 = v105;
       v30 = kWFMeasureStatusBroken;
     }
 
@@ -854,7 +1043,7 @@ LABEL_19:
         v38 = @"_Int";
       }
 
-      else if (v100 && v99)
+      else if (v99 && v98)
       {
         v38 = @"_IntNoGDNS";
       }
@@ -862,12 +1051,12 @@ LABEL_19:
       else
       {
         v40 = @"_IntNil";
-        if (v99)
+        if (v98)
         {
           v40 = @"_IntNoG";
         }
 
-        if (v100)
+        if (v99)
         {
           v38 = @"_IntNoDNS";
         }
@@ -892,22 +1081,22 @@ LABEL_19:
     {
       v42 = [MEMORY[0x277CCAB98] defaultCenter];
       v43 = *(a1 + 40);
-      v134[0] = &unk_2848B9620;
-      v133[0] = @"SessionNotificationFaultType";
-      v133[1] = @"SessionNotificationInterfaceName";
+      v133[0] = &unk_2848B9620;
+      v132[0] = @"SessionNotificationFaultType";
+      v132[1] = @"SessionNotificationInterfaceName";
       v44 = [v43 interfaceName];
-      v134[1] = v44;
-      v45 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v134 forKeys:v133 count:2];
+      v133[1] = v44;
+      v45 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v133 forKeys:v132 count:2];
       v46 = v43;
-      v11 = v105;
+      v11 = v104;
       [v42 postNotificationName:@"SessionNotificationFaultEventDetected" object:v46 userInfo:v45];
 
-      v6 = v108;
-      v12 = v107;
+      v6 = v107;
+      v12 = v106;
 
-      v5 = v106;
+      v5 = v105;
       v41 = kWFMeasureStatusBroken;
-      if (!v106)
+      if (!v105)
       {
         goto LABEL_81;
       }
@@ -942,7 +1131,7 @@ LABEL_85:
     [v14 appendFormat:@"_FltBadAC %@", v47];
 
     NSLog(&cfstr_SFaultWithSeen.isa, "[WiFiUsageLinkSession performLinkTestFor:isTriggeredByFault:]_block_invoke", v3, v14);
-    NSLog(&cfstr_SStatusforloca_0.isa, "[WiFiUsageLinkSession performLinkTestFor:isTriggeredByFault:]_block_invoke", v106, v14, v13);
+    NSLog(&cfstr_SStatusforloca_0.isa, "[WiFiUsageLinkSession performLinkTestFor:isTriggeredByFault:]_block_invoke", v105, v14, v13);
   }
 
   v48 = kWFMeasureStatusOK;
@@ -952,18 +1141,18 @@ LABEL_85:
     {
       v49 = [MEMORY[0x277CCAB98] defaultCenter];
       v50 = *(a1 + 40);
-      v132[0] = &unk_2848B9638;
-      v131[0] = @"SessionNotificationFaultType";
-      v131[1] = @"SessionNotificationInterfaceName";
+      v131[0] = &unk_2848B9638;
+      v130[0] = @"SessionNotificationFaultType";
+      v130[1] = @"SessionNotificationInterfaceName";
       v51 = [v50 interfaceName];
-      v132[1] = v51;
-      v52 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v132 forKeys:v131 count:2];
+      v131[1] = v51;
+      v52 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v131 forKeys:v130 count:2];
       v53 = v50;
-      v11 = v105;
+      v11 = v104;
       [v49 postNotificationName:@"SessionNotificationFaultEventDetected" object:v53 userInfo:v52];
 
-      v6 = v108;
-      v12 = v107;
+      v6 = v107;
+      v12 = v106;
     }
 
     [v14 appendString:@"_SiriTCP"];
@@ -973,7 +1162,7 @@ LABEL_85:
   }
 
   v25 = v12 == v48;
-  v54 = v101;
+  v54 = v100;
   if (v25)
   {
     v54 = 0;
@@ -985,16 +1174,16 @@ LABEL_85:
     {
       v55 = [MEMORY[0x277CCAB98] defaultCenter];
       v56 = *(a1 + 40);
-      v130[0] = &unk_2848B9650;
-      v129[0] = @"SessionNotificationFaultType";
-      v129[1] = @"SessionNotificationInterfaceName";
+      v129[0] = &unk_2848B9650;
+      v128[0] = @"SessionNotificationFaultType";
+      v128[1] = @"SessionNotificationInterfaceName";
       v57 = [v56 interfaceName];
-      v130[1] = v57;
-      v58 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v130 forKeys:v129 count:2];
+      v129[1] = v57;
+      v58 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v129 forKeys:v128 count:2];
       [v55 postNotificationName:@"SessionNotificationFaultEventDetected" object:v56 userInfo:v58];
 
-      v6 = v108;
-      v12 = v107;
+      v6 = v107;
+      v12 = v106;
     }
 
     [v14 appendString:@"_SiriTLS"];
@@ -1017,18 +1206,18 @@ LABEL_85:
       v60 = [MEMORY[0x277D7B940] sharedDeviceAnalyticsClient];
       *buf = 136446978;
       v61 = @"NO";
-      v122 = "[WiFiUsageLinkSession performLinkTestFor:isTriggeredByFault:]_block_invoke";
+      v121 = "[WiFiUsageLinkSession performLinkTestFor:isTriggeredByFault:]_block_invoke";
       if (v60)
       {
         v61 = @"YES";
       }
 
-      v123 = 1024;
-      v124 = 771;
-      v125 = 2080;
-      v126 = "[WiFiUsageLinkSession performLinkTestFor:isTriggeredByFault:]_block_invoke";
-      v127 = 2112;
-      v128 = v61;
+      v122 = 1024;
+      v123 = 771;
+      v124 = 2080;
+      v125 = "[WiFiUsageLinkSession performLinkTestFor:isTriggeredByFault:]_block_invoke";
+      v126 = 2112;
+      v127 = v61;
       _os_log_impl(&dword_2332D7000, v59, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:%s: Saving linkTest in DeviceStore: %@", buf, 0x26u);
     }
 
@@ -1039,27 +1228,27 @@ LABEL_85:
       v63 = [MEMORY[0x277D7B940] sharedDeviceAnalyticsClient];
       v64 = *(*(a1 + 40) + 12040);
       v65 = [MEMORY[0x277CBEAA8] date];
-      v109[0] = MEMORY[0x277D85DD0];
-      v109[1] = 3221225472;
-      v109[2] = __62__WiFiUsageLinkSession_performLinkTestFor_isTriggeredByFault___block_invoke_372;
-      v109[3] = &unk_2789C6920;
-      v117 = v100;
-      v118 = v99;
-      v110 = v3;
-      v119 = v37;
-      v111 = *(a1 + 32);
-      v120 = *(a1 + 48);
-      v112 = v103;
-      v113 = v6;
-      v114 = v106;
-      v115 = v105;
-      v116 = v107;
-      [v63 linkTestEventOn:v64 at:v65 with:v109];
+      v108[0] = MEMORY[0x277D85DD0];
+      v108[1] = 3221225472;
+      v108[2] = __62__WiFiUsageLinkSession_performLinkTestFor_isTriggeredByFault___block_invoke_372;
+      v108[3] = &unk_2789C6920;
+      v116 = v99;
+      v117 = v98;
+      v109 = v3;
+      v118 = v37;
+      v110 = *(a1 + 32);
+      v119 = *(a1 + 48);
+      v111 = v102;
+      v112 = v6;
+      v113 = v105;
+      v114 = v104;
+      v115 = v106;
+      [v63 linkTestEventOn:v64 at:v65 with:v108];
     }
   }
 
   v66 = *(a1 + 40);
-  if ((v104 | v37) == 1)
+  if ((v103 | v37) == 1)
   {
     ++*(v66 + 12048);
     NSLog(&cfstr_SULinkTestFail.isa, "[WiFiUsageLinkSession performLinkTestFor:isTriggeredByFault:]_block_invoke_2", 816, *(*(a1 + 40) + 12048), v14);
@@ -1096,21 +1285,21 @@ LABEL_85:
         *(v80 + 12112) = 0;
 
 LABEL_144:
-        v69 = v108;
+        v69 = v107;
         goto LABEL_145;
       }
     }
 
     *(v68 + 12064) = 0;
     v72 = *(a1 + 40);
-    v69 = v108;
+    v69 = v107;
     if (*(v72 + 12057))
     {
       if (v37)
       {
 LABEL_120:
         v73 = (a1 + 32);
-        if (!v104 || *(*(a1 + 40) + 12048) < 2uLL)
+        if (!v103 || *(*(a1 + 40) + 12048) < 2uLL)
         {
           goto LABEL_136;
         }
@@ -1133,7 +1322,7 @@ LABEL_126:
     }
 
     v73 = (a1 + 32);
-    if (v104)
+    if (v103)
     {
       if (*(*(a1 + 40) + 12048) > 1uLL)
       {
@@ -1177,9 +1366,9 @@ LABEL_126:
       [v83 networkActivityStop:1 withReason:v86 withClientMetric:"linkTestResults" withClientDict:v85 andError:0];
 
       *(*(a1 + 40) + 12096) = 0;
-      v95 = *(a1 + 40);
-      v96 = *(v95 + 12112);
-      *(v95 + 12112) = 0;
+      v94 = *(a1 + 40);
+      v95 = *(v94 + 12112);
+      *(v94 + 12112) = 0;
 
       goto LABEL_145;
     }
@@ -1190,17 +1379,17 @@ LABEL_136:
     if ([v14 isEqualToString:v88])
     {
       NSLog(&cfstr_SUAttemptingTo.isa, "[WiFiUsageLinkSession performLinkTestFor:isTriggeredByFault:]_block_invoke_2", 871, v14, *v87);
+      v96 = MEMORY[0x277D86220];
       v97 = MEMORY[0x277D86220];
-      v98 = MEMORY[0x277D86220];
-      if (os_log_type_enabled(v97, OS_LOG_TYPE_FAULT))
+      if (os_log_type_enabled(v96, OS_LOG_TYPE_FAULT))
       {
-        __62__WiFiUsageLinkSession_performLinkTestFor_isTriggeredByFault___block_invoke_cold_1(v14, v102);
+        __62__WiFiUsageLinkSession_performLinkTestFor_isTriggeredByFault___block_invoke_cold_1(v14, v101);
       }
 
       __assert_rtn("[WiFiUsageLinkSession performLinkTestFor:isTriggeredByFault:]_block_invoke", "WiFiUsageLinkSession.m", 873, "false");
     }
 
-    if (v104)
+    if (v103)
     {
       v89 = *(*(a1 + 40) + 12048) > 1uLL;
     }
@@ -1234,11 +1423,11 @@ LABEL_143:
     goto LABEL_143;
   }
 
-  NSLog(&cfstr_SULinkTestComp.isa, "[WiFiUsageLinkSession performLinkTestFor:isTriggeredByFault:]_block_invoke_2", 828, *v102);
-  v69 = v108;
-  if ([*v102 isEqualToString:@"didHandleFaultEvent"])
+  NSLog(&cfstr_SULinkTestComp.isa, "[WiFiUsageLinkSession performLinkTestFor:isTriggeredByFault:]_block_invoke_2", 828, *v101);
+  v69 = v107;
+  if ([*v101 isEqualToString:@"didHandleFaultEvent"])
   {
-    if ((v104 | v37))
+    if ((v103 | v37))
     {
       [v13 setObject:@"YES" forKey:@"FaultEventLinkNotRecovered"];
       NSLog(&cfstr_SULinkTestFail_0.isa, "[WiFiUsageLinkSession performLinkTestFor:isTriggeredByFault:]_block_invoke_2", 837, *(*(a1 + 40) + 12088));
@@ -1271,8 +1460,6 @@ LABEL_143:
   }
 
 LABEL_145:
-
-  v94 = *MEMORY[0x277D85DE8];
 }
 
 void __62__WiFiUsageLinkSession_performLinkTestFor_isTriggeredByFault___block_invoke_372(uint64_t a1, void *a2)
@@ -1288,7 +1475,7 @@ void __62__WiFiUsageLinkSession_performLinkTestFor_isTriggeredByFault___block_in
   v6 = v5;
   if (v5)
   {
-    [v5 decimalValue];
+    objc_msgSend_decimalValue(v5);
   }
 
   else
@@ -1306,7 +1493,7 @@ void __62__WiFiUsageLinkSession_performLinkTestFor_isTriggeredByFault___block_in
   v10 = v9;
   if (v9)
   {
-    [v9 decimalValue];
+    objc_msgSend_decimalValue(v9);
   }
 
   else
@@ -1324,7 +1511,7 @@ void __62__WiFiUsageLinkSession_performLinkTestFor_isTriggeredByFault___block_in
   v14 = v13;
   if (v13)
   {
-    [v13 decimalValue];
+    objc_msgSend_decimalValue(v13);
   }
 
   else
@@ -1345,7 +1532,7 @@ void __62__WiFiUsageLinkSession_performLinkTestFor_isTriggeredByFault___block_in
   v18 = v17;
   if (v17)
   {
-    [v17 decimalValue];
+    objc_msgSend_decimalValue(v17);
   }
 
   else
@@ -1363,7 +1550,7 @@ void __62__WiFiUsageLinkSession_performLinkTestFor_isTriggeredByFault___block_in
   v22 = v21;
   if (v21)
   {
-    [v21 decimalValue];
+    objc_msgSend_decimalValue(v21);
   }
 
   else
@@ -1381,7 +1568,7 @@ void __62__WiFiUsageLinkSession_performLinkTestFor_isTriggeredByFault___block_in
   v26 = v25;
   if (v25)
   {
-    [v25 decimalValue];
+    objc_msgSend_decimalValue(v25);
   }
 
   else
@@ -1400,7 +1587,7 @@ void __62__WiFiUsageLinkSession_performLinkTestFor_isTriggeredByFault___block_in
   v30 = v29;
   if (v29)
   {
-    [v29 decimalValue];
+    objc_msgSend_decimalValue(v29);
   }
 
   else
@@ -1418,7 +1605,7 @@ void __62__WiFiUsageLinkSession_performLinkTestFor_isTriggeredByFault___block_in
   v34 = v33;
   if (v33)
   {
-    [v33 decimalValue];
+    objc_msgSend_decimalValue(v33);
   }
 
   else
@@ -1436,7 +1623,7 @@ void __62__WiFiUsageLinkSession_performLinkTestFor_isTriggeredByFault___block_in
   v38 = v37;
   if (v37)
   {
-    [v37 decimalValue];
+    objc_msgSend_decimalValue(v37);
   }
 
   else
@@ -1461,6 +1648,13 @@ void __62__WiFiUsageLinkSession_performLinkTestFor_isTriggeredByFault___block_in
   [v3 setStatusForLocal:*(a1 + 64)];
   [v3 setStatusForSiriTCP:*(a1 + 72)];
   [v3 setStatusForSiriTLS:*(a1 + 80)];
+}
+
+- (void)systemWakeStateDidChange:(BOOL)change wokenByWiFi:(BOOL)fi
+{
+  v4.receiver = self;
+  v4.super_class = WiFiUsageLinkSession;
+  [(WiFiUsageSession *)&v4 systemWakeStateDidChange:change wokenByWiFi:fi];
 }
 
 - (void)processIPv4Changes:(id)changes
@@ -1493,6 +1687,13 @@ void __62__WiFiUsageLinkSession_performLinkTestFor_isTriggeredByFault___block_in
   v3.receiver = self;
   v3.super_class = WiFiUsageLinkSession;
   [(WiFiUsageSession *)&v3 rangingCompleted];
+}
+
+- (void)processDriverAvailability:(id)availability available:(BOOL)available version:(unint64_t)version flags:(unint64_t)flags eventID:(unint64_t)d reason:(int64_t)reason subReason:(int64_t)subReason minorReason:(int64_t)self0 reasonString:(id)self1
+{
+  v11.receiver = self;
+  v11.super_class = WiFiUsageLinkSession;
+  [(WiFiUsageSession *)&v11 processDriverAvailability:availability available:available version:version flags:flags eventID:d reason:reason subReason:subReason minorReason:minorReason reasonString:string];
 }
 
 - (void)linkQualityDidChange:(id)change
@@ -1553,18 +1754,17 @@ void __70__WiFiUsageLinkSession_addDictionary_withKeysPrefix_toFlatDictionary___
 
 void __62__WiFiUsageLinkSession_performLinkTestFor_isTriggeredByFault___block_invoke_cold_1(uint64_t a1, uint64_t *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = *a2;
-  v4 = 136315906;
-  v5 = "[WiFiUsageLinkSession performLinkTestFor:isTriggeredByFault:]_block_invoke_2";
-  v6 = 1024;
-  v7 = 872;
-  v8 = 2112;
-  v9 = a1;
-  v10 = 2112;
-  v11 = v2;
-  _os_log_fault_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "%s:%u: Attempting to reset chip with vague reason %@, linkTestIniated %@\n", &v4, 0x26u);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 136315906;
+  v4 = "[WiFiUsageLinkSession performLinkTestFor:isTriggeredByFault:]_block_invoke_2";
+  v5 = 1024;
+  v6 = 872;
+  v7 = 2112;
+  v8 = a1;
+  v9 = 2112;
+  v10 = v2;
+  _os_log_fault_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "%s:%u: Attempting to reset chip with vague reason %@, linkTestIniated %@\n", &v3, 0x26u);
 }
 
 @end

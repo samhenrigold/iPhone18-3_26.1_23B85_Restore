@@ -195,7 +195,7 @@ void __59__CRKASMConcreteNameComponents_makeMonogramWithComponents___block_invok
   return v3;
 }
 
-uint64_t __47__CRKASMConcreteNameComponents_sharedFormatter__block_invoke()
+uint64_t __47__CRKASMConcreteNameComponents_sharedFormatter__block_invoke(uint64_t a1, uint64_t a2)
 {
   sharedFormatter_formatter = objc_opt_new();
 

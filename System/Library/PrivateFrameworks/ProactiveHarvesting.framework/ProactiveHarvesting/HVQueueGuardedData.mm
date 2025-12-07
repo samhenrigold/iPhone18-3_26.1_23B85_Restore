@@ -7,18 +7,18 @@
 
 - (void)dealloc
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if ([(NSMutableArray *)self->_memoryStorage count])
   {
     v3 = hv_default_log_handle();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      v7 = [(NSMutableArray *)self->_memoryStorage count];
+      v6 = [(NSMutableArray *)self->_memoryStorage count];
       memoryStorage = self->_memoryStorage;
       *buf = 134218243;
-      v11 = v7;
-      v12 = 2113;
-      v13 = memoryStorage;
+      v10 = v6;
+      v11 = 2113;
+      v12 = memoryStorage;
       _os_log_fault_impl(&dword_2321EC000, v3, OS_LOG_TYPE_FAULT, "deallocating HVQueueGuardedData with %tu enqueued items (%{private}@) in memory!", buf, 0x16u);
     }
 
@@ -43,10 +43,9 @@
     }
   }
 
-  v9.receiver = self;
-  v9.super_class = HVQueueGuardedData;
-  [(HVQueueGuardedData *)&v9 dealloc];
-  v6 = *MEMORY[0x277D85DE8];
+  v8.receiver = self;
+  v8.super_class = HVQueueGuardedData;
+  [(HVQueueGuardedData *)&v8 dealloc];
 }
 
 - (char)initWithBiomeStream:(__int16)stream memoryLimit:(void *)limit memoryStorageFlushCallback:

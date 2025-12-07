@@ -149,13 +149,13 @@
 {
   if (objc_opt_class() == self)
   {
-    v3[0] = xmmword_100315420;
-    v3[1] = unk_100315430;
-    JreStrongAssignAndConsume(&qword_100555100, [IOSDoubleArray newArrayWithDoubles:v3 count:4]);
-    v2[0] = xmmword_100315440;
-    v2[1] = unk_100315450;
-    JreStrongAssignAndConsume(&qword_100555108, [IOSDoubleArray newArrayWithDoubles:v2 count:4]);
-    qword_100555110 = JavaLangDouble_doubleToRawLongBitsWithDouble_(1.0);
+    v5[0] = xmmword_100315420;
+    v5[1] = unk_100315430;
+    JreStrongAssignAndConsume(&qword_100555100, [IOSDoubleArray newArrayWithDoubles:v5 count:4]);
+    v4[0] = xmmword_100315440;
+    v4[1] = unk_100315450;
+    v2 = JreStrongAssignAndConsume(&qword_100555108, [IOSDoubleArray newArrayWithDoubles:v4 count:4]);
+    qword_100555110 = JavaLangDouble_doubleToRawLongBitsWithDouble_(v2, v3, 1.0);
     atomic_store(1u, &JavaLangStrictMath__initialized);
   }
 }

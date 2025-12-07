@@ -47,34 +47,34 @@
 
 + (BOOL)foundDominantPeopleSceneInAsset:(id)asset withConfidenceThresholdHelper:(id)helper
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   assetCopy = asset;
   helperCopy = helper;
   curationModel = [assetCopy curationModel];
   v8 = [helperCopy confidenceThresholdBySceneIdentifierWithCurationModel:curationModel];
 
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   clsSceneClassifications = [assetCopy clsSceneClassifications];
-  v10 = [clsSceneClassifications countByEnumeratingWithState:&v30 objects:v34 count:16];
+  v10 = [clsSceneClassifications countByEnumeratingWithState:&v29 objects:v33 count:16];
   if (v10)
   {
-    v29 = helperCopy;
-    v11 = *v31;
+    v28 = helperCopy;
+    v11 = *v30;
     v12 = *MEMORY[0x277CBF3A8];
     v13 = *(MEMORY[0x277CBF3A8] + 8);
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v31 != v11)
+        if (*v30 != v11)
         {
           objc_enumerationMutation(clsSceneClassifications);
         }
 
-        v15 = *(*(&v30 + 1) + 8 * i);
+        v15 = *(*(&v29 + 1) + 8 * i);
         v16 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v15, "extendedSceneIdentifier")}];
         v17 = [v8 objectForKeyedSubscript:v16];
 
@@ -86,7 +86,7 @@
           if (v19 >= v20)
           {
             [v15 boundingBox];
-            if (!NSIsEmptyRect(v36))
+            if (!NSIsEmptyRect(v35))
             {
               [v15 boundingBox];
               if (v12 != v22 || v13 != v21)
@@ -106,7 +106,7 @@
         }
       }
 
-      v10 = [clsSceneClassifications countByEnumeratingWithState:&v30 objects:v34 count:16];
+      v10 = [clsSceneClassifications countByEnumeratingWithState:&v29 objects:v33 count:16];
       if (v10)
       {
         continue;
@@ -116,10 +116,9 @@
     }
 
 LABEL_18:
-    helperCopy = v29;
+    helperCopy = v28;
   }
 
-  v27 = *MEMORY[0x277D85DE8];
   return v10;
 }
 

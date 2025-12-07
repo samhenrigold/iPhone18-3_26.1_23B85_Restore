@@ -29,6 +29,7 @@
 - (void)dealloc;
 - (void)didAddSubview:(id)subview;
 - (void)layoutSubviews;
+- (void)screenDidTurnOffAnimated:(BOOL)animated;
 - (void)setTransitionFraction:(double)fraction fromOption:(id)option toOption:(id)toOption customEditMode:(int64_t)mode slot:(id)slot;
 - (void)videoPlayerViewDidBeginPlaying:(id)playing;
 - (void)videoPlayerViewDidBeginPlayingQueuedVideo:(id)video;
@@ -184,6 +185,23 @@
   v5.receiver = self;
   v5.super_class = NTKInfinityFaceView;
   [(NTKInfinityFaceView *)&v5 _handleOrdinaryScreenWake];
+}
+
+- (void)screenDidTurnOffAnimated:(BOOL)animated
+{
+  v7.receiver = self;
+  v7.super_class = NTKInfinityFaceView;
+  [(NTKInfinityFaceView *)&v7 screenDidTurnOffAnimated:animated];
+  [(NTKInfinityController *)self->_controller invalidateCurrentListing];
+  [(NTKInfinityController *)self->_controller invalidatePreparedListing];
+  [(NTKInfinityController *)self->_controller prepareListing];
+  preparedListing = [(NTKInfinityController *)self->_controller preparedListing];
+  v5 = preparedListing;
+  if (preparedListing)
+  {
+    complicationColor = [preparedListing complicationColor];
+    [(NTKInfinityFaceView *)self _updateComplicationWithColor:complicationColor animated:0];
+  }
 }
 
 - (void)videoPlayerViewDidBeginPlayingQueuedVideo:(id)video

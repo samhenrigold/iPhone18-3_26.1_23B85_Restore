@@ -1,2425 +1,3498 @@
-uint64_t sub_1B91E5AB0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void sub_1B9229DAC()
 {
-  v12[1] = a4;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB9028, &qword_1B96A4930);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v4 - 8);
-  v7 = v12 - v6;
-  v8 = type metadata accessor for Apple_Parsec_Siri_V2alpha_RecordLocationActivityBuilderParams(0);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v8);
-  sub_1B8D92024();
-  v10 = type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriCommandBuilder.OneOf_SiriCommandBuilderParams(0);
-  if (__swift_getEnumTagSinglePayload(v7, 1, v10) == 1)
+  OUTLINED_FUNCTION_243();
+  OUTLINED_FUNCTION_67();
+  if (v5)
   {
-    result = sub_1B8D9207C(v7, &qword_1EBAB9028, &qword_1B96A4930);
+    OUTLINED_FUNCTION_128();
+    sub_1B9239DFC();
+    sub_1B8D9207C(v4 + v3, &qword_1EBAC9548, &qword_1B96AA828);
+    OUTLINED_FUNCTION_1_63();
+    OUTLINED_FUNCTION_505_1();
+    OUTLINED_FUNCTION_30_2();
+    OUTLINED_FUNCTION_21_17();
+    sub_1B9239E50();
   }
 
   else
   {
-    if (!swift_getEnumCaseMultiPayload())
-    {
-      sub_1B91D8B1C();
-      sub_1B8CD2BA0(&qword_1EBAC84E8, type metadata accessor for Apple_Parsec_Siri_V2alpha_RecordLocationActivityBuilderParams);
-      sub_1B964C740();
-      return sub_1B91D88F0();
-    }
-
-    result = sub_1B91D88F0();
+    sub_1B8D9207C(v4 + v3, &qword_1EBAC9548, &qword_1B96AA828);
+    OUTLINED_FUNCTION_1_63();
+    OUTLINED_FUNCTION_506_0();
+    OUTLINED_FUNCTION_30_2();
   }
 
-  __break(1u);
-  return result;
+  free(v2);
+  free(v0);
+  free(v1);
+  OUTLINED_FUNCTION_242();
+
+  free(v6);
 }
 
-uint64_t sub_1B91E5CC0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t sub_1B9229EBC()
 {
-  v12[1] = a4;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB9028, &qword_1B96A4930);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v4 - 8);
-  v7 = v12 - v6;
-  v8 = type metadata accessor for Apple_Parsec_Siri_V2alpha_AppPunchOutBuilderParams(0);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v8);
-  sub_1B8D92024();
-  v10 = type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriCommandBuilder.OneOf_SiriCommandBuilderParams(0);
-  if (__swift_getEnumTagSinglePayload(v7, 1, v10) == 1)
-  {
-    result = sub_1B8D9207C(v7, &qword_1EBAB9028, &qword_1B96A4930);
-  }
-
-  else
-  {
-    if (swift_getEnumCaseMultiPayload() == 1)
-    {
-      sub_1B91D8B1C();
-      sub_1B8CD2BA0(&qword_1EBAC8360, type metadata accessor for Apple_Parsec_Siri_V2alpha_AppPunchOutBuilderParams);
-      sub_1B964C740();
-      return sub_1B91D88F0();
-    }
-
-    result = sub_1B91D88F0();
-  }
-
-  __break(1u);
-  return result;
-}
-
-uint64_t sub_1B91E5ED4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v12[1] = a4;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB9028, &qword_1B96A4930);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v4 - 8);
-  v7 = v12 - v6;
-  started = type metadata accessor for Apple_Parsec_Siri_V2alpha_StartRequestBuilderParams(0);
-  v9 = *(*(started - 8) + 64);
-  MEMORY[0x1EEE9AC00](started);
-  sub_1B8D92024();
-  v10 = type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriCommandBuilder.OneOf_SiriCommandBuilderParams(0);
-  if (__swift_getEnumTagSinglePayload(v7, 1, v10) == 1)
-  {
-    result = sub_1B8D9207C(v7, &qword_1EBAB9028, &qword_1B96A4930);
-  }
-
-  else
-  {
-    if (swift_getEnumCaseMultiPayload() == 2)
-    {
-      sub_1B91D8B1C();
-      sub_1B8CD2BA0(qword_1ED9C9458, type metadata accessor for Apple_Parsec_Siri_V2alpha_StartRequestBuilderParams);
-      sub_1B964C740();
-      return sub_1B91D88F0();
-    }
-
-    result = sub_1B91D88F0();
-  }
-
-  __break(1u);
-  return result;
-}
-
-uint64_t sub_1B91E60E8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v12[1] = a4;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB9028, &qword_1B96A4930);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v4 - 8);
-  v7 = v12 - v6;
-  v8 = type metadata accessor for Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParams(0);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v8);
-  sub_1B8D92024();
-  v10 = type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriCommandBuilder.OneOf_SiriCommandBuilderParams(0);
-  if (__swift_getEnumTagSinglePayload(v7, 1, v10) == 1)
-  {
-    result = sub_1B8D9207C(v7, &qword_1EBAB9028, &qword_1B96A4930);
-  }
-
-  else
-  {
-    if (swift_getEnumCaseMultiPayload() == 3)
-    {
-      sub_1B91D8B1C();
-      sub_1B8CD2BA0(&qword_1EBAC84F0, type metadata accessor for Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParams);
-      sub_1B964C740();
-      return sub_1B91D88F0();
-    }
-
-    result = sub_1B91D88F0();
-  }
-
-  __break(1u);
-  return result;
-}
-
-uint64_t sub_1B91E62FC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v12[1] = a4;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB9028, &qword_1B96A4930);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v4 - 8);
-  v7 = v12 - v6;
-  v8 = type metadata accessor for Apple_Parsec_Siri_V2alpha_PhoneCallBuilderParams(0);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v8);
-  sub_1B8D92024();
-  v10 = type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriCommandBuilder.OneOf_SiriCommandBuilderParams(0);
-  if (__swift_getEnumTagSinglePayload(v7, 1, v10) == 1)
-  {
-    result = sub_1B8D9207C(v7, &qword_1EBAB9028, &qword_1B96A4930);
-  }
-
-  else
-  {
-    if (swift_getEnumCaseMultiPayload() == 4)
-    {
-      sub_1B91D8B1C();
-      sub_1B8CD2BA0(&qword_1EBAC84F8, type metadata accessor for Apple_Parsec_Siri_V2alpha_PhoneCallBuilderParams);
-      sub_1B964C740();
-      return sub_1B91D88F0();
-    }
-
-    result = sub_1B91D88F0();
-  }
-
-  __break(1u);
-  return result;
-}
-
-uint64_t sub_1B91E6510(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v12[1] = a4;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB9028, &qword_1B96A4930);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v4 - 8);
-  v7 = v12 - v6;
-  v8 = type metadata accessor for Apple_Parsec_Siri_V2alpha_ExtendCurrentTTS(0);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v8);
-  sub_1B8D92024();
-  v10 = type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriCommandBuilder.OneOf_SiriCommandBuilderParams(0);
-  if (__swift_getEnumTagSinglePayload(v7, 1, v10) == 1)
-  {
-    result = sub_1B8D9207C(v7, &qword_1EBAB9028, &qword_1B96A4930);
-  }
-
-  else
-  {
-    if (swift_getEnumCaseMultiPayload() == 5)
-    {
-      sub_1B91D8B1C();
-      sub_1B8CD2BA0(&qword_1EBAC8500, type metadata accessor for Apple_Parsec_Siri_V2alpha_ExtendCurrentTTS);
-      sub_1B964C740();
-      return sub_1B91D88F0();
-    }
-
-    result = sub_1B91D88F0();
-  }
-
-  __break(1u);
-  return result;
-}
-
-uint64_t sub_1B91E6724(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v12[1] = a4;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB9028, &qword_1B96A4930);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v4 - 8);
-  v7 = v12 - v6;
-  v8 = type metadata accessor for Apple_Parsec_Siri_V2alpha_SetSiriAuthorizationForAppBuilderParams(0);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v8);
-  sub_1B8D92024();
-  v10 = type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriCommandBuilder.OneOf_SiriCommandBuilderParams(0);
-  if (__swift_getEnumTagSinglePayload(v7, 1, v10) == 1)
-  {
-    result = sub_1B8D9207C(v7, &qword_1EBAB9028, &qword_1B96A4930);
-  }
-
-  else
-  {
-    if (swift_getEnumCaseMultiPayload() == 6)
-    {
-      sub_1B91D8B1C();
-      sub_1B8CD2BA0(&qword_1EBAC8380, type metadata accessor for Apple_Parsec_Siri_V2alpha_SetSiriAuthorizationForAppBuilderParams);
-      sub_1B964C740();
-      return sub_1B91D88F0();
-    }
-
-    result = sub_1B91D88F0();
-  }
-
-  __break(1u);
-  return result;
-}
-
-uint64_t sub_1B91E6938(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v12[1] = a4;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB9028, &qword_1B96A4930);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v4 - 8);
-  v7 = v12 - v6;
-  v8 = type metadata accessor for Apple_Parsec_Siri_V2alpha_SayItBuilderParams(0);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v8);
-  sub_1B8D92024();
-  v10 = type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriCommandBuilder.OneOf_SiriCommandBuilderParams(0);
-  if (__swift_getEnumTagSinglePayload(v7, 1, v10) == 1)
-  {
-    result = sub_1B8D9207C(v7, &qword_1EBAB9028, &qword_1B96A4930);
-  }
-
-  else
-  {
-    if (swift_getEnumCaseMultiPayload() == 7)
-    {
-      sub_1B91D8B1C();
-      sub_1B8CD2BA0(&qword_1EBAC8398, type metadata accessor for Apple_Parsec_Siri_V2alpha_SayItBuilderParams);
-      sub_1B964C740();
-      return sub_1B91D88F0();
-    }
-
-    result = sub_1B91D88F0();
-  }
-
-  __break(1u);
-  return result;
-}
-
-uint64_t sub_1B91E6B4C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v12[1] = a4;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB9028, &qword_1B96A4930);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v4 - 8);
-  v7 = v12 - v6;
-  v8 = type metadata accessor for Apple_Parsec_Siri_V2alpha_ShowPlaceDetailsBuilderParams(0);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v8);
-  sub_1B8D92024();
-  v10 = type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriCommandBuilder.OneOf_SiriCommandBuilderParams(0);
-  if (__swift_getEnumTagSinglePayload(v7, 1, v10) == 1)
-  {
-    result = sub_1B8D9207C(v7, &qword_1EBAB9028, &qword_1B96A4930);
-  }
-
-  else
-  {
-    if (swift_getEnumCaseMultiPayload() == 8)
-    {
-      sub_1B91D8B1C();
-      sub_1B8CD2BA0(&qword_1EBAC8508, type metadata accessor for Apple_Parsec_Siri_V2alpha_ShowPlaceDetailsBuilderParams);
-      sub_1B964C740();
-      return sub_1B91D88F0();
-    }
-
-    result = sub_1B91D88F0();
-  }
-
-  __break(1u);
-  return result;
-}
-
-uint64_t sub_1B91E6D60(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v12[1] = a4;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB9028, &qword_1B96A4930);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v4 - 8);
-  v7 = v12 - v6;
-  v8 = type metadata accessor for Apple_Parsec_Siri_V2alpha_UnlockDeviceBuilderParams(0);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v8);
-  sub_1B8D92024();
-  v10 = type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriCommandBuilder.OneOf_SiriCommandBuilderParams(0);
-  if (__swift_getEnumTagSinglePayload(v7, 1, v10) == 1)
-  {
-    result = sub_1B8D9207C(v7, &qword_1EBAB9028, &qword_1B96A4930);
-  }
-
-  else
-  {
-    if (swift_getEnumCaseMultiPayload() == 9)
-    {
-      sub_1B91D8B1C();
-      sub_1B8CD2BA0(&qword_1EBAC83C8, type metadata accessor for Apple_Parsec_Siri_V2alpha_UnlockDeviceBuilderParams);
-      sub_1B964C740();
-      return sub_1B91D88F0();
-    }
-
-    result = sub_1B91D88F0();
-  }
-
-  __break(1u);
-  return result;
-}
-
-uint64_t sub_1B91E6F74(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v12[1] = a4;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB9028, &qword_1B96A4930);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v4 - 8);
-  v7 = v12 - v6;
-  v8 = type metadata accessor for Apple_Parsec_Siri_V2alpha_OpenLinkBuilderParams(0);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v8);
-  sub_1B8D92024();
-  v10 = type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriCommandBuilder.OneOf_SiriCommandBuilderParams(0);
-  if (__swift_getEnumTagSinglePayload(v7, 1, v10) == 1)
-  {
-    result = sub_1B8D9207C(v7, &qword_1EBAB9028, &qword_1B96A4930);
-  }
-
-  else
-  {
-    if (swift_getEnumCaseMultiPayload() == 10)
-    {
-      sub_1B91D8B1C();
-      sub_1B8CD2BA0(&qword_1EBAC83F8, type metadata accessor for Apple_Parsec_Siri_V2alpha_OpenLinkBuilderParams);
-      sub_1B964C740();
-      return sub_1B91D88F0();
-    }
-
-    result = sub_1B91D88F0();
-  }
-
-  __break(1u);
-  return result;
-}
-
-uint64_t sub_1B91E7188(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v12[1] = a4;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB9028, &qword_1B96A4930);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v4 - 8);
-  v7 = v12 - v6;
-  v8 = type metadata accessor for Apple_Parsec_Siri_V2alpha_NavigationEndBuilderParams(0);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v8);
-  sub_1B8D92024();
-  v10 = type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriCommandBuilder.OneOf_SiriCommandBuilderParams(0);
-  if (__swift_getEnumTagSinglePayload(v7, 1, v10) == 1)
-  {
-    result = sub_1B8D9207C(v7, &qword_1EBAB9028, &qword_1B96A4930);
-  }
-
-  else
-  {
-    if (swift_getEnumCaseMultiPayload() == 11)
-    {
-      sub_1B91D8B1C();
-      sub_1B8CD2BA0(&qword_1EBAC8510, type metadata accessor for Apple_Parsec_Siri_V2alpha_NavigationEndBuilderParams);
-      sub_1B964C740();
-      return sub_1B91D88F0();
-    }
-
-    result = sub_1B91D88F0();
-  }
-
-  __break(1u);
-  return result;
-}
-
-uint64_t sub_1B91E739C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v12[1] = a4;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB9028, &qword_1B96A4930);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v4 - 8);
-  v7 = v12 - v6;
-  v8 = type metadata accessor for Apple_Parsec_Siri_V2alpha_UnlockDeviceWithWatchBuilderParams(0);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v8);
-  sub_1B8D92024();
-  v10 = type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriCommandBuilder.OneOf_SiriCommandBuilderParams(0);
-  if (__swift_getEnumTagSinglePayload(v7, 1, v10) == 1)
-  {
-    result = sub_1B8D9207C(v7, &qword_1EBAB9028, &qword_1B96A4930);
-  }
-
-  else
-  {
-    if (swift_getEnumCaseMultiPayload() == 12)
-    {
-      sub_1B91D8B1C();
-      sub_1B8CD2BA0(&qword_1EBAC83E0, type metadata accessor for Apple_Parsec_Siri_V2alpha_UnlockDeviceWithWatchBuilderParams);
-      sub_1B964C740();
-      return sub_1B91D88F0();
-    }
-
-    result = sub_1B91D88F0();
-  }
-
-  __break(1u);
-  return result;
-}
-
-uint64_t sub_1B91E75B0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v12[1] = a4;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB9028, &qword_1B96A4930);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v4 - 8);
-  v7 = v12 - v6;
-  v8 = type metadata accessor for Apple_Parsec_Siri_V2alpha_CancelCurrentTTS(0);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v8);
-  sub_1B8D92024();
-  v10 = type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriCommandBuilder.OneOf_SiriCommandBuilderParams(0);
-  if (__swift_getEnumTagSinglePayload(v7, 1, v10) == 1)
-  {
-    result = sub_1B8D9207C(v7, &qword_1EBAB9028, &qword_1B96A4930);
-  }
-
-  else
-  {
-    if (swift_getEnumCaseMultiPayload() == 13)
-    {
-      sub_1B91D8B1C();
-      sub_1B8CD2BA0(&qword_1EBAC8410, type metadata accessor for Apple_Parsec_Siri_V2alpha_CancelCurrentTTS);
-      sub_1B964C740();
-      return sub_1B91D88F0();
-    }
-
-    result = sub_1B91D88F0();
-  }
-
-  __break(1u);
-  return result;
-}
-
-uint64_t sub_1B91E77C4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v12[1] = a4;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB9028, &qword_1B96A4930);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v4 - 8);
-  v7 = v12 - v6;
-  v8 = type metadata accessor for Apple_Parsec_Siri_V2alpha_SwitchProfileBuilderParams(0);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v8);
-  sub_1B8D92024();
-  v10 = type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriCommandBuilder.OneOf_SiriCommandBuilderParams(0);
-  if (__swift_getEnumTagSinglePayload(v7, 1, v10) == 1)
-  {
-    result = sub_1B8D9207C(v7, &qword_1EBAB9028, &qword_1B96A4930);
-  }
-
-  else
-  {
-    if (swift_getEnumCaseMultiPayload() == 14)
-    {
-      sub_1B91D8B1C();
-      sub_1B8CD2BA0(&qword_1EBAC8428, type metadata accessor for Apple_Parsec_Siri_V2alpha_SwitchProfileBuilderParams);
-      sub_1B964C740();
-      return sub_1B91D88F0();
-    }
-
-    result = sub_1B91D88F0();
-  }
-
-  __break(1u);
-  return result;
-}
-
-uint64_t sub_1B91E79D8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v12[1] = a4;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB9028, &qword_1B96A4930);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v4 - 8);
-  v7 = v12 - v6;
-  v8 = type metadata accessor for Apple_Parsec_Siri_V2alpha_PushOffBuilderParams(0);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v8);
-  sub_1B8D92024();
-  v10 = type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriCommandBuilder.OneOf_SiriCommandBuilderParams(0);
-  if (__swift_getEnumTagSinglePayload(v7, 1, v10) == 1)
-  {
-    result = sub_1B8D9207C(v7, &qword_1EBAB9028, &qword_1B96A4930);
-  }
-
-  else
-  {
-    if (swift_getEnumCaseMultiPayload() == 15)
-    {
-      sub_1B91D8B1C();
-      sub_1B8CD2BA0(&qword_1EBAC83B0, type metadata accessor for Apple_Parsec_Siri_V2alpha_PushOffBuilderParams);
-      sub_1B964C740();
-      return sub_1B91D88F0();
-    }
-
-    result = sub_1B91D88F0();
-  }
-
-  __break(1u);
-  return result;
-}
-
-uint64_t sub_1B91E7BEC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v12[1] = a4;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB9028, &qword_1B96A4930);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v4 - 8);
-  v7 = v12 - v6;
-  v8 = type metadata accessor for Apple_Parsec_Siri_V2alpha_SearchMarketplaceParams(0);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v8);
-  sub_1B8D92024();
-  v10 = type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriCommandBuilder.OneOf_SiriCommandBuilderParams(0);
-  if (__swift_getEnumTagSinglePayload(v7, 1, v10) == 1)
-  {
-    result = sub_1B8D9207C(v7, &qword_1EBAB9028, &qword_1B96A4930);
-  }
-
-  else
-  {
-    if (swift_getEnumCaseMultiPayload() == 16)
-    {
-      sub_1B91D8B1C();
-      sub_1B8CD2BA0(&qword_1EBAC8458, type metadata accessor for Apple_Parsec_Siri_V2alpha_SearchMarketplaceParams);
-      sub_1B964C740();
-      return sub_1B91D88F0();
-    }
-
-    result = sub_1B91D88F0();
-  }
-
-  __break(1u);
-  return result;
-}
-
-uint64_t sub_1B91E7E00(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v12[1] = a4;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB9028, &qword_1B96A4930);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v4 - 8);
-  v7 = v12 - v6;
-  v8 = type metadata accessor for Apple_Parsec_Siri_V2alpha_ShowLocalSearchResultBuilderParams(0);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v8);
-  sub_1B8D92024();
-  v10 = type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriCommandBuilder.OneOf_SiriCommandBuilderParams(0);
-  if (__swift_getEnumTagSinglePayload(v7, 1, v10) == 1)
-  {
-    result = sub_1B8D9207C(v7, &qword_1EBAB9028, &qword_1B96A4930);
-  }
-
-  else
-  {
-    if (swift_getEnumCaseMultiPayload() == 17)
-    {
-      sub_1B91D8B1C();
-      sub_1B8CD2BA0(&qword_1EBAC8518, type metadata accessor for Apple_Parsec_Siri_V2alpha_ShowLocalSearchResultBuilderParams);
-      sub_1B964C740();
-      return sub_1B91D88F0();
-    }
-
-    result = sub_1B91D88F0();
-  }
-
-  __break(1u);
-  return result;
-}
-
-uint64_t sub_1B91E8358(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_1B8CD2BA0(&qword_1EBAC84E0, type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriCommandBuilder);
-
-  return MEMORY[0x1EEE15708](a1, a2, v4);
-}
-
-uint64_t sub_1B91E83D8(uint64_t a1)
-{
-  v2 = sub_1B8CD2BA0(&qword_1ED9CF318, type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriCommandBuilder);
-
-  return MEMORY[0x1EEE15928](a1, v2);
-}
-
-uint64_t sub_1B91E8448()
-{
-  sub_1B8CD2BA0(&qword_1ED9CF318, type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriCommandBuilder);
-
-  return sub_1B964C5D0();
-}
-
-uint64_t sub_1B91E84E0()
-{
-  v0 = sub_1B964C780();
-  __swift_allocate_value_buffer(v0, qword_1EBAC81B8);
-  __swift_project_value_buffer(v0, qword_1EBAC81B8);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB92F0, &unk_1B964DAD0);
-  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB92F8, &unk_1B964EE40) - 8);
-  v2 = *(*v1 + 72);
-  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v4 = swift_allocObject();
-  *(v4 + 16) = xmmword_1B964E4B0;
-  v5 = v4 + v3;
-  v6 = v4 + v3 + v1[14];
-  *(v4 + v3) = 1;
-  *v6 = "bundle_id";
-  *(v6 + 8) = 9;
-  *(v6 + 16) = 2;
-  v7 = *MEMORY[0x1E69AADE8];
-  v8 = sub_1B964C750();
-  v9 = *(*(v8 - 8) + 104);
-  (v9)(v6, v7, v8);
-  v10 = v5 + v2 + v1[14];
-  *(v5 + v2) = 2;
-  *v10 = "punch_out_uri";
-  *(v10 + 8) = 13;
-  *(v10 + 16) = 2;
-  v9();
-  v11 = (v5 + 2 * v2);
-  v12 = v11 + v1[14];
-  *v11 = 3;
-  *v12 = "app_display_name";
-  *(v12 + 1) = 16;
-  v12[16] = 2;
-  v9();
-  v13 = (v5 + 3 * v2);
-  v14 = v13 + v1[14];
-  *v13 = 4;
-  *v14 = "launch_over_siri";
-  *(v14 + 1) = 16;
-  v14[16] = 2;
-  v9();
-  return sub_1B964C760();
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_AppPunchOutBuilderParams.decodeMessage<A>(decoder:)()
-{
-  OUTLINED_FUNCTION_692();
-  while (1)
-  {
-    OUTLINED_FUNCTION_186();
-    result = sub_1B964C3C0();
-    if (v0 || (v2 & 1) != 0)
-    {
-      return result;
-    }
-
-    switch(result)
-    {
-      case 1:
-      case 2:
-      case 3:
-        OUTLINED_FUNCTION_12();
-        sub_1B964C530();
-        break;
-      case 4:
-        OUTLINED_FUNCTION_12();
-        sub_1B964C400();
-        break;
-      default:
-        continue;
-    }
-  }
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_AppPunchOutBuilderParams.traverse<A>(visitor:)()
-{
-  OUTLINED_FUNCTION_614();
-  v3 = *v0;
-  v4 = v0[1];
-  OUTLINED_FUNCTION_1();
-  if (!v5 || (OUTLINED_FUNCTION_11_5(), result = sub_1B964C700(), !v1))
-  {
-    v7 = *(v2 + 16);
-    v8 = *(v2 + 24);
-    OUTLINED_FUNCTION_1();
-    if (!v9 || (OUTLINED_FUNCTION_11_5(), result = sub_1B964C700(), !v1))
-    {
-      v10 = *(v2 + 32);
-      v11 = *(v2 + 40);
-      OUTLINED_FUNCTION_1();
-      if (!v12 || (OUTLINED_FUNCTION_11_5(), result = sub_1B964C700(), !v1))
-      {
-        if (*(v2 + 48) != 1 || (OUTLINED_FUNCTION_79_0(), OUTLINED_FUNCTION_24_3(), result = sub_1B964C670(), !v1))
-        {
-          v13 = *(type metadata accessor for Apple_Parsec_Siri_V2alpha_AppPunchOutBuilderParams(0) + 32);
-          return OUTLINED_FUNCTION_8_1();
-        }
-      }
-    }
-  }
-
-  return result;
-}
-
-uint64_t sub_1B91E8950(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_1B8CD2BA0(&qword_1EBAC84D8, type metadata accessor for Apple_Parsec_Siri_V2alpha_AppPunchOutBuilderParams);
-
-  return MEMORY[0x1EEE15708](a1, a2, v4);
-}
-
-uint64_t sub_1B91E89D0(uint64_t a1)
-{
-  v2 = sub_1B8CD2BA0(&qword_1EBAC8360, type metadata accessor for Apple_Parsec_Siri_V2alpha_AppPunchOutBuilderParams);
-
-  return MEMORY[0x1EEE15928](a1, v2);
-}
-
-uint64_t sub_1B91E8A40()
-{
-  sub_1B8CD2BA0(&qword_1EBAC8360, type metadata accessor for Apple_Parsec_Siri_V2alpha_AppPunchOutBuilderParams);
-
-  return sub_1B964C5D0();
-}
-
-uint64_t sub_1B91E8AD8()
-{
-  v0 = sub_1B964C780();
-  __swift_allocate_value_buffer(v0, qword_1EBAB3CC8);
-  __swift_project_value_buffer(v0, qword_1EBAB3CC8);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB92F0, &unk_1B964DAD0);
-  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB92F8, &unk_1B964EE40) - 8);
-  v2 = *(*v1 + 72);
-  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v4 = swift_allocObject();
-  *(v4 + 16) = xmmword_1B964EE60;
-  v5 = (v4 + v3);
-  v6 = v4 + v3 + v1[14];
-  *v5 = 1;
-  *v6 = "utterance";
-  *(v6 + 8) = 9;
-  *(v6 + 16) = 2;
-  v7 = *MEMORY[0x1E69AADC8];
-  v8 = sub_1B964C750();
-  v9 = *(*(v8 - 8) + 104);
-  (v9)(v6, v7, v8);
-  v10 = v5 + v2 + v1[14];
-  *(v5 + v2) = 2;
-  *v10 = "input_origin";
-  *(v10 + 1) = 12;
-  v10[16] = 2;
-  v11 = *MEMORY[0x1E69AADE8];
-  v9();
-  v12 = (v5 + 2 * v2);
-  v13 = v12 + v1[14];
-  *v12 = 3;
-  *v13 = "eyes_free";
-  *(v13 + 1) = 9;
-  v13[16] = 2;
-  v9();
-  return sub_1B964C760();
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_StartRequestBuilderParams.decodeMessage<A>(decoder:)()
-{
-  OUTLINED_FUNCTION_692();
-  while (1)
-  {
-    OUTLINED_FUNCTION_186();
-    result = sub_1B964C3C0();
-    if (v0 || (v2 & 1) != 0)
-    {
-      break;
-    }
-
-    switch(result)
-    {
-      case 3:
-        OUTLINED_FUNCTION_12();
-        sub_1B964C400();
-        break;
-      case 2:
-        OUTLINED_FUNCTION_9();
-        sub_1B91E8D94();
-        break;
-      case 1:
-        OUTLINED_FUNCTION_12();
-        sub_1B964C530();
-        break;
-    }
-  }
-
-  return result;
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_StartRequestBuilderParams.traverse<A>(visitor:)()
-{
-  OUTLINED_FUNCTION_614();
-  v3 = *v0;
-  v4 = v0[1];
-  OUTLINED_FUNCTION_1();
-  if (!v5 || (OUTLINED_FUNCTION_11_5(), result = sub_1B964C700(), !v1))
-  {
-    if (!*(v2 + 16) || (v8 = *(v2 + 16), v9 = *(v2 + 24), sub_1B91EC57C(), OUTLINED_FUNCTION_79_0(), OUTLINED_FUNCTION_89_2(), result = sub_1B964C680(), !v1))
-    {
-      if (*(v2 + 25) != 1 || (OUTLINED_FUNCTION_79_0(), OUTLINED_FUNCTION_24_3(), result = sub_1B964C670(), !v1))
-      {
-        v7 = *(type metadata accessor for Apple_Parsec_Siri_V2alpha_StartRequestBuilderParams(0) + 28);
-        return OUTLINED_FUNCTION_8_1();
-      }
-    }
-  }
-
-  return result;
-}
-
-uint64_t sub_1B91E8F78(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_1B8CD2BA0(&qword_1EBAC84D0, type metadata accessor for Apple_Parsec_Siri_V2alpha_StartRequestBuilderParams);
-
-  return MEMORY[0x1EEE15708](a1, a2, v4);
-}
-
-uint64_t sub_1B91E8FF8(uint64_t a1)
-{
-  v2 = sub_1B8CD2BA0(qword_1ED9C9458, type metadata accessor for Apple_Parsec_Siri_V2alpha_StartRequestBuilderParams);
-
-  return MEMORY[0x1EEE15928](a1, v2);
-}
-
-uint64_t sub_1B91E9068()
-{
-  sub_1B8CD2BA0(qword_1ED9C9458, type metadata accessor for Apple_Parsec_Siri_V2alpha_StartRequestBuilderParams);
-
-  return sub_1B964C5D0();
-}
-
-uint64_t sub_1B91E9214(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_1B8CD2BA0(&qword_1EBAC84C8, type metadata accessor for Apple_Parsec_Siri_V2alpha_SetSiriAuthorizationForAppBuilderParams);
-
-  return MEMORY[0x1EEE15708](a1, a2, v4);
-}
-
-uint64_t sub_1B91E9294(uint64_t a1)
-{
-  v2 = sub_1B8CD2BA0(&qword_1EBAC8380, type metadata accessor for Apple_Parsec_Siri_V2alpha_SetSiriAuthorizationForAppBuilderParams);
-
-  return MEMORY[0x1EEE15928](a1, v2);
-}
-
-uint64_t sub_1B91E9304()
-{
-  sub_1B8CD2BA0(&qword_1EBAC8380, type metadata accessor for Apple_Parsec_Siri_V2alpha_SetSiriAuthorizationForAppBuilderParams);
-
-  return sub_1B964C5D0();
-}
-
-uint64_t sub_1B91E939C()
-{
-  v0 = sub_1B964C780();
-  __swift_allocate_value_buffer(v0, qword_1EBAC81E8);
-  __swift_project_value_buffer(v0, qword_1EBAC81E8);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB92F0, &unk_1B964DAD0);
-  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB92F8, &unk_1B964EE40) - 8);
-  v2 = *(*v1 + 72);
-  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v4 = swift_allocObject();
-  *(v4 + 16) = xmmword_1B96511B0;
-  v5 = v4 + v3;
-  v6 = v4 + v3 + v1[14];
-  *(v4 + v3) = 1;
-  *v6 = "message";
-  *(v6 + 8) = 7;
-  *(v6 + 16) = 2;
-  v7 = *MEMORY[0x1E69AADC8];
-  v8 = sub_1B964C750();
-  v9 = *(*(v8 - 8) + 104);
-  (v9)(v6, v7, v8);
-  v10 = v5 + v2 + v1[14];
-  *(v5 + v2) = 2;
-  *v10 = "dialog_identifier";
-  *(v10 + 8) = 17;
-  *(v10 + 16) = 2;
-  v11 = *MEMORY[0x1E69AADE8];
-  v9();
-  v12 = (v5 + 2 * v2);
-  v13 = v12 + v1[14];
-  *v12 = 3;
-  *v13 = "has_listen_after_speaking";
-  *(v13 + 1) = 25;
-  v13[16] = 2;
-  v9();
-  v14 = (v5 + 3 * v2);
-  v15 = v14 + v1[14];
-  *v14 = 4;
-  *v15 = "is_repeatable";
-  *(v15 + 1) = 13;
-  v15[16] = 2;
-  v9();
-  v16 = (v5 + 4 * v2);
-  v17 = v16 + v1[14];
-  *v16 = 5;
-  *v17 = "audio_data";
-  *(v17 + 1) = 10;
-  v17[16] = 2;
-  v9();
-  v18 = (v5 + 5 * v2);
-  v19 = v18 + v1[14];
-  *v18 = 6;
-  *v19 = "audio_data_url";
-  *(v19 + 1) = 14;
-  v19[16] = 2;
-  v9();
-  v20 = (v5 + 6 * v2);
-  v21 = v20 + v1[14];
-  *v20 = 7;
-  *v21 = "locale";
-  *(v21 + 1) = 6;
-  v21[16] = 2;
-  v9();
-  v22 = (v5 + 7 * v2);
-  v23 = v22 + v1[14];
-  *v22 = 8;
-  *v23 = "should_coordinate_with_speech";
-  *(v23 + 1) = 29;
-  v23[16] = 2;
-  v9();
-  return sub_1B964C760();
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_SayItBuilderParams.decodeMessage<A>(decoder:)()
-{
-  OUTLINED_FUNCTION_692();
-  while (1)
-  {
-    OUTLINED_FUNCTION_186();
-    result = sub_1B964C3C0();
-    if (v0 || (v2 & 1) != 0)
-    {
-      return result;
-    }
-
-    switch(result)
-    {
-      case 1:
-      case 2:
-      case 6:
-      case 7:
-        OUTLINED_FUNCTION_12();
-        sub_1B964C530();
-        break;
-      case 3:
-      case 4:
-      case 8:
-        OUTLINED_FUNCTION_12();
-        sub_1B964C400();
-        break;
-      case 5:
-        OUTLINED_FUNCTION_9();
-        sub_1B91E97D4();
-        break;
-      default:
-        continue;
-    }
-  }
-}
-
-uint64_t sub_1B91E97D4()
-{
-  v0 = *(type metadata accessor for Apple_Parsec_Siri_V2alpha_SayItBuilderParams(0) + 48);
-  type metadata accessor for Apple_Parsec_Siri_V2alpha_AudioData(0);
-  sub_1B8CD2BA0(&qword_1EBAC6560, type metadata accessor for Apple_Parsec_Siri_V2alpha_AudioData);
-  return sub_1B964C580();
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_SayItBuilderParams.traverse<A>(visitor:)()
-{
-  OUTLINED_FUNCTION_614();
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAC82C8, &qword_1B96A4940);
-  OUTLINED_FUNCTION_183(v3);
-  v5 = *(v4 + 64);
+  OUTLINED_FUNCTION_250_1();
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(v3, v4);
+  OUTLINED_FUNCTION_183(v5);
   OUTLINED_FUNCTION_176();
   MEMORY[0x1EEE9AC00](v6);
-  v8 = &v28 - v7;
-  v9 = type metadata accessor for Apple_Parsec_Siri_V2alpha_AudioData(0);
-  v10 = OUTLINED_FUNCTION_59_1(v9);
-  v12 = *(v11 + 64);
-  MEMORY[0x1EEE9AC00](v10);
-  OUTLINED_FUNCTION_62();
-  v13 = *v0;
-  v14 = v0[1];
-  OUTLINED_FUNCTION_1();
-  if (!v15 || (OUTLINED_FUNCTION_11_5(), result = sub_1B964C700(), !v1))
+  OUTLINED_FUNCTION_137();
+  v1(0);
+  OUTLINED_FUNCTION_225_0();
+  sub_1B8D92024();
+  v7 = v0(0);
+  OUTLINED_FUNCTION_131_7(v2, v8, v7);
+  v9 = OUTLINED_FUNCTION_214_4();
+  sub_1B8D9207C(v9, v10, v11);
+  return OUTLINED_FUNCTION_681_0();
+}
+
+uint64_t sub_1B9229F98()
+{
+  v1 = OUTLINED_FUNCTION_218_0();
+  v2(v1);
+  OUTLINED_FUNCTION_397();
+  sub_1B8D9207C(v3, v4, v5);
+  v0(0);
+  v6 = OUTLINED_FUNCTION_282_1();
+
+  return __swift_storeEnumTagSinglePayload(v6, v7, v8, v9);
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_DelayedActionComponent.unknownFields.modify()
+{
+  v0 = OUTLINED_FUNCTION_313();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_DelayedActionComponent(v0);
+  return OUTLINED_FUNCTION_25();
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_LayoutSnippetComponent.sash.getter()
+{
+  v1 = OUTLINED_FUNCTION_236();
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
+  OUTLINED_FUNCTION_183(v3);
+  OUTLINED_FUNCTION_176();
+  MEMORY[0x1EEE9AC00](v4);
+  v5 = OUTLINED_FUNCTION_22_3();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_LayoutSnippetComponent(v5);
+  OUTLINED_FUNCTION_100_0();
+  v6 = type metadata accessor for Apple_Parsec_Siri_V2alpha_Sash(0);
+  OUTLINED_FUNCTION_29_14(v6);
+  if (v7)
   {
-    v17 = *(v2 + 16);
-    v18 = *(v2 + 24);
-    OUTLINED_FUNCTION_1();
-    if (!v19 || (OUTLINED_FUNCTION_11_5(), result = sub_1B964C700(), !v1))
+    OUTLINED_FUNCTION_92_0();
+    OUTLINED_FUNCTION_590_0(v8);
+    OUTLINED_FUNCTION_762(v9);
+    result = OUTLINED_FUNCTION_9_2();
+    if (!v7)
     {
-      if (*(v2 + 32) != 1 || (OUTLINED_FUNCTION_79_0(), OUTLINED_FUNCTION_24_3(), result = sub_1B964C670(), !v1))
-      {
-        if (*(v2 + 33) != 1 || (OUTLINED_FUNCTION_79_0(), OUTLINED_FUNCTION_24_3(), result = sub_1B964C670(), !v1))
-        {
-          v29 = type metadata accessor for Apple_Parsec_Siri_V2alpha_SayItBuilderParams(0);
-          v20 = *(v29 + 48);
-          sub_1B8D92024();
-          if (__swift_getEnumTagSinglePayload(v8, 1, v9) == 1)
-          {
-            sub_1B8D9207C(v8, &qword_1EBAC82C8, &qword_1B96A4940);
-          }
-
-          else
-          {
-            OUTLINED_FUNCTION_5_31();
-            sub_1B91D8B1C();
-            sub_1B8CD2BA0(&qword_1EBAC6560, type metadata accessor for Apple_Parsec_Siri_V2alpha_AudioData);
-            OUTLINED_FUNCTION_79_0();
-            OUTLINED_FUNCTION_89_2();
-            sub_1B964C740();
-            OUTLINED_FUNCTION_31_21();
-            result = sub_1B91D88F0();
-            if (v1)
-            {
-              return result;
-            }
-          }
-
-          v21 = *(v2 + 40);
-          v22 = *(v2 + 48);
-          OUTLINED_FUNCTION_1();
-          if (!v23 || (OUTLINED_FUNCTION_11_5(), result = sub_1B964C700(), !v1))
-          {
-            v24 = *(v2 + 56);
-            v25 = *(v2 + 64);
-            OUTLINED_FUNCTION_1();
-            if (!v26 || (OUTLINED_FUNCTION_11_5(), result = sub_1B964C700(), !v1))
-            {
-              if (*(v2 + 72) != 1 || (OUTLINED_FUNCTION_79_0(), OUTLINED_FUNCTION_24_3(), result = sub_1B964C670(), !v1))
-              {
-                v27 = *(v29 + 44);
-                return OUTLINED_FUNCTION_8_1();
-              }
-            }
-          }
-        }
-      }
+      return sub_1B8D9207C(v0, &qword_1EBAC9528, &qword_1B96AA808);
     }
-  }
-
-  return result;
-}
-
-uint64_t sub_1B91E9BD0(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_1B8CD2BA0(&qword_1EBAC84C0, type metadata accessor for Apple_Parsec_Siri_V2alpha_SayItBuilderParams);
-
-  return MEMORY[0x1EEE15708](a1, a2, v4);
-}
-
-uint64_t sub_1B91E9C50(uint64_t a1)
-{
-  v2 = sub_1B8CD2BA0(&qword_1EBAC8398, type metadata accessor for Apple_Parsec_Siri_V2alpha_SayItBuilderParams);
-
-  return MEMORY[0x1EEE15928](a1, v2);
-}
-
-uint64_t sub_1B91E9CC0()
-{
-  sub_1B8CD2BA0(&qword_1EBAC8398, type metadata accessor for Apple_Parsec_Siri_V2alpha_SayItBuilderParams);
-
-  return sub_1B964C5D0();
-}
-
-uint64_t sub_1B91E9D58()
-{
-  v0 = sub_1B964C780();
-  __swift_allocate_value_buffer(v0, qword_1EBAC8200);
-  __swift_project_value_buffer(v0, qword_1EBAC8200);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB92F0, &unk_1B964DAD0);
-  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB92F8, &unk_1B964EE40) - 8);
-  v2 = *(*v1 + 72);
-  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v4 = swift_allocObject();
-  *(v4 + 16) = xmmword_1B964EE70;
-  v5 = v4 + v3;
-  v6 = v4 + v3 + v1[14];
-  *(v4 + v3) = 1;
-  *v6 = "query";
-  *(v6 + 8) = 5;
-  *(v6 + 16) = 2;
-  v7 = *MEMORY[0x1E69AADC8];
-  v8 = sub_1B964C750();
-  v9 = *(*(v8 - 8) + 104);
-  (v9)(v6, v7, v8);
-  v10 = v5 + v2 + v1[14];
-  *(v5 + v2) = 2;
-  *v10 = "push_off_message";
-  *(v10 + 8) = 16;
-  *(v10 + 16) = 2;
-  v11 = *MEMORY[0x1E69AADE8];
-  v9();
-  v12 = (v5 + 2 * v2);
-  v13 = v12 + v1[14];
-  *v12 = 3;
-  *v13 = "companion_unavailable_message";
-  *(v13 + 1) = 29;
-  v13[16] = 2;
-  v9();
-  v14 = (v5 + 3 * v2);
-  v15 = v14 + v1[14];
-  *v14 = 4;
-  *v15 = "push_off_message_cat_id";
-  *(v15 + 1) = 23;
-  v15[16] = 2;
-  v9();
-  v16 = (v5 + 4 * v2);
-  v17 = v16 + v1[14];
-  *v16 = 5;
-  *v17 = "companion_unavailable_message_cat_id";
-  *(v17 + 1) = 36;
-  v17[16] = 2;
-  v9();
-  return sub_1B964C760();
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_PushOffBuilderParams.decodeMessage<A>(decoder:)()
-{
-  OUTLINED_FUNCTION_692();
-  while (1)
-  {
-    OUTLINED_FUNCTION_186();
-    result = sub_1B964C3C0();
-    if (v0 || (v2 & 1) != 0)
-    {
-      return result;
-    }
-
-    switch(result)
-    {
-      case 1:
-      case 2:
-      case 3:
-      case 4:
-      case 5:
-        OUTLINED_FUNCTION_12();
-        sub_1B964C530();
-        break;
-      default:
-        continue;
-    }
-  }
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_PushOffBuilderParams.traverse<A>(visitor:)()
-{
-  OUTLINED_FUNCTION_614();
-  v3 = *v0;
-  v4 = v0[1];
-  OUTLINED_FUNCTION_1();
-  if (!v5 || (OUTLINED_FUNCTION_11_5(), result = sub_1B964C700(), !v1))
-  {
-    v7 = v2[2];
-    v8 = v2[3];
-    OUTLINED_FUNCTION_1();
-    if (!v9 || (OUTLINED_FUNCTION_11_5(), result = sub_1B964C700(), !v1))
-    {
-      v10 = v2[4];
-      v11 = v2[5];
-      OUTLINED_FUNCTION_1();
-      if (!v12 || (OUTLINED_FUNCTION_11_5(), result = sub_1B964C700(), !v1))
-      {
-        v13 = v2[6];
-        v14 = v2[7];
-        OUTLINED_FUNCTION_1();
-        if (!v15 || (OUTLINED_FUNCTION_11_5(), result = sub_1B964C700(), !v1))
-        {
-          v16 = v2[8];
-          v17 = v2[9];
-          OUTLINED_FUNCTION_1();
-          if (!v18 || (OUTLINED_FUNCTION_11_5(), result = sub_1B964C700(), !v1))
-          {
-            v19 = *(type metadata accessor for Apple_Parsec_Siri_V2alpha_PushOffBuilderParams(0) + 36);
-            return OUTLINED_FUNCTION_8_1();
-          }
-        }
-      }
-    }
-  }
-
-  return result;
-}
-
-uint64_t sub_1B91EA22C(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_1B8CD2BA0(&qword_1EBAC84B8, type metadata accessor for Apple_Parsec_Siri_V2alpha_PushOffBuilderParams);
-
-  return MEMORY[0x1EEE15708](a1, a2, v4);
-}
-
-uint64_t sub_1B91EA2AC(uint64_t a1)
-{
-  v2 = sub_1B8CD2BA0(&qword_1EBAC83B0, type metadata accessor for Apple_Parsec_Siri_V2alpha_PushOffBuilderParams);
-
-  return MEMORY[0x1EEE15928](a1, v2);
-}
-
-uint64_t sub_1B91EA31C()
-{
-  sub_1B8CD2BA0(&qword_1EBAC83B0, type metadata accessor for Apple_Parsec_Siri_V2alpha_PushOffBuilderParams);
-
-  return sub_1B964C5D0();
-}
-
-uint64_t sub_1B91EA3B4()
-{
-  v0 = sub_1B964C780();
-  __swift_allocate_value_buffer(v0, qword_1EBAC8218);
-  __swift_project_value_buffer(v0, qword_1EBAC8218);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB92F0, &unk_1B964DAD0);
-  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB92F8, &unk_1B964EE40) - 8);
-  v2 = *(*v1 + 72);
-  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v4 = swift_allocObject();
-  *(v4 + 16) = xmmword_1B964D060;
-  v5 = (v4 + v3);
-  v6 = v4 + v3 + v1[14];
-  *v5 = 1;
-  *v6 = "successCommands";
-  *(v6 + 8) = 15;
-  *(v6 + 16) = 2;
-  v7 = *MEMORY[0x1E69AADC8];
-  v8 = sub_1B964C750();
-  v9 = *(*(v8 - 8) + 104);
-  (v9)(v6, v7, v8);
-  v10 = v5 + v2 + v1[14];
-  *(v5 + v2) = 2;
-  *v10 = "failureCommands";
-  *(v10 + 1) = 15;
-  v10[16] = 2;
-  v9();
-  return sub_1B964C760();
-}
-
-uint64_t sub_1B91EA670(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_1B8CD2BA0(&qword_1EBAC84B0, type metadata accessor for Apple_Parsec_Siri_V2alpha_UnlockDeviceBuilderParams);
-
-  return MEMORY[0x1EEE15708](a1, a2, v4);
-}
-
-uint64_t sub_1B91EA6F0(uint64_t a1)
-{
-  v2 = sub_1B8CD2BA0(&qword_1EBAC83C8, type metadata accessor for Apple_Parsec_Siri_V2alpha_UnlockDeviceBuilderParams);
-
-  return MEMORY[0x1EEE15928](a1, v2);
-}
-
-uint64_t sub_1B91EA760()
-{
-  sub_1B8CD2BA0(&qword_1EBAC83C8, type metadata accessor for Apple_Parsec_Siri_V2alpha_UnlockDeviceBuilderParams);
-
-  return sub_1B964C5D0();
-}
-
-uint64_t sub_1B91EA7F8()
-{
-  v0 = sub_1B964C780();
-  __swift_allocate_value_buffer(v0, qword_1EBAC8230);
-  __swift_project_value_buffer(v0, qword_1EBAC8230);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB92F0, &unk_1B964DAD0);
-  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB92F8, &unk_1B964EE40) - 8);
-  v2 = *(*v1 + 72);
-  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v4 = swift_allocObject();
-  *(v4 + 16) = xmmword_1B964D060;
-  v5 = (v4 + v3);
-  v6 = v4 + v3 + v1[14];
-  *v5 = 1;
-  *v6 = "success_commands";
-  *(v6 + 8) = 16;
-  *(v6 + 16) = 2;
-  v7 = *MEMORY[0x1E69AADE8];
-  v8 = sub_1B964C750();
-  v9 = *(*(v8 - 8) + 104);
-  (v9)(v6, v7, v8);
-  v10 = v5 + v2 + v1[14];
-  *(v5 + v2) = 2;
-  *v10 = "failure_commands";
-  *(v10 + 1) = 16;
-  v10[16] = 2;
-  v9();
-  return sub_1B964C760();
-}
-
-uint64_t sub_1B91EA9E4()
-{
-  OUTLINED_FUNCTION_692();
-  while (1)
-  {
-    OUTLINED_FUNCTION_186();
-    result = sub_1B964C3C0();
-    if (v0 || (v2 & 1) != 0)
-    {
-      break;
-    }
-
-    if (result == 2)
-    {
-      OUTLINED_FUNCTION_9();
-      sub_1B91EAAA8();
-    }
-
-    else if (result == 1)
-    {
-      OUTLINED_FUNCTION_9();
-      sub_1B91EAA48();
-    }
-  }
-
-  return result;
-}
-
-uint64_t sub_1B91EAA48()
-{
-  OUTLINED_FUNCTION_123_7();
-  OUTLINED_FUNCTION_16_23();
-  sub_1B8CD2BA0(v0, v1);
-  return OUTLINED_FUNCTION_120_6();
-}
-
-uint64_t sub_1B91EAAA8()
-{
-  OUTLINED_FUNCTION_123_7();
-  OUTLINED_FUNCTION_16_23();
-  sub_1B8CD2BA0(v0, v1);
-  return OUTLINED_FUNCTION_120_6();
-}
-
-uint64_t sub_1B91EAB34(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void))
-{
-  OUTLINED_FUNCTION_614();
-  if (!*(*v4 + 16) || (type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriCommandBuilder(0), OUTLINED_FUNCTION_16_23(), sub_1B8CD2BA0(v8, v9), OUTLINED_FUNCTION_231(), OUTLINED_FUNCTION_79_0(), OUTLINED_FUNCTION_89_2(), result = sub_1B964C730(), !v5))
-  {
-    if (!*(*(v6 + 8) + 16) || (type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriCommandBuilder(0), OUTLINED_FUNCTION_16_23(), sub_1B8CD2BA0(v11, v12), OUTLINED_FUNCTION_231(), OUTLINED_FUNCTION_79_0(), OUTLINED_FUNCTION_89_2(), result = sub_1B964C730(), !v5))
-    {
-      v13 = *(a4(0) + 24);
-      return OUTLINED_FUNCTION_8_1();
-    }
-  }
-
-  return result;
-}
-
-uint64_t sub_1B91EACD0(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_1B8CD2BA0(&qword_1EBAC84A8, type metadata accessor for Apple_Parsec_Siri_V2alpha_UnlockDeviceWithWatchBuilderParams);
-
-  return MEMORY[0x1EEE15708](a1, a2, v4);
-}
-
-uint64_t sub_1B91EAD50(uint64_t a1)
-{
-  v2 = sub_1B8CD2BA0(&qword_1EBAC83E0, type metadata accessor for Apple_Parsec_Siri_V2alpha_UnlockDeviceWithWatchBuilderParams);
-
-  return MEMORY[0x1EEE15928](a1, v2);
-}
-
-uint64_t sub_1B91EADC0()
-{
-  sub_1B8CD2BA0(&qword_1EBAC83E0, type metadata accessor for Apple_Parsec_Siri_V2alpha_UnlockDeviceWithWatchBuilderParams);
-
-  return sub_1B964C5D0();
-}
-
-uint64_t sub_1B91EAEC8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void))
-{
-  OUTLINED_FUNCTION_614();
-  v7 = *v4;
-  v8 = v4[1];
-  OUTLINED_FUNCTION_1();
-  if (!v9 || (OUTLINED_FUNCTION_11_5(), result = sub_1B964C700(), !v5))
-  {
-    v11 = *(a4(0) + 20);
-    return OUTLINED_FUNCTION_8_1();
-  }
-
-  return result;
-}
-
-uint64_t sub_1B91EAFCC(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_1B8CD2BA0(&qword_1EBAC84A0, type metadata accessor for Apple_Parsec_Siri_V2alpha_OpenLinkBuilderParams);
-
-  return MEMORY[0x1EEE15708](a1, a2, v4);
-}
-
-uint64_t sub_1B91EB04C(uint64_t a1)
-{
-  v2 = sub_1B8CD2BA0(&qword_1EBAC83F8, type metadata accessor for Apple_Parsec_Siri_V2alpha_OpenLinkBuilderParams);
-
-  return MEMORY[0x1EEE15928](a1, v2);
-}
-
-uint64_t sub_1B91EB0BC()
-{
-  sub_1B8CD2BA0(&qword_1EBAC83F8, type metadata accessor for Apple_Parsec_Siri_V2alpha_OpenLinkBuilderParams);
-
-  return sub_1B964C5D0();
-}
-
-uint64_t sub_1B91EB154()
-{
-  v0 = sub_1B964C780();
-  __swift_allocate_value_buffer(v0, qword_1EBAC8260);
-  __swift_project_value_buffer(v0, qword_1EBAC8260);
-  return sub_1B964C770();
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_CancelCurrentTTS.decodeMessage<A>(decoder:)()
-{
-  do
-  {
-    result = sub_1B964C3C0();
-  }
-
-  while (!v0 && (v2 & 1) == 0);
-  return result;
-}
-
-uint64_t sub_1B91EB2C4(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_1B8CD2BA0(&qword_1EBAC8498, type metadata accessor for Apple_Parsec_Siri_V2alpha_CancelCurrentTTS);
-
-  return MEMORY[0x1EEE15708](a1, a2, v4);
-}
-
-uint64_t sub_1B91EB344(uint64_t a1)
-{
-  v2 = sub_1B8CD2BA0(&qword_1EBAC8410, type metadata accessor for Apple_Parsec_Siri_V2alpha_CancelCurrentTTS);
-
-  return MEMORY[0x1EEE15928](a1, v2);
-}
-
-uint64_t sub_1B91EB3B4()
-{
-  sub_1B8CD2BA0(&qword_1EBAC8410, type metadata accessor for Apple_Parsec_Siri_V2alpha_CancelCurrentTTS);
-
-  return sub_1B964C5D0();
-}
-
-uint64_t sub_1B91EB548(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_1B8CD2BA0(&qword_1EBAC8490, type metadata accessor for Apple_Parsec_Siri_V2alpha_SwitchProfileBuilderParams);
-
-  return MEMORY[0x1EEE15708](a1, a2, v4);
-}
-
-uint64_t sub_1B91EB5C8(uint64_t a1)
-{
-  v2 = sub_1B8CD2BA0(&qword_1EBAC8428, type metadata accessor for Apple_Parsec_Siri_V2alpha_SwitchProfileBuilderParams);
-
-  return MEMORY[0x1EEE15928](a1, v2);
-}
-
-uint64_t sub_1B91EB638()
-{
-  sub_1B8CD2BA0(&qword_1EBAC8428, type metadata accessor for Apple_Parsec_Siri_V2alpha_SwitchProfileBuilderParams);
-
-  return sub_1B964C5D0();
-}
-
-uint64_t sub_1B91EB6D0()
-{
-  v0 = sub_1B964C780();
-  __swift_allocate_value_buffer(v0, qword_1EBAC8290);
-  __swift_project_value_buffer(v0, qword_1EBAC8290);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB92F0, &unk_1B964DAD0);
-  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB92F8, &unk_1B964EE40) - 8);
-  v2 = *(*v1 + 72);
-  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v4 = swift_allocObject();
-  *(v4 + 16) = xmmword_1B964E4A0;
-  v5 = v4 + v3;
-  v6 = v4 + v3 + v1[14];
-  *(v4 + v3) = 1;
-  *v6 = "scale_factor";
-  *(v6 + 8) = 12;
-  *(v6 + 16) = 2;
-  v7 = *MEMORY[0x1E69AADE8];
-  v8 = sub_1B964C750();
-  v9 = *(*(v8 - 8) + 104);
-  (v9)(v6, v7, v8);
-  v10 = v5 + v2 + v1[14];
-  *(v5 + v2) = 2;
-  *v10 = "pixel_height";
-  *(v10 + 8) = 12;
-  *(v10 + 16) = 2;
-  v9();
-  v11 = (v5 + 2 * v2);
-  v12 = v11 + v1[14];
-  *v11 = 3;
-  *v12 = "pixel_width";
-  *(v12 + 1) = 11;
-  v12[16] = 2;
-  v9();
-  v13 = (v5 + 3 * v2);
-  v14 = v13 + v1[14];
-  *v13 = 4;
-  *v14 = "resource_url";
-  *(v14 + 1) = 12;
-  v14[16] = 2;
-  v9();
-  v15 = (v5 + 4 * v2);
-  v16 = v15 + v1[14];
-  *v15 = 5;
-  *v16 = "image_data";
-  *(v16 + 1) = 10;
-  v16[16] = 2;
-  v9();
-  v17 = (v5 + 5 * v2);
-  v18 = v17 + v1[14];
-  *v17 = 6;
-  *v18 = "url_format_string";
-  *(v18 + 1) = 17;
-  v18[16] = 2;
-  v9();
-  return sub_1B964C760();
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_ImageResource.decodeMessage<A>(decoder:)()
-{
-  OUTLINED_FUNCTION_692();
-  while (1)
-  {
-    OUTLINED_FUNCTION_186();
-    result = sub_1B964C3C0();
-    if (v0 || (v2 & 1) != 0)
-    {
-      return result;
-    }
-
-    switch(result)
-    {
-      case 1:
-      case 2:
-      case 3:
-        OUTLINED_FUNCTION_12();
-        sub_1B964C490();
-        break;
-      case 4:
-      case 6:
-        OUTLINED_FUNCTION_12();
-        sub_1B964C530();
-        break;
-      case 5:
-        OUTLINED_FUNCTION_12();
-        sub_1B964C470();
-        break;
-      default:
-        continue;
-    }
-  }
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_ImageResource.traverse<A>(visitor:)()
-{
-  OUTLINED_FUNCTION_614();
-  if (*v0 == 0.0 || (OUTLINED_FUNCTION_79_0(), OUTLINED_FUNCTION_12(), result = sub_1B964C6B0(), !v1))
-  {
-    if (*(v2 + 4) == 0.0 || (OUTLINED_FUNCTION_79_0(), OUTLINED_FUNCTION_12(), result = sub_1B964C6B0(), !v1))
-    {
-      if (*(v2 + 8) == 0.0 || (OUTLINED_FUNCTION_79_0(), OUTLINED_FUNCTION_12(), result = sub_1B964C6B0(), !v1))
-      {
-        v3 = *(v2 + 16);
-        v4 = *(v2 + 24);
-        OUTLINED_FUNCTION_1();
-        if (!v5 || (OUTLINED_FUNCTION_11_5(), result = sub_1B964C700(), !v1))
-        {
-          v7 = *(v2 + 32);
-          v8 = *(v2 + 40);
-          v9 = OUTLINED_FUNCTION_616();
-          if (sub_1B8D99EA8(v9, v10) || (OUTLINED_FUNCTION_616(), OUTLINED_FUNCTION_11_5(), result = sub_1B964C6A0(), !v1))
-          {
-            v11 = *(v2 + 48);
-            v12 = *(v2 + 56);
-            OUTLINED_FUNCTION_1();
-            if (!v13 || (OUTLINED_FUNCTION_11_5(), result = sub_1B964C700(), !v1))
-            {
-              v14 = *(type metadata accessor for Apple_Parsec_Siri_V2alpha_ImageResource(0) + 40);
-              return OUTLINED_FUNCTION_8_1();
-            }
-          }
-        }
-      }
-    }
-  }
-
-  return result;
-}
-
-uint64_t static Apple_Parsec_Siri_V2alpha_ImageResource.== infix(_:_:)(float *a1, float *a2)
-{
-  if (*a1 != *a2)
-  {
-    return 0;
-  }
-
-  OUTLINED_FUNCTION_468();
-  if (*(v4 + 4) != *(v5 + 4) || *(v3 + 8) != *(v2 + 8))
-  {
-    return 0;
-  }
-
-  OUTLINED_FUNCTION_84_1();
-  v8 = v8 && v6 == v7;
-  if (!v8 && (sub_1B964C9F0() & 1) == 0)
-  {
-    return 0;
-  }
-
-  if ((MEMORY[0x1BFADC060](*(v3 + 32), *(v3 + 40), *(v2 + 32), *(v2 + 40)) & 1) == 0)
-  {
-    return 0;
-  }
-
-  v9 = *(v3 + 48) == *(v2 + 48) && *(v3 + 56) == *(v2 + 56);
-  if (!v9 && (sub_1B964C9F0() & 1) == 0)
-  {
-    return 0;
-  }
-
-  v10 = *(type metadata accessor for Apple_Parsec_Siri_V2alpha_ImageResource(0) + 40);
-  sub_1B964C2B0();
-  OUTLINED_FUNCTION_0_70();
-  sub_1B8CD2BA0(v11, v12);
-  return OUTLINED_FUNCTION_634() & 1;
-}
-
-uint64_t sub_1B91EBD28(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_1B8CD2BA0(&qword_1EBAC8488, type metadata accessor for Apple_Parsec_Siri_V2alpha_ImageResource);
-
-  return MEMORY[0x1EEE15708](a1, a2, v4);
-}
-
-uint64_t sub_1B91EBDA8(uint64_t a1)
-{
-  v2 = sub_1B8CD2BA0(&qword_1EBAC8440, type metadata accessor for Apple_Parsec_Siri_V2alpha_ImageResource);
-
-  return MEMORY[0x1EEE15928](a1, v2);
-}
-
-uint64_t sub_1B91EBE18()
-{
-  sub_1B8CD2BA0(&qword_1EBAC8440, type metadata accessor for Apple_Parsec_Siri_V2alpha_ImageResource);
-
-  return sub_1B964C5D0();
-}
-
-uint64_t sub_1B91EBEB0()
-{
-  v0 = sub_1B964C780();
-  __swift_allocate_value_buffer(v0, qword_1EBAC82A8);
-  __swift_project_value_buffer(v0, qword_1EBAC82A8);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB92F0, &unk_1B964DAD0);
-  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB92F8, &unk_1B964EE40) - 8);
-  v2 = *(*v1 + 72);
-  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v4 = swift_allocObject();
-  *(v4 + 16) = xmmword_1B964D060;
-  v5 = (v4 + v3);
-  v6 = v4 + v3 + v1[14];
-  *v5 = 1;
-  *v6 = "marketplace";
-  *(v6 + 8) = 11;
-  *(v6 + 16) = 2;
-  v7 = *MEMORY[0x1E69AADC8];
-  v8 = sub_1B964C750();
-  v9 = *(*(v8 - 8) + 104);
-  (v9)(v6, v7, v8);
-  v10 = v5 + v2 + v1[14];
-  *(v5 + v2) = 2;
-  *v10 = "keyword";
-  *(v10 + 1) = 7;
-  v10[16] = 2;
-  v9();
-  return sub_1B964C760();
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_SearchMarketplaceParams.decodeMessage<A>(decoder:)()
-{
-  OUTLINED_FUNCTION_692();
-  while (1)
-  {
-    OUTLINED_FUNCTION_186();
-    result = sub_1B964C3C0();
-    if (v0 || (v2 & 1) != 0)
-    {
-      break;
-    }
-
-    if (result == 2 || result == 1)
-    {
-      OUTLINED_FUNCTION_12();
-      sub_1B964C530();
-    }
-  }
-
-  return result;
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_SearchMarketplaceParams.traverse<A>(visitor:)()
-{
-  OUTLINED_FUNCTION_614();
-  v3 = *v0;
-  v4 = v0[1];
-  OUTLINED_FUNCTION_1();
-  if (!v5 || (OUTLINED_FUNCTION_11_5(), result = sub_1B964C700(), !v1))
-  {
-    v7 = *(v2 + 16);
-    v8 = *(v2 + 24);
-    OUTLINED_FUNCTION_1();
-    if (!v9 || (OUTLINED_FUNCTION_11_5(), result = sub_1B964C700(), !v1))
-    {
-      v10 = *(type metadata accessor for Apple_Parsec_Siri_V2alpha_SearchMarketplaceParams(0) + 24);
-      return OUTLINED_FUNCTION_8_1();
-    }
-  }
-
-  return result;
-}
-
-uint64_t sub_1B91EC1CC(void (*a1)(void))
-{
-  sub_1B964CA70();
-  a1(0);
-  v2 = OUTLINED_FUNCTION_461();
-  sub_1B8CD2BA0(v2, v3);
-  sub_1B964C7E0();
-  return sub_1B964CA90();
-}
-
-uint64_t sub_1B91EC2AC(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_1B8CD2BA0(&qword_1EBAC8480, type metadata accessor for Apple_Parsec_Siri_V2alpha_SearchMarketplaceParams);
-
-  return MEMORY[0x1EEE15708](a1, a2, v4);
-}
-
-uint64_t sub_1B91EC32C(uint64_t a1)
-{
-  v2 = sub_1B8CD2BA0(&qword_1EBAC8458, type metadata accessor for Apple_Parsec_Siri_V2alpha_SearchMarketplaceParams);
-
-  return MEMORY[0x1EEE15928](a1, v2);
-}
-
-uint64_t sub_1B91EC39C()
-{
-  sub_1B8CD2BA0(&qword_1EBAC8458, type metadata accessor for Apple_Parsec_Siri_V2alpha_SearchMarketplaceParams);
-
-  return sub_1B964C5D0();
-}
-
-unint64_t sub_1B91EC57C()
-{
-  result = qword_1ED9CA6A0;
-  if (!qword_1ED9CA6A0)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1ED9CA6A0);
-  }
-
-  return result;
-}
-
-unint64_t sub_1B91EC5D4()
-{
-  result = qword_1ED9CA698;
-  if (!qword_1ED9CA698)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1ED9CA698);
-  }
-
-  return result;
-}
-
-unint64_t sub_1B91EC62C()
-{
-  result = qword_1ED9CA688;
-  if (!qword_1ED9CA688)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1ED9CA688);
-  }
-
-  return result;
-}
-
-unint64_t sub_1B91EC684()
-{
-  result = qword_1ED9CA690;
-  if (!qword_1ED9CA690)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1ED9CA690);
-  }
-
-  return result;
-}
-
-unint64_t sub_1B91EC6DC()
-{
-  result = qword_1EBAC8340;
-  if (!qword_1EBAC8340)
-  {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EBAC8348, &qword_1B96A4A40);
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1EBAC8340);
-  }
-
-  return result;
-}
-
-void sub_1B91ED618()
-{
-  sub_1B91EDA9C(319, &qword_1ED9D36B0, type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriCommandBuilder.OneOf_SiriCommandBuilderParams, MEMORY[0x1E69E6720]);
-  if (v0 <= 0x3F)
-  {
-    sub_1B964C2B0();
-    if (v1 <= 0x3F)
-    {
-      swift_cvw_initStructMetadataWithLayoutString();
-    }
-  }
-}
-
-uint64_t sub_1B91ED6D4()
-{
-  result = type metadata accessor for Apple_Parsec_Siri_V2alpha_RecordLocationActivityBuilderParams(319);
-  if (v1 <= 0x3F)
-  {
-    result = type metadata accessor for Apple_Parsec_Siri_V2alpha_AppPunchOutBuilderParams(319);
-    if (v2 <= 0x3F)
-    {
-      result = type metadata accessor for Apple_Parsec_Siri_V2alpha_StartRequestBuilderParams(319);
-      if (v3 <= 0x3F)
-      {
-        result = type metadata accessor for Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParams(319);
-        if (v4 <= 0x3F)
-        {
-          result = type metadata accessor for Apple_Parsec_Siri_V2alpha_PhoneCallBuilderParams(319);
-          if (v5 <= 0x3F)
-          {
-            result = type metadata accessor for Apple_Parsec_Siri_V2alpha_ExtendCurrentTTS(319);
-            if (v6 <= 0x3F)
-            {
-              result = type metadata accessor for Apple_Parsec_Siri_V2alpha_SetSiriAuthorizationForAppBuilderParams(319);
-              if (v7 <= 0x3F)
-              {
-                result = type metadata accessor for Apple_Parsec_Siri_V2alpha_SayItBuilderParams(319);
-                if (v8 <= 0x3F)
-                {
-                  result = type metadata accessor for Apple_Parsec_Siri_V2alpha_ShowPlaceDetailsBuilderParams(319);
-                  if (v9 <= 0x3F)
-                  {
-                    result = type metadata accessor for Apple_Parsec_Siri_V2alpha_UnlockDeviceBuilderParams(319);
-                    if (v10 <= 0x3F)
-                    {
-                      result = type metadata accessor for Apple_Parsec_Siri_V2alpha_OpenLinkBuilderParams(319);
-                      if (v11 <= 0x3F)
-                      {
-                        result = type metadata accessor for Apple_Parsec_Siri_V2alpha_NavigationEndBuilderParams(319);
-                        if (v12 <= 0x3F)
-                        {
-                          result = type metadata accessor for Apple_Parsec_Siri_V2alpha_UnlockDeviceWithWatchBuilderParams(319);
-                          if (v13 <= 0x3F)
-                          {
-                            result = type metadata accessor for Apple_Parsec_Siri_V2alpha_CancelCurrentTTS(319);
-                            if (v14 <= 0x3F)
-                            {
-                              result = type metadata accessor for Apple_Parsec_Siri_V2alpha_SwitchProfileBuilderParams(319);
-                              if (v15 <= 0x3F)
-                              {
-                                result = type metadata accessor for Apple_Parsec_Siri_V2alpha_PushOffBuilderParams(319);
-                                if (v16 <= 0x3F)
-                                {
-                                  result = type metadata accessor for Apple_Parsec_Siri_V2alpha_SearchMarketplaceParams(319);
-                                  if (v17 <= 0x3F)
-                                  {
-                                    result = type metadata accessor for Apple_Parsec_Siri_V2alpha_ShowLocalSearchResultBuilderParams(319);
-                                    if (v18 <= 0x3F)
-                                    {
-                                      swift_cvw_initEnumMetadataMultiPayloadWithLayoutString();
-                                      return 0;
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
-  return result;
-}
-
-uint64_t sub_1B91ED8D8()
-{
-  result = sub_1B964C2B0();
-  if (v1 <= 0x3F)
-  {
-    swift_cvw_initStructMetadataWithLayoutString();
-    return 0;
-  }
-
-  return result;
-}
-
-void sub_1B91ED9BC()
-{
-  sub_1B964C2B0();
-  if (v0 <= 0x3F)
-  {
-    sub_1B91EDA9C(319, &qword_1ED9D28B8, type metadata accessor for Apple_Parsec_Siri_V2alpha_AudioData, MEMORY[0x1E69E6720]);
-    if (v1 <= 0x3F)
-    {
-      swift_cvw_initStructMetadataWithLayoutString();
-    }
-  }
-}
-
-void sub_1B91EDA9C(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t), uint64_t (*a4)(uint64_t, uint64_t))
-{
-  if (!*a2)
-  {
-    v7 = a3(255);
-    v8 = a4(a1, v7);
-    if (!v9)
-    {
-      atomic_store(v8, a2);
-    }
-  }
-}
-
-uint64_t __swift_get_extra_inhabitant_index_117Tm()
-{
-  OUTLINED_FUNCTION_19_1();
-  if (v2)
-  {
-    return OUTLINED_FUNCTION_700(*v0);
-  }
-
-  OUTLINED_FUNCTION_24_1();
-  v4 = OUTLINED_FUNCTION_699(*(v1 + 24));
-
-  return __swift_getEnumTagSinglePayload(v4, v5, v6);
-}
-
-void __swift_store_extra_inhabitant_index_118Tm()
-{
-  OUTLINED_FUNCTION_7();
-  if (v3)
-  {
-    *v1 = (v0 - 1);
   }
 
   else
   {
-    OUTLINED_FUNCTION_249_0();
-    v4 = OUTLINED_FUNCTION_61_0(*(v2 + 24));
-
-    __swift_storeEnumTagSinglePayload(v4, v5, v6, v7);
+    OUTLINED_FUNCTION_18_20();
+    OUTLINED_FUNCTION_182();
+    return sub_1B9239DA8();
   }
+
+  return result;
 }
 
-void sub_1B91EDC40()
+uint64_t Apple_Parsec_Siri_V2alpha_LayoutSnippetComponent.sash.setter()
 {
-  sub_1B91EDA9C(319, &qword_1EBAC8468, type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriCommandBuilder, MEMORY[0x1E69E62F8]);
-  if (v0 <= 0x3F)
+  v1 = OUTLINED_FUNCTION_313();
+  v2 = type metadata accessor for Apple_Parsec_Siri_V2alpha_LayoutSnippetComponent(v1);
+  sub_1B8D9207C(v0 + *(v2 + 36), &qword_1EBAC9528, &qword_1B96AA808);
+  OUTLINED_FUNCTION_18_20();
+  OUTLINED_FUNCTION_122_0();
+  sub_1B9239DA8();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_Sash(0);
+  v3 = OUTLINED_FUNCTION_59();
+
+  return __swift_storeEnumTagSinglePayload(v3, v4, v5, v6);
+}
+
+void Apple_Parsec_Siri_V2alpha_LayoutSnippetComponent.sash.modify()
+{
+  OUTLINED_FUNCTION_243();
+  v1 = OUTLINED_FUNCTION_212();
+  v2 = __swift_coroFrameAllocStub(v1);
+  OUTLINED_FUNCTION_86(v2);
+  v3 = OUTLINED_FUNCTION_686();
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(v3, v4);
+  OUTLINED_FUNCTION_183(v5);
+  v7 = __swift_coroFrameAllocStub(*(v6 + 64));
+  v8 = OUTLINED_FUNCTION_85(v7);
+  v9 = type metadata accessor for Apple_Parsec_Siri_V2alpha_Sash(v8);
+  OUTLINED_FUNCTION_53_6(v9);
+  OUTLINED_FUNCTION_59_1();
+  v11 = __swift_coroFrameAllocStub(*(v10 + 64));
+  v12 = OUTLINED_FUNCTION_202_0(v11);
+  v13 = __swift_coroFrameAllocStub(v12);
+  v14 = OUTLINED_FUNCTION_89_0(v13);
+  v15 = type metadata accessor for Apple_Parsec_Siri_V2alpha_LayoutSnippetComponent(v14);
+  OUTLINED_FUNCTION_64_0(*(v15 + 36));
+  OUTLINED_FUNCTION_16_2();
+  if (v16)
   {
-    sub_1B964C2B0();
-    if (v1 <= 0x3F)
+    OUTLINED_FUNCTION_114_0();
+    OUTLINED_FUNCTION_593_1(v17);
+    _s10PegasusAPI18Amppb_AvailabilityVACycfC_0();
+    OUTLINED_FUNCTION_16_2();
+    if (!v16)
     {
-      swift_cvw_initStructMetadataWithLayoutString();
+      sub_1B8D9207C(v0, &qword_1EBAC9528, &qword_1B96AA808);
     }
   }
-}
 
-uint64_t __swift_get_extra_inhabitant_index_90Tm()
-{
-  OUTLINED_FUNCTION_19_1();
-  if (v2)
+  else
   {
-    return OUTLINED_FUNCTION_700(*(v0 + 8));
+    OUTLINED_FUNCTION_18_20();
+    OUTLINED_FUNCTION_461();
+    sub_1B9239DA8();
   }
 
-  OUTLINED_FUNCTION_24_1();
-  v4 = OUTLINED_FUNCTION_699(*(v1 + 20));
-
-  return __swift_getEnumTagSinglePayload(v4, v5, v6);
+  OUTLINED_FUNCTION_105_0();
+  OUTLINED_FUNCTION_242();
 }
 
-uint64_t sub_1B91EDDF8()
+void sub_1B922A340()
 {
-  result = sub_1B964C2B0();
-  if (v1 <= 0x3F)
+  OUTLINED_FUNCTION_243();
+  OUTLINED_FUNCTION_67();
+  if (v5)
   {
-    swift_cvw_initStructMetadataWithLayoutString();
-    return 0;
+    OUTLINED_FUNCTION_128();
+    sub_1B9239DFC();
+    sub_1B8D9207C(v4 + v3, &qword_1EBAC9528, &qword_1B96AA808);
+    OUTLINED_FUNCTION_18_20();
+    OUTLINED_FUNCTION_505_1();
+    OUTLINED_FUNCTION_30_2();
+    OUTLINED_FUNCTION_190_3();
+    sub_1B9239E50();
+  }
+
+  else
+  {
+    sub_1B8D9207C(v4 + v3, &qword_1EBAC9528, &qword_1B96AA808);
+    OUTLINED_FUNCTION_18_20();
+    OUTLINED_FUNCTION_506_0();
+    OUTLINED_FUNCTION_30_2();
+  }
+
+  free(v2);
+  free(v0);
+  free(v1);
+  OUTLINED_FUNCTION_242();
+
+  free(v6);
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_LayoutSnippetComponent.compactSnippet.getter@<X0>(void *a1@<X8>)
+{
+  v3 = OUTLINED_FUNCTION_236();
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(v3, v4);
+  OUTLINED_FUNCTION_183(v5);
+  OUTLINED_FUNCTION_176();
+  MEMORY[0x1EEE9AC00](v6);
+  v7 = OUTLINED_FUNCTION_31_2();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_LayoutSnippetComponent(v7);
+  OUTLINED_FUNCTION_3_0();
+  sub_1B8D92024();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_CasinoSnippet(0);
+  OUTLINED_FUNCTION_57(v1);
+  if (v8)
+  {
+    *a1 = 0;
+    a1[1] = 0xE000000000000000;
+    _s10PegasusAPI18Amppb_AvailabilityVACycfC_0();
+    OUTLINED_FUNCTION_584_0();
+    v9 = sub_1B964C1C0();
+    result = OUTLINED_FUNCTION_11_31(v9);
+    if (!v8)
+    {
+      return sub_1B8D9207C(v1, &qword_1EBAC9518, &qword_1B96AA7F8);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_2_46();
+    OUTLINED_FUNCTION_472();
+    return sub_1B9239DA8();
   }
 
   return result;
 }
 
-uint64_t OUTLINED_FUNCTION_2_43()
+uint64_t Apple_Parsec_Siri_V2alpha_LayoutSnippetComponent.compactSnippet.setter()
 {
-  v2 = type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriCommandBuilder.OneOf_SiriCommandBuilderParams(0);
-  *(v1 + 32) = v2;
-  return __swift_getEnumTagSinglePayload(v0, 1, v2);
+  v1 = OUTLINED_FUNCTION_313();
+  v2 = type metadata accessor for Apple_Parsec_Siri_V2alpha_LayoutSnippetComponent(v1);
+  sub_1B8D9207C(v0 + *(v2 + 40), &qword_1EBAC9518, &qword_1B96AA7F8);
+  OUTLINED_FUNCTION_2_46();
+  OUTLINED_FUNCTION_122_0();
+  sub_1B9239DA8();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_CasinoSnippet(0);
+  v3 = OUTLINED_FUNCTION_59();
+
+  return __swift_storeEnumTagSinglePayload(v3, v4, v5, v6);
 }
 
-uint64_t OUTLINED_FUNCTION_6_27()
+uint64_t Apple_Parsec_Siri_V2alpha_CasinoSnippet.init()@<X0>(void *a1@<X8>)
 {
-  result = v0;
-  v3 = *(v1 - 88);
-  v4 = *(v1 - 72);
-  return result;
-}
-
-uint64_t OUTLINED_FUNCTION_62_5()
-{
-  v2 = *(v0 - 96);
-
-  return swift_getEnumCaseMultiPayload();
-}
-
-uint64_t OUTLINED_FUNCTION_81_7(uint64_t a1)
-{
-  *(v1 + 24) = a1;
-
-  return sub_1B8D92024();
-}
-
-uint64_t OUTLINED_FUNCTION_91_4()
-{
-
-  return swift_once();
-}
-
-uint64_t OUTLINED_FUNCTION_99_8()
-{
-
-  return swift_once();
-}
-
-uint64_t OUTLINED_FUNCTION_109_4@<X0>(uint64_t a1@<X8>)
-{
-  v2 = *(*(a1 - 256) + 20);
-
-  return sub_1B964C2B0();
-}
-
-void *OUTLINED_FUNCTION_111_6(void *result)
-{
-  *v1 = result;
-  *result = v2;
-  return result;
-}
-
-uint64_t OUTLINED_FUNCTION_113_8@<X0>(uint64_t a1@<X8>)
-{
-  v2 = *(a1 - 256);
-
-  return sub_1B91D8B1C();
-}
-
-uint64_t OUTLINED_FUNCTION_115_8@<X0>(uint64_t a1@<X8>)
-{
-  *(v1 + 32) = 0;
-  *(v1 + 40) = 0;
-  *(v1 + 48) = a1;
-  *(v1 + 56) = 0;
-  *(v1 + 64) = a1;
-  *(v1 + 72) = 0;
-  v2 = v1 + *(type metadata accessor for Apple_Parsec_Siri_V2alpha_SayItBuilderParams(0) + 44);
-
-  return _s10PegasusAPI18Amppb_AvailabilityVACycfC_0();
-}
-
-uint64_t OUTLINED_FUNCTION_120_6()
-{
-
-  return sub_1B964C570();
-}
-
-uint64_t OUTLINED_FUNCTION_121_3()
-{
-  *(v0 + 16) = 0;
-  *(v0 + 24) = 1;
-  v1 = v0 + *(type metadata accessor for Apple_Parsec_Siri_V2alpha_StartRequestBuilderParams(0) + 28);
-
-  return _s10PegasusAPI18Amppb_AvailabilityVACycfC_0();
-}
-
-uint64_t OUTLINED_FUNCTION_122_3@<X0>(uint64_t a1@<X8>)
-{
-  v1[4] = 0;
-  v1[5] = a1;
-  v1[6] = 0;
-  v1[7] = a1;
-  v1[8] = 0;
-  v1[9] = a1;
-  v2 = v1 + *(type metadata accessor for Apple_Parsec_Siri_V2alpha_PushOffBuilderParams(0) + 36);
-
-  return _s10PegasusAPI18Amppb_AvailabilityVACycfC_0();
-}
-
-uint64_t OUTLINED_FUNCTION_131_6@<X0>(uint64_t a1@<X8>)
-{
-  *(v1 + 32) = 0;
-  *(v1 + 40) = a1;
-  *(v1 + 48) = 0;
-  v2 = v1 + *(type metadata accessor for Apple_Parsec_Siri_V2alpha_AppPunchOutBuilderParams(0) + 32);
-
-  return _s10PegasusAPI18Amppb_AvailabilityVACycfC_0();
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_RecordLocationActivityBuilderParams.init()@<X0>(uint64_t a1@<X8>)
-{
-  *a1 = 0;
-  *(a1 + 8) = 1;
-  v2 = type metadata accessor for Apple_Parsec_Siri_V2alpha_RecordLocationActivityBuilderParams(0);
-  v3 = a1 + *(v2 + 20);
+  OUTLINED_FUNCTION_118_0(a1);
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_CasinoSnippet(0);
+  OUTLINED_FUNCTION_102_7();
   _s10PegasusAPI18Amppb_AvailabilityVACycfC_0();
-  v4 = *(v2 + 24);
-  OUTLINED_FUNCTION_39_11();
-  OUTLINED_FUNCTION_83();
+  OUTLINED_FUNCTION_591_0();
+  sub_1B964C1C0();
+  v1 = OUTLINED_FUNCTION_40_3();
 
-  return __swift_storeEnumTagSinglePayload(v5, v6, v7, v8);
+  return __swift_storeEnumTagSinglePayload(v1, v2, v3, v4);
 }
 
-uint64_t Apple_Parsec_Siri_V2alpha_PhoneCallBuilderParams.init()@<X0>(void *a1@<X8>)
+void Apple_Parsec_Siri_V2alpha_LayoutSnippetComponent.compactSnippet.modify()
 {
-  *a1 = 0;
-  a1[1] = 0xE000000000000000;
-  a1[2] = 0;
-  a1[3] = 0xE000000000000000;
-  v1 = type metadata accessor for Apple_Parsec_Siri_V2alpha_PhoneCallBuilderParams(0);
-  return OUTLINED_FUNCTION_279(v1);
+  OUTLINED_FUNCTION_243();
+  v2 = OUTLINED_FUNCTION_212();
+  v3 = __swift_coroFrameAllocStub(v2);
+  OUTLINED_FUNCTION_86(v3);
+  v4 = OUTLINED_FUNCTION_686();
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(v4, v5);
+  OUTLINED_FUNCTION_183(v6);
+  v8 = __swift_coroFrameAllocStub(*(v7 + 64));
+  v9 = OUTLINED_FUNCTION_26_1(v8);
+  *(v1 + 16) = type metadata accessor for Apple_Parsec_Siri_V2alpha_CasinoSnippet(v9);
+  OUTLINED_FUNCTION_59_1();
+  v11 = *(v10 + 64);
+  v12 = __swift_coroFrameAllocStub(v11);
+  v13 = OUTLINED_FUNCTION_202_0(v12);
+  v14 = __swift_coroFrameAllocStub(v13);
+  v15 = OUTLINED_FUNCTION_89_0(v14);
+  v16 = type metadata accessor for Apple_Parsec_Siri_V2alpha_LayoutSnippetComponent(v15);
+  OUTLINED_FUNCTION_116_0(*(v16 + 40));
+  v17 = OUTLINED_FUNCTION_17_2();
+  if (v18)
+  {
+    *v11 = 0;
+    v11[1] = 0xE000000000000000;
+    OUTLINED_FUNCTION_282_2(v17);
+    OUTLINED_FUNCTION_526_0();
+    v19 = sub_1B964C1C0();
+    OUTLINED_FUNCTION_6_19(v19);
+    if (!v18)
+    {
+      sub_1B8D9207C(v0, &qword_1EBAC9518, &qword_1B96AA7F8);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_2_46();
+    OUTLINED_FUNCTION_246();
+    sub_1B9239DA8();
+  }
+
+  OUTLINED_FUNCTION_242();
 }
 
-uint64_t Apple_Parsec_Siri_V2alpha_ShowPlaceDetailsBuilderParams.init()@<X0>(void *a1@<X8>)
+void sub_1B922A758()
 {
-  *a1 = 0;
-  v1 = a1 + *(type metadata accessor for Apple_Parsec_Siri_V2alpha_ShowPlaceDetailsBuilderParams(0) + 20);
-  return _s10PegasusAPI18Amppb_AvailabilityVACycfC_0();
+  OUTLINED_FUNCTION_243();
+  OUTLINED_FUNCTION_67();
+  if (v5)
+  {
+    OUTLINED_FUNCTION_128();
+    sub_1B9239DFC();
+    sub_1B8D9207C(v4 + v3, &qword_1EBAC9518, &qword_1B96AA7F8);
+    OUTLINED_FUNCTION_2_46();
+    OUTLINED_FUNCTION_505_1();
+    OUTLINED_FUNCTION_30_2();
+    OUTLINED_FUNCTION_17_21();
+    sub_1B9239E50();
+  }
+
+  else
+  {
+    sub_1B8D9207C(v4 + v3, &qword_1EBAC9518, &qword_1B96AA7F8);
+    OUTLINED_FUNCTION_2_46();
+    OUTLINED_FUNCTION_506_0();
+    OUTLINED_FUNCTION_30_2();
+  }
+
+  free(v2);
+  free(v0);
+  free(v1);
+  OUTLINED_FUNCTION_242();
+
+  free(v6);
 }
 
-uint64_t Apple_Parsec_Siri_V2alpha_ShowLocalSearchResultBuilderParams.init()@<X0>(uint64_t a1@<X8>)
+uint64_t Apple_Parsec_Siri_V2alpha_LayoutSnippetComponent.unknownFields.modify()
 {
-  *a1 = xmmword_1B9652FE0;
-  *(a1 + 16) = 0;
-  *(a1 + 24) = 0xE000000000000000;
-  *(a1 + 32) = 0;
-  *(a1 + 40) = 0xE000000000000000;
-  v1 = a1 + *(type metadata accessor for Apple_Parsec_Siri_V2alpha_ShowLocalSearchResultBuilderParams(0) + 28);
-  return _s10PegasusAPI18Amppb_AvailabilityVACycfC_0();
+  v0 = OUTLINED_FUNCTION_313();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_LayoutSnippetComponent(v0);
+  return OUTLINED_FUNCTION_25();
 }
 
-void static Apple_Parsec_Siri_V2alpha_RecordLocationActivityBuilderParams.== infix(_:_:)()
+uint64_t Apple_Parsec_Siri_V2alpha_ButtonViewComponent.unknownFields.modify()
+{
+  v0 = OUTLINED_FUNCTION_313();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_ButtonViewComponent(v0);
+  return OUTLINED_FUNCTION_25();
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_DisambiguationListComponent.unknownFields.modify()
+{
+  v0 = OUTLINED_FUNCTION_313();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_DisambiguationListComponent(v0);
+  return OUTLINED_FUNCTION_25();
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_DisambiguationListItem.object.getter()
+{
+  v1 = OUTLINED_FUNCTION_236();
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
+  OUTLINED_FUNCTION_183(v3);
+  OUTLINED_FUNCTION_176();
+  MEMORY[0x1EEE9AC00](v4);
+  v5 = OUTLINED_FUNCTION_22_3();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_DisambiguationListItem(v5);
+  OUTLINED_FUNCTION_100_0();
+  v6 = sub_1B964C1C0();
+  OUTLINED_FUNCTION_29_14(v6);
+  if (v7)
+  {
+    sub_1B964C1B0();
+    result = OUTLINED_FUNCTION_9_2();
+    if (!v7)
+    {
+      return sub_1B8D9207C(v0, &qword_1EBAB8F20, &qword_1B964D720);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_48_7();
+    OUTLINED_FUNCTION_397();
+    return v8();
+  }
+
+  return result;
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_DisambiguationListItem.object.setter()
+{
+  v2 = OUTLINED_FUNCTION_313();
+  v3 = type metadata accessor for Apple_Parsec_Siri_V2alpha_DisambiguationListItem(v2);
+  sub_1B8D9207C(v0 + *(v3 + 32), &qword_1EBAB8F20, &qword_1B964D720);
+  sub_1B964C1C0();
+  OUTLINED_FUNCTION_126_1();
+  OUTLINED_FUNCTION_3_0();
+  v4();
+  OUTLINED_FUNCTION_80();
+
+  return __swift_storeEnumTagSinglePayload(v5, v6, v7, v1);
+}
+
+void Apple_Parsec_Siri_V2alpha_DisambiguationListItem.object.modify()
 {
   OUTLINED_FUNCTION_284();
-  OUTLINED_FUNCTION_16();
-  v3 = type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams(0);
-  v4 = OUTLINED_FUNCTION_59_1(v3);
-  v6 = *(v5 + 64);
+  v1 = OUTLINED_FUNCTION_185_0();
+  v2 = __swift_coroFrameAllocStub(v1);
+  OUTLINED_FUNCTION_86(v2);
+  v3 = OUTLINED_FUNCTION_686();
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(v3, v4);
+  OUTLINED_FUNCTION_183(v5);
+  v7 = __swift_coroFrameAllocStub(*(v6 + 64));
+  OUTLINED_FUNCTION_145_1(v7);
+  v8 = sub_1B964C1C0();
+  OUTLINED_FUNCTION_53_6(v8);
+  OUTLINED_FUNCTION_30_1();
+  *(v0 + 24) = v9;
+  v11 = __swift_coroFrameAllocStub(*(v10 + 64));
+  v12 = OUTLINED_FUNCTION_76_2(v11);
+  v13 = __swift_coroFrameAllocStub(v12);
+  v14 = OUTLINED_FUNCTION_35_4(v13);
+  v15 = type metadata accessor for Apple_Parsec_Siri_V2alpha_DisambiguationListItem(v14);
+  OUTLINED_FUNCTION_25_9(*(v15 + 32));
+  OUTLINED_FUNCTION_75(v7);
+  if (v16)
+  {
+    sub_1B964C1B0();
+    OUTLINED_FUNCTION_75(v7);
+    if (!v16)
+    {
+      sub_1B8D9207C(v7, &qword_1EBAB8F20, &qword_1B964D720);
+    }
+  }
+
+  else
+  {
+    v17 = OUTLINED_FUNCTION_461();
+    v18(v17);
+  }
+
+  OUTLINED_FUNCTION_89_5();
+  OUTLINED_FUNCTION_283();
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_DisambiguationListItem.commands.setter(uint64_t a1)
+{
+
+  *(v1 + 32) = a1;
+  return result;
+}
+
+uint64_t sub_1B922AEA8()
+{
+  v0 = OUTLINED_FUNCTION_338_0();
+  v1(v0);
+  sub_1B964C2B0();
+  OUTLINED_FUNCTION_59_1();
+  v2 = OUTLINED_FUNCTION_18_1();
+
+  return v3(v2);
+}
+
+uint64_t sub_1B922AF2C()
+{
+  v0 = OUTLINED_FUNCTION_313();
+  v1(v0);
+  sub_1B964C2B0();
+  OUTLINED_FUNCTION_59_1();
+  v2 = OUTLINED_FUNCTION_209();
+
+  return v3(v2);
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_DisambiguationListItem.unknownFields.modify()
+{
+  v0 = OUTLINED_FUNCTION_313();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_DisambiguationListItem(v0);
+  return OUTLINED_FUNCTION_25();
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_DisambiguationListItem.init()@<X0>(uint64_t a1@<X8>)
+{
+  OUTLINED_FUNCTION_92_0();
+  *(a1 + 32) = MEMORY[0x1E69E7CC0];
+  v2 = type metadata accessor for Apple_Parsec_Siri_V2alpha_DisambiguationListItem(0);
+  OUTLINED_FUNCTION_101_2(v2);
+  sub_1B964C1C0();
+  v3 = OUTLINED_FUNCTION_40_3();
+
+  return __swift_storeEnumTagSinglePayload(v3, v4, v5, v6);
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_PerResultLayoutDetails.casinoSnippet.getter()
+{
+  OUTLINED_FUNCTION_180_3();
+  v1 = OUTLINED_FUNCTION_177_1();
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
+  OUTLINED_FUNCTION_183(v3);
+  OUTLINED_FUNCTION_176();
   MEMORY[0x1EEE9AC00](v4);
+  OUTLINED_FUNCTION_27_9();
+  v5 = type metadata accessor for Apple_Parsec_Siri_V2alpha_PerResultLayoutDetails.OneOf_Snippet(0);
+  OUTLINED_FUNCTION_15_15(v5);
+  if (v6)
+  {
+    sub_1B8D9207C(v0, &qword_1EBAB8FB0, &unk_1B964D7A0);
+LABEL_6:
+    OUTLINED_FUNCTION_132_2();
+    type metadata accessor for Apple_Parsec_Siri_V2alpha_CasinoSnippet(0);
+    OUTLINED_FUNCTION_102_7();
+    _s10PegasusAPI18Amppb_AvailabilityVACycfC_0();
+    OUTLINED_FUNCTION_591_0();
+    sub_1B964C1C0();
+    v8 = OUTLINED_FUNCTION_40_3();
+    return __swift_storeEnumTagSinglePayload(v8, v9, v10, v11);
+  }
+
+  OUTLINED_FUNCTION_543();
+  if (swift_getEnumCaseMultiPayload())
+  {
+    sub_1B9239E50();
+    goto LABEL_6;
+  }
+
+  OUTLINED_FUNCTION_2_46();
+  OUTLINED_FUNCTION_288();
+  return sub_1B9239DA8();
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_PerResultLayoutDetails.casinoSnippet.setter()
+{
+  sub_1B8D9207C(v0, &qword_1EBAB8FB0, &unk_1B964D7A0);
+  OUTLINED_FUNCTION_2_46();
+  OUTLINED_FUNCTION_432();
+  sub_1B9239DA8();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_PerResultLayoutDetails.OneOf_Snippet(0);
+  OUTLINED_FUNCTION_199_3();
+  swift_storeEnumTagMultiPayload();
+  v1 = OUTLINED_FUNCTION_125_2();
+
+  return __swift_storeEnumTagSinglePayload(v1, v2, v3, v4);
+}
+
+void Apple_Parsec_Siri_V2alpha_PerResultLayoutDetails.casinoSnippet.modify()
+{
+  OUTLINED_FUNCTION_243();
+  v1 = OUTLINED_FUNCTION_25_4();
+  v2 = __swift_coroFrameAllocStub(v1);
+  OUTLINED_FUNCTION_86(v2);
+  v3 = OUTLINED_FUNCTION_686();
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(v3, v4);
+  OUTLINED_FUNCTION_183(v5);
+  v7 = __swift_coroFrameAllocStub(*(v6 + 64));
+  v8 = OUTLINED_FUNCTION_85(v7);
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_CasinoSnippet(v8);
+  OUTLINED_FUNCTION_126_1();
+  v10 = __swift_coroFrameAllocStub(*(v9 + 64));
+  v11 = OUTLINED_FUNCTION_175_2(v10);
+  v12 = __swift_coroFrameAllocStub(v11);
+  OUTLINED_FUNCTION_43_7(v12);
+  v13 = type metadata accessor for Apple_Parsec_Siri_V2alpha_PerResultLayoutDetails.OneOf_Snippet(0);
+  OUTLINED_FUNCTION_8_22(v13);
+  if (v14)
+  {
+    sub_1B8D9207C(v0, &qword_1EBAB8FB0, &unk_1B964D7A0);
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_177_1();
+    if (!swift_getEnumCaseMultiPayload())
+    {
+      OUTLINED_FUNCTION_2_46();
+      OUTLINED_FUNCTION_128();
+      sub_1B9239DA8();
+      goto LABEL_7;
+    }
+
+    sub_1B9239E50();
+  }
+
+  OUTLINED_FUNCTION_247_1();
+  OUTLINED_FUNCTION_101_4();
+  _s10PegasusAPI18Amppb_AvailabilityVACycfC_0();
+  sub_1B964C1C0();
+  OUTLINED_FUNCTION_155_2();
+  OUTLINED_FUNCTION_83();
+  __swift_storeEnumTagSinglePayload(v16, v17, v18, v19);
+LABEL_7:
+  OUTLINED_FUNCTION_242();
+}
+
+void sub_1B922B364()
+{
+  OUTLINED_FUNCTION_128_3();
+  if (v5)
+  {
+    OUTLINED_FUNCTION_461();
+    sub_1B9239DFC();
+    sub_1B8D9207C(v4, &qword_1EBAB8FB0, &unk_1B964D7A0);
+    OUTLINED_FUNCTION_2_46();
+    OUTLINED_FUNCTION_439_0();
+    sub_1B9239DA8();
+    OUTLINED_FUNCTION_257();
+    swift_storeEnumTagMultiPayload();
+    OUTLINED_FUNCTION_255_1();
+    OUTLINED_FUNCTION_17_21();
+    sub_1B9239E50();
+  }
+
+  else
+  {
+    sub_1B8D9207C(v4, &qword_1EBAB8FB0, &unk_1B964D7A0);
+    OUTLINED_FUNCTION_2_46();
+    OUTLINED_FUNCTION_1_0();
+    sub_1B9239DA8();
+    OUTLINED_FUNCTION_257();
+    swift_storeEnumTagMultiPayload();
+    OUTLINED_FUNCTION_255_1();
+  }
+
+  free(v3);
+  free(v2);
+  free(v1);
+
+  free(v0);
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_PerResultLayoutDetails.watchSnippet.getter()
+{
+  OUTLINED_FUNCTION_180_3();
+  v1 = OUTLINED_FUNCTION_177_1();
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
+  OUTLINED_FUNCTION_183(v3);
+  OUTLINED_FUNCTION_176();
+  MEMORY[0x1EEE9AC00](v4);
+  OUTLINED_FUNCTION_27_9();
+  v5 = type metadata accessor for Apple_Parsec_Siri_V2alpha_PerResultLayoutDetails.OneOf_Snippet(0);
+  OUTLINED_FUNCTION_15_15(v5);
+  if (v6)
+  {
+    sub_1B8D9207C(v0, &qword_1EBAB8FB0, &unk_1B964D7A0);
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_543();
+    EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+    if (EnumCaseMultiPayload == 1)
+    {
+      OUTLINED_FUNCTION_39_12();
+      OUTLINED_FUNCTION_288();
+      return sub_1B9239DA8();
+    }
+
+    sub_1B9239E50();
+  }
+
+  v9 = OUTLINED_FUNCTION_578_1(MEMORY[0x1E69E7CC0]);
+  type metadata accessor for Apple_Parsec_Siri_Platform_Watchos_SiriWatchOSSnippet(v9);
+  return OUTLINED_FUNCTION_279();
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_PerResultLayoutDetails.watchSnippet.setter()
+{
+  sub_1B8D9207C(v0, &qword_1EBAB8FB0, &unk_1B964D7A0);
+  OUTLINED_FUNCTION_39_12();
+  OUTLINED_FUNCTION_432();
+  sub_1B9239DA8();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_PerResultLayoutDetails.OneOf_Snippet(0);
+  OUTLINED_FUNCTION_199_3();
+  swift_storeEnumTagMultiPayload();
+  v1 = OUTLINED_FUNCTION_125_2();
+
+  return __swift_storeEnumTagSinglePayload(v1, v2, v3, v4);
+}
+
+void Apple_Parsec_Siri_V2alpha_PerResultLayoutDetails.watchSnippet.modify()
+{
+  OUTLINED_FUNCTION_243();
+  v1 = OUTLINED_FUNCTION_25_4();
+  v2 = __swift_coroFrameAllocStub(v1);
+  OUTLINED_FUNCTION_86(v2);
+  v3 = OUTLINED_FUNCTION_686();
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(v3, v4);
+  OUTLINED_FUNCTION_183(v5);
+  v7 = __swift_coroFrameAllocStub(*(v6 + 64));
+  v8 = OUTLINED_FUNCTION_85(v7);
+  type metadata accessor for Apple_Parsec_Siri_Platform_Watchos_SiriWatchOSSnippet(v8);
+  OUTLINED_FUNCTION_126_1();
+  v10 = *(v9 + 64);
+  v11 = __swift_coroFrameAllocStub(v10);
+  v12 = OUTLINED_FUNCTION_175_2(v11);
+  v13 = __swift_coroFrameAllocStub(v12);
+  OUTLINED_FUNCTION_43_7(v13);
+  v14 = type metadata accessor for Apple_Parsec_Siri_V2alpha_PerResultLayoutDetails.OneOf_Snippet(0);
+  OUTLINED_FUNCTION_8_22(v14);
+  if (v15)
+  {
+    v16 = sub_1B8D9207C(v0, &qword_1EBAB8FB0, &unk_1B964D7A0);
+LABEL_7:
+    v18 = MEMORY[0x1E69E7CC0];
+    *v10 = MEMORY[0x1E69E7CC0];
+    v10[1] = v18;
+    OUTLINED_FUNCTION_689_0(v16);
+    goto LABEL_8;
+  }
+
+  OUTLINED_FUNCTION_177_1();
+  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+  if (EnumCaseMultiPayload != 1)
+  {
+    v16 = sub_1B9239E50();
+    goto LABEL_7;
+  }
+
+  OUTLINED_FUNCTION_39_12();
+  OUTLINED_FUNCTION_128();
+  sub_1B9239DA8();
+LABEL_8:
+  OUTLINED_FUNCTION_242();
+}
+
+void sub_1B922B6E8()
+{
+  OUTLINED_FUNCTION_128_3();
+  if (v5)
+  {
+    OUTLINED_FUNCTION_461();
+    sub_1B9239DFC();
+    sub_1B8D9207C(v4, &qword_1EBAB8FB0, &unk_1B964D7A0);
+    OUTLINED_FUNCTION_39_12();
+    OUTLINED_FUNCTION_439_0();
+    sub_1B9239DA8();
+    OUTLINED_FUNCTION_257();
+    swift_storeEnumTagMultiPayload();
+    OUTLINED_FUNCTION_255_1();
+    OUTLINED_FUNCTION_222();
+    sub_1B9239E50();
+  }
+
+  else
+  {
+    sub_1B8D9207C(v4, &qword_1EBAB8FB0, &unk_1B964D7A0);
+    OUTLINED_FUNCTION_39_12();
+    OUTLINED_FUNCTION_1_0();
+    sub_1B9239DA8();
+    OUTLINED_FUNCTION_257();
+    swift_storeEnumTagMultiPayload();
+    OUTLINED_FUNCTION_255_1();
+  }
+
+  free(v3);
+  free(v2);
+  free(v1);
+
+  free(v0);
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_PerResultLayoutDetails.mapItemSnippet.getter()
+{
+  OUTLINED_FUNCTION_180_3();
+  v2 = OUTLINED_FUNCTION_177_1();
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(v2, v3);
+  OUTLINED_FUNCTION_183(v4);
+  OUTLINED_FUNCTION_176();
+  MEMORY[0x1EEE9AC00](v5);
+  OUTLINED_FUNCTION_27_9();
+  v6 = type metadata accessor for Apple_Parsec_Siri_V2alpha_PerResultLayoutDetails.OneOf_Snippet(0);
+  OUTLINED_FUNCTION_15_15(v6);
+  if (v7)
+  {
+    sub_1B8D9207C(v1, &qword_1EBAB8FB0, &unk_1B964D7A0);
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_543();
+    EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+    if (EnumCaseMultiPayload == 2)
+    {
+      OUTLINED_FUNCTION_38_9();
+      OUTLINED_FUNCTION_288();
+      return sub_1B9239DA8();
+    }
+
+    sub_1B9239E50();
+  }
+
+  *v0 = MEMORY[0x1E69E7CC0];
+  v0[1] = 0;
+  v10 = OUTLINED_FUNCTION_582_1(0xE000000000000000);
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_MapItemSnippet(v10);
+  OUTLINED_FUNCTION_279();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams(0);
+  v11 = OUTLINED_FUNCTION_40_3();
+  return __swift_storeEnumTagSinglePayload(v11, v12, v13, v14);
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_PerResultLayoutDetails.mapItemSnippet.setter()
+{
+  sub_1B8D9207C(v0, &qword_1EBAB8FB0, &unk_1B964D7A0);
+  OUTLINED_FUNCTION_38_9();
+  OUTLINED_FUNCTION_432();
+  sub_1B9239DA8();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_PerResultLayoutDetails.OneOf_Snippet(0);
+  OUTLINED_FUNCTION_199_3();
+  swift_storeEnumTagMultiPayload();
+  v1 = OUTLINED_FUNCTION_125_2();
+
+  return __swift_storeEnumTagSinglePayload(v1, v2, v3, v4);
+}
+
+void Apple_Parsec_Siri_V2alpha_PerResultLayoutDetails.mapItemSnippet.modify()
+{
+  OUTLINED_FUNCTION_243();
+  v1 = OUTLINED_FUNCTION_25_4();
+  v2 = __swift_coroFrameAllocStub(v1);
+  OUTLINED_FUNCTION_86(v2);
+  v3 = OUTLINED_FUNCTION_686();
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(v3, v4);
+  OUTLINED_FUNCTION_183(v5);
+  v7 = __swift_coroFrameAllocStub(*(v6 + 64));
+  v8 = OUTLINED_FUNCTION_85(v7);
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_MapItemSnippet(v8);
+  OUTLINED_FUNCTION_126_1();
+  v10 = *(v9 + 64);
+  v11 = __swift_coroFrameAllocStub(v10);
+  v12 = OUTLINED_FUNCTION_175_2(v11);
+  v13 = __swift_coroFrameAllocStub(v12);
+  OUTLINED_FUNCTION_43_7(v13);
+  v14 = type metadata accessor for Apple_Parsec_Siri_V2alpha_PerResultLayoutDetails.OneOf_Snippet(0);
+  OUTLINED_FUNCTION_8_22(v14);
+  if (v15)
+  {
+    v16 = sub_1B8D9207C(v0, &qword_1EBAB8FB0, &unk_1B964D7A0);
+LABEL_7:
+    *v10 = MEMORY[0x1E69E7CC0];
+    v10[1] = 0;
+    v10[2] = 0xE000000000000000;
+    OUTLINED_FUNCTION_689_0(v16);
+    type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams(0);
+    OUTLINED_FUNCTION_155_2();
+    OUTLINED_FUNCTION_83();
+    __swift_storeEnumTagSinglePayload(v18, v19, v20, v21);
+    goto LABEL_8;
+  }
+
+  OUTLINED_FUNCTION_177_1();
+  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+  if (EnumCaseMultiPayload != 2)
+  {
+    v16 = sub_1B9239E50();
+    goto LABEL_7;
+  }
+
+  OUTLINED_FUNCTION_38_9();
+  OUTLINED_FUNCTION_128();
+  sub_1B9239DA8();
+LABEL_8:
+  OUTLINED_FUNCTION_242();
+}
+
+void sub_1B922BAB8()
+{
+  OUTLINED_FUNCTION_128_3();
+  if (v5)
+  {
+    OUTLINED_FUNCTION_461();
+    sub_1B9239DFC();
+    sub_1B8D9207C(v4, &qword_1EBAB8FB0, &unk_1B964D7A0);
+    OUTLINED_FUNCTION_38_9();
+    OUTLINED_FUNCTION_439_0();
+    sub_1B9239DA8();
+    OUTLINED_FUNCTION_257();
+    swift_storeEnumTagMultiPayload();
+    OUTLINED_FUNCTION_255_1();
+    OUTLINED_FUNCTION_222();
+    sub_1B9239E50();
+  }
+
+  else
+  {
+    sub_1B8D9207C(v4, &qword_1EBAB8FB0, &unk_1B964D7A0);
+    OUTLINED_FUNCTION_38_9();
+    OUTLINED_FUNCTION_1_0();
+    sub_1B9239DA8();
+    OUTLINED_FUNCTION_257();
+    swift_storeEnumTagMultiPayload();
+    OUTLINED_FUNCTION_255_1();
+  }
+
+  free(v3);
+  free(v2);
+  free(v1);
+
+  free(v0);
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_PerResultLayoutDetails.legacySnippet.getter()
+{
+  OUTLINED_FUNCTION_180_3();
+  v1 = OUTLINED_FUNCTION_177_1();
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
+  OUTLINED_FUNCTION_183(v3);
+  OUTLINED_FUNCTION_176();
+  MEMORY[0x1EEE9AC00](v4);
+  OUTLINED_FUNCTION_27_9();
+  v5 = type metadata accessor for Apple_Parsec_Siri_V2alpha_PerResultLayoutDetails.OneOf_Snippet(0);
+  OUTLINED_FUNCTION_15_15(v5);
+  if (v6)
+  {
+    sub_1B8D9207C(v0, &qword_1EBAB8FB0, &unk_1B964D7A0);
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_543();
+    EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+    if (EnumCaseMultiPayload == 3)
+    {
+      OUTLINED_FUNCTION_37_11();
+      OUTLINED_FUNCTION_288();
+      return sub_1B9239DA8();
+    }
+
+    sub_1B9239E50();
+  }
+
+  v9 = type metadata accessor for Apple_Parsec_Siri_Legacy_LegacySnippet.OneOf_Snippet(0);
+  OUTLINED_FUNCTION_274_1(v9);
+  type metadata accessor for Apple_Parsec_Siri_Legacy_LegacySnippet(0);
+  OUTLINED_FUNCTION_102_7();
+  return _s10PegasusAPI18Amppb_AvailabilityVACycfC_0();
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_PerResultLayoutDetails.legacySnippet.setter()
+{
+  sub_1B8D9207C(v0, &qword_1EBAB8FB0, &unk_1B964D7A0);
+  OUTLINED_FUNCTION_37_11();
+  OUTLINED_FUNCTION_432();
+  sub_1B9239DA8();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_PerResultLayoutDetails.OneOf_Snippet(0);
+  OUTLINED_FUNCTION_199_3();
+  swift_storeEnumTagMultiPayload();
+  v1 = OUTLINED_FUNCTION_125_2();
+
+  return __swift_storeEnumTagSinglePayload(v1, v2, v3, v4);
+}
+
+void Apple_Parsec_Siri_V2alpha_PerResultLayoutDetails.legacySnippet.modify()
+{
+  OUTLINED_FUNCTION_243();
+  v1 = OUTLINED_FUNCTION_25_4();
+  v2 = __swift_coroFrameAllocStub(v1);
+  OUTLINED_FUNCTION_86(v2);
+  v3 = OUTLINED_FUNCTION_686();
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(v3, v4);
+  OUTLINED_FUNCTION_183(v5);
+  v7 = __swift_coroFrameAllocStub(*(v6 + 64));
+  v8 = OUTLINED_FUNCTION_85(v7);
+  type metadata accessor for Apple_Parsec_Siri_Legacy_LegacySnippet(v8);
+  OUTLINED_FUNCTION_126_1();
+  v10 = __swift_coroFrameAllocStub(*(v9 + 64));
+  v11 = OUTLINED_FUNCTION_175_2(v10);
+  v12 = __swift_coroFrameAllocStub(v11);
+  OUTLINED_FUNCTION_43_7(v12);
+  v13 = type metadata accessor for Apple_Parsec_Siri_V2alpha_PerResultLayoutDetails.OneOf_Snippet(0);
+  OUTLINED_FUNCTION_8_22(v13);
+  if (v14)
+  {
+    sub_1B8D9207C(v0, &qword_1EBAB8FB0, &unk_1B964D7A0);
+LABEL_7:
+    type metadata accessor for Apple_Parsec_Siri_Legacy_LegacySnippet.OneOf_Snippet(0);
+    v16 = OUTLINED_FUNCTION_231();
+    OUTLINED_FUNCTION_255_3(v16, v17, v18, v19);
+    _s10PegasusAPI18Amppb_AvailabilityVACycfC_0();
+    goto LABEL_8;
+  }
+
+  OUTLINED_FUNCTION_177_1();
+  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+  if (EnumCaseMultiPayload != 3)
+  {
+    sub_1B9239E50();
+    goto LABEL_7;
+  }
+
+  OUTLINED_FUNCTION_37_11();
+  OUTLINED_FUNCTION_128();
+  sub_1B9239DA8();
+LABEL_8:
+  OUTLINED_FUNCTION_242();
+}
+
+void sub_1B922BE58()
+{
+  OUTLINED_FUNCTION_128_3();
+  if (v5)
+  {
+    OUTLINED_FUNCTION_461();
+    sub_1B9239DFC();
+    sub_1B8D9207C(v4, &qword_1EBAB8FB0, &unk_1B964D7A0);
+    OUTLINED_FUNCTION_37_11();
+    OUTLINED_FUNCTION_439_0();
+    sub_1B9239DA8();
+    OUTLINED_FUNCTION_257();
+    swift_storeEnumTagMultiPayload();
+    OUTLINED_FUNCTION_255_1();
+    OUTLINED_FUNCTION_222();
+    sub_1B9239E50();
+  }
+
+  else
+  {
+    sub_1B8D9207C(v4, &qword_1EBAB8FB0, &unk_1B964D7A0);
+    OUTLINED_FUNCTION_37_11();
+    OUTLINED_FUNCTION_1_0();
+    sub_1B9239DA8();
+    OUTLINED_FUNCTION_257();
+    swift_storeEnumTagMultiPayload();
+    OUTLINED_FUNCTION_255_1();
+  }
+
+  free(v3);
+  free(v2);
+  free(v1);
+
+  free(v0);
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_PerResultLayoutDetails.personSnippet.getter()
+{
+  OUTLINED_FUNCTION_180_3();
+  v1 = OUTLINED_FUNCTION_177_1();
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
+  OUTLINED_FUNCTION_183(v3);
+  OUTLINED_FUNCTION_176();
+  MEMORY[0x1EEE9AC00](v4);
+  OUTLINED_FUNCTION_27_9();
+  v5 = type metadata accessor for Apple_Parsec_Siri_V2alpha_PerResultLayoutDetails.OneOf_Snippet(0);
+  OUTLINED_FUNCTION_15_15(v5);
+  if (v6)
+  {
+    sub_1B8D9207C(v0, &qword_1EBAB8FB0, &unk_1B964D7A0);
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_543();
+    EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+    if (EnumCaseMultiPayload == 4)
+    {
+      OUTLINED_FUNCTION_36_8();
+      OUTLINED_FUNCTION_288();
+      return sub_1B9239DA8();
+    }
+
+    sub_1B9239E50();
+  }
+
+  v9 = OUTLINED_FUNCTION_578_1(MEMORY[0x1E69E7CC0]);
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_PersonSnippet(v9);
+  return OUTLINED_FUNCTION_279();
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_PerResultLayoutDetails.personSnippet.setter()
+{
+  sub_1B8D9207C(v0, &qword_1EBAB8FB0, &unk_1B964D7A0);
+  OUTLINED_FUNCTION_36_8();
+  OUTLINED_FUNCTION_432();
+  sub_1B9239DA8();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_PerResultLayoutDetails.OneOf_Snippet(0);
+  OUTLINED_FUNCTION_199_3();
+  swift_storeEnumTagMultiPayload();
+  v1 = OUTLINED_FUNCTION_125_2();
+
+  return __swift_storeEnumTagSinglePayload(v1, v2, v3, v4);
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_PersonSnippet.init()(uint64_t a1)
+{
+  v1 = OUTLINED_FUNCTION_578_1(MEMORY[0x1E69E7CC0]);
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_PersonSnippet(v1);
+  return OUTLINED_FUNCTION_279();
+}
+
+void Apple_Parsec_Siri_V2alpha_PerResultLayoutDetails.personSnippet.modify()
+{
+  OUTLINED_FUNCTION_243();
+  v1 = OUTLINED_FUNCTION_25_4();
+  v2 = __swift_coroFrameAllocStub(v1);
+  OUTLINED_FUNCTION_86(v2);
+  v3 = OUTLINED_FUNCTION_686();
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(v3, v4);
+  OUTLINED_FUNCTION_183(v5);
+  v7 = __swift_coroFrameAllocStub(*(v6 + 64));
+  v8 = OUTLINED_FUNCTION_85(v7);
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_PersonSnippet(v8);
+  OUTLINED_FUNCTION_126_1();
+  v10 = *(v9 + 64);
+  v11 = __swift_coroFrameAllocStub(v10);
+  v12 = OUTLINED_FUNCTION_175_2(v11);
+  v13 = __swift_coroFrameAllocStub(v12);
+  OUTLINED_FUNCTION_43_7(v13);
+  v14 = type metadata accessor for Apple_Parsec_Siri_V2alpha_PerResultLayoutDetails.OneOf_Snippet(0);
+  OUTLINED_FUNCTION_8_22(v14);
+  if (v15)
+  {
+    v16 = sub_1B8D9207C(v0, &qword_1EBAB8FB0, &unk_1B964D7A0);
+LABEL_7:
+    v18 = MEMORY[0x1E69E7CC0];
+    *v10 = MEMORY[0x1E69E7CC0];
+    v10[1] = v18;
+    OUTLINED_FUNCTION_689_0(v16);
+    goto LABEL_8;
+  }
+
+  OUTLINED_FUNCTION_177_1();
+  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+  if (EnumCaseMultiPayload != 4)
+  {
+    v16 = sub_1B9239E50();
+    goto LABEL_7;
+  }
+
+  OUTLINED_FUNCTION_36_8();
+  OUTLINED_FUNCTION_128();
+  sub_1B9239DA8();
+LABEL_8:
+  OUTLINED_FUNCTION_242();
+}
+
+void sub_1B922C21C()
+{
+  OUTLINED_FUNCTION_128_3();
+  if (v5)
+  {
+    OUTLINED_FUNCTION_461();
+    sub_1B9239DFC();
+    sub_1B8D9207C(v4, &qword_1EBAB8FB0, &unk_1B964D7A0);
+    OUTLINED_FUNCTION_36_8();
+    OUTLINED_FUNCTION_439_0();
+    sub_1B9239DA8();
+    OUTLINED_FUNCTION_257();
+    swift_storeEnumTagMultiPayload();
+    OUTLINED_FUNCTION_255_1();
+    OUTLINED_FUNCTION_222();
+    sub_1B9239E50();
+  }
+
+  else
+  {
+    sub_1B8D9207C(v4, &qword_1EBAB8FB0, &unk_1B964D7A0);
+    OUTLINED_FUNCTION_36_8();
+    OUTLINED_FUNCTION_1_0();
+    sub_1B9239DA8();
+    OUTLINED_FUNCTION_257();
+    swift_storeEnumTagMultiPayload();
+    OUTLINED_FUNCTION_255_1();
+  }
+
+  free(v3);
+  free(v2);
+  free(v1);
+
+  free(v0);
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_PerResultLayoutDetails.clockSnippet.getter()
+{
+  OUTLINED_FUNCTION_180_3();
+  v1 = OUTLINED_FUNCTION_177_1();
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
+  OUTLINED_FUNCTION_183(v3);
+  OUTLINED_FUNCTION_176();
+  MEMORY[0x1EEE9AC00](v4);
+  OUTLINED_FUNCTION_27_9();
+  v5 = type metadata accessor for Apple_Parsec_Siri_V2alpha_PerResultLayoutDetails.OneOf_Snippet(0);
+  OUTLINED_FUNCTION_15_15(v5);
+  if (v6)
+  {
+    sub_1B8D9207C(v0, &qword_1EBAB8FB0, &unk_1B964D7A0);
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_543();
+    EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+    if (EnumCaseMultiPayload == 5)
+    {
+      OUTLINED_FUNCTION_35_13();
+      OUTLINED_FUNCTION_288();
+      return sub_1B9239DA8();
+    }
+
+    sub_1B9239E50();
+  }
+
+  v9 = OUTLINED_FUNCTION_208_2(MEMORY[0x1E69E7CC0]);
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_ClockSnippet(v9);
+  OUTLINED_FUNCTION_102_7();
+  return _s10PegasusAPI18Amppb_AvailabilityVACycfC_0();
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_PerResultLayoutDetails.clockSnippet.setter()
+{
+  sub_1B8D9207C(v0, &qword_1EBAB8FB0, &unk_1B964D7A0);
+  OUTLINED_FUNCTION_35_13();
+  OUTLINED_FUNCTION_432();
+  sub_1B9239DA8();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_PerResultLayoutDetails.OneOf_Snippet(0);
+  OUTLINED_FUNCTION_199_3();
+  swift_storeEnumTagMultiPayload();
+  v1 = OUTLINED_FUNCTION_125_2();
+
+  return __swift_storeEnumTagSinglePayload(v1, v2, v3, v4);
+}
+
+void Apple_Parsec_Siri_V2alpha_PerResultLayoutDetails.clockSnippet.modify()
+{
+  OUTLINED_FUNCTION_243();
+  v1 = OUTLINED_FUNCTION_25_4();
+  v2 = __swift_coroFrameAllocStub(v1);
+  OUTLINED_FUNCTION_86(v2);
+  v3 = OUTLINED_FUNCTION_686();
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(v3, v4);
+  OUTLINED_FUNCTION_183(v5);
+  v7 = __swift_coroFrameAllocStub(*(v6 + 64));
+  v8 = OUTLINED_FUNCTION_85(v7);
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_ClockSnippet(v8);
+  OUTLINED_FUNCTION_126_1();
+  v10 = *(v9 + 64);
+  v11 = __swift_coroFrameAllocStub(v10);
+  v12 = OUTLINED_FUNCTION_175_2(v11);
+  v13 = __swift_coroFrameAllocStub(v12);
+  OUTLINED_FUNCTION_43_7(v13);
+  v14 = type metadata accessor for Apple_Parsec_Siri_V2alpha_PerResultLayoutDetails.OneOf_Snippet(0);
+  OUTLINED_FUNCTION_8_22(v14);
+  if (v15)
+  {
+    sub_1B8D9207C(v0, &qword_1EBAB8FB0, &unk_1B964D7A0);
+LABEL_7:
+    *v10 = MEMORY[0x1E69E7CC0];
+    OUTLINED_FUNCTION_101_4();
+    _s10PegasusAPI18Amppb_AvailabilityVACycfC_0();
+    goto LABEL_8;
+  }
+
+  OUTLINED_FUNCTION_177_1();
+  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+  if (EnumCaseMultiPayload != 5)
+  {
+    sub_1B9239E50();
+    goto LABEL_7;
+  }
+
+  OUTLINED_FUNCTION_35_13();
+  OUTLINED_FUNCTION_128();
+  sub_1B9239DA8();
+LABEL_8:
+  OUTLINED_FUNCTION_242();
+}
+
+void sub_1B922C5CC()
+{
+  OUTLINED_FUNCTION_128_3();
+  if (v5)
+  {
+    OUTLINED_FUNCTION_461();
+    sub_1B9239DFC();
+    sub_1B8D9207C(v4, &qword_1EBAB8FB0, &unk_1B964D7A0);
+    OUTLINED_FUNCTION_35_13();
+    OUTLINED_FUNCTION_439_0();
+    sub_1B9239DA8();
+    OUTLINED_FUNCTION_257();
+    swift_storeEnumTagMultiPayload();
+    OUTLINED_FUNCTION_255_1();
+    OUTLINED_FUNCTION_34_11();
+    sub_1B9239E50();
+  }
+
+  else
+  {
+    sub_1B8D9207C(v4, &qword_1EBAB8FB0, &unk_1B964D7A0);
+    OUTLINED_FUNCTION_35_13();
+    OUTLINED_FUNCTION_1_0();
+    sub_1B9239DA8();
+    OUTLINED_FUNCTION_257();
+    swift_storeEnumTagMultiPayload();
+    OUTLINED_FUNCTION_255_1();
+  }
+
+  free(v3);
+  free(v2);
+  free(v1);
+
+  free(v0);
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_PerResultLayoutDetails.unknownFields.modify()
+{
+  v0 = OUTLINED_FUNCTION_313();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_PerResultLayoutDetails(v0);
+  return OUTLINED_FUNCTION_25();
+}
+
+void static Apple_Parsec_Siri_V2alpha_PerResultLayoutDetails.OneOf_Snippet.== infix(_:_:)()
+{
+  OUTLINED_FUNCTION_284();
+  v66 = v2;
+  v67 = v3;
+  v59 = type metadata accessor for Apple_Parsec_Siri_V2alpha_ClockSnippet(0);
+  OUTLINED_FUNCTION_59_1();
+  MEMORY[0x1EEE9AC00](v4);
+  OUTLINED_FUNCTION_21();
+  v64 = v5;
+  v6 = OUTLINED_FUNCTION_201();
+  v58 = type metadata accessor for Apple_Parsec_Siri_V2alpha_PersonSnippet(v6);
+  OUTLINED_FUNCTION_59_1();
+  MEMORY[0x1EEE9AC00](v7);
+  OUTLINED_FUNCTION_21();
+  v63 = v8;
+  v9 = OUTLINED_FUNCTION_201();
+  v10 = type metadata accessor for Apple_Parsec_Siri_Legacy_LegacySnippet(v9);
+  v11 = OUTLINED_FUNCTION_183(v10);
+  MEMORY[0x1EEE9AC00](v11);
+  OUTLINED_FUNCTION_21();
+  v61 = v12;
+  v13 = OUTLINED_FUNCTION_201();
+  v14 = type metadata accessor for Apple_Parsec_Siri_V2alpha_MapItemSnippet(v13);
+  v15 = OUTLINED_FUNCTION_183(v14);
+  MEMORY[0x1EEE9AC00](v15);
+  OUTLINED_FUNCTION_21();
+  v60 = v16;
+  v17 = OUTLINED_FUNCTION_201();
+  v57 = type metadata accessor for Apple_Parsec_Siri_Platform_Watchos_SiriWatchOSSnippet(v17);
+  OUTLINED_FUNCTION_59_1();
+  MEMORY[0x1EEE9AC00](v18);
+  OUTLINED_FUNCTION_21();
+  v62 = v19;
+  v20 = OUTLINED_FUNCTION_201();
+  v21 = type metadata accessor for Apple_Parsec_Siri_V2alpha_CasinoSnippet(v20);
+  v22 = OUTLINED_FUNCTION_183(v21);
+  MEMORY[0x1EEE9AC00](v22);
   OUTLINED_FUNCTION_62();
-  v9 = v8 - v7;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB9018, &unk_1B96A6290);
-  OUTLINED_FUNCTION_183(v10);
-  v12 = *(v11 + 64);
+  OUTLINED_FUNCTION_231_1();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_PerResultLayoutDetails.OneOf_Snippet(0);
+  OUTLINED_FUNCTION_135_0();
+  MEMORY[0x1EEE9AC00](v23);
+  OUTLINED_FUNCTION_44_0();
+  v65 = v24;
+  OUTLINED_FUNCTION_230();
+  v26 = MEMORY[0x1EEE9AC00](v25);
+  v28 = (&v56 - v27);
+  v29 = MEMORY[0x1EEE9AC00](v26);
+  MEMORY[0x1EEE9AC00](v29);
+  OUTLINED_FUNCTION_442();
+  MEMORY[0x1EEE9AC00](v30);
+  OUTLINED_FUNCTION_599_0();
+  MEMORY[0x1EEE9AC00](v31);
+  v32 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EBAC9558, &unk_1B96AA838);
+  OUTLINED_FUNCTION_183(v32);
   OUTLINED_FUNCTION_176();
-  MEMORY[0x1EEE9AC00](v13);
-  OUTLINED_FUNCTION_258();
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB9020, &unk_1B964D810);
-  OUTLINED_FUNCTION_59_1(v14);
-  v16 = *(v15 + 64);
-  OUTLINED_FUNCTION_176();
-  MEMORY[0x1EEE9AC00](v17);
-  v19 = &v36 - v18;
-  v20 = *v1;
-  v21 = *v0;
-  if (*(v1 + 8))
+  MEMORY[0x1EEE9AC00](v33);
+  OUTLINED_FUNCTION_139();
+  sub_1B9239DFC();
+  sub_1B9239DFC();
+  OUTLINED_FUNCTION_472();
+  switch(swift_getEnumCaseMultiPayload())
   {
-    v20 = *v1 != 0;
-  }
-
-  if (*(v0 + 8) == 1)
-  {
-    if (v21)
-    {
-      if (v20 != 1)
+    case 1u:
+      OUTLINED_FUNCTION_30_24();
+      sub_1B9239DFC();
+      if (OUTLINED_FUNCTION_563_1() != 1)
       {
-        goto LABEL_20;
+        OUTLINED_FUNCTION_344_1();
+        goto LABEL_26;
       }
+
+      OUTLINED_FUNCTION_39_12();
+      v38 = v62;
+      sub_1B9239DA8();
+      sub_1B8D80560(*v1, *v38);
+      if (v45)
+      {
+        sub_1B8D80B5C(v1[1], v38[1], v39, v40, v41, v42, v43, v44, v56, v57, v58, v59, v60, v61, v62, v63, v64, v65, v66, v67);
+        if (v46)
+        {
+          v47 = *(v57 + 24);
+          sub_1B964C2B0();
+          OUTLINED_FUNCTION_0_75();
+          sub_1B8CD2D08(v48, v49, MEMORY[0x1E69AAC10]);
+          OUTLINED_FUNCTION_731(v1 + v47);
+        }
+      }
+
+      OUTLINED_FUNCTION_378_0();
+      sub_1B9239E50();
+      goto LABEL_31;
+    case 2u:
+      OUTLINED_FUNCTION_30_24();
+      sub_1B9239DFC();
+      if (OUTLINED_FUNCTION_563_1() == 2)
+      {
+        OUTLINED_FUNCTION_38_9();
+        sub_1B9239DA8();
+        OUTLINED_FUNCTION_541_0();
+        static Apple_Parsec_Siri_V2alpha_MapItemSnippet.== infix(_:_:)();
+        sub_1B9239E50();
+        goto LABEL_31;
+      }
+
+      OUTLINED_FUNCTION_464();
+      goto LABEL_26;
+    case 3u:
+      OUTLINED_FUNCTION_30_24();
+      sub_1B9239DFC();
+      if (OUTLINED_FUNCTION_563_1() != 3)
+      {
+        goto LABEL_26;
+      }
+
+      OUTLINED_FUNCTION_37_11();
+      sub_1B9239DA8();
+      OUTLINED_FUNCTION_696();
+      static Apple_Parsec_Siri_Legacy_LegacySnippet.== infix(_:_:)();
+      sub_1B9239E50();
+      goto LABEL_31;
+    case 4u:
+      OUTLINED_FUNCTION_30_24();
+      sub_1B9239DFC();
+      if (OUTLINED_FUNCTION_563_1() != 4)
+      {
+        goto LABEL_26;
+      }
+
+      OUTLINED_FUNCTION_36_8();
+      v34 = v63;
+      sub_1B9239DA8();
+      if (sub_1B8D6FD68(*v28, *v34))
+      {
+        sub_1B8D6FE7C(v28[1], v34[1]);
+        if (v35)
+        {
+          sub_1B964C2B0();
+          OUTLINED_FUNCTION_0_75();
+          sub_1B8CD2D08(v36, v37, MEMORY[0x1E69AAC10]);
+          sub_1B964C850();
+        }
+      }
+
+      OUTLINED_FUNCTION_377_0();
+      sub_1B9239E50();
+      goto LABEL_31;
+    case 5u:
+      OUTLINED_FUNCTION_30_24();
+      v50 = v65;
+      sub_1B9239DFC();
+      if (OUTLINED_FUNCTION_563_1() != 5)
+      {
+        OUTLINED_FUNCTION_34_11();
+        goto LABEL_26;
+      }
+
+      OUTLINED_FUNCTION_35_13();
+      v51 = v64;
+      sub_1B9239DA8();
+      sub_1B8D66880(*v50, *v51);
+      if (v52)
+      {
+        v53 = *(v59 + 20);
+        sub_1B964C2B0();
+        OUTLINED_FUNCTION_0_75();
+        sub_1B8CD2D08(v54, v55, MEMORY[0x1E69AAC10]);
+        OUTLINED_FUNCTION_731(v50 + v53);
+      }
+
+      OUTLINED_FUNCTION_34_11();
+      sub_1B9239E50();
+      OUTLINED_FUNCTION_34_11();
+      goto LABEL_31;
+    default:
+      OUTLINED_FUNCTION_30_24();
+      sub_1B9239DFC();
+      if (OUTLINED_FUNCTION_563_1())
+      {
+        OUTLINED_FUNCTION_17_21();
+LABEL_26:
+        sub_1B9239E50();
+        sub_1B8D9207C(v0, &unk_1EBAC9558, &unk_1B96AA838);
+      }
+
+      else
+      {
+        OUTLINED_FUNCTION_2_46();
+        sub_1B9239DA8();
+        OUTLINED_FUNCTION_190_0();
+        static Apple_Parsec_Siri_V2alpha_CasinoSnippet.== infix(_:_:)();
+        OUTLINED_FUNCTION_188_3();
+        sub_1B9239E50();
+LABEL_31:
+        sub_1B9239E50();
+        OUTLINED_FUNCTION_75_8();
+        sub_1B9239E50();
+      }
+
+      OUTLINED_FUNCTION_283();
+      return;
+  }
+}
+
+void static Apple_Parsec_Siri_V2alpha_CasinoSnippet.== infix(_:_:)()
+{
+  OUTLINED_FUNCTION_284();
+  v4 = v3;
+  OUTLINED_FUNCTION_313();
+  v5 = sub_1B964C1C0();
+  OUTLINED_FUNCTION_30_1();
+  v28 = v6;
+  MEMORY[0x1EEE9AC00](v7);
+  OUTLINED_FUNCTION_62();
+  v10 = v9 - v8;
+  v11 = OUTLINED_FUNCTION_190_0();
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(v11, v12);
+  OUTLINED_FUNCTION_183(v13);
+  OUTLINED_FUNCTION_176();
+  MEMORY[0x1EEE9AC00](v14);
+  OUTLINED_FUNCTION_173();
+  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB8F28, &unk_1B9683B20) - 8;
+  OUTLINED_FUNCTION_176();
+  MEMORY[0x1EEE9AC00](v16);
+  OUTLINED_FUNCTION_137();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_CasinoSnippet(0);
+  v17 = *(v15 + 56);
+  OUTLINED_FUNCTION_85_1();
+  sub_1B8D92024();
+  OUTLINED_FUNCTION_85_1();
+  sub_1B8D92024();
+  OUTLINED_FUNCTION_37_0(v1);
+  if (!v18)
+  {
+    OUTLINED_FUNCTION_491();
+    sub_1B8D92024();
+    OUTLINED_FUNCTION_37_0(v1 + v17);
+    if (!v18)
+    {
+      (*(v28 + 32))(v10, v1 + v17, v5);
+      OUTLINED_FUNCTION_13_26();
+      sub_1B8CD2D08(v20, v21, MEMORY[0x1E69AAB20]);
+      v22 = sub_1B964C850();
+      v23 = *(v28 + 8);
+      v24 = OUTLINED_FUNCTION_311();
+      v23(v24);
+      (v23)(v2, v5);
+      sub_1B8D9207C(v1, &qword_1EBAB8F20, &qword_1B964D720);
+      if ((v22 & 1) == 0)
+      {
+        goto LABEL_10;
+      }
+
+      goto LABEL_12;
     }
 
-    else if (v20)
-    {
-      goto LABEL_20;
-    }
+    (*(v28 + 8))(v2, v5);
+LABEL_9:
+    sub_1B8D9207C(v1, &qword_1EBAB8F28, &unk_1B9683B20);
+    goto LABEL_10;
   }
 
-  else if (v20 != v21)
+  OUTLINED_FUNCTION_37_0(v1 + v17);
+  if (!v18)
   {
-    goto LABEL_20;
+    goto LABEL_9;
   }
 
-  v37 = type metadata accessor for Apple_Parsec_Siri_V2alpha_RecordLocationActivityBuilderParams(0);
-  v22 = *(v37 + 24);
-  v23 = *(v14 + 48);
-  OUTLINED_FUNCTION_162_1();
-  OUTLINED_FUNCTION_162_1();
-  OUTLINED_FUNCTION_37_0(v19);
-  if (v24)
+  sub_1B8D9207C(v1, &qword_1EBAB8F20, &qword_1B964D720);
+LABEL_12:
+  v25 = *v0 == *v4 && v0[1] == v4[1];
+  if (v25 || (sub_1B964C9F0() & 1) != 0)
   {
-    OUTLINED_FUNCTION_37_0(&v19[v23]);
-    if (v24)
-    {
-      sub_1B8D9207C(v19, &qword_1EBAB9018, &unk_1B96A6290);
-LABEL_24:
-      v33 = *(v37 + 20);
-      sub_1B964C2B0();
-      OUTLINED_FUNCTION_0_71();
-      sub_1B8CD2BE8(v34, v35);
-      OUTLINED_FUNCTION_199_0();
-      goto LABEL_20;
-    }
-
+    sub_1B964C2B0();
+    OUTLINED_FUNCTION_0_75();
+    sub_1B8CD2D08(v26, v27, MEMORY[0x1E69AAC10]);
+    v19 = OUTLINED_FUNCTION_181();
     goto LABEL_18;
   }
 
-  sub_1B8D92024();
-  OUTLINED_FUNCTION_37_0(&v19[v23]);
-  if (v24)
-  {
-    OUTLINED_FUNCTION_25_15();
-    sub_1B91FA498();
+LABEL_10:
+  v19 = 0;
 LABEL_18:
-    v25 = &qword_1EBAB9020;
-    v26 = &unk_1B964D810;
-LABEL_19:
-    sub_1B8D9207C(v19, v25, v26);
-    goto LABEL_20;
+  OUTLINED_FUNCTION_264(v19);
+  OUTLINED_FUNCTION_283();
+}
+
+uint64_t static Apple_Parsec_Siri_V2alpha_PersonSnippet.== infix(_:_:)(uint64_t a1)
+{
+  v3 = OUTLINED_FUNCTION_51_2(a1);
+  if ((sub_1B8D6FD68(v3, *v4) & 1) == 0)
+  {
+    return 0;
   }
 
-  OUTLINED_FUNCTION_1_60();
-  sub_1B91FA3D0();
-  v27 = *(v3 + 20);
-  if (*(v2 + v27) != *(v9 + v27))
+  sub_1B8D6FE7C(*(v2 + 8), *(v1 + 8));
+  if ((v5 & 1) == 0)
   {
-    v28 = *(v2 + v27);
+    return 0;
+  }
 
-    OUTLINED_FUNCTION_616();
-    v29 = sub_1B91F6CF8();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_PersonSnippet(0);
+  OUTLINED_FUNCTION_188_1();
+  OUTLINED_FUNCTION_0_75();
+  v8 = sub_1B8CD2D08(v6, v7, MEMORY[0x1E69AAC10]);
+  return OUTLINED_FUNCTION_634(v8) & 1;
+}
 
-    if (!v29)
+uint64_t Apple_Parsec_Siri_V2alpha_CasinoSnippet.cardData.getter()
+{
+  v1 = OUTLINED_FUNCTION_236();
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
+  OUTLINED_FUNCTION_183(v3);
+  OUTLINED_FUNCTION_176();
+  MEMORY[0x1EEE9AC00](v4);
+  v5 = OUTLINED_FUNCTION_22_3();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_CasinoSnippet(v5);
+  OUTLINED_FUNCTION_100_0();
+  v6 = sub_1B964C1C0();
+  OUTLINED_FUNCTION_29_14(v6);
+  if (v7)
+  {
+    sub_1B964C1B0();
+    result = OUTLINED_FUNCTION_9_2();
+    if (!v7)
     {
-      OUTLINED_FUNCTION_26_19();
-      sub_1B91FA498();
-      sub_1B91FA498();
-      v25 = &qword_1EBAB9018;
-      v26 = &unk_1B96A6290;
-      goto LABEL_19;
+      return sub_1B8D9207C(v0, &qword_1EBAB8F20, &qword_1B964D720);
     }
   }
 
-  v30 = sub_1B964C2B0();
-  OUTLINED_FUNCTION_0_71();
-  sub_1B8CD2BE8(v31, v32);
-  sub_1B964C850();
-  OUTLINED_FUNCTION_23_14();
-  sub_1B91FA498();
-  sub_1B91FA498();
-  sub_1B8D9207C(v19, &qword_1EBAB9018, &unk_1B96A6290);
-  if (v30)
+  else
   {
-    goto LABEL_24;
+    OUTLINED_FUNCTION_48_7();
+    OUTLINED_FUNCTION_397();
+    return v8();
   }
 
+  return result;
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_CasinoSnippet.cardData.setter()
+{
+  v2 = OUTLINED_FUNCTION_313();
+  v3 = type metadata accessor for Apple_Parsec_Siri_V2alpha_CasinoSnippet(v2);
+  sub_1B8D9207C(v0 + *(v3 + 24), &qword_1EBAB8F20, &qword_1B964D720);
+  sub_1B964C1C0();
+  OUTLINED_FUNCTION_126_1();
+  OUTLINED_FUNCTION_3_0();
+  v4();
+  OUTLINED_FUNCTION_80();
+
+  return __swift_storeEnumTagSinglePayload(v5, v6, v7, v1);
+}
+
+void Apple_Parsec_Siri_V2alpha_CasinoSnippet.cardData.modify()
+{
+  OUTLINED_FUNCTION_284();
+  v1 = OUTLINED_FUNCTION_185_0();
+  v2 = __swift_coroFrameAllocStub(v1);
+  OUTLINED_FUNCTION_86(v2);
+  v3 = OUTLINED_FUNCTION_686();
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(v3, v4);
+  OUTLINED_FUNCTION_183(v5);
+  v7 = __swift_coroFrameAllocStub(*(v6 + 64));
+  OUTLINED_FUNCTION_145_1(v7);
+  v8 = sub_1B964C1C0();
+  OUTLINED_FUNCTION_53_6(v8);
+  OUTLINED_FUNCTION_30_1();
+  *(v0 + 24) = v9;
+  v11 = __swift_coroFrameAllocStub(*(v10 + 64));
+  v12 = OUTLINED_FUNCTION_76_2(v11);
+  v13 = __swift_coroFrameAllocStub(v12);
+  v14 = OUTLINED_FUNCTION_35_4(v13);
+  v15 = type metadata accessor for Apple_Parsec_Siri_V2alpha_CasinoSnippet(v14);
+  OUTLINED_FUNCTION_25_9(*(v15 + 24));
+  OUTLINED_FUNCTION_75(v7);
+  if (v16)
+  {
+    sub_1B964C1B0();
+    OUTLINED_FUNCTION_75(v7);
+    if (!v16)
+    {
+      sub_1B8D9207C(v7, &qword_1EBAB8F20, &qword_1B964D720);
+    }
+  }
+
+  else
+  {
+    v17 = OUTLINED_FUNCTION_461();
+    v18(v17);
+  }
+
+  OUTLINED_FUNCTION_89_5();
+  OUTLINED_FUNCTION_283();
+}
+
+void sub_1B922D4E0()
+{
+  OUTLINED_FUNCTION_243();
+  v1 = *(*v0 + 12);
+  v2 = (*v0)[4];
+  v3 = (*v0)[5];
+  v4 = (*v0)[2];
+  v5 = (*v0)[3];
+  v7 = **v0;
+  v6 = (*v0)[1];
+  if (v8)
+  {
+    v9 = OUTLINED_FUNCTION_543();
+    v10(v9);
+    sub_1B8D9207C(v7 + v1, &qword_1EBAB8F20, &qword_1B964D720);
+    (*(v5 + 32))(v7 + v1, v2, v4);
+    OUTLINED_FUNCTION_80();
+    __swift_storeEnumTagSinglePayload(v11, v12, v13, v4);
+    v14 = OUTLINED_FUNCTION_236();
+    v15(v14);
+  }
+
+  else
+  {
+    sub_1B8D9207C(v7 + v1, &qword_1EBAB8F20, &qword_1B964D720);
+    (*(v5 + 32))(v7 + v1, v3, v4);
+    OUTLINED_FUNCTION_80();
+    __swift_storeEnumTagSinglePayload(v16, v17, v18, v4);
+  }
+
+  free(v3);
+  free(v2);
+  free(v6);
+  OUTLINED_FUNCTION_242();
+
+  free(v19);
+}
+
+uint64_t sub_1B922D64C()
+{
+  OUTLINED_FUNCTION_250_1();
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(v3, v4);
+  OUTLINED_FUNCTION_183(v5);
+  OUTLINED_FUNCTION_176();
+  MEMORY[0x1EEE9AC00](v6);
+  OUTLINED_FUNCTION_137();
+  v1(0);
+  OUTLINED_FUNCTION_225_0();
+  sub_1B8D92024();
+  v7 = v0(0);
+  OUTLINED_FUNCTION_131_7(v2, v8, v7);
+  v9 = OUTLINED_FUNCTION_214_4();
+  sub_1B8D9207C(v9, v10, v11);
+  return OUTLINED_FUNCTION_681_0();
+}
+
+uint64_t sub_1B922D728()
+{
+  v1 = OUTLINED_FUNCTION_218_0();
+  v2(v1);
+  OUTLINED_FUNCTION_397();
+  sub_1B8D9207C(v3, v4, v5);
+  v0(0);
+  v6 = OUTLINED_FUNCTION_282_1();
+
+  return __swift_storeEnumTagSinglePayload(v6, v7, v8, v9);
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_CasinoSnippet.unknownFields.modify()
+{
+  v0 = OUTLINED_FUNCTION_313();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_CasinoSnippet(v0);
+  return OUTLINED_FUNCTION_25();
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_SayItComponent.unknownFields.modify()
+{
+  v0 = OUTLINED_FUNCTION_313();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_SayItComponent(v0);
+  return OUTLINED_FUNCTION_25();
+}
+
+uint64_t sub_1B922D938()
+{
+  v1 = OUTLINED_FUNCTION_178_1();
+  v2(v1);
+  OUTLINED_FUNCTION_77_0();
+  OUTLINED_FUNCTION_10_4(v0 + 16, v3);
+
+  return OUTLINED_FUNCTION_432();
+}
+
+void sub_1B922D984(uint64_t *a1)
+{
+  v1 = *a1;
+  v2 = a1[1];
+
+  Apple_Parsec_Siri_V2alpha_RenderedDialogComponent.print.setter(v1, v2);
+}
+
+void sub_1B922DA04()
+{
+  OUTLINED_FUNCTION_184_0();
+  v5 = v4;
+  v7 = v6;
+  v8 = OUTLINED_FUNCTION_112();
+  v10 = v9(v8);
+  v11 = OUTLINED_FUNCTION_216_1(v10);
+  v13 = *(v1 + v3);
+  if ((v11 & 1) == 0)
+  {
+    v7(0);
+    OUTLINED_FUNCTION_57_0();
+    swift_allocObject();
+    v14 = OUTLINED_FUNCTION_40_0();
+    v15 = v5(v14);
+    OUTLINED_FUNCTION_192_2(v15);
+  }
+
+  OUTLINED_FUNCTION_9_3(v13 + 16, v12);
+  *(v13 + 16) = v2;
+  *(v13 + 24) = v0;
+
+  OUTLINED_FUNCTION_183_2();
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_RenderedDialogComponent.print.modify()
+{
+  v2 = OUTLINED_FUNCTION_126();
+  v3 = __swift_coroFrameAllocStub(v2);
+  v4 = OUTLINED_FUNCTION_11_10(v3);
+  v5 = type metadata accessor for Apple_Parsec_Siri_V2alpha_RenderedDialogComponent(v4);
+  OUTLINED_FUNCTION_66_1(v5);
+  OUTLINED_FUNCTION_62_0(v0 + 16);
+  v6 = *(v0 + 24);
+  *(v1 + 48) = *(v0 + 16);
+  *(v1 + 56) = v6;
+
+  return OUTLINED_FUNCTION_514();
+}
+
+void sub_1B922DB38()
+{
+  OUTLINED_FUNCTION_243();
+  OUTLINED_FUNCTION_58_0();
+  if (v6)
+  {
+    v7 = v5;
+    OUTLINED_FUNCTION_191();
+    v8 = OUTLINED_FUNCTION_461();
+    v7(v8);
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_134_2();
+    v9 = *(v0 + 72);
+    v10 = *(v0 + 64);
+    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+    v12 = *(v10 + v9);
+    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+    {
+      v13 = *(v0 + 72);
+      v14 = *(v0 + 64);
+      v4(0);
+      OUTLINED_FUNCTION_57_0();
+      swift_allocObject();
+      v15 = OUTLINED_FUNCTION_40_0();
+      v12 = v3(v15);
+      *(v14 + v13) = v12;
+    }
+
+    OUTLINED_FUNCTION_59_3(v12 + 16);
+    *(v12 + 16) = v2;
+    *(v12 + 24) = v1;
+  }
+
+  OUTLINED_FUNCTION_242();
+
+  free(v16);
+}
+
+uint64_t sub_1B922DC14()
+{
+  v1 = OUTLINED_FUNCTION_178_1();
+  v2(v1);
+  OUTLINED_FUNCTION_77_0();
+  OUTLINED_FUNCTION_10_4(v0 + 32, v3);
+
+  return OUTLINED_FUNCTION_432();
+}
+
+void sub_1B922DC60(uint64_t *a1)
+{
+  v1 = *a1;
+  v2 = a1[1];
+
+  Apple_Parsec_Siri_V2alpha_RenderedDialogComponent.speak.setter(v1, v2);
+}
+
+void sub_1B922DCE0()
+{
+  OUTLINED_FUNCTION_184_0();
+  v5 = v4;
+  v7 = v6;
+  v8 = OUTLINED_FUNCTION_112();
+  v10 = v9(v8);
+  v11 = OUTLINED_FUNCTION_216_1(v10);
+  v13 = *(v1 + v3);
+  if ((v11 & 1) == 0)
+  {
+    v7(0);
+    OUTLINED_FUNCTION_57_0();
+    swift_allocObject();
+    v14 = OUTLINED_FUNCTION_40_0();
+    v15 = v5(v14);
+    OUTLINED_FUNCTION_192_2(v15);
+  }
+
+  OUTLINED_FUNCTION_9_3(v13 + 32, v12);
+  *(v13 + 32) = v2;
+  *(v13 + 40) = v0;
+
+  OUTLINED_FUNCTION_183_2();
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_RenderedDialogComponent.speak.modify()
+{
+  v2 = OUTLINED_FUNCTION_126();
+  v3 = __swift_coroFrameAllocStub(v2);
+  v4 = OUTLINED_FUNCTION_11_10(v3);
+  v5 = type metadata accessor for Apple_Parsec_Siri_V2alpha_RenderedDialogComponent(v4);
+  OUTLINED_FUNCTION_66_1(v5);
+  OUTLINED_FUNCTION_62_0(v0 + 32);
+  v6 = *(v0 + 40);
+  *(v1 + 48) = *(v0 + 32);
+  *(v1 + 56) = v6;
+
+  return OUTLINED_FUNCTION_514();
+}
+
+void sub_1B922DE14()
+{
+  OUTLINED_FUNCTION_243();
+  OUTLINED_FUNCTION_58_0();
+  if (v6)
+  {
+    v7 = v5;
+    OUTLINED_FUNCTION_191();
+    v8 = OUTLINED_FUNCTION_461();
+    v7(v8);
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_134_2();
+    v9 = *(v0 + 72);
+    v10 = *(v0 + 64);
+    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+    v12 = *(v10 + v9);
+    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+    {
+      v13 = *(v0 + 72);
+      v14 = *(v0 + 64);
+      v4(0);
+      OUTLINED_FUNCTION_57_0();
+      swift_allocObject();
+      v15 = OUTLINED_FUNCTION_40_0();
+      v12 = v3(v15);
+      *(v14 + v13) = v12;
+    }
+
+    OUTLINED_FUNCTION_59_3(v12 + 32);
+    *(v12 + 32) = v2;
+    *(v12 + 40) = v1;
+  }
+
+  OUTLINED_FUNCTION_242();
+
+  free(v16);
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_RenderedDialogComponent.redactedPrint.getter()
+{
+  OUTLINED_FUNCTION_163_5();
+  OUTLINED_FUNCTION_10_4(*(v0 + v1) + 48, v2);
+
+  return OUTLINED_FUNCTION_432();
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_RenderedDialogComponent.redactedPrint.setter()
+{
+  v4 = OUTLINED_FUNCTION_112();
+  v5 = type metadata accessor for Apple_Parsec_Siri_V2alpha_RenderedDialogComponent(v4);
+  v6 = OUTLINED_FUNCTION_47(v5);
+  v8 = *(v1 + v3);
+  if ((v6 & 1) == 0)
+  {
+    OUTLINED_FUNCTION_246_3();
+    v9 = OUTLINED_FUNCTION_40_0();
+    v10 = sub_1B92675A4(v9);
+    OUTLINED_FUNCTION_135(v10);
+  }
+
+  OUTLINED_FUNCTION_9_3(v8 + 48, v7);
+  *(v8 + 48) = v2;
+  *(v8 + 56) = v0;
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_RenderedDialogComponent.redactedPrint.modify()
+{
+  v2 = OUTLINED_FUNCTION_126();
+  v3 = __swift_coroFrameAllocStub(v2);
+  v4 = OUTLINED_FUNCTION_11_10(v3);
+  v5 = type metadata accessor for Apple_Parsec_Siri_V2alpha_RenderedDialogComponent(v4);
+  OUTLINED_FUNCTION_66_1(v5);
+  OUTLINED_FUNCTION_62_0(v0 + 48);
+  v6 = *(v0 + 56);
+  *(v1 + 48) = *(v0 + 48);
+  *(v1 + 56) = v6;
+
+  return OUTLINED_FUNCTION_514();
+}
+
+void sub_1B922E038()
+{
+  OUTLINED_FUNCTION_58_0();
+  if (v5)
+  {
+    OUTLINED_FUNCTION_191();
+    OUTLINED_FUNCTION_461();
+    Apple_Parsec_Siri_V2alpha_RenderedDialogComponent.redactedPrint.setter();
+  }
+
+  else
+  {
+    v6 = OUTLINED_FUNCTION_163_1();
+    v7 = *(v4 + v1);
+    if ((v6 & 1) == 0)
+    {
+      OUTLINED_FUNCTION_246_3();
+      v8 = OUTLINED_FUNCTION_40_0();
+      v9 = sub_1B92675A4(v8);
+      OUTLINED_FUNCTION_168(v9);
+    }
+
+    OUTLINED_FUNCTION_59_3(v7 + 48);
+    *(v7 + 48) = v3;
+    *(v7 + 56) = v2;
+  }
+
+  free(v0);
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_RenderedDialogComponent.redactedSpeak.getter()
+{
+  OUTLINED_FUNCTION_163_5();
+  OUTLINED_FUNCTION_10_4(*(v0 + v1) + 64, v2);
+
+  return OUTLINED_FUNCTION_432();
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_RenderedDialogComponent.redactedSpeak.setter()
+{
+  v4 = OUTLINED_FUNCTION_112();
+  v5 = type metadata accessor for Apple_Parsec_Siri_V2alpha_RenderedDialogComponent(v4);
+  v6 = OUTLINED_FUNCTION_47(v5);
+  v8 = *(v1 + v3);
+  if ((v6 & 1) == 0)
+  {
+    OUTLINED_FUNCTION_246_3();
+    v9 = OUTLINED_FUNCTION_40_0();
+    v10 = sub_1B92675A4(v9);
+    OUTLINED_FUNCTION_135(v10);
+  }
+
+  OUTLINED_FUNCTION_9_3(v8 + 64, v7);
+  *(v8 + 64) = v2;
+  *(v8 + 72) = v0;
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_RenderedDialogComponent.redactedSpeak.modify()
+{
+  v2 = OUTLINED_FUNCTION_126();
+  v3 = __swift_coroFrameAllocStub(v2);
+  v4 = OUTLINED_FUNCTION_11_10(v3);
+  v5 = type metadata accessor for Apple_Parsec_Siri_V2alpha_RenderedDialogComponent(v4);
+  OUTLINED_FUNCTION_66_1(v5);
+  OUTLINED_FUNCTION_62_0(v0 + 64);
+  v6 = *(v0 + 72);
+  *(v1 + 48) = *(v0 + 64);
+  *(v1 + 56) = v6;
+
+  return OUTLINED_FUNCTION_514();
+}
+
+void sub_1B922E22C()
+{
+  OUTLINED_FUNCTION_58_0();
+  if (v5)
+  {
+    OUTLINED_FUNCTION_191();
+    OUTLINED_FUNCTION_461();
+    Apple_Parsec_Siri_V2alpha_RenderedDialogComponent.redactedSpeak.setter();
+  }
+
+  else
+  {
+    v6 = OUTLINED_FUNCTION_163_1();
+    v7 = *(v4 + v1);
+    if ((v6 & 1) == 0)
+    {
+      OUTLINED_FUNCTION_246_3();
+      v8 = OUTLINED_FUNCTION_40_0();
+      v9 = sub_1B92675A4(v8);
+      OUTLINED_FUNCTION_168(v9);
+    }
+
+    OUTLINED_FUNCTION_59_3(v7 + 64);
+    *(v7 + 64) = v3;
+    *(v7 + 72) = v2;
+  }
+
+  free(v0);
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_RenderedDialogComponent.catID.getter()
+{
+  OUTLINED_FUNCTION_163_5();
+  OUTLINED_FUNCTION_10_4(*(v0 + v1) + 80, v2);
+
+  return OUTLINED_FUNCTION_432();
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_RenderedDialogComponent.catID.setter()
+{
+  v4 = OUTLINED_FUNCTION_112();
+  v5 = type metadata accessor for Apple_Parsec_Siri_V2alpha_RenderedDialogComponent(v4);
+  v6 = OUTLINED_FUNCTION_47(v5);
+  v8 = *(v1 + v3);
+  if ((v6 & 1) == 0)
+  {
+    OUTLINED_FUNCTION_246_3();
+    v9 = OUTLINED_FUNCTION_40_0();
+    v10 = sub_1B92675A4(v9);
+    OUTLINED_FUNCTION_135(v10);
+  }
+
+  OUTLINED_FUNCTION_9_3(v8 + 80, v7);
+  *(v8 + 80) = v2;
+  *(v8 + 88) = v0;
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_RenderedDialogComponent.catID.modify()
+{
+  v2 = OUTLINED_FUNCTION_126();
+  v3 = __swift_coroFrameAllocStub(v2);
+  v4 = OUTLINED_FUNCTION_11_10(v3);
+  v5 = type metadata accessor for Apple_Parsec_Siri_V2alpha_RenderedDialogComponent(v4);
+  OUTLINED_FUNCTION_66_1(v5);
+  OUTLINED_FUNCTION_62_0(v0 + 80);
+  v6 = *(v0 + 88);
+  *(v1 + 48) = *(v0 + 80);
+  *(v1 + 56) = v6;
+
+  return OUTLINED_FUNCTION_514();
+}
+
+void sub_1B922E420()
+{
+  OUTLINED_FUNCTION_58_0();
+  if (v5)
+  {
+    OUTLINED_FUNCTION_191();
+    OUTLINED_FUNCTION_461();
+    Apple_Parsec_Siri_V2alpha_RenderedDialogComponent.catID.setter();
+  }
+
+  else
+  {
+    v6 = OUTLINED_FUNCTION_163_1();
+    v7 = *(v4 + v1);
+    if ((v6 & 1) == 0)
+    {
+      OUTLINED_FUNCTION_246_3();
+      v8 = OUTLINED_FUNCTION_40_0();
+      v9 = sub_1B92675A4(v8);
+      OUTLINED_FUNCTION_168(v9);
+    }
+
+    OUTLINED_FUNCTION_59_3(v7 + 80);
+    *(v7 + 80) = v3;
+    *(v7 + 88) = v2;
+  }
+
+  free(v0);
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_RenderedDialogComponent.spokenOnly.getter()
+{
+  OUTLINED_FUNCTION_163_5();
+  v2 = *(v0 + v1);
+  OUTLINED_FUNCTION_10_4(v2 + 96, v3);
+  return *(v2 + 96);
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_RenderedDialogComponent.spokenOnly.setter(char a1)
+{
+  v4 = OUTLINED_FUNCTION_454_0();
+  v6 = *(v1 + v2);
+  if ((v4 & 1) == 0)
+  {
+    OUTLINED_FUNCTION_246_3();
+    v7 = OUTLINED_FUNCTION_40_0();
+    v8 = sub_1B92675A4(v7);
+    OUTLINED_FUNCTION_157_2(v8);
+  }
+
+  result = OUTLINED_FUNCTION_9_3(v6 + 96, v5);
+  *(v6 + 96) = a1 & 1;
+  return result;
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_RenderedDialogComponent.spokenOnly.modify()
+{
+  v2 = OUTLINED_FUNCTION_18_3();
+  v3 = __swift_coroFrameAllocStub(v2);
+  v4 = OUTLINED_FUNCTION_6_11(v3);
+  v5 = type metadata accessor for Apple_Parsec_Siri_V2alpha_RenderedDialogComponent(v4);
+  OUTLINED_FUNCTION_124_0(v5);
+  OUTLINED_FUNCTION_62_0(v0 + 96);
+  *(v1 + 84) = *(v0 + 96);
+  return OUTLINED_FUNCTION_105_0();
+}
+
+void sub_1B922E5B0(uint64_t a1)
+{
+  v5 = OUTLINED_FUNCTION_22_0(a1);
+  v6 = *(v4 + v2);
+  if ((v5 & 1) == 0)
+  {
+    OUTLINED_FUNCTION_246_3();
+    v7 = OUTLINED_FUNCTION_40_0();
+    v8 = sub_1B92675A4(v7);
+    OUTLINED_FUNCTION_168(v8);
+  }
+
+  OUTLINED_FUNCTION_11_4();
+  *(v6 + 96) = v3;
+
+  free(v1);
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_RenderedDialogComponent.forcePrintDialog.getter()
+{
+  OUTLINED_FUNCTION_163_5();
+  v2 = *(v0 + v1);
+  OUTLINED_FUNCTION_10_4(v2 + 97, v3);
+  return *(v2 + 97);
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_RenderedDialogComponent.forcePrintDialog.setter(char a1)
+{
+  v4 = OUTLINED_FUNCTION_454_0();
+  v6 = *(v1 + v2);
+  if ((v4 & 1) == 0)
+  {
+    OUTLINED_FUNCTION_246_3();
+    v7 = OUTLINED_FUNCTION_40_0();
+    v8 = sub_1B92675A4(v7);
+    OUTLINED_FUNCTION_157_2(v8);
+  }
+
+  result = OUTLINED_FUNCTION_9_3(v6 + 97, v5);
+  *(v6 + 97) = a1 & 1;
+  return result;
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_RenderedDialogComponent.forcePrintDialog.modify()
+{
+  v2 = OUTLINED_FUNCTION_18_3();
+  v3 = __swift_coroFrameAllocStub(v2);
+  v4 = OUTLINED_FUNCTION_6_11(v3);
+  v5 = type metadata accessor for Apple_Parsec_Siri_V2alpha_RenderedDialogComponent(v4);
+  OUTLINED_FUNCTION_124_0(v5);
+  OUTLINED_FUNCTION_62_0(v0 + 97);
+  *(v1 + 84) = *(v0 + 97);
+  return OUTLINED_FUNCTION_105_0();
+}
+
+void sub_1B922E72C(uint64_t a1)
+{
+  v5 = OUTLINED_FUNCTION_22_0(a1);
+  v6 = *(v4 + v2);
+  if ((v5 & 1) == 0)
+  {
+    OUTLINED_FUNCTION_246_3();
+    v7 = OUTLINED_FUNCTION_40_0();
+    v8 = sub_1B92675A4(v7);
+    OUTLINED_FUNCTION_168(v8);
+  }
+
+  OUTLINED_FUNCTION_11_4();
+  *(v6 + 97) = v3;
+
+  free(v1);
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_RenderedDialogComponent.listenAfterSpeaking.getter()
+{
+  OUTLINED_FUNCTION_163_5();
+  v2 = *(v0 + v1);
+  OUTLINED_FUNCTION_10_4(v2 + 98, v3);
+  return *(v2 + 98);
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_RenderedDialogComponent.listenAfterSpeaking.setter(char a1)
+{
+  v4 = OUTLINED_FUNCTION_454_0();
+  v6 = *(v1 + v2);
+  if ((v4 & 1) == 0)
+  {
+    OUTLINED_FUNCTION_246_3();
+    v7 = OUTLINED_FUNCTION_40_0();
+    v8 = sub_1B92675A4(v7);
+    OUTLINED_FUNCTION_157_2(v8);
+  }
+
+  result = OUTLINED_FUNCTION_9_3(v6 + 98, v5);
+  *(v6 + 98) = a1 & 1;
+  return result;
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_RenderedDialogComponent.listenAfterSpeaking.modify()
+{
+  v2 = OUTLINED_FUNCTION_18_3();
+  v3 = __swift_coroFrameAllocStub(v2);
+  v4 = OUTLINED_FUNCTION_6_11(v3);
+  v5 = type metadata accessor for Apple_Parsec_Siri_V2alpha_RenderedDialogComponent(v4);
+  OUTLINED_FUNCTION_124_0(v5);
+  OUTLINED_FUNCTION_62_0(v0 + 98);
+  *(v1 + 84) = *(v0 + 98);
+  return OUTLINED_FUNCTION_105_0();
+}
+
+void sub_1B922E8A8(uint64_t a1)
+{
+  v5 = OUTLINED_FUNCTION_22_0(a1);
+  v6 = *(v4 + v2);
+  if ((v5 & 1) == 0)
+  {
+    OUTLINED_FUNCTION_246_3();
+    v7 = OUTLINED_FUNCTION_40_0();
+    v8 = sub_1B92675A4(v7);
+    OUTLINED_FUNCTION_168(v8);
+  }
+
+  OUTLINED_FUNCTION_11_4();
+  *(v6 + 98) = v3;
+
+  free(v1);
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_RenderedDialogComponent.dialogState.getter()
+{
+  v1 = OUTLINED_FUNCTION_236();
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
+  OUTLINED_FUNCTION_183(v3);
+  OUTLINED_FUNCTION_176();
+  MEMORY[0x1EEE9AC00](v4);
+  v5 = OUTLINED_FUNCTION_22_3();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_RenderedDialogComponent(v5);
+  OUTLINED_FUNCTION_77_0();
+  OUTLINED_FUNCTION_101_0();
+  OUTLINED_FUNCTION_39();
+  v6 = type metadata accessor for Apple_Parsec_Siri_V2alpha_DialogState(0);
+  OUTLINED_FUNCTION_29_14(v6);
+  if (v7)
+  {
+    OUTLINED_FUNCTION_92_0();
+    OUTLINED_FUNCTION_251_0(v8);
+    result = OUTLINED_FUNCTION_9_2();
+    if (!v7)
+    {
+      return sub_1B8D9207C(v0, &qword_1EBAC9560, &qword_1B96AA848);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_176_6();
+    OUTLINED_FUNCTION_182();
+    return sub_1B9239DA8();
+  }
+
+  return result;
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_RenderedDialogComponent.dialogState.setter()
+{
+  OUTLINED_FUNCTION_183_0();
+  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAC9560, &qword_1B96AA848);
+  OUTLINED_FUNCTION_183(v0);
+  OUTLINED_FUNCTION_176();
+  MEMORY[0x1EEE9AC00](v1);
+  v2 = OUTLINED_FUNCTION_31_2();
+  v3 = type metadata accessor for Apple_Parsec_Siri_V2alpha_RenderedDialogComponent(v2);
+  if ((OUTLINED_FUNCTION_47(v3) & 1) == 0)
+  {
+    OUTLINED_FUNCTION_246_3();
+    v4 = OUTLINED_FUNCTION_40_0();
+    v5 = sub_1B92675A4(v4);
+    OUTLINED_FUNCTION_135(v5);
+  }
+
+  OUTLINED_FUNCTION_176_6();
+  OUTLINED_FUNCTION_470_0();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_DialogState(0);
+  v6 = OUTLINED_FUNCTION_53_0();
+  __swift_storeEnumTagSinglePayload(v6, v7, v8, v9);
+  OUTLINED_FUNCTION_73_0();
+  OUTLINED_FUNCTION_122_0();
+  sub_1B8DAA170();
+  return swift_endAccess();
+}
+
+void Apple_Parsec_Siri_V2alpha_RenderedDialogComponent.dialogState.modify()
+{
+  OUTLINED_FUNCTION_284();
+  v1 = OUTLINED_FUNCTION_185_0();
+  v2 = __swift_coroFrameAllocStub(v1);
+  OUTLINED_FUNCTION_66_0(v2);
+  v3 = OUTLINED_FUNCTION_491();
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(v3, v4);
+  OUTLINED_FUNCTION_183(v5);
+  v7 = __swift_coroFrameAllocStub(*(v6 + 64));
+  v8 = OUTLINED_FUNCTION_71(v7);
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_DialogState(v8);
+  OUTLINED_FUNCTION_135_0();
+  v10 = __swift_coroFrameAllocStub(*(v9 + 64));
+  v11 = OUTLINED_FUNCTION_187(v10);
+  v12 = __swift_coroFrameAllocStub(v11);
+  v13 = OUTLINED_FUNCTION_224_2(v12);
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_RenderedDialogComponent(v13);
+  OUTLINED_FUNCTION_77_0();
+  OUTLINED_FUNCTION_74();
+  OUTLINED_FUNCTION_82();
+  OUTLINED_FUNCTION_17_2();
+  if (v14)
+  {
+    OUTLINED_FUNCTION_114_0();
+    OUTLINED_FUNCTION_280_0(v15);
+    OUTLINED_FUNCTION_17_2();
+    if (!v14)
+    {
+      sub_1B8D9207C(v0, &qword_1EBAC9560, &qword_1B96AA848);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_176_6();
+    OUTLINED_FUNCTION_246();
+    sub_1B9239DA8();
+  }
+
+  OUTLINED_FUNCTION_105_0();
+  OUTLINED_FUNCTION_283();
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_RenderedDialogComponent.hasDialogState.getter()
+{
+  v0 = OUTLINED_FUNCTION_514();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(v0, v1);
+  OUTLINED_FUNCTION_183(v2);
+  OUTLINED_FUNCTION_176();
+  MEMORY[0x1EEE9AC00](v3);
+  v4 = OUTLINED_FUNCTION_22_3();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_RenderedDialogComponent(v4);
+  OUTLINED_FUNCTION_77_0();
+  OUTLINED_FUNCTION_284_0();
+  OUTLINED_FUNCTION_238_2();
+  v5 = type metadata accessor for Apple_Parsec_Siri_V2alpha_DialogState(0);
+  OUTLINED_FUNCTION_11(v5);
+  return OUTLINED_FUNCTION_466_0();
+}
+
+Swift::Void __swiftcall Apple_Parsec_Siri_V2alpha_RenderedDialogComponent.clearDialogState()()
+{
+  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAC9560, &qword_1B96AA848);
+  OUTLINED_FUNCTION_183(v0);
+  OUTLINED_FUNCTION_176();
+  MEMORY[0x1EEE9AC00](v1);
+  v2 = OUTLINED_FUNCTION_31_2();
+  v3 = type metadata accessor for Apple_Parsec_Siri_V2alpha_RenderedDialogComponent(v2);
+  if ((OUTLINED_FUNCTION_182_0(v3) & 1) == 0)
+  {
+    OUTLINED_FUNCTION_246_3();
+    v4 = OUTLINED_FUNCTION_40_0();
+    v5 = sub_1B92675A4(v4);
+    OUTLINED_FUNCTION_157_2(v5);
+  }
+
+  v6 = type metadata accessor for Apple_Parsec_Siri_V2alpha_DialogState(0);
+  OUTLINED_FUNCTION_274_1(v6);
+  OUTLINED_FUNCTION_290_0();
+  OUTLINED_FUNCTION_122_0();
+  sub_1B8DAA170();
+  swift_endAccess();
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_RenderedDialogComponent.catCategory.modify()
+{
+  v0 = OUTLINED_FUNCTION_126();
+  v1 = __swift_coroFrameAllocStub(v0);
+  v2 = OUTLINED_FUNCTION_11_10(v1);
+  v3 = type metadata accessor for Apple_Parsec_Siri_V2alpha_RenderedDialogComponent(v2);
+  OUTLINED_FUNCTION_254_1(v3);
+  OUTLINED_FUNCTION_41();
+  OUTLINED_FUNCTION_130_0();
+
+  return OUTLINED_FUNCTION_514();
+}
+
+void sub_1B922EEFC()
+{
+  OUTLINED_FUNCTION_284();
+  OUTLINED_FUNCTION_58_0();
+  if (v9)
+  {
+    v10 = v8;
+    OUTLINED_FUNCTION_191();
+    v11 = OUTLINED_FUNCTION_461();
+    v10(v11);
+  }
+
+  else
+  {
+    v12 = OUTLINED_FUNCTION_742();
+    v13 = *(v7 + v1);
+    if ((v12 & 1) == 0)
+    {
+      v14 = *(v0 + 72);
+      v15 = *(v0 + 64);
+      v6(0);
+      OUTLINED_FUNCTION_57_0();
+      swift_allocObject();
+      v16 = OUTLINED_FUNCTION_40_0();
+      v13 = v5(v16);
+      *(v15 + v14) = v13;
+    }
+
+    v17 = (v13 + *v4);
+    OUTLINED_FUNCTION_18(v17, v0 + 24);
+    *v17 = v3;
+    v17[1] = v2;
+  }
+
+  OUTLINED_FUNCTION_283();
+
+  free(v18);
+}
+
+void *sub_1B922EFDC@<X0>(void *(*a1)(uint64_t *__return_ptr)@<X3>, uint64_t a2@<X8>)
+{
+  result = a1(&v5);
+  v4 = v6;
+  *a2 = v5;
+  *(a2 + 8) = v4;
+  return result;
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_RenderedDialogComponent.intent.modify()
+{
+  v0 = OUTLINED_FUNCTION_196_1();
+  v1 = __swift_coroFrameAllocStub(v0);
+  v2 = OUTLINED_FUNCTION_37_3(v1);
+  v3 = type metadata accessor for Apple_Parsec_Siri_V2alpha_RenderedDialogComponent(v2);
+  OUTLINED_FUNCTION_264_1(v3);
+  OUTLINED_FUNCTION_41();
+  OUTLINED_FUNCTION_117_0();
+  return OUTLINED_FUNCTION_105_0();
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_RenderedDialogComponent.isApprovedForGrading.modify()
+{
+  v0 = OUTLINED_FUNCTION_18_3();
+  v1 = __swift_coroFrameAllocStub(v0);
+  v2 = OUTLINED_FUNCTION_6_11(v1);
+  v3 = type metadata accessor for Apple_Parsec_Siri_V2alpha_RenderedDialogComponent(v2);
+  OUTLINED_FUNCTION_124_0(v3);
+  OUTLINED_FUNCTION_68_0();
+  OUTLINED_FUNCTION_51();
+  return OUTLINED_FUNCTION_105_0();
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_RenderedDialogComponent.shouldCoordinateWithSpeech.modify()
+{
+  v0 = OUTLINED_FUNCTION_18_3();
+  v1 = __swift_coroFrameAllocStub(v0);
+  v2 = OUTLINED_FUNCTION_6_11(v1);
+  v3 = type metadata accessor for Apple_Parsec_Siri_V2alpha_RenderedDialogComponent(v2);
+  OUTLINED_FUNCTION_124_0(v3);
+  OUTLINED_FUNCTION_68_0();
+  OUTLINED_FUNCTION_51();
+  return OUTLINED_FUNCTION_105_0();
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_RenderedDialogComponent.dialogStateMeta.getter@<X0>(void *a1@<X8>)
+{
+  v3 = OUTLINED_FUNCTION_236();
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(v3, v4);
+  OUTLINED_FUNCTION_183(v5);
+  OUTLINED_FUNCTION_176();
+  MEMORY[0x1EEE9AC00](v6);
+  v7 = OUTLINED_FUNCTION_22_3();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_RenderedDialogComponent(v7);
+  OUTLINED_FUNCTION_77_0();
+  OUTLINED_FUNCTION_101_0();
+  OUTLINED_FUNCTION_39();
+  v8 = type metadata accessor for Apple_Parsec_Siri_V2alpha_DialogStateMeta(0);
+  v9 = OUTLINED_FUNCTION_29_14(v8);
+  if (v10)
+  {
+    v11 = MEMORY[0x1E69E7CC0];
+    *a1 = MEMORY[0x1E69E7CC0];
+    a1[1] = v11;
+    a1[2] = v11;
+    a1[3] = v11;
+    OUTLINED_FUNCTION_762(v9);
+    result = OUTLINED_FUNCTION_9_2();
+    if (!v10)
+    {
+      return sub_1B8D9207C(v1, &qword_1EBAC9568, &qword_1B96AA850);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_226_3();
+    OUTLINED_FUNCTION_182();
+    return sub_1B9239DA8();
+  }
+
+  return result;
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_RenderedDialogComponent.dialogStateMeta.setter()
+{
+  OUTLINED_FUNCTION_183_0();
+  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAC9568, &qword_1B96AA850);
+  OUTLINED_FUNCTION_183(v0);
+  OUTLINED_FUNCTION_176();
+  MEMORY[0x1EEE9AC00](v1);
+  v2 = OUTLINED_FUNCTION_31_2();
+  v3 = type metadata accessor for Apple_Parsec_Siri_V2alpha_RenderedDialogComponent(v2);
+  if ((OUTLINED_FUNCTION_47(v3) & 1) == 0)
+  {
+    OUTLINED_FUNCTION_246_3();
+    v4 = OUTLINED_FUNCTION_40_0();
+    v5 = sub_1B92675A4(v4);
+    OUTLINED_FUNCTION_135(v5);
+  }
+
+  OUTLINED_FUNCTION_226_3();
+  OUTLINED_FUNCTION_470_0();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_DialogStateMeta(0);
+  v6 = OUTLINED_FUNCTION_53_0();
+  __swift_storeEnumTagSinglePayload(v6, v7, v8, v9);
+  OUTLINED_FUNCTION_73_0();
+  OUTLINED_FUNCTION_122_0();
+  sub_1B8DAA170();
+  return swift_endAccess();
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_DialogStateMeta.init()@<X0>(void *a1@<X8>)
+{
+  v2 = MEMORY[0x1E69E7CC0];
+  *a1 = MEMORY[0x1E69E7CC0];
+  a1[1] = v2;
+  a1[2] = v2;
+  a1[3] = v2;
+  v3 = type metadata accessor for Apple_Parsec_Siri_V2alpha_DialogStateMeta(0);
+  return OUTLINED_FUNCTION_690_0(v3);
+}
+
+void Apple_Parsec_Siri_V2alpha_RenderedDialogComponent.dialogStateMeta.modify()
+{
+  OUTLINED_FUNCTION_284();
+  v1 = OUTLINED_FUNCTION_185_0();
+  v2 = __swift_coroFrameAllocStub(v1);
+  OUTLINED_FUNCTION_66_0(v2);
+  v3 = OUTLINED_FUNCTION_491();
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(v3, v4);
+  OUTLINED_FUNCTION_183(v5);
+  v7 = __swift_coroFrameAllocStub(*(v6 + 64));
+  v8 = OUTLINED_FUNCTION_71(v7);
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_DialogStateMeta(v8);
+  OUTLINED_FUNCTION_135_0();
+  v10 = *(v9 + 64);
+  v11 = __swift_coroFrameAllocStub(v10);
+  v12 = OUTLINED_FUNCTION_187(v11);
+  v13 = __swift_coroFrameAllocStub(v12);
+  v14 = OUTLINED_FUNCTION_224_2(v13);
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_RenderedDialogComponent(v14);
+  OUTLINED_FUNCTION_77_0();
+  OUTLINED_FUNCTION_74();
+  OUTLINED_FUNCTION_82();
+  v15 = OUTLINED_FUNCTION_17_2();
+  if (v16)
+  {
+    v17 = MEMORY[0x1E69E7CC0];
+    *v10 = MEMORY[0x1E69E7CC0];
+    v10[1] = v17;
+    v10[2] = v17;
+    v10[3] = v17;
+    OUTLINED_FUNCTION_610_1(v15);
+    OUTLINED_FUNCTION_17_2();
+    if (!v16)
+    {
+      sub_1B8D9207C(v0, &qword_1EBAC9568, &qword_1B96AA850);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_226_3();
+    OUTLINED_FUNCTION_246();
+    sub_1B9239DA8();
+  }
+
+  OUTLINED_FUNCTION_105_0();
+  OUTLINED_FUNCTION_283();
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_RenderedDialogComponent.hasDialogStateMeta.getter()
+{
+  v0 = OUTLINED_FUNCTION_514();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(v0, v1);
+  OUTLINED_FUNCTION_183(v2);
+  OUTLINED_FUNCTION_176();
+  MEMORY[0x1EEE9AC00](v3);
+  v4 = OUTLINED_FUNCTION_22_3();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_RenderedDialogComponent(v4);
+  OUTLINED_FUNCTION_77_0();
+  OUTLINED_FUNCTION_284_0();
+  OUTLINED_FUNCTION_238_2();
+  v5 = type metadata accessor for Apple_Parsec_Siri_V2alpha_DialogStateMeta(0);
+  OUTLINED_FUNCTION_11(v5);
+  return OUTLINED_FUNCTION_466_0();
+}
+
+Swift::Void __swiftcall Apple_Parsec_Siri_V2alpha_RenderedDialogComponent.clearDialogStateMeta()()
+{
+  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAC9568, &qword_1B96AA850);
+  OUTLINED_FUNCTION_183(v0);
+  OUTLINED_FUNCTION_176();
+  MEMORY[0x1EEE9AC00](v1);
+  v2 = OUTLINED_FUNCTION_31_2();
+  v3 = type metadata accessor for Apple_Parsec_Siri_V2alpha_RenderedDialogComponent(v2);
+  if ((OUTLINED_FUNCTION_182_0(v3) & 1) == 0)
+  {
+    OUTLINED_FUNCTION_246_3();
+    v4 = OUTLINED_FUNCTION_40_0();
+    v5 = sub_1B92675A4(v4);
+    OUTLINED_FUNCTION_157_2(v5);
+  }
+
+  v6 = type metadata accessor for Apple_Parsec_Siri_V2alpha_DialogStateMeta(0);
+  OUTLINED_FUNCTION_274_1(v6);
+  OUTLINED_FUNCTION_290_0();
+  OUTLINED_FUNCTION_122_0();
+  sub_1B8DAA170();
+  swift_endAccess();
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_DialogStateMeta.familyStateCounts.setter(uint64_t a1)
+{
+
+  *(v1 + 24) = a1;
+  return result;
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_DialogStateMeta.unknownFields.modify()
+{
+  v0 = OUTLINED_FUNCTION_313();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_DialogStateMeta(v0);
+  return OUTLINED_FUNCTION_25();
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_CatDialogComponent.unknownFields.modify()
+{
+  v0 = OUTLINED_FUNCTION_313();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_CatDialogComponent(v0);
+  return OUTLINED_FUNCTION_25();
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_Sash.appName.setter()
+{
+  OUTLINED_FUNCTION_16();
+
+  *v1 = v2;
+  v1[1] = v0;
+  return result;
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_Sash.appID.setter()
+{
+  OUTLINED_FUNCTION_16();
+
+  *(v1 + 16) = v2;
+  *(v1 + 24) = v0;
+  return result;
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_Sash.punchoutUri.setter()
+{
+  OUTLINED_FUNCTION_16();
+
+  *(v1 + 32) = v2;
+  *(v1 + 40) = v0;
+  return result;
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_Sash.imageResourceURL.setter()
+{
+  OUTLINED_FUNCTION_16();
+
+  *(v1 + 48) = v2;
+  *(v1 + 56) = v0;
+  return result;
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_Sash.unknownFields.modify()
+{
+  v0 = OUTLINED_FUNCTION_313();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_Sash(v0);
+  return OUTLINED_FUNCTION_25();
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_DomainObjectComponent.geoObjects.getter()
+{
+  OUTLINED_FUNCTION_180_3();
+  v1 = OUTLINED_FUNCTION_177_1();
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
+  OUTLINED_FUNCTION_183(v3);
+  OUTLINED_FUNCTION_176();
+  MEMORY[0x1EEE9AC00](v4);
+  OUTLINED_FUNCTION_27_9();
+  v5 = type metadata accessor for Apple_Parsec_Siri_V2alpha_DomainObjectComponent.OneOf_Component(0);
+  OUTLINED_FUNCTION_15_15(v5);
+  if (v6)
+  {
+    sub_1B8D9207C(v0, &qword_1EBAC9538, &qword_1B96AA818);
+LABEL_6:
+    v8 = OUTLINED_FUNCTION_208_2(MEMORY[0x1E69E7CC0]);
+    type metadata accessor for Apple_Parsec_Siri_V2alpha_GeoObjectComponent(v8);
+    OUTLINED_FUNCTION_102_7();
+    return _s10PegasusAPI18Amppb_AvailabilityVACycfC_0();
+  }
+
+  OUTLINED_FUNCTION_543();
+  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+  if (EnumCaseMultiPayload == 1)
+  {
+    sub_1B9239E50();
+    goto LABEL_6;
+  }
+
+  OUTLINED_FUNCTION_56_7();
+  OUTLINED_FUNCTION_288();
+  return sub_1B9239DA8();
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_DomainObjectComponent.geoObjects.setter()
+{
+  sub_1B8D9207C(v0, &qword_1EBAC9538, &qword_1B96AA818);
+  OUTLINED_FUNCTION_56_7();
+  OUTLINED_FUNCTION_432();
+  sub_1B9239DA8();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_DomainObjectComponent.OneOf_Component(0);
+  OUTLINED_FUNCTION_199_3();
+  swift_storeEnumTagMultiPayload();
+  v1 = OUTLINED_FUNCTION_125_2();
+
+  return __swift_storeEnumTagSinglePayload(v1, v2, v3, v4);
+}
+
+void Apple_Parsec_Siri_V2alpha_DomainObjectComponent.geoObjects.modify()
+{
+  OUTLINED_FUNCTION_243();
+  v1 = OUTLINED_FUNCTION_25_4();
+  v2 = __swift_coroFrameAllocStub(v1);
+  OUTLINED_FUNCTION_86(v2);
+  v3 = OUTLINED_FUNCTION_686();
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(v3, v4);
+  OUTLINED_FUNCTION_183(v5);
+  v7 = __swift_coroFrameAllocStub(*(v6 + 64));
+  v8 = OUTLINED_FUNCTION_85(v7);
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_GeoObjectComponent(v8);
+  OUTLINED_FUNCTION_126_1();
+  v10 = *(v9 + 64);
+  v11 = __swift_coroFrameAllocStub(v10);
+  v12 = OUTLINED_FUNCTION_175_2(v11);
+  v13 = __swift_coroFrameAllocStub(v12);
+  OUTLINED_FUNCTION_43_7(v13);
+  v14 = type metadata accessor for Apple_Parsec_Siri_V2alpha_DomainObjectComponent.OneOf_Component(0);
+  OUTLINED_FUNCTION_8_22(v14);
+  if (v15)
+  {
+    sub_1B8D9207C(v0, &qword_1EBAC9538, &qword_1B96AA818);
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_177_1();
+    EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+    if (EnumCaseMultiPayload != 1)
+    {
+      OUTLINED_FUNCTION_56_7();
+      OUTLINED_FUNCTION_128();
+      sub_1B9239DA8();
+      goto LABEL_8;
+    }
+
+    sub_1B9239E50();
+  }
+
+  *v10 = MEMORY[0x1E69E7CC0];
+  OUTLINED_FUNCTION_101_4();
+  _s10PegasusAPI18Amppb_AvailabilityVACycfC_0();
+LABEL_8:
+  OUTLINED_FUNCTION_242();
+}
+
+void sub_1B922FF4C()
+{
+  OUTLINED_FUNCTION_128_3();
+  if (v5)
+  {
+    OUTLINED_FUNCTION_461();
+    sub_1B9239DFC();
+    sub_1B8D9207C(v4, &qword_1EBAC9538, &qword_1B96AA818);
+    OUTLINED_FUNCTION_56_7();
+    OUTLINED_FUNCTION_439_0();
+    sub_1B9239DA8();
+    OUTLINED_FUNCTION_257();
+    swift_storeEnumTagMultiPayload();
+    OUTLINED_FUNCTION_255_1();
+    OUTLINED_FUNCTION_55_8();
+    sub_1B9239E50();
+  }
+
+  else
+  {
+    sub_1B8D9207C(v4, &qword_1EBAC9538, &qword_1B96AA818);
+    OUTLINED_FUNCTION_56_7();
+    OUTLINED_FUNCTION_1_0();
+    sub_1B9239DA8();
+    OUTLINED_FUNCTION_257();
+    swift_storeEnumTagMultiPayload();
+    OUTLINED_FUNCTION_255_1();
+  }
+
+  free(v3);
+  free(v2);
+  free(v1);
+
+  free(v0);
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_DomainObjectComponent.videoObjects.getter()
+{
+  OUTLINED_FUNCTION_180_3();
+  v2 = OUTLINED_FUNCTION_177_1();
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(v2, v3);
+  OUTLINED_FUNCTION_183(v4);
+  OUTLINED_FUNCTION_176();
+  MEMORY[0x1EEE9AC00](v5);
+  OUTLINED_FUNCTION_27_9();
+  v6 = type metadata accessor for Apple_Parsec_Siri_V2alpha_DomainObjectComponent.OneOf_Component(0);
+  OUTLINED_FUNCTION_15_15(v6);
+  if (v7)
+  {
+    sub_1B8D9207C(v1, &qword_1EBAC9538, &qword_1B96AA818);
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_543();
+    EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+    if (EnumCaseMultiPayload == 1)
+    {
+      OUTLINED_FUNCTION_54_9();
+      OUTLINED_FUNCTION_288();
+      return sub_1B9239DA8();
+    }
+
+    sub_1B9239E50();
+  }
+
+  *v0 = MEMORY[0x1E69E7CC0];
+  *(v0 + 8) = 0;
+  *(v0 + 16) = 1;
+  *(v0 + 24) = 0;
+  *(v0 + 32) = 0xE000000000000000;
+  v10 = type metadata accessor for Apple_Parsec_Siri_V2alpha_VideoObjectComponent(0);
+  return OUTLINED_FUNCTION_101_2(v10);
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_DomainObjectComponent.videoObjects.setter()
+{
+  sub_1B8D9207C(v0, &qword_1EBAC9538, &qword_1B96AA818);
+  OUTLINED_FUNCTION_54_9();
+  OUTLINED_FUNCTION_432();
+  sub_1B9239DA8();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_DomainObjectComponent.OneOf_Component(0);
+  OUTLINED_FUNCTION_199_3();
+  swift_storeEnumTagMultiPayload();
+  v1 = OUTLINED_FUNCTION_125_2();
+
+  return __swift_storeEnumTagSinglePayload(v1, v2, v3, v4);
+}
+
+void Apple_Parsec_Siri_V2alpha_DomainObjectComponent.videoObjects.modify()
+{
+  OUTLINED_FUNCTION_243();
+  v1 = OUTLINED_FUNCTION_25_4();
+  v2 = __swift_coroFrameAllocStub(v1);
+  OUTLINED_FUNCTION_86(v2);
+  v3 = OUTLINED_FUNCTION_686();
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(v3, v4);
+  OUTLINED_FUNCTION_183(v5);
+  v7 = __swift_coroFrameAllocStub(*(v6 + 64));
+  v8 = OUTLINED_FUNCTION_85(v7);
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_VideoObjectComponent(v8);
+  OUTLINED_FUNCTION_126_1();
+  v10 = *(v9 + 64);
+  v11 = __swift_coroFrameAllocStub(v10);
+  v12 = OUTLINED_FUNCTION_175_2(v11);
+  v13 = __swift_coroFrameAllocStub(v12);
+  OUTLINED_FUNCTION_43_7(v13);
+  v14 = type metadata accessor for Apple_Parsec_Siri_V2alpha_DomainObjectComponent.OneOf_Component(0);
+  OUTLINED_FUNCTION_8_22(v14);
+  if (v15)
+  {
+    sub_1B8D9207C(v0, &qword_1EBAC9538, &qword_1B96AA818);
+LABEL_7:
+    *v10 = MEMORY[0x1E69E7CC0];
+    *(v10 + 8) = 0;
+    *(v10 + 16) = 1;
+    *(v10 + 24) = 0;
+    *(v10 + 32) = 0xE000000000000000;
+    _s10PegasusAPI18Amppb_AvailabilityVACycfC_0();
+    goto LABEL_8;
+  }
+
+  OUTLINED_FUNCTION_177_1();
+  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+  if (EnumCaseMultiPayload != 1)
+  {
+    sub_1B9239E50();
+    goto LABEL_7;
+  }
+
+  OUTLINED_FUNCTION_54_9();
+  OUTLINED_FUNCTION_128();
+  sub_1B9239DA8();
+LABEL_8:
+  OUTLINED_FUNCTION_242();
+}
+
+void sub_1B92302FC()
+{
+  OUTLINED_FUNCTION_128_3();
+  if (v5)
+  {
+    OUTLINED_FUNCTION_461();
+    sub_1B9239DFC();
+    sub_1B8D9207C(v4, &qword_1EBAC9538, &qword_1B96AA818);
+    OUTLINED_FUNCTION_54_9();
+    OUTLINED_FUNCTION_439_0();
+    sub_1B9239DA8();
+    OUTLINED_FUNCTION_257();
+    swift_storeEnumTagMultiPayload();
+    OUTLINED_FUNCTION_255_1();
+    OUTLINED_FUNCTION_222();
+    sub_1B9239E50();
+  }
+
+  else
+  {
+    sub_1B8D9207C(v4, &qword_1EBAC9538, &qword_1B96AA818);
+    OUTLINED_FUNCTION_54_9();
+    OUTLINED_FUNCTION_1_0();
+    sub_1B9239DA8();
+    OUTLINED_FUNCTION_257();
+    swift_storeEnumTagMultiPayload();
+    OUTLINED_FUNCTION_255_1();
+  }
+
+  free(v3);
+  free(v2);
+  free(v1);
+
+  free(v0);
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_DomainObjectComponent.unknownFields.modify()
+{
+  v0 = OUTLINED_FUNCTION_313();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_DomainObjectComponent(v0);
+  return OUTLINED_FUNCTION_25();
+}
+
+void static Apple_Parsec_Siri_V2alpha_DomainObjectComponent.OneOf_Component.== infix(_:_:)()
+{
+  OUTLINED_FUNCTION_284();
+  v3 = OUTLINED_FUNCTION_510_0();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_VideoObjectComponent(v3);
+  OUTLINED_FUNCTION_59_1();
+  MEMORY[0x1EEE9AC00](v4);
+  OUTLINED_FUNCTION_21();
+  v22 = v5;
+  v6 = OUTLINED_FUNCTION_201();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_GeoObjectComponent(v6);
+  OUTLINED_FUNCTION_59_1();
+  MEMORY[0x1EEE9AC00](v7);
+  OUTLINED_FUNCTION_62();
+  v10 = (v9 - v8);
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_DomainObjectComponent.OneOf_Component(0);
+  OUTLINED_FUNCTION_59_1();
+  MEMORY[0x1EEE9AC00](v11);
+  OUTLINED_FUNCTION_66();
+  OUTLINED_FUNCTION_512_0();
+  MEMORY[0x1EEE9AC00](v12);
+  OUTLINED_FUNCTION_447_0();
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAC9570, &qword_1B96AA858);
+  OUTLINED_FUNCTION_183(v13);
+  OUTLINED_FUNCTION_176();
+  MEMORY[0x1EEE9AC00](v14);
+  OUTLINED_FUNCTION_139();
+  sub_1B9239DFC();
+  sub_1B9239DFC();
+  if (swift_getEnumCaseMultiPayload() == 1)
+  {
+    OUTLINED_FUNCTION_167_7();
+    sub_1B9239DFC();
+    if (swift_getEnumCaseMultiPayload() == 1)
+    {
+      OUTLINED_FUNCTION_54_9();
+      sub_1B9239DA8();
+      sub_1B8D67D6C(*v1, *v22);
+      if ((v15 & 1) != 0 && sub_1B8D92198(*(v1 + 8), *(v1 + 16), v22[1]))
+      {
+        v16 = *(v1 + 24) == v22[3] && *(v1 + 32) == v22[4];
+        if (v16 || (sub_1B964C9F0() & 1) != 0)
+        {
+          sub_1B964C2B0();
+          OUTLINED_FUNCTION_0_75();
+          sub_1B8CD2D08(v17, v18, MEMORY[0x1E69AAC10]);
+          OUTLINED_FUNCTION_604_1();
+        }
+      }
+
+      OUTLINED_FUNCTION_410_0();
+      sub_1B9239E50();
+      OUTLINED_FUNCTION_128();
+LABEL_19:
+      sub_1B9239E50();
+      OUTLINED_FUNCTION_106_7();
+      sub_1B9239E50();
+      goto LABEL_20;
+    }
+  }
+
+  else
+  {
+    sub_1B9239DFC();
+    if (swift_getEnumCaseMultiPayload() != 1)
+    {
+      OUTLINED_FUNCTION_56_7();
+      sub_1B9239DA8();
+      sub_1B8D67AC8(*v2, *v10);
+      if (v19)
+      {
+        sub_1B964C2B0();
+        OUTLINED_FUNCTION_0_75();
+        sub_1B8CD2D08(v20, v21, MEMORY[0x1E69AAC10]);
+        sub_1B964C850();
+      }
+
+      OUTLINED_FUNCTION_55_8();
+      sub_1B9239E50();
+      OUTLINED_FUNCTION_55_8();
+      goto LABEL_19;
+    }
+
+    OUTLINED_FUNCTION_55_8();
+  }
+
+  sub_1B9239E50();
+  sub_1B8D9207C(v0, &qword_1EBAC9570, &qword_1B96AA858);
 LABEL_20:
   OUTLINED_FUNCTION_283();
 }
 
-uint64_t static Apple_Parsec_Siri_V2alpha_PhoneCallBuilderParams.== infix(_:_:)()
+uint64_t Apple_Parsec_Siri_V2alpha_DialogState.unknownFields.modify()
 {
-  OUTLINED_FUNCTION_468();
-  v3 = *v2 == *v0 && v1[1] == v0[1];
-  if (!v3 && (sub_1B964C9F0() & 1) == 0)
-  {
-    return 0;
-  }
-
-  v4 = v1[2] == v0[2] && v1[3] == v0[3];
-  if (!v4 && (sub_1B964C9F0() & 1) == 0)
-  {
-    return 0;
-  }
-
-  v5 = *(type metadata accessor for Apple_Parsec_Siri_V2alpha_PhoneCallBuilderParams(0) + 24);
-  sub_1B964C2B0();
-  OUTLINED_FUNCTION_0_71();
-  sub_1B8CD2BE8(v6, v7);
-  return OUTLINED_FUNCTION_634() & 1;
+  v0 = OUTLINED_FUNCTION_313();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_DialogState(v0);
+  return OUTLINED_FUNCTION_25();
 }
 
-uint64_t static Apple_Parsec_Siri_V2alpha_ShowPlaceDetailsBuilderParams.== infix(_:_:)(void *a1, void *a2)
+uint64_t Apple_Parsec_Siri_V2alpha_TrialIdentifiers.unknownFields.modify()
 {
-  if (*a1 != *a2)
-  {
-    return 0;
-  }
-
-  v2 = OUTLINED_FUNCTION_280();
-  v3 = *(type metadata accessor for Apple_Parsec_Siri_V2alpha_ShowPlaceDetailsBuilderParams(v2) + 20);
-  sub_1B964C2B0();
-  OUTLINED_FUNCTION_0_71();
-  sub_1B8CD2BE8(v4, v5);
-  return OUTLINED_FUNCTION_634() & 1;
+  v0 = OUTLINED_FUNCTION_313();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_TrialIdentifiers(v0);
+  return OUTLINED_FUNCTION_25();
 }
 
-uint64_t _s10PegasusAPI42Apple_Parsec_Siri_V2alpha_ExtendCurrentTTSV2eeoiySbAC_ACtFZ_0()
+uint64_t Apple_Parsec_Siri_V2alpha_TrialIdentifiers.init()@<X0>(uint64_t a1@<X8>)
 {
-  OUTLINED_FUNCTION_280();
-  sub_1B964C2B0();
-  OUTLINED_FUNCTION_0_71();
-  sub_1B8CD2BE8(v0, v1);
-  OUTLINED_FUNCTION_288();
-  return sub_1B964C850() & 1;
+  OUTLINED_FUNCTION_92_0();
+  *(a1 + 32) = 0;
+  *(a1 + 40) = v2;
+  v3 = type metadata accessor for Apple_Parsec_Siri_V2alpha_TrialIdentifiers(0);
+  return OUTLINED_FUNCTION_101_2(v3);
 }
 
-uint64_t static Apple_Parsec_Siri_V2alpha_ShowLocalSearchResultBuilderParams.== infix(_:_:)()
+uint64_t Apple_Parsec_Siri_V2alpha_PersonSnippet.objects.setter(uint64_t a1)
 {
-  OUTLINED_FUNCTION_468();
-  if ((MEMORY[0x1BFADC060](*v2, v1[1], *v0, v0[1]) & 1) == 0)
-  {
-    return 0;
-  }
 
-  v3 = v1[2] == v0[2] && v1[3] == v0[3];
-  if (!v3 && (sub_1B964C9F0() & 1) == 0)
-  {
-    return 0;
-  }
-
-  v4 = v1[4] == v0[4] && v1[5] == v0[5];
-  if (!v4 && (sub_1B964C9F0() & 1) == 0)
-  {
-    return 0;
-  }
-
-  v5 = *(type metadata accessor for Apple_Parsec_Siri_V2alpha_ShowLocalSearchResultBuilderParams(0) + 28);
-  sub_1B964C2B0();
-  OUTLINED_FUNCTION_0_71();
-  sub_1B8CD2BE8(v6, v7);
-  return OUTLINED_FUNCTION_634() & 1;
+  *(v1 + 8) = a1;
+  return result;
 }
 
-void Apple_Parsec_Siri_V2alpha_RecordLocationActivityBuilderParams.sourceType.getter(uint64_t a1@<X8>)
+uint64_t Apple_Parsec_Siri_V2alpha_PersonSnippet.unknownFields.modify()
 {
-  v2 = *v1;
-  v3 = *(v1 + 8);
-  OUTLINED_FUNCTION_4(a1);
+  v0 = OUTLINED_FUNCTION_313();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_PersonSnippet(v0);
+  return OUTLINED_FUNCTION_25();
 }
 
-uint64_t Apple_Parsec_Siri_V2alpha_RecordLocationActivityBuilderParams.sourceType.setter(uint64_t result)
+uint64_t sub_1B9230AC0(uint64_t a1, uint64_t a2)
+{
+  v4 = sub_1B927AE14();
+
+  return MEMORY[0x1EEE15710](a1, a2, v4);
+}
+
+uint64_t sub_1B9230BA0@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
+{
+  result = static Apple_Parsec_Siri_V2alpha_PersonSnippet.PersonProperty.allCases.getter(a1);
+  *a2 = result;
+  return result;
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_ClockSnippet.objects.setter(uint64_t a1)
+{
+
+  *v1 = a1;
+  return result;
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_ClockSnippet.unknownFields.modify()
+{
+  v0 = OUTLINED_FUNCTION_313();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_ClockSnippet(v0);
+  return OUTLINED_FUNCTION_25();
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_SageExperience.uiView.getter()
+{
+  v1 = OUTLINED_FUNCTION_236();
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
+  OUTLINED_FUNCTION_183(v3);
+  OUTLINED_FUNCTION_176();
+  MEMORY[0x1EEE9AC00](v4);
+  v5 = OUTLINED_FUNCTION_22_3();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_SageExperience(v5);
+  OUTLINED_FUNCTION_100_0();
+  v6 = type metadata accessor for Apple_Parsec_Siri_V2alpha_UIView(0);
+  OUTLINED_FUNCTION_29_14(v6);
+  if (v7)
+  {
+    v8 = type metadata accessor for Apple_Parsec_Siri_V2alpha_UIView.OneOf_View(0);
+    v9 = OUTLINED_FUNCTION_274_1(v8);
+    OUTLINED_FUNCTION_520_1(v9);
+    result = OUTLINED_FUNCTION_9_2();
+    if (!v7)
+    {
+      return sub_1B8D9207C(v0, &qword_1EBAC9578, &qword_1B96AA860);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_4_39();
+    OUTLINED_FUNCTION_182();
+    return sub_1B9239DA8();
+  }
+
+  return result;
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_SageExperience.uiView.setter()
+{
+  v1 = OUTLINED_FUNCTION_313();
+  v2 = type metadata accessor for Apple_Parsec_Siri_V2alpha_SageExperience(v1);
+  sub_1B8D9207C(v0 + *(v2 + 28), &qword_1EBAC9578, &qword_1B96AA860);
+  OUTLINED_FUNCTION_4_39();
+  OUTLINED_FUNCTION_122_0();
+  sub_1B9239DA8();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_UIView(0);
+  v3 = OUTLINED_FUNCTION_59();
+
+  return __swift_storeEnumTagSinglePayload(v3, v4, v5, v6);
+}
+
+void Apple_Parsec_Siri_V2alpha_SageExperience.uiView.modify()
+{
+  OUTLINED_FUNCTION_243();
+  v1 = OUTLINED_FUNCTION_212();
+  v2 = __swift_coroFrameAllocStub(v1);
+  OUTLINED_FUNCTION_86(v2);
+  v3 = OUTLINED_FUNCTION_686();
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(v3, v4);
+  OUTLINED_FUNCTION_183(v5);
+  v7 = __swift_coroFrameAllocStub(*(v6 + 64));
+  v8 = OUTLINED_FUNCTION_85(v7);
+  v9 = type metadata accessor for Apple_Parsec_Siri_V2alpha_UIView(v8);
+  OUTLINED_FUNCTION_53_6(v9);
+  OUTLINED_FUNCTION_59_1();
+  v11 = __swift_coroFrameAllocStub(*(v10 + 64));
+  v12 = OUTLINED_FUNCTION_202_0(v11);
+  v13 = __swift_coroFrameAllocStub(v12);
+  v14 = OUTLINED_FUNCTION_89_0(v13);
+  v15 = type metadata accessor for Apple_Parsec_Siri_V2alpha_SageExperience(v14);
+  OUTLINED_FUNCTION_64_0(*(v15 + 28));
+  OUTLINED_FUNCTION_16_2();
+  if (v16)
+  {
+    type metadata accessor for Apple_Parsec_Siri_V2alpha_UIView.OneOf_View(0);
+    OUTLINED_FUNCTION_533_0();
+    OUTLINED_FUNCTION_83();
+    v21 = __swift_storeEnumTagSinglePayload(v17, v18, v19, v20);
+    OUTLINED_FUNCTION_576_1(v21);
+    OUTLINED_FUNCTION_16_2();
+    if (!v16)
+    {
+      sub_1B8D9207C(v0, &qword_1EBAC9578, &qword_1B96AA860);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_4_39();
+    OUTLINED_FUNCTION_461();
+    sub_1B9239DA8();
+  }
+
+  OUTLINED_FUNCTION_105_0();
+  OUTLINED_FUNCTION_242();
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_SageExperience.unknownFields.modify()
+{
+  v0 = OUTLINED_FUNCTION_313();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_SageExperience(v0);
+  return OUTLINED_FUNCTION_25();
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_AppEntity.searchID.getter()
+{
+  v1 = OUTLINED_FUNCTION_236();
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
+  OUTLINED_FUNCTION_183(v3);
+  OUTLINED_FUNCTION_176();
+  MEMORY[0x1EEE9AC00](v4);
+  v5 = OUTLINED_FUNCTION_22_3();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntity(v5);
+  OUTLINED_FUNCTION_100_0();
+  v6 = sub_1B964C1C0();
+  OUTLINED_FUNCTION_29_14(v6);
+  if (v7)
+  {
+    sub_1B964C1B0();
+    result = OUTLINED_FUNCTION_9_2();
+    if (!v7)
+    {
+      return sub_1B8D9207C(v0, &qword_1EBAB8F20, &qword_1B964D720);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_48_7();
+    OUTLINED_FUNCTION_397();
+    return v8();
+  }
+
+  return result;
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_AppEntity.searchID.setter()
+{
+  v2 = OUTLINED_FUNCTION_313();
+  v3 = type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntity(v2);
+  sub_1B8D9207C(v0 + *(v3 + 28), &qword_1EBAB8F20, &qword_1B964D720);
+  sub_1B964C1C0();
+  OUTLINED_FUNCTION_126_1();
+  OUTLINED_FUNCTION_3_0();
+  v4();
+  OUTLINED_FUNCTION_80();
+
+  return __swift_storeEnumTagSinglePayload(v5, v6, v7, v1);
+}
+
+void Apple_Parsec_Siri_V2alpha_AppEntity.searchID.modify()
+{
+  OUTLINED_FUNCTION_284();
+  v1 = OUTLINED_FUNCTION_185_0();
+  v2 = __swift_coroFrameAllocStub(v1);
+  OUTLINED_FUNCTION_86(v2);
+  v3 = OUTLINED_FUNCTION_686();
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(v3, v4);
+  OUTLINED_FUNCTION_183(v5);
+  v7 = __swift_coroFrameAllocStub(*(v6 + 64));
+  OUTLINED_FUNCTION_145_1(v7);
+  v8 = sub_1B964C1C0();
+  OUTLINED_FUNCTION_53_6(v8);
+  OUTLINED_FUNCTION_30_1();
+  *(v0 + 24) = v9;
+  v11 = __swift_coroFrameAllocStub(*(v10 + 64));
+  v12 = OUTLINED_FUNCTION_76_2(v11);
+  v13 = __swift_coroFrameAllocStub(v12);
+  v14 = OUTLINED_FUNCTION_35_4(v13);
+  v15 = type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntity(v14);
+  OUTLINED_FUNCTION_25_9(*(v15 + 28));
+  OUTLINED_FUNCTION_75(v7);
+  if (v16)
+  {
+    sub_1B964C1B0();
+    OUTLINED_FUNCTION_75(v7);
+    if (!v16)
+    {
+      sub_1B8D9207C(v7, &qword_1EBAB8F20, &qword_1B964D720);
+    }
+  }
+
+  else
+  {
+    v17 = OUTLINED_FUNCTION_461();
+    v18(v17);
+  }
+
+  OUTLINED_FUNCTION_89_5();
+  OUTLINED_FUNCTION_283();
+}
+
+uint64_t sub_1B9231338()
+{
+  OUTLINED_FUNCTION_250_1();
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(v3, v4);
+  OUTLINED_FUNCTION_183(v5);
+  OUTLINED_FUNCTION_176();
+  MEMORY[0x1EEE9AC00](v6);
+  OUTLINED_FUNCTION_137();
+  v1(0);
+  OUTLINED_FUNCTION_225_0();
+  sub_1B8D92024();
+  v7 = v0(0);
+  OUTLINED_FUNCTION_131_7(v2, v8, v7);
+  v9 = OUTLINED_FUNCTION_214_4();
+  sub_1B8D9207C(v9, v10, v11);
+  return OUTLINED_FUNCTION_681_0();
+}
+
+uint64_t sub_1B9231414()
+{
+  v1 = OUTLINED_FUNCTION_218_0();
+  v2(v1);
+  OUTLINED_FUNCTION_397();
+  sub_1B8D9207C(v3, v4, v5);
+  v0(0);
+  v6 = OUTLINED_FUNCTION_282_1();
+
+  return __swift_storeEnumTagSinglePayload(v6, v7, v8, v9);
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_AppEntity.type.setter(uint64_t result)
 {
   v2 = *(result + 8);
   *v1 = *result;
@@ -2427,5445 +3500,2751 @@ uint64_t Apple_Parsec_Siri_V2alpha_RecordLocationActivityBuilderParams.sourceTyp
   return result;
 }
 
-uint64_t Apple_Parsec_Siri_V2alpha_RecordLocationActivityBuilderParams.location.getter@<X0>(uint64_t a1@<X8>)
+uint64_t Apple_Parsec_Siri_V2alpha_AppEntity.siriDialog.getter()
 {
-  v3 = OUTLINED_FUNCTION_206_0();
+  v1 = OUTLINED_FUNCTION_236();
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
   OUTLINED_FUNCTION_183(v3);
-  v5 = *(v4 + 64);
   OUTLINED_FUNCTION_176();
-  MEMORY[0x1EEE9AC00](v6);
-  v7 = OUTLINED_FUNCTION_22_3();
-  v8 = *(type metadata accessor for Apple_Parsec_Siri_V2alpha_RecordLocationActivityBuilderParams(v7) + 24);
+  MEMORY[0x1EEE9AC00](v4);
+  v5 = OUTLINED_FUNCTION_22_3();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntity(v5);
   OUTLINED_FUNCTION_100_0();
-  v9 = type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams(0);
-  OUTLINED_FUNCTION_57(v1);
-  if (v10)
+  v6 = type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriDialog(0);
+  OUTLINED_FUNCTION_29_14(v6);
+  if (v7)
   {
-    _s10PegasusAPI18Amppb_AvailabilityVACycfC_0();
-    v11 = *(v9 + 20);
-    if (qword_1EBAB7978 != -1)
+    v8 = type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriDialog.OneOf_Dialog(0);
+    v9 = OUTLINED_FUNCTION_274_1(v8);
+    OUTLINED_FUNCTION_520_1(v9);
+    result = OUTLINED_FUNCTION_9_2();
+    if (!v7)
     {
-      OUTLINED_FUNCTION_3_44();
-    }
-
-    *(a1 + v11) = qword_1EBAC8618;
-    v12 = OUTLINED_FUNCTION_64_5();
-
-    if (v12 != 1)
-    {
-      return sub_1B8D9207C(v1, &qword_1EBAB9018, &unk_1B96A6290);
+      return sub_1B8D9207C(v0, &qword_1EBAC9580, &qword_1B96AA868);
     }
   }
 
   else
   {
-    OUTLINED_FUNCTION_1_60();
+    OUTLINED_FUNCTION_26_20();
     OUTLINED_FUNCTION_182();
-    return sub_1B91FA3D0();
+    return sub_1B9239DA8();
   }
 
   return result;
 }
 
-uint64_t Apple_Parsec_Siri_V2alpha_RecordLocationActivityBuilderParams.location.setter()
+uint64_t Apple_Parsec_Siri_V2alpha_AppEntity.siriDialog.setter()
 {
   v1 = OUTLINED_FUNCTION_313();
-  v2 = type metadata accessor for Apple_Parsec_Siri_V2alpha_RecordLocationActivityBuilderParams(v1);
-  sub_1B8D9207C(v0 + *(v2 + 24), &qword_1EBAB9018, &unk_1B96A6290);
-  OUTLINED_FUNCTION_1_60();
+  v2 = type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntity(v1);
+  sub_1B8D9207C(v0 + *(v2 + 32), &qword_1EBAC9580, &qword_1B96AA868);
+  OUTLINED_FUNCTION_26_20();
   OUTLINED_FUNCTION_122_0();
-  sub_1B91FA3D0();
-  OUTLINED_FUNCTION_39_11();
-  OUTLINED_FUNCTION_80();
+  sub_1B9239DA8();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriDialog(0);
+  v3 = OUTLINED_FUNCTION_59();
 
   return __swift_storeEnumTagSinglePayload(v3, v4, v5, v6);
 }
 
-uint64_t sub_1B91EEE94@<X0>(uint64_t (*a1)(void)@<X0>, void *a2@<X1>, void *a3@<X2>, uint64_t a4@<X8>)
-{
-  _s10PegasusAPI18Amppb_AvailabilityVACycfC_0();
-  v8 = *(a1(0) + 20);
-  if (*a2 != -1)
-  {
-    OUTLINED_FUNCTION_461();
-    swift_once();
-  }
-
-  *(a4 + v8) = *a3;
-}
-
-void Apple_Parsec_Siri_V2alpha_RecordLocationActivityBuilderParams.location.modify()
+void Apple_Parsec_Siri_V2alpha_AppEntity.siriDialog.modify()
 {
   OUTLINED_FUNCTION_243();
-  v1 = __swift_coroFrameAllocStub(0x30uLL);
-  OUTLINED_FUNCTION_86(v1);
-  v2 = OUTLINED_FUNCTION_686();
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(v2, v3);
-  OUTLINED_FUNCTION_183(v4);
-  v6 = __swift_coroFrameAllocStub(*(v5 + 64));
-  v0[1] = v6;
-  v7 = type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams(0);
-  v0[2] = v7;
-  OUTLINED_FUNCTION_59_1(v7);
-  v9 = *(v8 + 64);
-  v0[3] = __swift_coroFrameAllocStub(v9);
-  v10 = __swift_coroFrameAllocStub(v9);
-  v11 = OUTLINED_FUNCTION_89_0(v10);
-  v12 = type metadata accessor for Apple_Parsec_Siri_V2alpha_RecordLocationActivityBuilderParams(v11);
-  OUTLINED_FUNCTION_116_0(*(v12 + 24));
-  OUTLINED_FUNCTION_17_2();
-  if (v13)
+  v1 = OUTLINED_FUNCTION_212();
+  v2 = __swift_coroFrameAllocStub(v1);
+  OUTLINED_FUNCTION_86(v2);
+  v3 = OUTLINED_FUNCTION_686();
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(v3, v4);
+  OUTLINED_FUNCTION_183(v5);
+  v7 = __swift_coroFrameAllocStub(*(v6 + 64));
+  v8 = OUTLINED_FUNCTION_85(v7);
+  v9 = type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriDialog(v8);
+  OUTLINED_FUNCTION_53_6(v9);
+  OUTLINED_FUNCTION_59_1();
+  v11 = __swift_coroFrameAllocStub(*(v10 + 64));
+  v12 = OUTLINED_FUNCTION_202_0(v11);
+  v13 = __swift_coroFrameAllocStub(v12);
+  v14 = OUTLINED_FUNCTION_89_0(v13);
+  v15 = type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntity(v14);
+  OUTLINED_FUNCTION_64_0(*(v15 + 32));
+  OUTLINED_FUNCTION_16_2();
+  if (v16)
   {
-    _s10PegasusAPI18Amppb_AvailabilityVACycfC_0();
-    v14 = *(v7 + 20);
-    if (qword_1EBAB7978 != -1)
+    type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriDialog.OneOf_Dialog(0);
+    OUTLINED_FUNCTION_533_0();
+    OUTLINED_FUNCTION_83();
+    v21 = __swift_storeEnumTagSinglePayload(v17, v18, v19, v20);
+    OUTLINED_FUNCTION_576_1(v21);
+    OUTLINED_FUNCTION_16_2();
+    if (!v16)
     {
-      OUTLINED_FUNCTION_3_44();
-    }
-
-    *(v9 + v14) = qword_1EBAC8618;
-    v15 = OUTLINED_FUNCTION_50_1();
-
-    if (v15 != 1)
-    {
-      sub_1B8D9207C(v6, &qword_1EBAB9018, &unk_1B96A6290);
+      sub_1B8D9207C(v0, &qword_1EBAC9580, &qword_1B96AA868);
     }
   }
 
   else
   {
-    OUTLINED_FUNCTION_1_60();
-    OUTLINED_FUNCTION_138_4();
+    OUTLINED_FUNCTION_26_20();
+    OUTLINED_FUNCTION_461();
+    sub_1B9239DA8();
   }
 
+  OUTLINED_FUNCTION_105_0();
   OUTLINED_FUNCTION_242();
 }
 
-uint64_t Apple_Parsec_Siri_V2alpha_RecordLocationActivityBuilderParams.hasLocation.getter()
+void sub_1B9231740()
 {
-  v1 = OUTLINED_FUNCTION_514();
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
-  OUTLINED_FUNCTION_183(v3);
-  v5 = *(v4 + 64);
-  OUTLINED_FUNCTION_176();
-  MEMORY[0x1EEE9AC00](v6);
-  v7 = OUTLINED_FUNCTION_22_3();
-  v8 = *(type metadata accessor for Apple_Parsec_Siri_V2alpha_RecordLocationActivityBuilderParams(v7) + 24);
-  OUTLINED_FUNCTION_274_0();
-  OUTLINED_FUNCTION_45_11();
-  return v0;
-}
-
-Swift::Void __swiftcall Apple_Parsec_Siri_V2alpha_RecordLocationActivityBuilderParams.clearLocation()()
-{
-  v1 = type metadata accessor for Apple_Parsec_Siri_V2alpha_RecordLocationActivityBuilderParams(0);
-  sub_1B8D9207C(v0 + *(v1 + 24), &qword_1EBAB9018, &unk_1B96A6290);
-  OUTLINED_FUNCTION_39_11();
-  OUTLINED_FUNCTION_83();
-
-  __swift_storeEnumTagSinglePayload(v2, v3, v4, v5);
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_RecordLocationActivityBuilderParams.unknownFields.modify()
-{
-  v0 = OUTLINED_FUNCTION_313();
-  v1 = *(type metadata accessor for Apple_Parsec_Siri_V2alpha_RecordLocationActivityBuilderParams(v0) + 20);
-  return OUTLINED_FUNCTION_25();
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_RecordLocationActivityBuilderParams.SourceType.rawValue.getter()
-{
-  v1 = *v0 == 0;
-  if (v0[8])
+  OUTLINED_FUNCTION_243();
+  OUTLINED_FUNCTION_67();
+  if (v5)
   {
-    return *v0 != 0;
+    OUTLINED_FUNCTION_128();
+    sub_1B9239DFC();
+    sub_1B8D9207C(v4 + v3, &qword_1EBAC9580, &qword_1B96AA868);
+    OUTLINED_FUNCTION_26_20();
+    OUTLINED_FUNCTION_505_1();
+    OUTLINED_FUNCTION_30_2();
+    OUTLINED_FUNCTION_222_3();
+    sub_1B9239E50();
   }
 
   else
   {
-    return *v0;
-  }
-}
-
-uint64_t sub_1B91EF1F8@<X0>(uint64_t *a1@<X8>)
-{
-  result = Apple_Parsec_Siri_V2alpha_RecordLocationActivityBuilderParams.SourceType.rawValue.getter();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_1B91EF22C(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_1B91FA52C();
-
-  return MEMORY[0x1EEE15710](a1, a2, v4);
-}
-
-uint64_t static Apple_Parsec_Siri_V2alpha_RecordLocationActivityBuilderParams.SourceType.allCases.modify()
-{
-  OUTLINED_FUNCTION_288();
-  OUTLINED_FUNCTION_131();
-  swift_beginAccess();
-  return OUTLINED_FUNCTION_19_2();
-}
-
-uint64_t sub_1B91EF314@<X0>(uint64_t *a1@<X8>)
-{
-  result = static Apple_Parsec_Siri_V2alpha_RecordLocationActivityBuilderParams.SourceType.allCases.getter();
-  *a1 = result;
-  return result;
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_LocationBuilderParams.label.getter()
-{
-  OUTLINED_FUNCTION_12_26();
-  v2 = *(v0 + v1);
-  OUTLINED_FUNCTION_10_4();
-  v3 = *(v2 + 16);
-  v4 = *(v2 + 24);
-
-  return OUTLINED_FUNCTION_432();
-}
-
-void sub_1B91EF380(uint64_t *a1)
-{
-  v1 = *a1;
-  v2 = a1[1];
-
-  Apple_Parsec_Siri_V2alpha_LocationBuilderParams.label.setter();
-}
-
-void Apple_Parsec_Siri_V2alpha_LocationBuilderParams.label.setter()
-{
-  OUTLINED_FUNCTION_193_0();
-  v4 = OUTLINED_FUNCTION_11_13();
-  v5 = OUTLINED_FUNCTION_74_13(v4);
-  v6 = *(v1 + v3);
-  if ((v5 & 1) == 0)
-  {
-    type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams._StorageClass();
-    OUTLINED_FUNCTION_38_8();
-    swift_allocObject();
-    v7 = OUTLINED_FUNCTION_40_0();
-    v8 = sub_1B91F5818(v7);
-    OUTLINED_FUNCTION_135(v8);
-  }
-
-  OUTLINED_FUNCTION_9_3();
-  v9 = *(v6 + 24);
-  *(v6 + 16) = v2;
-  *(v6 + 24) = v0;
-
-  OUTLINED_FUNCTION_192_1();
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_LocationBuilderParams.label.modify()
-{
-  v2 = OUTLINED_FUNCTION_126();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_2_44(v3);
-  OUTLINED_FUNCTION_62_0();
-  v4 = *(v0 + 24);
-  *(v1 + 48) = *(v0 + 16);
-  *(v1 + 56) = v4;
-
-  return OUTLINED_FUNCTION_514();
-}
-
-void sub_1B91EF490(uint64_t a1)
-{
-  OUTLINED_FUNCTION_58_0(a1);
-  if (v6)
-  {
-    OUTLINED_FUNCTION_191();
-    OUTLINED_FUNCTION_461();
-    Apple_Parsec_Siri_V2alpha_LocationBuilderParams.label.setter();
-    v7 = v1[7];
-  }
-
-  else
-  {
-    v8 = OUTLINED_FUNCTION_163_1();
-    v9 = *(v5 + v2);
-    if ((v8 & 1) == 0)
-    {
-      OUTLINED_FUNCTION_18_9();
-      type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams._StorageClass();
-      OUTLINED_FUNCTION_38_8();
-      swift_allocObject();
-      v10 = OUTLINED_FUNCTION_40_0();
-      v11 = sub_1B91F5818(v10);
-      OUTLINED_FUNCTION_168(v11);
-    }
-
-    OUTLINED_FUNCTION_59_3();
-    v12 = *(v9 + 24);
-    *(v9 + 16) = v4;
-    *(v9 + 24) = v3;
-  }
-
-  free(v1);
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_LocationBuilderParams.street.getter()
-{
-  OUTLINED_FUNCTION_12_26();
-  v2 = *(v0 + v1);
-  OUTLINED_FUNCTION_10_4();
-  v3 = *(v2 + 32);
-  v4 = *(v2 + 40);
-
-  return OUTLINED_FUNCTION_432();
-}
-
-void sub_1B91EF56C(uint64_t *a1)
-{
-  v1 = *a1;
-  v2 = a1[1];
-
-  Apple_Parsec_Siri_V2alpha_LocationBuilderParams.street.setter();
-}
-
-void Apple_Parsec_Siri_V2alpha_LocationBuilderParams.street.setter()
-{
-  OUTLINED_FUNCTION_193_0();
-  v4 = OUTLINED_FUNCTION_11_13();
-  v5 = OUTLINED_FUNCTION_74_13(v4);
-  v6 = *(v1 + v3);
-  if ((v5 & 1) == 0)
-  {
-    type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams._StorageClass();
-    OUTLINED_FUNCTION_38_8();
-    swift_allocObject();
-    v7 = OUTLINED_FUNCTION_40_0();
-    v8 = sub_1B91F5818(v7);
-    OUTLINED_FUNCTION_135(v8);
-  }
-
-  OUTLINED_FUNCTION_9_3();
-  v9 = *(v6 + 40);
-  *(v6 + 32) = v2;
-  *(v6 + 40) = v0;
-
-  OUTLINED_FUNCTION_192_1();
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_LocationBuilderParams.street.modify()
-{
-  v2 = OUTLINED_FUNCTION_126();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_2_44(v3);
-  OUTLINED_FUNCTION_62_0();
-  v4 = *(v0 + 40);
-  *(v1 + 48) = *(v0 + 32);
-  *(v1 + 56) = v4;
-
-  return OUTLINED_FUNCTION_514();
-}
-
-void sub_1B91EF67C(uint64_t a1)
-{
-  OUTLINED_FUNCTION_58_0(a1);
-  if (v6)
-  {
-    OUTLINED_FUNCTION_191();
-    OUTLINED_FUNCTION_461();
-    Apple_Parsec_Siri_V2alpha_LocationBuilderParams.street.setter();
-    v7 = v1[7];
-  }
-
-  else
-  {
-    v8 = OUTLINED_FUNCTION_163_1();
-    v9 = *(v5 + v2);
-    if ((v8 & 1) == 0)
-    {
-      OUTLINED_FUNCTION_18_9();
-      type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams._StorageClass();
-      OUTLINED_FUNCTION_38_8();
-      swift_allocObject();
-      v10 = OUTLINED_FUNCTION_40_0();
-      v11 = sub_1B91F5818(v10);
-      OUTLINED_FUNCTION_168(v11);
-    }
-
-    OUTLINED_FUNCTION_59_3();
-    v12 = *(v9 + 40);
-    *(v9 + 32) = v4;
-    *(v9 + 40) = v3;
-  }
-
-  free(v1);
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_LocationBuilderParams.thoroughfare.getter()
-{
-  OUTLINED_FUNCTION_12_26();
-  v2 = *(v0 + v1);
-  OUTLINED_FUNCTION_10_4();
-  v3 = *(v2 + 48);
-  v4 = *(v2 + 56);
-
-  return OUTLINED_FUNCTION_432();
-}
-
-void sub_1B91EF758(uint64_t *a1)
-{
-  v1 = *a1;
-  v2 = a1[1];
-
-  Apple_Parsec_Siri_V2alpha_LocationBuilderParams.thoroughfare.setter();
-}
-
-void Apple_Parsec_Siri_V2alpha_LocationBuilderParams.thoroughfare.setter()
-{
-  OUTLINED_FUNCTION_193_0();
-  v4 = OUTLINED_FUNCTION_11_13();
-  v5 = OUTLINED_FUNCTION_74_13(v4);
-  v6 = *(v1 + v3);
-  if ((v5 & 1) == 0)
-  {
-    type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams._StorageClass();
-    OUTLINED_FUNCTION_38_8();
-    swift_allocObject();
-    v7 = OUTLINED_FUNCTION_40_0();
-    v8 = sub_1B91F5818(v7);
-    OUTLINED_FUNCTION_135(v8);
-  }
-
-  OUTLINED_FUNCTION_9_3();
-  v9 = *(v6 + 56);
-  *(v6 + 48) = v2;
-  *(v6 + 56) = v0;
-
-  OUTLINED_FUNCTION_192_1();
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_LocationBuilderParams.thoroughfare.modify()
-{
-  v2 = OUTLINED_FUNCTION_126();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_2_44(v3);
-  OUTLINED_FUNCTION_62_0();
-  v4 = *(v0 + 56);
-  *(v1 + 48) = *(v0 + 48);
-  *(v1 + 56) = v4;
-
-  return OUTLINED_FUNCTION_514();
-}
-
-void sub_1B91EF868(uint64_t a1)
-{
-  OUTLINED_FUNCTION_58_0(a1);
-  if (v6)
-  {
-    OUTLINED_FUNCTION_191();
-    OUTLINED_FUNCTION_461();
-    Apple_Parsec_Siri_V2alpha_LocationBuilderParams.thoroughfare.setter();
-    v7 = v1[7];
-  }
-
-  else
-  {
-    v8 = OUTLINED_FUNCTION_163_1();
-    v9 = *(v5 + v2);
-    if ((v8 & 1) == 0)
-    {
-      OUTLINED_FUNCTION_18_9();
-      type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams._StorageClass();
-      OUTLINED_FUNCTION_38_8();
-      swift_allocObject();
-      v10 = OUTLINED_FUNCTION_40_0();
-      v11 = sub_1B91F5818(v10);
-      OUTLINED_FUNCTION_168(v11);
-    }
-
-    OUTLINED_FUNCTION_59_3();
-    v12 = *(v9 + 56);
-    *(v9 + 48) = v4;
-    *(v9 + 56) = v3;
-  }
-
-  free(v1);
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_LocationBuilderParams.subThoroughfare.getter()
-{
-  OUTLINED_FUNCTION_12_26();
-  v2 = *(v0 + v1);
-  OUTLINED_FUNCTION_10_4();
-  v3 = *(v2 + 64);
-  v4 = *(v2 + 72);
-
-  return OUTLINED_FUNCTION_432();
-}
-
-void sub_1B91EF944(uint64_t *a1)
-{
-  v1 = *a1;
-  v2 = a1[1];
-
-  Apple_Parsec_Siri_V2alpha_LocationBuilderParams.subThoroughfare.setter();
-}
-
-void Apple_Parsec_Siri_V2alpha_LocationBuilderParams.subThoroughfare.setter()
-{
-  OUTLINED_FUNCTION_193_0();
-  v4 = OUTLINED_FUNCTION_11_13();
-  v5 = OUTLINED_FUNCTION_74_13(v4);
-  v6 = *(v1 + v3);
-  if ((v5 & 1) == 0)
-  {
-    type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams._StorageClass();
-    OUTLINED_FUNCTION_38_8();
-    swift_allocObject();
-    v7 = OUTLINED_FUNCTION_40_0();
-    v8 = sub_1B91F5818(v7);
-    OUTLINED_FUNCTION_135(v8);
-  }
-
-  OUTLINED_FUNCTION_9_3();
-  v9 = *(v6 + 72);
-  *(v6 + 64) = v2;
-  *(v6 + 72) = v0;
-
-  OUTLINED_FUNCTION_192_1();
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_LocationBuilderParams.subThoroughfare.modify()
-{
-  v2 = OUTLINED_FUNCTION_126();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_2_44(v3);
-  OUTLINED_FUNCTION_62_0();
-  v4 = *(v0 + 72);
-  *(v1 + 48) = *(v0 + 64);
-  *(v1 + 56) = v4;
-
-  return OUTLINED_FUNCTION_514();
-}
-
-void sub_1B91EFA54(uint64_t a1)
-{
-  OUTLINED_FUNCTION_58_0(a1);
-  if (v6)
-  {
-    OUTLINED_FUNCTION_191();
-    OUTLINED_FUNCTION_461();
-    Apple_Parsec_Siri_V2alpha_LocationBuilderParams.subThoroughfare.setter();
-    v7 = v1[7];
-  }
-
-  else
-  {
-    v8 = OUTLINED_FUNCTION_163_1();
-    v9 = *(v5 + v2);
-    if ((v8 & 1) == 0)
-    {
-      OUTLINED_FUNCTION_18_9();
-      type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams._StorageClass();
-      OUTLINED_FUNCTION_38_8();
-      swift_allocObject();
-      v10 = OUTLINED_FUNCTION_40_0();
-      v11 = sub_1B91F5818(v10);
-      OUTLINED_FUNCTION_168(v11);
-    }
-
-    OUTLINED_FUNCTION_59_3();
-    v12 = *(v9 + 72);
-    *(v9 + 64) = v4;
-    *(v9 + 72) = v3;
-  }
-
-  free(v1);
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_LocationBuilderParams.city.getter()
-{
-  OUTLINED_FUNCTION_12_26();
-  v2 = *(v0 + v1);
-  OUTLINED_FUNCTION_10_4();
-  v3 = *(v2 + 80);
-  v4 = *(v2 + 88);
-
-  return OUTLINED_FUNCTION_432();
-}
-
-void sub_1B91EFB30(uint64_t *a1)
-{
-  v1 = *a1;
-  v2 = a1[1];
-
-  Apple_Parsec_Siri_V2alpha_LocationBuilderParams.city.setter();
-}
-
-void Apple_Parsec_Siri_V2alpha_LocationBuilderParams.city.setter()
-{
-  OUTLINED_FUNCTION_193_0();
-  v4 = OUTLINED_FUNCTION_11_13();
-  v5 = OUTLINED_FUNCTION_74_13(v4);
-  v6 = *(v1 + v3);
-  if ((v5 & 1) == 0)
-  {
-    type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams._StorageClass();
-    OUTLINED_FUNCTION_38_8();
-    swift_allocObject();
-    v7 = OUTLINED_FUNCTION_40_0();
-    v8 = sub_1B91F5818(v7);
-    OUTLINED_FUNCTION_135(v8);
-  }
-
-  OUTLINED_FUNCTION_9_3();
-  v9 = *(v6 + 88);
-  *(v6 + 80) = v2;
-  *(v6 + 88) = v0;
-
-  OUTLINED_FUNCTION_192_1();
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_LocationBuilderParams.city.modify()
-{
-  v2 = OUTLINED_FUNCTION_126();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_2_44(v3);
-  OUTLINED_FUNCTION_62_0();
-  v4 = *(v0 + 88);
-  *(v1 + 48) = *(v0 + 80);
-  *(v1 + 56) = v4;
-
-  return OUTLINED_FUNCTION_514();
-}
-
-void sub_1B91EFC40(uint64_t a1)
-{
-  OUTLINED_FUNCTION_58_0(a1);
-  if (v6)
-  {
-    OUTLINED_FUNCTION_191();
-    OUTLINED_FUNCTION_461();
-    Apple_Parsec_Siri_V2alpha_LocationBuilderParams.city.setter();
-    v7 = v1[7];
-  }
-
-  else
-  {
-    v8 = OUTLINED_FUNCTION_163_1();
-    v9 = *(v5 + v2);
-    if ((v8 & 1) == 0)
-    {
-      OUTLINED_FUNCTION_18_9();
-      type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams._StorageClass();
-      OUTLINED_FUNCTION_38_8();
-      swift_allocObject();
-      v10 = OUTLINED_FUNCTION_40_0();
-      v11 = sub_1B91F5818(v10);
-      OUTLINED_FUNCTION_168(v11);
-    }
-
-    OUTLINED_FUNCTION_59_3();
-    v12 = *(v9 + 88);
-    *(v9 + 80) = v4;
-    *(v9 + 88) = v3;
-  }
-
-  free(v1);
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_LocationBuilderParams.postalCode.getter()
-{
-  OUTLINED_FUNCTION_12_26();
-  v2 = *(v0 + v1);
-  OUTLINED_FUNCTION_10_4();
-  v3 = *(v2 + 96);
-  v4 = *(v2 + 104);
-
-  return OUTLINED_FUNCTION_432();
-}
-
-void sub_1B91EFD1C(uint64_t *a1)
-{
-  v1 = *a1;
-  v2 = a1[1];
-
-  Apple_Parsec_Siri_V2alpha_LocationBuilderParams.postalCode.setter();
-}
-
-void Apple_Parsec_Siri_V2alpha_LocationBuilderParams.postalCode.setter()
-{
-  OUTLINED_FUNCTION_193_0();
-  v4 = OUTLINED_FUNCTION_11_13();
-  v5 = OUTLINED_FUNCTION_74_13(v4);
-  v6 = *(v1 + v3);
-  if ((v5 & 1) == 0)
-  {
-    type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams._StorageClass();
-    OUTLINED_FUNCTION_38_8();
-    swift_allocObject();
-    v7 = OUTLINED_FUNCTION_40_0();
-    v8 = sub_1B91F5818(v7);
-    OUTLINED_FUNCTION_135(v8);
-  }
-
-  OUTLINED_FUNCTION_9_3();
-  v9 = *(v6 + 104);
-  *(v6 + 96) = v2;
-  *(v6 + 104) = v0;
-
-  OUTLINED_FUNCTION_192_1();
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_LocationBuilderParams.postalCode.modify()
-{
-  v2 = OUTLINED_FUNCTION_126();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_2_44(v3);
-  OUTLINED_FUNCTION_62_0();
-  v4 = *(v0 + 104);
-  *(v1 + 48) = *(v0 + 96);
-  *(v1 + 56) = v4;
-
-  return OUTLINED_FUNCTION_514();
-}
-
-void sub_1B91EFE2C(uint64_t a1)
-{
-  OUTLINED_FUNCTION_58_0(a1);
-  if (v6)
-  {
-    OUTLINED_FUNCTION_191();
-    OUTLINED_FUNCTION_461();
-    Apple_Parsec_Siri_V2alpha_LocationBuilderParams.postalCode.setter();
-    v7 = v1[7];
-  }
-
-  else
-  {
-    v8 = OUTLINED_FUNCTION_163_1();
-    v9 = *(v5 + v2);
-    if ((v8 & 1) == 0)
-    {
-      OUTLINED_FUNCTION_18_9();
-      type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams._StorageClass();
-      OUTLINED_FUNCTION_38_8();
-      swift_allocObject();
-      v10 = OUTLINED_FUNCTION_40_0();
-      v11 = sub_1B91F5818(v10);
-      OUTLINED_FUNCTION_168(v11);
-    }
-
-    OUTLINED_FUNCTION_59_3();
-    v12 = *(v9 + 104);
-    *(v9 + 96) = v4;
-    *(v9 + 104) = v3;
-  }
-
-  free(v1);
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_LocationBuilderParams.stateCode.getter()
-{
-  OUTLINED_FUNCTION_12_26();
-  v2 = *(v0 + v1);
-  OUTLINED_FUNCTION_10_4();
-  v3 = *(v2 + 112);
-  v4 = *(v2 + 120);
-
-  return OUTLINED_FUNCTION_432();
-}
-
-void sub_1B91EFF08(uint64_t *a1)
-{
-  v1 = *a1;
-  v2 = a1[1];
-
-  Apple_Parsec_Siri_V2alpha_LocationBuilderParams.stateCode.setter();
-}
-
-void Apple_Parsec_Siri_V2alpha_LocationBuilderParams.stateCode.setter()
-{
-  OUTLINED_FUNCTION_193_0();
-  v4 = OUTLINED_FUNCTION_11_13();
-  v5 = OUTLINED_FUNCTION_74_13(v4);
-  v6 = *(v1 + v3);
-  if ((v5 & 1) == 0)
-  {
-    type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams._StorageClass();
-    OUTLINED_FUNCTION_38_8();
-    swift_allocObject();
-    v7 = OUTLINED_FUNCTION_40_0();
-    v8 = sub_1B91F5818(v7);
-    OUTLINED_FUNCTION_135(v8);
-  }
-
-  OUTLINED_FUNCTION_9_3();
-  v9 = *(v6 + 120);
-  *(v6 + 112) = v2;
-  *(v6 + 120) = v0;
-
-  OUTLINED_FUNCTION_192_1();
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_LocationBuilderParams.stateCode.modify()
-{
-  v2 = OUTLINED_FUNCTION_126();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_2_44(v3);
-  OUTLINED_FUNCTION_62_0();
-  v4 = *(v0 + 120);
-  *(v1 + 48) = *(v0 + 112);
-  *(v1 + 56) = v4;
-
-  return OUTLINED_FUNCTION_514();
-}
-
-void sub_1B91F0018(uint64_t a1)
-{
-  OUTLINED_FUNCTION_58_0(a1);
-  if (v6)
-  {
-    OUTLINED_FUNCTION_191();
-    OUTLINED_FUNCTION_461();
-    Apple_Parsec_Siri_V2alpha_LocationBuilderParams.stateCode.setter();
-    v7 = v1[7];
-  }
-
-  else
-  {
-    v8 = OUTLINED_FUNCTION_163_1();
-    v9 = *(v5 + v2);
-    if ((v8 & 1) == 0)
-    {
-      OUTLINED_FUNCTION_18_9();
-      type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams._StorageClass();
-      OUTLINED_FUNCTION_38_8();
-      swift_allocObject();
-      v10 = OUTLINED_FUNCTION_40_0();
-      v11 = sub_1B91F5818(v10);
-      OUTLINED_FUNCTION_168(v11);
-    }
-
-    OUTLINED_FUNCTION_59_3();
-    v12 = *(v9 + 120);
-    *(v9 + 112) = v4;
-    *(v9 + 120) = v3;
-  }
-
-  free(v1);
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_LocationBuilderParams.countryCode.getter()
-{
-  OUTLINED_FUNCTION_12_26();
-  v2 = *(v0 + v1);
-  OUTLINED_FUNCTION_10_4();
-  v3 = *(v2 + 128);
-  v4 = *(v2 + 136);
-
-  return OUTLINED_FUNCTION_432();
-}
-
-void sub_1B91F00F4(uint64_t *a1)
-{
-  v1 = *a1;
-  v2 = a1[1];
-
-  Apple_Parsec_Siri_V2alpha_LocationBuilderParams.countryCode.setter();
-}
-
-void Apple_Parsec_Siri_V2alpha_LocationBuilderParams.countryCode.setter()
-{
-  OUTLINED_FUNCTION_193_0();
-  v4 = OUTLINED_FUNCTION_11_13();
-  v5 = OUTLINED_FUNCTION_74_13(v4);
-  v6 = *(v1 + v3);
-  if ((v5 & 1) == 0)
-  {
-    type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams._StorageClass();
-    OUTLINED_FUNCTION_38_8();
-    swift_allocObject();
-    v7 = OUTLINED_FUNCTION_40_0();
-    v8 = sub_1B91F5818(v7);
-    OUTLINED_FUNCTION_135(v8);
-  }
-
-  OUTLINED_FUNCTION_9_3();
-  v9 = *(v6 + 136);
-  *(v6 + 128) = v2;
-  *(v6 + 136) = v0;
-
-  OUTLINED_FUNCTION_192_1();
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_LocationBuilderParams.countryCode.modify()
-{
-  v2 = OUTLINED_FUNCTION_126();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_2_44(v3);
-  OUTLINED_FUNCTION_62_0();
-  v4 = *(v0 + 136);
-  *(v1 + 48) = *(v0 + 128);
-  *(v1 + 56) = v4;
-
-  return OUTLINED_FUNCTION_514();
-}
-
-void sub_1B91F0204(uint64_t a1)
-{
-  OUTLINED_FUNCTION_58_0(a1);
-  if (v6)
-  {
-    OUTLINED_FUNCTION_191();
-    OUTLINED_FUNCTION_461();
-    Apple_Parsec_Siri_V2alpha_LocationBuilderParams.countryCode.setter();
-    v7 = v1[7];
-  }
-
-  else
-  {
-    v8 = OUTLINED_FUNCTION_163_1();
-    v9 = *(v5 + v2);
-    if ((v8 & 1) == 0)
-    {
-      OUTLINED_FUNCTION_18_9();
-      type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams._StorageClass();
-      OUTLINED_FUNCTION_38_8();
-      swift_allocObject();
-      v10 = OUTLINED_FUNCTION_40_0();
-      v11 = sub_1B91F5818(v10);
-      OUTLINED_FUNCTION_168(v11);
-    }
-
-    OUTLINED_FUNCTION_59_3();
-    v12 = *(v9 + 136);
-    *(v9 + 128) = v4;
-    *(v9 + 136) = v3;
-  }
-
-  free(v1);
-}
-
-float Apple_Parsec_Siri_V2alpha_LocationBuilderParams.latitude.getter()
-{
-  OUTLINED_FUNCTION_12_26();
-  v2 = *(v0 + v1);
-  OUTLINED_FUNCTION_10_4();
-  return *(v2 + 144);
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_LocationBuilderParams.latitude.setter()
-{
-  v4 = OUTLINED_FUNCTION_101_5();
-  v5 = *(v1 + v2);
-  if ((v4 & 1) == 0)
-  {
-    type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams._StorageClass();
-    OUTLINED_FUNCTION_38_8();
-    swift_allocObject();
-    v6 = OUTLINED_FUNCTION_40_0();
-    v5 = sub_1B91F5818(v6);
-    *(v0 + v2) = v5;
-  }
-
-  result = OUTLINED_FUNCTION_9_3();
-  *(v5 + 144) = v3;
-  return result;
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_LocationBuilderParams.latitude.modify()
-{
-  v2 = OUTLINED_FUNCTION_18_3();
-  v3 = __swift_coroFrameAllocStub(v2);
-  v4 = OUTLINED_FUNCTION_6_11(v3);
-  v5 = type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams(v4);
-  OUTLINED_FUNCTION_21_8(v5);
-  OUTLINED_FUNCTION_62_0();
-  *(v1 + 80) = *(v0 + 144);
-  return OUTLINED_FUNCTION_105_0();
-}
-
-void sub_1B91F03A4(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_86_1(a1);
-  v6 = OUTLINED_FUNCTION_134_1(v5);
-  v7 = *(v3 + v2);
-  if ((v6 & 1) == 0)
-  {
-    OUTLINED_FUNCTION_130_4();
-    OUTLINED_FUNCTION_38_8();
-    swift_allocObject();
-    v8 = OUTLINED_FUNCTION_40_0();
-    v9 = sub_1B91F5818(v8);
-    OUTLINED_FUNCTION_15(v9);
-  }
-
-  OUTLINED_FUNCTION_11_4();
-  *(v7 + 144) = v4;
-
-  free(v1);
-}
-
-float Apple_Parsec_Siri_V2alpha_LocationBuilderParams.longitude.getter()
-{
-  OUTLINED_FUNCTION_12_26();
-  v2 = *(v0 + v1);
-  OUTLINED_FUNCTION_10_4();
-  return *(v2 + 148);
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_LocationBuilderParams.longitude.setter()
-{
-  v4 = OUTLINED_FUNCTION_101_5();
-  v5 = *(v1 + v2);
-  if ((v4 & 1) == 0)
-  {
-    type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams._StorageClass();
-    OUTLINED_FUNCTION_38_8();
-    swift_allocObject();
-    v6 = OUTLINED_FUNCTION_40_0();
-    v5 = sub_1B91F5818(v6);
-    *(v0 + v2) = v5;
-  }
-
-  result = OUTLINED_FUNCTION_9_3();
-  *(v5 + 148) = v3;
-  return result;
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_LocationBuilderParams.longitude.modify()
-{
-  v2 = OUTLINED_FUNCTION_18_3();
-  v3 = __swift_coroFrameAllocStub(v2);
-  v4 = OUTLINED_FUNCTION_6_11(v3);
-  v5 = type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams(v4);
-  OUTLINED_FUNCTION_21_8(v5);
-  OUTLINED_FUNCTION_62_0();
-  *(v1 + 80) = *(v0 + 148);
-  return OUTLINED_FUNCTION_105_0();
-}
-
-void sub_1B91F0538(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_86_1(a1);
-  v6 = OUTLINED_FUNCTION_134_1(v5);
-  v7 = *(v3 + v2);
-  if ((v6 & 1) == 0)
-  {
-    OUTLINED_FUNCTION_130_4();
-    OUTLINED_FUNCTION_38_8();
-    swift_allocObject();
-    v8 = OUTLINED_FUNCTION_40_0();
-    v9 = sub_1B91F5818(v8);
-    OUTLINED_FUNCTION_15(v9);
-  }
-
-  OUTLINED_FUNCTION_11_4();
-  *(v7 + 148) = v4;
-
-  free(v1);
-}
-
-float Apple_Parsec_Siri_V2alpha_LocationBuilderParams.accuracy.getter()
-{
-  OUTLINED_FUNCTION_12_26();
-  v2 = *(v0 + v1);
-  OUTLINED_FUNCTION_10_4();
-  return *(v2 + 152);
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_LocationBuilderParams.accuracy.setter()
-{
-  v4 = OUTLINED_FUNCTION_101_5();
-  v5 = *(v1 + v2);
-  if ((v4 & 1) == 0)
-  {
-    type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams._StorageClass();
-    OUTLINED_FUNCTION_38_8();
-    swift_allocObject();
-    v6 = OUTLINED_FUNCTION_40_0();
-    v5 = sub_1B91F5818(v6);
-    *(v0 + v2) = v5;
-  }
-
-  result = OUTLINED_FUNCTION_9_3();
-  *(v5 + 152) = v3;
-  return result;
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_LocationBuilderParams.accuracy.modify()
-{
-  v2 = OUTLINED_FUNCTION_18_3();
-  v3 = __swift_coroFrameAllocStub(v2);
-  v4 = OUTLINED_FUNCTION_6_11(v3);
-  v5 = type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams(v4);
-  OUTLINED_FUNCTION_21_8(v5);
-  OUTLINED_FUNCTION_62_0();
-  *(v1 + 80) = *(v0 + 152);
-  return OUTLINED_FUNCTION_105_0();
-}
-
-void sub_1B91F06CC(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_86_1(a1);
-  v6 = OUTLINED_FUNCTION_134_1(v5);
-  v7 = *(v3 + v2);
-  if ((v6 & 1) == 0)
-  {
-    OUTLINED_FUNCTION_130_4();
-    OUTLINED_FUNCTION_38_8();
-    swift_allocObject();
-    v8 = OUTLINED_FUNCTION_40_0();
-    v9 = sub_1B91F5818(v8);
-    OUTLINED_FUNCTION_15(v9);
-  }
-
-  OUTLINED_FUNCTION_11_4();
-  *(v7 + 152) = v4;
-
-  free(v1);
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_LocationBuilderParams.regionType.getter()
-{
-  OUTLINED_FUNCTION_12_26();
-  v2 = *(v0 + v1);
-  OUTLINED_FUNCTION_10_4();
-  v3 = *(v2 + 160);
-  v4 = *(v2 + 168);
-
-  return OUTLINED_FUNCTION_432();
-}
-
-void sub_1B91F079C(uint64_t *a1)
-{
-  v1 = *a1;
-  v2 = a1[1];
-
-  Apple_Parsec_Siri_V2alpha_LocationBuilderParams.regionType.setter();
-}
-
-void Apple_Parsec_Siri_V2alpha_LocationBuilderParams.regionType.setter()
-{
-  OUTLINED_FUNCTION_193_0();
-  v4 = OUTLINED_FUNCTION_11_13();
-  v5 = OUTLINED_FUNCTION_74_13(v4);
-  v6 = *(v1 + v3);
-  if ((v5 & 1) == 0)
-  {
-    type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams._StorageClass();
-    OUTLINED_FUNCTION_38_8();
-    swift_allocObject();
-    v7 = OUTLINED_FUNCTION_40_0();
-    v8 = sub_1B91F5818(v7);
-    OUTLINED_FUNCTION_135(v8);
-  }
-
-  OUTLINED_FUNCTION_9_3();
-  v9 = *(v6 + 168);
-  *(v6 + 160) = v2;
-  *(v6 + 168) = v0;
-
-  OUTLINED_FUNCTION_192_1();
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_LocationBuilderParams.regionType.modify()
-{
-  v2 = OUTLINED_FUNCTION_126();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_2_44(v3);
-  OUTLINED_FUNCTION_62_0();
-  v4 = *(v0 + 168);
-  *(v1 + 48) = *(v0 + 160);
-  *(v1 + 56) = v4;
-
-  return OUTLINED_FUNCTION_514();
-}
-
-void sub_1B91F08AC(uint64_t a1)
-{
-  OUTLINED_FUNCTION_58_0(a1);
-  if (v6)
-  {
-    OUTLINED_FUNCTION_191();
-    OUTLINED_FUNCTION_461();
-    Apple_Parsec_Siri_V2alpha_LocationBuilderParams.regionType.setter();
-    v7 = v1[7];
-  }
-
-  else
-  {
-    v8 = OUTLINED_FUNCTION_163_1();
-    v9 = *(v5 + v2);
-    if ((v8 & 1) == 0)
-    {
-      OUTLINED_FUNCTION_18_9();
-      type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams._StorageClass();
-      OUTLINED_FUNCTION_38_8();
-      swift_allocObject();
-      v10 = OUTLINED_FUNCTION_40_0();
-      v11 = sub_1B91F5818(v10);
-      OUTLINED_FUNCTION_168(v11);
-    }
-
-    OUTLINED_FUNCTION_59_3();
-    v12 = *(v9 + 168);
-    *(v9 + 160) = v4;
-    *(v9 + 168) = v3;
-  }
-
-  free(v1);
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_LocationBuilderParams.timezoneID.getter()
-{
-  OUTLINED_FUNCTION_12_26();
-  v2 = *(v0 + v1);
-  OUTLINED_FUNCTION_10_4();
-  v3 = *(v2 + 176);
-  v4 = *(v2 + 184);
-
-  return OUTLINED_FUNCTION_432();
-}
-
-void sub_1B91F0988(uint64_t *a1)
-{
-  v1 = *a1;
-  v2 = a1[1];
-
-  Apple_Parsec_Siri_V2alpha_LocationBuilderParams.timezoneID.setter();
-}
-
-void Apple_Parsec_Siri_V2alpha_LocationBuilderParams.timezoneID.setter()
-{
-  OUTLINED_FUNCTION_193_0();
-  v4 = OUTLINED_FUNCTION_11_13();
-  v5 = OUTLINED_FUNCTION_74_13(v4);
-  v6 = *(v1 + v3);
-  if ((v5 & 1) == 0)
-  {
-    type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams._StorageClass();
-    OUTLINED_FUNCTION_38_8();
-    swift_allocObject();
-    v7 = OUTLINED_FUNCTION_40_0();
-    v8 = sub_1B91F5818(v7);
-    OUTLINED_FUNCTION_135(v8);
-  }
-
-  OUTLINED_FUNCTION_9_3();
-  v9 = *(v6 + 184);
-  *(v6 + 176) = v2;
-  *(v6 + 184) = v0;
-
-  OUTLINED_FUNCTION_192_1();
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_LocationBuilderParams.timezoneID.modify()
-{
-  v2 = OUTLINED_FUNCTION_126();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_2_44(v3);
-  OUTLINED_FUNCTION_62_0();
-  v4 = *(v0 + 184);
-  *(v1 + 48) = *(v0 + 176);
-  *(v1 + 56) = v4;
-
-  return OUTLINED_FUNCTION_514();
-}
-
-void sub_1B91F0A98(uint64_t a1)
-{
-  OUTLINED_FUNCTION_58_0(a1);
-  if (v6)
-  {
-    OUTLINED_FUNCTION_191();
-    OUTLINED_FUNCTION_461();
-    Apple_Parsec_Siri_V2alpha_LocationBuilderParams.timezoneID.setter();
-    v7 = v1[7];
-  }
-
-  else
-  {
-    v8 = OUTLINED_FUNCTION_163_1();
-    v9 = *(v5 + v2);
-    if ((v8 & 1) == 0)
-    {
-      OUTLINED_FUNCTION_18_9();
-      type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams._StorageClass();
-      OUTLINED_FUNCTION_38_8();
-      swift_allocObject();
-      v10 = OUTLINED_FUNCTION_40_0();
-      v11 = sub_1B91F5818(v10);
-      OUTLINED_FUNCTION_168(v11);
-    }
-
-    OUTLINED_FUNCTION_59_3();
-    v12 = *(v9 + 184);
-    *(v9 + 176) = v4;
-    *(v9 + 184) = v3;
-  }
-
-  free(v1);
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_LocationBuilderParams.entryPoints.getter()
-{
-  OUTLINED_FUNCTION_12_26();
-  v2 = *(v0 + v1);
-  OUTLINED_FUNCTION_10_4();
-  v3 = *(v2 + 192);
-}
-
-uint64_t sub_1B91F0B6C(uint64_t *a1)
-{
-  v1 = *a1;
-
-  return Apple_Parsec_Siri_V2alpha_LocationBuilderParams.entryPoints.setter();
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_LocationBuilderParams.entryPoints.setter()
-{
-  v3 = OUTLINED_FUNCTION_313();
-  v4 = type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams(v3);
-  v5 = OUTLINED_FUNCTION_182_0(v4);
-  v6 = *(v1 + v2);
-  if ((v5 & 1) == 0)
-  {
-    type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams._StorageClass();
-    OUTLINED_FUNCTION_38_8();
-    swift_allocObject();
-    v7 = OUTLINED_FUNCTION_40_0();
-    v8 = sub_1B91F5818(v7);
-    OUTLINED_FUNCTION_157_2(v8);
-  }
-
-  OUTLINED_FUNCTION_9_3();
-  v9 = *(v6 + 192);
-  *(v6 + 192) = v0;
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_LocationBuilderParams.entryPoints.modify()
-{
-  v2 = __swift_coroFrameAllocStub(0x48uLL);
-  *(OUTLINED_FUNCTION_99(v2) + 56) = v0;
-  OUTLINED_FUNCTION_12_26();
-  *(v1 + 64) = v3;
-  v4 = *(v0 + v3);
-  OUTLINED_FUNCTION_62_0();
-  *(v1 + 48) = *(v4 + 192);
-
-  return OUTLINED_FUNCTION_514();
-}
-
-void sub_1B91F0C84(uint64_t *a1, char a2)
-{
-  v2 = *a1;
-  v3 = *(*a1 + 48);
-  if (a2)
-  {
-    v4 = *(v2 + 56);
-    v5 = *(*a1 + 48);
-
-    Apple_Parsec_Siri_V2alpha_LocationBuilderParams.entryPoints.setter();
-    v6 = *(v2 + 48);
-  }
-
-  else
-  {
-    v7 = *(v2 + 64);
-    v8 = *(v2 + 56);
-    v9 = *(v8 + v7);
-    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v11 = *(v8 + v7);
-    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-    {
-      v12 = *(v2 + 64);
-      v13 = *(v2 + 56);
-      type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams._StorageClass();
-      OUTLINED_FUNCTION_38_8();
-      swift_allocObject();
-      v14 = OUTLINED_FUNCTION_40_0();
-      v15 = sub_1B91F5818(v14);
-      OUTLINED_FUNCTION_15(v15);
-    }
-
-    OUTLINED_FUNCTION_59_3();
-    v16 = *(v11 + 192);
-    *(v11 + 192) = v3;
+    sub_1B8D9207C(v4 + v3, &qword_1EBAC9580, &qword_1B96AA868);
+    OUTLINED_FUNCTION_26_20();
+    OUTLINED_FUNCTION_506_0();
+    OUTLINED_FUNCTION_30_2();
   }
 
   free(v2);
+  free(v0);
+  free(v1);
+  OUTLINED_FUNCTION_242();
+
+  free(v6);
 }
 
-uint64_t Apple_Parsec_Siri_V2alpha_LocationBuilderParams.subLocality.getter()
+uint64_t sub_1B9231850()
 {
-  OUTLINED_FUNCTION_12_26();
-  v2 = *(v0 + v1);
-  OUTLINED_FUNCTION_10_4();
-  v3 = *(v2 + 200);
-  v4 = *(v2 + 208);
-
-  return OUTLINED_FUNCTION_432();
+  OUTLINED_FUNCTION_250_1();
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(v3, v4);
+  OUTLINED_FUNCTION_183(v5);
+  OUTLINED_FUNCTION_176();
+  MEMORY[0x1EEE9AC00](v6);
+  OUTLINED_FUNCTION_137();
+  v1(0);
+  OUTLINED_FUNCTION_225_0();
+  sub_1B8D92024();
+  v7 = v0(0);
+  OUTLINED_FUNCTION_131_7(v2, v8, v7);
+  v9 = OUTLINED_FUNCTION_214_4();
+  sub_1B8D9207C(v9, v10, v11);
+  return OUTLINED_FUNCTION_681_0();
 }
 
-void sub_1B91F0D80(uint64_t *a1)
+uint64_t sub_1B923192C()
 {
-  v1 = *a1;
-  v2 = a1[1];
+  v1 = OUTLINED_FUNCTION_218_0();
+  v2(v1);
+  OUTLINED_FUNCTION_397();
+  sub_1B8D9207C(v3, v4, v5);
+  v0(0);
+  v6 = OUTLINED_FUNCTION_282_1();
 
-  Apple_Parsec_Siri_V2alpha_LocationBuilderParams.subLocality.setter();
+  return __swift_storeEnumTagSinglePayload(v6, v7, v8, v9);
 }
 
-void Apple_Parsec_Siri_V2alpha_LocationBuilderParams.subLocality.setter()
+uint64_t Apple_Parsec_Siri_V2alpha_AppEntity.uiView.getter()
 {
-  OUTLINED_FUNCTION_193_0();
-  v4 = OUTLINED_FUNCTION_11_13();
-  v5 = OUTLINED_FUNCTION_74_13(v4);
-  v6 = *(v1 + v3);
-  if ((v5 & 1) == 0)
+  v1 = OUTLINED_FUNCTION_236();
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
+  OUTLINED_FUNCTION_183(v3);
+  OUTLINED_FUNCTION_176();
+  MEMORY[0x1EEE9AC00](v4);
+  v5 = OUTLINED_FUNCTION_22_3();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntity(v5);
+  OUTLINED_FUNCTION_100_0();
+  v6 = type metadata accessor for Apple_Parsec_Siri_V2alpha_UIView(0);
+  OUTLINED_FUNCTION_29_14(v6);
+  if (v7)
   {
-    type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams._StorageClass();
-    OUTLINED_FUNCTION_38_8();
-    swift_allocObject();
-    v7 = OUTLINED_FUNCTION_40_0();
-    v8 = sub_1B91F5818(v7);
-    OUTLINED_FUNCTION_135(v8);
-  }
-
-  OUTLINED_FUNCTION_9_3();
-  v9 = *(v6 + 208);
-  *(v6 + 200) = v2;
-  *(v6 + 208) = v0;
-
-  OUTLINED_FUNCTION_192_1();
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_LocationBuilderParams.subLocality.modify()
-{
-  v2 = OUTLINED_FUNCTION_126();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_2_44(v3);
-  OUTLINED_FUNCTION_62_0();
-  v4 = *(v0 + 208);
-  *(v1 + 48) = *(v0 + 200);
-  *(v1 + 56) = v4;
-
-  return OUTLINED_FUNCTION_514();
-}
-
-void sub_1B91F0E90(uint64_t a1)
-{
-  OUTLINED_FUNCTION_58_0(a1);
-  if (v6)
-  {
-    OUTLINED_FUNCTION_191();
-    OUTLINED_FUNCTION_461();
-    Apple_Parsec_Siri_V2alpha_LocationBuilderParams.subLocality.setter();
-    v7 = v1[7];
+    v8 = type metadata accessor for Apple_Parsec_Siri_V2alpha_UIView.OneOf_View(0);
+    v9 = OUTLINED_FUNCTION_274_1(v8);
+    OUTLINED_FUNCTION_520_1(v9);
+    result = OUTLINED_FUNCTION_9_2();
+    if (!v7)
+    {
+      return sub_1B8D9207C(v0, &qword_1EBAC9578, &qword_1B96AA860);
+    }
   }
 
   else
   {
-    v8 = OUTLINED_FUNCTION_163_1();
-    v9 = *(v5 + v2);
-    if ((v8 & 1) == 0)
+    OUTLINED_FUNCTION_4_39();
+    OUTLINED_FUNCTION_182();
+    return sub_1B9239DA8();
+  }
+
+  return result;
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_AppEntity.uiView.setter()
+{
+  v1 = OUTLINED_FUNCTION_313();
+  v2 = type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntity(v1);
+  sub_1B8D9207C(v0 + *(v2 + 36), &qword_1EBAC9578, &qword_1B96AA860);
+  OUTLINED_FUNCTION_4_39();
+  OUTLINED_FUNCTION_122_0();
+  sub_1B9239DA8();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_UIView(0);
+  v3 = OUTLINED_FUNCTION_59();
+
+  return __swift_storeEnumTagSinglePayload(v3, v4, v5, v6);
+}
+
+void Apple_Parsec_Siri_V2alpha_AppEntity.uiView.modify()
+{
+  OUTLINED_FUNCTION_243();
+  v1 = OUTLINED_FUNCTION_212();
+  v2 = __swift_coroFrameAllocStub(v1);
+  OUTLINED_FUNCTION_86(v2);
+  v3 = OUTLINED_FUNCTION_686();
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(v3, v4);
+  OUTLINED_FUNCTION_183(v5);
+  v7 = __swift_coroFrameAllocStub(*(v6 + 64));
+  v8 = OUTLINED_FUNCTION_85(v7);
+  v9 = type metadata accessor for Apple_Parsec_Siri_V2alpha_UIView(v8);
+  OUTLINED_FUNCTION_53_6(v9);
+  OUTLINED_FUNCTION_59_1();
+  v11 = __swift_coroFrameAllocStub(*(v10 + 64));
+  v12 = OUTLINED_FUNCTION_202_0(v11);
+  v13 = __swift_coroFrameAllocStub(v12);
+  v14 = OUTLINED_FUNCTION_89_0(v13);
+  v15 = type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntity(v14);
+  OUTLINED_FUNCTION_64_0(*(v15 + 36));
+  OUTLINED_FUNCTION_16_2();
+  if (v16)
+  {
+    type metadata accessor for Apple_Parsec_Siri_V2alpha_UIView.OneOf_View(0);
+    OUTLINED_FUNCTION_533_0();
+    OUTLINED_FUNCTION_83();
+    v21 = __swift_storeEnumTagSinglePayload(v17, v18, v19, v20);
+    OUTLINED_FUNCTION_576_1(v21);
+    OUTLINED_FUNCTION_16_2();
+    if (!v16)
     {
-      OUTLINED_FUNCTION_18_9();
-      type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams._StorageClass();
-      OUTLINED_FUNCTION_38_8();
-      swift_allocObject();
-      v10 = OUTLINED_FUNCTION_40_0();
-      v11 = sub_1B91F5818(v10);
-      OUTLINED_FUNCTION_168(v11);
+      sub_1B8D9207C(v0, &qword_1EBAC9578, &qword_1B96AA860);
     }
-
-    OUTLINED_FUNCTION_59_3();
-    v12 = *(v9 + 208);
-    *(v9 + 200) = v4;
-    *(v9 + 208) = v3;
-  }
-
-  free(v1);
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_LocationBuilderParams.subAdministrativeArea.getter()
-{
-  OUTLINED_FUNCTION_12_26();
-  v2 = *(v0 + v1);
-  OUTLINED_FUNCTION_10_4();
-  v3 = *(v2 + 216);
-  v4 = *(v2 + 224);
-
-  return OUTLINED_FUNCTION_432();
-}
-
-void sub_1B91F0F6C(uint64_t *a1)
-{
-  v1 = *a1;
-  v2 = a1[1];
-
-  Apple_Parsec_Siri_V2alpha_LocationBuilderParams.subAdministrativeArea.setter();
-}
-
-void Apple_Parsec_Siri_V2alpha_LocationBuilderParams.subAdministrativeArea.setter()
-{
-  OUTLINED_FUNCTION_193_0();
-  v4 = OUTLINED_FUNCTION_11_13();
-  v5 = OUTLINED_FUNCTION_74_13(v4);
-  v6 = *(v1 + v3);
-  if ((v5 & 1) == 0)
-  {
-    type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams._StorageClass();
-    OUTLINED_FUNCTION_38_8();
-    swift_allocObject();
-    v7 = OUTLINED_FUNCTION_40_0();
-    v8 = sub_1B91F5818(v7);
-    OUTLINED_FUNCTION_135(v8);
-  }
-
-  OUTLINED_FUNCTION_9_3();
-  v9 = *(v6 + 224);
-  *(v6 + 216) = v2;
-  *(v6 + 224) = v0;
-
-  OUTLINED_FUNCTION_192_1();
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_LocationBuilderParams.subAdministrativeArea.modify()
-{
-  v2 = OUTLINED_FUNCTION_126();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_2_44(v3);
-  OUTLINED_FUNCTION_62_0();
-  v4 = *(v0 + 224);
-  *(v1 + 48) = *(v0 + 216);
-  *(v1 + 56) = v4;
-
-  return OUTLINED_FUNCTION_514();
-}
-
-void sub_1B91F107C(uint64_t a1)
-{
-  OUTLINED_FUNCTION_58_0(a1);
-  if (v6)
-  {
-    OUTLINED_FUNCTION_191();
-    OUTLINED_FUNCTION_461();
-    Apple_Parsec_Siri_V2alpha_LocationBuilderParams.subAdministrativeArea.setter();
-    v7 = v1[7];
   }
 
   else
   {
-    v8 = OUTLINED_FUNCTION_163_1();
-    v9 = *(v5 + v2);
-    if ((v8 & 1) == 0)
+    OUTLINED_FUNCTION_4_39();
+    OUTLINED_FUNCTION_461();
+    sub_1B9239DA8();
+  }
+
+  OUTLINED_FUNCTION_105_0();
+  OUTLINED_FUNCTION_242();
+}
+
+void sub_1B9231BEC()
+{
+  OUTLINED_FUNCTION_243();
+  OUTLINED_FUNCTION_67();
+  if (v5)
+  {
+    OUTLINED_FUNCTION_128();
+    sub_1B9239DFC();
+    sub_1B8D9207C(v4 + v3, &qword_1EBAC9578, &qword_1B96AA860);
+    OUTLINED_FUNCTION_4_39();
+    OUTLINED_FUNCTION_505_1();
+    OUTLINED_FUNCTION_30_2();
+    OUTLINED_FUNCTION_80_5();
+    sub_1B9239E50();
+  }
+
+  else
+  {
+    sub_1B8D9207C(v4 + v3, &qword_1EBAC9578, &qword_1B96AA860);
+    OUTLINED_FUNCTION_4_39();
+    OUTLINED_FUNCTION_506_0();
+    OUTLINED_FUNCTION_30_2();
+  }
+
+  free(v2);
+  free(v0);
+  free(v1);
+  OUTLINED_FUNCTION_242();
+
+  free(v6);
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_AppEntity.metadata.getter@<X0>(int a1@<W8>)
+{
+  v3 = OUTLINED_FUNCTION_236();
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(v3, v4);
+  OUTLINED_FUNCTION_183(v5);
+  OUTLINED_FUNCTION_176();
+  MEMORY[0x1EEE9AC00](v6);
+  v7 = OUTLINED_FUNCTION_22_3();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntity(v7);
+  OUTLINED_FUNCTION_100_0();
+  v8 = type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityMetadata(0);
+  OUTLINED_FUNCTION_29_14(v8);
+  if (v9)
+  {
+    _s10PegasusAPI18Amppb_AvailabilityVACycfC_0();
+    if (qword_1EBAB7BB0 != -1)
     {
-      OUTLINED_FUNCTION_18_9();
-      type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams._StorageClass();
-      OUTLINED_FUNCTION_38_8();
-      swift_allocObject();
-      v10 = OUTLINED_FUNCTION_40_0();
-      v11 = sub_1B91F5818(v10);
-      OUTLINED_FUNCTION_168(v11);
+      OUTLINED_FUNCTION_446_0(&qword_1EBAB7BB0);
     }
 
-    OUTLINED_FUNCTION_59_3();
-    v12 = *(v9 + 224);
-    *(v9 + 216) = v4;
-    *(v9 + 224) = v3;
+    result = OUTLINED_FUNCTION_59_0();
+    if (a1 != 1)
+    {
+      return sub_1B8D9207C(v1, &qword_1EBAC9588, &qword_1B96AA870);
+    }
   }
 
-  free(v1);
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_LocationBuilderParams.muid.getter()
-{
-  OUTLINED_FUNCTION_12_26();
-  v2 = *(v0 + v1);
-  OUTLINED_FUNCTION_10_4();
-  return *(v2 + 232);
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_LocationBuilderParams.muid.setter()
-{
-  v3 = OUTLINED_FUNCTION_313();
-  v4 = type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams(v3);
-  v5 = OUTLINED_FUNCTION_182_0(v4);
-  v6 = *(v1 + v2);
-  if ((v5 & 1) == 0)
+  else
   {
-    type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams._StorageClass();
-    OUTLINED_FUNCTION_38_8();
-    swift_allocObject();
-    v7 = OUTLINED_FUNCTION_40_0();
-    v8 = sub_1B91F5818(v7);
-    OUTLINED_FUNCTION_157_2(v8);
+    OUTLINED_FUNCTION_25_16();
+    OUTLINED_FUNCTION_182();
+    return sub_1B9239DA8();
   }
 
-  result = OUTLINED_FUNCTION_9_3();
-  *(v6 + 232) = v0;
   return result;
 }
 
-uint64_t Apple_Parsec_Siri_V2alpha_LocationBuilderParams.muid.modify()
+uint64_t Apple_Parsec_Siri_V2alpha_AppEntity.metadata.setter()
 {
-  v2 = __swift_coroFrameAllocStub(0x60uLL);
-  *(OUTLINED_FUNCTION_99(v2) + 80) = v0;
-  OUTLINED_FUNCTION_12_26();
-  *(v1 + 88) = v3;
-  v4 = *(v0 + v3);
-  OUTLINED_FUNCTION_62_0();
-  *(v1 + 72) = *(v4 + 232);
-  return OUTLINED_FUNCTION_105_0();
+  v1 = OUTLINED_FUNCTION_313();
+  v2 = type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntity(v1);
+  sub_1B8D9207C(v0 + *(v2 + 40), &qword_1EBAC9588, &qword_1B96AA870);
+  OUTLINED_FUNCTION_25_16();
+  OUTLINED_FUNCTION_122_0();
+  sub_1B9239DA8();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityMetadata(0);
+  v3 = OUTLINED_FUNCTION_59();
+
+  return __swift_storeEnumTagSinglePayload(v3, v4, v5, v6);
 }
 
-void sub_1B91F1228(uint64_t *a1)
+void Apple_Parsec_Siri_V2alpha_AppEntity.metadata.modify()
 {
-  OUTLINED_FUNCTION_86_1(a1);
-  v3 = *(v2 + 72);
-  v4 = *(v1 + 88);
-  v5 = *(v1 + 80);
-  v6 = *(v5 + v4);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v8 = *(v5 + v4);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v9 = *(v1 + 88);
-    v10 = *(v1 + 80);
-    type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams._StorageClass();
-    OUTLINED_FUNCTION_38_8();
-    swift_allocObject();
-    v11 = OUTLINED_FUNCTION_40_0();
-    v12 = sub_1B91F5818(v11);
-    OUTLINED_FUNCTION_168(v12);
-  }
-
-  OUTLINED_FUNCTION_11_4();
-  *(v8 + 232) = v3;
-
-  free(v1);
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_LocationBuilderParams.resultProviderID.getter()
-{
-  OUTLINED_FUNCTION_12_26();
-  v2 = *(v0 + v1);
-  OUTLINED_FUNCTION_10_4();
-  return *(v2 + 240);
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_LocationBuilderParams.resultProviderID.setter(int a1)
-{
-  v4 = type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams(0);
-  v5 = OUTLINED_FUNCTION_182_0(v4);
-  v6 = *(v1 + v2);
-  if ((v5 & 1) == 0)
-  {
-    type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams._StorageClass();
-    OUTLINED_FUNCTION_38_8();
-    swift_allocObject();
-    v7 = OUTLINED_FUNCTION_40_0();
-    v8 = sub_1B91F5818(v7);
-    OUTLINED_FUNCTION_157_2(v8);
-  }
-
-  result = OUTLINED_FUNCTION_9_3();
-  *(v6 + 240) = a1;
-  return result;
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_LocationBuilderParams.resultProviderID.modify()
-{
-  v2 = OUTLINED_FUNCTION_18_3();
+  OUTLINED_FUNCTION_243();
+  v2 = OUTLINED_FUNCTION_212();
   v3 = __swift_coroFrameAllocStub(v2);
-  v4 = OUTLINED_FUNCTION_6_11(v3);
-  v5 = type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams(v4);
-  OUTLINED_FUNCTION_21_8(v5);
-  OUTLINED_FUNCTION_62_0();
-  *(v1 + 80) = *(v0 + 240);
-  return OUTLINED_FUNCTION_105_0();
-}
-
-void sub_1B91F13D4(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_86_1(a1);
-  v3 = *(v2 + 80);
-  v4 = *(v1 + 84);
-  v5 = *(v1 + 72);
-  v6 = *(v5 + v4);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v8 = *(v5 + v4);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  OUTLINED_FUNCTION_86(v3);
+  v4 = OUTLINED_FUNCTION_686();
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(v4, v5);
+  OUTLINED_FUNCTION_183(v6);
+  v8 = __swift_coroFrameAllocStub(*(v7 + 64));
+  v9 = OUTLINED_FUNCTION_26_1(v8);
+  v10 = type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityMetadata(v9);
+  *(v1 + 16) = v10;
+  OUTLINED_FUNCTION_59_1();
+  v12 = __swift_coroFrameAllocStub(*(v11 + 64));
+  v13 = OUTLINED_FUNCTION_202_0(v12);
+  v14 = __swift_coroFrameAllocStub(v13);
+  v15 = OUTLINED_FUNCTION_89_0(v14);
+  v16 = type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntity(v15);
+  OUTLINED_FUNCTION_116_0(*(v16 + 40));
+  OUTLINED_FUNCTION_17_2();
+  if (v17)
   {
-    v9 = *(v1 + 84);
-    v10 = *(v1 + 72);
-    type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams._StorageClass();
-    OUTLINED_FUNCTION_38_8();
-    swift_allocObject();
-    v11 = OUTLINED_FUNCTION_40_0();
-    v12 = sub_1B91F5818(v11);
-    OUTLINED_FUNCTION_168(v12);
+    _s10PegasusAPI18Amppb_AvailabilityVACycfC_0();
+    if (qword_1EBAB7BB0 != -1)
+    {
+      OUTLINED_FUNCTION_446_0(&qword_1EBAB7BB0);
+    }
+
+    OUTLINED_FUNCTION_57_2();
+    if (v10 != 1)
+    {
+      sub_1B8D9207C(v0, &qword_1EBAC9588, &qword_1B96AA870);
+    }
   }
 
-  OUTLINED_FUNCTION_11_4();
-  *(v8 + 240) = v3;
+  else
+  {
+    OUTLINED_FUNCTION_25_16();
+    OUTLINED_FUNCTION_246();
+    sub_1B9239DA8();
+  }
 
-  free(v1);
+  OUTLINED_FUNCTION_242();
 }
 
-uint64_t Apple_Parsec_Siri_V2alpha_LocationBuilderParams.Coordinate.unknownFields.modify()
+void sub_1B9232018()
+{
+  OUTLINED_FUNCTION_243();
+  OUTLINED_FUNCTION_67();
+  if (v5)
+  {
+    OUTLINED_FUNCTION_128();
+    sub_1B9239DFC();
+    sub_1B8D9207C(v4 + v3, &qword_1EBAC9588, &qword_1B96AA870);
+    OUTLINED_FUNCTION_25_16();
+    OUTLINED_FUNCTION_505_1();
+    OUTLINED_FUNCTION_30_2();
+    OUTLINED_FUNCTION_220_4();
+    sub_1B9239E50();
+  }
+
+  else
+  {
+    sub_1B8D9207C(v4 + v3, &qword_1EBAC9588, &qword_1B96AA870);
+    OUTLINED_FUNCTION_25_16();
+    OUTLINED_FUNCTION_506_0();
+    OUTLINED_FUNCTION_30_2();
+  }
+
+  free(v2);
+  free(v0);
+  free(v1);
+  OUTLINED_FUNCTION_242();
+
+  free(v6);
+}
+
+uint64_t sub_1B9232128()
+{
+  OUTLINED_FUNCTION_250_1();
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(v3, v4);
+  OUTLINED_FUNCTION_183(v5);
+  OUTLINED_FUNCTION_176();
+  MEMORY[0x1EEE9AC00](v6);
+  OUTLINED_FUNCTION_137();
+  v1(0);
+  OUTLINED_FUNCTION_225_0();
+  sub_1B8D92024();
+  v7 = v0(0);
+  OUTLINED_FUNCTION_131_7(v2, v8, v7);
+  v9 = OUTLINED_FUNCTION_214_4();
+  sub_1B8D9207C(v9, v10, v11);
+  return OUTLINED_FUNCTION_681_0();
+}
+
+uint64_t sub_1B9232204()
+{
+  v1 = OUTLINED_FUNCTION_218_0();
+  v2(v1);
+  OUTLINED_FUNCTION_397();
+  sub_1B8D9207C(v3, v4, v5);
+  v0(0);
+  v6 = OUTLINED_FUNCTION_282_1();
+
+  return __swift_storeEnumTagSinglePayload(v6, v7, v8, v9);
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_AppEntity.referencedEntityOffsets.setter(uint64_t a1)
+{
+
+  *(v1 + 16) = a1;
+  return result;
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_AppEntity.unknownFields.modify()
 {
   v0 = OUTLINED_FUNCTION_313();
-  v1 = *(type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams.Coordinate(v0) + 24);
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntity(v0);
   return OUTLINED_FUNCTION_25();
 }
 
-uint64_t Apple_Parsec_Siri_V2alpha_LocationBuilderParams.Coordinate.init()@<X0>(void *a1@<X8>)
+uint64_t Apple_Parsec_Siri_V2alpha_AppEntity.init()@<X0>(uint64_t a1@<X8>)
 {
-  *a1 = 0;
-  v1 = type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams.Coordinate(0);
-  return OUTLINED_FUNCTION_279(v1);
-}
-
-uint64_t sub_1B91F15A0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void), uint64_t a6, uint64_t (*a7)(uint64_t))
-{
-  v9 = a5(0);
-  OUTLINED_FUNCTION_183(v9);
-  v11 = *(v10 + 64);
-  OUTLINED_FUNCTION_176();
-  MEMORY[0x1EEE9AC00](v12);
-  OUTLINED_FUNCTION_79();
-  sub_1B91FA444();
-  return a7(v7);
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_MapItemBuilderParams.init()@<X0>(uint64_t a1@<X8>)
-{
-  *a1 = 0;
-  *(a1 + 8) = 0xE000000000000000;
-  *(a1 + 16) = 0;
-  *(a1 + 24) = 1;
-  *(a1 + 32) = 0;
-  *(a1 + 40) = 0xE000000000000000;
-  *(a1 + 48) = xmmword_1B9652FE0;
-  *(a1 + 64) = 0;
-  *(a1 + 72) = 1;
-  v2 = type metadata accessor for Apple_Parsec_Siri_V2alpha_MapItemBuilderParams(0);
-  v3 = a1 + *(v2 + 36);
-  _s10PegasusAPI18Amppb_AvailabilityVACycfC_0();
-  v4 = *(v2 + 40);
-  OUTLINED_FUNCTION_39_11();
+  OUTLINED_FUNCTION_197_1(a1);
+  v1 = OUTLINED_FUNCTION_582_1(MEMORY[0x1E69E7CC0]);
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntity(v1);
+  OUTLINED_FUNCTION_279();
+  sub_1B964C1C0();
   OUTLINED_FUNCTION_83();
-
-  return __swift_storeEnumTagSinglePayload(v5, v6, v7, v8);
-}
-
-void Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParams.itemSource.modify()
-{
-  OUTLINED_FUNCTION_284();
-  v3 = __swift_coroFrameAllocStub(0x38uLL);
-  OUTLINED_FUNCTION_66_0(v3);
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAC8770, &qword_1B96A62A0);
-  OUTLINED_FUNCTION_183(v4);
-  v6 = __swift_coroFrameAllocStub(*(v5 + 64));
-  v7 = OUTLINED_FUNCTION_71(v6);
-  v8 = type metadata accessor for Apple_Parsec_Siri_V2alpha_MapItemBuilderParams(v7);
-  OUTLINED_FUNCTION_59_1(v8);
-  v10 = *(v9 + 64);
-  *(v2 + 40) = __swift_coroFrameAllocStub(v10);
-  *(v2 + 48) = __swift_coroFrameAllocStub(v10);
-  OUTLINED_FUNCTION_21_16();
-  v12 = *(v0 + v11);
-  OUTLINED_FUNCTION_521();
-  OUTLINED_FUNCTION_82();
-  OUTLINED_FUNCTION_17_2();
-  if (v13)
-  {
-    OUTLINED_FUNCTION_126_2();
-    OUTLINED_FUNCTION_132_6(xmmword_1B9652FE0);
-    v14 = *(v8 + 40);
-    OUTLINED_FUNCTION_39_11();
-    OUTLINED_FUNCTION_83();
-    __swift_storeEnumTagSinglePayload(v15, v16, v17, v18);
-    OUTLINED_FUNCTION_17_2();
-    if (!v13)
-    {
-      sub_1B8D9207C(v1, &qword_1EBAC8770, &qword_1B96A62A0);
-    }
-  }
-
-  else
-  {
-    OUTLINED_FUNCTION_81_8();
-  }
-
-  OUTLINED_FUNCTION_105_0();
-  OUTLINED_FUNCTION_283();
-}
-
-uint64_t sub_1B91F18A0@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
-{
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAC8770, &qword_1B96A62A0);
-  OUTLINED_FUNCTION_183(v6);
-  v8 = *(v7 + 64);
-  OUTLINED_FUNCTION_176();
-  MEMORY[0x1EEE9AC00](v9);
-  v10 = OUTLINED_FUNCTION_22_3();
-  v11 = *(v2 + *(type metadata accessor for Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParams(v10) + 20));
-  v12 = *a1;
-  OUTLINED_FUNCTION_521();
-  sub_1B8D92024();
-  type metadata accessor for Apple_Parsec_Siri_V2alpha_MapItemBuilderParams(0);
-  OUTLINED_FUNCTION_57(v3);
-  if (v13)
-  {
-    Apple_Parsec_Siri_V2alpha_MapItemBuilderParams.init()(a2);
-    result = OUTLINED_FUNCTION_57(v3);
-    if (!v13)
-    {
-      return sub_1B8D9207C(v3, &qword_1EBAC8770, &qword_1B96A62A0);
-    }
-  }
-
-  else
-  {
-    OUTLINED_FUNCTION_182();
-    return sub_1B91FA3D0();
-  }
-
-  return result;
-}
-
-uint64_t sub_1B91F19C0(uint64_t a1, uint64_t *a2)
-{
-  v4 = v2;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAC8770, &qword_1B96A62A0);
-  OUTLINED_FUNCTION_183(v5);
-  v7 = *(v6 + 64);
-  OUTLINED_FUNCTION_176();
-  MEMORY[0x1EEE9AC00](v8);
-  v9 = *(type metadata accessor for Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParams(0) + 20);
-  v10 = *(v2 + v9);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v12 = *(v2 + v9);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    OUTLINED_FUNCTION_33_13();
-    v13 = OUTLINED_FUNCTION_40_0();
-    *(v4 + v9) = sub_1B91F7FF8(v13);
-  }
-
-  OUTLINED_FUNCTION_461();
-  sub_1B91FA3D0();
-  type metadata accessor for Apple_Parsec_Siri_V2alpha_MapItemBuilderParams(0);
-  OUTLINED_FUNCTION_80();
-  __swift_storeEnumTagSinglePayload(v14, v15, v16, v17);
-  v18 = *a2;
-  OUTLINED_FUNCTION_131();
-  swift_beginAccess();
-  sub_1B8DAA170();
-  return swift_endAccess();
-}
-
-void Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParams.itemDestination.modify()
-{
-  OUTLINED_FUNCTION_284();
-  v3 = __swift_coroFrameAllocStub(0x38uLL);
-  OUTLINED_FUNCTION_66_0(v3);
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAC8770, &qword_1B96A62A0);
-  OUTLINED_FUNCTION_183(v4);
-  v6 = __swift_coroFrameAllocStub(*(v5 + 64));
-  v7 = OUTLINED_FUNCTION_71(v6);
-  v8 = type metadata accessor for Apple_Parsec_Siri_V2alpha_MapItemBuilderParams(v7);
-  OUTLINED_FUNCTION_59_1(v8);
-  v10 = *(v9 + 64);
-  *(v2 + 40) = __swift_coroFrameAllocStub(v10);
-  *(v2 + 48) = __swift_coroFrameAllocStub(v10);
-  OUTLINED_FUNCTION_21_16();
-  v12 = *(v0 + v11);
-  OUTLINED_FUNCTION_521();
-  OUTLINED_FUNCTION_82();
-  OUTLINED_FUNCTION_17_2();
-  if (v13)
-  {
-    OUTLINED_FUNCTION_126_2();
-    OUTLINED_FUNCTION_132_6(xmmword_1B9652FE0);
-    v14 = *(v8 + 40);
-    OUTLINED_FUNCTION_39_11();
-    OUTLINED_FUNCTION_83();
-    __swift_storeEnumTagSinglePayload(v15, v16, v17, v18);
-    OUTLINED_FUNCTION_17_2();
-    if (!v13)
-    {
-      sub_1B8D9207C(v1, &qword_1EBAC8770, &qword_1B96A62A0);
-    }
-  }
-
-  else
-  {
-    OUTLINED_FUNCTION_81_8();
-  }
-
-  OUTLINED_FUNCTION_105_0();
-  OUTLINED_FUNCTION_283();
-}
-
-void sub_1B91F1C50()
-{
-  OUTLINED_FUNCTION_243();
-  v2 = v1;
-  v3 = *(*v0 + 40);
-  v4 = *(*v0 + 48);
-  v5 = *(*v0 + 24);
-  v6 = *(*v0 + 32);
-  if (v7)
-  {
-    OUTLINED_FUNCTION_186();
-    sub_1B91FA444();
-    v2(v3);
-    sub_1B91FA498();
-  }
-
-  else
-  {
-    v1(*(*v0 + 48));
-  }
-
-  free(v4);
-  free(v3);
-  free(v6);
-  OUTLINED_FUNCTION_242();
-
-  free(v8);
-}
-
-BOOL sub_1B91F1D24(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t (*a4)(void))
-{
-  OUTLINED_FUNCTION_16();
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(v10, v11);
-  OUTLINED_FUNCTION_183(v12);
-  v14 = *(v13 + 64);
-  OUTLINED_FUNCTION_176();
-  MEMORY[0x1EEE9AC00](v15);
-  OUTLINED_FUNCTION_258();
-  OUTLINED_FUNCTION_21_16();
-  v17 = *(v5 + v16);
-  v18 = *a3;
-  OUTLINED_FUNCTION_521();
-  sub_1B8D92024();
-  v19 = a4(0);
-  v20 = __swift_getEnumTagSinglePayload(v7, 1, v19) != 1;
-  sub_1B8D9207C(v7, v6, v4);
-  return v20;
-}
-
-void sub_1B91F1E28()
-{
-  OUTLINED_FUNCTION_243();
-  v2 = v1;
-  v4 = v3;
-  OUTLINED_FUNCTION_16();
-  v5 = v0;
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(v6, v7);
-  OUTLINED_FUNCTION_183(v8);
-  v10 = *(v9 + 64);
-  OUTLINED_FUNCTION_176();
-  MEMORY[0x1EEE9AC00](v11);
-  OUTLINED_FUNCTION_79();
-  v12 = *(type metadata accessor for Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParams(0) + 20);
-  v13 = *(v0 + v12);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v15 = *(v0 + v12);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    OUTLINED_FUNCTION_33_13();
-    v16 = OUTLINED_FUNCTION_40_0();
-    *(v5 + v12) = sub_1B91F7FF8(v16);
-  }
-
-  v4(0);
+  __swift_storeEnumTagSinglePayload(v2, v3, v4, v5);
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriDialog(0);
   OUTLINED_FUNCTION_83();
-  __swift_storeEnumTagSinglePayload(v17, v18, v19, v20);
-  v21 = *v2;
-  OUTLINED_FUNCTION_131();
-  swift_beginAccess();
-  sub_1B8DAA170();
-  swift_endAccess();
-  OUTLINED_FUNCTION_242();
+  __swift_storeEnumTagSinglePayload(v6, v7, v8, v9);
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_UIView(0);
+  OUTLINED_FUNCTION_83();
+  __swift_storeEnumTagSinglePayload(v10, v11, v12, v13);
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityMetadata(0);
+  v14 = OUTLINED_FUNCTION_40_3();
+
+  return __swift_storeEnumTagSinglePayload(v14, v15, v16, v17);
 }
 
-uint64_t Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParams.language.getter()
+uint64_t Apple_Parsec_Siri_V2alpha_SiriDialog.responseGenAttributes.getter()
 {
-  OUTLINED_FUNCTION_21_16();
-  v2 = (*(v0 + v1) + OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__language);
-  OUTLINED_FUNCTION_6_2();
-  v4 = *v2;
-  v3 = v2[1];
-
-  return OUTLINED_FUNCTION_288();
-}
-
-void sub_1B91F1F60(uint64_t *a1)
-{
-  v1 = *a1;
-  v2 = a1[1];
-
-  Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParams.language.setter();
-}
-
-void Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParams.language.setter()
-{
-  OUTLINED_FUNCTION_193_0();
-  v4 = OUTLINED_FUNCTION_11_13();
-  v5 = type metadata accessor for Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParams(v4);
-  v6 = OUTLINED_FUNCTION_47(v5);
-  v7 = *(v1 + v3);
-  if ((v6 & 1) == 0)
-  {
-    OUTLINED_FUNCTION_33_13();
-    v8 = OUTLINED_FUNCTION_40_0();
-    v9 = sub_1B91F7FF8(v8);
-    OUTLINED_FUNCTION_135(v9);
-  }
-
-  v10 = (v7 + OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__language);
-  OUTLINED_FUNCTION_18();
-  v11 = v10[1];
-  *v10 = v2;
-  v10[1] = v0;
-
-  OUTLINED_FUNCTION_192_1();
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParams.language.modify()
-{
-  v2 = OUTLINED_FUNCTION_126();
-  v3 = __swift_coroFrameAllocStub(v2);
-  *(OUTLINED_FUNCTION_99(v3) + 64) = v0;
-  OUTLINED_FUNCTION_21_16();
-  *(v1 + 72) = v4;
-  v5 = (*(v0 + v4) + OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__language);
-  OUTLINED_FUNCTION_62_0();
-  v6 = v5[1];
-  *(v1 + 48) = *v5;
-  *(v1 + 56) = v6;
-
-  return OUTLINED_FUNCTION_514();
-}
-
-void sub_1B91F2094(uint64_t a1)
-{
-  OUTLINED_FUNCTION_58_0(a1);
+  OUTLINED_FUNCTION_180_3();
+  v1 = OUTLINED_FUNCTION_177_1();
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
+  OUTLINED_FUNCTION_183(v3);
+  OUTLINED_FUNCTION_176();
+  MEMORY[0x1EEE9AC00](v4);
+  OUTLINED_FUNCTION_27_9();
+  v5 = type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriDialog.OneOf_Dialog(0);
+  OUTLINED_FUNCTION_15_15(v5);
   if (v6)
   {
-    OUTLINED_FUNCTION_191();
-    OUTLINED_FUNCTION_461();
-    Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParams.language.setter();
-    v7 = v1[7];
+    sub_1B8D9207C(v0, &qword_1EBAC9590, &qword_1B96AA878);
+LABEL_6:
+    v8 = OUTLINED_FUNCTION_208_2(MEMORY[0x1E69E7CC0]);
+    type metadata accessor for Apple_Parsec_Siri_V2alpha_ResponseGenAttributes(v8);
+    OUTLINED_FUNCTION_102_7();
+    return _s10PegasusAPI18Amppb_AvailabilityVACycfC_0();
+  }
+
+  OUTLINED_FUNCTION_543();
+  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+  if (EnumCaseMultiPayload == 1)
+  {
+    sub_1B9239E50();
+    goto LABEL_6;
+  }
+
+  OUTLINED_FUNCTION_53_13();
+  OUTLINED_FUNCTION_288();
+  return sub_1B9239DA8();
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_SiriDialog.responseGenAttributes.setter()
+{
+  sub_1B8D9207C(v0, &qword_1EBAC9590, &qword_1B96AA878);
+  OUTLINED_FUNCTION_53_13();
+  OUTLINED_FUNCTION_432();
+  sub_1B9239DA8();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriDialog.OneOf_Dialog(0);
+  OUTLINED_FUNCTION_199_3();
+  swift_storeEnumTagMultiPayload();
+  v1 = OUTLINED_FUNCTION_125_2();
+
+  return __swift_storeEnumTagSinglePayload(v1, v2, v3, v4);
+}
+
+void Apple_Parsec_Siri_V2alpha_SiriDialog.responseGenAttributes.modify()
+{
+  OUTLINED_FUNCTION_243();
+  v1 = OUTLINED_FUNCTION_25_4();
+  v2 = __swift_coroFrameAllocStub(v1);
+  OUTLINED_FUNCTION_86(v2);
+  v3 = OUTLINED_FUNCTION_686();
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(v3, v4);
+  OUTLINED_FUNCTION_183(v5);
+  v7 = __swift_coroFrameAllocStub(*(v6 + 64));
+  v8 = OUTLINED_FUNCTION_85(v7);
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_ResponseGenAttributes(v8);
+  OUTLINED_FUNCTION_126_1();
+  v10 = *(v9 + 64);
+  v11 = __swift_coroFrameAllocStub(v10);
+  v12 = OUTLINED_FUNCTION_175_2(v11);
+  v13 = __swift_coroFrameAllocStub(v12);
+  OUTLINED_FUNCTION_43_7(v13);
+  v14 = type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriDialog.OneOf_Dialog(0);
+  OUTLINED_FUNCTION_8_22(v14);
+  if (v15)
+  {
+    sub_1B8D9207C(v0, &qword_1EBAC9590, &qword_1B96AA878);
   }
 
   else
   {
-    v8 = OUTLINED_FUNCTION_163_1();
-    v9 = *(v5 + v2);
-    if ((v8 & 1) == 0)
+    OUTLINED_FUNCTION_177_1();
+    EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+    if (EnumCaseMultiPayload != 1)
     {
-      v10 = OUTLINED_FUNCTION_18_9();
-      v11 = type metadata accessor for Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParams._StorageClass(v10);
-      v12 = *(v11 + 48);
-      v13 = *(v11 + 52);
-      swift_allocObject();
-      v14 = OUTLINED_FUNCTION_40_0();
-      v15 = sub_1B91F7FF8(v14);
-      OUTLINED_FUNCTION_168(v15);
+      OUTLINED_FUNCTION_53_13();
+      OUTLINED_FUNCTION_128();
+      sub_1B9239DA8();
+      goto LABEL_8;
     }
 
-    v16 = (v9 + OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__language);
-    OUTLINED_FUNCTION_18();
-    v17 = v16[1];
-    *v16 = v4;
-    v16[1] = v3;
+    sub_1B9239E50();
   }
 
+  *v10 = MEMORY[0x1E69E7CC0];
+  OUTLINED_FUNCTION_101_4();
+  _s10PegasusAPI18Amppb_AvailabilityVACycfC_0();
+LABEL_8:
+  OUTLINED_FUNCTION_242();
+}
+
+void sub_1B9232704()
+{
+  OUTLINED_FUNCTION_128_3();
+  if (v5)
+  {
+    OUTLINED_FUNCTION_461();
+    sub_1B9239DFC();
+    sub_1B8D9207C(v4, &qword_1EBAC9590, &qword_1B96AA878);
+    OUTLINED_FUNCTION_53_13();
+    OUTLINED_FUNCTION_439_0();
+    sub_1B9239DA8();
+    OUTLINED_FUNCTION_257();
+    swift_storeEnumTagMultiPayload();
+    OUTLINED_FUNCTION_255_1();
+    OUTLINED_FUNCTION_222();
+    sub_1B9239E50();
+  }
+
+  else
+  {
+    sub_1B8D9207C(v4, &qword_1EBAC9590, &qword_1B96AA878);
+    OUTLINED_FUNCTION_53_13();
+    OUTLINED_FUNCTION_1_0();
+    sub_1B9239DA8();
+    OUTLINED_FUNCTION_257();
+    swift_storeEnumTagMultiPayload();
+    OUTLINED_FUNCTION_255_1();
+  }
+
+  free(v3);
+  free(v2);
   free(v1);
+
+  free(v0);
 }
 
-uint64_t Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParams.showDirections.modify()
+uint64_t Apple_Parsec_Siri_V2alpha_SiriDialog.renderedDialog.getter()
 {
-  v0 = OUTLINED_FUNCTION_18_3();
-  v1 = __swift_coroFrameAllocStub(v0);
-  OUTLINED_FUNCTION_4_36(v1);
-  OUTLINED_FUNCTION_68_0();
-  OUTLINED_FUNCTION_51();
-  return OUTLINED_FUNCTION_105_0();
-}
-
-uint64_t sub_1B91F21CC(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_21_16();
-  v4 = *(v1 + v3);
-  v5 = *a1;
-  OUTLINED_FUNCTION_10_4();
-  return *(v4 + v5);
-}
-
-void sub_1B91F2218()
-{
-  OUTLINED_FUNCTION_193_0();
-  v3 = v2;
-  v5 = v4;
-  v6 = type metadata accessor for Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParams(0);
-  v7 = OUTLINED_FUNCTION_47(v6);
-  v8 = *(v0 + v1);
-  if ((v7 & 1) == 0)
-  {
-    OUTLINED_FUNCTION_33_13();
-    v9 = OUTLINED_FUNCTION_40_0();
-    v10 = sub_1B91F7FF8(v9);
-    OUTLINED_FUNCTION_135(v10);
-  }
-
-  v11 = *v3;
-  OUTLINED_FUNCTION_9_3();
-  *(v8 + v11) = v5 & 1;
-  OUTLINED_FUNCTION_192_1();
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParams.showTraffic.modify()
-{
-  v0 = OUTLINED_FUNCTION_18_3();
-  v1 = __swift_coroFrameAllocStub(v0);
-  OUTLINED_FUNCTION_4_36(v1);
-  OUTLINED_FUNCTION_68_0();
-  OUTLINED_FUNCTION_51();
-  return OUTLINED_FUNCTION_105_0();
-}
-
-void sub_1B91F22F0()
-{
-  OUTLINED_FUNCTION_243();
-  v1 = v0;
-  v3 = *v2;
-  v4 = *(*v2 + 80);
-  v5 = *(*v2 + 72);
-  v6 = *(*v2 + 84);
-  v7 = *(v5 + v4);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v9 = *(v5 + v4);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v10 = *(v3 + 80);
-    v11 = *(v3 + 72);
-    OUTLINED_FUNCTION_33_13();
-    v12 = OUTLINED_FUNCTION_40_0();
-    v9 = sub_1B91F7FF8(v12);
-    *(v11 + v10) = v9;
-  }
-
-  v13 = *v1;
-  OUTLINED_FUNCTION_11_4();
-  *(v9 + v13) = v6;
-  OUTLINED_FUNCTION_242();
-
-  free(v14);
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParams.directionType.getter@<X0>(uint64_t a1@<X8>)
-{
-  OUTLINED_FUNCTION_21_16();
-  v4 = *(v1 + v3) + OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__directionType;
-  result = OUTLINED_FUNCTION_521();
-  v6 = *(v4 + 8);
-  *a1 = *v4;
-  *(a1 + 8) = v6;
-  return result;
-}
-
-uint64_t sub_1B91F23EC@<X0>(uint64_t a1@<X8>)
-{
-  result = Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParams.directionType.getter(&v4);
-  v3 = v5;
-  *a1 = v4;
-  *(a1 + 8) = v3;
-  return result;
-}
-
-void sub_1B91F2430(uint64_t *a1)
-{
-  v1 = *a1;
-  v2 = *(a1 + 8);
-  Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParams.directionType.setter();
-}
-
-void Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParams.directionType.setter()
-{
-  OUTLINED_FUNCTION_193_0();
-  v2 = v0;
-  v4 = *v3;
-  v5 = *(v3 + 8);
-  v6 = type metadata accessor for Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParams(0);
-  v7 = OUTLINED_FUNCTION_47(v6);
-  v8 = *(v0 + v1);
-  if ((v7 & 1) == 0)
-  {
-    OUTLINED_FUNCTION_33_13();
-    v9 = OUTLINED_FUNCTION_40_0();
-    v8 = sub_1B91F7FF8(v9);
-    *(v2 + v1) = v8;
-  }
-
-  v10 = v8 + OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__directionType;
-  OUTLINED_FUNCTION_18();
-  *v10 = v4;
-  *(v10 + 8) = v5;
-  OUTLINED_FUNCTION_192_1();
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParams.directionType.modify()
-{
-  v2 = __swift_coroFrameAllocStub(0x60uLL);
-  *(OUTLINED_FUNCTION_99(v2) + 88) = v0;
-  OUTLINED_FUNCTION_21_16();
-  *(v1 + 84) = v3;
-  v4 = *(v0 + v3) + OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__directionType;
-  OUTLINED_FUNCTION_62_0();
-  v5 = *(v4 + 8);
-  *(v1 + 72) = *v4;
-  *(v1 + 80) = v5;
-  return OUTLINED_FUNCTION_105_0();
-}
-
-void sub_1B91F2574()
-{
-  OUTLINED_FUNCTION_243();
-  OUTLINED_FUNCTION_86_1(v1);
-  v3 = *(v2 + 72);
-  v4 = *(v0 + 84);
-  v5 = *(v0 + 88);
-  v6 = *(v0 + 80);
-  v7 = *(v5 + v4);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v9 = *(v5 + v4);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v10 = *(v0 + 84);
-    v11 = *(v0 + 88);
-    OUTLINED_FUNCTION_33_13();
-    v12 = OUTLINED_FUNCTION_40_0();
-    v9 = sub_1B91F7FF8(v12);
-    *(v11 + v10) = v9;
-  }
-
-  v13 = v9 + OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__directionType;
-  OUTLINED_FUNCTION_18();
-  *v13 = v3;
-  *(v13 + 8) = v6;
-  OUTLINED_FUNCTION_242();
-
-  free(v14);
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParams.searchItems.getter@<X0>(void *a1@<X8>)
-{
-  v4 = OUTLINED_FUNCTION_206_0();
+  OUTLINED_FUNCTION_180_3();
+  v2 = OUTLINED_FUNCTION_177_1();
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(v2, v3);
   OUTLINED_FUNCTION_183(v4);
-  v6 = *(v5 + 64);
   OUTLINED_FUNCTION_176();
-  MEMORY[0x1EEE9AC00](v7);
-  v8 = OUTLINED_FUNCTION_22_3();
-  v9 = *(v1 + *(type metadata accessor for Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParams(v8) + 20));
-  OUTLINED_FUNCTION_521();
+  MEMORY[0x1EEE9AC00](v5);
+  OUTLINED_FUNCTION_27_9();
+  v6 = type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriDialog.OneOf_Dialog(0);
+  OUTLINED_FUNCTION_15_15(v6);
+  if (v7)
+  {
+    sub_1B8D9207C(v1, &qword_1EBAC9590, &qword_1B96AA878);
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_543();
+    EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+    if (EnumCaseMultiPayload == 1)
+    {
+      OUTLINED_FUNCTION_1_63();
+      OUTLINED_FUNCTION_288();
+      return sub_1B9239DA8();
+    }
+
+    sub_1B9239E50();
+  }
+
+  _s10PegasusAPI18Amppb_AvailabilityVACycfC_0();
+  v10 = *(type metadata accessor for Apple_Parsec_Siri_V2alpha_RenderedDialogComponent(0) + 20);
+  if (qword_1ED9C97B0 != -1)
+  {
+    OUTLINED_FUNCTION_93_7(&qword_1ED9C97B0);
+  }
+
+  *(v0 + v10) = qword_1ED9C97B8;
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_SiriDialog.renderedDialog.setter()
+{
+  sub_1B8D9207C(v0, &qword_1EBAC9590, &qword_1B96AA878);
+  OUTLINED_FUNCTION_1_63();
+  OUTLINED_FUNCTION_432();
+  sub_1B9239DA8();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriDialog.OneOf_Dialog(0);
+  OUTLINED_FUNCTION_199_3();
+  swift_storeEnumTagMultiPayload();
+  v1 = OUTLINED_FUNCTION_125_2();
+
+  return __swift_storeEnumTagSinglePayload(v1, v2, v3, v4);
+}
+
+void Apple_Parsec_Siri_V2alpha_SiriDialog.renderedDialog.modify()
+{
+  OUTLINED_FUNCTION_243();
+  v2 = OUTLINED_FUNCTION_25_4();
+  v3 = __swift_coroFrameAllocStub(v2);
+  OUTLINED_FUNCTION_86(v3);
+  v4 = OUTLINED_FUNCTION_686();
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(v4, v5);
+  OUTLINED_FUNCTION_183(v6);
+  v8 = __swift_coroFrameAllocStub(*(v7 + 64));
+  v9 = OUTLINED_FUNCTION_85(v8);
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_RenderedDialogComponent(v9);
+  OUTLINED_FUNCTION_126_1();
+  v11 = *(v10 + 64);
+  v12 = __swift_coroFrameAllocStub(v11);
+  v13 = OUTLINED_FUNCTION_175_2(v12);
+  v14 = __swift_coroFrameAllocStub(v13);
+  OUTLINED_FUNCTION_43_7(v14);
+  v15 = type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriDialog.OneOf_Dialog(0);
+  OUTLINED_FUNCTION_8_22(v15);
+  if (v16)
+  {
+    sub_1B8D9207C(v1, &qword_1EBAC9590, &qword_1B96AA878);
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_177_1();
+    EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+    if (EnumCaseMultiPayload == 1)
+    {
+      OUTLINED_FUNCTION_1_63();
+      OUTLINED_FUNCTION_128();
+      sub_1B9239DA8();
+      goto LABEL_10;
+    }
+
+    sub_1B9239E50();
+  }
+
+  _s10PegasusAPI18Amppb_AvailabilityVACycfC_0();
+  v18 = *(v0 + 20);
+  if (qword_1ED9C97B0 != -1)
+  {
+    OUTLINED_FUNCTION_93_7(&qword_1ED9C97B0);
+  }
+
+  *(v11 + v18) = qword_1ED9C97B8;
+
+LABEL_10:
+  OUTLINED_FUNCTION_242();
+}
+
+void sub_1B9232AF0()
+{
+  OUTLINED_FUNCTION_128_3();
+  if (v5)
+  {
+    OUTLINED_FUNCTION_461();
+    sub_1B9239DFC();
+    sub_1B8D9207C(v4, &qword_1EBAC9590, &qword_1B96AA878);
+    OUTLINED_FUNCTION_1_63();
+    OUTLINED_FUNCTION_439_0();
+    sub_1B9239DA8();
+    OUTLINED_FUNCTION_257();
+    swift_storeEnumTagMultiPayload();
+    OUTLINED_FUNCTION_255_1();
+    OUTLINED_FUNCTION_21_17();
+    sub_1B9239E50();
+  }
+
+  else
+  {
+    sub_1B8D9207C(v4, &qword_1EBAC9590, &qword_1B96AA878);
+    OUTLINED_FUNCTION_1_63();
+    OUTLINED_FUNCTION_1_0();
+    sub_1B9239DA8();
+    OUTLINED_FUNCTION_257();
+    swift_storeEnumTagMultiPayload();
+    OUTLINED_FUNCTION_255_1();
+  }
+
+  free(v3);
+  free(v2);
+  free(v1);
+
+  free(v0);
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_SiriDialog.unknownFields.modify()
+{
+  v0 = OUTLINED_FUNCTION_313();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriDialog(v0);
+  return OUTLINED_FUNCTION_25();
+}
+
+void static Apple_Parsec_Siri_V2alpha_SiriDialog.OneOf_Dialog.== infix(_:_:)()
+{
+  OUTLINED_FUNCTION_284();
+  v3 = OUTLINED_FUNCTION_510_0();
+  v4 = type metadata accessor for Apple_Parsec_Siri_V2alpha_RenderedDialogComponent(v3);
+  OUTLINED_FUNCTION_59_1();
+  MEMORY[0x1EEE9AC00](v5);
+  OUTLINED_FUNCTION_21();
+  v26 = v6;
+  v7 = OUTLINED_FUNCTION_201();
+  v25 = type metadata accessor for Apple_Parsec_Siri_V2alpha_ResponseGenAttributes(v7);
+  OUTLINED_FUNCTION_59_1();
+  MEMORY[0x1EEE9AC00](v8);
+  OUTLINED_FUNCTION_62();
+  v9 = OUTLINED_FUNCTION_324_1();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriDialog.OneOf_Dialog(v9);
+  OUTLINED_FUNCTION_59_1();
+  MEMORY[0x1EEE9AC00](v10);
+  OUTLINED_FUNCTION_66();
+  OUTLINED_FUNCTION_512_0();
+  MEMORY[0x1EEE9AC00](v11);
+  v13 = (&v25 - v12);
+  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EBAC9598, &qword_1B96AA880);
+  OUTLINED_FUNCTION_183(v14);
+  OUTLINED_FUNCTION_176();
+  MEMORY[0x1EEE9AC00](v15);
+  OUTLINED_FUNCTION_139();
+  sub_1B9239DFC();
+  sub_1B9239DFC();
+  if (swift_getEnumCaseMultiPayload() == 1)
+  {
+    OUTLINED_FUNCTION_167_7();
+    sub_1B9239DFC();
+    if (swift_getEnumCaseMultiPayload() == 1)
+    {
+      OUTLINED_FUNCTION_1_63();
+      v16 = v26;
+      sub_1B9239DA8();
+      if (*(v1 + *(v4 + 20)) == *(v16 + *(v4 + 20)) || (, , v17 = OUTLINED_FUNCTION_696(), v19 = sub_1B9268C00(v17, v18), , , v19))
+      {
+        sub_1B964C2B0();
+        OUTLINED_FUNCTION_0_75();
+        sub_1B8CD2D08(v20, v21, MEMORY[0x1E69AAC10]);
+        OUTLINED_FUNCTION_1_0();
+        sub_1B964C850();
+      }
+
+      OUTLINED_FUNCTION_390_0();
+      sub_1B9239E50();
+LABEL_15:
+      sub_1B9239E50();
+      OUTLINED_FUNCTION_110_6();
+      sub_1B9239E50();
+      goto LABEL_16;
+    }
+
+    OUTLINED_FUNCTION_21_17();
+  }
+
+  else
+  {
+    sub_1B9239DFC();
+    if (swift_getEnumCaseMultiPayload() != 1)
+    {
+      OUTLINED_FUNCTION_53_13();
+      sub_1B9239DA8();
+      sub_1B8D84AE0(*v13, *v2);
+      if (v22)
+      {
+        sub_1B964C2B0();
+        OUTLINED_FUNCTION_0_75();
+        sub_1B8CD2D08(v23, v24, MEMORY[0x1E69AAC10]);
+        sub_1B964C850();
+      }
+
+      OUTLINED_FUNCTION_407_0();
+      sub_1B9239E50();
+      goto LABEL_15;
+    }
+
+    OUTLINED_FUNCTION_464();
+  }
+
+  sub_1B9239E50();
+  sub_1B8D9207C(v0, &unk_1EBAC9598, &qword_1B96AA880);
+LABEL_16:
+  OUTLINED_FUNCTION_283();
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_ResponseGenAttributes.unknownFields.modify()
+{
+  v0 = OUTLINED_FUNCTION_313();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_ResponseGenAttributes(v0);
+  return OUTLINED_FUNCTION_25();
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_UIView.casinoSnippet.getter()
+{
+  OUTLINED_FUNCTION_180_3();
+  v1 = OUTLINED_FUNCTION_177_1();
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
+  OUTLINED_FUNCTION_183(v3);
+  OUTLINED_FUNCTION_176();
+  MEMORY[0x1EEE9AC00](v4);
+  OUTLINED_FUNCTION_27_9();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_UIView.OneOf_View(0);
+  v5 = OUTLINED_FUNCTION_753();
+  OUTLINED_FUNCTION_131_7(v5, v6, v7);
+  if (v8)
+  {
+    sub_1B8D9207C(v0, &qword_1EBAC95A0, &qword_1B96AA888);
+    OUTLINED_FUNCTION_132_2();
+    type metadata accessor for Apple_Parsec_Siri_V2alpha_CasinoSnippet(0);
+    OUTLINED_FUNCTION_102_7();
+    _s10PegasusAPI18Amppb_AvailabilityVACycfC_0();
+    OUTLINED_FUNCTION_591_0();
+    sub_1B964C1C0();
+    v9 = OUTLINED_FUNCTION_40_3();
+    return __swift_storeEnumTagSinglePayload(v9, v10, v11, v12);
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_2_46();
+    OUTLINED_FUNCTION_288();
+    return sub_1B9239DA8();
+  }
+}
+
+uint64_t sub_1B9233254(uint64_t a1, uint64_t *a2, uint64_t *a3, uint64_t a4, void (*a5)(void))
+{
+  sub_1B8D9207C(v5, a2, a3);
+  OUTLINED_FUNCTION_128();
+  sub_1B9239DA8();
+  a5(0);
+  OUTLINED_FUNCTION_231();
+  OUTLINED_FUNCTION_80();
+
+  return __swift_storeEnumTagSinglePayload(v7, v8, v9, v10);
+}
+
+void Apple_Parsec_Siri_V2alpha_UIView.casinoSnippet.modify()
+{
+  OUTLINED_FUNCTION_243();
+  v1 = OUTLINED_FUNCTION_25_4();
+  v2 = __swift_coroFrameAllocStub(v1);
+  OUTLINED_FUNCTION_86(v2);
+  v3 = OUTLINED_FUNCTION_686();
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(v3, v4);
+  OUTLINED_FUNCTION_183(v5);
+  v7 = __swift_coroFrameAllocStub(*(v6 + 64));
+  v8 = OUTLINED_FUNCTION_85(v7);
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_CasinoSnippet(v8);
+  OUTLINED_FUNCTION_126_1();
+  v10 = __swift_coroFrameAllocStub(*(v9 + 64));
+  v11 = OUTLINED_FUNCTION_175_2(v10);
+  v12 = __swift_coroFrameAllocStub(v11);
+  OUTLINED_FUNCTION_43_7(v12);
+  v13 = type metadata accessor for Apple_Parsec_Siri_V2alpha_UIView.OneOf_View(0);
+  v14 = OUTLINED_FUNCTION_76_2(v13);
+  OUTLINED_FUNCTION_131_7(v14, v15, v16);
+  if (v17)
+  {
+    sub_1B8D9207C(v0, &qword_1EBAC95A0, &qword_1B96AA888);
+    OUTLINED_FUNCTION_247_1();
+    OUTLINED_FUNCTION_101_4();
+    _s10PegasusAPI18Amppb_AvailabilityVACycfC_0();
+    sub_1B964C1C0();
+    OUTLINED_FUNCTION_155_2();
+    OUTLINED_FUNCTION_83();
+    __swift_storeEnumTagSinglePayload(v18, v19, v20, v21);
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_2_46();
+    OUTLINED_FUNCTION_128();
+    sub_1B9239DA8();
+  }
+
+  OUTLINED_FUNCTION_19_2();
+  OUTLINED_FUNCTION_242();
+}
+
+void sub_1B92333D8()
+{
+  OUTLINED_FUNCTION_128_3();
+  if (v5)
+  {
+    OUTLINED_FUNCTION_461();
+    sub_1B9239DFC();
+    sub_1B8D9207C(v4, &qword_1EBAC95A0, &qword_1B96AA888);
+    OUTLINED_FUNCTION_2_46();
+    OUTLINED_FUNCTION_439_0();
+    sub_1B9239DA8();
+    OUTLINED_FUNCTION_255_1();
+    OUTLINED_FUNCTION_17_21();
+    sub_1B9239E50();
+  }
+
+  else
+  {
+    sub_1B8D9207C(v4, &qword_1EBAC95A0, &qword_1B96AA888);
+    OUTLINED_FUNCTION_2_46();
+    OUTLINED_FUNCTION_1_0();
+    sub_1B9239DA8();
+    OUTLINED_FUNCTION_255_1();
+  }
+
+  free(v3);
+  free(v2);
+  free(v1);
+
+  free(v0);
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_UIView.unknownFields.modify()
+{
+  v0 = OUTLINED_FUNCTION_313();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_UIView(v0);
+  return OUTLINED_FUNCTION_25();
+}
+
+uint64_t static Apple_Parsec_Siri_V2alpha_UIView.OneOf_View.== infix(_:_:)()
+{
+  OUTLINED_FUNCTION_468();
+  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAC95A8, &qword_1B96AA890);
+  OUTLINED_FUNCTION_183(v0);
+  OUTLINED_FUNCTION_176();
+  MEMORY[0x1EEE9AC00](v1);
+  OUTLINED_FUNCTION_116();
+  sub_1B9239DFC();
+  sub_1B9239DFC();
+  static Apple_Parsec_Siri_V2alpha_CasinoSnippet.== infix(_:_:)();
+  v3 = v2;
+  OUTLINED_FUNCTION_188_3();
+  sub_1B9239E50();
+  OUTLINED_FUNCTION_74_7();
+  sub_1B9239E50();
+  return v3 & 1;
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_AppEntityMetadata.generalAttributes.getter@<X0>(void *a1@<X8>)
+{
+  v3 = OUTLINED_FUNCTION_236();
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(v3, v4);
+  OUTLINED_FUNCTION_183(v5);
+  OUTLINED_FUNCTION_176();
+  MEMORY[0x1EEE9AC00](v6);
+  v7 = OUTLINED_FUNCTION_31_2();
+  OUTLINED_FUNCTION_232_1(v7);
+  OUTLINED_FUNCTION_101_0();
+  OUTLINED_FUNCTION_3_0();
   sub_1B8D92024();
-  v10 = type metadata accessor for Apple_Parsec_Siri_V2alpha_MapItemListBuilderParams(0);
-  OUTLINED_FUNCTION_57(v2);
-  if (v11)
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityGeneralAttributes(0);
+  OUTLINED_FUNCTION_57(v1);
+  if (v8)
   {
     *a1 = MEMORY[0x1E69E7CC0];
     a1[1] = 0;
-    v12 = a1 + *(v10 + 24);
+    a1[2] = 0xE000000000000000;
+    a1[3] = 0;
+    a1[4] = 0xE000000000000000;
+    a1[5] = 0;
+    a1[6] = 0xE000000000000000;
     _s10PegasusAPI18Amppb_AvailabilityVACycfC_0();
-    result = OUTLINED_FUNCTION_57(v2);
-    if (!v11)
+    v9 = sub_1B964C1C0();
+    result = OUTLINED_FUNCTION_11_31(v9);
+    if (!v8)
     {
-      return sub_1B8D9207C(v2, &qword_1EBAC8778, &qword_1B96A62A8);
+      return sub_1B8D9207C(v1, &qword_1EBAC95B0, &qword_1B96AA898);
     }
   }
 
   else
   {
-    OUTLINED_FUNCTION_10_29();
-    OUTLINED_FUNCTION_182();
-    return sub_1B91FA3D0();
+    OUTLINED_FUNCTION_167_7();
+    return sub_1B9239DA8();
   }
 
   return result;
 }
 
-uint64_t Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParams.searchItems.setter()
+uint64_t Apple_Parsec_Siri_V2alpha_AppEntityMetadata.generalAttributes.setter()
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAC8778, &qword_1B96A62A8);
-  OUTLINED_FUNCTION_183(v2);
-  v4 = *(v3 + 64);
+  OUTLINED_FUNCTION_183_0();
+  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAC95B0, &qword_1B96AA898);
+  OUTLINED_FUNCTION_183(v0);
   OUTLINED_FUNCTION_176();
-  MEMORY[0x1EEE9AC00](v5);
-  v6 = type metadata accessor for Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParams(0);
-  v7 = OUTLINED_FUNCTION_47(v6);
-  v8 = *(v0 + v1);
-  if ((v7 & 1) == 0)
+  MEMORY[0x1EEE9AC00](v1);
+  v2 = OUTLINED_FUNCTION_31_2();
+  v3 = type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityMetadata(v2);
+  if ((OUTLINED_FUNCTION_47(v3) & 1) == 0)
   {
-    OUTLINED_FUNCTION_33_13();
-    v9 = OUTLINED_FUNCTION_40_0();
-    v10 = sub_1B91F7FF8(v9);
-    OUTLINED_FUNCTION_135(v10);
+    type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityMetadata._StorageClass(0);
+    OUTLINED_FUNCTION_57_0();
+    swift_allocObject();
+    v4 = OUTLINED_FUNCTION_40_0();
+    v5 = sub_1B927276C(v4);
+    OUTLINED_FUNCTION_135(v5);
   }
 
-  OUTLINED_FUNCTION_10_29();
-  sub_1B91FA3D0();
-  type metadata accessor for Apple_Parsec_Siri_V2alpha_MapItemListBuilderParams(0);
-  OUTLINED_FUNCTION_80();
-  __swift_storeEnumTagSinglePayload(v11, v12, v13, v14);
-  OUTLINED_FUNCTION_131();
-  swift_beginAccess();
+  OUTLINED_FUNCTION_217_2();
+  OUTLINED_FUNCTION_470_0();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityGeneralAttributes(0);
+  v6 = OUTLINED_FUNCTION_53_0();
+  __swift_storeEnumTagSinglePayload(v6, v7, v8, v9);
+  OUTLINED_FUNCTION_73_0();
   OUTLINED_FUNCTION_122_0();
   sub_1B8DAA170();
   return swift_endAccess();
 }
 
-uint64_t Apple_Parsec_Siri_V2alpha_MapItemListBuilderParams.init()@<X0>(void *a1@<X8>)
+uint64_t Apple_Parsec_Siri_V2alpha_AppEntityGeneralAttributes.init()@<X0>(void *a1@<X8>)
 {
   *a1 = MEMORY[0x1E69E7CC0];
   a1[1] = 0;
-  v1 = type metadata accessor for Apple_Parsec_Siri_V2alpha_MapItemListBuilderParams(0);
-  return OUTLINED_FUNCTION_279(v1);
+  a1[2] = 0xE000000000000000;
+  a1[3] = 0;
+  a1[4] = 0xE000000000000000;
+  a1[5] = 0;
+  a1[6] = 0xE000000000000000;
+  v1 = type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityGeneralAttributes(0);
+  OUTLINED_FUNCTION_415_0(v1);
+  OUTLINED_FUNCTION_523_1();
+  sub_1B964C1C0();
+  v2 = OUTLINED_FUNCTION_40_3();
+
+  return __swift_storeEnumTagSinglePayload(v2, v3, v4, v5);
 }
 
-void Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParams.searchItems.modify()
+void Apple_Parsec_Siri_V2alpha_AppEntityMetadata.generalAttributes.modify()
 {
   OUTLINED_FUNCTION_284();
-  v3 = __swift_coroFrameAllocStub(0x38uLL);
+  v2 = OUTLINED_FUNCTION_185_0();
+  v3 = __swift_coroFrameAllocStub(v2);
   OUTLINED_FUNCTION_66_0(v3);
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAC8778, &qword_1B96A62A8);
-  OUTLINED_FUNCTION_183(v4);
-  v6 = __swift_coroFrameAllocStub(*(v5 + 64));
-  v7 = OUTLINED_FUNCTION_71(v6);
-  v8 = type metadata accessor for Apple_Parsec_Siri_V2alpha_MapItemListBuilderParams(v7);
-  OUTLINED_FUNCTION_59_1(v8);
-  v10 = *(v9 + 64);
-  *(v2 + 40) = __swift_coroFrameAllocStub(v10);
-  v11 = __swift_coroFrameAllocStub(v10);
-  *(v2 + 48) = v11;
-  OUTLINED_FUNCTION_21_16();
-  v13 = *(v0 + v12);
-  OUTLINED_FUNCTION_521();
+  v4 = OUTLINED_FUNCTION_491();
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(v4, v5);
+  OUTLINED_FUNCTION_183(v6);
+  v8 = __swift_coroFrameAllocStub(*(v7 + 64));
+  v9 = OUTLINED_FUNCTION_71(v8);
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityGeneralAttributes(v9);
+  OUTLINED_FUNCTION_135_0();
+  v11 = __swift_coroFrameAllocStub(*(v10 + 64));
+  v12 = OUTLINED_FUNCTION_187(v11);
+  v13 = __swift_coroFrameAllocStub(v12);
+  *(v1 + 48) = v13;
+  OUTLINED_FUNCTION_102_8();
+  OUTLINED_FUNCTION_74();
+  OUTLINED_FUNCTION_82();
+  v14 = OUTLINED_FUNCTION_17_2();
+  if (v15)
+  {
+    *v13 = MEMORY[0x1E69E7CC0];
+    v13[1] = 0;
+    v13[2] = 0xE000000000000000;
+    v13[3] = 0;
+    v13[4] = 0xE000000000000000;
+    v13[5] = 0;
+    v13[6] = 0xE000000000000000;
+    OUTLINED_FUNCTION_610_1(v14);
+    v16 = sub_1B964C1C0();
+    OUTLINED_FUNCTION_6_19(v16);
+    if (!v15)
+    {
+      sub_1B8D9207C(v0, &qword_1EBAC95B0, &qword_1B96AA898);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_217_2();
+    OUTLINED_FUNCTION_246();
+    sub_1B9239DA8();
+  }
+
+  OUTLINED_FUNCTION_105_0();
+  OUTLINED_FUNCTION_283();
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_AppEntityMetadata.hasGeneralAttributes.getter()
+{
+  v0 = OUTLINED_FUNCTION_514();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(v0, v1);
+  OUTLINED_FUNCTION_183(v2);
+  OUTLINED_FUNCTION_176();
+  MEMORY[0x1EEE9AC00](v3);
+  v4 = OUTLINED_FUNCTION_22_3();
+  OUTLINED_FUNCTION_232_1(v4);
+  OUTLINED_FUNCTION_284_0();
+  OUTLINED_FUNCTION_238_2();
+  v5 = type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityGeneralAttributes(0);
+  OUTLINED_FUNCTION_11(v5);
+  return OUTLINED_FUNCTION_466_0();
+}
+
+Swift::Void __swiftcall Apple_Parsec_Siri_V2alpha_AppEntityMetadata.clearGeneralAttributes()()
+{
+  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAC95B0, &qword_1B96AA898);
+  OUTLINED_FUNCTION_183(v0);
+  OUTLINED_FUNCTION_176();
+  MEMORY[0x1EEE9AC00](v1);
+  v2 = OUTLINED_FUNCTION_31_2();
+  v3 = type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityMetadata(v2);
+  if ((OUTLINED_FUNCTION_182_0(v3) & 1) == 0)
+  {
+    type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityMetadata._StorageClass(0);
+    OUTLINED_FUNCTION_57_0();
+    swift_allocObject();
+    v4 = OUTLINED_FUNCTION_40_0();
+    v5 = sub_1B927276C(v4);
+    OUTLINED_FUNCTION_157_2(v5);
+  }
+
+  v6 = type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityGeneralAttributes(0);
+  OUTLINED_FUNCTION_274_1(v6);
+  OUTLINED_FUNCTION_290_0();
+  OUTLINED_FUNCTION_122_0();
+  sub_1B8DAA170();
+  swift_endAccess();
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_AppEntityMetadata.customAttributes.modify()
+{
+  v0 = OUTLINED_FUNCTION_194_0();
+  v1 = __swift_coroFrameAllocStub(v0);
+  v2 = OUTLINED_FUNCTION_30(v1);
+  v3 = type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityMetadata(v2);
+  OUTLINED_FUNCTION_53_2(v3);
+  OUTLINED_FUNCTION_68_0();
+  OUTLINED_FUNCTION_195_0();
+
+  return OUTLINED_FUNCTION_514();
+}
+
+void sub_1B9233C88()
+{
+  OUTLINED_FUNCTION_243();
+  OUTLINED_FUNCTION_238();
+  v6 = *(v5 + 48);
+  if (v7)
+  {
+    v8 = v4;
+
+    v8(v9);
+  }
+
+  else
+  {
+    v10 = v3;
+    OUTLINED_FUNCTION_134_2();
+    v11 = *(v0 + 64);
+    v12 = *(v0 + 56);
+    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+    v14 = *(v12 + v11);
+    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+    {
+      v15 = *(v0 + 64);
+      v16 = *(v0 + 56);
+      v2(0);
+      OUTLINED_FUNCTION_57_0();
+      swift_allocObject();
+      v17 = OUTLINED_FUNCTION_40_0();
+      v14 = v1(v17);
+      *(v16 + v15) = v14;
+    }
+
+    v18 = *v10;
+    OUTLINED_FUNCTION_59_3(v14 + v18);
+    *(v14 + v18) = v6;
+  }
+
+  OUTLINED_FUNCTION_242();
+
+  free(v19);
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_AppEntityMetadata.eventAttributes.getter@<X0>(uint64_t a1@<X8>)
+{
+  v3 = OUTLINED_FUNCTION_236();
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(v3, v4);
+  OUTLINED_FUNCTION_183(v5);
+  OUTLINED_FUNCTION_176();
+  MEMORY[0x1EEE9AC00](v6);
+  v7 = OUTLINED_FUNCTION_22_3();
+  OUTLINED_FUNCTION_232_1(v7);
+  OUTLINED_FUNCTION_101_0();
+  OUTLINED_FUNCTION_39();
+  v8 = type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityEventAttributes(0);
+  OUTLINED_FUNCTION_29_14(v8);
+  if (v9)
+  {
+    *a1 = 0;
+    *(a1 + 8) = 0;
+    *(a1 + 16) = 0;
+    _s10PegasusAPI18Amppb_AvailabilityVACycfC_0();
+    result = OUTLINED_FUNCTION_9_2();
+    if (!v9)
+    {
+      return sub_1B8D9207C(v1, &qword_1EBAC95B8, &unk_1B96AA8A0);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_211_3();
+    OUTLINED_FUNCTION_182();
+    return sub_1B9239DA8();
+  }
+
+  return result;
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_AppEntityMetadata.eventAttributes.setter()
+{
+  OUTLINED_FUNCTION_183_0();
+  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAC95B8, &unk_1B96AA8A0);
+  OUTLINED_FUNCTION_183(v0);
+  OUTLINED_FUNCTION_176();
+  MEMORY[0x1EEE9AC00](v1);
+  v2 = OUTLINED_FUNCTION_31_2();
+  v3 = type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityMetadata(v2);
+  if ((OUTLINED_FUNCTION_47(v3) & 1) == 0)
+  {
+    type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityMetadata._StorageClass(0);
+    OUTLINED_FUNCTION_57_0();
+    swift_allocObject();
+    v4 = OUTLINED_FUNCTION_40_0();
+    v5 = sub_1B927276C(v4);
+    OUTLINED_FUNCTION_135(v5);
+  }
+
+  OUTLINED_FUNCTION_211_3();
+  OUTLINED_FUNCTION_470_0();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityEventAttributes(0);
+  v6 = OUTLINED_FUNCTION_53_0();
+  __swift_storeEnumTagSinglePayload(v6, v7, v8, v9);
+  OUTLINED_FUNCTION_73_0();
+  OUTLINED_FUNCTION_122_0();
+  sub_1B8DAA170();
+  return swift_endAccess();
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_AppEntityEventAttributes.init()@<X0>(uint64_t a1@<X8>)
+{
+  *a1 = 0;
+  v2 = type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityEventAttributes(0);
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
+  return OUTLINED_FUNCTION_101_2(v2);
+}
+
+void Apple_Parsec_Siri_V2alpha_AppEntityMetadata.eventAttributes.modify()
+{
+  OUTLINED_FUNCTION_284();
+  v2 = OUTLINED_FUNCTION_185_0();
+  v3 = __swift_coroFrameAllocStub(v2);
+  OUTLINED_FUNCTION_66_0(v3);
+  v4 = OUTLINED_FUNCTION_491();
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(v4, v5);
+  OUTLINED_FUNCTION_183(v6);
+  v8 = __swift_coroFrameAllocStub(*(v7 + 64));
+  v9 = OUTLINED_FUNCTION_71(v8);
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityEventAttributes(v9);
+  OUTLINED_FUNCTION_135_0();
+  v11 = __swift_coroFrameAllocStub(*(v10 + 64));
+  v12 = OUTLINED_FUNCTION_187(v11);
+  v13 = __swift_coroFrameAllocStub(v12);
+  *(v1 + 48) = v13;
+  OUTLINED_FUNCTION_102_8();
+  OUTLINED_FUNCTION_74();
   OUTLINED_FUNCTION_82();
   OUTLINED_FUNCTION_17_2();
   if (v14)
   {
-    *v11 = MEMORY[0x1E69E7CC0];
-    v11[1] = 0;
-    v15 = v11 + *(v8 + 24);
+    *v13 = 0;
+    v13[1] = 0;
+    v13[2] = 0;
     _s10PegasusAPI18Amppb_AvailabilityVACycfC_0();
     OUTLINED_FUNCTION_17_2();
     if (!v14)
     {
-      sub_1B8D9207C(v1, &qword_1EBAC8778, &qword_1B96A62A8);
+      sub_1B8D9207C(v0, &qword_1EBAC95B8, &unk_1B96AA8A0);
     }
   }
 
   else
   {
-    OUTLINED_FUNCTION_10_29();
-    OUTLINED_FUNCTION_138_4();
+    OUTLINED_FUNCTION_211_3();
+    OUTLINED_FUNCTION_246();
+    sub_1B9239DA8();
   }
 
   OUTLINED_FUNCTION_105_0();
   OUTLINED_FUNCTION_283();
 }
 
-uint64_t Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParams.isSearchAlongRoute.modify()
+uint64_t Apple_Parsec_Siri_V2alpha_AppEntityMetadata.hasEventAttributes.getter()
 {
-  v0 = OUTLINED_FUNCTION_18_3();
-  v1 = __swift_coroFrameAllocStub(v0);
-  OUTLINED_FUNCTION_4_36(v1);
-  OUTLINED_FUNCTION_68_0();
-  OUTLINED_FUNCTION_51();
-  return OUTLINED_FUNCTION_105_0();
+  v0 = OUTLINED_FUNCTION_514();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(v0, v1);
+  OUTLINED_FUNCTION_183(v2);
+  OUTLINED_FUNCTION_176();
+  MEMORY[0x1EEE9AC00](v3);
+  v4 = OUTLINED_FUNCTION_22_3();
+  OUTLINED_FUNCTION_232_1(v4);
+  OUTLINED_FUNCTION_284_0();
+  OUTLINED_FUNCTION_238_2();
+  v5 = type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityEventAttributes(0);
+  OUTLINED_FUNCTION_11(v5);
+  return OUTLINED_FUNCTION_466_0();
 }
 
-uint64_t Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParams.isChainResultSet.modify()
+Swift::Void __swiftcall Apple_Parsec_Siri_V2alpha_AppEntityMetadata.clearEventAttributes()()
 {
-  v0 = OUTLINED_FUNCTION_18_3();
-  v1 = __swift_coroFrameAllocStub(v0);
-  OUTLINED_FUNCTION_4_36(v1);
-  OUTLINED_FUNCTION_68_0();
-  OUTLINED_FUNCTION_51();
-  return OUTLINED_FUNCTION_105_0();
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParams.shouldSuppressNavigation.modify()
-{
-  v0 = OUTLINED_FUNCTION_18_3();
-  v1 = __swift_coroFrameAllocStub(v0);
-  OUTLINED_FUNCTION_4_36(v1);
-  OUTLINED_FUNCTION_68_0();
-  OUTLINED_FUNCTION_51();
-  return OUTLINED_FUNCTION_105_0();
-}
-
-double Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParams.regionOfInterestRadiusInMiles.getter()
-{
-  OUTLINED_FUNCTION_21_16();
-  v2 = *(v0 + v1);
-  v3 = OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__regionOfInterestRadiusInMiles;
-  OUTLINED_FUNCTION_10_4();
-  return *(v2 + v3);
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParams.regionOfInterestRadiusInMiles.setter(double a1)
-{
-  v4 = type metadata accessor for Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParams(0);
-  v5 = OUTLINED_FUNCTION_182_0(v4);
-  v6 = *(v1 + v2);
-  if ((v5 & 1) == 0)
+  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAC95B8, &unk_1B96AA8A0);
+  OUTLINED_FUNCTION_183(v0);
+  OUTLINED_FUNCTION_176();
+  MEMORY[0x1EEE9AC00](v1);
+  v2 = OUTLINED_FUNCTION_31_2();
+  v3 = type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityMetadata(v2);
+  if ((OUTLINED_FUNCTION_182_0(v3) & 1) == 0)
   {
-    OUTLINED_FUNCTION_33_13();
-    v6 = sub_1B91F7FF8(v6);
-    *(v1 + v2) = v6;
+    type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityMetadata._StorageClass(0);
+    OUTLINED_FUNCTION_57_0();
+    swift_allocObject();
+    v4 = OUTLINED_FUNCTION_40_0();
+    v5 = sub_1B927276C(v4);
+    OUTLINED_FUNCTION_157_2(v5);
   }
 
-  v7 = OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__regionOfInterestRadiusInMiles;
-  result = OUTLINED_FUNCTION_9_3();
-  *(v6 + v7) = a1;
-  return result;
+  v6 = type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityEventAttributes(0);
+  OUTLINED_FUNCTION_274_1(v6);
+  OUTLINED_FUNCTION_290_0();
+  OUTLINED_FUNCTION_122_0();
+  sub_1B8DAA170();
+  swift_endAccess();
 }
 
-uint64_t Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParams.regionOfInterestRadiusInMiles.modify()
+uint64_t Apple_Parsec_Siri_V2alpha_AppEntityMetadata.placeAttributes.getter@<X0>(void *a1@<X8>)
 {
-  v2 = __swift_coroFrameAllocStub(0x60uLL);
-  *(OUTLINED_FUNCTION_99(v2) + 80) = v0;
-  OUTLINED_FUNCTION_21_16();
-  *(v1 + 88) = v3;
-  v4 = *(v0 + v3);
-  v5 = OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__regionOfInterestRadiusInMiles;
-  OUTLINED_FUNCTION_68_0();
-  *(v1 + 72) = *(v4 + v5);
-  return OUTLINED_FUNCTION_105_0();
-}
-
-void sub_1B91F2CE0(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_86_1(a1);
-  v3 = *(v2 + 72);
-  v4 = *(v1 + 88);
-  v5 = *(v1 + 80);
-  v6 = *(v5 + v4);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v8 = *(v5 + v4);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v9 = *(v1 + 88);
-    v10 = *(v1 + 80);
-    OUTLINED_FUNCTION_33_13();
-    v11 = OUTLINED_FUNCTION_40_0();
-    v12 = sub_1B91F7FF8(v11);
-    OUTLINED_FUNCTION_15(v12);
-  }
-
-  v13 = OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__regionOfInterestRadiusInMiles;
-  OUTLINED_FUNCTION_11_4();
-  *(v8 + v13) = v3;
-
-  free(v1);
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParams.avoidTolls.modify()
-{
-  v0 = OUTLINED_FUNCTION_18_3();
-  v1 = __swift_coroFrameAllocStub(v0);
-  OUTLINED_FUNCTION_4_36(v1);
-  OUTLINED_FUNCTION_68_0();
-  OUTLINED_FUNCTION_51();
-  return OUTLINED_FUNCTION_105_0();
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParams.avoidHighways.modify()
-{
-  v0 = OUTLINED_FUNCTION_18_3();
-  v1 = __swift_coroFrameAllocStub(v0);
-  OUTLINED_FUNCTION_4_36(v1);
-  OUTLINED_FUNCTION_68_0();
-  OUTLINED_FUNCTION_51();
-  return OUTLINED_FUNCTION_105_0();
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParams.waypoints.getter()
-{
-  OUTLINED_FUNCTION_21_16();
-  v2 = *(v0 + v1);
-  v3 = OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__waypoints;
-  OUTLINED_FUNCTION_10_4();
-  v4 = *(v2 + v3);
-}
-
-uint64_t sub_1B91F2EC8(uint64_t *a1)
-{
-  v1 = *a1;
-
-  return Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParams.waypoints.setter();
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParams.waypoints.setter()
-{
-  v3 = OUTLINED_FUNCTION_313();
-  v4 = type metadata accessor for Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParams(v3);
-  v5 = OUTLINED_FUNCTION_182_0(v4);
-  v6 = *(v1 + v2);
-  if ((v5 & 1) == 0)
-  {
-    OUTLINED_FUNCTION_33_13();
-    v7 = OUTLINED_FUNCTION_40_0();
-    v8 = sub_1B91F7FF8(v7);
-    OUTLINED_FUNCTION_157_2(v8);
-  }
-
-  v9 = OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__waypoints;
-  OUTLINED_FUNCTION_9_3();
-  v10 = *(v6 + v9);
-  *(v6 + v9) = v0;
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParams.waypoints.modify()
-{
-  v2 = __swift_coroFrameAllocStub(0x48uLL);
-  *(OUTLINED_FUNCTION_99(v2) + 56) = v0;
-  OUTLINED_FUNCTION_21_16();
-  *(v1 + 64) = v3;
-  v4 = *(v0 + v3);
-  v5 = OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__waypoints;
-  OUTLINED_FUNCTION_68_0();
-  *(v1 + 48) = *(v4 + v5);
-
-  return OUTLINED_FUNCTION_514();
-}
-
-void sub_1B91F2FE0(uint64_t *a1, char a2)
-{
-  v2 = *a1;
-  v3 = *(*a1 + 48);
-  if (a2)
-  {
-    v4 = *(v2 + 56);
-    v5 = *(*a1 + 48);
-
-    Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParams.waypoints.setter();
-    v6 = *(v2 + 48);
-  }
-
-  else
-  {
-    v7 = *(v2 + 64);
-    v8 = *(v2 + 56);
-    v9 = *(v8 + v7);
-    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v11 = *(v8 + v7);
-    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-    {
-      v12 = *(v2 + 64);
-      v13 = *(v2 + 56);
-      OUTLINED_FUNCTION_33_13();
-      v14 = OUTLINED_FUNCTION_40_0();
-      v15 = sub_1B91F7FF8(v14);
-      OUTLINED_FUNCTION_15(v15);
-    }
-
-    v16 = OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__waypoints;
-    OUTLINED_FUNCTION_59_3();
-    v17 = *(v11 + v16);
-    *(v11 + v16) = v3;
-  }
-
-  free(v2);
-}
-
-uint64_t sub_1B91F30DC(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_1B920007C();
-
-  return MEMORY[0x1EEE15710](a1, a2, v4);
-}
-
-uint64_t static Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParams.DirectionType.allCases.modify()
-{
-  OUTLINED_FUNCTION_288();
-  OUTLINED_FUNCTION_131();
-  swift_beginAccess();
-  return OUTLINED_FUNCTION_19_2();
-}
-
-uint64_t sub_1B91F31C4@<X0>(uint64_t *a1@<X8>)
-{
-  result = static Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParams.DirectionType.allCases.getter();
-  *a1 = result;
-  return result;
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_ShowLocalSearchResultBuilderParams.placeData.getter()
-{
-  v1 = *v0;
-  v2 = v0[1];
-  v3 = OUTLINED_FUNCTION_432();
-  sub_1B8D91FCC(v3, v4);
-  return OUTLINED_FUNCTION_432();
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_ShowLocalSearchResultBuilderParams.placeData.setter()
-{
-  OUTLINED_FUNCTION_16();
-  result = sub_1B8D538A0(*v1, *(v1 + 8));
-  *v1 = v2;
-  *(v1 + 8) = v0;
-  return result;
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_ShowLocalSearchResultBuilderParams.unknownFields.getter()
-{
-  v0 = OUTLINED_FUNCTION_27();
-  v1 = *(type metadata accessor for Apple_Parsec_Siri_V2alpha_ShowLocalSearchResultBuilderParams(v0) + 28);
-  v2 = sub_1B964C2B0();
-  OUTLINED_FUNCTION_59_1(v2);
-  v4 = *(v3 + 16);
-  v5 = OUTLINED_FUNCTION_18_1();
-
-  return v6(v5);
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_ShowLocalSearchResultBuilderParams.unknownFields.setter()
-{
-  v0 = OUTLINED_FUNCTION_313();
-  v1 = *(type metadata accessor for Apple_Parsec_Siri_V2alpha_ShowLocalSearchResultBuilderParams(v0) + 28);
-  v2 = sub_1B964C2B0();
-  OUTLINED_FUNCTION_59_1(v2);
-  v4 = *(v3 + 40);
-  v5 = OUTLINED_FUNCTION_209();
-
-  return v6(v5);
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_ShowLocalSearchResultBuilderParams.unknownFields.modify()
-{
-  v0 = OUTLINED_FUNCTION_313();
-  v1 = *(type metadata accessor for Apple_Parsec_Siri_V2alpha_ShowLocalSearchResultBuilderParams(v0) + 28);
-  return OUTLINED_FUNCTION_25();
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_MapItemSnippet.searchRegionCenter.getter@<X0>(uint64_t a1@<X8>)
-{
-  v3 = OUTLINED_FUNCTION_206_0();
-  OUTLINED_FUNCTION_183(v3);
-  v5 = *(v4 + 64);
+  v3 = OUTLINED_FUNCTION_236();
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(v3, v4);
+  OUTLINED_FUNCTION_183(v5);
   OUTLINED_FUNCTION_176();
   MEMORY[0x1EEE9AC00](v6);
   v7 = OUTLINED_FUNCTION_22_3();
-  v8 = *(type metadata accessor for Apple_Parsec_Siri_V2alpha_MapItemSnippet(v7) + 28);
-  OUTLINED_FUNCTION_100_0();
-  v9 = type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams(0);
-  OUTLINED_FUNCTION_57(v1);
-  if (v10)
+  OUTLINED_FUNCTION_232_1(v7);
+  OUTLINED_FUNCTION_101_0();
+  OUTLINED_FUNCTION_39();
+  v8 = type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityPlaceAttributes(0);
+  OUTLINED_FUNCTION_29_14(v8);
+  if (v9)
   {
-    _s10PegasusAPI18Amppb_AvailabilityVACycfC_0();
-    v11 = *(v9 + 20);
-    if (qword_1EBAB7978 != -1)
+    Apple_Parsec_Siri_V2alpha_AppEntityPlaceAttributes.init()(a1);
+    result = OUTLINED_FUNCTION_9_2();
+    if (!v9)
     {
-      OUTLINED_FUNCTION_3_44();
-    }
-
-    *(a1 + v11) = qword_1EBAC8618;
-    v12 = OUTLINED_FUNCTION_64_5();
-
-    if (v12 != 1)
-    {
-      return sub_1B8D9207C(v1, &qword_1EBAB9018, &unk_1B96A6290);
+      return sub_1B8D9207C(v1, &qword_1EBAC6350, &qword_1B9698610);
     }
   }
 
   else
   {
-    OUTLINED_FUNCTION_1_60();
+    OUTLINED_FUNCTION_210_3();
     OUTLINED_FUNCTION_182();
-    return sub_1B91FA3D0();
+    return sub_1B9239DA8();
   }
 
   return result;
 }
 
-uint64_t Apple_Parsec_Siri_V2alpha_MapItemSnippet.searchRegionCenter.setter()
+uint64_t Apple_Parsec_Siri_V2alpha_AppEntityMetadata.placeAttributes.setter()
 {
-  v1 = OUTLINED_FUNCTION_313();
-  v2 = type metadata accessor for Apple_Parsec_Siri_V2alpha_MapItemSnippet(v1);
-  sub_1B8D9207C(v0 + *(v2 + 28), &qword_1EBAB9018, &unk_1B96A6290);
-  OUTLINED_FUNCTION_1_60();
-  OUTLINED_FUNCTION_122_0();
-  sub_1B91FA3D0();
-  OUTLINED_FUNCTION_39_11();
-  OUTLINED_FUNCTION_80();
+  OUTLINED_FUNCTION_183_0();
+  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAC6350, &qword_1B9698610);
+  OUTLINED_FUNCTION_183(v0);
+  OUTLINED_FUNCTION_176();
+  MEMORY[0x1EEE9AC00](v1);
+  v2 = OUTLINED_FUNCTION_31_2();
+  v3 = type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityMetadata(v2);
+  if ((OUTLINED_FUNCTION_47(v3) & 1) == 0)
+  {
+    type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityMetadata._StorageClass(0);
+    OUTLINED_FUNCTION_57_0();
+    swift_allocObject();
+    v4 = OUTLINED_FUNCTION_40_0();
+    v5 = sub_1B927276C(v4);
+    OUTLINED_FUNCTION_135(v5);
+  }
 
-  return __swift_storeEnumTagSinglePayload(v3, v4, v5, v6);
+  OUTLINED_FUNCTION_210_3();
+  OUTLINED_FUNCTION_470_0();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityPlaceAttributes(0);
+  v6 = OUTLINED_FUNCTION_53_0();
+  __swift_storeEnumTagSinglePayload(v6, v7, v8, v9);
+  OUTLINED_FUNCTION_73_0();
+  OUTLINED_FUNCTION_122_0();
+  sub_1B8DAA170();
+  return swift_endAccess();
 }
 
-void Apple_Parsec_Siri_V2alpha_MapItemSnippet.searchRegionCenter.modify()
+void Apple_Parsec_Siri_V2alpha_AppEntityMetadata.placeAttributes.modify()
 {
-  OUTLINED_FUNCTION_243();
-  v1 = __swift_coroFrameAllocStub(0x30uLL);
-  OUTLINED_FUNCTION_86(v1);
-  v2 = OUTLINED_FUNCTION_686();
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(v2, v3);
-  OUTLINED_FUNCTION_183(v4);
-  v6 = __swift_coroFrameAllocStub(*(v5 + 64));
-  v0[1] = v6;
-  v7 = type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams(0);
-  v0[2] = v7;
-  OUTLINED_FUNCTION_59_1(v7);
-  v9 = *(v8 + 64);
-  v0[3] = __swift_coroFrameAllocStub(v9);
-  v10 = __swift_coroFrameAllocStub(v9);
-  v11 = OUTLINED_FUNCTION_89_0(v10);
-  v12 = type metadata accessor for Apple_Parsec_Siri_V2alpha_MapItemSnippet(v11);
-  OUTLINED_FUNCTION_116_0(*(v12 + 28));
+  OUTLINED_FUNCTION_284();
+  v2 = OUTLINED_FUNCTION_185_0();
+  v3 = __swift_coroFrameAllocStub(v2);
+  OUTLINED_FUNCTION_66_0(v3);
+  v4 = OUTLINED_FUNCTION_491();
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(v4, v5);
+  OUTLINED_FUNCTION_183(v6);
+  v8 = __swift_coroFrameAllocStub(*(v7 + 64));
+  v9 = OUTLINED_FUNCTION_71(v8);
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityPlaceAttributes(v9);
+  OUTLINED_FUNCTION_135_0();
+  v11 = __swift_coroFrameAllocStub(*(v10 + 64));
+  v12 = OUTLINED_FUNCTION_187(v11);
+  v13 = __swift_coroFrameAllocStub(v12);
+  *(v1 + 48) = v13;
+  OUTLINED_FUNCTION_102_8();
+  OUTLINED_FUNCTION_74();
+  OUTLINED_FUNCTION_82();
+  OUTLINED_FUNCTION_17_2();
+  if (v14)
+  {
+    OUTLINED_FUNCTION_114_0();
+    OUTLINED_FUNCTION_593_1(v15);
+    v13[8] = 0;
+    v13[9] = v16;
+    v13[10] = 0;
+    v13[11] = v16;
+    v13[12] = 0;
+    v13[13] = v16;
+    v13[14] = 0;
+    v13[15] = v16;
+    v13[16] = 0;
+    v13[17] = v16;
+    v13[18] = 0;
+    v13[19] = v16;
+    v13[20] = 0;
+    v13[21] = 0;
+    _s10PegasusAPI18Amppb_AvailabilityVACycfC_0();
+    OUTLINED_FUNCTION_17_2();
+    if (!v14)
+    {
+      sub_1B8D9207C(v0, &qword_1EBAC6350, &qword_1B9698610);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_210_3();
+    OUTLINED_FUNCTION_246();
+    sub_1B9239DA8();
+  }
+
+  OUTLINED_FUNCTION_105_0();
+  OUTLINED_FUNCTION_283();
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_AppEntityMetadata.hasPlaceAttributes.getter()
+{
+  v0 = OUTLINED_FUNCTION_514();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(v0, v1);
+  OUTLINED_FUNCTION_183(v2);
+  OUTLINED_FUNCTION_176();
+  MEMORY[0x1EEE9AC00](v3);
+  v4 = OUTLINED_FUNCTION_22_3();
+  OUTLINED_FUNCTION_232_1(v4);
+  OUTLINED_FUNCTION_284_0();
+  OUTLINED_FUNCTION_238_2();
+  v5 = type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityPlaceAttributes(0);
+  OUTLINED_FUNCTION_11(v5);
+  return OUTLINED_FUNCTION_466_0();
+}
+
+Swift::Void __swiftcall Apple_Parsec_Siri_V2alpha_AppEntityMetadata.clearPlaceAttributes()()
+{
+  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAC6350, &qword_1B9698610);
+  OUTLINED_FUNCTION_183(v0);
+  OUTLINED_FUNCTION_176();
+  MEMORY[0x1EEE9AC00](v1);
+  v2 = OUTLINED_FUNCTION_31_2();
+  v3 = type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityMetadata(v2);
+  if ((OUTLINED_FUNCTION_182_0(v3) & 1) == 0)
+  {
+    type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityMetadata._StorageClass(0);
+    OUTLINED_FUNCTION_57_0();
+    swift_allocObject();
+    v4 = OUTLINED_FUNCTION_40_0();
+    v5 = sub_1B927276C(v4);
+    OUTLINED_FUNCTION_157_2(v5);
+  }
+
+  v6 = type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityPlaceAttributes(0);
+  OUTLINED_FUNCTION_274_1(v6);
+  OUTLINED_FUNCTION_290_0();
+  OUTLINED_FUNCTION_122_0();
+  sub_1B8DAA170();
+  swift_endAccess();
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_AppEntityMetadata.idAttributes.getter()
+{
+  v1 = OUTLINED_FUNCTION_236();
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
+  OUTLINED_FUNCTION_183(v3);
+  OUTLINED_FUNCTION_176();
+  MEMORY[0x1EEE9AC00](v4);
+  v5 = OUTLINED_FUNCTION_22_3();
+  OUTLINED_FUNCTION_232_1(v5);
+  OUTLINED_FUNCTION_101_0();
+  OUTLINED_FUNCTION_39();
+  v6 = type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityIDAttributes(0);
+  OUTLINED_FUNCTION_29_14(v6);
+  if (v7)
+  {
+    OUTLINED_FUNCTION_92_0();
+    OUTLINED_FUNCTION_251_0(v8);
+    result = OUTLINED_FUNCTION_9_2();
+    if (!v7)
+    {
+      return sub_1B8D9207C(v0, &qword_1EBAC95C0, &qword_1B96AA8B0);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_209_3();
+    OUTLINED_FUNCTION_182();
+    return sub_1B9239DA8();
+  }
+
+  return result;
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_AppEntityMetadata.idAttributes.setter()
+{
+  OUTLINED_FUNCTION_183_0();
+  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAC95C0, &qword_1B96AA8B0);
+  OUTLINED_FUNCTION_183(v0);
+  OUTLINED_FUNCTION_176();
+  MEMORY[0x1EEE9AC00](v1);
+  v2 = OUTLINED_FUNCTION_31_2();
+  v3 = type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityMetadata(v2);
+  if ((OUTLINED_FUNCTION_47(v3) & 1) == 0)
+  {
+    type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityMetadata._StorageClass(0);
+    OUTLINED_FUNCTION_57_0();
+    swift_allocObject();
+    v4 = OUTLINED_FUNCTION_40_0();
+    v5 = sub_1B927276C(v4);
+    OUTLINED_FUNCTION_135(v5);
+  }
+
+  OUTLINED_FUNCTION_209_3();
+  OUTLINED_FUNCTION_470_0();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityIDAttributes(0);
+  v6 = OUTLINED_FUNCTION_53_0();
+  __swift_storeEnumTagSinglePayload(v6, v7, v8, v9);
+  OUTLINED_FUNCTION_73_0();
+  OUTLINED_FUNCTION_122_0();
+  sub_1B8DAA170();
+  return swift_endAccess();
+}
+
+void Apple_Parsec_Siri_V2alpha_AppEntityMetadata.idAttributes.modify()
+{
+  OUTLINED_FUNCTION_284();
+  v2 = OUTLINED_FUNCTION_185_0();
+  v3 = __swift_coroFrameAllocStub(v2);
+  OUTLINED_FUNCTION_66_0(v3);
+  v4 = OUTLINED_FUNCTION_491();
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(v4, v5);
+  OUTLINED_FUNCTION_183(v6);
+  v8 = __swift_coroFrameAllocStub(*(v7 + 64));
+  v9 = OUTLINED_FUNCTION_71(v8);
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityIDAttributes(v9);
+  OUTLINED_FUNCTION_135_0();
+  v11 = __swift_coroFrameAllocStub(*(v10 + 64));
+  v12 = OUTLINED_FUNCTION_187(v11);
+  *(v1 + 48) = __swift_coroFrameAllocStub(v12);
+  OUTLINED_FUNCTION_102_8();
+  OUTLINED_FUNCTION_74();
+  OUTLINED_FUNCTION_82();
   OUTLINED_FUNCTION_17_2();
   if (v13)
   {
-    _s10PegasusAPI18Amppb_AvailabilityVACycfC_0();
-    v14 = *(v7 + 20);
-    if (qword_1EBAB7978 != -1)
+    OUTLINED_FUNCTION_114_0();
+    OUTLINED_FUNCTION_280_0(v14);
+    OUTLINED_FUNCTION_17_2();
+    if (!v13)
     {
-      OUTLINED_FUNCTION_3_44();
-    }
-
-    *(v9 + v14) = qword_1EBAC8618;
-    v15 = OUTLINED_FUNCTION_50_1();
-
-    if (v15 != 1)
-    {
-      sub_1B8D9207C(v6, &qword_1EBAB9018, &unk_1B96A6290);
+      sub_1B8D9207C(v0, &qword_1EBAC95C0, &qword_1B96AA8B0);
     }
   }
 
   else
   {
-    OUTLINED_FUNCTION_1_60();
-    OUTLINED_FUNCTION_138_4();
+    OUTLINED_FUNCTION_209_3();
+    OUTLINED_FUNCTION_246();
+    sub_1B9239DA8();
   }
 
-  OUTLINED_FUNCTION_242();
+  OUTLINED_FUNCTION_105_0();
+  OUTLINED_FUNCTION_283();
 }
 
-uint64_t Apple_Parsec_Siri_V2alpha_MapItemSnippet.hasSearchRegionCenter.getter()
+uint64_t Apple_Parsec_Siri_V2alpha_AppEntityMetadata.hasIDAttributes.getter()
 {
-  v1 = OUTLINED_FUNCTION_514();
+  v0 = OUTLINED_FUNCTION_514();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(v0, v1);
+  OUTLINED_FUNCTION_183(v2);
+  OUTLINED_FUNCTION_176();
+  MEMORY[0x1EEE9AC00](v3);
+  v4 = OUTLINED_FUNCTION_22_3();
+  OUTLINED_FUNCTION_232_1(v4);
+  OUTLINED_FUNCTION_284_0();
+  OUTLINED_FUNCTION_238_2();
+  v5 = type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityIDAttributes(0);
+  OUTLINED_FUNCTION_11(v5);
+  return OUTLINED_FUNCTION_466_0();
+}
+
+Swift::Void __swiftcall Apple_Parsec_Siri_V2alpha_AppEntityMetadata.clearIDAttributes()()
+{
+  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAC95C0, &qword_1B96AA8B0);
+  OUTLINED_FUNCTION_183(v0);
+  OUTLINED_FUNCTION_176();
+  MEMORY[0x1EEE9AC00](v1);
+  v2 = OUTLINED_FUNCTION_31_2();
+  v3 = type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityMetadata(v2);
+  if ((OUTLINED_FUNCTION_182_0(v3) & 1) == 0)
+  {
+    type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityMetadata._StorageClass(0);
+    OUTLINED_FUNCTION_57_0();
+    swift_allocObject();
+    v4 = OUTLINED_FUNCTION_40_0();
+    v5 = sub_1B927276C(v4);
+    OUTLINED_FUNCTION_157_2(v5);
+  }
+
+  v6 = type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityIDAttributes(0);
+  OUTLINED_FUNCTION_274_1(v6);
+  OUTLINED_FUNCTION_290_0();
+  OUTLINED_FUNCTION_122_0();
+  sub_1B8DAA170();
+  swift_endAccess();
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_AppEntityMetadata.contactAttribute.getter()
+{
+  v1 = OUTLINED_FUNCTION_236();
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
   OUTLINED_FUNCTION_183(v3);
-  v5 = *(v4 + 64);
   OUTLINED_FUNCTION_176();
-  MEMORY[0x1EEE9AC00](v6);
-  v7 = OUTLINED_FUNCTION_22_3();
-  v8 = *(type metadata accessor for Apple_Parsec_Siri_V2alpha_MapItemSnippet(v7) + 28);
-  OUTLINED_FUNCTION_274_0();
-  OUTLINED_FUNCTION_45_11();
-  return v0;
-}
+  MEMORY[0x1EEE9AC00](v4);
+  v5 = OUTLINED_FUNCTION_22_3();
+  OUTLINED_FUNCTION_232_1(v5);
+  OUTLINED_FUNCTION_101_0();
+  OUTLINED_FUNCTION_39();
+  v6 = type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityContactAttributes(0);
+  OUTLINED_FUNCTION_29_14(v6);
+  if (v7)
+  {
+    OUTLINED_FUNCTION_92_0();
+    OUTLINED_FUNCTION_590_0(v8);
+    OUTLINED_FUNCTION_762(v9);
+    result = OUTLINED_FUNCTION_9_2();
+    if (!v7)
+    {
+      return sub_1B8D9207C(v0, &qword_1EBAC95C8, &qword_1B96AA8B8);
+    }
+  }
 
-Swift::Void __swiftcall Apple_Parsec_Siri_V2alpha_MapItemSnippet.clearSearchRegionCenter()()
-{
-  v1 = type metadata accessor for Apple_Parsec_Siri_V2alpha_MapItemSnippet(0);
-  sub_1B8D9207C(v0 + *(v1 + 28), &qword_1EBAB9018, &unk_1B96A6290);
-  OUTLINED_FUNCTION_39_11();
-  OUTLINED_FUNCTION_83();
+  else
+  {
+    OUTLINED_FUNCTION_208_4();
+    OUTLINED_FUNCTION_182();
+    return sub_1B9239DA8();
+  }
 
-  __swift_storeEnumTagSinglePayload(v2, v3, v4, v5);
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_MapItemSnippet.objects.setter(uint64_t a1)
-{
-  v3 = *v1;
-
-  *v1 = a1;
   return result;
 }
 
-uint64_t Apple_Parsec_Siri_V2alpha_MapItemSnippet.responseViewID.getter()
+uint64_t Apple_Parsec_Siri_V2alpha_AppEntityMetadata.contactAttribute.setter()
 {
-  v1 = *(v0 + 8);
-  v2 = *(v0 + 16);
+  OUTLINED_FUNCTION_183_0();
+  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAC95C8, &qword_1B96AA8B8);
+  OUTLINED_FUNCTION_183(v0);
+  OUTLINED_FUNCTION_176();
+  MEMORY[0x1EEE9AC00](v1);
+  v2 = OUTLINED_FUNCTION_31_2();
+  v3 = type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityMetadata(v2);
+  if ((OUTLINED_FUNCTION_47(v3) & 1) == 0)
+  {
+    type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityMetadata._StorageClass(0);
+    OUTLINED_FUNCTION_57_0();
+    swift_allocObject();
+    v4 = OUTLINED_FUNCTION_40_0();
+    v5 = sub_1B927276C(v4);
+    OUTLINED_FUNCTION_135(v5);
+  }
 
-  return OUTLINED_FUNCTION_432();
+  OUTLINED_FUNCTION_208_4();
+  OUTLINED_FUNCTION_470_0();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityContactAttributes(0);
+  v6 = OUTLINED_FUNCTION_53_0();
+  __swift_storeEnumTagSinglePayload(v6, v7, v8, v9);
+  OUTLINED_FUNCTION_73_0();
+  OUTLINED_FUNCTION_122_0();
+  sub_1B8DAA170();
+  return swift_endAccess();
 }
 
-uint64_t Apple_Parsec_Siri_V2alpha_MapItemSnippet.responseViewID.setter()
+uint64_t sub_1B9234D10()
+{
+  OUTLINED_FUNCTION_92_0();
+  OUTLINED_FUNCTION_590_0(v0);
+  v2 = v1(0);
+  return OUTLINED_FUNCTION_690_0(v2);
+}
+
+void Apple_Parsec_Siri_V2alpha_AppEntityMetadata.contactAttribute.modify()
+{
+  OUTLINED_FUNCTION_284();
+  v2 = OUTLINED_FUNCTION_185_0();
+  v3 = __swift_coroFrameAllocStub(v2);
+  OUTLINED_FUNCTION_66_0(v3);
+  v4 = OUTLINED_FUNCTION_491();
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(v4, v5);
+  OUTLINED_FUNCTION_183(v6);
+  v8 = __swift_coroFrameAllocStub(*(v7 + 64));
+  v9 = OUTLINED_FUNCTION_71(v8);
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityContactAttributes(v9);
+  OUTLINED_FUNCTION_135_0();
+  v11 = __swift_coroFrameAllocStub(*(v10 + 64));
+  v12 = OUTLINED_FUNCTION_187(v11);
+  *(v1 + 48) = __swift_coroFrameAllocStub(v12);
+  OUTLINED_FUNCTION_102_8();
+  OUTLINED_FUNCTION_74();
+  OUTLINED_FUNCTION_82();
+  OUTLINED_FUNCTION_17_2();
+  if (v13)
+  {
+    OUTLINED_FUNCTION_114_0();
+    OUTLINED_FUNCTION_593_1(v14);
+    OUTLINED_FUNCTION_610_1(v15);
+    OUTLINED_FUNCTION_17_2();
+    if (!v13)
+    {
+      sub_1B8D9207C(v0, &qword_1EBAC95C8, &qword_1B96AA8B8);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_208_4();
+    OUTLINED_FUNCTION_246();
+    sub_1B9239DA8();
+  }
+
+  OUTLINED_FUNCTION_105_0();
+  OUTLINED_FUNCTION_283();
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_AppEntityMetadata.hasContactAttribute.getter()
+{
+  v0 = OUTLINED_FUNCTION_514();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(v0, v1);
+  OUTLINED_FUNCTION_183(v2);
+  OUTLINED_FUNCTION_176();
+  MEMORY[0x1EEE9AC00](v3);
+  v4 = OUTLINED_FUNCTION_22_3();
+  OUTLINED_FUNCTION_232_1(v4);
+  OUTLINED_FUNCTION_284_0();
+  OUTLINED_FUNCTION_238_2();
+  v5 = type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityContactAttributes(0);
+  OUTLINED_FUNCTION_11(v5);
+  return OUTLINED_FUNCTION_466_0();
+}
+
+Swift::Void __swiftcall Apple_Parsec_Siri_V2alpha_AppEntityMetadata.clearContactAttribute()()
+{
+  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAC95C8, &qword_1B96AA8B8);
+  OUTLINED_FUNCTION_183(v0);
+  OUTLINED_FUNCTION_176();
+  MEMORY[0x1EEE9AC00](v1);
+  v2 = OUTLINED_FUNCTION_31_2();
+  v3 = type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityMetadata(v2);
+  if ((OUTLINED_FUNCTION_182_0(v3) & 1) == 0)
+  {
+    type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityMetadata._StorageClass(0);
+    OUTLINED_FUNCTION_57_0();
+    swift_allocObject();
+    v4 = OUTLINED_FUNCTION_40_0();
+    v5 = sub_1B927276C(v4);
+    OUTLINED_FUNCTION_157_2(v5);
+  }
+
+  v6 = type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityContactAttributes(0);
+  OUTLINED_FUNCTION_274_1(v6);
+  OUTLINED_FUNCTION_290_0();
+  OUTLINED_FUNCTION_122_0();
+  sub_1B8DAA170();
+  swift_endAccess();
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_AppEntityMetadata.appAttribute.getter()
+{
+  v1 = OUTLINED_FUNCTION_236();
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
+  OUTLINED_FUNCTION_183(v3);
+  OUTLINED_FUNCTION_176();
+  MEMORY[0x1EEE9AC00](v4);
+  v5 = OUTLINED_FUNCTION_22_3();
+  OUTLINED_FUNCTION_232_1(v5);
+  OUTLINED_FUNCTION_101_0();
+  OUTLINED_FUNCTION_39();
+  v6 = type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityAppstoreAttributes(0);
+  OUTLINED_FUNCTION_29_14(v6);
+  if (v7)
+  {
+    OUTLINED_FUNCTION_132_2();
+    OUTLINED_FUNCTION_520_1(v8);
+    result = OUTLINED_FUNCTION_9_2();
+    if (!v7)
+    {
+      return sub_1B8D9207C(v0, &unk_1EBAC95D0, &unk_1B96AA8C0);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_207_5();
+    OUTLINED_FUNCTION_182();
+    return sub_1B9239DA8();
+  }
+
+  return result;
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_AppEntityMetadata.appAttribute.setter()
+{
+  OUTLINED_FUNCTION_183_0();
+  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EBAC95D0, &unk_1B96AA8C0);
+  OUTLINED_FUNCTION_183(v0);
+  OUTLINED_FUNCTION_176();
+  MEMORY[0x1EEE9AC00](v1);
+  v2 = OUTLINED_FUNCTION_31_2();
+  v3 = type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityMetadata(v2);
+  if ((OUTLINED_FUNCTION_47(v3) & 1) == 0)
+  {
+    type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityMetadata._StorageClass(0);
+    OUTLINED_FUNCTION_57_0();
+    swift_allocObject();
+    v4 = OUTLINED_FUNCTION_40_0();
+    v5 = sub_1B927276C(v4);
+    OUTLINED_FUNCTION_135(v5);
+  }
+
+  OUTLINED_FUNCTION_207_5();
+  OUTLINED_FUNCTION_470_0();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityAppstoreAttributes(0);
+  v6 = OUTLINED_FUNCTION_53_0();
+  __swift_storeEnumTagSinglePayload(v6, v7, v8, v9);
+  OUTLINED_FUNCTION_73_0();
+  OUTLINED_FUNCTION_122_0();
+  sub_1B8DAA170();
+  return swift_endAccess();
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_AppEntityAppstoreAttributes.init()@<X0>(void *a1@<X8>)
+{
+  OUTLINED_FUNCTION_118_0(a1);
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityAppstoreAttributes(0);
+  OUTLINED_FUNCTION_102_7();
+  return _s10PegasusAPI18Amppb_AvailabilityVACycfC_0();
+}
+
+void Apple_Parsec_Siri_V2alpha_AppEntityMetadata.appAttribute.modify()
+{
+  OUTLINED_FUNCTION_284();
+  v2 = OUTLINED_FUNCTION_185_0();
+  v3 = __swift_coroFrameAllocStub(v2);
+  OUTLINED_FUNCTION_66_0(v3);
+  v4 = OUTLINED_FUNCTION_491();
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(v4, v5);
+  OUTLINED_FUNCTION_183(v6);
+  v8 = __swift_coroFrameAllocStub(*(v7 + 64));
+  v9 = OUTLINED_FUNCTION_71(v8);
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityAppstoreAttributes(v9);
+  OUTLINED_FUNCTION_135_0();
+  v11 = __swift_coroFrameAllocStub(*(v10 + 64));
+  v12 = OUTLINED_FUNCTION_187(v11);
+  v13 = __swift_coroFrameAllocStub(v12);
+  *(v1 + 48) = v13;
+  OUTLINED_FUNCTION_102_8();
+  OUTLINED_FUNCTION_74();
+  OUTLINED_FUNCTION_82();
+  v14 = OUTLINED_FUNCTION_17_2();
+  if (v15)
+  {
+    *v13 = 0;
+    v13[1] = 0xE000000000000000;
+    OUTLINED_FUNCTION_282_2(v14);
+    OUTLINED_FUNCTION_17_2();
+    if (!v15)
+    {
+      sub_1B8D9207C(v0, &unk_1EBAC95D0, &unk_1B96AA8C0);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_207_5();
+    OUTLINED_FUNCTION_246();
+    sub_1B9239DA8();
+  }
+
+  OUTLINED_FUNCTION_105_0();
+  OUTLINED_FUNCTION_283();
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_AppEntityMetadata.hasAppAttribute.getter()
+{
+  v0 = OUTLINED_FUNCTION_514();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(v0, v1);
+  OUTLINED_FUNCTION_183(v2);
+  OUTLINED_FUNCTION_176();
+  MEMORY[0x1EEE9AC00](v3);
+  v4 = OUTLINED_FUNCTION_22_3();
+  OUTLINED_FUNCTION_232_1(v4);
+  OUTLINED_FUNCTION_284_0();
+  OUTLINED_FUNCTION_238_2();
+  v5 = type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityAppstoreAttributes(0);
+  OUTLINED_FUNCTION_11(v5);
+  return OUTLINED_FUNCTION_466_0();
+}
+
+Swift::Void __swiftcall Apple_Parsec_Siri_V2alpha_AppEntityMetadata.clearAppAttribute()()
+{
+  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EBAC95D0, &unk_1B96AA8C0);
+  OUTLINED_FUNCTION_183(v0);
+  OUTLINED_FUNCTION_176();
+  MEMORY[0x1EEE9AC00](v1);
+  v2 = OUTLINED_FUNCTION_31_2();
+  v3 = type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityMetadata(v2);
+  if ((OUTLINED_FUNCTION_182_0(v3) & 1) == 0)
+  {
+    type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityMetadata._StorageClass(0);
+    OUTLINED_FUNCTION_57_0();
+    swift_allocObject();
+    v4 = OUTLINED_FUNCTION_40_0();
+    v5 = sub_1B927276C(v4);
+    OUTLINED_FUNCTION_157_2(v5);
+  }
+
+  v6 = type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityAppstoreAttributes(0);
+  OUTLINED_FUNCTION_274_1(v6);
+  OUTLINED_FUNCTION_290_0();
+  OUTLINED_FUNCTION_122_0();
+  sub_1B8DAA170();
+  swift_endAccess();
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_AppEntityGeneralAttributes.contentURL.setter()
 {
   OUTLINED_FUNCTION_16();
-  v3 = *(v1 + 16);
 
   *(v1 + 8) = v2;
   *(v1 + 16) = v0;
   return result;
 }
 
-uint64_t sub_1B91F3848()
-{
-  v0 = OUTLINED_FUNCTION_27();
-  v2 = *(v1(v0) + 24);
-  v3 = sub_1B964C2B0();
-  OUTLINED_FUNCTION_59_1(v3);
-  v5 = *(v4 + 16);
-  v6 = OUTLINED_FUNCTION_18_1();
-
-  return v7(v6);
-}
-
-uint64_t sub_1B91F38D0()
-{
-  v0 = OUTLINED_FUNCTION_313();
-  v2 = *(v1(v0) + 24);
-  v3 = sub_1B964C2B0();
-  OUTLINED_FUNCTION_59_1(v3);
-  v5 = *(v4 + 40);
-  v6 = OUTLINED_FUNCTION_209();
-
-  return v7(v6);
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_MapItemSnippet.unknownFields.modify()
-{
-  v0 = OUTLINED_FUNCTION_313();
-  v1 = *(type metadata accessor for Apple_Parsec_Siri_V2alpha_MapItemSnippet(v0) + 24);
-  return OUTLINED_FUNCTION_25();
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_MapItemSnippet.init()@<X0>(void *a1@<X8>)
-{
-  *a1 = MEMORY[0x1E69E7CC0];
-  a1[1] = 0;
-  a1[2] = 0xE000000000000000;
-  v1 = type metadata accessor for Apple_Parsec_Siri_V2alpha_MapItemSnippet(0);
-  OUTLINED_FUNCTION_279(v1);
-  v2 = *(v1 + 28);
-  OUTLINED_FUNCTION_39_11();
-  OUTLINED_FUNCTION_83();
-
-  return __swift_storeEnumTagSinglePayload(v3, v4, v5, v6);
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_PhoneCallBuilderParams.name.getter()
-{
-  v1 = *(v0 + 16);
-  v2 = *(v0 + 24);
-
-  return OUTLINED_FUNCTION_432();
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_PhoneCallBuilderParams.name.setter()
+uint64_t Apple_Parsec_Siri_V2alpha_AppEntityGeneralAttributes.displayName.setter()
 {
   OUTLINED_FUNCTION_16();
-  v3 = *(v1 + 24);
 
-  *(v1 + 16) = v2;
-  *(v1 + 24) = v0;
+  *(v1 + 24) = v2;
+  *(v1 + 32) = v0;
   return result;
 }
 
-uint64_t Apple_Parsec_Siri_V2alpha_PhoneCallBuilderParams.unknownFields.modify()
+uint64_t Apple_Parsec_Siri_V2alpha_AppEntityGeneralAttributes.thumbnailData.getter()
+{
+  v1 = OUTLINED_FUNCTION_236();
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
+  OUTLINED_FUNCTION_183(v3);
+  OUTLINED_FUNCTION_176();
+  MEMORY[0x1EEE9AC00](v4);
+  v5 = OUTLINED_FUNCTION_22_3();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityGeneralAttributes(v5);
+  OUTLINED_FUNCTION_100_0();
+  v6 = sub_1B964C1C0();
+  OUTLINED_FUNCTION_29_14(v6);
+  if (v7)
+  {
+    sub_1B964C1B0();
+    result = OUTLINED_FUNCTION_9_2();
+    if (!v7)
+    {
+      return sub_1B8D9207C(v0, &qword_1EBAB8F20, &qword_1B964D720);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_48_7();
+    OUTLINED_FUNCTION_397();
+    return v8();
+  }
+
+  return result;
+}
+
+uint64_t sub_1B92356C0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void (*a5)(void), uint64_t (*a6)(uint64_t))
+{
+  a5(0);
+  OUTLINED_FUNCTION_30_1();
+  OUTLINED_FUNCTION_176();
+  MEMORY[0x1EEE9AC00](v8);
+  OUTLINED_FUNCTION_88();
+  v9 = OUTLINED_FUNCTION_461();
+  v10(v9);
+  return a6(v6);
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_AppEntityGeneralAttributes.thumbnailData.setter()
+{
+  v2 = OUTLINED_FUNCTION_313();
+  v3 = type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityGeneralAttributes(v2);
+  sub_1B8D9207C(v0 + *(v3 + 36), &qword_1EBAB8F20, &qword_1B964D720);
+  sub_1B964C1C0();
+  OUTLINED_FUNCTION_126_1();
+  OUTLINED_FUNCTION_3_0();
+  v4();
+  OUTLINED_FUNCTION_80();
+
+  return __swift_storeEnumTagSinglePayload(v5, v6, v7, v1);
+}
+
+void Apple_Parsec_Siri_V2alpha_AppEntityGeneralAttributes.thumbnailData.modify()
+{
+  OUTLINED_FUNCTION_284();
+  v1 = OUTLINED_FUNCTION_185_0();
+  v2 = __swift_coroFrameAllocStub(v1);
+  OUTLINED_FUNCTION_86(v2);
+  v3 = OUTLINED_FUNCTION_686();
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(v3, v4);
+  OUTLINED_FUNCTION_183(v5);
+  v7 = __swift_coroFrameAllocStub(*(v6 + 64));
+  OUTLINED_FUNCTION_145_1(v7);
+  v8 = sub_1B964C1C0();
+  OUTLINED_FUNCTION_53_6(v8);
+  OUTLINED_FUNCTION_30_1();
+  *(v0 + 24) = v9;
+  v11 = __swift_coroFrameAllocStub(*(v10 + 64));
+  v12 = OUTLINED_FUNCTION_76_2(v11);
+  v13 = __swift_coroFrameAllocStub(v12);
+  v14 = OUTLINED_FUNCTION_35_4(v13);
+  v15 = type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityGeneralAttributes(v14);
+  OUTLINED_FUNCTION_25_9(*(v15 + 36));
+  OUTLINED_FUNCTION_75(v7);
+  if (v16)
+  {
+    sub_1B964C1B0();
+    OUTLINED_FUNCTION_75(v7);
+    if (!v16)
+    {
+      sub_1B8D9207C(v7, &qword_1EBAB8F20, &qword_1B964D720);
+    }
+  }
+
+  else
+  {
+    v17 = OUTLINED_FUNCTION_461();
+    v18(v17);
+  }
+
+  OUTLINED_FUNCTION_89_5();
+  OUTLINED_FUNCTION_283();
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_AppEntityGeneralAttributes.title.setter()
+{
+  OUTLINED_FUNCTION_16();
+
+  *(v1 + 40) = v2;
+  *(v1 + 48) = v0;
+  return result;
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_AppEntityGeneralAttributes.unknownFields.modify()
 {
   v0 = OUTLINED_FUNCTION_313();
-  v1 = *(type metadata accessor for Apple_Parsec_Siri_V2alpha_PhoneCallBuilderParams(v0) + 24);
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityGeneralAttributes(v0);
   return OUTLINED_FUNCTION_25();
 }
 
-uint64_t Apple_Parsec_Siri_V2alpha_MapItemBuilderParams.location.getter@<X0>(uint64_t a1@<X8>)
+uint64_t Apple_Parsec_Siri_V2alpha_AppEntityCustomAttribute.value.setter()
 {
-  v3 = OUTLINED_FUNCTION_206_0();
+  v0 = OUTLINED_FUNCTION_313();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityCustomAttribute(v0);
+  return sub_1B8DAA170();
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_AppEntityCustomAttribute.value.modify()
+{
+  v0 = OUTLINED_FUNCTION_313();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityCustomAttribute(v0);
+  return OUTLINED_FUNCTION_25();
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_AppEntityCustomAttribute.stringValue.getter()
+{
+  v1 = OUTLINED_FUNCTION_303();
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
   OUTLINED_FUNCTION_183(v3);
-  v5 = *(v4 + 64);
+  OUTLINED_FUNCTION_176();
+  MEMORY[0x1EEE9AC00](v4);
+  v5 = OUTLINED_FUNCTION_31_2();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityCustomAttribute(v5);
+  OUTLINED_FUNCTION_3_0();
+  sub_1B8D92024();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityCustomAttribute.OneOf_Value(0);
+  OUTLINED_FUNCTION_37_0(v0);
+  if (v6)
+  {
+    sub_1B8D9207C(v0, &qword_1EBAB8FA0, &unk_1B964D790);
+    return 0;
+  }
+
+  OUTLINED_FUNCTION_432();
+  if (swift_getEnumCaseMultiPayload())
+  {
+    OUTLINED_FUNCTION_3_48();
+    sub_1B9239E50();
+    return 0;
+  }
+
+  return *v0;
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_AppEntityCustomAttribute.stringValue.setter()
+{
+  v3 = OUTLINED_FUNCTION_112();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityCustomAttribute(v3);
+  OUTLINED_FUNCTION_479_0();
+  sub_1B8D9207C(v1, &qword_1EBAB8FA0, &unk_1B964D790);
+  *v1 = v2;
+  v1[1] = v0;
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityCustomAttribute.OneOf_Value(0);
+  OUTLINED_FUNCTION_199_3();
+  swift_storeEnumTagMultiPayload();
+  v4 = OUTLINED_FUNCTION_125_2();
+
+  return __swift_storeEnumTagSinglePayload(v4, v5, v6, v7);
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_AppEntityCustomAttribute.stringValue.modify()
+{
+  v2 = OUTLINED_FUNCTION_212();
+  v3 = __swift_coroFrameAllocStub(v2);
+  *v0 = v3;
+  v3[2] = v1;
+  v4 = OUTLINED_FUNCTION_1_0();
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(v4, v5);
+  OUTLINED_FUNCTION_183(v6);
+  v8 = __swift_coroFrameAllocStub(*(v7 + 64));
+  v3[3] = v8;
+  OUTLINED_FUNCTION_333_1();
+  *(v3 + 10) = v9;
+  OUTLINED_FUNCTION_176_2();
+  sub_1B8D92024();
+  v3[4] = type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityCustomAttribute.OneOf_Value(0);
+  OUTLINED_FUNCTION_117(v8);
+  if (v10)
+  {
+    sub_1B8D9207C(v8, &qword_1EBAB8FA0, &unk_1B964D790);
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_303();
+    if (!swift_getEnumCaseMultiPayload())
+    {
+      v12 = *v8;
+      v13 = v8[1];
+      goto LABEL_7;
+    }
+
+    OUTLINED_FUNCTION_3_48();
+    sub_1B9239E50();
+  }
+
+  v12 = 0;
+  v13 = 0xE000000000000000;
+LABEL_7:
+  *v3 = v12;
+  v3[1] = v13;
+  return OUTLINED_FUNCTION_46_1();
+}
+
+void sub_1B9235E40(uint64_t **a1, char a2)
+{
+  v2 = *a1;
+  v4 = **a1;
+  v3 = (*a1)[1];
+  v5 = (*a1)[3];
+  v6 = (*a1)[4];
+  v7 = *(*a1 + 10);
+  v8 = ((*a1)[2] + v7);
+  if (a2)
+  {
+
+    sub_1B8D9207C(v8, &qword_1EBAB8FA0, &unk_1B964D790);
+    *v8 = v4;
+    v8[1] = v3;
+    OUTLINED_FUNCTION_461();
+    swift_storeEnumTagMultiPayload();
+    OUTLINED_FUNCTION_80();
+    __swift_storeEnumTagSinglePayload(v9, v10, v11, v6);
+  }
+
+  else
+  {
+    sub_1B8D9207C((*a1)[2] + v7, &qword_1EBAB8FA0, &unk_1B964D790);
+    *v8 = v4;
+    v8[1] = v3;
+    OUTLINED_FUNCTION_461();
+    swift_storeEnumTagMultiPayload();
+    OUTLINED_FUNCTION_80();
+    __swift_storeEnumTagSinglePayload(v12, v13, v14, v6);
+  }
+
+  free(v5);
+
+  free(v2);
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_AppEntityCustomAttribute.timestamp.getter@<X0>(void *a1@<X8>)
+{
+  v3 = OUTLINED_FUNCTION_236();
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(v3, v4);
+  OUTLINED_FUNCTION_183(v5);
   OUTLINED_FUNCTION_176();
   MEMORY[0x1EEE9AC00](v6);
   v7 = OUTLINED_FUNCTION_22_3();
-  v8 = *(type metadata accessor for Apple_Parsec_Siri_V2alpha_MapItemBuilderParams(v7) + 40);
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityCustomAttribute(v7);
   OUTLINED_FUNCTION_100_0();
-  v9 = type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams(0);
-  OUTLINED_FUNCTION_57(v1);
-  if (v10)
+  v8 = type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityCustomAttribute.OneOf_Value(0);
+  OUTLINED_FUNCTION_29_14(v8);
+  if (v9)
   {
-    _s10PegasusAPI18Amppb_AvailabilityVACycfC_0();
-    v11 = *(v9 + 20);
-    if (qword_1EBAB7978 != -1)
-    {
-      OUTLINED_FUNCTION_3_44();
-    }
-
-    *(a1 + v11) = qword_1EBAC8618;
-    v12 = OUTLINED_FUNCTION_64_5();
-
-    if (v12 != 1)
-    {
-      return sub_1B8D9207C(v1, &qword_1EBAB9018, &unk_1B96A6290);
-    }
+    sub_1B8D9207C(v1, &qword_1EBAB8FA0, &unk_1B964D790);
   }
 
   else
   {
-    OUTLINED_FUNCTION_1_60();
-    OUTLINED_FUNCTION_182();
-    return sub_1B91FA3D0();
+    OUTLINED_FUNCTION_461();
+    EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+    if (EnumCaseMultiPayload == 1)
+    {
+      OUTLINED_FUNCTION_202_4();
+      OUTLINED_FUNCTION_182();
+      return sub_1B9239DA8();
+    }
+
+    OUTLINED_FUNCTION_3_48();
+    sub_1B9239E50();
   }
 
-  return result;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  a1[3] = 0xE000000000000000;
+  v12 = type metadata accessor for Apple_Parsec_Siri_V2alpha_Timestamp(0);
+  return OUTLINED_FUNCTION_101_2(v12);
 }
 
-uint64_t Apple_Parsec_Siri_V2alpha_MapItemBuilderParams.location.setter()
-{
-  v1 = OUTLINED_FUNCTION_313();
-  v2 = type metadata accessor for Apple_Parsec_Siri_V2alpha_MapItemBuilderParams(v1);
-  sub_1B8D9207C(v0 + *(v2 + 40), &qword_1EBAB9018, &unk_1B96A6290);
-  OUTLINED_FUNCTION_1_60();
-  OUTLINED_FUNCTION_122_0();
-  sub_1B91FA3D0();
-  OUTLINED_FUNCTION_39_11();
-  OUTLINED_FUNCTION_80();
-
-  return __swift_storeEnumTagSinglePayload(v3, v4, v5, v6);
-}
-
-void Apple_Parsec_Siri_V2alpha_MapItemBuilderParams.location.modify()
+void Apple_Parsec_Siri_V2alpha_AppEntityCustomAttribute.timestamp.modify()
 {
   OUTLINED_FUNCTION_243();
-  v1 = __swift_coroFrameAllocStub(0x30uLL);
-  OUTLINED_FUNCTION_86(v1);
-  v2 = OUTLINED_FUNCTION_686();
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(v2, v3);
-  OUTLINED_FUNCTION_183(v4);
-  v6 = __swift_coroFrameAllocStub(*(v5 + 64));
-  v0[1] = v6;
-  v7 = type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams(0);
-  v0[2] = v7;
-  OUTLINED_FUNCTION_59_1(v7);
-  v9 = *(v8 + 64);
-  v0[3] = __swift_coroFrameAllocStub(v9);
-  v10 = __swift_coroFrameAllocStub(v9);
-  v11 = OUTLINED_FUNCTION_89_0(v10);
-  v12 = type metadata accessor for Apple_Parsec_Siri_V2alpha_MapItemBuilderParams(v11);
-  OUTLINED_FUNCTION_116_0(*(v12 + 40));
-  OUTLINED_FUNCTION_17_2();
-  if (v13)
+  v2 = OUTLINED_FUNCTION_212();
+  v3 = __swift_coroFrameAllocStub(v2);
+  OUTLINED_FUNCTION_86(v3);
+  v4 = OUTLINED_FUNCTION_686();
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(v4, v5);
+  OUTLINED_FUNCTION_183(v6);
+  v8 = __swift_coroFrameAllocStub(*(v7 + 64));
+  v9 = OUTLINED_FUNCTION_85(v8);
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_Timestamp(v9);
+  OUTLINED_FUNCTION_126_1();
+  v11 = *(v10 + 64);
+  *(v1 + 16) = __swift_coroFrameAllocStub(v11);
+  v12 = __swift_coroFrameAllocStub(v11);
+  *(v1 + 24) = v12;
+  OUTLINED_FUNCTION_333_1();
+  OUTLINED_FUNCTION_64_0(v13);
+  v14 = type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityCustomAttribute.OneOf_Value(0);
+  v15 = OUTLINED_FUNCTION_76_2(v14);
+  OUTLINED_FUNCTION_37_0(v15);
+  if (v16)
   {
+    sub_1B8D9207C(v0, &qword_1EBAB8FA0, &unk_1B964D790);
+LABEL_7:
+    *v12 = 0;
+    v12[1] = 0;
+    v12[2] = 0;
+    v12[3] = 0xE000000000000000;
     _s10PegasusAPI18Amppb_AvailabilityVACycfC_0();
-    v14 = *(v7 + 20);
-    if (qword_1EBAB7978 != -1)
-    {
-      OUTLINED_FUNCTION_3_44();
-    }
-
-    *(v9 + v14) = qword_1EBAC8618;
-    v15 = OUTLINED_FUNCTION_50_1();
-
-    if (v15 != 1)
-    {
-      sub_1B8D9207C(v6, &qword_1EBAB9018, &unk_1B96A6290);
-    }
+    goto LABEL_8;
   }
 
-  else
+  OUTLINED_FUNCTION_128();
+  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+  if (EnumCaseMultiPayload != 1)
   {
-    OUTLINED_FUNCTION_1_60();
-    OUTLINED_FUNCTION_138_4();
+    OUTLINED_FUNCTION_3_48();
+    sub_1B9239E50();
+    goto LABEL_7;
   }
 
+  OUTLINED_FUNCTION_202_4();
+  OUTLINED_FUNCTION_177_1();
+  sub_1B9239DA8();
+LABEL_8:
+  OUTLINED_FUNCTION_46_1();
   OUTLINED_FUNCTION_242();
 }
 
-void sub_1B91F3DC4()
+uint64_t Apple_Parsec_Siri_V2alpha_AppEntityCustomAttribute.temperature.getter@<X0>(uint64_t a1@<X8>)
+{
+  v3 = OUTLINED_FUNCTION_236();
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(v3, v4);
+  OUTLINED_FUNCTION_183(v5);
+  OUTLINED_FUNCTION_176();
+  MEMORY[0x1EEE9AC00](v6);
+  v7 = OUTLINED_FUNCTION_22_3();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityCustomAttribute(v7);
+  OUTLINED_FUNCTION_100_0();
+  v8 = type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityCustomAttribute.OneOf_Value(0);
+  OUTLINED_FUNCTION_29_14(v8);
+  if (v9)
+  {
+    sub_1B8D9207C(v1, &qword_1EBAB8FA0, &unk_1B964D790);
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_461();
+    EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+    if (EnumCaseMultiPayload == 2)
+    {
+      OUTLINED_FUNCTION_201_4();
+      OUTLINED_FUNCTION_182();
+      return sub_1B9239DA8();
+    }
+
+    OUTLINED_FUNCTION_3_48();
+    sub_1B9239E50();
+  }
+
+  OUTLINED_FUNCTION_132_2();
+  *(a1 + 16) = 0;
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_Temperature(0);
+  return OUTLINED_FUNCTION_279();
+}
+
+uint64_t sub_1B92362C0()
+{
+  OUTLINED_FUNCTION_167_3();
+  v1 = type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityCustomAttribute(0);
+  sub_1B8D9207C(v0 + *(v1 + 20), &qword_1EBAB8FA0, &unk_1B964D790);
+  sub_1B9239DA8();
+  v2 = type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityCustomAttribute.OneOf_Value(0);
+  swift_storeEnumTagMultiPayload();
+  OUTLINED_FUNCTION_80();
+
+  return __swift_storeEnumTagSinglePayload(v3, v4, v5, v2);
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_Temperature.init()@<X0>(void *a1@<X8>)
+{
+  OUTLINED_FUNCTION_118_0(a1);
+  *(v1 + 16) = 0;
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_Temperature(0);
+  return OUTLINED_FUNCTION_279();
+}
+
+void Apple_Parsec_Siri_V2alpha_AppEntityCustomAttribute.temperature.modify()
 {
   OUTLINED_FUNCTION_243();
-  v1 = *(*v0 + 10);
-  v2 = (*v0)[3];
-  v3 = (*v0)[4];
+  v2 = OUTLINED_FUNCTION_212();
+  v3 = __swift_coroFrameAllocStub(v2);
+  OUTLINED_FUNCTION_86(v3);
+  v4 = OUTLINED_FUNCTION_686();
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(v4, v5);
+  OUTLINED_FUNCTION_183(v6);
+  v8 = __swift_coroFrameAllocStub(*(v7 + 64));
+  v9 = OUTLINED_FUNCTION_85(v8);
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_Temperature(v9);
+  OUTLINED_FUNCTION_126_1();
+  v11 = *(v10 + 64);
+  *(v1 + 16) = __swift_coroFrameAllocStub(v11);
+  v12 = __swift_coroFrameAllocStub(v11);
+  *(v1 + 24) = v12;
+  OUTLINED_FUNCTION_333_1();
+  OUTLINED_FUNCTION_64_0(v13);
+  v14 = type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityCustomAttribute.OneOf_Value(0);
+  v15 = OUTLINED_FUNCTION_76_2(v14);
+  OUTLINED_FUNCTION_37_0(v15);
+  if (v16)
+  {
+    sub_1B8D9207C(v0, &qword_1EBAB8FA0, &unk_1B964D790);
+LABEL_7:
+    *v12 = 0;
+    v12[1] = 0xE000000000000000;
+    v12[2] = 0;
+    _s10PegasusAPI18Amppb_AvailabilityVACycfC_0();
+    goto LABEL_8;
+  }
+
+  OUTLINED_FUNCTION_128();
+  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+  if (EnumCaseMultiPayload != 2)
+  {
+    OUTLINED_FUNCTION_3_48();
+    sub_1B9239E50();
+    goto LABEL_7;
+  }
+
+  OUTLINED_FUNCTION_201_4();
+  OUTLINED_FUNCTION_177_1();
+  sub_1B9239DA8();
+LABEL_8:
+  OUTLINED_FUNCTION_46_1();
+  OUTLINED_FUNCTION_242();
+}
+
+void sub_1B9236514()
+{
+  OUTLINED_FUNCTION_284();
+  v1 = (*v0)[3];
+  v2 = (*v0)[4];
+  v3 = *(*v0 + 10);
   v4 = (*v0)[1];
   v5 = (*v0)[2];
   v6 = **v0;
   if (v7)
   {
-    v8 = (*v0)[4];
-    sub_1B91FA444();
-    sub_1B8D9207C(v6 + v1, &qword_1EBAB9018, &unk_1B96A6290);
-    sub_1B91FA3D0();
+    OUTLINED_FUNCTION_461();
+    sub_1B9239DFC();
+    sub_1B8D9207C(v6 + v3, &qword_1EBAB8FA0, &unk_1B964D790);
+    sub_1B9239DA8();
+    swift_storeEnumTagMultiPayload();
     OUTLINED_FUNCTION_80();
-    __swift_storeEnumTagSinglePayload(v9, v10, v11, v5);
-    sub_1B91FA498();
+    __swift_storeEnumTagSinglePayload(v8, v9, v10, v2);
+    sub_1B9239E50();
   }
 
   else
   {
-    sub_1B8D9207C(v6 + v1, &qword_1EBAB9018, &unk_1B96A6290);
-    OUTLINED_FUNCTION_1_60();
-    sub_1B91FA3D0();
+    sub_1B8D9207C(v6 + v3, &qword_1EBAB8FA0, &unk_1B964D790);
+    sub_1B9239DA8();
+    swift_storeEnumTagMultiPayload();
     OUTLINED_FUNCTION_80();
-    __swift_storeEnumTagSinglePayload(v12, v13, v14, v5);
+    __swift_storeEnumTagSinglePayload(v11, v12, v13, v2);
   }
 
-  free(v3);
-  free(v2);
+  free(v1);
+  free(v5);
   free(v4);
-  OUTLINED_FUNCTION_242();
+  OUTLINED_FUNCTION_283();
 
-  free(v15);
+  free(v14);
 }
 
-uint64_t Apple_Parsec_Siri_V2alpha_MapItemBuilderParams.hasLocation.getter()
-{
-  v1 = OUTLINED_FUNCTION_514();
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
-  OUTLINED_FUNCTION_183(v3);
-  v5 = *(v4 + 64);
-  OUTLINED_FUNCTION_176();
-  MEMORY[0x1EEE9AC00](v6);
-  v7 = OUTLINED_FUNCTION_22_3();
-  v8 = *(type metadata accessor for Apple_Parsec_Siri_V2alpha_MapItemBuilderParams(v7) + 40);
-  OUTLINED_FUNCTION_274_0();
-  OUTLINED_FUNCTION_45_11();
-  return v0;
-}
-
-Swift::Void __swiftcall Apple_Parsec_Siri_V2alpha_MapItemBuilderParams.clearLocation()()
-{
-  v1 = type metadata accessor for Apple_Parsec_Siri_V2alpha_MapItemBuilderParams(0);
-  sub_1B8D9207C(v0 + *(v1 + 40), &qword_1EBAB9018, &unk_1B96A6290);
-  OUTLINED_FUNCTION_39_11();
-  OUTLINED_FUNCTION_83();
-
-  __swift_storeEnumTagSinglePayload(v2, v3, v4, v5);
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_MapItemBuilderParams.label.getter()
-{
-  v1 = *v0;
-  v2 = v0[1];
-
-  return OUTLINED_FUNCTION_432();
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_MapItemBuilderParams.label.setter()
-{
-  OUTLINED_FUNCTION_16();
-  v3 = v1[1];
-
-  *v1 = v2;
-  v1[1] = v0;
-  return result;
-}
-
-void Apple_Parsec_Siri_V2alpha_MapItemBuilderParams.detailType.getter(uint64_t a1@<X8>)
-{
-  v2 = *(v1 + 16);
-  v3 = *(v1 + 24);
-  OUTLINED_FUNCTION_4(a1);
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_MapItemBuilderParams.detailType.setter(uint64_t result)
-{
-  v2 = *(result + 8);
-  *(v1 + 16) = *result;
-  *(v1 + 24) = v2;
-  return result;
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_MapItemBuilderParams.spokenName.getter()
-{
-  v1 = *(v0 + 32);
-  v2 = *(v0 + 40);
-
-  return OUTLINED_FUNCTION_432();
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_MapItemBuilderParams.spokenName.setter()
-{
-  OUTLINED_FUNCTION_16();
-  v3 = *(v1 + 40);
-
-  *(v1 + 32) = v2;
-  *(v1 + 40) = v0;
-  return result;
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_MapItemBuilderParams.placeData.getter()
-{
-  v1 = *(v0 + 48);
-  v2 = *(v0 + 56);
-  v3 = OUTLINED_FUNCTION_432();
-  sub_1B8D91FCC(v3, v4);
-  return OUTLINED_FUNCTION_432();
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_MapItemBuilderParams.placeData.setter()
-{
-  OUTLINED_FUNCTION_16();
-  result = sub_1B8D538A0(*(v1 + 48), *(v1 + 56));
-  *(v1 + 48) = v2;
-  *(v1 + 56) = v0;
-  return result;
-}
-
-void Apple_Parsec_Siri_V2alpha_MapItemBuilderParams.directionRole.getter(uint64_t a1@<X8>)
-{
-  v2 = *(v1 + 64);
-  v3 = *(v1 + 72);
-  OUTLINED_FUNCTION_4(a1);
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_MapItemBuilderParams.directionRole.setter(uint64_t result)
-{
-  v2 = *(result + 8);
-  *(v1 + 64) = *result;
-  *(v1 + 72) = v2;
-  return result;
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_MapItemBuilderParams.unknownFields.getter()
-{
-  v0 = OUTLINED_FUNCTION_27();
-  v1 = *(type metadata accessor for Apple_Parsec_Siri_V2alpha_MapItemBuilderParams(v0) + 36);
-  v2 = sub_1B964C2B0();
-  OUTLINED_FUNCTION_59_1(v2);
-  v4 = *(v3 + 16);
-  v5 = OUTLINED_FUNCTION_18_1();
-
-  return v6(v5);
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_MapItemBuilderParams.unknownFields.setter()
+uint64_t Apple_Parsec_Siri_V2alpha_AppEntityCustomAttribute.unknownFields.modify()
 {
   v0 = OUTLINED_FUNCTION_313();
-  v1 = *(type metadata accessor for Apple_Parsec_Siri_V2alpha_MapItemBuilderParams(v0) + 36);
-  v2 = sub_1B964C2B0();
-  OUTLINED_FUNCTION_59_1(v2);
-  v4 = *(v3 + 40);
-  v5 = OUTLINED_FUNCTION_209();
-
-  return v6(v5);
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_MapItemBuilderParams.unknownFields.modify()
-{
-  v0 = OUTLINED_FUNCTION_313();
-  v1 = *(type metadata accessor for Apple_Parsec_Siri_V2alpha_MapItemBuilderParams(v0) + 36);
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityCustomAttribute(v0);
   return OUTLINED_FUNCTION_25();
 }
 
-uint64_t sub_1B91F42F4(uint64_t a1, uint64_t a2)
+void static Apple_Parsec_Siri_V2alpha_AppEntityCustomAttribute.OneOf_Value.== infix(_:_:)()
 {
-  v4 = sub_1B91FE294();
-
-  return MEMORY[0x1EEE15710](a1, a2, v4);
-}
-
-uint64_t sub_1B91F4374(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_1B91FE2E8();
-
-  return MEMORY[0x1EEE15710](a1, a2, v4);
-}
-
-uint64_t static Apple_Parsec_Siri_V2alpha_MapItemBuilderParams.DetailType.allCases.modify()
-{
-  OUTLINED_FUNCTION_288();
-  OUTLINED_FUNCTION_131();
-  swift_beginAccess();
-  return OUTLINED_FUNCTION_19_2();
-}
-
-uint64_t sub_1B91F445C@<X0>(uint64_t *a1@<X8>)
-{
-  result = static Apple_Parsec_Siri_V2alpha_MapItemBuilderParams.DetailType.allCases.getter();
-  *a1 = result;
-  return result;
-}
-
-uint64_t static Apple_Parsec_Siri_V2alpha_MapItemBuilderParams.Role.allCases.modify()
-{
-  OUTLINED_FUNCTION_288();
-  OUTLINED_FUNCTION_131();
-  swift_beginAccess();
-  return OUTLINED_FUNCTION_19_2();
-}
-
-uint64_t sub_1B91F4514@<X0>(uint64_t *a1@<X8>)
-{
-  result = static Apple_Parsec_Siri_V2alpha_MapItemBuilderParams.Role.allCases.getter();
-  *a1 = result;
-  return result;
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_MapItemListBuilderParams.unknownFields.modify()
-{
-  v0 = OUTLINED_FUNCTION_313();
-  v1 = *(type metadata accessor for Apple_Parsec_Siri_V2alpha_MapItemListBuilderParams(v0) + 24);
-  return OUTLINED_FUNCTION_25();
-}
-
-uint64_t sub_1B91F4664()
-{
-  v0 = OUTLINED_FUNCTION_27();
-  v2 = *(v1(v0) + 20);
-  v3 = sub_1B964C2B0();
-  OUTLINED_FUNCTION_59_1(v3);
-  v5 = *(v4 + 16);
-  v6 = OUTLINED_FUNCTION_18_1();
-
-  return v7(v6);
-}
-
-uint64_t sub_1B91F46EC()
-{
-  v0 = OUTLINED_FUNCTION_313();
-  v2 = *(v1(v0) + 20);
-  v3 = sub_1B964C2B0();
-  OUTLINED_FUNCTION_59_1(v3);
-  v5 = *(v4 + 40);
-  v6 = OUTLINED_FUNCTION_209();
-
-  return v7(v6);
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_ShowPlaceDetailsBuilderParams.unknownFields.modify()
-{
-  v0 = OUTLINED_FUNCTION_313();
-  v1 = *(type metadata accessor for Apple_Parsec_Siri_V2alpha_ShowPlaceDetailsBuilderParams(v0) + 20);
-  return OUTLINED_FUNCTION_25();
-}
-
-uint64_t sub_1B91F47D4()
-{
-  v0 = sub_1B964C780();
-  __swift_allocate_value_buffer(v0, qword_1EBAC85D0);
-  __swift_project_value_buffer(v0, qword_1EBAC85D0);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB92F0, &unk_1B964DAD0);
-  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB92F8, &unk_1B964EE40) - 8);
-  v2 = *(*v1 + 72);
-  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v4 = swift_allocObject();
-  *(v4 + 16) = xmmword_1B964D060;
-  v5 = (v4 + v3);
-  v6 = v4 + v3 + v1[14];
-  *v5 = 1;
-  *v6 = "source_type";
-  *(v6 + 8) = 11;
-  *(v6 + 16) = 2;
-  v7 = *MEMORY[0x1E69AADE8];
-  v8 = sub_1B964C750();
-  v9 = *(*(v8 - 8) + 104);
-  (v9)(v6, v7, v8);
-  v10 = v5 + v2 + v1[14];
-  *(v5 + v2) = 2;
-  *v10 = "location";
-  *(v10 + 1) = 8;
-  v10[16] = 2;
-  v11 = *MEMORY[0x1E69AADC8];
-  v9();
-  return sub_1B964C760();
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_RecordLocationActivityBuilderParams.decodeMessage<A>(decoder:)()
-{
-  OUTLINED_FUNCTION_692();
-  while (1)
-  {
-    OUTLINED_FUNCTION_186();
-    result = sub_1B964C3C0();
-    if (v0 || (v2 & 1) != 0)
-    {
-      break;
-    }
-
-    if (result == 2)
-    {
-      OUTLINED_FUNCTION_9();
-      sub_1B91F4A94();
-    }
-
-    else if (result == 1)
-    {
-      OUTLINED_FUNCTION_9();
-      sub_1B91F4A2C();
-    }
-  }
-
-  return result;
-}
-
-uint64_t sub_1B91F4A94()
-{
-  v0 = *(type metadata accessor for Apple_Parsec_Siri_V2alpha_RecordLocationActivityBuilderParams(0) + 24);
-  type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams(0);
-  sub_1B8CD2BE8(&qword_1EBAC8788, type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams);
-  return sub_1B964C580();
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_RecordLocationActivityBuilderParams.traverse<A>(visitor:)()
-{
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB9018, &unk_1B96A6290);
-  OUTLINED_FUNCTION_183(v3);
-  v5 = *(v4 + 64);
-  OUTLINED_FUNCTION_176();
-  MEMORY[0x1EEE9AC00](v6);
-  v7 = OUTLINED_FUNCTION_110_5();
-  v8 = OUTLINED_FUNCTION_59_1(v7);
-  v10 = *(v9 + 64);
-  MEMORY[0x1EEE9AC00](v8);
+  OUTLINED_FUNCTION_284();
+  v4 = OUTLINED_FUNCTION_510_0();
+  v28 = type metadata accessor for Apple_Parsec_Siri_V2alpha_Temperature(v4);
+  OUTLINED_FUNCTION_59_1();
+  MEMORY[0x1EEE9AC00](v5);
+  OUTLINED_FUNCTION_21();
+  v29 = v6;
+  v7 = OUTLINED_FUNCTION_201();
+  v8 = type metadata accessor for Apple_Parsec_Siri_V2alpha_Timestamp(v7);
+  v9 = OUTLINED_FUNCTION_183(v8);
+  MEMORY[0x1EEE9AC00](v9);
   OUTLINED_FUNCTION_62();
-  if (!*v0 || (v17 = *(v0 + 8), sub_1B91FA52C(), result = sub_1B964C680(), !v1))
-  {
-    v12 = type metadata accessor for Apple_Parsec_Siri_V2alpha_RecordLocationActivityBuilderParams(0);
-    v13 = *(v12 + 24);
-    sub_1B8D92024();
-    if (__swift_getEnumTagSinglePayload(v2, 1, v7) == 1)
-    {
-      sub_1B8D9207C(v2, &qword_1EBAB9018, &unk_1B96A6290);
-    }
-
-    else
-    {
-      sub_1B91FA3D0();
-      OUTLINED_FUNCTION_24_20();
-      sub_1B8CD2BE8(v14, v15);
-      sub_1B964C740();
-      result = sub_1B91FA498();
-      if (v1)
-      {
-        return result;
-      }
-    }
-
-    v16 = v0 + *(v12 + 20);
-    return sub_1B964C290();
-  }
-
-  return result;
-}
-
-uint64_t sub_1B91F4E0C(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_1B8CD2BE8(&qword_1EBAC89E8, type metadata accessor for Apple_Parsec_Siri_V2alpha_RecordLocationActivityBuilderParams);
-
-  return MEMORY[0x1EEE15708](a1, a2, v4);
-}
-
-uint64_t sub_1B91F4E8C(uint64_t a1)
-{
-  v2 = sub_1B8CD2BE8(&qword_1EBAC84E8, type metadata accessor for Apple_Parsec_Siri_V2alpha_RecordLocationActivityBuilderParams);
-
-  return MEMORY[0x1EEE15928](a1, v2);
-}
-
-uint64_t sub_1B91F4EFC()
-{
-  sub_1B8CD2BE8(&qword_1EBAC84E8, type metadata accessor for Apple_Parsec_Siri_V2alpha_RecordLocationActivityBuilderParams);
-
-  return sub_1B964C5D0();
-}
-
-uint64_t sub_1B91F4F7C()
-{
-  v0 = sub_1B964C780();
-  __swift_allocate_value_buffer(v0, qword_1EBAC85E8);
-  __swift_project_value_buffer(v0, qword_1EBAC85E8);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB92F0, &unk_1B964DAD0);
-  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB92F8, &unk_1B964EE40) - 8);
-  v2 = *(*v1 + 72);
-  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v4 = swift_allocObject();
-  *(v4 + 16) = xmmword_1B964D060;
-  v5 = (v4 + v3);
-  v6 = v4 + v3 + v1[14];
-  *v5 = 0;
-  *v6 = "Default";
-  *(v6 + 8) = 7;
-  *(v6 + 16) = 2;
-  v7 = *MEMORY[0x1E69AADC8];
-  v8 = sub_1B964C750();
-  v9 = *(*(v8 - 8) + 104);
-  (v9)(v6, v7, v8);
-  v10 = v5 + v2 + v1[14];
-  *(v5 + v2) = 1;
-  *v10 = "HomePod";
-  *(v10 + 1) = 7;
-  v10[16] = 2;
-  v9();
-  return sub_1B964C760();
-}
-
-uint64_t sub_1B91F5184()
-{
-  v0 = sub_1B964C780();
-  __swift_allocate_value_buffer(v0, qword_1EBAC8600);
-  __swift_project_value_buffer(v0, qword_1EBAC8600);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB92F0, &unk_1B964DAD0);
-  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB92F8, &unk_1B964EE40) - 8);
-  v2 = *(*v1 + 72);
-  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v44 = swift_allocObject();
-  *(v44 + 16) = xmmword_1B96511A0;
-  v4 = v44 + v3;
-  v5 = v44 + v3 + v1[14];
-  *(v44 + v3) = 1;
-  *v5 = "label";
-  *(v5 + 8) = 5;
-  *(v5 + 16) = 2;
-  v6 = *MEMORY[0x1E69AADC8];
-  v7 = sub_1B964C750();
-  v8 = *(*(v7 - 8) + 104);
-  (v8)(v5, v6, v7);
-  v9 = v4 + v2 + v1[14];
-  *(v4 + v2) = 2;
-  *v9 = "street";
-  *(v9 + 8) = 6;
-  *(v9 + 16) = 2;
-  v8();
-  v10 = (v4 + 2 * v2);
-  v11 = v10 + v1[14];
-  *v10 = 3;
-  *v11 = "thoroughfare";
-  *(v11 + 1) = 12;
-  v11[16] = 2;
-  v8();
-  v12 = (v4 + 3 * v2);
-  v13 = v12 + v1[14];
-  *v12 = 4;
-  *v13 = "sub_thoroughfare";
-  *(v13 + 1) = 16;
-  v13[16] = 2;
-  v14 = *MEMORY[0x1E69AADE8];
-  v8();
-  v15 = (v4 + 4 * v2);
-  v16 = v15 + v1[14];
-  *v15 = 5;
-  *v16 = "city";
-  *(v16 + 1) = 4;
-  v16[16] = 2;
-  v8();
-  v17 = (v4 + 5 * v2);
-  v18 = v17 + v1[14];
-  *v17 = 6;
-  *v18 = "postal_code";
-  *(v18 + 1) = 11;
-  v18[16] = 2;
-  v8();
-  v19 = (v4 + 6 * v2);
-  v20 = v19 + v1[14];
-  *v19 = 7;
-  *v20 = "state_code";
-  *(v20 + 1) = 10;
-  v20[16] = 2;
-  v8();
-  v21 = (v4 + 7 * v2);
-  v22 = v21 + v1[14];
-  *v21 = 8;
-  *v22 = "country_code";
-  *(v22 + 1) = 12;
-  v22[16] = 2;
-  v8();
-  v23 = (v4 + 8 * v2);
-  v24 = v23 + v1[14];
-  *v23 = 9;
-  *v24 = "latitude";
-  *(v24 + 1) = 8;
-  v24[16] = 2;
-  v8();
-  v25 = (v4 + 9 * v2);
-  v26 = v25 + v1[14];
-  *v25 = 10;
-  *v26 = "longitude";
-  *(v26 + 1) = 9;
-  v26[16] = 2;
-  v8();
-  v27 = (v4 + 10 * v2);
-  v28 = v27 + v1[14];
-  *v27 = 11;
-  *v28 = "accuracy";
-  *(v28 + 1) = 8;
-  v28[16] = 2;
-  v8();
-  v29 = (v4 + 11 * v2);
-  v30 = v29 + v1[14];
-  *v29 = 12;
-  *v30 = "region_type";
-  *(v30 + 1) = 11;
-  v30[16] = 2;
-  v8();
-  v31 = (v4 + 12 * v2);
-  v32 = v31 + v1[14];
-  *v31 = 13;
-  *v32 = "timezone_id";
-  *(v32 + 1) = 11;
-  v32[16] = 2;
-  v8();
-  v33 = (v4 + 13 * v2);
-  v34 = v33 + v1[14];
-  *v33 = 14;
-  *v34 = "entry_points";
-  *(v34 + 1) = 12;
-  v34[16] = 2;
-  v8();
-  v35 = (v4 + 14 * v2);
-  v36 = v35 + v1[14];
-  *v35 = 15;
-  *v36 = "sub_locality";
-  *(v36 + 1) = 12;
-  v36[16] = 2;
-  v8();
-  v37 = (v4 + 15 * v2);
-  v38 = v37 + v1[14];
-  *v37 = 16;
-  *v38 = "sub_administrative_area";
-  *(v38 + 1) = 23;
-  v38[16] = 2;
-  v8();
-  v39 = (v4 + 16 * v2);
-  v40 = v39 + v1[14];
-  *v39 = 17;
-  *v40 = "muid";
-  *(v40 + 1) = 4;
-  v40[16] = 2;
-  v8();
-  v41 = (v4 + 17 * v2);
-  v42 = v41 + v1[14];
-  *v41 = 18;
-  *v42 = "result_provider_id";
-  *(v42 + 1) = 18;
-  v42[16] = 2;
-  v8();
-  return sub_1B964C760();
-}
-
-uint64_t sub_1B91F5788()
-{
-  type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams._StorageClass();
-  OUTLINED_FUNCTION_38_8();
-  swift_allocObject();
-  result = sub_1B91F57C4();
-  qword_1EBAC8618 = result;
-  return result;
-}
-
-uint64_t sub_1B91F57C4()
-{
-  result = v0;
-  *(v0 + 16) = 0;
-  *(v0 + 24) = 0xE000000000000000;
-  *(v0 + 32) = 0;
-  *(v0 + 40) = 0xE000000000000000;
-  *(v0 + 48) = 0;
-  *(v0 + 56) = 0xE000000000000000;
-  *(v0 + 64) = 0;
-  *(v0 + 72) = 0xE000000000000000;
-  *(v0 + 80) = 0;
-  *(v0 + 88) = 0xE000000000000000;
-  *(v0 + 96) = 0;
-  *(v0 + 104) = 0xE000000000000000;
-  *(v0 + 112) = 0;
-  *(v0 + 120) = 0xE000000000000000;
-  *(v0 + 128) = 0;
-  *(v0 + 136) = 0xE000000000000000;
-  *(v0 + 144) = 0;
-  *(v0 + 152) = 0;
-  *(v0 + 160) = 0;
-  *(v0 + 168) = 0xE000000000000000;
-  *(v0 + 176) = 0;
-  *(v0 + 184) = 0xE000000000000000;
-  *(v0 + 192) = MEMORY[0x1E69E7CC0];
-  *(v0 + 200) = 0;
-  *(v0 + 208) = 0xE000000000000000;
-  *(v0 + 216) = 0;
-  *(v0 + 224) = 0xE000000000000000;
-  *(v0 + 232) = 0;
-  *(v0 + 240) = 0;
-  return result;
-}
-
-uint64_t sub_1B91F5818(uint64_t a1)
-{
-  *(v1 + 16) = 0;
-  *(v1 + 24) = 0xE000000000000000;
-  *(v1 + 32) = 0;
-  *(v1 + 40) = 0xE000000000000000;
-  *(v1 + 48) = 0;
-  *(v1 + 64) = 0;
-  *(v1 + 56) = 0xE000000000000000;
-  *(v1 + 72) = 0xE000000000000000;
-  *(v1 + 80) = 0;
-  *(v1 + 88) = 0xE000000000000000;
-  *(v1 + 96) = 0;
-  *(v1 + 112) = 0;
-  *(v1 + 104) = 0xE000000000000000;
-  *(v1 + 120) = 0xE000000000000000;
-  *(v1 + 128) = 0;
-  *(v1 + 136) = 0xE000000000000000;
-  *(v1 + 148) = 0;
-  *(v1 + 144) = 0;
-  *(v1 + 152) = 0;
-  *(v1 + 160) = 0;
-  *(v1 + 168) = 0xE000000000000000;
-  *(v1 + 176) = 0;
-  *(v1 + 192) = MEMORY[0x1E69E7CC0];
-  *(v1 + 200) = 0;
-  *(v1 + 184) = 0xE000000000000000;
-  *(v1 + 208) = 0xE000000000000000;
-  *(v1 + 216) = 0;
-  *(v1 + 224) = 0xE000000000000000;
-  *(v1 + 232) = 0;
-  *(v1 + 240) = 0;
-  swift_beginAccess();
-  v4 = *(a1 + 16);
-  v3 = *(a1 + 24);
-  swift_beginAccess();
-  *(v1 + 16) = v4;
-  *(v1 + 24) = v3;
-  swift_beginAccess();
-  v6 = *(a1 + 32);
-  v5 = *(a1 + 40);
-  swift_beginAccess();
-  *(v1 + 32) = v6;
-  *(v1 + 40) = v5;
-
-  swift_beginAccess();
-  v8 = *(a1 + 48);
-  v7 = *(a1 + 56);
-  swift_beginAccess();
-  v9 = *(v1 + 56);
-  *(v1 + 48) = v8;
-  *(v1 + 56) = v7;
-
-  swift_beginAccess();
-  v11 = *(a1 + 64);
-  v10 = *(a1 + 72);
-  swift_beginAccess();
-  v12 = *(v1 + 72);
-  *(v1 + 64) = v11;
-  *(v1 + 72) = v10;
-
-  swift_beginAccess();
-  v14 = *(a1 + 80);
-  v13 = *(a1 + 88);
-  swift_beginAccess();
-  v15 = *(v1 + 88);
-  *(v1 + 80) = v14;
-  *(v1 + 88) = v13;
-
-  swift_beginAccess();
-  v17 = *(a1 + 96);
-  v16 = *(a1 + 104);
-  swift_beginAccess();
-  v18 = *(v1 + 104);
-  *(v1 + 96) = v17;
-  *(v1 + 104) = v16;
-
-  swift_beginAccess();
-  v20 = *(a1 + 112);
-  v19 = *(a1 + 120);
-  swift_beginAccess();
-  v21 = *(v1 + 120);
-  *(v1 + 112) = v20;
-  *(v1 + 120) = v19;
-
-  swift_beginAccess();
-  v23 = *(a1 + 128);
-  v22 = *(a1 + 136);
-  swift_beginAccess();
-  v24 = *(v1 + 136);
-  *(v1 + 128) = v23;
-  *(v1 + 136) = v22;
-
-  swift_beginAccess();
-  v25 = *(a1 + 144);
-  swift_beginAccess();
-  *(v1 + 144) = v25;
-  swift_beginAccess();
-  v26 = *(a1 + 148);
-  swift_beginAccess();
-  *(v1 + 148) = v26;
-  swift_beginAccess();
-  v27 = *(a1 + 152);
-  swift_beginAccess();
-  *(v1 + 152) = v27;
-  swift_beginAccess();
-  v29 = *(a1 + 160);
-  v28 = *(a1 + 168);
-  swift_beginAccess();
-  v30 = *(v1 + 168);
-  *(v1 + 160) = v29;
-  *(v1 + 168) = v28;
-
-  swift_beginAccess();
-  v32 = *(a1 + 176);
-  v31 = *(a1 + 184);
-  swift_beginAccess();
-  v33 = *(v1 + 184);
-  *(v1 + 176) = v32;
-  *(v1 + 184) = v31;
-
-  swift_beginAccess();
-  v34 = *(a1 + 192);
-  swift_beginAccess();
-  v35 = *(v1 + 192);
-  *(v1 + 192) = v34;
-
-  swift_beginAccess();
-  v37 = *(a1 + 200);
-  v36 = *(a1 + 208);
-  swift_beginAccess();
-  v38 = *(v1 + 208);
-  *(v1 + 200) = v37;
-  *(v1 + 208) = v36;
-
-  swift_beginAccess();
-  v40 = *(a1 + 216);
-  v39 = *(a1 + 224);
-  swift_beginAccess();
-  v41 = *(v1 + 224);
-  *(v1 + 216) = v40;
-  *(v1 + 224) = v39;
-
-  swift_beginAccess();
-  v42 = *(a1 + 232);
-  swift_beginAccess();
-  *(v1 + 232) = v42;
-  swift_beginAccess();
-  LODWORD(v42) = *(a1 + 240);
-
-  swift_beginAccess();
-  *(v1 + 240) = v42;
-  return v1;
-}
-
-void *sub_1B91F5E14()
-{
-  v1 = v0[3];
-
-  v2 = v0[5];
-
-  v3 = v0[7];
-
-  v4 = v0[9];
-
-  v5 = v0[11];
-
-  v6 = v0[13];
-
-  v7 = v0[15];
-
-  v8 = v0[17];
-
-  v9 = v0[21];
-
-  v10 = v0[23];
-
-  v11 = v0[24];
-
-  v12 = v0[26];
-
-  v13 = v0[28];
-
-  return v0;
-}
-
-uint64_t sub_1B91F5E94()
-{
-  v0 = sub_1B91F5E14();
-
-  return MEMORY[0x1EEE6BDC0](v0, 244, 7);
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_LocationBuilderParams.decodeMessage<A>(decoder:)()
-{
-  v2 = OUTLINED_FUNCTION_118_1();
-  v3 = *(type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams(v2) + 20);
-  v4 = *(v0 + v3);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v6 = *(v0 + v3);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams._StorageClass();
-    OUTLINED_FUNCTION_38_8();
-    swift_allocObject();
-    v7 = OUTLINED_FUNCTION_40_0();
-    *(v1 + v3) = sub_1B91F5818(v7);
-  }
-
-  OUTLINED_FUNCTION_24_3();
-  return sub_1B91F5F48();
-}
-
-uint64_t sub_1B91F5F48()
-{
-  while (1)
-  {
-    result = sub_1B964C3C0();
-    if (v0 || (v2 & 1) != 0)
-    {
-      return result;
-    }
-
-    switch(result)
-    {
-      case 1:
-        sub_1B8DAA85C();
-        break;
-      case 2:
-        sub_1B8DC46F4();
-        break;
-      case 3:
-        sub_1B8DC4778();
-        break;
-      case 4:
-        sub_1B8E16ACC();
-        break;
-      case 5:
-        sub_1B8E16B50();
-        break;
-      case 6:
-        sub_1B8E16BD4();
-        break;
-      case 7:
-        sub_1B8E2F858();
-        break;
-      case 8:
-        sub_1B8E71858();
-        break;
-      case 9:
-        sub_1B91F61B0();
-        break;
-      case 10:
-        sub_1B91F6234();
-        break;
-      case 11:
-        sub_1B91F62B8();
-        break;
-      case 12:
-        sub_1B8E171C8();
-        break;
-      case 13:
-        sub_1B8E71A68();
-        break;
-      case 14:
-        sub_1B91F633C();
-        break;
-      case 15:
-        sub_1B8E88F84();
-        break;
-      case 16:
-        sub_1B8E89008();
-        break;
-      case 17:
-        sub_1B91F6408();
-        break;
-      case 18:
-        sub_1B91F648C();
-        break;
-      default:
-        continue;
-    }
-  }
-}
-
-uint64_t sub_1B91F61B0()
-{
-  swift_beginAccess();
-  sub_1B964C490();
-  return swift_endAccess();
-}
-
-uint64_t sub_1B91F6234()
-{
-  swift_beginAccess();
-  sub_1B964C490();
-  return swift_endAccess();
-}
-
-uint64_t sub_1B91F62B8()
-{
-  swift_beginAccess();
-  sub_1B964C490();
-  return swift_endAccess();
-}
-
-uint64_t sub_1B91F633C()
-{
-  swift_beginAccess();
-  type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams.Coordinate(0);
-  sub_1B8CD2BE8(&qword_1EBAC88D0, type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams.Coordinate);
-  sub_1B964C570();
-  return swift_endAccess();
-}
-
-uint64_t sub_1B91F6408()
-{
-  swift_beginAccess();
-  sub_1B964C560();
-  return swift_endAccess();
-}
-
-uint64_t sub_1B91F648C()
-{
-  swift_beginAccess();
-  sub_1B964C4A0();
-  return swift_endAccess();
-}
-
-uint64_t sub_1B91F6550(uint64_t a1)
-{
-  swift_beginAccess();
-  v3 = *(a1 + 24);
-  v4 = HIBYTE(v3) & 0xF;
-  if ((v3 & 0x2000000000000000) == 0)
-  {
-    v4 = *(a1 + 16) & 0xFFFFFFFFFFFFLL;
-  }
-
-  if (v4)
-  {
-    v5 = *(a1 + 24);
-
-    sub_1B964C700();
-    if (v1)
-    {
-    }
-  }
-
-  swift_beginAccess();
-  v6 = *(a1 + 40);
-  v7 = HIBYTE(v6) & 0xF;
-  if ((v6 & 0x2000000000000000) == 0)
-  {
-    v7 = *(a1 + 32) & 0xFFFFFFFFFFFFLL;
-  }
-
-  if (v7)
-  {
-    v8 = *(a1 + 40);
-
-    sub_1B964C700();
-    if (v1)
-    {
-    }
-  }
-
-  swift_beginAccess();
-  v9 = *(a1 + 56);
-  v10 = HIBYTE(v9) & 0xF;
-  if ((v9 & 0x2000000000000000) == 0)
-  {
-    v10 = *(a1 + 48) & 0xFFFFFFFFFFFFLL;
-  }
-
-  if (v10)
-  {
-    v11 = *(a1 + 56);
-
-    sub_1B964C700();
-    if (v1)
-    {
-    }
-  }
-
-  swift_beginAccess();
-  v12 = *(a1 + 72);
-  v13 = HIBYTE(v12) & 0xF;
-  if ((v12 & 0x2000000000000000) == 0)
-  {
-    v13 = *(a1 + 64) & 0xFFFFFFFFFFFFLL;
-  }
-
-  if (v13)
-  {
-    v14 = *(a1 + 72);
-
-    sub_1B964C700();
-    if (v1)
-    {
-    }
-  }
-
-  swift_beginAccess();
-  v15 = *(a1 + 88);
-  v16 = HIBYTE(v15) & 0xF;
-  if ((v15 & 0x2000000000000000) == 0)
-  {
-    v16 = *(a1 + 80) & 0xFFFFFFFFFFFFLL;
-  }
-
-  if (v16)
-  {
-    v17 = *(a1 + 88);
-
-    sub_1B964C700();
-    if (v1)
-    {
-    }
-  }
-
-  swift_beginAccess();
-  v18 = *(a1 + 104);
-  v19 = HIBYTE(v18) & 0xF;
-  if ((v18 & 0x2000000000000000) == 0)
-  {
-    v19 = *(a1 + 96) & 0xFFFFFFFFFFFFLL;
-  }
-
-  if (v19)
-  {
-    v20 = *(a1 + 104);
-
-    sub_1B964C700();
-    if (!v1)
-    {
-
-      goto LABEL_31;
-    }
-  }
-
-LABEL_31:
-  swift_beginAccess();
-  v21 = *(a1 + 120);
-  v22 = HIBYTE(v21) & 0xF;
-  if ((v21 & 0x2000000000000000) == 0)
-  {
-    v22 = *(a1 + 112) & 0xFFFFFFFFFFFFLL;
-  }
-
-  if (v22)
-  {
-    v23 = *(a1 + 120);
-
-    sub_1B964C700();
-    if (v1)
-    {
-    }
-  }
-
-  swift_beginAccess();
-  v25 = *(a1 + 136);
-  v26 = HIBYTE(v25) & 0xF;
-  if ((v25 & 0x2000000000000000) == 0)
-  {
-    v26 = *(a1 + 128) & 0xFFFFFFFFFFFFLL;
-  }
-
-  if (!v26 || (v27 = *(a1 + 136), , sub_1B964C700(), result = , !v1))
-  {
-    swift_beginAccess();
-    if (*(a1 + 144) == 0.0 || (result = sub_1B964C6B0(), !v1))
-    {
-      swift_beginAccess();
-      if (*(a1 + 148) == 0.0 || (result = sub_1B964C6B0(), !v1))
-      {
-        swift_beginAccess();
-        if (*(a1 + 152) == 0.0 || (result = sub_1B964C6B0(), !v1))
-        {
-          swift_beginAccess();
-          v28 = *(a1 + 168);
-          v29 = HIBYTE(v28) & 0xF;
-          if ((v28 & 0x2000000000000000) == 0)
-          {
-            v29 = *(a1 + 160) & 0xFFFFFFFFFFFFLL;
-          }
-
-          if (!v29 || (v30 = *(a1 + 168), , sub_1B964C700(), result = , !v1))
-          {
-            swift_beginAccess();
-            v31 = *(a1 + 184);
-            v32 = HIBYTE(v31) & 0xF;
-            if ((v31 & 0x2000000000000000) == 0)
-            {
-              v32 = *(a1 + 176) & 0xFFFFFFFFFFFFLL;
-            }
-
-            if (!v32 || (v33 = *(a1 + 184), , sub_1B964C700(), result = , !v1))
-            {
-              swift_beginAccess();
-              if (!*(*(a1 + 192) + 16) || (type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams.Coordinate(0), sub_1B8CD2BE8(&qword_1EBAC88D0, type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams.Coordinate), , sub_1B964C730(), result = , !v1))
-              {
-                swift_beginAccess();
-                v34 = *(a1 + 208);
-                v35 = HIBYTE(v34) & 0xF;
-                if ((v34 & 0x2000000000000000) == 0)
-                {
-                  v35 = *(a1 + 200) & 0xFFFFFFFFFFFFLL;
-                }
-
-                if (!v35 || (v36 = *(a1 + 208), , sub_1B964C700(), result = , !v1))
-                {
-                  swift_beginAccess();
-                  v37 = *(a1 + 224);
-                  v38 = HIBYTE(v37) & 0xF;
-                  if ((v37 & 0x2000000000000000) == 0)
-                  {
-                    v38 = *(a1 + 216) & 0xFFFFFFFFFFFFLL;
-                  }
-
-                  if (!v38 || (v39 = *(a1 + 224), , sub_1B964C700(), result = , !v1))
-                  {
-                    swift_beginAccess();
-                    if (!*(a1 + 232) || (result = sub_1B964C720(), !v1))
-                    {
-                      swift_beginAccess();
-                      result = *(a1 + 240);
-                      if (result)
-                      {
-                        return sub_1B964C6C0();
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
-  return result;
-}
-
-uint64_t sub_1B91F6C20(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(uint64_t, uint64_t))
-{
-  v7 = OUTLINED_FUNCTION_280();
-  v9 = *(v8(v7) + 20);
-  v10 = *(v5 + v9);
-  v11 = *(v4 + v9);
-  if (v10 != v11)
-  {
-    v12 = *(v5 + v9);
-
-    v13 = a4(v10, v11);
-
-    if ((v13 & 1) == 0)
-    {
-      return 0;
-    }
-  }
-
-  sub_1B964C2B0();
-  OUTLINED_FUNCTION_0_71();
-  sub_1B8CD2BE8(v14, v15);
-  OUTLINED_FUNCTION_288();
-  return sub_1B964C850() & 1;
-}
-
-BOOL sub_1B91F6CF8()
-{
-  OUTLINED_FUNCTION_468();
-  OUTLINED_FUNCTION_521();
-  v2 = *(v1 + 16);
-  v3 = *(v1 + 24);
-  OUTLINED_FUNCTION_521();
-  v4 = v2 == *(v0 + 16) && v3 == *(v0 + 24);
-  if (v4 || (OUTLINED_FUNCTION_22_8() & 1) != 0)
-  {
-    OUTLINED_FUNCTION_521();
-    v5 = *(v1 + 32);
-    v6 = *(v1 + 40);
-    OUTLINED_FUNCTION_521();
-    v7 = v5 == *(v0 + 32) && v6 == *(v0 + 40);
-    if (v7 || (OUTLINED_FUNCTION_22_8() & 1) != 0)
-    {
-      OUTLINED_FUNCTION_521();
-      v8 = *(v1 + 48);
-      v9 = *(v1 + 56);
-      OUTLINED_FUNCTION_521();
-      v10 = v8 == *(v0 + 48) && v9 == *(v0 + 56);
-      if (v10 || (OUTLINED_FUNCTION_22_8() & 1) != 0)
-      {
-        OUTLINED_FUNCTION_521();
-        v11 = *(v1 + 64);
-        v12 = *(v1 + 72);
-        OUTLINED_FUNCTION_521();
-        v13 = v11 == *(v0 + 64) && v12 == *(v0 + 72);
-        if (v13 || (OUTLINED_FUNCTION_22_8() & 1) != 0)
-        {
-          OUTLINED_FUNCTION_521();
-          v14 = *(v1 + 80);
-          v15 = *(v1 + 88);
-          OUTLINED_FUNCTION_521();
-          v16 = v14 == *(v0 + 80) && v15 == *(v0 + 88);
-          if (v16 || (OUTLINED_FUNCTION_22_8() & 1) != 0)
-          {
-            OUTLINED_FUNCTION_521();
-            v17 = *(v1 + 96);
-            v18 = *(v1 + 104);
-            OUTLINED_FUNCTION_521();
-            v19 = v17 == *(v0 + 96) && v18 == *(v0 + 104);
-            if (v19 || (OUTLINED_FUNCTION_22_8() & 1) != 0)
-            {
-              OUTLINED_FUNCTION_521();
-              v20 = *(v1 + 112);
-              v21 = *(v1 + 120);
-              OUTLINED_FUNCTION_521();
-              v22 = v20 == *(v0 + 112) && v21 == *(v0 + 120);
-              if (v22 || (OUTLINED_FUNCTION_22_8() & 1) != 0)
-              {
-                OUTLINED_FUNCTION_521();
-                v23 = *(v1 + 128);
-                v24 = *(v1 + 136);
-                OUTLINED_FUNCTION_521();
-                v25 = v23 == *(v0 + 128) && v24 == *(v0 + 136);
-                if (v25 || (OUTLINED_FUNCTION_22_8() & 1) != 0)
-                {
-                  OUTLINED_FUNCTION_521();
-                  v26 = *(v1 + 144);
-                  OUTLINED_FUNCTION_521();
-                  if (v26 == *(v0 + 144))
-                  {
-                    OUTLINED_FUNCTION_521();
-                    v27 = *(v1 + 148);
-                    OUTLINED_FUNCTION_521();
-                    if (v27 == *(v0 + 148))
-                    {
-                      OUTLINED_FUNCTION_521();
-                      v28 = *(v1 + 152);
-                      OUTLINED_FUNCTION_521();
-                      if (v28 == *(v0 + 152))
-                      {
-                        OUTLINED_FUNCTION_521();
-                        v29 = *(v1 + 160);
-                        v30 = *(v1 + 168);
-                        OUTLINED_FUNCTION_521();
-                        v31 = v29 == *(v0 + 160) && v30 == *(v0 + 168);
-                        if (v31 || (OUTLINED_FUNCTION_22_8() & 1) != 0)
-                        {
-                          OUTLINED_FUNCTION_521();
-                          v32 = *(v1 + 176);
-                          v33 = *(v1 + 184);
-                          OUTLINED_FUNCTION_521();
-                          v34 = v32 == *(v0 + 176) && v33 == *(v0 + 184);
-                          if (v34 || (OUTLINED_FUNCTION_22_8() & 1) != 0)
-                          {
-                            OUTLINED_FUNCTION_521();
-                            v35 = *(v1 + 192);
-                            OUTLINED_FUNCTION_521();
-                            v36 = *(v0 + 192);
-
-                            sub_1B8D8E370();
-                            v38 = v37;
-
-                            if (v38)
-                            {
-                              OUTLINED_FUNCTION_521();
-                              v39 = *(v1 + 200);
-                              v40 = *(v1 + 208);
-                              OUTLINED_FUNCTION_521();
-                              v41 = v39 == *(v0 + 200) && v40 == *(v0 + 208);
-                              if (v41 || (OUTLINED_FUNCTION_22_8() & 1) != 0)
-                              {
-                                OUTLINED_FUNCTION_521();
-                                v42 = *(v1 + 216);
-                                v43 = *(v1 + 224);
-                                OUTLINED_FUNCTION_521();
-                                v44 = v42 == *(v0 + 216) && v43 == *(v0 + 224);
-                                if (v44 || (OUTLINED_FUNCTION_22_8() & 1) != 0)
-                                {
-                                  OUTLINED_FUNCTION_521();
-                                  v45 = *(v1 + 232);
-                                  OUTLINED_FUNCTION_521();
-                                  if (v45 == *(v0 + 232))
-                                  {
-                                    OUTLINED_FUNCTION_521();
-                                    v46 = *(v1 + 240);
-
-                                    OUTLINED_FUNCTION_521();
-                                    v47 = *(v0 + 240);
-
-                                    return v46 == v47;
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
-  return 0;
-}
-
-uint64_t sub_1B91F7198(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_1B8CD2BE8(&qword_1EBAC89E0, type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams);
-
-  return MEMORY[0x1EEE15708](a1, a2, v4);
-}
-
-uint64_t sub_1B91F7218(uint64_t a1)
-{
-  v2 = sub_1B8CD2BE8(&qword_1EBAC8788, type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams);
-
-  return MEMORY[0x1EEE15928](a1, v2);
-}
-
-uint64_t sub_1B91F7288()
-{
-  sub_1B8CD2BE8(&qword_1EBAC8788, type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams);
-
-  return sub_1B964C5D0();
-}
-
-uint64_t sub_1B91F7308()
-{
-  result = MEMORY[0x1BFADC850](0x6E6964726F6F432ELL, 0xEB00000000657461);
-  qword_1EBAC8620 = 0xD00000000000002FLL;
-  *algn_1EBAC8628 = 0x80000001B9710240;
-  return result;
-}
-
-uint64_t static Apple_Parsec_Siri_V2alpha_LocationBuilderParams.Coordinate.protoMessageName.getter()
-{
-  if (qword_1EBAB7980 != -1)
-  {
-    swift_once();
-  }
-
-  return OUTLINED_FUNCTION_432();
-}
-
-uint64_t sub_1B91F73E0()
-{
-  v0 = sub_1B964C780();
-  __swift_allocate_value_buffer(v0, qword_1EBAC8630);
-  __swift_project_value_buffer(v0, qword_1EBAC8630);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB92F0, &unk_1B964DAD0);
-  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB92F8, &unk_1B964EE40) - 8);
-  v2 = *(*v1 + 72);
-  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v4 = swift_allocObject();
-  *(v4 + 16) = xmmword_1B964D060;
-  v5 = (v4 + v3);
-  v6 = v4 + v3 + v1[14];
-  *v5 = 1;
-  *v6 = "latitude";
-  *(v6 + 8) = 8;
-  *(v6 + 16) = 2;
-  v7 = *MEMORY[0x1E69AADC8];
-  v8 = sub_1B964C750();
-  v9 = *(*(v8 - 8) + 104);
-  (v9)(v6, v7, v8);
-  v10 = v5 + v2 + v1[14];
-  *(v5 + v2) = 2;
-  *v10 = "longitude";
-  *(v10 + 1) = 9;
-  v10[16] = 2;
-  v9();
-  return sub_1B964C760();
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_LocationBuilderParams.Coordinate.decodeMessage<A>(decoder:)()
-{
-  OUTLINED_FUNCTION_692();
-  while (1)
-  {
-    OUTLINED_FUNCTION_186();
-    result = sub_1B964C3C0();
-    if (v0 || (v2 & 1) != 0)
-    {
-      break;
-    }
-
-    if (result == 2 || result == 1)
-    {
-      OUTLINED_FUNCTION_12();
-      sub_1B964C490();
-    }
-  }
-
-  return result;
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_LocationBuilderParams.Coordinate.traverse<A>(visitor:)()
-{
-  OUTLINED_FUNCTION_614();
-  if (*v0 == 0.0 || (OUTLINED_FUNCTION_79_0(), OUTLINED_FUNCTION_12(), result = sub_1B964C6B0(), !v1))
-  {
-    if (*(v2 + 4) == 0.0 || (OUTLINED_FUNCTION_79_0(), OUTLINED_FUNCTION_12(), result = sub_1B964C6B0(), !v1))
-    {
-      v3 = *(type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams.Coordinate(0) + 24);
-      return OUTLINED_FUNCTION_8_1();
-    }
-  }
-
-  return result;
-}
-
-uint64_t static Apple_Parsec_Siri_V2alpha_LocationBuilderParams.Coordinate.== infix(_:_:)(float *a1, float *a2)
-{
-  if (*a1 != *a2)
-  {
-    return 0;
-  }
-
-  OUTLINED_FUNCTION_468();
-  if (*(v2 + 4) != *(v3 + 4))
-  {
-    return 0;
-  }
-
-  v4 = *(type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams.Coordinate(0) + 24);
-  sub_1B964C2B0();
-  OUTLINED_FUNCTION_0_71();
-  sub_1B8CD2BE8(v5, v6);
-  return OUTLINED_FUNCTION_634() & 1;
-}
-
-uint64_t sub_1B91F77E0(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_1B8CD2BE8(&qword_1EBAC89D8, type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams.Coordinate);
-
-  return MEMORY[0x1EEE15708](a1, a2, v4);
-}
-
-uint64_t sub_1B91F7860(uint64_t a1)
-{
-  v2 = sub_1B8CD2BE8(&qword_1EBAC88D0, type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams.Coordinate);
-
-  return MEMORY[0x1EEE15928](a1, v2);
-}
-
-uint64_t sub_1B91F78D0()
-{
-  sub_1B8CD2BE8(&qword_1EBAC88D0, type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams.Coordinate);
-
-  return sub_1B964C5D0();
-}
-
-uint64_t sub_1B91F7968()
-{
-  v0 = sub_1B964C780();
-  __swift_allocate_value_buffer(v0, qword_1EBAC8648);
-  __swift_project_value_buffer(v0, qword_1EBAC8648);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB92F0, &unk_1B964DAD0);
-  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB92F8, &unk_1B964EE40) - 8);
-  v2 = *(*v1 + 72);
-  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v36 = swift_allocObject();
-  *(v36 + 16) = xmmword_1B9656D00;
-  v4 = v36 + v3;
-  v5 = v36 + v3 + v1[14];
-  *(v36 + v3) = 1;
-  *v5 = "item_source";
-  *(v5 + 8) = 11;
-  *(v5 + 16) = 2;
-  v6 = *MEMORY[0x1E69AADE8];
-  v7 = sub_1B964C750();
-  v8 = *(*(v7 - 8) + 104);
-  (v8)(v5, v6, v7);
-  v9 = v4 + v2 + v1[14];
-  *(v4 + v2) = 2;
-  *v9 = "item_destination";
-  *(v9 + 8) = 16;
-  *(v9 + 16) = 2;
-  v8();
-  v10 = (v4 + 2 * v2);
-  v11 = v10 + v1[14];
-  *v10 = 3;
-  *v11 = "language";
-  *(v11 + 1) = 8;
-  v11[16] = 2;
-  v35 = *MEMORY[0x1E69AADC8];
-  v8();
-  v12 = (v4 + 3 * v2);
-  v13 = v12 + v1[14];
-  *v12 = 4;
-  *v13 = "show_directions";
-  *(v13 + 1) = 15;
-  v13[16] = 2;
-  v8();
-  v14 = (v4 + 4 * v2);
-  v15 = v14 + v1[14];
-  *v14 = 5;
-  *v15 = "show_traffic";
-  *(v15 + 1) = 12;
-  v15[16] = 2;
-  v8();
-  v16 = (v4 + 5 * v2);
-  v17 = v16 + v1[14];
-  *v16 = 6;
-  *v17 = "direction_type";
-  *(v17 + 1) = 14;
-  v17[16] = 2;
-  v8();
-  v18 = (v4 + 6 * v2);
-  v19 = v18 + v1[14];
-  *v18 = 7;
-  *v19 = "search_items";
-  *(v19 + 1) = 12;
-  v19[16] = 2;
-  v8();
-  v20 = (v4 + 7 * v2);
-  v21 = v20 + v1[14];
-  *v20 = 8;
-  *v21 = "is_search_along_route";
-  *(v21 + 1) = 21;
-  v21[16] = 2;
-  v8();
-  v22 = (v4 + 8 * v2);
-  v23 = v22 + v1[14];
-  *v22 = 9;
-  *v23 = "is_chain_result_set";
-  *(v23 + 1) = 19;
-  v23[16] = 2;
-  v8();
-  v24 = (v4 + 9 * v2);
-  v25 = v24 + v1[14];
-  *v24 = 10;
-  *v25 = "should_suppress_navigation";
-  *(v25 + 1) = 26;
-  v25[16] = 2;
-  v8();
-  v26 = (v4 + 10 * v2);
-  v27 = v26 + v1[14];
-  *v26 = 11;
-  *v27 = "region_of_interest_radius_in_miles";
-  *(v27 + 1) = 34;
-  v27[16] = 2;
-  v8();
-  v28 = (v4 + 11 * v2);
-  v29 = v28 + v1[14];
-  *v28 = 12;
-  *v29 = "avoid_tolls";
-  *(v29 + 1) = 11;
-  v29[16] = 2;
-  v8();
-  v30 = (v4 + 12 * v2);
-  v31 = v30 + v1[14];
-  *v30 = 13;
-  *v31 = "avoid_highways";
-  *(v31 + 1) = 14;
-  v31[16] = 2;
-  v8();
-  v32 = (v4 + 13 * v2);
-  v33 = v32 + v1[14];
-  *v32 = 14;
-  *v33 = "waypoints";
-  *(v33 + 1) = 9;
-  v33[16] = 2;
-  v8();
-  return sub_1B964C760();
-}
-
-uint64_t sub_1B91F7E38()
-{
-  OUTLINED_FUNCTION_33_13();
-  result = sub_1B91F7EC8();
-  qword_1EBAC8660 = result;
-  return result;
-}
-
-uint64_t sub_1B91F7EC8()
-{
-  v1 = OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__itemSource;
-  v2 = type metadata accessor for Apple_Parsec_Siri_V2alpha_MapItemBuilderParams(0);
-  __swift_storeEnumTagSinglePayload(v0 + v1, 1, 1, v2);
-  __swift_storeEnumTagSinglePayload(v0 + OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__itemDestination, 1, 1, v2);
-  v3 = (v0 + OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__language);
-  *v3 = 0;
-  v3[1] = 0xE000000000000000;
-  *(v0 + OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__showDirections) = 0;
-  *(v0 + OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__showTraffic) = 0;
-  v4 = v0 + OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__directionType;
-  *v4 = 0;
-  *(v4 + 8) = 1;
-  v5 = OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__searchItems;
-  v6 = type metadata accessor for Apple_Parsec_Siri_V2alpha_MapItemListBuilderParams(0);
-  __swift_storeEnumTagSinglePayload(v0 + v5, 1, 1, v6);
-  *(v0 + OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__isSearchAlongRoute) = 0;
-  *(v0 + OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__isChainResultSet) = 0;
-  *(v0 + OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__shouldSuppressNavigation) = 0;
-  *(v0 + OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__regionOfInterestRadiusInMiles) = 0;
-  *(v0 + OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__avoidTolls) = 0;
-  *(v0 + OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__avoidHighways) = 0;
-  *(v0 + OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__waypoints) = MEMORY[0x1E69E7CC0];
-  return v0;
-}
-
-uint64_t sub_1B91F7FF8(uint64_t a1)
-{
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAC8778, &qword_1B96A62A8);
-  v4 = *(*(v3 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v3 - 8);
-  v49 = &v42 - v5;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAC8770, &qword_1B96A62A0);
-  v7 = *(*(v6 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v6 - 8);
-  v8 = OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__itemSource;
-  v9 = type metadata accessor for Apple_Parsec_Siri_V2alpha_MapItemBuilderParams(0);
-  __swift_storeEnumTagSinglePayload(v1 + v8, 1, 1, v9);
-  __swift_storeEnumTagSinglePayload(v1 + OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__itemDestination, 1, 1, v9);
-  v10 = (v1 + OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__language);
-  *v10 = 0;
-  v10[1] = 0xE000000000000000;
-  v43 = OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__showDirections;
-  *(v1 + OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__showDirections) = 0;
-  v44 = OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__showTraffic;
-  *(v1 + OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__showTraffic) = 0;
-  v11 = v1 + OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__directionType;
-  *v11 = 0;
-  *(v11 + 8) = 1;
-  v12 = OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__searchItems;
-  v45 = OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__searchItems;
-  v13 = type metadata accessor for Apple_Parsec_Siri_V2alpha_MapItemListBuilderParams(0);
-  __swift_storeEnumTagSinglePayload(v1 + v12, 1, 1, v13);
-  v46 = OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__isSearchAlongRoute;
-  *(v1 + OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__isSearchAlongRoute) = 0;
-  v47 = OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__isChainResultSet;
-  *(v1 + OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__isChainResultSet) = 0;
-  v48 = OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__shouldSuppressNavigation;
-  *(v1 + OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__shouldSuppressNavigation) = 0;
-  v50 = OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__regionOfInterestRadiusInMiles;
-  *(v1 + OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__regionOfInterestRadiusInMiles) = 0;
-  v51 = OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__avoidTolls;
-  *(v1 + OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__avoidTolls) = 0;
-  v52 = OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__avoidHighways;
-  *(v1 + OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__avoidHighways) = 0;
-  v53 = OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__waypoints;
-  *(v1 + OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__waypoints) = MEMORY[0x1E69E7CC0];
-  swift_beginAccess();
-  sub_1B8D92024();
-  swift_beginAccess();
-  sub_1B8DAA170();
-  swift_endAccess();
-  swift_beginAccess();
-  sub_1B8D92024();
-  swift_beginAccess();
-  sub_1B8DAA170();
-  swift_endAccess();
-  v14 = (a1 + OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__language);
-  swift_beginAccess();
-  v16 = *v14;
-  v15 = v14[1];
-  swift_beginAccess();
-  v17 = v10[1];
-  *v10 = v16;
-  v10[1] = v15;
-
-  v18 = OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__showDirections;
-  swift_beginAccess();
-  LOBYTE(v18) = *(a1 + v18);
-  v19 = v43;
-  swift_beginAccess();
-  *(v1 + v19) = v18;
-  v20 = OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__showTraffic;
-  swift_beginAccess();
-  LOBYTE(v20) = *(a1 + v20);
-  v21 = v44;
-  swift_beginAccess();
-  *(v1 + v21) = v20;
-  v22 = (a1 + OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__directionType);
-  swift_beginAccess();
-  v23 = *v22;
-  LOBYTE(v22) = *(v22 + 8);
-  swift_beginAccess();
-  *v11 = v23;
-  *(v11 + 8) = v22;
-  swift_beginAccess();
-  sub_1B8D92024();
-  swift_beginAccess();
-  sub_1B8DAA170();
-  swift_endAccess();
-  v24 = OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__isSearchAlongRoute;
-  swift_beginAccess();
-  LOBYTE(v24) = *(a1 + v24);
-  v25 = v46;
-  swift_beginAccess();
-  *(v1 + v25) = v24;
-  v26 = OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__isChainResultSet;
-  swift_beginAccess();
-  LOBYTE(v26) = *(a1 + v26);
-  v27 = v47;
-  swift_beginAccess();
-  *(v1 + v27) = v26;
-  v28 = OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__shouldSuppressNavigation;
-  swift_beginAccess();
-  LOBYTE(v28) = *(a1 + v28);
-  v29 = v48;
-  swift_beginAccess();
-  *(v1 + v29) = v28;
-  v30 = OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__regionOfInterestRadiusInMiles;
-  swift_beginAccess();
-  v31 = *(a1 + v30);
-  v32 = v50;
-  swift_beginAccess();
-  *(v1 + v32) = v31;
-  v33 = OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__avoidTolls;
-  swift_beginAccess();
-  LOBYTE(v33) = *(a1 + v33);
-  v34 = v51;
-  swift_beginAccess();
-  *(v1 + v34) = v33;
-  v35 = OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__avoidHighways;
-  swift_beginAccess();
-  LOBYTE(v35) = *(a1 + v35);
-  v36 = v52;
-  swift_beginAccess();
-  *(v1 + v36) = v35;
-  v37 = OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__waypoints;
-  swift_beginAccess();
-  v38 = *(a1 + v37);
-
-  v39 = v53;
-  swift_beginAccess();
-  v40 = *(v1 + v39);
-  *(v1 + v39) = v38;
-
-  return v1;
-}
-
-uint64_t sub_1B91F862C()
-{
-  sub_1B8D9207C(v0 + OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__itemSource, &qword_1EBAC8770, &qword_1B96A62A0);
-  sub_1B8D9207C(v0 + OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__itemDestination, &qword_1EBAC8770, &qword_1B96A62A0);
-  v1 = *(v0 + OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__language + 8);
-
-  sub_1B8D9207C(v0 + OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__searchItems, &qword_1EBAC8778, &qword_1B96A62A8);
-  v2 = *(v0 + OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__waypoints);
-
-  return v0;
-}
-
-uint64_t sub_1B91F86D8()
-{
-  v0 = sub_1B91F862C();
-  v1 = *(*v0 + 48);
-  v2 = *(*v0 + 52);
-
-  return MEMORY[0x1EEE6BDC0](v0, v1, v2);
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParams.decodeMessage<A>(decoder:)()
-{
-  v2 = OUTLINED_FUNCTION_118_1();
-  v3 = *(type metadata accessor for Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParams(v2) + 20);
-  v4 = *(v0 + v3);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v6 = *(v0 + v3);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v7 = type metadata accessor for Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParams._StorageClass(0);
-    v8 = *(v7 + 48);
-    v9 = *(v7 + 52);
-    swift_allocObject();
-    v10 = OUTLINED_FUNCTION_40_0();
-    *(v1 + v3) = sub_1B91F7FF8(v10);
-  }
-
-  OUTLINED_FUNCTION_24_3();
-  return sub_1B91F87B4();
-}
-
-uint64_t sub_1B91F87B4()
-{
-  while (1)
-  {
-    result = sub_1B964C3C0();
-    if (v0 || (v2 & 1) != 0)
-    {
-      return result;
-    }
-
-    switch(result)
-    {
-      case 1:
-      case 2:
-        sub_1B91F89E8();
-        break;
-      case 3:
-        sub_1B91F8A98();
-        break;
-      case 4:
-      case 5:
-      case 8:
-      case 9:
-      case 10:
-      case 12:
-      case 13:
-        sub_1B91F8D28();
-        break;
-      case 6:
-        sub_1B91F8B24();
-        break;
-      case 7:
-        sub_1B91F8BC0();
-        break;
-      case 11:
-        sub_1B91F8C9C();
-        break;
-      case 14:
-        sub_1B91F8D94();
-        break;
-      default:
-        continue;
-    }
-  }
-}
-
-uint64_t sub_1B91F89E8()
-{
-  OUTLINED_FUNCTION_147_1();
-  v1 = *v0;
-  OUTLINED_FUNCTION_131();
-  swift_beginAccess();
-  type metadata accessor for Apple_Parsec_Siri_V2alpha_MapItemBuilderParams(0);
-  OUTLINED_FUNCTION_8_33();
-  sub_1B8CD2BE8(v2, v3);
-  OUTLINED_FUNCTION_153_1();
-  sub_1B964C580();
-  return swift_endAccess();
-}
-
-uint64_t sub_1B91F8A98()
-{
-  swift_beginAccess();
-  sub_1B964C530();
-  return swift_endAccess();
-}
-
-uint64_t sub_1B91F8B24()
-{
-  swift_beginAccess();
-  sub_1B920007C();
-  sub_1B964C420();
-  return swift_endAccess();
-}
-
-uint64_t sub_1B91F8BC0()
-{
-  swift_beginAccess();
-  type metadata accessor for Apple_Parsec_Siri_V2alpha_MapItemListBuilderParams(0);
-  sub_1B8CD2BE8(&qword_1EBAC8950, type metadata accessor for Apple_Parsec_Siri_V2alpha_MapItemListBuilderParams);
-  sub_1B964C580();
-  return swift_endAccess();
-}
-
-uint64_t sub_1B91F8C9C()
-{
-  swift_beginAccess();
-  sub_1B964C510();
-  return swift_endAccess();
-}
-
-uint64_t sub_1B91F8D28()
-{
-  OUTLINED_FUNCTION_147_1();
-  v1 = *v0;
-  OUTLINED_FUNCTION_131();
-  swift_beginAccess();
-  OUTLINED_FUNCTION_153_1();
-  OUTLINED_FUNCTION_12();
-  sub_1B964C400();
-  return swift_endAccess();
-}
-
-uint64_t sub_1B91F8D94()
-{
-  swift_beginAccess();
-  type metadata accessor for Apple_Parsec_Siri_V2alpha_MapItemBuilderParams(0);
-  sub_1B8CD2BE8(&qword_1EBAC87B8, type metadata accessor for Apple_Parsec_Siri_V2alpha_MapItemBuilderParams);
-  sub_1B964C570();
-  return swift_endAccess();
-}
-
-uint64_t sub_1B91F8EB0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void), uint64_t (*a5)(void))
-{
-  v8 = *(v5 + *(a4(0) + 20));
-  OUTLINED_FUNCTION_12();
-  result = a5();
-  if (!v6)
-  {
-    OUTLINED_FUNCTION_186();
-    return sub_1B964C290();
-  }
-
-  return result;
-}
-
-uint64_t sub_1B91F8F28(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v51 = a4;
-  v48 = a3;
-  v46 = a2;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAC8778, &qword_1B96A62A8);
-  v6 = *(*(v5 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v5 - 8);
-  v44 = v41 - v7;
-  v42 = type metadata accessor for Apple_Parsec_Siri_V2alpha_MapItemListBuilderParams(0);
-  v8 = *(*(v42 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v42);
-  v41[1] = v41 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAC8770, &qword_1B96A62A0);
-  v11 = *(*(v10 - 8) + 64);
-  v12 = MEMORY[0x1EEE9AC00](v10 - 8);
-  v14 = v41 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = OUTLINED_FUNCTION_324_1();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityCustomAttribute.OneOf_Value(v10);
+  OUTLINED_FUNCTION_59_1();
+  MEMORY[0x1EEE9AC00](v11);
+  OUTLINED_FUNCTION_66();
+  OUTLINED_FUNCTION_512_0();
   MEMORY[0x1EEE9AC00](v12);
-  v16 = v41 - v15;
-  v17 = type metadata accessor for Apple_Parsec_Siri_V2alpha_MapItemBuilderParams(0);
-  v18 = *(*(v17 - 8) + 64);
-  v19 = MEMORY[0x1EEE9AC00](v17);
-  v43 = v41 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v19);
-  swift_beginAccess();
-  v45 = a1;
-  sub_1B8D92024();
-  if (__swift_getEnumTagSinglePayload(v16, 1, v17) == 1)
-  {
-    sub_1B8D9207C(v16, &qword_1EBAC8770, &qword_1B96A62A0);
-    v21 = v47;
-  }
-
-  else
-  {
-    sub_1B91FA3D0();
-    sub_1B8CD2BE8(&qword_1EBAC87B8, type metadata accessor for Apple_Parsec_Siri_V2alpha_MapItemBuilderParams);
-    v22 = v47;
-    sub_1B964C740();
-    v21 = v22;
-    if (v22)
-    {
-      return sub_1B91FA498();
-    }
-
-    sub_1B91FA498();
-  }
-
-  v23 = v45;
-  swift_beginAccess();
-  sub_1B8D92024();
-  if (__swift_getEnumTagSinglePayload(v14, 1, v17) == 1)
-  {
-    sub_1B8D9207C(v14, &qword_1EBAC8770, &qword_1B96A62A0);
-    goto LABEL_10;
-  }
-
-  sub_1B91FA3D0();
-  sub_1B8CD2BE8(&qword_1EBAC87B8, type metadata accessor for Apple_Parsec_Siri_V2alpha_MapItemBuilderParams);
-  sub_1B964C740();
-  if (v21)
-  {
-    return sub_1B91FA498();
-  }
-
-  sub_1B91FA498();
-LABEL_10:
-  v25 = (v23 + OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__language);
-  swift_beginAccess();
-  v26 = *v25;
-  v27 = v25[1];
-  v28 = HIBYTE(v27) & 0xF;
-  if ((v27 & 0x2000000000000000) == 0)
-  {
-    v28 = v26 & 0xFFFFFFFFFFFFLL;
-  }
-
-  v29 = v44;
-  if (!v28 || (, sub_1B964C700(), result = , !v21))
-  {
-    v30 = OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__showDirections;
-    swift_beginAccess();
-    if (*(v23 + v30) != 1 || (result = sub_1B964C670(), !v21))
-    {
-      v31 = OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__showTraffic;
-      swift_beginAccess();
-      if (*(v23 + v31) != 1 || (result = sub_1B964C670(), !v21))
-      {
-        v32 = (v23 + OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__directionType);
-        swift_beginAccess();
-        if (!*v32 || (v33 = *(v32 + 8), v49 = *v32, v50 = v33, sub_1B920007C(), result = sub_1B964C680(), !v21))
-        {
-          swift_beginAccess();
-          sub_1B8D92024();
-          if (__swift_getEnumTagSinglePayload(v29, 1, v42) == 1)
-          {
-            sub_1B8D9207C(v29, &qword_1EBAC8778, &qword_1B96A62A8);
-          }
-
-          else
-          {
-            sub_1B91FA3D0();
-            sub_1B8CD2BE8(&qword_1EBAC8950, type metadata accessor for Apple_Parsec_Siri_V2alpha_MapItemListBuilderParams);
-            sub_1B964C740();
-            result = sub_1B91FA498();
-            if (v21)
-            {
-              return result;
-            }
-          }
-
-          v34 = OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__isSearchAlongRoute;
-          swift_beginAccess();
-          if (*(v23 + v34) != 1 || (result = sub_1B964C670(), !v21))
-          {
-            v35 = OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__isChainResultSet;
-            swift_beginAccess();
-            if (*(v23 + v35) != 1 || (result = sub_1B964C670(), !v21))
-            {
-              v36 = OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__shouldSuppressNavigation;
-              swift_beginAccess();
-              if (*(v23 + v36) != 1 || (result = sub_1B964C670(), !v21))
-              {
-                v37 = OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__regionOfInterestRadiusInMiles;
-                swift_beginAccess();
-                if (*(v23 + v37) == 0.0 || (result = sub_1B964C6F0(), !v21))
-                {
-                  v38 = OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__avoidTolls;
-                  swift_beginAccess();
-                  if (*(v23 + v38) != 1 || (result = sub_1B964C670(), !v21))
-                  {
-                    v39 = OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__avoidHighways;
-                    swift_beginAccess();
-                    if (*(v23 + v39) != 1 || (result = sub_1B964C670(), !v21))
-                    {
-                      v40 = OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__waypoints;
-                      result = swift_beginAccess();
-                      if (*(*(v23 + v40) + 16))
-                      {
-                        sub_1B8CD2BE8(&qword_1EBAC87B8, type metadata accessor for Apple_Parsec_Siri_V2alpha_MapItemBuilderParams);
-
-                        sub_1B964C730();
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
-  return result;
-}
-
-uint64_t sub_1B91F97F4(uint64_t a1, uint64_t a2)
-{
-  v122 = a2;
-  v113 = type metadata accessor for Apple_Parsec_Siri_V2alpha_MapItemListBuilderParams(0);
-  v3 = OUTLINED_FUNCTION_59_1(v113);
-  v5 = *(v4 + 64);
-  MEMORY[0x1EEE9AC00](v3);
-  OUTLINED_FUNCTION_62();
-  v109 = (v7 - v6);
-  v111 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAC89F8, &qword_1B96A7D80);
-  OUTLINED_FUNCTION_59_1(v111);
-  v9 = *(v8 + 64);
-  OUTLINED_FUNCTION_176();
-  MEMORY[0x1EEE9AC00](v10);
-  v114 = &v108 - v11;
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAC8778, &qword_1B96A62A8);
-  v13 = OUTLINED_FUNCTION_183(v12);
-  v15 = *(v14 + 64);
+  OUTLINED_FUNCTION_599_0();
   MEMORY[0x1EEE9AC00](v13);
-  OUTLINED_FUNCTION_44_0();
-  v110 = v16;
-  OUTLINED_FUNCTION_230();
+  v15 = (&v28 - v14);
+  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAC95D8, &unk_1B96AA8D0);
+  OUTLINED_FUNCTION_183(v16);
+  OUTLINED_FUNCTION_176();
   MEMORY[0x1EEE9AC00](v17);
-  v112 = &v108 - v18;
-  v121 = type metadata accessor for Apple_Parsec_Siri_V2alpha_MapItemBuilderParams(0);
-  v19 = OUTLINED_FUNCTION_59_1(v121);
-  v21 = *(v20 + 64);
-  MEMORY[0x1EEE9AC00](v19);
-  OUTLINED_FUNCTION_62();
-  v116 = v23 - v22;
-  v24 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAC8A00, &qword_1B96A7D88);
-  v25 = OUTLINED_FUNCTION_59_1(v24);
-  v27 = *(v26 + 64);
-  MEMORY[0x1EEE9AC00](v25);
-  OUTLINED_FUNCTION_44_0();
-  v119 = v28;
-  OUTLINED_FUNCTION_230();
-  MEMORY[0x1EEE9AC00](v29);
-  v31 = &v108 - v30;
-  v32 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAC8770, &qword_1B96A62A0);
-  v33 = OUTLINED_FUNCTION_183(v32);
-  v35 = *(v34 + 64);
-  MEMORY[0x1EEE9AC00](v33);
-  OUTLINED_FUNCTION_44_0();
-  v115 = v36;
-  OUTLINED_FUNCTION_230();
-  MEMORY[0x1EEE9AC00](v37);
-  v118 = &v108 - v38;
-  OUTLINED_FUNCTION_230();
-  MEMORY[0x1EEE9AC00](v39);
-  v120 = &v108 - v40;
-  OUTLINED_FUNCTION_230();
-  MEMORY[0x1EEE9AC00](v41);
-  v43 = &v108 - v42;
-  OUTLINED_FUNCTION_521();
-  v44 = a1;
-  sub_1B8D92024();
-  v45 = v122;
-  OUTLINED_FUNCTION_521();
-  v117 = v24;
-  v46 = *(v24 + 48);
-  sub_1B8D92024();
-  v47 = v45;
-  sub_1B8D92024();
-  OUTLINED_FUNCTION_110(v31, 1);
-  if (v49)
+  OUTLINED_FUNCTION_139();
+  v19 = (v0 + *(v18 + 56));
+  sub_1B9239DFC();
+  OUTLINED_FUNCTION_190_0();
+  sub_1B9239DFC();
+  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+  if (!EnumCaseMultiPayload)
   {
-
-    sub_1B8D9207C(v43, &qword_1EBAC8770, &qword_1B96A62A0);
-    OUTLINED_FUNCTION_110(&v31[v46], 1);
-    v48 = v44;
-    if (v49)
+    OUTLINED_FUNCTION_169_3();
+    sub_1B9239DFC();
+    v22 = *v15;
+    v21 = v15[1];
+    OUTLINED_FUNCTION_205();
+    if (swift_getEnumCaseMultiPayload())
     {
-      sub_1B8D9207C(v31, &qword_1EBAC8770, &qword_1B96A62A0);
-      goto LABEL_11;
+
+LABEL_17:
+      sub_1B8D9207C(v0, &qword_1EBAC95D8, &unk_1B96AA8D0);
+      goto LABEL_20;
     }
 
-LABEL_9:
-    v50 = &qword_1EBAC8A00;
-    v51 = &qword_1B96A7D88;
-    v52 = v31;
-LABEL_20:
-    sub_1B8D9207C(v52, v50, v51);
-    goto LABEL_21;
-  }
-
-  v48 = v44;
-  sub_1B8D92024();
-  OUTLINED_FUNCTION_110(&v31[v46], 1);
-  if (v49)
-  {
-
-    sub_1B8D9207C(v43, &qword_1EBAC8770, &qword_1B96A62A0);
-    OUTLINED_FUNCTION_77_8();
-    sub_1B91FA498();
-    goto LABEL_9;
-  }
-
-  sub_1B91FA3D0();
-
-  static Apple_Parsec_Siri_V2alpha_MapItemBuilderParams.== infix(_:_:)();
-  v54 = v53;
-  sub_1B91FA498();
-  sub_1B8D9207C(v43, &qword_1EBAC8770, &qword_1B96A62A0);
-  sub_1B91FA498();
-  sub_1B8D9207C(v31, &qword_1EBAC8770, &qword_1B96A62A0);
-  if ((v54 & 1) == 0)
-  {
-    goto LABEL_21;
-  }
-
-LABEL_11:
-  OUTLINED_FUNCTION_521();
-  v55 = v118;
-  sub_1B8D92024();
-  OUTLINED_FUNCTION_521();
-  v56 = *(v117 + 48);
-  v57 = v119;
-  sub_1B8D92024();
-  sub_1B8D92024();
-  OUTLINED_FUNCTION_110(v57, 1);
-  if (v49)
-  {
-    sub_1B8D9207C(v55, &qword_1EBAC8770, &qword_1B96A62A0);
-    OUTLINED_FUNCTION_57(v57 + v56);
-    if (v49)
+    if (v22 != *v19 || v21 != v19[1])
     {
-      sub_1B8D9207C(v57, &qword_1EBAC8770, &qword_1B96A62A0);
-      goto LABEL_24;
+      OUTLINED_FUNCTION_74_7();
+      sub_1B964C9F0();
     }
 
     goto LABEL_19;
   }
 
-  sub_1B8D92024();
-  OUTLINED_FUNCTION_57(v57 + v56);
-  if (v58)
+  if (EnumCaseMultiPayload != 1)
   {
-    sub_1B8D9207C(v55, &qword_1EBAC8770, &qword_1B96A62A0);
-    OUTLINED_FUNCTION_77_8();
-    sub_1B91FA498();
+    OUTLINED_FUNCTION_167_7();
+    sub_1B9239DFC();
+    OUTLINED_FUNCTION_205();
+    if (swift_getEnumCaseMultiPayload() != 2)
+    {
+LABEL_16:
+      sub_1B9239E50();
+      goto LABEL_17;
+    }
+
+    OUTLINED_FUNCTION_201_4();
+    v23 = v29;
+    sub_1B9239DA8();
+    v24 = *v1 == *v23 && *(v1 + 8) == *(v23 + 8);
+    if (v24 || (sub_1B964C9F0()) && *(v1 + 16) == *(v23 + 16))
+    {
+      sub_1B964C2B0();
+      OUTLINED_FUNCTION_0_75();
+      sub_1B8CD2D08(v25, v26, MEMORY[0x1E69AAC10]);
+      OUTLINED_FUNCTION_604_1();
+    }
+
+    OUTLINED_FUNCTION_401_0();
+    sub_1B9239E50();
+    OUTLINED_FUNCTION_128();
+    sub_1B9239E50();
 LABEL_19:
-    v50 = &qword_1EBAC8A00;
-    v51 = &qword_1B96A7D88;
-    v52 = v57;
+    OUTLINED_FUNCTION_3_48();
+    sub_1B9239E50();
     goto LABEL_20;
   }
 
-  sub_1B91FA3D0();
-  static Apple_Parsec_Siri_V2alpha_MapItemBuilderParams.== infix(_:_:)();
-  v62 = v61;
-  sub_1B91FA498();
-  sub_1B8D9207C(v55, &qword_1EBAC8770, &qword_1B96A62A0);
-  OUTLINED_FUNCTION_461();
-  sub_1B91FA498();
-  sub_1B8D9207C(v57, &qword_1EBAC8770, &qword_1B96A62A0);
-  if ((v62 & 1) == 0)
+  OUTLINED_FUNCTION_169_3();
+  sub_1B9239DFC();
+  OUTLINED_FUNCTION_205();
+  if (swift_getEnumCaseMultiPayload() != 1)
   {
-    goto LABEL_21;
+    OUTLINED_FUNCTION_344_1();
+    goto LABEL_16;
   }
 
-LABEL_24:
-  v63 = (v48 + OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__language);
-  OUTLINED_FUNCTION_521();
-  v64 = *v63;
-  v65 = v63[1];
-  v66 = (v47 + OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__language);
-  OUTLINED_FUNCTION_521();
-  v67 = v64 == *v66 && v65 == v66[1];
-  if (!v67 && (sub_1B964C9F0() & 1) == 0)
-  {
-    goto LABEL_21;
-  }
-
-  v68 = OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__showDirections;
-  OUTLINED_FUNCTION_521();
-  v69 = *(v48 + v68);
-  OUTLINED_FUNCTION_521();
-  OUTLINED_FUNCTION_855();
-  if (!v49)
-  {
-    goto LABEL_21;
-  }
-
-  v70 = OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__showTraffic;
-  OUTLINED_FUNCTION_521();
-  v71 = *(v48 + v70);
-  OUTLINED_FUNCTION_521();
-  OUTLINED_FUNCTION_855();
-  if (!v49)
-  {
-    goto LABEL_21;
-  }
-
-  v72 = v48 + OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__directionType;
-  OUTLINED_FUNCTION_521();
-  v73 = *v72;
-  v74 = *(v72 + 8);
-  v75 = v47 + OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__directionType;
-  OUTLINED_FUNCTION_521();
-  v76 = *(v75 + 8);
-  if (!sub_1B8D92198(v73, v74, *v75))
-  {
-    goto LABEL_21;
-  }
-
-  OUTLINED_FUNCTION_521();
-  v77 = v112;
-  sub_1B8D92024();
-  OUTLINED_FUNCTION_521();
-  v78 = *(v111 + 48);
-  v79 = v114;
-  sub_1B8D92024();
-  sub_1B8D92024();
-  v80 = v113;
-  if (__swift_getEnumTagSinglePayload(v79, 1, v113) == 1)
-  {
-    sub_1B8D9207C(v77, &qword_1EBAC8778, &qword_1B96A62A8);
-    OUTLINED_FUNCTION_57(v79 + v78);
-    if (!v49)
-    {
-      goto LABEL_53;
-    }
-
-    sub_1B8D9207C(v79, &qword_1EBAC8778, &qword_1B96A62A8);
-  }
-
-  else
-  {
-    v99 = v110;
-    sub_1B8D92024();
-    OUTLINED_FUNCTION_57(v79 + v78);
-    if (v49)
-    {
-      sub_1B8D9207C(v77, &qword_1EBAC8778, &qword_1B96A62A8);
-      sub_1B91FA498();
-LABEL_53:
-      v50 = &qword_1EBAC89F8;
-      v51 = &qword_1B96A7D80;
-      v52 = v79;
-      goto LABEL_20;
-    }
-
-    OUTLINED_FUNCTION_10_29();
-    v100 = v109;
-    sub_1B91FA3D0();
-    v101 = *v99;
-    v102 = *v100;
-    sub_1B8D63B18();
-    if ((v103 & 1) == 0 || v99[1] != v100[1])
-    {
-      sub_1B8D9207C(v77, &qword_1EBAC8778, &qword_1B96A62A8);
-      sub_1B91FA498();
-      sub_1B91FA498();
-      v52 = v79;
-      v50 = &qword_1EBAC8778;
-      v51 = &qword_1B96A62A8;
-      goto LABEL_20;
-    }
-
-    v104 = *(v80 + 24);
-    sub_1B964C2B0();
-    OUTLINED_FUNCTION_0_71();
-    sub_1B8CD2BE8(v105, v106);
-    v107 = sub_1B964C850();
-    sub_1B8D9207C(v77, &qword_1EBAC8778, &qword_1B96A62A8);
-    sub_1B91FA498();
-    sub_1B91FA498();
-    sub_1B8D9207C(v79, &qword_1EBAC8778, &qword_1B96A62A8);
-    if ((v107 & 1) == 0)
-    {
-      goto LABEL_21;
-    }
-  }
-
-  v81 = OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__isSearchAlongRoute;
-  OUTLINED_FUNCTION_521();
-  v82 = *(v48 + v81);
-  OUTLINED_FUNCTION_521();
-  OUTLINED_FUNCTION_855();
-  if (v49)
-  {
-    v83 = OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__isChainResultSet;
-    OUTLINED_FUNCTION_521();
-    v84 = *(v48 + v83);
-    OUTLINED_FUNCTION_521();
-    OUTLINED_FUNCTION_855();
-    if (v49)
-    {
-      v85 = OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__shouldSuppressNavigation;
-      OUTLINED_FUNCTION_521();
-      v86 = *(v48 + v85);
-      OUTLINED_FUNCTION_521();
-      OUTLINED_FUNCTION_855();
-      if (v49)
-      {
-        v87 = OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__regionOfInterestRadiusInMiles;
-        OUTLINED_FUNCTION_521();
-        v88 = *(v48 + v87);
-        v89 = OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__regionOfInterestRadiusInMiles;
-        OUTLINED_FUNCTION_521();
-        if (v88 == *(v47 + v89))
-        {
-          v90 = OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__avoidTolls;
-          OUTLINED_FUNCTION_521();
-          v91 = *(v48 + v90);
-          OUTLINED_FUNCTION_521();
-          OUTLINED_FUNCTION_855();
-          if (v49)
-          {
-            v92 = OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__avoidHighways;
-            OUTLINED_FUNCTION_521();
-            v93 = *(v48 + v92);
-            OUTLINED_FUNCTION_521();
-            OUTLINED_FUNCTION_855();
-            if (v49)
-            {
-              v94 = OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__waypoints;
-              OUTLINED_FUNCTION_521();
-              v95 = *(v48 + v94);
-              v96 = OBJC_IVAR____TtCV10PegasusAPI52Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParamsP33_1A8030B40100AE04F922106B4CC325FE13_StorageClass__waypoints;
-              OUTLINED_FUNCTION_521();
-              v97 = *(v47 + v96);
-
-              sub_1B8D63B18();
-              v59 = v98;
-
-              return v59 & 1;
-            }
-          }
-        }
-      }
-    }
-  }
-
-LABEL_21:
-
-  v59 = 0;
-  return v59 & 1;
+  OUTLINED_FUNCTION_202_4();
+  sub_1B9239DA8();
+  static Apple_Parsec_Siri_V2alpha_Timestamp.== infix(_:_:)(v3, v2);
+  sub_1B9239E50();
+  OUTLINED_FUNCTION_245();
+  sub_1B9239E50();
+  OUTLINED_FUNCTION_3_48();
+  sub_1B9239E50();
+LABEL_20:
+  OUTLINED_FUNCTION_177();
+  OUTLINED_FUNCTION_283();
 }
 
-uint64_t sub_1B91FA3D0()
+uint64_t static Apple_Parsec_Siri_V2alpha_Temperature.== infix(_:_:)(uint64_t a1)
 {
-  v1 = OUTLINED_FUNCTION_280();
-  v3 = v2(v1);
-  OUTLINED_FUNCTION_59_1(v3);
-  v5 = *(v4 + 32);
-  v6 = OUTLINED_FUNCTION_432();
-  v7(v6);
-  return v0;
-}
-
-uint64_t sub_1B91FA444()
-{
-  v1 = OUTLINED_FUNCTION_280();
-  v3 = v2(v1);
-  OUTLINED_FUNCTION_59_1(v3);
-  v5 = *(v4 + 16);
-  v6 = OUTLINED_FUNCTION_432();
-  v7(v6);
-  return v0;
-}
-
-uint64_t sub_1B91FA498()
-{
-  v1 = OUTLINED_FUNCTION_313();
-  v3 = v2(v1);
-  OUTLINED_FUNCTION_59_1(v3);
-  (*(v4 + 8))(v0);
-  return v0;
-}
-
-unint64_t sub_1B91FA52C()
-{
-  result = qword_1EBAC8780;
-  if (!qword_1EBAC8780)
+  OUTLINED_FUNCTION_17_1(a1);
+  v5 = v5 && v3 == v4;
+  if (!v5 && (sub_1B964C9F0() & 1) == 0 || *(v2 + 16) != *(v1 + 16))
   {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1EBAC8780);
+    return 0;
   }
 
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_Temperature(0);
+  OUTLINED_FUNCTION_188_1();
+  OUTLINED_FUNCTION_0_75();
+  v8 = sub_1B8CD2D08(v6, v7, MEMORY[0x1E69AAC10]);
+  return OUTLINED_FUNCTION_634(v8) & 1;
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_AppEntityCustomAttribute.init()@<X0>(void *a1@<X8>)
+{
+  OUTLINED_FUNCTION_118_0(a1);
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityCustomAttribute(0);
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityCustomAttribute.OneOf_Value(0);
+  OUTLINED_FUNCTION_83();
+  __swift_storeEnumTagSinglePayload(v1, v2, v3, v4);
+  return _s10PegasusAPI18Amppb_AvailabilityVACycfC_0();
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_Temperature.unknownFields.modify()
+{
+  v0 = OUTLINED_FUNCTION_313();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_Temperature(v0);
+  return OUTLINED_FUNCTION_25();
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_AppEntityContactAttributes.unknownFields.modify()
+{
+  v0 = OUTLINED_FUNCTION_313();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityContactAttributes(v0);
+  return OUTLINED_FUNCTION_25();
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_AppEntityIDAttributes.unknownFields.modify()
+{
+  v0 = OUTLINED_FUNCTION_313();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityIDAttributes(v0);
+  return OUTLINED_FUNCTION_25();
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_AppEntityEventAttributes.unknownFields.modify()
+{
+  v0 = OUTLINED_FUNCTION_313();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityEventAttributes(v0);
+  return OUTLINED_FUNCTION_25();
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_AppEntityAppstoreAttributes.unknownFields.modify()
+{
+  v0 = OUTLINED_FUNCTION_313();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_AppEntityAppstoreAttributes(v0);
+  return OUTLINED_FUNCTION_25();
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_UserPromptSignals.unknownFields.modify()
+{
+  v0 = OUTLINED_FUNCTION_313();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_UserPromptSignals(v0);
+  return OUTLINED_FUNCTION_25();
+}
+
+uint64_t sub_1B9236FAC(uint64_t a1, uint64_t a2)
+{
+  v4 = sub_1B927AEBC();
+
+  return MEMORY[0x1EEE15710](a1, a2, v4);
+}
+
+uint64_t sub_1B923708C@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
+{
+  result = static Apple_Parsec_Siri_V2alpha_UserPromptSignals.PromptType.allCases.getter(a1);
+  *a2 = result;
   return result;
 }
 
-uint64_t sub_1B91FA61C(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_1B8CD2BE8(&qword_1EBAC89D0, type metadata accessor for Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParams);
-
-  return MEMORY[0x1EEE15708](a1, a2, v4);
-}
-
-uint64_t sub_1B91FA69C(uint64_t a1)
-{
-  v2 = sub_1B8CD2BE8(&qword_1EBAC84F0, type metadata accessor for Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParams);
-
-  return MEMORY[0x1EEE15928](a1, v2);
-}
-
-uint64_t sub_1B91FA70C()
-{
-  sub_1B8CD2BE8(&qword_1EBAC84F0, type metadata accessor for Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParams);
-
-  return sub_1B964C5D0();
-}
-
-uint64_t sub_1B91FA78C()
+uint64_t sub_1B92370B4()
 {
   v0 = sub_1B964C780();
-  __swift_allocate_value_buffer(v0, qword_1EBAC8668);
-  __swift_project_value_buffer(v0, qword_1EBAC8668);
+  __swift_allocate_value_buffer(v0, qword_1EBAB5C30);
+  __swift_project_value_buffer(v0, qword_1EBAB5C30);
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB92F0, &unk_1B964DAD0);
   v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB92F8, &unk_1B964EE40) - 8);
   v2 = *(*v1 + 72);
@@ -7875,8 +6254,8 @@ uint64_t sub_1B91FA78C()
   v5 = v4 + v3;
   v6 = v4 + v3 + v1[14];
   *(v4 + v3) = 0;
-  *v6 = "DIRECTION_TYPE_UNKNOWN";
-  *(v6 + 8) = 22;
+  *v6 = "UNKNOWN";
+  *(v6 + 8) = 7;
   *(v6 + 16) = 2;
   v7 = *MEMORY[0x1E69AADC8];
   v8 = sub_1B964C750();
@@ -7884,39 +6263,2121 @@ uint64_t sub_1B91FA78C()
   (v9)(v6, v7, v8);
   v10 = v5 + v2 + v1[14];
   *(v5 + v2) = 1;
-  *v10 = "DIRECTION_TYPE_CAR";
-  *(v10 + 8) = 18;
+  *v10 = "DEVELOPMENT";
+  *(v10 + 8) = 11;
   *(v10 + 16) = 2;
   v9();
   v11 = (v5 + 2 * v2);
   v12 = v11 + v1[14];
   *v11 = 2;
-  *v12 = "DIRECTION_TYPE_TRANSIT";
-  *(v12 + 1) = 22;
+  *v12 = "TEST";
+  *(v12 + 1) = 4;
   v12[16] = 2;
   v9();
   v13 = (v5 + 3 * v2);
   v14 = v13 + v1[14];
   *v13 = 3;
-  *v14 = "DIRECTION_TYPE_WALKING";
-  *(v14 + 1) = 22;
+  *v14 = "CARRY";
+  *(v14 + 1) = 5;
   v14[16] = 2;
   v9();
   v15 = (v5 + 4 * v2);
   v16 = v15 + v1[14];
   *v15 = 4;
-  *v16 = "DIRECTION_TYPE_CYCLING";
-  *(v16 + 1) = 22;
+  *v16 = "PRODUCTION";
+  *(v16 + 1) = 10;
   v16[16] = 2;
   v9();
   return sub_1B964C760();
 }
 
-uint64_t sub_1B91FAA48()
+uint64_t sub_1B9237358()
 {
   v0 = sub_1B964C780();
-  __swift_allocate_value_buffer(v0, qword_1EBAC8680);
-  __swift_project_value_buffer(v0, qword_1EBAC8680);
+  __swift_allocate_value_buffer(v0, qword_1EBAC8FA8);
+  __swift_project_value_buffer(v0, qword_1EBAC8FA8);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB92F0, &unk_1B964DAD0);
+  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB92F8, &unk_1B964EE40) - 8);
+  v2 = *(*v1 + 72);
+  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v4 = swift_allocObject();
+  *(v4 + 16) = xmmword_1B964EE80;
+  v5 = v4 + v3;
+  v6 = v4 + v3 + v1[14];
+  *(v4 + v3) = 0;
+  *v6 = "RESTRICTION_CATEGORY_UNKNOWN";
+  *(v6 + 8) = 28;
+  *(v6 + 16) = 2;
+  v7 = *MEMORY[0x1E69AADC8];
+  v8 = sub_1B964C750();
+  v9 = *(*(v8 - 8) + 104);
+  (v9)(v6, v7, v8);
+  v10 = v5 + v2 + v1[14];
+  *(v5 + v2) = 1;
+  *v10 = "RESTRICTION_CATEGORY_AUDIO_EXPLICIT_CONTENT_DISABLED";
+  *(v10 + 8) = 52;
+  *(v10 + 16) = 2;
+  v9();
+  v11 = (v5 + 2 * v2);
+  v12 = v11 + v1[14];
+  *v11 = 2;
+  *v12 = "RESTRICTION_CATEGORY_APP_LAUNCH_DISABLED";
+  *(v12 + 1) = 40;
+  v12[16] = 2;
+  v9();
+  v13 = (v5 + 3 * v2);
+  v14 = v13 + v1[14];
+  *v13 = 3;
+  *v14 = "RESTRICTION_PRIMARY_DISPLAY_DISABLED";
+  *(v14 + 1) = 36;
+  v14[16] = 2;
+  v9();
+  v15 = (v5 + 4 * v2);
+  v16 = v15 + v1[14];
+  *v15 = 4;
+  *v16 = "RESTRICTION_SECONDARY_DISPLAY_DISABLED";
+  *(v16 + 1) = 38;
+  v16[16] = 2;
+  v9();
+  v17 = (v5 + 5 * v2);
+  v18 = v17 + v1[14];
+  *v17 = 6;
+  *v18 = "RESTRICTION_CATEGORY_PERSONAL_INFORMATION_DISABLED";
+  *(v18 + 1) = 50;
+  v18[16] = 2;
+  v9();
+  v19 = (v5 + 6 * v2);
+  v20 = v19 + v1[14];
+  *v19 = 7;
+  *v20 = "RESTRICTION_CATEGORY_SIRI_WEB_SEARCH_CONTENT_DISABLED";
+  *(v20 + 1) = 53;
+  v20[16] = 2;
+  v9();
+  v21 = (v5 + 7 * v2);
+  v22 = v21 + v1[14];
+  *v21 = 8;
+  *v22 = "RESTRICTION_CATEGORY_SIRI_EXPLICIT_LANGUAGE_DISALLOWED";
+  *(v22 + 1) = 54;
+  v22[16] = 2;
+  v9();
+  v23 = (v5 + 8 * v2);
+  v24 = v23 + v1[14];
+  *v23 = 9;
+  *v24 = "RESTRICTION_CATEGORY_SIRI_SYNAPSE_INTENTS_DISABLED";
+  *(v24 + 1) = 50;
+  v24[16] = 2;
+  v9();
+  return sub_1B964C760();
+}
+
+uint64_t sub_1B92376FC()
+{
+  v0 = sub_1B964C780();
+  __swift_allocate_value_buffer(v0, qword_1EBAC8FC0);
+  __swift_project_value_buffer(v0, qword_1EBAC8FC0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB92F0, &unk_1B964DAD0);
+  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB92F8, &unk_1B964EE40) - 8);
+  v2 = *(*v1 + 72);
+  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v4 = swift_allocObject();
+  *(v4 + 16) = xmmword_1B96511B0;
+  v5 = v4 + v3;
+  v6 = v4 + v3 + v1[14];
+  *(v4 + v3) = 0;
+  *v6 = "RESTRICTION_REASON_UNKNOWN";
+  *(v6 + 8) = 26;
+  *(v6 + 16) = 2;
+  v7 = *MEMORY[0x1E69AADC8];
+  v8 = sub_1B964C750();
+  v9 = *(*(v8 - 8) + 104);
+  (v9)(v6, v7, v8);
+  v10 = v5 + v2 + v1[14];
+  *(v5 + v2) = 1;
+  *v10 = "RESTRICTION_REASON_UNRESTRICTED";
+  *(v10 + 8) = 31;
+  *(v10 + 16) = 2;
+  v9();
+  v11 = (v5 + 2 * v2);
+  v12 = v11 + v1[14];
+  *v11 = 2;
+  *v12 = "RESTRICTION_REASON_PINLOCK";
+  *(v12 + 1) = 26;
+  v12[16] = 2;
+  v9();
+  v13 = (v5 + 3 * v2);
+  v14 = v13 + v1[14];
+  *v13 = 3;
+  *v14 = "RESTRICTION_REASON_PREFERENCE_SET";
+  *(v14 + 1) = 33;
+  v14[16] = 2;
+  v9();
+  v15 = (v5 + 4 * v2);
+  v16 = v15 + v1[14];
+  *v15 = 4;
+  *v16 = "RESTRICTION_REASON_ADVANCED_CAR";
+  *(v16 + 1) = 31;
+  v16[16] = 2;
+  v9();
+  v17 = (v5 + 5 * v2);
+  v18 = v17 + v1[14];
+  *v17 = 5;
+  *v18 = "RESTRICTION_REASON_SIMPLE_CAR";
+  *(v18 + 1) = 29;
+  v18[16] = 2;
+  v9();
+  v19 = (v5 + 6 * v2);
+  v20 = v19 + v1[14];
+  *v19 = 6;
+  *v20 = "RESTRICTION_REASON_CAR_DND";
+  *(v20 + 1) = 26;
+  v20[16] = 2;
+  v9();
+  v21 = (v5 + 7 * v2);
+  v22 = v21 + v1[14];
+  *v21 = 7;
+  *v22 = "RESTRICTION_REASON_SHARING_MODE";
+  *(v22 + 1) = 31;
+  v22[16] = 2;
+  v9();
+  return sub_1B964C760();
+}
+
+uint64_t sub_1B9237A60()
+{
+  v0 = sub_1B964C780();
+  __swift_allocate_value_buffer(v0, qword_1EBAB4988);
+  __swift_project_value_buffer(v0, qword_1EBAB4988);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB92F0, &unk_1B964DAD0);
+  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB92F8, &unk_1B964EE40) - 8);
+  v2 = *(*v1 + 72);
+  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v4 = swift_allocObject();
+  *(v4 + 16) = xmmword_1B964E4A0;
+  v5 = v4 + v3;
+  v6 = v4 + v3 + v1[14];
+  *(v4 + v3) = 0;
+  *v6 = "REQUEST_TYPE_UNKNOWN";
+  *(v6 + 8) = 20;
+  *(v6 + 16) = 2;
+  v7 = *MEMORY[0x1E69AADC8];
+  v8 = sub_1B964C750();
+  v9 = *(*(v8 - 8) + 104);
+  (v9)(v6, v7, v8);
+  v10 = v5 + v2 + v1[14];
+  *(v5 + v2) = 1;
+  *v10 = "REQUEST_TYPE_MODALITY";
+  *(v10 + 8) = 21;
+  *(v10 + 16) = 2;
+  v9();
+  v11 = (v5 + 2 * v2);
+  v12 = v11 + v1[14];
+  *v11 = 2;
+  *v12 = "REQUEST_TYPE_POMMES";
+  *(v12 + 1) = 19;
+  v12[16] = 2;
+  v9();
+  v13 = (v5 + 3 * v2);
+  v14 = v13 + v1[14];
+  *v13 = 4;
+  *v14 = "REQUEST_TYPE_PERSONAL_UPDATE";
+  *(v14 + 1) = 28;
+  v14[16] = 2;
+  v9();
+  v15 = (v5 + 4 * v2);
+  v16 = v15 + v1[14];
+  *v15 = 5;
+  *v16 = "REQUEST_TYPE_PERSONALIZATION";
+  *(v16 + 1) = 28;
+  v16[16] = 2;
+  v9();
+  v17 = (v5 + 5 * v2);
+  v18 = v17 + v1[14];
+  *v17 = 6;
+  *v18 = "REQUEST_TYPE_SAGE_SEARCHTOOL";
+  *(v18 + 1) = 28;
+  v18[16] = 2;
+  v9();
+  return sub_1B964C760();
+}
+
+uint64_t sub_1B9237D40()
+{
+  v0 = sub_1B964C780();
+  __swift_allocate_value_buffer(v0, qword_1EBAC8FD8);
+  __swift_project_value_buffer(v0, qword_1EBAC8FD8);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB92F0, &unk_1B964DAD0);
+  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB92F8, &unk_1B964EE40) - 8);
+  v2 = *(*v1 + 72);
+  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v4 = swift_allocObject();
+  *(v4 + 16) = xmmword_1B964E4B0;
+  v5 = v4 + v3;
+  v6 = v4 + v3 + v1[14];
+  *(v4 + v3) = 0;
+  *v6 = "RESPONSE_TYPE_UNKNOWN";
+  *(v6 + 8) = 21;
+  *(v6 + 16) = 2;
+  v7 = *MEMORY[0x1E69AADC8];
+  v8 = sub_1B964C750();
+  v9 = *(*(v8 - 8) + 104);
+  (v9)(v6, v7, v8);
+  v10 = v5 + v2 + v1[14];
+  *(v5 + v2) = 1;
+  *v10 = "RESPONSE_TYPE_DEFAULT";
+  *(v10 + 8) = 21;
+  *(v10 + 16) = 2;
+  v9();
+  v11 = (v5 + 2 * v2);
+  v12 = v11 + v1[14];
+  *v11 = 2;
+  *v12 = "RESPONSE_TYPE_FOLLOW_UP";
+  *(v12 + 1) = 23;
+  v12[16] = 2;
+  v9();
+  v13 = (v5 + 3 * v2);
+  v14 = v13 + v1[14];
+  *v13 = 3;
+  *v14 = "RESPONSE_TYPE_ENGAGEMENT";
+  *(v14 + 1) = 24;
+  v14[16] = 2;
+  v9();
+  return sub_1B964C760();
+}
+
+uint64_t sub_1B9237FA8()
+{
+  v0 = sub_1B964C780();
+  __swift_allocate_value_buffer(v0, qword_1EBAC8FF0);
+  __swift_project_value_buffer(v0, qword_1EBAC8FF0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB92F0, &unk_1B964DAD0);
+  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB92F8, &unk_1B964EE40) - 8);
+  v2 = *(*v1 + 72);
+  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v4 = swift_allocObject();
+  *(v4 + 16) = xmmword_1B964E4A0;
+  v5 = v4 + v3;
+  v6 = v4 + v3 + v1[14];
+  *(v4 + v3) = 0;
+  *v6 = "UI_ITEM_TYPE_UNSPECIFIED";
+  *(v6 + 8) = 24;
+  *(v6 + 16) = 2;
+  v7 = *MEMORY[0x1E69AADC8];
+  v8 = sub_1B964C750();
+  v9 = *(*(v8 - 8) + 104);
+  (v9)(v6, v7, v8);
+  v10 = v5 + v2 + v1[14];
+  *(v5 + v2) = 1;
+  *v10 = "UI_ITEM_TYPE_CONVERSATION";
+  *(v10 + 8) = 25;
+  *(v10 + 16) = 2;
+  v9();
+  v11 = (v5 + 2 * v2);
+  v12 = v11 + v1[14];
+  *v11 = 2;
+  *v12 = "UI_ITEM_TYPE_RESULT";
+  *(v12 + 1) = 19;
+  v12[16] = 2;
+  v9();
+  v13 = (v5 + 3 * v2);
+  v14 = v13 + v1[14];
+  *v13 = 3;
+  *v14 = "UI_ITEM_TYPE_FLOATING";
+  *(v14 + 1) = 21;
+  v14[16] = 2;
+  v9();
+  v15 = (v5 + 4 * v2);
+  v16 = v15 + v1[14];
+  *v15 = 4;
+  *v16 = "UI_ITEM_TYPE_HINT";
+  *(v16 + 1) = 17;
+  v16[16] = 2;
+  v9();
+  v17 = (v5 + 5 * v2);
+  v18 = v17 + v1[14];
+  *v17 = 5;
+  *v18 = "UI_ITEM_TYPE_ANNOUNCEMENT";
+  *(v18 + 1) = 25;
+  v18[16] = 2;
+  v9();
+  return sub_1B964C760();
+}
+
+uint64_t sub_1B923828C()
+{
+  v0 = sub_1B964C780();
+  __swift_allocate_value_buffer(v0, qword_1EBAC9008);
+  __swift_project_value_buffer(v0, qword_1EBAC9008);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB92F0, &unk_1B964DAD0);
+  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB92F8, &unk_1B964EE40) - 8);
+  v2 = *(*v1 + 72);
+  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v4 = swift_allocObject();
+  *(v4 + 16) = xmmword_1B964E4B0;
+  v5 = v4 + v3;
+  v6 = v4 + v3 + v1[14];
+  *(v4 + v3) = 0;
+  *v6 = "DIALOG_INTENT_UNSPECIFIED";
+  *(v6 + 8) = 25;
+  *(v6 + 16) = 2;
+  v7 = *MEMORY[0x1E69AADC8];
+  v8 = sub_1B964C750();
+  v9 = *(*(v8 - 8) + 104);
+  (v9)(v6, v7, v8);
+  v10 = v5 + v2 + v1[14];
+  *(v5 + v2) = 1;
+  *v10 = "DIALOG_INTENT_CONFIRMATION";
+  *(v10 + 8) = 26;
+  *(v10 + 16) = 2;
+  v9();
+  v11 = (v5 + 2 * v2);
+  v12 = v11 + v1[14];
+  *v11 = 2;
+  *v12 = "DIALOG_INTENT_DISAMBIGUATION";
+  *(v12 + 1) = 28;
+  v12[16] = 2;
+  v9();
+  v13 = (v5 + 3 * v2);
+  v14 = v13 + v1[14];
+  *v13 = 3;
+  *v14 = "DIALOG_INTENT_PROMPT_FOR_VALUE";
+  *(v14 + 1) = 30;
+  v14[16] = 2;
+  v9();
+  return sub_1B964C760();
+}
+
+uint64_t sub_1B92384F4()
+{
+  v0 = sub_1B964C780();
+  __swift_allocate_value_buffer(v0, qword_1EBAC9020);
+  __swift_project_value_buffer(v0, qword_1EBAC9020);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB92F0, &unk_1B964DAD0);
+  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB92F8, &unk_1B964EE40) - 8);
+  v2 = *(*v1 + 72);
+  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v4 = swift_allocObject();
+  *(v4 + 16) = xmmword_1B964EE60;
+  v5 = (v4 + v3);
+  v6 = v4 + v3 + v1[14];
+  *v5 = 0;
+  *v6 = "APP_ENTITY_TYPE_UNKNOWN";
+  *(v6 + 8) = 23;
+  *(v6 + 16) = 2;
+  v7 = *MEMORY[0x1E69AADC8];
+  v8 = sub_1B964C750();
+  v9 = *(*(v8 - 8) + 104);
+  (v9)(v6, v7, v8);
+  v10 = v5 + v2 + v1[14];
+  *(v5 + v2) = 1;
+  *v10 = "APP_ENTITY_TYPE_GENERIC";
+  *(v10 + 1) = 23;
+  v10[16] = 2;
+  v9();
+  v11 = (v5 + 2 * v2);
+  v12 = v11 + v1[14];
+  *v11 = 2;
+  *v12 = "APP_ENTITY_TYPE_MAPS";
+  *(v12 + 1) = 20;
+  v12[16] = 2;
+  v9();
+  return sub_1B964C760();
+}
+
+uint64_t sub_1B923872C()
+{
+  v0 = sub_1B964C780();
+  __swift_allocate_value_buffer(v0, qword_1EBAC9038);
+  __swift_project_value_buffer(v0, qword_1EBAC9038);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB92F0, &unk_1B964DAD0);
+  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB92F8, &unk_1B964EE40) - 8);
+  v2 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v3 = swift_allocObject();
+  *(v3 + 16) = xmmword_1B964D050;
+  v4 = v3 + v2 + v1[14];
+  *(v3 + v2) = 2;
+  *v4 = "context_history";
+  *(v4 + 8) = 15;
+  *(v4 + 16) = 2;
+  v5 = *MEMORY[0x1E69AADE8];
+  v6 = sub_1B964C750();
+  (*(*(v6 - 8) + 104))(v4, v5, v6);
+  return sub_1B964C760();
+}
+
+void Apple_Parsec_Siri_V2alpha_ConversationContext.decodeMessage<A>(decoder:)()
+{
+  OUTLINED_FUNCTION_692();
+  while (1)
+  {
+    OUTLINED_FUNCTION_186();
+    v1 = sub_1B964C3C0();
+    if (v0 || (v2 & 1) != 0)
+    {
+      break;
+    }
+
+    if (v1 == 2)
+    {
+      OUTLINED_FUNCTION_9();
+      sub_1B9271380();
+    }
+  }
+}
+
+void Apple_Parsec_Siri_V2alpha_ConversationContext.traverse<A>(visitor:)()
+{
+  OUTLINED_FUNCTION_822();
+  OUTLINED_FUNCTION_614();
+  OUTLINED_FUNCTION_835();
+  if (!v1 || (type metadata accessor for Apple_Parsec_Siri_V2alpha_ResponseContext(0), sub_1B8CD2D08(&qword_1EBAC95E0, type metadata accessor for Apple_Parsec_Siri_V2alpha_ResponseContext, protocol conformance descriptor for Apple_Parsec_Siri_V2alpha_ResponseContext), OUTLINED_FUNCTION_231(), OUTLINED_FUNCTION_687(), sub_1B964C730(), !v0))
+  {
+    type metadata accessor for Apple_Parsec_Siri_V2alpha_ConversationContext(0);
+    OUTLINED_FUNCTION_8_1();
+  }
+
+  OUTLINED_FUNCTION_823();
+}
+
+uint64_t sub_1B9238AD0(uint64_t a1, uint64_t a2)
+{
+  v4 = sub_1B8CD2D08(&qword_1EBAC9F70, type metadata accessor for Apple_Parsec_Siri_V2alpha_ConversationContext, protocol conformance descriptor for Apple_Parsec_Siri_V2alpha_ConversationContext);
+
+  return MEMORY[0x1EEE15708](a1, a2, v4);
+}
+
+uint64_t sub_1B9238B50(uint64_t a1)
+{
+  v2 = sub_1B8CD2D08(&qword_1EBAC99F8, type metadata accessor for Apple_Parsec_Siri_V2alpha_ConversationContext, protocol conformance descriptor for Apple_Parsec_Siri_V2alpha_ConversationContext);
+
+  return MEMORY[0x1EEE15928](a1, v2);
+}
+
+uint64_t sub_1B9238BC0(uint64_t a1, uint64_t a2)
+{
+  sub_1B8CD2D08(&qword_1EBAC99F8, type metadata accessor for Apple_Parsec_Siri_V2alpha_ConversationContext, protocol conformance descriptor for Apple_Parsec_Siri_V2alpha_ConversationContext);
+
+  return sub_1B964C5D0();
+}
+
+uint64_t sub_1B9238C4C()
+{
+  v0 = sub_1B964C780();
+  __swift_allocate_value_buffer(v0, qword_1EBAB5B80);
+  __swift_project_value_buffer(v0, qword_1EBAB5B80);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB92F0, &unk_1B964DAD0);
+  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB92F8, &unk_1B964EE40) - 8);
+  v2 = *(*v1 + 72);
+  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v43 = swift_allocObject();
+  *(v43 + 16) = xmmword_1B96511A0;
+  v4 = v43 + v3;
+  v5 = v43 + v3 + v1[14];
+  *(v43 + v3) = 1;
+  *v5 = "device_state";
+  *(v5 + 8) = 12;
+  *(v5 + 16) = 2;
+  v6 = *MEMORY[0x1E69AADE8];
+  v7 = sub_1B964C750();
+  v8 = *(*(v7 - 8) + 104);
+  (v8)(v5, v6, v7);
+  v9 = v4 + v2 + v1[14];
+  *(v4 + v2) = 2;
+  *v9 = "siri_interaction_type";
+  *(v9 + 8) = 21;
+  *(v9 + 16) = 2;
+  v8();
+  v10 = (v4 + 2 * v2);
+  v11 = v10 + v1[14];
+  *v10 = 3;
+  *v11 = "is_navigation_mode";
+  *(v11 + 1) = 18;
+  v11[16] = 2;
+  v8();
+  v12 = (v4 + 3 * v2);
+  v13 = v12 + v1[14];
+  *v12 = 6;
+  *v13 = "treat_random_as_first";
+  *(v13 + 1) = 21;
+  v13[16] = 2;
+  v8();
+  v14 = (v4 + 4 * v2);
+  v15 = v14 + v1[14];
+  *v14 = 7;
+  *v15 = "dialog_state";
+  *(v15 + 1) = 12;
+  v15[16] = 2;
+  v8();
+  v16 = (v4 + 5 * v2);
+  v17 = v16 + v1[14];
+  *v16 = 8;
+  *v17 = "assistant_id";
+  *(v17 + 1) = 12;
+  v17[16] = 2;
+  v8();
+  v18 = (v4 + 6 * v2);
+  v19 = v18 + v1[14];
+  *v18 = 9;
+  *v19 = "person";
+  *(v19 + 1) = 6;
+  v19[16] = 2;
+  v8();
+  v20 = (v4 + 7 * v2);
+  v21 = v20 + v1[14];
+  *v20 = 10;
+  *v21 = "interaction_id";
+  *(v21 + 1) = 14;
+  v21[16] = 2;
+  v8();
+  v22 = (v4 + 8 * v2);
+  v23 = v22 + v1[14];
+  *v22 = 11;
+  *v23 = "restrictions";
+  *(v23 + 1) = 12;
+  v23[16] = 2;
+  v8();
+  v24 = (v4 + 9 * v2);
+  v25 = v24 + v1[14];
+  *v24 = 12;
+  *v25 = "multi_user_context";
+  *(v25 + 1) = 18;
+  v25[16] = 2;
+  v8();
+  v26 = (v4 + 10 * v2);
+  v27 = v26 + v1[14];
+  *v26 = 14;
+  *v27 = "content_rating_restrictions";
+  *(v27 + 1) = 27;
+  v27[16] = 2;
+  v8();
+  v28 = (v4 + 11 * v2);
+  v29 = v28 + v1[14];
+  *v28 = 15;
+  *v29 = "is_push_off_request";
+  *(v29 + 1) = 19;
+  v29[16] = 2;
+  v8();
+  v30 = (v4 + 12 * v2);
+  v31 = v30 + v1[14];
+  *v30 = 16;
+  *v31 = "user_grounding_needed";
+  *(v31 + 1) = 21;
+  v31[16] = 2;
+  v8();
+  v32 = (v4 + 13 * v2);
+  v33 = v32 + v1[14];
+  *v32 = 17;
+  *v33 = "result_candidate_id";
+  *(v33 + 1) = 19;
+  v33[16] = 2;
+  v8();
+  v34 = (v4 + 14 * v2);
+  v35 = v34 + v1[14];
+  *v34 = 18;
+  *v35 = "is_phone_call_active";
+  *(v35 + 1) = 20;
+  v35[16] = 2;
+  v8();
+  v36 = (v4 + 15 * v2);
+  v37 = v36 + v1[14];
+  *v36 = 19;
+  *v37 = "siri_response_mode";
+  *(v37 + 1) = 18;
+  v37[16] = 2;
+  v8();
+  v38 = (v4 + 16 * v2);
+  v39 = v38 + v1[14];
+  *v38 = 20;
+  *v39 = "is_sae_request";
+  *(v39 + 1) = 14;
+  v39[16] = 2;
+  v8();
+  v40 = (v4 + 17 * v2);
+  v41 = v40 + v1[14];
+  *v40 = 50;
+  *v41 = "conversation_context";
+  *(v41 + 1) = 20;
+  v41[16] = 2;
+  v8();
+  return sub_1B964C760();
+}
+
+uint64_t sub_1B9239250()
+{
+  v1 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__deviceState;
+  v2 = type metadata accessor for Apple_Parsec_Siri_V2alpha_DeviceState(0);
+  __swift_storeEnumTagSinglePayload(v0 + v1, 1, 1, v2);
+  v3 = v0 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__siriInteractionType;
+  *v3 = 0;
+  *(v3 + 8) = 1;
+  *(v0 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__isNavigationMode) = 0;
+  *(v0 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__treatRandomAsFirst) = 0;
+  v4 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__dialogState;
+  v5 = MEMORY[0x1E69E7CC0];
+  *(v0 + v4) = sub_1B964C7B0();
+  v6 = (v0 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__assistantID);
+  *v6 = 0;
+  v6[1] = 0xE000000000000000;
+  v7 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__person;
+  v8 = type metadata accessor for Apple_Parsec_Siri_V2alpha_Person(0);
+  __swift_storeEnumTagSinglePayload(v0 + v7, 1, 1, v8);
+  v9 = (v0 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__interactionID);
+  *v9 = 0;
+  v9[1] = 0xE000000000000000;
+  *(v0 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__restrictions) = v5;
+  v10 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__multiUserContext;
+  v11 = type metadata accessor for Apple_Parsec_Siri_V2alpha_MultiUserContext(0);
+  __swift_storeEnumTagSinglePayload(v0 + v10, 1, 1, v11);
+  v12 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__contentRatingRestrictions;
+  v13 = type metadata accessor for Apple_Parsec_Siri_V2alpha_MediaContentRatingRestrictions(0);
+  __swift_storeEnumTagSinglePayload(v0 + v12, 1, 1, v13);
+  *(v0 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__isPushOffRequest) = 0;
+  *(v0 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__userGroundingNeeded) = 0;
+  v14 = (v0 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__resultCandidateID);
+  *v14 = 0;
+  v14[1] = 0xE000000000000000;
+  *(v0 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__isPhoneCallActive) = 0;
+  v15 = v0 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__siriResponseMode;
+  *v15 = 0;
+  *(v15 + 8) = 1;
+  *(v0 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__isSaeRequest) = 0;
+  v16 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__conversationContext;
+  v17 = type metadata accessor for Apple_Parsec_Siri_V2alpha_ConversationContext(0);
+  __swift_storeEnumTagSinglePayload(v0 + v16, 1, 1, v17);
+  return v0;
+}
+
+uint64_t sub_1B9239418(uint64_t a1)
+{
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAC9410, &unk_1B96AA6D0);
+  MEMORY[0x1EEE9AC00](v3 - 8);
+  v81 = &v63 - v4;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAC9408, &qword_1B96AA6C8);
+  MEMORY[0x1EEE9AC00](v5 - 8);
+  v80 = &v63 - v6;
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAC9400, &qword_1B96AA6C0);
+  MEMORY[0x1EEE9AC00](v7 - 8);
+  v76 = &v63 - v8;
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAC93F8, &qword_1B96AA6B8);
+  MEMORY[0x1EEE9AC00](v9 - 8);
+  v70 = &v63 - v10;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAC93F0, &qword_1B96AA6B0);
+  MEMORY[0x1EEE9AC00](v11 - 8);
+  v12 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__deviceState;
+  v13 = type metadata accessor for Apple_Parsec_Siri_V2alpha_DeviceState(0);
+  __swift_storeEnumTagSinglePayload(v1 + v12, 1, 1, v13);
+  v14 = v1 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__siriInteractionType;
+  *v14 = 0;
+  *(v14 + 8) = 1;
+  v65 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__isNavigationMode;
+  *(v1 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__isNavigationMode) = 0;
+  v66 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__treatRandomAsFirst;
+  *(v1 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__treatRandomAsFirst) = 0;
+  v15 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__dialogState;
+  v67 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__dialogState;
+  v16 = MEMORY[0x1E69E7CC0];
+  *(v1 + v15) = sub_1B964C7B0();
+  v17 = (v1 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__assistantID);
+  *v17 = 0;
+  v17[1] = 0xE000000000000000;
+  v18 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__person;
+  v68 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__person;
+  v19 = type metadata accessor for Apple_Parsec_Siri_V2alpha_Person(0);
+  __swift_storeEnumTagSinglePayload(v1 + v18, 1, 1, v19);
+  v20 = (v1 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__interactionID);
+  *v20 = 0;
+  v20[1] = 0xE000000000000000;
+  v69 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__restrictions;
+  *(v1 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__restrictions) = v16;
+  v21 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__multiUserContext;
+  v71 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__multiUserContext;
+  v22 = type metadata accessor for Apple_Parsec_Siri_V2alpha_MultiUserContext(0);
+  __swift_storeEnumTagSinglePayload(v1 + v21, 1, 1, v22);
+  v23 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__contentRatingRestrictions;
+  v72 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__contentRatingRestrictions;
+  v24 = type metadata accessor for Apple_Parsec_Siri_V2alpha_MediaContentRatingRestrictions(0);
+  __swift_storeEnumTagSinglePayload(v1 + v23, 1, 1, v24);
+  v73 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__isPushOffRequest;
+  *(v1 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__isPushOffRequest) = 0;
+  v74 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__userGroundingNeeded;
+  *(v1 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__userGroundingNeeded) = 0;
+  v25 = (v1 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__resultCandidateID);
+  v64 = (v1 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__resultCandidateID);
+  *v25 = 0;
+  v25[1] = 0xE000000000000000;
+  v75 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__isPhoneCallActive;
+  *(v1 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__isPhoneCallActive) = 0;
+  v26 = v1 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__siriResponseMode;
+  v77 = v1 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__siriResponseMode;
+  *v26 = 0;
+  *(v26 + 8) = 1;
+  v78 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__isSaeRequest;
+  *(v1 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__isSaeRequest) = 0;
+  v27 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__conversationContext;
+  v79 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__conversationContext;
+  v28 = type metadata accessor for Apple_Parsec_Siri_V2alpha_ConversationContext(0);
+  __swift_storeEnumTagSinglePayload(v1 + v27, 1, 1, v28);
+  swift_beginAccess();
+  sub_1B8D92024();
+  swift_beginAccess();
+  sub_1B8DAA170();
+  swift_endAccess();
+  v29 = (a1 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__siriInteractionType);
+  swift_beginAccess();
+  v30 = *v29;
+  LOBYTE(v12) = *(v29 + 8);
+  swift_beginAccess();
+  *v14 = v30;
+  *(v14 + 8) = v12;
+  v31 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__isNavigationMode;
+  swift_beginAccess();
+  LOBYTE(v31) = *(a1 + v31);
+  v32 = v65;
+  swift_beginAccess();
+  *(v1 + v32) = v31;
+  v33 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__treatRandomAsFirst;
+  swift_beginAccess();
+  LOBYTE(v33) = *(a1 + v33);
+  v34 = v66;
+  swift_beginAccess();
+  *(v1 + v34) = v33;
+  v35 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__dialogState;
+  swift_beginAccess();
+  v36 = *(a1 + v35);
+  v37 = v67;
+  swift_beginAccess();
+  *(v1 + v37) = v36;
+
+  v38 = (a1 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__assistantID);
+  swift_beginAccess();
+  v39 = *v38;
+  v40 = v38[1];
+  swift_beginAccess();
+  *v17 = v39;
+  v17[1] = v40;
+
+  swift_beginAccess();
+  sub_1B8D92024();
+  swift_beginAccess();
+  sub_1B8DAA170();
+  swift_endAccess();
+  v41 = (a1 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__interactionID);
+  swift_beginAccess();
+  v43 = *v41;
+  v42 = v41[1];
+  swift_beginAccess();
+  *v20 = v43;
+  v20[1] = v42;
+
+  v44 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__restrictions;
+  swift_beginAccess();
+  v45 = *(a1 + v44);
+  v46 = v69;
+  swift_beginAccess();
+  *(v1 + v46) = v45;
+
+  swift_beginAccess();
+  sub_1B8D92024();
+  swift_beginAccess();
+  sub_1B8DAA170();
+  swift_endAccess();
+  swift_beginAccess();
+  sub_1B8D92024();
+  swift_beginAccess();
+  sub_1B8DAA170();
+  swift_endAccess();
+  v47 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__isPushOffRequest;
+  swift_beginAccess();
+  LOBYTE(v47) = *(a1 + v47);
+  v48 = v73;
+  swift_beginAccess();
+  *(v1 + v48) = v47;
+  v49 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__userGroundingNeeded;
+  swift_beginAccess();
+  LOBYTE(v49) = *(a1 + v49);
+  v50 = v74;
+  swift_beginAccess();
+  *(v1 + v50) = v49;
+  v51 = (a1 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__resultCandidateID);
+  swift_beginAccess();
+  v53 = *v51;
+  v52 = v51[1];
+  v54 = v64;
+  swift_beginAccess();
+  *v54 = v53;
+  v54[1] = v52;
+
+  v55 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__isPhoneCallActive;
+  swift_beginAccess();
+  LOBYTE(v55) = *(a1 + v55);
+  v56 = v75;
+  swift_beginAccess();
+  *(v1 + v56) = v55;
+  v57 = (a1 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__siriResponseMode);
+  swift_beginAccess();
+  v58 = *v57;
+  LOBYTE(v57) = *(v57 + 8);
+  v59 = v77;
+  swift_beginAccess();
+  *v59 = v58;
+  *(v59 + 8) = v57;
+  v60 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__isSaeRequest;
+  swift_beginAccess();
+  LOBYTE(v60) = *(a1 + v60);
+  v61 = v78;
+  swift_beginAccess();
+  *(v1 + v61) = v60;
+  swift_beginAccess();
+  sub_1B8D92024();
+
+  swift_beginAccess();
+  sub_1B8DAA170();
+  swift_endAccess();
+  return v1;
+}
+
+uint64_t sub_1B9239DA8()
+{
+  v1 = OUTLINED_FUNCTION_280();
+  v2(v1);
+  OUTLINED_FUNCTION_59_1();
+  v3 = OUTLINED_FUNCTION_432();
+  v4(v3);
+  return v0;
+}
+
+uint64_t sub_1B9239DFC()
+{
+  v1 = OUTLINED_FUNCTION_280();
+  v2(v1);
+  OUTLINED_FUNCTION_59_1();
+  v3 = OUTLINED_FUNCTION_432();
+  v4(v3);
+  return v0;
+}
+
+uint64_t sub_1B9239E50()
+{
+  v1 = OUTLINED_FUNCTION_313();
+  v2(v1);
+  OUTLINED_FUNCTION_59_1();
+  (*(v3 + 8))(v0);
+  return v0;
+}
+
+uint64_t sub_1B9239F84()
+{
+  sub_1B8D9207C(v0 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__deviceState, &qword_1EBAC93F0, &qword_1B96AA6B0);
+
+  sub_1B8D9207C(v0 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__person, &qword_1EBAC93F8, &qword_1B96AA6B8);
+
+  sub_1B8D9207C(v0 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__multiUserContext, &qword_1EBAC9400, &qword_1B96AA6C0);
+  sub_1B8D9207C(v0 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__contentRatingRestrictions, &qword_1EBAC9408, &qword_1B96AA6C8);
+
+  sub_1B8D9207C(v0 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__conversationContext, &qword_1EBAC9410, &unk_1B96AA6D0);
+  return v0;
+}
+
+uint64_t sub_1B923A108(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  while (1)
+  {
+    result = sub_1B964C3C0();
+    if (v4 || (v10 & 1) != 0)
+    {
+      return result;
+    }
+
+    switch(result)
+    {
+      case 1:
+        sub_1B923A430(a2, a1, a3, a4);
+        continue;
+      case 2:
+        v11 = sub_1B9284320;
+        v12 = a2;
+        v13 = a1;
+        v14 = a3;
+        v15 = a4;
+        v16 = &OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__siriInteractionType;
+        v17 = &type metadata for Apple_Parsec_Siri_V2alpha_SiriPegasusContext.SiriInteractionType;
+        goto LABEL_13;
+      case 3:
+      case 6:
+      case 15:
+      case 16:
+      case 18:
+      case 20:
+        sub_1B92682B0();
+        continue;
+      case 4:
+      case 5:
+      case 13:
+        continue;
+      case 7:
+        sub_1B923A50C(a2, a1, a3, a4);
+        continue;
+      case 8:
+        v18 = MEMORY[0x1E69AACE0];
+        v19 = a2;
+        v20 = a1;
+        v21 = a3;
+        v22 = a4;
+        v23 = &OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__assistantID;
+        goto LABEL_16;
+      case 9:
+        sub_1B923A5B8(a2, a1, a3, a4);
+        continue;
+      case 10:
+        v18 = MEMORY[0x1E69AACE0];
+        v19 = a2;
+        v20 = a1;
+        v21 = a3;
+        v22 = a4;
+        v23 = &OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__interactionID;
+        goto LABEL_16;
+      case 11:
+        sub_1B923A694(a2, a1, a3, a4);
+        continue;
+      case 12:
+        sub_1B923A770(a2, a1, a3, a4);
+        continue;
+      case 14:
+        sub_1B923A84C(a2, a1, a3, a4);
+        continue;
+      case 17:
+        v18 = MEMORY[0x1E69AACE0];
+        v19 = a2;
+        v20 = a1;
+        v21 = a3;
+        v22 = a4;
+        v23 = &OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__resultCandidateID;
+LABEL_16:
+        sub_1B9268110(v19, v20, v21, v22, v23, v18);
+        break;
+      case 19:
+        v11 = sub_1B9200C48;
+        v12 = a2;
+        v13 = a1;
+        v14 = a3;
+        v15 = a4;
+        v16 = &OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__siriResponseMode;
+        v17 = &type metadata for Apple_Parsec_Siri_V2alpha_SiriResponseMode;
+LABEL_13:
+        sub_1B9268194(v12, v13, v14, v15, v16, v11, v17);
+        break;
+      default:
+        if (result == 50)
+        {
+          sub_1B923A928(a2, a1, a3, a4);
+        }
+
+        break;
+    }
+  }
+}
+
+uint64_t sub_1B923A430(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  swift_beginAccess();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_DeviceState(0);
+  sub_1B8CD2D08(&qword_1EBAB49E8, type metadata accessor for Apple_Parsec_Siri_V2alpha_DeviceState, protocol conformance descriptor for Apple_Parsec_Siri_V2alpha_DeviceState);
+  sub_1B964C580();
+  return swift_endAccess();
+}
+
+uint64_t sub_1B923A50C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  swift_beginAccess();
+  sub_1B964C280();
+  sub_1B964C3B0();
+  return swift_endAccess();
+}
+
+uint64_t sub_1B923A5B8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  swift_beginAccess();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_Person(0);
+  sub_1B8CD2D08(&qword_1EBAB4FB8, type metadata accessor for Apple_Parsec_Siri_V2alpha_Person, protocol conformance descriptor for Apple_Parsec_Siri_V2alpha_Person);
+  sub_1B964C580();
+  return swift_endAccess();
+}
+
+uint64_t sub_1B923A694(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  swift_beginAccess();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_Restriction(0);
+  sub_1B8CD2D08(&qword_1EBAC9A18, type metadata accessor for Apple_Parsec_Siri_V2alpha_Restriction, protocol conformance descriptor for Apple_Parsec_Siri_V2alpha_Restriction);
+  sub_1B964C570();
+  return swift_endAccess();
+}
+
+uint64_t sub_1B923A770(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  swift_beginAccess();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_MultiUserContext(0);
+  sub_1B8CD2D08(&qword_1EBAC8B40, type metadata accessor for Apple_Parsec_Siri_V2alpha_MultiUserContext, protocol conformance descriptor for Apple_Parsec_Siri_V2alpha_MultiUserContext);
+  sub_1B964C580();
+  return swift_endAccess();
+}
+
+uint64_t sub_1B923A84C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  swift_beginAccess();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_MediaContentRatingRestrictions(0);
+  sub_1B8CD2D08(&qword_1EBAB3C00, type metadata accessor for Apple_Parsec_Siri_V2alpha_MediaContentRatingRestrictions, protocol conformance descriptor for Apple_Parsec_Siri_V2alpha_MediaContentRatingRestrictions);
+  sub_1B964C580();
+  return swift_endAccess();
+}
+
+uint64_t sub_1B923A928(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  swift_beginAccess();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_ConversationContext(0);
+  sub_1B8CD2D08(&qword_1EBAC99F8, type metadata accessor for Apple_Parsec_Siri_V2alpha_ConversationContext, protocol conformance descriptor for Apple_Parsec_Siri_V2alpha_ConversationContext);
+  sub_1B964C580();
+  return swift_endAccess();
+}
+
+uint64_t sub_1B923AA34(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v69 = a4;
+  v64 = a3;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAC9410, &unk_1B96AA6D0);
+  MEMORY[0x1EEE9AC00](v5 - 8);
+  v52 = v51 - v6;
+  v53 = type metadata accessor for Apple_Parsec_Siri_V2alpha_ConversationContext(0);
+  MEMORY[0x1EEE9AC00](v53);
+  v51[1] = v51 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAC9408, &qword_1B96AA6C8);
+  MEMORY[0x1EEE9AC00](v8 - 8);
+  v58 = v51 - v9;
+  v56 = type metadata accessor for Apple_Parsec_Siri_V2alpha_MediaContentRatingRestrictions(0);
+  MEMORY[0x1EEE9AC00](v56);
+  v54 = v51 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAC9400, &qword_1B96AA6C0);
+  MEMORY[0x1EEE9AC00](v11 - 8);
+  v60 = v51 - v12;
+  v57 = type metadata accessor for Apple_Parsec_Siri_V2alpha_MultiUserContext(0);
+  MEMORY[0x1EEE9AC00](v57);
+  v55 = v51 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAC93F8, &qword_1B96AA6B8);
+  MEMORY[0x1EEE9AC00](v14 - 8);
+  v61 = v51 - v15;
+  v62 = type metadata accessor for Apple_Parsec_Siri_V2alpha_Person(0);
+  MEMORY[0x1EEE9AC00](v62);
+  v59 = v51 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAC93F0, &qword_1B96AA6B0);
+  MEMORY[0x1EEE9AC00](v17 - 8);
+  v19 = v51 - v18;
+  v20 = type metadata accessor for Apple_Parsec_Siri_V2alpha_DeviceState(0);
+  MEMORY[0x1EEE9AC00](v20);
+  swift_beginAccess();
+  sub_1B8D92024();
+  if (__swift_getEnumTagSinglePayload(v19, 1, v20) == 1)
+  {
+    sub_1B8D9207C(v19, &qword_1EBAC93F0, &qword_1B96AA6B0);
+    v21 = v63;
+  }
+
+  else
+  {
+    sub_1B9239DA8();
+    sub_1B8CD2D08(&qword_1EBAB49E8, type metadata accessor for Apple_Parsec_Siri_V2alpha_DeviceState, protocol conformance descriptor for Apple_Parsec_Siri_V2alpha_DeviceState);
+    v22 = v63;
+    sub_1B964C740();
+    v21 = v22;
+    if (v22)
+    {
+      return sub_1B9239E50();
+    }
+
+    sub_1B9239E50();
+  }
+
+  v24 = (a1 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__siriInteractionType);
+  swift_beginAccess();
+  if (!*v24 || (v25 = *(v24 + 8), v67 = *v24, v68 = v25, sub_1B9284320(), result = sub_1B964C680(), !v21))
+  {
+    v26 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__isNavigationMode;
+    swift_beginAccess();
+    if (*(a1 + v26) != 1 || (result = sub_1B964C670(), !v21))
+    {
+      v27 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__treatRandomAsFirst;
+      swift_beginAccess();
+      if (*(a1 + v27) != 1 || (result = sub_1B964C670(), !v21))
+      {
+        v28 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__dialogState;
+        swift_beginAccess();
+        if (*(*(a1 + v28) + 16))
+        {
+          sub_1B964C280();
+
+          sub_1B964C5F0();
+          if (v21)
+          {
+          }
+        }
+
+        v29 = (a1 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__assistantID);
+        swift_beginAccess();
+        v30 = v29[1];
+        v31 = HIBYTE(v30) & 0xF;
+        if ((v30 & 0x2000000000000000) == 0)
+        {
+          v31 = *v29 & 0xFFFFFFFFFFFFLL;
+        }
+
+        if (v31)
+        {
+
+          sub_1B964C700();
+          if (v21)
+          {
+          }
+        }
+
+        swift_beginAccess();
+        v32 = v61;
+        sub_1B8D92024();
+        if (__swift_getEnumTagSinglePayload(v32, 1, v62) == 1)
+        {
+          sub_1B8D9207C(v32, &qword_1EBAC93F8, &qword_1B96AA6B8);
+        }
+
+        else
+        {
+          sub_1B9239DA8();
+          sub_1B8CD2D08(&qword_1EBAB4FB8, type metadata accessor for Apple_Parsec_Siri_V2alpha_Person, protocol conformance descriptor for Apple_Parsec_Siri_V2alpha_Person);
+          sub_1B964C740();
+          if (v21)
+          {
+            return sub_1B9239E50();
+          }
+
+          sub_1B9239E50();
+        }
+
+        v33 = (a1 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__interactionID);
+        swift_beginAccess();
+        v34 = *v33;
+        v35 = v33[1];
+        v36 = HIBYTE(v35) & 0xF;
+        if ((v35 & 0x2000000000000000) == 0)
+        {
+          v36 = v34 & 0xFFFFFFFFFFFFLL;
+        }
+
+        v37 = v60;
+        if (v36)
+        {
+
+          sub_1B964C700();
+          if (v21)
+          {
+          }
+        }
+
+        v38 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__restrictions;
+        swift_beginAccess();
+        if (*(*(a1 + v38) + 16))
+        {
+          type metadata accessor for Apple_Parsec_Siri_V2alpha_Restriction(0);
+          sub_1B8CD2D08(&qword_1EBAC9A18, type metadata accessor for Apple_Parsec_Siri_V2alpha_Restriction, protocol conformance descriptor for Apple_Parsec_Siri_V2alpha_Restriction);
+
+          sub_1B964C730();
+          if (v21)
+          {
+          }
+
+          v37 = v60;
+        }
+
+        swift_beginAccess();
+        sub_1B8D92024();
+        if (__swift_getEnumTagSinglePayload(v37, 1, v57) == 1)
+        {
+          sub_1B8D9207C(v37, &qword_1EBAC9400, &qword_1B96AA6C0);
+        }
+
+        else
+        {
+          sub_1B9239DA8();
+          sub_1B8CD2D08(&qword_1EBAC8B40, type metadata accessor for Apple_Parsec_Siri_V2alpha_MultiUserContext, protocol conformance descriptor for Apple_Parsec_Siri_V2alpha_MultiUserContext);
+          sub_1B964C740();
+          if (v21)
+          {
+            return sub_1B9239E50();
+          }
+
+          sub_1B9239E50();
+        }
+
+        swift_beginAccess();
+        v39 = v58;
+        sub_1B8D92024();
+        if (__swift_getEnumTagSinglePayload(v39, 1, v56) == 1)
+        {
+          sub_1B8D9207C(v58, &qword_1EBAC9408, &qword_1B96AA6C8);
+        }
+
+        else
+        {
+          sub_1B9239DA8();
+          sub_1B8CD2D08(&qword_1EBAB3C00, type metadata accessor for Apple_Parsec_Siri_V2alpha_MediaContentRatingRestrictions, protocol conformance descriptor for Apple_Parsec_Siri_V2alpha_MediaContentRatingRestrictions);
+          sub_1B964C740();
+          result = sub_1B9239E50();
+          if (v21)
+          {
+            return result;
+          }
+        }
+
+        v40 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__isPushOffRequest;
+        swift_beginAccess();
+        if (*(a1 + v40) != 1 || (result = sub_1B964C670(), !v21))
+        {
+          v41 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__userGroundingNeeded;
+          swift_beginAccess();
+          if (*(a1 + v41) != 1 || (result = sub_1B964C670(), !v21))
+          {
+            v42 = (a1 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__resultCandidateID);
+            swift_beginAccess();
+            v43 = *v42;
+            v44 = v42[1];
+            v45 = HIBYTE(v44) & 0xF;
+            if ((v44 & 0x2000000000000000) == 0)
+            {
+              v45 = v43 & 0xFFFFFFFFFFFFLL;
+            }
+
+            if (!v45 || (, sub_1B964C700(), result = , !v21))
+            {
+              v46 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__isPhoneCallActive;
+              swift_beginAccess();
+              if (*(a1 + v46) != 1 || (result = sub_1B964C670(), !v21))
+              {
+                v47 = (a1 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__siriResponseMode);
+                swift_beginAccess();
+                if (!*v47 || (v48 = *(v47 + 8), v65 = *v47, v66 = v48, sub_1B9200C48(), result = sub_1B964C680(), !v21))
+                {
+                  v49 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__isSaeRequest;
+                  swift_beginAccess();
+                  if (*(a1 + v49) != 1 || (result = sub_1B964C670(), !v21))
+                  {
+                    swift_beginAccess();
+                    v50 = v52;
+                    sub_1B8D92024();
+                    if (__swift_getEnumTagSinglePayload(v50, 1, v53) == 1)
+                    {
+                      return sub_1B8D9207C(v50, &qword_1EBAC9410, &unk_1B96AA6D0);
+                    }
+
+                    sub_1B9239DA8();
+                    sub_1B8CD2D08(&qword_1EBAC99F8, type metadata accessor for Apple_Parsec_Siri_V2alpha_ConversationContext, protocol conformance descriptor for Apple_Parsec_Siri_V2alpha_ConversationContext);
+                    sub_1B964C740();
+                    return sub_1B9239E50();
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  return result;
+}
+
+BOOL sub_1B923B864(uint64_t a1, uint64_t a2)
+{
+  v150 = a2;
+  v128 = type metadata accessor for Apple_Parsec_Siri_V2alpha_ConversationContext(0);
+  MEMORY[0x1EEE9AC00](v128);
+  v124 = (&v124 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v125 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBACA148, &qword_1B96B2460);
+  MEMORY[0x1EEE9AC00](v125);
+  v129 = &v124 - v4;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAC9410, &unk_1B96AA6D0);
+  v6 = MEMORY[0x1EEE9AC00](v5 - 8);
+  v126 = (&v124 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
+  MEMORY[0x1EEE9AC00](v6);
+  v127 = &v124 - v8;
+  v134 = type metadata accessor for Apple_Parsec_Siri_V2alpha_MediaContentRatingRestrictions(0);
+  MEMORY[0x1EEE9AC00](v134);
+  v130 = &v124 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v133 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBACA150, &qword_1B96B2468);
+  MEMORY[0x1EEE9AC00](v133);
+  v135 = &v124 - v10;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAC9408, &qword_1B96AA6C8);
+  v12 = MEMORY[0x1EEE9AC00](v11 - 8);
+  v131 = &v124 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v12);
+  v147 = &v124 - v14;
+  v138 = type metadata accessor for Apple_Parsec_Siri_V2alpha_MultiUserContext(0);
+  MEMORY[0x1EEE9AC00](v138);
+  v132 = (&v124 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v137 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBACA158, &qword_1B96B2470);
+  MEMORY[0x1EEE9AC00](v137);
+  v139 = &v124 - v16;
+  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAC9400, &qword_1B96AA6C0);
+  v18 = MEMORY[0x1EEE9AC00](v17 - 8);
+  v136 = (&v124 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0));
+  MEMORY[0x1EEE9AC00](v18);
+  v146 = &v124 - v20;
+  v143 = type metadata accessor for Apple_Parsec_Siri_V2alpha_Person(0);
+  MEMORY[0x1EEE9AC00](v143);
+  v140 = &v124 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v142 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBACA160, &qword_1B96B2478);
+  MEMORY[0x1EEE9AC00](v142);
+  v144 = &v124 - v22;
+  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAC93F8, &qword_1B96AA6B8);
+  v24 = MEMORY[0x1EEE9AC00](v23 - 8);
+  v141 = &v124 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v24);
+  v148 = &v124 - v26;
+  v27 = type metadata accessor for Apple_Parsec_Siri_V2alpha_DeviceState(0);
+  MEMORY[0x1EEE9AC00](v27);
+  v145 = &v124 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v29 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBACA168, &qword_1B96B2480);
+  v30 = v29 - 8;
+  MEMORY[0x1EEE9AC00](v29);
+  v32 = &v124 - v31;
+  v33 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAC93F0, &qword_1B96AA6B0);
+  v34 = MEMORY[0x1EEE9AC00](v33 - 8);
+  v149 = &v124 - ((v35 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v34);
+  v37 = &v124 - v36;
+  swift_beginAccess();
+  v38 = a1;
+  sub_1B8D92024();
+  v39 = v150;
+  swift_beginAccess();
+  v40 = *(v30 + 56);
+  sub_1B8D92024();
+  sub_1B8D92024();
+  if (__swift_getEnumTagSinglePayload(v32, 1, v27) == 1)
+  {
+
+    sub_1B8D9207C(v37, &qword_1EBAC93F0, &qword_1B96AA6B0);
+    v41 = v39;
+    v42 = v38;
+    if (__swift_getEnumTagSinglePayload(&v32[v40], 1, v27) == 1)
+    {
+      sub_1B8D9207C(v32, &qword_1EBAC93F0, &qword_1B96AA6B0);
+      goto LABEL_12;
+    }
+
+LABEL_6:
+    v43 = &qword_1EBACA168;
+    v44 = &qword_1B96B2480;
+LABEL_7:
+    v45 = v32;
+LABEL_8:
+    sub_1B8D9207C(v45, v43, v44);
+LABEL_9:
+
+    return 0;
+  }
+
+  v42 = v38;
+  sub_1B8D92024();
+  if (__swift_getEnumTagSinglePayload(&v32[v40], 1, v27) == 1)
+  {
+
+    sub_1B8D9207C(v37, &qword_1EBAC93F0, &qword_1B96AA6B0);
+    sub_1B9239E50();
+    goto LABEL_6;
+  }
+
+  sub_1B9239DA8();
+
+  v47 = static Apple_Parsec_Siri_V2alpha_DeviceState.== infix(_:_:)();
+  sub_1B9239E50();
+  sub_1B8D9207C(v37, &qword_1EBAC93F0, &qword_1B96AA6B0);
+  v41 = v39;
+  sub_1B9239E50();
+  sub_1B8D9207C(v32, &qword_1EBAC93F0, &qword_1B96AA6B0);
+  if ((v47 & 1) == 0)
+  {
+    goto LABEL_9;
+  }
+
+LABEL_12:
+  v48 = v42 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__siriInteractionType;
+  swift_beginAccess();
+  v49 = *v48;
+  v50 = *(v48 + 8);
+  v51 = (v41 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__siriInteractionType);
+  swift_beginAccess();
+  v52 = *v51;
+  v53 = v49 != 0;
+  if (!v50)
+  {
+    v53 = v49;
+  }
+
+  if (*(v51 + 8) == 1)
+  {
+    v54 = v146;
+    v55 = v147;
+    if (v52)
+    {
+      if (v53 != 1)
+      {
+        goto LABEL_9;
+      }
+    }
+
+    else if (v53)
+    {
+      goto LABEL_9;
+    }
+  }
+
+  else
+  {
+    v54 = v146;
+    v55 = v147;
+    if (v53 != v52)
+    {
+      goto LABEL_9;
+    }
+  }
+
+  v56 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__isNavigationMode;
+  swift_beginAccess();
+  LODWORD(v56) = *(v42 + v56);
+  v57 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__isNavigationMode;
+  swift_beginAccess();
+  if (v56 != *(v41 + v57))
+  {
+    goto LABEL_9;
+  }
+
+  v58 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__treatRandomAsFirst;
+  swift_beginAccess();
+  LODWORD(v58) = *(v42 + v58);
+  v59 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__treatRandomAsFirst;
+  swift_beginAccess();
+  if (v58 != *(v41 + v59))
+  {
+    goto LABEL_9;
+  }
+
+  v60 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__dialogState;
+  swift_beginAccess();
+  v61 = *(v42 + v60);
+  v62 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__dialogState;
+  swift_beginAccess();
+  v63 = *(v41 + v62);
+
+  sub_1B8DB02F8(v61, v63);
+  v65 = v64;
+
+  if ((v65 & 1) == 0)
+  {
+    goto LABEL_9;
+  }
+
+  v66 = (v42 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__assistantID);
+  swift_beginAccess();
+  v67 = *v66;
+  v68 = v66[1];
+  v69 = (v41 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__assistantID);
+  swift_beginAccess();
+  v70 = v67 == *v69 && v68 == v69[1];
+  if (!v70 && (sub_1B964C9F0() & 1) == 0)
+  {
+    goto LABEL_9;
+  }
+
+  swift_beginAccess();
+  sub_1B8D92024();
+  swift_beginAccess();
+  v71 = *(v142 + 48);
+  v32 = v144;
+  sub_1B8D92024();
+  sub_1B8D92024();
+  v72 = v143;
+  if (__swift_getEnumTagSinglePayload(v32, 1, v143) == 1)
+  {
+    sub_1B8D9207C(v148, &qword_1EBAC93F8, &qword_1B96AA6B8);
+    if (__swift_getEnumTagSinglePayload(&v32[v71], 1, v72) == 1)
+    {
+      sub_1B8D9207C(v32, &qword_1EBAC93F8, &qword_1B96AA6B8);
+      goto LABEL_36;
+    }
+
+    goto LABEL_34;
+  }
+
+  v73 = v141;
+  sub_1B8D92024();
+  if (__swift_getEnumTagSinglePayload(&v32[v71], 1, v72) == 1)
+  {
+    sub_1B8D9207C(v148, &qword_1EBAC93F8, &qword_1B96AA6B8);
+    sub_1B9239E50();
+LABEL_34:
+    v43 = &qword_1EBACA160;
+    v44 = &qword_1B96B2478;
+    goto LABEL_7;
+  }
+
+  sub_1B9239DA8();
+  LODWORD(v150) = static Apple_Parsec_Siri_V2alpha_Person.== infix(_:_:)(v73);
+  sub_1B9239E50();
+  sub_1B8D9207C(v148, &qword_1EBAC93F8, &qword_1B96AA6B8);
+  sub_1B9239E50();
+  sub_1B8D9207C(v32, &qword_1EBAC93F8, &qword_1B96AA6B8);
+  if ((v150 & 1) == 0)
+  {
+    goto LABEL_9;
+  }
+
+LABEL_36:
+  v74 = (v42 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__interactionID);
+  swift_beginAccess();
+  v75 = *v74;
+  v76 = v74[1];
+  v77 = (v41 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__interactionID);
+  swift_beginAccess();
+  v78 = v75 == *v77 && v76 == v77[1];
+  if (!v78 && (sub_1B964C9F0() & 1) == 0)
+  {
+    goto LABEL_9;
+  }
+
+  v79 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__restrictions;
+  swift_beginAccess();
+  v80 = *(v42 + v79);
+  v81 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__restrictions;
+  swift_beginAccess();
+  v82 = *(v41 + v81);
+
+  sub_1B8D8E510(v80, v82);
+  v84 = v83;
+
+  if ((v84 & 1) == 0)
+  {
+    goto LABEL_9;
+  }
+
+  swift_beginAccess();
+  sub_1B8D92024();
+  swift_beginAccess();
+  v85 = *(v137 + 48);
+  v32 = v139;
+  sub_1B8D92024();
+  sub_1B8D92024();
+  v86 = v138;
+  if (__swift_getEnumTagSinglePayload(v32, 1, v138) == 1)
+  {
+    sub_1B8D9207C(v54, &qword_1EBAC9400, &qword_1B96AA6C0);
+    if (__swift_getEnumTagSinglePayload(&v32[v85], 1, v86) == 1)
+    {
+      sub_1B8D9207C(v32, &qword_1EBAC9400, &qword_1B96AA6C0);
+      goto LABEL_49;
+    }
+
+    goto LABEL_47;
+  }
+
+  v87 = v136;
+  sub_1B8D92024();
+  if (__swift_getEnumTagSinglePayload(&v32[v85], 1, v86) == 1)
+  {
+    sub_1B8D9207C(v54, &qword_1EBAC9400, &qword_1B96AA6C0);
+    sub_1B9239E50();
+LABEL_47:
+    v43 = &qword_1EBACA158;
+    v44 = &qword_1B96B2470;
+    goto LABEL_7;
+  }
+
+  v88 = v132;
+  sub_1B9239DA8();
+  v89 = static Apple_Parsec_Siri_V2alpha_MultiUserContext.== infix(_:_:)(v87, v88);
+  sub_1B9239E50();
+  sub_1B8D9207C(v54, &qword_1EBAC9400, &qword_1B96AA6C0);
+  sub_1B9239E50();
+  sub_1B8D9207C(v32, &qword_1EBAC9400, &qword_1B96AA6C0);
+  if ((v89 & 1) == 0)
+  {
+    goto LABEL_9;
+  }
+
+LABEL_49:
+  swift_beginAccess();
+  sub_1B8D92024();
+  swift_beginAccess();
+  v90 = *(v133 + 48);
+  v91 = v135;
+  sub_1B8D92024();
+  v92 = v91;
+  sub_1B8D92024();
+  v93 = v134;
+  if (__swift_getEnumTagSinglePayload(v91, 1, v134) == 1)
+  {
+    sub_1B8D9207C(v55, &qword_1EBAC9408, &qword_1B96AA6C8);
+    if (__swift_getEnumTagSinglePayload(v91 + v90, 1, v93) == 1)
+    {
+      sub_1B8D9207C(v91, &qword_1EBAC9408, &qword_1B96AA6C8);
+      goto LABEL_52;
+    }
+
+    goto LABEL_65;
+  }
+
+  v111 = v131;
+  sub_1B8D92024();
+  if (__swift_getEnumTagSinglePayload(v91 + v90, 1, v93) == 1)
+  {
+    sub_1B8D9207C(v55, &qword_1EBAC9408, &qword_1B96AA6C8);
+    sub_1B9239E50();
+LABEL_65:
+    v43 = &qword_1EBACA150;
+    v44 = &qword_1B96B2468;
+    v45 = v91;
+    goto LABEL_8;
+  }
+
+  v112 = v130;
+  sub_1B9239DA8();
+  v113 = *v111 == *v112 && *(v111 + 1) == *(v112 + 1);
+  if (!v113 && (sub_1B964C9F0() & 1) == 0 || *(v111 + 4) != *(v112 + 4) || *(v111 + 5) != *(v112 + 5))
+  {
+    sub_1B8D9207C(v55, &qword_1EBAC9408, &qword_1B96AA6C8);
+    sub_1B9239E50();
+    sub_1B9239E50();
+    v45 = v92;
+    v43 = &qword_1EBAC9408;
+    v44 = &qword_1B96AA6C8;
+    goto LABEL_8;
+  }
+
+  sub_1B964C2B0();
+  sub_1B8CD2D08(&qword_1EBAB3B38, MEMORY[0x1E69AAC08], MEMORY[0x1E69AAC10]);
+  v114 = sub_1B964C850();
+  sub_1B8D9207C(v55, &qword_1EBAC9408, &qword_1B96AA6C8);
+  sub_1B9239E50();
+  sub_1B9239E50();
+  sub_1B8D9207C(v92, &qword_1EBAC9408, &qword_1B96AA6C8);
+  if ((v114 & 1) == 0)
+  {
+    goto LABEL_9;
+  }
+
+LABEL_52:
+  v94 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__isPushOffRequest;
+  swift_beginAccess();
+  LODWORD(v94) = *(v42 + v94);
+  v95 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__isPushOffRequest;
+  swift_beginAccess();
+  if (v94 != *(v41 + v95))
+  {
+    goto LABEL_9;
+  }
+
+  v96 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__userGroundingNeeded;
+  swift_beginAccess();
+  LODWORD(v96) = *(v42 + v96);
+  v97 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__userGroundingNeeded;
+  swift_beginAccess();
+  if (v96 != *(v41 + v97))
+  {
+    goto LABEL_9;
+  }
+
+  v98 = (v42 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__resultCandidateID);
+  swift_beginAccess();
+  v99 = *v98;
+  v100 = v98[1];
+  v101 = (v41 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__resultCandidateID);
+  swift_beginAccess();
+  v102 = v99 == *v101 && v100 == v101[1];
+  if (!v102 && (sub_1B964C9F0() & 1) == 0)
+  {
+    goto LABEL_9;
+  }
+
+  v103 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__isPhoneCallActive;
+  swift_beginAccess();
+  LODWORD(v103) = *(v42 + v103);
+  v104 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__isPhoneCallActive;
+  swift_beginAccess();
+  if (v103 != *(v41 + v104))
+  {
+    goto LABEL_9;
+  }
+
+  v105 = v42 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__siriResponseMode;
+  swift_beginAccess();
+  v106 = *v105;
+  v107 = *(v105 + 8);
+  v108 = (v41 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__siriResponseMode);
+  swift_beginAccess();
+  if (!sub_1B8D92198(v106, v107, *v108))
+  {
+    goto LABEL_9;
+  }
+
+  v109 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__isSaeRequest;
+  swift_beginAccess();
+  LODWORD(v109) = *(v42 + v109);
+  v110 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusContextP33_E86396049AA3E19DB448939A42AE999613_StorageClass__isSaeRequest;
+  swift_beginAccess();
+  if (v109 != *(v41 + v110))
+  {
+    goto LABEL_9;
+  }
+
+  swift_beginAccess();
+  sub_1B8D92024();
+  swift_beginAccess();
+  v115 = *(v125 + 48);
+  v116 = v129;
+  sub_1B8D92024();
+  sub_1B8D92024();
+  if (__swift_getEnumTagSinglePayload(v116, 1, v128) == 1)
+  {
+
+    sub_1B8D9207C(v127, &qword_1EBAC9410, &unk_1B96AA6D0);
+    if (__swift_getEnumTagSinglePayload(v129 + v115, 1, v128) == 1)
+    {
+      sub_1B8D9207C(v129, &qword_1EBAC9410, &unk_1B96AA6D0);
+      return 1;
+    }
+
+    goto LABEL_82;
+  }
+
+  v117 = v129;
+  sub_1B8D92024();
+  if (__swift_getEnumTagSinglePayload(v117 + v115, 1, v128) == 1)
+  {
+
+    sub_1B8D9207C(v127, &qword_1EBAC9410, &unk_1B96AA6D0);
+    sub_1B9239E50();
+LABEL_82:
+    v118 = &qword_1EBACA148;
+    v119 = &qword_1B96B2460;
+    v120 = v129;
+LABEL_83:
+    sub_1B8D9207C(v120, v118, v119);
+    return 0;
+  }
+
+  v121 = v124;
+  sub_1B9239DA8();
+  sub_1B8D67E14(*v126, *v121);
+  if ((v122 & 1) == 0)
+  {
+
+    sub_1B9239E50();
+    sub_1B8D9207C(v127, &qword_1EBAC9410, &unk_1B96AA6D0);
+    sub_1B9239E50();
+    v120 = v129;
+    v118 = &qword_1EBAC9410;
+    v119 = &unk_1B96AA6D0;
+    goto LABEL_83;
+  }
+
+  sub_1B964C2B0();
+  sub_1B8CD2D08(&qword_1EBAB3B38, MEMORY[0x1E69AAC08], MEMORY[0x1E69AAC10]);
+  v123 = sub_1B964C850();
+
+  sub_1B9239E50();
+  sub_1B8D9207C(v127, &qword_1EBAC9410, &unk_1B96AA6D0);
+  sub_1B9239E50();
+  sub_1B8D9207C(v129, &qword_1EBAC9410, &unk_1B96AA6D0);
+  return (v123 & 1) != 0;
+}
+
+uint64_t sub_1B923D024(uint64_t a1, uint64_t a2)
+{
+  v4 = sub_1B8CD2D08(&qword_1EBAC9F68, type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriPegasusContext, protocol conformance descriptor for Apple_Parsec_Siri_V2alpha_SiriPegasusContext);
+
+  return MEMORY[0x1EEE15708](a1, a2, v4);
+}
+
+uint64_t sub_1B923D0A4(uint64_t a1)
+{
+  v2 = sub_1B8CD2D08(&qword_1EBAB5B70, type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriPegasusContext, protocol conformance descriptor for Apple_Parsec_Siri_V2alpha_SiriPegasusContext);
+
+  return MEMORY[0x1EEE15928](a1, v2);
+}
+
+uint64_t sub_1B923D114(uint64_t a1, uint64_t a2)
+{
+  sub_1B8CD2D08(&qword_1EBAB5B70, type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriPegasusContext, protocol conformance descriptor for Apple_Parsec_Siri_V2alpha_SiriPegasusContext);
+
+  return sub_1B964C5D0();
+}
+
+uint64_t sub_1B923D194()
+{
+  v0 = sub_1B964C780();
+  __swift_allocate_value_buffer(v0, qword_1EBAB5BD0);
+  __swift_project_value_buffer(v0, qword_1EBAB5BD0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB92F0, &unk_1B964DAD0);
+  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB92F8, &unk_1B964EE40) - 8);
+  v2 = *(*v1 + 72);
+  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v4 = swift_allocObject();
+  *(v4 + 16) = xmmword_1B964D060;
+  v5 = (v4 + v3);
+  v6 = v4 + v3 + v1[14];
+  *v5 = 0;
+  *v6 = "DISPLAY_DRIVEN";
+  *(v6 + 8) = 14;
+  *(v6 + 16) = 2;
+  v7 = *MEMORY[0x1E69AADC8];
+  v8 = sub_1B964C750();
+  v9 = *(*(v8 - 8) + 104);
+  (v9)(v6, v7, v8);
+  v10 = v5 + v2 + v1[14];
+  *(v5 + v2) = 1;
+  *v10 = "DIALOG_DRIVEN";
+  *(v10 + 1) = 13;
+  v10[16] = 2;
+  v9();
+  return sub_1B964C760();
+}
+
+uint64_t sub_1B923D39C()
+{
+  v0 = sub_1B964C780();
+  __swift_allocate_value_buffer(v0, qword_1EBAC9050);
+  __swift_project_value_buffer(v0, qword_1EBAC9050);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB92F0, &unk_1B964DAD0);
+  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB92F8, &unk_1B964EE40) - 8);
+  v2 = *(*v1 + 72);
+  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v4 = swift_allocObject();
+  *(v4 + 16) = xmmword_1B964D060;
+  v5 = (v4 + v3);
+  v6 = v4 + v3 + v1[14];
+  *v5 = 1;
+  *v6 = "category";
+  *(v6 + 8) = 8;
+  *(v6 + 16) = 2;
+  v7 = *MEMORY[0x1E69AADC8];
+  v8 = sub_1B964C750();
+  v9 = *(*(v8 - 8) + 104);
+  (v9)(v6, v7, v8);
+  v10 = v5 + v2 + v1[14];
+  *(v5 + v2) = 2;
+  *v10 = "reason";
+  *(v10 + 1) = 6;
+  v10[16] = 2;
+  v9();
+  return sub_1B964C760();
+}
+
+uint64_t Apple_Parsec_Siri_V2alpha_Restriction.traverse<A>(visitor:)()
+{
+  OUTLINED_FUNCTION_614();
+  if (!*v0 || (OUTLINED_FUNCTION_94_4(), sub_1B927ACC4(), OUTLINED_FUNCTION_687(), result = sub_1B964C680(), !v1))
+  {
+    if (!*(v2 + 16) || (OUTLINED_FUNCTION_94_4(), sub_1B927AD18(), OUTLINED_FUNCTION_687(), result = sub_1B964C680(), !v1))
+    {
+      type metadata accessor for Apple_Parsec_Siri_V2alpha_Restriction(0);
+      return OUTLINED_FUNCTION_8_1();
+    }
+  }
+
+  return result;
+}
+
+uint64_t static Apple_Parsec_Siri_V2alpha_Restriction.== infix(_:_:)()
+{
+  OUTLINED_FUNCTION_468();
+  v4 = *v3;
+  if (*(v3 + 8) == 1)
+  {
+    v4 = qword_1B96B24D0[v4];
+  }
+
+  v5 = *v0;
+  if (*(v2 + 8))
+  {
+    switch(v5)
+    {
+      case 1:
+        if (v4 != 1)
+        {
+          return 0;
+        }
+
+        goto LABEL_8;
+      case 2:
+        if (v4 != 2)
+        {
+          return 0;
+        }
+
+        goto LABEL_8;
+      case 3:
+        if (v4 != 3)
+        {
+          return 0;
+        }
+
+        goto LABEL_8;
+      case 4:
+        if (v4 != 4)
+        {
+          return 0;
+        }
+
+        goto LABEL_8;
+      case 5:
+        if (v4 != 6)
+        {
+          return 0;
+        }
+
+        goto LABEL_8;
+      case 6:
+        if (v4 != 7)
+        {
+          return 0;
+        }
+
+        goto LABEL_8;
+      case 7:
+        if (v4 != 8)
+        {
+          return 0;
+        }
+
+        goto LABEL_8;
+      case 8:
+        if (v4 != 9)
+        {
+          return 0;
+        }
+
+        goto LABEL_8;
+      default:
+        if (!v4)
+        {
+          goto LABEL_8;
+        }
+
+        return 0;
+    }
+  }
+
+  if (v4 == v5)
+  {
+LABEL_8:
+    v6 = *(v1 + 16);
+    v7 = v0[2];
+    if (*(v0 + 24) == 1)
+    {
+      switch(v7)
+      {
+        case 1:
+          if (v6 != 1)
+          {
+            return 0;
+          }
+
+          goto LABEL_13;
+        case 2:
+          if (v6 != 2)
+          {
+            return 0;
+          }
+
+          goto LABEL_13;
+        case 3:
+          if (v6 != 3)
+          {
+            return 0;
+          }
+
+          goto LABEL_13;
+        case 4:
+          if (v6 != 4)
+          {
+            return 0;
+          }
+
+          goto LABEL_13;
+        case 5:
+          if (v6 != 5)
+          {
+            return 0;
+          }
+
+          goto LABEL_13;
+        case 6:
+          if (v6 != 6)
+          {
+            return 0;
+          }
+
+          goto LABEL_13;
+        case 7:
+          if (v6 != 7)
+          {
+            return 0;
+          }
+
+          goto LABEL_13;
+        default:
+          if (!v6)
+          {
+            goto LABEL_13;
+          }
+
+          return 0;
+      }
+    }
+
+    if (v6 == v7)
+    {
+LABEL_13:
+      type metadata accessor for Apple_Parsec_Siri_V2alpha_Restriction(0);
+      OUTLINED_FUNCTION_188_1();
+      OUTLINED_FUNCTION_0_75();
+      v10 = sub_1B8CD2D08(v8, v9, MEMORY[0x1E69AAC10]);
+      return OUTLINED_FUNCTION_634(v10) & 1;
+    }
+  }
+
+  return 0;
+}
+
+uint64_t sub_1B923D9B4(uint64_t a1, uint64_t a2)
+{
+  v4 = sub_1B8CD2D08(&qword_1EBAC9F60, type metadata accessor for Apple_Parsec_Siri_V2alpha_Restriction, protocol conformance descriptor for Apple_Parsec_Siri_V2alpha_Restriction);
+
+  return MEMORY[0x1EEE15708](a1, a2, v4);
+}
+
+uint64_t sub_1B923DA34(uint64_t a1)
+{
+  v2 = sub_1B8CD2D08(&qword_1EBAC9A18, type metadata accessor for Apple_Parsec_Siri_V2alpha_Restriction, protocol conformance descriptor for Apple_Parsec_Siri_V2alpha_Restriction);
+
+  return MEMORY[0x1EEE15928](a1, v2);
+}
+
+uint64_t sub_1B923DAA4(uint64_t a1, uint64_t a2)
+{
+  sub_1B8CD2D08(&qword_1EBAC9A18, type metadata accessor for Apple_Parsec_Siri_V2alpha_Restriction, protocol conformance descriptor for Apple_Parsec_Siri_V2alpha_Restriction);
+
+  return sub_1B964C5D0();
+}
+
+uint64_t sub_1B923DB3C()
+{
+  v0 = sub_1B964C780();
+  __swift_allocate_value_buffer(v0, qword_1EBAB3C10);
+  __swift_project_value_buffer(v0, qword_1EBAB3C10);
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB92F0, &unk_1B964DAD0);
   v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB92F8, &unk_1B964EE40) - 8);
   v2 = *(*v1 + 72);
@@ -7926,8 +8387,8 @@ uint64_t sub_1B91FAA48()
   v5 = (v4 + v3);
   v6 = v4 + v3 + v1[14];
   *v5 = 1;
-  *v6 = "place_data";
-  *(v6 + 8) = 10;
+  *v6 = "country_code";
+  *(v6 + 8) = 12;
   *(v6 + 16) = 2;
   v7 = *MEMORY[0x1E69AADE8];
   v8 = sub_1B964C750();
@@ -7935,21 +8396,21 @@ uint64_t sub_1B91FAA48()
   (v9)(v6, v7, v8);
   v10 = v5 + v2 + v1[14];
   *(v5 + v2) = 2;
-  *v10 = "ext_session_guid";
-  *(v10 + 1) = 16;
+  *v10 = "movie_restriction";
+  *(v10 + 1) = 17;
   v10[16] = 2;
   v9();
   v11 = (v5 + 2 * v2);
   v12 = v11 + v1[14];
   *v11 = 3;
-  *v12 = "ext_session_guid_created_timestamp";
-  *(v12 + 1) = 34;
+  *v12 = "tv_restriction";
+  *(v12 + 1) = 14;
   v12[16] = 2;
   v9();
   return sub_1B964C760();
 }
 
-uint64_t Apple_Parsec_Siri_V2alpha_ShowLocalSearchResultBuilderParams.decodeMessage<A>(decoder:)()
+uint64_t Apple_Parsec_Siri_V2alpha_MediaContentRatingRestrictions.decodeMessage<A>(decoder:)()
 {
   OUTLINED_FUNCTION_692();
   while (1)
@@ -7964,38 +8425,29 @@ uint64_t Apple_Parsec_Siri_V2alpha_ShowLocalSearchResultBuilderParams.decodeMess
     if (result == 3 || result == 2)
     {
       OUTLINED_FUNCTION_12();
-      sub_1B964C530();
+      sub_1B964C4A0();
     }
 
     else if (result == 1)
     {
-      OUTLINED_FUNCTION_12();
-      sub_1B964C470();
+      OUTLINED_FUNCTION_41_7();
+      sub_1B964C530();
     }
   }
 
   return result;
 }
 
-uint64_t Apple_Parsec_Siri_V2alpha_ShowLocalSearchResultBuilderParams.traverse<A>(visitor:)()
+uint64_t Apple_Parsec_Siri_V2alpha_MediaContentRatingRestrictions.traverse<A>(visitor:)()
 {
-  OUTLINED_FUNCTION_614();
-  v3 = *v0;
-  v4 = v2[1];
-  v5 = OUTLINED_FUNCTION_616();
-  if (sub_1B8D99EA8(v5, v6) || (OUTLINED_FUNCTION_616(), OUTLINED_FUNCTION_11_5(), result = sub_1B964C6A0(), !v1))
+  OUTLINED_FUNCTION_1_15();
+  if (!v2 || (OUTLINED_FUNCTION_11_5(), result = sub_1B964C700(), !v0))
   {
-    v8 = v2[2];
-    v9 = v2[3];
-    OUTLINED_FUNCTION_1();
-    if (!v10 || (OUTLINED_FUNCTION_11_5(), result = sub_1B964C700(), !v1))
+    if (!*(v1 + 16) || (OUTLINED_FUNCTION_29(), result = sub_1B964C6C0(), !v0))
     {
-      v11 = v2[4];
-      v12 = v2[5];
-      OUTLINED_FUNCTION_1();
-      if (!v13 || (OUTLINED_FUNCTION_11_5(), result = sub_1B964C700(), !v1))
+      if (!*(v1 + 20) || (OUTLINED_FUNCTION_29(), result = sub_1B964C6C0(), !v0))
       {
-        v14 = *(type metadata accessor for Apple_Parsec_Siri_V2alpha_ShowLocalSearchResultBuilderParams(0) + 28);
+        type metadata accessor for Apple_Parsec_Siri_V2alpha_MediaContentRatingRestrictions(0);
         return OUTLINED_FUNCTION_8_1();
       }
     }
@@ -8004,282 +8456,48 @@ uint64_t Apple_Parsec_Siri_V2alpha_ShowLocalSearchResultBuilderParams.traverse<A
   return result;
 }
 
-uint64_t sub_1B91FAE50(uint64_t a1, uint64_t a2)
+uint64_t static Apple_Parsec_Siri_V2alpha_MediaContentRatingRestrictions.== infix(_:_:)(uint64_t a1)
 {
-  v4 = sub_1B8CD2BE8(&qword_1EBAC89C8, type metadata accessor for Apple_Parsec_Siri_V2alpha_ShowLocalSearchResultBuilderParams);
+  OUTLINED_FUNCTION_17_1(a1);
+  v5 = v5 && v3 == v4;
+  if (!v5 && (sub_1B964C9F0() & 1) == 0 || *(v2 + 16) != *(v1 + 16) || *(v2 + 20) != *(v1 + 20))
+  {
+    return 0;
+  }
+
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_MediaContentRatingRestrictions(0);
+  OUTLINED_FUNCTION_736();
+  OUTLINED_FUNCTION_0_75();
+  v8 = sub_1B8CD2D08(v6, v7, MEMORY[0x1E69AAC10]);
+  return OUTLINED_FUNCTION_634(v8) & 1;
+}
+
+uint64_t sub_1B923DFBC(uint64_t a1, uint64_t a2)
+{
+  v4 = sub_1B8CD2D08(&qword_1EBAC9F58, type metadata accessor for Apple_Parsec_Siri_V2alpha_MediaContentRatingRestrictions, protocol conformance descriptor for Apple_Parsec_Siri_V2alpha_MediaContentRatingRestrictions);
 
   return MEMORY[0x1EEE15708](a1, a2, v4);
 }
 
-uint64_t sub_1B91FAED0(uint64_t a1)
+uint64_t sub_1B923E03C(uint64_t a1)
 {
-  v2 = sub_1B8CD2BE8(&qword_1EBAC8518, type metadata accessor for Apple_Parsec_Siri_V2alpha_ShowLocalSearchResultBuilderParams);
+  v2 = sub_1B8CD2D08(&qword_1EBAB3C00, type metadata accessor for Apple_Parsec_Siri_V2alpha_MediaContentRatingRestrictions, protocol conformance descriptor for Apple_Parsec_Siri_V2alpha_MediaContentRatingRestrictions);
 
   return MEMORY[0x1EEE15928](a1, v2);
 }
 
-uint64_t sub_1B91FAF40()
+uint64_t sub_1B923E0AC(uint64_t a1, uint64_t a2)
 {
-  sub_1B8CD2BE8(&qword_1EBAC8518, type metadata accessor for Apple_Parsec_Siri_V2alpha_ShowLocalSearchResultBuilderParams);
+  sub_1B8CD2D08(&qword_1EBAB3C00, type metadata accessor for Apple_Parsec_Siri_V2alpha_MediaContentRatingRestrictions, protocol conformance descriptor for Apple_Parsec_Siri_V2alpha_MediaContentRatingRestrictions);
 
   return sub_1B964C5D0();
 }
 
-uint64_t sub_1B91FAFD8()
+uint64_t sub_1B923E144()
 {
   v0 = sub_1B964C780();
-  __swift_allocate_value_buffer(v0, qword_1EBAC8698);
-  __swift_project_value_buffer(v0, qword_1EBAC8698);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB92F0, &unk_1B964DAD0);
-  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB92F8, &unk_1B964EE40) - 8);
-  v2 = *(*v1 + 72);
-  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v4 = swift_allocObject();
-  *(v4 + 16) = xmmword_1B964EE60;
-  v5 = (v4 + v3);
-  v6 = v4 + v3 + v1[14];
-  *v5 = 1;
-  *v6 = "search_region_center";
-  *(v6 + 8) = 20;
-  *(v6 + 16) = 2;
-  v7 = *MEMORY[0x1E69AADE8];
-  v8 = sub_1B964C750();
-  v9 = *(*(v8 - 8) + 104);
-  (v9)(v6, v7, v8);
-  v10 = v5 + v2 + v1[14];
-  *(v5 + v2) = 2;
-  *v10 = "objects";
-  *(v10 + 1) = 7;
-  v10[16] = 2;
-  v11 = *MEMORY[0x1E69AADC8];
-  v9();
-  v12 = (v5 + 2 * v2);
-  v13 = v12 + v1[14];
-  *v12 = 3;
-  *v13 = "response_view_id";
-  *(v13 + 1) = 16;
-  v13[16] = 2;
-  v9();
-  return sub_1B964C760();
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_MapItemSnippet.decodeMessage<A>(decoder:)()
-{
-  OUTLINED_FUNCTION_692();
-  while (1)
-  {
-    OUTLINED_FUNCTION_186();
-    result = sub_1B964C3C0();
-    if (v0 || (v2 & 1) != 0)
-    {
-      break;
-    }
-
-    switch(result)
-    {
-      case 3:
-        OUTLINED_FUNCTION_12();
-        sub_1B964C530();
-        break;
-      case 2:
-        OUTLINED_FUNCTION_9();
-        sub_1B91FD748();
-        break;
-      case 1:
-        OUTLINED_FUNCTION_9();
-        sub_1B91FB28C();
-        break;
-    }
-  }
-
-  return result;
-}
-
-uint64_t sub_1B91FB28C()
-{
-  v0 = *(type metadata accessor for Apple_Parsec_Siri_V2alpha_MapItemSnippet(0) + 28);
-  type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams(0);
-  sub_1B8CD2BE8(&qword_1EBAC8788, type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams);
-  return sub_1B964C580();
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_MapItemSnippet.traverse<A>(visitor:)()
-{
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB9018, &unk_1B96A6290);
-  OUTLINED_FUNCTION_183(v3);
-  v5 = *(v4 + 64);
-  OUTLINED_FUNCTION_176();
-  MEMORY[0x1EEE9AC00](v6);
-  v7 = OUTLINED_FUNCTION_110_5();
-  v8 = OUTLINED_FUNCTION_59_1(v7);
-  v10 = *(v9 + 64);
-  MEMORY[0x1EEE9AC00](v8);
-  OUTLINED_FUNCTION_62();
-  v21 = type metadata accessor for Apple_Parsec_Siri_V2alpha_MapItemSnippet(0);
-  v11 = *(v21 + 28);
-  sub_1B8D92024();
-  if (__swift_getEnumTagSinglePayload(v2, 1, v7) == 1)
-  {
-    sub_1B8D9207C(v2, &qword_1EBAB9018, &unk_1B96A6290);
-  }
-
-  else
-  {
-    OUTLINED_FUNCTION_79_8();
-    sub_1B91FA3D0();
-    OUTLINED_FUNCTION_24_20();
-    sub_1B8CD2BE8(v12, v13);
-    OUTLINED_FUNCTION_153_1();
-    sub_1B964C740();
-    result = sub_1B91FA498();
-    if (v1)
-    {
-      return result;
-    }
-  }
-
-  if (!*(*v0 + 16) || (type metadata accessor for Apple_Parsec_Siri_V2alpha_MapItemBuilderParams(0), OUTLINED_FUNCTION_8_33(), sub_1B8CD2BE8(v15, v16), OUTLINED_FUNCTION_231(), OUTLINED_FUNCTION_153_1(), result = sub_1B964C730(), !v1))
-  {
-    v17 = v0[1];
-    v18 = v0[2];
-    OUTLINED_FUNCTION_1();
-    if (!v19 || (OUTLINED_FUNCTION_153_1(), result = sub_1B964C700(), !v1))
-    {
-      v20 = v0 + *(v21 + 24);
-      return sub_1B964C290();
-    }
-  }
-
-  return result;
-}
-
-void static Apple_Parsec_Siri_V2alpha_MapItemSnippet.== infix(_:_:)()
-{
-  OUTLINED_FUNCTION_284();
-  v2 = v1;
-  v4 = v3;
-  v5 = type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams(0);
-  v6 = OUTLINED_FUNCTION_59_1(v5);
-  v8 = *(v7 + 64);
-  MEMORY[0x1EEE9AC00](v6);
-  OUTLINED_FUNCTION_62();
-  OUTLINED_FUNCTION_258();
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB9018, &unk_1B96A6290);
-  OUTLINED_FUNCTION_183(v9);
-  v11 = *(v10 + 64);
-  OUTLINED_FUNCTION_176();
-  MEMORY[0x1EEE9AC00](v12);
-  v13 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB9020, &unk_1B964D810) - 8);
-  v14 = *(*v13 + 64);
-  OUTLINED_FUNCTION_176();
-  MEMORY[0x1EEE9AC00](v15);
-  OUTLINED_FUNCTION_79();
-  v33 = type metadata accessor for Apple_Parsec_Siri_V2alpha_MapItemSnippet(0);
-  v16 = *(v33 + 28);
-  v17 = v13[14];
-  OUTLINED_FUNCTION_162_1();
-  OUTLINED_FUNCTION_162_1();
-  OUTLINED_FUNCTION_37_0(v0);
-  if (!v18)
-  {
-    sub_1B8D92024();
-    OUTLINED_FUNCTION_37_0(v0 + v17);
-    if (!v18)
-    {
-      OUTLINED_FUNCTION_1_60();
-      sub_1B91FA3D0();
-      OUTLINED_FUNCTION_853();
-      if (v21 || (, , OUTLINED_FUNCTION_616(), v22 = sub_1B91F6CF8(), , , v22))
-      {
-        v23 = sub_1B964C2B0();
-        OUTLINED_FUNCTION_0_71();
-        sub_1B8CD2BE8(v24, v25);
-        OUTLINED_FUNCTION_147_6();
-        OUTLINED_FUNCTION_23_14();
-        sub_1B91FA498();
-        OUTLINED_FUNCTION_686();
-        sub_1B91FA498();
-        sub_1B8D9207C(v0, &qword_1EBAB9018, &unk_1B96A6290);
-        if ((v23 & 1) == 0)
-        {
-          goto LABEL_21;
-        }
-
-        goto LABEL_14;
-      }
-
-      OUTLINED_FUNCTION_26_19();
-      sub_1B91FA498();
-      sub_1B91FA498();
-      v19 = &qword_1EBAB9018;
-      v20 = &unk_1B96A6290;
-LABEL_10:
-      sub_1B8D9207C(v0, v19, v20);
-      goto LABEL_21;
-    }
-
-    OUTLINED_FUNCTION_25_15();
-    sub_1B91FA498();
-LABEL_9:
-    v19 = &qword_1EBAB9020;
-    v20 = &unk_1B964D810;
-    goto LABEL_10;
-  }
-
-  OUTLINED_FUNCTION_37_0(v0 + v17);
-  if (!v18)
-  {
-    goto LABEL_9;
-  }
-
-  sub_1B8D9207C(v0, &qword_1EBAB9018, &unk_1B96A6290);
-LABEL_14:
-  v26 = *v4;
-  v27 = *v2;
-  sub_1B8D63B18();
-  if (v28)
-  {
-    v29 = v4[1] == v2[1] && v4[2] == v2[2];
-    if (v29 || (sub_1B964C9F0() & 1) != 0)
-    {
-      v30 = *(v33 + 24);
-      sub_1B964C2B0();
-      OUTLINED_FUNCTION_0_71();
-      sub_1B8CD2BE8(v31, v32);
-      sub_1B964C850();
-    }
-  }
-
-LABEL_21:
-  OUTLINED_FUNCTION_283();
-}
-
-uint64_t sub_1B91FB950(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_1B8CD2BE8(&qword_1EBAC89C0, type metadata accessor for Apple_Parsec_Siri_V2alpha_MapItemSnippet);
-
-  return MEMORY[0x1EEE15708](a1, a2, v4);
-}
-
-uint64_t sub_1B91FB9D0(uint64_t a1)
-{
-  v2 = sub_1B8CD2BE8(&qword_1EBAC8908, type metadata accessor for Apple_Parsec_Siri_V2alpha_MapItemSnippet);
-
-  return MEMORY[0x1EEE15928](a1, v2);
-}
-
-uint64_t sub_1B91FBA40()
-{
-  sub_1B8CD2BE8(&qword_1EBAC8908, type metadata accessor for Apple_Parsec_Siri_V2alpha_MapItemSnippet);
-
-  return sub_1B964C5D0();
-}
-
-uint64_t sub_1B91FBAD8()
-{
-  v0 = sub_1B964C780();
-  __swift_allocate_value_buffer(v0, qword_1EBAC86B0);
-  __swift_project_value_buffer(v0, qword_1EBAC86B0);
+  __swift_allocate_value_buffer(v0, qword_1EBAB4160);
+  __swift_project_value_buffer(v0, qword_1EBAB4160);
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB92F0, &unk_1B964DAD0);
   v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB92F8, &unk_1B964EE40) - 8);
   v2 = *(*v1 + 72);
@@ -8289,24 +8507,23 @@ uint64_t sub_1B91FBAD8()
   v5 = (v4 + v3);
   v6 = v4 + v3 + v1[14];
   *v5 = 1;
-  *v6 = "phone_number";
-  *(v6 + 8) = 12;
+  *v6 = "request_id";
+  *(v6 + 8) = 10;
   *(v6 + 16) = 2;
   v7 = *MEMORY[0x1E69AADE8];
   v8 = sub_1B964C750();
   v9 = *(*(v8 - 8) + 104);
   (v9)(v6, v7, v8);
   v10 = v5 + v2 + v1[14];
-  *(v5 + v2) = 2;
-  *v10 = "name";
-  *(v10 + 1) = 4;
+  *(v5 + v2) = 3;
+  *v10 = "personal_domain_fallback";
+  *(v10 + 1) = 24;
   v10[16] = 2;
-  v11 = *MEMORY[0x1E69AADC8];
   v9();
   return sub_1B964C760();
 }
 
-uint64_t Apple_Parsec_Siri_V2alpha_PhoneCallBuilderParams.decodeMessage<A>(decoder:)()
+uint64_t Apple_Parsec_Siri_V2alpha_POMMESRequestContext.decodeMessage<A>(decoder:)()
 {
   OUTLINED_FUNCTION_692();
   while (1)
@@ -8318,7 +8535,7 @@ uint64_t Apple_Parsec_Siri_V2alpha_PhoneCallBuilderParams.decodeMessage<A>(decod
       break;
     }
 
-    if (result == 2 || result == 1)
+    if (result == 3 || result == 1)
     {
       OUTLINED_FUNCTION_12();
       sub_1B964C530();
@@ -8328,485 +8545,199 @@ uint64_t Apple_Parsec_Siri_V2alpha_PhoneCallBuilderParams.decodeMessage<A>(decod
   return result;
 }
 
-uint64_t Apple_Parsec_Siri_V2alpha_PhoneCallBuilderParams.traverse<A>(visitor:)()
+uint64_t sub_1B923E480(uint64_t a1, uint64_t a2)
 {
-  OUTLINED_FUNCTION_614();
-  v3 = *v0;
-  v4 = v0[1];
-  OUTLINED_FUNCTION_1();
-  if (!v5 || (OUTLINED_FUNCTION_11_5(), result = sub_1B964C700(), !v1))
-  {
-    v7 = *(v2 + 16);
-    v8 = *(v2 + 24);
-    OUTLINED_FUNCTION_1();
-    if (!v9 || (OUTLINED_FUNCTION_11_5(), result = sub_1B964C700(), !v1))
-    {
-      v10 = *(type metadata accessor for Apple_Parsec_Siri_V2alpha_PhoneCallBuilderParams(0) + 24);
-      return OUTLINED_FUNCTION_8_1();
-    }
-  }
-
-  return result;
-}
-
-uint64_t sub_1B91FBE58(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_1B8CD2BE8(&qword_1EBAC89B8, type metadata accessor for Apple_Parsec_Siri_V2alpha_PhoneCallBuilderParams);
+  v4 = sub_1B8CD2D08(&qword_1EBAC9F50, type metadata accessor for Apple_Parsec_Siri_V2alpha_POMMESRequestContext, protocol conformance descriptor for Apple_Parsec_Siri_V2alpha_POMMESRequestContext);
 
   return MEMORY[0x1EEE15708](a1, a2, v4);
 }
 
-uint64_t sub_1B91FBED8(uint64_t a1)
+uint64_t sub_1B923E500(uint64_t a1)
 {
-  v2 = sub_1B8CD2BE8(&qword_1EBAC84F8, type metadata accessor for Apple_Parsec_Siri_V2alpha_PhoneCallBuilderParams);
+  v2 = sub_1B8CD2D08(&qword_1EBAB4150, type metadata accessor for Apple_Parsec_Siri_V2alpha_POMMESRequestContext, protocol conformance descriptor for Apple_Parsec_Siri_V2alpha_POMMESRequestContext);
 
   return MEMORY[0x1EEE15928](a1, v2);
 }
 
-uint64_t sub_1B91FBF48()
+uint64_t sub_1B923E570(uint64_t a1, uint64_t a2)
 {
-  sub_1B8CD2BE8(&qword_1EBAC84F8, type metadata accessor for Apple_Parsec_Siri_V2alpha_PhoneCallBuilderParams);
+  sub_1B8CD2D08(&qword_1EBAB4150, type metadata accessor for Apple_Parsec_Siri_V2alpha_POMMESRequestContext, protocol conformance descriptor for Apple_Parsec_Siri_V2alpha_POMMESRequestContext);
 
   return sub_1B964C5D0();
 }
 
-uint64_t sub_1B91FBFE0()
+uint64_t sub_1B923E5FC()
 {
   v0 = sub_1B964C780();
-  __swift_allocate_value_buffer(v0, qword_1EBAC86C8);
-  __swift_project_value_buffer(v0, qword_1EBAC86C8);
+  __swift_allocate_value_buffer(v0, qword_1EBAC9068);
+  __swift_project_value_buffer(v0, qword_1EBAC9068);
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB92F0, &unk_1B964DAD0);
   v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB92F8, &unk_1B964EE40) - 8);
-  v2 = *(*v1 + 72);
-  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v4 = swift_allocObject();
-  *(v4 + 16) = xmmword_1B964E4A0;
-  v5 = v4 + v3;
-  v6 = v4 + v3 + v1[14];
-  *(v4 + v3) = 1;
-  *v6 = "location";
-  *(v6 + 8) = 8;
-  *(v6 + 16) = 2;
-  v7 = *MEMORY[0x1E69AADC8];
-  v8 = sub_1B964C750();
-  v9 = *(*(v8 - 8) + 104);
-  (v9)(v6, v7, v8);
-  v10 = v5 + v2 + v1[14];
-  *(v5 + v2) = 2;
-  *v10 = "label";
-  *(v10 + 8) = 5;
-  *(v10 + 16) = 2;
-  v9();
-  v11 = (v5 + 2 * v2);
-  v12 = v11 + v1[14];
-  *v11 = 3;
-  *v12 = "detail_type";
-  *(v12 + 1) = 11;
-  v12[16] = 2;
-  v13 = *MEMORY[0x1E69AADE8];
-  v9();
-  v14 = (v5 + 3 * v2);
-  v15 = v14 + v1[14];
-  *v14 = 4;
-  *v15 = "spoken_name";
-  *(v15 + 1) = 11;
-  v15[16] = 2;
-  v9();
-  v16 = (v5 + 4 * v2);
-  v17 = v16 + v1[14];
-  *v16 = 5;
-  *v17 = "place_data";
-  *(v17 + 1) = 10;
-  v17[16] = 2;
-  v9();
-  v18 = (v5 + 5 * v2);
-  v19 = v18 + v1[14];
-  *v18 = 6;
-  *v19 = "direction_role";
-  *(v19 + 1) = 14;
-  v19[16] = 2;
-  v9();
+  v2 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v3 = swift_allocObject();
+  *(v3 + 16) = xmmword_1B964D050;
+  v4 = v3 + v2 + v1[14];
+  *(v3 + v2) = 1;
+  *v4 = "visual_query";
+  *(v4 + 8) = 12;
+  *(v4 + 16) = 2;
+  v5 = *MEMORY[0x1E69AADE8];
+  v6 = sub_1B964C750();
+  (*(*(v6 - 8) + 104))(v4, v5, v6);
   return sub_1B964C760();
 }
 
-uint64_t Apple_Parsec_Siri_V2alpha_MapItemBuilderParams.decodeMessage<A>(decoder:)()
+uint64_t sub_1B923E7B8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  OUTLINED_FUNCTION_692();
-  while (1)
-  {
-    OUTLINED_FUNCTION_186();
-    result = sub_1B964C3C0();
-    if (v0 || (v2 & 1) != 0)
-    {
-      return result;
-    }
-
-    switch(result)
-    {
-      case 1:
-        OUTLINED_FUNCTION_9();
-        sub_1B91FC390();
-        break;
-      case 2:
-      case 4:
-        OUTLINED_FUNCTION_12();
-        sub_1B964C530();
-        break;
-      case 3:
-        OUTLINED_FUNCTION_9();
-        sub_1B91FC444();
-        break;
-      case 5:
-        OUTLINED_FUNCTION_12();
-        sub_1B964C470();
-        break;
-      case 6:
-        OUTLINED_FUNCTION_9();
-        sub_1B91FC4AC();
-        break;
-      default:
-        continue;
-    }
-  }
-}
-
-uint64_t sub_1B91FC390()
-{
-  v0 = *(type metadata accessor for Apple_Parsec_Siri_V2alpha_MapItemBuilderParams(0) + 40);
-  type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams(0);
-  sub_1B8CD2BE8(&qword_1EBAC8788, type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams);
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_VisualSearchContext(0);
+  type metadata accessor for Apple_Parsec_Visualsearch_V2_VisualQueryLite(0);
+  sub_1B8CD2D08(&qword_1EBAC9620, type metadata accessor for Apple_Parsec_Visualsearch_V2_VisualQueryLite, protocol conformance descriptor for Apple_Parsec_Visualsearch_V2_VisualQueryLite);
   return sub_1B964C580();
 }
 
-uint64_t Apple_Parsec_Siri_V2alpha_MapItemBuilderParams.traverse<A>(visitor:)()
+void Apple_Parsec_Siri_V2alpha_VisualSearchContext.traverse<A>(visitor:)()
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB9018, &unk_1B96A6290);
-  OUTLINED_FUNCTION_183(v3);
-  v5 = *(v4 + 64);
+  OUTLINED_FUNCTION_273_0();
+  OUTLINED_FUNCTION_587_0(v2, v3, v4);
+  v6 = v5;
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAC9418, &unk_1B96B5780);
+  OUTLINED_FUNCTION_183(v7);
   OUTLINED_FUNCTION_176();
-  MEMORY[0x1EEE9AC00](v6);
-  v7 = OUTLINED_FUNCTION_110_5();
-  v8 = OUTLINED_FUNCTION_59_1(v7);
-  v10 = *(v9 + 64);
   MEMORY[0x1EEE9AC00](v8);
+  OUTLINED_FUNCTION_458();
+  type metadata accessor for Apple_Parsec_Visualsearch_V2_VisualQueryLite(0);
+  OUTLINED_FUNCTION_59_1();
+  MEMORY[0x1EEE9AC00](v9);
   OUTLINED_FUNCTION_62();
-  v24 = type metadata accessor for Apple_Parsec_Siri_V2alpha_MapItemBuilderParams(0);
-  v11 = *(v24 + 40);
-  sub_1B8D92024();
-  if (__swift_getEnumTagSinglePayload(v2, 1, v7) == 1)
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_VisualSearchContext(0);
+  OUTLINED_FUNCTION_517_1();
+  OUTLINED_FUNCTION_90(v1);
+  if (v10)
   {
-    sub_1B8D9207C(v2, &qword_1EBAB9018, &unk_1B96A6290);
+    sub_1B8D9207C(v1, &qword_1EBAC9418, &unk_1B96B5780);
+LABEL_5:
+    OUTLINED_FUNCTION_541_0();
+    sub_1B964C290();
+    goto LABEL_6;
   }
 
-  else
+  OUTLINED_FUNCTION_20_10();
+  sub_1B9239DA8();
+  sub_1B8CD2D08(&qword_1EBAC9620, type metadata accessor for Apple_Parsec_Visualsearch_V2_VisualQueryLite, protocol conformance descriptor for Apple_Parsec_Visualsearch_V2_VisualQueryLite);
+  OUTLINED_FUNCTION_153_1();
+  OUTLINED_FUNCTION_609_1(v11, v12, v13, v14, v6);
+  OUTLINED_FUNCTION_194_4();
+  sub_1B9239E50();
+  if (!v0)
   {
-    OUTLINED_FUNCTION_79_8();
-    sub_1B91FA3D0();
-    OUTLINED_FUNCTION_24_20();
-    sub_1B8CD2BE8(v12, v13);
-    OUTLINED_FUNCTION_79_0();
-    sub_1B964C740();
-    result = sub_1B91FA498();
-    if (v1)
-    {
-      return result;
-    }
+    goto LABEL_5;
   }
 
-  v15 = *v0;
-  v16 = v0[1];
-  OUTLINED_FUNCTION_1();
-  if (!v17 || (OUTLINED_FUNCTION_11_5(), result = sub_1B964C700(), !v1))
-  {
-    if (!v0[2] || (v25 = *(v0 + 24), sub_1B91FE294(), OUTLINED_FUNCTION_79_0(), result = sub_1B964C680(), !v1))
-    {
-      v18 = v0[4];
-      v19 = v0[5];
-      OUTLINED_FUNCTION_1();
-      if (!v20 || (OUTLINED_FUNCTION_11_5(), result = sub_1B964C700(), !v1))
-      {
-        if (sub_1B8D99EA8(v0[6], v0[7]) || (v21 = v0[6], v22 = v0[7], OUTLINED_FUNCTION_11_5(), result = sub_1B964C6A0(), !v1))
-        {
-          if (!v0[8] || (v26 = *(v0 + 72), sub_1B91FE2E8(), OUTLINED_FUNCTION_79_0(), result = sub_1B964C680(), !v1))
-          {
-            v23 = *(v24 + 36);
-            return OUTLINED_FUNCTION_8_1();
-          }
-        }
-      }
-    }
-  }
-
-  return result;
+LABEL_6:
+  OUTLINED_FUNCTION_268_0();
+  OUTLINED_FUNCTION_272_0();
 }
 
-void static Apple_Parsec_Siri_V2alpha_MapItemBuilderParams.== infix(_:_:)()
+void static Apple_Parsec_Siri_V2alpha_VisualSearchContext.== infix(_:_:)()
 {
   OUTLINED_FUNCTION_284();
-  OUTLINED_FUNCTION_16();
-  v3 = type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams(0);
-  v4 = OUTLINED_FUNCTION_59_1(v3);
-  v6 = *(v5 + 64);
-  MEMORY[0x1EEE9AC00](v4);
-  OUTLINED_FUNCTION_62();
-  OUTLINED_FUNCTION_258();
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB9018, &unk_1B96A6290);
-  OUTLINED_FUNCTION_183(v7);
-  v9 = *(v8 + 64);
+  v1 = OUTLINED_FUNCTION_280();
+  type metadata accessor for Apple_Parsec_Visualsearch_V2_VisualQueryLite(v1);
+  OUTLINED_FUNCTION_59_1();
+  MEMORY[0x1EEE9AC00](v2);
+  OUTLINED_FUNCTION_31_8();
+  v3 = OUTLINED_FUNCTION_686();
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(v3, v4);
+  OUTLINED_FUNCTION_183(v5);
   OUTLINED_FUNCTION_176();
-  MEMORY[0x1EEE9AC00](v10);
-  v11 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB9020, &unk_1B964D810) - 8);
-  v12 = *(*v11 + 64);
-  OUTLINED_FUNCTION_176();
-  MEMORY[0x1EEE9AC00](v13);
+  MEMORY[0x1EEE9AC00](v6);
   OUTLINED_FUNCTION_79();
-  v31 = type metadata accessor for Apple_Parsec_Siri_V2alpha_MapItemBuilderParams(0);
-  v14 = *(v31 + 40);
-  v15 = v11[14];
-  OUTLINED_FUNCTION_162_1();
-  OUTLINED_FUNCTION_162_1();
-  OUTLINED_FUNCTION_37_0(v2);
-  if (!v16)
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAC9628, &unk_1B96B65D0);
+  OUTLINED_FUNCTION_176();
+  MEMORY[0x1EEE9AC00](v7);
+  v8 = OUTLINED_FUNCTION_22_3();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_VisualSearchContext(v8);
+  OUTLINED_FUNCTION_106_6();
+  sub_1B8D92024();
+  OUTLINED_FUNCTION_603_1();
+  OUTLINED_FUNCTION_50(v0);
+  if (v9)
   {
-    sub_1B8D92024();
-    OUTLINED_FUNCTION_37_0(v2 + v15);
-    if (!v16)
+    OUTLINED_FUNCTION_70_9();
+    if (v9)
     {
-      OUTLINED_FUNCTION_1_60();
-      sub_1B91FA3D0();
-      OUTLINED_FUNCTION_853();
-      if (v19 || (, , OUTLINED_FUNCTION_616(), v20 = sub_1B91F6CF8(), , , v20))
-      {
-        v21 = sub_1B964C2B0();
-        OUTLINED_FUNCTION_0_71();
-        sub_1B8CD2BE8(v22, v23);
-        OUTLINED_FUNCTION_147_6();
-        OUTLINED_FUNCTION_23_14();
-        sub_1B91FA498();
-        OUTLINED_FUNCTION_686();
-        sub_1B91FA498();
-        sub_1B8D9207C(v2, &qword_1EBAB9018, &unk_1B96A6290);
-        if ((v21 & 1) == 0)
-        {
-          goto LABEL_11;
-        }
-
-        goto LABEL_15;
-      }
-
-      OUTLINED_FUNCTION_26_19();
-      sub_1B91FA498();
-      sub_1B91FA498();
-      v17 = &qword_1EBAB9018;
-      v18 = &unk_1B96A6290;
-LABEL_10:
-      sub_1B8D9207C(v2, v17, v18);
-      goto LABEL_11;
+      sub_1B8D9207C(v0, &qword_1EBAC9418, &unk_1B96B5780);
+LABEL_12:
+      sub_1B964C2B0();
+      OUTLINED_FUNCTION_0_75();
+      sub_1B8CD2D08(v13, v14, MEMORY[0x1E69AAC10]);
+      v15 = OUTLINED_FUNCTION_288();
+      v10 = OUTLINED_FUNCTION_656_0(v15, v16);
+      goto LABEL_13;
     }
 
-    OUTLINED_FUNCTION_25_15();
-    sub_1B91FA498();
-LABEL_9:
-    v17 = &qword_1EBAB9020;
-    v18 = &unk_1B964D810;
-    goto LABEL_10;
-  }
-
-  OUTLINED_FUNCTION_37_0(v2 + v15);
-  if (!v16)
-  {
     goto LABEL_9;
   }
 
-  sub_1B8D9207C(v2, &qword_1EBAB9018, &unk_1B96A6290);
-LABEL_15:
-  v24 = *v1 == *v0 && *(v1 + 8) == *(v0 + 8);
-  if (v24 || (sub_1B964C9F0() & 1) != 0)
+  OUTLINED_FUNCTION_177_1();
+  sub_1B8D92024();
+  OUTLINED_FUNCTION_70_9();
+  if (v9)
   {
-    v25 = *(v0 + 24);
-    if (sub_1B8D92198(*(v1 + 16), *(v1 + 24), *(v0 + 16)))
-    {
-      v26 = *(v1 + 32) == *(v0 + 32) && *(v1 + 40) == *(v0 + 40);
-      if (v26 || (sub_1B964C9F0()) && (MEMORY[0x1BFADC060](*(v1 + 48), *(v1 + 56), *(v0 + 48), *(v0 + 56)))
-      {
-        v27 = *(v0 + 72);
-        if (sub_1B8D92198(*(v1 + 64), *(v1 + 72), *(v0 + 64)))
-        {
-          v28 = *(v31 + 36);
-          sub_1B964C2B0();
-          OUTLINED_FUNCTION_0_71();
-          sub_1B8CD2BE8(v29, v30);
-          OUTLINED_FUNCTION_199_0();
-        }
-      }
-    }
+    OUTLINED_FUNCTION_194_4();
+    sub_1B9239E50();
+LABEL_9:
+    sub_1B8D9207C(v0, &qword_1EBAC9628, &unk_1B96B65D0);
+    goto LABEL_10;
   }
 
-LABEL_11:
+  OUTLINED_FUNCTION_20_10();
+  sub_1B9239DA8();
+  OUTLINED_FUNCTION_246();
+  static Apple_Parsec_Visualsearch_V2_VisualQueryLite.== infix(_:_:)();
+  v12 = v11;
+  sub_1B9239E50();
+  OUTLINED_FUNCTION_467();
+  sub_1B9239E50();
+  sub_1B8D9207C(v0, &qword_1EBAC9418, &unk_1B96B5780);
+  if (v12)
+  {
+    goto LABEL_12;
+  }
+
+LABEL_10:
+  v10 = 0;
+LABEL_13:
+  OUTLINED_FUNCTION_264(v10);
   OUTLINED_FUNCTION_283();
 }
 
-uint64_t sub_1B91FCBAC(uint64_t a1, uint64_t a2)
+uint64_t sub_1B923ECAC(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_1B8CD2BE8(&qword_1EBAC89B0, type metadata accessor for Apple_Parsec_Siri_V2alpha_MapItemBuilderParams);
+  v4 = sub_1B8CD2D08(&qword_1EBAC9F48, type metadata accessor for Apple_Parsec_Siri_V2alpha_VisualSearchContext, protocol conformance descriptor for Apple_Parsec_Siri_V2alpha_VisualSearchContext);
 
   return MEMORY[0x1EEE15708](a1, a2, v4);
 }
 
-uint64_t sub_1B91FCC2C(uint64_t a1)
+uint64_t sub_1B923ED2C(uint64_t a1)
 {
-  v2 = sub_1B8CD2BE8(&qword_1EBAC87B8, type metadata accessor for Apple_Parsec_Siri_V2alpha_MapItemBuilderParams);
+  v2 = sub_1B8CD2D08(&qword_1EBAC9A40, type metadata accessor for Apple_Parsec_Siri_V2alpha_VisualSearchContext, protocol conformance descriptor for Apple_Parsec_Siri_V2alpha_VisualSearchContext);
 
   return MEMORY[0x1EEE15928](a1, v2);
 }
 
-uint64_t sub_1B91FCC9C()
+uint64_t sub_1B923ED9C(uint64_t a1, uint64_t a2)
 {
-  sub_1B8CD2BE8(&qword_1EBAC87B8, type metadata accessor for Apple_Parsec_Siri_V2alpha_MapItemBuilderParams);
+  sub_1B8CD2D08(&qword_1EBAC9A40, type metadata accessor for Apple_Parsec_Siri_V2alpha_VisualSearchContext, protocol conformance descriptor for Apple_Parsec_Siri_V2alpha_VisualSearchContext);
 
   return sub_1B964C5D0();
 }
 
-uint64_t sub_1B91FCD1C()
+uint64_t sub_1B923EE34()
 {
   v0 = sub_1B964C780();
-  __swift_allocate_value_buffer(v0, qword_1EBAC86E0);
-  __swift_project_value_buffer(v0, qword_1EBAC86E0);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB92F0, &unk_1B964DAD0);
-  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB92F8, &unk_1B964EE40) - 8);
-  v2 = *(*v1 + 72);
-  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v4 = swift_allocObject();
-  *(v4 + 16) = xmmword_1B9650810;
-  v5 = v4 + v3;
-  v6 = v4 + v3 + v1[14];
-  *(v4 + v3) = 0;
-  *v6 = "DETAIL_TYPE_UNKNOWN";
-  *(v6 + 8) = 19;
-  *(v6 + 16) = 2;
-  v7 = *MEMORY[0x1E69AADC8];
-  v8 = sub_1B964C750();
-  v9 = *(*(v8 - 8) + 104);
-  (v9)(v6, v7, v8);
-  v10 = v5 + v2 + v1[14];
-  *(v5 + v2) = 1;
-  *v10 = "CURRENT_LOCATION";
-  *(v10 + 8) = 16;
-  *(v10 + 16) = 2;
-  v9();
-  v11 = (v5 + 2 * v2);
-  v12 = v11 + v1[14];
-  *v11 = 2;
-  *v12 = "BUSINESS_ITEM";
-  *(v12 + 1) = 13;
-  v12[16] = 2;
-  v9();
-  v13 = (v5 + 3 * v2);
-  v14 = v13 + v1[14];
-  *v13 = 3;
-  *v14 = "PERSON_ITEM";
-  *(v14 + 1) = 11;
-  v14[16] = 2;
-  v9();
-  v15 = (v5 + 4 * v2);
-  v16 = v15 + v1[14];
-  *v15 = 4;
-  *v16 = "ADDRESS_ITEM";
-  *(v16 + 1) = 12;
-  v16[16] = 2;
-  v9();
-  v17 = (v5 + 5 * v2);
-  v18 = v17 + v1[14];
-  *v17 = 5;
-  *v18 = "HOME_ITEM";
-  *(v18 + 1) = 9;
-  v18[16] = 2;
-  v9();
-  v19 = (v5 + 6 * v2);
-  v20 = v19 + v1[14];
-  *v19 = 6;
-  *v20 = "PARKING_LOCATION";
-  *(v20 + 1) = 16;
-  v20[16] = 2;
-  v9();
-  return sub_1B964C760();
-}
-
-uint64_t sub_1B91FD03C()
-{
-  v0 = sub_1B964C780();
-  __swift_allocate_value_buffer(v0, qword_1EBAC86F8);
-  __swift_project_value_buffer(v0, qword_1EBAC86F8);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB92F0, &unk_1B964DAD0);
-  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB92F8, &unk_1B964EE40) - 8);
-  v2 = *(*v1 + 72);
-  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v4 = swift_allocObject();
-  *(v4 + 16) = xmmword_1B964EE60;
-  v5 = (v4 + v3);
-  v6 = v4 + v3 + v1[14];
-  *v5 = 0;
-  *v6 = "ROLE_UNKNOWN";
-  *(v6 + 8) = 12;
-  *(v6 + 16) = 2;
-  v7 = *MEMORY[0x1E69AADC8];
-  v8 = sub_1B964C750();
-  v9 = *(*(v8 - 8) + 104);
-  (v9)(v6, v7, v8);
-  v10 = v5 + v2 + v1[14];
-  *(v5 + v2) = 1;
-  *v10 = "ROLE_FROM";
-  *(v10 + 1) = 9;
-  v10[16] = 2;
-  v9();
-  v11 = (v5 + 2 * v2);
-  v12 = v11 + v1[14];
-  *v11 = 2;
-  *v12 = "ROLE_TO";
-  *(v12 + 1) = 7;
-  v12[16] = 2;
-  v9();
-  return sub_1B964C760();
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_ExtendCurrentTTS.decodeMessage<A>(decoder:)()
-{
-  do
-  {
-    OUTLINED_FUNCTION_182();
-    result = sub_1B964C3C0();
-  }
-
-  while (!v0 && (v2 & 1) == 0);
-  return result;
-}
-
-uint64_t sub_1B91FD370(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_1B8CD2BE8(&qword_1EBAC89A8, type metadata accessor for Apple_Parsec_Siri_V2alpha_ExtendCurrentTTS);
-
-  return MEMORY[0x1EEE15708](a1, a2, v4);
-}
-
-uint64_t sub_1B91FD3F0(uint64_t a1)
-{
-  v2 = sub_1B8CD2BE8(&qword_1EBAC8500, type metadata accessor for Apple_Parsec_Siri_V2alpha_ExtendCurrentTTS);
-
-  return MEMORY[0x1EEE15928](a1, v2);
-}
-
-uint64_t sub_1B91FD460()
-{
-  sub_1B8CD2BE8(&qword_1EBAC8500, type metadata accessor for Apple_Parsec_Siri_V2alpha_ExtendCurrentTTS);
-
-  return sub_1B964C5D0();
-}
-
-uint64_t sub_1B91FD4F4()
-{
-  v0 = sub_1B964C780();
-  __swift_allocate_value_buffer(v0, qword_1EBAC8728);
-  __swift_project_value_buffer(v0, qword_1EBAC8728);
+  __swift_allocate_value_buffer(v0, qword_1EBAB4AF8);
+  __swift_project_value_buffer(v0, qword_1EBAB4AF8);
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB92F0, &unk_1B964DAD0);
   v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB92F8, &unk_1B964EE40) - 8);
   v2 = *(*v1 + 72);
@@ -8816,8 +8747,8 @@ uint64_t sub_1B91FD4F4()
   v5 = (v4 + v3);
   v6 = v4 + v3 + v1[14];
   *v5 = 1;
-  *v6 = "domain_objects";
-  *(v6 + 8) = 14;
+  *v6 = "model_version";
+  *(v6 + 8) = 13;
   *(v6 + 16) = 2;
   v7 = *MEMORY[0x1E69AADE8];
   v8 = sub_1B964C750();
@@ -8825,1012 +8756,1672 @@ uint64_t sub_1B91FD4F4()
   (v9)(v6, v7, v8);
   v10 = v5 + v2 + v1[14];
   *(v5 + v2) = 2;
-  *v10 = "selected_item_index";
-  *(v10 + 1) = 19;
+  *v10 = "acoustic_model_version";
+  *(v10 + 1) = 22;
   v10[16] = 2;
   v9();
   return sub_1B964C760();
 }
 
-uint64_t Apple_Parsec_Siri_V2alpha_MapItemListBuilderParams.decodeMessage<A>(decoder:)()
+void sub_1B923F07C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  OUTLINED_FUNCTION_692();
-  while (1)
+  OUTLINED_FUNCTION_605_1();
+  v7 = v6;
+  OUTLINED_FUNCTION_1_15();
+  if (!v8 || (OUTLINED_FUNCTION_11_5(), sub_1B964C700(), !v5))
   {
-    OUTLINED_FUNCTION_186();
-    result = sub_1B964C3C0();
-    if (v0 || (v2 & 1) != 0)
+    OUTLINED_FUNCTION_1();
+    if (!v9 || (OUTLINED_FUNCTION_11_5(), sub_1B964C700(), !v5))
     {
-      break;
-    }
-
-    if (result == 2)
-    {
-      OUTLINED_FUNCTION_12();
-      sub_1B964C4B0();
-    }
-
-    else if (result == 1)
-    {
-      OUTLINED_FUNCTION_9();
-      sub_1B91FD748();
+      v7(0);
+      OUTLINED_FUNCTION_8_1();
     }
   }
 
-  return result;
+  OUTLINED_FUNCTION_606_1();
 }
 
-uint64_t sub_1B91FD748()
+uint64_t sub_1B923F1AC(uint64_t a1, uint64_t a2)
 {
-  OUTLINED_FUNCTION_147_1();
-  type metadata accessor for Apple_Parsec_Siri_V2alpha_MapItemBuilderParams(0);
-  OUTLINED_FUNCTION_8_33();
-  sub_1B8CD2BE8(v0, v1);
-  OUTLINED_FUNCTION_153_1();
-  return sub_1B964C570();
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_MapItemListBuilderParams.traverse<A>(visitor:)()
-{
-  OUTLINED_FUNCTION_614();
-  if (!*(*v0 + 16) || (type metadata accessor for Apple_Parsec_Siri_V2alpha_MapItemBuilderParams(0), OUTLINED_FUNCTION_8_33(), sub_1B8CD2BE8(v3, v4), OUTLINED_FUNCTION_231(), OUTLINED_FUNCTION_79_0(), result = sub_1B964C730(), !v1))
-  {
-    if (!*(v2 + 8) || (OUTLINED_FUNCTION_79_0(), OUTLINED_FUNCTION_24_3(), result = sub_1B964C6D0(), !v1))
-    {
-      v6 = *(type metadata accessor for Apple_Parsec_Siri_V2alpha_MapItemListBuilderParams(0) + 24);
-      return OUTLINED_FUNCTION_8_1();
-    }
-  }
-
-  return result;
-}
-
-uint64_t static Apple_Parsec_Siri_V2alpha_MapItemListBuilderParams.== infix(_:_:)()
-{
-  OUTLINED_FUNCTION_468();
-  v3 = *v2;
-  v5 = *v4;
-  sub_1B8D63B18();
-  if ((v6 & 1) == 0 || *(v1 + 8) != *(v0 + 8))
-  {
-    return 0;
-  }
-
-  v7 = *(type metadata accessor for Apple_Parsec_Siri_V2alpha_MapItemListBuilderParams(0) + 24);
-  sub_1B964C2B0();
-  OUTLINED_FUNCTION_0_71();
-  sub_1B8CD2BE8(v8, v9);
-  return OUTLINED_FUNCTION_634() & 1;
-}
-
-uint64_t sub_1B91FD9CC(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_1B8CD2BE8(&qword_1EBAC89A0, type metadata accessor for Apple_Parsec_Siri_V2alpha_MapItemListBuilderParams);
+  v4 = sub_1B8CD2D08(&qword_1EBAC9F40, type metadata accessor for Apple_Parsec_Siri_V2alpha_ASRContext, protocol conformance descriptor for Apple_Parsec_Siri_V2alpha_ASRContext);
 
   return MEMORY[0x1EEE15708](a1, a2, v4);
 }
 
-uint64_t sub_1B91FDA4C(uint64_t a1)
+uint64_t sub_1B923F22C(uint64_t a1)
 {
-  v2 = sub_1B8CD2BE8(&qword_1EBAC8950, type metadata accessor for Apple_Parsec_Siri_V2alpha_MapItemListBuilderParams);
+  v2 = sub_1B8CD2D08(&qword_1EBAB4AE8, type metadata accessor for Apple_Parsec_Siri_V2alpha_ASRContext, protocol conformance descriptor for Apple_Parsec_Siri_V2alpha_ASRContext);
 
   return MEMORY[0x1EEE15928](a1, v2);
 }
 
-uint64_t sub_1B91FDABC()
+uint64_t sub_1B923F29C(uint64_t a1, uint64_t a2)
 {
-  sub_1B8CD2BE8(&qword_1EBAC8950, type metadata accessor for Apple_Parsec_Siri_V2alpha_MapItemListBuilderParams);
+  sub_1B8CD2D08(&qword_1EBAB4AE8, type metadata accessor for Apple_Parsec_Siri_V2alpha_ASRContext, protocol conformance descriptor for Apple_Parsec_Siri_V2alpha_ASRContext);
 
   return sub_1B964C5D0();
 }
 
-uint64_t sub_1B91FDB54()
+uint64_t sub_1B923F328()
 {
   v0 = sub_1B964C780();
-  __swift_allocate_value_buffer(v0, qword_1EBAC8740);
-  __swift_project_value_buffer(v0, qword_1EBAC8740);
+  __swift_allocate_value_buffer(v0, qword_1EBAB5B40);
+  __swift_project_value_buffer(v0, qword_1EBAB5B40);
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB92F0, &unk_1B964DAD0);
   v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB92F8, &unk_1B964EE40) - 8);
   v2 = *(*v1 + 72);
   v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v4 = swift_allocObject();
-  *(v4 + 16) = xmmword_1B964D050;
-  v5 = v4 + v3 + v1[14];
-  *(v4 + v3) = 1;
-  *v5 = "item_index";
-  *(v5 + 8) = 10;
-  *(v5 + 16) = 2;
-  v6 = *MEMORY[0x1E69AADE8];
-  v7 = sub_1B964C750();
-  (*(*(v7 - 8) + 104))(v5, v6, v7);
+  v40 = swift_allocObject();
+  *(v40 + 16) = xmmword_1B96566C0;
+  v4 = v40 + v3 + v1[14];
+  *(v40 + v3) = 1;
+  *v4 = "queries";
+  *(v4 + 8) = 7;
+  *(v4 + 16) = 2;
+  v5 = *MEMORY[0x1E69AADC8];
+  v6 = sub_1B964C750();
+  v7 = *(*(v6 - 8) + 104);
+  (v7)(v4, v5, v6);
+  v8 = v40 + v3 + v2 + v1[14];
+  *(v40 + v3 + v2) = 19;
+  *v8 = "query";
+  *(v8 + 8) = 5;
+  *(v8 + 16) = 2;
+  v7();
+  v9 = (v40 + v3 + 2 * v2);
+  v10 = v9 + v1[14];
+  *v9 = 2;
+  *v10 = "query_context";
+  *(v10 + 1) = 13;
+  v10[16] = 2;
+  v7();
+  v11 = (v40 + v3 + 3 * v2);
+  v12 = v11 + v1[14];
+  *v11 = 3;
+  *v12 = "user_data_share_opt_in";
+  *(v12 + 1) = 22;
+  v12[16] = 2;
+  v7();
+  v13 = (v40 + v3 + 4 * v2);
+  v14 = v13 + v1[14];
+  *v13 = 4;
+  *v14 = "feature_flag";
+  *(v14 + 1) = 12;
+  v14[16] = 2;
+  v7();
+  v15 = (v40 + v3 + 5 * v2);
+  v16 = v15 + v1[14];
+  *v15 = 5;
+  *v16 = "siri_pegasus_context";
+  *(v16 + 1) = 20;
+  v16[16] = 2;
+  v7();
+  v17 = (v40 + v3 + 6 * v2);
+  v18 = v17 + v1[14];
+  *v17 = 6;
+  *v18 = "siri_environment";
+  *(v18 + 1) = 16;
+  v18[16] = 2;
+  v7();
+  v19 = (v40 + v3 + 7 * v2);
+  v20 = v19 + v1[14];
+  *v19 = 7;
+  *v20 = "is_siri_internal_request";
+  *(v20 + 1) = 24;
+  v20[16] = 2;
+  v7();
+  v21 = (v40 + v3 + 8 * v2);
+  v22 = v21 + v1[14];
+  *v21 = 8;
+  *v22 = "is_data_only_request";
+  *(v22 + 1) = 20;
+  v22[16] = 2;
+  v7();
+  v23 = (v40 + v3 + 9 * v2);
+  v24 = v23 + v1[14];
+  *v23 = 9;
+  *v24 = "trial_identifiers";
+  *(v24 + 1) = 17;
+  v24[16] = 2;
+  v7();
+  v25 = (v40 + v3 + 10 * v2);
+  v26 = v25 + v1[14];
+  *v25 = 11;
+  *v26 = "client_conversation_context_info";
+  *(v26 + 1) = 32;
+  v26[16] = 2;
+  v7();
+  v27 = (v40 + v3 + 11 * v2);
+  v28 = v27 + v1[14];
+  *v27 = 12;
+  *v28 = "conversation_context_bytes";
+  *(v28 + 1) = 26;
+  v28[16] = 2;
+  v7();
+  v29 = (v40 + v3 + 12 * v2);
+  v30 = v29 + v1[14];
+  *v29 = 13;
+  *v30 = "request_type";
+  *(v30 + 1) = 12;
+  v30[16] = 2;
+  v7();
+  v31 = (v40 + v3 + 13 * v2);
+  v32 = v31 + v1[14];
+  *v31 = 15;
+  *v32 = "pommes_request_context";
+  *(v32 + 1) = 22;
+  v32[16] = 2;
+  v7();
+  v33 = (v40 + v3 + 14 * v2);
+  v34 = v33 + v1[14];
+  *v33 = 16;
+  *v34 = "visual_search_context";
+  *(v34 + 1) = 21;
+  v34[16] = 2;
+  v7();
+  v35 = (v40 + v3 + 15 * v2);
+  v36 = v35 + v1[14];
+  *v35 = 17;
+  *v36 = "asr_context";
+  *(v36 + 1) = 11;
+  v36[16] = 2;
+  v7();
+  v37 = (v40 + v3 + 16 * v2);
+  v38 = v37 + v1[14];
+  *v37 = 18;
+  *v38 = "search_conversation_context";
+  *(v38 + 1) = 27;
+  v38[16] = 2;
+  v7();
   return sub_1B964C760();
 }
 
-uint64_t Apple_Parsec_Siri_V2alpha_ShowPlaceDetailsBuilderParams.decodeMessage<A>(decoder:)()
+uint64_t sub_1B923F8F0(uint64_t a1, void (*a2)(void), uint64_t (*a3)(void), uint64_t *a4)
 {
-  OUTLINED_FUNCTION_692();
+  a2(0);
+  OUTLINED_FUNCTION_57_0();
+  swift_allocObject();
+  result = a3();
+  *a4 = result;
+  return result;
+}
+
+uint64_t sub_1B923F940()
+{
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 16) = MEMORY[0x1E69E7CC0];
+  v2 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__query;
+  v3 = type metadata accessor for Apple_Parsec_Siri_V2alpha_PegasusSearchQuery(0);
+  __swift_storeEnumTagSinglePayload(v0 + v2, 1, 1, v3);
+  v4 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__queryContext;
+  Context = type metadata accessor for Apple_Parsec_Search_PegasusQueryContext(0);
+  __swift_storeEnumTagSinglePayload(v0 + v4, 1, 1, Context);
+  *(v0 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__userDataShareOptIn) = 0;
+  v6 = (v0 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__featureFlag);
+  *v6 = 0;
+  v6[1] = 0xE000000000000000;
+  v7 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__siriPegasusContext;
+  v8 = type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriPegasusContext(0);
+  __swift_storeEnumTagSinglePayload(v0 + v7, 1, 1, v8);
+  v9 = v0 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__siriEnvironment;
+  *v9 = 0;
+  *(v9 + 8) = 1;
+  *(v0 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__isSiriInternalRequest) = 0;
+  *(v0 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__isDataOnlyRequest) = 0;
+  *(v0 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__trialIdentifiers) = v1;
+  v10 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__clientConversationContextInfo;
+  v11 = type metadata accessor for Apple_Parsec_Siri_Context_ClientConversationContextInfo(0);
+  __swift_storeEnumTagSinglePayload(v0 + v10, 1, 1, v11);
+  *(v0 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__conversationContextBytes) = xmmword_1B9652FE0;
+  v12 = v0 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__requestType;
+  *v12 = 0;
+  *(v12 + 8) = 1;
+  v13 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__pommesRequestContext;
+  v14 = type metadata accessor for Apple_Parsec_Siri_V2alpha_POMMESRequestContext(0);
+  __swift_storeEnumTagSinglePayload(v0 + v13, 1, 1, v14);
+  v15 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__visualSearchContext;
+  v16 = type metadata accessor for Apple_Parsec_Siri_V2alpha_VisualSearchContext(0);
+  __swift_storeEnumTagSinglePayload(v0 + v15, 1, 1, v16);
+  v17 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__asrContext;
+  v18 = type metadata accessor for Apple_Parsec_Siri_V2alpha_ASRContext(0);
+  __swift_storeEnumTagSinglePayload(v0 + v17, 1, 1, v18);
+  v19 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__searchConversationContext;
+  v20 = type metadata accessor for Apple_Parsec_Search_SearchConversationContext(0);
+  __swift_storeEnumTagSinglePayload(v0 + v19, 1, 1, v20);
+  return v0;
+}
+
+uint64_t sub_1B923FB18(uint64_t a1)
+{
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAC9448, &qword_1B96AA708);
+  MEMORY[0x1EEE9AC00](v3 - 8);
+  v82 = &v63 - v4;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAC9440, &qword_1B96AA700);
+  MEMORY[0x1EEE9AC00](v5 - 8);
+  v81 = &v63 - v6;
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EBAC9438, &qword_1B96AA6F8);
+  MEMORY[0x1EEE9AC00](v7 - 8);
+  v80 = &v63 - v8;
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EBAC9430, &qword_1B96AA6F0);
+  MEMORY[0x1EEE9AC00](v9 - 8);
+  v79 = &v63 - v10;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAC9428, &qword_1B96AA6E8);
+  MEMORY[0x1EEE9AC00](v11 - 8);
+  v77 = &v63 - v12;
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EBAC9420, &qword_1B96AA6E0);
+  MEMORY[0x1EEE9AC00](v13 - 8);
+  v71 = &v63 - v14;
+  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBABED40, &qword_1B96809F0);
+  MEMORY[0x1EEE9AC00](v15 - 8);
+  v66 = &v63 - v16;
+  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBABED38, &unk_1B966BBE0);
+  MEMORY[0x1EEE9AC00](v17 - 8);
+  v18 = MEMORY[0x1E69E7CC0];
+  *(v1 + 16) = MEMORY[0x1E69E7CC0];
+  v19 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__query;
+  v20 = type metadata accessor for Apple_Parsec_Siri_V2alpha_PegasusSearchQuery(0);
+  __swift_storeEnumTagSinglePayload(v1 + v19, 1, 1, v20);
+  v21 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__queryContext;
+  v63 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__queryContext;
+  Context = type metadata accessor for Apple_Parsec_Search_PegasusQueryContext(0);
+  __swift_storeEnumTagSinglePayload(v1 + v21, 1, 1, Context);
+  v65 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__userDataShareOptIn;
+  *(v1 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__userDataShareOptIn) = 0;
+  v23 = (v1 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__featureFlag);
+  *v23 = 0;
+  v23[1] = 0xE000000000000000;
+  v24 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__siriPegasusContext;
+  v67 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__siriPegasusContext;
+  v25 = type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriPegasusContext(0);
+  __swift_storeEnumTagSinglePayload(v1 + v24, 1, 1, v25);
+  v26 = v1 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__siriEnvironment;
+  *v26 = 0;
+  *(v26 + 8) = 1;
+  v68 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__isSiriInternalRequest;
+  *(v1 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__isSiriInternalRequest) = 0;
+  v69 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__isDataOnlyRequest;
+  *(v1 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__isDataOnlyRequest) = 0;
+  v70 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__trialIdentifiers;
+  *(v1 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__trialIdentifiers) = v18;
+  v27 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__clientConversationContextInfo;
+  v72 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__clientConversationContextInfo;
+  v28 = type metadata accessor for Apple_Parsec_Siri_Context_ClientConversationContextInfo(0);
+  __swift_storeEnumTagSinglePayload(v1 + v27, 1, 1, v28);
+  v64 = (v1 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__conversationContextBytes);
+  *(v1 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__conversationContextBytes) = xmmword_1B9652FE0;
+  v29 = v1 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__requestType;
+  v73 = v1 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__requestType;
+  *v29 = 0;
+  *(v29 + 8) = 1;
+  v30 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__pommesRequestContext;
+  v74 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__pommesRequestContext;
+  v31 = type metadata accessor for Apple_Parsec_Siri_V2alpha_POMMESRequestContext(0);
+  __swift_storeEnumTagSinglePayload(v1 + v30, 1, 1, v31);
+  v32 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__visualSearchContext;
+  v75 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__visualSearchContext;
+  v33 = type metadata accessor for Apple_Parsec_Siri_V2alpha_VisualSearchContext(0);
+  __swift_storeEnumTagSinglePayload(v1 + v32, 1, 1, v33);
+  v34 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__asrContext;
+  v76 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__asrContext;
+  v35 = type metadata accessor for Apple_Parsec_Siri_V2alpha_ASRContext(0);
+  __swift_storeEnumTagSinglePayload(v1 + v34, 1, 1, v35);
+  v36 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__searchConversationContext;
+  v78 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__searchConversationContext;
+  v37 = type metadata accessor for Apple_Parsec_Search_SearchConversationContext(0);
+  __swift_storeEnumTagSinglePayload(v1 + v36, 1, 1, v37);
+  swift_beginAccess();
+  v38 = *(a1 + 16);
+  swift_beginAccess();
+  *(v1 + 16) = v38;
+  swift_beginAccess();
+  sub_1B8D92024();
+  swift_beginAccess();
+
+  sub_1B8DAA170();
+  swift_endAccess();
+  swift_beginAccess();
+  sub_1B8D92024();
+  swift_beginAccess();
+  sub_1B8DAA170();
+  swift_endAccess();
+  v39 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__userDataShareOptIn;
+  swift_beginAccess();
+  LOBYTE(v39) = *(a1 + v39);
+  v40 = v65;
+  swift_beginAccess();
+  *(v1 + v40) = v39;
+  v41 = (a1 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__featureFlag);
+  swift_beginAccess();
+  v43 = *v41;
+  v42 = v41[1];
+  swift_beginAccess();
+  *v23 = v43;
+  v23[1] = v42;
+
+  swift_beginAccess();
+  sub_1B8D92024();
+  swift_beginAccess();
+  sub_1B8DAA170();
+  swift_endAccess();
+  v44 = (a1 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__siriEnvironment);
+  swift_beginAccess();
+  v45 = *v44;
+  LOBYTE(v44) = *(v44 + 8);
+  swift_beginAccess();
+  *v26 = v45;
+  *(v26 + 8) = v44;
+  v46 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__isSiriInternalRequest;
+  swift_beginAccess();
+  LOBYTE(v46) = *(a1 + v46);
+  v47 = v68;
+  swift_beginAccess();
+  *(v1 + v47) = v46;
+  v48 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__isDataOnlyRequest;
+  swift_beginAccess();
+  LOBYTE(v48) = *(a1 + v48);
+  v49 = v69;
+  swift_beginAccess();
+  *(v1 + v49) = v48;
+  v50 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__trialIdentifiers;
+  swift_beginAccess();
+  v51 = *(a1 + v50);
+  v52 = v70;
+  swift_beginAccess();
+  *(v1 + v52) = v51;
+
+  swift_beginAccess();
+  sub_1B8D92024();
+  swift_beginAccess();
+  sub_1B8DAA170();
+  swift_endAccess();
+  v53 = (a1 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__conversationContextBytes);
+  swift_beginAccess();
+  v55 = *v53;
+  v54 = v53[1];
+  v56 = v64;
+  swift_beginAccess();
+  v57 = *v56;
+  v58 = v56[1];
+  *v56 = v55;
+  v56[1] = v54;
+  sub_1B8D91FCC(v55, v54);
+  sub_1B8D538A0(v57, v58);
+  v59 = (a1 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__requestType);
+  swift_beginAccess();
+  v60 = *v59;
+  LOBYTE(v59) = *(v59 + 8);
+  v61 = v73;
+  swift_beginAccess();
+  *v61 = v60;
+  *(v61 + 8) = v59;
+  swift_beginAccess();
+  sub_1B8D92024();
+  swift_beginAccess();
+  sub_1B8DAA170();
+  swift_endAccess();
+  swift_beginAccess();
+  sub_1B8D92024();
+  swift_beginAccess();
+  sub_1B8DAA170();
+  swift_endAccess();
+  swift_beginAccess();
+  sub_1B8D92024();
+  swift_beginAccess();
+  sub_1B8DAA170();
+  swift_endAccess();
+  swift_beginAccess();
+  sub_1B8D92024();
+
+  swift_beginAccess();
+  sub_1B8DAA170();
+  swift_endAccess();
+  return v1;
+}
+
+uint64_t sub_1B9240624()
+{
+
+  sub_1B8D9207C(v0 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__query, &qword_1EBABED38, &unk_1B966BBE0);
+  sub_1B8D9207C(v0 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__queryContext, &qword_1EBABED40, &qword_1B96809F0);
+
+  sub_1B8D9207C(v0 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__siriPegasusContext, &unk_1EBAC9420, &qword_1B96AA6E0);
+
+  sub_1B8D9207C(v0 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__clientConversationContextInfo, &qword_1EBAC9428, &qword_1B96AA6E8);
+  sub_1B8D538A0(*(v0 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__conversationContextBytes), *(v0 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__conversationContextBytes + 8));
+  sub_1B8D9207C(v0 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__pommesRequestContext, &unk_1EBAC9430, &qword_1B96AA6F0);
+  sub_1B8D9207C(v0 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__visualSearchContext, &unk_1EBAC9438, &qword_1B96AA6F8);
+  sub_1B8D9207C(v0 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__asrContext, &qword_1EBAC9440, &qword_1B96AA700);
+  sub_1B8D9207C(v0 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__searchConversationContext, &qword_1EBAC9448, &qword_1B96AA708);
+  return v0;
+}
+
+void sub_1B92407EC()
+{
+  OUTLINED_FUNCTION_273_0();
+  v2 = v1;
+  v9 = v3;
+  v5 = v4;
+  v7 = *(v6(0) + 20);
+  if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+  {
+    v5(0);
+    OUTLINED_FUNCTION_57_0();
+    swift_allocObject();
+    v8 = OUTLINED_FUNCTION_40_0();
+    *(v0 + v7) = v9(v8);
+  }
+
+  OUTLINED_FUNCTION_445_0();
+  v2();
+  OUTLINED_FUNCTION_272_0();
+}
+
+uint64_t sub_1B924089C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
   while (1)
   {
-    OUTLINED_FUNCTION_186();
     result = sub_1B964C3C0();
-    if (v0 || (v2 & 1) != 0)
+    if (v4 || (v10 & 1) != 0)
     {
-      break;
+      return result;
     }
 
-    if (result == 1)
+    switch(result)
     {
-      OUTLINED_FUNCTION_12();
-      sub_1B964C4B0();
-    }
-  }
-
-  return result;
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_ShowPlaceDetailsBuilderParams.traverse<A>(visitor:)()
-{
-  OUTLINED_FUNCTION_614();
-  if (!*v0 || (OUTLINED_FUNCTION_79_0(), OUTLINED_FUNCTION_24_3(), result = sub_1B964C6D0(), !v1))
-  {
-    v3 = *(type metadata accessor for Apple_Parsec_Siri_V2alpha_ShowPlaceDetailsBuilderParams(0) + 20);
-    return OUTLINED_FUNCTION_8_1();
-  }
-
-  return result;
-}
-
-uint64_t sub_1B91FDE40(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_1B8CD2BE8(&qword_1EBAC8998, type metadata accessor for Apple_Parsec_Siri_V2alpha_ShowPlaceDetailsBuilderParams);
-
-  return MEMORY[0x1EEE15708](a1, a2, v4);
-}
-
-uint64_t sub_1B91FDEC0(uint64_t a1)
-{
-  v2 = sub_1B8CD2BE8(&qword_1EBAC8508, type metadata accessor for Apple_Parsec_Siri_V2alpha_ShowPlaceDetailsBuilderParams);
-
-  return MEMORY[0x1EEE15928](a1, v2);
-}
-
-uint64_t sub_1B91FDF30()
-{
-  sub_1B8CD2BE8(&qword_1EBAC8508, type metadata accessor for Apple_Parsec_Siri_V2alpha_ShowPlaceDetailsBuilderParams);
-
-  return sub_1B964C5D0();
-}
-
-uint64_t sub_1B91FDFD4(uint64_t a1, uint64_t *a2)
-{
-  v3 = sub_1B964C780();
-  __swift_allocate_value_buffer(v3, a2);
-  v4 = OUTLINED_FUNCTION_288();
-  __swift_project_value_buffer(v4, v5);
-  return sub_1B964C770();
-}
-
-uint64_t sub_1B91FE084(void (*a1)(void))
-{
-  sub_1B964CA70();
-  a1(0);
-  v2 = OUTLINED_FUNCTION_461();
-  sub_1B8CD2BE8(v2, v3);
-  sub_1B964C7E0();
-  return sub_1B964CA90();
-}
-
-uint64_t sub_1B91FE128(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_1B8CD2BE8(&qword_1EBAC8990, type metadata accessor for Apple_Parsec_Siri_V2alpha_NavigationEndBuilderParams);
-
-  return MEMORY[0x1EEE15708](a1, a2, v4);
-}
-
-uint64_t sub_1B91FE1A8(uint64_t a1)
-{
-  v2 = sub_1B8CD2BE8(&qword_1EBAC8510, type metadata accessor for Apple_Parsec_Siri_V2alpha_NavigationEndBuilderParams);
-
-  return MEMORY[0x1EEE15928](a1, v2);
-}
-
-uint64_t sub_1B91FE218()
-{
-  sub_1B8CD2BE8(&qword_1EBAC8510, type metadata accessor for Apple_Parsec_Siri_V2alpha_NavigationEndBuilderParams);
-
-  return sub_1B964C5D0();
-}
-
-unint64_t sub_1B91FE294()
-{
-  result = qword_1EBAC87D0;
-  if (!qword_1EBAC87D0)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1EBAC87D0);
-  }
-
-  return result;
-}
-
-unint64_t sub_1B91FE2E8()
-{
-  result = qword_1EBAC87D8;
-  if (!qword_1EBAC87D8)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1EBAC87D8);
-  }
-
-  return result;
-}
-
-unint64_t sub_1B91FE380()
-{
-  result = qword_1EBAC8808;
-  if (!qword_1EBAC8808)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1EBAC8808);
-  }
-
-  return result;
-}
-
-unint64_t sub_1B91FE3D8()
-{
-  result = qword_1EBAC8810;
-  if (!qword_1EBAC8810)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1EBAC8810);
-  }
-
-  return result;
-}
-
-unint64_t sub_1B91FE430()
-{
-  result = qword_1EBAC8818;
-  if (!qword_1EBAC8818)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1EBAC8818);
-  }
-
-  return result;
-}
-
-unint64_t sub_1B91FE4B8()
-{
-  result = qword_1EBAC8830;
-  if (!qword_1EBAC8830)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1EBAC8830);
-  }
-
-  return result;
-}
-
-unint64_t sub_1B91FE510()
-{
-  result = qword_1EBAC8838;
-  if (!qword_1EBAC8838)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1EBAC8838);
-  }
-
-  return result;
-}
-
-unint64_t sub_1B91FE568()
-{
-  result = qword_1EBAC8840;
-  if (!qword_1EBAC8840)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1EBAC8840);
-  }
-
-  return result;
-}
-
-unint64_t sub_1B91FE5F0()
-{
-  result = qword_1EBAC8858;
-  if (!qword_1EBAC8858)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1EBAC8858);
-  }
-
-  return result;
-}
-
-unint64_t sub_1B91FE648()
-{
-  result = qword_1EBAC8860;
-  if (!qword_1EBAC8860)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1EBAC8860);
-  }
-
-  return result;
-}
-
-unint64_t sub_1B91FE6A0()
-{
-  result = qword_1EBAC8868;
-  if (!qword_1EBAC8868)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1EBAC8868);
-  }
-
-  return result;
-}
-
-unint64_t sub_1B91FE6F8()
-{
-  result = qword_1EBAC8870;
-  if (!qword_1EBAC8870)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1EBAC8870);
-  }
-
-  return result;
-}
-
-unint64_t sub_1B91FE750()
-{
-  result = qword_1EBAC8878;
-  if (!qword_1EBAC8878)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1EBAC8878);
-  }
-
-  return result;
-}
-
-unint64_t sub_1B91FE7A8()
-{
-  result = qword_1EBAC8880;
-  if (!qword_1EBAC8880)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1EBAC8880);
-  }
-
-  return result;
-}
-
-void sub_1B91FF604()
-{
-  sub_1B964C2B0();
-  if (v0 <= 0x3F)
-  {
-    sub_1B91FFA98(319, &qword_1ED9EB878, type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams, MEMORY[0x1E69E6720]);
-    if (v1 <= 0x3F)
-    {
-      swift_cvw_initStructMetadataWithLayoutString();
+      case 1:
+        sub_1B9240B8C(a2, a1, a3, a4);
+        continue;
+      case 2:
+        sub_1B9240C58(a2, a1, a3, a4);
+        continue;
+      case 3:
+      case 7:
+      case 8:
+        sub_1B92682B0();
+        continue;
+      case 4:
+        v18 = MEMORY[0x1E69AACE0];
+        v19 = a2;
+        v20 = a1;
+        v21 = a3;
+        v22 = a4;
+        v23 = &OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__featureFlag;
+        goto LABEL_19;
+      case 5:
+        sub_1B9240D34(a2, a1, a3, a4);
+        continue;
+      case 6:
+        v11 = sub_1B9284470;
+        v12 = a2;
+        v13 = a1;
+        v14 = a3;
+        v15 = a4;
+        v16 = &OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__siriEnvironment;
+        v17 = &type metadata for Apple_Parsec_Siri_V2alpha_SiriEnvironment;
+        goto LABEL_15;
+      case 9:
+        sub_1B9240E10(a2, a1, a3, a4);
+        continue;
+      case 11:
+        sub_1B9240EEC(a2, a1, a3, a4);
+        continue;
+      case 12:
+        v18 = MEMORY[0x1E69AAC78];
+        v19 = a2;
+        v20 = a1;
+        v21 = a3;
+        v22 = a4;
+        v23 = &OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__conversationContextBytes;
+LABEL_19:
+        sub_1B9268110(v19, v20, v21, v22, v23, v18);
+        continue;
+      case 13:
+        v11 = sub_1B928441C;
+        v12 = a2;
+        v13 = a1;
+        v14 = a3;
+        v15 = a4;
+        v16 = &OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__requestType;
+        v17 = &type metadata for Apple_Parsec_Siri_V2alpha_RequestType;
+LABEL_15:
+        sub_1B9268194(v12, v13, v14, v15, v16, v11, v17);
+        break;
+      case 15:
+        sub_1B9240FC8(a2, a1, a3, a4);
+        break;
+      case 16:
+        sub_1B92410A4(a2, a1, a3, a4);
+        break;
+      case 17:
+        sub_1B9241180(a2, a1, a3, a4);
+        break;
+      case 18:
+        sub_1B924125C(a2, a1, a3, a4);
+        break;
+      case 19:
+        sub_1B9241338(a2, a1, a3, a4);
+        break;
+      default:
+        continue;
     }
   }
 }
 
-uint64_t __swift_store_extra_inhabitant_index_108Tm(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
+uint64_t sub_1B9240B8C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  OUTLINED_FUNCTION_468();
-  v8 = sub_1B964C2B0();
-  result = OUTLINED_FUNCTION_128_1(v8);
-  if (*(v10 + 84) == a3)
-  {
-    OUTLINED_FUNCTION_231();
-    OUTLINED_FUNCTION_81_0();
+  swift_beginAccess();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_PegasusSearchQuery(0);
+  sub_1B8CD2D08(&qword_1EBAB5CA8, type metadata accessor for Apple_Parsec_Siri_V2alpha_PegasusSearchQuery, protocol conformance descriptor for Apple_Parsec_Siri_V2alpha_PegasusSearchQuery);
+  sub_1B964C570();
+  return swift_endAccess();
+}
 
-    return __swift_storeEnumTagSinglePayload(v11, v12, v13, v14);
+uint64_t sub_1B9240C58(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  swift_beginAccess();
+  type metadata accessor for Apple_Parsec_Search_PegasusQueryContext(0);
+  sub_1B8CD2D08(&qword_1ED9CF498, type metadata accessor for Apple_Parsec_Search_PegasusQueryContext, protocol conformance descriptor for Apple_Parsec_Search_PegasusQueryContext);
+  sub_1B964C580();
+  return swift_endAccess();
+}
+
+uint64_t sub_1B9240D34(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  swift_beginAccess();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriPegasusContext(0);
+  sub_1B8CD2D08(&qword_1EBAB5B70, type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriPegasusContext, protocol conformance descriptor for Apple_Parsec_Siri_V2alpha_SiriPegasusContext);
+  sub_1B964C580();
+  return swift_endAccess();
+}
+
+uint64_t sub_1B9240E10(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  swift_beginAccess();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_TrialIdentifiers(0);
+  sub_1B8CD2D08(&qword_1EBAC9C58, type metadata accessor for Apple_Parsec_Siri_V2alpha_TrialIdentifiers, protocol conformance descriptor for Apple_Parsec_Siri_V2alpha_TrialIdentifiers);
+  sub_1B964C570();
+  return swift_endAccess();
+}
+
+uint64_t sub_1B9240EEC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  swift_beginAccess();
+  type metadata accessor for Apple_Parsec_Siri_Context_ClientConversationContextInfo(0);
+  sub_1B8CD2D08(&qword_1EBAB5918, type metadata accessor for Apple_Parsec_Siri_Context_ClientConversationContextInfo, protocol conformance descriptor for Apple_Parsec_Siri_Context_ClientConversationContextInfo);
+  sub_1B964C580();
+  return swift_endAccess();
+}
+
+uint64_t sub_1B9240FC8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  swift_beginAccess();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_POMMESRequestContext(0);
+  sub_1B8CD2D08(&qword_1EBAB4150, type metadata accessor for Apple_Parsec_Siri_V2alpha_POMMESRequestContext, protocol conformance descriptor for Apple_Parsec_Siri_V2alpha_POMMESRequestContext);
+  sub_1B964C580();
+  return swift_endAccess();
+}
+
+uint64_t sub_1B92410A4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  swift_beginAccess();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_VisualSearchContext(0);
+  sub_1B8CD2D08(&qword_1EBAC9A40, type metadata accessor for Apple_Parsec_Siri_V2alpha_VisualSearchContext, protocol conformance descriptor for Apple_Parsec_Siri_V2alpha_VisualSearchContext);
+  sub_1B964C580();
+  return swift_endAccess();
+}
+
+uint64_t sub_1B9241180(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  swift_beginAccess();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_ASRContext(0);
+  sub_1B8CD2D08(&qword_1EBAB4AE8, type metadata accessor for Apple_Parsec_Siri_V2alpha_ASRContext, protocol conformance descriptor for Apple_Parsec_Siri_V2alpha_ASRContext);
+  sub_1B964C580();
+  return swift_endAccess();
+}
+
+uint64_t sub_1B924125C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  swift_beginAccess();
+  type metadata accessor for Apple_Parsec_Search_SearchConversationContext(0);
+  sub_1B8CD2D08(&qword_1EBAB5D40, type metadata accessor for Apple_Parsec_Search_SearchConversationContext, protocol conformance descriptor for Apple_Parsec_Search_SearchConversationContext);
+  sub_1B964C580();
+  return swift_endAccess();
+}
+
+uint64_t sub_1B9241338(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  swift_beginAccess();
+  type metadata accessor for Apple_Parsec_Siri_V2alpha_PegasusSearchQuery(0);
+  sub_1B8CD2D08(&qword_1EBAB5CA8, type metadata accessor for Apple_Parsec_Siri_V2alpha_PegasusSearchQuery, protocol conformance descriptor for Apple_Parsec_Siri_V2alpha_PegasusSearchQuery);
+  sub_1B964C580();
+  return swift_endAccess();
+}
+
+uint64_t sub_1B9241444(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(void), uint64_t (*a5)(void))
+{
+  a4(0);
+  OUTLINED_FUNCTION_12();
+  result = a5();
+  if (!v5)
+  {
+    OUTLINED_FUNCTION_186();
+    return sub_1B964C290();
+  }
+
+  return result;
+}
+
+uint64_t sub_1B92414BC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBABED38, &unk_1B966BBE0);
+  MEMORY[0x1EEE9AC00](v6 - 8);
+  v61 = v60 - v7;
+  v8 = type metadata accessor for Apple_Parsec_Siri_V2alpha_PegasusSearchQuery(0);
+  MEMORY[0x1EEE9AC00](v8);
+  v60[1] = v60 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAC9448, &qword_1B96AA708);
+  MEMORY[0x1EEE9AC00](v10 - 8);
+  v63 = v60 - v11;
+  v64 = type metadata accessor for Apple_Parsec_Search_SearchConversationContext(0);
+  MEMORY[0x1EEE9AC00](v64);
+  v60[2] = v60 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAC9440, &qword_1B96AA700);
+  MEMORY[0x1EEE9AC00](v13 - 8);
+  v66 = v60 - v14;
+  v67 = type metadata accessor for Apple_Parsec_Siri_V2alpha_ASRContext(0);
+  MEMORY[0x1EEE9AC00](v67);
+  v62 = v60 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EBAC9438, &qword_1B96AA6F8);
+  MEMORY[0x1EEE9AC00](v16 - 8);
+  v69 = v60 - v17;
+  v70 = type metadata accessor for Apple_Parsec_Siri_V2alpha_VisualSearchContext(0);
+  MEMORY[0x1EEE9AC00](v70);
+  v65 = v60 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EBAC9430, &qword_1B96AA6F0);
+  MEMORY[0x1EEE9AC00](v19 - 8);
+  v72 = v60 - v20;
+  v71 = type metadata accessor for Apple_Parsec_Siri_V2alpha_POMMESRequestContext(0);
+  MEMORY[0x1EEE9AC00](v71);
+  v68 = v60 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAC9428, &qword_1B96AA6E8);
+  MEMORY[0x1EEE9AC00](v22 - 8);
+  v74 = v60 - v23;
+  v75 = type metadata accessor for Apple_Parsec_Siri_Context_ClientConversationContextInfo(0);
+  MEMORY[0x1EEE9AC00](v75);
+  v73 = v60 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v25 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EBAC9420, &qword_1B96AA6E0);
+  MEMORY[0x1EEE9AC00](v25 - 8);
+  v80 = v60 - v26;
+  v78 = type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriPegasusContext(0);
+  MEMORY[0x1EEE9AC00](v78);
+  v77 = v60 - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v28 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBABED40, &qword_1B96809F0);
+  MEMORY[0x1EEE9AC00](v28 - 8);
+  v30 = v60 - v29;
+  Context = type metadata accessor for Apple_Parsec_Search_PegasusQueryContext(0);
+  MEMORY[0x1EEE9AC00](Context);
+  swift_beginAccess();
+  v86 = a1;
+  if (*(*(a1 + 16) + 16))
+  {
+    sub_1B8CD2D08(&qword_1EBAB5CA8, type metadata accessor for Apple_Parsec_Siri_V2alpha_PegasusSearchQuery, protocol conformance descriptor for Apple_Parsec_Siri_V2alpha_PegasusSearchQuery);
+
+    v32 = v81;
+    sub_1B964C730();
+    v33 = v32;
+    if (v32)
+    {
+    }
+
+    v76 = v8;
+    v79 = a3;
   }
 
   else
   {
-    *(v5 + *(a4 + 20)) = (v4 - 1);
+    v76 = v8;
+    v79 = a3;
+    v33 = v81;
   }
 
-  return result;
-}
-
-uint64_t sub_1B91FF824(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(uint64_t))
-{
-  result = sub_1B964C2B0();
-  if (v6 <= 0x3F)
+  swift_beginAccess();
+  sub_1B8D92024();
+  if (__swift_getEnumTagSinglePayload(v30, 1, Context) == 1)
   {
-    result = a4(319);
-    if (v7 <= 0x3F)
+    sub_1B8D9207C(v30, &qword_1EBABED40, &qword_1B96809F0);
+    v35 = v33;
+  }
+
+  else
+  {
+    sub_1B9239DA8();
+    sub_1B8CD2D08(&qword_1ED9CF498, type metadata accessor for Apple_Parsec_Search_PegasusQueryContext, protocol conformance descriptor for Apple_Parsec_Search_PegasusQueryContext);
+    sub_1B964C740();
+    v35 = v33;
+    if (v33)
     {
-      OUTLINED_FUNCTION_123_1();
-      swift_cvw_initStructMetadataWithLayoutString();
-      return 0;
+      return sub_1B9239E50();
+    }
+
+    sub_1B9239E50();
+  }
+
+  v36 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__userDataShareOptIn;
+  v37 = v86;
+  swift_beginAccess();
+  v38 = v80;
+  if (*(v37 + v36) == 1)
+  {
+    result = sub_1B964C670();
+    v39 = v76;
+    if (v35)
+    {
+      return result;
     }
   }
 
-  return result;
-}
-
-uint64_t sub_1B91FF8E0()
-{
-  result = sub_1B964C2B0();
-  if (v1 <= 0x3F)
+  else
   {
-    swift_cvw_initStructMetadataWithLayoutString();
-    return 0;
+    v39 = v76;
   }
 
-  return result;
-}
-
-void sub_1B91FF994()
-{
-  sub_1B91FFA98(319, &qword_1ED9CF5B8, type metadata accessor for Apple_Parsec_Siri_V2alpha_MapItemBuilderParams, MEMORY[0x1E69E62F8]);
-  if (v0 <= 0x3F)
+  v40 = (v37 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__featureFlag);
+  swift_beginAccess();
+  v41 = *v40;
+  v42 = v40[1];
+  v43 = HIBYTE(v42) & 0xF;
+  if ((v42 & 0x2000000000000000) == 0)
   {
-    sub_1B964C2B0();
-    if (v1 <= 0x3F)
+    v43 = v41 & 0xFFFFFFFFFFFFLL;
+  }
+
+  if (v43)
+  {
+
+    sub_1B964C700();
+    if (v35)
     {
-      sub_1B91FFA98(319, &qword_1ED9EB878, type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams, MEMORY[0x1E69E6720]);
-      if (v2 <= 0x3F)
+    }
+  }
+
+  swift_beginAccess();
+  sub_1B8D92024();
+  if (__swift_getEnumTagSinglePayload(v38, 1, v78) == 1)
+  {
+    sub_1B8D9207C(v38, &unk_1EBAC9420, &qword_1B96AA6E0);
+  }
+
+  else
+  {
+    sub_1B9239DA8();
+    sub_1B8CD2D08(&qword_1EBAB5B70, type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriPegasusContext, protocol conformance descriptor for Apple_Parsec_Siri_V2alpha_SiriPegasusContext);
+    sub_1B964C740();
+    if (v35)
+    {
+      return sub_1B9239E50();
+    }
+
+    sub_1B9239E50();
+  }
+
+  v44 = v37 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__siriEnvironment;
+  swift_beginAccess();
+  if (*v44)
+  {
+    v45 = *(v44 + 8);
+    v84 = *v44;
+    v85 = v45;
+    sub_1B9284470();
+    result = sub_1B964C680();
+    if (v35)
+    {
+      return result;
+    }
+  }
+
+  v46 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__isSiriInternalRequest;
+  swift_beginAccess();
+  if (*(v37 + v46) == 1)
+  {
+    result = sub_1B964C670();
+    if (v35)
+    {
+      return result;
+    }
+  }
+
+  v47 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__isDataOnlyRequest;
+  swift_beginAccess();
+  if (*(v37 + v47) == 1)
+  {
+    result = sub_1B964C670();
+    if (v35)
+    {
+      return result;
+    }
+  }
+
+  v48 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__trialIdentifiers;
+  swift_beginAccess();
+  if (*(*(v37 + v48) + 16))
+  {
+    type metadata accessor for Apple_Parsec_Siri_V2alpha_TrialIdentifiers(0);
+    sub_1B8CD2D08(&qword_1EBAC9C58, type metadata accessor for Apple_Parsec_Siri_V2alpha_TrialIdentifiers, protocol conformance descriptor for Apple_Parsec_Siri_V2alpha_TrialIdentifiers);
+
+    sub_1B964C730();
+    if (v35)
+    {
+    }
+  }
+
+  swift_beginAccess();
+  v49 = v74;
+  sub_1B8D92024();
+  if (__swift_getEnumTagSinglePayload(v49, 1, v75) == 1)
+  {
+    sub_1B8D9207C(v49, &qword_1EBAC9428, &qword_1B96AA6E8);
+    goto LABEL_39;
+  }
+
+  sub_1B9239DA8();
+  sub_1B8CD2D08(&qword_1EBAB5918, type metadata accessor for Apple_Parsec_Siri_Context_ClientConversationContextInfo, protocol conformance descriptor for Apple_Parsec_Siri_Context_ClientConversationContextInfo);
+  sub_1B964C740();
+  if (v35)
+  {
+    return sub_1B9239E50();
+  }
+
+  sub_1B9239E50();
+LABEL_39:
+  v50 = v37 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__conversationContextBytes;
+  swift_beginAccess();
+  if (!sub_1B8D99EA8(*v50, *(v50 + 8)))
+  {
+    v51 = *v50;
+    v52 = *(v50 + 8);
+    sub_1B8D91FCC(v51, v52);
+    sub_1B964C6A0();
+    if (v35)
+    {
+      return sub_1B8D538A0(v51, v52);
+    }
+
+    sub_1B8D538A0(v51, v52);
+  }
+
+  v53 = v37 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__requestType;
+  swift_beginAccess();
+  v54 = v72;
+  if (!*v53 || (v55 = *(v53 + 8), v82 = *v53, v83 = v55, sub_1B928441C(), result = sub_1B964C680(), !v35))
+  {
+    swift_beginAccess();
+    sub_1B8D92024();
+    if (__swift_getEnumTagSinglePayload(v54, 1, v71) == 1)
+    {
+      sub_1B8D9207C(v54, &unk_1EBAC9430, &qword_1B96AA6F0);
+    }
+
+    else
+    {
+      sub_1B9239DA8();
+      sub_1B8CD2D08(&qword_1EBAB4150, type metadata accessor for Apple_Parsec_Siri_V2alpha_POMMESRequestContext, protocol conformance descriptor for Apple_Parsec_Siri_V2alpha_POMMESRequestContext);
+      sub_1B964C740();
+      result = sub_1B9239E50();
+      if (v35)
       {
-        swift_cvw_initStructMetadataWithLayoutString();
+        return result;
       }
     }
-  }
-}
 
-void sub_1B91FFA98(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t), uint64_t (*a4)(uint64_t, uint64_t))
-{
-  if (!*a2)
-  {
-    v7 = a3(255);
-    v8 = a4(a1, v7);
-    if (!v9)
+    swift_beginAccess();
+    v56 = v69;
+    sub_1B8D92024();
+    if (__swift_getEnumTagSinglePayload(v56, 1, v70) == 1)
     {
-      atomic_store(v8, a2);
+      sub_1B8D9207C(v56, &unk_1EBAC9438, &qword_1B96AA6F8);
     }
-  }
-}
 
-uint64_t sub_1B91FFB30()
-{
-  result = sub_1B964C2B0();
-  if (v1 <= 0x3F)
-  {
-    OUTLINED_FUNCTION_123_1();
-    swift_cvw_initStructMetadataWithLayoutString();
-    return 0;
+    else
+    {
+      sub_1B9239DA8();
+      sub_1B8CD2D08(&qword_1EBAC9A40, type metadata accessor for Apple_Parsec_Siri_V2alpha_VisualSearchContext, protocol conformance descriptor for Apple_Parsec_Siri_V2alpha_VisualSearchContext);
+      sub_1B964C740();
+      result = sub_1B9239E50();
+      if (v35)
+      {
+        return result;
+      }
+    }
+
+    swift_beginAccess();
+    v57 = v66;
+    sub_1B8D92024();
+    if (__swift_getEnumTagSinglePayload(v57, 1, v67) == 1)
+    {
+      sub_1B8D9207C(v57, &qword_1EBAC9440, &qword_1B96AA700);
+    }
+
+    else
+    {
+      sub_1B9239DA8();
+      sub_1B8CD2D08(&qword_1EBAB4AE8, type metadata accessor for Apple_Parsec_Siri_V2alpha_ASRContext, protocol conformance descriptor for Apple_Parsec_Siri_V2alpha_ASRContext);
+      sub_1B964C740();
+      result = sub_1B9239E50();
+      if (v35)
+      {
+        return result;
+      }
+    }
+
+    v58 = v63;
+    swift_beginAccess();
+    sub_1B8D92024();
+    if (__swift_getEnumTagSinglePayload(v58, 1, v64) == 1)
+    {
+      sub_1B8D9207C(v58, &qword_1EBAC9448, &qword_1B96AA708);
+LABEL_57:
+      swift_beginAccess();
+      v59 = v61;
+      sub_1B8D92024();
+      if (__swift_getEnumTagSinglePayload(v59, 1, v39) == 1)
+      {
+        return sub_1B8D9207C(v59, &qword_1EBABED38, &unk_1B966BBE0);
+      }
+
+      sub_1B9239DA8();
+      sub_1B8CD2D08(&qword_1EBAB5CA8, type metadata accessor for Apple_Parsec_Siri_V2alpha_PegasusSearchQuery, protocol conformance descriptor for Apple_Parsec_Siri_V2alpha_PegasusSearchQuery);
+      sub_1B964C740();
+      return sub_1B9239E50();
+    }
+
+    sub_1B9239DA8();
+    sub_1B8CD2D08(&qword_1EBAB5D40, type metadata accessor for Apple_Parsec_Search_SearchConversationContext, protocol conformance descriptor for Apple_Parsec_Search_SearchConversationContext);
+    sub_1B964C740();
+    result = sub_1B9239E50();
+    if (!v35)
+    {
+      goto LABEL_57;
+    }
   }
 
   return result;
 }
 
-void sub_1B91FFBC4()
+BOOL sub_1B9242714(uint64_t a1, uint64_t a2)
 {
+  v171 = type metadata accessor for Apple_Parsec_Search_SearchConversationContext(0);
+  MEMORY[0x1EEE9AC00](v171);
+  v167 = &v166 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v168 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBACA0F0, &qword_1B96B2410);
+  MEMORY[0x1EEE9AC00](v168);
+  v174 = &v166 - v5;
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAC9448, &qword_1B96AA708);
+  v7 = MEMORY[0x1EEE9AC00](v6 - 8);
+  v169 = &v166 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v7);
+  v170 = &v166 - v9;
+  v178 = type metadata accessor for Apple_Parsec_Siri_V2alpha_ASRContext(0);
+  MEMORY[0x1EEE9AC00](v178);
+  v173 = &v166 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v175 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBACA120, &qword_1B96B2438);
+  MEMORY[0x1EEE9AC00](v175);
+  v181 = &v166 - v11;
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAC9440, &qword_1B96AA700);
+  v13 = MEMORY[0x1EEE9AC00](v12 - 8);
+  v176 = (&v166 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0));
+  MEMORY[0x1EEE9AC00](v13);
+  v177 = &v166 - v15;
+  v183 = type metadata accessor for Apple_Parsec_Siri_V2alpha_VisualSearchContext(0);
+  MEMORY[0x1EEE9AC00](v183);
+  v172 = &v166 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v179 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBACA128, &qword_1B96B2440);
+  MEMORY[0x1EEE9AC00](v179);
+  v185 = &v166 - v17;
+  v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EBAC9438, &qword_1B96AA6F8);
+  v19 = MEMORY[0x1EEE9AC00](v18 - 8);
+  v180 = &v166 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v19);
+  v182 = &v166 - v21;
+  v191 = type metadata accessor for Apple_Parsec_Siri_V2alpha_POMMESRequestContext(0);
+  MEMORY[0x1EEE9AC00](v191);
+  v184 = &v166 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v186 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBACA130, &qword_1B96B2448);
+  MEMORY[0x1EEE9AC00](v186);
+  v193 = &v166 - v23;
+  v24 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EBAC9430, &qword_1B96AA6F0);
+  v25 = MEMORY[0x1EEE9AC00](v24 - 8);
+  v187 = (&v166 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0));
+  MEMORY[0x1EEE9AC00](v25);
+  v190 = &v166 - v27;
+  v196 = type metadata accessor for Apple_Parsec_Siri_Context_ClientConversationContextInfo(0);
+  MEMORY[0x1EEE9AC00](v196);
+  v192 = &v166 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v195 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBACA138, &qword_1B96B2450);
+  MEMORY[0x1EEE9AC00](v195);
+  v197 = &v166 - v29;
+  v30 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAC9428, &qword_1B96AA6E8);
+  v31 = MEMORY[0x1EEE9AC00](v30 - 8);
+  v194 = &v166 - ((v32 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v31);
+  v211 = &v166 - v33;
+  v201 = type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriPegasusContext(0);
+  MEMORY[0x1EEE9AC00](v201);
+  v198 = &v166 - ((v34 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v200 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBACA140, &qword_1B96B2458);
+  MEMORY[0x1EEE9AC00](v200);
+  v202 = &v166 - v35;
+  v36 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EBAC9420, &qword_1B96AA6E0);
+  v37 = MEMORY[0x1EEE9AC00](v36 - 8);
+  v199 = &v166 - ((v38 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v37);
+  v205 = &v166 - v39;
+  Context = type metadata accessor for Apple_Parsec_Search_PegasusQueryContext(0);
+  MEMORY[0x1EEE9AC00](Context);
+  v203 = &v166 - ((v40 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v207 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBABED68, &qword_1B9680A10);
+  MEMORY[0x1EEE9AC00](v207);
+  v210 = &v166 - v41;
+  v42 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBABED40, &qword_1B96809F0);
+  v43 = MEMORY[0x1EEE9AC00](v42 - 8);
+  v206 = &v166 - ((v44 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v43);
+  v209 = &v166 - v45;
+  v46 = type metadata accessor for Apple_Parsec_Siri_V2alpha_PegasusSearchQuery(0);
+  MEMORY[0x1EEE9AC00](v46);
+  v204 = &v166 - ((v47 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v48 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBABED70, &unk_1B966BC10);
+  MEMORY[0x1EEE9AC00](v48);
+  v50 = &v166 - v49;
+  v51 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBABED38, &unk_1B966BBE0);
+  v52 = MEMORY[0x1EEE9AC00](v51 - 8);
+  v212 = &v166 - ((v53 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v52);
+  v55 = &v166 - v54;
+  swift_beginAccess();
+  v56 = *(a1 + 16);
+  swift_beginAccess();
+  v57 = *(a2 + 16);
+  v58 = a1;
+
+  sub_1B8D8E7E8(v56, v57);
+  LOBYTE(a1) = v59;
+
+  if ((a1 & 1) == 0)
+  {
+    goto LABEL_17;
+  }
+
+  v189 = a2;
+  swift_beginAccess();
+  v188 = v58;
+  v60 = v189;
+  sub_1B8D92024();
+  swift_beginAccess();
+  v61 = *(v48 + 48);
+  sub_1B8D92024();
+  sub_1B8D92024();
+  if (__swift_getEnumTagSinglePayload(v50, 1, v46) == 1)
+  {
+    sub_1B8D9207C(v55, &qword_1EBABED38, &unk_1B966BBE0);
+    EnumTagSinglePayload = __swift_getEnumTagSinglePayload(&v50[v61], 1, v46);
+    v63 = v188;
+    if (EnumTagSinglePayload == 1)
+    {
+      sub_1B8D9207C(v50, &qword_1EBABED38, &unk_1B966BBE0);
+      goto LABEL_10;
+    }
+
+LABEL_8:
+    v64 = &qword_1EBABED70;
+    v65 = &unk_1B966BC10;
+    v66 = v50;
+LABEL_16:
+    sub_1B8D9207C(v66, v64, v65);
+    goto LABEL_17;
+  }
+
+  sub_1B8D92024();
+  if (__swift_getEnumTagSinglePayload(&v50[v61], 1, v46) == 1)
+  {
+    sub_1B8D9207C(v55, &qword_1EBABED38, &unk_1B966BBE0);
+    sub_1B9239E50();
+    goto LABEL_8;
+  }
+
+  sub_1B9239DA8();
+  v67 = static Apple_Parsec_Siri_V2alpha_PegasusSearchQuery.== infix(_:_:)();
+  sub_1B9239E50();
+  sub_1B8D9207C(v55, &qword_1EBABED38, &unk_1B966BBE0);
+  sub_1B9239E50();
+  sub_1B8D9207C(v50, &qword_1EBABED38, &unk_1B966BBE0);
+  v63 = v188;
+  if ((v67 & 1) == 0)
+  {
+    goto LABEL_17;
+  }
+
+LABEL_10:
+  swift_beginAccess();
+  v68 = v209;
+  sub_1B8D92024();
+  swift_beginAccess();
+  v69 = *(v207 + 48);
+  v70 = v210;
+  sub_1B8D92024();
+  sub_1B8D92024();
+  v71 = Context;
+  if (__swift_getEnumTagSinglePayload(v70, 1, Context) == 1)
+  {
+    sub_1B8D9207C(v68, &qword_1EBABED40, &qword_1B96809F0);
+    v72 = __swift_getEnumTagSinglePayload(v70 + v69, 1, v71);
+    v73 = v211;
+    v74 = v205;
+    if (v72 == 1)
+    {
+      sub_1B8D9207C(v70, &qword_1EBABED40, &qword_1B96809F0);
+      goto LABEL_22;
+    }
+
+    goto LABEL_15;
+  }
+
+  v75 = v206;
+  sub_1B8D92024();
+  v76 = __swift_getEnumTagSinglePayload(v70 + v69, 1, v71);
+  v73 = v211;
+  if (v76 == 1)
+  {
+    sub_1B8D9207C(v68, &qword_1EBABED40, &qword_1B96809F0);
+    sub_1B9239E50();
+LABEL_15:
+    v64 = &qword_1EBABED68;
+    v65 = &qword_1B9680A10;
+    v66 = v70;
+    goto LABEL_16;
+  }
+
+  v78 = v203;
+  sub_1B9239DA8();
+  v79 = *(v71 + 20);
+  v80 = *&v75[v79];
+  v81 = *&v78[v79];
+  if (v80 != v81)
+  {
+
+    v82 = sub_1B9090820(v80, v81);
+
+    if (!v82)
+    {
+      sub_1B9239E50();
+      v94 = &qword_1EBABED40;
+      v95 = &qword_1B96809F0;
+      sub_1B8D9207C(v68, &qword_1EBABED40, &qword_1B96809F0);
+      sub_1B9239E50();
+      v66 = v70;
+LABEL_32:
+      v64 = v94;
+      v65 = v95;
+      goto LABEL_16;
+    }
+  }
+
   sub_1B964C2B0();
-  if (v0 <= 0x3F)
+  sub_1B8CD2D08(&qword_1EBAB3B38, MEMORY[0x1E69AAC08], MEMORY[0x1E69AAC10]);
+  LODWORD(v212) = sub_1B964C850();
+  sub_1B9239E50();
+  sub_1B8D9207C(v68, &qword_1EBABED40, &qword_1B96809F0);
+  sub_1B9239E50();
+  sub_1B8D9207C(v70, &qword_1EBABED40, &qword_1B96809F0);
+  v74 = v205;
+  if ((v212 & 1) == 0)
   {
-    sub_1B91FFA98(319, &qword_1ED9EB878, type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams, MEMORY[0x1E69E6720]);
-    if (v1 <= 0x3F)
+    goto LABEL_17;
+  }
+
+LABEL_22:
+  v83 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__userDataShareOptIn;
+  swift_beginAccess();
+  LODWORD(v83) = *(v63 + v83);
+  v84 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__userDataShareOptIn;
+  swift_beginAccess();
+  if (v83 != *(v60 + v84))
+  {
+    goto LABEL_17;
+  }
+
+  v85 = (v63 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__featureFlag);
+  swift_beginAccess();
+  v86 = *v85;
+  v87 = v85[1];
+  v88 = (v60 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__featureFlag);
+  swift_beginAccess();
+  v89 = v86 == *v88 && v87 == v88[1];
+  if (!v89 && (sub_1B964C9F0() & 1) == 0)
+  {
+    goto LABEL_17;
+  }
+
+  swift_beginAccess();
+  sub_1B8D92024();
+  swift_beginAccess();
+  v90 = *(v200 + 48);
+  v91 = v202;
+  sub_1B8D92024();
+  v92 = v91;
+  sub_1B8D92024();
+  v93 = v201;
+  if (__swift_getEnumTagSinglePayload(v91, 1, v201) == 1)
+  {
+    sub_1B8D9207C(v74, &unk_1EBAC9420, &qword_1B96AA6E0);
+    if (__swift_getEnumTagSinglePayload(v91 + v90, 1, v93) == 1)
     {
-      swift_cvw_initStructMetadataWithLayoutString();
+      sub_1B8D9207C(v91, &unk_1EBAC9420, &qword_1B96AA6E0);
+      goto LABEL_39;
+    }
+
+LABEL_35:
+    v64 = &qword_1EBACA140;
+    v65 = &qword_1B96B2458;
+    v66 = v91;
+    goto LABEL_16;
+  }
+
+  v96 = v199;
+  sub_1B8D92024();
+  if (__swift_getEnumTagSinglePayload(v91 + v90, 1, v93) == 1)
+  {
+    sub_1B8D9207C(v74, &unk_1EBAC9420, &qword_1B96AA6E0);
+    sub_1B9239E50();
+    goto LABEL_35;
+  }
+
+  v97 = v198;
+  sub_1B9239DA8();
+  v98 = *(v93 + 20);
+  v99 = *&v96[v98];
+  v100 = *&v97[v98];
+  if (v99 != v100)
+  {
+
+    v101 = sub_1B923B864(v99, v100);
+
+    if (!v101)
+    {
+      sub_1B9239E50();
+      v94 = &unk_1EBAC9420;
+      v95 = &qword_1B96AA6E0;
+      sub_1B8D9207C(v74, &unk_1EBAC9420, &qword_1B96AA6E0);
+      sub_1B9239E50();
+      v66 = v92;
+      goto LABEL_32;
     }
   }
-}
 
-void sub_1B91FFD1C()
-{
-  sub_1B91FFA98(319, &qword_1ED9CF5B8, type metadata accessor for Apple_Parsec_Siri_V2alpha_MapItemBuilderParams, MEMORY[0x1E69E62F8]);
-  if (v0 <= 0x3F)
+  sub_1B964C2B0();
+  sub_1B8CD2D08(&qword_1EBAB3B38, MEMORY[0x1E69AAC08], MEMORY[0x1E69AAC10]);
+  LODWORD(v212) = sub_1B964C850();
+  sub_1B9239E50();
+  sub_1B8D9207C(v74, &unk_1EBAC9420, &qword_1B96AA6E0);
+  sub_1B9239E50();
+  sub_1B8D9207C(v92, &unk_1EBAC9420, &qword_1B96AA6E0);
+  if ((v212 & 1) == 0)
   {
-    sub_1B964C2B0();
-    if (v1 <= 0x3F)
+    goto LABEL_17;
+  }
+
+LABEL_39:
+  v102 = v63 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__siriEnvironment;
+  swift_beginAccess();
+  v103 = *v102;
+  v104 = *(v102 + 8);
+  v105 = (v60 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__siriEnvironment);
+  swift_beginAccess();
+  if (!sub_1B8D92198(v103, v104, *v105))
+  {
+    goto LABEL_17;
+  }
+
+  v106 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__isSiriInternalRequest;
+  swift_beginAccess();
+  LODWORD(v106) = *(v63 + v106);
+  v107 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__isSiriInternalRequest;
+  swift_beginAccess();
+  if (v106 != *(v60 + v107))
+  {
+    goto LABEL_17;
+  }
+
+  v108 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__isDataOnlyRequest;
+  swift_beginAccess();
+  LODWORD(v108) = *(v63 + v108);
+  v109 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__isDataOnlyRequest;
+  swift_beginAccess();
+  if (v108 != *(v60 + v109))
+  {
+    goto LABEL_17;
+  }
+
+  v110 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__trialIdentifiers;
+  swift_beginAccess();
+  v111 = *(v63 + v110);
+  v112 = OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__trialIdentifiers;
+  swift_beginAccess();
+  v113 = *(v60 + v112);
+
+  sub_1B8D8E83C(v111, v113);
+  v115 = v114;
+
+  if ((v115 & 1) == 0)
+  {
+    goto LABEL_17;
+  }
+
+  swift_beginAccess();
+  sub_1B8D92024();
+  swift_beginAccess();
+  v116 = *(v195 + 48);
+  v117 = v197;
+  sub_1B8D92024();
+  v118 = v117;
+  sub_1B8D92024();
+  v119 = v196;
+  if (__swift_getEnumTagSinglePayload(v117, 1, v196) == 1)
+  {
+    sub_1B8D9207C(v73, &qword_1EBAC9428, &qword_1B96AA6E8);
+    if (__swift_getEnumTagSinglePayload(v117 + v116, 1, v119) == 1)
     {
-      swift_cvw_initStructMetadataWithLayoutString();
+      sub_1B8D9207C(v117, &qword_1EBAC9428, &qword_1B96AA6E8);
+      goto LABEL_53;
+    }
+
+    goto LABEL_49;
+  }
+
+  v120 = v194;
+  sub_1B8D92024();
+  if (__swift_getEnumTagSinglePayload(v118 + v116, 1, v119) == 1)
+  {
+    sub_1B8D9207C(v73, &qword_1EBAC9428, &qword_1B96AA6E8);
+    sub_1B9239E50();
+LABEL_49:
+    v64 = &qword_1EBACA138;
+    v65 = &qword_1B96B2450;
+    v66 = v118;
+    goto LABEL_16;
+  }
+
+  v121 = v192;
+  sub_1B9239DA8();
+  if (*&v120[*(v119 + 20)] != *&v121[*(v119 + 20)])
+  {
+
+    sub_1B90FB564();
+    v123 = v122;
+
+    if ((v123 & 1) == 0)
+    {
+      sub_1B9239E50();
+      v94 = &qword_1EBAC9428;
+      v95 = &qword_1B96AA6E8;
+      sub_1B8D9207C(v73, &qword_1EBAC9428, &qword_1B96AA6E8);
+      sub_1B9239E50();
+      v66 = v197;
+      goto LABEL_32;
     }
   }
-}
 
-uint64_t sub_1B91FFE00()
-{
-  result = sub_1B964C2B0();
-  if (v1 <= 0x3F)
+  sub_1B964C2B0();
+  sub_1B8CD2D08(&qword_1EBAB3B38, MEMORY[0x1E69AAC08], MEMORY[0x1E69AAC10]);
+  v124 = sub_1B964C850();
+  sub_1B9239E50();
+  sub_1B8D9207C(v73, &qword_1EBAC9428, &qword_1B96AA6E8);
+  sub_1B9239E50();
+  sub_1B8D9207C(v197, &qword_1EBAC9428, &qword_1B96AA6E8);
+  if ((v124 & 1) == 0)
   {
-    swift_cvw_initStructMetadataWithLayoutString();
+    goto LABEL_17;
+  }
+
+LABEL_53:
+  v125 = (v63 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__conversationContextBytes);
+  swift_beginAccess();
+  v127 = *v125;
+  v126 = v125[1];
+  v128 = (v60 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__conversationContextBytes);
+  swift_beginAccess();
+  v130 = *v128;
+  v129 = v128[1];
+  sub_1B8D91FCC(v127, v126);
+  sub_1B8D91FCC(v130, v129);
+  v131 = MEMORY[0x1BFADC060](v127, v126, v130, v129);
+  sub_1B8D538A0(v130, v129);
+  sub_1B8D538A0(v127, v126);
+  if ((v131 & 1) == 0)
+  {
+    goto LABEL_17;
+  }
+
+  v132 = v63 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__requestType;
+  swift_beginAccess();
+  v133 = *v132;
+  LOBYTE(v132) = *(v132 + 8);
+  v134 = v60 + OBJC_IVAR____TtCV10PegasusAPI44Apple_Parsec_Siri_V2alpha_SiriPegasusRequestP33_E86396049AA3E19DB448939A42AE999613_StorageClass__requestType;
+  swift_beginAccess();
+  if (!sub_1B8D581D0(v133, v132, *v134, *(v134 + 8)))
+  {
+    goto LABEL_17;
+  }
+
+  swift_beginAccess();
+  sub_1B8D92024();
+  swift_beginAccess();
+  v135 = *(v186 + 48);
+  v136 = v193;
+  sub_1B8D92024();
+  sub_1B8D92024();
+  if (__swift_getEnumTagSinglePayload(v136, 1, v191) == 1)
+  {
+    sub_1B8D9207C(v190, &unk_1EBAC9430, &qword_1B96AA6F0);
+    if (__swift_getEnumTagSinglePayload(v193 + v135, 1, v191) == 1)
+    {
+      sub_1B8D9207C(v193, &unk_1EBAC9430, &qword_1B96AA6F0);
+      goto LABEL_73;
+    }
+
+LABEL_61:
+    v138 = &qword_1EBACA130;
+    v139 = &qword_1B96B2448;
+    v140 = v193;
+LABEL_88:
+    sub_1B8D9207C(v140, v138, v139);
+    goto LABEL_17;
+  }
+
+  v137 = v193;
+  sub_1B8D92024();
+  if (__swift_getEnumTagSinglePayload(v137 + v135, 1, v191) == 1)
+  {
+    sub_1B8D9207C(v190, &unk_1EBAC9430, &qword_1B96AA6F0);
+    sub_1B9239E50();
+    goto LABEL_61;
+  }
+
+  v141 = v184;
+  sub_1B9239DA8();
+  v142 = *v187 == *v141 && v187[1] == v141[1];
+  if (!v142 && (sub_1B964C9F0() & 1) == 0 || (v187[2] == *(v184 + 2) ? (v143 = v187[3] == *(v184 + 3)) : (v143 = 0), !v143 && (sub_1B964C9F0() & 1) == 0))
+  {
+    sub_1B9239E50();
+    v148 = &unk_1EBAC9430;
+    v149 = &qword_1B96AA6F0;
+    sub_1B8D9207C(v190, &unk_1EBAC9430, &qword_1B96AA6F0);
+    sub_1B9239E50();
+    v140 = v193;
+LABEL_80:
+    v138 = v148;
+    v139 = v149;
+    goto LABEL_88;
+  }
+
+  sub_1B964C2B0();
+  sub_1B8CD2D08(&qword_1EBAB3B38, MEMORY[0x1E69AAC08], MEMORY[0x1E69AAC10]);
+  v144 = sub_1B964C850();
+  sub_1B9239E50();
+  sub_1B8D9207C(v190, &unk_1EBAC9430, &qword_1B96AA6F0);
+  sub_1B9239E50();
+  sub_1B8D9207C(v193, &unk_1EBAC9430, &qword_1B96AA6F0);
+  if ((v144 & 1) == 0)
+  {
+    goto LABEL_17;
+  }
+
+LABEL_73:
+  swift_beginAccess();
+  sub_1B8D92024();
+  swift_beginAccess();
+  v145 = *(v179 + 48);
+  v146 = v185;
+  sub_1B8D92024();
+  sub_1B8D92024();
+  if (__swift_getEnumTagSinglePayload(v146, 1, v183) == 1)
+  {
+    sub_1B8D9207C(v182, &unk_1EBAC9438, &qword_1B96AA6F8);
+    if (__swift_getEnumTagSinglePayload(v185 + v145, 1, v183) == 1)
+    {
+      sub_1B8D9207C(v185, &unk_1EBAC9438, &qword_1B96AA6F8);
+      goto LABEL_82;
+    }
+
+    goto LABEL_78;
+  }
+
+  v147 = v185;
+  sub_1B8D92024();
+  if (__swift_getEnumTagSinglePayload(v147 + v145, 1, v183) == 1)
+  {
+    sub_1B8D9207C(v182, &unk_1EBAC9438, &qword_1B96AA6F8);
+    sub_1B9239E50();
+LABEL_78:
+    v138 = &qword_1EBACA128;
+    v139 = &qword_1B96B2440;
+    v140 = v185;
+    goto LABEL_88;
+  }
+
+  v150 = v185;
+  sub_1B9239DA8();
+  static Apple_Parsec_Siri_V2alpha_VisualSearchContext.== infix(_:_:)();
+  v152 = v151;
+  sub_1B9239E50();
+  sub_1B8D9207C(v182, &unk_1EBAC9438, &qword_1B96AA6F8);
+  sub_1B9239E50();
+  sub_1B8D9207C(v150, &unk_1EBAC9438, &qword_1B96AA6F8);
+  if ((v152 & 1) == 0)
+  {
+LABEL_17:
+
     return 0;
   }
 
-  return result;
-}
-
-uint64_t sub_1B91FFEA4()
-{
-  result = sub_1B964C2B0();
-  if (v1 <= 0x3F)
+LABEL_82:
+  swift_beginAccess();
+  sub_1B8D92024();
+  swift_beginAccess();
+  v153 = *(v175 + 48);
+  v154 = v181;
+  sub_1B8D92024();
+  sub_1B8D92024();
+  if (__swift_getEnumTagSinglePayload(v154, 1, v178) == 1)
   {
-    OUTLINED_FUNCTION_123_1();
-    swift_cvw_initStructMetadataWithLayoutString();
+    sub_1B8D9207C(v177, &qword_1EBAC9440, &qword_1B96AA700);
+    if (__swift_getEnumTagSinglePayload(v181 + v153, 1, v178) == 1)
+    {
+      sub_1B8D9207C(v181, &qword_1EBAC9440, &qword_1B96AA700);
+      goto LABEL_101;
+    }
+
+    goto LABEL_87;
+  }
+
+  v155 = v181;
+  sub_1B8D92024();
+  if (__swift_getEnumTagSinglePayload(v155 + v153, 1, v178) == 1)
+  {
+    sub_1B8D9207C(v177, &qword_1EBAC9440, &qword_1B96AA700);
+    sub_1B9239E50();
+LABEL_87:
+    v138 = &qword_1EBACA120;
+    v139 = &qword_1B96B2438;
+    v140 = v181;
+    goto LABEL_88;
+  }
+
+  v156 = v173;
+  sub_1B9239DA8();
+  v157 = *v176 == *v156 && v176[1] == v156[1];
+  if (!v157 && (sub_1B964C9F0() & 1) == 0 || (v176[2] == *(v173 + 2) ? (v158 = v176[3] == *(v173 + 3)) : (v158 = 0), !v158 && (sub_1B964C9F0() & 1) == 0))
+  {
+    sub_1B9239E50();
+    v148 = &qword_1EBAC9440;
+    v149 = &qword_1B96AA700;
+    sub_1B8D9207C(v177, &qword_1EBAC9440, &qword_1B96AA700);
+    sub_1B9239E50();
+    v140 = v181;
+    goto LABEL_80;
+  }
+
+  sub_1B964C2B0();
+  sub_1B8CD2D08(&qword_1EBAB3B38, MEMORY[0x1E69AAC08], MEMORY[0x1E69AAC10]);
+  v159 = sub_1B964C850();
+  sub_1B9239E50();
+  sub_1B8D9207C(v177, &qword_1EBAC9440, &qword_1B96AA700);
+  sub_1B9239E50();
+  sub_1B8D9207C(v181, &qword_1EBAC9440, &qword_1B96AA700);
+  if ((v159 & 1) == 0)
+  {
+    goto LABEL_17;
+  }
+
+LABEL_101:
+  swift_beginAccess();
+  sub_1B8D92024();
+  swift_beginAccess();
+  v160 = *(v168 + 48);
+  v161 = v174;
+  sub_1B8D92024();
+  sub_1B8D92024();
+  if (__swift_getEnumTagSinglePayload(v161, 1, v171) != 1)
+  {
+    v162 = v174;
+    sub_1B8D92024();
+    if (__swift_getEnumTagSinglePayload(v162 + v160, 1, v171) == 1)
+    {
+
+      sub_1B8D9207C(v170, &qword_1EBAC9448, &qword_1B96AA708);
+      sub_1B9239E50();
+      goto LABEL_106;
+    }
+
+    v163 = v174;
+    v164 = v167;
+    sub_1B9239DA8();
+    v165 = static Apple_Parsec_Search_SearchConversationContext.== infix(_:_:)(v169, v164);
+
+    sub_1B9239E50();
+    sub_1B8D9207C(v170, &qword_1EBAC9448, &qword_1B96AA708);
+    sub_1B9239E50();
+    sub_1B8D9207C(v163, &qword_1EBAC9448, &qword_1B96AA708);
+    return (v165 & 1) != 0;
+  }
+
+  sub_1B8D9207C(v170, &qword_1EBAC9448, &qword_1B96AA708);
+  if (__swift_getEnumTagSinglePayload(v174 + v160, 1, v171) != 1)
+  {
+LABEL_106:
+    sub_1B8D9207C(v174, &qword_1EBACA0F0, &qword_1B96B2410);
     return 0;
   }
 
-  return result;
-}
-
-void sub_1B91FFF10()
-{
-  sub_1B91FFA98(319, &qword_1ED9D0ED8, type metadata accessor for Apple_Parsec_Siri_V2alpha_MapItemBuilderParams, MEMORY[0x1E69E6720]);
-  if (v1 <= 0x3F)
-  {
-    v4 = *(v0 - 8) + 64;
-    sub_1B91FFA98(319, &qword_1ED9CFDD8, type metadata accessor for Apple_Parsec_Siri_V2alpha_MapItemListBuilderParams, MEMORY[0x1E69E6720]);
-    if (v3 <= 0x3F)
-    {
-      v5 = *(v2 - 8) + 64;
-      swift_updateClassMetadata2();
-    }
-  }
-}
-
-unint64_t sub_1B920007C()
-{
-  result = qword_1EBAC89F0;
-  if (!qword_1EBAC89F0)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1EBAC89F0);
-  }
-
-  return result;
-}
-
-uint64_t OUTLINED_FUNCTION_2_44(uint64_t a1)
-{
-  *v1 = a1;
-  *(a1 + 64) = v2;
-  result = type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams(0);
-  v5 = *(result + 20);
-  *(a1 + 72) = v5;
-  v6 = *(v2 + v5);
-  return result;
-}
-
-uint64_t OUTLINED_FUNCTION_3_44()
-{
-
-  return swift_once();
-}
-
-uint64_t OUTLINED_FUNCTION_4_36(uint64_t a1)
-{
-  *v1 = a1;
-  *(a1 + 72) = v2;
-  result = type metadata accessor for Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParams(0);
-  v5 = *(result + 20);
-  *(a1 + 80) = v5;
-  v6 = *(v2 + v5);
-  return result;
-}
-
-uint64_t OUTLINED_FUNCTION_12_26()
-{
-  result = type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams(0);
-  v1 = *(result + 20);
-  return result;
-}
-
-uint64_t OUTLINED_FUNCTION_21_16()
-{
-  result = type metadata accessor for Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParams(0);
-  v1 = *(result + 20);
-  return result;
-}
-
-uint64_t OUTLINED_FUNCTION_33_13()
-{
-  v0 = type metadata accessor for Apple_Parsec_Siri_V2alpha_ShowMapPointsBuilderParams._StorageClass(0);
-  v1 = *(v0 + 48);
-  v2 = *(v0 + 52);
-
-  return swift_allocObject();
-}
-
-uint64_t OUTLINED_FUNCTION_45_11()
-{
-  v3 = type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams(0);
-  __swift_getEnumTagSinglePayload(v2, 1, v3);
-
-  return sub_1B8D9207C(v2, v0, v1);
-}
-
-uint64_t OUTLINED_FUNCTION_64_5()
-{
-
-  return __swift_getEnumTagSinglePayload(v1, 1, v0);
-}
-
-uint64_t OUTLINED_FUNCTION_74_13(uint64_t a1)
-{
-  v2 = *(v1 + *(type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams(a1) + 20));
-
-  return swift_isUniquelyReferenced_nonNull_native();
-}
-
-uint64_t OUTLINED_FUNCTION_81_8()
-{
-
-  return sub_1B91FA3D0();
-}
-
-uint64_t OUTLINED_FUNCTION_101_5()
-{
-  v1 = *(v0 + *(type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams(0) + 20));
-
-  return swift_isUniquelyReferenced_nonNull_native();
-}
-
-uint64_t OUTLINED_FUNCTION_110_5()
-{
-
-  return type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams(0);
-}
-
-void OUTLINED_FUNCTION_126_2()
-{
-  *v1 = 0;
-  *(v1 + 8) = 0xE000000000000000;
-  *(v1 + 16) = 0;
-  *(v1 + 24) = v0;
-  *(v1 + 32) = 0;
-  *(v1 + 40) = 0xE000000000000000;
-}
-
-uint64_t OUTLINED_FUNCTION_130_4()
-{
-  v2 = *(v0 + 84);
-  v3 = *(v0 + 72);
-
-  return type metadata accessor for Apple_Parsec_Siri_V2alpha_LocationBuilderParams._StorageClass();
-}
-
-uint64_t OUTLINED_FUNCTION_132_6(__n128 a1)
-{
-  v2[3] = a1;
-  v2[4].n128_u64[0] = 0;
-  v2[4].n128_u8[8] = v1;
-  v5 = v2 + *(v3 + 36);
-
-  return _s10PegasusAPI18Amppb_AvailabilityVACycfC_0();
-}
-
-uint64_t OUTLINED_FUNCTION_138_4()
-{
-
-  return sub_1B91FA3D0();
-}
-
-uint64_t OUTLINED_FUNCTION_147_6()
-{
-
-  return sub_1B964C850();
-}
-
-unint64_t Apple_Parsec_Siri_V2alpha_SiriResponseMode.init(rawValue:)@<X0>(unint64_t result@<X0>, uint64_t a2@<X8>)
-{
-  *a2 = result;
-  *(a2 + 8) = result < 5;
-  *(a2 + 9) = 0;
-  return result;
-}
-
-uint64_t sub_1B92005F8@<X0>(uint64_t *a1@<X8>)
-{
-  result = Apple_Parsec_Siri_V2alpha_SiriResponseMode.rawValue.getter();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_1B920062C(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_1B9200C48();
-
-  return MEMORY[0x1EEE15710](a1, a2, v4);
-}
-
-uint64_t static Apple_Parsec_Siri_V2alpha_SiriResponseMode.allCases.setter(void *a1)
-{
-  swift_beginAccess();
-  off_1EBAC8A08 = a1;
-}
-
-uint64_t sub_1B9200774@<X0>(uint64_t *a1@<X8>)
-{
-  result = static Apple_Parsec_Siri_V2alpha_SiriResponseMode.allCases.getter();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_1B920079C()
-{
-  v0 = sub_1B964C780();
-  __swift_allocate_value_buffer(v0, qword_1EBAC8A10);
-  __swift_project_value_buffer(v0, qword_1EBAC8A10);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB92F0, &unk_1B964DAD0);
-  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBAB92F8, &unk_1B964EE40) - 8);
-  v2 = *(*v1 + 72);
-  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v4 = swift_allocObject();
-  *(v4 + 16) = xmmword_1B964EE70;
-  v5 = v4 + v3;
-  v6 = v4 + v3 + v1[14];
-  *(v4 + v3) = 0;
-  *v6 = "SIRI_RESPONSE_MODE_UNKNOWN";
-  *(v6 + 8) = 26;
-  *(v6 + 16) = 2;
-  v7 = *MEMORY[0x1E69AADC8];
-  v8 = sub_1B964C750();
-  v9 = *(*(v8 - 8) + 104);
-  (v9)(v6, v7, v8);
-  v10 = v5 + v2 + v1[14];
-  *(v5 + v2) = 1;
-  *v10 = "SIRI_RESPONSE_MODE_DISPLAY_FORWARD";
-  *(v10 + 8) = 34;
-  *(v10 + 16) = 2;
-  v9();
-  v11 = (v5 + 2 * v2);
-  v12 = v11 + v1[14];
-  *v11 = 2;
-  *v12 = "SIRI_RESPONSE_MODE_VOICE_ONLY";
-  *(v12 + 1) = 29;
-  v12[16] = 2;
-  v9();
-  v13 = (v5 + 3 * v2);
-  v14 = v13 + v1[14];
-  *v13 = 3;
-  *v14 = "SIRI_RESPONSE_MODE_VOICE_FORWARD";
-  *(v14 + 1) = 32;
-  v14[16] = 2;
-  v9();
-  v15 = (v5 + 4 * v2);
-  v16 = v15 + v1[14];
-  *v15 = 4;
-  *v16 = "SIRI_RESPONSE_MODE_DISPLAY_ONLY";
-  *(v16 + 1) = 31;
-  v16[16] = 2;
-  v9();
-  return sub_1B964C760();
-}
-
-uint64_t static Apple_Parsec_Siri_V2alpha_SiriResponseMode._protobuf_nameMap.getter@<X0>(uint64_t a1@<X8>)
-{
-  if (qword_1EBAB79F8 != -1)
-  {
-    swift_once();
-  }
-
-  v2 = sub_1B964C780();
-  v3 = __swift_project_value_buffer(v2, qword_1EBAC8A10);
-  v4 = *(*(v2 - 8) + 16);
-
-  return v4(a1, v3, v2);
-}
-
-unint64_t sub_1B9200AC8()
-{
-  result = qword_1EBAC8A28;
-  if (!qword_1EBAC8A28)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1EBAC8A28);
-  }
-
-  return result;
-}
-
-unint64_t sub_1B9200B20()
-{
-  result = qword_1EBAC8A30;
-  if (!qword_1EBAC8A30)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1EBAC8A30);
-  }
-
-  return result;
-}
-
-unint64_t sub_1B9200B78()
-{
-  result = qword_1EBAC8A38;
-  if (!qword_1EBAC8A38)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1EBAC8A38);
-  }
-
-  return result;
-}
-
-unint64_t sub_1B9200BD0()
-{
-  result = qword_1EBAC8A40;
-  if (!qword_1EBAC8A40)
-  {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EBAC8A48, &qword_1B96A7E78);
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1EBAC8A40);
-  }
-
-  return result;
-}
-
-unint64_t sub_1B9200C48()
-{
-  result = qword_1EBAC8A50;
-  if (!qword_1EBAC8A50)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1EBAC8A50);
-  }
-
-  return result;
-}
-
-void Apple_Parsec_Siri_V2alpha_MultiUserContext.userIdentificationClassification.getter(uint64_t a1@<X8>)
-{
-  v2 = *(v1 + 8);
-  *a1 = *v1;
-  *(a1 + 8) = v2;
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_MultiUserContext.userIdentificationClassification.setter(uint64_t result)
-{
-  v2 = *(result + 8);
-  *v1 = *result;
-  *(v1 + 8) = v2;
-  return result;
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_MultiUserContext.sharedUserID.getter()
-{
-  v1 = *(v0 + 16);
-  v2 = *(v0 + 24);
-
-  return v1;
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_MultiUserContext.sharedUserID.setter(uint64_t a1, uint64_t a2)
-{
-  v5 = *(v2 + 24);
-
-  *(v2 + 16) = a1;
-  *(v2 + 24) = a2;
-  return result;
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_MultiUserContext.unknownFields.getter@<X0>(uint64_t a1@<X8>)
-{
-  v3 = *(type metadata accessor for Apple_Parsec_Siri_V2alpha_MultiUserContext(0) + 28);
-  v4 = sub_1B964C2B0();
-  v5 = OUTLINED_FUNCTION_59_1(v4);
-  v7 = *(v6 + 16);
-
-  return v7(a1, v1 + v3, v5);
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_MultiUserContext.unknownFields.setter()
-{
-  v2 = OUTLINED_FUNCTION_313();
-  v3 = *(type metadata accessor for Apple_Parsec_Siri_V2alpha_MultiUserContext(v2) + 28);
-  v4 = sub_1B964C2B0();
-  OUTLINED_FUNCTION_59_1(v4);
-  v6 = *(v5 + 40);
-
-  return v6(v1 + v3, v0);
-}
-
-uint64_t (*Apple_Parsec_Siri_V2alpha_MultiUserContext.unknownFields.modify())()
-{
-  v0 = OUTLINED_FUNCTION_313();
-  v1 = *(type metadata accessor for Apple_Parsec_Siri_V2alpha_MultiUserContext(v0) + 28);
-  return nullsub_1;
-}
-
-uint64_t sub_1B9200F14@<X0>(uint64_t *a1@<X8>)
-{
-  result = Apple_Parsec_Siri_V2alpha_MultiUserContext.UserIdentityClassification.rawValue.getter();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_1B9200F48(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_1B9201878();
-
-  return MEMORY[0x1EEE15710](a1, a2, v4);
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_MultiUserContext.init()@<X0>(uint64_t a1@<X8>)
-{
-  *a1 = 0;
-  *(a1 + 8) = 1;
-  *(a1 + 16) = 0;
-  *(a1 + 24) = 0xE000000000000000;
-  v1 = a1 + *(type metadata accessor for Apple_Parsec_Siri_V2alpha_MultiUserContext(0) + 28);
-  return _s10PegasusAPI18Amppb_AvailabilityVACycfC_0();
-}
-
-uint64_t (*static Apple_Parsec_Siri_V2alpha_MultiUserContext.UserIdentityClassification.allCases.modify())()
-{
-  OUTLINED_FUNCTION_288();
-  swift_beginAccess();
-  return j__swift_endAccess;
-}
-
-uint64_t sub_1B9201080@<X0>(uint64_t *a1@<X8>)
-{
-  result = static Apple_Parsec_Siri_V2alpha_MultiUserContext.UserIdentityClassification.allCases.getter();
-  *a1 = result;
-  return result;
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_MultiUserResponseContext.unknownFields.getter@<X0>(uint64_t a1@<X8>)
-{
-  v3 = *(type metadata accessor for Apple_Parsec_Siri_V2alpha_MultiUserResponseContext(0) + 24);
-  v4 = sub_1B964C2B0();
-  v5 = OUTLINED_FUNCTION_59_1(v4);
-  v7 = *(v6 + 16);
-
-  return v7(a1, v1 + v3, v5);
-}
-
-uint64_t Apple_Parsec_Siri_V2alpha_MultiUserResponseContext.unknownFields.setter()
-{
-  v2 = OUTLINED_FUNCTION_313();
-  v3 = *(type metadata accessor for Apple_Parsec_Siri_V2alpha_MultiUserResponseContext(v2) + 24);
-  v4 = sub_1B964C2B0();
-  OUTLINED_FUNCTION_59_1(v4);
-  v6 = *(v5 + 40);
-
-  return v6(v1 + v3, v0);
-}
-
-uint64_t (*Apple_Parsec_Siri_V2alpha_MultiUserResponseContext.unknownFields.modify())()
-{
-  v0 = OUTLINED_FUNCTION_313();
-  v1 = *(type metadata accessor for Apple_Parsec_Siri_V2alpha_MultiUserResponseContext(v0) + 24);
-  return nullsub_1;
-}
-
-void Apple_Parsec_Siri_V2alpha_MultiUserResponseContext.UserIdentificationType.init(rawValue:)(uint64_t *a1@<X8>, uint64_t a2@<X0>)
-{
-  switch(a2)
-  {
-    case 3:
-      a2 = 1;
-      break;
-    case 5:
-      a2 = 2;
-      break;
-    case 6:
-      a2 = 3;
-      break;
-    case 7:
-      a2 = 4;
-      break;
-    default:
-      break;
-  }
-
-  *a1 = a2;
-  OUTLINED_FUNCTION_7_3(a1);
+  sub_1B8D9207C(v174, &qword_1EBAC9448, &qword_1B96AA708);
+  return 1;
 }

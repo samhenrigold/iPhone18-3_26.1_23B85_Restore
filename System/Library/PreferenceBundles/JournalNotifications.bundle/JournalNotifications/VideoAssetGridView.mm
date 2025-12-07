@@ -28,7 +28,7 @@
   v8 = OBJC_IVAR____TtC20JournalNotifications18VideoAssetGridView_durationLabel;
   *(&self->super.super.super.super.super.isa + v8) = [objc_allocWithZone(UILabel) init];
   v10.receiver = self;
-  v10.super_class = type metadata accessor for VideoAssetGridView();
+  v10.super_class = type metadata accessor for VideoAssetGridView(0);
   return [(VideoAssetView *)&v10 initWithFrame:x, y, width, height];
 }
 
@@ -39,7 +39,7 @@
   coderCopy = coder;
   *(&self->super.super.super.super.super.isa + v5) = [v6 init];
   v10.receiver = self;
-  v10.super_class = type metadata accessor for VideoAssetGridView();
+  v10.super_class = type metadata accessor for VideoAssetGridView(0);
   v8 = [(VideoAssetView *)&v10 initWithCoder:coderCopy];
 
   if (v8)

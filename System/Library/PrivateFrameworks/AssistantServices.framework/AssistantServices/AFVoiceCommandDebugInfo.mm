@@ -29,25 +29,23 @@
 
 - (id)dictionaryRepresentation
 {
-  v12[5] = *MEMORY[0x1E69E9840];
-  v11[0] = @"hasVoiceCommandInExhaustiveParses";
+  v11[5] = *MEMORY[0x1E69E9840];
+  v10[0] = @"hasVoiceCommandInExhaustiveParses";
   v3 = [MEMORY[0x1E696AD98] numberWithBool:self->_hasVoiceCommandInExhaustiveParses];
-  v12[0] = v3;
-  v11[1] = @"hasVoiceCommandParses";
+  v11[0] = v3;
+  v10[1] = @"hasVoiceCommandParses";
   v4 = [MEMORY[0x1E696AD98] numberWithBool:self->_hasVoiceCommandParses];
-  v12[1] = v4;
-  v11[2] = @"hasVoiceCommandEditIntent";
+  v11[1] = v4;
+  v10[2] = @"hasVoiceCommandEditIntent";
   v5 = [MEMORY[0x1E696AD98] numberWithBool:self->_hasVoiceCommandEditIntent];
-  v12[2] = v5;
-  v11[3] = @"hasVoiceCommandAfterReranking";
+  v11[2] = v5;
+  v10[3] = @"hasVoiceCommandAfterReranking";
   v6 = [MEMORY[0x1E696AD98] numberWithBool:self->_hasVoiceCommandAfterReranking];
-  v12[3] = v6;
-  v11[4] = @"hasNoVoiceCommandAfterRespeakCheck";
+  v11[3] = v6;
+  v10[4] = @"hasNoVoiceCommandAfterRespeakCheck";
   v7 = [MEMORY[0x1E696AD98] numberWithBool:self->_hasNoVoiceCommandAfterRespeakCheck];
-  v12[4] = v7;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:5];
-
-  v9 = *MEMORY[0x1E69E9840];
+  v11[4] = v7;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:5];
 
   return v8;
 }

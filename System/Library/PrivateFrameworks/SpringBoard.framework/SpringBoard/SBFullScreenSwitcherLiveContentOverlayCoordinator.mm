@@ -160,7 +160,7 @@
 void __92__SBFullScreenSwitcherLiveContentOverlayCoordinator__updatePortaledSceneLiveContentOverlays__block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
-  if ([a3 overlayType] == 4 && (objc_msgSend(*(a1 + 32), "containsObject:", v5) & 1) == 0)
+  if ([a3 overlayType] == 4 && (objc_msgSend_containsObject_(*(a1 + 32)) & 1) == 0)
   {
     [*(a1 + 40) _removeOverlayForAppLayout:v5 animated:0];
   }
@@ -169,7 +169,7 @@ void __92__SBFullScreenSwitcherLiveContentOverlayCoordinator__updatePortaledScen
 void __90__SBFullScreenSwitcherLiveContentOverlayCoordinator__updateAlwaysLiveSceneContentOverlays__block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
-  if ([a3 overlayType] == 3 && (objc_msgSend(*(*(a1 + 32) + 72), "containsObject:", v5) & 1) == 0)
+  if ([a3 overlayType] == 3 && (objc_msgSend_containsObject_(*(*(a1 + 32) + 72)) & 1) == 0)
   {
     [*(a1 + 32) _removeOverlayForAppLayout:v5 animated:0];
   }
@@ -390,7 +390,7 @@ LABEL_22:
                 }
 
                 contentOverlayView = [v43 contentOverlayView];
-                [contentOverlayView frame];
+                objc_msgSend_frame(contentOverlayView);
                 v52 = v51;
                 v54 = v53;
 
@@ -1042,7 +1042,7 @@ LABEL_72:
         }
 
         v71 = *(*(&v114 + 1) + 8 * k);
-        if (([leafAppLayouts3 containsObject:v71] & 1) == 0)
+        if ((objc_msgSend_containsObject_(leafAppLayouts3) & 1) == 0)
         {
           v72 = [(NSMutableDictionary *)selfCopy2->_appLayoutToLiveContentOverlayContext objectForKey:v71];
           v73 = v72;
@@ -1199,7 +1199,7 @@ LABEL_87:
 
 - (void)layoutStateTransitionCoordinator:(id)coordinator transitionDidEndWithTransitionContext:(id)context
 {
-  v107 = *MEMORY[0x277D85DE8];
+  v109 = *MEMORY[0x277D85DE8];
   coordinatorCopy = coordinator;
   contextCopy = context;
   if (![(SBFullScreenSwitcherLiveContentOverlayCoordinator *)self areLiveContentOverlayUpdatesSuspended])
@@ -1218,7 +1218,7 @@ LABEL_87:
 
     appLayout = [previousLayoutState appLayout];
     floatingAppLayout = [previousLayoutState floatingAppLayout];
-    v76 = appLayout;
+    v78 = appLayout;
     leafAppLayouts = [appLayout leafAppLayouts];
     if (floatingAppLayout)
     {
@@ -1242,10 +1242,10 @@ LABEL_87:
     appLayout2 = [layoutState appLayout];
     layoutAttributesMap = [layoutState layoutAttributesMap];
     floatingAppLayout2 = [layoutState floatingAppLayout];
-    v84 = appLayout2;
+    v86 = appLayout2;
     leafAppLayouts3 = [appLayout2 leafAppLayouts];
     v20 = leafAppLayouts3;
-    v80 = floatingAppLayout2;
+    v82 = floatingAppLayout2;
     if (floatingAppLayout2)
     {
       leafAppLayouts4 = [floatingAppLayout2 leafAppLayouts];
@@ -1254,71 +1254,71 @@ LABEL_87:
       {
         v23 = [v20 arrayByAddingObjectsFromArray:leafAppLayouts4];
 
-        v77 = v23;
+        v79 = v23;
       }
 
       else
       {
-        v77 = leafAppLayouts4;
+        v79 = leafAppLayouts4;
       }
     }
 
     else
     {
-      v77 = leafAppLayouts3;
+      v79 = leafAppLayouts3;
     }
 
     switcherController = [(SBFullScreenSwitcherLiveContentOverlayCoordinator *)self switcherController];
     windowManagementContext = [switcherController windowManagementContext];
     isChamoisOrFlexibleWindowing = [windowManagementContext isChamoisOrFlexibleWindowing];
 
-    v75 = floatingAppLayout;
+    v77 = floatingAppLayout;
     if (isChamoisOrFlexibleWindowing)
     {
-      v79 = [(SBFullScreenSwitcherLiveContentOverlayCoordinator *)self _itemToZOrderIndexDictionaryForAppLayout:v84 layoutAttributesMap:layoutAttributesMap];
+      v81 = [(SBFullScreenSwitcherLiveContentOverlayCoordinator *)self _itemToZOrderIndexDictionaryForAppLayout:v86 layoutAttributesMap:layoutAttributesMap];
     }
 
     else
     {
-      v79 = 0;
+      v81 = 0;
     }
 
-    v74 = leafAppLayouts;
-    v26 = v77;
-    v82 = applicationTransitionContext;
-    if ((BSEqualObjects() & 1) == 0 && v77)
+    v76 = leafAppLayouts;
+    v26 = v79;
+    v84 = applicationTransitionContext;
+    if ((BSEqualObjects() & 1) == 0 && v79)
     {
-      v78 = layoutState;
-      v72 = previousLayoutState;
+      v80 = layoutState;
+      v74 = previousLayoutState;
+      v104 = 0u;
+      v105 = 0u;
       v102 = 0u;
       v103 = 0u;
-      v100 = 0u;
-      v101 = 0u;
-      obj = v77;
-      v88 = [obj countByEnumeratingWithState:&v100 objects:v106 count:16];
-      if (!v88)
+      obj = v79;
+      v90 = [obj countByEnumeratingWithState:&v102 objects:v108 count:16];
+      if (!v90)
       {
         goto LABEL_43;
       }
 
-      v85 = *v101;
+      v87 = *v103;
       while (1)
       {
         v27 = 0;
         do
         {
-          if (*v101 != v85)
+          if (*v103 != v87)
           {
             objc_enumerationMutation(obj);
           }
 
-          v28 = *(*(&v100 + 1) + 8 * v27);
+          v28 = *(*(&v102 + 1) + 8 * v27);
           v29 = 3;
           if ([v28 environment] != 2)
           {
             allItems = [v28 allItems];
             firstObject = [allItems firstObject];
-            v29 = [v84 layoutRoleForItem:firstObject];
+            v29 = [v86 layoutRoleForItem:firstObject];
           }
 
           v32 = [(NSMutableDictionary *)self->_appLayoutToLiveContentOverlayContext objectForKey:v28];
@@ -1333,18 +1333,18 @@ LABEL_87:
           {
             if ([v32 overlayType] == 2)
             {
-              v41 = [v78 elementWithRole:v29];
+              v41 = [v80 elementWithRole:v29];
               workspaceEntity = [v41 workspaceEntity];
               isAppClipPlaceholderEntity = [workspaceEntity isAppClipPlaceholderEntity];
 
               if (isAppClipPlaceholderEntity)
               {
-                applicationTransitionContext = v82;
+                applicationTransitionContext = v84;
                 goto LABEL_33;
               }
 
               [(SBFullScreenSwitcherLiveContentOverlayCoordinator *)self _removeOverlayForAppLayout:v28 animated:0];
-              applicationTransitionContext = v82;
+              applicationTransitionContext = v84;
               goto LABEL_28;
             }
 
@@ -1363,16 +1363,16 @@ LABEL_29:
           if (v29 == 3)
           {
             integerValue = 0;
-            v38 = v80;
+            v38 = v82;
           }
 
           else
           {
-            v39 = [v79 objectForKey:v36];
+            v39 = [v81 objectForKey:v36];
             integerValue = [v39 integerValue];
 
-            applicationTransitionContext = v82;
-            v38 = v84;
+            applicationTransitionContext = v84;
+            v38 = v86;
           }
 
           v40 = [(SBFullScreenSwitcherLiveContentOverlayCoordinator *)self _newLiveContentOverlayForApplicationContext:applicationTransitionContext layoutRole:v29 sbsDisplayLayoutRole:[(SBFullScreenSwitcherLiveContentOverlayCoordinator *)self _calculateSBSDisplayLayoutElementRoleForDisplayItem:v36 inAppLayout:v38 zOrderIndex:integerValue layoutAttributesMap:layoutAttributesMap] zOrderIndex:integerValue];
@@ -1384,16 +1384,16 @@ LABEL_33:
           ++v27;
         }
 
-        while (v88 != v27);
-        v44 = [obj countByEnumeratingWithState:&v100 objects:v106 count:16];
-        v88 = v44;
+        while (v90 != v27);
+        v44 = [obj countByEnumeratingWithState:&v102 objects:v108 count:16];
+        v90 = v44;
         if (!v44)
         {
 LABEL_43:
 
-          previousLayoutState = v72;
-          v26 = v77;
-          layoutState = v78;
+          previousLayoutState = v74;
+          v26 = v79;
+          layoutState = v80;
           break;
         }
       }
@@ -1401,39 +1401,39 @@ LABEL_43:
 
     v45 = objc_opt_new();
     appLayoutToLiveContentOverlayContext = self->_appLayoutToLiveContentOverlayContext;
-    v97[0] = MEMORY[0x277D85DD0];
-    v97[1] = 3221225472;
-    v97[2] = __124__SBFullScreenSwitcherLiveContentOverlayCoordinator_layoutStateTransitionCoordinator_transitionDidEndWithTransitionContext___block_invoke;
-    v97[3] = &unk_2783B09D8;
-    v97[4] = self;
+    v99[0] = MEMORY[0x277D85DD0];
+    v99[1] = 3221225472;
+    v99[2] = __124__SBFullScreenSwitcherLiveContentOverlayCoordinator_layoutStateTransitionCoordinator_transitionDidEndWithTransitionContext___block_invoke;
+    v99[3] = &unk_2783B09D8;
+    v99[4] = self;
     v47 = v26;
-    v98 = v47;
+    v100 = v47;
     v48 = v45;
-    v99 = v48;
-    [(NSMutableDictionary *)appLayoutToLiveContentOverlayContext enumerateKeysAndObjectsUsingBlock:v97];
+    v101 = v48;
+    [(NSMutableDictionary *)appLayoutToLiveContentOverlayContext enumerateKeysAndObjectsUsingBlock:v99];
+    v97 = 0u;
+    v98 = 0u;
     v95 = 0u;
     v96 = 0u;
-    v93 = 0u;
-    v94 = 0u;
     v49 = v48;
-    v50 = [v49 countByEnumeratingWithState:&v93 objects:v105 count:16];
+    v50 = [v49 countByEnumeratingWithState:&v95 objects:v107 count:16];
     if (v50)
     {
       v51 = v50;
-      v52 = *v94;
+      v52 = *v96;
       do
       {
         for (i = 0; i != v51; ++i)
         {
-          if (*v94 != v52)
+          if (*v96 != v52)
           {
             objc_enumerationMutation(v49);
           }
 
-          [(SBFullScreenSwitcherLiveContentOverlayCoordinator *)self _removeOverlayForAppLayout:*(*(&v93 + 1) + 8 * i) animated:0, v72];
+          [(SBFullScreenSwitcherLiveContentOverlayCoordinator *)self _removeOverlayForAppLayout:*(*(&v95 + 1) + 8 * i) animated:0, v74];
         }
 
-        v51 = [v49 countByEnumeratingWithState:&v93 objects:v105 count:16];
+        v51 = [v49 countByEnumeratingWithState:&v95 objects:v107 count:16];
       }
 
       while (v51);
@@ -1442,7 +1442,7 @@ LABEL_43:
     [(NSMutableDictionary *)self->_appLayoutToLiveContentOverlayContext bs_each:&__block_literal_global_84];
     [(SBFullScreenSwitcherLiveContentOverlayCoordinator *)self _updateAlwaysLiveSceneContentOverlays];
     [(SBFullScreenSwitcherLiveContentOverlayCoordinator *)self _updatePortaledSceneLiveContentOverlays];
-    [(SBFullScreenSwitcherLiveContentOverlayCoordinator *)self _updateFullScreenDisplayLayoutElementsForActiveAppLayouts:v47 inAppLayout:v84 layoutAttributesMap:layoutAttributesMap];
+    [(SBFullScreenSwitcherLiveContentOverlayCoordinator *)self _updateFullScreenDisplayLayoutElementsForActiveAppLayouts:v47 inAppLayout:v86 layoutAttributesMap:layoutAttributesMap];
     appLayout3 = [layoutState appLayout];
     WeakRetained = objc_loadWeakRetained(&self->_switcherController);
     displayItemLayoutAttributesProvider = [WeakRetained displayItemLayoutAttributesProvider];
@@ -1461,37 +1461,37 @@ LABEL_43:
       v62 = v61;
     }
 
-    v63 = [displayItemLayoutAttributesProvider zOrderedItemsInAppLayout:appLayout3 orientation:{v62, v72}];
+    v63 = [displayItemLayoutAttributesProvider zOrderedItemsInAppLayout:appLayout3 orientation:{v62, v74}];
 
-    if (SBLayoutSupportsManyForegroundWindows())
+    if (SBLayoutSupportsManyForegroundWindows(v64, v65))
     {
       [(SBFullScreenSwitcherLiveContentOverlayCoordinator *)self _updateSceneRelevancyWithZOrderedDisplayItems:v63 inAppLayout:appLayout3 toLayoutState:v57];
     }
   }
 
+  v93 = 0u;
+  v94 = 0u;
   v91 = 0u;
   v92 = 0u;
-  v89 = 0u;
-  v90 = 0u;
   allValues = [(NSMutableDictionary *)self->_appLayoutToLiveContentOverlayContext allValues];
-  v65 = [allValues countByEnumeratingWithState:&v89 objects:v104 count:16];
-  if (v65)
+  v67 = [allValues countByEnumeratingWithState:&v91 objects:v106 count:16];
+  if (v67)
   {
-    v66 = v65;
-    v67 = *v90;
+    v68 = v67;
+    v69 = *v92;
     do
     {
-      for (j = 0; j != v66; ++j)
+      for (j = 0; j != v68; ++j)
       {
-        if (*v90 != v67)
+        if (*v92 != v69)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v69 = *(*(&v89 + 1) + 8 * j);
-        if ([v69 overlayType] == 1)
+        v71 = *(*(&v91 + 1) + 8 * j);
+        if ([v71 overlayType] == 1)
         {
-          overlay2 = [v69 overlay];
+          overlay2 = [v71 overlay];
           contentViewController = [overlay2 contentViewController];
 
           if (objc_opt_respondsToSelector())
@@ -1501,17 +1501,17 @@ LABEL_43:
         }
       }
 
-      v66 = [allValues countByEnumeratingWithState:&v89 objects:v104 count:16];
+      v68 = [allValues countByEnumeratingWithState:&v91 objects:v106 count:16];
     }
 
-    while (v66);
+    while (v68);
   }
 }
 
 void __124__SBFullScreenSwitcherLiveContentOverlayCoordinator_layoutStateTransitionCoordinator_transitionDidEndWithTransitionContext___block_invoke(id *a1, void *a2)
 {
   v3 = a2;
-  if ([a1[4] _existingOverlayTypeForAppLayout:?] == 1 && (objc_msgSend(a1[5], "containsObject:", v3) & 1) == 0 && (objc_msgSend(*(a1[4] + 10), "hasTransitioningDisplayItemsForAppLayout:", v3) & 1) == 0)
+  if ([a1[4] _existingOverlayTypeForAppLayout:?] == 1 && (objc_msgSend_containsObject_(a1[5]) & 1) == 0 && (objc_msgSend(*(a1[4] + 10), "hasTransitioningDisplayItemsForAppLayout:", v3) & 1) == 0)
   {
     [a1[6] addObject:v3];
   }
@@ -1866,7 +1866,7 @@ LABEL_15:
       v12 = SBSafeCast(v9, v11);
 
       LODWORD(_sceneManager) = [v12 shouldAlwaysDisplayLiveContent];
-      if (_sceneManager && ([(NSMutableArray *)self->_visibleAlwaysLiveAppLayouts containsObject:visibleCopy]& 1) == 0)
+      if (_sceneManager && (objc_msgSend_containsObject_(self->_visibleAlwaysLiveAppLayouts) & 1) == 0)
       {
         visibleAlwaysLiveAppLayouts = self->_visibleAlwaysLiveAppLayouts;
         if (!visibleAlwaysLiveAppLayouts)
@@ -1890,7 +1890,7 @@ LABEL_15:
 - (void)appLayoutDidBecomeHidden:(id)hidden
 {
   hiddenCopy = hidden;
-  if ([(NSMutableArray *)self->_visibleAlwaysLiveAppLayouts containsObject:?])
+  if (objc_msgSend_containsObject_(self->_visibleAlwaysLiveAppLayouts))
   {
     [(NSMutableArray *)self->_visibleAlwaysLiveAppLayouts removeObject:hiddenCopy];
     if (![(NSMutableArray *)self->_visibleAlwaysLiveAppLayouts count])
@@ -2217,7 +2217,7 @@ LABEL_15:
 uint64_t __125__SBFullScreenSwitcherLiveContentOverlayCoordinator__updateSceneRelevancyWithZOrderedDisplayItems_inAppLayout_toLayoutState___block_invoke(uint64_t a1, void *a2)
 {
   v3 = [a2 identifier];
-  v4 = [*(a1 + 32) containsObject:v3];
+  v4 = objc_msgSend_containsObject_(*(a1 + 32));
 
   return v4;
 }
@@ -2846,9 +2846,9 @@ LABEL_16:
 - (BOOL)_shouldAnimateAddingLiveContentOverlayForTransitionContext:(id)context leafAppLayout:(id)layout
 {
   contextCopy = context;
-  if (([(NSMutableArray *)self->_visibleAlwaysLiveAppLayouts containsObject:layout]& 1) != 0)
+  if (objc_msgSend_containsObject_(self->_visibleAlwaysLiveAppLayouts))
   {
-    v7 = 0;
+    v6 = 0;
   }
 
   else
@@ -2856,9 +2856,9 @@ LABEL_16:
     previousLayoutState = [contextCopy previousLayoutState];
     layoutState = [contextCopy layoutState];
     unlockedEnvironmentMode = [previousLayoutState unlockedEnvironmentMode];
-    if (((unlockedEnvironmentMode & 0xFFFFFFFFFFFFFFFELL) == 2 || SBPeekConfigurationIsValid([previousLayoutState peekConfiguration])) && -[SBFullScreenSwitcherLiveContentOverlayCoordinator _layoutStateContainsElementBlockedForScreenTimeExpiration:](self, "_layoutStateContainsElementBlockedForScreenTimeExpiration:", layoutState) || (v11 = objc_msgSend(previousLayoutState, "interfaceOrientation"), v11 != objc_msgSend(layoutState, "interfaceOrientation")))
+    if (((unlockedEnvironmentMode & 0xFFFFFFFFFFFFFFFELL) == 2 || SBPeekConfigurationIsValid([previousLayoutState peekConfiguration])) && -[SBFullScreenSwitcherLiveContentOverlayCoordinator _layoutStateContainsElementBlockedForScreenTimeExpiration:](self, "_layoutStateContainsElementBlockedForScreenTimeExpiration:", layoutState) || (v10 = objc_msgSend(previousLayoutState, "interfaceOrientation"), v10 != objc_msgSend(layoutState, "interfaceOrientation")))
     {
-      v7 = 1;
+      v6 = 1;
     }
 
     else
@@ -2866,16 +2866,16 @@ LABEL_16:
       request = [contextCopy request];
       source = [request source];
 
-      v7 = 1;
+      v6 = 1;
       if (unlockedEnvironmentMode != 2 && source != 11)
       {
         unlockedEnvironmentMode2 = [layoutState unlockedEnvironmentMode];
-        v7 = unlockedEnvironmentMode == 3 && unlockedEnvironmentMode2 == 3;
+        v6 = unlockedEnvironmentMode == 3 && unlockedEnvironmentMode2 == 3;
       }
     }
   }
 
-  return v7;
+  return v6;
 }
 
 - (BOOL)_layoutStateContainsElementBlockedForScreenTimeExpiration:(id)expiration
@@ -2992,7 +2992,7 @@ LABEL_12:
         v20 = *(*(&v39 + 1) + 8 * v19);
         v21 = [(NSMutableDictionary *)selfCopy->_appLayoutToLiveContentOverlayContext objectForKey:v20];
         overlay = [v21 overlay];
-        v23 = [layoutsCopy containsObject:v20];
+        v23 = objc_msgSend_containsObject_(layoutsCopy);
         if (v15)
         {
           v24 = [v20 itemForLayoutRole:1];
@@ -3041,14 +3041,14 @@ LABEL_12:
   v12 = [layoutCopy layoutRoleForItem:itemCopy];
   v13 = [mapCopy objectForKey:itemCopy];
 
-  v20 = 0;
-  v18 = 0u;
+  v21 = 0;
   v19 = 0u;
+  v20 = 0u;
   [(SBDisplayItemLayoutAttributes *)v13 slideOverConfiguration];
-  v16[0] = v18;
-  v16[1] = v19;
-  v17 = v20;
-  if (SBDisplayItemSlideOverConfigurationIsValid(v16))
+  v17[0] = v19;
+  v17[1] = v20;
+  v18 = v21;
+  if (SBDisplayItemSlideOverConfigurationIsValid(v17))
   {
 LABEL_2:
     v14 = 7;
@@ -3059,7 +3059,7 @@ LABEL_2:
   {
     if ([layoutCopy environment] != 2)
     {
-      v14 = SBSDisplayLayoutRoleForLayoutRole(v12);
+      v14 = SBSDisplayLayoutRoleForLayoutRole(v12, v15);
       goto LABEL_9;
     }
 
@@ -3216,39 +3216,40 @@ LABEL_9:
 - (void)_addOverlay:(id)overlay forAppLayout:(id)layout animated:(BOOL)animated
 {
   animatedCopy = animated;
-  v29 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   overlayCopy = overlay;
   layoutCopy = layout;
   delegate = [(SBFullScreenSwitcherLiveContentOverlayCoordinator *)self delegate];
   v11 = [[SBFullScreenLiveContentOverlayContext alloc] initWithOverlay:overlayCopy];
   [(NSMutableDictionary *)self->_appLayoutToLiveContentOverlayContext setObject:v11 forKey:layoutCopy];
-  if (objc_opt_respondsToSelector())
+  v12 = objc_opt_respondsToSelector();
+  if (v12)
   {
-    [overlayCopy setContainerOrientation:self->_containerOrientation];
+    v12 = [overlayCopy setContainerOrientation:self->_containerOrientation];
   }
 
-  v12 = SBLogAppSwitcher();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v13 = SBLogAppSwitcher(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = objc_opt_class();
-    v14 = NSStringFromClass(v13);
-    v15 = NSStringFromFullScreenLiveContentOverlayType([overlayCopy overlayType]);
+    v14 = objc_opt_class();
+    v15 = NSStringFromClass(v14);
+    v16 = NSStringFromFullScreenLiveContentOverlayType([overlayCopy overlayType]);
     succinctDescription = [layoutCopy succinctDescription];
     NSStringFromBOOL();
-    v17 = v18 = animatedCopy;
+    v18 = v19 = animatedCopy;
     *buf = 138544386;
-    v20 = v14;
-    v21 = 2048;
+    v21 = v15;
+    v22 = 2048;
     selfCopy = self;
-    v23 = 2114;
-    v24 = v15;
-    v25 = 2114;
-    v26 = succinctDescription;
-    v27 = 2114;
-    v28 = v17;
-    _os_log_impl(&dword_21ED4E000, v12, OS_LOG_TYPE_DEFAULT, "<%{public}@: %p> Adding %{public}@ overlay for: %{public}@, animated: %{public}@", buf, 0x34u);
+    v24 = 2114;
+    v25 = v16;
+    v26 = 2114;
+    v27 = succinctDescription;
+    v28 = 2114;
+    v29 = v18;
+    _os_log_impl(&dword_21ED4E000, v13, OS_LOG_TYPE_DEFAULT, "<%{public}@: %p> Adding %{public}@ overlay for: %{public}@, animated: %{public}@", buf, 0x34u);
 
-    animatedCopy = v18;
+    animatedCopy = v19;
   }
 
   [delegate addLiveContentOverlay:overlayCopy forAppLayout:layoutCopy animated:animatedCopy];
@@ -3297,8 +3298,7 @@ LABEL_8:
   }
 
 LABEL_9:
-  [(NSMutableDictionary *)self->_appLayoutToLiveContentOverlayContext removeObjectForKey:layoutCopy];
-  v12 = SBLogAppSwitcher();
+  v12 = SBLogAppSwitcher([(NSMutableDictionary *)self->_appLayoutToLiveContentOverlayContext removeObjectForKey:layoutCopy]);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     v13 = objc_opt_class();
@@ -3333,8 +3333,7 @@ LABEL_9:
   if (v8 && -[SBFullScreenSwitcherLiveContentOverlayCoordinator _supportsMovingOverlayTypeBetweenAppLayouts:](self, "_supportsMovingOverlayTypeBetweenAppLayouts:", [v8 overlayType]))
   {
     [(NSMutableDictionary *)self->_appLayoutToLiveContentOverlayContext removeObjectForKey:layoutCopy];
-    [(NSMutableDictionary *)self->_appLayoutToLiveContentOverlayContext setObject:v9 forKey:appLayoutCopy];
-    v10 = SBLogAppSwitcher();
+    v10 = SBLogAppSwitcher([(NSMutableDictionary *)self->_appLayoutToLiveContentOverlayContext setObject:v9 forKey:appLayoutCopy]);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       v11 = objc_opt_class();

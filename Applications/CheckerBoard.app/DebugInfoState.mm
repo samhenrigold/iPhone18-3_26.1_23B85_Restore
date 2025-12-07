@@ -9,7 +9,7 @@
 {
   swift_getKeyPath();
   selfCopy = self;
-  sub_100044218(&qword_100091EB0, type metadata accessor for DebugInfoState);
+  sub_100044218(&qword_100091EB0, type metadata accessor for DebugInfoState, &unk_100059A30);
   selfCopy2 = self;
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 

@@ -394,7 +394,7 @@
 
   if (v14 && v15)
   {
-    v26 = &unk_280C5F96C;
+    v26 = &flt_280C5F96C;
   }
 
   else
@@ -424,42 +424,42 @@
 
   if (v19)
   {
-    v29 = cc::matrix::YCbCr2020_to_rgb;
+    v29 = &cc::matrix::YCbCr2020_to_rgb;
   }
 
   else
   {
-    v29 = cc::matrix::YCbCr709_to_rgb;
+    v29 = &cc::matrix::YCbCr709_to_rgb;
   }
 
   if (v19)
   {
-    v30 = &cc::matrix::YCbCr2020_to_rgb[0].f32[1];
+    v30 = &cc::matrix::YCbCr2020_to_rgb + 1;
   }
 
   else
   {
-    v30 = &cc::matrix::YCbCr709_to_rgb[0].f32[1];
+    v30 = &cc::matrix::YCbCr709_to_rgb + 1;
   }
 
   if (v19)
   {
-    v31 = &cc::matrix::YCbCr2020_to_rgb[0].i64[1];
+    v31 = &cc::matrix::YCbCr2020_to_rgb + 2;
   }
 
   else
   {
-    v31 = &cc::matrix::YCbCr709_to_rgb[0].i64[1];
+    v31 = &cc::matrix::YCbCr709_to_rgb + 2;
   }
 
   if (v19)
   {
-    v32 = &cc::matrix::YCbCr2020_to_rgb[0].i8[12];
+    v32 = &cc::matrix::YCbCr2020_to_rgb + 3;
   }
 
   else
   {
-    v32 = &cc::matrix::YCbCr709_to_rgb[0].i8[12];
+    v32 = &cc::matrix::YCbCr709_to_rgb + 3;
   }
 
   v33 = &unk_280C5F9C0;
@@ -506,7 +506,7 @@
   (*(*corrector + 96))(corrector, 5, v16, v17, v18, 0.0);
   (*(*corrector + 96))(corrector, 6, *v23, *v24, *v25, 0.0);
   (*(*corrector + 96))(corrector, 7, *v26, *v27, *v28, 0.0);
-  (*(*corrector + 96))(corrector, 8, v29->f32[0], *v30, *v31, 0.0);
+  (*(*corrector + 96))(corrector, 8, *v29, *v30, *v31, 0.0);
   (*(*corrector + 96))(corrector, 9, *v40, *v39, *v38, 0.0);
   (*(*corrector + 96))(corrector, 10, *v43, *v42, *v41, 0.0);
 }

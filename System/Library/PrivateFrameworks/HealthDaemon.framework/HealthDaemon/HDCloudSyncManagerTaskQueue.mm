@@ -63,30 +63,30 @@
 
 - (void)addTask:(id)task
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   os_unfair_lock_lock(&self->_lock);
-  v19 = 0u;
-  v20 = 0u;
   v17 = 0u;
   v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v5 = self->_pendingTasks;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v18;
+    v8 = *v16;
     while (2)
     {
       v9 = 0;
       do
       {
-        if (*v18 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        if ([*(*(&v17 + 1) + 8 * v9) combineWithTask:{taskCopy, v17}])
+        if ([*(*(&v15 + 1) + 8 * v9) combineWithTask:{taskCopy, v15}])
         {
           os_unfair_lock_unlock(&self->_lock);
 
@@ -97,7 +97,7 @@
       }
 
       while (v7 != v9);
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v7)
       {
         continue;
@@ -115,7 +115,6 @@
       priority = [(HDCloudSyncManagerTask *)activeTask priority];
       if (priority < [taskCopy priority])
       {
-        v12 = self->_activeTask;
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -128,21 +127,19 @@
   pendingTasks = self->_pendingTasks;
   if (!pendingTasks)
   {
-    v14 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v15 = self->_pendingTasks;
-    self->_pendingTasks = v14;
+    v13 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v14 = self->_pendingTasks;
+    self->_pendingTasks = v13;
 
     pendingTasks = self->_pendingTasks;
   }
 
-  [(NSMutableArray *)pendingTasks addObject:taskCopy, v17];
+  [(NSMutableArray *)pendingTasks addObject:taskCopy, v15];
   os_unfair_lock_unlock(&self->_lock);
     ;
   }
 
 LABEL_20:
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_primitiveConsiderStartingNextTask

@@ -20,7 +20,7 @@
   v10[4] = self;
   observableCopy = observable;
   selfCopy = self;
-  sub_1A3C67884(sub_1A466BA00, v10);
+  sub_1A3C67884(sub_1A466BA00, v10, "PhotosUICore/PhotosSearchResultsCoordinator.swift", 49, 2u, 723);
 }
 
 @end

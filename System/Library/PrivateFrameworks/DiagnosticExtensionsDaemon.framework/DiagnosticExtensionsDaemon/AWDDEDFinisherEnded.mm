@@ -3,6 +3,8 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)stateAsString:(int)string;
+- (id)typeAsString:(int)string;
 - (int)StringAsState:(id)state;
 - (int)StringAsType:(id)type;
 - (int)state;
@@ -77,6 +79,21 @@
   *&self->_has = *&self->_has & 0xEF | v3;
 }
 
+- (id)typeAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278F66DC8[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsType:(id)type
 {
   typeCopy = type;
@@ -134,6 +151,21 @@
   }
 
   *&self->_has = *&self->_has & 0xF7 | v3;
+}
+
+- (id)stateAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278F66DE8[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsState:(id)state
@@ -279,7 +311,6 @@ LABEL_18:
   has = self->_has;
   if ((has & 4) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 1) == 0)
@@ -299,7 +330,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  duration = self->_duration;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -314,7 +344,6 @@ LABEL_4:
   }
 
 LABEL_12:
-  numbytes = self->_numbytes;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -329,12 +358,10 @@ LABEL_5:
   }
 
 LABEL_13:
-  type = self->_type;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 8) != 0)
   {
 LABEL_6:
-    state = self->_state;
     PBDataWriterWriteInt32Field();
   }
 

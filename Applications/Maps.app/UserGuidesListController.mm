@@ -7,7 +7,7 @@
 
 - (void)collectionManager:(id)manager contentDidChange:(id)change
 {
-  v6 = sub_1000CE6B8(&unk_10190BA50);
+  v6 = sub_1000CE6B8(&unk_10190BA50, &unk_1011E4800);
   __chkstk_darwin(v6 - 8);
   v8 = &v15 - v7;
   v9 = type metadata accessor for TaskPriority();

@@ -32,28 +32,32 @@
 {
   coderCopy = coder;
   classification = [(HMITorsoRecognition *)self classification];
-  [coderCopy encodeObject:classification forKey:@"HMITR.c"];
+  [coderCopy encodeObject:? forKey:?];
 
   torsoprint = [(HMITorsoRecognition *)self torsoprint];
-  [coderCopy encodeObject:torsoprint forKey:@"HMITR.tp"];
+  [coderCopy encodeObject:? forKey:?];
 
-  [coderCopy encodeInteger:-[HMITorsoRecognition sessionEntityAssignment](self forKey:{"sessionEntityAssignment"), @"HMITR.sea"}];
+  [(HMITorsoRecognition *)self sessionEntityAssignment];
+  [coderCopy encodeInteger:? forKey:?];
   sessionEntityUUID = [(HMITorsoRecognition *)self sessionEntityUUID];
-  [coderCopy encodeObject:sessionEntityUUID forKey:@"HMITR.seu"];
+  [coderCopy encodeObject:? forKey:?];
 }
 
 - (HMITorsoRecognition)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMITR.tp"];
-  v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMITR.c"];
-  v7 = [coderCopy decodeIntegerForKey:@"HMITR.sea"];
-  v8 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMITR.seu"];
+  objc_opt_class();
+  v5 = [coderCopy decodeObjectOfClass:? forKey:?];
+  objc_opt_class();
+  v6 = [coderCopy decodeObjectOfClass:? forKey:?];
+  [coderCopy decodeIntegerForKey:?];
+  objc_opt_class();
+  v7 = [coderCopy decodeObjectOfClass:? forKey:?];
 
-  v9 = [MEMORY[0x277CBEB98] set];
-  v10 = [(HMITorsoRecognition *)self initWithTorsoprint:v5 classification:v6 predictedLinkedEntityUUIDs:v9 sessionEntityAssignment:v7 sessionEntityUUID:v8];
+  v8 = [MEMORY[0x277CBEB98] set];
+  v9 = [HMITorsoRecognition initWithTorsoprint:"initWithTorsoprint:classification:predictedLinkedEntityUUIDs:sessionEntityAssignment:sessionEntityUUID:" classification:? predictedLinkedEntityUUIDs:? sessionEntityAssignment:? sessionEntityUUID:?];
 
-  return v10;
+  return v9;
 }
 
 @end

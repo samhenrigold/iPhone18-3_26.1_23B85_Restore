@@ -78,91 +78,90 @@ LABEL_6:
     sub_1000044C8();
   }
 
-  v30 = objc_opt_new();
+  v29 = objc_opt_new();
   selfCopy = self;
   [(FRNewsReferralItemWidgetArticleList *)self JSONArray];
+  v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
-  obj = v43 = 0u;
-  v32 = [obj countByEnumeratingWithState:&v40 objects:v44 count:16];
-  if (v32)
+  obj = v42 = 0u;
+  v31 = [obj countByEnumeratingWithState:&v39 objects:v43 count:16];
+  if (v31)
   {
-    v31 = *v41;
-    v29 = FCWidgetArticleListArticleID;
-    v28 = FCWidgetArticleListSourceChannelID;
-    v27 = FCWidgetArticleListSectionName;
-    v26 = FCWidgetArticleListFlintDocumentURL;
-    v25 = FCWidgetArticleListArticleRecordData;
-    v24 = FCWidgetArticleListSourceChannelRecordData;
-    v23 = FCWidgetArticleListParentIssueRecordData;
+    v30 = *v40;
+    v28 = FCWidgetArticleListArticleID;
+    v27 = FCWidgetArticleListSourceChannelID;
+    v26 = FCWidgetArticleListSectionName;
+    v25 = FCWidgetArticleListFlintDocumentURL;
+    v24 = FCWidgetArticleListArticleRecordData;
+    v23 = FCWidgetArticleListSourceChannelRecordData;
+    v22 = FCWidgetArticleListParentIssueRecordData;
     do
     {
-      for (i = 0; i != v32; i = i + 1)
+      for (i = 0; i != v31; ++i)
       {
-        if (*v41 != v31)
+        if (*v40 != v30)
         {
           objc_enumerationMutation(obj);
         }
 
-        v5 = *(*(&v40 + 1) + 8 * i);
         objc_opt_class();
-        v6 = FCDynamicCast();
-        v7 = v6;
-        if (v6)
+        v5 = FCDynamicCast();
+        v6 = v5;
+        if (v5)
         {
-          v39 = [v6 objectForKey:v29];
-          v35 = [v7 objectForKey:v28];
-          v38 = [v7 objectForKey:v27];
-          v34 = [[FRSectionData alloc] initWithName:v38];
-          v8 = [v7 objectForKey:v26];
-          v37 = v8;
-          if (v8)
+          v38 = [v5 objectForKey:v28];
+          v34 = [v6 objectForKey:v27];
+          v37 = [v6 objectForKey:v26];
+          v33 = [[FRSectionData alloc] initWithName:v37];
+          v7 = [v6 objectForKey:v25];
+          v36 = v7;
+          if (v7)
           {
-            v9 = [NSURL URLWithString:v8];
-            if (v9)
+            v8 = [NSURL URLWithString:v7];
+            if (v8)
             {
               flintDocumentURLAssetHandlesByRemoteURL = [(FRNewsReferralItemWidgetArticleList *)selfCopy flintDocumentURLAssetHandlesByRemoteURL];
-              v11 = [flintDocumentURLAssetHandlesByRemoteURL objectForKeyedSubscript:v9];
+              v10 = [flintDocumentURLAssetHandlesByRemoteURL objectForKeyedSubscript:v8];
 
-              v12 = v11;
+              v11 = v10;
 LABEL_15:
-              v13 = [v7 objectForKeyedSubscript:v25];
+              v12 = [v6 objectForKeyedSubscript:v24];
+              if (v12)
+              {
+                v32 = [[NSData alloc] initWithBase64EncodedString:v12 options:0];
+              }
+
+              else
+              {
+                v32 = 0;
+              }
+
+              v35 = v12;
+              v13 = [v6 objectForKeyedSubscript:v23];
               if (v13)
               {
-                v33 = [[NSData alloc] initWithBase64EncodedString:v13 options:0];
+                v14 = [[NSData alloc] initWithBase64EncodedString:v13 options:0];
               }
 
               else
               {
-                v33 = 0;
+                v14 = 0;
               }
 
-              v36 = v13;
-              v14 = [v7 objectForKeyedSubscript:v24];
-              if (v14)
+              v15 = [v6 objectForKeyedSubscript:v22];
+              if (v15)
               {
-                v15 = [[NSData alloc] initWithBase64EncodedString:v14 options:0];
+                v16 = [[NSData alloc] initWithBase64EncodedString:v15 options:0];
               }
 
               else
               {
-                v15 = 0;
+                v16 = 0;
               }
 
-              v16 = [v7 objectForKeyedSubscript:v23];
-              if (v16)
-              {
-                v17 = [[NSData alloc] initWithBase64EncodedString:v16 options:0];
-              }
-
-              else
-              {
-                v17 = 0;
-              }
-
-              v18 = [[FRReferredArticle alloc] initWithArticleID:v39 sourceChannelID:v35 sectionData:v34 flintDocumentAssetHandle:v12 articleRecordData:v33 sourceChannelRecordData:v15 parentIssueRecordData:v17];
-              [v30 addObject:v18];
+              v17 = [[FRReferredArticle alloc] initWithArticleID:v38 sourceChannelID:v34 sectionData:v33 flintDocumentAssetHandle:v11 articleRecordData:v32 sourceChannelRecordData:v14 parentIssueRecordData:v16];
+              [v29 addObject:v17];
 
               goto LABEL_25;
             }
@@ -170,23 +169,23 @@ LABEL_15:
 
           else
           {
-            v9 = 0;
+            v8 = 0;
           }
 
-          v12 = 0;
+          v11 = 0;
           goto LABEL_15;
         }
 
 LABEL_25:
       }
 
-      v32 = [obj countByEnumeratingWithState:&v40 objects:v44 count:16];
+      v31 = [obj countByEnumeratingWithState:&v39 objects:v43 count:16];
     }
 
-    while (v32);
+    while (v31);
   }
 
-  return v30;
+  return v29;
 }
 
 - (FRNewsReferralItemWidgetArticleList)initWithEncodableElement:(id)element assetHandlesByRemoteURL:(id)l

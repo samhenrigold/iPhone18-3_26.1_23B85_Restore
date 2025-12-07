@@ -18,37 +18,36 @@
   v6 = v5;
   if (v5)
   {
-    objc_storeWeak(&v5->_delegate, delegateCopy);
-    v7 = CXDefaultLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v7 = objc_storeWeak(&v5->_delegate, delegateCopy);
+    v8 = CXDefaultLog(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       v14 = @"com.apple.callkit.notificationserviceextension.voip";
-      _os_log_impl(&dword_1B47F3000, v7, OS_LOG_TYPE_DEFAULT, "Initializing XPC Service %@", buf, 0xCu);
+      _os_log_impl(&dword_1B47F3000, v8, OS_LOG_TYPE_DEFAULT, "Initializing XPC Service %@", buf, 0xCu);
     }
 
-    v8 = [objc_alloc(MEMORY[0x1E696B0D8]) initWithMachServiceName:@"com.apple.callkit.notificationserviceextension.voip"];
+    v9 = [objc_alloc(MEMORY[0x1E696B0D8]) initWithMachServiceName:@"com.apple.callkit.notificationserviceextension.voip"];
     xpcListener = v6->_xpcListener;
-    v6->_xpcListener = v8;
+    v6->_xpcListener = v9;
 
     [(NSXPCListener *)v6->_xpcListener setDelegate:v6];
     [(NSXPCListener *)v6->_xpcListener resume];
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
-  v6 = CXDefaultLog();
+  v6 = CXDefaultLog(connectionCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412290;
-    v11 = connectionCopy;
-    _os_log_impl(&dword_1B47F3000, v6, OS_LOG_TYPE_DEFAULT, "Asked to accept new connection from %@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = connectionCopy;
+    _os_log_impl(&dword_1B47F3000, v6, OS_LOG_TYPE_DEFAULT, "Asked to accept new connection from %@", &v9, 0xCu);
   }
 
   [connectionCopy setExportedObject:self];
@@ -56,7 +55,6 @@
   [connectionCopy setExportedInterface:cx_notificationServiceExtensionInterface];
 
   [connectionCopy resume];
-  v8 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
@@ -72,16 +70,17 @@
     if (cx_bundleIdentifier)
     {
       v11 = cx_bundleIdentifier;
-      v23 = 0;
-      v12 = [objc_alloc(MEMORY[0x1E69635D0]) initWithBundleIdentifier:cx_bundleIdentifier error:&v23];
-      v13 = v23;
+      v25 = 0;
+      v12 = [objc_alloc(MEMORY[0x1E69635D0]) initWithBundleIdentifier:cx_bundleIdentifier error:&v25];
+      v13 = v25;
+      v14 = v13;
       if (v12)
       {
         extensionPointRecord = [v12 extensionPointRecord];
         name = [extensionPointRecord name];
-        v16 = [name isEqualToString:@"com.apple.usernotifications.service"];
+        v17 = [name isEqualToString:@"com.apple.usernotifications.service"];
 
-        if (v16)
+        if (v17)
         {
           containingBundleRecord = [v12 containingBundleRecord];
           bundleIdentifier = [containingBundleRecord bundleIdentifier];
@@ -99,27 +98,27 @@ LABEL_16:
             goto LABEL_17;
           }
 
-          v21 = MEMORY[0x1E696ABC0];
-          v22 = 0;
+          v23 = MEMORY[0x1E696ABC0];
+          v24 = 0;
 LABEL_15:
-          bundleIdentifier = [v21 cx_notificationServiceExtensionErrorWithCode:v22];
+          bundleIdentifier = [v23 cx_notificationServiceExtensionErrorWithCode:v24];
           replyCopy[2](replyCopy, bundleIdentifier);
           goto LABEL_16;
         }
 
-        v20 = CXDefaultLog();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+        v22 = CXDefaultLog(v18);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
         {
-          [CXNotificationServiceExtensionVoIPXPCHost notificationServiceExtension:v11 reply:v20];
+          [CXNotificationServiceExtensionVoIPXPCHost notificationServiceExtension:v11 reply:v22];
         }
       }
 
       else
       {
-        v20 = CXDefaultLog();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+        v22 = CXDefaultLog(v13);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
         {
-          [(CXNotificationServiceExtensionVoIPXPCHost *)v11 notificationServiceExtension:v13 reply:v20];
+          [(CXNotificationServiceExtensionVoIPXPCHost *)v11 notificationServiceExtension:v14 reply:v22];
         }
       }
 
@@ -130,16 +129,16 @@ LABEL_17:
         goto LABEL_18;
       }
 
-      v21 = MEMORY[0x1E696ABC0];
-      v22 = 1;
+      v23 = MEMORY[0x1E696ABC0];
+      v24 = 1;
       goto LABEL_15;
     }
   }
 
   if (replyCopy)
   {
-    v19 = [MEMORY[0x1E696ABC0] cx_notificationServiceExtensionErrorWithCode:1];
-    replyCopy[2](replyCopy, v19);
+    v21 = [MEMORY[0x1E696ABC0] cx_notificationServiceExtensionErrorWithCode:1];
+    replyCopy[2](replyCopy, v21);
   }
 
 LABEL_18:
@@ -163,22 +162,20 @@ LABEL_18:
 
 - (void)notificationServiceExtension:(uint64_t)a1 reply:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B47F3000, a2, OS_LOG_TYPE_ERROR, "Aborting request %@ did not arrive from Notification Service Extension", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B47F3000, a2, OS_LOG_TYPE_ERROR, "Aborting request %@ did not arrive from Notification Service Extension", &v2, 0xCu);
 }
 
 - (void)notificationServiceExtension:(os_log_t)log reply:.cold.2(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_1B47F3000, log, OS_LOG_TYPE_ERROR, "Aborting request, could not find application record for bundle id %@, error %@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_1B47F3000, log, OS_LOG_TYPE_ERROR, "Aborting request, could not find application record for bundle id %@, error %@", &v3, 0x16u);
 }
 
 @end

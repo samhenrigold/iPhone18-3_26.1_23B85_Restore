@@ -16,7 +16,7 @@
 
 - (void)highlightCenter:(id)center didRemoveHighlights:(id)highlights
 {
-  sub_1E3280A90(0, &qword_1EE23B3F0);
+  sub_1E3280A90(0, &qword_1EE23B3F0, 0x1E69D3810);
   v6 = sub_1E42062B4();
   centerCopy = center;
   selfCopy = self;

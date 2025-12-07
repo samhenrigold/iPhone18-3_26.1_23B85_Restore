@@ -9,10 +9,10 @@
 
 - (NSURL)previewItemURL
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CE5EA20);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CE5EA20, &qword_21DC0D4A0);
   MEMORY[0x28223BE20](v3 - 8);
   v5 = &v12 - v4;
-  sub_21D0D3954(self + OBJC_IVAR____TtC15RemindersUICore24TTRIQuickLookPreviewItem_previewItemURL, &v12 - v4, &qword_27CE5EA20);
+  sub_21D0D3954(self + OBJC_IVAR____TtC15RemindersUICore24TTRIQuickLookPreviewItem_previewItemURL, &v12 - v4, &qword_27CE5EA20, &qword_21DC0D4A0);
   v6 = sub_21DBF54CC();
   v7 = *(v6 - 8);
   v8 = (*(v7 + 48))(v5, 1, v6);
@@ -61,7 +61,7 @@
 
   v6 = sub_21D8BC074(v8);
 
-  sub_21D0CF7E0(v8, &qword_27CE5C690);
+  sub_21D0CF7E0(v8, &qword_27CE5C690, &unk_21DC11AB0);
   return v6;
 }
 

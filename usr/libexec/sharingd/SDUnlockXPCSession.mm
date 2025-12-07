@@ -12,9 +12,12 @@
 - (void)cancelAutoUnlock;
 - (void)cancelAutoUnlock:(BOOL)unlock;
 - (void)cancelEnablingAutoUnlockForDevice:(id)device;
+- (void)clearPhoneAutoUnlockNotification:(BOOL)notification;
+- (void)completeAutoUnlockWithNotification:(BOOL)notification;
 - (void)disableAutoUnlockForDevice:(id)device completionHandler:(id)handler;
 - (void)disableUnlockWithDevice:(id)device completionHandler:(id)handler;
 - (void)disableUsingClientProxy:(id)proxy authenticationType:(unint64_t)type device:(id)device sessionID:(id)d;
+- (void)donateDeviceUnlockedWithMask:(BOOL)mask;
 - (void)eligibleAutoUnlockDevicesWithCompletionHandler:(id)handler;
 - (void)enableAutoUnlockWithDevice:(id)device passcode:(id)passcode clientProxy:(id)proxy;
 - (void)enableUnlockWithDevice:(id)device fromKey:(BOOL)key withPasscode:(id)passcode completionHandler:(id)handler;
@@ -80,12 +83,11 @@
 
 - (void)notifyDelegate
 {
-  delegate = self->_delegate;
   if (objc_opt_respondsToSelector())
   {
-    v4 = self->_delegate;
+    delegate = self->_delegate;
 
-    [(SDUnlockXPCSesssionDelegate *)v4 unlockSessionDidFinish:self];
+    [(SDUnlockXPCSesssionDelegate *)delegate unlockSessionDidFinish:self];
   }
 }
 
@@ -217,6 +219,27 @@
 {
   v2 = +[SDAutoUnlockSessionManager sharedManager];
   [v2 prewarmAutoUnlock];
+}
+
+- (void)donateDeviceUnlockedWithMask:(BOOL)mask
+{
+  maskCopy = mask;
+  v4 = +[SDAutoUnlockSessionManager sharedManager];
+  [v4 donateDeviceUnlockedWithMask:maskCopy];
+}
+
+- (void)clearPhoneAutoUnlockNotification:(BOOL)notification
+{
+  notificationCopy = notification;
+  v4 = +[SDAutoUnlockSessionManager sharedManager];
+  [v4 clearPhoneAutoUnlockNotification:notificationCopy];
+}
+
+- (void)completeAutoUnlockWithNotification:(BOOL)notification
+{
+  notificationCopy = notification;
+  v4 = +[SDAutoUnlockSessionManager sharedManager];
+  [v4 completeAutoUnlockWithNotification:notificationCopy];
 }
 
 - (void)attemptAutoUnlockWithClientProxy:(id)proxy

@@ -60,7 +60,7 @@
     v7 = [v5 stringForKey:@"previousBootUUID"];
     loadSubmittedRateLimitConfiguration = [(_DASActivityRateLimitManager *)v3 loadSubmittedRateLimitConfiguration];
     v9 = loadSubmittedRateLimitConfiguration;
-    if (loadSubmittedRateLimitConfiguration && [loadSubmittedRateLimitConfiguration count])
+    if (loadSubmittedRateLimitConfiguration && objc_msgSend_count(loadSubmittedRateLimitConfiguration))
     {
       v10 = [v6 isEqualToString:v7];
     }
@@ -398,7 +398,7 @@ LABEL_5:
     }
 
     maxedRateLimits = [v9 maxedRateLimits];
-    v8 = [maxedRateLimits count] != 0;
+    v8 = objc_msgSend_count(maxedRateLimits) != 0;
   }
 
   else
@@ -681,7 +681,7 @@ LABEL_5:
 {
   os_unfair_lock_lock(&self->_submittedConfigurationLock);
   submittedConfigurations = [(_DASActivityRateLimitManager *)self submittedConfigurations];
-  if (submittedConfigurations && (v4 = submittedConfigurations, -[_DASActivityRateLimitManager submittedConfigurations](self, "submittedConfigurations"), v5 = objc_claimAutoreleasedReturnValue(), v6 = [v5 count], v5, v4, v6))
+  if (submittedConfigurations && (v4 = submittedConfigurations, [(_DASActivityRateLimitManager *)self submittedConfigurations], v5 = objc_claimAutoreleasedReturnValue(), v6 = objc_msgSend_count(v5), v5, v4, v6))
   {
     submittedConfigurations2 = [(_DASActivityRateLimitManager *)self submittedConfigurations];
     v8 = [NSDictionary dictionaryWithDictionary:submittedConfigurations2];
@@ -900,7 +900,7 @@ LABEL_13:
       {
         v9 = [(_DASActivityRateLimitManager *)self unprotectedEvaluateRateLimitedActivity:submissionCopy forIdentifier:v5];
         maxedRateLimits = [v9 maxedRateLimits];
-        v11 = [maxedRateLimits count] != 0;
+        v11 = objc_msgSend_count(maxedRateLimits) != 0;
 
         [(_DASActivityRateLimitManager *)self logSubmittedActivity:submissionCopy asRateLimited:v11];
       }
@@ -946,7 +946,7 @@ LABEL_13:
       objc_sync_enter(rateLimitConfigurations);
       v7 = [(_DASActivityRateLimitManager *)self unprotectedEvaluateRateLimitedActivity:executionCopy forIdentifier:v5];
       maxedRateLimits = [v7 maxedRateLimits];
-      v9 = [maxedRateLimits count];
+      v9 = objc_msgSend_count(maxedRateLimits);
 
       if (v9)
       {
@@ -1036,7 +1036,7 @@ LABEL_13:
 
     v12 = [v9 evaluationResultsWithLPMState:v10];
     maxedRateLimits = [v12 maxedRateLimits];
-    v14 = [maxedRateLimits count];
+    v14 = objc_msgSend_count(maxedRateLimits);
 
     if (v14)
     {
@@ -1098,7 +1098,7 @@ LABEL_13:
 {
   resultsCopy = results;
   dateCopy = date;
-  if (-[_DASActivityRateLimitManager limitsApplyToActivity:](self, "limitsApplyToActivity:", activity) && ([resultsCopy maxedRateLimits], v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v10, "count"), v10, v11))
+  if (-[_DASActivityRateLimitManager limitsApplyToActivity:](self, "limitsApplyToActivity:", activity) && ([resultsCopy maxedRateLimits], v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend_count(v10), v10, v11))
   {
     nextEvaluationDate = [resultsCopy nextEvaluationDate];
     [nextEvaluationDate timeIntervalSinceDate:dateCopy];

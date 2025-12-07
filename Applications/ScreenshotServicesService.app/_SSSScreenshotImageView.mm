@@ -382,7 +382,7 @@
   v16 = modelModificationInfo;
   if (modelModificationInfo)
   {
-    [modelModificationInfo cropInfo];
+    objc_msgSend_cropInfo(modelModificationInfo);
   }
 
   else
@@ -711,7 +711,7 @@ LABEL_16:
   v5 = modelModificationInfo;
   if (modelModificationInfo)
   {
-    [modelModificationInfo cropInfo];
+    objc_msgSend_cropInfo(modelModificationInfo);
   }
 
   else

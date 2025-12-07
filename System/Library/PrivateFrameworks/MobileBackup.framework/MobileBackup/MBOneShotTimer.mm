@@ -74,7 +74,7 @@
     *buf = 138543362;
     selfCopy = self;
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "Resuming %{public}@", buf, 0xCu);
-    _MBLog();
+    _MBLog(@"I ", "Resuming %{public}@", self);
   }
 
   dispatch_resume(v4);
@@ -91,7 +91,7 @@
       *buf = 138543362;
       selfCopy = self;
       _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Canceling %{public}@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"Df", "Canceling %{public}@", self);
     }
 
     dispatch_source_cancel(timer);

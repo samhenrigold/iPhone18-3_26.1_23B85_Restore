@@ -3149,7 +3149,7 @@ LABEL_543:
   completionCopy = completion;
   playbackEngine = [(_MPCMediaRemotePublisher *)self playbackEngine];
   player = [playbackEngine player];
-  [player currentTime];
+  objc_msgSend_currentTime(player);
   v13 = v12;
 
   queueController = [playbackEngine queueController];
@@ -4373,7 +4373,7 @@ LABEL_21:
         }
 
         player4 = [v17 player];
-        [player4 currentTime];
+        objc_msgSend_currentTime(player4);
         v74 = v73;
 
         chapters = [v408 chapters];
@@ -6845,7 +6845,7 @@ LABEL_8:
   if (v8 == currentItem)
   {
     player2 = [playbackEngine player];
-    [player2 currentTime];
+    objc_msgSend_currentTime(player2);
     v11 = v13;
   }
 

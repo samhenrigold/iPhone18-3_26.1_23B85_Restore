@@ -191,7 +191,7 @@ void __62__CKLocationQueryController_detailsFilterQueriesForChatGUIDs___block_in
           objc_enumerationMutation(obj);
         }
 
-        v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ == \"%@\" && (%@ == \"%@\" || %@ == \"%@\", v8, @"loc"", v9, *(*(&v15 + 1) + 8 * i), v10, *(*(&v15 + 1) + 8 * i)];
+        v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ == %@ && (%@ == %@ || %@ == %@, v8, @"loc"", v9, *(*(&v15 + 1) + 8 * i), v10, *(*(&v15 + 1) + 8 * i)];
         [v4 addObject:v12];
       }
 

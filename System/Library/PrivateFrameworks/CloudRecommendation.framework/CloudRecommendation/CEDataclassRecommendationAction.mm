@@ -27,34 +27,35 @@
 - (CEDataclassRecommendationAction)initWithDictionary:(id)dictionary
 {
   dictionaryCopy = dictionary;
-  v14.receiver = self;
-  v14.super_class = CEDataclassRecommendationAction;
-  v5 = [(CERecommendationAction *)&v14 initWithDictionary:dictionaryCopy];
+  v15.receiver = self;
+  v15.super_class = CEDataclassRecommendationAction;
+  v5 = [(CERecommendationAction *)&v15 initWithDictionary:dictionaryCopy];
   if (v5)
   {
     v6 = [dictionaryCopy objectForKeyedSubscript:@"dataclassesToEnable"];
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
-      v12[0] = MEMORY[0x277D85DD0];
-      v12[1] = 3221225472;
-      v12[2] = __54__CEDataclassRecommendationAction_initWithDictionary___block_invoke;
-      v12[3] = &unk_278DE0538;
-      v13 = v7;
-      v8 = v7;
-      [v6 enumerateObjectsUsingBlock:v12];
-      v9 = [v8 copy];
+      v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v13[0] = MEMORY[0x277D85DD0];
+      v13[1] = 3221225472;
+      v13[2] = __54__CEDataclassRecommendationAction_initWithDictionary___block_invoke;
+      v13[3] = &unk_278DE0538;
+      v14 = v8;
+      v9 = v8;
+      [v6 enumerateObjectsUsingBlock:v13];
+      v10 = [v9 copy];
       dataclasses = v5->_dataclasses;
-      v5->_dataclasses = v9;
+      v5->_dataclasses = v10;
     }
 
     else
     {
-      v8 = _CELogSystem();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+      v9 = _CELogSystem(isKindOfClass);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
-        [CEDataclassRecommendationAction initWithDictionary:];
+        [CEDataclassRecommendationAction initWithDictionary:v5];
       }
     }
   }
@@ -73,17 +74,17 @@
 
 - (CEDataclassRecommendationAction)initWithCoder:(id)coder
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v13.receiver = self;
-  v13.super_class = CEDataclassRecommendationAction;
-  v5 = [(CERecommendationAction *)&v13 initWithCoder:coderCopy];
+  v12.receiver = self;
+  v12.super_class = CEDataclassRecommendationAction;
+  v5 = [(CERecommendationAction *)&v12 initWithCoder:coderCopy];
   if (v5)
   {
     v6 = MEMORY[0x277CBEB98];
-    v14[0] = objc_opt_class();
-    v14[1] = objc_opt_class();
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
+    v13[0] = objc_opt_class();
+    v13[1] = objc_opt_class();
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
     v8 = [v6 setWithArray:v7];
 
     v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"dataclasses"];
@@ -91,7 +92,6 @@
     v5->_dataclasses = v9;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -119,14 +119,11 @@
   return v4;
 }
 
-- (void)initWithDictionary:.cold.1()
+- (void)initWithDictionary:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = OUTLINED_FUNCTION_1(v0);
-  OUTLINED_FUNCTION_0(&dword_2439E1000, v2, v3, "%@ Unable to parse dataclasses from dictionary", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v1 = objc_opt_class();
+  v2 = OUTLINED_FUNCTION_1(v1);
+  OUTLINED_FUNCTION_0(&dword_2439E1000, v3, v4, "%@ Unable to parse dataclasses from dictionary", v5, v6, v7, v8);
 }
 
 @end

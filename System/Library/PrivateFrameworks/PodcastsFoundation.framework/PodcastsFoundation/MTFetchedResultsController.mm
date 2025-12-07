@@ -43,49 +43,48 @@
 
 - (BOOL)performFetch:(id *)fetch
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   [(NSMutableDictionary *)self->_propertyCache removeAllObjects];
   v5 = [(NSFetchedResultsController *)self->_frc performFetch:fetch];
   if (v5)
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     fetchedObjects = [(NSFetchedResultsController *)self->_frc fetchedObjects];
-    v7 = [fetchedObjects countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v7 = [fetchedObjects countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v14;
+      v9 = *v13;
       do
       {
         v10 = 0;
         do
         {
-          if (*v14 != v9)
+          if (*v13 != v9)
           {
             objc_enumerationMutation(fetchedObjects);
           }
 
-          [(MTFetchedResultsController *)self _updateCacheWithManagedObject:*(*(&v13 + 1) + 8 * v10++)];
+          [(MTFetchedResultsController *)self _updateCacheWithManagedObject:*(*(&v12 + 1) + 8 * v10++)];
         }
 
         while (v8 != v10);
-        v8 = [fetchedObjects countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v8 = [fetchedObjects countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v8);
     }
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (void)setPropertyKeys:(id)keys
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   keysCopy = keys;
   p_propertyKeys = &self->_propertyKeys;
   propertyKeys = self->_propertyKeys;
@@ -100,18 +99,16 @@
         entityName = [fetchRequest entityName];
         fetchRequest2 = [(MTFetchedResultsController *)self fetchRequest];
         predicate = [fetchRequest2 predicate];
-        v14 = 138543618;
-        v15 = entityName;
-        v16 = 2114;
-        v17 = predicate;
-        _os_log_impl(&dword_1D8CEC000, v8, OS_LOG_TYPE_ERROR, "MTFetchedResultsController with episodes within property keys detected - entity %{public}@ - predicate %{public}@", &v14, 0x16u);
+        v13 = 138543618;
+        v14 = entityName;
+        v15 = 2114;
+        v16 = predicate;
+        _os_log_impl(&dword_1D8CEC000, v8, OS_LOG_TYPE_ERROR, "MTFetchedResultsController with episodes within property keys detected - entity %{public}@ - predicate %{public}@", &v13, 0x16u);
       }
     }
 
     objc_storeStrong(p_propertyKeys, keys);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)controller:(id)controller didChangeObject:(id)object atIndexPath:(id)path forChangeType:(unint64_t)type newIndexPath:(id)indexPath
@@ -227,7 +224,7 @@ LABEL_20:
 
 - (void)controllerDidChangeContent:(id)content
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   contentCopy = content;
   propertyKeys = [(MTFetchedResultsController *)self propertyKeys];
   v5 = [propertyKeys count];
@@ -244,27 +241,27 @@ LABEL_20:
 
       if (objc_opt_respondsToSelector())
       {
-        v26 = 0u;
-        v27 = 0u;
-        v24 = 0u;
         v25 = 0u;
+        v26 = 0u;
+        v23 = 0u;
+        v24 = 0u;
         selfCopy = self;
         obj = self->_changes;
-        v7 = [(NSMutableArray *)obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v7 = [(NSMutableArray *)obj countByEnumeratingWithState:&v23 objects:v27 count:16];
         if (v7)
         {
           v8 = v7;
-          v9 = *v25;
+          v9 = *v24;
           do
           {
             for (i = 0; i != v8; ++i)
             {
-              if (*v25 != v9)
+              if (*v24 != v9)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v11 = *(*(&v24 + 1) + 8 * i);
+              v11 = *(*(&v23 + 1) + 8 * i);
               v12 = [v11 objectForKeyedSubscript:@"object"];
               v13 = [v11 objectForKeyedSubscript:@"indexPath"];
               v14 = [v11 objectForKeyedSubscript:@"type"];
@@ -273,7 +270,7 @@ LABEL_20:
               [delegate controller:contentCopy didChangeObject:v12 atIndexPath:v13 forChangeType:unsignedIntegerValue newIndexPath:v16];
             }
 
-            v8 = [(NSMutableArray *)obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+            v8 = [(NSMutableArray *)obj countByEnumeratingWithState:&v23 objects:v27 count:16];
           }
 
           while (v8);
@@ -301,13 +298,11 @@ LABEL_20:
       [delegate3 controllerDidChangeContent:contentCopy];
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_dictionaryForObject:(id)object
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   propertyKeys = [(MTFetchedResultsController *)self propertyKeys];
 
@@ -320,18 +315,16 @@ LABEL_20:
       entityName = [fetchRequest entityName];
       fetchRequest2 = [(MTFetchedResultsController *)self fetchRequest];
       predicate = [fetchRequest2 predicate];
-      v15 = 138543618;
-      v16 = entityName;
-      v17 = 2114;
-      v18 = predicate;
-      _os_log_impl(&dword_1D8CEC000, v6, OS_LOG_TYPE_ERROR, "MTFetchedResultsController with null property keys detected - entity %{public}@ - predicate %{public}@", &v15, 0x16u);
+      v14 = 138543618;
+      v15 = entityName;
+      v16 = 2114;
+      v17 = predicate;
+      _os_log_impl(&dword_1D8CEC000, v6, OS_LOG_TYPE_ERROR, "MTFetchedResultsController with null property keys detected - entity %{public}@ - predicate %{public}@", &v14, 0x16u);
     }
   }
 
   propertyKeys2 = [(MTFetchedResultsController *)self propertyKeys];
   v12 = [objectCopy dictionaryWithValuesForKeys:propertyKeys2];
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }

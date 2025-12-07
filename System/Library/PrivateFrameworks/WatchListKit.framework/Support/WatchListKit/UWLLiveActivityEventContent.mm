@@ -87,45 +87,43 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v8 = toCopy;
+  v6 = toCopy;
   if (self->_contentCanonicalId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_contentBrandId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_contentExternalPlayableId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   has = self->_has;
   if (has)
   {
-    contentMediaLengthInMilliseconds = self->_contentMediaLengthInMilliseconds;
     PBDataWriterWriteInt64Field();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    contentIsDone = self->_contentIsDone;
     PBDataWriterWriteBOOLField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_contentInternalLegId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 
@@ -243,7 +241,6 @@
     }
   }
 
-  v8 = *(equalCopy + 52);
   if (*&self->_has)
   {
     if ((*(equalCopy + 52) & 1) == 0 || self->_contentMediaLengthInMilliseconds != *(equalCopy + 1))
@@ -265,7 +262,7 @@
     }
 
 LABEL_18:
-    v10 = 0;
+    v9 = 0;
     goto LABEL_19;
   }
 
@@ -274,7 +271,6 @@ LABEL_18:
     goto LABEL_18;
   }
 
-  v12 = *(equalCopy + 48);
   if (self->_contentIsDone)
   {
     if ((*(equalCopy + 48) & 1) == 0)
@@ -292,17 +288,17 @@ LABEL_15:
   contentInternalLegId = self->_contentInternalLegId;
   if (contentInternalLegId | *(equalCopy + 5))
   {
-    v10 = [(NSString *)contentInternalLegId isEqual:?];
+    v9 = [(NSString *)contentInternalLegId isEqual:?];
   }
 
   else
   {
-    v10 = 1;
+    v9 = 1;
   }
 
 LABEL_19:
 
-  return v10;
+  return v9;
 }
 
 - (unint64_t)hash

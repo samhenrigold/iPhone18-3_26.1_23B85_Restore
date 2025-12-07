@@ -24,9 +24,9 @@
   elementCopy = element;
   objc_opt_class();
   v4 = TSUCheckedDynamicCast();
-  v51 = 0;
-  v6 = objc_msgSend_objectAndReturnError_(v4, v5, &v51);
-  v7 = v51;
+  v48 = 0;
+  v6 = objc_msgSend_objectAndReturnError_(v4, v5, &v48);
+  v7 = v48;
   if (v6)
   {
     v8 = 1;
@@ -39,13 +39,13 @@
 
   if (!v8)
   {
-    v50 = v7;
+    v47 = v7;
     v10 = objc_opt_class();
     v11 = NSStringFromClass(v10);
-    v14 = objc_msgSend_domain(v50, v12, v13);
-    v17 = objc_msgSend_code(v50, v15, v16);
-    isRecoverable = objc_msgSend_tsp_isRecoverable(v50, v18, v19);
-    v23 = objc_msgSend_tsp_hintsDescription(v50, v21, v22);
+    v14 = objc_msgSend_domain(v47, v12, v13);
+    v17 = objc_msgSend_code(v47, v15, v16);
+    isRecoverable = objc_msgSend_tsp_isRecoverable(v47, v18, v19);
+    v23 = objc_msgSend_tsp_hintsDescription(v47, v21, v22);
     v24 = v23;
     if (isRecoverable)
     {
@@ -57,21 +57,18 @@
       v25 = &stru_2885C9BB8;
     }
 
-    v47 = v23;
-    v45 = v17;
-    v46 = v25;
-    TSUSetCrashReporterInfo();
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Failed to load lazy reference with error: errorClass=%{public}@, domain=%{public}@, code=%zd, %{public}@hints=%{public}@ (%@) ", "[TSPMutableLargeLazyObjectArray convertSegmentElementToElement:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPMutableLargeLazyObjectArray.mm", 48, v11, v14, v17, v25, v23, v47);
 
     v26 = MEMORY[0x277D81150];
-    v28 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v27, "[TSPMutableLargeLazyObjectArray convertSegmentElementToElement:]", "[TSPMutableLargeLazyObjectArray convertSegmentElementToElement:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPMutableLargeLazyObjectArray.mm", 48, v11, v14, v45, v46, v47, v50);
+    v28 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v27, "[TSPMutableLargeLazyObjectArray convertSegmentElementToElement:]");
     v30 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v29, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPMutableLargeLazyObjectArray.mm");
     v31 = objc_opt_class();
     v32 = NSStringFromClass(v31);
-    v35 = objc_msgSend_domain(v50, v33, v34);
-    v38 = objc_msgSend_code(v50, v36, v37);
-    v49 = objc_msgSend_tsp_isRecoverable(v50, v39, v40);
-    v48 = objc_msgSend_tsp_hintsDescription(v50, v41, v42);
-    if (v49)
+    v35 = objc_msgSend_domain(v47, v33, v34);
+    v38 = objc_msgSend_code(v47, v36, v37);
+    v46 = objc_msgSend_tsp_isRecoverable(v47, v39, v40);
+    v45 = objc_msgSend_tsp_hintsDescription(v47, v41, v42);
+    if (v46)
     {
       v44 = @"recoverable=YES, ";
     }
@@ -81,7 +78,7 @@
       v44 = &stru_2885C9BB8;
     }
 
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v26, v43, v28, v30, 48, 1, "Failed to load lazy reference with error: errorClass=%{public}@, domain=%{public}@, code=%zd, %{public}@hints=%{public}@ (%@) ", v32, v35, v38, v44, v48, v50);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v26, v43, v28, v30, 48, 1, "Failed to load lazy reference with error: errorClass=%{public}@, domain=%{public}@, code=%zd, %{public}@hints=%{public}@ (%@) ", v32, v35, v38, v44, v45, v47);
 
     TSUCrashBreakpoint();
     abort();

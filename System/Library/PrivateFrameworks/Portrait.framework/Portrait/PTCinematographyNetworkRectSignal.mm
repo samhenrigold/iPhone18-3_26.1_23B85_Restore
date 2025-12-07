@@ -25,7 +25,8 @@
 {
   payloadCopy = payload;
   streamCopy = stream;
-  if ([(PTCinematographyNetworkSignal *)self checkSignalForStream:streamCopy])
+  v8 = [(PTCinematographyNetworkSignal *)self checkSignalForStream:streamCopy];
+  if (v8)
   {
     if ([payloadCopy isMissingDetection])
     {
@@ -36,43 +37,43 @@
     {
       detection = [payloadCopy detection];
       [detection rect];
-      v11 = v10;
-      v13 = v12;
-      v15 = v14;
-      v17 = v16;
+      v12 = v11;
+      v14 = v13;
+      v16 = v15;
+      v18 = v17;
 
-      Area = CGRectGetArea(v11, v13, v15, v17);
-      v25.origin.x = v11;
-      v25.origin.y = v13;
-      v25.size.width = v15;
-      v25.size.height = v17;
-      MidX = CGRectGetMidX(v25);
-      v26.origin.x = v11;
-      v26.origin.y = v13;
-      v26.size.width = v15;
-      v26.size.height = v17;
-      MidY = CGRectGetMidY(v26);
+      Area = CGRectGetArea(v12, v14, v16, v18);
+      v26.origin.x = v12;
+      v26.origin.y = v14;
+      v26.size.width = v16;
+      v26.size.height = v18;
+      MidX = CGRectGetMidX(v26);
+      v27.origin.x = v12;
+      v27.origin.y = v14;
+      v27.size.width = v16;
+      v27.size.height = v18;
+      MidY = CGRectGetMidY(v27);
       useSqrtForArea = [(PTCinematographyNetworkRectSignal *)self useSqrtForArea];
-      *&v22 = sqrtf(Area);
+      *&v23 = sqrtf(Area);
       if (!useSqrtForArea)
       {
-        *&v22 = Area;
+        *&v23 = Area;
       }
 
-      [streamCopy writeFloat:v22];
-      *&v23 = MidX;
       [streamCopy writeFloat:v23];
-      *&v24 = MidY;
+      *&v24 = MidX;
       [streamCopy writeFloat:v24];
+      *&v25 = MidY;
+      [streamCopy writeFloat:v25];
     }
   }
 
   else
   {
-    v8 = _PTLogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = _PTLogSystem(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [PTCinematographyNetworkNamedSignal writePayload:v8 toStream:?];
+      [PTCinematographyNetworkNamedSignal writePayload:v9 toStream:?];
     }
   }
 }

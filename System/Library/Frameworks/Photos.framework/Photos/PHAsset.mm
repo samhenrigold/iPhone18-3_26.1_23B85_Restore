@@ -1999,13 +1999,13 @@ LABEL_7:
 LABEL_8:
 }
 
-uint64_t __64__PHAsset_Curated__fetchAssetsForBehavioralCurationWithOptions___block_invoke()
+uint64_t __64__PHAsset_Curated__fetchAssetsForBehavioralCurationWithOptions___block_invoke(uint64_t a1)
 {
-  v0 = PLPhotoKitGetLog();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_FAULT))
+  v1 = PLPhotoKitGetLog();
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
-    *v2 = 0;
-    _os_log_impl(&dword_19C86F000, v0, OS_LOG_TYPE_FAULT, "+[PHAsset fetchAssetsForBehavioralCurationWithOptions:] is deprecated.", v2, 2u);
+    *v3 = 0;
+    _os_log_impl(&dword_19C86F000, v1, OS_LOG_TYPE_FAULT, "+[PHAsset fetchAssetsForBehavioralCurationWithOptions:] is deprecated.", v3, 2u);
   }
 
   return 0;
@@ -4014,7 +4014,7 @@ void __36__PHAsset_resourcesDebugDescription__block_invoke(uint64_t a1)
   [v5 appendFormat:@"videoCaptionVersion = %hd\n", objc_msgSend(v6, "videoCaptionVersion")];
   v49 = 0uLL;
   v50 = 0;
-  if (assetCopy && ([assetCopy videoKeyFrameTime], (BYTE12(v49) & 0x1D) == 1))
+  if (assetCopy && (objc_msgSend_videoKeyFrameTime(assetCopy), (BYTE12(v49) & 0x1D) == 1))
   {
     *&time.start.value = v49;
     time.start.epoch = v50;
@@ -4036,7 +4036,7 @@ LABEL_16:
     goto LABEL_17;
   }
 
-  [v6 bestVideoTimeRange];
+  objc_msgSend_bestVideoTimeRange(v6);
   if ((time.start.flags & 1) == 0 || (~time.duration.flags & 0x11) == 0 || (time.start.flags & 0x11) == 0x11 || (time.duration.flags & 1) == 0 || time.duration.epoch || time.duration.value < 0)
   {
     v8 = @"bestVideoTimeRange not set\n";
@@ -4056,7 +4056,7 @@ LABEL_16:
 
   [v5 appendFormat:v8, *&v43, *&v44];
   memset(&v47, 0, sizeof(v47));
-  [v6 animatedStickerTimeRange];
+  objc_msgSend_animatedStickerTimeRange(v6);
   if ((v47.start.flags & 1) == 0 || (~v47.duration.flags & 0x11) == 0 || (v47.start.flags & 0x11) == 0x11 || (v47.duration.flags & 1) == 0 || v47.duration.epoch || v47.duration.value < 0)
   {
     goto LABEL_16;
@@ -5481,7 +5481,7 @@ uint64_t __35__PHAsset_canPerformEditOperation___block_invoke(uint64_t a1)
   return [v3 _libraryScopeAssetContributedByCurrentUser:v4];
 }
 
-uint64_t __35__PHAsset_canPerformEditOperation___block_invoke_2(uint64_t a1)
+void *__35__PHAsset_canPerformEditOperation___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) cloudIsDeletable];
   if (result)
@@ -5641,9 +5641,9 @@ BOOL __54__PHAsset_isIncompleteLivePhotoMissingVideoComplement__block_invoke(uin
     v11 = v5 | 1;
   }
 
-  [assetCopy duration];
+  objc_msgSend_duration(assetCopy);
   v13 = v12;
-  [(PHAsset *)self duration];
+  objc_msgSend_duration(self);
   if (v13 == v14)
   {
     v15 = v11;
@@ -5809,7 +5809,7 @@ void __54__PHAsset_getOriginalStableHashWithCompletionHandler___block_invoke(uin
 
 - (BOOL)isTimelapsePlaceholder
 {
-  if ([(PHAsset *)self isMediaSubtype:0x40000]&& ([(PHAsset *)self duration], v3 == 0.0))
+  if ([(PHAsset *)self isMediaSubtype:0x40000]&& (objc_msgSend_duration(self), v3 == 0.0))
   {
     pathForOriginalFile = [(PHAsset *)self pathForOriginalFile];
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
@@ -11321,9 +11321,12 @@ PHFetchResult *__51__PHAsset_fetchAssetsContainingAllPersons_options___block_inv
 
 uint64_t __51__PHAsset_fetchAssetsContainingAllPersons_options___block_invoke_2(void *a1)
 {
-  *(*(a1[6] + 8) + 40) = [MEMORY[0x1E69BE3D0] assetIDsWithAllPersonsFromPersonIDs:a1[4] inContext:a1[5]];
+  v2 = [MEMORY[0x1E69BE3D0] assetIDsWithAllPersonsFromPersonIDs:a1[4] inContext:a1[5]];
+  v3 = *(a1[6] + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 + (id)fetchAssetsGroupedByFaceUUIDForFaces:(id)faces fetchPropertySets:(id)sets
@@ -11704,91 +11707,91 @@ void __44__PHAsset_propertySetAccessorsByPropertySet__block_invoke()
   return v4;
 }
 
-void __42__PHAsset_propertySetClassForPropertySet___block_invoke()
+void __42__PHAsset_propertySetClassForPropertySet___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v4[39] = *MEMORY[0x1E69E9840];
-  v3[0] = @"PHAssetPropertySetIdentifier";
-  v4[0] = objc_opt_class();
-  v3[1] = @"PHAssetPropertySetCore";
-  v4[1] = objc_opt_class();
-  v3[2] = @"PHAssetPropertySetPlacesCore";
-  v4[2] = objc_opt_class();
-  v3[3] = @"PHAssetPropertySetOriginalMetadata";
-  v4[3] = objc_opt_class();
-  v3[4] = @"PHAssetPropertySetPhotosOneUp";
-  v4[4] = objc_opt_class();
-  v3[5] = @"PHAssetPropertySetLocalDate";
-  v4[5] = objc_opt_class();
-  v3[6] = @"PHAssetPropertySetPhotosInfoPanelExtended";
-  v4[6] = objc_opt_class();
-  v3[7] = @"PHAssetPropertySetPhotosSmartStyleExtended";
-  v4[7] = objc_opt_class();
-  v3[8] = @"PHAssetPropertySetPhotosInfoPanelLocation";
-  v4[8] = objc_opt_class();
-  v3[9] = @"PHAssetPropertySetPhotoIris";
-  v4[9] = objc_opt_class();
-  v3[10] = @"PHAssetPropertySetDescription";
-  v4[10] = objc_opt_class();
-  v3[11] = @"PHAssetPropertySetCloudShared";
-  v4[11] = objc_opt_class();
-  v3[12] = @"PHAssetPropertySetComments";
-  v4[12] = objc_opt_class();
-  v3[13] = @"PHAssetPropertySetSceneAnalysis";
-  v4[13] = objc_opt_class();
-  v3[14] = @"PHAssetPropertySetAnalysisState";
-  v4[14] = objc_opt_class();
-  v3[15] = @"PHAssetPropertySetUserActivity";
-  v4[15] = objc_opt_class();
-  v3[16] = @"PHAssetPropertySetFaceWorker";
-  v4[16] = objc_opt_class();
-  v3[17] = @"PHAssetPropertySetImageManager";
-  v4[17] = objc_opt_class();
-  v3[18] = @"PHAssetPropertySetCuration";
-  v4[18] = objc_opt_class();
-  v3[19] = @"PHAssetPropertySetAesthetic";
-  v4[19] = objc_opt_class();
-  v3[20] = @"PHAssetPropertySetMediaAnalysis";
-  v4[20] = objc_opt_class();
-  v3[21] = @"PHAssetPropertySetPhotoAnalysisWallpaperProperties";
-  v4[21] = objc_opt_class();
-  v3[22] = @"PHAssetPropertySetCharacterRecognition";
-  v4[22] = objc_opt_class();
-  v3[23] = @"PHAssetPropertySetTextUnderstanding";
-  v4[23] = objc_opt_class();
-  v3[24] = @"PHAssetPropertySetVisualSearch";
-  v4[24] = objc_opt_class();
-  v3[25] = @"PHAssetPropertySetImport";
-  v4[25] = objc_opt_class();
-  v3[26] = @"PHAssetPropertySetSceneprint";
-  v4[26] = objc_opt_class();
-  v3[27] = @"PHAssetPropertySetDestinationAssetCopy";
-  v4[27] = objc_opt_class();
-  v3[28] = @"PHAssetPropertySetKeywords";
-  v4[28] = objc_opt_class();
-  v3[29] = @"PHAssetPropertySetGridMetadata";
-  v4[29] = objc_opt_class();
-  v3[30] = @"PHAssetPropertySetCoarseLocation";
-  v4[30] = objc_opt_class();
-  v3[31] = @"PHAssetPropertySetLibraryScope";
-  v4[31] = objc_opt_class();
-  v3[32] = @"PHAssetPropertySetCameraCaptureDevice";
-  v4[32] = objc_opt_class();
-  v3[33] = @"PHAssetPropertySetCloudLocalState";
-  v4[33] = objc_opt_class();
-  v3[34] = @"PHAssetPropertySetMontage";
-  v4[34] = objc_opt_class();
-  v3[35] = @"PHAssetPropertySetLocationData";
-  v4[35] = objc_opt_class();
-  v3[36] = @"PHAssetPropertySetPTP";
-  v4[36] = objc_opt_class();
-  v3[37] = @"PHAssetPropertySetIconicScore";
-  v4[37] = objc_opt_class();
-  v3[38] = @"PHAssetPropertySetStoryPlayback";
-  v4[38] = objc_opt_class();
-  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:v3 count:39];
-  v1 = [v0 copy];
-  v2 = propertySetClassForPropertySet__pl_once_object_20;
-  propertySetClassForPropertySet__pl_once_object_20 = v1;
+  v6[39] = *MEMORY[0x1E69E9840];
+  v5[0] = @"PHAssetPropertySetIdentifier";
+  v6[0] = objc_opt_class();
+  v5[1] = @"PHAssetPropertySetCore";
+  v6[1] = objc_opt_class();
+  v5[2] = @"PHAssetPropertySetPlacesCore";
+  v6[2] = objc_opt_class();
+  v5[3] = @"PHAssetPropertySetOriginalMetadata";
+  v6[3] = objc_opt_class();
+  v5[4] = @"PHAssetPropertySetPhotosOneUp";
+  v6[4] = objc_opt_class();
+  v5[5] = @"PHAssetPropertySetLocalDate";
+  v6[5] = objc_opt_class();
+  v5[6] = @"PHAssetPropertySetPhotosInfoPanelExtended";
+  v6[6] = objc_opt_class();
+  v5[7] = @"PHAssetPropertySetPhotosSmartStyleExtended";
+  v6[7] = objc_opt_class();
+  v5[8] = @"PHAssetPropertySetPhotosInfoPanelLocation";
+  v6[8] = objc_opt_class();
+  v5[9] = @"PHAssetPropertySetPhotoIris";
+  v6[9] = objc_opt_class();
+  v5[10] = @"PHAssetPropertySetDescription";
+  v6[10] = objc_opt_class();
+  v5[11] = @"PHAssetPropertySetCloudShared";
+  v6[11] = objc_opt_class();
+  v5[12] = @"PHAssetPropertySetComments";
+  v6[12] = objc_opt_class();
+  v5[13] = @"PHAssetPropertySetSceneAnalysis";
+  v6[13] = objc_opt_class();
+  v5[14] = @"PHAssetPropertySetAnalysisState";
+  v6[14] = objc_opt_class();
+  v5[15] = @"PHAssetPropertySetUserActivity";
+  v6[15] = objc_opt_class();
+  v5[16] = @"PHAssetPropertySetFaceWorker";
+  v6[16] = objc_opt_class();
+  v5[17] = @"PHAssetPropertySetImageManager";
+  v6[17] = objc_opt_class();
+  v5[18] = @"PHAssetPropertySetCuration";
+  v6[18] = objc_opt_class();
+  v5[19] = @"PHAssetPropertySetAesthetic";
+  v6[19] = objc_opt_class();
+  v5[20] = @"PHAssetPropertySetMediaAnalysis";
+  v6[20] = objc_opt_class();
+  v5[21] = @"PHAssetPropertySetPhotoAnalysisWallpaperProperties";
+  v6[21] = objc_opt_class();
+  v5[22] = @"PHAssetPropertySetCharacterRecognition";
+  v6[22] = objc_opt_class();
+  v5[23] = @"PHAssetPropertySetTextUnderstanding";
+  v6[23] = objc_opt_class();
+  v5[24] = @"PHAssetPropertySetVisualSearch";
+  v6[24] = objc_opt_class();
+  v5[25] = @"PHAssetPropertySetImport";
+  v6[25] = objc_opt_class();
+  v5[26] = @"PHAssetPropertySetSceneprint";
+  v6[26] = objc_opt_class();
+  v5[27] = @"PHAssetPropertySetDestinationAssetCopy";
+  v6[27] = objc_opt_class();
+  v5[28] = @"PHAssetPropertySetKeywords";
+  v6[28] = objc_opt_class();
+  v5[29] = @"PHAssetPropertySetGridMetadata";
+  v6[29] = objc_opt_class();
+  v5[30] = @"PHAssetPropertySetCoarseLocation";
+  v6[30] = objc_opt_class();
+  v5[31] = @"PHAssetPropertySetLibraryScope";
+  v6[31] = objc_opt_class();
+  v5[32] = @"PHAssetPropertySetCameraCaptureDevice";
+  v6[32] = objc_opt_class();
+  v5[33] = @"PHAssetPropertySetCloudLocalState";
+  v6[33] = objc_opt_class();
+  v5[34] = @"PHAssetPropertySetMontage";
+  v6[34] = objc_opt_class();
+  v5[35] = @"PHAssetPropertySetLocationData";
+  v6[35] = objc_opt_class();
+  v5[36] = @"PHAssetPropertySetPTP";
+  v6[36] = objc_opt_class();
+  v5[37] = @"PHAssetPropertySetIconicScore";
+  v6[37] = objc_opt_class();
+  v5[38] = @"PHAssetPropertySetStoryPlayback";
+  v6[38] = objc_opt_class();
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:v5 count:39];
+  v3 = [v2 copy];
+  v4 = propertySetClassForPropertySet__pl_once_object_20;
+  propertySetClassForPropertySet__pl_once_object_20 = v3;
 }
 
 + (id)_transformMediaSubtypeReferences:(id)references inComparisonPredicate:(id)predicate options:(id)options
@@ -12343,9 +12346,11 @@ uint64_t __37__PHAsset_propertiesToFetchWithHint___block_invoke()
   v1 = propertiesToFetchWithHint__propertiesToFetchByHint_22956;
   propertiesToFetchWithHint__propertiesToFetchByHint_22956 = v0;
 
-  propertiesToFetchWithHint__propertyQueue_22955 = dispatch_queue_create("com.apple.photos.assetpropertyhints", 0);
+  v2 = dispatch_queue_create("com.apple.photos.assetpropertyhints", 0);
+  v3 = propertiesToFetchWithHint__propertyQueue_22955;
+  propertiesToFetchWithHint__propertyQueue_22955 = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v3);
 }
 
 + (id)_composePropertiesToFetchWithHint:(unint64_t)hint
@@ -14174,72 +14179,72 @@ LABEL_19:
   return v6;
 }
 
-void __62__PHAsset_ImageManager__messagesForRecentImageManagerRequests__block_invoke(uint64_t a1)
+void __62__PHAsset_ImageManager__messagesForRecentImageManagerRequests__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v27 = *MEMORY[0x1E69E9840];
-  v2 = [objc_opt_class() _inq_imageManagerRequestLogsByAssetUUID];
-  v3 = [v2 objectForKeyedSubscript:*(a1 + 40)];
+  v28 = *MEMORY[0x1E69E9840];
+  v3 = [objc_opt_class() _inq_imageManagerRequestLogsByAssetUUID];
+  v4 = [v3 objectForKeyedSubscript:*(a1 + 40)];
 
-  v23 = 0u;
   v24 = 0u;
-  v21 = 0u;
+  v25 = 0u;
   v22 = 0u;
-  v4 = [v3 allKeys];
-  v5 = [v4 sortedArrayUsingSelector:sel_compare_];
+  v23 = 0u;
+  v5 = [v4 allKeys];
+  v6 = [v5 sortedArrayUsingSelector:sel_compare_];
 
-  obj = v5;
-  v6 = [v5 countByEnumeratingWithState:&v21 objects:v26 count:16];
-  if (v6)
+  obj = v6;
+  v7 = [v6 countByEnumeratingWithState:&v22 objects:v27 count:16];
+  if (v7)
   {
-    v7 = v6;
-    v8 = *v22;
+    v8 = v7;
+    v9 = *v23;
     do
     {
-      for (i = 0; i != v7; ++i)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v22 != v8)
+        if (*v23 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v21 + 1) + 8 * i);
-        [*(a1 + 48) appendFormat:@"ID: %@\n", v10];
-        v11 = [v3 objectForKeyedSubscript:v10];
-        v17 = 0u;
+        v11 = *(*(&v22 + 1) + 8 * i);
+        [*(a1 + 48) appendFormat:@"ID: %@\n", v11];
+        v12 = [v4 objectForKeyedSubscript:v11];
         v18 = 0u;
         v19 = 0u;
         v20 = 0u;
-        v12 = [v11 countByEnumeratingWithState:&v17 objects:v25 count:16];
-        if (v12)
+        v21 = 0u;
+        v13 = [v12 countByEnumeratingWithState:&v18 objects:v26 count:16];
+        if (v13)
         {
-          v13 = v12;
-          v14 = *v18;
+          v14 = v13;
+          v15 = *v19;
           do
           {
-            for (j = 0; j != v13; ++j)
+            for (j = 0; j != v14; ++j)
             {
-              if (*v18 != v14)
+              if (*v19 != v15)
               {
-                objc_enumerationMutation(v11);
+                objc_enumerationMutation(v12);
               }
 
-              [*(a1 + 48) appendString:*(*(&v17 + 1) + 8 * j)];
+              [*(a1 + 48) appendString:*(*(&v18 + 1) + 8 * j)];
               [*(a1 + 48) appendString:@"\n"];
             }
 
-            v13 = [v11 countByEnumeratingWithState:&v17 objects:v25 count:16];
+            v14 = [v12 countByEnumeratingWithState:&v18 objects:v26 count:16];
           }
 
-          while (v13);
+          while (v14);
         }
 
         [*(a1 + 48) appendString:@"\n"];
       }
 
-      v7 = [obj countByEnumeratingWithState:&v21 objects:v26 count:16];
+      v8 = [obj countByEnumeratingWithState:&v22 objects:v27 count:16];
     }
 
-    while (v7);
+    while (v8);
   }
 }
 
@@ -14276,19 +14281,19 @@ void __62__PHAsset_ImageManager__messagesForRecentImageManagerRequests__block_in
   dispatch_async(_imageManagerRequestLoggingQueue, block);
 }
 
-void __71__PHAsset_ImageManager__recordImageManagerMessageForRequestID_message___block_invoke(uint64_t a1)
+void __71__PHAsset_ImageManager__recordImageManagerMessageForRequestID_message___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = [objc_opt_class() _inq_imageManagerRequestMessagesByRequestIDForAssetUUID:*(a1 + 40) requestID:*(a1 + 64)];
-  v4 = v2;
-  if (!v2)
+  v3 = [objc_opt_class() _inq_imageManagerRequestMessagesByRequestIDForAssetUUID:*(a1 + 40) requestID:*(a1 + 64)];
+  v5 = v3;
+  if (!v3)
   {
-    v3 = [MEMORY[0x1E696AAA8] currentHandler];
-    [v3 handleFailureInMethod:*(a1 + 56) object:*(a1 + 32) file:@"PHAsset_ImageManager.m" lineNumber:132 description:@"cannot get messages array"];
+    v4 = [MEMORY[0x1E696AAA8] currentHandler];
+    [v4 handleFailureInMethod:*(a1 + 56) object:*(a1 + 32) file:@"PHAsset_ImageManager.m" lineNumber:132 description:@"cannot get messages array"];
 
-    v2 = 0;
+    v3 = 0;
   }
 
-  [v2 addObject:*(a1 + 48)];
+  [v3 addObject:*(a1 + 48)];
   [objc_opt_class() _inq_recordRequestID:*(a1 + 64)];
   [objc_opt_class() _inq_trimToMostRecentImageManagerMessages];
 }

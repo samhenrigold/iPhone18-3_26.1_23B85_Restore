@@ -430,11 +430,11 @@ LABEL_25:
 
 - (HAPWACAccessory)initWithWiFiDevice:(id)device
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
-  v34.receiver = self;
-  v34.super_class = HAPWACAccessory;
-  v6 = [(HAPWACAccessory *)&v34 init];
+  v33.receiver = self;
+  v33.super_class = HAPWACAccessory;
+  v6 = [(HAPWACAccessory *)&v33 init];
   v7 = v6;
   if (v6)
   {
@@ -493,7 +493,7 @@ LABEL_25:
     [deviceIEDeviceID2 length];
     HardwareAddressToCString();
 
-    v28 = [MEMORY[0x277CCACA8] stringWithCString:v35 encoding:4];
+    v28 = [MEMORY[0x277CCACA8] stringWithCString:v34 encoding:4];
     deviceId = v7->_deviceId;
     v7->_deviceId = v28;
 
@@ -510,7 +510,6 @@ LABEL_25:
     -[HAPWACAccessory __setupSupportedFlags:](v7, "__setupSupportedFlags:", [deviceCopy deviceIEFlags]);
   }
 
-  v32 = *MEMORY[0x277D85DE8];
   return v7;
 }
 

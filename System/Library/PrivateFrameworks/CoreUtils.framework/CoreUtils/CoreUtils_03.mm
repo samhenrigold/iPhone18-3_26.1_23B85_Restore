@@ -101,7 +101,7 @@ uint64_t _CUXPCDecodeNSError(void *a1, const char *a2, const char *a3, const cha
   if (!int64)
   {
     v17 = xpc_dictionary_get_value(v15, a2);
-    v23 = v17;
+    v18 = v17;
     if (v17)
     {
       if (MEMORY[0x193B07A70](v17) == MEMORY[0x1E69E9EB0])
@@ -112,9 +112,7 @@ uint64_t _CUXPCDecodeNSError(void *a1, const char *a2, const char *a3, const cha
 
       if (a9)
       {
-        v49 = *MEMORY[0x1E696A768];
-        v50 = "XPC non-integer error code type";
-        v51 = 4294960540;
+        NSErrorF_safe(*MEMORY[0x1E696A768], 4294960540, "XPC non-integer error code type");
         goto LABEL_30;
       }
     }
@@ -123,25 +121,22 @@ uint64_t _CUXPCDecodeNSError(void *a1, const char *a2, const char *a3, const cha
     {
       if (!a7)
       {
-        v31 = 1;
+        v21 = 1;
         goto LABEL_38;
       }
 
       if (a9)
       {
-        v49 = *MEMORY[0x1E696A768];
-        v50 = "XPC error object missing error code";
-        v51 = 4294960569;
+        NSErrorF_safe(*MEMORY[0x1E696A768], 4294960569, "XPC error object missing error code");
 LABEL_30:
-        NSErrorF_safe(v49, v51, v50, v18, v19, v20, v21, v22, v52);
-        *a9 = v31 = 0;
+        *a9 = v21 = 0;
 LABEL_38:
 
         goto LABEL_26;
       }
     }
 
-    v31 = 0;
+    v21 = 0;
     goto LABEL_38;
   }
 
@@ -149,98 +144,98 @@ LABEL_5:
   string = xpc_dictionary_get_string(v15, a3);
   if (!string)
   {
-    v30 = *MEMORY[0x1E696A768];
+    v20 = *MEMORY[0x1E696A768];
 LABEL_10:
-    v32 = xpc_dictionary_get_string(v15, a4);
-    if (v32)
+    v22 = xpc_dictionary_get_string(v15, a4);
+    if (v22)
     {
-      v33 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithUTF8String:v32];
-      if (!v33)
+      v23 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithUTF8String:v22];
+      if (!v23)
       {
         if (a9)
         {
-          NSErrorF_safe(*MEMORY[0x1E696A768], 4294960554, "XPC error message bad-UTF-8", v34, v35, v36, v37, v38, v52);
-          *a9 = v31 = 0;
+          NSErrorF_safe(*MEMORY[0x1E696A768], 4294960554, "XPC error message bad-UTF-8");
+          *a9 = v21 = 0;
         }
 
         else
         {
-          v31 = 0;
+          v21 = 0;
         }
 
         goto LABEL_25;
       }
 
-      v39 = v33;
-      v40 = objc_alloc_init(MEMORY[0x1E695DF90]);
-      [v40 setObject:v39 forKeyedSubscript:@"cuErrorMsg"];
+      v24 = v23;
+      v25 = objc_alloc_init(MEMORY[0x1E695DF90]);
+      [v25 setObject:v24 forKeyedSubscript:@"cuErrorMsg"];
     }
 
     else
     {
-      v40 = 0;
+      v25 = 0;
     }
 
-    v41 = xpc_dictionary_get_value(v15, a5);
-    v42 = v41;
-    if (v41)
+    v26 = xpc_dictionary_get_value(v15, a5);
+    v27 = v26;
+    if (v26)
     {
-      v43 = MEMORY[0x193B07A70](v41);
-      if (a6 <= 3 && v43 == MEMORY[0x1E69E9E80])
+      v28 = MEMORY[0x193B07A70](v26);
+      if (a6 <= 3 && v28 == MEMORY[0x1E69E9E80])
       {
-        v54 = 0;
-        v44 = _CUXPCDecodeNSError(v42, a2, a3, a4, a5, a6 + 1, 1, &v54, a9);
-        v45 = v54;
-        if (!v44)
+        v35 = 0;
+        v29 = _CUXPCDecodeNSError(v27, a2, a3, a4, a5, a6 + 1, 1, &v35, a9);
+        v30 = v35;
+        if (!v29)
         {
-          v31 = 0;
+          v21 = 0;
 LABEL_24:
 
 LABEL_25:
           goto LABEL_26;
         }
 
-        if (!v40)
+        if (!v25)
         {
-          v40 = objc_alloc_init(MEMORY[0x1E695DF90]);
+          v25 = objc_alloc_init(MEMORY[0x1E695DF90]);
         }
 
-        [v40 setObject:v45 forKeyedSubscript:*MEMORY[0x1E696AA08]];
+        [v25 setObject:v30 forKeyedSubscript:*MEMORY[0x1E696AA08]];
       }
     }
 
-    v46 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithDomain:v30 code:int64 userInfo:v40];
-    v45 = v46;
+    v31 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithDomain:v20 code:int64 userInfo:v25];
+    v30 = v31;
     if (a8)
     {
-      v47 = v46;
-      *a8 = v45;
+      v32 = v31;
+      *a8 = v30;
     }
 
-    v31 = 1;
+    v21 = 1;
     goto LABEL_24;
   }
 
-  v30 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithUTF8String:string];
-  if (v30)
+  v20 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithUTF8String:string];
+  if (v20)
   {
     goto LABEL_10;
   }
 
   if (a9)
   {
-    NSErrorF_safe(*MEMORY[0x1E696A768], 4294960554, "XPC error domain bad-UTF-8", v25, v26, v27, v28, v29, v52);
-    *a9 = v31 = 0;
+    NSErrorF_safe(*MEMORY[0x1E696A768], 4294960554, "XPC error domain bad-UTF-8");
+    *a9 = v21 = 0;
   }
 
   else
   {
-    v31 = 0;
+    v21 = 0;
   }
 
 LABEL_26:
 
-  return v31;
+  return v21;
 }
 
 uint64_t HTTPClientGetSelfAddress(uint64_t a1, sockaddr *a2, socklen_t a3, void *a4)
@@ -269,7 +264,7 @@ uint64_t HTTPClientGetSelfAddress(uint64_t a1, sockaddr *a2, socklen_t a3, void 
   return result;
 }
 
-void _BonjourBrowser_PostEvent(uint64_t a1, int a2, uint64_t a3, uint64_t a4)
+void _BonjourBrowser_PostEvent(uint64_t a1, int a2, __CFDictionary *a3, uint64_t a4)
 {
   MutableCopy = a3;
   v28 = *MEMORY[0x1E69E9840];
@@ -388,7 +383,7 @@ LABEL_28:
 
     if (gLogCategory_BonjourBrowser <= 90 && (gLogCategory_BonjourBrowser != -1 || _LogCategory_Initialize(&gLogCategory_BonjourBrowser, 0x5Au)))
     {
-      LogPrintF(&gLogCategory_BonjourBrowser, "OSStatus _BonjourBrowser_PostEvent(BonjourBrowserRef, BonjourBrowserEventType, BonjourDeviceRef, BonjourServiceRef)", 0x5Au, "### CreateDictionary failed: %#m", v9, v10, v11, v12, v25);
+      LogPrintF(&gLogCategory_BonjourBrowser, "OSStatus _BonjourBrowser_PostEvent(BonjourBrowserRef, BonjourBrowserEventType, BonjourDeviceRef, BonjourServiceRef)", 90, "### CreateDictionary failed: %#m", v9, v10, v11, v12, v25);
     }
   }
 }
@@ -683,21 +678,21 @@ BOOL DomainEndsInDot(unsigned __int8 *a1)
   return v1 == 46;
 }
 
-void __NSDecodeNSDictionaryOfClassesIfPresent_block_invoke(uint64_t a1, void *a2, void *a3, _BYTE *a4)
+void __NSDecodeNSDictionaryOfClassesIfPresent_block_invoke(void *a1, void *a2, void *a3, _BYTE *a4)
 {
   v8 = a2;
   v7 = a3;
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D940] format:{@"bad key element type for key %@ : %@", *(a1 + 32), v8}];
-    *(*(*(a1 + 40) + 8) + 24) = 1;
+    [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D940] format:{@"bad key element type for key %@ : %@", a1[4], v8}];
+    *(*(a1[5] + 8) + 24) = 1;
     *a4 = 1;
   }
 
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D940] format:{@"bad value element type for key %@ : %@ -> %@", *(a1 + 32), v8, v7}];
-    *(*(*(a1 + 40) + 8) + 24) = 1;
+    [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D940] format:{@"bad value element type for key %@ : %@ -> %@", a1[4], v8, v7}];
+    *(*(a1[5] + 8) + 24) = 1;
     *a4 = 1;
   }
 }
@@ -711,7 +706,7 @@ void _BonjourBrowser_BrowseHandler(int a1, unsigned __int8 a2, uint64_t a3, uint
     {
       if (gLogCategory_BonjourBrowser <= 60 && (gLogCategory_BonjourBrowser != -1 || _LogCategory_Initialize(&gLogCategory_BonjourBrowser, 0x3Cu)))
       {
-        LogPrintF(&gLogCategory_BonjourBrowser, "void _BonjourBrowser_BrowseHandler(DNSServiceRef, DNSServiceFlags, uint32_t, DNSServiceErrorType, const char *, const char *, const char *, void *)", 0x3Cu, "### Browser for %s server crashed\n", a5, a6, a7, a8, *(a8 + 136));
+        LogPrintF(&gLogCategory_BonjourBrowser, "void _BonjourBrowser_BrowseHandler(DNSServiceRef, DNSServiceFlags, uint32_t, DNSServiceErrorType, const char *, const char *, const char *, void *)", 60, "### Browser for %s server crashed\n", a5, a6, a7, a8, *(a8 + 136));
       }
 
       _BonjourBrowser_HandleError(a8, -65563, a3, a4, a5, a6, a7, a8, a9);
@@ -719,7 +714,7 @@ void _BonjourBrowser_BrowseHandler(int a1, unsigned __int8 a2, uint64_t a3, uint
 
     else if (gLogCategory_BonjourBrowser <= 60 && (gLogCategory_BonjourBrowser != -1 || _LogCategory_Initialize(&gLogCategory_BonjourBrowser, 0x3Cu)))
     {
-      LogPrintF(&gLogCategory_BonjourBrowser, "void _BonjourBrowser_BrowseHandler(DNSServiceRef, DNSServiceFlags, uint32_t, DNSServiceErrorType, const char *, const char *, const char *, void *)", 0x3Cu, "### Browser for %s browse error: %#m\n", a5, a6, a7, a8, *(a8 + 136));
+      LogPrintF(&gLogCategory_BonjourBrowser, "void _BonjourBrowser_BrowseHandler(DNSServiceRef, DNSServiceFlags, uint32_t, DNSServiceErrorType, const char *, const char *, const char *, void *)", 60, "### Browser for %s browse error: %#m\n", a5, a6, a7, a8, *(a8 + 136));
     }
 
     return;
@@ -737,7 +732,7 @@ void _BonjourBrowser_BrowseHandler(int a1, unsigned __int8 a2, uint64_t a3, uint
         v15 = "Rmv";
       }
 
-      LogPrintF(&gLogCategory_BonjourBrowser, "void _BonjourBrowser_BrowseHandler(DNSServiceRef, DNSServiceFlags, uint32_t, DNSServiceErrorType, const char *, const char *, const char *, void *)", 0x14u, "Bonjour PTR %s %s.%s%s on %u\n", a5, a6, a7, a8, v15);
+      LogPrintF(&gLogCategory_BonjourBrowser, "void _BonjourBrowser_BrowseHandler(DNSServiceRef, DNSServiceFlags, uint32_t, DNSServiceErrorType, const char *, const char *, const char *, void *)", 20, "Bonjour PTR %s %s.%s%s on %u\n", a5, a6, a7, a8, v15);
     }
 
     cStr[0] = 0;
@@ -752,7 +747,7 @@ void _BonjourBrowser_BrowseHandler(int a1, unsigned __int8 a2, uint64_t a3, uint
 LABEL_34:
         if (gLogCategory_BonjourBrowser <= 20 && (gLogCategory_BonjourBrowser != -1 || _LogCategory_Initialize(&gLogCategory_BonjourBrowser, 0x14u)))
         {
-          LogPrintF(&gLogCategory_BonjourBrowser, "void _BonjourBrowser_BrowseHandler(DNSServiceRef, DNSServiceFlags, uint32_t, DNSServiceErrorType, const char *, const char *, const char *, void *)", 0x14u, "Ignoring interface: Nm '%s', ST '%s', IFI %u (%s), %#ll{flags}\n", v16, v17, v18, v19, a5);
+          LogPrintF(&gLogCategory_BonjourBrowser, "void _BonjourBrowser_BrowseHandler(DNSServiceRef, DNSServiceFlags, uint32_t, DNSServiceErrorType, const char *, const char *, const char *, void *)", 20, "Ignoring interface: Nm '%s', ST '%s', IFI %u (%s), %#ll{flags}\n", v16, v17, v18, v19, a5);
         }
 
         return;
@@ -837,7 +832,7 @@ LABEL_55:
   else if (gLogCategory_BonjourBrowser <= 60 && (gLogCategory_BonjourBrowser != -1 || _LogCategory_Initialize(&gLogCategory_BonjourBrowser, 0x3Cu)))
   {
 
-    LogPrintF(&gLogCategory_BonjourBrowser, "void _BonjourBrowser_BrowseHandler(DNSServiceRef, DNSServiceFlags, uint32_t, DNSServiceErrorType, const char *, const char *, const char *, void *)", 0x3Cu, "### Browse response after stop\n", a5, a6, a7, a8, a9);
+    LogPrintF(&gLogCategory_BonjourBrowser, "void _BonjourBrowser_BrowseHandler(DNSServiceRef, DNSServiceFlags, uint32_t, DNSServiceErrorType, const char *, const char *, const char *, void *)", 60, "### Browse response after stop\n", a5, a6, a7, a8, a9);
   }
 }
 
@@ -968,7 +963,7 @@ void _BonjourService_TXTHandler(int a1, unsigned __int8 a2, int a3, int a4, uint
   {
     if (gLogCategory_BonjourBrowser <= 60 && (gLogCategory_BonjourBrowser != -1 || _LogCategory_Initialize(&gLogCategory_BonjourBrowser, 0x3Cu)))
     {
-      LogPrintF(&gLogCategory_BonjourBrowser, "void _BonjourService_TXTHandler(DNSServiceRef, DNSServiceFlags, uint32_t, DNSServiceErrorType, const char *, uint16_t, uint16_t, uint16_t, const void *, uint32_t, void *)", 0x3Cu, "### Browser for %s TXT error: %#m\n", a5, a6, a7, __n, *(v11 + 136));
+      LogPrintF(&gLogCategory_BonjourBrowser, "void _BonjourService_TXTHandler(DNSServiceRef, DNSServiceFlags, uint32_t, DNSServiceErrorType, const char *, uint16_t, uint16_t, uint16_t, const void *, uint32_t, void *)", 60, "### Browser for %s TXT error: %#m\n", a5, a6, a7, __n, *(v11 + 136));
     }
   }
 
@@ -986,7 +981,7 @@ void _BonjourService_TXTHandler(int a1, unsigned __int8 a2, int a3, int a4, uint
           v14 = "Rmv";
         }
 
-        LogPrintF(&gLogCategory_BonjourBrowser, "void _BonjourService_TXTHandler(DNSServiceRef, DNSServiceFlags, uint32_t, DNSServiceErrorType, const char *, uint16_t, uint16_t, uint16_t, const void *, uint32_t, void *)", 0x14u, "Bonjour TXT %s %s on %u\n", a5, a6, a7, __n, v14);
+        LogPrintF(&gLogCategory_BonjourBrowser, "void _BonjourService_TXTHandler(DNSServiceRef, DNSServiceFlags, uint32_t, DNSServiceErrorType, const char *, uint16_t, uint16_t, uint16_t, const void *, uint32_t, void *)", 20, "Bonjour TXT %s %s on %u\n", a5, a6, a7, __n, v14);
       }
 
       v15 = v12;
@@ -1022,7 +1017,7 @@ void _BonjourService_TXTHandler(int a1, unsigned __int8 a2, int a3, int a4, uint
 LABEL_15:
           if (gLogCategory_BonjourBrowser <= 40 && (gLogCategory_BonjourBrowser != -1 || _LogCategory_Initialize(&gLogCategory_BonjourBrowser, 0x28u)))
           {
-            LogPrintF(&gLogCategory_BonjourBrowser, "void _BonjourService_RemoveRData(BonjourServiceRef, const void *, size_t)", 0x28u, "Removed RData missing for %s.%s%s %%%u\n%1.1H\n", a5, a6, a7, __n, a11[3]);
+            LogPrintF(&gLogCategory_BonjourBrowser, "void _BonjourService_RemoveRData(BonjourServiceRef, const void *, size_t)", 40, "Removed RData missing for %s.%s%s %%%u\n%1.1H\n", a5, a6, a7, __n, a11[3]);
           }
         }
 
@@ -1066,7 +1061,7 @@ LABEL_39:
 LABEL_75:
         if (v20 != -1 || _LogCategory_Initialize(&gLogCategory_BonjourIssues, 0x28u))
         {
-          LogPrintF(&gLogCategory_BonjourIssues, "OSStatus _BonjourService_AddRData(BonjourServiceRef, const void *, size_t)", 0x28u, "Add without remove new:   %s.%s%s%%%u: %#{txt}\n", a5, a6, a7, __n, a11[3]);
+          LogPrintF(&gLogCategory_BonjourIssues, "OSStatus _BonjourService_AddRData(BonjourServiceRef, const void *, size_t)", 40, "Add without remove new:   %s.%s%s%%%u: %#{txt}\n", a5, a6, a7, __n, a11[3]);
         }
       }
 
@@ -1081,7 +1076,7 @@ LABEL_75:
       {
         if (gLogCategory_BonjourIssues <= 40 && (gLogCategory_BonjourIssues != -1 || _LogCategory_Initialize(&gLogCategory_BonjourIssues, 0x28u)))
         {
-          LogPrintF(&gLogCategory_BonjourIssues, "OSStatus _BonjourService_AddRData(BonjourServiceRef, const void *, size_t)", 0x28u, "Add without remove old %d: %s.%s%s%%%u: %#{txt}\n", a5, a6, a7, __n, v22);
+          LogPrintF(&gLogCategory_BonjourIssues, "OSStatus _BonjourService_AddRData(BonjourServiceRef, const void *, size_t)", 40, "Add without remove old %d: %s.%s%s%%%u: %#{txt}\n", a5, a6, a7, __n, v22);
         }
 
         v22 = (v22 + 1);
@@ -1133,7 +1128,7 @@ LABEL_59:
 
         if (gLogCategory_BonjourIssues <= 40 && (gLogCategory_BonjourIssues != -1 || _LogCategory_Initialize(&gLogCategory_BonjourIssues, 0x28u)))
         {
-          LogPrintF(&gLogCategory_BonjourIssues, "void _BonjourService_TXTHandler(DNSServiceRef, DNSServiceFlags, uint32_t, DNSServiceErrorType, const char *, uint16_t, uint16_t, uint16_t, const void *, uint32_t, void *)", 0x28u, "Removing and re-adding %s.%s%s for TXT device ID update (%s -> %s)\n", v26, v27, v28, v29, a11[3]);
+          LogPrintF(&gLogCategory_BonjourIssues, "void _BonjourService_TXTHandler(DNSServiceRef, DNSServiceFlags, uint32_t, DNSServiceErrorType, const char *, uint16_t, uint16_t, uint16_t, const void *, uint32_t, void *)", 40, "Removing and re-adding %s.%s%s for TXT device ID update (%s -> %s)\n", v26, v27, v28, v29, a11[3]);
         }
 
         _BonjourBrowser_RemoveService(v11, a11, 1);
@@ -1177,7 +1172,7 @@ LABEL_58:
     if (gLogCategory_BonjourBrowser <= 60 && (gLogCategory_BonjourBrowser != -1 || _LogCategory_Initialize(&gLogCategory_BonjourBrowser, 0x3Cu)))
     {
 
-      LogPrintF(&gLogCategory_BonjourBrowser, "void _BonjourService_TXTHandler(DNSServiceRef, DNSServiceFlags, uint32_t, DNSServiceErrorType, const char *, uint16_t, uint16_t, uint16_t, const void *, uint32_t, void *)", 0x3Cu, "### TXT response after stop\n", a5, a6, a7, __n, __s1);
+      LogPrintF(&gLogCategory_BonjourBrowser, "void _BonjourService_TXTHandler(DNSServiceRef, DNSServiceFlags, uint32_t, DNSServiceErrorType, const char *, uint16_t, uint16_t, uint16_t, const void *, uint32_t, void *)", 60, "### TXT response after stop\n", a5, a6, a7, __n, __s1);
     }
   }
 }
@@ -1209,7 +1204,7 @@ void _BonjourDevice_UpdateTXTQueries(uint64_t a1)
         v6 = 0;
         if (!strcasecmp(*(BestService + 32), "_raop._tcp."))
         {
-          if ((valueLen = 0, v16 = 0, v8 = *(v5 + 8), (ValuePtr = TXTRecordGetValuePtr(v8, (v5 + 16), "ft", &valueLen)) != 0) && SNScanF(ValuePtr, valueLen, "%llx", v10, v11, v12, v13, v14, &v16) == 1 && (v16 & 0x40000000) != 0 || (v15 = TXTRecordGetValuePtr(v8, (v5 + 16), "am", &valueLen)) != 0 && !strnicmp_prefix(v15, valueLen, "AppleTV"))
+          if ((valueLen = 0, v11 = 0, v8 = *(v5 + 8), (ValuePtr = TXTRecordGetValuePtr(v8, (v5 + 16), "ft", &valueLen)) != 0) && SNScanF(ValuePtr, valueLen, "%llx", &v11) == 1 && (v11 & 0x40000000) != 0 || (v10 = TXTRecordGetValuePtr(v8, (v5 + 16), "am", &valueLen)) != 0 && !strnicmp_prefix(v10, valueLen, "AppleTV"))
           {
             v6 = 1;
           }
@@ -2444,7 +2439,7 @@ uint64_t _AsyncConnection_TimeoutHandler(uint64_t a1, uint64_t a2, uint64_t a3, 
     if (*v9 != -1)
     {
 LABEL_3:
-      LogPrintF(v9, "void _AsyncConnection_TimeoutHandler(void *)", 0x32u, "### Connect timed out: %s\n", a5, a6, a7, a8, *(a1 + 16));
+      LogPrintF(v9, "void _AsyncConnection_TimeoutHandler(void *)", 50, "### Connect timed out: %s\n", a5, a6, a7, a8, *(a1 + 16));
       goto LABEL_5;
     }
 
@@ -2460,7 +2455,7 @@ LABEL_5:
   return _AsyncConnection_Complete(a1, 0, 0xFFFFFFFFLL, 4294960574);
 }
 
-uint64_t _AsyncConnection_ReachabilityStart(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t _AsyncConnection_ReachabilityStart(uint64_t a1, uint64_t a2, __int128 *a3, uint64_t a4, uint64_t a5)
 {
   v40 = *MEMORY[0x1E69E9840];
   memset(&context, 0, sizeof(context));
@@ -2481,8 +2476,8 @@ uint64_t _AsyncConnection_ReachabilityStart(uint64_t a1, uint64_t a2, uint64_t a
     if (v12 == 30)
     {
       v13 = *a3;
-      v14 = *(a3 + 16);
-      *(v10 + 12) = *(a3 + 24);
+      v14 = *(a3 + 2);
+      *(v10 + 12) = *(a3 + 6);
       *(v10 + 5) = v14;
     }
 
@@ -2626,7 +2621,7 @@ LABEL_24:
       v31 = *(a1 + 152);
     }
 
-    LogPrintF(v31, "OSStatus _AsyncConnection_ReachabilityStart(AsyncConnectionRef, AsyncConnectionOperationRef, const void *, uint32_t, int)", 0x1Eu, "Reachability of %##a default port %d OK, Flags 0x%X\n", v27, v28, v29, v30, a3);
+    LogPrintF(v31, "OSStatus _AsyncConnection_ReachabilityStart(AsyncConnectionRef, AsyncConnectionOperationRef, const void *, uint32_t, int)", 30, "Reachability of %##a default port %d OK, Flags 0x%X\n", v27, v28, v29, v30, a3);
   }
 
 LABEL_46:
@@ -2647,7 +2642,7 @@ LABEL_46:
     {
       v32 = *(a1 + 152);
 LABEL_49:
-      LogPrintF(v32, "OSStatus _AsyncConnection_ReachabilityStart(AsyncConnectionRef, AsyncConnectionOperationRef, const void *, uint32_t, int)", 0x5Au, "### Connect %##a default port %d failed after reachability said OK\n", v23, v24, v25, v26, a3);
+      LogPrintF(v32, "OSStatus _AsyncConnection_ReachabilityStart(AsyncConnectionRef, AsyncConnectionOperationRef, const void *, uint32_t, int)", 90, "### Connect %##a default port %d failed after reachability said OK\n", v23, v24, v25, v26, a3);
     }
 
 LABEL_53:
@@ -2664,7 +2659,7 @@ LABEL_53:
         v34 = *(a1 + 152);
       }
 
-      LogPrintF(v34, "OSStatus _AsyncConnection_ReachabilityStart(AsyncConnectionRef, AsyncConnectionOperationRef, const void *, uint32_t, int)", 0x1Eu, "Monitoring reachability of %##a default port %d\n", v23, v24, v25, v26, a3);
+      LogPrintF(v34, "OSStatus _AsyncConnection_ReachabilityStart(AsyncConnectionRef, AsyncConnectionOperationRef, const void *, uint32_t, int)", 30, "Monitoring reachability of %##a default port %d\n", v23, v24, v25, v26, a3);
     }
 
 LABEL_57:
@@ -2814,7 +2809,7 @@ uint64_t _AsyncConnection_StartDNSResolve(uint64_t a1, uint64_t a2, char *a3, in
     if (*v18 != -1)
     {
 LABEL_13:
-      LogPrintF(v18, "OSStatus _AsyncConnection_StartDNSResolve(AsyncConnectionRef, AsyncConnectionOperationRef, const char *, int)", 0x1Eu, "Resolving DNS %s\n", v11, v12, v13, v14, a3);
+      LogPrintF(v18, "OSStatus _AsyncConnection_StartDNSResolve(AsyncConnectionRef, AsyncConnectionOperationRef, const char *, int)", 30, "Resolving DNS %s\n", v11, v12, v13, v14, a3);
       goto LABEL_15;
     }
 
@@ -2846,7 +2841,7 @@ LABEL_18:
   return AddrInfo;
 }
 
-void _AsyncConnection_DNSCallBack(uint64_t a1, char a2, uint64_t a3, int a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void _AsyncConnection_DNSCallBack(uint64_t a1, char a2, uint64_t a3, int a4, uint64_t a5, __int128 *a6, uint64_t a7, uint64_t a8)
 {
   if ((a2 & 2) == 0 || a4)
   {
@@ -2868,7 +2863,7 @@ void _AsyncConnection_DNSCallBack(uint64_t a1, char a2, uint64_t a3, int a4, uin
       v17 = *(v12 + 152);
     }
 
-    LogPrintF(v17, "void _AsyncConnection_DNSCallBack(DNSServiceRef, DNSServiceFlags, uint32_t, DNSServiceErrorType, const char *, const struct sockaddr *, uint32_t, void *)", 0x1Eu, "Resolved DNS %s -> %##a, Flags 0x%X, If %u, TTL %u\n", v13, v14, v15, v16, a5);
+    LogPrintF(v17, "void _AsyncConnection_DNSCallBack(DNSServiceRef, DNSServiceFlags, uint32_t, DNSServiceErrorType, const char *, const struct sockaddr *, uint32_t, void *)", 30, "Resolved DNS %s -> %##a, Flags 0x%X, If %u, TTL %u\n", v13, v14, v15, v16, a5);
   }
 
 LABEL_7:
@@ -2882,7 +2877,7 @@ LABEL_7:
 
 void _AsyncConnection_SRVCallBack(uint64_t a1, char a2, int a3, uint64_t started, uint64_t a5, uint64_t a6, uint64_t a7, unsigned int a8, uint64_t a9, uint64_t a10, uint64_t a11)
 {
-  v34[134] = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   if (started)
   {
     goto LABEL_32;
@@ -2901,7 +2896,7 @@ void _AsyncConnection_SRVCallBack(uint64_t a1, char a2, int a3, uint64_t started
     v15 = *(a9 + 4);
     if (!*(a9 + 6))
     {
-      v17 = v34;
+      v17 = &__s[1];
       __s[0] = 46;
       goto LABEL_20;
     }
@@ -2970,7 +2965,7 @@ LABEL_20:
       {
         v29 = *(*(a11 + 16) + 152);
 LABEL_23:
-        LogPrintF(v29, "void _AsyncConnection_SRVCallBack(DNSServiceRef, DNSServiceFlags, uint32_t, DNSServiceErrorType, const char *, uint16_t, uint16_t, uint16_t, const void *, uint32_t, void *)", 0x1Eu, "SRV resolved %s -> %s port %d, If %u, Flags 0x%X, TTL %u\n", v25, v26, v27, v28, a5);
+        LogPrintF(v29, "void _AsyncConnection_SRVCallBack(DNSServiceRef, DNSServiceFlags, uint32_t, DNSServiceErrorType, const char *, uint16_t, uint16_t, uint16_t, const void *, uint32_t, void *)", 30, "SRV resolved %s -> %s port %d, If %u, Flags 0x%X, TTL %u\n", v25, v26, v27, v28, a5);
       }
     }
 
@@ -3033,7 +3028,7 @@ LABEL_10:
   }
 }
 
-uint64_t _AsyncConnection_StartConnectDelayed(uint64_t a1, void *a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, unint64_t a7, uint64_t a8)
+uint64_t _AsyncConnection_StartConnectDelayed(uint64_t a1, void *a2, int a3, __int128 *a4, uint64_t a5, uint64_t a6, unint64_t a7, uint64_t a8)
 {
   v9 = a6;
   v10 = a5;
@@ -3056,7 +3051,7 @@ uint64_t _AsyncConnection_StartConnectDelayed(uint64_t a1, void *a2, int a3, uin
       v15 = *(a1 + 152);
     }
 
-    LogPrintF(v15, "OSStatus _AsyncConnection_StartConnectDelayed(AsyncConnectionRef, AsyncConnectionOperationRef, uint32_t, const void *, uint32_t, int, uint64_t)", 0x1Eu, "Delaying connect to %##a, interface %u by %llu ms\n", a5, a6, a7, a8, a4);
+    LogPrintF(v15, "OSStatus _AsyncConnection_StartConnectDelayed(AsyncConnectionRef, AsyncConnectionOperationRef, uint32_t, const void *, uint32_t, int, uint64_t)", 30, "Delaying connect to %##a, interface %u by %llu ms\n", a5, a6, a7, a8, a4);
     goto LABEL_11;
   }
 
@@ -3074,7 +3069,7 @@ uint64_t _AsyncConnection_StartConnectDelayed(uint64_t a1, void *a2, int a3, uin
   {
     v15 = *(a1 + 152);
 LABEL_4:
-    LogPrintF(v15, "OSStatus _AsyncConnection_StartConnectDelayed(AsyncConnectionRef, AsyncConnectionOperationRef, uint32_t, const void *, uint32_t, int, uint64_t)", 0x1Eu, "Retrying connect to %##a, interface %u, delay %llu ms, %u of %u\n", a5, a6, a7, a8, a4);
+    LogPrintF(v15, "OSStatus _AsyncConnection_StartConnectDelayed(AsyncConnectionRef, AsyncConnectionOperationRef, uint32_t, const void *, uint32_t, int, uint64_t)", 30, "Retrying connect to %##a, interface %u, delay %llu ms, %u of %u\n", a5, a6, a7, a8, a4);
   }
 
 LABEL_11:
@@ -3094,8 +3089,8 @@ LABEL_11:
     if (v19 == 30)
     {
       v20 = *a4;
-      v21 = *(a4 + 16);
-      *(v17 + 12) = *(a4 + 24);
+      v21 = *(a4 + 2);
+      *(v17 + 12) = *(a4 + 6);
       *(v17 + 5) = v21;
     }
 
@@ -3241,7 +3236,7 @@ void _AsyncConnection_ReachabilityHandler(uint64_t a1, char a2, uint64_t a3, uin
       v10 = *(*(a3 + 16) + 152);
     }
 
-    LogPrintF(v10, "void _AsyncConnection_ReachabilityHandler(SCNetworkReachabilityRef, SCNetworkReachabilityFlags, void *)", 0x1Eu, "Reachability of %##a, port %d changed: 0x%X\n", a5, a6, a7, a8, a3 + 24);
+    LogPrintF(v10, "void _AsyncConnection_ReachabilityHandler(SCNetworkReachabilityRef, SCNetworkReachabilityFlags, void *)", 30, "Reachability of %##a, port %d changed: 0x%X\n", a5, a6, a7, a8, a3 + 24);
   }
 
 LABEL_5:
@@ -3291,7 +3286,7 @@ void _AsyncConnection_WakeResolveCallback(uint64_t a1, uint64_t a2, uint64_t a3,
 {
   if (a4 && gLogCategory_AsyncCnx <= 90 && (gLogCategory_AsyncCnx != -1 || _LogCategory_Initialize(&gLogCategory_AsyncCnx, 0x5Au)))
   {
-    LogPrintF(&gLogCategory_AsyncCnx, "void _AsyncConnection_WakeResolveCallback(DNSServiceRef, DNSServiceFlags, uint32_t, DNSServiceErrorType, const char *, const char *, uint16_t, uint16_t, const unsigned char *, void *)", 0x5Au, "### WakeResolve failed: '%s', ifindex %u, %#m\n", a5, a6, a7, a8, a5);
+    LogPrintF(&gLogCategory_AsyncCnx, "void _AsyncConnection_WakeResolveCallback(DNSServiceRef, DNSServiceFlags, uint32_t, DNSServiceErrorType, const char *, const char *, uint16_t, uint16_t, const unsigned char *, void *)", 90, "### WakeResolve failed: '%s', ifindex %u, %#m\n", a5, a6, a7, a8, a5);
   }
 }
 
@@ -3398,7 +3393,7 @@ LABEL_14:
 
         v31 = *(v23 + 152);
 LABEL_12:
-        LogPrintF(v31, "OSStatus AsyncConnection_ConnectSyncEx(const char *, int, AsyncConnectionFlags, uint64_t, int, int, AsyncConnectionProgressFunc, void *, AsyncConnectionWaitFunc, void *, SocketRef *)", 0x32u, "### Canceling connect to %s\n", v27, v28, v29, v30, a1);
+        LogPrintF(v31, "OSStatus AsyncConnection_ConnectSyncEx(const char *, int, AsyncConnectionFlags, uint64_t, int, int, AsyncConnectionProgressFunc, void *, AsyncConnectionWaitFunc, void *, SocketRef *)", 50, "### Canceling connect to %s\n", v27, v28, v29, v30, a1);
         goto LABEL_14;
       }
 
@@ -3438,7 +3433,7 @@ intptr_t _AsyncConnection_ConnectSyncHandler(int a1, int a2, uint64_t a3)
   return dispatch_semaphore_signal(*(a3 + 8));
 }
 
-uint64_t SineTable_Create(void *a1, int a2, int a3)
+uint64_t SineTable_Create(void *a1, unsigned int a2, int a3)
 {
   v6 = malloc_type_malloc(2 * a2 + 12, 0x1000040BDFB0063uLL);
   if (!v6)
@@ -3820,26 +3815,26 @@ void AudioStreamStop(uint64_t a1)
 
   if (*(a1 + 34))
   {
-    (softLinkAUGraphStop[0])(*(a1 + 24));
+    softLinkAUGraphStop(*(a1 + 24));
     *(a1 + 34) = 0;
   }
 
   if (*(a1 + 33))
   {
-    (softLinkAUGraphUninitialize[0])(*(a1 + 24));
+    softLinkAUGraphUninitialize(*(a1 + 24));
     *(a1 + 33) = 0;
   }
 
   if (*(a1 + 32))
   {
-    (softLinkAUGraphClose[0])(*(a1 + 24));
+    softLinkAUGraphClose(*(a1 + 24));
     *(a1 + 32) = 0;
   }
 
   v3 = *(a1 + 24);
   if (v3)
   {
-    (softLinkDisposeAUGraph[0])(v3);
+    softLinkDisposeAUGraph(v3);
     *(a1 + 24) = 0;
   }
 
@@ -3870,7 +3865,7 @@ uint64_t initDisposeAUGraph(uint64_t a1)
   }
 
   v2 = dlsym(AudioToolboxLibrary_sLib, "DisposeAUGraph");
-  softLinkDisposeAUGraph[0] = v2;
+  softLinkDisposeAUGraph = v2;
 
   return (v2)(a1);
 }
@@ -3883,9 +3878,9 @@ uint64_t initAUGraphClose(uint64_t a1)
   }
 
   v2 = dlsym(AudioToolboxLibrary_sLib, "AUGraphClose");
-  softLinkAUGraphClose[0] = v2;
+  softLinkAUGraphClose = v2;
 
-  return (v2)(a1);
+  return v2(a1);
 }
 
 uint64_t initAUGraphUninitialize(uint64_t a1)
@@ -3896,9 +3891,9 @@ uint64_t initAUGraphUninitialize(uint64_t a1)
   }
 
   v2 = dlsym(AudioToolboxLibrary_sLib, "AUGraphUninitialize");
-  softLinkAUGraphUninitialize[0] = v2;
+  softLinkAUGraphUninitialize = v2;
 
-  return (v2)(a1);
+  return v2(a1);
 }
 
 uint64_t initAUGraphStop(uint64_t a1)
@@ -3909,9 +3904,9 @@ uint64_t initAUGraphStop(uint64_t a1)
   }
 
   v2 = dlsym(AudioToolboxLibrary_sLib, "AUGraphStop");
-  softLinkAUGraphStop[0] = v2;
+  softLinkAUGraphStop = v2;
 
-  return (v2)(a1);
+  return v2(a1);
 }
 
 uint64_t initAUGraphInitialize(uint64_t a1)
@@ -3927,7 +3922,7 @@ uint64_t initAUGraphInitialize(uint64_t a1)
   return (v2)(a1);
 }
 
-uint64_t _AudioStreamInputCallBack(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t a4, uint64_t a5)
+uint64_t _AudioStreamInputCallBack(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t a4, int a5)
 {
   v5 = (*(a1 + 208) * a5);
   if (*(a1 + 120) < v5)
@@ -3935,20 +3930,14 @@ uint64_t _AudioStreamInputCallBack(uint64_t a1, uint64_t a2, uint64_t *a3, uint6
     return 4294960545;
   }
 
-  v14 = 1;
-  v15 = *(a1 + 212);
-  v16 = v5;
-  v9 = a1 + 104;
-  v8 = *(a1 + 104);
-  v17 = *(v9 + 8);
-  result = (softLinkAudioUnitRender[0])(v8, a2, a3, a4, a5, &v14);
+  result = softLinkAudioUnitRender(*(a1 + 104));
   if (!result)
   {
-    v11.i64[0] = *a3;
-    *v12.i64 = *a3 + trunc(*a3 * 2.32830644e-10) * -4294967300.0;
-    v13.f64[0] = NAN;
-    v13.f64[1] = NAN;
-    (*(a1 + 144))(*vbslq_s8(vnegq_f64(v13), v12, v11).i64, a3[1], *(a1 + 112), v5, *(a1 + 152));
+    v9.i64[0] = *a3;
+    *v10.i64 = *a3 + trunc(*a3 * 2.32830644e-10) * -4294967300.0;
+    v11.f64[0] = NAN;
+    v11.f64[1] = NAN;
+    (*(a1 + 144))(*vbslq_s8(vnegq_f64(v11), v10, v9).i64, a3[1], *(a1 + 112), v5, *(a1 + 152));
     return 0;
   }
 
@@ -3963,7 +3952,7 @@ uint64_t initAudioUnitRender(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4,
   }
 
   v12 = dlsym(AudioToolboxLibrary_sLib, "AudioUnitRender");
-  softLinkAudioUnitRender[0] = v12;
+  softLinkAudioUnitRender = v12;
 
   return (v12)(a1, a2, a3, a4, a5, a6);
 }
@@ -4293,7 +4282,7 @@ uint64_t AudioStreamStart(uint64_t a1)
 LABEL_22:
       if (gLogCategory_AudioUtils <= 50 && (gLogCategory_AudioUtils != -1 || _LogCategory_Initialize(&gLogCategory_AudioUtils, 0x32u)))
       {
-        LogPrintF(&gLogCategory_AudioUtils, "OSStatus AudioStreamPrepare(AudioStreamRef)", 0x32u, "### Audio stream prepare failed: %#m\n", v6, v7, v8, v9, v4);
+        LogPrintF(&gLogCategory_AudioUtils, "OSStatus AudioStreamPrepare(AudioStreamRef)", 50, "### Audio stream prepare failed: %#m\n", v6, v7, v8, v9, v4);
       }
 
       AudioStreamStop(a1);
@@ -4327,11 +4316,11 @@ LABEL_21:
 LABEL_2:
   if (*(a1 + 96))
   {
-    (softLinkAUGraphStop[0])(v2);
+    softLinkAUGraphStop(v2);
     v2 = *v3;
   }
 
-  v4 = (softLinkAUGraphStart[0])(v2);
+  v4 = softLinkAUGraphStart(v2);
   if (!v4)
   {
     *(a1 + 96) = 1;
@@ -4351,9 +4340,9 @@ uint64_t initAUGraphStart(uint64_t a1)
   }
 
   v2 = dlsym(AudioToolboxLibrary_sLib, "AUGraphStart");
-  softLinkAUGraphStart[0] = v2;
+  softLinkAUGraphStart = v2;
 
-  return (v2)(a1);
+  return v2(a1);
 }
 
 uint64_t AudioStreamTest(int a1)
@@ -4361,7 +4350,7 @@ uint64_t AudioStreamTest(int a1)
   v11 = 0;
   memset(bytes, 0, sizeof(bytes));
   v9 = 0;
-  v2 = SineTable_Create(&v11, 44100, 800);
+  v2 = SineTable_Create(&v11, 0xAC44u, 800);
   if (!v2)
   {
     if (gAudioStreamInitOnce != -1)
@@ -4498,7 +4487,7 @@ uint64_t Base64EncodedLinesMaxSize(uint64_t a1, uint64_t a2, uint64_t a3)
   return v5 + (v3 - a3 + a2) * v6;
 }
 
-uint64_t Base64EncodeLinesEx(char *__s, int64_t a2, size_t __len, _BYTE *a4, char a5, char *__b, unint64_t a7, void *a8)
+uint64_t Base64EncodeLinesEx(char *__s, int64_t a2, size_t __len, char *a4, char a5, char *__b, unint64_t a7, void *a8)
 {
   v14 = a2;
   v15 = __s;
@@ -4692,7 +4681,7 @@ LABEL_44:
   return result;
 }
 
-uint64_t Base64EncodeLinesCopyEx(char *__s, size_t a2, size_t a3, _BYTE *a4, char a5, char **a6, unint64_t *a7)
+uint64_t Base64EncodeLinesCopyEx(char *__s, size_t a2, size_t a3, char *a4, char a5, char **a6, unint64_t *a7)
 {
   v12 = a2;
   if (a2 == -1)
@@ -4944,22 +4933,22 @@ void BonjourAdvertiserGenerateStatisticsNAN(uint64_t a1, uint64_t a2)
   dispatch_async(v2, v3);
 }
 
-uint64_t __BonjourAdvertiserGenerateStatisticsNAN_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t __BonjourAdvertiserGenerateStatisticsNAN_block_invoke(uint64_t a1)
 {
-  v8 = *(a1 + 32);
-  v9 = *(*(a1 + 40) + 64);
-  if (v9)
+  v1 = *(a1 + 32);
+  v2 = *(*(a1 + 40) + 64);
+  if (v2)
   {
 
-    return [v9 generateStatisticsReportWithCompletionHandler:v8];
+    return [v2 generateStatisticsReportWithCompletionHandler:v1];
   }
 
   else
   {
-    v11 = NSErrorF_safe(*MEMORY[0x1E696A768], 4294960591, "No NAN publisher", a4, a5, a6, a7, a8, v13);
-    v12 = *(v8 + 16);
+    v4 = NSErrorF_safe(*MEMORY[0x1E696A768], 4294960591, "No NAN publisher");
+    v5 = *(v1 + 16);
 
-    return v12(v8, 0, v11);
+    return v5(v1, 0, v4);
   }
 }
 
@@ -4975,11 +4964,11 @@ void BonjourAdvertiserReportNANIssue(uint64_t a1, uint64_t a2)
   dispatch_async(v2, v3);
 }
 
-uint64_t __BonjourAdvertiserReportNANIssue_block_invoke(uint64_t result)
+void *__BonjourAdvertiserReportNANIssue_block_invoke(void *result)
 {
-  if (*(*(result + 40) + 64))
+  if (*(result[5] + 64))
   {
-    return [*(*(result + 40) + 64) reportIssue:*(result + 32)];
+    return [*(result[5] + 64) reportIssue:result[4]];
   }
 
   return result;
@@ -5088,11 +5077,11 @@ void BonjourAdvertiserUpdateLinkStatusNAN(uint64_t a1, int a2)
   dispatch_async(v2, v3);
 }
 
-uint64_t __BonjourAdvertiserUpdateLinkStatusNAN_block_invoke(uint64_t result)
+void *__BonjourAdvertiserUpdateLinkStatusNAN_block_invoke(void *result)
 {
-  if (*(*(result + 32) + 64))
+  if (*(result[4] + 64))
   {
-    return [*(*(result + 32) + 64) updateLinkStatus:*(result + 40)];
+    return [*(result[4] + 64) updateLinkStatus:*(result + 10)];
   }
 
   return result;
@@ -5281,7 +5270,7 @@ LABEL_51:
               v32 = *(a1 + 16);
             }
 
-            LogPrintF(v32, "void _BonjourAdvertiserHandleError(BonjourAdvertiserRef, OSStatus)", 0x32u, "### Bonjour register for %s failed, retrying in %llu ms: %#m\n", v27, v28, v29, v30, *(a1 + 152));
+            LogPrintF(v32, "void _BonjourAdvertiserHandleError(BonjourAdvertiserRef, OSStatus)", 50, "### Bonjour register for %s failed, retrying in %llu ms: %#m\n", v27, v28, v29, v30, *(a1 + 152));
             goto LABEL_51;
           }
 
@@ -5372,7 +5361,7 @@ LABEL_42:
           v17 = *(a1 + 16);
         }
 
-        LogPrintF(v17, "OSStatus _BonjourAdvertiserUpdateDNSService(BonjourAdvertiserRef)", 0x32u, "Registering Bonjour %s port %d\n", v13, v14, v15, v16, *(a1 + 152));
+        LogPrintF(v17, "OSStatus _BonjourAdvertiserUpdateDNSService(BonjourAdvertiserRef)", 50, "Registering Bonjour %s port %d\n", v13, v14, v15, v16, *(a1 + 152));
       }
 
 LABEL_26:
@@ -5397,7 +5386,7 @@ LABEL_26:
       if (*v9 != -1)
       {
 LABEL_11:
-        LogPrintF(v9, "OSStatus _BonjourAdvertiserUpdateDNSService(BonjourAdvertiserRef)", 0x32u, "Updated Bonjour TXT for %s\n", v4, v5, v6, v7, *(a1 + 152));
+        LogPrintF(v9, "OSStatus _BonjourAdvertiserUpdateDNSService(BonjourAdvertiserRef)", 50, "Updated Bonjour TXT for %s\n", v4, v5, v6, v7, *(a1 + 152));
         goto LABEL_13;
       }
 
@@ -5418,7 +5407,7 @@ LABEL_13:
   }
 }
 
-uint64_t _BonjourAdvertiserRetryTimer(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void _BonjourAdvertiserRetryTimer(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v9 = *(a1 + 16);
   if (*v9 <= 50)
@@ -5426,7 +5415,7 @@ uint64_t _BonjourAdvertiserRetryTimer(uint64_t a1, uint64_t a2, uint64_t a3, uin
     if (*v9 != -1)
     {
 LABEL_3:
-      LogPrintF(v9, "void _BonjourAdvertiserRetryTimer(void *)", 0x32u, "Retrying Bonjour register for %s after failure\n", a5, a6, a7, a8, *(a1 + 152));
+      LogPrintF(v9, "void _BonjourAdvertiserRetryTimer(void *)", 50, "Retrying Bonjour register for %s after failure\n", a5, a6, a7, a8, *(a1 + 152));
       goto LABEL_5;
     }
 
@@ -5448,7 +5437,7 @@ LABEL_5:
 
   *(a1 + 80) = mach_absolute_time();
 
-  return _BonjourAdvertiserUpdateDirect(a1);
+  _BonjourAdvertiserUpdateDirect(a1);
 }
 
 void _BonjourAdvertiserRegistrationHandler(int a1, int a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, void *cf, uint64_t a8)
@@ -5472,7 +5461,7 @@ void _BonjourAdvertiserRegistrationHandler(int a1, int a2, int a3, uint64_t a4, 
       v9 = cf[2];
     }
 
-    LogPrintF(v9, "void _BonjourAdvertiserRegistrationHandler(DNSServiceRef, DNSServiceFlags, DNSServiceErrorType, const char *, const char *, const char *, void *)", 0x32u, "Registered Bonjour %s.%s%s\n", a5, a6, cf, a8, a4);
+    LogPrintF(v9, "void _BonjourAdvertiserRegistrationHandler(DNSServiceRef, DNSServiceFlags, DNSServiceErrorType, const char *, const char *, const char *, void *)", 50, "Registered Bonjour %s.%s%s\n", a5, a6, cf, a8, a4);
     return;
   }
 
@@ -5493,7 +5482,7 @@ void _BonjourAdvertiserRegistrationHandler(int a1, int a2, int a3, uint64_t a4, 
       v9 = cf[2];
     }
 
-    LogPrintF(v9, "void _BonjourAdvertiserRegistrationHandler(DNSServiceRef, DNSServiceFlags, DNSServiceErrorType, const char *, const char *, const char *, void *)", 0x32u, "### Bonjour registration error for %s: %#m\n", a5, a6, cf, a8, cf[19]);
+    LogPrintF(v9, "void _BonjourAdvertiserRegistrationHandler(DNSServiceRef, DNSServiceFlags, DNSServiceErrorType, const char *, const char *, const char *, void *)", 50, "### Bonjour registration error for %s: %#m\n", a5, a6, cf, a8, cf[19]);
     return;
   }
 
@@ -5509,7 +5498,7 @@ void _BonjourAdvertiserRegistrationHandler(int a1, int a2, int a3, uint64_t a4, 
       v9 = cf[2];
     }
 
-    LogPrintF(v9, "void _BonjourAdvertiserRegistrationHandler(DNSServiceRef, DNSServiceFlags, DNSServiceErrorType, const char *, const char *, const char *, void *)", 0x32u, "### Bonjour server crashed for %s\n", a5, a6, cf, a8, cf[19]);
+    LogPrintF(v9, "void _BonjourAdvertiserRegistrationHandler(DNSServiceRef, DNSServiceFlags, DNSServiceErrorType, const char *, const char *, const char *, void *)", 50, "### Bonjour server crashed for %s\n", a5, a6, cf, a8, cf[19]);
   }
 
 LABEL_13:
@@ -5576,7 +5565,7 @@ void _BonjourAdvertiserStop(uint64_t a1)
         v8 = *(a1 + 16);
       }
 
-      LogPrintF(v8, "void _BonjourAdvertiserStop(void *)", 0x32u, "Deregistered Bonjour %s\n", v4, v5, v6, v7, *(a1 + 152));
+      LogPrintF(v8, "void _BonjourAdvertiserStop(void *)", 50, "Deregistered Bonjour %s\n", v4, v5, v6, v7, *(a1 + 152));
     }
 
 LABEL_10:
@@ -5628,15 +5617,15 @@ void _BonjourBrowser_Finalize(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, u
   if (gLogCategory_BonjourBrowser <= 20 && (gLogCategory_BonjourBrowser != -1 || _LogCategory_Initialize(&gLogCategory_BonjourBrowser, 0x14u)))
   {
 
-    LogPrintF(&gLogCategory_BonjourBrowser, "void _BonjourBrowser_Finalize(CFTypeRef)", 0x14u, "Finalized browser\n", a5, a6, a7, a8, a9);
+    LogPrintF(&gLogCategory_BonjourBrowser, "void _BonjourBrowser_Finalize(CFTypeRef)", 20, "Finalized browser\n", a5, a6, a7, a8, a9);
   }
 }
 
-uint64_t BonjourBrowser_CreateEx(void *a1, uint64_t a2, char a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t BonjourBrowser_CreateEx(void *a1, const char *a2, char a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (gLogCategory_BonjourBrowser <= 30 && (gLogCategory_BonjourBrowser != -1 || _LogCategory_Initialize(&gLogCategory_BonjourBrowser, 0x1Eu)))
   {
-    LogPrintF(&gLogCategory_BonjourBrowser, "OSStatus BonjourBrowser_CreateEx(BonjourBrowserRef *, const char *, CUBonjourBrowserFlags)", 0x1Eu, "Create '%s', %#{flags}\n", a5, a6, a7, a8, a2);
+    LogPrintF(&gLogCategory_BonjourBrowser, "OSStatus BonjourBrowser_CreateEx(BonjourBrowserRef *, const char *, CUBonjourBrowserFlags)", 30, "Create '%s', %#{flags}\n", a5, a6, a7, a8, a2);
   }
 
   if (gBonjourBrowserInitOnce != -1)
@@ -5772,12 +5761,12 @@ void BonjourBrowser_SetEventHandlerBlock(uint64_t a1, void *aBlock)
   *(a1 + 192) = v3;
 }
 
-void _BonjourBrowser_RemoveAWDLServices(uint64_t a1)
+void _BonjourBrowser_RemoveAWDLServices(uint64_t result)
 {
-  if (*(a1 + 128))
+  if (*(result + 128))
   {
-    v3 = a1 + 88;
-    v2 = *(a1 + 88);
+    v3 = result + 88;
+    v2 = *(result + 88);
     while (v2)
     {
       v4 = v3;
@@ -5785,13 +5774,13 @@ void _BonjourBrowser_RemoveAWDLServices(uint64_t a1)
       while (1)
       {
         v2 = *v3;
-        if (*(v3 + 48) != *(a1 + 128))
+        if (*(v3 + 48) != *(result + 128))
         {
           break;
         }
 
         *v4 = v2;
-        _BonjourBrowser_RemoveService(a1, v3, 1);
+        _BonjourBrowser_RemoveService(result, v3, 1);
         _BonjourService_Free(v3);
         v3 = *v4;
         if (!*v4)
@@ -5871,7 +5860,7 @@ void _BonjourBrowser_NANEndpointFound(uint64_t a1, void *a2)
 
     if (gLogCategory_BonjourBrowser <= 20 && (gLogCategory_BonjourBrowser != -1 || _LogCategory_Initialize(&gLogCategory_BonjourBrowser, 0x14u)))
     {
-      LogPrintF(&gLogCategory_BonjourBrowser, "void _BonjourBrowser_NANEndpointFound(BonjourBrowserRef, CUNANEndpoint *)", 0x14u, "Bonjour NAN found: %s.%s%s on %u\n", v11, v12, v13, v14, v15);
+      LogPrintF(&gLogCategory_BonjourBrowser, "void _BonjourBrowser_NANEndpointFound(BonjourBrowserRef, CUNANEndpoint *)", 20, "Bonjour NAN found: %s.%s%s on %u\n", v11, v12, v13, v14, v15);
     }
 
     v18 = a1 + 88;
@@ -5977,7 +5966,7 @@ LABEL_50:
             DeviceID = v47;
           }
 
-          LogPrintF(&gLogCategory_BonjourBrowser, "void _BonjourBrowser_NANEndpointFound(BonjourBrowserRef, CUNANEndpoint *)", 0x5Au, "### GetDeviceID failed: %#m", v31, v32, v33, v34, DeviceID);
+          LogPrintF(&gLogCategory_BonjourBrowser, "void _BonjourBrowser_NANEndpointFound(BonjourBrowserRef, CUNANEndpoint *)", 90, "### GetDeviceID failed: %#m", v31, v32, v33, v34, DeviceID);
         }
 
 LABEL_41:
@@ -6005,7 +5994,7 @@ LABEL_40:
 
         if (gLogCategory_BonjourIssues <= 40 && (gLogCategory_BonjourIssues != -1 || _LogCategory_Initialize(&gLogCategory_BonjourIssues, 0x28u)))
         {
-          LogPrintF(&gLogCategory_BonjourIssues, "void _BonjourBrowser_NANEndpointFound(BonjourBrowserRef, CUNANEndpoint *)", 0x28u, "Removing and re-adding %s.%s%s for NAN device ID update (%s -> %s)\n", v36, v37, v38, v39, *(v18 + 24));
+          LogPrintF(&gLogCategory_BonjourIssues, "void _BonjourBrowser_NANEndpointFound(BonjourBrowserRef, CUNANEndpoint *)", 40, "Removing and re-adding %s.%s%s for NAN device ID update (%s -> %s)\n", v36, v37, v38, v39, *(v18 + 24));
         }
 
         _BonjourBrowser_RemoveService(a1, v18, 1);
@@ -6053,7 +6042,7 @@ LABEL_39:
     v44 = v47;
     v42 = "### TXTRecordCreate failed: %#m";
 LABEL_63:
-    LogPrintF(&gLogCategory_BonjourBrowser, "void _BonjourBrowser_NANEndpointFound(BonjourBrowserRef, CUNANEndpoint *)", 0x5Au, v42, v5, v6, v7, v8, v44);
+    LogPrintF(&gLogCategory_BonjourBrowser, "void _BonjourBrowser_NANEndpointFound(BonjourBrowserRef, CUNANEndpoint *)", 90, v42, v5, v6, v7, v8, v44);
     goto LABEL_42;
   }
 
@@ -6063,7 +6052,7 @@ LABEL_63:
   {
     if (gLogCategory_BonjourBrowser != -1 || _LogCategory_Initialize(&gLogCategory_BonjourBrowser, 0x3Cu))
     {
-      LogPrintF(&gLogCategory_BonjourBrowser, "void _BonjourBrowser_NANEndpointFound(BonjourBrowserRef, CUNANEndpoint *)", 0x3Cu, "### Bonjour NAN found without service type: %@\n", v5, v6, v7, v8, a2);
+      LogPrintF(&gLogCategory_BonjourBrowser, "void _BonjourBrowser_NANEndpointFound(BonjourBrowserRef, CUNANEndpoint *)", 60, "### Bonjour NAN found without service type: %@\n", v5, v6, v7, v8, a2);
     }
 
     goto LABEL_42;
@@ -6072,7 +6061,7 @@ LABEL_63:
 LABEL_44:
   if (v41 <= 90 && (v41 != -1 || _LogCategory_Initialize(&gLogCategory_BonjourBrowser, 0x5Au)))
   {
-    LogPrintF(&gLogCategory_BonjourBrowser, "void _BonjourBrowser_NANEndpointFound(BonjourBrowserRef, CUNANEndpoint *)", 0x5Au, "### Bonjour NAN found failed: %@, %#m\n", v5, v6, v7, v8, a2);
+    LogPrintF(&gLogCategory_BonjourBrowser, "void _BonjourBrowser_NANEndpointFound(BonjourBrowserRef, CUNANEndpoint *)", 90, "### Bonjour NAN found failed: %@, %#m\n", v5, v6, v7, v8, a2);
   }
 }
 
@@ -6224,7 +6213,7 @@ void _BonjourBrowser_NANEndpointLost(uint64_t a1, void *a2)
     v16 = *(a1 + 80);
     if (gLogCategory_BonjourBrowser <= 20 && (gLogCategory_BonjourBrowser != -1 || _LogCategory_Initialize(&gLogCategory_BonjourBrowser, 0x14u)))
     {
-      LogPrintF(&gLogCategory_BonjourBrowser, "void _BonjourBrowser_NANEndpointLost(BonjourBrowserRef, CUNANEndpoint *)", 0x14u, "Bonjour NAN lost: %s.%s%s on %u\n", v11, v12, v13, v14, v15);
+      LogPrintF(&gLogCategory_BonjourBrowser, "void _BonjourBrowser_NANEndpointLost(BonjourBrowserRef, CUNANEndpoint *)", 20, "Bonjour NAN lost: %s.%s%s on %u\n", v11, v12, v13, v14, v15);
     }
 
     v18 = a1 + 88;
@@ -6256,15 +6245,15 @@ void _BonjourBrowser_NANEndpointLost(uint64_t a1, void *a2)
 
   else if (gLogCategory_BonjourBrowser <= 60 && (gLogCategory_BonjourBrowser != -1 || _LogCategory_Initialize(&gLogCategory_BonjourBrowser, 0x3Cu)))
   {
-    LogPrintF(&gLogCategory_BonjourBrowser, "void _BonjourBrowser_NANEndpointLost(BonjourBrowserRef, CUNANEndpoint *)", 0x3Cu, "### Bonjour NAN lost without service type: %@\n", v5, v6, v7, v8, a2);
+    LogPrintF(&gLogCategory_BonjourBrowser, "void _BonjourBrowser_NANEndpointLost(BonjourBrowserRef, CUNANEndpoint *)", 60, "### Bonjour NAN lost without service type: %@\n", v5, v6, v7, v8, a2);
   }
 }
 
-uint64_t _BonjourBrowser_RetryTimerFired(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void *_BonjourBrowser_RetryTimerFired(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (gLogCategory_BonjourBrowser <= 50 && (gLogCategory_BonjourBrowser != -1 || _LogCategory_Initialize(&gLogCategory_BonjourBrowser, 0x32u)))
   {
-    LogPrintF(&gLogCategory_BonjourBrowser, "void _BonjourBrowser_RetryTimerFired(void *)", 0x32u, "Retrying Bonjour start for %s after failure\n", a5, a6, a7, a8, *(a1 + 136));
+    LogPrintF(&gLogCategory_BonjourBrowser, "void _BonjourBrowser_RetryTimerFired(void *)", 50, "Retrying Bonjour start for %s after failure\n", a5, a6, a7, a8, *(a1 + 136));
   }
 
   v9 = *(a1 + 120);
@@ -6277,7 +6266,7 @@ uint64_t _BonjourBrowser_RetryTimerFired(uint64_t a1, uint64_t a2, uint64_t a3, 
 
   *(a1 + 112) = mach_absolute_time();
 
-  return _BonjourBrowser_EnsureStarted(a1);
+  return _BonjourBrowser_EnsureStarted(a1, v10, v11, v12, v13, v14, v15, v16);
 }
 
 void BonjourBrowser_Stop(void *a1)
@@ -6294,7 +6283,7 @@ void _BonjourBrowser_Stop(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, ui
   *(a1 + 104) = 0;
   if (v9 && gLogCategory_BonjourBrowser <= 30 && (gLogCategory_BonjourBrowser != -1 || _LogCategory_Initialize(&gLogCategory_BonjourBrowser, 0x1Eu)))
   {
-    LogPrintF(&gLogCategory_BonjourBrowser, "void _BonjourBrowser_Stop(void *)", 0x1Eu, "Stopping browse for %s\n", a5, a6, a7, a8, *(a1 + 136));
+    LogPrintF(&gLogCategory_BonjourBrowser, "void _BonjourBrowser_Stop(void *)", 30, "Stopping browse for %s\n", a5, a6, a7, a8, *(a1 + 136));
   }
 
   v10 = *(a1 + 120);
@@ -6312,7 +6301,7 @@ void _BonjourBrowser_Stop(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, ui
     _BonjourBrowser_PostEvent(a1, 3, 0, 0);
     if (gLogCategory_BonjourBrowser <= 30 && (gLogCategory_BonjourBrowser != -1 || _LogCategory_Initialize(&gLogCategory_BonjourBrowser, 0x1Eu)))
     {
-      LogPrintF(&gLogCategory_BonjourBrowser, "void _BonjourBrowser_Stop(void *)", 0x1Eu, "Stopped browse for %s\n", v11, v12, v13, v14, *(a1 + 136));
+      LogPrintF(&gLogCategory_BonjourBrowser, "void _BonjourBrowser_Stop(void *)", 30, "Stopped browse for %s\n", v11, v12, v13, v14, *(a1 + 136));
     }
 
     CFRelease(a1);
@@ -6421,12 +6410,12 @@ void BonjourBrowser_ReconfirmDeviceEx(void *a1, const void *a2, const char *a3)
   }
 }
 
-void _BonjourBrowser_ReconfirmDevice(void *a1)
+void _BonjourBrowser_ReconfirmDevice(char **a1)
 {
   v16 = *MEMORY[0x1E69E9840];
   v15[0] = 0;
   v2 = *a1;
-  CFDictionaryGetCString(*(a1 + 1), @"deviceID", v15, 0x40uLL, 0);
+  CFDictionaryGetCString(a1[1], @"deviceID", v15, 0x40uLL, 0);
   if (v15[0])
   {
     v3 = v2 + 96;
@@ -6442,7 +6431,7 @@ void _BonjourBrowser_ReconfirmDevice(void *a1)
       {
         for (i = *(v3 + 11); i; i = *(i + 8))
         {
-          v5 = *(a1 + 2);
+          v5 = a1[2];
           if ((!v5 || !strcasecmp(v5, (i + 52))) && !DNSServiceConstructFullName(fullName, *(i + 24), *(i + 32), *(i + 40)))
           {
             DomainNameFromDNSNameString = MakeDomainNameFromDNSNameString(rdata, fullName);
@@ -6452,7 +6441,7 @@ void _BonjourBrowser_ReconfirmDevice(void *a1)
               snprintf(fullName, 0x3F1uLL, "%s%s", *(i + 32), *(i + 40));
               if (gLogCategory_BonjourBrowser <= 50 && (gLogCategory_BonjourBrowser != -1 || _LogCategory_Initialize(&gLogCategory_BonjourBrowser, 0x32u)))
               {
-                LogPrintF(&gLogCategory_BonjourBrowser, "void _BonjourBrowser_ReconfirmDevice(void *)", 0x32u, "Reconfirming PTR for %s.%s%s on %s\n", v8, v9, v10, v11, *(i + 24));
+                LogPrintF(&gLogCategory_BonjourBrowser, "void _BonjourBrowser_ReconfirmDevice(void *)", 50, "Reconfirming PTR for %s.%s%s on %s\n", v8, v9, v10, v11, *(i + 24));
               }
 
               DNSServiceReconfirmRecord(0, *(i + 48), fullName, 0xCu, 1u, v7 - rdata, rdata);
@@ -6465,13 +6454,13 @@ void _BonjourBrowser_ReconfirmDevice(void *a1)
     }
   }
 
-  v12 = *(a1 + 2);
+  v12 = a1[2];
   if (v12)
   {
     free(v12);
   }
 
-  CFRelease(*(a1 + 1));
+  CFRelease(a1[1]);
   free(a1);
   CFRelease(v2);
 }
@@ -6563,7 +6552,7 @@ uint64_t BonjourDevice_Reconfirm(const __CFDictionary *a1)
 
             if (gLogCategory_BonjourBrowser <= 50 && (gLogCategory_BonjourBrowser != -1 || _LogCategory_Initialize(&gLogCategory_BonjourBrowser, 0x32u)))
             {
-              LogPrintF(&gLogCategory_BonjourBrowser, "OSStatus BonjourDevice_Reconfirm(CFDictionaryRef)", 0x32u, "Reconfirm PTR for %s.%s%s%%%u: %#m\n", v19, v20, v21, v22, service);
+              LogPrintF(&gLogCategory_BonjourBrowser, "OSStatus BonjourDevice_Reconfirm(CFDictionaryRef)", 50, "Reconfirm PTR for %s.%s%s%%%u: %#m\n", v19, v20, v21, v22, service);
             }
           }
         }
@@ -6681,12 +6670,12 @@ uint64_t BonjourDevice_GetBitListValue(const __CFDictionary *a1, const char *a2,
 
 __CFArray *BonjourDevice_CopyConnectionInfo(const __CFDictionary *a1, uint64_t a2, const void *a3, int *a4)
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   context = a2;
   Mutable = CFArrayCreateMutable(0, 0, MEMORY[0x1E695E9C0]);
   if (!Mutable)
   {
-    v38 = -6728;
+    v33 = -6728;
     if (!a4)
     {
       return Mutable;
@@ -6717,20 +6706,20 @@ __CFArray *BonjourDevice_CopyConnectionInfo(const __CFDictionary *a1, uint64_t a
           if (CFDataGetLength(TypedValueAtIndex) == 6)
           {
             BytePtr = CFDataGetBytePtr(v18);
-            SNPrintF(v41, 32, "wake://%02X-%02X-%02X-%02X-%02X-%02X", v20, v21, v22, v23, v24, *BytePtr);
-            v25 = CFDictionaryCreateMutable(0, 0, v14, v15);
-            if (!v25)
+            SNPrintF(v36, 32, "wake://%02X-%02X-%02X-%02X-%02X-%02X", *BytePtr, BytePtr[1], BytePtr[2], BytePtr[3], BytePtr[4], BytePtr[5]);
+            v20 = CFDictionaryCreateMutable(0, 0, v14, v15);
+            if (!v20)
             {
-              v38 = -6728;
-              v30 = Mutable;
+              v33 = -6728;
+              v25 = Mutable;
               Mutable = 0;
               goto LABEL_21;
             }
 
-            v26 = v25;
-            CFDictionarySetCString(v25, @"dnsName", v41, -1);
-            CFArrayAppendValue(Mutable, v26);
-            CFRelease(v26);
+            v21 = v20;
+            CFDictionarySetCString(v20, @"dnsName", v36, -1);
+            CFArrayAppendValue(Mutable, v21);
+            CFRelease(v21);
           }
         }
 
@@ -6741,59 +6730,59 @@ __CFArray *BonjourDevice_CopyConnectionInfo(const __CFDictionary *a1, uint64_t a
     }
   }
 
-  v27 = CFArrayGetTypeID();
-  v28 = CFDictionaryGetTypedValue(a1, @"services", v27, 0);
-  if (!v28)
+  v22 = CFArrayGetTypeID();
+  v23 = CFDictionaryGetTypedValue(a1, @"services", v22, 0);
+  if (!v23)
   {
-    v38 = 0;
+    v33 = 0;
     if (!a4)
     {
       return Mutable;
     }
 
 LABEL_24:
-    *a4 = v38;
+    *a4 = v33;
     return Mutable;
   }
 
-  MutableCopy = CFArrayCreateMutableCopy(0, 0, v28);
+  MutableCopy = CFArrayCreateMutableCopy(0, 0, v23);
   if (MutableCopy)
   {
-    v30 = MutableCopy;
-    v43.length = CFArrayGetCount(MutableCopy);
-    v43.location = 0;
-    CFArraySortValues(v30, v43, _BonjourService_Comparator, &context);
-    v31 = CFArrayGetCount(v30);
-    if (v31 >= 1)
+    v25 = MutableCopy;
+    v38.length = CFArrayGetCount(MutableCopy);
+    v38.location = 0;
+    CFArraySortValues(v25, v38, _BonjourService_Comparator, &context);
+    v26 = CFArrayGetCount(v25);
+    if (v26 >= 1)
     {
-      v32 = v31;
-      for (i = 0; i != v32; ++i)
+      v27 = v26;
+      for (i = 0; i != v27; ++i)
       {
-        v34 = CFDictionaryGetTypeID();
-        v35 = CFArrayGetTypedValueAtIndex(v30, i, v34, 0);
-        if (v35)
+        v29 = CFDictionaryGetTypeID();
+        v30 = CFArrayGetTypedValueAtIndex(v25, i, v29, 0);
+        if (v30)
         {
-          v36 = v35;
-          if (!a3 || (Value = CFDictionaryGetValue(v35, @"ifname")) != 0 && CFEqual(Value, a3))
+          v31 = v30;
+          if (!a3 || (Value = CFDictionaryGetValue(v30, @"ifname")) != 0 && CFEqual(Value, a3))
           {
-            CFArrayAppendValue(Mutable, v36);
+            CFArrayAppendValue(Mutable, v31);
           }
         }
       }
     }
 
-    v38 = 0;
+    v33 = 0;
   }
 
   else
   {
-    v38 = -6728;
-    v30 = Mutable;
+    v33 = -6728;
+    v25 = Mutable;
     Mutable = 0;
   }
 
 LABEL_21:
-  CFRelease(v30);
+  CFRelease(v25);
   if (a4)
   {
     goto LABEL_24;
@@ -6805,7 +6794,7 @@ LABEL_21:
 uint64_t BonjourDevice_GetDNSName(CFDictionaryRef theDict, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v5 = a3;
-  v59 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   if (a3)
   {
     TypeID = CFArrayGetTypeID();
@@ -6844,15 +6833,15 @@ uint64_t BonjourDevice_GetDNSName(CFDictionaryRef theDict, uint64_t a2, uint64_t
         }
 
         BytePtr = CFDataGetBytePtr(v17);
-        v24 = SNPrintF(v5, v14, "wake://%02X-%02X-%02X-%02X-%02X-%02X%s", v19, v20, v21, v22, v23, *BytePtr);
-        if (v24 < 1)
+        v19 = SNPrintF(v5, v14, "wake://%02X-%02X-%02X-%02X-%02X-%02X%s", *BytePtr, BytePtr[1], BytePtr[2], BytePtr[3], BytePtr[4], BytePtr[5], "\x1E");
+        if (v19 < 1)
         {
           goto LABEL_61;
         }
 
         v13 = 0;
-        v5 += v24;
-        a4 = v14 - v24;
+        v5 += v19;
+        a4 = v14 - v19;
         if (++v12 != v11)
         {
           continue;
@@ -6868,86 +6857,86 @@ LABEL_14:
       CFDataOfLength = CFDictionaryGetCFDataOfLength(theDict, @"wakeAddr", 6, 0);
       if (CFDataOfLength)
       {
-        v30 = CFDataGetBytePtr(CFDataOfLength);
-        v36 = SNPrintF(v5, a4, "wake://%02X-%02X-%02X-%02X-%02X-%02X%s", v31, v32, v33, v34, v35, *v30);
-        if (v36 < 1)
+        v25 = CFDataGetBytePtr(CFDataOfLength);
+        v26 = SNPrintF(v5, a4, "wake://%02X-%02X-%02X-%02X-%02X-%02X%s", *v25, v25[1], v25[2], v25[3], v25[4], v25[5], "\x1E");
+        if (v26 < 1)
         {
 LABEL_61:
-          v53 = 4294960596;
+          v43 = 4294960596;
           goto LABEL_55;
         }
 
-        v5 += v36;
-        a4 -= v36;
+        v5 += v26;
+        a4 -= v26;
       }
     }
   }
 
 LABEL_17:
   Value = CFDictionaryGetValue(theDict, @"services");
-  v56 = v5;
-  if (Value && (v38 = Value, v39 = CFArrayGetCount(Value), v39 >= 1))
+  v46 = v5;
+  if (Value && (v28 = Value, v29 = CFArrayGetCount(Value), v29 >= 1))
   {
-    v40 = v39;
-    v55 = a4;
-    v41 = 0;
-    v42 = 0;
-    v43 = 0;
-    v44 = 0;
-    v45 = 0;
+    v30 = v29;
+    v45 = a4;
+    v31 = 0;
+    v32 = 0;
+    v33 = 0;
+    v34 = 0;
+    v35 = 0;
     do
     {
-      ValueAtIndex = CFArrayGetValueAtIndex(v38, v41);
+      ValueAtIndex = CFArrayGetValueAtIndex(v28, v31);
       if (a2 < 0 != (CFDictionaryGetInt64(ValueAtIndex, @"p2p", 0) == 0))
       {
-        v58[0] = 0;
-        CFDictionaryGetCString(ValueAtIndex, @"domain", v58, 0x100uLL, 0);
-        if (*v58 == 1633906540 && *&v58[3] == 3042401)
+        LOBYTE(v48[0]) = 0;
+        CFDictionaryGetCString(ValueAtIndex, @"domain", v48, 0x100uLL, 0);
+        if (v48[0] == 1633906540 && *(v48 + 3) == 3042401)
         {
           Int64 = CFDictionaryGetInt64(ValueAtIndex, @"transportType", 0);
-          v49 = Int64;
-          if (!v43 && Int64 != 32)
+          v39 = Int64;
+          if (!v33 && Int64 != 32)
           {
             if (CFDictionaryGetInt64(ValueAtIndex, @"wifi", 0))
             {
-              v43 = 0;
+              v33 = 0;
             }
 
             else
             {
-              v43 = ValueAtIndex;
+              v33 = ValueAtIndex;
             }
           }
 
-          if (v49 == 32 && v42 == 0)
+          if (v39 == 32 && v32 == 0)
           {
-            v42 = ValueAtIndex;
+            v32 = ValueAtIndex;
           }
 
-          if (!v45)
+          if (!v35)
           {
-            v45 = ValueAtIndex;
+            v35 = ValueAtIndex;
           }
         }
 
-        if (!v44)
+        if (!v34)
         {
-          v44 = ValueAtIndex;
+          v34 = ValueAtIndex;
         }
       }
 
-      ++v41;
+      ++v31;
     }
 
-    while (v40 != v41);
-    a4 = v55;
-    if (v43)
+    while (v30 != v31);
+    a4 = v45;
+    if (v33)
     {
       goto LABEL_49;
     }
 
-    v43 = v42;
-    if (v42)
+    v33 = v32;
+    if (v32)
     {
       goto LABEL_49;
     }
@@ -6955,53 +6944,53 @@ LABEL_17:
 
   else
   {
-    v45 = 0;
-    v44 = 0;
+    v35 = 0;
+    v34 = 0;
   }
 
-  if (v45)
+  if (v35)
   {
-    v43 = v45;
+    v33 = v35;
   }
 
   else
   {
-    v43 = v44;
+    v33 = v34;
   }
 
-  if (!v43)
+  if (!v33)
   {
 LABEL_54:
-    v53 = 4294960569;
+    v43 = 4294960569;
     goto LABEL_55;
   }
 
 LABEL_49:
-  if (!v56)
+  if (!v46)
   {
     return 0;
   }
 
-  v51 = CFStringGetTypeID();
-  v52 = CFDictionaryGetTypedValue(v43, @"dnsName", v51, 0);
-  if (!v52)
+  v41 = CFStringGetTypeID();
+  v42 = CFDictionaryGetTypedValue(v33, @"dnsName", v41, 0);
+  if (!v42)
   {
     goto LABEL_54;
   }
 
-  if (CFStringGetCString(v52, v56, a4, 0x8000100u))
+  if (CFStringGetCString(v42, v46, a4, 0x8000100u))
   {
     return 0;
   }
 
-  v53 = 4294960553;
+  v43 = 4294960553;
 LABEL_55:
   if (gLogCategory_BonjourBrowser <= 50 && (gLogCategory_BonjourBrowser != -1 || _LogCategory_Initialize(&gLogCategory_BonjourBrowser, 0x32u)))
   {
-    LogPrintF(&gLogCategory_BonjourBrowser, "OSStatus BonjourDevice_GetDNSName(CFDictionaryRef, uint64_t, char *, size_t)", 0x32u, "BonjourDevice_GetDNSName failed: %#m", v25, v26, v27, v28, v53);
+    LogPrintF(&gLogCategory_BonjourBrowser, "OSStatus BonjourDevice_GetDNSName(CFDictionaryRef, uint64_t, char *, size_t)", 50, "BonjourDevice_GetDNSName failed: %#m", v20, v21, v22, v23, v43);
   }
 
-  return v53;
+  return v43;
 }
 
 const __CFDictionary *BonjourDevice_RemoveInterfaceInfo(CFDictionaryRef *a1, const char *a2, int a3)
@@ -7110,7 +7099,7 @@ void __initValkCAMediaTimingFunctionEaseIn_block_invoke()
     objc_storeStrong(&constantValkCAMediaTimingFunctionEaseIn, *v0);
   }
 
-  getkCAMediaTimingFunctionEaseIn[0] = kCAMediaTimingFunctionEaseInFunction;
+  getkCAMediaTimingFunctionEaseIn = kCAMediaTimingFunctionEaseInFunction;
 }
 
 void *__QuartzCoreLibrary_block_invoke()
@@ -7129,7 +7118,7 @@ Class initCAMediaTimingFunction()
 
   result = objc_getClass("CAMediaTimingFunction");
   classCAMediaTimingFunction = result;
-  getCAMediaTimingFunctionClass[0] = CAMediaTimingFunctionFunction;
+  getCAMediaTimingFunctionClass = CAMediaTimingFunctionFunction;
   return result;
 }
 
@@ -7142,7 +7131,7 @@ Class initCABasicAnimation()
 
   result = objc_getClass("CABasicAnimation");
   classCABasicAnimation = result;
-  getCABasicAnimationClass[0] = CABasicAnimationFunction;
+  getCABasicAnimationClass = CABasicAnimationFunction;
   return result;
 }
 
@@ -7155,7 +7144,7 @@ Class initCATransaction()
 
   result = objc_getClass("CATransaction");
   classCATransaction = result;
-  getCATransactionClass[0] = CATransactionFunction;
+  getCATransactionClass = CATransactionFunction;
   return result;
 }
 
@@ -7184,7 +7173,7 @@ void __initValkCAMediaTimingFunctionEaseOut_block_invoke()
     objc_storeStrong(&constantValkCAMediaTimingFunctionEaseOut, *v0);
   }
 
-  getkCAMediaTimingFunctionEaseOut[0] = kCAMediaTimingFunctionEaseOutFunction;
+  getkCAMediaTimingFunctionEaseOut = kCAMediaTimingFunctionEaseOutFunction;
 }
 
 Class initCALayer()
@@ -7248,27 +7237,27 @@ void FadeOutLayerThruBlack(void *a1, void *a2, void *a3, double a4, double a5, d
 void *CreateCAContextForRemoteHosting()
 {
   v0 = objc_autoreleasePoolPush();
-  [getCATransactionClass[0]() begin];
-  [getCATransactionClass[0]() setDisableActions:1];
-  v1 = CFUUIDCreate(0);
-  v2 = CFUUIDCreateString(0, v1);
-  CFRelease(v1);
-  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s-%@", getprogname(), v2];
+  v1 = [getCATransactionClass(v0) begin];
+  [getCATransactionClass(v1) setDisableActions:1];
+  v2 = CFUUIDCreate(0);
+  v3 = CFUUIDCreateString(0, v2);
   CFRelease(v2);
-  v4 = MEMORY[0x1E695DF20];
-  v5 = getkCAContextDisplayName();
-  v6 = *MEMORY[0x1E695E4D0];
-  v7 = getkCAContextIgnoresHitTest();
-  v8 = [v4 dictionaryWithObjectsAndKeys:{v3, v5, v6, v7, 0}];
+  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s-%@", getprogname(), v3];
+  CFRelease(v3);
+  v5 = MEMORY[0x1E695DF20];
+  v6 = getkCAContextDisplayName();
+  v7 = *MEMORY[0x1E695E4D0];
+  v8 = getkCAContextIgnoresHitTest();
+  v9 = [v5 dictionaryWithObjectsAndKeys:{v4, v6, v7, v8, 0}];
 
-  v9 = [getCAContextClass[0]() remoteContextWithOptions:v8];
-  v10 = [getCALayerClass[0]() layer];
-  [v10 setGeometryFlipped:1];
-  [v9 setLayer:v10];
-  [getCATransactionClass[0]() commit];
+  v10 = [(objc_class *)getCAContextClass() remoteContextWithOptions:v9];
+  v11 = [getCALayerClass[0]() layer];
+  [v11 setGeometryFlipped:1];
+  v12 = [v10 setLayer:v11];
+  [getCATransactionClass(v12) commit];
 
   objc_autoreleasePoolPop(v0);
-  return v9;
+  return v10;
 }
 
 Class initCAContext()
@@ -7280,7 +7269,7 @@ Class initCAContext()
 
   result = objc_getClass("CAContext");
   classCAContext = result;
-  getCAContextClass[0] = CAContextFunction;
+  getCAContextClass = CAContextFunction;
   return result;
 }
 
@@ -7344,17 +7333,17 @@ id CreateCALayerForRemoteDrawing(uint64_t a1, void *a2)
 {
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
-  [getCATransactionClass[0]() begin];
-  [getCATransactionClass[0]() setDisableActions:1];
-  v5 = objc_alloc_init(getCALayerHostClass[0]());
-  [v5 setContextId:a1];
+  v5 = [getCATransactionClass(v4) begin];
+  v6 = [getCATransactionClass(v5) setDisableActions:1];
+  v7 = objc_alloc_init(getCALayerHostClass(v6));
+  [v7 setContextId:a1];
   [v3 frame];
-  [v5 setFrame:?];
-  [v3 addSublayer:v5];
-  [getCATransactionClass[0]() commit];
+  [v7 setFrame:?];
+  v8 = [v3 addSublayer:v7];
+  [getCATransactionClass(v8) commit];
   objc_autoreleasePoolPop(v4);
 
-  return v5;
+  return v7;
 }
 
 Class initCALayerHost()
@@ -7366,14 +7355,14 @@ Class initCALayerHost()
 
   result = objc_getClass("CALayerHost");
   classCALayerHost = result;
-  getCALayerHostClass[0] = CALayerHostFunction;
+  getCALayerHostClass = CALayerHostFunction;
   return result;
 }
 
 uint64_t SaveScreenshot(char *a1)
 {
   v2 = objc_autoreleasePoolPush();
-  v3 = [getCADisplayClass[0]() mainDisplay];
+  v3 = [(objc_class *)getCADisplayClass() mainDisplay];
   v4 = v3;
   if (!v3)
   {
@@ -7382,50 +7371,50 @@ uint64_t SaveScreenshot(char *a1)
   }
 
   __s = a1;
-  v50 = v2;
+  v51 = v2;
   [v3 bounds];
   v6 = v5;
   v8 = v7;
   v11 = v10;
   v12 = (4 * v9 + 63) & 0xFFFFFFC0;
   v13 = (v12 * v10 + 4095) & 0xFFFFF000;
-  v48 = MEMORY[0x1E695DF20];
-  v42 = v9;
-  v47 = [MEMORY[0x1E696AD98] numberWithInt:?];
-  v46 = getkIOSurfaceWidth[0]();
-  v41 = v11;
-  v45 = [MEMORY[0x1E696AD98] numberWithInt:v11];
-  v44 = getkIOSurfaceHeight[0]();
+  v49 = MEMORY[0x1E695DF20];
+  v43 = v9;
+  v48 = [MEMORY[0x1E696AD98] numberWithInt:?];
+  v47 = getkIOSurfaceWidth();
+  v42 = v11;
+  v46 = [MEMORY[0x1E696AD98] numberWithInt:v11];
+  v45 = getkIOSurfaceHeight();
   v14 = [MEMORY[0x1E696AD98] numberWithInt:1111970369];
-  v49 = v4;
-  v15 = getkIOSurfacePixelFormat[0]();
+  v50 = v4;
+  v15 = getkIOSurfacePixelFormat();
   v16 = [MEMORY[0x1E696AD98] numberWithInt:4];
-  v17 = getkIOSurfaceBytesPerElement[0]();
-  v40 = v12;
+  v17 = getkIOSurfaceBytesPerElement();
+  v41 = v12;
   v18 = [MEMORY[0x1E696AD98] numberWithInt:v12];
-  v19 = getkIOSurfaceBytesPerRow[0]();
-  v43 = v13;
+  v19 = getkIOSurfaceBytesPerRow();
+  v44 = v13;
   v20 = [MEMORY[0x1E696AD98] numberWithInt:v13];
-  v21 = getkIOSurfaceAllocSize[0]();
+  v21 = getkIOSurfaceAllocSize();
   v22 = [MEMORY[0x1E696AD98] numberWithBool:1];
-  v23 = getkIOSurfaceIsGlobal[0]();
-  v24 = [v48 dictionaryWithObjectsAndKeys:{v47, v46, v45, v44, v14, v15, v16, v17, v18, v19, v20, v21, v22, v23, @"PurpleGfxMem", getkIOSurfaceMemoryRegion[0](), 0}];
-  v25 = (softLinkIOSurfaceCreate[0])(v24);
+  IsGlobal = getkIOSurfaceIsGlobal();
+  v24 = [v49 dictionaryWithObjectsAndKeys:{v48, v47, v46, v45, v14, v15, v16, v17, v18, v19, v20, v21, v22, IsGlobal, @"PurpleGfxMem", getkIOSurfaceMemoryRegion(), 0}];
+  v25 = softLinkIOSurfaceCreate(v24);
 
   if (!v25)
   {
     v37 = 4294960596;
-    v4 = v49;
-    v2 = v50;
+    v4 = v50;
+    v2 = v51;
     goto LABEL_11;
   }
 
-  v4 = v49;
-  v26 = [v49 name];
-  (softLinkCARenderServerRenderDisplay[0])(0, v26, v25, v6, v8);
-  (softLinkIOSurfaceLock[0])(v25, 1, 0);
-  v27 = (softLinkIOSurfaceGetBaseAddress[0])(v25);
-  v28 = (softLinkCGDataProviderCreateWithData[0])(v25, v27, v43, _SaveScreenshotReleaseSurfaceData);
+  v4 = v50;
+  v26 = [v50 name];
+  softLinkCARenderServerRenderDisplay(0, v26, v25, v6, v8);
+  softLinkIOSurfaceLock(v25, 1, 0);
+  BaseAddress = softLinkIOSurfaceGetBaseAddress(v25);
+  v28 = softLinkCGDataProviderCreateWithData(v25, BaseAddress, v44, _SaveScreenshotReleaseSurfaceData);
   if (v28)
   {
     v29 = v28;
@@ -7433,16 +7422,17 @@ uint64_t SaveScreenshot(char *a1)
     if (DeviceRGB)
     {
       v31 = DeviceRGB;
-      v32 = softLinkCGImageCreate(v42, v41, 8, 32, v40, DeviceRGB, 8194, v29, 0, 1, 0);
+      LOBYTE(v39) = 1;
+      v32 = softLinkCGImageCreate(v43, v42, 8, 32, v41, DeviceRGB, 8194, v29, 0, v39);
       CFRelease(v31);
       if (v32)
       {
         v33 = strlen(__s);
         v34 = CFURLCreateFromFileSystemRepresentation(0, __s, v33, 0);
-        if (v34 && (v35 = v34, v36 = (softLinkCGImageDestinationCreateWithURL[0])(v34, @"public.png", 1, 0), CFRelease(v35), v36))
+        if (v34 && (v35 = v34, v36 = softLinkCGImageDestinationCreateWithURL(v34, @"public.png", 1, 0), CFRelease(v35), v36))
         {
-          (softLinkCGImageDestinationAddImage[0])(v36, v32, 0);
-          (softLinkCGImageDestinationFinalize[0])(v36);
+          softLinkCGImageDestinationAddImage(v36, v32, 0);
+          softLinkCGImageDestinationFinalize(v36);
           CFRelease(v36);
           v37 = 0;
         }
@@ -7452,7 +7442,7 @@ uint64_t SaveScreenshot(char *a1)
           v37 = 4294960596;
         }
 
-        v2 = v50;
+        v2 = v51;
         CFRelease(v32);
         goto LABEL_10;
       }
@@ -7467,7 +7457,7 @@ uint64_t SaveScreenshot(char *a1)
     v29 = v25;
   }
 
-  v2 = v50;
+  v2 = v51;
 LABEL_10:
   CFRelease(v29);
 LABEL_11:
@@ -7484,9 +7474,9 @@ uint64_t initCGImageDestinationFinalize(uint64_t a1)
   }
 
   v2 = dlsym(ImageIOLibrary_sLib, "CGImageDestinationFinalize");
-  softLinkCGImageDestinationFinalize[0] = v2;
+  softLinkCGImageDestinationFinalize = v2;
 
-  return (v2)(a1);
+  return v2(a1);
 }
 
 void *__ImageIOLibrary_block_invoke()
@@ -7504,7 +7494,7 @@ uint64_t initCGImageDestinationAddImage(uint64_t a1, uint64_t a2, uint64_t a3)
   }
 
   v6 = dlsym(ImageIOLibrary_sLib, "CGImageDestinationAddImage");
-  softLinkCGImageDestinationAddImage[0] = v6;
+  softLinkCGImageDestinationAddImage = v6;
 
   return (v6)(a1, a2, a3);
 }
@@ -7517,7 +7507,7 @@ uint64_t initCGImageDestinationCreateWithURL(uint64_t a1, uint64_t a2, uint64_t 
   }
 
   v8 = dlsym(ImageIOLibrary_sLib, "CGImageDestinationCreateWithURL");
-  softLinkCGImageDestinationCreateWithURL[0] = v8;
+  softLinkCGImageDestinationCreateWithURL = v8;
 
   return (v8)(a1, a2, a3, a4);
 }
@@ -7557,7 +7547,7 @@ uint64_t initCGColorSpaceCreateDeviceRGB()
 
 void _SaveScreenshotReleaseSurfaceData(const void *a1)
 {
-  (softLinkIOSurfaceUnlock[0])(a1, 1, 0);
+  softLinkIOSurfaceUnlock(a1, 1, 0);
 
   CFRelease(a1);
 }
@@ -7570,7 +7560,7 @@ uint64_t initIOSurfaceUnlock(uint64_t a1, uint64_t a2, uint64_t a3)
   }
 
   v6 = dlsym(IOSurfaceLibrary_sLib, "IOSurfaceUnlock");
-  softLinkIOSurfaceUnlock[0] = v6;
+  softLinkIOSurfaceUnlock = v6;
 
   return (v6)(a1, a2, a3);
 }
@@ -7590,7 +7580,7 @@ uint64_t initCGDataProviderCreateWithData(uint64_t a1, uint64_t a2, uint64_t a3,
   }
 
   v8 = dlsym(CoreGraphicsLibrary_sLib, "CGDataProviderCreateWithData");
-  softLinkCGDataProviderCreateWithData[0] = v8;
+  softLinkCGDataProviderCreateWithData = v8;
 
   return (v8)(a1, a2, a3, a4);
 }
@@ -7603,9 +7593,9 @@ uint64_t initIOSurfaceGetBaseAddress(uint64_t a1)
   }
 
   v2 = dlsym(IOSurfaceLibrary_sLib, "IOSurfaceGetBaseAddress");
-  softLinkIOSurfaceGetBaseAddress[0] = v2;
+  softLinkIOSurfaceGetBaseAddress = v2;
 
-  return (v2)(a1);
+  return v2(a1);
 }
 
 uint64_t initIOSurfaceLock(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -7616,7 +7606,7 @@ uint64_t initIOSurfaceLock(uint64_t a1, uint64_t a2, uint64_t a3)
   }
 
   v6 = dlsym(IOSurfaceLibrary_sLib, "IOSurfaceLock");
-  softLinkIOSurfaceLock[0] = v6;
+  softLinkIOSurfaceLock = v6;
 
   return (v6)(a1, a2, a3);
 }
@@ -7629,7 +7619,7 @@ uint64_t initCARenderServerRenderDisplay(uint64_t a1, uint64_t a2, uint64_t a3, 
   }
 
   v10 = dlsym(QuartzCoreLibrary_sLib, "CARenderServerRenderDisplay");
-  softLinkCARenderServerRenderDisplay[0] = v10;
+  softLinkCARenderServerRenderDisplay = v10;
 
   return (v10)(a1, a2, a3, a4, a5);
 }
@@ -7642,9 +7632,9 @@ uint64_t initIOSurfaceCreate(uint64_t a1)
   }
 
   v2 = dlsym(IOSurfaceLibrary_sLib, "IOSurfaceCreate");
-  softLinkIOSurfaceCreate[0] = v2;
+  softLinkIOSurfaceCreate = v2;
 
-  return (v2)(a1);
+  return v2(a1);
 }
 
 uint64_t initValkIOSurfaceMemoryRegion()
@@ -7666,7 +7656,7 @@ uint64_t initValkIOSurfaceMemoryRegion()
     result = constantValkIOSurfaceMemoryRegion;
   }
 
-  getkIOSurfaceMemoryRegion[0] = kIOSurfaceMemoryRegionFunction;
+  getkIOSurfaceMemoryRegion = kIOSurfaceMemoryRegionFunction;
   return result;
 }
 
@@ -7689,7 +7679,7 @@ uint64_t initValkIOSurfaceIsGlobal()
     result = constantValkIOSurfaceIsGlobal;
   }
 
-  getkIOSurfaceIsGlobal[0] = kIOSurfaceIsGlobalFunction;
+  getkIOSurfaceIsGlobal = kIOSurfaceIsGlobalFunction;
   return result;
 }
 
@@ -7712,7 +7702,7 @@ uint64_t initValkIOSurfaceAllocSize()
     result = constantValkIOSurfaceAllocSize;
   }
 
-  getkIOSurfaceAllocSize[0] = kIOSurfaceAllocSizeFunction;
+  getkIOSurfaceAllocSize = kIOSurfaceAllocSizeFunction;
   return result;
 }
 
@@ -7735,7 +7725,7 @@ uint64_t initValkIOSurfaceBytesPerRow()
     result = constantValkIOSurfaceBytesPerRow;
   }
 
-  getkIOSurfaceBytesPerRow[0] = kIOSurfaceBytesPerRowFunction;
+  getkIOSurfaceBytesPerRow = kIOSurfaceBytesPerRowFunction;
   return result;
 }
 
@@ -7758,7 +7748,7 @@ uint64_t initValkIOSurfaceBytesPerElement()
     result = constantValkIOSurfaceBytesPerElement;
   }
 
-  getkIOSurfaceBytesPerElement[0] = kIOSurfaceBytesPerElementFunction;
+  getkIOSurfaceBytesPerElement = kIOSurfaceBytesPerElementFunction;
   return result;
 }
 
@@ -7781,7 +7771,7 @@ uint64_t initValkIOSurfacePixelFormat()
     result = constantValkIOSurfacePixelFormat;
   }
 
-  getkIOSurfacePixelFormat[0] = kIOSurfacePixelFormatFunction;
+  getkIOSurfacePixelFormat = kIOSurfacePixelFormatFunction;
   return result;
 }
 
@@ -7804,7 +7794,7 @@ uint64_t initValkIOSurfaceHeight()
     result = constantValkIOSurfaceHeight;
   }
 
-  getkIOSurfaceHeight[0] = kIOSurfaceHeightFunction;
+  getkIOSurfaceHeight = kIOSurfaceHeightFunction;
   return result;
 }
 
@@ -7827,7 +7817,7 @@ uint64_t initValkIOSurfaceWidth()
     result = constantValkIOSurfaceWidth;
   }
 
-  getkIOSurfaceWidth[0] = kIOSurfaceWidthFunction;
+  getkIOSurfaceWidth = kIOSurfaceWidthFunction;
   return result;
 }
 
@@ -7840,7 +7830,7 @@ Class initCADisplay()
 
   result = objc_getClass("CADisplay");
   classCADisplay = result;
-  getCADisplayClass[0] = CADisplayFunction;
+  getCADisplayClass = CADisplayFunction;
   return result;
 }
 
@@ -8091,21 +8081,21 @@ uint64_t cdb_make_addend(uint64_t a1, int a2, int a3, int a4)
   return 0xFFFFFFFFLL;
 }
 
-uint64_t buffer_putalign(uint64_t a1, char *__src, size_t __n)
+uint64_t buffer_putalign(uint64_t *a1, char *__src, size_t __n)
 {
   v3 = __n;
   while (1)
   {
-    v6 = *(a1 + 8);
-    v7 = *(a1 + 12) - v6;
+    v6 = *(a1 + 2);
+    v7 = *(a1 + 3) - v6;
     v8 = *a1;
     if (v3 <= v7)
     {
       break;
     }
 
-    memcpy((v8 + v6), __src, (*(a1 + 12) - v6));
-    *(a1 + 8) += v7;
+    memcpy((v8 + v6), __src, (*(a1 + 3) - v6));
+    *(a1 + 2) += v7;
     __src += v7;
     result = buffer_flush(a1);
     v3 -= v7;
@@ -8117,7 +8107,7 @@ uint64_t buffer_putalign(uint64_t a1, char *__src, size_t __n)
 
   memcpy((v8 + v6), __src, v3);
   result = 0;
-  *(a1 + 8) += v3;
+  *(a1 + 2) += v3;
   return result;
 }
 
@@ -8695,8 +8685,10 @@ LABEL_13:
   return result;
 }
 
-uint64_t _WriteNumber(uint64_t a1, CFNumberRef number, int a3, int a4)
+uint64_t _WriteNumber(uint64_t a1, CFNumberRef number, uint64_t a3, uint64_t a4)
 {
+  v4 = a4;
+  v5 = a3;
   v35 = *MEMORY[0x1E69E9840];
   valuePtr = 0;
   v23 = 0;
@@ -8709,7 +8701,7 @@ uint64_t _WriteNumber(uint64_t a1, CFNumberRef number, int a3, int a4)
         CFNumberGetValue(number, kCFNumberFloat64Type, &valuePtr);
         v25 = 35;
         v18 = valuePtr;
-        if (!a4)
+        if (!v4)
         {
           v18 = bswap64(valuePtr);
         }
@@ -8723,7 +8715,7 @@ uint64_t _WriteNumber(uint64_t a1, CFNumberRef number, int a3, int a4)
         CFNumberGetValue(number, kCFNumberFloat32Type, &valuePtr);
         v25 = 34;
         v9 = valuePtr;
-        if (!a4)
+        if (!v4)
         {
           v9 = bswap32(valuePtr);
         }
@@ -8754,7 +8746,7 @@ uint64_t _WriteNumber(uint64_t a1, CFNumberRef number, int a3, int a4)
         v20 = valuePtr;
       }
 
-      return _WriteInteger(a1, v20, a3, a4);
+      return _WriteInteger(a1, v20, v5, v4);
     }
 
     v21 = 0;
@@ -8763,7 +8755,7 @@ uint64_t _WriteNumber(uint64_t a1, CFNumberRef number, int a3, int a4)
     {
       CFNumberGetValue(number, kCFNumberMaxType|kCFNumberSInt8Type, &v21);
       v25 = 20;
-      if (a4)
+      if (v4)
       {
         v11 = v22 >> 8;
         v26 = v21;
@@ -8878,14 +8870,14 @@ uint64_t _WriteInteger(uint64_t a1, unint64_t a2, int a3, int a4)
   return _WriteBytes(a1, &v6, v4);
 }
 
-uint64_t _WriteStreamedDictionaryApplier(uint64_t result, uint64_t a2, void *a3)
+const __CFString *_WriteStreamedDictionaryApplier(const __CFString *result, const __CFString *a2, uint64_t a3)
 {
-  if (!*(a3 + 4))
+  if (!*(a3 + 16))
   {
     result = _WriteStreamedObject(*a3, result);
     if (result || (result = _WriteStreamedObject(*a3, a2), result))
     {
-      *(a3 + 4) = result;
+      *(a3 + 16) = result;
     }
   }
 
@@ -9031,16 +9023,16 @@ uint64_t CFBinaryPlistStreamedWriteObject(const __CFString *a1, int a2, uint64_t
   return v8;
 }
 
-CFTypeRef CFBinaryPlistStreamedCreateWithBytes(_DWORD *a1, uint64_t a2, int *a3)
+CFTypeRef CFBinaryPlistStreamedCreateWithBytes(const UInt8 *a1, uint64_t a2, int *a3)
 {
   v4[0] = 0u;
   LODWORD(v4[0]) = 19;
   v4[1] = a1;
   v4[2] = 0uLL;
-  return _ReadStreamed(v4, a1, a1 + a2, 0, a3);
+  return _ReadStreamed(v4, a1, &a1[a2], 0, a3);
 }
 
-CFTypeRef _ReadStreamed(uint64_t a1, _DWORD *a2, unint64_t a3, void *a4, int *a5)
+CFTypeRef _ReadStreamed(int *a1, const UInt8 *a2, const UInt8 *a3, void *a4, int *a5)
 {
   cf = 0;
   v20 = a2;
@@ -9054,7 +9046,7 @@ CFTypeRef _ReadStreamed(uint64_t a1, _DWORD *a2, unint64_t a3, void *a4, int *a5
     v18.equal = _ObjectsExactlyEqual;
     v18.release = 0;
     v12 = CFDictionaryCreateMutable(0, 0, 0, &v18);
-    *(a1 + 24) = v12;
+    *(a1 + 3) = v12;
     if (!v12)
     {
       v13 = 0;
@@ -9067,7 +9059,7 @@ CFTypeRef _ReadStreamed(uint64_t a1, _DWORD *a2, unint64_t a3, void *a4, int *a5
 
   if (v10)
   {
-    if ((a3 - a2) < 4)
+    if (a3 - a2 < 4)
     {
       v13 = 0;
       v14 = -6743;
@@ -9081,7 +9073,7 @@ CFTypeRef _ReadStreamed(uint64_t a1, _DWORD *a2, unint64_t a3, void *a4, int *a5
       goto LABEL_18;
     }
 
-    v20 = a2 + 1;
+    v20 = a2 + 4;
   }
 
   if ((v10 & 0x10) == 0)
@@ -9095,7 +9087,7 @@ LABEL_10:
     }
 
 LABEL_14:
-    if ((a3 - v20) < 4)
+    if (a3 - v20 < 4)
     {
       v14 = -6743;
     }
@@ -9105,7 +9097,7 @@ LABEL_14:
       if (*v20 == 558124613)
       {
         v14 = 0;
-        ++v20;
+        v20 += 4;
         goto LABEL_18;
       }
 
@@ -9142,11 +9134,11 @@ LABEL_31:
   }
 
 LABEL_18:
-  v16 = *(a1 + 24);
+  v16 = *(a1 + 3);
   if (v16)
   {
     CFRelease(v16);
-    *(a1 + 24) = 0;
+    *(a1 + 3) = 0;
   }
 
   if (a4)
@@ -9162,7 +9154,7 @@ LABEL_18:
   return v13;
 }
 
-uint64_t _ReadStreamedObject(uint64_t a1, unint64_t *a2, unint64_t a3, void *a4)
+uint64_t _ReadStreamedObject(uint64_t a1, const UInt8 **a2, const UInt8 *a3, void *a4)
 {
   v59 = 0;
   v56 = 0;
@@ -9187,7 +9179,7 @@ uint64_t _ReadStreamedObject(uint64_t a1, unint64_t *a2, unint64_t a3, void *a4)
         v31 = v9 & 0xF;
         if (v31 == 3)
         {
-          if ((a3 - v10) <= 7)
+          if (a3 - v10 <= 7)
           {
             goto LABEL_84;
           }
@@ -9205,7 +9197,7 @@ uint64_t _ReadStreamedObject(uint64_t a1, unint64_t *a2, unint64_t a3, void *a4)
 
         else
         {
-          if (v31 != 2 || (a3 - v10) <= 3)
+          if (v31 != 2 || a3 - v10 <= 3)
           {
             goto LABEL_84;
           }
@@ -9253,7 +9245,7 @@ LABEL_123:
             v10 = v58;
           }
 
-          if (v12 <= (a3 - v10))
+          if (v12 <= a3 - v10)
           {
             v13 = *(a1 + 8);
             if (!v13 || (*a1 & 0x20) == 0)
@@ -9303,13 +9295,13 @@ LABEL_112:
 
       if (v9 == 51)
       {
-        if ((a3 - v10) > 7)
+        if (a3 - v10 > 7)
         {
           v34 = CFDateCreate(0, *v10);
           if (v34)
           {
             v14 = v34;
-            v35 = (v4 + 9);
+            v35 = v4 + 9;
 LABEL_83:
             v58 = v35;
             *a4 = v14;
@@ -9346,7 +9338,7 @@ LABEL_98:
       if (v22 <= 3)
       {
         v23 = 1 << v22;
-        if (a3 - v10 < 1 << v22)
+        if (a3 - v10 < (1 << v22))
         {
           v24 = -6743;
         }
@@ -9415,7 +9407,7 @@ LABEL_110:
         goto LABEL_138;
       }
 
-      if ((a3 - v10) >= 16)
+      if (a3 - v10 >= 16)
       {
         v54 = *(v4 + 1);
         v58 = v4 + 17;
@@ -9478,7 +9470,7 @@ LABEL_110:
     {
       if (v10 < a3)
       {
-        v30 = v4 + 1;
+        v30 = (v4 + 1);
         while (*v30)
         {
           if (++v30 == a3)
@@ -9532,7 +9524,7 @@ LABEL_66:
     }
 
     v26 = v9 & 0xF;
-    if ((a3 - v10) >= (v9 & 0xF))
+    if (a3 - v10 >= (v9 & 0xF))
     {
       v27 = -6710;
       if (v26 > 1)

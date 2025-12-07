@@ -144,8 +144,8 @@ void __81__PBUIWallpaperScaleAssertion_initWithVariant_scale_forReason_invalidat
     v13 = objc_msgSendSuper2(&v17, sel_initWithIdentifier_forReason_invalidationBlock_, @"WallpaperScale", variantCopy, v12);
     if (v13)
     {
-      *(v13 + 7) = a2;
-      v13[8] = reason;
+      v13[7] = a2;
+      *(v13 + 8) = reason;
     }
 
     v14 = v13;

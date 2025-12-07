@@ -16,11 +16,13 @@
 - (void)_attachmentDownloadDidFinish:(id)finish;
 - (void)_cancelOptionsTimer;
 - (void)_continueRefresh;
+- (void)_persistAccountSyncDiagnostics:(id)diagnostics withContext:(id)context completionTime:(id)time willAttemptToRetry:(BOOL)retry hitInternalRefreshTimeout:(BOOL)timeout error:(id)error;
 - (void)_probeAndSync;
 - (void)_reallyPerformSearchQuery:(id)query;
 - (void)_refresh;
 - (void)_serverProbeTimedOut;
 - (void)_updateWatchedCollections;
+- (void)account:(id)account isValid:(BOOL)valid validationError:(id)error;
 - (void)cancelAllAttachmentDownloads;
 - (void)cancelDownloadingInstance:(id)instance error:(id)error;
 - (void)cancelRefreshWithCompletion:(id)completion;
@@ -29,6 +31,7 @@
 - (void)discoveryTask:(id)task gotAccountInfo:(id)info error:(id)error;
 - (void)promptUserForNewCoreDAVPasswordWithCompletionBlock:(id)block;
 - (void)refreshActor:(id)actor didCompleteWithError:(id)error;
+- (void)refreshCollections:(id)collections withReason:(int)reason;
 - (void)saveXpcActivity:(id)activity;
 - (void)setSafeToRefresh:(BOOL)refresh;
 @end
@@ -759,6 +762,121 @@ LABEL_70:
   return IsEnabled;
 }
 
+- (void)_persistAccountSyncDiagnostics:(id)diagnostics withContext:(id)context completionTime:(id)time willAttemptToRetry:(BOOL)retry hitInternalRefreshTimeout:(BOOL)timeout error:(id)error
+{
+  timeoutCopy = timeout;
+  retryCopy = retry;
+  diagnosticsCopy = diagnostics;
+  contextCopy = context;
+  timeCopy = time;
+  errorCopy = error;
+  v18 = DALoggingwithCategory();
+  v19 = _CPLog_to_os_log_type[6];
+  if (os_log_type_enabled(v18, v19))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_0, v18, v19, "Saving calendar diagnostics", buf, 2u);
+  }
+
+  v20 = objc_alloc_init(DAWeakLinkClass());
+  accountDescription = [(MobileCalDAVDaemonAccount *)self accountDescription];
+  [diagnosticsCopy setSourceDisplayName:accountDescription];
+
+  accountID = [(MobileCalDAVDaemonAccount *)self accountID];
+  [diagnosticsCopy setSourceExternalIdentifier:accountID];
+
+  [diagnosticsCopy setSourceIsDelegateAccount:{-[MobileCalDAVDaemonAccount isDelegateAccount](self, "isDelegateAccount")}];
+  [diagnosticsCopy setSourceIsEnabled:{-[MobileCalDAVDaemonAccount _isEnabled](self, "_isEnabled")}];
+  backingAccount = [(MobileCalDAVDaemonAccount *)self backingAccount];
+  host = [backingAccount host];
+  [diagnosticsCopy setHost:host];
+
+  [contextCopy startTime];
+  v25 = [NSDate dateWithTimeIntervalSinceReferenceDate:?];
+  [diagnosticsCopy setStartTime:v25];
+
+  v39 = timeCopy;
+  [diagnosticsCopy setEndTime:timeCopy];
+  [diagnosticsCopy setWasDueToPush:{objc_msgSend(contextCopy, "wasDueToPush")}];
+  [diagnosticsCopy setWasRequestedByUser:{objc_msgSend(contextCopy, "wasUserRequested")}];
+  [diagnosticsCopy setHitInternalRefreshTimeout:timeoutCopy];
+  [diagnosticsCopy setWillAttemptToRetry:retryCopy];
+  if (errorCopy)
+  {
+    v26 = objc_alloc_init(DAWeakLinkClass());
+    [v26 setCode:{objc_msgSend(errorCopy, "code")}];
+    domain = [errorCopy domain];
+    [v26 setDomain:domain];
+
+    [diagnosticsCopy addSyncError:v26];
+  }
+
+  serverVersion = [(MobileCalDAVDaemonAccount *)self serverVersion];
+  v29 = objc_alloc_init(DAWeakLinkClass());
+  type = [serverVersion type];
+  [v29 setType:type];
+
+  [serverVersion version];
+  [v29 setVersion:?];
+  [v29 setSupportsTimeRangeFilter:{objc_msgSend(serverVersion, "supportsTimeRangeFilter")}];
+  [v29 setSupportsTimeRangeFilterWithoutEndDate:{objc_msgSend(serverVersion, "supportsTimeRangeFilterWithoutEndDate")}];
+  [v29 setSupportsTimeRangeFilterOnInbox:{objc_msgSend(serverVersion, "supportsTimeRangeFilterOnInbox")}];
+  [v29 setSupportsAutoSchedule:{objc_msgSend(serverVersion, "supportsAutoSchedule")}];
+  [v29 setSupportsPrivateComments:{objc_msgSend(serverVersion, "supportsPrivateComments")}];
+  [v29 setSupportsSharing:{objc_msgSend(serverVersion, "supportsSharing")}];
+  [v29 setSupportsSharingNoScheduling:{objc_msgSend(serverVersion, "supportsSharingNoScheduling")}];
+  [v29 setSupportsCalendarProxy:{objc_msgSend(serverVersion, "supportsCalendarProxy")}];
+  [v29 setSupportsInboxAvailability:{objc_msgSend(serverVersion, "supportsInboxAvailability")}];
+  [v29 setSupportsPrivateEvents:{objc_msgSend(serverVersion, "supportsPrivateEvents")}];
+  [v29 setSupportsSubscriptionCalendars:{objc_msgSend(serverVersion, "supportsSubscriptionCalendars")}];
+  [v29 setSupportsManagedSubscriptionCalendars:{objc_msgSend(serverVersion, "supportsManagedSubscriptionCalendars")}];
+  [v29 setSupportsSubscriptionMirroring:{objc_msgSend(serverVersion, "supportsSubscriptionMirroring")}];
+  [v29 setSupportsParticipantRoles:{objc_msgSend(serverVersion, "supportsParticipantRoles")}];
+  [v29 setSupportsPrincipalPropertySearch:{objc_msgSend(serverVersion, "supportsPrincipalPropertySearch")}];
+  [v29 setSupportsExtendedCalendarQuery:{objc_msgSend(serverVersion, "supportsExtendedCalendarQuery")}];
+  [v29 setSupportsRequestCompression:{objc_msgSend(serverVersion, "supportsRequestCompression")}];
+  [v29 setSupportsManagedAttachments:{objc_msgSend(serverVersion, "supportsManagedAttachments")}];
+  supportedCalendarComponentSets = [serverVersion supportedCalendarComponentSets];
+  [v29 setSupportedCalendarComponentSets:supportedCalendarComponentSets];
+
+  serverHeader = [serverVersion serverHeader];
+  [v29 setServerHeader:serverHeader];
+
+  v33 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [serverVersion supportsClearingPrivateComments]);
+  [v29 setValue:v33 forKey:@"supportsClearingPrivateComments"];
+
+  v42 = 0u;
+  v43 = 0u;
+  v40 = 0u;
+  v41 = 0u;
+  complianceClasses = [serverVersion complianceClasses];
+  v35 = [complianceClasses countByEnumeratingWithState:&v40 objects:v45 count:16];
+  if (v35)
+  {
+    v36 = v35;
+    v37 = *v41;
+    do
+    {
+      for (i = 0; i != v36; i = i + 1)
+      {
+        if (*v41 != v37)
+        {
+          objc_enumerationMutation(complianceClasses);
+        }
+
+        [v29 addComplianceClass:*(*(&v40 + 1) + 8 * i)];
+      }
+
+      v36 = [complianceClasses countByEnumeratingWithState:&v40 objects:v45 count:16];
+    }
+
+    while (v36);
+  }
+
+  [diagnosticsCopy setServerVersion:v29];
+  [v20 saveAccountSync:diagnosticsCopy];
+}
+
 - (void)_reallyPerformSearchQuery:(id)query
 {
   queryCopy = query;
@@ -1420,6 +1538,25 @@ LABEL_34:
   }
 }
 
+- (void)account:(id)account isValid:(BOOL)valid validationError:(id)error
+{
+  validCopy = valid;
+  validityCheckConsumer = self->_validityCheckConsumer;
+  self->_validityCheckConsumer = 0;
+  v10 = validityCheckConsumer;
+  errorCopy = error;
+  accountCopy = account;
+
+  [(DAValidityCheckConsumer *)v10 account:accountCopy isValid:validCopy validationError:errorCopy];
+  self->_waitingForDiscoveryGatekeeper = 0;
+  self->_holdingDiscoveryGatekeeperLock = 0;
+  v13 = +[DALocalDBGateKeeper sharedGateKeeper];
+  [v13 relinquishLocksForWaiter:self dataclasses:20 moreComing:0];
+
+  v14 = +[DABabysitter sharedBabysitter];
+  [v14 unregisterAccount:self forOperationWithName:@"CalDAVValidityCheck"];
+}
+
 - (void)discoverInitialPropertiesWithConsumer:(id)consumer
 {
   consumerCopy = consumer;
@@ -1621,6 +1758,79 @@ LABEL_4:
     v29 = [NSError errorWithDomain:DAErrorDomain code:6 userInfo:0];
     [WeakRetained refreshDidCompleteWithError:v29];
   }
+}
+
+- (void)refreshCollections:(id)collections withReason:(int)reason
+{
+  v4 = *&reason;
+  collectionsCopy = collections;
+  if (v4 == 2 && RecordCalendarDiagnostics())
+  {
+    v7 = objc_alloc_init(DAWeakLinkClass());
+    v8 = objc_alloc_init(DAWeakLinkClass());
+    accountDescription = [(MobileCalDAVDaemonAccount *)self accountDescription];
+    [v8 setSourceDisplayName:accountDescription];
+
+    WeakRetained = objc_loadWeakRetained(&self->_consumer);
+    account = [WeakRetained account];
+    accountID = [account accountID];
+    [v8 setSourceExternalIdentifier:accountID];
+
+    [v8 setSourceIsDelegateAccount:{-[MobileCalDAVDaemonAccount isDelegateAccount](self, "isDelegateAccount")}];
+    [v8 setSourceIsEnabled:{-[MobileCalDAVDaemonAccount _isEnabled](self, "_isEnabled")}];
+    v13 = +[NSDate date];
+    [v8 setEndpointReceived:v13];
+
+    [v7 savePush:v8];
+  }
+
+  v14 = DALoggingwithCategory();
+  v15 = _CPLog_to_os_log_type[5];
+  if (os_log_type_enabled(v14, v15))
+  {
+    accountDescription2 = [(MobileCalDAVDaemonAccount *)self accountDescription];
+    publicDescription = [(MobileCalDAVDaemonAccount *)self publicDescription];
+    v22 = 138412802;
+    v23 = accountDescription2;
+    v24 = 2114;
+    v25 = publicDescription;
+    v26 = 1024;
+    v27 = v4;
+    _os_log_impl(&dword_0, v14, v15, "Account %@ (%{public}@) was told to refresh its collections with reason %d", &v22, 0x1Cu);
+  }
+
+  [(MobileCalDAVDaemonAccount *)self setFullRefresh:1];
+  -[MobileCalDAVDaemonAccount setRefreshReason:](self, "setRefreshReason:", [objc_opt_class() convertToMobileCalDAVRefreshReason:v4]);
+  mainPrincipal = [(MobileCalDAVDaemonAccount *)self mainPrincipal];
+  principalURL = [mainPrincipal principalURL];
+  if (principalURL)
+  {
+  }
+
+  else
+  {
+    v20 = objc_loadWeakRetained(&self->_consumer);
+
+    if (v20)
+    {
+      v21 = objc_loadWeakRetained(&self->_consumer);
+      [v21 _validateAndSync:0];
+
+      goto LABEL_14;
+    }
+  }
+
+  if (([(MobileCalDAVDaemonAccount *)self refreshReason]& 4) != 0 || ![(MobileCalDAVDaemonAccount *)self refreshReason])
+  {
+    [(MobileCalDAVDaemonAccount *)self _probeAndSync];
+  }
+
+  else
+  {
+    [(MobileCalDAVDaemonAccount *)self _refresh];
+  }
+
+LABEL_14:
 }
 
 - (id)serverTokenRegistrationURL

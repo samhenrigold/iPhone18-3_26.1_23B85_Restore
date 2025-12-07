@@ -103,7 +103,7 @@ void __48__RBLaunchManager__checkLaunchForBackoff_error___block_invoke(uint64_t 
 
 - (id)_resolveNewProcessForInstance:(id)instance requestIdentity:(id)identity context:(id)context withError:(id *)error
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   instanceCopy = instance;
   identityCopy = identity;
   contextCopy = context;
@@ -128,8 +128,8 @@ void __48__RBLaunchManager__checkLaunchForBackoff_error___block_invoke(uint64_t 
 
   if ([identityCopy osServiceType] == 3 && v14 && (objc_msgSend(v14, "isAngel") & 1) == 0)
   {
-    v29 = rbs_general_log();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_FAULT))
+    v28 = rbs_general_log();
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_FAULT))
     {
       [RBLaunchManager _resolveNewProcessForInstance:requestIdentity:context:withError:];
     }
@@ -137,14 +137,14 @@ void __48__RBLaunchManager__checkLaunchForBackoff_error___block_invoke(uint64_t 
     [(RBLaunchdJobManager *)self->_jobManager removeJobWithInstance:instanceCopy error:0];
     if (error)
     {
-      v30 = *MEMORY[0x277D47088];
-      v31 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:2];
-      [v31 setObject:@"Unsupported Angel launch request." forKey:*MEMORY[0x277CCA470]];
-      v32 = [MEMORY[0x277CCA9B8] errorWithDomain:v30 code:5 userInfo:v31];
+      v29 = *MEMORY[0x277D47088];
+      v30 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:2];
+      [v30 setObject:@"Unsupported Angel launch request." forKey:*MEMORY[0x277CCA470]];
+      v31 = [MEMORY[0x277CCA9B8] errorWithDomain:v29 code:5 userInfo:v30];
 
-      v33 = v32;
+      v32 = v31;
       v19 = 0;
-      *error = v32;
+      *error = v31;
     }
 
     else
@@ -172,9 +172,9 @@ void __48__RBLaunchManager__checkLaunchForBackoff_error___block_invoke(uint64_t 
       v22 = rbs_general_log();
       if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
-        v34 = 138543362;
-        v35 = instanceCopy;
-        _os_log_impl(&dword_262485000, v22, OS_LOG_TYPE_DEFAULT, "Failed to create process object for %{public}@", &v34, 0xCu);
+        v33 = 138543362;
+        v34 = instanceCopy;
+        _os_log_impl(&dword_262485000, v22, OS_LOG_TYPE_DEFAULT, "Failed to create process object for %{public}@", &v33, 0xCu);
       }
 
       [(RBLaunchdJobManager *)self->_jobManager removeJobWithInstance:instanceCopy error:0];
@@ -191,14 +191,12 @@ void __48__RBLaunchManager__checkLaunchForBackoff_error___block_invoke(uint64_t 
     }
   }
 
-  v27 = *MEMORY[0x277D85DE8];
-
   return v19;
 }
 
 - (id)executeLaunchRequest:(id)request existingProcess:(id)process requestIdentity:(id)identity withError:(id *)error
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   processCopy = process;
   identityCopy = identity;
@@ -209,9 +207,9 @@ void __48__RBLaunchManager__checkLaunchForBackoff_error___block_invoke(uint64_t 
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       *buf = 138543618;
-      v54 = identityCopy;
-      v55 = 2114;
-      v56 = processCopy;
+      v53 = identityCopy;
+      v54 = 2114;
+      v55 = processCopy;
       _os_log_impl(&dword_262485000, v14, OS_LOG_TYPE_INFO, "%{public}@ is already running as %{public}@", buf, 0x16u);
     }
 
@@ -245,7 +243,7 @@ void __48__RBLaunchManager__checkLaunchForBackoff_error___block_invoke(uint64_t 
       if (os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
       {
         *buf = 138543362;
-        v54 = v20;
+        v53 = v20;
         _os_log_impl(&dword_262485000, v42, OS_LOG_TYPE_INFO, "%{public}@ could not be launched", buf, 0xCu);
       }
 
@@ -281,7 +279,7 @@ LABEL_37:
     [requestCopy setHomeDirectory:v22];
   }
 
-  v51 = identityCopy;
+  v50 = identityCopy;
   _additionalEnvironment2 = [requestCopy _additionalEnvironment];
   v24 = RBSStringForKey();
 
@@ -291,42 +289,27 @@ LABEL_37:
   }
 
   jobManager = self->_jobManager;
-  v52 = 0;
-  v26 = [(RBLaunchdJobManager *)jobManager createAndLaunchWithIdentity:v20 context:requestCopy error:&v52];
-  v27 = v52;
+  v51 = 0;
+  v26 = [(RBLaunchdJobManager *)jobManager createAndLaunchWithIdentity:v20 context:requestCopy error:&v51];
+  v27 = v51;
   v28 = v27;
   if (v26)
   {
-    v50 = v27;
-    if (!processCopy)
-    {
-      goto LABEL_26;
-    }
-
-    [processCopy identifier];
-    v29 = v24;
-    v31 = v30 = error;
-    [v26 identifier];
-    v32 = v49 = v22;
-    v33 = [v31 isEqual:v32];
-
-    v22 = v49;
-    error = v30;
-    v24 = v29;
-    if (v33)
+    v49 = v27;
+    if (processCopy && ([processCopy identifier], v29 = v24, v30 = error, v31 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v26, "identifier"), v48 = v22, v32 = objc_claimAutoreleasedReturnValue(), v33 = objc_msgSend(v31, "isEqual:", v32), v32, v22 = v48, v31, error = v30, v24 = v29, v33))
     {
       v34 = rbs_process_log();
       if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
       {
         identifier = [processCopy identifier];
         *buf = 138543618;
-        v54 = v20;
-        v55 = 2114;
-        v56 = identifier;
+        v53 = v20;
+        v54 = 2114;
+        v55 = identifier;
         _os_log_impl(&dword_262485000, v34, OS_LOG_TYPE_INFO, "returning existing extension %{public}@ already running as pid %{public}@", buf, 0x16u);
       }
 
-      identityCopy = v51;
+      identityCopy = v50;
       if (error)
       {
         v36 = *MEMORY[0x277D47088];
@@ -334,7 +317,7 @@ LABEL_37:
         [v37 setObject:@"The process was already running." forKey:*MEMORY[0x277CCA470]];
         v38 = [MEMORY[0x277CCA9B8] errorWithDomain:v36 code:2 userInfo:v37];
 
-        v22 = v49;
+        v22 = v48;
         v39 = v38;
         *error = v38;
       }
@@ -344,12 +327,11 @@ LABEL_37:
 
     else
     {
-LABEL_26:
       v19 = [(RBLaunchManager *)self _resolveNewProcessForInstance:v26 requestIdentity:v20 context:requestCopy withError:error];
-      identityCopy = v51;
+      identityCopy = v50;
     }
 
-    v28 = v50;
+    v28 = v49;
   }
 
   else
@@ -373,54 +355,48 @@ LABEL_26:
   }
 
 LABEL_40:
-  v47 = *MEMORY[0x277D85DE8];
 
   return v19;
 }
 
 - (void)_validateBundleIDForProcess:launchedWithContext:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
-  v4 = 2114;
-  v5 = v0;
-  _os_log_fault_impl(&dword_262485000, v1, OS_LOG_TYPE_FAULT, "RunningBoard launch requested for identifier %{public}@ launched process with different identifier %{public}@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = 2114;
+  v4 = v0;
+  _os_log_fault_impl(&dword_262485000, v1, OS_LOG_TYPE_FAULT, "RunningBoard launch requested for identifier %{public}@ launched process with different identifier %{public}@", v2, 0x16u);
 }
 
 - (void)_checkLaunchForBackoff:(double)a3 error:.cold.1(uint64_t a1, NSObject *a2, double a3)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138543618;
-  v5 = a1;
-  v6 = 2048;
-  v7 = a3;
-  _os_log_error_impl(&dword_262485000, a2, OS_LOG_TYPE_ERROR, "Launch throttled for %{public}@ until %lf", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138543618;
+  v4 = a1;
+  v5 = 2048;
+  v6 = a3;
+  _os_log_error_impl(&dword_262485000, a2, OS_LOG_TYPE_ERROR, "Launch throttled for %{public}@ until %lf", &v3, 0x16u);
 }
 
 - (void)_resolveNewProcessForInstance:requestIdentity:context:withError:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(&dword_262485000, v0, OS_LOG_TYPE_ERROR, "New process launch resulted in nil properties for %{public}@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_262485000, v0, OS_LOG_TYPE_ERROR, "New process launch resulted in nil properties for %{public}@", v1, 0xCu);
 }
 
 - (void)_resolveNewProcessForInstance:requestIdentity:context:withError:.cold.2()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
-  _os_log_fault_impl(&dword_262485000, v0, OS_LOG_TYPE_FAULT, "Angel launch attempted for non-angel %{public}@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_262485000, v0, OS_LOG_TYPE_FAULT, "Angel launch attempted for non-angel %{public}@", v1, 0xCu);
 }
 
 - (void)executeLaunchRequest:existingProcess:requestIdentity:withError:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(&dword_262485000, v0, OS_LOG_TYPE_ERROR, "Launch failed with %{public}@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_262485000, v0, OS_LOG_TYPE_ERROR, "Launch failed with %{public}@", v1, 0xCu);
 }
 
 @end

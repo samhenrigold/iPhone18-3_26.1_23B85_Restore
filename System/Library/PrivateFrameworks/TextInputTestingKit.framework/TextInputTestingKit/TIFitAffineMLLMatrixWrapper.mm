@@ -47,7 +47,7 @@
 
     else
     {
-      TIFitAffineMLLMatrix::identity(2);
+      TIFitAffineMLLMatrix::identity(v11, 2);
     }
 
     pRotationMatrix = self->_pRotationMatrix;
@@ -58,7 +58,7 @@
 
     else
     {
-      TIFitAffineMLLMatrix::identity(2);
+      TIFitAffineMLLMatrix::identity(v10, 2);
     }
 
     pSkewMatrix = self->_pSkewMatrix;
@@ -69,7 +69,7 @@
 
     else
     {
-      TIFitAffineMLLMatrix::identity(2);
+      TIFitAffineMLLMatrix::identity(v9, 2);
     }
 
     pTransMatrix = self->_pTransMatrix;

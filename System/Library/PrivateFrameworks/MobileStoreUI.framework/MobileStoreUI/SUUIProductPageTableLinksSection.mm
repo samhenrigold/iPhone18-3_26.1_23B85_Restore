@@ -326,10 +326,10 @@ SUUIDeveloperInfoViewController *__77__SUUIProductPageTableLinksSection_initWith
   {
     v7 = [[SUUITableViewCell alloc] initWithStyle:0 reuseIdentifier:@"LK"];
     [(SUUITableViewCell *)v7 setAccessoryType:1];
-    primaryTextColor = [(SUUIColorScheme *)self->_colorScheme primaryTextColor];
-    if (primaryTextColor)
+    v8 = objc_msgSend_primaryTextColor(self->_colorScheme);
+    if (v8)
     {
-      [(SUUITableViewCell *)v7 setBottomBorderColor:primaryTextColor];
+      [(SUUITableViewCell *)v7 setBottomBorderColor:v8];
     }
 
     else

@@ -19,7 +19,7 @@
 {
   if (dword_1001BEFE8 <= 30 && (dword_1001BEFE8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEFE8, "[BroadwayActivationStartViewController animationDidComplete]", 30, "Card animation did complete");
   }
 
   BYTE1(self->_activationResult) = 1;
@@ -32,7 +32,7 @@
   if (dword_1001BEFE8 <= 30 && (dword_1001BEFE8 != -1 || _LogCategory_Initialize()))
   {
 
-    LogPrintF();
+    LogPrintF(&dword_1001BEFE8, "[BroadwayActivationStartViewController animationDidStart]", 30, "Card animation did start");
   }
 }
 
@@ -41,7 +41,7 @@
   viewCopy = view;
   if (dword_1001BEFE8 <= 30 && (dword_1001BEFE8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEFE8, "[BroadwayActivationStartViewController handleTapOutsideView:]", 30, "Dismissing on tap outside view");
   }
 
   [self->super._mainController dismiss:1];
@@ -51,11 +51,28 @@
 {
   if ((self->_activationResult & 0x10000) == 0)
   {
-    if (*(&self->_activationStarted + 1) == 999 || (self->_activationResult & 0x100) == 0)
+    v3 = *(&self->_activationStarted + 1);
+    if (v3 == 999 || (self->_activationResult & 0x100) == 0)
     {
       if (dword_1001BEFE8 <= 30 && (dword_1001BEFE8 != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        v4 = "no";
+        if (v3 == 999)
+        {
+          v5 = "yes";
+        }
+
+        else
+        {
+          v5 = "no";
+        }
+
+        if (BYTE1(self->_activationResult))
+        {
+          v4 = "yes";
+        }
+
+        LogPrintF(&dword_1001BEFE8, "[BroadwayActivationStartViewController handleCompletedIfReady]", 30, "Not ready to transition to done yet due to activateInProgress: %s, animationCompleted: %s", v5, v4);
       }
     }
 
@@ -63,14 +80,14 @@
     {
       if (dword_1001BEFE8 <= 30 && (dword_1001BEFE8 != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&dword_1001BEFE8, "[BroadwayActivationStartViewController handleCompletedIfReady]", 30, "Done started");
       }
 
       BYTE2(self->_activationResult) = 1;
       mainController = self->super._mainController;
-      v4 = *(&self->_activationStarted + 1);
+      v7 = *(&self->_activationStarted + 1);
 
-      [mainController showCompletedUI:v4];
+      [mainController showCompletedUI:v7];
     }
   }
 }
@@ -82,7 +99,7 @@
   {
     if (dword_1001BEFE8 <= 30 && (dword_1001BEFE8 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1001BEFE8, "[BroadwayActivationStartViewController handleActivateButton:]", 30, "Activate button");
     }
 
     BYTE1(self->_activationCode) = 1;
@@ -94,8 +111,7 @@
 
     if (dword_1001BEFE8 <= 30 && (dword_1001BEFE8 != -1 || _LogCategory_Initialize()))
     {
-      v9 = *(&self->_activityIndicatorView + 1);
-      LogPrintF();
+      LogPrintF(&dword_1001BEFE8, "[BroadwayActivationStartViewController handleActivateButton:]", 30, "Start activation with activation code %@", *(&self->_activityIndicatorView + 1));
     }
 
     if ([self->super._mainController test] && objc_msgSend(self->super._mainController, "forcedActivationResult") != 999)
@@ -104,9 +120,9 @@
       handler[1] = 3221225472;
       handler[2] = sub_100121238;
       handler[3] = &unk_100195A70;
-      v12 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, &_dispatch_main_q);
+      v11 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, &_dispatch_main_q);
       selfCopy = self;
-      sharedInstance = v12;
+      sharedInstance = v11;
       dispatch_source_set_event_handler(sharedInstance, handler);
       SFDispatchTimerSet();
       dispatch_resume(sharedInstance);
@@ -117,12 +133,12 @@
       sharedInstance = [(objc_class *)off_1001BF058() sharedInstance];
       physicalCard = [self->super._mainController physicalCard];
       v8 = *(&self->_activityIndicatorView + 1);
-      v10[0] = _NSConcreteStackBlock;
-      v10[1] = 3221225472;
-      v10[2] = sub_100121298;
-      v10[3] = &unk_100195610;
-      v10[4] = self;
-      [sharedInstance activatePhysicalCard:physicalCard withActivationCode:v8 forFeatureIdentifier:2 completion:v10];
+      v9[0] = _NSConcreteStackBlock;
+      v9[1] = 3221225472;
+      v9[2] = sub_100121298;
+      v9[3] = &unk_100195610;
+      v9[4] = self;
+      [sharedInstance activatePhysicalCard:physicalCard withActivationCode:v8 forFeatureIdentifier:2 completion:v9];
     }
   }
 }
@@ -132,7 +148,7 @@
   buttonCopy = button;
   if (dword_1001BEFE8 <= 30 && (dword_1001BEFE8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEFE8, "[BroadwayActivationStartViewController handleDismissButton:]", 30, "Dismiss button");
   }
 
   [self->super._mainController dismiss:5];
@@ -158,7 +174,7 @@
   disappearCopy = disappear;
   if (dword_1001BEFE8 <= 30 && (dword_1001BEFE8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEFE8, "[BroadwayActivationStartViewController viewDidDisappear:]", 30, "Start ViewDidDisappear");
   }
 
   v6.receiver = self;
@@ -223,7 +239,7 @@
   appearCopy = appear;
   if (dword_1001BEFE8 <= 30 && (dword_1001BEFE8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEFE8, "[BroadwayActivationStartViewController viewWillAppear:]", 30, "Start ViewWillAppear");
   }
 
   v25.receiver = self;
@@ -305,7 +321,7 @@
     [*(&self->_cardViewHeight + 1) setPaused:0];
     if (dword_1001BEFE8 <= 30 && (dword_1001BEFE8 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1001BEFE8, "[BroadwayActivationStartViewController viewWillAppear:]", 30, "Movie start\n");
     }
   }
 }

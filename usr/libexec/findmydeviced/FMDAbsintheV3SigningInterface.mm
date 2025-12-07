@@ -124,15 +124,15 @@
   if (v5)
   {
 
-    v6 = sub_100002880();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+    v7 = sub_100002880(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
-      sub_100226124(v5, v6);
+      sub_100226124(v5, v7);
     }
 
     if (receipt)
     {
-      v7 = v5;
+      v8 = v5;
       v4 = 0;
       *receipt = v5;
     }
@@ -148,7 +148,7 @@
 
 - (void)didReceiveAuthFailureForRequest:(id)request
 {
-  v3 = sub_100002880();
+  v3 = sub_100002880(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -163,10 +163,10 @@
 
   if (alertFromServerResponse)
   {
-    v5 = sub_100002880();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = sub_100002880(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      sub_10022619C(requestCopy, v5);
+      sub_10022619C(requestCopy, v6);
     }
   }
 }
@@ -185,7 +185,7 @@
   if (v2)
   {
     v3 = v2;
-    v4 = sub_100002880();
+    v4 = sub_100002880(v2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v8 = 136315138;

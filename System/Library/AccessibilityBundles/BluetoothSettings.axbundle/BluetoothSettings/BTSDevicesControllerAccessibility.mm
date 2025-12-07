@@ -88,9 +88,8 @@ void __67__BTSDevicesControllerAccessibility_setBluetoothEnabled_specifier___blo
   [WeakRetained dismissViewControllerAnimated:1 completion:0];
 
   objc_opt_class();
-  v5 = *(a1 + 32);
-  v6 = __UIAccessibilityCastAsClass();
-  [v6 reloadSpecifiers];
+  v5 = __UIAccessibilityCastAsClass();
+  [v5 reloadSpecifiers];
 }
 
 id __67__BTSDevicesControllerAccessibility_setBluetoothEnabled_specifier___block_invoke_2(uint64_t a1)

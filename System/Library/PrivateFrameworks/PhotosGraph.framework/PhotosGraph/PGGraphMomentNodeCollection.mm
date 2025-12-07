@@ -98,6 +98,7 @@
 - (void)enumerateContentScoresUsingBlock:(id)block;
 - (void)enumerateLocalEndDatesUsingBlock:(id)block;
 - (void)enumerateLocalStartDatesUsingBlock:(id)block;
+- (void)enumerateNodesAsCollectionsSortedByUniversalStartDateWithOrderAscending:(BOOL)ascending usingBlock:(id)block;
 - (void)enumerateNumberOfAssetsInExtendedCurationUsingBlock:(id)block;
 - (void)enumerateUUIDsUsingBlock:(id)block;
 - (void)enumerateUniversalEndDatesUsingBlock:(id)block;
@@ -213,60 +214,54 @@ void __53__PGGraphMomentNodeCollection_universalDateIntervals__block_invoke(uint
 
 - (id)momentNodesWithMinimumNumberOfExtendedCuratedAssets:(unint64_t)assets
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   v5 = +[PGGraphMomentNode filter];
-  v15 = @"extc";
+  v14 = @"extc";
   v6 = objc_alloc(MEMORY[0x277D22B98]);
   v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:assets];
   v8 = [v6 initWithComparator:6 value:v7];
-  v16[0] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+  v15[0] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
   v10 = [v5 filterBySettingProperties:v9];
 
   relation = [v10 relation];
   v12 = [(MANodeCollection *)PGGraphMomentNodeCollection nodesRelatedToNodes:self withRelation:relation];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
 
 - (id)momentNodesWithMinimumNumberOfPersons:(unint64_t)persons
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   v5 = +[PGGraphMomentNode filter];
-  v15 = @"tnop";
+  v14 = @"tnop";
   v6 = objc_alloc(MEMORY[0x277D22B98]);
   v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:persons];
   v8 = [v6 initWithComparator:6 value:v7];
-  v16[0] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+  v15[0] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
   v10 = [v5 filterBySettingProperties:v9];
 
   relation = [v10 relation];
   v12 = [(MANodeCollection *)PGGraphMomentNodeCollection nodesRelatedToNodes:self withRelation:relation];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
 
 - (id)momentNodesWithContentScoreAbove:(double)above
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   v5 = +[PGGraphMomentNode filter];
-  v15 = @"cntsc";
+  v14 = @"cntsc";
   v6 = objc_alloc(MEMORY[0x277D22B98]);
   v7 = [MEMORY[0x277CCABB0] numberWithDouble:above];
   v8 = [v6 initWithComparator:5 value:v7];
-  v16[0] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+  v15[0] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
   v10 = [v5 filterBySettingProperties:v9];
 
   relation = [v10 relation];
   v12 = [(MANodeCollection *)PGGraphMomentNodeCollection nodesRelatedToNodes:self withRelation:relation];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -531,6 +526,19 @@ void __48__PGGraphMomentNodeCollection_localDateInterval__block_invoke_2(uint64_
   *(v3 + 40) = v2;
 }
 
+- (void)enumerateNodesAsCollectionsSortedByUniversalStartDateWithOrderAscending:(BOOL)ascending usingBlock:(id)block
+{
+  ascendingCopy = ascending;
+  blockCopy = block;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __114__PGGraphMomentNodeCollection_enumerateNodesAsCollectionsSortedByUniversalStartDateWithOrderAscending_usingBlock___block_invoke;
+  v8[3] = &unk_2788879F0;
+  v9 = blockCopy;
+  v7 = blockCopy;
+  [(MANodeCollection *)self enumerateNodesAsCollectionsSortedByDoublePropertyForName:@"utcs" ascending:ascendingCopy usingBlock:v8];
+}
+
 - (void)enumerateLocalEndDatesUsingBlock:(id)block
 {
   blockCopy = block;
@@ -723,31 +731,31 @@ void __70__PGGraphMomentNodeCollection_enumerateUniversalStartDatesUsingBlock___
 
 - (id)firstAndLastMomentNodes
 {
-  v19[2] = *MEMORY[0x277D85DE8];
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x3032000000;
-  v16 = __Block_byref_object_copy__59572;
-  v17 = __Block_byref_object_dispose__59573;
-  v18 = 0;
-  v7 = 0;
-  v8 = &v7;
-  v9 = 0x3032000000;
-  v10 = __Block_byref_object_copy__59572;
-  v11 = __Block_byref_object_dispose__59573;
+  v18[2] = *MEMORY[0x277D85DE8];
   v12 = 0;
-  v6[0] = MEMORY[0x277D85DD0];
-  v6[1] = 3221225472;
-  v6[2] = __54__PGGraphMomentNodeCollection_firstAndLastMomentNodes__block_invoke;
-  v6[3] = &unk_2788879A0;
-  v6[4] = &v13;
-  v6[5] = &v7;
-  [(MANodeCollection *)self enumerateNodesUsingBlock:v6];
-  if (v14[5] && (v2 = v8[5]) != 0)
+  v13 = &v12;
+  v14 = 0x3032000000;
+  v15 = __Block_byref_object_copy__59572;
+  v16 = __Block_byref_object_dispose__59573;
+  v17 = 0;
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x3032000000;
+  v9 = __Block_byref_object_copy__59572;
+  v10 = __Block_byref_object_dispose__59573;
+  v11 = 0;
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 3221225472;
+  v5[2] = __54__PGGraphMomentNodeCollection_firstAndLastMomentNodes__block_invoke;
+  v5[3] = &unk_2788879A0;
+  v5[4] = &v12;
+  v5[5] = &v6;
+  [(MANodeCollection *)self enumerateNodesUsingBlock:v5];
+  if (v13[5] && (v2 = v7[5]) != 0)
   {
-    v19[0] = v14[5];
-    v19[1] = v2;
-    v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
+    v18[0] = v13[5];
+    v18[1] = v2;
+    v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
   }
 
   else
@@ -755,10 +763,9 @@ void __70__PGGraphMomentNodeCollection_enumerateUniversalStartDatesUsingBlock___
     v3 = MEMORY[0x277CBEBF8];
   }
 
-  _Block_object_dispose(&v7, 8);
+  _Block_object_dispose(&v6, 8);
 
-  _Block_object_dispose(&v13, 8);
-  v4 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v12, 8);
 
   return v3;
 }
@@ -904,7 +911,7 @@ void __57__PGGraphMomentNodeCollection_numberOfAssetsByMomentUUID__block_invoke(
 
 void __57__PGGraphMomentNodeCollection_numberOfAssetsByMomentUUID__block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v6 = *(a1 + 32);
   v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:a2];
   v8 = [v6 objectForKeyedSubscript:v7];
@@ -922,13 +929,11 @@ void __57__PGGraphMomentNodeCollection_numberOfAssetsByMomentUUID__block_invoke_
 
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v13 = 134217984;
-      v14 = a2;
-      _os_log_error_impl(&dword_22F0FC000, v11, OS_LOG_TYPE_ERROR, "[PGGraphMomentNodeCollection] No UUID for node with element identifier %lu.", &v13, 0xCu);
+      v12 = 134217984;
+      v13 = a2;
+      _os_log_error_impl(&dword_22F0FC000, v11, OS_LOG_TYPE_ERROR, "[PGGraphMomentNodeCollection] No UUID for node with element identifier %lu.", &v12, 0xCu);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)numberOfAssetsInExtendedCuration
@@ -974,21 +979,19 @@ void __57__PGGraphMomentNodeCollection_numberOfAssetsByMomentUUID__block_invoke_
 
 - (id)poiNodesForLabel:(id)label
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277D22C90];
   labelCopy = label;
   v6 = +[PGGraphMomentNode poiOfMoment];
-  v14[0] = v6;
+  v13[0] = v6;
   v7 = [PGGraphPOINode filterWithLabel:labelCopy];
 
   relation = [v7 relation];
-  v14[1] = relation;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
+  v13[1] = relation;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
   v10 = [v4 chain:v9];
 
   v11 = [(MANodeCollection *)PGGraphPOINodeCollection nodesRelatedToNodes:self withRelation:v10];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -1076,95 +1079,85 @@ void __57__PGGraphMomentNodeCollection_numberOfAssetsByMomentUUID__block_invoke_
 
 - (PGGraphROINodeCollection)waterRoiNodes
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277D22C90];
   v4 = +[PGGraphMomentNode roiOfMoment];
-  v12[0] = v4;
+  v11[0] = v4;
   v5 = +[PGGraphROINode waterFilter];
   relation = [v5 relation];
-  v12[1] = relation;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
+  v11[1] = relation;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
   v8 = [v3 chain:v7];
 
   v9 = [(MANodeCollection *)PGGraphROINodeCollection nodesRelatedToNodes:self withRelation:v8];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 - (PGGraphROINodeCollection)urbanRoiNodes
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277D22C90];
   v4 = +[PGGraphMomentNode roiOfMoment];
-  v12[0] = v4;
+  v11[0] = v4;
   v5 = +[PGGraphROINode urbanFilter];
   relation = [v5 relation];
-  v12[1] = relation;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
+  v11[1] = relation;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
   v8 = [v3 chain:v7];
 
   v9 = [(MANodeCollection *)PGGraphROINodeCollection nodesRelatedToNodes:self withRelation:v8];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 - (PGGraphROINodeCollection)natureRoiNodes
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277D22C90];
   v4 = +[PGGraphMomentNode roiOfMoment];
-  v12[0] = v4;
+  v11[0] = v4;
   v5 = +[PGGraphROINode natureFilter];
   relation = [v5 relation];
-  v12[1] = relation;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
+  v11[1] = relation;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
   v8 = [v3 chain:v7];
 
   v9 = [(MANodeCollection *)PGGraphROINodeCollection nodesRelatedToNodes:self withRelation:v8];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 - (PGGraphROINodeCollection)mountainRoiNodes
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277D22C90];
   v4 = +[PGGraphMomentNode roiOfMoment];
-  v12[0] = v4;
+  v11[0] = v4;
   v5 = +[PGGraphROINode mountainFilter];
   relation = [v5 relation];
-  v12[1] = relation;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
+  v11[1] = relation;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
   v8 = [v3 chain:v7];
 
   v9 = [(MANodeCollection *)PGGraphROINodeCollection nodesRelatedToNodes:self withRelation:v8];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 - (PGGraphROINodeCollection)beachRoiNodes
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277D22C90];
   v4 = +[PGGraphMomentNode roiOfMoment];
-  v12[0] = v4;
+  v11[0] = v4;
   v5 = +[PGGraphROINode beachFilter];
   relation = [v5 relation];
-  v12[1] = relation;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
+  v11[1] = relation;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
   v8 = [v3 chain:v7];
 
   v9 = [(MANodeCollection *)PGGraphROINodeCollection nodesRelatedToNodes:self withRelation:v8];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -1550,16 +1543,16 @@ void __57__PGGraphMomentNodeCollection_numberOfAssetsByMomentUUID__block_invoke_
 
 + (id)_interestingForMemoriesSubsetFromMomentNodes:(id)nodes inGraph:(id)graph
 {
-  v33[2] = *MEMORY[0x277D85DE8];
+  v32[2] = *MEMORY[0x277D85DE8];
   nodesCopy = nodes;
   graphCopy = graph;
   v8 = +[PGGraphMomentNode filter];
-  v32[0] = @"intngaj";
-  v32[1] = @"spr";
-  v33[0] = MEMORY[0x277CBEC38];
+  v31[0] = @"intngaj";
+  v31[1] = @"spr";
+  v32[0] = MEMORY[0x277CBEC38];
   v9 = [objc_alloc(MEMORY[0x277D22B98]) initWithComparator:6 value:&unk_2844871C8];
-  v33[1] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:2];
+  v32[1] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:2];
   v11 = [v8 filterBySettingProperties:v10];
 
   if (nodesCopy)
@@ -1589,17 +1582,17 @@ void __57__PGGraphMomentNodeCollection_numberOfAssetsByMomentUUID__block_invoke_
     {
       v22 = [(PGGraphNodeCollection *)PGGraphPetNodeCollection nodesInGraph:graphCopy];
       [v22 momentNodes];
-      v23 = v29 = v13;
+      v23 = v28 = v13;
 
-      v30[0] = MEMORY[0x277D85DD0];
-      v30[1] = 3221225472;
-      v30[2] = __84__PGGraphMomentNodeCollection__interestingForMemoriesSubsetFromMomentNodes_inGraph___block_invoke;
-      v30[3] = &unk_278888AE0;
-      v31 = v23;
+      v29[0] = MEMORY[0x277D85DD0];
+      v29[1] = 3221225472;
+      v29[2] = __84__PGGraphMomentNodeCollection__interestingForMemoriesSubsetFromMomentNodes_inGraph___block_invoke;
+      v29[3] = &unk_278888AE0;
+      v30 = v23;
       v24 = v23;
-      v25 = [v20 filteredCollectionUsingBlock:v30];
+      v25 = [v20 filteredCollectionUsingBlock:v29];
 
-      v13 = v29;
+      v13 = v28;
       v20 = v25;
     }
 
@@ -1610,8 +1603,6 @@ void __57__PGGraphMomentNodeCollection_numberOfAssetsByMomentUUID__block_invoke_
   {
     v26 = v12;
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return v26;
 }

@@ -148,8 +148,6 @@
       }
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)accessoryEndpointDetached:(id)detached forConnection:(id)connection
@@ -222,8 +220,6 @@
       _os_log_debug_impl(&dword_1DE8E5000, v4, v5, "Sleeve detached", v10, 2u);
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 @end

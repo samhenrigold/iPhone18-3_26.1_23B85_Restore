@@ -46,6 +46,13 @@ id GetPHAssetForAssetURLSync(void *a1)
   return v7;
 }
 
+void sub_25F67185C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id location, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 void sub_25F671C70(_Unwind_Exception *a1)
 {
   objc_destroyWeak((v1 + 48));
@@ -69,11 +76,12 @@ uint64_t IsPDFURL(uint64_t a1)
   return v3;
 }
 
-void sub_25F67631C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location, char a17)
+void sub_25F67631C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location, ...)
 {
-  objc_destroyWeak((v17 + 48));
+  va_start(va, location);
+  objc_destroyWeak((v16 + 48));
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a17, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -127,9 +135,9 @@ id getPHAssetClass()
   return v1;
 }
 
-void sub_25F677D9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25F677D9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -256,16 +264,16 @@ id GetImageForPHAssetSync(void *a1)
   return v7;
 }
 
-void sub_25F679D20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25F679D20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_25F679EFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25F679EFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -312,6 +320,13 @@ void sub_25F67C7D8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 {
   objc_destroyWeak((v14 + 32));
   objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_25F67D868(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, ...)
+{
+  va_start(va, a36);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -399,7 +414,7 @@ uint64_t PhotosLibrary()
   v1 = v3[0];
   if (!PhotosLibraryCore_frameworkLibrary)
   {
-    v1 = abort_report_np();
+    v1 = abort_report_np("%s", v3[0]);
     goto LABEL_7;
   }
 
@@ -412,7 +427,7 @@ LABEL_7:
   return v0;
 }
 
-uint64_t __PhotosLibraryCore_block_invoke()
+uint64_t __PhotosLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   PhotosLibraryCore_frameworkLibrary = result;
@@ -477,9 +492,9 @@ id getPHImageRequestOptionsClass()
   return v1;
 }
 
-void sub_25F67F494(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25F67F494(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -508,9 +523,9 @@ id getPHImageManagerClass()
   return v1;
 }
 
-void sub_25F67F574(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25F67F574(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -601,9 +616,9 @@ void __GetImageForPHAssetSync_block_invoke(uint64_t a1)
   [v3 requestImageForAsset:v4 targetSize:0 contentMode:v2 options:v11 resultHandler:{v7, v8}];
 }
 
-void sub_25F67F894(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_25F67F894(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -676,16 +691,16 @@ id CopyDictionaryString(void *a1, void *a2, void *a3)
   return v10;
 }
 
-id GetDefaultJobName()
+id GetDefaultJobName(uint64_t a1, uint64_t a2)
 {
-  v0 = GetAppName();
-  if (!v0)
+  v2 = GetAppName();
+  if (!v2)
   {
-    v1 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v0 = [v1 localizedStringForKey:@"Untitled" value:@"Untitled" table:@"Localizable"];
+    v3 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v2 = [v3 localizedStringForKey:@"Untitled" value:@"Untitled" table:@"Localizable"];
   }
 
-  return v0;
+  return v2;
 }
 
 void *arrayForKey(void *a1, uint64_t a2)
@@ -944,10 +959,11 @@ void sub_25F69C400(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_25F69E048(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35)
+void sub_25F69E048(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
 {
+  va_start(va, a34);
   _Block_object_dispose(&a31, 8);
-  _Block_object_dispose(&a35, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -1916,6 +1932,13 @@ void sub_25F6B13BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
+void sub_25F6B1E6C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
+{
+  va_start(va, a18);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 void sub_25F6B1FFC(_Unwind_Exception *a1)
 {
   objc_destroyWeak((v1 + 40));
@@ -1923,9 +1946,9 @@ void sub_25F6B1FFC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_25F6B2A5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_25F6B2A5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1969,7 +1992,7 @@ Class __getUIActivityViewControllerClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -1987,7 +2010,7 @@ LABEL_4:
   return result;
 }
 
-uint64_t __ShareSheetLibraryCore_block_invoke()
+uint64_t __ShareSheetLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   ShareSheetLibraryCore_frameworkLibrary = result;
@@ -2025,9 +2048,9 @@ uint64_t GetStartPageFromFormatter(void *a1)
   return v2;
 }
 
-void sub_25F6B5BFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25F6B5BFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2063,9 +2086,9 @@ uint64_t GetPageCountFromFormatter(void *a1)
   return v2;
 }
 
-void sub_25F6B5D10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25F6B5D10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2091,14 +2114,14 @@ void ReleasePrinter(CFTypeRef cf)
   }
 }
 
-uint64_t __GetStartPageFromFormatter_block_invoke(uint64_t a1)
+void *__GetStartPageFromFormatter_block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) startPage];
   *(*(*(a1 + 40) + 8) + 24) = result;
   return result;
 }
 
-uint64_t __GetPageCountFromFormatter_block_invoke(uint64_t a1)
+void *__GetPageCountFromFormatter_block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) pageCount];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -2483,11 +2506,11 @@ LABEL_61:
   return v31;
 }
 
-void NupManagerDrawASheet(CGContext *a1, uint64_t a2, CGPDFDocumentRef document, uint64_t a4, int a5)
+void NupManagerDrawASheet(CGContext *result, double *a2, CGPDFDocumentRef document, uint64_t a4, int a5)
 {
-  v9 = *(a2 + 96);
-  v10 = *(a2 + 104);
-  v11 = *(a2 + 112);
+  v9 = a2[12];
+  v10 = a2[13];
+  v11 = a2[14];
   if (v9 / v10 <= v11)
   {
     v10 = v9 / v11;
@@ -2498,9 +2521,9 @@ void NupManagerDrawASheet(CGContext *a1, uint64_t a2, CGPDFDocumentRef document,
     v9 = v10 * v11;
   }
 
-  if (*(a2 + 120))
+  if (*(a2 + 30))
   {
-    v12 = *(a2 + 80);
+    v12 = *(a2 + 20);
   }
 
   else
@@ -2508,15 +2531,15 @@ void NupManagerDrawASheet(CGContext *a1, uint64_t a2, CGPDFDocumentRef document,
     v12 = 0.0;
   }
 
-  v13 = *(a2 + 76);
+  v13 = *(a2 + 19);
   if (v13 <= 4)
   {
     if (v13 > 2)
     {
       if (v13 == 3)
       {
-        v14 = *(a2 + 72) - 1;
-        v15 = *(a2 + 68) - 1;
+        v14 = *(a2 + 18) - 1;
+        v15 = *(a2 + 17) - 1;
         v35 = -1;
         v16 = -1;
         v18 = -1;
@@ -2525,8 +2548,8 @@ void NupManagerDrawASheet(CGContext *a1, uint64_t a2, CGPDFDocumentRef document,
       else
       {
         v15 = 0;
-        v16 = *(a2 + 68);
-        v14 = *(a2 + 72) - 1;
+        v16 = *(a2 + 17);
+        v14 = *(a2 + 18) - 1;
         v18 = -1;
         v35 = 1;
       }
@@ -2546,7 +2569,7 @@ LABEL_34:
             do
             {
               v29 = *v28++;
-              NupDrawAtRowCol(a1, a2, v15, v14, document, v29, a5, 0.0, 0.0, v9, v10, v12);
+              NupDrawAtRowCol(result, a2, v15, v14, document, v29, a5, 0.0, 0.0, v9, v10, v12);
               v14 += v18;
               ++v27;
             }
@@ -2568,8 +2591,8 @@ LABEL_34:
     {
 LABEL_33:
       v14 = 0;
-      v17 = *(a2 + 72);
-      v15 = *(a2 + 68) - 1;
+      v17 = *(a2 + 18);
+      v15 = *(a2 + 17) - 1;
       v18 = 1;
       v35 = -1;
       v16 = -1;
@@ -2580,15 +2603,15 @@ LABEL_33:
     {
       v14 = 0;
       v15 = 0;
-      v16 = *(a2 + 68);
-      v17 = *(a2 + 72);
+      v16 = *(a2 + 17);
+      v17 = *(a2 + 18);
       v35 = 1;
       v18 = 1;
       goto LABEL_34;
     }
 
 LABEL_32:
-    fprintf(*MEMORY[0x277D85DF8], "DEBUG: Unhandled layout direction (%d) using kPKLayoutLeftRightTopBottom\n", *(a2 + 76));
+    fprintf(*MEMORY[0x277D85DF8], "DEBUG: Unhandled layout direction (%d) using kPKLayoutLeftRightTopBottom\n", *(a2 + 19));
     goto LABEL_33;
   }
 
@@ -2602,8 +2625,8 @@ LABEL_32:
       }
 
       v20 = 0;
-      v22 = *(a2 + 68);
-      v19 = *(a2 + 72) - 1;
+      v22 = *(a2 + 17);
+      v19 = *(a2 + 18) - 1;
       v36 = -1;
       v21 = 1;
       goto LABEL_20;
@@ -2611,8 +2634,8 @@ LABEL_32:
 
     v20 = 0;
     v19 = 0;
-    v22 = *(a2 + 68);
-    v23 = *(a2 + 72);
+    v22 = *(a2 + 17);
+    v23 = *(a2 + 18);
     v21 = 1;
     v36 = 1;
   }
@@ -2621,8 +2644,8 @@ LABEL_32:
   {
     if (v13 != 5)
     {
-      v19 = *(a2 + 72) - 1;
-      v20 = *(a2 + 68) - 1;
+      v19 = *(a2 + 18) - 1;
+      v20 = *(a2 + 17) - 1;
       v21 = -1;
       v22 = -1;
       v36 = -1;
@@ -2632,8 +2655,8 @@ LABEL_20:
     }
 
     v19 = 0;
-    v23 = *(a2 + 72);
-    v20 = *(a2 + 68) - 1;
+    v23 = *(a2 + 18);
+    v20 = *(a2 + 17) - 1;
     v36 = 1;
     v21 = -1;
     v22 = -1;
@@ -2653,7 +2676,7 @@ LABEL_25:
         do
         {
           v26 = *v25++;
-          NupDrawAtRowCol(a1, a2, v20, v19, document, v26, a5, 0.0, 0.0, v9, v10, v12);
+          NupDrawAtRowCol(result, a2, v20, v19, document, v26, a5, 0.0, 0.0, v9, v10, v12);
           v20 += v21;
           ++v24;
         }
@@ -3455,9 +3478,9 @@ void sub_25F6CA6B0(_Unwind_Exception *a1)
 
 void __GetImageForPHAssetSync_block_invoke_cold_1()
 {
-  dlerror();
-  v0 = abort_report_np();
-  [UIPrintInfo _createPrintSettingsForPrinter:v0];
+  v0 = dlerror();
+  abort_report_np("%s", v0);
+  [UIPrintInfo _createPrintSettingsForPrinter:];
 }
 
 CGRect CGPDFPageGetBoxRect(CGPDFPageRef page, CGPDFBox box)

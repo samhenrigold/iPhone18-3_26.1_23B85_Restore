@@ -56,9 +56,9 @@
   infoCopy = info;
   servicesCopy = services;
   volumesCopy = volumes;
-  v128.receiver = self;
-  v128.super_class = CacheDeleteOperation;
-  v12 = [(CacheDeleteOperation *)&v128 init];
+  v126.receiver = self;
+  v126.super_class = CacheDeleteOperation;
+  v12 = [(CacheDeleteOperation *)&v126 init];
   if (!v12)
   {
 LABEL_102:
@@ -80,7 +80,7 @@ LABEL_102:
       if (v16)
       {
         *buf = 138412290;
-        v136 = v14;
+        v134 = v14;
         _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Client specified timeout: %@", buf, 0xCu);
       }
 
@@ -98,7 +98,7 @@ LABEL_102:
       if (v16)
       {
         *buf = 67109120;
-        LODWORD(v136) = 600;
+        LODWORD(v134) = 600;
         _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Client specified no timeout. Using : %d", buf, 8u);
       }
 
@@ -106,8 +106,8 @@ LABEL_102:
       v17 = 600.0;
     }
 
-    v105 = v14;
-    v106 = servicesCopy;
+    v103 = v14;
+    v104 = servicesCopy;
     v12->_timeout_seconds = v17;
     v12->_clientSpecifiedTimeout = v18;
     v12->_start_time = 0.0;
@@ -122,31 +122,31 @@ LABEL_102:
     v12->_measureElapsedTime = evaluateBoolProperty();
 
     v27 = [[NSMutableArray alloc] initWithCapacity:{objc_msgSend(volumesCopy, "count")}];
-    v104 = v12;
+    v102 = v12;
     if (volumesCopy && [volumesCopy count])
     {
-      v101 = volumesCopy;
-      v102 = infoCopy;
-      v126 = 0u;
-      v127 = 0u;
+      v99 = volumesCopy;
+      v100 = infoCopy;
       v124 = 0u;
       v125 = 0u;
+      v122 = 0u;
+      v123 = 0u;
       v28 = volumesCopy;
-      v29 = [v28 countByEnumeratingWithState:&v124 objects:v134 count:16];
+      v29 = [v28 countByEnumeratingWithState:&v122 objects:v132 count:16];
       if (v29)
       {
         v30 = v29;
-        v31 = *v125;
+        v31 = *v123;
         do
         {
           for (i = 0; i != v30; i = i + 1)
           {
-            if (*v125 != v31)
+            if (*v123 != v31)
             {
               objc_enumerationMutation(v28);
             }
 
-            v33 = *(*(&v124 + 1) + 8 * i);
+            v33 = *(*(&v122 + 1) + 8 * i);
             if (([v33 validate] & 1) == 0)
             {
               v34 = CDGetLogHandle();
@@ -154,7 +154,7 @@ LABEL_102:
               {
                 mountPoint = [v33 mountPoint];
                 *buf = 138543362;
-                v136 = mountPoint;
+                v134 = mountPoint;
                 _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "Volume became invalid: %{public}@", buf, 0xCu);
               }
             }
@@ -165,7 +165,7 @@ LABEL_102:
             }
           }
 
-          v30 = [v28 countByEnumeratingWithState:&v124 objects:v134 count:16];
+          v30 = [v28 countByEnumeratingWithState:&v122 objects:v132 count:16];
         }
 
         while (v30);
@@ -193,57 +193,57 @@ LABEL_34:
         v47 = NSStringFromClass(v46);
         v48 = [NSString stringWithFormat:@"%s_%@_response.%p", "com.apple.cache_delete", v47, v12];
 
-        v100 = v48;
+        v98 = v48;
         v49 = dispatch_queue_create([v48 UTF8String], 0);
         response_queue = v12->_response_queue;
         v12->_response_queue = v49;
 
-        servicesCopy = v106;
-        v51 = [v106 mutableCopy];
-        v107 = +[NSMutableSet set];
+        servicesCopy = v104;
+        v51 = [v104 mutableCopy];
+        v105 = +[NSMutableSet set];
+        v118 = 0u;
+        v119 = 0u;
         v120 = 0u;
         v121 = 0u;
-        v122 = 0u;
-        v123 = 0u;
         v52 = v12->_volumes;
-        v53 = [(NSArray *)v52 countByEnumeratingWithState:&v120 objects:v132 count:16];
+        v53 = [(NSArray *)v52 countByEnumeratingWithState:&v118 objects:v130 count:16];
         if (v53)
         {
           v54 = v53;
-          v55 = *v121;
+          v55 = *v119;
           while (2)
           {
             for (j = 0; j != v54; j = j + 1)
             {
-              if (*v121 != v55)
+              if (*v119 != v55)
               {
                 objc_enumerationMutation(v52);
               }
 
-              if (![*(*(&v120 + 1) + 8 * j) isRoot])
+              if (![*(*(&v118 + 1) + 8 * j) isRoot])
               {
 
-                v118 = 0u;
-                v119 = 0u;
                 v116 = 0u;
                 v117 = 0u;
+                v114 = 0u;
+                v115 = 0u;
                 v52 = v51;
-                v57 = [(NSArray *)v52 countByEnumeratingWithState:&v116 objects:v131 count:16];
+                v57 = [(NSArray *)v52 countByEnumeratingWithState:&v114 objects:v129 count:16];
                 if (v57)
                 {
                   v58 = v57;
-                  v59 = *v117;
+                  v59 = *v115;
                   while (2)
                   {
                     for (k = 0; k != v58; k = k + 1)
                     {
-                      if (*v117 != v59)
+                      if (*v115 != v59)
                       {
                         objc_enumerationMutation(v52);
                       }
 
-                      v61 = *(*(&v116 + 1) + 8 * k);
-                      v62 = [v106 objectForKeyedSubscript:v61];
+                      v61 = *(*(&v114 + 1) + 8 * k);
+                      v62 = [v104 objectForKeyedSubscript:v61];
                       if ([v62 rootOnly])
                       {
                         if ([(NSArray *)v12->_volumes count]!= 1)
@@ -253,11 +253,11 @@ LABEL_34:
                           goto LABEL_58;
                         }
 
-                        [v107 addObject:v61];
+                        [v105 addObject:v61];
                       }
                     }
 
-                    v58 = [(NSArray *)v52 countByEnumeratingWithState:&v116 objects:v131 count:16];
+                    v58 = [(NSArray *)v52 countByEnumeratingWithState:&v114 objects:v129 count:16];
                     if (v58)
                     {
                       continue;
@@ -271,7 +271,7 @@ LABEL_34:
               }
             }
 
-            v54 = [(NSArray *)v52 countByEnumeratingWithState:&v120 objects:v132 count:16];
+            v54 = [(NSArray *)v52 countByEnumeratingWithState:&v118 objects:v130 count:16];
             if (v54)
             {
               continue;
@@ -295,37 +295,37 @@ LABEL_58:
             if (os_log_type_enabled(v67, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138543362;
-              v136 = v65;
+              v134 = v65;
               _os_log_impl(&_mh_execute_header, v68, OS_LOG_TYPE_DEFAULT, "filtering for user specified services: %{public}@", buf, 0xCu);
             }
 
-            v114 = 0u;
-            v115 = 0u;
             v112 = 0u;
             v113 = 0u;
+            v110 = 0u;
+            v111 = 0u;
             v68 = v51;
-            v69 = [v68 countByEnumeratingWithState:&v112 objects:v130 count:16];
+            v69 = [v68 countByEnumeratingWithState:&v110 objects:v128 count:16];
             if (v69)
             {
               v70 = v69;
-              v71 = *v113;
+              v71 = *v111;
               do
               {
                 for (m = 0; m != v70; m = m + 1)
                 {
-                  if (*v113 != v71)
+                  if (*v111 != v71)
                   {
                     objc_enumerationMutation(v68);
                   }
 
-                  v73 = *(*(&v112 + 1) + 8 * m);
+                  v73 = *(*(&v110 + 1) + 8 * m);
                   if (([v65 containsObject:v73] & 1) == 0)
                   {
-                    [v107 addObject:v73];
+                    [v105 addObject:v73];
                   }
                 }
 
-                v70 = [v68 countByEnumeratingWithState:&v112 objects:v130 count:16];
+                v70 = [v68 countByEnumeratingWithState:&v110 objects:v128 count:16];
               }
 
               while (v70);
@@ -335,13 +335,13 @@ LABEL_58:
           else if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
           {
             *buf = 138543362;
-            v136 = v65;
+            v134 = v65;
             _os_log_error_impl(&_mh_execute_header, v68, OS_LOG_TYPE_ERROR, "unsupported type for CACHE_DELETE_SERVICES_KEY: %{public}@", buf, 0xCu);
           }
         }
 
         v74 = [(NSMutableDictionary *)v12->_result objectForKeyedSubscript:@"CACHE_DELETE_QUOTA_EVENT"];
-        v98 = v74;
+        v96 = v74;
         if (v74 && (v75 = v74, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
         {
           bOOLValue = [v75 BOOLValue];
@@ -352,27 +352,27 @@ LABEL_58:
           bOOLValue = 0;
         }
 
-        v110 = 0u;
-        v111 = 0u;
         v108 = 0u;
         v109 = 0u;
+        v106 = 0u;
+        v107 = 0u;
         obj = v51;
         v77 = v51;
-        v78 = [v77 countByEnumeratingWithState:&v108 objects:v129 count:16];
+        v78 = [v77 countByEnumeratingWithState:&v106 objects:v127 count:16];
         if (v78)
         {
           v79 = v78;
-          v80 = *v109;
+          v80 = *v107;
           do
           {
             for (n = 0; n != v79; n = n + 1)
             {
-              if (*v109 != v80)
+              if (*v107 != v80)
               {
                 objc_enumerationMutation(v77);
               }
 
-              v82 = *(*(&v108 + 1) + 8 * n);
+              v82 = *(*(&v106 + 1) + 8 * n);
               v83 = [servicesCopy objectForKeyedSubscript:v82];
               v84 = v83;
               if (bOOLValue && [v83 noQuota])
@@ -381,16 +381,16 @@ LABEL_58:
                 if (os_log_type_enabled(v85, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138543362;
-                  v136 = v82;
+                  v134 = v82;
                   _os_log_impl(&_mh_execute_header, v85, OS_LOG_TYPE_DEFAULT, "removing noQuota service %{public}@ for this quota event", buf, 0xCu);
                 }
 
-                [v107 addObject:v82];
-                servicesCopy = v106;
+                [v105 addObject:v82];
+                servicesCopy = v104;
               }
             }
 
-            v79 = [v77 countByEnumeratingWithState:&v108 objects:v129 count:16];
+            v79 = [v77 countByEnumeratingWithState:&v106 objects:v127 count:16];
           }
 
           while (v79);
@@ -400,67 +400,65 @@ LABEL_58:
         if (os_log_type_enabled(v86, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543362;
-          v136 = v107;
+          v134 = v105;
           _os_log_impl(&_mh_execute_header, v86, OS_LOG_TYPE_DEFAULT, "removing filtered services: %{public}@", buf, 0xCu);
         }
 
-        allObjects = [v107 allObjects];
+        allObjects = [v105 allObjects];
         [v77 removeObjectsForKeys:allObjects];
 
-        v12 = v104;
-        objc_storeStrong(&v104->_services, obj);
-        objc_storeStrong(&v104->_info, infoCopy2);
-        v88 = [(NSDictionary *)v104->_info objectForKeyedSubscript:@"CACHE_DELETE_URGENCY"];
+        v12 = v102;
+        objc_storeStrong(&v102->_services, obj);
+        objc_storeStrong(&v102->_info, infoCopy2);
+        v88 = [(NSDictionary *)v102->_info objectForKeyedSubscript:@"CACHE_DELETE_URGENCY"];
         objc_opt_class();
-        volumesCopy = v101;
-        infoCopy = v102;
+        volumesCopy = v99;
+        infoCopy = v100;
         if (objc_opt_isKindOfClass())
         {
           v89 = CDGetLogHandle();
           if (os_log_type_enabled(v89, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
-            v136 = v88;
+            v134 = v88;
             _os_log_impl(&_mh_execute_header, v89, OS_LOG_TYPE_DEFAULT, "User specified CACHE_DELETE_URGENCY: %{public}@", buf, 0xCu);
           }
         }
 
-        info = v104->_info;
-        v91 = evaluateUrgency();
-        v104->_urgency = [v91 intValue];
+        v90 = evaluateUrgency();
+        v102->_urgency = [v90 intValue];
 
-        v92 = [(NSDictionary *)v104->_info objectForKeyedSubscript:@"CACHE_DELETE_URGENCY_LIMIT"];
+        v91 = [(NSDictionary *)v102->_info objectForKeyedSubscript:@"CACHE_DELETE_URGENCY_LIMIT"];
 
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v93 = CDGetLogHandle();
-          if (os_log_type_enabled(v93, OS_LOG_TYPE_DEFAULT))
+          v92 = CDGetLogHandle();
+          if (os_log_type_enabled(v92, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
-            v136 = v92;
-            _os_log_impl(&_mh_execute_header, v93, OS_LOG_TYPE_DEFAULT, "User specified CACHE_DELETE_URGENCY_LIMIT: %{public}@", buf, 0xCu);
+            v134 = v91;
+            _os_log_impl(&_mh_execute_header, v92, OS_LOG_TYPE_DEFAULT, "User specified CACHE_DELETE_URGENCY_LIMIT: %{public}@", buf, 0xCu);
           }
         }
 
-        v94 = v104->_info;
-        v95 = evaluateUrgencyLimit();
-        v104->_urgencyLimit = [v95 intValue];
+        v93 = evaluateUrgencyLimit();
+        v102->_urgencyLimit = [v93 intValue];
 
         goto LABEL_102;
       }
 
       p_super = CDGetLogHandle();
-      v64 = v105;
+      v64 = v103;
       if (os_log_type_enabled(p_super, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v136 = v28;
+        v134 = v28;
         _os_log_error_impl(&_mh_execute_header, p_super, OS_LOG_TYPE_ERROR, "Failing to create operation: no valid volumes! (%{public}@)", buf, 0xCu);
       }
 
-      volumesCopy = v101;
-      infoCopy = v102;
+      volumesCopy = v99;
+      infoCopy = v100;
     }
 
     else
@@ -470,10 +468,10 @@ LABEL_58:
 
       if ([p_super validate])
       {
-        v101 = volumesCopy;
-        v102 = infoCopy;
-        v133 = p_super;
-        v39 = [NSArray arrayWithObjects:&v133 count:1];
+        v99 = volumesCopy;
+        v100 = infoCopy;
+        v131 = p_super;
+        v39 = [NSArray arrayWithObjects:&v131 count:1];
         [(CacheDeleteOperation *)v12 setVolumes:v39];
 
         goto LABEL_34;
@@ -482,17 +480,17 @@ LABEL_58:
       v63 = CDGetLogHandle();
       if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
       {
-        v97 = [(NSMutableDictionary *)v12->_result objectForKeyedSubscript:@"CACHE_DELETE_VOLUME"];
+        v95 = [(NSMutableDictionary *)v12->_result objectForKeyedSubscript:@"CACHE_DELETE_VOLUME"];
         *buf = 138543362;
-        v136 = v97;
+        v134 = v95;
         _os_log_error_impl(&_mh_execute_header, v63, OS_LOG_TYPE_ERROR, "CacheDeleteOperation unable to validate volume: %{public}@", buf, 0xCu);
       }
 
-      v64 = v105;
+      v64 = v103;
     }
 
     v22 = 0;
-    servicesCopy = v106;
+    servicesCopy = v104;
     goto LABEL_107;
   }
 

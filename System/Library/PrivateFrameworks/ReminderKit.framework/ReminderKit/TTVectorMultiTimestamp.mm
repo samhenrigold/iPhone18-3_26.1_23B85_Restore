@@ -199,7 +199,8 @@
   dataCopy = data;
   topotext::VectorTimestamp::VectorTimestamp(v12);
   bytes = [dataCopy bytes];
-  v8 = TTBoundedCheckedCastNSUIntegerToUInt32([dataCopy length]);
+  [dataCopy length];
+  TTBoundedCheckedCastNSUIntegerToUInt32();
   if (google::protobuf::MessageLite::ParseFromArray(v12, bytes, v8))
   {
     self = [(TTVectorMultiTimestamp *)self initWithArchive:v12 andCapacity:capacity];
@@ -336,33 +337,33 @@ LABEL_29:
 
 - (void)saveToArchive:(void *)archive
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   obj = [(TTVectorMultiTimestamp *)self sortedUUIDs];
-  v5 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
+  v5 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
   if (v5)
   {
-    v24 = *v26;
+    v23 = *v25;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v26 != v24)
+        if (*v25 != v23)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v25 + 1) + 8 * i);
+        v7 = *(*(&v24 + 1) + 8 * i);
         v8 = *(archive + 13);
         v9 = *(archive + 12);
         if (v9 >= v8)
         {
           if (v8 == *(archive + 14))
           {
-            google::protobuf::internal::RepeatedPtrFieldBase::Reserve(archive + 5, v8 + 1);
+            google::protobuf::internal::RepeatedPtrFieldBase::Reserve(archive + 10, v8 + 1);
           }
 
           google::protobuf::internal::GenericTypeHandler<topotext::VectorTimestamp_Clock>::New();
@@ -371,9 +372,9 @@ LABEL_29:
         v10 = *(archive + 5);
         *(archive + 12) = v9 + 1;
         v11 = *(v10 + 8 * v9);
-        v29[0] = 0;
-        v29[1] = 0;
-        [v7 getUUIDBytes:v29];
+        v28[0] = 0;
+        v28[1] = 0;
+        [v7 getUUIDBytes:v28];
         *(v11 + 32) |= 1u;
         if (!google::protobuf::internal::empty_string_)
         {
@@ -411,14 +412,16 @@ LABEL_29:
             v19 = *(v18 + 8 * v17);
             if ([v15 clock])
             {
-              v20 = TTBoundedCheckedCastNSUIntegerToUInt32([v15 clock]);
+              [v15 clock];
+              TTBoundedCheckedCastNSUIntegerToUInt32();
               v19[8] |= 1u;
               v19[10] = v20;
             }
 
             if ([v15 subclock])
             {
-              v21 = TTBoundedCheckedCastNSUIntegerToUInt32([v15 subclock]);
+              [v15 subclock];
+              TTBoundedCheckedCastNSUIntegerToUInt32();
               v19[8] |= 2u;
               v19[11] = v21;
             }
@@ -426,13 +429,11 @@ LABEL_29:
         }
       }
 
-      v5 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v5 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
     }
 
     while (v5);
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (id)serialize
@@ -440,7 +441,8 @@ LABEL_29:
   [(TTVectorMultiTimestamp *)self saveToArchive:v6, topotext::VectorTimestamp::VectorTimestamp(v6)];
   v2 = [objc_alloc(MEMORY[0x1E695DF88]) initWithLength:topotext::VectorTimestamp::ByteSize(v6)];
   mutableBytes = [v2 mutableBytes];
-  v4 = TTBoundedCheckedCastNSUIntegerToUInt32([v2 length]);
+  [v2 length];
+  TTBoundedCheckedCastNSUIntegerToUInt32();
   google::protobuf::MessageLite::SerializeToArray(v6, mutableBytes, v4);
   topotext::VectorTimestamp::~VectorTimestamp(v6);
 

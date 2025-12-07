@@ -4,7 +4,9 @@
 - ($B716781559FB179C01A6A83DB44EE660)copyPoly:(id *)poly;
 - ($B716781559FB179C01A6A83DB44EE660)createMonomial:(int)monomial coefficient:(int)coefficient;
 - ($B716781559FB179C01A6A83DB44EE660)divide:(id *)divide by:(id *)by;
+- ($B716781559FB179C01A6A83DB44EE660)multiplyByMonomial:(id *)monomial degree:(int)degree coefficient:(int)coefficient;
 - ($B716781559FB179C01A6A83DB44EE660)multiplyPoly:(id *)poly with:(id *)with;
+- (BOOL)encode:(int *)encode length:(int)length bytes:(int)bytes;
 - (BOOL)fillPoly:(id *)poly coefficients:(int *)coefficients length:(int)length;
 - (id)initReedSolomon;
 - (int)inverse:(int)inverse;
@@ -77,7 +79,7 @@ LABEL_13:
     return self->_expTable[255 - self->_logTable[inverse]];
   }
 
-  v4 = sub_D58();
+  v4 = sub_D58(self, a2);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     sub_F1A0();
@@ -114,7 +116,7 @@ LABEL_13:
 {
   if (monomial < 0)
   {
-    v11 = sub_D58();
+    v11 = sub_D58(self, a2);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_F1D4();
@@ -226,7 +228,7 @@ LABEL_25:
 
   else
   {
-    v10 = sub_D58();
+    v10 = sub_D58(self, a2);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_F208();
@@ -258,7 +260,7 @@ LABEL_25:
     }
   }
 
-  v6 = sub_D58();
+  v6 = sub_D58(self, a2);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     sub_F23C();
@@ -497,25 +499,84 @@ LABEL_7:
   return result;
 }
 
+- ($B716781559FB179C01A6A83DB44EE660)multiplyByMonomial:(id *)monomial degree:(int)degree coefficient:(int)coefficient
+{
+  if (!monomial || degree < 0)
+  {
+    v14 = sub_D58(self, a2);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    {
+      sub_F270();
+    }
+
+    return 0;
+  }
+
+  v5 = *&coefficient;
+  if (coefficient)
+  {
+    var1 = monomial->var1;
+    v9 = var1 + degree;
+    result = malloc_type_calloc(var1 + degree, 4uLL, 0x100004052888210uLL);
+    if (!result)
+    {
+      return result;
+    }
+
+    v11 = result;
+    if (var1 >= 1)
+    {
+      v12 = 0;
+      v13 = 4 * var1;
+      do
+      {
+        v11[v12 / 4] = [(CIReedSolomon *)self multiply:monomial->var0[v12 / 4] with:v5];
+        v12 += 4;
+      }
+
+      while (v13 != v12);
+    }
+
+    result = malloc_type_calloc(1uLL, 0x10uLL, 0x1010040A1D9428BuLL);
+    if (result)
+    {
+      result->var0 = v11;
+      result->var1 = v9;
+      return result;
+    }
+
+    free(v11);
+    return 0;
+  }
+
+  result = malloc_type_calloc(1uLL, 0x10uLL, 0x1010040A1D9428BuLL);
+  if (result)
+  {
+    result->var1 = 0;
+  }
+
+  return result;
+}
+
 - ($B716781559FB179C01A6A83DB44EE660)divide:(id *)divide by:(id *)by
 {
-  if (divide && by && ![(CIReedSolomon *)self isZero:by->var0, *&by->var1])
+  if (divide && by && (v6 = self, self = [(CIReedSolomon *)self isZero:by->var0, *&by->var1], !self))
   {
-    v9 = [(CIReedSolomon *)self copyPoly:divide];
-    v10 = [(CIReedSolomon *)self inverse:[(CIReedSolomon *)self polyCoefficient:by degree:[(CIReedSolomon *)self Degree:by->var0, *&by->var1]]];
+    v9 = [(CIReedSolomon *)v6 copyPoly:divide];
+    v10 = [(CIReedSolomon *)v6 inverse:[(CIReedSolomon *)v6 polyCoefficient:by degree:[(CIReedSolomon *)v6 Degree:by->var0, *&by->var1]]];
     while (1)
     {
-      v11 = [(CIReedSolomon *)self Degree:v9->var0, *&v9->var1];
-      if (v11 < [(CIReedSolomon *)self Degree:by->var0, *&by->var1])
+      v11 = [(CIReedSolomon *)v6 Degree:v9->var0, *&v9->var1];
+      if (v11 < [(CIReedSolomon *)v6 Degree:by->var0, *&by->var1])
       {
         break;
       }
 
-      v12 = [(CIReedSolomon *)self multiplyByMonomial:by degree:[(CIReedSolomon *)self Degree:v9->var0 coefficient:*&v9->var1]- [(CIReedSolomon *)self Degree:by->var0, *&by->var1], [(CIReedSolomon *)self multiply:[(CIReedSolomon *)self polyCoefficient:v9 degree:[(CIReedSolomon *)self Degree:v9->var0 with:*&v9->var1]], v10]];
-      v13 = [(CIReedSolomon *)self addOrSubtractPoly:v9 with:v12];
-      [(CIReedSolomon *)self clearPoly:v12];
+      v12 = [(CIReedSolomon *)v6 multiplyByMonomial:by degree:[(CIReedSolomon *)v6 Degree:v9->var0 coefficient:*&v9->var1]- [(CIReedSolomon *)v6 Degree:by->var0, *&by->var1], [(CIReedSolomon *)v6 multiply:[(CIReedSolomon *)v6 polyCoefficient:v9 degree:[(CIReedSolomon *)v6 Degree:v9->var0 with:*&v9->var1]], v10]];
+      v13 = [(CIReedSolomon *)v6 addOrSubtractPoly:v9 with:v12];
+      [(CIReedSolomon *)v6 clearPoly:v12];
       free(v12);
-      [(CIReedSolomon *)self clearPoly:v9];
+      [(CIReedSolomon *)v6 clearPoly:v9];
       free(v9);
       v9 = v13;
     }
@@ -530,7 +591,7 @@ LABEL_7:
 
     else
     {
-      [(CIReedSolomon *)self clearPoly:v9];
+      [(CIReedSolomon *)v6 clearPoly:v9];
     }
 
     free(v9);
@@ -538,7 +599,7 @@ LABEL_7:
 
   else
   {
-    v7 = sub_D58();
+    v7 = sub_D58(self, a2);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_F2A4();
@@ -610,6 +671,135 @@ LABEL_7:
   }
 
   return 0;
+}
+
+- (BOOL)encode:(int *)encode length:(int)length bytes:(int)bytes
+{
+  if (!bytes)
+  {
+    v30 = sub_D58(self, a2);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    {
+      sub_F30C();
+    }
+
+    goto LABEL_26;
+  }
+
+  v5 = *&bytes;
+  v6 = (length - bytes);
+  if (length <= bytes)
+  {
+    v30 = sub_D58(self, a2);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    {
+      sub_F2D8();
+    }
+
+LABEL_26:
+
+LABEL_30:
+    LOBYTE(v10) = 0;
+    return v10;
+  }
+
+  v9 = [(CIReedSolomon *)self buildGenerator:*&bytes];
+  v10 = malloc_type_calloc(v6, 4uLL, 0x100004052888210uLL);
+  if (!v10)
+  {
+    return v10;
+  }
+
+  v11 = v10;
+  v12 = 0;
+  do
+  {
+    *&v10[v12 * 4] = encode[v12];
+    ++v12;
+  }
+
+  while (v6 != v12);
+  v13 = malloc_type_calloc(1uLL, 0x10uLL, 0x1010040A1D9428BuLL);
+  if (!v13)
+  {
+    v31 = v11;
+LABEL_29:
+    free(v31);
+    goto LABEL_30;
+  }
+
+  v14 = v13;
+  v15 = [(CIReedSolomon *)self fillPoly:v13 coefficients:v11 length:v6];
+  free(v11);
+  if ((v15 & 1) == 0)
+  {
+    v31 = v14;
+    goto LABEL_29;
+  }
+
+  v16 = [(CIReedSolomon *)self multiplyByMonomial:v14 degree:v5 coefficient:1];
+  [(CIReedSolomon *)self clearPoly:v14];
+  free(v14);
+  v17 = [(CIReedSolomon *)self divide:v16 by:v9];
+  [(CIReedSolomon *)self clearPoly:v16];
+  free(v16);
+  var0 = v17->var0;
+  var1 = v17->var1;
+  v20 = (v5 - var1);
+  if (v20 >= 1)
+  {
+    v21 = (v20 + 3) & 0xFFFFFFFC;
+    v22 = vdupq_n_s64(v20 - 1);
+    v23 = &encode[v6 + 2];
+    v24 = xmmword_14970;
+    v25 = xmmword_14980;
+    v26 = vdupq_n_s64(4uLL);
+    do
+    {
+      v27 = vmovn_s64(vcgeq_u64(v22, v25));
+      if (vuzp1_s16(v27, *v22.i8).u8[0])
+      {
+        *(v23 - 2) = 0;
+      }
+
+      if (vuzp1_s16(v27, *&v22).i8[2])
+      {
+        *(v23 - 1) = 0;
+      }
+
+      if (vuzp1_s16(*&v22, vmovn_s64(vcgeq_u64(v22, *&v24))).i32[1])
+      {
+        *v23 = 0;
+        v23[1] = 0;
+      }
+
+      v24 = vaddq_s64(v24, v26);
+      v25 = vaddq_s64(v25, v26);
+      v23 += 4;
+      v21 -= 4;
+    }
+
+    while (v21);
+    var1 = v17->var1;
+  }
+
+  if (var1 >= 1)
+  {
+    v28 = 0;
+    v29 = &encode[v20 + v6];
+    do
+    {
+      v29[v28] = var0[v28];
+      ++v28;
+    }
+
+    while (v28 < v17->var1);
+  }
+
+  [(CIReedSolomon *)self clearPoly:v17];
+  free(v17);
+  LOBYTE(v10) = 1;
+  return v10;
 }
 
 - (void)dealloc

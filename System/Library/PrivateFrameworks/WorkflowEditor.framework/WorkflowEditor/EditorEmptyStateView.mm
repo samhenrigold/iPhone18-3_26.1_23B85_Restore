@@ -7,7 +7,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_2745B665C();
+  sub_2745B665C(selfCopy);
 }
 
 @end

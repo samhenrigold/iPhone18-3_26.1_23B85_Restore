@@ -1,8 +1,8 @@
 @interface BWStreamingCVAFilterRendererParameters
 - (BWStreamingCVAFilterRendererParameters)initWithColorFilter:(id)filter colorLookupCache:(id)cache studioAndContourRenderingEnabled:(BOOL)enabled stageRenderingEnabled:(BOOL)renderingEnabled;
+- (_BYTE)_ensureParametersForColorFilter:(uint64_t *)filter outputRenderingStrategy:;
 - (id)copyWithZone:(_NSZone *)zone;
 - (int)prepareForRenderingWithInputVideoFormat:(id)format;
-- (uint64_t)_ensureParametersForColorFilter:(uint64_t *)filter outputRenderingStrategy:;
 - (void)dealloc;
 - (void)setColorFilter:(id)filter;
 - (void)updateByInterpolatingFromParameters:(id)parameters toParameters:(id)toParameters withFractionComplete:(float)complete;
@@ -31,48 +31,48 @@
   return v10;
 }
 
-- (uint64_t)_ensureParametersForColorFilter:(uint64_t *)filter outputRenderingStrategy:
+- (_BYTE)_ensureParametersForColorFilter:(uint64_t *)filter outputRenderingStrategy:
 {
   if (result && a2)
   {
     v5 = result;
-    result = [objc_msgSend(a2 "name")];
-    if ((result & 1) != 0 || (result = [objc_msgSend(a2 "name")], result))
+    result = objc_msgSend_isEqualToString_([a2 name]);
+    if ((result & 1) != 0 || (result = objc_msgSend_isEqualToString_([a2 name]), result))
     {
-      v6 = *(v5 + 40) == 0;
+      v6 = v5[40] == 0;
       v7 = 1;
     }
 
     else
     {
-      result = [objc_msgSend(a2 "name")];
-      if ((result & 1) != 0 || (result = [objc_msgSend(a2 "name")], result))
+      result = objc_msgSend_isEqualToString_([a2 name]);
+      if ((result & 1) != 0 || (result = objc_msgSend_isEqualToString_([a2 name]), result))
       {
-        v6 = *(v5 + 40) == 0;
+        v6 = v5[40] == 0;
         v7 = 3;
       }
 
       else
       {
-        result = [objc_msgSend(a2 "name")];
-        if ((result & 1) != 0 || (result = [objc_msgSend(a2 "name")], result))
+        result = objc_msgSend_isEqualToString_([a2 name]);
+        if ((result & 1) != 0 || (result = objc_msgSend_isEqualToString_([a2 name]), result))
         {
-          v6 = *(v5 + 41) == 0;
+          v6 = v5[41] == 0;
           v7 = 5;
         }
 
         else
         {
-          result = [objc_msgSend(a2 "name")];
-          if ((result & 1) != 0 || (result = [objc_msgSend(a2 "name")], result))
+          result = objc_msgSend_isEqualToString_([a2 name]);
+          if ((result & 1) != 0 || (result = objc_msgSend_isEqualToString_([a2 name]), result))
           {
-            v6 = *(v5 + 41) == 0;
+            v6 = v5[41] == 0;
             v7 = 7;
           }
 
           else
           {
-            result = [objc_msgSend(a2 "name")];
+            result = objc_msgSend_isEqualToString_([a2 name]);
             if (!result)
             {
               v7 = 0;
@@ -84,7 +84,7 @@
               goto LABEL_9;
             }
 
-            v6 = *(v5 + 41) == 0;
+            v6 = v5[41] == 0;
             v7 = 9;
           }
         }
@@ -249,20 +249,6 @@ LABEL_9:
 
     [(BWStreamingCVAFilterRendererParameters *)self _ensureParametersForColorFilter:filter outputRenderingStrategy:&self->_renderingStrategy];
   }
-}
-
-- (uint64_t)updateByInterpolatingFromParameters:toParameters:withFractionComplete:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)updateByInterpolatingFromParameters:toParameters:withFractionComplete:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
 }
 
 @end

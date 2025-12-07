@@ -58,9 +58,9 @@
     [SKUIJSITunesStore initWithAppContext:clientContext:];
   }
 
-  v14.receiver = self;
-  v14.super_class = SKUIJSITunesStore;
-  v8 = [(IKJSITunesStore *)&v14 initWithAppContext:contextCopy];
+  v16.receiver = self;
+  v16.super_class = SKUIJSITunesStore;
+  v8 = [(IKJSITunesStore *)&v16 initWithAppContext:contextCopy];
   v9 = v8;
   if (v8)
   {
@@ -71,8 +71,8 @@
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
     [defaultCenter addObserver:v9 selector:sel__purchaseRequestDidSucceedNotification_ name:0x2827FFF68 object:0];
 
-    v12 = SKUIMediaPlayerFramework();
-    [SKUIWeakLinkedClassForString(&cfstr_Mpmediaquery.isa v12)];
+    v14 = SKUIMediaPlayerFramework(v12, v13);
+    [SKUIWeakLinkedClassForString(&cfstr_Mpmediaquery.isa v14)];
   }
 
   return v9;
@@ -231,13 +231,13 @@ void __47__SKUIJSITunesStore_applicationIconBadgeNumber__block_invoke(uint64_t a
 - (void)attemptLocalAskToBuyApproval:(id)approval
 {
   approvalCopy = approval;
-  v4 = SKUIAskPermissionFramework();
-  v5 = SKUIWeakLinkedClassForString(&cfstr_Prrequestqueue.isa, v4);
-  v6 = SKUIAskPermissionFramework();
-  v8 = [v5 _requestQueueForIdentifier:{*SKUIWeakLinkedSymbolForString("kPRRequestQueueiTunesStoreIdentifier", v6)}];
+  v5 = SKUIAskPermissionFramework(approvalCopy, v4);
+  v6 = SKUIWeakLinkedClassForString(&cfstr_Prrequestqueue.isa, v5);
+  v8 = SKUIAskPermissionFramework(v6, v7);
+  v10 = [v6 _requestQueueForIdentifier:{*SKUIWeakLinkedSymbolForString("kPRRequestQueueiTunesStoreIdentifier", v8)}];
   longLongValue = [approvalCopy longLongValue];
 
-  [v8 _attemptLocalApprovalForStorePurchaseRequestWithItemIdentifier:longLongValue completionHandler:0];
+  [v10 _attemptLocalApprovalForStorePurchaseRequestWithItemIdentifier:longLongValue completionHandler:0];
 }
 
 - (void)buy:(id)buy
@@ -368,27 +368,27 @@ void __25__SKUIJSITunesStore_buy___block_invoke_4(uint64_t a1, void *a2)
 
   virtualMachine = [context virtualMachine];
 
-  [virtualMachine addManagedReference:v9 withOwner:self];
-  v12 = SKUIAskPermissionFramework();
-  v13 = SKUIWeakLinkedClassForString(&cfstr_Prrequestqueue.isa, v12);
-  v14 = SKUIAskPermissionFramework();
-  v15 = *SKUIWeakLinkedSymbolForString("kPRRequestQueueiTunesStoreIdentifier", v14);
-  v16 = [v13 _requestQueueForIdentifier:v15];
+  v12 = [virtualMachine addManagedReference:v9 withOwner:self];
+  v14 = SKUIAskPermissionFramework(v12, v13);
+  v15 = SKUIWeakLinkedClassForString(&cfstr_Prrequestqueue.isa, v14);
+  v17 = SKUIAskPermissionFramework(v15, v16);
+  v18 = *SKUIWeakLinkedSymbolForString("kPRRequestQueueiTunesStoreIdentifier", v17);
+  v19 = [v15 _requestQueueForIdentifier:v18];
   longLongValue = [personCopy longLongValue];
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __38__SKUIJSITunesStore_approveInPerson::__block_invoke;
-  v22[3] = &unk_2781FAB78;
-  v23 = appContext;
-  v24 = v9;
-  v25 = personCopy;
-  v26 = virtualMachine;
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __38__SKUIJSITunesStore_approveInPerson::__block_invoke;
+  v25[3] = &unk_2781FAB78;
+  v26 = appContext;
+  v27 = v9;
+  v28 = personCopy;
+  v29 = virtualMachine;
   selfCopy = self;
-  v18 = virtualMachine;
-  v19 = personCopy;
-  v20 = v9;
-  v21 = appContext;
-  [v16 _attemptLocalApprovalForStorePurchaseRequestWithItemIdentifier:longLongValue completionHandler:v22];
+  v21 = virtualMachine;
+  v22 = personCopy;
+  v23 = v9;
+  v24 = appContext;
+  [v19 _attemptLocalApprovalForStorePurchaseRequestWithItemIdentifier:longLongValue completionHandler:v25];
 }
 
 void __38__SKUIJSITunesStore_approveInPerson::__block_invoke(uint64_t a1, uint64_t a2, char a3)
@@ -937,7 +937,7 @@ void __45__SKUIJSITunesStore_findToggleStateForItem::__block_invoke(uint64_t a1)
   [v15 getAdminStatusWithOptions:statusCopy resultBlock:v19];
 }
 
-void __37__SKUIJSITunesStore_getAdminStatus::__block_invoke(uint64_t a1, char a2, void *a3)
+void __37__SKUIJSITunesStore_getAdminStatus::__block_invoke(uint64_t a1, unsigned __int8 a2, void *a3)
 {
   if (a3)
   {
@@ -1215,7 +1215,7 @@ void __37__SKUIJSITunesStore_isInstalledApp::__block_invoke(uint64_t a1)
 
 void __41__SKUIJSITunesStore_isRemovedSystemApp::__block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (v5)
   {
@@ -1223,16 +1223,21 @@ void __41__SKUIJSITunesStore_isRemovedSystemApp::__block_invoke(uint64_t a1, cha
     v7 = [v6 shouldLog];
     if ([v6 shouldLogToDisk])
     {
-      v8 = v7 | 2;
+      LODWORD(v8) = v7 | 2;
     }
 
     else
     {
-      v8 = v7;
+      LODWORD(v8) = v7;
     }
 
     v9 = [v6 OSLogObject];
-    if (!os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    {
+      v8 = v8;
+    }
+
+    else
     {
       v8 &= 2u;
     }
@@ -1241,44 +1246,43 @@ void __41__SKUIJSITunesStore_isRemovedSystemApp::__block_invoke(uint64_t a1, cha
     {
       v10 = objc_opt_class();
       v11 = *(a1 + 40);
-      v23 = 138412802;
-      v24 = v10;
-      v25 = 2112;
-      v26 = v11;
-      v27 = 2112;
-      v28 = v5;
+      v22 = 138412802;
+      v23 = v10;
+      v24 = 2112;
+      v25 = v11;
+      v26 = 2112;
+      v27 = v5;
       v12 = v10;
-      LODWORD(v17) = 32;
-      v13 = _os_log_send_and_compose_impl();
+      v13 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &dword_215BAE000, v9, 0, "[%@] Error check for removed system app %@ %@", &v22, 32);
 
       if (!v13)
       {
-LABEL_11:
+LABEL_12:
 
-        goto LABEL_12;
+        goto LABEL_13;
       }
 
-      v9 = [MEMORY[0x277CCACA8] stringWithCString:v13 encoding:{4, &v23, v17}];
+      v9 = [MEMORY[0x277CCACA8] stringWithCString:v13 encoding:4];
       free(v13);
       SSFileLog();
     }
 
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-LABEL_12:
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __41__SKUIJSITunesStore_isRemovedSystemApp::__block_invoke_214;
-  v18[3] = &unk_2781F9E28;
+LABEL_13:
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __41__SKUIJSITunesStore_isRemovedSystemApp::__block_invoke_214;
+  v17[3] = &unk_2781F9E28;
   v14 = *(a1 + 48);
-  v19 = *(a1 + 56);
-  v22 = a2;
+  v18 = *(a1 + 56);
+  v21 = a2;
   v15 = *(a1 + 64);
   v16 = *(a1 + 32);
-  v20 = v15;
-  v21 = v16;
-  [v14 evaluate:v18 completionBlock:0];
+  v19 = v15;
+  v20 = v16;
+  [v14 evaluate:v17 completionBlock:0];
 }
 
 void __41__SKUIJSITunesStore_isRemovedSystemApp::__block_invoke_214(uint64_t a1)
@@ -1301,20 +1305,20 @@ void __41__SKUIJSITunesStore_isRemovedSystemApp::__block_invoke_214(uint64_t a1)
 
 void __47__SKUIJSITunesStore_launchICloudFamilySettings__block_invoke(uint64_t a1, void *a2)
 {
-  v7 = a2;
-  v2 = [v7 delegate];
+  v8 = a2;
+  v2 = [v8 delegate];
   if (objc_opt_respondsToSelector())
   {
-    v3 = [v2 presentationViewControllerForAppContext:v7];
+    v3 = [v2 presentationViewControllerForAppContext:v8];
     if (v3)
     {
-      v4 = v3;
-      v5 = SKUIFamilyCircleFramework();
-      v6 = objc_alloc_init(SKUIWeakLinkedClassForString(&cfstr_Fafamilysettin.isa, v5));
+      v5 = v3;
+      v6 = SKUIFamilyCircleFramework(v3, v4);
+      v7 = objc_alloc_init(SKUIWeakLinkedClassForString(&cfstr_Fafamilysettin.isa, v6));
       if (objc_opt_respondsToSelector())
       {
-        [v6 setPresentingViewController:v4];
-        [v6 launchiCloudFamilySettings];
+        [v7 setPresentingViewController:v5];
+        [v7 launchiCloudFamilySettings];
       }
     }
   }
@@ -1379,7 +1383,7 @@ void __39__SKUIJSITunesStore_loadGratisContent___block_invoke_2(uint64_t a1)
 
 - (SKUIJSAppleAccount)primaryAppleAccount
 {
-  v2 = SKUIAccountsFramework();
+  v2 = SKUIAccountsFramework(self, a2);
   v3 = objc_alloc_init(SKUIWeakLinkedClassForString(&cfstr_Acaccountstore.isa, v2));
   v4 = [SKUIJSAppleAccount alloc];
   aa_primaryAppleAccount = [v3 aa_primaryAppleAccount];
@@ -1420,7 +1424,7 @@ void __39__SKUIJSITunesStore_loadGratisContent___block_invoke_2(uint64_t a1)
   }
 
   scheme = [v4 scheme];
-  if ([scheme isEqualToString:@"resource"])
+  if (objc_msgSend_isEqualToString_(scheme))
   {
     host = [v4 host];
     v7 = SKUIImageExistsWithResourceName(host);
@@ -1464,7 +1468,7 @@ void __39__SKUIJSITunesStore_loadGratisContent___block_invoke_2(uint64_t a1)
 
 void __46__SKUIJSITunesStore_restoreRemovedSystemApp::__block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (v5)
   {
@@ -1472,16 +1476,21 @@ void __46__SKUIJSITunesStore_restoreRemovedSystemApp::__block_invoke(uint64_t a1
     v7 = [v6 shouldLog];
     if ([v6 shouldLogToDisk])
     {
-      v8 = v7 | 2;
+      LODWORD(v8) = v7 | 2;
     }
 
     else
     {
-      v8 = v7;
+      LODWORD(v8) = v7;
     }
 
     v9 = [v6 OSLogObject];
-    if (!os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    {
+      v8 = v8;
+    }
+
+    else
     {
       v8 &= 2u;
     }
@@ -1490,44 +1499,43 @@ void __46__SKUIJSITunesStore_restoreRemovedSystemApp::__block_invoke(uint64_t a1
     {
       v10 = objc_opt_class();
       v11 = *(a1 + 40);
-      v23 = 138412802;
-      v24 = v10;
-      v25 = 2112;
-      v26 = v11;
-      v27 = 2112;
-      v28 = v5;
+      v22 = 138412802;
+      v23 = v10;
+      v24 = 2112;
+      v25 = v11;
+      v26 = 2112;
+      v27 = v5;
       v12 = v10;
-      LODWORD(v17) = 32;
-      v13 = _os_log_send_and_compose_impl();
+      v13 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &dword_215BAE000, v9, 0, "[%@] Error check for removed system app %@ %@", &v22, 32);
 
       if (!v13)
       {
-LABEL_11:
+LABEL_12:
 
-        goto LABEL_12;
+        goto LABEL_13;
       }
 
-      v9 = [MEMORY[0x277CCACA8] stringWithCString:v13 encoding:{4, &v23, v17}];
+      v9 = [MEMORY[0x277CCACA8] stringWithCString:v13 encoding:4];
       free(v13);
       SSFileLog();
     }
 
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-LABEL_12:
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __46__SKUIJSITunesStore_restoreRemovedSystemApp::__block_invoke_235;
-  v18[3] = &unk_2781F9E28;
+LABEL_13:
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __46__SKUIJSITunesStore_restoreRemovedSystemApp::__block_invoke_235;
+  v17[3] = &unk_2781F9E28;
   v14 = *(a1 + 48);
-  v19 = *(a1 + 56);
-  v22 = a2;
+  v18 = *(a1 + 56);
+  v21 = a2;
   v15 = *(a1 + 64);
   v16 = *(a1 + 32);
-  v20 = v15;
-  v21 = v16;
-  [v14 evaluate:v18 completionBlock:0];
+  v19 = v15;
+  v20 = v16;
+  [v14 evaluate:v17 completionBlock:0];
 }
 
 void __46__SKUIJSITunesStore_restoreRemovedSystemApp::__block_invoke_235(uint64_t a1)
@@ -1682,43 +1690,43 @@ void __55__SKUIJSITunesStore_updateToggleStateForItem_toggled::__block_invoke(ui
   objc_destroyWeak(&location);
 }
 
-void __33__SKUIJSITunesStore_loadRentals___block_invoke(id *a1)
+void __33__SKUIJSITunesStore_loadRentals___block_invoke(id *a1, uint64_t a2)
 {
-  v2 = SKUIMediaPlayerFramework();
-  v3 = [SKUIWeakLinkedClassForString(&cfstr_Mpmediaquery.isa v2)];
-  v4 = SKUIMediaPlayerFramework();
-  v5 = *SKUIWeakLinkedSymbolForString("MPMediaItemPropertyRentalExpirationDate", v4);
-  v6 = SKUIMediaPlayerFramework();
-  v7 = SKUIWeakLinkedClassForString(&cfstr_Mpmediapropert.isa, v6);
-  v8 = MEMORY[0x277CCABB0];
+  v3 = SKUIMediaPlayerFramework(a1, a2);
+  v4 = [SKUIWeakLinkedClassForString(&cfstr_Mpmediaquery.isa v3)];
+  v6 = SKUIMediaPlayerFramework(v4, v5);
+  v7 = *SKUIWeakLinkedSymbolForString("MPMediaItemPropertyRentalExpirationDate", v6);
+  v9 = SKUIMediaPlayerFramework(v7, v8);
+  v10 = SKUIWeakLinkedClassForString(&cfstr_Mpmediapropert.isa, v9);
+  v11 = MEMORY[0x277CCABB0];
   [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
-  v9 = [v8 numberWithDouble:?];
-  v10 = [v7 predicateWithValue:v9 forProperty:v5 comparisonType:101];
-  [v3 addFilterPredicate:v10];
+  v12 = [v11 numberWithDouble:?];
+  v13 = [v10 predicateWithValue:v12 forProperty:v7 comparisonType:101];
+  [v4 addFilterPredicate:v13];
 
-  v11 = [v3 items];
-  if ([v11 count])
+  v14 = [v4 items];
+  if ([v14 count])
   {
-    v12 = [a1[4] _rentalInfoFromMediaItems:v11];
+    v15 = [a1[4] _rentalInfoFromMediaItems:v14];
   }
 
   else
   {
-    v12 = MEMORY[0x277CBEBF8];
+    v15 = MEMORY[0x277CBEBF8];
   }
 
   WeakRetained = objc_loadWeakRetained(a1 + 6);
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __33__SKUIJSITunesStore_loadRentals___block_invoke_2;
-  v15[3] = &unk_2781FAD28;
-  objc_copyWeak(&v18, a1 + 7);
-  v16 = a1[5];
-  v14 = v12;
-  v17 = v14;
-  [WeakRetained evaluate:v15 completionBlock:0];
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __33__SKUIJSITunesStore_loadRentals___block_invoke_2;
+  v18[3] = &unk_2781FAD28;
+  objc_copyWeak(&v21, a1 + 7);
+  v19 = a1[5];
+  v17 = v15;
+  v20 = v17;
+  [WeakRetained evaluate:v18 completionBlock:0];
 
-  objc_destroyWeak(&v18);
+  objc_destroyWeak(&v21);
 }
 
 void __33__SKUIJSITunesStore_loadRentals___block_invoke_2(uint64_t a1)
@@ -1770,46 +1778,46 @@ void __33__SKUIJSITunesStore_loadRentals___block_invoke_2(uint64_t a1)
   objc_destroyWeak(&location);
 }
 
-void __33__SKUIJSITunesStore_loadRental::__block_invoke(uint64_t a1)
+void __33__SKUIJSITunesStore_loadRental::__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v21[1] = *MEMORY[0x277D85DE8];
-  v2 = SKUIMediaPlayerFramework();
-  v3 = [SKUIWeakLinkedClassForString(&cfstr_Mpmediaquery.isa v2)];
-  v4 = SKUIMediaPlayerFramework();
-  v5 = SKUIWeakLinkedClassForString(&cfstr_Mpmediapropert.isa, v4);
-  v6 = SKUIMediaPlayerFramework();
-  v7 = *SKUIWeakLinkedSymbolForString("MPMediaItemPropertyStoreID", v6);
-  v8 = [v5 predicateWithValue:*(a1 + 32) forProperty:v7];
-  [v3 addFilterPredicate:v8];
+  v24[1] = *MEMORY[0x277D85DE8];
+  v3 = SKUIMediaPlayerFramework(a1, a2);
+  v4 = [SKUIWeakLinkedClassForString(&cfstr_Mpmediaquery.isa v3)];
+  v6 = SKUIMediaPlayerFramework(v4, v5);
+  v7 = SKUIWeakLinkedClassForString(&cfstr_Mpmediapropert.isa, v6);
+  v9 = SKUIMediaPlayerFramework(v7, v8);
+  v10 = *SKUIWeakLinkedSymbolForString("MPMediaItemPropertyStoreID", v9);
+  v11 = [v7 predicateWithValue:*(a1 + 32) forProperty:v10];
+  [v4 addFilterPredicate:v11];
 
-  v9 = [v3 items];
-  v10 = [v9 firstObject];
-  if (v10)
+  v12 = [v4 items];
+  v13 = [v12 firstObject];
+  if (v13)
   {
-    v11 = *(a1 + 40);
-    v12 = [v9 firstObject];
-    v21[0] = v12;
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
-    v14 = [v11 _rentalInfoFromMediaItems:v13];
+    v14 = *(a1 + 40);
+    v15 = [v12 firstObject];
+    v24[0] = v15;
+    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
+    v17 = [v14 _rentalInfoFromMediaItems:v16];
   }
 
   else
   {
-    v14 = MEMORY[0x277CBEBF8];
+    v17 = MEMORY[0x277CBEBF8];
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 56));
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __33__SKUIJSITunesStore_loadRental::__block_invoke_2;
-  v17[3] = &unk_2781FAD28;
-  objc_copyWeak(&v20, (a1 + 64));
-  v18 = *(a1 + 48);
-  v16 = v14;
-  v19 = v16;
-  [WeakRetained evaluate:v17 completionBlock:0];
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __33__SKUIJSITunesStore_loadRental::__block_invoke_2;
+  v20[3] = &unk_2781FAD28;
+  objc_copyWeak(&v23, (a1 + 64));
+  v21 = *(a1 + 48);
+  v19 = v17;
+  v22 = v19;
+  [WeakRetained evaluate:v20 completionBlock:0];
 
-  objc_destroyWeak(&v20);
+  objc_destroyWeak(&v23);
 }
 
 void __33__SKUIJSITunesStore_loadRental::__block_invoke_2(uint64_t a1)
@@ -1826,227 +1834,228 @@ void __33__SKUIJSITunesStore_loadRental::__block_invoke_2(uint64_t a1)
 
 - (id)_rentalInfoFromMediaItems:(id)items
 {
-  v89 = *MEMORY[0x277D85DE8];
+  v103 = *MEMORY[0x277D85DE8];
   itemsCopy = items;
-  v66 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(itemsCopy, "count")}];
-  v84 = 0u;
-  v85 = 0u;
-  v86 = 0u;
-  v87 = 0u;
+  v80 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(itemsCopy, "count")}];
+  v98 = 0u;
+  v99 = 0u;
+  v100 = 0u;
+  v101 = 0u;
   obj = itemsCopy;
-  v4 = [obj countByEnumeratingWithState:&v84 objects:v88 count:16];
+  v4 = [obj countByEnumeratingWithState:&v98 objects:v102 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v85;
-    v67 = *v85;
+    v6 = *v99;
+    v81 = *v99;
     do
     {
       v7 = 0;
-      v68 = v5;
+      v82 = v5;
       do
       {
-        if (*v85 != v6)
+        if (*v99 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v84 + 1) + 8 * v7);
+        v8 = *(*(&v98 + 1) + 8 * v7);
         if ([v8 isRental])
         {
           v9 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:4];
-          v10 = SKUIMediaPlayerFramework();
-          v11 = *SKUIWeakLinkedSymbolForString("AVFileProcessorAttribute_RentalStartDate", v10);
-          v12 = SKUIMediaPlayerFramework();
-          v13 = *SKUIWeakLinkedSymbolForString("AVFileProcessorAttribute_RentalPeriod", v12);
-          v14 = SKUIMediaPlayerFramework();
-          v15 = *SKUIWeakLinkedSymbolForString("AVFileProcessorAttribute_RentalPlaybackStartDate", v14);
-          v16 = SKUIMediaPlayerFramework();
-          v83 = *SKUIWeakLinkedSymbolForString("AVFileProcessorAttribute_RentalPlaybackPeriod", v16);
-          v17 = SKUIMediaPlayerFramework();
-          v78 = *SKUIWeakLinkedSymbolForString("MPMediaItemPropertyStoreID", v17);
-          v18 = [v8 valueForProperty:?];
-          stringValue = [v18 stringValue];
+          v11 = SKUIMediaPlayerFramework(v9, v10);
+          v12 = *SKUIWeakLinkedSymbolForString("AVFileProcessorAttribute_RentalStartDate", v11);
+          v14 = SKUIMediaPlayerFramework(v12, v13);
+          v15 = *SKUIWeakLinkedSymbolForString("AVFileProcessorAttribute_RentalPeriod", v14);
+          v17 = SKUIMediaPlayerFramework(v15, v16);
+          v18 = *SKUIWeakLinkedSymbolForString("AVFileProcessorAttribute_RentalPlaybackStartDate", v17);
+          v20 = SKUIMediaPlayerFramework(v18, v19);
+          v97 = *SKUIWeakLinkedSymbolForString("AVFileProcessorAttribute_RentalPlaybackPeriod", v20);
+          v22 = SKUIMediaPlayerFramework(v97, v21);
+          v92 = *SKUIWeakLinkedSymbolForString("MPMediaItemPropertyStoreID", v22);
+          v23 = [v8 valueForProperty:?];
+          stringValue = [v23 stringValue];
 
           if (stringValue)
           {
-            [v9 setObject:stringValue forKey:@"item-id"];
+            v25 = [v9 setObject:stringValue forKey:@"item-id"];
           }
 
-          v20 = SKUIMediaPlayerFramework();
-          v76 = *SKUIWeakLinkedSymbolForString("MPMediaItemPropertyFilePath", v20);
-          v21 = [v8 valueForProperty:?];
-          v22 = SKUIMediaPlayerFramework();
-          v23 = [SKUIWeakLinkedClassForString(&cfstr_Mpstoredownloa.isa v22)];
-          v24 = [v23 downloadForMediaItem:v8];
+          v27 = SKUIMediaPlayerFramework(v25, v26);
+          v90 = *SKUIWeakLinkedSymbolForString("MPMediaItemPropertyFilePath", v27);
+          v28 = [v8 valueForProperty:?];
+          v30 = SKUIMediaPlayerFramework(v28, v29);
+          v31 = [SKUIWeakLinkedClassForString(&cfstr_Mpstoredownloa.isa v30)];
+          v32 = [v31 downloadForMediaItem:v8];
 
-          v77 = stringValue;
-          v74 = v24;
-          v75 = v21;
-          v81 = v13;
-          v82 = v9;
-          v79 = v15;
-          v80 = v11;
-          if ([v21 length])
+          v33 = [v28 length];
+          v91 = stringValue;
+          v88 = v32;
+          v89 = v28;
+          v95 = v15;
+          v96 = v9;
+          v93 = v18;
+          v94 = v12;
+          if (v33)
           {
-            v25 = SKUICelestialFramework();
-            v26 = [SKUIWeakLinkedClassForString(&cfstr_Avfileprocesso_3.isa v25)];
-            rentalInformation = [v26 rentalInfo:v21];
+            v35 = SKUICelestialFramework(v33, v34);
+            v36 = [SKUIWeakLinkedClassForString(&cfstr_Avfileprocesso_3.isa v35)];
+            rentalInformation = [v36 rentalInfo:v28];
           }
 
-          else if (v24)
+          else if (v32)
           {
-            rentalInformation = [v24 rentalInformation];
+            rentalInformation = [v32 rentalInformation];
           }
 
           else
           {
             dictionary = [MEMORY[0x277CBEB38] dictionary];
-            v29 = SKUIMediaPlayerFramework();
-            v30 = *SKUIWeakLinkedSymbolForString("MPMediaItemPropertyRentalPlaybackStartTime", v29);
-            v31 = SKUIMediaPlayerFramework();
-            v32 = *SKUIWeakLinkedSymbolForString("MPMediaItemPropertyRentalPlaybackDuration", v31);
-            v33 = SKUIMediaPlayerFramework();
-            v34 = *SKUIWeakLinkedSymbolForString("MPMediaItemPropertyRentalStartTime", v33);
-            v35 = SKUIMediaPlayerFramework();
-            v36 = *SKUIWeakLinkedSymbolForString("MPMediaItemPropertyRentalDuration", v35);
-            v72 = v30;
-            v37 = [v8 valueForProperty:v30];
-            if (([v37 isEqualToNumber:&unk_2828D2AE0] & 1) == 0)
+            v40 = SKUIMediaPlayerFramework(dictionary, v39);
+            v41 = *SKUIWeakLinkedSymbolForString("MPMediaItemPropertyRentalPlaybackStartTime", v40);
+            v43 = SKUIMediaPlayerFramework(v41, v42);
+            v44 = *SKUIWeakLinkedSymbolForString("MPMediaItemPropertyRentalPlaybackDuration", v43);
+            v46 = SKUIMediaPlayerFramework(v44, v45);
+            v47 = *SKUIWeakLinkedSymbolForString("MPMediaItemPropertyRentalStartTime", v46);
+            v49 = SKUIMediaPlayerFramework(v47, v48);
+            v50 = *SKUIWeakLinkedSymbolForString("MPMediaItemPropertyRentalDuration", v49);
+            v86 = v41;
+            v51 = [v8 valueForProperty:v41];
+            if (([v51 isEqualToNumber:&unk_2828D2AE0] & 1) == 0)
             {
-              v38 = MEMORY[0x277CBEAA8];
-              [v37 doubleValue];
-              v39 = [v38 dateWithTimeIntervalSinceReferenceDate:?];
-              if (v39)
+              v52 = MEMORY[0x277CBEAA8];
+              [v51 doubleValue];
+              v53 = [v52 dateWithTimeIntervalSinceReferenceDate:?];
+              if (v53)
               {
-                v40 = v39;
-                [dictionary setObject:v39 forKeyedSubscript:v15];
+                v54 = v53;
+                [dictionary setObject:v53 forKeyedSubscript:v18];
               }
             }
 
-            v70 = v32;
-            v41 = [v8 valueForProperty:v32];
-            if (v41)
+            v84 = v44;
+            v55 = [v8 valueForProperty:v44];
+            if (v55)
             {
-              [dictionary setObject:v41 forKeyedSubscript:v83];
+              [dictionary setObject:v55 forKeyedSubscript:v97];
             }
 
-            v42 = [v8 valueForProperty:v34];
-            if (([v42 isEqualToNumber:&unk_2828D2AE0] & 1) == 0)
+            v56 = [v8 valueForProperty:v47];
+            if (([v56 isEqualToNumber:&unk_2828D2AE0] & 1) == 0)
             {
-              v43 = MEMORY[0x277CBEAA8];
-              [v42 doubleValue];
-              v44 = [v43 dateWithTimeIntervalSinceReferenceDate:?];
-              if (v44)
+              v57 = MEMORY[0x277CBEAA8];
+              [v56 doubleValue];
+              v58 = [v57 dateWithTimeIntervalSinceReferenceDate:?];
+              if (v58)
               {
-                v45 = v44;
-                [dictionary setObject:v44 forKeyedSubscript:v80];
+                v59 = v58;
+                [dictionary setObject:v58 forKeyedSubscript:v94];
               }
             }
 
-            v46 = [v8 valueForProperty:v36];
-            if (v46)
+            v60 = [v8 valueForProperty:v50];
+            if (v60)
             {
-              [dictionary setObject:v46 forKeyedSubscript:v81];
+              [dictionary setObject:v60 forKeyedSubscript:v95];
             }
 
-            v47 = dictionary;
+            v61 = dictionary;
             rentalInformation = [dictionary copy];
 
-            v11 = v80;
-            v13 = v81;
-            v15 = v79;
+            v12 = v94;
+            v15 = v95;
+            v18 = v93;
           }
 
-          v48 = [rentalInformation objectForKey:v11];
-          v49 = [rentalInformation objectForKey:v13];
-          v50 = v49;
-          v51 = 0;
-          if (v48 && v49)
+          v62 = [rentalInformation objectForKey:v12];
+          v63 = [rentalInformation objectForKey:v15];
+          v64 = v63;
+          v65 = 0;
+          if (v62 && v63)
           {
-            v52 = objc_alloc(MEMORY[0x277CBEAA8]);
-            [v50 doubleValue];
-            v51 = [v52 initWithTimeInterval:v48 sinceDate:?];
+            v66 = objc_alloc(MEMORY[0x277CBEAA8]);
+            [v64 doubleValue];
+            v65 = [v66 initWithTimeInterval:v62 sinceDate:?];
           }
 
-          v71 = v50;
-          v53 = [rentalInformation objectForKey:v15];
-          v54 = [rentalInformation objectForKey:v83];
-          v55 = v54;
-          v56 = 0;
-          if (v53 && v54)
+          v85 = v64;
+          v67 = [rentalInformation objectForKey:v18];
+          v68 = [rentalInformation objectForKey:v97];
+          v69 = v68;
+          v70 = 0;
+          if (v67 && v68)
           {
-            v57 = objc_alloc(MEMORY[0x277CBEAA8]);
-            [v55 doubleValue];
-            v56 = [v57 initWithTimeInterval:v53 sinceDate:?];
+            v71 = objc_alloc(MEMORY[0x277CBEAA8]);
+            [v69 doubleValue];
+            v70 = [v71 initWithTimeInterval:v67 sinceDate:?];
           }
 
-          v58 = [rentalInformation objectForKey:@"expiration-date"];
-          v59 = v58;
-          v73 = v48;
-          if (v51 && v56)
+          v72 = [rentalInformation objectForKey:@"expiration-date"];
+          v73 = v72;
+          v87 = v62;
+          if (v65 && v70)
           {
-            v60 = [v51 earlierDate:v56];
-            if (!v60)
+            v74 = [v65 earlierDate:v70];
+            if (!v74)
             {
               goto LABEL_41;
             }
 
 LABEL_40:
-            [v82 setObject:v60 forKey:@"expiration-date"];
+            [v96 setObject:v74 forKey:@"expiration-date"];
           }
 
           else
           {
-            if (v56)
+            if (v70)
             {
-              v61 = v56;
+              v75 = v70;
             }
 
             else
             {
-              v61 = v51;
+              v75 = v65;
             }
 
-            if (v56 | v51 || (v61 = v58) != 0)
+            if (v70 | v65 || (v75 = v72) != 0)
             {
-              v60 = v61;
+              v74 = v75;
               goto LABEL_40;
             }
 
-            v60 = 0;
+            v74 = 0;
           }
 
 LABEL_41:
           title = [v8 title];
           if (title)
           {
-            [v82 setObject:title forKey:@"title"];
+            [v96 setObject:title forKey:@"title"];
           }
 
-          if ([v82 count])
+          if ([v96 count])
           {
-            [v66 addObject:v82];
+            [v80 addObject:v96];
           }
 
-          v6 = v67;
-          v5 = v68;
+          v6 = v81;
+          v5 = v82;
         }
 
         ++v7;
       }
 
       while (v5 != v7);
-      v63 = [obj countByEnumeratingWithState:&v84 objects:v88 count:16];
-      v5 = v63;
+      v77 = [obj countByEnumeratingWithState:&v98 objects:v102 count:16];
+      v5 = v77;
     }
 
-    while (v63);
+    while (v77);
   }
 
-  v64 = [v66 copy];
+  v78 = [v80 copy];
 
-  return v64;
+  return v78;
 }
 
 - (void)fetchTemplates:(id)templates :(id)a4
@@ -2177,21 +2186,21 @@ uint64_t __37__SKUIJSITunesStore_fetchTemplates::__block_invoke_2(uint64_t a1)
 
   virtualMachine = [context virtualMachine];
 
-  [virtualMachine addManagedReference:v6 withOwner:self];
-  v9 = SKUIVideoSubscriberAccountFramework();
-  v10 = [SKUIWeakLinkedClassForString(&cfstr_Vsaccountchann.isa v9)];
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __44__SKUIJSITunesStore_fetchMSOProviderStatus___block_invoke;
-  v14[3] = &unk_2781FADF0;
-  v15 = appContext;
-  v16 = v6;
-  v17 = virtualMachine;
+  v9 = [virtualMachine addManagedReference:v6 withOwner:self];
+  v11 = SKUIVideoSubscriberAccountFramework(v9, v10);
+  v12 = [SKUIWeakLinkedClassForString(&cfstr_Vsaccountchann.isa v11)];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __44__SKUIJSITunesStore_fetchMSOProviderStatus___block_invoke;
+  v16[3] = &unk_2781FADF0;
+  v17 = appContext;
+  v18 = v6;
+  v19 = virtualMachine;
   selfCopy = self;
-  v11 = virtualMachine;
-  v12 = v6;
-  v13 = appContext;
-  [v10 fetchAccountChannelsWithCompletionHandler:v14];
+  v13 = virtualMachine;
+  v14 = v6;
+  v15 = appContext;
+  [v12 fetchAccountChannelsWithCompletionHandler:v16];
 }
 
 void __44__SKUIJSITunesStore_fetchMSOProviderStatus___block_invoke(uint64_t a1, void *a2)
@@ -2310,7 +2319,7 @@ void __64__SKUIJSITunesStore__finishPurchaseForOptions_purchaseResponse___block_
   [v3 setObject:v6 forKey:@"result"];
 
   v7 = [v5 domain];
-  if ([v7 isEqualToString:*MEMORY[0x277D6A110]])
+  if (objc_msgSend_isEqualToString_(v7))
   {
     v8 = [v5 code] == 134;
   }
@@ -2419,7 +2428,7 @@ void __72__SKUIJSITunesStore__finishSoftwarePurchaseForOptions_purchaseResponse_
   [v3 setObject:v6 forKey:@"result"];
 
   v7 = [v5 domain];
-  if ([v7 isEqualToString:*MEMORY[0x277D6A110]])
+  if (objc_msgSend_isEqualToString_(v7))
   {
     v8 = [v5 code] == 134;
   }
@@ -2475,20 +2484,20 @@ void __72__SKUIJSITunesStore__finishSoftwarePurchaseForOptions_purchaseResponse_
 
 void __56__SKUIJSITunesStore__displayWifiConnectionRequiredAlert__block_invoke()
 {
-  v6 = objc_alloc_init(MEMORY[0x277D75118]);
-  v0 = SKUIBundle();
-  v1 = [v0 localizedStringForKey:@"PENDING_RENTAL_NETWORK_ERROR_MESSAGE_WIFI_ONLY" value:&stru_2827FFAC8 table:0];
-  [v6 setMessage:v1];
+  v11 = objc_alloc_init(MEMORY[0x277D75118]);
+  v1 = SKUIBundle(v11, v0);
+  v2 = [v1 localizedStringForKey:@"PENDING_RENTAL_NETWORK_ERROR_MESSAGE_WIFI_ONLY" value:&stru_2827FFAC8 table:0];
+  [v11 setMessage:v2];
 
-  v2 = SKUIBundle();
-  v3 = [v2 localizedStringForKey:@"PENDING_RENTAL_NETWORK_ERROR_TITLE_WIFI_ONLY" value:&stru_2827FFAC8 table:0];
-  [v6 setTitle:v3];
+  v5 = SKUIBundle(v3, v4);
+  v6 = [v5 localizedStringForKey:@"PENDING_RENTAL_NETWORK_ERROR_TITLE_WIFI_ONLY" value:&stru_2827FFAC8 table:0];
+  [v11 setTitle:v6];
 
-  v4 = SKUIBundle();
-  v5 = [v4 localizedStringForKey:@"OK" value:&stru_2827FFAC8 table:0];
-  [v6 addButtonWithTitle:v5];
+  v9 = SKUIBundle(v7, v8);
+  v10 = [v9 localizedStringForKey:@"OK" value:&stru_2827FFAC8 table:0];
+  [v11 addButtonWithTitle:v10];
 
-  [v6 show];
+  [v11 show];
 }
 
 - (void)_purchaseRequestDidSucceedNotification:(id)notification

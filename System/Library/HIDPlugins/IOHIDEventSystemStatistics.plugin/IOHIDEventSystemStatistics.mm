@@ -5,45 +5,44 @@ CFTypeRef IOHIDEventSystemStatistics::getPropertyForClient(IOHIDEventSystemStati
     return 0;
   }
 
+  v14 = 0xAAAAAAAAAAAAAAAALL;
   v15 = 0xAAAAAAAAAAAAAAAALL;
-  v16 = 0xAAAAAAAAAAAAAAAALL;
-  sub_29D427A40(&v15, 0);
-  CFDictionarySetValue(v16, @"Class", @"IOHIDEventSystemStatistics");
+  sub_29D427A40(&v14, 0);
+  CFDictionarySetValue(v15, @"Class", @"IOHIDEventSystemStatistics");
   if (*(this + 16))
   {
-    v9 = 0;
-    v10 = &v9;
-    v11 = 0x3802000000;
-    v12 = sub_29D42833C;
-    v13 = sub_29D4283A4;
-    v14[0] = 0xAAAAAAAAAAAAAAAALL;
-    v14[1] = 0xAAAAAAAAAAAAAAAALL;
+    v8 = 0;
+    v9 = &v8;
+    v10 = 0x3802000000;
+    v11 = sub_29D42833C;
+    v12 = sub_29D4283A4;
+    v13[0] = 0xAAAAAAAAAAAAAAAALL;
+    v13[1] = 0xAAAAAAAAAAAAAAAALL;
     Mutable = CFArrayCreateMutable(*MEMORY[0x29EDB8ED8], 0, MEMORY[0x29EDB9000]);
-    sub_29D4287D0(v14, Mutable, 1);
-    v14[0] = &unk_2A241E310;
-    v5 = *(this + 16);
+    sub_29D4287D0(v13, Mutable, 1);
+    v13[0] = &unk_2A241E310;
     _IOHIDCFSetApplyBlock();
-    v6 = v10[6];
-    if (v6)
+    v5 = v9[6];
+    if (v5)
     {
-      CFDictionarySetValue(v16, @"KeyboardServices", v6);
+      CFDictionarySetValue(v15, @"KeyboardServices", v5);
     }
 
-    _Block_object_dispose(&v9, 8);
-    sub_29D428780(v14);
+    _Block_object_dispose(&v8, 8);
+    sub_29D428780(v13);
   }
 
-  v7 = CFRetain(v16);
-  sub_29D427CE4(&v15);
-  return v7;
+  v6 = CFRetain(v15);
+  sub_29D427CE4(&v14);
+  return v6;
 }
 
-void sub_29D426A68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_29D426A68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
-  sub_29D428780(v6);
-  sub_29D427CE4((v7 - 32));
+  sub_29D428780(v11);
+  sub_29D427CE4((v12 - 32));
   _Unwind_Resume(a1);
 }
 
@@ -54,7 +53,7 @@ uint64_t IOHIDEventSystemStatistics::filter(uint64_t a1, const void *a2, uint64_
     return a3;
   }
 
-  if (IOHIDEventSystemStatistics::collectKeyStats(a1, a2))
+  if (IOHIDEventSystemStatistics::collectKeyStats(a1, a2, a3))
   {
     goto LABEL_4;
   }
@@ -267,9 +266,9 @@ LABEL_58:
   return a3;
 }
 
-void sub_29D427020(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_29D427020(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -302,7 +301,7 @@ void IOHIDEventSystemStatistics::unregisterService(uint64_t a1, void *value)
   }
 }
 
-uint64_t IOHIDEventSystemStatistics::collectKeyStats(uint64_t a1, const void *a2)
+uint64_t IOHIDEventSystemStatistics::collectKeyStats(uint64_t a1, const void *a2, uint64_t a3)
 {
   if (!a2)
   {
@@ -321,11 +320,11 @@ uint64_t IOHIDEventSystemStatistics::collectKeyStats(uint64_t a1, const void *a2
     if (result)
     {
       IntegerValue = IOHIDEventGetIntegerValue();
-      v6 = IOHIDEventGetIntegerValue();
-      if (IntegerValue == 7 && (v6 - 4) <= 0x19)
+      v7 = IOHIDEventGetIntegerValue();
+      if (IntegerValue == 7 && (v7 - 4) <= 0x19)
       {
-        v7 = _IOHIDLogCategory();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+        v8 = _IOHIDLogCategory();
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
         {
           sub_29D428CE4();
         }
@@ -336,11 +335,11 @@ uint64_t IOHIDEventSystemStatistics::collectKeyStats(uint64_t a1, const void *a2
 
       if (IntegerValue == 7)
       {
-        if ((v6 - 30) < 0xA)
+        if ((v7 - 30) < 0xA)
         {
 LABEL_18:
-          v8 = _IOHIDLogCategory();
-          if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+          v9 = _IOHIDLogCategory();
+          if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
           {
             sub_29D428CB0();
           }
@@ -349,17 +348,17 @@ LABEL_18:
           return 1;
         }
 
-        if (v6 <= 0x38)
+        if (v7 <= 0x38)
         {
-          if (((1 << v6) & 0x1FBE00000000000) != 0)
+          if (((1 << v7) & 0x1FBE00000000000) != 0)
           {
             goto LABEL_18;
           }
 
-          if (v6 == 44)
+          if (v7 == 44)
           {
-            v10 = _IOHIDLogCategory();
-            if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+            v11 = _IOHIDLogCategory();
+            if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
             {
               sub_29D428BE0();
             }
@@ -369,10 +368,10 @@ LABEL_18:
           }
         }
 
-        if ((v6 - 79) <= 3)
+        if ((v7 - 79) <= 3)
         {
-          v11 = _IOHIDLogCategory();
-          if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+          v12 = _IOHIDLogCategory();
+          if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
           {
             sub_29D428C7C();
           }
@@ -381,13 +380,13 @@ LABEL_18:
           return 1;
         }
 
-        if ((v6 - 224) > 7 || v6 == 228)
+        if ((v7 - 224) > 7 || v7 == 228)
         {
           result = 1;
-          if (v6 <= 0x39 && ((1 << v6) & 0x2000D0000000000) != 0)
+          if (v7 <= 0x39 && ((1 << v7) & 0x2000D0000000000) != 0)
           {
-            v12 = _IOHIDLogCategory();
-            if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+            v13 = _IOHIDLogCategory();
+            if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
             {
               sub_29D428C48();
             }
@@ -403,14 +402,14 @@ LABEL_18:
       else
       {
         result = 1;
-        if (IntegerValue != 12 || v6 != 669)
+        if (IntegerValue != 12 || v7 != 669)
         {
           return result;
         }
       }
 
-      v9 = _IOHIDLogCategory();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      v10 = _IOHIDLogCategory();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
         sub_29D428C14();
       }
@@ -561,27 +560,27 @@ void IOHIDEventSystemStatistics::registerButtonService(uint64_t a1, uint64_t a2)
 
 void IOHIDEventSystemStatistics::handlePendingStats(IOHIDEventSystemStatistics *this)
 {
-  v12[0] = 0;
-  v12[1] = v12;
-  v12[2] = 0x3802000000;
-  v12[3] = sub_29D4283F8;
-  v12[5] = 0;
-  v12[6] = 0;
-  v12[4] = nullsub_1;
-  v9 = 0;
-  v10[0] = &v9;
-  v10[1] = 0x4802000000;
-  v10[2] = sub_29D428408;
-  v10[3] = nullsub_2;
-  memset(&v10[4], 0, 24);
-  v11 = 0;
+  v16[0] = 0;
+  v16[1] = v16;
+  v16[2] = 0x3802000000;
+  v16[3] = sub_29D4283F8;
+  v16[5] = 0;
+  v16[6] = 0;
+  v16[4] = nullsub_1;
+  v14[0] = 0;
+  v14[1] = v14;
+  v14[2] = 0x4802000000;
+  v14[3] = sub_29D428408;
+  v14[4] = nullsub_2;
+  memset(&v14[5], 0, 24);
+  v15 = 0;
   v7 = 0;
-  v8[0] = &v7;
-  v8[1] = 0x3802000000;
-  v8[2] = sub_29D428420;
-  v8[4] = 0;
-  v8[5] = 0;
-  v8[3] = nullsub_3;
+  v8 = &v7;
+  v9 = 0x3802000000;
+  v10 = sub_29D428420;
+  v12 = 0;
+  v13 = 0;
+  v11 = nullsub_3;
   v6[0] = 0xAAAAAAAAAAAAAAAALL;
   v6[1] = 0xAAAAAAAAAAAAAAAALL;
   sub_29D427A40(v6, 0);
@@ -590,8 +589,8 @@ void IOHIDEventSystemStatistics::handlePendingStats(IOHIDEventSystemStatistics *
   block[1] = 0x40000000;
   block[2] = sub_29D427AB4;
   block[3] = &unk_29F34EFB8;
-  block[4] = v12;
-  block[5] = &v9;
+  block[4] = v16;
+  block[5] = v14;
   block[6] = &v7;
   block[7] = this;
   dispatch_sync(v2, block);
@@ -599,16 +598,16 @@ void IOHIDEventSystemStatistics::handlePendingStats(IOHIDEventSystemStatistics *
   v3 = _IOHIDLogCategory();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    sub_29D428A9C(v10);
+    sub_29D428A9C();
   }
 
   analytics_send_event_lazy();
-  if (*(v8[0] + 52) == 1)
+  if (*(v8 + 52) == 1)
   {
     v4 = _IOHIDLogCategory();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      sub_29D428B4C(v8);
+      sub_29D428B4C();
     }
 
     analytics_send_event_lazy();
@@ -616,16 +615,17 @@ void IOHIDEventSystemStatistics::handlePendingStats(IOHIDEventSystemStatistics *
 
   sub_29D427CE4(v6);
   _Block_object_dispose(&v7, 8);
-  _Block_object_dispose(&v9, 8);
-  _Block_object_dispose(v12, 8);
+  _Block_object_dispose(v14, 8);
+  _Block_object_dispose(v16, 8);
 }
 
-void sub_29D4279F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, char a34)
+void sub_29D4279F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, ...)
 {
+  va_start(va, a33);
   sub_29D427CE4(&a32);
-  _Block_object_dispose(&a34, 8);
-  _Block_object_dispose((v34 - 192), 8);
-  _Block_object_dispose((v34 - 120), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v33 - 192), 8);
+  _Block_object_dispose((v33 - 120), 8);
   _Unwind_Resume(a1);
 }
 
@@ -857,13 +857,13 @@ CFTypeRef sub_29D42833C(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void sub_29D4283B0(uint64_t a1)
+void sub_29D4283B0(uint64_t a1, uint64_t a2)
 {
-  v1 = *(*(a1 + 32) + 8);
+  v2 = *(*(a1 + 32) + 8);
   RegistryID = IOHIDServiceGetRegistryID();
-  v3 = *(v1 + 48);
+  v4 = *(v2 + 48);
 
-  CFArrayAppendValue(v3, RegistryID);
+  CFArrayAppendValue(v4, RegistryID);
 }
 
 __n128 sub_29D4283F8(uint64_t a1, uint64_t a2)
@@ -1057,73 +1057,43 @@ void *sub_29D4287D0(void *a1, CFTypeRef cf, char a3)
   return a1;
 }
 
-void sub_29D42886C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_29D42886C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 2u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 2u);
 }
 
 void sub_29D4288E0(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v9 = *MEMORY[0x29EDCA608];
+  v8 = *MEMORY[0x29EDCA608];
   IOHIDServiceGetRegistryID();
   sub_29D4288A0();
-  v7 = 2112;
-  v8 = a2;
-  _os_log_debug_impl(&dword_29D426000, a3, OS_LOG_TYPE_DEBUG, "Added MultiPress Analytics for service:%@ %@\n", v6, 0x16u);
-  v5 = *MEMORY[0x29EDCA608];
+  v6 = 2112;
+  v7 = a2;
+  _os_log_debug_impl(&dword_29D426000, a3, OS_LOG_TYPE_DEBUG, "Added MultiPress Analytics for service:%@ %@\n", v5, 0x16u);
 }
 
 void sub_29D428A14(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x29EDCA608];
+  v4 = *MEMORY[0x29EDCA608];
   IOHIDServiceGetRegistryID();
   sub_29D4288A0();
-  _os_log_debug_impl(&dword_29D426000, a2, OS_LOG_TYPE_DEBUG, "MultiPress service removed: %@\n", v4, 0xCu);
-  v3 = *MEMORY[0x29EDCA608];
-}
-
-void sub_29D428A9C(uint64_t a1)
-{
-  v13 = *MEMORY[0x29EDCA608];
-  v7 = *(*a1 + 44);
-  v8 = *(*a1 + 48);
-  v9 = *(*a1 + 52);
-  v10 = *(*a1 + 56);
-  v11 = *(*a1 + 60);
-  v12 = *(*a1 + 64);
-  sub_29D428888();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x26u);
-  v6 = *MEMORY[0x29EDCA608];
-}
-
-void sub_29D428B4C(uint64_t a1)
-{
-  v10 = *MEMORY[0x29EDCA608];
-  v7 = *(*a1 + 44);
-  v8 = *(*a1 + 48);
-  v9 = *(*a1 + 40);
-  sub_29D428888();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x14u);
-  v6 = *MEMORY[0x29EDCA608];
+  _os_log_debug_impl(&dword_29D426000, a2, OS_LOG_TYPE_DEBUG, "MultiPress service removed: %@\n", v3, 0xCu);
 }
 
 void sub_29D428D18()
 {
-  v6 = *MEMORY[0x29EDCA608];
   sub_29D4288A0();
   sub_29D428888();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29D428D88()
 {
-  v6 = *MEMORY[0x29EDCA608];
   sub_29D4288A0();
   sub_29D428888();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 void operator delete()

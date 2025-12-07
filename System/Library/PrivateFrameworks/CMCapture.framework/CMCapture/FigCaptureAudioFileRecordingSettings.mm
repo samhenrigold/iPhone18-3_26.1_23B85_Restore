@@ -94,7 +94,7 @@
   v11 = objc_opt_class();
   settingsID = [(FigCaptureRecordingSettings *)self settingsID];
   lastPathComponent = [(NSURL *)[(FigCaptureRecordingSettings *)self outputURL] lastPathComponent];
-  [(FigCaptureRecordingSettings *)self maxDuration];
+  objc_msgSend_maxDuration(self);
   return [v10 stringWithFormat:@"%@ %p: captureID:%lld URL:%@ maxDur:%f maxSize:%lld diskLim:%lld%@", v11, self, settingsID, lastPathComponent, CMTimeGetSeconds(&time), -[FigCaptureRecordingSettings maxFileSize](self, "maxFileSize"), -[FigCaptureRecordingSettings minFreeDiskSpaceLimit](self, "minFreeDiskSpaceLimit"), v6];
 }
 

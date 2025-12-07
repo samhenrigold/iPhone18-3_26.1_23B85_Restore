@@ -97,29 +97,8 @@
   queue = [(KTZoneFetcher *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  if (![(KTZoneFetcher *)self newCKRequests])
+  if (!-[KTZoneFetcher newCKRequests](self, "newCKRequests") || -[KTZoneFetcher isCancelled](self, "isCancelled") || (-[KTZoneFetcher currentCKFetch](self, "currentCKFetch"), (v4 = objc_claimAutoreleasedReturnValue()) != 0) && (v5 = v4, -[KTZoneFetcher currentCKFetch](self, "currentCKFetch"), v6 = objc_claimAutoreleasedReturnValue(), v7 = [v6 isFinished], v6, v5, !v7))
   {
-    goto LABEL_10;
-  }
-
-  if ([(KTZoneFetcher *)self isCancelled])
-  {
-    goto LABEL_10;
-  }
-
-  currentCKFetch = [(KTZoneFetcher *)self currentCKFetch];
-  if (!currentCKFetch)
-  {
-    goto LABEL_5;
-  }
-
-  v5 = currentCKFetch;
-  currentCKFetch2 = [(KTZoneFetcher *)self currentCKFetch];
-  isFinished = [currentCKFetch2 isFinished];
-
-  if (!isFinished)
-  {
-LABEL_10:
     if (qword_10038BDD0 != -1)
     {
       sub_10024B5C8();
@@ -136,7 +115,6 @@ LABEL_10:
 
   else
   {
-LABEL_5:
     if (qword_10038BDD0 != -1)
     {
       sub_10024B5B4();

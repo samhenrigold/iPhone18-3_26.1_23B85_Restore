@@ -105,47 +105,47 @@ LABEL_4:
 
   if (aa_endpoint)
   {
-    v7 = [configurationCopy urlForEndpoint:aa_endpoint];
-    if (v7)
+    v8 = [configurationCopy urlForEndpoint:aa_endpoint];
+    if (v8)
     {
-      v8 = [(NSURLRequest *)self->_originalRequest mutableCopy];
-      [v8 setURL:v7];
+      v9 = [(NSURLRequest *)self->_originalRequest mutableCopy];
+      [v9 setURL:v8];
       session = self->_session;
-      v14[0] = MEMORY[0x1E69E9820];
-      v14[1] = 3221225472;
-      v14[2] = __72___AAURLSessionConfigurationTask__initiateSessionTaskWithConfiguration___block_invoke;
-      v14[3] = &unk_1E7C9C230;
-      v14[4] = self;
-      v10 = [(AAURLSession *)session dataTaskWithRequest:v8 completion:v14];
+      v15[0] = MEMORY[0x1E69E9820];
+      v15[1] = 3221225472;
+      v15[2] = __72___AAURLSessionConfigurationTask__initiateSessionTaskWithConfiguration___block_invoke;
+      v15[3] = &unk_1E7C9C230;
+      v15[4] = self;
+      v11 = [(AAURLSession *)session dataTaskWithRequest:v9 completion:v15];
       sessionTask = self->_sessionTask;
-      self->_sessionTask = v10;
+      self->_sessionTask = v11;
 
       [(AAURLSessionTaskProtocol *)self->_sessionTask resume];
     }
 
     else
     {
-      v13 = _AALogSystem();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v14 = _AALogSystem(0);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        [(_AAURLSessionConfigurationTask *)aa_endpoint _initiateSessionTaskWithConfiguration:v13];
+        [(_AAURLSessionConfigurationTask *)aa_endpoint _initiateSessionTaskWithConfiguration:v14];
       }
 
-      v8 = [MEMORY[0x1E696ABC0] aa_errorWithCode:-4401];
-      [(_AAURLSessionConfigurationTask *)self _invokeCompletionWithData:0 response:0 error:v8];
+      v9 = [MEMORY[0x1E696ABC0] aa_errorWithCode:-4401];
+      [(_AAURLSessionConfigurationTask *)self _invokeCompletionWithData:0 response:0 error:v9];
     }
   }
 
   else
   {
-    v12 = _AALogSystem();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = _AALogSystem(v7);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      [(_AAURLSessionConfigurationTask *)&self->_originalRequest _initiateSessionTaskWithConfiguration:v12];
+      [(_AAURLSessionConfigurationTask *)&self->_originalRequest _initiateSessionTaskWithConfiguration:v13];
     }
 
-    v7 = [MEMORY[0x1E696ABC0] aa_errorWithCode:-4401];
-    [(_AAURLSessionConfigurationTask *)self _invokeCompletionWithData:0 response:0 error:v7];
+    v8 = [MEMORY[0x1E696ABC0] aa_errorWithCode:-4401];
+    [(_AAURLSessionConfigurationTask *)self _invokeCompletionWithData:0 response:0 error:v8];
   }
 }
 
@@ -258,22 +258,19 @@ LABEL_4:
 
 - (void)_initiateSessionTaskWithConfiguration:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138477827;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B6F6A000, a2, OS_LOG_TYPE_ERROR, "Failed to find URL for endpoint: %{private}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138477827;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B6F6A000, a2, OS_LOG_TYPE_ERROR, "Failed to find URL for endpoint: %{private}@", &v2, 0xCu);
 }
 
 - (void)_initiateSessionTaskWithConfiguration:(id *)a1 .cold.3(id *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = [*a1 URL];
-  v5 = 138477827;
-  v6 = v3;
-  _os_log_error_impl(&dword_1B6F6A000, a2, OS_LOG_TYPE_ERROR, "Failed to find endpoint in URL: %{private}@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138477827;
+  v5 = v3;
+  _os_log_error_impl(&dword_1B6F6A000, a2, OS_LOG_TYPE_ERROR, "Failed to find endpoint in URL: %{private}@", &v4, 0xCu);
 }
 
 - (void)_invokeCompletionWithData:(void *)a3 response:(void *)a4 error:.cold.1(uint64_t a1, uint64_t a2, void *a3, void *a4)

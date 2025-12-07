@@ -380,30 +380,30 @@ LABEL_18:
     goto LABEL_18;
   }
 
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x2020000000;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x2020000000;
   v7 = off_10010DE58;
-  v18 = off_10010DE58;
+  v19 = off_10010DE58;
   if (!off_10010DE58)
   {
     *buf = _NSConcreteStackBlock;
     *&buf[8] = 3221225472;
     *&buf[16] = sub_10004DFB4;
-    v20 = &unk_1000EDA60;
-    v21 = &v15;
+    v21 = &unk_1000EDA60;
+    v22 = &v16;
     v8 = sub_10004DD90();
     v9 = dlsym(v8, "WiFiDeviceClientGetAppState");
-    *(v21[1] + 24) = v9;
-    off_10010DE58 = *(v21[1] + 24);
-    v7 = v16[3];
+    *(v22[1] + 24) = v9;
+    off_10010DE58 = *(v22[1] + 24);
+    v7 = v17[3];
   }
 
-  _Block_object_dispose(&v15, 8);
+  _Block_object_dispose(&v16, 8);
   if (!v7)
   {
-    dlerror();
-    abort_report_np();
+    v15 = dlerror();
+    abort_report_np("%s", v15);
     __break(1u);
   }
 
@@ -542,26 +542,26 @@ LABEL_21:
 
   if (v6)
   {
-    v19 = 0;
-    v20 = &v19;
-    v21 = 0x2020000000;
+    v20 = 0;
+    v21 = &v20;
+    v22 = 0x2020000000;
     v7 = off_10010DE68;
-    v22 = off_10010DE68;
+    v23 = off_10010DE68;
     if (!off_10010DE68)
     {
       *buf = _NSConcreteStackBlock;
       *&buf[8] = 3221225472;
       *&buf[16] = sub_10004E054;
-      v24 = &unk_1000EDA60;
-      v25 = &v19;
+      v25 = &unk_1000EDA60;
+      v26 = &v20;
       v8 = sub_10004DD90();
       v9 = dlsym(v8, "WiFiDeviceClientCopyCurrentNetwork");
-      *(v25[1] + 24) = v9;
-      off_10010DE68 = *(v25[1] + 24);
-      v7 = v20[3];
+      *(v26[1] + 24) = v9;
+      off_10010DE68 = *(v26[1] + 24);
+      v7 = v21[3];
     }
 
-    _Block_object_dispose(&v19, 8);
+    _Block_object_dispose(&v20, 8);
     if (!v7)
     {
       goto LABEL_27;
@@ -569,26 +569,26 @@ LABEL_21:
 
     v10 = v7(v6);
 LABEL_10:
-    v19 = 0;
-    v20 = &v19;
-    v21 = 0x2020000000;
+    v20 = 0;
+    v21 = &v20;
+    v22 = 0x2020000000;
     v11 = off_10010DE70;
-    v22 = off_10010DE70;
+    v23 = off_10010DE70;
     if (!off_10010DE70)
     {
       *buf = _NSConcreteStackBlock;
       *&buf[8] = 3221225472;
       *&buf[16] = sub_10004E0A4;
-      v24 = &unk_1000EDA60;
-      v25 = &v19;
+      v25 = &unk_1000EDA60;
+      v26 = &v20;
       v12 = sub_10004DD90();
       v13 = dlsym(v12, "WiFiNetworkIsPriorityNetworkWrapper");
-      *(v25[1] + 24) = v13;
-      off_10010DE70 = *(v25[1] + 24);
-      v11 = v20[3];
+      *(v26[1] + 24) = v13;
+      off_10010DE70 = *(v26[1] + 24);
+      v11 = v21[3];
     }
 
-    _Block_object_dispose(&v19, 8);
+    _Block_object_dispose(&v20, 8);
     if (v11)
     {
       v14 = v11(v10) != 0;
@@ -596,8 +596,8 @@ LABEL_10:
     }
 
 LABEL_27:
-    dlerror();
-    abort_report_np();
+    v19 = dlerror();
+    abort_report_np("%s", v19);
     __break(1u);
   }
 

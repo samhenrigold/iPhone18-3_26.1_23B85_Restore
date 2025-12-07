@@ -57,7 +57,7 @@
 
 - (uint64_t)hasSameItemsAsFromRecord:(void *)record toRecord:
 {
-  v23[2] = *MEMORY[0x277D85DE8];
+  v22[2] = *MEMORY[0x277D85DE8];
   v5 = a2;
   recordCopy = record;
   if (!self)
@@ -74,7 +74,7 @@
     null = [MEMORY[0x277CBEB68] null];
   }
 
-  v23[0] = null;
+  v22[0] = null;
   v10 = *(self + 16);
   null2 = v10;
   if (!v10)
@@ -82,8 +82,8 @@
     null2 = [MEMORY[0x277CBEB68] null];
   }
 
-  v23[1] = null2;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
+  v22[1] = null2;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
   v13 = [v7 setWithArray:v12];
 
   if (v10)
@@ -111,15 +111,15 @@ LABEL_8:
     null3 = [MEMORY[0x277CBEB68] null];
   }
 
-  v22[0] = null3;
+  v21[0] = null3;
   null4 = recordCopy;
   if (!recordCopy)
   {
     null4 = [MEMORY[0x277CBEB68] null];
   }
 
-  v22[1] = null4;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
+  v21[1] = null4;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
   v18 = [v14 setWithArray:v17];
 
   if (!recordCopy)
@@ -144,7 +144,6 @@ LABEL_14:
   v19 = [v13 isEqualToSet:v18];
 
 LABEL_15:
-  v20 = *MEMORY[0x277D85DE8];
   return v19;
 }
 

@@ -65,7 +65,7 @@ LABEL_7:
 
 uint64_t __59__FCFeedTransformationPersonalizedSort_transformFeedItems___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = [*(a1 + 32) feedItemScores];
@@ -76,15 +76,15 @@ uint64_t __59__FCFeedTransformationPersonalizedSort_transformFeedItems___block_i
 
   if (!v8 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v18 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"expected a score for item %@", v6];
+    v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"expected a score for item %@", v6];
     *buf = 136315906;
-    v21 = "[FCFeedTransformationPersonalizedSort transformFeedItems:]_block_invoke";
-    v22 = 2080;
-    v23 = "FCFeedTransformationPersonalize.m";
-    v24 = 1024;
-    v25 = 90;
-    v26 = 2114;
-    v27 = v18;
+    v20 = "[FCFeedTransformationPersonalizedSort transformFeedItems:]_block_invoke";
+    v21 = 2080;
+    v22 = "FCFeedTransformationPersonalize.m";
+    v23 = 1024;
+    v24 = 90;
+    v25 = 2114;
+    v26 = v17;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
@@ -93,15 +93,15 @@ uint64_t __59__FCFeedTransformationPersonalizedSort_transformFeedItems___block_i
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v19 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"expected a score for item %@", v5];
+      v18 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"expected a score for item %@", v5];
       *buf = 136315906;
-      v21 = "[FCFeedTransformationPersonalizedSort transformFeedItems:]_block_invoke";
-      v22 = 2080;
-      v23 = "FCFeedTransformationPersonalize.m";
-      v24 = 1024;
-      v25 = 91;
-      v26 = 2114;
-      v27 = v19;
+      v20 = "[FCFeedTransformationPersonalizedSort transformFeedItems:]_block_invoke";
+      v21 = 2080;
+      v22 = "FCFeedTransformationPersonalize.m";
+      v23 = 1024;
+      v24 = 91;
+      v25 = 2114;
+      v26 = v18;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
     }
 
@@ -119,7 +119,6 @@ uint64_t __59__FCFeedTransformationPersonalizedSort_transformFeedItems___block_i
   v14 = v11;
   v15 = [v13 compare:v14];
 
-  v16 = *MEMORY[0x1E69E9840];
   return v15;
 }
 

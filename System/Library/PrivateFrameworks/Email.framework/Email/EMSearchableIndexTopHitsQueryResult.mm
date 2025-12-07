@@ -62,32 +62,32 @@ void __42__EMSearchableIndexTopHitsQueryResult_log__block_invoke(uint64_t a1)
 
 - (NSArray)searchableItemIdentifiers
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   searchableItemIdentifiers = self->_searchableItemIdentifiers;
   if (!searchableItemIdentifiers)
   {
     v5 = objc_opt_new();
     v6 = objc_opt_new();
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     selfCopy = self;
     foundItems = [(EMSearchableIndexTopHitsQueryResult *)self foundItems];
-    v8 = [foundItems countByEnumeratingWithState:&v25 objects:v33 count:16];
+    v8 = [foundItems countByEnumeratingWithState:&v24 objects:v32 count:16];
     if (v8)
     {
-      v9 = *v26;
+      v9 = *v25;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v26 != v9)
+          if (*v25 != v9)
           {
             objc_enumerationMutation(foundItems);
           }
 
-          v11 = *(*(&v25 + 1) + 8 * i);
+          v11 = *(*(&v24 + 1) + 8 * i);
           firstObject = [EMSearchableIndex persistentIDForSearchableItem:v11];
           if (firstObject)
           {
@@ -98,7 +98,7 @@ void __42__EMSearchableIndexTopHitsQueryResult_log__block_invoke(uint64_t a1)
           }
         }
 
-        v8 = [foundItems countByEnumeratingWithState:&v25 objects:v33 count:16];
+        v8 = [foundItems countByEnumeratingWithState:&v24 objects:v32 count:16];
       }
 
       while (v8);
@@ -108,25 +108,25 @@ void __42__EMSearchableIndexTopHitsQueryResult_log__block_invoke(uint64_t a1)
     v15 = +[EMSearchableIndexTopHitsQueryResult log];
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
+      v20 = [allValues count];
       v21 = [allValues count];
-      v22 = [allValues count];
-      if (v22)
+      if (v21)
       {
         firstObject = [allValues firstObject];
-        v23 = [EMCSLoggingAdditions publicDescriptionForSnippetHintsArray:firstObject];
+        v22 = [EMCSLoggingAdditions publicDescriptionForSnippetHintsArray:firstObject];
       }
 
       else
       {
-        v23 = @"No values found.";
+        v22 = @"No values found.";
       }
 
       *buf = 134218242;
-      v30 = v21;
-      v31 = 2112;
-      v32 = v23;
+      v29 = v20;
+      v30 = 2112;
+      v31 = v22;
       _os_log_debug_impl(&dword_1C6655000, v15, OS_LOG_TYPE_DEBUG, "Top hits query collected %lu snippet hints: %@", buf, 0x16u);
-      if (v22)
+      if (v21)
       {
       }
     }
@@ -141,14 +141,12 @@ void __42__EMSearchableIndexTopHitsQueryResult_log__block_invoke(uint64_t a1)
     searchableItemIdentifiers = selfCopy->_searchableItemIdentifiers;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
-
   return searchableItemIdentifiers;
 }
 
 - (NSDictionary)mailRankingSignalsByPersistentID
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   mailRankingSignalsByPersistentID = self->_mailRankingSignalsByPersistentID;
   if (mailRankingSignalsByPersistentID)
   {
@@ -158,25 +156,25 @@ void __42__EMSearchableIndexTopHitsQueryResult_log__block_invoke(uint64_t a1)
   else
   {
     v5 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
     foundItems = [(EMSearchableIndexTopHitsQueryResult *)self foundItems];
-    v7 = [foundItems countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v7 = [foundItems countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v7)
     {
-      v8 = *v19;
+      v8 = *v18;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v19 != v8)
+          if (*v18 != v8)
           {
             objc_enumerationMutation(foundItems);
           }
 
-          v10 = *(*(&v18 + 1) + 8 * i);
+          v10 = *(*(&v17 + 1) + 8 * i);
           v11 = [EMSearchableIndex persistentIDForSearchableItem:v10];
           if (v11)
           {
@@ -185,7 +183,7 @@ void __42__EMSearchableIndexTopHitsQueryResult_log__block_invoke(uint64_t a1)
           }
         }
 
-        v7 = [foundItems countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v7 = [foundItems countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v7);
@@ -198,8 +196,6 @@ void __42__EMSearchableIndexTopHitsQueryResult_log__block_invoke(uint64_t a1)
 
     v3 = *p_mailRankingSignalsByPersistentID;
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v3;
 }

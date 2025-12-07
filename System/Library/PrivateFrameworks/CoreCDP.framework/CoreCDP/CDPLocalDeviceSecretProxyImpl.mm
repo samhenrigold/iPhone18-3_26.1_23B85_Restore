@@ -8,7 +8,7 @@
 {
   v2 = objc_alloc_init(CDPDaemonConnection);
   v3 = [(CDPDaemonConnection *)v2 synchronousDaemonWithErrorHandler:&__block_literal_global_12];
-  v4 = _CDPLogSystem();
+  v4 = _CDPLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -37,7 +37,7 @@
 void __47__CDPLocalDeviceSecretProxyImpl_hasLocalSecret__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = _CDPLogSystem();
+  v3 = _CDPLogSystem(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __47__CDPLocalDeviceSecretProxyImpl_hasLocalSecret__block_invoke_cold_1();
@@ -48,7 +48,7 @@ void __47__CDPLocalDeviceSecretProxyImpl_hasLocalSecret__block_invoke_17(uint64_
 {
   *(*(*(a1 + 32) + 8) + 24) = a2;
   v2 = *(*(*(a1 + 32) + 8) + 24);
-  v3 = _CDPLogSystem();
+  v3 = _CDPLogSystem(a1);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
   if (v2 == 1)
   {
@@ -73,11 +73,9 @@ LABEL_6:
 
 void __47__CDPLocalDeviceSecretProxyImpl_hasLocalSecret__block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

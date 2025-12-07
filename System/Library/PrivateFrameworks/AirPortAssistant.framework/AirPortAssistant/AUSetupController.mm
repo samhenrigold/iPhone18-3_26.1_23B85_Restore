@@ -96,43 +96,43 @@
 
 - (AUSetupController)init
 {
-  v33.receiver = self;
-  v33.super_class = AUSetupController;
-  v6 = [(AssistantCallbackController *)&v33 init];
-  if (v6)
+  v14.receiver = self;
+  v14.super_class = AUSetupController;
+  v2 = [(AssistantCallbackController *)&v14 init];
+  if (v2)
   {
-    *(v6 + 7) = objc_alloc_init(MEMORY[0x277CBEB58]);
-    sub_23EBBCBC4(v6 + 5, v7, v8, v9, v10, v11, v12, v13);
-    sub_23EBBD130(*(v6 + 5), sub_23EB8491C, v6, v14, v15, v16, v17, v18);
-    v19 = *(v6 + 5);
-    v22 = objc_msgSend_assistantCallback(v6, v20, v21);
-    sub_23EBBD1F4(v19, v22, v6, v23, v24, v25, v26, v27);
-    *(v6 + 88) = 1;
-    v30 = objc_msgSend_defaultCenter(MEMORY[0x277CCAB98], v28, v29);
-    objc_msgSend_addObserver_selector_name_object_(v30, v31, v6, sel_applicationDidEnterBackgroundNotification_, *MEMORY[0x277D76660], 0);
+    *(v2 + 7) = objc_alloc_init(MEMORY[0x277CBEB58]);
+    sub_23EBBCBC4(v2 + 5);
+    sub_23EBBD130(*(v2 + 5), sub_23EB8491C, v2);
+    v3 = *(v2 + 5);
+    v7 = objc_msgSend_assistantCallback(v2, v4, v5, v6);
+    sub_23EBBD1F4(v3, v7, v2);
+    *(v2 + 88) = 1;
+    v11 = objc_msgSend_defaultCenter(MEMORY[0x277CCAB98], v8, v9, v10);
+    objc_msgSend_addObserver_selector_name_object_(v11, v12, v2, sel_applicationDidEnterBackgroundNotification_, *MEMORY[0x277D76660], 0);
   }
 
   if (dword_27E3818B0 <= 800 && (dword_27E3818B0 != -1 || sub_23EB74AC8(&dword_27E3818B0, 0x320u)))
   {
-    sub_23EB75374(&dword_27E3818B0, "[AUSetupController init]", 800, "\n", v2, v3, v4, v5, v33.receiver);
+    sub_23EB75374(&dword_27E3818B0, "[AUSetupController init]", 800, "\n");
   }
 
-  return v6;
+  return v2;
 }
 
 - (void)dealloc
 {
-  objc_msgSend_closeAllConnections_(self, a2, 1);
-  objc_msgSend_setLastDNSName_(self, v3, 0);
-  objc_msgSend_setLastSystemName_(self, v4, 0);
-  objc_msgSend_setAutoGuessSetupRecommendation_(self, v5, 0);
-  objc_msgSend_setLastInstrumentation_(self, v6, 0);
+  objc_msgSend_closeAllConnections_(self, a2, 1, v2);
+  objc_msgSend_setLastDNSName_(self, v4, 0, v5);
+  objc_msgSend_setLastSystemName_(self, v6, 0, v7);
+  objc_msgSend_setAutoGuessSetupRecommendation_(self, v8, 0, v9);
+  objc_msgSend_setLastInstrumentation_(self, v10, 0, v11);
 
-  v9 = objc_msgSend_defaultCenter(MEMORY[0x277CCAB98], v7, v8);
-  objc_msgSend_removeObserver_name_object_(v9, v10, self, *MEMORY[0x277D76660], 0);
-  v11.receiver = self;
-  v11.super_class = AUSetupController;
-  [(AssistantCallbackController *)&v11 dealloc];
+  v15 = objc_msgSend_defaultCenter(MEMORY[0x277CCAB98], v12, v13, v14);
+  objc_msgSend_removeObserver_name_object_(v15, v16, self, *MEMORY[0x277D76660], 0);
+  v17.receiver = self;
+  v17.super_class = AUSetupController;
+  [(AssistantCallbackController *)&v17 dealloc];
 }
 
 - (int)closeAllConnections:(BOOL)connections
@@ -140,21 +140,21 @@
   connectionsCopy = connections;
   if (dword_27E3818B0 <= 800 && (dword_27E3818B0 != -1 || sub_23EB74AC8(&dword_27E3818B0, 0x320u)))
   {
-    sub_23EB75374(&dword_27E3818B0, "[AUSetupController closeAllConnections:]", 800, "\n", v3, v4, v5, v6, v25);
+    sub_23EB75374(&dword_27E3818B0, "[AUSetupController closeAllConnections:]", 800, "\n");
   }
 
-  if (!objc_msgSend_activeTask(self, a2, connections) || connectionsCopy)
+  if (!objc_msgSend_activeTask(self, a2, connections, v3) || connectionsCopy)
   {
-    objc_msgSend_cancelPreviousPerformRequestsWithTarget_selector_object_(MEMORY[0x277D82BB8], v9, self, sel_handleCopyAllSettingsUpdateThread_, 0);
-    objc_msgSend_cancelPreviousPerformRequestsWithTarget_selector_object_(MEMORY[0x277D82BB8], v10, self, sel_handleSettingsUpdate_, 0);
+    objc_msgSend_cancelPreviousPerformRequestsWithTarget_selector_object_(MEMORY[0x277D82BB8], v6, self, sel_handleCopyAllSettingsUpdateThread_, 0);
+    objc_msgSend_cancelPreviousPerformRequestsWithTarget_selector_object_(MEMORY[0x277D82BB8], v7, self, sel_handleSettingsUpdate_, 0);
 
     self->_setupDelegates = 0;
     objc_sync_enter(self);
     configContext = self->_configContext;
     if (configContext)
     {
-      sub_23EBBD130(configContext, 0, 0, v11, v12, v13, v14, v15);
-      connectionsCopy = sub_23EBBCCF0(self->_configContext, v17, v18, v19, v20, v21, v22, v23);
+      sub_23EBBD130(configContext, 0, 0);
+      connectionsCopy = sub_23EBBCCF0(self->_configContext);
       self->_configContext = 0;
     }
 
@@ -175,114 +175,71 @@
 {
   if (!callback)
   {
-    LODWORD(v13) = -6705;
-    return v13;
+    LODWORD(v9) = -6705;
+    return v9;
   }
 
-  v52 = 0;
-  v53 = 0;
-  sub_23EBEB494(callback, @"kBSAssistantCallback_Configuration_UIConfigSelector", &v53, v3, v4, v5, v6, v7);
-  v12 = v13;
-  LODWORD(v13) = 0;
-  if (!v12 && v53)
+  v43 = 0;
+  v44 = 0;
+  sub_23EBEB494(callback, @"kBSAssistantCallback_Configuration_UIConfigSelector", &v44);
+  v8 = v9;
+  LODWORD(v9) = 0;
+  if (!v8 && v44)
   {
-    v14 = objc_msgSend_integerValue(v53, v10, v11);
+    v10 = objc_msgSend_integerValue(v44, v5, v6, v7);
     if (sub_23EBEB5B8(callback, @"kBSAssistantCallback_Configuration_UIConfigParamDict"))
     {
-      sub_23EBEB494(callback, @"kBSAssistantCallback_Configuration_UIConfigParamDict", &v52, v17, v18, v19, v20, v21);
-      if (v13)
+      sub_23EBEB494(callback, @"kBSAssistantCallback_Configuration_UIConfigParamDict", &v43);
+      if (v9)
       {
-        return v13;
+        return v9;
       }
 
-      if (!v52)
+      v14 = v43;
+      if (!v43)
       {
-        goto LABEL_38;
-      }
-    }
-
-    else
-    {
-      v52 = 0;
-    }
-
-    if ((v14 - 1) >= 6)
-    {
-      if ((v14 - 7) >= 2)
-      {
-        LODWORD(v13) = -6705;
-        return v13;
-      }
-
-      if (dword_27E3818B0 <= 800 && (dword_27E3818B0 != -1 || sub_23EB74AC8(&dword_27E3818B0, 0x320u)))
-      {
-        sub_23EB75374(&dword_27E3818B0, "[AUSetupController subclassAssistantCallback:]", 800, "selector: %d paramDict: %@\n", v18, v19, v20, v21, v14);
-      }
-
-      v13 = objc_msgSend_uiConfigDelegate(self, v15, v16);
-      if (v13)
-      {
-        objc_msgSend_uiConfigDelegate(self, v43, v44);
-        if (objc_opt_respondsToSelector())
-        {
-          callbackContext = self->super._callbackContext;
-          if (callbackContext)
-          {
-            v48 = callbackContext == callback;
-          }
-
-          else
-          {
-            v48 = 1;
-          }
-
-          if (!v48)
-          {
-            goto LABEL_43;
-          }
-
-          self->super._callbackContext = callback;
-          v49 = objc_msgSend_uiConfigDelegate(self, v45, v46);
-          objc_msgSend_setupUIConfigPrompt_paramDict_forController_(v49, v50, v14, v52, self);
-        }
-
-LABEL_42:
-        LODWORD(v13) = 0;
+        goto LABEL_39;
       }
     }
 
     else
     {
-      sub_23EBEB494(callback, @"kBSAssistantCallback_Configuration_UIConfigConnectionStatusOSStatus", &v53, v17, v18, v19, v20, v21);
-      if (!v13)
+      v14 = 0;
+      v43 = 0;
+    }
+
+    if ((v10 - 1) < 6)
+    {
+      sub_23EBEB494(callback, @"kBSAssistantCallback_Configuration_UIConfigConnectionStatusOSStatus", &v44);
+      if (!v9)
       {
-        if (!v53)
+        if (!v44)
         {
-LABEL_38:
-          LODWORD(v13) = -6728;
-          return v13;
+LABEL_39:
+          LODWORD(v9) = -6728;
+          return v9;
         }
 
-        v30 = objc_msgSend_integerValue(v53, v22, v23);
+        v21 = objc_msgSend_integerValue(v44, v15, v16, v17);
         if (dword_27E3818B0 <= 800 && (dword_27E3818B0 != -1 || sub_23EB74AC8(&dword_27E3818B0, 0x320u)))
         {
-          sub_23EB75374(&dword_27E3818B0, "[AUSetupController subclassAssistantCallback:]", 800, "selector: %d status: %ld paramDict: %@\n", v26, v27, v28, v29, v14);
+          sub_23EB75374(&dword_27E3818B0, "[AUSetupController subclassAssistantCallback:]", 800, "selector: %d status: %ld paramDict: %@\n", v10, v21, v43);
         }
 
-        if (!objc_msgSend_uiConfigDelegate(self, v24, v25) || (objc_msgSend_uiConfigDelegate(self, v31, v32), (objc_opt_respondsToSelector() & 1) == 0))
+        if (!objc_msgSend_uiConfigDelegate(self, v18, v19, v20) || (objc_msgSend_uiConfigDelegate(self, v22, v23, v24), (objc_opt_respondsToSelector() & 1) == 0))
         {
-          if (v30)
+          if (v21)
           {
-            sub_23EBEB6CC(callback, -6757, v32, v33, v34, v35, v36, v37);
+            sub_23EBEB6CC(callback, -6757);
           }
 
-          goto LABEL_42;
+          goto LABEL_43;
         }
 
-        v39 = self->super._callbackContext;
-        if (!v39 || v39 == callback)
+        callbackContext = self->super._callbackContext;
+        if (!callbackContext || callbackContext == callback)
         {
-          if (v30)
+          if (v21)
           {
             callbackCopy = callback;
           }
@@ -293,18 +250,75 @@ LABEL_38:
           }
 
           self->super._callbackContext = callbackCopy;
-          v41 = objc_msgSend_uiConfigDelegate(self, v38, v32);
-          objc_msgSend_setupUIConfigConnectionStatusUpdated_status_paramDict_forController_(v41, v42, v14, v30, v52, self);
-          goto LABEL_42;
+          v30 = objc_msgSend_uiConfigDelegate(self, v25, v26, v27);
+          objc_msgSend_setupUIConfigConnectionStatusUpdated_status_paramDict_forController_(v30, v31, v10, v21, v43, self);
+          goto LABEL_43;
         }
 
-LABEL_43:
-        LODWORD(v13) = -6721;
+LABEL_44:
+        LODWORD(v9) = -6721;
+        return v9;
       }
+
+      return v9;
+    }
+
+    if ((v10 - 7) >= 2)
+    {
+      LODWORD(v9) = -6705;
+      return v9;
+    }
+
+    if (dword_27E3818B0 > 800)
+    {
+      goto LABEL_31;
+    }
+
+    if (dword_27E3818B0 == -1)
+    {
+      if (!sub_23EB74AC8(&dword_27E3818B0, 0x320u))
+      {
+        goto LABEL_31;
+      }
+
+      v14 = v43;
+    }
+
+    sub_23EB75374(&dword_27E3818B0, "[AUSetupController subclassAssistantCallback:]", 800, "selector: %d paramDict: %@\n", v10, v14);
+LABEL_31:
+    v9 = objc_msgSend_uiConfigDelegate(self, v11, v12, v13);
+    if (v9)
+    {
+      objc_msgSend_uiConfigDelegate(self, v32, v33, v34);
+      if (objc_opt_respondsToSelector())
+      {
+        v38 = self->super._callbackContext;
+        if (v38)
+        {
+          v39 = v38 == callback;
+        }
+
+        else
+        {
+          v39 = 1;
+        }
+
+        if (!v39)
+        {
+          goto LABEL_44;
+        }
+
+        self->super._callbackContext = callback;
+        v40 = objc_msgSend_uiConfigDelegate(self, v35, v36, v37);
+        objc_msgSend_setupUIConfigPrompt_paramDict_forController_(v40, v41, v10, v43, self);
+      }
+
+LABEL_43:
+      LODWORD(v9) = 0;
     }
   }
 
-  return v13;
+  return v9;
 }
 
 + (id)setupController
@@ -319,7 +333,7 @@ LABEL_43:
   configContext = self->_configContext;
   if (configContext)
   {
-    return sub_23EBBD00C(configContext, a2, v2, v3, v4, v5, v6, v7);
+    return sub_23EBBD00C(configContext);
   }
 
   else
@@ -333,7 +347,7 @@ LABEL_43:
   configContext = self->_configContext;
   if (configContext)
   {
-    return sub_23EBBCEC0(configContext, 0, v2, v3, v4, v5, v6, v7);
+    return sub_23EBBCEC0(configContext, 0);
   }
 
   else
@@ -424,15 +438,15 @@ LABEL_43:
     return -6718;
   }
 
-  v12 = 0;
-  result = sub_23EBBEC90(configContext, &v12);
+  v13 = 0;
+  result = sub_23EBBEC90(configContext, &v13);
   if (!result)
   {
-    v10 = v12;
-    if (v12)
+    v11 = v13;
+    if (v13)
     {
-      v11 = objc_msgSend_UTF8String(path, v8, v9);
-      return sub_23EBB3B84(v10, v11, value);
+      v12 = objc_msgSend_UTF8String(path, v8, v9, v10);
+      return sub_23EBB3B84(v11, v12, value);
     }
 
     else
@@ -463,15 +477,15 @@ LABEL_43:
     return -6705;
   }
 
-  v12 = 0;
-  result = sub_23EBBEC90(configContext, &v12);
+  v13 = 0;
+  result = sub_23EBBEC90(configContext, &v13);
   if (!result)
   {
-    v10 = v12;
-    if (v12)
+    v11 = v13;
+    if (v13)
     {
-      v11 = objc_msgSend_UTF8String(path, v8, v9);
-      return sub_23EBB3E20(v10, v11, value);
+      v12 = objc_msgSend_UTF8String(path, v8, v9, v10);
+      return sub_23EBB3E20(v11, v12, value);
     }
 
     else
@@ -523,6 +537,7 @@ LABEL_43:
   configContext = self->_configContext;
   if (configContext)
   {
+    v4 = *&problem;
     v7 = 0;
     v6 = 0;
     if (sub_23EBBEC90(configContext, &v7))
@@ -538,7 +553,7 @@ LABEL_43:
         LODWORD(configContext) = sub_23EBB4248(v7, 1400460148);
         if (configContext)
         {
-          LODWORD(configContext) = sub_23EBB427C(v7, problem, &v6);
+          LODWORD(configContext) = sub_23EBB427C(v7, v4, &v6);
           if (configContext)
           {
             if (v6)
@@ -561,67 +576,67 @@ LABEL_43:
 
 - (int64_t)unignoredProblemCount
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   configContext = self->_configContext;
   if (!configContext)
   {
     return 0;
   }
 
-  v30 = 0;
-  v31 = 0;
-  if (sub_23EBBEC90(configContext, &v31) || !v31)
+  v28 = 0;
+  v29 = 0;
+  if (sub_23EBBEC90(configContext, &v29) || !v29)
   {
     return 0;
   }
 
-  if (!sub_23EBB4248(v31, 1400460148))
+  if (!sub_23EBB4248(v29, 1400460148))
   {
-    v29 = 0;
-    sub_23EBBF110(self->_configContext, &v29);
-    if (v29)
+    v27 = 0;
+    sub_23EBBF110(self->_configContext, &v27);
+    if (v27)
     {
-      return sub_23EB6B004(v29, v18, v19, v20, v21, v22, v23, v24);
+      return sub_23EB6B004(v27);
     }
 
     return 0;
   }
 
   v4 = 0;
-  if (!sub_23EBB3F30(v31, 1937331060, &v30) && v30)
+  if (!sub_23EBB3F30(v29, 1937331060, &v28) && v28)
   {
-    v27 = 0u;
-    v28 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v7 = objc_msgSend_objectForKey_(v30, v6, @"problems", 0);
-    v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v8, &v25, v32, 16);
-    if (v9)
+    v23 = 0u;
+    v24 = 0u;
+    v8 = objc_msgSend_objectForKey_(v28, v6, @"problems", v7, 0);
+    v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v9, &v23, v30, 16);
+    if (v10)
     {
-      v11 = v9;
+      v13 = v10;
       v4 = 0;
-      v12 = *v26;
+      v14 = *v24;
       do
       {
-        for (i = 0; i != v11; ++i)
+        for (i = 0; i != v13; ++i)
         {
-          if (*v26 != v12)
+          if (*v24 != v14)
           {
-            objc_enumerationMutation(v7);
+            objc_enumerationMutation(v8);
           }
 
-          v14 = objc_msgSend_objectForKey_(*(*(&v25 + 1) + 8 * i), v10, @"code");
-          v16 = sub_23EB6D4A8(v14, v15);
-          if (objc_msgSend_stateForProblem_(self, v17, v16) == 2)
+          v16 = objc_msgSend_objectForKey_(*(*(&v23 + 1) + 8 * i), v11, @"code", v12);
+          v20 = sub_23EB6D4A8(v16, v17, v18, v19);
+          if (objc_msgSend_stateForProblem_(self, v21, v20, v22) == 2)
           {
             ++v4;
           }
         }
 
-        v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v10, &v25, v32, 16);
+        v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v11, &v23, v30, 16);
       }
 
-      while (v11);
+      while (v13);
     }
 
     else
@@ -709,13 +724,14 @@ LABEL_43:
     return -6718;
   }
 
+  v4 = *&code;
   v6 = 0;
   result = sub_23EBBEC90(configContext, &v6);
   if (!result)
   {
     if (v6)
     {
-      return sub_23EBB42A0(v6, code);
+      return sub_23EBB42A0(v6, v4);
     }
 
     else
@@ -735,13 +751,14 @@ LABEL_43:
     return -6718;
   }
 
+  v4 = *&code;
   v6 = 0;
   result = sub_23EBBEC90(configContext, &v6);
   if (!result)
   {
     if (v6)
     {
-      return sub_23EBB42B4(v6, code);
+      return sub_23EBB42B4(v6, v4);
     }
 
     else
@@ -796,15 +813,15 @@ LABEL_43:
     passwordCopy = password;
 
     self->_keychainBasePassword = password;
-    if (objc_msgSend_length(password, v8, v9))
+    if (objc_msgSend_length(password, v8, v9, v10))
     {
-      v12 = objc_msgSend_rememberBasePassword(self, v10, v11);
-      objc_msgSend_setRememberBasePassword_(self, v13, v12);
+      v14 = objc_msgSend_rememberBasePassword(self, v11, v12, v13);
+      objc_msgSend_setRememberBasePassword_(self, v15, v14, v16);
     }
 
     else
     {
-      objc_msgSend_setRememberBasePassword_(self, v10, 0);
+      objc_msgSend_setRememberBasePassword_(self, v11, 0, v13);
     }
 
     objc_sync_exit(self);
@@ -827,33 +844,33 @@ LABEL_43:
   if (!v4)
   {
     objc_sync_enter(self);
-    if (objc_msgSend_length(password, v7, v8))
+    if (objc_msgSend_length(password, v7, v8, v9))
     {
-      v11 = objc_msgSend_length(self->_keychainWiFiPassword, v9, v10) == 0;
+      v13 = objc_msgSend_length(self->_keychainWiFiPassword, v10, v11, v12) == 0;
     }
 
     else
     {
-      v11 = 0;
+      v13 = 0;
     }
 
     passwordCopy = password;
 
     self->_keychainWiFiPassword = password;
-    if (v11)
+    if (v13)
     {
-      objc_msgSend_setRememberWiFiPassword_(self, v13, 1);
+      objc_msgSend_setRememberWiFiPassword_(self, v15, 1, v17);
     }
 
-    else if (objc_msgSend_length(password, v13, v14))
+    else if (objc_msgSend_length(password, v15, v16, v17))
     {
-      v17 = objc_msgSend_rememberWiFiPassword(self, v15, v16);
-      objc_msgSend_setRememberWiFiPassword_(self, v18, v17);
+      v21 = objc_msgSend_rememberWiFiPassword(self, v18, v19, v20);
+      objc_msgSend_setRememberWiFiPassword_(self, v22, v21, v23);
     }
 
     else
     {
-      objc_msgSend_setRememberWiFiPassword_(self, v15, 0);
+      objc_msgSend_setRememberWiFiPassword_(self, v18, 0, v20);
     }
 
     objc_sync_exit(self);
@@ -879,15 +896,15 @@ LABEL_43:
     passwordCopy = password;
 
     self->_keychainDiskPassword = password;
-    if (objc_msgSend_length(password, v8, v9))
+    if (objc_msgSend_length(password, v8, v9, v10))
     {
-      v12 = objc_msgSend_rememberDiskPassword(self, v10, v11);
-      objc_msgSend_setRememberDiskPassword_(self, v13, v12);
+      v14 = objc_msgSend_rememberDiskPassword(self, v11, v12, v13);
+      objc_msgSend_setRememberDiskPassword_(self, v15, v14, v16);
     }
 
     else
     {
-      objc_msgSend_setRememberDiskPassword_(self, v10, 0);
+      objc_msgSend_setRememberDiskPassword_(self, v11, 0, v13);
     }
 
     objc_sync_exit(self);
@@ -902,10 +919,10 @@ LABEL_43:
     return -6718;
   }
 
-  result = sub_23EBBF76C(configContext, async, async, v3, v4, v5, v6, v7);
+  result = sub_23EBBF76C(configContext, async);
   if (!result)
   {
-    objc_msgSend_handleBusyStart(self, v11, v12);
+    objc_msgSend_handleBusyStart(self, v6, v7, v8);
     result = 0;
     self->_performingManualRead = 1;
   }
@@ -921,11 +938,11 @@ LABEL_43:
     return -6718;
   }
 
-  result = sub_23EBBFA24(configContext, a2, v2, v3, v4, v5, v6, v7);
+  result = sub_23EBBFA24(configContext);
   if (!result)
   {
-    objc_msgSend_handleBusyStart(self, v11, v12);
-    objc_msgSend_setupWiFiState(self, v13, v14);
+    objc_msgSend_handleBusyStart(self, v5, v6, v7);
+    objc_msgSend_setupWiFiState(self, v8, v9, v10);
     return 0;
   }
 
@@ -934,16 +951,16 @@ LABEL_43:
 
 - (id)snapshotChangedKeys
 {
-  v7 = 0;
-  v3 = objc_msgSend_bsRef(self, a2, v2);
-  v4 = sub_23EBB41B0(v3, &v7);
-  result = v7;
-  if (!v4)
+  v8 = 0;
+  v4 = objc_msgSend_bsRef(self, a2, v2, v3);
+  v5 = sub_23EBB41B0(v4, &v8);
+  result = v8;
+  if (!v5)
   {
-    if (v7)
+    if (v8)
     {
-      v6 = v7;
-      return v7;
+      v7 = v8;
+      return v8;
     }
   }
 
@@ -952,49 +969,49 @@ LABEL_43:
 
 - (void)snapshotResetAll
 {
-  v3 = objc_msgSend_bsRef(self, a2, v2);
+  v4 = objc_msgSend_bsRef(self, a2, v2, v3);
 
-  sub_23EBB41D4(v3);
+  sub_23EBB41D4(v4);
 }
 
 - (int)snapshotPush
 {
-  v3 = objc_msgSend_bsRef(self, a2, v2);
+  v4 = objc_msgSend_bsRef(self, a2, v2, v3);
 
-  return sub_23EBB41E4(v3);
+  return sub_23EBB41E4(v4);
 }
 
 - (int)snapshotPop:(BOOL)pop
 {
   popCopy = pop;
-  v4 = objc_msgSend_bsRef(self, a2, pop);
+  v5 = objc_msgSend_bsRef(self, a2, pop, v3);
 
-  return sub_23EBB41F4(v4, popCopy);
+  return sub_23EBB41F4(v5, popCopy);
 }
 
 - (id)bestKeychainMACAddress
 {
-  v9 = 0;
-  if ((objc_msgSend_getValue_forBSSetting_(self, a2, &v9, 2002865473) || !objc_msgSend_length(v9, v3, v4) || objc_msgSend_isEqualToString_(v9, v3, @"00:00:00:00:00:00")) && (v9 = 0, objc_msgSend_getValue_forBSSetting_(self, v3, &v9, 1918979393)) || !objc_msgSend_length(v9, v3, v5) || objc_msgSend_isEqualToString_(v9, v3, @"00:00:00:00:00:00"))
+  v15 = 0;
+  if ((objc_msgSend_getValue_forBSSetting_(self, a2, &v15, 2002865473) || !objc_msgSend_length(v15, v3, v4, v5) || objc_msgSend_isEqualToString_(v15, v3, @"00:00:00:00:00:00", v8)) && (v15 = 0, objc_msgSend_getValue_forBSSetting_(self, v3, &v15, 1918979393)) || !objc_msgSend_length(v15, v3, v6, v7) || objc_msgSend_isEqualToString_(v15, v3, @"00:00:00:00:00:00", v9))
   {
-    v9 = 0;
-    if (objc_msgSend_getValue_forBSSetting_(self, v3, &v9, 1818316097))
+    v15 = 0;
+    if (objc_msgSend_getValue_forBSSetting_(self, v3, &v15, 1818316097))
     {
       return 0;
     }
   }
 
-  result = objc_msgSend_length(v9, v3, v6);
+  result = objc_msgSend_length(v15, v3, v10, v11);
   if (result)
   {
-    if (objc_msgSend_isEqualToString_(v9, v8, @"00:00:00:00:00:00"))
+    if (objc_msgSend_isEqualToString_(v15, v13, @"00:00:00:00:00:00", v14))
     {
       return 0;
     }
 
     else
     {
-      return v9;
+      return v15;
     }
   }
 
@@ -1003,35 +1020,35 @@ LABEL_43:
 
 - (id)allKeychainMACAddresses
 {
-  v4 = objc_msgSend_array(MEMORY[0x277CBEB18], a2, v2);
-  v15 = 0;
-  if (!objc_msgSend_getValue_forBSSetting_(self, v5, &v15, 2002865473) && objc_msgSend_length(v15, v6, v7) && (objc_msgSend_isEqualToString_(v15, v6, @"00:00:00:00:00:00") & 1) == 0)
+  v5 = objc_msgSend_array(MEMORY[0x277CBEB18], a2, v2, v3);
+  v25 = 0;
+  if (!objc_msgSend_getValue_forBSSetting_(self, v6, &v25, 2002865473) && objc_msgSend_length(v25, v7, v8, v9) && (objc_msgSend_isEqualToString_(v25, v7, @"00:00:00:00:00:00", v17) & 1) == 0)
   {
-    objc_msgSend_addObject_(v4, v6, v15);
+    objc_msgSend_addObject_(v5, v7, v25, v18);
   }
 
-  v15 = 0;
-  if (!objc_msgSend_getValue_forBSSetting_(self, v6, &v15, 1918979393) && objc_msgSend_length(v15, v8, v9) && (objc_msgSend_isEqualToString_(v15, v8, @"00:00:00:00:00:00") & 1) == 0)
+  v25 = 0;
+  if (!objc_msgSend_getValue_forBSSetting_(self, v7, &v25, 1918979393) && objc_msgSend_length(v25, v10, v11, v12) && (objc_msgSend_isEqualToString_(v25, v10, @"00:00:00:00:00:00", v19) & 1) == 0)
   {
-    objc_msgSend_addObject_(v4, v8, v15);
+    objc_msgSend_addObject_(v5, v10, v25, v20);
   }
 
-  v15 = 0;
-  if (!objc_msgSend_getValue_forBSSetting_(self, v8, &v15, 1818316097) && objc_msgSend_length(v15, v10, v11) && (objc_msgSend_isEqualToString_(v15, v13, @"00:00:00:00:00:00") & 1) == 0)
+  v25 = 0;
+  if (!objc_msgSend_getValue_forBSSetting_(self, v10, &v25, 1818316097) && objc_msgSend_length(v25, v13, v14, v15) && (objc_msgSend_isEqualToString_(v25, v21, @"00:00:00:00:00:00", v22) & 1) == 0)
   {
-    objc_msgSend_addObject_(v4, v14, v15);
+    objc_msgSend_addObject_(v5, v23, v25, v24);
   }
 
-  return v4;
+  return v5;
 }
 
 - (void)updateRememberKeychainFlagsIfInitializing
 {
-  if (!self->_initializedBasePasswordFlag && objc_msgSend_bonjourRecord(self, a2, v2))
+  if (!self->_initializedBasePasswordFlag && objc_msgSend_bonjourRecord(self, a2, v2, v3))
   {
     self->_initializedBasePasswordFlag = 1;
 
-    objc_msgSend_updateRememberKeychainFlagsButSkipBasePassword_(self, v4, 0);
+    objc_msgSend_updateRememberKeychainFlagsButSkipBasePassword_(self, v5, 0, v6);
   }
 }
 
@@ -1039,24 +1056,24 @@ LABEL_43:
 {
   if (!password)
   {
-    objc_msgSend_loadKeychainBasePassword(self, a2, password);
+    objc_msgSend_loadKeychainBasePassword(self, a2, password, v3);
   }
 
-  MEMORY[0x2821F9670](self, sel_loadKeychainWirelessPassword, password);
+  MEMORY[0x2821F9670](self, sel_loadKeychainWirelessPassword, password, v3);
 }
 
 - (int)updateKeychainWithPasswordsWithStatus:(int)status
 {
   if (status == -16)
   {
-    objc_msgSend_deleteKeychainBasePassword(self, a2, *&status);
+    objc_msgSend_deleteKeychainBasePassword(self, a2, *&status, v3);
     return 0;
   }
 
   else
   {
 
-    return objc_msgSend_updateKeychainWithPasswords(self, a2, *&status);
+    return objc_msgSend_updateKeychainWithPasswords(self, a2, *&status, v3);
   }
 }
 
@@ -1064,13 +1081,13 @@ LABEL_43:
 {
   if (dword_27E3818B0 <= 800 && (dword_27E3818B0 != -1 || sub_23EB74AC8(&dword_27E3818B0, 0x320u)))
   {
-    v4 = objc_msgSend_rememberBasePassword(self, a2, v2);
-    sub_23EB75374(&dword_27E3818B0, "[AUSetupController updateKeychainWithPasswords]", 800, "self.rememberBasePassword %d\n", v5, v6, v7, v8, v4);
+    v5 = objc_msgSend_rememberBasePassword(self, a2, v2, v3);
+    sub_23EB75374(&dword_27E3818B0, "[AUSetupController updateKeychainWithPasswords]", 800, "self.rememberBasePassword %d\n", v5);
   }
 
-  if (objc_msgSend_rememberBasePassword(self, a2, v2))
+  if (objc_msgSend_rememberBasePassword(self, a2, v2, v3))
   {
-    objc_msgSend_saveKeychainBasePassword(self, v9, v10);
+    objc_msgSend_saveKeychainBasePassword(self, v6, v7, v8);
   }
 
   return 0;
@@ -1102,25 +1119,25 @@ LABEL_43:
 
 - (void)saveKeychainBasePassword
 {
-  if (objc_msgSend_rememberBasePassword(self, a2, v2))
+  if (objc_msgSend_rememberBasePassword(self, a2, v2, v3))
   {
-    v30 = 0;
-    v31 = 0;
-    v29 = 0;
+    v22 = 0;
+    v23 = 0;
+    v21 = 0;
     objc_sync_enter(self);
     configContext = self->_configContext;
-    if (!configContext || sub_23EBBEC90(configContext, &v29) || !v29)
+    if (!configContext || sub_23EBBEC90(configContext, &v21) || !v21)
     {
       goto LABEL_4;
     }
 
-    v13 = objc_msgSend_bestKeychainMACAddress(self, v5, v6);
+    v12 = objc_msgSend_bestKeychainMACAddress(self, v6, v7, v8);
     if (dword_27E3818B0 <= 800 && (dword_27E3818B0 != -1 || sub_23EB74AC8(&dword_27E3818B0, 0x320u)))
     {
-      sub_23EB75374(&dword_27E3818B0, "[AUSetupController saveKeychainBasePassword]", 800, "macAddress: %@ err: %#m\n", v9, v10, v11, v12, v13);
+      sub_23EB75374(&dword_27E3818B0, "[AUSetupController saveKeychainBasePassword]", 800, "macAddress: %@ err: %#m\n", v12, 0);
     }
 
-    if (!objc_msgSend_length(v13, v7, v8) || objc_msgSend_getValue_forBSSetting_(self, v14, &v31, 1937330263) || (v17 = v31) == 0)
+    if (!objc_msgSend_length(v12, v9, v10, v11) || objc_msgSend_getValue_forBSSetting_(self, v13, &v23, 1937330263) || (v17 = v23) == 0)
     {
 LABEL_4:
       objc_sync_exit(self);
@@ -1132,36 +1149,36 @@ LABEL_4:
       if (dword_27E3818B0 != -1)
       {
 LABEL_18:
-        v18 = objc_msgSend_length(v17, v15, v16);
-        sub_23EB75374(&dword_27E3818B0, "[AUSetupController saveKeychainBasePassword]", 800, "password (length): %ld err: %#m\n", v19, v20, v21, v22, v18);
+        v18 = objc_msgSend_length(v17, v14, v15, v16);
+        sub_23EB75374(&dword_27E3818B0, "[AUSetupController saveKeychainBasePassword]", 800, "password (length): %ld err: %#m\n", v18);
         goto LABEL_19;
       }
 
       if (sub_23EB74AC8(&dword_27E3818B0, 0x320u))
       {
-        v17 = v31;
+        v17 = v23;
         goto LABEL_18;
       }
     }
 
 LABEL_19:
-    if (!objc_msgSend_getValue_forBSSetting_(self, v15, &v30, 1937329773))
+    if (!objc_msgSend_getValue_forBSSetting_(self, v14, &v22, 1937329773))
     {
-      v27 = v30;
-      if (v30)
+      v19 = v22;
+      if (v22)
       {
         if (dword_27E3818B0 <= 800)
         {
           if (dword_27E3818B0 != -1)
           {
 LABEL_25:
-            sub_23EB75374(&dword_27E3818B0, "[AUSetupController saveKeychainBasePassword]", 800, "name: %@ err: %#m\n", v23, v24, v25, v26, v27);
+            sub_23EB75374(&dword_27E3818B0, "[AUSetupController saveKeychainBasePassword]", 800, "name: %@ err: %#m\n", v19, 0);
             goto LABEL_26;
           }
 
           if (sub_23EB74AC8(&dword_27E3818B0, 0x320u))
           {
-            v27 = v30;
+            v19 = v22;
             goto LABEL_25;
           }
         }
@@ -1172,10 +1189,10 @@ LABEL_26:
         block[1] = 3221225472;
         block[2] = sub_23EB86828;
         block[3] = &unk_278C69088;
-        block[4] = v31;
+        block[4] = v23;
         block[5] = self;
-        block[6] = v13;
-        block[7] = v30;
+        block[6] = v12;
+        block[7] = v22;
         dispatch_group_async(qword_27E383438, qword_27E383430, block);
         return;
       }
@@ -1211,24 +1228,24 @@ LABEL_26:
 
 - (void)loadKeychainWirelessPassword
 {
-  v16 = 0;
-  v17 = 0;
-  v14 = 0;
-  v15 = 0;
+  v20 = 0;
+  v21 = 0;
+  v18 = 0;
+  v19 = 0;
   objc_sync_enter(self);
   configContext = self->_configContext;
-  if (configContext && !sub_23EBBEC90(configContext, &v17) && v17 && (sub_23EBB6604(v17), v4 = sub_23EB6D3EC(1918979693), !objc_msgSend_getValue_forSettingPath_(self, v5, &v16, v4)) && v16 && objc_msgSend_length(v16, v6, v7) && !objc_msgSend_getValue_forBSSetting_(self, v8, &v14, 1651717454) && v14 && (!objc_msgSend_BOOLValue(v14, v9, v10) || (sub_23EBB65F0(v17), v11 = sub_23EB6D3EC(1918979693), !objc_msgSend_getValue_forSettingPath_(self, v12, &v15, v11)) && v15))
+  if (configContext && !sub_23EBBEC90(configContext, &v21) && v21 && (v4 = sub_23EBB6604(v21), v5 = sub_23EB6D3EC(1918979693, v4), !objc_msgSend_getValue_forSettingPath_(self, v6, &v20, v5)) && v20 && objc_msgSend_length(v20, v7, v8, v9) && !objc_msgSend_getValue_forBSSetting_(self, v10, &v18, 1651717454) && v18 && (!objc_msgSend_BOOLValue(v18, v11, v12, v13) || (v14 = sub_23EBB65F0(v21), v15 = sub_23EB6D3EC(1918979693, v14), !objc_msgSend_getValue_forSettingPath_(self, v16, &v19, v15)) && v19))
   {
     objc_sync_exit(self);
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = sub_23EB86BB8;
-    v13[3] = &unk_278C69088;
-    v13[4] = v16;
-    v13[5] = v14;
-    v13[6] = v15;
-    v13[7] = self;
-    dispatch_group_async(qword_27E383438, qword_27E383430, v13);
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = sub_23EB86BB8;
+    v17[3] = &unk_278C69088;
+    v17[4] = v20;
+    v17[5] = v18;
+    v17[6] = v19;
+    v17[7] = self;
+    dispatch_group_async(qword_27E383438, qword_27E383430, v17);
   }
 
   else
@@ -1239,13 +1256,13 @@ LABEL_26:
 
 - (void)deleteKeychainWirelessPassword
 {
-  v14 = 0;
+  v17 = 0;
+  v18 = 0;
   v15 = 0;
-  v12 = 0;
-  v13 = 0;
+  v16 = 0;
   objc_sync_enter(self);
   configContext = self->_configContext;
-  if (!configContext || sub_23EBBEC90(configContext, &v15) || !v15 || objc_msgSend_getValue_forBSSetting_(self, v4, &v12, 1651717454) || !v12 || (sub_23EBB6604(v15), v5 = sub_23EB6D3EC(1918979693), objc_msgSend_getValue_forSettingPath_(self, v6, &v14, v5)) || !v14 || objc_msgSend_BOOLValue(v12, v7, v8) && ((sub_23EBB65F0(v15), v9 = sub_23EB6D3EC(1918979693), objc_msgSend_getValue_forSettingPath_(self, v10, &v13, v9)) || !v13))
+  if (!configContext || sub_23EBBEC90(configContext, &v18) || !v18 || objc_msgSend_getValue_forBSSetting_(self, v4, &v15, 1651717454) || !v15 || (v5 = sub_23EBB6604(v18), v6 = sub_23EB6D3EC(1918979693, v5), objc_msgSend_getValue_forSettingPath_(self, v7, &v17, v6)) || !v17 || objc_msgSend_BOOLValue(v15, v8, v9, v10) && ((v11 = sub_23EBB65F0(v18), v12 = sub_23EB6D3EC(1918979693, v11), objc_msgSend_getValue_forSettingPath_(self, v13, &v16, v12)) || !v16))
   {
     objc_sync_exit(self);
   }
@@ -1253,15 +1270,15 @@ LABEL_26:
   else
   {
     objc_sync_exit(self);
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = sub_23EB86E48;
-    v11[3] = &unk_278C69088;
-    v11[4] = v14;
-    v11[5] = v12;
-    v11[6] = v13;
-    v11[7] = self;
-    dispatch_group_async(qword_27E383438, qword_27E383430, v11);
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = sub_23EB86E48;
+    v14[3] = &unk_278C69088;
+    v14[4] = v17;
+    v14[5] = v15;
+    v14[6] = v16;
+    v14[7] = self;
+    dispatch_group_async(qword_27E383438, qword_27E383430, v14);
   }
 }
 
@@ -1270,7 +1287,7 @@ LABEL_26:
   configContext = self->_configContext;
   if (configContext)
   {
-    return sub_23EBB7918(configContext, a2, v2, v3, v4, v5, v6, v7);
+    return sub_23EBB7918(configContext);
   }
 
   else
@@ -1284,7 +1301,7 @@ LABEL_26:
   configContext = self->_configContext;
   if (configContext)
   {
-    return sub_23EBB7B38(configContext, browse, service, service, v4, v5, v6, v7);
+    return sub_23EBB7B38(configContext, browse, service);
   }
 
   else
@@ -1298,7 +1315,7 @@ LABEL_26:
   configContext = self->_configContext;
   if (configContext)
   {
-    return sub_23EBB7F44(configContext, async, *&async, v3, v4, v5, v6, v7);
+    return sub_23EBB7F44(configContext, *&async);
   }
 
   else
@@ -1312,7 +1329,7 @@ LABEL_26:
   configContext = self->_configContext;
   if (configContext)
   {
-    return sub_23EBB825C(configContext, async, async, v3, v4, v5, v6, v7);
+    return sub_23EBB825C(configContext, async);
   }
 
   else
@@ -1326,7 +1343,7 @@ LABEL_26:
   configContext = self->_configContext;
   if (configContext)
   {
-    return sub_23EBB84FC(configContext, a2, v2, v3, v4, v5, v6, v7);
+    return sub_23EBB84FC(configContext);
   }
 
   else
@@ -1340,7 +1357,7 @@ LABEL_26:
   configContext = self->_configContext;
   if (configContext)
   {
-    return sub_23EBB86B0(configContext, async, pass, *&timeout, *&timeout, v5, v6, v7);
+    return sub_23EBB86B0(configContext, async, pass, *&timeout);
   }
 
   else
@@ -1354,7 +1371,7 @@ LABEL_26:
   configContext = self->_configContext;
   if (configContext)
   {
-    return sub_23EBB89D4(configContext, a2, v2, v3, v4, v5, v6, v7);
+    return sub_23EBB89D4(configContext);
   }
 
   else
@@ -1368,7 +1385,7 @@ LABEL_26:
   configContext = self->_configContext;
   if (configContext)
   {
-    return sub_23EBB8CE8(configContext, async, async, v3, v4, v5, v6, v7);
+    return sub_23EBB8CE8(configContext, async);
   }
 
   else
@@ -1392,14 +1409,14 @@ LABEL_26:
 
 - (unsigned)taskCode
 {
-  v5 = 0;
-  if (!self->_configContext || objc_msgSend_taskState(self, a2, v2) != 6)
+  v6 = 0;
+  if (!self->_configContext || objc_msgSend_taskState(self, a2, v2, v3) != 6)
   {
     return 0;
   }
 
-  sub_23EBB779C(self->_configContext, &v5);
-  return v5;
+  sub_23EBB779C(self->_configContext, &v6);
+  return v6;
 }
 
 - (int)busyState
@@ -1422,12 +1439,12 @@ LABEL_26:
     return -6718;
   }
 
-  objc_msgSend_setActiveTask_(self, a2, 1);
-  result = sub_23EBB900C(self->_configContext, v3, v4, v5, v6, v7, v8, v9);
+  objc_msgSend_setActiveTask_(self, a2, 1, v2);
+  result = sub_23EBB900C(self->_configContext);
   if (!result)
   {
-    objc_msgSend_handleBusyStart(self, v11, v12);
-    objc_msgSend_setupWiFiState(self, v13, v14);
+    objc_msgSend_handleBusyStart(self, v5, v6, v7);
+    objc_msgSend_setupWiFiState(self, v8, v9, v10);
     return 0;
   }
 
@@ -1442,12 +1459,12 @@ LABEL_26:
   }
 
   asyncCopy = async;
-  objc_msgSend_setActiveTask_(self, a2, 1);
-  result = sub_23EBB9E34(self->_configContext, asyncCopy, v5, v6, v7, v8, v9, v10);
+  objc_msgSend_setActiveTask_(self, a2, 1, v3);
+  result = sub_23EBB9E34(self->_configContext, asyncCopy);
   if (!result)
   {
-    objc_msgSend_handleBusyStart(self, v12, v13);
-    objc_msgSend_setupWiFiState(self, v14, v15);
+    objc_msgSend_handleBusyStart(self, v7, v8, v9);
+    objc_msgSend_setupWiFiState(self, v10, v11, v12);
     return 0;
   }
 
@@ -1466,12 +1483,12 @@ LABEL_26:
     return -6705;
   }
 
-  objc_msgSend_setActiveTask_(self, a2, 1);
-  result = sub_23EBBAC3C(self->_configContext, async, v5, v6, v7, v8, v9, v10);
+  objc_msgSend_setActiveTask_(self, a2, 1, v3);
+  result = sub_23EBBAC3C(self->_configContext, async);
   if (!result)
   {
-    objc_msgSend_handleBusyStart(self, v12, v13);
-    objc_msgSend_setupWiFiState(self, v14, v15);
+    objc_msgSend_handleBusyStart(self, v7, v8, v9);
+    objc_msgSend_setupWiFiState(self, v10, v11, v12);
     return 0;
   }
 
@@ -1488,7 +1505,7 @@ LABEL_26:
 
   if (async)
   {
-    return sub_23EBBBDE8(configContext, async, async, v3, v4, v5, v6, v7);
+    return sub_23EBBBDE8(configContext, async);
   }
 
   return -6705;
@@ -1504,7 +1521,7 @@ LABEL_26:
 
   if (async)
   {
-    return sub_23EBBC3D0(configContext, async, async, v3, v4, v5, v6, v7);
+    return sub_23EBBC3D0(configContext, async);
   }
 
   return -6705;
@@ -1514,7 +1531,7 @@ LABEL_26:
 {
   if (self->_configContext)
   {
-    return sub_23EBC220C(self->_configContext, changes, self->_busy, v3, v4, v5, v6, v7);
+    return sub_23EBC220C(self->_configContext, changes, self->_busy);
   }
 
   else
@@ -1530,7 +1547,7 @@ LABEL_26:
   if (configContext)
   {
     sub_23EBC2310(configContext, &v4);
-    LOBYTE(configContext) = v4 != 0;
+    LOBYTE(configContext) = v4;
   }
 
   return configContext;
@@ -1539,12 +1556,12 @@ LABEL_26:
 - (BOOL)rememberBasePassword
 {
   result = 1;
-  v11 = 1;
+  v5 = 1;
   configContext = self->_configContext;
   if (configContext)
   {
-    sub_23EBBECD8(configContext, &v11, v2, v3, v4, v5, v6, v7);
-    return v11 != 0;
+    sub_23EBBECD8(configContext, &v5);
+    return v5 != 0;
   }
 
   return result;
@@ -1555,19 +1572,19 @@ LABEL_26:
   configContext = self->_configContext;
   if (configContext)
   {
-    sub_23EBBED88(configContext, password, password, v3, v4, v5, v6, v7);
+    sub_23EBBED88(configContext, password);
   }
 }
 
 - (BOOL)rememberWiFiPassword
 {
   result = 1;
-  v11 = 1;
+  v5 = 1;
   configContext = self->_configContext;
   if (configContext)
   {
-    sub_23EBBEE38(configContext, &v11, v2, v3, v4, v5, v6, v7);
-    return v11 != 0;
+    sub_23EBBEE38(configContext, &v5);
+    return v5 != 0;
   }
 
   return result;
@@ -1578,7 +1595,7 @@ LABEL_26:
   configContext = self->_configContext;
   if (configContext)
   {
-    sub_23EBBEEE8(configContext, password, password, v3, v4, v5, v6, v7);
+    sub_23EBBEEE8(configContext, password);
   }
 }
 
@@ -1599,7 +1616,7 @@ LABEL_26:
 {
   if (dword_27E3818B0 <= 800 && (dword_27E3818B0 != -1 || sub_23EB74AC8(&dword_27E3818B0, 0x320u)))
   {
-    sub_23EB75374(&dword_27E3818B0, "[AUSetupController setBonjourRecord:]", 800, "record: %@\n", v3, v4, v5, v6, record);
+    sub_23EB75374(&dword_27E3818B0, "[AUSetupController setBonjourRecord:]", 800, "record: %@\n", record);
   }
 
   if (self->_configContext)
@@ -1618,11 +1635,11 @@ LABEL_26:
       goto LABEL_20;
     }
 
-    v17 = objc_msgSend_taskState(self, v9, v10);
-    v18 = v17 != 0;
+    v9 = objc_msgSend_taskState(self, v5, v6, v7);
+    v10 = v9 != 0;
     p_needToNilBonjour = &self->_needToNilBonjour;
-    self->_needToNilBonjour = v18;
-    if (!v17 || dword_27E3818B0 > 800)
+    self->_needToNilBonjour = v10;
+    if (!v9 || dword_27E3818B0 > 800)
     {
       goto LABEL_20;
     }
@@ -1640,19 +1657,19 @@ LABEL_21:
           return;
         }
 
-        v20 = sub_23EBBCEC0(self->_configContext, 1, v10, v11, v12, v13, v14, v15);
+        v12 = sub_23EBBCEC0(self->_configContext, 1);
         if (dword_27E3818B0 <= 800)
         {
-          v25 = v20;
+          v13 = v12;
           if (dword_27E3818B0 != -1 || sub_23EB74AC8(&dword_27E3818B0, 0x320u))
           {
-            sub_23EB75374(&dword_27E3818B0, "[AUSetupController setBonjourRecord:]", 800, "err: %#m\n", v21, v22, v23, v24, v25);
+            sub_23EB75374(&dword_27E3818B0, "[AUSetupController setBonjourRecord:]", 800, "err: %#m\n", v13);
           }
         }
 
 LABEL_8:
-        v16 = objc_msgSend_taskState(self, v9, v10);
-        if (v16 == 6 || !v16)
+        v8 = objc_msgSend_taskState(self, v5, v6, v7);
+        if (v8 == 6 || !v8)
         {
           sub_23EBBCA7C(self->_configContext, record);
         }
@@ -1660,10 +1677,10 @@ LABEL_8:
         goto LABEL_21;
       }
 
-      v18 = *p_needToNilBonjour;
+      v10 = *p_needToNilBonjour;
     }
 
-    sub_23EB75374(&dword_27E3818B0, "[AUSetupController setBonjourRecord:]", 800, "_needToNilBonjour: %d\n", v12, v13, v14, v15, v18);
+    sub_23EB75374(&dword_27E3818B0, "[AUSetupController setBonjourRecord:]", 800, "_needToNilBonjour: %d\n", v10);
     goto LABEL_20;
   }
 }
@@ -1699,13 +1716,13 @@ LABEL_8:
 
 - (int64_t)ethernetPortCount
 {
-  v7 = 0;
-  Value_forBSSetting = objc_msgSend_getValue_forBSSetting_(self, a2, &v7, 1937326416);
+  v8 = 0;
+  Value_forBSSetting = objc_msgSend_getValue_forBSSetting_(self, a2, &v8, 1937326416);
   result = 0;
   if (!Value_forBSSetting)
   {
-    v6 = objc_msgSend_integerValue(v7, v2, v3);
-    return sub_23EB4BDAC(v6);
+    v7 = objc_msgSend_integerValue(v8, v2, v3, v4);
+    return sub_23EB4BDAC(v7);
   }
 
   return result;
@@ -1724,7 +1741,7 @@ LABEL_8:
     v12 = self->super._callbackContext;
     if (v12)
     {
-      sub_23EBEB6CC(v12, resultCopy, *&result, options, v4, v5, v6, v7);
+      sub_23EBEB6CC(v12, resultCopy);
     }
   }
 
@@ -1735,7 +1752,7 @@ LABEL_8:
 {
   if (dword_27E3818B0 <= 800 && (dword_27E3818B0 != -1 || sub_23EB74AC8(&dword_27E3818B0, 0x320u)))
   {
-    sub_23EB75374(&dword_27E3818B0, "[AUSetupController setupFromAutoguessRecommendation:withOptions:]", 800, "\n", v4, v5, v6, v7, v120);
+    sub_23EB75374(&dword_27E3818B0, "[AUSetupController setupFromAutoguessRecommendation:withOptions:]", 800, "\n");
   }
 
   if (!self->_configContext)
@@ -1748,65 +1765,65 @@ LABEL_8:
     return -6705;
   }
 
-  v11 = objc_msgSend_objectForKey_(recommendation, a2, @"BSAutoGuess_Recommendation");
-  objc_msgSend_setAutoGuessSetupRecommendation_(self, v12, v11);
+  v7 = objc_msgSend_objectForKey_(recommendation, a2, @"BSAutoGuess_Recommendation", options);
+  objc_msgSend_setAutoGuessSetupRecommendation_(self, v8, v7, v9);
   if (!self->_autoGuessSetupRecommendation)
   {
     return -6727;
   }
 
-  v15 = options ? objc_msgSend_dictionaryWithDictionary_(MEMORY[0x277CBEB38], v13, options) : objc_msgSend_dictionary(MEMORY[0x277CBEB38], v13, v14);
-  v18 = v15;
-  v19 = objc_msgSend_objectForKey_(recommendation, v16, @"BSAutoGuess_UnconfiguredBase");
-  v21 = objc_msgSend_objectForKey_(recommendation, v20, @"BSAutoGuess_UnconfiguredNetwork");
-  if (!(v19 | v21))
+  v13 = options ? objc_msgSend_dictionaryWithDictionary_(MEMORY[0x277CBEB38], v10, options, v12) : objc_msgSend_dictionary(MEMORY[0x277CBEB38], v10, v11, v12);
+  v17 = v13;
+  v18 = objc_msgSend_objectForKey_(recommendation, v14, @"BSAutoGuess_UnconfiguredBase", v15);
+  v21 = objc_msgSend_objectForKey_(recommendation, v19, @"BSAutoGuess_UnconfiguredNetwork", v20);
+  if (!(v18 | v21))
   {
     return -6727;
   }
 
-  v23 = v21;
-  v24 = objc_msgSend_objectForKey_(recommendation, v22, @"BSAutoGuess_UnconfiguredBaseSettings");
-  v32 = v24;
-  if (v19)
+  v24 = v21;
+  v25 = objc_msgSend_objectForKey_(recommendation, v22, @"BSAutoGuess_UnconfiguredBaseSettings", v23);
+  v28 = v25;
+  if (v18)
   {
-    if (!v24)
+    if (!v25)
     {
       return -6727;
     }
   }
 
-  if (v19)
+  if (v18)
   {
-    objc_msgSend_setObject_forKey_(v18, v25, v19, @"kBSAutoGuessSetupOptionKey_TargetBase");
+    objc_msgSend_setObject_forKey_(v17, v26, v18, @"kBSAutoGuessSetupOptionKey_TargetBase");
   }
 
-  if (v32)
+  if (v28)
   {
-    objc_msgSend_setObject_forKey_(v18, v25, v32, @"kBSAutoGuessSetupOptionKey_TargetSettings");
+    objc_msgSend_setObject_forKey_(v17, v26, v28, @"kBSAutoGuessSetupOptionKey_TargetSettings");
   }
 
-  if (v23)
+  if (v24)
   {
-    objc_msgSend_setObject_forKey_(v18, v25, v23, @"kBSAutoGuessSetupOptionKey_TargetNetwork");
+    objc_msgSend_setObject_forKey_(v17, v26, v24, @"kBSAutoGuessSetupOptionKey_TargetNetwork");
   }
 
-  if (v19)
+  if (v18)
   {
-    v33 = sub_23EB6A2C0(v19, v25, v26, v27, v28, v29, v30, v31);
-    v41 = sub_23EB6A294(v19, v34, v35, v36, v37, v38, v39, v40);
+    v29 = sub_23EB6A2C0(v18);
+    v30 = sub_23EB6A294(v18);
   }
 
   else
   {
-    v33 = objc_msgSend_scanInfoAppleProductID_(WiFiUtils, v25, v23);
-    v41 = objc_msgSend_scanInfoDeviceKind_(WiFiUtils, v43, v23);
+    v29 = objc_msgSend_scanInfoAppleProductID_(WiFiUtils, v26, v24, v27);
+    v30 = objc_msgSend_scanInfoDeviceKind_(WiFiUtils, v33, v24, v34);
   }
 
-  v44 = v41;
-  v45 = objc_msgSend_objectForKey_(options, v42, @"kBSAutoGuessSetupOptionKey_BaseName");
-  if (objc_msgSend_length(v45, v46, v47))
+  v35 = v30;
+  v36 = objc_msgSend_objectForKey_(options, v31, @"kBSAutoGuessSetupOptionKey_BaseName", v32);
+  if (objc_msgSend_length(v36, v37, v38, v39))
   {
-    if (!v45)
+    if (!v36)
     {
       return -6727;
     }
@@ -1814,94 +1831,94 @@ LABEL_8:
 
   else
   {
-    v45 = sub_23EB6D75C(v33, v44);
-    if (!objc_msgSend_length(v45, v49, v50))
+    v36 = sub_23EB6D75C(v29, v35);
+    if (!objc_msgSend_length(v36, v42, v43, v44))
     {
-      v45 = sub_23EB6D7A8(v33, v44);
+      v36 = sub_23EB6D7A8(v29, v35);
     }
 
-    if (!v45)
+    if (!v36)
     {
       return -6727;
     }
 
-    objc_msgSend_setObject_forKey_(v18, v51, v45, @"kBSAutoGuessSetupOptionKey_BaseName");
+    objc_msgSend_setObject_forKey_(v17, v45, v36, @"kBSAutoGuessSetupOptionKey_BaseName");
   }
 
-  if ((objc_msgSend_isEqualToString_(self->_autoGuessSetupRecommendation, v48, @"BSSetupRecommend_OfferExtendWirelessly") & 1) != 0 || objc_msgSend_isEqualToString_(self->_autoGuessSetupRecommendation, v52, @"BSSetupRecommend_AskUserChooseBaseWireless"))
+  if ((objc_msgSend_isEqualToString_(self->_autoGuessSetupRecommendation, v40, @"BSSetupRecommend_OfferExtendWirelessly", v41) & 1) != 0 || objc_msgSend_isEqualToString_(self->_autoGuessSetupRecommendation, v46, @"BSSetupRecommend_AskUserChooseBaseWireless", v47))
   {
-    v53 = objc_msgSend_objectForKey_(options, v52, @"kBSAutoGuessSetupOptionKey_ExtendOption_JoinApple");
-    v56 = objc_msgSend_BOOLValue(v53, v54, v55);
-    v58 = objc_msgSend_objectForKey_(recommendation, v57, @"BSAutoGuess_SourceBase");
-    if (v58)
+    v48 = objc_msgSend_objectForKey_(options, v46, @"kBSAutoGuessSetupOptionKey_ExtendOption_JoinApple", v47);
+    v52 = objc_msgSend_BOOLValue(v48, v49, v50, v51);
+    v55 = objc_msgSend_objectForKey_(recommendation, v53, @"BSAutoGuess_SourceBase", v54);
+    if (v55)
     {
-      objc_msgSend_setObject_forKey_(v18, v59, v58, @"kBSAutoGuessSetupOptionKey_SourceBase");
+      objc_msgSend_setObject_forKey_(v17, v56, v55, @"kBSAutoGuessSetupOptionKey_SourceBase");
     }
 
-    if (v56)
+    if (v52)
     {
-      v65 = 7;
+      v57 = 7;
     }
 
     else
     {
-      v65 = 6;
+      v57 = 6;
     }
 
     goto LABEL_41;
   }
 
-  if ((objc_msgSend_isEqualToString_(self->_autoGuessSetupRecommendation, v52, @"BSSetupRecommend_OfferExtendOverEthernet") & 1) != 0 || objc_msgSend_isEqualToString_(self->_autoGuessSetupRecommendation, v78, @"BSSetupRecommend_AskUserChooseBaseWired"))
+  if ((objc_msgSend_isEqualToString_(self->_autoGuessSetupRecommendation, v46, @"BSSetupRecommend_OfferExtendOverEthernet", v47) & 1) != 0 || objc_msgSend_isEqualToString_(self->_autoGuessSetupRecommendation, v66, @"BSSetupRecommend_AskUserChooseBaseWired", v67))
   {
-    v79 = objc_msgSend_objectForKey_(recommendation, v78, @"BSAutoGuess_SourceBase");
-    if (v79)
+    v68 = objc_msgSend_objectForKey_(recommendation, v66, @"BSAutoGuess_SourceBase", v67);
+    if (v68)
     {
-      objc_msgSend_setObject_forKey_(v18, v80, v79, @"kBSAutoGuessSetupOptionKey_SourceBase");
+      objc_msgSend_setObject_forKey_(v17, v69, v68, @"kBSAutoGuessSetupOptionKey_SourceBase");
     }
 
-    v65 = 8;
+    v57 = 8;
     goto LABEL_41;
   }
 
-  if ((objc_msgSend_isEqualToString_(self->_autoGuessSetupRecommendation, v78, @"BSSetupRecommend_OfferCreate") & 1) != 0 || objc_msgSend_isEqualToString_(self->_autoGuessSetupRecommendation, v81, @"BSSetupRecommend_OfferReplaceSourceIsUnconfigurable"))
+  if ((objc_msgSend_isEqualToString_(self->_autoGuessSetupRecommendation, v66, @"BSSetupRecommend_OfferCreate", v67) & 1) != 0 || objc_msgSend_isEqualToString_(self->_autoGuessSetupRecommendation, v70, @"BSSetupRecommend_OfferReplaceSourceIsUnconfigurable", v71))
   {
-    v82 = objc_msgSend_objectForKey_(options, v81, @"kBSAutoGuessSetupOptionKey_SkipInternetTests");
-    objc_msgSend_BOOLValue(v82, v83, v84);
-    result = sub_23EBBEF98(self->_configContext, 1, v85, v86, v87, v88, v89, v90);
+    v72 = objc_msgSend_objectForKey_(options, v70, @"kBSAutoGuessSetupOptionKey_SkipInternetTests", v71);
+    objc_msgSend_BOOLValue(v72, v73, v74, v75);
+    result = sub_23EBBEF98(self->_configContext, 1);
     if (result)
     {
       return result;
     }
 
-    if (objc_msgSend_isEqualToString_(self->_autoGuessSetupRecommendation, v91, @"BSSetupRecommend_OfferReplaceSourceIsUnconfigurable"))
+    if (objc_msgSend_isEqualToString_(self->_autoGuessSetupRecommendation, v76, @"BSSetupRecommend_OfferReplaceSourceIsUnconfigurable", v77))
     {
-      v93 = objc_msgSend_objectForKey_(recommendation, v92, @"BSAutoGuess_SourceBase");
-      if (v93)
+      v80 = objc_msgSend_objectForKey_(recommendation, v78, @"BSAutoGuess_SourceBase", v79);
+      if (v80)
       {
-        objc_msgSend_setObject_forKey_(v18, v94, v93, @"kBSAutoGuessSetupOptionKey_SourceBase");
-        v65 = 12;
+        objc_msgSend_setObject_forKey_(v17, v81, v80, @"kBSAutoGuessSetupOptionKey_SourceBase");
+        v57 = 12;
         goto LABEL_41;
       }
 
       return -6727;
     }
 
-    v65 = 1;
+    v57 = 1;
   }
 
   else
   {
-    if ((objc_msgSend_isEqualToString_(self->_autoGuessSetupRecommendation, v81, @"BSSetupRecommend_OfferJoinNetwork") & 1) != 0 || objc_msgSend_isEqualToString_(self->_autoGuessSetupRecommendation, v95, @"BSSetupRecommend_AskUserChooseNetworkToJoin"))
+    if ((objc_msgSend_isEqualToString_(self->_autoGuessSetupRecommendation, v70, @"BSSetupRecommend_OfferJoinNetwork", v71) & 1) != 0 || objc_msgSend_isEqualToString_(self->_autoGuessSetupRecommendation, v82, @"BSSetupRecommend_AskUserChooseNetworkToJoin", v83))
     {
-      v96 = objc_msgSend_objectForKey_(recommendation, v95, @"BSAutoGuess_SourceNetwork");
-      if (v96)
+      v84 = objc_msgSend_objectForKey_(recommendation, v82, @"BSAutoGuess_SourceNetwork", v83);
+      if (v84)
       {
-        objc_msgSend_setObject_forKey_(v18, v97, v96, @"kBSAutoGuessSetupOptionKey_SourceNetwork");
+        objc_msgSend_setObject_forKey_(v17, v85, v84, @"kBSAutoGuessSetupOptionKey_SourceNetwork");
       }
 
-      if ((v44 & 0xFFFFFFFE) == 2 && !objc_msgSend_objectForKey_(v18, v97, @"kBSAutoGuessSetupOptionKey_BasePassword"))
+      if ((v35 & 0xFFFFFFFE) == 2 && !objc_msgSend_objectForKey_(v17, v85, @"kBSAutoGuessSetupOptionKey_BasePassword", v86))
       {
-        result = sub_23EBBED88(self->_configContext, 0, v98, v99, v100, v101, v102, v103);
+        result = sub_23EBBED88(self->_configContext, 0);
         if (result)
         {
           return result;
@@ -1910,77 +1927,77 @@ LABEL_8:
 
       else
       {
-        result = sub_23EBBEF98(self->_configContext, 1, v98, v99, v100, v101, v102, v103);
+        result = sub_23EBBEF98(self->_configContext, 1);
         if (result)
         {
           return result;
         }
       }
 
-      v65 = 2;
+      v57 = 2;
       goto LABEL_41;
     }
 
-    if (objc_msgSend_isEqualToString_(self->_autoGuessSetupRecommendation, v95, @"BSSetupRecommend_OfferRestore"))
+    if (objc_msgSend_isEqualToString_(self->_autoGuessSetupRecommendation, v82, @"BSSetupRecommend_OfferRestore", v83))
     {
-      v106 = objc_msgSend_objectForKey_(options, v104, @"kBSAutoGuessSetupOptionKey_ConfigChangeLogDict");
-      if (v106)
+      v91 = objc_msgSend_objectForKey_(options, v87, @"kBSAutoGuessSetupOptionKey_ConfigChangeLogDict", v88);
+      if (v91)
       {
-        objc_msgSend_setObject_forKey_(v18, v105, v106, @"kBSAutoGuessSetupOptionKey_ConfigChangeLogDict");
+        objc_msgSend_setObject_forKey_(v17, v89, v91, @"kBSAutoGuessSetupOptionKey_ConfigChangeLogDict");
       }
 
-      if (objc_msgSend_objectForKey_(v106, v105, @"device"))
+      if (objc_msgSend_objectForKey_(v91, v89, @"device", v90))
       {
-        objc_msgSend_setObject_forKey_(v18, v107, v45, @"kBSAutoGuessSetupOptionKey_BaseName");
+        objc_msgSend_setObject_forKey_(v17, v92, v36, @"kBSAutoGuessSetupOptionKey_BaseName");
       }
 
-      v65 = 3;
+      v57 = 3;
       goto LABEL_41;
     }
 
-    if (!objc_msgSend_isEqualToString_(self->_autoGuessSetupRecommendation, v104, @"BSSetupRecommend_OfferReplaceConfiguration"))
+    if (!objc_msgSend_isEqualToString_(self->_autoGuessSetupRecommendation, v87, @"BSSetupRecommend_OfferReplaceConfiguration", v88))
     {
-      if (!objc_msgSend_isEqualToString_(self->_autoGuessSetupRecommendation, v108, @"BSSetupRecommend_OfferReplace"))
+      if (!objc_msgSend_isEqualToString_(self->_autoGuessSetupRecommendation, v93, @"BSSetupRecommend_OfferReplace", v94))
       {
         return -6735;
       }
 
-      v118 = objc_msgSend_objectForKey_(recommendation, v117, @"BSAutoGuess_SourceBase");
-      if (!v118)
+      v99 = objc_msgSend_objectForKey_(recommendation, v97, @"BSAutoGuess_SourceBase", v98);
+      if (!v99)
       {
         return -6727;
       }
 
-      objc_msgSend_setObject_forKey_(v18, v119, v118, @"kBSAutoGuessSetupOptionKey_SourceBase");
-      v65 = 9;
+      objc_msgSend_setObject_forKey_(v17, v100, v99, @"kBSAutoGuessSetupOptionKey_SourceBase");
+      v57 = 9;
       goto LABEL_41;
     }
 
-    v109 = objc_msgSend_objectForKey_(options, v108, @"kBSAutoGuessSetupOptionKey_ConfigChangeLogDict");
-    if (!v109)
+    v95 = objc_msgSend_objectForKey_(options, v93, @"kBSAutoGuessSetupOptionKey_ConfigChangeLogDict", v94);
+    if (!v95)
     {
       return -6727;
     }
 
-    objc_msgSend_setObject_forKey_(v18, v110, v109, @"kBSAutoGuessSetupOptionKey_ConfigChangeLogDict");
-    result = sub_23EBBEF98(self->_configContext, 1, v111, v112, v113, v114, v115, v116);
+    objc_msgSend_setObject_forKey_(v17, v96, v95, @"kBSAutoGuessSetupOptionKey_ConfigChangeLogDict");
+    result = sub_23EBBEF98(self->_configContext, 1);
     if (result)
     {
       return result;
     }
 
-    v65 = 4;
+    v57 = 4;
   }
 
 LABEL_41:
-  result = sub_23EBBC828(self->_configContext, v65, v18, v60, v61, v62, v63, v64);
+  result = sub_23EBBC828(self->_configContext, v57, v17);
   if (!result)
   {
     configContext = self->_configContext;
-    v68 = objc_msgSend_objectForKey_(options, v66, @"kBSAutoGuessSetupOptionKey_RecommendationIsAutomatic");
-    v71 = objc_msgSend_BOOLValue(v68, v69, v70);
+    v61 = objc_msgSend_objectForKey_(options, v58, @"kBSAutoGuessSetupOptionKey_RecommendationIsAutomatic", v59);
+    v65 = objc_msgSend_BOOLValue(v61, v62, v63, v64);
 
-    return sub_23EBBF030(configContext, v71, v72, v73, v74, v75, v76, v77);
+    return sub_23EBBF030(configContext, v65);
   }
 
   return result;
@@ -1996,7 +2013,7 @@ LABEL_41:
 
   if (network)
   {
-    return sub_23EBBC8E4(configContext, network, network, v3, v4, v5, v6, v7);
+    return sub_23EBBC8E4(configContext, network);
   }
 
   return -6705;
@@ -2012,7 +2029,7 @@ LABEL_41:
 
   if (station)
   {
-    return sub_23EBBC998(configContext, station, settings, settings, v4, v5, v6, v7);
+    return sub_23EBBC998(configContext, station, settings);
   }
 
   return -6705;
@@ -2022,7 +2039,7 @@ LABEL_41:
 {
   if (dword_27E3818B0 <= 800 && (dword_27E3818B0 != -1 || sub_23EB74AC8(&dword_27E3818B0, 0x320u)))
   {
-    sub_23EB75374(&dword_27E3818B0, "[AUSetupController(private) handleBusyStart]", 800, "_busy:\n %d\n", v2, v3, v4, v5, self->_busy);
+    sub_23EB75374(&dword_27E3818B0, "[AUSetupController(private) handleBusyStart]", 800, "_busy:\n %d\n", self->_busy);
   }
 
   self->_busy = 1;
@@ -2033,7 +2050,7 @@ LABEL_41:
 {
   if (dword_27E3818B0 <= 800 && (dword_27E3818B0 != -1 || sub_23EB74AC8(&dword_27E3818B0, 0x320u)))
   {
-    sub_23EB75374(&dword_27E3818B0, "[AUSetupController(private) handleBusyComplete]", 800, "_busy:\n %d\n", v2, v3, v4, v5, self->_busy);
+    sub_23EB75374(&dword_27E3818B0, "[AUSetupController(private) handleBusyComplete]", 800, "_busy:\n %d\n", self->_busy);
   }
 
   self->_busy = 0;
@@ -2041,30 +2058,30 @@ LABEL_41:
   if (self->_needToNilBonjour)
   {
 
-    MEMORY[0x2821F9670](self, sel_setBonjourRecord_, 0);
+    MEMORY[0x2821F9670](self, sel_setBonjourRecord_, 0, v2);
   }
 }
 
 - (void)setupWiFiState
 {
-  v4 = objc_msgSend_sharedInstance(WiFiUtils, a2, v2);
-  AutoJoinState = objc_msgSend_getAutoJoinState(v4, v5, v6);
+  v5 = objc_msgSend_sharedInstance(WiFiUtils, a2, v2, v3);
+  AutoJoinState = objc_msgSend_getAutoJoinState(v5, v6, v7, v8);
   self->_autoJoinState = AutoJoinState;
   if (AutoJoinState)
   {
-    objc_msgSend_setAutoJoinState_(v4, v8, 0);
+    objc_msgSend_setAutoJoinState_(v5, v10, 0, v12);
   }
 
-  isScanningActive = objc_msgSend_isScanningActive(v4, v8, v9);
+  isScanningActive = objc_msgSend_isScanningActive(v5, v10, v11, v12);
   self->_scanningState = isScanningActive;
   if (isScanningActive)
   {
-    if (objc_msgSend_isScanInProgress(v4, v11, v12))
+    if (objc_msgSend_isScanInProgress(v5, v14, v15, v16))
     {
-      objc_msgSend_cancelAsync(v4, v13, v14);
+      objc_msgSend_cancelAsync(v5, v17, v18, v19);
     }
 
-    objc_msgSend_activateScanning_(v4, v13, 0);
+    objc_msgSend_activateScanning_(v5, v17, 0, v19);
   }
 }
 
@@ -2072,15 +2089,15 @@ LABEL_41:
 {
   if (self->_autoJoinState)
   {
-    v4 = objc_msgSend_sharedInstanceRef(WiFiUtils, a2, v2);
-    objc_msgSend_setAutoJoinState_(v4, v5, self->_autoJoinState);
+    v5 = objc_msgSend_sharedInstanceRef(WiFiUtils, a2, v2, v3);
+    objc_msgSend_setAutoJoinState_(v5, v6, self->_autoJoinState, v7);
   }
 
   self->_autoJoinState = 0;
   if (self->_scanningState)
   {
-    v6 = objc_msgSend_sharedInstanceRef(WiFiUtils, a2, v2);
-    objc_msgSend_activateScanning_(v6, v7, self->_scanningState);
+    v8 = objc_msgSend_sharedInstanceRef(WiFiUtils, a2, v2, v3);
+    objc_msgSend_activateScanning_(v8, v9, self->_scanningState, v10);
   }
 
   self->_scanningState = 0;
@@ -2088,38 +2105,38 @@ LABEL_41:
 
 - (void)handleSetupComplete:(int)complete
 {
-  objc_msgSend_resetWiFiState(self, a2, *&complete);
+  objc_msgSend_resetWiFiState(self, a2, *&complete, v3);
   if (!complete)
   {
-    v7 = objc_msgSend_bonjourRecord(self, v5, v6);
-    sub_23EC127B0(v7, 0, v8, v9, v10, v11, v12, v13);
+    v9 = objc_msgSend_bonjourRecord(self, v6, v7, v8);
+    sub_23EC127B0(v9);
   }
 
-  v20 = 0;
-  v14 = sub_23EBBD2B8(self->_configContext);
-  if (!sub_23EBEB420(v14, &v20))
+  v13 = 0;
+  v10 = sub_23EBBD2B8(self->_configContext);
+  if (!sub_23EBEB420(v10, &v13))
   {
     if (dword_27E3818B0 <= 800 && (dword_27E3818B0 != -1 || sub_23EB74AC8(&dword_27E3818B0, 0x320u)))
     {
-      sub_23EB75374(&dword_27E3818B0, "[AUSetupController(private) handleSetupComplete:]", 800, "instrumentation:\n %@\n", v16, v17, v18, v19, v20);
+      sub_23EB75374(&dword_27E3818B0, "[AUSetupController(private) handleSetupComplete:]", 800, "instrumentation:\n %@\n", v13);
     }
 
-    objc_msgSend_setLastInstrumentation_(self, v15, v20);
+    objc_msgSend_setLastInstrumentation_(self, v11, v13, v12);
   }
 }
 
 - (void)handleTaskComplete
 {
-  objc_msgSend_resetWiFiState(self, a2, v2);
+  objc_msgSend_resetWiFiState(self, a2, v2, v3);
 
-  objc_msgSend_setActiveTask_(self, v4, 0);
+  objc_msgSend_setActiveTask_(self, v5, 0, v6);
 }
 
 - (void)logChangesToCCL
 {
-  v3 = objc_msgSend_bsRef(self, a2, v2);
+  v4 = objc_msgSend_bsRef(self, a2, v2, v3);
 
-  MEMORY[0x2821F9670](ConfigChangeLogs, sel_writeConfigChangeLog_, v3);
+  MEMORY[0x2821F9670](ConfigChangeLogs, sel_writeConfigChangeLog_, v4, v5);
 }
 
 - (id)targetBaseInfoDict
@@ -2129,236 +2146,236 @@ LABEL_41:
     return 0;
   }
 
-  v105 = 0;
-  v106 = 0;
-  v104 = 0;
-  v4 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], a2, v2);
-  if (sub_23EBBEC90(self->_configContext, &v106))
+  v121 = 0;
+  v122 = 0;
+  v120 = 0;
+  v5 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], a2, v2, v3);
+  if (sub_23EBBEC90(self->_configContext, &v122))
   {
-    v6 = 1;
+    v7 = 1;
   }
 
   else
   {
-    v6 = v106 == 0;
+    v7 = v122 == 0;
   }
 
-  if (!v6 && !objc_msgSend_getValue_forBSSetting_(self, v5, &v105, 1651717454))
+  if (!v7 && !objc_msgSend_getValue_forBSSetting_(self, v6, &v121, 1651717454))
   {
-    if (v105)
+    if (v121)
     {
-      v9 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], v7, v8);
-      sub_23EBB6604(v106);
-      v10 = sub_23EB6D3EC(1918979693);
-      if (!objc_msgSend_getValue_forSettingPath_(self, v11, &v104, v10))
+      v11 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], v8, v9, v10);
+      v12 = sub_23EBB6604(v122);
+      v13 = sub_23EB6D3EC(1918979693, v12);
+      if (!objc_msgSend_getValue_forSettingPath_(self, v14, &v120, v13))
       {
-        v12 = v104;
-        if (v104)
+        v15 = v120;
+        if (v120)
         {
-          v13 = sub_23EB6CDF8(1918979693);
-          objc_msgSend_setObject_forKey_(v9, v14, v12, v13);
-          sub_23EBB6604(v106);
-          v15 = sub_23EB6D3EC(1651725131);
-          if (!objc_msgSend_getValue_forSettingPath_(self, v16, &v104, v15))
+          v16 = sub_23EB6CDF8(1918979693);
+          objc_msgSend_setObject_forKey_(v11, v17, v15, v16);
+          v18 = sub_23EBB6604(v122);
+          v19 = sub_23EB6D3EC(1651725131, v18);
+          if (!objc_msgSend_getValue_forSettingPath_(self, v20, &v120, v19))
           {
-            v17 = v104;
-            if (v104)
+            v21 = v120;
+            if (v120)
             {
-              v18 = sub_23EB6CDF8(1651725131);
-              objc_msgSend_setObject_forKey_(v9, v19, v17, v18);
-              objc_msgSend_setObject_forKey_(v4, v20, v9, @"kSetupBaseStationInfoKey_RadioInfo");
-              if (objc_msgSend_BOOLValue(v105, v21, v22))
+              v22 = sub_23EB6CDF8(1651725131);
+              objc_msgSend_setObject_forKey_(v11, v23, v21, v22);
+              objc_msgSend_setObject_forKey_(v5, v24, v11, @"kSetupBaseStationInfoKey_RadioInfo");
+              if (objc_msgSend_BOOLValue(v121, v25, v26, v27))
               {
-                v25 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], v23, v24);
-                sub_23EBB65F0(v106);
-                v26 = sub_23EB6D3EC(1918979693);
-                if (objc_msgSend_getValue_forSettingPath_(self, v27, &v104, v26))
+                v31 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], v28, v29, v30);
+                v32 = sub_23EBB65F0(v122);
+                v33 = sub_23EB6D3EC(1918979693, v32);
+                if (objc_msgSend_getValue_forSettingPath_(self, v34, &v120, v33))
                 {
-                  return v4;
+                  return v5;
                 }
 
-                v28 = v104;
-                if (!v104)
+                v35 = v120;
+                if (!v120)
                 {
-                  return v4;
+                  return v5;
                 }
 
-                v29 = sub_23EB6CDF8(1918979693);
-                objc_msgSend_setObject_forKey_(v25, v30, v28, v29);
-                sub_23EBB65F0(v106);
-                v31 = sub_23EB6D3EC(1651725131);
-                if (objc_msgSend_getValue_forSettingPath_(self, v32, &v104, v31))
+                v36 = sub_23EB6CDF8(1918979693);
+                objc_msgSend_setObject_forKey_(v31, v37, v35, v36);
+                v38 = sub_23EBB65F0(v122);
+                v39 = sub_23EB6D3EC(1651725131, v38);
+                if (objc_msgSend_getValue_forSettingPath_(self, v40, &v120, v39))
                 {
-                  return v4;
+                  return v5;
                 }
 
-                v33 = v104;
-                if (!v104)
+                v41 = v120;
+                if (!v120)
                 {
-                  return v4;
+                  return v5;
                 }
 
-                v34 = sub_23EB6CDF8(1651725131);
-                objc_msgSend_setObject_forKey_(v25, v35, v33, v34);
-                objc_msgSend_setObject_forKey_(v4, v36, v25, @"kSetupBaseStationInfoKey_RadioInfo5GHz");
+                v42 = sub_23EB6CDF8(1651725131);
+                objc_msgSend_setObject_forKey_(v31, v43, v41, v42);
+                objc_msgSend_setObject_forKey_(v5, v44, v31, @"kSetupBaseStationInfoKey_RadioInfo5GHz");
               }
 
-              if (objc_msgSend_bonjourRecord(self, v23, v24))
+              if (objc_msgSend_bonjourRecord(self, v28, v29, v30))
               {
-                v39 = objc_msgSend_bonjourRecord(self, v37, v38);
-                objc_msgSend_setObject_forKey_(v4, v40, v39, @"kSetupBaseStationInfoKey_BrowseRecord");
-                v43 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], v41, v42);
-                if (!objc_msgSend_getValue_forBSSetting_(self, v44, &v104, 1937330263))
+                v48 = objc_msgSend_bonjourRecord(self, v45, v46, v47);
+                objc_msgSend_setObject_forKey_(v5, v49, v48, @"kSetupBaseStationInfoKey_BrowseRecord");
+                v53 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], v50, v51, v52);
+                if (!objc_msgSend_getValue_forBSSetting_(self, v54, &v120, 1937330263))
                 {
-                  v45 = v104;
-                  if (v104)
+                  v55 = v120;
+                  if (v120)
                   {
-                    v46 = sub_23EB6CDF8(1937330263);
-                    objc_msgSend_setObject_forKey_(v43, v47, v45, v46);
-                    if (!objc_msgSend_getValue_forBSSetting_(self, v48, &v104, 1937329773))
+                    v56 = sub_23EB6CDF8(1937330263);
+                    objc_msgSend_setObject_forKey_(v53, v57, v55, v56);
+                    if (!objc_msgSend_getValue_forBSSetting_(self, v58, &v120, 1937329773))
                     {
-                      v49 = v104;
-                      if (v104)
+                      v59 = v120;
+                      if (v120)
                       {
-                        v50 = sub_23EB6CDF8(1937329773);
-                        objc_msgSend_setObject_forKey_(v43, v51, v49, v50);
-                        if (!objc_msgSend_getValue_forBSSetting_(self, v52, &v104, 1937326416))
+                        v60 = sub_23EB6CDF8(1937329773);
+                        objc_msgSend_setObject_forKey_(v53, v61, v59, v60);
+                        if (!objc_msgSend_getValue_forBSSetting_(self, v62, &v120, 1937326416))
                         {
-                          v53 = v104;
-                          if (v104)
+                          v63 = v120;
+                          if (v120)
                           {
-                            v54 = sub_23EB6CDF8(1937326416);
-                            objc_msgSend_setObject_forKey_(v43, v55, v53, v54);
-                            objc_msgSend_setObject_forKey_(v4, v56, v43, @"kSetupBaseStationInfoKey_GeneralInfo");
-                            if (!objc_msgSend_hasACPFeature_(self, v57, 1297314927))
+                            v64 = sub_23EB6CDF8(1937326416);
+                            objc_msgSend_setObject_forKey_(v53, v65, v63, v64);
+                            objc_msgSend_setObject_forKey_(v5, v66, v53, @"kSetupBaseStationInfoKey_GeneralInfo");
+                            if (!objc_msgSend_hasACPFeature_(self, v67, 1297314927, v68))
                             {
                               goto LABEL_39;
                             }
 
-                            v60 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], v58, v59);
-                            if (!objc_msgSend_getValue_forBSSetting_(self, v61, &v104, 1651721805))
+                            v72 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], v69, v70, v71);
+                            if (!objc_msgSend_getValue_forBSSetting_(self, v73, &v120, 1651721805))
                             {
-                              v62 = v104;
-                              if (v104)
+                              v74 = v120;
+                              if (v120)
                               {
-                                v63 = sub_23EB6CDF8(1651721805);
-                                objc_msgSend_setObject_forKey_(v60, v64, v62, v63);
-                                if (objc_msgSend_integerValue(v104, v65, v66) == 1)
+                                v75 = sub_23EB6CDF8(1651721805);
+                                objc_msgSend_setObject_forKey_(v72, v76, v74, v75);
+                                if (objc_msgSend_integerValue(v120, v77, v78, v79) == 1)
                                 {
-                                  if (objc_msgSend_getValue_forBSSetting_(self, v67, &v104, 1718842224))
+                                  if (objc_msgSend_getValue_forBSSetting_(self, v80, &v120, 1718842224))
                                   {
-                                    return v4;
+                                    return v5;
                                   }
 
-                                  v45 = v104;
-                                  if (!v104)
+                                  v55 = v120;
+                                  if (!v120)
                                   {
-                                    return v4;
+                                    return v5;
                                   }
                                 }
 
                                 else
                                 {
-                                  if (objc_msgSend_integerValue(v104, v67, v68) != 2)
+                                  if (objc_msgSend_integerValue(v120, v80, v81, v82) != 2)
                                   {
-                                    v104 = 0;
+                                    v120 = 0;
                                     goto LABEL_38;
                                   }
 
-                                  v104 = v45;
+                                  v120 = v55;
                                 }
 
-                                v71 = sub_23EB6CDF8(1718842224);
-                                objc_msgSend_setObject_forKey_(v60, v72, v45, v71);
+                                v85 = sub_23EB6CDF8(1718842224);
+                                objc_msgSend_setObject_forKey_(v72, v86, v55, v85);
 LABEL_38:
-                                objc_msgSend_setObject_forKey_(v4, v70, v60, @"kSetupBaseStationInfoKey_DiskInfo");
+                                objc_msgSend_setObject_forKey_(v5, v84, v72, @"kSetupBaseStationInfoKey_DiskInfo");
 LABEL_39:
-                                if (objc_msgSend_hasACPFeature_(self, v58, 1198748750))
+                                if (objc_msgSend_hasACPFeature_(self, v69, 1198748750, v71))
                                 {
-                                  v75 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], v73, v74);
-                                  v76 = sub_23EB6D3EC(1651722053);
-                                  if (objc_msgSend_getValue_forSettingPath_(self, v77, &v104, v76))
+                                  v90 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], v87, v88, v89);
+                                  v91 = sub_23EB6D3EC(1651722053, -1);
+                                  if (objc_msgSend_getValue_forSettingPath_(self, v92, &v120, v91))
                                   {
-                                    return v4;
+                                    return v5;
                                   }
 
-                                  v78 = v104;
-                                  if (!v104)
+                                  v93 = v120;
+                                  if (!v120)
                                   {
-                                    return v4;
+                                    return v5;
                                   }
 
-                                  v79 = sub_23EB6CDF8(1651722053);
-                                  objc_msgSend_setObject_forKey_(v75, v80, v78, v79);
-                                  if (objc_msgSend_integerValue(v104, v81, v82))
+                                  v94 = sub_23EB6CDF8(1651722053);
+                                  objc_msgSend_setObject_forKey_(v90, v95, v93, v94);
+                                  if (objc_msgSend_integerValue(v120, v96, v97, v98))
                                   {
-                                    v84 = sub_23EB6D3EC(1651722062);
-                                    if (objc_msgSend_getValue_forSettingPath_(self, v85, &v104, v84))
+                                    v100 = sub_23EB6D3EC(1651722062, -1);
+                                    if (objc_msgSend_getValue_forSettingPath_(self, v101, &v120, v100))
                                     {
-                                      return v4;
+                                      return v5;
                                     }
 
-                                    v86 = v104;
-                                    if (!v104)
+                                    v102 = v120;
+                                    if (!v120)
                                     {
-                                      return v4;
+                                      return v5;
                                     }
 
-                                    v87 = sub_23EB6CDF8(1651722062);
-                                    objc_msgSend_setObject_forKey_(v75, v88, v86, v87);
-                                    v89 = sub_23EB6D3EC(1651722067);
-                                    if (objc_msgSend_getValue_forSettingPath_(self, v90, &v104, v89))
+                                    v103 = sub_23EB6CDF8(1651722062);
+                                    objc_msgSend_setObject_forKey_(v90, v104, v102, v103);
+                                    v105 = sub_23EB6D3EC(1651722067, -1);
+                                    if (objc_msgSend_getValue_forSettingPath_(self, v106, &v120, v105))
                                     {
-                                      return v4;
+                                      return v5;
                                     }
 
-                                    v91 = v104;
-                                    if (!v104)
+                                    v107 = v120;
+                                    if (!v120)
                                     {
-                                      return v4;
+                                      return v5;
                                     }
 
-                                    v92 = sub_23EB6CDF8(1651722067);
-                                    objc_msgSend_setObject_forKey_(v75, v93, v91, v92);
-                                    v94 = sub_23EB6D3EC(1651722064);
-                                    if (objc_msgSend_getValue_forSettingPath_(self, v95, &v104, v94))
+                                    v108 = sub_23EB6CDF8(1651722067);
+                                    objc_msgSend_setObject_forKey_(v90, v109, v107, v108);
+                                    v110 = sub_23EB6D3EC(1651722064, -1);
+                                    if (objc_msgSend_getValue_forSettingPath_(self, v111, &v120, v110))
                                     {
-                                      return v4;
+                                      return v5;
                                     }
 
-                                    v96 = v104;
-                                    if (!v104)
+                                    v112 = v120;
+                                    if (!v120)
                                     {
-                                      return v4;
+                                      return v5;
                                     }
 
-                                    v97 = sub_23EB6CDF8(1651722064);
-                                    objc_msgSend_setObject_forKey_(v75, v98, v96, v97);
+                                    v113 = sub_23EB6CDF8(1651722064);
+                                    objc_msgSend_setObject_forKey_(v90, v114, v112, v113);
                                   }
 
-                                  objc_msgSend_setObject_forKey_(v4, v83, v75, @"kSetupBaseStationInfoKey_GuestNetworkInfo");
+                                  objc_msgSend_setObject_forKey_(v5, v99, v90, @"kSetupBaseStationInfoKey_GuestNetworkInfo");
                                 }
 
                                 if (!self->_autoGuessSetupRecommendation)
                                 {
-                                  return v4;
+                                  return v5;
                                 }
 
-                                v103 = 0;
-                                v99 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], v73, v74);
-                                objc_msgSend_setObject_forKey_(v99, v100, self->_autoGuessSetupRecommendation, @"BSAutoGuess_Recommendation");
-                                v101 = sub_23EBBF0C8(self->_configContext, &v103);
-                                if (v101 != -6727)
+                                v119 = 0;
+                                v115 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], v87, v88, v89);
+                                objc_msgSend_setObject_forKey_(v115, v116, self->_autoGuessSetupRecommendation, @"BSAutoGuess_Recommendation");
+                                v117 = sub_23EBBF0C8(self->_configContext, &v119);
+                                if (v117 != -6727)
                                 {
-                                  if (v101 || !v103)
+                                  if (v117 || !v119)
                                   {
-                                    return v4;
+                                    return v5;
                                   }
 
-                                  objc_msgSend_setObject_forKey_(v99, v102, v103, @"BSAutoGuess_SourceBase");
+                                  objc_msgSend_setObject_forKey_(v115, v118, v119, @"BSAutoGuess_SourceBase");
                                 }
 
-                                objc_msgSend_setObject_forKey_(v4, v102, v99, @"kSetupBaseStationInfoKey_RecommendationInfo");
+                                objc_msgSend_setObject_forKey_(v5, v118, v115, @"kSetupBaseStationInfoKey_RecommendationInfo");
                               }
                             }
                           }
@@ -2375,7 +2392,7 @@ LABEL_39:
     }
   }
 
-  return v4;
+  return v5;
 }
 
 @end

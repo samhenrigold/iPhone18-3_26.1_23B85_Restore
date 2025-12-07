@@ -197,7 +197,7 @@
         }
 
         v12 = *(*(&v17 + 1) + 8 * i);
-        [v12 timestamp];
+        objc_msgSend_timestamp(v12);
         v14 = vabdd_f64(timestamp, v13);
         if (v14 < v10)
         {
@@ -235,7 +235,7 @@
 {
   dataCopy = data;
   v5 = [ARGeoTrackingTechniqueStatePose alloc];
-  [dataCopy timestamp];
+  objc_msgSend_timestamp(dataCopy);
   v7 = v6;
   [dataCopy visionCameraTransform];
   ARMatrix4x4FloatToDouble(v14, v8, v9, v10, v11);
@@ -258,7 +258,7 @@
 {
   dataCopy = data;
   v5 = [ARGeoTrackingTechniqueStatePose alloc];
-  [dataCopy timestamp];
+  objc_msgSend_timestamp(dataCopy);
   v7 = v6;
   [dataCopy rotationMatrixENU];
   deviceMotion = [dataCopy deviceMotion];

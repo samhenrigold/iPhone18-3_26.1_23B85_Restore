@@ -34,6 +34,7 @@
 - (void)recheckAccountStatusForSubscription:(id)subscription capability:(id)capability;
 - (void)removeSecondaryThumperDeviceWithIDSDeviceIdentifier:(id)identifier fromSubscription:(id)subscription;
 - (void)setLegacyCapability:(id)capability enabled:(BOOL)enabled capabilityInformation:(id)information;
+- (void)setSubscription:(id)subscription capability:(id)capability enabled:(BOOL)enabled info:(id)info;
 @end
 
 @implementation CSDCoreTelephonyClient
@@ -42,9 +43,9 @@
 {
   notificationCopy = notification;
   queueCopy = queue;
-  v20.receiver = self;
-  v20.super_class = CSDCoreTelephonyClient;
-  v8 = [(CSDCoreTelephonyClient *)&v20 init];
+  v21.receiver = self;
+  v21.super_class = CSDCoreTelephonyClient;
+  v8 = [(CSDCoreTelephonyClient *)&v21 init];
   v9 = v8;
   if (v8)
   {
@@ -65,17 +66,18 @@
     if (notificationCopy)
     {
       TUCTServerConnection();
-      objc_copyWeak(&v18, &location);
-      v15 = _CTServerConnectionRegisterBlockForNotification() >> 32;
-      v16 = sub_100004778();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      objc_copyWeak(&v19, &location);
+      v15 = _CTServerConnectionRegisterBlockForNotification();
+      v16 = HIDWORD(v15);
+      v17 = sub_100004778(v15);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        v22 = v15;
-        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Registered for kCTEmergencyCallBackModeStatusNotification with error: %d", buf, 8u);
+        v23 = v16;
+        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Registered for kCTEmergencyCallBackModeStatusNotification with error: %d", buf, 8u);
       }
 
-      objc_destroyWeak(&v18);
+      objc_destroyWeak(&v19);
     }
 
     objc_destroyWeak(&location);
@@ -93,18 +95,22 @@
   if (!activeContexts)
   {
     client = [(CSDCoreTelephonyClient *)self client];
-    v11 = 0;
-    v6 = [client getActiveContexts:&v11];
-    v7 = v11;
+    v12 = 0;
+    v6 = [client getActiveContexts:&v12];
+    v7 = v12;
     v8 = self->_activeContexts;
     self->_activeContexts = v6;
 
-    if (!self->_activeContexts && [objc_opt_class() _isNSErrorFatal:v7])
+    if (!self->_activeContexts)
     {
-      v9 = sub_100004778();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v9 = [objc_opt_class() _isNSErrorFatal:v7];
+      if (v9)
       {
-        sub_10047D41C(self, v7, v9);
+        v10 = sub_100004778(v9);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+        {
+          sub_10047D41C(self, v7, v10);
+        }
       }
     }
 
@@ -208,10 +214,11 @@
 {
   TUCTServerConnection();
   v2 = _CTServerConnectionGetEmergencyCallBackMode();
-  if ([objc_opt_class() _isCTErrorFatal:v2])
+  v3 = [objc_opt_class() _isCTErrorFatal:v2];
+  if (v3)
   {
-    v3 = sub_100004778();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = sub_100004778(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_10047D4C8();
     }
@@ -226,16 +233,20 @@
   dispatch_assert_queue_V2(queue);
 
   client = [(CSDCoreTelephonyClient *)self client];
-  v9 = 0;
-  v5 = [client getPhoneServicesDeviceInfo:&v9];
-  v6 = v9;
+  v10 = 0;
+  v5 = [client getPhoneServicesDeviceInfo:&v10];
+  v6 = v10;
 
-  if (!v5 && [objc_opt_class() _isNSErrorFatal:v6])
+  if (!v5)
   {
-    v7 = sub_100004778();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v7 = [objc_opt_class() _isNSErrorFatal:v6];
+    if (v7)
     {
-      sub_10047D538();
+      v8 = sub_100004778(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      {
+        sub_10047D538();
+      }
     }
   }
 
@@ -254,9 +265,9 @@
   {
     client = [(CSDCoreTelephonyClient *)self client];
     context = [subscriptionCopy context];
-    v14 = 0;
-    v9 = [client getCallCapabilities:context error:&v14];
-    v10 = v14;
+    v15 = 0;
+    v9 = [client getCallCapabilities:context error:&v15];
+    v10 = v15;
 
     if (v9)
     {
@@ -265,10 +276,11 @@
 
     else
     {
-      if ([objc_opt_class() _isNSErrorFatal:v10])
+      v12 = [objc_opt_class() _isNSErrorFatal:v10];
+      if (v12)
       {
-        v12 = sub_100004778();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+        v13 = sub_100004778(v12);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
           sub_10047D5A0();
         }
@@ -295,19 +307,23 @@
 
   else
   {
-    v16 = 0;
+    v17 = 0;
     client = [(CSDCoreTelephonyClient *)self client];
     context = [subscriptionCopy context];
-    v15 = 0;
-    v12 = [client context:context getCapability:capabilityCopy status:&v16 with:&v15];
-    v9 = v15;
+    v16 = 0;
+    v12 = [client context:context getCapability:capabilityCopy status:&v17 with:&v16];
+    v9 = v16;
 
-    if (!v9 && [objc_opt_class() _isNSErrorFatal:v12])
+    if (!v9)
     {
-      v13 = sub_100004778();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v13 = [objc_opt_class() _isNSErrorFatal:v12];
+      if (v13)
       {
-        sub_10047D608();
+        v14 = sub_100004778(v13);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+        {
+          sub_10047D608();
+        }
       }
     }
   }
@@ -330,21 +346,77 @@
   {
     client = [(CSDCoreTelephonyClient *)self client];
     context = [subscriptionCopy context];
-    v12 = 0;
-    v6 = [client context:context getSystemCapabilities:&v12];
-    v9 = v12;
+    v13 = 0;
+    v6 = [client context:context getSystemCapabilities:&v13];
+    v9 = v13;
 
-    if (!v6 && [objc_opt_class() _isNSErrorFatal:v9])
+    if (!v6)
     {
-      v10 = sub_100004778();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v10 = [objc_opt_class() _isNSErrorFatal:v9];
+      if (v10)
       {
-        sub_10047D678();
+        v11 = sub_100004778(v10);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+        {
+          sub_10047D678();
+        }
       }
     }
   }
 
   return v6;
+}
+
+- (void)setSubscription:(id)subscription capability:(id)capability enabled:(BOOL)enabled info:(id)info
+{
+  enabledCopy = enabled;
+  subscriptionCopy = subscription;
+  capabilityCopy = capability;
+  infoCopy = info;
+  queue = [(CSDCoreTelephonyClient *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  csd_isUnknown = [subscriptionCopy csd_isUnknown];
+  if (csd_isUnknown)
+  {
+    [(CSDCoreTelephonyClient *)self setLegacyCapability:capabilityCopy enabled:enabledCopy capabilityInformation:infoCopy];
+  }
+
+  else
+  {
+    v15 = sub_100004778(csd_isUnknown);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    {
+      v21 = 138412802;
+      *v22 = capabilityCopy;
+      *&v22[8] = 1024;
+      *&v22[10] = enabledCopy;
+      v23 = 2112;
+      v24 = infoCopy;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Calling [CoreTelephonyClient context:setCapability:enabled:with:completion:] with capability: %@ enabled: %d info: %@", &v21, 0x1Cu);
+    }
+
+    client = [(CSDCoreTelephonyClient *)self client];
+    context = [subscriptionCopy context];
+    v18 = [client context:context setCapability:capabilityCopy enabled:enabledCopy with:infoCopy];
+
+    if (v18)
+    {
+      v20 = sub_100004778(v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      {
+        v21 = 67109890;
+        *v22 = enabledCopy;
+        *&v22[4] = 2112;
+        *&v22[6] = capabilityCopy;
+        v23 = 2112;
+        v24 = infoCopy;
+        v25 = 2112;
+        v26 = v18;
+        _os_log_error_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "Failed to set enabled=%d for capability %@ with info %@: %@", &v21, 0x26u);
+      }
+    }
+  }
 }
 
 - (void)addSecondaryThumperDeviceWithIDSDeviceIdentifier:(id)identifier toSubscription:(id)subscription
@@ -354,24 +426,25 @@
   queue = [(CSDCoreTelephonyClient *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  if (([subscriptionCopy csd_isUnknown] & 1) == 0)
+  csd_isUnknown = [subscriptionCopy csd_isUnknown];
+  if ((csd_isUnknown & 1) == 0)
   {
-    v9 = sub_100004778();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_100004778(csd_isUnknown);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v15 = identifierCopy;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Calling [CoreTelephonyClient context:addPhoneServicesDevice:withCompletion:] with idsDeviceIdentifier: %@", buf, 0xCu);
+      v16 = identifierCopy;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Calling [CoreTelephonyClient context:addPhoneServicesDevice:withCompletion:] with idsDeviceIdentifier: %@", buf, 0xCu);
     }
 
     client = [(CSDCoreTelephonyClient *)self client];
     context = [subscriptionCopy context];
-    v12[0] = _NSConcreteStackBlock;
-    v12[1] = 3221225472;
-    v12[2] = sub_10023041C;
-    v12[3] = &unk_10061A4C0;
-    v13 = identifierCopy;
-    [client context:context addPhoneServicesDevice:v13 withCompletion:v12];
+    v13[0] = _NSConcreteStackBlock;
+    v13[1] = 3221225472;
+    v13[2] = sub_10023041C;
+    v13[3] = &unk_10061A4C0;
+    v14 = identifierCopy;
+    [client context:context addPhoneServicesDevice:v14 withCompletion:v13];
   }
 }
 
@@ -382,24 +455,25 @@
   queue = [(CSDCoreTelephonyClient *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  if (([subscriptionCopy csd_isUnknown] & 1) == 0)
+  csd_isUnknown = [subscriptionCopy csd_isUnknown];
+  if ((csd_isUnknown & 1) == 0)
   {
-    v9 = sub_100004778();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_100004778(csd_isUnknown);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v15 = identifierCopy;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Calling [CoreTelephonyClient context:removePhoneServicesDevice:withCompletion:] with idsDeviceIdentifier: %@", buf, 0xCu);
+      v16 = identifierCopy;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Calling [CoreTelephonyClient context:removePhoneServicesDevice:withCompletion:] with idsDeviceIdentifier: %@", buf, 0xCu);
     }
 
     client = [(CSDCoreTelephonyClient *)self client];
     context = [subscriptionCopy context];
-    v12[0] = _NSConcreteStackBlock;
-    v12[1] = 3221225472;
-    v12[2] = sub_100230600;
-    v12[3] = &unk_10061A4C0;
-    v13 = identifierCopy;
-    [client context:context removePhoneServicesDevice:v13 withCompletion:v12];
+    v13[0] = _NSConcreteStackBlock;
+    v13[1] = 3221225472;
+    v13[2] = sub_100230600;
+    v13[3] = &unk_10061A4C0;
+    v14 = identifierCopy;
+    [client context:context removePhoneServicesDevice:v14 withCompletion:v13];
   }
 }
 
@@ -410,19 +484,20 @@
   queue = [(CSDCoreTelephonyClient *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  if (([subscriptionCopy csd_isUnknown] & 1) == 0)
+  csd_isUnknown = [subscriptionCopy csd_isUnknown];
+  if ((csd_isUnknown & 1) == 0)
   {
-    v9 = sub_100004778();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_100004778(csd_isUnknown);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 138412290;
-      v14 = capabilityCopy;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Calling [CoreTelephonyClient context:recheckPhoneServicesAccountStatus:] with capability: %@", &v13, 0xCu);
+      v14 = 138412290;
+      v15 = capabilityCopy;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Calling [CoreTelephonyClient context:recheckPhoneServicesAccountStatus:] with capability: %@", &v14, 0xCu);
     }
 
     client = [(CSDCoreTelephonyClient *)self client];
     context = [subscriptionCopy context];
-    v12 = [client context:context recheckPhoneServicesAccountStatus:capabilityCopy];
+    v13 = [client context:context recheckPhoneServicesAccountStatus:capabilityCopy];
   }
 }
 
@@ -431,20 +506,21 @@
   queue = [(CSDCoreTelephonyClient *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v3 = sub_100004778();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v4 = sub_100004778(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
-    v7 = @"NO";
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Calling _CTServerConnectionEnableEmergencyCallBackMode() with %@", &v6, 0xCu);
+    v8 = 138412290;
+    v9 = @"NO";
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Calling _CTServerConnectionEnableEmergencyCallBackMode() with %@", &v8, 0xCu);
   }
 
   TUCTServerConnection();
-  v4 = _CTServerConnectionEnableEmergencyCallBackMode();
-  if ([objc_opt_class() _isCTErrorFatal:v4])
+  v5 = _CTServerConnectionEnableEmergencyCallBackMode();
+  v6 = [objc_opt_class() _isCTErrorFatal:v5];
+  if (v6)
   {
-    v5 = sub_100004778();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = sub_100004778(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_10047D4C8();
     }
@@ -456,32 +532,33 @@
   enabledCopy = enabled;
   capabilityCopy = capability;
   informationCopy = information;
-  v9 = sub_100004778();
+  v9 = sub_100004778(informationCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138412802;
-    v13 = capabilityCopy;
-    v14 = 1024;
-    v15 = enabledCopy;
-    v16 = 2112;
-    v17 = informationCopy;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Calling _CTServerConnectionSetCapabilityExtended() with capability: %@ value: %d capabilityInformation: %@", &v12, 0x1Cu);
+    v13 = 138412802;
+    v14 = capabilityCopy;
+    v15 = 1024;
+    v16 = enabledCopy;
+    v17 = 2112;
+    v18 = informationCopy;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Calling _CTServerConnectionSetCapabilityExtended() with capability: %@ value: %d capabilityInformation: %@", &v13, 0x1Cu);
   }
 
   TUCTServerConnection();
   v10 = _CTServerConnectionSetCapabilityExtended();
-  if ([objc_opt_class() _isCTErrorFatal:v10])
+  v11 = [objc_opt_class() _isCTErrorFatal:v10];
+  if (v11)
   {
-    v11 = sub_100004778();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = sub_100004778(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v12 = 138412802;
-      v13 = capabilityCopy;
-      v14 = 1024;
-      v15 = v10;
-      v16 = 1024;
-      LODWORD(v17) = HIDWORD(v10);
-      _os_log_error_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "Error setting capability for %@ calling (domain=%d, code=%d)", &v12, 0x18u);
+      v13 = 138412802;
+      v14 = capabilityCopy;
+      v15 = 1024;
+      v16 = v10;
+      v17 = 1024;
+      LODWORD(v18) = HIDWORD(v10);
+      _os_log_error_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "Error setting capability for %@ calling (domain=%d, code=%d)", &v13, 0x18u);
     }
   }
 }
@@ -490,10 +567,11 @@
 {
   TUCTServerConnection();
   v2 = _CTServerConnectionCopySystemCapabilities();
-  if ([objc_opt_class() _isCTErrorFatal:v2])
+  v3 = [objc_opt_class() _isCTErrorFatal:v2];
+  if (v3)
   {
-    v3 = sub_100004778();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = sub_100004778(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_10047D7D0();
     }
@@ -506,30 +584,31 @@
 {
   identifierCopy = identifier;
   v4 = kCTCapabilityPhoneServices;
-  v5 = sub_100004778();
+  v5 = sub_100004778(identifierCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412546;
-    v9 = v4;
-    v10 = 2112;
-    *v11 = identifierCopy;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Calling _CTServerConnectionPhoneServicesAddDevice() with capability: %@ idsDeviceIdentifier: %@", &v8, 0x16u);
+    v9 = 138412546;
+    v10 = v4;
+    v11 = 2112;
+    *v12 = identifierCopy;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Calling _CTServerConnectionPhoneServicesAddDevice() with capability: %@ idsDeviceIdentifier: %@", &v9, 0x16u);
   }
 
   TUCTServerConnection();
   v6 = _CTServerConnectionPhoneServicesAddDevice();
-  if ([objc_opt_class() _isCTErrorFatal:v6])
+  v7 = [objc_opt_class() _isCTErrorFatal:v6];
+  if (v7)
   {
-    v7 = sub_100004778();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = sub_100004778(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v8 = 138412802;
-      v9 = v4;
-      v10 = 1024;
-      *v11 = v6;
-      *&v11[4] = 1024;
-      *&v11[6] = HIDWORD(v6);
-      _os_log_error_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "Error adding device for %@ calling (domain=%d, code=%d)", &v8, 0x18u);
+      v9 = 138412802;
+      v10 = v4;
+      v11 = 1024;
+      *v12 = v6;
+      *&v12[4] = 1024;
+      *&v12[6] = HIDWORD(v6);
+      _os_log_error_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "Error adding device for %@ calling (domain=%d, code=%d)", &v9, 0x18u);
     }
   }
 }
@@ -538,30 +617,31 @@
 {
   identifierCopy = identifier;
   v4 = kCTCapabilityPhoneServices;
-  v5 = sub_100004778();
+  v5 = sub_100004778(identifierCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412546;
-    v9 = v4;
-    v10 = 2112;
-    *v11 = identifierCopy;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Calling _CTServerConnectionPhoneServicesRemoveDevice() with capability: %@ idsDeviceIdentifier: %@", &v8, 0x16u);
+    v9 = 138412546;
+    v10 = v4;
+    v11 = 2112;
+    *v12 = identifierCopy;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Calling _CTServerConnectionPhoneServicesRemoveDevice() with capability: %@ idsDeviceIdentifier: %@", &v9, 0x16u);
   }
 
   TUCTServerConnection();
   v6 = _CTServerConnectionPhoneServicesRemoveDevice();
-  if ([objc_opt_class() _isCTErrorFatal:v6])
+  v7 = [objc_opt_class() _isCTErrorFatal:v6];
+  if (v7)
   {
-    v7 = sub_100004778();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = sub_100004778(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v8 = 138412802;
-      v9 = v4;
-      v10 = 1024;
-      *v11 = v6;
-      *&v11[4] = 1024;
-      *&v11[6] = HIDWORD(v6);
-      _os_log_error_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "Error removing device for %@ calling (domain=%d, code=%d)", &v8, 0x18u);
+      v9 = 138412802;
+      v10 = v4;
+      v11 = 1024;
+      *v12 = v6;
+      *&v12[4] = 1024;
+      *&v12[6] = HIDWORD(v6);
+      _os_log_error_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "Error removing device for %@ calling (domain=%d, code=%d)", &v9, 0x18u);
     }
   }
 }
@@ -569,7 +649,7 @@
 - (void)legacyRecheckAccountStatusForCapability:(id)capability
 {
   capabilityCopy = capability;
-  v4 = sub_100004778();
+  v4 = sub_100004778(capabilityCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -597,24 +677,30 @@
   {
     client = [(CSDCoreTelephonyClient *)self client];
     context = [v6 context];
-    v17 = 0;
-    v9 = [client copyMobileSubscriberCountryCode:context error:&v17];
-    v10 = v17;
+    v19 = 0;
+    v9 = [client copyMobileSubscriberCountryCode:context error:&v19];
+    v10 = v19;
 
     if (v9)
     {
       client2 = [(CSDCoreTelephonyClient *)self client];
-      v16 = v10;
-      v12 = [client2 copyMobileSubscriberIsoCountryCode:v9 error:&v16];
-      v13 = v16;
+      v18 = v10;
+      v12 = [client2 copyMobileSubscriberIsoCountryCode:v9 error:&v18];
+      v13 = v18;
 
-      if ([v12 length] || !objc_msgSend(objc_opt_class(), "_isNSErrorFatal:", v13))
+      if ([v12 length])
       {
         goto LABEL_15;
       }
 
-      v14 = sub_100004778();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v14 = [objc_opt_class() _isNSErrorFatal:v13];
+      if (!v14)
+      {
+        goto LABEL_15;
+      }
+
+      v15 = sub_100004778(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         sub_10047D840();
       }
@@ -622,14 +708,15 @@
 
     else
     {
-      if (![objc_opt_class() _isNSErrorFatal:v10])
+      v16 = [objc_opt_class() _isNSErrorFatal:v10];
+      if (!v16)
       {
         v12 = 0;
         goto LABEL_16;
       }
 
-      v14 = sub_100004778();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v15 = sub_100004778(v16);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         sub_10047D8B0();
       }
@@ -645,7 +732,7 @@ LABEL_16:
     goto LABEL_17;
   }
 
-  v10 = sub_100004778();
+  v10 = sub_100004778(0);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
     sub_10047D920();
@@ -669,43 +756,44 @@ LABEL_17:
   {
     v7 = +[CTXPCServiceSubscriptionContext contextWithSlot:](CTXPCServiceSubscriptionContext, "contextWithSlot:", [v6 slotID]);
     client = [(CSDCoreTelephonyClient *)self client];
-    v15 = 0;
-    v9 = [client getRoamingStatus:v7 error:&v15];
-    v10 = v15;
+    v16 = 0;
+    v9 = [client getRoamingStatus:v7 error:&v16];
+    v10 = v16;
 
     if (v10)
     {
-      v11 = 0;
+      v12 = 0;
     }
 
     else
     {
-      v11 = [v9 isVoiceRoaming] ^ 1;
+      isVoiceRoaming = [v9 isVoiceRoaming];
+      v12 = isVoiceRoaming ^ 1;
     }
 
-    v12 = sub_100004778();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = sub_100004778(isVoiceRoaming);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = @"NO";
-      if (v11)
+      v14 = @"NO";
+      if (v12)
       {
-        v13 = @"YES";
+        v14 = @"YES";
       }
 
       *buf = 138412546;
-      v17 = v13;
-      v18 = 2112;
-      v19 = v7;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "isInHomeCountryForSubscriptionUUID: %@ for subscription context - %@.", buf, 0x16u);
+      v18 = v14;
+      v19 = 2112;
+      v20 = v7;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "isInHomeCountryForSubscriptionUUID: %@ for subscription context - %@.", buf, 0x16u);
     }
   }
 
   else
   {
-    LOBYTE(v11) = 0;
+    LOBYTE(v12) = 0;
   }
 
-  return v11;
+  return v12;
 }
 
 - (id)spamIdentifiersForSubscriptionUUID:(id)d
@@ -729,63 +817,65 @@ LABEL_17:
   v6 = [(CSDCoreTelephonyClient *)self _subscriptionWithUUID:dCopy];
   if (v6)
   {
-    v17 = 0;
-    v7 = [(CSDCoreTelephonyClient *)self mobileCountryCodeForSubscription:v6 error:&v17];
-    v8 = v17;
+    v20 = 0;
+    v7 = [(CSDCoreTelephonyClient *)self mobileCountryCodeForSubscription:v6 error:&v20];
+    v8 = v20;
     v9 = v8;
     if (v7)
     {
-      v16 = v8;
-      v10 = [(CSDCoreTelephonyClient *)self mobileNetworkCodeForSubscription:v6 error:&v16];
-      v11 = v16;
+      v19 = v8;
+      v10 = [(CSDCoreTelephonyClient *)self mobileNetworkCodeForSubscription:v6 error:&v19];
+      v11 = v19;
 
       if (v10)
       {
-        v12 = sub_100004778();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+        v13 = sub_100004778(v12);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412802;
-          v19 = v7;
-          v20 = 2112;
-          v21 = v10;
-          v22 = 2112;
-          v23 = v6;
-          _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Retrieved mobile country code %@ and mobile network code %@ for subscription %@", buf, 0x20u);
+          v22 = v7;
+          v23 = 2112;
+          v24 = v10;
+          v25 = 2112;
+          v26 = v6;
+          _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Retrieved mobile country code %@ and mobile network code %@ for subscription %@", buf, 0x20u);
         }
 
-        v13 = [(CSDCoreTelephonyClient *)self ISOCountryCodeForMobileCountryCode:v7 mobileNetworkCode:v10];
+        v14 = [(CSDCoreTelephonyClient *)self ISOCountryCodeForMobileCountryCode:v7 mobileNetworkCode:v10];
       }
 
       else
       {
-        if ([objc_opt_class() _isNSErrorFatal:v11])
+        v16 = [objc_opt_class() _isNSErrorFatal:v11];
+        if (v16)
         {
-          v14 = sub_100004778();
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+          v17 = sub_100004778(v16);
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
           {
             sub_10047D988();
           }
         }
 
-        v13 = 0;
+        v14 = 0;
       }
     }
 
     else
     {
-      if (![objc_opt_class() _isNSErrorFatal:v8])
+      v15 = [objc_opt_class() _isNSErrorFatal:v8];
+      if (!v15)
       {
-        v13 = 0;
+        v14 = 0;
         goto LABEL_20;
       }
 
-      v10 = sub_100004778();
+      v10 = sub_100004778(v15);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         sub_10047D8B0();
       }
 
-      v13 = 0;
+      v14 = 0;
       v11 = v9;
     }
 
@@ -795,16 +885,16 @@ LABEL_20:
     goto LABEL_21;
   }
 
-  v9 = sub_100004778();
+  v9 = sub_100004778(0);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     sub_10047D920();
   }
 
-  v13 = 0;
+  v14 = 0;
 LABEL_21:
 
-  return v13;
+  return v14;
 }
 
 - (id)ISOCountryCodeForMobileCountryCode:(id)code mobileNetworkCode:(id)networkCode
@@ -818,40 +908,42 @@ LABEL_21:
   v10 = [mobileCodesToISOCountryCode objectForKeyedSubscript:codeCopy];
   v11 = [v10 objectForKeyedSubscript:networkCodeCopy];
 
-  if ([v11 length])
+  v12 = [v11 length];
+  if (v12)
   {
-    v12 = v11;
+    v13 = v11;
   }
 
   else
   {
     *buf = 0;
     TUCTServerConnection();
-    v13 = _CTServerConnectionCopyISOForMCC();
-    v12 = v11;
-    if ([objc_opt_class() _isCTErrorFatal:v13])
+    v14 = _CTServerConnectionCopyISOForMCC();
+    v13 = v11;
+    v12 = [objc_opt_class() _isCTErrorFatal:v14];
+    if (v12)
     {
-      v14 = sub_100004778();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v15 = sub_100004778(v12);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         sub_10047D9F8();
       }
     }
   }
 
-  v15 = sub_100004778();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v16 = sub_100004778(v12);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
-    *&buf[4] = v12;
-    v18 = 2112;
-    v19 = codeCopy;
-    v20 = 2112;
-    v21 = networkCodeCopy;
-    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Retrieved ISO country code %@ for mobile country code %@ and mobile network code %@", buf, 0x20u);
+    *&buf[4] = v13;
+    v19 = 2112;
+    v20 = codeCopy;
+    v21 = 2112;
+    v22 = networkCodeCopy;
+    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Retrieved ISO country code %@ for mobile country code %@ and mobile network code %@", buf, 0x20u);
   }
 
-  return v12;
+  return v13;
 }
 
 - (id)mobileCountryCodeForSubscription:(id)subscription error:(id *)error
@@ -998,19 +1090,19 @@ LABEL_11:
 
   if (v10)
   {
-    v11 = sub_100004778();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = sub_100004778(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 138412546;
-      v15 = v10;
-      v16 = 2112;
-      v17 = capabilitiesCopy;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Received delegate callback callCapabilitiesChanged: with context: %@ info: %@", &v14, 0x16u);
+      v15 = 138412546;
+      v16 = v10;
+      v17 = 2112;
+      v18 = capabilitiesCopy;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Received delegate callback callCapabilitiesChanged: with context: %@ info: %@", &v15, 0x16u);
     }
 
-    v12 = [CSDCTCallCapabilities callCapabilitiesForCTCallCapabilities:capabilitiesCopy];
+    v13 = [CSDCTCallCapabilities callCapabilitiesForCTCallCapabilities:capabilitiesCopy];
     delegate = [(CSDCoreTelephonyClient *)self delegate];
-    [delegate client:self subscription:v10 callCapabilitiesDidChange:v12];
+    [delegate client:self subscription:v10 callCapabilitiesDidChange:v13];
   }
 }
 
@@ -1027,14 +1119,14 @@ LABEL_11:
 
   if (v10)
   {
-    v11 = sub_100004778();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = sub_100004778(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 138412546;
-      v14 = v10;
-      v15 = 2112;
-      v16 = changedCopy;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Received context:capabilitiesChanged: with context: %@ info: %@", &v13, 0x16u);
+      v14 = 138412546;
+      v15 = v10;
+      v16 = 2112;
+      v17 = changedCopy;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Received context:capabilitiesChanged: with context: %@ info: %@", &v14, 0x16u);
     }
 
     delegate = [(CSDCoreTelephonyClient *)self delegate];
@@ -1045,7 +1137,7 @@ LABEL_11:
 - (void)phoneServicesCapabilitiesChanged:(id)changed
 {
   changedCopy = changed;
-  v5 = sub_100004778();
+  v5 = sub_100004778(changedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
@@ -1070,7 +1162,7 @@ LABEL_11:
 - (void)ctEmergencyCallbackModeStatusChangedWithUserInfo:(id)info
 {
   infoCopy = info;
-  v5 = sub_100004778();
+  v5 = sub_100004778(infoCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;

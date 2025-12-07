@@ -54,11 +54,11 @@
 
   else
   {
-    sub_100012ED4();
+    sub_100012ED4(constructorCopy);
   }
 
-  sub_100012DB0();
-  return sub_100007640();
+  v17 = sub_100012DB0(constructorCopy);
+  return sub_100007640(v17);
 }
 
 - (BOOL)isEndpointConnectionAllowed:(id)allowed
@@ -80,7 +80,7 @@
 
     if (!entitlement3)
     {
-      sub_10001300C();
+      sub_10001300C(v10);
 LABEL_27:
       sub_100013130();
       goto LABEL_21;
@@ -96,30 +96,30 @@ LABEL_27:
   }
 
   p_info = RMFacePoseCaptureContext.info;
-  v11 = qword_10002C0C0;
+  v12 = qword_10002C0C0;
   if (os_log_type_enabled(qword_10002C0C0, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = "NO";
+    v13 = "NO";
     if (entitlement)
     {
-      v13 = "YES";
+      v14 = "YES";
     }
 
     else
     {
-      v13 = "NO";
+      v14 = "NO";
     }
 
     if (tccService)
     {
-      v12 = "YES";
+      v13 = "YES";
     }
 
-    v28 = 136446466;
-    v29 = v13;
-    v30 = 2082;
-    *v31 = v12;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Client status: Entitled: %{public}s Authorized: %{public}s", &v28, 0x16u);
+    v29 = 136446466;
+    v30 = v14;
+    v31 = 2082;
+    *v32 = v13;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Client status: Entitled: %{public}s Authorized: %{public}s", &v29, 0x16u);
   }
 
   if ((entitlement | tccService))
@@ -135,18 +135,9 @@ LABEL_27:
   }
 
   entitlement5 = [(RMConnectionListener *)self entitlement];
-  if (!entitlement5)
+  if (!entitlement5 || (v17 = entitlement5, [(RMConnectionListener *)self deprecatedEntitlement], v18 = objc_claimAutoreleasedReturnValue(), v18, v17, !v18) || ([(RMConnectionListener *)self deprecatedEntitlement], v19 = objc_claimAutoreleasedReturnValue(), v20 = sub_100012420(allowedCopy, v19), v19, !v20))
   {
-    goto LABEL_24;
-  }
-
-  v16 = entitlement5;
-  deprecatedEntitlement = [(RMConnectionListener *)self deprecatedEntitlement];
-
-  if (!deprecatedEntitlement || ([(RMConnectionListener *)self deprecatedEntitlement], v18 = objc_claimAutoreleasedReturnValue(), v19 = sub_100012420(allowedCopy, v18), v18, !v19))
-  {
-LABEL_24:
-    v26 = 0;
+    v27 = 0;
     goto LABEL_25;
   }
 
@@ -156,30 +147,30 @@ LABEL_24:
   }
 
 LABEL_21:
-  v20 = p_info[24];
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+  v21 = p_info[24];
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
   {
-    v21 = v20;
-    v22 = sub_100012944(allowedCopy);
-    v23 = sub_100012990(allowedCopy);
-    deprecatedEntitlement2 = [(RMConnectionListener *)self deprecatedEntitlement];
+    v22 = v21;
+    v23 = sub_100012944(allowedCopy);
+    v24 = sub_100012990(allowedCopy);
+    deprecatedEntitlement = [(RMConnectionListener *)self deprecatedEntitlement];
     entitlement6 = [(RMConnectionListener *)self entitlement];
-    v28 = 138544131;
-    v29 = v22;
-    v30 = 1025;
-    *v31 = v23;
-    *&v31[4] = 2114;
-    *&v31[6] = deprecatedEntitlement2;
-    v32 = 2114;
-    v33 = entitlement6;
-    _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "Client %{public}@ (%{private}d) uses deprecated entitlement %{public}@: please use %{public}@ instead", &v28, 0x26u);
+    v29 = 138544131;
+    v30 = v23;
+    v31 = 1025;
+    *v32 = v24;
+    *&v32[4] = 2114;
+    *&v32[6] = deprecatedEntitlement;
+    v33 = 2114;
+    v34 = entitlement6;
+    _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "Client %{public}@ (%{private}d) uses deprecated entitlement %{public}@: please use %{public}@ instead", &v29, 0x26u);
   }
 
 LABEL_23:
-  v26 = 1;
+  v27 = 1;
 LABEL_25:
 
-  return v26;
+  return v27;
 }
 
 - (void)startListeningForService:(id)service
@@ -329,7 +320,7 @@ LABEL_25:
       _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Interruption events shouldn't be received by the daemon, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/RelativeMotion/Common/RMConnectionListener.m", 191, "[RMConnectionListener endpointWasInterrupted:]");
 LABEL_13:
     dispatch_once(&qword_10002C0B8, &stru_100024DD8);
   }
@@ -351,8 +342,8 @@ LABEL_13:
 
   else
   {
-    v7 = sub_1000133F8();
-    [(RMConnectionListener *)v7 deprecatedEntitlement];
+    sub_1000133F8(v7);
+    [(RMConnectionListener *)v8 deprecatedEntitlement];
   }
 }
 

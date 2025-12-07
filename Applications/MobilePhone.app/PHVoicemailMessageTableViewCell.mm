@@ -234,7 +234,7 @@ LABEL_8:
     -[VMPlayerControlsView setEnabled:](self->_playerControlsView, "setEnabled:", [item showsPlayerControls]);
 
     item2 = [(PHVoicemailMessageTableViewCell *)self item];
-    [item2 duration];
+    objc_msgSend_duration(item2);
     [(VMPlayerControlsView *)self->_playerControlsView setDuration:?];
 
     [(VMPlayerControlsView *)self->_playerControlsView setDelegate:self];
@@ -734,31 +734,31 @@ LABEL_9:
       item3 = [(PHVoicemailMessageTableViewCell *)self item];
       if ([item3 showsRestrictedAlertView])
       {
-        v6 = 0;
+        v7 = 0;
       }
 
       else
       {
         item4 = [(PHVoicemailMessageTableViewCell *)self item];
         transcriptViewModel = [item4 transcriptViewModel];
-        v6 = [transcriptViewModel confidence] != 0;
+        v7 = [transcriptViewModel confidence] != 0;
       }
     }
 
     else
     {
-      v6 = 0;
+      v7 = 0;
     }
 
-    v11 = PHDefaultLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v13 = PHDefaultLog(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v20[0] = 67109120;
-      v20[1] = v6;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Should show transcript = %d.", v20, 8u);
+      v25[0] = 67109120;
+      v25[1] = v7;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Should show transcript = %d.", v25, 8u);
     }
 
-    if (v6)
+    if (v7)
     {
       return 1;
     }
@@ -773,11 +773,11 @@ LABEL_9:
 
       if (showsRestrictedAlertView)
       {
-        v7 = PHDefaultLog();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+        v8 = PHDefaultLog(v20);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v20[0]) = 0;
-          v8 = "Cannot show transcript view due to alert view.";
+          LOWORD(v25[0]) = 0;
+          v9 = "Cannot show transcript view due to alert view.";
           goto LABEL_20;
         }
       }
@@ -793,21 +793,21 @@ LABEL_9:
           return 0;
         }
 
-        v7 = PHDefaultLog();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+        v8 = PHDefaultLog(v24);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
         {
-          [(PHVoicemailMessageTableViewCell *)v7 shouldShowTranscriptView];
+          [(PHVoicemailMessageTableViewCell *)v8 shouldShowTranscriptView];
         }
       }
     }
 
     else
     {
-      v7 = PHDefaultLog();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v8 = PHDefaultLog(v17);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v20[0]) = 0;
-        v8 = "Voice mail did not request to display a transcript.";
+        LOWORD(v25[0]) = 0;
+        v9 = "Voice mail did not request to display a transcript.";
         goto LABEL_20;
       }
     }
@@ -815,13 +815,13 @@ LABEL_9:
 
   else
   {
-    v7 = PHDefaultLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = PHDefaultLog(v4);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v20[0]) = 0;
-      v8 = "No voicemail item.  Cannot show transcript view.";
+      LOWORD(v25[0]) = 0;
+      v9 = "No voicemail item.  Cannot show transcript view.";
 LABEL_20:
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, v8, v20, 2u);
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, v9, v25, 2u);
     }
   }
 
@@ -1043,7 +1043,7 @@ id __56__PHVoicemailMessageTableViewCell_setExpanded_animated___block_invoke_2(u
 
   if (playerControlsView)
   {
-    [modelCopy duration];
+    objc_msgSend_duration(modelCopy);
     v9 = v8;
     playerControlsView2 = [(PHVoicemailMessageTableViewCell *)self playerControlsView];
     [playerControlsView2 setDuration:v9];

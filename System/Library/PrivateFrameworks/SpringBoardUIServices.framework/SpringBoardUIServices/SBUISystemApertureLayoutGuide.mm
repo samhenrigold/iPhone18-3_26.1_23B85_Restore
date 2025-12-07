@@ -559,7 +559,7 @@ void *__102__SBUISystemApertureLayoutGuide__enumerateSystemApertureRootLayoutGui
   windowCopy = window;
   if (![(SBUISystemApertureLayoutGuide *)self _requiresExplicitFrame])
   {
-    [SBUISystemApertureLayoutGuide _createOrUpdateFixedFrameRootConstraintsWithWindow:a2];
+    [(SBUISystemApertureLayoutGuide *)a2 _createOrUpdateFixedFrameRootConstraintsWithWindow:?];
   }
 
   windowScene = [windowCopy windowScene];
@@ -910,7 +910,7 @@ LABEL_43:
   windowCopy = window;
   if (![(SBUISystemApertureLayoutGuide *)self _requiresFloatableFixedSize])
   {
-    [SBUISystemApertureLayoutGuide _createOrUpdateConcentricRootLayoutGuideWithWindow:a2];
+    [(SBUISystemApertureLayoutGuide *)a2 _createOrUpdateConcentricRootLayoutGuideWithWindow:?];
   }
 
   identifier = [(SBUISystemApertureLayoutGuide *)self identifier];
@@ -1060,7 +1060,7 @@ LABEL_24:
   windowCopy = window;
   if (![(SBUISystemApertureLayoutGuide *)self _requiresInsets])
   {
-    [SBUISystemApertureLayoutGuide _createOrUpdateInsetBasedRootGuideWithWindow:a2];
+    [(SBUISystemApertureLayoutGuide *)a2 _createOrUpdateInsetBasedRootGuideWithWindow:?];
   }
 
   identifier = [(SBUISystemApertureLayoutGuide *)self identifier];
@@ -1238,30 +1238,31 @@ LABEL_19:
 - (void)_createOrUpdateConstraintsIfIsRootAndInAWindow
 {
   OUTLINED_FUNCTION_5();
-  NSStringFromSelector(v1);
-  objc_claimAutoreleasedReturnValue();
-  v2 = OUTLINED_FUNCTION_6();
-  v3 = NSStringFromClass(v2);
+  v2 = NSStringFromSelector(v1);
+  v4 = OUTLINED_FUNCTION_6(v2, v3);
+  v5 = NSStringFromClass(v4);
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2(&dword_1A9A79000, MEMORY[0x1E69E9C10], v4, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_2(&dword_1A9A79000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10);
 }
 
-- (void)_createOrUpdateFixedFrameRootConstraintsWithWindow:(const char *)a1 .cold.1(const char *a1)
+- (void)_createOrUpdateFixedFrameRootConstraintsWithWindow:(const char *)a1 .cold.1(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Don't set a frame on a layout guide that doesn't require one."];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Don't set a frame on a layout guide that doesn't require one."];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
+    LODWORD(v12) = 138544642;
+    *(&v12 + 4) = v4;
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_4();
-    OUTLINED_FUNCTION_2(&dword_1A9A79000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, 2u);
+    OUTLINED_FUNCTION_2(&dword_1A9A79000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, DWORD2(v12));
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
@@ -1269,48 +1270,51 @@ LABEL_19:
 - (void)_createOrUpdateFixedFrameRootConstraintsWithWindow:.cold.2()
 {
   OUTLINED_FUNCTION_5();
-  NSStringFromSelector(v1);
-  objc_claimAutoreleasedReturnValue();
-  v2 = OUTLINED_FUNCTION_6();
-  v3 = NSStringFromClass(v2);
+  v2 = NSStringFromSelector(v1);
+  v4 = OUTLINED_FUNCTION_6(v2, v3);
+  v5 = NSStringFromClass(v4);
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2(&dword_1A9A79000, MEMORY[0x1E69E9C10], v4, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_2(&dword_1A9A79000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10);
 }
 
-- (void)_createOrUpdateConcentricRootLayoutGuideWithWindow:(const char *)a1 .cold.1(const char *a1)
+- (void)_createOrUpdateConcentricRootLayoutGuideWithWindow:(const char *)a1 .cold.1(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Illegal attempt to use floatable fixed size"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Illegal attempt to use floatable fixed size"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
+    LODWORD(v12) = 138544642;
+    *(&v12 + 4) = v4;
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_4();
-    OUTLINED_FUNCTION_2(&dword_1A9A79000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, 2u);
+    OUTLINED_FUNCTION_2(&dword_1A9A79000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, DWORD2(v12));
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
-- (void)_createOrUpdateInsetBasedRootGuideWithWindow:(const char *)a1 .cold.1(const char *a1)
+- (void)_createOrUpdateInsetBasedRootGuideWithWindow:(const char *)a1 .cold.1(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Illegal attempt to use inset based guide when fixed frame required"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Illegal attempt to use inset based guide when fixed frame required"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
+    LODWORD(v12) = 138544642;
+    *(&v12 + 4) = v4;
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_4();
-    OUTLINED_FUNCTION_2(&dword_1A9A79000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, 2u);
+    OUTLINED_FUNCTION_2(&dword_1A9A79000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, DWORD2(v12));
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
@@ -1318,27 +1322,25 @@ LABEL_19:
 - (void)_createOrUpdateInsetBasedRootGuideWithWindow:.cold.2()
 {
   OUTLINED_FUNCTION_5();
-  NSStringFromSelector(v1);
-  objc_claimAutoreleasedReturnValue();
-  v2 = OUTLINED_FUNCTION_6();
-  v3 = NSStringFromClass(v2);
+  v2 = NSStringFromSelector(v1);
+  v4 = OUTLINED_FUNCTION_6(v2, v3);
+  v5 = NSStringFromClass(v4);
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2(&dword_1A9A79000, MEMORY[0x1E69E9C10], v4, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_2(&dword_1A9A79000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10);
 }
 
 - (void)_createOrUpdateInsetBasedRootGuideWithWindow:.cold.3()
 {
   OUTLINED_FUNCTION_5();
-  NSStringFromSelector(v1);
-  objc_claimAutoreleasedReturnValue();
-  v2 = OUTLINED_FUNCTION_6();
-  v3 = NSStringFromClass(v2);
+  v2 = NSStringFromSelector(v1);
+  v4 = OUTLINED_FUNCTION_6(v2, v3);
+  v5 = NSStringFromClass(v4);
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2(&dword_1A9A79000, MEMORY[0x1E69E9C10], v4, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_2(&dword_1A9A79000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10);
 }
 
 @end

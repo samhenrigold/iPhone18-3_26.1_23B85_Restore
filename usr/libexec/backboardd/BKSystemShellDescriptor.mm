@@ -16,36 +16,35 @@
 - (void)appendDescriptionToStream:(id)stream
 {
   streamCopy = stream;
-  pid = self->_pid;
-  v5 = BSProcessDescriptionForPID();
-  [streamCopy appendString:v5 withName:0];
+  v4 = BSProcessDescriptionForPID();
+  [streamCopy appendString:v4 withName:0];
 
   if (([streamCopy hasSuccinctStyle] & 1) == 0)
   {
-    v6 = [streamCopy appendObject:self->_bundleIdentifier withName:@"bundleIdentifier"];
-    v7 = [streamCopy appendObject:self->_bundlePath withName:@"bundlePath"];
-    v8 = [streamCopy appendObject:self->_jobLabel withName:@"jobLabel"];
-    v9 = [streamCopy appendDouble:@"systemIdleSleepInterval" withName:2 decimalPrecision:self->_systemIdleSleepInterval];
+    v5 = [streamCopy appendObject:self->_bundleIdentifier withName:@"bundleIdentifier"];
+    v6 = [streamCopy appendObject:self->_bundlePath withName:@"bundlePath"];
+    v7 = [streamCopy appendObject:self->_jobLabel withName:@"jobLabel"];
+    v8 = [streamCopy appendDouble:@"systemIdleSleepInterval" withName:2 decimalPrecision:self->_systemIdleSleepInterval];
     watchdogType = self->_watchdogType;
     if (watchdogType)
     {
       if (watchdogType == 1)
       {
-        v11 = @"shell";
+        v10 = @"shell";
       }
 
       else
       {
-        v11 = [NSString stringWithFormat:@"<unknown:%lX>", self->_watchdogType];
+        v10 = [NSString stringWithFormat:@"<unknown:%lX>", self->_watchdogType];
       }
     }
 
     else
     {
-      v11 = @"BackBoard";
+      v10 = @"BackBoard";
     }
 
-    [streamCopy appendString:v11 withName:@"watchdogType"];
+    [streamCopy appendString:v10 withName:@"watchdogType"];
   }
 }
 
@@ -86,17 +85,15 @@
   if (objc_opt_isKindOfClass())
   {
     v5 = equalCopy;
-    v6 = v5[1];
-    bundleIdentifier = self->_bundleIdentifier;
-    v12 = BSEqualObjects() && (v8 = v5[2], bundlePath = self->_bundlePath, BSEqualObjects()) && (v10 = v5[3], jobLabel = self->_jobLabel, BSEqualObjects()) && *(v5 + 8) == self->_pid && *(v5 + 5) == self->_systemIdleSleepInterval && v5[6] == self->_watchdogType;
+    v6 = BSEqualObjects() && BSEqualObjects() && BSEqualObjects() && *(v5 + 8) == self->_pid && v5[5] == self->_systemIdleSleepInterval && *(v5 + 6) == self->_watchdogType;
   }
 
   else
   {
-    v12 = 0;
+    v6 = 0;
   }
 
-  return v12;
+  return v6;
 }
 
 - (unint64_t)hash

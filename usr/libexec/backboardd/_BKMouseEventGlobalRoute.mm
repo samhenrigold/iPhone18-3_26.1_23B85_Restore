@@ -6,41 +6,39 @@
 
 - (BOOL)isEqual:(id)equal
 {
-  v5 = objc_opt_class();
+  v4 = objc_opt_class();
   equalCopy = equal;
-  if (v5)
+  if (v4)
   {
     if (objc_opt_isKindOfClass())
     {
-      v7 = equalCopy;
+      v6 = equalCopy;
     }
 
     else
     {
-      v7 = 0;
+      v6 = 0;
     }
   }
 
   else
   {
-    v7 = 0;
+    v6 = 0;
   }
 
-  v8 = v7;
+  v7 = v6;
 
-  if (v8)
+  if (v7)
   {
-    v9 = v8[3];
-    destination = self->_destination;
-    v11 = BSEqualObjects();
+    v8 = BSEqualObjects();
   }
 
   else
   {
-    v11 = 0;
+    v8 = 0;
   }
 
-  return v11;
+  return v8;
 }
 
 @end

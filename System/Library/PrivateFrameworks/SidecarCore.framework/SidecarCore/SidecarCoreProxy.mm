@@ -31,10 +31,10 @@
 
 - (void)relaySession:(int64_t)session receivedOPACKData:(id)data dataLink:(int64_t)link
 {
-  v28 = *MEMORY[0x277D85DE8];
-  v21 = 0;
-  v8 = SidecarOPACKDecode(data, &v21);
-  v9 = v21;
+  v27 = *MEMORY[0x277D85DE8];
+  v20 = 0;
+  v8 = SidecarOPACKDecode(data, &v20);
+  v9 = v20;
   if (v9)
   {
     v10 = SidecarCoreLogSubsystem(OS_LOG_TYPE_ERROR);
@@ -46,10 +46,10 @@
       localizedDescription = [v9 localizedDescription];
       *buf = 138543875;
       sessionCopy = domain;
-      v24 = 2048;
-      v25 = code;
-      v26 = 2113;
-      v27 = localizedDescription;
+      v23 = 2048;
+      v24 = code;
+      v25 = 2113;
+      v26 = localizedDescription;
       _os_log_impl(&dword_26604C000, v11, OS_LOG_TYPE_ERROR, "proxy: %{public}@ (%ld) %{private}@", buf, 0x20u);
     }
   }
@@ -90,13 +90,11 @@
       }
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)relaySession:(id)session openedByDevice:(id)device dataLink:(int64_t)link service:(id)service
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   deviceCopy = device;
   serviceCopy = service;
@@ -120,9 +118,9 @@
 
   else
   {
-    v28 = 0;
-    v17 = [[SidecarSession alloc] initWithRemote:sessionCopy device:deviceCopy dataLink:link service:serviceCopy error:&v28];
-    v18 = v28;
+    v27 = 0;
+    v17 = [[SidecarSession alloc] initWithRemote:sessionCopy device:deviceCopy dataLink:link service:serviceCopy error:&v27];
+    v18 = v27;
     v16 = v18;
     if (v17)
     {
@@ -134,9 +132,9 @@
         *&buf[4] = v13;
         *&buf[12] = 2114;
         *&buf[14] = deviceCopy;
-        v30 = 2114;
-        v31 = serviceCopy;
-        v32 = 2048;
+        v29 = 2114;
+        v30 = serviceCopy;
+        v31 = 2048;
         linkCopy = link;
         _os_log_impl(&dword_26604C000, v20, OS_LOG_TYPE_INFO, "session %lX opened by device %{public}@ (%{public}@) [%ld]", buf, 0x2Au);
       }
@@ -149,9 +147,9 @@
       v21 = v18;
       if (v21)
       {
-        v23 = SidecarCoreLogSubsystem(OS_LOG_TYPE_ERROR);
-        v24 = v23;
-        if (v23 && os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+        v22 = SidecarCoreLogSubsystem(OS_LOG_TYPE_ERROR);
+        v23 = v22;
+        if (v22 && os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
         {
           domain = [v21 domain];
           code = [v21 code];
@@ -160,15 +158,13 @@
           *&buf[4] = domain;
           *&buf[12] = 2048;
           *&buf[14] = code;
-          v30 = 2113;
-          v31 = localizedDescription;
-          _os_log_impl(&dword_26604C000, v24, OS_LOG_TYPE_ERROR, "%{public}@ (%ld) %{private}@", buf, 0x20u);
+          v29 = 2113;
+          v30 = localizedDescription;
+          _os_log_impl(&dword_26604C000, v23, OS_LOG_TYPE_ERROR, "%{public}@ (%ld) %{private}@", buf, 0x20u);
         }
       }
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)relaySession:(int64_t)session closedWithError:(id)error

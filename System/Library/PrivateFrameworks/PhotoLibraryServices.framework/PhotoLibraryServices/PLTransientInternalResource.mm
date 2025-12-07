@@ -70,7 +70,7 @@ LABEL_20:
       if ([(PLTransientInternalResource *)self trashedState])
       {
 LABEL_22:
-        [(PLTransientInternalResource *)self setTrashedState:2, *v17, *&v17[16], v18];
+        [(PLTransientInternalResource *)self setTrashedState:2, *v17, *&v17[8], v18];
         managedObjectContext = [(PLTransientInternalResource *)self managedObjectContext];
         [managedObjectContext deleteObject:self];
         goto LABEL_23;

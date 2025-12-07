@@ -55,14 +55,14 @@
 
 - (NSFetchedResultsController)localUserController
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   localUserController = self->_localUserController;
   if (!localUserController)
   {
     v4 = +[STCoreUser fetchRequestMatchingLocalUser];
     v5 = [objc_alloc(MEMORY[0x1E696AEB0]) initWithKey:@"givenName" ascending:1];
-    v16[0] = v5;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
+    v15[0] = v5;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
     [v4 setSortDescriptors:v6];
 
     [v4 setShouldRefreshRefetchedObjects:1];
@@ -74,9 +74,9 @@
 
     [(NSFetchedResultsController *)self->_localUserController setDelegate:self];
     v11 = self->_localUserController;
-    v15 = 0;
-    LOBYTE(managedObjectContext) = [(NSFetchedResultsController *)v11 performFetch:&v15];
-    v12 = v15;
+    v14 = 0;
+    LOBYTE(managedObjectContext) = [(NSFetchedResultsController *)v11 performFetch:&v14];
+    v12 = v14;
     if ((managedObjectContext & 1) == 0)
     {
       [STCoreUsersController localUserController];
@@ -85,30 +85,28 @@
     localUserController = self->_localUserController;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
-
   return localUserController;
 }
 
 - (NSArray)users
 {
-  v18[1] = *MEMORY[0x1E69E9840];
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x2020000000;
-  v17 = 0;
+  v17[1] = *MEMORY[0x1E69E9840];
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x2020000000;
+  v16 = 0;
   localUser = [(STCoreUsersController *)self localUser];
   managedObjectContext = [(STCoreUsersController *)self managedObjectContext];
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __30__STCoreUsersController_users__block_invoke;
-  v11[3] = &unk_1E7CE7558;
-  v13 = &v14;
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __30__STCoreUsersController_users__block_invoke;
+  v10[3] = &unk_1E7CE7558;
+  v12 = &v13;
   v5 = localUser;
-  v12 = v5;
-  [managedObjectContext performBlockAndWait:v11];
+  v11 = v5;
+  [managedObjectContext performBlockAndWait:v10];
 
-  if (*(v15 + 24) == 1)
+  if (*(v14 + 24) == 1)
   {
     v6 = [objc_alloc(MEMORY[0x1E695DF70]) initWithObjects:{v5, 0}];
     childUserController = [(STCoreUsersController *)self childUserController];
@@ -118,12 +116,11 @@
 
   else
   {
-    v18[0] = v5;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
+    v17[0] = v5;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
   }
 
-  _Block_object_dispose(&v14, 8);
-  v9 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v13, 8);
 
   return v6;
 }
@@ -146,7 +143,7 @@ uint64_t __30__STCoreUsersController_users__block_invoke(uint64_t a1)
 
 - (NSFetchedResultsController)childUserController
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   childUserController = self->_childUserController;
   if (!childUserController)
   {
@@ -155,8 +152,8 @@ uint64_t __30__STCoreUsersController_users__block_invoke(uint64_t a1)
     [v4 setPredicate:v5];
 
     v6 = [objc_alloc(MEMORY[0x1E696AEB0]) initWithKey:@"givenName" ascending:1];
-    v17[0] = v6;
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
+    v16[0] = v6;
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
     [v4 setSortDescriptors:v7];
 
     [v4 setShouldRefreshRefetchedObjects:1];
@@ -168,9 +165,9 @@ uint64_t __30__STCoreUsersController_users__block_invoke(uint64_t a1)
 
     [(NSFetchedResultsController *)self->_childUserController setDelegate:self];
     v12 = self->_childUserController;
-    v16 = 0;
-    LOBYTE(managedObjectContext) = [(NSFetchedResultsController *)v12 performFetch:&v16];
-    v13 = v16;
+    v15 = 0;
+    LOBYTE(managedObjectContext) = [(NSFetchedResultsController *)v12 performFetch:&v15];
+    v13 = v15;
     if ((managedObjectContext & 1) == 0)
     {
       [STCoreUsersController childUserController];
@@ -178,8 +175,6 @@ uint64_t __30__STCoreUsersController_users__block_invoke(uint64_t a1)
 
     childUserController = self->_childUserController;
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return childUserController;
 }
@@ -274,7 +269,7 @@ uint64_t __63__STCoreUsersController__updateSelectedIndexForDSID_isManaged___blo
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (void)refresh
@@ -364,11 +359,10 @@ LABEL_8:
 
 - (void)localUser
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
   selfCopy = self;
-  _os_log_fault_impl(&dword_1B831F000, a2, OS_LOG_TYPE_FAULT, "Fetched more than one local user: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_1B831F000, a2, OS_LOG_TYPE_FAULT, "Fetched more than one local user: %{public}@", &v2, 0xCu);
 }
 
 - (void)localUserController
@@ -393,15 +387,13 @@ LABEL_8:
 
 - (void)_updateSelectedIndexForDSID:(NSObject *)a3 isManaged:.cold.1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = [a2 users];
-  v7 = 138543618;
-  v8 = a1;
-  v9 = 2114;
-  v10 = v5;
-  _os_log_error_impl(&dword_1B831F000, a3, OS_LOG_TYPE_ERROR, "Could not find user with dsid: %{public}@ in users: %{public}@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v6 = 138543618;
+  v7 = a1;
+  v8 = 2114;
+  v9 = v5;
+  _os_log_error_impl(&dword_1B831F000, a3, OS_LOG_TYPE_ERROR, "Could not find user with dsid: %{public}@ in users: %{public}@", &v6, 0x16u);
 }
 
 @end

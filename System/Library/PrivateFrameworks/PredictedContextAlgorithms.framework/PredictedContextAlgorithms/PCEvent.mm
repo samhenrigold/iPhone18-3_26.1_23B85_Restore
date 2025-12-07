@@ -56,8 +56,8 @@
   category = self->_category;
   if (category == 1)
   {
-    v4 = off_1E83B7848;
-    v5 = 80;
+    v3 = off_1E83B7848;
+    v4 = 80;
   }
 
   else
@@ -67,13 +67,11 @@
       return;
     }
 
-    v4 = off_1E83B7850;
-    v5 = 88;
+    v3 = off_1E83B7850;
+    v4 = 88;
   }
 
-  v6 = objc_alloc_init(*v4);
-  v7 = *(&self->super.isa + v5);
-  *(&self->super.isa + v5) = v6;
+  *(&self->super.isa + v4) = objc_alloc_init(*v3);
 
   MEMORY[0x1EEE66BB8]();
 }

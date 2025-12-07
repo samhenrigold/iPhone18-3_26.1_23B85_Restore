@@ -139,7 +139,7 @@
 + (id)tempFileURLForStickerID:(id)d
 {
   dCopy = d;
-  v4 = IMSafeTemporaryDirectory();
+  v4 = IMSafeTemporaryDirectory(dCopy);
   path = [v4 path];
   v6 = [path stringByAppendingPathComponent:dCopy];
 

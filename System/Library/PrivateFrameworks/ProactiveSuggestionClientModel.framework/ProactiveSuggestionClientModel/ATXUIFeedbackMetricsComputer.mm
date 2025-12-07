@@ -5,6 +5,7 @@
 - (id)_computeResultForConsumerSubType:(unsigned __int8)type query:(id)query publisher:(id)publisher resultSpecification:(id)specification;
 - (id)computeResultForQuery:(id)query resultSpecification:(id)specification;
 - (void)_updateNonTrendPlotSectionsInResult:(id)result withFeedbackResult:(id)feedbackResult;
+- (void)_updateResultSection:(id)section withSuggestions:(id)suggestions clientModelId:(id)id consumerSubType:(unsigned __int8)type;
 @end
 
 @implementation ATXUIFeedbackMetricsComputer
@@ -36,37 +37,37 @@
 {
   queryCopy = query;
   specificationCopy = specification;
-  if ([queryCopy clientModelType] || objc_msgSend(queryCopy, "consumerSubType"))
+  if ([queryCopy clientModelType] || (v8 = objc_msgSend(queryCopy, "consumerSubType"), v8))
   {
     stream = self->_stream;
     startDate = [queryCopy startDate];
     [startDate timeIntervalSinceReferenceDate];
-    v10 = [(ATXBiomeProactiveSuggestionUIFeedbackResultStream *)stream publisherFromStartTime:?];
+    v11 = [(ATXBiomeProactiveSuggestionUIFeedbackResultStream *)stream publisherFromStartTime:?];
 
     if ([queryCopy clientModelType])
     {
-      v11 = +[ATXProactiveSuggestionClientModel clientModelIdFromClientModelType:](ATXProactiveSuggestionClientModel, "clientModelIdFromClientModelType:", [queryCopy clientModelType]);
-      v12 = [(ATXUIFeedbackMetricsComputer *)self _computeResultForClientModel:v11 query:queryCopy publisher:v10 resultSpecification:specificationCopy];
+      v12 = +[ATXProactiveSuggestionClientModel clientModelIdFromClientModelType:](ATXProactiveSuggestionClientModel, "clientModelIdFromClientModelType:", [queryCopy clientModelType]);
+      v13 = [(ATXUIFeedbackMetricsComputer *)self _computeResultForClientModel:v12 query:queryCopy publisher:v11 resultSpecification:specificationCopy];
     }
 
     else
     {
-      v12 = -[ATXUIFeedbackMetricsComputer _computeResultForConsumerSubType:query:publisher:resultSpecification:](self, "_computeResultForConsumerSubType:query:publisher:resultSpecification:", [queryCopy consumerSubType], queryCopy, v10, specificationCopy);
+      v13 = -[ATXUIFeedbackMetricsComputer _computeResultForConsumerSubType:query:publisher:resultSpecification:](self, "_computeResultForConsumerSubType:query:publisher:resultSpecification:", [queryCopy consumerSubType], queryCopy, v11, specificationCopy);
     }
   }
 
   else
   {
-    v14 = __atxlog_handle_metrics();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = __atxlog_handle_metrics(v8);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      [ATXUIFeedbackMetricsComputer computeResultForQuery:v14 resultSpecification:?];
+      [ATXUIFeedbackMetricsComputer computeResultForQuery:v15 resultSpecification:?];
     }
 
-    v12 = 0;
+    v13 = 0;
   }
 
-  return v12;
+  return v13;
 }
 
 - (id)_computeResultForClientModel:(id)model query:(id)query publisher:(id)publisher resultSpecification:(id)specification
@@ -114,19 +115,8 @@ BOOL __97__ATXUIFeedbackMetricsComputer__computeResultForClientModel_query_publi
   v8 = [v3 eventBody];
   v9 = [v8 sessionEndDate];
 
-  if (v7 == v9)
+  if (v7 == v9 || (v10 = *(a1 + 40), [v3 eventBody], v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v11, "clientModelId"), v12 = objc_claimAutoreleasedReturnValue(), LODWORD(v10) = objc_msgSend(v10, "isEqualToString:", v12), v12, v11, !v10))
   {
-    goto LABEL_5;
-  }
-
-  v10 = *(a1 + 40);
-  v11 = [v3 eventBody];
-  v12 = [v11 clientModelId];
-  LODWORD(v10) = [v10 isEqualToString:v12];
-
-  if (!v10)
-  {
-LABEL_5:
     v15 = 0;
   }
 
@@ -152,8 +142,8 @@ void __97__ATXUIFeedbackMetricsComputer__computeResultForClientModel_query_publi
 
   if (v3)
   {
-    v4 = __atxlog_handle_metrics();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = __atxlog_handle_metrics(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __97__ATXUIFeedbackMetricsComputer__computeResultForClientModel_query_publisher_resultSpecification___block_invoke_2_cold_1(v2);
     }
@@ -276,8 +266,8 @@ void __101__ATXUIFeedbackMetricsComputer__computeResultForConsumerSubType_query_
 
   if (v3)
   {
-    v4 = __atxlog_handle_metrics();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = __atxlog_handle_metrics(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __97__ATXUIFeedbackMetricsComputer__computeResultForClientModel_query_publisher_resultSpecification___block_invoke_2_cold_1(v2);
     }
@@ -286,7 +276,7 @@ void __101__ATXUIFeedbackMetricsComputer__computeResultForConsumerSubType_query_
 
 BOOL __101__ATXUIFeedbackMetricsComputer__computeResultForConsumerSubType_query_publisher_resultSpecification___block_invoke_20(uint64_t a1, void *a2)
 {
-  v68 = *MEMORY[0x1E69E9840];
+  v67 = *MEMORY[0x1E69E9840];
   v3 = [a2 eventBody];
   v4 = [v3 sessionEndDate];
   v5 = [*(a1 + 32) endDate];
@@ -316,28 +306,28 @@ BOOL __101__ATXUIFeedbackMetricsComputer__computeResultForConsumerSubType_query_
 
     if (v15)
     {
-      v51 = v7;
-      v52 = v6;
-      v63 = 0u;
-      v64 = 0u;
-      v61 = 0u;
+      v50 = v7;
+      v51 = v6;
       v62 = 0u;
+      v63 = 0u;
+      v60 = 0u;
+      v61 = 0u;
       v16 = [v3 shownSuggestions];
-      v17 = [v16 countByEnumeratingWithState:&v61 objects:v67 count:16];
+      v17 = [v16 countByEnumeratingWithState:&v60 objects:v66 count:16];
       if (v17)
       {
         v18 = v17;
-        v19 = *v62;
+        v19 = *v61;
         do
         {
           for (i = 0; i != v18; ++i)
           {
-            if (*v62 != v19)
+            if (*v61 != v19)
             {
               objc_enumerationMutation(v16);
             }
 
-            v21 = *(*(&v61 + 1) + 8 * i);
+            v21 = *(*(&v60 + 1) + 8 * i);
             v22 = *(a1 + 56);
             v23 = [v21 executableIdentifier];
             LOBYTE(v22) = [v22 containsObject:v23];
@@ -353,32 +343,32 @@ BOOL __101__ATXUIFeedbackMetricsComputer__computeResultForConsumerSubType_query_
             }
           }
 
-          v18 = [v16 countByEnumeratingWithState:&v61 objects:v67 count:16];
+          v18 = [v16 countByEnumeratingWithState:&v60 objects:v66 count:16];
         }
 
         while (v18);
       }
 
-      v59 = 0u;
-      v60 = 0u;
-      v57 = 0u;
       v58 = 0u;
+      v59 = 0u;
+      v56 = 0u;
+      v57 = 0u;
       v27 = [v3 engagedSuggestions];
-      v28 = [v27 countByEnumeratingWithState:&v57 objects:v66 count:16];
+      v28 = [v27 countByEnumeratingWithState:&v56 objects:v65 count:16];
       if (v28)
       {
         v29 = v28;
-        v30 = *v58;
+        v30 = *v57;
         do
         {
           for (j = 0; j != v29; ++j)
           {
-            if (*v58 != v30)
+            if (*v57 != v30)
             {
               objc_enumerationMutation(v27);
             }
 
-            v32 = *(*(&v57 + 1) + 8 * j);
+            v32 = *(*(&v56 + 1) + 8 * j);
             v33 = *(a1 + 64);
             v34 = [v32 executableIdentifier];
             LOBYTE(v33) = [v33 containsObject:v34];
@@ -394,32 +384,32 @@ BOOL __101__ATXUIFeedbackMetricsComputer__computeResultForConsumerSubType_query_
             }
           }
 
-          v29 = [v27 countByEnumeratingWithState:&v57 objects:v66 count:16];
+          v29 = [v27 countByEnumeratingWithState:&v56 objects:v65 count:16];
         }
 
         while (v29);
       }
 
-      v55 = 0u;
-      v56 = 0u;
-      v53 = 0u;
       v54 = 0u;
+      v55 = 0u;
+      v52 = 0u;
+      v53 = 0u;
       v38 = [v3 rejectedSuggestions];
-      v39 = [v38 countByEnumeratingWithState:&v53 objects:v65 count:16];
+      v39 = [v38 countByEnumeratingWithState:&v52 objects:v64 count:16];
       if (v39)
       {
         v40 = v39;
-        v41 = *v54;
+        v41 = *v53;
         do
         {
           for (k = 0; k != v40; ++k)
           {
-            if (*v54 != v41)
+            if (*v53 != v41)
             {
               objc_enumerationMutation(v38);
             }
 
-            v43 = *(*(&v53 + 1) + 8 * k);
+            v43 = *(*(&v52 + 1) + 8 * k);
             v44 = *(a1 + 72);
             v45 = [v43 executableIdentifier];
             LOBYTE(v44) = [v44 containsObject:v45];
@@ -435,18 +425,17 @@ BOOL __101__ATXUIFeedbackMetricsComputer__computeResultForConsumerSubType_query_
             }
           }
 
-          v40 = [v38 countByEnumeratingWithState:&v53 objects:v65 count:16];
+          v40 = [v38 countByEnumeratingWithState:&v52 objects:v64 count:16];
         }
 
         while (v40);
       }
 
-      v7 = v51;
-      v6 = v52;
+      v7 = v50;
+      v6 = v51;
     }
   }
 
-  v49 = *MEMORY[0x1E69E9840];
   return v6 != v7;
 }
 
@@ -473,6 +462,72 @@ BOOL __101__ATXUIFeedbackMetricsComputer__computeResultForConsumerSubType_query_
   [(ATXUIFeedbackMetricsComputer *)self _updateResultSection:sectionForRejectedSuggestions withSuggestions:rejectedSuggestions clientModelId:clientModelId3 consumerSubType:consumerSubType];
 }
 
+- (void)_updateResultSection:(id)section withSuggestions:(id)suggestions clientModelId:(id)id consumerSubType:(unsigned __int8)type
+{
+  typeCopy = type;
+  v36 = *MEMORY[0x1E69E9840];
+  sectionCopy = section;
+  suggestionsCopy = suggestions;
+  idCopy = id;
+  clientModelBreakdown = [sectionCopy clientModelBreakdown];
+  v27 = idCopy;
+  [clientModelBreakdown incrementCountForCategory:idCopy by:{objc_msgSend(suggestionsCopy, "count")}];
+
+  consumerSubTypeBreakdown = [sectionCopy consumerSubTypeBreakdown];
+  v14 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:typeCopy];
+  [consumerSubTypeBreakdown incrementCountForCategory:v14 by:{objc_msgSend(suggestionsCopy, "count")}];
+
+  v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
+  obj = suggestionsCopy;
+  v15 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+  if (v15)
+  {
+    v16 = v15;
+    v17 = *v32;
+    do
+    {
+      v18 = 0;
+      do
+      {
+        if (*v32 != v17)
+        {
+          objc_enumerationMutation(obj);
+        }
+
+        v19 = *(*(&v31 + 1) + 8 * v18);
+        scoreDistribution = [sectionCopy scoreDistribution];
+        scoreSpecification = [v19 scoreSpecification];
+        [scoreSpecification rawScore];
+        [scoreDistribution recordScore:?];
+
+        confidenceBreakdown = [sectionCopy confidenceBreakdown];
+        v23 = MEMORY[0x1E696AD98];
+        scoreSpecification2 = [v19 scoreSpecification];
+        v25 = [v23 numberWithInteger:{objc_msgSend(scoreSpecification2, "suggestedConfidenceCategory")}];
+        [confidenceBreakdown incrementCountForCategory:v25 by:1];
+
+        predictionReasons = [v19 predictionReasons];
+        v29[0] = MEMORY[0x1E69E9820];
+        v29[1] = 3221225472;
+        v29[2] = __99__ATXUIFeedbackMetricsComputer__updateResultSection_withSuggestions_clientModelId_consumerSubType___block_invoke;
+        v29[3] = &unk_1E86A4050;
+        v30 = sectionCopy;
+        ATXSuggestionPredictionReasonEnumerateReasonCodes(predictionReasons, v29);
+
+        ++v18;
+      }
+
+      while (v16 != v18);
+      v16 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+    }
+
+    while (v16);
+  }
+}
+
 void __99__ATXUIFeedbackMetricsComputer__updateResultSection_withSuggestions_clientModelId_consumerSubType___block_invoke(uint64_t a1, uint64_t a2)
 {
   v4 = [*(a1 + 32) predictionReasonCodeBreakdown];
@@ -482,11 +537,10 @@ void __99__ATXUIFeedbackMetricsComputer__updateResultSection_withSuggestions_cli
 
 void __97__ATXUIFeedbackMetricsComputer__computeResultForClientModel_query_publisher_resultSpecification___block_invoke_2_cold_1(void *a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v1 = [a1 error];
-  OUTLINED_FUNCTION_0_4(&dword_1DEFC4000, v2, v3, "ATXUIFeedbackMetricsComputer: Biome query completed with error %@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_4(&dword_1DEFC4000, v2, v3, "ATXUIFeedbackMetricsComputer: Biome query completed with error %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 @end

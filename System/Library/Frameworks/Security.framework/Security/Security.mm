@@ -139,7 +139,7 @@ void sub_1000014F4(uint64_t a1)
     }
 
     v7 = sub_1000060E0(cf);
-    reply_with_format = xpc_create_reply_with_format();
+    reply_with_format = xpc_create_reply_with_format(v3, "{%string: %value}", "error", v7);
     v9 = 0;
     v10 = 0;
     goto LABEL_92;
@@ -251,24 +251,7 @@ LABEL_31:
         if (v29)
         {
           v51 = _CFBundleCopyBundleURLForExecutableURL();
-          if (!v51)
-          {
-            goto LABEL_76;
-          }
-
-          v30 = [NSBundle bundleWithURL:v51];
-          [(Client *)v52 setBundle:v30];
-          if (!v30)
-          {
-            goto LABEL_76;
-          }
-
-          v31 = [(Client *)v52 bundle];
-          v32 = [v31 bundleIdentifier];
-          [(Client *)v52 setClient:v32];
-
-          v26 = v52;
-          if (v32)
+          if (v51 && (+[NSBundle bundleWithURL:](NSBundle, "bundleWithURL:", v51), v30 = objc_claimAutoreleasedReturnValue(), -[Client setBundle:](v52, "setBundle:", v30), v30) && (-[Client bundle](v52, "bundle"), v31 = objc_claimAutoreleasedReturnValue(), [v31 bundleIdentifier], v32 = objc_claimAutoreleasedReturnValue(), -[Client setClient:](v52, "setClient:", v32), v32, v31, v26 = v52, v30, v32))
           {
             [(Client *)v52 setClient_type:0];
             v33 = [(Client *)v52 client];
@@ -282,7 +265,6 @@ LABEL_31:
 
           else
           {
-LABEL_76:
             v48 = sub_100002C54("swcagent");
             if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
             {
@@ -794,7 +776,7 @@ void sub_100002708(id a1)
   }
 }
 
-void sub_100002748(void *a1, const __CFString *a2, CFTypeRef *a3, uint64_t a4, uint64_t a5)
+void sub_100002748(void *a1, const __CFString *a2, CFErrorRef *a3, uint64_t a4, uint64_t a5)
 {
   if (a2)
   {
@@ -828,7 +810,7 @@ CFTypeRef sub_100002838(void *a1, __CFString **a2)
   if (data)
   {
     v4 = data;
-    v5 = data + length;
+    v5 = &data[length];
     v6 = SecCFAllocatorZeroize();
     if (sub_100004220(v6, &cf, a2, v4, v5) == v5)
     {
@@ -1009,11 +991,11 @@ uint64_t sub_100002CE4(const __CFDictionary *a1, uint64_t a2)
   }
 }
 
-uint64_t sub_100002D4C(uint64_t result, uint64_t a2, uint64_t a3)
+uint64_t sub_100002D4C(uint64_t result, const void *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if (*a3 == 1)
   {
-    result = sub_100002D9C(result, a2, *(a3 + 16));
+    result = sub_100002D9C(result, a2, *(a3 + 16), a4, a5);
     if (result)
     {
       *(a3 + 8) += result;
@@ -1028,9 +1010,9 @@ uint64_t sub_100002D4C(uint64_t result, uint64_t a2, uint64_t a3)
   return result;
 }
 
-uint64_t sub_100002D9C(uint64_t a1, uint64_t a2, CFTypeRef *a3)
+uint64_t sub_100002D9C(const void *a1, const void *a2, CFErrorRef *a3, uint64_t a4, uint64_t a5)
 {
-  if (sub_100004C64(a1, a3) && sub_100004C64(a2, a3))
+  if (sub_100004C64(a1, a3, a3, a4, a5) && sub_100004C64(a2, a3, v7, v8, v9))
   {
 
     return ccder_sizeof();
@@ -1038,21 +1020,21 @@ uint64_t sub_100002D9C(uint64_t a1, uint64_t a2, CFTypeRef *a3)
 
   else
   {
-    sub_100004168(-6, @"com.apple.security.cfder.error", v5, a3, v6, @"null input");
+    sub_100004168(-6, @"com.apple.security.cfder.error", v7, a3, v9, @"null input");
     return 0;
   }
 }
 
-uint64_t sub_100002E34(const __CFDictionary *a1, CFTypeRef *a2, char a3)
+uint64_t sub_100002E34(const __CFDictionary *a1, CFErrorRef *a2, char a3, uint64_t a4, uint64_t a5)
 {
   Mutable = CFArrayCreateMutable(0, 0, &kCFTypeArrayCallBacks);
-  v13[0] = 0xAAAAAAAAAAAAAA01;
-  v13[1] = a2;
-  BYTE1(v13[0]) = a3;
-  v13[2] = Mutable;
-  v13[3] = 0;
-  CFDictionaryApplyFunction(a1, sub_100003074, v13);
-  if ((v13[0] & 1) == 0)
+  v15[0] = 0xAAAAAAAAAAAAAA01;
+  v15[1] = a2;
+  BYTE1(v15[0]) = a3;
+  v15[2] = Mutable;
+  v15[3] = 0;
+  CFDictionaryApplyFunction(a1, sub_100003074, v15);
+  if ((v15[0] & 1) == 0)
   {
     if (Mutable)
     {
@@ -1062,23 +1044,23 @@ uint64_t sub_100002E34(const __CFDictionary *a1, CFTypeRef *a2, char a3)
     return 0;
   }
 
-  v14.length = CFArrayGetCount(Mutable);
-  v14.location = 0;
-  CFArraySortValues(Mutable, v14, sub_100002FB8, 0);
+  v16.length = CFArrayGetCount(Mutable);
+  v16.location = 0;
+  CFArraySortValues(Mutable, v16, sub_100002FB8, 0);
   Count = CFArrayGetCount(Mutable);
   if (Count >= 1)
   {
-    v8 = Count + 1;
+    v10 = Count + 1;
     do
     {
-      ValueAtIndex = CFArrayGetValueAtIndex(Mutable, v8 - 2);
+      ValueAtIndex = CFArrayGetValueAtIndex(Mutable, v10 - 2);
       CFDataGetLength(ValueAtIndex);
       CFDataGetBytePtr(ValueAtIndex);
       ccder_encode_body();
-      --v8;
+      --v10;
     }
 
-    while (v8 > 1);
+    while (v10 > 1);
   }
 
   if (Mutable)
@@ -1089,7 +1071,7 @@ uint64_t sub_100002E34(const __CFDictionary *a1, CFTypeRef *a2, char a3)
   result = ccder_encode_constructed_tl();
   if (!result)
   {
-    sub_100004168(-7, @"com.apple.security.cfder.error", v11, a2, v12, @"ccder failed to encode");
+    sub_100004168(-7, @"com.apple.security.cfder.error", v13, a2, v14, @"ccder failed to encode");
     return 0;
   }
 
@@ -1162,31 +1144,31 @@ uint64_t sub_100002FB8(const __CFData *a1, const __CFData *a2)
   }
 }
 
-void sub_100003074(uint64_t a1, uint64_t a2, uint64_t a3)
+void sub_100003074(const void *a1, const void *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if (*a3 == 1)
   {
-    v6 = sub_100002D9C(a1, a2, *(a3 + 8));
-    if (!v6)
+    v8 = sub_100002D9C(a1, a2, *(a3 + 8), a4, a5);
+    if (!v8)
     {
       *a3 = 0;
       return;
     }
 
-    v7 = v6;
-    Mutable = CFDataCreateMutable(*(a3 + 24), v6);
-    CFDataSetLength(Mutable, v7);
+    v9 = v8;
+    Mutable = CFDataCreateMutable(*(a3 + 24), v8);
+    CFDataSetLength(Mutable, v9);
     MutableBytePtr = CFDataGetMutableBytePtr(Mutable);
-    v10 = *(a3 + 8);
-    v11 = *(a3 + 1);
-    v12 = sub_100004F08(a2, v10, v11, MutableBytePtr, &MutableBytePtr[v7]);
-    sub_100004F08(a1, v10, v11, MutableBytePtr, v12);
-    v13 = ccder_encode_constructed_tl();
-    if (v13)
+    v12 = *(a3 + 8);
+    v13 = *(a3 + 1);
+    v14 = sub_100004F08(a2, v12, v13, MutableBytePtr, &MutableBytePtr[v9]);
+    sub_100004F08(a1, v12, v13, MutableBytePtr, v14);
+    v15 = ccder_encode_constructed_tl();
+    if (v15)
     {
-      v17.length = v13 - MutableBytePtr;
-      v17.location = 0;
-      CFDataDeleteBytes(Mutable, v17);
+      v19.length = v15 - MutableBytePtr;
+      v19.location = 0;
+      CFDataDeleteBytes(Mutable, v19);
       CFArrayAppendValue(*(a3 + 16), Mutable);
       if (!Mutable)
       {
@@ -1196,7 +1178,7 @@ void sub_100003074(uint64_t a1, uint64_t a2, uint64_t a3)
 
     else
     {
-      sub_100004168(-7, @"com.apple.security.cfder.error", v14, v10, v15, @"ccder failed to encode");
+      sub_100004168(-7, @"com.apple.security.cfder.error", v16, v12, v17, @"ccder failed to encode");
       *a3 = 0;
       if (!Mutable)
       {
@@ -1301,7 +1283,7 @@ void sub_100003404(const __CFString *a1, uint64_t a2)
   }
 }
 
-uint64_t sub_10000355C(char **a1, unint64_t a2, CFTypeRef *a3, uint64_t a4, uint64_t a5)
+uint64_t sub_10000355C(char **a1, unint64_t a2, CFErrorRef *a3, uint64_t a4, uint64_t a5)
 {
   v7 = *a1;
   if (*a1)
@@ -1329,7 +1311,7 @@ uint64_t sub_10000355C(char **a1, unint64_t a2, CFTypeRef *a3, uint64_t a4, uint
   return 0xFFFFFFFFLL;
 }
 
-char *sub_1000035F0(double *a1, CFTypeRef *a2, unsigned int a3, char *a4, unint64_t a5)
+char *sub_1000035F0(double *a1, CFErrorRef *a2, unsigned int a3, char *a4, char *a5)
 {
   v70 = a4;
   v67 = sub_10000355C(&v70, a5, a2, a4, a5);
@@ -1361,7 +1343,7 @@ LABEL_24:
   v38 = *v70;
   if (v38 == 46)
   {
-    if ((v70 + 1) < a5)
+    if (v70 + 1 < a5)
     {
       v38 = v70[1];
       if ((v38 - 58) < 0xFFFFFFF6)
@@ -1459,8 +1441,8 @@ LABEL_25:
     v48 = (v13 + 10 * v65);
     v49 = (v19 + 10 * v16);
     v50 = (v25 + 10 * v22);
-    v86[0] = 0;
-    if (sub_100003A90(a3, (v66 + 10 * v67), v48, v49, v50, (v34 + 10 * v28), v86, a2))
+    v86 = 0;
+    if (sub_100003A90(a3, (v66 + 10 * v67), v48, v49, v50, (v34 + 10 * v28), &v86, a2))
     {
       v82 = 0;
       v83 = &v82;
@@ -1516,7 +1498,7 @@ LABEL_25:
   return v35;
 }
 
-uint64_t sub_100003A90(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _DWORD *a7, __CFString **a8)
+uint64_t sub_100003A90(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _BOOL4 *a7, __CFString **a8)
 {
   if ((a1 & 3) != 0)
   {
@@ -1575,7 +1557,7 @@ uint64_t sub_100003C28(uint64_t a1, CFCalendarRef calendar)
   return result;
 }
 
-uint64_t sub_100003C8C(const __CFNumber *a1, CFTypeRef *a2)
+uint64_t sub_100003C8C(const __CFNumber *a1, CFErrorRef *a2)
 {
   valuePtr = 0xAAAAAAAAAAAAAAAALL;
   if (CFNumberGetValue(a1, kCFNumberLongLongType, &valuePtr))
@@ -1609,7 +1591,7 @@ uint64_t sub_100003C8C(const __CFNumber *a1, CFTypeRef *a2)
   }
 }
 
-uint64_t sub_100003D64(const __CFNumber *a1, CFTypeRef *a2, uint64_t a3, uint64_t a4)
+uint64_t sub_100003D64(const __CFNumber *a1, CFErrorRef *a2, uint64_t a3, uint64_t a4)
 {
   valuePtr = 0xAAAAAAAAAAAAAAAALL;
   if (!CFNumberGetValue(a1, kCFNumberLongLongType, &valuePtr))
@@ -1700,7 +1682,7 @@ LABEL_22:
   return result;
 }
 
-void sub_100003EB4(CFIndex a1, const __CFString *a2, __CFString *cf, CFTypeRef *a4, CFStringRef format, va_list arguments)
+void sub_100003EB4(CFIndex a1, const __CFString *a2, __CFString *cf, CFErrorRef *a4, CFStringRef format, va_list arguments)
 {
   if (!a4)
   {
@@ -1857,7 +1839,7 @@ void sub_10000419C(int a1, __CFString **a2, CFStringRef format, ...)
   }
 }
 
-uint64_t sub_100004220(uint64_t a1, uint64_t a2, CFTypeRef *a3, uint64_t a4, uint64_t a5)
+char *sub_100004220(const __CFAllocator *a1, CFTypeRef *a2, CFErrorRef *a3, char *a4, _BYTE *a5)
 {
   v5 = a4;
   if (a4)
@@ -1883,7 +1865,7 @@ uint64_t sub_100004220(uint64_t a1, uint64_t a2, CFTypeRef *a3, uint64_t a4, uin
   return v5;
 }
 
-uint64_t sub_100004C64(const __CFString *a1, CFTypeRef *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t sub_100004C64(const __CFString *a1, CFErrorRef *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if (!a1)
   {
@@ -1902,7 +1884,7 @@ uint64_t sub_100004C64(const __CFString *a1, CFTypeRef *a2, uint64_t a3, uint64_
       do
       {
         ValueAtIndex = CFArrayGetValueAtIndex(a1, v10 - 2);
-        v9 += sub_100004C64(ValueAtIndex, a2);
+        v9 += sub_100004C64(ValueAtIndex, a2, v12, v13, v14);
         --v10;
       }
 
@@ -1959,14 +1941,14 @@ LABEL_14:
       goto LABEL_14;
     }
 
-    sub_100004168(-5, @"com.apple.security.cfder.error", v14, a2, v15, @"Unsupported CFType");
+    sub_100004168(-5, @"com.apple.security.cfder.error", v17, a2, v18, @"Unsupported CFType");
     return 0;
   }
 
   return sub_100003C8C(a1, a2);
 }
 
-uint64_t sub_100004F08(const __CFString *a1, CFTypeRef *a2, uint64_t a3, UInt8 *a4, unint64_t a5)
+uint64_t sub_100004F08(const __CFString *a1, CFErrorRef *a2, uint64_t a3, UInt8 *a4, unint64_t a5)
 {
   if (!a1)
   {
@@ -2210,41 +2192,7 @@ LABEL_14:
 
 LABEL_75:
     __freedtoa();
-    if (!v28)
-    {
-      goto LABEL_83;
-    }
-
-    v50 = (a4 + 2);
-    if ((a4 + 2) > v28)
-    {
-      goto LABEL_83;
-    }
-
-    *(v28 - 2) = v32 / 10 + 48;
-    *(v28 - 1) = v32 % 10 + 48;
-    if (v50 > v28 - 2)
-    {
-      goto LABEL_83;
-    }
-
-    *(v28 - 4) = v31 / 10 + 48;
-    *(v28 - 3) = v31 % 10 + 48;
-    if (v50 > v28 - 4)
-    {
-      goto LABEL_83;
-    }
-
-    *(v28 - 6) = v54 / 10 + 48;
-    *(v28 - 5) = v54 % 10 + 48;
-    if (v50 > v28 - 6)
-    {
-      goto LABEL_83;
-    }
-
-    *(v28 - 8) = v53 / 10 + 48;
-    *(v28 - 7) = v53 % 10 + 48;
-    if (v50 <= v28 - 8 && (*(v28 - 10) = v30 / 10 + 48, *(v28 - 9) = v30 % 10 + 48, v50 <= v28 - 10) && (v51 = (((103 * (v29 % 100)) >> 15) & 1) + ((103 * (v29 % 100)) >> 10), *(v28 - 12) = v51 + 48, *(v28 - 11) = v29 % 100 - 10 * v51 + 48, v50 <= v28 - 12))
+    if (v28 && (v50 = (a4 + 2), (a4 + 2) <= v28) && (*(v28 - 2) = v32 / 10 + 48, *(v28 - 1) = v32 % 10 + 48, v50 <= v28 - 2) && (*(v28 - 4) = v31 / 10 + 48, *(v28 - 3) = v31 % 10 + 48, v50 <= v28 - 4) && (*(v28 - 6) = v54 / 10 + 48, *(v28 - 5) = v54 % 10 + 48, v50 <= v28 - 6) && (*(v28 - 8) = v53 / 10 + 48, *(v28 - 7) = v53 % 10 + 48, v50 <= v28 - 8) && (*(v28 - 10) = v30 / 10 + 48, *(v28 - 9) = v30 % 10 + 48, v50 <= v28 - 10) && (v51 = (((103 * (v29 % 100)) >> 15) & 1) + ((103 * (v29 % 100)) >> 10), *(v28 - 12) = v51 + 48, *(v28 - 11) = v29 % 100 - 10 * v51 + 48, v50 <= v28 - 12))
     {
       *(v28 - 14) = v29 / 1000 + 48;
       *(v28 - 13) = v29 / 100 % 10 + 48;
@@ -2252,7 +2200,6 @@ LABEL_75:
 
     else
     {
-LABEL_83:
       sub_100004168(-7, @"com.apple.security.cfder.error", v48, a2, v49, @"ccder failed to encode");
     }
 
@@ -2262,13 +2209,13 @@ LABEL_83:
   if (CFDictionaryGetTypeID() == v10)
   {
 
-    return sub_100002E34(a1, a2, a3);
+    return sub_100002E34(a1, a2, a3, a4, a5);
   }
 
   if (CFSetGetTypeID() == v10)
   {
 
-    return sub_100005B5C(a1, a2, a3);
+    return sub_100005B5C(a1, a2, a3, a4, a5);
   }
 
   if (CFStringGetTypeID() == v10)
@@ -2303,7 +2250,7 @@ uint64_t sub_1000058C0(const __CFString *a1)
   return ccder_sizeof();
 }
 
-uint64_t sub_100005940(const __CFString *a1, CFTypeRef *a2, UInt8 *a3, uint64_t a4, uint64_t a5)
+uint64_t sub_100005940(const __CFString *a1, CFErrorRef *a2, UInt8 *a3, uint64_t a4, uint64_t a5)
 {
   if (a4)
   {
@@ -2337,7 +2284,7 @@ uint64_t sub_100005940(const __CFString *a1, CFTypeRef *a2, UInt8 *a3, uint64_t 
   return 0;
 }
 
-uint64_t sub_100005A48(CFTypeRef *a1)
+uint64_t sub_100005A48(CFErrorRef *a1)
 {
   v4 = ccder_encode_tl();
   if (!v4)
@@ -2364,11 +2311,11 @@ uint64_t sub_100005AA4(const __CFSet *a1, uint64_t a2)
   }
 }
 
-uint64_t sub_100005B0C(uint64_t result, uint64_t a2)
+uint64_t sub_100005B0C(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if (*a2 == 1)
   {
-    result = sub_100004C64(result, *(a2 + 16));
+    result = sub_100004C64(result, *(a2 + 16), a3, a4, a5);
     if (result)
     {
       *(a2 + 8) += result;
@@ -2383,16 +2330,16 @@ uint64_t sub_100005B0C(uint64_t result, uint64_t a2)
   return result;
 }
 
-uint64_t sub_100005B5C(const __CFSet *a1, CFTypeRef *a2, char a3)
+uint64_t sub_100005B5C(const __CFSet *a1, CFErrorRef *a2, char a3, uint64_t a4, uint64_t a5)
 {
   Mutable = CFArrayCreateMutable(0, 0, &kCFTypeArrayCallBacks);
-  v13[0] = 0xAAAAAAAAAAAAAA01;
-  v13[1] = a2;
-  BYTE1(v13[0]) = a3;
-  v13[2] = Mutable;
-  v13[3] = 0;
-  CFSetApplyFunction(a1, sub_100005D9C, v13);
-  if ((v13[0] & 1) == 0)
+  v15[0] = 0xAAAAAAAAAAAAAA01;
+  v15[1] = a2;
+  BYTE1(v15[0]) = a3;
+  v15[2] = Mutable;
+  v15[3] = 0;
+  CFSetApplyFunction(a1, sub_100005D9C, v15);
+  if ((v15[0] & 1) == 0)
   {
     if (Mutable)
     {
@@ -2402,23 +2349,23 @@ uint64_t sub_100005B5C(const __CFSet *a1, CFTypeRef *a2, char a3)
     return 0;
   }
 
-  v14.length = CFArrayGetCount(Mutable);
-  v14.location = 0;
-  CFArraySortValues(Mutable, v14, sub_100005CE0, 0);
+  v16.length = CFArrayGetCount(Mutable);
+  v16.location = 0;
+  CFArraySortValues(Mutable, v16, sub_100005CE0, 0);
   Count = CFArrayGetCount(Mutable);
   if (Count >= 1)
   {
-    v8 = Count + 1;
+    v10 = Count + 1;
     do
     {
-      ValueAtIndex = CFArrayGetValueAtIndex(Mutable, v8 - 2);
+      ValueAtIndex = CFArrayGetValueAtIndex(Mutable, v10 - 2);
       CFDataGetLength(ValueAtIndex);
       CFDataGetBytePtr(ValueAtIndex);
       ccder_encode_body();
-      --v8;
+      --v10;
     }
 
-    while (v8 > 1);
+    while (v10 > 1);
   }
 
   if (Mutable)
@@ -2429,7 +2376,7 @@ uint64_t sub_100005B5C(const __CFSet *a1, CFTypeRef *a2, char a3)
   result = ccder_encode_constructed_tl();
   if (!result)
   {
-    sub_100004168(-7, @"com.apple.security.cfder.error", v11, a2, v12, @"ccder failed to encode");
+    sub_100004168(-7, @"com.apple.security.cfder.error", v13, a2, v14, @"ccder failed to encode");
     return 0;
   }
 

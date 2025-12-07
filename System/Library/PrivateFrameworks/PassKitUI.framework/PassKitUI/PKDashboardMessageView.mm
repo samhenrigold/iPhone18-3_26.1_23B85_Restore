@@ -611,7 +611,7 @@ void __40__PKDashboardMessageView_initWithFrame___block_invoke_2(uint64_t a1)
     v11 = 0;
   }
 
-  v72 = v11;
+  v145 = v11;
   if (_shouldReverseLayoutDirection)
   {
     v12 = CGRectMinXEdge;
@@ -624,7 +624,8 @@ void __40__PKDashboardMessageView_initWithFrame___block_invoke_2(uint64_t a1)
 
   type = self->_type;
   v14 = self->_imageDescriptor && self->_iconImageView || self->_avatarContact != 0;
-  v71 = v14;
+  v141 = IsAccessibilityCategory;
+  v142 = v14;
   actionOnDismiss = self->_actionOnDismiss;
   v16 = type == 3;
   v17 = type == 3;
@@ -668,12 +669,13 @@ void __40__PKDashboardMessageView_initWithFrame___block_invoke_2(uint64_t a1)
   [(UILabel *)self->_labelMessage setAdjustsFontSizeToFitWidth:v19 ^ 1u];
   [(UILabel *)self->_labelSecondaryMessage setNumberOfLines:v21];
   [(UILabel *)self->_labelSecondaryMessage setAdjustsFontSizeToFitWidth:v19 ^ 1u];
-  memset(&v83, 0, sizeof(v83));
+  memset(&v156, 0, sizeof(v156));
   v22 = 16.0;
   v23 = x + 16.0;
   v24 = y + 16.0;
-  v74 = width;
+  v147 = width;
   v25 = width + -32.0;
+  v138 = height;
   v26 = height + -32.0;
   remainder.origin.x = v23;
   remainder.origin.y = v24;
@@ -685,12 +687,12 @@ void __40__PKDashboardMessageView_initWithFrame___block_invoke_2(uint64_t a1)
   {
     [(UIButton *)self->_actionButton sizeThatFits:v25, v26];
     v29 = v28;
-    v86.origin.x = v23;
-    v86.origin.y = v24;
-    v86.size.width = v25;
-    v86.size.height = v26;
-    CGRectDivide(v86, &slice, &remainder, v29, CGRectMaxYEdge);
-    CGRectDivide(remainder, &v83, &remainder, 16.0, CGRectMaxYEdge);
+    v159.origin.x = v23;
+    v159.origin.y = v24;
+    v159.size.width = v25;
+    v159.size.height = v26;
+    CGRectDivide(v159, &slice, &remainder, v29, CGRectMaxYEdge);
+    CGRectDivide(remainder, &v156, &remainder, 16.0, CGRectMaxYEdge);
     v22 = slice.size.height + 16.0 + 16.0;
     if (self->_isTemplateLayout)
     {
@@ -719,14 +721,14 @@ void __40__PKDashboardMessageView_initWithFrame___block_invoke_2(uint64_t a1)
   [(UIButton *)actionButton setFrame:v31, v32, v33];
 LABEL_27:
   v34 = *(v27 + 16);
-  v81.origin = *v27;
-  v81.size = v34;
-  v80.origin = v81.origin;
-  v80.size = v34;
-  v79.origin = v81.origin;
-  v79.size = v34;
-  v78.origin = v81.origin;
-  v78.size = v34;
+  v154.origin = *v27;
+  v154.size = v34;
+  v153.origin = v154.origin;
+  v153.size = v34;
+  v152.origin = v154.origin;
+  v152.size = v34;
+  v151.origin = v154.origin;
+  v151.size = v34;
   v35 = 30.0;
   if (!self->_smallDevice)
   {
@@ -749,16 +751,17 @@ LABEL_27:
     }
   }
 
-  if (!v71)
+  v137 = v35;
+  if (!v142)
   {
-    v73 = v22;
+    v146 = v22;
     if (!actionOnDismiss)
     {
       goto LABEL_52;
     }
 
-    CGRectDivide(remainder, &v78, &remainder, 28.0, v12);
-    CGRectDivide(remainder, &v83, &remainder, 10.0, v12);
+    CGRectDivide(remainder, &v151, &remainder, 28.0, v12);
+    CGRectDivide(remainder, &v156, &remainder, 10.0, v12);
     v41 = remainder.origin.x;
     v42 = remainder.origin.y;
     v43 = remainder.size.width;
@@ -775,7 +778,7 @@ LABEL_27:
 
   else
   {
-    v36 = v72;
+    v36 = v145;
   }
 
   v37 = remainder.origin.x;
@@ -786,11 +789,11 @@ LABEL_27:
     v49 = remainder.size.height;
     if (actionOnDismiss)
     {
-      memset(&v77, 0, sizeof(v77));
-      CGRectDivide(*&v37, &v78, &remainder, 28.0, v12);
+      memset(&v150, 0, sizeof(v150));
+      CGRectDivide(*&v37, &v151, &remainder, 28.0, v12);
       if (!self->_imageOnTrailingEdge)
       {
-        CGRectDivide(remainder, &v77, &remainder, 10.0, v12);
+        CGRectDivide(remainder, &v150, &remainder, 10.0, v12);
       }
 
       v37 = remainder.origin.x;
@@ -799,10 +802,10 @@ LABEL_27:
       v49 = remainder.size.height;
     }
 
-    v73 = v22;
-    CGRectDivide(*&v37, &v81, &remainder, 4.0, CGRectMinYEdge);
-    CGRectDivide(remainder, &v81, &remainder, v35, v36);
-    CGRectDivide(v81, &v80, &v79, v35, CGRectMinYEdge);
+    v146 = v22;
+    CGRectDivide(*&v37, &v154, &remainder, 4.0, CGRectMinYEdge);
+    CGRectDivide(remainder, &v154, &remainder, v35, v36);
+    CGRectDivide(v154, &v153, &v152, v35, CGRectMinYEdge);
     if (self->_imageOnTrailingEdge)
     {
       v45 = 3.0;
@@ -819,104 +822,168 @@ LABEL_27:
     v44 = remainder.size.height;
     v46 = v36;
 LABEL_51:
-    CGRectDivide(*&v41, &v83, &remainder, v45, v46);
+    CGRectDivide(*&v41, &v156, &remainder, v45, v46);
     goto LABEL_52;
   }
 
   v38 = remainder.origin.y;
   v39 = remainder.size.width;
   v40 = remainder.size.height;
-  CGRectDivide(*&v37, &v80, &remainder, v35, CGRectMinYEdge);
-  CGRectDivide(remainder, &v83, &remainder, 10.0, CGRectMinYEdge);
+  CGRectDivide(*&v37, &v153, &remainder, v35, CGRectMinYEdge);
+  CGRectDivide(remainder, &v156, &remainder, 10.0, CGRectMinYEdge);
   if (actionOnDismiss)
   {
-    CGRectDivide(v80, &v78, &v80, 28.0, v12);
+    CGRectDivide(v153, &v151, &v153, 28.0, v12);
   }
 
-  CGRectDivide(v80, &v80, &v79, v35, v36);
-  v73 = v22 + v35 + 10.0;
+  CGRectDivide(v153, &v153, &v152, v35, v36);
+  v146 = v22 + v35 + 10.0;
 LABEL_52:
-  v77 = remainder;
+  v150 = remainder;
   size = remainder.size;
   [(UILabel *)self->_labelTitle sizeThatFits:remainder.size.width, remainder.size.height];
-  v52 = v51;
+  v139 = v51;
+  v53 = v52;
   [(UILabel *)self->_labelSecondaryTitle sizeThatFits:size];
-  v54 = v53;
+  v55 = v54;
+  v57 = v56;
   [(UILabel *)self->_labelMessage sizeThatFits:size];
-  v56 = v55;
+  v143 = v58;
+  v60 = v59;
   [(UILabel *)self->_labelSecondaryMessage sizeThatFits:size];
-  v58 = v57;
-  v59 = fmax(v52, 0.0);
-  v60 = -0.0;
-  if (v54 > 0.0)
+  v140 = v61;
+  v63 = v62;
+  v64 = fmax(v53, 0.0);
+  v65 = -0.0;
+  if (v57 > 0.0)
   {
-    v60 = v54;
+    v65 = v57;
   }
 
-  v61 = v59 + v60;
-  if (fmax(v56, v58) <= 0.0)
+  v66 = v64 + v65;
+  if (fmax(v60, v63) <= 0.0)
   {
-    v62 = v61;
+    v67 = v66;
   }
 
   else
   {
-    v62 = v61 + v56 + 3.0 + v58;
+    v67 = v66 + v60 + 3.0 + v63;
   }
 
-  CGRectDivide(remainder, &v83, &remainder, v62, CGRectMinYEdge);
-  PKContentAlignmentMake();
-  PKSizeAlignedInRect();
-  v77 = v87;
-  memset(&v76, 0, sizeof(v76));
-  CGRectDivide(v87, &v76, &v77, v52 + v54, CGRectMinYEdge);
+  CGRectDivide(remainder, &v156, &remainder, v67, CGRectMinYEdge);
+  v68 = PKContentAlignmentMake();
+  v69.n128_u64[0] = *&v150.origin.x;
+  v70.n128_u64[0] = *&v150.origin.y;
+  v71.n128_u64[0] = *&size.width;
+  v144 = v67;
+  v72.n128_f64[0] = v67;
+  v74.n128_u64[0] = *&size.height;
+  v73.n128_u64[0] = *&size.width;
+  PKSizeAlignedInRect(v68, v71, v72, v69, v70, v73, v74, v75);
+  v150 = v160;
+  memset(&v149, 0, sizeof(v149));
+  CGRectDivide(v160, &v149, &v150, v53 + v57, CGRectMinYEdge);
   if (!self->_isTemplateLayout)
   {
+    v76 = fmin(v149.size.width, v139);
+    v77 = fmin(v149.size.width, v55);
     labelTitle = self->_labelTitle;
-    PKContentAlignmentMake();
-    PKSizeAlignedInRect();
+    v79 = PKContentAlignmentMake();
+    v80.n128_u64[0] = *&v149.origin.x;
+    v81.n128_u64[0] = *&v149.origin.y;
+    v82.n128_u64[0] = *&v149.size.width;
+    v83.n128_u64[0] = *&v149.size.height;
+    v84.n128_f64[0] = v76;
+    v85.n128_f64[0] = v53;
+    PKSizeAlignedInRect(v79, v84, v85, v80, v81, v82, v83, v86);
     [(UILabel *)labelTitle setFrame:?];
-    CGRectDivide(v76, &v83, &v76, v52, CGRectMinYEdge);
+    CGRectDivide(v149, &v156, &v149, v53, CGRectMinYEdge);
     labelSecondaryTitle = self->_labelSecondaryTitle;
-    PKContentAlignmentMake();
-    PKSizeAlignedInRect();
+    v88 = PKContentAlignmentMake();
+    v89.n128_u64[0] = *&v149.origin.x;
+    v90.n128_u64[0] = *&v149.origin.y;
+    v91.n128_u64[0] = *&v149.size.width;
+    v92.n128_u64[0] = *&v149.size.height;
+    v93.n128_f64[0] = v77;
+    v94.n128_f64[0] = v57;
+    PKSizeAlignedInRect(v88, v93, v94, v89, v90, v91, v92, v95);
     [(UILabel *)labelSecondaryTitle setFrame:?];
   }
 
-  CGRectDivide(v77, &v83, &v77, 3.0, CGRectMinYEdge);
-  memset(&v75, 0, sizeof(v75));
-  CGRectDivide(v77, &v75, &v77, v56 + v58, CGRectMinYEdge);
+  CGRectDivide(v150, &v156, &v150, 3.0, CGRectMinYEdge);
+  memset(&v148, 0, sizeof(v148));
+  CGRectDivide(v150, &v148, &v150, v60 + v63, CGRectMinYEdge);
   if (!self->_isTemplateLayout)
   {
+    v96 = fmin(v143, v150.size.width);
+    v97 = fmin(v140, v150.size.width);
     labelMessage = self->_labelMessage;
-    PKContentAlignmentMake();
-    PKSizeAlignedInRect();
+    v99 = PKContentAlignmentMake();
+    v100.n128_u64[0] = *&v148.origin.x;
+    v101.n128_u64[0] = *&v148.origin.y;
+    v102.n128_u64[0] = *&v148.size.width;
+    v103.n128_u64[0] = *&v148.size.height;
+    v104.n128_f64[0] = v96;
+    v105.n128_f64[0] = v60;
+    PKSizeAlignedInRect(v99, v104, v105, v100, v101, v102, v103, v106);
     [(UILabel *)labelMessage setFrame:?];
-    CGRectDivide(v75, &v83, &v75, v56, CGRectMinYEdge);
+    CGRectDivide(v148, &v156, &v148, v60, CGRectMinYEdge);
     labelSecondaryMessage = self->_labelSecondaryMessage;
-    PKContentAlignmentMake();
-    PKSizeAlignedInRect();
+    v108 = PKContentAlignmentMake();
+    v109.n128_u64[0] = *&v148.origin.x;
+    v110.n128_u64[0] = *&v148.origin.y;
+    v111.n128_u64[0] = *&v148.size.width;
+    v112.n128_u64[0] = *&v148.size.height;
+    v113.n128_f64[0] = v97;
+    v114.n128_f64[0] = v63;
+    PKSizeAlignedInRect(v108, v113, v114, v109, v110, v111, v112, v115);
     [(UILabel *)labelSecondaryMessage setFrame:?];
     avatarView = self->_avatarView;
     if (avatarView || (avatarView = self->_iconImageView) != 0)
     {
-      PKSizeAlignedInRect();
+      v116.n128_f64[0] = v137;
+      v124 = v141;
+      if (v137 + 20.0 <= v138)
+      {
+        v124 = 1;
+      }
+
+      v16 = v124 == 0;
+      v125 = &v154;
+      if (!v16)
+      {
+        v125 = &v153;
+      }
+
+      v118.n128_u64[0] = *&v125->origin.x;
+      v119.n128_u64[0] = *&v125->origin.y;
+      v120.n128_u64[0] = *&v125->size.width;
+      v121.n128_u64[0] = *&v125->size.height;
+      v117.n128_f64[0] = v137;
+      PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v116, v117, v118, v119, v120, v121, v122);
       [avatarView setFrame:?];
     }
 
     if (actionOnDismiss)
     {
       dismissButton = self->_dismissButton;
-      PKContentAlignmentMake();
-      PKSizeAlignedInRect();
+      v127 = PKContentAlignmentMake();
+      v128.n128_u64[0] = *&v151.origin.x;
+      v129.n128_u64[0] = *&v151.origin.y;
+      v130.n128_u64[0] = *&v151.size.width;
+      v131.n128_u64[0] = *&v151.size.height;
+      v132.n128_u64[0] = 28.0;
+      v133.n128_u64[0] = 28.0;
+      PKSizeAlignedInRect(v127, v132, v133, v128, v129, v130, v131, v134);
       [(UIButton *)dismissButton setFrame:?];
     }
   }
 
-  v69 = v73 + v62 + 16.0;
-  v70 = v74;
-  result.height = v69;
-  result.width = v70;
+  v135 = v146 + v144 + 16.0;
+  v136 = v147;
+  result.height = v135;
+  result.width = v136;
   return result;
 }
 
@@ -934,16 +1001,16 @@ LABEL_52:
 
 - (void)_updateAvatarView
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   if (self->_avatarContact)
   {
-    [(PKDashboardMessageView *)self setImageDescriptor:0];
+    v3 = [(PKDashboardMessageView *)self setImageDescriptor:0];
     avatarView = self->_avatarView;
     if (!avatarView)
     {
-      v4 = [objc_alloc(getCNAvatarViewClass[0]()) initWithFrame:{*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)}];
-      v5 = self->_avatarView;
-      self->_avatarView = v4;
+      v5 = [objc_alloc(getCNAvatarViewClass(v3)) initWithFrame:{*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)}];
+      v6 = self->_avatarView;
+      self->_avatarView = v5;
 
       [(CNAvatarView *)self->_avatarView setUserInteractionEnabled:0];
       [(CNAvatarView *)self->_avatarView setAsynchronousRendering:1];
@@ -952,20 +1019,20 @@ LABEL_52:
       avatarView = self->_avatarView;
     }
 
-    v9[0] = self->_avatarContact;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
-    [(CNAvatarView *)avatarView setContacts:v6];
+    v10[0] = self->_avatarContact;
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
+    [(CNAvatarView *)avatarView setContacts:v7];
 
     [(PKDashboardMessageView *)self setNeedsLayout];
   }
 
   else
   {
-    v7 = self->_avatarView;
-    if (v7)
+    v8 = self->_avatarView;
+    if (v8)
     {
-      [(CNAvatarView *)v7 removeFromSuperview];
-      v8 = self->_avatarView;
+      [(CNAvatarView *)v8 removeFromSuperview];
+      v9 = self->_avatarView;
       self->_avatarView = 0;
 
       [(PKDashboardMessageView *)self setNeedsLayout];

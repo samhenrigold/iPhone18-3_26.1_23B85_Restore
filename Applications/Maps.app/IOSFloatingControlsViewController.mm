@@ -507,7 +507,7 @@ LABEL_15:
   if (mapView)
   {
     v4 = mapView;
-    [mapView _cartographicConfiguration];
+    objc_msgSend__cartographicConfiguration(mapView);
 
     if (v10 == 1)
     {
@@ -527,7 +527,7 @@ LABEL_15:
   }
 
   v6 = mapView2;
-  [mapView2 _cartographicConfiguration];
+  objc_msgSend__cartographicConfiguration(mapView2);
 
   v7 = @"map.fill";
   if (v9 == 4)
@@ -560,7 +560,7 @@ LABEL_15:
     v5 = mapView;
     if (mapView)
     {
-      [mapView _cartographicConfiguration];
+      objc_msgSend__cartographicConfiguration(mapView);
       if (v7 == 1)
       {
         v6 = 18.0;
@@ -596,7 +596,7 @@ LABEL_15:
   if (mapView)
   {
     v4 = mapView;
-    [mapView _cartographicConfiguration];
+    objc_msgSend__cartographicConfiguration(mapView);
 
     if (v10 == 1)
     {
@@ -616,7 +616,7 @@ LABEL_15:
   }
 
   v6 = mapView2;
-  [mapView2 _cartographicConfiguration];
+  objc_msgSend__cartographicConfiguration(mapView2);
 
   v7 = @"Explore";
   if (v9 == 4)

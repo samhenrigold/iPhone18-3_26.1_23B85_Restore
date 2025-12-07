@@ -17,7 +17,7 @@ void *std::__deque_iterator<unsigned long,unsigned long *,unsigned long &,unsign
   return result;
 }
 
-BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__deque_iterator<unsigned long,unsigned long *,unsigned long &,unsigned long **,long,512l>>(char *a1, unint64_t *a2, char *a3, uint64_t a4)
+BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__deque_iterator<unsigned long,unsigned long *,unsigned long &,unsigned long **,long,512l>>(char *a1, unint64_t *a2, char *a3, unint64_t *a4)
 {
   if (a4 == a2)
   {
@@ -44,19 +44,19 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::
 
       if (v4 == a4)
       {
-        a4 = *(a3 - 1) + 4096;
+        a4 = (*(a3 - 1) + 4096);
       }
 
       v20 = *v9;
       v21 = *a2;
-      v22 = *(a4 - 8);
+      v22 = *(a4 - 1);
       if (*v9 < *a2)
       {
         if (v22 >= v20)
         {
           *a2 = v20;
           *v9 = v21;
-          v34 = *(a4 - 8);
+          v34 = *(a4 - 1);
           if (v34 >= v21)
           {
             return 1;
@@ -70,7 +70,7 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::
           *a2 = v22;
         }
 
-        *(a4 - 8) = v21;
+        *(a4 - 1) = v21;
         return 1;
       }
 
@@ -80,7 +80,7 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::
       }
 
       *v9 = v22;
-      *(a4 - 8) = v20;
+      *(a4 - 1) = v20;
 LABEL_103:
       v64 = *a2;
       if (*v9 < *a2)
@@ -111,7 +111,7 @@ LABEL_103:
 LABEL_37:
             if (v4 == a4)
             {
-              a4 = *(a3 - 1) + 4096;
+              a4 = (*(a3 - 1) + 4096);
             }
 
             v26 = *v9;
@@ -179,7 +179,7 @@ LABEL_88:
               }
             }
 
-            v59 = *(a4 - 8);
+            v59 = *(a4 - 1);
             v60 = *v25;
             if (v59 >= *v25)
             {
@@ -187,7 +187,7 @@ LABEL_88:
             }
 
             *v25 = v59;
-            *(a4 - 8) = v60;
+            *(a4 - 1) = v60;
             v61 = *v23;
             if (*v25 >= *v23)
             {
@@ -237,7 +237,7 @@ LABEL_36:
 LABEL_48:
         if (v4 == a4)
         {
-          a4 = *(a3 - 1) + 4096;
+          a4 = (*(a3 - 1) + 4096);
         }
 
         v30 = *v9;
@@ -274,14 +274,14 @@ LABEL_48:
           if (*v23 >= v31)
           {
 LABEL_99:
-            v62 = *(a4 - 8);
+            v62 = *(a4 - 1);
             if (v62 >= v30)
             {
               return 1;
             }
 
             *v23 = v62;
-            *(a4 - 8) = v30;
+            *(a4 - 1) = v30;
             goto LABEL_101;
           }
 
@@ -320,15 +320,15 @@ LABEL_99:
   {
     if (v4 == a4)
     {
-      a4 = *(a3 - 1) + 4096;
+      a4 = (*(a3 - 1) + 4096);
     }
 
-    v11 = *(a4 - 8);
+    v11 = *(a4 - 1);
     v12 = *a2;
     if (v11 < *a2)
     {
       *a2 = v11;
-      *(a4 - 8) = v12;
+      *(a4 - 1) = v12;
     }
 
     return 1;
@@ -557,14 +557,14 @@ void std::deque<std::pair<unsigned short,unsigned short>>::erase(uint64_t a1, ch
     {
       v21 = 1022 - v15;
       v17 = &v10[-(v21 >> 10)];
-      v18 = &(*v17)[4 * (~v21 & 0x3FF)];
+      v18 = (*v17 + 4 * (~v21 & 0x3FF));
     }
 
     else
     {
       v16 = v15 + 1;
       v17 = &v10[v16 >> 10];
-      v18 = &(*v17)[4 * (v16 & 0x3FF)];
+      v18 = (*v17 + 4 * (v16 & 0x3FF));
     }
 
     v22 = v14 + v4;
@@ -576,7 +576,7 @@ void std::deque<std::pair<unsigned short,unsigned short>>::erase(uint64_t a1, ch
 
     else
     {
-      v24 = &(*v23)[4 * (v22 & 0x3FF)];
+      v24 = (*v23 + 4 * (v22 & 0x3FF));
     }
 
     v26[0].n128_u64[0] = v12;
@@ -587,23 +587,23 @@ void std::deque<std::pair<unsigned short,unsigned short>>::erase(uint64_t a1, ch
   }
 }
 
-void std::deque<unsigned long>::resize(void *a1, unint64_t a2)
+void std::deque<unsigned long>::resize(unint64_t *result, unint64_t a2)
 {
-  v4 = a1[5];
+  v4 = result[5];
   v5 = a2 >= v4;
   v6 = a2 > v4;
   v7 = a2 - v4;
   if (v6)
   {
 
-    std::deque<unsigned long>::__append(a1, v7);
+    std::deque<unsigned long>::__append(result, v7);
   }
 
   else if (!v5)
   {
-    v8 = a1[4];
-    v10 = a1[1];
-    v9 = a1[2];
+    v8 = result[4];
+    v10 = result[1];
+    v9 = result[2];
     v11 = (v10 + 8 * (v8 >> 9));
     if (v9 == v10)
     {
@@ -624,7 +624,7 @@ void std::deque<unsigned long>::resize(void *a1, unint64_t a2)
       v16 = ((v15 - *v14) >> 3) + ((v14 - v12) << 6) - ((v13 - *v12) >> 3);
       if (v16 >= 1)
       {
-        a1[5] = v4 - v16;
+        result[5] = v4 - v16;
           ;
         }
       }
@@ -656,7 +656,7 @@ BOOL std::deque<std::pair<unsigned short,unsigned short>>::__maybe_remove_back_s
   return v4 > 0x7FF;
 }
 
-__n128 std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<std::__deque_iterator<std::pair<unsigned short,unsigned short>,std::pair<unsigned short,unsigned short>*,std::pair<unsigned short,unsigned short>&,std::pair<unsigned short,unsigned short>**,long,1024l>,std::__deque_iterator<std::pair<unsigned short,unsigned short>,std::pair<unsigned short,unsigned short>*,std::pair<unsigned short,unsigned short>&,std::pair<unsigned short,unsigned short>**,long,1024l>,0>(__n128 *a1, uint64_t *a2, uint64_t a3, uint64_t *a4, uint64_t a5, uint64_t *a6, uint64_t a7)
+__n128 std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<std::__deque_iterator<std::pair<unsigned short,unsigned short>,std::pair<unsigned short,unsigned short>*,std::pair<unsigned short,unsigned short>&,std::pair<unsigned short,unsigned short>**,long,1024l>,std::__deque_iterator<std::pair<unsigned short,unsigned short>,std::pair<unsigned short,unsigned short>*,std::pair<unsigned short,unsigned short>&,std::pair<unsigned short,unsigned short>**,long,1024l>,0>(__n128 *a1, uint64_t *a2, uint64_t a3, uint64_t *a4, unint64_t a5, uint64_t *a6, uint64_t a7)
 {
   if (a2 == a4)
   {
@@ -675,7 +675,7 @@ __n128 std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne20010
     v14 = a7;
     while (1)
     {
-      std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<std::pair<unsigned short,unsigned short> *,std::__deque_iterator<std::pair<unsigned short,unsigned short>,std::pair<unsigned short,unsigned short> *,std::pair<unsigned short,unsigned short>&,std::pair<unsigned short,unsigned short> **,long,1024l>,0>(&v21, v16, v18, v13, v14);
+      std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<std::pair<unsigned short,unsigned short> *,std::__deque_iterator<std::pair<unsigned short,unsigned short>,std::pair<unsigned short,unsigned short> *,std::pair<unsigned short,unsigned short>&,std::pair<unsigned short,unsigned short> **,long,1024l>,0>(v21, v16, v18, v13, v14);
       v14 = v22.n128_i64[1];
       v13 = v22.n128_u64[0];
       if (v17 == a2)
@@ -692,7 +692,7 @@ __n128 std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne20010
     v11 = a3;
   }
 
-  std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<std::pair<unsigned short,unsigned short> *,std::__deque_iterator<std::pair<unsigned short,unsigned short>,std::pair<unsigned short,unsigned short> *,std::pair<unsigned short,unsigned short>&,std::pair<unsigned short,unsigned short> **,long,1024l>,0>(&v21, v11, v12, v13, v14);
+  std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<std::pair<unsigned short,unsigned short> *,std::__deque_iterator<std::pair<unsigned short,unsigned short>,std::pair<unsigned short,unsigned short> *,std::pair<unsigned short,unsigned short>&,std::pair<unsigned short,unsigned short> **,long,1024l>,0>(v21, v11, v12, v13, v14);
   result = v22;
   a1->n128_u64[0] = a4;
   a1->n128_u64[1] = a5;
@@ -765,7 +765,7 @@ void *std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100
   return result;
 }
 
-double std::__for_each_segment[abi:ne200100]<std::__deque_iterator<std::pair<unsigned short,unsigned short>,std::pair<unsigned short,unsigned short>*,std::pair<unsigned short,unsigned short>&,std::pair<unsigned short,unsigned short>**,long,1024l>,std::__move_impl<std::_ClassicAlgPolicy>::_MoveSegment<std::__deque_iterator<std::pair<unsigned short,unsigned short>,std::pair<unsigned short,unsigned short>*,std::pair<unsigned short,unsigned short>&,std::pair<unsigned short,unsigned short>**,long,1024l>,std::__deque_iterator<std::pair<unsigned short,unsigned short>,std::pair<unsigned short,unsigned short>*,std::pair<unsigned short,unsigned short>&,std::pair<unsigned short,unsigned short>**,long,1024l>>>(char **a1, char *a2, char **a3, char *a4, char **a5)
+double std::__for_each_segment[abi:ne200100]<std::__deque_iterator<std::pair<unsigned short,unsigned short>,std::pair<unsigned short,unsigned short>*,std::pair<unsigned short,unsigned short>&,std::pair<unsigned short,unsigned short>**,long,1024l>,std::__move_impl<std::_ClassicAlgPolicy>::_MoveSegment<std::__deque_iterator<std::pair<unsigned short,unsigned short>,std::pair<unsigned short,unsigned short>*,std::pair<unsigned short,unsigned short>&,std::pair<unsigned short,unsigned short>**,long,1024l>,std::__deque_iterator<std::pair<unsigned short,unsigned short>,std::pair<unsigned short,unsigned short>*,std::pair<unsigned short,unsigned short>&,std::pair<unsigned short,unsigned short>**,long,1024l>>>(uint64_t *a1, char *a2, uint64_t *a3, char *a4, char **a5)
 {
   if (a1 == a3)
   {
@@ -778,7 +778,7 @@ double std::__for_each_segment[abi:ne200100]<std::__deque_iterator<std::pair<uns
     v10 = a1 + 1;
     v7 = *a5;
     v8 = a5[1];
-    for (i = *a1 + 4096; ; i = v12 + 4096)
+    for (i = (*a1 + 4096); ; i = v12 + 4096)
     {
       std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<std::pair<unsigned short,unsigned short> *,std::__deque_iterator<std::pair<unsigned short,unsigned short>,std::pair<unsigned short,unsigned short> *,std::pair<unsigned short,unsigned short>&,std::pair<unsigned short,unsigned short> **,long,1024l>,0>(&v14, a2, i, v7, v8);
       v8 = *(&v15 + 1);
@@ -814,8 +814,8 @@ char **std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<std::p
   v5 = *a4;
   while (1)
   {
-    v6 = (v5 + 2048);
-    v7 = (v5 + 2048) - a5;
+    v6 = v5 + 4096;
+    v7 = v5 + 4096 - a5;
     v8 = (a3 - a2) >> 2 >= v7 >> 2 ? v7 >> 2 : (a3 - a2) >> 2;
     if (v8)
     {
@@ -859,10 +859,10 @@ LABEL_15:
   return result;
 }
 
-uint64_t std::deque<unsigned long>::deque(uint64_t a1, unint64_t a2)
+unint64_t *std::deque<unsigned long>::deque(unint64_t *a1, unint64_t a2)
 {
-  *(a1 + 16) = 0u;
-  *(a1 + 32) = 0u;
+  *(a1 + 1) = 0u;
+  *(a1 + 2) = 0u;
   *a1 = 0u;
   if (a2)
   {
@@ -872,7 +872,7 @@ uint64_t std::deque<unsigned long>::deque(uint64_t a1, unint64_t a2)
   return a1;
 }
 
-void std::deque<unsigned long>::__append(void *a1, unint64_t a2)
+void std::deque<unsigned long>::__append(unint64_t *a1, unint64_t a2)
 {
   v4 = a1[1];
   v5 = a1[2];
@@ -931,7 +931,7 @@ void std::deque<unsigned long>::__append(void *a1, unint64_t a2)
       {
         v24 = a1[1];
         __p[0] = *v24;
-        a1[1] = v24 + 1;
+        a1[1] = (v24 + 1);
         std::__split_buffer<unsigned long *>::emplace_back<unsigned long *&>(a1, __p);
       }
     }
@@ -982,7 +982,7 @@ void std::deque<unsigned long>::__append(void *a1, unint64_t a2)
       {
         v25 = a1[1];
         __p[0] = *v25;
-        a1[1] = v25 + 1;
+        a1[1] = (v25 + 1);
         std::__split_buffer<unsigned long *>::emplace_back<unsigned long *&>(a1, __p);
       }
     }
@@ -1107,7 +1107,7 @@ void *std::__copy_move_unwrap_iters[abi:ne200100]<std::__copy_impl,unsigned long
   return result;
 }
 
-char *std::__set_intersection[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void>,std::__deque_iterator<unsigned long,unsigned long const*,unsigned long const&,unsigned long const* const*,long,512l>,std::__deque_iterator<unsigned long,unsigned long const*,unsigned long const&,unsigned long const* const*,long,512l>,std::__deque_iterator<unsigned long,unsigned long *,unsigned long &,unsigned long **,long,512l>,std::__deque_iterator<unsigned long,unsigned long *,unsigned long &,unsigned long **,long,512l>,std::__deque_iterator<unsigned long,unsigned long *,unsigned long &,unsigned long **,long,512l>>(char *result, char *a2, unint64_t *a3, char *a4, unint64_t *a5, void *a6, unint64_t *a7, uint64_t a8, char *a9, unint64_t *a10, void *a11, unint64_t *a12)
+char *std::__set_intersection[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void>,std::__deque_iterator<unsigned long,unsigned long const*,unsigned long const&,unsigned long const* const*,long,512l>,std::__deque_iterator<unsigned long,unsigned long const*,unsigned long const&,unsigned long const* const*,long,512l>,std::__deque_iterator<unsigned long,unsigned long *,unsigned long &,unsigned long **,long,512l>,std::__deque_iterator<unsigned long,unsigned long *,unsigned long &,unsigned long **,long,512l>,std::__deque_iterator<unsigned long,unsigned long *,unsigned long &,unsigned long **,long,512l>>(char *result, char *a2, unint64_t *a3, char *a4, unint64_t *a5, char *a6, unint64_t *a7, uint64_t a8, char *a9, unint64_t *a10, void *a11, unint64_t *a12)
 {
   v44 = result;
   if (a7 != a10)
@@ -1141,8 +1141,8 @@ char *std::__set_intersection[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<v
           v22 = 0;
           if ((v16 - *a6) == 4096)
           {
-            v24 = a6[1];
-            ++a6;
+            v24 = *(a6 + 1);
+            a6 += 8;
             v16 = v24;
           }
 
@@ -1215,13 +1215,13 @@ LABEL_15:
             if (v32 < 1)
             {
               v33 = 511 - v32;
-              a6 -= v33 >> 9;
+              a6 -= 8 * (v33 >> 9);
               v27 = (*a6 + 8 * (~v33 & 0x1FF));
             }
 
             else
             {
-              a6 += v32 >> 9;
+              a6 += 8 * (v32 >> 9);
               v27 = (*a6 + 8 * (v32 & 0x1FF));
             }
           }
@@ -1269,12 +1269,12 @@ LABEL_50:
               {
                 v42 = 511 - v41;
                 LOWORD(v41) = ~(511 - v41);
-                v40 = &v29[-(v42 >> 9)];
+                v40 = &v29[-8 * (v42 >> 9)];
               }
 
               else
               {
-                v40 = &v29[v41 >> 9];
+                v40 = &v29[8 * (v41 >> 9)];
               }
 
               v39 = (*v40 + 8 * (v41 & 0x1FF));
@@ -1285,8 +1285,8 @@ LABEL_50:
               v28 = v39 + 1;
               if ((v39 - *v40 + 8) == 4096)
               {
-                v43 = v40[1];
-                ++v40;
+                v43 = *(v40 + 1);
+                v40 += 8;
                 v28 = v43;
               }
 
@@ -1332,8 +1332,8 @@ LABEL_50:
       if ((++v34 - *a6) == 4096)
       {
         v20 = 0;
-        v37 = a6[1];
-        ++a6;
+        v37 = *(a6 + 1);
+        a6 += 8;
         v34 = v37;
       }
 
@@ -1351,11 +1351,11 @@ LABEL_47:
   }
 
   *v44 = a4;
-  v44[1] = a5;
-  v44[2] = a9;
-  v44[3] = a10;
-  v44[4] = a11;
-  v44[5] = a12;
+  *(v44 + 1) = a5;
+  *(v44 + 2) = a9;
+  *(v44 + 3) = a10;
+  *(v44 + 4) = a11;
+  *(v44 + 5) = a12;
   return result;
 }
 
@@ -1569,14 +1569,14 @@ LABEL_11:
       if (v15 == v9 || v15[4] || (v16 = v15[5], v16 > 8))
       {
 LABEL_17:
-        v17 = 0.0;
+        v17 = 0;
         goto LABEL_18;
       }
 
-      v17 = dbl_1B42AFA98[v16];
+      v17 = qword_1B42AFA98[v16];
 LABEL_18:
       v18 = (*(v8[11] + ((v8[14] >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * v8[14]);
-      v19 = v14 + *&v17 * v6[1];
+      v19 = v14 + v17 * v6[1];
       if (v19 < (v18[1] - *v18) >> 3)
       {
         v5 = v5 + *(*v18 + 8 * v19);
@@ -1634,7 +1634,7 @@ BOOL nms::PyramidNMS<unsigned short,double,unsigned char>::checkValidityOfCosAng
 {
   v15 = 0;
   v16 = 0;
-  std::valarray<double>::resize(&v15, 2uLL);
+  std::valarray<double>::resize(&v15, 2uLL, 0.0);
   v8 = *a2;
   v9 = *a3;
   v10 = (*a2)[1] - (*a3)[1];
@@ -1757,11 +1757,11 @@ LABEL_14:
 
 LABEL_2:
   *v28 = a4;
-  v28[1] = a5;
-  v28[2] = a9;
-  v28[3] = a10;
-  v28[4] = a11;
-  v28[5] = a12;
+  *(v28 + 1) = a5;
+  *(v28 + 2) = a9;
+  *(v28 + 3) = a10;
+  *(v28 + 4) = a11;
+  *(v28 + 5) = a12;
   return result;
 }
 
@@ -1776,8 +1776,8 @@ int **std::__copy_impl::operator()[abi:ne200100]<std::pair<unsigned short,unsign
   v5 = *a4;
   while (1)
   {
-    v6 = (v5 + 1024);
-    v7 = (v5 + 1024) - a5;
+    v6 = v5 + 4096;
+    v7 = v5 + 4096 - a5;
     v8 = a3 - a2 >= v7 >> 2 ? v7 >> 2 : a3 - a2;
     if (v8)
     {
@@ -1914,6 +1914,24 @@ LABEL_6:
   return a1;
 }
 
+void *std::valarray<double>::valarray(void *a1, uint64_t a2)
+{
+  *a1 = 0;
+  a1[1] = 0;
+  v2 = *(a2 + 8);
+  if (v2)
+  {
+    if (!(v2 >> 61))
+    {
+      operator new();
+    }
+
+    std::__throw_bad_array_new_length[abi:ne200100]();
+  }
+
+  return a1;
+}
+
 uint64_t std::deque<nms::RectForest<unsigned short,double>>::~deque[abi:ne200100](uint64_t a1)
 {
   v3 = *(a1 + 8);
@@ -2024,11 +2042,11 @@ void *nms::PyramidNMS<unsigned short,double,unsigned char>::PyramidNMS(void *a1)
   return a1;
 }
 
-void CRMinAreaRect::findMinAreaRect(float a1, uint64_t a2, uint64_t a3, double *a4)
+void CRMinAreaRect::findMinAreaRect(float a1, uint64_t a2, char **a3, CRDetectorUtils *a4)
 {
   v76 = *MEMORY[0x1E69E9840];
   v4 = *a3;
-  v5 = *(a3 + 8);
+  v5 = a3[1];
   v6 = (v5 - *a3) >> 3;
   if (v6 >= 3)
   {
@@ -2036,8 +2054,8 @@ void CRMinAreaRect::findMinAreaRect(float a1, uint64_t a2, uint64_t a3, double *
     v9 = 0;
     v72 = 0;
     v11 = *v4;
-    v10 = v4[1];
-    v12 = v4 + 3;
+    v10 = *(v4 + 1);
+    v12 = (v4 + 12);
     v13 = 0.0;
     v14 = 0.0;
     ExtremeIndex = 1;
@@ -2064,12 +2082,12 @@ void CRMinAreaRect::findMinAreaRect(float a1, uint64_t a2, uint64_t a3, double *
       }
 
       v18 = findExtremeIndex(v4, v5, v9, v24, 1);
-      v26 = &v4[2 * v17];
+      v26 = &v4[8 * v17];
       v27 = (*v26 - v11);
-      v28 = (v26[1] - v10);
-      v29 = &v4[2 * v18];
+      v28 = (*(v26 + 1) - v10);
+      v29 = &v4[8 * v18];
       v30 = (*v29 - v11);
-      v31 = (v29[1] - v10);
+      v31 = (*(v29 + 1) - v10);
       v32 = *(v12 - 1);
       v33 = (v32 - v11);
       v34 = *v12;
@@ -2079,7 +2097,7 @@ void CRMinAreaRect::findMinAreaRect(float a1, uint64_t a2, uint64_t a3, double *
       v37 = *&v27 / v36;
       *&v28 = v31 * v35 + v30 * v33;
       v38 = *&v28 / v36;
-      *&v30 = (v4[2 * ExtremeIndex] - v11) * v35 - (v4[2 * ExtremeIndex + 1] - v10) * v33;
+      *&v30 = (*&v4[8 * ExtremeIndex] - v11) * v35 - (*&v4[8 * ExtremeIndex + 4] - v10) * v33;
       v39 = fabsf(*&v30) / v36;
       if (((v37 - v38) * v39) < v16)
       {
@@ -2105,24 +2123,24 @@ void CRMinAreaRect::findMinAreaRect(float a1, uint64_t a2, uint64_t a3, double *
     v42 = a4;
     v43 = v14 / v40;
     v44 = v19 / v40;
-    v45 = &v4[2 * v72];
+    v45 = &v4[8 * v72];
     v46 = *v45;
     LODWORD(v45) = v45[1];
     v47 = v46 + v43 * v20;
     v48 = v45 + v44 * v20;
     *a4 = v47;
-    a4[1] = v48;
+    *(a4 + 1) = v48;
     v49 = v46 + v43 * v13;
     v50 = v45 + v44 * v13;
-    a4[2] = v49;
-    a4[3] = v50;
-    a4[4] = v49 - v44 * v22;
-    a4[5] = v50 + v43 * v22;
-    a4[6] = v47 - v44 * v22;
-    a4[7] = v48 + v43 * v22;
+    *(a4 + 2) = v49;
+    *(a4 + 3) = v50;
+    *(a4 + 4) = v49 - v44 * v22;
+    *(a4 + 5) = v50 + v43 * v22;
+    *(a4 + 6) = v47 - v44 * v22;
+    *(a4 + 7) = v48 + v43 * v22;
     v51 = (v13 - v20);
-    a4[8] = v51;
-    a4[9] = v22;
+    *(a4 + 8) = v51;
+    *(a4 + 9) = v22;
     v74.x = CRDetectorUtils::makeCenterPoint(a4, v25);
     v74.y = v52;
     v71 = *&v74.x;
@@ -2222,8 +2240,9 @@ void CRMinAreaRect::findMinAreaRect(float a1, uint64_t a2, uint64_t a3, double *
   }
 }
 
-unint64_t findExtremeIndex(uint64_t a1, uint64_t a2, int a3, unint64_t a4, int a5)
+unint64_t findExtremeIndex(uint64_t a1, uint64_t a2, int a3, unint64_t a4, uint64_t a5)
 {
+  v5 = a5;
   v6 = a4;
   v9 = (a1 + 8 * a3);
   v10 = (a1 + 8 * a4);
@@ -2231,37 +2250,16 @@ unint64_t findExtremeIndex(uint64_t a1, uint64_t a2, int a3, unint64_t a4, int a
   v12 = v9[1];
   v13 = (v9[2] - *v9);
   v14 = (v9[3] - v12);
-  if (analyzeState(a5, (*v10 - v11), (v10[1] - v12), (v10[2] - v11), (v10[3] - v12), (v9[2] - v11), v14))
-  {
-    v15 = a2 == a1;
-  }
-
-  else
-  {
-    v15 = 1;
-  }
-
-  if (!v15)
+  if (analyzeState(a5, (*v10 - v11), (v10[1] - v12), (v10[2] - v11), (v10[3] - v12), (v9[2] - v11), v14) && a2 != a1)
   {
     v16 = (a2 - a1) >> 3;
     v17 = 1;
     do
     {
       v6 = (v6 + 1) % (v16 - 1);
-      if (analyzeState(a5, (*(a1 + 8 * v6) - v11), (*(a1 + 8 * v6 + 4) - v12), (*(a1 + (((v6 << 32) + 0x100000000) >> 29)) - v11), (*(a1 + (((v6 << 32) + 0x100000000) >> 29) + 4) - v12), v13, v14))
-      {
-        v18 = v16 > v17;
-      }
-
-      else
-      {
-        v18 = 0;
-      }
-
-      ++v17;
     }
 
-    while (v18);
+    while (analyzeState(v5, (*(a1 + 8 * v6) - v11), (*(a1 + 8 * v6 + 4) - v12), (*(a1 + (((v6 << 32) + 0x100000000) >> 29)) - v11), (*(a1 + (((v6 << 32) + 0x100000000) >> 29) + 4) - v12), v13, v14) && v16 > v17++);
   }
 
   return v6;
@@ -2620,7 +2618,7 @@ void CRMinAreaRect::sortMinAreaRectCorners(int a1, CRDetectorUtils *this)
   *(this + 3) = v12;
 }
 
-uint64_t analyzeState(int a1, double a2, double a3, double a4, double a5, double a6, double a7)
+BOOL analyzeState(int a1, double a2, double a3, double a4, double a5, double a6, double a7)
 {
   if (a1 == 2)
   {
@@ -2664,9 +2662,9 @@ void sub_1B4254A54(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1B4259274(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, void *a7, void *a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_1B4259274(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, void *a7, void *a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, void *a13, void *a14, void *a15, uint64_t a16, void *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -2738,34 +2736,35 @@ void sub_1B425DCE4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void CRLattice::CRLattice(uint64_t a1, void *a2, void *a3, uint64_t *a4, void *a5, uint64_t a6, double a7, double a8)
+void CRLattice::CRLattice(uint64_t a1, void *a2, void *a3, uint64_t *a4, void *a5, uint64_t a6, uint64_t a7, int a8, double a9, double a10, int a11)
 {
-  v15 = a2;
+  v11 = a7;
+  v19 = a2;
   a3;
-  v16 = a5;
+  v20 = a5;
   *a1 = 0;
-  v17 = v15;
+  v21 = v19;
   *(a1 + 16) = 0u;
-  *(a1 + 8) = v17;
+  *(a1 + 8) = v21;
   *(a1 + 32) = 0u;
-  std::vector<BreakPoint>::__init_with_size[abi:ne200100]<BreakPoint*,BreakPoint*>(a1 + 24, *a4, a4[1], 0xCCCCCCCCCCCCCCCDLL * ((a4[1] - *a4) >> 3));
-  *(a1 + 48) = a7;
-  *(a1 + 56) = a8;
-  *(a1 + 72) = v16;
+  std::vector<BreakPoint>::__init_with_size[abi:ne200100]<BreakPoint*,BreakPoint*>((a1 + 24), *a4, a4[1], 0xCCCCCCCCCCCCCCCDLL * ((a4[1] - *a4) >> 3));
+  *(a1 + 48) = a9;
+  *(a1 + 56) = a10;
+  *(a1 + 72) = v20;
   *(a1 + 80) = a6;
   *(a1 + 64) = *(a6 + 113);
   objc_storeStrong((a1 + 16), a3);
-  CRLattice::build();
+  CRLattice::build(a1, (a1 + 24), v11, a8, a11, *(a1 + 48));
 }
 
 {
-  CRLattice::CRLattice(a1, a2, a3, a4, a5, a6, a7, a8);
+  CRLattice::CRLattice(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11);
 }
 
-void sub_1B425F214(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, void *a4, ...)
+void sub_1B425F214(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5, uint64_t a6, void *a7, ...)
 {
-  va_start(va, a4);
-  v7 = v6;
+  va_start(va, a7);
+  v10 = v9;
 
   std::vector<BreakPoint>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
@@ -2792,40 +2791,40 @@ void CRLattice::~CRLattice(id *this)
   std::vector<BreakPoint>::__destroy_vector::operator()[abi:ne200100](&v3);
 }
 
-void CRLattice::symbolIDStringFromRepresentationString(NSString *a1@<X1>, uint64_t a2@<X8>)
+void CRLattice::symbolIDStringFromRepresentationString(uint64_t *__return_ptr a1@<X8>, NSString *a2@<X1>)
 {
-  v4 = a1;
-  v5 = [(NSString *)v4 length];
+  v3 = a2;
+  v4 = [(NSString *)v3 length];
+  v10 = 0;
   v11 = 0;
   v12 = 0;
-  v13 = 0;
-  if (v5)
+  if (v4)
   {
-    std::vector<float>::__vallocate[abi:ne200100](&v11, 4 * v5);
+    std::vector<float>::__vallocate[abi:ne200100](&v10, 4 * v4);
   }
 
-  v10 = 0;
-  if (![NSString getBytes:v4 maxLength:"getBytes:maxLength:usedLength:encoding:options:range:remainingRange:" usedLength:0 encoding:0 options:0 range:? remainingRange:?])
-  {
-    v6 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E696A248] reason:@"Conversion from representation string to symbol ID string failed" userInfo:0];
-    objc_exception_throw(v6);
-  }
-
-  v8 = 0;
   v9 = 0;
+  if (![NSString getBytes:v3 maxLength:"getBytes:maxLength:usedLength:encoding:options:range:remainingRange:" usedLength:0 encoding:0 options:0 range:? remainingRange:?])
+  {
+    v5 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E696A248] reason:@"Conversion from representation string to symbol ID string failed" userInfo:0];
+    objc_exception_throw(v5);
+  }
+
+  v7 = 0;
+  v8 = 0;
   __p = 0;
-  std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>(&__p, v11, v11 + (v10 & 0xFFFFFFFFFFFFFFFCLL), v10 >> 2);
-  iv2s(&__p, 0, a2);
+  std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>(&__p, v10, v10 + (v9 & 0xFFFFFFFFFFFFFFFCLL), v9 >> 2);
+  iv2s(&__p, 0, a1);
   if (__p)
   {
-    v8 = __p;
+    v7 = __p;
     operator delete(__p);
   }
 
-  if (v11)
+  if (v10)
   {
-    v12 = v11;
-    operator delete(v11);
+    v11 = v10;
+    operator delete(v10);
   }
 }
 
@@ -3160,23 +3159,21 @@ LABEL_49:
   return v5;
 }
 
-void CRLattice::kBestPaths(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, char a6, uint64_t a7, void *a8)
+void CRLattice::kBestPaths(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, char a6, uint64_t a7, void *a8, char a10, uint64_t a11)
 {
-  v13 = a8;
+  v16 = a8;
   LXLexiconCreateRootCursor();
   if (a5)
   {
     LXLexiconCreateRootCursor();
   }
 
-  v19 = [CRCHPatternNetwork rootCursorForContentType:a7 inNetwork:v13];
-  v18 = a3;
-  v14 = std::set<unsigned long>::set[abi:ne200100](v21, *a1 + 64);
-  v15 = *(v21[0] + 32);
-  std::__tree<CRCHuint128>::destroy(v14, v21[1]);
-  LOBYTE(v17) = a6;
-  LODWORD(v16) = a7;
-  CRCHNetwork::kBestPaths(0, v15, &v20, v13, v19, v16, v18, v17, &__block_literal_global_31, &__block_literal_global_122);
+  v20 = [CRCHPatternNetwork rootCursorForContentType:a7 inNetwork:v16];
+  v19 = a3;
+  v17 = std::set<unsigned long>::set[abi:ne200100](v22, *a1 + 64);
+  v18 = *(v22[0] + 32);
+  std::__tree<CRCHuint128>::destroy(v17, v22[1]);
+  CRCHNetwork::kBestPaths(0, v18, &v21, v16, v20, a7, v19, a6, &__block_literal_global_31, &__block_literal_global_122, *(a1 + 64), 1u, 1u, a10, a11);
 }
 
 double ___ZN9CRLattice10kBestPathsEiPvPK10_LXLexiconPS1_bbP18CRCHPatternNetworkbRKNSt3__18functionIFvRKNS7_6vectorImNS7_9allocatorImEEEEddddddEEE_block_invoke_2(uint64_t a1, uint64_t a2)
@@ -3207,7 +3204,7 @@ double ___ZN9CRLattice10kBestPathsEiPvPK10_LXLexiconPS1_bbP18CRCHPatternNetworkb
   return v3[1] * (v5 + *(a2 + 120)) + v3[2] * (v2 + *(a2 + 136)) + v3[5] * (*(a2 + 184) + *(a2 + 192)) + v3[3] * (v6 + *(a2 + 168)) + v3[6] * *(a2 + 200);
 }
 
-id CRLattice::decodePath(uint64_t *a1, void *a2, void *a3, void *a4, int a5)
+id CRLattice::decodePath(uint64_t *a1, uint64_t a2, void *a3, void *a4, int a5)
 {
   v8 = 0x1E695D000uLL;
   v79 = [MEMORY[0x1E695DF70] array];
@@ -3215,12 +3212,12 @@ id CRLattice::decodePath(uint64_t *a1, void *a2, void *a3, void *a4, int a5)
   v102 = 0;
   v103 = 0;
   v84 = a2;
-  std::vector<_NSRange>::__init_with_size[abi:ne200100]<_NSRange*,_NSRange*>(&v101, a2[36], a2[37], (a2[37] - a2[36]) >> 4);
+  std::vector<_NSRange>::__init_with_size[abi:ne200100]<_NSRange*,_NSRange*>(&v101, *(a2 + 288), *(a2 + 296), (*(a2 + 296) - *(a2 + 288)) >> 4);
   v9 = v102;
   v10 = v102 - v101;
   if (v102 == v101)
   {
-    v11 = ((a2[12] - a2[11]) >> 3) - 1;
+    v11 = ((*(a2 + 96) - *(a2 + 88)) >> 3) - 1;
     if (v102 >= v103)
     {
       v12 = v103 - v101;
@@ -3663,7 +3660,7 @@ LABEL_2:
       v86 = v8 + 2;
       v87 = v8[2];
       v88 = *v8;
-      v89 = *(v85 + 4);
+      v89 = *(v85 + 32);
       v90 = *(*v8 + 32);
       v91 = *(v87 + 32);
       if (v89 >= v90)
@@ -3676,7 +3673,7 @@ LABEL_2:
         *v84 = v87;
         *v86 = v85;
         v92 = v8;
-        v93 = (v8 + 1);
+        v93 = v8 + 1;
         result = v85;
         if (v91 < v90)
         {
@@ -3687,14 +3684,14 @@ LABEL_2:
       else
       {
         v92 = v8;
-        v93 = (v8 + 2);
+        v93 = v8 + 2;
         result = *v8;
         if (v91 >= v89)
         {
           *v8 = v85;
           v8[1] = v88;
           v92 = v8 + 1;
-          v93 = (v8 + 2);
+          v93 = v8 + 2;
           result = v88;
           if (v91 >= v90)
           {
@@ -3712,7 +3709,7 @@ LABEL_167:
 
 LABEL_175:
       v140 = *(a2 - 1);
-      if (*(v140 + 32) < *(v85 + 4))
+      if (*(v140 + 32) < *(v85 + 32))
       {
         *v86 = v140;
         *(a2 - 1) = v85;
@@ -4294,7 +4291,7 @@ LABEL_81:
 
       if (v53 >= *(*(a2 - 1) + 32))
       {
-        v68 = v8 + 1;
+        v68 = (v8 + 1);
         do
         {
           v8 = v68;
@@ -4303,7 +4300,7 @@ LABEL_81:
             break;
           }
 
-          ++v68;
+          v68 += 8;
         }
 
         while (v53 >= *(*v8 + 32));
@@ -4919,11 +4916,11 @@ double nms::PyramidNMSConfigV3::PyramidNMSConfigV3(uint64_t a1, uint64_t a2, uni
   return result;
 }
 
-unint64_t CRDetectorOutputMaps::createMaps@<X0>(unint64_t this@<X0>, CGSize a2@<0:D0, 8:D1>, void *a3@<X8>)
+unint64_t CRDetectorOutputMaps::createMaps@<X0>(uint64_t *__return_ptr a1@<X8>, unint64_t this@<X0>, CGSize a3@<0:D0, 8:D1>)
 {
-  *a3 = 0;
-  a3[1] = 0;
-  a3[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (this)
   {
     if (!(this >> 61))
@@ -4992,15 +4989,15 @@ void CRDetectorOutputMaps::aggregateMaps(CRDetectorOutputMaps *this, CRTextDetec
   operator new();
 }
 
-void sub_1B4263E4C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, id a18, void **a19, void **a20)
+void sub_1B4263E4C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, id a18, void **a19, void **a21)
 {
   std::unique_ptr<CRImageBuffer>::reset[abi:ne200100](&a19, 0);
-  std::unique_ptr<CRImageBuffer>::reset[abi:ne200100](&a20, 0);
+  std::unique_ptr<CRImageBuffer>::reset[abi:ne200100](&a21, 0);
 
   _Unwind_Resume(a1);
 }
 
-void CRDetectorOutputMaps::applyFunctionToMaps<void (*)(float const*,unsigned long,unsigned long,char *,float *,unsigned long,unsigned long,unsigned long)>(int a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, double *a6, id a7, uint64_t **a8, double a9, double a10, uint64_t a11)
+void CRDetectorOutputMaps::applyFunctionToMaps<void (*)(float const*,unsigned long,unsigned long,char *,float *,unsigned long,unsigned long,unsigned long)>(int a1, unsigned int a2, uint64_t a3, uint64_t a4, uint64_t a5, double *a6, id a7, uint64_t **a8, double a9, double a10, uint64_t a11)
 {
   v19 = a10 / a3;
   if (v19 >= a2)
@@ -5202,9 +5199,9 @@ void sub_1B4265520(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1B4265834(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, id a10)
+void sub_1B4265834(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, id a10)
 {
-  MEMORY[0x1B8C73EF0](v10, 0x1080C40ABB4582ELL);
+  MEMORY[0x1B8C73EF0](v10, 0x1080C40ABB4582ELL, a3, a4, a5, a6, a7, a8);
 
   _Unwind_Resume(a1);
 }
@@ -5217,7 +5214,7 @@ void sub_1B4265A70(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1B42666DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void **a11, uint64_t a12, void *a13, uint64_t a14, void *a15, void *a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, void *a31, void *a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, void **a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, id a50, char a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, char a60, uint64_t a61, uint64_t a62, uint64_t a63)
+void sub_1B42666DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void **a11, uint64_t a12, void *a13, uint64_t a14, void *a15, void *a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, void *a31, void *a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, void **a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, id a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   _Block_object_dispose(&a45, 8);
 
@@ -5227,7 +5224,7 @@ void sub_1B42666DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Block_object_dispose(&a60, 8);
 
   _Block_object_dispose(&a66, 8);
-  std::deque<unsigned char>::~deque[abi:ne200100](&a72);
+  std::deque<unsigned char>::~deque[abi:ne200100](&a67);
 
   _Block_object_dispose(&STACK[0x2A8], 8);
   _Block_object_dispose(&STACK[0x2D8], 8);
@@ -5286,19 +5283,19 @@ __n128 __Block_byref_object_copy__14(void *a1, uint64_t a2)
   return result;
 }
 
-void ***__Block_byref_object_dispose__14(uint64_t a1)
+void ***__Block_byref_object_dispose__14(void ***a1)
 {
-  v3 = (a1 + 128);
+  v3 = (a1 + 16);
   std::vector<std::unique_ptr<CRImageBuffer>>::__destroy_vector::operator()[abi:ne200100](&v3);
-  v3 = (a1 + 104);
+  v3 = (a1 + 13);
   std::vector<std::unique_ptr<CRImageBuffer>>::__destroy_vector::operator()[abi:ne200100](&v3);
-  std::unique_ptr<CRImageBuffer>::reset[abi:ne200100]((a1 + 96), 0);
-  std::unique_ptr<CRImageBuffer>::reset[abi:ne200100]((a1 + 88), 0);
-  std::unique_ptr<CRImageBuffer>::reset[abi:ne200100]((a1 + 80), 0);
-  v3 = (a1 + 56);
+  std::unique_ptr<CRImageBuffer>::reset[abi:ne200100](a1 + 12, 0);
+  std::unique_ptr<CRImageBuffer>::reset[abi:ne200100](a1 + 11, 0);
+  std::unique_ptr<CRImageBuffer>::reset[abi:ne200100](a1 + 10, 0);
+  v3 = (a1 + 7);
   std::vector<std::unique_ptr<CRImageBuffer>>::__destroy_vector::operator()[abi:ne200100](&v3);
 
-  return std::unique_ptr<CRImageBuffer>::reset[abi:ne200100]((a1 + 48), 0);
+  return std::unique_ptr<CRImageBuffer>::reset[abi:ne200100](a1 + 6, 0);
 }
 
 void CRDetectorOutputMaps::~CRDetectorOutputMaps(void ***this)
@@ -5322,7 +5319,7 @@ __n128 __Block_byref_object_copy__11(__n128 *a1, __n128 *a2)
   return result;
 }
 
-void sub_1B4267604(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, id a38)
+void sub_1B4267604(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, id a38)
 {
   _Block_object_dispose(&a33, 8);
 
@@ -5355,19 +5352,17 @@ double __Block_byref_object_copy__21(void *a1, void *a2)
 
 __n128 __Block_byref_object_copy__24(__n128 *a1, __n128 *a2)
 {
-  a1[3].n128_u64[0] = 0;
-  a1[3].n128_u64[1] = 0;
+  a1[3] = 0uLL;
   a1[4].n128_u64[0] = 0;
   result = a2[3];
   a1[3] = result;
   a1[4].n128_u64[0] = a2[4].n128_u64[0];
-  a2[3].n128_u64[0] = 0;
-  a2[3].n128_u64[1] = 0;
+  a2[3] = 0uLL;
   a2[4].n128_u64[0] = 0;
   return result;
 }
 
-void sub_1B426B8D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *a18, void *a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void *a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, id a34)
+void sub_1B426B8D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *a18, void *a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void *a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, id a34)
 {
   _Block_object_dispose(&a29, 8);
 
@@ -5384,7 +5379,7 @@ void sub_1B426C700(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<CRDetectorUtils::CRTextDetectorQuadFeature>::push_back[abi:ne200100](uint64_t *a1, __int128 *a2)
+uint64_t std::vector<CRDetectorUtils::CRTextDetectorQuadFeature>::push_back[abi:ne200100](unint64_t *a1, __int128 *a2)
 {
   v3 = a1[1];
   if (v3 >= a1[2])
@@ -5402,7 +5397,7 @@ uint64_t std::vector<CRDetectorUtils::CRTextDetectorQuadFeature>::push_back[abi:
   return result;
 }
 
-uint64_t *std::vector<CRDetectorUtils::CRTextDetectorQuadFeature>::shrink_to_fit(uint64_t *result)
+void **std::vector<CRDetectorUtils::CRTextDetectorQuadFeature>::shrink_to_fit(void **result)
 {
   v1 = result[1];
   v2 = *result;
@@ -5443,16 +5438,16 @@ uint64_t *std::vector<CRDetectorUtils::CRTextDetectorQuadFeature>::shrink_to_fit
   return result;
 }
 
-void sub_1B426C8E4(void *a1, uint64_t a2, ...)
+void sub_1B426C8E4(void *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<CRDetectorUtils::CRTextDetectorQuadFeature>::~__split_buffer(va);
   __cxa_begin_catch(a1);
   __cxa_end_catch();
   JUMPOUT(0x1B426C8D0);
 }
 
-uint64_t std::vector<CRDetectorUtils::CRTextDetectorQuad>::__init_with_size[abi:ne200100]<CRDetectorUtils::CRTextDetectorQuad*,CRDetectorUtils::CRTextDetectorQuad*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<CRDetectorUtils::CRTextDetectorQuad>::__init_with_size[abi:ne200100]<CRDetectorUtils::CRTextDetectorQuad*,CRDetectorUtils::CRTextDetectorQuad*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -5462,14 +5457,14 @@ uint64_t std::vector<CRDetectorUtils::CRTextDetectorQuad>::__init_with_size[abi:
   return result;
 }
 
-void sub_1B426D088(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9)
+void sub_1B426D088(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   *(v9 + 8) = v10;
   std::vector<CRDetectorUtils::CRTextDetectorQuad>::__destroy_vector::operator()[abi:ne200100](&a9);
   _Unwind_Resume(a1);
 }
 
-void std::vector<CRDetectorUtils::CRTextDetectorQuad>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<CRDetectorUtils::CRTextDetectorQuad>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x1C71C71C71C71C8)
   {
@@ -5513,7 +5508,7 @@ uint64_t std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<C
       *(v4 + 72) = 0;
       *(v4 + 80) = 0;
       *(v4 + 64) = 0;
-      std::vector<CGPoint>::__init_with_size[abi:ne200100]<CGPoint*,CGPoint*>(v4 + 64, *(v6 + 8), *(v6 + 9), (*(v6 + 9) - *(v6 + 8)) >> 4);
+      std::vector<CGPoint>::__init_with_size[abi:ne200100]<CGPoint*,CGPoint*>((v4 + 64), *(v6 + 8), *(v6 + 9), (*(v6 + 9) - *(v6 + 8)) >> 4);
       v10 = *(v6 + 88);
       v11 = *(v6 + 104);
       v12 = *(v6 + 120);
@@ -5627,7 +5622,7 @@ void std::vector<std::list<int>>::__destroy_vector::operator()[abi:ne200100](voi
   }
 }
 
-void std::vector<std::unique_ptr<CRImageBuffer>>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+void std::vector<std::unique_ptr<CRImageBuffer>>::__destroy_vector::operator()[abi:ne200100](void *****a1)
 {
   v1 = *a1;
   v2 = **a1;
@@ -5704,7 +5699,7 @@ void std::vector<CRDetectorUtils::CRTextDetectorQuadFeature>::__destroy_vector::
   }
 }
 
-uint64_t std::vector<CRDetectorUtils::CRTextDetectorQuadFeature>::__construct_one_at_end[abi:ne200100]<CRDetectorUtils::CRTextDetectorQuadFeature const&>(uint64_t a1, __int128 *a2)
+uint64_t *std::vector<CRDetectorUtils::CRTextDetectorQuadFeature>::__construct_one_at_end[abi:ne200100]<CRDetectorUtils::CRTextDetectorQuadFeature const&>(uint64_t a1, __int128 *a2)
 {
   v4 = *(a1 + 8);
   v5 = *a2;
@@ -5717,7 +5712,7 @@ uint64_t std::vector<CRDetectorUtils::CRTextDetectorQuadFeature>::__construct_on
   *(v4 + 64) = 0;
   *(v4 + 72) = 0;
   *(v4 + 80) = 0;
-  std::vector<CGPoint>::__init_with_size[abi:ne200100]<CGPoint*,CGPoint*>(v4 + 64, *(a2 + 8), *(a2 + 9), (*(a2 + 9) - *(a2 + 8)) >> 4);
+  std::vector<CGPoint>::__init_with_size[abi:ne200100]<CGPoint*,CGPoint*>((v4 + 64), *(a2 + 8), *(a2 + 9), (*(a2 + 9) - *(a2 + 8)) >> 4);
   v8 = *(a2 + 88);
   v9 = *(a2 + 104);
   v10 = *(a2 + 120);
@@ -5729,7 +5724,7 @@ uint64_t std::vector<CRDetectorUtils::CRTextDetectorQuadFeature>::__construct_on
   *(v4 + 88) = v8;
   *(v4 + 152) = 0;
   *(v4 + 160) = 0;
-  result = std::vector<CRDetectorUtils::CRTextDetectorQuad>::__init_with_size[abi:ne200100]<CRDetectorUtils::CRTextDetectorQuad*,CRDetectorUtils::CRTextDetectorQuad*>(v4 + 144, *(a2 + 18), *(a2 + 19), 0x8E38E38E38E38E39 * ((*(a2 + 19) - *(a2 + 18)) >> 4));
+  result = std::vector<CRDetectorUtils::CRTextDetectorQuad>::__init_with_size[abi:ne200100]<CRDetectorUtils::CRTextDetectorQuad*,CRDetectorUtils::CRTextDetectorQuad*>((v4 + 144), *(a2 + 18), *(a2 + 19), 0x8E38E38E38E38E39 * ((*(a2 + 19) - *(a2 + 18)) >> 4));
   *(a1 + 8) = v4 + 168;
   return result;
 }
@@ -5747,7 +5742,7 @@ void sub_1B426D664(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<CRDetectorUtils::CRTextDetectorQuadFeature>::__emplace_back_slow_path<CRDetectorUtils::CRTextDetectorQuadFeature const&>(uint64_t *a1, __int128 *a2)
+uint64_t std::vector<CRDetectorUtils::CRTextDetectorQuadFeature>::__emplace_back_slow_path<CRDetectorUtils::CRTextDetectorQuadFeature const&>(unint64_t *a1, __int128 *a2)
 {
   v2 = 0xCF3CF3CF3CF3CF3DLL * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
@@ -5792,7 +5787,7 @@ uint64_t std::vector<CRDetectorUtils::CRTextDetectorQuadFeature>::__emplace_back
   *(v11 + 64) = 0;
   *(v7 + 72) = 0;
   *(v7 + 80) = 0;
-  std::vector<CGPoint>::__init_with_size[abi:ne200100]<CGPoint*,CGPoint*>(v11 + 64, *(a2 + 8), *(a2 + 9), (*(a2 + 9) - *(a2 + 8)) >> 4);
+  std::vector<CGPoint>::__init_with_size[abi:ne200100]<CGPoint*,CGPoint*>((v11 + 64), *(a2 + 8), *(a2 + 9), (*(a2 + 9) - *(a2 + 8)) >> 4);
   v12 = *(a2 + 88);
   v13 = *(a2 + 104);
   v14 = *(a2 + 120);
@@ -5804,7 +5799,7 @@ uint64_t std::vector<CRDetectorUtils::CRTextDetectorQuadFeature>::__emplace_back
   *(v7 + 88) = v12;
   *(v7 + 152) = 0;
   *(v7 + 160) = 0;
-  std::vector<CRDetectorUtils::CRTextDetectorQuad>::__init_with_size[abi:ne200100]<CRDetectorUtils::CRTextDetectorQuad*,CRDetectorUtils::CRTextDetectorQuad*>(v7 + 144, *(a2 + 18), *(a2 + 19), 0x8E38E38E38E38E39 * ((*(a2 + 19) - *(a2 + 18)) >> 4));
+  std::vector<CRDetectorUtils::CRTextDetectorQuad>::__init_with_size[abi:ne200100]<CRDetectorUtils::CRTextDetectorQuad*,CRDetectorUtils::CRTextDetectorQuad*>((v7 + 144), *(a2 + 18), *(a2 + 19), 0x8E38E38E38E38E39 * ((*(a2 + 19) - *(a2 + 18)) >> 4));
   *&v24 = v24 + 168;
   v16 = a1[1];
   v17 = v23 + *a1 - v16;
@@ -5822,14 +5817,14 @@ uint64_t std::vector<CRDetectorUtils::CRTextDetectorQuadFeature>::__emplace_back
   return v21;
 }
 
-void sub_1B426D834(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1B426D834(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
-  v7 = *v4;
-  if (*v4)
+  va_start(va, a7);
+  v10 = *v7;
+  if (*v7)
   {
-    *(v5 + 72) = v7;
-    operator delete(v7);
+    *(v8 + 72) = v10;
+    operator delete(v10);
   }
 
   std::__split_buffer<CRDetectorUtils::CRTextDetectorQuadFeature>::~__split_buffer(va);
@@ -5846,7 +5841,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<CRDetectorUtils::CRTe
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<CRDetectorUtils::CRTextDetectorQuadFeature>,CRDetectorUtils::CRTextDetectorQuadFeature*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<CRDetectorUtils::CRTextDetectorQuadFeature>,CRDetectorUtils::CRTextDetectorQuadFeature*>(uint64_t a1, __int128 *a2, __int128 *a3, uint64_t a4)
 {
   v17 = a4;
   v18 = a4;
@@ -5865,23 +5860,23 @@ uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<CR
     do
     {
       v8 = *v7;
-      v9 = *(v7 + 16);
-      v10 = *(v7 + 48);
-      *(a4 + 32) = *(v7 + 32);
+      v9 = v7[1];
+      v10 = v7[3];
+      *(a4 + 32) = v7[2];
       *(a4 + 48) = v10;
       *a4 = v8;
       *(a4 + 16) = v9;
       *(a4 + 72) = 0;
       *(a4 + 80) = 0;
       *(a4 + 64) = 0;
-      *(a4 + 64) = *(v7 + 64);
-      *(a4 + 80) = *(v7 + 80);
-      *(v7 + 64) = 0;
-      *(v7 + 72) = 0;
-      *(v7 + 80) = 0;
+      *(a4 + 64) = v7[4];
+      *(a4 + 80) = *(v7 + 10);
+      *(v7 + 8) = 0;
+      *(v7 + 9) = 0;
+      *(v7 + 10) = 0;
       v11 = *(v7 + 88);
       v12 = *(v7 + 104);
-      v13 = *(v7 + 136);
+      v13 = *(v7 + 17);
       *(a4 + 120) = *(v7 + 120);
       *(a4 + 104) = v12;
       *(a4 + 88) = v11;
@@ -5889,12 +5884,12 @@ uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<CR
       *(a4 + 144) = 0;
       *(a4 + 152) = 0;
       *(a4 + 160) = 0;
-      *(a4 + 144) = *(v7 + 144);
-      *(a4 + 160) = *(v7 + 160);
-      *(v7 + 144) = 0;
-      *(v7 + 152) = 0;
-      *(v7 + 160) = 0;
-      v7 += 168;
+      *(a4 + 144) = v7[9];
+      *(a4 + 160) = *(v7 + 20);
+      *(v7 + 18) = 0;
+      *(v7 + 19) = 0;
+      *(v7 + 20) = 0;
+      v7 = (v7 + 168);
       a4 += 168;
     }
 
@@ -5904,7 +5899,7 @@ uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<CR
     do
     {
       std::allocator<CRDetectorUtils::CRTextDetectorQuadFeature>::destroy[abi:ne200100](a1, v5);
-      v5 += 168;
+      v5 = (v5 + 168);
     }
 
     while (v5 != a3);
@@ -5976,9 +5971,9 @@ void std::__split_buffer<CRDetectorUtils::CRTextDetectorQuadFeature>::clear[abi:
   }
 }
 
-__n128 std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,-[CRNeuralTextDetectorV3 getBorderPoints:sourceImageSize:outP1:outP2:isHorizontal:]::$_0 &,CGPoint *,0>(__n128 *a1, __n128 *a2, __n128 *a3, unint64_t *a4, _BYTE *a5, __n128 result)
+__n128 std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,-[CRNeuralTextDetectorV3 getBorderPoints:sourceImageSize:outP1:outP2:isHorizontal:]::$_0 &,CGPoint *,0>(__n128 *a1, __n128 *a2, __n128 *a3, __n128 *a4, _BYTE *a5, __n128 result)
 {
-  v6 = &a2->n128_f64[1];
+  v6 = &a2->n128_i8[8];
   v7 = 1;
   if (*a5)
   {
@@ -5986,14 +5981,14 @@ __n128 std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,-[CRNeuralTextDetectorV
     v6 = a2;
   }
 
-  v8 = *v6;
-  v9 = &a3->n128_f64[1];
+  v8 = v6->n128_f64[0];
+  v9 = &a3->n128_i8[8];
   if (*a5)
   {
     v9 = a3;
   }
 
-  v10 = *v9;
+  v10 = v9->n128_f64[0];
   v11 = a2->n128_f64[v7];
   if (v8 >= a1->n128_f64[v7])
   {
@@ -6002,7 +5997,7 @@ __n128 std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,-[CRNeuralTextDetectorV
       result = *a2;
       *a2 = *a3;
       *a3 = result;
-      v12 = &a2->n128_f64[1];
+      v12 = &a2->n128_i8[8];
       v13 = 1;
       if (*a5)
       {
@@ -6010,7 +6005,7 @@ __n128 std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,-[CRNeuralTextDetectorV
         v12 = a2;
       }
 
-      if (*v12 < a1->n128_f64[v13])
+      if (v12->n128_f64[0] < a1->n128_f64[v13])
       {
         result = *a1;
         *a1 = *a2;
@@ -6033,7 +6028,7 @@ LABEL_17:
     result = *a1;
     *a1 = *a2;
     *a2 = result;
-    v14 = &a3->n128_f64[1];
+    v14 = &a3->n128_i8[8];
     v15 = 1;
     if (*a5)
     {
@@ -6041,7 +6036,7 @@ LABEL_17:
       v14 = a3;
     }
 
-    if (*v14 < a2->n128_f64[v15])
+    if (v14->n128_f64[0] < a2->n128_f64[v15])
     {
       result = *a2;
       *a2 = *a3;
@@ -6050,7 +6045,7 @@ LABEL_17:
   }
 
 LABEL_18:
-  v16 = a4 + 1;
+  v16 = &a4->n128_i8[8];
   v17 = 1;
   if (*a5)
   {
@@ -6058,13 +6053,13 @@ LABEL_18:
     v16 = a4;
   }
 
-  result.n128_u64[0] = *v16;
-  if (*v16 < a3->n128_f64[v17])
+  result.n128_u64[0] = v16->n128_u64[0];
+  if (v16->n128_f64[0] < a3->n128_f64[v17])
   {
     result = *a3;
     *a3 = *a4;
     *a4 = result;
-    v18 = &a3->n128_u64[1];
+    v18 = &a3->n128_i8[8];
     v19 = 1;
     if (*a5)
     {
@@ -6072,13 +6067,13 @@ LABEL_18:
       v18 = a3;
     }
 
-    result.n128_u64[0] = *v18;
-    if (*v18 < a2->n128_f64[v19])
+    result.n128_u64[0] = v18->n128_u64[0];
+    if (v18->n128_f64[0] < a2->n128_f64[v19])
     {
       result = *a2;
       *a2 = *a3;
       *a3 = result;
-      v20 = &a2->n128_u64[1];
+      v20 = &a2->n128_i8[8];
       v21 = 1;
       if (*a5)
       {
@@ -6086,8 +6081,8 @@ LABEL_18:
         v20 = a2;
       }
 
-      result.n128_u64[0] = *v20;
-      if (*v20 < a1->n128_f64[v21])
+      result.n128_u64[0] = v20->n128_u64[0];
+      if (v20->n128_f64[0] < a1->n128_f64[v21])
       {
         result = *a1;
         *a1 = *a2;
@@ -6109,27 +6104,27 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,-[CRN
       case 3:
         v8 = a1 + 1;
         v28 = a2 - 1;
-        n128_f64 = &a1[1].n128_f64[1];
-        v30 = &a2[-1].n128_f64[1];
+        v29 = (a1 + 24);
+        v30 = (a2 - 8);
         v31 = 1;
         if (*a3)
         {
           v31 = 0;
-          n128_f64 = a1[1].n128_f64;
+          v29 = a1 + 1;
         }
 
-        v32 = *n128_f64;
+        v32 = v29->n128_f64[0];
         if (*a3)
         {
-          v33 = a2[-1].n128_f64;
+          v33 = a2 - 1;
         }
 
         else
         {
-          v33 = &a2[-1].n128_f64[1];
+          v33 = (a2 - 8);
         }
 
-        v34 = *v33;
+        v34 = v33->n128_f64[0];
         v35 = v8->n128_f64[v31];
         if (v32 >= a1->n128_f64[v31])
         {
@@ -6138,12 +6133,12 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,-[CRN
             v46 = *v8;
             *v8 = *v28;
             *v28 = v46;
-            v9 = &a1[1].n128_f64[1];
+            v9 = (a1 + 24);
             v10 = 1;
             if (*a3)
             {
               v10 = 0;
-              v9 = a1[1].n128_f64;
+              v9 = a1 + 1;
             }
 
             goto LABEL_6;
@@ -6161,10 +6156,10 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,-[CRN
             if (*a3)
             {
               v52 = 0;
-              v30 = a2[-1].n128_f64;
+              v30 = a2 - 1;
             }
 
-            if (*v30 >= v8->n128_f64[v52])
+            if (v30->n128_f64[0] >= v8->n128_f64[v52])
             {
               return 1;
             }
@@ -6184,62 +6179,62 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,-[CRN
 
         break;
       case 4:
-        std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,-[CRNeuralTextDetectorV3 getBorderPoints:sourceImageSize:outP1:outP2:isHorizontal:]::$_0 &,CGPoint *,0>(a1, a1 + 1, a1 + 2, a2[-1].n128_u64, a3, a4);
+        std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,-[CRNeuralTextDetectorV3 getBorderPoints:sourceImageSize:outP1:outP2:isHorizontal:]::$_0 &,CGPoint *,0>(a1, a1 + 1, a1 + 2, a2 - 1, a3, a4);
         break;
       case 5:
         v12 = a1 + 1;
         v13 = a1 + 2;
         v14 = a1 + 3;
         v15 = a2 - 1;
-        std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,-[CRNeuralTextDetectorV3 getBorderPoints:sourceImageSize:outP1:outP2:isHorizontal:]::$_0 &,CGPoint *,0>(a1, a1 + 1, a1 + 2, a1[3].n128_u64, a3, a4);
-        v16 = &a2[-1].n128_f64[1];
+        std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,-[CRNeuralTextDetectorV3 getBorderPoints:sourceImageSize:outP1:outP2:isHorizontal:]::$_0 &,CGPoint *,0>(a1, a1 + 1, a1 + 2, a1 + 3, a3, a4);
+        v16 = (a2 - 8);
         v17 = 1;
         if (*a3)
         {
           v17 = 0;
-          v16 = a2[-1].n128_f64;
+          v16 = a2 - 1;
         }
 
-        if (*v16 < v14->n128_f64[v17])
+        if (v16->n128_f64[0] < v14->n128_f64[v17])
         {
           v18 = *v14;
           *v14 = *v15;
           *v15 = v18;
-          v19 = &a1[3].n128_f64[1];
+          v19 = (a1 + 56);
           v20 = 1;
           if (*a3)
           {
             v20 = 0;
-            v19 = a1[3].n128_f64;
+            v19 = a1 + 3;
           }
 
-          if (*v19 < v13->n128_f64[v20])
+          if (v19->n128_f64[0] < v13->n128_f64[v20])
           {
             v21 = *v13;
             *v13 = *v14;
             *v14 = v21;
-            v22 = &a1[2].n128_f64[1];
+            v22 = (a1 + 40);
             v23 = 1;
             if (*a3)
             {
               v23 = 0;
-              v22 = a1[2].n128_f64;
+              v22 = a1 + 2;
             }
 
-            if (*v22 < v12->n128_f64[v23])
+            if (v22->n128_f64[0] < v12->n128_f64[v23])
             {
               v24 = *v12;
               *v12 = *v13;
               *v13 = v24;
-              v25 = &a1[1].n128_f64[1];
+              v25 = (a1 + 24);
               v26 = 1;
               if (*a3)
               {
                 v26 = 0;
-                v25 = a1[1].n128_f64;
+                v25 = a1 + 1;
               }
 
-              if (*v25 < a1->n128_f64[v26])
+              if (v25->n128_f64[0] < a1->n128_f64[v26])
               {
                 v27 = *a1;
                 *a1 = *v12;
@@ -6265,16 +6260,16 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,-[CRN
   if (v7 == 2)
   {
     v8 = a2 - 1;
-    v9 = &a2[-1].n128_f64[1];
+    v9 = (a2 - 8);
     v10 = 1;
     if (*a3)
     {
       v10 = 0;
-      v9 = a2[-1].n128_f64;
+      v9 = a2 - 1;
     }
 
 LABEL_6:
-    if (*v9 < a1->n128_f64[v10])
+    if (v9->n128_f64[0] < a1->n128_f64[v10])
     {
       v11 = *a1;
       *a1 = *v8;
@@ -6288,12 +6283,12 @@ LABEL_32:
   v37 = a1 + 2;
   v38 = a1[2].n128_f64[0];
   v39 = a1 + 1;
-  v40 = &a1[1].n128_f64[1];
+  v40 = (a1 + 24);
   v41 = 1;
   if (*a3)
   {
     v41 = 0;
-    v40 = a1[1].n128_f64;
+    v40 = a1 + 1;
   }
 
   v42 = a1[2].n128_f64[1];
@@ -6308,22 +6303,22 @@ LABEL_32:
   }
 
   v44 = v39->n128_f64[v41];
-  if (*v40 >= a1->n128_f64[v41])
+  if (v40->n128_f64[0] >= a1->n128_f64[v41])
   {
     if (v43 < v44)
     {
       v47 = *v39;
       *v39 = *v37;
       *v37 = v47;
-      v48 = &a1[1].n128_f64[1];
+      v48 = (a1 + 24);
       v49 = 1;
       if (*a3)
       {
         v49 = 0;
-        v48 = a1[1].n128_f64;
+        v48 = a1 + 1;
       }
 
-      if (*v48 < a1->n128_f64[v49])
+      if (v48->n128_f64[0] < a1->n128_f64[v49])
       {
         v50 = *a1;
         *a1 = *v39;
@@ -6366,7 +6361,7 @@ LABEL_60:
   }
 
 LABEL_61:
-  v55 = a1[3].n128_f64;
+  v55 = a1 + 3;
   if (&a1[3] == a2)
   {
     return 1;
@@ -6376,10 +6371,10 @@ LABEL_61:
   v57 = 0;
   while (1)
   {
-    v59 = *v55;
-    v58 = v55[1];
+    v59 = v55->n128_f64[0];
+    v58 = v55->n128_f64[1];
     v60 = *a3 ? 0 : 8;
-    v61 = *a3 ? *v55 : v55[1];
+    v61 = *a3 ? v55->n128_f64[0] : v55->n128_f64[1];
     if (v61 < *(v37->n128_f64 + v60))
     {
       v62 = v56;
@@ -6415,38 +6410,37 @@ LABEL_61:
         v62 -= 16;
         if (v64 >= v65)
         {
-          v66 = (a1[3].n128_f64 + v62);
+          v66 = (a1 + v62 + 48);
           goto LABEL_81;
         }
       }
 
       v66 = a1;
 LABEL_81:
-      *v66 = v59;
-      v66[1] = v58;
+      v66->n128_f64[0] = v59;
+      v66->n128_f64[1] = v58;
       if (++v57 == 8)
       {
-        return v55 + 2 == a2;
+        return &v55[1] == a2;
       }
     }
 
     v37 = v55;
     v56 += 16;
-    v55 += 2;
-    if (v55 == a2)
+    if (++v55 == a2)
     {
       return 1;
     }
   }
 }
 
-void ****std::__for_each_segment[abi:ne200100]<std::__deque_iterator<unsigned char,unsigned char const*,unsigned char const&,unsigned char const* const*,long,4096l>,std::__copy_impl::_CopySegment<std::__deque_iterator<unsigned char,unsigned char const*,unsigned char const&,unsigned char const* const*,long,4096l>,std::__deque_iterator<unsigned char,unsigned char *,unsigned char &,unsigned char **,long,4096l>>>(void *a1, _BYTE *a2, void *a3, _BYTE *a4, uint64_t a5)
+void *****std::__for_each_segment[abi:ne200100]<std::__deque_iterator<unsigned char,unsigned char const*,unsigned char const&,unsigned char const* const*,long,4096l>,std::__copy_impl::_CopySegment<std::__deque_iterator<unsigned char,unsigned char const*,unsigned char const&,unsigned char const* const*,long,4096l>,std::__deque_iterator<unsigned char,unsigned char *,unsigned char &,unsigned char **,long,4096l>>>(void **a1, _BYTE *a2, void **a3, _BYTE *a4, uint64_t a5)
 {
   v19 = a5;
   if (a1 != a3)
   {
     v8 = a1 + 1;
-    std::__copy_impl::_CopySegment<std::__deque_iterator<unsigned char,unsigned char const*,unsigned char const&,unsigned char const* const*,long,4096l>,std::__deque_iterator<unsigned char,unsigned char *,unsigned char &,unsigned char **,long,4096l>>::operator()[abi:ne200100](&v19, a2, (*a1 + 4096));
+    std::__copy_impl::_CopySegment<std::__deque_iterator<unsigned char,unsigned char const*,unsigned char const&,unsigned char const* const*,long,4096l>,std::__deque_iterator<unsigned char,unsigned char *,unsigned char &,unsigned char **,long,4096l>>::operator()[abi:ne200100](&v19, a2, *a1 + 4096);
     if (v8 != a3)
     {
       v10 = *a5;
@@ -6486,8 +6480,8 @@ void ****std::__for_each_segment[abi:ne200100]<std::__deque_iterator<unsigned ch
           v9 = v17;
         }
 
-        v9 += v16;
-        if (*(v10 - 1) + 4096 == v9)
+        v9 = (v9 + v16);
+        if (*(v10 - 1) + 512 == v9)
         {
           v9 = *v10;
         }
@@ -6511,7 +6505,7 @@ void ****std::__for_each_segment[abi:ne200100]<std::__deque_iterator<unsigned ch
   return std::__copy_impl::_CopySegment<std::__deque_iterator<unsigned char,unsigned char const*,unsigned char const&,unsigned char const* const*,long,4096l>,std::__deque_iterator<unsigned char,unsigned char *,unsigned char &,unsigned char **,long,4096l>>::operator()[abi:ne200100](&v19, a2, a4);
 }
 
-void ****std::__copy_impl::_CopySegment<std::__deque_iterator<unsigned char,unsigned char const*,unsigned char const&,unsigned char const* const*,long,4096l>,std::__deque_iterator<unsigned char,unsigned char *,unsigned char &,unsigned char **,long,4096l>>::operator()[abi:ne200100](void ****result, _BYTE *__src, _BYTE *a3)
+void *****std::__copy_impl::_CopySegment<std::__deque_iterator<unsigned char,unsigned char const*,unsigned char const&,unsigned char const* const*,long,4096l>,std::__deque_iterator<unsigned char,unsigned char *,unsigned char &,unsigned char **,long,4096l>>::operator()[abi:ne200100](void *****result, _BYTE *__src, _BYTE *a3)
 {
   v3 = *result;
   v5 = **result;
@@ -6552,7 +6546,7 @@ void ****std::__copy_impl::_CopySegment<std::__deque_iterator<unsigned char,unsi
     }
 
     v4 = (v4 + v12);
-    if (*(v5 - 1) + 4096 == v4)
+    if (*(v5 - 1) + 512 == v4)
     {
       v4 = *v5;
     }
@@ -6570,10 +6564,9 @@ void ****std::__copy_impl::_CopySegment<std::__deque_iterator<unsigned char,unsi
   return result;
 }
 
-void *std::deque<unsigned char>::__add_back_capacity(void *result, unint64_t a2)
+void std::deque<unsigned char>::__add_back_capacity(unint64_t *a1, unint64_t a2)
 {
-  v2 = result;
-  v3 = result[2] - result[1];
+  v3 = a1[2] - a1[1];
   if (v3)
   {
     v4 = a2;
@@ -6594,7 +6587,7 @@ void *std::deque<unsigned char>::__add_back_capacity(void *result, unint64_t a2)
     v5 = v4 >> 12;
   }
 
-  v6 = result[4];
+  v6 = a1[4];
   if (v5 >= v6 >> 12)
   {
     v7 = v6 >> 12;
@@ -6607,19 +6600,19 @@ void *std::deque<unsigned char>::__add_back_capacity(void *result, unint64_t a2)
 
   if (v5 <= v6 >> 12)
   {
-    for (result[4] = v6 - (v7 << 12); v7; --v7)
+    for (a1[4] = v6 - (v7 << 12); v7; --v7)
     {
-      v14 = v2[1];
+      v14 = a1[1];
       v16[0] = *v14;
-      v2[1] = v14 + 1;
-      result = std::__split_buffer<unsigned long *>::emplace_back<unsigned long *&>(v2, v16);
+      a1[1] = (v14 + 1);
+      std::__split_buffer<unsigned long *>::emplace_back<unsigned long *&>(a1, v16);
     }
   }
 
   else
   {
     v8 = v5 - v7;
-    v9 = result[3] - *result;
+    v9 = a1[3] - *a1;
     if (v5 - v7 > (v9 >> 3) - (v3 >> 3))
     {
       v10 = v3 >> 3;
@@ -6635,10 +6628,10 @@ void *std::deque<unsigned char>::__add_back_capacity(void *result, unint64_t a2)
       }
 
       v13 = v10 - v7;
-      v18 = result;
+      v18 = a1;
       if (v12)
       {
-        std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned long *>>(result, v12);
+        std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned long *>>(a1, v12);
       }
 
       v16[0] = 0;
@@ -6649,7 +6642,7 @@ void *std::deque<unsigned char>::__add_back_capacity(void *result, unint64_t a2)
 
     if (v8)
     {
-      if (result[3] != result[2])
+      if (a1[3] != a1[2])
       {
         operator new();
       }
@@ -6657,16 +6650,14 @@ void *std::deque<unsigned char>::__add_back_capacity(void *result, unint64_t a2)
       operator new();
     }
 
-    for (result[4] = v6 - (v7 << 12); v7; --v7)
+    for (a1[4] = v6 - (v7 << 12); v7; --v7)
     {
-      v15 = v2[1];
+      v15 = a1[1];
       v16[0] = *v15;
-      v2[1] = v15 + 1;
-      result = std::__split_buffer<unsigned long *>::emplace_back<unsigned long *&>(v2, v16);
+      a1[1] = (v15 + 1);
+      std::__split_buffer<unsigned long *>::emplace_back<unsigned long *&>(a1, v16);
     }
   }
-
-  return result;
 }
 
 void sub_1B426F4B4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -6691,9 +6682,9 @@ void std::vector<CRDetectorUtils::CRTextDetectorQuad>::__vdeallocate(uint64_t *a
   }
 }
 
-void sub_1B426FD54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B426FD54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6705,11 +6696,11 @@ uint64_t __Block_byref_object_copy__15(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1B4271B6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, void **a36)
+void sub_1B4271B6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36)
 {
   CoreRecognition::decoder::CTCGreedyDecoder<CoreRecognition::decoder::SpaceSegmentedPathBuilder<CoreRecognition::decoder::BaseState>>::~CTCGreedyDecoder(v37);
   CoreRecognition::decoder::Context::~Context(&a36);
-  a36 = (v38 - 208);
+  a36 = v38 - 208;
   std::vector<CoreRecognition::decoder::ActivationMatrix>::__destroy_vector::operator()[abi:ne200100](&a36);
   CoreRecognition::decoder::CTCGreedyDecoder<CoreRecognition::decoder::SpaceSegmentedPathBuilder<CoreRecognition::decoder::BaseState>>::~CTCGreedyDecoder((v38 - 160));
 
@@ -6736,7 +6727,7 @@ void sub_1B4271D3C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void CoreRecognition::decoder::CTCGreedyDecoder<CoreRecognition::decoder::SpaceSegmentedPathBuilder<CoreRecognition::decoder::BaseState>>::decode(uint64_t a1@<X0>, unint64_t *a2@<X1>, void *a3@<X8>)
+void CoreRecognition::decoder::CTCGreedyDecoder<CoreRecognition::decoder::SpaceSegmentedPathBuilder<CoreRecognition::decoder::BaseState>>::decode(uint64_t a1@<X0>, unint64_t *a2@<X1>, unint64_t *a3@<X8>)
 {
   __p = 0;
   v52 = 0;
@@ -7017,7 +7008,7 @@ __n128 __copy_helper_block_ea8_40c100_ZTSN15CoreRecognition7decoder16CTCGreedyDe
   *(a1 + 80) = 0;
   *(a1 + 88) = 0;
   *(a1 + 72) = 0;
-  std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(a1 + 72, *(a2 + 72), *(a2 + 80), (*(a2 + 80) - *(a2 + 72)) >> 3);
+  std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>((a1 + 72), *(a2 + 72), *(a2 + 80), (*(a2 + 80) - *(a2 + 72)) >> 3);
   v5 = *(a2 + 96);
   *(a1 + 104) = 0;
   *(a1 + 96) = v5;
@@ -7050,22 +7041,22 @@ void *CoreRecognition::decoder::CTCGreedyDecoder<CoreRecognition::decoder::Space
   return a1;
 }
 
-void __destroy_helper_block_ea8_40c100_ZTSN15CoreRecognition7decoder16CTCGreedyDecoderINS0_25SpaceSegmentedPathBuilderINS0_9BaseStateEEEEE104c86_ZTSKNSt3__16vectorIN15CoreRecognition7decoder16ActivationMatrixENS_9allocatorIS3_EEEE128c40_ZTSKN15CoreRecognition7decoder7ContextE(uint64_t a1)
+void __destroy_helper_block_ea8_40c100_ZTSN15CoreRecognition7decoder16CTCGreedyDecoderINS0_25SpaceSegmentedPathBuilderINS0_9BaseStateEEEEE104c86_ZTSKNSt3__16vectorIN15CoreRecognition7decoder16ActivationMatrixENS_9allocatorIS3_EEEE128c40_ZTSKN15CoreRecognition7decoder7ContextE(void *a1)
 {
-  v2 = *(a1 + 128);
+  v2 = a1[16];
   if (v2)
   {
     CFRelease(v2);
   }
 
-  v4 = (a1 + 104);
+  v4 = (a1 + 13);
   std::vector<CoreRecognition::decoder::ActivationMatrix>::__destroy_vector::operator()[abi:ne200100](&v4);
-  *(a1 + 40) = &unk_1F2BAFBC0;
-  *(a1 + 56) = &unk_1F2BAF938;
-  v3 = *(a1 + 72);
+  a1[5] = &unk_1F2BAFBC0;
+  a1[7] = &unk_1F2BAF938;
+  v3 = a1[9];
   if (v3)
   {
-    *(a1 + 80) = v3;
+    a1[10] = v3;
 
     operator delete(v3);
   }
@@ -7096,19 +7087,19 @@ void sub_1B4272974(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void std::vector<espresso_buffer_t>::resize(void *a1, unint64_t a2)
+void std::vector<espresso_buffer_t>::resize(void *result, unint64_t a2)
 {
-  v2 = 0xCF3CF3CF3CF3CF3DLL * ((a1[1] - *a1) >> 3);
+  v2 = 0xCF3CF3CF3CF3CF3DLL * ((result[1] - *result) >> 3);
   v3 = a2 >= v2;
   v4 = a2 - v2;
   if (v4 != 0 && v3)
   {
-    std::vector<espresso_buffer_t>::__append(a1, v4);
+    std::vector<espresso_buffer_t>::__append(result, v4);
   }
 
   else if (!v3)
   {
-    a1[1] = *a1 + 168 * a2;
+    result[1] = *result + 168 * a2;
   }
 }
 
@@ -7582,7 +7573,7 @@ __n128 std::vector<CoreRecognition::decoder::DecodingToken>::__construct_one_at_
   return result;
 }
 
-uint64_t std::vector<CoreRecognition::decoder::DecodingToken>::__emplace_back_slow_path<CoreRecognition::decoder::DecodingToken&>(uint64_t *a1, uint64_t a2)
+uint64_t std::vector<CoreRecognition::decoder::DecodingToken>::__emplace_back_slow_path<CoreRecognition::decoder::DecodingToken&>(void *a1, uint64_t a2)
 {
   v2 = (a1[1] - *a1) >> 6;
   v3 = v2 + 1;
@@ -7643,9 +7634,9 @@ uint64_t std::vector<CoreRecognition::decoder::DecodingToken>::__emplace_back_sl
   return v16;
 }
 
-void sub_1B4274F60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1B4274F60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<CoreRecognition::decoder::DecodingToken>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -7822,7 +7813,7 @@ void std::vector<CoreRecognition::decoder::DecodingToken>::clear[abi:ne200100](u
   a1[1] = v3;
 }
 
-void std::vector<CoreRecognition::decoder::DecodingPath>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+void std::vector<CoreRecognition::decoder::DecodingPath>::__destroy_vector::operator()[abi:ne200100](void ****a1)
 {
   v1 = *a1;
   v2 = **a1;
@@ -7923,19 +7914,17 @@ void std::allocator<CoreRecognition::decoder::ActivationMatrix>::destroy[abi:ne2
   }
 }
 
-void *std::vector<CoreRecognition::decoder::BeamEntry<CoreRecognition::decoder::BaseState>>::reserve(void *result, unint64_t a2)
+void std::vector<CoreRecognition::decoder::BeamEntry<CoreRecognition::decoder::BaseState>>::reserve(void *a1, unint64_t a2)
 {
-  if (0xCCCCCCCCCCCCCCCDLL * ((result[2] - *result) >> 4) < a2)
+  if (0xCCCCCCCCCCCCCCCDLL * ((a1[2] - *a1) >> 4) < a2)
   {
     if (a2 < 0x333333333333334)
     {
-      std::__allocate_at_least[abi:ne200100]<std::allocator<CoreRecognition::decoder::BeamEntry<CoreRecognition::decoder::BaseState>>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<CoreRecognition::decoder::BeamEntry<CoreRecognition::decoder::BaseState>>>(a1, a2);
     }
 
     std::vector<unsigned long>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 void sub_1B4275548(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12)
@@ -7961,15 +7950,15 @@ __int128 **std::vector<CoreRecognition::decoder::BeamEntry<CoreRecognition::deco
     do
     {
       v8 = *v3;
-      v9 = v3[1];
-      v10 = v3[3];
-      v7[2] = v3[2];
+      v9 = *(v3 + 1);
+      v10 = *(v3 + 3);
+      v7[2] = *(v3 + 2);
       v7[3] = v10;
       *v7 = v8;
       v7[1] = v9;
       *(v7 + 8) = &unk_1F2BAF768;
       *(v7 + 9) = *(v3 + 9);
-      v3 += 5;
+      v3 += 80;
       v7 += 5;
       v6 += 80;
     }
@@ -8137,21 +8126,21 @@ void sub_1B42759A8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<CoreRecognition::decoder::DecodingPath>::__emplace_back_slow_path<CoreRecognition::decoder::DecodingPath>(uint64_t a1, uint64_t a2)
+uint64_t std::vector<CoreRecognition::decoder::DecodingPath>::__emplace_back_slow_path<CoreRecognition::decoder::DecodingPath>(unint64_t *a1, uint64_t a2)
 {
-  v2 = 0xCCCCCCCCCCCCCCCDLL * ((*(a1 + 8) - *a1) >> 3);
+  v2 = 0xCCCCCCCCCCCCCCCDLL * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
   if (v2 + 1 > 0x666666666666666)
   {
     std::vector<unsigned long>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0x999999999999999ALL * ((*(a1 + 16) - *a1) >> 3) > v3)
+  if (0x999999999999999ALL * ((a1[2] - *a1) >> 3) > v3)
   {
-    v3 = 0x999999999999999ALL * ((*(a1 + 16) - *a1) >> 3);
+    v3 = 0x999999999999999ALL * ((a1[2] - *a1) >> 3);
   }
 
-  if (0xCCCCCCCCCCCCCCCDLL * ((*(a1 + 16) - *a1) >> 3) >= 0x333333333333333)
+  if (0xCCCCCCCCCCCCCCCDLL * ((a1[2] - *a1) >> 3) >= 0x333333333333333)
   {
     v6 = 0x666666666666666;
   }
@@ -8181,14 +8170,14 @@ uint64_t std::vector<CoreRecognition::decoder::DecodingPath>::__emplace_back_slo
   *(a2 + 16) = 0;
   *(v7 + 24) = *(a2 + 24);
   *&v16 = 40 * v2 + 40;
-  v8 = *(a1 + 8);
+  v8 = a1[1];
   v9 = 40 * v2 + *a1 - v8;
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<CoreRecognition::decoder::DecodingPath>,CoreRecognition::decoder::DecodingPath*>(a1, *a1, v8, v9);
   v10 = *a1;
   *a1 = v9;
-  v11 = *(a1 + 16);
+  v11 = a1[2];
   v13 = v16;
-  *(a1 + 8) = v16;
+  *(a1 + 1) = v16;
   *&v16 = v10;
   *(&v16 + 1) = v11;
   v14 = v10;
@@ -8197,9 +8186,9 @@ uint64_t std::vector<CoreRecognition::decoder::DecodingPath>::__emplace_back_slo
   return v13;
 }
 
-void sub_1B4275B2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1B4275B2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<CoreRecognition::decoder::DecodingPath>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -8306,7 +8295,7 @@ void std::__split_buffer<CoreRecognition::decoder::DecodingPath>::clear[abi:ne20
   }
 }
 
-void std::vector<CoreRecognition::decoder::ActivationMatrix>::__init_with_size[abi:ne200100]<CoreRecognition::decoder::ActivationMatrix*,CoreRecognition::decoder::ActivationMatrix*>(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
+void std::vector<CoreRecognition::decoder::ActivationMatrix>::__init_with_size[abi:ne200100]<CoreRecognition::decoder::ActivationMatrix*,CoreRecognition::decoder::ActivationMatrix*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -8329,7 +8318,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<CoreRecognition::deco
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -8489,13 +8478,15 @@ void sub_1B42767EC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1B4277444(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, id a29, char a30)
+void sub_1B4277444(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, id a29, ...)
 {
+  va_start(va, a29);
+
   _Block_object_dispose(&a20, 8);
   _Block_object_dispose(&a24, 8);
 
-  _Block_object_dispose(&a30, 8);
-  _Block_object_dispose((v37 - 192), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v36 - 192), 8);
 
   _Unwind_Resume(a1);
 }
@@ -8507,7 +8498,7 @@ uint64_t __Block_byref_object_copy__16(uint64_t result, uint64_t a2)
   return result;
 }
 
-void cv::Mat::create(void *a1, int a2, int *a3, int a4)
+void cv::Mat::create(void *a1, uint64_t a2, int *a3, uint64_t a4)
 {
   cv::Mat::createInfo(a1, a2, a3, a4, a3);
   v5 = a1[72];
@@ -8517,7 +8508,7 @@ void cv::Mat::create(void *a1, int a2, int *a3, int a4)
     v6[1] = malloc_type_malloc(v5, 0x4D6363E7uLL);
     v7 = malloc_type_malloc(4uLL, 0x100004052888210uLL);
     *v7 = 1;
-    cv::SmartPtr::operator=((a1 + 36), v6, v8);
+    cv::SmartPtr::operator=(v8, (a1 + 36), v6);
     v8[0] = &unk_1F2BAF728;
     cv::SmartPtr::release(v8);
     v6[0] = &unk_1F2BAF728;
@@ -8527,7 +8518,7 @@ void cv::Mat::create(void *a1, int a2, int *a3, int a4)
   a1[1] = a1[37];
 }
 
-void *cv::Mat::Mat(void *a1, int a2, int a3, int a4)
+void *cv::Mat::Mat(void *a1, int a2, int a3, uint64_t a4)
 {
   v7 = *MEMORY[0x1E69E9840];
   *a1 = &unk_1F2BAF748;
@@ -8563,7 +8554,7 @@ uint64_t cv::Mat::elemSize(cv::Mat *this)
   return v2 * (*(this + 79) & 0xFu);
 }
 
-void cv::Mat::createInfo(uint64_t a1, int a2, int *a3, int a4, int *a5)
+void cv::Mat::createInfo(uint64_t a1, unsigned int a2, int *a3, int a4, int *a5)
 {
   v6 = a4;
   *(a1 + 316) = a4;
@@ -8753,7 +8744,7 @@ void CRDetectorPostProcessV3::extractAvgAndMaxValueInComponents(uint64_t a1, uin
           v33 = v32 - v22;
           if (v32 >= v22)
           {
-            v23[v33] = *v29 + v23[v33];
+            *&v23[4 * v33] = *v29 + *&v23[4 * v33];
             v24[v33] = *v28 + v24[v33];
             v26[v33] = v26[v33] + 1.0;
             if (*(v27 + 4 * v33) < *v25)
@@ -8813,10 +8804,10 @@ void CRDetectorPostProcessV3::extractAvgAndMaxValueInComponents(uint64_t a1, uin
   operator delete(v35);
 }
 
-uint64_t CRDetectorPostProcessV3::splitIsthmusMergedComponents(CRDetectorPostProcessV3 *this, CRDetectorUtils::CRTextDetectorConnectedComponentResult *a2)
+uint64_t CRDetectorPostProcessV3::splitIsthmusMergedComponents(void **this, CRDetectorUtils::CRTextDetectorConnectedComponentResult *a2)
 {
   v23 = *MEMORY[0x1E69E9840];
-  v2 = *(this + 2) - *(this + 1);
+  v2 = this[2] - this[1];
   if (v2)
   {
     v4 = 0;
@@ -8833,24 +8824,24 @@ uint64_t CRDetectorPostProcessV3::splitIsthmusMergedComponents(CRDetectorPostPro
 
     do
     {
-      if (CRDetectorUtils::estimateVerticalIsthmusMergedLineCountInConnectedComponents(this, v4, 0xAuLL) == 2 && (*(*(this + 4) + 32 * v4 + 24) - *(*(this + 4) + 32 * v4 + 16) + 1) / (*(*(this + 4) + 32 * v4 + 8) - *(*(this + 4) + 32 * v4) + 1) >= 1.4)
+      if (CRDetectorUtils::estimateVerticalIsthmusMergedLineCountInConnectedComponents(this, v4, 0xAuLL) == 2 && (*(this[4] + 4 * v4 + 3) - *(this[4] + 4 * v4 + 2) + 1) / (*(this[4] + 4 * v4 + 1) - *(this[4] + 4 * v4) + 1) >= 1.4)
       {
         *__src = 0u;
         v14 = 0u;
-        std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(&__src[1], *(this + 1), *(this + 2), (*(this + 2) - *(this + 1)) >> 3);
+        std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(&__src[1], this[1], this[2], (this[2] - this[1]) >> 3);
         memset(v15, 0, sizeof(v15));
-        v8 = *(this + 4);
-        v7 = *(this + 5);
+        v8 = this[4];
+        v7 = this[5];
         if (v7 != v8)
         {
           std::vector<CGRect>::__vallocate[abi:ne200100](v15, (v7 - v8) >> 5);
         }
 
         memset(__p, 0, sizeof(__p));
-        std::vector<CGPoint>::__init_with_size[abi:ne200100]<CGPoint*,CGPoint*>(__p, *(this + 7), *(this + 8), (*(this + 8) - *(this + 7)) >> 4);
+        std::vector<CGPoint>::__init_with_size[abi:ne200100]<CGPoint*,CGPoint*>(__p, this[7], this[8], (this[8] - this[7]) >> 4);
         memset(v17, 0, 24);
-        v9 = *(this + 10);
-        v10 = *(this + 11);
+        v9 = this[10];
+        v10 = this[11];
         v21 = v17;
         LOBYTE(v22) = 0;
         if (v10 != v9)
@@ -8858,11 +8849,11 @@ uint64_t CRDetectorPostProcessV3::splitIsthmusMergedComponents(CRDetectorPostPro
           std::vector<std::vector<CGPoint>>::__vallocate[abi:ne200100](v17, 0xAAAAAAAAAAAAAAABLL * ((v10 - v9) >> 3));
         }
 
-        v11 = *(this + 14);
-        v17[3] = *(this + 13);
+        v11 = this[14];
+        v17[3] = this[13];
         v17[4] = v11;
         v18 = *(this + 30);
-        v19 = *(this + 16);
+        v19 = this[16];
         v20 = *(this + 68);
         operator new[]();
       }
@@ -8975,58 +8966,58 @@ double CRDetectorPostProcessV3::getRotatedRectFromConvexHull@<D0>(uint64_t *a1@<
   return result;
 }
 
-void CRDetectorPostProcessV3::extractTableBoxes(void *a1@<X0>, void *a2@<X2>, void *a3@<X8>)
+void CRDetectorPostProcessV3::extractTableBoxes(void *a1@<X0>, void *a3@<X2>, id **a4@<X8>)
 {
-  v27 = *MEMORY[0x1E69E9840];
-  v14 = a2;
+  v28 = *MEMORY[0x1E69E9840];
+  v15 = a3;
   if (a1)
   {
-    v20 = 0;
-    v19 = 0;
     v21 = 0;
-    v13 = a1[1];
-    v12 = a1[2];
-    std::vector<float>::vector[abi:ne200100](&__src, v12 * v13);
-    LODWORD(v17) = 1061997773;
-    v16[0] = 1056964608;
-    MEMORY[0x1B8C75260](*a1, 1, &v17, v16, __src, 1, a1[2] * a1[1]);
-    v4 = MEMORY[0x1B8C75280](__src, 1, v16, __src, 1, a1[2] * a1[1]);
-    CRLogger = CRLogger::getCRLogger(v4);
+    v20 = 0;
+    v22 = 0;
+    v14 = a1[1];
+    v13 = a1[2];
+    std::vector<float>::vector[abi:ne200100](&__src, v13 * v14);
+    LODWORD(v18) = 1061997773;
+    LODWORD(v17) = 1056964608;
+    MEMORY[0x1B8C75260](*a1, 1, &v18, &v17, __src, 1, a1[2] * a1[1]);
+    v5 = MEMORY[0x1B8C75280](__src, 1, &v17, __src, 1, a1[2] * a1[1]);
+    CRLogger = CRLogger::getCRLogger(v5);
     if (*CRLogger == 1 && (CRLogger[8] & 1) != 0)
     {
-      v6 = malloc_type_calloc(a1[1] * a1[2], 4uLL, 0x100004052888210uLL);
-      v7 = a1[1];
-      v8 = a1[2];
-      *v24 = v6;
-      *&v24[8] = v7;
-      v25 = v8;
-      v26 = 4 * v8;
-      if (v23 != __src)
+      v7 = malloc_type_calloc(a1[1] * a1[2], 4uLL, 0x100004052888210uLL);
+      v8 = a1[1];
+      v9 = a1[2];
+      *v25 = v7;
+      *&v25[8] = v8;
+      v26 = v9;
+      v27 = 4 * v9;
+      if (v24 != __src)
       {
-        memmove(v6, __src, v23 - __src);
+        memmove(v7, __src, v24 - __src);
       }
 
-      v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"/tmp/%f_tableMap.png", rand()];
-      CRDetectorUtils::writeImageBufferToFile(v24, v9, v10);
-      free(*v24);
+      v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"/tmp/%f_tableMap.png", rand()];
+      CRDetectorUtils::writeImageBufferToFile(v25, v10, v11);
+      free(*v25);
     }
 
-    CRDetectorUtils::CRTextDetectorConnectedComponentResult::CRTextDetectorConnectedComponentResult(buf, v12, v13, 1, 1, 1);
+    CRDetectorUtils::CRTextDetectorConnectedComponentResult::CRTextDetectorConnectedComponentResult(buf, v13, v14, 1, 1, 1);
   }
 
-  v11 = CROSLogForCategory(0);
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+  v12 = CROSLogForCategory(0);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
     *buf = 0;
-    _os_log_impl(&dword_1B40D2000, v11, OS_LOG_TYPE_ERROR, "Nil tableMap buffer in extractTableBoxes.", buf, 2u);
+    _os_log_impl(&dword_1B40D2000, v12, OS_LOG_TYPE_ERROR, "Nil tableMap buffer in extractTableBoxes.", buf, 2u);
   }
 
-  *a3 = 0;
-  a3[1] = 0;
-  a3[2] = 0;
+  *a4 = 0;
+  a4[1] = 0;
+  a4[2] = 0;
 }
 
-void sub_1B427B364(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21, void *a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, void *__p, uint64_t a32, uint64_t a33, char a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, void *a45, uint64_t a46, uint64_t a47, void *a48, uint64_t a49, uint64_t a50, void *a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, char a60, uint64_t a61, uint64_t a62, uint64_t a63)
+void sub_1B427B364(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21, void *a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char *__p, char *a32, uint64_t a33, char a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, void *a45, uint64_t a46, uint64_t a47, void *a48, uint64_t a49, uint64_t a50, char ***a51, char ***a52, uint64_t a53, char **a54, uint64_t a55, uint64_t a56, char *a57, uint64_t a58, uint64_t a59, char a60, uint64_t a61, uint64_t a62, unint64_t *a63)
 {
   if (__p)
   {
@@ -9087,7 +9078,7 @@ void *std::vector<CRNormalizedQuad * {__strong}>::reserve(void *result, unint64_
   return result;
 }
 
-void std::vector<float>::push_back[abi:ne200100](const void **a1, _DWORD *a2)
+void std::vector<float>::push_back[abi:ne200100](const void **a1, int *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -9136,21 +9127,21 @@ void std::vector<float>::push_back[abi:ne200100](const void **a1, _DWORD *a2)
   else
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 4;
   }
 
   a1[1] = v6;
 }
 
-float getWeightedMedianAngle(void *a1)
+float getWeightedMedianAngle(uint64_t *a1, uint64_t *a2)
 {
-  v1 = a1[1];
-  v2 = v1 - *a1;
-  if (v1 != *a1)
+  v2 = a1[1];
+  v3 = v2 - *a1;
+  if (v2 != *a1)
   {
-    if (!((v2 >> 2) >> 61))
+    if (!((v3 >> 2) >> 61))
     {
-      std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<float,float>>>(v2 >> 2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<float,float>>>(v3 >> 2);
     }
 
     std::vector<std::pair<float,float>>::__throw_length_error[abi:ne200100]();
@@ -9247,12 +9238,12 @@ void CRDetectorPostProcessV3::saveConnectedComponentsMap(CRDetectorPostProcessV3
   free(v30[0]);
 }
 
-void CRDetectorPostProcessV3::extractMaxValueInComponents(uint64_t a1, uint64_t *a2, uint64_t a3)
+void CRDetectorPostProcessV3::extractMaxValueInComponents(uint64_t a1, uint64_t *a2, uint64_t *a3)
 {
   v6 = *(a1 + 16) - *(a1 + 8);
   v7 = v6 >> 3;
   v8 = *a3;
-  v9 = *(a3 + 8);
+  v9 = a3[1];
   v10 = v9 - *a3;
   v11 = v10 >> 2;
   if (v6 >> 3 <= (v10 >> 2))
@@ -9268,7 +9259,7 @@ void CRDetectorPostProcessV3::extractMaxValueInComponents(uint64_t a1, uint64_t 
   else
   {
     v12 = v7 - v11;
-    v13 = *(a3 + 16);
+    v13 = a3[2];
     if (v12 > (v13 - v9) >> 2)
     {
       if (!(v7 >> 62))
@@ -9295,11 +9286,11 @@ void CRDetectorPostProcessV3::extractMaxValueInComponents(uint64_t a1, uint64_t 
       std::vector<unsigned long>::__throw_length_error[abi:ne200100]();
     }
 
-    bzero(*(a3 + 8), (((v6 >> 1) - v10 - 4) & 0xFFFFFFFFFFFFFFFCLL) + 4);
+    bzero(a3[1], (((v6 >> 1) - v10 - 4) & 0xFFFFFFFFFFFFFFFCLL) + 4);
     v16 = v9 + 4 * v12;
   }
 
-  *(a3 + 8) = v16;
+  a3[1] = v16;
 LABEL_14:
   v17 = *(a1 + 112);
   if (v17)
@@ -9784,7 +9775,7 @@ LABEL_53:
       v87 = (8 * v82);
       *v87 = v63;
       v87[1] = v62;
-      v79 = 8 * v82 + 8;
+      v79 = (8 * v82 + 8);
       memcpy(0, v80, v81);
       v88 = *a6;
       *a6 = 0;
@@ -9805,7 +9796,7 @@ LABEL_53:
     {
       *v78 = v63;
       *(v78 + 1) = v62;
-      v79 = (v78 + 8);
+      v79 = v78 + 8;
     }
 
     a6[1] = v79;
@@ -9846,7 +9837,7 @@ LABEL_84:
         v98 = (8 * v94);
         *v98 = v63;
         v98[1] = v62;
-        v91 = 8 * v94 + 8;
+        v91 = (8 * v94 + 8);
         memcpy(0, v92, v93);
         v99 = *a7;
         *a7 = 0;
@@ -9867,7 +9858,7 @@ LABEL_84:
       {
         *v90 = v63;
         *(v90 + 1) = v62;
-        v91 = (v90 + 8);
+        v91 = v90 + 8;
       }
 
       a7[1] = v91;

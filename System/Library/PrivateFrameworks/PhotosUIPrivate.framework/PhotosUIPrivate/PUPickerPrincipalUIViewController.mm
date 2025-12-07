@@ -849,10 +849,10 @@ uint64_t __70__PUPickerPrincipalUIViewController_beginRequestWithExtensionContex
 {
   if (a2)
   {
-    return MEMORY[0x1EEE2D218]();
+    return MEMORY[0x1EEE2D218](a1);
   }
 
-  return result;
+  return a1;
 }
 
 - (void)sharedAlbumActionControllerDidCancel:(id)cancel
@@ -969,7 +969,7 @@ uint64_t __70__PUPickerPrincipalUIViewController_beginRequestWithExtensionContex
     v27 = pickerClientIdentification;
     if (pickerClientIdentification)
     {
-      [pickerClientIdentification clientAuditToken];
+      objc_msgSend_clientAuditToken(pickerClientIdentification);
     }
 
     else
@@ -1079,7 +1079,7 @@ uint64_t __70__PUPickerPrincipalUIViewController_beginRequestWithExtensionContex
               v50 = pickerClientIdentification2;
               if (pickerClientIdentification2)
               {
-                [pickerClientIdentification2 clientAuditToken];
+                objc_msgSend_clientAuditToken(pickerClientIdentification2);
               }
 
               else

@@ -64,7 +64,7 @@
   {
     if (!handleType)
     {
-      v8 = PHDefaultLog();
+      v8 = PHDefaultLog(0);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         sub_10007ACB4(v8);

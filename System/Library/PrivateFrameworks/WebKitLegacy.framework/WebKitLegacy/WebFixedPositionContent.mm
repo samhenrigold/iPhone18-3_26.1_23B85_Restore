@@ -311,7 +311,7 @@ LABEL_17:
   }
 }
 
-uint64_t __54__WebFixedPositionContent_didFinishScrollingOrZooming__block_invoke(uint64_t a1)
+void *__54__WebFixedPositionContent_didFinishScrollingOrZooming__block_invoke(uint64_t a1)
 {
   result = [**(*(a1 + 32) + 8) _mainCoreFrame];
   if (result)
@@ -503,7 +503,7 @@ LABEL_41:
       v37 = v34[1];
       if (!v37)
       {
-        WTF::HashTable<WTF::RetainPtr<CALayer>,WTF::KeyValuePair<WTF::RetainPtr<CALayer>,std::unique_ptr<ViewportConstrainedLayerData>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::RetainPtr<CALayer>,std::unique_ptr<ViewportConstrainedLayerData>>>,WTF::DefaultHash<WTF::RetainPtr<CALayer>>,WTF::HashMap<WTF::RetainPtr<CALayer>,std::unique_ptr<ViewportConstrainedLayerData>,WTF::DefaultHash<WTF::RetainPtr<CALayer>>,WTF::HashTraits<WTF::RetainPtr<CALayer>>,WTF::HashTraits<std::unique_ptr<ViewportConstrainedLayerData>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::RetainPtr<CALayer>>,WTF::FastMalloc>::rehash(v34 + 1, 8u);
+        WTF::HashTable<WTF::RetainPtr<CALayer>,WTF::KeyValuePair<WTF::RetainPtr<CALayer>,std::unique_ptr<ViewportConstrainedLayerData>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::RetainPtr<CALayer>,std::unique_ptr<ViewportConstrainedLayerData>>>,WTF::DefaultHash<WTF::RetainPtr<CALayer>>,WTF::HashMap<WTF::RetainPtr<CALayer>,std::unique_ptr<ViewportConstrainedLayerData>,WTF::DefaultHash<WTF::RetainPtr<CALayer>>,WTF::HashTraits<WTF::RetainPtr<CALayer>>,WTF::HashTraits<std::unique_ptr<ViewportConstrainedLayerData>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::RetainPtr<CALayer>>,WTF::FastMalloc>::rehash(v34 + 1, 8uLL);
         v37 = v34[1];
       }
 
@@ -615,7 +615,7 @@ LABEL_68:
           }
 
 LABEL_69:
-          v54 = v53 << (6 * v51 >= (2 * v53));
+          v54 = (v53 << (6 * v51 >= (2 * v53)));
           goto LABEL_70;
         }
       }

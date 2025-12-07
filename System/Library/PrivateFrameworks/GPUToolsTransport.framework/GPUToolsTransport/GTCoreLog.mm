@@ -22,10 +22,7 @@ uint64_t __GTCoreLog_getLogForTag_block_invoke(uint64_t a1)
   {
   }
 
-  v5 = os_log_create(*v2, v2[1]);
-  v6 = *(a1 + 32);
-  v7 = *(v6 + 16);
-  *(v6 + 16) = v5;
+  *(*(a1 + 32) + 16) = os_log_create(*v2, v2[1]);
 
   return MEMORY[0x2821F96F8]();
 }

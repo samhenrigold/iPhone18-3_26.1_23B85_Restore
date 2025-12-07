@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)sendErrorAsString:(int)string;
 - (int)StringAsSendError:(id)error;
 - (int)sendError;
 - (unint64_t)hash;
@@ -27,60 +28,75 @@
   }
 }
 
+- (id)sendErrorAsString:(int)string
+{
+  if (string >= 0xB)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E769CC20[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsSendError:(id)error
 {
   errorCopy = error;
-  if ([errorCopy isEqualToString:@"None"])
+  if (objc_msgSend_isEqualToString_(errorCopy))
   {
     v4 = 0;
   }
 
-  else if ([errorCopy isEqualToString:@"ApplicationNotFound"])
+  else if (objc_msgSend_isEqualToString_(errorCopy))
   {
     v4 = 1;
   }
 
-  else if ([errorCopy isEqualToString:@"ConnectionFailed"])
+  else if (objc_msgSend_isEqualToString_(errorCopy))
   {
     v4 = 2;
   }
 
-  else if ([errorCopy isEqualToString:@"Ignored"])
+  else if (objc_msgSend_isEqualToString_(errorCopy))
   {
     v4 = 3;
   }
 
-  else if ([errorCopy isEqualToString:@"CouldNotLaunchApplication"])
+  else if (objc_msgSend_isEqualToString_(errorCopy))
   {
     v4 = 4;
   }
 
-  else if ([errorCopy isEqualToString:@"TimedOut"])
+  else if (objc_msgSend_isEqualToString_(errorCopy))
   {
     v4 = 5;
   }
 
-  else if ([errorCopy isEqualToString:@"OriginDoesNotExist"])
+  else if (objc_msgSend_isEqualToString_(errorCopy))
   {
     v4 = 6;
   }
 
-  else if ([errorCopy isEqualToString:@"InvalidOptions"])
+  else if (objc_msgSend_isEqualToString_(errorCopy))
   {
     v4 = 7;
   }
 
-  else if ([errorCopy isEqualToString:@"NoCommandHandlers"])
+  else if (objc_msgSend_isEqualToString_(errorCopy))
   {
     v4 = 8;
   }
 
-  else if ([errorCopy isEqualToString:@"ApplicationNotInstalled"])
+  else if (objc_msgSend_isEqualToString_(errorCopy))
   {
     v4 = 9;
   }
 
-  else if ([errorCopy isEqualToString:@"NotSupported"])
+  else if (objc_msgSend_isEqualToString_(errorCopy))
   {
     v4 = 10;
   }
@@ -125,7 +141,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   playerPath = self->_playerPath;
   if (playerPath)
@@ -153,30 +169,30 @@
   if ([(NSMutableArray *)self->_statuses count])
   {
     v8 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSMutableArray count](self->_statuses, "count")}];
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
     v9 = self->_statuses;
-    v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v21;
+      v12 = *v20;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v21 != v12)
+          if (*v20 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          dictionaryRepresentation2 = [*(*(&v20 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation2 = [*(*(&v19 + 1) + 8 * i) dictionaryRepresentation];
           [v8 addObject:dictionaryRepresentation2];
         }
 
-        v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v11);
@@ -198,14 +214,12 @@
     [dictionary setObject:dictionaryRepresentation3 forKey:@"error"];
   }
 
-  v18 = *MEMORY[0x1E69E9840];
-
   return dictionary;
 }
 
 - (void)writeTo:(id)to
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if (self->_playerPath)
   {
@@ -214,40 +228,38 @@
 
   if (*&self->_has)
   {
-    sendError = self->_sendError;
     PBDataWriterWriteInt32Field();
   }
 
-  v15 = 0u;
-  v16 = 0u;
+  v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v6 = self->_statuses;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
-  if (v7)
+  v10 = 0u;
+  v11 = 0u;
+  v5 = self->_statuses;
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v6)
   {
-    v8 = v7;
-    v9 = *v14;
+    v7 = v6;
+    v8 = *v11;
     do
     {
-      v10 = 0;
+      v9 = 0;
       do
       {
-        if (*v14 != v9)
+        if (*v11 != v8)
         {
-          objc_enumerationMutation(v6);
+          objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v13 + 1) + 8 * v10);
         PBDataWriterWriteSubmessage();
-        ++v10;
+        ++v9;
       }
 
-      while (v8 != v10);
-      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      while (v7 != v9);
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
-    while (v8);
+    while (v7);
   }
 
   if (self->_sendErrorDescription)
@@ -259,8 +271,6 @@
   {
     PBDataWriterWriteSubmessage();
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)copyTo:(id)to
@@ -309,7 +319,7 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = [(_MRNowPlayingPlayerPathProtobuf *)self->_playerPath copyWithZone:zone];
   v7 = *(v5 + 16);
@@ -321,34 +331,34 @@
     *(v5 + 48) |= 1u;
   }
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v8 = self->_statuses;
-  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v21;
+    v11 = *v20;
     do
     {
       v12 = 0;
       do
       {
-        if (*v21 != v11)
+        if (*v20 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = [*(*(&v20 + 1) + 8 * v12) copyWithZone:{zone, v20}];
+        v13 = [*(*(&v19 + 1) + 8 * v12) copyWithZone:{zone, v19}];
         [v5 addStatuses:v13];
 
         ++v12;
       }
 
       while (v10 != v12);
-      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v10);
@@ -362,7 +372,6 @@
   v17 = *(v5 + 8);
   *(v5 + 8) = v16;
 
-  v18 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -383,7 +392,6 @@
     }
   }
 
-  v6 = *(equalCopy + 48);
   if (*&self->_has)
   {
     if ((*(equalCopy + 48) & 1) == 0 || self->_sendError != *(equalCopy + 6))
@@ -395,7 +403,7 @@
   else if (*(equalCopy + 48))
   {
 LABEL_15:
-    v10 = 0;
+    v9 = 0;
     goto LABEL_16;
   }
 
@@ -417,17 +425,17 @@ LABEL_15:
   error = self->_error;
   if (error | *(equalCopy + 1))
   {
-    v10 = [(_MRErrorProtobuf *)error isEqual:?];
+    v9 = [(_MRErrorProtobuf *)error isEqual:?];
   }
 
   else
   {
-    v10 = 1;
+    v9 = 1;
   }
 
 LABEL_16:
 
-  return v10;
+  return v9;
 }
 
 - (unint64_t)hash
@@ -451,7 +459,7 @@ LABEL_16:
 
 - (void)mergeFrom:(id)from
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   fromCopy = from;
   playerPath = self->_playerPath;
   v6 = *(fromCopy + 2);
@@ -474,29 +482,29 @@ LABEL_16:
     *&self->_has |= 1u;
   }
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v7 = *(fromCopy + 5);
-  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v16;
+    v10 = *v15;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v16 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        [(_MRSendCommandResultProtobuf *)self addStatuses:*(*(&v15 + 1) + 8 * i), v15];
+        [(_MRSendCommandResultProtobuf *)self addStatuses:*(*(&v14 + 1) + 8 * i), v14];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v9);
@@ -521,8 +529,6 @@ LABEL_16:
   {
     [(_MRSendCommandResultProtobuf *)self setError:?];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -1,7 +1,7 @@
 @interface PFCloudKitSizeMetric
 - (PFCloudKitSizeMetric)initWithContainerIdentifier:(id)identifier;
+- (id)addByteSize:(id *)result;
 - (id)createPayload;
-- (uint64_t)addByteSize:(uint64_t)result;
 - (void)dealloc;
 @end
 
@@ -27,15 +27,15 @@
   [(PFCloudKitBaseMetric *)&v3 dealloc];
 }
 
-- (uint64_t)addByteSize:(uint64_t)result
+- (id)addByteSize:(id *)result
 {
   if (result)
   {
     v3 = result;
-    unsignedIntegerValue = [*(result + 24) unsignedIntegerValue];
+    unsignedIntegerValue = [result[3] unsignedIntegerValue];
 
     result = [objc_alloc(MEMORY[0x1E696AD98]) initWithUnsignedInteger:unsignedIntegerValue + a2];
-    *(v3 + 24) = result;
+    v3[3] = result;
   }
 
   return result;

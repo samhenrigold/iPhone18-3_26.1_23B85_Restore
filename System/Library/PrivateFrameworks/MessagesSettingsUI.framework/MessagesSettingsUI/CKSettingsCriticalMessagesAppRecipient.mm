@@ -38,34 +38,33 @@
     sCountryCode = lowercaseString;
   }
 
-  v8 = *MEMORY[0x277CBECE8];
-  v9 = CFPhoneNumberCreate();
-  if (v9)
+  v8 = CFPhoneNumberCreate();
+  if (v8)
   {
-    v10 = v9;
+    v9 = v8;
     String = CFPhoneNumberCreateString();
     if (String)
     {
-      v12 = String;
-      CFRelease(v10);
+      v11 = String;
+      CFRelease(v9);
 LABEL_7:
-      v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"+%@", v12];
+      v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"+%@", v11];
 
       goto LABEL_9;
     }
 
-    v12 = CFPhoneNumberCreateString();
-    CFRelease(v10);
-    if (v12)
+    v11 = CFPhoneNumberCreateString();
+    CFRelease(v9);
+    if (v11)
     {
       goto LABEL_7;
     }
   }
 
-  v13 = numberCopy;
+  v12 = numberCopy;
 LABEL_9:
 
-  return v13;
+  return v12;
 }
 
 - (id)number

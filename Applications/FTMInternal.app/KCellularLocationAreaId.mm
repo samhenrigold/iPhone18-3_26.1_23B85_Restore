@@ -44,18 +44,17 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (self->_encodedPlmn)
   {
     PBDataWriterWriteDataField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    lac = self->_lac;
     PBDataWriterWriteUint32Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 

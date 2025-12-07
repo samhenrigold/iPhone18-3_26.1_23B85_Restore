@@ -36,25 +36,23 @@ void ____HMFHTTPClientGetBaseURL_block_invoke_2(uint64_t a1, void *a2)
   {
     v4 = objc_autoreleasePoolPush();
     v5 = *(a1 + 32);
-    v6 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = HMFGetOSLogHandle(v5, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = HMFGetLogIdentifier(v5);
+      v8 = HMFGetLogIdentifier(v5);
       v11 = 138543618;
-      v12 = v7;
+      v12 = v8;
       v13 = 2112;
       v14 = v3;
-      _os_log_impl(&dword_22ADEC000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@Failed to resolve service with error: %@", &v11, 0x16u);
+      _os_log_impl(&dword_22ADEC000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@Failed to resolve service with error: %@", &v11, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
   }
 
-  v8 = *(a1 + 40);
-  v9 = [*(a1 + 32) baseURL];
-  (*(v8 + 16))(v8, v9, v3);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *(a1 + 40);
+  v10 = [*(a1 + 32) baseURL];
+  (*(v9 + 16))(v9, v10, v3);
 }
 
 @end

@@ -208,7 +208,7 @@
         _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "SecWatchdog: watchdog has detected securityd/secd is using too much CPU - attempting to exit gracefully", &v12, 2u);
       }
 
-      sub_10008A0C0(@"securityd watchdog triggered", 1405091852);
+      sub_10008A0C0(@"securityd watchdog triggered", 0x53C0000Cu);
       xpc_transaction_exit_clean();
       v7 = dispatch_time(0, 1000000000 * selfCopy->_gracefulExitLeeway);
       v8 = dispatch_get_global_queue(2, 0);

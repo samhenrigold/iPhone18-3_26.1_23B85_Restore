@@ -186,7 +186,7 @@
 - (BOOL)isSystemApertureEnabled
 {
   selfCopy = self;
-  v3 = Features.isSystemApertureEnabled.getter();
+  v3 = Features.isSystemApertureEnabled.getter(selfCopy);
 
   return v3 & 1;
 }

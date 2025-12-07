@@ -43,7 +43,7 @@
 
 - (void)startPlaceholderAnimationWithCompletionHandler:(id)handler
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA9DAE10);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA9DAE10, &qword_18BC426D0);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);
@@ -68,7 +68,7 @@
 
 - (void)endAnimations
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA9DAE10);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA9DAE10, &qword_18BC426D0);
   MEMORY[0x1EEE9AC00](v3 - 8);
   v5 = &v11 - v4;
   v6 = sub_18BC20F48();

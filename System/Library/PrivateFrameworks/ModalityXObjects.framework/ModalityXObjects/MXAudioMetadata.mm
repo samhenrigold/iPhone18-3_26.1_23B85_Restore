@@ -1,5 +1,7 @@
 @interface MXAudioMetadata
 - (BOOL)isEqual:(id)equal;
+- (id)audioSourceAsString:(int)string;
+- (id)codecAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
@@ -44,6 +46,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)codecAsString:(int)string
+{
+  if (string >= 8)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27991BC40[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsCodec:(id)codec
@@ -108,6 +125,21 @@
   {
     return 0;
   }
+}
+
+- (id)audioSourceAsString:(int)string
+{
+  if (string >= 8)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27991BC80[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsAudioSource:(id)source
@@ -275,12 +307,11 @@
 {
   toCopy = to;
   has = self->_has;
-  v10 = toCopy;
+  v6 = toCopy;
   if ((has & 2) != 0)
   {
-    codec = self->_codec;
     PBDataWriterWriteInt32Field();
-    toCopy = v10;
+    toCopy = v6;
     has = self->_has;
     if ((has & 1) == 0)
     {
@@ -299,35 +330,32 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  audioSource = self->_audioSource;
   PBDataWriterWriteInt32Field();
-  toCopy = v10;
+  toCopy = v6;
   if ((*&self->_has & 8) != 0)
   {
 LABEL_4:
-    isFarField = self->_isFarField;
     PBDataWriterWriteBOOLField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
 LABEL_5:
   if (self->_voiceTriggerInfo)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if ((*&self->_has & 4) != 0)
   {
-    enableServerEndpoint = self->_enableServerEndpoint;
     PBDataWriterWriteBOOLField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_clientModelVersion)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v6;
   }
 }
 
@@ -450,7 +478,6 @@ LABEL_5:
   }
 
   has = self->_has;
-  v6 = *(equalCopy + 44);
   if ((has & 2) != 0)
   {
     if ((*(equalCopy + 44) & 2) == 0 || self->_codec != *(equalCopy + 6))
@@ -484,7 +511,6 @@ LABEL_5:
       goto LABEL_33;
     }
 
-    v11 = *(equalCopy + 41);
     if (self->_isFarField)
     {
       if ((*(equalCopy + 41) & 1) == 0)
@@ -515,7 +541,6 @@ LABEL_5:
     has = self->_has;
   }
 
-  v8 = *(equalCopy + 44);
   if ((has & 4) == 0)
   {
     if ((*(equalCopy + 44) & 4) == 0)
@@ -524,7 +549,7 @@ LABEL_5:
     }
 
 LABEL_33:
-    v10 = 0;
+    v8 = 0;
     goto LABEL_34;
   }
 
@@ -533,7 +558,6 @@ LABEL_33:
     goto LABEL_33;
   }
 
-  v12 = *(equalCopy + 40);
   if (self->_enableServerEndpoint)
   {
     if ((*(equalCopy + 40) & 1) == 0)
@@ -551,17 +575,17 @@ LABEL_19:
   clientModelVersion = self->_clientModelVersion;
   if (clientModelVersion | *(equalCopy + 2))
   {
-    v10 = [(NSString *)clientModelVersion isEqual:?];
+    v8 = [(NSString *)clientModelVersion isEqual:?];
   }
 
   else
   {
-    v10 = 1;
+    v8 = 1;
   }
 
 LABEL_34:
 
-  return v10;
+  return v8;
 }
 
 - (unint64_t)hash

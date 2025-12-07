@@ -3168,11 +3168,11 @@ LABEL_84:
 
     v48 = a3[15];
     v49 = a2[5718];
-    v50 = (a3 + 37);
+    v50 = a3 + 37;
     v52 = *(v25 + 2644) == 1 && v47 != 0;
     do
     {
-      v53 = v49 + v49 * *&v50[4 * v36];
+      v53 = v49 + v49 * v50[v36];
       if (v53 + v37 > v44)
       {
         v53 = v44 - v37;
@@ -3525,7 +3525,7 @@ uint64_t CAHDecViolaHevc::setVPInstrFifo(uint64_t this, int a2)
   return this;
 }
 
-CAHDec *createViolaAvcDecoder(uint64_t a1)
+CAHDecViolaAvc *createViolaAvcDecoder(CAVDAvcDecoder *a1)
 {
   v2 = operator new(0x3EE0uLL, MEMORY[0x277D826F0]);
   v3 = v2;
@@ -3671,8 +3671,9 @@ uint64_t CAHDecViolaAvc::populateSlices(CAHDecViolaAvc *this, unsigned int a2)
   return 0;
 }
 
-uint64_t CAHDecViolaAvc::populateSliceRegisters(uint64_t a1, uint64_t a2, signed int a3)
+uint64_t CAHDecViolaAvc::populateSliceRegisters(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a3;
   v6 = 0;
   v108 = *MEMORY[0x277D85DE8];
   v7 = *(a1 + 256);
@@ -3705,6 +3706,7 @@ uint64_t CAHDecViolaAvc::populateSliceRegisters(uint64_t a1, uint64_t a2, signed
     v17 = 0;
   }
 
+  v18 = a3;
   v19 = v17 | v16;
   *(a2 + 4) = v19;
   if (*(v14 + 24) == 1)
@@ -3814,7 +3816,7 @@ LABEL_20:
     v27 = *(a2 + 4);
   }
 
-  v91 = a3;
+  v91 = v3;
   v92 = a1;
   v90 = (v10 + 604 * v9);
   v95 = a2;
@@ -3823,7 +3825,7 @@ LABEL_20:
   if (v36 <= 1)
   {
     v37 = v7 + 6760;
-    v38 = v13 + 13040 * a3;
+    v38 = v13 + 13040 * v18;
     if (*(v38 + 13032))
     {
       v39 = 0;

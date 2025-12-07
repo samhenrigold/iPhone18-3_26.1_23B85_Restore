@@ -820,7 +820,8 @@ LABEL_12:
         transientEditor = self->_customPhotosEditor;
       }
 
-      if ([(NTKCompanionTransientCustomPhotosEditor *)transientEditor photosCount])
+      photosCount = [(NTKCompanionTransientCustomPhotosEditor *)transientEditor photosCount];
+      if (photosCount)
       {
         goto LABEL_6;
       }
@@ -834,18 +835,18 @@ LABEL_12:
       {
 LABEL_6:
         secondaryLabelColor = [MEMORY[0x277D75348] secondaryLabelColor];
-        v11 = 1;
+        v12 = 1;
 LABEL_9:
         textLabel2 = [rowCopy textLabel];
         [textLabel2 setTextColor:secondaryLabelColor];
 
-        [rowCopy setAccessoryType:v11];
+        [rowCopy setAccessoryType:v12];
         goto LABEL_10;
       }
     }
 
-    secondaryLabelColor = NTKCActionColor();
-    v11 = 0;
+    secondaryLabelColor = NTKCActionColor(photosCount);
+    v12 = 0;
     goto LABEL_9;
   }
 

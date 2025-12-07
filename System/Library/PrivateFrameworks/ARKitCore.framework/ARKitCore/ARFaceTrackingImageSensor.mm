@@ -41,7 +41,7 @@
 - (void)dealloc
 {
   v14 = *MEMORY[0x1E69E9840];
-  v3 = _ARLogSensor();
+  v3 = _ARLogSensor(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     v4 = objc_opt_class();
@@ -110,8 +110,7 @@
     {
       if ([(AVCaptureMetadataOutput *)self->_metaDataOutput isFaceTrackingSupported]&& [(AVCaptureMetadataOutput *)self->_metaDataOutput isFaceTrackingMetadataObjectTypesAvailable])
       {
-        -[AVCaptureMetadataOutput setFaceTrackingMaxFaces:](self->_metaDataOutput, "setFaceTrackingMaxFaces:", [reconfigureCopy maximumNumberOfTrackedFaces]);
-        v7 = _ARLogSensor();
+        v7 = _ARLogSensor(-[AVCaptureMetadataOutput setFaceTrackingMaxFaces:](self->_metaDataOutput, "setFaceTrackingMaxFaces:", [reconfigureCopy maximumNumberOfTrackedFaces]));
         if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
         {
           v8 = objc_opt_class();
@@ -179,10 +178,10 @@
 
 - (id)configureCaptureSession
 {
-  v83[1] = *MEMORY[0x1E69E9840];
-  v74.receiver = self;
-  v74.super_class = ARFaceTrackingImageSensor;
-  configureCaptureSession = [(ARImageSensor *)&v74 configureCaptureSession];
+  v87[1] = *MEMORY[0x1E69E9840];
+  v78.receiver = self;
+  v78.super_class = ARFaceTrackingImageSensor;
+  configureCaptureSession = [(ARImageSensor *)&v78 configureCaptureSession];
   if (!configureCaptureSession)
   {
     if (!ARHasH10())
@@ -220,38 +219,38 @@
             [ARFaceTrackingImageSensor configureCaptureSession];
           }
 
-          v47 = ARShouldUseLogTypeError(void)::internalOSVersion;
-          v48 = _ARLogSensor();
-          v49 = v48;
-          if (v47 == 1)
+          v51 = ARShouldUseLogTypeError(void)::internalOSVersion;
+          v52 = _ARLogSensor(v17);
+          v53 = v52;
+          if (v51 == 1)
           {
-            if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+            if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
             {
-              v50 = objc_opt_class();
-              v51 = NSStringFromClass(v50);
+              v54 = objc_opt_class();
+              v55 = NSStringFromClass(v54);
               logPrefix = [(ARImageSensor *)self logPrefix];
               *buf = 138543874;
-              v76 = v51;
-              v77 = 2048;
+              v80 = v55;
+              v81 = 2048;
               selfCopy9 = self;
-              v79 = 2112;
-              v80 = logPrefix;
-              _os_log_impl(&dword_1C241C000, v49, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: %@ Cannot add depth data output to the capture session.", buf, 0x20u);
+              v83 = 2112;
+              v84 = logPrefix;
+              _os_log_impl(&dword_1C241C000, v53, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: %@ Cannot add depth data output to the capture session.", buf, 0x20u);
             }
           }
 
-          else if (os_log_type_enabled(v48, OS_LOG_TYPE_INFO))
+          else if (os_log_type_enabled(v52, OS_LOG_TYPE_INFO))
           {
-            v53 = objc_opt_class();
-            v54 = NSStringFromClass(v53);
+            v57 = objc_opt_class();
+            v58 = NSStringFromClass(v57);
             logPrefix2 = [(ARImageSensor *)self logPrefix];
             *buf = 138543874;
-            v76 = v54;
-            v77 = 2048;
+            v80 = v58;
+            v81 = 2048;
             selfCopy9 = self;
-            v79 = 2112;
-            v80 = logPrefix2;
-            _os_log_impl(&dword_1C241C000, v49, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: %@ Cannot add depth data output to the capture session.", buf, 0x20u);
+            v83 = 2112;
+            v84 = logPrefix2;
+            _os_log_impl(&dword_1C241C000, v53, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: %@ Cannot add depth data output to the capture session.", buf, 0x20u);
           }
 
           _configureMetaDataOutput = ARErrorWithCodeAndUserInfo(102, 0);
@@ -261,19 +260,19 @@
         captureSession2 = [(ARImageSensor *)self captureSession];
         [captureSession2 addOutputWithNoConnections:self->_depthDataOutput];
 
-        v18 = _ARLogSensor();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+        v20 = _ARLogSensor(v19);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
         {
-          v19 = objc_opt_class();
-          v20 = NSStringFromClass(v19);
+          v21 = objc_opt_class();
+          v22 = NSStringFromClass(v21);
           logPrefix3 = [(ARImageSensor *)self logPrefix];
           *buf = 138543874;
-          v76 = v20;
-          v77 = 2048;
+          v80 = v22;
+          v81 = 2048;
           selfCopy9 = self;
-          v79 = 2112;
-          v80 = logPrefix3;
-          _os_log_impl(&dword_1C241C000, v18, OS_LOG_TYPE_INFO, "%{public}@ <%p>: %@ Added depth data output to the capture session", buf, 0x20u);
+          v83 = 2112;
+          v84 = logPrefix3;
+          _os_log_impl(&dword_1C241C000, v20, OS_LOG_TYPE_INFO, "%{public}@ <%p>: %@ Added depth data output to the capture session", buf, 0x20u);
         }
 
         if (!self->_depthConnection)
@@ -284,23 +283,22 @@
           deviceType2 = [device deviceType];
           videoInput3 = [(ARImageSensor *)self videoInput];
           device2 = [videoInput3 device];
-          position = [device2 position];
-          v29 = [videoInput portsWithMediaType:*MEMORY[0x1E69875C0] sourceDeviceType:deviceType2 sourceDevicePosition:position];
-          firstObject = [v29 firstObject];
+          v30 = [videoInput portsWithMediaType:*MEMORY[0x1E69875C0] sourceDeviceType:deviceType2 sourceDevicePosition:objc_msgSend_position(device2)];
+          firstObject = [v30 firstObject];
 
           if (firstObject)
           {
-            v30 = MEMORY[0x1E6987070];
-            v83[0] = firstObject;
-            v31 = [MEMORY[0x1E695DEC8] arrayWithObjects:v83 count:1];
-            v32 = [v30 connectionWithInputPorts:v31 output:self->_depthDataOutput];
+            v32 = MEMORY[0x1E6987070];
+            v87[0] = firstObject;
+            v33 = [MEMORY[0x1E695DEC8] arrayWithObjects:v87 count:1];
+            v34 = [v32 connectionWithInputPorts:v33 output:self->_depthDataOutput];
             depthConnection = self->_depthConnection;
-            self->_depthConnection = v32;
+            self->_depthConnection = v34;
 
             captureSession3 = [(ARImageSensor *)self captureSession];
-            LOBYTE(v30) = [captureSession3 canAddConnection:self->_depthConnection];
+            LOBYTE(v32) = [captureSession3 canAddConnection:self->_depthConnection];
 
-            if (v30)
+            if (v32)
             {
               connections = [(ARImageSensor *)self connections];
               [connections addObject:self->_depthConnection];
@@ -308,45 +306,44 @@
               captureSession4 = [(ARImageSensor *)self captureSession];
               [captureSession4 addConnection:self->_depthConnection];
 
-              v37 = _ARLogSensor();
-              if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
-              {
-                v38 = objc_opt_class();
-                v39 = NSStringFromClass(v38);
-                logPrefix4 = [(ARImageSensor *)self logPrefix];
-                *buf = 138543874;
-                v76 = v39;
-                v77 = 2048;
-                selfCopy9 = self;
-                v79 = 2112;
-                v80 = logPrefix4;
-                _os_log_impl(&dword_1C241C000, v37, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: %@ Added depth data output to the capture session", buf, 0x20u);
-              }
-
-              [(AVCaptureDepthDataOutput *)self->_depthDataOutput setAlwaysDiscardsLateDepthData:1];
-              [(AVCaptureDepthDataOutput *)self->_depthDataOutput setFilteringEnabled:[ARKitUserDefaults BOOLForKey:@"com.apple.arkit.imageSensor.face.depthDataFiltering"]];
-              v41 = _ARLogSensor();
-              if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
+              v41 = _ARLogSensor(v40);
+              if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
               {
                 v42 = objc_opt_class();
                 v43 = NSStringFromClass(v42);
+                logPrefix4 = [(ARImageSensor *)self logPrefix];
+                *buf = 138543874;
+                v80 = v43;
+                v81 = 2048;
+                selfCopy9 = self;
+                v83 = 2112;
+                v84 = logPrefix4;
+                _os_log_impl(&dword_1C241C000, v41, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: %@ Added depth data output to the capture session", buf, 0x20u);
+              }
+
+              [(AVCaptureDepthDataOutput *)self->_depthDataOutput setAlwaysDiscardsLateDepthData:1];
+              v45 = _ARLogSensor([(AVCaptureDepthDataOutput *)self->_depthDataOutput setFilteringEnabled:[ARKitUserDefaults BOOLForKey:@"com.apple.arkit.imageSensor.face.depthDataFiltering"]]);
+              if (os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
+              {
+                v46 = objc_opt_class();
+                v47 = NSStringFromClass(v46);
                 logPrefix5 = [(ARImageSensor *)self logPrefix];
                 isFilteringEnabled = [(AVCaptureDepthDataOutput *)self->_depthDataOutput isFilteringEnabled];
-                v46 = @"disabled";
+                v50 = @"disabled";
                 *buf = 138544130;
-                v76 = v43;
-                v77 = 2048;
+                v80 = v47;
+                v81 = 2048;
                 if (isFilteringEnabled)
                 {
-                  v46 = @"enabled";
+                  v50 = @"enabled";
                 }
 
                 selfCopy9 = self;
-                v79 = 2112;
-                v80 = logPrefix5;
-                v81 = 2112;
-                v82 = v46;
-                _os_log_impl(&dword_1C241C000, v41, OS_LOG_TYPE_INFO, "%{public}@ <%p>: %@ Depth data filtering is %@.", buf, 0x2Au);
+                v83 = 2112;
+                v84 = logPrefix5;
+                v85 = 2112;
+                v86 = v50;
+                _os_log_impl(&dword_1C241C000, v45, OS_LOG_TYPE_INFO, "%{public}@ <%p>: %@ Depth data filtering is %@.", buf, 0x2Au);
               }
 
               -[AVCaptureConnection setVideoMirrored:](self->_depthConnection, "setVideoMirrored:", [v6 isVideoMirrored]);
@@ -360,38 +357,38 @@
               [ARFaceTrackingImageSensor configureCaptureSession];
             }
 
-            v62 = ARShouldUseLogTypeError(void)::internalOSVersion;
-            v63 = _ARLogSensor();
-            v58 = v63;
-            if (v62 == 1)
+            v66 = ARShouldUseLogTypeError(void)::internalOSVersion;
+            v67 = _ARLogSensor(v37);
+            v62 = v67;
+            if (v66 == 1)
             {
-              if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
+              if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
               {
-                v64 = objc_opt_class();
-                v65 = NSStringFromClass(v64);
+                v68 = objc_opt_class();
+                v69 = NSStringFromClass(v68);
                 logPrefix6 = [(ARImageSensor *)self logPrefix];
                 *buf = 138543874;
-                v76 = v65;
-                v77 = 2048;
+                v80 = v69;
+                v81 = 2048;
                 selfCopy9 = self;
-                v79 = 2112;
-                v80 = logPrefix6;
-                _os_log_impl(&dword_1C241C000, v58, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: %@ Cannot add depth connection to the capture session.", buf, 0x20u);
+                v83 = 2112;
+                v84 = logPrefix6;
+                _os_log_impl(&dword_1C241C000, v62, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: %@ Cannot add depth connection to the capture session.", buf, 0x20u);
               }
             }
 
-            else if (os_log_type_enabled(v63, OS_LOG_TYPE_INFO))
+            else if (os_log_type_enabled(v67, OS_LOG_TYPE_INFO))
             {
-              v70 = objc_opt_class();
-              v71 = NSStringFromClass(v70);
+              v74 = objc_opt_class();
+              v75 = NSStringFromClass(v74);
               logPrefix7 = [(ARImageSensor *)self logPrefix];
               *buf = 138543874;
-              v76 = v71;
-              v77 = 2048;
+              v80 = v75;
+              v81 = 2048;
               selfCopy9 = self;
-              v79 = 2112;
-              v80 = logPrefix7;
-              _os_log_impl(&dword_1C241C000, v58, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: %@ Cannot add depth connection to the capture session.", buf, 0x20u);
+              v83 = 2112;
+              v84 = logPrefix7;
+              _os_log_impl(&dword_1C241C000, v62, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: %@ Cannot add depth connection to the capture session.", buf, 0x20u);
             }
           }
 
@@ -402,38 +399,38 @@
               [ARFaceTrackingImageSensor configureCaptureSession];
             }
 
-            v56 = ARShouldUseLogTypeError(void)::internalOSVersion;
-            v57 = _ARLogSensor();
-            v58 = v57;
-            if (v56 == 1)
+            v60 = ARShouldUseLogTypeError(void)::internalOSVersion;
+            v61 = _ARLogSensor(v31);
+            v62 = v61;
+            if (v60 == 1)
             {
-              if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
+              if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
               {
-                v59 = objc_opt_class();
-                v60 = NSStringFromClass(v59);
+                v63 = objc_opt_class();
+                v64 = NSStringFromClass(v63);
                 logPrefix8 = [(ARImageSensor *)self logPrefix];
                 *buf = 138543874;
-                v76 = v60;
-                v77 = 2048;
+                v80 = v64;
+                v81 = 2048;
                 selfCopy9 = self;
-                v79 = 2112;
-                v80 = logPrefix8;
-                _os_log_impl(&dword_1C241C000, v58, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: %@ Cannot find depth data input port on the video input.", buf, 0x20u);
+                v83 = 2112;
+                v84 = logPrefix8;
+                _os_log_impl(&dword_1C241C000, v62, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: %@ Cannot find depth data input port on the video input.", buf, 0x20u);
               }
             }
 
-            else if (os_log_type_enabled(v57, OS_LOG_TYPE_INFO))
+            else if (os_log_type_enabled(v61, OS_LOG_TYPE_INFO))
             {
-              v67 = objc_opt_class();
-              v68 = NSStringFromClass(v67);
+              v71 = objc_opt_class();
+              v72 = NSStringFromClass(v71);
               logPrefix9 = [(ARImageSensor *)self logPrefix];
               *buf = 138543874;
-              v76 = v68;
-              v77 = 2048;
+              v80 = v72;
+              v81 = 2048;
               selfCopy9 = self;
-              v79 = 2112;
-              v80 = logPrefix9;
-              _os_log_impl(&dword_1C241C000, v58, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: %@ Cannot find depth data input port on the video input.", buf, 0x20u);
+              v83 = 2112;
+              v84 = logPrefix9;
+              _os_log_impl(&dword_1C241C000, v62, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: %@ Cannot find depth data input port on the video input.", buf, 0x20u);
             }
           }
 
@@ -466,7 +463,7 @@ LABEL_8:
 - (id)configureCaptureSessionCalibration
 {
   v14 = *MEMORY[0x1E69E9840];
-  v3 = _ARLogSensor();
+  v3 = _ARLogSensor(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v4 = objc_opt_class();
@@ -486,19 +483,19 @@ LABEL_8:
 
 - (id)prepareToStart
 {
-  v22 = *MEMORY[0x1E69E9840];
-  v3 = _ARLogSensor();
+  v23 = *MEMORY[0x1E69E9840];
+  v3 = _ARLogSensor(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v4 = objc_opt_class();
     v5 = NSStringFromClass(v4);
     logPrefix = [(ARImageSensor *)self logPrefix];
     *buf = 138543874;
-    v17 = v5;
-    v18 = 2048;
+    v18 = v5;
+    v19 = 2048;
     selfCopy2 = self;
-    v20 = 2112;
-    v21 = logPrefix;
+    v21 = 2112;
+    v22 = logPrefix;
     _os_log_impl(&dword_1C241C000, v3, OS_LOG_TYPE_INFO, "%{public}@ <%p>: %@ preparing to start", buf, 0x20u);
   }
 
@@ -506,9 +503,9 @@ LABEL_8:
   self->_signpostFirstFaceDone = 0;
   kdebug_trace();
   kdebug_trace();
-  v15.receiver = self;
-  v15.super_class = ARFaceTrackingImageSensor;
-  prepareToStart = [(ARImageSensor *)&v15 prepareToStart];
+  v16.receiver = self;
+  v16.super_class = ARFaceTrackingImageSensor;
+  prepareToStart = [(ARImageSensor *)&v16 prepareToStart];
   if (!prepareToStart)
   {
     date = [MEMORY[0x1E695DF00] date];
@@ -516,19 +513,19 @@ LABEL_8:
     self->_startTime = v9;
 
     self->_droppedFramesPerSec = 0;
-    v10 = _ARLogSensor();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    v11 = _ARLogSensor(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      v11 = objc_opt_class();
-      v12 = NSStringFromClass(v11);
+      v12 = objc_opt_class();
+      v13 = NSStringFromClass(v12);
       logPrefix2 = [(ARImageSensor *)self logPrefix];
       *buf = 138543874;
-      v17 = v12;
-      v18 = 2048;
+      v18 = v13;
+      v19 = 2048;
       selfCopy2 = self;
-      v20 = 2112;
-      v21 = logPrefix2;
-      _os_log_impl(&dword_1C241C000, v10, OS_LOG_TYPE_INFO, "%{public}@ <%p>: %@ prepare to start complete", buf, 0x20u);
+      v21 = 2112;
+      v22 = logPrefix2;
+      _os_log_impl(&dword_1C241C000, v11, OS_LOG_TYPE_INFO, "%{public}@ <%p>: %@ prepare to start complete", buf, 0x20u);
     }
   }
 
@@ -537,25 +534,25 @@ LABEL_8:
 
 - (void)stop
 {
-  v20 = *MEMORY[0x1E69E9840];
-  v3 = _ARLogSensor();
+  v21 = *MEMORY[0x1E69E9840];
+  v3 = _ARLogSensor(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v4 = objc_opt_class();
     v5 = NSStringFromClass(v4);
     logPrefix = [(ARImageSensor *)self logPrefix];
     *buf = 138543874;
-    v15 = v5;
-    v16 = 2048;
+    v16 = v5;
+    v17 = 2048;
     selfCopy2 = self;
-    v18 = 2112;
-    v19 = logPrefix;
+    v19 = 2112;
+    v20 = logPrefix;
     _os_log_impl(&dword_1C241C000, v3, OS_LOG_TYPE_INFO, "%{public}@ <%p>: %@ stopping", buf, 0x20u);
   }
 
-  v13.receiver = self;
-  v13.super_class = ARFaceTrackingImageSensor;
-  [(ARImageSensor *)&v13 stop];
+  v14.receiver = self;
+  v14.super_class = ARFaceTrackingImageSensor;
+  [(ARImageSensor *)&v14 stop];
   [(AVCaptureMetadataOutput *)self->_metaDataOutput setMetadataObjectsDelegate:0 queue:0];
   availableMetadataObjectTypes = self->_availableMetadataObjectTypes;
   self->_availableMetadataObjectTypes = 0;
@@ -565,25 +562,25 @@ LABEL_8:
 
   self->_droppedFramesPerSec = 0;
   self->_startTime = 0.0;
-  v9 = _ARLogSensor();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  v10 = _ARLogSensor(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
-    v10 = objc_opt_class();
-    v11 = NSStringFromClass(v10);
+    v11 = objc_opt_class();
+    v12 = NSStringFromClass(v11);
     logPrefix2 = [(ARImageSensor *)self logPrefix];
     *buf = 138543874;
-    v15 = v11;
-    v16 = 2048;
+    v16 = v12;
+    v17 = 2048;
     selfCopy2 = self;
-    v18 = 2112;
-    v19 = logPrefix2;
-    _os_log_impl(&dword_1C241C000, v9, OS_LOG_TYPE_INFO, "%{public}@ <%p>: %@ stop complete", buf, 0x20u);
+    v19 = 2112;
+    v20 = logPrefix2;
+    _os_log_impl(&dword_1C241C000, v10, OS_LOG_TYPE_INFO, "%{public}@ <%p>: %@ stop complete", buf, 0x20u);
   }
 }
 
 - (id)_configureMetaDataOutput
 {
-  v121[1] = *MEMORY[0x1E69E9840];
+  v128[1] = *MEMORY[0x1E69E9840];
   internalSettings = [(ARImageSensor *)self internalSettings];
   metaData = [internalSettings metaData];
 
@@ -595,18 +592,18 @@ LABEL_8:
     metaDataOutput = self->_metaDataOutput;
     self->_metaDataOutput = 0;
 
-    availableMetadataObjectTypes = _ARLogSensor();
+    availableMetadataObjectTypes = _ARLogSensor(v28);
     if (os_log_type_enabled(availableMetadataObjectTypes, OS_LOG_TYPE_DEBUG))
     {
-      v27 = objc_opt_class();
-      v28 = NSStringFromClass(v27);
+      v29 = objc_opt_class();
+      v30 = NSStringFromClass(v29);
       logPrefix = [(ARImageSensor *)self logPrefix];
       *buf = 138543874;
-      v114 = v28;
-      v115 = 2048;
+      v121 = v30;
+      v122 = 2048;
       selfCopy12 = self;
-      v117 = 2112;
-      v118 = logPrefix;
+      v124 = 2112;
+      v125 = logPrefix;
       _os_log_impl(&dword_1C241C000, availableMetadataObjectTypes, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: %@ Removed metadata output from the capture session", buf, 0x20u);
     }
 
@@ -627,16 +624,16 @@ LABEL_3:
     if (!v9)
     {
       delegate = [(ARImageSensor *)self delegate];
-      v31 = objc_opt_respondsToSelector();
+      v33 = objc_opt_respondsToSelector();
 
-      if (v31)
+      if (v33)
       {
         dictionary = [MEMORY[0x1E695DF90] dictionary];
-        v33 = ARKitCoreBundle();
-        v34 = [v33 localizedStringForKey:@"Could not add metadata output to capture session" value:&stru_1F4208A80 table:@"Localizable"];
-        [dictionary setObject:v34 forKeyedSubscript:*MEMORY[0x1E696A588]];
+        v35 = ARKitCoreBundle(dictionary);
+        v36 = [v35 localizedStringForKey:@"Could not add metadata output to capture session" value:&stru_1F4208A80 table:@"Localizable"];
+        [dictionary setObject:v36 forKeyedSubscript:*MEMORY[0x1E696A588]];
 
-        v35 = ARErrorWithCodeAndUserInfo(102, dictionary);
+        v37 = ARErrorWithCodeAndUserInfo(102, dictionary);
 
         goto LABEL_41;
       }
@@ -650,44 +647,44 @@ LABEL_3:
       internalSettings2 = [(ARImageSensor *)self internalSettings];
       -[AVCaptureMetadataOutput setFaceTrackingMaxFaces:](self->_metaDataOutput, "setFaceTrackingMaxFaces:", [internalSettings2 maximumNumberOfTrackedFaces]);
 
-      v11 = _ARLogSensor();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+      v12 = _ARLogSensor(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
-        v12 = objc_opt_class();
-        v13 = NSStringFromClass(v12);
+        v13 = objc_opt_class();
+        v14 = NSStringFromClass(v13);
         faceTrackingMaxFaces = [(AVCaptureMetadataOutput *)self->_metaDataOutput faceTrackingMaxFaces];
         isFaceTrackingUsingFaceRecognition = [(AVCaptureMetadataOutput *)self->_metaDataOutput isFaceTrackingUsingFaceRecognition];
-        v16 = @"NO";
+        v17 = @"NO";
         *buf = 138544130;
-        v114 = v13;
-        v115 = 2048;
+        v121 = v14;
+        v122 = 2048;
         if (isFaceTrackingUsingFaceRecognition)
         {
-          v16 = @"YES";
+          v17 = @"YES";
         }
 
         selfCopy12 = self;
-        v117 = 2048;
-        v118 = faceTrackingMaxFaces;
-        v119 = 2112;
-        v120 = v16;
-        _os_log_impl(&dword_1C241C000, v11, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: maxFaces: %li, faceRecognition enabled: %@", buf, 0x2Au);
+        v124 = 2048;
+        v125 = faceTrackingMaxFaces;
+        v126 = 2112;
+        v127 = v17;
+        _os_log_impl(&dword_1C241C000, v12, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: maxFaces: %li, faceRecognition enabled: %@", buf, 0x2Au);
       }
     }
 
     availableMetadataObjectTypes = [(AVCaptureMetadataOutput *)self->_metaDataOutput availableMetadataObjectTypes];
     internalSettings3 = [(ARImageSensor *)self internalSettings];
     metaData2 = [internalSettings3 metaData];
-    v20 = [availableMetadataObjectTypes containsObject:metaData2];
+    v21 = [availableMetadataObjectTypes containsObject:metaData2];
 
-    if (v20)
+    if (v21)
     {
-      v21 = self->_metaDataOutput;
+      v22 = self->_metaDataOutput;
       internalSettings4 = [(ARImageSensor *)self internalSettings];
       metaData3 = [internalSettings4 metaData];
-      v112 = metaData3;
-      v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v112 count:1];
-      [(AVCaptureMetadataOutput *)v21 setMetadataObjectTypes:v24];
+      v119 = metaData3;
+      v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v119 count:1];
+      [(AVCaptureMetadataOutput *)v22 setMetadataObjectTypes:v25];
     }
 
     else
@@ -695,7 +692,7 @@ LABEL_3:
       captureSession3 = [(ARImageSensor *)self captureSession];
       [captureSession3 removeOutput:self->_metaDataOutput];
 
-      v65 = self->_metaDataOutput;
+      v71 = self->_metaDataOutput;
       self->_metaDataOutput = 0;
 
       if (ARShouldUseLogTypeError(void)::onceToken != -1)
@@ -703,57 +700,57 @@ LABEL_3:
         [ARFaceTrackingImageSensor configureCaptureSession];
       }
 
-      v66 = ARShouldUseLogTypeError(void)::internalOSVersion;
-      v67 = _ARLogSensor();
-      v68 = v67;
-      if (v66 == 1)
+      v73 = ARShouldUseLogTypeError(void)::internalOSVersion;
+      v74 = _ARLogSensor(v72);
+      v75 = v74;
+      if (v73 == 1)
       {
-        if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
         {
-          v69 = objc_opt_class();
-          v70 = NSStringFromClass(v69);
+          v76 = objc_opt_class();
+          v77 = NSStringFromClass(v76);
           internalSettings5 = [(ARImageSensor *)self internalSettings];
           metaData4 = [internalSettings5 metaData];
           *buf = 138544130;
-          v114 = v70;
-          v115 = 2048;
+          v121 = v77;
+          v122 = 2048;
           selfCopy12 = self;
-          v117 = 2112;
-          v118 = metaData4;
-          v119 = 2112;
-          v120 = availableMetadataObjectTypes;
-          _os_log_impl(&dword_1C241C000, v68, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Metadata %@ is not supported. Available metadata types are %@", buf, 0x2Au);
+          v124 = 2112;
+          v125 = metaData4;
+          v126 = 2112;
+          v127 = availableMetadataObjectTypes;
+          _os_log_impl(&dword_1C241C000, v75, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Metadata %@ is not supported. Available metadata types are %@", buf, 0x2Au);
         }
       }
 
-      else if (os_log_type_enabled(v67, OS_LOG_TYPE_INFO))
+      else if (os_log_type_enabled(v74, OS_LOG_TYPE_INFO))
       {
-        v79 = objc_opt_class();
-        v80 = NSStringFromClass(v79);
+        v86 = objc_opt_class();
+        v87 = NSStringFromClass(v86);
         internalSettings6 = [(ARImageSensor *)self internalSettings];
         metaData5 = [internalSettings6 metaData];
         *buf = 138544130;
-        v114 = v80;
-        v115 = 2048;
+        v121 = v87;
+        v122 = 2048;
         selfCopy12 = self;
-        v117 = 2112;
-        v118 = metaData5;
-        v119 = 2112;
-        v120 = availableMetadataObjectTypes;
-        _os_log_impl(&dword_1C241C000, v68, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Metadata %@ is not supported. Available metadata types are %@", buf, 0x2Au);
+        v124 = 2112;
+        v125 = metaData5;
+        v126 = 2112;
+        v127 = availableMetadataObjectTypes;
+        _os_log_impl(&dword_1C241C000, v75, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Metadata %@ is not supported. Available metadata types are %@", buf, 0x2Au);
       }
 
       delegate2 = [(ARImageSensor *)self delegate];
-      v84 = objc_opt_respondsToSelector();
+      v91 = objc_opt_respondsToSelector();
 
-      if (v84)
+      if (v91)
       {
         dictionary2 = [MEMORY[0x1E695DF90] dictionary];
-        v86 = ARKitCoreBundle();
-        v87 = [v86 localizedStringForKey:@"AVFoundation failed to deliver the requested metadata object types." value:&stru_1F4208A80 table:@"Localizable"];
-        [dictionary2 setObject:v87 forKeyedSubscript:*MEMORY[0x1E696A588]];
+        v93 = ARKitCoreBundle(dictionary2);
+        v94 = [v93 localizedStringForKey:@"AVFoundation failed to deliver the requested metadata object types." value:&stru_1F4208A80 table:@"Localizable"];
+        [dictionary2 setObject:v94 forKeyedSubscript:*MEMORY[0x1E696A588]];
 
-        v35 = ARErrorWithCodeAndUserInfo(102, dictionary2);
+        v37 = ARErrorWithCodeAndUserInfo(102, dictionary2);
 
         goto LABEL_41;
       }
@@ -766,35 +763,35 @@ LABEL_40:
     availableMetadataObjectTypes = self->_availableMetadataObjectTypes;
     self->_availableMetadataObjectTypes = availableMetadataObjectTypes2;
 
-    v35 = 0;
+    v37 = 0;
     goto LABEL_41;
   }
 
-  v36 = objc_opt_new();
-  v37 = self->_metaDataOutput;
-  self->_metaDataOutput = v36;
+  v38 = objc_opt_new();
+  v39 = self->_metaDataOutput;
+  self->_metaDataOutput = v38;
 
   captureSession4 = [(ARImageSensor *)self captureSession];
-  v39 = [captureSession4 canAddOutput:self->_metaDataOutput];
+  v41 = [captureSession4 canAddOutput:self->_metaDataOutput];
 
-  if (v39)
+  if (v41)
   {
     captureSession5 = [(ARImageSensor *)self captureSession];
     [captureSession5 addOutputWithNoConnections:self->_metaDataOutput];
 
-    v41 = _ARLogSensor();
-    if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
+    v45 = _ARLogSensor(v44);
+    if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
     {
-      v42 = objc_opt_class();
-      v43 = NSStringFromClass(v42);
+      v46 = objc_opt_class();
+      v47 = NSStringFromClass(v46);
       logPrefix2 = [(ARImageSensor *)self logPrefix];
       *buf = 138543874;
-      v114 = v43;
-      v115 = 2048;
+      v121 = v47;
+      v122 = 2048;
       selfCopy12 = self;
-      v117 = 2112;
-      v118 = logPrefix2;
-      _os_log_impl(&dword_1C241C000, v41, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: %@ Added metadata output to the capture session", buf, 0x20u);
+      v124 = 2112;
+      v125 = logPrefix2;
+      _os_log_impl(&dword_1C241C000, v45, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: %@ Added metadata output to the capture session", buf, 0x20u);
     }
 
     if (self->_metadataConnection)
@@ -808,23 +805,22 @@ LABEL_40:
     deviceType = [device deviceType];
     videoInput3 = [(ARImageSensor *)self videoInput];
     device2 = [videoInput3 device];
-    position = [device2 position];
-    v52 = [videoInput portsWithMediaType:*MEMORY[0x1E69875D8] sourceDeviceType:deviceType sourceDevicePosition:position];
-    firstObject = [v52 firstObject];
+    v55 = [videoInput portsWithMediaType:*MEMORY[0x1E69875D8] sourceDeviceType:deviceType sourceDevicePosition:objc_msgSend_position(device2)];
+    firstObject = [v55 firstObject];
 
     if (firstObject)
     {
-      v53 = MEMORY[0x1E6987070];
-      v121[0] = firstObject;
-      v54 = [MEMORY[0x1E695DEC8] arrayWithObjects:v121 count:1];
-      v55 = [v53 connectionWithInputPorts:v54 output:self->_metaDataOutput];
+      v57 = MEMORY[0x1E6987070];
+      v128[0] = firstObject;
+      v58 = [MEMORY[0x1E695DEC8] arrayWithObjects:v128 count:1];
+      v59 = [v57 connectionWithInputPorts:v58 output:self->_metaDataOutput];
       metadataConnection = self->_metadataConnection;
-      self->_metadataConnection = v55;
+      self->_metadataConnection = v59;
 
       captureSession6 = [(ARImageSensor *)self captureSession];
-      LOBYTE(v53) = [captureSession6 canAddConnection:self->_metadataConnection];
+      LOBYTE(v57) = [captureSession6 canAddConnection:self->_metadataConnection];
 
-      if (v53)
+      if (v57)
       {
         connections = [(ARImageSensor *)self connections];
         [connections addObject:self->_metadataConnection];
@@ -832,19 +828,19 @@ LABEL_40:
         captureSession7 = [(ARImageSensor *)self captureSession];
         [captureSession7 addConnection:self->_metadataConnection];
 
-        v60 = _ARLogSensor();
-        if (os_log_type_enabled(v60, OS_LOG_TYPE_DEBUG))
+        v66 = _ARLogSensor(v65);
+        if (os_log_type_enabled(v66, OS_LOG_TYPE_DEBUG))
         {
-          v61 = objc_opt_class();
-          v62 = NSStringFromClass(v61);
+          v67 = objc_opt_class();
+          v68 = NSStringFromClass(v67);
           logPrefix3 = [(ARImageSensor *)self logPrefix];
           *buf = 138543874;
-          v114 = v62;
-          v115 = 2048;
+          v121 = v68;
+          v122 = 2048;
           selfCopy12 = self;
-          v117 = 2112;
-          v118 = logPrefix3;
-          _os_log_impl(&dword_1C241C000, v60, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: %@ Added metadata connection to the capture session", buf, 0x20u);
+          v124 = 2112;
+          v125 = logPrefix3;
+          _os_log_impl(&dword_1C241C000, v66, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: %@ Added metadata connection to the capture session", buf, 0x20u);
         }
 
         goto LABEL_3;
@@ -855,38 +851,38 @@ LABEL_40:
         [ARFaceTrackingImageSensor configureCaptureSession];
       }
 
-      v100 = ARShouldUseLogTypeError(void)::internalOSVersion;
-      v101 = _ARLogSensor();
-      v96 = v101;
-      if (v100 == 1)
+      v107 = ARShouldUseLogTypeError(void)::internalOSVersion;
+      v108 = _ARLogSensor(v62);
+      v103 = v108;
+      if (v107 == 1)
       {
-        if (os_log_type_enabled(v101, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v108, OS_LOG_TYPE_ERROR))
         {
-          v102 = objc_opt_class();
-          v103 = NSStringFromClass(v102);
+          v109 = objc_opt_class();
+          v110 = NSStringFromClass(v109);
           logPrefix4 = [(ARImageSensor *)self logPrefix];
           *buf = 138543874;
-          v114 = v103;
-          v115 = 2048;
+          v121 = v110;
+          v122 = 2048;
           selfCopy12 = self;
-          v117 = 2112;
-          v118 = logPrefix4;
-          _os_log_impl(&dword_1C241C000, v96, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: %@ Cannot add meta data connection to capture session.", buf, 0x20u);
+          v124 = 2112;
+          v125 = logPrefix4;
+          _os_log_impl(&dword_1C241C000, v103, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: %@ Cannot add meta data connection to capture session.", buf, 0x20u);
         }
       }
 
-      else if (os_log_type_enabled(v101, OS_LOG_TYPE_INFO))
+      else if (os_log_type_enabled(v108, OS_LOG_TYPE_INFO))
       {
-        v108 = objc_opt_class();
-        v109 = NSStringFromClass(v108);
+        v115 = objc_opt_class();
+        v116 = NSStringFromClass(v115);
         logPrefix5 = [(ARImageSensor *)self logPrefix];
         *buf = 138543874;
-        v114 = v109;
-        v115 = 2048;
+        v121 = v116;
+        v122 = 2048;
         selfCopy12 = self;
-        v117 = 2112;
-        v118 = logPrefix5;
-        _os_log_impl(&dword_1C241C000, v96, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: %@ Cannot add meta data connection to capture session.", buf, 0x20u);
+        v124 = 2112;
+        v125 = logPrefix5;
+        _os_log_impl(&dword_1C241C000, v103, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: %@ Cannot add meta data connection to capture session.", buf, 0x20u);
       }
     }
 
@@ -897,42 +893,42 @@ LABEL_40:
         [ARFaceTrackingImageSensor configureCaptureSession];
       }
 
-      v94 = ARShouldUseLogTypeError(void)::internalOSVersion;
-      v95 = _ARLogSensor();
-      v96 = v95;
-      if (v94 == 1)
+      v101 = ARShouldUseLogTypeError(void)::internalOSVersion;
+      v102 = _ARLogSensor(v56);
+      v103 = v102;
+      if (v101 == 1)
       {
-        if (os_log_type_enabled(v95, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v102, OS_LOG_TYPE_ERROR))
         {
-          v97 = objc_opt_class();
-          v98 = NSStringFromClass(v97);
+          v104 = objc_opt_class();
+          v105 = NSStringFromClass(v104);
           logPrefix6 = [(ARImageSensor *)self logPrefix];
           *buf = 138543874;
-          v114 = v98;
-          v115 = 2048;
+          v121 = v105;
+          v122 = 2048;
           selfCopy12 = self;
-          v117 = 2112;
-          v118 = logPrefix6;
-          _os_log_impl(&dword_1C241C000, v96, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: %@ Cannot find meta data input port on the video input.", buf, 0x20u);
+          v124 = 2112;
+          v125 = logPrefix6;
+          _os_log_impl(&dword_1C241C000, v103, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: %@ Cannot find meta data input port on the video input.", buf, 0x20u);
         }
       }
 
-      else if (os_log_type_enabled(v95, OS_LOG_TYPE_INFO))
+      else if (os_log_type_enabled(v102, OS_LOG_TYPE_INFO))
       {
-        v105 = objc_opt_class();
-        v106 = NSStringFromClass(v105);
+        v112 = objc_opt_class();
+        v113 = NSStringFromClass(v112);
         logPrefix7 = [(ARImageSensor *)self logPrefix];
         *buf = 138543874;
-        v114 = v106;
-        v115 = 2048;
+        v121 = v113;
+        v122 = 2048;
         selfCopy12 = self;
-        v117 = 2112;
-        v118 = logPrefix7;
-        _os_log_impl(&dword_1C241C000, v96, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: %@ Cannot find meta data input port on the video input.", buf, 0x20u);
+        v124 = 2112;
+        v125 = logPrefix7;
+        _os_log_impl(&dword_1C241C000, v103, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: %@ Cannot find meta data input port on the video input.", buf, 0x20u);
       }
     }
 
-    v35 = ARErrorWithCodeAndUserInfo(102, 0);
+    v37 = ARErrorWithCodeAndUserInfo(102, 0);
   }
 
   else
@@ -942,46 +938,46 @@ LABEL_40:
       [ARFaceTrackingImageSensor _configureMetaDataOutput];
     }
 
-    v73 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v74 = _ARLogSensor();
-    v75 = v74;
-    if (v73 == 1)
+    v80 = ARShouldUseLogTypeError(void)::internalOSVersion;
+    v81 = _ARLogSensor(v42);
+    v82 = v81;
+    if (v80 == 1)
     {
-      if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v81, OS_LOG_TYPE_ERROR))
       {
-        v76 = objc_opt_class();
-        v77 = NSStringFromClass(v76);
+        v83 = objc_opt_class();
+        v84 = NSStringFromClass(v83);
         logPrefix8 = [(ARImageSensor *)self logPrefix];
         *buf = 138543874;
-        v114 = v77;
-        v115 = 2048;
+        v121 = v84;
+        v122 = 2048;
         selfCopy12 = self;
-        v117 = 2112;
-        v118 = logPrefix8;
-        _os_log_impl(&dword_1C241C000, v75, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: %@ Cannot add mete data output to the capture session.", buf, 0x20u);
+        v124 = 2112;
+        v125 = logPrefix8;
+        _os_log_impl(&dword_1C241C000, v82, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: %@ Cannot add mete data output to the capture session.", buf, 0x20u);
       }
     }
 
-    else if (os_log_type_enabled(v74, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v81, OS_LOG_TYPE_INFO))
     {
-      v91 = objc_opt_class();
-      v92 = NSStringFromClass(v91);
+      v98 = objc_opt_class();
+      v99 = NSStringFromClass(v98);
       logPrefix9 = [(ARImageSensor *)self logPrefix];
       *buf = 138543874;
-      v114 = v92;
-      v115 = 2048;
+      v121 = v99;
+      v122 = 2048;
       selfCopy12 = self;
-      v117 = 2112;
-      v118 = logPrefix9;
-      _os_log_impl(&dword_1C241C000, v75, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: %@ Cannot add mete data output to the capture session.", buf, 0x20u);
+      v124 = 2112;
+      v125 = logPrefix9;
+      _os_log_impl(&dword_1C241C000, v82, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: %@ Cannot add mete data output to the capture session.", buf, 0x20u);
     }
 
-    v35 = ARErrorWithCodeAndUserInfo(102, 0);
+    v37 = ARErrorWithCodeAndUserInfo(102, 0);
   }
 
 LABEL_41:
 
-  return v35;
+  return v37;
 }
 
 - (void)captureOutput:(id)output didOutputSampleBuffer:(opaqueCMSampleBuffer *)buffer fromConnection:(id)connection
@@ -1001,21 +997,21 @@ LABEL_41:
 
 - (void)dataOutputSynchronizer:(id)synchronizer didOutputSynchronizedDataCollection:(id)collection
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   synchronizerCopy = synchronizer;
   collectionCopy = collection;
   videoOutput = [(ARImageSensor *)self videoOutput];
   v8 = [collectionCopy objectForKeyedSubscript:videoOutput];
 
-  v43 = [collectionCopy objectForKeyedSubscript:self->_metaDataOutput];
+  v45 = [collectionCopy objectForKeyedSubscript:self->_metaDataOutput];
   if (self->_depthDataOutput)
   {
-    v42 = [collectionCopy objectForKeyedSubscript:?];
+    v44 = [collectionCopy objectForKeyedSubscript:?];
   }
 
   else
   {
-    v42 = 0;
+    v44 = 0;
   }
 
   dataOutputs = [synchronizerCopy dataOutputs];
@@ -1026,7 +1022,7 @@ LABEL_41:
     if ([metadataObjectTypes containsObject:*MEMORY[0x1E6987018]])
     {
       v12 = [(NSArray *)self->_availableMetadataObjectTypes containsObject:v11];
-      if (v43)
+      if (v45)
       {
         v13 = 0;
       }
@@ -1053,73 +1049,73 @@ LABEL_41:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v39 = v8;
+      v41 = v8;
       videoOutput2 = [(ARImageSensor *)self videoOutput];
-      sbuf = [v39 sampleBuffer];
+      sbuf = [v41 sampleBuffer];
       videoOutput3 = [(ARImageSensor *)self videoOutput];
-      v37 = *MEMORY[0x1E6987608];
-      v41 = [videoOutput3 connectionWithMediaType:?];
+      v39 = *MEMORY[0x1E6987608];
+      v43 = [videoOutput3 connectionWithMediaType:?];
 
       if (!self->_signpostFirstFrameDone)
       {
         self->_signpostFirstFrameDone = 1;
         kdebug_trace();
-        memset(&v46, 0, sizeof(v46));
-        CMSampleBufferGetPresentationTimeStamp(&v46, sbuf);
-        v15 = _ARLogSensor();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+        memset(&v48, 0, sizeof(v48));
+        PresentationTimeStamp = CMSampleBufferGetPresentationTimeStamp(&v48, sbuf);
+        v16 = _ARLogSensor(PresentationTimeStamp);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
-          v16 = objc_opt_class();
-          v17 = NSStringFromClass(v16);
+          v17 = objc_opt_class();
+          v18 = NSStringFromClass(v17);
           logPrefix = [(ARImageSensor *)self logPrefix];
-          time = v46;
+          time = v48;
           Seconds = CMTimeGetSeconds(&time);
           *buf = 138544130;
-          *&buf[4] = v17;
+          *&buf[4] = v18;
           *&buf[12] = 2048;
           *&buf[14] = self;
           *&buf[22] = 2112;
-          v48 = logPrefix;
-          v49 = 2048;
-          v50 = Seconds;
-          _os_log_impl(&dword_1C241C000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@ <%p>: %@ received first image data with timestamp: %f", buf, 0x2Au);
+          v50 = logPrefix;
+          v51 = 2048;
+          v52 = Seconds;
+          _os_log_impl(&dword_1C241C000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@ <%p>: %@ received first image data with timestamp: %f", buf, 0x2Au);
         }
       }
 
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v20 = v43;
-        v21 = self->_metaDataOutput;
-        metadataObjects = [v20 metadataObjects];
+        v21 = v45;
+        v22 = self->_metaDataOutput;
+        metadataObjects = [v21 metadataObjects];
         if ([(NSArray *)self->_availableMetadataObjectTypes containsObject:*MEMORY[0x1E6987018]])
         {
-          v23 = [MEMORY[0x1E696AE18] predicateWithBlock:&__block_literal_global_1];
-          v24 = [metadataObjects filteredArrayUsingPredicate:v23];
+          v24 = [MEMORY[0x1E696AE18] predicateWithBlock:&__block_literal_global_1];
+          v25 = [metadataObjects filteredArrayUsingPredicate:v24];
 
-          v25 = [v24 count] == 0;
-          v13 |= v25;
+          v26 = [v25 count] == 0;
+          v13 |= v26;
         }
 
-        if (!v41)
+        if (!v43)
         {
           videoOutput4 = [(ARImageSensor *)self videoOutput];
-          v27 = [videoOutput4 connectionWithMediaType:v37];
+          v28 = [videoOutput4 connectionWithMediaType:v39];
 
-          v41 = v27;
+          v43 = v28;
         }
       }
 
       else
       {
         metadataObjects = 0;
-        v21 = 0;
+        v22 = 0;
       }
 
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        depthData = [v42 depthData];
+        depthData = [v44 depthData];
       }
 
       else
@@ -1129,11 +1125,11 @@ LABEL_41:
 
       date = [MEMORY[0x1E695DF00] date];
       [date timeIntervalSince1970];
-      v31 = v30;
+      v32 = v31;
 
-      if (v31 - self->_startTime > 1.0)
+      if (v32 - self->_startTime > 1.0)
       {
-        self->_startTime = v31;
+        self->_startTime = v32;
         self->_droppedFramesPerSec = 0;
       }
 
@@ -1155,19 +1151,19 @@ LABEL_45:
         if (droppedFramesPerSec <= 4)
         {
           self->_droppedFramesPerSec = droppedFramesPerSec + 1;
-          v33 = _ARLogSensor();
-          if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
+          v35 = _ARLogSensor(v33);
+          if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
           {
-            v34 = objc_opt_class();
-            v35 = NSStringFromClass(v34);
+            v36 = objc_opt_class();
+            v37 = NSStringFromClass(v36);
             logPrefix2 = [(ARImageSensor *)self logPrefix];
             *buf = 138543874;
-            *&buf[4] = v35;
+            *&buf[4] = v37;
             *&buf[12] = 2048;
             *&buf[14] = self;
             *&buf[22] = 2112;
-            v48 = logPrefix2;
-            _os_log_impl(&dword_1C241C000, v33, OS_LOG_TYPE_INFO, "%{public}@ <%p>: %@ Image frame was dropped.", buf, 0x20u);
+            v50 = logPrefix2;
+            _os_log_impl(&dword_1C241C000, v35, OS_LOG_TYPE_INFO, "%{public}@ <%p>: %@ Image frame was dropped.", buf, 0x20u);
           }
 
           goto LABEL_38;
@@ -1179,9 +1175,9 @@ LABEL_45:
       if (sbuf)
       {
         kdebug_trace();
-        if (v42)
+        if (v44)
         {
-          [v42 timestamp];
+          objc_msgSend_timestamp(v44);
         }
 
         else
@@ -1189,7 +1185,7 @@ LABEL_45:
           memset(buf, 0, sizeof(buf));
         }
 
-        [(ARFaceTrackingImageSensor *)self capturedSynchedOutput:videoOutput2 didOutputSampleBuffer:sbuf fromVideoConnection:v41 metaDataOutput:v21 didOutputMetadataObjects:metadataObjects didOutputDepthData:depthData atTime:buf];
+        [(ARFaceTrackingImageSensor *)self capturedSynchedOutput:videoOutput2 didOutputSampleBuffer:sbuf fromVideoConnection:v43 metaDataOutput:v22 didOutputMetadataObjects:metadataObjects didOutputDepthData:depthData atTime:buf];
       }
 
       goto LABEL_45;
@@ -1237,7 +1233,7 @@ uint64_t __88__ARFaceTrackingImageSensor_dataOutputSynchronizer_didOutputSynchro
       pixelBuffer = [(ARImageData *)v19 pixelBuffer];
       captureDevice2 = [(ARImageSensor *)self captureDevice];
       localizedName = [captureDevice2 localizedName];
-      [(ARImageData *)v19 timestamp];
+      objc_msgSend_timestamp(v19);
       v25 = v24;
       captureDevice3 = [(ARImageSensor *)self captureDevice];
       deviceType = [captureDevice3 deviceType];
@@ -1251,7 +1247,7 @@ uint64_t __88__ARFaceTrackingImageSensor_dataOutputSynchronizer_didOutputSynchro
         captureSession2 = [(ARImageSensor *)self captureSession];
         captureDate2 = [ARImageData captureDateFromPresentationTimestamp:&time session:captureSession2];
 
-        [(ARImageData *)v19 timestamp];
+        objc_msgSend_timestamp(v19);
         captureDate = [(ARImageData *)v19 captureDate];
         [captureDate timeIntervalSinceNow];
         [captureDate2 timeIntervalSinceNow];
@@ -1260,7 +1256,7 @@ uint64_t __88__ARFaceTrackingImageSensor_dataOutputSynchronizer_didOutputSynchro
 
       else
       {
-        [(ARImageData *)v19 timestamp];
+        objc_msgSend_timestamp(v19);
         captureDate2 = [(ARImageData *)v19 captureDate];
         [captureDate2 timeIntervalSinceNow];
         kdebug_trace();
@@ -1308,14 +1304,14 @@ uint64_t __88__ARFaceTrackingImageSensor_dataOutputSynchronizer_didOutputSynchro
       }
 
       [ARImageSensor registerSignPostForImageData:v19];
-      [(ARImageData *)v19 timestamp];
+      objc_msgSend_timestamp(v19);
       kdebug_trace();
       delegate = [(ARImageSensor *)self delegate];
       [delegate sensor:self didOutputSensorData:v19];
 
-      [(ARImageData *)v19 timestamp];
+      objc_msgSend_timestamp(v19);
       kdebug_trace();
-      [(ARImageData *)v19 timestamp];
+      objc_msgSend_timestamp(v19);
       cameraType = [(ARImageData *)v19 cameraType];
       kdebug_trace();
     }

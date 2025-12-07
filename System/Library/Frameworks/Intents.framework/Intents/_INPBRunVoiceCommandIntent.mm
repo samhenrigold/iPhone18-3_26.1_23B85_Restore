@@ -269,19 +269,18 @@ LABEL_28:
 
   if (previousIntentIdentifier)
   {
-    previousIntentIdentifier = self->_previousIntentIdentifier;
     PBDataWriterWriteStringField();
   }
 
   voiceCommand = [(_INPBRunVoiceCommandIntent *)self voiceCommand];
 
-  v13 = toCopy;
+  v12 = toCopy;
   if (voiceCommand)
   {
     voiceCommand2 = [(_INPBRunVoiceCommandIntent *)self voiceCommand];
     PBDataWriterWriteSubmessage();
 
-    v13 = toCopy;
+    v12 = toCopy;
   }
 }
 

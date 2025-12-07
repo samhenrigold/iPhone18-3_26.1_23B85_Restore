@@ -10,9 +10,9 @@
 - (PTEffectTemporalFilter)initWithMetalContext:(id)context disparitySize:(id *)size
 {
   contextCopy = context;
-  v78.receiver = self;
-  v78.super_class = PTEffectTemporalFilter;
-  v8 = [(PTEffectTemporalFilter *)&v78 init];
+  v84.receiver = self;
+  v84.super_class = PTEffectTemporalFilter;
+  v8 = [(PTEffectTemporalFilter *)&v84 init];
   v9 = v8;
   if (v8)
   {
@@ -22,119 +22,119 @@
     objc_storeStrong(v8 + 1, context);
     if (v9[1])
     {
-      v75 = vcvtq_u64_f64(vcvtq_f64_f32(vmul_f32(vcvt_f32_f64(vcvtq_f64_u64(*&size->var0)), 0x3F0000003F000000)));
-      v76 = v75;
-      v77 = 1;
-      v11 = [[PTOpticalFlow alloc] initWithMetalContext:contextCopy colorSize:&v76 lktPreset:4 allocateDisplacementFWD:1 needConversionBGRA2YUVA:0 inverseFlow:1];
-      v12 = v9[2];
-      v9[2] = v11;
+      v81 = vcvtq_u64_f64(vcvtq_f64_f32(vmul_f32(vcvt_f32_f64(vcvtq_f64_u64(*&size->var0)), 0x3F0000003F000000)));
+      v82 = v81;
+      v83 = 1;
+      v12 = [[PTOpticalFlow alloc] initWithMetalContext:contextCopy colorSize:&v82 lktPreset:4 allocateDisplacementFWD:1 needConversionBGRA2YUVA:0 inverseFlow:1];
+      v13 = v9[2];
+      v9[2] = v12;
 
       if (v9[2])
       {
-        v13 = 0;
-        v14 = v9 + 4;
-        v15 = v9 + 6;
-        v16 = v9 + 8;
-        v17 = 1;
+        v15 = 0;
+        v16 = v9 + 4;
+        v17 = v9 + 6;
+        v18 = v9 + 8;
+        v19 = 1;
         do
         {
-          v18 = v17;
+          v20 = v19;
           textureUtil = [contextCopy textureUtil];
-          v20 = [textureUtil createWithWidth:size->var0 height:size->var1 pixelFormat:25];
-          v21 = v14[v13];
-          v14[v13] = v20;
+          v22 = [textureUtil createWithWidth:size->var0 height:size->var1 pixelFormat:25];
+          v23 = v16[v15];
+          v16[v15] = v22;
 
-          if (!v14[v13])
+          if (!v16[v15])
           {
-            v31 = _PTLogSystem();
-            if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+            v37 = _PTLogSystem(v24);
+            if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
             {
-              [(PTEffectTemporalFilter *)v31 initWithMetalContext:v46 disparitySize:v47, v48, v49, v50, v51, v52];
+              [(PTEffectTemporalFilter *)v37 initWithMetalContext:v52 disparitySize:v53, v54, v55, v56, v57, v58];
             }
 
             goto LABEL_23;
           }
 
           textureUtil2 = [contextCopy textureUtil];
-          v23 = [textureUtil2 createWithWidth:size->var0 height:size->var1 pixelFormat:115];
-          v24 = v15[v13];
-          v15[v13] = v23;
+          v26 = [textureUtil2 createWithWidth:size->var0 height:size->var1 pixelFormat:115];
+          v27 = v17[v15];
+          v17[v15] = v26;
 
-          if (!v15[v13])
+          if (!v17[v15])
           {
-            v31 = _PTLogSystem();
-            if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+            v37 = _PTLogSystem(v28);
+            if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
             {
-              [(PTEffectTemporalFilter *)v31 initWithMetalContext:v53 disparitySize:v54, v55, v56, v57, v58, v59];
+              [(PTEffectTemporalFilter *)v37 initWithMetalContext:v59 disparitySize:v60, v61, v62, v63, v64, v65];
             }
 
             goto LABEL_23;
           }
 
           textureUtil3 = [contextCopy textureUtil];
-          v26 = [textureUtil3 createWithWidth:size->var0 height:size->var1 pixelFormat:10];
-          v27 = v16[v13];
-          v16[v13] = v26;
+          v30 = [textureUtil3 createWithWidth:size->var0 height:size->var1 pixelFormat:10];
+          v31 = v18[v15];
+          v18[v15] = v30;
 
-          if (!v16[v13])
+          if (!v18[v15])
           {
-            v31 = _PTLogSystem();
-            if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+            v37 = _PTLogSystem(v32);
+            if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
             {
-              [(PTEffectTemporalFilter *)v31 initWithMetalContext:v60 disparitySize:v61, v62, v63, v64, v65, v66];
+              [(PTEffectTemporalFilter *)v37 initWithMetalContext:v66 disparitySize:v67, v68, v69, v70, v71, v72];
             }
 
             goto LABEL_23;
           }
 
-          v17 = 0;
-          v13 = 1;
+          v19 = 0;
+          v15 = 1;
         }
 
-        while ((v18 & 1) != 0);
-        v28 = [[PTFilterEMA_LKT alloc] initWithMetalContext:contextCopy];
-        v29 = v9[10];
-        v9[10] = v28;
+        while ((v20 & 1) != 0);
+        v33 = [[PTFilterEMA_LKT alloc] initWithMetalContext:contextCopy];
+        v34 = v9[10];
+        v9[10] = v33;
 
         if (v9[10])
         {
-          v30 = v9;
+          v36 = v9;
           goto LABEL_25;
         }
 
-        v31 = _PTLogSystem();
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+        v37 = _PTLogSystem(v35);
+        if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
         {
-          [(PTEffectTemporalFilter *)v31 initWithMetalContext:v67 disparitySize:v68, v69, v70, v71, v72, v73];
+          [(PTEffectTemporalFilter *)v37 initWithMetalContext:v73 disparitySize:v74, v75, v76, v77, v78, v79];
         }
       }
 
       else
       {
-        v31 = _PTLogSystem();
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+        v37 = _PTLogSystem(v14);
+        if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
         {
-          [(PTEffectTemporalFilter *)v31 initWithMetalContext:v39 disparitySize:v40, v41, v42, v43, v44, v45];
+          [(PTEffectTemporalFilter *)v37 initWithMetalContext:v45 disparitySize:v46, v47, v48, v49, v50, v51];
         }
       }
     }
 
     else
     {
-      v31 = _PTLogSystem();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+      v37 = _PTLogSystem(v11);
+      if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
       {
-        [(PTEffectTemporalFilter *)v31 initWithMetalContext:v32 disparitySize:v33, v34, v35, v36, v37, v38];
+        [(PTEffectTemporalFilter *)v37 initWithMetalContext:v38 disparitySize:v39, v40, v41, v42, v43, v44];
       }
     }
 
 LABEL_23:
   }
 
-  v30 = 0;
+  v36 = 0;
 LABEL_25:
 
-  return v30;
+  return v36;
 }
 
 - (unsigned)prepareFilter:(id)filter opticalFlowRGB:(id)b frameIndex:(int)index
@@ -152,16 +152,17 @@ LABEL_25:
   }
 
   v9 = [(PTOpticalFlow *)opticalFlow estimateDisplacementStream:filter index:v8 doOpticalFlow:index > 0 destRGBA:b];
+  v10 = v9;
   if (v9)
   {
-    v10 = _PTLogSystem();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = _PTLogSystem(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [PTEffectTemporalFilter prepareFilter:v9 opticalFlowRGB:v10 frameIndex:?];
+      [PTEffectTemporalFilter prepareFilter:v10 opticalFlowRGB:v11 frameIndex:?];
     }
   }
 
-  return v9;
+  return v10;
 }
 
 - (unsigned)filter:(id)filter inDisparity:(id)disparity inNormal:(id)normal inDiffuse:(id)diffuse filterNormalSpatial:(BOOL)spatial filterDiffuseSpatial:(BOOL)diffuseSpatial frameIndex:(int)index disparityScale:(float)self0
@@ -171,75 +172,76 @@ LABEL_25:
   disparityCopy = disparity;
   normalCopy = normal;
   diffuseCopy = diffuse;
-  if (__PAIR128__([disparityCopy height], objc_msgSend(disparityCopy, "width")) != *&self->_disparitySize.width)
+  width = [disparityCopy width];
+  if (width != self->_disparitySize.width || (width = [disparityCopy height], width != self->_disparitySize.height))
   {
-    v31 = _PTLogSystem();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+    v32 = _PTLogSystem(width);
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
-      [PTEffectTemporalFilter filter:v31 inDisparity:? inNormal:? inDiffuse:? filterNormalSpatial:? filterDiffuseSpatial:? frameIndex:? disparityScale:?];
+      [PTEffectTemporalFilter filter:v32 inDisparity:? inNormal:? inDiffuse:? filterNormalSpatial:? filterDiffuseSpatial:? frameIndex:? disparityScale:?];
     }
 
     diffuseSpatialCopy = -10;
-    goto LABEL_12;
+    goto LABEL_13;
   }
 
-  v21 = (index + 1) & 1;
+  v22 = (index + 1) & 1;
   if (index < -1)
-  {
-    v21 = -v21;
-  }
-
-  v22 = index & 1;
-  if (index < 0)
   {
     v22 = -v22;
   }
 
-  self->_indexIn = v21;
-  self->_indexOut = v22;
+  v23 = index & 1;
+  if (index < 0)
+  {
+    v23 = -v23;
+  }
+
+  self->_indexIn = v22;
+  self->_indexOut = v23;
   disparityFilter = self->_disparityFilter;
   displacementFWD = [(PTOpticalFlow *)self->_opticalFlow displacementFWD];
   indexIn = self->_indexIn;
   indexOut = self->_indexOut;
-  v28 = self->_temporalDisparity[indexIn];
-  v29 = self->_temporalDisparity[indexOut];
+  v29 = self->_temporalDisparity[indexIn];
+  v30 = self->_temporalDisparity[indexOut];
   if (!spatial)
   {
-    LODWORD(v38) = index;
-    [(PTFilterEMA_LKT *)disparityFilter emaFilterDisparityNormal:filterCopy inDisplacement:displacementFWD inDisparityPrev:v28 inDisparity:disparityCopy outDisparity:v29 inNormalPrev:self->_temporalNormal[indexIn] inNormal:normalCopy outNormal:self->_temporalNormal[indexOut] frameIndex:v38];
-    goto LABEL_14;
+    LODWORD(v39) = index;
+    [(PTFilterEMA_LKT *)disparityFilter emaFilterDisparityNormal:filterCopy inDisplacement:displacementFWD inDisparityPrev:v29 inDisparity:disparityCopy outDisparity:v30 inNormalPrev:self->_temporalNormal[indexIn] inNormal:normalCopy outNormal:self->_temporalNormal[indexOut] frameIndex:v39];
+    goto LABEL_15;
   }
 
-  *&v25 = scale;
-  [(PTFilterEMA_LKT *)disparityFilter emaFilter:filterCopy inDisplacement:displacementFWD inTexPrev:v28 inTex:disparityCopy outTex:v29 frameIndex:index scale:v25];
+  *&v26 = scale;
+  [(PTFilterEMA_LKT *)disparityFilter emaFilter:filterCopy inDisplacement:displacementFWD inTexPrev:v29 inTex:disparityCopy outTex:v30 frameIndex:index scale:v26];
 
   if (normalCopy)
   {
-    v30 = self->_disparityFilter;
+    v31 = self->_disparityFilter;
     displacementFWD = [(PTOpticalFlow *)self->_opticalFlow displacementFWD];
-    [(PTFilterEMA_LKT *)v30 gaussEMAFilterNormal:filterCopy inDisplacement:displacementFWD inNormalPrev:self->_temporalNormal[self->_indexIn] inNormal:normalCopy outNormal:self->_temporalNormal[self->_indexOut] frameIndex:index];
-LABEL_14:
+    [(PTFilterEMA_LKT *)v31 gaussEMAFilterNormal:filterCopy inDisplacement:displacementFWD inNormalPrev:self->_temporalNormal[self->_indexIn] inNormal:normalCopy outNormal:self->_temporalNormal[self->_indexOut] frameIndex:index];
+LABEL_15:
   }
 
   if (diffuseCopy)
   {
-    v33 = self->_disparityFilter;
+    v34 = self->_disparityFilter;
     displacementFWD2 = [(PTOpticalFlow *)self->_opticalFlow displacementFWD];
-    v36 = self->_temporalDiffuse[self->_indexIn];
-    v37 = self->_temporalDiffuse[self->_indexOut];
+    v37 = self->_temporalDiffuse[self->_indexIn];
+    v38 = self->_temporalDiffuse[self->_indexOut];
     if (!diffuseSpatialCopy)
     {
-      LODWORD(v35) = 1.0;
-      [(PTFilterEMA_LKT *)v33 emaFilter:filterCopy inDisplacement:displacementFWD2 inTexPrev:v36 inTex:diffuseCopy outTex:v37 frameIndex:index scale:v35];
+      LODWORD(v36) = 1.0;
+      [(PTFilterEMA_LKT *)v34 emaFilter:filterCopy inDisplacement:displacementFWD2 inTexPrev:v37 inTex:diffuseCopy outTex:v38 frameIndex:index scale:v36];
 
-      goto LABEL_12;
+      goto LABEL_13;
     }
 
-    [(PTFilterEMA_LKT *)v33 gaussEMAFilter:filterCopy inDisplacement:displacementFWD2 inTexPrev:v36 inTex:diffuseCopy outTex:v37 frameIndex:index];
+    [(PTFilterEMA_LKT *)v34 gaussEMAFilter:filterCopy inDisplacement:displacementFWD2 inTexPrev:v37 inTex:diffuseCopy outTex:v38 frameIndex:index];
   }
 
   diffuseSpatialCopy = 0;
-LABEL_12:
+LABEL_13:
 
   return diffuseSpatialCopy;
 }
@@ -250,6 +252,48 @@ LABEL_12:
   [(PTOpticalFlow *)self->_opticalFlow reset];
   kdebug_trace();
   return 0;
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 disparitySize:(uint64_t)a4 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_disparityFilter";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 disparitySize:(uint64_t)a4 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_temporalDiffuse[i]";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 disparitySize:(uint64_t)a4 .cold.3(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_temporalNormal[i]";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 disparitySize:(uint64_t)a4 .cold.4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_temporalDisparity[i]";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 disparitySize:(uint64_t)a4 .cold.5(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_opticalFlow";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 disparitySize:(uint64_t)a4 .cold.6(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_metalContext";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)prepareFilter:(int)a1 opticalFlowRGB:(NSObject *)a2 frameIndex:.cold.1(int a1, NSObject *a2)

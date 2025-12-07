@@ -28,7 +28,7 @@
 
 - (void)addEvent:(id)event forCandidateIdentifier:(id)identifier withSystemState:(id)state andMiloPrediction:(id)prediction
 {
-  v79 = *MEMORY[0x277D85DE8];
+  v78 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   identifierCopy = identifier;
   stateCopy = state;
@@ -41,17 +41,17 @@
   v17 = [(IRHistoryManager *)self _labelMiLoIfNeeded:predictionId lastMiLoLabel:lastMiLoLabel shouldLabelEventWithMilo:v14];
   [(IRHistoryManager *)self setLastMiLoLabel:v17];
 
-  v61 = predictionCopy;
+  v60 = predictionCopy;
   if (v14 == 1)
   {
     predictionId2 = [predictionCopy predictionId];
     predictionId3 = [predictionCopy predictionId];
-    v62 = [IRMiLoPredictionEventDO miLoPredictionEventDOWithLabel:predictionId2 predictionId:predictionId3];
+    v61 = [IRMiLoPredictionEventDO miLoPredictionEventDOWithLabel:predictionId2 predictionId:predictionId3];
   }
 
   else
   {
-    v62 = [IRMiLoPredictionEventDO miLoPredictionEventDOWithLabel:0 predictionId:0];
+    v61 = [IRMiLoPredictionEventDO miLoPredictionEventDOWithLabel:0 predictionId:0];
   }
 
   v20 = dispatch_get_specific(*MEMORY[0x277D21308]);
@@ -60,38 +60,38 @@
   {
     v22 = v21;
     [eventCopy name];
-    v59 = stateCopy;
+    v58 = stateCopy;
     v24 = v23 = identifierCopy;
     v25 = [MEMORY[0x277D212B0] eventTypeStringEventDO:eventCopy];
     v26 = [MEMORY[0x277D212B0] eventSubTypeStringEventDO:eventCopy];
-    label = [v62 label];
+    label = [v61 label];
     v28 = [MEMORY[0x277CCABB0] numberWithBool:v14];
     *buf = 136316930;
-    v64 = "#history-manager, ";
-    v65 = 2112;
-    v66 = v20;
-    v67 = 2112;
-    v68 = v24;
-    v69 = 2112;
-    v70 = v25;
-    v71 = 2112;
-    v72 = v26;
-    v73 = 2112;
-    v74 = v23;
-    v75 = 2112;
-    v76 = label;
-    v77 = 2112;
-    v78 = v28;
+    v63 = "#history-manager, ";
+    v64 = 2112;
+    v65 = v20;
+    v66 = 2112;
+    v67 = v24;
+    v68 = 2112;
+    v69 = v25;
+    v70 = 2112;
+    v71 = v26;
+    v72 = 2112;
+    v73 = v23;
+    v74 = 2112;
+    v75 = label;
+    v76 = 2112;
+    v77 = v28;
     _os_log_impl(&dword_25543D000, v22, OS_LOG_TYPE_DEFAULT, "%s[%@], Adding event (%@) type:%@, subtype:%@ to candidate:%@, miloLabel:%@, shouldLabelEventWithMilo:%@", buf, 0x52u);
 
     identifierCopy = v23;
-    stateCopy = v59;
+    stateCopy = v58;
   }
 
   v29 = [MEMORY[0x277CBEAA8] now];
   bundleID = [eventCopy bundleID];
   v31 = IRAVInitialRouteSharingPolicyForBundleIdentifier(bundleID);
-  v32 = [IRHistoryEventDO historyEventDOWithDate:v29 candidateIdentifier:identifierCopy event:eventCopy miloPredictionEvent:v62 systemState:stateCopy sharingPolicy:v31];
+  v32 = [IRHistoryEventDO historyEventDOWithDate:v29 candidateIdentifier:identifierCopy event:eventCopy miloPredictionEvent:v61 systemState:stateCopy sharingPolicy:v31];
 
   v33 = MEMORY[0x277CBEB18];
   historyEventsContainer = [(IRHistoryManager *)self historyEventsContainer];
@@ -120,23 +120,23 @@
     v45 = v43;
     historyEventsContainer2 = [(IRHistoryManager *)self historyEventsContainer];
     [historyEventsContainer2 historyEvents];
-    v60 = v32;
+    v59 = v32;
     v47 = eventCopy;
     v48 = stateCopy;
     v50 = v49 = identifierCopy;
     v51 = [v44 numberWithUnsignedInteger:{objc_msgSend(v50, "count")}];
     *buf = 136315650;
-    v64 = "#history-manager, ";
-    v65 = 2112;
-    v66 = v42;
-    v67 = 2112;
-    v68 = v51;
+    v63 = "#history-manager, ";
+    v64 = 2112;
+    v65 = v42;
+    v66 = 2112;
+    v67 = v51;
     _os_log_impl(&dword_25543D000, v45, OS_LOG_TYPE_DEBUG, "%s[%@], Memory: Number of History events: %@", buf, 0x20u);
 
     identifierCopy = v49;
     stateCopy = v48;
     eventCopy = v47;
-    v32 = v60;
+    v32 = v59;
   }
 
   store = [(IRHistoryManager *)self store];
@@ -151,14 +151,12 @@
     if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v64 = "#history-manager, ";
-      v65 = 2112;
-      v66 = v56;
+      v63 = "#history-manager, ";
+      v64 = 2112;
+      v65 = v56;
       _os_log_impl(&dword_25543D000, v57, OS_LOG_TYPE_ERROR, "%s[%@], [ErrorId - History manager save event error] Could not save new history event", buf, 0x16u);
     }
   }
-
-  v58 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_labelMiLoIfNeeded:(id)needed lastMiLoLabel:(id)label shouldLabelEventWithMilo:(BOOL)milo
@@ -189,7 +187,7 @@
 
 - (void)synchronizeAndFetchFromDBOnDisk
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   store = [(IRHistoryManager *)self store];
   v4 = +[IRPreferences shared];
   numberOfHistoryEventsInCache = [v4 numberOfHistoryEventsInCache];
@@ -210,26 +208,24 @@
       historyEventsContainer2 = [(IRHistoryManager *)self historyEventsContainer];
       historyEvents = [historyEventsContainer2 historyEvents];
       v15 = [v11 numberWithUnsignedInteger:{objc_msgSend(historyEvents, "count")}];
-      v17 = 136315650;
-      v18 = "#history-manager, ";
-      v19 = 2112;
-      v20 = v8;
-      v21 = 2112;
-      v22 = v15;
-      _os_log_impl(&dword_25543D000, v12, OS_LOG_TYPE_DEFAULT, "%s[%@], Loading history Events container from store with %@ events", &v17, 0x20u);
+      v16 = 136315650;
+      v17 = "#history-manager, ";
+      v18 = 2112;
+      v19 = v8;
+      v20 = 2112;
+      v21 = v15;
+      _os_log_impl(&dword_25543D000, v12, OS_LOG_TYPE_DEFAULT, "%s[%@], Loading history Events container from store with %@ events", &v16, 0x20u);
     }
   }
 
   else if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
-    v17 = 136315394;
-    v18 = "#history-manager, ";
-    v19 = 2112;
-    v20 = v8;
-    _os_log_impl(&dword_25543D000, v9, OS_LOG_TYPE_ERROR, "%s[%@], [ErrorId - History manager fetch events error] Could not fetch history events container", &v17, 0x16u);
+    v16 = 136315394;
+    v17 = "#history-manager, ";
+    v18 = 2112;
+    v19 = v8;
+    _os_log_impl(&dword_25543D000, v9, OS_LOG_TYPE_ERROR, "%s[%@], [ErrorId - History manager fetch events error] Could not fetch history events container", &v16, 0x16u);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (IRMiLoFeedbackProvider)miloFeedback

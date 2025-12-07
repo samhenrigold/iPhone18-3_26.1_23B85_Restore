@@ -4,7 +4,6 @@
 - (int)ConvertGGMStatus:(int64_t)status;
 - (int)process;
 - (int)resetState;
-- (uint64_t)process;
 - (void)dealloc;
 @end
 
@@ -24,7 +23,7 @@
   inputSampleBuffer = self->_inputSampleBuffer;
   if (!inputSampleBuffer)
   {
-    [VEVideoDeghostingRepairV3 process];
+    [(VEVideoDeghostingRepairV3 *)0 process];
 LABEL_14:
     v6 = 0;
 LABEL_19:
@@ -171,17 +170,20 @@ LABEL_10:
 {
   contextCopy = context;
   parametersCopy = parameters;
-  v20.receiver = self;
-  v20.super_class = VEVideoDeghostingRepairV3;
-  v11 = [(VEVideoDeghostingRepairV3 *)&v20 init];
+  v22.receiver = self;
+  v22.super_class = VEVideoDeghostingRepairV3;
+  v11 = [(VEVideoDeghostingRepairV3 *)&v22 init];
   if (!v11)
   {
-    goto LABEL_8;
+    goto LABEL_9;
   }
 
   if (!contextCopy)
   {
-    goto LABEL_7;
+    fig_log_get_emitter();
+    OUTLINED_FUNCTION_1();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0);
+    goto LABEL_9;
   }
 
   v12 = createConfigDictForRepair(parametersCopy);
@@ -200,31 +202,25 @@ LABEL_10:
 
   if (!v11->_GGMCtrl)
   {
-LABEL_8:
-    v18 = 0;
+LABEL_9:
+    v19 = 0;
     goto LABEL_6;
   }
 
-  if (initLookAheadFrameArray(&v11->_lookaheadFrames, 2))
+  inited = initLookAheadFrameArray(&v11->_lookaheadFrames, 2);
+  if (inited)
   {
-LABEL_7:
+    v21 = inited;
     fig_log_get_emitter();
     OUTLINED_FUNCTION_1();
-    FigDebugAssert3();
-    goto LABEL_8;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v21);
+    goto LABEL_9;
   }
 
-  v18 = v11;
+  v19 = v11;
 LABEL_6:
 
-  return v18;
-}
-
-- (uint64_t)process
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
+  return v19;
 }
 
 @end

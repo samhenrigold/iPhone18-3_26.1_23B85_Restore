@@ -15,7 +15,7 @@
     sub_100030784();
   }
 
-  sub_1000040E8(&unk_1001150F0);
+  sub_1000040E8(&unk_1001150F0, &qword_1000D5F10);
   v3.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v3.super.isa;

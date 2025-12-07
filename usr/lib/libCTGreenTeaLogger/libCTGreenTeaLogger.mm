@@ -1,4 +1,4 @@
-uint64_t createGreenTeaLogger(const char *a1)
+ct_green_tea_logger_s *createGreenTeaLogger(const char *a1)
 {
   getGreenTeaLogUtility(&v3);
   v1 = (**v3)(v3);
@@ -17,12 +17,12 @@ uint64_t createGreenTeaLogger(const char *a1)
 
 void getGreenTeaLogUtility(void *a1@<X8>)
 {
-  if ((atomic_load_explicit(&_MergedGlobals_0, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(_MergedGlobals_0, memory_order_acquire) & 1) == 0)
   {
     getGreenTeaLogUtility();
   }
 
-  if ((atomic_load_explicit(&qword_2A18986B0, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_2A18986B0, memory_order_acquire) & 1) == 0)
   {
     getGreenTeaLogUtility();
   }
@@ -43,21 +43,21 @@ void getGreenTeaLogUtility(void *a1@<X8>)
 
 void getGreenTeaLogUtility()
 {
-  if (__cxa_guard_acquire(&_MergedGlobals_0))
+  if (__cxa_guard_acquire(_MergedGlobals_0))
   {
     qword_2A18986B8 = 0;
     unk_2A18986C0 = 0;
 
-    __cxa_guard_release(&_MergedGlobals_0);
+    __cxa_guard_release(_MergedGlobals_0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_2A18986B0))
+  if (__cxa_guard_acquire(byte_2A18986B0))
   {
     qword_2A18986A8 = 0;
 
-    __cxa_guard_release(&qword_2A18986B0);
+    __cxa_guard_release(byte_2A18986B0);
   }
 }
 
@@ -89,14 +89,14 @@ BOOL ct_green_tea_logging_enabled()
   return v3;
 }
 
-const char *ct_green_tea_logger_create(const char *result)
+const char *ct_green_tea_logger_create(const char *a1)
 {
-  if (result)
+  if (a1)
   {
-    return createGreenTeaLogger(result);
+    return createGreenTeaLogger(a1);
   }
 
-  return result;
+  return a1;
 }
 
 CTGreenTeaLoggerImpl **getCTGreenTeaOsLogHandle(CTGreenTeaLoggerImpl **result)
@@ -159,7 +159,7 @@ void sub_297735C80(_Unwind_Exception *exception_object)
 
 void ___ZN12_GLOBAL__N_116isCarrierInstallEv_block_invoke()
 {
-  v5 = *MEMORY[0x29EDCA608];
+  v4 = *MEMORY[0x29EDCA608];
   v0 = MGCopyAnswer();
   if (v0)
   {
@@ -167,20 +167,18 @@ void ___ZN12_GLOBAL__N_116isCarrierInstallEv_block_invoke()
     v2 = CFEqual(v0, @"Carrier");
     if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_INFO))
     {
-      v4[0] = 67109120;
-      v4[1] = v2 != 0;
-      _os_log_impl(&dword_297735000, MEMORY[0x29EDCA988], OS_LOG_TYPE_INFO, "Carrier install: %d", v4, 8u);
+      v3[0] = 67109120;
+      v3[1] = v2 != 0;
+      _os_log_impl(&dword_297735000, MEMORY[0x29EDCA988], OS_LOG_TYPE_INFO, "Carrier install: %d", v3, 8u);
     }
 
     CFRelease(v1);
   }
-
-  v3 = *MEMORY[0x29EDCA608];
 }
 
 void ___ZN12_GLOBAL__N_117isInternalInstallEv_block_invoke()
 {
-  v5 = *MEMORY[0x29EDCA608];
+  v4 = *MEMORY[0x29EDCA608];
   v0 = MGCopyAnswer();
   if (v0)
   {
@@ -188,23 +186,21 @@ void ___ZN12_GLOBAL__N_117isInternalInstallEv_block_invoke()
     v2 = CFEqual(v0, @"Internal");
     if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_INFO))
     {
-      v4[0] = 67109120;
-      v4[1] = v2 != 0;
-      _os_log_impl(&dword_297735000, MEMORY[0x29EDCA988], OS_LOG_TYPE_INFO, "Internal install: %d", v4, 8u);
+      v3[0] = 67109120;
+      v3[1] = v2 != 0;
+      _os_log_impl(&dword_297735000, MEMORY[0x29EDCA988], OS_LOG_TYPE_INFO, "Internal install: %d", v3, 8u);
     }
 
     CFRelease(v1);
   }
-
-  v3 = *MEMORY[0x29EDCA608];
 }
 
-const char *ct_green_tea_logger_create_static(const char *result)
+ct_green_tea_logger_s *ct_green_tea_logger_create_static(ct_green_tea_logger_s *result)
 {
   if (result)
   {
     v1 = result;
-    if ((atomic_load_explicit(&qword_2A1898698, memory_order_acquire) & 1) == 0)
+    if ((atomic_load_explicit(byte_2A1898698, memory_order_acquire) & 1) == 0)
     {
       ct_green_tea_logger_create_static_cold_1();
     }
@@ -224,11 +220,11 @@ const char *ct_green_tea_logger_create_static(const char *result)
 
 void ct_green_tea_logger_create_static_cold_1()
 {
-  if (__cxa_guard_acquire(&qword_2A1898698))
+  if (__cxa_guard_acquire(byte_2A1898698))
   {
     _MergedGlobals = 0;
 
-    __cxa_guard_release(&qword_2A1898698);
+    __cxa_guard_release(byte_2A1898698);
   }
 }
 
@@ -242,7 +238,7 @@ void __ct_green_tea_logger_create_static_block_invoke()
   _MergedGlobals = _ZZZ33ct_green_tea_logger_create_staticEUb_E14neverDestroyed;
 }
 
-uint64_t CTGreenTeaLogServer::getLogger(std::mutex *this, const char *a2)
+ct_green_tea_logger_s *CTGreenTeaLogServer::getLogger(std::mutex *this, const char *a2)
 {
   v12 = a2;
   std::mutex::lock(this);
@@ -278,7 +274,7 @@ LABEL_9:
     GreenTeaLogger = createGreenTeaLogger(a2);
     if (GreenTeaLogger)
     {
-      std::__tree<std::__value_type<char const*,ct_green_tea_logger_s *>,std::__map_value_compare<char const*,std::__value_type<char const*,ct_green_tea_logger_s *>,std::less<char const*>,true>,std::allocator<std::__value_type<char const*,ct_green_tea_logger_s *>>>::__emplace_unique_key_args<char const*,char const*&,ct_green_tea_logger_s *&>(&this[1], &v12);
+      std::__tree<std::__value_type<char const*,ct_green_tea_logger_s *>,std::__map_value_compare<char const*,std::__value_type<char const*,ct_green_tea_logger_s *>,std::less<char const*>,true>,std::allocator<std::__value_type<char const*,ct_green_tea_logger_s *>>>::__emplace_unique_key_args<char const*,char const*&,ct_green_tea_logger_s *&>(&this[1], &v12, &v12, &GreenTeaLogger);
       v9 = GreenTeaLogger;
     }
 
@@ -292,41 +288,41 @@ LABEL_9:
   return v9;
 }
 
-void *std::__tree<std::__value_type<char const*,ct_green_tea_logger_s *>,std::__map_value_compare<char const*,std::__value_type<char const*,ct_green_tea_logger_s *>,std::less<char const*>,true>,std::allocator<std::__value_type<char const*,ct_green_tea_logger_s *>>>::__emplace_unique_key_args<char const*,char const*&,ct_green_tea_logger_s *&>(uint64_t a1, unint64_t *a2)
+void *std::__tree<std::__value_type<char const*,ct_green_tea_logger_s *>,std::__map_value_compare<char const*,std::__value_type<char const*,ct_green_tea_logger_s *>,std::less<char const*>,true>,std::allocator<std::__value_type<char const*,ct_green_tea_logger_s *>>>::__emplace_unique_key_args<char const*,char const*&,ct_green_tea_logger_s *&>(uint64_t a1, unint64_t *a2, void *a3, uint64_t *a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = v4[4];
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
@@ -365,7 +361,7 @@ void GreenTeaLogUtility::canCreateLogHandle()
 {
 }
 
-uint64_t *std::__tree<std::__value_type<char const*,ct_green_tea_logger_s *>,std::__map_value_compare<char const*,std::__value_type<char const*,ct_green_tea_logger_s *>,std::less<char const*>,true>,std::allocator<std::__value_type<char const*,ct_green_tea_logger_s *>>>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *std::__tree<std::__value_type<char const*,ct_green_tea_logger_s *>,std::__map_value_compare<char const*,std::__value_type<char const*,ct_green_tea_logger_s *>,std::less<char const*>,true>,std::allocator<std::__value_type<char const*,ct_green_tea_logger_s *>>>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -391,12 +387,12 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -410,22 +406,22 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -459,13 +455,13 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 

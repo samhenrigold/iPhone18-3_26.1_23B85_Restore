@@ -12,10 +12,12 @@
 - (id)descriptionBuilderWithMultilinePrefix:(id)prefix;
 - (id)descriptionWithMultilinePrefix:(id)prefix;
 - (id)succinctDescription;
+- (void)_access_reconfigureAttentionClientAndReset:(BOOL)reset;
 - (void)_prototypeSettingsChanged;
 - (void)client:(id)client attentionLostTimeoutDidExpire:(id)expire forContext:(id)context;
 - (void)clientDidReset:(id)reset forUserAttentionEvent:(id)event withContext:(id)context;
 - (void)reset;
+- (void)setDescriptor:(id)descriptor resettingTimer:(BOOL)timer;
 @end
 
 @implementation ITAttentionAwareIdleTimer
@@ -98,6 +100,58 @@
   return v3;
 }
 
+- (void)setDescriptor:(id)descriptor resettingTimer:(BOOL)timer
+{
+  timerCopy = timer;
+  descriptorCopy = descriptor;
+  timeouts = [descriptorCopy timeouts];
+  v8 = [timeouts count];
+
+  if (!v8)
+  {
+    [ITAttentionAwareIdleTimer setDescriptor:resettingTimer:];
+  }
+
+  attentionMaintenanceEventMask = [descriptorCopy attentionMaintenanceEventMask];
+  [descriptorCopy attentionSamplingStartDelay];
+  [descriptorCopy attentionSamplingPeriod];
+  v11 = v10;
+  if (attentionMaintenanceEventMask < 0)
+  {
+    if (!BSFloatGreaterThanFloat() || BSFloatEqualToFloat())
+    {
+      [(ITAttentionAwareIdleTimer *)a2 setDescriptor:&v17 resettingTimer:v11];
+      goto LABEL_14;
+    }
+  }
+
+  else
+  {
+    if ((BSFloatIsZero() & 1) == 0)
+    {
+      [ITAttentionAwareIdleTimer setDescriptor:resettingTimer:];
+    }
+
+    if ((BSFloatIsZero() & 1) == 0)
+    {
+      [(ITAttentionAwareIdleTimer *)a2 setDescriptor:&v17 resettingTimer:?];
+LABEL_14:
+    }
+  }
+
+  os_unfair_recursive_lock_lock_with_options();
+  v12 = objc_alloc_init(ITAttentionAwarenessContext);
+  access_context = self->_access_context;
+  self->_access_context = v12;
+
+  v14 = [descriptorCopy copy];
+  access_descriptor = self->_access_descriptor;
+  self->_access_descriptor = v14;
+
+  [(ITAttentionAwareIdleTimer *)self _access_reconfigureAttentionClientAndReset:timerCopy];
+  os_unfair_recursive_lock_unlock();
+}
+
 - (void)reset
 {
   OUTLINED_FUNCTION_1_0();
@@ -165,137 +219,150 @@ LABEL_5:
     [descriptorCopy attentionSamplingPeriod];
     v17 = v16;
     [v14 setSamplingInterval:?];
-    [descriptorCopy attentionSamplingStartDelay];
-    v19 = v18;
-    if (v18 > 0.0)
+    attentionSamplingStartDelay = [descriptorCopy attentionSamplingStartDelay];
+    v20 = v19;
+    if (v19 > 0.0)
     {
-      [v14 setSamplingDelay:v18];
+      attentionSamplingStartDelay = [v14 setSamplingDelay:v19];
     }
 
-    v20 = ITLogIdleTimer();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+    v21 = ITLogIdleTimer(attentionSamplingStartDelay);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
     {
       *buf = 134218240;
-      v45 = *&v19;
+      v45 = *&v20;
       v46 = 2048;
       v47 = v17;
-      _os_log_impl(&dword_254AB6000, v20, OS_LOG_TYPE_INFO, "Setting auto face detection with sampling delay: %g, period: %g", buf, 0x16u);
+      _os_log_impl(&dword_254AB6000, v21, OS_LOG_TYPE_INFO, "Setting auto face detection with sampling delay: %g, period: %g", buf, 0x16u);
     }
   }
 
-  v21 = [(ITAttentionAwareIdleTimer *)self _timeoutDictionaryForTimeouts:timeouts];
+  v22 = [(ITAttentionAwareIdleTimer *)self _timeoutDictionaryForTimeouts:timeouts];
   [v14 setTag:contextCopy];
-  [v14 setAttentionLostTimeoutDictionary:v21];
-  allKeys = [v21 allKeys];
+  [v14 setAttentionLostTimeoutDictionary:v22];
+  allKeys = [v22 allKeys];
   firstObject = [allKeys firstObject];
   [firstObject doubleValue];
-  v25 = v24;
+  v26 = v25;
 
   v41 = 0u;
   v42 = 0u;
   v39 = 0u;
   v40 = 0u;
-  allKeys2 = [v21 allKeys];
-  v27 = [allKeys2 countByEnumeratingWithState:&v39 objects:v43 count:16];
-  if (v27)
+  allKeys2 = [v22 allKeys];
+  v28 = [allKeys2 countByEnumeratingWithState:&v39 objects:v43 count:16];
+  if (v28)
   {
-    v28 = v27;
-    v29 = *v40;
+    v29 = v28;
+    v30 = *v40;
     do
     {
-      for (i = 0; i != v28; ++i)
+      for (i = 0; i != v29; ++i)
       {
-        if (*v40 != v29)
+        if (*v40 != v30)
         {
           objc_enumerationMutation(allKeys2);
         }
 
         [*(*(&v39 + 1) + 8 * i) doubleValue];
-        if (v31 >= v25)
+        if (v32 >= v26)
         {
-          v25 = v31;
+          v26 = v32;
         }
       }
 
-      v28 = [allKeys2 countByEnumeratingWithState:&v39 objects:v43 count:16];
+      v29 = [allKeys2 countByEnumeratingWithState:&v39 objects:v43 count:16];
     }
 
-    while (v28);
+    while (v29);
   }
 
   nonSampledAttentionLostTimeout = self->_nonSampledAttentionLostTimeout;
-  if (nonSampledAttentionLostTimeout < v25 + 1.0)
+  if (nonSampledAttentionLostTimeout < v26 + 1.0)
   {
-    nonSampledAttentionLostTimeout = v25 + 1.0;
+    nonSampledAttentionLostTimeout = v26 + 1.0;
   }
 
   [v14 setNonSampledAttentionLostTimeout:nonSampledAttentionLostTimeout];
-  [v14 setNonSampledAttentionLostTimeoutEnable:self->_nonSampledAttentionLostTimeoutEnable];
-  v33 = ITLogIdleTimer();
-  if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
+  v34 = ITLogIdleTimer([v14 setNonSampledAttentionLostTimeoutEnable:self->_nonSampledAttentionLostTimeoutEnable]);
+  if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
   {
     if ([v14 nonSampledAttentionLostTimeoutEnable])
     {
-      v34 = @"Enabled";
+      v35 = @"Enabled";
     }
 
     else
     {
-      v34 = @"Disabled";
+      v35 = @"Disabled";
     }
 
     [v14 nonSampledAttentionLostTimeout];
     *buf = 138543618;
-    v45 = v34;
+    v45 = v35;
     v46 = 2048;
-    v47 = v35;
-    _os_log_impl(&dword_254AB6000, v33, OS_LOG_TYPE_INFO, "%{public}@ nonSampled attention lost timeout with: %f seconds", buf, 0x16u);
+    v47 = v36;
+    _os_log_impl(&dword_254AB6000, v34, OS_LOG_TYPE_INFO, "%{public}@ nonSampled attention lost timeout with: %f seconds", buf, 0x16u);
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
 
+- (void)_access_reconfigureAttentionClientAndReset:(BOOL)reset
+{
+  resetCopy = reset;
+  v11 = *MEMORY[0x277D85DE8];
+  os_unfair_lock_assert_owner(&self->_accessLock);
+  _access_generateConfiguration = [(ITAttentionAwareIdleTimer *)self _access_generateConfiguration];
+  [(ITAttentionAwarenessClient *)self->_access_client setConfiguration:_access_generateConfiguration shouldReset:resetCopy];
+  v6 = ITLogIdleTimer([(ITAttentionAwarenessClient *)self->_access_client setEnabled:1]);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  {
+    v7 = 134218242;
+    selfCopy = self;
+    v9 = 2114;
+    v10 = _access_generateConfiguration;
+    _os_log_impl(&dword_254AB6000, v6, OS_LOG_TYPE_DEFAULT, "<%p> - reconfigure attention client with configuration:%{public}@", &v7, 0x16u);
+  }
+}
+
 - (id)_timeoutDictionaryForTimeouts:(id)timeouts
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   timeoutsCopy = timeouts;
   v4 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v5 = timeoutsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
-        v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v10, "identifier", v16)}];
+        v10 = *(*(&v15 + 1) + 8 * i);
+        v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v10, "identifier", v15)}];
         v12 = MEMORY[0x277CCABB0];
         [v10 duration];
         v13 = [v12 numberWithDouble:?];
         [v4 setObject:v11 forKeyedSubscript:v13];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v7);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

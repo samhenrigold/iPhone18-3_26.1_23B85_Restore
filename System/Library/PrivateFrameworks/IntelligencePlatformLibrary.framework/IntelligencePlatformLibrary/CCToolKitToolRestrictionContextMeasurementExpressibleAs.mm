@@ -249,7 +249,6 @@ LABEL_48:
             NSStringFromClass(v46);
             errorCopy = error;
             v49 = v48 = dataCopy;
-            v50 = *&v7[*v10];
             v11 = CCSkipFieldErrorForMessage();
 
             dataCopy = v48;
@@ -331,22 +330,21 @@ LABEL_56:
 LABEL_62:
   if (!*&v7[*v10])
   {
-    v54 = 1;
+    v52 = 1;
     goto LABEL_66;
   }
 
 LABEL_63:
-  v51 = objc_opt_class();
-  v11 = NSStringFromClass(v51);
-  v52 = *&v7[*v10];
-  v53 = CCInvalidBufferErrorForMessage();
+  v50 = objc_opt_class();
+  v11 = NSStringFromClass(v50);
+  v51 = CCInvalidBufferErrorForMessage();
   CCSetError();
 
 LABEL_64:
-  v54 = 0;
+  v52 = 0;
 LABEL_66:
 
-  return v54;
+  return v52;
 }
 
 - (CCToolKitToolRestrictionContextMeasurementExpressibleAs)initWithUnit:(id)unit unitAdjustForLocale:(id)locale supportsNegativeNumbers:(id)numbers error:(id *)error

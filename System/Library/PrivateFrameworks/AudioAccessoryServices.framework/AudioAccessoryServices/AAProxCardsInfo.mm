@@ -25,164 +25,182 @@
 
 - (id)descriptionWithLevel:(int)level
 {
-  v25 = [objc_opt_class() description];
-  NSAppendPrintF_safe();
-  v5 = 0;
+  v59 = 0;
+  v5 = [objc_opt_class() description];
+  NSAppendPrintF_safe(&v59, "%@", v5);
+  v6 = v59;
 
   bluetoothAddress = self->_bluetoothAddress;
   if (bluetoothAddress)
   {
-    v26 = bluetoothAddress;
-    NSAppendPrintF_safe();
-    v7 = v5;
+    v58 = v6;
+    v8 = bluetoothAddress;
+    NSAppendPrintF_safe(&v58, ", Bt Addr %@", v8);
+    v9 = v58;
 
-    v5 = v7;
+    v6 = v9;
   }
 
-  if (self->_caseDoubleTapVersion)
+  caseDoubleTapVersion = self->_caseDoubleTapVersion;
+  if (caseDoubleTapVersion)
   {
-    caseDoubleTapVersion = self->_caseDoubleTapVersion;
-    NSAppendPrintF_safe();
-    v8 = v5;
+    v57 = v6;
+    NSAppendPrintF_safe(&v57, ", Cs DT %llu", caseDoubleTapVersion);
+    v11 = v57;
 
-    v5 = v8;
+    v6 = v11;
   }
 
-  if (self->_chargingRemindersVersion)
+  chargingRemindersVersion = self->_chargingRemindersVersion;
+  if (chargingRemindersVersion)
   {
-    chargingRemindersVersion = self->_chargingRemindersVersion;
-    NSAppendPrintF_safe();
-    v9 = v5;
+    v56 = v6;
+    NSAppendPrintF_safe(&v56, ", Ch Rmd %llu", chargingRemindersVersion);
+    v13 = v56;
 
-    v5 = v9;
+    v6 = v13;
   }
 
-  if (self->_dynamicEndOfChargeNotificationVersion)
+  dynamicEndOfChargeNotificationVersion = self->_dynamicEndOfChargeNotificationVersion;
+  if (dynamicEndOfChargeNotificationVersion)
   {
-    dynamicEndOfChargeNotificationVersion = self->_dynamicEndOfChargeNotificationVersion;
-    NSAppendPrintF_safe();
-    v10 = v5;
+    v55 = v6;
+    NSAppendPrintF_safe(&v55, ", DEOC N %llu", dynamicEndOfChargeNotificationVersion);
+    v15 = v55;
 
-    v5 = v10;
+    v6 = v15;
   }
 
-  if (self->_fitEducationNotificationsShownCount)
+  fitEducationNotificationsShownCount = self->_fitEducationNotificationsShownCount;
+  if (fitEducationNotificationsShownCount)
   {
-    fitEducationNotificationsShownCount = self->_fitEducationNotificationsShownCount;
-    NSAppendPrintF_safe();
-    v11 = v5;
+    v54 = v6;
+    NSAppendPrintF_safe(&v54, ", Fit Ed N %llu", fitEducationNotificationsShownCount);
+    v17 = v54;
 
-    v5 = v11;
+    v6 = v17;
   }
 
-  if (self->_headGesturesVersion)
+  headGesturesVersion = self->_headGesturesVersion;
+  if (headGesturesVersion)
   {
-    headGesturesVersion = self->_headGesturesVersion;
-    NSAppendPrintF_safe();
-    v12 = v5;
+    v53 = v6;
+    NSAppendPrintF_safe(&v53, ", HD Gst %llu", headGesturesVersion);
+    v19 = v53;
 
-    v5 = v12;
+    v6 = v19;
   }
 
-  if (self->_hearingAssistVersion)
+  hearingAssistVersion = self->_hearingAssistVersion;
+  if (hearingAssistVersion)
   {
-    hearingAssistVersion = self->_hearingAssistVersion;
-    NSAppendPrintF_safe();
-    v13 = v5;
+    v52 = v6;
+    NSAppendPrintF_safe(&v52, ", HR Ast %llu", hearingAssistVersion);
+    v21 = v52;
 
-    v5 = v13;
+    v6 = v21;
   }
 
-  if (self->_hearingTestVersion)
+  hearingTestVersion = self->_hearingTestVersion;
+  if (hearingTestVersion)
   {
-    hearingTestVersion = self->_hearingTestVersion;
-    NSAppendPrintF_safe();
-    v14 = v5;
+    v51 = v6;
+    NSAppendPrintF_safe(&v51, ", HR Tst %llu", hearingTestVersion);
+    v23 = v51;
 
-    v5 = v14;
+    v6 = v23;
   }
 
-  if (self->_heartRateVersion)
+  heartRateVersion = self->_heartRateVersion;
+  if (heartRateVersion)
   {
-    heartRateVersion = self->_heartRateVersion;
-    NSAppendPrintF_safe();
-    v15 = v5;
+    v50 = v6;
+    NSAppendPrintF_safe(&v50, ", Hrt Rt %llu", heartRateVersion);
+    v25 = v50;
 
-    v5 = v15;
+    v6 = v25;
   }
 
-  if (self->_newChargingStatusVersion)
+  newChargingStatusVersion = self->_newChargingStatusVersion;
+  if (newChargingStatusVersion)
   {
-    newChargingStatusVersion = self->_newChargingStatusVersion;
-    NSAppendPrintF_safe();
-    v16 = v5;
+    v49 = v6;
+    NSAppendPrintF_safe(&v49, ", Nw Ch %llu", newChargingStatusVersion);
+    v27 = v49;
 
-    v5 = v16;
+    v6 = v27;
   }
 
-  if (self->_pauseMediaOnSleepVersion)
+  pauseMediaOnSleepVersion = self->_pauseMediaOnSleepVersion;
+  if (pauseMediaOnSleepVersion)
   {
-    pauseMediaOnSleepVersion = self->_pauseMediaOnSleepVersion;
-    NSAppendPrintF_safe();
-    v17 = v5;
+    v48 = v6;
+    NSAppendPrintF_safe(&v48, ", Pu Md %llu", pauseMediaOnSleepVersion);
+    v29 = v48;
 
-    v5 = v17;
+    v6 = v29;
   }
 
-  if (self->_personalTranslatorVersion)
+  personalTranslatorVersion = self->_personalTranslatorVersion;
+  if (personalTranslatorVersion)
   {
-    personalTranslatorVersion = self->_personalTranslatorVersion;
-    NSAppendPrintF_safe();
-    v18 = v5;
+    v47 = v6;
+    NSAppendPrintF_safe(&v47, ", Ps Tr %llu", personalTranslatorVersion);
+    v31 = v47;
 
-    v5 = v18;
+    v6 = v31;
   }
 
-  if (self->_remoteCameraControlVersion)
+  remoteCameraControlVersion = self->_remoteCameraControlVersion;
+  if (remoteCameraControlVersion)
   {
-    remoteCameraControlVersion = self->_remoteCameraControlVersion;
-    NSAppendPrintF_safe();
-    v19 = v5;
+    v46 = v6;
+    NSAppendPrintF_safe(&v46, ", Rm CC %llu", remoteCameraControlVersion);
+    v33 = v46;
 
-    v5 = v19;
+    v6 = v33;
   }
 
-  if (self->_usbAudioVersion)
+  usbAudioVersion = self->_usbAudioVersion;
+  if (usbAudioVersion)
   {
-    usbAudioVersion = self->_usbAudioVersion;
-    NSAppendPrintF_safe();
-    v20 = v5;
+    v45 = v6;
+    NSAppendPrintF_safe(&v45, ", USB Ad %llu", usbAudioVersion);
+    v35 = v45;
 
-    v5 = v20;
+    v6 = v35;
   }
 
-  if (self->_voiceQualityVersion)
+  voiceQualityVersion = self->_voiceQualityVersion;
+  if (voiceQualityVersion)
   {
-    voiceQualityVersion = self->_voiceQualityVersion;
-    NSAppendPrintF_safe();
-    v21 = v5;
+    v44 = v6;
+    NSAppendPrintF_safe(&v44, ", Vce Qlty %llu", voiceQualityVersion);
+    v37 = v44;
 
-    v5 = v21;
+    v6 = v37;
   }
 
-  if (self->_whatsNewVersion)
+  whatsNewVersion = self->_whatsNewVersion;
+  if (whatsNewVersion)
   {
-    whatsNewVersion = self->_whatsNewVersion;
-    NSAppendPrintF_safe();
-    v22 = v5;
+    v43 = v6;
+    NSAppendPrintF_safe(&v43, ", Whats New %llu", whatsNewVersion);
+    v39 = v43;
 
-    v5 = v22;
+    v6 = v39;
   }
 
   if (level < 21)
   {
-    NSAppendPrintF_safe();
-    v23 = v5;
+    v42 = v6;
+    NSAppendPrintF_safe(&v42, "\n");
+    v40 = v42;
 
-    v5 = v23;
+    v6 = v40;
   }
 
-  return v5;
+  return v6;
 }
 
 - (AAProxCardsInfo)initWithCoder:(id)coder

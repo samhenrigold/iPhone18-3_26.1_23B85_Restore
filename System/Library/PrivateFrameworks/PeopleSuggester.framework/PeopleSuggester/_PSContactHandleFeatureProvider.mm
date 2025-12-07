@@ -39,18 +39,16 @@
 
 + (NSArray)featureNames
 {
-  v9[4] = *MEMORY[0x1E69E9840];
+  v8[4] = *MEMORY[0x1E69E9840];
   v2 = +[_PSContactHandleFeatureProvider numberOfIncomingInteractions];
-  v9[0] = v2;
+  v8[0] = v2;
   v3 = +[_PSContactHandleFeatureProvider numberOfOutgoingInteractions];
-  v9[1] = v3;
+  v8[1] = v3;
   v4 = +[_PSContactHandleFeatureProvider timeSinceLastIncomingInteraction];
-  v9[2] = v4;
+  v8[2] = v4;
   v5 = +[_PSContactHandleFeatureProvider timeSinceLastOutgoingInteraction];
-  v9[3] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:4];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v8[3] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:4];
 
   return v6;
 }
@@ -89,7 +87,7 @@
 
 - (id)_interactionFeaturesForHandle:(id)handle
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   handleCopy = handle;
   v4 = objc_opt_new();
   v5 = objc_alloc_init(MEMORY[0x1E698F2E0]);
@@ -97,14 +95,14 @@
   [date timeIntervalSince1970];
   v8 = v7;
 
-  v45 = handleCopy;
+  v44 = handleCopy;
   v9 = [handleCopy stringByReplacingOccurrencesOfString:@"'" withString:@"''" options:2 range:{0, objc_msgSend(handleCopy, "length")}];
   v10 = MEMORY[0x1E696AEC0];
   v11 = +[_PSContactHandleFeatureProvider timeSinceLastOutgoingInteraction];
   v12 = +[_PSContactHandleFeatureProvider timeSinceLastIncomingInteraction];
   v13 = +[_PSContactHandleFeatureProvider numberOfOutgoingInteractions];
   v14 = +[_PSContactHandleFeatureProvider numberOfIncomingInteractions];
-  v43 = v9;
+  v42 = v9;
   v15 = [v10 stringWithFormat:@"SELECT    intentClass, bundleId, groupIdentifier, COALESCE(%d - MAX(CASE WHEN interactionDirection = 2 THEN absoluteTimestamp END), -1) AS %@, COALESCE(%d - MAX(CASE WHEN interactionDirection = 3 THEN absoluteTimestamp END), -1) AS %@, COUNT(CASE WHEN interactionDirection = 2 THEN 1 END) AS %@, COUNT(CASE WHEN interactionDirection = 3 THEN 1 END) AS %@ FROM    App.Intent WHERE\n    (intentClass = 'INSendMessageIntent'    AND groupIdentifier = 'iMessage-;%@') OR (intentClass = 'INSendMessageIntent'    AND groupIdentifier = 'SMS;-;%@') OR (intentClass = 'INSendMessageIntent'    AND groupIdentifier = 'RCS;-;%@') OR (intentClass = 'INSendMessageIntent'    AND groupIdentifier = 'any;-;%@') OR (intentClass = 'INStartCallIntent'    AND groupIdentifier = '%@') GROUP BY    groupIdentifier;", v8, v11, v8, v12, v13, v14, v9, v9, v9, v9, v9];;
 
   v16 = +[_PSLogging featureGenerationChannel];
@@ -116,14 +114,14 @@
   v17 = [v5 executeQuery:{@"%@", v15}];
   error = [v17 error];
 
-  v44 = v5;
-  v42 = v15;
+  v43 = v5;
+  v41 = v15;
   if (error)
   {
     v19 = +[_PSLogging featureGenerationChannel];
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      [(_PSContactHandleFeatureProvider *)v45 _interactionFeaturesForHandle:v19];
+      [(_PSContactHandleFeatureProvider *)v44 _interactionFeaturesForHandle:v19];
     }
 
     goto LABEL_32;
@@ -135,7 +133,7 @@
     goto LABEL_32;
   }
 
-  v46 = v17;
+  v45 = v17;
   do
   {
     v21 = [v17 row];
@@ -144,29 +142,29 @@
       goto LABEL_31;
     }
 
-    v50 = 0u;
-    v51 = 0u;
-    v48 = 0u;
     v49 = 0u;
+    v50 = 0u;
+    v47 = 0u;
+    v48 = 0u;
     obj = [*(v20 + 1000) featureNames];
-    v22 = [obj countByEnumeratingWithState:&v48 objects:v52 count:16];
+    v22 = [obj countByEnumeratingWithState:&v47 objects:v51 count:16];
     if (!v22)
     {
       goto LABEL_30;
     }
 
     v23 = v22;
-    v24 = *v49;
+    v24 = *v48;
     do
     {
       for (i = 0; i != v23; ++i)
       {
-        if (*v49 != v24)
+        if (*v48 != v24)
         {
           objc_enumerationMutation(obj);
         }
 
-        v26 = *(*(&v48 + 1) + 8 * i);
+        v26 = *(*(&v47 + 1) + 8 * i);
         v27 = [v21 objectForKeyedSubscript:v26];
         if (v27)
         {
@@ -234,41 +232,37 @@ LABEL_27:
 LABEL_28:
       }
 
-      v23 = [obj countByEnumeratingWithState:&v48 objects:v52 count:16];
+      v23 = [obj countByEnumeratingWithState:&v47 objects:v51 count:16];
     }
 
     while (v23);
 LABEL_30:
 
     v20 = 0x1E7C23000;
-    v17 = v46;
+    v17 = v45;
 LABEL_31:
   }
 
   while (([v17 next] & 1) != 0);
 LABEL_32:
 
-  v40 = *MEMORY[0x1E69E9840];
-
   return v4;
 }
 
 - (void)_interactionFeaturesForHandle:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1B5ED1000, a2, OS_LOG_TYPE_DEBUG, "query = %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1B5ED1000, a2, OS_LOG_TYPE_DEBUG, "query = %@", &v2, 0xCu);
 }
 
 - (void)_interactionFeaturesForHandle:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B5ED1000, a2, OS_LOG_TYPE_ERROR, "Error getting features for handle %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B5ED1000, a2, OS_LOG_TYPE_ERROR, "Error getting features for handle %@", &v2, 0xCu);
 }
 
 @end

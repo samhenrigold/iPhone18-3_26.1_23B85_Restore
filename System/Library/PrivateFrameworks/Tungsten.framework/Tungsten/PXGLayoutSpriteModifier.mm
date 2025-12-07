@@ -13,7 +13,7 @@
   v15 = 0u;
   if (store)
   {
-    [store spritesInRange:range];
+    objc_msgSend_spritesInRange_(store);
   }
 
   stateHandler = self->_stateHandler;

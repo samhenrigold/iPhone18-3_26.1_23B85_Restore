@@ -15,7 +15,7 @@
     v16 = __nwlog_obj();
     *out = 136446210;
     *&out[4] = "nw_unique_connection_copy_description";
-    v17 = _os_log_send_and_compose_impl();
+    v17 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v16, 16, "%{public}s called with null uniqueConnection", out, 12);
 
     type[0] = OS_LOG_TYPE_ERROR;
     v26 = 0;
@@ -154,23 +154,21 @@ LABEL_36:
 
 - (void)dealloc
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   if ((self->dupedSocketFD & 0x80000000) == 0)
   {
     pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
     networkd_settings_init();
     v3 = gLogObj;
     *buf = 136446466;
-    v17 = "[NWConcrete_nw_unique_connection dealloc]";
-    v18 = 2114;
+    v15 = "[NWConcrete_nw_unique_connection dealloc]";
+    v16 = 2114;
     selfCopy5 = self;
-    v12 = 22;
-    v11 = buf;
-    v4 = _os_log_send_and_compose_impl();
+    v4 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v3, 16, "%{public}s nw_unique_connection %{public}@ dealloc with dupedSocketFD", buf, 22);
 
     type = OS_LOG_TYPE_ERROR;
-    v14 = 0;
-    if (__nwlog_fault(v4, &type, &v14))
+    v12 = 0;
+    if (__nwlog_fault(v4, &type, &v12))
     {
       if (type == OS_LOG_TYPE_FAULT)
       {
@@ -181,14 +179,14 @@ LABEL_36:
         if (os_log_type_enabled(v5, type))
         {
           *buf = 136446466;
-          v17 = "[NWConcrete_nw_unique_connection dealloc]";
-          v18 = 2114;
+          v15 = "[NWConcrete_nw_unique_connection dealloc]";
+          v16 = 2114;
           selfCopy5 = self;
           _os_log_impl(&dword_181A37000, v5, v6, "%{public}s nw_unique_connection %{public}@ dealloc with dupedSocketFD", buf, 0x16u);
         }
       }
 
-      else if (v14 == 1)
+      else if (v12 == 1)
       {
         backtrace_string = __nw_create_backtrace_string();
         pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
@@ -201,11 +199,11 @@ LABEL_36:
           if (v9)
           {
             *buf = 136446722;
-            v17 = "[NWConcrete_nw_unique_connection dealloc]";
-            v18 = 2114;
+            v15 = "[NWConcrete_nw_unique_connection dealloc]";
+            v16 = 2114;
             selfCopy5 = self;
-            v20 = 2082;
-            v21 = backtrace_string;
+            v18 = 2082;
+            v19 = backtrace_string;
             _os_log_impl(&dword_181A37000, v5, v8, "%{public}s nw_unique_connection %{public}@ dealloc with dupedSocketFD, dumping backtrace:%{public}s", buf, 0x20u);
           }
 
@@ -221,8 +219,8 @@ LABEL_36:
         if (v9)
         {
           *buf = 136446466;
-          v17 = "[NWConcrete_nw_unique_connection dealloc]";
-          v18 = 2114;
+          v15 = "[NWConcrete_nw_unique_connection dealloc]";
+          v16 = 2114;
           selfCopy5 = self;
           _os_log_impl(&dword_181A37000, v5, v8, "%{public}s nw_unique_connection %{public}@ dealloc with dupedSocketFD, no backtrace", buf, 0x16u);
         }
@@ -237,8 +235,8 @@ LABEL_36:
         if (os_log_type_enabled(v5, type))
         {
           *buf = 136446466;
-          v17 = "[NWConcrete_nw_unique_connection dealloc]";
-          v18 = 2114;
+          v15 = "[NWConcrete_nw_unique_connection dealloc]";
+          v16 = 2114;
           selfCopy5 = self;
           _os_log_impl(&dword_181A37000, v5, v10, "%{public}s nw_unique_connection %{public}@ dealloc with dupedSocketFD, backtrace limit exceeded", buf, 0x16u);
         }
@@ -259,9 +257,9 @@ LABEL_8:
   }
 
 LABEL_10:
-  v13.receiver = self;
-  v13.super_class = NWConcrete_nw_unique_connection;
-  [(NWConcrete_nw_unique_connection *)&v13 dealloc:v11];
+  v11.receiver = self;
+  v11.super_class = NWConcrete_nw_unique_connection;
+  [(NWConcrete_nw_unique_connection *)&v11 dealloc];
 }
 
 - (NWConcrete_nw_unique_connection)init
@@ -282,7 +280,7 @@ LABEL_10:
   v6 = __nwlog_obj();
   *buf = 136446210;
   v18 = "[NWConcrete_nw_unique_connection init]";
-  v7 = _os_log_send_and_compose_impl();
+  v7 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v6, 16, "%{public}s [super init] failed", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v14 = 0;

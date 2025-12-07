@@ -24,18 +24,28 @@
   v6 = fromCopy[2];
   if (value)
   {
-    if (v6)
+    if (!v6)
     {
-      [(SECC2MPGenericEventMetricValue *)value mergeFrom:?];
+      goto LABEL_9;
     }
+
+    value = [(SECC2MPGenericEventMetricValue *)value mergeFrom:?];
   }
 
-  else if (v6)
+  else
   {
-    [(SECC2MPGenericEventMetric *)self setValue:?];
+    if (!v6)
+    {
+      goto LABEL_9;
+    }
+
+    value = [(SECC2MPGenericEventMetric *)self setValue:?];
   }
 
-  _objc_release_x1();
+  fromCopy = v7;
+LABEL_9:
+
+  _objc_release_x1(value, fromCopy);
 }
 
 - (BOOL)isEqual:(id)equal

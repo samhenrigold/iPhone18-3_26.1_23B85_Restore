@@ -1,6 +1,11 @@
 @interface AssistantMetrics
 + (id)sharedMetrics;
++ (void)didDetailToggle:(id)toggle bundleId:(id)id on:(BOOL)on;
 + (void)didDetailVisit:(id)visit;
++ (void)didDisableSiriConfirmed:(BOOL)confirmed source:(id)source;
++ (void)didEnableSiriConfirmed:(BOOL)confirmed source:(id)source;
++ (void)didStartEnrollment:(BOOL)enrollment;
++ (void)didToggle:(id)toggle on:(BOOL)on;
 + (void)didVisit;
 - (id)__confirmedTrueFalseProperty;
 - (id)__detailToggleFoundInAppsTracker;
@@ -54,6 +59,37 @@ uint64_t __33__AssistantMetrics_sharedMetrics__block_invoke()
   [v2 logVisit];
 }
 
++ (void)didEnableSiriConfirmed:(BOOL)confirmed source:(id)source
+{
+  confirmedCopy = confirmed;
+  sourceCopy = source;
+  v6 = +[AssistantMetrics sharedMetrics];
+  [v6 logEnableSiriConfirmed:confirmedCopy source:sourceCopy];
+}
+
++ (void)didDisableSiriConfirmed:(BOOL)confirmed source:(id)source
+{
+  confirmedCopy = confirmed;
+  sourceCopy = source;
+  v6 = +[AssistantMetrics sharedMetrics];
+  [v6 logDisableSiriConfirmed:confirmedCopy source:sourceCopy];
+}
+
++ (void)didStartEnrollment:(BOOL)enrollment
+{
+  enrollmentCopy = enrollment;
+  v4 = +[AssistantMetrics sharedMetrics];
+  [v4 logStartEnrollment:enrollmentCopy];
+}
+
++ (void)didToggle:(id)toggle on:(BOOL)on
+{
+  onCopy = on;
+  toggleCopy = toggle;
+  v6 = +[AssistantMetrics sharedMetrics];
+  [v6 logToggle:toggleCopy on:onCopy];
+}
+
 + (void)didDetailVisit:(id)visit
 {
   visitCopy = visit;
@@ -61,16 +97,25 @@ uint64_t __33__AssistantMetrics_sharedMetrics__block_invoke()
   [v4 logDetailVisit:visitCopy];
 }
 
++ (void)didDetailToggle:(id)toggle bundleId:(id)id on:(BOOL)on
+{
+  onCopy = on;
+  idCopy = id;
+  toggleCopy = toggle;
+  v9 = +[AssistantMetrics sharedMetrics];
+  [v9 logDetailToggle:toggleCopy bundleId:idCopy on:onCopy];
+}
+
 - (id)__onOffProperty
 {
-  v10[2] = *MEMORY[0x277D85DE8];
+  v9[2] = *MEMORY[0x277D85DE8];
   onOffProperty = self->_onOffProperty;
   if (!onOffProperty)
   {
     PETEventPropertyClass = getPETEventPropertyClass();
-    v10[0] = @"on";
-    v10[1] = @"off";
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
+    v9[0] = @"on";
+    v9[1] = @"off";
+    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:2];
     v6 = [PETEventPropertyClass propertyWithName:@"val" possibleValues:v5];
     v7 = self->_onOffProperty;
     self->_onOffProperty = v6;
@@ -78,21 +123,19 @@ uint64_t __33__AssistantMetrics_sharedMetrics__block_invoke()
     onOffProperty = self->_onOffProperty;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
-
   return onOffProperty;
 }
 
 - (id)__confirmedTrueFalseProperty
 {
-  v10[2] = *MEMORY[0x277D85DE8];
+  v9[2] = *MEMORY[0x277D85DE8];
   confirmedTrueFalseProperty = self->_confirmedTrueFalseProperty;
   if (!confirmedTrueFalseProperty)
   {
     PETEventPropertyClass = getPETEventPropertyClass();
-    v10[0] = @"true";
-    v10[1] = @"false";
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
+    v9[0] = @"true";
+    v9[1] = @"false";
+    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:2];
     v6 = [PETEventPropertyClass propertyWithName:@"conf" possibleValues:v5];
     v7 = self->_confirmedTrueFalseProperty;
     self->_confirmedTrueFalseProperty = v6;
@@ -100,23 +143,21 @@ uint64_t __33__AssistantMetrics_sharedMetrics__block_invoke()
     confirmedTrueFalseProperty = self->_confirmedTrueFalseProperty;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
-
   return confirmedTrueFalseProperty;
 }
 
 - (id)__toggleTrackerNameProperty
 {
-  v10[4] = *MEMORY[0x277D85DE8];
+  v9[4] = *MEMORY[0x277D85DE8];
   toggleTrackerNameProperty = self->_toggleTrackerNameProperty;
   if (!toggleTrackerNameProperty)
   {
     PETEventPropertyClass = getPETEventPropertyClass();
-    v10[0] = @"HeySiri";
-    v10[1] = @"HardwareButton";
-    v10[2] = @"Lockscreen";
-    v10[3] = @"Search";
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:4];
+    v9[0] = @"HeySiri";
+    v9[1] = @"HardwareButton";
+    v9[2] = @"Lockscreen";
+    v9[3] = @"Search";
+    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:4];
     v6 = [PETEventPropertyClass propertyWithName:@"name" possibleValues:v5];
     v7 = self->_toggleTrackerNameProperty;
     self->_toggleTrackerNameProperty = v6;
@@ -124,25 +165,23 @@ uint64_t __33__AssistantMetrics_sharedMetrics__block_invoke()
     toggleTrackerNameProperty = self->_toggleTrackerNameProperty;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
-
   return toggleTrackerNameProperty;
 }
 
 - (id)__detailToggleTrackerNameProperty
 {
-  v10[6] = *MEMORY[0x277D85DE8];
+  v9[6] = *MEMORY[0x277D85DE8];
   detailToggleTrackerNameProperty = self->_detailToggleTrackerNameProperty;
   if (!detailToggleTrackerNameProperty)
   {
     PETEventPropertyClass = getPETEventPropertyClass();
-    v10[0] = @"sirisearch";
-    v10[1] = @"sirikit";
-    v10[2] = @"foundinapps";
-    v10[3] = @"portraittopics";
-    v10[4] = @"inAppShow";
-    v10[5] = @"inAppLearn";
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:6];
+    v9[0] = @"sirisearch";
+    v9[1] = @"sirikit";
+    v9[2] = @"foundinapps";
+    v9[3] = @"portraittopics";
+    v9[4] = @"inAppShow";
+    v9[5] = @"inAppLearn";
+    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:6];
     v6 = [PETEventPropertyClass propertyWithName:@"name" possibleValues:v5];
     v7 = self->_detailToggleTrackerNameProperty;
     self->_detailToggleTrackerNameProperty = v6;
@@ -150,22 +189,20 @@ uint64_t __33__AssistantMetrics_sharedMetrics__block_invoke()
     detailToggleTrackerNameProperty = self->_detailToggleTrackerNameProperty;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
-
   return detailToggleTrackerNameProperty;
 }
 
 - (id)__siriSourceProperty
 {
-  v10[3] = *MEMORY[0x277D85DE8];
+  v9[3] = *MEMORY[0x277D85DE8];
   siriSourceProperty = self->_siriSourceProperty;
   if (!siriSourceProperty)
   {
     PETEventPropertyClass = getPETEventPropertyClass();
-    v10[0] = @"HeySiri";
-    v10[1] = @"HardwareButton";
-    v10[2] = @"Unknown";
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:3];
+    v9[0] = @"HeySiri";
+    v9[1] = @"HardwareButton";
+    v9[2] = @"Unknown";
+    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:3];
     v6 = [PETEventPropertyClass propertyWithName:@"source" possibleValues:v5];
     v7 = self->_siriSourceProperty;
     self->_siriSourceProperty = v6;
@@ -173,33 +210,29 @@ uint64_t __33__AssistantMetrics_sharedMetrics__block_invoke()
     siriSourceProperty = self->_siriSourceProperty;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
-
   return siriSourceProperty;
 }
 
 - (id)__foundInAppsProperty
 {
-  v10[6] = *MEMORY[0x277D85DE8];
+  v9[6] = *MEMORY[0x277D85DE8];
   foundInAppsProperty = self->_foundInAppsProperty;
   if (!foundInAppsProperty)
   {
     PETEventPropertyClass = getPETEventPropertyClass();
-    v10[0] = @"com.apple.Maps";
-    v10[1] = @"com.apple.mobilemail";
-    v10[2] = @"com.apple.MobileSMS";
-    v10[3] = @"com.apple.news";
-    v10[4] = @"com.apple.MobileAddressBook";
-    v10[5] = @"com.apple.mobilecal";
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:6];
+    v9[0] = @"com.apple.Maps";
+    v9[1] = @"com.apple.mobilemail";
+    v9[2] = @"com.apple.MobileSMS";
+    v9[3] = @"com.apple.news";
+    v9[4] = @"com.apple.MobileAddressBook";
+    v9[5] = @"com.apple.mobilecal";
+    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:6];
     v6 = [PETEventPropertyClass propertyWithName:@"bundleId" possibleValues:v5];
     v7 = self->_foundInAppsProperty;
     self->_foundInAppsProperty = v6;
 
     foundInAppsProperty = self->_foundInAppsProperty;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return foundInAppsProperty;
 }
@@ -221,16 +254,16 @@ uint64_t __33__AssistantMetrics_sharedMetrics__block_invoke()
 
 - (id)__enableSiriTracker
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   enableSiriTracker = self->_enableSiriTracker;
   if (!enableSiriTracker)
   {
     v4 = objc_alloc(getPETScalarEventTrackerClass());
     __siriSourceProperty = [(AssistantMetrics *)self __siriSourceProperty];
-    v12[0] = __siriSourceProperty;
+    v11[0] = __siriSourceProperty;
     __confirmedTrueFalseProperty = [(AssistantMetrics *)self __confirmedTrueFalseProperty];
-    v12[1] = __confirmedTrueFalseProperty;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
+    v11[1] = __confirmedTrueFalseProperty;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
     v8 = [v4 initWithFeatureId:@"SiriSettings" event:@"EnableSiri" registerProperties:v7];
     v9 = self->_enableSiriTracker;
     self->_enableSiriTracker = v8;
@@ -238,23 +271,21 @@ uint64_t __33__AssistantMetrics_sharedMetrics__block_invoke()
     enableSiriTracker = self->_enableSiriTracker;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return enableSiriTracker;
 }
 
 - (id)__disableSiriTracker
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   disableSiriTracker = self->_disableSiriTracker;
   if (!disableSiriTracker)
   {
     v4 = objc_alloc(getPETScalarEventTrackerClass());
     __siriSourceProperty = [(AssistantMetrics *)self __siriSourceProperty];
-    v12[0] = __siriSourceProperty;
+    v11[0] = __siriSourceProperty;
     __confirmedTrueFalseProperty = [(AssistantMetrics *)self __confirmedTrueFalseProperty];
-    v12[1] = __confirmedTrueFalseProperty;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
+    v11[1] = __confirmedTrueFalseProperty;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
     v8 = [v4 initWithFeatureId:@"SiriSettings" event:@"DisableSiri" registerProperties:v7];
     v9 = self->_disableSiriTracker;
     self->_disableSiriTracker = v8;
@@ -262,23 +293,21 @@ uint64_t __33__AssistantMetrics_sharedMetrics__block_invoke()
     disableSiriTracker = self->_disableSiriTracker;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return disableSiriTracker;
 }
 
 - (id)__toggleTracker
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   toggleTracker = self->_toggleTracker;
   if (!toggleTracker)
   {
     v4 = objc_alloc(getPETScalarEventTrackerClass());
     __toggleTrackerNameProperty = [(AssistantMetrics *)self __toggleTrackerNameProperty];
-    v12[0] = __toggleTrackerNameProperty;
+    v11[0] = __toggleTrackerNameProperty;
     __onOffProperty = [(AssistantMetrics *)self __onOffProperty];
-    v12[1] = __onOffProperty;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
+    v11[1] = __onOffProperty;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
     v8 = [v4 initWithFeatureId:@"SiriSettings" event:@"Toggle" registerProperties:v7];
     v9 = self->_toggleTracker;
     self->_toggleTracker = v8;
@@ -286,29 +315,25 @@ uint64_t __33__AssistantMetrics_sharedMetrics__block_invoke()
     toggleTracker = self->_toggleTracker;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return toggleTracker;
 }
 
 - (id)__startEnrollmentTracker
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   startEnrollmentTracker = self->_startEnrollmentTracker;
   if (!startEnrollmentTracker)
   {
     v4 = objc_alloc(getPETScalarEventTrackerClass());
     __confirmedTrueFalseProperty = [(AssistantMetrics *)self __confirmedTrueFalseProperty];
-    v11[0] = __confirmedTrueFalseProperty;
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+    v10[0] = __confirmedTrueFalseProperty;
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
     v7 = [v4 initWithFeatureId:@"SiriSettings" event:@"VoiceEnroll" registerProperties:v6];
     v8 = self->_startEnrollmentTracker;
     self->_startEnrollmentTracker = v7;
 
     startEnrollmentTracker = self->_startEnrollmentTracker;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return startEnrollmentTracker;
 }
@@ -330,14 +355,14 @@ uint64_t __33__AssistantMetrics_sharedMetrics__block_invoke()
 
 - (id)__detailVisitFoundInAppsTracker
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   detailVisitFoundInAppsTracker = self->_detailVisitFoundInAppsTracker;
   if (!detailVisitFoundInAppsTracker)
   {
     v4 = objc_alloc(getPETScalarEventTrackerClass());
     __foundInAppsProperty = [(AssistantMetrics *)self __foundInAppsProperty];
-    v11[0] = __foundInAppsProperty;
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+    v10[0] = __foundInAppsProperty;
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
     v7 = [v4 initWithFeatureId:@"SiriSettings" event:@"DetailVisitFIA" registerProperties:v6];
     v8 = self->_detailVisitFoundInAppsTracker;
     self->_detailVisitFoundInAppsTracker = v7;
@@ -345,24 +370,22 @@ uint64_t __33__AssistantMetrics_sharedMetrics__block_invoke()
     detailVisitFoundInAppsTracker = self->_detailVisitFoundInAppsTracker;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-
   return detailVisitFoundInAppsTracker;
 }
 
 - (id)__detailToggleFoundInAppsTracker
 {
-  v13[3] = *MEMORY[0x277D85DE8];
+  v12[3] = *MEMORY[0x277D85DE8];
   detailToggleFoundInAppsTracker = self->_detailToggleFoundInAppsTracker;
   if (!detailToggleFoundInAppsTracker)
   {
     v4 = objc_alloc(getPETScalarEventTrackerClass());
     __detailToggleTrackerNameProperty = [(AssistantMetrics *)self __detailToggleTrackerNameProperty];
     __foundInAppsProperty = [(AssistantMetrics *)self __foundInAppsProperty];
-    v13[1] = __foundInAppsProperty;
+    v12[1] = __foundInAppsProperty;
     __onOffProperty = [(AssistantMetrics *)self __onOffProperty];
-    v13[2] = __onOffProperty;
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:3];
+    v12[2] = __onOffProperty;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:3];
     v9 = [v4 initWithFeatureId:@"SiriSettings" event:@"DetailToggleFIA" registerProperties:v8];
     v10 = self->_detailToggleFoundInAppsTracker;
     self->_detailToggleFoundInAppsTracker = v9;
@@ -370,21 +393,19 @@ uint64_t __33__AssistantMetrics_sharedMetrics__block_invoke()
     detailToggleFoundInAppsTracker = self->_detailToggleFoundInAppsTracker;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return detailToggleFoundInAppsTracker;
 }
 
 - (id)__detailToggleSearchTracker
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   detailToggleSearchTracker = self->_detailToggleSearchTracker;
   if (!detailToggleSearchTracker)
   {
     v4 = objc_alloc(getPETScalarEventTrackerClass());
     __onOffProperty = [(AssistantMetrics *)self __onOffProperty];
-    v11[0] = __onOffProperty;
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+    v10[0] = __onOffProperty;
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
     v7 = [v4 initWithFeatureId:@"SiriSettings" event:@"DetailToggleSearch" registerProperties:v6];
     v8 = self->_detailToggleSearchTracker;
     self->_detailToggleSearchTracker = v7;
@@ -392,29 +413,25 @@ uint64_t __33__AssistantMetrics_sharedMetrics__block_invoke()
     detailToggleSearchTracker = self->_detailToggleSearchTracker;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-
   return detailToggleSearchTracker;
 }
 
 - (id)__detailToggleSiriKitTracker
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   detailToggleSiriKitTracker = self->_detailToggleSiriKitTracker;
   if (!detailToggleSiriKitTracker)
   {
     v4 = objc_alloc(getPETScalarEventTrackerClass());
     __onOffProperty = [(AssistantMetrics *)self __onOffProperty];
-    v11[0] = __onOffProperty;
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+    v10[0] = __onOffProperty;
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
     v7 = [v4 initWithFeatureId:@"SiriSettings" event:@"DetailToggleSiriKit" registerProperties:v6];
     v8 = self->_detailToggleSiriKitTracker;
     self->_detailToggleSiriKitTracker = v7;
 
     detailToggleSiriKitTracker = self->_detailToggleSiriKitTracker;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return detailToggleSiriKitTracker;
 }
@@ -451,7 +468,7 @@ void __28__AssistantMetrics_logVisit__block_invoke(uint64_t a1)
 
 void __50__AssistantMetrics_logEnableSiriConfirmed_source___block_invoke(uint64_t a1)
 {
-  v8[2] = *MEMORY[0x277D85DE8];
+  v7[2] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) __siriSourceProperty];
   v3 = [v2 isValidValue:*(a1 + 40)];
 
@@ -468,13 +485,11 @@ void __50__AssistantMetrics_logEnableSiriConfirmed_source___block_invoke(uint64_
       v5 = @"false";
     }
 
-    v8[0] = *(a1 + 40);
-    v8[1] = v5;
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:2];
+    v7[0] = *(a1 + 40);
+    v7[1] = v5;
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:2];
     [v4 trackEventWithPropertyValues:v6];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logDisableSiriConfirmed:(BOOL)confirmed source:(id)source
@@ -493,7 +508,7 @@ void __50__AssistantMetrics_logEnableSiriConfirmed_source___block_invoke(uint64_
 
 void __51__AssistantMetrics_logDisableSiriConfirmed_source___block_invoke(uint64_t a1)
 {
-  v8[2] = *MEMORY[0x277D85DE8];
+  v7[2] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) __siriSourceProperty];
   v3 = [v2 isValidValue:*(a1 + 40)];
 
@@ -510,13 +525,11 @@ void __51__AssistantMetrics_logDisableSiriConfirmed_source___block_invoke(uint64
       v5 = @"false";
     }
 
-    v8[0] = *(a1 + 40);
-    v8[1] = v5;
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:2];
+    v7[0] = *(a1 + 40);
+    v7[1] = v5;
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:2];
     [v4 trackEventWithPropertyValues:v6];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logStartEnrollment:(BOOL)enrollment
@@ -532,7 +545,7 @@ void __51__AssistantMetrics_logDisableSiriConfirmed_source___block_invoke(uint64
 
 void __39__AssistantMetrics_logStartEnrollment___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) __startEnrollmentTracker];
   v3 = @"false";
   if (*(a1 + 40))
@@ -540,11 +553,9 @@ void __39__AssistantMetrics_logStartEnrollment___block_invoke(uint64_t a1)
     v3 = @"true";
   }
 
-  v6[0] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
+  v5[0] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
   [v2 trackEventWithPropertyValues:v4];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logToggle:(id)toggle on:(BOOL)on
@@ -563,7 +574,7 @@ void __39__AssistantMetrics_logStartEnrollment___block_invoke(uint64_t a1)
 
 void __33__AssistantMetrics_logToggle_on___block_invoke(uint64_t a1)
 {
-  v8[2] = *MEMORY[0x277D85DE8];
+  v7[2] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) __toggleTrackerNameProperty];
   v3 = [v2 isValidValue:*(a1 + 40)];
 
@@ -580,13 +591,11 @@ void __33__AssistantMetrics_logToggle_on___block_invoke(uint64_t a1)
       v5 = @"off";
     }
 
-    v8[0] = *(a1 + 40);
-    v8[1] = v5;
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:2];
+    v7[0] = *(a1 + 40);
+    v7[1] = v5;
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:2];
     [v4 trackEventWithPropertyValues:v6];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logDetailVisit:(id)visit
@@ -604,7 +613,7 @@ void __33__AssistantMetrics_logToggle_on___block_invoke(uint64_t a1)
 
 void __35__AssistantMetrics_logDetailVisit___block_invoke(uint64_t a1)
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) __foundInAppsProperty];
   v3 = [v2 isValidValue:*(a1 + 40)];
 
@@ -612,18 +621,15 @@ void __35__AssistantMetrics_logDetailVisit___block_invoke(uint64_t a1)
   if (v3)
   {
     v5 = [v4 __detailVisitFoundInAppsTracker];
-    v10[0] = *(a1 + 40);
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
+    v8[0] = *(a1 + 40);
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
     [v5 trackEventWithPropertyValues:v6];
-
-    v7 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v9 = [v4 __detailVisitTracker];
-    [v9 trackEventWithPropertyValues:MEMORY[0x277CBEBF8]];
-    v8 = *MEMORY[0x277D85DE8];
+    v7 = [v4 __detailVisitTracker];
+    [v7 trackEventWithPropertyValues:MEMORY[0x277CBEBF8]];
   }
 }
 
@@ -646,7 +652,7 @@ void __35__AssistantMetrics_logDetailVisit___block_invoke(uint64_t a1)
 
 void __48__AssistantMetrics_logDetailToggle_bundleId_on___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) __foundInAppsProperty];
   v3 = [v2 isValidValue:*(a1 + 40)];
 
@@ -654,59 +660,60 @@ void __48__AssistantMetrics_logDetailToggle_bundleId_on___block_invoke(uint64_t 
   {
     v4 = [*(a1 + 32) __detailToggleFoundInAppsTracker];
     v5 = *(a1 + 40);
-    v16 = *(a1 + 48);
-    v17 = v5;
+    v15 = *(a1 + 48);
+    v16 = v5;
     v6 = @"off";
     if (*(a1 + 56))
     {
       v6 = @"on";
     }
 
-    v18 = v6;
-    v7 = MEMORY[0x277CBEA60];
-    v8 = &v16;
-    v9 = 3;
-    goto LABEL_14;
-  }
-
-  if ([*(a1 + 48) isEqualToString:@"sirikit"])
-  {
-    v4 = [*(a1 + 32) __detailToggleSiriKitTracker];
-    v10 = @"off";
-    if (*(a1 + 56))
-    {
-      v10 = @"on";
-    }
-
-    v15 = v10;
+    v17 = v6;
     v7 = MEMORY[0x277CBEA60];
     v8 = &v15;
-LABEL_13:
-    v9 = 1;
-LABEL_14:
-    v12 = [v7 arrayWithObjects:v8 count:{v9, v14, v15, v16, v17, v18}];
-    [v4 trackEventWithPropertyValues:v12];
-
-    goto LABEL_15;
+    v9 = 3;
   }
 
-  if ([*(a1 + 48) isEqualToString:@"sirisearch"])
+  else
   {
-    v4 = [*(a1 + 32) __detailToggleSearchTracker];
-    v11 = @"off";
-    if (*(a1 + 56))
+    if ([*(a1 + 48) isEqualToString:@"sirikit"])
     {
-      v11 = @"on";
+      v4 = [*(a1 + 32) __detailToggleSiriKitTracker];
+      v10 = @"off";
+      if (*(a1 + 56))
+      {
+        v10 = @"on";
+      }
+
+      v14 = v10;
+      v7 = MEMORY[0x277CBEA60];
+      v8 = &v14;
     }
 
-    v14 = v11;
-    v7 = MEMORY[0x277CBEA60];
-    v8 = &v14;
-    goto LABEL_13;
+    else
+    {
+      if (![*(a1 + 48) isEqualToString:@"sirisearch"])
+      {
+        return;
+      }
+
+      v4 = [*(a1 + 32) __detailToggleSearchTracker];
+      v11 = @"off";
+      if (*(a1 + 56))
+      {
+        v11 = @"on";
+      }
+
+      v13 = v11;
+      v7 = MEMORY[0x277CBEA60];
+      v8 = &v13;
+    }
+
+    v9 = 1;
   }
 
-LABEL_15:
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = [v7 arrayWithObjects:v8 count:{v9, v13, v14, v15, v16, v17}];
+  [v4 trackEventWithPropertyValues:v12];
 }
 
 @end

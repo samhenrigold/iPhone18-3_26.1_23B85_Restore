@@ -1,15 +1,21 @@
 @interface GPBInt32EnumDictionary
+- (BOOL)getEnum:(int *)enum forKey:(int)key;
+- (BOOL)getRawValue:(int *)value forKey:(int)key;
 - (BOOL)isEqual:(id)equal;
 - (GPBInt32EnumDictionary)initWithDictionary:(id)dictionary;
 - (GPBInt32EnumDictionary)initWithValidationFunction:(void *)function rawValues:(const int *)values forKeys:(const int *)keys count:(unint64_t)count;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)serializedDataForUnknownValue:(int)value forKey:(id *)key keyDataType:(unsigned __int8)type;
 - (unint64_t)computeSerializedSizeAsField:(id)field;
 - (void)addRawEntriesFromDictionary:(id)dictionary;
 - (void)dealloc;
 - (void)enumerateForTextFormat:(id)format;
 - (void)enumerateKeysAndEnumsUsingBlock:(id)block;
 - (void)enumerateKeysAndRawValuesUsingBlock:(id)block;
+- (void)removeEnumForKey:(int)key;
+- (void)setEnum:(int)enum forKey:(int)key;
 - (void)setGPBGenericValue:(id *)value forGPBGenericValueKey:(id *)key;
+- (void)setRawValue:(int)value forKey:(int)key;
 - (void)writeToCodedOutputStream:(id)stream asField:(id)field;
 @end
 
@@ -189,6 +195,19 @@
   }
 }
 
+- (id)serializedDataForUnknownValue:(int)value forKey:(id *)key keyDataType:(unsigned __int8)type
+{
+  typeCopy = type;
+  v7 = *&value;
+  v8 = sub_10031DFD8(key->var3, 1, type);
+  v9 = [NSMutableData dataWithLength:GPBComputeEnumSize(2, v7) + v8];
+  v10 = [[GPBCodedOutputStream alloc] initWithData:v9];
+  sub_10031E218(v10, key->var3, 1, typeCopy);
+  [(GPBCodedOutputStream *)v10 writeEnum:2 value:v7];
+
+  return v9;
+}
+
 - (void)setGPBGenericValue:(id *)value forGPBGenericValueKey:(id *)key
 {
   dictionary = self->_dictionary;
@@ -206,6 +225,41 @@
   v3[3] = &unk_100435828;
   v3[4] = format;
   [(GPBInt32EnumDictionary *)self enumerateKeysAndRawValuesUsingBlock:v3];
+}
+
+- (BOOL)getEnum:(int *)enum forKey:(int)key
+{
+  v6 = [(NSMutableDictionary *)self->_dictionary objectForKey:[NSNumber numberWithInt:*&key]];
+  v7 = v6;
+  if (enum && v6)
+  {
+    intValue = [v6 intValue];
+    if ((self->_validationFunc)())
+    {
+      v9 = intValue;
+    }
+
+    else
+    {
+      v9 = -72499473;
+    }
+
+    *enum = v9;
+  }
+
+  return v7 != 0;
+}
+
+- (BOOL)getRawValue:(int *)value forKey:(int)key
+{
+  v5 = [(NSMutableDictionary *)self->_dictionary objectForKey:[NSNumber numberWithInt:*&key]];
+  v6 = v5;
+  if (value && v5)
+  {
+    *value = [v5 intValue];
+  }
+
+  return v6 != 0;
 }
 
 - (void)enumerateKeysAndEnumsUsingBlock:(id)block
@@ -241,6 +295,43 @@
 
       GPBAutocreatedDictionaryModified(autocreator, self);
     }
+  }
+}
+
+- (void)setRawValue:(int)value forKey:(int)key
+{
+  [(NSMutableDictionary *)self->_dictionary setObject:[NSNumber forKey:"numberWithInt:" numberWithInt:?], [NSNumber numberWithInt:*&key]];
+  autocreator = self->_autocreator;
+  if (autocreator)
+  {
+
+    GPBAutocreatedDictionaryModified(autocreator, self);
+  }
+}
+
+- (void)removeEnumForKey:(int)key
+{
+  dictionary = self->_dictionary;
+  v4 = [NSNumber numberWithInt:*&key];
+
+  [(NSMutableDictionary *)dictionary removeObjectForKey:v4];
+}
+
+- (void)setEnum:(int)enum forKey:(int)key
+{
+  v4 = *&key;
+  v5 = *&enum;
+  if (((self->_validationFunc)(*&enum, a2) & 1) == 0)
+  {
+    [NSException raise:NSInvalidArgumentException format:@"GPBInt32EnumDictionary: Attempt to set an unknown enum value (%d)", v5];
+  }
+
+  [(NSMutableDictionary *)self->_dictionary setObject:[NSNumber forKey:"numberWithInt:" numberWithInt:v5], [NSNumber numberWithInt:v4]];
+  autocreator = self->_autocreator;
+  if (autocreator)
+  {
+
+    GPBAutocreatedDictionaryModified(autocreator, self);
   }
 }
 

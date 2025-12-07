@@ -16,7 +16,7 @@
 
 - (void)handleErrors:(id)errors
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ECF32480);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ECF32480, &unk_1E42A9410);
   sub_1E42062B4();
   selfCopy = self;
   OUTLINED_FUNCTION_50();

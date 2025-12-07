@@ -65,26 +65,25 @@ LABEL_13:
 
 - (id)blindSign:(id)sign error:(id *)error
 {
-  v16[3] = *MEMORY[0x1E69E9840];
+  v14[3] = *MEMORY[0x1E69E9840];
   signCopy = sign;
   ccrng();
   v7 = [objc_alloc(MEMORY[0x1E695DF88]) initWithLength:self->_ciphersuiteModulusByteCount];
-  ciphersuite = self->_ciphersuite;
   [signCopy bytes];
   [signCopy length];
   [v7 mutableBytes];
   [v7 length];
-  v9 = ccrsabssa_sign_blinded_message();
-  if (v9)
+  v8 = ccrsabssa_sign_blinded_message();
+  if (v8)
   {
     if (error)
     {
-      v10 = MEMORY[0x1E696ABC0];
-      v15 = @"corecrypto_error";
-      v11 = [MEMORY[0x1E696AD98] numberWithInteger:v9];
-      v16[0] = v11;
-      v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
-      *error = [v10 errorWithDomain:@"com.apple.cryptokit.rsabssa" code:5 userInfo:v12];
+      v9 = MEMORY[0x1E696ABC0];
+      v13 = @"corecrypto_error";
+      v10 = [MEMORY[0x1E696AD98] numberWithInteger:v8];
+      v14[0] = v10;
+      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+      *error = [v9 errorWithDomain:@"com.apple.cryptokit.rsabssa" code:5 userInfo:v11];
 
       error = 0;
     }
@@ -95,8 +94,6 @@ LABEL_13:
     v7 = v7;
     error = v7;
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return error;
 }

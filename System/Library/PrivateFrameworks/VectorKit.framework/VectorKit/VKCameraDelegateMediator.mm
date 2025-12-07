@@ -552,7 +552,7 @@
 - (void)pushAccess:(void *)access animated:(BOOL)animated
 {
   v6 = *MEMORY[0x1E69E9840];
-  [(VKCameraDelegateMediator *)self willBeginRegionChangeAccess:animated];
+  objc_msgSend_willBeginRegionChangeAccess_(self, a2, animated);
   gdc::ReferenceCountedAccess<md::VKCameraRegionChange>::operator=(access, v5);
   gdc::ReferenceCountedAccess<md::VKCameraRegionChange>::~ReferenceCountedAccess(v5);
 }

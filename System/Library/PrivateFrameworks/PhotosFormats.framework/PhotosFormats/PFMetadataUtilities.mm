@@ -10,7 +10,7 @@
 + (id)mutableImagePropertyDictionaryForMetadata:(id)metadata
 {
   cgImageProperties = [metadata cgImageProperties];
-  v4 = [cgImageProperties mutableCopy];
+  v4 = objc_msgSend_mutableCopy(cgImageProperties);
 
   return v4;
 }
@@ -22,7 +22,7 @@
   v7 = arrayCopy;
   if ([v6 count])
   {
-    v8 = [arrayCopy mutableCopy];
+    v8 = objc_msgSend_mutableCopy(arrayCopy);
     [v8 removeObjectsInArray:v6];
     v7 = [v8 copy];
   }
@@ -102,7 +102,7 @@ LABEL_11:
   propertiesCopy = properties;
   v10 = *MEMORY[0x1E696DE30];
   v11 = [propertiesCopy objectForKeyedSubscript:*MEMORY[0x1E696DE30]];
-  dictionary = [v11 mutableCopy];
+  dictionary = objc_msgSend_mutableCopy(v11);
 
   if (!dictionary)
   {

@@ -89,7 +89,7 @@ LABEL_8:
   v10 = qword_1ED6A60E8;
   if (!qword_1ED6A60E8)
   {
-    WTF::HashTable<WTF::WeakRef<BackForwardList,WTF::DefaultWeakPtrImpl>,WTF::KeyValuePair<WTF::WeakRef<BackForwardList,WTF::DefaultWeakPtrImpl>,WebBackForwardList *>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::WeakRef<BackForwardList,WTF::DefaultWeakPtrImpl>,WebBackForwardList *>>,WTF::DefaultHash<WTF::WeakRef<BackForwardList,WTF::DefaultWeakPtrImpl>>,WTF::HashMap<WTF::WeakRef<BackForwardList,WTF::DefaultWeakPtrImpl>,WebBackForwardList *,WTF::DefaultHash<WTF::WeakRef<BackForwardList,WTF::DefaultWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<BackForwardList,WTF::DefaultWeakPtrImpl>>,WTF::HashTraits<WebBackForwardList *>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::WeakRef<BackForwardList,WTF::DefaultWeakPtrImpl>>,WTF::FastMalloc>::rehash(8u);
+    WTF::HashTable<WTF::WeakRef<BackForwardList,WTF::DefaultWeakPtrImpl>,WTF::KeyValuePair<WTF::WeakRef<BackForwardList,WTF::DefaultWeakPtrImpl>,WebBackForwardList *>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::WeakRef<BackForwardList,WTF::DefaultWeakPtrImpl>,WebBackForwardList *>>,WTF::DefaultHash<WTF::WeakRef<BackForwardList,WTF::DefaultWeakPtrImpl>>,WTF::HashMap<WTF::WeakRef<BackForwardList,WTF::DefaultWeakPtrImpl>,WebBackForwardList *,WTF::DefaultHash<WTF::WeakRef<BackForwardList,WTF::DefaultWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<BackForwardList,WTF::DefaultWeakPtrImpl>>,WTF::HashTraits<WebBackForwardList *>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::WeakRef<BackForwardList,WTF::DefaultWeakPtrImpl>>,WTF::FastMalloc>::rehash(8u, 0);
     v10 = qword_1ED6A60E8;
     if (!qword_1ED6A60E8)
     {
@@ -149,6 +149,7 @@ LABEL_13:
       else
       {
         *v20 = v7;
+        v13 = v20;
         v20[1] = v5;
         v24 = qword_1ED6A60E8;
         if (qword_1ED6A60E8)
@@ -184,7 +185,7 @@ LABEL_25:
         {
           v29 = 8;
 LABEL_33:
-          WTF::HashTable<WTF::WeakRef<BackForwardList,WTF::DefaultWeakPtrImpl>,WTF::KeyValuePair<WTF::WeakRef<BackForwardList,WTF::DefaultWeakPtrImpl>,WebBackForwardList *>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::WeakRef<BackForwardList,WTF::DefaultWeakPtrImpl>,WebBackForwardList *>>,WTF::DefaultHash<WTF::WeakRef<BackForwardList,WTF::DefaultWeakPtrImpl>>,WTF::HashMap<WTF::WeakRef<BackForwardList,WTF::DefaultWeakPtrImpl>,WebBackForwardList *,WTF::DefaultHash<WTF::WeakRef<BackForwardList,WTF::DefaultWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<BackForwardList,WTF::DefaultWeakPtrImpl>>,WTF::HashTraits<WebBackForwardList *>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::WeakRef<BackForwardList,WTF::DefaultWeakPtrImpl>>,WTF::FastMalloc>::rehash(v29);
+          WTF::HashTable<WTF::WeakRef<BackForwardList,WTF::DefaultWeakPtrImpl>,WTF::KeyValuePair<WTF::WeakRef<BackForwardList,WTF::DefaultWeakPtrImpl>,WebBackForwardList *>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::WeakRef<BackForwardList,WTF::DefaultWeakPtrImpl>,WebBackForwardList *>>,WTF::DefaultHash<WTF::WeakRef<BackForwardList,WTF::DefaultWeakPtrImpl>>,WTF::HashMap<WTF::WeakRef<BackForwardList,WTF::DefaultWeakPtrImpl>,WebBackForwardList *,WTF::DefaultHash<WTF::WeakRef<BackForwardList,WTF::DefaultWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<BackForwardList,WTF::DefaultWeakPtrImpl>>,WTF::HashTraits<WebBackForwardList *>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::WeakRef<BackForwardList,WTF::DefaultWeakPtrImpl>>,WTF::FastMalloc>::rehash(v29, v13);
           return v5;
         }
 
@@ -335,7 +336,7 @@ LABEL_15:
           if (6 * v18.i32[1] < base_props_high && base_props_high >= 9)
           {
             v21 = v5;
-            WTF::HashTable<WTF::WeakRef<BackForwardList,WTF::DefaultWeakPtrImpl>,WTF::KeyValuePair<WTF::WeakRef<BackForwardList,WTF::DefaultWeakPtrImpl>,WebBackForwardList *>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::WeakRef<BackForwardList,WTF::DefaultWeakPtrImpl>,WebBackForwardList *>>,WTF::DefaultHash<WTF::WeakRef<BackForwardList,WTF::DefaultWeakPtrImpl>>,WTF::HashMap<WTF::WeakRef<BackForwardList,WTF::DefaultWeakPtrImpl>,WebBackForwardList *,WTF::DefaultHash<WTF::WeakRef<BackForwardList,WTF::DefaultWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<BackForwardList,WTF::DefaultWeakPtrImpl>>,WTF::HashTraits<WebBackForwardList *>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::WeakRef<BackForwardList,WTF::DefaultWeakPtrImpl>>,WTF::FastMalloc>::rehash(base_props_high >> 1);
+            WTF::HashTable<WTF::WeakRef<BackForwardList,WTF::DefaultWeakPtrImpl>,WTF::KeyValuePair<WTF::WeakRef<BackForwardList,WTF::DefaultWeakPtrImpl>,WebBackForwardList *>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::WeakRef<BackForwardList,WTF::DefaultWeakPtrImpl>,WebBackForwardList *>>,WTF::DefaultHash<WTF::WeakRef<BackForwardList,WTF::DefaultWeakPtrImpl>>,WTF::HashMap<WTF::WeakRef<BackForwardList,WTF::DefaultWeakPtrImpl>,WebBackForwardList *,WTF::DefaultHash<WTF::WeakRef<BackForwardList,WTF::DefaultWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<BackForwardList,WTF::DefaultWeakPtrImpl>>,WTF::HashTraits<WebBackForwardList *>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::WeakRef<BackForwardList,WTF::DefaultWeakPtrImpl>>,WTF::FastMalloc>::rehash(base_props_high >> 1, 0);
             v5 = v21;
           }
         }

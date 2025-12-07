@@ -8,23 +8,22 @@
 
 - (CGSize)sizeThatFits:(CGSize)fits
 {
-  height = fits.height;
-  width = fits.width;
-  v6 = type metadata accessor for SmallLockupLayout.Metrics();
-  v7 = *(v6 - 8);
-  __chkstk_darwin(v6);
-  v9 = &v18 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = type metadata accessor for SmallLockupLayout.Metrics();
+  v5 = *(v4 - 8);
+  __chkstk_darwin(v4);
+  v7 = &v15 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   selfCopy = self;
-  sub_10013F3FC(v9);
+  sub_10013F3FC(v7);
   [(CrossLinkLockupView *)selfCopy layoutMargins];
-  v13 = sub_100508464(v9, selfCopy, width, height, v11, v12);
-  v15 = v14;
+  sub_100508464();
+  v10 = v9;
+  v12 = v11;
 
-  (*(v7 + 8))(v9, v6);
-  v16 = v13;
-  v17 = v15;
-  result.height = v17;
-  result.width = v16;
+  (*(v5 + 8))(v7, v4);
+  v13 = v10;
+  v14 = v12;
+  result.height = v14;
+  result.width = v13;
   return result;
 }
 
@@ -39,7 +38,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_10013FBB4();
+  sub_10013FBB4(selfCopy, v2);
 }
 
 @end

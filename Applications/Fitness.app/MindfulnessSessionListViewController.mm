@@ -108,7 +108,7 @@
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  v13 = sub_1001922DC();
+  v13 = sub_1001922DC(v10);
 
   (*(v8 + 8))(v10, v7);
 
@@ -138,7 +138,7 @@
   isa = IndexPath._bridgeToObjectiveC()().super.isa;
   [viewCopy deselectRowAtIndexPath:isa animated:1];
 
-  sub_10018EA88();
+  sub_10018EA88(v9);
   (*(v7 + 8))(v9, v6);
 }
 

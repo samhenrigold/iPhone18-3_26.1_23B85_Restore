@@ -330,7 +330,7 @@ LABEL_6:
     }
 
     v9 = v5;
-    [(HKCodableQuantity *)averageHeartRate mergeFrom:?];
+    averageHeartRate = [(HKCodableQuantity *)averageHeartRate mergeFrom:?];
   }
 
   else
@@ -341,7 +341,7 @@ LABEL_6:
     }
 
     v9 = v5;
-    [(HKCodableSummaryElectrocardiogramValue *)self setAverageHeartRate:?];
+    averageHeartRate = [(HKCodableSummaryElectrocardiogramValue *)self setAverageHeartRate:?];
   }
 
   v5 = v9;
@@ -352,7 +352,7 @@ LABEL_11:
     *&self->_has |= 4u;
   }
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](averageHeartRate, v5);
 }
 
 @end

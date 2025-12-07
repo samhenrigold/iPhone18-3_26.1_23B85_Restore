@@ -694,7 +694,7 @@ LABEL_11:
         v30 = [(NSMutableArray *)v7 objectsAtIndexes:v12];
         v31 = [v29 initWithArray:v30];
 
-        if ([v31 containsObject:v8])
+        if (objc_msgSend_containsObject_(v31))
         {
           v41[0] = MEMORY[0x277D85DD0];
           v41[1] = 3221225472;
@@ -749,7 +749,7 @@ uint64_t __43__SBRecentAppLayouts_addAppLayout_atIndex___block_invoke_3(uint64_t
   v6 = a3;
   if ([*(a1 + 32) environment] == 1 && objc_msgSend(*(a1 + 40), "count") == 1)
   {
-    v7 = [*(a1 + 40) containsObject:v5];
+    v7 = objc_msgSend_containsObject_(*(a1 + 40));
     if (([v6 isHidden] & 1) == 0)
     {
       v8 = [*(a1 + 32) environment];
@@ -759,7 +759,7 @@ uint64_t __43__SBRecentAppLayouts_addAppLayout_atIndex___block_invoke_3(uint64_t
 
   else
   {
-    v7 = [*(a1 + 40) containsObject:v5];
+    v7 = objc_msgSend_containsObject_(*(a1 + 40));
   }
 
   return v7 ^ 1u;
@@ -977,7 +977,7 @@ id __74__SBRecentAppLayouts__legacyAppLayoutsForDisplayItems_layoutRolesMapping_
   v15[4] = self;
   v8 = [v7 bs_map:v15];
 
-  if (!v8 || ([MEMORY[0x277CBEB68] null], v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v8, "containsObject:", v9), v9, v10))
+  if (!v8 || ([MEMORY[0x277CBEB68] null], v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend_containsObject_(v8), v9, v10))
   {
     _recentDisplayItemsFromLegacyPrefs = [(SBRecentAppLayouts *)self _recentDisplayItemsFromLegacyPrefs];
     v12 = [(SBRecentAppLayouts *)self _displayItemLayoutRolesFromLegacyPrefsForLoadedDisplayItems:_recentDisplayItemsFromLegacyPrefs];
@@ -1433,7 +1433,7 @@ LABEL_21:
 
         if ((v22 & 1) == 0)
         {
-          if ([*(*(*(a1 + 56) + 8) + 40) containsObject:v8])
+          if (objc_msgSend_containsObject_(*(*(*(a1 + 56) + 8) + 40)))
           {
             *(*(*(a1 + 48) + 8) + 24) = 1;
             *a4 = 1;
@@ -1582,14 +1582,14 @@ LABEL_31:
 void __55__SBRecentAppLayouts__setUpStashedModelSettingsOutlets__block_invoke_2(uint64_t a1)
 {
   v1 = *(a1 + 32);
-  v2 = SBStashedModelPath();
+  v2 = SBStashedModelPath(a1);
   [v1 _stashModelToPath:v2];
 }
 
 void __55__SBRecentAppLayouts__setUpStashedModelSettingsOutlets__block_invoke_3(uint64_t a1)
 {
   v1 = *(a1 + 32);
-  v2 = SBStashedModelPath();
+  v2 = SBStashedModelPath(a1);
   [v1 _loadStashedModelAtPath:v2];
 }
 
@@ -1887,52 +1887,51 @@ SBAppLayout *__46__SBRecentAppLayouts__loadStashedModelAtPath___block_invoke(uin
 
 - (id)_acquireAllowHiddenAppAssertionForBundleIdentifier:(id)identifier reason:(id)reason
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   reasonCopy = reason;
   objc_initWeak(&location, self);
   uUID = [MEMORY[0x277CCAD78] UUID];
   uUIDString = [uUID UUIDString];
 
-  v10 = SBLogAppSwitcher();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = SBLogAppSwitcher(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543874;
-    v24 = identifierCopy;
-    v25 = 2114;
-    v26 = reasonCopy;
-    v27 = 2114;
-    v28 = uUIDString;
-    _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_DEFAULT, "Acquiring visibility assertion of %{public}@ for %{public}@ identifier %{public}@", buf, 0x20u);
+    v25 = identifierCopy;
+    v26 = 2114;
+    v27 = reasonCopy;
+    v28 = 2114;
+    v29 = uUIDString;
+    _os_log_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_DEFAULT, "Acquiring visibility assertion of %{public}@ for %{public}@ identifier %{public}@", buf, 0x20u);
   }
 
-  v11 = objc_alloc(MEMORY[0x277CF0CE8]);
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __80__SBRecentAppLayouts__acquireAllowHiddenAppAssertionForBundleIdentifier_reason___block_invoke;
-  v17[3] = &unk_2783BA4E0;
-  objc_copyWeak(&v21, &location);
-  v12 = identifierCopy;
-  v18 = v12;
-  v13 = uUIDString;
+  v12 = objc_alloc(MEMORY[0x277CF0CE8]);
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __80__SBRecentAppLayouts__acquireAllowHiddenAppAssertionForBundleIdentifier_reason___block_invoke;
+  v18[3] = &unk_2783BA4E0;
+  objc_copyWeak(&v22, &location);
+  v13 = identifierCopy;
   v19 = v13;
-  v14 = reasonCopy;
+  v14 = uUIDString;
   v20 = v14;
-  v15 = [v11 initWithIdentifier:v13 forReason:v14 invalidationBlock:v17];
-  [(SBRecentAppLayouts *)self _addAllowHiddenAppAssertionForBundleIdentifier:v12 requestIdentifier:v13];
+  v15 = reasonCopy;
+  v21 = v15;
+  v16 = [v12 initWithIdentifier:v14 forReason:v15 invalidationBlock:v18];
+  [(SBRecentAppLayouts *)self _addAllowHiddenAppAssertionForBundleIdentifier:v13 requestIdentifier:v14];
 
-  objc_destroyWeak(&v21);
+  objc_destroyWeak(&v22);
   objc_destroyWeak(&location);
 
-  return v15;
+  return v16;
 }
 
 void __80__SBRecentAppLayouts__acquireAllowHiddenAppAssertionForBundleIdentifier_reason___block_invoke(uint64_t a1)
 {
   v13 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 56));
-  [WeakRetained _removeAllowHiddenAppAssertionForBundleIdentifier:*(a1 + 32) requestIdentifier:*(a1 + 40)];
-  v3 = SBLogAppSwitcher();
+  v3 = SBLogAppSwitcher([WeakRetained _removeAllowHiddenAppAssertionForBundleIdentifier:*(a1 + 32) requestIdentifier:*(a1 + 40)]);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 40);
@@ -1998,7 +1997,7 @@ void __80__SBRecentAppLayouts__acquireAllowHiddenAppAssertionForBundleIdentifier
   {
     allowedHiddenApplicationBundleIdentifiers = [objc_opt_class() allowedHiddenApplicationBundleIdentifiers];
     bundleIdentifier2 = [itemCopy bundleIdentifier];
-    v8 = [allowedHiddenApplicationBundleIdentifiers containsObject:bundleIdentifier2];
+    v8 = objc_msgSend_containsObject_(allowedHiddenApplicationBundleIdentifiers);
   }
 
   return v8;
@@ -2324,35 +2323,35 @@ void __48__SBRecentAppLayouts__validateAndUpdateRecents___block_invoke_2_cold_1(
 {
   OUTLINED_FUNCTION_3_34(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_4();
-  OUTLINED_FUNCTION_0_5(&dword_21ED4E000, v0, v1, "bad app layout found in persistent storage. one of the referenced apps is not installed. appLayout=%{public}@", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_0_5(&dword_21ED4E000, v0, v1, "bad app layout found in persistent storage. one of the referenced apps is not installed. appLayout=%{public}@", v2, v3, v4, v5);
 }
 
 void __48__SBRecentAppLayouts__validateAndUpdateRecents___block_invoke_2_cold_2()
 {
   OUTLINED_FUNCTION_3_34(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_4();
-  OUTLINED_FUNCTION_0_5(&dword_21ED4E000, v0, v1, "application signature version was no longer supported.  appLayout=%{public}@", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_0_5(&dword_21ED4E000, v0, v1, "application signature version was no longer supported.  appLayout=%{public}@", v2, v3, v4, v5);
 }
 
 void __48__SBRecentAppLayouts__validateAndUpdateRecents___block_invoke_2_cold_3()
 {
   OUTLINED_FUNCTION_3_34(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_4();
-  OUTLINED_FUNCTION_0_5(&dword_21ED4E000, v0, v1, "bad app layout found reading from SBRecentAppLayout's persistent storage. One of the roles is not recognized. appLayout=%{public}@", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_0_5(&dword_21ED4E000, v0, v1, "bad app layout found reading from SBRecentAppLayout's persistent storage. One of the roles is not recognized. appLayout=%{public}@", v2, v3, v4, v5);
 }
 
 void __48__SBRecentAppLayouts__validateAndUpdateRecents___block_invoke_2_cold_4()
 {
   OUTLINED_FUNCTION_3_34(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_4();
-  OUTLINED_FUNCTION_0_5(&dword_21ED4E000, v0, v1, "duplicate app layout for single window app found in persistent storage, appLayout=%{public}@", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_0_5(&dword_21ED4E000, v0, v1, "duplicate app layout for single window app found in persistent storage, appLayout=%{public}@", v2, v3, v4, v5);
 }
 
 void __48__SBRecentAppLayouts__validateAndUpdateRecents___block_invoke_2_cold_5()
 {
   OUTLINED_FUNCTION_3_34(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_4();
-  OUTLINED_FUNCTION_0_5(&dword_21ED4E000, v0, v1, "bad app layout found in persistent storage, appLayout=%{public}@", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_0_5(&dword_21ED4E000, v0, v1, "bad app layout found in persistent storage, appLayout=%{public}@", v2, v3, v4, v5);
 }
 
 @end

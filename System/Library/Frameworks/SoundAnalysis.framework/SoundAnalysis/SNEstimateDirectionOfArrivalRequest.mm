@@ -50,9 +50,9 @@
     selfCopy2 = self;
   }
 
-  v6 = SNEstimateDirectionOfArrivalRequest.isEqual(_:)();
+  v6 = SNEstimateDirectionOfArrivalRequest.isEqual(_:)(v8);
 
-  sub_1C97DA1E0(v8, &unk_1EC3C5E60);
+  sub_1C97DA1E0(v8, &unk_1EC3C5E60, qword_1C9A9AE10);
   return v6 & 1;
 }
 

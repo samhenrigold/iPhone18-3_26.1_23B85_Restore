@@ -26,43 +26,41 @@
 
 - (void)visit:(id)visit
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   visitCopy = visit;
   v5 = visitCopy;
   if (visitCopy && ((*(visitCopy + 2))(visitCopy, self) & 1) == 0)
   {
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
     v13 = 0u;
+    v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
     nodes = [(CKQuadTreeNode *)self nodes];
-    v7 = [nodes countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v7 = [nodes countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v13;
+      v9 = *v12;
       do
       {
         v10 = 0;
         do
         {
-          if (*v13 != v9)
+          if (*v12 != v9)
           {
             objc_enumerationMutation(nodes);
           }
 
-          [*(*(&v12 + 1) + 8 * v10++) visit:v5];
+          [*(*(&v11 + 1) + 8 * v10++) visit:v5];
         }
 
         while (v8 != v10);
-        v8 = [nodes countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v8 = [nodes countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v8);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)insertPoint:(CGPoint)point
@@ -80,9 +78,7 @@
   {
     if ([(CKQuadTreeNode *)self isLeaf])
     {
-      v8 = [MEMORY[0x277CCAE60] valueWithCGPoint:{x, y}];
-      v9 = self->_point;
-      self->_point = v8;
+      self->_point = [MEMORY[0x277CCAE60] valueWithCGPoint:{x, y}];
       goto LABEL_11;
     }
 
@@ -90,14 +86,14 @@
   }
 
   [(NSValue *)point CGPointValue];
+  v9 = v8;
   v11 = v10;
-  v13 = v12;
-  if ([(CKQuadTreeNode *)self isLeaf]&& vabdd_f64(x, v11) + vabdd_f64(y, v13) > 0.00999999978)
+  if ([(CKQuadTreeNode *)self isLeaf]&& vabdd_f64(x, v9) + vabdd_f64(y, v11) > 0.00999999978)
   {
-    v14 = [(CKQuadTreeNode *)self nodeForPoint:v11, v13];
-    [v14 insertPoint:{v11, v13}];
+    v12 = [(CKQuadTreeNode *)self nodeForPoint:v9, v11];
+    [v12 insertPoint:{v9, v11}];
 
-    v15 = self->_point;
+    v13 = self->_point;
     self->_point = 0;
   }
 
@@ -246,7 +242,7 @@ LABEL_16:
 
 - (id)debugDescriptionWithLevel:(int64_t)level
 {
-  v35[4] = *MEMORY[0x277D85DE8];
+  v34[4] = *MEMORY[0x277D85DE8];
   null = [(CKQuadTreeNode *)self->_topRight debugDescriptionWithLevel:level + 1];
   v6 = null;
   if (!null)
@@ -254,8 +250,8 @@ LABEL_16:
     null = [MEMORY[0x277CBEB68] null];
   }
 
-  v28 = null;
-  v35[0] = null;
+  v27 = null;
+  v34[0] = null;
   v7 = [(CKQuadTreeNode *)self->_topLeft debugDescriptionWithLevel:level + 1];
   null2 = v7;
   if (!v7)
@@ -263,7 +259,7 @@ LABEL_16:
     null2 = [MEMORY[0x277CBEB68] null];
   }
 
-  v35[1] = null2;
+  v34[1] = null2;
   v9 = [(CKQuadTreeNode *)self->_bottomLeft debugDescriptionWithLevel:level + 1];
   null3 = v9;
   if (!v9)
@@ -271,7 +267,7 @@ LABEL_16:
     null3 = [MEMORY[0x277CBEB68] null];
   }
 
-  v35[2] = null3;
+  v34[2] = null3;
   selfCopy = self;
   v11 = [(CKQuadTreeNode *)self->_bottomRight debugDescriptionWithLevel:level + 1];
   null4 = v11;
@@ -280,8 +276,8 @@ LABEL_16:
     null4 = [MEMORY[0x277CBEB68] null];
   }
 
-  v35[3] = null4;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:4];
+  v34[3] = null4;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:4];
   v14 = [v13 mutableCopy];
 
   if (!v11)
@@ -317,29 +313,29 @@ LABEL_16:
     while (v18);
   }
 
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   v19 = v14;
-  v20 = [v19 countByEnumeratingWithState:&v30 objects:v34 count:16];
+  v20 = [v19 countByEnumeratingWithState:&v29 objects:v33 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v31;
+    v22 = *v30;
     do
     {
       for (i = 0; i != v21; ++i)
       {
-        if (*v31 != v22)
+        if (*v30 != v22)
         {
           objc_enumerationMutation(v19);
         }
 
-        [string appendFormat:@"%@%@", v17, *(*(&v30 + 1) + 8 * i)];
+        [string appendFormat:@"%@%@", v17, *(*(&v29 + 1) + 8 * i)];
       }
 
-      v21 = [v19 countByEnumeratingWithState:&v30 objects:v34 count:16];
+      v21 = [v19 countByEnumeratingWithState:&v29 objects:v33 count:16];
     }
 
     while (v21);
@@ -347,8 +343,6 @@ LABEL_16:
 
   v24 = [(CKQuadTreeNode *)selfCopy description];
   v25 = [v24 stringByAppendingString:string];
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return v25;
 }

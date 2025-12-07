@@ -54,11 +54,10 @@ LABEL_3:
 
 uint64_t __52__CalCancelableDispatchBlock_initWithBlock_inQueue___block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   (*(*(a1 + 40) + 16))();
-  v3 = *(a1 + 32);
+  v2 = *(a1 + 32);
 
-  return [v3 setBlock:0];
+  return [v2 setBlock:0];
 }
 
 - (void)performAsync

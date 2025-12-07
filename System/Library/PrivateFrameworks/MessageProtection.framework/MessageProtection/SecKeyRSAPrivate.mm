@@ -21,31 +21,31 @@
 
 - (SecKeyRSAPrivate)init
 {
-  v21[4] = *MEMORY[0x277D85DE8];
+  v20[4] = *MEMORY[0x277D85DE8];
   error = 0;
   v3 = *MEMORY[0x277CDC060];
   v4 = *MEMORY[0x277CDC018];
-  v20[0] = *MEMORY[0x277CDC028];
-  v20[1] = v4;
-  v21[0] = v3;
-  v21[1] = &unk_283F13BC8;
+  v19[0] = *MEMORY[0x277CDC028];
+  v19[1] = v4;
+  v20[0] = v3;
+  v20[1] = &unk_283F13BC8;
   v5 = *MEMORY[0x277CDBFD0];
-  v21[2] = MEMORY[0x277CBEC28];
+  v20[2] = MEMORY[0x277CBEC28];
   v6 = *MEMORY[0x277CDC4F0];
-  v20[2] = v5;
-  v20[3] = v6;
-  v18 = v5;
-  v19 = MEMORY[0x277CBEC28];
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
-  v21[3] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:4];
+  v19[2] = v5;
+  v19[3] = v6;
+  v17 = v5;
+  v18 = MEMORY[0x277CBEC28];
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+  v20[3] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:4];
 
   v9 = SecKeyCreateRandomKey(v8, &error);
   if (v9)
   {
-    v16.receiver = self;
-    v16.super_class = SecKeyRSAPrivate;
-    v10 = [(SecKeyRSAPrivate *)&v16 init];
+    v15.receiver = self;
+    v15.super_class = SecKeyRSAPrivate;
+    v10 = [(SecKeyRSAPrivate *)&v15 init];
     v11 = v10;
     if (v10)
     {
@@ -58,7 +58,7 @@
 
   else
   {
-    v13 = MessageProtectionLog();
+    v13 = MessageProtectionLog(0);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [(SecKeyRSAPrivate *)&error init];
@@ -67,7 +67,6 @@
     selfCopy = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -95,22 +94,21 @@
 
   if (secKeyRef)
   {
-    v11 = v5;
+    v12 = v5;
   }
 
   else
   {
-    v12 = MessageProtectionLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = MessageProtectionLog(v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [SecKeyRSAPublic initWithData:? error:?];
     }
 
-    v11 = 0;
+    v12 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-  return v11;
+  return v12;
 }
 
 - (id)decryptData:(id)data error:(id *)error
@@ -122,13 +120,13 @@
 
   if (v8)
   {
-    v9 = v8;
+    v10 = v8;
   }
 
   else
   {
-    v10 = MessageProtectionLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = MessageProtectionLog(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [SecKeyRSAPrivate decryptData:? error:?];
     }
@@ -152,20 +150,18 @@
 
 - (void)init
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = CFCopyDescription(*self);
-  OUTLINED_FUNCTION_0_2(&dword_22B404000, v2, v3, "Failed to generate an RSA Key with error: %@.", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_2(&dword_22B404000, v2, v3, "Failed to generate an RSA Key with error: %@.", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 - (void)decryptData:(CFTypeRef *)a1 error:.cold.1(CFTypeRef *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = CFCopyDescription(*a1);
-  OUTLINED_FUNCTION_0_2(&dword_22B404000, v2, v3, "Failed to decrypt with RSA: %@.", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_2(&dword_22B404000, v2, v3, "Failed to decrypt with RSA: %@.", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 @end

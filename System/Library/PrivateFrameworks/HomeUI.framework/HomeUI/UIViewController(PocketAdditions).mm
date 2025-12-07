@@ -10,17 +10,17 @@
   parentViewController = [self parentViewController];
   if (objc_opt_isKindOfClass())
   {
-    v3 = parentViewController;
+    v4 = parentViewController;
   }
 
   else
   {
-    v3 = 0;
+    v4 = 0;
   }
 
-  v4 = v3;
+  v5 = v4;
 
-  return v3;
+  return v4;
 }
 
 @end

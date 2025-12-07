@@ -6,44 +6,44 @@
 
 - (id)initWithMSPWalletBankTransactionInformation:()MSPWallet rawMerchantCode:industryCategory:
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v8 = a3;
   v9 = a4;
   v10 = a5;
-  v28.receiver = self;
-  v28.super_class = &off_286975BA8;
-  v11 = objc_msgSendSuper2(&v28, sel_init);
+  v27.receiver = self;
+  v27.super_class = &off_286975BA8;
+  v11 = objc_msgSendSuper2(&v27, sel_init);
   if (v11)
   {
     [v11 setBankTransactionType:{objc_msgSend(v8, "transactionType")}];
     bankTransactionDescription = [v8 bankTransactionDescription];
     [v11 setBankTransactionDescription:bankTransactionDescription];
 
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     otherTransactionLocations = [v8 otherTransactionLocations];
-    v14 = [otherTransactionLocations countByEnumeratingWithState:&v24 objects:v29 count:16];
+    v14 = [otherTransactionLocations countByEnumeratingWithState:&v23 objects:v28 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v25;
+      v16 = *v24;
       do
       {
         v17 = 0;
         do
         {
-          if (*v25 != v16)
+          if (*v24 != v16)
           {
             objc_enumerationMutation(otherTransactionLocations);
           }
 
-          [v11 addOtherTransactionLocations:*(*(&v24 + 1) + 8 * v17++)];
+          [v11 addOtherTransactionLocations:*(*(&v23 + 1) + 8 * v17++)];
         }
 
         while (v15 != v17);
-        v15 = [otherTransactionLocations countByEnumeratingWithState:&v24 objects:v29 count:16];
+        v15 = [otherTransactionLocations countByEnumeratingWithState:&v23 objects:v28 count:16];
       }
 
       while (v15);
@@ -70,7 +70,6 @@
     [v11 setIndustryCategory:v10];
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v11;
 }
 

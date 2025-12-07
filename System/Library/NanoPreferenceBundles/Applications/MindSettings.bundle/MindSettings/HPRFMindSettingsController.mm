@@ -19,6 +19,7 @@
 - (void)setMuteForToday:(id)today;
 - (void)tableView:(id)view commitEditingStyle:(int64_t)style forRowAtIndexPath:(id)path;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation HPRFMindSettingsController
@@ -72,6 +73,21 @@
 
   objc_destroyWeak(&v16);
   objc_destroyWeak(&location);
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v6.receiver = self;
+  v6.super_class = HPRFMindSettingsController;
+  [(HPRFMindSettingsController *)&v6 viewWillAppear:appear];
+  +[HPRFMindSettingsNavigationDonation donateUserVisitForMindfulnessSettings];
+  seymourSubscriptionProvider = self->_seymourSubscriptionProvider;
+  v5[0] = _NSConcreteStackBlock;
+  v5[1] = 3221225472;
+  v5[2] = sub_2324;
+  v5[3] = &unk_18A98;
+  v5[4] = self;
+  [(HPRFSeymourSubscriptionProvider *)seymourSubscriptionProvider fetchSubscriptionStatusWithCompletion:v5];
 }
 
 - (void)dealloc

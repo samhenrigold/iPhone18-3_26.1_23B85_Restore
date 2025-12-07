@@ -369,7 +369,7 @@ void __38__ZWTouchEventProcessor__handleEvent___block_invoke(uint64_t a1)
   v17 = mainDisplayDelegate;
   if (mainDisplayDelegate)
   {
-    [mainDisplayDelegate currentUIContextForEventProcessor:self];
+    objc_msgSend_currentUIContextForEventProcessor_(mainDisplayDelegate);
   }
 
   else
@@ -720,8 +720,9 @@ uint64_t __43__ZWTouchEventProcessor__handleTouchEvent___block_invoke(uint64_t a
   result = AXIsInternalInstall();
   if (result)
   {
-    [*(a1 + 32) creatorHIDEvent];
-    return _AXLogWithFacility();
+    v3 = *(a1 + 32);
+    [v3 creatorHIDEvent];
+    return _AXLogWithFacility(0, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Zoom event state is messed up. We got first touch, but bookkeeping says we were already touching. If you can reproduce please file a bug with PEP Zoom. Event: %@ hid: %@", v3);
   }
 
   return result;
@@ -904,7 +905,7 @@ LABEL_13:
       v25 = v24;
       if (v11)
       {
-        [v11 currentUIContextForEventProcessor:{self, 0, 0, 0, 0, 0, 0}];
+        objc_msgSend_currentUIContextForEventProcessor_(v11, 0, 0, 0, 0, 0, 0);
         v27 = 0;
         v26 = 0;
         v29 = 0;
@@ -952,27 +953,27 @@ LABEL_13:
 - (BOOL)_shouldFilterPointerEvent:(id)event
 {
   eventCopy = event;
-  if (ZWLaserIsEnabled())
+  if (ZWLaserIsEnabled(eventCopy, v5))
   {
     pointerControllerInfo = [eventCopy pointerControllerInfo];
     scrollEvent = [pointerControllerInfo scrollEvent];
     if (scrollEvent)
     {
-      v7 = [(ZWTouchEventProcessor *)self _handleWheelEvent:scrollEvent];
+      v8 = [(ZWTouchEventProcessor *)self _handleWheelEvent:scrollEvent];
     }
 
     else
     {
-      v7 = 0;
+      v8 = 0;
     }
   }
 
   else
   {
-    v7 = 0;
+    v8 = 0;
   }
 
-  return v7;
+  return v8;
 }
 
 - (CGPoint)_flipCoordinates:(CGPoint)result orientation:(int64_t)orientation screenSize:(CGSize)size
@@ -1012,23 +1013,23 @@ LABEL_13:
 {
   y = replicators.y;
   x = replicators.x;
-  v10 = 0u;
-  v6 = [(ZWEventProcessor *)self mainDisplayDelegate:0];
-  v7 = v6;
-  if (v6)
+  v9 = 0u;
+  v5 = [(ZWEventProcessor *)self mainDisplayDelegate:0];
+  v6 = v5;
+  if (v5)
   {
-    [v6 currentUIContextForEventProcessor:self];
+    objc_msgSend_currentUIContextForEventProcessor_(v5);
   }
 
   else
   {
-    v10 = 0u;
+    v9 = 0u;
   }
 
-  v8 = x;
-  v9 = y - *(&v10 + 1);
-  result.y = v9;
-  result.x = v8;
+  v7 = x;
+  v8 = y - *(&v9 + 1);
+  result.y = v8;
+  result.x = v7;
   return result;
 }
 
@@ -1049,7 +1050,7 @@ LABEL_13:
   v12 = mainDisplayDelegate;
   if (mainDisplayDelegate)
   {
-    [mainDisplayDelegate currentUIContextForEventProcessor:self];
+    objc_msgSend_currentUIContextForEventProcessor_(mainDisplayDelegate);
   }
 
   else
@@ -1146,8 +1147,7 @@ LABEL_21:
 {
   if ([(NSMutableDictionary *)self->_eventIdentifiersToFinalLocations count])
   {
-    [(NSMutableDictionary *)self->_eventIdentifiersToFinalLocations count];
-    _AXLogWithFacility();
+    _AXLogWithFacility(0, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"There are %u events pending update after %f seconds! Map: %@", [(NSMutableDictionary *)self->_eventIdentifiersToFinalLocations count]);
   }
 
   eventIdentifiersToFinalLocations = self->_eventIdentifiersToFinalLocations;
@@ -1168,42 +1168,43 @@ LABEL_21:
     v9 = [v5 count];
 
     v10 = [v5 count];
+    v11 = v10;
     if (v8 == v9)
     {
       if (v10)
       {
-        v11 = 0;
-        v12 = 1;
+        v12 = 0;
+        v13 = 1;
         do
         {
-          v13 = [v5 objectAtIndexedSubscript:v11];
-          [v13 CGPointValue];
-          v15 = v14;
-          v17 = v16;
+          v14 = [v5 objectAtIndexedSubscript:v12];
+          [v14 CGPointValue];
+          v16 = v15;
+          v18 = v17;
           handInfo2 = [updateCopy handInfo];
           pathsIncludingMayBeginEvents2 = [handInfo2 pathsIncludingMayBeginEvents];
-          v20 = [pathsIncludingMayBeginEvents2 objectAtIndexedSubscript:v11];
-          [v20 setPathLocation:{v15, v17}];
+          v21 = [pathsIncludingMayBeginEvents2 objectAtIndexedSubscript:v12];
+          [v21 setPathLocation:{v16, v18}];
 
-          v11 = v12;
+          v12 = v13;
         }
 
-        while ([v5 count] > v12++);
+        while ([v5 count] > v13++);
       }
 
-      v22 = +[AXEventTapManager sharedManager];
+      v23 = +[AXEventTapManager sharedManager];
       handInfo3 = [updateCopy handInfo];
       if ([handInfo3 isStylus])
       {
-        v24 = 0x8000000817319379;
+        v25 = 0x8000000817319379;
       }
 
       else
       {
-        v24 = 0x8000000817319374;
+        v25 = 0x8000000817319374;
       }
 
-      [v22 sendHIDSystemEvent:updateCopy senderID:v24];
+      [v23 sendHIDSystemEvent:updateCopy senderID:v25];
     }
 
     else
@@ -1211,14 +1212,13 @@ LABEL_21:
       handInfo4 = [updateCopy handInfo];
       paths = [handInfo4 paths];
       [paths count];
-      _AXLogWithFacility();
+      _AXLogWithFacility(0, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Expected update to have %u paths, but it had %u! This is a serious problem!", v11);
     }
   }
 
   else
   {
-    [updateCopy generationCount];
-    _AXLogWithFacility();
+    _AXLogWithFacility(0, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"DID NOT find update for event with generation count %llu!", [updateCopy generationCount]);
   }
 }
 
@@ -1327,7 +1327,7 @@ LABEL_21:
   v12 = mainDisplayDelegate;
   if (mainDisplayDelegate)
   {
-    [mainDisplayDelegate currentUIContextForEventProcessor:self];
+    objc_msgSend_currentUIContextForEventProcessor_(mainDisplayDelegate);
   }
 
   else
@@ -1473,7 +1473,7 @@ LABEL_21:
   v6 = mainDisplayDelegate;
   if (mainDisplayDelegate)
   {
-    [mainDisplayDelegate currentUIContextForEventProcessor:self];
+    objc_msgSend_currentUIContextForEventProcessor_(mainDisplayDelegate);
   }
 
   else
@@ -1585,7 +1585,7 @@ LABEL_21:
   v6 = v5;
   if (v5)
   {
-    [v5 currentUIContextForEventProcessor:self];
+    objc_msgSend_currentUIContextForEventProcessor_(v5);
   }
 
   else

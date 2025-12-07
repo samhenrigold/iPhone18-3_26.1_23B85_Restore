@@ -64,17 +64,17 @@
 
 void __65__FHExperiment_initWithClient_namespaceName_setRefresh_delegate___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = FinHealthLogObject(@"FinHealthCore");
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     v4 = *(a1 + 32);
-    v11 = 136315394;
-    v12 = "[FHExperiment initWithClient:namespaceName:setRefresh:delegate:]_block_invoke";
-    v13 = 2112;
-    v14 = v4;
-    _os_log_impl(&dword_226DD4000, v3, OS_LOG_TYPE_DEBUG, "%s Trial update for namespace: %@", &v11, 0x16u);
+    v10 = 136315394;
+    v11 = "[FHExperiment initWithClient:namespaceName:setRefresh:delegate:]_block_invoke";
+    v12 = 2112;
+    v13 = v4;
+    _os_log_impl(&dword_226DD4000, v3, OS_LOG_TYPE_DEBUG, "%s Trial update for namespace: %@", &v10, 0x16u);
   }
 
   if (WeakRetained)
@@ -94,13 +94,11 @@ void __65__FHExperiment_initWithClient_namespaceName_setRefresh_delegate___block
       }
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)getLevelForFactor:(id)factor
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   factorCopy = factor;
   v5 = [(TRIClient *)self->_triClient levelForFactor:factorCopy withNamespaceName:self->_namespaceName];
   v6 = [objc_alloc(MEMORY[0x277CBEB38]) initWithDictionary:self->_factorMetadatas];
@@ -117,7 +115,7 @@ void __65__FHExperiment_initWithClient_namespaceName_setRefresh_delegate___block
     v13 = metadata;
     if (v9 && ([metadata objectForKey:@"factorType"], v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v14, "isEqualToString:", @"exp"), v14, v15))
     {
-      v32 = v11;
+      v31 = v11;
       v16 = MEMORY[0x277CCACA8];
       experimentId = [v9 experimentId];
       treatmentId = [v9 treatmentId];
@@ -138,18 +136,18 @@ LABEL_14:
         if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
         {
           *buf = 136315650;
-          v34 = "[FHExperiment getLevelForFactor:]";
-          v35 = 2112;
-          v36 = factorCopy;
-          v37 = 2112;
-          v38 = v5;
+          v33 = "[FHExperiment getLevelForFactor:]";
+          v34 = 2112;
+          v35 = factorCopy;
+          v36 = 2112;
+          v37 = v5;
           _os_log_impl(&dword_226DD4000, v27, OS_LOG_TYPE_DEBUG, "%s Factor %@ level %@", buf, 0x20u);
         }
 
         goto LABEL_17;
       }
 
-      v32 = v11;
+      v31 = v11;
       metadata2 = [v5 metadata];
       v21 = [metadata2 objectForKey:@"factorType"];
       v22 = [v21 isEqualToString:@"rollout"];
@@ -161,14 +159,14 @@ LABEL_14:
       }
 
       v23 = MEMORY[0x277CCACA8];
-      experimentId = [v32 rolloutId];
-      treatmentId = [v32 factorPackId];
-      rampId = [v32 rampId];
+      experimentId = [v31 rolloutId];
+      treatmentId = [v31 factorPackId];
+      rampId = [v31 rampId];
       v19 = [v23 stringWithFormat:@"r:%@:%@:%@", experimentId, treatmentId, rampId];
     }
 
 LABEL_13:
-    v11 = v32;
+    v11 = v31;
     goto LABEL_14;
   }
 
@@ -178,11 +176,11 @@ LABEL_13:
   {
     namespaceName = self->_namespaceName;
     *buf = 136315650;
-    v34 = "[FHExperiment getLevelForFactor:]";
-    v35 = 2112;
-    v36 = factorCopy;
-    v37 = 2112;
-    v38 = namespaceName;
+    v33 = "[FHExperiment getLevelForFactor:]";
+    v34 = 2112;
+    v35 = factorCopy;
+    v36 = 2112;
+    v37 = namespaceName;
     _os_log_impl(&dword_226DD4000, v9, OS_LOG_TYPE_DEBUG, "%s No level found for factor %@ in namespace %@", buf, 0x20u);
   }
 
@@ -191,8 +189,6 @@ LABEL_17:
   v28 = [v7 copy];
   factorMetadatas = self->_factorMetadatas;
   self->_factorMetadatas = v28;
-
-  v30 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

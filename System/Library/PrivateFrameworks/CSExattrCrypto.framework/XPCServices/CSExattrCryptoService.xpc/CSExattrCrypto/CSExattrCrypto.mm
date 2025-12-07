@@ -127,7 +127,7 @@ char *partial_path(_BYTE *a1, const char *a2, char *__dst)
   else
   {
 LABEL_5:
-    v9 = a2 - v4;
+    v9 = &a2[-v4];
     if (a2 && v9 <= 0x3FF && ((v10 = &a1[v9], !*v10) && !*a2 || *(v10 - 1) == 47 || (v11 = *a2, ++a2, v11 == 47)))
     {
       v9 = strlcpy(__dst, a2, 0x400uLL);
@@ -341,27 +341,27 @@ _BYTE *accurate_firmpath(const char *a1, _BYTE *a2)
   return a2;
 }
 
-uint64_t device_for_path()
+uint64_t device_for_path(uint64_t a1)
 {
-  memset(&v2, 0, sizeof(v2));
+  memset(&v3, 0, sizeof(v3));
   bzero(__s, 0x400uLL);
   if (__strlcpy_chk() > 0x3FF)
   {
     return 0xFFFFFFFFLL;
   }
 
-  while (md_stat_real(__s, &v2))
+  while (md_stat_real(__s, &v3))
   {
-    v0 = strrchr(__s, 47);
-    if (!v0)
+    v1 = strrchr(__s, 47);
+    if (!v1)
     {
       return 0xFFFFFFFFLL;
     }
 
-    *v0 = 0;
+    *v1 = 0;
   }
 
-  return v2.st_dev;
+  return v3.st_dev;
 }
 
 char *device_subpath(char *a1)
@@ -461,7 +461,7 @@ LABEL_3:
   }
 }
 
-uint64_t nosymlink_open(char *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, unsigned __int16 a9)
+uint64_t nosymlink_open(char *a1, int a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, __int16 a9)
 {
   if ((a2 & 0x200) != 0)
   {
@@ -476,7 +476,7 @@ uint64_t nosymlink_open(char *a1, int a2, int a3, int a4, int a5, int a6, int a7
   return x_openat(-1, a1, a2 | 0x20000000u, a4, a5, a6, a7, a8, v9);
 }
 
-uint64_t x_openat(int a1, char *a2, int a3, int a4, int a5, int a6, int a7, int a8, unsigned __int16 a9)
+uint64_t x_openat(int a1, char *a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, __int16 a9)
 {
   if ((a3 & 0x200) != 0)
   {
@@ -488,7 +488,7 @@ uint64_t x_openat(int a1, char *a2, int a3, int a4, int a5, int a6, int a7, int 
     v12 = 0;
   }
 
-  result = openat(a1, a2, a3, v12);
+  result = openat(a1, a2, a3, a4, a5, a6, a7, a8, v12);
   if (result == -1)
   {
     v14 = __error();
@@ -502,12 +502,13 @@ uint64_t x_openat(int a1, char *a2, int a3, int a4, int a5, int a6, int a7, int 
   return result;
 }
 
-uint64_t nosymlink_mkdir(_BYTE *a1, mode_t a2)
+uint64_t nosymlink_mkdir(_BYTE *a1, uint64_t a2)
 {
+  v2 = a2;
   v4 = geteuid();
   v5 = getegid();
 
-  return nosymlink_mkdir_chown(a1, v4, v5, a2);
+  return nosymlink_mkdir_chown(a1, v4, v5, v2);
 }
 
 uint64_t nosymlink_mkdir_chown(_BYTE *a1, uid_t a2, gid_t a3, mode_t a4)
@@ -561,29 +562,32 @@ LABEL_13:
   return 0xFFFFFFFFLL;
 }
 
-uint64_t nosymlink_chown_chmod_directory(_BYTE *a1, uid_t a2, gid_t a3, int a4)
+uint64_t nosymlink_chown_chmod_directory(_BYTE *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  bzero(v15, 0x400uLL);
-  if (fixPath(a1, v15))
+  v4 = a4;
+  v5 = a3;
+  v6 = a2;
+  bzero(v18, 0x400uLL);
+  if (fixPath(a1, v18))
   {
-    v8 = open(v15, 537952260);
+    v8 = open(v18, 537952260);
     if ((v8 & 0x80000000) == 0)
     {
       v9 = v8;
-      memset(&v14, 0, sizeof(v14));
-      v10 = md_fstat_real(v8, &v14);
+      memset(&v17, 0, sizeof(v17));
+      v10 = md_fstat_real(v8, &v17);
       if (v10)
       {
         v11 = v10;
 LABEL_25:
-        v12 = *__error();
+        v15 = *__error();
 LABEL_26:
         close(v9);
-        *__error() = v12;
+        *__error() = v15;
         return v11;
       }
 
-      if (a2 == -1 || v14.st_uid == a2)
+      if (v6 == -1 || (st_uid = v17.st_uid, v17.st_uid == v6))
       {
         v11 = 0;
       }
@@ -592,25 +596,26 @@ LABEL_26:
       {
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
         {
-          sub_10000C6F0();
+          sub_10000C6F0(v18, st_uid);
         }
 
-        v11 = fchown(v9, a2, 0xFFFFFFFF);
+        v11 = fchown(v9, v6, 0xFFFFFFFF);
       }
 
-      if (a3 != -1 && !v11)
+      if (v5 != -1 && !v11)
       {
-        if (v14.st_gid == a3)
+        st_gid = v17.st_gid;
+        if (v17.st_gid == v5)
         {
           goto LABEL_20;
         }
 
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
         {
-          sub_10000C76C();
+          sub_10000C76C(v18, st_gid);
         }
 
-        v11 = fchown(v9, 0xFFFFFFFF, a3);
+        v11 = fchown(v9, 0xFFFFFFFF, v5);
       }
 
       if (v11)
@@ -619,7 +624,8 @@ LABEL_26:
       }
 
 LABEL_20:
-      if ((v14.st_mode & 0x1FF) == a4)
+      v14 = v17.st_mode & 0x1FF;
+      if (v14 == v4)
       {
         v11 = 0;
       }
@@ -628,17 +634,17 @@ LABEL_20:
       {
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
         {
-          sub_10000C7E8();
+          sub_10000C7E8(v14);
         }
 
-        v11 = fchmod(v9, a4);
+        v11 = fchmod(v9, v4);
         if (v11)
         {
           goto LABEL_25;
         }
       }
 
-      v12 = 0;
+      v15 = 0;
       goto LABEL_26;
     }
   }
@@ -696,7 +702,7 @@ uint64_t x_renamex_np(const char *a1, const char *a2, unsigned int a3)
   return renamex_np(a1, a2, a3 & 0xFFFFFFEF);
 }
 
-uint64_t md_savedir(int a1, int *a2)
+uint64_t md_savedir(uint64_t a1, int *a2)
 {
   *a2 = -1;
   memset(&v4, 0, sizeof(v4));
@@ -721,13 +727,14 @@ uint64_t md_savedir(int a1, int *a2)
   return result;
 }
 
-uint64_t md_resetdir(int a1)
+uint64_t md_resetdir(uint64_t a1)
 {
+  v1 = a1;
   result = pthread_fchdir_np();
-  if ((a1 & 0x80000000) == 0)
+  if ((v1 & 0x80000000) == 0)
   {
 
-    return close(a1);
+    return close(v1);
   }
 
   return result;
@@ -870,7 +877,7 @@ uint64_t x_getattrlistat(int a1, const char *a2, void *a3, void *a4, size_t a5, 
   return getattrlistat(a1, a2, a3, a4, a5, a6 & 0xFFFFFFFFFFFFF7FFLL);
 }
 
-uint64_t x2_openat(int a1, char *a2, int a3, int a4, int a5, int a6, int a7, int a8, unsigned __int16 a9)
+uint64_t x2_openat(int a1, char *a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, __int16 a9)
 {
   if (qword_10001A110 != -1)
   {
@@ -998,10 +1005,11 @@ void sub_100002794(id a1)
   qword_10001A108 = v1.f_fsid;
 }
 
-void sub_100002840(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100002840(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0x18u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0x18u);
 }
 
 void sub_100002C54(void *exc_buf, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16)
@@ -1122,9 +1130,9 @@ id sub_1000030E0(uint64_t a1)
   return result;
 }
 
-void sub_100003244(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100003244(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1195,10 +1203,11 @@ CFDataRef sub_100003F24(CCOperation a1, const void *a2, size_t a3, void *a4, int
   return v16;
 }
 
-void sub_10000407C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10000407C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 void *sub_100004104(uint64_t a1, void *a2)
@@ -1208,50 +1217,50 @@ void *sub_100004104(uint64_t a1, void *a2)
   return result;
 }
 
-uint64_t XPCUtil_CopyXPCObjectFromCF()
+xpc_object_t XPCUtil_CopyXPCObjectFromCF(uint64_t a1)
 {
   result = _MDPlistBytesCreateMutableUsingMalloc();
   if (result)
   {
-    v1 = result;
+    v2 = result;
     _MDPlistBytesAppendPlist();
     ByteVector = _MDPlistBytesGetByteVector();
     ByteVectorCount = _MDPlistBytesGetByteVectorCount();
-    v4 = xpc_data_create(ByteVector, ByteVectorCount);
-    CFRelease(v1);
-    return v4;
+    v5 = xpc_data_create(ByteVector, ByteVectorCount);
+    CFRelease(v2);
+    return v5;
   }
 
   return result;
 }
 
-void XPCUtil_PackCFIntoArray(void *a1, size_t a2)
+void XPCUtil_PackCFIntoArray(void *a1, size_t a2, uint64_t a3)
 {
   MutableUsingMalloc = _MDPlistBytesCreateMutableUsingMalloc();
   if (MutableUsingMalloc)
   {
-    v5 = MutableUsingMalloc;
+    v6 = MutableUsingMalloc;
     _MDPlistBytesAppendPlist();
     ByteVector = _MDPlistBytesGetByteVector();
     ByteVectorCount = _MDPlistBytesGetByteVectorCount();
     xpc_array_set_data(a1, a2, ByteVector, ByteVectorCount);
 
-    CFRelease(v5);
+    CFRelease(v6);
   }
 }
 
-void XPCUtil_PackCFIntoDictionary(void *a1, const char *a2)
+void XPCUtil_PackCFIntoDictionary(void *a1, const char *a2, uint64_t a3)
 {
   MutableUsingMalloc = _MDPlistBytesCreateMutableUsingMalloc();
   if (MutableUsingMalloc)
   {
-    v5 = MutableUsingMalloc;
+    v6 = MutableUsingMalloc;
     _MDPlistBytesAppendPlist();
     ByteVector = _MDPlistBytesGetByteVector();
     ByteVectorCount = _MDPlistBytesGetByteVectorCount();
     xpc_dictionary_set_data(a1, a2, ByteVector, ByteVectorCount);
 
-    CFRelease(v5);
+    CFRelease(v6);
   }
 }
 
@@ -1363,9 +1372,10 @@ uint64_t CF_RangeIntersection(uint64_t result, uint64_t a2, uint64_t a3)
   return result;
 }
 
-uint64_t mdBufferSprintf(char **a1, size_t *a2, const char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t mdBufferSprintf(char **a1, size_t *a2, const char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  result = vsnprintf(*a1, *a2, a3, &a9);
+  va_start(va, a8);
+  result = vsnprintf(*a1, *a2, a3, va);
   if ((result & 0x80000000) == 0)
   {
     if (*a2 >= result)
@@ -1478,7 +1488,7 @@ LABEL_5:
   }
 }
 
-uint64_t strcmp_nocase(_BYTE *a1, char *a2)
+uint64_t strcmp_nocase(char *a1, char *a2)
 {
   v3 = *a1;
   if (*a1)
@@ -1910,7 +1920,7 @@ uint64_t MDSetProcessVNodeRapidAging(int a1)
   return sysctl(v4, 2u, 0, 0, &v3, 4uLL);
 }
 
-uint64_t allow_COW_exempt()
+uint64_t allow_COW_exempt(uint64_t a1, uint64_t a2)
 {
   if (qword_10001A170 != -1)
   {
@@ -1961,7 +1971,7 @@ __CFString *MDCopyMachPortDescription(const __CFAllocator *a1, uint64_t a2)
   return Mutable;
 }
 
-uint64_t _MDIsAppleInternal()
+uint64_t _MDIsAppleInternal(uint64_t a1, uint64_t a2)
 {
   if (qword_10001A158 != -1)
   {
@@ -2092,7 +2102,7 @@ void MDArrayIterate(const __CFArray *a1, void *a2)
   CFArrayApplyFunction(a1, v4, sub_100005934, a2);
 }
 
-uint64_t GetSystemBuildVersionStringLocal()
+uint64_t GetSystemBuildVersionStringLocal(uint64_t a1, uint64_t a2)
 {
   if (qword_10001A168 != -1)
   {
@@ -2159,7 +2169,7 @@ unint64_t _MDLabelUUIDEncode(unint64_t result, unint64_t a2, uint64_t a3)
   return result;
 }
 
-uint64_t _MDPrivateXattrUUIDsGetter()
+uint64_t _MDPrivateXattrUUIDsGetter(uint64_t a1, uint64_t a2)
 {
   if (qword_10001A188 != -1)
   {
@@ -2172,8 +2182,8 @@ uint64_t _MDPrivateXattrUUIDsGetter()
 void sub_100005EA0(id a1)
 {
   v1 = CFUUIDGetConstantUUIDWithBytes(kCFAllocatorSystemDefault, 0x71u, 0x9Fu, 0xB8u, 0xCAu, 0x18u, 0x13u, 0x49u, 0xB0u, 0x8Bu, 0x20u, 0x36u, 0x5Eu, 0xEBu, 0xC3u, 0xEDu, 0x57u);
-  CFUUIDGetUUIDBytes(v1);
-  qword_10001A180 = xpc_create_with_format();
+  v2 = CFUUIDGetUUIDBytes(v1);
+  qword_10001A180 = xpc_create_with_format("[%uuid]", &v2);
 }
 
 CFTypeID MDLabelGetTypeID(void)
@@ -2186,7 +2196,7 @@ CFTypeID MDLabelGetTypeID(void)
   return qword_10001A190;
 }
 
-uint64_t MDHash(unsigned __int8 *a1, unsigned int a2, int a3)
+uint64_t MDHash(unsigned __int8 *a1, unsigned int a2, unsigned int a3)
 {
   v3 = -1640531527;
   if (a2 < 0xC)
@@ -2445,11 +2455,29 @@ int64_t sub_10000797C(id a1, NSDictionary *a2, NSDictionary *a3)
   return [v4 compare:v5];
 }
 
+NSData *__cdecl sub_100007E20(id a1, NSUUID *a2, unsigned int a3, unsigned int a4, NSData *a5, int a6)
+{
+  v8 = *&a4;
+  v9 = *&a3;
+  v11 = +[MDKeyRing defaultKeyRing];
+  if (a6 == 1)
+  {
+
+    return [v11 copyEncryptedData:a5 withKeyUUID:a2 iv1:v9 iv2:v8];
+  }
+
+  else
+  {
+
+    return [v11 copyDecryptedData:a5 withKeyUUID:a2 iv1:v9 iv2:v8];
+  }
+}
+
 id copyUpdatedData(uint64_t a1)
 {
   v1 = __chkstk_darwin(a1);
-  v152 = v2;
-  v153 = v3;
+  v151 = v2;
+  v152 = v3;
   v5 = v4;
   v7 = v6;
   v9 = v8;
@@ -2458,16 +2486,16 @@ id copyUpdatedData(uint64_t a1)
   v14 = v1;
   v15 = [v10 objectForKey:@"keys"];
   v16 = [v11 objectForKey:@"values"];
-  v163 = 0;
+  v162 = 0;
   if (v13)
   {
     v17 = [+[MDPrivateXattrServices defaultServices](MDPrivateXattrServices "defaultServices")];
     if ([v17 count])
     {
       v18 = [NSMutableDictionary alloc];
-      v185[0] = [v17 allKeys];
-      v185[1] = [v17 allValues];
-      v19 = [v18 initWithObjects:+[NSArray arrayWithObjects:count:](NSArray forKeys:{"arrayWithObjects:count:", v185, 2), &off_1000159B8}];
+      v184[0] = [v17 allKeys];
+      v184[1] = [v17 allValues];
+      v19 = [v18 initWithObjects:+[NSArray arrayWithObjects:count:](NSArray forKeys:{"arrayWithObjects:count:", v184, 2), &off_1000159B8}];
 
       if (v19)
       {
@@ -2484,12 +2512,12 @@ id copyUpdatedData(uint64_t a1)
 LABEL_7:
   v20 = [+[MDKeyRing defaultKeyRing](MDKeyRing "defaultKeyRing")];
   v21 = [v11 objectForKey:@"uuid"];
-  v156 = v20;
-  v154 = v9;
+  v155 = v20;
+  v153 = v9;
   if (!v9)
   {
-    v72 = [v19 objectForKey:@"uuid"];
-    if (!v72 || ![v21 isEqual:v72])
+    v71 = [v19 objectForKey:@"uuid"];
+    if (!v71 || ![v21 isEqual:v71])
     {
       goto LABEL_84;
     }
@@ -2515,47 +2543,47 @@ LABEL_83:
     goto LABEL_83;
   }
 
-  v149 = v19;
+  v148 = v19;
   v23 = [v22 objectForKey:@"keys"];
-  v150 = [v22 objectForKey:@"values"];
-  v148 = [v22 objectForKey:@"mod_date"];
+  v149 = [v22 objectForKey:@"values"];
+  v147 = [v22 objectForKey:@"mod_date"];
   if (![v15 count])
   {
     goto LABEL_143;
   }
 
   v24 = [v23 count];
-  if (v24 != [v150 count] || !objc_msgSend(v23, "count"))
+  if (v24 != [v149 count] || !objc_msgSend(v23, "count"))
   {
     goto LABEL_143;
   }
 
-  v141 = v21;
-  v142 = v11;
-  v143 = v14;
-  v157 = v22;
-  v146 = v23;
-  v25 = [[NSMutableDictionary alloc] initWithObjects:v150 forKeys:v23];
+  v140 = v21;
+  v141 = v11;
+  v142 = v14;
+  v156 = v22;
+  v145 = v23;
+  v25 = [[NSMutableDictionary alloc] initWithObjects:v149 forKeys:v23];
+  v179 = 0u;
   v180 = 0u;
   v181 = 0u;
   v182 = 0u;
-  v183 = 0u;
-  v26 = [v15 countByEnumeratingWithState:&v180 objects:v192 count:16];
+  v26 = [v15 countByEnumeratingWithState:&v179 objects:v191 count:16];
   if (v26)
   {
     v27 = v26;
-    v28 = *v181;
+    v28 = *v180;
     v29 = -1;
 LABEL_17:
     v30 = 0;
     while (1)
     {
-      if (*v181 != v28)
+      if (*v180 != v28)
       {
         objc_enumerationMutation(v15);
       }
 
-      v31 = [v25 objectForKeyedSubscript:*(*(&v180 + 1) + 8 * v30)];
+      v31 = [v25 objectForKeyedSubscript:*(*(&v179 + 1) + 8 * v30)];
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
@@ -2579,7 +2607,7 @@ LABEL_17:
 
       if (v27 == ++v30)
       {
-        v27 = [v15 countByEnumeratingWithState:&v180 objects:v192 count:16];
+        v27 = [v15 countByEnumeratingWithState:&v179 objects:v191 count:16];
         if (v27)
         {
           goto LABEL_17;
@@ -2591,25 +2619,24 @@ LABEL_17:
   }
 
   v33 = [v25 objectForKeyedSubscript:{objc_msgSend(v15, "objectAtIndexedSubscript:", 0)}];
+  v175 = 0u;
   v176 = 0u;
   v177 = 0u;
   v178 = 0u;
-  v179 = 0u;
-  v34 = [v33 countByEnumeratingWithState:&v176 objects:v190 count:16];
+  v34 = [v33 countByEnumeratingWithState:&v175 objects:v189 count:16];
   if (v34)
   {
     v35 = v34;
-    v36 = *v177;
+    v36 = *v176;
 LABEL_29:
     v37 = 0;
     while (1)
     {
-      if (*v177 != v36)
+      if (*v176 != v36)
       {
         objc_enumerationMutation(v33);
       }
 
-      v38 = *(*(&v176 + 1) + 8 * v37);
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
@@ -2618,7 +2645,7 @@ LABEL_29:
 
       if (v35 == ++v37)
       {
-        v35 = [v33 countByEnumeratingWithState:&v176 objects:v190 count:16];
+        v35 = [v33 countByEnumeratingWithState:&v175 objects:v189 count:16];
         if (v35)
         {
           goto LABEL_29;
@@ -2630,210 +2657,210 @@ LABEL_29:
 
 LABEL_142:
 
-    v22 = v157;
-    v11 = v142;
-    v14 = v143;
-    v21 = v141;
+    v22 = v156;
+    v11 = v141;
+    v14 = v142;
+    v21 = v140;
     goto LABEL_143;
   }
 
 LABEL_35:
-  v139 = v5;
-  v140 = [NSCalendar calendarWithIdentifier:NSCalendarIdentifierGregorian];
-  v39 = [v33 count];
-  v145 = [v33 lastObject];
-  v147 = +[NSMutableSet set];
-  v40 = +[NSMutableDictionary dictionary];
-  if (v39)
+  v138 = v5;
+  v139 = [NSCalendar calendarWithIdentifier:NSCalendarIdentifierGregorian];
+  v38 = [v33 count];
+  v144 = [v33 lastObject];
+  v146 = +[NSMutableSet set];
+  v39 = +[NSMutableDictionary dictionary];
+  if (v38)
   {
-    v144 = v33;
+    v143 = v33;
     do
     {
-      v41 = [v33 objectAtIndexedSubscript:--v39];
-      [v145 timeIntervalSinceDate:v41];
-      if (v42 > 0.0)
+      v40 = [v33 objectAtIndexedSubscript:--v38];
+      [v144 timeIntervalSinceDate:v40];
+      if (v41 > 0.0)
       {
-        if (v42 >= *"")
+        if (v41 >= *"")
         {
-          if (v42 >= 2678400.0)
+          if (v41 >= 2678400.0)
           {
-            if (v42 >= 94867200.0)
+            if (v41 >= 94867200.0)
             {
-              v43 = 4;
+              v42 = 4;
             }
 
             else
             {
-              v43 = 12;
+              v42 = 12;
             }
           }
 
           else
           {
-            v43 = 28;
+            v42 = 28;
           }
         }
 
         else
         {
-          v43 = 60;
+          v42 = 60;
         }
 
-        v41 = [(NSCalendar *)v140 dateFromComponents:[(NSCalendar *)v140 components:v43 fromDate:v41]];
+        v40 = [(NSCalendar *)v139 dateFromComponents:[(NSCalendar *)v139 components:v42 fromDate:v40]];
       }
 
-      v44 = +[NSMutableDictionary dictionary];
+      v43 = +[NSMutableDictionary dictionary];
+      v171 = 0u;
       v172 = 0u;
       v173 = 0u;
       v174 = 0u;
-      v175 = 0u;
-      v45 = [v15 countByEnumeratingWithState:&v172 objects:&v188 count:16];
-      if (v45)
+      v44 = [v15 countByEnumeratingWithState:&v171 objects:&v187 count:16];
+      if (v44)
       {
-        v46 = v45;
-        v47 = *v173;
+        v45 = v44;
+        v46 = *v172;
         do
         {
-          for (i = 0; i != v46; i = i + 1)
+          for (i = 0; i != v45; i = i + 1)
           {
-            if (*v173 != v47)
+            if (*v172 != v46)
             {
               objc_enumerationMutation(v15);
             }
 
-            v49 = *(*(&v172 + 1) + 8 * i);
-            v50 = [v15 objectAtIndexedSubscript:0];
-            v51 = v41;
-            if (v49 != v50)
+            v48 = *(*(&v171 + 1) + 8 * i);
+            v49 = [v15 objectAtIndexedSubscript:0];
+            v50 = v40;
+            if (v48 != v49)
             {
-              v51 = [objc_msgSend(v25 objectForKeyedSubscript:{v49), "objectAtIndexedSubscript:", v39}];
+              v50 = [objc_msgSend(v25 objectForKeyedSubscript:{v48), "objectAtIndexedSubscript:", v38}];
             }
 
-            [v44 setObject:v51 forKeyedSubscript:v49];
+            [v43 setObject:v50 forKeyedSubscript:v48];
           }
 
-          v46 = [v15 countByEnumeratingWithState:&v172 objects:&v188 count:16];
+          v45 = [v15 countByEnumeratingWithState:&v171 objects:&v187 count:16];
         }
 
-        while (v46);
+        while (v45);
       }
 
-      if (([v147 containsObject:v44] & 1) == 0)
+      if (([v146 containsObject:v43] & 1) == 0)
       {
-        [v147 addObject:v44];
-        v170 = 0u;
-        v171 = 0u;
-        v168 = 0u;
+        [v146 addObject:v43];
         v169 = 0u;
-        v52 = [v15 countByEnumeratingWithState:&v168 objects:v187 count:16];
-        if (v52)
+        v170 = 0u;
+        v167 = 0u;
+        v168 = 0u;
+        v51 = [v15 countByEnumeratingWithState:&v167 objects:v186 count:16];
+        if (v51)
         {
-          v53 = v52;
-          v54 = *v169;
+          v52 = v51;
+          v53 = *v168;
           do
           {
-            for (j = 0; j != v53; j = j + 1)
+            for (j = 0; j != v52; j = j + 1)
             {
-              if (*v169 != v54)
+              if (*v168 != v53)
               {
                 objc_enumerationMutation(v15);
               }
 
-              v56 = *(*(&v168 + 1) + 8 * j);
-              v57 = [v40 objectForKeyedSubscript:v56];
-              if (!v57)
+              v55 = *(*(&v167 + 1) + 8 * j);
+              v56 = [v39 objectForKeyedSubscript:v55];
+              if (!v56)
               {
-                v57 = +[NSMutableArray array];
-                [v40 setObject:v57 forKeyedSubscript:v56];
+                v56 = +[NSMutableArray array];
+                [v39 setObject:v56 forKeyedSubscript:v55];
               }
 
-              [v57 addObject:{objc_msgSend(v44, "objectForKeyedSubscript:", v56)}];
+              [v56 addObject:{objc_msgSend(v43, "objectForKeyedSubscript:", v55)}];
             }
 
-            v53 = [v15 countByEnumeratingWithState:&v168 objects:v187 count:16];
+            v52 = [v15 countByEnumeratingWithState:&v167 objects:v186 count:16];
           }
 
-          while (v53);
+          while (v52);
         }
       }
 
-      v33 = v144;
+      v33 = v143;
     }
 
-    while (v39);
+    while (v38);
   }
 
+  v57 = objc_alloc_init(NSMutableArray);
   v58 = objc_alloc_init(NSMutableArray);
-  v59 = objc_alloc_init(NSMutableArray);
+  v163 = 0u;
   v164 = 0u;
   v165 = 0u;
   v166 = 0u;
-  v167 = 0u;
-  v60 = [v15 countByEnumeratingWithState:&v164 objects:v186 count:16];
-  if (v60)
+  v59 = [v15 countByEnumeratingWithState:&v163 objects:v185 count:16];
+  if (v59)
   {
-    v61 = v60;
-    v62 = *v165;
+    v60 = v59;
+    v61 = *v164;
     do
     {
-      for (k = 0; k != v61; k = k + 1)
+      for (k = 0; k != v60; k = k + 1)
       {
-        if (*v165 != v62)
+        if (*v164 != v61)
         {
           objc_enumerationMutation(v15);
         }
 
-        v64 = *(*(&v164 + 1) + 8 * k);
-        v65 = [v40 objectForKeyedSubscript:v64];
-        [v58 addObject:v64];
-        [v59 addObject:{objc_msgSend(objc_msgSend(v65, "reverseObjectEnumerator"), "allObjects")}];
+        v63 = *(*(&v163 + 1) + 8 * k);
+        v64 = [v39 objectForKeyedSubscript:v63];
+        [v57 addObject:v63];
+        [v58 addObject:{objc_msgSend(objc_msgSend(v64, "reverseObjectEnumerator"), "allObjects")}];
       }
 
-      v61 = [v15 countByEnumeratingWithState:&v164 objects:v186 count:16];
+      v60 = [v15 countByEnumeratingWithState:&v163 objects:v185 count:16];
     }
 
-    while (v61);
+    while (v60);
   }
 
-  v66 = [[NSSet alloc] initWithArray:v15];
-  v67 = [v146 count];
-  v20 = v156;
-  v9 = v154;
-  v21 = v141;
-  if (v67)
+  v65 = [[NSSet alloc] initWithArray:v15];
+  v66 = [v145 count];
+  v20 = v155;
+  v9 = v153;
+  v21 = v140;
+  if (v66)
   {
-    v68 = v67;
-    for (m = 0; m != v68; ++m)
+    v67 = v66;
+    for (m = 0; m != v67; ++m)
     {
-      v70 = [v146 objectAtIndexedSubscript:m];
-      if (([v66 containsObject:v70] & 1) == 0)
+      v69 = [v145 objectAtIndexedSubscript:m];
+      if (([v65 containsObject:v69] & 1) == 0)
       {
-        [v58 addObject:v70];
-        [v59 addObject:{objc_msgSend(v150, "objectAtIndexedSubscript:", m)}];
+        [v57 addObject:v69];
+        [v58 addObject:{objc_msgSend(v149, "objectAtIndexedSubscript:", m)}];
       }
     }
   }
 
-  v71 = objc_alloc_init(NSMutableDictionary);
-  [v71 setObject:v58 forKeyedSubscript:@"keys"];
-  [v71 setObject:v59 forKeyedSubscript:@"values"];
+  v70 = objc_alloc_init(NSMutableDictionary);
+  [v70 setObject:v57 forKeyedSubscript:@"keys"];
+  [v70 setObject:v58 forKeyedSubscript:@"values"];
 
-  v22 = v157;
-  v5 = v139;
-  v11 = v142;
-  v14 = v143;
-  if (v71)
+  v22 = v156;
+  v5 = v138;
+  v11 = v141;
+  v14 = v142;
+  if (v70)
   {
-    [v71 setObject:v148 forKey:@"mod_date"];
+    [v70 setObject:v147 forKey:@"mod_date"];
     goto LABEL_144;
   }
 
 LABEL_143:
-  v71 = [v22 copy];
+  v70 = [v22 copy];
 LABEL_144:
 
-  v22 = v71;
-  v19 = v149;
+  v22 = v70;
+  v19 = v148;
   if (!v22)
   {
 LABEL_84:
@@ -2843,261 +2870,261 @@ LABEL_84:
   }
 
 LABEL_85:
-  v158 = v22;
+  v157 = v22;
 
-  memset(v190, 0, sizeof(v190));
-  v191 = 0;
+  memset(v189, 0, sizeof(v189));
+  v190 = 0;
   if (v9)
   {
-    v73 = v20;
+    v72 = v20;
   }
 
   else
   {
-    v73 = v21;
+    v72 = v21;
   }
 
-  v189 = 0;
   v188 = 0;
-  [v14 digestUUIDBytesWithKey:v20 forUUID:v73 uuidBytes:&v188];
-  _MDLabelUUIDEncode(v188, v189, v190);
-  v74 = [[NSString alloc] initWithFormat:@"%s%s", "com.apple.metadata:kMDLabel_", v190];
-  *v5 = v74;
-  [v74 UTF8String];
-  v75 = [NSMutableArray alloc];
-  v76 = [v75 initWithCapacity:{objc_msgSend(v163, "count")}];
+  v187 = 0;
+  [v14 digestUUIDBytesWithKey:v20 forUUID:v72 uuidBytes:&v187];
+  _MDLabelUUIDEncode(v187, v188, v189);
+  v73 = [[NSString alloc] initWithFormat:@"%s%s", "com.apple.metadata:kMDLabel_", v189];
+  *v5 = v73;
+  [v73 UTF8String];
+  v74 = [NSMutableArray alloc];
+  v75 = [v74 initWithCapacity:{objc_msgSend(v162, "count")}];
+  v158 = 0u;
   v159 = 0u;
   v160 = 0u;
   v161 = 0u;
-  v162 = 0u;
-  v77 = v163;
-  v78 = [v163 countByEnumeratingWithState:&v159 objects:v184 count:16];
-  if (v78)
+  v76 = v162;
+  v77 = [v162 countByEnumeratingWithState:&v158 objects:v183 count:16];
+  if (v77)
   {
-    v79 = v78;
-    v80 = *v160;
+    v78 = v77;
+    v79 = *v159;
     do
     {
-      for (n = 0; n != v79; n = n + 1)
+      for (n = 0; n != v78; n = n + 1)
       {
-        if (*v160 != v80)
+        if (*v159 != v79)
         {
-          objc_enumerationMutation(v77);
+          objc_enumerationMutation(v76);
         }
 
-        v82 = *(*(&v159 + 1) + 8 * n);
-        if ([v82 hasPrefix:@"com.apple.metadata:kMDLabel_"])
+        v81 = *(*(&v158 + 1) + 8 * n);
+        if ([v81 hasPrefix:@"com.apple.metadata:kMDLabel_"])
         {
-          v83 = v82;
+          v82 = v81;
 LABEL_97:
-          v88 = v83;
+          v87 = v82;
           goto LABEL_99;
         }
 
-        if ([v82 hasPrefix:@"com.apple.metadata"])
+        if ([v81 hasPrefix:@"com.apple.metadata"])
         {
-          v84 = v76;
-          v85 = v5;
-          v86 = [NSString alloc];
-          v138 = [v82 substringFromIndex:19];
-          v87 = v86;
-          v5 = v85;
-          v76 = v84;
-          v83 = [v87 initWithFormat:@"%s%@", "com.apple.metadata:kMDLabel_", v138];
+          v83 = v75;
+          v84 = v5;
+          v85 = [NSString alloc];
+          v137 = [v81 substringFromIndex:19];
+          v86 = v85;
+          v5 = v84;
+          v75 = v83;
+          v82 = [v86 initWithFormat:@"%s%@", "com.apple.metadata:kMDLabel_", v137];
           goto LABEL_97;
         }
 
-        v88 = 0;
+        v87 = 0;
 LABEL_99:
-        if (([v88 isEqual:*v5] & 1) == 0)
+        if (([v87 isEqual:*v5] & 1) == 0)
         {
-          [v76 addObject:v88];
+          [v75 addObject:v87];
         }
       }
 
-      v79 = [v77 countByEnumeratingWithState:&v159 objects:v184 count:16];
+      v78 = [v76 countByEnumeratingWithState:&v158 objects:v183 count:16];
     }
 
-    while (v79);
+    while (v78);
   }
 
-  v89 = v22;
+  v88 = v22;
   if (![objc_msgSend(v22 objectForKey:{@"keys", "count"}])
   {
-    [v76 addObject:*v5];
-    v109 = 0;
-    v95 = v156;
+    [v75 addObject:*v5];
+    v108 = 0;
+    v94 = v155;
     goto LABEL_138;
   }
 
-  bzero(v192, 0x2000uLL);
-  if (v154)
+  bzero(v191, 0x2000uLL);
+  if (v153)
   {
-    v90 = -14;
+    v89 = -14;
   }
 
   else
   {
-    v90 = -15;
+    v89 = -15;
   }
 
+  v90 = arc4random();
   v91 = arc4random();
-  v92 = arc4random();
-  v93 = v92;
-  v186[0] = 0;
-  if (v154)
+  v92 = v91;
+  v185[0] = 0;
+  if (v153)
   {
-    v94 = sub_100009EB4(v22, v192, 0x2000uLL, v186);
-    v95 = v156;
-    if (!v94)
+    v93 = sub_100009EB4(v22, v191, 0x2000uLL, v185);
+    v94 = v155;
+    if (!v93)
     {
-      v96 = malloc_type_malloc(0x10000uLL, 0x5D37A958uLL);
-      v94 = sub_100009EB4(v22, v96, 0x10000uLL, v186);
-      if (!v94)
+      v95 = malloc_type_malloc(0x10000uLL, 0x5D37A958uLL);
+      v93 = sub_100009EB4(v22, v95, 0x10000uLL, v185);
+      if (!v93)
       {
-        sub_10000CCBC(0, v97, v98, v99, v100, v101, v102, v103);
+        sub_10000CCBC(0, v96, v97, v98, v99, v100, v101, v102);
       }
     }
 
-    v104 = v94;
-    v105 = v186[0];
-    if (v186[0])
+    v103 = v93;
+    v104 = v185[0];
+    if (v185[0])
     {
       goto LABEL_111;
     }
 
 LABEL_127:
-    if (v104 != v192)
+    if (v103 != v191)
     {
-      free(v104);
+      free(v103);
     }
 
     goto LABEL_135;
   }
 
-  v151 = v92;
-  v155 = v90;
-  v110 = v91;
-  v111 = [v22 objectForKey:@"uuid"];
-  v112 = [v22 objectForKey:@"keys"];
-  v113 = [v22 objectForKey:@"values"];
+  v150 = v91;
+  v154 = v89;
+  v109 = v90;
+  v110 = [v22 objectForKey:@"uuid"];
+  v111 = [v22 objectForKey:@"keys"];
+  v112 = [v22 objectForKey:@"values"];
+  v113 = [v111 count];
   v114 = [v112 count];
-  v115 = [v113 count];
-  v116 = 24 * v114 + 20;
-  if (v116 <= 0x2000)
+  v115 = 24 * v113 + 20;
+  if (v115 <= 0x2000)
   {
-    v104 = v192;
+    v103 = v191;
   }
 
   else
   {
-    v104 = malloc_type_malloc(v116, 0x900D5E5DuLL);
+    v103 = malloc_type_malloc(v115, 0x900D5E5DuLL);
   }
 
-  *v104 = 1279345228;
-  v187[0] = v104 + 1;
-  v117 = sub_10000A118(v111, v187);
-  if (!v117)
+  *v103 = 1279345228;
+  v186[0] = v103 + 1;
+  v116 = sub_10000A118(v110, v186);
+  if (!v116)
   {
-    sub_10000CC80(v117, v118, v119, v120, v121, v122, v123, v124);
+    sub_10000CC80(v116, v117, v118, v119, v120, v121, v122, v123);
   }
 
-  if (v114 >= 1)
+  if (v113 >= 1)
   {
-    for (ii = 0; ii != v114; ++ii)
+    for (ii = 0; ii != v113; ++ii)
     {
-      if (sub_10000A118([v112 objectAtIndex:ii], v187))
+      if (sub_10000A118([v111 objectAtIndex:ii], v186))
       {
         AbsoluteTime = 0.0;
-        if (ii < v115)
+        if (ii < v114)
         {
-          v127 = [v113 objectAtIndex:ii];
-          v128 = CFGetTypeID(v127);
-          if (v128 == CFDateGetTypeID())
+          v126 = [v112 objectAtIndex:ii];
+          v127 = CFGetTypeID(v126);
+          if (v127 == CFDateGetTypeID())
           {
-            AbsoluteTime = CFDateGetAbsoluteTime(v127);
+            AbsoluteTime = CFDateGetAbsoluteTime(v126);
           }
         }
 
-        v129 = v187[0];
-        *v187[0] = AbsoluteTime;
-        v187[0] = v129 + 8;
+        v128 = v186[0];
+        *v186[0] = AbsoluteTime;
+        v186[0] = v128 + 8;
       }
     }
   }
 
-  v105 = v187[0] - v104;
-  v186[0] = v187[0] - v104;
-  v95 = v156;
-  v89 = v158;
-  v91 = v110;
-  v90 = v155;
-  v93 = v151;
-  if (v187[0] == v104)
+  v104 = v186[0] - v103;
+  v185[0] = v186[0] - v103;
+  v94 = v155;
+  v88 = v157;
+  v90 = v109;
+  v89 = v154;
+  v92 = v150;
+  if (v186[0] == v103)
   {
     goto LABEL_127;
   }
 
 LABEL_111:
-  v106 = [NSData alloc];
-  v107 = v105 + 9;
-  if (v104 == v192)
+  v105 = [NSData alloc];
+  v106 = v104 + 9;
+  if (v103 == v191)
   {
-    v108 = [v106 initWithBytes:v104 length:v107];
+    v107 = [v105 initWithBytes:v103 length:v106];
   }
 
   else
   {
-    v108 = [v106 initWithBytesNoCopy:v104 length:v107 freeWhenDone:1];
+    v107 = [v105 initWithBytesNoCopy:v103 length:v106 freeWhenDone:1];
   }
 
-  v130 = v108;
-  v131 = (*(v152 + 16))(v152, v95, v91, v93, v108, 1);
+  v129 = v107;
+  v130 = (*(v151 + 16))(v151, v94, v90, v92, v107, 1);
 
-  if (!v131)
+  if (!v130)
   {
 LABEL_135:
-    v109 = 0;
+    v108 = 0;
     goto LABEL_138;
   }
 
-  v132 = [v131 length];
-  v133 = v132 + 9;
-  v134 = v192;
-  if ((v132 + 9) > 0x2000)
+  v131 = [v130 length];
+  v132 = v131 + 9;
+  v133 = v191;
+  if ((v131 + 9) > 0x2000)
   {
-    v134 = malloc_type_malloc((v132 + 9), 0xF05C1A0FuLL);
+    v133 = malloc_type_malloc((v131 + 9), 0xF05C1A0FuLL);
   }
 
-  *v134 = v90;
-  *(v134 + 1) = v91;
-  *(v134 + 5) = v93;
-  memcpy(v134 + 9, [v131 bytes], objc_msgSend(v131, "length"));
-  v135 = [NSData alloc];
-  if (v134 == v192)
+  *v133 = v89;
+  *(v133 + 1) = v90;
+  *(v133 + 5) = v92;
+  memcpy(v133 + 9, [v130 bytes], objc_msgSend(v130, "length"));
+  v134 = [NSData alloc];
+  if (v133 == v191)
   {
-    v136 = [v135 initWithBytes:v134 length:v133];
+    v135 = [v134 initWithBytes:v133 length:v132];
   }
 
   else
   {
-    v136 = [v135 initWithBytesNoCopy:v134 length:v133 freeWhenDone:1];
+    v135 = [v134 initWithBytesNoCopy:v133 length:v132 freeWhenDone:1];
   }
 
-  v109 = v136;
+  v108 = v135;
 
-  v89 = v158;
+  v88 = v157;
 LABEL_138:
-  if ([v76 count])
+  if ([v75 count])
   {
-    *v153 = v76;
+    *v152 = v75;
   }
 
   else
   {
   }
 
-  return v109;
+  return v108;
 }
 
 id sub_100008D1C(void *a1, void *a2, void *a3, char a4)
@@ -3253,7 +3280,25 @@ void sub_100009A4C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   (*(a6 + 16))(a6, 0, v7);
 }
 
-const __CFNull *sub_100009B8C(uint64_t a1, uint64_t a2, uint64_t a3)
+NSData *__cdecl sub_100009AE4(id a1, NSUUID *a2, unsigned int a3, unsigned int a4, NSData *a5, int a6)
+{
+  v8 = *&a4;
+  v9 = *&a3;
+  v11 = +[MDKeyRing defaultKeyRing];
+  if (a6 == 1)
+  {
+
+    return [v11 copyEncryptedData:a5 withKeyUUID:a2 iv1:v9 iv2:v8];
+  }
+
+  else
+  {
+
+    return [v11 copyDecryptedData:a5 withKeyUUID:a2 iv1:v9 iv2:v8];
+  }
+}
+
+CFNullRef sub_100009B8C(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v6 = [*(a1 + 32) indexOfObject:a2];
   if (v6 == 0x7FFFFFFFFFFFFFFFLL)
@@ -3309,7 +3354,7 @@ const __CFNull *sub_100009B8C(uint64_t a1, uint64_t a2, uint64_t a3)
   return result;
 }
 
-const __CFNull *sub_100009D58(uint64_t a1, uint64_t a2)
+CFNullRef sub_100009D58(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) objectAtIndex:?];
   if (result != kCFNull)
@@ -3391,19 +3436,20 @@ uint64_t sub_100009EB4(void *a1, uint64_t a2, unint64_t a3, void *a4)
   return a2;
 }
 
-void sub_10000A058(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void sub_10000A058(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  v9[0] = 0;
-  v9[1] = &a9;
-  vasprintf(v9, "%s:%u: failed assertion '%s' %s ", &a9);
+  va_start(va, a8);
+  v8[0] = 0;
+  va_copy(&v8[1], va);
+  vasprintf(v8, "%s:%u: failed assertion '%s' %s ", va);
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315138;
-    v11 = v9[0];
+    v10 = v8[0];
     _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "%s", buf, 0xCu);
   }
 
-  free(v9[0]);
+  free(v8[0]);
 }
 
 uint64_t sub_10000A118(void *a1, void *a2)
@@ -4485,17 +4531,17 @@ LABEL_5:
     sub_10000CD20();
   }
 
-  v26 = 0;
-  v7 = [NSKeyedUnarchiver unarchivedObjectOfClasses:qword_10001A240 fromData:cf error:&v26];
-  v8 = v26;
-  if (v26)
+  v25 = 0;
+  v7 = [NSKeyedUnarchiver unarchivedObjectOfClasses:qword_10001A240 fromData:cf error:&v25];
+  v8 = v25;
+  if (v25)
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v28 = v8;
-      v29 = 2112;
-      v30 = a1;
+      v27 = v8;
+      v28 = 2112;
+      v29 = a1;
       _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Decoding error: %@ for %@", buf, 0x16u);
     }
 
@@ -4529,8 +4575,8 @@ LABEL_5:
   }
 
   v13 = 8 * v11;
-  (__chkstk_darwin)();
-  v14 = (&v25 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0));
+  __chkstk_darwin(v11);
+  v14 = (&v24 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0));
   bzero(v14, 8 * v12);
   __chkstk_darwin([v10 getObjects:v14 range:{0, v12}]);
   v15 = v14;
@@ -4543,10 +4589,9 @@ LABEL_5:
   v16 = 0;
   do
   {
-    v17 = *v14;
     objc_opt_class();
     isKindOfClass = objc_opt_isKindOfClass();
-    v19 = *v14;
+    v18 = *v14;
     if ((isKindOfClass & 1) == 0)
     {
       objc_opt_class();
@@ -4555,51 +4600,51 @@ LABEL_5:
         goto LABEL_32;
       }
 
-      v22 = *v14;
+      v21 = *v14;
       goto LABEL_31;
     }
 
-    v20 = [*v14 count];
-    if (v20 == 2)
+    v19 = [*v14 count];
+    if (v19 == 2)
     {
-      [v19 objectAtIndexedSubscript:0];
+      [v18 objectAtIndexedSubscript:0];
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
         goto LABEL_32;
       }
 
-      v22 = [v19 objectAtIndexedSubscript:0];
-      v23 = [v19 objectAtIndexedSubscript:1];
+      v21 = [v18 objectAtIndexedSubscript:0];
+      v22 = [v18 objectAtIndexedSubscript:1];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v24 = [v23 intValue];
-        if ((v24 - 1) <= 6)
+        v23 = [v22 intValue];
+        if ((v23 - 1) <= 6)
         {
-          v21 = [v22 stringByAppendingFormat:@"\n%d", v24];
+          v20 = [v21 stringByAppendingFormat:@"\n%d", v23];
 LABEL_23:
-          v22 = v21;
+          v21 = v20;
         }
       }
 
-      if (!v22)
+      if (!v21)
       {
         goto LABEL_32;
       }
 
 LABEL_31:
-      v15[v16++] = v22;
+      v15[v16++] = v21;
       goto LABEL_32;
     }
 
-    if (v20 == 1)
+    if (v19 == 1)
     {
-      [v19 objectAtIndexedSubscript:0];
+      [v18 objectAtIndexedSubscript:0];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v21 = [v19 objectAtIndexedSubscript:0];
+        v20 = [v18 objectAtIndexedSubscript:0];
         goto LABEL_23;
       }
     }
@@ -5038,6 +5083,48 @@ CFMutableDictionaryRef MDFSOnlyMDCopyXattrsDictionary(const char *a1)
   v3 = MDFSOnlyMDCopyXattrsDictionaryForFD(v1);
   close(v2);
   return v3;
+}
+
+NSData *__cdecl sub_10000C4BC(id a1, NSUUID *a2, unsigned int a3, unsigned int a4, NSData *a5, int a6)
+{
+  v8 = *&a4;
+  v9 = *&a3;
+  v11 = +[MDKeyRing defaultKeyRing];
+  if (a6 == 1)
+  {
+
+    return [v11 copyEncryptedData:a5 withKeyUUID:a2 iv1:v9 iv2:v8];
+  }
+
+  else
+  {
+
+    return [v11 copyDecryptedData:a5 withKeyUUID:a2 iv1:v9 iv2:v8];
+  }
+}
+
+void sub_10000C6F0(uint64_t a1, int a2)
+{
+  LODWORD(v7) = 67109634;
+  HIDWORD(v7) = a2;
+  sub_100002828();
+  sub_100002840(&_mh_execute_header, &_os_log_default, v2, "Changing user ID (%u -> %u): %s", v3, v4, v5, v6, v7);
+}
+
+void sub_10000C76C(uint64_t a1, int a2)
+{
+  LODWORD(v7) = 67109634;
+  HIDWORD(v7) = a2;
+  sub_100002828();
+  sub_100002840(&_mh_execute_header, &_os_log_default, v2, "Changing group ID (%u -> %u): %s", v3, v4, v5, v6, v7);
+}
+
+void sub_10000C7E8(unsigned __int16 a1)
+{
+  LODWORD(v6) = 67109634;
+  HIDWORD(v6) = a1;
+  sub_100002828();
+  sub_100002840(&_mh_execute_header, &_os_log_default, v1, "Modifying permissions (%o -> %o): %s", v2, v3, v4, v5, v6);
 }
 
 void sub_10000CA20(int a1)

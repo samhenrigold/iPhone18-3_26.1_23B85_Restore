@@ -11,33 +11,30 @@
   rotationsCopy = rotations;
   countCopy = count;
   sub_1B69867A4(0, &qword_1EDBCCF40, MEMORY[0x1E6969530]);
-  v11 = *(*(v10 - 8) + 64);
   MEMORY[0x1EEE9AC00](v10 - 8);
-  v13 = &rotationsCopy - v12;
-  v14 = sub_1B6AB8DB0();
-  v15 = *(v14 - 8);
-  v16 = *(v15 + 64);
-  MEMORY[0x1EEE9AC00](v14);
-  v18 = &rotationsCopy - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v19 = sub_1B6AB8E40();
-  v20 = *(*(v19 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v19 - 8);
-  v22 = &rotationsCopy - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = &rotationsCopy - v11;
+  v13 = sub_1B6AB8DB0();
+  v14 = *(v13 - 8);
+  MEMORY[0x1EEE9AC00](v13);
+  v16 = &rotationsCopy - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v17 = sub_1B6AB8E40();
+  MEMORY[0x1EEE9AC00](v17 - 8);
+  v19 = &rotationsCopy - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1B6AB8E00();
   sub_1B6AB8D80();
   if (rotation)
   {
     sub_1B6AB8D80();
-    v23 = 0;
+    v20 = 0;
   }
 
   else
   {
-    v23 = 1;
+    v20 = 1;
   }
 
-  (*(v15 + 56))(v13, v23, 1, v14);
-  return BridgedRotationMode.init(mode:namespaceName:startDate:cachedRotations:resetCount:lastRotation:)(mode, v22, v18, rotationsCopy, countCopy, v13);
+  (*(v14 + 56))(v12, v20, 1, v13);
+  return BridgedRotationMode.init(mode:namespaceName:startDate:cachedRotations:resetCount:lastRotation:)(mode, v19, v16, rotationsCopy, countCopy, v12);
 }
 
 - (void)encodeWithCoder:(id)coder

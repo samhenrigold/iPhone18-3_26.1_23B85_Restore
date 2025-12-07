@@ -18,6 +18,7 @@
 - (void)cancelButtonTapped:(id)tapped;
 - (void)setAccountBooleanProperty:(id)property withSpecifier:(id)specifier;
 - (void)setAccountProperty:(id)property withSpecifier:(id)specifier;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation SubCalSettingsAccountsUIController
@@ -269,6 +270,27 @@
   return _primarySpecifiers;
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  v8.receiver = self;
+  v8.super_class = SubCalSettingsAccountsUIController;
+  [(SubCalSettingsAccountsUIController *)&v8 viewDidAppear:appear];
+  if ([(SubCalSettingsAccountsUIController *)self isSettingUpNewAccount])
+  {
+    if (![(SubCalSettingsAccountsUIController *)self broughtUpInitialKeyboard])
+    {
+      [(SubCalSettingsAccountsUIController *)self setBroughtUpInitialKeyboard:1];
+      v4 = [(SubCalSettingsAccountsUIController *)self specifierForID:@"HOST"];
+      properties = [v4 properties];
+
+      v6 = [properties objectForKeyedSubscript:PSTableCellKey];
+      editableTextField = [v6 editableTextField];
+      [(SubCalSettingsAccountsUIController *)self _setHostKeyboardForLoneSpecifierOnTraits:editableTextField];
+      [v6 becomeFirstResponder];
+    }
+  }
+}
+
 - (BOOL)validateAccount
 {
   firstResponder = [*&self->DASettingsAccountsUIController_opaque[OBJC_IVAR___PSListController__table] firstResponder];
@@ -485,37 +507,36 @@ LABEL_30:
 LABEL_3:
       v6 = 0;
       v7 = &DALoggingwithCategory_ptr;
-      v20 = v5;
+      v19 = v5;
       while (1)
       {
         v8 = [*&self->DASettingsAccountsUIController_opaque[v3] objectAtIndexedSubscript:v6];
         if (v6 == [(SubCalSettingsAccountsUIController *)self indexOfCurrentlyEditingCell])
         {
           currentlyEditingCell = [(SubCalSettingsAccountsUIController *)self currentlyEditingCell];
-          v10 = v7[47];
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
             goto LABEL_11;
           }
 
-          v11 = qword_C938;
+          v10 = qword_C938;
           identifier = [v8 identifier];
-          if (![v11 containsObject:identifier])
+          if (![v10 containsObject:identifier])
           {
-            v18 = 1;
+            v17 = 1;
             goto LABEL_13;
           }
 
           textField = [currentlyEditingCell textField];
           [textField text];
-          v14 = v3;
-          v16 = v15 = v7;
-          v17 = [v16 length];
+          v13 = v3;
+          v15 = v14 = v7;
+          v16 = [v15 length];
 
-          v7 = v15;
-          v3 = v14;
-          v5 = v20;
+          v7 = v14;
+          v3 = v13;
+          v5 = v19;
         }
 
         else
@@ -524,23 +545,23 @@ LABEL_3:
           if (![currentlyEditingCell isEqualToString:@"HOST"])
           {
 LABEL_11:
-            v18 = 1;
+            v17 = 1;
             goto LABEL_14;
           }
 
           identifier = [(SubCalSettingsAccountsUIController *)self account];
           textField = [identifier host];
-          v17 = [textField length];
+          v16 = [textField length];
         }
 
-        v18 = v17 != 0;
+        v17 = v16 != 0;
 
 LABEL_13:
 LABEL_14:
 
-        if (++v6 >= v5 || (v18 & 1) == 0)
+        if (++v6 >= v5 || (v17 & 1) == 0)
         {
-          return v18;
+          return v17;
         }
       }
     }

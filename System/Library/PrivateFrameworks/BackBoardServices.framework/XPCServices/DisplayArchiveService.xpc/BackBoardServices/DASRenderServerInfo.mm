@@ -1,6 +1,8 @@
 @interface DASRenderServerInfo
++ (id)infoFromServerWithPort:(unsigned int)port;
 - (id)_initWithPort:(unsigned int)port raw:(id)raw;
 - (id)archiveOfContext:(id)context;
+- (id)contextWithIdentifier:(unsigned int)identifier;
 - (id)description;
 - (void)_parseRaw;
 - (void)dealloc;
@@ -444,13 +446,21 @@ LABEL_18:
   return v20;
 }
 
+- (id)contextWithIdentifier:(unsigned int)identifier
+{
+  contextIDNumberToContextMap = self->_contextIDNumberToContextMap;
+  v4 = [NSNumber numberWithUnsignedInt:*&identifier];
+  v5 = [(NSDictionary *)contextIDNumberToContextMap objectForKey:v4];
+
+  return v5;
+}
+
 - (void)dealloc
 {
-  port = self->_port;
   BSMachSendRightRelease();
-  v4.receiver = self;
-  v4.super_class = DASRenderServerInfo;
-  [(DASRenderServerInfo *)&v4 dealloc];
+  v3.receiver = self;
+  v3.super_class = DASRenderServerInfo;
+  [(DASRenderServerInfo *)&v3 dealloc];
 }
 
 - (id)_initWithPort:(unsigned int)port raw:(id)raw
@@ -529,6 +539,139 @@ LABEL_18:
   }
 
   return v9;
+}
+
++ (id)infoFromServerWithPort:(unsigned int)port
+{
+  v3 = *&port;
+  if ((BSMachPortIsType() & 1) == 0)
+  {
+    v14 = [NSString stringWithFormat:@"the render server port must be valid"];
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      v15 = NSStringFromSelector(a2);
+      v16 = objc_opt_class();
+      v17 = NSStringFromClass(v16);
+      *buf = 138544642;
+      *&buf[4] = v15;
+      *&buf[12] = 2114;
+      *&buf[14] = v17;
+      *&buf[22] = 2048;
+      selfCopy3 = self;
+      *v35 = 2114;
+      *&v35[2] = @"DASParsing.m";
+      v36 = 1024;
+      v37 = 232;
+      v38 = 2114;
+      v39 = v14;
+      _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
+    }
+
+    v18 = v14;
+    [v14 UTF8String];
+    _bs_set_crash_log_message();
+    __break(0);
+    JUMPOUT(0x1000058D4);
+  }
+
+  if ((BSMachSendRightRetain() & 1) == 0)
+  {
+    v19 = [NSString stringWithFormat:@"could not retain the server port"];
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      v20 = NSStringFromSelector(a2);
+      v21 = objc_opt_class();
+      v22 = NSStringFromClass(v21);
+      *buf = 138544642;
+      *&buf[4] = v20;
+      *&buf[12] = 2114;
+      *&buf[14] = v22;
+      *&buf[22] = 2048;
+      selfCopy3 = self;
+      *v35 = 2114;
+      *&v35[2] = @"DASParsing.m";
+      v36 = 1024;
+      v37 = 237;
+      v38 = 2114;
+      v39 = v19;
+      _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
+    }
+
+    v23 = v19;
+    [v19 UTF8String];
+    _bs_set_crash_log_message();
+    __break(0);
+    JUMPOUT(0x1000059C4);
+  }
+
+  v29 = 0;
+  v30 = &v29;
+  v31 = 0x2020000000;
+  v6 = off_100015188;
+  v32 = off_100015188;
+  if (!off_100015188)
+  {
+    *buf = _NSConcreteStackBlock;
+    *&buf[8] = 3221225472;
+    *&buf[16] = sub_100005B3C;
+    selfCopy3 = &unk_100010920;
+    *v35 = &v29;
+    v7 = sub_1000050D4();
+    v8 = dlsym(v7, "CARenderServerGetInfo");
+    *(*(*v35 + 8) + 24) = v8;
+    off_100015188 = *(*(*v35 + 8) + 24);
+    v6 = v30[3];
+  }
+
+  _Block_object_dispose(&v29, 8);
+  if (!v6)
+  {
+    self = +[NSAssertionHandler currentHandler];
+    a2 = [NSString stringWithUTF8String:"char *soft_CARenderServerGetInfo(mach_port_t, uint32_t, uintptr_t)"];
+    [self handleFailureInFunction:a2 file:@"DASParsing.m" lineNumber:25 description:{@"%s", dlerror()}];
+
+    __break(1u);
+LABEL_17:
+    v24 = [v10 stringWithFormat:@"could not fetch contexts info from server %x", v3];
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      v25 = NSStringFromSelector(a2);
+      v26 = objc_opt_class();
+      v27 = NSStringFromClass(v26);
+      *buf = 138544642;
+      *&buf[4] = v25;
+      *&buf[12] = 2114;
+      *&buf[14] = v27;
+      *&buf[22] = 2048;
+      selfCopy3 = self;
+      *v35 = 2114;
+      *&v35[2] = @"DASParsing.m";
+      v36 = 1024;
+      v37 = 239;
+      v38 = 2114;
+      v39 = v24;
+      _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
+    }
+
+    v28 = v24;
+    [v24 UTF8String];
+    _bs_set_crash_log_message();
+    __break(0);
+    JUMPOUT(0x100005B14);
+  }
+
+  v9 = (v6)(v3, 0, 0);
+  v10 = NSString;
+  if (!v9)
+  {
+    goto LABEL_17;
+  }
+
+  v11 = [NSString stringWithUTF8String:v9];
+  free(v9);
+  v12 = [[DASRenderServerInfo alloc] _initWithPort:v3 raw:v11];
+
+  return v12;
 }
 
 @end

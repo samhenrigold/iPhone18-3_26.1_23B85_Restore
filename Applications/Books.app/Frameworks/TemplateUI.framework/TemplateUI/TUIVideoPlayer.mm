@@ -126,7 +126,7 @@
       [WeakRetained player:self didChangeState:self->_state];
     }
 
-    v5 = TUIVideoLog();
+    v5 = TUIVideoLog(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       _stateAsString = [(TUIVideoPlayer *)self _stateAsString];
@@ -277,7 +277,7 @@
 {
   self->_failureCount = count;
   v5 = count - 1;
-  v6 = TUIVideoLog();
+  v6 = TUIVideoLog(self);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
   if (v5 > 1)
   {
@@ -315,7 +315,7 @@
   self->_failureReason = reason;
   if (reason)
   {
-    v4 = TUIVideoLog();
+    v4 = TUIVideoLog(self);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       _failureAsString = [(TUIVideoPlayer *)self _failureAsString];
@@ -449,7 +449,7 @@
     [(TUIVideoPlayer *)self pause];
   }
 
-  [(TUIVideoPlayer *)self currentTime];
+  objc_msgSend_currentTime(self);
   v5 = v7;
   v6 = v8;
   [(TUIVideoPlayer *)self setLastPlaybackTime:&v5];
@@ -768,7 +768,7 @@ LABEL_12:
   dispatch_assert_queue_V2(&_dispatch_main_q);
   if (item)
   {
-    if ([pathCopy isEqualToString:@"status"])
+    if (objc_msgSend_isEqualToString_(pathCopy))
     {
       v10 = objc_opt_class();
       v11 = [changeCopy objectForKey:NSKeyValueChangeNewKey];
@@ -785,7 +785,7 @@ LABEL_8:
 
     else
     {
-      if (([pathCopy isEqualToString:@"playbackBufferFull"] & 1) != 0 || objc_msgSend(pathCopy, "isEqualToString:", @"playbackLikelyToKeepUp"))
+      if ((objc_msgSend_isEqualToString_(pathCopy) & 1) != 0 || objc_msgSend_isEqualToString_(pathCopy))
       {
         v15 = objc_opt_class();
         v16 = [changeCopy objectForKey:NSKeyValueChangeNewKey];
@@ -797,21 +797,21 @@ LABEL_8:
         goto LABEL_8;
       }
 
-      if ([pathCopy isEqualToString:@"playbackBufferEmpty"])
+      if (objc_msgSend_isEqualToString_(pathCopy))
       {
         v19 = objc_opt_class();
         v20 = [changeCopy objectForKey:NSKeyValueChangeNewKey];
         v21 = TUIDynamicCast(v19, v20);
         bOOLValue2 = [v21 BOOLValue];
 
-        v23 = TUIVideoLog();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+        v24 = TUIVideoLog(v23);
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
         {
-          v24 = 138412546;
+          v25 = 138412546;
           selfCopy = self;
-          v26 = 1024;
-          v27 = bOOLValue2;
-          _os_log_impl(&dword_0, v23, OS_LOG_TYPE_DEFAULT, "%@ : Playback buffer is empty: %i", &v24, 0x12u);
+          v27 = 1024;
+          v28 = bOOLValue2;
+          _os_log_impl(&dword_0, v24, OS_LOG_TYPE_DEFAULT, "%@ : Playback buffer is empty: %i", &v25, 0x12u);
         }
       }
     }
@@ -826,7 +826,7 @@ LABEL_8:
   dispatch_assert_queue_V2(&_dispatch_main_q);
   if (playerCopy == self)
   {
-    if ([pathCopy isEqualToString:@"rate"])
+    if (objc_msgSend_isEqualToString_(pathCopy))
     {
       v11 = objc_opt_class();
       v12 = [changeCopy objectForKey:NSKeyValueChangeNewKey];
@@ -834,7 +834,7 @@ LABEL_8:
       [v13 floatValue];
       v15 = v14;
 
-      WeakRetained = TUIVideoLog();
+      WeakRetained = TUIVideoLog(v16);
       if (os_log_type_enabled(WeakRetained, OS_LOG_TYPE_DEFAULT))
       {
         LODWORD(buf.value) = 138412546;
@@ -847,19 +847,19 @@ LABEL_8:
       goto LABEL_24;
     }
 
-    if ([pathCopy isEqualToString:@"timeControlStatus"])
+    if (objc_msgSend_isEqualToString_(pathCopy))
     {
-      v17 = objc_opt_class();
-      v18 = [changeCopy objectForKey:NSKeyValueChangeNewKey];
-      v19 = TUIDynamicCast(v17, v18);
-      intValue = [v19 intValue];
+      v18 = objc_opt_class();
+      v19 = [changeCopy objectForKey:NSKeyValueChangeNewKey];
+      v20 = TUIDynamicCast(v18, v19);
+      intValue = [v20 intValue];
 
-      [(TUIVideoPlayer *)self currentTime];
+      objc_msgSend_currentTime(self);
       currentItem = [(TUIVideoPlayer *)self currentItem];
-      v22 = currentItem;
+      v23 = currentItem;
       if (currentItem)
       {
-        [currentItem duration];
+        objc_msgSend_duration(currentItem);
       }
 
       else
@@ -867,7 +867,7 @@ LABEL_8:
         memset(&time2, 0, sizeof(time2));
       }
 
-      v27 = CMTimeCompare(&buf, &time2);
+      v29 = CMTimeCompare(&buf, &time2);
 
       if (intValue == 2)
       {
@@ -881,7 +881,7 @@ LABEL_8:
         }
       }
 
-      else if (!intValue && self->_state == 4 && v27 < 0)
+      else if (!intValue && self->_state == 4 && v29 < 0)
       {
         [(TUIVideoPlayer *)self setState:5];
         self->_shouldBePlaying = 0;
@@ -895,30 +895,31 @@ LABEL_24:
       }
     }
 
-    else if ([pathCopy isEqualToString:@"reasonForWaitingToPlay"])
+    else if (objc_msgSend_isEqualToString_(pathCopy))
     {
-      v23 = objc_opt_class();
-      v24 = [changeCopy objectForKey:NSKeyValueChangeNewKey];
-      WeakRetained = TUIDynamicCast(v23, v24);
+      v24 = objc_opt_class();
+      v25 = [changeCopy objectForKey:NSKeyValueChangeNewKey];
+      WeakRetained = TUIDynamicCast(v24, v25);
 
       playbackChecks = [(TUIVideoPlayer *)self playbackChecks];
       [playbackChecks setPlayerHasNoWaitingReason:WeakRetained == 0];
 
       if (WeakRetained)
       {
-        if ([WeakRetained isEqualToString:AVPlayerWaitingToMinimizeStallsReason])
+        v27 = objc_msgSend_isEqualToString_(WeakRetained);
+        if (v27)
         {
-          [(TUIVideoPlayer *)self setState:9];
+          v27 = [(TUIVideoPlayer *)self setState:9];
         }
 
-        v26 = TUIVideoLog();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+        v28 = TUIVideoLog(v27);
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
         {
           LODWORD(buf.value) = 138412546;
           *(&buf.value + 4) = playerCopy;
           LOWORD(buf.flags) = 2112;
           *(&buf.flags + 2) = WeakRetained;
-          _os_log_impl(&dword_0, v26, OS_LOG_TYPE_DEFAULT, "%@ : Waiting on playback: %@", &buf, 0x16u);
+          _os_log_impl(&dword_0, v28, OS_LOG_TYPE_DEFAULT, "%@ : Waiting on playback: %@", &buf, 0x16u);
         }
       }
 
@@ -1003,7 +1004,7 @@ LABEL_24:
 
   [(TUIVideoPlayer *)self rate];
   v7 = [NSString stringWithFormat:@"playerRate: %f", v6];
-  [(TUIVideoPlayer *)self currentTime];
+  objc_msgSend_currentTime(self);
   v8 = [NSString stringWithFormat:@"currentTime: %f", CMTimeGetSeconds(&time)];
   playerItem = [(TUIVideoPlayer *)self playerItem];
   loadedTimeRanges = [playerItem loadedTimeRanges];
@@ -1020,7 +1021,7 @@ LABEL_24:
   v18 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"isPlaybackBufferEmpty: %i", [playerItem4 isPlaybackBufferEmpty]);
 
   v19 = [NSString stringWithFormat:@"\n%@\n%@\n%@\n%@\n%@\n%@\n%@\n%@\n", v21, v5, v7, v8, v12, v14, v16, v18];
-  v20 = TUIVideoLog();
+  v20 = TUIVideoLog(v19);
   if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(time.value) = 138412290;

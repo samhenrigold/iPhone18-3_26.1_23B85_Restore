@@ -43,7 +43,7 @@ void _NUIGridArrangement::_NUIGridArrangement(_NUIGridArrangement *this)
   *&this->viewFrames.__end_ = 0u;
 }
 
-NSMutableArray *_NUIContainerViewCommonInit(NUIContainerView *a1)
+NSMutableArray *_NUIContainerViewCommonInit(NUIContainerView *a1, uint64_t a2)
 {
   -[NUIContainerView setDebugBoundingBoxesEnabled:](a1, "setDebugBoundingBoxesEnabled:", [objc_opt_class() isDebugBoundingBoxesEnabled]);
   result = objc_alloc_init(MEMORY[0x277CBEB18]);
@@ -160,48 +160,48 @@ _NUIBoxArrangement *_NUIBoxArrangement::resetForInvalidation(_NUIBoxArrangement 
   return this;
 }
 
-void *std::__tree<std::__value_type<UIView *,_NUIContainerViewArrangedSubview>,std::__map_value_compare<UIView *,std::__value_type<UIView *,_NUIContainerViewArrangedSubview>,std::less<UIView *>,true>,std::allocator<std::__value_type<UIView *,_NUIContainerViewArrangedSubview>>>::__emplace_unique_key_args<UIView *,std::piecewise_construct_t const&,std::tuple<UIView * const&>,std::tuple<>>(uint64_t a1, unint64_t *a2)
+void *std::__tree<std::__value_type<UIView *,_NUIContainerViewArrangedSubview>,std::__map_value_compare<UIView *,std::__value_type<UIView *,_NUIContainerViewArrangedSubview>,std::less<UIView *>,true>,std::allocator<std::__value_type<UIView *,_NUIContainerViewArrangedSubview>>>::__emplace_unique_key_args<UIView *,std::piecewise_construct_t const&,std::tuple<UIView * const&>,std::tuple<>>(uint64_t a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = v4[4];
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
   }
 }
 
-uint64_t *std::__tree<UIView *>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *std::__tree<UIView *>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -227,12 +227,12 @@ uint64_t *std::__tree_balance_after_insert[abi:nn200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -246,22 +246,22 @@ uint64_t *std::__tree_balance_after_insert[abi:nn200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -295,13 +295,13 @@ uint64_t *std::__tree_balance_after_insert[abi:nn200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -343,19 +343,18 @@ uint64_t *std::__tree_balance_after_insert[abi:nn200100]<std::__tree_node_base<v
   return result;
 }
 
-uint64_t OUTLINED_FUNCTION_2_0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18)
+uint64_t OUTLINED_FUNCTION_2_0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
+  va_start(va, a17);
 
-  return [v18 countByEnumeratingWithState:&a9 objects:&a18 count:16];
+  return [v17 countByEnumeratingWithState:&a9 objects:va count:{16, a6, a7, a8}];
 }
 
-uint64_t OUTLINED_FUNCTION_8_0(uint64_t a1, uint64_t a2, ...)
+uint64_t OUTLINED_FUNCTION_8_0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v5 = va_arg(va1, void);
+  va_start(va1, a4);
+  va_start(va, a4);
   v7 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
   v9 = va_arg(va1, void);
   v10 = va_arg(va1, void);
   v11 = va_arg(va1, void);
@@ -364,8 +363,10 @@ uint64_t OUTLINED_FUNCTION_8_0(uint64_t a1, uint64_t a2, ...)
   v14 = va_arg(va1, void);
   v15 = va_arg(va1, void);
   v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
 
-  return [v2 countByEnumeratingWithState:va objects:va1 count:16];
+  return [v4 countByEnumeratingWithState:va objects:va1 count:16];
 }
 
 uint64_t _NUIIsDebuggerAttached()
@@ -385,10 +386,11 @@ uint64_t OUTLINED_FUNCTION_14()
   return [v0 setNeedsInvalidation:4];
 }
 
-uint64_t OUTLINED_FUNCTION_21(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18)
+uint64_t OUTLINED_FUNCTION_21(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
+  va_start(va, a17);
 
-  return [v18 countByEnumeratingWithState:&a9 objects:&a18 count:16];
+  return [v17 countByEnumeratingWithState:&a9 objects:va count:{16, a6, a7, a8}];
 }
 
 void std::__tree<UIView *>::destroy(uint64_t a1, void *a2)
@@ -402,10 +404,11 @@ void std::__tree<UIView *>::destroy(uint64_t a1, void *a2)
   }
 }
 
-uint64_t OUTLINED_FUNCTION_23(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, char a34)
+uint64_t OUTLINED_FUNCTION_23(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, ...)
 {
+  va_start(va, a33);
 
-  return [v34 countByEnumeratingWithState:&a15 objects:&a34 count:16];
+  return [v33 countByEnumeratingWithState:&a15 objects:va count:{16, a6, a7, a8}];
 }
 
 uint64_t std::__tree<UIView *>::__erase_unique<UIView *>(uint64_t **a1, unint64_t *a2)
@@ -442,12 +445,12 @@ uint64_t std::__tree<UIView *>::__erase_unique<UIView *>(uint64_t **a1, unint64_
   return 1;
 }
 
-void OUTLINED_FUNCTION_5(uint64_t a1, ...)
+void OUTLINED_FUNCTION_5(uint64_t a1, uint64_t a2, ...)
 {
-  va_start(va, a1);
-  v4 = (*(v1 + 120) + 40);
+  va_start(va, a2);
+  v5 = (*(v2 + 120) + 40);
 
-  std::vector<_NUIGridArrangementDimension>::emplace_back<unsigned long &,double const&>(v2, va, v4);
+  std::vector<_NUIGridArrangementDimension>::emplace_back<unsigned long &,double const&>(v3, va, v5);
 }
 
 uint64_t OUTLINED_FUNCTION_5_1()
@@ -457,41 +460,41 @@ uint64_t OUTLINED_FUNCTION_5_1()
   return [v2 currentHandler];
 }
 
-void *std::__tree<std::__value_type<UIView *,std::pair<_NSRange,_NSRange> const>,std::__map_value_compare<UIView *,std::__value_type<UIView *,std::pair<_NSRange,_NSRange> const>,std::less<UIView *>,true>,std::allocator<std::__value_type<UIView *,std::pair<_NSRange,_NSRange> const>>>::__emplace_unique_key_args<UIView *,UIView * const&,std::pair<_NSRange,_NSRange>>(uint64_t a1, unint64_t *a2)
+void *std::__tree<std::__value_type<UIView *,std::pair<_NSRange,_NSRange> const>,std::__map_value_compare<UIView *,std::__value_type<UIView *,std::pair<_NSRange,_NSRange> const>,std::less<UIView *>,true>,std::allocator<std::__value_type<UIView *,std::pair<_NSRange,_NSRange> const>>>::__emplace_unique_key_args<UIView *,UIView * const&,std::pair<_NSRange,_NSRange>>(uint64_t a1, unint64_t *a2, void *a3, _OWORD *a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = v4[4];
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
@@ -674,128 +677,130 @@ void _NUIGridArrangement::measureCells(_NUIGridArrangement *this, int a2, CGSize
     {
       if (objc_opt_respondsToSelector())
       {
-        v37 = [(_NUIGridArrangementContainer *)this->container canCancelMeasurementForCompression];
+        v38 = [(_NUIGridArrangementContainer *)this->container canCancelMeasurementForCompression];
       }
 
       else
       {
-        v37 = 0;
+        v38 = 0;
       }
 
-      v38 = v19 << 16;
-      v39.n128_f64[0] = _NUIGridArrangementHelper::calculateDimensionMinMax(this->container, v37, 1, p_cells, &this->rows, &this->columns, this->baselineRelative, v35, v36);
-      v40 = *(this + 8);
-      if (v40 == 1)
+      v39 = v19 << 16;
+      v37.n128_f64[0] = v35;
+      v40.n128_f64[0] = _NUIGridArrangementHelper::calculateDimensionMinMax(this->container, v38, 1, p_cells, &this->rows, &this->columns, this->baselineRelative, v37, v36);
+      v41 = *(this + 8);
+      if (v41 == 1)
       {
-        v41 = this->columns.__begin_;
-        v42 = this->columns.__end_;
-        if (v41 == v42)
+        v42 = this->columns.__begin_;
+        v43 = this->columns.__end_;
+        if (v42 == v43)
         {
-          v39.n128_u64[0] = 0;
+          v40.n128_u64[0] = 0;
         }
 
         else
         {
-          v43 = 0.0;
-          v44 = this->columns.__begin_;
+          v44 = 0.0;
+          v45 = this->columns.__begin_;
           do
           {
-            if (v43 <= *(v44 + 1))
+            if (v44 <= *(v45 + 1))
             {
-              v43 = *(v44 + 1);
+              v44 = *(v45 + 1);
             }
 
-            v44 = (v44 + 56);
+            v45 = (v45 + 56);
           }
 
-          while (v44 != v42);
-          v39.n128_u64[0] = 0;
+          while (v45 != v43);
+          v40.n128_u64[0] = 0;
           do
           {
-            if (*(v41 + 7) >= 1000.0)
+            if (*(v42 + 7) >= 1000.0)
             {
-              v45 = *(v41 + 1);
+              v46 = *(v42 + 1);
             }
 
             else
             {
-              *(v41 + 1) = v43;
-              v45 = v43;
+              *(v42 + 1) = v44;
+              v46 = v44;
             }
 
-            v39.n128_f64[0] = v39.n128_f64[0] + v45;
-            v41 = (v41 + 56);
+            v40.n128_f64[0] = v40.n128_f64[0] + v46;
+            v42 = (v42 + 56);
           }
 
-          while (v41 != v42);
-          LOWORD(v40) = *(this + 4);
+          while (v42 != v43);
+          LOWORD(v41) = *(this + 4);
         }
       }
 
-      v46 = v38 & 0xFFFF0000;
-      _NUIGridArrangementHelper::compressDimensionIfNeeded(this->container, v37, 1, v40, v46 | v20, &this->columns.__begin_, v39, v35, v36);
-      if (v47.n128_f64[0] >= 0.0)
+      v47 = v39 & 0xFFFF0000;
+      _NUIGridArrangementHelper::compressDimensionIfNeeded(this->container, v38, 1, v41, v47 | v20, &this->columns.__begin_, v40, v35, v36);
+      if (v48.n128_f64[0] >= 0.0)
       {
         if (a2)
         {
-          _NUIGridArrangementHelper::expandDimensionIfNeeded(1, *(this + 8), v46 | v20, &this->columns, v47, v35, v36);
+          _NUIGridArrangementHelper::expandDimensionIfNeeded(1, *(this + 8), v47 | v20, &this->columns, v48, v35, v36);
         }
 
-        v48.n128_f64[0] = _NUIGridArrangementHelper::calculateDimensionMinMax(this->container, v37, 0, p_cells, &this->rows, &this->columns, this->baselineRelative, v35, v36);
-        v49 = *(this + 4);
-        if ((v49 & 0xFF00) == 0x100)
+        v48.n128_f64[0] = v35;
+        v49.n128_f64[0] = _NUIGridArrangementHelper::calculateDimensionMinMax(this->container, v38, 0, p_cells, &this->rows, &this->columns, this->baselineRelative, v48, v36);
+        v50 = *(this + 4);
+        if ((v50 & 0xFF00) == 0x100)
         {
-          v50 = this->rows.__begin_;
-          v51 = this->rows.__end_;
-          if (v50 == v51)
+          v51 = this->rows.__begin_;
+          v52 = this->rows.__end_;
+          if (v51 == v52)
           {
-            v48.n128_u64[0] = 0;
+            v49.n128_u64[0] = 0;
           }
 
           else
           {
-            v52 = 0.0;
-            v53 = this->rows.__begin_;
+            v53 = 0.0;
+            v54 = this->rows.__begin_;
             do
             {
-              if (v52 <= *(v53 + 1))
+              if (v53 <= *(v54 + 1))
               {
-                v52 = *(v53 + 1);
+                v53 = *(v54 + 1);
               }
 
-              v53 = (v53 + 56);
+              v54 = (v54 + 56);
             }
 
-            while (v53 != v51);
-            v48.n128_u64[0] = 0;
+            while (v54 != v52);
+            v49.n128_u64[0] = 0;
             do
             {
-              if (*(v50 + 7) >= 1000.0)
+              if (*(v51 + 7) >= 1000.0)
               {
-                v54 = *(v50 + 1);
+                v55 = *(v51 + 1);
               }
 
               else
               {
-                *(v50 + 1) = v52;
-                v54 = v52;
+                *(v51 + 1) = v53;
+                v55 = v53;
               }
 
-              v48.n128_f64[0] = v48.n128_f64[0] + v54;
-              v50 = (v50 + 56);
+              v49.n128_f64[0] = v49.n128_f64[0] + v55;
+              v51 = (v51 + 56);
             }
 
-            while (v50 != v51);
-            v49 = *(this + 4);
+            while (v51 != v52);
+            v50 = *(this + 4);
           }
         }
 
-        _NUIGridArrangementHelper::compressDimensionIfNeeded(this->container, v37, 0, v49, v46 | v20, &this->rows.__begin_, v48, v35, v36);
-        if (v55.n128_f64[0] >= 0.0)
+        _NUIGridArrangementHelper::compressDimensionIfNeeded(this->container, v38, 0, v50, v47 | v20, &this->rows.__begin_, v49, v35, v36);
+        if (v56.n128_f64[0] >= 0.0)
         {
           if (a2)
           {
-            _NUIGridArrangementHelper::expandDimensionIfNeeded(0, *(this + 9), v46 | v20, &this->rows, v55, v35, v36);
+            _NUIGridArrangementHelper::expandDimensionIfNeeded(0, *(this + 9), v47 | v20, &this->rows, v56, v35, v36);
           }
 
           this->hasValidMeasurement = 1;
@@ -815,20 +820,20 @@ void std::__allocate_at_least[abi:nn200100]<std::allocator<_NUIGridArrangementCe
   std::vector<std::pair<CGSize,CGSize>>::__throw_length_error[abi:nn200100]();
 }
 
-uint64_t std::vector<_NUIGridArrangementCell>::__emplace_back_slow_path<UIView *&,_NSRange &,_NSRange &,NUIContainerAlignment,NUIContainerAlignment&>(uint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t *a4, void *a5, void *a6)
+uint64_t std::vector<_NUIGridArrangementCell>::__emplace_back_slow_path<UIView *&,_NSRange &,_NSRange &,NUIContainerAlignment,NUIContainerAlignment&>(__int128 **a1, uint64_t *a2, uint64_t *a3, uint64_t *a4, void *a5, void *a6)
 {
-  v6 = 0x6DB6DB6DB6DB6DB7 * ((a1[1] - *a1) >> 4) + 1;
+  v6 = 0x6DB6DB6DB6DB6DB7 * (a1[1] - *a1) + 1;
   if (v6 > 0x249249249249249)
   {
     std::vector<std::pair<CGSize,CGSize>>::__throw_length_error[abi:nn200100]();
   }
 
-  if (0xDB6DB6DB6DB6DB6ELL * ((a1[2] - *a1) >> 4) > v6)
+  if (0xDB6DB6DB6DB6DB6ELL * (a1[2] - *a1) > v6)
   {
-    v6 = 0xDB6DB6DB6DB6DB6ELL * ((a1[2] - *a1) >> 4);
+    v6 = 0xDB6DB6DB6DB6DB6ELL * (a1[2] - *a1);
   }
 
-  if ((0x6DB6DB6DB6DB6DB7 * ((a1[2] - *a1) >> 4)) >= 0x124924924924924)
+  if ((0x6DB6DB6DB6DB6DB7 * (a1[2] - *a1)) >= 0x124924924924924)
   {
     v9 = 0x249249249249249;
   }
@@ -843,14 +848,14 @@ uint64_t std::vector<_NUIGridArrangementCell>::__emplace_back_slow_path<UIView *
     std::__allocate_at_least[abi:nn200100]<std::allocator<_NUIGridArrangementCell>>(a1, v9);
   }
 
-  v10 = 16 * ((a1[1] - *a1) >> 4);
+  v10 = 16 * (a1[1] - *a1);
   _NUIGridArrangementCell::_NUIGridArrangementCell(v10, *a2, *a3, a3[1], *a4, a4[1], *a5, *a6);
   v11 = *a1;
   v12 = a1[1];
-  v13 = v10 + *a1 - v12;
+  v13 = &(*a1)[v10 / 0x10] - v12;
   if (v12 != *a1)
   {
-    v14 = (v10 + *a1 - v12);
+    v14 = (&(*a1)[v10 / 0x10] - v12);
     do
     {
       v15 = *v11;
@@ -874,7 +879,7 @@ uint64_t std::vector<_NUIGridArrangementCell>::__emplace_back_slow_path<UIView *
   }
 
   *a1 = v13;
-  a1[1] = v10 + 112;
+  a1[1] = (v10 + 112);
   a1[2] = 0;
   if (v11)
   {
@@ -910,19 +915,17 @@ __n128 _NUIGridArrangementCell::_NUIGridArrangementCell(uint64_t a1, uint64_t a2
   return result;
 }
 
-void *std::vector<_NUIGridArrangementCell>::reserve(void *result, unint64_t a2)
+void std::vector<_NUIGridArrangementCell>::reserve(__int128 **a1, unint64_t a2)
 {
-  if (0x6DB6DB6DB6DB6DB7 * ((result[2] - *result) >> 4) < a2)
+  if (0x6DB6DB6DB6DB6DB7 * (a1[2] - *a1) < a2)
   {
     if (a2 < 0x24924924924924ALL)
     {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<_NUIGridArrangementCell>>(result, a2);
+      std::__allocate_at_least[abi:nn200100]<std::allocator<_NUIGridArrangementCell>>(a1, a2);
     }
 
     std::vector<std::pair<CGSize,CGSize>>::__throw_length_error[abi:nn200100]();
   }
-
-  return result;
 }
 
 void std::__allocate_at_least[abi:nn200100]<std::allocator<_NUIGridArrangementDimension>>(uint64_t a1, unint64_t a2)
@@ -960,25 +963,23 @@ void _NUIGridArrangementDimension::_NUIGridArrangementDimension(_NUIGridArrangem
   *(this + 24) = a2;
 }
 
-void *std::vector<_NUIGridArrangementDimension>::reserve(void *result, unint64_t a2)
+void std::vector<_NUIGridArrangementDimension>::reserve(void *a1, unint64_t a2)
 {
-  if (0x6DB6DB6DB6DB6DB7 * ((result[2] - *result) >> 3) < a2)
+  if (0x6DB6DB6DB6DB6DB7 * ((a1[2] - *a1) >> 3) < a2)
   {
     if (a2 < 0x492492492492493)
     {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<_NUIGridArrangementDimension>>(result, a2);
+      std::__allocate_at_least[abi:nn200100]<std::allocator<_NUIGridArrangementDimension>>(a1, a2);
     }
 
     std::vector<std::pair<CGSize,CGSize>>::__throw_length_error[abi:nn200100]();
   }
-
-  return result;
 }
 
-void __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> nui::stack_bitset::begin(nui::stack_bitset *this)
+void __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> nui::stack_bitset::begin(uint64_t this)
 {
   v1[1] = 0;
-  if ((**(this + 1) & 1) == 0)
+  if ((**(this + 8) & 1) == 0)
   {
     nui::stack_bitset::iterator::operator++(v1);
   }
@@ -1019,12 +1020,14 @@ LABEL_7:
   return v1;
 }
 
-double _NUIGridArrangementHelper::calculateDimensionMinMax(uint64_t a1, int a2, int a3, uint64_t *a4, uint64_t *a5, uint64_t *a6, int a7, double a8, double a9)
+double _NUIGridArrangementHelper::calculateDimensionMinMax(uint64_t a1, int a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t *a6, int a7, __n128 a8, double a9)
 {
-  v25 = a7;
-  v26 = a4;
-  v24 = *&a1;
-  v32[8] = *MEMORY[0x277D85DE8];
+  v27 = a7;
+  v28 = a4;
+  v11 = a3;
+  v13 = a8.n128_u64[0];
+  v26 = a1;
+  v34[8] = *MEMORY[0x277D85DE8];
   if (a3)
   {
     v15 = a6;
@@ -1035,68 +1038,69 @@ double _NUIGridArrangementHelper::calculateDimensionMinMax(uint64_t a1, int a2, 
     v15 = a5;
   }
 
-  v32[0] = 0;
-  v32[1] = v32;
-  v32[2] = 0x4012000000;
-  v32[3] = __Block_byref_object_copy__122;
-  v32[4] = __Block_byref_object_dispose__123;
-  v32[5] = &unk_21D0C1D49;
+  v34[0] = 0;
+  v34[1] = v34;
+  v34[2] = 0x4012000000;
+  v34[3] = __Block_byref_object_copy__122;
+  v34[4] = __Block_byref_object_dispose__123;
+  v34[5] = &unk_21D0C1D49;
   v16 = 0x6DB6DB6DB6DB6DB7 * ((v15[1] - *v15) >> 3);
   v17 = (0x6DB6DB6DB6DB6DB8 * ((v15[1] - *v15) >> 3) + 504) >> 6;
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](a8);
   v18 = (v17 + 15) & 0x7FFFFFFFFFFFFF0;
-  v32[6] = v16;
-  v32[7] = &v24 - v18;
-  bzero(&v24 - v18, v17);
-  v31[0] = 0;
-  v31[1] = v31;
-  v31[2] = 0x4012000000;
-  v31[3] = __Block_byref_object_copy__122;
-  v31[4] = __Block_byref_object_dispose__123;
-  v31[5] = &unk_21D0C1D49;
-  MEMORY[0x28223BE20]();
-  v31[6] = v16;
-  v31[7] = &v24 - v18;
-  bzero(&v24 - v18, v17);
-  *&v27[0] = MEMORY[0x277D85DD0];
-  *&v27[1] = 3221225472;
-  *&v27[2] = ___ZN25_NUIGridArrangementHelper24calculateDimensionMinMaxEPU39objcproto28_NUIGridArrangementContainer11objc_objectbbRNSt3__16vectorI23_NUIGridArrangementCellNS2_9allocatorIS4_EEEERNS3_I28_NUIGridArrangementDimensionNS5_IS9_EEEESC_6CGSizeb_block_invoke;
-  *&v27[3] = &unk_278329500;
-  v28 = a3;
-  v29 = v25;
-  v27[8] = a8;
-  v27[9] = a9;
-  v30 = a3 & ~a2;
-  *&v27[10] = a5;
-  *&v27[11] = a6;
-  v27[4] = v24;
-  *&v27[5] = v32;
-  *&v27[7] = v15;
-  *&v27[6] = v31;
-  _NUIGridArrangementHelper::enumerateCellRanges(v26, a3, a3 & ~a2, v27);
-  v19 = *v15;
-  v20 = v15[1];
-  v21 = 0.0;
-  while (v19 != v20)
+  v34[6] = v16;
+  v34[7] = &v26 - v18;
+  bzero(&v26 - v18, v17);
+  v33[0] = 0;
+  v33[1] = v33;
+  v33[2] = 0x4012000000;
+  v33[3] = __Block_byref_object_copy__122;
+  v33[4] = __Block_byref_object_dispose__123;
+  v33[5] = &unk_21D0C1D49;
+  MEMORY[0x28223BE20](v19);
+  v33[6] = v16;
+  v33[7] = &v26 - v18;
+  bzero(&v26 - v18, v17);
+  v29[0] = MEMORY[0x277D85DD0];
+  v20.n128_u64[0] = 3221225472;
+  v29[1] = 3221225472;
+  v29[2] = ___ZN25_NUIGridArrangementHelper24calculateDimensionMinMaxEPU39objcproto28_NUIGridArrangementContainer11objc_objectbbRNSt3__16vectorI23_NUIGridArrangementCellNS2_9allocatorIS4_EEEERNS3_I28_NUIGridArrangementDimensionNS5_IS9_EEEESC_6CGSizeb_block_invoke;
+  v29[3] = &unk_278329500;
+  v30 = v11;
+  v31 = v27;
+  v29[8] = v13;
+  *&v29[9] = a9;
+  v32 = v11 & ~a2;
+  v29[10] = a5;
+  v29[11] = a6;
+  v29[4] = v26;
+  v29[5] = v34;
+  v29[7] = v15;
+  v29[6] = v33;
+  _NUIGridArrangementHelper::enumerateCellRanges(v28, v11, v11 & ~a2, v29, v20);
+  v21 = *v15;
+  v22 = v15[1];
+  v23 = 0.0;
+  while (v21 != v22)
   {
-    if (NUIContainerViewLengthIsDefault(*(v19 + 8)))
+    if (NUIContainerViewLengthIsDefault(*(v21 + 8)))
     {
-      v22 = *(v19 + 16);
-      *(v19 + 8) = v22;
+      v24 = *(v21 + 16);
+      *(v21 + 8) = v24;
     }
 
     else
     {
-      v22 = *(v19 + 8);
+      v24 = *(v21 + 8);
     }
 
-    v21 = v21 + v22;
-    v19 += 56;
+    v23 = v23 + v24;
+    v21 += 56;
   }
 
-  _Block_object_dispose(v31, 8);
-  _Block_object_dispose(v32, 8);
-  return v21;
+  _Block_object_dispose(v33, 8);
+  _Block_object_dispose(v34, 8);
+  return v23;
 }
 
 void sub_21D0A2D10(_Unwind_Exception *a1)
@@ -1106,87 +1110,87 @@ void sub_21D0A2D10(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void _NUIGridArrangementHelper::enumerateCellRanges(uint64_t *a1, int a2, int a3, uint64_t a4)
+void _NUIGridArrangementHelper::enumerateCellRanges(uint64_t *a1, int a2, int a3, uint64_t a4, __n128 a5)
 {
-  v22 = *MEMORY[0x277D85DE8];
-  v8 = *a1;
-  v7 = a1[1];
-  MEMORY[0x28223BE20]();
-  v10 = &v20[-v9];
-  bzero(&v20[-v9], v11);
-  if (v7 == v8)
+  v23 = *MEMORY[0x277D85DE8];
+  v9 = *a1;
+  v8 = a1[1];
+  MEMORY[0x28223BE20](a5);
+  v11 = &v21[-v10];
+  bzero(&v21[-v10], v12);
+  if (v8 == v9)
   {
-    v12 = 0;
+    v13 = 0;
   }
 
   else
   {
-    v12 = 0;
-    v13 = 72;
+    v13 = 0;
+    v14 = 72;
     if (a2)
     {
-      v13 = 56;
+      v14 = 56;
     }
 
-    v14 = v10 + 1;
+    v15 = v11 + 1;
     do
     {
-      v15 = *(v8 + v13);
-      *(v14 - 1) = v8;
-      *v14 = v15;
-      v14 = (v14 + 24);
-      ++v12;
-      v8 += 112;
+      v16 = *(v9 + v14);
+      *(v15 - 1) = v9;
+      *v15 = v16;
+      v15 = (v15 + 24);
+      ++v13;
+      v9 += 112;
     }
 
-    while (v8 != v7);
+    while (v9 != v8);
   }
 
-  v16 = &v10[3 * v12];
+  v17 = &v11[3 * v13];
   if (a3)
   {
-    v17 = 256;
+    v18 = 256;
   }
 
   else
   {
-    v17 = 0;
+    v18 = 0;
   }
 
-  v21 = v17 | a2;
-  v18 = 126 - 2 * __clz(v12);
-  if (v12)
+  v22 = v18 | a2;
+  v19 = 126 - 2 * __clz(v13);
+  if (v13)
   {
-    v19 = v18;
+    v20 = v19;
   }
 
   else
   {
-    v19 = 0;
+    v20 = 0;
   }
 
-  std::__introsort<std::_ClassicAlgPolicy,_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::{lambda(_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::_NUISortedCell const&,_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::_NUISortedCell const&)#1} &,_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::_NUISortedCell*,false>(v10, &v10[3 * v12], &v21, v19, 1);
-  if (v12)
+  std::__introsort<std::_ClassicAlgPolicy,_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::{lambda(_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::_NUISortedCell const&,_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::_NUISortedCell const&)#1} &,_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::_NUISortedCell*,false>(v11, &v11[3 * v13], &v22, v20, 1);
+  if (v13)
   {
     do
     {
-      (*(a4 + 16))(a4, *v10, v10[1], v10[2]);
-      v10 += 3;
+      (*(a4 + 16))(a4, *v11, v11[1], v11[2]);
+      v11 += 3;
     }
 
-    while (v10 != v16);
+    while (v11 != v17);
   }
 }
 
-void std::__introsort<std::_ClassicAlgPolicy,_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::{lambda(_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::_NUISortedCell const&,_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::_NUISortedCell const&)#1} &,_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::_NUISortedCell*,false>(uint64_t *a1, __n128 *a2, char *a3, uint64_t a4, char a5)
+void std::__introsort<std::_ClassicAlgPolicy,_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::{lambda(_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::_NUISortedCell const&,_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::_NUISortedCell const&)#1} &,_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::_NUISortedCell*,false>(uint64_t *result, __n128 *a2, char *a3, uint64_t a4, char a5)
 {
 LABEL_1:
-  v9 = a1;
+  v9 = result;
 LABEL_2:
   v10 = 1 - a4;
   while (1)
   {
-    a1 = v9;
+    result = v9;
     v11 = v10;
     v12 = a2 - v9;
     v13 = 0xAAAAAAAAAAAAAAABLL * ((a2 - v9) >> 3);
@@ -1241,7 +1245,7 @@ LABEL_10:
     }
 
     v14 = v13 >> 1;
-    v15 = &v9->n128_u64[3 * (v13 >> 1)];
+    v15 = v9 + 3 * (v13 >> 1);
     if (v12 < 0xC01)
     {
       std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::{lambda(_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::_NUISortedCell const&,_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::_NUISortedCell const&)#1} &,_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::_NUISortedCell*,0>(&v9->n128_u64[3 * v14], v9, &a2[-2].n128_u64[1], a3);
@@ -1257,14 +1261,14 @@ LABEL_10:
       v16 = 3 * v14;
       v17 = &v9[-1] + 3 * v14 - 1;
       std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::{lambda(_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::_NUISortedCell const&,_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::_NUISortedCell const&)#1} &,_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::_NUISortedCell*,0>(&v9[1].n128_u64[1], v17, a2[-3].n128_u64, a3);
-      v18 = &v9[1].n128_u64[v16 + 1];
-      std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::{lambda(_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::_NUISortedCell const&,_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::_NUISortedCell const&)#1} &,_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::_NUISortedCell*,0>(a1 + 6, v18, &a2[-5].n128_u64[1], a3);
+      v18 = &v9[1].n128_i64[v16 + 1];
+      std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::{lambda(_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::_NUISortedCell const&,_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::_NUISortedCell const&)#1} &,_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::_NUISortedCell*,0>(result + 6, v18, &a2[-5].n128_u64[1], a3);
       std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::{lambda(_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::_NUISortedCell const&,_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::_NUISortedCell const&)#1} &,_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::_NUISortedCell*,0>(v17, v15, v18, a3);
-      v45 = a1[2];
-      v43 = *a1;
+      v45 = result[2];
+      v43 = *result;
       v19 = *v15;
-      a1[2] = v15[2];
-      *a1 = v19;
+      result[2] = v15[2];
+      *result = v19;
       v15[2] = v45;
       *v15 = v43;
       if (a5)
@@ -1279,9 +1283,9 @@ LABEL_10:
       v20 = 12;
     }
 
-    v21 = *(a1 - 1);
-    v22 = *(*(a1 - 3) + v20) - *(*a1 + v20);
-    v23 = a1[2];
+    v21 = *(result - 1);
+    v22 = *(*(result - 3) + v20) - *(*result + v20);
+    v23 = result[2];
     v24 = v21 - v23;
     if (a3[1] == 1)
     {
@@ -1294,7 +1298,7 @@ LABEL_10:
       if (!v25)
       {
 LABEL_31:
-        v9 = std::__partition_with_equals_on_left[abi:nn200100]<std::_ClassicAlgPolicy,_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::_NUISortedCell *,_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::{lambda(_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::_NUISortedCell const&,_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::_NUISortedCell const&)#1} &>(a1, a2, a3);
+        v9 = std::__partition_with_equals_on_left[abi:nn200100]<std::_ClassicAlgPolicy,_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::_NUISortedCell *,_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::{lambda(_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::_NUISortedCell const&,_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::_NUISortedCell const&)#1} &>(result, a2, a3);
         goto LABEL_32;
       }
     }
@@ -1319,15 +1323,15 @@ LABEL_31:
     }
 
 LABEL_27:
-    v28 = std::__partition_with_equals_on_right[abi:nn200100]<std::_ClassicAlgPolicy,_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::_NUISortedCell *,_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::{lambda(_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::_NUISortedCell const&,_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::_NUISortedCell const&)#1} &>(a1, a2, a3);
+    v28 = std::__partition_with_equals_on_right[abi:nn200100]<std::_ClassicAlgPolicy,_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::_NUISortedCell *,_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::{lambda(_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::_NUISortedCell const&,_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::_NUISortedCell const&)#1} &>(result, a2, a3);
     if ((v29 & 1) == 0)
     {
       goto LABEL_30;
     }
 
-    v30 = std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::{lambda(_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::_NUISortedCell const&,_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::_NUISortedCell const&)#1} &,_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::_NUISortedCell*>(a1, v28, a3);
-    v9 = (v28 + 24);
-    if (std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::{lambda(_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::_NUISortedCell const&,_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::_NUISortedCell const&)#1} &,_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::_NUISortedCell*>(&v28[1].n128_i64[1], a2, a3))
+    v30 = std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::{lambda(_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::_NUISortedCell const&,_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::_NUISortedCell const&)#1} &,_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::_NUISortedCell*>(result, v28, a3);
+    v9 = (v28 + 3);
+    if (std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::{lambda(_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::_NUISortedCell const&,_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::_NUISortedCell const&)#1} &,_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::_NUISortedCell*>((v28 + 3), a2, a3))
     {
       a4 = -v11;
       a2 = v28;
@@ -1343,8 +1347,8 @@ LABEL_27:
     if (!v30)
     {
 LABEL_30:
-      std::__introsort<std::_ClassicAlgPolicy,_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::{lambda(_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::_NUISortedCell const&,_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::_NUISortedCell const&)#1} &,_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::_NUISortedCell*,false>(a1, v28, a3, -v11, a5 & 1);
-      v9 = (v28 + 24);
+      std::__introsort<std::_ClassicAlgPolicy,_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::{lambda(_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::_NUISortedCell const&,_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::_NUISortedCell const&)#1} &,_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::_NUISortedCell*,false>(result, v28, a3, -v11, a5 & 1);
+      v9 = (v28 + 3);
 LABEL_32:
       a5 = 0;
       a4 = -v11;
@@ -1373,7 +1377,7 @@ LABEL_32:
 
   v35 = *(v31 + v34) - *(v9->n128_u64[0] + v34);
   v36 = *(v32 + 2);
-  v37 = v9[1].n128_u64[0];
+  v37 = v9[1].n128_i64[0];
   v38 = v36 - v37;
   if (a3[1] == 1)
   {
@@ -1389,7 +1393,7 @@ LABEL_32:
     }
 
 LABEL_63:
-    v46 = v9[1].n128_u64[0];
+    v46 = v9[1].n128_i64[0];
     v44 = *v9;
     v42 = *v32;
     v9[1].n128_u64[0] = *(v32 + 2);
@@ -2091,13 +2095,13 @@ char *std::vector<std::pair<CGSize,CGSize>>::insert(void *a1, char *a2, char *a3
   if (v5 >= v6)
   {
     v10 = *a1;
-    v11 = (&v5[-*a1] >> 5) + 1;
+    v11 = ((v5 - *a1) >> 5) + 1;
     if (v11 >> 59)
     {
       std::vector<std::pair<CGSize,CGSize>>::__throw_length_error[abi:nn200100]();
     }
 
-    v12 = a2 - v10;
+    v12 = &a2[-v10];
     v13 = v6 - v10;
     if (v13 >> 4 > v11)
     {
@@ -2152,12 +2156,12 @@ char *std::vector<std::pair<CGSize,CGSize>>::insert(void *a1, char *a2, char *a3
 
   else
   {
-    v7 = a2 - v5;
+    v7 = &a2[-v5];
     if (a2 == v5)
     {
       v16 = *(a3 + 1);
       *v5 = *a3;
-      *(v5 + 1) = v16;
+      *(v5 + 16) = v16;
       a1[1] = v5 + 32;
     }
 
@@ -2171,23 +2175,23 @@ char *std::vector<std::pair<CGSize,CGSize>>::insert(void *a1, char *a2, char *a3
       else
       {
         v8 = v5 + 32;
-        v9 = *(v5 - 1);
-        *v5 = *(v5 - 2);
-        *(v5 + 1) = v9;
+        v9 = *(v5 - 16);
+        *v5 = *(v5 - 32);
+        *(v5 + 16) = v9;
       }
 
       a1[1] = v8;
       if (v5 != a2 + 32)
       {
-        v24 = v5 - 64;
-        v25 = v5 - 16;
+        v24 = (v5 - 64);
+        v25 = (v5 - 16);
         v26 = v7 + 32;
         do
         {
           *(v25 - 1) = *v24;
-          *v25 = *(v24 + 1);
-          v25 -= 32;
-          v24 -= 32;
+          *v25 = v24[1];
+          v25 -= 2;
+          v24 -= 2;
           v26 += 32;
         }
 
@@ -2377,20 +2381,20 @@ char *nui_size_cache::insert_size(nui_size_cache *this, CGSize a2, CGSize a3)
   return std::vector<std::pair<CGSize,CGSize>>::insert(this, v6, v8);
 }
 
-uint64_t std::vector<_NUIGridArrangementCell>::__emplace_back_slow_path<UIView *&,_NSRange &,_NSRange &,NUIContainerAlignment &,NUIContainerAlignment>(uint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t *a4, void *a5, void *a6)
+uint64_t std::vector<_NUIGridArrangementCell>::__emplace_back_slow_path<UIView *&,_NSRange &,_NSRange &,NUIContainerAlignment &,NUIContainerAlignment>(__int128 **a1, uint64_t *a2, uint64_t *a3, uint64_t *a4, void *a5, void *a6)
 {
-  v6 = 0x6DB6DB6DB6DB6DB7 * ((a1[1] - *a1) >> 4) + 1;
+  v6 = 0x6DB6DB6DB6DB6DB7 * (a1[1] - *a1) + 1;
   if (v6 > 0x249249249249249)
   {
     std::vector<std::pair<CGSize,CGSize>>::__throw_length_error[abi:nn200100]();
   }
 
-  if (0xDB6DB6DB6DB6DB6ELL * ((a1[2] - *a1) >> 4) > v6)
+  if (0xDB6DB6DB6DB6DB6ELL * (a1[2] - *a1) > v6)
   {
-    v6 = 0xDB6DB6DB6DB6DB6ELL * ((a1[2] - *a1) >> 4);
+    v6 = 0xDB6DB6DB6DB6DB6ELL * (a1[2] - *a1);
   }
 
-  if ((0x6DB6DB6DB6DB6DB7 * ((a1[2] - *a1) >> 4)) >= 0x124924924924924)
+  if ((0x6DB6DB6DB6DB6DB7 * (a1[2] - *a1)) >= 0x124924924924924)
   {
     v9 = 0x249249249249249;
   }
@@ -2405,14 +2409,14 @@ uint64_t std::vector<_NUIGridArrangementCell>::__emplace_back_slow_path<UIView *
     std::__allocate_at_least[abi:nn200100]<std::allocator<_NUIGridArrangementCell>>(a1, v9);
   }
 
-  v10 = 16 * ((a1[1] - *a1) >> 4);
+  v10 = 16 * (a1[1] - *a1);
   _NUIGridArrangementCell::_NUIGridArrangementCell(v10, *a2, *a3, a3[1], *a4, a4[1], *a5, *a6);
   v11 = *a1;
   v12 = a1[1];
-  v13 = v10 + *a1 - v12;
+  v13 = &(*a1)[v10 / 0x10] - v12;
   if (v12 != *a1)
   {
-    v14 = (v10 + *a1 - v12);
+    v14 = (&(*a1)[v10 / 0x10] - v12);
     do
     {
       v15 = *v11;
@@ -2436,7 +2440,7 @@ uint64_t std::vector<_NUIGridArrangementCell>::__emplace_back_slow_path<UIView *
   }
 
   *a1 = v13;
-  a1[1] = v10 + 112;
+  a1[1] = (v10 + 112);
   a1[2] = 0;
   if (v11)
   {
@@ -2482,7 +2486,7 @@ double *std::__lower_bound_bisecting[abi:nn200100]<std::_ClassicAlgPolicy,std::_
   return result;
 }
 
-__n128 std::__split_buffer<std::pair<CGSize,CGSize>>::emplace_back<std::pair<CGSize,CGSize> const&>(void *a1, uint64_t a2)
+__n128 std::__split_buffer<std::pair<CGSize,CGSize>>::emplace_back<std::pair<CGSize,CGSize> const&>(unint64_t *a1, uint64_t a2)
 {
   v2 = a1[2];
   v3 = v2;
@@ -2846,20 +2850,20 @@ void _NUIGridArrangementHelper::compressDimensionIfNeeded(void *a1, int a2, int 
   }
 }
 
-uint64_t OUTLINED_FUNCTION_10_0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+uint64_t OUTLINED_FUNCTION_10_0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a8);
-  va_start(va, a8);
-  v11 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
   v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
+  v26 = va_arg(va1, void);
+  v27 = va_arg(va1, void);
 
-  return [v8 countByEnumeratingWithState:va objects:va1 count:16];
+  return [v16 countByEnumeratingWithState:va objects:va1 count:{16, a6, a7, a8}];
 }
 
 double _NUIGridArrangementHelper::expandDimensionIfNeeded(int a1, uint64_t a2, unint64_t a3, double **a4, __n128 a5, double a6, double a7)
@@ -4331,7 +4335,7 @@ void _NUIBoxArrangement::positionCells(uint64_t a1, uint64_t a2, double a3, doub
   }
 }
 
-uint64_t ___ZL30_NUIViewIsSwiftUISPICompatibleP6UIView_block_invoke()
+void *___ZL30_NUIViewIsSwiftUISPICompatibleP6UIView_block_invoke()
 {
   _NUIViewIsSwiftUISPICompatible(UIView *)::checkedSet = [MEMORY[0x277CCAA50] weakObjectsHashTable];
   result = [MEMORY[0x277D75D18] instanceMethodForSelector:sel__layoutSizeThatFits_fixedAxes_];
@@ -4547,41 +4551,41 @@ uint64_t _NUILog()
   return qword_280AC30F0;
 }
 
-void *std::__tree<std::__value_type<UIView *,double>,std::__map_value_compare<UIView *,std::__value_type<UIView *,double>,std::less<UIView *>,true>,std::allocator<std::__value_type<UIView *,double>>>::__emplace_unique_key_args<UIView *,std::piecewise_construct_t const&,std::tuple<UIView * const&>,std::tuple<>>(uint64_t a1, unint64_t *a2)
+void *std::__tree<std::__value_type<UIView *,double>,std::__map_value_compare<UIView *,std::__value_type<UIView *,double>,std::less<UIView *>,true>,std::allocator<std::__value_type<UIView *,double>>>::__emplace_unique_key_args<UIView *,std::piecewise_construct_t const&,std::tuple<UIView * const&>,std::tuple<>>(uint64_t a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = v4[4];
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
@@ -4734,7 +4738,8 @@ void _NUIFlowArrangement::measureCells(_NUIFlowArrangement *this, int a2, CGSize
 {
   height = a3.height;
   width = a3.width;
-  if (a3.width != this->measuredWidth)
+  measuredWidth = this->measuredWidth;
+  if (width != measuredWidth)
   {
     _NUIFlowArrangement::resetForInvalidation(this, 2);
     this->measuredWidth = width;
@@ -4748,9 +4753,9 @@ void _NUIFlowArrangement::measureCells(_NUIFlowArrangement *this, int a2, CGSize
 LABEL_6:
       _NUIGridArrangement::resetForInvalidation(&this->flowContainer->_gridArrangement, 0);
       *(&this->flowContainer->_gridArrangement + 9) = *(this + 9);
-      v96.width = width;
-      v96.height = height;
-      _NUIGridArrangement::measureCells(&this->flowContainer->_gridArrangement, a2, v96);
+      v97.width = width;
+      v97.height = height;
+      _NUIGridArrangement::measureCells(&this->flowContainer->_gridArrangement, a2, v97);
       return;
     }
 
@@ -4764,432 +4769,432 @@ LABEL_6:
     columns = this->columns;
     if (columns)
     {
-      v9 = this->cells.__end_ - this->cells.__begin_;
-      if (v9)
+      v10 = this->cells.__end_ - this->cells.__begin_;
+      if (v10)
       {
-        v10 = 0;
-        v11 = v9 >> 6;
+        v11 = 0;
+        v12 = v10 >> 6;
         do
         {
-          v12 = columns + v10;
-          if (v11 >= v12)
+          v13 = columns + v11;
+          if (v12 >= v13)
           {
-            v13 = v12;
+            v14 = v13;
           }
 
           else
           {
-            v13 = v11;
+            v14 = v12;
           }
 
-          v14 = [_NUIFlowRowContainer alloc];
-          if (v14)
+          v15 = [_NUIFlowRowContainer alloc];
+          if (v15)
           {
-            v15 = [(_NUIFlowRowContainer *)v14 init];
-            v16 = v15;
-            if (v15)
+            v16 = [(_NUIFlowRowContainer *)v15 init];
+            v17 = v16;
+            if (v16)
             {
-              v15->_range.length = v13 - v10;
-              v15->_flowArrangement = this;
-              v15->_range.location = v10;
-              v15->_gridArrangement.container = v15;
+              v16->_range.length = v14 - v11;
+              v16->_flowArrangement = this;
+              v16->_range.location = v11;
+              v16->_gridArrangement.container = v16;
             }
           }
 
           else
           {
-            v16 = 0;
+            v17 = 0;
           }
 
           var0 = this->rows.var0;
           var1 = this->rows.var1;
           if (var0 >= var1)
           {
-            v20 = var0 - p_rows->__begin_;
-            if ((v20 + 1) >> 61)
+            v21 = var0 - p_rows->__begin_;
+            if ((v21 + 1) >> 61)
             {
               goto LABEL_108;
             }
 
-            v21 = var1 - p_rows->__begin_;
-            v22 = v21 >> 2;
-            if (v21 >> 2 <= (v20 + 1))
+            v22 = var1 - p_rows->__begin_;
+            v23 = v22 >> 2;
+            if (v22 >> 2 <= (v21 + 1))
             {
-              v22 = v20 + 1;
+              v23 = v21 + 1;
             }
 
-            if (v21 >= 0x7FFFFFFFFFFFFFF8)
+            if (v22 >= 0x7FFFFFFFFFFFFFF8)
             {
-              v23 = 0x1FFFFFFFFFFFFFFFLL;
+              v24 = 0x1FFFFFFFFFFFFFFFLL;
             }
 
             else
             {
-              v23 = v22;
+              v24 = v23;
             }
 
-            if (v23)
+            if (v24)
             {
-              std::__allocate_at_least[abi:nn200100]<std::allocator<_NUIFlowRowContainer *>>(&this->rows, v23);
+              std::__allocate_at_least[abi:nn200100]<std::allocator<_NUIFlowRowContainer *>>(&this->rows, v24);
             }
 
-            v24 = (8 * v20);
-            *v24 = v16;
-            v19 = (8 * v20 + 8);
+            v25 = (8 * v21);
+            *v25 = v17;
+            v20 = (8 * v21 + 8);
             begin = this->rows.__begin_;
-            v26 = (this->rows.var0 - begin);
-            v27 = (v24 - v26);
-            memcpy((v24 - v26), begin, v26);
-            v28 = this->rows.__begin_;
-            this->rows.__begin_ = v27;
-            this->rows.var0 = v19;
+            v27 = (this->rows.var0 - begin);
+            v28 = (v25 - v27);
+            memcpy((v25 - v27), begin, v27);
+            v29 = this->rows.__begin_;
+            this->rows.__begin_ = v28;
+            this->rows.var0 = v20;
             this->rows.var1 = 0;
-            if (v28)
+            if (v29)
             {
-              operator delete(v28);
+              operator delete(v29);
             }
           }
 
           else
           {
-            *var0 = v16;
-            v19 = var0 + 1;
+            *var0 = v17;
+            v20 = var0 + 1;
           }
 
-          this->rows.var0 = v19;
+          this->rows.var0 = v20;
           columns = this->columns;
-          v10 += columns;
-          v11 = this->cells.__end_ - this->cells.__begin_;
+          v11 += columns;
+          v12 = this->cells.__end_ - this->cells.__begin_;
         }
 
-        while (v10 < v11);
+        while (v11 < v12);
       }
 
       goto LABEL_97;
     }
 
-    v29 = objc_opt_respondsToSelector();
-    v30 = this->cells.__begin_;
-    if (this->cells.__end_ == v30)
+    v30 = objc_opt_respondsToSelector();
+    v31 = this->cells.__begin_;
+    if (this->cells.__end_ == v31)
     {
 LABEL_97:
       if (objc_opt_respondsToSelector())
       {
-        v87 = this->rows.__begin_;
-        v88 = this->rows.var0;
-        if (v87 != v88)
+        v88 = this->rows.__begin_;
+        v89 = this->rows.var0;
+        if (v88 != v89)
         {
-          v89 = 0;
           v90 = 0;
+          v91 = 0;
           do
           {
-            std::vector<_NUIFlowArrangementCell>::vector[abi:nn200100]<std::__wrap_iter<_NUIFlowArrangementCell*>,0>(__p, &this->cells.__begin_[*(v87[v90] + 15)], &this->cells.__begin_[*(v87[v90] + 16) + *(v87[v90] + 15)]);
-            *(v87[v90] + 16) = [(_NUIFlowArrangementContainer *)this->container distributionForRowAtIndex:v90 ofTotalRowCount:this->rows.var0 - this->rows.__begin_ withCells:__p];
+            std::vector<_NUIFlowArrangementCell>::vector[abi:nn200100]<std::__wrap_iter<_NUIFlowArrangementCell*>,0>(__p, &this->cells.__begin_[*(v88[v91] + 15)], &this->cells.__begin_[*(v88[v91] + 16) + *(v88[v91] + 15)]);
+            *(v88[v91] + 16) = [(_NUIFlowArrangementContainer *)this->container distributionForRowAtIndex:v91 ofTotalRowCount:this->rows.var0 - this->rows.__begin_ withCells:__p];
             if (__p[0])
             {
               __p[1] = __p[0];
               operator delete(__p[0]);
             }
 
-            ++v89;
             ++v90;
+            ++v91;
           }
 
-          while (&v87[v89] != v88);
+          while (&v88[v90] != v89);
         }
       }
 
       else if (!this->columns)
       {
-        v91 = this->rows.__begin_;
-        v92 = this->rows.var0;
-        while (v91 != v92)
+        v92 = this->rows.__begin_;
+        v93 = this->rows.var0;
+        while (v92 != v93)
         {
-          v93 = *v91++;
-          *(v93 + 16) = *(this + 8);
+          v94 = *v92++;
+          *(v94 + 16) = *(this + 8);
         }
       }
 
       goto LABEL_6;
     }
 
-    v31 = v29;
-    v32 = 0;
+    v32 = v30;
     v33 = 0;
-    v34 = 1.79769313e308;
-    v35 = MEMORY[0x277CBF3A8];
-    v36 = 0.001;
-    v37 = width;
+    v34 = 0;
+    v35 = 1.79769313e308;
+    v36 = MEMORY[0x277CBF3A8];
+    v37 = 0.001;
+    v38 = width;
     while (1)
     {
       itemWidth = this->itemWidth;
-      if (itemWidth != v34)
+      if (itemWidth != v35)
       {
         goto LABEL_52;
       }
 
-      v39 = &v30[v33];
+      v40 = &v31[v34];
       container = this->container;
-      if (v31)
+      if (v32)
       {
-        [(_NUIFlowArrangementContainer *)this->container fittingSizeForCell:&v30[v33] withProposedSize:width, height];
-        v42 = v41;
-        v44 = v43;
+        [(_NUIFlowArrangementContainer *)this->container fittingSizeForCell:&v31[v34] withProposedSize:width, height];
+        v43 = v42;
+        v45 = v44;
         container = this->container;
       }
 
       else
       {
-        v44 = height;
-        v42 = width;
+        v45 = height;
+        v43 = width;
       }
 
-      v45 = v39[3];
-      if (vabdd_f64(v45, *v35) < v36 && vabdd_f64(v39[4], v35[1]) < v36)
+      v46 = v40[3];
+      if (vabdd_f64(v46, *v36) < v37 && vabdd_f64(v40[4], v36[1]) < v37)
       {
         goto LABEL_50;
       }
 
-      if (vabdd_f64(v45, v42) >= v36)
+      if (vabdd_f64(v46, v43) >= v37)
       {
         break;
       }
 
-      if (vabdd_f64(v39[4], v44) >= v36)
+      if (vabdd_f64(v40[4], v45) >= v37)
       {
-        v46 = 0;
+        v47 = 0;
         goto LABEL_48;
       }
 
 LABEL_51:
-      itemWidth = v39[1];
+      itemWidth = v40[1];
 LABEL_52:
-      if (v33 > v32)
+      if (v34 > v33)
       {
         itemWidth = itemWidth + this->itemSpacing;
       }
 
-      if (itemWidth > v37)
+      if (itemWidth > v38)
       {
-        if (v33 == v32)
+        if (v34 == v33)
         {
-          v56 = 1;
+          v57 = 1;
         }
 
         else
         {
-          v56 = v33 - v32;
+          v57 = v34 - v33;
         }
 
-        v57 = [_NUIFlowRowContainer alloc];
-        if (v57)
+        v58 = [_NUIFlowRowContainer alloc];
+        if (v58)
         {
-          v58 = [(_NUIFlowRowContainer *)v57 init];
-          v59 = v58;
-          if (v58)
+          v59 = [(_NUIFlowRowContainer *)v58 init];
+          v60 = v59;
+          if (v59)
           {
-            v58->_range.length = v56;
-            v58->_flowArrangement = this;
-            v58->_range.location = v32;
-            v58->_gridArrangement.container = v58;
+            v59->_range.length = v57;
+            v59->_flowArrangement = this;
+            v59->_range.location = v33;
+            v59->_gridArrangement.container = v59;
           }
         }
 
         else
         {
-          v59 = 0;
+          v60 = 0;
         }
 
-        v61 = this->rows.var0;
-        v60 = this->rows.var1;
-        if (v61 >= v60)
+        v62 = this->rows.var0;
+        v61 = this->rows.var1;
+        if (v62 >= v61)
         {
-          v69 = v61 - p_rows->__begin_;
-          if ((v69 + 1) >> 61)
+          v70 = v62 - p_rows->__begin_;
+          if ((v70 + 1) >> 61)
           {
             goto LABEL_108;
           }
 
-          v70 = v60 - p_rows->__begin_;
-          v71 = v70 >> 2;
-          if (v70 >> 2 <= (v69 + 1))
+          v71 = v61 - p_rows->__begin_;
+          v72 = v71 >> 2;
+          if (v71 >> 2 <= (v70 + 1))
           {
-            v71 = v69 + 1;
+            v72 = v70 + 1;
           }
 
-          if (v70 >= 0x7FFFFFFFFFFFFFF8)
+          if (v71 >= 0x7FFFFFFFFFFFFFF8)
           {
-            v72 = 0x1FFFFFFFFFFFFFFFLL;
+            v73 = 0x1FFFFFFFFFFFFFFFLL;
           }
 
           else
           {
-            v72 = v71;
+            v73 = v72;
           }
 
-          if (v72)
+          if (v73)
           {
-            std::__allocate_at_least[abi:nn200100]<std::allocator<_NUIFlowRowContainer *>>(&this->rows, v72);
+            std::__allocate_at_least[abi:nn200100]<std::allocator<_NUIFlowRowContainer *>>(&this->rows, v73);
           }
 
-          v77 = (8 * v69);
-          *v77 = v59;
-          v62 = (8 * v69 + 8);
-          v78 = this->rows.__begin_;
-          v79 = (this->rows.var0 - v78);
-          v80 = (v77 - v79);
-          memcpy((v77 - v79), v78, v79);
-          v81 = this->rows.__begin_;
-          this->rows.__begin_ = v80;
-          this->rows.var0 = v62;
+          v78 = (8 * v70);
+          *v78 = v60;
+          v63 = (8 * v70 + 8);
+          v79 = this->rows.__begin_;
+          v80 = (this->rows.var0 - v79);
+          v81 = (v78 - v80);
+          memcpy((v78 - v80), v79, v80);
+          v82 = this->rows.__begin_;
+          this->rows.__begin_ = v81;
+          this->rows.var0 = v63;
           this->rows.var1 = 0;
-          if (v81)
+          if (v82)
           {
-            operator delete(v81);
+            operator delete(v82);
           }
         }
 
         else
         {
-          *v61 = v59;
-          v62 = v61 + 1;
+          *v62 = v60;
+          v63 = v62 + 1;
         }
 
-        this->rows.var0 = v62;
-        v33 = v56 + v32;
+        this->rows.var0 = v63;
+        v34 = v57 + v33;
 LABEL_92:
-        v37 = width;
-        v32 = v33;
+        v38 = width;
+        v33 = v34;
         goto LABEL_93;
       }
 
-      if (v33 == this->cells.__end_ - this->cells.__begin_ - 1)
+      if (v34 == this->cells.__end_ - this->cells.__begin_ - 1)
       {
-        ++v33;
-        v63 = [_NUIFlowRowContainer alloc];
-        if (v63)
+        ++v34;
+        v64 = [_NUIFlowRowContainer alloc];
+        if (v64)
         {
-          v64 = [(_NUIFlowRowContainer *)v63 init];
-          v65 = v64;
-          if (v64)
+          v65 = [(_NUIFlowRowContainer *)v64 init];
+          v66 = v65;
+          if (v65)
           {
-            v64->_range.length = v33 - v32;
-            v64->_flowArrangement = this;
-            v64->_range.location = v32;
-            v64->_gridArrangement.container = v64;
+            v65->_range.length = v34 - v33;
+            v65->_flowArrangement = this;
+            v65->_range.location = v33;
+            v65->_gridArrangement.container = v65;
           }
         }
 
         else
         {
-          v65 = 0;
+          v66 = 0;
         }
 
-        v67 = this->rows.var0;
-        v66 = this->rows.var1;
-        if (v67 >= v66)
+        v68 = this->rows.var0;
+        v67 = this->rows.var1;
+        if (v68 >= v67)
         {
-          v73 = v67 - p_rows->__begin_;
-          if ((v73 + 1) >> 61)
+          v74 = v68 - p_rows->__begin_;
+          if ((v74 + 1) >> 61)
           {
 LABEL_108:
             std::vector<std::pair<CGSize,CGSize>>::__throw_length_error[abi:nn200100]();
           }
 
-          v74 = v66 - p_rows->__begin_;
-          v75 = v74 >> 2;
-          if (v74 >> 2 <= (v73 + 1))
+          v75 = v67 - p_rows->__begin_;
+          v76 = v75 >> 2;
+          if (v75 >> 2 <= (v74 + 1))
           {
-            v75 = v73 + 1;
+            v76 = v74 + 1;
           }
 
-          if (v74 >= 0x7FFFFFFFFFFFFFF8)
+          if (v75 >= 0x7FFFFFFFFFFFFFF8)
           {
-            v76 = 0x1FFFFFFFFFFFFFFFLL;
+            v77 = 0x1FFFFFFFFFFFFFFFLL;
           }
 
           else
           {
-            v76 = v75;
+            v77 = v76;
           }
 
-          if (v76)
+          if (v77)
           {
-            std::__allocate_at_least[abi:nn200100]<std::allocator<_NUIFlowRowContainer *>>(&this->rows, v76);
+            std::__allocate_at_least[abi:nn200100]<std::allocator<_NUIFlowRowContainer *>>(&this->rows, v77);
           }
 
-          v82 = (8 * v73);
-          *v82 = v65;
-          v68 = (8 * v73 + 8);
-          v83 = this->rows.__begin_;
-          v84 = (this->rows.var0 - v83);
-          v85 = (v82 - v84);
-          memcpy((v82 - v84), v83, v84);
-          v86 = this->rows.__begin_;
-          this->rows.__begin_ = v85;
-          this->rows.var0 = v68;
+          v83 = (8 * v74);
+          *v83 = v66;
+          v69 = (8 * v74 + 8);
+          v84 = this->rows.__begin_;
+          v85 = (this->rows.var0 - v84);
+          v86 = (v83 - v85);
+          memcpy((v83 - v85), v84, v85);
+          v87 = this->rows.__begin_;
+          this->rows.__begin_ = v86;
+          this->rows.var0 = v69;
           this->rows.var1 = 0;
-          if (v86)
+          if (v87)
           {
-            operator delete(v86);
+            operator delete(v87);
           }
         }
 
         else
         {
-          *v67 = v65;
-          v68 = v67 + 1;
+          *v68 = v66;
+          v69 = v68 + 1;
         }
 
-        this->rows.var0 = v68;
+        this->rows.var0 = v69;
         goto LABEL_92;
       }
 
-      v37 = v37 - itemWidth;
-      ++v33;
+      v38 = v38 - itemWidth;
+      ++v34;
 LABEL_93:
-      v30 = this->cells.__begin_;
-      if (v33 >= this->cells.__end_ - v30)
+      v31 = this->cells.__begin_;
+      if (v34 >= this->cells.__end_ - v31)
       {
         goto LABEL_97;
       }
     }
 
-    v94 = v44;
-    v47 = height;
-    v48 = v37;
-    v49 = v36;
-    v50 = v34;
-    v51 = v42 - v39[1];
-    v52 = [*v39 isLayoutSizeDependentOnPerpendicularAxis];
-    v53 = v51 < -0.001;
-    v34 = v50;
-    v36 = v49;
-    v37 = v48;
-    height = v47;
-    v44 = v94;
-    if (v53)
+    v95 = v45;
+    v48 = height;
+    v49 = v38;
+    v50 = v37;
+    v51 = v35;
+    v52 = v43 - v40[1];
+    v53 = [*v40 isLayoutSizeDependentOnPerpendicularAxis];
+    v54 = v52 < -0.001;
+    v35 = v51;
+    v37 = v50;
+    v38 = v49;
+    height = v48;
+    v45 = v95;
+    if (v54)
     {
-      v46 = 1;
+      v47 = 1;
     }
 
     else
     {
-      v46 = v52;
+      v47 = v53;
     }
 
 LABEL_48:
-    if ((v46 & 1) == 0 && v44 - v39[2] >= -0.001)
+    if ((v47 & 1) == 0 && v45 - v40[2] >= -0.001)
     {
       goto LABEL_51;
     }
 
 LABEL_50:
-    [(_NUIFlowArrangementContainer *)container contentLayoutSizeFittingSize:*v39 forArrangedSubview:v42, v44];
-    *(v39 + 1) = v54;
-    *(v39 + 2) = v55;
-    v39[3] = v42;
-    v39[4] = v44;
+    [(_NUIFlowArrangementContainer *)container contentLayoutSizeFittingSize:*v40 forArrangedSubview:v43, v45];
+    *(v40 + 1) = v55;
+    *(v40 + 2) = v56;
+    v40[3] = v43;
+    v40[4] = v45;
     goto LABEL_51;
   }
 }
@@ -5527,20 +5532,20 @@ void std::__allocate_at_least[abi:nn200100]<std::allocator<_NUIFlowRowContainer 
   std::vector<std::pair<CGSize,CGSize>>::__throw_length_error[abi:nn200100]();
 }
 
-void *std::vector<_NUIFlowArrangementCell>::vector[abi:nn200100]<std::__wrap_iter<_NUIFlowArrangementCell*>,0>(void *result, uint64_t a2, uint64_t a3)
+uint64_t *std::vector<_NUIFlowArrangementCell>::vector[abi:nn200100]<std::__wrap_iter<_NUIFlowArrangementCell*>,0>(uint64_t *a1, char *a2, char *a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a3 != a2)
   {
-    std::vector<_NUIFlowArrangementCell>::__vallocate[abi:nn200100](result, (a3 - a2) >> 6);
+    std::vector<_NUIFlowArrangementCell>::__vallocate[abi:nn200100](a1, (a3 - a2) >> 6);
   }
 
-  return result;
+  return a1;
 }
 
-void std::vector<_NUIFlowArrangementCell>::__vallocate[abi:nn200100](uint64_t a1, unint64_t a2)
+void std::vector<_NUIFlowArrangementCell>::__vallocate[abi:nn200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 58))
   {
@@ -5550,20 +5555,20 @@ void std::vector<_NUIFlowArrangementCell>::__vallocate[abi:nn200100](uint64_t a1
   std::vector<std::pair<CGSize,CGSize>>::__throw_length_error[abi:nn200100]();
 }
 
-uint64_t std::vector<_NUIGridArrangementCell>::__emplace_back_slow_path<objc_object  {objcproto18NUIArrangementItem}*,_NSRange,objc_object  {objcproto18NUIArrangementItem}*,NUIContainerAlignment,_NSRange>(uint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t *a4, void *a5, void *a6)
+uint64_t std::vector<_NUIGridArrangementCell>::__emplace_back_slow_path<objc_object  {objcproto18NUIArrangementItem}*,_NSRange,objc_object  {objcproto18NUIArrangementItem}*,NUIContainerAlignment,_NSRange>(__int128 **a1, uint64_t *a2, uint64_t *a3, uint64_t *a4, void *a5, void *a6)
 {
-  v6 = 0x6DB6DB6DB6DB6DB7 * ((a1[1] - *a1) >> 4) + 1;
+  v6 = 0x6DB6DB6DB6DB6DB7 * (a1[1] - *a1) + 1;
   if (v6 > 0x249249249249249)
   {
     std::vector<std::pair<CGSize,CGSize>>::__throw_length_error[abi:nn200100]();
   }
 
-  if (0xDB6DB6DB6DB6DB6ELL * ((a1[2] - *a1) >> 4) > v6)
+  if (0xDB6DB6DB6DB6DB6ELL * (a1[2] - *a1) > v6)
   {
-    v6 = 0xDB6DB6DB6DB6DB6ELL * ((a1[2] - *a1) >> 4);
+    v6 = 0xDB6DB6DB6DB6DB6ELL * (a1[2] - *a1);
   }
 
-  if ((0x6DB6DB6DB6DB6DB7 * ((a1[2] - *a1) >> 4)) >= 0x124924924924924)
+  if ((0x6DB6DB6DB6DB6DB7 * (a1[2] - *a1)) >= 0x124924924924924)
   {
     v9 = 0x249249249249249;
   }
@@ -5578,14 +5583,14 @@ uint64_t std::vector<_NUIGridArrangementCell>::__emplace_back_slow_path<objc_obj
     std::__allocate_at_least[abi:nn200100]<std::allocator<_NUIGridArrangementCell>>(a1, v9);
   }
 
-  v10 = 16 * ((a1[1] - *a1) >> 4);
+  v10 = 16 * (a1[1] - *a1);
   _NUIGridArrangementCell::_NUIGridArrangementCell(v10, *a2, *a3, a3[1], *a4, a4[1], *a5, *a6);
   v11 = *a1;
   v12 = a1[1];
-  v13 = v10 + *a1 - v12;
+  v13 = &(*a1)[v10 / 0x10] - v12;
   if (v12 != *a1)
   {
-    v14 = (v10 + *a1 - v12);
+    v14 = (&(*a1)[v10 / 0x10] - v12);
     do
     {
       v15 = *v11;
@@ -5609,7 +5614,7 @@ uint64_t std::vector<_NUIGridArrangementCell>::__emplace_back_slow_path<objc_obj
   }
 
   *a1 = v13;
-  a1[1] = v10 + 112;
+  a1[1] = (v10 + 112);
   a1[2] = 0;
   if (v11)
   {
@@ -5629,20 +5634,20 @@ void sub_21D0AA314(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<_NUIGridArrangementCell>::__emplace_back_slow_path<_NUIFlowArrangementDummyItem *,_NSRange,_NSRange,NUIContainerAlignment,NUIContainerAlignment>(uint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t *a4, void *a5, void *a6)
+uint64_t std::vector<_NUIGridArrangementCell>::__emplace_back_slow_path<_NUIFlowArrangementDummyItem *,_NSRange,_NSRange,NUIContainerAlignment,NUIContainerAlignment>(__int128 **a1, uint64_t *a2, uint64_t *a3, uint64_t *a4, void *a5, void *a6)
 {
-  v6 = 0x6DB6DB6DB6DB6DB7 * ((a1[1] - *a1) >> 4) + 1;
+  v6 = 0x6DB6DB6DB6DB6DB7 * (a1[1] - *a1) + 1;
   if (v6 > 0x249249249249249)
   {
     std::vector<std::pair<CGSize,CGSize>>::__throw_length_error[abi:nn200100]();
   }
 
-  if (0xDB6DB6DB6DB6DB6ELL * ((a1[2] - *a1) >> 4) > v6)
+  if (0xDB6DB6DB6DB6DB6ELL * (a1[2] - *a1) > v6)
   {
-    v6 = 0xDB6DB6DB6DB6DB6ELL * ((a1[2] - *a1) >> 4);
+    v6 = 0xDB6DB6DB6DB6DB6ELL * (a1[2] - *a1);
   }
 
-  if ((0x6DB6DB6DB6DB6DB7 * ((a1[2] - *a1) >> 4)) >= 0x124924924924924)
+  if ((0x6DB6DB6DB6DB6DB7 * (a1[2] - *a1)) >= 0x124924924924924)
   {
     v9 = 0x249249249249249;
   }
@@ -5657,14 +5662,14 @@ uint64_t std::vector<_NUIGridArrangementCell>::__emplace_back_slow_path<_NUIFlow
     std::__allocate_at_least[abi:nn200100]<std::allocator<_NUIGridArrangementCell>>(a1, v9);
   }
 
-  v10 = 16 * ((a1[1] - *a1) >> 4);
+  v10 = 16 * (a1[1] - *a1);
   _NUIGridArrangementCell::_NUIGridArrangementCell(v10, *a2, *a3, a3[1], *a4, a4[1], *a5, *a6);
   v11 = *a1;
   v12 = a1[1];
-  v13 = v10 + *a1 - v12;
+  v13 = &(*a1)[v10 / 0x10] - v12;
   if (v12 != *a1)
   {
-    v14 = (v10 + *a1 - v12);
+    v14 = (&(*a1)[v10 / 0x10] - v12);
     do
     {
       v15 = *v11;
@@ -5688,7 +5693,7 @@ uint64_t std::vector<_NUIGridArrangementCell>::__emplace_back_slow_path<_NUIFlow
   }
 
   *a1 = v13;
-  a1[1] = v10 + 112;
+  a1[1] = (v10 + 112);
   a1[2] = 0;
   if (v11)
   {
@@ -5715,20 +5720,20 @@ void std::vector<_NUIGridArrangementCell>::__construct_one_at_end[abi:nn200100]<
   *(a1 + 8) = v7 + 112;
 }
 
-uint64_t std::vector<_NUIGridArrangementCell>::__emplace_back_slow_path<_NUIFlowRowContainer * const&,_NSRange,_NSRange,NUIContainerAlignment,NUIContainerAlignment>(uint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t *a4, void *a5, void *a6)
+uint64_t std::vector<_NUIGridArrangementCell>::__emplace_back_slow_path<_NUIFlowRowContainer * const&,_NSRange,_NSRange,NUIContainerAlignment,NUIContainerAlignment>(__int128 **a1, uint64_t *a2, uint64_t *a3, uint64_t *a4, void *a5, void *a6)
 {
-  v6 = 0x6DB6DB6DB6DB6DB7 * ((a1[1] - *a1) >> 4) + 1;
+  v6 = 0x6DB6DB6DB6DB6DB7 * (a1[1] - *a1) + 1;
   if (v6 > 0x249249249249249)
   {
     std::vector<std::pair<CGSize,CGSize>>::__throw_length_error[abi:nn200100]();
   }
 
-  if (0xDB6DB6DB6DB6DB6ELL * ((a1[2] - *a1) >> 4) > v6)
+  if (0xDB6DB6DB6DB6DB6ELL * (a1[2] - *a1) > v6)
   {
-    v6 = 0xDB6DB6DB6DB6DB6ELL * ((a1[2] - *a1) >> 4);
+    v6 = 0xDB6DB6DB6DB6DB6ELL * (a1[2] - *a1);
   }
 
-  if ((0x6DB6DB6DB6DB6DB7 * ((a1[2] - *a1) >> 4)) >= 0x124924924924924)
+  if ((0x6DB6DB6DB6DB6DB7 * (a1[2] - *a1)) >= 0x124924924924924)
   {
     v9 = 0x249249249249249;
   }
@@ -5743,14 +5748,14 @@ uint64_t std::vector<_NUIGridArrangementCell>::__emplace_back_slow_path<_NUIFlow
     std::__allocate_at_least[abi:nn200100]<std::allocator<_NUIGridArrangementCell>>(a1, v9);
   }
 
-  v10 = 16 * ((a1[1] - *a1) >> 4);
+  v10 = 16 * (a1[1] - *a1);
   _NUIGridArrangementCell::_NUIGridArrangementCell(v10, *a2, *a3, a3[1], *a4, a4[1], *a5, *a6);
   v11 = *a1;
   v12 = a1[1];
-  v13 = v10 + *a1 - v12;
+  v13 = &(*a1)[v10 / 0x10] - v12;
   if (v12 != *a1)
   {
-    v14 = (v10 + *a1 - v12);
+    v14 = (&(*a1)[v10 / 0x10] - v12);
     do
     {
       v15 = *v11;
@@ -5774,7 +5779,7 @@ uint64_t std::vector<_NUIGridArrangementCell>::__emplace_back_slow_path<_NUIFlow
   }
 
   *a1 = v13;
-  a1[1] = v10 + 112;
+  a1[1] = (v10 + 112);
   a1[2] = 0;
   if (v11)
   {
@@ -5855,9 +5860,9 @@ double _NUIGridArrangement::unionFrameForSubsetCells(_NUIGridArrangement *this, 
   return v5;
 }
 
-void sub_21D0AAE90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21D0AAE90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6328,7 +6333,7 @@ __n128 std::__sort4[abi:nn200100]<std::_ClassicAlgPolicy,_NUIGridArrangementHelp
   }
 
   result.n128_f32[0] = *(a4->n128_u64[0] + v11) - *(a3->n128_u64[0] + v11);
-  v12 = a4[1].n128_i64[0];
+  v12 = a4[1].n128_u64[0];
   v13 = a3[1].n128_u64[0];
   v14 = v12 - v13;
   if (a5[1] != 1)
@@ -6804,7 +6809,7 @@ LABEL_30:
   return result;
 }
 
-void *std::__partition_with_equals_on_left[abi:nn200100]<std::_ClassicAlgPolicy,_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::_NUISortedCell *,_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::{lambda(_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::_NUISortedCell const&,_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::_NUISortedCell const&)#1} &>(uint64_t *a1, void *a2, _BYTE *a3)
+uint64_t *std::__partition_with_equals_on_left[abi:nn200100]<std::_ClassicAlgPolicy,_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::_NUISortedCell *,_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::{lambda(_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::_NUISortedCell const&,_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::_NUISortedCell const&)#1} &>(uint64_t *a1, uint64_t *a2, _BYTE *a3)
 {
   v3 = *a1;
   if (*a3)
@@ -7096,7 +7101,7 @@ LABEL_69:
   return i;
 }
 
-void *std::__partition_with_equals_on_right[abi:nn200100]<std::_ClassicAlgPolicy,_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::_NUISortedCell *,_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::{lambda(_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::_NUISortedCell const&,_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::_NUISortedCell const&)#1} &>(uint64_t *a1, void *a2, _BYTE *a3)
+uint64_t *std::__partition_with_equals_on_right[abi:nn200100]<std::_ClassicAlgPolicy,_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::_NUISortedCell *,_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::{lambda(_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::_NUISortedCell const&,_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::_NUISortedCell const&)#1} &>(uint64_t *a1, uint64_t *a2, _BYTE *a3)
 {
   v3 = 0;
   v4 = *a1;
@@ -7607,7 +7612,7 @@ __n128 *std::__partial_sort_impl[abi:nn200100]<std::_ClassicAlgPolicy,_NUIGridAr
     i = a2;
     if (a2 != a3)
     {
-      for (i = a2; i != a3; i = (i + 24))
+      for (i = a2; i != a3; i += 24)
       {
         if (*a4)
         {
@@ -7619,8 +7624,8 @@ __n128 *std::__partial_sort_impl[abi:nn200100]<std::_ClassicAlgPolicy,_NUIGridAr
           v14 = 12;
         }
 
-        v15 = *(i->n128_u64[0] + v14) - *(a1->n128_u64[0] + v14);
-        v16 = i[1].n128_i64[0];
+        v15 = *(*i + v14) - *(a1->n128_u64[0] + v14);
+        v16 = *(i + 2);
         v17 = a1[1].n128_u64[0];
         v18 = v16 - v17;
         if (a4[1] == 1)
@@ -7656,11 +7661,11 @@ __n128 *std::__partial_sort_impl[abi:nn200100]<std::_ClassicAlgPolicy,_NUIGridAr
           }
         }
 
-        v22 = i[1].n128_u64[0];
+        v22 = *(i + 2);
         v23 = *i;
         v24 = a1[1].n128_u64[0];
         *i = *a1;
-        i[1].n128_u64[0] = v24;
+        *(i + 2) = v24;
         *a1 = v23;
         a1[1].n128_u64[0] = v22;
         std::__sift_down[abi:nn200100]<std::_ClassicAlgPolicy,_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::{lambda(_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::_NUISortedCell const&,_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::_NUISortedCell const&)#1} &,_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::_NUISortedCell*>(a1, a4, v9, a1);
@@ -7670,7 +7675,7 @@ __n128 *std::__partial_sort_impl[abi:nn200100]<std::_ClassicAlgPolicy,_NUIGridAr
     if (v8 >= 25)
     {
       v25 = 0xAAAAAAAAAAAAAAABLL * (v8 >> 3);
-      v26 = (a2 - 24);
+      v26 = &a2[-2].n128_i8[8];
       do
       {
         v31 = *a1;
@@ -7679,20 +7684,20 @@ __n128 *std::__partial_sort_impl[abi:nn200100]<std::_ClassicAlgPolicy,_NUIGridAr
         if (v26 == v27)
         {
           *v27 = v31;
-          v27[1].n128_u64[0] = v32;
+          *(v27 + 16) = v32;
         }
 
         else
         {
           v28 = *v26;
-          v27[1].n128_u64[0] = v26[1].n128_u64[0];
+          *(v27 + 16) = *(v26 + 2);
           *v27 = v28;
           *v26 = v31;
-          v26[1].n128_u64[0] = v32;
-          std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::{lambda(_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::_NUISortedCell const&,_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::_NUISortedCell const&)#1} &,_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::_NUISortedCell*>(a1, &v27[1].n128_i64[1], a4, 0xAAAAAAAAAAAAAAABLL * ((&v27[1].n128_i8[8] - a1) >> 3));
+          *(v26 + 2) = v32;
+          std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::{lambda(_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::_NUISortedCell const&,_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::_NUISortedCell const&)#1} &,_NUIGridArrangementHelper::enumerateCellRanges(std::vector<_NUIGridArrangementCell> &,BOOL,BOOL,void({block_pointer})(_NUIGridArrangementCell&,_NSRange))::_NUISortedCell*>(a1, v27 + 24, a4, 0xAAAAAAAAAAAAAAABLL * ((v27 + 24 - a1) >> 3));
         }
 
-        v26 = (v26 - 24);
+        v26 -= 24;
       }
 
       while (v25-- > 2);
@@ -8198,7 +8203,7 @@ uint64_t nui::stack_bitset::erase(unint64_t *a1, uint64_t a2, unint64_t a3)
   return a2;
 }
 
-uint64_t ___ZL25NUIStringFromDistribution24NUIContainerDistribution_block_invoke()
+void *___ZL25NUIStringFromDistribution24NUIContainerDistribution_block_invoke()
 {
   result = [objc_alloc(MEMORY[0x277CBEAC0]) initWithObjectsAndKeys:{@"Default", &unk_282E9CC30, @"Fill", &unk_282E9CC48, @"FillEqual", &unk_282E9CC60, @"FillProp", &unk_282E9CC78, @"EqualSpacing", &unk_282E9CC90, @"EqualCentering", &unk_282E9CCA8, @"EqualGrouping", &unk_282E9CCC0, @"StackLeading", &unk_282E9CCD8, @"StackCenter", &unk_282E9CCF0, @"StackTrailing", &unk_282E9CD08, 0}];
   NUIStringFromDistribution(NUIContainerDistribution)::dict = result;
@@ -8289,48 +8294,48 @@ void std::vector<CALayer *>::push_back[abi:nn200100](uint64_t a1, void *a2)
   *(a1 + 8) = v6;
 }
 
-uint64_t ___ZL22NUIStringFromAlignment21NUIContainerAlignment_block_invoke()
+void *___ZL22NUIStringFromAlignment21NUIContainerAlignment_block_invoke()
 {
   result = [objc_alloc(MEMORY[0x277CBEAC0]) initWithObjectsAndKeys:{@"Default", &unk_282E9CD20, @"Fill", &unk_282E9CD38, @"Top/Lead", &unk_282E9CD50, @"FirstBL", &unk_282E9CD68, @"Center", &unk_282E9CD80, @"Bottom/Trail", &unk_282E9CD98, @"LastBL", &unk_282E9CDB0, 0}];
   NUIStringFromAlignment(NUIContainerAlignment)::dict = result;
   return result;
 }
 
-void *std::__tree<UIView *>::__emplace_unique_key_args<UIView *,UIView *&>(uint64_t a1, unint64_t *a2)
+void *std::__tree<UIView *>::__emplace_unique_key_args<UIView *,UIView *&>(uint64_t a1, unint64_t *a2, void *a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = v3[4];
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
@@ -8467,14 +8472,14 @@ LABEL_8:
 
   while (1)
   {
-    v12 = v7[2];
+    v12 = *(v7 + 16);
     v13 = *v12;
     if (*v12 == v7)
     {
       break;
     }
 
-    if ((v7[3] & 1) == 0)
+    if ((*(v7 + 24) & 1) == 0)
     {
       *(v7 + 24) = 1;
       *(v12 + 24) = 0;
@@ -8502,7 +8507,7 @@ LABEL_8:
     v17 = *v7;
     if (*v7 && *(v17 + 24) != 1)
     {
-      v18 = v7[1];
+      v18 = *(v7 + 8);
       if (!v18)
       {
         goto LABEL_55;
@@ -8514,18 +8519,18 @@ LABEL_54:
 LABEL_55:
         *(v17 + 24) = 1;
         *(v7 + 24) = 0;
-        v26 = v17[1];
+        v26 = *(v17 + 8);
         *v7 = v26;
         if (v26)
         {
           *(v26 + 16) = v7;
         }
 
-        v27 = v7[2];
-        v17[2] = v27;
+        v27 = *(v7 + 16);
+        *(v17 + 16) = v27;
         v27[*v27 != v7] = v17;
-        v17[1] = v7;
-        v7[2] = v17;
+        *(v17 + 8) = v7;
+        *(v7 + 16) = v17;
         v18 = v7;
       }
 
@@ -8534,7 +8539,7 @@ LABEL_55:
         v17 = v7;
       }
 
-      v28 = v17[2];
+      v28 = *(v17 + 16);
       *(v17 + 24) = *(v28 + 24);
       *(v28 + 24) = 1;
       *(v18 + 24) = 1;
@@ -8553,14 +8558,14 @@ LABEL_55:
       goto LABEL_72;
     }
 
-    v18 = v7[1];
+    v18 = *(v7 + 8);
     if (v18 && *(v18 + 24) != 1)
     {
       goto LABEL_54;
     }
 
     *(v7 + 24) = 0;
-    v19 = v7[2];
+    v19 = *(v7 + 16);
     if (v19 == result || (v19[3] & 1) == 0)
     {
       goto LABEL_52;
@@ -8570,11 +8575,11 @@ LABEL_49:
     v7 = *(v19[2] + 8 * (*v19[2] == v19));
   }
 
-  if ((v7[3] & 1) == 0)
+  if ((*(v7 + 24) & 1) == 0)
   {
     *(v7 + 24) = 1;
     *(v12 + 24) = 0;
-    v20 = v13[1];
+    v20 = *(v13 + 8);
     *v12 = v20;
     if (v20)
     {
@@ -8582,11 +8587,11 @@ LABEL_49:
     }
 
     v21 = v12[2];
-    v13[2] = v21;
+    *(v13 + 16) = v21;
     v21[*v21 != v12] = v13;
-    v13[1] = v12;
+    *(v13 + 8) = v12;
     v12[2] = v13;
-    v22 = v7[1];
+    v22 = *(v7 + 8);
     if (result == v22)
     {
       result = v7;
@@ -8601,11 +8606,11 @@ LABEL_49:
     goto LABEL_68;
   }
 
-  v24 = v7[1];
+  v24 = *(v7 + 8);
   if (!v24 || *(v24 + 24) == 1)
   {
     *(v7 + 24) = 0;
-    v19 = v7[2];
+    v19 = *(v7 + 16);
     if (*(v19 + 24) != 1 || v19 == result)
     {
 LABEL_52:
@@ -8621,24 +8626,24 @@ LABEL_52:
     goto LABEL_65;
   }
 
-  if (v23[3])
+  if (*(v23 + 24))
   {
-    v24 = v7[1];
+    v24 = *(v7 + 8);
 LABEL_65:
     *(v24 + 24) = 1;
     *(v7 + 24) = 0;
     v32 = *v24;
-    v7[1] = *v24;
+    *(v7 + 8) = *v24;
     if (v32)
     {
       *(v32 + 16) = v7;
     }
 
-    v33 = v7[2];
-    v24[2] = v33;
+    v33 = *(v7 + 16);
+    *(v24 + 16) = v33;
     v33[*v33 != v7] = v24;
     *v24 = v7;
-    v7[2] = v24;
+    *(v7 + 16) = v24;
     v23 = v7;
   }
 
@@ -8648,7 +8653,7 @@ LABEL_68:
     v24 = v7;
   }
 
-  v28 = v24[2];
+  v28 = *(v24 + 16);
   *(v24 + 24) = *(v28 + 24);
   *(v28 + 24) = 1;
   *(v23 + 24) = 1;
@@ -8669,13 +8674,11 @@ LABEL_72:
   return result;
 }
 
-uint64_t OUTLINED_FUNCTION_22(uint64_t a1, uint64_t a2, ...)
+uint64_t OUTLINED_FUNCTION_22(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v5 = va_arg(va1, void);
+  va_start(va1, a4);
+  va_start(va, a4);
   v7 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
   v9 = va_arg(va1, void);
   v10 = va_arg(va1, void);
   v11 = va_arg(va1, void);
@@ -8683,8 +8686,10 @@ uint64_t OUTLINED_FUNCTION_22(uint64_t a1, uint64_t a2, ...)
   v13 = va_arg(va1, void);
   v14 = va_arg(va1, void);
   v15 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
 
-  return [v2 countByEnumeratingWithState:va objects:va1 count:16];
+  return [v4 countByEnumeratingWithState:va objects:va1 count:16];
 }
 
 __n128 __Block_byref_object_copy__1(__n128 *a1, __n128 *a2)
@@ -8694,7 +8699,7 @@ __n128 __Block_byref_object_copy__1(__n128 *a1, __n128 *a2)
   return result;
 }
 
-uint64_t ___ZL22NUIStringFromAlignment21NUIContainerAlignment_block_invoke_0()
+void *___ZL22NUIStringFromAlignment21NUIContainerAlignment_block_invoke_0()
 {
   result = [objc_alloc(MEMORY[0x277CBEAC0]) initWithObjectsAndKeys:{@"Default", &unk_282E9CDC8, @"Fill", &unk_282E9CDE0, @"Top/Lead", &unk_282E9CDF8, @"FirstBL", &unk_282E9CE10, @"Center", &unk_282E9CE28, @"Bottom/Trail", &unk_282E9CE40, @"LastBL", &unk_282E9CE58, 0}];
   _MergedGlobals_0 = result;
@@ -8732,20 +8737,20 @@ void _NUIGridArrangement::~_NUIGridArrangement(_NUIGridArrangement *this)
   }
 }
 
-uint64_t std::vector<_NUIGridArrangementCell>::__emplace_back_slow_path<UIView  {__kindof}*&,_NSRange,_NSRange,NUIContainerAlignment,NUIContainerAlignment>(uint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t *a4, void *a5, void *a6)
+uint64_t std::vector<_NUIGridArrangementCell>::__emplace_back_slow_path<UIView  {__kindof}*&,_NSRange,_NSRange,NUIContainerAlignment,NUIContainerAlignment>(__int128 **a1, uint64_t *a2, uint64_t *a3, uint64_t *a4, void *a5, void *a6)
 {
-  v6 = 0x6DB6DB6DB6DB6DB7 * ((a1[1] - *a1) >> 4) + 1;
+  v6 = 0x6DB6DB6DB6DB6DB7 * (a1[1] - *a1) + 1;
   if (v6 > 0x249249249249249)
   {
     std::vector<std::pair<CGSize,CGSize>>::__throw_length_error[abi:nn200100]();
   }
 
-  if (0xDB6DB6DB6DB6DB6ELL * ((a1[2] - *a1) >> 4) > v6)
+  if (0xDB6DB6DB6DB6DB6ELL * (a1[2] - *a1) > v6)
   {
-    v6 = 0xDB6DB6DB6DB6DB6ELL * ((a1[2] - *a1) >> 4);
+    v6 = 0xDB6DB6DB6DB6DB6ELL * (a1[2] - *a1);
   }
 
-  if ((0x6DB6DB6DB6DB6DB7 * ((a1[2] - *a1) >> 4)) >= 0x124924924924924)
+  if ((0x6DB6DB6DB6DB6DB7 * (a1[2] - *a1)) >= 0x124924924924924)
   {
     v9 = 0x249249249249249;
   }
@@ -8760,14 +8765,14 @@ uint64_t std::vector<_NUIGridArrangementCell>::__emplace_back_slow_path<UIView  
     std::__allocate_at_least[abi:nn200100]<std::allocator<_NUIGridArrangementCell>>(a1, v9);
   }
 
-  v10 = 16 * ((a1[1] - *a1) >> 4);
+  v10 = 16 * (a1[1] - *a1);
   _NUIGridArrangementCell::_NUIGridArrangementCell(v10, *a2, *a3, a3[1], *a4, a4[1], *a5, *a6);
   v11 = *a1;
   v12 = a1[1];
-  v13 = v10 + *a1 - v12;
+  v13 = &(*a1)[v10 / 0x10] - v12;
   if (v12 != *a1)
   {
-    v14 = (v10 + *a1 - v12);
+    v14 = (&(*a1)[v10 / 0x10] - v12);
     do
     {
       v15 = *v11;
@@ -8791,7 +8796,7 @@ uint64_t std::vector<_NUIGridArrangementCell>::__emplace_back_slow_path<UIView  
   }
 
   *a1 = v13;
-  a1[1] = v10 + 112;
+  a1[1] = (v10 + 112);
   a1[2] = 0;
   if (v11)
   {
@@ -8821,14 +8826,14 @@ void sub_21D0B444C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t ___ZL25NUIStringFromDistribution24NUIContainerDistribution_block_invoke_0()
+void *___ZL25NUIStringFromDistribution24NUIContainerDistribution_block_invoke_0()
 {
   result = [objc_alloc(MEMORY[0x277CBEAC0]) initWithObjectsAndKeys:{@"Default", &unk_282E9CE70, @"Fill", &unk_282E9CE88, @"FillEqual", &unk_282E9CEA0, @"FillProp", &unk_282E9CEB8, @"EqualSpacing", &unk_282E9CED0, @"EqualCentering", &unk_282E9CEE8, @"EqualGrouping", &unk_282E9CF00, @"StackLeading", &unk_282E9CF18, @"StackCenter", &unk_282E9CF30, @"StackTrailing", &unk_282E9CF48, 0}];
   NUIStringFromDistribution(NUIContainerDistribution)::dict = result;
   return result;
 }
 
-uint64_t ___ZL22NUIStringFromAlignment21NUIContainerAlignment_block_invoke_1()
+void *___ZL22NUIStringFromAlignment21NUIContainerAlignment_block_invoke_1()
 {
   result = [objc_alloc(MEMORY[0x277CBEAC0]) initWithObjectsAndKeys:{@"Default", &unk_282E9CE70, @"Fill", &unk_282E9CE88, @"Top/Lead", &unk_282E9CEA0, @"FirstBL", &unk_282E9CEB8, @"Center", &unk_282E9CED0, @"Bottom/Trail", &unk_282E9CEE8, @"LastBL", &unk_282E9CF00, 0}];
   NUIStringFromAlignment(NUIContainerAlignment)::dict = result;
@@ -8913,14 +8918,14 @@ LABEL_20:
   return v3;
 }
 
-uint64_t ___ZL22NUIStringFromAlignment21NUIContainerAlignment_block_invoke_2()
+void *___ZL22NUIStringFromAlignment21NUIContainerAlignment_block_invoke_2()
 {
   result = [objc_alloc(MEMORY[0x277CBEAC0]) initWithObjectsAndKeys:{@"Default", &unk_282E9CF60, @"Fill", &unk_282E9CF78, @"Top/Lead", &unk_282E9CF90, @"FirstBL", &unk_282E9CFA8, @"Center", &unk_282E9CFC0, @"Bottom/Trail", &unk_282E9CFD8, @"LastBL", &unk_282E9CFF0, 0}];
   NUIStringFromAlignment(NUIContainerAlignment)::dict = result;
   return result;
 }
 
-uint64_t ___ZL22NUIStringFromAlignment21NUIContainerAlignment_block_invoke_3()
+void *___ZL22NUIStringFromAlignment21NUIContainerAlignment_block_invoke_3()
 {
   result = [objc_alloc(MEMORY[0x277CBEAC0]) initWithObjectsAndKeys:{@"Default", &unk_282E9D008, @"Fill", &unk_282E9D020, @"Top/Lead", &unk_282E9D038, @"FirstBL", &unk_282E9D050, @"Center", &unk_282E9D068, @"Bottom/Trail", &unk_282E9D080, @"LastBL", &unk_282E9D098, 0}];
   NUIStringFromAlignment(NUIContainerAlignment)::dict = result;
@@ -8937,20 +8942,20 @@ void sub_21D0B866C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<_NUIGridArrangementCell>::__emplace_back_slow_path<objc_object  {objcproto18NUIArrangementItem}*&,_NSRange &,_NSRange,NUIContainerAlignment &,NUIContainerAlignment>(uint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t *a4, void *a5, void *a6)
+uint64_t std::vector<_NUIGridArrangementCell>::__emplace_back_slow_path<objc_object  {objcproto18NUIArrangementItem}*&,_NSRange &,_NSRange,NUIContainerAlignment &,NUIContainerAlignment>(__int128 **a1, uint64_t *a2, uint64_t *a3, uint64_t *a4, void *a5, void *a6)
 {
-  v6 = 0x6DB6DB6DB6DB6DB7 * ((a1[1] - *a1) >> 4) + 1;
+  v6 = 0x6DB6DB6DB6DB6DB7 * (a1[1] - *a1) + 1;
   if (v6 > 0x249249249249249)
   {
     std::vector<std::pair<CGSize,CGSize>>::__throw_length_error[abi:nn200100]();
   }
 
-  if (0xDB6DB6DB6DB6DB6ELL * ((a1[2] - *a1) >> 4) > v6)
+  if (0xDB6DB6DB6DB6DB6ELL * (a1[2] - *a1) > v6)
   {
-    v6 = 0xDB6DB6DB6DB6DB6ELL * ((a1[2] - *a1) >> 4);
+    v6 = 0xDB6DB6DB6DB6DB6ELL * (a1[2] - *a1);
   }
 
-  if ((0x6DB6DB6DB6DB6DB7 * ((a1[2] - *a1) >> 4)) >= 0x124924924924924)
+  if ((0x6DB6DB6DB6DB6DB7 * (a1[2] - *a1)) >= 0x124924924924924)
   {
     v9 = 0x249249249249249;
   }
@@ -8965,14 +8970,14 @@ uint64_t std::vector<_NUIGridArrangementCell>::__emplace_back_slow_path<objc_obj
     std::__allocate_at_least[abi:nn200100]<std::allocator<_NUIGridArrangementCell>>(a1, v9);
   }
 
-  v10 = 16 * ((a1[1] - *a1) >> 4);
+  v10 = 16 * (a1[1] - *a1);
   _NUIGridArrangementCell::_NUIGridArrangementCell(v10, *a2, *a3, a3[1], *a4, a4[1], *a5, *a6);
   v11 = *a1;
   v12 = a1[1];
-  v13 = v10 + *a1 - v12;
+  v13 = &(*a1)[v10 / 0x10] - v12;
   if (v12 != *a1)
   {
-    v14 = (v10 + *a1 - v12);
+    v14 = (&(*a1)[v10 / 0x10] - v12);
     do
     {
       v15 = *v11;
@@ -8996,7 +9001,7 @@ uint64_t std::vector<_NUIGridArrangementCell>::__emplace_back_slow_path<objc_obj
   }
 
   *a1 = v13;
-  a1[1] = v10 + 112;
+  a1[1] = (v10 + 112);
   a1[2] = 0;
   if (v11)
   {
@@ -9116,7 +9121,7 @@ void _NUIGridArrangement::positionSubsetCells(uint64_t *a1, NSObject *a2)
   _os_log_error_impl(&dword_21D09E000, a2, OS_LOG_TYPE_ERROR, "Grid arrangement does not have valid measurement for %@", &v3, 0xCu);
 }
 
-void sub_21D0B9E2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, void *a32)
+void sub_21D0B9E2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, void *a32)
 {
   _Block_object_dispose(&a25, 8);
   std::__tree<UIView *>::destroy(v32 + 48, a32);

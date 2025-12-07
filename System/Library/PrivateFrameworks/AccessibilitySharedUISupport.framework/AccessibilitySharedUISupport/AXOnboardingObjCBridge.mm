@@ -6,6 +6,7 @@
 - (id)_setupKeyboardNotificationsIfNecessary;
 - (id)localizedVoiceControlCommand:(id)command;
 - (void)_adjustForKeyboard;
+- (void)_listenForKeyboardNotifications:(BOOL)notifications;
 - (void)disableSoftwareKeyboard;
 - (void)toggleVoiceControl;
 @end
@@ -29,6 +30,85 @@ uint64_t __40__AXOnboardingObjCBridge_sharedInstance__block_invoke()
   sharedInstance___instance = objc_alloc_init(AXOnboardingObjCBridge);
 
   return MEMORY[0x2821F96F8]();
+}
+
+- (void)_listenForKeyboardNotifications:(BOOL)notifications
+{
+  notificationsCopy = notifications;
+  v28 = *MEMORY[0x277D85DE8];
+  _keyboardNotificationsToObserve = [(AXOnboardingObjCBridge *)self _keyboardNotificationsToObserve];
+  defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
+  _isListening = [(AXOnboardingObjCBridge *)self _isListening];
+  if (notificationsCopy)
+  {
+    if (!_isListening)
+    {
+      v24 = 0u;
+      v25 = 0u;
+      v22 = 0u;
+      v23 = 0u;
+      v8 = _keyboardNotificationsToObserve;
+      v9 = [v8 countByEnumeratingWithState:&v22 objects:v27 count:16];
+      if (v9)
+      {
+        v10 = v9;
+        v11 = *v23;
+        do
+        {
+          for (i = 0; i != v10; ++i)
+          {
+            if (*v23 != v11)
+            {
+              objc_enumerationMutation(v8);
+            }
+
+            [defaultCenter addObserver:self selector:sel__adjustForKeyboard name:*(*(&v22 + 1) + 8 * i) object:0];
+          }
+
+          v10 = [v8 countByEnumeratingWithState:&v22 objects:v27 count:16];
+        }
+
+        while (v10);
+      }
+
+LABEL_19:
+
+      [(AXOnboardingObjCBridge *)self set_isListening:notificationsCopy];
+    }
+  }
+
+  else if (_isListening)
+  {
+    v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
+    v13 = _keyboardNotificationsToObserve;
+    v14 = [v13 countByEnumeratingWithState:&v18 objects:v26 count:16];
+    if (v14)
+    {
+      v15 = v14;
+      v16 = *v19;
+      do
+      {
+        for (j = 0; j != v15; ++j)
+        {
+          if (*v19 != v16)
+          {
+            objc_enumerationMutation(v13);
+          }
+
+          [defaultCenter removeObserver:self name:*(*(&v18 + 1) + 8 * j) object:{0, v18}];
+        }
+
+        v15 = [v13 countByEnumeratingWithState:&v18 objects:v26 count:16];
+      }
+
+      while (v15);
+    }
+
+    goto LABEL_19;
+  }
 }
 
 - (id)_setupKeyboardNotificationsIfNecessary
@@ -91,33 +171,33 @@ void __64__AXOnboardingObjCBridge__setupKeyboardNotificationsIfNecessary__block_
 
 - (id)localizedVoiceControlCommand:(id)command
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   commandCopy = command;
   if (localizedVoiceControlCommand__onceToken != -1)
   {
     [AXOnboardingObjCBridge localizedVoiceControlCommand:];
   }
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v4 = localizedVoiceControlCommand___FlattenedCommandGroupsAndItems;
-  v5 = [v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v19;
+    v7 = *v18;
 LABEL_5:
     v8 = 0;
     while (1)
     {
-      if (*v19 != v7)
+      if (*v18 != v7)
       {
         objc_enumerationMutation(v4);
       }
 
-      v9 = *(*(&v18 + 1) + 8 * v8);
+      v9 = *(*(&v17 + 1) + 8 * v8);
       if (([v9 isGroup] & 1) == 0)
       {
         identifier = [v9 identifier];
@@ -131,7 +211,7 @@ LABEL_5:
 
       if (v6 == ++v8)
       {
-        v6 = [v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
         if (v6)
         {
           goto LABEL_5;
@@ -169,8 +249,6 @@ LABEL_12:
   NSLog(&cfstr_CannotFindName.isa, commandCopy);
   displayString = &stru_284FF0250;
 LABEL_19:
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return displayString;
 }

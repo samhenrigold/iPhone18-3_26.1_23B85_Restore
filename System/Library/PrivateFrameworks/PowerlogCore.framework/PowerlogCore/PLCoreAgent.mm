@@ -14,7 +14,7 @@
 
 - (void)startAgents
 {
-  v3 = PLLogCommon();
+  v3 = PLLogCommon(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;

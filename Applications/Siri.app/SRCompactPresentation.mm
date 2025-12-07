@@ -1076,7 +1076,8 @@ LABEL_17:
   delegate = [(SRCompactPresentation *)self delegate];
   v5 = [delegate siriDeviceLockStateForSiriPresentation:self];
 
-  if ([(SRCompactViewController *)self->_compactViewController isInAmbient])
+  isInAmbient = [(SRCompactViewController *)self->_compactViewController isInAmbient];
+  if (isInAmbient)
   {
 LABEL_2:
 
@@ -1086,9 +1087,10 @@ LABEL_2:
 
   if (!v5)
   {
-    IsPad = SiriUIDeviceIsPad();
-    v7 = +[AFSystemAssistantExperienceStatusManager saeAvailable];
-    if (IsPad & 1) != 0 || (v7)
+    SiriUIDeviceIsPad(isInAmbient, v7);
+    v9 = v8;
+    v10 = +[AFSystemAssistantExperienceStatusManager saeAvailable];
+    if (v9 & 1) != 0 || (v10)
     {
       return;
     }
@@ -1181,9 +1183,11 @@ LABEL_2:
 {
   if (!self->_bugReportingPresenter)
   {
-    self->_bugReportingPresenter = AFUICreateBugReportPresentingWithDelegate();
+    v4 = AFUICreateBugReportPresentingWithDelegate();
+    bugReportingPresenter = self->_bugReportingPresenter;
+    self->_bugReportingPresenter = v4;
 
-    _objc_release_x1();
+    _objc_release_x1(v4, bugReportingPresenter);
   }
 }
 
@@ -1479,7 +1483,7 @@ LABEL_18:
         }
       }
 
-      [(SRCompactAutoDismissController *)self->_autoDismissController scheduleAutoDismissalForLongIdling:v16, *v18, *&v18[16]];
+      [(SRCompactAutoDismissController *)self->_autoDismissController scheduleAutoDismissalForLongIdling:v16, *v18, *&v18[8]];
     }
   }
 }

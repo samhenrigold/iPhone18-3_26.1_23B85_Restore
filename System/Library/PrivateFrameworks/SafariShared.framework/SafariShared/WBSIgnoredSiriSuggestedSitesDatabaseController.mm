@@ -308,79 +308,79 @@ void __80__WBSIgnoredSiriSuggestedSitesDatabaseController_pruneIgnoredSiriSugges
 
 - (void)_addIgnoredSiriSuggestedSiteWithURLString:(id)string inProfile:(id)profile withQuery:(id)query visitedURLString:(id)lString
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   stringCopy = string;
   profileCopy = profile;
   queryCopy = query;
   lStringCopy = lString;
-  v24 = lStringCopy;
+  v28 = lStringCopy;
   v11 = [MEMORY[0x1E695DFF8] URLWithString:stringCopy];
 
   if (v11)
   {
-    v12 = [MEMORY[0x1E695DF00] now];
-    [v12 timeIntervalSinceReferenceDate];
-    v14 = v13;
+    v14 = [MEMORY[0x1E695DF00] now];
+    [v14 timeIntervalSinceReferenceDate];
+    v16 = v15;
 
-    v23 = v14;
+    v27 = v16;
     [(WBSSQLiteStore *)self database];
     if (lStringCopy)
-      v15 = {;
+      v17 = {;
       uUID = [MEMORY[0x1E696AFB0] UUID];
       uUIDString = [uUID UUIDString];
       *buf = 1;
-      v17 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<NSString * {__strong},NSString * {__strong}&,NSString * {__strong}&,NSString * {__strong}&,double &,NSString * {__strong}&,int,double &,NSString * {__strong}&>(v15, 0, @"INSERT INTO ignored_siri_suggested_sites (id, siriSuggestedSiteURL, query, profile, timestamp, visitedURL, ignoreCount) VALUES (?, ?, ?, ?, ?, ?, ?) ON CONFLICT(siriSuggestedSiteURL, query, profile) DO UPDATE SET timestamp=?, visitedURL = ?, ignoreCount=ignoreCount + 1", &uUIDString, &stringCopy, &queryCopy, &profileCopy, &v23, &v24, buf, &v23, &v24);
-      v18 = &uUIDString;
+      v19 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<NSString * {__strong},NSString * {__strong}&,NSString * {__strong}&,NSString * {__strong}&,double &,NSString * {__strong}&,int,double &,NSString * {__strong}&>(v17, 0, @"INSERT INTO ignored_siri_suggested_sites (id, siriSuggestedSiteURL, query, profile, timestamp, visitedURL, ignoreCount) VALUES (?, ?, ?, ?, ?, ?, ?) ON CONFLICT(siriSuggestedSiteURL, query, profile) DO UPDATE SET timestamp=?, visitedURL = ?, ignoreCount=ignoreCount + 1", &uUIDString, &stringCopy, &queryCopy, &profileCopy, &v27, &v28, buf, &v27, &v28);
+      v20 = &uUIDString;
     }
 
     else
-      v15 = {;
+      v17 = {;
       uUID = [MEMORY[0x1E696AFB0] UUID];
       uUIDString2 = [uUID UUIDString];
       *buf = 1;
-      v17 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<NSString * {__strong},NSString * {__strong}&,NSString * {__strong}&,NSString * {__strong}&,double &,int,double &>(v15, 0, @"INSERT INTO ignored_siri_suggested_sites (id, siriSuggestedSiteURL, query, profile, timestamp, ignoreCount) VALUES (?, ?, ?, ?, ?, ?) ON CONFLICT(siriSuggestedSiteURL, query, profile) DO UPDATE SET timestamp=?, visitedURL = NULL, ignoreCount=ignoreCount + 1", &uUIDString2, &stringCopy, &queryCopy, &profileCopy, &v23, buf, &v23);
-      v18 = &uUIDString2;
+      v19 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<NSString * {__strong},NSString * {__strong}&,NSString * {__strong}&,NSString * {__strong}&,double &,int,double &>(v17, 0, @"INSERT INTO ignored_siri_suggested_sites (id, siriSuggestedSiteURL, query, profile, timestamp, ignoreCount) VALUES (?, ?, ?, ?, ?, ?) ON CONFLICT(siriSuggestedSiteURL, query, profile) DO UPDATE SET timestamp=?, visitedURL = NULL, ignoreCount=ignoreCount + 1", &uUIDString2, &stringCopy, &queryCopy, &profileCopy, &v27, buf, &v27);
+      v20 = &uUIDString2;
     }
 
-    if (v17 != 101)
+    if (v19 != 101)
     {
-      v20 = WBS_LOG_CHANNEL_PREFIXSiriSuggestedSites();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v24 = WBS_LOG_CHANNEL_PREFIXSiriSuggestedSites(v22, v23);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         *buf = 138740739;
-        v29 = stringCopy;
-        v30 = 2117;
-        v31 = queryCopy;
-        v32 = 2117;
-        v33 = profileCopy;
-        v34 = 1024;
-        v35 = v17;
-        _os_log_error_impl(&dword_1BB6F3000, v20, OS_LOG_TYPE_ERROR, "Failed to insert an ignored suggested site with siriSuggestedSiteURL: %{sensitive}@ query: %{sensitive}@ profile: %{sensitive}@. Error code: %d", buf, 0x26u);
+        v33 = stringCopy;
+        v34 = 2117;
+        v35 = queryCopy;
+        v36 = 2117;
+        v37 = profileCopy;
+        v38 = 1024;
+        v39 = v19;
+        _os_log_error_impl(&dword_1BB6F3000, v24, OS_LOG_TYPE_ERROR, "Failed to insert an ignored suggested site with siriSuggestedSiteURL: %{sensitive}@ query: %{sensitive}@ profile: %{sensitive}@. Error code: %d", buf, 0x26u);
       }
     }
 
-    lStringCopy = v24;
+    lStringCopy = v28;
   }
 
   else
   {
-    v19 = WBS_LOG_CHANNEL_PREFIXSiriSuggestedSites();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v21 = WBS_LOG_CHANNEL_PREFIXSiriSuggestedSites(v12, v13);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       *buf = 138740483;
-      v29 = stringCopy;
-      v30 = 2117;
-      v31 = queryCopy;
-      v32 = 2117;
-      v33 = profileCopy;
-      _os_log_error_impl(&dword_1BB6F3000, v19, OS_LOG_TYPE_ERROR, "Unable to insert an ignored suggested site, due to an invalid URL: %{sensitive}@ query: %{sensitive}@ profile: %{sensitive}@.", buf, 0x20u);
+      v33 = stringCopy;
+      v34 = 2117;
+      v35 = queryCopy;
+      v36 = 2117;
+      v37 = profileCopy;
+      _os_log_error_impl(&dword_1BB6F3000, v21, OS_LOG_TYPE_ERROR, "Unable to insert an ignored suggested site, due to an invalid URL: %{sensitive}@ query: %{sensitive}@ profile: %{sensitive}@.", buf, 0x20u);
     }
   }
 }
 
 - (void)_updateTimestampsOfIgnoredSiriSuggestedSitesInProfile:(id)profile query:(id)query visitedURLString:(id)string
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   profileCopy = profile;
   queryCopy = query;
   stringCopy = string;
@@ -392,23 +392,23 @@ void __80__WBSIgnoredSiriSuggestedSitesDatabaseController_pruneIgnoredSiriSugges
 
   if (v11 != 101)
   {
-    v12 = WBS_LOG_CHANNEL_PREFIXSiriSuggestedSites();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v14 = WBS_LOG_CHANNEL_PREFIXSiriSuggestedSites(v12, v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       *buf = 138478339;
       *&buf[4] = profileCopy;
-      v17 = 2113;
-      v18 = queryCopy;
-      v19 = 1024;
-      v20 = v11;
-      _os_log_error_impl(&dword_1BB6F3000, v12, OS_LOG_TYPE_ERROR, "Failed to update the timestamps of ignored suggested sites with profile: %{private}@ and query = %{private}@. Error code: %d", buf, 0x1Cu);
+      v19 = 2113;
+      v20 = queryCopy;
+      v21 = 1024;
+      v22 = v11;
+      _os_log_error_impl(&dword_1BB6F3000, v14, OS_LOG_TYPE_ERROR, "Failed to update the timestamps of ignored suggested sites with profile: %{private}@ and query = %{private}@. Error code: %d", buf, 0x1Cu);
     }
   }
 }
 
 - (void)_removeIgnoredSiriSuggestedSitesInProfile:(id)profile afterDate:(id)date
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   profileCopy = profile;
   dateCopy = date;
   database = [(WBSSQLiteStore *)self database];
@@ -418,25 +418,25 @@ void __80__WBSIgnoredSiriSuggestedSitesDatabaseController_pruneIgnoredSiriSugges
 
   if (v9 != 101)
   {
-    v10 = WBS_LOG_CHANNEL_PREFIXSiriSuggestedSites();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v12 = WBS_LOG_CHANNEL_PREFIXSiriSuggestedSites(v10, v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v11 = profileCopy;
+      v13 = profileCopy;
       [dateCopy timeIntervalSinceReferenceDate];
       *buf = 138740483;
-      *&buf[4] = v11;
-      v15 = 2053;
-      v16 = v12;
-      v17 = 1024;
-      v18 = v9;
-      _os_log_error_impl(&dword_1BB6F3000, v10, OS_LOG_TYPE_ERROR, "Failed to delete the ignored suggested sites with profile: %{sensitive}@ and timestamp > %{sensitive}f. Error code: %d", buf, 0x1Cu);
+      *&buf[4] = v13;
+      v17 = 2053;
+      v18 = v14;
+      v19 = 1024;
+      v20 = v9;
+      _os_log_error_impl(&dword_1BB6F3000, v12, OS_LOG_TYPE_ERROR, "Failed to delete the ignored suggested sites with profile: %{sensitive}@ and timestamp > %{sensitive}f. Error code: %d", buf, 0x1Cu);
     }
   }
 }
 
 - (void)_removeIgnoredSiriSuggestedSitesInProfile:(id)profile query:(id)query
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   profileCopy = profile;
   queryCopy = query;
   database = [(WBSSQLiteStore *)self database];
@@ -444,23 +444,23 @@ void __80__WBSIgnoredSiriSuggestedSitesDatabaseController_pruneIgnoredSiriSugges
 
   if (v7 != 101)
   {
-    v8 = WBS_LOG_CHANNEL_PREFIXSiriSuggestedSites();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = WBS_LOG_CHANNEL_PREFIXSiriSuggestedSites(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 138740483;
-      v12 = profileCopy;
-      v13 = 2117;
-      v14 = queryCopy;
-      v15 = 1024;
-      v16 = v7;
-      _os_log_error_impl(&dword_1BB6F3000, v8, OS_LOG_TYPE_ERROR, "Failed to delete the ignored suggested sites with profile: %{sensitive}@ and query = %{sensitive}@. Error code: %d", buf, 0x1Cu);
+      v14 = profileCopy;
+      v15 = 2117;
+      v16 = queryCopy;
+      v17 = 1024;
+      v18 = v7;
+      _os_log_error_impl(&dword_1BB6F3000, v10, OS_LOG_TYPE_ERROR, "Failed to delete the ignored suggested sites with profile: %{sensitive}@ and query = %{sensitive}@. Error code: %d", buf, 0x1Cu);
     }
   }
 }
 
 - (void)_removeIgnoredSiriSuggestedSitesInProfile:(id)profile visitedURLHost:(id)host
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   profileCopy = profile;
   hostCopy = host;
   database = [(WBSSQLiteStore *)self database];
@@ -468,43 +468,43 @@ void __80__WBSIgnoredSiriSuggestedSitesDatabaseController_pruneIgnoredSiriSugges
 
   if (v7 != 101)
   {
-    v8 = WBS_LOG_CHANNEL_PREFIXSiriSuggestedSites();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = WBS_LOG_CHANNEL_PREFIXSiriSuggestedSites(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 138740483;
-      v12 = profileCopy;
-      v13 = 2117;
-      v14 = hostCopy;
-      v15 = 1024;
-      v16 = v7;
-      _os_log_error_impl(&dword_1BB6F3000, v8, OS_LOG_TYPE_ERROR, "Failed to delete the ignored suggested sites with profile: %{sensitive}@ and visited URL host = %{sensitive}@. Error code: %d", buf, 0x1Cu);
+      v14 = profileCopy;
+      v15 = 2117;
+      v16 = hostCopy;
+      v17 = 1024;
+      v18 = v7;
+      _os_log_error_impl(&dword_1BB6F3000, v10, OS_LOG_TYPE_ERROR, "Failed to delete the ignored suggested sites with profile: %{sensitive}@ and visited URL host = %{sensitive}@. Error code: %d", buf, 0x1Cu);
     }
   }
 }
 
 - (void)_removeIgnoredSiriSuggestedSitesBeforeDate:(id)date
 {
-  v10[3] = *MEMORY[0x1E69E9840];
+  v12[3] = *MEMORY[0x1E69E9840];
   dateCopy = date;
   database = [(WBSSQLiteStore *)self database];
   [dateCopy timeIntervalSinceReferenceDate];
-  v10[0] = v6;
-  v7 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<double>(database, 0, @"DELETE FROM ignored_siri_suggested_sites WHERE timestamp < ?", v10);
+  v12[0] = v6;
+  v7 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<double>(database, 0, @"DELETE FROM ignored_siri_suggested_sites WHERE timestamp < ?", v12);
 
   if (v7 != 101)
   {
-    v8 = WBS_LOG_CHANNEL_PREFIXSiriSuggestedSites();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = WBS_LOG_CHANNEL_PREFIXSiriSuggestedSites(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [dateCopy timeIntervalSinceReferenceDate];
-      [(WBSIgnoredSiriSuggestedSitesDatabaseController *)v10 _removeIgnoredSiriSuggestedSitesBeforeDate:v7, v8, v9];
+      [(WBSIgnoredSiriSuggestedSitesDatabaseController *)v12 _removeIgnoredSiriSuggestedSitesBeforeDate:v7, v10, v11];
     }
   }
 }
 
 - (void)_removeIgnoredSiriSuggestedSitesWithURLHost:(id)host inProfile:(id)profile
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   hostCopy = host;
   profileCopy = profile;
   database = [(WBSSQLiteStore *)self database];
@@ -512,16 +512,16 @@ void __80__WBSIgnoredSiriSuggestedSitesDatabaseController_pruneIgnoredSiriSugges
 
   if (v7 != 101)
   {
-    v8 = WBS_LOG_CHANNEL_PREFIXSiriSuggestedSites();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = WBS_LOG_CHANNEL_PREFIXSiriSuggestedSites(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 138740483;
-      v12 = profileCopy;
-      v13 = 2117;
-      v14 = hostCopy;
-      v15 = 1024;
-      v16 = v7;
-      _os_log_error_impl(&dword_1BB6F3000, v8, OS_LOG_TYPE_ERROR, "Failed to delete the ignored suggested sites with profile: %{sensitive}@ and host: %{sensitive}@. Error code: %d", buf, 0x1Cu);
+      v14 = profileCopy;
+      v15 = 2117;
+      v16 = hostCopy;
+      v17 = 1024;
+      v18 = v7;
+      _os_log_error_impl(&dword_1BB6F3000, v10, OS_LOG_TYPE_ERROR, "Failed to delete the ignored suggested sites with profile: %{sensitive}@ and host: %{sensitive}@. Error code: %d", buf, 0x1Cu);
     }
   }
 }

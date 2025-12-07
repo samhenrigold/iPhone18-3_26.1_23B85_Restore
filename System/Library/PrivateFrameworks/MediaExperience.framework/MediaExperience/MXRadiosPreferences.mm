@@ -73,7 +73,7 @@ MXRadiosPreferences *__37__MXRadiosPreferences_sharedInstance__block_invoke()
   return v3;
 }
 
-uint64_t __44__MXRadiosPreferences_isAirplaneModeEnabled__block_invoke(uint64_t a1)
+void *__44__MXRadiosPreferences_isAirplaneModeEnabled__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 16) airplaneMode];
   *(*(*(a1 + 40) + 8) + 24) = result;

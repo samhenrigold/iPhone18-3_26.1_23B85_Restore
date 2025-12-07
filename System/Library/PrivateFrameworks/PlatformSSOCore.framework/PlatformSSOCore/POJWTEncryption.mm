@@ -118,7 +118,7 @@ LABEL_12:
 id __120__POJWTEncryption_encodeAndEncryptJWT_encryptionAlgorithm_publicKey_otherInfo_psk_psk_id_authPrivateKey_auth_kid_error___block_invoke()
 {
   v0 = [POError errorWithCode:-1008 description:@"Algorithm not found when encrypting JWT."];
-  v1 = PO_LOG_POJWTEncryption();
+  v1 = PO_LOG_POJWTEncryption(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __24__POJWT_initWithString___block_invoke_cold_1();
@@ -152,7 +152,7 @@ id __120__POJWTEncryption_encodeAndEncryptJWT_encryptionAlgorithm_publicKey_othe
 id __111__POJWTEncryption_decodeAndDecryptJWT_encryptionAlgorithm_privateKey_otherInfo_psk_psk_id_authPublicKey_error___block_invoke()
 {
   v0 = [POError errorWithCode:-1008 description:@"Algorithm not found when decrypting JWT."];
-  v1 = PO_LOG_POJWTEncryption();
+  v1 = PO_LOG_POJWTEncryption(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __24__POJWT_initWithString___block_invoke_cold_1();

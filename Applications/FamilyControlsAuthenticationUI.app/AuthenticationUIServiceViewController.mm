@@ -24,7 +24,7 @@
   contextCopy = context;
   selfCopy = self;
   sub_10000ADD8(context, v6, v7);
-  sub_10000FA84(v6);
+  sub_10000FA84(v6, v7);
 }
 
 - (_TtC30FamilyControlsAuthenticationUI37AuthenticationUIServiceViewController)initWithNibName:(id)name bundle:(id)bundle

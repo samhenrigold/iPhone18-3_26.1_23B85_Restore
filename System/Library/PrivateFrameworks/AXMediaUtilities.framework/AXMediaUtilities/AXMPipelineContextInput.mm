@@ -469,11 +469,11 @@ LABEL_13:
   return v6;
 }
 
-void __52__AXMPipelineContextInput_createCGImageWithMetrics___block_invoke(uint64_t a1, void *a2)
+void __52__AXMPipelineContextInput_createCGImageWithMetrics___block_invoke(void *a1, void *a2)
 {
   v3 = a2;
-  v5 = (a1 + 32);
-  v4 = *(a1 + 32);
+  v5 = (a1 + 4);
+  v4 = a1[4];
   v6 = *(v4 + 8);
   if (v6 == 2)
   {
@@ -486,7 +486,7 @@ void __52__AXMPipelineContextInput_createCGImageWithMetrics___block_invoke(uint6
       if (v10)
       {
         v11 = v10;
-        *(*(*(a1 + 48) + 8) + 24) = CGImageSourceCreateImageAtIndex(v10, 0, 0);
+        *(*(a1[6] + 8) + 24) = CGImageSourceCreateImageAtIndex(v10, 0, 0);
         CFRelease(v11);
       }
 
@@ -505,19 +505,19 @@ void __52__AXMPipelineContextInput_createCGImageWithMetrics___block_invoke(uint6
 
   else if (!v6)
   {
-    *(*(*(a1 + 48) + 8) + 24) = [*(v4 + 16) CGImage];
-    v7 = *(*(*(a1 + 48) + 8) + 24);
+    *(*(a1[6] + 8) + 24) = [*(v4 + 16) CGImage];
+    v7 = *(*(a1[6] + 8) + 24);
     if (v7)
     {
-      *(*(*(a1 + 48) + 8) + 24) = CGImageRetain(v7);
+      *(*(a1[6] + 8) + 24) = CGImageRetain(v7);
     }
 
     else
     {
-      v12 = AXMCoreImageContext(*(a1 + 40));
-      v13 = *(*(a1 + 32) + 16);
+      v12 = AXMCoreImageContext(a1[5]);
+      v13 = *(a1[4] + 16);
       [v13 extent];
-      *(*(*(a1 + 48) + 8) + 24) = [v12 createCGImage:v13 fromRect:?];
+      *(*(a1[6] + 8) + 24) = [v12 createCGImage:v13 fromRect:?];
     }
   }
 }

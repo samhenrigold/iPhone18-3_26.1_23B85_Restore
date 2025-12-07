@@ -115,107 +115,107 @@
 
   if (v15)
   {
-    v46 = [dictionaryCopy objectForKeyedSubscript:@"extensionBundleIdentifier"];
-    v16 = [dictionaryCopy objectForKeyedSubscript:@"localizedDisplayName"];
+    v47 = [dictionaryCopy objectForKeyedSubscript:@"extensionBundleIdentifier"];
+    v17 = [dictionaryCopy objectForKeyedSubscript:@"localizedDisplayName"];
     objc_opt_class();
-    v17 = objc_opt_isKindOfClass();
+    v18 = objc_opt_isKindOfClass();
 
-    if (v17)
+    if (v18)
     {
-      v18 = [dictionaryCopy objectForKeyedSubscript:@"localizedDisplayName"];
+      v19 = [dictionaryCopy objectForKeyedSubscript:@"localizedDisplayName"];
     }
 
     else
     {
-      v18 = &stru_1F3E050C8;
+      v19 = &stru_1F3E050C8;
     }
 
-    v21 = [dictionaryCopy objectForKeyedSubscript:@"subtitleComplication"];
+    v22 = [dictionaryCopy objectForKeyedSubscript:@"subtitleComplication"];
     objc_opt_class();
-    v22 = objc_opt_isKindOfClass();
+    v23 = objc_opt_isKindOfClass();
 
-    if (v22)
+    if (v23)
     {
-      v23 = [dictionaryCopy objectForKeyedSubscript:@"subtitleComplication"];
-      v24 = [ATXComplication complicationFromDictionaryRepresentation:v23 error:0];
+      v24 = [dictionaryCopy objectForKeyedSubscript:@"subtitleComplication"];
+      v25 = [ATXComplication complicationFromDictionaryRepresentation:v24 error:0];
     }
 
     else
     {
-      v24 = 0;
+      v25 = 0;
     }
 
-    v25 = [dictionaryCopy objectForKeyedSubscript:@"complications"];
+    v26 = [dictionaryCopy objectForKeyedSubscript:@"complications"];
     objc_opt_class();
-    v26 = objc_opt_isKindOfClass();
+    v27 = objc_opt_isKindOfClass();
 
-    v27 = MEMORY[0x1E695E0F0];
     v28 = MEMORY[0x1E695E0F0];
-    if (v26)
+    v29 = MEMORY[0x1E695E0F0];
+    if (v27)
     {
-      v29 = [dictionaryCopy objectForKeyedSubscript:@"complications"];
-      v28 = [v29 _pas_mappedArrayWithTransform:&__block_literal_global_25];
+      v30 = [dictionaryCopy objectForKeyedSubscript:@"complications"];
+      v29 = [v30 _pas_mappedArrayWithTransform:&__block_literal_global_25];
     }
 
-    v30 = [dictionaryCopy objectForKeyedSubscript:@"landscapeComplications"];
+    v31 = [dictionaryCopy objectForKeyedSubscript:@"landscapeComplications"];
     objc_opt_class();
-    v31 = objc_opt_isKindOfClass();
+    v32 = objc_opt_isKindOfClass();
 
-    if (v31)
+    if (v32)
     {
-      v32 = [dictionaryCopy objectForKeyedSubscript:@"landscapeComplications"];
-      v33 = [v32 _pas_mappedArrayWithTransform:&__block_literal_global_85];
+      v33 = [dictionaryCopy objectForKeyedSubscript:@"landscapeComplications"];
+      v34 = [v33 _pas_mappedArrayWithTransform:&__block_literal_global_85];
 
-      v28 = v33;
+      v29 = v34;
     }
 
-    v34 = [ATXFaceGalleryItem alloc];
-    v35 = objc_opt_new();
-    v20 = [(ATXFaceGalleryItem *)v34 initWithIdentifier:uUIDString descriptorIdentifier:uUIDString2 extensionBundleIdentifier:v46 localizedDisplayName:v18 modeSemanticType:0 titleFontName:&stru_1F3E050C8 titleColor:v35 subtitleComplication:v24 layoutType:0 complications:v28 landscapeComplications:v27];
+    v35 = [ATXFaceGalleryItem alloc];
+    v36 = objc_opt_new();
+    v21 = [(ATXFaceGalleryItem *)v35 initWithIdentifier:uUIDString descriptorIdentifier:uUIDString2 extensionBundleIdentifier:v47 localizedDisplayName:v19 modeSemanticType:0 titleFontName:&stru_1F3E050C8 titleColor:v36 subtitleComplication:v25 layoutType:0 complications:v29 landscapeComplications:v28];
 
-    v36 = [dictionaryCopy objectForKeyedSubscript:@"blankTemplate"];
+    v37 = [dictionaryCopy objectForKeyedSubscript:@"blankTemplate"];
     objc_opt_class();
-    v37 = objc_opt_isKindOfClass();
+    v38 = objc_opt_isKindOfClass();
 
-    if (v37)
+    if (v38)
     {
-      v38 = [dictionaryCopy objectForKeyedSubscript:@"blankTemplate"];
-      -[ATXFaceGalleryItem setBlankTemplate:](v20, "setBlankTemplate:", [v38 BOOLValue]);
+      v39 = [dictionaryCopy objectForKeyedSubscript:@"blankTemplate"];
+      -[ATXFaceGalleryItem setBlankTemplate:](v21, "setBlankTemplate:", [v39 BOOLValue]);
     }
 
-    v39 = [dictionaryCopy objectForKeyedSubscript:@"shouldShowAsShuffleStack"];
+    v40 = [dictionaryCopy objectForKeyedSubscript:@"shouldShowAsShuffleStack"];
     objc_opt_class();
-    v40 = objc_opt_isKindOfClass();
+    v41 = objc_opt_isKindOfClass();
 
-    if (v40)
+    if (v41)
     {
-      v41 = [dictionaryCopy objectForKeyedSubscript:@"shouldShowAsShuffleStack"];
-      -[ATXFaceGalleryItem setShouldShowAsShuffleStack:](v20, "setShouldShowAsShuffleStack:", [v41 BOOLValue]);
+      v42 = [dictionaryCopy objectForKeyedSubscript:@"shouldShowAsShuffleStack"];
+      -[ATXFaceGalleryItem setShouldShowAsShuffleStack:](v21, "setShouldShowAsShuffleStack:", [v42 BOOLValue]);
     }
 
-    v42 = [dictionaryCopy objectForKeyedSubscript:@"source"];
+    v43 = [dictionaryCopy objectForKeyedSubscript:@"source"];
     objc_opt_class();
-    v43 = objc_opt_isKindOfClass();
+    v44 = objc_opt_isKindOfClass();
 
-    if (v43)
+    if (v44)
     {
-      v44 = [dictionaryCopy objectForKeyedSubscript:@"source"];
-      -[ATXFaceGalleryItem setSource:](v20, "setSource:", [v44 integerValue]);
+      v45 = [dictionaryCopy objectForKeyedSubscript:@"source"];
+      -[ATXFaceGalleryItem setSource:](v21, "setSource:", [v45 integerValue]);
     }
   }
 
   else
   {
-    v19 = __atxlog_handle_lock_screen();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v20 = __atxlog_handle_lock_screen(v16);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      [ATXFaceGalleryItem itemFromJSONDictionary:v19];
+      [ATXFaceGalleryItem itemFromJSONDictionary:v20];
     }
 
-    v20 = 0;
+    v21 = 0;
   }
 
-  return v20;
+  return v21;
 }
 
 id __45__ATXFaceGalleryItem_itemFromJSONDictionary___block_invoke(uint64_t a1, void *a2)
@@ -353,7 +353,7 @@ id __45__ATXFaceGalleryItem_itemFromJSONDictionary___block_invoke_2(uint64_t a1,
 
           else
           {
-            v17 = __atxlog_handle_lock_screen();
+            v17 = __atxlog_handle_lock_screen(0);
             if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
             {
               [(ATXFaceGalleryItem *)v17 initWithCoder:v47, v48, v49, v50, v51, v52, v53];
@@ -365,7 +365,7 @@ id __45__ATXFaceGalleryItem_itemFromJSONDictionary___block_invoke_2(uint64_t a1,
 
         else
         {
-          v9 = __atxlog_handle_lock_screen();
+          v9 = __atxlog_handle_lock_screen(0);
           if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
           {
             [(ATXFaceGalleryItem *)v9 initWithCoder:v40, v41, v42, v43, v44, v45, v46];
@@ -377,7 +377,7 @@ id __45__ATXFaceGalleryItem_itemFromJSONDictionary___block_invoke_2(uint64_t a1,
 
       else
       {
-        v8 = __atxlog_handle_lock_screen();
+        v8 = __atxlog_handle_lock_screen(0);
         if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
         {
           [(ATXFaceGalleryItem *)v8 initWithCoder:v33, v34, v35, v36, v37, v38, v39];
@@ -389,7 +389,7 @@ id __45__ATXFaceGalleryItem_itemFromJSONDictionary___block_invoke_2(uint64_t a1,
 
     else
     {
-      v7 = __atxlog_handle_lock_screen();
+      v7 = __atxlog_handle_lock_screen(0);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         [(ATXFaceGalleryItem *)v7 initWithCoder:v26, v27, v28, v29, v30, v31, v32];
@@ -401,7 +401,7 @@ id __45__ATXFaceGalleryItem_itemFromJSONDictionary___block_invoke_2(uint64_t a1,
 
   else
   {
-    v6 = __atxlog_handle_lock_screen();
+    v6 = __atxlog_handle_lock_screen(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [(ATXFaceGalleryItem *)v6 initWithCoder:v19, v20, v21, v22, v23, v24, v25];
@@ -697,21 +697,22 @@ LABEL_7:
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v11 = __atxlog_handle_lock_screen();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+    v12 = __atxlog_handle_lock_screen(isKindOfClass);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
     {
-      [(ATXDigestTimeline *)self initWithProto:v11];
+      [(ATXDigestTimeline *)self initWithProto:v12];
     }
 
     goto LABEL_7;
   }
 
-  v5 = protoCopy;
-  identifier = [v5 identifier];
-  descriptorIdentifier = [v5 descriptorIdentifier];
-  extensionBundleIdentifier = [v5 extensionBundleIdentifier];
+  v6 = protoCopy;
+  identifier = [v6 identifier];
+  descriptorIdentifier = [v6 descriptorIdentifier];
+  extensionBundleIdentifier = [v6 extensionBundleIdentifier];
 
   blackColor = [MEMORY[0x1E698E650] blackColor];
   self = [(ATXFaceGalleryItem *)self initWithIdentifier:identifier descriptorIdentifier:descriptorIdentifier extensionBundleIdentifier:extensionBundleIdentifier localizedDisplayName:&stru_1F3E050C8 modeSemanticType:0 titleFontName:&stru_1F3E050C8 titleColor:blackColor subtitleComplication:0 layoutType:0 complications:0 landscapeComplications:0];
@@ -745,6 +746,41 @@ LABEL_8:
   v3 = 2112;
   v4 = @"extensionBundleIdentifier";
   _os_log_error_impl(&dword_1BF549000, log, OS_LOG_TYPE_ERROR, "%s: missing key: %@", &v1, 0x16u);
+}
+
+- (void)initWithCoder:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[ATXFaceGalleryItem initWithCoder:]";
+  OUTLINED_FUNCTION_0_0(&dword_1BF549000, a1, a3, "%s: Unable to decode titleColor", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithCoder:(uint64_t)a3 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[ATXFaceGalleryItem initWithCoder:]";
+  OUTLINED_FUNCTION_0_0(&dword_1BF549000, a1, a3, "%s: Unable to decode titleFontName", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithCoder:(uint64_t)a3 .cold.3(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[ATXFaceGalleryItem initWithCoder:]";
+  OUTLINED_FUNCTION_0_0(&dword_1BF549000, a1, a3, "%s: Unable to decode extensionBundleIdentifier", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithCoder:(uint64_t)a3 .cold.4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[ATXFaceGalleryItem initWithCoder:]";
+  OUTLINED_FUNCTION_0_0(&dword_1BF549000, a1, a3, "%s: Unable to decode descriptorIdentifier", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithCoder:(uint64_t)a3 .cold.5(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[ATXFaceGalleryItem initWithCoder:]";
+  OUTLINED_FUNCTION_0_0(&dword_1BF549000, a1, a3, "%s: Unable to decode identifier", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

@@ -32,7 +32,7 @@
   if (!v7)
   {
     v7 = [[MRUAudioAnalyzer alloc] initWithPID:v3];
-    v8 = MCLogCategoryWaveform();
+    v8 = MCLogCategoryWaveform(v7);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v12 = 138412802;
@@ -150,7 +150,7 @@ void __32__MRUAudioAnalyzer_initWithPID___block_invoke(uint64_t a1)
 - (void)dealloc
 {
   v7 = *MEMORY[0x1E69E9840];
-  v3 = MCLogCategoryWaveform();
+  v3 = MCLogCategoryWaveform(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -179,8 +179,7 @@ void __32__MRUAudioAnalyzer_initWithPID___block_invoke(uint64_t a1)
   os_unfair_lock_lock(&self->_lock);
   if (![(NSHashTable *)self->_observers containsObject:observerCopy])
   {
-    [(NSHashTable *)self->_observers addObject:observerCopy];
-    v5 = MCLogCategoryWaveform();
+    v5 = MCLogCategoryWaveform([(NSHashTable *)self->_observers addObject:observerCopy]);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = 138412546;
@@ -201,8 +200,7 @@ void __32__MRUAudioAnalyzer_initWithPID___block_invoke(uint64_t a1)
   v10 = *MEMORY[0x1E69E9840];
   observerCopy = observer;
   os_unfair_lock_lock(&self->_lock);
-  [(NSHashTable *)self->_observers removeObject:observerCopy];
-  v5 = MCLogCategoryWaveform();
+  v5 = MCLogCategoryWaveform([(NSHashTable *)self->_observers removeObject:observerCopy]);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412546;
@@ -222,19 +220,19 @@ void __32__MRUAudioAnalyzer_initWithPID___block_invoke(uint64_t a1)
 
 - (void)start
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (!self->_isRunning)
   {
     self->_isRunning = 1;
     v3 = +[MRUFinishTaskAssertionManager sharedManager];
     [v3 releaseForTaskToken:self];
 
-    v4 = MCLogCategoryWaveform();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = MCLogCategoryWaveform(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       selfCopy = self;
-      _os_log_impl(&dword_1A20FC000, v4, OS_LOG_TYPE_DEFAULT, "%@ Starting audio analyzer", buf, 0xCu);
+      _os_log_impl(&dword_1A20FC000, v5, OS_LOG_TYPE_DEFAULT, "%@ Starting audio analyzer", buf, 0xCu);
     }
 
     tapQueue = self->_tapQueue;
@@ -255,25 +253,25 @@ void __25__MRUAudioAnalyzer_start__block_invoke(uint64_t a1)
 
 - (void)stop
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (self->_isRunning)
   {
     self->_isRunning = 0;
     objc_initWeak(&location, self);
     v3 = +[MRUFinishTaskAssertionManager sharedManager];
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = __24__MRUAudioAnalyzer_stop__block_invoke;
-    v7[3] = &unk_1E7663AE8;
-    objc_copyWeak(&v8, &location);
-    [v3 acquireForTaskToken:self withReason:@"Stop audio tap" invalidationHandler:v7];
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __24__MRUAudioAnalyzer_stop__block_invoke;
+    v8[3] = &unk_1E7663AE8;
+    objc_copyWeak(&v9, &location);
+    [v3 acquireForTaskToken:self withReason:@"Stop audio tap" invalidationHandler:v8];
 
-    v4 = MCLogCategoryWaveform();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = MCLogCategoryWaveform(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       selfCopy = self;
-      _os_log_impl(&dword_1A20FC000, v4, OS_LOG_TYPE_DEFAULT, "%@ Stopping audio analyzer", buf, 0xCu);
+      _os_log_impl(&dword_1A20FC000, v5, OS_LOG_TYPE_DEFAULT, "%@ Stopping audio analyzer", buf, 0xCu);
     }
 
     tapQueue = self->_tapQueue;
@@ -283,7 +281,7 @@ void __25__MRUAudioAnalyzer_start__block_invoke(uint64_t a1)
     block[3] = &unk_1E7663898;
     block[4] = self;
     dispatch_async(tapQueue, block);
-    objc_destroyWeak(&v8);
+    objc_destroyWeak(&v9);
     objc_destroyWeak(&location);
   }
 }
@@ -291,7 +289,7 @@ void __25__MRUAudioAnalyzer_start__block_invoke(uint64_t a1)
 void __24__MRUAudioAnalyzer_stop__block_invoke(uint64_t a1)
 {
   v6 = *MEMORY[0x1E69E9840];
-  v2 = MCLogCategoryWaveform();
+  v2 = MCLogCategoryWaveform(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     WeakRetained = objc_loadWeakRetained((a1 + 32));

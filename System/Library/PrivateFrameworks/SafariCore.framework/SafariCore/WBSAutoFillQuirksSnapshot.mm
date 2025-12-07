@@ -163,59 +163,56 @@ id __83__WBSAutoFillQuirksSnapshot__passwordRequirementsByDomainFromAutoFillQuir
 
 - (id)_domainsWithAssociatedCredentialsFromAutoFillQuirks:(id)quirks error:(id *)error
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v5 = [quirks safari_arrayForKey:@"DomainsWithAssociatedCredentials"];
-  v30 = 0u;
-  v31 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   v6 = v5 != 0;
-  v32 = 0u;
-  v33 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   v7 = v5;
-  v8 = [v7 countByEnumeratingWithState:&v30 objects:v35 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v26 objects:v31 count:16];
   if (v8)
   {
     v9 = v8;
     errorCopy = error;
-    v10 = *v31;
-    v11 = 0x1E695D000uLL;
-    v24 = *v31;
+    v10 = *v27;
+    v20 = *v27;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v31 != v10)
+        if (*v27 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v13 = *(*(&v30 + 1) + 8 * i);
-        v14 = *(v11 + 3784);
+        v12 = *(*(&v26 + 1) + 8 * i);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
           goto LABEL_20;
         }
 
-        v28 = 0u;
-        v29 = 0u;
-        v26 = 0u;
-        v27 = 0u;
-        v15 = v13;
-        v16 = [v15 countByEnumeratingWithState:&v26 objects:v34 count:16];
-        if (v16)
+        v24 = 0u;
+        v25 = 0u;
+        v22 = 0u;
+        v23 = 0u;
+        v13 = v12;
+        v14 = [v13 countByEnumeratingWithState:&v22 objects:v30 count:16];
+        if (v14)
         {
-          v17 = v16;
-          v18 = *v27;
+          v15 = v14;
+          v16 = *v23;
           while (2)
           {
-            for (j = 0; j != v17; ++j)
+            for (j = 0; j != v15; ++j)
             {
-              if (*v27 != v18)
+              if (*v23 != v16)
               {
-                objc_enumerationMutation(v15);
+                objc_enumerationMutation(v13);
               }
 
-              v20 = *(*(&v26 + 1) + 8 * j);
               objc_opt_class();
               if ((objc_opt_isKindOfClass() & 1) == 0)
               {
@@ -224,8 +221,8 @@ id __83__WBSAutoFillQuirksSnapshot__passwordRequirementsByDomainFromAutoFillQuir
               }
             }
 
-            v17 = [v15 countByEnumeratingWithState:&v26 objects:v34 count:16];
-            if (v17)
+            v15 = [v13 countByEnumeratingWithState:&v22 objects:v30 count:16];
+            if (v15)
             {
               continue;
             }
@@ -234,8 +231,7 @@ id __83__WBSAutoFillQuirksSnapshot__passwordRequirementsByDomainFromAutoFillQuir
           }
         }
 
-        v10 = v24;
-        v11 = 0x1E695D000;
+        v10 = v20;
         if (!v6)
         {
 LABEL_20:
@@ -247,7 +243,7 @@ LABEL_20:
         v6 = 1;
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v30 objects:v35 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v26 objects:v31 count:16];
       if (v9)
       {
         continue;
@@ -262,7 +258,7 @@ LABEL_20:
   if (v5)
   {
 LABEL_24:
-    v21 = v7;
+    v18 = v7;
     goto LABEL_26;
   }
 
@@ -270,58 +266,55 @@ LABEL_21:
   if (error)
   {
     [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:259 userInfo:0];
-    *error = v21 = 0;
+    *error = v18 = 0;
   }
 
   else
   {
-    v21 = 0;
+    v18 = 0;
   }
 
 LABEL_26:
 
-  v22 = *MEMORY[0x1E69E9840];
-
-  return v21;
+  return v18;
 }
 
 - (id)_domainsIneligibleForPasswordAuditingFromAutoFillQuirks:(id)quirks error:(id *)error
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   [quirks safari_arrayForKey:@"SharedDomains"];
+  v12 = 0u;
+  v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  v5 = v17 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = v15 = 0u;
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v13;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
           if (error)
           {
-            *error = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:259 userInfo:{0, v14}];
+            *error = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:259 userInfo:{0, v12}];
           }
 
-          v11 = 0;
+          v10 = 0;
           goto LABEL_13;
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v7)
       {
         continue;
@@ -331,39 +324,37 @@ LABEL_26:
     }
   }
 
-  v11 = v5;
+  v10 = v5;
 LABEL_13:
 
-  v12 = *MEMORY[0x1E69E9840];
-
-  return v11;
+  return v10;
 }
 
 - (id)_domainsToConsiderIdenticalFromAutoFillQuirls:(id)quirls error:(id *)error
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   [quirls safari_arrayForKey:@"DomainsToConsiderIdentical"];
+  v24 = 0u;
+  v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
-  v28 = 0u;
-  v5 = v29 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v26 objects:v31 count:16];
+  v5 = v27 = 0u;
+  v6 = [v5 countByEnumeratingWithState:&v24 objects:v29 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v27;
-    v20 = *v27;
+    v8 = *v25;
+    v18 = *v25;
     errorCopy = error;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v27 != v8)
+        if (*v25 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v26 + 1) + 8 * i);
+        v10 = *(*(&v24 + 1) + 8 * i);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
@@ -374,30 +365,29 @@ LABEL_13:
 
 LABEL_21:
 
-          v17 = 0;
+          v16 = 0;
           goto LABEL_22;
         }
 
-        v24 = 0u;
-        v25 = 0u;
         v22 = 0u;
         v23 = 0u;
+        v20 = 0u;
+        v21 = 0u;
         v11 = v10;
-        v12 = [v11 countByEnumeratingWithState:&v22 objects:v30 count:16];
+        v12 = [v11 countByEnumeratingWithState:&v20 objects:v28 count:16];
         if (v12)
         {
           v13 = v12;
-          v14 = *v23;
+          v14 = *v21;
           while (2)
           {
             for (j = 0; j != v13; ++j)
             {
-              if (*v23 != v14)
+              if (*v21 != v14)
               {
                 objc_enumerationMutation(v11);
               }
 
-              v16 = *(*(&v22 + 1) + 8 * j);
               objc_opt_class();
               if ((objc_opt_isKindOfClass() & 1) == 0)
               {
@@ -410,7 +400,7 @@ LABEL_21:
               }
             }
 
-            v13 = [v11 countByEnumeratingWithState:&v22 objects:v30 count:16];
+            v13 = [v11 countByEnumeratingWithState:&v20 objects:v28 count:16];
             if (v13)
             {
               continue;
@@ -420,10 +410,10 @@ LABEL_21:
           }
         }
 
-        v8 = v20;
+        v8 = v18;
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v26 objects:v31 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v24 objects:v29 count:16];
       if (v7)
       {
         continue;
@@ -433,12 +423,10 @@ LABEL_21:
     }
   }
 
-  v17 = v5;
+  v16 = v5;
 LABEL_22:
 
-  v18 = *MEMORY[0x1E69E9840];
-
-  return v17;
+  return v16;
 }
 
 - (id)_domainsSetFromAutoFillQuirks:(id)quirks forKey:(id)key error:(id *)error
@@ -574,44 +562,43 @@ id __87__WBSAutoFillQuirksSnapshot__changePasswordURLStringsByDomainFromAutoFill
 
 id __82__WBSAutoFillQuirksSnapshot__appIDsToDomainsAssociationsFromAutoFillQuirks_error___block_invoke(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   objc_opt_class();
   if (objc_opt_isKindOfClass() & 1) != 0 && (objc_opt_class(), (objc_opt_isKindOfClass()))
   {
+    v16 = 0u;
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
-    v21 = 0u;
     v9 = v8;
-    v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v19;
+      v12 = *v17;
       while (2)
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v19 != v12)
+          if (*v17 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v18 + 1) + 8 * i);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
             *(*(*(a1 + 32) + 8) + 24) = 0;
             *a4 = 1;
 
-            v15 = 0;
+            v14 = 0;
             goto LABEL_14;
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
         if (v11)
         {
           continue;
@@ -621,20 +608,18 @@ id __82__WBSAutoFillQuirksSnapshot__appIDsToDomainsAssociationsFromAutoFillQuirk
       }
     }
 
-    v15 = v9;
+    v14 = v9;
 LABEL_14:
   }
 
   else
   {
-    v15 = 0;
+    v14 = 0;
     *(*(*(a1 + 32) + 8) + 24) = 0;
     *a4 = 1;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
-
-  return v15;
+  return v14;
 }
 
 @end

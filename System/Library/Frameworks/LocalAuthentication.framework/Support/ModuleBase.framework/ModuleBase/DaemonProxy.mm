@@ -159,11 +159,10 @@ id __25__DaemonProxy_agentProxy__block_invoke(uint64_t a1)
 
 - (void)agentProxyWrapper:(uint64_t)a1 didFailToObtainRemoteProxyWithError:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_238BBF000, a2, OS_LOG_TYPE_ERROR, "Error on connection to system daemon: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_238BBF000, a2, OS_LOG_TYPE_ERROR, "Error on connection to system daemon: %{public}@", &v2, 0xCu);
 }
 
 @end

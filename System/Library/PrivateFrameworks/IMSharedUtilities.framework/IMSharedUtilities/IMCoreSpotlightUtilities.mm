@@ -962,10 +962,10 @@ LABEL_7:
   }
 
   type metadata accessor for IMCoreSpotlightIndexReason(0);
-  sub_1A8799138(&qword_1EB3053B0, type metadata accessor for IMCoreSpotlightIndexReason);
+  sub_1A8799138(&qword_1EB3053B0, type metadata accessor for IMCoreSpotlightIndexReason, a9iF);
   sub_1A88C88C8();
   sub_1A85FC408();
-  sub_1A8799138(&qword_1EB300270, sub_1A85FC408);
+  sub_1A8799138(&qword_1EB300270, sub_1A85FC408, MEMORY[0x1E69E81B8]);
   result = sub_1A88C88D8();
   __break(1u);
   return result;

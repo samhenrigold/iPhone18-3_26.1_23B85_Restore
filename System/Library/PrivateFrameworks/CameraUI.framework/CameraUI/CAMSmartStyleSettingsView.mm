@@ -355,7 +355,7 @@ void __73__CAMSmartStyleSettingsView_initWithDelegate_stylePresets_selectedIndex
   [v7 _setContentColor:v10];
 
   v11 = [v6 displayName];
-  v12 = CAMPreferredLocale();
+  v12 = CAMPreferredLocale(v11);
   v13 = [v11 uppercaseStringWithLocale:v12];
   [v7 _setText:v13];
 
@@ -412,7 +412,7 @@ void __73__CAMSmartStyleSettingsView_initWithDelegate_stylePresets_selectedIndex
   if (([WeakRetained _isSettingDpadValue] & 1) == 0)
   {
     v2 = objc_loadWeakRetained((a1 + 32));
-    v3 = [v2 _dpadControl];
+    v3 = objc_msgSend__dpadControl(v2);
     [WeakRetained _dpadControlUpdated:v3];
   }
 }
@@ -549,9 +549,9 @@ void __52__CAMSmartStyleSettingsView__createNeededStylePages__block_invoke(uint6
   }
 }
 
-uint64_t __45__CAMSmartStyleSettingsView_updateImageViews__block_invoke(uint64_t result, uint64_t a2, void *a3)
+void **__45__CAMSmartStyleSettingsView_updateImageViews__block_invoke(void **result, uint64_t a2, void *a3)
 {
-  if (*(result + 32) != a3)
+  if (result[4] != a3)
   {
     return [a3 updateViewsWithLoadResults];
   }
@@ -562,8 +562,8 @@ uint64_t __45__CAMSmartStyleSettingsView_updateImageViews__block_invoke(uint64_t
 - (void)stopAllAnimations
 {
   [(CAMSmartStyleSettingsView *)self _setAnimationSequence:0];
-  _dpadControl = [(CAMSmartStyleSettingsView *)self _dpadControl];
-  [_dpadControl setPulsingValueIndicator:0];
+  v3 = objc_msgSend__dpadControl(self);
+  [v3 setPulsingValueIndicator:0];
 }
 
 - (void)speedUpFadeInAnimations
@@ -1004,13 +1004,13 @@ LABEL_22:
   visiblePreviewIndex = [(CAMSmartStyleSettingsView *)self visiblePreviewIndex];
   v9 = [(NSArray *)self->__styleTypes objectAtIndexedSubscript:visiblePreviewIndex];
   integerValue = [v9 integerValue];
-  _dpadControl = [(CAMSmartStyleSettingsView *)self _dpadControl];
+  v5 = objc_msgSend__dpadControl(self);
   _intensitySliders = [(CAMSmartStyleSettingsView *)self _intensitySliders];
   v7 = [_intensitySliders objectAtIndexedSubscript:visiblePreviewIndex];
 
   v8 = [objc_alloc(MEMORY[0x1E6993890]) initWithPresetType:integerValue];
   [CAMSmartStyleUtilities slider2DValueForStyle:v8 limitRangeForSystemStyles:1];
-  [_dpadControl setValue:?];
+  [v5 setValue:?];
   [v8 castIntensity];
   [v7 setValue:?];
   [(CAMSmartStyleSettingsView *)self _updatePreviewAdjustmentsFromCurrentSliderValues:1 updateModelValues:1];
@@ -1037,7 +1037,7 @@ LABEL_22:
   _styleValuesPlatterView = [(CAMSmartStyleSettingsView *)self _styleValuesPlatterView];
   if (valuesCopy)
   {
-    WeakRetained = [(CAMSmartStyleSettingsView *)self _dpadControl];
+    WeakRetained = objc_msgSend__dpadControl(self);
     _intensitySliders = [(CAMSmartStyleSettingsView *)self _intensitySliders];
     v12 = [_intensitySliders objectAtIndexedSubscript:visiblePreviewIndex];
 
@@ -1096,8 +1096,8 @@ LABEL_22:
   [(PEPhotoStyleDPad *)self->__dpadControl setDefaultValue:animatedCopy animated:v14, v16];
   [(CAMSmartStyleSettingsView *)self _settingDpadValue:0];
   v17 = +[CAMCaptureConversions PISemanticStyleCastForCEKCastType:](CAMCaptureConversions, "PISemanticStyleCastForCEKCastType:", [MEMORY[0x1E6993890] castTypeForPresetType:type]);
-  _dpadControl = [(CAMSmartStyleSettingsView *)self _dpadControl];
-  [_dpadControl setGradientCast:v17];
+  v18 = objc_msgSend__dpadControl(self);
+  [v18 setGradientCast:v17];
 }
 
 - (void)_handleConfirmButton:(id)button
@@ -1344,11 +1344,11 @@ uint64_t __59__CAMSmartStyleSettingsView__playTuneInstructionAnimations__block_i
   return [v6 _updatePreviewAdjustmentsFromCurrentSliderValues:1 updateModelValues:0];
 }
 
-uint64_t __59__CAMSmartStyleSettingsView__playTuneInstructionAnimations__block_invoke_3(uint64_t result, int a2)
+double *__59__CAMSmartStyleSettingsView__playTuneInstructionAnimations__block_invoke_3(double *result, int a2)
 {
   if (a2)
   {
-    return [*(*(result + 32) + 488) setValue:0 notifyObserver:{*(result + 40), *(result + 48)}];
+    return [*(*(result + 4) + 488) setValue:0 notifyObserver:{result[5], result[6]}];
   }
 
   return result;
@@ -1382,17 +1382,17 @@ uint64_t __59__CAMSmartStyleSettingsView__playTuneInstructionAnimations__block_i
   return [v10 _updatePreviewAdjustmentsFromCurrentSliderValues:1 updateModelValues:0];
 }
 
-uint64_t __59__CAMSmartStyleSettingsView__playTuneInstructionAnimations__block_invoke_6(uint64_t result, int a2)
+double *__59__CAMSmartStyleSettingsView__playTuneInstructionAnimations__block_invoke_6(double *result, int a2)
 {
   if (a2)
   {
-    return [*(*(result + 32) + 488) setValue:0 notifyObserver:{*(result + 40), *(result + 48)}];
+    return [*(*(result + 4) + 488) setValue:0 notifyObserver:{result[5], result[6]}];
   }
 
   return result;
 }
 
-uint64_t __59__CAMSmartStyleSettingsView__playTuneInstructionAnimations__block_invoke_7(uint64_t a1, int a2)
+void *__59__CAMSmartStyleSettingsView__playTuneInstructionAnimations__block_invoke_7(uint64_t a1, int a2)
 {
   result = [*(*(a1 + 32) + 488) setSnapIndicatorToGrid:1];
   if (a2)
@@ -1551,16 +1551,16 @@ void __47__CAMSmartStyleSettingsView__layoutMaskedViews__block_invoke(uint64_t a
   tuneInstructionLabelBottomConstraint = self->__tuneInstructionLabelBottomConstraint;
   self->__tuneInstructionLabelBottomConstraint = v28;
 
-  _dpadControl = [(CAMSmartStyleSettingsView *)self _dpadControl];
+  v30 = objc_msgSend__dpadControl(self);
   _styleTypes = [(CAMSmartStyleSettingsView *)self _styleTypes];
   v143[0] = MEMORY[0x1E69E9820];
   v143[1] = 3221225472;
   v143[2] = __44__CAMSmartStyleSettingsView__addConstraints__block_invoke;
   v143[3] = &unk_1E76FBE80;
   v143[4] = self;
-  v144 = _dpadControl;
+  v144 = v30;
   v145 = xmmword_1A3A6A110;
-  v141 = _dpadControl;
+  v141 = v30;
   [_styleTypes enumerateObjectsUsingBlock:v143];
 
   _intensitySliders = [(CAMSmartStyleSettingsView *)self _intensitySliders];

@@ -10,7 +10,10 @@
 - (void)_reloadItemOfferVisibility;
 - (void)_showItemOfferConfirmationAction:(id)action;
 - (void)dealloc;
+- (void)displaysItemOfferButton;
+- (void)iconImage;
 - (void)itemOfferButtonWillAnimateTransition:(id)transition;
+- (void)itemOfferNoticeString;
 - (void)prepareForReuse;
 - (void)resetLayout;
 - (void)setBackgroundColor:(id)color;
@@ -93,27 +96,8 @@
 
 - (void)resetLayout
 {
-  if (os_variant_has_internal_content())
-  {
-    if (_os_feature_enabled_impl())
-    {
-      v3 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-      if (v3)
-      {
-        [(SKUIItemCellLayout *)v3 resetLayout:v4];
-      }
-    }
-  }
-
-  [(SKUIItemOfferButton *)self->_itemOfferButton setHidden:1];
-  [(UILabel *)self->_itemOfferNoticeLabel setHidden:1];
-  [(SKUICellImageView *)self->_iconImageView removeFromSuperview];
-  iconImageView = self->_iconImageView;
-  self->_iconImageView = 0;
-
-  v12.receiver = self;
-  v12.super_class = SKUIItemCellLayout;
-  [(SKUICellLayout *)&v12 resetLayout];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIItemCellLayout resetLayout]";
 }
 
 - (void)setDisplaysItemOfferButton:(BOOL)button
@@ -403,22 +387,8 @@ LABEL_15:
 
 - (void)prepareForReuse
 {
-  if (os_variant_has_internal_content())
-  {
-    if (_os_feature_enabled_impl())
-    {
-      v3 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-      if (v3)
-      {
-        [(SKUIItemCellLayout *)v3 prepareForReuse:v4];
-      }
-    }
-  }
-
-  [(SKUIItemOfferButton *)self->_itemOfferButton removeButtonStateAnimations];
-  v11.receiver = self;
-  v11.super_class = SKUIItemCellLayout;
-  [(SKUICellLayout *)&v11 prepareForReuse];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIItemCellLayout prepareForReuse]";
 }
 
 - (void)setBackgroundColor:(id)color
@@ -674,6 +644,90 @@ LABEL_12:
   v5 = [(SKUIItemCellLayout *)self _canShowItemOfferNotice]^ 1;
 
   [(UILabel *)itemOfferNoticeLabel setHidden:v5];
+}
+
+- (void)displaysItemOfferButton
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIItemCellLayout displaysItemOfferButton]";
+}
+
+- (void)iconImage
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIItemCellLayout iconImage]";
+}
+
+- (void)itemOfferNoticeString
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIItemCellLayout itemOfferNoticeString]";
+}
+
+- (void)setDisplaysItemOfferButton:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIItemCellLayout setDisplaysItemOfferButton:]";
+}
+
+- (void)setIconImage:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIItemCellLayout setIconImage:]";
+}
+
+- (void)setIconImageHidden:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIItemCellLayout setIconImageHidden:]";
+}
+
+- (void)setItemOffer:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIItemCellLayout setItemOffer:]";
+}
+
+- (void)setItemOfferButtonAppearance:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIItemCellLayout setItemOfferButtonAppearance:]";
+}
+
+- (void)setItemOfferNoticeString:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIItemCellLayout setItemOfferNoticeString:]";
+}
+
+- (void)setItemState:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIItemCellLayout setItemState:]";
+}
+
+- (void)setItemState:(uint64_t)a3 animated:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIItemCellLayout setItemState:animated:]";
+}
+
+- (void)setRestricted:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIItemCellLayout setRestricted:]";
+}
+
+- (void)setBackgroundColor:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIItemCellLayout setBackgroundColor:]";
+}
+
+- (void)itemOfferButtonWillAnimateTransition:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIItemCellLayout itemOfferButtonWillAnimateTransition:]";
 }
 
 @end

@@ -492,7 +492,7 @@
 
 - (void)presentableDidDisappearAsBanner:(id)banner withReason:(id)reason
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = [(SBActivityBannerViewController *)self bannerDelegate:banner];
   if (objc_opt_respondsToSelector())
   {
@@ -509,16 +509,16 @@
     activityItem2 = [(SBActivityViewController *)self activityItem];
     identifier = [activityItem2 identifier];
 
-    v12 = SBLogActivity();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = SBLogActivity(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 138543362;
-      v15 = identifier;
-      _os_log_impl(&dword_21ED4E000, v12, OS_LOG_TYPE_DEFAULT, "[ActivityID: %{public}@] banner dismissed but is momentary so ending activity", &v14, 0xCu);
+      v15 = 138543362;
+      v16 = identifier;
+      _os_log_impl(&dword_21ED4E000, v13, OS_LOG_TYPE_DEFAULT, "[ActivityID: %{public}@] banner dismissed but is momentary so ending activity", &v15, 0xCu);
     }
 
-    v13 = objc_alloc_init(MEMORY[0x277CB98A0]);
-    [v13 endActivity:identifier];
+    v14 = objc_alloc_init(MEMORY[0x277CB98A0]);
+    [v14 endActivity:identifier];
   }
 
   if ([(SBActivityBannerViewController *)self _isActionButtonInitiated])

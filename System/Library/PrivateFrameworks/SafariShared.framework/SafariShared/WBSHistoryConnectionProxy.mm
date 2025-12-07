@@ -86,95 +86,95 @@ uint64_t __39__WBSHistoryConnectionProxy_invalidate__block_invoke(uint64_t a1)
   objc_destroyWeak(&location);
 }
 
-void __67__WBSHistoryConnectionProxy__setupConnectionWithInProcessFallback___block_invoke(uint64_t a1)
+void __67__WBSHistoryConnectionProxy__setupConnectionWithInProcessFallback___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXHistory();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = WBS_LOG_CHANNEL_PREFIXHistory(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     __67__WBSHistoryConnectionProxy__setupConnectionWithInProcessFallback___block_invoke_cold_1();
   }
 
-  v3 = *(*(a1 + 32) + 8);
-  if (v3)
+  v4 = *(*(a1 + 32) + 8);
+  if (v4)
   {
-    [v3 invalidate];
+    [v4 invalidate];
   }
 
   if (*(a1 + 48) == 1)
   {
-    v4 = [MEMORY[0x1E696B0D8] anonymousListener];
-    v5 = [[WBSHistoryService alloc] initWithListener:v4];
-    v6 = *(a1 + 32);
-    v7 = *(v6 + 16);
-    *(v6 + 16) = v5;
+    v5 = [MEMORY[0x1E696B0D8] anonymousListener];
+    v6 = [[WBSHistoryService alloc] initWithListener:v5];
+    v7 = *(a1 + 32);
+    v8 = *(v7 + 16);
+    *(v7 + 16) = v6;
 
     [*(*(a1 + 32) + 16) resume];
-    v8 = objc_alloc(MEMORY[0x1E696B0B8]);
-    v9 = [v4 endpoint];
-    v10 = [v8 initWithListenerEndpoint:v9];
-    v11 = *(a1 + 32);
-    v12 = *(v11 + 8);
-    *(v11 + 8) = v10;
+    v9 = objc_alloc(MEMORY[0x1E696B0B8]);
+    v10 = [v5 endpoint];
+    v11 = [v9 initWithListenerEndpoint:v10];
+    v12 = *(a1 + 32);
+    v13 = *(v12 + 8);
+    *(v12 + 8) = v11;
   }
 
   else
   {
-    v13 = [*(a1 + 32) _createConnection];
-    v14 = *(a1 + 32);
-    v4 = *(v14 + 8);
-    *(v14 + 8) = v13;
+    v14 = [*(a1 + 32) _createConnection];
+    v15 = *(a1 + 32);
+    v5 = *(v15 + 8);
+    *(v15 + 8) = v14;
   }
 
-  v15 = WBSHistoryConnectionInterface();
-  [*(*(a1 + 32) + 8) setRemoteObjectInterface:v15];
+  v17 = WBSHistoryConnectionInterface(v16);
+  [*(*(a1 + 32) + 8) setRemoteObjectInterface:v17];
 
-  v19[0] = 0;
-  v19[1] = v19;
-  v19[2] = 0x2020000000;
-  v20 = 0;
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __67__WBSHistoryConnectionProxy__setupConnectionWithInProcessFallback___block_invoke_5;
-  v17[3] = &unk_1E7FC6E48;
-  objc_copyWeak(&v18, (a1 + 40));
-  v17[4] = v19;
-  [*(*(a1 + 32) + 8) setInterruptionHandler:v17];
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __67__WBSHistoryConnectionProxy__setupConnectionWithInProcessFallback___block_invoke_7;
-  v16[3] = &unk_1E7FB6EC8;
-  v16[4] = v19;
-  [*(*(a1 + 32) + 8) setInvalidationHandler:v16];
+  v21[0] = 0;
+  v21[1] = v21;
+  v21[2] = 0x2020000000;
+  v22 = 0;
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __67__WBSHistoryConnectionProxy__setupConnectionWithInProcessFallback___block_invoke_5;
+  v19[3] = &unk_1E7FC6E48;
+  objc_copyWeak(&v20, (a1 + 40));
+  v19[4] = v21;
+  [*(*(a1 + 32) + 8) setInterruptionHandler:v19];
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __67__WBSHistoryConnectionProxy__setupConnectionWithInProcessFallback___block_invoke_7;
+  v18[3] = &unk_1E7FB6EC8;
+  v18[4] = v21;
+  [*(*(a1 + 32) + 8) setInvalidationHandler:v18];
   [*(*(a1 + 32) + 8) resume];
-  objc_destroyWeak(&v18);
-  _Block_object_dispose(v19, 8);
+  objc_destroyWeak(&v20);
+  _Block_object_dispose(v21, 8);
 }
 
-void __67__WBSHistoryConnectionProxy__setupConnectionWithInProcessFallback___block_invoke_5(uint64_t a1)
+void __67__WBSHistoryConnectionProxy__setupConnectionWithInProcessFallback___block_invoke_5(uint64_t a1, uint64_t a2)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXHistory();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = WBS_LOG_CHANNEL_PREFIXHistory(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     __67__WBSHistoryConnectionProxy__setupConnectionWithInProcessFallback___block_invoke_5_cold_1();
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v4 = WeakRetained;
+  v5 = WeakRetained;
   if (WeakRetained)
   {
     *(*(*(a1 + 32) + 8) + 24) = 1;
     [WeakRetained _setupConnectionWithInProcessFallback:0];
-    v5 = [MEMORY[0x1E696AD88] defaultCenter];
-    [v5 postNotificationName:@"WBSHistoryConnectionWasInterrupted" object:v4 userInfo:0];
+    v6 = [MEMORY[0x1E696AD88] defaultCenter];
+    [v6 postNotificationName:@"WBSHistoryConnectionWasInterrupted" object:v5 userInfo:0];
   }
 }
 
-void __67__WBSHistoryConnectionProxy__setupConnectionWithInProcessFallback___block_invoke_7(uint64_t a1)
+void __67__WBSHistoryConnectionProxy__setupConnectionWithInProcessFallback___block_invoke_7(uint64_t result, uint64_t a2)
 {
-  if ((*(*(*(a1 + 32) + 8) + 24) & 1) == 0)
+  if ((*(*(*(result + 32) + 8) + 24) & 1) == 0)
   {
-    v1 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
+    v2 = WBS_LOG_CHANNEL_PREFIXHistory(result, a2);
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
     {
       __67__WBSHistoryConnectionProxy__setupConnectionWithInProcessFallback___block_invoke_7_cold_1();
     }
@@ -205,19 +205,19 @@ void __67__WBSHistoryConnectionProxy__setupConnectionWithInProcessFallback___blo
 
 void __77__WBSHistoryConnectionProxy__defaultProxyErrorHandlerWithSimpleReplyHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = *(a1 + 32);
-  if (v4)
+  v4 = a2;
+  v5 = *(a1 + 32);
+  if (v5)
   {
-    (*(v4 + 16))(v4, 0, v3);
+    (*(v5 + 16))(v5, 0, v4);
   }
 
   else
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = WBS_LOG_CHANNEL_PREFIXHistory(0, v3);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __77__WBSHistoryConnectionProxy__defaultProxyErrorHandlerWithSimpleReplyHandler___block_invoke_cold_1(v5, v3);
+      __77__WBSHistoryConnectionProxy__defaultProxyErrorHandlerWithSimpleReplyHandler___block_invoke_cold_1(v6, v4);
     }
   }
 }
@@ -242,22 +242,23 @@ void __45__WBSHistoryConnectionProxy_ensureConnected___block_invoke(uint64_t a1)
 
   if (!v2)
   {
-    v3 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = WBS_LOG_CHANNEL_PREFIXHistory(v3, v4);
+    v3 = os_log_type_enabled(v5, OS_LOG_TYPE_ERROR);
+    if (v3)
     {
       __45__WBSHistoryConnectionProxy_ensureConnected___block_invoke_cold_1();
     }
   }
 
-  v4 = WBS_LOG_CHANNEL_PREFIXHistory();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v6 = WBS_LOG_CHANNEL_PREFIXHistory(v3, v4);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    *v6 = 0;
-    _os_log_impl(&dword_1BB6F3000, v4, OS_LOG_TYPE_INFO, "Calling into [WBSHistoryConnectionProxy ensureConnected:]", v6, 2u);
+    *v8 = 0;
+    _os_log_impl(&dword_1BB6F3000, v6, OS_LOG_TYPE_INFO, "Calling into [WBSHistoryConnectionProxy ensureConnected:]", v8, 2u);
   }
 
-  v5 = [*(*(a1 + 32) + 8) remoteObjectProxyWithErrorHandler:*(a1 + 40)];
-  [v5 ensureConnected:*(a1 + 40)];
+  v7 = [*(*(a1 + 32) + 8) remoteObjectProxyWithErrorHandler:*(a1 + 40)];
+  [v7 ensureConnected:*(a1 + 40)];
 }
 
 - (void)getServiceInfo:(id)info
@@ -484,30 +485,30 @@ void __75__WBSHistoryConnectionProxy_connectWithOptions_delegate_completionHandl
 
 void __75__WBSHistoryConnectionProxy_connectWithOptions_delegate_completionHandler___block_invoke_3(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a5;
-  v9 = WBS_LOG_CHANNEL_PREFIXHistory();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  v10 = WBS_LOG_CHANNEL_PREFIXHistory(v8, v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
-    v10 = *(*(*(a1 + 40) + 8) + 40);
-    v11 = v9;
-    [v10 timeIntervalSinceNow];
-    v14 = 136446466;
-    v15 = "connection_connect_with_options";
-    v16 = 2048;
-    v17 = -v12;
-    _os_log_impl(&dword_1BB6F3000, v11, OS_LOG_TYPE_INFO, "#perf - %{public}s: %f", &v14, 0x16u);
+    v11 = *(*(*(a1 + 40) + 8) + 40);
+    v12 = v10;
+    [v11 timeIntervalSinceNow];
+    v15 = 136446466;
+    v16 = "connection_connect_with_options";
+    v17 = 2048;
+    v18 = -v13;
+    _os_log_impl(&dword_1BB6F3000, v12, OS_LOG_TYPE_INFO, "#perf - %{public}s: %f", &v15, 0x16u);
   }
 
   if (v7)
   {
-    v13 = [[WBSHistoryServiceDatabaseProxy alloc] initWithProxy:v7];
+    v14 = [[WBSHistoryServiceDatabaseProxy alloc] initWithProxy:v7];
   }
 
   else
   {
-    v13 = 0;
+    v14 = 0;
   }
 
   (*(*(a1 + 32) + 16))();
@@ -661,12 +662,13 @@ void __78__WBSHistoryConnectionProxy_getCompletionListItemsForQuery_completionHa
 void __78__WBSHistoryConnectionProxy_getCompletionListItemsForQuery_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v5 = v3;
   if (v3)
   {
-    v4 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = WBS_LOG_CHANNEL_PREFIXHistory(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __78__WBSHistoryConnectionProxy_getCompletionListItemsForQuery_completionHandler___block_invoke_2_cold_1(v4, v3);
+      __78__WBSHistoryConnectionProxy_getCompletionListItemsForQuery_completionHandler___block_invoke_2_cold_1(v6, v5);
     }
 
     (*(*(a1 + 32) + 16))();
@@ -705,12 +707,13 @@ void __91__WBSHistoryConnectionProxy_copyAndRedactHistoryDatabasesForAllProfiles
 void __91__WBSHistoryConnectionProxy_copyAndRedactHistoryDatabasesForAllProfiles_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v5 = v3;
   if (v3)
   {
-    v4 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = WBS_LOG_CHANNEL_PREFIXHistory(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __91__WBSHistoryConnectionProxy_copyAndRedactHistoryDatabasesForAllProfiles_completionHandler___block_invoke_2_cold_1(v4, v3);
+      __91__WBSHistoryConnectionProxy_copyAndRedactHistoryDatabasesForAllProfiles_completionHandler___block_invoke_2_cold_1(v6, v5);
     }
 
     (*(*(a1 + 32) + 16))();
@@ -721,21 +724,27 @@ void __77__WBSHistoryConnectionProxy__defaultProxyErrorHandlerWithSimpleReplyHan
 {
   v3 = a1;
   v4 = [a2 safari_privacyPreservingDescription];
-  OUTLINED_FUNCTION_0_1(&dword_1BB6F3000, v5, v6, "XPC Proxy reported: %{public}@", v7, v8, v9, v10, 2u);
+  LODWORD(v11) = 138543362;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_0_1(&dword_1BB6F3000, v5, v6, "XPC Proxy reported: %{public}@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 void __78__WBSHistoryConnectionProxy_getCompletionListItemsForQuery_completionHandler___block_invoke_2_cold_1(void *a1, void *a2)
 {
   v3 = a1;
   v4 = [a2 safari_privacyPreservingDescription];
-  OUTLINED_FUNCTION_0_1(&dword_1BB6F3000, v5, v6, "Failed to connect to history service. Returning empty completion list. (%{public}@)", v7, v8, v9, v10, 2u);
+  LODWORD(v11) = 138543362;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_0_1(&dword_1BB6F3000, v5, v6, "Failed to connect to history service. Returning empty completion list. (%{public}@)", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 void __91__WBSHistoryConnectionProxy_copyAndRedactHistoryDatabasesForAllProfiles_completionHandler___block_invoke_2_cold_1(void *a1, void *a2)
 {
   v3 = a1;
   v4 = [a2 safari_privacyPreservingDescription];
-  OUTLINED_FUNCTION_0_1(&dword_1BB6F3000, v5, v6, "Failed to connect to history service when trying to copy and redact history databases (%{public}@)", v7, v8, v9, v10, 2u);
+  LODWORD(v11) = 138543362;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_0_1(&dword_1BB6F3000, v5, v6, "Failed to connect to history service when trying to copy and redact history databases (%{public}@)", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 @end

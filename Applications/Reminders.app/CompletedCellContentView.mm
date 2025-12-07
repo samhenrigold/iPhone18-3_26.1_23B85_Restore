@@ -42,16 +42,17 @@
   v5 = *&selfCopy->clearButton[OBJC_IVAR____TtC9RemindersP33_C60407860759646D296FA14F7D6D1E3324CompletedCellContentView_internalConfiguration];
   if (v5)
   {
+    v6 = *&selfCopy->showHideButton[OBJC_IVAR____TtC9RemindersP33_C60407860759646D296FA14F7D6D1E3324CompletedCellContentView_internalConfiguration];
 
-    v5(v6);
-    sub_1000301AC(v5);
+    v5(v7);
+    sub_1000301AC(v5, v6);
 
-    sub_100004758(v7);
+    sub_100004758(v8);
   }
 
   else
   {
-    sub_100004758(v7);
+    sub_100004758(v8);
   }
 }
 

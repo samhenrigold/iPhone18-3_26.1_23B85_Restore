@@ -20,7 +20,7 @@
   swift_unknownObjectWeakAssign();
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_23BE7C59C();
+  sub_23BE7C59C(selfCopy, v4);
   swift_unknownObjectRelease();
 }
 

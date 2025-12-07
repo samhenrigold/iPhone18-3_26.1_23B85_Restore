@@ -19,7 +19,7 @@
 
 - (void)handle:(SABaseClientBoundCommand *)handle completionHandler:(id)handler
 {
-  v7 = sub_100093B6C(&qword_10018DFE0);
+  v7 = sub_100093B6C(&qword_10018DFE0, &qword_1000F7530);
   __chkstk_darwin(v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(handler);
@@ -49,11 +49,12 @@
   v2 = *(&self->super.isa + OBJC_IVAR____TtC4Siri24ContinueOnCommandHandler_activeTask);
   if (v2)
   {
+    v3 = *&self->activeTask[OBJC_IVAR____TtC4Siri24ContinueOnCommandHandler_activeTask];
     selfCopy = self;
-    sub_10009682C(v2);
-    v4 = v2;
-    sub_10009686C(v2);
-    [v4 cancel];
+    sub_10009682C(v2, v3);
+    v5 = v2;
+    sub_10009686C(v2, v3);
+    [v5 cancel];
   }
 }
 

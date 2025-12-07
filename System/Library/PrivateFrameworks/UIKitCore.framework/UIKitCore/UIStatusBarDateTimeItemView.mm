@@ -12,13 +12,13 @@
 {
   rawData = [data rawData];
   v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithCString:objc_msgSend(objc_opt_class() encoding:{"_cStringFromData:", rawData), 4}];
-  v7 = [v6 isEqualToString:self->_dateTimeString];
-  if ((v7 & 1) == 0)
+  isEqualToString = objc_msgSend_isEqualToString_(v6);
+  if ((isEqualToString & 1) == 0)
   {
     objc_storeStrong(&self->_dateTimeString, v6);
   }
 
-  return v7 ^ 1;
+  return isEqualToString ^ 1;
 }
 
 - (void)setVisible:(BOOL)visible frame:(CGRect)frame duration:(double)duration
@@ -74,18 +74,18 @@
   }
 }
 
-uint64_t __57__UIStatusBarDateTimeItemView_setVisible_frame_duration___block_invoke_2(uint64_t result)
+double *__57__UIStatusBarDateTimeItemView_setVisible_frame_duration___block_invoke_2(double *result)
 {
   if (*(result + 48) == 1)
   {
     v4[5] = v1;
     v4[6] = v2;
-    v3 = *(result + 40) * 0.5;
+    v3 = result[5] * 0.5;
     v4[0] = MEMORY[0x1E69E9820];
     v4[1] = 3221225472;
     v4[2] = __57__UIStatusBarDateTimeItemView_setVisible_frame_duration___block_invoke_3;
     v4[3] = &unk_1E70F3590;
-    v4[4] = *(result + 32);
+    *&v4[4] = result[4];
     return [UIView animateWithDuration:32 delay:v4 options:0 animations:v3 completion:0.0];
   }
 

@@ -202,15 +202,13 @@
 
 - (id)tags
 {
-  v9[1] = *MEMORY[0x1E69E9840];
-  v8 = @"public.filename-extension";
+  v8[1] = *MEMORY[0x1E69E9840];
+  v7 = @"public.filename-extension";
   preferredFilenameExtension = [(UTType *)self preferredFilenameExtension];
-  v7 = preferredFilenameExtension;
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v7 count:1];
-  v9[0] = v3;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v6 = preferredFilenameExtension;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v6 count:1];
+  v8[0] = v3;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
 
   return v4;
 }

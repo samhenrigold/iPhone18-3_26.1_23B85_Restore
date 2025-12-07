@@ -32,9 +32,11 @@
 
 + (void)initialize
 {
-  gInstanceDictionary = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v2 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v3 = gInstanceDictionary;
+  gInstanceDictionary = v2;
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v2, v3);
 }
 
 + (id)sharedInstance
@@ -164,7 +166,7 @@ uint64_t __26__WiFiTriggerHandler_init__block_invoke_7(uint64_t a1)
 
 void __26__WiFiTriggerHandler_init__block_invoke_10(uint64_t a1, uint64_t a2, void *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = a3;
   v4 = v3;
   if (v3 && MEMORY[0x238389170](v3) == MEMORY[0x277D86448])
@@ -179,18 +181,16 @@ void __26__WiFiTriggerHandler_init__block_invoke_10(uint64_t a1, uint64_t a2, vo
     v5 = rnfLogHandle;
     if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
     {
-      v8[0] = 67109120;
-      v8[1] = gTriggeringAllowed;
-      _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "invalid value for trigger_disconnect_disable_gating behavior. Maintaining current value (%d)", v8, 8u);
+      v7[0] = 67109120;
+      v7[1] = gTriggeringAllowed;
+      _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "invalid value for trigger_disconnect_disable_gating behavior. Maintaining current value (%d)", v7, 8u);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __26__WiFiTriggerHandler_init__block_invoke_2()
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v0 = gTriggeringAllowed;
   v1 = forceNoGate;
   v2 = [MEMORY[0x277CBEAA8] date];
@@ -199,14 +199,12 @@ void __26__WiFiTriggerHandler_init__block_invoke_2()
   v3 = rnfLogHandle;
   if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v5[0] = 67109376;
-    v5[1] = v0;
-    v6 = 1024;
-    v7 = gTriggeringAllowed;
-    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEFAULT, "set trigger_disconnect_disable_gate to (was/is): %d/%d", v5, 0xEu);
+    v4[0] = 67109376;
+    v4[1] = v0;
+    v5 = 1024;
+    v6 = gTriggeringAllowed;
+    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEFAULT, "set trigger_disconnect_disable_gate to (was/is): %d/%d", v4, 0xEu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_reset
@@ -330,7 +328,7 @@ void __28__WiFiTriggerHandler__reset__block_invoke(uint64_t a1)
 
 + (id)getHandlerByName:(id)name
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   p_isa = [gInstanceDictionary objectForKey:nameCopy];
   v6 = rnfLogHandle;
@@ -338,46 +336,44 @@ void __28__WiFiTriggerHandler__reset__block_invoke(uint64_t a1)
   {
     v7 = nameCopy;
     v8 = v6;
-    v17 = 136315138;
+    v16 = 136315138;
     uTF8String = [nameCopy UTF8String];
-    _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, "getHandlerByName  %s", &v17, 0xCu);
+    _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, "getHandlerByName  %s", &v16, 0xCu);
   }
 
   if (!p_isa)
   {
-    v12 = objc_alloc_init(WiFiTriggerHandler);
-    p_isa = &v12->super.isa;
-    if (v12)
+    v11 = objc_alloc_init(WiFiTriggerHandler);
+    p_isa = &v11->super.isa;
+    if (v11)
     {
-      objc_storeStrong(&v12->_syndromeName, name);
+      objc_storeStrong(&v11->_syndromeName, name);
       uTF8String2 = [nameCopy UTF8String];
       if (!uTF8String2)
       {
         [WiFiTriggerHandler getHandlerByName:?];
       }
 
-      v14 = strdup(uTF8String2);
-      if (!v14)
+      v13 = strdup(uTF8String2);
+      if (!v13)
       {
         [WiFiTriggerHandler getHandlerByName:?];
       }
 
-      p_isa[2] = v14;
+      p_isa[2] = v13;
       [gInstanceDictionary setObject:p_isa forKey:nameCopy];
-      v15 = rnfLogHandle;
+      v14 = rnfLogHandle;
       if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
       {
-        v16 = p_isa[2];
-        v17 = 136315138;
-        uTF8String = v16;
-        _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_DEFAULT, "getHandlerByName  created %s", &v17, 0xCu);
+        v15 = p_isa[2];
+        v16 = 136315138;
+        uTF8String = v15;
+        _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_DEFAULT, "getHandlerByName  created %s", &v16, 0xCu);
       }
     }
   }
 
   v9 = p_isa;
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -385,7 +381,7 @@ void __28__WiFiTriggerHandler__reset__block_invoke(uint64_t a1)
 + (void)_triggerAllowedByRSSI:(BOOL)i receiptTimestamp:(id)timestamp
 {
   iCopy = i;
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   timestampCopy = timestamp;
   v6 = rnfLogHandle;
   if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
@@ -404,11 +400,11 @@ void __28__WiFiTriggerHandler__reset__block_invoke(uint64_t a1)
     v9 = v6;
     date = [v8 date];
     [date timeIntervalSinceDate:timestampCopy];
-    v27 = 136315394;
-    v28 = *&v7;
-    v29 = 2048;
-    v30 = v11;
-    _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "Setting TD latch to %s with a propagation delay of %f", &v27, 0x16u);
+    v26 = 136315394;
+    v27 = *&v7;
+    v28 = 2048;
+    v29 = v11;
+    _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "Setting TD latch to %s with a propagation delay of %f", &v26, 0x16u);
   }
 
   gTriggeringAllowed = (iCopy | forceNoGate) & 1;
@@ -424,10 +420,10 @@ void __28__WiFiTriggerHandler__reset__block_invoke(uint64_t a1)
       goto LABEL_20;
     }
 
-    LOWORD(v27) = 0;
+    LOWORD(v26) = 0;
     v20 = "Disallow triggered disconnect notifications";
 LABEL_15:
-    _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_DEFAULT, v20, &v27, 2u);
+    _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_DEFAULT, v20, &v26, 2u);
     goto LABEL_20;
   }
 
@@ -444,7 +440,7 @@ LABEL_15:
       goto LABEL_20;
     }
 
-    LOWORD(v27) = 0;
+    LOWORD(v26) = 0;
     v20 = "Allow future triggered disconnects, nothing currently queued";
     goto LABEL_15;
   }
@@ -460,9 +456,9 @@ LABEL_15:
     v23 = rnfLogHandle;
     if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
     {
-      v27 = 134217984;
-      v28 = v16;
-      _os_log_impl(&dword_23255B000, v23, OS_LOG_TYPE_DEFAULT, "Send queued WiFi trigger, age is %f", &v27, 0xCu);
+      v26 = 134217984;
+      v27 = v16;
+      _os_log_impl(&dword_23255B000, v23, OS_LOG_TYPE_DEFAULT, "Send queued WiFi trigger, age is %f", &v26, 0xCu);
     }
 
     [v21 didReceiveSyndrome:v22];
@@ -473,9 +469,9 @@ LABEL_15:
     v17 = rnfLogHandle;
     if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
     {
-      v27 = 134217984;
-      v28 = v16;
-      _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_DEFAULT, "Discard queued WiFi trigger, too old, %f", &v27, 0xCu);
+      v26 = 134217984;
+      v27 = v16;
+      _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_DEFAULT, "Discard queued WiFi trigger, too old, %f", &v26, 0xCu);
     }
   }
 
@@ -486,7 +482,6 @@ LABEL_15:
   gQueuedTimestamp = 0;
 
 LABEL_20:
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 + (void)triggerAllowedByRSSI:(BOOL)i receiptTimestamp:(id)timestamp
@@ -506,10 +501,10 @@ LABEL_20:
 
 - (id)_getAWDInfo:(id)info
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   infoCopy = info;
+  v45 = 0;
   v46 = 0;
-  v47 = 0;
   _getARPFailureCount = [(WiFiTriggerHandler *)self _getARPFailureCount];
   _getND6FailureCount = [(WiFiTriggerHandler *)self _getND6FailureCount];
   v7 = COERCE_DOUBLE([(WiFiTriggerHandler *)self _getDataStallsScore]);
@@ -517,7 +512,7 @@ LABEL_20:
   if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v51 = v7;
+    v50 = v7;
     _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, "Data Stall score: %lu", buf, 0xCu);
   }
 
@@ -527,11 +522,11 @@ LABEL_20:
   if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v51 = v10;
+    v50 = v10;
     _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEFAULT, "Policy denial score: %f", buf, 0xCu);
   }
 
-  v12 = [NetworkAnalyticsEngine getDNSCountsOn:3 total:&v47 impacted:&v46];
+  v12 = [NetworkAnalyticsEngine getDNSCountsOn:3 total:&v46 impacted:&v45];
   v13 = 0.0;
   if (self->_lastRefutePeriodTimestamp)
   {
@@ -557,68 +552,66 @@ LABEL_20:
     v15 = 0.0;
   }
 
-  v45 = infoCopy;
+  v44 = infoCopy;
   if (gOpenedTimestamp)
   {
     [gOpenedTimestamp timeIntervalSinceNow];
     v13 = -v18;
   }
 
-  v44 = [MEMORY[0x277CCACA8] stringWithUTF8String:kSymptomManagedEventKeyAWDValidState];
-  v48[0] = v44;
-  v43 = [MEMORY[0x277CCABB0] numberWithBool:v12];
-  v49[0] = v43;
-  v42 = [MEMORY[0x277CCACA8] stringWithUTF8String:kSymptomManagedEventKeyAWDWiFiDNSTotalServers];
-  v48[1] = v42;
-  v41 = [MEMORY[0x277CCABB0] numberWithInteger:v47];
-  v49[1] = v41;
-  v40 = [MEMORY[0x277CCACA8] stringWithUTF8String:kSymptomManagedEventKeyAWDWiFiDNSImpactedServers];
-  v48[2] = v40;
-  v39 = [MEMORY[0x277CCABB0] numberWithInteger:v46];
-  v49[2] = v39;
-  v38 = [MEMORY[0x277CCACA8] stringWithUTF8String:kSymptomManagedEventKeyAWDARPFailureCount];
-  v48[3] = v38;
-  v37 = [MEMORY[0x277CCABB0] numberWithInteger:_getARPFailureCount];
-  v49[3] = v37;
-  v36 = [MEMORY[0x277CCACA8] stringWithUTF8String:kSymptomManagedEventKeyAWDND6FailureCount];
-  v48[4] = v36;
-  v35 = [MEMORY[0x277CCABB0] numberWithInteger:_getND6FailureCount];
-  v49[4] = v35;
-  v34 = [MEMORY[0x277CCACA8] stringWithUTF8String:kSymptomManagedEventKeyAWDTrafficWatchRxCount];
-  v48[5] = v34;
-  v33 = [MEMORY[0x277CCABB0] numberWithInteger:lastRefutePeriodTraffic];
-  v49[5] = v33;
+  v43 = [MEMORY[0x277CCACA8] stringWithUTF8String:kSymptomManagedEventKeyAWDValidState];
+  v47[0] = v43;
+  v42 = [MEMORY[0x277CCABB0] numberWithBool:v12];
+  v48[0] = v42;
+  v41 = [MEMORY[0x277CCACA8] stringWithUTF8String:kSymptomManagedEventKeyAWDWiFiDNSTotalServers];
+  v47[1] = v41;
+  v40 = [MEMORY[0x277CCABB0] numberWithInteger:v46];
+  v48[1] = v40;
+  v39 = [MEMORY[0x277CCACA8] stringWithUTF8String:kSymptomManagedEventKeyAWDWiFiDNSImpactedServers];
+  v47[2] = v39;
+  v38 = [MEMORY[0x277CCABB0] numberWithInteger:v45];
+  v48[2] = v38;
+  v37 = [MEMORY[0x277CCACA8] stringWithUTF8String:kSymptomManagedEventKeyAWDARPFailureCount];
+  v47[3] = v37;
+  v36 = [MEMORY[0x277CCABB0] numberWithInteger:_getARPFailureCount];
+  v48[3] = v36;
+  v35 = [MEMORY[0x277CCACA8] stringWithUTF8String:kSymptomManagedEventKeyAWDND6FailureCount];
+  v47[4] = v35;
+  v34 = [MEMORY[0x277CCABB0] numberWithInteger:_getND6FailureCount];
+  v48[4] = v34;
+  v33 = [MEMORY[0x277CCACA8] stringWithUTF8String:kSymptomManagedEventKeyAWDTrafficWatchRxCount];
+  v47[5] = v33;
+  v32 = [MEMORY[0x277CCABB0] numberWithInteger:lastRefutePeriodTraffic];
+  v48[5] = v32;
   v19 = [MEMORY[0x277CCACA8] stringWithUTF8String:kSymptomManagedEventKeyAWDTrafficWatchDuration];
-  v48[6] = v19;
+  v47[6] = v19;
   v20 = [MEMORY[0x277CCABB0] numberWithDouble:lastRefutePeriodDuration];
-  v49[6] = v20;
+  v48[6] = v20;
   v21 = [MEMORY[0x277CCACA8] stringWithUTF8String:kSymptomManagedEventKeyAWDTrafficWatchTimeSince];
-  v48[7] = v21;
+  v47[7] = v21;
   v22 = [MEMORY[0x277CCABB0] numberWithDouble:v15];
-  v49[7] = v22;
+  v48[7] = v22;
   v23 = [MEMORY[0x277CCACA8] stringWithUTF8String:kSymptomManagedEventKeyAWDGateOpenDuration];
-  v48[8] = v23;
+  v47[8] = v23;
   v24 = [MEMORY[0x277CCABB0] numberWithDouble:v13];
-  v49[8] = v24;
+  v48[8] = v24;
   v25 = [MEMORY[0x277CCACA8] stringWithUTF8String:kSymptomManagedEventKeyAWDDataStallsScore];
-  v48[9] = v25;
+  v47[9] = v25;
   v26 = [MEMORY[0x277CCABB0] numberWithInteger:*&v7];
-  v49[9] = v26;
+  v48[9] = v26;
   v27 = [MEMORY[0x277CCACA8] stringWithUTF8String:kSymptomManagedEventKeyAWDRNFDenialsScore];
-  v48[10] = v27;
+  v47[10] = v27;
   *&v28 = v10;
   v29 = [MEMORY[0x277CCABB0] numberWithFloat:v28];
-  v49[10] = v29;
-  v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v49 forKeys:v48 count:11];
+  v48[10] = v29;
+  v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v48 forKeys:v47 count:11];
 
-  v30 = *MEMORY[0x277D85DE8];
-
-  return v32;
+  return v31;
 }
 
 - (id)_getARPInfo
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   _getARPFailureCount = [(WiFiTriggerHandler *)self _getARPFailureCount];
   v3 = _getARPFailureCount;
   if (_getARPFailureCount == 2)
@@ -642,23 +635,21 @@ LABEL_20:
   }
 
   v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:kSymptomManagedEventKeyTriggerScore];
-  v13[0] = v6;
+  v12[0] = v6;
   v7 = [MEMORY[0x277CCABB0] numberWithInt:v5];
-  v14[0] = v7;
+  v13[0] = v7;
   v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:kSymptomManagedEventKeyTriggerScoreInfo];
-  v13[1] = v8;
+  v12[1] = v8;
   v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"Current ARP symptoms: %d", v3];
-  v14[1] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v13[1] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
 
   return v10;
 }
 
 - (id)_getND6Info
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   _getND6FailureCount = [(WiFiTriggerHandler *)self _getND6FailureCount];
   v3 = _getND6FailureCount;
   if (_getND6FailureCount == 2)
@@ -682,28 +673,26 @@ LABEL_20:
   }
 
   v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:kSymptomManagedEventKeyTriggerScore];
-  v13[0] = v6;
+  v12[0] = v6;
   v7 = [MEMORY[0x277CCABB0] numberWithInt:v5];
-  v14[0] = v7;
+  v13[0] = v7;
   v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:kSymptomManagedEventKeyTriggerScoreInfo];
-  v13[1] = v8;
+  v12[1] = v8;
   v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"Current ND6 symptoms: %d", v3];
-  v14[1] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v13[1] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
 
   return v10;
 }
 
 - (id)_getDNSInfo
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
+  v12 = 0;
   v13 = 0;
-  v14 = 0;
-  v2 = [NetworkAnalyticsEngine getDNSCountsOn:3 total:&v14 impacted:&v13];
+  v2 = [NetworkAnalyticsEngine getDNSCountsOn:3 total:&v13 impacted:&v12];
   v3 = v2;
-  if (v13 == 1)
+  if (v12 == 1)
   {
     v4 = 25;
   }
@@ -713,7 +702,7 @@ LABEL_20:
     v4 = 0;
   }
 
-  if (v2 && v13 > 0)
+  if (v2 && v12 > 0)
   {
     v5 = v4;
   }
@@ -724,94 +713,84 @@ LABEL_20:
   }
 
   v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:kSymptomManagedEventKeyTriggerScore];
-  v15[0] = v6;
+  v14[0] = v6;
   v7 = [MEMORY[0x277CCABB0] numberWithInt:v5];
-  v16[0] = v7;
+  v15[0] = v7;
   v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:kSymptomManagedEventKeyTriggerScoreInfo];
-  v15[1] = v8;
-  v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"Current DNS servers total %ld, impacted : %ld valid %d", v14, v13, v3];
-  v16[1] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v14[1] = v8;
+  v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"Current DNS servers total %ld, impacted : %ld valid %d", v13, v12, v3];
+  v15[1] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
 
   return v10;
 }
 
 - (int64_t)_getDataStallsScore
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if ((forceNoGate & 1) == 0 && !gOpenedTimestamp)
   {
-    goto LABEL_14;
+    return 50;
   }
 
   v2 = [DataStallHandler uniqStallCountForInterfaceType:1 stallType:1 foregroundOnly:1 since:gOpenedTimestamp];
   v3 = rnfLogHandle;
   if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 134217984;
-    v13 = v2;
-    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEFAULT, "Data Stall count: %lu", &v12, 0xCu);
+    v11 = 134217984;
+    v12 = v2;
+    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEFAULT, "Data Stall count: %lu", &v11, 0xCu);
   }
 
-  if (v2)
+  if (!v2)
   {
-    if (v2 > 2)
-    {
-      v9 = 0;
-    }
+    return 50;
+  }
 
-    else
+  if (v2 > 2)
+  {
+    return 0;
+  }
+
+  v4 = +[TrackedFlow getPolledFlowInfo];
+  if (v4)
+  {
+    v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:kSymptomManagedEventKeyTriggerScore];
+    v6 = [v4 objectForKeyedSubscript:v5];
+
+    if (v6)
     {
-      v4 = +[TrackedFlow getPolledFlowInfo];
-      if (v4)
+      intValue = [v6 intValue];
+      v8 = rnfLogHandle;
+      if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
       {
-        v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:kSymptomManagedEventKeyTriggerScore];
-        v6 = [v4 objectForKeyedSubscript:v5];
+        v11 = 67109120;
+        LODWORD(v12) = intValue;
+        _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, "Data Stall consults polled flow score: %d", &v11, 8u);
+      }
 
-        if (v6)
-        {
-          intValue = [v6 intValue];
-          v8 = rnfLogHandle;
-          if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
-          {
-            v12 = 67109120;
-            LODWORD(v13) = intValue;
-            _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, "Data Stall consults polled flow score: %d", &v12, 8u);
-          }
-
-          if (intValue)
-          {
-            v9 = 25;
-          }
-
-          else
-          {
-            v9 = 0;
-          }
-        }
-
-        else
-        {
-          v9 = 25;
-        }
+      if (intValue)
+      {
+        v9 = 25;
       }
 
       else
       {
-        v9 = 25;
+        v9 = 0;
       }
+    }
+
+    else
+    {
+      v9 = 25;
     }
   }
 
   else
   {
-LABEL_14:
-    v9 = 50;
+    v9 = 25;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -849,7 +828,7 @@ LABEL_14:
 
 - (id)_getNetScoreInfo
 {
-  v41[3] = *MEMORY[0x277D85DE8];
+  v40[3] = *MEMORY[0x277D85DE8];
   _getARPInfo = [(WiFiTriggerHandler *)self _getARPInfo];
   _getND6Info = [(WiFiTriggerHandler *)self _getND6Info];
   _getDNSInfo = [(WiFiTriggerHandler *)self _getDNSInfo];
@@ -877,7 +856,7 @@ LABEL_14:
     intValue = 50;
   }
 
-  v37 = _getND6Info;
+  v36 = _getND6Info;
   if (_getND6Info)
   {
     v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:kSymptomManagedEventKeyTriggerScore];
@@ -899,7 +878,7 @@ LABEL_14:
     intValue2 = 50;
   }
 
-  v36 = _getDNSInfo;
+  v35 = _getDNSInfo;
   if (_getDNSInfo)
   {
     v14 = [MEMORY[0x277CCACA8] stringWithUTF8String:kSymptomManagedEventKeyTriggerScore];
@@ -915,28 +894,28 @@ LABEL_14:
       intValue3 = 50;
     }
 
-    v31 = _getDNSInfo;
+    v30 = _getDNSInfo;
   }
 
   else
   {
     intValue3 = 50;
-    v31 = @"No further info";
+    v30 = @"No further info";
   }
 
   v17 = [(WiFiTriggerHandler *)self combineScoreARP:intValue ND6:intValue2 DNS:intValue3 RTT:50 flows:50];
-  v35 = [MEMORY[0x277CCACA8] stringWithUTF8String:kSymptomManagedEventKeyTriggerNetScore];
-  v40[0] = v35;
-  v34 = [MEMORY[0x277CCABB0] numberWithInt:v17];
-  v41[0] = v34;
+  v34 = [MEMORY[0x277CCACA8] stringWithUTF8String:kSymptomManagedEventKeyTriggerNetScore];
+  v39[0] = v34;
+  v33 = [MEMORY[0x277CCABB0] numberWithInt:v17];
+  v40[0] = v33;
   v18 = [MEMORY[0x277CCACA8] stringWithUTF8String:kSymptomManagedEventKeyTriggerAWDInfo];
-  v40[1] = v18;
-  v41[1] = v7;
+  v39[1] = v18;
+  v40[1] = v7;
   v19 = [MEMORY[0x277CCACA8] stringWithUTF8String:kSymptomManagedEventKeyTriggerNetScoreReasons];
-  v40[2] = v19;
+  v39[2] = v19;
   [MEMORY[0x277CCACA8] stringWithUTF8String:kSymptomManagedEventKeyTriggerARPState];
-  v20 = v33 = v7;
-  v38[0] = v20;
+  v20 = v32 = v7;
+  v37[0] = v20;
   if (_getARPInfo)
   {
     v21 = _getARPInfo;
@@ -947,13 +926,13 @@ LABEL_14:
     v21 = @"No further info";
   }
 
-  v39[0] = v21;
+  v38[0] = v21;
   [MEMORY[0x277CCACA8] stringWithUTF8String:kSymptomManagedEventKeyTriggerND6State];
-  v22 = v32 = _getARPInfo;
-  v38[1] = v22;
-  if (v37)
+  v22 = v31 = _getARPInfo;
+  v37[1] = v22;
+  if (v36)
   {
-    v23 = v37;
+    v23 = v36;
   }
 
   else
@@ -961,21 +940,19 @@ LABEL_14:
     v23 = @"No further info";
   }
 
-  v39[1] = v23;
+  v38[1] = v23;
   v24 = [MEMORY[0x277CCACA8] stringWithUTF8String:kSymptomManagedEventKeyTriggerDNSState];
-  v38[2] = v24;
-  v39[2] = v31;
+  v37[2] = v24;
+  v38[2] = v30;
   v25 = [MEMORY[0x277CCACA8] stringWithUTF8String:kSymptomManagedEventKeyTriggerRTTState];
-  v38[3] = v25;
-  v39[3] = @"No further info";
+  v37[3] = v25;
+  v38[3] = @"No further info";
   v26 = [MEMORY[0x277CCACA8] stringWithUTF8String:kSymptomManagedEventKeyTriggerFlowState];
-  v38[4] = v26;
-  v39[4] = @"No further info";
-  v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:v38 count:5];
-  v41[2] = v27;
-  v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v41 forKeys:v40 count:3];
-
-  v29 = *MEMORY[0x277D85DE8];
+  v37[4] = v26;
+  v38[4] = @"No further info";
+  v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:v37 count:5];
+  v40[2] = v27;
+  v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:v39 count:3];
 
   return v28;
 }
@@ -1044,7 +1021,7 @@ void __69__WiFiTriggerHandler_generateInfoForId_context_uuid_completionBlock___b
 
 void __69__WiFiTriggerHandler_generateInfoForId_context_uuid_completionBlock___block_invoke_2(uint64_t a1)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEB38];
   v3 = [*(a1 + 32) _getNetScoreInfo];
   v4 = [v2 dictionaryWithDictionary:v3];
@@ -1057,9 +1034,9 @@ void __69__WiFiTriggerHandler_generateInfoForId_context_uuid_completionBlock___b
       v6 = *(a1 + 40);
       v7 = v6;
       v8 = v5;
-      v34 = 136315138;
-      *v35 = [v6 UTF8String];
-      _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, "More info %s", &v34, 0xCu);
+      v33 = 136315138;
+      *v34 = [v6 UTF8String];
+      _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, "More info %s", &v33, 0xCu);
     }
 
     v9 = rnfLogHandle;
@@ -1071,13 +1048,13 @@ void __69__WiFiTriggerHandler_generateInfoForId_context_uuid_completionBlock___b
       v13 = v12;
       v14 = v9;
       v15 = [v12 UTF8String];
-      v34 = 67109634;
-      *v35 = v10;
-      *&v35[4] = 2048;
-      *&v35[6] = v11;
-      v36 = 2080;
-      v37 = v15;
-      _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_DEFAULT, "Also flags %d  count %llu  details %s", &v34, 0x1Cu);
+      v33 = 67109634;
+      *v34 = v10;
+      *&v34[4] = 2048;
+      *&v34[6] = v11;
+      v35 = 2080;
+      v36 = v15;
+      _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_DEFAULT, "Also flags %d  count %llu  details %s", &v33, 0x1Cu);
     }
 
     v16 = [MEMORY[0x277CCACA8] stringWithUTF8String:kSymptomManagedEventKeyTriggerNetScore];
@@ -1145,22 +1122,20 @@ void __69__WiFiTriggerHandler_generateInfoForId_context_uuid_completionBlock___b
   {
     (*(*(a1 + 48) + 16))();
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (void)checkUniqueStallCountOnInterfaceType:(int64_t)type stallType:(unint64_t)stallType
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (((forceNoGate & 1) != 0 || gOpenedTimestamp) && type == 1 && stallType == 1)
   {
     v4 = [(DataStallHandler *)self->_dataStallHandler uniqStallCountForInterfaceType:1 stallType:1 foregroundOnly:1 since:gOpenedTimestamp];
     v5 = rnfLogHandle;
     if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
     {
-      v7[0] = 67109120;
-      v7[1] = v4;
-      _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "Incoming checkUniqueStallCountOnInterfaceType has %d uniques", v7, 8u);
+      v6[0] = 67109120;
+      v6[1] = v4;
+      _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "Incoming checkUniqueStallCountOnInterfaceType has %d uniques", v6, 8u);
     }
 
     if (v4)
@@ -1169,8 +1144,6 @@ void __69__WiFiTriggerHandler_generateInfoForId_context_uuid_completionBlock___b
       internal_symptom_send();
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)noteSymptom:(id)symptom
@@ -1291,7 +1264,7 @@ LABEL_16:
 
 - (void)dampeningStage:(id)stage
 {
-  *&v31[5] = *MEMORY[0x277D85DE8];
+  *&v30[5] = *MEMORY[0x277D85DE8];
   stageCopy = stage;
   date = [MEMORY[0x277CBEAA8] date];
   [date timeIntervalSince1970];
@@ -1305,9 +1278,9 @@ LABEL_16:
     if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       syndromeUTF8Name = self->_syndromeUTF8Name;
-      v28 = 136315138;
-      v29 = syndromeUTF8Name;
-      _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEFAULT, "WiFi Trigger Syndrome Handler about to cause event for %s", &v28, 0xCu);
+      v27 = 136315138;
+      v28 = syndromeUTF8Name;
+      _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEFAULT, "WiFi Trigger Syndrome Handler about to cause event for %s", &v27, 0xCu);
     }
 
     additionalInfo = [stageCopy additionalInfo];
@@ -1349,11 +1322,11 @@ LABEL_16:
         v26 = rnfLogHandle;
         if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_INFO))
         {
-          v28 = 138412546;
-          v29 = v20;
-          v30 = 2112;
-          *v31 = v22;
-          _os_log_impl(&dword_23255B000, v26, OS_LOG_TYPE_INFO, "WiFi Ignore DNS trigger, DNS conditions changed back to total %@  impacted %@", &v28, 0x16u);
+          v27 = 138412546;
+          v28 = v20;
+          v29 = 2112;
+          *v30 = v22;
+          _os_log_impl(&dword_23255B000, v26, OS_LOG_TYPE_INFO, "WiFi Ignore DNS trigger, DNS conditions changed back to total %@  impacted %@", &v27, 0x16u);
         }
 
         goto LABEL_22;
@@ -1377,23 +1350,21 @@ LABEL_22:
   {
     v10 = self->_syndromeUTF8Name;
     v11 = (v7 - self->_lastReportTime);
-    v28 = 136315650;
-    v29 = v10;
-    v30 = 1024;
-    *v31 = v11;
-    v31[2] = 1024;
-    *&v31[3] = gDampeningInterval;
-    _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "WiFi Trigger Ignore syndrome  %s, too close in time to previous evaluation (%d secs, need %d secs)", &v28, 0x18u);
+    v27 = 136315650;
+    v28 = v10;
+    v29 = 1024;
+    *v30 = v11;
+    v30[2] = 1024;
+    *&v30[3] = gDampeningInterval;
+    _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "WiFi Trigger Ignore syndrome  %s, too close in time to previous evaluation (%d secs, need %d secs)", &v27, 0x18u);
   }
 
 LABEL_23:
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)insufficientRxTrafficDetectedFrom:(id)from atTime:(id)time To:(id)to
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   timeCopy = time;
   toCopy = to;
@@ -1404,42 +1375,42 @@ LABEL_23:
       firstObject = [fromCopy firstObject];
       firstObject2 = [toCopy firstObject];
       v13 = [firstObject objectForKeyedSubscript:@"bytesIn"];
-      v45 = [firstObject objectForKeyedSubscript:@"rxOOOBytes"];
-      v44 = [firstObject objectForKeyedSubscript:@"rxDupeBytes"];
+      v44 = [firstObject objectForKeyedSubscript:@"rxOOOBytes"];
+      v43 = [firstObject objectForKeyedSubscript:@"rxDupeBytes"];
       v14 = [firstObject2 objectForKeyedSubscript:@"bytesIn"];
       v15 = [firstObject2 objectForKeyedSubscript:@"rxOOOBytes"];
       [firstObject2 objectForKeyedSubscript:@"rxDupeBytes"];
-      v43 = v42 = firstObject;
-      if (v13 && v45 && v44 && v14 && v15 && v43 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+      v42 = v41 = firstObject;
+      if (v13 && v44 && v43 && v14 && v15 && v42 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
       {
         longLongValue = [v13 longLongValue];
-        longLongValue2 = [v45 longLongValue];
-        v18 = longLongValue - (longLongValue2 + [v44 longLongValue]);
+        longLongValue2 = [v44 longLongValue];
+        v18 = longLongValue - (longLongValue2 + [v43 longLongValue]);
         longLongValue3 = [v14 longLongValue];
         longLongValue4 = [v15 longLongValue];
-        v37 = longLongValue3 - (longLongValue4 + [v43 longLongValue]);
-        v38 = v18;
-        v20 = v37 - v18;
+        v36 = longLongValue3 - (longLongValue4 + [v42 longLongValue]);
+        v37 = v18;
+        v20 = v36 - v18;
         date = [MEMORY[0x277CBEAA8] date];
         self->_lastRefutePeriodTraffic = v20;
         [date timeIntervalSinceDate:timeCopy];
         self->_lastRefutePeriodDuration = v22;
-        v41 = date;
+        v40 = date;
         objc_storeStrong(&self->_lastRefutePeriodTimestamp, date);
         v23 = rnfLogHandle;
         v24 = os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT);
-        v39 = v14;
+        v38 = v14;
         v25 = v13;
         if (v20 <= 0)
         {
           if (v24)
           {
             *buf = 134218496;
-            v47 = v20;
-            v48 = 2048;
-            v49 = v37;
-            v50 = 2048;
-            v51 = v38;
+            v46 = v20;
+            v47 = 2048;
+            v48 = v36;
+            v49 = 2048;
+            v50 = v37;
             _os_log_impl(&dword_23255B000, v23, OS_LOG_TYPE_DEFAULT, "Insufficient progress %lld, current Rx %lld, baseline %lld", buf, 0x20u);
           }
 
@@ -1451,47 +1422,47 @@ LABEL_23:
           if (v24)
           {
             *buf = 134218496;
-            v47 = v20;
-            v48 = 2048;
-            v49 = v37;
-            v50 = 2048;
-            v51 = v38;
+            v46 = v20;
+            v47 = 2048;
+            v48 = v36;
+            v49 = 2048;
+            v50 = v37;
             _os_log_impl(&dword_23255B000, v23, OS_LOG_TYPE_DEFAULT, "Sufficient progress %lld, current Rx %lld changed from baseline %lld", buf, 0x20u);
           }
 
           v26 = 0;
         }
 
-        v35 = v44;
-        v34 = v45;
-        v31 = v15;
-        v32 = v39;
+        v34 = v43;
+        v33 = v44;
+        v30 = v15;
+        v31 = v38;
       }
 
       else
       {
         v25 = v13;
-        v31 = v15;
-        v32 = v14;
-        v33 = rnfLogHandle;
+        v30 = v15;
+        v31 = v14;
+        v32 = rnfLogHandle;
         if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_ERROR))
         {
           *buf = 134219264;
-          v47 = v25;
-          v48 = 2048;
-          v35 = v44;
-          v34 = v45;
-          v49 = v45;
-          v50 = 2048;
-          v51 = v44;
-          v52 = 2048;
-          v53 = v32;
-          v54 = 2048;
-          v55 = v31;
-          v56 = 2048;
-          v57 = v43;
-          _os_log_impl(&dword_23255B000, v33, OS_LOG_TYPE_ERROR, "Validation fail, ptrs %p %p %p %p %p %p", buf, 0x3Eu);
-          v36 = v43;
+          v46 = v25;
+          v47 = 2048;
+          v34 = v43;
+          v33 = v44;
+          v48 = v44;
+          v49 = 2048;
+          v50 = v43;
+          v51 = 2048;
+          v52 = v31;
+          v53 = 2048;
+          v54 = v30;
+          v55 = 2048;
+          v56 = v42;
+          _os_log_impl(&dword_23255B000, v32, OS_LOG_TYPE_ERROR, "Validation fail, ptrs %p %p %p %p %p %p", buf, 0x3Eu);
+          v35 = v42;
           v26 = 0;
 LABEL_32:
 
@@ -1499,11 +1470,11 @@ LABEL_32:
         }
 
         v26 = 0;
-        v35 = v44;
-        v34 = v45;
+        v34 = v43;
+        v33 = v44;
       }
 
-      v36 = v43;
+      v35 = v42;
       goto LABEL_32;
     }
 
@@ -1531,7 +1502,6 @@ LABEL_25:
   v26 = 0;
 LABEL_27:
 
-  v29 = *MEMORY[0x277D85DE8];
   return v26;
 }
 
@@ -1605,16 +1575,16 @@ LABEL_11:
 
 void __34__WiFiTriggerHandler_refuteStage___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = rnfLogHandle;
   if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     v6 = v5;
     v7 = [v4 description];
-    v13 = 136315138;
-    v14 = [v7 UTF8String];
-    _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "baseline result %s", &v13, 0xCu);
+    v12 = 136315138;
+    v13 = [v7 UTF8String];
+    _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "baseline result %s", &v12, 0xCu);
   }
 
   v8 = *(a1 + 32);
@@ -1626,8 +1596,6 @@ void __34__WiFiTriggerHandler_refuteStage___block_invoke(uint64_t a1, void *a2)
     v11 = *(v10 + 120);
     *(v10 + 120) = v9;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __34__WiFiTriggerHandler_refuteStage___block_invoke_83(uint64_t a1)
@@ -1676,7 +1644,7 @@ void __34__WiFiTriggerHandler_refuteStage___block_invoke_83(uint64_t a1)
 
 void __34__WiFiTriggerHandler_refuteStage___block_invoke_2(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = rnfLogHandle;
   if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
@@ -1684,28 +1652,26 @@ void __34__WiFiTriggerHandler_refuteStage___block_invoke_2(uint64_t a1, void *a2
     v5 = v4;
     v6 = [v3 description];
     *buf = 136315138;
-    v15 = [v6 UTF8String];
+    v14 = [v6 UTF8String];
     _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "later result %s", buf, 0xCu);
   }
 
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __34__WiFiTriggerHandler_refuteStage___block_invoke_84;
-  v10[3] = &unk_27898A758;
-  v13 = *(a1 + 48);
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __34__WiFiTriggerHandler_refuteStage___block_invoke_84;
+  v9[3] = &unk_27898A758;
+  v12 = *(a1 + 48);
   v7 = *(a1 + 40);
-  v10[4] = *(a1 + 32);
-  v11 = v3;
-  v12 = v7;
+  v9[4] = *(a1 + 32);
+  v10 = v3;
+  v11 = v7;
   v8 = v3;
-  dispatch_async(MEMORY[0x277D85CD0], v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  dispatch_async(MEMORY[0x277D85CD0], v9);
 }
 
 void __34__WiFiTriggerHandler_refuteStage___block_invoke_84(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 56);
   v3 = *(a1 + 32);
   if (v2 == *(v3 + 128))
@@ -1720,9 +1686,9 @@ void __34__WiFiTriggerHandler_refuteStage___block_invoke_84(uint64_t a1)
         v7 = *(*(a1 + 32) + 120);
         v8 = v5;
         [v7 timeIntervalSinceNow];
-        v18 = 134217984;
-        v19 = -v9;
-        _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, "refute stage finds insufficient traffic after %f secs to suppress notification, passthrough", &v18, 0xCu);
+        v17 = 134217984;
+        v18 = -v9;
+        _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, "refute stage finds insufficient traffic after %f secs to suppress notification, passthrough", &v17, 0xCu);
       }
 
       [*(a1 + 32) dampeningStage:*(a1 + 48)];
@@ -1730,8 +1696,8 @@ void __34__WiFiTriggerHandler_refuteStage___block_invoke_84(uint64_t a1)
 
     else if (v6)
     {
-      LOWORD(v18) = 0;
-      _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "skip, refute stage suppresses notification", &v18, 2u);
+      LOWORD(v17) = 0;
+      _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "skip, refute stage suppresses notification", &v17, 2u);
     }
 
     v11 = *(a1 + 32);
@@ -1752,25 +1718,23 @@ void __34__WiFiTriggerHandler_refuteStage___block_invoke_84(uint64_t a1)
     v10 = rnfLogHandle;
     if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v18) = 0;
-      _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEFAULT, "skip, delayed result produced when no longer wanted", &v18, 2u);
+      LOWORD(v17) = 0;
+      _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEFAULT, "skip, delayed result produced when no longer wanted", &v17, 2u);
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didReceiveSyndrome:(id)syndrome
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   syndromeCopy = syndrome;
   v6 = rnfLogHandle;
   if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_INFO))
   {
     v7 = v6;
-    *v33 = 136315138;
-    *&v33[4] = [syndromeCopy reason];
-    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_INFO, "%s", v33, 0xCu);
+    *v32 = 136315138;
+    *&v32[4] = [syndromeCopy reason];
+    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_INFO, "%s", v32, 0xCu);
   }
 
   if (!self->_eventHandler)
@@ -1784,11 +1748,11 @@ void __34__WiFiTriggerHandler_refuteStage___block_invoke_84(uint64_t a1)
     {
       syndromeUTF8Name = self->_syndromeUTF8Name;
       v11 = self->_eventHandler;
-      *v33 = 134218242;
-      *&v33[4] = v11;
-      v34 = 2080;
-      v35 = syndromeUTF8Name;
-      _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEFAULT, "WiFi Trigger Syndrome Handler allocated Managed Event Handler at %p for %s", v33, 0x16u);
+      *v32 = 134218242;
+      *&v32[4] = v11;
+      v33 = 2080;
+      v34 = syndromeUTF8Name;
+      _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEFAULT, "WiFi Trigger Syndrome Handler allocated Managed Event Handler at %p for %s", v32, 0x16u);
     }
   }
 
@@ -1801,8 +1765,8 @@ void __34__WiFiTriggerHandler_refuteStage___block_invoke_84(uint64_t a1)
       v17 = rnfLogHandle;
       if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
       {
-        *v33 = 0;
-        _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_DEFAULT, "DNS failure tell health status stage", v33, 2u);
+        *v32 = 0;
+        _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_DEFAULT, "DNS failure tell health status stage", v32, 2u);
       }
 
       v15 = "dns-failure";
@@ -1813,8 +1777,8 @@ LABEL_9:
       v14 = rnfLogHandle;
       if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
       {
-        *v33 = 0;
-        _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_DEFAULT, "ARP/ND6 failure tell health status stage", v33, 2u);
+        *v32 = 0;
+        _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_DEFAULT, "ARP/ND6 failure tell health status stage", v32, 2u);
       }
 
       v15 = "arp-failure";
@@ -1855,9 +1819,9 @@ LABEL_23:
     if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       v26 = self->_syndromeUTF8Name;
-      *v33 = 136315138;
-      *&v33[4] = v26;
-      _os_log_impl(&dword_23255B000, v25, OS_LOG_TYPE_DEFAULT, "Queue syndrome  %s, disallowed by RSSI at the moment)", v33, 0xCu);
+      *v32 = 136315138;
+      *&v32[4] = v26;
+      _os_log_impl(&dword_23255B000, v25, OS_LOG_TYPE_DEFAULT, "Queue syndrome  %s, disallowed by RSSI at the moment)", v32, 0xCu);
     }
 
     objc_storeStrong(&gQueuedHandler, self);
@@ -1879,10 +1843,10 @@ LABEL_23:
       {
         if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
         {
-          *v33 = 0;
+          *v32 = 0;
           v24 = "Deal immediately with polled flow signatures";
 LABEL_58:
-          _os_log_impl(&dword_23255B000, v23, OS_LOG_TYPE_DEFAULT, v24, v33, 2u);
+          _os_log_impl(&dword_23255B000, v23, OS_LOG_TYPE_DEFAULT, v24, v32, 2u);
           goto LABEL_59;
         }
 
@@ -1891,7 +1855,7 @@ LABEL_58:
 
       if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
       {
-        *v33 = 0;
+        *v32 = 0;
         v29 = "Deliberate skip, RTT triggers disabled for now";
         goto LABEL_53;
       }
@@ -1903,7 +1867,7 @@ LABEL_58:
     {
       if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
       {
-        *v33 = 0;
+        *v32 = 0;
         v24 = "Deal immediately with ND6 signatures";
         goto LABEL_58;
       }
@@ -1915,13 +1879,13 @@ LABEL_58:
     {
       if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
       {
-        *v33 = 0;
+        *v32 = 0;
         v24 = "Data Stall syndrome";
         goto LABEL_58;
       }
 
 LABEL_59:
-      [(WiFiTriggerHandler *)self dampeningStage:syndromeCopy, *v33];
+      [(WiFiTriggerHandler *)self dampeningStage:syndromeCopy, *v32];
       goto LABEL_60;
     }
 
@@ -1930,9 +1894,9 @@ LABEL_49:
     {
       v30 = v23;
       reasonCode4 = [syndromeCopy reasonCode];
-      *v33 = 134217984;
-      *&v33[4] = reasonCode4;
-      _os_log_impl(&dword_23255B000, v30, OS_LOG_TYPE_ERROR, "Unknown AWD code %llu for wifi trigger disconnect", v33, 0xCu);
+      *v32 = 134217984;
+      *&v32[4] = reasonCode4;
+      _os_log_impl(&dword_23255B000, v30, OS_LOG_TYPE_ERROR, "Unknown AWD code %llu for wifi trigger disconnect", v32, 0xCu);
     }
 
     goto LABEL_60;
@@ -1944,7 +1908,7 @@ LABEL_49:
     {
       if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
       {
-        *v33 = 0;
+        *v32 = 0;
         v24 = "Deal immediately with ARP signatures";
         goto LABEL_58;
       }
@@ -1956,8 +1920,8 @@ LABEL_49:
     {
       if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
       {
-        *v33 = 0;
-        _os_log_impl(&dword_23255B000, v23, OS_LOG_TYPE_DEFAULT, "DNS trigger calls refute stage", v33, 2u);
+        *v32 = 0;
+        _os_log_impl(&dword_23255B000, v23, OS_LOG_TYPE_DEFAULT, "DNS trigger calls refute stage", v32, 2u);
       }
 
       [(WiFiTriggerHandler *)self refuteStage:syndromeCopy];
@@ -1969,22 +1933,21 @@ LABEL_49:
 
   if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    *v33 = 0;
+    *v32 = 0;
     v29 = "Deliberate skip, Flow triggers disabled for now";
 LABEL_53:
-    _os_log_impl(&dword_23255B000, v23, OS_LOG_TYPE_DEFAULT, v29, v33, 2u);
+    _os_log_impl(&dword_23255B000, v23, OS_LOG_TYPE_DEFAULT, v29, v32, 2u);
   }
 
 LABEL_60:
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 + (void)getHandlerByName:(char *)a1 .cold.1(char **a1)
 {
   if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_FAULT))
   {
-    OUTLINED_FUNCTION_0_1(&dword_23255B000, v2, v3, "strdup() failed", v4, v5, v6, v7, 0);
+    v8 = 0;
+    OUTLINED_FUNCTION_0_1(&dword_23255B000, v2, v3, "strdup() failed", v4, v5, v6, v7, v8);
   }
 
   *a1 = 0;
@@ -1997,7 +1960,8 @@ LABEL_60:
 {
   if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_FAULT))
   {
-    OUTLINED_FUNCTION_0_1(&dword_23255B000, v2, v3, "strict_strdup called with NULL string", v4, v5, v6, v7, 0);
+    v8 = 0;
+    OUTLINED_FUNCTION_0_1(&dword_23255B000, v2, v3, "strict_strdup called with NULL string", v4, v5, v6, v7, v8);
   }
 
   *a1 = 0;

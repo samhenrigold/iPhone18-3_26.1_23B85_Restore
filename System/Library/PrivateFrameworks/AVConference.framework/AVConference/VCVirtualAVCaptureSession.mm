@@ -111,7 +111,7 @@ LABEL_14:
   [(VCVirtualAVCaptureSession *)&v5 dealloc];
 }
 
-uint64_t __36__VCVirtualAVCaptureSession_dealloc__block_invoke(uint64_t a1)
+void *__36__VCVirtualAVCaptureSession_dealloc__block_invoke(uint64_t a1)
 {
   v11 = *MEMORY[0x1E69E9840];
   v7 = 0u;
@@ -134,7 +134,8 @@ uint64_t __36__VCVirtualAVCaptureSession_dealloc__block_invoke(uint64_t a1)
           objc_enumerationMutation(v1);
         }
 
-        [*(*(&v7 + 1) + 8 * v5++) invalidate];
+        [*(*(&v7 + 1) + 8 * v5) invalidate];
+        v5 = v5 + 1;
       }
 
       while (v3 != v5);
@@ -748,21 +749,21 @@ uint64_t __42__VCVirtualAVCaptureSession_removeOutput___block_invoke(uint64_t a1
   return [v3 removeObject:v2];
 }
 
-uint64_t __40__VCVirtualAVCaptureSession_connections__block_invoke(uint64_t a1)
+void *__40__VCVirtualAVCaptureSession_connections__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 40) allObjects];
   *(*(*(a1 + 40) + 8) + 40) = result;
   return result;
 }
 
-uint64_t __35__VCVirtualAVCaptureSession_inputs__block_invoke(uint64_t a1)
+void *__35__VCVirtualAVCaptureSession_inputs__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 24) allObjects];
   *(*(*(a1 + 40) + 8) + 40) = result;
   return result;
 }
 
-uint64_t __36__VCVirtualAVCaptureSession_outputs__block_invoke(uint64_t a1)
+void *__36__VCVirtualAVCaptureSession_outputs__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 32) allObjects];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -776,22 +777,22 @@ uint64_t __36__VCVirtualAVCaptureSession_outputs__block_invoke(uint64_t a1)
   [defaultCenter postNotificationName:notification object:self];
 }
 
-uint64_t __48__VCVirtualAVCaptureSession_commitConfiguration__block_invoke(uint64_t result)
+void *__48__VCVirtualAVCaptureSession_commitConfiguration__block_invoke(void *result)
 {
   v1 = result;
   v16 = *MEMORY[0x1E69E9840];
-  v2 = *(result + 32);
+  v2 = result[4];
   v3 = *(v2 + 56);
   v4 = *(v2 + 48);
   if (!v3 || !v4)
   {
     result = [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D930] format:{@"commitConfiguration invalid state. _configurationCount=%d, _batchedConfigurations=%@", v3, v4}];
-    v2 = *(v1 + 32);
+    v2 = v1[4];
     LODWORD(v3) = *(v2 + 56);
   }
 
   *(v2 + 56) = v3 - 1;
-  v5 = *(v1 + 32);
+  v5 = v1[4];
   if (!*(v5 + 56))
   {
     v14 = 0u;
@@ -822,7 +823,7 @@ uint64_t __48__VCVirtualAVCaptureSession_commitConfiguration__block_invoke(uint6
       while (v8);
     }
 
-    return [*(*(v1 + 32) + 48) removeAllObjects];
+    return [*(v1[4] + 48) removeAllObjects];
   }
 
   return result;
@@ -922,10 +923,10 @@ uint64_t __48__VCVirtualAVCaptureSession_commitConfiguration__block_invoke(uint6
   if (stateQueue)
   {
     OUTLINED_FUNCTION_3_44();
-    OUTLINED_FUNCTION_12_16(v10, v11, v12, v13, v14, v15, v16, v17, v19, v20, 3221225472, v21, v22, v23, v24);
+    OUTLINED_FUNCTION_12_16(v11, v12, v13, v14, v15, v16, v17, v18, v20, v21, 3221225472, v23, v24, v25, v26);
   }
 
-  OUTLINED_FUNCTION_7_30(stateQueue, v3, v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_7_30(stateQueue, v3, v4, v5, v6, v7, v8, v9, v20, v21, v22, v23, v24, v25);
   return self;
 }
 
@@ -938,10 +939,10 @@ uint64_t __48__VCVirtualAVCaptureSession_commitConfiguration__block_invoke(uint6
   if (stateQueue)
   {
     OUTLINED_FUNCTION_3_44();
-    OUTLINED_FUNCTION_12_16(v10, v11, v12, v13, v14, v15, v16, v17, v19, v20, 3221225472, v21, v22, v23, v24);
+    OUTLINED_FUNCTION_12_16(v11, v12, v13, v14, v15, v16, v17, v18, v20, v21, 3221225472, v23, v24, v25, v26);
   }
 
-  OUTLINED_FUNCTION_7_30(stateQueue, v3, v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_7_30(stateQueue, v3, v4, v5, v6, v7, v8, v9, v20, v21, v22, v23, v24, v25);
   return self;
 }
 
@@ -954,10 +955,10 @@ uint64_t __48__VCVirtualAVCaptureSession_commitConfiguration__block_invoke(uint6
   if (stateQueue)
   {
     OUTLINED_FUNCTION_3_44();
-    OUTLINED_FUNCTION_12_16(v10, v11, v12, v13, v14, v15, v16, v17, v19, v20, 3221225472, v21, v22, v23, v24);
+    OUTLINED_FUNCTION_12_16(v11, v12, v13, v14, v15, v16, v17, v18, v20, v21, 3221225472, v23, v24, v25, v26);
   }
 
-  OUTLINED_FUNCTION_7_30(stateQueue, v3, v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_7_30(stateQueue, v3, v4, v5, v6, v7, v8, v9, v20, v21, v22, v23, v24, v25);
   return self;
 }
 
@@ -998,7 +999,7 @@ uint64_t __48__VCVirtualAVCaptureSession_commitConfiguration__block_invoke(uint6
     {
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to initialize virtual capture session", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to initialize virtual capture session", v2, v3, v4, v5);
     }
   }
 }
@@ -1012,7 +1013,7 @@ void __41__VCVirtualAVCaptureSession_startRunning__block_invoke_cold_1()
     {
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Session failed to stop input devices", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Session failed to stop input devices", v2, v3, v4, v5);
     }
   }
 }
@@ -1026,7 +1027,7 @@ void __41__VCVirtualAVCaptureSession_startRunning__block_invoke_cold_2()
     {
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_21_4(&dword_1DB56E000, v0, v1, " [%s] %s:%d Session is already running", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_21_4(&dword_1DB56E000, v0, v1, " [%s] %s:%d Session is already running", v2, v3, v4, v5);
     }
   }
 }
@@ -1040,7 +1041,7 @@ void __40__VCVirtualAVCaptureSession_stopRunning__block_invoke_cold_1()
     {
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_21_4(&dword_1DB56E000, v0, v1, " [%s] %s:%d Session is already stopped", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_21_4(&dword_1DB56E000, v0, v1, " [%s] %s:%d Session is already stopped", v2, v3, v4, v5);
     }
   }
 }
@@ -1054,7 +1055,7 @@ void __40__VCVirtualAVCaptureSession_stopRunning__block_invoke_cold_2()
     {
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Session failed to stop input devices", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Session failed to stop input devices", v2, v3, v4, v5);
     }
   }
 }
@@ -1068,7 +1069,7 @@ void __40__VCVirtualAVCaptureSession_stopRunning__block_invoke_cold_2()
     {
       OUTLINED_FUNCTION_7_4();
       OUTLINED_FUNCTION_24_6();
-      OUTLINED_FUNCTION_36_3(&dword_1DB56E000, v5, v6, " [%s] %s:%d Failed to start virtual device[%p]. result=%d", v7, v8, v9, v10, v11);
+      OUTLINED_FUNCTION_36_3(&dword_1DB56E000, v5, v6, " [%s] %s:%d Failed to start virtual device[%p]. result=%d", v7, v8, v9, v10);
     }
   }
 
@@ -1084,7 +1085,7 @@ void __40__VCVirtualAVCaptureSession_stopRunning__block_invoke_cold_2()
     {
       OUTLINED_FUNCTION_7_4();
       OUTLINED_FUNCTION_24_6();
-      OUTLINED_FUNCTION_36_3(&dword_1DB56E000, v4, v5, " [%s] %s:%d Failed to stop virtual device[%p]. result=%d", v6, v7, v8, v9, v10);
+      OUTLINED_FUNCTION_36_3(&dword_1DB56E000, v4, v5, " [%s] %s:%d Failed to stop virtual device[%p]. result=%d", v6, v7, v8, v9);
     }
   }
 
@@ -1095,11 +1096,13 @@ void __40__VCVirtualAVCaptureSession_stopRunning__block_invoke_cold_2()
 {
   if (VRTraceGetErrorLogLevelForModule() >= 3)
   {
-    VRTraceErrorLogLevelToCSTR();
+    v2 = VRTraceErrorLogLevelToCSTR();
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
     {
+      LODWORD(v9) = 136315650;
+      *(&v9 + 4) = v2;
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v2, v3, " [%s] %s:%d Invalid virtual IO", v4, v5, v6, v7, 2u);
+      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v3, v4, " [%s] %s:%d Invalid virtual IO", v5, v6, v7, v8, v9, DWORD2(v9));
     }
   }
 
@@ -1110,11 +1113,13 @@ void __40__VCVirtualAVCaptureSession_stopRunning__block_invoke_cold_2()
 {
   if (VRTraceGetErrorLogLevelForModule() >= 3)
   {
-    VRTraceErrorLogLevelToCSTR();
+    v2 = VRTraceErrorLogLevelToCSTR();
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
     {
+      LODWORD(v9) = 136315650;
+      *(&v9 + 4) = v2;
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v2, v3, " [%s] %s:%d Failed to allocate connection", v4, v5, v6, v7, 2u);
+      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v3, v4, " [%s] %s:%d Failed to allocate connection", v5, v6, v7, v8, v9, DWORD2(v9));
     }
   }
 
@@ -1130,7 +1135,7 @@ void __40__VCVirtualAVCaptureSession_stopRunning__block_invoke_cold_2()
     {
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_21_4(&dword_1DB56E000, v0, v1, " [%s] %s:%d Attempting to add nil input device", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_21_4(&dword_1DB56E000, v0, v1, " [%s] %s:%d Attempting to add nil input device", v2, v3, v4, v5);
     }
   }
 }
@@ -1144,7 +1149,7 @@ void __40__VCVirtualAVCaptureSession_stopRunning__block_invoke_cold_2()
     {
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_21_4(&dword_1DB56E000, v0, v1, " [%s] %s:%d Attempting to add nil output", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_21_4(&dword_1DB56E000, v0, v1, " [%s] %s:%d Attempting to add nil output", v2, v3, v4, v5);
     }
   }
 }
@@ -1158,7 +1163,7 @@ void __40__VCVirtualAVCaptureSession_stopRunning__block_invoke_cold_2()
     {
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_21_4(&dword_1DB56E000, v0, v1, " [%s] %s:%d Attempting to remove nil input", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_21_4(&dword_1DB56E000, v0, v1, " [%s] %s:%d Attempting to remove nil input", v2, v3, v4, v5);
     }
   }
 }
@@ -1172,7 +1177,7 @@ void __40__VCVirtualAVCaptureSession_stopRunning__block_invoke_cold_2()
     {
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_21_4(&dword_1DB56E000, v0, v1, " [%s] %s:%d Attempting to remove nil output", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_21_4(&dword_1DB56E000, v0, v1, " [%s] %s:%d Attempting to remove nil output", v2, v3, v4, v5);
     }
   }
 }

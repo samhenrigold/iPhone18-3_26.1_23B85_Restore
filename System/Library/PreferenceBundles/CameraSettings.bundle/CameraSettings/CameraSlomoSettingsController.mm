@@ -1,6 +1,7 @@
 @interface CameraSlomoSettingsController
 - (id)itemsFromParent;
 - (void)emitNavigationEvent;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
 
@@ -44,6 +45,14 @@
 
   _Block_object_dispose(&v12, 8);
   [(CameraSlomoSettingsController *)self setTitle:v6];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = CameraSlomoSettingsController;
+  [(CameraSlomoSettingsController *)&v4 viewDidAppear:appear];
+  [(CameraSlomoSettingsController *)self emitNavigationEvent];
 }
 
 - (void)emitNavigationEvent

@@ -7,11 +7,14 @@
 - (id)_prepareModeConfigurationForStorage:(id)storage withError:(id *)error;
 - (id)_readModeConfigurationsReturningError:(id *)error;
 - (id)_removedModeConfigurationRecordForModeRecord:(id)record;
+- (id)_sysdiagnoseDataShouldRedact:(BOOL)redact;
 - (id)availableModesFilteringPlaceholders:(BOOL)placeholders returningError:(id *)error;
 - (id)modeConfigurationForModeIdentifier:(id)identifier withError:(id *)error;
 - (id)modeConfigurationsWithError:(id *)error;
 - (id)relevantApplicationIdentifiers;
 - (id)relevantContacts;
+- (unint64_t)_saveModeConfiguration:(id)configuration writeSecurePartition:(BOOL)partition error:(id *)error;
+- (unint64_t)_writeModeConfigurationsRecord:(id)record writeSecurePartition:(BOOL)partition error:(id *)error;
 - (unint64_t)exceptionForApplication:(id)application thread:(id)thread forModeIdentifier:(id)identifier;
 - (unint64_t)exceptionForApplicationIdentifier:(id)identifier thread:(id)thread forModeIdentifier:(id)modeIdentifier;
 - (unint64_t)exceptionForContactHandle:(id)handle forModeIdentifier:(id)identifier;
@@ -58,7 +61,7 @@
 
 - (BOOL)setModeConfiguration:(id)configuration withError:(id *)error
 {
-  v41[1] = *MEMORY[0x277D85DE8];
+  v40[1] = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   mode = [configurationCopy mode];
   modeIdentifier = [mode modeIdentifier];
@@ -69,8 +72,8 @@
     v10 = DNDSLogModeConfigurations;
     if (os_log_type_enabled(DNDSLogModeConfigurations, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v36) = 0;
-      _os_log_impl(&dword_24912E000, v10, OS_LOG_TYPE_DEFAULT, "Ignoring call to set mode configuration because it is unchanged.", &v36, 2u);
+      LOWORD(v35) = 0;
+      _os_log_impl(&dword_24912E000, v10, OS_LOG_TYPE_DEFAULT, "Ignoring call to set mode configuration because it is unchanged.", &v35, 2u);
     }
   }
 
@@ -79,8 +82,8 @@
     v11 = DNDSLogModeConfigurations;
     if (os_log_type_enabled(DNDSLogModeConfigurations, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v36) = 0;
-      _os_log_impl(&dword_24912E000, v11, OS_LOG_TYPE_DEFAULT, "Secure data will be written", &v36, 2u);
+      LOWORD(v35) = 0;
+      _os_log_impl(&dword_24912E000, v11, OS_LOG_TYPE_DEFAULT, "Secure data will be written", &v35, 2u);
     }
 
     goto LABEL_21;
@@ -96,11 +99,11 @@
 
     v13 = MEMORY[0x277CCA9B8];
     v14 = *MEMORY[0x277D05840];
-    v40 = *MEMORY[0x277CCA450];
-    v41[0] = @"Cannot store mode configuration as new configuration contains secure data and store is not writeable";
+    v39 = *MEMORY[0x277CCA450];
+    v40[0] = @"Cannot store mode configuration as new configuration contains secure data and store is not writeable";
     v15 = MEMORY[0x277CBEAC0];
-    v16 = v41;
-    v17 = &v40;
+    v16 = v40;
+    v17 = &v39;
   }
 
   else
@@ -112,8 +115,8 @@
       v24 = 0;
       if (os_log_type_enabled(DNDSLogModeConfigurations, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v36) = 0;
-        _os_log_impl(&dword_24912E000, v19, OS_LOG_TYPE_DEFAULT, "Secure data will not be written", &v36, 2u);
+        LOWORD(v35) = 0;
+        _os_log_impl(&dword_24912E000, v19, OS_LOG_TYPE_DEFAULT, "Secure data will not be written", &v35, 2u);
         v24 = 0;
       }
 
@@ -127,11 +130,11 @@
 
     v13 = MEMORY[0x277CCA9B8];
     v14 = *MEMORY[0x277D05840];
-    v38 = *MEMORY[0x277CCA450];
-    v39 = @"Cannot replace mode configuration as existing configuration has secure data and store is not writeable";
+    v37 = *MEMORY[0x277CCA450];
+    v38 = @"Cannot replace mode configuration as existing configuration has secure data and store is not writeable";
     v15 = MEMORY[0x277CBEAC0];
-    v16 = &v39;
-    v17 = &v38;
+    v16 = &v38;
+    v17 = &v37;
   }
 
   v20 = [v15 dictionaryWithObjects:v16 forKeys:v17 count:1];
@@ -169,9 +172,9 @@ LABEL_22:
         v30 = v29;
         mode3 = [configurationCopy mode];
         modeIdentifier2 = [mode3 modeIdentifier];
-        v36 = 138543362;
-        v37 = modeIdentifier2;
-        _os_log_impl(&dword_24912E000, v30, OS_LOG_TYPE_DEFAULT, "Setting mode configuration with placeholder visibility effectively removing mode configuration for system Focus by demoting to placeholder; modeIdentifier=%{public}@", &v36, 0xCu);
+        v35 = 138543362;
+        v36 = modeIdentifier2;
+        _os_log_impl(&dword_24912E000, v30, OS_LOG_TYPE_DEFAULT, "Setting mode configuration with placeholder visibility effectively removing mode configuration for system Focus by demoting to placeholder; modeIdentifier=%{public}@", &v35, 0xCu);
       }
     }
 
@@ -198,7 +201,6 @@ LABEL_28:
   *error = v21;
 LABEL_35:
 
-  v34 = *MEMORY[0x277D85DE8];
   return v23;
 }
 
@@ -223,7 +225,7 @@ LABEL_35:
 
 - (BOOL)removeModeConfigurationForModeIdentifier:(id)identifier deletePlaceholder:(BOOL)placeholder withError:(id *)error
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v9 = [(DNDSModeConfigurationManager *)self _readModeConfigurationsReturningError:error];
   v10 = [v9 modeConfigurationForModeIdentifier:identifierCopy];
@@ -237,12 +239,12 @@ LABEL_35:
     {
       if (semanticType)
       {
-        v24 = DNDSLogModeConfigurations;
+        v23 = DNDSLogModeConfigurations;
         if (os_log_type_enabled(DNDSLogModeConfigurations, OS_LOG_TYPE_DEFAULT))
         {
-          v25 = 138543362;
-          v26 = identifierCopy;
-          _os_log_impl(&dword_24912E000, v24, OS_LOG_TYPE_DEFAULT, "Removing mode configuration for custom Focus or Focus w/ unknown semantic type; modeIdentifier=%{public}@", &v25, 0xCu);
+          v24 = 138543362;
+          v25 = identifierCopy;
+          _os_log_impl(&dword_24912E000, v23, OS_LOG_TYPE_DEFAULT, "Removing mode configuration for custom Focus or Focus w/ unknown semantic type; modeIdentifier=%{public}@", &v24, 0xCu);
         }
 
         [v11 setModeConfiguration:0 forModeIdentifier:identifierCopy];
@@ -271,9 +273,9 @@ LABEL_35:
       v18 = DNDSLogModeConfigurations;
       if (os_log_type_enabled(DNDSLogModeConfigurations, OS_LOG_TYPE_DEFAULT))
       {
-        v25 = 138543362;
-        v26 = identifierCopy;
-        _os_log_impl(&dword_24912E000, v18, OS_LOG_TYPE_DEFAULT, "Removing mode configuration for system Focus by demoting to placeholder; modeIdentifier=%{public}@", &v25, 0xCu);
+        v24 = 138543362;
+        v25 = identifierCopy;
+        _os_log_impl(&dword_24912E000, v18, OS_LOG_TYPE_DEFAULT, "Removing mode configuration for system Focus by demoting to placeholder; modeIdentifier=%{public}@", &v24, 0xCu);
       }
 
       [v11 setModeConfiguration:makeRecord forModeIdentifier:identifierCopy];
@@ -295,35 +297,34 @@ LABEL_35:
     v15 = 1;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
 - (id)modeConfigurationsWithError:(id *)error
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   v6 = [(DNDSModeConfigurationManager *)self _readModeConfigurationsReturningError:error];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   modeConfigurations = [v6 modeConfigurations];
-  v8 = [modeConfigurations countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v8 = [modeConfigurations countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v21;
+    v10 = *v20;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v21 != v10)
+        if (*v20 != v10)
         {
           objc_enumerationMutation(modeConfigurations);
         }
 
-        v12 = *(*(&v20 + 1) + 8 * i);
+        v12 = *(*(&v19 + 1) + 8 * i);
         mode = [v12 mode];
         visibility = [mode visibility];
 
@@ -336,13 +337,11 @@ LABEL_35:
         }
       }
 
-      v9 = [modeConfigurations countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v9 = [modeConfigurations countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v9);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }
@@ -350,29 +349,29 @@ LABEL_35:
 - (id)availableModesFilteringPlaceholders:(BOOL)placeholders returningError:(id *)error
 {
   placeholdersCopy = placeholders;
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = [(DNDSModeConfigurationManager *)self _readModeConfigurationsReturningError:error];
   array = [MEMORY[0x277CBEB18] array];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   modeConfigurations = [v5 modeConfigurations];
-  v8 = [modeConfigurations countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v8 = [modeConfigurations countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v18;
+    v10 = *v17;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v18 != v10)
+        if (*v17 != v10)
         {
           objc_enumerationMutation(modeConfigurations);
         }
 
-        mode = [*(*(&v17 + 1) + 8 * i) mode];
+        mode = [*(*(&v16 + 1) + 8 * i) mode];
         v13 = [MEMORY[0x277D05930] modeForRecord:mode];
         v14 = v13;
         if ((!placeholdersCopy || ([v13 isPlaceholder] & 1) == 0) && (objc_msgSend(v14, "semanticType") != 9 || _os_feature_enabled_impl()))
@@ -381,13 +380,11 @@ LABEL_35:
         }
       }
 
-      v9 = [modeConfigurations countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v9 = [modeConfigurations countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v9);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -486,52 +483,52 @@ LABEL_12:
 
 - (id)relevantApplicationIdentifiers
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CBEB58] set];
-  v27 = [(DNDSModeConfigurationManager *)self _readModeConfigurationsReturningError:0];
-  [v27 modeConfigurations];
+  v26 = [(DNDSModeConfigurationManager *)self _readModeConfigurationsReturningError:0];
+  [v26 modeConfigurations];
+  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
-  obj = v41 = 0u;
-  v4 = [obj countByEnumeratingWithState:&v38 objects:v44 count:16];
+  obj = v40 = 0u;
+  v4 = [obj countByEnumeratingWithState:&v37 objects:v43 count:16];
   if (v4)
   {
     v5 = v4;
-    v29 = *v39;
+    v28 = *v38;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v39 != v29)
+        if (*v38 != v28)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v38 + 1) + 8 * i);
+        v7 = *(*(&v37 + 1) + 8 * i);
         triggers = [v7 triggers];
         v8Triggers = [triggers triggers];
 
-        v36 = 0u;
-        v37 = 0u;
-        v34 = 0u;
         v35 = 0u;
+        v36 = 0u;
+        v33 = 0u;
+        v34 = 0u;
         v10 = v8Triggers;
-        v11 = [v10 countByEnumeratingWithState:&v34 objects:v43 count:16];
+        v11 = [v10 countByEnumeratingWithState:&v33 objects:v42 count:16];
         if (v11)
         {
           v12 = v11;
-          v13 = *v35;
+          v13 = *v34;
           do
           {
             for (j = 0; j != v12; ++j)
             {
-              if (*v35 != v13)
+              if (*v34 != v13)
               {
                 objc_enumerationMutation(v10);
               }
 
-              v15 = *(*(&v34 + 1) + 8 * j);
+              v15 = *(*(&v33 + 1) + 8 * j);
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
@@ -540,37 +537,37 @@ LABEL_12:
               }
             }
 
-            v12 = [v10 countByEnumeratingWithState:&v34 objects:v43 count:16];
+            v12 = [v10 countByEnumeratingWithState:&v33 objects:v42 count:16];
           }
 
           while (v12);
         }
 
-        v32 = 0u;
-        v33 = 0u;
-        v30 = 0u;
         v31 = 0u;
+        v32 = 0u;
+        v29 = 0u;
+        v30 = 0u;
         secureConfiguration = [v7 secureConfiguration];
         allowedApplications = [secureConfiguration allowedApplications];
 
-        v19 = [allowedApplications countByEnumeratingWithState:&v30 objects:v42 count:16];
+        v19 = [allowedApplications countByEnumeratingWithState:&v29 objects:v41 count:16];
         if (v19)
         {
           v20 = v19;
-          v21 = *v31;
+          v21 = *v30;
           do
           {
             for (k = 0; k != v20; ++k)
             {
-              if (*v31 != v21)
+              if (*v30 != v21)
               {
                 objc_enumerationMutation(allowedApplications);
               }
 
-              [v3 addObject:*(*(&v30 + 1) + 8 * k)];
+              [v3 addObject:*(*(&v29 + 1) + 8 * k)];
             }
 
-            v20 = [allowedApplications countByEnumeratingWithState:&v30 objects:v42 count:16];
+            v20 = [allowedApplications countByEnumeratingWithState:&v29 objects:v41 count:16];
           }
 
           while (v20);
@@ -581,43 +578,41 @@ LABEL_12:
         [v3 unionSet:deniedApplications];
       }
 
-      v5 = [obj countByEnumeratingWithState:&v38 objects:v44 count:16];
+      v5 = [obj countByEnumeratingWithState:&v37 objects:v43 count:16];
     }
 
     while (v5);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (id)relevantContacts
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CBEB58] set];
   v4 = [(DNDSModeConfigurationManager *)self _readModeConfigurationsReturningError:0];
   modeConfigurations = [v4 modeConfigurations];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  v6 = [modeConfigurations countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v6 = [modeConfigurations countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v19;
+    v8 = *v18;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v19 != v8)
+        if (*v18 != v8)
         {
           objc_enumerationMutation(modeConfigurations);
         }
 
         v10 = MEMORY[0x277D05A90];
-        secureConfiguration = [*(*(&v18 + 1) + 8 * i) secureConfiguration];
+        secureConfiguration = [*(*(&v17 + 1) + 8 * i) secureConfiguration];
         senderConfiguration = [secureConfiguration senderConfiguration];
         v13 = [v10 configurationForRecord:senderConfiguration];
 
@@ -628,13 +623,11 @@ LABEL_12:
         [v3 unionSet:deniedContacts];
       }
 
-      v7 = [modeConfigurations countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v7 = [modeConfigurations countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v7);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -649,6 +642,93 @@ LABEL_12:
   }
 
   [(DNDSModeConfigurationManager *)self _fixupConfigurationsIfNeeded];
+}
+
+- (unint64_t)_saveModeConfiguration:(id)configuration writeSecurePartition:(BOOL)partition error:(id *)error
+{
+  partitionCopy = partition;
+  v8 = DNDSLogModeConfigurations;
+  configurationCopy = configuration;
+  [configurationCopy log:v8 withMessage:@"Saving configuration"];
+  v10 = [(DNDSModeConfigurationsStoring *)self->_backingStore readRecordWithError:0];
+  v11 = [v10 mutableCopy];
+  makeRecord = [configurationCopy makeRecord];
+  mode = [configurationCopy mode];
+
+  modeIdentifier = [mode modeIdentifier];
+  [v11 setModeConfiguration:makeRecord forModeIdentifier:modeIdentifier];
+
+  v15 = [(DNDSModeConfigurationManager *)self _writeModeConfigurationsRecord:v11 writeSecurePartition:partitionCopy error:error];
+  return v15;
+}
+
+- (unint64_t)_writeModeConfigurationsRecord:(id)record writeSecurePartition:(BOOL)partition error:(id *)error
+{
+  partitionCopy = partition;
+  v22 = *MEMORY[0x277D85DE8];
+  recordCopy = record;
+  backingStore = self->_backingStore;
+  v19 = 0;
+  v10 = [(DNDSModeConfigurationsStoring *)backingStore writeRecord:recordCopy writePartition:partitionCopy error:&v19];
+  v11 = v19;
+  v12 = v11;
+  if (v10)
+  {
+    if (v10 == 1)
+    {
+      v14 = DNDSLogModeConfigurations;
+      if (os_log_type_enabled(DNDSLogModeConfigurations, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 138543362;
+        v21 = v12;
+        _os_log_impl(&dword_24912E000, v14, OS_LOG_TYPE_DEFAULT, "Failed to save configurations, but error can be ignored; error=%{public}@", buf, 0xCu);
+      }
+    }
+
+    else if (v10 == 2)
+    {
+      [recordCopy log:DNDSLogModeConfigurations withMessage:@"Saved configurations"];
+      v13 = 2;
+      goto LABEL_19;
+    }
+
+    v13 = 1;
+    goto LABEL_19;
+  }
+
+  if (error && v11)
+  {
+    v15 = v11;
+    *error = v12;
+  }
+
+  hasUnlockedSinceBoot = [(DNDSKeybagStateProviding *)self->_keybag hasUnlockedSinceBoot];
+  v17 = os_log_type_enabled(DNDSLogModeConfigurations, OS_LOG_TYPE_ERROR);
+  if (hasUnlockedSinceBoot)
+  {
+    if (v17)
+    {
+      [DNDSModeConfigurationManager _writeModeConfigurationsRecord:writeSecurePartition:error:];
+    }
+
+    [recordCopy log:DNDSLogModeConfigurations withMessage:@"Failed to save configuations"];
+    _DNDSRequestRadar(@"Error saving configurations", v12, 0, @"/Library/Caches/com.apple.xbs/Sources/DoNotDisturbServer/DoNotDisturbServer/DNDSModeConfigurationManager.m", 370);
+  }
+
+  else
+  {
+    if (v17)
+    {
+      [DNDSModeConfigurationManager _writeModeConfigurationsRecord:writeSecurePartition:error:];
+    }
+
+    [recordCopy log:DNDSLogModeConfigurations withMessage:@"Failed to save configuations; first lock"];
+  }
+
+  v13 = 0;
+LABEL_19:
+
+  return v13;
 }
 
 - (id)_inheritFromDefaultModeConfiguration:(id)configuration
@@ -723,7 +803,7 @@ LABEL_12:
 
 - (void)_notifyChangeOfModeConfigurationFrom:(id)from to:(id)to
 {
-  v86 = *MEMORY[0x277D85DE8];
+  v85 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   toCopy = to;
   configuration = [fromCopy configuration];
@@ -736,163 +816,161 @@ LABEL_12:
 
   v13 = [allowedContacts mutableCopy];
   [v13 intersectSet:allowedContacts2];
-  v63 = allowedContacts2;
+  v62 = allowedContacts2;
   v14 = [allowedContacts2 mutableCopy];
   [v14 minusSet:v13];
   v15 = [allowedContacts mutableCopy];
-  v61 = v13;
+  v60 = v13;
   [v15 minusSet:v13];
-  v65 = fromCopy;
+  v64 = fromCopy;
   configuration3 = [fromCopy configuration];
   senderConfiguration3 = [configuration3 senderConfiguration];
   deniedContacts = [senderConfiguration3 deniedContacts];
 
-  v64 = toCopy;
+  v63 = toCopy;
   configuration4 = [toCopy configuration];
   senderConfiguration4 = [configuration4 senderConfiguration];
   deniedContacts2 = [senderConfiguration4 deniedContacts];
 
   v22 = [deniedContacts mutableCopy];
   [v22 intersectSet:deniedContacts2];
-  v59 = deniedContacts2;
-  v56 = [deniedContacts2 mutableCopy];
-  [v56 minusSet:v22];
-  v60 = deniedContacts;
+  v58 = deniedContacts2;
+  v55 = [deniedContacts2 mutableCopy];
+  [v55 minusSet:v22];
+  v59 = deniedContacts;
   v23 = [deniedContacts mutableCopy];
-  v58 = v22;
+  v57 = v22;
   [v23 minusSet:v22];
   v24 = objc_opt_new();
+  v77 = 0u;
   v78 = 0u;
   v79 = 0u;
   v80 = 0u;
-  v81 = 0u;
   v25 = v15;
-  v26 = [v25 countByEnumeratingWithState:&v78 objects:v85 count:16];
+  v26 = [v25 countByEnumeratingWithState:&v77 objects:v84 count:16];
   if (v26)
   {
     v27 = v26;
-    v28 = *v79;
+    v28 = *v78;
     do
     {
       for (i = 0; i != v27; ++i)
       {
-        if (*v79 != v28)
+        if (*v78 != v28)
         {
           objc_enumerationMutation(v25);
         }
 
-        v30 = *(*(&v78 + 1) + 8 * i);
+        v30 = *(*(&v77 + 1) + 8 * i);
         v31 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:2];
         [v24 setObject:v31 forKey:v30];
       }
 
-      v27 = [v25 countByEnumeratingWithState:&v78 objects:v85 count:16];
+      v27 = [v25 countByEnumeratingWithState:&v77 objects:v84 count:16];
     }
 
     while (v27);
   }
 
-  v76 = 0u;
-  v77 = 0u;
-  v74 = 0u;
   v75 = 0u;
+  v76 = 0u;
+  v73 = 0u;
+  v74 = 0u;
   v32 = v23;
-  v33 = [v32 countByEnumeratingWithState:&v74 objects:v84 count:16];
+  v33 = [v32 countByEnumeratingWithState:&v73 objects:v83 count:16];
   if (v33)
   {
     v34 = v33;
-    v35 = *v75;
+    v35 = *v74;
     do
     {
       for (j = 0; j != v34; ++j)
       {
-        if (*v75 != v35)
+        if (*v74 != v35)
         {
           objc_enumerationMutation(v32);
         }
 
-        v37 = *(*(&v74 + 1) + 8 * j);
+        v37 = *(*(&v73 + 1) + 8 * j);
         v38 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:2];
         [v24 setObject:v38 forKey:v37];
       }
 
-      v34 = [v32 countByEnumeratingWithState:&v74 objects:v84 count:16];
+      v34 = [v32 countByEnumeratingWithState:&v73 objects:v83 count:16];
     }
 
     while (v34);
   }
 
-  v72 = 0u;
-  v73 = 0u;
-  v70 = 0u;
   v71 = 0u;
+  v72 = 0u;
+  v69 = 0u;
+  v70 = 0u;
   v39 = v14;
-  v40 = [v39 countByEnumeratingWithState:&v70 objects:v83 count:16];
+  v40 = [v39 countByEnumeratingWithState:&v69 objects:v82 count:16];
   if (v40)
   {
     v41 = v40;
-    v42 = *v71;
+    v42 = *v70;
     do
     {
       for (k = 0; k != v41; ++k)
       {
-        if (*v71 != v42)
+        if (*v70 != v42)
         {
           objc_enumerationMutation(v39);
         }
 
-        v44 = *(*(&v70 + 1) + 8 * k);
+        v44 = *(*(&v69 + 1) + 8 * k);
         v45 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:0];
         [v24 setObject:v45 forKey:v44];
       }
 
-      v41 = [v39 countByEnumeratingWithState:&v70 objects:v83 count:16];
+      v41 = [v39 countByEnumeratingWithState:&v69 objects:v82 count:16];
     }
 
     while (v41);
   }
 
-  v57 = v25;
+  v56 = v25;
 
-  v68 = 0u;
-  v69 = 0u;
-  v66 = 0u;
   v67 = 0u;
-  v46 = v56;
-  v47 = [v46 countByEnumeratingWithState:&v66 objects:v82 count:16];
+  v68 = 0u;
+  v65 = 0u;
+  v66 = 0u;
+  v46 = v55;
+  v47 = [v46 countByEnumeratingWithState:&v65 objects:v81 count:16];
   if (v47)
   {
     v48 = v47;
-    v49 = *v67;
+    v49 = *v66;
     do
     {
       for (m = 0; m != v48; ++m)
       {
-        if (*v67 != v49)
+        if (*v66 != v49)
         {
           objc_enumerationMutation(v46);
         }
 
-        v51 = *(*(&v66 + 1) + 8 * m);
+        v51 = *(*(&v65 + 1) + 8 * m);
         v52 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:1];
         [v24 setObject:v52 forKey:v51];
       }
 
-      v48 = [v46 countByEnumeratingWithState:&v66 objects:v82 count:16];
+      v48 = [v46 countByEnumeratingWithState:&v65 objects:v81 count:16];
     }
 
     while (v48);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
-  [WeakRetained modeConfigurationManager:self didModifyExceptionsForContacts:v24 forModeConfiguration:v64];
+  [WeakRetained modeConfigurationManager:self didModifyExceptionsForContacts:v24 forModeConfiguration:v63];
   if (objc_opt_respondsToSelector())
   {
-    mode = [v64 mode];
+    mode = [v63 mode];
     [WeakRetained modeConfigurationManager:self didModifyAvailableMode:mode];
   }
-
-  v55 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_removedModeConfigurationRecordForModeRecord:(id)record
@@ -912,12 +990,255 @@ LABEL_12:
   return v11;
 }
 
+- (id)_sysdiagnoseDataShouldRedact:(BOOL)redact
+{
+  redactCopy = redact;
+  v4 = [(DNDSModeConfigurationsStoring *)self->_backingStore readRecordWithError:0];
+  v5 = objc_alloc_init(DNDSApplicationIdentifierMapper);
+  v6 = objc_alloc_init(DNDSContactProvider);
+  v7 = [[DNDSBackingStoreDictionaryContext alloc] initWithDestination:1 partitionType:3 redactSensitiveData:redactCopy contactProvider:v6 applicationIdentifierMapper:v5];
+  v8 = [v4 dictionaryRepresentationWithContext:v7];
+
+  return v8;
+}
+
 - (void)_fixupConfigurationsIfNeeded
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0(&dword_24912E000, v0, v1, "Failed to write record to fix up configurations though it was needed; error=%{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v81 = *MEMORY[0x277D85DE8];
+  if ([(DNDSKeybagStateProviding *)self->_keybag hasUnlockedSinceBoot])
+  {
+    [(DNDSKeybagStateProviding *)self->_keybag removeObserver:self];
+    v74 = 0;
+    v3 = [(DNDSModeConfigurationManager *)self _readModeConfigurationsReturningError:&v74];
+    v4 = v74;
+    if (v4)
+    {
+      if (os_log_type_enabled(DNDSLogModeConfigurations, OS_LOG_TYPE_ERROR))
+      {
+        [DNDSModeConfigurationManager _fixupConfigurationsIfNeeded];
+      }
+
+      goto LABEL_50;
+    }
+
+    modeConfigurations = [v3 modeConfigurations];
+    v7 = [v3 mutableCopy];
+    v70 = 0u;
+    v71 = 0u;
+    v72 = 0u;
+    v73 = 0u;
+    v8 = modeConfigurations;
+    obj = v8;
+    v63 = [v8 countByEnumeratingWithState:&v70 objects:v80 count:16];
+    if (v63)
+    {
+      selfCopy = self;
+      v58 = v3;
+      v9 = 0;
+      v62 = *v71;
+      v59 = v7;
+      do
+      {
+        v10 = 0;
+        do
+        {
+          if (*v71 != v62)
+          {
+            objc_enumerationMutation(obj);
+          }
+
+          v64 = v10;
+          v11 = *(*(&v70 + 1) + 8 * v10);
+          secureConfiguration = [v11 secureConfiguration];
+          senderConfiguration = [secureConfiguration senderConfiguration];
+
+          v14 = [senderConfiguration mutableCopy];
+          allowedContactTypes = [senderConfiguration allowedContactTypes];
+          v16 = [allowedContactTypes count];
+
+          if (v16)
+          {
+            v17 = objc_opt_new();
+            [v14 setAllowedContactTypes:v17];
+          }
+
+          deniedContactTypes = [senderConfiguration deniedContactTypes];
+          v19 = [deniedContactTypes count];
+
+          if (v19)
+          {
+            v20 = objc_opt_new();
+            [v14 setDeniedContactTypes:v20];
+          }
+
+          allowedContactGroups = [senderConfiguration allowedContactGroups];
+          v22 = [allowedContactGroups count];
+
+          if (v22)
+          {
+            v23 = objc_opt_new();
+            [v14 setAllowedContactGroups:v23];
+          }
+
+          deniedContactGroups = [senderConfiguration deniedContactGroups];
+          v25 = [deniedContactGroups count];
+
+          if (v25)
+          {
+            v26 = objc_opt_new();
+            [v14 setDeniedContactGroups:v26];
+          }
+
+          v27 = [v11 mutableCopy];
+          if (([senderConfiguration isEqual:v14] & 1) == 0)
+          {
+            secureConfiguration2 = [v27 secureConfiguration];
+            v29 = [secureConfiguration2 mutableCopy];
+
+            [v29 setSenderConfiguration:v14];
+            [v27 setSecureConfiguration:v29];
+            v30 = DNDSLogModeConfigurations;
+            if (os_log_type_enabled(DNDSLogModeConfigurations, OS_LOG_TYPE_DEFAULT))
+            {
+              *buf = 138543618;
+              v77 = senderConfiguration;
+              v78 = 2114;
+              v79 = v14;
+              _os_log_impl(&dword_24912E000, v30, OS_LOG_TYPE_DEFAULT, "Fixing up mode with sender configuration: %{public}@ to new sender configuration: %{public}@", buf, 0x16u);
+            }
+
+            v9 = 1;
+          }
+
+          mode = [v11 mode];
+          semanticType = [mode semanticType];
+
+          if (semanticType == 2)
+          {
+            secureConfiguration3 = [v11 secureConfiguration];
+            allowedApplications = [secureConfiguration3 allowedApplications];
+            v35 = [allowedApplications count];
+
+            if (v35)
+            {
+              secureConfiguration4 = [v27 secureConfiguration];
+              v37 = [secureConfiguration4 mutableCopy];
+
+              v38 = objc_opt_new();
+              [v37 setAllowedApplications:v38];
+
+              [v27 setSecureConfiguration:v37];
+              v39 = DNDSLogModeConfigurations;
+              if (os_log_type_enabled(DNDSLogModeConfigurations, OS_LOG_TYPE_DEFAULT))
+              {
+                v40 = v39;
+                secureConfiguration5 = [v11 secureConfiguration];
+                *buf = 138543618;
+                v77 = secureConfiguration5;
+                v78 = 2114;
+                v79 = v37;
+                _os_log_impl(&dword_24912E000, v40, OS_LOG_TYPE_DEFAULT, "Fixing up driving mode with secureConfiguration: %{public}@ to new secureConfiguration: %{public}@", buf, 0x16u);
+              }
+
+              v9 = 1;
+            }
+          }
+
+          mode2 = [v11 mode];
+          semanticType2 = [mode2 semanticType];
+
+          if ((semanticType2 - 1) <= 2)
+          {
+            v61 = v14;
+            v44 = objc_alloc_init(MEMORY[0x277CBEB18]);
+            v66 = 0u;
+            v67 = 0u;
+            v68 = 0u;
+            v69 = 0u;
+            triggers = [v11 triggers];
+            v45Triggers = [triggers triggers];
+
+            v47 = [v45Triggers countByEnumeratingWithState:&v66 objects:v75 count:16];
+            if (v47)
+            {
+              v48 = v47;
+              v49 = *v67;
+              do
+              {
+                for (i = 0; i != v48; ++i)
+                {
+                  if (*v67 != v49)
+                  {
+                    objc_enumerationMutation(v45Triggers);
+                  }
+
+                  v51 = *(*(&v66 + 1) + 8 * i);
+                  if (v51 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+                  {
+                    [v44 addObject:v51];
+                  }
+
+                  else
+                  {
+                    v9 = 1;
+                  }
+                }
+
+                v48 = [v45Triggers countByEnumeratingWithState:&v66 objects:v75 count:16];
+              }
+
+              while (v48);
+            }
+
+            v52 = [DNDSModeConfigurationTriggersRecord alloc];
+            v53 = [v44 copy];
+            v54 = [(DNDSModeConfigurationTriggersRecord *)v52 initWithTriggers:v53];
+
+            [v27 setTriggers:v54];
+            v7 = v59;
+            v14 = v61;
+          }
+
+          mode3 = [v27 mode];
+          modeIdentifier = [mode3 modeIdentifier];
+          [v7 setModeConfiguration:v27 forModeIdentifier:modeIdentifier];
+
+          v10 = v64 + 1;
+        }
+
+        while (v64 + 1 != v63);
+        v63 = [obj countByEnumeratingWithState:&v70 objects:v80 count:16];
+      }
+
+      while (v63);
+
+      v3 = v58;
+      if ((v9 & 1) == 0)
+      {
+        goto LABEL_49;
+      }
+
+      v65 = 0;
+      [(DNDSModeConfigurationManager *)selfCopy _writeModeConfigurationsRecord:v7 writeSecurePartition:1 error:&v65];
+      v8 = v65;
+      if (v8 && os_log_type_enabled(DNDSLogModeConfigurations, OS_LOG_TYPE_ERROR))
+      {
+        [DNDSModeConfigurationManager _fixupConfigurationsIfNeeded];
+      }
+    }
+
+LABEL_49:
+LABEL_50:
+
+    return;
+  }
+
+  v5 = DNDSLogModeConfigurations;
+  if (os_log_type_enabled(DNDSLogModeConfigurations, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_24912E000, v5, OS_LOG_TYPE_DEFAULT, "Deferring mode sender configuration fixup until keybag unlocked for the first time.", buf, 2u);
+  }
 }
 
 - (void)modeConfigurationStore:(id)store didUpdateAvailableModes:(id)modes
@@ -936,42 +1257,9 @@ LABEL_12:
 
 - (void)removeModeConfigurationForModeIdentifier:deletePlaceholder:withError:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
-  _os_log_fault_impl(&dword_24912E000, v0, OS_LOG_TYPE_FAULT, "Removing mode configuration for default Focus is not supported; modeIdentifier=%{public}@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_readModeConfigurationsReturningError:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0(&dword_24912E000, v0, v1, "Failed to load configurations but device is under first lock; error=%{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_readModeConfigurationsReturningError:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0(&dword_24912E000, v0, v1, "Failed to load configurations, will request a radar; error=%{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_writeModeConfigurationsRecord:writeSecurePartition:error:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0(&dword_24912E000, v0, v1, "Failed to save configurations but device is under first lock; error=%{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_writeModeConfigurationsRecord:writeSecurePartition:error:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0(&dword_24912E000, v0, v1, "Failed to save configurations, will request a radar; error=%{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_24912E000, v0, OS_LOG_TYPE_FAULT, "Removing mode configuration for default Focus is not supported; modeIdentifier=%{public}@", v1, 0xCu);
 }
 
 @end

@@ -5,6 +5,7 @@
 - (STStatusBarDataEntry)init;
 - (STStatusBarDataEntry)initWithBSXPCCoder:(id)coder;
 - (STStatusBarDataEntry)initWithCoder:(id)coder;
+- (id)_descriptionBuilderWithMultilinePrefix:(id)prefix forDebug:(BOOL)debug;
 - (id)_equalsBuilderWithObject:(id)object;
 - (id)_hashBuilder;
 - (id)debugDescriptionWithMultilinePrefix:(id)prefix;
@@ -146,6 +147,17 @@
   build = [v3 build];
 
   return build;
+}
+
+- (id)_descriptionBuilderWithMultilinePrefix:(id)prefix forDebug:(BOOL)debug
+{
+  debugCopy = debug;
+  prefixCopy = prefix;
+  succinctDescriptionBuilder = [(STStatusBarDataEntry *)self succinctDescriptionBuilder];
+  [succinctDescriptionBuilder setUseDebugDescription:debugCopy];
+  [succinctDescriptionBuilder setActiveMultilinePrefix:prefixCopy];
+
+  return succinctDescriptionBuilder;
 }
 
 @end

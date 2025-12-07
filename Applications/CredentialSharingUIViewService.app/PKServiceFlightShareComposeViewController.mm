@@ -1,6 +1,7 @@
 @interface PKServiceFlightShareComposeViewController
 - (PKServiceFlightShareComposeViewController)init;
 - (id)_placeholderActivityItem;
+- (void)interceptableActivityViewController:(id)controller didFinishWithShare:(BOOL)share;
 - (void)interceptableActivityViewController:(id)controller didInterceptActivitySelectionOfType:(id)type;
 - (void)loadView;
 - (void)setDisplayPropertiesWithScreenSize:(CGSize)size scale:(double)scale;
@@ -80,6 +81,13 @@
     objc_destroyWeak(&v11);
     objc_destroyWeak(&location);
   }
+}
+
+- (void)interceptableActivityViewController:(id)controller didFinishWithShare:(BOOL)share
+{
+  shareCopy = share;
+  _remoteViewControllerProxy = [(PKServiceFlightShareComposeViewController *)self _remoteViewControllerProxy];
+  [_remoteViewControllerProxy flightShareComposeViewControllerDidFinishWithResult:shareCopy];
 }
 
 - (id)_placeholderActivityItem

@@ -1405,7 +1405,7 @@ void __108__BrowserWindowController__mergeTabsFromCloudTabsForDeviceRestorationI
   }
 }
 
-uint64_t __108__BrowserWindowController__mergeTabsFromCloudTabsForDeviceRestorationIfNeededAfterCloudTabsFinishedSyncing___block_invoke_63(uint64_t a1)
+void *__108__BrowserWindowController__mergeTabsFromCloudTabsForDeviceRestorationIfNeededAfterCloudTabsFinishedSyncing___block_invoke_63(uint64_t a1)
 {
   result = [*(a1 + 32) _mergeTabsFromCloudTabsForDeviceRestoration:*(a1 + 40)];
   if (*(*(*(a1 + 48) + 8) + 24) != *MEMORY[0x277D767B0])
@@ -1892,7 +1892,7 @@ uint64_t __71__BrowserWindowController__mergeTabsFromCloudTabsForDeviceRestorati
 
 - (id)windowForSceneID:(id)d options:(id)options
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   dCopy = d;
   v7 = [MEMORY[0x277CC1EF0] _sf_windowCreationActivityFromSceneConnectionOptions:options];
   if ([(BrowserWindowController *)self modeForNewWindowUserActivity:v7]== 2)
@@ -1902,30 +1902,30 @@ uint64_t __71__BrowserWindowController__mergeTabsFromCloudTabsForDeviceRestorati
   }
 
   browserControllers = self->_browserControllers;
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __52__BrowserWindowController_windowForSceneID_options___block_invoke;
-  v28[3] = &unk_2781D4E70;
+  v32[0] = MEMORY[0x277D85DD0];
+  v32[1] = 3221225472;
+  v32[2] = __52__BrowserWindowController_windowForSceneID_options___block_invoke;
+  v32[3] = &unk_2781D4E70;
   v10 = dCopy;
-  v29 = v10;
-  v11 = [(NSArray *)browserControllers safari_firstObjectPassingTest:v28];
+  v33 = v10;
+  v11 = [(NSArray *)browserControllers safari_firstObjectPassingTest:v32];
   if (!v11)
   {
     v8 = [(NSArray *)self->_browserControllers safari_firstObjectPassingTest:&__block_literal_global_98_0];
     windowState = [(BrowserController *)v8 windowState];
     uuid = [windowState uuid];
     sceneID = [windowState sceneID];
-    [(BrowserController *)v8 adoptSceneID:v10];
-    v18 = WBS_LOG_CHANNEL_PREFIXTabs();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v19 = [(BrowserController *)v8 adoptSceneID:v10];
+    v21 = WBS_LOG_CHANNEL_PREFIXTabs(v19, v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543874;
-      v31 = uuid;
-      v32 = 2114;
-      v33 = sceneID;
-      v34 = 2114;
-      v35 = v10;
-      _os_log_impl(&dword_215819000, v18, OS_LOG_TYPE_DEFAULT, "Adopting window during matching: uuid = %{public}@, sceneID = %{public}@ -> %{public}@", buf, 0x20u);
+      v35 = uuid;
+      v36 = 2114;
+      v37 = sceneID;
+      v38 = 2114;
+      v39 = v10;
+      _os_log_impl(&dword_215819000, v21, OS_LOG_TYPE_DEFAULT, "Adopting window during matching: uuid = %{public}@, sceneID = %{public}@ -> %{public}@", buf, 0x20u);
     }
 
     if (v8)
@@ -1933,44 +1933,44 @@ uint64_t __71__BrowserWindowController__mergeTabsFromCloudTabsForDeviceRestorati
       goto LABEL_13;
     }
 
-    v19 = objc_alloc(MEMORY[0x277D7B598]);
+    v22 = objc_alloc(MEMORY[0x277D7B598]);
     uUID = [MEMORY[0x277CCAD78] UUID];
     uUIDString = [uUID UUIDString];
-    uUID2 = [v19 initWithUUID:uUIDString sceneID:v10];
+    uUID2 = [v22 initWithUUID:uUIDString sceneID:v10];
 
     [uUID2 setNewlyCreated:1];
     [(WBTabGroupManager *)self->_tabGroupManager saveWindowState:uUID2 completionHandler:0];
     v8 = [[BrowserController alloc] initWithWindowState:uUID2 browserWindowController:self tabGroupManager:self->_tabGroupManager];
-    v22 = WBS_LOG_CHANNEL_PREFIXTabs();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    v26 = WBS_LOG_CHANNEL_PREFIXTabs(v8, v25);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
-      v23 = v22;
+      v27 = v26;
       uuid2 = [uUID2 uuid];
       *buf = 138543618;
-      v31 = uuid2;
-      v32 = 2114;
-      v33 = v10;
-      _os_log_impl(&dword_215819000, v23, OS_LOG_TYPE_DEFAULT, "Creating new window: uuid = %{public}@, sceneID = %{public}@", buf, 0x16u);
+      v35 = uuid2;
+      v36 = 2114;
+      v37 = v10;
+      _os_log_impl(&dword_215819000, v27, OS_LOG_TYPE_DEFAULT, "Creating new window: uuid = %{public}@, sceneID = %{public}@", buf, 0x16u);
     }
 
-    v25 = [(NSArray *)self->_browserControllers arrayByAddingObject:v8];
-    v26 = self->_browserControllers;
-    self->_browserControllers = v25;
+    v29 = [(NSArray *)self->_browserControllers arrayByAddingObject:v8];
+    v30 = self->_browserControllers;
+    self->_browserControllers = v29;
 
     goto LABEL_12;
   }
 
   v8 = v11;
-  v12 = WBS_LOG_CHANNEL_PREFIXTabs();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v13 = WBS_LOG_CHANNEL_PREFIXTabs(v11, v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = v12;
+    v14 = v13;
     uUID2 = [(BrowserController *)v8 UUID];
     *buf = 138543618;
-    v31 = uUID2;
-    v32 = 2114;
-    v33 = v10;
-    _os_log_impl(&dword_215819000, v13, OS_LOG_TYPE_DEFAULT, "Found existing window by sceneID: uuid = %{public}@, sceneID = %{public}@", buf, 0x16u);
+    v35 = uUID2;
+    v36 = 2114;
+    v37 = v10;
+    _os_log_impl(&dword_215819000, v14, OS_LOG_TYPE_DEFAULT, "Found existing window by sceneID: uuid = %{public}@, sceneID = %{public}@", buf, 0x16u);
 
 LABEL_12:
   }
@@ -2002,7 +2002,7 @@ BOOL __52__BrowserWindowController_windowForSceneID_options___block_invoke_96(ui
 
 - (void)_windowDidClose:(id)close
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v27[1] = *MEMORY[0x277D85DE8];
   closeCopy = close;
   windowState = [closeCopy windowState];
   tabController = [closeCopy tabController];
@@ -2012,8 +2012,8 @@ BOOL __52__BrowserWindowController_windowForSceneID_options___block_invoke_96(ui
   [tabController2 closeAllOpenTabsAnimated:0];
 
   tabGroupManager = [closeCopy tabGroupManager];
-  v25[0] = windowState;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
+  v27[0] = windowState;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:1];
   [tabGroupManager deleteWindowStates:v9 completionHandler:0];
 
   settings = [MEMORY[0x277D28F08] settings];
@@ -2032,85 +2032,85 @@ BOOL __52__BrowserWindowController_windowForSceneID_options___block_invoke_96(ui
   [closeCopy didCloseBrowserWindow];
   [(NSMapTable *)self->_UIDelegatesByBrowserController removeObjectForKey:closeCopy];
 
-  v17 = WBS_LOG_CHANNEL_PREFIXTabs();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  v19 = WBS_LOG_CHANNEL_PREFIXTabs(v17, v18);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
-    v18 = v17;
+    v20 = v19;
     uuid2 = [windowState uuid];
     sceneID = [windowState sceneID];
-    v21 = 138543618;
-    v22 = uuid2;
-    v23 = 2114;
-    v24 = sceneID;
-    _os_log_impl(&dword_215819000, v18, OS_LOG_TYPE_DEFAULT, "Closed window: uuid = %{public}@, sceneID = %{public}@", &v21, 0x16u);
+    v23 = 138543618;
+    v24 = uuid2;
+    v25 = 2114;
+    v26 = sceneID;
+    _os_log_impl(&dword_215819000, v20, OS_LOG_TYPE_DEFAULT, "Closed window: uuid = %{public}@, sceneID = %{public}@", &v23, 0x16u);
   }
 }
 
 - (void)removeWindowsNotMatchingSceneIDs:(id)ds supportsMultipleScenes:(BOOL)scenes
 {
   scenesCopy = scenes;
-  v34 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   browserControllers = self->_browserControllers;
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __83__BrowserWindowController_removeWindowsNotMatchingSceneIDs_supportsMultipleScenes___block_invoke;
-  v25[3] = &unk_2781D4E70;
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __83__BrowserWindowController_removeWindowsNotMatchingSceneIDs_supportsMultipleScenes___block_invoke;
+  v26[3] = &unk_2781D4E70;
   v8 = dsCopy;
-  v26 = v8;
-  v9 = [(NSArray *)browserControllers safari_filterObjectsUsingBlock:v25];
+  v27 = v8;
+  v9 = [(NSArray *)browserControllers safari_filterObjectsUsingBlock:v26];
   if (-[NSArray count](self->_browserControllers, "count") == 1 && [v9 count] == 1 && (!scenesCopy || objc_msgSend(v8, "count") <= 1))
   {
     v10 = [v9 objectAtIndexedSubscript:0];
     anyObject = [v8 anyObject];
     [v10 adoptSceneID:anyObject];
     windowState = [v10 windowState];
-    v13 = WBS_LOG_CHANNEL_PREFIXTabs();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = WBS_LOG_CHANNEL_PREFIXTabs(windowState, v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = v13;
+      v15 = v14;
       uuid = [windowState uuid];
       sceneID = [windowState sceneID];
       *buf = 138543874;
-      v29 = uuid;
-      v30 = 2114;
-      v31 = sceneID;
-      v32 = 2114;
-      v33 = anyObject;
-      _os_log_impl(&dword_215819000, v14, OS_LOG_TYPE_DEFAULT, "Adopting window during pruning: uuid = %{public}@, sceneID = %{public}@ -> %{public}@", buf, 0x20u);
+      v30 = uuid;
+      v31 = 2114;
+      v32 = sceneID;
+      v33 = 2114;
+      v34 = anyObject;
+      _os_log_impl(&dword_215819000, v15, OS_LOG_TYPE_DEFAULT, "Adopting window during pruning: uuid = %{public}@, sceneID = %{public}@ -> %{public}@", buf, 0x20u);
     }
   }
 
   else
   {
-    v23 = 0u;
     v24 = 0u;
-    v21 = 0u;
+    v25 = 0u;
     v22 = 0u;
+    v23 = 0u;
     v10 = v9;
-    v17 = [v10 countByEnumeratingWithState:&v21 objects:v27 count:16];
-    if (v17)
+    v18 = [v10 countByEnumeratingWithState:&v22 objects:v28 count:16];
+    if (v18)
     {
-      v18 = v17;
-      v19 = *v22;
+      v19 = v18;
+      v20 = *v23;
       do
       {
-        v20 = 0;
+        v21 = 0;
         do
         {
-          if (*v22 != v19)
+          if (*v23 != v20)
           {
             objc_enumerationMutation(v10);
           }
 
-          [(BrowserWindowController *)self _windowDidClose:*(*(&v21 + 1) + 8 * v20++), v21];
+          [(BrowserWindowController *)self _windowDidClose:*(*(&v22 + 1) + 8 * v21++), v22];
         }
 
-        while (v18 != v20);
-        v18 = [v10 countByEnumeratingWithState:&v21 objects:v27 count:16];
+        while (v19 != v21);
+        v19 = [v10 countByEnumeratingWithState:&v22 objects:v28 count:16];
       }
 
-      while (v18);
+      while (v19);
     }
   }
 }
@@ -2381,10 +2381,10 @@ void __51__BrowserWindowController_tearDownAutomationWindow__block_invoke(uint64
 void __53__BrowserWindowController_closeAllWindowsFromWindow___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = WBS_LOG_CHANNEL_PREFIXTabs();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = WBS_LOG_CHANNEL_PREFIXTabs(v2, v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __53__BrowserWindowController_closeAllWindowsFromWindow___block_invoke_cold_1(v3, v2);
+    __53__BrowserWindowController_closeAllWindowsFromWindow___block_invoke_cold_1(v4, v2);
   }
 }
 
@@ -2499,24 +2499,24 @@ void __53__BrowserWindowController_closeAllWindowsFromWindow___block_invoke_119(
 
 BrowserController *__82__BrowserWindowController__restoreWindowsWithState_shouldMergeAllWindowsIfNeeded___block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = WBS_LOG_CHANNEL_PREFIXTabs();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = WBS_LOG_CHANNEL_PREFIXTabs(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = v4;
-    v6 = [v3 uuid];
-    v7 = [v3 sceneID];
-    v10 = 138543618;
-    v11 = v6;
-    v12 = 2114;
-    v13 = v7;
-    _os_log_impl(&dword_215819000, v5, OS_LOG_TYPE_DEFAULT, "Loading window from saved state: uuid = %{public}@, sceneID = %{public}@", &v10, 0x16u);
+    v6 = v5;
+    v7 = [v3 uuid];
+    v8 = [v3 sceneID];
+    v11 = 138543618;
+    v12 = v7;
+    v13 = 2114;
+    v14 = v8;
+    _os_log_impl(&dword_215819000, v6, OS_LOG_TYPE_DEFAULT, "Loading window from saved state: uuid = %{public}@, sceneID = %{public}@", &v11, 0x16u);
   }
 
-  v8 = [[BrowserController alloc] initWithWindowState:v3 browserWindowController:*(a1 + 32) tabGroupManager:*(*(a1 + 32) + 56)];
+  v9 = [[BrowserController alloc] initWithWindowState:v3 browserWindowController:*(a1 + 32) tabGroupManager:*(*(a1 + 32) + 56)];
 
-  return v8;
+  return v9;
 }
 
 - (id)_mergeAndSaveWindowStates:(id)states intoWindowState:(id)state
@@ -2567,186 +2567,186 @@ BrowserController *__82__BrowserWindowController__restoreWindowsWithState_should
 
 - (id)_mergeWindowStates:(id)states intoWindowState:(id)state
 {
-  v86 = *MEMORY[0x277D85DE8];
+  v89 = *MEMORY[0x277D85DE8];
   statesCopy = states;
   stateCopy = state;
-  v7 = WBS_LOG_CHANNEL_PREFIXTabGroup();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  v8 = WBS_LOG_CHANNEL_PREFIXTabGroup(stateCopy, v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_215819000, v7, OS_LOG_TYPE_INFO, "Merging window states", buf, 2u);
+    _os_log_impl(&dword_215819000, v8, OS_LOG_TYPE_INFO, "Merging window states", buf, 2u);
   }
 
-  v8 = [MEMORY[0x277CBEB58] set];
+  v9 = [MEMORY[0x277CBEB58] set];
   array = [MEMORY[0x277CBEB18] array];
-  v79[0] = MEMORY[0x277D85DD0];
-  v79[1] = 3221225472;
-  v79[2] = __62__BrowserWindowController__mergeWindowStates_intoWindowState___block_invoke;
-  v79[3] = &unk_2781D8940;
-  v10 = stateCopy;
-  v80 = v10;
-  v11 = v8;
-  v81 = v11;
-  v60 = statesCopy;
-  v12 = [statesCopy safari_reduceObjectsWithInitialValue:array usingBlock:v79];
+  v82[0] = MEMORY[0x277D85DD0];
+  v82[1] = 3221225472;
+  v82[2] = __62__BrowserWindowController__mergeWindowStates_intoWindowState___block_invoke;
+  v82[3] = &unk_2781D8940;
+  v11 = stateCopy;
+  v83 = v11;
+  v12 = v9;
+  v84 = v12;
+  v63 = statesCopy;
+  v13 = [statesCopy safari_reduceObjectsWithInitialValue:array usingBlock:v82];
 
   tabGroupManager = self->_tabGroupManager;
-  localTabGroup = [v10 localTabGroup];
-  v67 = v10;
-  localTabGroup2 = [v10 localTabGroup];
+  localTabGroup = [v11 localTabGroup];
+  v70 = v11;
+  localTabGroup2 = [v11 localTabGroup];
   tabs = [localTabGroup2 tabs];
   lastObject = [tabs lastObject];
-  v58 = v11;
-  v59 = v12;
-  [(WBTabGroupManager *)tabGroupManager moveTabs:v12 toTabGroup:localTabGroup afterTab:lastObject withoutPersistingTabGroupsWithUUIDStrings:v11];
+  v61 = v12;
+  v62 = v13;
+  [(WBTabGroupManager *)tabGroupManager moveTabs:v13 toTabGroup:localTabGroup afterTab:lastObject withoutPersistingTabGroupsWithUUIDStrings:v12];
 
-  v77 = 0u;
+  v80 = 0u;
+  v81 = 0u;
   v78 = 0u;
-  v75 = 0u;
-  v76 = 0u;
+  v79 = 0u;
   obj = [(WBTabGroupManager *)self->_tabGroupManager namedProfiles];
-  v63 = [obj countByEnumeratingWithState:&v75 objects:v85 count:16];
-  if (v63)
+  v66 = [obj countByEnumeratingWithState:&v78 objects:v88 count:16];
+  if (v66)
   {
-    v62 = *v76;
+    v65 = *v79;
     do
     {
-      v18 = 0;
+      v19 = 0;
       do
       {
-        if (*v76 != v62)
+        if (*v79 != v65)
         {
           objc_enumerationMutation(obj);
         }
 
-        v66 = v18;
-        v19 = *(*(&v75 + 1) + 8 * v18);
-        v20 = self->_tabGroupManager;
-        v64 = v19;
-        identifier = [v19 identifier];
-        v22 = [(WBTabGroupManager *)v20 unnamedTabGroupsForProfileWithIdentifier:identifier];
+        v69 = v19;
+        v20 = *(*(&v78 + 1) + 8 * v19);
+        v21 = self->_tabGroupManager;
+        v67 = v20;
+        identifier = [v20 identifier];
+        v23 = [(WBTabGroupManager *)v21 unnamedTabGroupsForProfileWithIdentifier:identifier];
 
         array2 = [MEMORY[0x277CBEB18] array];
-        v71 = 0u;
-        v72 = 0u;
-        v73 = 0u;
         v74 = 0u;
-        v24 = v22;
-        v25 = [v24 countByEnumeratingWithState:&v71 objects:v84 count:16];
-        if (v25)
+        v75 = 0u;
+        v76 = 0u;
+        v77 = 0u;
+        v25 = v23;
+        v26 = [v25 countByEnumeratingWithState:&v74 objects:v87 count:16];
+        if (v26)
         {
-          v26 = v25;
-          v27 = 0;
-          v28 = *v72;
+          v27 = v26;
+          v28 = 0;
+          v29 = *v75;
           do
           {
-            for (i = 0; i != v26; ++i)
+            for (i = 0; i != v27; ++i)
             {
-              if (*v72 != v28)
+              if (*v75 != v29)
               {
-                objc_enumerationMutation(v24);
+                objc_enumerationMutation(v25);
               }
 
-              v30 = *(*(&v71 + 1) + 8 * i);
-              if (v27 || ([v67 unnamedTabGroupUUIDs], v31 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v30, "uuid"), v32 = objc_claimAutoreleasedReturnValue(), v33 = objc_msgSend(v31, "containsObject:", v32), v32, v31, !v33))
+              v31 = *(*(&v74 + 1) + 8 * i);
+              if (v28 || ([v70 unnamedTabGroupUUIDs], v32 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v31, "uuid"), v33 = objc_claimAutoreleasedReturnValue(), v34 = objc_msgSend(v32, "containsObject:", v33), v33, v32, !v34))
               {
-                [array2 addObject:v30];
+                [array2 addObject:v31];
               }
 
               else
               {
-                v27 = v30;
+                v28 = v31;
               }
             }
 
-            v26 = [v24 countByEnumeratingWithState:&v71 objects:v84 count:16];
+            v27 = [v25 countByEnumeratingWithState:&v74 objects:v87 count:16];
           }
 
-          while (v26);
+          while (v27);
         }
 
         else
         {
-          v27 = 0;
+          v28 = 0;
         }
 
         if ([array2 count])
         {
-          if (v27)
+          if (v28)
           {
             goto LABEL_25;
           }
 
-          v34 = MEMORY[0x277D7B540];
+          v35 = MEMORY[0x277D7B540];
           deviceIdentifier = [(WBTabGroupManager *)self->_tabGroupManager deviceIdentifier];
-          v36 = [v34 unnamedTabGroupWithDeviceIdentifier:deviceIdentifier];
+          v37 = [v35 unnamedTabGroupWithDeviceIdentifier:deviceIdentifier];
 
-          identifier2 = [v64 identifier];
-          [v36 setProfileIdentifier:identifier2];
+          identifier2 = [v67 identifier];
+          [v37 setProfileIdentifier:identifier2];
 
-          v27 = [(WBTabGroupManager *)self->_tabGroupManager insertUnnamedTabGroup:v36];
-          uuid = [v36 uuid];
-          [v67 addUnnamedTabGroupUUID:uuid];
+          v28 = [(WBTabGroupManager *)self->_tabGroupManager insertUnnamedTabGroup:v37];
+          uuid = [v37 uuid];
+          [v70 addUnnamedTabGroupUUID:uuid];
 
           tabCollection = [(WBTabGroupManager *)self->_tabGroupManager tabCollection];
-          v40 = [tabCollection saveWindowState:v67];
+          v41 = [tabCollection saveWindowState:v70];
 
-          if (v40)
+          if (v41)
           {
 
 LABEL_25:
-            v36 = [array2 safari_reduceObjectsUsingBlock:&__block_literal_global_126];
-            v41 = self->_tabGroupManager;
-            tabs2 = [v27 tabs];
+            v37 = [array2 safari_reduceObjectsUsingBlock:&__block_literal_global_126];
+            v44 = self->_tabGroupManager;
+            tabs2 = [v28 tabs];
             lastObject2 = [tabs2 lastObject];
-            [(WBTabGroupManager *)v41 moveTabs:v36 toTabGroup:v27 afterTab:lastObject2 withoutPersistingTabGroupsWithUUIDStrings:0];
+            [(WBTabGroupManager *)v44 moveTabs:v37 toTabGroup:v28 afterTab:lastObject2 withoutPersistingTabGroupsWithUUIDStrings:0];
           }
 
           else
           {
-            v44 = WBS_LOG_CHANNEL_PREFIXProfiles();
-            if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+            v47 = WBS_LOG_CHANNEL_PREFIXProfiles(v42, v43);
+            if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
             {
-              [(BrowserWindowController *)buf _mergeWindowStates:v44 intoWindowState:?];
+              [(BrowserWindowController *)buf _mergeWindowStates:v47 intoWindowState:?];
             }
           }
         }
 
-        v18 = v66 + 1;
+        v19 = v69 + 1;
       }
 
-      while (v66 + 1 != v63);
-      v45 = [obj countByEnumeratingWithState:&v75 objects:v85 count:16];
-      v63 = v45;
+      while (v69 + 1 != v66);
+      v48 = [obj countByEnumeratingWithState:&v78 objects:v88 count:16];
+      v66 = v48;
     }
 
-    while (v45);
+    while (v48);
   }
 
-  v46 = [MEMORY[0x277CBEB58] set];
+  v49 = [MEMORY[0x277CBEB58] set];
 
   array3 = [MEMORY[0x277CBEB18] array];
-  v68[0] = MEMORY[0x277D85DD0];
-  v68[1] = 3221225472;
-  v68[2] = __62__BrowserWindowController__mergeWindowStates_intoWindowState___block_invoke_2;
-  v68[3] = &unk_2781D8940;
-  v69 = v67;
-  v70 = v46;
-  v48 = v46;
-  v49 = v67;
-  v50 = [v60 safari_reduceObjectsWithInitialValue:array3 usingBlock:v68];
+  v71[0] = MEMORY[0x277D85DD0];
+  v71[1] = 3221225472;
+  v71[2] = __62__BrowserWindowController__mergeWindowStates_intoWindowState___block_invoke_2;
+  v71[3] = &unk_2781D8940;
+  v72 = v70;
+  v73 = v49;
+  v51 = v49;
+  v52 = v70;
+  v53 = [v63 safari_reduceObjectsWithInitialValue:array3 usingBlock:v71];
 
-  v51 = self->_tabGroupManager;
-  privateTabGroup = [v49 privateTabGroup];
-  privateTabGroup2 = [v49 privateTabGroup];
+  v54 = self->_tabGroupManager;
+  privateTabGroup = [v52 privateTabGroup];
+  privateTabGroup2 = [v52 privateTabGroup];
   tabs3 = [privateTabGroup2 tabs];
   lastObject3 = [tabs3 lastObject];
-  [(WBTabGroupManager *)v51 moveTabs:v50 toTabGroup:privateTabGroup afterTab:lastObject3 withoutPersistingTabGroupsWithUUIDStrings:v48];
+  [(WBTabGroupManager *)v54 moveTabs:v53 toTabGroup:privateTabGroup afterTab:lastObject3 withoutPersistingTabGroupsWithUUIDStrings:v51];
 
-  v83 = v49;
-  v56 = [MEMORY[0x277CBEA60] arrayWithObjects:&v83 count:1];
+  v86 = v52;
+  v59 = [MEMORY[0x277CBEA60] arrayWithObjects:&v86 count:1];
 
-  return v56;
+  return v59;
 }
 
 id __62__BrowserWindowController__mergeWindowStates_intoWindowState___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -2811,75 +2811,76 @@ id __62__BrowserWindowController__mergeWindowStates_intoWindowState___block_invo
 
 - (void)_restoreWindowsFromBrowserSavedState:(id)state
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   objc_storeStrong(&self->_savedState, state);
   browserWindows = [stateCopy browserWindows];
   v7 = [(NSArray *)self->_browserControllers mutableCopy];
-  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
   obj = browserWindows;
-  v8 = [obj countByEnumeratingWithState:&v28 objects:v36 count:16];
+  v8 = [obj countByEnumeratingWithState:&v29 objects:v37 count:16];
   if (v8)
   {
-    v9 = v8;
-    v10 = *v29;
-    v11 = 0x2781D1000uLL;
+    v10 = v8;
+    v11 = *v30;
+    v12 = 0x2781D1000uLL;
     do
     {
-      v12 = 0;
-      v26 = v9;
+      v13 = 0;
+      v27 = v10;
       do
       {
-        if (*v29 != v10)
+        if (*v30 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v28 + 1) + 8 * v12);
-        v14 = WBS_LOG_CHANNEL_PREFIXTabs();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+        v14 = *(*(&v29 + 1) + 8 * v13);
+        v15 = WBS_LOG_CHANNEL_PREFIXTabs(v8, v9);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
         {
-          v15 = v14;
-          [v13 UUID];
-          v16 = v10;
-          v17 = v7;
+          v16 = v15;
+          [v14 UUID];
+          v17 = v11;
+          v18 = v7;
           selfCopy = self;
-          v19 = stateCopy;
-          v21 = v20 = v11;
-          sceneID = [v13 sceneID];
+          v20 = stateCopy;
+          v22 = v21 = v12;
+          sceneID = [v14 sceneID];
           *buf = 138543618;
-          v33 = v21;
-          v34 = 2114;
-          v35 = sceneID;
-          _os_log_impl(&dword_215819000, v15, OS_LOG_TYPE_INFO, "Loading window from saved state: uuid = %{public}@, sceneID = %{public}@", buf, 0x16u);
+          v34 = v22;
+          v35 = 2114;
+          v36 = sceneID;
+          _os_log_impl(&dword_215819000, v16, OS_LOG_TYPE_INFO, "Loading window from saved state: uuid = %{public}@, sceneID = %{public}@", buf, 0x16u);
 
-          v11 = v20;
-          stateCopy = v19;
+          v12 = v21;
+          stateCopy = v20;
           self = selfCopy;
-          v7 = v17;
-          v10 = v16;
-          v9 = v26;
+          v7 = v18;
+          v11 = v17;
+          v10 = v27;
         }
 
-        v23 = [objc_alloc(*(v11 + 3848)) initWithStateData:v13 browserWindowController:self savedState:stateCopy controlledByAutomation:0];
-        [v7 addObject:v23];
+        v24 = [objc_alloc(*(v12 + 3848)) initWithStateData:v14 browserWindowController:self savedState:stateCopy controlledByAutomation:0];
+        [v7 addObject:v24];
 
-        ++v12;
+        ++v13;
       }
 
-      while (v9 != v12);
-      v9 = [obj countByEnumeratingWithState:&v28 objects:v36 count:16];
+      while (v10 != v13);
+      v8 = [obj countByEnumeratingWithState:&v29 objects:v37 count:16];
+      v10 = v8;
     }
 
-    while (v9);
+    while (v8);
   }
 
-  v24 = [v7 copy];
+  v25 = [v7 copy];
   browserControllers = self->_browserControllers;
-  self->_browserControllers = v24;
+  self->_browserControllers = v25;
 }
 
 - (id)_browserWindowsToPersist

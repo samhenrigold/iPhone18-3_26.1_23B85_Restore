@@ -105,30 +105,29 @@ void sub_100001B28(uint64_t a1)
 
 void sub_1000021E0(uint64_t a1, void *a2, void *a3)
 {
-  v27 = a2;
+  v24 = a2;
   v5 = a3;
-  if ([*(a1 + 32) containsObject:v27])
+  if ([*(a1 + 32) containsObject:v24])
   {
-    v9 = [NSString stringWithFormat:@"duplicate entry for %@ in %@", v27, *(a1 + 40)];
+    v9 = [NSString stringWithFormat:@"duplicate entry for %@ in %@", v24, *(a1 + 40)];
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
       v10 = NSStringFromSelector(*(a1 + 72));
-      v11 = *(a1 + 48);
-      v12 = objc_opt_class();
-      v13 = NSStringFromClass(v12);
-      v14 = *(a1 + 48);
+      v11 = objc_opt_class();
+      v12 = NSStringFromClass(v11);
+      v13 = *(a1 + 48);
       *buf = 138544642;
-      v29 = v10;
-      v30 = 2114;
-      v31 = v13;
-      v32 = 2048;
-      v33 = v14;
-      v34 = 2114;
-      v35 = @"DASParsing.m";
-      v36 = 1024;
-      v37 = 157;
-      v38 = 2114;
-      v39 = v9;
+      v26 = v10;
+      v27 = 2114;
+      v28 = v12;
+      v29 = 2048;
+      v30 = v13;
+      v31 = 2114;
+      v32 = @"DASParsing.m";
+      v33 = 1024;
+      v34 = 157;
+      v35 = 2114;
+      v36 = v9;
       _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
@@ -138,35 +137,34 @@ void sub_1000021E0(uint64_t a1, void *a2, void *a3)
     JUMPOUT(0x1000023F8);
   }
 
-  v6 = +[NSNumber numberWithUnsignedInt:](NSNumber, "numberWithUnsignedInt:", [v27 identifier]);
+  v6 = +[NSNumber numberWithUnsignedInt:](NSNumber, "numberWithUnsignedInt:", [v24 identifier]);
   v7 = [*(a1 + 56) objectForKey:v6];
 
   if (v7)
   {
-    v15 = [NSString stringWithFormat:@"duplicate entry for contextIDNumber %@ in %@", v6, *(a1 + 40)];
+    v14 = [NSString stringWithFormat:@"duplicate entry for contextIDNumber %@ in %@", v6, *(a1 + 40)];
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      v16 = NSStringFromSelector(*(a1 + 72));
-      v17 = *(a1 + 48);
-      v18 = objc_opt_class();
-      v19 = NSStringFromClass(v18);
-      v20 = *(a1 + 48);
+      v15 = NSStringFromSelector(*(a1 + 72));
+      v16 = objc_opt_class();
+      v17 = NSStringFromClass(v16);
+      v18 = *(a1 + 48);
       *buf = 138544642;
-      v29 = v16;
-      v30 = 2114;
-      v31 = v19;
-      v32 = 2048;
-      v33 = v20;
-      v34 = 2114;
-      v35 = @"DASParsing.m";
-      v36 = 1024;
-      v37 = 160;
-      v38 = 2114;
-      v39 = v15;
+      v26 = v15;
+      v27 = 2114;
+      v28 = v17;
+      v29 = 2048;
+      v30 = v18;
+      v31 = 2114;
+      v32 = @"DASParsing.m";
+      v33 = 1024;
+      v34 = 160;
+      v35 = 2114;
+      v36 = v14;
       _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    [v15 UTF8String];
+    [v14 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x1000024F0);
@@ -176,43 +174,42 @@ void sub_1000021E0(uint64_t a1, void *a2, void *a3)
 
   if (v8)
   {
-    v21 = [NSString stringWithFormat:@"duplicate entry for contextIDNumber %@ in %@", v6, *(a1 + 40)];
+    v19 = [NSString stringWithFormat:@"duplicate entry for contextIDNumber %@ in %@", v6, *(a1 + 40)];
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      v22 = NSStringFromSelector(*(a1 + 72));
+      v20 = NSStringFromSelector(*(a1 + 72));
+      v21 = objc_opt_class();
+      v22 = NSStringFromClass(v21);
       v23 = *(a1 + 48);
-      v24 = objc_opt_class();
-      v25 = NSStringFromClass(v24);
-      v26 = *(a1 + 48);
       *buf = 138544642;
-      v29 = v22;
-      v30 = 2114;
-      v31 = v25;
-      v32 = 2048;
-      v33 = v26;
-      v34 = 2114;
-      v35 = @"DASParsing.m";
-      v36 = 1024;
-      v37 = 161;
-      v38 = 2114;
-      v39 = v21;
+      v26 = v20;
+      v27 = 2114;
+      v28 = v22;
+      v29 = 2048;
+      v30 = v23;
+      v31 = 2114;
+      v32 = @"DASParsing.m";
+      v33 = 1024;
+      v34 = 161;
+      v35 = 2114;
+      v36 = v19;
       _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    [v21 UTF8String];
+    [v19 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x1000025E8);
   }
 
-  [*(a1 + 56) setObject:v27 forKey:v6];
+  [*(a1 + 56) setObject:v24 forKey:v6];
   [*(a1 + 64) setObject:v5 forKey:v6];
-  [*(a1 + 32) addObject:v27];
+  [*(a1 + 32) addObject:v24];
 }
 
 void sub_100003258(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  _Block_object_dispose(&a69, 8);
+  _Block_object_dispose(&a65, 8);
   _Block_object_dispose(&STACK[0x210], 8);
   _Block_object_dispose(&STACK[0x240], 8);
   _Unwind_Resume(a1);
@@ -236,30 +233,29 @@ void sub_1000032D4(uint64_t a1)
 
       if (v3)
       {
-        v9 = [NSString stringWithFormat:@"cannot be more than one %@ group", *(*(*(a1 + 64) + 8) + 40)];
+        v7 = [NSString stringWithFormat:@"cannot be more than one %@ group", *(*(*(a1 + 64) + 8) + 40)];
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
         {
-          v10 = NSStringFromSelector(*(a1 + 80));
+          v8 = NSStringFromSelector(*(a1 + 80));
+          v9 = objc_opt_class();
+          v10 = NSStringFromClass(v9);
           v11 = *(a1 + 40);
-          v12 = objc_opt_class();
-          v13 = NSStringFromClass(v12);
-          v14 = *(a1 + 40);
           *buf = 138544642;
-          v23 = v10;
+          v19 = v8;
+          v20 = 2114;
+          v21 = v10;
+          v22 = 2048;
+          v23 = v11;
           v24 = 2114;
-          v25 = v13;
-          v26 = 2048;
-          v27 = v14;
+          v25 = @"DASParsing.m";
+          v26 = 1024;
+          v27 = 406;
           v28 = 2114;
-          v29 = @"DASParsing.m";
-          v30 = 1024;
-          v31 = 406;
-          v32 = 2114;
-          v33 = v9;
+          v29 = v7;
           _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
         }
 
-        [v9 UTF8String];
+        [v7 UTF8String];
         _bs_set_crash_log_message();
         __break(0);
         JUMPOUT(0x100003510);
@@ -267,9 +263,7 @@ void sub_1000032D4(uint64_t a1)
 
       [*(a1 + 48) addObject:*(*(*(a1 + 64) + 8) + 40)];
       v4 = *(a1 + 32);
-      v5 = [*(*(*(a1 + 56) + 8) + 40) copy];
-      v6 = *(*(*(a1 + 64) + 8) + 40);
-      v21 = v5;
+      v17 = [*(*(*(a1 + 56) + 8) + 40) copy];
       [v4 setObject:? forKey:?];
     }
 
@@ -277,39 +271,38 @@ void sub_1000032D4(uint64_t a1)
     {
       if (*(*(*(a1 + 72) + 8) + 40))
       {
-        v15 = [NSString stringWithFormat:@"cannot be more than one unattached group"];
+        v12 = [NSString stringWithFormat:@"cannot be more than one unattached group"];
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
         {
-          v16 = NSStringFromSelector(*(a1 + 80));
-          v17 = *(a1 + 40);
-          v18 = objc_opt_class();
-          v19 = NSStringFromClass(v18);
-          v20 = *(a1 + 40);
+          v13 = NSStringFromSelector(*(a1 + 80));
+          v14 = objc_opt_class();
+          v15 = NSStringFromClass(v14);
+          v16 = *(a1 + 40);
           *buf = 138544642;
+          v19 = v13;
+          v20 = 2114;
+          v21 = v15;
+          v22 = 2048;
           v23 = v16;
           v24 = 2114;
-          v25 = v19;
-          v26 = 2048;
-          v27 = v20;
+          v25 = @"DASParsing.m";
+          v26 = 1024;
+          v27 = 410;
           v28 = 2114;
-          v29 = @"DASParsing.m";
-          v30 = 1024;
-          v31 = 410;
-          v32 = 2114;
-          v33 = v15;
+          v29 = v12;
           _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
         }
 
-        [v15 UTF8String];
+        [v12 UTF8String];
         _bs_set_crash_log_message();
         __break(0);
         JUMPOUT(0x100003600);
       }
 
-      v7 = [v2 copy];
-      v8 = *(*(a1 + 72) + 8);
-      v21 = *(v8 + 40);
-      *(v8 + 40) = v7;
+      v5 = [v2 copy];
+      v6 = *(*(a1 + 72) + 8);
+      v17 = *(v6 + 40);
+      *(v6 + 40) = v5;
     }
   }
 }
@@ -324,22 +317,21 @@ void sub_100003608(uint64_t a1, void *a2)
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
       v41 = NSStringFromSelector(*(a1 + 104));
-      v42 = *(a1 + 40);
-      v43 = objc_opt_class();
-      v44 = NSStringFromClass(v43);
-      v45 = *(a1 + 40);
+      v42 = objc_opt_class();
+      v43 = NSStringFromClass(v42);
+      v44 = *(a1 + 40);
       *buf = 138544642;
-      *v89 = v41;
-      *&v89[8] = 2114;
-      *v90 = v44;
-      *&v90[8] = 2048;
-      *v91 = v45;
-      *&v91[8] = 2114;
-      *&v91[10] = @"DASParsing.m";
-      v92 = 1024;
-      v93 = 417;
-      v94 = 2114;
-      v95 = v40;
+      *v82 = v41;
+      *&v82[8] = 2114;
+      *v83 = v43;
+      *&v83[8] = 2048;
+      *v84 = v44;
+      *&v84[8] = 2114;
+      *&v84[10] = @"DASParsing.m";
+      v85 = 1024;
+      v86 = 417;
+      v87 = 2114;
+      v88 = v40;
       _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
@@ -361,38 +353,37 @@ void sub_100003608(uint64_t a1, void *a2)
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412546;
-      *v89 = v9;
-      *&v89[8] = 2112;
-      *v90 = v3;
+      *v82 = v9;
+      *&v82[8] = 2112;
+      *v83 = v3;
       _os_log_debug_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEBUG, "matched display '%@' in '%@'", buf, 0x16u);
     }
 
     if (![v9 length])
     {
-      v52 = [NSString stringWithFormat:@"must have a valid displayName"];
+      v50 = [NSString stringWithFormat:@"must have a valid displayName"];
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
-        v53 = NSStringFromSelector(*(a1 + 104));
+        v51 = NSStringFromSelector(*(a1 + 104));
+        v52 = objc_opt_class();
+        v53 = NSStringFromClass(v52);
         v54 = *(a1 + 40);
-        v55 = objc_opt_class();
-        v56 = NSStringFromClass(v55);
-        v57 = *(a1 + 40);
         *buf = 138544642;
-        *v89 = v53;
-        *&v89[8] = 2114;
-        *v90 = v56;
-        *&v90[8] = 2048;
-        *v91 = v57;
-        *&v91[8] = 2114;
-        *&v91[10] = @"DASParsing.m";
-        v92 = 1024;
-        v93 = 425;
-        v94 = 2114;
-        v95 = v52;
+        *v82 = v51;
+        *&v82[8] = 2114;
+        *v83 = v53;
+        *&v83[8] = 2048;
+        *v84 = v54;
+        *&v84[8] = 2114;
+        *&v84[10] = @"DASParsing.m";
+        v85 = 1024;
+        v86 = 425;
+        v87 = 2114;
+        v88 = v50;
         _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      [v52 UTF8String];
+      [v50 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x100003DF0);
@@ -421,30 +412,29 @@ void sub_100003608(uint64_t a1, void *a2)
   v17 = [*(a1 + 56) matchesInString:v3 options:0 range:{0, objc_msgSend(v3, "length")}];
   if ([v17 count] >= 2)
   {
-    v46 = [NSString stringWithFormat:@"we can't match more than one contextMatches entry per line"];
+    v45 = [NSString stringWithFormat:@"we can't match more than one contextMatches entry per line"];
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      v47 = NSStringFromSelector(*(a1 + 104));
-      v48 = *(a1 + 40);
-      v49 = objc_opt_class();
-      v50 = NSStringFromClass(v49);
-      v51 = *(a1 + 40);
+      v46 = NSStringFromSelector(*(a1 + 104));
+      v47 = objc_opt_class();
+      v48 = NSStringFromClass(v47);
+      v49 = *(a1 + 40);
       *buf = 138544642;
-      *v89 = v47;
-      *&v89[8] = 2114;
-      *v90 = v50;
-      *&v90[8] = 2048;
-      *v91 = v51;
-      *&v91[8] = 2114;
-      *&v91[10] = @"DASParsing.m";
-      v92 = 1024;
-      v93 = 436;
-      v94 = 2114;
-      v95 = v46;
+      *v82 = v46;
+      *&v82[8] = 2114;
+      *v83 = v48;
+      *&v83[8] = 2048;
+      *v84 = v49;
+      *&v84[8] = 2114;
+      *&v84[10] = @"DASParsing.m";
+      v85 = 1024;
+      v86 = 436;
+      v87 = 2114;
+      v88 = v45;
       _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    [v46 UTF8String];
+    [v45 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x100003D00);
@@ -456,30 +446,29 @@ void sub_100003608(uint64_t a1, void *a2)
   {
     if (!*(*(*(a1 + 96) + 8) + 40))
     {
-      v58 = [NSString stringWithFormat:@"context matches must be preceeded by a display match :\n%@", *(*(a1 + 40) + 48)];
+      v55 = [NSString stringWithFormat:@"context matches must be preceeded by a display match :\n%@", *(*(a1 + 40) + 48)];
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
-        v59 = NSStringFromSelector(*(a1 + 104));
-        v60 = *(a1 + 40);
-        v61 = objc_opt_class();
-        v62 = NSStringFromClass(v61);
-        v63 = *(a1 + 40);
+        v56 = NSStringFromSelector(*(a1 + 104));
+        v57 = objc_opt_class();
+        v58 = NSStringFromClass(v57);
+        v59 = *(a1 + 40);
         *buf = 138544642;
-        *v89 = v59;
-        *&v89[8] = 2114;
-        *v90 = v62;
-        *&v90[8] = 2048;
-        *v91 = v63;
-        *&v91[8] = 2114;
-        *&v91[10] = @"DASParsing.m";
-        v92 = 1024;
-        v93 = 439;
-        v94 = 2114;
-        v95 = v58;
+        *v82 = v56;
+        *&v82[8] = 2114;
+        *v83 = v58;
+        *&v83[8] = 2048;
+        *v84 = v59;
+        *&v84[8] = 2114;
+        *&v84[10] = @"DASParsing.m";
+        v85 = 1024;
+        v86 = 439;
+        v87 = 2114;
+        v88 = v55;
         _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      [v58 UTF8String];
+      [v55 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x100003EECLL);
@@ -489,30 +478,29 @@ void sub_100003608(uint64_t a1, void *a2)
     v22 = [v3 substringWithRange:{v20, v21}];
     if (![v22 length])
     {
-      v64 = [NSString stringWithFormat:@"must have a valid contextID : %@ from '%@'", v22, v3];
+      v60 = [NSString stringWithFormat:@"must have a valid contextID : %@ from '%@'", v22, v3];
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
-        v65 = NSStringFromSelector(*(a1 + 104));
-        v66 = *(a1 + 40);
-        v67 = objc_opt_class();
-        v68 = NSStringFromClass(v67);
-        v69 = *(a1 + 40);
+        v61 = NSStringFromSelector(*(a1 + 104));
+        v62 = objc_opt_class();
+        v63 = NSStringFromClass(v62);
+        v64 = *(a1 + 40);
         *buf = 138544642;
-        *v89 = v65;
-        *&v89[8] = 2114;
-        *v90 = v68;
-        *&v90[8] = 2048;
-        *v91 = v69;
-        *&v91[8] = 2114;
-        *&v91[10] = @"DASParsing.m";
-        v92 = 1024;
-        v93 = 442;
-        v94 = 2114;
-        v95 = v64;
+        *v82 = v61;
+        *&v82[8] = 2114;
+        *v83 = v63;
+        *&v83[8] = 2048;
+        *v84 = v64;
+        *&v84[8] = 2114;
+        *&v84[10] = @"DASParsing.m";
+        v85 = 1024;
+        v86 = 442;
+        v87 = 2114;
+        v88 = v60;
         _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      [v64 UTF8String];
+      [v60 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x100003FE0);
@@ -521,22 +509,22 @@ void sub_100003608(uint64_t a1, void *a2)
     v23 = v22;
     if (![v23 length])
     {
-      v70 = [NSString stringWithFormat:@"must have a valid hex string -> %@", v23];
+      v65 = [NSString stringWithFormat:@"must have a valid hex string -> %@", v23];
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
-        v71 = [NSString stringWithUTF8String:"NSNumber * _Nonnull uint32NumberFromHexString(NSString *__strong _Nonnull)"];
+        v66 = [NSString stringWithUTF8String:"NSNumber * _Nonnull uint32NumberFromHexString(NSString *__strong _Nonnull)"];
         *buf = 138544130;
-        *v89 = v71;
-        *&v89[8] = 2114;
-        *v90 = @"DASParsing.m";
-        *&v90[8] = 1024;
-        *v91 = 340;
-        *&v91[4] = 2114;
-        *&v91[6] = v70;
+        *v82 = v66;
+        *&v82[8] = 2114;
+        *v83 = @"DASParsing.m";
+        *&v83[8] = 1024;
+        *v84 = 340;
+        *&v84[4] = 2114;
+        *&v84[6] = v65;
         _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", buf, 0x26u);
       }
 
-      [v70 UTF8String];
+      [v65 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x1000040ACLL);
@@ -555,22 +543,22 @@ void sub_100003608(uint64_t a1, void *a2)
         {
           if ((v28 - 97) > 5)
           {
-            v86 = [NSString stringWithFormat:@"unknown character %c", v28];
+            v79 = [NSString stringWithFormat:@"unknown character %c", v28];
             if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
             {
-              v87 = [NSString stringWithUTF8String:"NSNumber * _Nonnull uint32NumberFromHexString(NSString *__strong _Nonnull)"];
+              v80 = [NSString stringWithUTF8String:"NSNumber * _Nonnull uint32NumberFromHexString(NSString *__strong _Nonnull)"];
               *buf = 138544130;
-              *v89 = v87;
-              *&v89[8] = 2114;
-              *v90 = @"DASParsing.m";
-              *&v90[8] = 1024;
-              *v91 = 351;
-              *&v91[4] = 2114;
-              *&v91[6] = v86;
+              *v82 = v80;
+              *&v82[8] = 2114;
+              *v83 = @"DASParsing.m";
+              *&v83[8] = 1024;
+              *v84 = 351;
+              *&v84[4] = 2114;
+              *&v84[6] = v79;
               _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", buf, 0x26u);
             }
 
-            [v86 UTF8String];
+            [v79 UTF8String];
             _bs_set_crash_log_message();
             __break(0);
             JUMPOUT(0x100004430);
@@ -594,22 +582,22 @@ void sub_100003608(uint64_t a1, void *a2)
     v30 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%x", [v29 unsignedIntValue]);
     if (([v30 isEqualToString:v23] & 1) == 0)
     {
-      v72 = [NSString stringWithFormat:@"parsed is not equivalent to original : parsed=%@ original=%@", v30, v23];
+      v67 = [NSString stringWithFormat:@"parsed is not equivalent to original : parsed=%@ original=%@", v30, v23];
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
-        v73 = [NSString stringWithUTF8String:"NSNumber * _Nonnull uint32NumberFromHexString(NSString *__strong _Nonnull)"];
+        v68 = [NSString stringWithUTF8String:"NSNumber * _Nonnull uint32NumberFromHexString(NSString *__strong _Nonnull)"];
         *buf = 138544130;
-        *v89 = v73;
-        *&v89[8] = 2114;
-        *v90 = @"DASParsing.m";
-        *&v90[8] = 1024;
-        *v91 = 356;
-        *&v91[4] = 2114;
-        *&v91[6] = v72;
+        *v82 = v68;
+        *&v82[8] = 2114;
+        *v83 = @"DASParsing.m";
+        *&v83[8] = 1024;
+        *v84 = 356;
+        *&v84[4] = 2114;
+        *&v84[6] = v67;
         _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", buf, 0x26u);
       }
 
-      [v72 UTF8String];
+      [v67 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x100004178);
@@ -617,30 +605,29 @@ void sub_100003608(uint64_t a1, void *a2)
 
     if (!v29)
     {
-      v74 = [NSString stringWithFormat:@"failed to parse contextID %@ from '%@'", v23, v3];
+      v69 = [NSString stringWithFormat:@"failed to parse contextID %@ from '%@'", v23, v3];
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
-        v75 = NSStringFromSelector(*(a1 + 104));
-        v76 = *(a1 + 40);
-        v77 = objc_opt_class();
-        v78 = NSStringFromClass(v77);
-        v79 = *(a1 + 40);
+        v70 = NSStringFromSelector(*(a1 + 104));
+        v71 = objc_opt_class();
+        v72 = NSStringFromClass(v71);
+        v73 = *(a1 + 40);
         *buf = 138544642;
-        *v89 = v75;
-        *&v89[8] = 2114;
-        *v90 = v78;
-        *&v90[8] = 2048;
-        *v91 = v79;
-        *&v91[8] = 2114;
-        *&v91[10] = @"DASParsing.m";
-        v92 = 1024;
-        v93 = 444;
-        v94 = 2114;
-        v95 = v74;
+        *v82 = v70;
+        *&v82[8] = 2114;
+        *v83 = v72;
+        *&v83[8] = 2048;
+        *v84 = v73;
+        *&v84[8] = 2114;
+        *&v84[10] = @"DASParsing.m";
+        v85 = 1024;
+        v86 = 444;
+        v87 = 2114;
+        v88 = v69;
         _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      [v74 UTF8String];
+      [v69 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x10000426CLL);
@@ -652,30 +639,29 @@ void sub_100003608(uint64_t a1, void *a2)
 
     if (v34 <= 0)
     {
-      v80 = [NSString stringWithFormat:@"must have a valid pid : %i from '%@'", v34, v3];
+      v74 = [NSString stringWithFormat:@"must have a valid pid : %i from '%@'", v34, v3];
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
-        v81 = NSStringFromSelector(*(a1 + 104));
-        v82 = *(a1 + 40);
-        v83 = objc_opt_class();
-        v84 = NSStringFromClass(v83);
-        v85 = *(a1 + 40);
+        v75 = NSStringFromSelector(*(a1 + 104));
+        v76 = objc_opt_class();
+        v77 = NSStringFromClass(v76);
+        v78 = *(a1 + 40);
         *buf = 138544642;
-        *v89 = v81;
-        *&v89[8] = 2114;
-        *v90 = v84;
-        *&v90[8] = 2048;
-        *v91 = v85;
-        *&v91[8] = 2114;
-        *&v91[10] = @"DASParsing.m";
-        v92 = 1024;
-        v93 = 448;
-        v94 = 2114;
-        v95 = v80;
+        *v82 = v75;
+        *&v82[8] = 2114;
+        *v83 = v77;
+        *&v83[8] = 2048;
+        *v84 = v78;
+        *&v84[8] = 2114;
+        *&v84[10] = @"DASParsing.m";
+        v85 = 1024;
+        v86 = 448;
+        v87 = 2114;
+        v88 = v74;
         _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      [v80 UTF8String];
+      [v74 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x100004360);
@@ -686,11 +672,11 @@ void sub_100003608(uint64_t a1, void *a2)
     {
       v39 = [v29 unsignedIntValue];
       *buf = 67109634;
-      *v89 = v39;
-      *&v89[4] = 1024;
-      *&v89[6] = v34;
-      *v90 = 2112;
-      *&v90[2] = v3;
+      *v82 = v39;
+      *&v82[4] = 1024;
+      *&v82[6] = v34;
+      *v83 = 2112;
+      *&v83[2] = v3;
       _os_log_debug_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEBUG, "matched context %x for pid %i from '%@'", buf, 0x18u);
     }
 
@@ -708,7 +694,7 @@ LABEL_28:
     if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      *v89 = v3;
+      *v82 = v3;
       _os_log_debug_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEBUG, "failed to find any match in '%@'", buf, 0xCu);
     }
 
@@ -850,9 +836,9 @@ void sub_10000490C(uint64_t a1)
   }
 }
 
-void sub_100005064(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_100005064(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -908,20 +894,19 @@ uint64_t sub_100005228(uint64_t a1)
   v3 = dlsym(v2, "CARenderClientGetArchivedLayerTree");
   off_100015040 = v3;
 
-  return (v3)(a1);
+  return v3(a1);
 }
 
 uint64_t sub_100005278(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_100015180 = result;
   return result;
 }
 
-void sub_100005B1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_100005B1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -986,9 +971,9 @@ id sub_100005CC8()
   return v1;
 }
 
-void sub_100005D90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100005D90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1050,7 +1035,6 @@ LABEL_7:
 
 uint64_t sub_100005FC4(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_1000151B0 = result;
   return result;
@@ -1476,9 +1460,9 @@ id sub_100007224()
   return v1;
 }
 
-void sub_1000072EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000072EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1509,99 +1493,99 @@ id sub_1000073CC(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void sub_100007400(uint64_t a1, void *a2, void *a3)
+void sub_100007400(void *a1, void *a2, void *a3)
 {
   v4 = a2;
   v5 = a3;
-  v88 = v4;
+  v87 = v4;
   if (!v4)
   {
-    v77 = v5;
-    v78 = +[NSAssertionHandler currentHandler];
-    v79 = [NSString stringWithUTF8String:"void processRootContexts(NSString *__strong, NSOrderedSet<DASContextInfo *> *__strong, __strong id<DASContextArchiveProvider>, __strong DASContextLayerProcessor, void (^__strong)(CALayer *__strong, NSMapTable<NSNumber *, NSMutableArray<CALayer *> *> *__strong))_block_invoke"];
-    [v78 handleFailureInFunction:v79 file:@"DASProcessor.m" lineNumber:228 description:{@"Invalid parameter not satisfying: %@", @"layer"}];
+    v76 = v5;
+    v77 = +[NSAssertionHandler currentHandler];
+    v78 = [NSString stringWithUTF8String:"void processRootContexts(NSString *__strong, NSOrderedSet<DASContextInfo *> *__strong, __strong id<DASContextArchiveProvider>, __strong DASContextLayerProcessor, void (^__strong)(CALayer *__strong, NSMapTable<NSNumber *, NSMutableArray<CALayer *> *> *__strong))_block_invoke"];
+    [v77 handleFailureInFunction:v78 file:@"DASProcessor.m" lineNumber:228 description:{@"Invalid parameter not satisfying: %@", @"layer"}];
 
-    v5 = v77;
+    v5 = v76;
   }
 
-  v85 = v5;
+  v84 = v5;
   if (!v5)
   {
-    v80 = +[NSAssertionHandler currentHandler];
-    v81 = [NSString stringWithUTF8String:"void processRootContexts(NSString *__strong, NSOrderedSet<DASContextInfo *> *__strong, __strong id<DASContextArchiveProvider>, __strong DASContextLayerProcessor, void (^__strong)(CALayer *__strong, NSMapTable<NSNumber *, NSMutableArray<CALayer *> *> *__strong))_block_invoke"];
-    [v80 handleFailureInFunction:v81 file:@"DASProcessor.m" lineNumber:229 description:{@"Invalid parameter not satisfying: %@", @"contextArchiveProvider"}];
+    v79 = +[NSAssertionHandler currentHandler];
+    v80 = [NSString stringWithUTF8String:"void processRootContexts(NSString *__strong, NSOrderedSet<DASContextInfo *> *__strong, __strong id<DASContextArchiveProvider>, __strong DASContextLayerProcessor, void (^__strong)(CALayer *__strong, NSMapTable<NSNumber *, NSMutableArray<CALayer *> *> *__strong))_block_invoke"];
+    [v79 handleFailureInFunction:v80 file:@"DASProcessor.m" lineNumber:229 description:{@"Invalid parameter not satisfying: %@", @"contextArchiveProvider"}];
   }
 
-  v109 = 0;
-  v110 = &v109;
-  v111 = 0x2050000000;
+  v108 = 0;
+  v109 = &v108;
+  v110 = 0x2050000000;
   v6 = qword_1000151D8;
-  v112 = qword_1000151D8;
+  v111 = qword_1000151D8;
   if (!qword_1000151D8)
   {
     *buf = _NSConcreteStackBlock;
-    v119 = 3221225472;
-    v120 = sub_100008648;
-    v121 = &unk_100010920;
-    v122 = &v109;
+    v118 = 3221225472;
+    v119 = sub_100008648;
+    v120 = &unk_100010920;
+    v121 = &v108;
     sub_100008648(buf);
-    v6 = v110[3];
+    v6 = v109[3];
   }
 
   v7 = v6;
-  _Block_object_dispose(&v109, 8);
+  _Block_object_dispose(&v108, 8);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v8 = [v88 contextId];
-    v9 = *(a1 + 32);
+    v8 = [v87 contextId];
+    v9 = a1[4];
     v10 = [NSNumber numberWithUnsignedInt:v8];
     obj = [v9 objectForKey:v10];
 
     if (obj)
     {
-      [obj addObject:v88];
+      [obj addObject:v87];
     }
 
     else
     {
-      obj = [NSMutableArray arrayWithObject:v88];
-      v57 = *(a1 + 32);
-      v58 = [NSNumber numberWithUnsignedInt:v8];
-      [v57 setObject:obj forKey:v58];
+      obj = [NSMutableArray arrayWithObject:v87];
+      v56 = a1[4];
+      v57 = [NSNumber numberWithUnsignedInt:v8];
+      [v56 setObject:obj forKey:v57];
 
-      v59 = [v85 contextWithIdentifier:{objc_msgSend(v88, "contextId")}];
-      v60 = v59;
-      if (v59)
+      v58 = [v84 contextWithIdentifier:{objc_msgSend(v87, "contextId")}];
+      v59 = v58;
+      if (v58)
       {
-        v61 = sub_100007FB8(v59, v85, *(a1 + 40), *(*(*(a1 + 48) + 8) + 40));
-        if (v61)
+        v60 = sub_100007FB8(v58, v84, a1[5], *(*(a1[6] + 8) + 40));
+        if (v60)
         {
-          [v88 addSublayer:v61];
+          [v87 addSublayer:v60];
         }
 
         else
         {
-          v76 = sub_100005B8C();
-          if (os_log_type_enabled(v76, OS_LOG_TYPE_ERROR))
+          v75 = sub_100005B8C();
+          if (os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
           {
             *buf = 67109120;
             *&buf[4] = v8;
-            _os_log_error_impl(&_mh_execute_header, v76, OS_LOG_TYPE_ERROR, "no hosted layers found for %x", buf, 8u);
+            _os_log_error_impl(&_mh_execute_header, v75, OS_LOG_TYPE_ERROR, "no hosted layers found for %x", buf, 8u);
           }
 
-          v61 = 0;
+          v60 = 0;
         }
       }
 
       else
       {
-        v61 = sub_100005B8C();
-        if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
+        v60 = sub_100005B8C();
+        if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
         {
           *buf = 67109120;
           *&buf[4] = v8;
-          _os_log_error_impl(&_mh_execute_header, v61, OS_LOG_TYPE_ERROR, "server didn't know about hosted layers for %x", buf, 8u);
+          _os_log_error_impl(&_mh_execute_header, v60, OS_LOG_TYPE_ERROR, "server didn't know about hosted layers for %x", buf, 8u);
         }
       }
     }
@@ -1609,81 +1593,81 @@ void sub_100007400(uint64_t a1, void *a2, void *a3)
     goto LABEL_90;
   }
 
-  v109 = 0;
-  v110 = &v109;
-  v111 = 0x2050000000;
+  v108 = 0;
+  v109 = &v108;
+  v110 = 0x2050000000;
   v11 = qword_1000151F0;
-  v112 = qword_1000151F0;
+  v111 = qword_1000151F0;
   if (!qword_1000151F0)
   {
     *buf = _NSConcreteStackBlock;
-    v119 = 3221225472;
-    v120 = sub_100008710;
-    v121 = &unk_100010920;
-    v122 = &v109;
+    v118 = 3221225472;
+    v119 = sub_100008710;
+    v120 = &unk_100010920;
+    v121 = &v108;
     sub_100008710(buf);
-    v11 = v110[3];
+    v11 = v109[3];
   }
 
   v12 = v11;
-  _Block_object_dispose(&v109, 8);
+  _Block_object_dispose(&v108, 8);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v13 = [v88 sourceLayer];
+    v13 = [v87 sourceLayer];
     v14 = v13 == 0;
 
     if (v14)
     {
-      v62 = [v88 sourceContextId];
-      v63 = [v88 sourceLayerRenderId];
-      if (v62)
+      v61 = [v87 sourceContextId];
+      v62 = [v87 sourceLayerRenderId];
+      if (v61)
       {
-        v64 = v63;
-        if (v63)
+        v63 = v62;
+        if (v62)
         {
-          v65 = [v88 context];
-          v66 = v62 == [v65 contextId];
+          v64 = [v87 context];
+          v65 = v61 == [v64 contextId];
 
-          if (!v66)
+          if (!v65)
           {
-            v67 = [v85 contextWithIdentifier:v62];
-            if (v67)
+            v66 = [v84 contextWithIdentifier:v61];
+            if (v66)
             {
-              v68 = *(a1 + 32);
-              v69 = [NSNumber numberWithUnsignedInt:v62];
-              v70 = [v68 objectForKey:v69];
+              v67 = a1[4];
+              v68 = [NSNumber numberWithUnsignedInt:v61];
+              v69 = [v67 objectForKey:v68];
 
-              v107 = 0u;
-              v108 = 0u;
-              v105 = 0u;
               v106 = 0u;
-              v71 = v70;
-              v72 = [v71 countByEnumeratingWithState:&v105 objects:v117 count:16];
-              v73 = v71;
-              if (v72)
+              v107 = 0u;
+              v104 = 0u;
+              v105 = 0u;
+              v70 = v69;
+              v71 = [v70 countByEnumeratingWithState:&v104 objects:v116 count:16];
+              v72 = v70;
+              if (v71)
               {
-                v74 = *v106;
+                v73 = *v105;
                 while (2)
                 {
-                  for (i = 0; i != v72; i = i + 1)
+                  for (i = 0; i != v71; i = i + 1)
                   {
-                    if (*v106 != v74)
+                    if (*v105 != v73)
                     {
-                      objc_enumerationMutation(v71);
+                      objc_enumerationMutation(v70);
                     }
 
-                    v73 = sub_1000087D8(*(*(&v105 + 1) + 8 * i), v64);
-                    if (v73)
+                    v72 = sub_1000087D8(*(*(&v104 + 1) + 8 * i), v63);
+                    if (v72)
                     {
 
-                      [v88 setSourceLayer:v73];
+                      [v87 setSourceLayer:v72];
                       goto LABEL_92;
                     }
                   }
 
-                  v72 = [v71 countByEnumeratingWithState:&v105 objects:v117 count:16];
-                  if (v72)
+                  v71 = [v70 countByEnumeratingWithState:&v104 objects:v116 count:16];
+                  if (v71)
                   {
                     continue;
                   }
@@ -1691,7 +1675,7 @@ void sub_100007400(uint64_t a1, void *a2, void *a3)
                   break;
                 }
 
-                v73 = v71;
+                v72 = v70;
               }
 
 LABEL_92:
@@ -1702,44 +1686,44 @@ LABEL_92:
     }
   }
 
-  [v88 animationKeys];
+  [v87 animationKeys];
+  v102 = 0u;
   v103 = 0u;
-  v104 = 0u;
-  v101 = 0u;
-  obj = v102 = 0u;
-  v87 = [obj countByEnumeratingWithState:&v101 objects:v116 count:16];
-  if (v87)
+  v100 = 0u;
+  obj = v101 = 0u;
+  v86 = [obj countByEnumeratingWithState:&v100 objects:v115 count:16];
+  if (v86)
   {
-    v86 = *v102;
+    v85 = *v101;
     do
     {
-      for (j = 0; j != v87; j = j + 1)
+      for (j = 0; j != v86; j = j + 1)
       {
-        if (*v102 != v86)
+        if (*v101 != v85)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v101 + 1) + 8 * j);
-        v17 = [v88 animationForKey:v16];
-        v109 = 0;
-        v110 = &v109;
-        v111 = 0x2050000000;
+        v16 = *(*(&v100 + 1) + 8 * j);
+        v17 = [v87 animationForKey:v16];
+        v108 = 0;
+        v109 = &v108;
+        v110 = 0x2050000000;
         v18 = qword_1000151F8;
-        v112 = qword_1000151F8;
+        v111 = qword_1000151F8;
         if (!qword_1000151F8)
         {
           *buf = _NSConcreteStackBlock;
-          v119 = 3221225472;
-          v120 = sub_100008940;
-          v121 = &unk_100010920;
-          v122 = &v109;
+          v118 = 3221225472;
+          v119 = sub_100008940;
+          v120 = &unk_100010920;
+          v121 = &v108;
           sub_100008940(buf);
-          v18 = v110[3];
+          v18 = v109[3];
         }
 
         v19 = v18;
-        _Block_object_dispose(&v109, 8);
+        _Block_object_dispose(&v108, 8);
         if (objc_opt_isKindOfClass())
         {
           v20 = v17;
@@ -1764,7 +1748,7 @@ LABEL_92:
             goto LABEL_56;
           }
 
-          v26 = [v88 context];
+          v26 = [v87 context];
           v27 = v23 == [v26 contextId];
 
           if (v27)
@@ -1772,36 +1756,36 @@ LABEL_92:
             goto LABEL_56;
           }
 
-          v82 = [v85 contextWithIdentifier:v23];
-          v28 = v82;
-          if (!v82)
+          v81 = [v84 contextWithIdentifier:v23];
+          v28 = v81;
+          if (!v81)
           {
             goto LABEL_55;
           }
 
-          v29 = *(a1 + 32);
+          v29 = a1[4];
           v30 = [NSNumber numberWithUnsignedInt:v23];
           v31 = [v29 objectForKey:v30];
 
-          v99 = 0u;
-          v100 = 0u;
-          v97 = 0u;
           v98 = 0u;
+          v99 = 0u;
+          v96 = 0u;
+          v97 = 0u;
           v32 = v31;
-          v33 = [v32 countByEnumeratingWithState:&v97 objects:v115 count:16];
+          v33 = [v32 countByEnumeratingWithState:&v96 objects:v114 count:16];
           if (v33)
           {
-            v34 = *v98;
+            v34 = *v97;
 LABEL_29:
             v35 = 0;
             while (1)
             {
-              if (*v98 != v34)
+              if (*v97 != v34)
               {
                 objc_enumerationMutation(v32);
               }
 
-              v36 = sub_1000087D8(*(*(&v97 + 1) + 8 * v35), v25);
+              v36 = sub_1000087D8(*(*(&v96 + 1) + 8 * v35), v25);
               if (v36)
               {
                 goto LABEL_53;
@@ -1809,7 +1793,7 @@ LABEL_29:
 
               if (v33 == ++v35)
               {
-                v33 = [v32 countByEnumeratingWithState:&v97 objects:v115 count:16];
+                v33 = [v32 countByEnumeratingWithState:&v96 objects:v114 count:16];
                 if (v33)
                 {
                   goto LABEL_29;
@@ -1823,24 +1807,24 @@ LABEL_29:
           goto LABEL_52;
         }
 
-        v109 = 0;
-        v110 = &v109;
-        v111 = 0x2050000000;
+        v108 = 0;
+        v109 = &v108;
+        v110 = 0x2050000000;
         v37 = qword_100015200;
-        v112 = qword_100015200;
+        v111 = qword_100015200;
         if (!qword_100015200)
         {
           *buf = _NSConcreteStackBlock;
-          v119 = 3221225472;
-          v120 = sub_100008A08;
-          v121 = &unk_100010920;
-          v122 = &v109;
+          v118 = 3221225472;
+          v119 = sub_100008A08;
+          v120 = &unk_100010920;
+          v121 = &v108;
           sub_100008A08(buf);
-          v37 = v110[3];
+          v37 = v109[3];
         }
 
         v38 = v37;
-        _Block_object_dispose(&v109, 8);
+        _Block_object_dispose(&v108, 8);
         if (objc_opt_isKindOfClass())
         {
           v20 = v17;
@@ -1865,7 +1849,7 @@ LABEL_29:
             goto LABEL_56;
           }
 
-          v44 = [v88 context];
+          v44 = [v87 context];
           v45 = v41 == [v44 contextId];
 
           if (v45)
@@ -1873,36 +1857,36 @@ LABEL_29:
             goto LABEL_56;
           }
 
-          v82 = [v85 contextWithIdentifier:v41];
-          v28 = v82;
-          if (!v82)
+          v81 = [v84 contextWithIdentifier:v41];
+          v28 = v81;
+          if (!v81)
           {
             goto LABEL_55;
           }
 
-          v46 = *(a1 + 32);
+          v46 = a1[4];
           v47 = [NSNumber numberWithUnsignedInt:v41];
           v48 = [v46 objectForKey:v47];
 
-          v95 = 0u;
-          v96 = 0u;
-          v93 = 0u;
           v94 = 0u;
+          v95 = 0u;
+          v92 = 0u;
+          v93 = 0u;
           v32 = v48;
-          v49 = [v32 countByEnumeratingWithState:&v93 objects:v114 count:16];
+          v49 = [v32 countByEnumeratingWithState:&v92 objects:v113 count:16];
           if (v49)
           {
-            v50 = *v94;
+            v50 = *v93;
 LABEL_46:
             v51 = 0;
             while (1)
             {
-              if (*v94 != v50)
+              if (*v93 != v50)
               {
                 objc_enumerationMutation(v32);
               }
 
-              v36 = sub_1000087D8(*(*(&v93 + 1) + 8 * v51), v43);
+              v36 = sub_1000087D8(*(*(&v92 + 1) + 8 * v51), v43);
               if (v36)
               {
                 break;
@@ -1910,7 +1894,7 @@ LABEL_46:
 
               if (v49 == ++v51)
               {
-                v49 = [v32 countByEnumeratingWithState:&v93 objects:v114 count:16];
+                v49 = [v32 countByEnumeratingWithState:&v92 objects:v113 count:16];
                 if (v49)
                 {
                   goto LABEL_46;
@@ -1924,10 +1908,10 @@ LABEL_53:
 
             v20 = [v17 copy];
             [v20 setSourceLayer:v36];
-            [v88 addAnimation:v20 forKey:v16];
+            [v87 addAnimation:v20 forKey:v16];
 LABEL_54:
 
-            v28 = v82;
+            v28 = v81;
 LABEL_55:
 
 LABEL_56:
@@ -1942,37 +1926,36 @@ LABEL_52:
 LABEL_57:
       }
 
-      v87 = [obj countByEnumeratingWithState:&v101 objects:v116 count:16];
+      v86 = [obj countByEnumeratingWithState:&v100 objects:v115 count:16];
     }
 
-    while (v87);
+    while (v86);
   }
 
-  if (*(*(*(a1 + 48) + 8) + 40))
+  if (*(*(a1[6] + 8) + 40))
   {
-    v91 = 0u;
-    v92 = 0u;
-    v89 = 0u;
     v90 = 0u;
-    v52 = [v88 sublayers];
-    v53 = [v52 countByEnumeratingWithState:&v89 objects:v113 count:16];
+    v91 = 0u;
+    v88 = 0u;
+    v89 = 0u;
+    v52 = [v87 sublayers];
+    v53 = [v52 countByEnumeratingWithState:&v88 objects:v112 count:16];
     if (v53)
     {
-      v54 = *v90;
+      v54 = *v89;
       do
       {
-        for (k = 0; k != v53; k = k + 1)
+        for (k = 0; k != v53; ++k)
         {
-          if (*v90 != v54)
+          if (*v89 != v54)
           {
             objc_enumerationMutation(v52);
           }
 
-          v56 = *(*(&v89 + 1) + 8 * k);
-          (*(*(*(*(a1 + 48) + 8) + 40) + 16))();
+          (*(*(*(a1[6] + 8) + 40) + 16))();
         }
 
-        v53 = [v52 countByEnumeratingWithState:&v89 objects:v113 count:16];
+        v53 = [v52 countByEnumeratingWithState:&v88 objects:v112 count:16];
       }
 
       while (v53);
@@ -1980,6 +1963,13 @@ LABEL_57:
   }
 
 LABEL_90:
+}
+
+void sub_100007F8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, ...)
+{
+  va_start(va, a58);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 id sub_100007FB8(void *a1, void *a2, void *a3, void *a4)
@@ -2128,9 +2118,9 @@ LABEL_3:
   return v24;
 }
 
-void sub_10000850C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_10000850C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2465,9 +2455,9 @@ LABEL_3:
   objc_autoreleasePoolPop(v6);
 }
 
-void sub_10000914C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10000914C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2501,7 +2491,7 @@ uint64_t sub_100009264(void *a1, uint64_t a2)
   v3 = a1;
   v4 = sub_100005E70();
   off_100015108 = dlsym(v4, "CAEncodeLayerTreeWithInfo");
-  v5 = (off_100015108)(v3, a2);
+  v5 = off_100015108(v3, a2);
 
   return v5;
 }
@@ -2533,42 +2523,42 @@ NSNumber *__cdecl sub_1000093C8(id a1, DASContextInfo *a2)
   return [NSNumber numberWithUnsignedInt:v2];
 }
 
-void sub_100009454(uint64_t a1, void *a2, int a3)
+void sub_100009454(uint64_t a1, void *a2, uint64_t a3)
 {
+  v3 = a3;
   v5 = a2;
   v6 = objc_autoreleasePoolPush();
   v7 = +[NSMutableString string];
-  sub_1000095C4(v5, v7, a3);
+  sub_1000095C4(v5, v7, v3);
   (*(*(a1 + 32) + 16))();
 
   objc_autoreleasePoolPop(v6);
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v8 = [v5 sublayers];
-  v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v15;
+    v11 = *v14;
     do
     {
       v12 = 0;
       do
       {
-        if (*v15 != v11)
+        if (*v14 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v14 + 1) + 8 * v12);
         (*(*(*(*(a1 + 40) + 8) + 40) + 16))();
-        v12 = v12 + 1;
+        ++v12;
       }
 
       while (v10 != v12);
-      v10 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v10);
@@ -3030,9 +3020,9 @@ void sub_10000B12C()
   }
 }
 
-void sub_10000B26C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10000B26C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }

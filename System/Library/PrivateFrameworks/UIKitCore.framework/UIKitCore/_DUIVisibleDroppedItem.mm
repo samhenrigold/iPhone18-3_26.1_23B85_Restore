@@ -52,14 +52,14 @@
     *(v5 + 3) = v8;
     if (coderCopy)
     {
-      [coderCopy decodeCGAffineTransformForKey:@"appliedTransform"];
+      objc_msgSend_decodeCGAffineTransformForKey_(coderCopy);
       *(v5 + 136) = v15;
       *(v5 + 152) = v16;
       *(v5 + 168) = v17;
-      [coderCopy _uikit_decodeSPVector3DForKey:@"velocity"];
+      objc_msgSend__uikit_decodeSPVector3DForKey_(coderCopy);
       *(v5 + 2) = v15;
       *(v5 + 3) = v16;
-      [coderCopy _uikit_decodeSPVector3DForKey:@"targetVelocity"];
+      objc_msgSend__uikit_decodeSPVector3DForKey_(coderCopy);
     }
 
     else
@@ -185,8 +185,8 @@
   imageComponent = [(_DUIVisibleDroppedItem *)self imageComponent];
   if (imageComponent)
   {
-    preview = [(_DUIVisibleDroppedItem *)self preview];
-    v5 = [imageComponent createSnapshotViewForPreview:preview];
+    v4 = objc_msgSend_preview(self);
+    v5 = [imageComponent createSnapshotViewForPreview:v4];
   }
 
   else

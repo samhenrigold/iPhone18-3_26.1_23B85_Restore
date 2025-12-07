@@ -1,6 +1,7 @@
 @interface _INPBCreateEventIntentResponse
 - (BOOL)isEqual:(id)equal;
 - (_INPBCreateEventIntentResponse)initWithCoder:(id)coder;
+- (id)confirmationReasonAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
 - (int)StringAsConfirmationReason:(id)reason;
@@ -193,44 +194,42 @@ LABEL_17:
 
 - (void)writeTo:(id)to
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if ([(_INPBCreateEventIntentResponse *)self hasConfirmationReason])
   {
-    confirmationReason = self->_confirmationReason;
     PBDataWriterWriteInt32Field();
   }
 
-  v17 = 0u;
-  v18 = 0u;
+  v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v6 = self->_conflictingEventIdentifiers;
-  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
-  if (v7)
+  v12 = 0u;
+  v13 = 0u;
+  v5 = self->_conflictingEventIdentifiers;
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v6)
   {
-    v8 = v7;
-    v9 = *v16;
+    v7 = v6;
+    v8 = *v13;
     do
     {
-      v10 = 0;
+      v9 = 0;
       do
       {
-        if (*v16 != v9)
+        if (*v13 != v8)
         {
-          objc_enumerationMutation(v6);
+          objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v15 + 1) + 8 * v10);
         PBDataWriterWriteStringField();
-        ++v10;
+        ++v9;
       }
 
-      while (v8 != v10);
-      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      while (v7 != v9);
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
-    while (v8);
+    while (v7);
   }
 
   createdEvent = [(_INPBCreateEventIntentResponse *)self createdEvent];
@@ -240,8 +239,6 @@ LABEL_17:
     createdEvent2 = [(_INPBCreateEventIntentResponse *)self createdEvent];
     PBDataWriterWriteSubmessage();
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addConflictingEventIdentifiers:(id)identifiers
@@ -292,6 +289,21 @@ LABEL_17:
   else
   {
     v4 = 1;
+  }
+
+  return v4;
+}
+
+- (id)confirmationReasonAsString:(int)string
+{
+  if ((string - 1) >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7286EA8[string - 1];
   }
 
   return v4;

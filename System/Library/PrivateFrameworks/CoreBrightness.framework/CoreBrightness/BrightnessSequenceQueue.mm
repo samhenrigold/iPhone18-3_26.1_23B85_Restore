@@ -61,7 +61,6 @@
     MEMORY[0x1E69E5920](v17);
   }
 
-  *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

@@ -288,7 +288,6 @@ LABEL_14:
   has = self->_has;
   if ((has & 0x80) != 0)
   {
-    triggerScore = self->_triggerScore;
     PBDataWriterWriteDoubleField();
     has = self->_has;
     if ((has & 0x100) == 0)
@@ -308,7 +307,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  triggerThreshold = self->_triggerThreshold;
   PBDataWriterWriteDoubleField();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -323,7 +321,6 @@ LABEL_4:
   }
 
 LABEL_19:
-  satScore = self->_satScore;
   PBDataWriterWriteDoubleField();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -338,7 +335,6 @@ LABEL_5:
   }
 
 LABEL_20:
-  satThreshold = self->_satThreshold;
   PBDataWriterWriteDoubleField();
   has = self->_has;
   if ((has & 4) == 0)
@@ -353,12 +349,10 @@ LABEL_6:
   }
 
 LABEL_21:
-  recognizerScore = self->_recognizerScore;
   PBDataWriterWriteDoubleField();
   if ((*&self->_has & 8) != 0)
   {
 LABEL_7:
-    recognizerThresholdOffset = self->_recognizerThresholdOffset;
     PBDataWriterWriteDoubleField();
   }
 
@@ -368,16 +362,15 @@ LABEL_8:
     PBDataWriterWriteStringField();
   }
 
-  v6 = self->_has;
-  if ((v6 & 2) != 0)
+  v5 = self->_has;
+  if ((v5 & 2) != 0)
   {
-    hardwareSampleRate = self->_hardwareSampleRate;
     PBDataWriterWriteDoubleField();
-    v6 = self->_has;
-    if ((v6 & 1) == 0)
+    v5 = self->_has;
+    if ((v5 & 1) == 0)
     {
 LABEL_12:
-      if ((v6 & 0x40) == 0)
+      if ((v5 & 0x40) == 0)
       {
         goto LABEL_14;
       }
@@ -386,17 +379,15 @@ LABEL_12:
     }
   }
 
-  else if ((v6 & 1) == 0)
+  else if ((v5 & 1) == 0)
   {
     goto LABEL_12;
   }
 
-  extraSamplesAtStart = self->_extraSamplesAtStart;
   PBDataWriterWriteDoubleField();
   if ((*&self->_has & 0x40) != 0)
   {
 LABEL_13:
-    triggerEnd = self->_triggerEnd;
     PBDataWriterWriteDoubleField();
   }
 

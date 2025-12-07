@@ -44,18 +44,22 @@
 
   else
   {
-    v4 = _PFAssertFailHandler();
-    return __57__PFParallaxLayoutTextOverlapParameters_systemParameters__block_invoke(v4);
+    _PFAssertFailHandler();
+    __57__PFParallaxLayoutTextOverlapParameters_systemParameters__block_invoke();
   }
+
+  return result;
 }
 
 void __57__PFParallaxLayoutTextOverlapParameters_systemParameters__block_invoke()
 {
   if (!sSystemParameters)
   {
-    sSystemParameters = +[PFParallaxLayoutTextOverlapParameters standardNumericTextParameters];
+    v0 = +[PFParallaxLayoutTextOverlapParameters standardNumericTextParameters];
+    v1 = sSystemParameters;
+    sSystemParameters = v0;
 
-    MEMORY[0x1EEE66BB8]();
+    MEMORY[0x1EEE66BB8](v0, v1);
   }
 }
 

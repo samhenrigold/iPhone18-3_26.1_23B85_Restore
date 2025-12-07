@@ -20,8 +20,8 @@
 
   v9 = sub_10000D0FC(v4, qword_1009816F8);
   (*(v5 + 16))(v7, v9, v4);
-  v10 = objc_allocWithZone(type metadata accessor for DynamicTypeLinkedLabel());
-  *(&self->super.super.super.super.isa + v8) = sub_10004DA8C(v7, 0, 0);
+  v10 = objc_allocWithZone(type metadata accessor for DynamicTypeLinkedLabel(0));
+  *(&self->super.super.super.super.isa + v8) = sub_10004DA8C(v7, 0, 0, 0);
   result = sub_100754644();
   __break(1u);
   return result;

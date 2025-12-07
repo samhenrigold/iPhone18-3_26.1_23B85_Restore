@@ -1,331 +1,3 @@
-uint64_t *initializeBufferWithCopyOfBuffer for Optional(uint64_t *a1, uint64_t *a2, uint64_t a3)
-{
-  v4 = *(a3 + 16);
-  v5 = *(v4 - 8);
-  if (*(v5 + 84))
-  {
-    v6 = *(v5 + 64);
-  }
-
-  else
-  {
-    v6 = *(v5 + 64) + 1;
-  }
-
-  v7 = *(v5 + 80);
-  if (v7 > 7 || (*(v5 + 80) & 0x100000) != 0 || v6 > 0x18)
-  {
-    v10 = *a2;
-    *a1 = *a2;
-    a1 = (v10 + ((v7 + 16) & ~v7));
-
-    return a1;
-  }
-
-  if (!(*(v5 + 48))(a2, 1, v4))
-  {
-    (*(v5 + 16))(a1, a2, v4);
-    (*(v5 + 56))(a1, 0, 1, v4);
-    return a1;
-  }
-
-  return memcpy(a1, a2, v6);
-}
-
-uint64_t destroy for Optional(uint64_t a1, uint64_t a2)
-{
-  v3 = *(a2 + 16);
-  v6 = *(v3 - 8);
-  result = (*(v6 + 48))(a1, 1, v3);
-  if (!result)
-  {
-    v5 = *(v6 + 8);
-
-    return v5(a1, v3);
-  }
-
-  return result;
-}
-
-void *initializeWithCopy for Optional(void *a1, const void *a2, uint64_t a3)
-{
-  v5 = *(a3 + 16);
-  v6 = *(v5 - 8);
-  if ((*(v6 + 48))(a2, 1, v5))
-  {
-    if (*(v6 + 84))
-    {
-      v7 = *(v6 + 64);
-    }
-
-    else
-    {
-      v7 = *(v6 + 64) + 1;
-    }
-
-    return memcpy(a1, a2, v7);
-  }
-
-  else
-  {
-    (*(v6 + 16))(a1, a2, v5);
-    (*(v6 + 56))(a1, 0, 1, v5);
-    return a1;
-  }
-}
-
-void *assignWithCopy for Optional(void *a1, void *a2, uint64_t a3)
-{
-  v5 = *(a3 + 16);
-  v6 = *(v5 - 8);
-  v7 = *(v6 + 48);
-  v8 = v7(a1, 1, v5);
-  v9 = v7(a2, 1, v5);
-  if (!v8)
-  {
-    if (v9)
-    {
-      v13 = *(v6 + 8);
-      v12 = v6 + 8;
-      v13(a1, v5);
-      v10 = *(v12 + 76);
-      v11 = *(v12 + 56);
-      goto LABEL_6;
-    }
-
-    (*(v6 + 24))(a1, a2, v5);
-    return a1;
-  }
-
-  if (!v9)
-  {
-    (*(v6 + 16))(a1, a2, v5);
-    (*(v6 + 56))(a1, 0, 1, v5);
-    return a1;
-  }
-
-  v10 = *(v6 + 84);
-  v11 = *(v6 + 64);
-LABEL_6:
-  if (v10)
-  {
-    v14 = v11;
-  }
-
-  else
-  {
-    v14 = v11 + 1;
-  }
-
-  return memcpy(a1, a2, v14);
-}
-
-void *initializeWithTake for Optional(void *a1, const void *a2, uint64_t a3)
-{
-  v5 = *(a3 + 16);
-  v6 = *(v5 - 8);
-  if ((*(v6 + 48))(a2, 1, v5))
-  {
-    if (*(v6 + 84))
-    {
-      v7 = *(v6 + 64);
-    }
-
-    else
-    {
-      v7 = *(v6 + 64) + 1;
-    }
-
-    return memcpy(a1, a2, v7);
-  }
-
-  else
-  {
-    (*(v6 + 32))(a1, a2, v5);
-    (*(v6 + 56))(a1, 0, 1, v5);
-    return a1;
-  }
-}
-
-void *assignWithTake for Optional(void *a1, void *a2, uint64_t a3)
-{
-  v5 = *(a3 + 16);
-  v6 = *(v5 - 8);
-  v7 = *(v6 + 48);
-  v8 = v7(a1, 1, v5);
-  v9 = v7(a2, 1, v5);
-  if (!v8)
-  {
-    if (v9)
-    {
-      v13 = *(v6 + 8);
-      v12 = v6 + 8;
-      v13(a1, v5);
-      v10 = *(v12 + 76);
-      v11 = *(v12 + 56);
-      goto LABEL_6;
-    }
-
-    (*(v6 + 40))(a1, a2, v5);
-    return a1;
-  }
-
-  if (!v9)
-  {
-    (*(v6 + 32))(a1, a2, v5);
-    (*(v6 + 56))(a1, 0, 1, v5);
-    return a1;
-  }
-
-  v10 = *(v6 + 84);
-  v11 = *(v6 + 64);
-LABEL_6:
-  if (v10)
-  {
-    v14 = v11;
-  }
-
-  else
-  {
-    v14 = v11 + 1;
-  }
-
-  return memcpy(a1, a2, v14);
-}
-
-uint64_t getEnumTagSinglePayload for Optional(unsigned __int16 *a1, unsigned int a2, uint64_t a3)
-{
-  v4 = *(*(a3 + 16) - 8);
-  v5 = *(v4 + 84);
-  v6 = v5 - 1;
-  if (!v5)
-  {
-    v6 = 0;
-  }
-
-  v7 = *(*(*(a3 + 16) - 8) + 64);
-  if (!v5)
-  {
-    ++v7;
-  }
-
-  if (!a2)
-  {
-    return 0;
-  }
-
-  v8 = a2 - v6;
-  if (a2 > v6)
-  {
-    v9 = 8 * v7;
-    if (v7 > 3)
-    {
-      goto LABEL_8;
-    }
-
-    v11 = ((v8 + ~(-1 << v9)) >> v9) + 1;
-    if (HIWORD(v11))
-    {
-      v10 = *(a1 + v7);
-      if (v10)
-      {
-        goto LABEL_15;
-      }
-    }
-
-    else
-    {
-      if (v11 <= 0xFF)
-      {
-        if (v11 < 2)
-        {
-          goto LABEL_28;
-        }
-
-LABEL_8:
-        v10 = *(a1 + v7);
-        if (!*(a1 + v7))
-        {
-          goto LABEL_28;
-        }
-
-LABEL_15:
-        v12 = (v10 - 1) << v9;
-        if (v7 > 3)
-        {
-          v12 = 0;
-        }
-
-        if (v7)
-        {
-          if (v7 <= 3)
-          {
-            v13 = v7;
-          }
-
-          else
-          {
-            v13 = 4;
-          }
-
-          if (v13 > 2)
-          {
-            if (v13 == 3)
-            {
-              v14 = *a1 | (*(a1 + 2) << 16);
-            }
-
-            else
-            {
-              v14 = *a1;
-            }
-          }
-
-          else if (v13 == 1)
-          {
-            v14 = *a1;
-          }
-
-          else
-          {
-            v14 = *a1;
-          }
-        }
-
-        else
-        {
-          v14 = 0;
-        }
-
-        return v6 + (v14 | v12) + 1;
-      }
-
-      v10 = *(a1 + v7);
-      if (*(a1 + v7))
-      {
-        goto LABEL_15;
-      }
-    }
-  }
-
-LABEL_28:
-  if (v5 < 2)
-  {
-    return 0;
-  }
-
-  v16 = (*(v4 + 48))(a1, v5);
-  if (v16 >= 2)
-  {
-    return v16 - 1;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
 char *storeEnumTagSinglePayload for Optional(char *result, unsigned int a2, unsigned int a3, uint64_t a4)
 {
   v5 = 0;
@@ -565,17 +237,6 @@ unint64_t lazy protocol witness table accessor for type RegexRepetitionBehavior.
   return result;
 }
 
-uint64_t associated type witness table accessor for Collection.Indices : BidirectionalCollection in <> TypedIndex<A, B>(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  return associated type witness table accessor for Collection.Indices : BidirectionalCollection in <> TypedIndex<A, B>(a1, a2, a3);
-}
-
-{
-  v4 = *(a3 - 8);
-  swift_getWitnessTable();
-  return swift_getWitnessTable();
-}
-
 unint64_t instantiation function for generic protocol witness table for Processor(uint64_t a1)
 {
   result = lazy protocol witness table accessor for type Processor and conformance Processor();
@@ -595,7 +256,7 @@ unint64_t lazy protocol witness table accessor for type Processor and conformanc
   return result;
 }
 
-uint64_t instantiation function for generic protocol witness table for ZSearcher<A>(uint64_t a1)
+uint64_t instantiation function for generic protocol witness table for ZSearcher<A>(uint64_t a1, uint64_t a2)
 {
   result = swift_getWitnessTable();
   *(a1 + 8) = result;
@@ -604,21 +265,15 @@ uint64_t instantiation function for generic protocol witness table for ZSearcher
 
 uint64_t partial apply for implicit closure #1 in RegexRangesSequence.Iterator.next()(uint64_t *a1)
 {
-  v2 = *a1;
-  v3 = a1[1];
-  v4 = a1[2];
-  v5 = *(a1 + 3);
 
   swift_getAtKeyPath();
 }
 
-uint64_t outlined consume of Regex<A1.RegexOutput>.Match?<A><A1>(uint64_t a1, uint64_t a2)
+void outlined consume of Regex<A1.RegexOutput>.Match?<A><A1>(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (a2)
   {
   }
-
-  return result;
 }
 
 unint64_t lazy protocol witness table accessor for type UInt64 and conformance UInt64()
@@ -635,7 +290,6 @@ unint64_t lazy protocol witness table accessor for type UInt64 and conformance U
 
 uint64_t specialized MutableCollection<>.subscript.setter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v4 = *(a4 + 8);
   type metadata accessor for Slice();
   swift_getWitnessTable();
 
@@ -651,16 +305,12 @@ uint64_t outlined init with take of DSLTree.QuantificationKind(uint64_t a1, uint
 
 uint64_t sub_18E5E1030()
 {
-  v1 = *(v0 + 16);
-
-  v2 = *(v0 + 32);
 
   return MEMORY[0x1EEE6BDD0](v0, 41, 7);
 }
 
 uint64_t sub_18E5E1070()
 {
-  v1 = *(v0 + 40);
 
   return MEMORY[0x1EEE6BDD0](v0, 48, 7);
 }
@@ -671,20 +321,12 @@ uint64_t partial apply for thunk for @escaping @callee_guaranteed (@in_guarantee
 }
 
 {
-  v8[3] = a4;
+  v7[3] = a4;
   v5 = *(v4 + 32);
-  v6 = *(v4 + 40);
-  v8[0] = a1;
-  v8[1] = a2;
-  v8[2] = a3;
-  return v5(v8);
-}
-
-_OWORD *partial apply for thunk for @escaping @callee_guaranteed (@guaranteed Substring) -> (@out B?, @error @owned Error)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, _OWORD *a5@<X8>)
-{
-  v6 = *(v5 + 16);
-  v7 = *(v5 + 40);
-  return thunk for @escaping @callee_guaranteed (@guaranteed Substring) -> (@out B?, @error @owned Error)(a1, a2, a3, a4, *(v5 + 32), *(v5 + 24), a5);
+  v7[0] = a1;
+  v7[1] = a2;
+  v7[2] = a3;
+  return v5(v7);
 }
 
 uint64_t *__swift_allocate_boxed_opaque_existential_0(uint64_t *result)
@@ -698,21 +340,10 @@ uint64_t *__swift_allocate_boxed_opaque_existential_0(uint64_t *result)
   return result;
 }
 
-uint64_t partial apply for thunk for @escaping @callee_guaranteed (@guaranteed Substring) -> (@out B, @error @owned Error)@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
+uint64_t __swift_deallocate_boxed_opaque_existential_0(uint64_t result)
 {
-  v3 = v2[2];
-  v4 = v2[4];
-  v5 = v2[5];
-  return thunk for @escaping @callee_guaranteed (@guaranteed Substring) -> (@out B, @error @owned Error)(a1, v2[3], a2);
-}
-
-uint64_t *__swift_deallocate_boxed_opaque_existential_0(uint64_t *result)
-{
-  v1 = *(result[3] - 8);
-  if ((*(v1 + 80) & 0x20000) != 0)
+  if ((*(*(*(result + 24) - 8) + 80) & 0x20000) != 0)
   {
-    v2 = *result;
-    v3 = *(v1 + 64) + ((*(v1 + 80) + 16) & ~*(v1 + 80));
     JUMPOUT(0x193ACF600);
   }
 
@@ -763,14 +394,14 @@ uint64_t outlined init with copy of Processor._StoredCapture(__int128 *a1, uint6
   return a2;
 }
 
-uint64_t outlined destroy of Any?(uint64_t a1)
+uint64_t outlined destroy of Any?(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   CanonicalSpecializedMetadata = swift_getCanonicalSpecializedMetadata();
   (*(*(CanonicalSpecializedMetadata - 8) + 8))(a1, CanonicalSpecializedMetadata);
   return a1;
 }
 
-uint64_t type metadata accessor for MEProgram(uint64_t a1, uint64_t *a2)
+uint64_t type metadata accessor for MEProgram(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   result = *a2;
   if (!*a2)
@@ -781,7 +412,7 @@ uint64_t type metadata accessor for MEProgram(uint64_t a1, uint64_t *a2)
   return result;
 }
 
-uint64_t outlined copy of CaptureTransform?(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, unsigned __int8 a5)
+uint64_t outlined copy of CaptureTransform?(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if (result)
   {
@@ -836,7 +467,7 @@ LABEL_5:
   v4 = a1[1];
   outlined init with copy of Any?((a1 + 3), &v12);
   v6 = *(&v13 + 1);
-  outlined destroy of Any?(&v12);
+  outlined destroy of Any?(&v12, &unk_1F0190550, &cache variable for noncanonical specialized generic type metadata for Any?);
   if (v6)
   {
     *&v12 = v5;
@@ -851,38 +482,28 @@ LABEL_5:
 
 uint64_t sub_18E5E1674()
 {
-  v1 = *(v0 + 24);
 
   return MEMORY[0x1EEE6BDD0](v0, 32, 7);
 }
 
-uint64_t partial apply for thunk for @escaping @callee_guaranteed (@guaranteed String, @in_guaranteed Processor._StoredCapture) -> (@out Any?, @error @owned Error)(void *a1, uint64_t a2)
-{
-  v3 = *(v2 + 16);
-  v4 = *(v2 + 24);
-  return v3(*a1, a1[1], a2);
-}
-
 uint64_t partial apply for thunk for @escaping @callee_guaranteed (@guaranteed String, @unowned Range<String.Index>) -> (@unowned String.Index?)@<X0>(void *a1@<X0>, void *a2@<X1>, uint64_t a3@<X8>)
 {
-  v5 = *(v3 + 16);
-  v6 = *(v3 + 24);
-  result = v5(*a1, a1[1], *a2, a2[1]);
+  result = (*(v3 + 16))(*a1, a1[1], *a2, a2[1]);
   *a3 = result;
-  *(a3 + 8) = v8 & 1;
+  *(a3 + 8) = v6 & 1;
   return result;
 }
 
-uint64_t outlined consume of Set<Unicode.Scalar>.Index._Variant(uint64_t a1, uint64_t a2, char a3)
+uint64_t outlined consume of Set<Unicode.Scalar>.Index._Variant(uint64_t result, uint64_t a2, char a3)
 {
   if (a3)
   {
   }
 
-  return result;
+  return v3;
 }
 
-uint64_t outlined consume of (@escaping @callee_guaranteed (@guaranteed String, @unowned Range<String.Index>) -> (@unowned String.Index?))?(uint64_t result)
+uint64_t outlined consume of (@escaping @callee_guaranteed (@guaranteed String, @unowned Range<String.Index>) -> (@unowned String.Index?))?(uint64_t result, uint64_t a2)
 {
   if (result)
   {
@@ -903,7 +524,7 @@ unint64_t lazy protocol witness table accessor for type UInt32 and conformance U
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type PartialRangeUpTo<String.Index> and conformance PartialRangeUpTo<A>(unint64_t *a1)
+uint64_t lazy protocol witness table accessor for type PartialRangeUpTo<String.Index> and conformance PartialRangeUpTo<A>(unint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = *a1;
   if (!result)
@@ -916,7 +537,7 @@ uint64_t lazy protocol witness table accessor for type PartialRangeUpTo<String.I
   return result;
 }
 
-void *partial apply for closure #1 in scriptExtensionScalarPredicate(_:)(unsigned int a1)
+void *partial apply for closure #1 in scriptExtensionScalarPredicate(_:)(uint64_t a1)
 {
   v3 = *(type metadata accessor for Unicode.Script() - 8);
   v4 = v1 + ((*(v3 + 80) + 16) & ~*(v3 + 80));
@@ -926,9 +547,6 @@ void *partial apply for closure #1 in scriptExtensionScalarPredicate(_:)(unsigne
 
 uint64_t objectdestroy_271Tm()
 {
-  v1 = *(v0 + 24);
-
-  v2 = *(v0 + 32);
 
   return MEMORY[0x1EEE6BDD0](v0, 40, 7);
 }
@@ -953,7 +571,7 @@ uint64_t partial apply for closure #6 in closure #1 in AST.Atom.CharacterPropert
   return a3(a1, v6);
 }
 
-uint64_t lazy protocol witness table accessor for type Unsupported and conformance Unsupported(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type Unsupported and conformance Unsupported(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -966,19 +584,18 @@ uint64_t lazy protocol witness table accessor for type Unsupported and conforman
   return result;
 }
 
-uint64_t partial apply for closure #1 in consumeCharacterWithLeadingScalar(_:)()
+uint64_t partial apply for closure #1 in consumeCharacterWithLeadingScalar(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = *(v0 + 16);
-  v1 = *(v0 + 24);
-  v3 = String.subscript.getter();
-  v5 = specialized Collection.first.getter(v3, v4);
+  v4 = *(v3 + 16);
+  v5 = String.subscript.getter();
+  v7 = specialized Collection.first.getter(v5, v6);
 
-  if ((v5 & 0x100000000) != 0)
+  if ((v7 & 0x100000000) != 0)
   {
     __break(1u);
   }
 
-  else if (v2(v5))
+  else if (v4(v7))
   {
     return String.index(after:)();
   }
@@ -991,22 +608,21 @@ uint64_t partial apply for closure #1 in consumeCharacterWithLeadingScalar(_:)()
   return result;
 }
 
-uint64_t partial apply for closure #1 in consumeScalar(_:)(unint64_t a1, unint64_t a2, unint64_t a3)
+unint64_t partial apply for closure #1 in consumeScalar(_:)(unint64_t a1, unint64_t a2, unint64_t a3)
 {
-  v8 = *(v3 + 16);
-  v7 = *(v3 + 24);
+  v7 = *(v3 + 16);
   _StringGuts.validateScalarIndex(_:)(a3, a1, a2);
   if ((a2 & 0x1000000000000000) != 0)
   {
-    v9 = _StringGuts.foreignErrorCorrectedScalar(startingAt:)();
+    v8 = _StringGuts.foreignErrorCorrectedScalar(startingAt:)();
   }
 
   else
   {
     if ((a2 & 0x2000000000000000) != 0)
     {
-      v17 = a1;
-      v18 = a2 & 0xFFFFFFFFFFFFFFLL;
+      v16 = a1;
+      v17 = a2 & 0xFFFFFFFFFFFFFFLL;
     }
 
     else if ((a1 & 0x1000000000000000) == 0)
@@ -1014,65 +630,51 @@ uint64_t partial apply for closure #1 in consumeScalar(_:)(unint64_t a1, unint64
       _StringObject.sharedUTF8.getter();
     }
 
-    v9 = _decodeScalar(_:startingAt:)();
+    v8 = _decodeScalar(_:startingAt:)();
   }
 
-  if ((v8(v9) & 1) == 0)
+  if ((v7(v8) & 1) == 0)
   {
     return 0;
   }
 
-  v10 = _StringGuts.validateScalarIndex(_:)(a3, a1, a2);
+  v9 = _StringGuts.validateScalarIndex(_:)(a3, a1, a2);
   if ((a2 & 0x1000000000000000) != 0)
   {
     return String.UnicodeScalarView._foreignIndex(after:)();
   }
 
-  v11 = v10 >> 16;
+  v10 = v9 >> 16;
   if ((a2 & 0x2000000000000000) != 0)
   {
-    v17 = a1;
-    v18 = a2 & 0xFFFFFFFFFFFFFFLL;
-    v13 = *(&v17 + v11);
+    v16 = a1;
+    v17 = a2 & 0xFFFFFFFFFFFFFFLL;
+    v12 = *(&v16 + v10);
   }
 
   else
   {
     if ((a1 & 0x1000000000000000) != 0)
     {
-      v12 = (a2 & 0xFFFFFFFFFFFFFFFLL) + 32;
+      v11 = (a2 & 0xFFFFFFFFFFFFFFFLL) + 32;
     }
 
     else
     {
-      v12 = _StringObject.sharedUTF8.getter();
+      v11 = _StringObject.sharedUTF8.getter();
     }
 
-    v13 = *(v12 + v11);
+    v12 = *(v11 + v10);
   }
 
-  v15 = v13;
-  v16 = __clz(v13 ^ 0xFF) - 24;
-  if (v15 >= 0)
+  v14 = v12;
+  v15 = __clz(v12 ^ 0xFF) - 24;
+  if (v14 >= 0)
   {
-    LOBYTE(v16) = 1;
+    LOBYTE(v15) = 1;
   }
 
-  return ((v11 + v16) << 16) | 5;
-}
-
-uint64_t partial apply for closure #1 in Compiler.ByteCodeGen.emitMatcher(_:)()
-{
-  v1 = *(v0 + 16);
-  v2 = *(v0 + 24);
-  return v1();
-}
-
-uint64_t partial apply for thunk for @escaping @callee_guaranteed (@guaranteed String, @unowned String.Index, @unowned Range<String.Index>) -> (@out (String.Index, Any)?, @error @owned Error)(void *a1, void *a2, void *a3)
-{
-  v4 = *(v3 + 16);
-  v5 = *(v3 + 24);
-  return v4(*a1, a1[1], *a2, *a3, a3[1]);
+  return ((v10 + v15) << 16) | 5;
 }
 
 unint64_t lazy protocol witness table accessor for type DSLTree._Tree and conformance DSLTree._Tree()
@@ -1107,25 +709,24 @@ uint64_t partial apply for closure #4 in PrettyPrinter.printConcatenationAsPatte
     v3 = (v1 + 48);
     do
     {
-      v7 = *(v3 - 2);
-      v8 = *(v3 - 1);
-      v9 = *v3;
-      if (v9 == 1)
+      v6 = *(v3 - 2);
+      v7 = *(v3 - 1);
+      v8 = *v3;
+      if (v8 == 1)
       {
-        v4 = *(v3 - 1);
 
-        v5._countAndFlagsBits = v7;
-        v5._object = v8;
-        PrettyPrinter.print(_:)(v5);
+        v4._countAndFlagsBits = v6;
+        v4._object = v7;
+        PrettyPrinter.print(_:)(v4);
       }
 
       else
       {
 
-        PrettyPrinter.printAsPattern(convertedFromAST:isTopLevel:)(v7, 0);
+        PrettyPrinter.printAsPattern(convertedFromAST:isTopLevel:)(v6, 0);
       }
 
-      result = outlined consume of PrettyPrinter.NodeToPrint(v7, v8, v9);
+      result = outlined consume of PrettyPrinter.NodeToPrint(v6, v7, v8);
       v3 += 24;
       --v2;
     }
@@ -1201,7 +802,7 @@ uint64_t outlined consume of PatternSegment(uint64_t a1, uint64_t a2, char a3)
   }
 }
 
-uint64_t lazy protocol witness table accessor for type [Any.Type] and conformance [A](unint64_t *a1, uint64_t *a2, uint64_t *a3)
+uint64_t lazy protocol witness table accessor for type [Any.Type] and conformance [A](unint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
   result = *a1;
   if (!result)
@@ -1226,13 +827,6 @@ unint64_t lazy protocol witness table accessor for type LazyMapSequence<String, 
   }
 
   return result;
-}
-
-BOOL partial apply for closure #1 in Collection._endOfPrefix(while:)()
-{
-  v1 = *(v0 + 32);
-  v2 = *(v0 + 40);
-  return (v1() & 1) == 0;
 }
 
 uint64_t outlined assign with take of Processor._StoredCapture(__int128 *a1, uint64_t a2)
@@ -1266,17 +860,6 @@ uint64_t outlined destroy of SplitSequence<SubstringSearcher>(uint64_t a1, uint6
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(a2, a3);
   (*(*(v4 - 8) + 8))(a1, v4);
   return a1;
-}
-
-uint64_t partial apply for implicit closure #3 in Collection<>.split<A>(separator:maxSplits:omittingEmptySubsequences:)()
-{
-  v1 = v0[2];
-  v2 = v0[4];
-  v4 = v0[6];
-  v3 = v0[7];
-  v5 = *(v2 + 8);
-  swift_getAssociatedTypeWitness();
-  return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
 }
 
 uint64_t outlined copy of PatternSegment(uint64_t a1, uint64_t a2, char a3)
@@ -1387,7 +970,6 @@ uint64_t storeEnumTagSinglePayload for PatternSegment(uint64_t result, unsigned 
 
 uint64_t *assignWithCopy for DSLTree(uint64_t *a1, uint64_t *a2)
 {
-  v3 = *a1;
   *a1 = *a2;
 
   return a1;
@@ -1592,65 +1174,39 @@ uint64_t initializeBufferWithCopyOfBuffer for MEProgram.Builder(uint64_t a1, uin
 
 uint64_t destroy for MEProgram.Builder(char *a1, int *a2)
 {
-  v4 = *a1;
 
-  v5 = *(a1 + 2);
-
-  v6 = *(a1 + 3);
-
-  v7 = *(a1 + 4);
-
-  v8 = *(a1 + 5);
-
-  v9 = *(a1 + 6);
-
-  v10 = *(a1 + 7);
-
-  v11 = *(a1 + 8);
-
-  v12 = *(a1 + 9);
-
-  v13 = *(a1 + 10);
-
-  v14 = *(a1 + 11);
-
-  v15 = a2[21];
-  v16 = type metadata accessor for CaptureList();
-  (*(*(v16 - 8) + 8))(&a1[v15], v16);
-  v17 = *&a1[a2[22]];
-
-  v18 = *&a1[a2[24]];
-
-  v19 = *&a1[a2[25]];
+  v4 = a2[21];
+  v5 = type metadata accessor for CaptureList();
+  (*(*(v5 - 8) + 8))(&a1[v4], v5);
 }
 
-uint64_t initializeWithCopy for MEProgram.Builder(uint64_t a1, uint64_t a2, int *a3)
+uint64_t initializeWithCopy for MEProgram.Builder(uint64_t a1, uint64_t *a2, int *a3)
 {
   *a1 = *a2;
-  *(a1 + 8) = *(a2 + 8);
-  v6 = *(a2 + 24);
-  *(a1 + 16) = *(a2 + 16);
+  *(a1 + 8) = *(a2 + 4);
+  v6 = a2[3];
+  *(a1 + 16) = a2[2];
   *(a1 + 24) = v6;
-  v7 = *(a2 + 40);
-  *(a1 + 32) = *(a2 + 32);
+  v7 = a2[5];
+  *(a1 + 32) = a2[4];
   *(a1 + 40) = v7;
-  v16 = *(a2 + 56);
-  *(a1 + 48) = *(a2 + 48);
+  v16 = a2[7];
+  *(a1 + 48) = a2[6];
   *(a1 + 56) = v16;
-  v17 = *(a2 + 72);
-  *(a1 + 64) = *(a2 + 64);
+  v17 = a2[9];
+  *(a1 + 64) = a2[8];
   *(a1 + 72) = v17;
-  v18 = *(a2 + 88);
-  *(a1 + 80) = *(a2 + 80);
+  v18 = a2[11];
+  *(a1 + 80) = a2[10];
   *(a1 + 88) = v18;
-  *(a1 + 96) = *(a2 + 96);
-  v8 = *(a2 + 120);
-  *(a1 + 112) = *(a2 + 112);
+  *(a1 + 96) = *(a2 + 6);
+  v8 = a2[15];
+  *(a1 + 112) = a2[14];
   *(a1 + 120) = v8;
   *(a1 + 128) = *(a2 + 128);
   *(a1 + 152) = *(a2 + 152);
-  v9 = *(a2 + 144);
-  *(a1 + 136) = *(a2 + 136);
+  v9 = a2[18];
+  *(a1 + 136) = a2[17];
   *(a1 + 144) = v9;
   v10 = a3[21];
   v11 = type metadata accessor for CaptureList();
@@ -1669,67 +1225,49 @@ uint64_t initializeWithCopy for MEProgram.Builder(uint64_t a1, uint64_t a2, int 
 
 uint64_t *assignWithCopy for MEProgram.Builder(uint64_t *a1, uint64_t *a2, int *a3)
 {
-  v6 = *a1;
   *a1 = *a2;
 
   *(a1 + 8) = *(a2 + 8);
   *(a1 + 9) = *(a2 + 9);
-  v7 = a1[2];
   a1[2] = a2[2];
 
-  v8 = a1[3];
   a1[3] = a2[3];
 
-  v9 = a1[4];
   a1[4] = a2[4];
 
-  v10 = a1[5];
   a1[5] = a2[5];
 
-  v11 = a1[6];
   a1[6] = a2[6];
 
-  v12 = a1[7];
   a1[7] = a2[7];
 
-  v13 = a1[8];
   a1[8] = a2[8];
 
-  v14 = a1[9];
   a1[9] = a2[9];
 
-  v15 = a1[10];
   a1[10] = a2[10];
 
-  v16 = a1[11];
   a1[11] = a2[11];
 
   a1[12] = a2[12];
   a1[13] = a2[13];
   a1[14] = a2[14];
-  v17 = a2[15];
+  v6 = a2[15];
   *(a1 + 128) = *(a2 + 128);
-  a1[15] = v17;
+  a1[15] = v6;
   a1[17] = a2[17];
-  v18 = a2[18];
+  v7 = a2[18];
   *(a1 + 152) = *(a2 + 152);
-  a1[18] = v18;
-  v19 = a3[21];
-  v20 = type metadata accessor for CaptureList();
-  (*(*(v20 - 8) + 24))(a1 + v19, a2 + v19, v20);
-  v21 = a3[22];
-  v22 = *(a1 + v21);
-  *(a1 + v21) = *(a2 + v21);
+  a1[18] = v7;
+  v8 = a3[21];
+  v9 = type metadata accessor for CaptureList();
+  (*(*(v9 - 8) + 24))(a1 + v8, a2 + v8, v9);
+  *(a1 + a3[22]) = *(a2 + a3[22]);
 
   *(a1 + a3[23]) = *(a2 + a3[23]);
-  v23 = a3[24];
-  v24 = *(a1 + v23);
-  *(a1 + v23) = *(a2 + v23);
+  *(a1 + a3[24]) = *(a2 + a3[24]);
 
-  v25 = a3[25];
-  v26 = *(a2 + v25);
-  v27 = *(a1 + v25);
-  *(a1 + v25) = v26;
+  *(a1 + a3[25]) = *(a2 + a3[25]);
 
   return a1;
 }
@@ -1769,70 +1307,54 @@ uint64_t initializeWithTake for MEProgram.Builder(uint64_t a1, uint64_t a2, int 
 
 uint64_t *assignWithTake for MEProgram.Builder(uint64_t *a1, uint64_t *a2, int *a3)
 {
-  v6 = *a1;
   *a1 = *a2;
 
   *(a1 + 8) = *(a2 + 8);
   *(a1 + 9) = *(a2 + 9);
-  v7 = a1[2];
   a1[2] = a2[2];
 
-  v8 = a1[3];
   a1[3] = a2[3];
 
-  v9 = a1[4];
   a1[4] = a2[4];
 
-  v10 = a1[5];
   a1[5] = a2[5];
 
-  v11 = a1[6];
   a1[6] = a2[6];
 
-  v12 = a1[7];
   a1[7] = a2[7];
 
-  v13 = a1[8];
   a1[8] = a2[8];
 
-  v14 = a1[9];
   a1[9] = a2[9];
 
-  v15 = a1[10];
   a1[10] = a2[10];
 
-  v16 = a1[11];
   a1[11] = a2[11];
 
   *(a1 + 6) = *(a2 + 6);
-  v17 = a2[15];
+  v6 = a2[15];
   a1[14] = a2[14];
-  a1[15] = v17;
+  a1[15] = v6;
   *(a1 + 128) = *(a2 + 128);
-  v18 = a2[18];
+  v7 = a2[18];
   a1[17] = a2[17];
-  a1[18] = v18;
+  a1[18] = v7;
   *(a1 + 152) = *(a2 + 152);
-  v19 = a3[21];
-  v20 = type metadata accessor for CaptureList();
-  (*(*(v20 - 8) + 40))(a1 + v19, a2 + v19, v20);
-  v21 = a3[22];
-  v22 = *(a1 + v21);
-  *(a1 + v21) = *(a2 + v21);
+  v8 = a3[21];
+  v9 = type metadata accessor for CaptureList();
+  (*(*(v9 - 8) + 40))(a1 + v8, a2 + v8, v9);
+  *(a1 + a3[22]) = *(a2 + a3[22]);
 
-  v23 = a3[24];
+  v10 = a3[24];
   *(a1 + a3[23]) = *(a2 + a3[23]);
-  v24 = *(a1 + v23);
-  *(a1 + v23) = *(a2 + v23);
+  *(a1 + v10) = *(a2 + v10);
 
-  v25 = a3[25];
-  v26 = *(a1 + v25);
-  *(a1 + v25) = *(a2 + v25);
+  *(a1 + a3[25]) = *(a2 + a3[25]);
 
   return a1;
 }
 
-uint64_t sub_18E5E33A8(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t sub_18E5E33A8(unint64_t *a1, uint64_t a2, uint64_t a3)
 {
   if (a2 == 0x7FFFFFFF)
   {
@@ -1875,12 +1397,11 @@ void *sub_18E5E3468(void *result, uint64_t a2, int a3, uint64_t a4)
   return result;
 }
 
-uint64_t type metadata completion function for MEProgram.Builder()
+uint64_t type metadata completion function for MEProgram.Builder(uint64_t a1)
 {
   result = type metadata accessor for CaptureList();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
-    v2 = *(result - 8) + 64;
     swift_initStructMetadata();
     return 0;
   }
@@ -1948,42 +1469,14 @@ void *initializeBufferWithCopyOfBuffer for Compiler.ByteCodeGen(void *a1, void *
   return v5;
 }
 
-uint64_t destroy for Compiler.ByteCodeGen(uint64_t *a1, uint64_t a2)
+uint64_t destroy for Compiler.ByteCodeGen(void *a1, uint64_t a2)
 {
-  v4 = *a1;
 
-  v5 = a1 + *(a2 + 20);
-  v6 = *v5;
+  v4 = a1 + *(a2 + 20);
 
-  v7 = *(v5 + 2);
-
-  v8 = *(v5 + 3);
-
-  v9 = *(v5 + 4);
-
-  v10 = *(v5 + 5);
-
-  v11 = *(v5 + 6);
-
-  v12 = *(v5 + 7);
-
-  v13 = *(v5 + 8);
-
-  v14 = *(v5 + 9);
-
-  v15 = *(v5 + 10);
-
-  v16 = *(v5 + 11);
-
-  v17 = type metadata accessor for MEProgram.Builder(0);
-  v18 = v17[21];
-  v19 = type metadata accessor for CaptureList();
-  (*(*(v19 - 8) + 8))(&v5[v18], v19);
-  v20 = *&v5[v17[22]];
-
-  v21 = *&v5[v17[24]];
-
-  v22 = *&v5[v17[25]];
+  v5 = *(type metadata accessor for MEProgram.Builder(0) + 84);
+  v6 = type metadata accessor for CaptureList();
+  (*(*(v6 - 8) + 8))(&v4[v5], v6);
 }
 
 void *initializeWithCopy for Compiler.ByteCodeGen(void *a1, void *a2, int *a3)
@@ -2037,73 +1530,55 @@ void *initializeWithCopy for Compiler.ByteCodeGen(void *a1, void *a2, int *a3)
 
 void *assignWithCopy for Compiler.ByteCodeGen(void *a1, void *a2, int *a3)
 {
-  v6 = *a1;
   *a1 = *a2;
 
-  v7 = a3[5];
-  v8 = a1 + v7;
-  v9 = a2 + v7;
-  v10 = *(a1 + v7);
-  *(a1 + v7) = *(a2 + v7);
+  v6 = a3[5];
+  v7 = a1 + v6;
+  v8 = a2 + v6;
+  *(a1 + v6) = *(a2 + v6);
 
-  v8[8] = v9[8];
-  v8[9] = v9[9];
-  v11 = *(v8 + 2);
-  *(v8 + 2) = *(v9 + 2);
+  v7[8] = v8[8];
+  v7[9] = v8[9];
+  *(v7 + 2) = *(v8 + 2);
 
-  v12 = *(v8 + 3);
-  *(v8 + 3) = *(v9 + 3);
+  *(v7 + 3) = *(v8 + 3);
 
-  v13 = *(v8 + 4);
-  *(v8 + 4) = *(v9 + 4);
+  *(v7 + 4) = *(v8 + 4);
 
-  v14 = *(v8 + 5);
-  *(v8 + 5) = *(v9 + 5);
+  *(v7 + 5) = *(v8 + 5);
 
-  v15 = *(v8 + 6);
-  *(v8 + 6) = *(v9 + 6);
+  *(v7 + 6) = *(v8 + 6);
 
-  v16 = *(v8 + 7);
-  *(v8 + 7) = *(v9 + 7);
+  *(v7 + 7) = *(v8 + 7);
 
-  v17 = *(v8 + 8);
-  *(v8 + 8) = *(v9 + 8);
+  *(v7 + 8) = *(v8 + 8);
 
-  v18 = *(v8 + 9);
-  *(v8 + 9) = *(v9 + 9);
+  *(v7 + 9) = *(v8 + 9);
 
-  v19 = *(v8 + 10);
-  *(v8 + 10) = *(v9 + 10);
+  *(v7 + 10) = *(v8 + 10);
 
-  v20 = *(v8 + 11);
-  *(v8 + 11) = *(v9 + 11);
+  *(v7 + 11) = *(v8 + 11);
 
-  *(v8 + 12) = *(v9 + 12);
-  *(v8 + 13) = *(v9 + 13);
-  *(v8 + 14) = *(v9 + 14);
-  v21 = *(v9 + 15);
-  v8[128] = v9[128];
-  *(v8 + 15) = v21;
-  *(v8 + 17) = *(v9 + 17);
-  v22 = *(v9 + 18);
-  v8[152] = v9[152];
-  *(v8 + 18) = v22;
-  v23 = type metadata accessor for MEProgram.Builder(0);
-  v24 = v23[21];
-  v25 = type metadata accessor for CaptureList();
-  (*(*(v25 - 8) + 24))(&v8[v24], &v9[v24], v25);
-  v26 = v23[22];
-  v27 = *&v8[v26];
-  *&v8[v26] = *&v9[v26];
+  *(v7 + 12) = *(v8 + 12);
+  *(v7 + 13) = *(v8 + 13);
+  *(v7 + 14) = *(v8 + 14);
+  v9 = *(v8 + 15);
+  v7[128] = v8[128];
+  *(v7 + 15) = v9;
+  *(v7 + 17) = *(v8 + 17);
+  v10 = *(v8 + 18);
+  v7[152] = v8[152];
+  *(v7 + 18) = v10;
+  v11 = type metadata accessor for MEProgram.Builder(0);
+  v12 = v11[21];
+  v13 = type metadata accessor for CaptureList();
+  (*(*(v13 - 8) + 24))(&v7[v12], &v8[v12], v13);
+  *&v7[v11[22]] = *&v8[v11[22]];
 
-  v8[v23[23]] = v9[v23[23]];
-  v28 = v23[24];
-  v29 = *&v8[v28];
-  *&v8[v28] = *&v9[v28];
+  v7[v11[23]] = v8[v11[23]];
+  *&v7[v11[24]] = *&v8[v11[24]];
 
-  v30 = v23[25];
-  v31 = *&v8[v30];
-  *&v8[v30] = *&v9[v30];
+  *&v7[v11[25]] = *&v8[v11[25]];
 
   *(a1 + a3[6]) = *(a2 + a3[6]);
   *(a1 + a3[7]) = *(a2 + a3[7]);
@@ -2151,80 +1626,62 @@ void *initializeWithTake for Compiler.ByteCodeGen(void *a1, void *a2, int *a3)
 
 void *assignWithTake for Compiler.ByteCodeGen(void *a1, void *a2, int *a3)
 {
-  v6 = *a1;
   *a1 = *a2;
 
-  v7 = a3[5];
-  v8 = a1 + v7;
-  v9 = a2 + v7;
-  v10 = *(a1 + v7);
-  *(a1 + v7) = *(a2 + v7);
+  v6 = a3[5];
+  v7 = a1 + v6;
+  v8 = a2 + v6;
+  *(a1 + v6) = *(a2 + v6);
 
-  v8[8] = v9[8];
-  v8[9] = v9[9];
-  v11 = *(v8 + 2);
-  *(v8 + 2) = *(v9 + 2);
+  v7[8] = v8[8];
+  v7[9] = v8[9];
+  *(v7 + 2) = *(v8 + 2);
 
-  v12 = *(v8 + 3);
-  *(v8 + 3) = *(v9 + 3);
+  *(v7 + 3) = *(v8 + 3);
 
-  v13 = *(v8 + 4);
-  *(v8 + 4) = *(v9 + 4);
+  *(v7 + 4) = *(v8 + 4);
 
-  v14 = *(v8 + 5);
-  *(v8 + 5) = *(v9 + 5);
+  *(v7 + 5) = *(v8 + 5);
 
-  v15 = *(v8 + 6);
-  *(v8 + 6) = *(v9 + 6);
+  *(v7 + 6) = *(v8 + 6);
 
-  v16 = *(v8 + 7);
-  *(v8 + 7) = *(v9 + 7);
+  *(v7 + 7) = *(v8 + 7);
 
-  v17 = *(v8 + 8);
-  *(v8 + 8) = *(v9 + 8);
+  *(v7 + 8) = *(v8 + 8);
 
-  v18 = *(v8 + 9);
-  *(v8 + 9) = *(v9 + 9);
+  *(v7 + 9) = *(v8 + 9);
 
-  v19 = *(v8 + 10);
-  *(v8 + 10) = *(v9 + 10);
+  *(v7 + 10) = *(v8 + 10);
 
-  v20 = *(v8 + 11);
-  *(v8 + 11) = *(v9 + 11);
+  *(v7 + 11) = *(v8 + 11);
 
-  *(v8 + 6) = *(v9 + 6);
-  v21 = *(v9 + 15);
-  *(v8 + 14) = *(v9 + 14);
-  *(v8 + 15) = v21;
-  v8[128] = v9[128];
-  v22 = *(v9 + 18);
-  *(v8 + 17) = *(v9 + 17);
-  *(v8 + 18) = v22;
-  v8[152] = v9[152];
-  v23 = type metadata accessor for MEProgram.Builder(0);
-  v24 = v23[21];
-  v25 = type metadata accessor for CaptureList();
-  (*(*(v25 - 8) + 40))(&v8[v24], &v9[v24], v25);
-  v26 = v23[22];
-  v27 = *&v8[v26];
-  *&v8[v26] = *&v9[v26];
+  *(v7 + 6) = *(v8 + 6);
+  v9 = *(v8 + 15);
+  *(v7 + 14) = *(v8 + 14);
+  *(v7 + 15) = v9;
+  v7[128] = v8[128];
+  v10 = *(v8 + 18);
+  *(v7 + 17) = *(v8 + 17);
+  *(v7 + 18) = v10;
+  v7[152] = v8[152];
+  v11 = type metadata accessor for MEProgram.Builder(0);
+  v12 = v11[21];
+  v13 = type metadata accessor for CaptureList();
+  (*(*(v13 - 8) + 40))(&v7[v12], &v8[v12], v13);
+  *&v7[v11[22]] = *&v8[v11[22]];
 
-  v8[v23[23]] = v9[v23[23]];
-  v28 = v23[24];
-  v29 = *&v8[v28];
-  *&v8[v28] = *&v9[v28];
+  v7[v11[23]] = v8[v11[23]];
+  *&v7[v11[24]] = *&v8[v11[24]];
 
-  v30 = v23[25];
-  v31 = *&v8[v30];
-  *&v8[v30] = *&v9[v30];
+  *&v7[v11[25]] = *&v8[v11[25]];
 
-  v32 = a3[7];
+  v14 = a3[7];
   *(a1 + a3[6]) = *(a2 + a3[6]);
-  *(a1 + v32) = *(a2 + v32);
+  *(a1 + v14) = *(a2 + v14);
   return a1;
 }
 
-uint64_t sub_18E5E40D4(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t sub_18E5E40D4(unint64_t *a1, uint64_t a2, uint64_t a3)
 {
   if (a2 == 0x7FFFFFFF)
   {
@@ -2267,12 +1724,11 @@ void *sub_18E5E4194(void *result, uint64_t a2, int a3, uint64_t a4)
   return result;
 }
 
-uint64_t type metadata completion function for Compiler.ByteCodeGen()
+uint64_t type metadata completion function for Compiler.ByteCodeGen(uint64_t a1)
 {
   result = type metadata accessor for MEProgram.Builder(319);
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
-    v2 = *(result - 8) + 64;
     swift_initStructMetadata();
     return 0;
   }
@@ -2604,16 +2060,14 @@ LABEL_20:
   return result;
 }
 
-uint64_t type metadata completion function for DefaultSearcherState(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(uint64_t, void, void))
+uint64_t type metadata completion function for DefaultSearcherState(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(uint64_t, uint64_t, uint64_t), uint64_t a5, uint64_t a6)
 {
   result = a4(319, *(a1 + 16), *(a1 + 24));
-  if (v5 <= 0x3F)
+  if (v7 <= 0x3F)
   {
-    v7 = *(result - 8) + 64;
     result = swift_getAssociatedTypeWitness();
-    if (v6 <= 0x3F)
+    if (v8 <= 0x3F)
     {
-      v8 = *(result - 8) + 64;
       swift_initStructMetadata();
       return 0;
     }
@@ -2625,152 +2079,314 @@ uint64_t type metadata completion function for DefaultSearcherState(uint64_t a1,
 uint64_t *initializeBufferWithCopyOfBuffer for RangesSequence.Iterator(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   v3 = *(a3 + 16);
-  v4 = *(a3 + 24);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v5 = *(AssociatedTypeWitness - 8);
-  v6 = *(v3 - 8);
-  v7 = *(v6 + 80);
-  v8 = *(v5 + 64) + v7;
-  v9 = *(v6 + 64);
-  v10 = swift_getAssociatedTypeWitness();
-  v11 = *(v10 - 8);
-  v12 = *(v11 + 80);
-  v13 = (v8 & ~v7) + v9 + v12;
-  v14 = (v7 | *(v5 + 80) | *(v11 + 80));
-  if (v14 > 7 || ((v7 | *(v5 + 80) | *(v11 + 80)) & 0x100000) != 0 || (v13 & ~v12) + *(*(v10 - 8) + 64) > 0x18)
+  v4 = *(AssociatedTypeWitness - 8);
+  v5 = *(v3 - 8);
+  v6 = *(v5 + 80);
+  v7 = *(v4 + 64) + v6;
+  v8 = *(v5 + 64);
+  v9 = swift_getAssociatedTypeWitness();
+  v10 = *(v9 - 8);
+  v11 = *(v10 + 80);
+  v12 = (v7 & ~v6) + v8 + v11;
+  v13 = (v6 | *(v4 + 80) | *(v10 + 80));
+  if (v13 > 7 || ((v6 | *(v4 + 80) | *(v10 + 80)) & 0x100000) != 0 || (v12 & ~v11) + *(*(v9 - 8) + 64) > 0x18)
   {
-    v17 = *a2;
+    v16 = *a2;
     *a1 = *a2;
-    v20 = (v17 + ((v14 + 16) & ~v14));
+    v19 = (v16 + ((v13 + 16) & ~v13));
   }
 
   else
   {
-    v18 = ~v7;
-    v19 = ~v12;
-    v20 = a1;
-    v22 = v10;
-    (*(v5 + 16))(a1, a2, AssociatedTypeWitness);
-    (*(v6 + 16))((a1 + v8) & v18, (a2 + v8) & v18, v3);
-    (*(v11 + 16))((a1 + v13) & v19, (a2 + v13) & v19, v22);
+    v17 = ~v6;
+    v18 = ~v11;
+    v19 = a1;
+    v21 = v9;
+    (*(v4 + 16))(a1, a2, AssociatedTypeWitness);
+    (*(v5 + 16))((a1 + v7) & v17, (a2 + v7) & v17, v3);
+    (*(v10 + 16))((a1 + v12) & v18, (a2 + v12) & v18, v21);
   }
 
-  return v20;
+  return v19;
 }
 
 uint64_t destroy for RangesSequence.Iterator(uint64_t a1, uint64_t a2)
 {
-  v4 = *(a2 + 16);
-  v3 = *(a2 + 24);
+  v3 = *(a2 + 16);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v6 = *(AssociatedTypeWitness - 8) + 8;
-  (*v6)(a1, AssociatedTypeWitness);
-  v7 = *(v6 + 56);
-  v8 = *(v4 - 8);
-  v9 = v8 + 8;
-  v10 = *(v8 + 80);
-  v11 = v7 + v10;
-  (*(v8 + 8))((v7 + v10 + a1) & ~v10, v4);
-  v12 = *(v9 + 56);
-  v13 = swift_getAssociatedTypeWitness();
-  v14 = *(v13 - 8);
-  v15 = *(v14 + 8);
-  v16 = (v12 + a1 + *(v14 + 80) + (v11 & ~v10)) & ~*(v14 + 80);
+  v5 = *(AssociatedTypeWitness - 8) + 8;
+  (*v5)(a1, AssociatedTypeWitness);
+  v6 = *(v5 + 56);
+  v7 = *(v3 - 8);
+  v8 = v7 + 8;
+  v9 = *(v7 + 80);
+  v10 = v6 + v9;
+  (*(v7 + 8))((v6 + v9 + a1) & ~v9, v3);
+  v11 = *(v8 + 56);
+  v12 = swift_getAssociatedTypeWitness();
+  v13 = *(v12 - 8);
+  v14 = *(v13 + 8);
+  v15 = (v11 + a1 + *(v13 + 80) + (v10 & ~v9)) & ~*(v13 + 80);
 
-  return v15(v16, v13);
+  return v14(v15, v12);
 }
 
 uint64_t initializeWithCopy for RangesSequence.Iterator(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = *(a3 + 16);
-  v5 = *(a3 + 24);
+  v5 = *(a3 + 16);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v8 = *(AssociatedTypeWitness - 8) + 16;
-  (*v8)(a1, a2, AssociatedTypeWitness);
-  v9 = *(v8 + 48);
-  v10 = *(v6 - 8);
-  v11 = v10 + 16;
-  v12 = *(v10 + 80);
-  v13 = v9 + v12;
-  (*(v10 + 16))((v9 + v12 + a1) & ~v12, (v9 + v12 + a2) & ~v12, v6);
-  v14 = *(v11 + 48);
-  v15 = swift_getAssociatedTypeWitness();
-  v16 = *(v15 - 8);
-  (*(v16 + 16))(((v13 & ~v12) + v14 + *(v16 + 80) + a1) & ~*(v16 + 80), ((v13 & ~v12) + v14 + *(v16 + 80) + a2) & ~*(v16 + 80), v15);
+  v7 = *(AssociatedTypeWitness - 8) + 16;
+  (*v7)(a1, a2, AssociatedTypeWitness);
+  v8 = *(v7 + 48);
+  v9 = *(v5 - 8);
+  v10 = v9 + 16;
+  v11 = *(v9 + 80);
+  v12 = v8 + v11;
+  (*(v9 + 16))((v8 + v11 + a1) & ~v11, (v8 + v11 + a2) & ~v11, v5);
+  v13 = *(v10 + 48);
+  v14 = swift_getAssociatedTypeWitness();
+  v15 = *(v14 - 8);
+  (*(v15 + 16))(((v12 & ~v11) + v13 + *(v15 + 80) + a1) & ~*(v15 + 80), ((v12 & ~v11) + v13 + *(v15 + 80) + a2) & ~*(v15 + 80), v14);
   return a1;
 }
 
 uint64_t assignWithCopy for RangesSequence.Iterator(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = *(a3 + 16);
-  v5 = *(a3 + 24);
+  v5 = *(a3 + 16);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v8 = *(AssociatedTypeWitness - 8) + 24;
-  (*v8)(a1, a2, AssociatedTypeWitness);
-  v9 = *(v8 + 40);
-  v10 = *(v6 - 8);
-  v11 = v10 + 24;
-  v12 = *(v10 + 80);
-  v13 = v9 + v12;
-  (*(v10 + 24))((v9 + v12 + a1) & ~v12, (v9 + v12 + a2) & ~v12, v6);
-  v14 = *(v11 + 40);
-  v15 = swift_getAssociatedTypeWitness();
-  v16 = *(v15 - 8);
-  (*(v16 + 24))(((v13 & ~v12) + v14 + *(v16 + 80) + a1) & ~*(v16 + 80), ((v13 & ~v12) + v14 + *(v16 + 80) + a2) & ~*(v16 + 80), v15);
+  v7 = *(AssociatedTypeWitness - 8) + 24;
+  (*v7)(a1, a2, AssociatedTypeWitness);
+  v8 = *(v7 + 40);
+  v9 = *(v5 - 8);
+  v10 = v9 + 24;
+  v11 = *(v9 + 80);
+  v12 = v8 + v11;
+  (*(v9 + 24))((v8 + v11 + a1) & ~v11, (v8 + v11 + a2) & ~v11, v5);
+  v13 = *(v10 + 40);
+  v14 = swift_getAssociatedTypeWitness();
+  v15 = *(v14 - 8);
+  (*(v15 + 24))(((v12 & ~v11) + v13 + *(v15 + 80) + a1) & ~*(v15 + 80), ((v12 & ~v11) + v13 + *(v15 + 80) + a2) & ~*(v15 + 80), v14);
   return a1;
 }
 
 uint64_t initializeWithTake for RangesSequence.Iterator(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = *(a3 + 16);
-  v5 = *(a3 + 24);
+  v5 = *(a3 + 16);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v8 = *(AssociatedTypeWitness - 8) + 32;
-  (*v8)(a1, a2, AssociatedTypeWitness);
-  v9 = *(v8 + 32);
-  v10 = *(v6 - 8);
-  v11 = v10 + 32;
-  v12 = *(v10 + 80);
-  v13 = v9 + v12;
-  (*(v10 + 32))((v9 + v12 + a1) & ~v12, (v9 + v12 + a2) & ~v12, v6);
-  v14 = *(v11 + 32);
-  v15 = swift_getAssociatedTypeWitness();
-  v16 = *(v15 - 8);
-  (*(v16 + 32))(((v13 & ~v12) + v14 + *(v16 + 80) + a1) & ~*(v16 + 80), ((v13 & ~v12) + v14 + *(v16 + 80) + a2) & ~*(v16 + 80), v15);
+  v7 = *(AssociatedTypeWitness - 8) + 32;
+  (*v7)(a1, a2, AssociatedTypeWitness);
+  v8 = *(v7 + 32);
+  v9 = *(v5 - 8);
+  v10 = v9 + 32;
+  v11 = *(v9 + 80);
+  v12 = v8 + v11;
+  (*(v9 + 32))((v8 + v11 + a1) & ~v11, (v8 + v11 + a2) & ~v11, v5);
+  v13 = *(v10 + 32);
+  v14 = swift_getAssociatedTypeWitness();
+  v15 = *(v14 - 8);
+  (*(v15 + 32))(((v12 & ~v11) + v13 + *(v15 + 80) + a1) & ~*(v15 + 80), ((v12 & ~v11) + v13 + *(v15 + 80) + a2) & ~*(v15 + 80), v14);
   return a1;
 }
 
 uint64_t assignWithTake for RangesSequence.Iterator(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = *(a3 + 16);
-  v5 = *(a3 + 24);
+  v5 = *(a3 + 16);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v8 = *(AssociatedTypeWitness - 8) + 40;
-  (*v8)(a1, a2, AssociatedTypeWitness);
-  v9 = *(v8 + 24);
-  v10 = *(v6 - 8);
-  v11 = v10 + 40;
-  v12 = *(v10 + 80);
-  v13 = v9 + v12;
-  (*(v10 + 40))((v9 + v12 + a1) & ~v12, (v9 + v12 + a2) & ~v12, v6);
-  v14 = *(v11 + 24);
-  v15 = swift_getAssociatedTypeWitness();
-  v16 = *(v15 - 8);
-  (*(v16 + 40))(((v13 & ~v12) + v14 + *(v16 + 80) + a1) & ~*(v16 + 80), ((v13 & ~v12) + v14 + *(v16 + 80) + a2) & ~*(v16 + 80), v15);
+  v7 = *(AssociatedTypeWitness - 8) + 40;
+  (*v7)(a1, a2, AssociatedTypeWitness);
+  v8 = *(v7 + 24);
+  v9 = *(v5 - 8);
+  v10 = v9 + 40;
+  v11 = *(v9 + 80);
+  v12 = v8 + v11;
+  (*(v9 + 40))((v8 + v11 + a1) & ~v11, (v8 + v11 + a2) & ~v11, v5);
+  v13 = *(v10 + 24);
+  v14 = swift_getAssociatedTypeWitness();
+  v15 = *(v14 - 8);
+  (*(v15 + 40))(((v12 & ~v11) + v13 + *(v15 + 80) + a1) & ~*(v15 + 80), ((v12 & ~v11) + v13 + *(v15 + 80) + a2) & ~*(v15 + 80), v14);
   return a1;
 }
 
 uint64_t getEnumTagSinglePayload for RangesSequence.Iterator(unsigned __int16 *a1, unsigned int a2, uint64_t a3)
 {
   v4 = *(a3 + 16);
-  v5 = *(a3 + 24);
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  v6 = *(AssociatedTypeWitness - 8);
+  v30 = AssociatedTypeWitness;
+  v7 = *(v4 - 8);
+  v8 = *(v7 + 84);
+  v31 = *(v6 + 84);
+  if (v8 <= v31)
+  {
+    v9 = *(v6 + 84);
+  }
+
+  else
+  {
+    v9 = *(v7 + 84);
+  }
+
+  v10 = *(swift_getAssociatedTypeWitness() - 8);
+  v11 = *(v10 + 84);
+  v12 = *(v7 + 80);
+  v13 = *(v10 + 80);
+  if (v11 <= v9)
+  {
+    v14 = v9;
+  }
+
+  else
+  {
+    v14 = *(v10 + 84);
+  }
+
+  if (!a2)
+  {
+    return 0;
+  }
+
+  v15 = *(v6 + 64) + v12;
+  v16 = (v15 & ~v12) + *(v7 + 64) + v13;
+  v17 = a1;
+  if (a2 <= v14)
+  {
+    goto LABEL_31;
+  }
+
+  v18 = (v16 & ~v13) + *(v10 + 64);
+  v19 = 8 * v18;
+  if (v18 <= 3)
+  {
+    v21 = ((a2 - v14 + ~(-1 << v19)) >> v19) + 1;
+    if (HIWORD(v21))
+    {
+      v20 = *(a1 + v18);
+      if (!v20)
+      {
+        goto LABEL_30;
+      }
+
+      goto LABEL_17;
+    }
+
+    if (v21 > 0xFF)
+    {
+      v20 = *(a1 + v18);
+      if (!*(a1 + v18))
+      {
+        goto LABEL_30;
+      }
+
+      goto LABEL_17;
+    }
+
+    if (v21 < 2)
+    {
+LABEL_30:
+      if (v14)
+      {
+LABEL_31:
+        if (v9 >= v11)
+        {
+          v27 = v31;
+          if (v31 >= v8)
+          {
+            v29 = v30;
+            v28 = *(v6 + 48);
+          }
+
+          else
+          {
+            v28 = *(v7 + 48);
+            v17 = ((a1 + v15) & ~v12);
+            v27 = v8;
+            v29 = v4;
+          }
+
+          return v28(v17, v27, v29);
+        }
+
+        else
+        {
+          v25 = *(v10 + 48);
+
+          return v25((a1 + v16) & ~v13);
+        }
+      }
+
+      return 0;
+    }
+  }
+
+  v20 = *(a1 + v18);
+  if (!*(a1 + v18))
+  {
+    goto LABEL_30;
+  }
+
+LABEL_17:
+  v22 = (v20 - 1) << v19;
+  if (v18 > 3)
+  {
+    v22 = 0;
+  }
+
+  if (v18)
+  {
+    if (v18 <= 3)
+    {
+      v23 = (v16 & ~v13) + *(v10 + 64);
+    }
+
+    else
+    {
+      v23 = 4;
+    }
+
+    if (v23 > 2)
+    {
+      if (v23 == 3)
+      {
+        v24 = *a1 | (*(a1 + 2) << 16);
+      }
+
+      else
+      {
+        v24 = *a1;
+      }
+    }
+
+    else if (v23 == 1)
+    {
+      v24 = *a1;
+    }
+
+    else
+    {
+      v24 = *a1;
+    }
+  }
+
+  else
+  {
+    v24 = 0;
+  }
+
+  return v14 + (v24 | v22) + 1;
+}
+
+void storeEnumTagSinglePayload for RangesSequence.Iterator(_BYTE *a1, unsigned int a2, unsigned int a3, uint64_t a4)
+{
+  v5 = *(a4 + 16);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
   v7 = *(AssociatedTypeWitness - 8);
-  v31 = AssociatedTypeWitness;
-  v8 = *(v4 - 8);
+  v37 = AssociatedTypeWitness;
+  v8 = *(v5 - 8);
+  v39 = v8;
   v9 = *(v8 + 84);
-  v32 = *(v7 + 84);
-  if (v9 <= v32)
+  v38 = *(v7 + 84);
+  if (v9 <= v38)
   {
     v10 = *(v7 + 84);
   }
@@ -2781,267 +2397,97 @@ uint64_t getEnumTagSinglePayload for RangesSequence.Iterator(unsigned __int16 *a
   }
 
   v11 = *(swift_getAssociatedTypeWitness() - 8);
-  v12 = *(v11 + 84);
-  v13 = *(v8 + 80);
-  v14 = *(v11 + 80);
-  if (v12 <= v10)
+  v12 = v11;
+  v13 = *(v11 + 84);
+  if (v13 <= v10)
   {
-    v15 = v10;
+    v14 = v10;
   }
 
   else
   {
-    v15 = *(v11 + 84);
+    v14 = *(v11 + 84);
   }
 
-  if (!a2)
+  v15 = *(v8 + 80);
+  v16 = *(v7 + 64) + v15;
+  v17 = (v16 & ~v15) + *(v8 + 64);
+  v18 = *(v11 + 80);
+  v19 = ((v17 + v18) & ~v18) + *(v11 + 64);
+  v20 = a3 - v14;
+  if (a3 <= v14)
   {
-    return 0;
+    v22 = 0;
+    v21 = a1;
   }
 
-  v16 = *(v7 + 64) + v13;
-  v17 = (v16 & ~v13) + *(v8 + 64) + v14;
-  v18 = a1;
-  if (a2 <= v15)
+  else
   {
-    goto LABEL_31;
-  }
-
-  v19 = (v17 & ~v14) + *(v11 + 64);
-  v20 = 8 * v19;
-  if (v19 <= 3)
-  {
-    v22 = ((a2 - v15 + ~(-1 << v20)) >> v20) + 1;
-    if (HIWORD(v22))
-    {
-      v21 = *(a1 + v19);
-      if (!v21)
-      {
-        goto LABEL_30;
-      }
-
-      goto LABEL_17;
-    }
-
-    if (v22 > 0xFF)
-    {
-      v21 = *(a1 + v19);
-      if (!*(a1 + v19))
-      {
-        goto LABEL_30;
-      }
-
-      goto LABEL_17;
-    }
-
-    if (v22 < 2)
-    {
-LABEL_30:
-      if (v15)
-      {
-LABEL_31:
-        if (v10 >= v12)
-        {
-          v28 = v32;
-          if (v32 >= v9)
-          {
-            v30 = v31;
-            v29 = *(v7 + 48);
-          }
-
-          else
-          {
-            v29 = *(v8 + 48);
-            v18 = ((a1 + v16) & ~v13);
-            v28 = v9;
-            v30 = v4;
-          }
-
-          return v29(v18, v28, v30);
-        }
-
-        else
-        {
-          v26 = *(v11 + 48);
-
-          return v26((a1 + v17) & ~v14);
-        }
-      }
-
-      return 0;
-    }
-  }
-
-  v21 = *(a1 + v19);
-  if (!*(a1 + v19))
-  {
-    goto LABEL_30;
-  }
-
-LABEL_17:
-  v23 = (v21 - 1) << v20;
-  if (v19 > 3)
-  {
-    v23 = 0;
-  }
-
-  if (v19)
-  {
+    v21 = a1;
     if (v19 <= 3)
     {
-      v24 = (v17 & ~v14) + *(v11 + 64);
-    }
-
-    else
-    {
-      v24 = 4;
-    }
-
-    if (v24 > 2)
-    {
-      if (v24 == 3)
+      v25 = ((v20 + ~(-1 << (8 * v19))) >> (8 * v19)) + 1;
+      if (HIWORD(v25))
       {
-        v25 = *a1 | (*(a1 + 2) << 16);
+        v22 = 4;
       }
 
       else
       {
-        v25 = *a1;
-      }
-    }
-
-    else if (v24 == 1)
-    {
-      v25 = *a1;
-    }
-
-    else
-    {
-      v25 = *a1;
-    }
-  }
-
-  else
-  {
-    v25 = 0;
-  }
-
-  return v15 + (v25 | v23) + 1;
-}
-
-void storeEnumTagSinglePayload for RangesSequence.Iterator(_BYTE *a1, unsigned int a2, unsigned int a3, uint64_t a4)
-{
-  v5 = *(a4 + 16);
-  v6 = *(a4 + 24);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v8 = *(AssociatedTypeWitness - 8);
-  v38 = AssociatedTypeWitness;
-  v9 = *(v5 - 8);
-  v40 = v9;
-  v10 = *(v9 + 84);
-  v39 = *(v8 + 84);
-  if (v10 <= v39)
-  {
-    v11 = *(v8 + 84);
-  }
-
-  else
-  {
-    v11 = *(v9 + 84);
-  }
-
-  v12 = *(swift_getAssociatedTypeWitness() - 8);
-  v13 = v12;
-  v14 = *(v12 + 84);
-  if (v14 <= v11)
-  {
-    v15 = v11;
-  }
-
-  else
-  {
-    v15 = *(v12 + 84);
-  }
-
-  v16 = *(v9 + 80);
-  v17 = *(v8 + 64) + v16;
-  v18 = (v17 & ~v16) + *(v9 + 64);
-  v19 = *(v12 + 80);
-  v20 = ((v18 + v19) & ~v19) + *(v12 + 64);
-  v21 = a3 - v15;
-  if (a3 <= v15)
-  {
-    v23 = 0;
-    v22 = a1;
-  }
-
-  else
-  {
-    v22 = a1;
-    if (v20 <= 3)
-    {
-      v26 = ((v21 + ~(-1 << (8 * v20))) >> (8 * v20)) + 1;
-      if (HIWORD(v26))
-      {
-        v23 = 4;
-      }
-
-      else
-      {
-        if (v26 < 0x100)
+        if (v25 < 0x100)
         {
-          v27 = 1;
+          v26 = 1;
         }
 
         else
         {
-          v27 = 2;
+          v26 = 2;
         }
 
-        if (v26 >= 2)
+        if (v25 >= 2)
         {
-          v23 = v27;
+          v22 = v26;
         }
 
         else
         {
-          v23 = 0;
+          v22 = 0;
         }
       }
     }
 
     else
     {
-      v23 = 1;
+      v22 = 1;
     }
   }
 
-  if (v15 < a2)
+  if (v14 < a2)
   {
-    v24 = ~v15 + a2;
-    if (v20 < 4)
+    v23 = ~v14 + a2;
+    if (v19 < 4)
     {
-      v25 = (v24 >> (8 * v20)) + 1;
-      if (v20)
+      v24 = (v23 >> (8 * v19)) + 1;
+      if (v19)
       {
-        v28 = v24 & ~(-1 << (8 * v20));
-        bzero(v22, v20);
-        if (v20 != 3)
+        v27 = v23 & ~(-1 << (8 * v19));
+        bzero(v21, v19);
+        if (v19 != 3)
         {
-          if (v20 == 2)
+          if (v19 == 2)
           {
-            *v22 = v28;
-            if (v23 > 1)
+            *v21 = v27;
+            if (v22 > 1)
             {
 LABEL_59:
-              if (v23 == 2)
+              if (v22 == 2)
               {
-                *&v22[v20] = v25;
+                *&v21[v19] = v24;
               }
 
               else
               {
-                *&v22[v20] = v25;
+                *&v21[v19] = v24;
               }
 
               return;
@@ -3050,8 +2496,8 @@ LABEL_59:
 
           else
           {
-            *v22 = v24;
-            if (v23 > 1)
+            *v21 = v23;
+            if (v22 > 1)
             {
               goto LABEL_59;
             }
@@ -3060,11 +2506,11 @@ LABEL_59:
           goto LABEL_56;
         }
 
-        *v22 = v28;
-        v22[2] = BYTE2(v28);
+        *v21 = v27;
+        v21[2] = BYTE2(v27);
       }
 
-      if (v23 > 1)
+      if (v22 > 1)
       {
         goto LABEL_59;
       }
@@ -3072,29 +2518,29 @@ LABEL_59:
 
     else
     {
-      bzero(v22, v20);
-      *v22 = v24;
-      v25 = 1;
-      if (v23 > 1)
+      bzero(v21, v19);
+      *v21 = v23;
+      v24 = 1;
+      if (v22 > 1)
       {
         goto LABEL_59;
       }
     }
 
 LABEL_56:
-    if (v23)
+    if (v22)
     {
-      v22[v20] = v25;
+      v21[v19] = v24;
     }
 
     return;
   }
 
-  if (v23 > 1)
+  if (v22 > 1)
   {
-    if (v23 != 2)
+    if (v22 != 2)
     {
-      *&v22[v20] = 0;
+      *&v21[v19] = 0;
       if (!a2)
       {
         return;
@@ -3103,7 +2549,7 @@ LABEL_56:
       goto LABEL_34;
     }
 
-    *&v22[v20] = 0;
+    *&v21[v19] = 0;
 LABEL_33:
     if (!a2)
     {
@@ -3113,91 +2559,91 @@ LABEL_33:
     goto LABEL_34;
   }
 
-  if (!v23)
+  if (!v22)
   {
     goto LABEL_33;
   }
 
-  v22[v20] = 0;
+  v21[v19] = 0;
   if (!a2)
   {
     return;
   }
 
 LABEL_34:
-  if (v11 >= v14)
+  if (v10 >= v13)
   {
-    if (v11 >= a2)
+    if (v10 >= a2)
     {
-      v33 = v39;
-      if (v39 >= v10)
+      v32 = v38;
+      if (v38 >= v9)
       {
-        v37 = v38;
-        v34 = *(v8 + 56);
-        v35 = v22;
-        v36 = a2;
+        v36 = v37;
+        v33 = *(v7 + 56);
+        v34 = v21;
+        v35 = a2;
       }
 
       else
       {
-        v34 = *(v40 + 56);
-        v35 = (&v22[v17] & ~v16);
-        v36 = a2;
-        v33 = v10;
-        v37 = v5;
+        v33 = *(v39 + 56);
+        v34 = (&v21[v16] & ~v15);
+        v35 = a2;
+        v32 = v9;
+        v36 = v5;
       }
 
-      v34(v35, v36, v33, v37);
+      v33(v34, v35, v32, v36);
     }
 
     else
     {
-      if (v18 <= 3)
+      if (v17 <= 3)
       {
-        v30 = ~(-1 << (8 * v18));
+        v29 = ~(-1 << (8 * v17));
       }
 
       else
       {
-        v30 = -1;
+        v29 = -1;
       }
 
-      if (v18)
+      if (v17)
       {
-        v31 = v30 & (~v11 + a2);
-        if (v18 <= 3)
+        v30 = v29 & (~v10 + a2);
+        if (v17 <= 3)
         {
-          v32 = v18;
+          v31 = v17;
         }
 
         else
         {
-          v32 = 4;
+          v31 = 4;
         }
 
-        bzero(v22, v18);
-        if (v32 > 2)
+        bzero(v21, v17);
+        if (v31 > 2)
         {
-          if (v32 == 3)
+          if (v31 == 3)
           {
-            *v22 = v31;
-            v22[2] = BYTE2(v31);
+            *v21 = v30;
+            v21[2] = BYTE2(v30);
           }
 
           else
           {
-            *v22 = v31;
+            *v21 = v30;
           }
         }
 
-        else if (v32 == 1)
+        else if (v31 == 1)
         {
-          *v22 = v31;
+          *v21 = v30;
         }
 
         else
         {
-          *v22 = v31;
+          *v21 = v30;
         }
       }
     }
@@ -3205,18 +2651,17 @@ LABEL_34:
 
   else
   {
-    v29 = *(v13 + 56);
+    v28 = *(v12 + 56);
 
-    v29(&v22[v18 + v19] & ~v19, a2);
+    v28(&v21[v17 + v18] & ~v18, a2);
   }
 }
 
 uint64_t type metadata completion function for RegexRangesSequence(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(uint64_t, void))
 {
-  result = a4(319, *(a1 + 16));
+  result = (a4)(319, *(a1 + 16), a3);
   if (v5 <= 0x3F)
   {
-    v6 = *(result - 8) + 64;
     swift_initStructMetadata();
     return 0;
   }
@@ -3224,10 +2669,9 @@ uint64_t type metadata completion function for RegexRangesSequence(uint64_t a1, 
   return result;
 }
 
-uint64_t initializeBufferWithCopyOfBuffer for RegexRangesSequence.Iterator(uint64_t a1, uint64_t *a2, uint64_t a3)
+uint64_t initializeBufferWithCopyOfBuffer for RegexRangesSequence.Iterator(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4)
 {
-  v5 = *(a3 + 16);
-  v6 = type metadata accessor for Executor.Matches.Iterator();
+  v6 = type metadata accessor for Executor.Matches.Iterator(0, *(a3 + 16), a3, a4);
   v7 = *(*(v6 - 8) + 80);
   v8 = *a2;
   *a1 = *a2;
@@ -3254,56 +2698,56 @@ uint64_t initializeBufferWithCopyOfBuffer for RegexRangesSequence.Iterator(uint6
     v14 = v10[12];
     v15 = a1 + v14;
     v16 = a2 + v14;
-    v17 = *(v16 + 8);
+    v17 = *(v16 + 1);
     *v15 = *v16;
     *(v15 + 8) = v17;
-    v18 = *(v16 + 24);
-    *(v15 + 16) = *(v16 + 16);
+    v18 = *(v16 + 3);
+    *(v15 + 16) = *(v16 + 2);
     *(v15 + 24) = v18;
-    v28 = *(v16 + 40);
-    *(v15 + 32) = *(v16 + 32);
+    v28 = *(v16 + 5);
+    *(v15 + 32) = *(v16 + 4);
     *(v15 + 40) = v28;
-    *(v15 + 48) = *(v16 + 48);
-    v30 = *(v16 + 64);
-    *(v15 + 56) = *(v16 + 56);
+    *(v15 + 48) = v16[48];
+    v30 = *(v16 + 8);
+    *(v15 + 56) = *(v16 + 7);
     *(v15 + 64) = v30;
-    *(v15 + 72) = *(v16 + 72);
+    *(v15 + 72) = *(v16 + 9);
     *(a1 + v10[13]) = *(a2 + v10[13]);
     v19 = *(v9 + 28);
     v20 = a1 + v19;
     v21 = a2 + v19;
-    v22 = *(v21 + 8);
+    v22 = *(v21 + 1);
     *v20 = *v21;
     *(v20 + 8) = v22;
-    *(v20 + 16) = *(v21 + 16);
-    *(v20 + 32) = *(v21 + 32);
-    v26 = *(v21 + 48);
-    *(v20 + 40) = *(v21 + 40);
+    *(v20 + 16) = *(v21 + 1);
+    *(v20 + 32) = v21[32];
+    v26 = *(v21 + 6);
+    *(v20 + 40) = *(v21 + 5);
     *(v20 + 48) = v26;
-    *(v20 + 56) = *(v21 + 56);
-    *(v20 + 64) = *(v21 + 64);
+    *(v20 + 56) = *(v21 + 7);
+    *(v20 + 64) = v21[64];
     *(v20 + 72) = *(v21 + 72);
     *(v20 + 88) = *(v21 + 88);
     v33 = v9;
-    v23 = *(v21 + 112);
-    *(v20 + 104) = *(v21 + 104);
+    v23 = *(v21 + 14);
+    *(v20 + 104) = *(v21 + 13);
     *(v20 + 112) = v23;
-    v24 = *(v21 + 128);
-    *(v20 + 120) = *(v21 + 120);
+    v24 = *(v21 + 16);
+    *(v20 + 120) = *(v21 + 15);
     *(v20 + 128) = v24;
-    v27 = *(v21 + 144);
-    *(v20 + 136) = *(v21 + 136);
+    v27 = *(v21 + 18);
+    *(v20 + 136) = *(v21 + 17);
     *(v20 + 144) = v27;
-    *(v20 + 152) = *(v21 + 152);
-    v29 = *(v21 + 168);
-    *(v20 + 160) = *(v21 + 160);
+    *(v20 + 152) = v21[152];
+    v29 = *(v21 + 21);
+    *(v20 + 160) = *(v21 + 20);
     *(v20 + 168) = v29;
-    v31 = *(v21 + 184);
-    *(v20 + 176) = *(v21 + 176);
+    v31 = *(v21 + 23);
+    *(v20 + 176) = *(v21 + 22);
     *(v20 + 184) = v31;
-    *(v20 + 200) = *(v21 + 200);
-    *(v20 + 192) = *(v21 + 192);
-    v32 = *(v21 + 208);
+    *(v20 + 200) = v21[200];
+    *(v20 + 192) = *(v21 + 24);
+    v32 = *(v21 + 26);
 
     MEMORY[0x193ACF410](v32);
     *(v20 + 208) = v32;
@@ -3315,75 +2759,19 @@ uint64_t initializeBufferWithCopyOfBuffer for RegexRangesSequence.Iterator(uint6
 
 void destroy for RegexRangesSequence.Iterator(char *a1, uint64_t a2)
 {
-  v4 = *a1;
 
-  v5 = type metadata accessor for MEProgram(0);
-  v6 = v5[8];
-  v7 = type metadata accessor for CaptureList();
-  (*(*(v7 - 8) + 8))(&a1[v6], v7);
-  v8 = *&a1[v5[9]];
+  v4 = *(type metadata accessor for MEProgram(0) + 32);
+  v5 = type metadata accessor for CaptureList();
+  (*(*(v5 - 8) + 8))(&a1[v4], v5);
 
-  v9 = *&a1[v5[10]];
-
-  v10 = &a1[v5[12]];
-  v11 = *v10;
-
-  v12 = *(v10 + 1);
-
-  v13 = *(v10 + 2);
-
-  v14 = *(v10 + 3);
-
-  v15 = *(v10 + 4);
-
-  v16 = *(v10 + 5);
-
-  v17 = *(v10 + 7);
-
-  v18 = *(v10 + 8);
-
-  v19 = *(v10 + 9);
-
-  v20 = *&a1[v5[13]];
-
-  v21 = *(a2 + 16);
-  v22 = &a1[*(type metadata accessor for Executor.Matches.Iterator() + 28)];
-  v23 = *(v22 + 1);
-
-  v24 = *(v22 + 5);
-
-  v25 = *(v22 + 6);
-
-  v26 = *(v22 + 13);
-
-  v27 = *(v22 + 14);
-
-  v28 = *(v22 + 15);
-
-  v29 = *(v22 + 16);
-
-  v30 = *(v22 + 17);
-
-  v31 = *(v22 + 18);
-
-  v32 = *(v22 + 20);
-
-  v33 = *(v22 + 21);
-
-  v34 = *(v22 + 22);
-
-  v35 = *(v22 + 23);
-
-  v36 = *(v22 + 24);
-
-  v37 = *(v22 + 26);
+  type metadata accessor for Executor.Matches.Iterator(0, *(a2 + 16), v6, v7);
 
   JUMPOUT(0x193ACF400);
 }
 
-uint64_t initializeWithCopy for RegexRangesSequence.Iterator(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t initializeWithCopy for RegexRangesSequence.Iterator(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
-  v6 = *(a2 + 8);
+  v6 = a2[1];
   *a1 = *a2;
   *(a1 + 8) = v6;
   *(a1 + 16) = *(a2 + 16);
@@ -3400,188 +2788,156 @@ uint64_t initializeWithCopy for RegexRangesSequence.Iterator(uint64_t a1, uint64
   v11 = v7[12];
   v12 = a1 + v11;
   v13 = a2 + v11;
-  v28 = *(v13 + 8);
+  v29 = *(v13 + 1);
   *v12 = *v13;
-  *(v12 + 8) = v28;
-  v14 = *(v13 + 24);
-  *(v12 + 16) = *(v13 + 16);
+  *(v12 + 8) = v29;
+  v14 = *(v13 + 3);
+  *(v12 + 16) = *(v13 + 2);
   *(v12 + 24) = v14;
-  v15 = *(v13 + 40);
-  *(v12 + 32) = *(v13 + 32);
+  v15 = *(v13 + 5);
+  *(v12 + 32) = *(v13 + 4);
   *(v12 + 40) = v15;
-  *(v12 + 48) = *(v13 + 48);
-  v16 = *(v13 + 64);
-  *(v12 + 56) = *(v13 + 56);
+  *(v12 + 48) = v13[48];
+  v16 = *(v13 + 8);
+  *(v12 + 56) = *(v13 + 7);
   *(v12 + 64) = v16;
-  *(v12 + 72) = *(v13 + 72);
+  *(v12 + 72) = *(v13 + 9);
   *(a1 + v7[13]) = *(a2 + v7[13]);
-  v17 = *(a3 + 16);
-  v31 = type metadata accessor for Executor.Matches.Iterator();
-  v18 = *(v31 + 28);
-  v19 = a1 + v18;
-  v20 = a2 + v18;
-  v21 = *(v20 + 8);
-  *v19 = *v20;
-  *(v19 + 8) = v21;
-  *(v19 + 16) = *(v20 + 16);
-  *(v19 + 32) = *(v20 + 32);
-  v22 = *(v20 + 48);
-  *(v19 + 40) = *(v20 + 40);
-  *(v19 + 48) = v22;
-  *(v19 + 64) = *(v20 + 64);
-  *(v19 + 56) = *(v20 + 56);
-  *(v19 + 72) = *(v20 + 72);
-  *(v19 + 88) = *(v20 + 88);
-  v23 = *(v20 + 112);
-  *(v19 + 104) = *(v20 + 104);
-  *(v19 + 112) = v23;
-  v24 = *(v20 + 128);
-  *(v19 + 120) = *(v20 + 120);
-  *(v19 + 128) = v24;
-  v25 = *(v20 + 144);
-  *(v19 + 136) = *(v20 + 136);
-  *(v19 + 144) = v25;
-  *(v19 + 152) = *(v20 + 152);
-  v26 = *(v20 + 168);
-  *(v19 + 160) = *(v20 + 160);
-  *(v19 + 168) = v26;
-  v29 = *(v20 + 184);
-  *(v19 + 176) = *(v20 + 176);
-  *(v19 + 184) = v29;
-  *(v19 + 192) = *(v20 + 192);
-  *(v19 + 200) = *(v20 + 200);
-  v30 = *(v20 + 208);
+  v32 = type metadata accessor for Executor.Matches.Iterator(0, *(a3 + 16), v17, v18);
+  v19 = *(v32 + 28);
+  v20 = a1 + v19;
+  v21 = a2 + v19;
+  v22 = *(v21 + 1);
+  *v20 = *v21;
+  *(v20 + 8) = v22;
+  *(v20 + 16) = *(v21 + 1);
+  *(v20 + 32) = v21[32];
+  v23 = *(v21 + 6);
+  *(v20 + 40) = *(v21 + 5);
+  *(v20 + 48) = v23;
+  *(v20 + 64) = v21[64];
+  *(v20 + 56) = *(v21 + 7);
+  *(v20 + 72) = *(v21 + 72);
+  *(v20 + 88) = *(v21 + 88);
+  v24 = *(v21 + 14);
+  *(v20 + 104) = *(v21 + 13);
+  *(v20 + 112) = v24;
+  v25 = *(v21 + 16);
+  *(v20 + 120) = *(v21 + 15);
+  *(v20 + 128) = v25;
+  v26 = *(v21 + 18);
+  *(v20 + 136) = *(v21 + 17);
+  *(v20 + 144) = v26;
+  *(v20 + 152) = v21[152];
+  v27 = *(v21 + 21);
+  *(v20 + 160) = *(v21 + 20);
+  *(v20 + 168) = v27;
+  v30 = *(v21 + 23);
+  *(v20 + 176) = *(v21 + 22);
+  *(v20 + 184) = v30;
+  *(v20 + 192) = *(v21 + 24);
+  *(v20 + 200) = v21[200];
+  v31 = *(v21 + 26);
 
-  MEMORY[0x193ACF410](v30);
-  *(v19 + 208) = v30;
-  *(a1 + *(v31 + 32)) = *(a2 + *(v31 + 32));
+  MEMORY[0x193ACF410](v31);
+  *(v20 + 208) = v31;
+  *(a1 + *(v32 + 32)) = *(a2 + *(v32 + 32));
   return a1;
 }
 
 uint64_t *assignWithCopy for RegexRangesSequence.Iterator(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
-  v6 = *a1;
   *a1 = *a2;
 
-  v7 = a2[1];
+  v6 = a2[1];
   *(a1 + 16) = *(a2 + 16);
-  a1[1] = v7;
+  a1[1] = v6;
   *(a1 + 17) = *(a2 + 17);
   *(a1 + 18) = *(a2 + 18);
-  v8 = type metadata accessor for MEProgram(0);
-  v9 = v8[8];
-  v10 = type metadata accessor for CaptureList();
-  (*(*(v10 - 8) + 24))(a1 + v9, a2 + v9, v10);
-  v11 = v8[9];
-  v12 = *(a1 + v11);
-  *(a1 + v11) = *(a2 + v11);
+  v7 = type metadata accessor for MEProgram(0);
+  v8 = v7[8];
+  v9 = type metadata accessor for CaptureList();
+  (*(*(v9 - 8) + 24))(a1 + v8, a2 + v8, v9);
+  *(a1 + v7[9]) = *(a2 + v7[9]);
 
-  v13 = v8[10];
-  v14 = *(a1 + v13);
-  *(a1 + v13) = *(a2 + v13);
+  *(a1 + v7[10]) = *(a2 + v7[10]);
 
-  *(a1 + v8[11]) = *(a2 + v8[11]);
-  v15 = v8[12];
-  v16 = a1 + v15;
-  v17 = a2 + v15;
-  v18 = *(a1 + v15);
-  *(a1 + v15) = *(a2 + v15);
+  *(a1 + v7[11]) = *(a2 + v7[11]);
+  v10 = v7[12];
+  v11 = a1 + v10;
+  v12 = a2 + v10;
+  *(a1 + v10) = *(a2 + v10);
 
-  v19 = *(v16 + 8);
-  *(v16 + 8) = *(v17 + 8);
+  *(v11 + 1) = *(v12 + 1);
 
-  v20 = *(v16 + 16);
-  *(v16 + 16) = *(v17 + 16);
+  *(v11 + 2) = *(v12 + 2);
 
-  v21 = *(v16 + 24);
-  *(v16 + 24) = *(v17 + 24);
+  *(v11 + 3) = *(v12 + 3);
 
-  v22 = *(v16 + 32);
-  *(v16 + 32) = *(v17 + 32);
+  *(v11 + 4) = *(v12 + 4);
 
-  v23 = *(v16 + 40);
-  *(v16 + 40) = *(v17 + 40);
+  *(v11 + 5) = *(v12 + 5);
 
-  *(v16 + 48) = *(v17 + 48);
-  v24 = *(v16 + 56);
-  *(v16 + 56) = *(v17 + 56);
+  v11[48] = v12[48];
+  *(v11 + 7) = *(v12 + 7);
 
-  v25 = *(v16 + 64);
-  *(v16 + 64) = *(v17 + 64);
+  *(v11 + 8) = *(v12 + 8);
 
-  v26 = *(v16 + 72);
-  *(v16 + 72) = *(v17 + 72);
+  *(v11 + 9) = *(v12 + 9);
 
-  v27 = v8[13];
-  v28 = *(a1 + v27);
-  *(a1 + v27) = *(a2 + v27);
+  *(a1 + v7[13]) = *(a2 + v7[13]);
 
-  v29 = *(a3 + 16);
-  v30 = type metadata accessor for Executor.Matches.Iterator();
-  v31 = *(v30 + 28);
-  v32 = a1 + v31;
-  v33 = a2 + v31;
-  *v32 = *(a2 + v31);
-  v34 = *(a1 + v31 + 8);
-  *(v32 + 8) = *(a2 + v31 + 8);
+  v15 = type metadata accessor for Executor.Matches.Iterator(0, *(a3 + 16), v13, v14);
+  v16 = *(v15 + 28);
+  v17 = a1 + v16;
+  v18 = a2 + v16;
+  *v17 = *(a2 + v16);
+  *(v17 + 1) = *(a2 + v16 + 8);
 
-  *(v32 + 16) = *(v33 + 16);
-  *(v32 + 24) = *(v33 + 24);
-  *(v32 + 32) = *(v33 + 32);
-  v35 = *(v32 + 40);
-  *(v32 + 40) = *(v33 + 40);
+  *(v17 + 2) = *(v18 + 2);
+  *(v17 + 3) = *(v18 + 3);
+  v17[32] = v18[32];
+  *(v17 + 5) = *(v18 + 5);
 
-  v36 = *(v32 + 48);
-  *(v32 + 48) = *(v33 + 48);
+  *(v17 + 6) = *(v18 + 6);
 
-  v37 = *(v33 + 56);
-  *(v32 + 64) = *(v33 + 64);
-  *(v32 + 56) = v37;
-  *(v32 + 72) = *(v33 + 72);
-  *(v32 + 80) = *(v33 + 80);
-  *(v32 + 88) = *(v33 + 88);
-  *(v32 + 96) = *(v33 + 96);
-  v38 = *(v32 + 104);
-  *(v32 + 104) = *(v33 + 104);
+  v19 = *(v18 + 7);
+  v17[64] = v18[64];
+  *(v17 + 7) = v19;
+  *(v17 + 9) = *(v18 + 9);
+  *(v17 + 10) = *(v18 + 10);
+  *(v17 + 11) = *(v18 + 11);
+  *(v17 + 12) = *(v18 + 12);
+  *(v17 + 13) = *(v18 + 13);
 
-  v39 = *(v32 + 112);
-  *(v32 + 112) = *(v33 + 112);
+  *(v17 + 14) = *(v18 + 14);
 
-  v40 = *(v32 + 120);
-  *(v32 + 120) = *(v33 + 120);
+  *(v17 + 15) = *(v18 + 15);
 
-  v41 = *(v32 + 128);
-  *(v32 + 128) = *(v33 + 128);
+  *(v17 + 16) = *(v18 + 16);
 
-  v42 = *(v32 + 136);
-  *(v32 + 136) = *(v33 + 136);
+  *(v17 + 17) = *(v18 + 17);
 
-  v43 = *(v32 + 144);
-  *(v32 + 144) = *(v33 + 144);
+  *(v17 + 18) = *(v18 + 18);
 
-  *(v32 + 152) = *(v33 + 152);
-  v44 = *(v32 + 160);
-  *(v32 + 160) = *(v33 + 160);
+  v17[152] = v18[152];
+  *(v17 + 20) = *(v18 + 20);
 
-  v45 = *(v32 + 168);
-  *(v32 + 168) = *(v33 + 168);
+  *(v17 + 21) = *(v18 + 21);
 
-  v46 = *(v32 + 176);
-  *(v32 + 176) = *(v33 + 176);
+  *(v17 + 22) = *(v18 + 22);
 
-  v47 = *(v32 + 184);
-  *(v32 + 184) = *(v33 + 184);
+  *(v17 + 23) = *(v18 + 23);
 
-  v48 = *(v32 + 192);
-  *(v32 + 192) = *(v33 + 192);
+  *(v17 + 24) = *(v18 + 24);
 
-  *(v32 + 200) = *(v33 + 200);
-  v49 = *(v32 + 208);
-  v50 = *(v33 + 208);
-  MEMORY[0x193ACF410](v50);
-  *(v32 + 208) = v50;
-  MEMORY[0x193ACF400](v49);
-  *(a1 + *(v30 + 32)) = *(a2 + *(v30 + 32));
+  v17[200] = v18[200];
+  v20 = *(v17 + 26);
+  v21 = *(v18 + 26);
+  MEMORY[0x193ACF410](v21);
+  *(v17 + 26) = v21;
+  MEMORY[0x193ACF400](v20);
+  *(a1 + *(v15 + 32)) = *(a2 + *(v15 + 32));
   return a1;
 }
 
@@ -3610,153 +2966,121 @@ uint64_t initializeWithTake for RegexRangesSequence.Iterator(uint64_t a1, uint64
   v11[2] = v14;
   *v11 = *v12;
   *(a1 + v7[13]) = *(a2 + v7[13]);
-  v15 = *(a3 + 16);
-  v16 = type metadata accessor for Executor.Matches.Iterator();
-  v17 = *(v16 + 28);
-  v18 = a1 + v17;
-  v19 = a2 + v17;
-  v20 = *(v19 + 16);
-  *v18 = *v19;
-  *(v18 + 16) = v20;
-  v21 = *(v19 + 80);
-  *(v18 + 64) = *(v19 + 64);
-  *(v18 + 80) = v21;
-  v22 = *(v19 + 48);
-  *(v18 + 32) = *(v19 + 32);
-  *(v18 + 48) = v22;
-  v23 = *(v19 + 144);
-  *(v18 + 128) = *(v19 + 128);
-  *(v18 + 144) = v23;
-  v24 = *(v19 + 112);
-  *(v18 + 96) = *(v19 + 96);
-  *(v18 + 112) = v24;
-  *(v18 + 208) = *(v19 + 208);
-  v25 = *(v19 + 192);
-  *(v18 + 176) = *(v19 + 176);
-  *(v18 + 192) = v25;
-  *(v18 + 160) = *(v19 + 160);
-  *(a1 + *(v16 + 32)) = *(a2 + *(v16 + 32));
+  v17 = type metadata accessor for Executor.Matches.Iterator(0, *(a3 + 16), v15, v16);
+  v18 = *(v17 + 28);
+  v19 = a1 + v18;
+  v20 = a2 + v18;
+  v21 = *(v20 + 16);
+  *v19 = *v20;
+  *(v19 + 16) = v21;
+  v22 = *(v20 + 80);
+  *(v19 + 64) = *(v20 + 64);
+  *(v19 + 80) = v22;
+  v23 = *(v20 + 48);
+  *(v19 + 32) = *(v20 + 32);
+  *(v19 + 48) = v23;
+  v24 = *(v20 + 144);
+  *(v19 + 128) = *(v20 + 128);
+  *(v19 + 144) = v24;
+  v25 = *(v20 + 112);
+  *(v19 + 96) = *(v20 + 96);
+  *(v19 + 112) = v25;
+  *(v19 + 208) = *(v20 + 208);
+  v26 = *(v20 + 192);
+  *(v19 + 176) = *(v20 + 176);
+  *(v19 + 192) = v26;
+  *(v19 + 160) = *(v20 + 160);
+  *(a1 + *(v17 + 32)) = *(a2 + *(v17 + 32));
   return a1;
 }
 
 uint64_t *assignWithTake for RegexRangesSequence.Iterator(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
-  v6 = *a1;
   *a1 = *a2;
 
   a1[1] = a2[1];
   *(a1 + 16) = *(a2 + 16);
   *(a1 + 17) = *(a2 + 17);
   *(a1 + 18) = *(a2 + 18);
-  v7 = type metadata accessor for MEProgram(0);
-  v8 = v7[8];
-  v9 = type metadata accessor for CaptureList();
-  (*(*(v9 - 8) + 40))(a1 + v8, a2 + v8, v9);
-  v10 = v7[9];
-  v11 = *(a1 + v10);
-  *(a1 + v10) = *(a2 + v10);
+  v6 = type metadata accessor for MEProgram(0);
+  v7 = v6[8];
+  v8 = type metadata accessor for CaptureList();
+  (*(*(v8 - 8) + 40))(a1 + v7, a2 + v7, v8);
+  *(a1 + v6[9]) = *(a2 + v6[9]);
 
-  v12 = v7[10];
-  v13 = *(a1 + v12);
-  *(a1 + v12) = *(a2 + v12);
+  *(a1 + v6[10]) = *(a2 + v6[10]);
 
-  *(a1 + v7[11]) = *(a2 + v7[11]);
-  v14 = v7[12];
-  v15 = a1 + v14;
-  v16 = a2 + v14;
-  v17 = *(a1 + v14);
-  *(a1 + v14) = *(a2 + v14);
+  *(a1 + v6[11]) = *(a2 + v6[11]);
+  v9 = v6[12];
+  v10 = a1 + v9;
+  v11 = a2 + v9;
+  *(a1 + v9) = *(a2 + v9);
 
-  v18 = *(v15 + 8);
-  *(v15 + 8) = *(v16 + 8);
+  *(v10 + 1) = *(v11 + 1);
 
-  v19 = *(v15 + 16);
-  *(v15 + 16) = *(v16 + 16);
+  *(v10 + 2) = *(v11 + 2);
 
-  v20 = *(v15 + 24);
-  *(v15 + 24) = *(v16 + 24);
+  *(v10 + 3) = *(v11 + 3);
 
-  v21 = *(v15 + 32);
-  *(v15 + 32) = *(v16 + 32);
+  *(v10 + 4) = *(v11 + 4);
 
-  v22 = *(v15 + 40);
-  *(v15 + 40) = *(v16 + 40);
+  *(v10 + 5) = *(v11 + 5);
 
-  *(v15 + 48) = *(v16 + 48);
-  v23 = *(v15 + 56);
-  *(v15 + 56) = *(v16 + 56);
+  v10[48] = v11[48];
+  *(v10 + 7) = *(v11 + 7);
 
-  v24 = *(v15 + 64);
-  *(v15 + 64) = *(v16 + 64);
+  *(v10 + 8) = *(v11 + 8);
 
-  v25 = *(v15 + 72);
-  *(v15 + 72) = *(v16 + 72);
+  *(v10 + 9) = *(v11 + 9);
 
-  v26 = v7[13];
-  v27 = *(a1 + v26);
-  *(a1 + v26) = *(a2 + v26);
+  *(a1 + v6[13]) = *(a2 + v6[13]);
 
-  v28 = *(a3 + 16);
-  v29 = type metadata accessor for Executor.Matches.Iterator();
-  v30 = *(v29 + 28);
-  v31 = a1 + v30;
-  v32 = a2 + v30;
-  v33 = *(a2 + v30 + 8);
-  v34 = *(a1 + v30 + 8);
-  *v31 = *(a2 + v30);
-  *(v31 + 8) = v33;
+  v14 = type metadata accessor for Executor.Matches.Iterator(0, *(a3 + 16), v12, v13);
+  v15 = *(v14 + 28);
+  v16 = a1 + v15;
+  v17 = a2 + v15;
+  v18 = *(a2 + v15 + 8);
+  *v16 = *(a2 + v15);
+  *(v16 + 1) = v18;
 
-  *(v31 + 16) = *(v32 + 16);
-  *(v31 + 32) = *(v32 + 32);
-  v35 = *(v31 + 40);
-  *(v31 + 40) = *(v32 + 40);
+  *(v16 + 1) = *(v17 + 1);
+  v16[32] = v17[32];
+  *(v16 + 5) = *(v17 + 5);
 
-  v36 = *(v31 + 48);
-  *(v31 + 48) = *(v32 + 48);
+  *(v16 + 6) = *(v17 + 6);
 
-  *(v31 + 56) = *(v32 + 56);
-  *(v31 + 64) = *(v32 + 64);
-  *(v31 + 72) = *(v32 + 72);
-  *(v31 + 88) = *(v32 + 88);
-  v37 = *(v31 + 104);
-  *(v31 + 104) = *(v32 + 104);
+  *(v16 + 7) = *(v17 + 7);
+  v16[64] = v17[64];
+  *(v16 + 72) = *(v17 + 72);
+  *(v16 + 88) = *(v17 + 88);
+  *(v16 + 13) = *(v17 + 13);
 
-  v38 = *(v31 + 112);
-  *(v31 + 112) = *(v32 + 112);
+  *(v16 + 14) = *(v17 + 14);
 
-  v39 = *(v31 + 120);
-  *(v31 + 120) = *(v32 + 120);
+  *(v16 + 15) = *(v17 + 15);
 
-  v40 = *(v31 + 128);
-  *(v31 + 128) = *(v32 + 128);
+  *(v16 + 16) = *(v17 + 16);
 
-  v41 = *(v31 + 136);
-  *(v31 + 136) = *(v32 + 136);
+  *(v16 + 17) = *(v17 + 17);
 
-  v42 = *(v31 + 144);
-  *(v31 + 144) = *(v32 + 144);
+  *(v16 + 18) = *(v17 + 18);
 
-  *(v31 + 152) = *(v32 + 152);
-  v43 = *(v31 + 160);
-  *(v31 + 160) = *(v32 + 160);
+  v16[152] = v17[152];
+  *(v16 + 20) = *(v17 + 20);
 
-  v44 = *(v31 + 168);
-  *(v31 + 168) = *(v32 + 168);
+  *(v16 + 21) = *(v17 + 21);
 
-  v45 = *(v31 + 176);
-  *(v31 + 176) = *(v32 + 176);
+  *(v16 + 22) = *(v17 + 22);
 
-  v46 = *(v31 + 184);
-  *(v31 + 184) = *(v32 + 184);
+  *(v16 + 23) = *(v17 + 23);
 
-  v47 = *(v31 + 192);
-  *(v31 + 192) = *(v32 + 192);
+  *(v16 + 24) = *(v17 + 24);
 
-  *(v31 + 200) = *(v32 + 200);
-  v48 = *(v31 + 208);
-  *(v31 + 208) = *(v32 + 208);
-  MEMORY[0x193ACF400](v48);
-  *(a1 + *(v29 + 32)) = *(a2 + *(v29 + 32));
+  v16[200] = v17[200];
+  v19 = *(v16 + 26);
+  *(v16 + 26) = *(v17 + 26);
+  MEMORY[0x193ACF400](v19);
+  *(a1 + *(v14 + 32)) = *(a2 + *(v14 + 32));
   return a1;
 }
 
@@ -3770,26 +3094,22 @@ uint64_t __swift_get_extra_inhabitant_index_162Tm(uint64_t a1, uint64_t a2, uint
 
 uint64_t __swift_store_extra_inhabitant_index_163Tm(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void, void))
 {
-  v7 = a5(0, *(a4 + 16));
+  v7 = (a5)(0, *(a4 + 16), a3);
   v8 = *(*(v7 - 8) + 56);
 
   return v8(a1, a2, a2, v7);
 }
 
-uint64_t type metadata completion function for SplitSequence.Iterator(uint64_t a1)
+uint64_t type metadata completion function for SplitSequence.Iterator(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v1 = *(a1 + 16);
-  v2 = *(a1 + 24);
-  result = type metadata accessor for RangesSequence.Iterator();
-  if (v4 <= 0x3F)
+  result = type metadata accessor for RangesSequence.Iterator(319, *(a1 + 16), *(a1 + 24), a4);
+  if (v5 <= 0x3F)
   {
-    v6 = *(result - 8) + 64;
     swift_getAssociatedTypeWitness();
     swift_getAssociatedConformanceWitness();
     result = swift_getAssociatedTypeWitness();
-    if (v5 <= 0x3F)
+    if (v6 <= 0x3F)
     {
-      v7 = *(result - 8) + 64;
       swift_initStructMetadata();
       return 0;
     }
@@ -3801,475 +3121,280 @@ uint64_t type metadata completion function for SplitSequence.Iterator(uint64_t a
 uint64_t *initializeBufferWithCopyOfBuffer for SplitSequence.Iterator(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   v3 = *(a3 + 16);
-  v4 = *(a3 + 24);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v6 = *(AssociatedTypeWitness - 8);
-  v34 = *(v3 - 8);
-  v7 = *(v34 + 80);
-  v32 = *(v6 + 64) + v7;
-  v8 = *(v34 + 64);
-  v33 = swift_getAssociatedTypeWitness();
-  v9 = *(*(v33 - 8) + 80);
-  v30 = (v32 & ~v7) + v8 + v9;
-  v31 = *(v33 - 8);
-  v10 = *(v31 + 64);
+  v5 = *(AssociatedTypeWitness - 8);
+  v33 = *(v3 - 8);
+  v6 = *(v33 + 80);
+  v31 = *(v5 + 64) + v6;
+  v7 = *(v33 + 64);
+  v32 = swift_getAssociatedTypeWitness();
+  v8 = *(*(v32 - 8) + 80);
+  v29 = (v31 & ~v6) + v7 + v8;
+  v30 = *(v32 - 8);
+  v9 = *(v30 + 64);
   swift_getAssociatedConformanceWitness();
-  v11 = swift_getAssociatedTypeWitness();
-  v12 = v6;
-  v13 = *(v11 - 8);
-  v14 = *(v13 + 80);
-  v15 = (v30 & ~v9) + v10 + v14;
-  v16 = *(v13 + 64) + 7;
-  v17 = v7 | *(v12 + 80) | v9;
-  v18 = v14 | v17 & 0xF8;
-  if (v18 > 7 || ((v17 | *(v13 + 80)) & 0x100000) != 0 || ((((v16 + (v15 & ~v14)) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8) + 10 > 0x18)
+  v10 = swift_getAssociatedTypeWitness();
+  v11 = v5;
+  v12 = *(v10 - 8);
+  v13 = *(v12 + 80);
+  v14 = (v29 & ~v8) + v9 + v13;
+  v15 = *(v12 + 64) + 7;
+  v16 = v6 | *(v11 + 80) | v8;
+  v17 = v13 | v16 & 0xF8;
+  if (v17 > 7 || ((v16 | *(v12 + 80)) & 0x100000) != 0 || ((((v15 + (v14 & ~v13)) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8) + 10 > 0x18)
   {
-    v21 = *a2;
+    v20 = *a2;
     *a1 = *a2;
-    v23 = (v21 + (((v18 | 7) + 16) & ~(v18 | 7)));
+    v22 = (v20 + (((v17 | 7) + 16) & ~(v17 | 7)));
   }
 
   else
   {
-    v22 = ~v14;
-    v23 = a1;
-    v29 = v11;
-    (*(v12 + 16))(a1, a2, AssociatedTypeWitness);
-    (*(v34 + 16))((a1 + v32) & ~v7, (a2 + v32) & ~v7, v3);
-    (*(v31 + 16))((a1 + v30) & ~v9, (a2 + v30) & ~v9, v33);
-    (*(v13 + 16))((a1 + v15) & v22, (a2 + v15) & v22, v29);
-    v24 = ((v16 + ((a1 + v15) & v22)) & 0xFFFFFFFFFFFFFFF8);
-    v25 = ((v16 + ((a2 + v15) & v22)) & 0xFFFFFFFFFFFFFFF8);
-    *v24 = *v25;
+    v21 = ~v13;
+    v22 = a1;
+    v28 = v10;
+    (*(v11 + 16))(a1, a2, AssociatedTypeWitness);
+    (*(v33 + 16))((a1 + v31) & ~v6, (a2 + v31) & ~v6, v3);
+    (*(v30 + 16))((a1 + v29) & ~v8, (a2 + v29) & ~v8, v32);
+    (*(v12 + 16))((a1 + v14) & v21, (a2 + v14) & v21, v28);
+    v23 = ((v15 + ((a1 + v14) & v21)) & 0xFFFFFFFFFFFFFFF8);
+    v24 = ((v15 + ((a2 + v14) & v21)) & 0xFFFFFFFFFFFFFFF8);
+    *v23 = *v24;
+    v25 = (v23 + 15) & 0xFFFFFFFFFFFFFFF8;
     v26 = (v24 + 15) & 0xFFFFFFFFFFFFFFF8;
-    v27 = (v25 + 15) & 0xFFFFFFFFFFFFFFF8;
-    *v26 = *v27;
-    *(v26 + 8) = *(v27 + 8);
-    *(v26 + 9) = *(v27 + 9);
+    *v25 = *v26;
+    *(v25 + 8) = *(v26 + 8);
+    *(v25 + 9) = *(v26 + 9);
   }
 
-  return v23;
+  return v22;
 }
 
 uint64_t destroy for SplitSequence.Iterator(uint64_t a1, uint64_t a2)
 {
-  v4 = *(a2 + 16);
-  v3 = *(a2 + 24);
+  v3 = *(a2 + 16);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v6 = *(AssociatedTypeWitness - 8) + 8;
-  (*v6)(a1, AssociatedTypeWitness);
-  v7 = *(v6 + 56);
-  v8 = *(v4 - 8);
-  v9 = v8 + 8;
-  v10 = *(v8 + 80);
-  v11 = v7 + v10;
-  (*(v8 + 8))((v7 + v10 + a1) & ~v10, v4);
-  v12 = v11 & ~v10;
-  v13 = *(v9 + 56);
-  v14 = swift_getAssociatedTypeWitness();
-  v15 = *(v14 - 8);
-  v16 = v15 + 8;
-  v17 = *(v15 + 80);
-  v18 = v12 + v13 + v17;
-  (*(v15 + 8))((v18 + a1) & ~v17, v14);
-  v19 = *(v16 + 56);
+  v5 = *(AssociatedTypeWitness - 8) + 8;
+  (*v5)(a1, AssociatedTypeWitness);
+  v6 = *(v5 + 56);
+  v7 = *(v3 - 8);
+  v8 = v7 + 8;
+  v9 = *(v7 + 80);
+  v10 = v6 + v9;
+  (*(v7 + 8))((v6 + v9 + a1) & ~v9, v3);
+  v11 = v10 & ~v9;
+  v12 = *(v8 + 56);
+  v13 = swift_getAssociatedTypeWitness();
+  v14 = *(v13 - 8);
+  v15 = v14 + 8;
+  v16 = *(v14 + 80);
+  v17 = v11 + v12 + v16;
+  (*(v14 + 8))((v17 + a1) & ~v16, v13);
+  v18 = *(v15 + 56);
   swift_getAssociatedConformanceWitness();
-  v20 = swift_getAssociatedTypeWitness();
-  v21 = *(v20 - 8);
-  v22 = *(v21 + 8);
-  v23 = (v19 + a1 + *(v21 + 80) + (v18 & ~v17)) & ~*(v21 + 80);
+  v19 = swift_getAssociatedTypeWitness();
+  v20 = *(v19 - 8);
+  v21 = *(v20 + 8);
+  v22 = (v18 + a1 + *(v20 + 80) + (v17 & ~v16)) & ~*(v20 + 80);
 
-  return v22(v23, v20);
+  return v21(v22, v19);
 }
 
 uint64_t initializeWithCopy for SplitSequence.Iterator(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = *(a3 + 16);
-  v5 = *(a3 + 24);
+  v5 = *(a3 + 16);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v8 = *(AssociatedTypeWitness - 8) + 16;
-  (*v8)(a1, a2, AssociatedTypeWitness);
-  v9 = *(v8 + 48);
-  v10 = *(v6 - 8);
-  v11 = v10 + 16;
-  v12 = *(v10 + 80);
-  v13 = v9 + v12;
-  (*(v10 + 16))((v9 + v12 + a1) & ~v12, (v9 + v12 + a2) & ~v12, v6);
-  v14 = v13 & ~v12;
-  v15 = *(v11 + 48);
-  v16 = swift_getAssociatedTypeWitness();
-  v17 = *(v16 - 8);
-  v18 = v17 + 16;
-  v19 = *(v17 + 80);
-  v20 = v14 + v15 + v19;
-  (*(v17 + 16))((v20 + a1) & ~v19, (v20 + a2) & ~v19, v16);
-  v21 = *(v18 + 48);
+  v7 = *(AssociatedTypeWitness - 8) + 16;
+  (*v7)(a1, a2, AssociatedTypeWitness);
+  v8 = *(v7 + 48);
+  v9 = *(v5 - 8);
+  v10 = v9 + 16;
+  v11 = *(v9 + 80);
+  v12 = v8 + v11;
+  (*(v9 + 16))((v8 + v11 + a1) & ~v11, (v8 + v11 + a2) & ~v11, v5);
+  v13 = v12 & ~v11;
+  v14 = *(v10 + 48);
+  v15 = swift_getAssociatedTypeWitness();
+  v16 = *(v15 - 8);
+  v17 = v16 + 16;
+  v18 = *(v16 + 80);
+  v19 = v13 + v14 + v18;
+  (*(v16 + 16))((v19 + a1) & ~v18, (v19 + a2) & ~v18, v15);
+  v20 = *(v17 + 48);
   swift_getAssociatedConformanceWitness();
-  v22 = swift_getAssociatedTypeWitness();
-  v23 = *(v22 - 8);
-  v24 = v23 + 16;
-  v25 = *(v23 + 80);
-  v26 = (v20 & ~v19) + v21 + v25;
-  v27 = (v26 + a1) & ~v25;
-  v28 = (v26 + a2) & ~v25;
-  (*(v23 + 16))(v27, v28, v22);
-  v29 = *(v24 + 48) + 7;
-  v30 = v29 + v27;
-  v31 = ((v29 + v28) & 0xFFFFFFFFFFFFFFF8);
-  v30 &= 0xFFFFFFFFFFFFFFF8;
-  *v30 = *v31;
+  v21 = swift_getAssociatedTypeWitness();
+  v22 = *(v21 - 8);
+  v23 = v22 + 16;
+  v24 = *(v22 + 80);
+  v25 = (v19 & ~v18) + v20 + v24;
+  v26 = (v25 + a1) & ~v24;
+  v27 = (v25 + a2) & ~v24;
+  (*(v22 + 16))(v26, v27, v21);
+  v28 = *(v23 + 48) + 7;
+  v29 = v28 + v26;
+  v30 = ((v28 + v27) & 0xFFFFFFFFFFFFFFF8);
+  v29 &= 0xFFFFFFFFFFFFFFF8;
+  *v29 = *v30;
+  v31 = (v29 + 15) & 0xFFFFFFFFFFFFFFF8;
   v32 = (v30 + 15) & 0xFFFFFFFFFFFFFFF8;
-  v33 = (v31 + 15) & 0xFFFFFFFFFFFFFFF8;
-  *v32 = *v33;
-  *(v32 + 8) = *(v33 + 8);
-  *(v32 + 9) = *(v33 + 9);
+  *v31 = *v32;
+  *(v31 + 8) = *(v32 + 8);
+  *(v31 + 9) = *(v32 + 9);
   return a1;
 }
 
 uint64_t assignWithCopy for SplitSequence.Iterator(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = *(a3 + 16);
-  v5 = *(a3 + 24);
+  v5 = *(a3 + 16);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v8 = *(AssociatedTypeWitness - 8) + 24;
-  (*v8)(a1, a2, AssociatedTypeWitness);
-  v9 = *(v8 + 40);
-  v10 = *(v6 - 8);
-  v11 = v10 + 24;
-  v12 = *(v10 + 80);
-  v13 = v9 + v12;
-  (*(v10 + 24))((v9 + v12 + a1) & ~v12, (v9 + v12 + a2) & ~v12, v6);
-  v14 = v13 & ~v12;
-  v15 = *(v11 + 40);
-  v16 = swift_getAssociatedTypeWitness();
-  v17 = *(v16 - 8);
-  v18 = v17 + 24;
-  v19 = *(v17 + 80);
-  v20 = v14 + v15 + v19;
-  (*(v17 + 24))((v20 + a1) & ~v19, (v20 + a2) & ~v19, v16);
-  v21 = *(v18 + 40);
+  v7 = *(AssociatedTypeWitness - 8) + 24;
+  (*v7)(a1, a2, AssociatedTypeWitness);
+  v8 = *(v7 + 40);
+  v9 = *(v5 - 8);
+  v10 = v9 + 24;
+  v11 = *(v9 + 80);
+  v12 = v8 + v11;
+  (*(v9 + 24))((v8 + v11 + a1) & ~v11, (v8 + v11 + a2) & ~v11, v5);
+  v13 = v12 & ~v11;
+  v14 = *(v10 + 40);
+  v15 = swift_getAssociatedTypeWitness();
+  v16 = *(v15 - 8);
+  v17 = v16 + 24;
+  v18 = *(v16 + 80);
+  v19 = v13 + v14 + v18;
+  (*(v16 + 24))((v19 + a1) & ~v18, (v19 + a2) & ~v18, v15);
+  v20 = *(v17 + 40);
   swift_getAssociatedConformanceWitness();
-  v22 = swift_getAssociatedTypeWitness();
-  v23 = *(v22 - 8);
-  v24 = v23 + 24;
-  v25 = *(v23 + 80);
-  v26 = (v20 & ~v19) + v21 + v25;
-  v27 = (v26 + a1) & ~v25;
-  v28 = (v26 + a2) & ~v25;
-  (*(v23 + 24))(v27, v28, v22);
-  v29 = *(v24 + 40) + 7;
-  v30 = v29 + v27;
-  v31 = ((v29 + v28) & 0xFFFFFFFFFFFFFFF8);
-  v30 &= 0xFFFFFFFFFFFFFFF8;
-  *v30 = *v31;
+  v21 = swift_getAssociatedTypeWitness();
+  v22 = *(v21 - 8);
+  v23 = v22 + 24;
+  v24 = *(v22 + 80);
+  v25 = (v19 & ~v18) + v20 + v24;
+  v26 = (v25 + a1) & ~v24;
+  v27 = (v25 + a2) & ~v24;
+  (*(v22 + 24))(v26, v27, v21);
+  v28 = *(v23 + 40) + 7;
+  v29 = v28 + v26;
+  v30 = ((v28 + v27) & 0xFFFFFFFFFFFFFFF8);
+  v29 &= 0xFFFFFFFFFFFFFFF8;
+  *v29 = *v30;
+  v31 = (v29 + 15) & 0xFFFFFFFFFFFFFFF8;
   v32 = (v30 + 15) & 0xFFFFFFFFFFFFFFF8;
-  v33 = (v31 + 15) & 0xFFFFFFFFFFFFFFF8;
-  *v32 = *v33;
-  *(v32 + 8) = *(v33 + 8);
-  *(v32 + 9) = *(v33 + 9);
+  *v31 = *v32;
+  *(v31 + 8) = *(v32 + 8);
+  *(v31 + 9) = *(v32 + 9);
   return a1;
 }
 
 uint64_t initializeWithTake for SplitSequence.Iterator(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = *(a3 + 16);
-  v5 = *(a3 + 24);
+  v5 = *(a3 + 16);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v8 = *(AssociatedTypeWitness - 8) + 32;
-  (*v8)(a1, a2, AssociatedTypeWitness);
-  v9 = *(v8 + 32);
-  v10 = *(v6 - 8);
-  v11 = v10 + 32;
-  v12 = *(v10 + 80);
-  v13 = v9 + v12;
-  (*(v10 + 32))((v9 + v12 + a1) & ~v12, (v9 + v12 + a2) & ~v12, v6);
-  v14 = v13 & ~v12;
-  v15 = *(v11 + 32);
-  v16 = swift_getAssociatedTypeWitness();
-  v17 = *(v16 - 8);
-  v18 = v17 + 32;
-  v19 = *(v17 + 80);
-  v20 = v14 + v15 + v19;
-  (*(v17 + 32))((v20 + a1) & ~v19, (v20 + a2) & ~v19, v16);
-  v21 = *(v18 + 32);
+  v7 = *(AssociatedTypeWitness - 8) + 32;
+  (*v7)(a1, a2, AssociatedTypeWitness);
+  v8 = *(v7 + 32);
+  v9 = *(v5 - 8);
+  v10 = v9 + 32;
+  v11 = *(v9 + 80);
+  v12 = v8 + v11;
+  (*(v9 + 32))((v8 + v11 + a1) & ~v11, (v8 + v11 + a2) & ~v11, v5);
+  v13 = v12 & ~v11;
+  v14 = *(v10 + 32);
+  v15 = swift_getAssociatedTypeWitness();
+  v16 = *(v15 - 8);
+  v17 = v16 + 32;
+  v18 = *(v16 + 80);
+  v19 = v13 + v14 + v18;
+  (*(v16 + 32))((v19 + a1) & ~v18, (v19 + a2) & ~v18, v15);
+  v20 = *(v17 + 32);
   swift_getAssociatedConformanceWitness();
-  v22 = swift_getAssociatedTypeWitness();
-  v23 = *(v22 - 8);
-  v24 = v23 + 32;
-  v25 = *(v23 + 80);
-  v26 = (v20 & ~v19) + v21 + v25;
-  v27 = (v26 + a1) & ~v25;
-  v28 = (v26 + a2) & ~v25;
-  (*(v23 + 32))(v27, v28, v22);
-  v29 = *(v24 + 32) + 7;
-  v30 = v29 + v27;
-  v31 = ((v29 + v28) & 0xFFFFFFFFFFFFFFF8);
-  v30 &= 0xFFFFFFFFFFFFFFF8;
-  *v30 = *v31;
+  v21 = swift_getAssociatedTypeWitness();
+  v22 = *(v21 - 8);
+  v23 = v22 + 32;
+  v24 = *(v22 + 80);
+  v25 = (v19 & ~v18) + v20 + v24;
+  v26 = (v25 + a1) & ~v24;
+  v27 = (v25 + a2) & ~v24;
+  (*(v22 + 32))(v26, v27, v21);
+  v28 = *(v23 + 32) + 7;
+  v29 = v28 + v26;
+  v30 = ((v28 + v27) & 0xFFFFFFFFFFFFFFF8);
+  v29 &= 0xFFFFFFFFFFFFFFF8;
+  *v29 = *v30;
+  v31 = (v29 + 15) & 0xFFFFFFFFFFFFFFF8;
   v32 = (v30 + 15) & 0xFFFFFFFFFFFFFFF8;
-  v33 = (v31 + 15) & 0xFFFFFFFFFFFFFFF8;
-  *v32 = *v33;
-  *(v32 + 8) = *(v33 + 8);
-  *(v32 + 9) = *(v33 + 9);
+  *v31 = *v32;
+  *(v31 + 8) = *(v32 + 8);
+  *(v31 + 9) = *(v32 + 9);
   return a1;
 }
 
 uint64_t assignWithTake for SplitSequence.Iterator(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = *(a3 + 16);
-  v5 = *(a3 + 24);
+  v5 = *(a3 + 16);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v8 = *(AssociatedTypeWitness - 8) + 40;
-  (*v8)(a1, a2, AssociatedTypeWitness);
-  v9 = *(v8 + 24);
-  v10 = *(v6 - 8);
-  v11 = v10 + 40;
-  v12 = *(v10 + 80);
-  v13 = v9 + v12;
-  (*(v10 + 40))((v9 + v12 + a1) & ~v12, (v9 + v12 + a2) & ~v12, v6);
-  v14 = v13 & ~v12;
-  v15 = *(v11 + 24);
-  v16 = swift_getAssociatedTypeWitness();
-  v17 = *(v16 - 8);
-  v18 = v17 + 40;
-  v19 = *(v17 + 80);
-  v20 = v14 + v15 + v19;
-  (*(v17 + 40))((v20 + a1) & ~v19, (v20 + a2) & ~v19, v16);
-  v21 = *(v18 + 24);
+  v7 = *(AssociatedTypeWitness - 8) + 40;
+  (*v7)(a1, a2, AssociatedTypeWitness);
+  v8 = *(v7 + 24);
+  v9 = *(v5 - 8);
+  v10 = v9 + 40;
+  v11 = *(v9 + 80);
+  v12 = v8 + v11;
+  (*(v9 + 40))((v8 + v11 + a1) & ~v11, (v8 + v11 + a2) & ~v11, v5);
+  v13 = v12 & ~v11;
+  v14 = *(v10 + 24);
+  v15 = swift_getAssociatedTypeWitness();
+  v16 = *(v15 - 8);
+  v17 = v16 + 40;
+  v18 = *(v16 + 80);
+  v19 = v13 + v14 + v18;
+  (*(v16 + 40))((v19 + a1) & ~v18, (v19 + a2) & ~v18, v15);
+  v20 = *(v17 + 24);
   swift_getAssociatedConformanceWitness();
-  v22 = swift_getAssociatedTypeWitness();
-  v23 = *(v22 - 8);
-  v24 = v23 + 40;
-  v25 = *(v23 + 80);
-  v26 = (v20 & ~v19) + v21 + v25;
-  v27 = (v26 + a1) & ~v25;
-  v28 = (v26 + a2) & ~v25;
-  (*(v23 + 40))(v27, v28, v22);
-  v29 = *(v24 + 24) + 7;
-  v30 = v29 + v27;
-  v31 = ((v29 + v28) & 0xFFFFFFFFFFFFFFF8);
-  v30 &= 0xFFFFFFFFFFFFFFF8;
-  *v30 = *v31;
+  v21 = swift_getAssociatedTypeWitness();
+  v22 = *(v21 - 8);
+  v23 = v22 + 40;
+  v24 = *(v22 + 80);
+  v25 = (v19 & ~v18) + v20 + v24;
+  v26 = (v25 + a1) & ~v24;
+  v27 = (v25 + a2) & ~v24;
+  (*(v22 + 40))(v26, v27, v21);
+  v28 = *(v23 + 24) + 7;
+  v29 = v28 + v26;
+  v30 = ((v28 + v27) & 0xFFFFFFFFFFFFFFF8);
+  v29 &= 0xFFFFFFFFFFFFFFF8;
+  *v29 = *v30;
+  v31 = (v29 + 15) & 0xFFFFFFFFFFFFFFF8;
   v32 = (v30 + 15) & 0xFFFFFFFFFFFFFFF8;
-  v33 = (v31 + 15) & 0xFFFFFFFFFFFFFFF8;
-  *v32 = *v33;
-  *(v32 + 8) = *(v33 + 8);
-  *(v32 + 9) = *(v33 + 9);
+  *v31 = *v32;
+  *(v31 + 8) = *(v32 + 8);
+  *(v31 + 9) = *(v32 + 9);
   return a1;
 }
 
 uint64_t getEnumTagSinglePayload for SplitSequence.Iterator(unsigned __int16 *a1, unsigned int a2, uint64_t a3)
 {
-  v4 = *(a3 + 16);
-  v3 = *(a3 + 24);
-  v5 = *(swift_getAssociatedTypeWitness() - 8);
-  v6 = *(v4 - 8);
-  v44 = *(v6 + 84);
-  v45 = *(v5 + 84);
-  if (v44 <= v45)
+  v3 = *(a3 + 16);
+  v4 = *(swift_getAssociatedTypeWitness() - 8);
+  v5 = *(v3 - 8);
+  v43 = *(v5 + 84);
+  v44 = *(v4 + 84);
+  if (v43 <= v44)
   {
-    v7 = *(v5 + 84);
+    v6 = *(v4 + 84);
   }
 
   else
   {
-    v7 = *(v6 + 84);
+    v6 = *(v5 + 84);
   }
 
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v8 = *(AssociatedTypeWitness - 8);
-  v46 = v7;
-  if (*(v8 + 84) <= v7)
+  v7 = *(AssociatedTypeWitness - 8);
+  v45 = v6;
+  if (*(v7 + 84) <= v6)
   {
-    v9 = v7;
-  }
-
-  else
-  {
-    v9 = *(v8 + 84);
-  }
-
-  v10 = *(v8 + 84);
-  v11 = v4;
-  v12 = v9;
-  swift_getAssociatedConformanceWitness();
-  v13 = swift_getAssociatedTypeWitness();
-  v14 = *(v13 - 8);
-  v15 = *(v14 + 84);
-  if (v15 <= v12)
-  {
-    v16 = v12;
-  }
-
-  else
-  {
-    v16 = *(v14 + 84);
-  }
-
-  v17 = *(v6 + 80);
-  v18 = *(v8 + 80);
-  v19 = *(v14 + 80);
-  v20 = *(*(v13 - 8) + 64);
-  if (v16 <= 0xFE)
-  {
-    v21 = 254;
-  }
-
-  else
-  {
-    v21 = v16;
-  }
-
-  if (!a2)
-  {
-    return 0;
-  }
-
-  v22 = *(v5 + 64) + v17;
-  v23 = (v22 & ~v17) + *(v6 + 64) + v18;
-  v24 = (v23 & ~v18) + *(v8 + 64) + v19;
-  v25 = v20 + 7;
-  if (v21 < a2)
-  {
-    v26 = ((((v25 + (v24 & ~v19)) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8) + 10;
-    if (v26 <= 3)
-    {
-      v27 = ((a2 - v21 + 0xFFFF) >> 16) + 1;
-    }
-
-    else
-    {
-      v27 = 2;
-    }
-
-    if (v27 >= 0x10000)
-    {
-      v28 = 4;
-    }
-
-    else
-    {
-      v28 = 2;
-    }
-
-    if (v27 < 0x100)
-    {
-      v28 = 1;
-    }
-
-    if (v27 >= 2)
-    {
-      v29 = v28;
-    }
-
-    else
-    {
-      v29 = 0;
-    }
-
-    if (v29 > 1)
-    {
-      if (v29 == 2)
-      {
-        v30 = *(a1 + v26);
-        if (*(a1 + v26))
-        {
-          goto LABEL_29;
-        }
-      }
-
-      else
-      {
-        v30 = *(a1 + v26);
-        if (v30)
-        {
-          goto LABEL_29;
-        }
-      }
-    }
-
-    else if (v29)
-    {
-      v30 = *(a1 + v26);
-      if (*(a1 + v26))
-      {
-LABEL_29:
-        v31 = (v30 - 1) << (8 * v26);
-        if (v26 <= 3)
-        {
-          v32 = *a1;
-        }
-
-        else
-        {
-          v31 = 0;
-          v32 = *a1;
-        }
-
-        v41 = v21 + (v32 | v31);
-        return (v41 + 1);
-      }
-    }
-  }
-
-  if (v12 != v21)
-  {
-    v38 = (a1 + v24) & ~v19;
-    if (v15 == v21)
-    {
-      v39 = *(v14 + 48);
-
-      return v39(v38);
-    }
-
-    v40 = *(((((v25 + v38) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8) + 8);
-    if (v40 >= 2)
-    {
-      v41 = (v40 + 2147483646) & 0x7FFFFFFF;
-      return (v41 + 1);
-    }
-
-    return 0;
-  }
-
-  if (v46 < v10)
-  {
-    v33 = *(v8 + 48);
-    v34 = (a1 + v23) & ~v18;
-    v35 = v10;
-    v36 = AssociatedTypeWitness;
-
-    return v33(v34, v35, v36);
-  }
-
-  if (v45 < v44)
-  {
-    v33 = *(v6 + 48);
-    v34 = (a1 + v22) & ~v17;
-    v35 = v44;
-    v36 = v11;
-
-    return v33(v34, v35, v36);
-  }
-
-  v42 = *(v5 + 48);
-
-  return v42(a1);
-}
-
-void storeEnumTagSinglePayload for SplitSequence.Iterator(_BYTE *a1, unsigned int a2, unsigned int a3, uint64_t a4)
-{
-  v4 = *(a4 + 16);
-  v5 = *(a4 + 24);
-  v6 = *(swift_getAssociatedTypeWitness() - 8);
-  v38 = v6;
-  v7 = *(v4 - 8);
-  v42 = v7;
-  v39 = *(v7 + 84);
-  v40 = *(v6 + 84);
-  if (v39 <= v40)
-  {
-    v8 = *(v6 + 84);
+    v8 = v6;
   }
 
   else
@@ -4277,33 +3402,27 @@ void storeEnumTagSinglePayload for SplitSequence.Iterator(_BYTE *a1, unsigned in
     v8 = *(v7 + 84);
   }
 
-  v9 = *(swift_getAssociatedTypeWitness() - 8);
-  v10 = *(v9 + 84);
-  v41 = v10;
-  if (v10 <= v8)
-  {
-    v10 = v8;
-  }
-
-  v11 = v10;
+  v9 = *(v7 + 84);
+  v10 = v3;
+  v11 = v8;
   swift_getAssociatedConformanceWitness();
-  v12 = *(swift_getAssociatedTypeWitness() - 8);
-  v13 = *(v12 + 84);
-  v14 = *(v6 + 64);
-  if (v13 <= v11)
+  v12 = swift_getAssociatedTypeWitness();
+  v13 = *(v12 - 8);
+  v14 = *(v13 + 84);
+  if (v14 <= v11)
   {
     v15 = v11;
   }
 
   else
   {
-    v15 = *(v12 + 84);
+    v15 = *(v13 + 84);
   }
 
-  v16 = *(v7 + 80);
-  v17 = *(v9 + 80);
-  v18 = *(v12 + 80);
-  v19 = *(v12 + 64);
+  v16 = *(v5 + 80);
+  v17 = *(v7 + 80);
+  v18 = *(v13 + 80);
+  v19 = *(*(v12 - 8) + 64);
   if (v15 <= 0xFE)
   {
     v20 = 254;
@@ -4314,19 +3433,222 @@ void storeEnumTagSinglePayload for SplitSequence.Iterator(_BYTE *a1, unsigned in
     v20 = v15;
   }
 
-  v21 = ((v14 + v16) & ~v16) + *(v7 + 64);
-  v22 = ((v21 + v17) & ~v17) + *(v9 + 64) + v18;
-  v23 = ((((v19 + 7 + (v22 & ~v18)) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8) + 10;
-  if (v20 >= a3)
+  if (!a2)
   {
-    v26 = 0;
+    return 0;
+  }
+
+  v21 = *(v4 + 64) + v16;
+  v22 = (v21 & ~v16) + *(v5 + 64) + v17;
+  v23 = (v22 & ~v17) + *(v7 + 64) + v18;
+  v24 = v19 + 7;
+  if (v20 < a2)
+  {
+    v25 = ((((v24 + (v23 & ~v18)) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8) + 10;
+    if (v25 <= 3)
+    {
+      v26 = ((a2 - v20 + 0xFFFF) >> 16) + 1;
+    }
+
+    else
+    {
+      v26 = 2;
+    }
+
+    if (v26 >= 0x10000)
+    {
+      v27 = 4;
+    }
+
+    else
+    {
+      v27 = 2;
+    }
+
+    if (v26 < 0x100)
+    {
+      v27 = 1;
+    }
+
+    if (v26 >= 2)
+    {
+      v28 = v27;
+    }
+
+    else
+    {
+      v28 = 0;
+    }
+
+    if (v28 > 1)
+    {
+      if (v28 == 2)
+      {
+        v29 = *(a1 + v25);
+        if (*(a1 + v25))
+        {
+          goto LABEL_29;
+        }
+      }
+
+      else
+      {
+        v29 = *(a1 + v25);
+        if (v29)
+        {
+          goto LABEL_29;
+        }
+      }
+    }
+
+    else if (v28)
+    {
+      v29 = *(a1 + v25);
+      if (*(a1 + v25))
+      {
+LABEL_29:
+        v30 = (v29 - 1) << (8 * v25);
+        if (v25 <= 3)
+        {
+          v31 = *a1;
+        }
+
+        else
+        {
+          v30 = 0;
+          v31 = *a1;
+        }
+
+        v40 = v20 + (v31 | v30);
+        return (v40 + 1);
+      }
+    }
+  }
+
+  if (v11 != v20)
+  {
+    v37 = (a1 + v23) & ~v18;
+    if (v14 == v20)
+    {
+      v38 = *(v13 + 48);
+
+      return v38(v37);
+    }
+
+    v39 = *(((((v24 + v37) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8) + 8);
+    if (v39 >= 2)
+    {
+      v40 = (v39 + 2147483646) & 0x7FFFFFFF;
+      return (v40 + 1);
+    }
+
+    return 0;
+  }
+
+  if (v45 < v9)
+  {
+    v32 = *(v7 + 48);
+    v33 = (a1 + v22) & ~v17;
+    v34 = v9;
+    v35 = AssociatedTypeWitness;
+
+    return v32(v33, v34, v35);
+  }
+
+  if (v44 < v43)
+  {
+    v32 = *(v5 + 48);
+    v33 = (a1 + v21) & ~v16;
+    v34 = v43;
+    v35 = v10;
+
+    return v32(v33, v34, v35);
+  }
+
+  v41 = *(v4 + 48);
+
+  return v41(a1);
+}
+
+void storeEnumTagSinglePayload for SplitSequence.Iterator(_BYTE *a1, unsigned int a2, unsigned int a3, uint64_t a4)
+{
+  v4 = *(a4 + 16);
+  v5 = *(swift_getAssociatedTypeWitness() - 8);
+  v37 = v5;
+  v6 = *(v4 - 8);
+  v41 = v6;
+  v38 = *(v6 + 84);
+  v39 = *(v5 + 84);
+  if (v38 <= v39)
+  {
+    v7 = *(v5 + 84);
   }
 
   else
   {
-    if (v23 <= 3)
+    v7 = *(v6 + 84);
+  }
+
+  v8 = *(swift_getAssociatedTypeWitness() - 8);
+  v9 = *(v8 + 84);
+  v40 = v9;
+  if (v9 <= v7)
+  {
+    v9 = v7;
+  }
+
+  v10 = v9;
+  swift_getAssociatedConformanceWitness();
+  v11 = *(swift_getAssociatedTypeWitness() - 8);
+  v12 = *(v11 + 84);
+  v13 = *(v5 + 64);
+  if (v12 <= v10)
+  {
+    v14 = v10;
+  }
+
+  else
+  {
+    v14 = *(v11 + 84);
+  }
+
+  v15 = *(v6 + 80);
+  v16 = *(v8 + 80);
+  v17 = *(v11 + 80);
+  v18 = *(v11 + 64);
+  if (v14 <= 0xFE)
+  {
+    v19 = 254;
+  }
+
+  else
+  {
+    v19 = v14;
+  }
+
+  v20 = ((v13 + v15) & ~v15) + *(v6 + 64);
+  v21 = ((v20 + v16) & ~v16) + *(v8 + 64) + v17;
+  v22 = ((((v18 + 7 + (v21 & ~v17)) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8) + 10;
+  if (v19 >= a3)
+  {
+    v25 = 0;
+  }
+
+  else
+  {
+    if (v22 <= 3)
     {
-      v24 = ((a3 - v20 + 0xFFFF) >> 16) + 1;
+      v23 = ((a3 - v19 + 0xFFFF) >> 16) + 1;
+    }
+
+    else
+    {
+      v23 = 2;
+    }
+
+    if (v23 >= 0x10000)
+    {
+      v24 = 4;
     }
 
     else
@@ -4334,60 +3656,50 @@ void storeEnumTagSinglePayload for SplitSequence.Iterator(_BYTE *a1, unsigned in
       v24 = 2;
     }
 
-    if (v24 >= 0x10000)
+    if (v23 < 0x100)
     {
-      v25 = 4;
+      v24 = 1;
+    }
+
+    if (v23 >= 2)
+    {
+      v25 = v24;
     }
 
     else
     {
-      v25 = 2;
-    }
-
-    if (v24 < 0x100)
-    {
-      v25 = 1;
-    }
-
-    if (v24 >= 2)
-    {
-      v26 = v25;
-    }
-
-    else
-    {
-      v26 = 0;
+      v25 = 0;
     }
   }
 
-  if (v20 < a2)
+  if (v19 < a2)
   {
-    v27 = ~v20 + a2;
-    bzero(a1, ((((v19 + 7 + (v22 & ~v18)) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8) + 10);
-    if (v23 <= 3)
+    v26 = ~v19 + a2;
+    bzero(a1, ((((v18 + 7 + (v21 & ~v17)) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8) + 10);
+    if (v22 <= 3)
     {
-      v28 = HIWORD(v27) + 1;
+      v27 = HIWORD(v26) + 1;
     }
 
     else
     {
-      v28 = 1;
+      v27 = 1;
     }
 
-    if (v23 <= 3)
+    if (v22 <= 3)
     {
-      *a1 = v27;
-      if (v26 > 1)
+      *a1 = v26;
+      if (v25 > 1)
       {
 LABEL_31:
-        if (v26 == 2)
+        if (v25 == 2)
         {
-          *&a1[v23] = v28;
+          *&a1[v22] = v27;
         }
 
         else
         {
-          *&a1[v23] = v28;
+          *&a1[v22] = v27;
         }
 
         return;
@@ -4396,26 +3708,26 @@ LABEL_31:
 
     else
     {
-      *a1 = v27;
-      if (v26 > 1)
+      *a1 = v26;
+      if (v25 > 1)
       {
         goto LABEL_31;
       }
     }
 
-    if (v26)
+    if (v25)
     {
-      a1[v23] = v28;
+      a1[v22] = v27;
     }
 
     return;
   }
 
-  if (v26 > 1)
+  if (v25 > 1)
   {
-    if (v26 != 2)
+    if (v25 != 2)
     {
-      *&a1[v23] = 0;
+      *&a1[v22] = 0;
       if (!a2)
       {
         return;
@@ -4424,7 +3736,7 @@ LABEL_31:
       goto LABEL_43;
     }
 
-    *&a1[v23] = 0;
+    *&a1[v22] = 0;
 LABEL_42:
     if (!a2)
     {
@@ -4434,121 +3746,116 @@ LABEL_42:
     goto LABEL_43;
   }
 
-  if (!v26)
+  if (!v25)
   {
     goto LABEL_42;
   }
 
-  a1[v23] = 0;
+  a1[v22] = 0;
   if (!a2)
   {
     return;
   }
 
 LABEL_43:
-  if (v11 == v20)
+  if (v10 == v19)
   {
-    if (v8 >= v41)
+    if (v7 >= v40)
     {
-      if (v8 < a2)
+      if (v7 < a2)
       {
-        if (v21 <= 3)
+        if (v20 <= 3)
         {
-          v34 = ~(-1 << (8 * v21));
+          v33 = ~(-1 << (8 * v20));
         }
 
         else
         {
-          v34 = -1;
+          v33 = -1;
         }
 
-        if (v21)
+        if (v20)
         {
-          v35 = v34 & (~v8 + a2);
-          if (v21 <= 3)
+          v34 = v33 & (~v7 + a2);
+          if (v20 <= 3)
           {
-            v36 = v21;
+            v35 = v20;
           }
 
           else
           {
-            v36 = 4;
+            v35 = 4;
           }
 
-          bzero(a1, v21);
-          if (v36 > 2)
+          bzero(a1, v20);
+          if (v35 > 2)
           {
-            if (v36 == 3)
+            if (v35 == 3)
             {
-              *a1 = v35;
-              a1[2] = BYTE2(v35);
+              *a1 = v34;
+              a1[2] = BYTE2(v34);
             }
 
             else
             {
-              *a1 = v35;
+              *a1 = v34;
             }
           }
 
-          else if (v36 == 1)
+          else if (v35 == 1)
           {
-            *a1 = v35;
+            *a1 = v34;
           }
 
           else
           {
-            *a1 = v35;
+            *a1 = v34;
           }
         }
 
         return;
       }
 
-      if (v40 < v39)
+      if (v39 < v38)
       {
-        v37 = *(v42 + 56);
+        v36 = *(v41 + 56);
 
-        v37(&a1[v14 + v16] & ~v16, a2, v39, v4);
+        v36(&a1[v13 + v15] & ~v15, a2, v38, v4);
         return;
       }
 
-      v29 = *(v38 + 56);
-      v30 = a1;
-      v31 = a2;
+      v28 = *(v37 + 56);
+      v29 = a1;
+      v30 = a2;
     }
 
     else
     {
-      v29 = *(v9 + 56);
-      v30 = (&a1[v21 + v17] & ~v17);
-      v31 = a2;
+      v28 = *(v8 + 56);
+      v29 = (&a1[v20 + v16] & ~v16);
+      v30 = a2;
     }
 
-    v29(v30, v31);
+    v28(v29, v30);
     return;
   }
 
-  v32 = &a1[v22] & ~v18;
-  if (v13 == v20)
+  v31 = &a1[v21] & ~v17;
+  if (v12 == v19)
   {
-    v33 = *(v12 + 56);
+    v32 = *(v11 + 56);
 
-    v33(v32, a2);
+    v32(v31, a2);
   }
 
   else
   {
-    *(((((v19 + 7 + v32) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8) + 8) = a2 + 1;
+    *(((((v18 + 7 + v31) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8) + 8) = a2 + 1;
   }
 }
 
 uint64_t destroy for Processor.SavePoint(void *a1)
 {
-  v2 = a1[6];
-
-  v3 = a1[7];
-
-  v4 = a1[8];
 }
 
 uint64_t initializeWithCopy for Processor.SavePoint(uint64_t a1, uint64_t a2)
@@ -4577,15 +3884,11 @@ uint64_t assignWithCopy for Processor.SavePoint(uint64_t a1, uint64_t a2)
   *(a1 + 40) = *(a2 + 40);
   *(a1 + 24) = v5;
   *(a1 + 41) = *(a2 + 41);
-  v6 = *(a1 + 48);
   *(a1 + 48) = *(a2 + 48);
 
-  v7 = *(a1 + 56);
   *(a1 + 56) = *(a2 + 56);
 
-  v8 = *(a2 + 64);
-  v9 = *(a1 + 64);
-  *(a1 + 64) = v8;
+  *(a1 + 64) = *(a2 + 64);
 
   return a1;
 }
@@ -4612,12 +3915,9 @@ uint64_t assignWithTake for Processor.SavePoint(uint64_t a1, uint64_t a2)
   *(a1 + 24) = *(a2 + 24);
   *(a1 + 40) = *(a2 + 40);
   *(a1 + 41) = *(a2 + 41);
-  v5 = *(a1 + 48);
 
-  v6 = *(a1 + 56);
   *(a1 + 48) = *(a2 + 48);
 
-  v7 = *(a1 + 64);
   *(a1 + 64) = *(a2 + 64);
 
   return a1;
@@ -4695,7 +3995,6 @@ void *initializeBufferWithCopyOfBuffer for StringLiteralBuilder(void *a1, void *
 void *assignWithCopy for StringLiteralBuilder(void *a1, void *a2)
 {
   *a1 = *a2;
-  v3 = a1[1];
   a1[1] = a2[1];
 
   return a1;
@@ -4711,7 +4010,6 @@ __n128 __swift_memcpy16_8(__n128 *a1, __n128 *a2)
 void *assignWithTake for StringLiteralBuilder(void *a1, void *a2)
 {
   v3 = a2[1];
-  v4 = a1[1];
   *a1 = *a2;
   a1[1] = v3;
 
@@ -5253,12 +4551,12 @@ LABEL_8:
   return result;
 }
 
-uint64_t initializeWithCopy for SubstringSearcher.State(uint64_t a1, uint64_t a2)
+uint64_t initializeWithCopy for SubstringSearcher.State(uint64_t a1, uint64_t *a2)
 {
-  v3 = *(a2 + 8);
+  v3 = a2[1];
   *a1 = *a2;
   *(a1 + 8) = v3;
-  *(a1 + 16) = *(a2 + 16);
+  *(a1 + 16) = a2[2];
   *(a1 + 24) = *(a2 + 24);
 
   return a1;
@@ -5266,13 +4564,12 @@ uint64_t initializeWithCopy for SubstringSearcher.State(uint64_t a1, uint64_t a2
 
 uint64_t *assignWithCopy for SubstringSearcher.State(uint64_t *a1, uint64_t *a2)
 {
-  v4 = *a1;
   *a1 = *a2;
 
   a1[1] = a2[1];
-  v5 = a2[2];
+  v4 = a2[2];
   *(a1 + 24) = *(a2 + 24);
-  a1[2] = v5;
+  a1[2] = v4;
   return a1;
 }
 
@@ -5286,12 +4583,11 @@ __n128 __swift_memcpy25_8(uint64_t a1, uint64_t a2)
 
 uint64_t *assignWithTake for SubstringSearcher.State(uint64_t *a1, uint64_t *a2)
 {
-  v4 = *a1;
   *a1 = *a2;
 
-  v5 = a2[2];
+  v4 = a2[2];
   a1[1] = a2[1];
-  a1[2] = v5;
+  a1[2] = v4;
   *(a1 + 24) = *(a2 + 24);
   return a1;
 }
@@ -5519,35 +4815,6 @@ uint64_t storeEnumTagSinglePayload for Processor._StoredCapture(uint64_t result,
 
 void destroy for Processor(void *a1)
 {
-  v2 = a1[1];
-
-  v3 = a1[5];
-
-  v4 = a1[6];
-
-  v5 = a1[13];
-
-  v6 = a1[14];
-
-  v7 = a1[15];
-
-  v8 = a1[16];
-
-  v9 = a1[17];
-
-  v10 = a1[18];
-
-  v11 = a1[20];
-
-  v12 = a1[21];
-
-  v13 = a1[22];
-
-  v14 = a1[23];
-
-  v15 = a1[24];
-
-  v16 = a1[26];
 
   JUMPOUT(0x193ACF400);
 }
@@ -5595,65 +4862,51 @@ uint64_t initializeWithCopy for Processor(uint64_t a1, uint64_t a2)
 uint64_t assignWithCopy for Processor(uint64_t a1, uint64_t a2)
 {
   *a1 = *a2;
-  v4 = *(a1 + 8);
   *(a1 + 8) = *(a2 + 8);
 
   *(a1 + 16) = *(a2 + 16);
   *(a1 + 24) = *(a2 + 24);
   *(a1 + 32) = *(a2 + 32);
-  v5 = *(a1 + 40);
   *(a1 + 40) = *(a2 + 40);
 
-  v6 = *(a1 + 48);
   *(a1 + 48) = *(a2 + 48);
 
-  v7 = *(a2 + 56);
+  v4 = *(a2 + 56);
   *(a1 + 64) = *(a2 + 64);
-  *(a1 + 56) = v7;
+  *(a1 + 56) = v4;
   *(a1 + 72) = *(a2 + 72);
   *(a1 + 80) = *(a2 + 80);
   *(a1 + 88) = *(a2 + 88);
   *(a1 + 96) = *(a2 + 96);
-  v8 = *(a1 + 104);
   *(a1 + 104) = *(a2 + 104);
 
-  v9 = *(a1 + 112);
   *(a1 + 112) = *(a2 + 112);
 
-  v10 = *(a1 + 120);
   *(a1 + 120) = *(a2 + 120);
 
-  v11 = *(a1 + 128);
   *(a1 + 128) = *(a2 + 128);
 
-  v12 = *(a1 + 136);
   *(a1 + 136) = *(a2 + 136);
 
-  v13 = *(a1 + 144);
   *(a1 + 144) = *(a2 + 144);
 
   *(a1 + 152) = *(a2 + 152);
-  v14 = *(a1 + 160);
   *(a1 + 160) = *(a2 + 160);
 
-  v15 = *(a1 + 168);
   *(a1 + 168) = *(a2 + 168);
 
-  v16 = *(a1 + 176);
   *(a1 + 176) = *(a2 + 176);
 
-  v17 = *(a1 + 184);
   *(a1 + 184) = *(a2 + 184);
 
-  v18 = *(a1 + 192);
   *(a1 + 192) = *(a2 + 192);
 
   *(a1 + 200) = *(a2 + 200);
-  v19 = *(a1 + 208);
-  v20 = *(a2 + 208);
-  MEMORY[0x193ACF410](v20);
-  *(a1 + 208) = v20;
-  MEMORY[0x193ACF400](v19);
+  v5 = *(a1 + 208);
+  v6 = *(a2 + 208);
+  MEMORY[0x193ACF410](v6);
+  *(a1 + 208) = v6;
+  MEMORY[0x193ACF400](v5);
   return a1;
 }
 
@@ -5689,54 +4942,37 @@ __n128 __swift_memcpy216_8(uint64_t a1, uint64_t a2)
 uint64_t assignWithTake for Processor(uint64_t a1, uint64_t a2)
 {
   v4 = *(a2 + 8);
-  v5 = *(a1 + 8);
   *a1 = *a2;
   *(a1 + 8) = v4;
 
   *(a1 + 16) = *(a2 + 16);
   *(a1 + 32) = *(a2 + 32);
-  v6 = *(a1 + 40);
 
-  v7 = *(a1 + 48);
   *(a1 + 40) = *(a2 + 40);
 
   *(a1 + 56) = *(a2 + 56);
   *(a1 + 64) = *(a2 + 64);
   *(a1 + 72) = *(a2 + 72);
   *(a1 + 88) = *(a2 + 88);
-  v8 = *(a1 + 104);
 
-  v9 = *(a1 + 112);
   *(a1 + 104) = *(a2 + 104);
 
-  v10 = *(a1 + 120);
-
-  v11 = *(a1 + 128);
   *(a1 + 120) = *(a2 + 120);
 
-  v12 = *(a1 + 136);
-
-  v13 = *(a1 + 144);
   *(a1 + 136) = *(a2 + 136);
 
   *(a1 + 152) = *(a2 + 152);
-  v14 = *(a1 + 160);
 
-  v15 = *(a1 + 168);
   *(a1 + 160) = *(a2 + 160);
 
-  v16 = *(a1 + 176);
-
-  v17 = *(a1 + 184);
   *(a1 + 176) = *(a2 + 176);
 
-  v18 = *(a1 + 192);
   *(a1 + 192) = *(a2 + 192);
 
   *(a1 + 200) = *(a2 + 200);
-  v19 = *(a1 + 208);
+  v5 = *(a1 + 208);
   *(a1 + 208) = *(a2 + 208);
-  MEMORY[0x193ACF400](v19);
+  MEMORY[0x193ACF400](v5);
   return a1;
 }
 
@@ -5809,77 +5045,50 @@ LABEL_8:
   return result;
 }
 
-uint64_t destroy for Processor.Registers(uint64_t *a1)
+uint64_t destroy for Processor.Registers(void *a1)
 {
-  v2 = *a1;
-
-  v3 = a1[1];
-
-  v4 = a1[2];
-
-  v5 = a1[3];
-
-  v6 = a1[4];
-
-  v7 = a1[5];
-
-  v8 = a1[7];
-
-  v9 = a1[8];
-
-  v10 = a1[9];
 }
 
-uint64_t initializeWithCopy for Processor.Registers(uint64_t a1, uint64_t a2)
+uint64_t initializeWithCopy for Processor.Registers(uint64_t a1, uint64_t *a2)
 {
-  v3 = *(a2 + 8);
+  v3 = a2[1];
   *a1 = *a2;
   *(a1 + 8) = v3;
-  v4 = *(a2 + 24);
-  *(a1 + 16) = *(a2 + 16);
+  v4 = a2[3];
+  *(a1 + 16) = a2[2];
   *(a1 + 24) = v4;
-  v5 = *(a2 + 40);
-  *(a1 + 32) = *(a2 + 32);
+  v5 = a2[5];
+  *(a1 + 32) = a2[4];
   *(a1 + 40) = v5;
   *(a1 + 48) = *(a2 + 48);
-  v6 = *(a2 + 64);
-  *(a1 + 56) = *(a2 + 56);
+  v6 = a2[8];
+  *(a1 + 56) = a2[7];
   *(a1 + 64) = v6;
-  *(a1 + 72) = *(a2 + 72);
+  *(a1 + 72) = a2[9];
 
   return a1;
 }
 
 uint64_t *assignWithCopy for Processor.Registers(uint64_t *a1, uint64_t *a2)
 {
-  v4 = *a1;
   *a1 = *a2;
 
-  v5 = a1[1];
   a1[1] = a2[1];
 
-  v6 = a1[2];
   a1[2] = a2[2];
 
-  v7 = a1[3];
   a1[3] = a2[3];
 
-  v8 = a1[4];
   a1[4] = a2[4];
 
-  v9 = a1[5];
   a1[5] = a2[5];
 
   *(a1 + 48) = *(a2 + 48);
-  v10 = a1[7];
   a1[7] = a2[7];
 
-  v11 = a1[8];
   a1[8] = a2[8];
 
-  v12 = a2[9];
-  v13 = a1[9];
-  a1[9] = v12;
+  a1[9] = a2[9];
 
   return a1;
 }
@@ -5897,31 +5106,20 @@ __n128 __swift_memcpy80_8(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t *assignWithTake for Processor.Registers(uint64_t *a1, uint64_t a2)
+uint64_t assignWithTake for Processor.Registers(uint64_t a1, uint64_t a2)
 {
-  v4 = *a1;
 
-  v5 = a1[1];
   *a1 = *a2;
 
-  v6 = a1[2];
+  *(a1 + 16) = *(a2 + 16);
 
-  v7 = a1[3];
-  *(a1 + 1) = *(a2 + 16);
-
-  v8 = a1[4];
-
-  v9 = a1[5];
-  *(a1 + 2) = *(a2 + 32);
+  *(a1 + 32) = *(a2 + 32);
 
   *(a1 + 48) = *(a2 + 48);
-  v10 = a1[7];
 
-  v11 = a1[8];
-  *(a1 + 7) = *(a2 + 56);
+  *(a1 + 56) = *(a2 + 56);
 
-  v12 = a1[9];
-  a1[9] = *(a2 + 72);
+  *(a1 + 72) = *(a2 + 72);
 
   return a1;
 }
@@ -5989,11 +5187,9 @@ LABEL_8:
 
 uint64_t type metadata completion function for TypedIndex(uint64_t a1)
 {
-  v1 = *(a1 + 16);
   result = swift_checkMetadataState();
-  if (v3 <= 0x3F)
+  if (v2 <= 0x3F)
   {
-    v4 = *(result - 8) + 64;
     swift_initStructMetadata();
     return 0;
   }
@@ -6008,7 +5204,7 @@ uint64_t *initializeBufferWithCopyOfBuffer for TypedIndex(uint64_t *a1, uint64_t
   v5 = *(v4 + 80);
   if (v5 <= 7 && *(*(*(a3 + 16) - 8) + 64) <= 0x18uLL && (*(v4 + 80) & 0x100000) == 0)
   {
-    (*(v4 + 16))(a1);
+    (*(v4 + 16))(a1, a2);
   }
 
   else
@@ -6318,9 +5514,7 @@ uint64_t *initializeBufferWithCopyOfBuffer for LazyMapSequence(uint64_t *a1, uin
 
 uint64_t destroy for LazyMapSequence(uint64_t a1, uint64_t a2)
 {
-  v3 = *(*(a2 + 16) - 8) + 8;
-  (*v3)();
-  v4 = *(((a1 + *(v3 + 56) + 7) & 0xFFFFFFFFFFFFFFF8) + 8);
+  (*(*(*(a2 + 16) - 8) + 8))();
 }
 
 uint64_t initializeWithCopy for LazyMapSequence(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -6345,7 +5539,6 @@ uint64_t assignWithCopy for LazyMapSequence(uint64_t a1, uint64_t a2, uint64_t a
   v7 = ((v6 + a1) & 0xFFFFFFFFFFFFFFF8);
   v8 = ((v6 + a2) & 0xFFFFFFFFFFFFFFF8);
   v9 = v8[1];
-  v10 = v7[1];
   *v7 = *v8;
   v7[1] = v9;
 
@@ -6364,10 +5557,7 @@ uint64_t assignWithTake for LazyMapSequence(uint64_t a1, uint64_t a2, uint64_t a
 {
   v5 = *(*(a3 + 16) - 8) + 40;
   (*v5)();
-  v6 = *(v5 + 24) + 7;
-  v7 = (v6 + a1) & 0xFFFFFFFFFFFFFFF8;
-  v8 = *(v7 + 8);
-  *v7 = *((v6 + a2) & 0xFFFFFFFFFFFFFFF8);
+  *((*(v5 + 24) + 7 + a1) & 0xFFFFFFFFFFFFFFF8) = *((*(v5 + 24) + 7 + a2) & 0xFFFFFFFFFFFFFFF8);
 
   return a1;
 }
@@ -6461,7 +5651,7 @@ uint64_t getEnumTagSinglePayload for LazyMapSequence(_DWORD *a1, unsigned int a2
 LABEL_28:
     if (v5 >= 0x7FFFFFFF)
     {
-      return (*(v4 + 48))();
+      return (*(v4 + 48))(a1);
     }
 
     v17 = *((a1 + v6 + 7) & 0xFFFFFFFFFFFFFFF8);
@@ -6947,14 +6137,11 @@ LABEL_20:
   return result;
 }
 
-uint64_t destroy for TypedSetVector(uint64_t *a1)
+uint64_t destroy for TypedSetVector(void *a1)
 {
-  v2 = *a1;
-
-  v3 = a1[1];
 }
 
-void *initializeBufferWithCopyOfBuffer for TypedSetVector(void *a1, void *a2)
+uint64_t *initializeBufferWithCopyOfBuffer for TypedSetVector(uint64_t *a1, uint64_t *a2)
 {
   v3 = a2[1];
   *a1 = *a2;
@@ -6965,21 +6152,16 @@ void *initializeBufferWithCopyOfBuffer for TypedSetVector(void *a1, void *a2)
 
 uint64_t *assignWithCopy for TypedSetVector(uint64_t *a1, uint64_t *a2)
 {
-  v4 = *a1;
   *a1 = *a2;
 
-  v5 = a2[1];
-  v6 = a1[1];
-  a1[1] = v5;
+  a1[1] = a2[1];
 
   return a1;
 }
 
-uint64_t *assignWithTake for TypedSetVector(uint64_t *a1, _OWORD *a2)
+void *assignWithTake for TypedSetVector(void *a1, _OWORD *a2)
 {
-  v4 = *a1;
 
-  v5 = a1[1];
   *a1 = *a2;
 
   return a1;
@@ -7240,7 +6422,7 @@ unint64_t lazy protocol witness table accessor for type State and conformance St
   return result;
 }
 
-uint64_t _swift_string_processing_getScalarBitArrayIdx(unsigned int a1, unint64_t *a2, uint64_t a3)
+unint64_t _swift_string_processing_getScalarBitArrayIdx(unsigned int a1, unint64_t *a2, uint64_t a3)
 {
   v3 = a1 / 0x4400uLL;
   v4 = *a2;
@@ -7264,7 +6446,7 @@ uint64_t _swift_string_processing_getScalarBitArrayIdx(unsigned int a1, unint64_
 
   v8 = 5 * v7;
   v9 = &a2[5 * v7 + 1 + v4];
-  v10 = *(v9 + 8 * ((a1 % 0x110) >> 6));
+  v10 = v9[(a1 % 0x110) >> 6];
   if (((v10 >> (a1 % 0x110)) & 1) == 0)
   {
     return 0x7FFFFFFFFFFFFFFFLL;
@@ -7278,7 +6460,7 @@ uint64_t _swift_string_processing_getScalarBitArrayIdx(unsigned int a1, unint64_
     v12 = v13;
   }
 
-  return (*(v9 + 32) >> 16) + v12;
+  return (v9[4] >> 16) + v12;
 }
 
 uint64_t _swift_string_processing_getScript(unsigned int a1)

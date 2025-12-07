@@ -1,10 +1,33 @@
 @interface GDMicroLocationVisitUtility
 - (GDMicroLocationVisitUtility)initWithMicroLocationVisitStream:(id)stream;
+- (id)_rawMicroLocationVisitEventPublisherFrom:(id)from to:(id)to reversed:(BOOL)reversed;
 - (id)lastMicroLocationVisitEventPriorTo:(id)to;
 - (id)microLocationVisitEventPublisherFrom:(id)from to:(id)to;
 @end
 
 @implementation GDMicroLocationVisitUtility
+
+- (id)_rawMicroLocationVisitEventPublisherFrom:(id)from to:(id)to reversed:(BOOL)reversed
+{
+  reversedCopy = reversed;
+  v9 = MEMORY[0x1E698F2D0];
+  toCopy = to;
+  fromCopy = from;
+  v12 = [v9 alloc];
+  started = objc_msgSend_initWithStartDate_endDate_maxEvents_lastN_reversed_(v12, v13, fromCopy, toCopy, 0, 0, reversedCopy);
+
+  v17 = objc_msgSend_publisherWithOptions_(self->_microLocationVisitStream, v15, started, v16);
+  v20 = objc_msgSend_filterWithIsIncluded_(v17, v18, &unk_1F4416098, v19);
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 3221225472;
+  v25[2] = sub_1C4EF82B4;
+  v25[3] = &unk_1E81EFBC0;
+  v25[4] = self;
+  v25[5] = a2;
+  v23 = objc_msgSend_mapWithTransform_(v20, v21, v25, v22);
+
+  return v23;
+}
 
 - (id)microLocationVisitEventPublisherFrom:(id)from to:(id)to
 {

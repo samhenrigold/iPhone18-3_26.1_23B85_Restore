@@ -461,10 +461,10 @@ LABEL_17:
     return exposureDurations;
   }
 
-  v129 = v6;
-  v130 = v5;
-  v131 = v3;
-  v132 = v4;
+  v136 = v6;
+  v137 = v5;
+  v138 = v3;
+  v139 = v4;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
@@ -801,54 +801,58 @@ LABEL_17:
       {
         v66 = 0;
         v67 = 1;
-        while (([objc_msgSend(-[NSArray objectAtIndexedSubscript:](self->_originalImageFilters objectAtIndexedSubscript:{v66), "name"), "isEqualToString:", objc_msgSend(objc_msgSend(objc_msgSend(equal, "originalImageFilters"), "objectAtIndexedSubscript:", v66), "name")}] & 1) != 0)
+        do
         {
-          v66 = v67;
-          v68 = [(NSArray *)self->_originalImageFilters count]> v67++;
-          if (!v68)
+          v68 = [-[NSArray objectAtIndexedSubscript:](self->_originalImageFilters objectAtIndexedSubscript:{v66), "name"}];
+          [objc_msgSend(objc_msgSend(equal "originalImageFilters")];
+          if ((objc_msgSend_isEqualToString_(v68) & 1) == 0)
           {
-            goto LABEL_64;
+            goto LABEL_154;
           }
+
+          v66 = v67;
+          v69 = [(NSArray *)self->_originalImageFilters count]> v67++;
         }
 
-        goto LABEL_154;
+        while (v69);
       }
 
-LABEL_64:
-      v69 = [(NSArray *)self->_processedImageFilters count];
-      if (v69 != [objc_msgSend(equal "processedImageFilters")])
+      v70 = [(NSArray *)self->_processedImageFilters count];
+      if (v70 != [objc_msgSend(equal "processedImageFilters")])
       {
         goto LABEL_154;
       }
 
       if ([(NSArray *)self->_processedImageFilters count])
       {
-        v70 = 0;
-        v71 = 1;
-        while (([objc_msgSend(-[NSArray objectAtIndexedSubscript:](self->_processedImageFilters objectAtIndexedSubscript:{v70), "name"), "isEqualToString:", objc_msgSend(objc_msgSend(objc_msgSend(equal, "processedImageFilters"), "objectAtIndexedSubscript:", v70), "name")}] & 1) != 0)
+        v71 = 0;
+        v72 = 1;
+        do
         {
-          v70 = v71;
-          v68 = [(NSArray *)self->_processedImageFilters count]> v71++;
-          if (!v68)
+          v73 = [-[NSArray objectAtIndexedSubscript:](self->_processedImageFilters objectAtIndexedSubscript:{v71), "name"}];
+          [objc_msgSend(objc_msgSend(equal "processedImageFilters")];
+          if ((objc_msgSend_isEqualToString_(v73) & 1) == 0)
           {
-            goto LABEL_69;
+            goto LABEL_154;
           }
+
+          v71 = v72;
+          v69 = [(NSArray *)self->_processedImageFilters count]> v72++;
         }
 
-        goto LABEL_154;
+        while (v69);
       }
 
-LABEL_69:
       simulatedAperture = self->_simulatedAperture;
       [equal simulatedAperture];
-      if (simulatedAperture != v73)
+      if (simulatedAperture != v75)
       {
         goto LABEL_154;
       }
 
       portraitLightingEffectStrength = self->_portraitLightingEffectStrength;
       [equal portraitLightingEffectStrength];
-      if (portraitLightingEffectStrength != v75)
+      if (portraitLightingEffectStrength != v77)
       {
         goto LABEL_154;
       }
@@ -928,8 +932,8 @@ LABEL_69:
 
             if (self->_bracketImageCount)
             {
-              v89 = 0;
-              v90 = 0;
+              v91 = 0;
+              v92 = 0;
               do
               {
                 if (self->_exposureDurations)
@@ -955,14 +959,14 @@ LABEL_160:
                   {
                     if ([equal exposureDurations])
                     {
-                      v91 = &self->_exposureDurations[v89];
+                      v93 = &self->_exposureDurations[v91];
                       exposureDurations2 = [equal exposureDurations];
-                      v93 = *&v91->var0;
-                      time1.epoch = v91->var3;
-                      *&time1.value = v93;
-                      v94 = *(exposureDurations2 + v89 * 24);
-                      stillImageUserInitiatedRequestPTS.epoch = *(exposureDurations2 + v89 * 24 + 16);
-                      *&stillImageUserInitiatedRequestPTS.value = v94;
+                      v95 = *&v93->var0;
+                      time1.epoch = v93->var3;
+                      *&time1.value = v95;
+                      v96 = *(exposureDurations2 + v91 * 24);
+                      stillImageUserInitiatedRequestPTS.epoch = *(exposureDurations2 + v91 * 24 + 16);
+                      *&stillImageUserInitiatedRequestPTS.value = v96;
                       if (CMTimeCompare(&time1, &stillImageUserInitiatedRequestPTS))
                       {
                         goto LABEL_154;
@@ -994,8 +998,8 @@ LABEL_159:
                   {
                     if ([equal ISOs])
                     {
-                      v95 = self->_ISOs[v90];
-                      if (v95 != *([equal ISOs] + 4 * v90))
+                      v97 = self->_ISOs[v92];
+                      if (v97 != *([equal ISOs] + 4 * v92))
                       {
                         goto LABEL_154;
                       }
@@ -1026,8 +1030,8 @@ LABEL_158:
                   {
                     if ([equal exposureTargetBiases])
                     {
-                      v96 = self->_exposureTargetBiases[v90];
-                      if (v96 != *([equal exposureTargetBiases] + 4 * v90))
+                      v98 = self->_exposureTargetBiases[v92];
+                      if (v98 != *([equal exposureTargetBiases] + 4 * v92))
                       {
                         goto LABEL_154;
                       }
@@ -1035,11 +1039,11 @@ LABEL_158:
                   }
                 }
 
-                ++v90;
-                ++v89;
+                ++v92;
+                ++v91;
               }
 
-              while (v90 < self->_bracketImageCount);
+              while (v92 < self->_bracketImageCount);
             }
 
             stillImageUserInitiatedRequestTime = self->_stillImageUserInitiatedRequestTime;
@@ -1050,7 +1054,7 @@ LABEL_158:
 
             if (equal)
             {
-              [equal stillImageUserInitiatedRequestPTS];
+              objc_msgSend_stillImageUserInitiatedRequestPTS(equal);
             }
 
             else
@@ -1078,16 +1082,16 @@ LABEL_158:
 
             stillImageCaptureAbsoluteStartTime = self->_stillImageCaptureAbsoluteStartTime;
             [equal stillImageCaptureAbsoluteStartTime];
-            if (stillImageCaptureAbsoluteStartTime != v101)
+            if (stillImageCaptureAbsoluteStartTime != v103)
             {
               goto LABEL_154;
             }
 
             imageGroupIdentifier = self->_imageGroupIdentifier;
-            if (imageGroupIdentifier == [equal imageGroupIdentifier] || (LODWORD(exposureDurations) = -[NSString isEqualToString:](self->_imageGroupIdentifier, "isEqualToString:", objc_msgSend(equal, "imageGroupIdentifier")), exposureDurations))
+            if (imageGroupIdentifier == [equal imageGroupIdentifier] || (v105 = self->_imageGroupIdentifier, objc_msgSend(equal, "imageGroupIdentifier"), LODWORD(exposureDurations) = objc_msgSend_isEqualToString_(v105), exposureDurations))
             {
               captureRequestIdentifier = self->_captureRequestIdentifier;
-              if (captureRequestIdentifier == [equal captureRequestIdentifier] || (LODWORD(exposureDurations) = -[NSString isEqualToString:](self->_captureRequestIdentifier, "isEqualToString:", objc_msgSend(equal, "captureRequestIdentifier")), exposureDurations))
+              if (captureRequestIdentifier == [equal captureRequestIdentifier] || (v107 = self->_captureRequestIdentifier, objc_msgSend(equal, "captureRequestIdentifier"), LODWORD(exposureDurations) = objc_msgSend_isEqualToString_(v107), exposureDurations))
               {
                 clientInitiatedPrepareSettings = self->_clientInitiatedPrepareSettings;
                 if (clientInitiatedPrepareSettings != [equal isClientInitiatedPrepareSettings])
@@ -1103,7 +1107,7 @@ LABEL_158:
 
                 videoStabilizationOverscanCropMultiplier = self->_videoStabilizationOverscanCropMultiplier;
                 [equal videoStabilizationOverscanCropMultiplier];
-                if (videoStabilizationOverscanCropMultiplier != v107)
+                if (videoStabilizationOverscanCropMultiplier != v111)
                 {
                   goto LABEL_154;
                 }
@@ -1161,10 +1165,10 @@ LABEL_158:
                 }
 
                 deferredVideoFormatUniqueID = self->_deferredVideoFormatUniqueID;
-                if (deferredVideoFormatUniqueID == [equal deferredVideoFormatUniqueID] || (LODWORD(exposureDurations) = -[NSString isEqualToString:](self->_deferredVideoFormatUniqueID, "isEqualToString:", objc_msgSend(equal, "deferredVideoFormatUniqueID")), exposureDurations))
+                if (deferredVideoFormatUniqueID == [equal deferredVideoFormatUniqueID] || (v120 = self->_deferredVideoFormatUniqueID, objc_msgSend(equal, "deferredVideoFormatUniqueID"), LODWORD(exposureDurations) = objc_msgSend_isEqualToString_(v120), exposureDurations))
                 {
                   deferredDepthDataFormatUniqueID = self->_deferredDepthDataFormatUniqueID;
-                  if (deferredDepthDataFormatUniqueID == [equal deferredDepthDataFormatUniqueID] || (LODWORD(exposureDurations) = -[NSString isEqualToString:](self->_deferredDepthDataFormatUniqueID, "isEqualToString:", objc_msgSend(equal, "deferredDepthDataFormatUniqueID")), exposureDurations))
+                  if (deferredDepthDataFormatUniqueID == [equal deferredDepthDataFormatUniqueID] || (v122 = self->_deferredDepthDataFormatUniqueID, objc_msgSend(equal, "deferredDepthDataFormatUniqueID"), LODWORD(exposureDurations) = objc_msgSend_isEqualToString_(v122), exposureDurations))
                   {
                     bypassUpscaling = self->_bypassUpscaling;
                     if (bypassUpscaling == [equal bypassUpscaling])
@@ -1172,7 +1176,9 @@ LABEL_158:
                       cmioCompressedFormat = self->_cmioCompressedFormat;
                       if (cmioCompressedFormat != [equal cmioCompressedFormat])
                       {
-                        LODWORD(exposureDurations) = -[NSString isEqualToString:](self->_cmioCompressedFormat, "isEqualToString:", [equal cmioCompressedFormat]);
+                        v125 = self->_cmioCompressedFormat;
+                        [equal cmioCompressedFormat];
+                        LODWORD(exposureDurations) = objc_msgSend_isEqualToString_(v125);
                         if (!exposureDurations)
                         {
                           return exposureDurations;

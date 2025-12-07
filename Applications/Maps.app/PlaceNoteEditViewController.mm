@@ -92,7 +92,7 @@
   {
     v5 = *(v3 + 1);
     selfCopy = self;
-    sub_1000CD9D4(v4);
+    sub_1000CD9D4(v4, v5);
     v4(0, 0, 0);
 
     sub_1000D3B90(v4, v5);

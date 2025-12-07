@@ -10,34 +10,32 @@
 {
   v15[1] = *MEMORY[0x277D85DE8];
   arraysCopy = arrays;
-  v6 = __atxlog_handle_notification_management();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  v7 = __atxlog_handle_notification_management(arraysCopy);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    +[ATXLockScreenNotificationRanker rankNotificationArrays:error:];
+    [ATXLockScreenNotificationRanker rankNotificationArrays:self error:?];
   }
 
   if (arraysCopy || !error)
   {
-    v11 = [arraysCopy _pas_mappedArrayWithTransform:&__block_literal_global_57_1];
-    v9 = [v11 sortedArrayUsingComparator:&__block_literal_global_61_1];
+    v12 = [arraysCopy _pas_mappedArrayWithTransform:&__block_literal_global_57_1];
+    v10 = [v12 sortedArrayUsingComparator:&__block_literal_global_61_1];
 
-    v10 = [v9 _pas_mappedArrayWithTransform:&__block_literal_global_64_1];
+    v11 = [v10 _pas_mappedArrayWithTransform:&__block_literal_global_64_1];
   }
 
   else
   {
-    v7 = MEMORY[0x277CCA9B8];
-    v8 = *MEMORY[0x277CCA5B8];
+    v8 = MEMORY[0x277CCA9B8];
+    v9 = *MEMORY[0x277CCA5B8];
     v14 = *MEMORY[0x277CCA068];
     v15[0] = @"Missing notificationArrays argument";
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
-    [v7 errorWithDomain:v8 code:22 userInfo:v9];
-    *error = v10 = 0;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+    [v8 errorWithDomain:v9 code:22 userInfo:v10];
+    *error = v11 = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
-  return v10;
+  return v11;
 }
 
 ATXUserNotificationGroup *__64__ATXLockScreenNotificationRanker_rankNotificationArrays_error___block_invoke(uint64_t a1, void *a2)
@@ -50,7 +48,7 @@ ATXUserNotificationGroup *__64__ATXLockScreenNotificationRanker_rankNotification
 
 + (id)rankNewNotificationIntoNotificationArrays:(id)arrays newNotification:(id)notification notificationArrayIndex:(unint64_t)index error:(id *)error
 {
-  v27[1] = *MEMORY[0x277D85DE8];
+  v26[1] = *MEMORY[0x277D85DE8];
   arraysCopy = arrays;
   notificationCopy = notification;
   if (arraysCopy)
@@ -71,9 +69,9 @@ ATXUserNotificationGroup *__64__ATXLockScreenNotificationRanker_rankNotification
     {
       v19 = MEMORY[0x277CCA9B8];
       v20 = *MEMORY[0x277CCA5B8];
-      v24 = *MEMORY[0x277CCA068];
-      v25 = v17;
-      v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+      v23 = *MEMORY[0x277CCA068];
+      v24 = v17;
+      v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
       *error = [v19 errorWithDomain:v20 code:22 userInfo:v21];
     }
   }
@@ -87,16 +85,14 @@ ATXUserNotificationGroup *__64__ATXLockScreenNotificationRanker_rankNotification
 
     v14 = MEMORY[0x277CCA9B8];
     v15 = *MEMORY[0x277CCA5B8];
-    v26 = *MEMORY[0x277CCA068];
-    v27[0] = @"Missing notificationArrays argument";
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:&v26 count:1];
+    v25 = *MEMORY[0x277CCA068];
+    v26[0] = @"Missing notificationArrays argument";
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:&v25 count:1];
     *error = [v14 errorWithDomain:v15 code:22 userInfo:v16];
   }
 
   error = 0;
 LABEL_10:
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return error;
 }
@@ -107,10 +103,10 @@ LABEL_10:
   arraysCopy = arrays;
   arrayCopy = array;
   notificationCopy = notification;
-  v12 = __atxlog_handle_notification_management();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v13 = __atxlog_handle_notification_management(notificationCopy);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
-    +[ATXLockScreenNotificationRanker rankNewNotificationIntoNotificationArrays:newNotificationArray:newNotification:error:];
+    [ATXLockScreenNotificationRanker rankNewNotificationIntoNotificationArrays:self newNotificationArray:? newNotification:? error:?];
   }
 
   if (arraysCopy || !error)
@@ -131,7 +127,7 @@ LABEL_10:
         v31 = MEMORY[0x277CCABB0];
         notifications = [(ATXUserNotificationGroup *)v25 notifications];
         v33 = [v31 numberWithUnsignedInteger:{objc_msgSend(notifications, "indexOfObject:", notificationCopy)}];
-        v19 = [v29 tupleWithFirst:v30 second:v33];
+        v20 = [v29 tupleWithFirst:v30 second:v33];
 
         arrayCopy = v24;
       }
@@ -144,41 +140,39 @@ LABEL_10:
         v35 = @"Missing newNotificationArray argument";
         arrayCopy = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
         [v22 errorWithDomain:v23 code:22 userInfo:arrayCopy];
-        *error = v19 = 0;
+        *error = v20 = 0;
       }
 
       goto LABEL_10;
     }
 
-    v13 = MEMORY[0x277CCA9B8];
-    v14 = *MEMORY[0x277CCA5B8];
+    v14 = MEMORY[0x277CCA9B8];
+    v15 = *MEMORY[0x277CCA5B8];
     v36 = *MEMORY[0x277CCA068];
     v37 = @"Missing newNotification argument";
-    v15 = MEMORY[0x277CBEAC0];
-    v16 = &v37;
-    v17 = &v36;
+    v16 = MEMORY[0x277CBEAC0];
+    v17 = &v37;
+    v18 = &v36;
   }
 
   else
   {
-    v13 = MEMORY[0x277CCA9B8];
-    v14 = *MEMORY[0x277CCA5B8];
+    v14 = MEMORY[0x277CCA9B8];
+    v15 = *MEMORY[0x277CCA5B8];
     v38 = *MEMORY[0x277CCA068];
     v39[0] = @"Missing notificationArrays argument";
-    v15 = MEMORY[0x277CBEAC0];
-    v16 = v39;
-    v17 = &v38;
+    v16 = MEMORY[0x277CBEAC0];
+    v17 = v39;
+    v18 = &v38;
   }
 
-  v18 = [v15 dictionaryWithObjects:v16 forKeys:v17 count:1];
-  *error = [v13 errorWithDomain:v14 code:22 userInfo:v18];
+  v19 = [v16 dictionaryWithObjects:v17 forKeys:v18 count:1];
+  *error = [v14 errorWithDomain:v15 code:22 userInfo:v19];
 
-  v19 = 0;
+  v20 = 0;
 LABEL_10:
 
-  v20 = *MEMORY[0x277D85DE8];
-
-  return v19;
+  return v20;
 }
 
 ATXUserNotificationGroup *__120__ATXLockScreenNotificationRanker_rankNewNotificationIntoNotificationArrays_newNotificationArray_newNotification_error___block_invoke(uint64_t a1, void *a2)
@@ -189,22 +183,20 @@ ATXUserNotificationGroup *__120__ATXLockScreenNotificationRanker_rankNewNotifica
   return v3;
 }
 
-+ (void)rankNotificationArrays:error:.cold.1()
++ (void)rankNotificationArrays:(uint64_t)a1 error:.cold.1(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  OUTLINED_FUNCTION_3_4(&dword_2263AA000, v1, v2, "[%@] Generating lock screen notification ranking", v3, v4, v5, v6, 2u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = objc_opt_class();
+  v1 = *(&v8 + 4);
+  OUTLINED_FUNCTION_3_4(&dword_2263AA000, v2, v3, "[%@] Generating lock screen notification ranking", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
-+ (void)rankNewNotificationIntoNotificationArrays:newNotificationArray:newNotification:error:.cold.1()
++ (void)rankNewNotificationIntoNotificationArrays:(uint64_t)a1 newNotificationArray:newNotification:error:.cold.1(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  OUTLINED_FUNCTION_3_4(&dword_2263AA000, v1, v2, "[%@] Sorting newNotification into notificationArray", v3, v4, v5, v6, 2u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = objc_opt_class();
+  v1 = *(&v8 + 4);
+  OUTLINED_FUNCTION_3_4(&dword_2263AA000, v2, v3, "[%@] Sorting newNotification into notificationArray", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 @end

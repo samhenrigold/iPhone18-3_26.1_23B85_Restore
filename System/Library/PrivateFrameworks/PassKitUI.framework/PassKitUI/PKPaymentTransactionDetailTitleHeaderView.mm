@@ -17,15 +17,16 @@
 - (void)configureWithTitle:(id)title
 {
   sub_1BE052434();
-  v5[3] = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD5B950);
-  v5[4] = sub_1BD0DE4F4(&qword_1EBD5B958, &qword_1EBD5B950);
-  __swift_allocate_boxed_opaque_existential_1(v5);
+  v5 = v4;
+  v14[3] = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD5B950, &qword_1BE10D1D0);
+  v14[4] = sub_1BD0DE4F4(&qword_1EBD5B958, &qword_1EBD5B950, &qword_1BE10D1D0, MEMORY[0x1E697C858]);
+  __swift_allocate_boxed_opaque_existential_1(v14);
   selfCopy = self;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD386A0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD386A0, &qword_1BE0B6C30);
   sub_1BD0DE43C();
   sub_1BE04FCE4();
-
-  MEMORY[0x1BFB3FC20](v5);
+  v5, v7, v8, v9, v10, v11, v12, v13;
+  MEMORY[0x1BFB3FC20](v14);
   [(PKPaymentTransactionDetailTitleHeaderView *)selfCopy setNeedsUpdateConfiguration];
 }
 
@@ -35,14 +36,16 @@
   if (identifier)
   {
     sub_1BE052434();
+    v7 = v6;
     identifier = sub_1BE052404();
+    v7, v8, v9, v10, v11, v12, v13, v14;
   }
 
-  v8.receiver = self;
-  v8.super_class = ObjectType;
-  v6 = [(PKPaymentTransactionDetailTitleHeaderView *)&v8 initWithReuseIdentifier:identifier];
+  v17.receiver = self;
+  v17.super_class = ObjectType;
+  v15 = [(PKPaymentTransactionDetailTitleHeaderView *)&v17 initWithReuseIdentifier:identifier];
 
-  return v6;
+  return v15;
 }
 
 - (_TtC9PassKitUI41PKPaymentTransactionDetailTitleHeaderView)initWithCoder:(id)coder

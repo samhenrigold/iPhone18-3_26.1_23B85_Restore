@@ -24,7 +24,7 @@
   }
 
   v5.receiver = self;
-  v5.super_class = type metadata accessor for DataLinkHealthKitHostConnection();
+  v5.super_class = type metadata accessor for DataLinkHealthKitHostConnection(0);
   [(DataLinkHealthKitHostConnection *)&v5 dealloc];
 }
 
@@ -37,14 +37,13 @@
 
 - (void)workoutSession:(id)session didChangeToState:(int64_t)state fromState:(int64_t)fromState date:(id)date
 {
-  v6 = type metadata accessor for Date();
-  v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  MEMORY[0x28223BE20](v6);
-  v10 = &v11 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = type metadata accessor for Date();
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8, v10);
+  v12 = &v13 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   static Date._unconditionallyBridgeFromObjectiveC(_:)();
-  specialized DataLinkHealthKitHostConnection.workoutSession(_:didChangeTo:from:date:)();
-  (*(v7 + 8))(v10, v6);
+  specialized DataLinkHealthKitHostConnection.workoutSession(_:didChangeTo:from:date:)(state, fromState);
+  (*(v9 + 8))(v12, v8);
 }
 
 - (void)workoutSession:(id)session didFailWithError:(id)error

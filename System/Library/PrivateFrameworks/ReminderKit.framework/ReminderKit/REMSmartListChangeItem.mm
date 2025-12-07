@@ -7,6 +7,7 @@
 - (REMSmartListChangeItem)initWithCustomSmartListObjectID:(id)d insertIntoAccountChangeItem:(id)item withParentListChangeItem:(id)changeItem;
 - (REMSmartListChangeItem)initWithCustomSmartListObjectID:(id)d insertIntoListSublistContextChangeItem:(id)item;
 - (REMSmartListChangeItem)initWithSaveRequest:(id)request storage:(id)storage changedKeysObserver:(id)observer;
+- (REMSmartListChangeItem)initWithSaveRequest:(id)request storage:(id)storage observeInitialValues:(BOOL)values;
 - (REMSmartListCustomContextChangeItem)customContext;
 - (REMSmartListSectionContextChangeItem)sectionsContextChangeItem;
 - (id)changedKeys;
@@ -69,6 +70,18 @@
   }
 
   return selfCopy;
+}
+
+- (REMSmartListChangeItem)initWithSaveRequest:(id)request storage:(id)storage observeInitialValues:(BOOL)values
+{
+  valuesCopy = values;
+  requestCopy = request;
+  v9 = [storage copy];
+  v10 = [REMChangedKeysObserver alloc];
+  v11 = [(REMChangedKeysObserver *)v10 initWithTarget:v9 keysToObserve:__sKeysToObserve_2 includeInitial:valuesCopy];
+  v12 = [(REMSmartListChangeItem *)self initWithSaveRequest:requestCopy storage:v9 changedKeysObserver:v11];
+
+  return v12;
 }
 
 - (REMSmartListChangeItem)initWithCustomSmartListObjectID:(id)d insertIntoAccountChangeItem:(id)item withParentListChangeItem:(id)changeItem
@@ -387,36 +400,27 @@
 
 - (void)initWithCustomSmartListObjectID:(void *)a1 insertIntoAccountChangeItem:withParentListChangeItem:.cold.1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = +[REMLogStore write];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
   {
-    v9 = [a1 remObjectID];
+    v8 = [a1 remObjectID];
     OUTLINED_FUNCTION_0_2();
-    _os_log_fault_impl(v4, v5, v6, v7, v8, 0xCu);
+    _os_log_fault_impl(v3, v4, v5, v6, v7, 0xCu);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (void)assertIsCustomSmartListWithAction:(uint64_t)a1 .cold.1(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v8 = [a2 remObjectID];
+  v7 = [a2 remObjectID];
   OUTLINED_FUNCTION_0_2();
   _os_log_fault_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setIsPinned:(void *)a1 .cold.1(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = [a1 objectID];
+  v6 = [a1 objectID];
   OUTLINED_FUNCTION_0_2();
   _os_log_fault_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

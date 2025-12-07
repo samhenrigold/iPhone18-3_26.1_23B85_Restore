@@ -41,8 +41,8 @@
 {
   if (self->_needsUpdateFlags.badgeView)
   {
-    v17 = v2;
-    v18 = v3;
+    v16 = v2;
+    v17 = v3;
     _badgeView = [(PXOverlayBadgeUIViewTile *)self _badgeView];
     imageRequester = [(PXOverlayBadgeUIViewTile *)self imageRequester];
     v7 = imageRequester;
@@ -59,37 +59,38 @@
         isInCloud = [v7 isInCloud];
       }
 
-      asset = [v7 asset];
+      [v7 asset];
+      objc_claimAutoreleasedReturnValue();
+      v14 = 0u;
       v15 = 0u;
-      v16 = 0u;
       badgeManager = [(PXOverlayBadgeUIViewTile *)self badgeManager];
-      v12 = badgeManager;
+      v11 = badgeManager;
       if (badgeManager)
       {
-        [badgeManager badgeInfoForAsset:asset inCollection:0 options:0];
+        objc_msgSend_badgeInfoForAsset_inCollection_options_(badgeManager);
       }
 
       else
       {
+        v14 = 0u;
         v15 = 0u;
-        v16 = 0u;
       }
 
       if (([(PXOverlayBadgeUIViewTile *)self _badgeOptions]& 2) == 0)
       {
-        *&v15 = 0;
+        *&v14 = 0;
       }
 
       if (isInCloud)
       {
-        *&v15 = v15 | 0x20;
+        *&v14 = v14 | 0x20;
       }
 
+      v12 = v14;
       v13 = v15;
-      v14 = v16;
-      [_badgeView setBadgeInfo:&v13];
+      [_badgeView setBadgeInfo:&v12];
+      v12 = v14;
       v13 = v15;
-      v14 = v16;
       PXAssetBadgeInfoIsNull();
     }
 

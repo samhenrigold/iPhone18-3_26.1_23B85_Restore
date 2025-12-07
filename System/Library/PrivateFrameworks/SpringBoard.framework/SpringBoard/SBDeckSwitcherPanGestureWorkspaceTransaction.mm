@@ -103,21 +103,21 @@ LABEL_19:
 
 - (void)_begin
 {
-  kdebug_trace();
-  v3 = SBLogSystemGestureAppSwitcher();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+  v3 = kdebug_trace();
+  v4 = SBLogSystemGestureAppSwitcher(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    [(SBDeckSwitcherPanGestureWorkspaceTransaction *)v3 _begin];
+    [(SBDeckSwitcherPanGestureWorkspaceTransaction *)v4 _begin];
   }
 
-  v4.receiver = self;
-  v4.super_class = SBDeckSwitcherPanGestureWorkspaceTransaction;
-  [(SBFluidSwitcherGestureWorkspaceTransaction *)&v4 _begin];
+  v5.receiver = self;
+  v5.super_class = SBDeckSwitcherPanGestureWorkspaceTransaction;
+  [(SBFluidSwitcherGestureWorkspaceTransaction *)&v5 _begin];
 }
 
 - (void)_didComplete
 {
-  v3 = SBLogSystemGestureAppSwitcher();
+  v3 = SBLogSystemGestureAppSwitcher(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [(SBDeckSwitcherPanGestureWorkspaceTransaction *)v3 _didComplete];

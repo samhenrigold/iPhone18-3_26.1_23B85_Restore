@@ -30,23 +30,25 @@
   connectionCopy = connection;
   v4 = connectionCopy;
   buffer = 0u;
-  memset(v35, 0, sizeof(v35));
+  memset(v36, 0, sizeof(v36));
   if (connectionCopy)
   {
-    [connectionCopy auditToken];
-    v5 = v31;
+    objc_msgSend_auditToken(connectionCopy);
+    v5 = DWORD1(v32);
   }
 
   else
   {
     v5 = 0;
+    v31 = 0uLL;
+    v32 = 0uLL;
   }
 
   v6 = [NSString stringWithFormat:@"[unknown caller].%d", v5];
   v7 = proc_pidinfo(v5, 13, 0, &buffer, 64);
   if (v7 == 64)
   {
-    v22 = [NSString stringWithFormat:@"%s.%d", v35, v5];
+    v22 = [NSString stringWithFormat:@"%s.%d", v36, v5];
 
     v6 = v22;
     goto LABEL_17;
@@ -66,16 +68,16 @@
       v29 = "/Library/Caches/com.apple.xbs/Sources/MobileGestaltHelpers/MobileGestaltHelper/MobileGestaltHelper.m";
     }
 
-    sub_100000C68(v29, 58, @"proc_pidinfo: wrong size: actual = %d, expected = %lu", v24, v25, v26, v27, v28, v8);
+    sub_100000C68(v29, 58, @"proc_pidinfo: wrong size: actual = %d, expected = %lu", v24, v25, v26, v27, v28, v8, 64, v31, v32);
     if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_17;
     }
 
     *buf = 67109376;
-    LODWORD(v33[0]) = v8;
-    WORD2(v33[0]) = 2048;
-    *(v33 + 6) = 64;
+    LODWORD(v34[0]) = v8;
+    WORD2(v34[0]) = 2048;
+    *(v34 + 6) = 64;
     v20 = "proc_pidinfo: wrong size: actual = %d, expected = %lu";
     v21 = 18;
     goto LABEL_16;
@@ -96,7 +98,7 @@
     v18 = __error();
     v19 = strerror(*v18);
     *buf = 136315138;
-    v33[0] = v19;
+    v34[0] = v19;
     v20 = "proc_pidinfo: %s";
     v21 = 12;
 LABEL_16:

@@ -3,6 +3,7 @@
 + (id)hotspotSessionQueue;
 + (id)sessionStatusString:(int)string;
 + (id)sessionTypeString:(int)string;
+- (BOOL)startWithConfigurationID:(id)d sessionType:(int)type;
 - (CNHotspotSessionManager)init;
 - (void)dealloc;
 - (void)invalidate;
@@ -46,7 +47,7 @@ uint64_t __46__CNHotspotSessionManager_hotspotSessionQueue__block_invoke()
 
 - (void)dealloc
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = mysyslog_get_logger();
   v4 = _SC_syslog_os_log_mapping();
   if (os_log_type_enabled(v3, v4))
@@ -67,17 +68,15 @@ uint64_t __46__CNHotspotSessionManager_hotspotSessionQueue__block_invoke()
     [(CNHotspotSessionManager *)self setHotspotSession:0];
   }
 
-  v6.receiver = self;
-  v6.super_class = CNHotspotSessionManager;
-  [(CNHotspotSessionManager *)&v6 dealloc];
-  v5 = *MEMORY[0x277D85DE8];
+  v5.receiver = self;
+  v5.super_class = CNHotspotSessionManager;
+  [(CNHotspotSessionManager *)&v5 dealloc];
 }
 
 - (void)scheduleRequestCompletionHandler:(int)handler
 {
   if (handler == 1)
   {
-    hotspotSession = self->_hotspotSession;
     ne_session_cancel();
   }
 
@@ -87,13 +86,13 @@ uint64_t __46__CNHotspotSessionManager_hotspotSessionQueue__block_invoke()
     if (runloop)
     {
       runloopMode = self->_runloopMode;
-      v8[0] = MEMORY[0x277D85DD0];
-      v8[1] = 3221225472;
-      v8[2] = __60__CNHotspotSessionManager_scheduleRequestCompletionHandler___block_invoke;
-      v8[3] = &unk_27A714630;
-      v8[4] = self;
+      v7[0] = MEMORY[0x277D85DD0];
+      v7[1] = 3221225472;
+      v7[2] = __60__CNHotspotSessionManager_scheduleRequestCompletionHandler___block_invoke;
+      v7[3] = &unk_27A714630;
+      v7[4] = self;
       handlerCopy = handler;
-      CFRunLoopPerformBlock(runloop, runloopMode, v8);
+      CFRunLoopPerformBlock(runloop, runloopMode, v7);
       CFRunLoopWakeUp(self->_runloop);
     }
   }
@@ -144,9 +143,72 @@ uint64_t __46__CNHotspotSessionManager_hotspotSessionQueue__block_invoke()
   }
 }
 
+- (BOOL)startWithConfigurationID:(id)d sessionType:(int)type
+{
+  v4 = *&type;
+  v27[2] = *MEMORY[0x277D85DE8];
+  dCopy = d;
+  if (self->_hotspotSession || self->_currentSessionStatus == 3)
+  {
+    v7 = 0;
+  }
+
+  else
+  {
+    v9 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:dCopy];
+    v27[0] = 0;
+    v27[1] = 0;
+    [v9 getUUIDBytes:v27];
+    v10 = ne_session_create();
+    self->_hotspotSession = v10;
+    v7 = v10 != 0;
+    if (v10)
+    {
+      ne_session_start();
+      v11 = mysyslog_get_logger();
+      v12 = _SC_syslog_os_log_mapping();
+      v13 = v11;
+      if (os_log_type_enabled(v13, v12))
+      {
+        hotspotSession = self->_hotspotSession;
+        v15 = [CNHotspotSessionManager sessionTypeString:v4];
+        *buf = 138412802;
+        selfCopy = self;
+        v23 = 2048;
+        v24 = hotspotSession;
+        v25 = 2112;
+        v26 = v15;
+        _os_log_impl(&dword_277237000, v13, v12, "%@: starting hotspot (session:[%p] type:[%@])", buf, 0x20u);
+      }
+
+      objc_initWeak(buf, self);
+      queue = [(CNHotspotSessionManager *)self queue];
+      objc_copyWeak(&v20, buf);
+      v19 = dCopy;
+      ne_session_set_event_handler();
+
+      objc_destroyWeak(&v20);
+      objc_destroyWeak(buf);
+    }
+
+    else
+    {
+      v17 = mysyslog_get_logger();
+      v18 = _SC_syslog_os_log_mapping();
+      if (os_log_type_enabled(v17, v18))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_277237000, v17, v18, "ne_session_create() failed to create hotspot session", buf, 2u);
+      }
+    }
+  }
+
+  return v7;
+}
+
 void __64__CNHotspotSessionManager_startWithConfigurationID_sessionType___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v5 = mysyslog_get_logger();
   v6 = _SC_syslog_os_log_mapping();
@@ -156,13 +218,13 @@ void __64__CNHotspotSessionManager_startWithConfigurationID_sessionType___block_
     v8 = [WeakRetained hotspotSession];
     v9 = [CNHotspotSessionManager eventTypeString:a2];
     *buf = 138413058;
-    v18 = WeakRetained;
-    v19 = 2080;
-    v20 = "[CNHotspotSessionManager startWithConfigurationID:sessionType:]_block_invoke";
-    v21 = 2048;
-    v22 = v8;
-    v23 = 2112;
-    v24 = v9;
+    v16 = WeakRetained;
+    v17 = 2080;
+    v18 = "[CNHotspotSessionManager startWithConfigurationID:sessionType:]_block_invoke";
+    v19 = 2048;
+    v20 = v8;
+    v21 = 2112;
+    v22 = v9;
     _os_log_impl(&dword_277237000, v7, v6, "%@: (%s): hotspot session([%p]) received event:[%@]", buf, 0x2Au);
   }
 
@@ -174,7 +236,7 @@ void __64__CNHotspotSessionManager_startWithConfigurationID_sessionType___block_
     {
       v13 = *(a1 + 40);
       *buf = 138412290;
-      v18 = v13;
+      v16 = v13;
       _os_log_impl(&dword_277237000, v11, v12, "hotspot session was cancelled for configuration [%@]", buf, 0xCu);
     }
 
@@ -190,17 +252,14 @@ void __64__CNHotspotSessionManager_startWithConfigurationID_sessionType___block_
   {
     [WeakRetained hotspotSession];
     v10 = [WeakRetained queue];
-    v15 = *(a1 + 32);
-    v16 = *(a1 + 40);
+    v14 = *(a1 + 40);
     ne_session_get_status();
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __64__CNHotspotSessionManager_startWithConfigurationID_sessionType___block_invoke_69(uint64_t a1, uint64_t a2)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v4 = mysyslog_get_logger();
   v5 = _SC_syslog_os_log_mapping();
   v6 = v4;
@@ -209,18 +268,38 @@ void __64__CNHotspotSessionManager_startWithConfigurationID_sessionType___block_
     v7 = *(a1 + 32);
     v8 = [v7 hotspotSession];
     v9 = [CNHotspotSessionManager sessionStatusString:a2];
-    v29 = 138413058;
-    v30 = v7;
-    v31 = 2080;
-    v32 = "[CNHotspotSessionManager startWithConfigurationID:sessionType:]_block_invoke";
-    v33 = 2048;
-    v34 = v8;
-    v35 = 2112;
-    v36 = v9;
-    _os_log_impl(&dword_277237000, v6, v5, "%@: (%s): hotspot session([%p]) received session status:[%@]", &v29, 0x2Au);
+    v28 = 138413058;
+    v29 = v7;
+    v30 = 2080;
+    v31 = "[CNHotspotSessionManager startWithConfigurationID:sessionType:]_block_invoke";
+    v32 = 2048;
+    v33 = v8;
+    v34 = 2112;
+    v35 = v9;
+    _os_log_impl(&dword_277237000, v6, v5, "%@: (%s): hotspot session([%p]) received session status:[%@]", &v28, 0x2Au);
   }
 
-  if ([*(a1 + 40) currentSessionStatus] != a2)
+  if ([*(a1 + 40) currentSessionStatus] == a2)
+  {
+    v10 = mysyslog_get_logger();
+    v11 = _SC_syslog_os_log_mapping();
+    v12 = v10;
+    if (os_log_type_enabled(v12, v11))
+    {
+      v13 = *(a1 + 32);
+      v14 = [v13 hotspotSession];
+      v15 = *(a1 + 48);
+      v28 = 138412802;
+      v29 = v13;
+      v30 = 2048;
+      v31 = v14;
+      v32 = 2112;
+      v33 = v15;
+      _os_log_impl(&dword_277237000, v12, v11, "%@ hotspot session([%p]) status did not change for configuration [%@]", &v28, 0x20u);
+    }
+  }
+
+  else
   {
     if (a2 == 1)
     {
@@ -231,11 +310,11 @@ void __64__CNHotspotSessionManager_startWithConfigurationID_sessionType___block_
       {
         v26 = [*(a1 + 32) hotspotSession];
         v27 = *(a1 + 48);
-        v29 = 134218242;
-        v30 = v26;
-        v31 = 2112;
-        v32 = v27;
-        _os_log_impl(&dword_277237000, v25, v24, "hotspot session([%p]) status changed to disconnected for configuration [%@]", &v29, 0x16u);
+        v28 = 134218242;
+        v29 = v26;
+        v30 = 2112;
+        v31 = v27;
+        _os_log_impl(&dword_277237000, v25, v24, "hotspot session([%p]) status changed to disconnected for configuration [%@]", &v28, 0x16u);
       }
 
       [*(a1 + 32) setCurrentSessionStatus:1];
@@ -247,7 +326,7 @@ void __64__CNHotspotSessionManager_startWithConfigurationID_sessionType___block_
     {
       if (a2 != 3)
       {
-        goto LABEL_16;
+        return;
       }
 
       v16 = mysyslog_get_logger();
@@ -257,11 +336,11 @@ void __64__CNHotspotSessionManager_startWithConfigurationID_sessionType___block_
       {
         v19 = [*(a1 + 32) hotspotSession];
         v20 = *(a1 + 48);
-        v29 = 134218242;
-        v30 = v19;
-        v31 = 2112;
-        v32 = v20;
-        _os_log_impl(&dword_277237000, v18, v17, "hotspot session([%p]) status changed to connected for configuration [%@]", &v29, 0x16u);
+        v28 = 134218242;
+        v29 = v19;
+        v30 = 2112;
+        v31 = v20;
+        _os_log_impl(&dword_277237000, v18, v17, "hotspot session([%p]) status changed to connected for configuration [%@]", &v28, 0x16u);
       }
 
       [*(a1 + 32) setCurrentSessionStatus:3];
@@ -270,28 +349,7 @@ void __64__CNHotspotSessionManager_startWithConfigurationID_sessionType___block_
     }
 
     [v21 scheduleRequestCompletionHandler:v22];
-    goto LABEL_16;
   }
-
-  v10 = mysyslog_get_logger();
-  v11 = _SC_syslog_os_log_mapping();
-  v12 = v10;
-  if (os_log_type_enabled(v12, v11))
-  {
-    v13 = *(a1 + 32);
-    v14 = [v13 hotspotSession];
-    v15 = *(a1 + 48);
-    v29 = 138412802;
-    v30 = v13;
-    v31 = 2048;
-    v32 = v14;
-    v33 = 2112;
-    v34 = v15;
-    _os_log_impl(&dword_277237000, v12, v11, "%@ hotspot session([%p]) status did not change for configuration [%@]", &v29, 0x20u);
-  }
-
-LABEL_16:
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stop

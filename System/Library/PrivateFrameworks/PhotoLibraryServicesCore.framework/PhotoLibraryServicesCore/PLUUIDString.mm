@@ -185,7 +185,8 @@
   if (v5)
   {
     v6 = v5;
-    memset(uu, 0, 16);
+    *uu = 0;
+    *&uu[8] = 0;
     v7 = uuid_parse(v5, uu);
     v8 = v7 == 0;
     if (v7)

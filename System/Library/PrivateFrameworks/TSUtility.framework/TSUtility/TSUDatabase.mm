@@ -372,7 +372,7 @@ LABEL_15:
         v8 = +[TSUAssertionHandler currentHandler];
         v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TSUDatabase _upgradeSchemaWithError:]"];
         [v8 handleFailureInFunction:v9 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/utility/TSUDatabase.m"), 338, @"Readonly database needs schema upgrade."}];
-        TSUHandleSqlite(8, error, self, a2, 339, @"Readonly database needs schema upgrade.", v10, v11, v13);
+        TSUHandleSqlite(8u, error, self, a2, 339, @"Readonly database needs schema upgrade.", v10, v11, v13);
         LOBYTE(v6) = 0;
       }
 

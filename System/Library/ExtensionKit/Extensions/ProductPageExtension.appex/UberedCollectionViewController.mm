@@ -68,14 +68,14 @@
   width = size.width;
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_1006183B8(coordinator, width, height);
+  sub_1006183B8(coordinator, selfCopy, width, height);
   swift_unknownObjectRelease();
 }
 
 - (void)viewDidLayoutSubviews
 {
   selfCopy = self;
-  sub_100618550();
+  sub_100618550(selfCopy, v2);
 }
 
 - (void)viewSafeAreaInsetsDidChange
@@ -92,7 +92,7 @@
   if (*(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC20ProductPageExtension30UberedCollectionViewController_uberScrollObserver))
   {
     type metadata accessor for UberScrollObserver();
-    sub_1006192AC(&qword_100961160, type metadata accessor for UberScrollObserver);
+    sub_1006192AC(&qword_100961160, type metadata accessor for UberScrollObserver, &unk_100791F94);
     draggingCopy = dragging;
     selfCopy = self;
 
@@ -115,7 +115,7 @@
 {
   changeCopy = change;
   selfCopy = self;
-  sub_100618E84(change);
+  sub_100618E84(change, selfCopy);
 }
 
 @end

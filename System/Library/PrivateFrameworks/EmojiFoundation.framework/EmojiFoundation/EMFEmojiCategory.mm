@@ -344,11 +344,11 @@ LABEL_23:
   return v6;
 }
 
-uint64_t __43__EMFEmojiCategory__emojiSetForIdentifier___block_invoke()
+uint64_t __43__EMFEmojiCategory__emojiSetForIdentifier___block_invoke(uint64_t a1)
 {
-  v0 = objc_opt_class();
+  v1 = objc_opt_class();
 
-  return [v0 computeEmojiFlagsSortedByLanguage];
+  return [v1 computeEmojiFlagsSortedByLanguage];
 }
 
 + (id)stringToRegionalIndicatorString:(id)string
@@ -511,76 +511,76 @@ uint64_t __43__EMFEmojiCategory__emojiSetForIdentifier___block_invoke()
 
 + (id)computeEmojiFlagsSortedByLanguage
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E695DF70];
   v4 = +[EMFEmojiCategory flagEmojiCountryCodesCommon];
   v5 = [v3 arrayWithArray:v4];
 
-  if ((EMFIsDeviceInGreaterChina() & 1) == 0)
+  if ((EMFIsDeviceInGreaterChina(v6) & 1) == 0)
   {
     [v5 addObject:@"TW"];
   }
 
-  v6 = [v5 count];
-  v7 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:v6];
+  v7 = [v5 count];
+  v8 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:v7];
   currentLocale = [MEMORY[0x1E695DF58] currentLocale];
-  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
   obj = v5;
-  v9 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
-  if (v9)
+  v10 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+  if (v10)
   {
-    v10 = v9;
-    v11 = *v29;
-    v12 = *MEMORY[0x1E695D978];
+    v11 = v10;
+    v12 = *v30;
+    v13 = *MEMORY[0x1E695D978];
     do
     {
-      for (i = 0; i != v10; ++i)
+      for (i = 0; i != v11; ++i)
       {
-        if (*v29 != v11)
+        if (*v30 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v28 + 1) + 8 * i);
-        v15 = [currentLocale displayNameForKey:v12 value:v14];
-        if (v15)
+        v15 = *(*(&v29 + 1) + 8 * i);
+        v16 = [currentLocale displayNameForKey:v13 value:v15];
+        if (v16)
         {
-          v16 = v15;
+          v17 = v16;
         }
 
         else
         {
-          v17 = [MEMORY[0x1E695DF58] localeWithLocaleIdentifier:@"en_US"];
+          v18 = [MEMORY[0x1E695DF58] localeWithLocaleIdentifier:@"en_US"];
 
-          v16 = [v17 displayNameForKey:v12 value:v14];
-          currentLocale = v17;
+          v17 = [v18 displayNameForKey:v13 value:v15];
+          currentLocale = v18;
         }
 
-        v18 = [self stringToRegionalIndicatorString:v14];
-        [v7 setValue:v18 forKey:v16];
+        v19 = [self stringToRegionalIndicatorString:v15];
+        [v8 setValue:v19 forKey:v17];
       }
 
-      v10 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v11 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
     }
 
-    while (v10);
+    while (v11);
   }
 
-  allKeys = [v7 allKeys];
-  v20 = [allKeys sortedArrayUsingSelector:sel_localizedStandardCompare_];
+  allKeys = [v8 allKeys];
+  v21 = [allKeys sortedArrayUsingSelector:sel_localizedStandardCompare_];
 
-  v21 = [EMFEmojiCategory insertionFlagsForCountryCodes:&unk_1F24DF430 inSortedCountryCodes:v20];
-  v22 = [v7 objectsForKeys:v20 notFoundMarker:&stru_1F24C94E8];
-  v23 = [v22 mutableCopy];
+  v22 = [EMFEmojiCategory insertionFlagsForCountryCodes:&unk_1F24DF430 inSortedCountryCodes:v21];
+  v23 = [v8 objectsForKeys:v21 notFoundMarker:&stru_1F24C94E8];
+  v24 = [v23 mutableCopy];
 
-  [EMFEmojiCategory insertToSortedCountries:v23 withAdditionalFlags:v21];
+  [EMFEmojiCategory insertToSortedCountries:v24 withAdditionalFlags:v22];
   flagsEmoji = [objc_opt_class() FlagsEmoji];
-  v25 = [flagsEmoji arrayByAddingObjectsFromArray:v23];
+  v26 = [flagsEmoji arrayByAddingObjectsFromArray:v24];
 
-  return v25;
+  return v26;
 }
 
 - (NSString)shortLocalizedName

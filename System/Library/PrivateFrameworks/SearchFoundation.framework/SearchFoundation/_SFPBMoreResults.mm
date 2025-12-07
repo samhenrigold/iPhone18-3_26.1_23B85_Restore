@@ -153,9 +153,7 @@ LABEL_8:
 
 - (void)setLabel:(id)label
 {
-  v4 = [label copy];
-  label = self->_label;
-  self->_label = v4;
+  self->_label = [label copy];
 
   MEMORY[0x1EEE66BB8]();
 }

@@ -58,7 +58,7 @@
 
 void __62__TransparencyAuditorReport_getReportForUUID_completionBlock___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -73,7 +73,7 @@ void __62__TransparencyAuditorReport_getReportForUUID_completionBlock___block_in
     if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v17 = v7;
+      v16 = v7;
       _os_log_impl(&dword_1E10DB000, v11, OS_LOG_TYPE_ERROR, "Unknown invokeXPCAsynchronousCallWithBlock error: %@", buf, 0xCu);
     }
 
@@ -92,21 +92,19 @@ void __62__TransparencyAuditorReport_getReportForUUID_completionBlock___block_in
     {
       v9 = *(a1 + 32);
       *buf = 138412290;
-      v17 = v9;
+      v16 = v9;
       _os_log_impl(&dword_1E10DB000, v8, OS_LOG_TYPE_INFO, "Sending asynchronous get auditor report for %@", buf, 0xCu);
     }
 
-    v15 = *(a1 + 32);
-    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v15 count:1];
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __62__TransparencyAuditorReport_getReportForUUID_completionBlock___block_invoke_104;
-    v13[3] = &unk_1E8701DF8;
-    v14 = *(a1 + 40);
-    [v5 getReportsForUUIDs:v10 completionBlock:v13];
+    v14 = *(a1 + 32);
+    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v14 count:1];
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __62__TransparencyAuditorReport_getReportForUUID_completionBlock___block_invoke_104;
+    v12[3] = &unk_1E8701DF8;
+    v13 = *(a1 + 40);
+    [v5 getReportsForUUIDs:v10 completionBlock:v12];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __62__TransparencyAuditorReport_getReportForUUID_completionBlock___block_invoke_2()
@@ -143,7 +141,7 @@ void __62__TransparencyAuditorReport_getReportForUUID_completionBlock___block_in
 
 void __62__TransparencyAuditorReport_getReportForUUID_completionBlock___block_invoke_2_107(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (TRANSPARENCY_DEFAULT_LOG_BLOCK_10 != -1)
   {
@@ -153,14 +151,12 @@ void __62__TransparencyAuditorReport_getReportForUUID_completionBlock___block_in
   v4 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_10;
   if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "Unknown getReportForUUID error: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "Unknown getReportForUUID error: %@", &v5, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __62__TransparencyAuditorReport_getReportForUUID_completionBlock___block_invoke_3()
@@ -192,7 +188,7 @@ uint64_t __62__TransparencyAuditorReport_getReportForUUID_completionBlock___bloc
 
 void __64__TransparencyAuditorReport_getReportsForUUIDs_completionBlock___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -206,9 +202,9 @@ void __64__TransparencyAuditorReport_getReportsForUUIDs_completionBlock___block_
     v10 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_10;
     if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_ERROR))
     {
-      v12 = 138412290;
-      v13 = v7;
-      _os_log_impl(&dword_1E10DB000, v10, OS_LOG_TYPE_ERROR, "Unknown invokeXPCAsynchronousCallWithBlock error: %@", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = v7;
+      _os_log_impl(&dword_1E10DB000, v10, OS_LOG_TYPE_ERROR, "Unknown invokeXPCAsynchronousCallWithBlock error: %@", &v11, 0xCu);
     }
 
     (*(*(a1 + 40) + 16))();
@@ -225,15 +221,13 @@ void __64__TransparencyAuditorReport_getReportsForUUIDs_completionBlock___block_
     if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_INFO))
     {
       v9 = *(a1 + 32);
-      v12 = 138412290;
-      v13 = v9;
-      _os_log_impl(&dword_1E10DB000, v8, OS_LOG_TYPE_INFO, "Sending asynchronous get auditor report for %@", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = v9;
+      _os_log_impl(&dword_1E10DB000, v8, OS_LOG_TYPE_INFO, "Sending asynchronous get auditor report for %@", &v11, 0xCu);
     }
 
     [v5 getReportsForUUIDs:*(a1 + 32) completionBlock:*(a1 + 40)];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __64__TransparencyAuditorReport_getReportsForUUIDs_completionBlock___block_invoke_2()
@@ -252,7 +246,7 @@ uint64_t __64__TransparencyAuditorReport_getReportsForUUIDs_completionBlock___bl
 
 void __64__TransparencyAuditorReport_getReportsForUUIDs_completionBlock___block_invoke_116(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (TRANSPARENCY_DEFAULT_LOG_BLOCK_10 != -1)
   {
@@ -262,14 +256,12 @@ void __64__TransparencyAuditorReport_getReportsForUUIDs_completionBlock___block_
   v4 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_10;
   if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "Unknown getReportForUUID error: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "Unknown getReportForUUID error: %@", &v5, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __64__TransparencyAuditorReport_getReportsForUUIDs_completionBlock___block_invoke_2_117()
@@ -305,7 +297,7 @@ uint64_t __64__TransparencyAuditorReport_getReportsForUUIDs_completionBlock___bl
 
 void __71__TransparencyAuditorReport_makeReport_additionalData_completionBlock___block_invoke(void *a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -320,7 +312,7 @@ void __71__TransparencyAuditorReport_makeReport_additionalData_completionBlock__
     if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v17 = v7;
+      v16 = v7;
       _os_log_impl(&dword_1E10DB000, v13, OS_LOG_TYPE_ERROR, "Unknown invokeXPCAsynchronousCallWithBlock error: %@", buf, 0xCu);
     }
 
@@ -341,16 +333,14 @@ void __71__TransparencyAuditorReport_makeReport_additionalData_completionBlock__
       v10 = v8;
       v11 = [v9 auditorName];
       *buf = 138412290;
-      v17 = v11;
+      v16 = v11;
       _os_log_impl(&dword_1E10DB000, v10, OS_LOG_TYPE_INFO, "Sending asynchronous make auditor report to %@", buf, 0xCu);
     }
 
-    v15 = a1[5];
-    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v15 count:1];
+    v14 = a1[5];
+    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v14 count:1];
     [v5 makeReports:v12 additionalData:a1[6] auditorURI:0 completionBlock:a1[7]];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __71__TransparencyAuditorReport_makeReport_additionalData_completionBlock___block_invoke_2()
@@ -369,7 +359,7 @@ uint64_t __71__TransparencyAuditorReport_makeReport_additionalData_completionBlo
 
 void __71__TransparencyAuditorReport_makeReport_additionalData_completionBlock___block_invoke_125(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (TRANSPARENCY_DEFAULT_LOG_BLOCK_10 != -1)
   {
@@ -379,14 +369,12 @@ void __71__TransparencyAuditorReport_makeReport_additionalData_completionBlock__
   v4 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_10;
   if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "Unknown makeReport error: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "Unknown makeReport error: %@", &v5, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __71__TransparencyAuditorReport_makeReport_additionalData_completionBlock___block_invoke_2_126()
@@ -422,7 +410,7 @@ uint64_t __71__TransparencyAuditorReport_makeReport_additionalData_completionBlo
 
 void __72__TransparencyAuditorReport_makeReports_additionalData_completionBlock___block_invoke(void *a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -436,9 +424,9 @@ void __72__TransparencyAuditorReport_makeReports_additionalData_completionBlock_
     v12 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_10;
     if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_ERROR))
     {
-      v14 = 138412290;
-      v15 = v7;
-      _os_log_impl(&dword_1E10DB000, v12, OS_LOG_TYPE_ERROR, "Unknown invokeXPCAsynchronousCallWithBlock error: %@", &v14, 0xCu);
+      v13 = 138412290;
+      v14 = v7;
+      _os_log_impl(&dword_1E10DB000, v12, OS_LOG_TYPE_ERROR, "Unknown invokeXPCAsynchronousCallWithBlock error: %@", &v13, 0xCu);
     }
 
     (*(a1[7] + 16))();
@@ -457,15 +445,13 @@ void __72__TransparencyAuditorReport_makeReports_additionalData_completionBlock_
       v9 = a1[4];
       v10 = v8;
       v11 = [v9 auditorName];
-      v14 = 138412290;
-      v15 = v11;
-      _os_log_impl(&dword_1E10DB000, v10, OS_LOG_TYPE_INFO, "Sending asynchronous make auditor report to %@", &v14, 0xCu);
+      v13 = 138412290;
+      v14 = v11;
+      _os_log_impl(&dword_1E10DB000, v10, OS_LOG_TYPE_INFO, "Sending asynchronous make auditor report to %@", &v13, 0xCu);
     }
 
     [v5 makeReports:a1[5] additionalData:a1[6] auditorURI:0 completionBlock:a1[7]];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __72__TransparencyAuditorReport_makeReports_additionalData_completionBlock___block_invoke_2()
@@ -484,7 +470,7 @@ uint64_t __72__TransparencyAuditorReport_makeReports_additionalData_completionBl
 
 void __72__TransparencyAuditorReport_makeReports_additionalData_completionBlock___block_invoke_134(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (TRANSPARENCY_DEFAULT_LOG_BLOCK_10 != -1)
   {
@@ -494,14 +480,12 @@ void __72__TransparencyAuditorReport_makeReports_additionalData_completionBlock_
   v4 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_10;
   if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "Unknown makeReport error: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "Unknown makeReport error: %@", &v5, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __72__TransparencyAuditorReport_makeReports_additionalData_completionBlock___block_invoke_2_135()

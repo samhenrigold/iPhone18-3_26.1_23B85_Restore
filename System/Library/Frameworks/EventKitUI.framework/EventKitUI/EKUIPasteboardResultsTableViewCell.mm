@@ -28,12 +28,12 @@
   return v2;
 }
 
-void __53__EKUIPasteboardResultsTableViewCell_reuseIdentifier__block_invoke()
+void __53__EKUIPasteboardResultsTableViewCell_reuseIdentifier__block_invoke(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
-  v2 = reuseIdentifier_reuseIdentifier_0;
-  reuseIdentifier_reuseIdentifier_0 = v1;
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
+  v3 = reuseIdentifier_reuseIdentifier_0;
+  reuseIdentifier_reuseIdentifier_0 = v2;
 }
 
 - (EKUIPasteboardResultsTableViewCell)initWithStyle:(int64_t)style reuseIdentifier:(id)identifier
@@ -89,8 +89,8 @@ void __53__EKUIPasteboardResultsTableViewCell_reuseIdentifier__block_invoke()
     aggregateTextLabel = v4->_aggregateTextLabel;
     v4->_aggregateTextLabel = createPrimaryLabel;
 
-    contentView = [(EKUIPasteboardResultsTableViewCell *)v4 contentView];
-    [contentView addSubview:v4->_aggregateTextLabel];
+    v19 = objc_msgSend_contentView(v4);
+    [v19 addSubview:v4->_aggregateTextLabel];
 
     v20 = 4;
     v21 = [MEMORY[0x1E695DF70] arrayWithCapacity:4];
@@ -101,8 +101,8 @@ void __53__EKUIPasteboardResultsTableViewCell_reuseIdentifier__block_invoke()
     {
       v23 = objc_alloc_init(MEMORY[0x1E69DCAE0]);
       [v23 setTranslatesAutoresizingMaskIntoConstraints:0];
-      contentView2 = [(EKUIPasteboardResultsTableViewCell *)v4 contentView];
-      [contentView2 addSubview:v23];
+      v24 = objc_msgSend_contentView(v4);
+      [v24 addSubview:v23];
 
       [(NSMutableArray *)v4->_colorDotViews addObject:v23];
       --v20;
@@ -117,8 +117,8 @@ void __53__EKUIPasteboardResultsTableViewCell_reuseIdentifier__block_invoke()
     do
     {
       createPrimaryLabel2 = [(EKUIAutocompleteSearchResultBaseCell *)v4 createPrimaryLabel];
-      contentView3 = [(EKUIPasteboardResultsTableViewCell *)v4 contentView];
-      [contentView3 addSubview:createPrimaryLabel2];
+      v29 = objc_msgSend_contentView(v4);
+      [v29 addSubview:createPrimaryLabel2];
 
       [(NSMutableArray *)v4->_titleTextLabels addObject:createPrimaryLabel2];
       --v25;
@@ -129,8 +129,8 @@ void __53__EKUIPasteboardResultsTableViewCell_reuseIdentifier__block_invoke()
     xMoreLabel = v4->_xMoreLabel;
     v4->_xMoreLabel = createPrimaryLabel3;
 
-    contentView4 = [(EKUIPasteboardResultsTableViewCell *)v4 contentView];
-    [contentView4 addSubview:v4->_xMoreLabel];
+    v32 = objc_msgSend_contentView(v4);
+    [v32 addSubview:v4->_xMoreLabel];
 
     [(EKUIPasteboardResultsTableViewCell *)v4 setLabelFonts];
     [(EKUIPasteboardResultsTableViewCell *)v4 setupConstraints];
@@ -190,22 +190,22 @@ void __53__EKUIPasteboardResultsTableViewCell_reuseIdentifier__block_invoke()
   v71 = 1144;
   v4 = objc_opt_new();
   leadingAnchor = [(UILabel *)self->_aggregateTextLabel leadingAnchor];
-  contentView = [(EKUIPasteboardResultsTableViewCell *)self contentView];
-  layoutMarginsGuide = [contentView layoutMarginsGuide];
+  v6 = objc_msgSend_contentView(self);
+  layoutMarginsGuide = [v6 layoutMarginsGuide];
   leadingAnchor2 = [layoutMarginsGuide leadingAnchor];
   v9 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
   [v4 addObject:v9];
 
   trailingAnchor = [(UILabel *)self->_aggregateTextLabel trailingAnchor];
-  contentView2 = [(EKUIPasteboardResultsTableViewCell *)self contentView];
-  layoutMarginsGuide2 = [contentView2 layoutMarginsGuide];
+  v11 = objc_msgSend_contentView(self);
+  layoutMarginsGuide2 = [v11 layoutMarginsGuide];
   trailingAnchor2 = [layoutMarginsGuide2 trailingAnchor];
   v14 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
   [v4 addObject:v14];
 
   firstBaselineAnchor = [(UILabel *)self->_aggregateTextLabel firstBaselineAnchor];
-  contentView3 = [(EKUIPasteboardResultsTableViewCell *)self contentView];
-  topAnchor = [contentView3 topAnchor];
+  v16 = objc_msgSend_contentView(self);
+  topAnchor = [v16 topAnchor];
   [(EKUIAutocompleteSearchResultBaseCell *)self verticalSpacingTopToBaselineForTopLabel];
   v18 = [firstBaselineAnchor constraintEqualToAnchor:topAnchor constant:?];
   [v4 addObject:v18];
@@ -233,8 +233,8 @@ void __53__EKUIPasteboardResultsTableViewCell_reuseIdentifier__block_invoke()
     v32 = [(NSMutableArray *)self->_colorDotViews objectAtIndexedSubscript:i, v71];
     v33 = [(NSMutableArray *)self->_titleTextLabels objectAtIndexedSubscript:i];
     leadingAnchor5 = [v32 leadingAnchor];
-    contentView4 = [(EKUIPasteboardResultsTableViewCell *)self contentView];
-    layoutMarginsGuide3 = [contentView4 layoutMarginsGuide];
+    v35 = objc_msgSend_contentView(self);
+    layoutMarginsGuide3 = [v35 layoutMarginsGuide];
     v37 = layoutMarginsGuide3;
     if (i)
     {
@@ -268,8 +268,8 @@ void __53__EKUIPasteboardResultsTableViewCell_reuseIdentifier__block_invoke()
     [v4 addObject:v49];
 
     trailingAnchor5 = [v33 trailingAnchor];
-    contentView5 = [(EKUIPasteboardResultsTableViewCell *)self contentView];
-    layoutMarginsGuide4 = [contentView5 layoutMarginsGuide];
+    v51 = objc_msgSend_contentView(self);
+    layoutMarginsGuide4 = [v51 layoutMarginsGuide];
     v53 = layoutMarginsGuide4;
     if (i)
     {

@@ -160,9 +160,9 @@ void __44__PKRemoteAssetManager_remoteAssetManifests__block_invoke(uint64_t a1, 
             if (!v18 || ([v19 BOOLValue] & 1) == 0)
             {
               v20 = [v13 pathExtension];
-              v21 = [v20 isEqualToString:@"urls"];
+              isEqualToString = objc_msgSend_isEqualToString_(v20);
 
-              if (v21)
+              if (isEqualToString)
               {
                 v22 = [[PKRemoteAssetManifest alloc] initWithFileURL:v13 passURL:v24 deviceSEIDs:*(*(v23 + 32) + 56) error:0];
                 if (v22)
@@ -489,9 +489,9 @@ void __68__PKRemoteAssetManager_sha1HexFromRelativeManifestWithRelativePath___bl
               }
 
               v19 = [v14 stringByAppendingString:*(*(&v25 + 1) + 8 * j)];
-              v20 = [pathCopy isEqualToString:v19];
+              isEqualToString = objc_msgSend_isEqualToString_(pathCopy);
 
-              if (v20)
+              if (isEqualToString)
               {
 
                 v21 = 1;
@@ -573,9 +573,9 @@ void __43__PKRemoteAssetManager_assetExistsLocally___block_invoke(uint64_t a1, v
         v11 = [v10 SHA1Hash];
         v12 = [v11 hexEncoding];
         v13 = [*(a1 + 32) sha1Hex];
-        v14 = [v12 isEqualToString:v13];
+        isEqualToString = objc_msgSend_isEqualToString_(v12);
 
-        if (v14)
+        if (isEqualToString)
         {
           *(*(*(a1 + 40) + 8) + 24) = 1;
         }
@@ -865,7 +865,7 @@ uint64_t __93__PKRemoteAssetManager_downloadRemoteAssetItem_withCloudStoreCoordi
     }
 
     v5 = v4;
-    return (*(result + 16))(result, v5);
+    return (*(result + 16))(result, v5, a3);
   }
 
   return result;
@@ -1138,9 +1138,9 @@ void __78__PKRemoteAssetManager__callCompletionHandlersWithFinishState_progress_
     v18 = localURL;
 
     sha1Hex = [itemCopy sha1Hex];
-    v20 = [sha1Hex isEqualToString:hexEncoding];
+    isEqualToString = objc_msgSend_isEqualToString_(sha1Hex);
 
-    if ((v20 & 1) == 0)
+    if ((isEqualToString & 1) == 0)
     {
       v24 = PKLogFacilityTypeGetObject(0);
       if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
@@ -1269,18 +1269,18 @@ LABEL_29:
   return v17 & 1;
 }
 
-uint64_t __81__PKRemoteAssetManager_addRemoteAssetData_shouldWriteData_forManifestItem_error___block_invoke(uint64_t result, uint64_t a2)
+id *__81__PKRemoteAssetManager_addRemoteAssetData_shouldWriteData_forManifestItem_error___block_invoke(id *result, uint64_t a2)
 {
   v2 = result;
   if (a2)
   {
-    result = [*(result + 32) writeToURL:*(result + 40) atomically:1];
-    *(*(*(v2 + 48) + 8) + 24) = result;
+    result = [result[4] writeToURL:result[5] atomically:1];
+    *(*(v2[6] + 1) + 24) = result;
   }
 
   else
   {
-    *(*(*(result + 48) + 8) + 24) = 0;
+    *(*(result[6] + 1) + 24) = 0;
   }
 
   return result;

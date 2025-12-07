@@ -42,14 +42,14 @@
 
 - (FPDFilePresenter)initWithIdentifier:(id)identifier itemID:(id)d auditToken:(id *)token urlHint:(id)hint domain:(id)domain
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   dCopy = d;
   hintCopy = hint;
   domainCopy = domain;
-  v30.receiver = self;
-  v30.super_class = FPDFilePresenter;
-  v17 = [(FPDFilePresenter *)&v30 init];
+  v28.receiver = self;
+  v28.super_class = FPDFilePresenter;
+  v17 = [(FPDFilePresenter *)&v28 init];
   v18 = v17;
   if (v17)
   {
@@ -68,17 +68,16 @@
       v18->_presenterWantsUbiqitousAttributes = v22 != 0;
       if (!v22)
       {
-        v23 = *MEMORY[0x1E6967110];
-        v24 = *&v18->_auditToken.val[4];
+        v23 = *&v18->_auditToken.val[4];
         *buf = *v18->_auditToken.val;
-        *&buf[16] = v24;
-        v25 = FPEntitlementValueForAuditToken();
-        if (v25)
+        *&buf[16] = v23;
+        v24 = FPEntitlementValueForAuditToken();
+        if (v24)
         {
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v18->_passivePresenterRequested = [v25 BOOLValue];
+            v18->_passivePresenterRequested = [v24 BOOLValue];
           }
         }
       }
@@ -89,26 +88,25 @@
       v18->_presenterWantsUbiqitousAttributes = 1;
     }
 
-    v26 = fp_current_or_default_log();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+    v25 = fp_current_or_default_log();
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
     {
-      v29 = @"all";
+      v27 = @"all";
       *buf = 138412802;
       if (v21)
       {
-        v29 = v21;
+        v27 = v21;
       }
 
       *&buf[4] = identifierCopy;
       *&buf[12] = 2112;
       *&buf[14] = dCopy;
       *&buf[22] = 2112;
-      *&buf[24] = v29;
-      _os_log_debug_impl(&dword_1CEFC7000, v26, OS_LOG_TYPE_DEBUG, "[DEBUG] new presenter %@ for %@, watching attributes: %@", buf, 0x20u);
+      *&buf[24] = v27;
+      _os_log_debug_impl(&dword_1CEFC7000, v25, OS_LOG_TYPE_DEBUG, "[DEBUG] new presenter %@ for %@, watching attributes: %@", buf, 0x20u);
     }
   }
 
-  v27 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
@@ -283,20 +281,19 @@
 
 void __30__FPDFilePresenter_enumerator__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v11 = a2;
+  v10 = a2;
   v6 = a3;
-  if (!v11 || v6)
+  if (!v10 || v6)
   {
     if (!v6)
     {
-      v7 = *(*(a1 + 32) + 88);
       v6 = FPProviderNotFoundErrorForURL();
     }
 
-    v8 = [objc_alloc(MEMORY[0x1E69674B0]) initWithConnection:0 protocol:&unk_1F4C7FA50 orError:v6 name:*(a1 + 40) requestPid:{objc_msgSend(*(a1 + 32), "requestEffectivePID")}];
-    v9 = *(*(a1 + 56) + 8);
-    v10 = *(v9 + 40);
-    *(v9 + 40) = v8;
+    v7 = [objc_alloc(MEMORY[0x1E69674B0]) initWithConnection:0 protocol:&unk_1F4C7FA50 orError:v6 name:*(a1 + 40) requestPid:{objc_msgSend(*(a1 + 32), "requestEffectivePID")}];
+    v8 = *(*(a1 + 56) + 8);
+    v9 = *(v8 + 40);
+    *(v8 + 40) = v7;
 
     dispatch_group_leave(*(a1 + 48));
   }
@@ -312,111 +309,106 @@ void __30__FPDFilePresenter_enumerator__block_invoke(uint64_t a1, void *a2, void
 
 - (void)start
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   provider = [(FPDDomain *)self->_domain provider];
   presentersQueue = [provider presentersQueue];
   queue = self->_queue;
   self->_queue = presentersQueue;
 
-  if (self->_queue)
+  if (!self->_queue)
   {
-    if (self->_passivePresenterRequested)
+    v6 = fp_current_or_default_log();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      v6 = fp_current_or_default_log();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
-      {
-        observedItemID = self->_observedItemID;
-        *buf = 138412290;
-        v18 = observedItemID;
-        v8 = "[INFO] ignoring presenter for item %@ because process requested passive presenters";
-LABEL_7:
-        _os_log_impl(&dword_1CEFC7000, v6, OS_LOG_TYPE_INFO, v8, buf, 0xCu);
-      }
+      observedItemID = self->_observedItemID;
+      *buf = 138412290;
+      v17 = observedItemID;
+      v8 = "[INFO] cannot start presenter for %@, provider has been discarded";
+      goto LABEL_7;
     }
 
-    else
+LABEL_8:
+
+    return;
+  }
+
+  if (self->_passivePresenterRequested)
+  {
+    v6 = fp_current_or_default_log();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      provider2 = [(FPDDomain *)self->_domain provider];
-      identifier = [provider2 identifier];
-      fp_isiCloudDriveIdentifier = [identifier fp_isiCloudDriveIdentifier];
+      v7 = self->_observedItemID;
+      *buf = 138412290;
+      v17 = v7;
+      v8 = "[INFO] ignoring presenter for item %@ because process requested passive presenters";
+LABEL_7:
+      _os_log_impl(&dword_1CEFC7000, v6, OS_LOG_TYPE_INFO, v8, buf, 0xCu);
+      goto LABEL_8;
+    }
 
-      if (!fp_isiCloudDriveIdentifier || self->_presenterWantsUbiqitousAttributes)
-      {
-        v13 = self->_queue;
-        block[0] = MEMORY[0x1E69E9820];
-        block[1] = 3221225472;
-        block[2] = __25__FPDFilePresenter_start__block_invoke;
-        block[3] = &unk_1E83BE068;
-        block[4] = self;
-        dispatch_async(v13, block);
-        goto LABEL_12;
-      }
+    goto LABEL_8;
+  }
 
-      v6 = fp_current_or_default_log();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
-      {
-        v15 = self->_observedItemID;
-        *buf = 138412290;
-        v18 = v15;
-        v8 = "[INFO] ignoring presenter for item %@ for ubiquity attributes";
-        goto LABEL_7;
-      }
+  provider2 = [(FPDDomain *)self->_domain provider];
+  identifier = [provider2 identifier];
+  fp_isiCloudDriveIdentifier = [identifier fp_isiCloudDriveIdentifier];
+
+  if (fp_isiCloudDriveIdentifier && !self->_presenterWantsUbiqitousAttributes)
+  {
+    v6 = fp_current_or_default_log();
+    if (!os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    {
+      goto LABEL_8;
+    }
+
+    v14 = self->_observedItemID;
+    *buf = 138412290;
+    v17 = v14;
+    v8 = "[INFO] ignoring presenter for item %@ for ubiquity attributes";
+    goto LABEL_7;
+  }
+
+  v13 = self->_queue;
+  block[0] = MEMORY[0x1E69E9820];
+  block[1] = 3221225472;
+  block[2] = __25__FPDFilePresenter_start__block_invoke;
+  block[3] = &unk_1E83BE068;
+  block[4] = self;
+  dispatch_async(v13, block);
+}
+
+void __25__FPDFilePresenter_start__block_invoke(uint64_t a1, uint64_t a2)
+{
+  v12 = *MEMORY[0x1E69E9840];
+  v3 = *(a1 + 32);
+  if (*(v3 + 64) == 1)
+  {
+    v4 = fp_current_or_default_log();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    {
+      v5 = *(a1 + 32);
+      v10 = 138412290;
+      v11 = v5;
+      _os_log_impl(&dword_1CEFC7000, v4, OS_LOG_TYPE_DEFAULT, "[WARNING] presenter %@ started while already running", &v10, 0xCu);
     }
   }
 
   else
   {
-    v6 = fp_current_or_default_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    *(v3 + 64) = 1;
+    v6 = [*(*(a1 + 32) + 32) session];
+    [v6 registerLifetimeExtensionForObject:*(a1 + 32)];
+
+    v7 = [*(*(a1 + 32) + 32) provider];
+    v8 = [v7 supportsEnumeration];
+
+    if (v8)
     {
-      v9 = self->_observedItemID;
-      *buf = 138412290;
-      v18 = v9;
-      v8 = "[INFO] cannot start presenter for %@, provider has been discarded";
-      goto LABEL_7;
+      v9 = *(a1 + 32);
+
+      [v9 _fetchChangeToken];
     }
   }
-
-LABEL_12:
-  v14 = *MEMORY[0x1E69E9840];
-}
-
-void __25__FPDFilePresenter_start__block_invoke(uint64_t a1)
-{
-  v13 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 32);
-  if (*(v2 + 64) == 1)
-  {
-    v3 = fp_current_or_default_log();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
-    {
-      v4 = *(a1 + 32);
-      v11 = 138412290;
-      v12 = v4;
-      _os_log_impl(&dword_1CEFC7000, v3, OS_LOG_TYPE_DEFAULT, "[WARNING] presenter %@ started while already running", &v11, 0xCu);
-    }
-
-    goto LABEL_9;
-  }
-
-  *(v2 + 64) = 1;
-  v5 = [*(*(a1 + 32) + 32) session];
-  [v5 registerLifetimeExtensionForObject:*(a1 + 32)];
-
-  v6 = [*(*(a1 + 32) + 32) provider];
-  v7 = [v6 supportsEnumeration];
-
-  if (!v7)
-  {
-LABEL_9:
-    v10 = *MEMORY[0x1E69E9840];
-    return;
-  }
-
-  v8 = *(a1 + 32);
-  v9 = *MEMORY[0x1E69E9840];
-
-  [v8 _fetchChangeToken];
 }
 
 - (void)stop
@@ -433,33 +425,31 @@ LABEL_9:
   }
 }
 
-void __24__FPDFilePresenter_stop__block_invoke(uint64_t a1)
+void __24__FPDFilePresenter_stop__block_invoke(uint64_t a1, uint64_t a2)
 {
   v9 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  if (*(v1 + 64))
+  v2 = *(a1 + 32);
+  if (*(v2 + 64))
   {
-    v3 = fp_current_or_default_log();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+    v4 = fp_current_or_default_log();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      v4 = *(a1 + 32);
+      v5 = *(a1 + 32);
       v7 = 138412290;
-      v8 = v4;
-      _os_log_impl(&dword_1CEFC7000, v3, OS_LOG_TYPE_INFO, "[INFO] stopping presenter %@", &v7, 0xCu);
+      v8 = v5;
+      _os_log_impl(&dword_1CEFC7000, v4, OS_LOG_TYPE_INFO, "[INFO] stopping presenter %@", &v7, 0xCu);
     }
 
     *(*(a1 + 32) + 64) = 0;
     [*(a1 + 32) _destroyEnumerator];
-    v5 = [*(*(a1 + 32) + 32) session];
-    [v5 unregisterLifetimeExtensionForObject:*(a1 + 32)];
+    v6 = [*(*(a1 + 32) + 32) session];
+    [v6 unregisterLifetimeExtensionForObject:*(a1 + 32)];
   }
 
-  else if (*(v1 + 16))
+  else if (*(v2 + 16))
   {
     __24__FPDFilePresenter_stop__block_invoke_cold_1();
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_enumeratorRequestDidFailWithXPCError:(id)error
@@ -495,7 +485,7 @@ void __24__FPDFilePresenter_stop__block_invoke(uint64_t a1)
 
 - (void)receiveUpdatedItems:(id)items deletedItemsIdentifiers:(id)identifiers
 {
-  v72 = *MEMORY[0x1E69E9840];
+  v71 = *MEMORY[0x1E69E9840];
   itemsCopy = items;
   identifiersCopy = identifiers;
   dispatch_assert_queue_V2(self->_queue);
@@ -505,35 +495,35 @@ void __24__FPDFilePresenter_stop__block_invoke(uint64_t a1)
     v6 = fp_current_or_default_log();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      [FPDFilePresenter receiveUpdatedItems:? deletedItemsIdentifiers:?];
+      [FPDFilePresenter receiveUpdatedItems:deletedItemsIdentifiers:];
     }
 
-    v63 = 0u;
-    v64 = 0u;
-    v61 = 0u;
     v62 = 0u;
+    v63 = 0u;
+    v60 = 0u;
+    v61 = 0u;
     obj = itemsCopy;
-    v7 = [obj countByEnumeratingWithState:&v61 objects:v71 count:{16, identifiersCopy}];
+    v7 = [obj countByEnumeratingWithState:&v60 objects:v70 count:{16, identifiersCopy}];
     if (v7)
     {
-      v55 = *v62;
-      v54 = *MEMORY[0x1E695DA88];
-      v52 = *MEMORY[0x1E695DCC8];
-      v51 = *MEMORY[0x1E695DD10];
+      v54 = *v61;
+      v53 = *MEMORY[0x1E695DA88];
+      v51 = *MEMORY[0x1E695DCC8];
+      v50 = *MEMORY[0x1E695DD10];
       do
       {
-        v56 = v7;
-        for (i = 0; i != v56; ++i)
+        v55 = v7;
+        for (i = 0; i != v55; ++i)
         {
-          if (*v62 != v55)
+          if (*v61 != v54)
           {
             objc_enumerationMutation(obj);
           }
 
-          v9 = *(*(&v61 + 1) + 8 * i);
+          v9 = *(*(&v60 + 1) + 8 * i);
           if (self->_observedItemID)
           {
-            itemID = [*(*(&v61 + 1) + 8 * i) itemID];
+            itemID = [*(*(&v60 + 1) + 8 * i) itemID];
             if ([itemID isEqual:self->_observedItemID])
             {
               v11 = 1;
@@ -555,25 +545,25 @@ void __24__FPDFilePresenter_stop__block_invoke(uint64_t a1)
           fileURL = [v9 fileURL];
           if (!fileURL)
           {
+            v56 = 0;
             v57 = 0;
-            v58 = 0;
             goto LABEL_24;
           }
 
           fileURL2 = [v9 fileURL];
-          v60 = 0;
-          v16 = [fileURL2 getResourceValue:&v60 forKey:v54 error:0];
-          v58 = v60;
+          v59 = 0;
+          v16 = [fileURL2 getResourceValue:&v59 forKey:v53 error:0];
+          v57 = v59;
           if (v16)
           {
             presentedItemURL = self->_presentedItemURL;
-            v59 = 0;
-            v18 = [(NSURL *)presentedItemURL getResourceValue:&v59 forKey:v54 error:0];
-            v19 = v59;
-            v57 = v19;
+            v58 = 0;
+            v18 = [(NSURL *)presentedItemURL getResourceValue:&v58 forKey:v53 error:0];
+            v19 = v58;
+            v56 = v19;
             if (v18)
             {
-              v20 = [v58 isEqualToString:v19];
+              v20 = [v57 isEqualToString:v19];
 
               if (v20)
               {
@@ -588,7 +578,7 @@ void __24__FPDFilePresenter_stop__block_invoke(uint64_t a1)
 
           else
           {
-            v57 = 0;
+            v56 = 0;
           }
 
 LABEL_23:
@@ -610,9 +600,9 @@ LABEL_24:
             if (capabilities == [v9 capabilities])
             {
               v29 = MEMORY[0x1E695DFD8];
-              v66[0] = v52;
-              v66[1] = v51;
-              v30 = [MEMORY[0x1E695DEC8] arrayWithObjects:v66 count:2];
+              v65[0] = v51;
+              v65[1] = v50;
+              v30 = [MEMORY[0x1E695DEC8] arrayWithObjects:v65 count:2];
               v31 = [v29 setWithArray:v30];
               v32 = [provider2 intersectsSet:v31];
             }
@@ -648,8 +638,8 @@ LABEL_24:
                 fp_shortDescription = [fileURL3 fp_shortDescription];
                 *buf = 138412546;
                 selfCopy = purposeIdentifier2;
-                v69 = 2112;
-                v70 = fp_shortDescription;
+                v68 = 2112;
+                v69 = fp_shortDescription;
                 _os_log_impl(&dword_1CEFC7000, v38, OS_LOG_TYPE_INFO, "[INFO] 🎖 posting did change ubiquity attributes (%@) for updated file %@", buf, 0x16u);
               }
 
@@ -711,8 +701,8 @@ LABEL_46:
             fp_shortDescription4 = [fileURL4 fp_shortDescription];
             *buf = 138412546;
             selfCopy = self;
-            v69 = 2112;
-            v70 = fp_shortDescription4;
+            v68 = 2112;
+            v69 = fp_shortDescription4;
             _os_log_impl(&dword_1CEFC7000, v22, OS_LOG_TYPE_INFO, "[INFO] %@: 🎖 posting did change ubiquity for updated file %@", buf, 0x16u);
           }
 
@@ -723,7 +713,7 @@ LABEL_46:
 LABEL_52:
         }
 
-        v7 = [obj countByEnumeratingWithState:&v61 objects:v71 count:16];
+        v7 = [obj countByEnumeratingWithState:&v60 objects:v70 count:16];
       }
 
       while (v7);
@@ -731,8 +721,6 @@ LABEL_52:
 
     __fp_leave_section_Debug();
   }
-
-  v48 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_newCoordinator
@@ -775,29 +763,29 @@ LABEL_52:
   }
 }
 
-uint64_t __47__FPDFilePresenter_enumerationResultsDidChange__block_invoke(uint64_t a1)
+uint64_t __47__FPDFilePresenter_enumerationResultsDidChange__block_invoke(uint64_t a1, uint64_t a2)
 {
   __fp_create_section();
-  v2 = fp_current_or_default_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = fp_current_or_default_log();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __47__FPDFilePresenter_enumerationResultsDidChange__block_invoke_cold_1(a1);
+    __47__FPDFilePresenter_enumerationResultsDidChange__block_invoke_cold_1();
   }
 
-  v3 = *(a1 + 32);
-  if (*(v3 + 65) == 1)
+  v4 = *(a1 + 32);
+  if (*(v4 + 65) == 1)
   {
-    *(v3 + 66) = 1;
+    *(v4 + 66) = 1;
   }
 
-  else if (*(v3 + 40))
+  else if (*(v4 + 40))
   {
-    [v3 _fetchUpdates];
+    [v4 _fetchUpdates];
   }
 
   else
   {
-    [v3 _fetchChangeToken];
+    [v4 _fetchChangeToken];
   }
 
   return __fp_leave_section_Debug();
@@ -822,22 +810,18 @@ uint64_t __47__FPDFilePresenter_enumerationResultsDidChange__block_invoke(uint64
 
 void __34__FPDFilePresenter_didUpdateItem___block_invoke(uint64_t a1)
 {
-  v4[1] = *MEMORY[0x1E69E9840];
+  v3[1] = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
-  v4[0] = *(a1 + 40);
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:1];
+  v3[0] = *(a1 + 40);
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:1];
   [v1 receiveUpdatedItems:v2 deletedItemsIdentifiers:MEMORY[0x1E695E0F0]];
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_fetchChangeToken
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __37__FPDFilePresenter__fetchChangeToken__block_invoke(void *a1, void *a2, uint64_t a3, void *a4, uint64_t a5, void *a6)
@@ -865,42 +849,42 @@ void __37__FPDFilePresenter__fetchChangeToken__block_invoke(void *a1, void *a2, 
   dispatch_async(v13, block);
 }
 
-uint64_t __37__FPDFilePresenter__fetchChangeToken__block_invoke_2(uint64_t a1)
+uint64_t __37__FPDFilePresenter__fetchChangeToken__block_invoke_2(uint64_t a1, uint64_t a2)
 {
   v25 = *MEMORY[0x1E69E9840];
   v18 = *(a1 + 72);
-  v2 = fp_current_or_default_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = fp_current_or_default_log();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __37__FPDFilePresenter__fetchChangeToken__block_invoke_2_cold_1(&v18);
+    __37__FPDFilePresenter__fetchChangeToken__block_invoke_2_cold_1();
   }
 
-  v3 = (a1 + 32);
+  v4 = (a1 + 32);
   if (*(*(a1 + 32) + 16) != *(a1 + 40))
   {
-    v4 = fp_current_or_default_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    v5 = fp_current_or_default_log();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      __37__FPDFilePresenter__fetchChangeToken__block_invoke_2_cold_2((a1 + 40));
+      __37__FPDFilePresenter__fetchChangeToken__block_invoke_2_cold_2();
     }
 
 LABEL_12:
 
-    goto LABEL_13;
+    return __fp_leave_section_Debug();
   }
 
-  v5 = [*(a1 + 48) fp_isRemoteCrashError];
-  v6 = *v3;
-  if (v5)
+  v6 = [*(a1 + 48) fp_isRemoteCrashError];
+  v7 = *v4;
+  if (v6)
   {
-    [v6 _enumeratorRequestDidFailWithXPCError:*(a1 + 48)];
+    [v7 _enumeratorRequestDidFailWithXPCError:*(a1 + 48)];
   }
 
   else
   {
-    if ((v6[64] & 1) == 0)
+    if ((v7[64] & 1) == 0)
     {
-      v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[ASSERT] ‼️ received changes on active enumerator for stopped presenter %@", *v3, v18];
+      v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[ASSERT] ‼️ received changes on active enumerator for stopped presenter %@", *v4, v18];
       v16 = fp_current_or_default_log();
       if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
       {
@@ -911,13 +895,13 @@ LABEL_12:
       __assert_rtn("-[FPDFilePresenter _fetchChangeToken]_block_invoke", "/Library/Caches/com.apple.xbs/Sources/FileProviderTools/fileproviderd/FPDFilePresenter.m", 411, [v15 UTF8String]);
     }
 
-    v6[65] = 0;
+    v7[65] = 0;
     if (*(a1 + 48))
     {
-      v4 = fp_current_or_default_log();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+      v5 = fp_current_or_default_log();
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
-        v12 = [*(*v3 + 32) fp_prettyDescription];
+        v12 = [*(*v4 + 32) fp_prettyDescription];
         v13 = *(a1 + 48);
         v14 = *(*(a1 + 32) + 48);
         *buf = 138412802;
@@ -926,7 +910,7 @@ LABEL_12:
         v22 = v13;
         v23 = 2112;
         v24 = v14;
-        _os_log_error_impl(&dword_1CEFC7000, v4, OS_LOG_TYPE_ERROR, "[ERROR] no change token returned for %@: %@\n on url: %@", buf, 0x20u);
+        _os_log_error_impl(&dword_1CEFC7000, v5, OS_LOG_TYPE_ERROR, "[ERROR] no change token returned for %@: %@\n on url: %@", buf, 0x20u);
       }
 
       goto LABEL_12;
@@ -948,19 +932,14 @@ LABEL_12:
     }
   }
 
-LABEL_13:
-  result = __fp_leave_section_Debug();
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  return __fp_leave_section_Debug();
 }
 
 - (void)_fetchUpdates
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __33__FPDFilePresenter__fetchUpdates__block_invoke(void *a1, void *a2, void *a3, char a4, void *a5, uint64_t a6, void *a7)
@@ -993,48 +972,47 @@ void __33__FPDFilePresenter__fetchUpdates__block_invoke(void *a1, void *a2, void
   dispatch_async(v17, block);
 }
 
-uint64_t __33__FPDFilePresenter__fetchUpdates__block_invoke_2(uint64_t a1)
+uint64_t __33__FPDFilePresenter__fetchUpdates__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v30 = *MEMORY[0x1E69E9840];
-  v23 = *(a1 + 80);
-  v2 = fp_current_or_default_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v29 = *MEMORY[0x1E69E9840];
+  v22 = *(a1 + 80);
+  v3 = fp_current_or_default_log();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __33__FPDFilePresenter__fetchUpdates__block_invoke_2_cold_1(&v23);
+    __33__FPDFilePresenter__fetchUpdates__block_invoke_2_cold_1();
   }
 
-  v3 = (a1 + 32);
-  v4 = (a1 + 40);
+  v4 = (a1 + 32);
   if (*(*(a1 + 32) + 16) != *(a1 + 40))
   {
     v5 = fp_current_or_default_log();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      __37__FPDFilePresenter__fetchChangeToken__block_invoke_2_cold_2(v4);
+      __37__FPDFilePresenter__fetchChangeToken__block_invoke_2_cold_2();
     }
 
-    goto LABEL_35;
+    return __fp_leave_section_Debug();
   }
 
   v6 = [*(a1 + 48) fp_isRemoteCrashError];
-  v7 = *v3;
+  v7 = *v4;
   if (v6)
   {
     [v7 _enumeratorRequestDidFailWithXPCError:*(a1 + 48)];
-    goto LABEL_35;
+    return __fp_leave_section_Debug();
   }
 
   if ((v7[64] & 1) == 0)
   {
-    v20 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[ASSERT] ‼️ received changes on active enumerator for stopped presenter %@", *v3, v23];
-    v21 = fp_current_or_default_log();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
+    v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[ASSERT] ‼️ received changes on active enumerator for stopped presenter %@", *v4, v22];
+    v20 = fp_current_or_default_log();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
     {
       +[FPDVolume prettyNameForDomain:];
     }
 
-    v22 = v20;
-    __assert_rtn("-[FPDFilePresenter _fetchUpdates]_block_invoke", "/Library/Caches/com.apple.xbs/Sources/FileProviderTools/fileproviderd/FPDFilePresenter.m", 480, [v20 UTF8String]);
+    v21 = v19;
+    __assert_rtn("-[FPDFilePresenter _fetchUpdates]_block_invoke", "/Library/Caches/com.apple.xbs/Sources/FileProviderTools/fileproviderd/FPDFilePresenter.m", 480, [v19 UTF8String]);
   }
 
   v7[65] = 0;
@@ -1044,7 +1022,7 @@ uint64_t __33__FPDFilePresenter__fetchUpdates__block_invoke_2(uint64_t a1)
     v9 = fp_current_or_default_log();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      __33__FPDFilePresenter__fetchUpdates__block_invoke_2_cold_4((a1 + 32));
+      __33__FPDFilePresenter__fetchUpdates__block_invoke_2_cold_4();
     }
 
     if (*(a1 + 96) == 1)
@@ -1076,7 +1054,7 @@ uint64_t __33__FPDFilePresenter__fetchUpdates__block_invoke_2(uint64_t a1)
     v12 = [*(a1 + 48) fp_isFileProviderError:-1002];
   }
 
-  objc_storeStrong(*v3 + 5, *v8);
+  objc_storeStrong(*v4 + 5, *v8);
   if (((*v8 == 0) & v12) == 1)
   {
     v13 = fp_current_or_default_log();
@@ -1094,38 +1072,35 @@ uint64_t __33__FPDFilePresenter__fetchUpdates__block_invoke_2(uint64_t a1)
     v14 = fp_current_or_default_log();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v17 = [*(*v3 + 4) fp_prettyDescription];
-      v18 = *(a1 + 48);
-      v19 = *(*(a1 + 32) + 48);
+      v16 = [*(*v4 + 4) fp_prettyDescription];
+      v17 = *(a1 + 48);
+      v18 = *(*(a1 + 32) + 48);
       *buf = 138412802;
-      v25 = v17;
-      v26 = 2112;
-      v27 = v18;
-      v28 = 2112;
-      v29 = v19;
+      v24 = v16;
+      v25 = 2112;
+      v26 = v17;
+      v27 = 2112;
+      v28 = v18;
       _os_log_error_impl(&dword_1CEFC7000, v14, OS_LOG_TYPE_ERROR, "[ERROR] error when getting changes for %@: %@\n on url: %@", buf, 0x20u);
     }
 
-    if (*(*v3 + 66) == 1)
+    if (*(*v4 + 66) == 1)
     {
-      *(*v3 + 66) = 0;
-      v13 = *(*v3 + 5);
-      *(*v3 + 5) = 0;
+      *(*v4 + 66) = 0;
+      v13 = *(*v4 + 5);
+      *(*v4 + 5) = 0;
 LABEL_34:
 
-      [*v3 _fetchChangeToken];
+      [*v4 _fetchChangeToken];
     }
   }
 
-  else if ((*(*v3 + 66) & 1) != 0 || *(a1 + 96) == 1)
+  else if ((*(*v4 + 66) & 1) != 0 || *(a1 + 96) == 1)
   {
-    [*v3 _fetchUpdates];
+    [*v4 _fetchUpdates];
   }
 
-LABEL_35:
-  result = __fp_leave_section_Debug();
-  v16 = *MEMORY[0x1E69E9840];
-  return result;
+  return __fp_leave_section_Debug();
 }
 
 - (void)dumpStateTo:(id)to
@@ -1197,71 +1172,52 @@ LABEL_11:
 
 - (void)_enumeratorRequestDidFailWithXPCError:(NSObject *)a3 .cold.1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v5 = [a2 fp_prettyDescription];
-  v7 = 138412546;
-  v8 = a1;
+  v6 = 138412546;
+  v7 = a1;
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(&dword_1CEFC7000, a3, OS_LOG_TYPE_DEBUG, "[DEBUG] %@: received error from the enumerator: %@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1CEFC7000, a3, OS_LOG_TYPE_DEBUG, "[DEBUG] %@: received error from the enumerator: %@", &v6, 0x16u);
 }
 
-- (void)receiveUpdatedItems:(uint64_t *)a1 deletedItemsIdentifiers:.cold.1(uint64_t *a1)
+- (void)receiveUpdatedItems:deletedItemsIdentifiers:.cold.1()
 {
-  OUTLINED_FUNCTION_3(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_3(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_1_9();
   OUTLINED_FUNCTION_2_1();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __47__FPDFilePresenter_enumerationResultsDidChange__block_invoke_cold_1(uint64_t a1)
+void __37__FPDFilePresenter__fetchChangeToken__block_invoke_2_cold_1()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = *(a1 + 32);
-  OUTLINED_FUNCTION_2_1();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __37__FPDFilePresenter__fetchChangeToken__block_invoke_2_cold_1(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_3(a1, *MEMORY[0x1E69E9840]);
-  v2 = *(v1 + 32);
-  v3 = *(v1 + 40);
+  OUTLINED_FUNCTION_3(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_1_9();
   OUTLINED_FUNCTION_2_1();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x20u);
-  v9 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-void __37__FPDFilePresenter__fetchChangeToken__block_invoke_2_cold_2(uint64_t *a1)
+void __37__FPDFilePresenter__fetchChangeToken__block_invoke_2_cold_2()
 {
-  OUTLINED_FUNCTION_3(a1, *MEMORY[0x1E69E9840]);
-  v2 = *(*v1 + 16);
+  OUTLINED_FUNCTION_3(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_1_9();
   OUTLINED_FUNCTION_2_1();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __33__FPDFilePresenter__fetchUpdates__block_invoke_2_cold_1(uint64_t *a1)
+void __33__FPDFilePresenter__fetchUpdates__block_invoke_2_cold_1()
 {
-  OUTLINED_FUNCTION_3(a1, *MEMORY[0x1E69E9840]);
-  OUTLINED_FUNCTION_1_2(&dword_1CEFC7000, v1, v2, "[DEBUG] ┳%llx received changes", v3, v4, v5, v6, 0);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(*MEMORY[0x1E69E9840]);
+  LODWORD(v7) = 134217984;
+  *(&v7 + 4) = v0;
+  OUTLINED_FUNCTION_1_2(&dword_1CEFC7000, v1, v2, "[DEBUG] ┳%llx received changes", v3, v4, v5, v6, v7, DWORD2(v7));
 }
 
-void __33__FPDFilePresenter__fetchUpdates__block_invoke_2_cold_4(uint64_t *a1)
+void __33__FPDFilePresenter__fetchUpdates__block_invoke_2_cold_4()
 {
-  OUTLINED_FUNCTION_3(a1, *MEMORY[0x1E69E9840]);
-  v2 = *(v1 + 40);
-  v4 = *v3;
+  OUTLINED_FUNCTION_3(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_1_9();
   OUTLINED_FUNCTION_2_1();
-  _os_log_debug_impl(v5, v6, v7, v8, v9, 0x16u);
-  v10 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 @end

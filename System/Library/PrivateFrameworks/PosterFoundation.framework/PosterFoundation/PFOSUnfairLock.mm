@@ -145,14 +145,13 @@
 
 - (void)performBlockWhileCapturingWeak:(os_log_t)log performBlock:.cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 16);
-  v5 = 138543618;
-  v6 = v3;
-  v7 = 2114;
-  v8 = a2;
-  _os_log_error_impl(&dword_1C269D000, log, OS_LOG_TYPE_ERROR, "PFOSUnfairLock '%{public}@' encountered exception: %{public}@", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138543618;
+  v5 = v3;
+  v6 = 2114;
+  v7 = a2;
+  _os_log_error_impl(&dword_1C269D000, log, OS_LOG_TYPE_ERROR, "PFOSUnfairLock '%{public}@' encountered exception: %{public}@", &v4, 0x16u);
 }
 
 @end

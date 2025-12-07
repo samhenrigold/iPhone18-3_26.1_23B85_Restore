@@ -292,7 +292,7 @@
 + (id)p_unsupportedPlainTextTypes
 {
   identifier = [UTTypeVCard identifier];
-  v3 = sub_1000ED728();
+  v3 = sub_1000ED728(identifier);
   identifier2 = [v3 identifier];
   v8[1] = identifier2;
   identifier3 = [UTTypeSVG identifier];
@@ -307,7 +307,7 @@
   identifier = [UTTypeHEIC identifier];
   identifier2 = [UTTypeHEIF identifier];
   v8[1] = identifier2;
-  v4 = sub_1000EED64();
+  v4 = sub_1000EED64(identifier2);
   identifier3 = [v4 identifier];
   v8[2] = identifier3;
   v6 = [NSArray arrayWithObjects:v8 count:3];
@@ -319,7 +319,7 @@
 {
   v5[0] = UTTypeHEIC;
   v5[1] = UTTypeHEIF;
-  v2 = sub_1000EED64();
+  v2 = sub_1000EED64(self);
   v5[2] = v2;
   v3 = [NSArray arrayWithObjects:v5 count:3];
 

@@ -1,5257 +1,281 @@
-uint64_t partial apply for specialized closure #3 in MLSoundClassifier.init<A, B>(training:validation:parameters:)(uint64_t a1)
+uint64_t AnyColumn.convertedToStrings()()
 {
-  v12 = v1;
-  v11 = v2;
-  v3 = *(type metadata accessor for MLSoundClassifier.Classifier(0) - 8);
-  v4 = ~*(v3 + 80) & (*(v3 + 80) + 16);
-  v5 = (*(v3 + 64) + v4 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v6 = (v5 + 15) & 0xFFFFFFFFFFFFFFF8;
-  v7 = (v6 + 15) & 0xFFFFFFFFFFFFFFF8;
-  v8 = *(*(type metadata accessor for TrainingTablePrinter(0) - 8) + 80);
-  v13 = *(v12 + v7);
-  v9 = swift_task_alloc(32);
-  *(v11 + 16) = v9;
-  *v9 = v11;
-  v9[1] = partial apply for closure #1 in MLActivityClassifier.init(trainingData:featureColumns:labelColumn:recordingFileColumn:parameters:);
-  return ((&async function pointer to specialized closure #3 in MLSoundClassifier.init<A, B>(training:validation:parameters:) + async function pointer to specialized closure #3 in MLSoundClassifier.init<A, B>(training:validation:parameters:)))(a1, v12 + v4, v12 + v5, v12 + v6, v13, v12 + ((v8 + v7 + 8) & ~v8));
-}
-
-uint64_t sub_2486A9()
-{
-  v30 = type metadata accessor for MLSoundClassifier.Classifier(0);
-  v1 = *(v30 - 8);
-  v2 = *(v1 + 80);
-  v3 = ~*(v1 + 80) & (v2 + 16);
-  v29 = *(v1 + 64);
-  v28 = type metadata accessor for TrainingTablePrinter(0);
-  v4 = *(v28 - 8);
-  v5 = *(v4 + 80);
-  v27 = *(v4 + 64);
-  v6 = v3 + v0;
-  v7 = type metadata accessor for MLSoundClassifier.ModelParameters.ValidationData(0);
-  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload(v3 + v0, v7);
-  if (EnumCaseMultiPayload == 2)
-  {
-LABEL_5:
-    v11 = *v6;
-LABEL_6:
-    v11;
-  }
-
-  else if (EnumCaseMultiPayload == 1)
-  {
-    v9 = type metadata accessor for MLSoundClassifier.DataSource(0);
-    switch(swift_getEnumCaseMultiPayload(v3 + v0, v9))
-    {
-      case 0u:
-      case 1u:
-        v10 = type metadata accessor for URL(0);
-        (*(*(v10 - 8) + 8))(v3 + v0, v10);
-        break;
-      case 2u:
-        goto LABEL_5;
-      case 3u:
-        outlined consume of Result<_DataTable, Error>(*v6, *(v6 + 8));
-        *(v6 + 24);
-        v11 = *(v6 + 40);
-        goto LABEL_6;
-      case 4u:
-        v26 = type metadata accessor for DataFrame(0);
-        (*(*(v26 - 8) + 8))(v3 + v0, v26);
-        v31 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (DataFrame, featureColumn: String, labelColumn: String, parameters: MLSoundClassifier.FeatureExtractionParameters));
-        *(v6 + *(v31 + 48) + 8);
-        v11 = *(v6 + *(v31 + 64) + 8);
-        goto LABEL_6;
-      default:
-        break;
-    }
-  }
-
-  v12 = *(type metadata accessor for MLSoundClassifier.ModelParameters(0) + 28);
-  if (*(v6 + v12 + 24))
-  {
-    __swift_destroy_boxed_opaque_existential_1Tm((v6 + v12));
-  }
-
-  v13 = *(v30 + 20) + v6;
-  v14 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>);
-  v15 = &demangling cache variable for type metadata for LogisticRegressionClassifier<Float, String>;
-  if (swift_getEnumCaseMultiPayload(v13, v14) == 1)
-  {
-    v15 = &demangling cache variable for type metadata for FullyConnectedNetworkClassifier<Float, String>;
-  }
-
-  v16 = __swift_instantiateConcreteTypeFromMangledName(v15);
-  (*(*(v16 - 8) + 8))(v13, v16);
-  v17 = v5 | v2 | 7;
-  v18 = (v3 + v29 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v19 = (v18 + 15) & 0xFFFFFFFFFFFFFFF8;
-  v20 = (v5 + v19 + 8) & ~v5;
-  v21 = v20 + v27;
-  *(v0 + v18);
-  v22 = *(v0 + v19);
-
-  v23 = v0 + v20;
-  v24 = type metadata accessor for Date(0);
-  (*(*(v24 - 8) + 8))(v23, v24);
-
-  *(*(v28 + 24) + v23);
-  return swift_deallocObject(v0, v21, v17);
-}
-
-uint64_t partial apply for specialized closure #4 in MLSoundClassifier.init<A, B>(training:validation:parameters:)(uint64_t a1)
-{
-  v10 = v1;
-  v3 = *(type metadata accessor for MLSoundClassifier.Classifier(0) - 8);
-  v4 = ~*(v3 + 80) & (*(v3 + 80) + 16);
-  v5 = (*(v3 + 64) + v4 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v6 = (v5 + 15) & 0xFFFFFFFFFFFFFFF8;
-  v7 = *(*(type metadata accessor for TrainingTablePrinter(0) - 8) + 80);
-  v11 = *(v10 + v6);
-  v8 = swift_task_alloc(32);
-  *(v2 + 16) = v8;
-  *v8 = v2;
-  v8[1] = partial apply for closure #1 in MLActivityClassifier.init(trainingData:featureColumns:labelColumn:recordingFileColumn:parameters:);
-  return ((&async function pointer to specialized closure #4 in MLSoundClassifier.init<A, B>(training:validation:parameters:) + async function pointer to specialized closure #4 in MLSoundClassifier.init<A, B>(training:validation:parameters:)))(a1, v10 + v4, v10 + v5, v11, v10 + ((v7 + v6 + 8) & ~v7));
-}
-
-char _ss11_StringGutsV11withCStringyxxSPys4Int8VGKXEKlFxSRyAEGKXEfU_Sb_TG5TA_0()
-{
-  v3 = v2;
-  v4 = v0;
-  v5 = *(v2 + 24);
-  result = (*(v3 + 16))();
-  if (!v1)
-  {
-    result = v7;
-    *v4 = v7;
-  }
-
-  return result;
-}
-
-void *MLWordEmbedding.ModelParameters.init(language:revision:)(uint64_t a1, uint64_t a2)
-{
-  *result = a1;
-  result[1] = a2;
-  return result;
-}
-
-Swift::Void __swiftcall __spoils<cf,zf,sf,of,pf,rax,rdx,rcx,rdi,rsi,r8,r9,r10,r11,r12,xmm0,xmm1,xmm2,xmm3,xmm4,xmm5,xmm6,xmm7> MLWordEmbedding.ModelParameters.validateRevision()()
-{
-  v20 = type metadata accessor for IndexSet(0);
-  v19 = *(v20 - 8);
-  v2 = *(v19 + 64);
-  v3 = alloca(v2);
-  v4 = alloca(v2);
-  v5 = *v1;
-  v18[0] = *(v1 + 8);
-  v17 = v0;
-  if (v5)
-  {
-    v6 = v5;
-  }
-
-  else
-  {
-    v6 = NLLanguageUndetermined;
-    v5 = 0;
-  }
-
-  v7 = objc_opt_self(NLEmbedding);
-  v5;
-  v8 = [v7 supportedRevisionsForLanguage:v6];
-  v9 = v8;
-
-  static IndexSet._unconditionallyBridgeFromObjectiveC(_:)(v9);
-  v10 = v18[0];
-  if (!IndexSet.contains(_:)(v18[0]))
-  {
-    *&v15 = 0;
-    *(&v15 + 1) = 0xE000000000000000;
-    _StringGuts.grow(_:)(29);
-    *(&v15 + 1);
-    *&v15 = 0x6E6F697369766552;
-    *(&v15 + 1) = 0xE900000000000020;
-    v16 = v10;
-    v11._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter(&type metadata for Int, &protocol witness table for Int);
-    object = v11._object;
-    String.append(_:)(v11);
-    object;
-    v13._object = "und in the model." + 0x8000000000000000;
-    v13._countAndFlagsBits = 0xD000000000000012;
-    String.append(_:)(v13);
-    *v18 = v15;
-    v13._object = lazy protocol witness table accessor for type MLCreateError and conformance MLCreateError();
-    swift_allocError(&type metadata for MLCreateError, v13._object, 0, 0);
-    *v14 = *v18;
-    *(v14 + 16) = 0;
-    *(v14 + 32) = 0;
-    *(v14 + 48) = 0;
-    swift_willThrow(&type metadata for MLCreateError, v13._object);
-  }
-
-  (*(v19 + 8))(&v15, v20);
-}
-
-uint64_t MLWordEmbedding.ModelParameters.description.getter()
-{
-  v1 = v0[1];
-  v9 = *v0;
-  v9;
-  v2 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for NLLanguage?);
-  v9 = String.init<A>(describing:)(&v9, v2);
-  v10 = v3;
-  v4._object = 0xE100000000000000;
-  v4._countAndFlagsBits = 10;
-  String.append(_:)(v4);
-  v4._countAndFlagsBits = v9;
-  v5 = v10;
-  v9 = 0x65676175676E614CLL;
-  v10 = 0xEA0000000000203ALL;
-  v4._object = v5;
-  String.append(_:)(v4);
-  v5;
-  v8._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter(&type metadata for Int, &protocol witness table for Int);
-  v8._object = v6;
-  v4._countAndFlagsBits = 10;
-  v4._object = 0xE100000000000000;
-  String.append(_:)(v4);
-  String.append(_:)(v8);
-  v8._object;
-  v4._countAndFlagsBits = 0x6E6F697369766552;
-  v4._object = 0xEA0000000000203ALL;
-  String.append(_:)(v4);
-  0xEA0000000000203ALL;
-  return v9;
-}
-
-id MLWordEmbedding.ModelParameters.language.getter()
-{
-  v1 = *v0;
-  *v0;
-  return v1;
-}
-
-uint64_t MLWordEmbedding.ModelParameters.debugDescription.getter()
-{
-  v4 = *v0;
-  v1 = *v0;
-  v2 = MLWordEmbedding.ModelParameters.description.getter();
-
-  return v2;
-}
-
-void *MLWordEmbedding.ModelParameters.playgroundDescription.getter()
-{
-  v2 = v0;
-  v8 = *v1;
-  v3 = *v1;
-  v4 = MLWordEmbedding.ModelParameters.description.getter();
-  v6 = v5;
-
-  result = &type metadata for String;
-  v2[3] = &type metadata for String;
-  *v2 = v4;
-  v2[1] = v6;
-  return result;
-}
-
-void *initializeBufferWithCopyOfBuffer for MLWordEmbedding.ModelParameters(void *a1, uint64_t a2)
-{
-  v3 = *a2;
-  *a1 = *a2;
-  a1[1] = *(a2 + 8);
-  v3;
-  return a1;
-}
-
-uint64_t assignWithCopy for MLWordEmbedding.ModelParameters(uint64_t a1, uint64_t a2)
-{
-  v3 = *a1;
-  v4 = *a2;
-  *a1 = *a2;
-  v4;
-
-  *(a1 + 8) = *(a2 + 8);
-  return a1;
-}
-
-uint64_t assignWithTake for MLWordEmbedding.ModelParameters(uint64_t a1, void *a2)
-{
-  v3 = *a1;
-  *a1 = *a2;
-
-  *(a1 + 8) = a2[1];
-  return a1;
-}
-
-uint64_t getEnumTagSinglePayload for MLWordEmbedding.ModelParameters(uint64_t a1, unsigned int a2)
-{
-  if (a2)
-  {
-    if (a2 >= 0x7FFFFFFF && *(a1 + 16))
-    {
-      v2 = *a1 + 2147483646;
-    }
-
-    else
-    {
-      v3 = -1;
-      if (((*a1 >> 1) - 1) >= 0)
-      {
-        v3 = (*a1 >> 1) - 1;
-      }
-
-      v2 = (*a1 & 0xFFFFFFFF00000001) != 0 ? -1 : v3;
-    }
-  }
-
-  else
-  {
-    v2 = -1;
-  }
-
-  return (v2 + 1);
-}
-
-void storeEnumTagSinglePayload for MLWordEmbedding.ModelParameters(uint64_t a1, unsigned int a2, unsigned int a3)
-{
-  if (a2 > 0x7FFFFFFE)
-  {
-    *(a1 + 8) = 0;
-    *a1 = a2 - 0x7FFFFFFF;
-    if (a3 >= 0x7FFFFFFF)
-    {
-      *(a1 + 16) = 1;
-    }
-  }
-
-  else
-  {
-    if (a3 >= 0x7FFFFFFF)
-    {
-      *(a1 + 16) = 0;
-    }
-
-    if (a2)
-    {
-      *a1 = 2 * a2;
-    }
-  }
-}
-
-char *initializeBufferWithCopyOfBuffer for MLSoundClassifier.Classifier(char *__dst, char *__src, uint64_t a3)
-{
-  v4 = __dst;
-  v5 = *(*(a3 - 8) + 80);
-  if ((v5 & 0x20000) != 0)
-  {
-    v13 = *__src;
-    *v4 = *__src;
-    v4 = (v13 + ((v5 + 16) & ~v5));
-  }
-
-  else
-  {
-    v7 = type metadata accessor for MLSoundClassifier.ModelParameters.ValidationData(0);
-    EnumCaseMultiPayload = swift_getEnumCaseMultiPayload(__src, v7);
-    if (EnumCaseMultiPayload == 2)
-    {
-      v14 = *__src;
-      *v4 = *__src;
-      v14;
-      swift_storeEnumTagMultiPayload(v4, v7, 2);
-    }
-
-    else if (EnumCaseMultiPayload == 1)
-    {
-      v9 = type metadata accessor for MLSoundClassifier.DataSource(0);
-      switch(swift_getEnumCaseMultiPayload(__src, v9))
-      {
-        case 0u:
-          v10 = type metadata accessor for URL(0);
-          (*(*(v10 - 8) + 16))(__dst, __src, v10);
-          v11 = v9;
-          v12 = 0;
-          goto LABEL_15;
-        case 1u:
-          v28 = type metadata accessor for URL(0);
-          (*(*(v28 - 8) + 16))(__dst, __src, v28);
-          v47 = 1;
-          goto LABEL_14;
-        case 2u:
-          v23 = *__src;
-          *v4 = *__src;
-          v23;
-          v47 = 2;
-LABEL_14:
-          v12 = v47;
-          __dst = v4;
-          v11 = v9;
-          goto LABEL_15;
-        case 3u:
-          v49 = v9;
-          v24 = *__src;
-          v48 = __src[8];
-          outlined copy of Result<_DataTable, Error>(*__src, v48);
-          *__dst = v24;
-          __dst[8] = v48;
-          *(__dst + 2) = *(__src + 2);
-          v25 = *(__src + 3);
-          *(v4 + 3) = v25;
-          *(v4 + 4) = *(__src + 4);
-          v26 = *(__src + 5);
-          *(v4 + 5) = v26;
-          v27 = *(__src + 4);
-          *(v4 + 3) = *(__src + 3);
-          *(v4 + 4) = v27;
-          v4[80] = __src[80];
-          v25;
-          v26;
-          v46 = 3;
-          goto LABEL_12;
-        case 4u:
-          v15 = type metadata accessor for DataFrame(0);
-          (*(*(v15 - 8) + 16))(__dst, __src, v15);
-          v16 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (DataFrame, featureColumn: String, labelColumn: String, parameters: MLSoundClassifier.FeatureExtractionParameters));
-          v17 = v16[12];
-          *&__dst[v17] = *&__src[v17];
-          v18 = *&__src[v17 + 8];
-          *&v4[v17 + 8] = v18;
-          v19 = v16[16];
-          *&v4[v19] = *&__src[v19];
-          v49 = v9;
-          v20 = *&__src[v19 + 8];
-          *&v4[v19 + 8] = v20;
-          v21 = v16[20];
-          v4[v21 + 32] = __src[v21 + 32];
-          v22 = *&__src[v21];
-          *&v4[v21 + 16] = *&__src[v21 + 16];
-          *&v4[v21] = v22;
-          v18;
-          v20;
-          v46 = 4;
-LABEL_12:
-          v12 = v46;
-          __dst = v4;
-          v11 = v49;
-LABEL_15:
-          swift_storeEnumTagMultiPayload(__dst, v11, v12);
-          swift_storeEnumTagMultiPayload(v4, v7, 1);
-          break;
-        case 5u:
-          JUMPOUT(0x249378);
-      }
-    }
-
-    else
-    {
-      memcpy(__dst, __src, *(*(v7 - 8) + 64));
-    }
-
-    v29 = type metadata accessor for MLSoundClassifier.ModelParameters(0);
-    *&v4[v29[5]] = *&__src[v29[5]];
-    *&v4[v29[6]] = *&__src[v29[6]];
-    v30 = v29[7];
-    v31 = &v4[v30];
-    v32 = &__src[v30];
-    v33 = *&__src[v30 + 24];
-    if (v33)
-    {
-      *(v31 + 3) = v33;
-      (**(v33 - 8))(v31, v32);
-    }
-
-    else
-    {
-      v34 = *v32;
-      *(v31 + 1) = *(v32 + 1);
-      *v31 = v34;
-    }
-
-    v35 = v29[8];
-    v4[v35 + 8] = __src[v35 + 8];
-    *&v4[v35] = *&__src[v35];
-    *&v4[v29[9]] = *&__src[v29[9]];
-    v36 = *(a3 + 20);
-    v37 = &v4[v36];
-    v38 = &__src[v36];
-    v39 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>);
-    if (swift_getEnumCaseMultiPayload(v38, v39) == 1)
-    {
-      v40 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for FullyConnectedNetworkClassifier<Float, String>);
-      (*(*(v40 - 8) + 16))(v37, v38, v40);
-      v41 = 1;
-      v42 = v37;
-      v43 = v39;
-    }
-
-    else
-    {
-      v44 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for LogisticRegressionClassifier<Float, String>);
-      (*(*(v44 - 8) + 16))(v37, v38, v44);
-      v42 = v37;
-      v43 = v39;
-      v41 = 0;
-    }
-
-    swift_storeEnumTagMultiPayload(v42, v43, v41);
-  }
-
-  return v4;
-}
-
-uint64_t destroy for MLSoundClassifier.Classifier(uint64_t a1, uint64_t a2)
-{
-  v3 = type metadata accessor for MLSoundClassifier.ModelParameters.ValidationData(0);
-  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload(a1, v3);
-  if (EnumCaseMultiPayload == 2)
-  {
-LABEL_5:
-    v7 = *a1;
-LABEL_6:
-    v7;
-  }
-
-  else if (EnumCaseMultiPayload == 1)
-  {
-    v5 = type metadata accessor for MLSoundClassifier.DataSource(0);
-    switch(swift_getEnumCaseMultiPayload(a1, v5))
-    {
-      case 0u:
-      case 1u:
-        v6 = type metadata accessor for URL(0);
-        (*(*(v6 - 8) + 8))(a1, v6);
-        break;
-      case 2u:
-        goto LABEL_5;
-      case 3u:
-        outlined consume of Result<_DataTable, Error>(*a1, *(a1 + 8));
-        *(a1 + 24);
-        v7 = *(a1 + 40);
-        goto LABEL_6;
-      case 4u:
-        v14 = type metadata accessor for DataFrame(0);
-        (*(*(v14 - 8) + 8))(a1, v14);
-        v15 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (DataFrame, featureColumn: String, labelColumn: String, parameters: MLSoundClassifier.FeatureExtractionParameters));
-        *(a1 + *(v15 + 48) + 8);
-        v7 = *(a1 + *(v15 + 64) + 8);
-        goto LABEL_6;
-      default:
-        break;
-    }
-  }
-
-  v8 = *(type metadata accessor for MLSoundClassifier.ModelParameters(0) + 28);
-  if (*(a1 + v8 + 24))
-  {
-    __swift_destroy_boxed_opaque_existential_1Tm((a1 + v8));
-  }
-
-  v9 = *(a2 + 20) + a1;
-  v10 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>);
-  v11 = &demangling cache variable for type metadata for LogisticRegressionClassifier<Float, String>;
-  if (swift_getEnumCaseMultiPayload(v9, v10) == 1)
-  {
-    v11 = &demangling cache variable for type metadata for FullyConnectedNetworkClassifier<Float, String>;
-  }
-
-  v12 = __swift_instantiateConcreteTypeFromMangledName(v11);
-  return (*(*(v12 - 8) + 8))(v9, v12);
-}
-
-char *initializeWithCopy for MLSoundClassifier.Classifier(char *__dst, char *__src, uint64_t a3)
-{
-  v5 = __dst;
-  v6 = type metadata accessor for MLSoundClassifier.ModelParameters.ValidationData(0);
-  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload(__src, v6);
-  if (EnumCaseMultiPayload == 2)
-  {
-    v12 = *__src;
-    *v5 = *__src;
-    v12;
-    swift_storeEnumTagMultiPayload(v5, v6, 2);
-  }
-
-  else if (EnumCaseMultiPayload == 1)
-  {
-    v8 = type metadata accessor for MLSoundClassifier.DataSource(0);
-    switch(swift_getEnumCaseMultiPayload(__src, v8))
-    {
-      case 0u:
-        v9 = type metadata accessor for URL(0);
-        (*(*(v9 - 8) + 16))(__dst, __src, v9);
-        v10 = v8;
-        v11 = 0;
-        goto LABEL_13;
-      case 1u:
-        v26 = type metadata accessor for URL(0);
-        (*(*(v26 - 8) + 16))(__dst, __src, v26);
-        v44 = 1;
-        goto LABEL_12;
-      case 2u:
-        v21 = *__src;
-        *v5 = *__src;
-        v21;
-        v44 = 2;
-LABEL_12:
-        v11 = v44;
-        __dst = v5;
-        v10 = v8;
-        goto LABEL_13;
-      case 3u:
-        v46 = v8;
-        v22 = *__src;
-        v45 = __src[8];
-        outlined copy of Result<_DataTable, Error>(*__src, v45);
-        *__dst = v22;
-        __dst[8] = v45;
-        *(__dst + 2) = *(__src + 2);
-        v23 = *(__src + 3);
-        *(v5 + 3) = v23;
-        *(v5 + 4) = *(__src + 4);
-        v24 = *(__src + 5);
-        *(v5 + 5) = v24;
-        v25 = *(__src + 4);
-        *(v5 + 3) = *(__src + 3);
-        *(v5 + 4) = v25;
-        v5[80] = __src[80];
-        v23;
-        v24;
-        v43 = 3;
-        goto LABEL_10;
-      case 4u:
-        v13 = type metadata accessor for DataFrame(0);
-        (*(*(v13 - 8) + 16))(__dst, __src, v13);
-        v14 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (DataFrame, featureColumn: String, labelColumn: String, parameters: MLSoundClassifier.FeatureExtractionParameters));
-        v15 = v14[12];
-        *&__dst[v15] = *&__src[v15];
-        v16 = *&__src[v15 + 8];
-        *&v5[v15 + 8] = v16;
-        v17 = v14[16];
-        *&v5[v17] = *&__src[v17];
-        v46 = v8;
-        v18 = *&__src[v17 + 8];
-        *&v5[v17 + 8] = v18;
-        v19 = v14[20];
-        v5[v19 + 32] = __src[v19 + 32];
-        v20 = *&__src[v19];
-        *&v5[v19 + 16] = *&__src[v19 + 16];
-        *&v5[v19] = v20;
-        v16;
-        v18;
-        v43 = 4;
-LABEL_10:
-        v11 = v43;
-        __dst = v5;
-        v10 = v46;
-LABEL_13:
-        swift_storeEnumTagMultiPayload(__dst, v10, v11);
-        swift_storeEnumTagMultiPayload(v5, v6, 1);
-        break;
-    }
-  }
-
-  else
-  {
-    memcpy(__dst, __src, *(*(v6 - 8) + 64));
-  }
-
-  v27 = type metadata accessor for MLSoundClassifier.ModelParameters(0);
-  *&v5[v27[5]] = *&__src[v27[5]];
-  *&v5[v27[6]] = *&__src[v27[6]];
-  v28 = v27[7];
-  v29 = &v5[v28];
-  v30 = &__src[v28];
-  v31 = *&__src[v28 + 24];
-  if (v31)
-  {
-    *(v29 + 3) = v31;
-    (**(v31 - 8))(v29, v30);
-  }
-
-  else
-  {
-    v32 = *v30;
-    *(v29 + 1) = *(v30 + 1);
-    *v29 = v32;
-  }
-
-  v33 = v27[8];
-  v5[v33 + 8] = __src[v33 + 8];
-  *&v5[v33] = *&__src[v33];
-  *&v5[v27[9]] = *&__src[v27[9]];
-  v34 = *(a3 + 20);
-  v35 = &v5[v34];
-  v36 = &__src[v34];
-  v37 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>);
-  v38 = swift_getEnumCaseMultiPayload(v36, v37);
-  v39 = v38 == 1;
-  v40 = &demangling cache variable for type metadata for LogisticRegressionClassifier<Float, String>;
-  if (v38 == 1)
-  {
-    v40 = &demangling cache variable for type metadata for FullyConnectedNetworkClassifier<Float, String>;
-  }
-
-  v41 = __swift_instantiateConcreteTypeFromMangledName(v40);
-  (*(*(v41 - 8) + 16))(v35, v36, v41);
-  swift_storeEnumTagMultiPayload(v35, v37, v39);
-  return v5;
-}
-
-char *assignWithCopy for MLSoundClassifier.Classifier(char *__dst, char *__src, uint64_t a3)
-{
-  v4 = __dst;
-  if (__dst != __src)
-  {
-    outlined destroy of MLActivityClassifier.ModelParameters(__dst, type metadata accessor for MLSoundClassifier.ModelParameters.ValidationData);
-    v5 = type metadata accessor for MLSoundClassifier.ModelParameters.ValidationData(0);
-    EnumCaseMultiPayload = swift_getEnumCaseMultiPayload(__src, v5);
-    if (EnumCaseMultiPayload == 2)
-    {
-      v11 = *__src;
-      *v4 = *__src;
-      v11;
-      swift_storeEnumTagMultiPayload(v4, v5, 2);
-    }
-
-    else if (EnumCaseMultiPayload == 1)
-    {
-      v7 = type metadata accessor for MLSoundClassifier.DataSource(0);
-      switch(swift_getEnumCaseMultiPayload(__src, v7))
-      {
-        case 0u:
-          v8 = type metadata accessor for URL(0);
-          (*(*(v8 - 8) + 16))(__dst, __src, v8);
-          v9 = v7;
-          v10 = 0;
-          goto LABEL_13;
-        case 1u:
-          v26 = type metadata accessor for URL(0);
-          (*(*(v26 - 8) + 16))(__dst, __src, v26);
-          v43 = 1;
-          goto LABEL_12;
-        case 2u:
-          v20 = *__src;
-          *v4 = *__src;
-          v20;
-          v43 = 2;
-          goto LABEL_12;
-        case 3u:
-          v21 = *__src;
-          v45 = v7;
-          v22 = __src[8];
-          outlined copy of Result<_DataTable, Error>(*__src, v22);
-          *__dst = v21;
-          __dst[8] = v22;
-          *(__dst + 2) = *(__src + 2);
-          v23 = *(__src + 3);
-          *(v4 + 3) = v23;
-          *(v4 + 4) = *(__src + 4);
-          v24 = *(__src + 5);
-          *(v4 + 5) = v24;
-          v25 = *(__src + 4);
-          *(v4 + 3) = *(__src + 3);
-          *(v4 + 4) = v25;
-          v4[80] = __src[80];
-          v23;
-          v24;
-          v10 = 3;
-          __dst = v4;
-          v9 = v45;
-          goto LABEL_13;
-        case 4u:
-          v12 = type metadata accessor for DataFrame(0);
-          (*(*(v12 - 8) + 16))(__dst, __src, v12);
-          v13 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (DataFrame, featureColumn: String, labelColumn: String, parameters: MLSoundClassifier.FeatureExtractionParameters));
-          v14 = v13[12];
-          *&__dst[v14] = *&__src[v14];
-          v15 = *&__src[v14 + 8];
-          *&v4[v14 + 8] = v15;
-          v16 = v13[16];
-          *&v4[v16] = *&__src[v16];
-          v17 = *&__src[v16 + 8];
-          *&v4[v16 + 8] = v17;
-          v18 = v13[20];
-          v4[v18 + 32] = __src[v18 + 32];
-          v19 = *&__src[v18];
-          *&v4[v18 + 16] = *&__src[v18 + 16];
-          *&v4[v18] = v19;
-          v15;
-          v17;
-          v43 = 4;
-LABEL_12:
-          v10 = v43;
-          __dst = v4;
-          v9 = v7;
-LABEL_13:
-          swift_storeEnumTagMultiPayload(__dst, v9, v10);
-          swift_storeEnumTagMultiPayload(v4, v5, 1);
-          break;
-        case 5u:
-          JUMPOUT(0x249B10);
-      }
-    }
-
-    else
-    {
-      memcpy(__dst, __src, *(*(v5 - 8) + 64));
-    }
-  }
-
-  v27 = type metadata accessor for MLSoundClassifier.ModelParameters(0);
-  *&v4[v27[5]] = *&__src[v27[5]];
-  *&v4[v27[6]] = *&__src[v27[6]];
-  v28 = v27[7];
-  v29 = &v4[v28];
-  v30 = &__src[v28];
-  v31 = *&__src[v28 + 24];
-  if (*&v4[v28 + 24])
-  {
-    if (v31)
-    {
-      __swift_assign_boxed_opaque_existential_0(&v4[v28], &__src[v28]);
-      goto LABEL_21;
-    }
-
-    __swift_destroy_boxed_opaque_existential_1Tm(&v4[v28]);
-  }
-
-  else if (v31)
-  {
-    *(v29 + 3) = v31;
-    (**(v31 - 8))(v29, v30);
-    goto LABEL_21;
-  }
-
-  v32 = *v30;
-  *(v29 + 1) = *(v30 + 1);
-  *v29 = v32;
-LABEL_21:
-  v33 = v27[8];
-  v4[v33 + 8] = __src[v33 + 8];
-  *&v4[v33] = *&__src[v33];
-  *&v4[v27[9]] = *&__src[v27[9]];
-  if (v4 != __src)
-  {
-    v34 = *(a3 + 20);
-    v35 = &__src[v34];
-    v36 = &v4[v34];
-    outlined destroy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(v36, &demangling cache variable for type metadata for Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>);
-    v37 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>);
-    v38 = swift_getEnumCaseMultiPayload(v35, v37);
-    v39 = v38 == 1;
-    v40 = &demangling cache variable for type metadata for LogisticRegressionClassifier<Float, String>;
-    if (v38 == 1)
-    {
-      v40 = &demangling cache variable for type metadata for FullyConnectedNetworkClassifier<Float, String>;
-    }
-
-    v41 = __swift_instantiateConcreteTypeFromMangledName(v40);
-    (*(*(v41 - 8) + 16))(v36, v35, v41);
-    swift_storeEnumTagMultiPayload(v36, v37, v39);
-  }
-
-  return v4;
-}
-
-char *initializeWithTake for MLSoundClassifier.Classifier(char *__dst, char *__src, uint64_t a3)
-{
-  v6 = type metadata accessor for MLSoundClassifier.ModelParameters.ValidationData(0);
-  if (swift_getEnumCaseMultiPayload(__src, v6) != 1)
-  {
-    memcpy(__dst, __src, *(*(v6 - 8) + 64));
-    goto LABEL_13;
-  }
-
-  v7 = type metadata accessor for MLSoundClassifier.DataSource(0);
-  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload(__src, v7);
-  if (EnumCaseMultiPayload == 4)
-  {
-    v13 = type metadata accessor for DataFrame(0);
-    (*(*(v13 - 8) + 32))(__dst, __src, v13);
-    v14 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (DataFrame, featureColumn: String, labelColumn: String, parameters: MLSoundClassifier.FeatureExtractionParameters));
-    *&__dst[v14[12]] = *&__src[v14[12]];
-    *&__dst[v14[16]] = *&__src[v14[16]];
-    v15 = v14[20];
-    v16 = *&__src[v15 + 16];
-    *&__dst[v15] = *&__src[v15];
-    *&__dst[v15 + 16] = v16;
-    __dst[v15 + 32] = __src[v15 + 32];
-    v30 = 4;
-    goto LABEL_9;
-  }
-
-  if (EnumCaseMultiPayload == 1)
-  {
-    v12 = type metadata accessor for URL(0);
-    (*(*(v12 - 8) + 32))(__dst, __src, v12);
-    v30 = 1;
-LABEL_9:
-    v11 = v30;
-    v10 = v7;
-    goto LABEL_10;
-  }
-
-  if (EnumCaseMultiPayload)
-  {
-    memcpy(__dst, __src, *(*(v7 - 8) + 64));
-    goto LABEL_12;
-  }
-
-  v9 = type metadata accessor for URL(0);
-  (*(*(v9 - 8) + 32))(__dst, __src, v9);
-  v10 = v7;
-  v11 = 0;
-LABEL_10:
-  swift_storeEnumTagMultiPayload(__dst, v10, v11);
-LABEL_12:
-  swift_storeEnumTagMultiPayload(__dst, v6, 1);
-LABEL_13:
-  v17 = type metadata accessor for MLSoundClassifier.ModelParameters(0);
-  *&__dst[v17[5]] = *&__src[v17[5]];
-  *&__dst[v17[6]] = *&__src[v17[6]];
-  v18 = v17[7];
-  v19 = *&__src[v18];
-  *&__dst[v18 + 16] = *&__src[v18 + 16];
-  *&__dst[v18] = v19;
-  v20 = v17[8];
-  *&__dst[v20] = *&__src[v20];
-  __dst[v20 + 8] = __src[v20 + 8];
-  *&__dst[v17[9]] = *&__src[v17[9]];
-  v21 = *(a3 + 20);
-  v22 = &__dst[v21];
-  v23 = &__src[v21];
-  v24 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>);
-  v25 = swift_getEnumCaseMultiPayload(v23, v24);
-  v26 = v25 == 1;
-  v27 = &demangling cache variable for type metadata for LogisticRegressionClassifier<Float, String>;
-  if (v25 == 1)
-  {
-    v27 = &demangling cache variable for type metadata for FullyConnectedNetworkClassifier<Float, String>;
-  }
-
-  v28 = __swift_instantiateConcreteTypeFromMangledName(v27);
-  (*(*(v28 - 8) + 32))(v22, v23, v28);
-  swift_storeEnumTagMultiPayload(v22, v24, v26);
-  return __dst;
-}
-
-char *assignWithTake for MLSoundClassifier.Classifier(char *__dst, char *__src, uint64_t a3)
-{
-  if (__dst != __src)
-  {
-    outlined destroy of MLActivityClassifier.ModelParameters(__dst, type metadata accessor for MLSoundClassifier.ModelParameters.ValidationData);
-    v5 = type metadata accessor for MLSoundClassifier.ModelParameters.ValidationData(0);
-    if (swift_getEnumCaseMultiPayload(__src, v5) != 1)
-    {
-      memcpy(__dst, __src, *(*(v5 - 8) + 64));
-      goto LABEL_14;
-    }
-
-    v6 = type metadata accessor for MLSoundClassifier.DataSource(0);
-    EnumCaseMultiPayload = swift_getEnumCaseMultiPayload(__src, v6);
-    if (EnumCaseMultiPayload == 4)
-    {
-      v12 = type metadata accessor for DataFrame(0);
-      (*(*(v12 - 8) + 32))(__dst, __src, v12);
-      v13 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (DataFrame, featureColumn: String, labelColumn: String, parameters: MLSoundClassifier.FeatureExtractionParameters));
-      *&__dst[v13[12]] = *&__src[v13[12]];
-      *&__dst[v13[16]] = *&__src[v13[16]];
-      v14 = v13[20];
-      v15 = *&__src[v14 + 16];
-      *&__dst[v14] = *&__src[v14];
-      *&__dst[v14 + 16] = v15;
-      __dst[v14 + 32] = __src[v14 + 32];
-      v31 = 4;
-    }
-
-    else
-    {
-      if (EnumCaseMultiPayload != 1)
-      {
-        if (EnumCaseMultiPayload)
-        {
-          memcpy(__dst, __src, *(*(v6 - 8) + 64));
-          goto LABEL_13;
-        }
-
-        v8 = type metadata accessor for URL(0);
-        (*(*(v8 - 8) + 32))(__dst, __src, v8);
-        v9 = v6;
-        v10 = 0;
-LABEL_11:
-        swift_storeEnumTagMultiPayload(__dst, v9, v10);
-LABEL_13:
-        swift_storeEnumTagMultiPayload(__dst, v5, 1);
-        goto LABEL_14;
-      }
-
-      v11 = type metadata accessor for URL(0);
-      (*(*(v11 - 8) + 32))(__dst, __src, v11);
-      v31 = 1;
-    }
-
-    v10 = v31;
-    v9 = v6;
-    goto LABEL_11;
-  }
-
-LABEL_14:
-  v16 = type metadata accessor for MLSoundClassifier.ModelParameters(0);
-  *&__dst[v16[5]] = *&__src[v16[5]];
-  *&__dst[v16[6]] = *&__src[v16[6]];
-  v17 = v16[7];
-  v18 = &__dst[v17];
-  v19 = &__src[v17];
-  if (*&__dst[v17 + 24])
-  {
-    __swift_destroy_boxed_opaque_existential_1Tm(&__dst[v17]);
-  }
-
-  v20 = *v19;
-  *(v18 + 1) = *(v19 + 1);
-  *v18 = v20;
-  v21 = v16[8];
-  *&__dst[v21] = *&__src[v21];
-  __dst[v21 + 8] = __src[v21 + 8];
-  *&__dst[v16[9]] = *&__src[v16[9]];
-  if (__dst != __src)
-  {
-    v22 = *(a3 + 20);
-    v23 = &__src[v22];
-    v24 = &__dst[v22];
-    outlined destroy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(v24, &demangling cache variable for type metadata for Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>);
-    v25 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>);
-    v26 = swift_getEnumCaseMultiPayload(v23, v25);
-    v27 = v26 == 1;
-    v28 = &demangling cache variable for type metadata for LogisticRegressionClassifier<Float, String>;
-    if (v26 == 1)
-    {
-      v28 = &demangling cache variable for type metadata for FullyConnectedNetworkClassifier<Float, String>;
-    }
-
-    v29 = __swift_instantiateConcreteTypeFromMangledName(v28);
-    (*(*(v29 - 8) + 32))(v24, v23, v29);
-    swift_storeEnumTagMultiPayload(v24, v25, v27);
-  }
-
-  return __dst;
-}
-
-uint64_t sub_249FA4(uint64_t a1, unsigned int a2, uint64_t a3)
-{
-  v4 = a1;
-  v5 = type metadata accessor for MLSoundClassifier.ModelParameters(0);
-  if (*(*(v5 - 8) + 84) != a2)
-  {
-    v5 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>);
-    v4 = *(a3 + 20) + a1;
-  }
-
-  return __swift_getEnumTagSinglePayload(v4, a2, v5);
-}
-
-uint64_t sub_24A010(uint64_t a1, unsigned int a2, int a3, uint64_t a4)
-{
-  v6 = a1;
-  v7 = type metadata accessor for MLSoundClassifier.ModelParameters(0);
-  if (*(*(v7 - 8) + 84) != a3)
-  {
-    v7 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>);
-    v6 = *(a4 + 20) + a1;
-  }
-
-  return __swift_storeEnumTagSinglePayload(v6, a2, a2, v7);
-}
-
-uint64_t type metadata accessor for MLSoundClassifier.Classifier(uint64_t a1)
-{
-  result = type metadata singleton initialization cache for MLSoundClassifier.Classifier;
-  if (!type metadata singleton initialization cache for MLSoundClassifier.Classifier)
-  {
-    return swift_getSingletonMetadata(a1, &nominal type descriptor for MLSoundClassifier.Classifier);
-  }
-
-  return result;
-}
-
-uint64_t type metadata completion function for MLSoundClassifier.Classifier(uint64_t a1)
-{
-  result = type metadata accessor for MLSoundClassifier.ModelParameters(319);
-  if (v2 <= 0x3F)
-  {
-    v4[0] = *(result - 8) + 64;
-    result = type metadata accessor for Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(319);
-    if (v3 <= 0x3F)
-    {
-      v4[1] = *(result - 8) + 64;
-      swift_initStructMetadata(a1, 256, 2, v4, a1 + 16);
-      return 0;
-    }
-  }
-
-  return result;
-}
-
-uint64_t MLSoundClassifier.Classifier.init(labels:parameters:)(uint64_t a1, uint64_t a2)
-{
-  v43 = a1;
-  v3 = v2;
-  v40 = type metadata accessor for FullyConnectedNetworkConfiguration(0);
-  v45 = *(v40 - 8);
-  v4 = *(v45 + 64);
-  v5 = alloca(v4);
-  v6 = alloca(v4);
-  v46 = &v33;
-  v7 = alloca(v4);
-  v8 = alloca(v4);
-  v41 = &v33;
-  v9 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for LogisticRegressionClassifier<Float, String>.Configuration);
-  v38 = *(v9 - 8);
-  v10 = *(v38 + 64);
-  v11 = alloca(v10);
-  v12 = alloca(v10);
-  v39 = &v33;
-  v13 = alloca(v10);
-  v14 = alloca(v10);
-  v42 = v3;
-  outlined init with copy of MLSoundClassifier.ModelParameters(a2, v3);
-  v15 = type metadata accessor for MLSoundClassifier.ModelParameters(0);
-  v16 = *(v15 + 28);
-  v44 = a2;
-  outlined init with copy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(a2 + v16, v36, &demangling cache variable for type metadata for Any?);
-  if (!v37)
-  {
-    outlined destroy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(v36, &demangling cache variable for type metadata for Any?);
-LABEL_6:
-    v46 = lazy protocol witness table accessor for type Float and conformance Float();
-    LogisticRegressionClassifier.Configuration.init()(&type metadata for Float, &type metadata for String, &protocol witness table for Float, v46, &protocol witness table for String, &protocol witness table for String, &protocol witness table for String, &protocol witness table for String);
-    v27 = v44;
-    LogisticRegressionClassifier.Configuration.maximumIterations.setter(*(v44 + *(v15 + 20)), v9);
-    v28 = v39;
-    v29 = v9;
-    v45 = v9;
-    v30 = v38;
-    (*(v38 + 16))(v39, &v33, v29);
-    v31 = *(type metadata accessor for MLSoundClassifier.Classifier(0) + 20) + v42;
-    LogisticRegressionClassifier.init(labels:configuration:)(v43, v28, &type metadata for Float, &type metadata for String, &protocol witness table for Float, v46, &protocol witness table for String, &protocol witness table for String, &protocol witness table for String, &protocol witness table for String);
-    outlined destroy of MLActivityClassifier.ModelParameters(v27, type metadata accessor for MLSoundClassifier.ModelParameters);
-    (*(v30 + 8))(&v33, v45);
-    v25 = v31;
-    v26 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>);
-    v24 = 0;
-    return swift_storeEnumTagMultiPayload(v25, v26, v24);
-  }
-
-  if (!swift_dynamicCast(v34, v36, &type metadata for Any + 8, &type metadata for MLSoundClassifier.ModelParameters.ModelAlgorithmType, 6))
-  {
-    goto LABEL_6;
-  }
-
-  v17 = v35;
-  if (!v35)
-  {
-    goto LABEL_6;
-  }
-
-  v35;
-  v18 = v41;
-  FullyConnectedNetworkConfiguration.init()();
-  FullyConnectedNetworkConfiguration.maximumIterations.setter(*(v44 + *(v15 + 20)));
-  FullyConnectedNetworkConfiguration.hiddenUnitCounts.setter(v17);
-  FullyConnectedNetworkConfiguration.batchSize.setter(32);
-  v19 = v40;
-  v20 = v45;
-  (*(v45 + 16))(v46, v18, v40);
-  v21 = *(type metadata accessor for MLSoundClassifier.Classifier(0) + 20) + v42;
-  v22 = lazy protocol witness table accessor for type Float and conformance Float();
-  FullyConnectedNetworkClassifier.init(labels:configuration:)(v43, v46, &type metadata for Float, &type metadata for String, &protocol witness table for Float, v22, &protocol witness table for String, &protocol witness table for String, &protocol witness table for String, &protocol witness table for String);
-  v17;
-  outlined destroy of MLActivityClassifier.ModelParameters(v44, type metadata accessor for MLSoundClassifier.ModelParameters);
-  (*(v20 + 8))(v18, v19);
-  v23 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>);
-  v24 = 1;
-  v25 = v21;
-  v26 = v23;
-  return swift_storeEnumTagMultiPayload(v25, v26, v24);
-}
-
-uint64_t MLSoundClassifier.Classifier.makeTransformer()()
-{
-  v34 = v0;
-  v30 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for FullyConnectedNetworkClassifier<Float, String>);
-  v35 = *(v30 - 8);
-  v2 = *(v35 + 64);
-  v3 = alloca(v2);
-  v4 = alloca(v2);
-  v31 = &v29;
-  v5 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for LogisticRegressionClassifier<Float, String>);
-  v32 = *(v5 - 8);
-  v6 = *(v32 + 64);
-  v7 = alloca(v6);
-  v8 = alloca(v6);
-  v33 = &v29;
-  v9 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>);
-  v10 = *(*(v9 - 8) + 64);
-  v11 = alloca(v10);
-  v12 = alloca(v10);
-  v13 = type metadata accessor for MLSoundClassifier.Classifier(0);
-  v14 = v1;
-  outlined init with copy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(v1 + *(v13 + 20), &v29, &demangling cache variable for type metadata for Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>);
-  if (swift_getEnumCaseMultiPayload(&v29, v9) == 1)
-  {
-    v15 = v31;
-    v16 = v30;
-    (*(v35 + 32))(v31, &v29, v30);
-    v17 = v34;
-    outlined init with copy of MLSoundClassifier.ModelParameters(v14, v34);
-    v18 = v17 + *(type metadata accessor for MLSoundClassifier.Model(0) + 20);
-    FullyConnectedNetworkClassifier.makeTransformer()(v16);
-    (*(v35 + 8))(v15, v16);
-    v19 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Either<LogisticRegressionClassifierModel<Float, String>, FullyConnectedNetworkClassifierModel<Float, String>>);
-    v20 = 1;
-    v21 = v18;
-    v22 = v19;
-  }
-
-  else
-  {
-    v23 = v33;
-    v24 = v32;
-    (*(v32 + 32))(v33, &v29, v5);
-    v25 = v14;
-    v26 = v34;
-    outlined init with copy of MLSoundClassifier.ModelParameters(v25, v34);
-    v27 = v26 + *(type metadata accessor for MLSoundClassifier.Model(0) + 20);
-    LogisticRegressionClassifier.makeTransformer()(v5);
-    (*(v24 + 8))(v23, v5);
-    v21 = v27;
-    v22 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Either<LogisticRegressionClassifierModel<Float, String>, FullyConnectedNetworkClassifierModel<Float, String>>);
-    v20 = 0;
-  }
-
-  return swift_storeEnumTagMultiPayload(v21, v22, v20);
-}
-
-uint64_t MLSoundClassifier.Classifier.fitted<A>(to:eventHandler:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
-{
-  v7[8] = v6;
-  v7[7] = a6;
-  v7[6] = a5;
-  v7[5] = a4;
-  v7[4] = a3;
-  v7[3] = a2;
-  v7[2] = a1;
-  v8 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for FullyConnectedNetworkClassifierModel<Float, String>);
-  v7[9] = v8;
-  v9 = *(v8 - 8);
-  v7[10] = v9;
-  v7[11] = swift_task_alloc((*(v9 + 64) + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for FullyConnectedNetworkClassifier<Float, String>);
-  v7[12] = v10;
-  v11 = *(v10 - 8);
-  v7[13] = v11;
-  v7[14] = swift_task_alloc((*(v11 + 64) + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for LogisticRegressionClassifierModel<Float, String>);
-  v7[15] = v12;
-  v13 = *(v12 - 8);
-  v7[16] = v13;
-  v7[17] = swift_task_alloc((*(v13 + 64) + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for LogisticRegressionClassifier<Float, String>);
-  v7[18] = v14;
-  v15 = *(v14 - 8);
-  v7[19] = v15;
-  v7[20] = swift_task_alloc((*(v15 + 64) + 15) & 0xFFFFFFFFFFFFFFF0);
-  v16 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>);
-  v7[21] = v16;
-  v7[22] = swift_task_alloc((*(*(v16 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0);
-  return swift_task_switch(MLSoundClassifier.Classifier.fitted<A>(to:eventHandler:), 0, 0);
-}
-
-uint64_t MLSoundClassifier.Classifier.fitted<A>(to:eventHandler:)()
-{
-  v1 = v0[22];
-  v2 = v0[8];
-  v3 = v0[21];
-  v4 = type metadata accessor for MLSoundClassifier.Classifier(0);
-  outlined init with copy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(v2 + *(v4 + 20), v1, &demangling cache variable for type metadata for Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>);
-  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload(v1, v3);
-  v6 = v0[22];
-  if (EnumCaseMultiPayload == 1)
-  {
-    (*(v0[13] + 32))(v0[14], v6, v0[12]);
-    v7 = swift_task_alloc(async function pointer to FullyConnectedNetworkClassifier.fitted<A>(to:eventHandler:)[1]);
-    v0[25] = v7;
-    *v7 = v0;
-    v7[1] = MLSoundClassifier.Classifier.fitted<A>(to:eventHandler:);
-    v8 = v0[14];
-    return FullyConnectedNetworkClassifier.fitted<A>(to:eventHandler:)(v0[11], v0[3], v0[4], v0[5], v0[12], v0[6], v0[7]);
-  }
-
-  else
-  {
-    (*(v0[19] + 32))(v0[20], v6, v0[18]);
-    v10 = swift_task_alloc(async function pointer to LogisticRegressionClassifier.fitted<A>(to:eventHandler:)[1]);
-    v0[23] = v10;
-    *v10 = v0;
-    v10[1] = MLSoundClassifier.Classifier.fitted<A>(to:eventHandler:);
-    v11 = v0[20];
-    return LogisticRegressionClassifier.fitted<A>(to:eventHandler:)(v0[17], v0[3], v0[4], v0[5], v0[18], v0[6], v0[7]);
-  }
-}
-
-{
-  v2 = *(*v1 + 184);
-  *(*v1 + 192) = v0;
-  v2;
-  if (v0)
-  {
-    v3 = MLImageClassifier.Classifier.fitted<A>(to:eventHandler:);
-  }
-
-  else
-  {
-    v3 = MLSoundClassifier.Classifier.fitted<A>(to:eventHandler:);
-  }
-
-  return swift_task_switch(v3, 0, 0);
-}
-
-{
-  v1 = *(v0 + 160);
-  v2 = *(v0 + 136);
-  v11 = *(v0 + 128);
-  v12 = *(v0 + 120);
-  v10 = *(v0 + 176);
-  v9 = *(v0 + 112);
-  v8 = *(v0 + 88);
-  v3 = *(v0 + 16);
-  v4 = *(v0 + 64);
-  (*(*(v0 + 152) + 8))(v1, *(v0 + 144));
-  outlined init with copy of MLSoundClassifier.ModelParameters(v4, v3);
-  v5 = v3 + *(type metadata accessor for MLSoundClassifier.Model(0) + 20);
-  (*(v11 + 32))(v5, v2, v12);
-  v6 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Either<LogisticRegressionClassifierModel<Float, String>, FullyConnectedNetworkClassifierModel<Float, String>>);
-  swift_storeEnumTagMultiPayload(v5, v6, 0);
-  v10;
-  v1;
-  v2;
-  v9;
-  v8;
-  return (*(v0 + 8))();
-}
-
-{
-  v2 = *(*v1 + 200);
-  *(*v1 + 208) = v0;
-  v2;
-  if (v0)
-  {
-    v3 = MLImageClassifier.Classifier.fitted<A>(to:eventHandler:);
-  }
-
-  else
-  {
-    v3 = MLSoundClassifier.Classifier.fitted<A>(to:eventHandler:);
-  }
-
-  return swift_task_switch(v3, 0, 0);
-}
-
-{
-  v9 = *(v0 + 112);
-  v1 = *(v0 + 88);
-  v12 = *(v0 + 80);
-  v2 = *(v0 + 72);
-  v11 = *(v0 + 176);
-  v10 = *(v0 + 160);
-  v8 = *(v0 + 136);
-  v3 = *(v0 + 16);
-  v4 = *(v0 + 64);
-  (*(*(v0 + 104) + 8))(v9, *(v0 + 96));
-  outlined init with copy of MLSoundClassifier.ModelParameters(v4, v3);
-  v5 = v3 + *(type metadata accessor for MLSoundClassifier.Model(0) + 20);
-  (*(v12 + 32))(v5, v1, v2);
-  v6 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Either<LogisticRegressionClassifierModel<Float, String>, FullyConnectedNetworkClassifierModel<Float, String>>);
-  swift_storeEnumTagMultiPayload(v5, v6, 1);
-  v11;
-  v10;
-  v8;
-  v9;
-  v1;
-  return (*(v0 + 8))();
-}
-
-uint64_t MLSoundClassifier.Classifier.fitted<A, B>(to:validateOn:eventHandler:)()
-{
-  v2 = *(*v1 + 208);
-  *(*v1 + 216) = v0;
-  v2;
-  if (v0)
-  {
-    v3 = MLImageClassifier.Classifier.fitted<A, B>(to:validateOn:eventHandler:);
-  }
-
-  else
-  {
-    v3 = MLSoundClassifier.Classifier.fitted<A, B>(to:validateOn:eventHandler:);
-  }
-
-  return swift_task_switch(v3, 0, 0);
-}
-
-{
-  v1 = *(v0 + 184);
-  v2 = *(v0 + 160);
-  v11 = *(v0 + 152);
-  v12 = *(v0 + 144);
-  v10 = *(v0 + 200);
-  v9 = *(v0 + 136);
-  v8 = *(v0 + 112);
-  v3 = *(v0 + 16);
-  v4 = *(v0 + 88);
-  (*(*(v0 + 176) + 8))(v1, *(v0 + 168));
-  outlined init with copy of MLSoundClassifier.ModelParameters(v4, v3);
-  v5 = v3 + *(type metadata accessor for MLSoundClassifier.Model(0) + 20);
-  (*(v11 + 32))(v5, v2, v12);
-  v6 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Either<LogisticRegressionClassifierModel<Float, String>, FullyConnectedNetworkClassifierModel<Float, String>>);
-  swift_storeEnumTagMultiPayload(v5, v6, 0);
-  v10;
-  v1;
-  v2;
-  v9;
-  v8;
-  return (*(v0 + 8))();
-}
-
-{
-  v2 = *(*v1 + 224);
-  *(*v1 + 232) = v0;
-  v2;
-  if (v0)
-  {
-    v3 = MLImageClassifier.Classifier.fitted<A, B>(to:validateOn:eventHandler:);
-  }
-
-  else
-  {
-    v3 = MLSoundClassifier.Classifier.fitted<A, B>(to:validateOn:eventHandler:);
-  }
-
-  return swift_task_switch(v3, 0, 0);
-}
-
-{
-  v9 = *(v0 + 136);
-  v1 = *(v0 + 112);
-  v12 = *(v0 + 104);
-  v2 = *(v0 + 96);
-  v11 = *(v0 + 200);
-  v10 = *(v0 + 184);
-  v8 = *(v0 + 160);
-  v3 = *(v0 + 16);
-  v4 = *(v0 + 88);
-  (*(*(v0 + 128) + 8))(v9, *(v0 + 120));
-  outlined init with copy of MLSoundClassifier.ModelParameters(v4, v3);
-  v5 = v3 + *(type metadata accessor for MLSoundClassifier.Model(0) + 20);
-  (*(v12 + 32))(v5, v1, v2);
-  v6 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Either<LogisticRegressionClassifierModel<Float, String>, FullyConnectedNetworkClassifierModel<Float, String>>);
-  swift_storeEnumTagMultiPayload(v5, v6, 1);
-  v11;
-  v10;
-  v8;
-  v9;
-  v1;
-  return (*(v0 + 8))();
-}
-
-uint64_t MLSoundClassifier.Classifier.encode(_:to:)(uint64_t a1, uint64_t a2)
-{
-  v52 = v2;
-  v4 = v3;
-  v53 = a2;
-  v46 = a1;
-  v55 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for FullyConnectedNetworkClassifierModel<Float, String>);
-  v54 = *(v55 - 8);
-  v5 = *(v54 + 64);
-  v6 = alloca(v5);
-  v7 = alloca(v5);
-  v48 = &v46;
-  v59 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for FullyConnectedNetworkClassifier<Float, String>);
-  v60 = *(v59 - 8);
-  v8 = *(v60 + 64);
-  v9 = alloca(v8);
-  v10 = alloca(v8);
-  v56 = &v46;
-  v58 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for LogisticRegressionClassifierModel<Float, String>);
-  v57 = *(v58 - 8);
-  v11 = *(v57 + 64);
-  v12 = alloca(v11);
-  v13 = alloca(v11);
-  v49 = &v46;
-  v61 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for LogisticRegressionClassifier<Float, String>);
-  v62 = *(v61 - 8);
-  v14 = *(v62 + 64);
-  v15 = alloca(v14);
-  v16 = alloca(v14);
-  v63 = &v46;
-  v47 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>);
-  v17 = *(*(v47 - 8) + 64);
-  v18 = alloca(v17);
-  v19 = alloca(v17);
-  v50 = &v46;
-  v20 = alloca(v17);
-  v21 = alloca(v17);
-  v51 = &v46;
-  v22 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>, Either<LogisticRegressionClassifierModel<Float, String>, FullyConnectedNetworkClassifierModel<Float, String>>));
-  v23 = *(*(v22 - 8) + 64);
-  v24 = alloca(v23);
-  v25 = alloca(v23);
-  v26 = v4 + *(type metadata accessor for MLSoundClassifier.Classifier(0) + 20);
-  v27 = v46 + *(type metadata accessor for MLSoundClassifier.Model(0) + 20);
-  v28 = &v46 + *(v22 + 48);
-  outlined init with copy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(v26, &v46, &demangling cache variable for type metadata for Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>);
-  v29 = v27;
-  v30 = &v46;
-  outlined init with copy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(v29, v28, &demangling cache variable for type metadata for Either<LogisticRegressionClassifierModel<Float, String>, FullyConnectedNetworkClassifierModel<Float, String>>);
-  if (swift_getEnumCaseMultiPayload(&v46, v47) != 1)
-  {
-    v39 = v51;
-    outlined init with copy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(&v46, v51, &demangling cache variable for type metadata for Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>);
-    v40 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Either<LogisticRegressionClassifierModel<Float, String>, FullyConnectedNetworkClassifierModel<Float, String>>);
-    if (swift_getEnumCaseMultiPayload(v28, v40) != 1)
-    {
-      v41 = v39;
-      v42 = v61;
-      (*(v62 + 32))(v63, v41, v61);
-      v43 = v49;
-      (*(v57 + 32))(v49, v28, v58);
-      LogisticRegressionClassifier.encode(_:to:)(v43, v53, v42);
-      (*(v57 + 8))(v43, v58);
-      (*(v62 + 8))(v63, v42);
-      return outlined destroy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(v30, &demangling cache variable for type metadata for Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>);
-    }
-
-    v45 = v39;
-LABEL_9:
-    (*(v62 + 8))(v45, v61);
-    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD00000000000002FLL, "Classifier.Classifier.swift" + 0x8000000000000000, "CreateML/MLSoundClassifier.Classifier.swift", 43, 2, 91, 0);
-    BUG();
-  }
-
-  v63 = &v46;
-  v31 = v50;
-  outlined init with copy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(&v46, v50, &demangling cache variable for type metadata for Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>);
-  v32 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Either<LogisticRegressionClassifierModel<Float, String>, FullyConnectedNetworkClassifierModel<Float, String>>);
-  if (swift_getEnumCaseMultiPayload(v28, v32) != 1)
-  {
-    v62 = v60;
-    v61 = v59;
-    v45 = v31;
-    goto LABEL_9;
-  }
-
-  v33 = v59;
-  (*(v60 + 32))(v56, v31, v59);
-  v34 = v48;
-  (*(v54 + 32))(v48, v28, v55);
-  v35 = lazy protocol witness table accessor for type FullyConnectedNetworkClassifier<Float, String> and conformance FullyConnectedNetworkClassifier<A, B>(&lazy protocol witness table cache variable for type FullyConnectedNetworkClassifier<Float, String> and conformance FullyConnectedNetworkClassifier<A, B>, &demangling cache variable for type metadata for FullyConnectedNetworkClassifier<Float, String>, &protocol conformance descriptor for FullyConnectedNetworkClassifier<A, B>);
-  v36 = lazy protocol witness table accessor for type FullyConnectedNetworkClassifier<Float, String> and conformance FullyConnectedNetworkClassifier<A, B>(&lazy protocol witness table cache variable for type FullyConnectedNetworkClassifierModel<Float, String> and conformance FullyConnectedNetworkClassifierModel<A, B>, &demangling cache variable for type metadata for FullyConnectedNetworkClassifierModel<Float, String>, &protocol conformance descriptor for FullyConnectedNetworkClassifierModel<A, B>);
-  v37 = v35;
-  v38 = v56;
-  SupervisedEstimator<>.encode(_:to:)(v34, v53, v33, v37, v36);
-  (*(v54 + 8))(v34, v55);
-  (*(v60 + 8))(v38, v33);
-  v30 = v63;
-  return outlined destroy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(v30, &demangling cache variable for type metadata for Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>);
-}
-
-uint64_t protocol witness for SupervisedEstimator.fitted<A>(to:eventHandler:) in conformance MLSoundClassifier.Classifier(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
-{
-  v9 = swift_task_alloc(224);
-  *(v6 + 16) = v9;
-  *v9 = v6;
-  v9[1] = protocol witness for SupervisedEstimator.fitted<A>(to:eventHandler:) in conformance MLImageClassifier.Classifier;
-  retaddr = v13;
-  return MLSoundClassifier.Classifier.fitted<A>(to:eventHandler:)(a1, a2, a3, a4, a5, a6);
-}
-
-uint64_t MLSoundClassifier.Classifier.update<A>(_:with:eventHandler:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
-{
-  v7[8] = v6;
-  v7[7] = a6;
-  v7[6] = a5;
-  v7[5] = a4;
-  v7[4] = a3;
-  v7[3] = a2;
-  v7[2] = a1;
-  v8 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for FullyConnectedNetworkClassifierModel<Float, String>);
-  v7[9] = v8;
-  v9 = *(v8 - 8);
-  v7[10] = v9;
-  v10 = (*(v9 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  v7[11] = swift_task_alloc(v10);
-  v7[12] = swift_task_alloc(v10);
-  v11 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for FullyConnectedNetworkClassifier<Float, String>);
-  v7[13] = v11;
-  v12 = *(v11 - 8);
-  v7[14] = v12;
-  v7[15] = swift_task_alloc((*(v12 + 64) + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for LogisticRegressionClassifierModel<Float, String>);
-  v7[16] = v13;
-  v14 = *(v13 - 8);
-  v7[17] = v14;
-  v15 = (*(v14 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  v7[18] = swift_task_alloc(v15);
-  v7[19] = swift_task_alloc(v15);
-  v16 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for LogisticRegressionClassifier<Float, String>);
-  v7[20] = v16;
-  v17 = *(v16 - 8);
-  v7[21] = v17;
-  v7[22] = swift_task_alloc((*(v17 + 64) + 15) & 0xFFFFFFFFFFFFFFF0);
-  v18 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>);
-  v7[23] = v18;
-  v19 = (*(*(v18 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  v7[24] = swift_task_alloc(v19);
-  v7[25] = swift_task_alloc(v19);
-  v20 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>, Either<LogisticRegressionClassifierModel<Float, String>, FullyConnectedNetworkClassifierModel<Float, String>>));
-  v7[26] = v20;
-  v7[27] = swift_task_alloc((*(*(v20 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0);
-  return swift_task_switch(MLSoundClassifier.Classifier.update<A>(_:with:eventHandler:), 0, 0);
-}
-
-uint64_t MLSoundClassifier.Classifier.update<A>(_:with:eventHandler:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
-{
-  v8 = *(v7 + 216);
-  v36 = *(v7 + 208);
-  v35 = *(v7 + 184);
-  v9 = *(v7 + 16);
-  v10 = *(v7 + 64);
-  v11 = v10 + *(type metadata accessor for MLSoundClassifier.Classifier(0) + 20);
-  v12 = *(type metadata accessor for MLSoundClassifier.Model(0) + 20);
-  *(v7 + 288) = v12;
-  v13 = v12 + v9;
-  v14 = v8 + *(v36 + 48);
-  outlined init with copy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(v11, v8, &demangling cache variable for type metadata for Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>);
-  outlined init with copy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(v13, v14, &demangling cache variable for type metadata for Either<LogisticRegressionClassifierModel<Float, String>, FullyConnectedNetworkClassifierModel<Float, String>>);
-  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload(v8, v35);
-  v16 = *(v7 + 216);
-  if (EnumCaseMultiPayload == 1)
-  {
-    outlined init with copy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(v16, *(v7 + 192), &demangling cache variable for type metadata for Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>);
-    v17 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Either<LogisticRegressionClassifierModel<Float, String>, FullyConnectedNetworkClassifierModel<Float, String>>);
-    *(v7 + 256) = v17;
-    if (swift_getEnumCaseMultiPayload(v14, v17) == 1)
-    {
-      v18 = *(v7 + 96);
-      v19 = *(v7 + 72);
-      v20 = *(v7 + 80);
-      (*(*(v7 + 112) + 32))(*(v7 + 120), *(v7 + 192), *(v7 + 104));
-      v21 = *(v20 + 32);
-      *(v7 + 264) = v21;
-      v21(v18, v14, v19);
-      v22 = swift_task_alloc(async function pointer to FullyConnectedNetworkClassifier.update<A>(_:with:eventHandler:)[1]);
-      *(v7 + 272) = v22;
-      *v22 = v7;
-      v22[1] = MLSoundClassifier.Classifier.update<A>(_:with:eventHandler:);
-      v23 = *(v7 + 120);
-      return FullyConnectedNetworkClassifier.update<A>(_:with:eventHandler:)(*(v7 + 96), *(v7 + 24), *(v7 + 32), *(v7 + 40), *(v7 + 104), *(v7 + 48), *(v7 + 56));
-    }
-
-    v26 = (v7 + 192);
-    v27 = 104;
-    v28 = 112;
-    goto LABEL_7;
-  }
-
-  outlined init with copy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(v16, *(v7 + 200), &demangling cache variable for type metadata for Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>);
-  v25 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Either<LogisticRegressionClassifierModel<Float, String>, FullyConnectedNetworkClassifierModel<Float, String>>);
-  *(v7 + 224) = v25;
-  if (swift_getEnumCaseMultiPayload(v14, v25) == 1)
-  {
-    v26 = (v7 + 200);
-    v27 = 160;
-    v28 = 168;
-LABEL_7:
-    (*(*(v7 + v28) + 8))(*v26, *(v7 + v27));
-    return _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD00000000000002FLL, "Classifier.Classifier.swift" + 0x8000000000000000, "CreateML/MLSoundClassifier.Classifier.swift", 43, 2, 135, 0);
-  }
-
-  v29 = *(v7 + 152);
-  v30 = *(v7 + 128);
-  v31 = *(v7 + 136);
-  (*(*(v7 + 168) + 32))(*(v7 + 176), *(v7 + 200), *(v7 + 160));
-  v32 = *(v31 + 32);
-  *(v7 + 232) = v32;
-  v32(v29, v14, v30);
-  v33 = swift_task_alloc(async function pointer to LogisticRegressionClassifier.update<A>(_:with:eventHandler:)[1]);
-  *(v7 + 240) = v33;
-  *v33 = v7;
-  v33[1] = MLSoundClassifier.Classifier.update<A>(_:with:eventHandler:);
-  v34 = *(v7 + 176);
-  return LogisticRegressionClassifier.update<A>(_:with:eventHandler:)(*(v7 + 152), *(v7 + 24), *(v7 + 32), *(v7 + 40), *(v7 + 160), *(v7 + 48), *(v7 + 56));
-}
-
-uint64_t MLSoundClassifier.Classifier.update<A>(_:with:eventHandler:)()
-{
-  v2 = *(*v1 + 240);
-  *(*v1 + 248) = v0;
-  v2;
-  if (v0)
-  {
-    v3 = MLImageClassifier.Classifier.update<A>(_:with:eventHandler:);
-  }
-
-  else
-  {
-    v3 = MLSoundClassifier.Classifier.update<A>(_:with:eventHandler:);
-  }
-
-  return swift_task_switch(v3, 0, 0);
-}
-
-{
-  v14 = *(v0 + 232);
-  v12 = *(v0 + 224);
-  v11 = *(v0 + 176);
-  v1 = *(v0 + 152);
-  v2 = *(v0 + 144);
-  v3 = *(v0 + 128);
-  v13 = *(v0 + 216);
-  v9 = *(v0 + 200);
-  v4 = *(v0 + 16) + *(v0 + 288);
-  v10 = *(v0 + 192);
-  v8 = *(v0 + 120);
-  v6 = *(v0 + 88);
-  v7 = *(v0 + 96);
-  (*(*(v0 + 168) + 8))(v11, *(v0 + 160));
-  v14(v2, v1, v3);
-  outlined destroy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(v4, &demangling cache variable for type metadata for Either<LogisticRegressionClassifierModel<Float, String>, FullyConnectedNetworkClassifierModel<Float, String>>);
-  v14(v4, v2, v3);
-  swift_storeEnumTagMultiPayload(v4, v12, 0);
-  outlined destroy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(v13, &demangling cache variable for type metadata for Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>);
-  v13;
-  v9;
-  v10;
-  v11;
-  v1;
-  v2;
-  v8;
-  v7;
-  v6;
-  return (*(v0 + 8))();
-}
-
-{
-  v2 = *(*v1 + 272);
-  *(*v1 + 280) = v0;
-  v2;
-  if (v0)
-  {
-    v3 = MLImageClassifier.Classifier.update<A>(_:with:eventHandler:);
-  }
-
-  else
-  {
-    v3 = MLSoundClassifier.Classifier.update<A>(_:with:eventHandler:);
-  }
-
-  return swift_task_switch(v3, 0, 0);
-}
-
-{
-  v14 = *(v0 + 264);
-  v12 = *(v0 + 256);
-  v6 = *(v0 + 120);
-  v1 = *(v0 + 96);
-  v2 = *(v0 + 72);
-  v3 = *(v0 + 88);
-  v13 = *(v0 + 216);
-  v9 = *(v0 + 200);
-  v4 = *(v0 + 16) + *(v0 + 288);
-  v11 = *(v0 + 192);
-  v10 = *(v0 + 176);
-  v8 = *(v0 + 152);
-  v7 = *(v0 + 144);
-  (*(*(v0 + 112) + 8))(v6, *(v0 + 104));
-  v14(v3, v1, v2);
-  outlined destroy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(v4, &demangling cache variable for type metadata for Either<LogisticRegressionClassifierModel<Float, String>, FullyConnectedNetworkClassifierModel<Float, String>>);
-  v14(v4, v3, v2);
-  swift_storeEnumTagMultiPayload(v4, v12, 1);
-  outlined destroy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(v13, &demangling cache variable for type metadata for Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>);
-  v13;
-  v9;
-  v11;
-  v10;
-  v8;
-  v7;
-  v6;
-  v1;
-  v3;
-  return (*(v0 + 8))();
-}
-
-uint64_t MLSoundClassifier.Classifier.encodeWithOptimizer(_:to:)(uint64_t a1, uint64_t a2)
-{
-  v49 = v2;
-  v4 = v3;
-  v50 = a2;
-  v42 = a1;
-  v52 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for FullyConnectedNetworkClassifierModel<Float, String>);
-  v51 = *(v52 - 8);
-  v5 = *(v51 + 64);
-  v6 = alloca(v5);
-  v7 = alloca(v5);
-  v44 = &v42;
-  v55 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for FullyConnectedNetworkClassifier<Float, String>);
-  v56 = *(v55 - 8);
-  v8 = *(v56 + 64);
-  v9 = alloca(v8);
-  v10 = alloca(v8);
-  v45 = &v42;
-  v54 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for LogisticRegressionClassifierModel<Float, String>);
+  v59 = v0;
+  v54 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Column<Double>);
   v53 = *(v54 - 8);
-  v11 = *(v53 + 64);
-  v12 = alloca(v11);
-  v13 = alloca(v11);
-  v46 = &v42;
-  v57 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for LogisticRegressionClassifier<Float, String>);
-  v58 = *(v57 - 8);
-  v14 = *(v58 + 64);
-  v15 = alloca(v14);
-  v16 = alloca(v14);
-  v59 = &v42;
-  v43 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>);
-  v17 = *(*(v43 - 8) + 64);
-  v18 = alloca(v17);
-  v19 = alloca(v17);
-  v47 = &v42;
-  v20 = alloca(v17);
-  v21 = alloca(v17);
-  v48 = &v42;
-  v22 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>, Either<LogisticRegressionClassifierModel<Float, String>, FullyConnectedNetworkClassifierModel<Float, String>>));
-  v23 = *(*(v22 - 8) + 64);
-  v24 = alloca(v23);
-  v25 = alloca(v23);
-  v26 = v4 + *(type metadata accessor for MLSoundClassifier.Classifier(0) + 20);
-  v27 = v42 + *(type metadata accessor for MLSoundClassifier.Model(0) + 20);
-  v28 = &v42 + *(v22 + 48);
-  outlined init with copy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(v26, &v42, &demangling cache variable for type metadata for Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>);
-  v29 = v27;
-  v30 = &v42;
-  outlined init with copy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(v29, v28, &demangling cache variable for type metadata for Either<LogisticRegressionClassifierModel<Float, String>, FullyConnectedNetworkClassifierModel<Float, String>>);
-  if (swift_getEnumCaseMultiPayload(&v42, v43) != 1)
-  {
-    v36 = v48;
-    outlined init with copy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(&v42, v48, &demangling cache variable for type metadata for Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>);
-    v37 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Either<LogisticRegressionClassifierModel<Float, String>, FullyConnectedNetworkClassifierModel<Float, String>>);
-    if (swift_getEnumCaseMultiPayload(v28, v37) != 1)
-    {
-      v38 = v57;
-      (*(v58 + 32))(v59, v36, v57);
-      v39 = v46;
-      (*(v53 + 32))(v46, v28, v54);
-      LogisticRegressionClassifier.encodeWithOptimizer(_:to:)(v39, v50, v38);
-      (*(v53 + 8))(v39, v54);
-      (*(v58 + 8))(v59, v38);
-      return outlined destroy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(v30, &demangling cache variable for type metadata for Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>);
-    }
-
-    v41 = v36;
-LABEL_9:
-    (*(v58 + 8))(v41, v57);
-    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD00000000000002FLL, "Classifier.Classifier.swift" + 0x8000000000000000, "CreateML/MLSoundClassifier.Classifier.swift", 43, 2, 146, 0);
-    BUG();
-  }
-
-  v59 = &v42;
-  v31 = v47;
-  outlined init with copy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(&v42, v47, &demangling cache variable for type metadata for Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>);
-  v32 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Either<LogisticRegressionClassifierModel<Float, String>, FullyConnectedNetworkClassifierModel<Float, String>>);
-  if (swift_getEnumCaseMultiPayload(v28, v32) != 1)
-  {
-    v58 = v56;
-    v57 = v55;
-    v41 = v31;
-    goto LABEL_9;
-  }
-
-  v33 = v45;
-  v34 = v55;
-  (*(v56 + 32))(v45, v31, v55);
-  v35 = v44;
-  (*(v51 + 32))(v44, v28, v52);
-  FullyConnectedNetworkClassifier.encodeWithOptimizer(_:to:)(v35, v50, v34);
-  (*(v51 + 8))(v35, v52);
-  (*(v56 + 8))(v33, v34);
-  v30 = v59;
-  return outlined destroy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(v30, &demangling cache variable for type metadata for Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>);
-}
-
-uint64_t MLSoundClassifier.Classifier.decode(from:)(uint64_t a1, void (*a2)(uint64_t, uint64_t), void (*a3)(uint64_t, uint64_t))
-{
-  v50 = a3;
-  v51 = a2;
-  v62 = v4;
-  v63 = a1;
-  v55 = v3;
-  v57 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for FullyConnectedNetworkClassifierModel<Float, String>);
-  v56 = *(v57 - 8);
-  v6 = *(v56 + 64);
-  v7 = alloca(v6);
-  v8 = alloca(v6);
-  v52 = &v50;
-  v67 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for FullyConnectedNetworkClassifier<Float, String>);
-  v66 = *(v67 - 8);
-  v9 = *(v66 + 64);
-  v10 = alloca(v9);
-  v11 = alloca(v9);
-  v68 = &v50;
-  v59 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for LogisticRegressionClassifierModel<Float, String>);
-  v60 = *(v59 - 8);
-  v12 = *(v60 + 64);
-  v13 = alloca(v12);
-  v14 = alloca(v12);
-  v64 = &v50;
-  v65 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Either<LogisticRegressionClassifierModel<Float, String>, FullyConnectedNetworkClassifierModel<Float, String>>);
-  v15 = *(*(v65 - 8) + 64);
-  v16 = alloca(v15);
-  v17 = alloca(v15);
-  v61 = &v50;
-  v18 = alloca(v15);
-  v19 = alloca(v15);
-  v58 = &v50;
-  v20 = *(*(type metadata accessor for MLSoundClassifier.ModelParameters(0) - 8) + 64);
-  v21 = alloca(v20);
-  v22 = alloca(v20);
-  v53 = &v50;
-  v23 = alloca(v20);
-  v24 = alloca(v20);
-  v54 = &v50;
-  v70 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for LogisticRegressionClassifier<Float, String>);
-  v69 = *(v70 - 8);
-  v25 = *(v69 + 64);
-  v26 = alloca(v25);
-  v27 = alloca(v25);
-  v71 = &v50;
-  v28 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>);
-  v29 = *(*(v28 - 8) + 64);
-  v30 = alloca(v29);
-  v31 = alloca(v29);
-  v32 = type metadata accessor for MLSoundClassifier.Classifier(0);
-  outlined init with copy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(v5 + *(v32 + 20), &v50, &demangling cache variable for type metadata for Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>);
-  if (swift_getEnumCaseMultiPayload(&v50, v28) == 1)
-  {
-    v33 = v67;
-    (*(v66 + 32))(v68, &v50, v67);
-    v34 = v53;
-    outlined init with copy of MLSoundClassifier.ModelParameters(v5, v53);
-    v35 = v52;
-    v36 = v62;
-    v50(v63, v33);
-    if (v36)
-    {
-      outlined destroy of MLActivityClassifier.ModelParameters(v34, type metadata accessor for MLSoundClassifier.ModelParameters);
-      v37 = v68;
-      v38 = v67;
-      v39 = v66;
-      return (*(v39 + 8))(v37, v38);
-    }
-
-    (*(v66 + 8))(v68, v67);
-    v45 = v34;
-    v46 = v61;
-    (*(v56 + 32))(v61, v35, v57);
-    swift_storeEnumTagMultiPayload(v46, v65, 1);
-    v43 = v45;
-  }
-
-  else
-  {
-    v40 = v70;
-    (*(v69 + 32))(v71, &v50, v70);
-    v41 = v54;
-    outlined init with copy of MLSoundClassifier.ModelParameters(v5, v54);
-    v42 = v62;
-    v51(v63, v40);
-    v43 = v41;
-    if (v42)
-    {
-      outlined destroy of MLActivityClassifier.ModelParameters(v41, type metadata accessor for MLSoundClassifier.ModelParameters);
-      v37 = v71;
-      v38 = v70;
-      v39 = v69;
-      return (*(v39 + 8))(v37, v38);
-    }
-
-    (*(v69 + 8))(v71, v70);
-    v46 = v58;
-    (*(v60 + 32))(v58, v64, v59);
-    swift_storeEnumTagMultiPayload(v46, v65, 0);
-  }
-
-  v47 = v43;
-  v48 = v55;
-  outlined init with take of MLSoundClassifier.ModelParameters(v47, v55);
-  v49 = type metadata accessor for MLSoundClassifier.Model(0);
-  return outlined init with take of Either<LogisticRegressionClassifierModel<Float, String>, FullyConnectedNetworkClassifierModel<Float, String>>(v46, v48 + *(v49 + 20));
-}
-
-uint64_t protocol witness for UpdatableSupervisedEstimator.update<A>(_:with:eventHandler:) in conformance MLSoundClassifier.Classifier(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
-{
-  v9 = swift_task_alloc(304);
-  *(v6 + 16) = v9;
-  *v9 = v6;
-  v9[1] = protocol witness for UpdatableSupervisedEstimator.update<A>(_:with:eventHandler:) in conformance MLSoundClassifier.Classifier;
-  retaddr = v13;
-  return MLSoundClassifier.Classifier.update<A>(_:with:eventHandler:)(a1, a2, a3, a4, a5, a6);
-}
-
-uint64_t outlined init with copy of MLSoundClassifier.ModelParameters(uint64_t a1, uint64_t a2)
-{
-  v2 = type metadata accessor for MLSoundClassifier.ModelParameters(0);
-  (*(*(v2 - 8) + 16))(a2, a1, v2);
-  return a2;
-}
-
-uint64_t outlined init with take of MLSoundClassifier.ModelParameters(uint64_t a1, uint64_t a2)
-{
-  v2 = type metadata accessor for MLSoundClassifier.ModelParameters(0);
-  (*(*(v2 - 8) + 32))(a2, a1, v2);
-  return a2;
-}
-
-uint64_t lazy protocol witness table accessor for type MLHandActionClassifier.VideoAugmentationOptions and conformance MLHandActionClassifier.VideoAugmentationOptions()
-{
-  result = lazy protocol witness table cache variable for type MLHandActionClassifier.VideoAugmentationOptions and conformance MLHandActionClassifier.VideoAugmentationOptions;
-  if (!lazy protocol witness table cache variable for type MLHandActionClassifier.VideoAugmentationOptions and conformance MLHandActionClassifier.VideoAugmentationOptions)
-  {
-    result = swift_getWitnessTable(&protocol conformance descriptor for MLHandActionClassifier.VideoAugmentationOptions, &type metadata for MLHandActionClassifier.VideoAugmentationOptions);
-    lazy protocol witness table cache variable for type MLHandActionClassifier.VideoAugmentationOptions and conformance MLHandActionClassifier.VideoAugmentationOptions = result;
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type MLHandActionClassifier.VideoAugmentationOptions and conformance MLHandActionClassifier.VideoAugmentationOptions;
-  if (!lazy protocol witness table cache variable for type MLHandActionClassifier.VideoAugmentationOptions and conformance MLHandActionClassifier.VideoAugmentationOptions)
-  {
-    result = swift_getWitnessTable(&protocol conformance descriptor for MLHandActionClassifier.VideoAugmentationOptions, &type metadata for MLHandActionClassifier.VideoAugmentationOptions);
-    lazy protocol witness table cache variable for type MLHandActionClassifier.VideoAugmentationOptions and conformance MLHandActionClassifier.VideoAugmentationOptions = result;
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type MLHandActionClassifier.VideoAugmentationOptions and conformance MLHandActionClassifier.VideoAugmentationOptions;
-  if (!lazy protocol witness table cache variable for type MLHandActionClassifier.VideoAugmentationOptions and conformance MLHandActionClassifier.VideoAugmentationOptions)
-  {
-    result = swift_getWitnessTable(&protocol conformance descriptor for MLHandActionClassifier.VideoAugmentationOptions, &type metadata for MLHandActionClassifier.VideoAugmentationOptions);
-    lazy protocol witness table cache variable for type MLHandActionClassifier.VideoAugmentationOptions and conformance MLHandActionClassifier.VideoAugmentationOptions = result;
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type MLHandActionClassifier.VideoAugmentationOptions and conformance MLHandActionClassifier.VideoAugmentationOptions;
-  if (!lazy protocol witness table cache variable for type MLHandActionClassifier.VideoAugmentationOptions and conformance MLHandActionClassifier.VideoAugmentationOptions)
-  {
-    result = swift_getWitnessTable(&protocol conformance descriptor for MLHandActionClassifier.VideoAugmentationOptions, &type metadata for MLHandActionClassifier.VideoAugmentationOptions);
-    lazy protocol witness table cache variable for type MLHandActionClassifier.VideoAugmentationOptions and conformance MLHandActionClassifier.VideoAugmentationOptions = result;
-  }
-
-  return result;
-}
-
-uint64_t protocol witness for RawRepresentable.init(rawValue:) in conformance MLHandActionClassifier.VideoAugmentationOptions(uint64_t *a1)
-{
-  v2 = v1;
-  MLHandActionClassifier.VideoAugmentationOptions.init(rawValue:)(*a1);
-  result = v4;
-  *v2 = v4;
-  *(v2 + 8) = 0;
-  return result;
-}
-
-uint64_t protocol witness for RawRepresentable.rawValue.getter in conformance MLHandActionClassifier.VideoAugmentationOptions(uint64_t a1)
-{
-  v2 = v1;
-  result = MLHandActionClassifier.VideoAugmentationOptions.rawValue.getter(a1);
-  *v2 = result;
-  return result;
-}
-
-uint64_t MLHandActionClassifier.DataSource.videosWithAnnotations()(__m128 a1)
-{
-  *&v162 = v2;
-  *v172 = v3;
-  v158 = v1;
-  v167._object = type metadata accessor for DataFrame(0);
-  v170._countAndFlagsBits = *(v167._object - 1);
-  v4 = *(v170._countAndFlagsBits + 64);
-  v5 = alloca(v4);
-  v6 = alloca(v4);
-  ML14_UntypedColumnC_s5Error_pTt1g5 = __src;
-  v7 = alloca(v4);
-  v8 = alloca(v4);
-  *(&v166 + 1) = __src;
-  v9 = type metadata accessor for UTType(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  v12 = alloca(v11);
-  v13 = alloca(v11);
-  *v163 = __src;
-  v14 = alloca(v11);
-  v15 = alloca(v11);
-  v164._countAndFlagsBits = __src;
-  v168 = type metadata accessor for URL(0);
-  *v169 = *(v168 - 8);
-  v16 = *(*v169 + 64);
-  v17 = alloca(v16);
-  v18 = alloca(v16);
-  v160 = __src;
-  v19 = alloca(v16);
-  v20 = alloca(v16);
-  v164._object = __src;
-  v21 = alloca(v16);
-  v22 = alloca(v16);
-  v161 = __src;
-  v23 = alloca(v16);
-  v24 = alloca(v16);
-  *&v166 = __src;
-  v25 = alloca(v16);
-  v26 = alloca(v16);
-  v167._countAndFlagsBits = __src;
-  v27 = alloca(v16);
-  v28 = alloca(v16);
-  *v165 = __src;
-  v29 = type metadata accessor for MLHandActionClassifier.DataSource(0);
-  v30 = *(*(v29 - 8) + 64);
-  v31 = alloca(v30);
-  v32 = alloca(v30);
-  outlined init with copy of MLHandActionClassifier.DataSource(*v172, __src);
-  switch(swift_getEnumCaseMultiPayload(__src, v29))
-  {
-    case 0u:
-      v33 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (at: URL, annotationFile: URL, videoColumn: String, labelColumn: String, startTimeColumn: String?, endTimeColumn: String?));
-      v34 = __src + v33[12];
-      v35 = v33[16];
-      v167._countAndFlagsBits = *(__src + v35);
-      *v172 = *(__src + v35 + 8);
-      v36 = v33[20];
-      *v165 = *(__src + v36);
-      *(&v166 + 1) = *(__src + v36 + 8);
-      v37 = v33[24];
-      *v163 = *(__src + v37);
-      v167._object = *(__src + v37 + 8);
-      v38 = v33[28];
-      v164._countAndFlagsBits = *(__src + v38);
-      v170._countAndFlagsBits = *(__src + v38 + 8);
-      v39 = *(*v169 + 32);
-      v40 = v168;
-      v39(v166, __src, v168);
-      v41 = v161;
-      v39(v161, v34, v40);
-      object = v164._object;
-      (*(*v169 + 16))(v164._object, v41, v40);
-      LOBYTE(__src[0]) = 1;
-      *(&__src[0] + 1) = 44;
-      __src[1] = 0xE100000000000000;
-      *&__src[2] = 0xE000000000000000;
-      *(&__src[2] + 1) = 92;
-      *&__src[3] = 0xE100000000000000;
-      BYTE8(__src[3]) = 1;
-      *&__src[4] = 34;
-      *(&__src[4] + 1) = 0xE100000000000000;
-      LOBYTE(__src[5]) = 1;
-      *(&__src[5] + 1) = &outlined read-only object #0 of default argument 1 of MLDataTable.init(contentsOf:options:);
-      *&__src[6] = 10;
-      *(&__src[6] + 1) = 0xE100000000000000;
-      __src[7] = 0;
-      LOBYTE(__src[8]) = 1;
-      *(&__src[8] + 1) = 0;
-      LOBYTE(__dst[0]) = 1;
-      LOBYTE(v139) = 1;
-      v140 = 44;
-      v141 = 0xE100000000000000;
-      v142 = 0;
-      v143 = 0xE000000000000000;
-      v144 = 92;
-      v145 = 0xE100000000000000;
-      v146 = 1;
-      v147 = 34;
-      v148 = 0xE100000000000000;
-      v149 = 1;
-      v150 = &outlined read-only object #0 of default argument 1 of MLDataTable.init(contentsOf:options:);
-      v151 = 10;
-      v152 = 0xE100000000000000;
-      v153 = 0;
-      v154 = 1;
-      v155 = 0;
-      outlined retain of MLDataTable.ParsingOptions(__src);
-      outlined release of MLDataTable.ParsingOptions(&v139, 92);
-      memcpy(__dst, __src, sizeof(__dst));
-      v43 = v162;
-      MLDataTable.init(contentsOf:options:)(object, __dst);
-      v44 = v168;
-      v45 = v166;
-      if (v43)
-      {
-        v46 = *(*v169 + 8);
-        v46(v161, v168);
-        *(&v166 + 1);
-        *v172;
-        v167._object;
-        v170._countAndFlagsBits;
-        result = v46(v45, v44);
-      }
-
-      else
-      {
-        v170._object = v156;
-        LOBYTE(v171) = v157;
-        v82._countAndFlagsBits = v167._countAndFlagsBits;
-        v82._object = *v172;
-        MLDataTable.subscript.getter(v82);
-        v83 = *&__dst[0];
-        v84 = BYTE8(__dst[0]);
-        if (BYTE8(__dst[0]) || (outlined copy of Result<_DataTable, Error>(*&__dst[0], 0), v164._object = v83, _UntypedColumn.type.getter(), v83 = v164._object, outlined consume of Result<_DataTable, Error>(v164._object, 0), v156 != 2))
-        {
-          outlined consume of Result<_DataTable, Error>(v83, v84);
-          *(&v166 + 1);
-          v167._object;
-          v170._countAndFlagsBits;
-          *&__dst[0] = 0;
-          *(&__dst[0] + 1) = 0xE000000000000000;
-          _StringGuts.grow(_:)(26);
-          *(&__dst[0] + 1);
-          *&__dst[0] = 0x206E6D756C6F43;
-          *(&__dst[0] + 1) = 0xE700000000000000;
-          v105._countAndFlagsBits = v167._countAndFlagsBits;
-          v106 = *v172;
-          v105._object = *v172;
-          String.append(_:)(v105);
-          v106;
-          v105._countAndFlagsBits = 0xD000000000000011;
-          String.append(_:)(v105);
-          v162 = __dst[0];
-          v105._object = lazy protocol witness table accessor for type MLCreateError and conformance MLCreateError();
-          swift_allocError(&type metadata for MLCreateError, v105._object, 0, 0);
-          *v107 = v162;
-          *(v107 + 16) = 0;
-          *(v107 + 32) = 0;
-          *(v107 + 48) = 0;
-          swift_willThrow(&type metadata for MLCreateError, v105._object);
-          v108 = *(*v169 + 8);
-          v109 = v161;
-          v110 = v168;
-        }
-
-        else
-        {
-          *&v162 = 0;
-          outlined copy of Result<_DataTable, Error>(v83, 0);
-          _UntypedColumn.valueAtIndex(index:)(0, 0.0);
-          v86 = *(&__dst[0] + 1);
-          v85 = *&__dst[0];
-          if (LOBYTE(__dst[1]) != 2)
-          {
-            outlined consume of MLDataValue(*&__dst[0], *(&__dst[0] + 1), __dst[1]);
-            v85 = 0;
-            v86 = 0xE000000000000000;
-          }
-
-          outlined consume of Result<_DataTable, Error>(v164._object, 0);
-          *&__dst[0] = v85;
-          *(&__dst[0] + 1) = v86;
-          v87 = String.init<A>(_:)(__dst, &type metadata for String, &protocol witness table for String, &protocol witness table for String);
-          v89 = v88;
-          URL.init(fileURLWithPath:)(v87, v88);
-          v89;
-          v90 = objc_opt_self(NSFileManager);
-          v91 = [v90 defaultManager];
-          v92 = v91;
-          URL.path.getter(v91);
-          v94 = v93;
-          v95 = String._bridgeToObjectiveC()();
-          v94;
-          LOBYTE(v94) = [v92 fileExistsAtPath:v95];
-
-          if (v94)
-          {
-            v96 = *v172;
-            countAndFlagsBits = v170._countAndFlagsBits;
-            v98 = v167._object;
-            v99 = *(&v166 + 1);
-            v100 = v167._countAndFlagsBits;
-          }
-
-          else
-          {
-            v115 = v164._object;
-            outlined copy of Result<_DataTable, Error>(v164._object, 0);
-            MLAA22MLDataValueConvertibleRzlEySayxGAA0C6ColumnVyxGcfCSS_Tt0B5 = _sSa8CreateMLAA22MLDataValueConvertibleRzlEySayxGAA0C6ColumnVyxGcfCSS_Tt0B5(v115, 0, 0.0);
-            v117 = alloca(24);
-            v118 = alloca(32);
-            *&__src[1] = v166;
-            v119 = v162;
-            v120 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFSaySSG_SSs5NeverOTg5(partial apply for closure #1 in static _VideoUtilities.getVideoURLsAndAnnotations(from:), __src, MLAA22MLDataValueConvertibleRzlEySayxGAA0C6ColumnVyxGcfCSS_Tt0B5);
-            *&v162 = v119;
-            MLAA22MLDataValueConvertibleRzlEySayxGAA0C6ColumnVyxGcfCSS_Tt0B5;
-            *&__dst[0] = v120;
-            v121 = alloca(24);
-            v122 = alloca(24);
-            *&__src[1] = __dst;
-            ML14_UntypedColumnC_s5Error_pTt1g5 = _ss6ResultOsRi_zrlE8catchingAByxq_Gxyq_YKXE_tcfC8CreateML14_UntypedColumnC_s5Error_pTt1g5(partial apply for specialized closure #1 in MLUntypedColumn.init<A>(_:));
-            v124 = v123;
-            *&__dst[0];
-            v125 = *v172;
-            v172[0];
-            MLDataTable.willMutate()();
-            *&__dst[0] = ML14_UntypedColumnC_s5Error_pTt1g5;
-            BYTE8(__dst[0]) = v124 & 1;
-            v100 = v167._countAndFlagsBits;
-            MLDataTable.setColumnImpl(newColumn:named:)(__dst, v167._countAndFlagsBits, v125);
-            v125;
-            outlined consume of Result<_DataTable, Error>(*&__dst[0], SBYTE8(__dst[0]));
-            if (!v171)
-            {
-              v126 = v170._object;
-              outlined copy of Result<_DataTable, Error>(v170._object, 0);
-              _DataTable.columnNamesDidChange()();
-              outlined consume of Result<_DataTable, Error>(v126, 0);
-            }
-
-            countAndFlagsBits = v170._countAndFlagsBits;
-            v98 = v167._object;
-            v99 = *(&v166 + 1);
-            v96 = *v172;
-          }
-
-          v127 = v162;
-          v136._object = countAndFlagsBits;
-          v136._countAndFlagsBits = v164._countAndFlagsBits;
-          static _VideoUtilities.renameVideoTableColumns(table:videoColumn:labelColumn:startTimeColumn:endTimeColumn:)(&v170._object, v100, v96, *v165, v99, *v163, v98, v136);
-          v128 = v96;
-          v129 = *v169;
-          if (!v127)
-          {
-            v128;
-            v99;
-            v98;
-            v170._countAndFlagsBits;
-            outlined consume of Result<_DataTable, Error>(v164._object, 0);
-            v130 = *(v129 + 8);
-            v131 = v168;
-            v130(v160, v168);
-            v130(v161, v131);
-            v130(v166, v131);
-            goto LABEL_34;
-          }
-
-          v128;
-          v99;
-          v98;
-          v170._countAndFlagsBits;
-          outlined consume of Result<_DataTable, Error>(v164._object, 0);
-          v108 = *(v129 + 8);
-          v110 = v168;
-          v108(v160, v168);
-          v109 = v161;
-        }
-
-        v108(v109, v110);
-        v108(v166, v110);
-        result = outlined consume of Result<_DataTable, Error>(v170._object, v171);
-      }
-
-      break;
-    case 1u:
-      v170._countAndFlagsBits = v9;
-      *v172 = v10;
-      v65 = v167._countAndFlagsBits;
-      v57 = v168;
-      v66 = *v169;
-      (*(*v169 + 32))(v167._countAndFlagsBits, __src, v168);
-      v67 = *v163;
-      static UTType.movie.getter();
-      v68 = v162;
-      v69 = static _FileUtilities.collectFilesLabeledByDirectoryName(at:type:)(v65, v67);
-      if (!v68)
-      {
-        v101 = v69;
-        (*(*v172 + 8))(*v163, v170._countAndFlagsBits);
-        static _VideoUtilities.generateVideoTable(_:)(v101);
-        v101;
-        v112 = v140;
-        v170._object = v139;
-        LOBYTE(v171) = v140 & 1;
-        LOBYTE(v140) = v140 & 1;
-        outlined copy of Result<_DataTable, Error>(v139, v112);
-        static _VideoUtilities.validateVideoInput(trainingData:videoColumn:labelColumn:startTimeColumn:endTimeColumn:)(&v139, 0x7461506F65646976, 0xE900000000000068, 0x6C6562616CLL, 0xE500000000000000, 0, 0, 0, 0);
-        v113 = v167._countAndFlagsBits;
-        outlined consume of Result<_DataTable, Error>(v139, v140);
-        v114 = v113;
-        goto LABEL_27;
-      }
-
-      (*(*v172 + 8))(*v163, v170._countAndFlagsBits);
-      result = (*(v66 + 8))(v167._countAndFlagsBits, v57);
-      break;
-    case 2u:
-      v170._countAndFlagsBits = v9;
-      *v172 = v10;
-      v56 = *v165;
-      v57 = v168;
-      v58 = *v169;
-      (*(*v169 + 32))(*v165, __src, v168);
-      v59 = v164._countAndFlagsBits;
-      static UTType.movie.getter();
-      v60 = v162;
-      v61 = static _FileUtilities.collectFilesLabeledByFileName(at:type:)(v56, v59);
-      if (!v60)
-      {
-        v81 = v61;
-        (*(*v172 + 8))(v164._countAndFlagsBits, v170._countAndFlagsBits);
-        static _VideoUtilities.generateVideoTable(_:)(v81);
-        v81;
-        v111 = v140;
-        v170._object = v139;
-        LOBYTE(v171) = v140 & 1;
-        LOBYTE(v140) = v140 & 1;
-        outlined copy of Result<_DataTable, Error>(v139, v111);
-        static _VideoUtilities.validateVideoInput(trainingData:videoColumn:labelColumn:startTimeColumn:endTimeColumn:)(&v139, 0x7461506F65646976, 0xE900000000000068, 0x6C6562616CLL, 0xE500000000000000, 0, 0, 0, 0);
-        outlined consume of Result<_DataTable, Error>(v139, v140);
-        v114 = *v165;
-LABEL_27:
-        (*(*v169 + 8))(v114, v57);
-        goto LABEL_34;
-      }
-
-      (*(*v172 + 8))(v164._countAndFlagsBits, v170._countAndFlagsBits);
-      result = (*(v58 + 8))(*v165, v57);
-      break;
-    case 3u:
-      v62 = *(&__src[1] + 1);
-      v63 = *(&__src[2] + 1);
-      v64 = *(&__src[3] + 1);
-      outlined consume of Result<_DataTable, Error>(*&__src[0], SBYTE8(__src[0]));
-      v64;
-      v63;
-      v62;
-      result = MLDataTable.init()();
-      break;
-    case 4u:
-      v48 = *(&__src[1] + 1);
-      v168 = *&__src[1];
-      v49 = *(&__src[2] + 1);
-      v167._object = *&__src[2];
-      v166 = __src[3];
-      v50 = *(&__src[4] + 1);
-      v170._countAndFlagsBits = *&__src[4];
-      v170._object = *&__src[0];
-      LOBYTE(v171) = BYTE8(__src[0]) & 1;
-      *v172 = *&__src[0];
-      v169[0] = DWORD2(__src[0]);
-      outlined copy of Result<_DataTable, Error>(*&__src[0], SBYTE8(__src[0]));
-      v51 = v168;
-      v52 = v48;
-      v53 = v48;
-      v168 = v49;
-      v54 = v162;
-      v134._object = v50;
-      v134._countAndFlagsBits = v170._countAndFlagsBits;
-      v55 = *(&v166 + 1);
-      static _VideoUtilities.renameVideoTableColumns(table:videoColumn:labelColumn:startTimeColumn:endTimeColumn:)(&v170._object, v51, v53, v167._object, v49, v166, *(&v166 + 1), v134);
-      if (!v54)
-      {
-        v52;
-        v168;
-        v50;
-        v55;
-        outlined consume of Result<_DataTable, Error>(*v172, v169[0]);
-        goto LABEL_34;
-      }
-
-      v52;
-      v168;
-      v50;
-      v55;
-      outlined consume of Result<_DataTable, Error>(*v172, v169[0]);
-      result = outlined consume of Result<_DataTable, Error>(v170._object, v171);
-      break;
-    case 5u:
-      v70 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (DataFrame, sessionIdColumn: String, labelColumn: String, featureColumn: String));
-      *(__src + v70[12] + 8);
-      *(__src + v70[16] + 8);
-      *(__src + v70[20] + 8);
-      MLDataTable.init()();
-      result = (*(v170._countAndFlagsBits + 8))(__src, v167._object);
-      break;
-    case 6u:
-      v71 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (DataFrame, videoColumn: String, labelColumn: String, startTimeColumn: String?, endTimeColumn: String?));
-      v72 = v71[12];
-      v167._countAndFlagsBits = *(__src + v72);
-      *v169 = *(__src + v72 + 8);
-      v73 = v71[16];
-      *v165 = *(__src + v73);
-      *v172 = *(__src + v73 + 8);
-      v74 = v71[20];
-      *v163 = *(__src + v74);
-      v168 = *(__src + v74 + 8);
-      v75 = v71[24];
-      v164._countAndFlagsBits = *(__src + v75);
-      *&v166 = *(__src + v75 + 8);
-      v76 = *(&v166 + 1);
-      v77 = v167._object;
-      v78 = v170._countAndFlagsBits;
-      (*(v170._countAndFlagsBits + 32))(*(&v166 + 1), __src, v167._object);
-      v79 = ML14_UntypedColumnC_s5Error_pTt1g5;
-      *a1.i64 = (*(v78 + 16))(ML14_UntypedColumnC_s5Error_pTt1g5, v76, v77);
-      v80 = v162;
-      MLDataTable.init(_:convertArraysToShapedArrays:)(v79, 0, a1);
-      if (v80)
-      {
-        (*(v170._countAndFlagsBits + 8))(*(&v166 + 1), v167._object);
-        *v172;
-        *v169;
-        v168;
-        result = v166;
-      }
-
-      else
-      {
-        v102 = *(&v166 + 1);
-        v170._object = v139;
-        LOBYTE(v171) = v140;
-        v103 = v166;
-        v135._object = v166;
-        v135._countAndFlagsBits = v164._countAndFlagsBits;
-        v104 = v168;
-        static _VideoUtilities.renameVideoTableColumns(table:videoColumn:labelColumn:startTimeColumn:endTimeColumn:)(&v170._object, v167._countAndFlagsBits, *v169, *v165, *v172, *v163, v168, v135);
-        (*(v170._countAndFlagsBits + 8))(v102, v167._object);
-        *v169;
-        *v172;
-        v103;
-        v104;
-LABEL_34:
-        result = v170._object;
-        v132 = v171;
-        v133 = v158;
-        *v158 = v170._object;
-        *(v133 + 8) = v132;
-      }
-
-      break;
-  }
-
-  return result;
-}
-
-uint64_t type metadata accessor for MLHandActionClassifier.DataSource(uint64_t a1)
-{
-  result = type metadata singleton initialization cache for MLHandActionClassifier.DataSource;
-  if (!type metadata singleton initialization cache for MLHandActionClassifier.DataSource)
-  {
-    return swift_getSingletonMetadata(a1, &nominal type descriptor for MLHandActionClassifier.DataSource);
-  }
-
-  return result;
-}
-
-uint64_t MLHandActionClassifier.DataSource.extractKeypoints(targetFrameRate:)(double a1)
-{
-  v108 = v2;
-  in._object = v3;
-  *&in._countAndFlagsBits = a1;
-  v101 = v1;
-  v94 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Column<Data>);
-  v93 = *(v94 - 8);
-  v4 = *(v93 + 64);
-  v5 = alloca(v4);
-  v6 = alloca(v4);
-  v85 = &v81;
-  v91 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Column<String>);
-  v90 = *(v91 - 8);
-  v7 = *(v90 + 64);
-  v8 = alloca(v7);
-  v9 = alloca(v7);
-  v84 = &v81;
-  v10 = *(*(__swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for AnyColumn?) - 8) + 64);
-  v11 = alloca(v10);
-  v12 = alloca(v10);
-  v86 = &v81;
-  v13 = alloca(v10);
-  v14 = alloca(v10);
-  v83 = &v81;
-  v105 = type metadata accessor for AnyColumn(0);
-  v99 = *(v105 - 1);
-  v15 = *(v99 + 64);
-  v16 = alloca(v15);
-  v17 = alloca(v15);
-  v95 = &v81;
-  v18 = alloca(v15);
-  v19 = alloca(v15);
-  v92 = &v81;
-  v20 = alloca(v15);
-  v21 = alloca(v15);
-  v100 = &v81;
-  v22 = type metadata accessor for DataFrame(0);
-  v23 = *(v22 - 8);
-  v24 = *(v23 + 64);
-  v25 = alloca(v24);
-  v26 = alloca(v24);
-  v104 = &v81;
-  v27 = type metadata accessor for MLHandActionClassifier.DataSource(0);
-  v28 = *(*(v27 - 8) + 64);
-  v29 = alloca(v28);
-  v30 = alloca(v28);
-  outlined init with copy of MLHandActionClassifier.DataSource(in._object, &v81);
-  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload(&v81, v27);
-  if (EnumCaseMultiPayload == 5)
-  {
-    v37 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (DataFrame, sessionIdColumn: String, labelColumn: String, featureColumn: String));
-    v38 = v37[12];
-    v88 = *(&v81 + v38);
-    v103 = *(&v81 + v38 + 8);
-    v39 = v37[16];
-    v87 = *(&v81 + v39);
-    v98 = *(&v81 + v39 + 8);
-    v40 = v37[20];
-    v41 = *(&v81 + v40);
-    in._object = *(&v81 + v40 + 8);
-    v97 = v23;
-    v42 = *(v23 + 32);
-    v96 = v22;
-    v89 = v42;
-    v42(v104, &v81, v22);
-    v43 = v100;
-    in._countAndFlagsBits = v41;
-    DataFrame.subscript.getter(v41, in._object);
-    v44 = AnyColumn.wrappedElementType.getter();
-    v45 = *(v99 + 8);
-    v46 = v105;
-    v45(v43, v105);
-    if (v44 == &type metadata for String)
-    {
-      v102 = v45;
-      v50 = v84;
-      DataFrame.subscript.getter(in._countAndFlagsBits, in._object, &type metadata for String);
-      v51 = v83;
-      v52 = v108;
-      Column<A>.parseAsJSONArrays()();
-      if (!v52)
-      {
-        v108 = 0;
-        (*(v90 + 8))(v50, v91);
-        v67 = v51;
-        v68 = v51;
-        v69 = v105;
-        __swift_storeEnumTagSinglePayload(v68, 0, 1, v105);
-        v70 = v92;
-        v71 = v67;
-        v72 = v99;
-        (*(v99 + 32))(v92, v71, v69);
-        (*(v72 + 16))(v43, v70, v69);
-        object = in._object;
-        in._object;
-        v74 = v43;
-        countAndFlagsBits = in._countAndFlagsBits;
-        v48 = object;
-        DataFrame.subscript.setter(v74, in._countAndFlagsBits, object);
-        v102(v92, v69);
-        v57 = countAndFlagsBits;
-        goto LABEL_18;
-      }
-
-      v48 = in._object;
-      v52;
-      (*(v90 + 8))(v50, v91);
-      __swift_storeEnumTagSinglePayload(v51, 1, 1, v105);
-      v53 = v51;
-    }
-
-    else
-    {
-      DataFrame.subscript.getter(in._countAndFlagsBits, in._object);
-      v47 = AnyColumn.wrappedElementType.getter();
-      v45(v43, v46);
-      if (v47 != &type metadata for Data)
-      {
-        v48 = in._object;
-LABEL_17:
-        v57 = in._countAndFlagsBits;
-LABEL_18:
-        v58._countAndFlagsBits = v57;
-        v58._object = v48;
-        v59 = v104;
-        DataFrame.flattenNestedArrays(in:shape:)(v58, &outlined read-only object #0 of MLHandActionClassifier.DataSource.extractKeypoints(targetFrameRate:));
-        if (v60)
-        {
-          (*(v97 + 8))(v59, v96);
-          v103;
-          v61 = v98;
-        }
-
-        else
-        {
-          v62 = v57;
-          v63 = v98;
-          static _VideoUtilities.renameFeatureColumns(dataFrame:sessionIdColumn:featureColumn:labelColumn:)(v59, v88, v103, v62, v48, v87, v98);
-          v89(v101, v59, v96);
-          v103;
-          v61 = v63;
-        }
-
-        v61;
-        v36 = v48;
-        return v36;
-      }
-
-      v102 = v45;
-      v54 = v85;
-      DataFrame.subscript.getter(in._countAndFlagsBits, in._object, &type metadata for Data);
-      v55 = v86;
-      v56 = v108;
-      Column<A>.parseAsJSONArrays()();
-      if (!v56)
-      {
-        v108 = 0;
-        (*(v93 + 8))(v54, v94);
-        v76 = v105;
-        __swift_storeEnumTagSinglePayload(v55, 0, 1, v105);
-        v77 = v95;
-        v78 = v55;
-        v79 = v99;
-        (*(v99 + 32))(v95, v78, v76);
-        (*(v79 + 16))(v100, v77, v76);
-        v80 = in._object;
-        in._object;
-        v57 = in._countAndFlagsBits;
-        v48 = v80;
-        DataFrame.subscript.setter(v100, in._countAndFlagsBits, v80);
-        v102(v95, v105);
-        goto LABEL_18;
-      }
-
-      v48 = in._object;
-      v56;
-      (*(v93 + 8))(v54, v94);
-      __swift_storeEnumTagSinglePayload(v55, 1, 1, v105);
-      v53 = v55;
-    }
-
-    outlined destroy of AnyColumn?(v53);
-    goto LABEL_17;
-  }
-
-  if (EnumCaseMultiPayload == 3)
-  {
-    v105 = v83;
-    in._object = v84;
-    v104 = v85;
-    v32 = v86;
-    v33 = v87;
-    v34 = v88;
-    v106 = v81;
-    LOBYTE(v107) = v82;
-    v35 = v108;
-    static MLHandActionClassifier.reformatKeypointsDataTable(table:featureColumn:)(&v106, v87, v88);
-    if (!v35)
-    {
-      static _VideoUtilities.renameFeatureTableColumns(table:sessionIdColumn:featureColumn:labelColumn:)(&v106, v105, in._object, v33, v34, v104, v32);
-      v34;
-      v32;
-      in._object;
-      v64 = v106;
-      v65 = v107;
-      v81 = v106;
-      v82 = v107;
-      outlined copy of Result<_DataTable, Error>(v106, v107);
-      DataFrame.init(_:)(&v81);
-      return outlined consume of Result<_DataTable, Error>(v64, v65);
-    }
-
-    outlined consume of Result<_DataTable, Error>(v106, v107);
-    in._object;
-    v32;
-    v36 = v34;
-    return v36;
-  }
-
-  type metadata accessor for MLHandActionClassifier.FeatureExtractor();
-  v49 = v108;
-  static MLHandActionClassifier.FeatureExtractor.extractFeatures(from:targetFrameRate:startingSessionId:)(in._object, 0, in._countAndFlagsBits);
-  if (!v49)
-  {
-    v81 = v106;
-    v82 = v107;
-    DataFrame.init(_:)(&v81);
-  }
-
-  return outlined destroy of MLHandActionClassifier.DataSource(&v81);
-}
-
-uint64_t MLHandActionClassifier.DataSource.keypointsWithAnnotations(targetFrameRate:)(__m128 a1)
-{
-  v85 = v2;
-  v83 = a1.i64[0];
-  v65 = v1;
-  v71 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Column<String>);
-  v70 = *(v71 - 8);
-  v4 = *(v70 + 64);
-  v5 = alloca(v4);
-  v6 = alloca(v4);
-  v66 = &v64;
-  v7 = *(*(__swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for AnyColumn?) - 8) + 64);
-  v8 = alloca(v7);
-  v9 = alloca(v7);
-  v78 = &v64;
-  v84 = type metadata accessor for AnyColumn(0);
-  v77 = *(v84 - 1);
-  v10 = v77[8];
-  v11 = alloca(v10);
-  v12 = alloca(v10);
-  v72 = &v64;
-  v13 = alloca(v10);
-  v14 = alloca(v10);
-  v81 = &v64;
-  v15 = type metadata accessor for DataFrame(0);
-  v86 = *(v15 - 8);
-  v16 = *(v86 + 64);
-  v17 = alloca(v16);
-  v18 = alloca(v16);
-  v74 = &v64;
-  v19 = alloca(v16);
-  v20 = alloca(v16);
-  v87 = &v64;
-  v21 = type metadata accessor for MLHandActionClassifier.DataSource(0);
-  v22 = *(*(v21 - 8) + 64);
-  v23 = alloca(v22);
-  v24 = alloca(v22);
-  outlined init with copy of MLHandActionClassifier.DataSource(v3, &v64);
-  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload(&v64, v21);
-  if (EnumCaseMultiPayload == 5)
-  {
-    v30 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (DataFrame, sessionIdColumn: String, labelColumn: String, featureColumn: String));
-    v31 = v30[12];
-    v68 = *(&v64 + v31);
-    v82 = *(&v64 + v31 + 8);
-    v32 = v30[16];
-    v67 = *(&v64 + v32);
-    v76 = *(&v64 + v32 + 8);
-    v33 = v30[20];
-    v34 = *(&v64 + v33);
-    v83 = *(&v64 + v33 + 8);
-    v75 = v15;
-    (*(v86 + 32))(v87, &v64, v15);
-    v35 = v81;
-    v73 = v34;
-    DataFrame.subscript.getter(v34, v83);
-    v36 = AnyColumn.wrappedElementType.getter();
-    v37 = v77[1];
-    (v37)(v35, v84);
-    if (v36 == &type metadata for String)
-    {
-      v69 = v37;
-      v41 = v66;
-      v42 = v73;
-      v43 = v83;
-      DataFrame.subscript.getter(v73, v83, &type metadata for String);
-      v44 = v85;
-      Column<A>.parseAsJSONArrays()();
-      if (v44)
-      {
-        v38 = v87;
-        v44;
-        (*(v70 + 8))(v41, v71);
-        v45 = v78;
-        __swift_storeEnumTagSinglePayload(v78, 1, 1, v84);
-        outlined destroy of AnyColumn?(v45);
-        v85 = 0;
-      }
-
-      else
-      {
-        v85 = 0;
-        (*(v70 + 8))(v41, v71);
-        v46 = v84;
-        __swift_storeEnumTagSinglePayload(v78, 0, 1, v84);
-        v47 = v72;
-        v48 = v46;
-        v49 = v77;
-        (v77[4])(v72, v78, v48);
-        v50 = v47;
-        v51 = v84;
-        (v49[2])(v81, v50, v84);
-        v43;
-        v52 = v42;
-        v38 = v87;
-        DataFrame.subscript.setter(v81, v52, v43);
-        (v69)(v72, v51);
-      }
-    }
-
-    else
-    {
-      v38 = v87;
-    }
-
-    v53 = v74;
-    v54 = v75;
-    v55 = v86;
-    *a1.i64 = (*(v86 + 16))(v74, v38, v75);
-    v56 = v85;
-    MLDataTable.init(_:convertArraysToShapedArrays:)(v53, 0, a1);
-    if (v56)
-    {
-      (*(v55 + 8))(v38, v54);
-      v83;
-      v76;
-      return v82;
-    }
-
-    v88 = v79;
-    LOBYTE(v89) = v80;
-    v57 = v73;
-    v58 = v83;
-    static MLHandActionClassifier.reformatKeypointsDataTable(table:featureColumn:)(&v88, v73, v83);
-    v60 = v57;
-    v61 = v76;
-    static _VideoUtilities.renameFeatureTableColumns(table:sessionIdColumn:featureColumn:labelColumn:)(&v88, v68, v82, v60, v58, v67, v76);
-    v85 = 0;
-    (*(v86 + 8))(v87, v75);
-    v82;
-    v61;
-    v58;
-  }
-
-  else if (EnumCaseMultiPayload == 3)
-  {
-    v26 = v65;
-    v77 = v66;
-    v87 = v67;
-    v81 = v68;
-    v84 = v69;
-    v27 = v70;
-    v28 = v71;
-    v88 = v64;
-    LOBYTE(v89) = v65 & 1;
-    v86 = v64;
-    outlined copy of Result<_DataTable, Error>(v64, v65);
-    v74 = v27;
-    v29 = v85;
-    static MLHandActionClassifier.reformatKeypointsDataTable(table:featureColumn:)(&v88, v27, v28);
-    if (v29)
-    {
-      outlined consume of Result<_DataTable, Error>(v88, v89);
-      v87;
-      v84;
-      v28;
-      return outlined consume of Result<_DataTable, Error>(v86, v26);
-    }
-
-    v40 = v84;
-    static _VideoUtilities.renameFeatureTableColumns(table:sessionIdColumn:featureColumn:labelColumn:)(&v88, v77, v87, v74, v28, v81, v84);
-    v87;
-    v40;
-    v28;
-    outlined consume of Result<_DataTable, Error>(v86, v26);
-  }
-
-  else
-  {
-    type metadata accessor for MLHandActionClassifier.FeatureExtractor();
-    v39 = v85;
-    static MLHandActionClassifier.FeatureExtractor.extractFeatures(from:targetFrameRate:startingSessionId:)(v3, 0, v83);
-    if (v39)
-    {
-      return outlined destroy of MLHandActionClassifier.DataSource(&v64);
-    }
-
-    v88 = v79;
-    LOBYTE(v89) = v80;
-    outlined destroy of MLHandActionClassifier.DataSource(&v64);
-  }
-
-  result = v88;
-  v62 = v89;
-  v63 = v65;
-  *v65 = v88;
-  *(v63 + 8) = v62;
-  return result;
-}
-
-uint64_t MLHandActionClassifier.DataSource.gatherAnnotatedFileNames()()
-{
-  v98 = v1;
-  v96 = v0;
-  v104 = type metadata accessor for DataFrame(0);
-  v99 = *(v104 - 1);
-  v3 = *(v99 + 64);
-  v4 = alloca(v3);
-  v5 = alloca(v3);
-  v102 = &v92;
-  v6 = alloca(v3);
-  v7 = alloca(v3);
-  v105 = &v92;
-  v106 = type metadata accessor for UTType(0);
-  v8 = *(v106 - 1);
-  v9 = *(v8 + 64);
-  v10 = alloca(v9);
-  v11 = alloca(v9);
-  v103 = &v92;
-  v12 = alloca(v9);
-  v13 = alloca(v9);
-  v101 = &v92;
-  v108 = type metadata accessor for URL(0);
-  v109 = *(v108 - 1);
-  v14 = v109[8];
-  v15 = alloca(v14);
-  v16 = alloca(v14);
-  v97 = &v92;
-  v17 = alloca(v14);
-  v18 = alloca(v14);
-  v107 = &v92;
-  v19 = alloca(v14);
-  v20 = alloca(v14);
-  v100 = &v92;
-  v21 = alloca(v14);
-  v22 = alloca(v14);
-  v95 = &v92;
-  v23 = type metadata accessor for MLHandActionClassifier.DataSource(0);
-  v24 = *(*(v23 - 8) + 64);
-  v25 = alloca(v24);
-  v26 = alloca(v24);
-  v94 = v2;
-  outlined init with copy of MLHandActionClassifier.DataSource(v2, &v92);
-  switch(swift_getEnumCaseMultiPayload(&v92, v23))
-  {
-    case 0u:
-      v27 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (at: URL, annotationFile: URL, videoColumn: String, labelColumn: String, startTimeColumn: String?, endTimeColumn: String?));
-      v28 = &v92 + v27[12];
-      v29 = v27[16];
-      v102 = *(&v92 + v29);
-      v106 = *(&v92 + v29 + 8);
-      v30 = v27[20];
-      v105 = *(&v92 + v30);
-      v100 = *(&v92 + v30 + 8);
-      v31 = v27[24];
-      v99 = *(&v92 + v31);
-      v101 = *(&v92 + v31 + 8);
-      v32 = v27[28];
-      v103 = *(&v92 + v32);
-      v104 = *(&v92 + v32 + 8);
-      v33 = v109[4];
-      v34 = v108;
-      v33(v107, &v92, v108);
-      v35 = v97;
-      v36 = v34;
-      v37 = v106;
-      v33(v97, v28, v36);
-      v38 = v101;
-      v39 = v35;
-      v40 = v100;
-      MLHandActionClassifier.DataSource.gatherAnnotatedFileNamesForDirectory(url:annotationFile:videoColumn:labelColumn:startTimeColumn:endTimeColumn:)(v107, v39, v102, v37, v105, v100, v99, v101, v103, v104);
-      v40;
-      v37;
-      v38;
-      v104;
-      v41 = v109[1];
-      v42 = v108;
-      v41(v97, v108);
-      return (v41)(v107, v42);
-    case 1u:
-      v63 = v100;
-      (v109[4])(v100, &v92, v108);
-      v64 = v103;
-      static UTType.movie.getter();
-      v65 = v98;
-      v66 = static _FileUtilities.collectFilesLabeledByDirectoryName(at:type:)(v63, v64);
-      if (v65)
-      {
-        (*(v8 + 8))(v103, v106);
-        v59 = v100;
-        return (v109[1])(v59, v108);
-      }
-
-      v85 = v66;
-      (*(v8 + 8))(v103, v106);
-      v86 = specialized _NativeDictionary.mapValues<A>(_:)(v85);
-      v85;
-      v83 = v96;
-      _s11TabularData0B5FrameV8CreateMLE9expanding14keysColumnName06valueshI0ACSDySSSayxGG_S2StclufCSS_Tt3g5(v86, 0x6C6562616CLL, 0xE500000000000000, 0x7461506F65646976, 0xE900000000000068);
-      v84 = v100;
-      goto LABEL_20;
-    case 2u:
-      v55 = v95;
-      (v109[4])(v95, &v92, v108);
-      v56 = v101;
-      static UTType.movie.getter();
-      v57 = v98;
-      v58 = static _FileUtilities.collectFilesLabeledByFileName(at:type:)(v55, v56);
-      if (v57)
-      {
-        (*(v8 + 8))(v101, v106);
-        v59 = v95;
-        return (v109[1])(v59, v108);
-      }
-
-      v81 = v58;
-      (*(v8 + 8))(v101, v106);
-      v82 = specialized _NativeDictionary.mapValues<A>(_:)(v81);
-      v81;
-      v83 = v96;
-      _s11TabularData0B5FrameV8CreateMLE9expanding14keysColumnName06valueshI0ACSDySSSayxGG_S2StclufCSS_Tt3g5(v82, 0x6C6562616CLL, 0xE500000000000000, 0x7461506F65646976, 0xE900000000000068);
-      v84 = v95;
-LABEL_20:
-      (v109[1])(v84, v108);
-      v89 = v83;
-      v90 = v104;
-      return __swift_storeEnumTagSinglePayload(v89, 0, 1, v90);
-    case 3u:
-      v60 = v95;
-      v61 = v97;
-      v62 = v99;
-      outlined consume of Result<_DataTable, Error>(v92, v93);
-      v62;
-      v61;
-      v60;
-      return __swift_storeEnumTagSinglePayload(v96, 1, 1, v104);
-    case 4u:
-      v44 = v93;
-      v97 = v94;
-      v100 = v95;
-      v45 = v96;
-      v46 = v94;
-      v103 = v98;
-      v109 = v99;
-      v102 = v95;
-      v108 = v101;
-      LOBYTE(v93) = v93 & 1;
-      v106 = v92;
-      LODWORD(v101) = v44;
-      outlined copy of Result<_DataTable, Error>(v92, v44);
-      v47 = v105;
-      DataFrame.init(_:)(&v92);
-      v48 = v47;
-      v49 = v100;
-      v50 = v97;
-      v95 = v45;
-      v51 = v45;
-      v107 = v46;
-      v52 = v103;
-      v53 = v98;
-      static _VideoUtilities.validateVideoInput(dataFrame:videoColumn:labelColumn:startTimeColumn:endTimeColumn:)(v48, v97, v100, v51, v46, v103, v109, v102, v108);
-      if (!v53)
-      {
-        static _VideoUtilities.renameVideoColumns(dataFrame:videoColumn:labelColumn:startTimeColumn:endTimeColumn:)(v105, v50, v49, v95, v107, v52, v109, v102, v108);
-        outlined consume of Result<_DataTable, Error>(v106, v101);
-        v107;
-        v49;
-        v109;
-        v108;
-        v87 = v96;
-        v88 = v104;
-        (*(v99 + 32))(v96, v105, v104);
-        v89 = v87;
-        v90 = v88;
-        return __swift_storeEnumTagSinglePayload(v89, 0, 1, v90);
-      }
-
-      (*(v99 + 8))(v105, v104);
-      outlined consume of Result<_DataTable, Error>(v106, v101);
-      v107;
-      v49;
-      v109;
-      v54 = v108;
-      return v54;
-    case 5u:
-      v67 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (DataFrame, sessionIdColumn: String, labelColumn: String, featureColumn: String));
-      *(&v92 + v67[12] + 8);
-      *(&v92 + v67[16] + 8);
-      *(&v92 + v67[20] + 8);
-      v68 = v104;
-      __swift_storeEnumTagSinglePayload(v96, 1, 1, v104);
-      return (*(v99 + 8))(&v92, v68);
-    case 6u:
-      v69 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (DataFrame, videoColumn: String, labelColumn: String, startTimeColumn: String?, endTimeColumn: String?));
-      v70 = v69[12];
-      v97 = *(&v92 + v70);
-      v108 = *(&v92 + v70 + 8);
-      v71 = v69[16];
-      v103 = *(&v92 + v71);
-      v72 = *(&v92 + v71 + 8);
-      v73 = v69[20];
-      v100 = *(&v92 + v73);
-      v109 = *(&v92 + v73 + 8);
-      v74 = v69[24];
-      v75 = *(&v92 + v74);
-      v107 = *(&v92 + v74 + 8);
-      v76 = v102;
-      v77 = v104;
-      v106 = *(v99 + 32);
-      (v106)(v102, &v92, v104);
-      v78 = v76;
-      v79 = v100;
-      v105 = v72;
-      v80 = v98;
-      v98 = v75;
-      static _VideoUtilities.validateVideoInput(dataFrame:videoColumn:labelColumn:startTimeColumn:endTimeColumn:)(v78, v97, v108, v103, v72, v100, v109, v75, v107);
-      if (v80)
-      {
-        (*(v99 + 8))(v102, v77);
-        v108;
-        v105;
-        v107;
-        v54 = v109;
-        return v54;
-      }
-
-      else
-      {
-        static _VideoUtilities.renameVideoColumns(dataFrame:videoColumn:labelColumn:startTimeColumn:endTimeColumn:)(v102, v97, v108, v103, v105, v79, v109, v98, v107);
-        v105;
-        v108;
-        v109;
-        v107;
-        v91 = v96;
-        (v106)(v96, v102, v77);
-        v89 = v91;
-        v90 = v77;
-        return __swift_storeEnumTagSinglePayload(v89, 0, 1, v90);
-      }
-  }
-}
-
-uint64_t MLHandActionClassifier.DataSource.gatherAnnotatedFileNamesForDirectory(url:annotationFile:videoColumn:labelColumn:startTimeColumn:endTimeColumn:)(uint64_t a1, void *a2, uint64_t a3, void *a4, uint64_t a5, void *a6, uint64_t a7, void *a8, uint64_t a9, void *a10)
-{
-  v150 = v10;
-  v173 = a2;
-  v152 = v11;
-  v144 = a1;
-  v145 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Column<String>);
-  v146 = *(v145 - 8);
-  v16 = *(v146 + 64);
-  v17 = alloca(v16);
-  v18 = alloca(v16);
-  v147 = &v141;
-  v156 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for FilledColumn<Column<String>>);
-  v155 = *(v156 - 8);
-  v19 = *(v155 + 64);
-  v20 = alloca(v19);
-  v21 = alloca(v19);
-  v160 = &v141;
-  v22 = *(*(type metadata accessor for CSVReadingOptions(0) - 8) + 64);
-  v23 = alloca(v22);
-  v24 = alloca(v22);
-  v148 = &v141;
-  v172 = type metadata accessor for CSVType(0);
-  v163 = *(v172 - 8);
-  v25 = *(v163 + 64);
-  v26 = alloca(v25);
-  v27 = alloca(v25);
-  v157 = &v141;
-  v28 = alloca(v25);
-  v29 = alloca(v25);
-  v170 = &v141;
-  v30 = *(*(type metadata accessor for JSONReadingOptions(0) - 8) + 64);
-  v31 = alloca(v30);
-  v32 = alloca(v30);
-  v161 = &v141;
-  v153 = type metadata accessor for URL(0);
-  v165 = *(v153 - 8);
-  v33 = v165[8];
-  v34 = alloca(v33);
-  v35 = alloca(v33);
-  v167 = &v141;
-  v36 = alloca(v33);
-  v37 = alloca(v33);
-  v141 = &v141;
-  v143 = type metadata accessor for JSONType(0);
-  v175 = *(v143 - 8);
-  v38 = *(v175 + 64);
-  v39 = alloca(v38);
-  v40 = alloca(v38);
-  v174 = &v141;
-  v41 = alloca(v38);
-  v42 = alloca(v38);
-  v171 = &v141;
-  v166 = type metadata accessor for DataFrame(0);
-  v162 = *(v166 - 8);
-  v43 = *(v162 + 64);
-  v44 = alloca(v43);
-  v45 = alloca(v43);
-  v149 = &v141;
-  v46 = alloca(v43);
-  v47 = alloca(v43);
-  v142 = &v141;
-  v48 = alloca(v43);
-  v49 = alloca(v43);
-  v154 = &v141;
-  v50 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for _ContiguousArrayStorage<String>);
-  v51 = swift_allocObject(v50, 64, 7);
-  v51[2] = 2;
-  v51[3] = 4;
-  v164 = a3;
-  v51[4] = a3;
-  v51[5] = a4;
-  v159 = a5;
-  v51[6] = a5;
-  v52 = v51;
-  v51[7] = a6;
-  v158 = a6;
-  a4;
-  a6;
-  if (a8)
-  {
-    a8;
-    v53 = 3;
-    v52 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(1, 3, 1, v52);
-    v52[2] = 3;
-    v52[8] = a7;
-    v52[9] = a8;
-  }
-
-  else
-  {
-    v53 = 2;
-  }
-
-  v168 = a4;
-  if (a10)
-  {
-    v169 = v52;
-    v54 = v52[3];
-    a10;
-    if (v54 >> 1 <= v53)
-    {
-      v52 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v54 >= 2, v53 + 1, 1, v169);
-    }
-
-    else
-    {
-      v52 = v169;
-    }
-
-    v52[2] = v53 + 1;
-    v55 = 2 * v53;
-    v52[v55 + 4] = a9;
-    v52[v55 + 5] = a10;
-  }
-
-  v169 = v52;
-  v56 = URL.pathExtension.getter();
-  v58 = v57;
-  if (!(v56 ^ 0x6E6F736A | v57 ^ 0xE400000000000000))
-  {
-    v57;
-    goto LABEL_11;
-  }
-
-  v59 = _stringCompareWithSmolCheck(_:_:expecting:)(v56, v57, 1852797802, 0xE400000000000000, 0);
-  v58;
-  if (v59)
-  {
-LABEL_11:
-    v60 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for _ContiguousArrayStorage<(String, JSONType)>);
-    v61 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (String, JSONType));
-    v62 = *(v61 - 8);
-    v170 = v61;
-    v172 = *(v62 + 72);
-    v63 = *(v62 + 80);
-    v64 = (v63 + 32) & ~*(v62 + 80);
-    v65 = swift_allocObject(v60, v64 + 2 * v172, v63 | 7);
-    *(v65 + 16) = 2;
-    *(v65 + 24) = 4;
-    v66 = v65 + v64;
-    v67 = v65 + v64 + *(v61 + 48);
-    *(v65 + v64) = v164;
-    *(v65 + v64 + 8) = v168;
-    LODWORD(v167) = enum case for JSONType.string(_:);
-    v68 = *(v175 + 104);
-    v69 = v143;
-    v68(v67, enum case for JSONType.string(_:), v143);
-    v70 = v172;
-    v71 = v66 + v172 + *(v170 + 12);
-    *(v172 + v66) = v159;
-    v72 = v158;
-    *(v70 + v66 + 8) = v158;
-    LOBYTE(v66) = v72;
-    v172 = v68;
-    v68(v71, v167, v69);
-    v168;
-    v66;
-    v73 = Dictionary.init(dictionaryLiteral:)(v65, &type metadata for String, v69, &protocol witness table for String);
-    if (a8)
-    {
-      v74 = v171;
-      v75 = v73;
-      (v172)(v171, enum case for JSONType.double(_:), v69);
-      v76 = v174;
-      (*(v175 + 32))(v174, v74, v69);
-      a8;
-      isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native(v75);
-      v151[0] = v75;
-      specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v76, a7, a8, isUniquelyReferenced_nonNull_native);
-      a8;
-      v73 = v151[0];
-      v78 = a10;
-    }
-
-    else
-    {
-      v78 = a10;
-      v76 = v174;
-    }
-
-    v174 = v73;
-    if (v78)
-    {
-      v79 = v171;
-      (v172)(v171, enum case for JSONType.double(_:), v69);
-      (*(v175 + 32))(v76, v79, v69);
-      v78;
-      v80 = v174;
-      v81 = swift_isUniquelyReferenced_nonNull_native(v174);
-      v151[0] = v80;
-      specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v76, a9, v78, v81);
-      v78;
-      v174 = v151[0];
-    }
-
-    v82 = v141;
-    (v165[2])(v141, v173, v153);
-    v83 = v169;
-    v169;
-    v84 = v161;
-    JSONReadingOptions.init()();
-    v85 = v142;
-    v86 = v152;
-    DataFrame.init(contentsOfJSONFile:columns:types:options:)(v82, v83, v174, v84);
-    if (!v86)
-    {
-      v173 = 0;
-      v87 = v162;
-      v88 = v166;
-      goto LABEL_27;
-    }
-
-    return v83;
-  }
-
-  v89 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for _ContiguousArrayStorage<(String, CSVType)>);
-  v90 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (String, CSVType));
-  v91 = *(v90 - 8);
-  v92 = v90;
-  v171 = v90;
-  v175 = *(v91 + 72);
-  v93 = *(v91 + 80);
-  v94 = (v93 + 32) & ~*(v91 + 80);
-  v95 = swift_allocObject(v89, v94 + 2 * v175, v93 | 7);
-  *(v95 + 16) = 2;
-  *(v95 + 24) = 4;
-  v96 = v95 + v94;
-  v97 = v95 + v94 + *(v92 + 48);
-  *(v95 + v94) = v164;
-  *(v95 + v94 + 8) = v168;
-  LODWORD(v161) = enum case for CSVType.string(_:);
-  v98 = *(v163 + 104);
-  v99 = v172;
-  (v98)(v97, enum case for CSVType.string(_:), v172);
-  v100 = v98;
-  v101 = v175;
-  v102 = v96 + v175 + *(v171 + 12);
-  *(v175 + v96) = v159;
-  LOBYTE(v98) = v158;
-  *(v101 + v96 + 8) = v158;
-  v103 = v99;
-  v104 = v100;
-  (v100)(v102, v161, v103);
-  v168;
-  LOBYTE(v102) = v98;
-  v105 = v103;
-  v102;
-  v106 = Dictionary.init(dictionaryLiteral:)(v95, &type metadata for String, v103, &protocol witness table for String);
-  v174 = v104;
-  LODWORD(v171) = enum case for CSVType.double(_:);
-  if (a8)
-  {
-    v107 = v170;
-    v175 = v106;
-    (v104)(v170, enum case for CSVType.double(_:), v105);
-    v108 = v157;
-    v109 = v163;
-    (*(v163 + 32))(v157, v107, v105);
-    a8;
-    v110 = v175;
-    v111 = swift_isUniquelyReferenced_nonNull_native(v175);
-    v151[0] = v110;
-    specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v108, a7, a8, v111);
-    a8;
-    v106 = v151[0];
-    v112 = a10;
-  }
-
-  else
-  {
-    v112 = a10;
-    v109 = v163;
-  }
-
-  v175 = v106;
-  v113 = v170;
-  if (v112)
-  {
-    v114 = v172;
-    (v174)(v170, v171, v172);
-    v115 = v109;
-    v116 = v157;
-    (*(v115 + 32))(v157, v113, v114);
-    v112;
-    v117 = v175;
-    v118 = swift_isUniquelyReferenced_nonNull_native(v175);
-    v151[0] = v117;
-    v119 = v116;
-    v120 = v174;
-    specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v119, a9, v112, v118);
-    v112;
-    v175 = v151[0];
-    v113 = v170;
-  }
-
-  else
-  {
-    v120 = v174;
-  }
-
-  (v165[2])(v167, v173, v153);
-  v83 = v169;
-  v169;
-  v173 = _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfCSS_Tt0gq5(&outlined read-only object #0 of default argument 1 of CSVReadingOptions.init(hasHeaderRow:nilEncodings:trueEncodings:falseEncodings:floatingPointType:ignoresEmptyLines:usesQuoting:usesEscaping:delimiter:escapeCharacter:));
-  v165 = _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfCSS_Tt0gq5(&outlined read-only object #0 of default argument 2 of CSVReadingOptions.init(hasHeaderRow:nilEncodings:trueEncodings:falseEncodings:floatingPointType:ignoresEmptyLines:usesQuoting:usesEscaping:delimiter:escapeCharacter:));
-  v121 = _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfCSS_Tt0gq5(&outlined read-only object #0 of default argument 3 of CSVReadingOptions.init(hasHeaderRow:nilEncodings:trueEncodings:falseEncodings:floatingPointType:ignoresEmptyLines:usesQuoting:usesEscaping:delimiter:escapeCharacter:));
-  (v120)(v113, v171, v172);
-  v122 = v148;
-  CSVReadingOptions.init(hasHeaderRow:nilEncodings:trueEncodings:falseEncodings:floatingPointType:ignoresEmptyLines:usesQuoting:usesEscaping:delimiter:escapeCharacter:)(1, v173, v165, v121, v113, 1, 1, 0, 44, 0xE100000000000000, 92, 0xE100000000000000);
-  v85 = v149;
-  v123 = v152;
-  DataFrame.init(contentsOfCSVFile:columns:rows:types:options:)(v167, v83, 0, 0, 1, v175, v122);
-  if (v123)
-  {
-    return v83;
-  }
-
-  v173 = 0;
-  v88 = v166;
-  v87 = v162;
-LABEL_27:
-  v175 = *(v87 + 32);
-  (v175)(v154, v85, v88);
-  v125 = v147;
-  DataFrame.subscript.getter(v164, v168, &type metadata for String);
-  v151[0] = 0;
-  v151[1] = 0xE000000000000000;
-  v126 = lazy protocol witness table accessor for type Column<String> and conformance Column<A>();
-  v127 = v145;
-  OptionalColumnProtocol.filled(with:)(v151, v145, v126);
-  v128 = v127;
-  v129 = v154;
-  (*(v146 + 8))(v125, v128);
-  v130 = alloca(24);
-  v131 = alloca(32);
-  v143 = v144;
-  v132 = v173;
-  v133 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF11TabularData12FilledColumnVyAF0G0VySSGG_SSSgs5NeverOTg5(partial apply for closure #1 in MLHandActionClassifier.DataSource.gatherAnnotatedFileNamesForDirectory(url:annotationFile:videoColumn:labelColumn:startTimeColumn:endTimeColumn:), &v141);
-  v173 = v132;
-  v169;
-  v134 = v168;
-  v168;
-  v135 = v133;
-  v136 = v164;
-  DataFrame.subscript.setter(v135, v164, v134, &type metadata for String, &type metadata for String);
-  v137 = v173;
-  static _VideoUtilities.renameVideoColumns(dataFrame:videoColumn:labelColumn:startTimeColumn:endTimeColumn:)(v129, v136, v134, v159, v158, a7, a8, a9, a10);
-  (*(v155 + 8))(v160, v156);
-  if (v137)
-  {
-    return (*(v162 + 8))(v129, v166);
-  }
-
-  v138 = v150;
-  v139 = v129;
-  v140 = v166;
-  (v175)(v150, v139, v166);
-  return __swift_storeEnumTagSinglePayload(v138, 0, 1, v140);
-}
-
-uint64_t MLHandActionClassifier.DataSource.stratifiedSplit(proportions:seed:labelColumn:)(void *a1, uint64_t a2, uint64_t a3, void *a4, __m128 a5)
-{
-  v8 = v6;
-  v35 = a4;
-  v36._countAndFlagsBits = a3;
-  v40 = a2;
-  v36._object = a1;
-  v37 = v5;
-  v9 = type metadata accessor for MLHandActionClassifier.DataSource(0);
-  v10 = *(*(v9 - 8) + 64);
-  v11 = alloca(v10);
-  v12 = alloca(v10);
-  outlined init with copy of MLHandActionClassifier.DataSource(v7, &v33);
-  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload(&v33, v9);
-  if (EnumCaseMultiPayload == 5)
-  {
-    v17 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (DataFrame, sessionIdColumn: String, labelColumn: String, featureColumn: String));
-    v18 = v17[12];
-    *v38 = *(&v33 + v18);
-    *v43 = *(&v33 + v18 + 8);
-    *(&v33 + v17[16] + 8);
-    *(&v33 + v17[20] + 8);
-    v19 = type metadata accessor for DataFrame(0);
-    (*(*(v19 - 8) + 8))(&v33, v19);
-LABEL_5:
-    MLHandActionClassifier.DataSource.keypointsWithAnnotations(targetFrameRate:)(0x403E000000000000uLL);
-    if (v8)
-    {
-      return *v43;
-    }
-
-    v21 = v40;
-    if (v40 < 0)
-    {
-      BUG();
-    }
-
-    v22 = v41;
-    v34 = v41;
-    LOBYTE(v39) = v42;
-    v23 = type metadata accessor for MersenneTwisterGenerator();
-    swift_allocObject(v23, 136, 7);
-    v41 = MersenneTwisterGenerator.init(seed:)(v21);
-    v24 = v39;
-    v25 = v22;
-    v26 = *v43;
-    v32._object = v35;
-    v32._countAndFlagsBits = v36._countAndFlagsBits;
-    specialized stratifiedSplitBySequenceGenerator<A>(proportions:generator:dataTable:by:on:)(v36._object, &v41, v25, v39, *v38, *v43, 30.0, v32);
-    v26;
-
-    return outlined consume of Result<_DataTable, Error>(v34, v24);
-  }
-
-  if (EnumCaseMultiPayload == 3)
-  {
-    v39 = v33;
-    *v38 = v35;
-    *v43 = v36._countAndFlagsBits;
-    v14 = v33;
-    v15 = v34;
-    v37;
-    v16 = v14;
-    v8 = v6;
-    v16;
-    outlined consume of Result<_DataTable, Error>(v39, v15);
-    goto LABEL_5;
-  }
-
-  MLHandActionClassifier.DataSource.videosWithAnnotations()(a5);
-  if (v6)
-  {
-    return outlined destroy of MLHandActionClassifier.DataSource(&v33);
-  }
-
-  v27 = v40;
-  if (v40 < 0)
-  {
-    BUG();
-  }
-
-  *v43 = v41;
-  v28 = v42;
-  v29 = type metadata accessor for MersenneTwisterGenerator();
-  swift_allocObject(v29, 136, 7);
-  v41 = MersenneTwisterGenerator.init(seed:)(v27);
-  v30 = v28;
-  LODWORD(v40) = v28;
-  v31 = *v43;
-  specialized stratifiedSplitGenerator<A>(proportions:generator:dataTable:on:)(v36._object, &v41, *v43, v30, v36._countAndFlagsBits, v35, *a5.i64);
-
-  outlined consume of Result<_DataTable, Error>(v31, v40);
-  return outlined destroy of MLHandActionClassifier.DataSource(&v33);
-}
-
-void *initializeBufferWithCopyOfBuffer for MLHandActionClassifier.DataSource(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v3 = a1;
-  v4 = *(*(a3 - 8) + 80);
-  if ((v4 & 0x20000) != 0)
-  {
-    v18 = *a2;
-    *v3 = *a2;
-    v3 = (v18 + ((v4 + 16) & ~v4));
-  }
-
-  else
-  {
-    switch(swift_getEnumCaseMultiPayload(a2, a3))
-    {
-      case 0u:
-        v6 = type metadata accessor for URL(0);
-        v52 = *(*(v6 - 8) + 16);
-        v52(a1, a2, v6);
-        v7 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (at: URL, annotationFile: URL, videoColumn: String, labelColumn: String, startTimeColumn: String?, endTimeColumn: String?));
-        v52(a1 + v7[12], a2 + v7[12], v6);
-        v8 = v7[16];
-        *(a1 + v8) = *(a2 + v8);
-        v9 = *(a2 + v8 + 8);
-        *(v3 + v8 + 8) = v9;
-        v10 = v7[20];
-        *(v3 + v10) = *(a2 + v10);
-        v53 = *(a2 + v10 + 8);
-        *(v3 + v10 + 8) = v53;
-        v11 = v7[24];
-        *(v3 + v11) = *(a2 + v11);
-        v12 = *(a2 + v11 + 8);
-        *(v3 + v11 + 8) = v12;
-        v13 = v7[28];
-        *(v3 + v13) = *(a2 + v13);
-        v14 = *(a2 + v13 + 8);
-        *(v3 + v13 + 8) = v14;
-        v9;
-        v53;
-        v12;
-        v14;
-        v15 = v3;
-        v16 = a3;
-        v17 = 0;
-        goto LABEL_12;
-      case 1u:
-        v31 = type metadata accessor for URL(0);
-        (*(*(v31 - 8) + 16))(a1, a2, v31);
-        v51 = 1;
-        goto LABEL_11;
-      case 2u:
-        v25 = type metadata accessor for URL(0);
-        (*(*(v25 - 8) + 16))(a1, a2, v25);
-        v51 = 2;
-        goto LABEL_11;
-      case 3u:
-        v26 = *a2;
-        v27 = *(a2 + 8);
-        outlined copy of Result<_DataTable, Error>(*a2, v27);
-        *a1 = v26;
-        *(a1 + 8) = v27;
-        *(a1 + 16) = *(a2 + 16);
-        v28 = *(a2 + 24);
-        v3[3] = v28;
-        v3[4] = *(a2 + 32);
-        v29 = *(a2 + 40);
-        v3[5] = v29;
-        v3[6] = *(a2 + 48);
-        v30 = *(a2 + 56);
-        v3[7] = v30;
-        v28;
-        v29;
-        v30;
-        v51 = 3;
-        goto LABEL_11;
-      case 4u:
-        v19 = *a2;
-        v20 = *(a2 + 8);
-        outlined copy of Result<_DataTable, Error>(*a2, v20);
-        *a1 = v19;
-        *(a1 + 8) = v20;
-        *(a1 + 16) = *(a2 + 16);
-        v21 = *(a2 + 24);
-        v3[3] = v21;
-        v3[4] = *(a2 + 32);
-        v22 = *(a2 + 40);
-        v3[5] = v22;
-        v3[6] = *(a2 + 48);
-        v23 = *(a2 + 56);
-        v3[7] = v23;
-        v3[8] = *(a2 + 64);
-        v24 = *(a2 + 72);
-        v3[9] = v24;
-        v21;
-        v22;
-        v23;
-        v24;
-        v51 = 4;
-        goto LABEL_11;
-      case 5u:
-        v32 = type metadata accessor for DataFrame(0);
-        (*(*(v32 - 8) + 16))(a1, a2, v32);
-        v33 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (DataFrame, sessionIdColumn: String, labelColumn: String, featureColumn: String));
-        v34 = v33[12];
-        *(a1 + v34) = *(a2 + v34);
-        v35 = *(a2 + v34 + 8);
-        *(v3 + v34 + 8) = v35;
-        v36 = v33[16];
-        *(v3 + v36) = *(a2 + v36);
-        v37 = *(a2 + v36 + 8);
-        *(v3 + v36 + 8) = v37;
-        v38 = v33[20];
-        *(v3 + v38) = *(a2 + v38);
-        v39 = *(a2 + v38 + 8);
-        *(v3 + v38 + 8) = v39;
-        v35;
-        v37;
-        v39;
-        v51 = 5;
-        goto LABEL_11;
-      case 6u:
-        v40 = type metadata accessor for DataFrame(0);
-        (*(*(v40 - 8) + 16))(a1, a2, v40);
-        v41 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (DataFrame, videoColumn: String, labelColumn: String, startTimeColumn: String?, endTimeColumn: String?));
-        v42 = v41[12];
-        *(a1 + v42) = *(a2 + v42);
-        v43 = *(a2 + v42 + 8);
-        *(v3 + v42 + 8) = v43;
-        v44 = v41[16];
-        *(v3 + v44) = *(a2 + v44);
-        v45 = *(a2 + v44 + 8);
-        *(v3 + v44 + 8) = v45;
-        v46 = v41[20];
-        *(v3 + v46) = *(a2 + v46);
-        v47 = *(a2 + v46 + 8);
-        *(v3 + v46 + 8) = v47;
-        v48 = v41[24];
-        *(v3 + v48) = *(a2 + v48);
-        v49 = *(a2 + v48 + 8);
-        *(v3 + v48 + 8) = v49;
-        v43;
-        v45;
-        v47;
-        v49;
-        v51 = 6;
-LABEL_11:
-        v17 = v51;
-        v15 = v3;
-        v16 = a3;
-LABEL_12:
-        swift_storeEnumTagMultiPayload(v15, v16, v17);
-        break;
-    }
-  }
-
-  return v3;
-}
-
-uint64_t destroy for MLHandActionClassifier.DataSource(uint64_t a1, uint64_t a2)
-{
-  result = swift_getEnumCaseMultiPayload(a1, a2);
-  switch(result)
-  {
-    case 0:
-      v4 = type metadata accessor for URL(0);
-      v5 = *(*(v4 - 8) + 8);
-      v5(a1, v4);
-      v6 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (at: URL, annotationFile: URL, videoColumn: String, labelColumn: String, startTimeColumn: String?, endTimeColumn: String?));
-      v5(a1 + v6[12], v4);
-      *(a1 + v6[16] + 8);
-      *(a1 + v6[20] + 8);
-      *(a1 + v6[24] + 8);
-      v7 = v6[28];
-      goto LABEL_8;
-    case 1:
-    case 2:
-      v3 = type metadata accessor for URL(0);
-      return (*(*(v3 - 8) + 8))(a1, v3);
-    case 3:
-      outlined consume of Result<_DataTable, Error>(*a1, *(a1 + 8));
-      *(a1 + 24);
-      *(a1 + 40);
-      return *(a1 + 56);
-    case 4:
-      outlined consume of Result<_DataTable, Error>(*a1, *(a1 + 8));
-      *(a1 + 24);
-      *(a1 + 40);
-      *(a1 + 56);
-      return *(a1 + 72);
-    case 5:
-      v8 = type metadata accessor for DataFrame(0);
-      (*(*(v8 - 8) + 8))(a1, v8);
-      v9 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (DataFrame, sessionIdColumn: String, labelColumn: String, featureColumn: String));
-      *(a1 + v9[12] + 8);
-      *(a1 + v9[16] + 8);
-      v7 = v9[20];
-      goto LABEL_8;
-    case 6:
-      v10 = type metadata accessor for DataFrame(0);
-      (*(*(v10 - 8) + 8))(a1, v10);
-      v11 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (DataFrame, videoColumn: String, labelColumn: String, startTimeColumn: String?, endTimeColumn: String?));
-      *(a1 + v11[12] + 8);
-      *(a1 + v11[16] + 8);
-      *(a1 + v11[20] + 8);
-      v7 = v11[24];
-LABEL_8:
-      result = *(a1 + v7 + 8);
-      break;
-    default:
-      return result;
-  }
-
-  return result;
-}
-
-uint64_t initializeWithCopy for MLHandActionClassifier.DataSource(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  switch(swift_getEnumCaseMultiPayload(a2, a3))
-  {
-    case 0u:
-      v5 = type metadata accessor for URL(0);
-      v6 = *(*(v5 - 8) + 16);
-      v6(a1, a2, v5);
-      v52 = a3;
-      v7 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (at: URL, annotationFile: URL, videoColumn: String, labelColumn: String, startTimeColumn: String?, endTimeColumn: String?));
-      v6(a1 + v7[12], a2 + v7[12], v5);
-      v8 = v7[16];
-      *(a1 + v8) = *(a2 + v8);
-      v9 = *(a2 + v8 + 8);
-      *(a1 + v8 + 8) = v9;
-      v10 = v7[20];
-      *(a1 + v10) = *(a2 + v10);
-      v11 = *(a2 + v10 + 8);
-      *(a1 + v10 + 8) = v11;
-      v12 = v7[24];
-      *(a1 + v12) = *(a2 + v12);
-      v13 = *(a2 + v12 + 8);
-      *(a1 + v12 + 8) = v13;
-      v14 = v7[28];
-      *(a1 + v14) = *(a2 + v14);
-      v15 = *(a2 + v14 + 8);
-      *(a1 + v14 + 8) = v15;
-      v9;
-      v11;
-      v13;
-      v15;
-      v16 = a1;
-      v17 = v52;
-      v18 = 0;
-      goto LABEL_10;
-    case 1u:
-      v31 = type metadata accessor for URL(0);
-      (*(*(v31 - 8) + 16))(a1, a2, v31);
-      v51 = 1;
-      goto LABEL_9;
-    case 2u:
-      v25 = type metadata accessor for URL(0);
-      (*(*(v25 - 8) + 16))(a1, a2, v25);
-      v51 = 2;
-      goto LABEL_9;
-    case 3u:
-      v26 = *a2;
-      v27 = *(a2 + 8);
-      outlined copy of Result<_DataTable, Error>(*a2, v27);
-      *a1 = v26;
-      *(a1 + 8) = v27;
-      *(a1 + 16) = *(a2 + 16);
-      v28 = *(a2 + 24);
-      *(a1 + 24) = v28;
-      *(a1 + 32) = *(a2 + 32);
-      v29 = *(a2 + 40);
-      *(a1 + 40) = v29;
-      *(a1 + 48) = *(a2 + 48);
-      v30 = *(a2 + 56);
-      *(a1 + 56) = v30;
-      v28;
-      v29;
-      v30;
-      v51 = 3;
-      goto LABEL_9;
-    case 4u:
-      v19 = *a2;
-      v20 = *(a2 + 8);
-      outlined copy of Result<_DataTable, Error>(*a2, v20);
-      *a1 = v19;
-      *(a1 + 8) = v20;
-      *(a1 + 16) = *(a2 + 16);
-      v21 = *(a2 + 24);
-      *(a1 + 24) = v21;
-      *(a1 + 32) = *(a2 + 32);
-      v22 = *(a2 + 40);
-      *(a1 + 40) = v22;
-      *(a1 + 48) = *(a2 + 48);
-      v23 = *(a2 + 56);
-      *(a1 + 56) = v23;
-      *(a1 + 64) = *(a2 + 64);
-      v24 = *(a2 + 72);
-      *(a1 + 72) = v24;
-      v21;
-      v22;
-      v23;
-      v24;
-      v51 = 4;
-      goto LABEL_9;
-    case 5u:
-      v32 = type metadata accessor for DataFrame(0);
-      (*(*(v32 - 8) + 16))(a1, a2, v32);
-      v33 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (DataFrame, sessionIdColumn: String, labelColumn: String, featureColumn: String));
-      v34 = v33[12];
-      *(a1 + v34) = *(a2 + v34);
-      v35 = *(a2 + v34 + 8);
-      *(a1 + v34 + 8) = v35;
-      v36 = v33[16];
-      *(a1 + v36) = *(a2 + v36);
-      v37 = *(a2 + v36 + 8);
-      *(a1 + v36 + 8) = v37;
-      v38 = v33[20];
-      *(a1 + v38) = *(a2 + v38);
-      v39 = *(a2 + v38 + 8);
-      *(a1 + v38 + 8) = v39;
-      v35;
-      v37;
-      v39;
-      v51 = 5;
-      goto LABEL_9;
-    case 6u:
-      v40 = type metadata accessor for DataFrame(0);
-      (*(*(v40 - 8) + 16))(a1, a2, v40);
-      v41 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (DataFrame, videoColumn: String, labelColumn: String, startTimeColumn: String?, endTimeColumn: String?));
-      v42 = v41[12];
-      *(a1 + v42) = *(a2 + v42);
-      v43 = *(a2 + v42 + 8);
-      *(a1 + v42 + 8) = v43;
-      v44 = v41[16];
-      *(a1 + v44) = *(a2 + v44);
-      v45 = *(a2 + v44 + 8);
-      *(a1 + v44 + 8) = v45;
-      v46 = v41[20];
-      *(a1 + v46) = *(a2 + v46);
-      v47 = *(a2 + v46 + 8);
-      *(a1 + v46 + 8) = v47;
-      v48 = v41[24];
-      *(a1 + v48) = *(a2 + v48);
-      v49 = *(a2 + v48 + 8);
-      *(a1 + v48 + 8) = v49;
-      v43;
-      v45;
-      v47;
-      v49;
-      v51 = 6;
-LABEL_9:
-      v18 = v51;
-      v16 = a1;
-      v17 = a3;
-LABEL_10:
-      swift_storeEnumTagMultiPayload(v16, v17, v18);
-      return a1;
-  }
-}
-
-uint64_t assignWithCopy for MLHandActionClassifier.DataSource(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  if (a1 != a2)
-  {
-    outlined destroy of MLHandActionClassifier.DataSource(a1);
-    EnumCaseMultiPayload = swift_getEnumCaseMultiPayload(a2, a3);
-    switch(EnumCaseMultiPayload)
-    {
-      case 0u:
-        v43 = EnumCaseMultiPayload;
-        v13 = type metadata accessor for URL(0);
-        v40 = *(*(v13 - 8) + 16);
-        v40(a1, a2, v13);
-        v14 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (at: URL, annotationFile: URL, videoColumn: String, labelColumn: String, startTimeColumn: String?, endTimeColumn: String?));
-        v40(a1 + v14[12], a2 + v14[12], v13);
-        v15 = v14[16];
-        *(a1 + v15) = *(a2 + v15);
-        v16 = *(a2 + v15 + 8);
-        *(a1 + v15 + 8) = v16;
-        v17 = v14[20];
-        *(a1 + v17) = *(a2 + v17);
-        v41 = *(a2 + v17 + 8);
-        *(a1 + v17 + 8) = v41;
-        v18 = v14[24];
-        *(a1 + v18) = *(a2 + v18);
-        v19 = *(a2 + v18 + 8);
-        *(a1 + v18 + 8) = v19;
-        v20 = v14[28];
-        *(a1 + v20) = *(a2 + v20);
-        v21 = *(a2 + v20 + 8);
-        *(a1 + v20 + 8) = v21;
-        v16;
-        v41;
-        LOBYTE(v16) = v19;
-        EnumCaseMultiPayload = v43;
-        v16;
-        v22 = v21;
-        goto LABEL_12;
-      case 1u:
-      case 2u:
-        v6 = type metadata accessor for URL(0);
-        (*(*(v6 - 8) + 16))(a1, a2, v6);
-        goto LABEL_13;
-      case 3u:
-        v23 = *a2;
-        v44 = EnumCaseMultiPayload;
-        v24 = *(a2 + 8);
-        outlined copy of Result<_DataTable, Error>(*a2, v24);
-        *a1 = v23;
-        *(a1 + 8) = v24;
-        EnumCaseMultiPayload = v44;
-        *(a1 + 16) = *(a2 + 16);
-        v25 = *(a2 + 24);
-        *(a1 + 24) = v25;
-        *(a1 + 32) = *(a2 + 32);
-        v26 = *(a2 + 40);
-        *(a1 + 40) = v26;
-        *(a1 + 48) = *(a2 + 48);
-        v12 = *(a2 + 56);
-        *(a1 + 56) = v12;
-        goto LABEL_8;
-      case 4u:
-        v7 = *a2;
-        v42 = EnumCaseMultiPayload;
-        v8 = *(a2 + 8);
-        outlined copy of Result<_DataTable, Error>(*a2, v8);
-        *a1 = v7;
-        *(a1 + 8) = v8;
-        *(a1 + 16) = *(a2 + 16);
-        v9 = *(a2 + 24);
-        *(a1 + 24) = v9;
-        *(a1 + 32) = *(a2 + 32);
-        v10 = *(a2 + 40);
-        *(a1 + 40) = v10;
-        *(a1 + 48) = *(a2 + 48);
-        v11 = *(a2 + 56);
-        *(a1 + 56) = v11;
-        *(a1 + 64) = *(a2 + 64);
-        v12 = *(a2 + 72);
-        *(a1 + 72) = v12;
-        goto LABEL_10;
-      case 5u:
-        v27 = type metadata accessor for DataFrame(0);
-        (*(*(v27 - 8) + 16))(a1, a2, v27);
-        v28 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (DataFrame, sessionIdColumn: String, labelColumn: String, featureColumn: String));
-        v29 = v28[12];
-        *(a1 + v29) = *(a2 + v29);
-        v25 = *(a2 + v29 + 8);
-        *(a1 + v29 + 8) = v25;
-        v30 = v28[16];
-        *(a1 + v30) = *(a2 + v30);
-        v26 = *(a2 + v30 + 8);
-        *(a1 + v30 + 8) = v26;
-        v31 = v28[20];
-        *(a1 + v31) = *(a2 + v31);
-        v12 = *(a2 + v31 + 8);
-        *(a1 + v31 + 8) = v12;
-LABEL_8:
-        v25;
-        v32 = v26;
-        break;
-      case 6u:
-        v33 = type metadata accessor for DataFrame(0);
-        (*(*(v33 - 8) + 16))(a1, a2, v33);
-        v34 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (DataFrame, videoColumn: String, labelColumn: String, startTimeColumn: String?, endTimeColumn: String?));
-        v35 = v34[12];
-        *(a1 + v35) = *(a2 + v35);
-        v9 = *(a2 + v35 + 8);
-        *(a1 + v35 + 8) = v9;
-        v36 = v34[16];
-        *(a1 + v36) = *(a2 + v36);
-        v10 = *(a2 + v36 + 8);
-        *(a1 + v36 + 8) = v10;
-        v37 = v34[20];
-        *(a1 + v37) = *(a2 + v37);
-        v42 = EnumCaseMultiPayload;
-        v11 = *(a2 + v37 + 8);
-        *(a1 + v37 + 8) = v11;
-        v38 = v34[24];
-        *(a1 + v38) = *(a2 + v38);
-        v12 = *(a2 + v38 + 8);
-        *(a1 + v38 + 8) = v12;
-LABEL_10:
-        v9;
-        v10;
-        v32 = v11;
-        EnumCaseMultiPayload = v42;
-        break;
-    }
-
-    v32;
-    v22 = v12;
-LABEL_12:
-    v22;
-LABEL_13:
-    swift_storeEnumTagMultiPayload(a1, a3, EnumCaseMultiPayload);
-  }
-
-  return a1;
-}
-
-char *initializeWithTake for MLHandActionClassifier.DataSource(char *__dst, char *__src, uint64_t a3)
-{
-  switch(swift_getEnumCaseMultiPayload(__src, a3))
-  {
-    case 0u:
-      v4 = type metadata accessor for URL(0);
-      v16 = *(*(v4 - 8) + 32);
-      v16(__dst, __src, v4);
-      v5 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (at: URL, annotationFile: URL, videoColumn: String, labelColumn: String, startTimeColumn: String?, endTimeColumn: String?));
-      v16(&__dst[v5[12]], &__src[v5[12]], v4);
-      *&__dst[v5[16]] = *&__src[v5[16]];
-      *&__dst[v5[20]] = *&__src[v5[20]];
-      *&__dst[v5[24]] = *&__src[v5[24]];
-      *&__dst[v5[28]] = *&__src[v5[28]];
-      v6 = a3;
-      v7 = 0;
-      goto LABEL_9;
-    case 1u:
-      v10 = type metadata accessor for URL(0);
-      (*(*(v10 - 8) + 32))(__dst, __src, v10);
-      v15 = 1;
-      goto LABEL_8;
-    case 2u:
-      v9 = type metadata accessor for URL(0);
-      (*(*(v9 - 8) + 32))(__dst, __src, v9);
-      v15 = 2;
-      goto LABEL_8;
-    case 5u:
-      v11 = type metadata accessor for DataFrame(0);
-      (*(*(v11 - 8) + 32))(__dst, __src, v11);
-      v12 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (DataFrame, sessionIdColumn: String, labelColumn: String, featureColumn: String));
-      *&__dst[v12[12]] = *&__src[v12[12]];
-      *&__dst[v12[16]] = *&__src[v12[16]];
-      *&__dst[v12[20]] = *&__src[v12[20]];
-      v15 = 5;
-      goto LABEL_8;
-    case 6u:
-      v13 = type metadata accessor for DataFrame(0);
-      (*(*(v13 - 8) + 32))(__dst, __src, v13);
-      v14 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (DataFrame, videoColumn: String, labelColumn: String, startTimeColumn: String?, endTimeColumn: String?));
-      *&__dst[v14[12]] = *&__src[v14[12]];
-      *&__dst[v14[16]] = *&__src[v14[16]];
-      *&__dst[v14[20]] = *&__src[v14[20]];
-      *&__dst[v14[24]] = *&__src[v14[24]];
-      v15 = 6;
-LABEL_8:
-      v7 = v15;
-      v6 = a3;
-LABEL_9:
-      swift_storeEnumTagMultiPayload(__dst, v6, v7);
-      result = __dst;
-      break;
-    default:
-      result = memcpy(__dst, __src, *(*(a3 - 8) + 64));
-      break;
-  }
-
-  return result;
-}
-
-char *assignWithTake for MLHandActionClassifier.DataSource(char *__dst, char *__src, uint64_t a3)
-{
-  if (__dst != __src)
-  {
-    outlined destroy of MLHandActionClassifier.DataSource(__dst);
-    switch(swift_getEnumCaseMultiPayload(__src, a3))
-    {
-      case 0u:
-        v4 = type metadata accessor for URL(0);
-        v16 = *(*(v4 - 8) + 32);
-        v16(__dst, __src, v4);
-        v5 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (at: URL, annotationFile: URL, videoColumn: String, labelColumn: String, startTimeColumn: String?, endTimeColumn: String?));
-        v16(&__dst[v5[12]], &__src[v5[12]], v4);
-        *&__dst[v5[16]] = *&__src[v5[16]];
-        *&__dst[v5[20]] = *&__src[v5[20]];
-        *&__dst[v5[24]] = *&__src[v5[24]];
-        *&__dst[v5[28]] = *&__src[v5[28]];
-        v6 = a3;
-        v7 = 0;
-        goto LABEL_10;
-      case 1u:
-        v10 = type metadata accessor for URL(0);
-        (*(*(v10 - 8) + 32))(__dst, __src, v10);
-        v15 = 1;
-        goto LABEL_9;
-      case 2u:
-        v9 = type metadata accessor for URL(0);
-        (*(*(v9 - 8) + 32))(__dst, __src, v9);
-        v15 = 2;
-        goto LABEL_9;
-      case 5u:
-        v11 = type metadata accessor for DataFrame(0);
-        (*(*(v11 - 8) + 32))(__dst, __src, v11);
-        v12 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (DataFrame, sessionIdColumn: String, labelColumn: String, featureColumn: String));
-        *&__dst[v12[12]] = *&__src[v12[12]];
-        *&__dst[v12[16]] = *&__src[v12[16]];
-        *&__dst[v12[20]] = *&__src[v12[20]];
-        v15 = 5;
-        goto LABEL_9;
-      case 6u:
-        v13 = type metadata accessor for DataFrame(0);
-        (*(*(v13 - 8) + 32))(__dst, __src, v13);
-        v14 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (DataFrame, videoColumn: String, labelColumn: String, startTimeColumn: String?, endTimeColumn: String?));
-        *&__dst[v14[12]] = *&__src[v14[12]];
-        *&__dst[v14[16]] = *&__src[v14[16]];
-        *&__dst[v14[20]] = *&__src[v14[20]];
-        *&__dst[v14[24]] = *&__src[v14[24]];
-        v15 = 6;
-LABEL_9:
-        v7 = v15;
-        v6 = a3;
-LABEL_10:
-        swift_storeEnumTagMultiPayload(__dst, v6, v7);
-        return __dst;
-      default:
-        return memcpy(__dst, __src, *(*(a3 - 8) + 64));
-    }
-  }
-
-  return __dst;
-}
-
-uint64_t type metadata completion function for MLHandActionClassifier.DataSource(uint64_t a1)
-{
-  v1 = type metadata accessor for URL(319);
-  v2 = v1;
-  if (v3 <= 0x3F)
-  {
-    v21 = a1;
-    v4 = *(v1 - 8) + 64;
-    v13 = v4;
-    v14 = v4;
-    v15 = &unk_3471B0;
-    v16 = &unk_3471B0;
-    v17 = &unk_3471C8;
-    v18 = &unk_3471C8;
-    swift_getTupleTypeLayout(v11, 0, 6);
-    v20[0] = v11;
-    v20[1] = v4;
-    v20[2] = v4;
-    v20[3] = &unk_3471E0;
-    v20[4] = &unk_3471F8;
-    v5 = type metadata accessor for DataFrame(319);
-    v2 = v5;
-    if (v6 <= 0x3F)
-    {
-      v13 = *(v5 - 8) + 64;
-      v7 = v13;
-      v14 = &unk_3471B0;
-      v15 = &unk_3471B0;
-      v16 = &unk_3471B0;
-      v2 = 0;
-      swift_getTupleTypeLayout(v19, 0, 4);
-      v20[5] = v19;
-      v13 = v7;
-      v14 = &unk_3471B0;
-      v15 = &unk_3471B0;
-      v16 = &unk_3471C8;
-      v17 = &unk_3471C8;
-      swift_getTupleTypeLayout(v12, 0, 5);
-      v20[6] = v12;
-      swift_initEnumMetadataMultiPayload(v21, 256, 7, v20, v8, v9);
-    }
-  }
-
-  return v2;
-}
-
-uint64_t lazy protocol witness table accessor for type Column<String> and conformance Column<A>()
-{
-  result = lazy protocol witness table cache variable for type Column<String> and conformance Column<A>;
-  if (!lazy protocol witness table cache variable for type Column<String> and conformance Column<A>)
-  {
-    v1 = __swift_instantiateConcreteTypeFromMangledNameAbstract(&demangling cache variable for type metadata for Column<String>);
-    result = swift_getWitnessTable(&protocol conformance descriptor for Column<A>, v1);
-    lazy protocol witness table cache variable for type Column<String> and conformance Column<A> = result;
-  }
-
-  return result;
-}
-
-uint64_t MLPhase.rawValue.getter()
-{
-  switch(*v0)
-  {
-    case 0:
-      v2 = *v0;
-      result = 0x696C616974696E69;
-      break;
-    case 1:
-      result = 0x6974636172747865;
-      break;
-    case 2:
-      result = 0x676E696E69617274;
-      break;
-    case 3:
-      result = 0x697461756C617665;
-      break;
-    case 4:
-      result = 0x636E657265666E69;
-      break;
-  }
-
-  return result;
-}
-
-CreateML::MLPhase_optional __swiftcall MLPhase.init(rawValue:)(Swift::String rawValue)
-{
-  v2 = v1;
-  v3 = _findStringSwitchCase(cases:string:)(&outlined read-only object #0 of MLPhase.init(rawValue:), rawValue);
-  rawValue._object, rawValue._countAndFlagsBits;
-  result.value = CreateML_MLPhase_unknownDefault;
-  if (v3 < 5)
-  {
-    result.value = v3;
-  }
-
-  v2->value = result.value;
-  return result;
-}
-
-uint64_t protocol witness for RawRepresentable.rawValue.getter in conformance MLPhase(uint64_t a1)
-{
-  v2 = v1;
-  result = MLPhase.rawValue.getter(a1);
-  *v2 = result;
-  v2[1] = v4;
-  return result;
-}
-
-uint64_t getEnumTagSinglePayload for MLPhase(unsigned __int8 *a1, unsigned int a2)
-{
-  if (a2)
-  {
-    if (a2 < 0xFC)
-    {
-      goto LABEL_13;
-    }
-
-    v2 = a2 + 4;
-    v3 = 1;
-    if (v2 >= 0xFF00)
-    {
-      v3 = 2 * (v2 >= 0xFFFF00) + 2;
-    }
-
-    if (v3 == 4)
-    {
-      v4 = *(a1 + 1);
-    }
-
-    else
-    {
-      v4 = v3 == 2 ? *(a1 + 1) : a1[1];
-    }
-
-    if (v4)
-    {
-      v5 = *a1 + (v4 << 8) - 5;
-    }
-
-    else
-    {
-LABEL_13:
-      v6 = *a1;
-      v7 = v6 - 5;
-      v8 = v6 < 5;
-      v5 = -1;
-      if (!v8)
-      {
-        v5 = v7;
-      }
-    }
-  }
-
-  else
-  {
-    v5 = -1;
-  }
-
-  return (v5 + 1);
-}
-
-uint64_t storeEnumTagSinglePayload for MLPhase(_BYTE *a1, unsigned int a2, unsigned int a3)
-{
-  LODWORD(result) = 0;
-  if (a3 >= 0xFC)
-  {
-    v4 = a3 + 4;
-    LODWORD(result) = 1;
-    if (v4 >= 0xFF00)
-    {
-      LODWORD(result) = 2 * (v4 >= 0xFFFF00) + 2;
-    }
-  }
-
-  if (a2 > 0xFB)
-  {
-    v5 = a2 - 252;
-    v6 = (v5 >> 8) + 1;
-    *a1 = v5;
-    result = result;
-    switch(result)
-    {
-      case 0:
-        return result;
-      case 1:
-        a1[1] = v6;
-        break;
-      case 2:
-        *(a1 + 1) = v6;
-        break;
-      case 3:
-LABEL_16:
-        BUG();
-      case 4:
-        *(a1 + 1) = v6;
-        break;
-    }
-  }
-
-  else
-  {
-    result = result;
-    switch(result)
-    {
-      case 0:
-        goto LABEL_11;
-      case 1:
-        a1[1] = 0;
-        goto LABEL_11;
-      case 2:
-        *(a1 + 1) = 0;
-        goto LABEL_11;
-      case 3:
-        goto LABEL_16;
-      case 4:
-        *(a1 + 1) = 0;
-LABEL_11:
-        if (a2)
-        {
-          *a1 = a2 + 4;
-        }
-
-        break;
-    }
-  }
-
-  return result;
-}
-
-Swift::Int MLBoundingBoxUnits.hashValue.getter()
-{
-  v1 = *v0;
-  Hasher.init(_seed:)(0);
-  Hasher._combine(_:)(v1);
-  return Hasher._finalize()();
-}
-
-uint64_t lazy protocol witness table accessor for type MLBoundingBoxUnits and conformance MLBoundingBoxUnits()
-{
-  result = lazy protocol witness table cache variable for type MLBoundingBoxUnits and conformance MLBoundingBoxUnits;
-  if (!lazy protocol witness table cache variable for type MLBoundingBoxUnits and conformance MLBoundingBoxUnits)
-  {
-    result = swift_getWitnessTable(&protocol conformance descriptor for MLBoundingBoxUnits, &type metadata for MLBoundingBoxUnits);
-    lazy protocol witness table cache variable for type MLBoundingBoxUnits and conformance MLBoundingBoxUnits = result;
-  }
-
-  return result;
-}
-
-uint64_t Column<A>.parseAsJSONArrays()()
-{
-  return Column<A>.parseAsJSONArrays()(&demangling cache variable for type metadata for Column<String>, closure #1 in Column<A>.parseAsJSONArrays());
-}
-
-{
-  return Column<A>.parseAsJSONArrays()(&demangling cache variable for type metadata for Column<Data>, closure #1 in Column<A>.parseAsJSONArrays());
-}
-
-void *AnyColumn.convertedToFloats()()
-{
-  v67 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Column<Double>);
-  v66 = *(v67 - 8);
-  v0 = *(v66 + 64);
-  v1 = alloca(v0);
-  v2 = alloca(v0);
-  v68 = v55;
-  v64 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Column<Float>);
-  v63 = *(v64 - 8);
-  v3 = *(v63 + 64);
-  v4 = alloca(v3);
-  v5 = alloca(v3);
-  v65 = v55;
-  v62 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Column<Int>);
-  v61 = *(v62 - 8);
-  v6 = *(v61 + 64);
-  v7 = alloca(v6);
-  v8 = alloca(v6);
-  v56 = v55;
-  v59 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Column<Int64>);
-  v60 = *(v59 - 8);
-  v9 = *(v60 + 64);
-  v10 = alloca(v9);
-  v11 = alloca(v9);
-  v57 = v55;
-  v12 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Column<Int32>);
-  v13 = *(v12 - 8);
-  v14 = *(v13 + 64);
-  v15 = alloca(v14);
-  v16 = alloca(v14);
-  v58 = v55;
-  v69 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Column<Int8>);
-  v70 = *(v69 - 8);
-  v17 = *(v70 + 64);
-  v18 = alloca(v17);
-  v19 = alloca(v17);
-  v20 = AnyColumn.wrappedElementType.getter();
-  if (swift_dynamicCastMetatype(v20, &type metadata for Int8))
-  {
-    v21 = AnyColumn.assumingType<A>(_:)(&type metadata for Int8, &type metadata for Int8);
-    v22 = AnyColumn.count.getter(v21);
-    v23 = alloca(24);
-    v24 = alloca(32);
-    v56 = v55;
-    v25 = _sSa28_unsafeUninitializedCapacity16initializingWithSayxGSi_ySryxGz_SiztKXEtKcfCSd_Tt1g5Tm(v22, partial apply for closure #1 in AnyColumn.convertedToFloats(), v55, &type metadata for Float);
-    v26 = v55;
-    v27 = v69;
-    v28 = v70;
-  }
-
-  else
-  {
-    v29 = v58;
-    v70 = v12;
-    v69 = v13;
-    v30 = v57;
-    v31 = v56;
-    if (swift_dynamicCastMetatype(v20, &type metadata for Int32))
-    {
-      v32 = AnyColumn.assumingType<A>(_:)(&type metadata for Int32, &type metadata for Int32);
-      v33 = AnyColumn.count.getter(v32);
-      v34 = alloca(24);
-      v35 = alloca(32);
-      v56 = v29;
-      v25 = _sSa28_unsafeUninitializedCapacity16initializingWithSayxGSi_ySryxGz_SiztKXEtKcfCSd_Tt1g5Tm(v33, partial apply for closure #2 in AnyColumn.convertedToFloats(), v55, &type metadata for Float);
-      v26 = v29;
-      v27 = v70;
-      v28 = v69;
-    }
-
-    else if (swift_dynamicCastMetatype(v20, &type metadata for Int64))
-    {
-      v36 = AnyColumn.assumingType<A>(_:)(&type metadata for Int64, &type metadata for Int64);
-      v37 = AnyColumn.count.getter(v36);
-      v38 = alloca(24);
-      v39 = alloca(32);
-      v56 = v30;
-      v25 = _sSa28_unsafeUninitializedCapacity16initializingWithSayxGSi_ySryxGz_SiztKXEtKcfCSd_Tt1g5Tm(v37, partial apply for closure #3 in AnyColumn.convertedToFloats(), v55, &type metadata for Float);
-      v26 = v30;
-      v27 = v59;
-      v28 = v60;
-    }
-
-    else if (swift_dynamicCastMetatype(v20, &type metadata for Int))
-    {
-      v40 = AnyColumn.assumingType<A>(_:)(&type metadata for Int, &type metadata for Int);
-      v41 = AnyColumn.count.getter(v40);
-      v42 = alloca(24);
-      v43 = alloca(32);
-      v56 = v31;
-      v25 = _sSa28_unsafeUninitializedCapacity16initializingWithSayxGSi_ySryxGz_SiztKXEtKcfCSd_Tt1g5Tm(v41, partial apply for closure #4 in AnyColumn.convertedToFloats(), v55, &type metadata for Float);
-      v26 = v31;
-      v27 = v62;
-      v28 = v61;
-    }
-
-    else if (swift_dynamicCastMetatype(v20, &type metadata for Float))
-    {
-      v44 = v65;
-      v45 = AnyColumn.assumingType<A>(_:)(&type metadata for Float, &type metadata for Float);
-      v46 = AnyColumn.count.getter(v45);
-      v47 = alloca(24);
-      v48 = alloca(32);
-      v56 = v44;
-      v25 = _sSa28_unsafeUninitializedCapacity16initializingWithSayxGSi_ySryxGz_SiztKXEtKcfCSd_Tt1g5Tm(v46, partial apply for closure #5 in AnyColumn.convertedToFloats(), v55, &type metadata for Float);
-      v26 = v44;
-      v27 = v64;
-      v28 = v63;
-    }
-
-    else
-    {
-      if (!swift_dynamicCastMetatype(v20, &type metadata for Double))
-      {
-        return 0;
-      }
-
-      v49 = v68;
-      v50 = AnyColumn.assumingType<A>(_:)(&type metadata for Double, &type metadata for Double);
-      v51 = AnyColumn.count.getter(v50);
-      v52 = alloca(24);
-      v53 = alloca(32);
-      v56 = v49;
-      v25 = _sSa28_unsafeUninitializedCapacity16initializingWithSayxGSi_ySryxGz_SiztKXEtKcfCSd_Tt1g5Tm(v51, partial apply for closure #6 in AnyColumn.convertedToFloats(), v55, &type metadata for Float);
-      v26 = v49;
-      v27 = v67;
-      v28 = v66;
-    }
-  }
-
-  (*(v28 + 8))(v26, v27);
-  return v25;
-}
-
-void *AnyColumn.convertedToDoubles()()
-{
-  v67 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Column<Double>);
-  v66 = *(v67 - 8);
-  v0 = *(v66 + 64);
-  v1 = alloca(v0);
-  v2 = alloca(v0);
-  v68 = v55;
-  v64 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Column<Float>);
-  v63 = *(v64 - 8);
-  v3 = *(v63 + 64);
-  v4 = alloca(v3);
-  v5 = alloca(v3);
-  v65 = v55;
-  v62 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Column<Int>);
-  v61 = *(v62 - 8);
-  v6 = *(v61 + 64);
-  v7 = alloca(v6);
-  v8 = alloca(v6);
-  v56 = v55;
-  v59 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Column<Int64>);
-  v60 = *(v59 - 8);
-  v9 = *(v60 + 64);
-  v10 = alloca(v9);
-  v11 = alloca(v9);
-  v57 = v55;
-  v12 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Column<Int32>);
-  v13 = *(v12 - 8);
-  v14 = *(v13 + 64);
-  v15 = alloca(v14);
-  v16 = alloca(v14);
-  v58 = v55;
-  v69 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Column<Int8>);
-  v70 = *(v69 - 8);
-  v17 = *(v70 + 64);
-  v18 = alloca(v17);
-  v19 = alloca(v17);
-  v20 = AnyColumn.wrappedElementType.getter();
-  if (swift_dynamicCastMetatype(v20, &type metadata for Int8))
-  {
-    v21 = AnyColumn.assumingType<A>(_:)(&type metadata for Int8, &type metadata for Int8);
-    v22 = AnyColumn.count.getter(v21);
-    v23 = alloca(24);
-    v24 = alloca(32);
-    v56 = v55;
-    v25 = _sSa28_unsafeUninitializedCapacity16initializingWithSayxGSi_ySryxGz_SiztKXEtKcfCSd_Tt1g5Tm(v22, partial apply for closure #1 in AnyColumn.convertedToDoubles(), v55, &type metadata for Double);
-    v26 = v55;
-    v27 = v69;
-    v28 = v70;
-  }
-
-  else
-  {
-    v29 = v58;
-    v70 = v12;
-    v69 = v13;
-    v30 = v57;
-    v31 = v56;
-    if (swift_dynamicCastMetatype(v20, &type metadata for Int32))
-    {
-      v32 = AnyColumn.assumingType<A>(_:)(&type metadata for Int32, &type metadata for Int32);
-      v33 = AnyColumn.count.getter(v32);
-      v34 = alloca(24);
-      v35 = alloca(32);
-      v56 = v29;
-      v25 = _sSa28_unsafeUninitializedCapacity16initializingWithSayxGSi_ySryxGz_SiztKXEtKcfCSd_Tt1g5Tm(v33, partial apply for closure #2 in AnyColumn.convertedToDoubles(), v55, &type metadata for Double);
-      v26 = v29;
-      v27 = v70;
-      v28 = v69;
-    }
-
-    else if (swift_dynamicCastMetatype(v20, &type metadata for Int64))
-    {
-      v36 = AnyColumn.assumingType<A>(_:)(&type metadata for Int64, &type metadata for Int64);
-      v37 = AnyColumn.count.getter(v36);
-      v38 = alloca(24);
-      v39 = alloca(32);
-      v56 = v30;
-      v25 = _sSa28_unsafeUninitializedCapacity16initializingWithSayxGSi_ySryxGz_SiztKXEtKcfCSd_Tt1g5Tm(v37, partial apply for closure #3 in AnyColumn.convertedToDoubles(), v55, &type metadata for Double);
-      v26 = v30;
-      v27 = v59;
-      v28 = v60;
-    }
-
-    else if (swift_dynamicCastMetatype(v20, &type metadata for Int))
-    {
-      v40 = AnyColumn.assumingType<A>(_:)(&type metadata for Int, &type metadata for Int);
-      v41 = AnyColumn.count.getter(v40);
-      v42 = alloca(24);
-      v43 = alloca(32);
-      v56 = v31;
-      v25 = _sSa28_unsafeUninitializedCapacity16initializingWithSayxGSi_ySryxGz_SiztKXEtKcfCSd_Tt1g5Tm(v41, partial apply for closure #4 in AnyColumn.convertedToDoubles(), v55, &type metadata for Double);
-      v26 = v31;
-      v27 = v62;
-      v28 = v61;
-    }
-
-    else if (swift_dynamicCastMetatype(v20, &type metadata for Float))
-    {
-      v44 = v65;
-      v45 = AnyColumn.assumingType<A>(_:)(&type metadata for Float, &type metadata for Float);
-      v46 = AnyColumn.count.getter(v45);
-      v47 = alloca(24);
-      v48 = alloca(32);
-      v56 = v44;
-      v25 = _sSa28_unsafeUninitializedCapacity16initializingWithSayxGSi_ySryxGz_SiztKXEtKcfCSd_Tt1g5Tm(v46, partial apply for closure #5 in AnyColumn.convertedToDoubles(), v55, &type metadata for Double);
-      v26 = v44;
-      v27 = v64;
-      v28 = v63;
-    }
-
-    else
-    {
-      if (!swift_dynamicCastMetatype(v20, &type metadata for Double))
-      {
-        return 0;
-      }
-
-      v49 = v68;
-      v50 = AnyColumn.assumingType<A>(_:)(&type metadata for Double, &type metadata for Double);
-      v51 = AnyColumn.count.getter(v50);
-      v52 = alloca(24);
-      v53 = alloca(32);
-      v56 = v49;
-      v25 = _sSa28_unsafeUninitializedCapacity16initializingWithSayxGSi_ySryxGz_SiztKXEtKcfCSd_Tt1g5Tm(v51, partial apply for closure #6 in AnyColumn.convertedToDoubles(), v55, &type metadata for Double);
-      v26 = v49;
-      v27 = v67;
-      v28 = v66;
-    }
-  }
-
-  (*(v28 + 8))(v26, v27);
-  return v25;
-}
-
-uint64_t AnyColumn.convertedToDoubleArrays()()
-{
-  v73 = v0;
-  v70 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Column<[Float]>);
-  v69 = *(v70 - 8);
-  v1 = *(v69 + 64);
-  v2 = alloca(v1);
-  v3 = alloca(v1);
-  v71 = v58;
-  v67 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Column<[Int]>);
-  v66 = *(v67 - 8);
-  v4 = *(v66 + 64);
-  v5 = alloca(v4);
-  v6 = alloca(v4);
-  v68 = v58;
-  v64 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Column<[Int64]>);
-  v63 = *(v64 - 8);
-  v7 = *(v63 + 64);
-  v8 = alloca(v7);
-  v9 = alloca(v7);
-  v65 = v58;
-  v60 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Column<[Int32]>);
-  v62 = *(v60 - 8);
-  v10 = *(v62 + 64);
-  v11 = alloca(v10);
-  v12 = alloca(v10);
-  v61 = v58;
-  v13 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Column<[Int8]>);
-  v59 = *(v13 - 8);
-  v14 = *(v59 + 64);
-  v15 = alloca(v14);
-  v16 = alloca(v14);
-  v17 = AnyColumn.wrappedElementType.getter();
-  v18 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for [Int8]);
-  v72 = v17;
-  if (swift_dynamicCastMetatype(v17, v18))
-  {
-    v19 = AnyColumn.assumingType<A>(_:)(v18, v18);
-    v20 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for [Double]);
-    v21 = v73;
-    Column.mapNonNil<A>(_:)(closure #1 in AnyColumn.convertedToDoubleArrays(), 0, v13, v20, v19);
-    v22 = v58;
-    v23 = v13;
-    v24 = v59;
-LABEL_3:
-    (*(v24 + 8))(v22, v23);
-    v25 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Column<[Double]>);
-    v26 = v21;
-    return __swift_storeEnumTagSinglePayload(v26, 0, 1, v25);
-  }
-
-  v27 = v61;
-  v28 = v60;
-  v29 = v73;
-  v30 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for [Int32]);
-  if (swift_dynamicCastMetatype(v72, v30))
-  {
-    v31 = AnyColumn.assumingType<A>(_:)(v30, v30);
-    v32 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for [Double]);
-    Column.mapNonNil<A>(_:)(closure #2 in AnyColumn.convertedToDoubleArrays(), 0, v28, v32, v31);
-    (*(v62 + 8))(v27, v28);
-    v25 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Column<[Double]>);
-    v26 = v29;
-    return __swift_storeEnumTagSinglePayload(v26, 0, 1, v25);
-  }
-
-  v33 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for [Int64]);
-  if (swift_dynamicCastMetatype(v72, v33))
-  {
-    v34 = v65;
-    v35 = AnyColumn.assumingType<A>(_:)(v33, v33);
-    v36 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for [Double]);
-    v37 = v73;
-    v38 = v64;
-    Column.mapNonNil<A>(_:)(closure #3 in AnyColumn.convertedToDoubleArrays(), 0, v64, v36, v35);
-    v39 = v34;
-    v40 = v38;
-    v41 = v63;
-LABEL_10:
-    (*(v41 + 8))(v39, v40);
-    v25 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Column<[Double]>);
-    v26 = v37;
-    return __swift_storeEnumTagSinglePayload(v26, 0, 1, v25);
-  }
-
-  v42 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for [Int]);
-  if (swift_dynamicCastMetatype(v72, v42))
-  {
-    v37 = v73;
-    v43 = v68;
-    v44 = AnyColumn.assumingType<A>(_:)(v42, v42);
-    v45 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for [Double]);
-    v46 = v67;
-    Column.mapNonNil<A>(_:)(closure #4 in AnyColumn.convertedToDoubleArrays(), 0, v67, v45, v44);
-    v39 = v43;
-    v40 = v46;
-    v41 = v66;
-    goto LABEL_10;
-  }
-
-  v48 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for [Float]);
-  if (swift_dynamicCastMetatype(v72, v48))
-  {
-    v49 = v71;
-    v50 = AnyColumn.assumingType<A>(_:)(v48, v48);
-    v51 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for [Double]);
-    v21 = v73;
-    v52 = v70;
-    Column.mapNonNil<A>(_:)(closure #5 in AnyColumn.convertedToDoubleArrays(), 0, v70, v51, v50);
-    v22 = v49;
-    v23 = v52;
-    v24 = v69;
-    goto LABEL_3;
-  }
-
-  v53 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for [Double]);
-  if (swift_dynamicCastMetatype(v72, v53))
-  {
-    v54 = v73;
-    AnyColumn.assumingType<A>(_:)(v53, v53);
-    v55 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Column<[Double]>);
-    v56 = v54;
-    v57 = 0;
-  }
-
-  else
-  {
-    v55 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Column<[Double]>);
-    v56 = v73;
-    v57 = 1;
-  }
-
-  return __swift_storeEnumTagSinglePayload(v56, v57, 1, v55);
-}
-
-void AnyColumn.convertedToStrings()()
-{
-  v61 = v0;
-  v56 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Column<Double>);
-  v55 = *(v56 - 1);
-  v2 = *(v55 + 64);
+  v2 = *(v53 + 64);
   v3 = alloca(v2);
   v4 = alloca(v2);
-  v57 = &v45;
-  v62 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Column<Float>);
-  v5 = *(v62 - 8);
+  v55 = &v43;
+  v60 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Column<Float>);
+  v5 = *(v60 - 8);
   v6 = *(v5 + 64);
   v7 = alloca(v6);
   v8 = alloca(v6);
-  v54 = &v45;
+  v52 = &v43;
   v9 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Column<Int>);
   v10 = *(v9 - 8);
   v11 = *(v10 + 64);
   v12 = alloca(v11);
   v13 = alloca(v11);
-  v59 = &v45;
+  v57 = &v43;
   v14 = v1;
-  v15 = AnyColumn.wrappedElementType.getter();
+  v15 = AnyColumn.wrappedElementType.getter(&demangling cache variable for type metadata for Column<Int>);
   if (swift_dynamicCastMetatype(v15, &type metadata for String))
   {
-    AnyColumn.assumingType<A>(_:)(&type metadata for String, &type metadata for String);
-    return;
+    return AnyColumn.assumingType<A>(_:)(&type metadata for String, &type metadata for String);
   }
 
-  v58 = v10;
-  v16 = v62;
-  v51 = v5;
-  v60 = v14;
+  v56 = v10;
+  v17 = v60;
+  v49 = v5;
+  v58 = v14;
   if (swift_dynamicCastMetatype(v15, &type metadata for Int))
   {
-    v17 = v59;
-    v18 = AnyColumn.assumingType<A>(_:)(&type metadata for Int, &type metadata for Int);
-    Column.mapNonNil<A>(_:)(specialized thunk for @escaping @callee_guaranteed (@unowned Int) -> (@owned String), 0, v9, &type metadata for String, v18);
-    v19 = v17;
+    v18 = v57;
+    AnyColumn.assumingType<A>(_:)(&type metadata for Int, &type metadata for Int);
+    Column.mapNonNil<A>(_:)(specialized thunk for @escaping @callee_guaranteed (@unowned Int) -> (@owned String), 0, v9, &type metadata for String);
+    v19 = v18;
     v20 = v9;
-    v21 = v58;
-LABEL_9:
-    (*(v21 + 8))(v19, v20);
-    return;
+    v21 = v56;
+    return (*(v21 + 8))(v19, v20);
   }
 
   if (swift_dynamicCastMetatype(v15, &type metadata for Float))
   {
-    v22 = v54;
-    v23 = AnyColumn.assumingType<A>(_:)(&type metadata for Float, &type metadata for Float);
-    Column.mapNonNil<A>(_:)(closure #1 in AnyColumn.convertedToStrings(), 0, v16, &type metadata for String, v23);
+    v22 = v52;
+    AnyColumn.assumingType<A>(_:)(&type metadata for Float, &type metadata for Float);
+    Column.mapNonNil<A>(_:)(closure #1 in AnyColumn.convertedToStrings(), 0, v17, &type metadata for String);
     v19 = v22;
-    v20 = v16;
-    v21 = v51;
-    goto LABEL_9;
+    v20 = v17;
+    v21 = v49;
+    return (*(v21 + 8))(v19, v20);
   }
 
   if (swift_dynamicCastMetatype(v15, &type metadata for Double))
   {
-    v24 = v57;
-    v25 = AnyColumn.assumingType<A>(_:)(&type metadata for Double, &type metadata for Double);
-    v26 = v56;
-    Column.mapNonNil<A>(_:)(closure #2 in AnyColumn.convertedToStrings(), 0, v56, &type metadata for String, v25);
-    v19 = v24;
-    v20 = v26;
-    v21 = v55;
-    goto LABEL_9;
+    v23 = v55;
+    AnyColumn.assumingType<A>(_:)(&type metadata for Double, &type metadata for Double);
+    v24 = v54;
+    Column.mapNonNil<A>(_:)(closure #2 in AnyColumn.convertedToStrings(), 0, v54, &type metadata for String);
+    v19 = v23;
+    v20 = v24;
+    v21 = v53;
+    return (*(v21 + 8))(v19, v20);
   }
 
-  v57 = AnyColumn.name.getter();
-  v58 = v27;
-  v28 = type metadata accessor for AnyColumn(0);
-  v29 = lazy protocol witness table accessor for type AnyColumn and conformance AnyColumn();
-  v30 = dispatch thunk of Collection.count.getter(v28, v29);
-  if (v30)
+  v55 = AnyColumn.name.getter();
+  v56 = v25;
+  v26 = type metadata accessor for AnyColumn(0);
+  v27 = lazy protocol witness table accessor for type AnyColumn and conformance AnyColumn();
+  v28 = dispatch thunk of Collection.count.getter(v26, v27);
+  if (v28)
   {
-    v31 = v30;
-    v53 = _swiftEmptyArrayStorage;
-    v32 = 0;
-    if (v30 > 0)
+    v29 = v28;
+    v51 = _swiftEmptyArrayStorage;
+    v30 = 0;
+    if (v28 > 0)
     {
-      v32 = v30;
+      v30 = v28;
     }
 
-    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v32, 0);
-    v62 = v53;
-    v59 = v29;
-    dispatch thunk of Collection.startIndex.getter(v28, v29);
-    v54 = v31;
-    if (v31 < 0)
+    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v30, 0);
+    v60 = v51;
+    v57 = v27;
+    dispatch thunk of Collection.startIndex.getter(v26, v27);
+    v52 = v29;
+    if (v29 < 0)
     {
       BUG();
     }
 
-    v56 = &type metadata for Any + 8;
-    v55 = v28;
-    v33 = v59;
+    v54 = &type metadata for Any + 8;
+    v53 = v26;
+    v31 = v57;
     do
     {
-      v34 = dispatch thunk of Collection.subscript.read(&v49, v52, v28, v33);
-      outlined init with copy of Any?(v35, v48);
-      v34(&v49, 0);
-      outlined init with copy of Any?(v48, &v49);
-      if (v50)
+      v32 = dispatch thunk of Collection.subscript.read(&v47, v50, v26, v31);
+      outlined init with copy of Any?(v33, v46);
+      v32(&v47, 0);
+      outlined init with copy of Any?(v46, &v47);
+      if (v48)
       {
-        outlined init with take of Any(&v49, v46);
-        outlined init with copy of Any(v46, v47);
-        v36 = String.init<A>(describing:)(v47, v56);
-        v38 = v37;
-        __swift_destroy_boxed_opaque_existential_1Tm(v46);
+        outlined init with take of Any(&v47, v44);
+        outlined init with copy of Any(v44, v45);
+        v34 = String.init<A>(describing:)(v45, v54);
+        v36 = v35;
+        __swift_destroy_boxed_opaque_existential_1Tm(v44);
       }
 
       else
       {
+        v34 = 0;
         v36 = 0;
-        v38 = 0;
       }
 
-      outlined destroy of Any?(v48);
-      v39 = v62;
-      v53 = v62;
-      v40 = *(v62 + 16);
-      if (*(v62 + 24) >> 1 <= v40)
+      outlined destroy of Any?(v46);
+      v37 = v60;
+      v51 = v60;
+      v38 = *(v60 + 16);
+      if (*(v60 + 24) >> 1 <= v38)
       {
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(*(v62 + 24) >= 2uLL, v40 + 1, 1);
-        v39 = v53;
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(*(v60 + 24) >= 2uLL, v38 + 1, 1);
+        v37 = v51;
       }
 
-      v39[2] = v40 + 1;
-      v41 = 2 * v40;
-      v39[v41 + 4] = v36;
-      v62 = v39;
-      v39[v41 + 5] = v38;
-      v28 = v55;
-      v33 = v59;
-      dispatch thunk of Collection.formIndex(after:)(v52, v55, v59);
-      v54 = (v54 - 1);
+      v37[2] = v38 + 1;
+      v39 = 2 * v38;
+      v37[v39 + 4] = v34;
+      v60 = v37;
+      v37[v39 + 5] = v36;
+      v26 = v53;
+      v31 = v57;
+      dispatch thunk of Collection.formIndex(after:)(v50, v53, v57);
+      v52 = (v52 - 1);
     }
 
-    while (v54);
-    v42 = v62;
+    while (v52);
+    v40 = v60;
   }
 
   else
   {
-    v42 = _swiftEmptyArrayStorage;
+    v40 = _swiftEmptyArrayStorage;
   }
 
-  *&v49 = v42;
-  v43 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for [String?]);
-  v44 = lazy protocol witness table accessor for type FullyConnectedNetworkClassifier<Float, String> and conformance FullyConnectedNetworkClassifier<A, B>(&lazy protocol witness table cache variable for type [String?] and conformance [A], &demangling cache variable for type metadata for [String?], &protocol conformance descriptor for [A]);
-  Column.init<A>(name:contents:)(v57, v58, &v49, &type metadata for String, v43, v44);
+  *&v47 = v40;
+  v41 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for [String?]);
+  v42 = lazy protocol witness table accessor for type FullyConnectedNetworkClassifier<Float, String> and conformance FullyConnectedNetworkClassifier<A, B>(&lazy protocol witness table cache variable for type [String?] and conformance [A], &demangling cache variable for type metadata for [String?], &protocol conformance descriptor for [A]);
+  return Column.init<A>(name:contents:)(v55, v56, &v47, &type metadata for String, v41, v42);
 }
 
 uint64_t AnyColumn.convertedToFloatArrays()()
 {
-  v65 = v0;
-  v66 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Column<[Double]>);
-  v63 = *(v66 - 8);
-  v1 = *(v63 + 64);
+  v60 = v0;
+  v61 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Column<[Double]>);
+  v58 = *(v61 - 8);
+  v1 = *(v58 + 64);
   v2 = alloca(v1);
   v3 = alloca(v1);
-  v64 = v52;
-  v61 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Column<[Int]>);
-  v60 = *(v61 - 8);
-  v4 = *(v60 + 64);
+  v59 = v47;
+  v56 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Column<[Int]>);
+  v55 = *(v56 - 8);
+  v4 = *(v55 + 64);
   v5 = alloca(v4);
   v6 = alloca(v4);
-  v62 = v52;
-  v58 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Column<[Int64]>);
-  v57 = *(v58 - 8);
-  v7 = *(v57 + 64);
+  v57 = v47;
+  v53 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Column<[Int64]>);
+  v52 = *(v53 - 8);
+  v7 = *(v52 + 64);
   v8 = alloca(v7);
   v9 = alloca(v7);
-  v59 = v52;
-  v54 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Column<[Int32]>);
-  v56 = *(v54 - 8);
-  v10 = *(v56 + 64);
+  v54 = v47;
+  v49 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Column<[Int32]>);
+  v51 = *(v49 - 8);
+  v10 = *(v51 + 64);
   v11 = alloca(v10);
   v12 = alloca(v10);
-  v55 = v52;
+  v50 = v47;
   v13 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Column<[Int8]>);
-  v53 = *(v13 - 8);
-  v14 = *(v53 + 64);
+  v48 = *(v13 - 8);
+  v14 = *(v48 + 64);
   v15 = alloca(v14);
   v16 = alloca(v14);
-  v17 = AnyColumn.wrappedElementType.getter();
+  v17 = AnyColumn.wrappedElementType.getter(&demangling cache variable for type metadata for Column<[Int8]>);
   v18 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for [Int8]);
-  v67 = v17;
+  v62 = v17;
   if (swift_dynamicCastMetatype(v17, v18))
   {
-    v19 = AnyColumn.assumingType<A>(_:)(v18, v18);
-    v20 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for [Float]);
-    v21 = v65;
-    Column.mapNonNil<A>(_:)(closure #1 in AnyColumn.convertedToFloatArrays(), 0, v13, v20, v19);
-    v22 = v52;
-    v23 = v13;
-    v24 = v53;
+    AnyColumn.assumingType<A>(_:)(v18, v18);
+    v19 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for [Float]);
+    v20 = v60;
+    Column.mapNonNil<A>(_:)(closure #1 in AnyColumn.convertedToFloatArrays(), 0, v13, v19);
+    v21 = v47;
+    v22 = v13;
+    v23 = v48;
 LABEL_3:
-    (*(v24 + 8))(v22, v23);
-    v25 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Column<[Float]>);
-    v26 = v21;
-    return __swift_storeEnumTagSinglePayload(v26, 0, 1, v25);
+    (*(v23 + 8))(v21, v22);
+    v24 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Column<[Float]>);
+    v25 = v20;
+    return __swift_storeEnumTagSinglePayload(v25, 0, 1, v24);
   }
 
-  v27 = v55;
-  v28 = v54;
-  v29 = v65;
-  v30 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for [Int32]);
-  if (swift_dynamicCastMetatype(v67, v30))
+  v26 = v50;
+  v27 = v49;
+  v28 = v60;
+  v29 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for [Int32]);
+  if (swift_dynamicCastMetatype(v62, v29))
   {
-    v31 = AnyColumn.assumingType<A>(_:)(v30, v30);
-    v32 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for [Float]);
-    Column.mapNonNil<A>(_:)(closure #2 in AnyColumn.convertedToFloatArrays(), 0, v28, v32, v31);
-    (*(v56 + 8))(v27, v28);
-    v25 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Column<[Float]>);
-    v26 = v29;
-    return __swift_storeEnumTagSinglePayload(v26, 0, 1, v25);
+    AnyColumn.assumingType<A>(_:)(v29, v29);
+    v30 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for [Float]);
+    Column.mapNonNil<A>(_:)(closure #2 in AnyColumn.convertedToFloatArrays(), 0, v27, v30);
+    (*(v51 + 8))(v26, v27);
+    v24 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Column<[Float]>);
+    v25 = v28;
+    return __swift_storeEnumTagSinglePayload(v25, 0, 1, v24);
   }
 
-  v34 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for [Int64]);
-  v35 = v29;
-  if (swift_dynamicCastMetatype(v67, v34))
+  v32 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for [Int64]);
+  v33 = v28;
+  if (swift_dynamicCastMetatype(v62, v32))
   {
-    v36 = v59;
-    v37 = AnyColumn.assumingType<A>(_:)(v34, v34);
-    v38 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for [Float]);
-    v21 = v35;
-    v39 = v58;
-    Column.mapNonNil<A>(_:)(closure #3 in AnyColumn.convertedToFloatArrays(), 0, v58, v38, v37);
+    v34 = v54;
+    AnyColumn.assumingType<A>(_:)(v32, v32);
+    v35 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for [Float]);
+    v20 = v33;
+    v36 = v53;
+    Column.mapNonNil<A>(_:)(closure #3 in AnyColumn.convertedToFloatArrays(), 0, v53, v35);
+    v21 = v34;
     v22 = v36;
-    v23 = v39;
-    v24 = v57;
+    v23 = v52;
     goto LABEL_3;
   }
 
-  v40 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for [Int]);
-  if (swift_dynamicCastMetatype(v67, v40))
+  v37 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for [Int]);
+  if (swift_dynamicCastMetatype(v62, v37))
   {
-    v21 = v29;
-    v41 = v62;
-    v42 = AnyColumn.assumingType<A>(_:)(v40, v40);
-    v43 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for [Float]);
-    v44 = v61;
-    Column.mapNonNil<A>(_:)(closure #4 in AnyColumn.convertedToFloatArrays(), 0, v61, v43, v42);
-    v22 = v41;
-    v23 = v44;
-    v24 = v60;
+    v20 = v28;
+    v38 = v57;
+    AnyColumn.assumingType<A>(_:)(v37, v37);
+    v39 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for [Float]);
+    v40 = v56;
+    Column.mapNonNil<A>(_:)(closure #4 in AnyColumn.convertedToFloatArrays(), 0, v56, v39);
+    v21 = v38;
+    v22 = v40;
+    v23 = v55;
     goto LABEL_3;
   }
 
-  v45 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for [Float]);
-  if (swift_dynamicCastMetatype(v67, v45))
+  v41 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for [Float]);
+  if (swift_dynamicCastMetatype(v62, v41))
   {
-    AnyColumn.assumingType<A>(_:)(v45, v45);
-    v46 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Column<[Float]>);
-    v47 = v29;
-    v48 = 0;
+    AnyColumn.assumingType<A>(_:)(v41, v41);
+    v42 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Column<[Float]>);
+    v43 = v28;
+    v44 = 0;
   }
 
   else
   {
-    v49 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for [Double]);
-    if (swift_dynamicCastMetatype(v67, v49))
+    v45 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for [Double]);
+    if (swift_dynamicCastMetatype(v62, v45))
     {
-      v50 = v64;
-      v51 = AnyColumn.assumingType<A>(_:)(v49, v49);
-      v21 = v35;
-      Column.mapNonNil<A>(_:)(closure #5 in AnyColumn.convertedToFloatArrays(), 0, v66, v45, v51);
-      v22 = v50;
-      v23 = v66;
-      v24 = v63;
+      v46 = v59;
+      AnyColumn.assumingType<A>(_:)(v45, v45);
+      v20 = v33;
+      Column.mapNonNil<A>(_:)(closure #5 in AnyColumn.convertedToFloatArrays(), 0, v61, v41);
+      v21 = v46;
+      v22 = v61;
+      v23 = v58;
       goto LABEL_3;
     }
 
-    v46 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Column<[Float]>);
-    v47 = v29;
-    v48 = 1;
+    v42 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Column<[Float]>);
+    v43 = v28;
+    v44 = 1;
   }
 
-  return __swift_storeEnumTagSinglePayload(v47, v48, 1, v46);
+  return __swift_storeEnumTagSinglePayload(v43, v44, 1, v42);
 }
 
 uint64_t Column<A>.parseAsJSONArrays()(uint64_t *a1, uint64_t a2)
@@ -5273,7 +297,7 @@ uint64_t Column<A>.parseAsJSONArrays()(uint64_t *a1, uint64_t a2)
   v12 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for [Any]);
   v13 = v30;
   v30 = v12;
-  result = Column.map<A>(_:)(v13, 0, v11);
+  result = Column.map<A>(_:)(v13, 0, v11, v12);
   if (!v3)
   {
     v29 = Column.name.getter(v11);
@@ -5294,13 +318,12 @@ uint64_t Column<A>.parseAsJSONArrays()(uint64_t *a1, uint64_t a2)
   return result;
 }
 
-uint64_t specialized thunk for @escaping @callee_guaranteed (@unowned Int) -> (@owned String)(uint64_t *a1)
+uint64_t specialized thunk for @escaping @callee_guaranteed (@unowned Int) -> (@owned String)()
 {
-  v2 = v1;
-  v3 = *a1;
+  v1 = v0;
   result = implicit closure #1 in AnyColumn.convertedToStrings()();
-  *v2 = result;
-  v2[1] = v5;
+  *v1 = result;
+  v1[1] = v3;
   return result;
 }
 
@@ -5971,7 +994,7 @@ NSURL *closure #1 in Column<A>.parseAsJSONArrays()(uint64_t *a1)
       v20 = v24[0];
       _convertNSErrorToError(_:)(v17);
 
-      swift_willThrow(v20, "JSONObjectWithData:options:error:");
+      swift_willThrow();
       outlined consume of Data?(v23, v11);
     }
   }
@@ -6017,7 +1040,7 @@ NSURL *closure #1 in Column<A>.parseAsJSONArrays()(uint64_t *a1)
       v10 = v14[0];
       _convertNSErrorToError(_:)(v8);
 
-      swift_willThrow(v10, "JSONObjectWithData:options:error:");
+      swift_willThrow();
       outlined consume of Data?(v13, v2);
     }
   }
@@ -6048,11 +1071,11 @@ void *_sSa28_unsafeUninitializedCapacity16initializingWithSayxGSi_ySryxGz_SiztKX
 
   else
   {
-    v7 = &_swiftEmptyArrayStorage;
+    v7 = _swiftEmptyArrayStorage;
   }
 
   v9 = 0;
-  v11 = (v7 + 4);
+  v11 = v7 + 4;
   v10[0] = v7 + 4;
   v10[1] = a1;
   v5(v10, &v9);
@@ -6074,7 +1097,7 @@ void *_sSa28_unsafeUninitializedCapacity16initializingWithSayxGSi_ySryxGz_SiztKX
     }
 
     v7[2] = v9;
-    v7, &v9;
+    v7;
   }
 
   else
@@ -6111,31 +1134,23 @@ unint64_t outlined consume of Data?(uint64_t a1, unint64_t a2)
   return result;
 }
 
-uint64_t MLObjectDetector.write(to:metadata:)(uint64_t a1, const void *a2)
-{
-  qmemcpy(v5, a2, 0x48uLL);
-  v3 = *v2;
-  return _Model.write(to:metadata:)(a1, v5);
-}
-
 uint64_t MLObjectDetector.write(toFile:metadata:)(Swift::String string, const void *a2)
 {
-  v12[9] = v2;
-  v14 = v3;
-  v13 = a2;
+  v11[9] = v2;
+  v13 = v3;
+  v12 = a2;
   v4 = type metadata accessor for URL(0);
   v5 = *(v4 - 8);
   v6 = *(v5 + 64);
   v7 = alloca(v6);
   v8 = alloca(v6);
-  v15 = &v11;
+  v14 = &v10;
   result = static _ValidationUtilities.validateWriteLocation(atPath:defaultName:)(string, 0x65447463656A624FLL, 0xEE00726F74636574);
   if (!v2)
   {
-    v10 = *v14;
-    qmemcpy(v12, v13, 0x48uLL);
-    _Model.write(to:metadata:)(v15, v12);
-    return (*(v5 + 8))(v15, v4);
+    qmemcpy(v11, v12, 0x48uLL);
+    _Model.write(to:metadata:)(v14, v11);
+    return (*(v5 + 8))(v14, v4);
   }
 
   return result;
@@ -6282,7 +1297,7 @@ LABEL_7:
   return result;
 }
 
-uint64_t MLLinearRegressor.ModelParameters.ValidationData.generateDataFrames(trainingData:)(uint64_t a1, uint64_t a2, void (*a3)(uint64_t *, uint64_t, uint64_t))
+uint64_t MLLinearRegressor.ModelParameters.ValidationData.generateDataFrames(trainingData:)(uint64_t a1, uint64_t *a2, void (*a3)(uint64_t *, uint64_t, uint64_t))
 {
   v56 = a3;
   v55 = a2;
@@ -6410,7 +1425,7 @@ float *MLFewShotSoundClassifier.ModelParameters.LossParameters.init(gamma:epsilo
   return result;
 }
 
-uint64_t (*MLFewShotSoundClassifier.ModelParameters.learningRate.modify(uint64_t a1))(_DWORD *a1)
+uint64_t (*MLFewShotSoundClassifier.ModelParameters.learningRate.modify(uint64_t a1))()
 {
   *a1 = v1;
   *(a1 + 8) = *(v1 + 8);
@@ -6447,20 +1462,21 @@ uint64_t (*MLFewShotSoundClassifier.ModelParameters.lossParamters.modify(uint64_
   return MLFewShotSoundClassifier.ModelParameters.lossParamters.modify;
 }
 
-uint64_t key path getter for MLFewShotSoundClassifier.ModelParameters.lossParamters : MLFewShotSoundClassifier.ModelParameters(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void))
+uint64_t key path getter for MLFewShotSoundClassifier.ModelParameters.lossParamters : MLFewShotSoundClassifier.ModelParameters(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(uint64_t, uint64_t, uint64_t))
 {
   v5 = v4;
-  result = a4();
+  result = a4(a1, a2, a3);
   *v5 = v7;
   *(v5 + 8) = v8;
   return result;
 }
 
-uint64_t key path setter for MLFewShotSoundClassifier.ModelParameters.lossParamters : MLFewShotSoundClassifier.ModelParameters(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void))
+uint64_t key path setter for MLFewShotSoundClassifier.ModelParameters.lossParamters : MLFewShotSoundClassifier.ModelParameters(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(uint64_t *, uint64_t, uint64_t, uint64_t))
 {
-  v6 = *a1;
-  v7 = *(a1 + 2);
-  return a5();
+  v5 = *(a1 + 2);
+  v7 = *a1;
+  v8 = v5;
+  return a5(&v7, a2, a3, a4);
 }
 
 void MLFewShotSoundClassifier.ModelParameters.lossParameters.setter(uint64_t a1)
@@ -6592,7 +1608,7 @@ void *initializeBufferWithCopyOfBuffer for MLFewShotSoundClassifier.ModelParamet
     *(a1 + 24) = a2[3];
     *(a1 + 32) = *(a2 + 8);
     v7 = *(a3 + 32);
-    v17 = a1 + v7;
+    v17 = (a1 + v7);
     v8 = type metadata accessor for URL(0);
     v9 = a2 + v7;
     v10 = *(*(v8 - 8) + 16);
@@ -6676,7 +1692,7 @@ uint64_t assignWithCopy for MLFewShotSoundClassifier.ModelParameters(uint64_t a1
   v5 = type metadata accessor for URL(0);
   v15 = *(v5 - 8);
   v14 = *(v15 + 24);
-  v14((a1 + v4), (a2 + v4), v5);
+  v14(a1 + v4, a2 + v4, v5);
   v6 = *(a3 + 36);
   v7 = (v6 + a2);
   __dst = (a1 + v6);
@@ -6755,7 +1771,7 @@ uint64_t assignWithTake for MLFewShotSoundClassifier.ModelParameters(uint64_t a1
   v6 = type metadata accessor for URL(0);
   v15 = *(v6 - 8);
   v14 = *(v15 + 40);
-  v14((a1 + v5), (a2 + v5), v6);
+  v14(a1 + v5, a2 + v5, v6);
   v7 = *(v3 + 36);
   v8 = (v7 + a2);
   __dst = (a1 + v7);
@@ -6892,7 +1908,7 @@ LABEL_6:
   }
 }
 
-uint64_t MLActivityClassifier.Model.writeMLModel(to:metadata:)(uint64_t a1, uint64_t *a2)
+NSURL *MLActivityClassifier.Model.writeMLModel(to:metadata:)(uint64_t a1, uint64_t *a2)
 {
   v22 = v2;
   v17 = v3;
@@ -6927,149 +1943,149 @@ uint64_t MLActivityClassifier.Model.writeMLModel(to:metadata:)(uint64_t a1, uint
 
 void *MLActivityClassifier.Model.asModelSpecification()()
 {
-  v80 = v1;
-  v78 = v0;
-  v59 = type metadata accessor for ModelKind(0);
-  v58 = *(v59 - 8);
-  v3 = *(v58 + 8);
+  v79 = v1;
+  v77 = v0;
+  v58 = type metadata accessor for ModelKind(0);
+  v57 = *(v58 - 8);
+  v3 = *(v57 + 8);
   v4 = alloca(v3);
   v5 = alloca(v3);
-  v60 = &v56;
-  v68 = type metadata accessor for FeatureType.ShapedArrayParameters.DataType(0);
-  v81 = *(v68 - 8);
-  v6 = *(v81 + 64);
+  v59 = &v55;
+  v67 = type metadata accessor for FeatureType.ShapedArrayParameters.DataType(0);
+  v80 = *(v67 - 8);
+  v6 = *(v80 + 64);
   v7 = alloca(v6);
   v8 = alloca(v6);
-  v70 = &v56;
-  v61 = type metadata accessor for FeatureType(0);
-  v75 = *(v61 - 8);
-  v9 = *(v75 + 64);
+  v69 = &v55;
+  v60 = type metadata accessor for FeatureType(0);
+  v74 = *(v60 - 8);
+  v9 = *(v74 + 64);
   v10 = alloca(v9);
   v11 = alloca(v9);
-  v66 = &v56;
-  v65 = type metadata accessor for FeatureDescription(0);
-  v12 = *(v65 - 8);
+  v65 = &v55;
+  v64 = type metadata accessor for FeatureDescription(0);
+  v12 = *(v64 - 8);
   v13 = *(v12 + 64);
   v14 = alloca(v13);
   v15 = alloca(v13);
-  v71 = &v56;
-  v72 = type metadata accessor for NeuralNetworkClassifier.ClassLabels(0);
-  v73 = *(v72 - 8);
-  v16 = *(v73 + 64);
+  v70 = &v55;
+  v71 = type metadata accessor for NeuralNetworkClassifier.ClassLabels(0);
+  v72 = *(v71 - 8);
+  v16 = *(v72 + 64);
   v17 = alloca(v16);
   v18 = alloca(v16);
-  v74 = &v56;
+  v73 = &v55;
   v19 = type metadata accessor for NeuralNetworkClassifier(0);
   v20 = *(v19 - 8);
   v21 = *(v20 + 64);
   v22 = alloca(v21);
   v23 = alloca(v21);
-  v69 = &v56;
-  v79 = v2;
-  v24 = v80;
+  v68 = &v55;
+  v78 = v2;
+  v24 = v79;
   result = MLActivityClassifier.Model.asModelLayers()();
   if (!v24)
   {
-    v63 = v19;
-    v62 = v20;
-    v67 = v12;
+    v62 = v19;
+    v61 = v20;
+    v66 = v12;
     NeuralNetworkClassifier.init(layers:preprocessors:)(result, _swiftEmptyArrayStorage);
     v26 = type metadata accessor for MLActivityClassifier.Model(0);
     v27 = *(v26 + 60);
     v28 = v26;
-    v76 = v26;
-    v80 = 0;
-    v29 = *&v79[v27];
-    v30 = v74;
-    *v74 = v29;
-    (*(v73 + 104))(v30, enum case for NeuralNetworkClassifier.ClassLabels.string(_:), v72);
-    v29;
-    NeuralNetworkClassifier.classLabels.setter(v30);
+    v75 = v26;
+    v79 = 0;
+    v29 = v73;
+    *v73 = *&v78[v27];
+    (*(v72 + 104))(v29, enum case for NeuralNetworkClassifier.ClassLabels.string(_:), v71);
+
+    NeuralNetworkClassifier.classLabels.setter(v29);
     Model.init()();
     Model.specificationVersion.setter(4);
-    v31 = v79;
-    v32 = *&v79[*(v28 + 64) + 40];
-    v33 = alloca(24);
-    v34 = alloca(32);
-    v58 = v79;
-    v32;
+    v30 = v78;
+    v31 = *&v78[*(v28 + 64) + 40];
+    v32 = alloca(24);
+    v33 = alloca(32);
+    v57 = v78;
+
+    v34 = v79;
+    v76 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFSaySSG_20MLModelSpecification18FeatureDescriptionVs5NeverOTg5(partial apply for closure #1 in MLActivityClassifier.Model.asModelSpecification(), &v55, v31);
+    v79 = v34;
+    v31;
     v35 = v80;
-    v77 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFSaySSG_20MLModelSpecification18FeatureDescriptionVs5NeverOTg5(partial apply for closure #1 in MLActivityClassifier.Model.asModelSpecification(), &v56, v32);
-    v80 = v35;
-    v32;
-    v36 = v81;
-    v37 = *(v81 + 104);
-    LODWORD(v72) = enum case for FeatureType.ShapedArrayParameters.DataType.double(_:);
-    v74 = v37;
-    (v37)(v70, enum case for FeatureType.ShapedArrayParameters.DataType.double(_:), v68);
-    v73 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for _ContiguousArrayStorage<Int>);
-    v38 = swift_allocObject(v73, 40, 7);
-    v38[2] = 1;
-    v38[3] = 2;
-    v39 = *&v31[*(v76 + 32)];
-    if (v39 + 0x4000000000000000 < 0)
+    v36 = *(v80 + 104);
+    LODWORD(v71) = enum case for FeatureType.ShapedArrayParameters.DataType.double(_:);
+    v73 = v36;
+    (v36)(v69, enum case for FeatureType.ShapedArrayParameters.DataType.double(_:), v67);
+    v72 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for _ContiguousArrayStorage<Int>);
+    v37 = swift_allocObject(v72, 40, 7);
+    v37[2] = 1;
+    v37[3] = 2;
+    v38 = *&v30[*(v75 + 32)];
+    if (v38 + 0x4000000000000000 < 0)
     {
       BUG();
     }
 
-    v76 = 2 * v39;
-    v38[4] = 2 * v39;
-    v40 = v66;
-    v41 = v70;
-    static FeatureType.shapedArray(dataType:shape:optional:)(v70, v38, 0);
-    v38;
-    v79 = *(v36 + 8);
-    (v79)(v41, v68);
-    FeatureDescription.init(name:type:description:)(0x6E496574617473, 0xE700000000000000, v40, 0xD000000000000010, "o recognize motions." + 0x8000000000000000);
-    v81 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for _ContiguousArrayStorage<FeatureDescription>);
-    v42 = v67;
-    v64 = *(v67 + 72);
-    v43 = *(v67 + 80);
-    v44 = (v43 + 32) & ~*(v67 + 80);
-    v43 |= 7uLL;
-    v45 = swift_allocObject(v81, v44 + v64, v43);
-    *(v45 + 16) = 1;
-    *(v45 + 24) = 2;
-    (*(v42 + 16))(v44 + v45, v71, v65);
-    v57 = v77;
-    specialized Array.append<A>(contentsOf:)(v45);
-    Model.inputs.setter(v57);
-    v46 = v64;
-    v47 = swift_allocObject(v81, v44 + 3 * v64, v43);
-    v81 = v47;
-    *(v47 + 16) = 3;
-    *(v47 + 24) = 6;
-    v48 = v47 + v44;
-    v77 = "labelProbabilityRaw" + 0x8000000000000000;
-    v49 = v66;
+    v75 = 2 * v38;
+    v37[4] = 2 * v38;
+    v39 = v65;
+    v40 = v69;
+    static FeatureType.shapedArray(dataType:shape:optional:)(v69, v37, 0);
+    v37;
+    v78 = *(v35 + 8);
+    (v78)(v40, v67);
+    FeatureDescription.init(name:type:description:)(0x6E496574617473, 0xE700000000000000, v39, 0xD000000000000010, ("o recognize motions." + 0x8000000000000000));
+    v80 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for _ContiguousArrayStorage<FeatureDescription>);
+    v41 = v66;
+    v63 = *(v66 + 72);
+    v42 = *(v66 + 80);
+    v43 = (v42 + 32) & ~*(v66 + 80);
+    v42 |= 7uLL;
+    v44 = swift_allocObject(v80, v43 + v63, v42);
+    *(v44 + 16) = 1;
+    *(v44 + 24) = 2;
+    (*(v41 + 16))(v43 + v44, v70, v64);
+    v56 = v76;
+    specialized Array.append<A>(contentsOf:)(v44);
+    Model.inputs.setter(v56);
+    v45 = v63;
+    v46 = swift_allocObject(v80, v43 + 3 * v63, v42);
+    v80 = v46;
+    *(v46 + 16) = 3;
+    *(v46 + 24) = 6;
+    v47 = v46 + v43;
+    v76 = "labelProbabilityRaw" + 0x8000000000000000;
+    v48 = v65;
     static FeatureType.dictionaryWithStringKeys(optional:)(0);
-    FeatureDescription.init(name:type:description:)(0xD000000000000010, "labelProbabilityRaw" + 0x8000000000000000, v49, 0xD000000000000021, "LSTM state input" + 0x8000000000000000);
+    FeatureDescription.init(name:type:description:)(0xD000000000000010, ("labelProbabilityRaw" + 0x8000000000000000), v48, 0xD000000000000021, ("LSTM state input" + 0x8000000000000000));
     FeatureType.StringParameters.init(optional:)(0);
-    (*(v75 + 104))(v49, enum case for FeatureType.string(_:), v61);
-    FeatureDescription.init(name:type:description:)(0x6C6562616CLL, 0xE500000000000000, v49, 0xD00000000000001DLL, "ion probabilities" + 0x8000000000000000);
-    v75 = v48 + 2 * v46;
-    v50 = v70;
-    v51 = v68;
-    (v74)(v70, v72, v68);
-    v52 = swift_allocObject(v73, 40, 7);
-    v52[2] = 1;
-    v52[3] = 2;
-    v52[4] = v76;
-    static FeatureType.shapedArray(dataType:shape:optional:)(v50, v52, 0);
-    v52;
-    (v79)(v50, v51);
-    FeatureDescription.init(name:type:description:)(0x74754F6574617473, 0xE800000000000000, v49, 0xD000000000000011, "Class label of top prediction" + 0x8000000000000000);
-    Model.outputs.setter(v81);
+    (*(v74 + 104))(v48, enum case for FeatureType.string(_:), v60);
+    FeatureDescription.init(name:type:description:)(0x6C6562616CLL, 0xE500000000000000, v48, 0xD00000000000001DLL, ("ion probabilities" + 0x8000000000000000));
+    v74 = v47 + 2 * v45;
+    v49 = v69;
+    v50 = v67;
+    (v73)(v69, v71, v67);
+    v51 = swift_allocObject(v72, 40, 7);
+    LOBYTE(v42) = v51;
+    v51[2] = 1;
+    v51[3] = 2;
+    v51[4] = v75;
+    static FeatureType.shapedArray(dataType:shape:optional:)(v49, v51, 0);
+    v42;
+    (v78)(v49, v50);
+    FeatureDescription.init(name:type:description:)(0x74754F6574617473, 0xE800000000000000, v48, 0xD000000000000011, ("Class label of top prediction" + 0x8000000000000000));
+    Model.outputs.setter(v80);
     Model.predictedFeatureName.setter(0x6C6562616CLL, 0xE500000000000000);
-    Model.predictedProbabilitiesName.setter(0xD000000000000010, v77);
-    v53 = v60;
-    v54 = v63;
-    v55 = v62;
-    (*(v62 + 16))(v60, v69, v63);
-    (*(v58 + 13))(v53, enum case for ModelKind.neuralNetworkClassifier(_:), v59);
-    Model.kind.setter(v53);
-    (*(v67 + 8))(v71, v65);
-    return (*(v55 + 8))(v69, v54);
+    Model.predictedProbabilitiesName.setter(0xD000000000000010, v76);
+    v52 = v59;
+    v53 = v62;
+    v54 = v61;
+    (*(v61 + 16))(v59, v68, v62);
+    (*(v57 + 13))(v52, enum case for ModelKind.neuralNetworkClassifier(_:), v58);
+    Model.kind.setter(v52);
+    (*(v66 + 8))(v70, v64);
+    return (*(v54 + 8))(v68, v53);
   }
 
   return result;
@@ -7096,7 +2112,6 @@ uint64_t MLActivityClassifier.Model.addMetadata(to:_:)(uint64_t (*a1)(void *, vo
   v60 = a2[8];
   if (v6)
   {
-    v4;
   }
 
   else
@@ -7116,7 +2131,7 @@ uint64_t MLActivityClassifier.Model.addMetadata(to:_:)(uint64_t (*a1)(void *, vo
 
   if (v10)
   {
-    v5;
+
     v11 = v64;
   }
 
@@ -7136,7 +2151,6 @@ uint64_t MLActivityClassifier.Model.addMetadata(to:_:)(uint64_t (*a1)(void *, vo
 
   if (v12)
   {
-    v7;
   }
 
   else
@@ -7148,13 +2162,13 @@ uint64_t MLActivityClassifier.Model.addMetadata(to:_:)(uint64_t (*a1)(void *, vo
   Model.versionString.setter(v13, v7);
   if (v69)
   {
-    v69;
+
     Model.license.setter(v61, v69);
   }
 
   v64 = *(type metadata accessor for MLActivityClassifier.Model(0) + 64);
   v63[0] = *&object[v64 + 40];
-  v63[0];
+
   v14 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for [String]);
   v15 = lazy protocol witness table accessor for type FullyConnectedNetworkClassifier<Float, String> and conformance FullyConnectedNetworkClassifier<A, B>(&lazy protocol witness table cache variable for type [String] and conformance [A], &demangling cache variable for type metadata for [String], &protocol conformance descriptor for [A]);
   v16 = BidirectionalCollection<>.joined(separator:)(44, 0xE100000000000000, v14, v15);
@@ -7195,7 +2209,7 @@ uint64_t MLActivityClassifier.Model.addMetadata(to:_:)(uint64_t (*a1)(void *, vo
   v34 = v64;
   v66 = *&object[v64 + 64];
   v35 = *&object[v64 + 72];
-  v35;
+
   v69 = Model.metadata.modify(v63);
   v37 = v36;
   v38 = swift_isUniquelyReferenced_nonNull_native(*v36);
@@ -7206,7 +2220,7 @@ uint64_t MLActivityClassifier.Model.addMetadata(to:_:)(uint64_t (*a1)(void *, vo
   v69(v63, 0);
   v69 = *&object[v34 + 48];
   v39 = *&object[v34 + 56];
-  v39;
+
   v40 = Model.metadata.modify(v63);
   v42 = v41;
   v43 = swift_isUniquelyReferenced_nonNull_native(*v41);
@@ -7233,7 +2247,7 @@ uint64_t MLActivityClassifier.Model.addMetadata(to:_:)(uint64_t (*a1)(void *, vo
   v48(v63, 0);
   if (v60)
   {
-    v60;
+
     v52 = Model.metadata.modify(v63);
     specialized Dictionary._Variant.merge<A>(_:uniquingKeysWith:)(v60, specialized thunk for @escaping @callee_guaranteed (@in_guaranteed A, @in_guaranteed B) -> (@out A, @out B), 0, v53);
     v52(v63, 0);
@@ -7254,90 +2268,90 @@ uint64_t MLActivityClassifier.Model.addMetadata(to:_:)(uint64_t (*a1)(void *, vo
 
 void *MLActivityClassifier.Model.asModelLayers()()
 {
-  v74 = v0;
+  v68 = v0;
   v1 = *(*(type metadata accessor for NeuralNetwork.Layer.Kind(0) - 8) + 64);
   v2 = alloca(v1);
   v3 = alloca(v1);
-  v50 = &v49;
-  v64 = type metadata accessor for NeuralNetwork.Layer.ReshapeParameters.ChannelLayout(0);
-  v65 = *(v64 - 8);
-  v4 = *(v65 + 64);
+  v44 = &v43;
+  v58 = type metadata accessor for NeuralNetwork.Layer.ReshapeParameters.ChannelLayout(0);
+  v59 = *(v58 - 8);
+  v4 = *(v59 + 64);
   v5 = alloca(v4);
   v6 = alloca(v4);
-  v51 = &v49;
-  v60 = type metadata accessor for NeuralNetwork.Layer(0);
-  v7 = *(v60 - 8);
+  v45 = &v43;
+  v54 = type metadata accessor for NeuralNetwork.Layer(0);
+  v7 = *(v54 - 8);
   v8 = *(v7 + 64);
   v9 = alloca(v8);
   v10 = alloca(v8);
-  v62 = &v49;
-  v72 = type metadata accessor for NeuralNetwork.Layer.SliceParameters.Axis(0);
-  v73 = *(v72 - 8);
-  v11 = *(v73 + 8);
+  v56 = &v43;
+  v66 = type metadata accessor for NeuralNetwork.Layer.SliceParameters.Axis(0);
+  v67 = *(v66 - 8);
+  v11 = *(v67 + 8);
   v12 = alloca(v11);
   v13 = alloca(v11);
-  object = &v49;
+  object = &v43;
   v14 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for _ContiguousArrayStorage<NeuralNetwork.Layer>);
   v15 = *(v7 + 72);
-  v61 = v7;
+  v55 = v7;
   v16 = *(v7 + 80);
   v17 = (v16 + 32) & ~*(v7 + 80);
-  v71 = v15;
+  v65 = v15;
   countAndFlagsBits = v14;
-  v52 = v16 | 7;
+  v46 = v16 | 7;
   v18 = swift_allocObject(v14, v17 + 2 * v15, v16 | 7);
   *(v18 + 16) = 2;
   *(v18 + 24) = 4;
-  v69 = v17;
-  v53 = v18;
+  v63 = v17;
+  v47 = v18;
   v19 = v18 + v17;
-  v68 = type metadata accessor for MLActivityClassifier.Model(0);
-  v20 = v68[8];
-  v21 = *(v74 + v20);
-  v22 = *(v73 + 13);
+  v62 = type metadata accessor for MLActivityClassifier.Model(0);
+  v20 = *(v62 + 32);
+  v21 = *(v68 + v20);
+  v22 = *(v67 + 13);
   v23 = object;
-  v66 = enum case for NeuralNetwork.Layer.SliceParameters.Axis.channel(_:);
-  v55 = v22;
-  v22(object, enum case for NeuralNetwork.Layer.SliceParameters.Axis.channel(_:), v72);
-  v54 = v19;
+  v60 = enum case for NeuralNetwork.Layer.SliceParameters.Axis.channel(_:);
+  v49 = v22;
+  v22(object, enum case for NeuralNetwork.Layer.SliceParameters.Axis.channel(_:), v66);
+  v48 = v19;
   static NeuralNetwork.Layer.slice(name:inputName:outputName:startIndex:endIndex:stride:axis:)(0x6E496E6564646968, 0xE800000000000000, 0x6E496574617473, 0xE700000000000000, 0x6E496E6564646968, 0xE800000000000000, 0, v21, 1, v23);
-  v24 = *(v73 + 1);
-  v24(v23, v72);
+  v24 = *(v67 + 1);
+  v24(v23, v66);
   if (v21 + 0x4000000000000000 < 0)
   {
     BUG();
   }
 
-  v73 = (2 * v71);
-  v57 = v24;
-  v25 = v74;
-  v56 = v74 + v20;
-  v58 = v21;
-  v59 = 2 * v21;
+  v67 = (2 * v65);
+  v51 = v24;
+  v25 = v68;
+  v50 = v68 + v20;
+  v52 = v21;
+  v53 = 2 * v21;
   v26 = object;
-  v27 = v72;
-  v55(object, v66, v72);
-  static NeuralNetwork.Layer.slice(name:inputName:outputName:startIndex:endIndex:stride:axis:)(0x6E496C6C6563, 0xE600000000000000, 0x6E496574617473, 0xE700000000000000, 0x6E496C6C6563, 0xE600000000000000, v58, v59, 1, v26);
-  v57(v26, v27);
-  v28 = v53;
-  v63 = v53;
-  v29 = v68[16];
-  v30 = *(v25 + v29 + 40);
-  if (*(v30 + 16) >= 2uLL)
+  v27 = v66;
+  v49(object, v60, v66);
+  static NeuralNetwork.Layer.slice(name:inputName:outputName:startIndex:endIndex:stride:axis:)(0x6E496C6C6563, 0xE600000000000000, 0x6E496574617473, 0xE700000000000000, 0x6E496C6C6563, 0xE600000000000000, v52, v53, 1, v26);
+  v51(v26, v27);
+  v28 = v47;
+  v57 = v47;
+  v29 = *(v62 + 64);
+  v30._rawValue = *(v25 + v29 + 40);
+  if (*(v30._rawValue + 2) >= 2uLL)
   {
-    v30;
-    v31 = v62;
-    MLActivityClassifier.Model.buildFeaturesLayer(_:name:)(v30, 0x7365727574616566, 0xE800000000000000);
-    v30;
+
+    v31 = v56;
+    MLActivityClassifier.Model.buildFeaturesLayer(_:name:)(v30._rawValue, 0x7365727574616566, 0xE800000000000000);
+    v30._rawValue;
     v32 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(1, 3, 1, v28);
     v32[2] = 3;
-    (*(v61 + 32))(&v73[v69 + v32], v31, v60);
-    v63 = v32;
+    (*(v55 + 32))(&v67[v63 + v32], v31, v54);
+    v57 = v32;
   }
 
-  v33 = v69;
-  v34 = swift_allocObject(countAndFlagsBits, v69 + 10 * v71, v52);
-  v72 = v34;
+  v33 = v63;
+  v34 = swift_allocObject(countAndFlagsBits, v63 + 10 * v65, v46);
+  v66 = v34;
   *(v34 + 16) = 10;
   *(v34 + 24) = 20;
   v35 = v34 + v33;
@@ -7349,36 +2363,30 @@ void *MLActivityClassifier.Model.asModelLayers()()
   v38[2] = 4;
   v38[3] = 8;
   v38[4] = 1;
-  v38[5] = *(v30 + 16);
+  v38[5] = *(v30._rawValue + 2);
   v38[6] = 1;
-  v38[7] = *(v74 + v29 + 32);
-  v39 = v51;
-  (*(v65 + 104))(v51, enum case for NeuralNetwork.Layer.ReshapeParameters.ChannelLayout.channelFirst(_:), v64);
+  v38[7] = *(v68 + v29 + 32);
+  v39 = v45;
+  (*(v59 + 104))(v45, enum case for NeuralNetwork.Layer.ReshapeParameters.ChannelLayout.channelFirst(_:), v58);
   v40 = object;
   static NeuralNetwork.Layer.reshape(name:inputName:outputName:targetShape:targetChannelLayout:)(0x65706168736572, 0xE700000000000000, countAndFlagsBits, object, 0x65706168736572, 0xE700000000000000, v38, v39);
   v40;
   v38;
-  (*(v65 + 8))(v39, v64);
-  v41 = v74 + v68[5];
+  (*(v59 + 8))(v39, v58);
   Conv2D.asModelLayer(name:inputName:inputSize:)(1986948963, 0xE400000000000000, 0x65706168736572, 0xE700000000000000);
   static NeuralNetwork.Layer.relu(name:inputName:outputName:)(0x31756C6572, 0xE500000000000000, 1986948963, 0xE400000000000000, 0x31756C6572, 0xE500000000000000);
   MLActivityClassifier.LSTMBlock.asModelLayer(name:inputNames:outputNames:)(1836348268, 0xE400000000000000, &outlined read-only object #0 of MLActivityClassifier.Model.asModelLayers(), &outlined read-only object #1 of MLActivityClassifier.Model.asModelLayers());
-  v42 = v50;
+  v41 = v44;
   static NeuralNetwork.Layer.Kind.concatenate(alongSequenceAxis:)(0);
-  NeuralNetwork.Layer.init(name:inputNames:outputNames:kind:)(0x74754F6574617473, 0xE800000000000000, &outlined read-only object #2 of MLActivityClassifier.Model.asModelLayers(), &outlined read-only object #3 of MLActivityClassifier.Model.asModelLayers(), v42);
-  v69 = v35;
-  v43 = v68;
-  v44 = v74;
-  v45 = v74 + v68[9];
+  NeuralNetwork.Layer.init(name:inputNames:outputNames:kind:)(0x74754F6574617473, 0xE800000000000000, &outlined read-only object #2 of MLActivityClassifier.Model.asModelLayers(), &outlined read-only object #3 of MLActivityClassifier.Model.asModelLayers(), v41);
+  v63 = v35;
   Conv2D.asModelLayer(name:inputName:inputSize:)(0x3065736E6564, 0xE600000000000000, 1836348268, 0xE400000000000000);
-  v46 = v44 + v43[10];
   BatchNorm.asModelLayer(name:inputName:)(28258, 0xE200000000000000, 0x3065736E6564, 0xE600000000000000);
   static NeuralNetwork.Layer.relu(name:inputName:outputName:)(0x36756C6572, 0xE500000000000000, 28258, 0xE200000000000000, 0x36756C6572, 0xE500000000000000);
-  v47 = v74 + v68[13];
   Conv2D.asModelLayer(name:inputName:inputSize:)(0x3165736E6564, 0xE600000000000000, 0x36756C6572, 0xE500000000000000);
-  static NeuralNetwork.Layer.softmax(name:inputName:outputName:)(0xD000000000000010, "labelProbabilityRaw" + 0x8000000000000000, 0x3165736E6564, 0xE600000000000000, 0xD000000000000010, "labelProbabilityRaw" + 0x8000000000000000);
-  specialized Array.append<A>(contentsOf:)(v72);
-  return v63;
+  static NeuralNetwork.Layer.softmax(name:inputName:outputName:)(0xD000000000000010, ("labelProbabilityRaw" + 0x8000000000000000), 0x3165736E6564, 0xE600000000000000, 0xD000000000000010, ("labelProbabilityRaw" + 0x8000000000000000));
+  specialized Array.append<A>(contentsOf:)(v66);
+  return v57;
 }
 
 uint64_t closure #1 in MLActivityClassifier.Model.asModelSpecification()(uint64_t *a1, uint64_t a2)
@@ -7405,14 +2413,14 @@ uint64_t closure #1 in MLActivityClassifier.Model.asModelSpecification()(uint64_
   v15[2] = 1;
   v15[3] = 2;
   v15[4] = *(v22 + *(type metadata accessor for MLActivityClassifier.Model(0) + 64) + 32);
-  v12;
+
   static FeatureType.shapedArray(dataType:shape:optional:)(&v19, v15, 0);
   v15;
   (*(v13 + 8))(&v19, v24);
   v16 = v23;
   v19 = v23;
   v20 = v12;
-  v12;
+
   v17._countAndFlagsBits = 0x20776F646E697720;
   v17._object = 0xED00007475706E69;
   String.append(_:)(v17);
@@ -7432,7 +2440,7 @@ uint64_t MLActivityClassifier.Model.buildFeaturesLayer(_:name:)(uint64_t a1, uin
   v9[4] = a2;
   v9[5] = a3;
   swift_bridgeObjectRetain_n(a3, 2);
-  a1;
+
   static NeuralNetwork.Layer.Kind.concatenate(alongSequenceAxis:)(0);
   return NeuralNetwork.Layer.init(name:inputNames:outputNames:kind:)(a2, a3, a1, v9, v11);
 }
@@ -7447,7 +2455,6 @@ Swift::String __swiftcall MLActivityClassifier.Model.featuresName(_:whenMultiple
     object = *(_._rawValue + 5);
   }
 
-  object;
   result._countAndFlagsBits = countAndFlagsBits;
   result._object = object;
   return result;
@@ -7504,7 +2511,7 @@ uint64_t Conv2D.asModelLayer(name:inputName:inputSize:)(uint64_t a1, uint64_t a2
   v32 = alloca(v30);
   v78 = v5;
   v75 = Conv2D.filterCount.getter();
-  Conv2D.weight.getter();
+  Conv2D.weight.getter(0, a2);
   Tensor.shape.getter(0, a2, v33);
   v71 = v28;
   (*(v29 + 8))(&v59, v28);
@@ -7542,7 +2549,7 @@ uint64_t Conv2D.asModelLayer(name:inputName:inputSize:)(uint64_t a1, uint64_t a2
   if (v85 != enum case for NeuralNetwork.Layer.Kind.convolution(_:))
   {
     (*(v49 + 8))(v47, v48);
-    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD00000000000001ALL, "ModelExport.swift" + 0x8000000000000000, "CreateML/MLActivityClassifier+MLModelExport.swift", 49, 2, 200, 0);
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD00000000000001ALL, ("ModelExport.swift" + 0x8000000000000000), "CreateML/MLActivityClassifier+MLModelExport.swift", 49, 2, 200, 0);
     BUG();
   }
 
@@ -7567,286 +2574,290 @@ uint64_t Conv2D.asModelLayer(name:inputName:inputSize:)(uint64_t a1, uint64_t a2
 
 uint64_t MLActivityClassifier.LSTMBlock.asModelLayer(name:inputNames:outputNames:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v120 = v5;
-  v95 = a4;
-  v96 = a3;
-  v97 = a2;
-  v98 = a1;
-  v99 = v4;
+  v119 = v5;
+  v94 = a4;
+  v95 = a3;
+  v96 = a2;
+  v97 = a1;
+  v98 = v4;
   v6 = *(*(type metadata accessor for NeuralNetwork.WeightParameters(0) - 8) + 64);
   v7 = alloca(v6);
   v8 = alloca(v6);
-  v110 = v94;
+  v109 = v93;
   v9 = *(*(__swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Tensor?) - 8) + 64);
   v10 = alloca(v9);
   v11 = alloca(v9);
-  v121 = v94;
-  v118 = type metadata accessor for Tensor(0);
-  v113 = *(v118 - 8);
-  v12 = *(v113 + 64);
+  v120 = v93;
+  v117 = type metadata accessor for Tensor(0);
+  v112 = *(v117 - 8);
+  v12 = *(v112 + 64);
   v13 = alloca(v12);
   v14 = alloca(v12);
-  v111 = v94;
+  v110 = v93;
   v15 = alloca(v12);
   v16 = alloca(v12);
-  v115 = v94;
+  v114 = v93;
   v17 = alloca(v12);
   v18 = alloca(v12);
-  v112 = v94;
+  v111 = v93;
   v19 = type metadata accessor for NeuralNetwork.Layer.UnidirectionalLSTMParameters(0);
-  v109 = *(v19 - 8);
-  v20 = *(v109 + 64);
+  v108 = *(v19 - 8);
+  v20 = *(v108 + 64);
   v21 = alloca(v20);
   v22 = alloca(v20);
-  v119 = v94;
+  v118 = v93;
   v23 = type metadata accessor for NeuralNetwork.Layer.Kind(0);
   v24 = *(v23 - 8);
   v25 = *(v24 + 64);
   v26 = alloca(v25);
   v27 = alloca(v25);
-  v101 = v94;
+  v100 = v93;
   v28 = alloca(v25);
   v29 = alloca(v25);
   v30 = alloca(v25);
   v31 = alloca(v25);
-  v32 = v120[1];
-  v114 = *v120;
-  static NeuralNetwork.Layer.Kind.unidirectionalLSTM(inputSize:outputSize:sequenceOutput:)(v32, v114, 0);
+  v32 = *(v119 + 8);
+  v113 = *v119;
+  static NeuralNetwork.Layer.Kind.unidirectionalLSTM(inputSize:outputSize:sequenceOutput:)(v32, v113, 0);
   v33 = *(v24 + 16);
-  v100 = v94;
-  v103 = v33;
-  v33(v94, v94, v23);
-  v34 = (*(v24 + 88))(v94, v23);
+  v99 = v93;
+  v102 = v33;
+  v33(v93, v93, v23);
+  v34 = (*(v24 + 88))(v93, v23);
   if (v34 != enum case for NeuralNetwork.Layer.Kind.unidirectionalLSTM(_:))
   {
-    (*(v24 + 8))(v94, v23);
-    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD00000000000001ALL, "ModelExport.swift" + 0x8000000000000000, "CreateML/MLActivityClassifier+MLModelExport.swift", 49, 2, 220, 0);
+    (*(v24 + 8))(v93, v23);
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD00000000000001ALL, ("ModelExport.swift" + 0x8000000000000000), "CreateML/MLActivityClassifier+MLModelExport.swift", 49, 2, 220, 0);
     BUG();
   }
 
-  v108 = v34;
-  v106 = v23;
-  v102 = v24;
-  (*(v24 + 96))(v94, v23);
-  v105 = v19;
-  (*(v109 + 32))(v119, v94, v19);
-  v35 = v120 + *(type metadata accessor for MLActivityClassifier.LSTMBlock(0) + 32);
-  v36 = v121;
+  v107 = v34;
+  v105 = v23;
+  v101 = v24;
+  (*(v24 + 96))(v93, v23);
+  v104 = v19;
+  (*(v108 + 32))(v118, v93, v19);
+  type metadata accessor for MLActivityClassifier.LSTMBlock(0);
+  v35 = v120;
   LSTM.inputWeight.getter();
-  v37 = v118;
-  if (__swift_getEnumTagSinglePayload(v36, 1, v118) == 1)
+  v36 = v117;
+  if (__swift_getEnumTagSinglePayload(v35, 1, v117) == 1)
   {
     BUG();
   }
 
-  (*(v113 + 32))(v112, v36, v37);
+  (*(v112 + 32))(v111, v35, v36);
   LSTM.recurrentWeight.getter();
-  v38 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for _ContiguousArrayStorage<TensorRangeExpression?>);
-  v39 = swift_allocObject(v38, 72, 7);
-  v39[2] = 1;
-  v39[3] = 2;
-  v116 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Range<Int>);
-  v39[7] = v116;
-  v40 = lazy protocol witness table accessor for type FullyConnectedNetworkClassifier<Float, String> and conformance FullyConnectedNetworkClassifier<A, B>(&lazy protocol witness table cache variable for type Range<Int> and conformance <> Range<A>, &demangling cache variable for type metadata for Range<Int>, &protocol conformance descriptor for <> Range<A>);
-  v39[8] = v40;
-  v41 = v114;
-  if (v114 < 0)
+  v37 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for _ContiguousArrayStorage<TensorRangeExpression?>);
+  v38 = swift_allocObject(v37, 72, 7);
+  v38[2] = 1;
+  v38[3] = 2;
+  v115 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Range<Int>);
+  v38[7] = v115;
+  v39 = lazy protocol witness table accessor for type FullyConnectedNetworkClassifier<Float, String> and conformance FullyConnectedNetworkClassifier<A, B>(&lazy protocol witness table cache variable for type Range<Int> and conformance <> Range<A>, &demangling cache variable for type metadata for Range<Int>, &protocol conformance descriptor for <> Range<A>);
+  v38[8] = v39;
+  v40 = v113;
+  if (v113 < 0)
   {
     BUG();
   }
 
-  v117 = v40;
-  v39[4] = 0;
-  v39[5] = v41;
-  v42 = v111;
-  v121 = v38;
-  Tensor.subscript.getter(v39);
-  v39;
-  v43 = Tensor.scalars<A>(as:)(&type metadata for Float, &type metadata for Float, &protocol witness table for Float);
-  v120 = *(v113 + 8);
-  (v120)(v42, v37);
-  v44 = v110;
-  NeuralNetwork.WeightParameters.init(_:updatable:)(v43, 0);
-  v45 = NeuralNetwork.Layer.UnidirectionalLSTMParameters.weights.modify(v94);
-  NeuralNetwork.Layer.LSTMWeightParameters.inputGate.setter(v44);
-  v45(v94, 0);
-  v46 = swift_allocObject(v121, 72, 7);
-  v47 = v114;
-  v48 = v46;
-  v46[2] = 1;
-  v46[3] = 2;
-  if (v47 + 0x4000000000000000 < 0)
+  v116 = v39;
+  v38[4] = 0;
+  v38[5] = v40;
+  v41 = v110;
+  v120 = v37;
+  Tensor.subscript.getter(v38);
+  v38;
+  v42 = Tensor.scalars<A>(as:)(&type metadata for Float, &type metadata for Float, &protocol witness table for Float);
+  v119 = *(v112 + 8);
+  (v119)(v41, v36);
+  v43 = v109;
+  NeuralNetwork.WeightParameters.init(_:updatable:)(v42, 0);
+  v44 = NeuralNetwork.Layer.UnidirectionalLSTMParameters.weights.modify(v93);
+  NeuralNetwork.Layer.LSTMWeightParameters.inputGate.setter(v43);
+  v44(v93, 0);
+  v45 = swift_allocObject(v120, 72, 7);
+  v46 = v113;
+  v47 = v45;
+  v45[2] = 1;
+  v45[3] = 2;
+  if (v46 + 0x4000000000000000 < 0)
   {
     BUG();
   }
 
-  v49 = 2 * v47;
-  v46[7] = v116;
-  v46[8] = v117;
-  if (2 * v47 < v47)
+  v48 = 2 * v46;
+  v45[7] = v115;
+  v45[8] = v116;
+  if (2 * v46 < v46)
   {
     BUG();
   }
 
-  v46[4] = v47;
-  v46[5] = v49;
-  v50 = v111;
-  Tensor.subscript.getter(v46);
-  v48;
-  v51 = Tensor.scalars<A>(as:)(&type metadata for Float, &type metadata for Float, &protocol witness table for Float);
-  (v120)(v50, v118);
-  v52 = v110;
-  NeuralNetwork.WeightParameters.init(_:updatable:)(v51, 0);
-  v53 = NeuralNetwork.Layer.UnidirectionalLSTMParameters.weights.modify(v94);
-  NeuralNetwork.Layer.LSTMWeightParameters.forgetGate.setter(v52);
-  v53(v94, 0);
-  v54 = swift_allocObject(v121, 72, 7);
-  v54[2] = 1;
-  v54[3] = 2;
-  v55 = 3 * v114;
-  if (!is_mul_ok(3uLL, v114))
+  v45[4] = v46;
+  v45[5] = v48;
+  v49 = v110;
+  Tensor.subscript.getter(v45);
+  v47;
+  v50 = Tensor.scalars<A>(as:)(&type metadata for Float, &type metadata for Float, &protocol witness table for Float);
+  (v119)(v49, v117);
+  v51 = v109;
+  NeuralNetwork.WeightParameters.init(_:updatable:)(v50, 0);
+  v52 = NeuralNetwork.Layer.UnidirectionalLSTMParameters.weights.modify(v93);
+  NeuralNetwork.Layer.LSTMWeightParameters.forgetGate.setter(v51);
+  v52(v93, 0);
+  v53 = swift_allocObject(v120, 72, 7);
+  v53[2] = 1;
+  v53[3] = 2;
+  v54 = 3 * v113;
+  if (!is_mul_ok(3uLL, v113))
   {
     BUG();
   }
 
+  v55 = v53;
+  v53[7] = v115;
+  v53[8] = v116;
+  if (v54 < v48)
+  {
+    BUG();
+  }
+
+  v112 = v48;
+  v53[4] = v48;
   v56 = v54;
-  v54[7] = v116;
-  v54[8] = v117;
-  if (v55 < v49)
+  v53[5] = v54;
+  v57 = v110;
+  Tensor.subscript.getter(v53);
+  v55;
+  v58 = Tensor.scalars<A>(as:)(&type metadata for Float, &type metadata for Float, &protocol witness table for Float);
+  (v119)(v57, v117);
+  v59 = v109;
+  NeuralNetwork.WeightParameters.init(_:updatable:)(v58, 0);
+  v60 = NeuralNetwork.Layer.UnidirectionalLSTMParameters.weights.modify(v93);
+  NeuralNetwork.Layer.LSTMWeightParameters.blockInput.setter(v59);
+  v61 = v120;
+  v60(v93, 0);
+  v62 = swift_allocObject(v61, 72, 7);
+  v63 = v113;
+  v64 = v62;
+  v62[2] = 1;
+  v62[3] = 2;
+  if (v63 >> 61)
   {
     BUG();
   }
 
-  v113 = v49;
-  v54[4] = v49;
-  v57 = v55;
-  v54[5] = v55;
-  v58 = v111;
-  Tensor.subscript.getter(v54);
-  v56;
-  v59 = Tensor.scalars<A>(as:)(&type metadata for Float, &type metadata for Float, &protocol witness table for Float);
-  (v120)(v58, v118);
-  v60 = v110;
-  NeuralNetwork.WeightParameters.init(_:updatable:)(v59, 0);
-  v61 = NeuralNetwork.Layer.UnidirectionalLSTMParameters.weights.modify(v94);
-  NeuralNetwork.Layer.LSTMWeightParameters.blockInput.setter(v60);
-  v62 = v121;
-  v61(v94, 0);
-  v63 = swift_allocObject(v62, 72, 7);
-  v64 = v114;
-  v65 = v63;
-  v63[2] = 1;
-  v63[3] = 2;
-  if (v64 >> 61)
+  v62[7] = v115;
+  v62[8] = v116;
+  if ((4 * v63) < v56)
   {
     BUG();
   }
 
-  v63[7] = v116;
-  v63[8] = v117;
-  if ((4 * v64) < v57)
-  {
-    BUG();
-  }
-
-  v66 = v57;
-  v63[4] = v57;
-  v63[5] = 4 * v64;
-  v67 = v111;
-  v104 = 4 * v64;
-  v107 = v66;
-  Tensor.subscript.getter(v63);
-  v65;
-  v68 = Tensor.scalars<A>(as:)(&type metadata for Float, &type metadata for Float, &protocol witness table for Float);
-  (v120)(v67, v118);
-  v69 = v110;
-  NeuralNetwork.WeightParameters.init(_:updatable:)(v68, 0);
-  v70 = NeuralNetwork.Layer.UnidirectionalLSTMParameters.weights.modify(v94);
-  NeuralNetwork.Layer.LSTMWeightParameters.outputGate.setter(v69);
-  v70(v94, 0);
-  v71 = swift_allocObject(v121, 72, 7);
-  v71[2] = 1;
-  v71[3] = 2;
-  v71[7] = v116;
-  v71[8] = v117;
-  v71[4] = 0;
-  v71[5] = v114;
-  Tensor.subscript.getter(v71);
+  v65 = v56;
+  v62[4] = v56;
+  v62[5] = 4 * v63;
+  v66 = v110;
+  v103 = 4 * v63;
+  v106 = v65;
+  Tensor.subscript.getter(v62);
+  v64;
+  v67 = Tensor.scalars<A>(as:)(&type metadata for Float, &type metadata for Float, &protocol witness table for Float);
+  (v119)(v66, v117);
+  v68 = v109;
+  NeuralNetwork.WeightParameters.init(_:updatable:)(v67, 0);
+  v69 = NeuralNetwork.Layer.UnidirectionalLSTMParameters.weights.modify(v93);
+  NeuralNetwork.Layer.LSTMWeightParameters.outputGate.setter(v68);
+  v69(v93, 0);
+  v70 = swift_allocObject(v120, 72, 7);
+  LOBYTE(v69) = v70;
+  v70[2] = 1;
+  v70[3] = 2;
+  v70[7] = v115;
+  v70[8] = v116;
+  v70[4] = 0;
+  v70[5] = v113;
+  Tensor.subscript.getter(v70);
+  v69;
+  v71 = Tensor.scalars<A>(as:)(&type metadata for Float, &type metadata for Float, &protocol witness table for Float);
+  (v119)(v66, v117);
+  NeuralNetwork.WeightParameters.init(_:updatable:)(v71, 0);
+  v72 = NeuralNetwork.Layer.UnidirectionalLSTMParameters.weights.modify(v93);
+  NeuralNetwork.Layer.LSTMWeightParameters.inputGateRecursion.setter(v68);
+  v72(v93, 0);
+  v73 = swift_allocObject(v120, 72, 7);
+  LOBYTE(v71) = v73;
+  v73[2] = 1;
+  v73[3] = 2;
+  v73[7] = v115;
+  v73[8] = v116;
+  v73[4] = v113;
+  v73[5] = v112;
+  Tensor.subscript.getter(v73);
   v71;
-  v72 = Tensor.scalars<A>(as:)(&type metadata for Float, &type metadata for Float, &protocol witness table for Float);
-  (v120)(v67, v118);
-  NeuralNetwork.WeightParameters.init(_:updatable:)(v72, 0);
-  v73 = NeuralNetwork.Layer.UnidirectionalLSTMParameters.weights.modify(v94);
-  NeuralNetwork.Layer.LSTMWeightParameters.inputGateRecursion.setter(v69);
-  v73(v94, 0);
-  v74 = swift_allocObject(v121, 72, 7);
-  v74[2] = 1;
-  v74[3] = 2;
-  v74[7] = v116;
-  v74[8] = v117;
-  v74[4] = v114;
-  v74[5] = v113;
-  Tensor.subscript.getter(v74);
+  v74 = Tensor.scalars<A>(as:)(&type metadata for Float, &type metadata for Float, &protocol witness table for Float);
+  (v119)(v66, v117);
+  NeuralNetwork.WeightParameters.init(_:updatable:)(v74, 0);
+  v75 = NeuralNetwork.Layer.UnidirectionalLSTMParameters.weights.modify(v93);
+  NeuralNetwork.Layer.LSTMWeightParameters.forgetGateRecursion.setter(v68);
+  v75(v93, 0);
+  v76 = swift_allocObject(v120, 72, 7);
+  LOBYTE(v74) = v76;
+  v76[2] = 1;
+  v76[3] = 2;
+  v76[7] = v115;
+  v76[8] = v116;
+  v76[4] = v112;
+  v76[5] = v106;
+  Tensor.subscript.getter(v76);
   v74;
-  v75 = Tensor.scalars<A>(as:)(&type metadata for Float, &type metadata for Float, &protocol witness table for Float);
-  (v120)(v67, v118);
-  NeuralNetwork.WeightParameters.init(_:updatable:)(v75, 0);
-  v76 = NeuralNetwork.Layer.UnidirectionalLSTMParameters.weights.modify(v94);
-  NeuralNetwork.Layer.LSTMWeightParameters.forgetGateRecursion.setter(v69);
-  v76(v94, 0);
-  v77 = swift_allocObject(v121, 72, 7);
-  v77[2] = 1;
-  v77[3] = 2;
-  v77[7] = v116;
-  v77[8] = v117;
-  v77[4] = v113;
-  v77[5] = v107;
-  Tensor.subscript.getter(v77);
+  v77 = Tensor.scalars<A>(as:)(&type metadata for Float, &type metadata for Float, &protocol witness table for Float);
+  (v119)(v66, v117);
+  NeuralNetwork.WeightParameters.init(_:updatable:)(v77, 0);
+  v78 = NeuralNetwork.Layer.UnidirectionalLSTMParameters.weights.modify(v93);
+  NeuralNetwork.Layer.LSTMWeightParameters.blockInputRecursion.setter(v68);
+  v78(v93, 0);
+  v79 = swift_allocObject(v120, 72, 7);
+  LOBYTE(v77) = v79;
+  v79[2] = 1;
+  v79[3] = 2;
+  v79[7] = v115;
+  v79[8] = v116;
+  v79[4] = v106;
+  v79[5] = v103;
+  Tensor.subscript.getter(v79);
   v77;
-  v78 = Tensor.scalars<A>(as:)(&type metadata for Float, &type metadata for Float, &protocol witness table for Float);
-  (v120)(v67, v118);
-  NeuralNetwork.WeightParameters.init(_:updatable:)(v78, 0);
-  v79 = NeuralNetwork.Layer.UnidirectionalLSTMParameters.weights.modify(v94);
-  NeuralNetwork.Layer.LSTMWeightParameters.blockInputRecursion.setter(v69);
-  v79(v94, 0);
-  v80 = swift_allocObject(v121, 72, 7);
-  v80[2] = 1;
-  v80[3] = 2;
-  v80[7] = v116;
-  v80[8] = v117;
-  v80[4] = v107;
-  v80[5] = v104;
-  Tensor.subscript.getter(v80);
-  v80;
-  v81 = Tensor.scalars<A>(as:)(&type metadata for Float, &type metadata for Float, &protocol witness table for Float);
-  (v120)(v67, v118);
-  NeuralNetwork.WeightParameters.init(_:updatable:)(v81, 0);
-  v82 = v119;
-  v83 = NeuralNetwork.Layer.UnidirectionalLSTMParameters.weights.modify(v94);
-  NeuralNetwork.Layer.LSTMWeightParameters.outputGateRecursion.setter(v69);
-  v83(v94, 0);
-  v84 = v102;
-  v121 = *(v102 + 8);
-  v85 = v100;
-  v86 = v106;
-  (v121)(v100, v106);
-  (*(v109 + 16))(v85, v82, v105);
-  (*(v84 + 104))(v85, v108, v86);
-  v87 = v101;
-  v103(v101, v85, v86);
-  v88 = v97;
-  v97;
-  v89 = v96;
-  v96;
-  v90 = v95;
-  v95;
-  NeuralNetwork.Layer.init(name:inputNames:outputNames:kind:)(v98, v88, v89, v90, v87);
-  v91 = v118;
-  v92 = v120;
-  (v120)(v115, v118);
-  (v92)(v112, v91);
-  (*(v109 + 8))(v119, v105);
-  return (v121)(v85, v106);
+  v80 = Tensor.scalars<A>(as:)(&type metadata for Float, &type metadata for Float, &protocol witness table for Float);
+  (v119)(v66, v117);
+  NeuralNetwork.WeightParameters.init(_:updatable:)(v80, 0);
+  v81 = v118;
+  v82 = NeuralNetwork.Layer.UnidirectionalLSTMParameters.weights.modify(v93);
+  NeuralNetwork.Layer.LSTMWeightParameters.outputGateRecursion.setter(v68);
+  v82(v93, 0);
+  v83 = v101;
+  v120 = *(v101 + 8);
+  v84 = v99;
+  v85 = v105;
+  (v120)(v99, v105);
+  (*(v108 + 16))(v84, v81, v104);
+  (*(v83 + 104))(v84, v107, v85);
+  v86 = v100;
+  v102(v100, v84, v85);
+  v87 = v96;
+
+  v88 = v95;
+
+  v89 = v94;
+
+  NeuralNetwork.Layer.init(name:inputNames:outputNames:kind:)(v97, v87, v88, v89, v86);
+  v90 = v117;
+  v91 = v119;
+  (v119)(v114, v117);
+  v91(v111, v90);
+  (*(v108 + 8))(v118, v104);
+  return (v120)(v84, v105);
 }
 
 uint64_t BatchNorm.asModelLayer(name:inputName:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -7893,7 +2904,7 @@ uint64_t BatchNorm.asModelLayer(name:inputName:)(uint64_t a1, uint64_t a2, uint6
   if (v56 != enum case for NeuralNetwork.Layer.Kind.batchNormalize(_:))
   {
     (*(v16 + 8))(&v44, v15);
-    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD00000000000001ALL, "ModelExport.swift" + 0x8000000000000000, "CreateML/MLActivityClassifier+MLModelExport.swift", 49, 2, 262, 0);
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD00000000000001ALL, ("ModelExport.swift" + 0x8000000000000000), "CreateML/MLActivityClassifier+MLModelExport.swift", 49, 2, 262, 0);
     BUG();
   }
 
@@ -7954,7 +2965,7 @@ uint64_t BatchNorm.asModelLayer(name:inputName:)(uint64_t a1, uint64_t a2, uint6
   v42 = v49;
   v52(v49, v59, v61);
   swift_bridgeObjectRetain_n(v41, 2);
-  v54;
+
   NeuralNetwork.Layer.init(name:inputNames:outputNames:kind:)(v40, v41, v38, v39, v42);
   (*(v57 + 8))(v62, v58);
   return (v64)(v59, v61);
@@ -7967,58 +2978,58 @@ uint64_t outlined destroy of NeuralNetwork.Layer.ConvolutionParameters.PaddingKi
   return a1;
 }
 
-uint64_t Array<A>.floatTensor(shape:)(uint64_t a1, uint64_t a2)
+uint64_t Array<A>.floatTensor(shape:)(uint64_t a1, uint64_t a2, double a3, double a4)
 {
-  v30 = a2;
-  v29 = a1;
-  v25[1] = v2;
-  v3 = *(*(__swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for ComputeDevice?) - 8) + 64);
-  v4 = alloca(v3);
-  v5 = alloca(v3);
-  v26 = v25;
-  v27 = type metadata accessor for ScalarType(0);
-  v28 = *(v27 - 8);
-  v6 = *(v28 + 64);
-  v7 = alloca(v6);
-  v8 = alloca(v6);
-  v9 = *(*(__swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for TensorShape?) - 8) + 64);
-  v10 = alloca(v9);
-  v11 = alloca(v9);
-  v12 = type metadata accessor for TensorShape(0);
-  v13 = *(v12 - 8);
-  v14 = *(v13 + 64);
-  v15 = alloca(v14);
-  v16 = alloca(v14);
-  outlined init with copy of TensorShape?(v29, v25);
-  if (__swift_getEnumTagSinglePayload(v25, 1, v12) == 1)
+  v32 = a2;
+  v31 = a1;
+  v27[1] = v4;
+  v5 = *(*(__swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for ComputeDevice?) - 8) + 64);
+  v6 = alloca(v5);
+  v7 = alloca(v5);
+  v28 = v27;
+  v29 = type metadata accessor for ScalarType(0);
+  v30 = *(v29 - 8);
+  v8 = *(v30 + 64);
+  v9 = alloca(v8);
+  v10 = alloca(v8);
+  v11 = *(*(__swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for TensorShape?) - 8) + 64);
+  v12 = alloca(v11);
+  v13 = alloca(v11);
+  v14 = type metadata accessor for TensorShape(0);
+  v15 = *(v14 - 8);
+  v16 = *(v15 + 64);
+  v17 = alloca(v16);
+  v18 = alloca(v16);
+  outlined init with copy of TensorShape?(v31, v27);
+  if (__swift_getEnumTagSinglePayload(v27, 1, v14) == 1)
   {
-    v17 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for _ContiguousArrayStorage<Int>);
-    v18 = swift_allocObject(v17, 40, 7);
-    v18[2] = 1;
-    v18[3] = 2;
-    v19 = v30;
-    v18[4] = *(v30 + 16);
-    TensorShape.init(_:)();
-    if (__swift_getEnumTagSinglePayload(v25, 1, v12) != 1)
+    v19 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for _ContiguousArrayStorage<Int>);
+    v20 = swift_allocObject(v19, 40, 7);
+    v20[2] = 1;
+    v20[3] = 2;
+    v21 = v32;
+    v20[4] = *(v32 + 16);
+    TensorShape.init(_:)(v20);
+    if (__swift_getEnumTagSinglePayload(v27, 1, v14) != 1)
     {
-      outlined destroy of TensorShape?(v25);
+      outlined destroy of TensorShape?(v27);
     }
   }
 
   else
   {
-    (*(v13 + 32))(v25, v25, v12);
-    v19 = v30;
+    (*(v15 + 32))(v27, v27, v14, a3, a4);
+    v21 = v32;
   }
 
-  (*(v28 + 104))(v25, enum case for ScalarType.float32(_:), v27);
-  v20 = type metadata accessor for ComputeDevice(0);
-  v21 = v26;
-  __swift_storeEnumTagSinglePayload(v26, 1, 1, v20);
-  v22 = alloca(24);
-  v23 = alloca(32);
-  v26 = v19;
-  return Tensor.init(unsafeUninitializedShape:scalarType:computeDevice:initializingWith:)(v25, v25, v21, _sSa8CreateMLSdRszlE11floatTensor5shape14NeuralNetworks0D0VAD0D5ShapeVSg_tFySwXEfU_TA_0);
+  (*(v30 + 104))(v27, enum case for ScalarType.float32(_:), v29, a3, a4);
+  v22 = type metadata accessor for ComputeDevice(0);
+  v23 = v28;
+  __swift_storeEnumTagSinglePayload(v28, 1, 1, v22);
+  v24 = alloca(24);
+  v25 = alloca(32);
+  v28 = v21;
+  return Tensor.init(unsafeUninitializedShape:scalarType:computeDevice:initializingWith:)(v27, v27, v23, _sSa8CreateMLSdRszlE11floatTensor5shape14NeuralNetworks0D0VAD0D5ShapeVSg_tFySwXEfU_TA_0);
 }
 
 void closure #1 in Array<A>.floatTensor(shape:)(float *a1, uint64_t a2, uint64_t a3)
@@ -8095,7 +3106,7 @@ void static BundleUtilities.getMLModelURL(at:)(Swift::String a1)
   }
 
   v1 = static BundleUtilities.bundle;
-  v2 = outlined bridged method (mbgbnn) of @objc NSBundle.url(forResource:withExtension:)(a1._countAndFlagsBits, a1._object, 0x6C65646F6D6C6DLL, 0xE700000000000000, v1);
+  v2 = outlined bridged method (mbgbnn) of @objc NSBundle.url(forResource:withExtension:)(a1._countAndFlagsBits, a1._object, 0x6C65646F6D6C6DLL, 0, v1);
 
   if (v2)
   {
@@ -8113,7 +3124,7 @@ void static BundleUtilities.getMLModelURL(at:)(Swift::String a1)
     *(v4 + 16) = 0;
     *(v4 + 32) = 0;
     *(v4 + 48) = 0;
-    swift_willThrow(&type metadata for MLCreateError, v3);
+    swift_willThrow();
   }
 }
 
@@ -8128,15 +3139,409 @@ id one-time initialization function for bundle()
   return result;
 }
 
-id outlined bridged method (mbgbnn) of @objc NSBundle.url(forResource:withExtension:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
+id outlined bridged method (mbgbnn) of @objc NSBundle.url(forResource:withExtension:)(uint64_t a1, uint64_t a2, uint64_t a3, char a4, void *a5)
 {
   v7 = String._bridgeToObjectiveC()();
   v8 = String._bridgeToObjectiveC()();
-  a4, a4;
+  a4;
   v9 = [a5 URLForResource:v7 withExtension:v8];
   v10 = v9;
 
   return v10;
+}
+
+Swift::Void __swiftcall MLProgram.addClassifierSpecification(classLabels:probabilityTensorName:outputProbabilityName:outputLabelName:)(Swift::OpaquePointer classLabels, Swift::String probabilityTensorName, Swift::String outputProbabilityName, Swift::String outputLabelName)
+{
+  countAndFlagsBits = outputLabelName._countAndFlagsBits;
+  object = outputProbabilityName._object;
+  v190 = outputProbabilityName._countAndFlagsBits;
+  v177 = probabilityTensorName._object;
+  v178 = probabilityTensorName._countAndFlagsBits;
+  rawValue = classLabels._rawValue;
+  v5 = *(*(__swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for MLProgram.Block?) - 8) + 64);
+  v6 = alloca(v5);
+  v7 = alloca(v5);
+  v171 = &v161;
+  v182 = type metadata accessor for MLProgram.Argument.Binding(0);
+  v168 = *(v182 - 8);
+  v8 = *(v168 + 64);
+  v9 = alloca(v8);
+  v10 = alloca(v8);
+  v167 = &v161;
+  v188 = type metadata accessor for MLProgram.Operation(0);
+  v187 = *(v188 - 8);
+  v11 = *(v187 + 64);
+  v12 = alloca(v11);
+  v13 = alloca(v11);
+  v189 = &v161;
+  v163 = type metadata accessor for MLProgram.Value.Tensor(0);
+  v164 = *(v163 - 8);
+  v14 = *(v164 + 64);
+  v15 = alloca(v14);
+  v16 = alloca(v14);
+  v165 = &v161;
+  v184 = type metadata accessor for MLProgram.ShapeDimension(0);
+  v183 = *(v184 - 8);
+  v17 = *(v183 + 64);
+  v18 = alloca(v17);
+  v19 = alloca(v17);
+  v185 = &v161;
+  v203 = type metadata accessor for MLProgram.DataType(0);
+  v211 = *(v203 - 8);
+  v20 = v211[8];
+  v21 = alloca(v20);
+  v22 = alloca(v20);
+  v194 = &v161;
+  v179 = type metadata accessor for MLProgram.ValueType(0);
+  v169 = *(v179 - 8);
+  v23 = *(v169 + 64);
+  v24 = alloca(v23);
+  v25 = alloca(v23);
+  v166 = &v161;
+  v26 = alloca(v23);
+  v27 = alloca(v23);
+  v180 = &v161;
+  v28 = alloca(v23);
+  v29 = alloca(v23);
+  v181 = &v161;
+  v30 = alloca(v23);
+  v31 = alloca(v23);
+  v186 = &v161;
+  v196 = type metadata accessor for MLProgram.Value(0);
+  v195 = *(v196 - 8);
+  v32 = *(v195 + 64);
+  v33 = alloca(v32);
+  v34 = alloca(v32);
+  v210 = &v161;
+  v35 = alloca(v32);
+  v36 = alloca(v32);
+  v198 = &v161;
+  v205 = type metadata accessor for MLProgram.Block(0);
+  v199 = *(v205 - 8);
+  v37 = *(v199 + 64);
+  v38 = alloca(v37);
+  v39 = alloca(v37);
+  v212 = &v161;
+  v40 = alloca(v37);
+  v41 = alloca(v37);
+  v204 = &v161;
+  v42 = *(*(__swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (key: String, value: MLProgram.Block)?) - 8) + 64);
+  v43 = alloca(v42);
+  v44 = alloca(v42);
+  v208 = &v161;
+  v45 = alloca(v42);
+  v46 = alloca(v42);
+  v209 = &v161;
+  v47 = *(*(__swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for MLProgram.Function?) - 8) + 64);
+  v48 = alloca(v47);
+  v49 = alloca(v47);
+  v174 = &v161;
+  v50 = alloca(v47);
+  v51 = alloca(v47);
+  v52 = type metadata accessor for MLProgram.Function(0);
+  v53 = *(v52 - 8);
+  v54 = *(v53 + 64);
+  v55 = alloca(v54);
+  v56 = alloca(v54);
+  v170 = v4;
+  MLProgram.mainFunction.getter();
+  if (__swift_getEnumTagSinglePayload(&v161, 1, v52) == 1)
+  {
+    outlined destroy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(&v161, &demangling cache variable for type metadata for MLProgram.Function?);
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD000000000000020, ("Specification+Classifiers.swift" + 0x8000000000000000), "CreateML/MLModelSpecification+Classifiers.swift", 47, 2, 22, 0);
+    goto LABEL_19;
+  }
+
+  v172 = v52;
+  (*(v53 + 32))(&v161, &v161, v52);
+  v57 = MLProgram.Function.blockSpecializations.getter();
+  v58 = *(v57 + 16);
+  v57;
+  if (v58 != 1)
+  {
+LABEL_18:
+    v201 = 0;
+    v202 = 0xE000000000000000;
+    _StringGuts.grow(_:)(61);
+    v155._object = "a main function." + 0x8000000000000000;
+    v155._countAndFlagsBits = 0xD00000000000003BLL;
+    String.append(_:)(v155);
+    v156 = MLProgram.Function.blockSpecializations.getter();
+    v157 = v156;
+    v158 = Dictionary.Keys.description.getter(v156, &type metadata for String, v205, &protocol witness table for String);
+    v160 = v159;
+    v155._countAndFlagsBits = v158;
+    v155._object = v159;
+    String.append(_:)(v155);
+    v157;
+    v160;
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, v201, v202, "CreateML/MLModelSpecification+Classifiers.swift", 47, 2, 29, 0);
+LABEL_19:
+    BUG();
+  }
+
+  v173 = v53;
+  v59 = MLProgram.Function.blockSpecializations.getter();
+  v60 = v59;
+  v61 = v209;
+  specialized Collection.first.getter(v59);
+  v60;
+  v62 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (key: String, value: MLProgram.Block));
+  if (__swift_getEnumTagSinglePayload(v61, 1, v62) == 1)
+  {
+    outlined destroy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(v61, &demangling cache variable for type metadata for (key: String, value: MLProgram.Block)?);
+    goto LABEL_18;
+  }
+
+  v63 = *v61;
+  v206 = v61[1];
+  v64 = v61 + *(v62 + 48);
+  v65 = v205;
+  v192 = *(v199 + 8);
+  v192(v64, v205);
+  v200 = &v161;
+  v66 = MLProgram.Function.blockSpecializations.getter();
+  v67 = v66;
+  v68 = v208;
+  specialized Collection.first.getter(v66);
+  v67;
+  if (__swift_getEnumTagSinglePayload(v68, 1, v62) == 1)
+  {
+    v206;
+    outlined destroy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(v68, &demangling cache variable for type metadata for (key: String, value: MLProgram.Block)?);
+    goto LABEL_18;
+  }
+
+  *(v68 + 8);
+  v69 = *(v62 + 48) + v68;
+  v70 = *(v199 + 32);
+  v71 = v212;
+  v70(v212, v69, v65);
+  v70(v204, v71, v65);
+  v175 = v63;
+  v201 = v63;
+  v202 = v206;
+  v162[0] = 0x4C4D65726F43;
+  v162[1] = 0xE600000000000000;
+  v72 = lazy protocol witness table accessor for type String and conformance String();
+  v73 = lazy protocol witness table accessor for type String and conformance String();
+  if ((BidirectionalCollection<>.starts<A>(with:)(v162, &type metadata for String, &type metadata for String, v72, v73) & 1) == 0)
+  {
+    v192(v204, v205);
+    v206;
+    goto LABEL_18;
+  }
+
+  v74 = v211;
+  v75 = v211[13];
+  v76 = v194;
+  LODWORD(v209) = enum case for MLProgram.DataType.string(_:);
+  v77 = v203;
+  v208 = v75;
+  (v75)(v194, enum case for MLProgram.DataType.string(_:), v203);
+  v78 = _swiftEmptyArrayStorage;
+  static MLProgram.ValueType.tensor(dataType:shape:)(v76, _swiftEmptyArrayStorage);
+  v176 = *(v74 + 8);
+  v176(v76, v77);
+  v79 = rawValue;
+  v80 = rawValue[2];
+  v81 = v185;
+  *v185 = v80;
+  (*(v183 + 104))(v81, enum case for MLProgram.ShapeDimension.constant(_:), v184);
+  if (v80)
+  {
+    v201 = _swiftEmptyArrayStorage;
+    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v80, 0);
+    v78 = v201;
+    v193 = enum case for MLProgram.Value.Tensor.strings(_:);
+    v82 = v79 + 5;
+    do
+    {
+      rawValue = v82;
+      v212 = v80;
+      v211 = v78;
+      v83 = *(v82 - 1);
+      v84 = *v82;
+      v85 = v194;
+      (v208)(v194, v209, v203);
+      v86 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for _ContiguousArrayStorage<String>);
+      v87 = swift_allocObject(v86, 48, 7);
+      v87[2] = 1;
+      v87[3] = 2;
+      v87[4] = v83;
+      v87[5] = v84;
+      v88 = v165;
+      *v165 = v87;
+      v89 = v163;
+      v90 = v164;
+      (*(v164 + 104))(v88, v193, v163);
+      swift_bridgeObjectRetain_n(v84, 2);
+      static MLProgram.Value.immediateTensor(dataType:shape:contents:)(v85, _swiftEmptyArrayStorage, v88);
+      (*(v90 + 8))(v88, v89);
+      v91 = v85;
+      v78 = v211;
+      v176(v91, v203);
+      v84;
+      v201 = v78;
+      v92 = v78[2];
+      if (v78[3] >> 1 <= v92)
+      {
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v78[3] >= 2uLL, v92 + 1, 1);
+        v78 = v201;
+      }
+
+      v78[2] = v92 + 1;
+      (*(v195 + 32))(v78 + ((*(v195 + 80) + 32) & ~*(v195 + 80)) + *(v195 + 72) * v92, v210, v196);
+      v80 = v212 - 1;
+      v82 = rawValue + 2;
+    }
+
+    while (v212 != 1);
+  }
+
+  v201 = v78;
+  v93 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for [MLProgram.Value]);
+  v94 = lazy protocol witness table accessor for type [MLProgram.Value] and conformance [A]();
+  v95 = v78;
+  v96 = v186;
+  v97 = v185;
+  static MLProgram.Value.immediateList<A>(type:length:contents:)(v186, v185, &v201, v93, v94);
+  v95;
+  (*(v183 + 8))(v97, v184);
+  rawValue = *(v169 + 8);
+  (rawValue)(v96, v179);
+  v98 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for _ContiguousArrayStorage<(String, MLProgram.Argument)>);
+  v99 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (String, MLProgram.Argument));
+  v100 = *(v99 - 8);
+  v212 = v99;
+  v210 = *(v100 + 72);
+  v101 = *(v100 + 80);
+  v102 = (v101 + 32) & ~*(v100 + 80);
+  v103 = swift_allocObject(v98, v102 + 2 * v210, v101 | 7);
+  v211 = v103;
+  *(v103 + 16) = 2;
+  *(v103 + 24) = 4;
+  v104 = v103 + v102;
+  strcpy((v103 + v102), "probabilities");
+  *(v103 + v102 + 14) = -4864;
+  v105 = v167;
+  *v167 = v178;
+  *(v105 + 8) = v177;
+  v106 = *(v168 + 104);
+  v106(v105, enum case for MLProgram.Argument.Binding.name(_:), v182);
+
+  MLProgram.Argument.init(binding:)(v105);
+  v107 = v210;
+  *(v210 + v104) = 0x73657373616C63;
+  *(v107 + v104 + 8) = 0xE700000000000000;
+  (*(v195 + 16))(v105, v198, v196);
+  v106(v105, enum case for MLProgram.Argument.Binding.value(_:), v182);
+  MLProgram.Argument.init(binding:)(v105);
+  v108 = type metadata accessor for MLProgram.Argument(0);
+  v210 = Dictionary.init(dictionaryLiteral:)(v211, &type metadata for String, v108, &protocol witness table for String);
+  v109 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for _ContiguousArrayStorage<MLProgram.NamedValueType>);
+  v110 = *(type metadata accessor for MLProgram.NamedValueType(0) - 8);
+  v212 = *(v110 + 72);
+  v111 = swift_allocObject(v109, ((*(v110 + 80) + 32) & ~*(v110 + 80)) + 2 * v212, *(v110 + 80) | 7);
+  v211 = v111;
+  *(v111 + 16) = 2;
+  *(v111 + 24) = 4;
+  v112 = v194;
+  v113 = v203;
+  (v208)(v194, v209, v203);
+
+  v114 = v181;
+  static MLProgram.ValueType.tensor(dataType:shape:)(v112, _swiftEmptyArrayStorage);
+  v115 = v176;
+  v176(v112, v113);
+  MLProgram.NamedValueType.init(name:type:)(countAndFlagsBits, outputLabelName._object, v114);
+  v116 = v208;
+  (v208)(v112, v209, v113);
+
+  static MLProgram.ValueType.tensor(dataType:shape:)(v112, _swiftEmptyArrayStorage);
+  v115(v112, v113);
+  (v116)(v112, enum case for MLProgram.DataType.float64(_:), v113);
+  v117 = v166;
+  static MLProgram.ValueType.tensor(dataType:shape:)(v112, _swiftEmptyArrayStorage);
+  v115(v112, v113);
+  v118 = v181;
+  v119 = v180;
+  static MLProgram.ValueType.dictionary(keyType:valueType:)(v180, v117);
+  v120 = v117;
+  v121 = v179;
+  v122 = rawValue;
+  (rawValue)(v120, v179);
+  v122(v119, v121);
+  MLProgram.NamedValueType.init(name:type:)(v190, object, v118);
+  v123 = v189;
+  MLProgram.Operation.init(name:inputs:outputs:)(0x7966697373616C63, 0xE800000000000000, v210, v211);
+  v124 = v204;
+  v125 = MLProgram.Block.operations.modify(&v201);
+  v127 = v126;
+  specialized Array._makeUniqueAndReserveCapacityIfNotUnique()();
+  v128 = *(*v127 + 16);
+  specialized Array._reserveCapacityAssumingUniqueBuffer(oldCount:)(v128);
+  v129 = *v127;
+  *(v129 + 16) = v128 + 1;
+  (*(v187 + 16))(v129 + ((*(v187 + 80) + 32) & ~*(v187 + 80)) + *(v187 + 72) * v128, v123, v188);
+  v125(&v201, 0);
+  v130 = v124;
+  v131 = v177;
+
+  v132 = MLProgram.Block.outputs.modify(&v201);
+  v134 = v133;
+  v135 = specialized MutableCollection._halfStablePartition(isSuffixElement:)(v133, v178, v131);
+  v136 = *(*v134 + 16);
+  if (v136 < v135)
+  {
+    BUG();
+  }
+
+  specialized Array.replaceSubrange<A>(_:with:)(v135, v136);
+  v132(&v201, 0);
+
+  v137 = MLProgram.Block.outputs.modify(&v201);
+  v139 = v138;
+  specialized Array._makeUniqueAndReserveCapacityIfNotUnique()();
+  v140 = *(*v139 + 16);
+  specialized Array._reserveCapacityAssumingUniqueBuffer(oldCount:)(v140);
+  v141 = *v139;
+  *(v141 + 16) = v140 + 1;
+  v140 *= 16;
+  *(v141 + v140 + 32) = countAndFlagsBits;
+  *(v141 + v140 + 40) = outputLabelName._object;
+  v137(&v201, 0);
+  v142 = object;
+
+  v143 = MLProgram.Block.outputs.modify(&v201);
+  v145 = v144;
+  specialized Array._makeUniqueAndReserveCapacityIfNotUnique()();
+  v146 = *(*v145 + 16);
+  specialized Array._reserveCapacityAssumingUniqueBuffer(oldCount:)(v146);
+  v147 = *v145;
+  *(v147 + 16) = v146 + 1;
+  v146 *= 16;
+  *(v147 + v146 + 32) = v190;
+  *(v147 + v146 + 40) = v142;
+  v143(&v201, 0);
+  v148 = v171;
+  v149 = v205;
+  (*(v199 + 16))(v171, v130, v205);
+  __swift_storeEnumTagSinglePayload(v148, 0, 1, v149);
+  v150 = v200;
+  v151 = MLProgram.Function.blockSpecializations.modify(&v201);
+  specialized Dictionary.subscript.setter(v148, v175, v206);
+  v151(&v201, 0);
+  v152 = v174;
+  v153 = v172;
+  v154 = v173;
+  (*(v173 + 16))(v174, v150, v172);
+  __swift_storeEnumTagSinglePayload(v152, 0, 1, v153);
+  MLProgram.mainFunction.setter(v152);
+  (*(v187 + 8))(v189, v188);
+  (*(v195 + 8))(v198, v196);
+  v192(v204, v149);
+  (*(v154 + 8))(v150, v153);
 }
 
 uint64_t lazy protocol witness table accessor for type [MLProgram.Value] and conformance [A]()
@@ -8227,8 +3632,7 @@ unint64_t specialized MutableCollection._halfStablePartition(isSuffixElement:)(u
               v22 = *(v27 + 32 + 16 * v7);
               v21 = 2 * v7;
               v23 = *(v27 + 32 + 16 * v7 + 8);
-              v23;
-              v13;
+
               if (swift_isUniquelyReferenced_nonNull_native(v27))
               {
                 v14 = v27;
@@ -8244,14 +3648,14 @@ unint64_t specialized MutableCollection._halfStablePartition(isSuffixElement:)(u
               v14[v21 + 5] = v13;
               v16 = v14;
               v15;
-              if (v10 >= v16[2])
+              if (v10 >= *(v16 + 16))
               {
                 BUG();
               }
 
-              v17 = v16[v6 / 8];
-              v16[v6 / 8 - 1] = v22;
-              v16[v6 / 8] = v23;
+              v17 = *(v16 + v6);
+              *(v16 + v6 - 8) = v22;
+              *(v16 + v6) = v23;
               v17;
               v4 = v16;
               *a1 = v16;
@@ -8421,7 +3825,7 @@ LABEL_7:
   return result;
 }
 
-uint64_t MLBoostedTreeRegressor.ModelParameters.ValidationData.generateDataFrames(trainingData:)(uint64_t a1, uint64_t a2, void (*a3)(uint64_t *, uint64_t, uint64_t))
+uint64_t MLBoostedTreeRegressor.ModelParameters.ValidationData.generateDataFrames(trainingData:)(uint64_t a1, uint64_t *a2, void (*a3)(uint64_t *, uint64_t, uint64_t))
 {
   v56 = a3;
   v55 = a2;
@@ -8533,16 +3937,16 @@ LABEL_10:
   }
 }
 
-void *initializeBufferWithCopyOfBuffer for MLTextClassifier.ModelParameters.ValidationData(char *__dst, char *__src, uint64_t a3)
+char *initializeBufferWithCopyOfBuffer for MLTextClassifier.ModelParameters.ValidationData(char *__dst, char *__src, uint64_t a3)
 {
   v3 = __dst;
   v4 = *(a3 - 8);
   v5 = *(v4 + 80);
   if ((v5 & 0x20000) != 0)
   {
-    v11 = *__src;
+    v9 = *__src;
     *v3 = *__src;
-    v3 = (v11 + ((v5 + 16) & ~v5));
+    v3 = (v9 + ((v5 + 16) & ~v5));
 
     return v3;
   }
@@ -8558,41 +3962,34 @@ void *initializeBufferWithCopyOfBuffer for MLTextClassifier.ModelParameters.Vali
         *__dst = v7;
         __dst[8] = v8;
         *(__dst + 2) = *(__src + 2);
-        v9 = *(__src + 3);
-        v3[3] = v9;
-        v3[4] = *(__src + 4);
-        v10 = *(__src + 5);
-        v3[5] = v10;
-        v9;
-        v10;
-        swift_storeEnumTagMultiPayload(v3, a3, 1);
+        *(__dst + 3) = *(__src + 3);
+        *(__dst + 4) = *(__src + 4);
+        *(__dst + 5) = *(__src + 5);
+
+        swift_storeEnumTagMultiPayload(__dst, a3, 1);
         return v3;
       case 2u:
-        v14 = type metadata accessor for DataFrame(0);
-        (*(*(v14 - 8) + 16))(__dst, __src, v14);
-        v15 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (DataFrame, textColumn: String, labelColumn: String));
-        v16 = *(v15 + 48);
-        *&__dst[v16] = *&__src[v16];
-        v17 = *&__src[v16 + 8];
-        *(v3 + v16 + 8) = v17;
-        v18 = *(v15 + 64);
-        *(v3 + v18) = *&__src[v18];
-        v19 = *&__src[v18 + 8];
-        *(v3 + v18 + 8) = v19;
-        v17;
-        v19;
-        swift_storeEnumTagMultiPayload(v3, a3, 2);
+        v11 = type metadata accessor for DataFrame(0);
+        (*(*(v11 - 8) + 16))(__dst, __src, v11);
+        v12 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (DataFrame, textColumn: String, labelColumn: String));
+        v13 = *(v12 + 48);
+        *&__dst[v13] = *&__src[v13];
+        *&__dst[v13 + 8] = *&__src[v13 + 8];
+        v14 = *(v12 + 64);
+        *&__dst[v14] = *&__src[v14];
+        *&__dst[v14 + 8] = *&__src[v14 + 8];
+
+        swift_storeEnumTagMultiPayload(__dst, a3, 2);
         return v3;
       case 3u:
-        v12 = type metadata accessor for URL(0);
-        (*(*(v12 - 8) + 16))(__dst, __src, v12);
+        v10 = type metadata accessor for URL(0);
+        (*(*(v10 - 8) + 16))(__dst, __src, v10);
         swift_storeEnumTagMultiPayload(__dst, a3, 3);
         return v3;
       case 4u:
-        v13 = *__src;
-        *v3 = *__src;
-        v13;
-        swift_storeEnumTagMultiPayload(v3, a3, 4);
+        *__dst = *__src;
+
+        swift_storeEnumTagMultiPayload(__dst, a3, 4);
         return v3;
       default:
         result = memcpy(__dst, __src, *(v4 + 64));
@@ -8603,15 +4000,15 @@ void *initializeBufferWithCopyOfBuffer for MLTextClassifier.ModelParameters.Vali
   return result;
 }
 
-uint64_t destroy for MLTextClassifier.ModelParameters.ValidationData(uint64_t *a1, uint64_t a2)
+uint64_t destroy for MLTextClassifier.ModelParameters.ValidationData(uint64_t a1, uint64_t a2)
 {
   result = swift_getEnumCaseMultiPayload(a1, a2) - 1;
   switch(result)
   {
     case 0:
-      outlined consume of Result<_DataTable, Error>(*a1, *(a1 + 2));
-      a1[3];
-      result = a1[5];
+      outlined consume of Result<_DataTable, Error>(*a1, *(a1 + 8));
+      *(a1 + 24);
+      result = *(a1 + 40);
       break;
     case 1:
       v4 = type metadata accessor for DataFrame(0);
@@ -8639,46 +4036,39 @@ char *initializeWithCopy for MLTextClassifier.ModelParameters.ValidationData(cha
   switch(swift_getEnumCaseMultiPayload(__src, a3))
   {
     case 1u:
-      v5 = *__src;
-      v6 = __src[8];
-      outlined copy of Result<_DataTable, Error>(*__src, v6);
-      *__dst = v5;
-      __dst[8] = v6;
+      v4 = *__src;
+      v5 = __src[8];
+      outlined copy of Result<_DataTable, Error>(*__src, v5);
+      *__dst = v4;
+      __dst[8] = v5;
       *(__dst + 2) = *(__src + 2);
-      v7 = *(__src + 3);
-      *(__dst + 3) = v7;
+      *(__dst + 3) = *(__src + 3);
       *(__dst + 4) = *(__src + 4);
-      v8 = *(__src + 5);
-      *(__dst + 5) = v8;
-      v7;
-      v8;
+      *(__dst + 5) = *(__src + 5);
+
       swift_storeEnumTagMultiPayload(__dst, a3, 1);
       goto LABEL_6;
     case 2u:
-      v11 = type metadata accessor for DataFrame(0);
-      (*(*(v11 - 8) + 16))(__dst, __src, v11);
-      v12 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (DataFrame, textColumn: String, labelColumn: String));
-      v13 = *(v12 + 48);
-      *&__dst[v13] = *&__src[v13];
-      v14 = *&__src[v13 + 8];
-      *&__dst[v13 + 8] = v14;
-      v15 = *(v12 + 64);
-      *&__dst[v15] = *&__src[v15];
-      v16 = *&__src[v15 + 8];
-      *&__dst[v15 + 8] = v16;
-      v14;
-      v16;
+      v7 = type metadata accessor for DataFrame(0);
+      (*(*(v7 - 8) + 16))(__dst, __src, v7);
+      v8 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (DataFrame, textColumn: String, labelColumn: String));
+      v9 = *(v8 + 48);
+      *&__dst[v9] = *&__src[v9];
+      *&__dst[v9 + 8] = *&__src[v9 + 8];
+      v10 = *(v8 + 64);
+      *&__dst[v10] = *&__src[v10];
+      *&__dst[v10 + 8] = *&__src[v10 + 8];
+
       swift_storeEnumTagMultiPayload(__dst, a3, 2);
       goto LABEL_6;
     case 3u:
-      v9 = type metadata accessor for URL(0);
-      (*(*(v9 - 8) + 16))(__dst, __src, v9);
+      v6 = type metadata accessor for URL(0);
+      (*(*(v6 - 8) + 16))(__dst, __src, v6);
       swift_storeEnumTagMultiPayload(__dst, a3, 3);
       goto LABEL_6;
     case 4u:
-      v10 = *__src;
       *__dst = *__src;
-      v10;
+
       swift_storeEnumTagMultiPayload(__dst, a3, 4);
 LABEL_6:
       result = __dst;
@@ -8702,46 +4092,39 @@ char *assignWithCopy for MLTextClassifier.ModelParameters.ValidationData(char *_
   switch(swift_getEnumCaseMultiPayload(__src, a3))
   {
     case 1u:
-      v5 = *__src;
-      v6 = __src[8];
-      outlined copy of Result<_DataTable, Error>(*__src, v6);
-      *__dst = v5;
-      __dst[8] = v6;
+      v4 = *__src;
+      v5 = __src[8];
+      outlined copy of Result<_DataTable, Error>(*__src, v5);
+      *__dst = v4;
+      __dst[8] = v5;
       *(__dst + 2) = *(__src + 2);
-      v7 = *(__src + 3);
-      *(__dst + 3) = v7;
+      *(__dst + 3) = *(__src + 3);
       *(__dst + 4) = *(__src + 4);
-      v8 = *(__src + 5);
-      *(__dst + 5) = v8;
-      v7;
-      v8;
+      *(__dst + 5) = *(__src + 5);
+
       swift_storeEnumTagMultiPayload(__dst, a3, 1);
       return __dst;
     case 2u:
-      v11 = type metadata accessor for DataFrame(0);
-      (*(*(v11 - 8) + 16))(__dst, __src, v11);
-      v12 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (DataFrame, textColumn: String, labelColumn: String));
-      v13 = *(v12 + 48);
-      *&__dst[v13] = *&__src[v13];
-      v14 = *&__src[v13 + 8];
-      *&__dst[v13 + 8] = v14;
-      v15 = *(v12 + 64);
-      *&__dst[v15] = *&__src[v15];
-      v16 = *&__src[v15 + 8];
-      *&__dst[v15 + 8] = v16;
-      v14;
-      v16;
+      v7 = type metadata accessor for DataFrame(0);
+      (*(*(v7 - 8) + 16))(__dst, __src, v7);
+      v8 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (DataFrame, textColumn: String, labelColumn: String));
+      v9 = *(v8 + 48);
+      *&__dst[v9] = *&__src[v9];
+      *&__dst[v9 + 8] = *&__src[v9 + 8];
+      v10 = *(v8 + 64);
+      *&__dst[v10] = *&__src[v10];
+      *&__dst[v10 + 8] = *&__src[v10 + 8];
+
       swift_storeEnumTagMultiPayload(__dst, a3, 2);
       return __dst;
     case 3u:
-      v9 = type metadata accessor for URL(0);
-      (*(*(v9 - 8) + 16))(__dst, __src, v9);
+      v6 = type metadata accessor for URL(0);
+      (*(*(v6 - 8) + 16))(__dst, __src, v6);
       swift_storeEnumTagMultiPayload(__dst, a3, 3);
       return __dst;
     case 4u:
-      v10 = *__src;
       *__dst = *__src;
-      v10;
+
       swift_storeEnumTagMultiPayload(__dst, a3, 4);
       return __dst;
     default:
@@ -8843,223 +4226,223 @@ uint64_t type metadata completion function for MLTextClassifier.ModelParameters.
 
 uint64_t MLTextClassifier.ModelParameters.ValidationData.createValidationData(trainingData:textColumn:labelColumn:)(void *a1, uint64_t a2, void *a3, uint64_t a4, void *a5, double a6)
 {
-  v100._countAndFlagsBits = a4;
+  v102._countAndFlagsBits = a4;
   to = a3;
-  v106 = v6;
-  v99 = a2;
-  v105 = v7;
-  v108 = v8;
-  v100._object = a5;
-  v104 = a1;
+  v108 = v6;
+  v101 = a2;
+  v107 = v7;
+  v110 = v8;
+  v102._object = a5;
+  v106 = a1;
   v9 = *(*(type metadata accessor for MLTextClassifier.DataSource(0) - 8) + 64);
   v10 = alloca(v9);
   v11 = alloca(v9);
-  v102 = &v90;
-  v107._object = type metadata accessor for DataFrame(0);
-  v12 = *(v107._object - 1);
+  v104 = &v92;
+  v109._object = type metadata accessor for DataFrame(0);
+  v12 = *(v109._object - 1);
   v13 = *(v12 + 64);
   v14 = alloca(v13);
   v15 = alloca(v13);
-  _._object = &v90;
+  _._object = &v92;
   v16 = alloca(v13);
   v17 = alloca(v13);
-  _._countAndFlagsBits = &v90;
-  v94 = type metadata accessor for DataFrame.Slice(0);
-  v18 = *(v94 - 1);
+  _._countAndFlagsBits = &v92;
+  v96 = type metadata accessor for DataFrame.Slice(0);
+  v18 = *(v96 - 1);
   v19 = v18[8];
   v20 = alloca(v19);
   v21 = alloca(v19);
-  v96 = &v90;
+  v98 = &v92;
   v22 = alloca(v19);
   v23 = alloca(v19);
-  v97 = &v90;
+  v99 = &v92;
   v24 = alloca(v19);
   v25 = alloca(v19);
-  v107._countAndFlagsBits = &v90;
+  v109._countAndFlagsBits = &v92;
   v26 = *(*(__swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for DataFrame.Slice?) - 8) + 64);
   v27 = alloca(v26);
   v28 = alloca(v26);
-  v95 = &v90;
+  v97 = &v92;
   v29 = alloca(v26);
   v30 = alloca(v26);
-  v103 = &v90;
+  v105 = &v92;
   v31 = type metadata accessor for MLTextClassifier.ModelParameters.ValidationData(0);
   v32 = *(*(v31 - 8) + 64);
   v33 = alloca(v32);
   v34 = alloca(v32);
-  outlined init with copy of MLTextClassifier.ModelParameters.ValidationData(v108, &v90);
-  switch(swift_getEnumCaseMultiPayload(&v90, v31))
+  outlined init with copy of MLTextClassifier.ModelParameters.ValidationData(v110, &v92);
+  switch(swift_getEnumCaseMultiPayload(&v92, v31))
   {
     case 0u:
-      v108 = v18;
-      v35 = v103;
-      DataFrame.randomSplit(strategy:)(v103, v107._countAndFlagsBits, &v90);
-      v36 = v95;
-      outlined init with copy of DataFrame.Slice?(v35, v95);
-      v37 = v94;
-      if (__swift_getEnumTagSinglePayload(v36, 1, v94) == 1)
+      v110 = v18;
+      v36 = v105;
+      DataFrame.randomSplit(strategy:)(v105, v109._countAndFlagsBits, &v92);
+      v37 = v97;
+      outlined init with copy of DataFrame.Slice?(v36, v97);
+      v38 = v96;
+      if (__swift_getEnumTagSinglePayload(v37, 1, v96) == 1)
       {
-        (v108)[1](v107._countAndFlagsBits, v37);
-        outlined destroy of DataFrame.Slice?(v103);
-        outlined destroy of DataFrame.Slice?(v36);
+        (v110)[1](v109._countAndFlagsBits, v38);
+        outlined destroy of DataFrame.Slice?(v105);
+        outlined destroy of DataFrame.Slice?(v37);
         goto LABEL_4;
       }
 
-      (*(v12 + 8))(v104, v107._object);
-      v68 = v36;
-      v69 = v108;
-      (v108[4])(v97, v68, v37);
+      (*(v12 + 8))(v106, v109._object);
       v70 = v37;
-      v71 = v69[2];
-      v72 = v96;
-      v71(v96, v107._countAndFlagsBits, v70);
-      DataFrame.init(_:)(v72);
-      v71(v72, v97, v70);
-      DataFrame.init(_:)(v72);
-      v73 = v69[1];
-      v73(v97, v70);
-      v73(v107._countAndFlagsBits, v70);
-      outlined destroy of DataFrame.Slice?(v103);
-      v38 = v106;
-      v39 = 0;
-      return __swift_storeEnumTagSinglePayload(v38, v39, 1, v107._object);
+      v71 = v110;
+      (v110[4])(v99, v70, v38);
+      v72 = v38;
+      v73 = v71[2];
+      v74 = v98;
+      v73(v98, v109._countAndFlagsBits, v72);
+      DataFrame.init(_:)(v74);
+      v73(v74, v99, v72);
+      DataFrame.init(_:)(v74);
+      v75 = v71[1];
+      v75(v99, v72);
+      v75(v109._countAndFlagsBits, v72);
+      outlined destroy of DataFrame.Slice?(v105);
+      v39 = v108;
+      v40 = 0;
+      return __swift_storeEnumTagSinglePayload(v39, v40, 1, v109._object);
     case 1u:
-      v108 = v12;
-      v46 = v91;
-      v47 = v92;
-      v103 = v93;
-      _._object = v94;
-      v48 = v95;
-      LOBYTE(v91) = v91 & 1;
-      v107._countAndFlagsBits = v90;
-      LODWORD(v104) = v46;
-      outlined copy of Result<_DataTable, Error>(v90, v46);
+      v110 = v12;
+      v48 = v93;
+      v49 = v94;
+      v105 = v95;
+      _._object = v96;
+      v50 = v97;
+      LOBYTE(v93) = v93 & 1;
+      v109._countAndFlagsBits = v92;
+      LODWORD(v106) = v48;
+      outlined copy of Result<_DataTable, Error>(v92, v48);
       countAndFlagsBits = _._countAndFlagsBits;
-      DataFrame.init(_:)(&v90);
-      v50 = countAndFlagsBits;
-      v51 = v48;
-      v52 = v103;
-      v102 = v47;
-      v53 = v47;
+      DataFrame.init(_:)(&v92);
+      v52 = countAndFlagsBits;
+      v53 = v50;
+      v54 = v105;
+      v104 = v49;
+      v55 = v49;
       object = _._object;
-      v55 = v105;
-      static MLTextClassifier.validateDataFrame(_:textColumn:labelColumn:)(v50, v53, v103, _._object, v51);
-      if (v55)
+      v57 = v107;
+      static MLTextClassifier.validateDataFrame(_:textColumn:labelColumn:)(v52, v55, v105, _._object, v53);
+      if (v57)
       {
-        (v108)[1](_._countAndFlagsBits, v107._object);
-        outlined consume of Result<_DataTable, Error>(v107._countAndFlagsBits, v104);
-        v51;
-        v56 = v52;
+        (v110)[1](_._countAndFlagsBits, v109._object);
+        outlined consume of Result<_DataTable, Error>(v109._countAndFlagsBits, v106);
+        v53;
+        v58 = v54;
         goto LABEL_14;
       }
 
-      v77._countAndFlagsBits = v102;
-      v77._object = v52;
-      v78._countAndFlagsBits = v99;
-      v78._object = to;
-      v105 = v51;
-      v79 = _._countAndFlagsBits;
-      DataFrame.renameColumn(_:to:)(v77, v78);
-      v52;
-      v77._countAndFlagsBits = object;
-      v80 = v105;
-      v77._object = v105;
-      DataFrame.renameColumn(_:to:)(v77, v100);
-      outlined consume of Result<_DataTable, Error>(v107._countAndFlagsBits, v104);
-      v80;
-      v81 = v106;
-      v82 = v107._object;
-      (v108[4])(v106, v79, v107._object);
-      v75 = v81;
-      v76 = v82;
+      v79._countAndFlagsBits = v104;
+      v79._object = v54;
+      v80._countAndFlagsBits = v101;
+      v80._object = to;
+      v107 = v53;
+      v81 = _._countAndFlagsBits;
+      DataFrame.renameColumn(_:to:)(v79, v80);
+      v54;
+      v79._countAndFlagsBits = object;
+      v82 = v107;
+      v79._object = v107;
+      DataFrame.renameColumn(_:to:)(v79, v102);
+      outlined consume of Result<_DataTable, Error>(v109._countAndFlagsBits, v106);
+      v82;
+      v83 = v108;
+      v84 = v109._object;
+      (v110[4])(v108, v81, v109._object);
+      v77 = v83;
+      v78 = v84;
       goto LABEL_20;
     case 2u:
-      v57 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (DataFrame, textColumn: String, labelColumn: String));
-      v58 = *(v57 + 48);
-      v107._countAndFlagsBits = *(&v90 + v58);
-      v108 = *(&v90 + v58 + 8);
-      v59 = *(v57 + 64);
-      v60 = *(&v90 + v59);
-      v104 = *(&v90 + v59 + 8);
-      v61 = _._object;
-      v103 = *(v12 + 32);
-      (v103)(_._object, &v90, v107._object);
-      v62 = v61;
-      v63 = v104;
-      _._countAndFlagsBits = v60;
-      v64 = v105;
-      static MLTextClassifier.validateDataFrame(_:textColumn:labelColumn:)(v62, v107._countAndFlagsBits, v108, v60, v104);
-      if (!v64)
+      v59 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (DataFrame, textColumn: String, labelColumn: String));
+      v60 = *(v59 + 48);
+      v109._countAndFlagsBits = *(&v92 + v60);
+      v110 = *(&v92 + v60 + 8);
+      v61 = *(v59 + 64);
+      v62 = *(&v92 + v61);
+      v106 = *(&v92 + v61 + 8);
+      v63 = _._object;
+      v105 = *(v12 + 32);
+      (v105)(_._object, &v92, v109._object);
+      v64 = v63;
+      v65 = v106;
+      _._countAndFlagsBits = v62;
+      v66 = v107;
+      static MLTextClassifier.validateDataFrame(_:textColumn:labelColumn:)(v64, v109._countAndFlagsBits, v110, v62, v106);
+      if (!v66)
       {
-        v83._countAndFlagsBits = v107._countAndFlagsBits;
-        v84 = v108;
-        v83._object = v108;
-        v85._countAndFlagsBits = v99;
-        v85._object = to;
-        v86 = v63;
-        v87 = _._object;
-        DataFrame.renameColumn(_:to:)(v83, v85);
-        v84;
-        v83._countAndFlagsBits = _._countAndFlagsBits;
-        v83._object = v86;
-        DataFrame.renameColumn(_:to:)(v83, v100);
+        v85._countAndFlagsBits = v109._countAndFlagsBits;
+        v86 = v110;
+        v85._object = v110;
+        v87._countAndFlagsBits = v101;
+        v87._object = to;
+        v88 = v65;
+        v89 = _._object;
+        DataFrame.renameColumn(_:to:)(v85, v87);
         v86;
-        v88 = v106;
-        v89 = v107._object;
-        (v103)(v106, v87, v107._object);
-        v75 = v88;
-        v76 = v89;
+        v85._countAndFlagsBits = _._countAndFlagsBits;
+        v85._object = v88;
+        DataFrame.renameColumn(_:to:)(v85, v102);
+        v88;
+        v90 = v108;
+        v91 = v109._object;
+        (v105)(v108, v89, v109._object);
+        v77 = v90;
+        v78 = v91;
         goto LABEL_20;
       }
 
-      (*(v12 + 8))(_._object, v107._object);
-      v108;
-      v56 = v63;
+      (*(v12 + 8))(_._object, v109._object);
+      v110;
+      v58 = v65;
 LABEL_14:
-      result = v56;
+      result = v58;
       break;
     case 3u:
-      v40 = v99;
-      v41 = to;
-      v42 = v102;
-      outlined init with take of MLTextClassifier.DataSource(&v90, v102);
-      v43 = v105;
-      v44 = static _TextUtilities.getTextLabeledDictionary(from:)(v42, a6);
-      if (v43)
+      v41 = v101;
+      v42 = to;
+      v43 = v104;
+      outlined init with take of MLTextClassifier.DataSource(&v92, v104);
+      v44 = v107;
+      v45 = static _TextUtilities.getTextLabeledDictionary(from:)(v43, a6);
+      if (v44)
       {
-        result = outlined destroy of MLActivityClassifier.ModelParameters(v102, type metadata accessor for MLTextClassifier.DataSource);
+        result = outlined destroy of MLActivityClassifier.ModelParameters(v104, type metadata accessor for MLTextClassifier.DataSource);
       }
 
       else
       {
-        v74 = v44;
-        specialized generateTextDataFrame<A>(_:textColumn:labelColumn:using:)(v44, v40, v41, v100._countAndFlagsBits, v100._object);
-        outlined destroy of MLActivityClassifier.ModelParameters(v102, type metadata accessor for MLTextClassifier.DataSource);
-        v74;
-        v75 = v106;
-        v76 = v107._object;
+        v76 = v45;
+        specialized generateTextDataFrame<A>(_:textColumn:labelColumn:using:)(v45, v41, v42, v102._countAndFlagsBits, v102._object, v46);
+        outlined destroy of MLActivityClassifier.ModelParameters(v104, type metadata accessor for MLTextClassifier.DataSource);
+        v76;
+        v77 = v108;
+        v78 = v109._object;
 LABEL_20:
-        result = __swift_storeEnumTagSinglePayload(v75, 0, 1, v76);
+        result = __swift_storeEnumTagSinglePayload(v77, 0, 1, v78);
       }
 
       break;
     case 4u:
-      v65 = v90;
-      v66 = v106;
-      v67 = v105;
-      specialized generateTextDataFrame<A>(_:textColumn:labelColumn:using:)(v90, v99, to, v100._countAndFlagsBits, v100._object);
-      if (!v67)
+      v67 = v92;
+      v68 = v108;
+      v69 = v107;
+      specialized generateTextDataFrame<A>(_:textColumn:labelColumn:using:)(v92, v101, to, v102._countAndFlagsBits, v102._object, v35);
+      if (!v69)
       {
-        __swift_storeEnumTagSinglePayload(v66, 0, 1, v107._object);
+        __swift_storeEnumTagSinglePayload(v68, 0, 1, v109._object);
       }
 
-      v56 = v65;
+      v58 = v67;
       goto LABEL_14;
     case 5u:
 LABEL_4:
-      v38 = v106;
-      v39 = 1;
-      return __swift_storeEnumTagSinglePayload(v38, v39, 1, v107._object);
+      v39 = v108;
+      v40 = 1;
+      return __swift_storeEnumTagSinglePayload(v39, v40, 1, v109._object);
   }
 
   return result;
@@ -9068,11 +4451,12 @@ LABEL_4:
 uint64_t MLTextClassifier.ModelParameters.ValidationData.init(_:textColumn:labelColumn:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v6 = v5;
+  v7 = a5;
   v8 = *(a1 + 8);
   if (v8 == -1)
   {
     a3;
-    a5;
+    v7;
     *v6 = 0;
     *(v6 + 16) = 256;
     v14 = type metadata accessor for MLTextClassifier.ModelParameters.ValidationData(0);
@@ -9115,71 +4499,72 @@ uint64_t MLTextClassifier.ModelParameters.ValidationData.init(_:textColumn:label
 
 uint64_t MLTextClassifier.ModelParameters.ValidationData.table.getter(__m128 a1)
 {
-  v40 = v1;
+  v43 = v1;
   v3 = *(*(type metadata accessor for MLTextClassifier.DataSource(0) - 8) + 64);
   v4 = alloca(v3);
   v5 = alloca(v3);
-  v37 = &v34;
+  v40 = &v37;
   v6 = type metadata accessor for DataFrame(0);
   v7 = *(v6 - 8);
   v8 = *(v7 + 64);
   v9 = alloca(v8);
   v10 = alloca(v8);
-  v36 = &v34;
+  v39 = &v37;
   v11 = alloca(v8);
   v12 = alloca(v8);
-  v35 = &v34;
+  v38 = &v37;
   v13 = type metadata accessor for MLTextClassifier.ModelParameters.ValidationData(0);
   v14 = *(*(v13 - 8) + 64);
   v15 = alloca(v14);
   v16 = alloca(v14);
-  outlined init with copy of MLTextClassifier.ModelParameters.ValidationData(v2, &v34);
-  switch(swift_getEnumCaseMultiPayload(&v34, v13))
+  outlined init with copy of MLTextClassifier.ModelParameters.ValidationData(v2, &v37);
+  switch(swift_getEnumCaseMultiPayload(&v37, v13))
   {
     case 0u:
-      result = v40;
-      *v40 = 0;
+      result = v43;
+      *v43 = 0;
       *(result + 8) = -1;
       return result;
     case 1u:
-      v17 = v34;
-      v18 = v35;
-      v19 = v39;
-      v37;
-      v19;
-      result = v40;
-      *v40 = v17;
-      *(result + 8) = v18;
+      v18 = v37;
+      v19 = v38;
+      v20 = v42;
+      v40;
+      v20;
+      result = v43;
+      *v43 = v18;
+      *(result + 8) = v19;
       return result;
     case 2u:
-      v22 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (DataFrame, textColumn: String, labelColumn: String));
-      *(&v34 + *(v22 + 48) + 8);
-      *(&v34 + *(v22 + 64) + 8);
-      v23 = v35;
-      (*(v7 + 32))(v35, &v34, v6);
-      v24 = v36;
-      *a1.i64 = (*(v7 + 16))(v36, v23, v6);
-      MLDataTable.init(_:convertArraysToShapedArrays:)(v24, 0, a1);
-      (*(v7 + 8))(v23, v6);
+      v23 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (DataFrame, textColumn: String, labelColumn: String));
+      *(&v37 + *(v23 + 48) + 8);
+      *(&v37 + *(v23 + 64) + 8);
+      v24 = v38;
+      (*(v7 + 32))(v38, &v37, v6);
+      v25 = v39;
+      *a1.i64 = (*(v7 + 16))(v39, v24, v6);
+      MLDataTable.init(_:convertArraysToShapedArrays:)(v25, 0, a1);
+      (*(v7 + 8))(v24, v6);
       goto LABEL_10;
     case 3u:
-      v25 = v37;
-      outlined init with take of MLTextClassifier.DataSource(&v34, v37);
-      v21 = static _TextUtilities.getTextLabeledDictionary(from:)(v25, *a1.i64);
-      specialized generateTextTable<A>(_:textColumn:labelColumn:using:)(v21, 1954047348, 0xE400000000000000, 0x6C6562616CLL, 0xE500000000000000);
-      outlined destroy of MLActivityClassifier.ModelParameters(v25, type metadata accessor for MLTextClassifier.DataSource);
+      v26 = v40;
+      outlined init with take of MLTextClassifier.DataSource(&v37, v40);
+      v27 = static _TextUtilities.getTextLabeledDictionary(from:)(v26, *a1.i64);
+      v22 = v27;
+      specialized generateTextTable<A>(_:textColumn:labelColumn:using:)(v27, 1954047348, 0xE400000000000000, 0x6C6562616CLL, 0xE500000000000000, v28);
+      outlined destroy of MLActivityClassifier.ModelParameters(v26, type metadata accessor for MLTextClassifier.DataSource);
       goto LABEL_9;
     case 4u:
-      v21 = v34;
-      specialized generateTextTable<A>(_:textColumn:labelColumn:using:)(v34, 1954047348, 0xE400000000000000, 0x6C6562616CLL, 0xE500000000000000);
+      v22 = v37;
+      specialized generateTextTable<A>(_:textColumn:labelColumn:using:)(v37, 1954047348, 0xE400000000000000, 0x6C6562616CLL, 0xE500000000000000, v17);
 LABEL_9:
-      v21;
+      v22;
 LABEL_10:
-      result = v38;
-      v32 = v39;
-      v33 = v40;
-      *v40 = v38;
-      *(v33 + 8) = v32;
+      result = v41;
+      v35 = v42;
+      v36 = v43;
+      *v43 = v41;
+      *(v36 + 8) = v35;
       break;
     case 5u:
       empty = tc_v1_sframe_create_empty(0);
@@ -9188,16 +4573,16 @@ LABEL_10:
         BUG();
       }
 
-      v27 = empty;
-      v28 = type metadata accessor for CMLTable();
-      v29 = swift_allocObject(v28, 24, 7);
-      *(v29 + 16) = v27;
-      v30 = type metadata accessor for _DataTable();
-      swift_allocObject(v30, 40, 7);
-      result = _DataTable.init(impl:)(v29);
-      v31 = v40;
-      *v40 = result;
-      *(v31 + 8) = 0;
+      v30 = empty;
+      v31 = type metadata accessor for CMLTable();
+      v32 = swift_allocObject(v31, 24, 7);
+      *(v32 + 16) = v30;
+      v33 = type metadata accessor for _DataTable();
+      swift_allocObject(v33, 40, 7);
+      result = _DataTable.init(impl:)(v32);
+      v34 = v43;
+      *v43 = result;
+      *(v34 + 8) = 0;
       break;
   }
 
@@ -9233,7 +4618,7 @@ uint64_t MLActionClassifier.ModelParameters.init(validation:batchSize:maximumIte
   return result;
 }
 
-char MLActionClassifier.ModelParameters.ValidationData.extractAnnotations(trainingData:)(uint64_t *a1, void *a2, __m128 a3)
+char MLActionClassifier.ModelParameters.ValidationData.extractAnnotations(trainingData:)(uint64_t *a1, uint64_t *a2, __m128 a3)
 {
   v54 = v3;
   v55 = v4;
@@ -9427,9 +4812,8 @@ Swift::Int MLActionClassifier.ModelParameters.ModelAlgorithmType.hashValue.gette
 unint64_t MLActionClassifier.ModelParameters.description.getter()
 {
   _StringGuts.grow(_:)(23);
-  0xE000000000000000;
+  0;
   v1 = type metadata accessor for MLActionClassifier.ModelParameters(0);
-  v17._countAndFlagsBits = *(v0 + v1[6]);
   v2._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter(&type metadata for Int, &protocol witness table for Int);
   object = v2._object;
   String.append(_:)(v2);
@@ -9437,10 +4821,9 @@ unint64_t MLActionClassifier.ModelParameters.description.getter()
   v4._countAndFlagsBits = 10;
   v4._object = 0xE100000000000000;
   String.append(_:)(v4);
-  strcpy(&v17, "Batch Size: ");
-  BYTE5(v17._object) = 0;
-  HIWORD(v17._object) = -5120;
-  v15 = *(v0 + v1[5]);
+  strcpy(&v15, "Batch Size: ");
+  BYTE5(v15._object) = 0;
+  HIWORD(v15._object) = -5120;
   v5._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter(&type metadata for Int, &protocol witness table for Int);
   v6 = v5._object;
   String.append(_:)(v5);
@@ -9448,13 +4831,10 @@ unint64_t MLActionClassifier.ModelParameters.description.getter()
   v4._countAndFlagsBits = 10;
   v4._object = 0xE100000000000000;
   String.append(_:)(v4);
-  String.append(_:)(v17);
-  v17._object;
+  String.append(_:)(v15);
+  v15._object;
   _StringGuts.grow(_:)(27);
-  0xE000000000000000;
-  v17._countAndFlagsBits = 0xD000000000000018;
-  v17._object = "Maximum Iterations: " + 0x8000000000000000;
-  v16 = *(v0 + v1[7]);
+  0;
   v7._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter(&type metadata for Int, &protocol witness table for Int);
   v8 = v7._object;
   String.append(_:)(v7);
@@ -9465,12 +4845,12 @@ unint64_t MLActionClassifier.ModelParameters.description.getter()
   v4._countAndFlagsBits = 0xD000000000000018;
   v4._object = "Maximum Iterations: " + 0x8000000000000000;
   String.append(_:)(v4);
-  "Maximum Iterations: " + 0x8000000000000000;
+  ("Maximum Iterations: " + 0x8000000000000000);
   _StringGuts.grow(_:)(22);
-  0xE000000000000000;
-  v17._countAndFlagsBits = 0xD000000000000013;
-  v17._object = "Prediction Window Time: " + 0x8000000000000000;
-  v9._countAndFlagsBits = Double.description.getter(*(v0 + v1[10]));
+  0;
+  v15._countAndFlagsBits = 0xD000000000000013;
+  v15._object = "Prediction Window Time: " + 0x8000000000000000;
+  v9._countAndFlagsBits = Double.description.getter(*(v0 + *(v1 + 40)));
   v10 = v9._object;
   String.append(_:)(v9);
   v10;
@@ -9480,19 +4860,19 @@ unint64_t MLActionClassifier.ModelParameters.description.getter()
   v4._countAndFlagsBits = 0xD000000000000013;
   v11._object = "Prediction Window Time: " + 0x8000000000000000;
   String.append(_:)(v11);
-  "Prediction Window Time: " + 0x8000000000000000;
+  ("Prediction Window Time: " + 0x8000000000000000);
   _StringGuts.grow(_:)(25);
-  0xE000000000000000;
-  v17._countAndFlagsBits = 0xD000000000000016;
-  v17._object = "Target Frame Rate: " + 0x8000000000000000;
+  0;
+  v15._countAndFlagsBits = 0xD000000000000016;
+  v15._object = "Target Frame Rate: " + 0x8000000000000000;
   v11._countAndFlagsBits = 0x746E6F7A69726F48;
-  if (*(v0 + v1[8]) != 1)
+  if (*(v0 + *(v1 + 32)) != 1)
   {
     v11._countAndFlagsBits = 0;
   }
 
   v12 = 0xEF70696C46206C61;
-  if (*(v0 + v1[8]) != 1)
+  if (*(v0 + *(v1 + 32)) != 1)
   {
     v12 = 0xE000000000000000;
   }
@@ -9503,8 +4883,8 @@ unint64_t MLActionClassifier.ModelParameters.description.getter()
   v13._countAndFlagsBits = 10;
   v13._object = 0xE100000000000000;
   String.append(_:)(v13);
-  String.append(_:)(v17);
-  v17._object;
+  String.append(_:)(v15);
+  v15._object;
   v13._object = "ization for CoreML. Found: " + 0x8000000000000000;
   v13._countAndFlagsBits = 0xD000000000000017;
   String.append(_:)(v13);
@@ -9553,9 +4933,9 @@ char *initializeBufferWithCopyOfBuffer for MLActionClassifier.ModelParameters(ch
   v5 = *(*(a3 - 1) + 80);
   if ((v5 & 0x20000) != 0)
   {
-    v18 = *__src;
+    v16 = *__src;
     *v4 = *__src;
-    v4 = (v18 + ((v5 + 16) & ~v5));
+    v4 = (v16 + ((v5 + 16) & ~v5));
   }
 
   else
@@ -9567,150 +4947,117 @@ char *initializeBufferWithCopyOfBuffer for MLActionClassifier.ModelParameters(ch
       switch(swift_getEnumCaseMultiPayload(__src, v8))
       {
         case 0u:
-          v45 = type metadata accessor for URL(0);
-          v51 = *(*(v45 - 8) + 16);
-          v51(__dst, __src, v45);
-          v49 = v8;
+          v35 = type metadata accessor for URL(0);
+          v38 = *(*(v35 - 8) + 16);
+          v38(__dst, __src, v35);
+          v36 = v8;
           v9 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (at: URL, annotationFile: URL, videoColumn: String, labelColumn: String, startTimeColumn: String?, endTimeColumn: String?));
-          v51(&__dst[v9[12]], &__src[v9[12]], v45);
+          v38(&__dst[v9[12]], &__src[v9[12]], v35);
           v10 = v9[16];
           *&__dst[v10] = *&__src[v10];
-          v11 = *&__src[v10 + 8];
-          *&v4[v10 + 8] = v11;
-          v12 = v9[20];
-          *&v4[v12] = *&__src[v12];
-          v52 = *&__src[v12 + 8];
-          *&v4[v12 + 8] = v52;
-          v13 = v9[24];
-          *&v4[v13] = *&__src[v13];
-          v46 = *&__src[v13 + 8];
-          *&v4[v13 + 8] = v46;
-          v14 = v9[28];
-          *&v4[v14] = *&__src[v14];
-          v15 = *&__src[v14 + 8];
-          *&v4[v14 + 8] = v15;
-          v11;
-          v52;
-          v46;
-          v15;
-          __dst = v4;
-          v16 = v49;
-          v17 = 0;
+          *&__dst[v10 + 8] = *&__src[v10 + 8];
+          v11 = v9[20];
+          *&__dst[v11] = *&__src[v11];
+          *&__dst[v11 + 8] = *&__src[v11 + 8];
+          v12 = v9[24];
+          *&__dst[v12] = *&__src[v12];
+          *&__dst[v12 + 8] = *&__src[v12 + 8];
+          v13 = v9[28];
+          *&__dst[v13] = *&__src[v13];
+          *&__dst[v13 + 8] = *&__src[v13 + 8];
+
+          v14 = v36;
+          v15 = 0;
           goto LABEL_15;
         case 1u:
-          v26 = type metadata accessor for URL(0);
-          (*(*(v26 - 8) + 16))(__dst, __src, v26);
-          v44 = 1;
+          v20 = type metadata accessor for URL(0);
+          (*(*(v20 - 8) + 16))(__dst, __src, v20);
+          v34 = 1;
           goto LABEL_11;
         case 2u:
-          v22 = type metadata accessor for URL(0);
-          (*(*(v22 - 8) + 16))(__dst, __src, v22);
-          v44 = 2;
+          v18 = type metadata accessor for URL(0);
+          (*(*(v18 - 8) + 16))(__dst, __src, v18);
+          v34 = 2;
 LABEL_11:
-          v17 = v44;
-          v16 = v8;
+          v15 = v34;
+          v14 = v8;
           goto LABEL_15;
         case 3u:
-          v50 = v8;
-          v23 = *__src;
-          v55 = __src[8];
-          outlined copy of Result<_DataTable, Error>(*__src, v55);
-          *__dst = v23;
-          __dst[8] = v55;
+          v37 = v8;
+          v19 = *__src;
+          v40 = __src[8];
+          outlined copy of Result<_DataTable, Error>(*__src, v40);
+          *__dst = v19;
+          __dst[8] = v40;
           *(__dst + 2) = *(__src + 2);
-          v24 = *(__src + 3);
-          *(v4 + 3) = v24;
-          *(v4 + 4) = *(__src + 4);
-          v25 = *(__src + 5);
-          *(v4 + 5) = v25;
-          *(v4 + 6) = *(__src + 6);
-          v56 = *(__src + 7);
-          *(v4 + 7) = v56;
-          v24;
-          v25;
-          v56;
-          v43 = 3;
+          *(__dst + 3) = *(__src + 3);
+          *(__dst + 4) = *(__src + 4);
+          *(__dst + 5) = *(__src + 5);
+          *(__dst + 6) = *(__src + 6);
+          *(__dst + 7) = *(__src + 7);
+
+          v33 = 3;
           goto LABEL_14;
         case 4u:
-          v50 = v8;
-          v19 = *__src;
-          v53 = __src[8];
-          outlined copy of Result<_DataTable, Error>(*__src, v53);
-          *__dst = v19;
-          __dst[8] = v53;
+          v37 = v8;
+          v17 = *__src;
+          v39 = __src[8];
+          outlined copy of Result<_DataTable, Error>(*__src, v39);
+          *__dst = v17;
+          __dst[8] = v39;
           *(__dst + 2) = *(__src + 2);
-          v20 = *(__src + 3);
-          *(v4 + 3) = v20;
-          *(v4 + 4) = *(__src + 4);
-          v21 = *(__src + 5);
-          *(v4 + 5) = v21;
-          *(v4 + 6) = *(__src + 6);
-          v54 = *(__src + 7);
-          *(v4 + 7) = v54;
-          *(v4 + 8) = *(__src + 8);
-          v47 = *(__src + 9);
-          *(v4 + 9) = v47;
-          v20;
-          v21;
-          v54;
-          v47;
-          v43 = 4;
+          *(__dst + 3) = *(__src + 3);
+          *(__dst + 4) = *(__src + 4);
+          *(__dst + 5) = *(__src + 5);
+          *(__dst + 6) = *(__src + 6);
+          *(__dst + 7) = *(__src + 7);
+          *(__dst + 8) = *(__src + 8);
+          *(__dst + 9) = *(__src + 9);
+
+          v33 = 4;
           goto LABEL_14;
         case 5u:
-          v27 = type metadata accessor for DataFrame(0);
-          (*(*(v27 - 8) + 16))(__dst, __src, v27);
-          v28 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (DataFrame, sessionIdColumn: String, labelColumn: String, featureColumn: String));
-          v29 = v28[12];
-          *&__dst[v29] = *&__src[v29];
-          v30 = *&__src[v29 + 8];
-          *&v4[v29 + 8] = v30;
-          v31 = v28[16];
-          *&v4[v31] = *&__src[v31];
-          v57 = *&__src[v31 + 8];
-          *&v4[v31 + 8] = v57;
-          v32 = v28[20];
-          *&v4[v32] = *&__src[v32];
-          v50 = v8;
-          v33 = *&__src[v32 + 8];
-          *&v4[v32 + 8] = v33;
-          v30;
-          v57;
-          v33;
-          v43 = 5;
+          v21 = type metadata accessor for DataFrame(0);
+          (*(*(v21 - 8) + 16))(__dst, __src, v21);
+          v22 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (DataFrame, sessionIdColumn: String, labelColumn: String, featureColumn: String));
+          v23 = v22[12];
+          *&__dst[v23] = *&__src[v23];
+          *&__dst[v23 + 8] = *&__src[v23 + 8];
+          v24 = v22[16];
+          *&__dst[v24] = *&__src[v24];
+          *&__dst[v24 + 8] = *&__src[v24 + 8];
+          v25 = v22[20];
+          *&__dst[v25] = *&__src[v25];
+          v37 = v8;
+          *&__dst[v25 + 8] = *&__src[v25 + 8];
+
+          v33 = 5;
           goto LABEL_14;
         case 6u:
-          v34 = type metadata accessor for DataFrame(0);
-          (*(*(v34 - 8) + 16))(__dst, __src, v34);
-          v35 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (DataFrame, videoColumn: String, labelColumn: String, startTimeColumn: String?, endTimeColumn: String?));
-          v36 = v35[12];
-          *&__dst[v36] = *&__src[v36];
-          v37 = *&__src[v36 + 8];
-          *&v4[v36 + 8] = v37;
-          v38 = v35[16];
-          *&v4[v38] = *&__src[v38];
-          v58 = *&__src[v38 + 8];
-          *&v4[v38 + 8] = v58;
-          v39 = v35[20];
-          *&v4[v39] = *&__src[v39];
-          v48 = *&__src[v39 + 8];
-          *&v4[v39 + 8] = v48;
-          v40 = v35[24];
-          *&v4[v40] = *&__src[v40];
-          v50 = v8;
-          v41 = *&__src[v40 + 8];
-          *&v4[v40 + 8] = v41;
-          v37;
-          v58;
-          v48;
-          v41;
-          v43 = 6;
+          v26 = type metadata accessor for DataFrame(0);
+          (*(*(v26 - 8) + 16))(__dst, __src, v26);
+          v27 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (DataFrame, videoColumn: String, labelColumn: String, startTimeColumn: String?, endTimeColumn: String?));
+          v28 = v27[12];
+          *&__dst[v28] = *&__src[v28];
+          *&__dst[v28 + 8] = *&__src[v28 + 8];
+          v29 = v27[16];
+          *&__dst[v29] = *&__src[v29];
+          *&__dst[v29 + 8] = *&__src[v29 + 8];
+          v30 = v27[20];
+          *&__dst[v30] = *&__src[v30];
+          *&__dst[v30 + 8] = *&__src[v30 + 8];
+          v31 = v27[24];
+          *&__dst[v31] = *&__src[v31];
+          v37 = v8;
+          *&__dst[v31 + 8] = *&__src[v31 + 8];
+
+          v33 = 6;
 LABEL_14:
-          v17 = v43;
-          __dst = v4;
-          v16 = v50;
+          v15 = v33;
+          v14 = v37;
 LABEL_15:
-          swift_storeEnumTagMultiPayload(__dst, v16, v17);
-          swift_storeEnumTagMultiPayload(v4, v7, 1);
+          swift_storeEnumTagMultiPayload(__dst, v14, v15);
+          swift_storeEnumTagMultiPayload(__dst, v7, 1);
           break;
         case 7u:
           JUMPOUT(0x25BC4CLL);
@@ -9722,11 +5069,11 @@ LABEL_15:
       memcpy(__dst, __src, *(*(v7 - 8) + 64));
     }
 
-    *&v4[a3[5]] = *&__src[a3[5]];
-    *&v4[a3[6]] = *&__src[a3[6]];
-    *&v4[a3[7]] = *&__src[a3[7]];
-    *&v4[a3[8]] = *&__src[a3[8]];
-    *&v4[a3[10]] = *&__src[a3[10]];
+    *&__dst[a3[5]] = *&__src[a3[5]];
+    *&__dst[a3[6]] = *&__src[a3[6]];
+    *&__dst[a3[7]] = *&__src[a3[7]];
+    *&__dst[a3[8]] = *&__src[a3[8]];
+    *&__dst[a3[10]] = *&__src[a3[10]];
   }
 
   return v4;
@@ -9797,171 +5144,4800 @@ LABEL_10:
 
 char *initializeWithCopy for MLActionClassifier.ModelParameters(char *__dst, char *__src, int *a3)
 {
-  v5 = __dst;
-  v6 = type metadata accessor for MLActionClassifier.ModelParameters.ValidationData(0);
-  if (swift_getEnumCaseMultiPayload(__src, v6) == 1)
+  v5 = type metadata accessor for MLActionClassifier.ModelParameters.ValidationData(0);
+  if (swift_getEnumCaseMultiPayload(__src, v5) == 1)
   {
-    v7 = type metadata accessor for MLActionClassifier.DataSource(0);
-    switch(swift_getEnumCaseMultiPayload(__src, v7))
+    v6 = type metadata accessor for MLActionClassifier.DataSource(0);
+    switch(swift_getEnumCaseMultiPayload(__src, v6))
     {
       case 0u:
-        v43 = type metadata accessor for URL(0);
-        v49 = *(*(v43 - 8) + 16);
-        v49(__dst, __src, v43);
-        v47 = v7;
-        v8 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (at: URL, annotationFile: URL, videoColumn: String, labelColumn: String, startTimeColumn: String?, endTimeColumn: String?));
-        v49(&__dst[v8[12]], &__src[v8[12]], v43);
-        v9 = v8[16];
+        v32 = type metadata accessor for URL(0);
+        v35 = *(*(v32 - 8) + 16);
+        v35(__dst, __src, v32);
+        v33 = v6;
+        v7 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (at: URL, annotationFile: URL, videoColumn: String, labelColumn: String, startTimeColumn: String?, endTimeColumn: String?));
+        v35(&__dst[v7[12]], &__src[v7[12]], v32);
+        v8 = v7[16];
+        *&__dst[v8] = *&__src[v8];
+        *&__dst[v8 + 8] = *&__src[v8 + 8];
+        v9 = v7[20];
         *&__dst[v9] = *&__src[v9];
-        v10 = *&__src[v9 + 8];
-        *&v5[v9 + 8] = v10;
-        v11 = v8[20];
-        *&v5[v11] = *&__src[v11];
-        v50 = *&__src[v11 + 8];
-        *&v5[v11 + 8] = v50;
-        v12 = v8[24];
-        *&v5[v12] = *&__src[v12];
-        v44 = *&__src[v12 + 8];
-        *&v5[v12 + 8] = v44;
-        v13 = v8[28];
-        *&v5[v13] = *&__src[v13];
-        v14 = *&__src[v13 + 8];
-        *&v5[v13 + 8] = v14;
-        v10;
-        v50;
-        v44;
-        v14;
-        __dst = v5;
-        v15 = v47;
-        v16 = 0;
+        *&__dst[v9 + 8] = *&__src[v9 + 8];
+        v10 = v7[24];
+        *&__dst[v10] = *&__src[v10];
+        *&__dst[v10 + 8] = *&__src[v10 + 8];
+        v11 = v7[28];
+        *&__dst[v11] = *&__src[v11];
+        *&__dst[v11 + 8] = *&__src[v11 + 8];
+
+        v12 = v33;
+        v13 = 0;
         goto LABEL_13;
       case 1u:
-        v24 = type metadata accessor for URL(0);
-        (*(*(v24 - 8) + 16))(__dst, __src, v24);
-        v42 = 1;
+        v17 = type metadata accessor for URL(0);
+        (*(*(v17 - 8) + 16))(__dst, __src, v17);
+        v31 = 1;
         goto LABEL_9;
       case 2u:
-        v20 = type metadata accessor for URL(0);
-        (*(*(v20 - 8) + 16))(__dst, __src, v20);
-        v42 = 2;
+        v15 = type metadata accessor for URL(0);
+        (*(*(v15 - 8) + 16))(__dst, __src, v15);
+        v31 = 2;
 LABEL_9:
-        v16 = v42;
-        v15 = v7;
+        v13 = v31;
+        v12 = v6;
         goto LABEL_13;
       case 3u:
-        v48 = v7;
-        v21 = *__src;
-        v53 = __src[8];
-        outlined copy of Result<_DataTable, Error>(*__src, v53);
-        *__dst = v21;
-        __dst[8] = v53;
+        v34 = v6;
+        v16 = *__src;
+        v37 = __src[8];
+        outlined copy of Result<_DataTable, Error>(*__src, v37);
+        *__dst = v16;
+        __dst[8] = v37;
         *(__dst + 2) = *(__src + 2);
-        v22 = *(__src + 3);
-        *(v5 + 3) = v22;
-        *(v5 + 4) = *(__src + 4);
-        v23 = *(__src + 5);
-        *(v5 + 5) = v23;
-        *(v5 + 6) = *(__src + 6);
-        v54 = *(__src + 7);
-        *(v5 + 7) = v54;
-        v22;
-        v23;
-        v54;
-        v41 = 3;
+        *(__dst + 3) = *(__src + 3);
+        *(__dst + 4) = *(__src + 4);
+        *(__dst + 5) = *(__src + 5);
+        *(__dst + 6) = *(__src + 6);
+        *(__dst + 7) = *(__src + 7);
+
+        v30 = 3;
         goto LABEL_12;
       case 4u:
-        v48 = v7;
-        v17 = *__src;
-        v51 = __src[8];
-        outlined copy of Result<_DataTable, Error>(*__src, v51);
-        *__dst = v17;
-        __dst[8] = v51;
+        v34 = v6;
+        v14 = *__src;
+        v36 = __src[8];
+        outlined copy of Result<_DataTable, Error>(*__src, v36);
+        *__dst = v14;
+        __dst[8] = v36;
         *(__dst + 2) = *(__src + 2);
-        v18 = *(__src + 3);
-        *(v5 + 3) = v18;
-        *(v5 + 4) = *(__src + 4);
-        v19 = *(__src + 5);
-        *(v5 + 5) = v19;
-        *(v5 + 6) = *(__src + 6);
-        v52 = *(__src + 7);
-        *(v5 + 7) = v52;
-        *(v5 + 8) = *(__src + 8);
-        v45 = *(__src + 9);
-        *(v5 + 9) = v45;
-        v18;
-        v19;
-        v52;
-        v45;
-        v41 = 4;
+        *(__dst + 3) = *(__src + 3);
+        *(__dst + 4) = *(__src + 4);
+        *(__dst + 5) = *(__src + 5);
+        *(__dst + 6) = *(__src + 6);
+        *(__dst + 7) = *(__src + 7);
+        *(__dst + 8) = *(__src + 8);
+        *(__dst + 9) = *(__src + 9);
+
+        v30 = 4;
         goto LABEL_12;
       case 5u:
-        v25 = type metadata accessor for DataFrame(0);
-        (*(*(v25 - 8) + 16))(__dst, __src, v25);
-        v26 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (DataFrame, sessionIdColumn: String, labelColumn: String, featureColumn: String));
-        v27 = v26[12];
-        *&__dst[v27] = *&__src[v27];
-        v28 = *&__src[v27 + 8];
-        *&v5[v27 + 8] = v28;
-        v29 = v26[16];
-        *&v5[v29] = *&__src[v29];
-        v55 = *&__src[v29 + 8];
-        *&v5[v29 + 8] = v55;
-        v30 = v26[20];
-        *&v5[v30] = *&__src[v30];
-        v48 = v7;
-        v31 = *&__src[v30 + 8];
-        *&v5[v30 + 8] = v31;
-        v28;
-        v55;
-        v31;
-        v41 = 5;
+        v18 = type metadata accessor for DataFrame(0);
+        (*(*(v18 - 8) + 16))(__dst, __src, v18);
+        v19 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (DataFrame, sessionIdColumn: String, labelColumn: String, featureColumn: String));
+        v20 = v19[12];
+        *&__dst[v20] = *&__src[v20];
+        *&__dst[v20 + 8] = *&__src[v20 + 8];
+        v21 = v19[16];
+        *&__dst[v21] = *&__src[v21];
+        *&__dst[v21 + 8] = *&__src[v21 + 8];
+        v22 = v19[20];
+        *&__dst[v22] = *&__src[v22];
+        v34 = v6;
+        *&__dst[v22 + 8] = *&__src[v22 + 8];
+
+        v30 = 5;
         goto LABEL_12;
       case 6u:
-        v32 = type metadata accessor for DataFrame(0);
-        (*(*(v32 - 8) + 16))(__dst, __src, v32);
-        v33 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (DataFrame, videoColumn: String, labelColumn: String, startTimeColumn: String?, endTimeColumn: String?));
-        v34 = v33[12];
-        *&__dst[v34] = *&__src[v34];
-        v35 = *&__src[v34 + 8];
-        *&v5[v34 + 8] = v35;
-        v36 = v33[16];
-        *&v5[v36] = *&__src[v36];
-        v56 = *&__src[v36 + 8];
-        *&v5[v36 + 8] = v56;
-        v37 = v33[20];
-        *&v5[v37] = *&__src[v37];
-        v46 = *&__src[v37 + 8];
-        *&v5[v37 + 8] = v46;
-        v38 = v33[24];
-        *&v5[v38] = *&__src[v38];
-        v48 = v7;
-        v39 = *&__src[v38 + 8];
-        *&v5[v38 + 8] = v39;
-        v35;
-        v56;
-        v46;
-        v39;
-        v41 = 6;
+        v23 = type metadata accessor for DataFrame(0);
+        (*(*(v23 - 8) + 16))(__dst, __src, v23);
+        v24 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (DataFrame, videoColumn: String, labelColumn: String, startTimeColumn: String?, endTimeColumn: String?));
+        v25 = v24[12];
+        *&__dst[v25] = *&__src[v25];
+        *&__dst[v25 + 8] = *&__src[v25 + 8];
+        v26 = v24[16];
+        *&__dst[v26] = *&__src[v26];
+        *&__dst[v26 + 8] = *&__src[v26 + 8];
+        v27 = v24[20];
+        *&__dst[v27] = *&__src[v27];
+        *&__dst[v27 + 8] = *&__src[v27 + 8];
+        v28 = v24[24];
+        *&__dst[v28] = *&__src[v28];
+        v34 = v6;
+        *&__dst[v28 + 8] = *&__src[v28 + 8];
+
+        v30 = 6;
 LABEL_12:
-        v16 = v41;
-        __dst = v5;
-        v15 = v48;
+        v13 = v30;
+        v12 = v34;
 LABEL_13:
-        swift_storeEnumTagMultiPayload(__dst, v15, v16);
-        swift_storeEnumTagMultiPayload(v5, v6, 1);
+        swift_storeEnumTagMultiPayload(__dst, v12, v13);
+        swift_storeEnumTagMultiPayload(__dst, v5, 1);
         break;
     }
   }
 
   else
   {
-    memcpy(__dst, __src, *(*(v6 - 8) + 64));
+    memcpy(__dst, __src, *(*(v5 - 8) + 64));
   }
 
-  *&v5[a3[5]] = *&__src[a3[5]];
-  *&v5[a3[6]] = *&__src[a3[6]];
-  *&v5[a3[7]] = *&__src[a3[7]];
-  *&v5[a3[8]] = *&__src[a3[8]];
-  *&v5[a3[10]] = *&__src[a3[10]];
-  return v5;
+  *&__dst[a3[5]] = *&__src[a3[5]];
+  *&__dst[a3[6]] = *&__src[a3[6]];
+  *&__dst[a3[7]] = *&__src[a3[7]];
+  *&__dst[a3[8]] = *&__src[a3[8]];
+  *&__dst[a3[10]] = *&__src[a3[10]];
+  return __dst;
+}
+
+char *assignWithCopy for MLActionClassifier.ModelParameters(char *__dst, char *__src, int *a3)
+{
+  if (__dst != __src)
+  {
+    outlined destroy of MLImageClassifier.ModelParameters.ValidationData(__dst, type metadata accessor for MLActionClassifier.ModelParameters.ValidationData);
+    v4 = type metadata accessor for MLActionClassifier.ModelParameters.ValidationData(0);
+    if (swift_getEnumCaseMultiPayload(__src, v4) == 1)
+    {
+      v5 = type metadata accessor for MLActionClassifier.DataSource(0);
+      EnumCaseMultiPayload = swift_getEnumCaseMultiPayload(__src, v5);
+      switch(EnumCaseMultiPayload)
+      {
+        case 0u:
+          v26 = type metadata accessor for URL(0);
+          v31 = *(*(v26 - 8) + 16);
+          v31(__dst, __src, v26);
+          v28 = v5;
+          v8 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (at: URL, annotationFile: URL, videoColumn: String, labelColumn: String, startTimeColumn: String?, endTimeColumn: String?));
+          v31(&__dst[v8[12]], &__src[v8[12]], v26);
+          v9 = v8[16];
+          *&__dst[v9] = *&__src[v9];
+          *&__dst[v9 + 8] = *&__src[v9 + 8];
+          v10 = v8[20];
+          *&__dst[v10] = *&__src[v10];
+          *&__dst[v10 + 8] = *&__src[v10 + 8];
+          v11 = v8[24];
+          *&__dst[v11] = *&__src[v11];
+          *&__dst[v11 + 8] = *&__src[v11 + 8];
+          v12 = v8[28];
+          *&__dst[v12] = *&__src[v12];
+          goto LABEL_11;
+        case 1u:
+        case 2u:
+          v6 = type metadata accessor for URL(0);
+          (*(*(v6 - 8) + 16))(__dst, __src, v6);
+          goto LABEL_14;
+        case 3u:
+          v29 = v5;
+          v13 = *__src;
+          v32 = __src[8];
+          outlined copy of Result<_DataTable, Error>(*__src, v32);
+          *__dst = v13;
+          __dst[8] = v32;
+          *(__dst + 2) = *(__src + 2);
+          *(__dst + 3) = *(__src + 3);
+          *(__dst + 4) = *(__src + 4);
+          *(__dst + 5) = *(__src + 5);
+          *(__dst + 6) = *(__src + 6);
+          *(__dst + 7) = *(__src + 7);
+
+          v5 = v29;
+
+          goto LABEL_13;
+        case 4u:
+          v27 = v5;
+          v7 = *__src;
+          v30 = __src[8];
+          outlined copy of Result<_DataTable, Error>(*__src, v30);
+          *__dst = v7;
+          __dst[8] = v30;
+          *(__dst + 2) = *(__src + 2);
+          *(__dst + 3) = *(__src + 3);
+          *(__dst + 4) = *(__src + 4);
+          *(__dst + 5) = *(__src + 5);
+          *(__dst + 6) = *(__src + 6);
+          *(__dst + 7) = *(__src + 7);
+          *(__dst + 8) = *(__src + 8);
+          *(__dst + 9) = *(__src + 9);
+
+          v5 = v27;
+
+          goto LABEL_13;
+        case 5u:
+          v14 = type metadata accessor for DataFrame(0);
+          (*(*(v14 - 8) + 16))(__dst, __src, v14);
+          v15 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (DataFrame, sessionIdColumn: String, labelColumn: String, featureColumn: String));
+          v16 = v15[12];
+          *&__dst[v16] = *&__src[v16];
+          *&__dst[v16 + 8] = *&__src[v16 + 8];
+          v17 = v15[16];
+          *&__dst[v17] = *&__src[v17];
+          *&__dst[v17 + 8] = *&__src[v17 + 8];
+          v18 = v15[20];
+          *&__dst[v18] = *&__src[v18];
+          v28 = v5;
+          *&__dst[v18 + 8] = *&__src[v18 + 8];
+
+          goto LABEL_12;
+        case 6u:
+          v19 = type metadata accessor for DataFrame(0);
+          (*(*(v19 - 8) + 16))(__dst, __src, v19);
+          v20 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (DataFrame, videoColumn: String, labelColumn: String, startTimeColumn: String?, endTimeColumn: String?));
+          v21 = v20[12];
+          *&__dst[v21] = *&__src[v21];
+          *&__dst[v21 + 8] = *&__src[v21 + 8];
+          v22 = v20[16];
+          *&__dst[v22] = *&__src[v22];
+          *&__dst[v22 + 8] = *&__src[v22 + 8];
+          v23 = v20[20];
+          *&__dst[v23] = *&__src[v23];
+          *&__dst[v23 + 8] = *&__src[v23 + 8];
+          v12 = v20[24];
+          *&__dst[v12] = *&__src[v12];
+          v28 = v5;
+LABEL_11:
+          *&__dst[v12 + 8] = *&__src[v12 + 8];
+
+LABEL_12:
+
+          v5 = v28;
+LABEL_13:
+
+LABEL_14:
+          swift_storeEnumTagMultiPayload(__dst, v5, EnumCaseMultiPayload);
+          swift_storeEnumTagMultiPayload(__dst, v4, 1);
+          break;
+      }
+    }
+
+    else
+    {
+      memcpy(__dst, __src, *(*(v4 - 8) + 64));
+    }
+  }
+
+  *&__dst[a3[5]] = *&__src[a3[5]];
+  *&__dst[a3[6]] = *&__src[a3[6]];
+  *&__dst[a3[7]] = *&__src[a3[7]];
+  *&__dst[a3[8]] = *&__src[a3[8]];
+  *&__dst[a3[10]] = *&__src[a3[10]];
+  return __dst;
+}
+
+char *initializeWithTake for MLActionClassifier.ModelParameters(char *__dst, char *__src, int *a3)
+{
+  v5 = type metadata accessor for MLActionClassifier.ModelParameters.ValidationData(0);
+  if (swift_getEnumCaseMultiPayload(__src, v5) == 1)
+  {
+    v6 = type metadata accessor for MLActionClassifier.DataSource(0);
+    switch(swift_getEnumCaseMultiPayload(__src, v6))
+    {
+      case 0u:
+        v19 = type metadata accessor for URL(0);
+        v20 = *(*(v19 - 8) + 32);
+        v20(__dst, __src, v19);
+        v18 = v6;
+        v7 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (at: URL, annotationFile: URL, videoColumn: String, labelColumn: String, startTimeColumn: String?, endTimeColumn: String?));
+        v20(&__dst[v7[12]], &__src[v7[12]], v19);
+        *&__dst[v7[16]] = *&__src[v7[16]];
+        *&__dst[v7[20]] = *&__src[v7[20]];
+        *&__dst[v7[24]] = *&__src[v7[24]];
+        *&__dst[v7[28]] = *&__src[v7[28]];
+        v8 = v18;
+        v9 = 0;
+        goto LABEL_11;
+      case 1u:
+        v11 = type metadata accessor for URL(0);
+        (*(*(v11 - 8) + 32))(__dst, __src, v11);
+        v17 = 1;
+        goto LABEL_10;
+      case 2u:
+        v10 = type metadata accessor for URL(0);
+        (*(*(v10 - 8) + 32))(__dst, __src, v10);
+        v17 = 2;
+        goto LABEL_10;
+      case 5u:
+        v12 = type metadata accessor for DataFrame(0);
+        (*(*(v12 - 8) + 32))(__dst, __src, v12);
+        v13 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (DataFrame, sessionIdColumn: String, labelColumn: String, featureColumn: String));
+        *&__dst[v13[12]] = *&__src[v13[12]];
+        *&__dst[v13[16]] = *&__src[v13[16]];
+        *&__dst[v13[20]] = *&__src[v13[20]];
+        v17 = 5;
+        goto LABEL_10;
+      case 6u:
+        v14 = type metadata accessor for DataFrame(0);
+        (*(*(v14 - 8) + 32))(__dst, __src, v14);
+        v15 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (DataFrame, videoColumn: String, labelColumn: String, startTimeColumn: String?, endTimeColumn: String?));
+        *&__dst[v15[12]] = *&__src[v15[12]];
+        *&__dst[v15[16]] = *&__src[v15[16]];
+        *&__dst[v15[20]] = *&__src[v15[20]];
+        *&__dst[v15[24]] = *&__src[v15[24]];
+        v17 = 6;
+LABEL_10:
+        v9 = v17;
+        v8 = v6;
+LABEL_11:
+        swift_storeEnumTagMultiPayload(__dst, v8, v9);
+        break;
+      default:
+        memcpy(__dst, __src, *(*(v6 - 8) + 64));
+        break;
+    }
+
+    swift_storeEnumTagMultiPayload(__dst, v5, 1);
+  }
+
+  else
+  {
+    memcpy(__dst, __src, *(*(v5 - 8) + 64));
+  }
+
+  *&__dst[a3[5]] = *&__src[a3[5]];
+  *&__dst[a3[6]] = *&__src[a3[6]];
+  *&__dst[a3[7]] = *&__src[a3[7]];
+  *&__dst[a3[8]] = *&__src[a3[8]];
+  *&__dst[a3[10]] = *&__src[a3[10]];
+  return __dst;
+}
+
+char *assignWithTake for MLActionClassifier.ModelParameters(char *__dst, char *__src, int *a3)
+{
+  if (__dst != __src)
+  {
+    outlined destroy of MLImageClassifier.ModelParameters.ValidationData(__dst, type metadata accessor for MLActionClassifier.ModelParameters.ValidationData);
+    v5 = type metadata accessor for MLActionClassifier.ModelParameters.ValidationData(0);
+    if (swift_getEnumCaseMultiPayload(__src, v5) == 1)
+    {
+      v6 = type metadata accessor for MLActionClassifier.DataSource(0);
+      switch(swift_getEnumCaseMultiPayload(__src, v6))
+      {
+        case 0u:
+          v19 = type metadata accessor for URL(0);
+          v20 = *(*(v19 - 8) + 32);
+          v20(__dst, __src, v19);
+          v18 = v6;
+          v7 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (at: URL, annotationFile: URL, videoColumn: String, labelColumn: String, startTimeColumn: String?, endTimeColumn: String?));
+          v20(&__dst[v7[12]], &__src[v7[12]], v19);
+          *&__dst[v7[16]] = *&__src[v7[16]];
+          *&__dst[v7[20]] = *&__src[v7[20]];
+          *&__dst[v7[24]] = *&__src[v7[24]];
+          *&__dst[v7[28]] = *&__src[v7[28]];
+          v8 = v18;
+          v9 = 0;
+          goto LABEL_12;
+        case 1u:
+          v11 = type metadata accessor for URL(0);
+          (*(*(v11 - 8) + 32))(__dst, __src, v11);
+          v17 = 1;
+          goto LABEL_11;
+        case 2u:
+          v10 = type metadata accessor for URL(0);
+          (*(*(v10 - 8) + 32))(__dst, __src, v10);
+          v17 = 2;
+          goto LABEL_11;
+        case 5u:
+          v12 = type metadata accessor for DataFrame(0);
+          (*(*(v12 - 8) + 32))(__dst, __src, v12);
+          v13 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (DataFrame, sessionIdColumn: String, labelColumn: String, featureColumn: String));
+          *&__dst[v13[12]] = *&__src[v13[12]];
+          *&__dst[v13[16]] = *&__src[v13[16]];
+          *&__dst[v13[20]] = *&__src[v13[20]];
+          v17 = 5;
+          goto LABEL_11;
+        case 6u:
+          v14 = type metadata accessor for DataFrame(0);
+          (*(*(v14 - 8) + 32))(__dst, __src, v14);
+          v15 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (DataFrame, videoColumn: String, labelColumn: String, startTimeColumn: String?, endTimeColumn: String?));
+          *&__dst[v15[12]] = *&__src[v15[12]];
+          *&__dst[v15[16]] = *&__src[v15[16]];
+          *&__dst[v15[20]] = *&__src[v15[20]];
+          *&__dst[v15[24]] = *&__src[v15[24]];
+          v17 = 6;
+LABEL_11:
+          v9 = v17;
+          v8 = v6;
+LABEL_12:
+          swift_storeEnumTagMultiPayload(__dst, v8, v9);
+          break;
+        default:
+          memcpy(__dst, __src, *(*(v6 - 8) + 64));
+          break;
+      }
+
+      swift_storeEnumTagMultiPayload(__dst, v5, 1);
+    }
+
+    else
+    {
+      memcpy(__dst, __src, *(*(v5 - 8) + 64));
+    }
+  }
+
+  *&__dst[a3[5]] = *&__src[a3[5]];
+  *&__dst[a3[6]] = *&__src[a3[6]];
+  *&__dst[a3[7]] = *&__src[a3[7]];
+  *&__dst[a3[8]] = *&__src[a3[8]];
+  *&__dst[a3[10]] = *&__src[a3[10]];
+  return __dst;
+}
+
+uint64_t type metadata completion function for MLActionClassifier.ModelParameters(uint64_t a1)
+{
+  result = type metadata accessor for MLActionClassifier.ModelParameters.ValidationData(319);
+  if (v2 <= 0x3F)
+  {
+    v3[0] = *(result - 8) + 64;
+    v3[1] = &value witness table for Builtin.Int64 + 64;
+    v3[2] = &value witness table for Builtin.Int64 + 64;
+    v3[3] = &value witness table for Builtin.Int64 + 64;
+    v3[4] = &value witness table for Builtin.Int64 + 64;
+    v3[5] = &value witness table for () + 64;
+    v3[6] = &value witness table for Builtin.Int64 + 64;
+    swift_initStructMetadata(a1, 256, 7, v3, a1 + 16);
+    return 0;
+  }
+
+  return result;
+}
+
+char *initializeBufferWithCopyOfBuffer for MLActionClassifier.ModelParameters.ValidationData(char *__dst, char *__src, uint64_t a3)
+{
+  v3 = __dst;
+  v4 = *(a3 - 8);
+  v5 = *(v4 + 80);
+  if ((v5 & 0x20000) != 0)
+  {
+    v16 = *__src;
+    *v3 = *__src;
+    v3 = (v16 + ((v5 + 16) & ~v5));
+  }
+
+  else
+  {
+    if (swift_getEnumCaseMultiPayload(__src, a3) != 1)
+    {
+      return memcpy(__dst, __src, *(v4 + 64));
+    }
+
+    v7 = type metadata accessor for MLActionClassifier.DataSource(0);
+    switch(swift_getEnumCaseMultiPayload(__src, v7))
+    {
+      case 0u:
+        v38 = v7;
+        v8 = type metadata accessor for URL(0);
+        v37 = *(*(v8 - 8) + 16);
+        v37(__dst, __src, v8);
+        v9 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (at: URL, annotationFile: URL, videoColumn: String, labelColumn: String, startTimeColumn: String?, endTimeColumn: String?));
+        v37(&__dst[v9[12]], &__src[v9[12]], v8);
+        v10 = v9[16];
+        *&__dst[v10] = *&__src[v10];
+        *&__dst[v10 + 8] = *&__src[v10 + 8];
+        v11 = v9[20];
+        *&__dst[v11] = *&__src[v11];
+        *&__dst[v11 + 8] = *&__src[v11 + 8];
+        v12 = v9[24];
+        *&__dst[v12] = *&__src[v12];
+        *&__dst[v12 + 8] = *&__src[v12 + 8];
+        v13 = v9[28];
+        *&__dst[v13] = *&__src[v13];
+        *&__dst[v13 + 8] = *&__src[v13 + 8];
+
+        v14 = v38;
+        v15 = 0;
+        break;
+      case 1u:
+        v23 = type metadata accessor for URL(0);
+        (*(*(v23 - 8) + 16))(__dst, __src, v23);
+        v36 = 1;
+        goto LABEL_12;
+      case 2u:
+        v20 = type metadata accessor for URL(0);
+        (*(*(v20 - 8) + 16))(__dst, __src, v20);
+        v36 = 2;
+        goto LABEL_12;
+      case 3u:
+        v21 = *__src;
+        v39 = v7;
+        v22 = __src[8];
+        outlined copy of Result<_DataTable, Error>(*__src, v22);
+        *__dst = v21;
+        __dst[8] = v22;
+        *(__dst + 2) = *(__src + 2);
+        *(__dst + 3) = *(__src + 3);
+        *(__dst + 4) = *(__src + 4);
+        *(__dst + 5) = *(__src + 5);
+        *(__dst + 6) = *(__src + 6);
+        *(__dst + 7) = *(__src + 7);
+
+        v35 = 3;
+        goto LABEL_14;
+      case 4u:
+        v18 = *__src;
+        v39 = v7;
+        v19 = __src[8];
+        outlined copy of Result<_DataTable, Error>(*__src, v19);
+        *__dst = v18;
+        __dst[8] = v19;
+        *(__dst + 2) = *(__src + 2);
+        *(__dst + 3) = *(__src + 3);
+        *(__dst + 4) = *(__src + 4);
+        *(__dst + 5) = *(__src + 5);
+        *(__dst + 6) = *(__src + 6);
+        *(__dst + 7) = *(__src + 7);
+        *(__dst + 8) = *(__src + 8);
+        *(__dst + 9) = *(__src + 9);
+
+        v35 = 4;
+        goto LABEL_14;
+      case 5u:
+        v24 = type metadata accessor for DataFrame(0);
+        (*(*(v24 - 8) + 16))(__dst, __src, v24);
+        v25 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (DataFrame, sessionIdColumn: String, labelColumn: String, featureColumn: String));
+        v26 = v25[12];
+        *&__dst[v26] = *&__src[v26];
+        *&__dst[v26 + 8] = *&__src[v26 + 8];
+        v27 = v25[16];
+        *&__dst[v27] = *&__src[v27];
+        *&__dst[v27 + 8] = *&__src[v27 + 8];
+        v28 = v25[20];
+        *&__dst[v28] = *&__src[v28];
+        *&__dst[v28 + 8] = *&__src[v28 + 8];
+
+        v36 = 5;
+LABEL_12:
+        v15 = v36;
+        v14 = v7;
+        break;
+      case 6u:
+        v29 = type metadata accessor for DataFrame(0);
+        (*(*(v29 - 8) + 16))(__dst, __src, v29);
+        v30 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (DataFrame, videoColumn: String, labelColumn: String, startTimeColumn: String?, endTimeColumn: String?));
+        v31 = v30[12];
+        *&__dst[v31] = *&__src[v31];
+        *&__dst[v31 + 8] = *&__src[v31 + 8];
+        v32 = v30[16];
+        *&__dst[v32] = *&__src[v32];
+        *&__dst[v32 + 8] = *&__src[v32 + 8];
+        v33 = v30[20];
+        *&__dst[v33] = *&__src[v33];
+        v39 = v7;
+        *&__dst[v33 + 8] = *&__src[v33 + 8];
+        v34 = v30[24];
+        *&__dst[v34] = *&__src[v34];
+        *&__dst[v34 + 8] = *&__src[v34 + 8];
+
+        v35 = 6;
+LABEL_14:
+        v15 = v35;
+        v14 = v39;
+        break;
+    }
+
+    swift_storeEnumTagMultiPayload(__dst, v14, v15);
+    swift_storeEnumTagMultiPayload(__dst, a3, 1);
+  }
+
+  return v3;
+}
+
+uint64_t destroy for MLActionClassifier.ModelParameters.ValidationData(uint64_t a1, uint64_t a2)
+{
+  result = swift_getEnumCaseMultiPayload(a1, a2);
+  if (result == 1)
+  {
+    v3 = type metadata accessor for MLActionClassifier.DataSource(0);
+    result = swift_getEnumCaseMultiPayload(a1, v3);
+    switch(result)
+    {
+      case 0:
+        v5 = type metadata accessor for URL(0);
+        v6 = *(*(v5 - 8) + 8);
+        v6(a1, v5);
+        v7 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (at: URL, annotationFile: URL, videoColumn: String, labelColumn: String, startTimeColumn: String?, endTimeColumn: String?));
+        v6(a1 + v7[12], v5);
+        *(a1 + v7[16] + 8);
+        *(a1 + v7[20] + 8);
+        *(a1 + v7[24] + 8);
+        v8 = v7[28];
+        goto LABEL_10;
+      case 1:
+      case 2:
+        v4 = type metadata accessor for URL(0);
+        return (*(*(v4 - 8) + 8))(a1, v4);
+      case 3:
+        outlined consume of Result<_DataTable, Error>(*a1, *(a1 + 8));
+        *(a1 + 24);
+        *(a1 + 40);
+        return *(a1 + 56);
+      case 4:
+        outlined consume of Result<_DataTable, Error>(*a1, *(a1 + 8));
+        *(a1 + 24);
+        *(a1 + 40);
+        *(a1 + 56);
+        return *(a1 + 72);
+      case 5:
+        v9 = type metadata accessor for DataFrame(0);
+        (*(*(v9 - 8) + 8))(a1, v9);
+        v10 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (DataFrame, sessionIdColumn: String, labelColumn: String, featureColumn: String));
+        *(a1 + v10[12] + 8);
+        *(a1 + v10[16] + 8);
+        v8 = v10[20];
+        goto LABEL_10;
+      case 6:
+        v11 = type metadata accessor for DataFrame(0);
+        (*(*(v11 - 8) + 8))(a1, v11);
+        v12 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (DataFrame, videoColumn: String, labelColumn: String, startTimeColumn: String?, endTimeColumn: String?));
+        *(a1 + v12[12] + 8);
+        *(a1 + v12[16] + 8);
+        *(a1 + v12[20] + 8);
+        v8 = v12[24];
+LABEL_10:
+        result = *(a1 + v8 + 8);
+        break;
+      default:
+        return result;
+    }
+  }
+
+  return result;
+}
+
+char *initializeWithCopy for MLActionClassifier.ModelParameters.ValidationData(char *__dst, char *__src, uint64_t a3)
+{
+  if (swift_getEnumCaseMultiPayload(__src, a3) != 1)
+  {
+    return memcpy(__dst, __src, *(*(a3 - 8) + 64));
+  }
+
+  v4 = type metadata accessor for MLActionClassifier.DataSource(0);
+  switch(swift_getEnumCaseMultiPayload(__src, v4))
+  {
+    case 0u:
+      v34 = v4;
+      v5 = type metadata accessor for URL(0);
+      v33 = *(*(v5 - 8) + 16);
+      v33(__dst, __src, v5);
+      v6 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (at: URL, annotationFile: URL, videoColumn: String, labelColumn: String, startTimeColumn: String?, endTimeColumn: String?));
+      v33(&__dst[v6[12]], &__src[v6[12]], v5);
+      v7 = v6[16];
+      *&__dst[v7] = *&__src[v7];
+      *&__dst[v7 + 8] = *&__src[v7 + 8];
+      v8 = v6[20];
+      *&__dst[v8] = *&__src[v8];
+      *&__dst[v8 + 8] = *&__src[v8 + 8];
+      v9 = v6[24];
+      *&__dst[v9] = *&__src[v9];
+      *&__dst[v9 + 8] = *&__src[v9 + 8];
+      v10 = v6[28];
+      *&__dst[v10] = *&__src[v10];
+      *&__dst[v10 + 8] = *&__src[v10 + 8];
+
+      v11 = v34;
+      v12 = 0;
+      break;
+    case 1u:
+      v19 = type metadata accessor for URL(0);
+      (*(*(v19 - 8) + 16))(__dst, __src, v19);
+      v32 = 1;
+      goto LABEL_10;
+    case 2u:
+      v16 = type metadata accessor for URL(0);
+      (*(*(v16 - 8) + 16))(__dst, __src, v16);
+      v32 = 2;
+      goto LABEL_10;
+    case 3u:
+      v17 = *__src;
+      v35 = v4;
+      v18 = __src[8];
+      outlined copy of Result<_DataTable, Error>(*__src, v18);
+      *__dst = v17;
+      __dst[8] = v18;
+      *(__dst + 2) = *(__src + 2);
+      *(__dst + 3) = *(__src + 3);
+      *(__dst + 4) = *(__src + 4);
+      *(__dst + 5) = *(__src + 5);
+      *(__dst + 6) = *(__src + 6);
+      *(__dst + 7) = *(__src + 7);
+
+      v31 = 3;
+      goto LABEL_12;
+    case 4u:
+      v14 = *__src;
+      v35 = v4;
+      v15 = __src[8];
+      outlined copy of Result<_DataTable, Error>(*__src, v15);
+      *__dst = v14;
+      __dst[8] = v15;
+      *(__dst + 2) = *(__src + 2);
+      *(__dst + 3) = *(__src + 3);
+      *(__dst + 4) = *(__src + 4);
+      *(__dst + 5) = *(__src + 5);
+      *(__dst + 6) = *(__src + 6);
+      *(__dst + 7) = *(__src + 7);
+      *(__dst + 8) = *(__src + 8);
+      *(__dst + 9) = *(__src + 9);
+
+      v31 = 4;
+      goto LABEL_12;
+    case 5u:
+      v20 = type metadata accessor for DataFrame(0);
+      (*(*(v20 - 8) + 16))(__dst, __src, v20);
+      v21 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (DataFrame, sessionIdColumn: String, labelColumn: String, featureColumn: String));
+      v22 = v21[12];
+      *&__dst[v22] = *&__src[v22];
+      *&__dst[v22 + 8] = *&__src[v22 + 8];
+      v23 = v21[16];
+      *&__dst[v23] = *&__src[v23];
+      *&__dst[v23 + 8] = *&__src[v23 + 8];
+      v24 = v21[20];
+      *&__dst[v24] = *&__src[v24];
+      *&__dst[v24 + 8] = *&__src[v24 + 8];
+
+      v32 = 5;
+LABEL_10:
+      v12 = v32;
+      v11 = v4;
+      break;
+    case 6u:
+      v25 = type metadata accessor for DataFrame(0);
+      (*(*(v25 - 8) + 16))(__dst, __src, v25);
+      v26 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (DataFrame, videoColumn: String, labelColumn: String, startTimeColumn: String?, endTimeColumn: String?));
+      v27 = v26[12];
+      *&__dst[v27] = *&__src[v27];
+      *&__dst[v27 + 8] = *&__src[v27 + 8];
+      v28 = v26[16];
+      *&__dst[v28] = *&__src[v28];
+      *&__dst[v28 + 8] = *&__src[v28 + 8];
+      v29 = v26[20];
+      *&__dst[v29] = *&__src[v29];
+      v35 = v4;
+      *&__dst[v29 + 8] = *&__src[v29 + 8];
+      v30 = v26[24];
+      *&__dst[v30] = *&__src[v30];
+      *&__dst[v30 + 8] = *&__src[v30 + 8];
+
+      v31 = 6;
+LABEL_12:
+      v12 = v31;
+      v11 = v35;
+      break;
+  }
+
+  swift_storeEnumTagMultiPayload(__dst, v11, v12);
+  swift_storeEnumTagMultiPayload(__dst, a3, 1);
+  return __dst;
+}
+
+char *assignWithCopy for MLActionClassifier.ModelParameters.ValidationData(char *__dst, char *__src, uint64_t a3)
+{
+  if (__dst != __src)
+  {
+    outlined destroy of MLImageClassifier.ModelParameters.ValidationData(__dst, type metadata accessor for MLActionClassifier.ModelParameters.ValidationData);
+    if (swift_getEnumCaseMultiPayload(__src, a3) != 1)
+    {
+      return memcpy(__dst, __src, *(*(a3 - 8) + 64));
+    }
+
+    v4 = type metadata accessor for MLActionClassifier.DataSource(0);
+    EnumCaseMultiPayload = swift_getEnumCaseMultiPayload(__src, v4);
+    switch(EnumCaseMultiPayload)
+    {
+      case 0u:
+        v31 = v4;
+        v29 = type metadata accessor for URL(0);
+        v10 = *(*(v29 - 8) + 16);
+        v10(__dst, __src, v29);
+        v33 = EnumCaseMultiPayload;
+        v11 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (at: URL, annotationFile: URL, videoColumn: String, labelColumn: String, startTimeColumn: String?, endTimeColumn: String?));
+        v10(&__dst[v11[12]], &__src[v11[12]], v29);
+        v12 = v11[16];
+        *&__dst[v12] = *&__src[v12];
+        *&__dst[v12 + 8] = *&__src[v12 + 8];
+        v13 = v11[20];
+        *&__dst[v13] = *&__src[v13];
+        *&__dst[v13 + 8] = *&__src[v13 + 8];
+        v14 = v11[24];
+        *&__dst[v14] = *&__src[v14];
+        *&__dst[v14 + 8] = *&__src[v14 + 8];
+        v15 = v11[28];
+        *&__dst[v15] = *&__src[v15];
+        *&__dst[v15 + 8] = *&__src[v15 + 8];
+
+        goto LABEL_10;
+      case 1u:
+      case 2u:
+        v6 = type metadata accessor for URL(0);
+        (*(*(v6 - 8) + 16))(__dst, __src, v6);
+        goto LABEL_14;
+      case 3u:
+        v31 = v4;
+        v16 = *__src;
+        v33 = EnumCaseMultiPayload;
+        v17 = __src[8];
+        outlined copy of Result<_DataTable, Error>(*__src, v17);
+        *__dst = v16;
+        __dst[8] = v17;
+        *(__dst + 2) = *(__src + 2);
+        *(__dst + 3) = *(__src + 3);
+        *(__dst + 4) = *(__src + 4);
+        *(__dst + 5) = *(__src + 5);
+        *(__dst + 6) = *(__src + 6);
+        *(__dst + 7) = *(__src + 7);
+        goto LABEL_10;
+      case 4u:
+        v30 = v4;
+        v8 = *__src;
+        v32 = EnumCaseMultiPayload;
+        v9 = __src[8];
+        outlined copy of Result<_DataTable, Error>(*__src, v9);
+        *__dst = v8;
+        __dst[8] = v9;
+        *(__dst + 2) = *(__src + 2);
+        *(__dst + 3) = *(__src + 3);
+        *(__dst + 4) = *(__src + 4);
+        *(__dst + 5) = *(__src + 5);
+        *(__dst + 6) = *(__src + 6);
+        *(__dst + 7) = *(__src + 7);
+        *(__dst + 8) = *(__src + 8);
+        *(__dst + 9) = *(__src + 9);
+        goto LABEL_12;
+      case 5u:
+        v18 = type metadata accessor for DataFrame(0);
+        (*(*(v18 - 8) + 16))(__dst, __src, v18);
+        v19 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (DataFrame, sessionIdColumn: String, labelColumn: String, featureColumn: String));
+        v20 = v19[12];
+        *&__dst[v20] = *&__src[v20];
+        *&__dst[v20 + 8] = *&__src[v20 + 8];
+        v21 = v19[16];
+        *&__dst[v21] = *&__src[v21];
+        v31 = v4;
+        *&__dst[v21 + 8] = *&__src[v21 + 8];
+        v22 = v19[20];
+        *&__dst[v22] = *&__src[v22];
+        v33 = EnumCaseMultiPayload;
+        *&__dst[v22 + 8] = *&__src[v22 + 8];
+LABEL_10:
+
+        v4 = v31;
+
+        EnumCaseMultiPayload = v33;
+        break;
+      case 6u:
+        v23 = type metadata accessor for DataFrame(0);
+        (*(*(v23 - 8) + 16))(__dst, __src, v23);
+        v24 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (DataFrame, videoColumn: String, labelColumn: String, startTimeColumn: String?, endTimeColumn: String?));
+        v25 = v24[12];
+        *&__dst[v25] = *&__src[v25];
+        *&__dst[v25 + 8] = *&__src[v25 + 8];
+        v26 = v24[16];
+        *&__dst[v26] = *&__src[v26];
+        v30 = v4;
+        *&__dst[v26 + 8] = *&__src[v26 + 8];
+        v27 = v24[20];
+        *&__dst[v27] = *&__src[v27];
+        v32 = EnumCaseMultiPayload;
+        *&__dst[v27 + 8] = *&__src[v27 + 8];
+        v28 = v24[24];
+        *&__dst[v28] = *&__src[v28];
+        *&__dst[v28 + 8] = *&__src[v28 + 8];
+LABEL_12:
+
+        v4 = v30;
+
+        EnumCaseMultiPayload = v32;
+
+        break;
+    }
+
+LABEL_14:
+    swift_storeEnumTagMultiPayload(__dst, v4, EnumCaseMultiPayload);
+    swift_storeEnumTagMultiPayload(__dst, a3, 1);
+  }
+
+  return __dst;
+}
+
+char *initializeWithTake for MLActionClassifier.ModelParameters.ValidationData(char *__dst, char *__src, uint64_t a3)
+{
+  if (swift_getEnumCaseMultiPayload(__src, a3) != 1)
+  {
+    return memcpy(__dst, __src, *(*(a3 - 8) + 64));
+  }
+
+  v4 = type metadata accessor for MLActionClassifier.DataSource(0);
+  switch(swift_getEnumCaseMultiPayload(__src, v4))
+  {
+    case 0u:
+      v16 = type metadata accessor for URL(0);
+      v17 = *(*(v16 - 8) + 32);
+      v17(__dst, __src, v16);
+      v5 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (at: URL, annotationFile: URL, videoColumn: String, labelColumn: String, startTimeColumn: String?, endTimeColumn: String?));
+      v17(&__dst[v5[12]], &__src[v5[12]], v16);
+      *&__dst[v5[16]] = *&__src[v5[16]];
+      *&__dst[v5[20]] = *&__src[v5[20]];
+      *&__dst[v5[24]] = *&__src[v5[24]];
+      *&__dst[v5[28]] = *&__src[v5[28]];
+      v6 = v4;
+      v7 = 0;
+      goto LABEL_11;
+    case 1u:
+      v10 = type metadata accessor for URL(0);
+      (*(*(v10 - 8) + 32))(__dst, __src, v10);
+      v15 = 1;
+      goto LABEL_10;
+    case 2u:
+      v9 = type metadata accessor for URL(0);
+      (*(*(v9 - 8) + 32))(__dst, __src, v9);
+      v15 = 2;
+      goto LABEL_10;
+    case 5u:
+      v11 = type metadata accessor for DataFrame(0);
+      (*(*(v11 - 8) + 32))(__dst, __src, v11);
+      v12 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (DataFrame, sessionIdColumn: String, labelColumn: String, featureColumn: String));
+      *&__dst[v12[12]] = *&__src[v12[12]];
+      *&__dst[v12[16]] = *&__src[v12[16]];
+      *&__dst[v12[20]] = *&__src[v12[20]];
+      v15 = 5;
+      goto LABEL_10;
+    case 6u:
+      v13 = type metadata accessor for DataFrame(0);
+      (*(*(v13 - 8) + 32))(__dst, __src, v13);
+      v14 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (DataFrame, videoColumn: String, labelColumn: String, startTimeColumn: String?, endTimeColumn: String?));
+      *&__dst[v14[12]] = *&__src[v14[12]];
+      *&__dst[v14[16]] = *&__src[v14[16]];
+      *&__dst[v14[20]] = *&__src[v14[20]];
+      *&__dst[v14[24]] = *&__src[v14[24]];
+      v15 = 6;
+LABEL_10:
+      v7 = v15;
+      v6 = v4;
+LABEL_11:
+      swift_storeEnumTagMultiPayload(__dst, v6, v7);
+      break;
+    default:
+      memcpy(__dst, __src, *(*(v4 - 8) + 64));
+      break;
+  }
+
+  swift_storeEnumTagMultiPayload(__dst, a3, 1);
+  return __dst;
+}
+
+char *assignWithTake for MLActionClassifier.ModelParameters.ValidationData(char *__dst, char *__src, uint64_t a3)
+{
+  if (__dst != __src)
+  {
+    outlined destroy of MLImageClassifier.ModelParameters.ValidationData(__dst, type metadata accessor for MLActionClassifier.ModelParameters.ValidationData);
+    if (swift_getEnumCaseMultiPayload(__src, a3) != 1)
+    {
+      return memcpy(__dst, __src, *(*(a3 - 8) + 64));
+    }
+
+    v4 = type metadata accessor for MLActionClassifier.DataSource(0);
+    switch(swift_getEnumCaseMultiPayload(__src, v4))
+    {
+      case 0u:
+        v16 = type metadata accessor for URL(0);
+        v17 = *(*(v16 - 8) + 32);
+        v17(__dst, __src, v16);
+        v5 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (at: URL, annotationFile: URL, videoColumn: String, labelColumn: String, startTimeColumn: String?, endTimeColumn: String?));
+        v17(&__dst[v5[12]], &__src[v5[12]], v16);
+        *&__dst[v5[16]] = *&__src[v5[16]];
+        *&__dst[v5[20]] = *&__src[v5[20]];
+        *&__dst[v5[24]] = *&__src[v5[24]];
+        *&__dst[v5[28]] = *&__src[v5[28]];
+        v6 = v4;
+        v7 = 0;
+        goto LABEL_12;
+      case 1u:
+        v10 = type metadata accessor for URL(0);
+        (*(*(v10 - 8) + 32))(__dst, __src, v10);
+        v15 = 1;
+        goto LABEL_11;
+      case 2u:
+        v9 = type metadata accessor for URL(0);
+        (*(*(v9 - 8) + 32))(__dst, __src, v9);
+        v15 = 2;
+        goto LABEL_11;
+      case 5u:
+        v11 = type metadata accessor for DataFrame(0);
+        (*(*(v11 - 8) + 32))(__dst, __src, v11);
+        v12 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (DataFrame, sessionIdColumn: String, labelColumn: String, featureColumn: String));
+        *&__dst[v12[12]] = *&__src[v12[12]];
+        *&__dst[v12[16]] = *&__src[v12[16]];
+        *&__dst[v12[20]] = *&__src[v12[20]];
+        v15 = 5;
+        goto LABEL_11;
+      case 6u:
+        v13 = type metadata accessor for DataFrame(0);
+        (*(*(v13 - 8) + 32))(__dst, __src, v13);
+        v14 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (DataFrame, videoColumn: String, labelColumn: String, startTimeColumn: String?, endTimeColumn: String?));
+        *&__dst[v14[12]] = *&__src[v14[12]];
+        *&__dst[v14[16]] = *&__src[v14[16]];
+        *&__dst[v14[20]] = *&__src[v14[20]];
+        *&__dst[v14[24]] = *&__src[v14[24]];
+        v15 = 6;
+LABEL_11:
+        v7 = v15;
+        v6 = v4;
+LABEL_12:
+        swift_storeEnumTagMultiPayload(__dst, v6, v7);
+        break;
+      default:
+        memcpy(__dst, __src, *(*(v4 - 8) + 64));
+        break;
+    }
+
+    swift_storeEnumTagMultiPayload(__dst, a3, 1);
+  }
+
+  return __dst;
+}
+
+uint64_t type metadata completion function for MLActionClassifier.ModelParameters.ValidationData(uint64_t a1)
+{
+  v5[0] = &unk_3476E8;
+  result = type metadata accessor for MLActionClassifier.DataSource(319);
+  if (v4 <= 0x3F)
+  {
+    v5[1] = *(result - 8) + 64;
+    swift_initEnumMetadataMultiPayload(a1, 256, 2, v5, v2, v3);
+    return 0;
+  }
+
+  return result;
+}
+
+void *_sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFSaySo8NSNumberCG_Sis5NeverOTg5093_s14NeuralNetworks6TensorV8CreateMLE_6deviceACSo12MLMultiArrayC_AA13ComputeDeviceVSgtcfcSiSo8D55Ccfu1_33_5bdac5b40c7411f20a64c1277f8fd44fALSiTf3nnnpk_nTf1cn_n(uint64_t a1)
+{
+  if ((a1 & 0x4000000000000001) != 0)
+  {
+    v12 = a1 & 0xFFFFFFFFFFFFF8;
+    if (a1)
+    {
+      v12 = a1;
+    }
+
+    v2 = _CocoaArrayWrapper.endIndex.getter(v12);
+  }
+
+  else
+  {
+    v2 = *(&dword_10 + (a1 & 0xFFFFFFFFFFFFF8));
+  }
+
+  if (v2)
+  {
+    v3 = 0;
+    if (v2 > 0)
+    {
+      v3 = v2;
+    }
+
+    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v3, 0);
+    if (v2 < 0)
+    {
+      BUG();
+    }
+
+    v4 = 0;
+    for (i = 0; i != v2; v4 = i)
+    {
+      if (__OFADD__(1, i++))
+      {
+        BUG();
+      }
+
+      if ((a1 & 0xC000000000000003) != 0)
+      {
+        v7 = specialized _ArrayBuffer._getElementSlowPath(_:)(v4);
+      }
+
+      else
+      {
+        v7 = *(a1 + 8 * v4 + 32);
+      }
+
+      v8 = v7;
+      v13 = [v7 integerValue];
+
+      v9 = _swiftEmptyArrayStorage[2];
+      v10 = v9 + 1;
+      if (_swiftEmptyArrayStorage[3] >> 1 <= v9)
+      {
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(_swiftEmptyArrayStorage[3] >= 2uLL, v9 + 1, 1);
+        v10 = v9 + 1;
+      }
+
+      _swiftEmptyArrayStorage[2] = v10;
+      _swiftEmptyArrayStorage[v9 + 4] = v13;
+    }
+  }
+
+  return _swiftEmptyArrayStorage;
+}
+
+void Tensor.init(_:device:)(id a1, uint64_t a2)
+{
+  v3 = v2;
+  v4 = *(*(__swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for ComputeDevice?) - 8) + 64);
+  v5 = alloca(v4);
+  v6 = alloca(v4);
+  v7 = *(*(type metadata accessor for ScalarType(0) - 8) + 64);
+  v8 = alloca(v7);
+  v9 = alloca(v7);
+  v29 = v27;
+  v10 = *(*(type metadata accessor for TensorShape(0) - 8) + 64);
+  v11 = alloca(v10);
+  v12 = alloca(v10);
+  v30 = v27;
+  v13 = [a1 dataType];
+  v14 = v13;
+  v33 = a2;
+  v27[1] = v3;
+  v28 = v27;
+  if (v13 == &loc_10020)
+  {
+LABEL_5:
+    v26 = 4;
+    goto LABEL_6;
+  }
+
+  if (v13 != &loc_1003C + 4)
+  {
+    if (v13 != &loc_2001D + 3)
+    {
+      if (v13 == &loc_1000E + 2)
+      {
+        _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD000000000000041, ("i-array data type" + 0x8000000000000000), "CreateML/_CoreML+NeuralNetworks.swift", 37, 2, 63, 0);
+      }
+
+      else
+      {
+        _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD000000000000021, ("+NeuralNetworks.swift" + 0x8000000000000000), "CreateML/_CoreML+NeuralNetworks.swift", 37, 2, 72, 0);
+      }
+
+      BUG();
+    }
+
+    goto LABEL_5;
+  }
+
+  v26 = 8;
+LABEL_6:
+  v34 = v26;
+  v31 = a1;
+  v15 = [a1 shape];
+  v16 = v15;
+  v17 = type metadata accessor for NSNumber();
+  v18 = static Array._unconditionallyBridgeFromObjectiveC(_:)(v16, v17);
+
+  MLE_6deviceACSo12MLMultiArrayC_AA13ComputeDeviceVSgtcfcSiSo8D55Ccfu1_33_5bdac5b40c7411f20a64c1277f8fd44fALSiTf3nnnpk_nTf1cn_n = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFSaySo8NSNumberCG_Sis5NeverOTg5093_s14NeuralNetworks6TensorV8CreateMLE_6deviceACSo12MLMultiArrayC_AA13ComputeDeviceVSgtcfcSiSo8D55Ccfu1_33_5bdac5b40c7411f20a64c1277f8fd44fALSiTf3nnnpk_nTf1cn_n(v18);
+  v18;
+  v20 = v30;
+  TensorShape.init(_:)(MLE_6deviceACSo12MLMultiArrayC_AA13ComputeDeviceVSgtcfcSiSo8D55Ccfu1_33_5bdac5b40c7411f20a64c1277f8fd44fALSiTf3nnnpk_nTf1cn_n);
+  v21 = v29;
+  MLMultiArrayDataType.dataType.getter(v14);
+  v22 = v28;
+  outlined init with copy of ComputeDevice?(v33, v28);
+  v32 = v27;
+  v23 = alloca(32);
+  v24 = alloca(32);
+  v25 = v31;
+  v28 = v31;
+  v29 = v34;
+  Tensor.init(unsafeUninitializedShape:scalarType:computeDevice:initializingWith:)(v20, v21, v22, partial apply for closure #1 in Tensor.init(_:device:));
+  outlined destroy of ComputeDevice?(v33);
+}
+
+uint64_t type metadata accessor for NSNumber()
+{
+  result = lazy cache variable for type metadata for NSNumber;
+  if (!lazy cache variable for type metadata for NSNumber)
+  {
+    v1 = objc_opt_self(NSNumber);
+    result = swift_getObjCClassMetadata(v1);
+    lazy cache variable for type metadata for NSNumber = result;
+  }
+
+  return result;
+}
+
+uint64_t MLMultiArrayDataType.dataType.getter(char *a1)
+{
+  v2 = v1;
+  if (a1 == &loc_1000E + 2)
+  {
+    v3 = &enum case for ScalarType.float16(_:);
+  }
+
+  else if (a1 == &loc_2001D + 3)
+  {
+    v3 = &enum case for ScalarType.int32(_:);
+  }
+
+  else if (a1 == &loc_1003C + 4)
+  {
+    v3 = &enum case for ScalarType.float64(_:);
+  }
+
+  else
+  {
+    if (a1 != &loc_10020)
+    {
+      _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD000000000000021, ("+NeuralNetworks.swift" + 0x8000000000000000), "CreateML/_CoreML+NeuralNetworks.swift", 37, 2, 20, 0);
+      BUG();
+    }
+
+    v3 = &enum case for ScalarType.float32(_:);
+  }
+
+  v4 = *v3;
+  v5 = type metadata accessor for ScalarType(0);
+  return (*(*(v5 - 8) + 104))(v2, v4, v5);
+}
+
+uint64_t outlined init with copy of ComputeDevice?(uint64_t a1, uint64_t a2)
+{
+  v2 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for ComputeDevice?);
+  (*(*(v2 - 8) + 16))(a2, a1, v2);
+  return a2;
+}
+
+size_t closure #1 in Tensor.init(_:device:)(void *__dst, uint64_t a2, void *a3, unint64_t a4)
+{
+  v5 = a3;
+  v6 = [v5 dataPointer];
+  v8 = [v5 count];
+  result = a4 * v8;
+  if (!is_mul_ok(a4, v8))
+  {
+    BUG();
+  }
+
+  if (__dst)
+  {
+    return memmove(__dst, v6, result);
+  }
+
+  return result;
+}
+
+uint64_t outlined destroy of ComputeDevice?(uint64_t a1)
+{
+  v1 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for ComputeDevice?);
+  (*(*(v1 - 8) + 8))(a1, v1);
+  return a1;
+}
+
+uint64_t MLDataTable.subscript.getter(Swift::String a1)
+{
+  v3 = v1;
+  if (v2[8])
+  {
+    swift_willThrow();
+    _StringGuts.grow(_:)(34);
+    0;
+    *&v12 = 0xD00000000000001FLL;
+    *(&v12 + 1) = "ml.activityclassifier" + 0x8000000000000000;
+    String.append(_:)(a1);
+    v5._object = 0xE100000000000000;
+    v5._countAndFlagsBits = 34;
+    String.append(_:)(v5);
+    v6 = lazy protocol witness table accessor for type MLCreateError and conformance MLCreateError();
+    result = swift_allocError(&type metadata for MLCreateError, v6, 0, 0);
+    *v8 = v12;
+    *(v8 + 16) = 0;
+    *(v8 + 32) = 0;
+    *(v8 + 48) = 1;
+    v9 = 1;
+  }
+
+  else
+  {
+    v4 = *(*v2 + 16);
+
+    v10 = specialized String.withCString<A>(_:)(partial apply for closure #1 in CMLTable.column(name:), v4, a1._countAndFlagsBits, a1._object, type metadata accessor for CMLColumn, partial apply for specialized closure #1 in _StringGuts.withCString<A>(_:));
+
+    v9 = 0;
+    v11 = type metadata accessor for _UntypedColumn();
+    result = swift_allocObject(v11, 24, 7);
+    *(result + 16) = v10;
+  }
+
+  *v3 = result;
+  *(v3 + 8) = v9;
+  return result;
+}
+
+Swift::Int MLDataTable.size.getter()
+{
+  v1 = *v0;
+  if (!*(v0 + 8))
+  {
+
+    v5 = CMLTable.rows()();
+    if (v6)
+    {
+      v10 = 191;
+    }
+
+    else
+    {
+      v7 = v5;
+      CMLTable.columns()();
+      if (!v6)
+      {
+        outlined consume of Result<_DataTable, Error>(v1, 0);
+        return v7;
+      }
+
+      v10 = 192;
+    }
+
+    swift_unexpectedError(v6, "CreateML/MLDataTable.swift", 26, 1, v10);
+    BUG();
+  }
+
+  v11[0] = *v0;
+  outlined copy of Result<_DataTable, Error>(v1, 1);
+  swift_errorRetain(v1);
+  v2 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Error);
+  v3 = _getErrorEmbeddedNSError<A>(_:)(v11, v2, &protocol self-conformance witness table for Error);
+  if (v3)
+  {
+    v4 = v3;
+    outlined consume of Result<_DataTable, Error>(v1, 1);
+  }
+
+  else
+  {
+    v4 = swift_allocError(v2, &protocol self-conformance witness table for Error, 0, 0);
+    *v8 = v1;
+  }
+
+  outlined consume of Result<_DataTable, Error>(v1, 1);
+  outlined consume of Result<_RegressorMetrics, Error>(v4, 1, 1);
+  return 0;
+}
+
+uint64_t *MLDataTable.init(namedColumns:)(uint64_t a1)
+{
+  v3 = v1;
+  result = _s8CreateML11MLDataTableV20uniqueKeysWithValuesACx_tKcSTRzSS3key_AA15MLUntypedColumnV5valuet7ElementRtzlufCSDySSAGG_Tt1g5(a1);
+  if (!v2)
+  {
+    result = v5;
+    *v3 = v5;
+    *(v3 + 8) = v6;
+  }
+
+  return result;
+}
+
+uint64_t MLDataTable.init()()
+{
+  v1 = v0;
+  empty = tc_v1_sframe_create_empty(0);
+  if (!empty)
+  {
+    BUG();
+  }
+
+  v3 = empty;
+  v4 = type metadata accessor for CMLTable();
+  v5 = swift_allocObject(v4, 24, 7);
+  *(v5 + 16) = v3;
+  v6 = type metadata accessor for _DataTable();
+  result = swift_allocObject(v6, 40, 7);
+  *(result + 24) = 0;
+  *(result + 16) = v5;
+  *v1 = result;
+  *(v1 + 8) = 0;
+  return result;
+}
+
+void *MLDataTable.subscript.getter(Swift::String a1, uint64_t a2, uint64_t a3)
+{
+  v22 = a3;
+  v23 = v3;
+  if (v4[8])
+  {
+    swift_willThrow();
+    _StringGuts.grow(_:)(34);
+    0;
+    *&v21 = 0xD00000000000001FLL;
+    *(&v21 + 1) = "Duplicate values for key: '" + 0x8000000000000000;
+    String.append(_:)(a1);
+    v7._countAndFlagsBits = 39;
+    v7._object = 0xE100000000000000;
+    String.append(_:)(v7);
+    v8 = lazy protocol witness table accessor for type MLCreateError and conformance MLCreateError();
+    v9 = swift_allocError(&type metadata for MLCreateError, v8, 0, 0);
+    *v10 = v21;
+    *(v10 + 16) = 0;
+    *(v10 + 32) = 0;
+    *(v10 + 48) = 1;
+    *&v21 = v9;
+    BYTE8(v21) = 1;
+    return MLDataColumn.init(from:)(&v21);
+  }
+
+  v6 = *(*v4 + 16);
+
+  v12 = specialized String.withCString<A>(_:)(closure #1 in CMLTable.column(name:)partial apply, v6, a1._countAndFlagsBits, a1._object, type metadata accessor for CMLColumn, partial apply for specialized closure #1 in _StringGuts.withCString<A>(_:));
+
+  v13 = type metadata accessor for _UntypedColumn();
+  v14 = swift_allocObject(v13, 24, 7);
+  *(v14 + 16) = v12;
+  v20 = v14;
+
+  MLUntypedColumn.column<A>(type:)(a2, a2, v22);
+  outlined consume of Result<_DataTable, Error>(v20, 0);
+  v15 = BYTE8(v21);
+  if (BYTE8(v21) == 0xFF)
+  {
+    _StringGuts.grow(_:)(49);
+    0;
+    strcpy(&v21, "Column named '");
+    HIBYTE(v21) = -18;
+    String.append(_:)(a1);
+    v16._object = "DataTable has no column named '" + 0x8000000000000000;
+    v16._countAndFlagsBits = 0xD000000000000021;
+    String.append(_:)(v16);
+    v17 = lazy protocol witness table accessor for type MLCreateError and conformance MLCreateError();
+    v18 = swift_allocError(&type metadata for MLCreateError, v17, 0, 0);
+    *v19 = v21;
+    *(v19 + 16) = 0;
+    *(v19 + 32) = 0;
+    *(v19 + 48) = 1;
+
+    *&v21 = v18;
+    BYTE8(v21) = 1;
+    return MLDataColumn.init(from:)(&v21);
+  }
+
+  result = v23;
+  *v23 = v21;
+  *(result + 8) = v15 & 1;
+  return result;
+}
+
+uint64_t MLDataTable.subscript.setter(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v11 = a2;
+  v5 = *a1;
+  v6 = *(a1 + 8);
+  MLDataTable.willMutate()();
+  v9 = v5;
+  v10 = v6;
+  MLDataTable.setColumnImpl(newColumn:named:)(&v9, a2, a3);
+  a3;
+  result = outlined consume of Result<_DataTable, Error>(v9, v10);
+  if (!*(v3 + 8))
+  {
+    v8 = *v3;
+    outlined copy of Result<_DataTable, Error>(v8, 0);
+    _DataTable.columnNamesDidChange()();
+    return outlined consume of Result<_DataTable, Error>(v8, 0);
+  }
+
+  return result;
+}
+
+{
+  v5 = *a1;
+  v6 = *(a1 + 8);
+  MLDataTable.willMutate()();
+  v9 = v5;
+  v10 = v6;
+  MLDataTable.setColumnImpl(newColumn:named:)(&v9, a2, a3);
+  a3;
+  result = outlined consume of Result<_DataTable, Error>(v5, v6);
+  if (!*(v3 + 8))
+  {
+    v8 = *v3;
+    outlined copy of Result<_DataTable, Error>(v8, 0);
+    _DataTable.columnNamesDidChange()();
+    return outlined consume of Result<_DataTable, Error>(v8, 0);
+  }
+
+  return result;
+}
+
+uint64_t MLDataTable.subscript.getter(uint64_t a1)
+{
+  v3 = *a1;
+  v4 = *(a1 + 8);
+  v5 = *v2;
+  v21 = *(v2 + 8);
+  v16 = v1;
+  v20 = v4;
+  if (v21)
+  {
+    v6 = *v2;
+    outlined copy of Result<_DataTable, Error>(v5, 1);
+    v7 = tc_v1_flex_list_create(0);
+    if (!v7)
+    {
+      BUG();
+    }
+
+    v8 = v7;
+    v9 = type metadata accessor for CMLSequence();
+    v10 = swift_allocObject(v9, 25, 7);
+    *(v10 + 16) = v8;
+    v19 = v10;
+    *(v10 + 24) = 1;
+    outlined consume of Result<_DataTable, Error>(v5, 1);
+  }
+
+  else
+  {
+    outlined copy of Result<_DataTable, Error>(v5, 0);
+    v6 = v5;
+    _DataTable.columnNames.getter();
+    outlined consume of Result<_DataTable, Error>(v5, 0);
+    v19 = v17;
+  }
+
+  v11 = swift_allocObject(&unk_394480, 25, 7);
+  *(v11 + 16) = v6;
+  *(v11 + 24) = v21;
+  v12 = swift_allocObject(&unk_3944A8, 25, 7);
+  *(v12 + 16) = v3;
+  *(v12 + 24) = v20 & 1;
+  v13 = swift_allocObject(&unk_3944D0, 56, 7);
+  v13[2] = partial apply for closure #2 in MLDataTable.subscript.getter;
+  v13[3] = v12;
+  v13[4] = v19;
+  v13[5] = partial apply for closure #1 in MLDataTable.subscript.getter;
+  v13[6] = v11;
+  outlined copy of Result<_DataTable, Error>(v6, v21);
+  outlined copy of Result<_DataTable, Error>(v3, v20);
+  swift_retain_n(v19, 3);
+
+  ML15MLUntypedColumnVs15LazyMapSequenceVyAE11MLDataTableV0I5NamesVSS_AGtGTt0B5 = _sSD20uniqueKeysWithValuesSDyxq_Gqd__n_tcSTRd__x_q_t7ElementRtd__lufCSS_8CreateML15MLUntypedColumnVs15LazyMapSequenceVyAE11MLDataTableV0I5NamesVSS_AGtGTt0B5(v19, partial apply for specialized closure #1 in LazyMapSequence<>.map<A>(_:), v13);
+  _s8CreateML11MLDataTableV20uniqueKeysWithValuesACx_tKcSTRzSS3key_AA15MLUntypedColumnV5valuet7ElementRtzlufCSDySSAGG_Tt1g5(ML15MLUntypedColumnVs15LazyMapSequenceVyAE11MLDataTableV0I5NamesVSS_AGtGTt0B5);
+
+  v19;
+  result = v17;
+  *v16 = v17;
+  *(v16 + 8) = v18;
+  return result;
+}
+
+{
+  v12 = v1;
+  v3 = *a1;
+  v5 = *(a1 + 8);
+  v6 = *(v2 + 8);
+  v10 = *v2;
+  v4 = v10;
+  v11 = v6;
+  v8 = v3;
+  v9 = v5;
+  outlined copy of Result<_DataTable, Error>(v3, v5);
+  outlined copy of Result<_DataTable, Error>(v10, v6);
+  MLDataTable.subscript.getter(&v8);
+  outlined consume of Result<_DataTable, Error>(v3, v5);
+  return outlined consume of Result<_DataTable, Error>(v4, v6);
+}
+
+uint64_t MLDataTable.subscript.getter(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v44._countAndFlagsBits = a1;
+  v41 = v3;
+  v48 = 0;
+  AssociatedConformanceWitness = *(a2 - 8);
+  v6 = *(AssociatedConformanceWitness + 64);
+  v7 = alloca(v6);
+  v8 = alloca(v6);
+  v47 = &v40;
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness(0, a3, a2, &protocol requirements base descriptor for Sequence, &associated type descriptor for Sequence.Iterator);
+  v42 = *(AssociatedTypeWitness - 8);
+  v9 = *(v42 + 64);
+  v10 = alloca(v9);
+  v11 = alloca(v9);
+  v50 = &v40;
+  v43 = *v4;
+  v54 = *(v4 + 8);
+  empty = tc_v1_sframe_create_empty(0);
+  if (!empty)
+  {
+    BUG();
+  }
+
+  v13 = empty;
+  v14 = type metadata accessor for CMLTable();
+  v15 = swift_allocObject(v14, 24, 7);
+  *(v15 + 16) = v13;
+  v16 = type metadata accessor for _DataTable();
+  v17 = swift_allocObject(v16, 40, 7);
+  *(v17 + 24) = 0;
+  *(v17 + 16) = v15;
+  v51 = v17;
+  v52 = 0;
+  (*(AssociatedConformanceWitness + 16))(v47, v44._countAndFlagsBits, a2);
+  v18 = v50;
+  dispatch thunk of Sequence.makeIterator()(a2, a3);
+  v19 = AssociatedTypeWitness;
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(a3, a2, AssociatedTypeWitness, &protocol requirements base descriptor for Sequence, &associated conformance descriptor for Sequence.Sequence.Iterator: IteratorProtocol);
+  v47 = "ml.activityclassifier" + 0x8000000000000000;
+  v45 = v54;
+  v20 = v18;
+  v21 = v54;
+  while (1)
+  {
+    dispatch thunk of IteratorProtocol.next()(v19, AssociatedConformanceWitness);
+    v22 = *(&v53 + 1);
+    if (!*(&v53 + 1))
+    {
+      break;
+    }
+
+    v23 = v53;
+    v44._countAndFlagsBits = v53;
+    if (v21)
+    {
+      v24 = v43;
+      swift_willThrow();
+      outlined copy of Result<_DataTable, Error>(v24, 1);
+      v48 = 0;
+      goto LABEL_8;
+    }
+
+    v24 = v43;
+    v25 = *(v43 + 16);
+    outlined copy of Result<_DataTable, Error>(v43, 0);
+
+    v26 = v23;
+    v27 = v48;
+    v28 = specialized String.withCString<A>(_:)(closure #1 in CMLTable.column(name:)partial apply, v25, v26, v22, type metadata accessor for CMLColumn, partial apply for specialized closure #1 in _StringGuts.withCString<A>(_:));
+    if (v27)
+    {
+      v27;
+
+      v48 = 0;
+LABEL_8:
+      *&v53 = 0;
+      *(&v53 + 1) = 0xE000000000000000;
+      _StringGuts.grow(_:)(34);
+      SBYTE8(v53);
+      *&v53 = 0xD00000000000001FLL;
+      *(&v53 + 1) = v47;
+      v29._countAndFlagsBits = v44._countAndFlagsBits;
+      v29._object = v22;
+      String.append(_:)(v29);
+      v29._countAndFlagsBits = 34;
+      v29._object = 0xE100000000000000;
+      String.append(_:)(v29);
+      v44 = v53;
+      v30 = lazy protocol witness table accessor for type MLCreateError and conformance MLCreateError();
+      v31 = swift_allocError(&type metadata for MLCreateError, v30, 0, 0);
+      *v32 = v44;
+      *(v32 + 16) = 0;
+      *(v32 + 32) = 0;
+      *(v32 + 48) = 1;
+      outlined consume of Result<_DataTable, Error>(v24, v45);
+      outlined consume of Result<_DataTable, Error>(v31, 1);
+      v22;
+      v19 = AssociatedTypeWitness;
+      v20 = v50;
+      v21 = v54;
+    }
+
+    else
+    {
+      v33 = v28;
+      v48 = 0;
+
+      outlined consume of Result<_DataTable, Error>(v24, 0);
+      v34 = type metadata accessor for _UntypedColumn();
+      v35 = swift_allocObject(v34, 24, 7);
+      *(v35 + 16) = v33;
+      outlined copy of Result<_DataTable, Error>(v35, 0);
+      MLDataTable.willMutate()();
+      *&v53 = v35;
+      BYTE8(v53) = 0;
+      MLDataTable.setColumnImpl(newColumn:named:)(&v53, v44._countAndFlagsBits, v22);
+      v22;
+      outlined consume of Result<_DataTable, Error>(v35, 0);
+      if (!v52)
+      {
+        v36 = v51;
+        outlined copy of Result<_DataTable, Error>(v51, 0);
+        _DataTable.columnNamesDidChange()();
+        outlined consume of Result<_DataTable, Error>(v36, 0);
+      }
+
+      outlined consume of Result<_DataTable, Error>(v35, 0);
+      v19 = AssociatedTypeWitness;
+      v20 = v50;
+      v21 = v54;
+    }
+  }
+
+  (*(v42 + 8))(v20, v19);
+  result = v51;
+  v38 = v52;
+  v39 = v41;
+  *v41 = v51;
+  *(v39 + 8) = v38;
+  return result;
+}
+
+{
+  v16 = a3;
+  v19 = a2;
+  v17 = a1;
+  v5 = v3;
+  v6 = *v4;
+  v7 = *(v4 + 8);
+  v14 = v6;
+  LOBYTE(v15) = v7 & 1;
+  outlined copy of Result<_DataTable, Error>(v6, v7);
+  v8 = MLDataTable.size.getter();
+  outlined consume of Result<_DataTable, Error>(v6, v7);
+  if (v8 < 0)
+  {
+    BUG();
+  }
+
+  v13[0] = 0;
+  v13[1] = v8;
+  v9 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Range<Int>);
+  v10 = lazy protocol witness table accessor for type Range<Int> and conformance <> Range<A>();
+  v18 = v5;
+  dispatch thunk of RangeExpression.relative<A>(to:)(v13, v9, v10, v19, v16);
+  v11 = v14;
+  v19 = v15;
+  v14 = v6;
+  LOBYTE(v15) = v7 & 1;
+  outlined copy of Result<_DataTable, Error>(v6, v7);
+  MLDataTable.subscript.getter(v11, v19);
+  return outlined consume of Result<_DataTable, Error>(v6, v7);
+}
+
+uint64_t MLDataTable.addColumn(_:named:)(uint64_t *a1, uint64_t a2, void *a3)
+{
+  v5 = *a1;
+  v6 = *(a1 + 8);
+  MLDataTable.willMutate()();
+  v9 = v5;
+  v10 = v6;
+  result = MLDataTable.addImpl(newColumn:named:)(&v9, a2, a3);
+  if (!*(v3 + 8))
+  {
+    v8 = *v3;
+    outlined copy of Result<_DataTable, Error>(v8, 0);
+    _DataTable.columnNamesDidChange()();
+    return outlined consume of Result<_DataTable, Error>(v8, 0);
+  }
+
+  return result;
+}
+
+void *_sSD20uniqueKeysWithValuesSDyxq_Gqd__n_tcSTRd__x_q_t7ElementRtd__lufC8CreateML11MLDataValueO_AGs15LazyMapSequenceVys0j6FilterL0VyAIyAE13CMLDictionaryCAG_AGtSgGGAG_AGtGTt0g5(uint64_t *a1)
+{
+  v2 = _swiftEmptyDictionarySingleton;
+
+  specialized _NativeDictionary.merge<A>(_:isUnique:uniquingKeysWith:)(a1, 1, &v2);
+
+  return v2;
+}
+
+void *_sSD20uniqueKeysWithValuesSDyxq_Gqd__n_tcSTRd__x_q_t7ElementRtd__lufCSS_SdSaySS_SdtGTt0g5Tm(uint64_t a1, uint64_t *a2, void (*a3)(uint64_t, uint64_t, void **))
+{
+  v4 = *(a1 + 16);
+  if (v4)
+  {
+    __swift_instantiateConcreteTypeFromMangledName(a2);
+    v5 = static _DictionaryStorage.allocate(capacity:)(v4);
+  }
+
+  else
+  {
+    v5 = _swiftEmptyDictionarySingleton;
+  }
+
+  v7 = v5;
+
+  a3(a1, 1, &v7);
+  a1;
+  return v7;
+}
+
+void *_sSD20uniqueKeysWithValuesSDyxq_Gqd__n_tcSTRd__x_q_t7ElementRtd__lufCSS_8CreateML15MLUntypedColumnVs15LazyMapSequenceVyAE11MLDataTableV0I5NamesVSS_AGtGTt0B5(uint64_t a1, void (*a2)(unint64_t *), uint64_t a3)
+{
+  v4 = specialized Collection.underestimatedCount.getter();
+  if (v4)
+  {
+    v5 = v4;
+    __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for _DictionaryStorage<String, MLUntypedColumn>);
+    v6 = static _DictionaryStorage.allocate(capacity:)(v5);
+  }
+
+  else
+  {
+    v6 = _swiftEmptyDictionarySingleton;
+  }
+
+  v8 = v6;
+
+  specialized _NativeDictionary.merge<A>(_:isUnique:uniquingKeysWith:)(a1, a2, a3, 1, &v8);
+
+  return v8;
+}
+
+void *_sSD20uniqueKeysWithValuesSDyxq_Gqd__n_tcSTRd__x_q_t7ElementRtd__lufC8CreateML11MLDataValueO_Sis12Zip2SequenceVySayAGGSnySiGGTt0g5Tm(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, void (*a5)(uint64_t, uint64_t, uint64_t, uint64_t, void **))
+{
+  if (__OFSUB__(a3, a2))
+  {
+    BUG();
+  }
+
+  v7 = *(a1 + 16);
+  if (a3 - a2 < v7)
+  {
+    v7 = a3 - a2;
+  }
+
+  if (v7)
+  {
+    __swift_instantiateConcreteTypeFromMangledName(a4);
+    v8 = static _DictionaryStorage.allocate(capacity:)(v7);
+  }
+
+  else
+  {
+    v8 = _swiftEmptyDictionarySingleton;
+  }
+
+  v10 = v8;
+
+  a5(a1, a2, a3, 1, &v10);
+  a1;
+  return v10;
+}
+
+Swift::Void __swiftcall MLDataTable.renameColumn(named:to:)(Swift::String named, Swift::String to)
+{
+  object = to._object;
+  countAndFlagsBits = to._countAndFlagsBits;
+  MLDataTable.willMutate()();
+  v5._countAndFlagsBits = countAndFlagsBits;
+  v5._object = object;
+  MLDataTable.renameImpl(named:to:)(named, v5);
+  if (!*(v2 + 8))
+  {
+    v6 = *v2;
+    outlined copy of Result<_DataTable, Error>(v6, 0);
+    _DataTable.columnNamesDidChange()();
+    outlined consume of Result<_DataTable, Error>(v6, 0);
+  }
+}
+
+uint64_t specialized String.withCString<A>(_:)(uint64_t (*a1)(void), uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  return specialized String.withCString<A>(_:)(a1, a2, a3, a4, type metadata accessor for CMLVariant, _ss11_StringGutsV11withCStringyxxSPys4Int8VGKXEKlFxSRyAEGKXEfU_s13OpaquePointerV_TG5TA_0);
+}
+
+{
+  return specialized String.withCString<A>(_:)(a1, a2, a3, a4, type metadata accessor for CMLColumn, partial apply for specialized closure #1 in _StringGuts.withCString<A>(_:));
+}
+
+{
+  return specialized String.withCString<A>(_:)(a1, a2, a3, a4, type metadata accessor for CMLFeatureValue, partial apply for specialized closure #1 in _StringGuts.withCString<A>(_:));
+}
+
+{
+  return specialized String.withCString<A>(_:)(a1, a2, a3, a4, type metadata accessor for CMLTable, partial apply for specialized closure #1 in _StringGuts.withCString<A>(_:));
+}
+
+uint64_t specialized String.withCString<A>(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  if ((a2 & 0x1000000000000000) != 0 || !(a2 & 0x2000000000000000 | a1 & 0x1000000000000000))
+  {
+    _StringGuts._slowWithCString<A>(_:)(partial apply for closure #1 in CMLTable.removeColumn(name:), a3, a1, a2, &type metadata for () + 8);
+  }
+
+  if ((a2 & 0x2000000000000000) == 0)
+  {
+    if ((a1 & 0x1000000000000000) != 0)
+    {
+      v3 = (a2 & 0xFFFFFFFFFFFFFFFLL) + 32;
+      v4 = a1 & 0xFFFFFFFFFFFFLL;
+    }
+
+    else
+    {
+      v3 = _StringObject.sharedUTF8.getter(a1, a2);
+      v4 = v6;
+    }
+
+    _sSRsRi_zrlE17withMemoryRebound2to_qd_1_qd__m_qd_1_SRyqd__Gqd_0_YKXEtqd_0_YKs5ErrorRd_0_Ri_d__Ri_d_1_r1_lFSRyxGq0_q_Ri_zRi0_zRi__Ri0__Ri_0_Ri0_0_r1_lys4Int8VsAD_pqd_1_Isgyrzr_SRys5UInt8VGqd_1_sAD_pAIRszAGRsd__sAD_pRsd_0_Ri_d_1_r_1_lIetMgyrzo_Tpq5yt_Tg507_sSRys4f5VGxs5E34_pIgyrzo_ACxsAD_pIegyrzr_lTRyt_TG5SRyAGGytsAD_pIgyrzo_Tf1ncn_n038_ss11_StringGutsV11withCStringyxxSPys4F27VGKXEKlFxSRyAEGKXEfU_yt_Tg5SPyAGGxsAD_pRi_zRi0_zlyytIsgyrzo_Tf1nnc_n(v3, v4, partial apply for closure #1 in CMLTable.removeColumn(name:));
+  }
+
+  v7[0] = a1;
+  v7[1] = a2 & 0xFFFFFFFFFFFFFFLL;
+  specialized handling<A, B, C>(_:_:_:)(*(a3 + 16), v7);
+}
+
+char specialized String.withCString<A>(_:)(uint64_t (*a1)(void), uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  if ((a4 & 0x1000000000000000) != 0 || !(a4 & 0x2000000000000000 | a3 & 0x1000000000000000))
+  {
+    result = _StringGuts._slowWithCString<A>(_:)(a1, a2, a3, a4, &type metadata for CMLFeatureValueType);
+    if (!v4)
+    {
+      return v10;
+    }
+  }
+
+  else
+  {
+    v5 = alloca(32);
+    v6 = alloca(32);
+    if ((a4 & 0x2000000000000000) != 0)
+    {
+      result = a1();
+      if (!v4)
+      {
+        return HIBYTE(a2);
+      }
+    }
+
+    else
+    {
+      if ((a3 & 0x1000000000000000) != 0)
+      {
+        v7 = (a4 & 0xFFFFFFFFFFFFFFFLL) + 32;
+        v8 = a3 & 0xFFFFFFFFFFFFLL;
+      }
+
+      else
+      {
+        v7 = _StringObject.sharedUTF8.getter(a3, a4);
+      }
+
+      return _sSRsRi_zrlE17withMemoryRebound2to_qd_1_qd__m_qd_1_SRyqd__Gqd_0_YKXEtqd_0_YKs5ErrorRd_0_Ri_d__Ri_d_1_r1_lFSRyxGq0_q_Ri_zRi0_zRi__Ri0__Ri_0_Ri0_0_r1_lys4Int8VsAD_pqd_1_Isgyrzr_SRys5UInt8VGqd_1_sAD_pAIRszAGRsd__sAD_pRsd_0_Ri_d_1_r_1_lIetMgyrzo_Tpq5Sb_Tg507_sSRys4f5VGxs5E34_pIgyrzo_ACxsAD_pIegyrzr_lTRSb_TG5SRyAGGSbsAD_pIgyrzo_Tf1cn_n(v7, v8, _ss11_StringGutsV11withCStringyxxSPys4Int8VGKXEKlFxSRyAEGKXEfU_Sb_TG5TA_0);
+    }
+  }
+
+  return result;
+}
+
+uint64_t specialized String.withCString<A>(_:)(uint64_t (*a1)(void), uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void), uint64_t (*a6)(uint64_t, uint64_t))
+{
+  if ((a4 & 0x1000000000000000) != 0 || !(a4 & 0x2000000000000000 | a3 & 0x1000000000000000))
+  {
+    v14 = a5(0);
+    result = _StringGuts._slowWithCString<A>(_:)(a1, a2, a3, a4, v14);
+    if (!v6)
+    {
+      return v18;
+    }
+  }
+
+  else
+  {
+    v9 = alloca(32);
+    v10 = alloca(32);
+    if ((a4 & 0x2000000000000000) != 0)
+    {
+      result = a1();
+      if (!v6)
+      {
+        return v19;
+      }
+    }
+
+    else
+    {
+      if ((a3 & 0x1000000000000000) != 0)
+      {
+        v11 = (a4 & 0xFFFFFFFFFFFFFFFLL) + 32;
+        v12 = a3 & 0xFFFFFFFFFFFFLL;
+      }
+
+      else
+      {
+        v15 = a6;
+        v16 = _StringObject.sharedUTF8.getter(a3, a4);
+        a6 = v15;
+        v11 = v16;
+        v12 = v17;
+      }
+
+      return _sSRsRi_zrlE17withMemoryRebound2to_qd_1_qd__m_qd_1_SRyqd__Gqd_0_YKXEtqd_0_YKs5ErrorRd_0_Ri_d__Ri_d_1_r1_lFSRyxGq0_q_Ri_zRi0_zRi__Ri0__Ri_0_Ri0_0_r1_lys4Int8VsAD_pqd_1_Isgyrzr_SRys5UInt8VGqd_1_sAD_pAIRszAGRsd__sAD_pRsd_0_Ri_d_1_r_1_lIetMgyrzo_Tpq5s13OpaquePointerV_Tg507_sSRys4f5VGxs5e31_pIgyrzo_ACxsAD_pIegyrzr_lTRs13hI5V_TG5SRyAGGALsAD_pIgyrzo_Tf1cn_n(v11, v12, a6);
+    }
+  }
+
+  return result;
+}
+
+uint64_t (*specialized String.withCString<A>(_:)(uint64_t (*a1)(void, void, void), uint64_t a2, uint64_t a3, uint64_t a4))(void, void, void)
+{
+  if ((a4 & 0x1000000000000000) != 0 || !(a4 & 0x2000000000000000 | a3 & 0x1000000000000000))
+  {
+    result = _StringGuts._slowWithCString<A>(_:)(a1, a2, a3, a4, &type metadata for OpaquePointer);
+    if (!v4)
+    {
+      return v11;
+    }
+  }
+
+  else
+  {
+    v5 = alloca(32);
+    v6 = alloca(32);
+    v11 = a1;
+    v12 = a2;
+    if ((a4 & 0x2000000000000000) != 0)
+    {
+      v10[0] = a3;
+      v10[1] = a4 & 0xFFFFFFFFFFFFFFLL;
+      result = a1(v10, a1, a3);
+      if (!v4)
+      {
+        return v12;
+      }
+    }
+
+    else
+    {
+      if ((a3 & 0x1000000000000000) != 0)
+      {
+        v7 = (a4 & 0xFFFFFFFFFFFFFFFLL) + 32;
+        v8 = a3 & 0xFFFFFFFFFFFFLL;
+      }
+
+      else
+      {
+        v7 = _StringObject.sharedUTF8.getter(a3, a4);
+      }
+
+      return _sSRsRi_zrlE17withMemoryRebound2to_qd_1_qd__m_qd_1_SRyqd__Gqd_0_YKXEtqd_0_YKs5ErrorRd_0_Ri_d__Ri_d_1_r1_lFSRyxGq0_q_Ri_zRi0_zRi__Ri0__Ri_0_Ri0_0_r1_lys4Int8VsAD_pqd_1_Isgyrzr_SRys5UInt8VGqd_1_sAD_pAIRszAGRsd__sAD_pRsd_0_Ri_d_1_r_1_lIetMgyrzo_Tpq5s13OpaquePointerV_Tg507_sSRys4f5VGxs5e31_pIgyrzo_ACxsAD_pIegyrzr_lTRs13hI5V_TG5SRyAGGALsAD_pIgyrzo_Tf1cn_n(v7, v8, partial apply for specialized closure #1 in _StringGuts.withCString<A>(_:));
+    }
+  }
+
+  return result;
+}
+
+uint64_t *MLDataTable.init(dictionary:)(uint64_t a1)
+{
+  v43 = v2;
+  v35 = v1;
+  empty = tc_v1_sframe_create_empty(0);
+  if (!empty)
+  {
+    BUG();
+  }
+
+  v5 = empty;
+  v44 = 0;
+  v6 = type metadata accessor for CMLTable();
+  v7 = swift_allocObject(v6, 24, 7);
+  *(v7 + 16) = v5;
+  v8 = type metadata accessor for _DataTable();
+  v9 = swift_allocObject(v8, 40, 7);
+  *(v9 + 24) = 0;
+  *(v9 + 16) = v7;
+  v10 = 1 << *(a1 + 32);
+  v11 = ~(-1 << v10);
+  if (v10 >= 64)
+  {
+    v11 = -1;
+  }
+
+  v12 = *(a1 + 64) & v11;
+  v46 = (v10 + 63) >> 6;
+  v36 = v46 - 1;
+  v45 = v9;
+
+  v13 = &v37;
+  v42 = a1;
+  while (1)
+  {
+    if (v12)
+    {
+      v14 = v44;
+LABEL_7:
+      _BitScanForward64(&v15, v12);
+      v41 = (v12 - 1) & v12;
+      v16 = v15 | (v14 << 6);
+      v17 = *(a1 + 48);
+      v18 = 40 * v16;
+      v16 *= 16;
+      v19 = *(v17 + v16 + 8);
+      *&v37 = *(v17 + v16);
+      *(&v37 + 1) = v19;
+      outlined init with copy of TabularRegressionTask(*(a1 + 56) + v18, &v38);
+
+      goto LABEL_17;
+    }
+
+    v14 = v44;
+    v20 = v44 + 1;
+    if (__OFADD__(1, v44))
+    {
+      BUG();
+    }
+
+    if (v20 < v46)
+    {
+      v12 = *(a1 + 8 * v20 + 64);
+      if (v12)
+      {
+        v14 = v44 + 1;
+        goto LABEL_7;
+      }
+
+      v21 = v44 + 2;
+      if (v44 + 2 >= v46)
+      {
+        v14 = v44 + 1;
+      }
+
+      else
+      {
+        v12 = *(a1 + 8 * v20 + 72);
+        if (v12)
+        {
+          goto LABEL_14;
+        }
+
+        v28 = v44 + 3;
+        if (v44 + 3 >= v46)
+        {
+          goto LABEL_33;
+        }
+
+        v12 = *(a1 + 8 * v20 + 80);
+        if (v12)
+        {
+          goto LABEL_22;
+        }
+
+        v21 = v44 + 4;
+        if (v44 + 4 >= v46)
+        {
+          goto LABEL_34;
+        }
+
+        v12 = *(a1 + 8 * v20 + 88);
+        if (v12)
+        {
+          goto LABEL_14;
+        }
+
+        v28 = v44 + 5;
+        if (v44 + 5 >= v46)
+        {
+LABEL_33:
+          v14 = v21;
+        }
+
+        else
+        {
+          v12 = *(a1 + 8 * v20 + 96);
+          if (v12)
+          {
+LABEL_22:
+            v14 = v28;
+            goto LABEL_7;
+          }
+
+          v21 = v44 + 6;
+          if (v44 + 6 >= v46)
+          {
+LABEL_34:
+            v14 = v28;
+            goto LABEL_16;
+          }
+
+          v12 = *(a1 + 8 * v20 + 104);
+          if (v12)
+          {
+LABEL_14:
+            v14 = v21;
+            goto LABEL_7;
+          }
+
+          v29 = v44 + 7;
+          while (v29 < v46)
+          {
+            v12 = *(a1 + 8 * v29++ + 64);
+            if (v12)
+            {
+              v14 = v29 - 1;
+              goto LABEL_7;
+            }
+          }
+
+          v14 = v36;
+        }
+      }
+    }
+
+LABEL_16:
+    v39 = 0;
+    v38 = 0;
+    v37 = 0;
+    v40 = 0;
+    v41 = 0;
+LABEL_17:
+    v33 = v40;
+    v32[1] = v39;
+    v32[0] = v38;
+    v22 = *(&v37 + 1);
+    if (!*(&v37 + 1))
+    {
+      v30 = v45;
+
+      result = v35;
+      *v35 = v30;
+      *(result + 8) = 0;
+      return result;
+    }
+
+    v44 = v14;
+    v34 = v37;
+    outlined init with take of TabularRegressionTask(v32, v13);
+    v23 = *(&v38 + 1);
+    v24 = v13;
+    v25 = v39;
+    __swift_project_boxed_opaque_existential_0Tm(v24, *(&v38 + 1));
+    v26 = MLDataValueConvertible.featureColumn.getter(v23, v25);
+
+    v27 = v43;
+    CMLTable.addColumn(name:_:)(v34, v22, v26);
+    v43 = v27;
+    if (v27)
+    {
+      break;
+    }
+
+    v22;
+    __swift_destroy_boxed_opaque_existential_1Tm(v24);
+    a1 = v42;
+    v13 = v24;
+    v12 = v41;
+  }
+
+  v45;
+
+  v22;
+  return __swift_destroy_boxed_opaque_existential_1Tm(&v37);
+}
+
+uint64_t MLDataTable.append(contentsOf:)(uint64_t *a1)
+{
+  v2 = v1;
+  v3 = *v1;
+  if (*(v1 + 8))
+  {
+    swift_errorRetain(*v1);
+    v4 = 1;
+  }
+
+  else
+  {
+    v5 = *a1;
+    if (*(a1 + 8))
+    {
+      swift_errorRetain(*a1);
+      v4 = 1;
+      v3 = v5;
+    }
+
+    else
+    {
+      type metadata accessor for CMLTable();
+      v6 = *(v3 + 16);
+      v7 = *(v5 + 16);
+      outlined copy of Result<_DataTable, Error>(v5, 0);
+      outlined copy of Result<_DataTable, Error>(v3, 0);
+
+      v8 = CMLTable.__allocating_init(concatenating:and:)(v6, v7);
+      v9 = type metadata accessor for _DataTable();
+      v10 = swift_allocObject(v9, 40, 7);
+      *(v10 + 24) = 0;
+      *(v10 + 16) = v8;
+      v4 = 0;
+      outlined consume of Result<_DataTable, Error>(v5, 0);
+      outlined consume of Result<_DataTable, Error>(v3, 0);
+      v3 = v10;
+    }
+  }
+
+  result = outlined consume of Result<_DataTable, Error>(*v2, *(v2 + 8));
+  *v2 = v3;
+  *(v2 + 8) = v4;
+  return result;
+}
+
+uint64_t MLDataTable.addColumn<A>(_:named:)(uint64_t a1, uint64_t a2, void *a3)
+{
+  v10 = a3;
+  v4 = *a1;
+  v5 = *(a1 + 8);
+  MLDataTable.willMutate()();
+  v8 = v4;
+  v9 = v5;
+  outlined copy of Result<_DataTable, Error>(v4, v5);
+  MLDataTable.addImpl(newColumn:named:)(&v8, a2, v10);
+  result = outlined consume of Result<_DataTable, Error>(v8, v9);
+  if (!*(v3 + 8))
+  {
+    v7 = *v3;
+    outlined copy of Result<_DataTable, Error>(v7, 0);
+    _DataTable.columnNamesDidChange()();
+    return outlined consume of Result<_DataTable, Error>(v7, 0);
+  }
+
+  return result;
+}
+
+uint64_t MLDataTable.columnTypes.getter()
+{
+  if (*(v0 + 8))
+  {
+    return Dictionary.init(dictionaryLiteral:)(_swiftEmptyArrayStorage, &type metadata for String, &type metadata for MLDataValue.ValueType, &protocol witness table for String);
+  }
+
+  v2 = *v0;
+  v88 = *(v2 + 16);
+
+  outlined copy of Result<_DataTable, Error>(v2, 0);
+  v105 = Dictionary.init(dictionaryLiteral:)(_swiftEmptyArrayStorage, &type metadata for String, &type metadata for MLDataValue.ValueType, &protocol witness table for String);
+  outlined copy of Result<_DataTable, Error>(v2, 0);
+  _DataTable.columnNames.getter();
+  v87 = v2;
+  outlined consume of Result<_DataTable, Error>(v2, 0);
+
+  v3 = CMLSequence.size.getter();
+  v4 = specialized RandomAccessCollection<>.distance(from:to:)(0, v3);
+
+  if (v4)
+  {
+    v5 = 0;
+    while (2)
+    {
+      v89 = v5;
+      CMLSequence.value(at:)(v5);
+      v6 = CMLFeatureValue.stringValue()();
+      if (v7)
+      {
+        v7;
+
+        _StringGuts.grow(_:)(37);
+        0;
+        v84._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter(&type metadata for Int, &protocol witness table for Int);
+        object = v84._object;
+        String.append(_:)(v84);
+        object;
+        v86._countAndFlagsBits = 46;
+        v86._object = 0xE100000000000000;
+        String.append(_:)(v86);
+        _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD000000000000022, ("able.ColumnNames.swift" + 0x8000000000000000), "CreateML/MLDataTable.ColumnNames.swift", 38, 2, 17, 0);
+        BUG();
+      }
+
+      countAndFlagsBits = v6._countAndFlagsBits;
+      v9 = v6._object;
+
+      v10 = CMLSequence.size.getter();
+      v11 = specialized RandomAccessCollection<>.distance(from:to:)(0, v10);
+
+      if (v89 >= v11)
+      {
+        BUG();
+      }
+
+      v12 = specialized String.withCString<A>(_:)(partial apply for closure #1 in CMLTable.columnType(name:), v88, countAndFlagsBits, v9);
+      isUnique = swift_isUniquelyReferenced_nonNull_native(v105);
+      switch(v12)
+      {
+        case 0:
+          v97 = v105;
+          v13 = specialized __RawDictionaryStorage.find<A>(_:)(countAndFlagsBits, v9);
+          v15 = (v14 & 1) == 0;
+          v16 = __OFADD__(*(v105 + 16), v15);
+          v17 = *(v105 + 16) + v15;
+          if (v16)
+          {
+            BUG();
+          }
+
+          v106 = v14;
+          v90 = v13;
+          __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for _NativeDictionary<String, MLDataValue.ValueType>);
+          if (_NativeDictionary.ensureUnique(isUnique:capacity:)(isUnique, v17))
+          {
+            v21 = countAndFlagsBits;
+            v18 = v9;
+            v19 = specialized __RawDictionaryStorage.find<A>(_:)(countAndFlagsBits, v9);
+            LOBYTE(v20) = v20 & 1;
+            LOBYTE(v21) = v106;
+            v22 = v21;
+            LOBYTE(v22) = v106 & 1;
+            if ((v106 & 1) != v20)
+            {
+              goto LABEL_84;
+            }
+          }
+
+          else
+          {
+            v19 = v90;
+            LOBYTE(v21) = v106;
+          }
+
+          v59 = v97;
+          v105 = v97;
+          if (v21)
+          {
+            *(v97[7] + v19) = 0;
+            goto LABEL_67;
+          }
+
+          v97[(v19 >> 6) + 8] |= 1 << v19;
+          v70 = v97[6];
+          v71 = 16 * v19;
+          *(v70 + v71) = countAndFlagsBits;
+          *(v70 + v71 + 8) = v9;
+          *(v97[7] + v19) = 0;
+          v72 = v97[2];
+          v16 = __OFADD__(1, v72);
+          v63 = v72 + 1;
+          if (v16)
+          {
+            BUG();
+          }
+
+          goto LABEL_71;
+        case 1:
+          v101 = v105;
+          v41 = specialized __RawDictionaryStorage.find<A>(_:)(countAndFlagsBits, v9);
+          v43 = (v42 & 1) == 0;
+          v16 = __OFADD__(*(v105 + 16), v43);
+          v44 = *(v105 + 16) + v43;
+          if (v16)
+          {
+            BUG();
+          }
+
+          v110 = v42;
+          v94 = v41;
+          __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for _NativeDictionary<String, MLDataValue.ValueType>);
+          if (_NativeDictionary.ensureUnique(isUnique:capacity:)(isUnique, v44))
+          {
+            v46 = countAndFlagsBits;
+            v18 = v9;
+            v45 = specialized __RawDictionaryStorage.find<A>(_:)(countAndFlagsBits, v9);
+            LOBYTE(v20) = v20 & 1;
+            LOBYTE(v46) = v110;
+            v22 = v46;
+            LOBYTE(v22) = v110 & 1;
+            if ((v110 & 1) != v20)
+            {
+              goto LABEL_84;
+            }
+          }
+
+          else
+          {
+            v45 = v94;
+            LOBYTE(v46) = v110;
+          }
+
+          v59 = v101;
+          v105 = v101;
+          if (v46)
+          {
+            *(v101[7] + v45) = 1;
+            goto LABEL_67;
+          }
+
+          v101[(v45 >> 6) + 8] |= 1 << v45;
+          v73 = v101[6];
+          v74 = 16 * v45;
+          *(v73 + v74) = countAndFlagsBits;
+          *(v73 + v74 + 8) = v9;
+          *(v101[7] + v45) = 1;
+          v75 = v101[2];
+          v16 = __OFADD__(1, v75);
+          v63 = v75 + 1;
+          if (v16)
+          {
+            BUG();
+          }
+
+          goto LABEL_71;
+        case 2:
+          v99 = v105;
+          v29 = specialized __RawDictionaryStorage.find<A>(_:)(countAndFlagsBits, v9);
+          v31 = (v30 & 1) == 0;
+          v16 = __OFADD__(*(v105 + 16), v31);
+          v32 = *(v105 + 16) + v31;
+          if (v16)
+          {
+            BUG();
+          }
+
+          v108 = v30;
+          v92 = v29;
+          __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for _NativeDictionary<String, MLDataValue.ValueType>);
+          if (_NativeDictionary.ensureUnique(isUnique:capacity:)(isUnique, v32))
+          {
+            v34 = countAndFlagsBits;
+            v18 = v9;
+            v33 = specialized __RawDictionaryStorage.find<A>(_:)(countAndFlagsBits, v9);
+            LOBYTE(v20) = v20 & 1;
+            LOBYTE(v34) = v108;
+            v22 = v34;
+            LOBYTE(v22) = v108 & 1;
+            if ((v108 & 1) != v20)
+            {
+              goto LABEL_84;
+            }
+          }
+
+          else
+          {
+            v33 = v92;
+            LOBYTE(v34) = v108;
+          }
+
+          v59 = v99;
+          v105 = v99;
+          if (v34)
+          {
+            *(v99[7] + v33) = 2;
+            goto LABEL_67;
+          }
+
+          v99[(v33 >> 6) + 8] |= 1 << v33;
+          v64 = v99[6];
+          v65 = 16 * v33;
+          *(v64 + v65) = countAndFlagsBits;
+          *(v64 + v65 + 8) = v9;
+          *(v99[7] + v33) = 2;
+          v66 = v99[2];
+          v16 = __OFADD__(1, v66);
+          v63 = v66 + 1;
+          if (v16)
+          {
+            BUG();
+          }
+
+          goto LABEL_71;
+        case 3:
+          v100 = v105;
+          v35 = specialized __RawDictionaryStorage.find<A>(_:)(countAndFlagsBits, v9);
+          v37 = (v36 & 1) == 0;
+          v16 = __OFADD__(*(v105 + 16), v37);
+          v38 = *(v105 + 16) + v37;
+          if (v16)
+          {
+            BUG();
+          }
+
+          v109 = v36;
+          v93 = v35;
+          __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for _NativeDictionary<String, MLDataValue.ValueType>);
+          if (_NativeDictionary.ensureUnique(isUnique:capacity:)(isUnique, v38))
+          {
+            v40 = countAndFlagsBits;
+            v18 = v9;
+            v39 = specialized __RawDictionaryStorage.find<A>(_:)(countAndFlagsBits, v9);
+            LOBYTE(v20) = v20 & 1;
+            LOBYTE(v40) = v109;
+            v22 = v40;
+            LOBYTE(v22) = v109 & 1;
+            if ((v109 & 1) != v20)
+            {
+              goto LABEL_84;
+            }
+          }
+
+          else
+          {
+            v39 = v93;
+            LOBYTE(v40) = v109;
+          }
+
+          v59 = v100;
+          v105 = v100;
+          if (v40)
+          {
+            *(v100[7] + v39) = 3;
+            goto LABEL_67;
+          }
+
+          v100[(v39 >> 6) + 8] |= 1 << v39;
+          v67 = v100[6];
+          v68 = 16 * v39;
+          *(v67 + v68) = countAndFlagsBits;
+          *(v67 + v68 + 8) = v9;
+          *(v100[7] + v39) = 3;
+          v69 = v100[2];
+          v16 = __OFADD__(1, v69);
+          v63 = v69 + 1;
+          if (v16)
+          {
+            BUG();
+          }
+
+          goto LABEL_71;
+        case 4:
+          v98 = v105;
+          v23 = specialized __RawDictionaryStorage.find<A>(_:)(countAndFlagsBits, v9);
+          v25 = (v24 & 1) == 0;
+          v16 = __OFADD__(*(v105 + 16), v25);
+          v26 = *(v105 + 16) + v25;
+          if (v16)
+          {
+            BUG();
+          }
+
+          v107 = v24;
+          v91 = v23;
+          __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for _NativeDictionary<String, MLDataValue.ValueType>);
+          if (_NativeDictionary.ensureUnique(isUnique:capacity:)(isUnique, v26))
+          {
+            v28 = countAndFlagsBits;
+            v18 = v9;
+            v27 = specialized __RawDictionaryStorage.find<A>(_:)(countAndFlagsBits, v9);
+            LOBYTE(v20) = v20 & 1;
+            LOBYTE(v28) = v107;
+            v22 = v28;
+            LOBYTE(v22) = v107 & 1;
+            if ((v107 & 1) != v20)
+            {
+              goto LABEL_84;
+            }
+          }
+
+          else
+          {
+            v27 = v91;
+            LOBYTE(v28) = v107;
+          }
+
+          v59 = v98;
+          v105 = v98;
+          if (v28)
+          {
+            *(v98[7] + v27) = 4;
+            goto LABEL_67;
+          }
+
+          v98[(v27 >> 6) + 8] |= 1 << v27;
+          v60 = v98[6];
+          v61 = 16 * v27;
+          *(v60 + v61) = countAndFlagsBits;
+          *(v60 + v61 + 8) = v9;
+          *(v98[7] + v27) = 4;
+          v62 = v98[2];
+          v16 = __OFADD__(1, v62);
+          v63 = v62 + 1;
+          if (v16)
+          {
+            BUG();
+          }
+
+          goto LABEL_71;
+        case 5:
+          v102 = v105;
+          v47 = specialized __RawDictionaryStorage.find<A>(_:)(countAndFlagsBits, v9);
+          v49 = (v48 & 1) == 0;
+          v16 = __OFADD__(*(v105 + 16), v49);
+          v50 = *(v105 + 16) + v49;
+          if (v16)
+          {
+            BUG();
+          }
+
+          v111 = v48;
+          v95 = v47;
+          __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for _NativeDictionary<String, MLDataValue.ValueType>);
+          if (_NativeDictionary.ensureUnique(isUnique:capacity:)(isUnique, v50))
+          {
+            v52 = countAndFlagsBits;
+            v18 = v9;
+            v51 = specialized __RawDictionaryStorage.find<A>(_:)(countAndFlagsBits, v9);
+            LOBYTE(v20) = v20 & 1;
+            LOBYTE(v52) = v111;
+            v22 = v52;
+            LOBYTE(v22) = v111 & 1;
+            if ((v111 & 1) != v20)
+            {
+              goto LABEL_84;
+            }
+          }
+
+          else
+          {
+            v51 = v95;
+            LOBYTE(v52) = v111;
+          }
+
+          v59 = v102;
+          v105 = v102;
+          if (v52)
+          {
+            *(v102[7] + v51) = 6;
+            goto LABEL_67;
+          }
+
+          v102[(v51 >> 6) + 8] |= 1 << v51;
+          v76 = v102[6];
+          v77 = 16 * v51;
+          *(v76 + v77) = countAndFlagsBits;
+          *(v76 + v77 + 8) = v9;
+          *(v102[7] + v51) = 6;
+          v78 = v102[2];
+          v16 = __OFADD__(1, v78);
+          v63 = v78 + 1;
+          if (v16)
+          {
+            BUG();
+          }
+
+          goto LABEL_71;
+        case 6:
+          v103 = v105;
+          v53 = specialized __RawDictionaryStorage.find<A>(_:)(countAndFlagsBits, v9);
+          v55 = (v54 & 1) == 0;
+          v16 = __OFADD__(*(v105 + 16), v55);
+          v56 = *(v105 + 16) + v55;
+          if (v16)
+          {
+            BUG();
+          }
+
+          v112 = v54;
+          v96 = v53;
+          __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for _NativeDictionary<String, MLDataValue.ValueType>);
+          if (_NativeDictionary.ensureUnique(isUnique:capacity:)(isUnique, v56))
+          {
+            v58 = countAndFlagsBits;
+            v18 = v9;
+            v57 = specialized __RawDictionaryStorage.find<A>(_:)(countAndFlagsBits, v9);
+            LOBYTE(v20) = v20 & 1;
+            LOBYTE(v58) = v112;
+            v22 = v58;
+            LOBYTE(v22) = v112 & 1;
+            if ((v112 & 1) != v20)
+            {
+LABEL_84:
+              KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)(&type metadata for String, v18, v20, v22);
+              BUG();
+            }
+          }
+
+          else
+          {
+            v57 = v96;
+            LOBYTE(v58) = v112;
+          }
+
+          v59 = v103;
+          v105 = v103;
+          if (v58)
+          {
+            *(v103[7] + v57) = 5;
+LABEL_67:
+            v9;
+          }
+
+          else
+          {
+            v103[(v57 >> 6) + 8] |= 1 << v57;
+            v79 = v103[6];
+            v80 = 16 * v57;
+            *(v79 + v80) = countAndFlagsBits;
+            *(v79 + v80 + 8) = v9;
+            *(v103[7] + v57) = 5;
+            v81 = v103[2];
+            v16 = __OFADD__(1, v81);
+            v63 = v81 + 1;
+            if (v16)
+            {
+              BUG();
+            }
+
+LABEL_71:
+            v59[2] = v63;
+          }
+
+          v5 = v89 + 1;
+
+          v82 = CMLSequence.size.getter();
+          v83 = specialized RandomAccessCollection<>.distance(from:to:)(0, v82);
+
+          if (v89 + 1 == v83)
+          {
+            break;
+          }
+
+          continue;
+      }
+
+      break;
+    }
+  }
+
+  outlined consume of Result<_DataTable, Error>(v87, 0);
+  return v105;
+}
+
+uint64_t MLDataTable.subscript.getter(Swift::String a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v5 = *v4;
+  v6 = *(v4 + 8);
+  outlined copy of Result<_DataTable, Error>(*v4, v6);
+  MLDataTable.subscript.getter(a1);
+  outlined consume of Result<_DataTable, Error>(v5, v6);
+  MLUntypedColumn.column<A>(type:)(a2, a3, a4);
+  return outlined consume of Result<_DataTable, Error>(v8, v9);
+}
+
+uint64_t MLDataTable.subscript.getter(uint64_t a1, uint64_t a2)
+{
+  v4 = v2;
+  v5 = *v3;
+  if (*(v3 + 8))
+  {
+    v19[0] = *v3;
+    outlined copy of Result<_DataTable, Error>(v5, 1);
+    swift_errorRetain(v5);
+    v6 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Error);
+    v7 = _getErrorEmbeddedNSError<A>(_:)(v19, v6, &protocol self-conformance witness table for Error);
+    if (v7)
+    {
+      v8 = v7;
+      outlined consume of Result<_DataTable, Error>(v5, 1);
+    }
+
+    else
+    {
+      v8 = swift_allocError(v6, &protocol self-conformance witness table for Error, 0, 0);
+      *v11 = v5;
+    }
+
+    result = outlined consume of Result<_DataTable, Error>(v5, 1);
+    v13 = 1;
+  }
+
+  else
+  {
+    v9 = *(*(v5 + 16) + 16);
+
+    v10 = specialized handling<A, B, C, D, E>(_:_:_:_:_:)(v9, a1, 1, a2);
+    v14 = v10;
+    if (!v10)
+    {
+      BUG();
+    }
+
+    v13 = 0;
+    v15 = type metadata accessor for CMLTable();
+    v16 = swift_allocObject(v15, 24, 7);
+    *(v16 + 16) = v14;
+    v17 = v16;
+    v18 = type metadata accessor for _DataTable();
+    v8 = swift_allocObject(v18, 40, 7);
+    *(v8 + 24) = 0;
+    *(v8 + 16) = v17;
+    result = outlined consume of Result<_DataTable, Error>(v5, 0);
+  }
+
+  *v4 = v8;
+  *(v4 + 8) = v13;
+  return result;
+}
+
+uint64_t _DataTable.columnNames.getter()
+{
+  v2 = v0;
+  v3 = *(v1 + 24);
+  if (!v3)
+  {
+    v4 = specialized handling<A, B>(_:_:)(*(*(v1 + 16) + 16));
+    if (!v4)
+    {
+      BUG();
+    }
+
+    v5 = type metadata accessor for CMLSequence();
+    v6 = swift_allocObject(v5, 25, 7);
+    *(v6 + 16) = v4;
+    *(v6 + 24) = 1;
+    *(v1 + 24) = v6;
+
+    v3 = *(v1 + 24);
+    if (!v3)
+    {
+      BUG();
+    }
+  }
+
+  *v2 = v3;
+}
+
+uint64_t _DataTable.columnIndexes.getter()
+{
+  if (!*(v0 + 32))
+  {
+    v26 = v0;
+    _DataTable.columnNames.getter();
+
+    v1 = CMLSequence.size.getter();
+    v2 = specialized RandomAccessCollection<>.distance(from:to:)(0, v1);
+
+    if (v2)
+    {
+      v3 = 0;
+      do
+      {
+        CMLSequence.value(at:)(v3);
+        v28 = CMLFeatureValue.stringValue()();
+        if (v4)
+        {
+          v4;
+
+          _StringGuts.grow(_:)(37);
+          0;
+          v23._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter(&type metadata for Int, &protocol witness table for Int);
+          object = v23._object;
+          String.append(_:)(v23);
+          object;
+          v25._countAndFlagsBits = 46;
+          v25._object = 0xE100000000000000;
+          String.append(_:)(v25);
+          _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD000000000000022, ("able.ColumnNames.swift" + 0x8000000000000000), "CreateML/MLDataTable.ColumnNames.swift", 38, 2, 17, 0);
+          BUG();
+        }
+
+        v5 = CMLSequence.size.getter();
+        v6 = specialized RandomAccessCollection<>.distance(from:to:)(0, v5);
+
+        if (v3 >= v6)
+        {
+          BUG();
+        }
+
+        v27 = v3;
+        isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native(_swiftEmptyDictionarySingleton);
+        v9 = specialized __RawDictionaryStorage.find<A>(_:)(v28._countAndFlagsBits, v28._object);
+        v10 = (v8 & 1) == 0;
+        v11 = __OFADD__(_swiftEmptyDictionarySingleton[2], v10);
+        v12 = _swiftEmptyDictionarySingleton[2] + v10;
+        if (v11)
+        {
+          BUG();
+        }
+
+        v13 = v8;
+        __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for _NativeDictionary<String, Int>);
+        if (_NativeDictionary.ensureUnique(isUnique:capacity:)(isUniquelyReferenced_nonNull_native, v12))
+        {
+          v9 = specialized __RawDictionaryStorage.find<A>(_:)(v28._countAndFlagsBits, v28._object);
+          LOBYTE(v15) = v15 & 1;
+          if ((v13 & 1) != v15)
+          {
+            KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)(&type metadata for String, v28._object, v15, v14);
+            BUG();
+          }
+        }
+
+        if (v13)
+        {
+          v16 = v27;
+          *(_swiftEmptyDictionarySingleton[7] + 8 * v9) = v27;
+          v28._object;
+        }
+
+        else
+        {
+          _swiftEmptyDictionarySingleton[(v9 >> 6) + 8] |= 1 << v9;
+          *(_swiftEmptyDictionarySingleton[6] + 16 * v9) = v28;
+          v16 = v27;
+          *(_swiftEmptyDictionarySingleton[7] + 8 * v9) = v27;
+          v17 = _swiftEmptyDictionarySingleton[2];
+          v11 = __OFADD__(1, v17);
+          v18 = v17 + 1;
+          if (v11)
+          {
+            BUG();
+          }
+
+          _swiftEmptyDictionarySingleton[2] = v18;
+        }
+
+        v3 = v16 + 1;
+
+        v19 = CMLSequence.size.getter();
+        v20 = specialized RandomAccessCollection<>.distance(from:to:)(0, v19);
+      }
+
+      while (v3 != v20);
+    }
+
+    v21 = *(v26 + 32);
+    *(v26 + 32) = _swiftEmptyDictionarySingleton;
+    v21;
+    if (!*(v26 + 32))
+    {
+      BUG();
+    }
+  }
+}
+
+uint64_t _DataTable.init(impl:)(uint64_t a1)
+{
+  result = v1;
+  *(v1 + 24) = 0;
+  *(v1 + 16) = a1;
+  return result;
+}
+
+Swift::Void __swiftcall _DataTable.columnNamesDidChange()()
+{
+  *(v0 + 24) = 0;
+
+  v1 = *(v0 + 32);
+  *(v0 + 32) = 0;
+  v1;
+}
+
+uint64_t _DataTable.deinit()
+{
+
+  *(v0 + 32);
+  return v0;
+}
+
+uint64_t MLDataTable.error.getter()
+{
+  if (*(v0 + 8) != 1)
+  {
+    return 0;
+  }
+
+  v1 = *v0;
+  swift_errorRetain(*v0);
+  return v1;
+}
+
+void MLDataTable.willMutate()()
+{
+  if (!*(v0 + 8))
+  {
+    v1 = *v0;
+
+    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native(v1);
+
+    if (!isUniquelyReferenced_nonNull_native)
+    {
+      v55 = *v0;
+      v53 = *(v0 + 8);
+      outlined copy of Result<_DataTable, Error>(*v0, v53);
+      empty = tc_v1_sframe_create_empty(0);
+      if (!empty)
+      {
+        BUG();
+      }
+
+      v4 = empty;
+      v5 = type metadata accessor for CMLTable();
+      v6 = swift_allocObject(v5, 24, 7);
+      *(v6 + 16) = v4;
+      v7 = type metadata accessor for _DataTable();
+      v8 = swift_allocObject(v7, 40, 7);
+      *(v8 + 24) = 0;
+      *(v8 + 16) = v6;
+      v9 = *v0;
+      v10 = *(v0 + 8);
+
+      outlined consume of Result<_DataTable, Error>(v9, v10);
+      *v0 = v8;
+      *(v0 + 8) = 0;
+      v50 = v0;
+      if (v53)
+      {
+        outlined copy of Result<_DataTable, Error>(v55, 1);
+        v11 = tc_v1_flex_list_create(0);
+        if (!v11)
+        {
+          BUG();
+        }
+
+        v12 = v11;
+        outlined consume of Result<_DataTable, Error>(v55, 1);
+        v13 = type metadata accessor for CMLSequence();
+        v14 = swift_allocObject(v13, 25, 7);
+        *(v14 + 16) = v12;
+        *(v14 + 24) = 1;
+      }
+
+      else
+      {
+        outlined copy of Result<_DataTable, Error>(v55, 0);
+        _DataTable.columnNames.getter();
+        outlined consume of Result<_DataTable, Error>(v55, 0);
+      }
+
+      v15 = CMLSequence.size.getter();
+      v16 = specialized RandomAccessCollection<>.distance(from:to:)(0, v15);
+
+      if (v16)
+      {
+        v57 = 0;
+        v60 = v8;
+        v17 = 0;
+        while (1)
+        {
+          v56 = v17;
+          CMLSequence.value(at:)(v17);
+          v18 = CMLFeatureValue.stringValue()();
+          object = v18._object;
+          if (v19)
+          {
+            v19;
+
+            *&v59 = 0;
+            *(&v59 + 1) = 0xE000000000000000;
+            _StringGuts.grow(_:)(37);
+            SBYTE8(v59);
+            *&v59 = 0xD000000000000022;
+            *(&v59 + 1) = "able.ColumnNames.swift" + 0x8000000000000000;
+            v46._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter(&type metadata for Int, &protocol witness table for Int);
+            v47 = v46._object;
+            String.append(_:)(v46);
+            v47;
+            v48._countAndFlagsBits = 46;
+            v48._object = 0xE100000000000000;
+            String.append(_:)(v48);
+            _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, v59, *(&v59 + 1), "CreateML/MLDataTable.ColumnNames.swift", 38, 2, 17, 0);
+            BUG();
+          }
+
+          countAndFlagsBits = v18._countAndFlagsBits;
+
+          v21 = CMLSequence.size.getter();
+          v22 = specialized RandomAccessCollection<>.distance(from:to:)(0, v21);
+
+          if (v56 >= v22)
+          {
+            BUG();
+          }
+
+          if ((v53 & 1) == 0)
+          {
+            break;
+          }
+
+          swift_willThrow();
+          outlined copy of Result<_DataTable, Error>(v55, 1);
+          *&v59 = 0;
+          *(&v59 + 1) = 0xE000000000000000;
+          _StringGuts.grow(_:)(34);
+          SBYTE8(v59);
+          *&v59 = 0xD00000000000001FLL;
+          *(&v59 + 1) = "ml.activityclassifier" + 0x8000000000000000;
+          String.append(_:)(__PAIR128__(object, countAndFlagsBits));
+          v24._countAndFlagsBits = 34;
+          v24._object = 0xE100000000000000;
+          String.append(_:)(v24);
+          v49 = v59;
+          v25 = lazy protocol witness table accessor for type MLCreateError and conformance MLCreateError();
+          v51 = swift_allocError(&type metadata for MLCreateError, v25, 0, 0);
+          *v26 = v49;
+          *(v26 + 16) = 0;
+          *(v26 + 32) = 0;
+          *(v26 + 48) = 1;
+          outlined consume of Result<_DataTable, Error>(v55, v53);
+          if (v57)
+          {
+            v58 = 1;
+LABEL_17:
+            v27 = v56;
+            v28 = v60;
+            *&v59 = v60;
+            outlined copy of Result<_DataTable, Error>(v60, 1);
+            swift_errorRetain(v28);
+            v29 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Error);
+            v30 = v28;
+            v31 = _getErrorEmbeddedNSError<A>(_:)(&v59, v29, &protocol self-conformance witness table for Error);
+            if (v31)
+            {
+              v32 = v31;
+              outlined consume of Result<_DataTable, Error>(v30, 1);
+            }
+
+            else
+            {
+              v32 = swift_allocError(v29, &protocol self-conformance witness table for Error, 0, 0);
+              *v43 = v30;
+            }
+
+            outlined consume of Result<_DataTable, Error>(v30, 1);
+            v38 = v32;
+            v37 = v58;
+            goto LABEL_24;
+          }
+
+          *&v59 = 0;
+          *(&v59 + 1) = 0xE000000000000000;
+          v33 = v60;
+          outlined copy of Result<_DataTable, Error>(v60, 0);
+          _StringGuts.grow(_:)(36);
+          SBYTE8(v59);
+          *&v59 = 0xD000000000000021;
+          *(&v59 + 1) = "Can't represent value as Int32." + 0x8000000000000000;
+          String.append(_:)(__PAIR128__(object, countAndFlagsBits));
+          v34._countAndFlagsBits = 39;
+          v34._object = 0xE100000000000000;
+          String.append(_:)(v34);
+          v52 = v59;
+          v35 = swift_allocError(&type metadata for MLCreateError, v25, 0, 0);
+          *v36 = v52;
+          *(v36 + 16) = 0;
+          *(v36 + 32) = 0;
+          *(v36 + 48) = 1;
+          swift_willThrow();
+          outlined consume of Result<_DataTable, Error>(v33, 0);
+          v37 = 1;
+          v38 = v35;
+          v27 = v56;
+LABEL_24:
+          outlined consume of Result<_DataTable, Error>(*v50, *(v50 + 8));
+          object;
+          outlined consume of Result<_DataTable, Error>(v51, v37);
+          v60 = v38;
+          *v50 = v38;
+          *(v50 + 8) = 1;
+          v57 = 1;
+LABEL_25:
+          v17 = v27 + 1;
+
+          v44 = CMLSequence.size.getter();
+          v45 = specialized RandomAccessCollection<>.distance(from:to:)(0, v44);
+
+          if (v17 == v45)
+          {
+            goto LABEL_28;
+          }
+        }
+
+        v23 = *(v55 + 16);
+        outlined copy of Result<_DataTable, Error>(v55, 0);
+
+        v39 = specialized String.withCString<A>(_:)(closure #1 in CMLTable.column(name:)partial apply, v23, countAndFlagsBits, object, type metadata accessor for CMLColumn, partial apply for specialized closure #1 in _StringGuts.withCString<A>(_:));
+
+        outlined consume of Result<_DataTable, Error>(v55, 0);
+        v40 = type metadata accessor for _UntypedColumn();
+        v41 = swift_allocObject(v40, 24, 7);
+        v42 = v41;
+        *(v41 + 16) = v39;
+        if ((v57 & 1) == 0)
+        {
+          outlined copy of Result<_DataTable, Error>(v60, 0);
+          outlined copy of Result<_DataTable, Error>(v42, 0);
+
+          CMLTable.addColumn(name:_:)(countAndFlagsBits, object, v39);
+          v57 = 0;
+          outlined consume of Result<_DataTable, Error>(v42, 0);
+
+          outlined consume of Result<_DataTable, Error>(v60, 0);
+          object;
+          outlined consume of Result<_DataTable, Error>(v42, 0);
+          v27 = v56;
+          goto LABEL_25;
+        }
+
+        v58 = 0;
+        v51 = v41;
+        goto LABEL_17;
+      }
+
+LABEL_28:
+
+      _DataTable.columnNamesDidChange()();
+
+      outlined consume of Result<_DataTable, Error>(v55, v53);
+    }
+  }
+}
+
+uint64_t MLDataTable.addImpl(newColumn:named:)(uint64_t a1, uint64_t a2, void *a3)
+{
+  v4 = *v3;
+  if (*(v3 + 8))
+  {
+    *&v19 = *v3;
+    outlined copy of Result<_DataTable, Error>(v4, 1);
+    swift_errorRetain(v4);
+    v5 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Error);
+    v6 = _getErrorEmbeddedNSError<A>(_:)(&v19, v5, &protocol self-conformance witness table for Error);
+    if (v6)
+    {
+      v7 = v6;
+      outlined consume of Result<_DataTable, Error>(v4, 1);
+    }
+
+    else
+    {
+      v7 = swift_allocError(v5, &protocol self-conformance witness table for Error, 0, 0);
+      *v17 = v4;
+    }
+
+    LOBYTE(v16._object) = 1;
+    v16._countAndFlagsBits = v4;
+  }
+
+  else
+  {
+    if (!*(a1 + 8))
+    {
+      v22 = a3;
+      v12 = *a1;
+      v20 = *(v4 + 16);
+      v14 = *(v12 + 16);
+      outlined copy of Result<_DataTable, Error>(v4, 0);
+      outlined copy of Result<_DataTable, Error>(v12, 0);
+
+      v15 = v22;
+      v22 = v14;
+      CMLTable.addColumn(name:_:)(a2, v15, v14);
+      outlined consume of Result<_DataTable, Error>(v12, 0);
+
+      return outlined consume of Result<_DataTable, Error>(v4, 0);
+    }
+
+    outlined copy of Result<_DataTable, Error>(v4, 0);
+    _StringGuts.grow(_:)(36);
+    0;
+    *&v19 = 0xD000000000000021;
+    *(&v19 + 1) = "Can't represent value as Int32." + 0x8000000000000000;
+    v9._countAndFlagsBits = a2;
+    v9._object = a3;
+    String.append(_:)(v9);
+    v9._countAndFlagsBits = 39;
+    v16._object = 0xE100000000000000;
+    String.append(_:)(v16);
+    v21 = v19;
+    v10 = lazy protocol witness table accessor for type MLCreateError and conformance MLCreateError();
+    v7 = swift_allocError(&type metadata for MLCreateError, v10, 0, 0);
+    *v11 = v19;
+    *(v11 + 16) = 0;
+    *(v11 + 32) = 0;
+    *(v11 + 48) = 1;
+    swift_willThrow();
+    v16._countAndFlagsBits = v4;
+  }
+
+  outlined consume of Result<_DataTable, Error>(v16._countAndFlagsBits, v16._object);
+  result = outlined consume of Result<_DataTable, Error>(*v3, *(v3 + 8));
+  *v3 = v7;
+  *(v3 + 8) = 1;
+  return result;
+}
+
+uint64_t *_s8CreateML11MLDataTableV20uniqueKeysWithValuesACx_tKcSTRzSS3key_AA15MLUntypedColumnV5valuet7ElementRtzlufCSDySSAGG_Tt1g5(uint64_t a1)
+{
+  *&v40 = v2;
+  v37 = v1;
+  empty = tc_v1_sframe_create_empty(0);
+  if (!empty)
+  {
+    BUG();
+  }
+
+  v4 = empty;
+  v5 = type metadata accessor for CMLTable();
+  v6 = swift_allocObject(v5, 24, 7);
+  *(v6 + 16) = v4;
+  v7 = type metadata accessor for _DataTable();
+  v8 = swift_allocObject(v7, 40, 7);
+  *(v8 + 24) = 0;
+  *(v8 + 16) = v6;
+  specialized _NativeDictionary.makeIterator()(a1);
+  v9 = v28;
+  v44 = v29;
+  v41 = v31;
+  v10 = v32;
+  v43 = (v30 + 64) >> 6;
+  v45 = a1;
+
+  v39 = v8;
+  for (i = v28; ; v9 = i)
+  {
+    if (v10)
+    {
+      v11 = v41;
+      goto LABEL_22;
+    }
+
+    v12 = v41 + 1;
+    if (__OFADD__(1, v41))
+    {
+      BUG();
+    }
+
+    if (v12 >= v43)
+    {
+      break;
+    }
+
+    v10 = *(v44 + 8 * v12);
+    if (v10)
+    {
+      v11 = v41 + 1;
+    }
+
+    else
+    {
+      v13 = v41 + 2;
+      if (v41 + 2 >= v43)
+      {
+        break;
+      }
+
+      v10 = *(v44 + 8 * v12 + 8);
+      if (!v10)
+      {
+        v13 = v41 + 3;
+        if (v41 + 3 >= v43)
+        {
+          break;
+        }
+
+        v10 = *(v44 + 8 * v12 + 16);
+        if (!v10)
+        {
+          v13 = v41 + 4;
+          if (v41 + 4 >= v43)
+          {
+            break;
+          }
+
+          v10 = *(v44 + 8 * v12 + 24);
+          if (!v10)
+          {
+            v13 = v41 + 5;
+            if (v41 + 5 >= v43)
+            {
+              break;
+            }
+
+            v10 = *(v44 + 8 * v12 + 32);
+            if (!v10)
+            {
+              v13 = v41 + 6;
+              if (v41 + 6 >= v43)
+              {
+                break;
+              }
+
+              v10 = *(v44 + 8 * v12 + 40);
+              if (!v10)
+              {
+                v13 = v41 + 7;
+                if (v41 + 7 >= v43)
+                {
+                  break;
+                }
+
+                v10 = *(v44 + 8 * v12 + 48);
+                if (!v10)
+                {
+                  v21 = v41 + 8;
+                  v22 = v45;
+                  while (v21 < v43)
+                  {
+                    v10 = *(v44 + 8 * v21++);
+                    if (v10)
+                    {
+                      v11 = v21 - 1;
+                      goto LABEL_22;
+                    }
+                  }
+
+                  goto LABEL_33;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      v11 = v13;
+    }
+
+LABEL_22:
+    _BitScanForward64(&v14, v10);
+    v15 = *(v9 + 56);
+    v16 = (v11 << 10) | (16 * v14);
+    v17 = *(v15 + v16);
+    if (*(v15 + v16 + 8))
+    {
+      outlined copy of Result<_DataTable, Error>(*(v15 + v16), 1);
+
+      *&v33 = 0;
+      *(&v33 + 1) = 0xE000000000000000;
+      v34 = v17;
+      v23 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Error);
+      _print_unlocked<A, B>(_:_:)(&v34, &v33, v23, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+      v40 = v33;
+      v24 = lazy protocol witness table accessor for type MLCreateError and conformance MLCreateError();
+      v25 = swift_allocError(&type metadata for MLCreateError, v24, 0, 0);
+      *v26 = v40;
+      *(v26 + 16) = 0;
+      *(v26 + 32) = 0;
+      *(v26 + 48) = 0;
+      *&v40 = v25;
+      swift_willThrow();
+      outlined consume of Result<_DataTable, Error>(v17, 1);
+
+      v45;
+    }
+
+    v36 = v10;
+    v41 = v11;
+    v18 = *(v9 + 48);
+    v19 = *(v18 + v16 + 8);
+    v35 = *(v18 + v16);
+    v20 = *(v17 + 16);
+    outlined copy of Result<_DataTable, Error>(v17, 0);
+    v38 = v17;
+    outlined copy of Result<_DataTable, Error>(v17, 0);
+
+    CMLTable.addColumn(name:_:)(v35, v19, v20);
+    if (v40)
+    {
+      v19;
+
+      outlined consume of Result<_DataTable, Error>(v38, 0);
+      outlined consume of Result<_DataTable, Error>(v38, 0);
+
+      v45;
+    }
+
+    v10 = (v36 - 1) & v36;
+
+    outlined consume of Result<_DataTable, Error>(v38, 0);
+    outlined consume of Result<_DataTable, Error>(v38, 0);
+    v19;
+    v8 = v39;
+  }
+
+  v22 = v45;
+LABEL_33:
+  v22;
+
+  result = v37;
+  *v37 = v8;
+  *(result + 8) = 0;
+  return result;
+}
+
+uint64_t key path getter for MLDataTable.subscript(_:) : MLDataTable(uint64_t a1, Swift::String *a2)
+{
+  v3 = v2;
+  v4 = *a1;
+  v9 = *a2;
+  v8 = *(a1 + 8);
+  outlined copy of Result<_DataTable, Error>(*a1, v8);
+  MLDataTable.subscript.getter(v9);
+  outlined consume of Result<_DataTable, Error>(v4, v8);
+  result = v6;
+  *v3 = v6;
+  *(v3 + 8) = v7;
+  return result;
+}
+
+uint64_t key path setter for MLDataTable.subscript(_:) : MLDataTable(uint64_t a1, uint64_t a2, uint64_t *a3)
+{
+  v9 = a2;
+  v3 = *a3;
+  v4 = a3[1];
+  v5 = *(a1 + 8);
+  v7 = *a1;
+  v8 = v5;
+
+  outlined copy of Result<_DataTable, Error>(v7, v5);
+  return MLDataTable.subscript.setter(&v7, v3, v4);
+}
+
+uint64_t MLDataTable.setColumnImpl(newColumn:named:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v30 = a2;
+  v5 = *a1;
+  v31 = *(a1 + 8);
+  v6 = *v3;
+  LOBYTE(v28) = *(v3 + 8);
+  v26 = v3;
+  v29 = v5;
+  if (v28)
+  {
+    outlined copy of Result<_DataTable, Error>(v6, 1);
+    v7 = tc_v1_flex_list_create(0);
+    if (!v7)
+    {
+      BUG();
+    }
+
+    v8 = v7;
+    v9 = type metadata accessor for CMLSequence();
+    v10 = swift_allocObject(v9, 25, 7);
+    *(v10 + 16) = v8;
+    *(v10 + 24) = 1;
+    outlined consume of Result<_DataTable, Error>(v6, 1);
+  }
+
+  else
+  {
+    outlined copy of Result<_DataTable, Error>(v6, 0);
+    _DataTable.columnNames.getter();
+    outlined consume of Result<_DataTable, Error>(v6, 0);
+    v10 = v24;
+  }
+
+  v25[0] = v30;
+  v27 = a3;
+  v25[1] = a3;
+  v11 = alloca(24);
+  v12 = alloca(32);
+  v24 = v25;
+  v13 = specialized Sequence.contains(where:)(closure #1 in Sequence<>.contains(_:)specialized partial apply, &v23, v10);
+
+  v14 = v26;
+  if (v13)
+  {
+    MLDataTable.removeImpl(_:)(v30, v27);
+  }
+
+  if (v28)
+  {
+    v25[0] = v6;
+    swift_errorRetain(v6);
+    outlined copy of Result<_DataTable, Error>(v6, 1);
+    v15 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Error);
+    v16 = _getErrorEmbeddedNSError<A>(_:)(v25, v15, &protocol self-conformance witness table for Error);
+    if (v16)
+    {
+      v17 = v16;
+      outlined consume of Result<_DataTable, Error>(v6, 1);
+    }
+
+    else
+    {
+      v17 = swift_allocError(v15, &protocol self-conformance witness table for Error, 0, 0);
+      *v21 = v6;
+    }
+
+    outlined consume of Result<_DataTable, Error>(v6, 1);
+    result = outlined consume of Result<_DataTable, Error>(*v14, *(v14 + 8));
+    *v14 = v17;
+    *(v14 + 8) = 1;
+  }
+
+  else
+  {
+    if (v31)
+    {
+      outlined copy of Result<_DataTable, Error>(v6, 0);
+    }
+
+    else
+    {
+      v28 = *(v6 + 16);
+      v18 = v29;
+      v19 = *(v29 + 16);
+      outlined copy of Result<_DataTable, Error>(v6, 0);
+      outlined copy of Result<_DataTable, Error>(v18, 0);
+
+      v20 = v30;
+      v30 = v19;
+      CMLTable.addColumn(name:_:)(v20, v27, v19);
+      outlined consume of Result<_DataTable, Error>(v29, 0);
+    }
+
+    return outlined consume of Result<_DataTable, Error>(v6, 0);
+  }
+
+  return result;
+}
+
+void (*MLDataTable.subscript.modify(void *a1, uint64_t a2, void *a3))(uint64_t **a1, char a2)
+{
+  v5 = malloc(0x28uLL);
+  *a1 = v5;
+  v5[4] = v3;
+  v5[3] = a3;
+  v5[2] = a2;
+  v6._countAndFlagsBits = a2;
+  v6._object = a3;
+  MLDataTable.subscript.getter(v6);
+  return MLDataTable.subscript.modify;
+}
+
+void MLDataTable.subscript.modify(uint64_t **a1, char a2)
+{
+  v2 = *a1;
+  v3 = (*a1)[3];
+  v14 = **a1;
+  v4 = *(v2 + 8);
+
+  v15 = v2[2];
+  v5 = v2[4];
+  if (a2)
+  {
+    v16 = v4;
+    v6 = v14;
+    outlined copy of Result<_DataTable, Error>(v14, v4);
+    MLDataTable.willMutate()();
+    v12 = v14;
+    v13 = v4 & 1;
+    MLDataTable.setColumnImpl(newColumn:named:)(&v12, v15, v3);
+    v3;
+    outlined consume of Result<_DataTable, Error>(v6, v16);
+    if (!*(v5 + 8))
+    {
+      v7 = *v2[4];
+      outlined copy of Result<_DataTable, Error>(v7, 0);
+      _DataTable.columnNamesDidChange()();
+      outlined consume of Result<_DataTable, Error>(v7, 0);
+    }
+
+    v8 = *v2;
+    v9 = *(v2 + 2);
+    goto LABEL_7;
+  }
+
+  MLDataTable.willMutate()();
+  v10 = v14;
+  v12 = v14;
+  v13 = v4 & 1;
+  MLDataTable.setColumnImpl(newColumn:named:)(&v12, v15, v3);
+  v3;
+  outlined consume of Result<_DataTable, Error>(v10, v4);
+  if (!*(v5 + 8))
+  {
+    v11 = *v2[4];
+    outlined copy of Result<_DataTable, Error>(v11, 0);
+    _DataTable.columnNamesDidChange()();
+    v8 = v11;
+    LOBYTE(v9) = 0;
+LABEL_7:
+    outlined consume of Result<_DataTable, Error>(v8, v9);
+  }
+
+  free(v2);
+}
+
+{
+  v2 = *a1;
+  v3 = **a1;
+  v4 = *(*a1 + 8);
+  v9 = (*a1)[6];
+  v5 = v2[3];
+  v6 = v2[2];
+  v7 = v3;
+  v8 = v4 & 1;
+
+  if (a2)
+  {
+    outlined copy of Result<_DataTable, Error>(v3, v4);
+    MLDataTable.subscript.setter(&v7, v6, v5);
+    outlined consume of Result<_DataTable, Error>(*v2, *(v2 + 2));
+  }
+
+  else
+  {
+    MLDataTable.subscript.setter(&v7, v6, v5);
+  }
+
+  free(v2);
+}
+
+uint64_t key path getter for MLDataTable.subscript<A>(_:) : <A>MLDataTableA(uint64_t a1, uint64_t *a2, uint64_t a3)
+{
+  v4 = v3;
+  v13 = *(a2 + a3 - 16);
+  v14 = *(a2 + a3 - 8);
+  v6 = *a2;
+  v7 = a2[1];
+  v5 = *a1;
+  v12 = *(a1 + 8);
+  outlined copy of Result<_DataTable, Error>(*a1, v12);
+  v8._countAndFlagsBits = v6;
+  v8._object = v7;
+  MLDataTable.subscript.getter(v8, v13, v14);
+  outlined consume of Result<_DataTable, Error>(v5, v12);
+  result = v10;
+  *v4 = v10;
+  *(v4 + 8) = v11;
+  return result;
+}
+
+uint64_t key path setter for MLDataTable.subscript<A>(_:) : <A>MLDataTableA(uint64_t a1, uint64_t a2, uint64_t *a3)
+{
+  v9 = a2;
+  v3 = *a3;
+  v4 = a3[1];
+  v5 = *(a1 + 8);
+  v7 = *a1;
+  v8 = v5;
+
+  outlined copy of Result<_DataTable, Error>(v7, v5);
+  return MLDataTable.subscript.setter(&v7, v3, v4);
+}
+
+void (*MLDataTable.subscript.modify(void *a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5))(uint64_t **a1, char a2)
+{
+  v7 = malloc(0x38uLL);
+  *a1 = v7;
+  v7[6] = v5;
+  v7[5] = a5;
+  v7[4] = a4;
+  v7[3] = a3;
+  v7[2] = a2;
+  v8._countAndFlagsBits = a2;
+  v8._object = a3;
+  MLDataTable.subscript.getter(v8, a4, a5);
+  return MLDataTable.subscript.modify;
+}
+
+uint64_t MLDataTable.removeImpl(_:)(uint64_t a1, uint64_t a2)
+{
+  v3 = *v2;
+  if (*(v2 + 8))
+  {
+    v12[0] = *v2;
+    outlined copy of Result<_DataTable, Error>(v3, 1);
+    swift_errorRetain(v3);
+    v4 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Error);
+    v5 = _getErrorEmbeddedNSError<A>(_:)(v12, v4, &protocol self-conformance witness table for Error);
+    if (v5)
+    {
+      v6 = v5;
+      outlined consume of Result<_DataTable, Error>(v3, 1);
+    }
+
+    else
+    {
+      v6 = swift_allocError(v4, &protocol self-conformance witness table for Error, 0, 0);
+      *v10 = v3;
+    }
+
+    outlined consume of Result<_DataTable, Error>(v3, 1);
+    v9 = 1;
+  }
+
+  else
+  {
+    v7 = *(v3 + 16);
+    outlined copy of Result<_DataTable, Error>(*v2, 0);
+
+    v8 = v7;
+    v6 = 0;
+    specialized String.withCString<A>(_:)(a1, a2, v8);
+    v9 = 0;
+    outlined consume of Result<_DataTable, Error>(v3, 0);
+  }
+
+  return outlined consume of Result<(), Error>(v6, v9);
+}
+
+uint64_t MLDataTable.renameImpl(named:to:)(Swift::String named, Swift::String to)
+{
+  v3 = *v2;
+  if (*(v2 + 8))
+  {
+    v11[0] = *v2;
+    outlined copy of Result<_DataTable, Error>(v3, 1);
+    swift_errorRetain(v3);
+    v4 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Error);
+    v5 = _getErrorEmbeddedNSError<A>(_:)(v11, v4, &protocol self-conformance witness table for Error);
+    if (v5)
+    {
+      v6 = v5;
+      outlined consume of Result<_DataTable, Error>(v3, 1);
+    }
+
+    else
+    {
+      v6 = swift_allocError(v4, &protocol self-conformance witness table for Error, 0, 0);
+      *v10 = v3;
+    }
+
+    outlined consume of Result<_DataTable, Error>(v3, 1);
+    goto LABEL_8;
+  }
+
+  countAndFlagsBits = to._countAndFlagsBits;
+  v11[1] = *(v3 + 16);
+  toa = to._object;
+
+  v8._countAndFlagsBits = countAndFlagsBits;
+  v8._object = toa;
+  CMLTable.renameColumn(named:to:)(named, v8);
+  result = outlined consume of Result<_DataTable, Error>(v3, 0);
+  if (v6)
+  {
+LABEL_8:
+    result = outlined consume of Result<_DataTable, Error>(*v2, *(v2 + 8));
+    *v2 = v6;
+    *(v2 + 8) = 1;
+  }
+
+  return result;
+}
+
+Swift::Void __swiftcall MLDataTable.removeColumn(named:)(Swift::String named)
+{
+  MLDataTable.willMutate()();
+  MLDataTable.removeImpl(_:)(named._countAndFlagsBits, named._object);
+  if (!*(v1 + 8))
+  {
+    v2 = *v1;
+    outlined copy of Result<_DataTable, Error>(v2, 0);
+    _DataTable.columnNamesDidChange()();
+    outlined consume of Result<_DataTable, Error>(v2, 0);
+  }
+}
+
+uint64_t MLDataTable.randomSample(by:seed:)(uint64_t a1, double a2)
+{
+  v4 = v2;
+  v5 = *v3;
+  if (*(v3 + 8))
+  {
+    v21[0] = *v3;
+    outlined copy of Result<_DataTable, Error>(v5, 1);
+    swift_errorRetain(v5);
+    v6 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Error);
+    v7 = _getErrorEmbeddedNSError<A>(_:)(v21, v6, &protocol self-conformance witness table for Error);
+    if (v7)
+    {
+      v8 = v7;
+      outlined consume of Result<_DataTable, Error>(v5, 1);
+    }
+
+    else
+    {
+      v8 = swift_allocError(v6, &protocol self-conformance witness table for Error, 0, 0);
+      *v13 = v5;
+    }
+
+    result = outlined consume of Result<_DataTable, Error>(v5, 1);
+    v15 = 1;
+  }
+
+  else
+  {
+    if (a1 < 0)
+    {
+      BUG();
+    }
+
+    v10 = *(*(v5 + 16) + 16);
+    v11 = *v3;
+    *&v21[1] = a2;
+    outlined copy of Result<_DataTable, Error>(v11, 0);
+    v12 = specialized handling<A, B, C, D>(_:_:_:_:)(v10, a1);
+    v16 = v12;
+    if (!v12)
+    {
+      BUG();
+    }
+
+    v15 = 0;
+    v17 = type metadata accessor for CMLTable();
+    v18 = swift_allocObject(v17, 24, 7);
+    *(v18 + 16) = v16;
+    v19 = v18;
+    v20 = type metadata accessor for _DataTable();
+    v8 = swift_allocObject(v20, 40, 7);
+    *(v8 + 24) = 0;
+    *(v8 + 16) = v19;
+    result = outlined consume of Result<_DataTable, Error>(v5, 0);
+  }
+
+  *v4 = v8;
+  *(v4 + 8) = v15;
+  return result;
+}
+
+uint64_t MLDataTable.exclude<A>(_:of:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unsigned int a6)
+{
+  v13 = a3;
+  v15 = v6;
+  v14 = a2;
+  v16 = a6;
+  v11 = a1;
+  v7 = type metadata accessor for Array(0, a4);
+
+  swift_getWitnessTable(&protocol conformance descriptor for [A], v7);
+  MLUntypedColumn.init<A>(_:)(&v11, v7);
+  v11 = v9;
+  v12 = v10;
+  MLDataTable.filtered(isExcluding:values:in:)(v16, &v11, v14, v13);
+  return outlined consume of Result<_DataTable, Error>(v11, v12);
+}
+
+char MLDataTable.filtered(isExcluding:values:in:)(unsigned __int8 a1, uint64_t *a2, uint64_t a3, uint64_t a4)
+{
+  v17 = v4;
+  v6 = *v5;
+  if (*(v5 + 8))
+  {
+    v19[0] = *v5;
+    outlined copy of Result<_DataTable, Error>(v6, 1);
+    swift_errorRetain(v6);
+    v7 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Error);
+    v8 = _getErrorEmbeddedNSError<A>(_:)(v19, v7, &protocol self-conformance witness table for Error);
+    if (v8)
+    {
+      v9 = v8;
+      outlined consume of Result<_DataTable, Error>(v6, 1);
+    }
+
+    else
+    {
+      v9 = swift_allocError(v7, &protocol self-conformance witness table for Error, 0, 0);
+      *v14 = v6;
+    }
+
+    outlined consume of Result<_DataTable, Error>(v6, 1);
+    result = 1;
+  }
+
+  else
+  {
+    v18 = *a2;
+    v11 = *(a2 + 8);
+    v16 = v6;
+
+    closure #1 in MLDataTable.filtered(isExcluding:values:in:)(&v16, v18, v11, a3, a4, a1);
+    outlined consume of Result<_DataTable, Error>(v6, 0);
+    v9 = v19[0];
+    result = 0;
+  }
+
+  v15 = v17;
+  *v17 = v9;
+  *(v15 + 8) = result;
+  return result;
+}
+
+uint64_t closure #1 in MLDataTable.filtered(isExcluding:values:in:)(uint64_t a1, uint64_t a2, char a3, uint64_t a4, uint64_t a5, unsigned __int8 a6)
+{
+  if (a3)
+  {
+    *&v22 = 0;
+    *(&v22 + 1) = 0xE000000000000000;
+    _StringGuts.grow(_:)(85);
+    v9._object = "el's set of labels." + 0x8000000000000000;
+    v9._countAndFlagsBits = 0xD000000000000052;
+    String.append(_:)(v9);
+    v21._countAndFlagsBits = 0;
+    v21._object = 0xE000000000000000;
+    v23[0] = a2;
+    v10 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Error);
+    _print_unlocked<A, B>(_:_:)(v23, &v21, v10, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+    object = v21._object;
+    String.append(_:)(v21);
+    object;
+    v9._countAndFlagsBits = 39;
+    v9._object = 0xE100000000000000;
+    String.append(_:)(v9);
+    v26 = v22;
+    v12 = lazy protocol witness table accessor for type MLCreateError and conformance MLCreateError();
+    swift_allocError(&type metadata for MLCreateError, v12, 0, 0);
+    *v13 = v26;
+    *(v13 + 16) = 0;
+    *(v13 + 32) = 0;
+    *(v13 + 48) = 0;
+    return swift_willThrow();
+  }
+
+  else
+  {
+    v25 = v6;
+    *&v26 = *(*a1 + 16);
+    v17 = *(a2 + 16);
+    v24 = a4;
+    v23[1] = v7;
+    outlined copy of Result<_DataTable, Error>(a2, 0);
+
+    v18 = CMLTable.filtered(_:columnName:isExcluding:)(v17, v24, a5, a6);
+    if (v7)
+    {
+
+      return outlined consume of Result<_DataTable, Error>(a2, 0);
+    }
+
+    else
+    {
+      v19 = v18;
+      outlined consume of Result<_DataTable, Error>(a2, 0);
+
+      v20 = type metadata accessor for _DataTable();
+      result = swift_allocObject(v20, 40, 7);
+      *(result + 24) = 0;
+      *(result + 16) = v19;
+      *v25 = result;
+    }
+  }
+
+  return result;
+}
+
+uint64_t MLDataTable.join(with:on:type:)(uint64_t a1, uint64_t *a2, _BYTE *a3)
+{
+  v13 = v3;
+  v14 = *a1;
+  LOBYTE(v17) = *(a1 + 8);
+  v5 = *v4;
+  v6 = *(v4 + 8);
+  switch(*a3)
+  {
+    case 0:
+      v7 = 0x72656E6E69;
+      goto LABEL_6;
+    case 1:
+      v7 = 0x726574756FLL;
+      goto LABEL_6;
+    case 2:
+      v16[0] = 1952867692;
+      v8 = 0xE400000000000000;
+      goto LABEL_7;
+    case 3:
+      v7 = 0x7468676972;
+LABEL_6:
+      v16[0] = v7;
+      v8 = 0xE500000000000000;
+LABEL_7:
+      v15 = v8;
+      v16[1] = v8;
+
+      outlined copy of Result<_DataTable, Error>(v5, v6);
+      v9 = v17;
+      outlined copy of Result<_DataTable, Error>(v14, v17);
+      v17 = specialized binaryDo<A, B, C>(_:_:_:)(v5, v6, v14, v17, a2, v16);
+      v11 = v10;
+      outlined consume of Result<_DataTable, Error>(v14, v9);
+      outlined consume of Result<_DataTable, Error>(v5, v6);
+      v15;
+      result = v13;
+      *v13 = v17;
+      *(v13 + 8) = v11 & 1;
+      return result;
+  }
+}
+
+uint64_t closure #1 in MLDataTable.join(with:on:type:)(uint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
+{
+  v63 = a4;
+  v7 = v4;
+  v8 = v5;
+  v66 = *a1;
+  v67 = *a2;
+  v9 = tc_v1_flex_list_create(0);
+  if (!v9)
+  {
+    BUG();
+  }
+
+  v10 = v9;
+  v64 = v7;
+  v11 = type metadata accessor for CMLSequence();
+  inited = swift_initStackObject(v11, v57);
+  v70 = inited;
+  *(inited + 16) = v10;
+  *(inited + 24) = 1;
+  v13 = a3[2];
+  if (v13)
+  {
+    v73 = type metadata accessor for CMLFeatureValue();
+
+    object = a3;
+    v14 = a3 + 5;
+    while (1)
+    {
+      v72 = v13;
+      v15 = *(v14 - 1);
+      v16 = *v14;
+      swift_bridgeObjectRetain_n(*v14, 2);
+      v17 = CMLFeatureValue.__allocating_init(_:)(v15, v16);
+      if (v5)
+      {
+        break;
+      }
+
+      v18 = v17;
+      v16;
+      CMLSequence.append(_:)(v18);
+
+      v14 += 2;
+      v13 = v72 - 1;
+      if (v72 == (&dword_0 + 1))
+      {
+        object;
+        goto LABEL_17;
+      }
+    }
+
+    v49 = "CreateML/MLDataValueConvertible.swift";
+    v50 = 37;
+    v51 = 170;
+    v52 = v5;
+    goto LABEL_23;
+  }
+
+  _DataTable.columnNames.getter();
+  v19 = v68;
+  _DataTable.columnNames.getter();
+  v65 = v68;
+  swift_retain_n(v19, 2);
+  v20 = CMLSequence.size.getter();
+  v21 = specialized RandomAccessCollection<>.distance(from:to:)(0, v20);
+
+  if (v21)
+  {
+    v22 = 0;
+    v73 = v19;
+    while (1)
+    {
+      CMLSequence.value(at:)(v22);
+      if (v8)
+      {
+        break;
+      }
+
+      v72 = v22;
+      v23 = CMLFeatureValue.stringValue()();
+      object = v23._object;
+      v8 = v24;
+      if (v24)
+      {
+        v24;
+
+        v68 = 0;
+        v69 = 0xE000000000000000;
+        _StringGuts.grow(_:)(37);
+        v69;
+        v68 = 0xD000000000000022;
+        v69 = "able.ColumnNames.swift" + 0x8000000000000000;
+        v61 = v72;
+        v53._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter(&type metadata for Int, &protocol witness table for Int);
+        v54 = v53._object;
+        String.append(_:)(v53);
+        v54;
+        v55._countAndFlagsBits = 46;
+        v55._object = 0xE100000000000000;
+        String.append(_:)(v55);
+        _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, v68, v69, "CreateML/MLDataTable.ColumnNames.swift", 38, 2, 17, 0);
+        BUG();
+      }
+
+      countAndFlagsBits = v23._countAndFlagsBits;
+
+      v26 = CMLSequence.size.getter();
+      v27 = specialized RandomAccessCollection<>.distance(from:to:)(0, v26);
+
+      if (v72 >= v27)
+      {
+        BUG();
+      }
+
+      v28 = v72;
+      v62 = countAndFlagsBits;
+      v68 = countAndFlagsBits;
+      v29 = object;
+      v69 = object;
+      v30 = alloca(24);
+      v31 = alloca(32);
+      v58 = &v68;
+      if (specialized Sequence.contains(where:)(partial apply for specialized closure #1 in Sequence<>.contains(_:), &v56, v65))
+      {
+        type metadata accessor for CMLFeatureValue();
+
+        v32 = CMLFeatureValue.__allocating_init(_:)(v62, v29);
+        v29;
+        CMLSequence.append(_:)(v32);
+
+        v19 = v73;
+        v28 = v72;
+      }
+
+      else
+      {
+        v29;
+        v19 = v73;
+      }
+
+      v33 = CMLSequence.size.getter();
+      v34 = v28 + 1;
+      v35 = specialized RandomAccessCollection<>.distance(from:to:)(0, v33);
+
+      v36 = v34 == v35;
+      v22 = v34;
+      if (v36)
+      {
+        goto LABEL_16;
+      }
+    }
+
+    v49 = "CreateML/SequenceType.swift";
+    v50 = 27;
+    v51 = 76;
+    v52 = v8;
+LABEL_23:
+    swift_unexpectedError(v52, v49, v50, 1, v51);
+    BUG();
+  }
+
+LABEL_16:
+
+  v19;
+LABEL_17:
+  v72 = &v56;
+  v37 = *(v66 + 16);
+  v38 = *(v67 + 16);
+  object = *v63;
+  v39 = *(v63 + 8);
+  v40 = alloca(40);
+  v41 = alloca(48);
+  v58 = v37;
+  v59 = v38;
+  v60 = v70;
+  v73 = v37;
+
+  v42 = specialized String.withCString<A>(_:)(partial apply for closure #1 in CMLTable.init(joiningMultiple:and:columnNames:method:), &v56, object, v39);
+  if (v8)
+  {
+
+    v39;
+    swift_setDeallocating(v70);
+    v43 = CMLFeatureValue.deinit();
+    return swift_deallocClassInstance(v43, 25, 7);
+  }
+
+  else
+  {
+    v45 = v42;
+
+    v39;
+
+    v46 = type metadata accessor for CMLTable();
+    v47 = swift_allocObject(v46, 24, 7);
+    *(v47 + 16) = v45;
+    v48 = type metadata accessor for _DataTable();
+    result = swift_allocObject(v48, 40, 7);
+    *(result + 24) = 0;
+    *(result + 16) = v47;
+    *v64 = result;
+  }
+
+  return result;
+}
+
+Swift::Int MLDataTable.JoinType.hashValue.getter()
+{
+  v1 = *v0;
+  Hasher.init(_seed:)(0);
+  Hasher._combine(_:)(v1);
+  return Hasher._finalize()();
+}
+
+uint64_t closure #1 in MLDataTable.subscript.getter(uint64_t *a1, uint64_t a2, char a3)
+{
+  v6 = *a1;
+  v7 = a1[1];
+  *v3 = *a1;
+  v3[1] = v7;
+
+  outlined copy of Result<_DataTable, Error>(a2, a3);
+  v8._countAndFlagsBits = v6;
+  v8._object = v7;
+  MLDataTable.subscript.getter(v8);
+  return outlined consume of Result<_DataTable, Error>(a2, a3);
+}
+
+uint64_t closure #2 in MLDataTable.subscript.getter(uint64_t *a1, uint64_t a2, int a3)
+{
+  v14 = a3;
+  v13 = a2;
+  v4 = v3;
+  v5 = *a1;
+  v6 = a1[1];
+  v7 = a1[2];
+  v12 = v3 + 2;
+  v8 = *(a1 + 24);
+
+  outlined copy of Result<_DataTable, Error>(v7, v8);
+  outlined consume of Result<_DataTable, Error>(v7, v8);
+  *v4 = v5;
+  v4[1] = v6;
+
+  outlined copy of Result<_DataTable, Error>(v7, v8);
+  v6;
+  v10 = v13;
+  v11 = v14 & 1;
+  outlined copy of Result<_DataTable, Error>(v13, v14);
+  MLUntypedColumn.subscript.getter(&v10);
+  outlined consume of Result<_DataTable, Error>(v10, v11);
+  return outlined consume of Result<_DataTable, Error>(v7, v8);
+}
+
+uint64_t MLDataTable.map<A>(_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v28 = a4;
+  v22[1] = v4;
+  v23 = a1;
+  v6 = *v5;
+  LOBYTE(v27) = *(v5 + 8);
+  v25 = a3;
+  v26 = v6;
+  v24 = a2;
+  if (v27)
+  {
+    outlined copy of Result<_DataTable, Error>(v6, 1);
+    v7 = tc_v1_flex_list_create(0);
+    if (!v7)
+    {
+      BUG();
+    }
+
+    v8 = v7;
+    v9 = type metadata accessor for CMLSequence();
+    v10 = swift_allocObject(v9, 25, 7);
+    *(v10 + 16) = v8;
+    *(v10 + 24) = 1;
+    outlined consume of Result<_DataTable, Error>(v6, 1);
+    v11 = _swiftEmptyDictionarySingleton;
+  }
+
+  else
+  {
+    outlined copy of Result<_DataTable, Error>(v6, 0);
+    _DataTable.columnNames.getter();
+    outlined consume of Result<_DataTable, Error>(v6, 0);
+    v10 = v29;
+    outlined copy of Result<_DataTable, Error>(v6, 0);
+    v11 = _DataTable.columnIndexes.getter();
+    outlined consume of Result<_DataTable, Error>(v6, 0);
+  }
+
+  v12 = v28;
+  v13 = swift_allocObject(&unk_3944F8, 64, 7);
+  v14 = v25;
+  v13[2] = v25;
+  v13[3] = v12;
+  v13[4] = v10;
+  v13[5] = v11;
+  v13[6] = v23;
+  v13[7] = v24;
+  if (v27)
+  {
+    v15 = v26;
+    v29 = v26;
+    outlined copy of Result<_DataTable, Error>(v26, 1);
+    outlined copy of Result<_DataTable, Error>(v26, 1);
+    v27 = v10;
+
+    v16 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Error);
+    v17 = _getErrorEmbeddedNSError<A>(_:)(&v29, v16, &protocol self-conformance witness table for Error);
+    if (v17)
+    {
+      v18 = v17;
+      outlined consume of Result<_DataTable, Error>(v26, 1);
+    }
+
+    else
+    {
+      v18 = swift_allocError(v16, &protocol self-conformance witness table for Error, 0, 0);
+      *v20 = v26;
+    }
+
+    outlined consume of Result<_DataTable, Error>(v15, 1);
+
+    v19 = 1;
+  }
+
+  else
+  {
+    v22[0] = v26;
+    outlined copy of Result<_DataTable, Error>(v26, 0);
+
+    closure #2 in MLDataTable.map<A>(_:)(v22, partial apply for closure #1 in MLDataTable.map<A>(_:), v13, v14, v12);
+
+    outlined consume of Result<_DataTable, Error>(v26, 0);
+
+    v18 = v29;
+    v19 = 0;
+  }
+
+  v29 = v18;
+  v30 = v19;
+  return MLDataColumn.init(from:)(&v29);
+}
+
+{
+  v6 = swift_allocObject(&unk_394520, 48, 7);
+  v6[2] = a3;
+  v6[3] = a4;
+  v6[4] = a1;
+  v6[5] = a2;
+
+  MLDataTable.map<A>(_:)(partial apply for closure #1 in MLDataTable.map<A>(_:), v6, a3, a4);
+}
+
+uint64_t closure #1 in MLDataTable.map<A>(_:)(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(void *), uint64_t a5, uint64_t a6, uint64_t a7)
+{
+  v24 = a5;
+  v23 = a4;
+  v28 = type metadata accessor for Optional(0, a6);
+  v29 = *(v28 - 8);
+  v9 = *(v29 + 64);
+  v10 = alloca(v9);
+  v11 = alloca(v9);
+  v25 = v22;
+  v26 = *(a6 - 8);
+  v12 = *(v26 + 64);
+  v13 = alloca(v12);
+  v14 = alloca(v12);
+  v27 = v22;
+  v22[0] = a2;
+  v22[1] = a3;
+  v22[2] = a1;
+  v32 = a1;
+  swift_retain_n(a1, 2);
+  v30 = a2;
+
+  v31 = a3;
+  v15 = a6;
+  v16 = v25;
+
+  v23(v22);
+  if (__swift_getEnumTagSinglePayload(v16, 1, v15) == 1)
+  {
+    (*(v29 + 8))(v16, v28);
+    type metadata accessor for CMLFeatureValue();
+    v17 = CMLFeatureValue.__allocating_init()();
+    v32;
+    v31;
+  }
+
+  else
+  {
+    v18 = v27;
+    v19 = v16;
+    v20 = v26;
+    (*(v26 + 32))(v27, v19, v15);
+    v17 = MLDataValueConvertible.featureValue.getter(v15, a7);
+    v32;
+    v31;
+
+    (*(v20 + 8))(v18, v15);
+  }
+
+  return v17;
+}
+
+uint64_t closure #2 in MLDataTable.map<A>(_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v11 = v5;
+  (*(a5 + 8))(a4);
+  result = CMLTable.apply(transform:type:)(a2, a3, 0x5060403020100uLL >> (8 * v12));
+  if (!v6)
+  {
+    v8 = result;
+    v9 = type metadata accessor for _UntypedColumn();
+    result = swift_allocObject(v9, 24, 7);
+    *(result + 16) = v8;
+    *v11 = result;
+  }
+
+  return result;
+}
+
+uint64_t closure #1 in MLDataTable.map<A>(_:)(__int128 *a1, void (*a2)(__int128 *, void, uint64_t), uint64_t a3, uint64_t a4)
+{
+  v6 = v4;
+  v7 = *(a1 + 2);
+  v9 = *a1;
+  v10 = v7;
+  a2(&v9, a2, a3);
+  return __swift_storeEnumTagSinglePayload(v6, 0, 1, a4);
+}
+
+uint64_t MLDataTable.dropMissing()()
+{
+  v2 = v0;
+  v3 = *v1;
+  if (*(v1 + 8))
+  {
+    v18[0] = *v1;
+    outlined copy of Result<_DataTable, Error>(v3, 1);
+    swift_errorRetain(v3);
+    v4 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Error);
+    v5 = _getErrorEmbeddedNSError<A>(_:)(v18, v4, &protocol self-conformance witness table for Error);
+    if (v5)
+    {
+      v6 = v5;
+      outlined consume of Result<_DataTable, Error>(v3, 1);
+    }
+
+    else
+    {
+      v6 = swift_allocError(v4, &protocol self-conformance witness table for Error, 0, 0);
+      *v10 = v3;
+    }
+
+    result = outlined consume of Result<_DataTable, Error>(v3, 1);
+    v12 = 1;
+  }
+
+  else
+  {
+    v7 = *(*(v3 + 16) + 16);
+    outlined copy of Result<_DataTable, Error>(*v1, 0);
+    v8 = tc_v1_flex_list_create(0);
+    v9 = specialized handling<A, B, C, D>(_:_:_:_:)(v7, v8, "any");
+    v13 = v9;
+    if (!v9)
+    {
+      BUG();
+    }
+
+    v12 = 0;
+    v14 = type metadata accessor for CMLTable();
+    v15 = swift_allocObject(v14, 24, 7);
+    *(v15 + 16) = v13;
+    v16 = v15;
+    v17 = type metadata accessor for _DataTable();
+    v6 = swift_allocObject(v17, 40, 7);
+    *(v6 + 24) = 0;
+    *(v6 + 16) = v16;
+    result = outlined consume of Result<_DataTable, Error>(v3, 0);
+  }
+
+  *v2 = v6;
+  *(v2 + 8) = v12;
+  return result;
+}
+
+uint64_t *MLDataTable.fillMissing(columnNamed:with:)(uint64_t a1, uint64_t a2, uint64_t a3, double a4)
+{
+  v24 = v4;
+  v6 = *v5;
+  if (*(v5 + 8))
+  {
+    v22[0] = *v5;
+    outlined copy of Result<_DataTable, Error>(v6, 1);
+    swift_errorRetain(v6);
+    v7 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Error);
+    v8 = _getErrorEmbeddedNSError<A>(_:)(v22, v7, &protocol self-conformance witness table for Error);
+    if (v8)
+    {
+      v9 = v8;
+      outlined consume of Result<_DataTable, Error>(v6, 1);
+    }
+
+    else
+    {
+      v9 = swift_allocError(v7, &protocol self-conformance witness table for Error, 0, 0);
+      *v17 = v6;
+    }
+
+    outlined consume of Result<_DataTable, Error>(v6, 1);
+    v20 = 1;
+  }
+
+  else
+  {
+    v10 = *(a3 + 16);
+    v11 = *a3;
+    v12 = *(a3 + 8);
+    v27 = v6[2];
+    v22[0] = v11;
+    v23 = v10;
+    v26 = a1;
+    v25 = a2;
+    outlined copy of Result<_DataTable, Error>(v6, 0);
+    outlined copy of MLDataValue(v11, v12, v10);
+    v13 = MLDataValue.featureValue.getter(v11, v12, a4);
+    outlined consume of MLDataValue(v22[0], v12, v10);
+    v14 = alloca(32);
+    v15 = alloca(32);
+    v22[0] = v27;
+    v22[1] = v13;
+    v16 = specialized String.withCString<A>(_:)(partial apply for closure #1 in CMLTable.fillMissing(columnNamed:with:), &v21, a1, a2, type metadata accessor for CMLTable, partial apply for specialized closure #1 in _StringGuts.withCString<A>(_:));
+
+    v19 = type metadata accessor for _DataTable();
+    v9 = swift_allocObject(v19, 40, 7);
+    *(v9 + 24) = 0;
+    *(v9 + 16) = v16;
+    v20 = 0;
+    outlined consume of Result<_DataTable, Error>(v6, 0);
+  }
+
+  result = v24;
+  *v24 = v9;
+  *(result + 8) = v20;
+  return result;
+}
+
+uint64_t MLDataTable.dropDuplicates()()
+{
+  v2 = v0;
+  v3 = *v1;
+  if (*(v1 + 8))
+  {
+    v17[0] = *v1;
+    outlined copy of Result<_DataTable, Error>(v3, 1);
+    swift_errorRetain(v3);
+    v4 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Error);
+    v5 = _getErrorEmbeddedNSError<A>(_:)(v17, v4, &protocol self-conformance witness table for Error);
+    if (v5)
+    {
+      v6 = v5;
+      outlined consume of Result<_DataTable, Error>(v3, 1);
+    }
+
+    else
+    {
+      v6 = swift_allocError(v4, &protocol self-conformance witness table for Error, 0, 0);
+      *v9 = v3;
+    }
+
+    result = outlined consume of Result<_DataTable, Error>(v3, 1);
+    v11 = 1;
+  }
+
+  else
+  {
+    v7 = *(*(v3 + 16) + 16);
+
+    v8 = specialized handling<A, B>(_:_:)(v7);
+    v12 = v8;
+    if (!v8)
+    {
+      BUG();
+    }
+
+    v11 = 0;
+    v13 = type metadata accessor for CMLTable();
+    v14 = swift_allocObject(v13, 24, 7);
+    *(v14 + 16) = v12;
+    v15 = v14;
+    v16 = type metadata accessor for _DataTable();
+    v6 = swift_allocObject(v16, 40, 7);
+    *(v6 + 24) = 0;
+    *(v6 + 16) = v15;
+    result = outlined consume of Result<_DataTable, Error>(v3, 0);
+  }
+
+  *v2 = v6;
+  *(v2 + 8) = v11;
+  return result;
 }

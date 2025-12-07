@@ -17,12 +17,13 @@
   {
     if (!error)
     {
-      goto LABEL_29;
+      goto LABEL_30;
     }
 
-LABEL_28:
-    ENErrorF(2);
-    *error = v17 = 0;
+    v24 = ENErrorF(2, "super init failed");
+LABEL_29:
+    v17 = 0;
+    *error = v24;
     goto LABEL_24;
   }
 
@@ -30,15 +31,16 @@ LABEL_28:
   {
     if (!error)
     {
-      goto LABEL_29;
+      goto LABEL_30;
     }
 
-    goto LABEL_28;
+    v24 = ENErrorF(2, "XPC non-dict");
+    goto LABEL_29;
   }
 
   if (!CUXPCDecodeNSArrayOfInteger())
   {
-    goto LABEL_29;
+    goto LABEL_30;
   }
 
   v27 = 0;
@@ -50,7 +52,7 @@ LABEL_28:
 
   else if (v8 == 5)
   {
-    goto LABEL_29;
+    goto LABEL_30;
   }
 
   v27 = 0;
@@ -62,7 +64,7 @@ LABEL_28:
 
   else if (v9 == 5)
   {
-    goto LABEL_29;
+    goto LABEL_30;
   }
 
   v27 = 0;
@@ -74,7 +76,7 @@ LABEL_28:
       goto LABEL_13;
     }
 
-LABEL_29:
+LABEL_30:
     v17 = 0;
     goto LABEL_24;
   }
@@ -83,7 +85,7 @@ LABEL_29:
 LABEL_13:
   if (!CUXPCDecodeDouble() || !CUXPCDecodeDouble())
   {
-    goto LABEL_29;
+    goto LABEL_30;
   }
 
   v11 = objc_alloc_init(MEMORY[0x277CBEB18]);
@@ -156,7 +158,6 @@ LABEL_20:
   }
 
 LABEL_24:
-  v23 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
@@ -193,9 +194,8 @@ BOOL __54__ENExposureDetectionSummary_initWithXPCObject_error___block_invoke(uin
 
 - (void)encodeWithXPCObject:(id)object
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   objectCopy = object;
-  attenuationDurations = self->_attenuationDurations;
   CUXPCEncodeNSArrayOfNSNumber();
   daysSinceLastExposure = self->_daysSinceLastExposure;
   if (daysSinceLastExposure)
@@ -226,88 +226,87 @@ BOOL __54__ENExposureDetectionSummary_initWithXPCObject_error___block_invoke(uin
     xpc_dictionary_set_double(objectCopy, "rssFR", riskScoreSumFullRange);
   }
 
-  v10 = self->_daySummaries;
-  if (v10)
+  v9 = self->_daySummaries;
+  if (v9)
   {
-    v11 = xpc_array_create(0, 0);
+    v10 = xpc_array_create(0, 0);
+    v18 = 0u;
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
-    v23 = 0u;
-    v12 = self->_daySummaries;
-    v13 = [(NSArray *)v12 countByEnumeratingWithState:&v20 objects:v24 count:16];
-    if (v13)
+    v11 = self->_daySummaries;
+    v12 = [(NSArray *)v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    if (v12)
     {
-      v14 = v13;
-      v15 = *v21;
+      v13 = v12;
+      v14 = *v19;
       do
       {
-        for (i = 0; i != v14; ++i)
+        for (i = 0; i != v13; ++i)
         {
-          if (*v21 != v15)
+          if (*v19 != v14)
           {
-            objc_enumerationMutation(v12);
+            objc_enumerationMutation(v11);
           }
 
-          v17 = *(*(&v20 + 1) + 8 * i);
-          v18 = xpc_dictionary_create(0, 0, 0);
-          [v17 encodeWithXPCObject:{v18, v20}];
-          xpc_array_set_value(v11, 0xFFFFFFFFFFFFFFFFLL, v18);
+          v16 = *(*(&v18 + 1) + 8 * i);
+          v17 = xpc_dictionary_create(0, 0, 0);
+          [v16 encodeWithXPCObject:{v17, v18}];
+          xpc_array_set_value(v10, 0xFFFFFFFFFFFFFFFFLL, v17);
         }
 
-        v14 = [(NSArray *)v12 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v13 = [(NSArray *)v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
-      while (v14);
+      while (v13);
     }
 
-    xpc_dictionary_set_value(objectCopy, "daySummaries", v11);
+    xpc_dictionary_set_value(objectCopy, "daySummaries", v10);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (id)description
 {
-  NSAppendPrintF_safe();
-  v3 = 0;
+  v19 = 0;
+  NSAppendPrintF_safe(&v19, "ENExposureDetectionSummary");
+  v3 = v19;
   v4 = self->_attenuationDurations;
   if ([(NSArray *)v4 count])
   {
-    attenuationDurations = self->_attenuationDurations;
-    NSAppendPrintF();
-    v5 = v3;
+    v18 = v3;
+    NSAppendPrintF(&v18, ", AttnDurs %##@", self->_attenuationDurations);
+    v5 = v18;
 
     v3 = v5;
   }
 
-  daysSinceLastExposure = self->_daysSinceLastExposure;
-  NSAppendPrintF_safe();
-  v6 = v3;
+  v17 = v3;
+  NSAppendPrintF_safe(&v17, ", DaysSince %d", self->_daysSinceLastExposure);
+  v6 = v17;
 
-  matchedKeyCount = self->_matchedKeyCount;
-  NSAppendPrintF_safe();
-  v7 = v6;
+  v16 = v6;
+  NSAppendPrintF_safe(&v16, ", Matched %llu", self->_matchedKeyCount);
+  v7 = v16;
 
-  maximumRiskScoreFullRange = self->_maximumRiskScoreFullRange;
-  maximumRiskScore = self->_maximumRiskScore;
-  NSAppendPrintF_safe();
-  v8 = v7;
+  v15 = v7;
+  NSAppendPrintF_safe(&v15, ", MaxScore %d (%f)", self->_maximumRiskScore, self->_maximumRiskScoreFullRange);
+  v8 = v15;
 
-  riskScoreSumFullRange = self->_riskScoreSumFullRange;
-  NSAppendPrintF_safe();
-  v9 = v8;
+  v14 = v8;
+  NSAppendPrintF_safe(&v14, ", RiskScoreSum %f", self->_riskScoreSumFullRange);
+  v9 = v14;
 
-  [(NSArray *)self->_daySummaries count:*&riskScoreSumFullRange];
-  NSAppendPrintF_safe();
-  v10 = v9;
+  v13 = v9;
+  NSAppendPrintF_safe(&v13, ", DaySummaries %d", [(NSArray *)self->_daySummaries count]);
+  v10 = v13;
+  v11 = v13;
 
-  return v9;
+  return v10;
 }
 
 void __54__ENExposureDetectionSummary_initWithXPCObject_error___block_invoke_cold_1()
 {
-  ENErrorF(15);
+  ENErrorF(15, "ENDaySummary non-dict");
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_3();
   v1 = *(v0 + 40);
@@ -316,7 +315,7 @@ void __54__ENExposureDetectionSummary_initWithXPCObject_error___block_invoke_col
 
 void __54__ENExposureDetectionSummary_initWithXPCObject_error___block_invoke_cold_2()
 {
-  ENErrorF(12);
+  ENErrorF(12, "ENDaySummary init XPC failed");
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_3();
   v1 = *(v0 + 40);

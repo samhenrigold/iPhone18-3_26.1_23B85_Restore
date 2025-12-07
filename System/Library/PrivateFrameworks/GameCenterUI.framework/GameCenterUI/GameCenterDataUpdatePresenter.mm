@@ -22,9 +22,10 @@
 
 - (void)refreshContentsForDataType:(unsigned int)type userInfo:(id)info
 {
+  v4 = *&type;
   v6 = sub_24E347C08();
   selfCopy = self;
-  sub_24E0AD224(type, v6);
+  sub_24E0AD224(v4, v6, v8);
 }
 
 @end

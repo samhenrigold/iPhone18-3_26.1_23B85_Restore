@@ -137,7 +137,7 @@
 
 - (BOOL)passesWithAsset:(id)asset
 {
-  v103 = *MEMORY[0x277D85DE8];
+  v102 = *MEMORY[0x277D85DE8];
   assetCopy = asset;
   clsSceneClassifications = [assetCopy clsSceneClassifications];
   if (![clsSceneClassifications count])
@@ -146,45 +146,45 @@
     goto LABEL_89;
   }
 
-  v80 = assetCopy;
-  v81 = clsSceneClassifications;
+  v79 = assetCopy;
+  v80 = clsSceneClassifications;
   curationModel = [assetCopy curationModel];
-  v88 = [(PGSceneAssetFilter *)self confidenceThresholdByNegativeSceneIdentifierWithCurationModel:curationModel];
-  v7 = [v88 count];
-  v85 = [(PGSceneAssetFilter *)self confidenceThresholdByPositiveSceneIdentifierWithCurationModel:curationModel];
-  v8 = [v85 count];
+  v87 = [(PGSceneAssetFilter *)self confidenceThresholdByNegativeSceneIdentifierWithCurationModel:curationModel];
+  v7 = [v87 count];
+  v84 = [(PGSceneAssetFilter *)self confidenceThresholdByPositiveSceneIdentifierWithCurationModel:curationModel];
+  v8 = [v84 count];
   LODWORD(positiveSemDevSceneIdentifiers) = v8 == 0;
-  v84 = [(PGSceneAssetFilter *)self confidenceThresholdBySecondaryPositiveSceneIdentifierWithCurationModel:curationModel];
-  v10 = [v84 count];
+  v83 = [(PGSceneAssetFilter *)self confidenceThresholdBySecondaryPositiveSceneIdentifierWithCurationModel:curationModel];
+  v10 = [v83 count];
   v11 = v10 == 0;
-  v89 = curationModel;
-  v83 = [(PGSceneAssetFilter *)self confidenceThresholdByPositiveDominantSceneIdentifierWithCurationModel:curationModel];
-  v12 = [v83 count];
+  v88 = curationModel;
+  v82 = [(PGSceneAssetFilter *)self confidenceThresholdByPositiveDominantSceneIdentifierWithCurationModel:curationModel];
+  v12 = [v82 count];
   v13 = v12 == 0;
   v14 = [(NSSet *)self->_positiveSemDevScenes count];
   v15 = v14 == 0;
   if (!v7 && !v12 && !v8 && !v14 && !v10)
   {
     v16 = 1;
-    assetCopy = v80;
-    clsSceneClassifications = v81;
-    v17 = v89;
+    assetCopy = v79;
+    clsSceneClassifications = v80;
+    v17 = v88;
     goto LABEL_88;
   }
 
-  v17 = v89;
+  v17 = v88;
   if (self->_useEntityNet)
   {
-    [v89 entityNetModel];
+    [v88 entityNetModel];
   }
 
   else
   {
-    [v89 sceneModel];
+    [v88 sceneModel];
   }
   v18 = ;
-  sceneModel = [v89 sceneModel];
-  entityNetModel = [v89 entityNetModel];
+  sceneModel = [v88 sceneModel];
+  entityNetModel = [v88 entityNetModel];
   identifier = [v18 identifier];
   v20 = identifier;
   if (!identifier)
@@ -193,37 +193,37 @@
     goto LABEL_87;
   }
 
-  v74 = identifier;
-  v75 = v18;
+  v73 = identifier;
+  v74 = v18;
   v21 = [(NSMutableDictionary *)self->_indexedConfidenceThresholdOfScenesBySceneModelIdentifier objectForKeyedSubscript:identifier];
   pointerValue = [v21 pointerValue];
 
-  v95 = 0u;
-  v96 = 0u;
-  v93 = 0u;
   v94 = 0u;
-  obj = v81;
-  v92 = [obj countByEnumeratingWithState:&v93 objects:v101 count:16];
-  if (!v92)
+  v95 = 0u;
+  v92 = 0u;
+  v93 = 0u;
+  obj = v80;
+  v91 = [obj countByEnumeratingWithState:&v92 objects:v100 count:16];
+  if (!v91)
   {
 LABEL_85:
     v16 = 0;
     goto LABEL_86;
   }
 
-  v91 = *v94;
-  v82 = v7;
+  v90 = *v93;
+  v81 = v7;
   selfCopy = self;
   do
   {
-    for (i = 0; i != v92; ++i)
+    for (i = 0; i != v91; ++i)
     {
-      if (*v94 != v91)
+      if (*v93 != v90)
       {
         objc_enumerationMutation(obj);
       }
 
-      v23 = *(*(&v93 + 1) + 8 * i);
+      v23 = *(*(&v92 + 1) + 8 * i);
       extendedSceneIdentifier = [v23 extendedSceneIdentifier];
       [v23 confidence];
       v26 = v25;
@@ -255,36 +255,36 @@ LABEL_50:
 
           else
           {
-            v77 = positiveSemDevSceneIdentifiers;
+            v76 = positiveSemDevSceneIdentifiers;
             v51 = v23;
-            v52 = v89;
+            v52 = v88;
+            v96 = 0u;
             v97 = 0u;
             v98 = 0u;
             v99 = 0u;
-            v100 = 0u;
             positiveSemDevSceneIdentifiers = [(PGSceneAssetFilter *)self positiveSemDevSceneIdentifiers];
-            v53 = [positiveSemDevSceneIdentifiers countByEnumeratingWithState:&v97 objects:v102 count:16];
+            v53 = [positiveSemDevSceneIdentifiers countByEnumeratingWithState:&v96 objects:v101 count:16];
             if (v53)
             {
               v54 = v53;
-              v55 = *v98;
+              v55 = *v97;
               while (2)
               {
                 for (j = 0; j != v54; ++j)
                 {
-                  if (*v98 != v55)
+                  if (*v97 != v55)
                   {
                     objc_enumerationMutation(positiveSemDevSceneIdentifiers);
                   }
 
-                  if ([v52 isSemDevSceneDetectedForIdentifier:objc_msgSend(*(*(&v97 + 1) + 8 * j) withSceneClassification:{"unsignedIntegerValue"), v51}])
+                  if ([v52 isSemDevSceneDetectedForIdentifier:objc_msgSend(*(*(&v96 + 1) + 8 * j) withSceneClassification:{"unsignedIntegerValue"), v51}])
                   {
                     v15 = 1;
                     goto LABEL_62;
                   }
                 }
 
-                v54 = [positiveSemDevSceneIdentifiers countByEnumeratingWithState:&v97 objects:v102 count:16];
+                v54 = [positiveSemDevSceneIdentifiers countByEnumeratingWithState:&v96 objects:v101 count:16];
                 if (v54)
                 {
                   continue;
@@ -297,8 +297,8 @@ LABEL_50:
             v15 = 0;
 LABEL_62:
 
-            v7 = v82;
-            LODWORD(positiveSemDevSceneIdentifiers) = v77;
+            v7 = v81;
+            LODWORD(positiveSemDevSceneIdentifiers) = v76;
           }
 
           goto LABEL_79;
@@ -312,7 +312,7 @@ LABEL_36:
           v33 = v11;
           v34 = positiveSemDevSceneIdentifiers;
           v35 = MEMORY[0x277CCABB0];
-          v36 = v88;
+          v36 = v87;
           v37 = [v35 numberWithUnsignedLongLong:extendedSceneIdentifier];
           positiveSemDevSceneIdentifiers = [v36 objectForKeyedSubscript:v37];
 
@@ -321,7 +321,7 @@ LABEL_36:
             [positiveSemDevSceneIdentifiers doubleValue];
             v39 = v38;
 
-            v7 = v82;
+            v7 = v81;
             LOBYTE(positiveSemDevSceneIdentifiers) = v34;
             v11 = v33;
             v15 = v32;
@@ -335,7 +335,7 @@ LABEL_36:
             goto LABEL_39;
           }
 
-          v7 = v82;
+          v7 = v81;
           v57 = v34;
           v11 = v33;
           v15 = v32;
@@ -345,7 +345,7 @@ LABEL_36:
           {
 LABEL_64:
             v58 = MEMORY[0x277CCABB0];
-            v59 = v85;
+            v59 = v84;
             v60 = [v58 numberWithUnsignedLongLong:extendedSceneIdentifier];
             positiveSemDevSceneIdentifiers = [v59 objectForKeyedSubscript:v60];
 
@@ -360,7 +360,7 @@ LABEL_64:
               v62 = 0;
             }
 
-            v7 = v82;
+            v7 = v81;
             LODWORD(positiveSemDevSceneIdentifiers) = v62;
             if (v11)
             {
@@ -372,7 +372,7 @@ LABEL_41:
             v41 = v15;
             v42 = positiveSemDevSceneIdentifiers;
             v43 = MEMORY[0x277CCABB0];
-            v44 = v84;
+            v44 = v83;
             v45 = [v43 numberWithUnsignedLongLong:extendedSceneIdentifier];
             v46 = [v44 objectForKeyedSubscript:v45];
 
@@ -426,13 +426,13 @@ LABEL_74:
         }
 
 LABEL_68:
-        v64 = v83;
+        v64 = v82;
         v65 = v23;
         [v65 boundingBox];
         v13 = 0;
         if (v67 > 0.0 && v66 > 0.0)
         {
-          v78 = positiveSemDevSceneIdentifiers;
+          v77 = positiveSemDevSceneIdentifiers;
           v68 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v65, "extendedSceneIdentifier")}];
           positiveSemDevSceneIdentifiers = [v64 objectForKeyedSubscript:v68];
 
@@ -449,7 +449,7 @@ LABEL_68:
             v13 = 0;
           }
 
-          LODWORD(positiveSemDevSceneIdentifiers) = v78;
+          LODWORD(positiveSemDevSceneIdentifiers) = v77;
         }
 
         goto LABEL_79;
@@ -495,93 +495,90 @@ LABEL_79:
       }
     }
 
-    v92 = [obj countByEnumeratingWithState:&v93 objects:v101 count:{16, v28}];
+    v91 = [obj countByEnumeratingWithState:&v92 objects:v100 count:{16, v28}];
   }
 
-  while (v92);
+  while (v91);
 LABEL_86:
 
-  v17 = v89;
-  v20 = v74;
-  v18 = v75;
+  v17 = v88;
+  v20 = v73;
+  v18 = v74;
 LABEL_87:
 
-  assetCopy = v80;
-  clsSceneClassifications = v81;
+  assetCopy = v79;
+  clsSceneClassifications = v80;
 LABEL_88:
 
 LABEL_89:
-  v72 = *MEMORY[0x277D85DE8];
   return v16 & 1;
 }
 
 - (id)filteredAssetsFromAssets:(id)assets
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   assetsCopy = assets;
   array = [MEMORY[0x277CBEB18] array];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v6 = assetsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v14 + 1) + 8 * i);
-        if ([(PGSceneAssetFilter *)self passesWithAsset:v11, v14])
+        v11 = *(*(&v13 + 1) + 8 * i);
+        if ([(PGSceneAssetFilter *)self passesWithAsset:v11, v13])
         {
           [array addObject:v11];
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return array;
 }
 
 - (BOOL)_validateSceneNames:(id)names withSceneTaxonomy:(id)taxonomy
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   namesCopy = names;
   taxonomyCopy = taxonomy;
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v8 = namesCopy;
-  v9 = [v8 countByEnumeratingWithState:&v21 objects:v27 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v20 objects:v26 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v22;
+    v11 = *v21;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v22 != v11)
+        if (*v21 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v21 + 1) + 8 * i);
+        v13 = *(*(&v20 + 1) + 8 * i);
         lowercaseString = [v13 lowercaseString];
         if (self->_useEntityNet)
         {
@@ -601,7 +598,7 @@ LABEL_89:
           if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v26 = v13;
+            v25 = v13;
             _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "[PGSceneAssetFilter] Invalid scene name %@", buf, 0xCu);
           }
 
@@ -610,7 +607,7 @@ LABEL_89:
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v21 objects:v27 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v20 objects:v26 count:16];
       if (v10)
       {
         continue;
@@ -623,13 +620,12 @@ LABEL_89:
   v16 = 1;
 LABEL_16:
 
-  v19 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
 - (void)dealloc
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   typeOfSceneClassification = self->_typeOfSceneClassification;
   if (typeOfSceneClassification)
   {
@@ -640,31 +636,31 @@ LABEL_16:
   indexedConfidenceThresholdOfScenesBySceneModelIdentifier = self->_indexedConfidenceThresholdOfScenesBySceneModelIdentifier;
   if (indexedConfidenceThresholdOfScenesBySceneModelIdentifier)
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     allValues = [(NSMutableDictionary *)indexedConfidenceThresholdOfScenesBySceneModelIdentifier allValues];
-    v6 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v6 = [allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v14;
+      v8 = *v13;
       do
       {
         v9 = 0;
         do
         {
-          if (*v14 != v8)
+          if (*v13 != v8)
           {
             objc_enumerationMutation(allValues);
           }
 
-          free([*(*(&v13 + 1) + 8 * v9++) pointerValue]);
+          free([*(*(&v12 + 1) + 8 * v9++) pointerValue]);
         }
 
         while (v7 != v9);
-        v7 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v7 = [allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v7);
@@ -674,10 +670,9 @@ LABEL_16:
     self->_indexedConfidenceThresholdOfScenesBySceneModelIdentifier = 0;
   }
 
-  v12.receiver = self;
-  v12.super_class = PGSceneAssetFilter;
-  [(PGSceneAssetFilter *)&v12 dealloc];
-  v11 = *MEMORY[0x277D85DE8];
+  v11.receiver = self;
+  v11.super_class = PGSceneAssetFilter;
+  [(PGSceneAssetFilter *)&v11 dealloc];
 }
 
 - (BOOL)_allSceneNamesAreValid:(id)valid
@@ -879,38 +874,38 @@ LABEL_6:
 
 - (NSSet)positiveSemDevSceneIdentifiers
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   positiveSemDevSceneIdentifiers = self->_positiveSemDevSceneIdentifiers;
   if (!positiveSemDevSceneIdentifiers)
   {
     v4 = objc_alloc_init(MEMORY[0x277CBEB58]);
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
     v5 = self->_positiveSemDevScenes;
-    v6 = [(NSSet *)v5 countByEnumeratingWithState:&v19 objects:v25 count:16];
+    v6 = [(NSSet *)v5 countByEnumeratingWithState:&v18 objects:v24 count:16];
     if (v6)
     {
       v8 = v6;
-      v9 = *v20;
+      v9 = *v19;
       *&v7 = 138412290;
-      v17 = v7;
+      v16 = v7;
       do
       {
         v10 = 0;
         do
         {
-          if (*v20 != v9)
+          if (*v19 != v9)
           {
             objc_enumerationMutation(v5);
           }
 
-          v11 = *(*(&v19 + 1) + 8 * v10);
-          v18 = 0;
-          if ([(PGSceneAssetFilter *)self label:v11 isSemDevClassificationWithIdentifier:&v18, v17])
+          v11 = *(*(&v18 + 1) + 8 * v10);
+          v17 = 0;
+          if ([(PGSceneAssetFilter *)self label:v11 isSemDevClassificationWithIdentifier:&v17, v16])
           {
-            loggingConnection = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v18];
+            loggingConnection = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v17];
             [(NSSet *)v4 addObject:loggingConnection];
           }
 
@@ -921,8 +916,8 @@ LABEL_6:
 
             if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
             {
-              *buf = v17;
-              v24 = v11;
+              *buf = v16;
+              v23 = v11;
               _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "[PGSceneAssetFilter] Invalid sem dev name %@", buf, 0xCu);
             }
           }
@@ -931,7 +926,7 @@ LABEL_6:
         }
 
         while (v8 != v10);
-        v8 = [(NSSet *)v5 countByEnumeratingWithState:&v19 objects:v25 count:16];
+        v8 = [(NSSet *)v5 countByEnumeratingWithState:&v18 objects:v24 count:16];
       }
 
       while (v8);
@@ -942,8 +937,6 @@ LABEL_6:
 
     positiveSemDevSceneIdentifiers = self->_positiveSemDevSceneIdentifiers;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return positiveSemDevSceneIdentifiers;
 }
@@ -1176,31 +1169,31 @@ void __96__PGSceneAssetFilter__buildIndexWithConfidenceThresholds_sceneClassific
 
 - (id)_consolidatedConfidenceThresholdBySceneIdentifiers:(id)identifiers customSignalModel:(id)model
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   modelCopy = model;
   v7 = [identifiersCopy mutableCopy];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
-  v20 = identifiersCopy;
+  v19 = identifiersCopy;
   allKeys = [identifiersCopy allKeys];
-  v9 = [allKeys countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v9 = [allKeys countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v22;
+    v11 = *v21;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v22 != v11)
+        if (*v21 != v11)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v13 = *(*(&v21 + 1) + 8 * i);
+        v13 = *(*(&v20 + 1) + 8 * i);
         v14 = [modelCopy nodeForSignalIdentifier:{objc_msgSend(v13, "unsignedIntegerValue")}];
         v15 = v14;
         if (v14)
@@ -1212,13 +1205,11 @@ void __96__PGSceneAssetFilter__buildIndexWithConfidenceThresholds_sceneClassific
         }
       }
 
-      v10 = [allKeys countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v10 = [allKeys countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v10);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

@@ -11,7 +11,7 @@ id __53___UIHomeAffordanceSceneNotifierProxy_initWithScene___block_invoke(uint64
   return v2;
 }
 
-uint64_t __65___UIHomeAffordanceSceneNotifierProxy_appendDescriptionToStream___block_invoke(uint64_t a1)
+id __65___UIHomeAffordanceSceneNotifierProxy_appendDescriptionToStream___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) hasSuccinctStyle];
   v3 = *(a1 + 32);

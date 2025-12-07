@@ -41,16 +41,14 @@
 
 - (id)description
 {
-  v3 = [MEMORY[0x277CF0C00] builderWithObject:self];
-  type = self->_type;
-  v5 = NSStringFromBLSAlwaysOnSuppressionType();
-  [v3 appendString:v5 withName:@"type"];
+  v2 = [MEMORY[0x277CF0C00] builderWithObject:self];
+  v3 = NSStringFromBLSAlwaysOnSuppressionType();
+  [v2 appendString:v3 withName:@"type"];
 
-  reason = self->_reason;
-  v7 = NSStringFromBLSAlwaysOnSuppressionReason();
-  [v3 appendString:v7 withName:@"reason"];
+  v4 = NSStringFromBLSAlwaysOnSuppressionReason();
+  [v2 appendString:v4 withName:@"reason"];
 
-  build = [v3 build];
+  build = [v2 build];
 
   return build;
 }

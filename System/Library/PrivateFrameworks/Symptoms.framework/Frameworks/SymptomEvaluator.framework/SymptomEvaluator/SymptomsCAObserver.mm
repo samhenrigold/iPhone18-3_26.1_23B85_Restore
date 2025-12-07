@@ -101,26 +101,26 @@
 
 void __65__SymptomsCAObserver_addDelegate_forEvents_withQueue_completion___block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v2 = [*(a1 + 32) delegates];
-  v3 = [v2 countByEnumeratingWithState:&v16 objects:v24 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v15 objects:v23 count:16];
   if (v3)
   {
-    v4 = *v17;
+    v4 = *v16;
 LABEL_3:
     v5 = 0;
     while (1)
     {
-      if (*v17 != v4)
+      if (*v16 != v4)
       {
         objc_enumerationMutation(v2);
       }
 
-      v6 = *(*(&v16 + 1) + 8 * v5);
+      v6 = *(*(&v15 + 1) + 8 * v5);
       if ([v6 matchesDelegate:*(a1 + 40)])
       {
         break;
@@ -128,7 +128,7 @@ LABEL_3:
 
       if (v3 == ++v5)
       {
-        v3 = [v2 countByEnumeratingWithState:&v16 objects:v24 count:16];
+        v3 = [v2 countByEnumeratingWithState:&v15 objects:v23 count:16];
         if (v3)
         {
           goto LABEL_3;
@@ -143,9 +143,9 @@ LABEL_3:
     {
       v8 = *(a1 + 40);
       *buf = 138412546;
-      v21 = 0;
-      v22 = 2112;
-      v23 = v8;
+      v20 = 0;
+      v21 = 2112;
+      v22 = v8;
       _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEBUG, "Found current entry (%@) for delegate: %@", buf, 0x16u);
     }
 
@@ -178,14 +178,13 @@ LABEL_14:
   {
     v14 = [(SymptomsCAObserverDelegateEntry *)v9 events];
     *buf = 138412546;
-    v21 = v9;
-    v22 = 2112;
-    v23 = v14;
+    v20 = v9;
+    v21 = 2112;
+    v22 = v14;
     _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_INFO, "Registered delegate %@ with events %@", buf, 0x16u);
   }
 
   [*(a1 + 32) updateAnalyticsEventObserverRegistrationOnQueueWithCompletion:*(a1 + 64) completionQueue:*(a1 + 48)];
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeDelegate:(id)delegate withQueue:(id)queue completion:(id)completion
@@ -215,26 +214,26 @@ LABEL_14:
 
 void __58__SymptomsCAObserver_removeDelegate_withQueue_completion___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v2 = [*(a1 + 32) delegates];
-  v3 = [v2 countByEnumeratingWithState:&v12 objects:v20 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v11 objects:v19 count:16];
   if (v3)
   {
-    v4 = *v13;
+    v4 = *v12;
     while (2)
     {
       for (i = 0; i != v3; i = i + 1)
       {
-        if (*v13 != v4)
+        if (*v12 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        v6 = *(*(&v12 + 1) + 8 * i);
+        v6 = *(*(&v11 + 1) + 8 * i);
         if ([v6 matchesDelegate:*(a1 + 40)])
         {
           v7 = metricsLogHandle;
@@ -242,9 +241,9 @@ void __58__SymptomsCAObserver_removeDelegate_withQueue_completion___block_invoke
           {
             v8 = *(a1 + 40);
             *buf = 138412546;
-            v17 = 0;
-            v18 = 2112;
-            v19 = v8;
+            v16 = 0;
+            v17 = 2112;
+            v18 = v8;
             _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEBUG, "Found current entry (%@) for delegate: %@", buf, 0x16u);
           }
 
@@ -253,7 +252,7 @@ void __58__SymptomsCAObserver_removeDelegate_withQueue_completion___block_invoke
         }
       }
 
-      v3 = [v2 countByEnumeratingWithState:&v12 objects:v20 count:16];
+      v3 = [v2 countByEnumeratingWithState:&v11 objects:v19 count:16];
       if (v3)
       {
         continue;
@@ -272,18 +271,16 @@ LABEL_13:
   if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v17 = v3;
+    v16 = v3;
     _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_INFO, "Unregistered delegate %@", buf, 0xCu);
   }
 
   [*(a1 + 32) updateAnalyticsEventObserverRegistrationOnQueueWithCompletion:*(a1 + 56) completionQueue:*(a1 + 48)];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)observer:(id)observer didEmitMessage:(id)message
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   observerCopy = observer;
   messageCopy = message;
   v8 = metricsLogHandle;
@@ -292,7 +289,7 @@ LABEL_13:
     if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v24 = messageCopy;
+      v23 = messageCopy;
       _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEBUG, "AnalyticsEventObserver didEmitMessage %@", buf, 0xCu);
     }
 
@@ -310,7 +307,7 @@ LABEL_13:
         if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v24 = v12;
+          v23 = v12;
           _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_INFO, "SymptomsCAObserver received event %@", buf, 0xCu);
         }
 
@@ -318,9 +315,9 @@ LABEL_13:
         if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412546;
-          v24 = v12;
-          v25 = 2112;
-          v26 = v11;
+          v23 = v12;
+          v24 = 2112;
+          v25 = v11;
           _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_DEBUG, "SymptomsCAObserver received event %@: %@", buf, 0x16u);
         }
 
@@ -332,8 +329,8 @@ LABEL_13:
           block[2] = __46__SymptomsCAObserver_observer_didEmitMessage___block_invoke;
           block[3] = &unk_27898C1F8;
           block[4] = self;
-          v21 = v12;
-          v22 = v13;
+          v20 = v12;
+          v21 = v13;
           dispatch_async(queue, block);
         }
       }
@@ -346,9 +343,9 @@ LABEL_13:
       {
         v18 = objc_opt_class();
         *buf = 138412546;
-        v24 = messageCopy;
-        v25 = 2112;
-        v26 = v18;
+        v23 = messageCopy;
+        v24 = 2112;
+        v25 = v18;
         _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_ERROR, "SymptomsCAObserver returned invalid message %@ (%@)", buf, 0x16u);
       }
     }
@@ -357,35 +354,33 @@ LABEL_13:
   else if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v24 = observerCopy;
+    v23 = observerCopy;
     _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_ERROR, "AnalyticsEventObserver %@ called handleEvent with nil message", buf, 0xCu);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __46__SymptomsCAObserver_observer_didEmitMessage___block_invoke(id *a1)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v2 = [a1[4] delegates];
-  v3 = [v2 countByEnumeratingWithState:&v19 objects:v27 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v18 objects:v26 count:16];
   if (v3)
   {
-    v4 = *v20;
+    v4 = *v19;
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v20 != v4)
+        if (*v19 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        v6 = *(*(&v19 + 1) + 8 * i);
+        v6 = *(*(&v18 + 1) + 8 * i);
         v7 = [v6 events];
         v8 = [v7 containsObject:a1[5]];
 
@@ -396,9 +391,9 @@ void __46__SymptomsCAObserver_observer_didEmitMessage___block_invoke(id *a1)
           {
             v10 = a1[5];
             *buf = 138412546;
-            v24 = v6;
-            v25 = 2112;
-            v26 = v10;
+            v23 = v6;
+            v24 = 2112;
+            v25 = v10;
             _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_INFO, "Delegate %@ is registered for event %@", buf, 0x16u);
           }
 
@@ -416,50 +411,46 @@ void __46__SymptomsCAObserver_observer_didEmitMessage___block_invoke(id *a1)
               block[2] = __46__SymptomsCAObserver_observer_didEmitMessage___block_invoke_43;
               block[3] = &unk_27898C1F8;
               block[4] = v6;
-              v17 = a1[5];
-              v18 = a1[6];
+              v16 = a1[5];
+              v17 = a1[6];
               dispatch_async(v14, block);
             }
           }
         }
       }
 
-      v3 = [v2 countByEnumeratingWithState:&v19 objects:v27 count:16];
+      v3 = [v2 countByEnumeratingWithState:&v18 objects:v26 count:16];
     }
 
     while (v3);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __46__SymptomsCAObserver_observer_didEmitMessage___block_invoke_43(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = metricsLogHandle;
   if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEBUG))
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
     v5 = *(a1 + 48);
-    v8 = 138412802;
-    v9 = v3;
-    v10 = 2112;
-    v11 = v4;
-    v12 = 2112;
-    v13 = v5;
-    _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_DEBUG, "Calling handleEvent for delegate %@ with event %@:%@", &v8, 0x20u);
+    v7 = 138412802;
+    v8 = v3;
+    v9 = 2112;
+    v10 = v4;
+    v11 = 2112;
+    v12 = v5;
+    _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_DEBUG, "Calling handleEvent for delegate %@ with event %@:%@", &v7, 0x20u);
   }
 
   v6 = [*(a1 + 32) delegate];
   [v6 handleEvent:*(a1 + 48) forEventName:*(a1 + 40)];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateAnalyticsEventObserverRegistrationOnQueueWithCompletion:(id)completion completionQueue:(id)queue
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   queue = queue;
   queue = [(SymptomsCAObserver *)self queue];
@@ -473,25 +464,25 @@ void __46__SymptomsCAObserver_observer_didEmitMessage___block_invoke_43(uint64_t
   }
 
   v8 = objc_alloc_init(MEMORY[0x277CBEB58]);
-  v47 = 0u;
-  v48 = 0u;
-  v45 = 0u;
   v46 = 0u;
+  v47 = 0u;
+  v44 = 0u;
+  v45 = 0u;
   delegates = [(SymptomsCAObserver *)self delegates];
-  v10 = [delegates countByEnumeratingWithState:&v45 objects:v51 count:16];
+  v10 = [delegates countByEnumeratingWithState:&v44 objects:v50 count:16];
   if (v10)
   {
-    v11 = *v46;
+    v11 = *v45;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v46 != v11)
+        if (*v45 != v11)
         {
           objc_enumerationMutation(delegates);
         }
 
-        v13 = *(*(&v45 + 1) + 8 * i);
+        v13 = *(*(&v44 + 1) + 8 * i);
         events = [v13 events];
         v15 = events == 0;
 
@@ -503,7 +494,7 @@ void __46__SymptomsCAObserver_observer_didEmitMessage___block_invoke_43(uint64_t
         }
       }
 
-      v10 = [delegates countByEnumeratingWithState:&v45 objects:v51 count:16];
+      v10 = [delegates countByEnumeratingWithState:&v44 objects:v50 count:16];
     }
 
     while (v10);
@@ -516,7 +507,7 @@ void __46__SymptomsCAObserver_observer_didEmitMessage___block_invoke_43(uint64_t
     {
       combinedEvents = [(SymptomsCAObserver *)self combinedEvents];
       *buf = 138412290;
-      v50 = combinedEvents;
+      v49 = combinedEvents;
       _os_log_impl(&dword_23255B000, v20, OS_LOG_TYPE_INFO, "Combined metric list for registration does not differ from current registration, delivering completion immediately: %@", buf, 0xCu);
     }
 
@@ -526,7 +517,7 @@ void __46__SymptomsCAObserver_observer_didEmitMessage___block_invoke_43(uint64_t
       block[1] = 3221225472;
       block[2] = __100__SymptomsCAObserver_updateAnalyticsEventObserverRegistrationOnQueueWithCompletion_completionQueue___block_invoke;
       block[3] = &unk_27898C220;
-      v44 = completionCopy;
+      v43 = completionCopy;
       dispatch_async(queue, block);
     }
   }
@@ -537,7 +528,7 @@ void __46__SymptomsCAObserver_observer_didEmitMessage___block_invoke_43(uint64_t
     if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v50 = v8;
+      v49 = v8;
       _os_log_impl(&dword_23255B000, v22, OS_LOG_TYPE_INFO, "Updated metric list for registration: %@", buf, 0xCu);
     }
 
@@ -559,7 +550,7 @@ void __46__SymptomsCAObserver_observer_didEmitMessage___block_invoke_43(uint64_t
       {
         v27 = self->_analyticsEventObserver;
         *buf = 138412290;
-        v50 = v27;
+        v49 = v27;
         _os_log_impl(&dword_23255B000, v26, OS_LOG_TYPE_DEBUG, "Created AnalyticsEventObserver %@", buf, 0xCu);
       }
 
@@ -569,7 +560,7 @@ void __46__SymptomsCAObserver_observer_didEmitMessage___block_invoke_43(uint64_t
       {
         v29 = self->_analyticsEventObserver;
         *buf = 138412290;
-        v50 = v29;
+        v49 = v29;
         _os_log_impl(&dword_23255B000, v28, OS_LOG_TYPE_DEBUG, "Set Delegate on AnalyticsEventObserver %@", buf, 0xCu);
       }
     }
@@ -577,33 +568,31 @@ void __46__SymptomsCAObserver_observer_didEmitMessage___block_invoke_43(uint64_t
     if ([v8 count])
     {
       queue2 = [(SymptomsCAObserver *)self queue];
-      v39[0] = MEMORY[0x277D85DD0];
-      v39[1] = 3221225472;
-      v39[2] = __100__SymptomsCAObserver_updateAnalyticsEventObserverRegistrationOnQueueWithCompletion_completionQueue___block_invoke_45;
-      v39[3] = &unk_27898C1D0;
-      v39[4] = self;
-      v40 = v8;
-      v42 = completionCopy;
+      v38[0] = MEMORY[0x277D85DD0];
+      v38[1] = 3221225472;
+      v38[2] = __100__SymptomsCAObserver_updateAnalyticsEventObserverRegistrationOnQueueWithCompletion_completionQueue___block_invoke_45;
+      v38[3] = &unk_27898C1D0;
+      v38[4] = self;
+      v39 = v8;
+      v41 = completionCopy;
       queueCopy = queue;
-      dispatch_async(queue2, v39);
+      dispatch_async(queue2, v38);
     }
 
     else
     {
       queue3 = [(SymptomsCAObserver *)self queue];
-      v35[0] = MEMORY[0x277D85DD0];
-      v35[1] = 3221225472;
-      v35[2] = __100__SymptomsCAObserver_updateAnalyticsEventObserverRegistrationOnQueueWithCompletion_completionQueue___block_invoke_51;
-      v35[3] = &unk_27898C1D0;
-      v35[4] = self;
-      v36 = v8;
-      v38 = completionCopy;
+      v34[0] = MEMORY[0x277D85DD0];
+      v34[1] = 3221225472;
+      v34[2] = __100__SymptomsCAObserver_updateAnalyticsEventObserverRegistrationOnQueueWithCompletion_completionQueue___block_invoke_51;
+      v34[3] = &unk_27898C1D0;
+      v34[4] = self;
+      v35 = v8;
+      v37 = completionCopy;
       queueCopy2 = queue;
-      dispatch_async(queue3, v35);
+      dispatch_async(queue3, v34);
     }
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __100__SymptomsCAObserver_updateAnalyticsEventObserverRegistrationOnQueueWithCompletion_completionQueue___block_invoke(uint64_t a1)
@@ -620,34 +609,34 @@ uint64_t __100__SymptomsCAObserver_updateAnalyticsEventObserverRegistrationOnQue
 
 void __100__SymptomsCAObserver_updateAnalyticsEventObserverRegistrationOnQueueWithCompletion_completionQueue___block_invoke_45(id *a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   objc_initWeak(&location, a1[4]);
   v2 = metricsLogHandle;
   if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_INFO))
   {
     v3 = a1[5];
     *buf = 138412290;
-    v19 = v3;
+    v18 = v3;
     _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_INFO, "About to call startObservingEventList with %@", buf, 0xCu);
   }
 
   v4 = *(a1[4] + 1);
   v5 = [a1[5] allObjects];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __100__SymptomsCAObserver_updateAnalyticsEventObserverRegistrationOnQueueWithCompletion_completionQueue___block_invoke_46;
-  v13[3] = &unk_27898C298;
-  objc_copyWeak(&v16, &location);
-  v15 = a1[7];
-  v14 = a1[6];
-  [v4 startObservingEventList:v5 withErrorHandler:v13];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __100__SymptomsCAObserver_updateAnalyticsEventObserverRegistrationOnQueueWithCompletion_completionQueue___block_invoke_46;
+  v12[3] = &unk_27898C298;
+  objc_copyWeak(&v15, &location);
+  v14 = a1[7];
+  v13 = a1[6];
+  [v4 startObservingEventList:v5 withErrorHandler:v12];
 
   v6 = metricsLogHandle;
   if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_INFO))
   {
     v7 = a1[5];
     *buf = 138412290;
-    v19 = v7;
+    v18 = v7;
     _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_INFO, "Successfully called startObservingEventList with %@", buf, 0xCu);
   }
 
@@ -662,25 +651,24 @@ void __100__SymptomsCAObserver_updateAnalyticsEventObserverRegistrationOnQueueWi
       block[1] = 3221225472;
       block[2] = __100__SymptomsCAObserver_updateAnalyticsEventObserverRegistrationOnQueueWithCompletion_completionQueue___block_invoke_50;
       block[3] = &unk_27898C220;
-      v12 = v8;
+      v11 = v8;
       dispatch_async(v9, block);
     }
   }
 
-  objc_destroyWeak(&v16);
+  objc_destroyWeak(&v15);
   objc_destroyWeak(&location);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __100__SymptomsCAObserver_updateAnalyticsEventObserverRegistrationOnQueueWithCompletion_completionQueue___block_invoke_46(id *a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = metricsLogHandle;
   if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v14 = v3;
+    v13 = v3;
     _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_ERROR, "startObservingEventList ErrorHandler called (%@)", buf, 0xCu);
   }
 
@@ -690,24 +678,22 @@ void __100__SymptomsCAObserver_updateAnalyticsEventObserverRegistrationOnQueueWi
   block[1] = 3221225472;
   block[2] = __100__SymptomsCAObserver_updateAnalyticsEventObserverRegistrationOnQueueWithCompletion_completionQueue___block_invoke_47;
   block[3] = &unk_27898C270;
-  v10 = v3;
-  v12 = a1[5];
-  v11 = a1[4];
+  v9 = v3;
+  v11 = a1[5];
+  v10 = a1[4];
   v7 = v3;
   dispatch_async(v6, block);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __100__SymptomsCAObserver_updateAnalyticsEventObserverRegistrationOnQueueWithCompletion_completionQueue___block_invoke_47(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = metricsLogHandle;
   if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_ERROR))
   {
     v3 = *(a1 + 32);
     *buf = 138412290;
-    v10 = v3;
+    v9 = v3;
     _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_ERROR, "Failed to register with AnalyticsEventObserver, error: %@", buf, 0xCu);
   }
 
@@ -716,35 +702,30 @@ void __100__SymptomsCAObserver_updateAnalyticsEventObserverRegistrationOnQueueWi
     v4 = *(a1 + 40);
     if (v4)
     {
-      v6[0] = MEMORY[0x277D85DD0];
-      v6[1] = 3221225472;
-      v6[2] = __100__SymptomsCAObserver_updateAnalyticsEventObserverRegistrationOnQueueWithCompletion_completionQueue___block_invoke_48;
-      v6[3] = &unk_27898C248;
-      v7 = *(a1 + 32);
-      v8 = *(a1 + 48);
-      dispatch_async(v4, v6);
+      v5[0] = MEMORY[0x277D85DD0];
+      v5[1] = 3221225472;
+      v5[2] = __100__SymptomsCAObserver_updateAnalyticsEventObserverRegistrationOnQueueWithCompletion_completionQueue___block_invoke_48;
+      v5[3] = &unk_27898C248;
+      v6 = *(a1 + 32);
+      v7 = *(a1 + 48);
+      dispatch_async(v4, v5);
     }
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __100__SymptomsCAObserver_updateAnalyticsEventObserverRegistrationOnQueueWithCompletion_completionQueue___block_invoke_48(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = metricsLogHandle;
   if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
-    v7 = 138412290;
-    v8 = v3;
-    _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_INFO, "Calling completion after failing to register with error: %@", &v7, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_INFO, "Calling completion after failing to register with error: %@", &v5, 0xCu);
   }
 
-  v4 = *(a1 + 32);
-  result = (*(*(a1 + 40) + 16))();
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 40) + 16))();
 }
 
 uint64_t __100__SymptomsCAObserver_updateAnalyticsEventObserverRegistrationOnQueueWithCompletion_completionQueue___block_invoke_50(uint64_t a1)
@@ -828,7 +809,8 @@ uint64_t __36__SymptomsCAObserver_sharedInstance__block_invoke(uint64_t a1)
 {
   if (OUTLINED_FUNCTION_1_1())
   {
-    OUTLINED_FUNCTION_0_2(&dword_23255B000, v0, v1, "called with null queue", v2, v3, v4, v5, 0);
+    v6 = 0;
+    OUTLINED_FUNCTION_0_2(&dword_23255B000, v0, v1, "called with null queue", v2, v3, v4, v5, v6);
   }
 }
 
@@ -836,7 +818,8 @@ uint64_t __36__SymptomsCAObserver_sharedInstance__block_invoke(uint64_t a1)
 {
   if (OUTLINED_FUNCTION_1_1())
   {
-    OUTLINED_FUNCTION_0_2(&dword_23255B000, v0, v1, "called with null events", v2, v3, v4, v5, 0);
+    v6 = 0;
+    OUTLINED_FUNCTION_0_2(&dword_23255B000, v0, v1, "called with null events", v2, v3, v4, v5, v6);
   }
 }
 
@@ -844,7 +827,8 @@ uint64_t __36__SymptomsCAObserver_sharedInstance__block_invoke(uint64_t a1)
 {
   if (OUTLINED_FUNCTION_1_1())
   {
-    OUTLINED_FUNCTION_0_2(&dword_23255B000, v0, v1, "called with null delegate", v2, v3, v4, v5, 0);
+    v6 = 0;
+    OUTLINED_FUNCTION_0_2(&dword_23255B000, v0, v1, "called with null delegate", v2, v3, v4, v5, v6);
   }
 }
 

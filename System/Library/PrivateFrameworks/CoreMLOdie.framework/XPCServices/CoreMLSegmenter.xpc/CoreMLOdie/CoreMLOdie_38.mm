@@ -1,12 +1,12 @@
-uint64_t sub_10020F7D8(uint64_t result, unint64_t a2, unint64_t *a3)
+int64x2_t **sub_10020F7D8(int64x2_t **result, unint64_t a2, int64x2_t **a3)
 {
-  v4 = (result + 16);
-  *result = result + 16;
-  *(result + 12) = 6;
+  v4 = result + 2;
+  *result = (result + 2);
+  *(result + 3) = 6;
   v5 = *a3;
   if (a2 >= 7)
   {
-    *(result + 8) = 0;
+    *(result + 2) = 0;
     v6 = result;
     llvm::SmallVectorBase<unsigned int>::grow_pod(result, v4, a2, 8);
     result = v6;
@@ -55,7 +55,7 @@ uint64_t sub_10020F7D8(uint64_t result, unint64_t a2, unint64_t *a3)
     }
 
 LABEL_13:
-    *(result + 24) = v5;
+    result[3] = v5;
     if (v15 == 2)
     {
       goto LABEL_6;
@@ -89,18 +89,18 @@ LABEL_14:
     goto LABEL_19;
   }
 
-  *(result + 32) = v5;
+  result[4] = v5;
   if (v16.i8[4])
   {
 LABEL_19:
-    *(result + 40) = v5;
+    result[5] = v5;
     if (v15 != 4)
     {
       goto LABEL_20;
     }
 
 LABEL_6:
-    *(result + 8) = a2;
+    *(result + 2) = a2;
     return result;
   }
 
@@ -114,7 +114,7 @@ LABEL_20:
   v17 = vmovn_s64(vcgtq_u64(v12, xmmword_1002B0E40));
   if (v17.i8[0])
   {
-    *(result + 48) = v5;
+    result[6] = v5;
   }
 
   if ((v17.i8[4] & 1) == 0)
@@ -122,8 +122,8 @@ LABEL_20:
     goto LABEL_6;
   }
 
-  *(result + 56) = v5;
-  *(result + 8) = a2;
+  result[7] = v5;
+  *(result + 2) = a2;
   return result;
 }
 
@@ -199,7 +199,7 @@ LABEL_11:
   return *(*(*a1 + 72) + 152) | 4;
 }
 
-BOOL mlir::ODIE::Compiler::CoreML::GatherNdOp::verify(mlir::Operation **this)
+uint64_t mlir::ODIE::Compiler::CoreML::GatherNdOp::verify(mlir::Operation **this)
 {
   v182 = *(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8;
   Shape = mlir::TensorType::getShape(&v182);
@@ -1713,17 +1713,17 @@ LABEL_84:
 uint64_t mlir::ODIE::Compiler::CoreML::TransposeOp::fold(uint64_t a1)
 {
   v2 = *(*(*a1 + 72) + 56);
-  v15 = 0;
-  *&v16 = &v15;
-  *&v11 = v2;
-  result = mlir::Value::getDefiningOp(&v11);
+  v14 = 0;
+  *&v15 = &v14;
+  *&v10 = v2;
+  result = mlir::Value::getDefiningOp(&v10);
   if (result)
   {
-    if (sub_100297C38(&v16, result))
+    if (sub_100297C38(&v15, result))
     {
-      v14 = *(*(*(*a1 + 72) + 24) + 8) & 0xFFFFFFFFFFFFFFF8;
-      sub_1000C1790(&v15, &v11);
-      mlir::TensorType::getShape(&v14);
+      v13 = *(*(*(*a1 + 72) + 24) + 8) & 0xFFFFFFFFFFFFFFF8;
+      sub_1000C1790(&v14, &v10);
+      mlir::TensorType::getShape(&v13);
       if (v4 < 1)
       {
         return *(*(*a1 + 72) + 24) | 4;
@@ -1734,25 +1734,24 @@ uint64_t mlir::ODIE::Compiler::CoreML::TransposeOp::fold(uint64_t a1)
         v5 = 0;
         while (1)
         {
-          v16 = v11;
-          v17 = v5 + v12;
-          v18 = v13;
-          mlir::DenseElementsAttr::IntElementIterator::operator*(&v16, &v9);
-          if (v10 > 0x40)
+          v15 = v10;
+          v16 = v5 + v11;
+          v17 = v12;
+          mlir::DenseElementsAttr::IntElementIterator::operator*(&v15, &v8);
+          if (v9 > 0x40)
           {
-            v6 = *v9;
             operator delete[]();
           }
 
-          v8 = v10 ? (v9 << -v10) >> -v10 : 0;
-          if (v5 != v8)
+          v7 = v9 ? v8 << -v9 >> -v9 : 0;
+          if (v5 != v7)
           {
             break;
           }
 
           ++v5;
-          mlir::TensorType::getShape(&v14);
-          if (v7 <= v5)
+          mlir::TensorType::getShape(&v13);
+          if (v6 <= v5)
           {
             return *(*(*a1 + 72) + 24) | 4;
           }
@@ -4519,7 +4518,7 @@ LABEL_50:
 LABEL_49:
             v31 = &v30[24 * v51];
             v32 = *v29;
-            *(v31 + 2) = *(v29 + 2);
+            *(v31 + 2) = v29[2];
             *v31 = v32;
             ++v51;
             goto LABEL_50;
@@ -4841,7 +4840,7 @@ LABEL_50:
 LABEL_49:
             v31 = &v30[24 * v51];
             v32 = *v29;
-            *(v31 + 2) = *(v29 + 2);
+            *(v31 + 2) = v29[2];
             *v31 = v32;
             ++v51;
             goto LABEL_50;
@@ -4925,7 +4924,7 @@ LABEL_33:
   }
 }
 
-BOOL mlir::ODIE::Compiler::CoreML::ReadHandleOp::verify(mlir::Operation **this)
+uint64_t mlir::ODIE::Compiler::CoreML::ReadHandleOp::verify(mlir::Operation **this)
 {
   v40[0] = *(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8;
   InnerType = mlir::ODIE::Compiler::CoreML::HandleType::getInnerType(v40);
@@ -5129,12 +5128,12 @@ BOOL mlir::ODIE::Compiler::CoreML::ReadHandleOp::verify(mlir::Operation **this)
 double mlir::ODIE::Compiler::CoreML::ReadHandleOp::getInputIntents@<D0>(mlir::ODIE::Compiler::CoreML::ReadHandleOp *this@<X0>, uint64_t a2@<X8>)
 {
   Context = mlir::Attribute::getContext((*this + 24));
-  v6 = mlir::ODIE::Compiler::CoreML::IntentAttr::get(Context, 1uLL);
-  v7 = mlir::Attribute::getContext((*this + 24));
-  v8 = mlir::ODIE::Compiler::CoreML::IntentAttr::get(v7, 1uLL);
-  *(a2 + 16) = v6;
+  v5 = mlir::ODIE::Compiler::CoreML::IntentAttr::get(Context, 1uLL);
+  v6 = mlir::Attribute::getContext((*this + 24));
+  v7 = mlir::ODIE::Compiler::CoreML::IntentAttr::get(v6, 1uLL);
+  *(a2 + 16) = v5;
   *a2 = a2 + 16;
-  *(a2 + 24) = v8;
+  *(a2 + 24) = v7;
   *&result = 0x600000002;
   *(a2 + 8) = 0x600000002;
   *(a2 + 64) = 1;
@@ -5144,19 +5143,19 @@ double mlir::ODIE::Compiler::CoreML::ReadHandleOp::getInputIntents@<D0>(mlir::OD
 double mlir::ODIE::Compiler::CoreML::ReadHandleOp::getOutputIntents@<D0>(mlir::ODIE::Compiler::CoreML::ReadHandleOp *this@<X0>, uint64_t a2@<X8>)
 {
   Context = mlir::Attribute::getContext((*this + 24));
-  v6 = mlir::ODIE::Compiler::CoreML::IntentAttr::get(Context, 0);
-  v7 = mlir::Attribute::getContext((*this + 24));
-  v8 = mlir::ODIE::Compiler::CoreML::IntentAttr::get(v7, 1uLL);
-  *(a2 + 16) = v6;
+  v5 = mlir::ODIE::Compiler::CoreML::IntentAttr::get(Context, 0);
+  v6 = mlir::Attribute::getContext((*this + 24));
+  v7 = mlir::ODIE::Compiler::CoreML::IntentAttr::get(v6, 1uLL);
+  *(a2 + 16) = v5;
   *a2 = a2 + 16;
-  *(a2 + 24) = v8;
+  *(a2 + 24) = v7;
   *&result = 0x600000002;
   *(a2 + 8) = 0x600000002;
   *(a2 + 64) = 1;
   return result;
 }
 
-BOOL mlir::ODIE::Compiler::CoreML::WriteHandleOp::verify(mlir::Operation **this)
+uint64_t mlir::ODIE::Compiler::CoreML::WriteHandleOp::verify(mlir::Operation **this)
 {
   v40[0] = *(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8;
   InnerType = mlir::ODIE::Compiler::CoreML::HandleType::getInnerType(v40);
@@ -5360,15 +5359,15 @@ BOOL mlir::ODIE::Compiler::CoreML::WriteHandleOp::verify(mlir::Operation **this)
 double mlir::ODIE::Compiler::CoreML::WriteHandleOp::getInputIntents@<D0>(mlir::ODIE::Compiler::CoreML::WriteHandleOp *this@<X0>, uint64_t a2@<X8>)
 {
   Context = mlir::Attribute::getContext((*this + 24));
-  v6 = mlir::ODIE::Compiler::CoreML::IntentAttr::get(Context, 1uLL);
-  v7 = mlir::Attribute::getContext((*this + 24));
-  v8 = mlir::ODIE::Compiler::CoreML::IntentAttr::get(v7, 3uLL);
-  v9 = mlir::Attribute::getContext((*this + 24));
-  v10 = mlir::ODIE::Compiler::CoreML::IntentAttr::get(v9, 1uLL);
-  *(a2 + 16) = v6;
+  v5 = mlir::ODIE::Compiler::CoreML::IntentAttr::get(Context, 1uLL);
+  v6 = mlir::Attribute::getContext((*this + 24));
+  v7 = mlir::ODIE::Compiler::CoreML::IntentAttr::get(v6, 3uLL);
+  v8 = mlir::Attribute::getContext((*this + 24));
+  v9 = mlir::ODIE::Compiler::CoreML::IntentAttr::get(v8, 1uLL);
+  *(a2 + 16) = v5;
   *a2 = a2 + 16;
-  *(a2 + 24) = v8;
-  *(a2 + 32) = v10;
+  *(a2 + 24) = v7;
+  *(a2 + 32) = v9;
   *&result = 0x600000003;
   *(a2 + 8) = 0x600000003;
   *(a2 + 64) = 1;
@@ -5740,59 +5739,59 @@ LABEL_33:
 
 void mlir::ODIE::Compiler::CoreML::JoinTokenOp::getInputIntents(mlir::ODIE::Compiler::CoreML::JoinTokenOp *this@<X0>, uint64_t a2@<X8>)
 {
-  v4 = *(*this + 36);
+  v3 = *(*this + 36);
   Context = mlir::Attribute::getContext((*this + 24));
-  v6 = mlir::ODIE::Compiler::CoreML::IntentAttr::get(Context, 1uLL);
-  v7 = v6;
-  __src = v24;
-  v23 = 0x600000000;
-  if (v4 >= 7)
+  v5 = mlir::ODIE::Compiler::CoreML::IntentAttr::get(Context, 1uLL);
+  v6 = v5;
+  __src = v23;
+  v22 = 0x600000000;
+  if (v3 >= 7)
   {
-    llvm::SmallVectorBase<unsigned int>::grow_pod(&__src, v24, v4, 8);
-    v8 = (__src + 8 * (v4 & 0xFFFFFFFC));
-    v9 = v4 & 3;
-    v10 = vdupq_n_s64(v7);
-    v11 = (__src + 16);
-    v12 = v4 & 0xFFFFFFFC;
+    llvm::SmallVectorBase<unsigned int>::grow_pod(&__src, v23, v3, 8);
+    v7 = (__src + 8 * (v3 & 0xFFFFFFFC));
+    v8 = v3 & 3;
+    v9 = vdupq_n_s64(v6);
+    v10 = (__src + 16);
+    v11 = v3 & 0xFFFFFFFC;
     do
     {
-      v11[-1] = v10;
-      *v11 = v10;
-      v11 += 2;
-      v12 -= 4;
+      v10[-1] = v9;
+      *v10 = v9;
+      v10 += 2;
+      v11 -= 4;
     }
 
-    while (v12);
-    if ((v4 & 0xFFFFFFFC) != v4)
+    while (v11);
+    if ((v3 & 0xFFFFFFFC) != v3)
     {
       do
       {
-        *v8++ = v7;
-        --v9;
+        *v7++ = v6;
+        --v8;
       }
 
-      while (v9);
+      while (v8);
     }
 
     goto LABEL_24;
   }
 
-  if (!v4)
+  if (!v3)
   {
     goto LABEL_24;
   }
 
-  v13 = vdupq_n_s64(v4 - 1);
-  v14 = v4 + 1;
-  v15 = vmovn_s64(vcgeq_u64(v13, xmmword_1002B0D80));
-  if (v15.i8[0])
+  v12 = vdupq_n_s64(v3 - 1);
+  v13 = v3 + 1;
+  v14 = vmovn_s64(vcgeq_u64(v12, xmmword_1002B0D80));
+  if (v14.i8[0])
   {
-    v24[0] = v6;
-    v16 = v14 & 0xE;
-    if ((v15.i8[4] & 1) == 0)
+    v23[0] = v5;
+    v15 = v13 & 0xE;
+    if ((v14.i8[4] & 1) == 0)
     {
 LABEL_10:
-      if (v16 == 2)
+      if (v15 == 2)
       {
         goto LABEL_24;
       }
@@ -5803,31 +5802,31 @@ LABEL_10:
 
   else
   {
-    v16 = v14 & 0xE;
-    if ((v15.i8[4] & 1) == 0)
+    v15 = v13 & 0xE;
+    if ((v14.i8[4] & 1) == 0)
     {
       goto LABEL_10;
     }
   }
 
-  v24[1] = v6;
-  if (v16 == 2)
+  v23[1] = v5;
+  if (v15 == 2)
   {
     goto LABEL_24;
   }
 
 LABEL_14:
-  v17 = vmovn_s64(vcgtq_u64(v13, xmmword_1002B0E30));
-  if ((v17.i8[0] & 1) == 0)
+  v16 = vmovn_s64(vcgtq_u64(v12, xmmword_1002B0E30));
+  if ((v16.i8[0] & 1) == 0)
   {
-    if ((v17.i8[4] & 1) == 0)
+    if ((v16.i8[4] & 1) == 0)
     {
       goto LABEL_16;
     }
 
 LABEL_19:
-    v24[3] = v6;
-    if (v16 == 4)
+    v23[3] = v5;
+    if (v15 == 4)
     {
       goto LABEL_24;
     }
@@ -5835,67 +5834,67 @@ LABEL_19:
     goto LABEL_20;
   }
 
-  v24[2] = v6;
-  if (v17.i8[4])
+  v23[2] = v5;
+  if (v16.i8[4])
   {
     goto LABEL_19;
   }
 
 LABEL_16:
-  if (v16 == 4)
+  if (v15 == 4)
   {
     goto LABEL_24;
   }
 
 LABEL_20:
-  v18 = vmovn_s64(vcgtq_u64(v13, xmmword_1002B0E40));
-  if (v18.i8[0])
+  v17 = vmovn_s64(vcgtq_u64(v12, xmmword_1002B0E40));
+  if (v17.i8[0])
   {
-    v24[4] = v6;
+    v23[4] = v5;
   }
 
-  if (v18.i8[4])
+  if (v17.i8[4])
   {
-    v24[5] = v6;
+    v23[5] = v5;
   }
 
 LABEL_24:
-  LODWORD(v23) = v4;
+  LODWORD(v22) = v3;
   *a2 = a2 + 16;
   *(a2 + 8) = 0x600000000;
-  v19 = __src;
-  if (v4 && &__src != a2)
+  v18 = __src;
+  if (v3 && &__src != a2)
   {
-    if (__src == v24)
+    if (__src == v23)
     {
-      v21 = v4;
-      if (v4 < 7 || (llvm::SmallVectorBase<unsigned int>::grow_pod(a2, (a2 + 16), v4, 8), v21 = v23, v19 = __src, v23))
+      v20 = v3;
+      if (v3 < 7 || (llvm::SmallVectorBase<unsigned int>::grow_pod(a2, (a2 + 16), v3, 8), v20 = v22, v18 = __src, v22))
       {
-        memcpy(*a2, v19, 8 * v21);
-        v19 = __src;
+        memcpy(*a2, v18, 8 * v20);
+        v18 = __src;
       }
 
-      *(a2 + 8) = v4;
+      *(a2 + 8) = v3;
     }
 
     else
     {
       *a2 = __src;
-      v20 = HIDWORD(v23);
-      *(a2 + 8) = v4;
-      *(a2 + 12) = v20;
-      __src = v24;
-      HIDWORD(v23) = 0;
-      v19 = v24;
+      v19 = HIDWORD(v22);
+      *(a2 + 8) = v3;
+      *(a2 + 12) = v19;
+      __src = v23;
+      HIDWORD(v22) = 0;
+      v18 = v23;
     }
 
-    LODWORD(v23) = 0;
+    LODWORD(v22) = 0;
   }
 
   *(a2 + 64) = 1;
-  if (v19 != v24)
+  if (v18 != v23)
   {
-    free(v19);
+    free(v18);
   }
 }
 
@@ -5914,11 +5913,11 @@ uint64_t mlir::ODIE::Compiler::CoreML::TileOp::fold(uint64_t *a1)
 {
   v2 = *a1;
   v3 = *(*(*a1 + 72) + 24);
-  v24 = *(v3 + 8) & 0xFFFFFFFFFFFFFFF8;
-  v23 = *(v2 - 8) & 0xFFFFFFFFFFFFFFF8;
-  if (mlir::TensorType::hasRank(&v24))
+  v23 = *(v3 + 8) & 0xFFFFFFFFFFFFFFF8;
+  v22 = *(v2 - 8) & 0xFFFFFFFFFFFFFFF8;
+  if (mlir::TensorType::hasRank(&v23))
   {
-    Shape = mlir::TensorType::getShape(&v24);
+    Shape = mlir::TensorType::getShape(&v23);
     if (v5)
     {
       v6 = 8 * v5;
@@ -5936,9 +5935,9 @@ uint64_t mlir::ODIE::Compiler::CoreML::TileOp::fold(uint64_t *a1)
     else
     {
 LABEL_6:
-      if (mlir::TensorType::hasRank(&v23))
+      if (mlir::TensorType::hasRank(&v22))
       {
-        v7 = mlir::TensorType::getShape(&v23);
+        v7 = mlir::TensorType::getShape(&v22);
         if (v8)
         {
           v9 = 8 * v8;
@@ -5956,7 +5955,7 @@ LABEL_6:
         else
         {
 LABEL_11:
-          if (v24 == v23)
+          if (v23 == v22)
           {
             return v3 | 4;
           }
@@ -5965,23 +5964,23 @@ LABEL_11:
     }
   }
 
-  v22 = 0;
+  v21 = 0;
   v10 = *(*(*a1 + 72) + 56);
-  *&v25 = &v22;
-  *&v19 = v10;
-  result = mlir::Value::getDefiningOp(&v19);
+  *&v24 = &v21;
+  *&v18 = v10;
+  result = mlir::Value::getDefiningOp(&v18);
   if (!result)
   {
     return result;
   }
 
-  if (!sub_100297C38(&v25, result))
+  if (!sub_100297C38(&v24, result))
   {
     return 0;
   }
 
-  sub_1000C1790(&v22, &v19);
-  mlir::TensorType::getShape(&v24);
+  sub_1000C1790(&v21, &v18);
+  mlir::TensorType::getShape(&v23);
   if (v12 < 1)
   {
     return v3 | 4;
@@ -5990,24 +5989,23 @@ LABEL_11:
   v13 = 0;
   while (1)
   {
-    v25 = v19;
-    v26 = v13 + v20;
-    v27 = v21;
-    mlir::DenseElementsAttr::IntElementIterator::operator*(&v25, &v17);
-    if (v18 > 0x40)
+    v24 = v18;
+    v25 = v13 + v19;
+    v26 = v20;
+    mlir::DenseElementsAttr::IntElementIterator::operator*(&v24, &v16);
+    if (v17 > 0x40)
     {
-      v14 = *v17;
       operator delete[]();
     }
 
-    if (!v18 || (v17 << -v18) >> -v18 != 1)
+    if (!v17 || v16 << -v17 >> -v17 != 1)
     {
       break;
     }
 
     ++v13;
-    mlir::TensorType::getShape(&v24);
-    if (v15 <= v13)
+    mlir::TensorType::getShape(&v23);
+    if (v14 <= v13)
     {
       return v3 | 4;
     }
@@ -6016,7 +6014,7 @@ LABEL_11:
   return 0;
 }
 
-BOOL mlir::ODIE::Compiler::CoreML::TileOp::verify(mlir::Operation **this)
+uint64_t mlir::ODIE::Compiler::CoreML::TileOp::verify(mlir::Operation **this)
 {
   v20 = *(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8;
   mlir::TensorType::getShape(&v20);
@@ -6127,7 +6125,7 @@ BOOL mlir::ODIE::Compiler::CoreML::TileOp::verify(mlir::Operation **this)
   return v3;
 }
 
-uint64_t mlir::ODIE::Compiler::CoreML::AwaitOp::inferReturnTypes(uint64_t a1, uint64_t a2, char a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
+BOOL mlir::ODIE::Compiler::CoreML::AwaitOp::inferReturnTypes(uint64_t a1, uint64_t a2, char a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
 {
   v19[0] = a4;
   v19[1] = a5;
@@ -6169,7 +6167,7 @@ uint64_t mlir::ODIE::Compiler::CoreML::AwaitOp::inferReturnTypes(uint64_t a1, ui
   }
 }
 
-BOOL mlir::ODIE::Compiler::CoreML::Conv2dOp::verify(mlir::Operation **this)
+uint64_t mlir::ODIE::Compiler::CoreML::Conv2dOp::verify(mlir::Operation **this)
 {
   v1 = *this;
   v95[0] = *(*(*(*this + 9) + 88) + 8) & 0xFFFFFFFFFFFFFFF8;
@@ -6749,7 +6747,7 @@ LABEL_92:
   return v20;
 }
 
-BOOL mlir::ODIE::Compiler::CoreML::Conv3dOp::verify(mlir::Operation **this)
+uint64_t mlir::ODIE::Compiler::CoreML::Conv3dOp::verify(mlir::Operation **this)
 {
   v1 = *this;
   v95[0] = *(*(*(*this + 9) + 88) + 8) & 0xFFFFFFFFFFFFFFF8;
@@ -7329,7 +7327,7 @@ LABEL_92:
   return v20;
 }
 
-BOOL mlir::ODIE::Compiler::CoreML::ConvTranspose2dOp::verify(mlir::ODIE::Compiler::CoreML::ConvTranspose2dOp *this)
+uint64_t mlir::ODIE::Compiler::CoreML::ConvTranspose2dOp::verify(mlir::ODIE::Compiler::CoreML::ConvTranspose2dOp *this)
 {
   v1 = *this;
   v156[0] = *(*(*(*this + 72) + 88) + 8) & 0xFFFFFFFFFFFFFFF8;
@@ -8359,7 +8357,7 @@ LABEL_178:
   return v31;
 }
 
-BOOL mlir::ODIE::Compiler::CoreML::ConvTranspose3dOp::verify(mlir::ODIE::Compiler::CoreML::ConvTranspose3dOp *this)
+uint64_t mlir::ODIE::Compiler::CoreML::ConvTranspose3dOp::verify(mlir::ODIE::Compiler::CoreML::ConvTranspose3dOp *this)
 {
   v1 = *this;
   v156[0] = *(*(*(*this + 72) + 88) + 8) & 0xFFFFFFFFFFFFFFF8;
@@ -9584,18 +9582,18 @@ uint64_t mlir::ODIE::Compiler::CoreML::AddOp::decomposeComplexOperation(mlir::OD
     v22 = sub_1001F0CA8(a2, *(*(*this + 72) + 56), *(*this + 24));
     v23 = v7;
     v8 = *(*this + 24);
-    v20 = *(v24 - 8) & 0xFFFFFFFFFFFFFFF8;
+    v20 = *(v24 - 1) & 0xFFFFFFFFFFFFFFF8;
     v21 = sub_10021B504(a2, v8, &v20, &v24, &v22);
     v9 = *(*this + 24);
-    v19 = *(v24 - 8) & 0xFFFFFFFFFFFFFFF8;
+    v19 = *(v24 - 1) & 0xFFFFFFFFFFFFFFF8;
     v20 = sub_10021B504(a2, v9, &v19, &v25, &v23);
     v10 = *(*this + 24);
     v19 = *(*this - 8) & 0xFFFFFFFFFFFFFFF8;
     v11 = sub_1001F0F4C(a2, v10, &v19, &v21, &v20);
     v12 = *this;
-    if (*(v11 + 36))
+    if (*(v11 + 9))
     {
-      v13 = v11 - 16;
+      v13 = (v11 - 16);
     }
 
     else

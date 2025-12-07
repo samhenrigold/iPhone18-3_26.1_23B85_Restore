@@ -351,7 +351,7 @@ LABEL_23:
     *&retstr->elementLengths = 0u;
     *&retstr->numSubpaths = 0u;
     *&retstr->totalLength = 0u;
-    self = [(CUIVectorGlyphPathLengthData *)self computeLengthData];
+    self = objc_msgSend_computeLengthData(self, a3);
     v5 = *&retstr->elementLengths;
     *p_subpathLengths = *&retstr->totalLength;
     *(p_subpathLengths + 1) = v5;
@@ -415,7 +415,7 @@ LABEL_23:
   *(v7 + 64) = v9;
   if (self)
   {
-    [self emptyData];
+    objc_msgSend_emptyData(self);
   }
 
   else
@@ -436,7 +436,7 @@ LABEL_23:
   v6 = objc_opt_new();
   *(v6 + 56) = MEMORY[0x193AC5C10](path);
   *(v6 + 64) = 0;
-  [v6 computeLengthData];
+  objc_msgSend_computeLengthData(v6);
   v7 = v13[0];
   v8 = v13[1];
   *(v6 + 40) = v13[2];
@@ -470,7 +470,7 @@ LABEL_23:
   *(v7 + 64) = keyframesCopy;
   if (self)
   {
-    [self emptyData];
+    objc_msgSend_emptyData(self);
   }
 
   else

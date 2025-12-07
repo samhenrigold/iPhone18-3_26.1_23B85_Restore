@@ -1,17 +1,48 @@
+uint64_t TaskProcessorManager.endTask(taskTokenId:)(uint64_t a1)
+{
+  v2[18] = a1;
+  v2[19] = v1;
+  v3 = type metadata accessor for UUID();
+  v2[20] = v3;
+  v2[21] = *(v3 - 8);
+  v2[22] = swift_task_alloc();
+
+  return _swift_task_switch(TaskProcessorManager.endTask(taskTokenId:), v1, 0);
+}
+
+{
+  v4 = *v2;
+  v4[24] = v1;
+
+  v5 = v4[19];
+  if (v1)
+  {
+    v6 = TaskProcessorManager.endTask(taskTokenId:);
+  }
+
+  else
+  {
+    v4[25] = a1;
+    v6 = TaskProcessorManager.endTask(taskTokenId:);
+  }
+
+  return _swift_task_switch(v6, v5, 0);
+}
+
 uint64_t TaskProcessorManager.endTask(taskTokenId:)()
 {
   v23 = v0;
-  v1 = v0[19];
+  v1 = *(v0 + 152);
   swift_beginAccess();
   v2 = *(v1 + 112);
-  if (*(v2 + 16) && (v3 = specialized __RawDictionaryStorage.find<A>(_:)(v0[18]), (v4 & 1) != 0))
+  if (*(v2 + 16) && (v3 = specialized __RawDictionaryStorage.find<A>(_:)(*(v0 + 144)), (v4 & 1) != 0))
   {
-    v6 = v0[21];
-    v5 = v0[22];
-    v7 = v0[20];
-    v8 = v0[18];
-    outlined init with copy of MOProtectedAppsManagerDelegate(*(v2 + 56) + 40 * v3, (v0 + 7));
-    outlined init with take of URLBasedAsset(v0 + 7, v0 + 2);
+    v6 = *(v0 + 168);
+    v5 = *(v0 + 176);
+    v7 = *(v0 + 160);
+    v8 = *(v0 + 144);
+    outlined init with copy of MOProtectedAppsManagerDelegate(*(v2 + 56) + 40 * v3, v0 + 56);
+    outlined init with take of URLBasedAsset((v0 + 56), v0 + 16);
     swift_endAccess();
     (*(v6 + 16))(v5, v8, v7);
     v22 = 0;
@@ -19,12 +50,12 @@ uint64_t TaskProcessorManager.endTask(taskTokenId:)()
     swift_beginAccess();
     specialized Dictionary.subscript.setter(v21, v5);
     swift_endAccess();
-    v9 = v0[5];
-    v10 = v0[6];
-    __swift_project_boxed_opaque_existential_0(v0 + 2, v9);
+    v9 = *(v0 + 40);
+    v10 = *(v0 + 48);
+    __swift_project_boxed_opaque_existential_0((v0 + 16), v9);
     v20 = (*(v10 + 24) + **(v10 + 24));
     v11 = swift_task_alloc();
-    v0[23] = v11;
+    *(v0 + 184) = v11;
     *v11 = v0;
     v11[1] = TaskProcessorManager.endTask(taskTokenId:);
 
@@ -33,9 +64,9 @@ uint64_t TaskProcessorManager.endTask(taskTokenId:)()
 
   else
   {
-    v13 = v0[20];
-    v14 = v0[21];
-    v15 = v0[18];
+    v13 = *(v0 + 160);
+    v14 = *(v0 + 168);
+    v15 = *(v0 + 144);
     swift_endAccess();
     v16 = type metadata accessor for MUIProcessingError();
     lazy protocol witness table accessor for type MUIProcessingError and conformance MUIProcessingError();
@@ -45,23 +76,23 @@ uint64_t TaskProcessorManager.endTask(taskTokenId:)()
     (*(*(v16 - 8) + 104))(v18, enum case for MUIProcessingError.InvalidTaskToken(_:), v16);
     swift_willThrow();
 
-    v19 = v0[1];
+    v19 = *(v0 + 8);
 
     return v19();
   }
 }
 
 {
-  __swift_destroy_boxed_opaque_existential_0(v0 + 16);
+  __swift_destroy_boxed_opaque_existential_0(v0 + 2);
 
-  v1 = *(v0 + 8);
-  v2 = *(v0 + 200);
+  v1 = v0[1];
+  v2 = v0[25];
 
   return v1(v2);
 }
 
 {
-  __swift_destroy_boxed_opaque_existential_0(v0 + 16);
+  __swift_destroy_boxed_opaque_existential_0((v0 + 16));
 
   v1 = *(v0 + 8);
 
@@ -151,7 +182,7 @@ uint64_t static MOAngelRootViewController.currentInterfaceOrientation()()
   v0 = [objc_opt_self() sharedApplication];
   v1 = [v0 connectedScenes];
 
-  type metadata accessor for UIApplication(0, &lazy cache variable for type metadata for UIScene);
+  type metadata accessor for UIApplication(0, &lazy cache variable for type metadata for UIScene, UIScene_ptr);
   lazy protocol witness table accessor for type UIScene and conformance NSObject();
   v2 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
 
@@ -266,16 +297,16 @@ uint64_t MOAngelRootViewController.present(with:)(void *a1)
 {
   v2 = v1;
   v4 = type metadata accessor for UUID();
-  v90 = *(v4 - 8);
-  v91 = v4;
+  v91 = *(v4 - 8);
+  v92 = v4;
   __chkstk_darwin(v4);
-  v89 = &v84 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v90 = &v85 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   v6 = type metadata accessor for OSSignpostID();
-  v93 = *(v6 - 8);
+  v94 = *(v6 - 8);
   v7 = __chkstk_darwin(v6);
-  v9 = &v84 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v85 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v7);
-  v11 = &v84 - v10;
+  v11 = &v85 - v10;
   if (one-time initialization token for processing != -1)
   {
     swift_once();
@@ -314,7 +345,7 @@ uint64_t MOAngelRootViewController.present(with:)(void *a1)
 
     v19 = swift_slowAlloc();
     v20 = swift_slowAlloc();
-    v92 = v2;
+    v93 = v2;
     v21 = v6;
     v22 = v20;
     aBlock[0] = v20;
@@ -329,7 +360,7 @@ uint64_t MOAngelRootViewController.present(with:)(void *a1)
     _os_signpost_emit_with_name_impl(&_mh_execute_header, v16, v17, v24, "UIService_PresentSuggestionSheet", "mode=%s animated=%ld", v19, 0x16u);
     __swift_destroy_boxed_opaque_existential_0(v22);
     v6 = v21;
-    v2 = v92;
+    v2 = v93;
   }
 
   else
@@ -337,12 +368,12 @@ uint64_t MOAngelRootViewController.present(with:)(void *a1)
   }
 
   v25 = v15;
-  (*(v93 + 16))(v9, v11, v6);
+  (*(v94 + 16))(v9, v11, v6);
   type metadata accessor for OSSignpostIntervalState();
   swift_allocObject();
-  OSSignpostIntervalState.init(id:isOpen:)();
-  v26 = [v2 presentedViewController];
-  if (v26)
+  v26 = OSSignpostIntervalState.init(id:isOpen:)();
+  v27 = [v2 presentedViewController];
+  if (v27)
   {
 
 LABEL_14:
@@ -351,15 +382,15 @@ LABEL_14:
       swift_once();
     }
 
-    v27 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v27, static MOAngelLogger.shared);
-    v28 = Logger.logObject.getter();
-    v29 = static os_log_type_t.info.getter();
-    if (os_log_type_enabled(v28, v29))
+    v28 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v28, static MOAngelLogger.shared);
+    v29 = Logger.logObject.getter();
+    v30 = static os_log_type_t.info.getter();
+    if (os_log_type_enabled(v29, v30))
     {
-      v30 = swift_slowAlloc();
-      *v30 = 0;
-      _os_log_impl(&_mh_execute_header, v28, v29, "MOAngelRootViewController - Received an update request something is already presented. Ignoring.", v30, 2u);
+      v31 = swift_slowAlloc();
+      *v31 = 0;
+      _os_log_impl(&_mh_execute_header, v29, v30, "MOAngelRootViewController - Received an update request something is already presented. Ignoring.", v31, 2u);
     }
 
     goto LABEL_51;
@@ -371,142 +402,142 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  v28 = Strong;
-  v88 = v6;
-  v32 = OBJC_IVAR____TtC16MomentsUIService25MOAngelRootViewController_currentlyPresentedOptions;
-  v33 = *&v2[OBJC_IVAR____TtC16MomentsUIService25MOAngelRootViewController_currentlyPresentedOptions];
-  if (!v33 || ([v33 isEqual:v15] & 1) == 0)
+  v29 = Strong;
+  v89 = v6;
+  v33 = OBJC_IVAR____TtC16MomentsUIService25MOAngelRootViewController_currentlyPresentedOptions;
+  v34 = *&v2[OBJC_IVAR____TtC16MomentsUIService25MOAngelRootViewController_currentlyPresentedOptions];
+  if (!v34 || ([v34 isEqual:v15] & 1) == 0)
   {
-    v34 = objc_allocWithZone(type metadata accessor for MOSuggestionSheetViewController());
-    v35 = v15;
-    MOSuggestionSheetViewController.init(controller:options:)(v28, v35);
-    v37 = v36;
-    [v36 setModalInPresentation:1];
-    v38 = *&v2[OBJC_IVAR____TtC16MomentsUIService25MOAngelRootViewController_presentedSheetController];
-    *&v2[OBJC_IVAR____TtC16MomentsUIService25MOAngelRootViewController_presentedSheetController] = v37;
+    v35 = objc_allocWithZone(type metadata accessor for MOSuggestionSheetViewController());
+    v36 = v15;
+    MOSuggestionSheetViewController.init(controller:options:)(v29, v36);
+    v38 = v37;
+    [v37 setModalInPresentation:1];
+    v39 = *&v2[OBJC_IVAR____TtC16MomentsUIService25MOAngelRootViewController_presentedSheetController];
+    *&v2[OBJC_IVAR____TtC16MomentsUIService25MOAngelRootViewController_presentedSheetController] = v38;
 
-    v39 = *&v2[v32];
-    *&v2[v32] = v35;
-    v40 = v35;
+    v40 = *&v2[v33];
+    *&v2[v33] = v36;
+    v41 = v36;
   }
 
-  v41 = OBJC_IVAR____TtC16MomentsUIService25MOAngelRootViewController_presentedSheetController;
-  v42 = *&v2[OBJC_IVAR____TtC16MomentsUIService25MOAngelRootViewController_presentedSheetController];
-  if (!v42)
+  v42 = OBJC_IVAR____TtC16MomentsUIService25MOAngelRootViewController_presentedSheetController;
+  v43 = *&v2[OBJC_IVAR____TtC16MomentsUIService25MOAngelRootViewController_presentedSheetController];
+  if (!v43)
   {
-    v44 = 0;
-    v6 = v88;
+    v45 = 0;
+    v6 = v89;
 LABEL_41:
 
     goto LABEL_51;
   }
 
-  v86 = v32;
-  v43 = [v42 sheetPresentationController];
-  v44 = v43;
-  v6 = v88;
-  v87 = v43;
-  if (v43)
+  v87 = v33;
+  v44 = [v43 sheetPresentationController];
+  v45 = v44;
+  v6 = v89;
+  v88 = v44;
+  if (v44)
   {
-    v85 = v41;
-    v92 = v25;
+    v86 = v42;
+    v93 = v25;
     aBlock[0] = _swiftEmptyArrayStorage;
-    v45 = one-time initialization token for full;
-    v46 = v43;
-    if (v45 != -1)
+    v46 = one-time initialization token for full;
+    v47 = v44;
+    if (v46 != -1)
     {
       swift_once();
     }
 
-    v47 = static SuggestionSheetDetents.full;
-    v48 = [static SuggestionSheetDetents.full identifier];
-    [v46 setSelectedDetentIdentifier:v48];
+    v48 = static SuggestionSheetDetents.full;
+    v49 = [static SuggestionSheetDetents.full identifier];
+    [v47 setSelectedDetentIdentifier:v49];
 
-    [v46 _setShouldScaleDownBehindDescendantSheets:0];
-    [v92 peekDetentRatio];
-    if (v49 >= 0.2 && v49 <= 0.8)
+    [v47 _setShouldScaleDownBehindDescendantSheets:0];
+    [v93 peekDetentRatio];
+    if (v50 >= 0.2 && v50 <= 0.8)
     {
-      v84 = v47;
-      v50 = v89;
+      v85 = v48;
+      v51 = v90;
       UUID.init()();
       UUID.uuidString.getter();
-      (*(v90 + 8))(v50, v91);
-      v51 = String._bridgeToObjectiveC()();
+      (*(v91 + 8))(v51, v92);
+      v52 = String._bridgeToObjectiveC()();
 
-      v52 = v92;
-      [v92 peekDetentRatio];
-      v54 = v53;
-      type metadata accessor for UIApplication(0, &lazy cache variable for type metadata for UISheetPresentationControllerDetent);
-      *(swift_allocObject() + 16) = v54;
-      v55 = static UISheetPresentationControllerDetent.custom(identifier:resolver:)();
+      v53 = v93;
+      [v93 peekDetentRatio];
+      v55 = v54;
+      type metadata accessor for UIApplication(0, &lazy cache variable for type metadata for UISheetPresentationControllerDetent, UISheetPresentationControllerDetent_ptr);
+      *(swift_allocObject() + 16) = v55;
+      v56 = static UISheetPresentationControllerDetent.custom(identifier:resolver:)();
 
-      if (([v52 presentFullScreen] & 1) == 0)
+      if (([v53 presentFullScreen] & 1) == 0)
       {
-        v56 = [v55 identifier];
-        [v46 setSelectedDetentIdentifier:v56];
+        v57 = [v56 identifier];
+        [v47 setSelectedDetentIdentifier:v57];
       }
 
-      v57 = v55;
+      v58 = v56;
       specialized Array._makeUniqueAndReserveCapacityIfNotUnique()();
-      v6 = v88;
+      v6 = v89;
       if (*((aBlock[0] & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((aBlock[0] & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
       {
         specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
-        v6 = v88;
+        v6 = v89;
       }
 
       specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
-      [v46 setPrefersGrabberVisible:1];
-      v58 = [v57 identifier];
-      [v46 setLargestUndimmedDetentIdentifier:v58];
+      [v47 setPrefersGrabberVisible:1];
+      v59 = [v58 identifier];
+      [v47 setLargestUndimmedDetentIdentifier:v59];
 
-      v44 = v87;
-      v47 = v84;
+      v45 = v88;
+      v48 = v85;
     }
 
-    [v46 setPrefersEdgeAttachedInCompactHeight:1];
-    [v46 setWidthFollowsPreferredContentSizeWhenEdgeAttached:1];
-    [v46 setPrefersPageSizing:0];
-    v59 = v47;
+    [v47 setPrefersEdgeAttachedInCompactHeight:1];
+    [v47 setWidthFollowsPreferredContentSizeWhenEdgeAttached:1];
+    [v47 setPrefersPageSizing:0];
+    v60 = v48;
     specialized Array._makeUniqueAndReserveCapacityIfNotUnique()();
     if (*((aBlock[0] & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((aBlock[0] & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
     {
       specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
-      v6 = v88;
+      v6 = v89;
     }
 
     specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
-    type metadata accessor for UIApplication(0, &lazy cache variable for type metadata for UISheetPresentationControllerDetent);
+    type metadata accessor for UIApplication(0, &lazy cache variable for type metadata for UISheetPresentationControllerDetent, UISheetPresentationControllerDetent_ptr);
     isa = Array._bridgeToObjectiveC()().super.isa;
 
-    [v46 setDetents:isa];
+    [v47 setDetents:isa];
 
-    [v46 setDelegate:v2];
-    v25 = v92;
-    v41 = v85;
+    [v47 setDelegate:v2];
+    v25 = v93;
+    v42 = v86;
   }
 
-  v61 = *&v2[v41];
-  if (!v61)
+  v62 = *&v2[v42];
+  if (!v62)
   {
     goto LABEL_41;
   }
 
-  v92 = v2;
-  v62 = *&v2[v86];
-  if (v62)
+  v93 = v2;
+  v63 = *&v2[v87];
+  if (v63)
   {
     type metadata accessor for MOSuggestionSheetViewController();
-    v63 = swift_dynamicCastClass();
-    if (v63)
+    v64 = swift_dynamicCastClass();
+    if (v64)
     {
-      v91 = *((swift_isaMask & *v63) + 0x150);
-      v64 = v61;
+      v92 = *((swift_isaMask & *v64) + 0x150);
       v65 = v62;
-      v66 = v92;
-      v67 = v92;
-      v91(v66, &protocol witness table for MOAngelRootViewController);
-      v6 = v88;
+      v66 = v63;
+      v67 = v93;
+      v68 = v93;
+      v92(v67, &protocol witness table for MOAngelRootViewController);
+      v6 = v89;
     }
 
     else
@@ -514,55 +545,55 @@ LABEL_41:
       type metadata accessor for SuggestionsViewController();
       if (swift_dynamicCastClass())
       {
-        lazy protocol witness table accessor for type UIApplicationOpenExternalURLOptionsKey and conformance UIApplicationOpenExternalURLOptionsKey(&lazy protocol witness table cache variable for type MOAngelRootViewController and conformance MOAngelRootViewController, v68, type metadata accessor for MOAngelRootViewController);
-        v69 = v61;
+        lazy protocol witness table accessor for type UIApplicationOpenExternalURLOptionsKey and conformance UIApplicationOpenExternalURLOptionsKey(&lazy protocol witness table cache variable for type MOAngelRootViewController and conformance MOAngelRootViewController, v69, type metadata accessor for MOAngelRootViewController, &protocol conformance descriptor for MOAngelRootViewController);
         v70 = v62;
-        v66 = v92;
-        v71 = v92;
+        v71 = v63;
+        v67 = v93;
+        v72 = v93;
         dispatch thunk of SuggestionsViewController.delegate.setter();
 
-        v6 = v88;
+        v6 = v89;
       }
 
       else
       {
-        v72 = v61;
         v73 = v62;
-        v66 = v92;
+        v74 = v63;
+        v67 = v93;
       }
     }
 
-    v74 = [objc_allocWithZone(UINavigationController) initWithRootViewController:v61];
-    v75 = [v66 navigationController];
-    if (v75)
+    v75 = [objc_allocWithZone(UINavigationController) initWithRootViewController:v62];
+    v76 = [v67 navigationController];
+    if (v76)
     {
-      v76 = v75;
-      LODWORD(v91) = [v25 presentationIsAnimated];
-      v77 = swift_allocObject();
-      swift_unknownObjectWeakInit();
+      v77 = v76;
+      LODWORD(v92) = [v25 presentationIsAnimated];
       v78 = swift_allocObject();
-      v78[2] = v61;
-      v78[3] = v77;
-      v78[4] = v62;
+      swift_unknownObjectWeakInit();
+      v79 = swift_allocObject();
+      v79[2] = v62;
+      v79[3] = v78;
+      v79[4] = v63;
       aBlock[4] = partial apply for closure #1 in MOAngelRootViewController.present(with:);
-      aBlock[5] = v78;
+      aBlock[5] = v79;
       aBlock[0] = _NSConcreteStackBlock;
       aBlock[1] = 1107296256;
       aBlock[2] = thunk for @escaping @callee_guaranteed () -> ();
       aBlock[3] = &block_descriptor_27;
-      v79 = _Block_copy(aBlock);
-      v80 = v61;
+      v80 = _Block_copy(aBlock);
       v81 = v62;
+      v82 = v63;
 
-      [v76 presentViewController:v74 animated:v91 completion:v79];
-      v82 = v79;
-      v6 = v88;
-      _Block_release(v82);
+      [v77 presentViewController:v75 animated:v92 completion:v80];
+      v83 = v80;
+      v6 = v89;
+      _Block_release(v83);
     }
 
-    if ([v62 presentFullScreen])
+    if ([v63 presentFullScreen])
     {
-      (*((swift_isaMask & **&v92[OBJC_IVAR____TtC16MomentsUIService25MOAngelRootViewController_privacyBlur]) + 0xA8))(1);
+      (*((swift_isaMask & **&v93[OBJC_IVAR____TtC16MomentsUIService25MOAngelRootViewController_privacyBlur]) + 0xA8))(1);
     }
   }
 
@@ -572,54 +603,54 @@ LABEL_41:
 
 LABEL_51:
 
-  $defer #1 () in MOAngelRootViewController.present(with:)();
+  $defer #1 () in MOAngelRootViewController.present(with:)(v26);
 
-  return (*(v93 + 8))(v11, v6);
+  return (*(v94 + 8))(v11, v6);
 }
 
-uint64_t $defer #1 () in MOAngelRootViewController.present(with:)()
+uint64_t $defer #1 () in MOAngelRootViewController.present(with:)(uint64_t a1)
 {
-  v0 = type metadata accessor for OSSignpostError();
-  v1 = *(v0 - 8);
-  __chkstk_darwin(v0);
-  v3 = &v15 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v4 = type metadata accessor for OSSignpostID();
-  v5 = *(v4 - 8);
-  __chkstk_darwin(v4);
-  v7 = &v15 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v1 = type metadata accessor for OSSignpostError();
+  v2 = *(v1 - 8);
+  __chkstk_darwin(v1);
+  v4 = &v16 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = type metadata accessor for OSSignpostID();
+  v6 = *(v5 - 8);
+  __chkstk_darwin(v5);
+  v8 = &v16 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (one-time initialization token for processing != -1)
   {
     swift_once();
   }
 
-  v8 = type metadata accessor for OSSignposter();
-  __swift_project_value_buffer(v8, static MOAngelSignposter.processing);
-  v9 = OSSignposter.logHandle.getter();
+  v9 = type metadata accessor for OSSignposter();
+  __swift_project_value_buffer(v9, static MOAngelSignposter.processing);
+  v10 = OSSignposter.logHandle.getter();
   OSSignpostIntervalState.signpostID.getter();
-  v10 = static os_signpost_type_t.end.getter();
+  v11 = static os_signpost_type_t.end.getter();
   if (OS_os_log.signpostsEnabled.getter())
   {
 
     checkForErrorAndConsumeState(state:)();
 
-    if ((*(v1 + 88))(v3, v0) == enum case for OSSignpostError.doubleEnd(_:))
+    if ((*(v2 + 88))(v4, v1) == enum case for OSSignpostError.doubleEnd(_:))
     {
-      v11 = "[Error] Interval already ended";
+      v12 = "[Error] Interval already ended";
     }
 
     else
     {
-      (*(v1 + 8))(v3, v0);
-      v11 = "";
+      (*(v2 + 8))(v4, v1);
+      v12 = "";
     }
 
-    v12 = swift_slowAlloc();
-    *v12 = 0;
-    v13 = OSSignpostID.rawValue.getter();
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v9, v10, v13, "UIService_PresentSuggestionSheet", v11, v12, 2u);
+    v13 = swift_slowAlloc();
+    *v13 = 0;
+    v14 = OSSignpostID.rawValue.getter();
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v10, v11, v14, "UIService_PresentSuggestionSheet", v12, v13, 2u);
   }
 
-  return (*(v5 + 8))(v7, v4);
+  return (*(v6 + 8))(v8, v5);
 }
 
 void closure #1 in MOAngelRootViewController.present(with:)(void *a1, uint64_t a2, void *a3)
@@ -653,7 +684,7 @@ void closure #1 in MOAngelRootViewController.present(with:)(void *a1, uint64_t a
     goto LABEL_12;
   }
 
-  type metadata accessor for UIApplication(0, &lazy cache variable for type metadata for UIView);
+  type metadata accessor for UIApplication(0, &lazy cache variable for type metadata for UIView, UIView_ptr);
   if ((swift_dynamicCast() & 1) == 0)
   {
     goto LABEL_13;
@@ -668,7 +699,7 @@ LABEL_11:
     v23 = 0u;
     v24 = 0u;
 LABEL_12:
-    outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(&v23, &_sypSgMd);
+    outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(&v23, &_sypSgMd, &_sypSgMR);
     goto LABEL_13;
   }
 
@@ -764,7 +795,7 @@ void MOAngelRootViewController.update(with:animated:)(uint64_t a1, char a2)
         {
           v49 = a1;
           v10 = [v8 detents];
-          type metadata accessor for UIApplication(0, &lazy cache variable for type metadata for UISheetPresentationControllerDetent);
+          type metadata accessor for UIApplication(0, &lazy cache variable for type metadata for UISheetPresentationControllerDetent, UISheetPresentationControllerDetent_ptr);
           v11 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
           v48 = a2;
@@ -884,6 +915,7 @@ LABEL_42:
           }
 
           v39 = 0;
+          v37 = 0;
           goto LABEL_51;
         }
 
@@ -934,7 +966,7 @@ LABEL_51:
             (*((swift_isaMask & **&v4[OBJC_IVAR____TtC16MomentsUIService25MOAngelRootViewController_privacyBlur]) + 0xA0))(a2 & 1);
           }
 
-          outlined consume of (@escaping @callee_guaranteed () -> ())?(v39);
+          outlined consume of (@escaping @callee_guaranteed () -> ())?(v39, v37);
           return;
         }
 
@@ -1097,11 +1129,13 @@ void closure #3 in MOAngelRootViewController.update(with:animated:)(uint64_t a1,
   }
 }
 
-uint64_t thunk for @escaping @callee_guaranteed @Sendable (@unowned UIViewAnimatingPosition) -> ()(uint64_t a1, uint64_t a2)
+double thunk for @escaping @callee_guaranteed @Sendable (@unowned UIViewAnimatingPosition) -> ()(uint64_t a1, uint64_t a2)
 {
   v3 = *(a1 + 32);
 
   v3(a2);
+
+  return result;
 }
 
 void protocol witness for MOAngelControllerWrapperDelegate.refreshData() in conformance MOAngelRootViewController()
@@ -1206,7 +1240,7 @@ Swift::Void __swiftcall MOSuggestionSheetViewController.updateSheetIfOnboardingR
         _os_log_impl(&_mh_execute_header, v21, v22, "scheduling new onboarding&refresh status check", v26, 2u);
       }
 
-      type metadata accessor for UIApplication(0, &lazy cache variable for type metadata for OS_dispatch_queue);
+      type metadata accessor for UIApplication(0, &lazy cache variable for type metadata for OS_dispatch_queue, OS_dispatch_queue_ptr);
       v27 = static OS_dispatch_queue.main.getter();
       static DispatchTime.now()();
       + infix(_:_:)();
@@ -1227,8 +1261,8 @@ Swift::Void __swiftcall MOSuggestionSheetViewController.updateSheetIfOnboardingR
 
       static DispatchQoS.unspecified.getter();
       aBlock[0] = _swiftEmptyArrayStorage;
-      lazy protocol witness table accessor for type UIApplicationOpenExternalURLOptionsKey and conformance UIApplicationOpenExternalURLOptionsKey(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, 255, &type metadata accessor for DispatchWorkItemFlags);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd);
+      lazy protocol witness table accessor for type UIApplicationOpenExternalURLOptionsKey and conformance UIApplicationOpenExternalURLOptionsKey(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, 255, &type metadata accessor for DispatchWorkItemFlags, &protocol conformance descriptor for DispatchWorkItemFlags);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
       lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A]();
       v33 = v39;
       v34 = v42;
@@ -1255,7 +1289,7 @@ Swift::Void __swiftcall MOSuggestionSheetViewController.shouldDismissOnboarding(
     swift_once();
   }
 
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s6TipKit4TipsO9ParameterVy_SbGMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s6TipKit4TipsO9ParameterVy_SbGMd, &_s6TipKit4TipsO9ParameterVy_SbGMR);
   __swift_project_value_buffer(v4, static MOSuggestionOnboardingTip.$showSuggestionsOnboarding);
   swift_beginAccess();
   Tips.Parameter.wrappedValue.setter();
@@ -1348,7 +1382,7 @@ id MOSuggestionSheetViewController.suggestionSegmentedControl.getter()
 
 id closure #1 in MOSuggestionSheetViewController.suggestionSegmentedControl.getter()
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyypGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyypGMd, &_ss23_ContiguousArrayStorageCyypGMR);
   v0 = swift_allocObject();
   *(v0 + 16) = xmmword_1002A4A00;
   v1 = objc_opt_self();
@@ -1388,17 +1422,7 @@ id closure #1 in MOSuggestionSheetViewController.suggestionSegmentedControl.gett
   return v13;
 }
 
-uint64_t MOSuggestionSheetViewController.presentationDelegate.getter()
-{
-  return MOSuggestionSheetViewController.presentationDelegate.getter();
-}
-
-{
-  swift_beginAccess();
-  return swift_unknownObjectWeakLoadStrong();
-}
-
-uint64_t (*MOSuggestionSheetViewController.presentationDelegate.modify(uint64_t *a1))()
+void (*MOSuggestionSheetViewController.presentationDelegate.modify(uint64_t *a1))(uint64_t a1, char a2)
 {
   if (&_swift_coroFrameAlloc)
   {
@@ -1433,7 +1457,7 @@ uint64_t MOSuggestionSheetViewController.presentationDelegate.setter(uint64_t a1
   return swift_unknownObjectRelease();
 }
 
-uint64_t (*MOSuggestionSheetViewController.rootControllerDelegate.modify(uint64_t *a1))()
+void (*MOSuggestionSheetViewController.rootControllerDelegate.modify(uint64_t *a1))(uint64_t a1, char a2)
 {
   if (&_swift_coroFrameAlloc)
   {
@@ -1520,7 +1544,7 @@ LABEL_31:
   [v21 setTitleView:v22];
 
   v23 = OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetViewController____lazy_storage___suggestionSegmentedControl;
-  v24 = *&v6[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetViewController____lazy_storage___suggestionSegmentedControl];
+  v24 = *(v6 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetViewController____lazy_storage___suggestionSegmentedControl);
   [v24 setHidden:{objc_msgSend(v5, "showBlankEntryButton")}];
 
   if (([v5 showBlankEntryButton] & 1) == 0 && (objc_msgSend(v5, "presentFullScreen") & 1) == 0)
@@ -1528,7 +1552,7 @@ LABEL_31:
     [v18 setTitleVerticalPositionAdjustment:0 forBarMetrics:8.0];
   }
 
-  [*&v6[v23] addTarget:v6 action:"pressedSegmentControl" forControlEvents:4096];
+  [*(v6 + v23) addTarget:v6 action:"pressedSegmentControl" forControlEvents:4096];
   v25 = [v6 view];
   if (!v25)
   {
@@ -1574,16 +1598,16 @@ LABEL_31:
     [v36 setRightBarButtonItem:v35];
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
   v37 = swift_allocObject();
   *(v37 + 16) = xmmword_1002A4A70;
   *(v37 + 32) = [v6 navigationItem];
-  type metadata accessor for UIApplication(0, &lazy cache variable for type metadata for UINavigationItem);
+  type metadata accessor for UIApplication(0, &lazy cache variable for type metadata for UINavigationItem, UINavigationItem_ptr);
   isa = Array._bridgeToObjectiveC()().super.isa;
 
   [v18 setItems:isa animated:0];
 
-  if (*&v6[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetViewController_suggestionCollectionView])
+  if (*(v6 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetViewController_suggestionCollectionView))
   {
 
 LABEL_28:
@@ -1717,13 +1741,13 @@ LABEL_36:
 
     v86 = [v82 constraintEqualToAnchor:v85];
     *(v49 + 88) = v86;
-    type metadata accessor for UIApplication(0, &lazy cache variable for type metadata for NSLayoutConstraint);
+    type metadata accessor for UIApplication(0, &lazy cache variable for type metadata for NSLayoutConstraint, NSLayoutConstraint_ptr);
     v87 = Array._bridgeToObjectiveC()().super.isa;
 
     [v84 activateConstraints:v87];
 
-    v88 = *&v6[v90];
-    *&v6[v90] = v92;
+    v88 = *(v6 + v90);
+    *(v6 + v90) = v92;
     v18 = v48;
 
     *&v42[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetViewController_segmentedDelegate + 8] = &protocol witness table for MOSuggestionCollectionView;
@@ -1765,25 +1789,25 @@ void MOSuggestionSheetViewController.viewWillTransition(to:with:)(void *a1, doub
   _Block_release(v14);
 }
 
-void closure #1 in MOSuggestionSheetViewController.viewWillTransition(to:with:)()
+void closure #1 in MOSuggestionSheetViewController.viewWillTransition(to:with:)(uint64_t a1, uint64_t a2)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v1 = Strong;
-    v2 = *(Strong + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetViewController_suggestionCollectionView);
-    if (v2)
+    v3 = Strong;
+    v4 = *(Strong + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetViewController_suggestionCollectionView);
+    if (v4)
     {
-      v3 = *((swift_isaMask & *v2) + 0xE8);
-      v4 = v2;
-      v5 = v3();
+      v5 = *((swift_isaMask & *v4) + 0xE8);
+      v6 = v4;
+      v7 = v5();
 
-      if (v5)
+      if (v7)
       {
-        v6 = [v5 collectionViewLayout];
+        v8 = [v7 collectionViewLayout];
 
-        [v6 invalidateLayout];
+        [v8 invalidateLayout];
       }
     }
   }
@@ -2146,7 +2170,7 @@ void MOAngelRootViewController.journalingSuggestionsOnboardingViewControllerDidT
 
 uint64_t closure #1 in MOAngelRootViewController.journalingSuggestionsSyncOnboardingViewControllerDidTapSyncToiPad(_:onboardingOnlyPresentation:)()
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9MomentsUI11CloudDeviceVSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9MomentsUI11CloudDeviceVSgMd, &_s9MomentsUI11CloudDeviceVSgMR);
   v0[2] = swift_task_alloc();
   v1 = type metadata accessor for Logger();
   v0[3] = v1;
@@ -2165,7 +2189,7 @@ uint64_t closure #1 in MOAngelRootViewController.journalingSuggestionsSyncOnboar
   if (v0[8])
   {
     type metadata accessor for CloudDevicesDB();
-    lazy protocol witness table accessor for type UIApplicationOpenExternalURLOptionsKey and conformance UIApplicationOpenExternalURLOptionsKey(&lazy protocol witness table cache variable for type CloudDevicesDB and conformance CloudDevicesDB, 255, &type metadata accessor for CloudDevicesDB);
+    lazy protocol witness table accessor for type UIApplicationOpenExternalURLOptionsKey and conformance UIApplicationOpenExternalURLOptionsKey(&lazy protocol witness table cache variable for type CloudDevicesDB and conformance CloudDevicesDB, 255, &type metadata accessor for CloudDevicesDB, &protocol conformance descriptor for CloudDevicesDB);
     v2 = dispatch thunk of Actor.unownedExecutor.getter();
 
     return _swift_task_switch(closure #1 in MOAngelRootViewController.journalingSuggestionsSyncOnboardingViewControllerDidTapSyncToiPad(_:onboardingOnlyPresentation:), v2, v1);
@@ -2206,7 +2230,7 @@ uint64_t closure #1 in MOAngelRootViewController.journalingSuggestionsSyncOnboar
   v1 = v0[2];
   v2 = type metadata accessor for CloudDevice();
   v3 = (*(*(v2 - 8) + 48))(v1, 1, v2);
-  outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v1, &_s9MomentsUI11CloudDeviceVSgMd);
+  outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v1, &_s9MomentsUI11CloudDeviceVSgMd, &_s9MomentsUI11CloudDeviceVSgMR);
   if (v3 == 1)
   {
     v4 = swift_task_alloc();
@@ -2271,7 +2295,7 @@ BOOL specialized static MOAngelRootViewController.isLandscape.getter()
   v1 = [v0 sharedApplication];
   v2 = [v1 connectedScenes];
 
-  type metadata accessor for UIApplication(0, &lazy cache variable for type metadata for UIScene);
+  type metadata accessor for UIApplication(0, &lazy cache variable for type metadata for UIScene, UIScene_ptr);
   lazy protocol witness table accessor for type UIScene and conformance NSObject();
   v3 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
 
@@ -2414,10 +2438,10 @@ LABEL_16:
   if (v39)
   {
     v40 = OBJC_IVAR____TtC16MomentsUIService25MOAngelRootViewController_privacyBlur;
-    [v39 addSubview:*&v16[OBJC_IVAR____TtC16MomentsUIService25MOAngelRootViewController_privacyBlur]];
+    [v39 addSubview:*(v16 + OBJC_IVAR____TtC16MomentsUIService25MOAngelRootViewController_privacyBlur)];
 
-    [*&v16[v40] setTranslatesAutoresizingMaskIntoConstraints:0];
-    v41 = *&v16[v40];
+    [*(v16 + v40) setTranslatesAutoresizingMaskIntoConstraints:0];
+    v41 = *(v16 + v40);
     UIView.fillSuper(horizontalMargin:verticalMargin:)(0.0, 0.0);
 
     return;
@@ -2432,7 +2456,7 @@ unint64_t lazy protocol witness table accessor for type UIScene and conformance 
   result = lazy protocol witness table cache variable for type UIScene and conformance NSObject;
   if (!lazy protocol witness table cache variable for type UIScene and conformance NSObject)
   {
-    type metadata accessor for UIApplication(255, &lazy cache variable for type metadata for UIScene);
+    type metadata accessor for UIApplication(255, &lazy cache variable for type metadata for UIScene, UIScene_ptr);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type UIScene and conformance NSObject);
   }
@@ -2460,7 +2484,7 @@ uint64_t block_copy_helper_27(uint64_t a1, uint64_t a2)
   *(a1 + 40) = v2;
 }
 
-uint64_t lazy protocol witness table accessor for type UIApplicationOpenExternalURLOptionsKey and conformance UIApplicationOpenExternalURLOptionsKey(unint64_t *a1, uint64_t a2, void (*a3)(uint64_t))
+uint64_t lazy protocol witness table accessor for type UIApplicationOpenExternalURLOptionsKey and conformance UIApplicationOpenExternalURLOptionsKey(unint64_t *a1, uint64_t a2, uint64_t (*a3)(uint64_t), uint64_t a4)
 {
   result = *a1;
   if (!result)
@@ -2558,7 +2582,7 @@ char *specialized MOSuggestionCollectionView.init(controller:presentationDelegat
   v70.receiver = a6;
   v70.super_class = type metadata accessor for MOSuggestionCollectionView();
   v29 = objc_msgSendSuper2(&v70, "initWithFrame:", CGRectZero.origin.x, y, width, height);
-  v30 = *&v29[OBJC_IVAR____TtC16MomentsUIService26MOSuggestionCollectionView_tipCoordinator];
+  v30 = *(v29 + OBJC_IVAR____TtC16MomentsUIService26MOSuggestionCollectionView_tipCoordinator);
   if (v30)
   {
     v31 = *(*v30 + 128);
@@ -2568,56 +2592,56 @@ char *specialized MOSuggestionCollectionView.init(controller:presentationDelegat
   }
 
   v33 = OBJC_IVAR____TtC16MomentsUIService26MOSuggestionCollectionView_activityIndicator;
-  v34 = *&v29[OBJC_IVAR____TtC16MomentsUIService26MOSuggestionCollectionView_activityIndicator];
+  v34 = *(v29 + OBJC_IVAR____TtC16MomentsUIService26MOSuggestionCollectionView_activityIndicator);
   v35 = v29;
   [v35 addSubview:v34];
   v36 = OBJC_IVAR____TtC16MomentsUIService26MOSuggestionCollectionView_supportingLoadingTextLabel;
-  [v35 addSubview:*&v35[OBJC_IVAR____TtC16MomentsUIService26MOSuggestionCollectionView_supportingLoadingTextLabel]];
+  [v35 addSubview:*(v35 + OBJC_IVAR____TtC16MomentsUIService26MOSuggestionCollectionView_supportingLoadingTextLabel)];
   v69 = objc_opt_self();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
   v37 = swift_allocObject();
   *(v37 + 16) = xmmword_1002A48D0;
-  v38 = [*&v29[v33] centerYAnchor];
+  v38 = [*(v29 + v33) centerYAnchor];
   v39 = [v35 centerYAnchor];
   v40 = [v38 constraintEqualToAnchor:v39];
 
   *(v37 + 32) = v40;
-  v41 = [*&v29[v33] centerXAnchor];
+  v41 = [*(v29 + v33) centerXAnchor];
   v42 = [v35 centerXAnchor];
 
   v43 = [v41 constraintEqualToAnchor:v42];
   *(v37 + 40) = v43;
-  v44 = [*&v29[v33] heightAnchor];
+  v44 = [*(v29 + v33) heightAnchor];
   v45 = [v44 constraintEqualToConstant:50.0];
 
   *(v37 + 48) = v45;
-  v46 = [*&v29[v33] widthAnchor];
+  v46 = [*(v29 + v33) widthAnchor];
   v47 = [v46 constraintEqualToConstant:50.0];
 
   *(v37 + 56) = v47;
-  type metadata accessor for UIApplication(0, &lazy cache variable for type metadata for NSLayoutConstraint);
+  type metadata accessor for UIApplication(0, &lazy cache variable for type metadata for NSLayoutConstraint, NSLayoutConstraint_ptr);
   isa = Array._bridgeToObjectiveC()().super.isa;
 
   [v69 activateConstraints:isa];
 
   v49 = swift_allocObject();
   *(v49 + 16) = xmmword_1002A48D0;
-  v50 = [*&v35[v36] topAnchor];
-  v51 = [*&v29[v33] bottomAnchor];
+  v50 = [*(v35 + v36) topAnchor];
+  v51 = [*(v29 + v33) bottomAnchor];
   v52 = [v50 constraintEqualToAnchor:v51 constant:2.0];
 
   *(v49 + 32) = v52;
-  v53 = [*&v35[v36] centerXAnchor];
+  v53 = [*(v35 + v36) centerXAnchor];
   v54 = [v35 centerXAnchor];
 
   v55 = [v53 constraintEqualToAnchor:v54];
   *(v49 + 40) = v55;
-  v56 = [*&v35[v36] leadingAnchor];
+  v56 = [*(v35 + v36) leadingAnchor];
   v57 = [v35 leadingAnchor];
 
   v58 = [v56 constraintEqualToAnchor:v57 constant:20.0];
   *(v49 + 48) = v58;
-  v59 = [*&v35[v36] trailingAnchor];
+  v59 = [*(v35 + v36) trailingAnchor];
   v60 = [v35 trailingAnchor];
   v61 = [v59 constraintEqualToAnchor:v60 constant:-20.0];
 
@@ -2626,7 +2650,7 @@ char *specialized MOSuggestionCollectionView.init(controller:presentationDelegat
 
   [v69 activateConstraints:v62];
 
-  v63 = *&v35[OBJC_IVAR____TtC16MomentsUIService26MOSuggestionCollectionView_refresher];
+  v63 = *(v35 + OBJC_IVAR____TtC16MomentsUIService26MOSuggestionCollectionView_refresher);
   [v63 addTarget:v35 action:"handlePullToRefreshTrigger" forControlEvents:4096];
 
   return v35;
@@ -2651,7 +2675,7 @@ void specialized MOSuggestionSheetViewController.init(coder:)()
 
 uint64_t specialized MOSuggestionSheetViewController.showMomentsValidator()()
 {
-  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd);
+  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
   __chkstk_darwin(v0 - 8);
   v2 = &v13 - v1;
   v3 = type metadata accessor for URL();
@@ -2661,7 +2685,7 @@ uint64_t specialized MOSuggestionSheetViewController.showMomentsValidator()()
   URL.init(string:)();
   if ((*(v4 + 48))(v2, 1, v3) == 1)
   {
-    return outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v2, &_s10Foundation3URLVSgMd);
+    return outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v2, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
   }
 
   (*(v4 + 32))(v6, v2, v3);
@@ -2670,7 +2694,7 @@ uint64_t specialized MOSuggestionSheetViewController.showMomentsValidator()()
   v11 = v10;
   _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSo38UIApplicationOpenExternalURLOptionsKeya_ypTt0g5Tf4g_n(_swiftEmptyArrayStorage);
   type metadata accessor for UIApplicationOpenExternalURLOptionsKey(0);
-  lazy protocol witness table accessor for type UIApplicationOpenExternalURLOptionsKey and conformance UIApplicationOpenExternalURLOptionsKey(&lazy protocol witness table cache variable for type UIApplicationOpenExternalURLOptionsKey and conformance UIApplicationOpenExternalURLOptionsKey, 255, type metadata accessor for UIApplicationOpenExternalURLOptionsKey);
+  lazy protocol witness table accessor for type UIApplicationOpenExternalURLOptionsKey and conformance UIApplicationOpenExternalURLOptionsKey(&lazy protocol witness table cache variable for type UIApplicationOpenExternalURLOptionsKey and conformance UIApplicationOpenExternalURLOptionsKey, 255, type metadata accessor for UIApplicationOpenExternalURLOptionsKey, &protocol conformance descriptor for UIApplicationOpenExternalURLOptionsKey);
   isa = Dictionary._bridgeToObjectiveC()().super.isa;
 
   [v8 openURL:v11 options:isa completionHandler:0];
@@ -2785,7 +2809,6 @@ void specialized MOAngelRootViewController.journalingSuggestionsSyncOnboardingVi
   v9 = static MomentsUIManager.shared.getter();
   v10 = dispatch thunk of MomentsUIManager.cloudManager.getter();
 
-  specialized BTask.init(name:operation:)(0xD00000000000007ALL, 0x80000001002B72A0, &async function pointer to partial apply for closure #1 in MOAngelRootViewController.journalingSuggestionsSyncOnboardingViewControllerDidTapSyncToiPad(_:onboardingOnlyPresentation:), v10);
   v11 = [a1 navigationController];
   if (v11)
   {
@@ -2959,7 +2982,7 @@ uint64_t static MOReachability.isInternetAvailable()()
   v0[3] = v1;
   v0[4] = *(v1 - 8);
   v0[5] = swift_task_alloc();
-  v0[6] = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Network6NWPathV6StatusOSg_AFtMd);
+  v0[6] = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Network6NWPathV6StatusOSg_AFtMd, &_s7Network6NWPathV6StatusOSg_AFtMR);
   v0[7] = swift_task_alloc();
   v2 = type metadata accessor for NWPath();
   v0[8] = v2;
@@ -2969,10 +2992,10 @@ uint64_t static MOReachability.isInternetAvailable()()
   v0[11] = v3;
   v0[12] = *(v3 - 8);
   v0[13] = swift_task_alloc();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Network6NWPathVSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Network6NWPathVSgMd, &_s7Network6NWPathVSgMR);
   v0[14] = swift_task_alloc();
   v0[15] = swift_task_alloc();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Network6NWPathV6StatusOSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Network6NWPathV6StatusOSgMd, &_s7Network6NWPathV6StatusOSgMR);
   v0[16] = swift_task_alloc();
   v0[17] = swift_task_alloc();
   v0[18] = swift_task_alloc();
@@ -2986,10 +3009,10 @@ uint64_t static MOReachability.isInternetAvailable()()
   v1 = NWPathMonitor.init()();
   v0[19] = v1;
   v0[2] = v1;
-  lazy protocol witness table accessor for type NWPathMonitor and conformance NWPathMonitor(&lazy protocol witness table cache variable for type NWPathMonitor and conformance NWPathMonitor, &type metadata accessor for NWPathMonitor);
+  lazy protocol witness table accessor for type NWPathMonitor and conformance NWPathMonitor(&lazy protocol witness table cache variable for type NWPathMonitor and conformance NWPathMonitor, &type metadata accessor for NWPathMonitor, &protocol conformance descriptor for NWPathMonitor);
 
   dispatch thunk of AsyncSequence.makeAsyncIterator()();
-  v2 = lazy protocol witness table accessor for type NWPathMonitor and conformance NWPathMonitor(&lazy protocol witness table cache variable for type NWPathMonitor.Iterator and conformance NWPathMonitor.Iterator, &type metadata accessor for NWPathMonitor.Iterator);
+  v2 = lazy protocol witness table accessor for type NWPathMonitor and conformance NWPathMonitor(&lazy protocol witness table cache variable for type NWPathMonitor.Iterator and conformance NWPathMonitor.Iterator, &type metadata accessor for NWPathMonitor.Iterator, &protocol conformance descriptor for NWPathMonitor.Iterator);
   v3 = swift_task_alloc();
   v0[20] = v3;
   *v3 = v0;
@@ -3056,7 +3079,7 @@ uint64_t static MOReachability.isInternetAvailable()()
   (*(v0[9] + 56))(v12, v8, 1, v13);
   if (v4(v12, 1, v13) == 1)
   {
-    outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v0[15], &_s7Network6NWPathVSgMd);
+    outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v0[15], &_s7Network6NWPathVSgMd, &_s7Network6NWPathVSgMR);
     v14 = 1;
   }
 
@@ -3088,11 +3111,11 @@ uint64_t static MOReachability.isInternetAvailable()()
   {
     v27 = v0[18];
     v28 = v0[3];
-    outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v0[17], &_s7Network6NWPathV6StatusOSgMd);
-    outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v27, &_s7Network6NWPathV6StatusOSgMd);
+    outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v0[17], &_s7Network6NWPathV6StatusOSgMd, &_s7Network6NWPathV6StatusOSgMR);
+    outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v27, &_s7Network6NWPathV6StatusOSgMd, &_s7Network6NWPathV6StatusOSgMR);
     if (v26(v20 + v25, 1, v28) == 1)
     {
-      outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v0[7], &_s7Network6NWPathV6StatusOSgMd);
+      outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v0[7], &_s7Network6NWPathV6StatusOSgMd, &_s7Network6NWPathV6StatusOSgMR);
       v29 = 0;
       goto LABEL_14;
     }
@@ -3110,11 +3133,11 @@ uint64_t static MOReachability.isInternetAvailable()()
   {
     v35 = v0[3];
     v36 = v0[4];
-    outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v0[17], &_s7Network6NWPathV6StatusOSgMd);
-    outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v32, &_s7Network6NWPathV6StatusOSgMd);
+    outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v0[17], &_s7Network6NWPathV6StatusOSgMd, &_s7Network6NWPathV6StatusOSgMR);
+    outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v32, &_s7Network6NWPathV6StatusOSgMd, &_s7Network6NWPathV6StatusOSgMR);
     (*(v36 + 8))(v34, v35);
 LABEL_12:
-    outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v0[7], &_s7Network6NWPathV6StatusOSg_AFtMd);
+    outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v0[7], &_s7Network6NWPathV6StatusOSg_AFtMd, &_s7Network6NWPathV6StatusOSg_AFtMR);
     v29 = 1;
     goto LABEL_14;
   }
@@ -3124,14 +3147,14 @@ LABEL_12:
   v37 = v0[5];
   v39 = v0[3];
   (*(v38 + 32))(v37, v20 + v25, v39);
-  lazy protocol witness table accessor for type NWPathMonitor and conformance NWPathMonitor(&lazy protocol witness table cache variable for type NWPath.Status and conformance NWPath.Status, &type metadata accessor for NWPath.Status);
+  lazy protocol witness table accessor for type NWPathMonitor and conformance NWPathMonitor(&lazy protocol witness table cache variable for type NWPath.Status and conformance NWPath.Status, &type metadata accessor for NWPath.Status, &protocol conformance descriptor for NWPath.Status);
   v40 = dispatch thunk of static Equatable.== infix(_:_:)();
   v41 = *(v38 + 8);
   v41(v37, v39);
-  outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v33, &_s7Network6NWPathV6StatusOSgMd);
-  outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v32, &_s7Network6NWPathV6StatusOSgMd);
+  outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v33, &_s7Network6NWPathV6StatusOSgMd, &_s7Network6NWPathV6StatusOSgMR);
+  outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v32, &_s7Network6NWPathV6StatusOSgMd, &_s7Network6NWPathV6StatusOSgMR);
   v41(v34, v39);
-  outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v47, &_s7Network6NWPathV6StatusOSgMd);
+  outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v47, &_s7Network6NWPathV6StatusOSgMd, &_s7Network6NWPathV6StatusOSgMR);
   v29 = v40 ^ 1;
 LABEL_14:
 
@@ -3142,12 +3165,12 @@ LABEL_14:
 
 uint64_t outlined init with copy of NWPath.Status?(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Network6NWPathV6StatusOSgMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Network6NWPathV6StatusOSgMd, &_s7Network6NWPathV6StatusOSgMR);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
 
-uint64_t lazy protocol witness table accessor for type NWPathMonitor and conformance NWPathMonitor(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type NWPathMonitor and conformance NWPathMonitor(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -3253,13 +3276,6 @@ void MOSuggestionSheetAssetViewModel.activitySummary.setter(uint64_t a1)
   *(v1 + 40) = a1;
 }
 
-uint64_t MOSuggestionSheetImage.shouldBeRounded.setter(char a1)
-{
-  result = swift_beginAccess();
-  *(v1 + 48) = a1;
-  return result;
-}
-
 __n128 MOSuggestionSheetImage.squareCrop.getter@<Q0>(uint64_t a1@<X8>)
 {
   swift_beginAccess();
@@ -3283,12 +3299,11 @@ __n128 MOSuggestionSheetImage.squareCrop.setter(uint64_t a1)
   return result;
 }
 
-uint64_t MOSuggestionSheetImage.extraMargin.setter(uint64_t a1, char a2)
+void MOSuggestionSheetImage.extraMargin.setter(uint64_t a1, char a2)
 {
-  result = swift_beginAccess();
+  swift_beginAccess();
   *(v2 + 96) = a1;
   *(v2 + 104) = a2 & 1;
-  return result;
 }
 
 uint64_t MOSuggestionSheetImage.init(image:associatedTintColor:associatedBackgroundColor:tileBackgroundColor:shouldBeRounded:squareCrop:extraMargin:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5, uint64_t a6, uint64_t a7, char a8)
@@ -3322,10 +3337,11 @@ uint64_t MOSuggestionSheetImage.init(image:associatedTintColor:associatedBackgro
   return v8;
 }
 
-uint64_t MOSuggestionSheetImage.__deallocating_deinit()
+double MOSuggestionSheetImage.__deallocating_deinit()
 {
 
-  return swift_deallocClassInstance();
+  swift_deallocClassInstance();
+  return result;
 }
 
 uint64_t sub_100182B50@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
@@ -3415,7 +3431,7 @@ uint64_t sub_100182F4C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   return result;
 }
 
-uint64_t UIView.uiImage.getter()
+void UIView.uiImage.getter()
 {
   [v0 bounds];
   v5 = [objc_allocWithZone(UIGraphicsImageRenderer) initWithBounds:{v1, v2, v3, v4}];
@@ -3424,27 +3440,24 @@ uint64_t UIView.uiImage.getter()
   v7 = swift_allocObject();
   *(v7 + 16) = partial apply for closure #1 in UIView.uiImage.getter;
   *(v7 + 24) = v6;
-  v12[4] = _sSo30UIGraphicsImageRendererContextCIgg_ABIegg_TRTA_0;
-  v12[5] = v7;
-  v12[0] = _NSConcreteStackBlock;
-  v12[1] = 1107296256;
-  v12[2] = thunk for @escaping @callee_guaranteed (@guaranteed UIGraphicsImageRendererContext) -> ();
-  v12[3] = &block_descriptor_28;
-  v8 = _Block_copy(v12);
+  v10[4] = _sSo30UIGraphicsImageRendererContextCIgg_ABIegg_TRTA_0;
+  v10[5] = v7;
+  v10[0] = _NSConcreteStackBlock;
+  v10[1] = 1107296256;
+  v10[2] = thunk for @escaping @callee_guaranteed (@guaranteed UIGraphicsImageRendererContext) -> ();
+  v10[3] = &block_descriptor_28;
+  v8 = _Block_copy(v10);
   v9 = v0;
 
-  v10 = [v5 imageWithActions:v8];
+  [v5 imageWithActions:v8];
 
   _Block_release(v8);
   LOBYTE(v5) = swift_isEscapingClosureAtFileLocation();
 
-  if ((v5 & 1) == 0)
+  if (v5)
   {
-    return v10;
+    __break(1u);
   }
-
-  __break(1u);
-  return result;
 }
 
 void closure #1 in UIView.uiImage.getter(void *a1, id a2)
@@ -3484,11 +3497,13 @@ void MOSuggestionCollectionView.suggestionCollectionView.setter(uint64_t a1)
   *(v1 + v3) = a1;
 }
 
-uint64_t MOSuggestionCollectionView.viewModel.setter(uint64_t a1)
+double MOSuggestionCollectionView.viewModel.setter(uint64_t a1)
 {
   v3 = OBJC_IVAR____TtC16MomentsUIService26MOSuggestionCollectionView_viewModel;
   swift_beginAccess();
   *(v1 + v3) = a1;
+
+  return result;
 }
 
 void MOSuggestionCollectionView.controller.setter(void *a1)
@@ -3519,7 +3534,7 @@ void (*MOSuggestionCollectionView.controller.modify(uint64_t *a1))(id **a1, char
   return MOSuggestionSheetInterstitialView.controller.modify;
 }
 
-uint64_t (*MOSuggestionCollectionView.presentationDelegate.modify(uint64_t *a1))()
+void (*MOSuggestionCollectionView.presentationDelegate.modify(uint64_t *a1))(uint64_t a1, char a2)
 {
   if (&_swift_coroFrameAlloc)
   {
@@ -3545,7 +3560,7 @@ uint64_t (*MOSuggestionCollectionView.presentationDelegate.modify(uint64_t *a1))
   return MOSuggestionSheetViewController.presentationDelegate.modify;
 }
 
-uint64_t (*MOSuggestionCollectionView.dialogDelegate.modify(uint64_t *a1))()
+void (*MOSuggestionCollectionView.dialogDelegate.modify(uint64_t *a1))(uint64_t a1, char a2)
 {
   if (&_swift_coroFrameAlloc)
   {
@@ -3571,7 +3586,7 @@ uint64_t (*MOSuggestionCollectionView.dialogDelegate.modify(uint64_t *a1))()
   return MOSuggestionSheetViewController.rootControllerDelegate.modify;
 }
 
-uint64_t (*MOSuggestionCollectionView.segmentedVisibilityDelegate.modify(uint64_t *a1))()
+void (*MOSuggestionCollectionView.segmentedVisibilityDelegate.modify(uint64_t *a1))(uint64_t a1, char a2)
 {
   if (&_swift_coroFrameAlloc)
   {
@@ -3597,7 +3612,7 @@ uint64_t (*MOSuggestionCollectionView.segmentedVisibilityDelegate.modify(uint64_
   return MOSuggestionSheetViewController.presentationDelegate.modify;
 }
 
-uint64_t (*MOSuggestionCollectionView.newEntryHeaderDelegate.modify(uint64_t *a1))()
+void (*MOSuggestionCollectionView.newEntryHeaderDelegate.modify(uint64_t *a1))(uint64_t a1, char a2)
 {
   if (&_swift_coroFrameAlloc)
   {
@@ -3651,7 +3666,7 @@ void MOSuggestionCollectionView.newEntryHeaderHeight(isPublicUI:)()
   [v0 bounds];
   Width = CGRectGetWidth(v49);
   v2 = String._bridgeToObjectiveC()();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo21NSAttributedStringKeya_yptGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo21NSAttributedStringKeya_yptGMd, &_ss23_ContiguousArrayStorageCySo21NSAttributedStringKeya_yptGMR);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_1002A48B0;
   *(inited + 32) = NSFontAttributeName;
@@ -3668,13 +3683,13 @@ void MOSuggestionCollectionView.newEntryHeaderHeight(isPublicUI:)()
 
   v8 = [v4 fontWithDescriptor:v7 size:0.0];
 
-  *(inited + 64) = type metadata accessor for UIApplication(0, &lazy cache variable for type metadata for UIFont);
+  *(inited + 64) = type metadata accessor for UIApplication(0, &lazy cache variable for type metadata for UIFont, UIFont_ptr);
   *(inited + 40) = v8;
   _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSo21NSAttributedStringKeya_ypTt0g5Tf4g_n(inited);
   swift_setDeallocating();
-  outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(inited + 32, &_sSo21NSAttributedStringKeya_yptMd);
+  outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(inited + 32, &_sSo21NSAttributedStringKeya_yptMd, &_sSo21NSAttributedStringKeya_yptMR);
   type metadata accessor for NSAttributedStringKey(0);
-  _sSo21NSAttributedStringKeyaABSHSCWlTm_0(&lazy protocol witness table cache variable for type NSAttributedStringKey and conformance NSAttributedStringKey, type metadata accessor for NSAttributedStringKey);
+  _sSo21NSAttributedStringKeyaABSHSCWlTm_0(&lazy protocol witness table cache variable for type NSAttributedStringKey and conformance NSAttributedStringKey, type metadata accessor for NSAttributedStringKey, &protocol conformance descriptor for NSAttributedStringKey);
   isa = Dictionary._bridgeToObjectiveC()().super.isa;
 
   [v2 boundingRectWithSize:1 options:isa attributes:0 context:{Width + -30.0, 3.40282347e38}];
@@ -3741,7 +3756,7 @@ LABEL_13:
     [v31 pointSize];
     v33 = v32;
 
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo21NSAttributedStringKeya_So6UIFontCtGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo21NSAttributedStringKeya_So6UIFontCtGMd, &_ss23_ContiguousArrayStorageCySo21NSAttributedStringKeya_So6UIFontCtGMR);
     v34 = swift_initStackObject();
     *(v34 + 16) = xmmword_1002A48B0;
     *(v34 + 32) = v47;
@@ -3749,7 +3764,7 @@ LABEL_13:
     *(v34 + 40) = [v4 systemFontOfSize:v33 weight:UIFontWeightBold];
     v36 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSo21NSAttributedStringKeya_So6UIFontCTt0g5Tf4g_n(v34);
     swift_setDeallocating();
-    outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v34 + 32, &_sSo21NSAttributedStringKeya_So6UIFontCtMd);
+    outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v34 + 32, &_sSo21NSAttributedStringKeya_So6UIFontCtMd, &_sSo21NSAttributedStringKeya_So6UIFontCtMR);
     String.init<A>(_:)();
     v37 = String._bridgeToObjectiveC()();
 
@@ -3843,16 +3858,16 @@ void MOSuggestionCollectionView.handlePullToRefreshTrigger()()
   }
 }
 
-void closure #1 in closure #1 in MOSuggestionCollectionView.handlePullToRefreshTrigger()()
+void closure #1 in closure #1 in MOSuggestionCollectionView.handlePullToRefreshTrigger()(uint64_t a1)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v1 = Strong;
-    v2 = *(Strong + OBJC_IVAR____TtC16MomentsUIService26MOSuggestionCollectionView_refresher);
+    v2 = Strong;
+    v3 = *(Strong + OBJC_IVAR____TtC16MomentsUIService26MOSuggestionCollectionView_refresher);
 
-    [v2 endRefreshing];
+    [v3 endRefreshing];
   }
 }
 
@@ -3972,7 +3987,7 @@ Swift::Void __swiftcall MOSuggestionCollectionView.layoutSubviews()()
       v51 = v50;
       [v15 addSubview:v51];
       [v51 setTranslatesAutoresizingMaskIntoConstraints:0];
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
       v52 = swift_allocObject();
       *(v52 + 16) = xmmword_1002A48D0;
       v53 = [v51 topAnchor];
@@ -4009,7 +4024,7 @@ Swift::Void __swiftcall MOSuggestionCollectionView.layoutSubviews()()
       v66 = [v64 constraintEqualToAnchor:v65];
 
       *(v52 + 56) = v66;
-      type metadata accessor for UIApplication(0, &lazy cache variable for type metadata for NSLayoutConstraint);
+      type metadata accessor for UIApplication(0, &lazy cache variable for type metadata for NSLayoutConstraint, NSLayoutConstraint_ptr);
       isa = Array._bridgeToObjectiveC()().super.isa;
 
       [v56 activateConstraints:isa];
@@ -4034,7 +4049,7 @@ Swift::Void __swiftcall MOSuggestionCollectionView.layoutSubviews()()
       v75 = String._bridgeToObjectiveC()();
       [v51 registerClass:v74 forCellWithReuseIdentifier:v75];
 
-      type metadata accessor for MOSuggestionCollectionViewDateSectionHeaderView();
+      type metadata accessor for MOSuggestionCollectionViewDateSectionHeaderView(0);
       v76 = swift_getObjCClassFromMetadata();
       v77 = UICollectionElementKindSectionHeader;
       v78 = String._bridgeToObjectiveC()();
@@ -4107,7 +4122,7 @@ Swift::Void __swiftcall MOSuggestionCollectionView.layoutSubviews()()
 
       v107 = v123;
       [v123 invalidateLayout];
-      type metadata accessor for UIApplication(0, &lazy cache variable for type metadata for OS_dispatch_queue);
+      type metadata accessor for UIApplication(0, &lazy cache variable for type metadata for OS_dispatch_queue, OS_dispatch_queue_ptr);
       v108 = static OS_dispatch_queue.main.getter();
       v109 = swift_allocObject();
       *(v109 + 16) = v15;
@@ -4122,9 +4137,9 @@ Swift::Void __swiftcall MOSuggestionCollectionView.layoutSubviews()()
 
       static DispatchQoS.unspecified.getter();
       aBlock[0] = _swiftEmptyArrayStorage;
-      _sSo21NSAttributedStringKeyaABSHSCWlTm_0(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, &type metadata accessor for DispatchWorkItemFlags);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd);
-      lazy protocol witness table accessor for type [OS_dispatch_queue.Attributes] and conformance [A](&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A], &_sSay8Dispatch0A13WorkItemFlagsVGMd);
+      _sSo21NSAttributedStringKeyaABSHSCWlTm_0(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, &type metadata accessor for DispatchWorkItemFlags, &protocol conformance descriptor for DispatchWorkItemFlags);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
+      lazy protocol witness table accessor for type [OS_dispatch_queue.Attributes] and conformance [A](&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A], &_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
       v112 = v116;
       v113 = v118;
       dispatch thunk of SetAlgebra.init<A>(_:)();
@@ -4147,7 +4162,7 @@ uint64_t closure #1 in MOSuggestionCollectionView.layoutSubviews()(char a1, char
   v9 = *(v16 - 8);
   __chkstk_darwin(v16);
   v11 = &v16 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  type metadata accessor for UIApplication(0, &lazy cache variable for type metadata for OS_dispatch_queue);
+  type metadata accessor for UIApplication(0, &lazy cache variable for type metadata for OS_dispatch_queue, OS_dispatch_queue_ptr);
   v12 = static OS_dispatch_queue.main.getter();
   v13 = swift_allocObject();
   *(v13 + 16) = a3;
@@ -4163,9 +4178,9 @@ uint64_t closure #1 in MOSuggestionCollectionView.layoutSubviews()(char a1, char
 
   static DispatchQoS.unspecified.getter();
   aBlock[0] = _swiftEmptyArrayStorage;
-  _sSo21NSAttributedStringKeyaABSHSCWlTm_0(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, &type metadata accessor for DispatchWorkItemFlags);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd);
-  lazy protocol witness table accessor for type [OS_dispatch_queue.Attributes] and conformance [A](&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A], &_sSay8Dispatch0A13WorkItemFlagsVGMd);
+  _sSo21NSAttributedStringKeyaABSHSCWlTm_0(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, &type metadata accessor for DispatchWorkItemFlags, &protocol conformance descriptor for DispatchWorkItemFlags);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
+  lazy protocol witness table accessor for type [OS_dispatch_queue.Attributes] and conformance [A](&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A], &_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
   dispatch thunk of SetAlgebra.init<A>(_:)();
   OS_dispatch_queue.async(group:qos:flags:execute:)();
   _Block_release(v14);
@@ -4178,7 +4193,7 @@ void closure #1 in closure #1 in MOSuggestionCollectionView.layoutSubviews()(uin
 {
   v178 = a3;
   v181 = a2;
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation9IndexPathVSgMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation9IndexPathVSgMd, &_s10Foundation9IndexPathVSgMR);
   __chkstk_darwin(v3 - 8);
   v174 = &v166 - v4;
   v5 = type metadata accessor for IndexPath();
@@ -4283,14 +4298,14 @@ void closure #1 in closure #1 in MOSuggestionCollectionView.layoutSubviews()(uin
 
     v50 = v182;
     v49 = v183;
-    if ((*(v182 + 88))(v18, v183) == enum case for OSSignpostError.doubleEnd(_:))
+    if ((v182[11])(v18, v183) == enum case for OSSignpostError.doubleEnd(_:))
     {
       v51 = "[Error] Interval already ended";
     }
 
     else
     {
-      (*(v50 + 8))(v18, v49);
+      (v50[1])(v18, v49);
       v51 = "";
     }
 
@@ -4452,14 +4467,14 @@ LABEL_37:
     v98 = v182;
     v97 = v183;
     v99 = v84;
-    if ((*(v182 + 88))(v96, v183) == enum case for OSSignpostError.doubleEnd(_:))
+    if ((v182[11])(v96, v183) == enum case for OSSignpostError.doubleEnd(_:))
     {
       v100 = "[Error] Interval already ended";
     }
 
     else
     {
-      (*(v98 + 8))(v96, v97);
+      (v98[1])(v96, v97);
       v100 = "";
     }
 
@@ -4543,7 +4558,7 @@ LABEL_70:
   if ((*(v114 + 48))(v118, 1, v113) == 1)
   {
 LABEL_63:
-    outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v118, &_s10Foundation9IndexPathVSgMd);
+    outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v118, &_s10Foundation9IndexPathVSgMd, &_s10Foundation9IndexPathVSgMR);
 LABEL_64:
     v141 = v173;
     if (one-time initialization token for shared != -1)
@@ -4707,7 +4722,7 @@ LABEL_74:
 id MOSuggestionSheetOptions.copyWithoutSuggestionID.getter()
 {
   v1 = v0;
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
   __chkstk_darwin(v2 - 8);
   v4 = &v18 - v3;
   v5 = [v1 showCancelButton];
@@ -4755,7 +4770,7 @@ void MOSuggestionCollectionView.presentInterstitialFor(cellViewModel:indexPath:f
       v89 = v7 + 16;
       v90 = v17;
       v17(v10, a2, v6);
-      v91 = type metadata accessor for MOSuggestionSheetInterstitialView();
+      v91 = type metadata accessor for MOSuggestionSheetInterstitialView(0);
       v18 = objc_allocWithZone(v91);
       v87 = OBJC_IVAR____TtC16MomentsUIService33MOSuggestionSheetInterstitialView_controller;
       swift_unknownObjectWeakInit();
@@ -4856,13 +4871,13 @@ void MOSuggestionCollectionView.presentInterstitialFor(cellViewModel:indexPath:f
       v103.receiver = v18;
       v103.super_class = v91;
       v55 = objc_msgSendSuper2(&v103, "initWithNibName:bundle:", 0, 0);
-      v56 = *&v55[OBJC_IVAR____TtC16MomentsUIService33MOSuggestionSheetInterstitialView_assetCarouselView];
+      v56 = *(v55 + OBJC_IVAR____TtC16MomentsUIService33MOSuggestionSheetInterstitialView_assetCarouselView);
       v57 = *((swift_isaMask & *v56) + 0x198);
       v58 = v55;
       v59 = v56;
       v57(v55, &protocol witness table for MOSuggestionSheetInterstitialView);
 
-      v60 = *&v58[OBJC_IVAR____TtC16MomentsUIService33MOSuggestionSheetInterstitialView_assetListView];
+      v60 = *(v58 + OBJC_IVAR____TtC16MomentsUIService33MOSuggestionSheetInterstitialView_assetListView);
       v61 = *((swift_isaMask & *v60) + 0xF0);
       v62 = v58;
       v63 = v60;
@@ -4873,7 +4888,7 @@ void MOSuggestionCollectionView.presentInterstitialFor(cellViewModel:indexPath:f
       [v65 addObserver:v62 selector:"handleContentSizeChanged" name:UIContentSizeCategoryDidChangeNotification object:0];
 
       v66 = (*(*v64 + 176))();
-      v67 = &v62[OBJC_IVAR____TtC16MomentsUIService33MOSuggestionSheetInterstitialView_titleString];
+      v67 = (v62 + OBJC_IVAR____TtC16MomentsUIService33MOSuggestionSheetInterstitialView_titleString);
       *v67 = v66;
       v67[1] = v68;
 
@@ -4961,7 +4976,7 @@ uint64_t closure #2 in MOSuggestionCollectionView.layoutSubviews()(uint64_t a1, 
   v10 = *(v9 - 8);
   v11 = *(v10 + 64);
   __chkstk_darwin(v9);
-  type metadata accessor for UIApplication(0, &lazy cache variable for type metadata for OS_dispatch_queue);
+  type metadata accessor for UIApplication(0, &lazy cache variable for type metadata for OS_dispatch_queue, OS_dispatch_queue_ptr);
   v12 = static OS_dispatch_queue.main.getter();
   (*(v10 + 16))(&v17 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0), a1, v9);
   v13 = (*(v10 + 80) + 24) & ~*(v10 + 80);
@@ -4978,9 +4993,9 @@ uint64_t closure #2 in MOSuggestionCollectionView.layoutSubviews()(uint64_t a1, 
 
   static DispatchQoS.unspecified.getter();
   aBlock[0] = _swiftEmptyArrayStorage;
-  _sSo21NSAttributedStringKeyaABSHSCWlTm_0(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, &type metadata accessor for DispatchWorkItemFlags);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd);
-  lazy protocol witness table accessor for type [OS_dispatch_queue.Attributes] and conformance [A](&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A], &_sSay8Dispatch0A13WorkItemFlagsVGMd);
+  _sSo21NSAttributedStringKeyaABSHSCWlTm_0(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, &type metadata accessor for DispatchWorkItemFlags, &protocol conformance descriptor for DispatchWorkItemFlags);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
+  lazy protocol witness table accessor for type [OS_dispatch_queue.Attributes] and conformance [A](&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A], &_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
   dispatch thunk of SetAlgebra.init<A>(_:)();
   OS_dispatch_queue.async(group:qos:flags:execute:)();
   _Block_release(v15);
@@ -5000,7 +5015,7 @@ void closure #1 in closure #2 in MOSuggestionCollectionView.layoutSubviews()(uin
 
     if (v5)
     {
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation9IndexPathVGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation9IndexPathVGMd, _ss23_ContiguousArrayStorageCy10Foundation9IndexPathVGMR);
       v6 = type metadata accessor for IndexPath();
       v7 = *(v6 - 8);
       v8 = (*(v7 + 80) + 32) & ~*(v7 + 80);
@@ -5024,7 +5039,7 @@ uint64_t closure #1 in MOSuggestionCollectionView.handlePullToRefreshTrigger()(u
   v9 = *(v15 - 8);
   __chkstk_darwin(v15);
   v11 = &v15 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  type metadata accessor for UIApplication(0, &lazy cache variable for type metadata for OS_dispatch_queue);
+  type metadata accessor for UIApplication(0, &lazy cache variable for type metadata for OS_dispatch_queue, OS_dispatch_queue_ptr);
   v12 = static OS_dispatch_queue.main.getter();
   aBlock[4] = a2;
   aBlock[5] = a1;
@@ -5036,9 +5051,9 @@ uint64_t closure #1 in MOSuggestionCollectionView.handlePullToRefreshTrigger()(u
 
   static DispatchQoS.unspecified.getter();
   aBlock[0] = _swiftEmptyArrayStorage;
-  _sSo21NSAttributedStringKeyaABSHSCWlTm_0(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, &type metadata accessor for DispatchWorkItemFlags);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd);
-  lazy protocol witness table accessor for type [OS_dispatch_queue.Attributes] and conformance [A](&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A], &_sSay8Dispatch0A13WorkItemFlagsVGMd);
+  _sSo21NSAttributedStringKeyaABSHSCWlTm_0(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, &type metadata accessor for DispatchWorkItemFlags, &protocol conformance descriptor for DispatchWorkItemFlags);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
+  lazy protocol witness table accessor for type [OS_dispatch_queue.Attributes] and conformance [A](&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A], &_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
   dispatch thunk of SetAlgebra.init<A>(_:)();
   OS_dispatch_queue.async(group:qos:flags:execute:)();
   _Block_release(v13);
@@ -5047,113 +5062,113 @@ uint64_t closure #1 in MOSuggestionCollectionView.handlePullToRefreshTrigger()(u
   return (*(v9 + 8))(v11, v15);
 }
 
-void closure #1 in closure #3 in MOSuggestionCollectionView.layoutSubviews()()
+void closure #1 in closure #3 in MOSuggestionCollectionView.layoutSubviews()(uint64_t a1)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
-  if (Strong && (v1 = Strong, v2 = (*((swift_isaMask & *Strong) + 0x100))(), v1, v2))
+  if (Strong && (v2 = Strong, v3 = (*((swift_isaMask & *Strong) + 0x100))(), v2, v3))
   {
-    v3 = (*(*v2 + 640))();
+    v4 = (*(*v3 + 640))();
   }
 
   else
   {
-    v3 = 1;
+    v4 = 1;
   }
 
   swift_beginAccess();
-  v4 = swift_unknownObjectWeakLoadStrong();
-  if (!v4 || (v5 = v4, v6 = (*((swift_isaMask & *v4) + 0x100))(), v5, !v6))
+  v5 = swift_unknownObjectWeakLoadStrong();
+  if (!v5 || (v6 = v5, v7 = (*((swift_isaMask & *v5) + 0x100))(), v6, !v7))
   {
-    if ((v3 & 1) == 0)
+    if ((v4 & 1) == 0)
     {
-      v7 = 0;
+      v8 = 0;
       goto LABEL_24;
     }
 
 LABEL_10:
     swift_beginAccess();
-    v8 = swift_unknownObjectWeakLoadStrong();
-    if (v8)
+    v9 = swift_unknownObjectWeakLoadStrong();
+    if (v9)
     {
-      v9 = v8;
-      v10 = (*((swift_isaMask & *v8) + 0x160))();
-      v12 = v11;
+      v10 = v9;
+      v11 = (*((swift_isaMask & *v9) + 0x160))();
+      v13 = v12;
 
-      if (v10)
+      if (v11)
       {
         ObjectType = swift_getObjectType();
-        (*(v12 + 24))(ObjectType, v12);
+        (*(v13 + 24))(ObjectType, v13);
         swift_unknownObjectRelease();
       }
     }
 
     swift_beginAccess();
-    v14 = swift_unknownObjectWeakLoadStrong();
-    if (v14)
+    v15 = swift_unknownObjectWeakLoadStrong();
+    if (v15)
     {
-      v15 = v14;
-      v16 = (*((swift_isaMask & *v14) + 0xE8))();
+      v16 = v15;
+      v17 = (*((swift_isaMask & *v15) + 0xE8))();
 
-      [v16 reloadData];
+      [v17 reloadData];
     }
 
     swift_beginAccess();
-    v17 = swift_unknownObjectWeakLoadStrong();
-    if (v17)
+    v18 = swift_unknownObjectWeakLoadStrong();
+    if (v18)
     {
-      v18 = v17;
-      v19 = *(v17 + OBJC_IVAR____TtC16MomentsUIService26MOSuggestionCollectionView_activityIndicator);
+      v19 = v18;
+      v20 = *(v18 + OBJC_IVAR____TtC16MomentsUIService26MOSuggestionCollectionView_activityIndicator);
 
-      [v19 startAnimating];
+      [v20 startAnimating];
     }
 
     swift_beginAccess();
-    v20 = swift_unknownObjectWeakLoadStrong();
-    if (v20)
+    v21 = swift_unknownObjectWeakLoadStrong();
+    if (v21)
     {
-      v21 = v20;
-      v22 = *(v20 + OBJC_IVAR____TtC16MomentsUIService26MOSuggestionCollectionView_activityIndicator);
+      v22 = v21;
+      v23 = *(v21 + OBJC_IVAR____TtC16MomentsUIService26MOSuggestionCollectionView_activityIndicator);
 
-      [v22 setHidden:0];
+      [v23 setHidden:0];
     }
 
     swift_beginAccess();
-    v23 = swift_unknownObjectWeakLoadStrong();
-    if (v23)
+    v24 = swift_unknownObjectWeakLoadStrong();
+    if (v24)
     {
-      v24 = v23;
-      v25 = *(v23 + OBJC_IVAR____TtC16MomentsUIService26MOSuggestionCollectionView_supportingLoadingTextLabel);
+      v25 = v24;
+      v26 = *(v24 + OBJC_IVAR____TtC16MomentsUIService26MOSuggestionCollectionView_supportingLoadingTextLabel);
 
       swift_beginAccess();
-      v26 = swift_unknownObjectWeakLoadStrong();
-      if (v26 && (v27 = v26, v28 = (*((swift_isaMask & *v26) + 0x100))(), v27, v28))
+      v27 = swift_unknownObjectWeakLoadStrong();
+      if (v27 && (v28 = v27, v29 = (*((swift_isaMask & *v27) + 0x100))(), v28, v29))
       {
-        v29 = (*(*v28 + 696))();
+        v30 = (*(*v29 + 696))();
 
-        v30 = v29 ^ 1;
+        v31 = v30 ^ 1;
       }
 
       else
       {
-        v30 = 1;
+        v31 = 1;
       }
 
-      [v25 setHidden:v30 & 1];
+      [v26 setHidden:v31 & 1];
     }
 
     swift_beginAccess();
-    v52 = swift_unknownObjectWeakLoadStrong();
-    if (v52)
+    v53 = swift_unknownObjectWeakLoadStrong();
+    if (v53)
     {
-      v53 = v52;
-      v54 = (*((swift_isaMask & *v52) + 0x178))();
-      v56 = v55;
+      v54 = v53;
+      v55 = (*((swift_isaMask & *v53) + 0x178))();
+      v57 = v56;
 
-      if (v54)
+      if (v55)
       {
-        v57 = swift_getObjectType();
-        (*(v56 + 8))(1, v57, v56);
+        v58 = swift_getObjectType();
+        (*(v57 + 8))(1, v58, v57);
         swift_unknownObjectRelease();
       }
     }
@@ -5161,85 +5176,85 @@ LABEL_10:
     goto LABEL_43;
   }
 
-  v7 = (*(*v6 + 728))();
+  v8 = (*(*v7 + 728))();
 
-  if (v3)
+  if (v4)
   {
     goto LABEL_10;
   }
 
 LABEL_24:
   swift_beginAccess();
-  v31 = swift_unknownObjectWeakLoadStrong();
-  if (v31)
+  v32 = swift_unknownObjectWeakLoadStrong();
+  if (v32)
   {
-    v32 = v31;
-    v33 = *(v31 + OBJC_IVAR____TtC16MomentsUIService26MOSuggestionCollectionView_activityIndicator);
+    v33 = v32;
+    v34 = *(v32 + OBJC_IVAR____TtC16MomentsUIService26MOSuggestionCollectionView_activityIndicator);
 
-    [v33 stopAnimating];
+    [v34 stopAnimating];
   }
 
   swift_beginAccess();
-  v34 = swift_unknownObjectWeakLoadStrong();
-  if (v34)
+  v35 = swift_unknownObjectWeakLoadStrong();
+  if (v35)
   {
-    v35 = v34;
-    v36 = *(v34 + OBJC_IVAR____TtC16MomentsUIService26MOSuggestionCollectionView_activityIndicator);
+    v36 = v35;
+    v37 = *(v35 + OBJC_IVAR____TtC16MomentsUIService26MOSuggestionCollectionView_activityIndicator);
 
-    [v36 setHidden:1];
+    [v37 setHidden:1];
   }
 
   swift_beginAccess();
-  v37 = swift_unknownObjectWeakLoadStrong();
-  if (v37)
+  v38 = swift_unknownObjectWeakLoadStrong();
+  if (v38)
   {
-    v38 = v37;
-    v39 = *(v37 + OBJC_IVAR____TtC16MomentsUIService26MOSuggestionCollectionView_supportingLoadingTextLabel);
+    v39 = v38;
+    v40 = *(v38 + OBJC_IVAR____TtC16MomentsUIService26MOSuggestionCollectionView_supportingLoadingTextLabel);
 
-    [v39 setHidden:1];
+    [v40 setHidden:1];
   }
 
   swift_beginAccess();
-  v40 = swift_unknownObjectWeakLoadStrong();
-  if (v40)
+  v41 = swift_unknownObjectWeakLoadStrong();
+  if (v41)
   {
-    v41 = v40;
-    v42 = (*((swift_isaMask & *v40) + 0x178))();
-    v44 = v43;
+    v42 = v41;
+    v43 = (*((swift_isaMask & *v41) + 0x178))();
+    v45 = v44;
 
-    if (v42)
+    if (v43)
     {
-      v45 = swift_getObjectType();
-      (*(v44 + 8))(0, v45, v44);
+      v46 = swift_getObjectType();
+      (*(v45 + 8))(0, v46, v45);
       swift_unknownObjectRelease();
     }
   }
 
-  if (v7)
+  if (v8)
   {
     swift_beginAccess();
-    v46 = swift_unknownObjectWeakLoadStrong();
-    if (v46)
+    v47 = swift_unknownObjectWeakLoadStrong();
+    if (v47)
     {
-      v47 = v46;
-      v48 = (*((swift_isaMask & *v46) + 0xE8))();
+      v48 = v47;
+      v49 = (*((swift_isaMask & *v47) + 0xE8))();
 
-      if (v48)
+      if (v49)
       {
         swift_beginAccess();
-        v49 = swift_unknownObjectWeakLoadStrong();
-        if (v49)
+        v50 = swift_unknownObjectWeakLoadStrong();
+        if (v50)
         {
-          v50 = v49;
-          v51 = *(v49 + OBJC_IVAR____TtC16MomentsUIService26MOSuggestionCollectionView_refresher);
+          v51 = v50;
+          v52 = *(v50 + OBJC_IVAR____TtC16MomentsUIService26MOSuggestionCollectionView_refresher);
         }
 
         else
         {
-          v51 = 0;
+          v52 = 0;
         }
 
-        [v48 setRefreshControl:v51];
+        [v49 setRefreshControl:v52];
 
         goto LABEL_48;
       }
@@ -5250,26 +5265,26 @@ LABEL_24:
 
 LABEL_43:
   swift_beginAccess();
-  v58 = swift_unknownObjectWeakLoadStrong();
-  if (v58)
+  v59 = swift_unknownObjectWeakLoadStrong();
+  if (v59)
   {
-    v59 = v58;
-    v51 = (*((swift_isaMask & *v58) + 0xE8))();
+    v60 = v59;
+    v52 = (*((swift_isaMask & *v59) + 0xE8))();
 
-    if (v51)
+    if (v52)
     {
-      [v51 setRefreshControl:0];
+      [v52 setRefreshControl:0];
 LABEL_48:
     }
   }
 }
 
-uint64_t closure #4 in MOSuggestionCollectionView.layoutSubviews()(void *a1)
+double closure #4 in MOSuggestionCollectionView.layoutSubviews()(void *a1)
 {
-  result = (*((swift_isaMask & *a1) + 0x100))();
-  if (result)
+  v1 = (*((swift_isaMask & *a1) + 0x100))();
+  if (v1)
   {
-    (*(*result + 792))(result);
+    (*(*v1 + 792))(v1);
   }
 
   return result;
@@ -5439,7 +5454,7 @@ LABEL_19:
           }
 
           v25 = objc_opt_self();
-          __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
+          __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
           v26 = swift_allocObject();
           *(v26 + 16) = xmmword_1002A4A70;
           v27 = [v15 leadingAnchor];
@@ -5447,7 +5462,7 @@ LABEL_19:
           v29 = [v27 constraintEqualToAnchor:v28 constant:30.0];
 
           *(v26 + 32) = v29;
-          type metadata accessor for UIApplication(0, &lazy cache variable for type metadata for NSLayoutConstraint);
+          type metadata accessor for UIApplication(0, &lazy cache variable for type metadata for NSLayoutConstraint, NSLayoutConstraint_ptr);
           v30 = Array._bridgeToObjectiveC()().super.isa;
 
           [v25 activateConstraints:v30];
@@ -5542,11 +5557,11 @@ Swift::Void __swiftcall MOSuggestionCollectionView.removeTip(tipType:)(MomentsUI
   }
 }
 
-id MOSuggestionCollectionView.__deallocating_deinit()
+id MOSuggestionCollectionView.__deallocating_deinit(uint64_t a1)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for MOSuggestionCollectionView();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for MOSuggestionCollectionView();
+  return objc_msgSendSuper2(&v3, "dealloc");
 }
 
 Swift::Int __swiftcall MOSuggestionCollectionView.collectionView(_:numberOfItemsInSection:)(UICollectionView _, Swift::Int numberOfItemsInSection)
@@ -5564,39 +5579,39 @@ Swift::Int __swiftcall MOSuggestionCollectionView.collectionView(_:numberOfItems
 
 void *MOSuggestionCollectionView.collectionView(_:cellForItemAt:)(void *a1, uint64_t a2)
 {
-  *&v488 = a2;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd);
+  *&v491 = a2;
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   v5 = __chkstk_darwin(v4 - 8);
-  v480 = (&v427 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v483 = (&v430 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
   v7 = __chkstk_darwin(v5);
-  v477 = &v427 - v8;
+  v480 = &v430 - v8;
   __chkstk_darwin(v7);
-  *&v483 = &v427 - v9;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation11MeasurementVySo17NSUnitTemperatureCGSgMd);
+  *&v486 = &v430 - v9;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation11MeasurementVySo17NSUnitTemperatureCGSgMd, &_s10Foundation11MeasurementVySo17NSUnitTemperatureCGSgMR);
   v11 = __chkstk_darwin(v10 - 8);
-  v479 = &v427 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v482 = &v430 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
   v13 = __chkstk_darwin(v11);
-  v476 = &v427 - v14;
+  v479 = &v430 - v14;
   __chkstk_darwin(v13);
-  v482 = (&v427 - v15);
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd);
+  v485 = (&v430 - v15);
+  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
   v17 = __chkstk_darwin(v16 - 8);
-  v478 = &v427 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v481 = &v430 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
   v19 = __chkstk_darwin(v17);
-  v475 = &v427 - v20;
+  v478 = &v430 - v20;
   __chkstk_darwin(v19);
-  v481 = (&v427 - v21);
-  v487 = type metadata accessor for IndexPath();
-  v484 = *(v487 - 8);
-  __chkstk_darwin(v487);
-  v485 = v22;
-  v486 = &v427 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v484 = (&v430 - v21);
+  v490 = type metadata accessor for IndexPath();
+  v487 = *(v490 - 8);
+  __chkstk_darwin(v490);
+  v488 = v22;
+  v489 = &v430 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
   v23 = type metadata accessor for OSSignpostID();
   v24 = *(v23 - 8);
   v25 = __chkstk_darwin(v23);
-  v27 = &v427 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v27 = &v430 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
   v28 = __chkstk_darwin(v25);
-  v30 = &v427 - v29;
+  v30 = &v430 - v29;
   v31 = (*((swift_isaMask & *v2) + 0x100))(v28);
   if (v31)
   {
@@ -5610,20 +5625,20 @@ LABEL_10:
     }
 
     v34 = v33;
-    v35 = (*(*v32 + 752))(v488);
+    v35 = (*(*v32 + 752))(v491);
     if (!v35)
     {
 
       goto LABEL_12;
     }
 
-    v467 = v34;
-    v469 = v32;
-    v473 = v35;
+    v470 = v34;
+    v472 = v32;
+    v476 = v35;
     [*(v35 + 16) interfaceType];
-    v470 = specialized static MOBundleProcessingSession.signpostNameForSuggestionCell(bundleInterfaceType:)();
-    v466 = v36;
-    v471 = v37;
+    v473 = specialized static MOBundleProcessingSession.signpostNameForSuggestionCell(bundleInterfaceType:)();
+    v469 = v36;
+    v474 = v37;
     if (one-time initialization token for bundleProcessing != -1)
     {
       swift_once();
@@ -5636,8 +5651,8 @@ LABEL_10:
     v39 = OSSignposter.logHandle.getter();
     v40 = static os_signpost_type_t.begin.getter();
     v41 = OS_os_log.signpostsEnabled.getter();
-    v468 = v23;
-    v472 = v24;
+    v471 = v23;
+    v475 = v24;
     if ((v41 & 1) == 0)
     {
 LABEL_20:
@@ -5646,11 +5661,11 @@ LABEL_20:
       type metadata accessor for OSSignpostIntervalState();
       swift_allocObject();
       v47 = OSSignpostIntervalState.init(id:isOpen:)();
-      v48 = v473;
-      v49 = *(*v473 + 152);
-      v463 = *v473 + 152;
+      v48 = v476;
+      v49 = *(*v476 + 152);
+      v466 = *v476 + 152;
       v50 = v49();
-      v51 = v488;
+      v51 = v491;
       if (v50 > 2)
       {
         if (v50 - 4 >= 2)
@@ -5661,40 +5676,40 @@ LABEL_20:
 
           type metadata accessor for MOSuggestionEvergreenCollectionViewCell();
           v291 = swift_dynamicCastClass();
-          v292 = v466;
+          v292 = v469;
           if (v291)
           {
-            v462 = v54;
+            v465 = v54;
             v293 = v291;
             v294 = *((swift_isaMask & *v291) + 0xA0);
 
             v296 = v294(v295);
             v72 = v293;
             v297 = (*((swift_isaMask & *v293) + 0x98))(v296);
-            v298 = v467;
+            v298 = v470;
             if (v297)
             {
-              v299 = v484;
-              v300 = *(v484 + 16);
-              *&v483 = v297;
-              v300(v486, v488, v487);
+              v299 = v487;
+              v300 = *(v487 + 16);
+              *&v486 = v297;
+              v300(v489, v491, v490);
               v301 = (*(v299 + 80) + 48) & ~*(v299 + 80);
               v302 = swift_allocObject();
               *(v302 + 2) = v72;
               *(v302 + 3) = v48;
-              v303 = v469;
-              *(v302 + 4) = v467;
+              v303 = v472;
+              *(v302 + 4) = v470;
               *(v302 + 5) = v303;
-              (*(v299 + 32))(&v302[v301], v486, v487);
+              (*(v299 + 32))(&v302[v301], v489, v490);
 
-              v304 = v467;
+              v304 = v470;
 
-              v305 = v462;
-              MOSuggestionCollectionViewCellViewModel.fetchAssetsForBundle(previewOnly:previewMax:style:completionHandler:)(1, 5, 1, partial apply for closure #7 in MOSuggestionCollectionView.collectionView(_:cellForItemAt:), v302);
-              v298 = v467;
+              v305 = v465;
+              MOSuggestionCollectionViewCellViewModel.fetchAssetsForBundle(previewOnly:previewMax:style:completionHandler:)(1, 5, 1uLL, partial apply for closure #7 in MOSuggestionCollectionView.collectionView(_:cellForItemAt:), v302);
+              v298 = v470;
             }
 
-            $defer #1 () in MOSuggestionCollectionView.collectionView(_:cellForItemAt:)(v470, v292, v471);
+            $defer #1 () in MOSuggestionCollectionView.collectionView(_:cellForItemAt:)(v473, v292, v474, v47);
 
             goto LABEL_54;
           }
@@ -5702,18 +5717,18 @@ LABEL_20:
 LABEL_53:
 
           v72 = [objc_allocWithZone(UICollectionViewCell) init];
-          $defer #1 () in MOSuggestionCollectionView.collectionView(_:cellForItemAt:)(v470, v292, v471);
+          $defer #1 () in MOSuggestionCollectionView.collectionView(_:cellForItemAt:)(v473, v292, v474, v47);
 
 LABEL_54:
 
-          (*(v472 + 8))(v30, v23);
+          (*(v475 + 8))(v30, v23);
           return v72;
         }
       }
 
       else if (v50)
       {
-        v465 = v30;
+        v468 = v30;
         if (v50 == 1)
         {
           v52 = String._bridgeToObjectiveC()();
@@ -5722,142 +5737,142 @@ LABEL_54:
 
           type metadata accessor for MOSuggestionCollectionViewSingleAssetCell();
           v55 = swift_dynamicCastClass();
-          v56 = v484;
+          v56 = v487;
           if (v55)
           {
-            v462 = v54;
-            v464 = v47;
+            v465 = v54;
+            v467 = v47;
             v57 = *v55;
-            v474 = v55;
+            v477 = v55;
             v58 = v51;
             v59 = *((swift_isaMask & v57) + 0xA8);
             v60 = swift_retain_n();
             v59(v60);
             v61 = swift_allocObject();
             swift_unknownObjectWeakInit();
-            v63 = v486;
-            v62 = v487;
-            v482 = *(v56 + 16);
-            *&v483 = v56 + 16;
-            v482(v486, v58, v487);
+            v63 = v489;
+            v62 = v490;
+            v485 = *(v56 + 16);
+            *&v486 = v56 + 16;
+            v485(v489, v58, v490);
             v64 = *(v56 + 80);
             v65 = (v64 + 32) & ~v64;
-            v66 = (v485 + v65 + 7) & 0xFFFFFFFFFFFFFFF8;
+            v66 = (v488 + v65 + 7) & 0xFFFFFFFFFFFFFFF8;
             v67 = swift_allocObject();
             *(v67 + 16) = v61;
             *(v67 + 24) = v48;
-            v484 = *(v56 + 32);
-            (v484)(v67 + v65, v63, v62);
-            v68 = v467;
-            *(v67 + v66) = v467;
-            v69 = *((swift_isaMask & *v474) + 0x90);
+            v487 = *(v56 + 32);
+            (v487)(v67 + v65, v63, v62);
+            v68 = v470;
+            *(v67 + v66) = v470;
+            v69 = *((swift_isaMask & *v477) + 0x90);
 
             v70 = v68;
 
             v69(partial apply for closure #3 in MOSuggestionCollectionView.collectionView(_:cellForItemAt:), v67);
 
-            v72 = v474;
-            if ((*((swift_isaMask & *v474) + 0xA0))(v71))
+            v72 = v477;
+            if ((*((swift_isaMask & *v477) + 0xA0))(v71))
             {
-              v73 = v486;
-              v74 = v487;
-              v482(v486, v488, v487);
+              v73 = v489;
+              v74 = v490;
+              v485(v489, v491, v490);
               v75 = (v64 + 40) & ~v64;
               v76 = swift_allocObject();
               v76[2] = v72;
               v76[3] = v70;
-              v76[4] = v469;
-              (v484)(v76 + v75, v73, v74);
-              v487 = v70;
+              v76[4] = v472;
+              (v487)(v76 + v75, v73, v74);
+              v490 = v70;
               v77 = v70;
 
-              v78 = v462;
-              v486 = MOSuggestionCollectionViewCellViewModel.fetchAssetsWithPlaceHolderSingleResult(previewOnly:previewMax:style:typeSorted:completionHandler:)(1, 4, 1, 0, partial apply for closure #4 in MOSuggestionCollectionView.collectionView(_:cellForItemAt:), v76);
+              v78 = v465;
+              v489 = MOSuggestionCollectionViewCellViewModel.fetchAssetsWithPlaceHolderSingleResult(previewOnly:previewMax:style:typeSorted:completionHandler:)(1, 4, 1, 0, partial apply for closure #4 in MOSuggestionCollectionView.collectionView(_:cellForItemAt:), v76);
 
               v79 = type metadata accessor for URL();
               v80 = *(*(v79 - 8) + 56);
-              v80(v475, 1, 1, v79);
-              v81 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation11MeasurementVySo17NSUnitTemperatureCGMd);
+              v80(v478, 1, 1, v79);
+              v81 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation11MeasurementVySo17NSUnitTemperatureCGMd, &_s10Foundation11MeasurementVySo17NSUnitTemperatureCGMR);
               v82 = *(*(v81 - 8) + 56);
-              v82(v476, 1, 1, v81);
-              v461 = type metadata accessor for Date();
-              v83 = *(v461 - 8);
-              v438 = *(v83 + 56);
-              v485 = v83 + 56;
-              v438(v477, 1, 1, v461);
+              v82(v479, 1, 1, v81);
+              v464 = type metadata accessor for Date();
+              v83 = *(v464 - 8);
+              v441 = *(v83 + 56);
+              v488 = v83 + 56;
+              v441(v480, 1, 1, v464);
               type metadata accessor for MOSuggestionSheetAssetViewModel(0);
               v84 = swift_allocObject();
               *(v84 + 64) = 0;
-              v439 = (v84 + 64);
+              v442 = (v84 + 64);
               *(v84 + 48) = 0u;
               *(v84 + 32) = 0u;
               *(v84 + 72) = 26;
               *(v84 + 80) = 0;
-              v440 = v84 + 72;
-              v441 = (v84 + 80);
+              v443 = v84 + 72;
+              v444 = (v84 + 80);
               *(v84 + 104) = 0;
               *(v84 + 96) = 0;
-              v442 = (v84 + 96);
-              *&v488 = OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_URL;
+              v445 = (v84 + 96);
+              *&v491 = OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_URL;
               v80((v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_URL), 1, 1, v79);
               v85 = (v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_contactName);
-              v443 = (v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_contactName);
+              v446 = (v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_contactName);
               *v85 = 0;
               v85[1] = 0;
               v86 = (v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_contactID);
               *v86 = 0;
               v86[1] = 0;
               v87 = (v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_contactFirstName);
-              v444 = (v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_contactFirstName);
+              v447 = (v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_contactFirstName);
               *v87 = 0;
               v87[1] = 0;
               v88 = (v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_workoutName);
-              v445 = (v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_workoutName);
+              v448 = (v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_workoutName);
               *v88 = 0;
               v88[1] = 0;
-              v446 = OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_livePhoto;
+              v449 = OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_livePhoto;
               *(v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_livePhoto) = 0;
-              v447 = OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_videoAsset;
+              v450 = OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_videoAsset;
               *(v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_videoAsset) = 0;
               v89 = (v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_activityName);
-              v448 = v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_activityName;
+              v451 = v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_activityName;
               *v89 = 0;
               v89[1] = 0;
               v90 = (v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_activityStepCount);
-              v449 = (v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_activityStepCount);
+              v452 = (v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_activityStepCount);
               *v90 = 0;
               v90[1] = 0;
               v91 = (v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_title);
               *v91 = 0;
               v91[1] = 0;
               v92 = (v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_subtitle);
-              v450 = (v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_subtitle);
+              v453 = (v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_subtitle);
               *v92 = 0;
               v92[1] = 0;
               v93 = (v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_weatherString);
-              v451 = (v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_weatherString);
+              v454 = (v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_weatherString);
               *v93 = 0;
               v93[1] = 0;
-              v452 = OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_weatherTemperature;
+              v455 = OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_weatherTemperature;
               v82((v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_weatherTemperature), 1, 1, v81);
               v94 = (v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_calories);
-              v453 = v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_calories;
+              v456 = v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_calories;
               *v94 = 0;
               v94[1] = 0;
               v95 = v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_duration;
-              v454 = (v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_duration);
+              v457 = (v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_duration);
               *v95 = 0;
               *(v95 + 8) = 1;
               v96 = (v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_distance);
-              v455 = v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_distance;
+              v458 = v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_distance;
               *v96 = 0;
               v96[1] = 0;
               v97 = (v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_averageHeartRate);
-              v456 = (v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_averageHeartRate);
+              v459 = (v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_averageHeartRate);
               *v97 = 0;
               v97[1] = 0;
               v98 = v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_squareCropRect;
-              v457 = (v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_squareCropRect);
+              v460 = (v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_squareCropRect);
               *v98 = 0u;
               *(v98 + 16) = 0u;
               *(v98 + 32) = 1;
@@ -5869,56 +5884,56 @@ LABEL_54:
               *v100 = 0u;
               *(v100 + 16) = 0u;
               *(v100 + 32) = 1;
-              v459 = OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_assignedAssetTileSize;
+              v462 = OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_assignedAssetTileSize;
               *(v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_assignedAssetTileSize) = 11;
               v101 = (v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_mapPrimaryField);
-              v460 = v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_mapPrimaryField;
+              v463 = v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_mapPrimaryField;
               *v101 = 0;
               v101[1] = 0;
               v102 = (v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_mapSecondaryField);
-              v462 = (v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_mapSecondaryField);
+              v465 = (v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_mapSecondaryField);
               *v102 = 0;
               v102[1] = 0;
               v103 = v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_mapLocationCount;
-              v463 = v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_mapLocationCount;
+              v466 = v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_mapLocationCount;
               *v103 = 0;
               *(v103 + 8) = 1;
-              v458 = OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_preComposedView;
+              v461 = OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_preComposedView;
               *(v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_preComposedView) = 0;
               v104 = (v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_valenceClassificationAndReflectiveInterval);
-              v467 = (v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_valenceClassificationAndReflectiveInterval);
+              v470 = (v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_valenceClassificationAndReflectiveInterval);
               *v104 = 0;
               v104[1] = 0;
               v105 = (v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_stateOfMindLabels);
-              v478 = v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_stateOfMindLabels;
+              v481 = v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_stateOfMindLabels;
               *v105 = 0;
               v105[1] = 0;
               v106 = (v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_stateOfMindLabelsShortened);
-              v479 = (v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_stateOfMindLabelsShortened);
+              v482 = (v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_stateOfMindLabelsShortened);
               *v106 = 0;
               v106[1] = 0;
               v107 = (v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_stateOfMindDomains);
-              v480 = (v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_stateOfMindDomains);
+              v483 = (v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_stateOfMindDomains);
               *v107 = 0;
               v107[1] = 0;
               v108 = (v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_stateOfMindDomainsShortened);
-              v481 = (v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_stateOfMindDomainsShortened);
+              v484 = (v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_stateOfMindDomainsShortened);
               *v108 = 0;
               v108[1] = 0;
-              v482 = OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_stateOfMindAssociatedColorsLight;
+              v485 = OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_stateOfMindAssociatedColorsLight;
               *(v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_stateOfMindAssociatedColorsLight) = 0;
-              *&v483 = OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_stateOfMindAssociatedColorsDark;
+              *&v486 = OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_stateOfMindAssociatedColorsDark;
               *(v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_stateOfMindAssociatedColorsDark) = 0;
-              v484 = OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_stateOfMindDate;
-              v438((v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_stateOfMindDate), 1, 1, v461);
-              v461 = OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_bgColor;
+              v487 = OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_stateOfMindDate;
+              v441((v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_stateOfMindDate), 1, 1, v464);
+              v464 = OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_bgColor;
               *(v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_bgColor) = 0;
-              v485 = OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_mediaThirdPartyAppAssociatedColors;
+              v488 = OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_mediaThirdPartyAppAssociatedColors;
               *(v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_mediaThirdPartyAppAssociatedColors) = 0;
               swift_weakInit();
               v109 = OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_uuid;
 
-              v438 = v109;
+              v441 = v109;
               UUID.init()();
               *(v84 + 16) = 0x6C6F686563616C70;
               *(v84 + 24) = 0xEB00000000726564;
@@ -5941,98 +5956,98 @@ LABEL_54:
               v113 = *(v84 + 56);
               *(v84 + 56) = 0;
 
-              v114 = v439;
+              v114 = v442;
               swift_beginAccess();
               v115 = *v114;
               *v114 = 0;
 
-              v116 = v440;
+              v116 = v443;
               swift_beginAccess();
               *v116 = 26;
-              v117 = v441;
+              v117 = v444;
               swift_beginAccess();
               v118 = *v117;
               *v117 = 0;
 
               *(v84 + 88) = 0;
-              v119 = v442;
+              v119 = v445;
               swift_beginAccess();
               *v119 = 0;
               *(v84 + 104) = 0;
 
-              v120 = v488;
+              v120 = v491;
               swift_beginAccess();
-              outlined assign with copy of URL?(v475, v84 + v120, &_s10Foundation3URLVSgMd);
+              outlined assign with copy of URL?(v478, v84 + v120, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
               swift_endAccess();
               *(v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_mediaType) = 0;
               *(v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_isSquare) = 0;
-              v121 = v443;
+              v121 = v446;
               swift_beginAccess();
-              v488 = xmmword_1002A8990;
+              v491 = xmmword_1002A8990;
               *v121 = xmmword_1002A8990;
 
-              v122 = v444;
+              v122 = v447;
               swift_beginAccess();
-              *v122 = v488;
+              *v122 = v491;
 
-              v123 = v445;
+              v123 = v448;
               swift_beginAccess();
-              *v123 = v488;
+              *v123 = v491;
 
-              v124 = v446;
+              v124 = v449;
               swift_beginAccess();
               v125 = *(v84 + v124);
               *(v84 + v124) = 0;
 
-              v126 = v447;
+              v126 = v450;
               swift_beginAccess();
               v127 = *(v84 + v126);
               *(v84 + v126) = 0;
 
-              v128 = v448;
+              v128 = v451;
               swift_beginAccess();
-              *v128 = v488;
+              *v128 = v491;
 
-              v129 = v449;
+              v129 = v452;
               swift_beginAccess();
-              *v129 = v488;
+              *v129 = v491;
 
               *(v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_motionActivityNumSteps) = 0;
               swift_beginAccess();
               *v91 = 0;
               v91[1] = 0;
 
-              v130 = v450;
+              v130 = v453;
               swift_beginAccess();
               *v130 = 0;
               *(v130 + 1) = 0;
 
-              v131 = v451;
+              v131 = v454;
               swift_beginAccess();
-              *v131 = v488;
+              *v131 = v491;
 
-              v132 = v452;
+              v132 = v455;
               swift_beginAccess();
-              outlined assign with copy of URL?(v476, v84 + v132, &_s10Foundation11MeasurementVySo17NSUnitTemperatureCGSgMd);
+              outlined assign with copy of URL?(v479, v84 + v132, &_s10Foundation11MeasurementVySo17NSUnitTemperatureCGSgMd, &_s10Foundation11MeasurementVySo17NSUnitTemperatureCGSgMR);
               swift_endAccess();
-              v133 = v453;
+              v133 = v456;
               swift_beginAccess();
-              *v133 = v488;
+              *v133 = v491;
 
-              v134 = v454;
+              v134 = v457;
               swift_beginAccess();
               *v134 = 0;
               v134[8] = 0;
-              v135 = v455;
+              v135 = v458;
               swift_beginAccess();
-              *v135 = v488;
+              *v135 = v491;
 
-              v136 = v456;
+              v136 = v459;
               swift_beginAccess();
-              *v136 = v488;
+              *v136 = v491;
 
               *(v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_shouldAutoPlay) = 0;
-              v137 = v457;
+              v137 = v460;
               swift_beginAccess();
               *v137 = 0u;
               *(v137 + 1) = 0u;
@@ -6045,68 +6060,68 @@ LABEL_54:
               *v100 = 0u;
               *(v100 + 16) = 0u;
               *(v100 + 32) = 1;
-              v138 = v459;
+              v138 = v462;
               swift_beginAccess();
               *(v84 + v138) = 11;
-              v139 = v460;
+              v139 = v463;
               swift_beginAccess();
               *v139 = 0;
               v139[1] = 0;
 
-              v140 = v462;
+              v140 = v465;
               swift_beginAccess();
               *v140 = 0;
               v140[1] = 0;
 
-              v141 = v463;
+              v141 = v466;
               swift_beginAccess();
               *v141 = 0;
               *(v141 + 8) = 1;
               *(v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_isLoadingPlaceHolder) = 1;
-              v142 = v458;
+              v142 = v461;
               swift_beginAccess();
               v143 = *(v84 + v142);
               *(v84 + v142) = 0;
 
-              v144 = v467;
+              v144 = v470;
               swift_beginAccess();
-              *v144 = v488;
+              *v144 = v491;
 
               *(v84 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_reflectiveInterval) = 1;
-              v145 = v478;
+              v145 = v481;
               swift_beginAccess();
-              *v145 = v488;
+              *v145 = v491;
 
-              v146 = v479;
+              v146 = v482;
               swift_beginAccess();
-              *v146 = v488;
+              *v146 = v491;
 
-              v147 = v480;
+              v147 = v483;
               swift_beginAccess();
-              *v147 = v488;
+              *v147 = v491;
 
-              v148 = v481;
+              v148 = v484;
               swift_beginAccess();
-              *v148 = v488;
+              *v148 = v491;
 
-              v149 = v482;
+              v149 = v485;
               swift_beginAccess();
               *(v149 + v84) = 0;
 
-              v150 = v483;
+              v150 = v486;
               swift_beginAccess();
               *(v84 + v150) = 0;
 
-              v151 = v484;
+              v151 = v487;
               swift_beginAccess();
-              outlined assign with copy of URL?(v477, v84 + v151, &_s10Foundation4DateVSgMd);
+              outlined assign with copy of URL?(v480, v84 + v151, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
               swift_endAccess();
-              v152 = v461;
+              v152 = v464;
               swift_beginAccess();
               v153 = *(v84 + v152);
               *(v84 + v152) = 0;
 
-              v154 = v485;
+              v154 = v488;
               swift_beginAccess();
               *(v84 + v154) = 0;
 
@@ -6125,10 +6140,10 @@ LABEL_54:
               if (os_log_type_enabled(v156, v157))
               {
                 v158 = swift_slowAlloc();
-                v490[0] = swift_slowAlloc();
+                v493[0] = swift_slowAlloc();
                 *v158 = 136315394;
                 v159 = UUID.uuidString.getter();
-                v161 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v159, v160, v490);
+                v161 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v159, v160, v493);
 
                 *(v158 + 4) = v161;
                 *(v158 + 12) = 2080;
@@ -6136,21 +6151,21 @@ LABEL_54:
                 v162 = *(v84 + 16);
                 v163 = *(v84 + 24);
 
-                v164 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v162, v163, v490);
+                v164 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v162, v163, v493);
 
                 *(v158 + 14) = v164;
                 _os_log_impl(&_mh_execute_header, v156, v157, "[MOSuggestionSheetAssetViewModel] init=%s\t id=%s", v158, 0x16u);
                 swift_arrayDestroy();
               }
 
-              outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v477, &_s10Foundation4DateVSgMd);
-              outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v476, &_s10Foundation11MeasurementVySo17NSUnitTemperatureCGSgMd);
-              outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v475, &_s10Foundation3URLVSgMd);
-              v165 = v465;
-              v166 = v466;
-              v72 = v474;
-              v70 = v487;
-              v167 = _sSa9repeating5countSayxGx_SitcfC16MomentsUIService31MOSuggestionSheetAssetViewModelC_Tt1g5Tf4gn_n(v84, v486);
+              outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v480, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+              outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v479, &_s10Foundation11MeasurementVySo17NSUnitTemperatureCGSgMd, &_s10Foundation11MeasurementVySo17NSUnitTemperatureCGSgMR);
+              outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v478, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+              v165 = v468;
+              v166 = v469;
+              v72 = v477;
+              v70 = v490;
+              v167 = _sSa9repeating5countSayxGx_SitcfC16MomentsUIService31MOSuggestionSheetAssetViewModelC_Tt1g5Tf4gn_n(v84, v489);
 
               (*((swift_isaMask & *v72) + 0xF0))(v167);
             }
@@ -6158,160 +6173,160 @@ LABEL_54:
             else
             {
 
-              v165 = v465;
-              v166 = v466;
+              v165 = v468;
+              v166 = v469;
             }
 
-            $defer #1 () in MOSuggestionCollectionView.collectionView(_:cellForItemAt:)(v470, v166, v471);
+            $defer #1 () in MOSuggestionCollectionView.collectionView(_:cellForItemAt:)(v473, v166, v474, v467);
 
-            (*(v472 + 8))(v165, v468);
+            (*(v475 + 8))(v165, v471);
             return v72;
           }
 
           goto LABEL_51;
         }
 
-        v481 = v49;
+        v484 = v49;
         v306 = String._bridgeToObjectiveC()();
         v307 = IndexPath._bridgeToObjectiveC()().super.isa;
         v54 = [a1 dequeueReusableCellWithReuseIdentifier:v306 forIndexPath:v307];
 
         type metadata accessor for MOSuggestionCollectionViewListCell();
         v308 = swift_dynamicCastClass();
-        v309 = v484;
+        v309 = v487;
         if (!v308)
         {
 LABEL_51:
-          v23 = v468;
-          v30 = v465;
+          v23 = v471;
+          v30 = v468;
           goto LABEL_52;
         }
 
         v310 = v308;
-        v462 = v54;
-        v464 = v47;
+        v465 = v54;
+        v467 = v47;
         v311 = *((swift_isaMask & *v308) + 0x110);
         v312 = swift_retain_n();
         v311(v312);
         v313 = swift_allocObject();
         swift_unknownObjectWeakInit();
-        v314 = v486;
-        v315 = v487;
-        v428 = *(v309 + 16);
-        v429 = v309 + 16;
-        v428(v486, v51, v487);
+        v314 = v489;
+        v315 = v490;
+        v431 = *(v309 + 16);
+        v432 = v309 + 16;
+        v431(v489, v51, v490);
         v316 = *(v309 + 80);
         v317 = (v316 + 32) & ~v316;
         v318 = v309;
-        v319 = (v485 + v317 + 7) & 0xFFFFFFFFFFFFFFF8;
-        v430 = v316;
+        v319 = (v488 + v317 + 7) & 0xFFFFFFFFFFFFFFF8;
+        v433 = v316;
         v320 = swift_allocObject();
         *(v320 + 16) = v313;
         *(v320 + 24) = v48;
         v321 = *(v318 + 32);
-        v484 = v318 + 32;
-        v427 = v321;
+        v487 = v318 + 32;
+        v430 = v321;
         v321((v320 + v317), v314, v315);
-        v322 = v467;
-        *(v320 + v319) = v467;
+        v322 = v470;
+        *(v320 + v319) = v470;
         v323 = *((swift_isaMask & *v310) + 0xF0);
 
-        v482 = v322;
+        v485 = v322;
 
-        v474 = v310;
+        v477 = v310;
         v323(partial apply for closure #5 in MOSuggestionCollectionView.collectionView(_:cellForItemAt:), v320);
 
         (*(*v48 + 304))(0);
         v324 = type metadata accessor for URL();
         v325 = *(*(v324 - 8) + 56);
-        v325(v478, 1, 1, v324);
-        v326 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation11MeasurementVySo17NSUnitTemperatureCGMd);
+        v325(v481, 1, 1, v324);
+        v326 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation11MeasurementVySo17NSUnitTemperatureCGMd, &_s10Foundation11MeasurementVySo17NSUnitTemperatureCGMR);
         v327 = *(*(v326 - 8) + 56);
-        v327(v479, 1, 1, v326);
-        v476 = type metadata accessor for Date();
-        v328 = *(v476 - 1);
-        v431 = *(v328 + 56);
-        v477 = (v328 + 56);
-        v431(v480, 1, 1, v476);
+        v327(v482, 1, 1, v326);
+        v479 = type metadata accessor for Date();
+        v328 = *(v479 - 1);
+        v434 = *(v328 + 56);
+        v480 = (v328 + 56);
+        v434(v483, 1, 1, v479);
         type metadata accessor for MOSuggestionSheetAssetViewModel(0);
         v39 = swift_allocObject();
         *(v39 + 64) = 0;
-        v433 = (v39 + 64);
+        v436 = (v39 + 64);
         *(v39 + 48) = 0u;
         *(v39 + 32) = 0u;
         *(v39 + 72) = 26;
         *(v39 + 80) = 0;
-        v434 = (v39 + 72);
-        v435 = (v39 + 80);
+        v437 = (v39 + 72);
+        v438 = (v39 + 80);
         *(v39 + 104) = 0;
         *(v39 + 96) = 0;
-        v436 = (v39 + 96);
-        *&v483 = OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_URL;
+        v439 = (v39 + 96);
+        *&v486 = OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_URL;
         v325(v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_URL, 1, 1, v324);
         v329 = (v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_contactName);
-        v437 = (v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_contactName);
+        v440 = (v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_contactName);
         *v329 = 0;
         v329[1] = 0;
         v330 = (v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_contactID);
         *v330 = 0;
         v330[1] = 0;
         v331 = (v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_contactFirstName);
-        v438 = (v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_contactFirstName);
+        v441 = (v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_contactFirstName);
         *v331 = 0;
         v331[1] = 0;
         v332 = (v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_workoutName);
-        v439 = (v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_workoutName);
+        v442 = (v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_workoutName);
         *v332 = 0;
         v332[1] = 0;
         v333 = OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_livePhoto;
         *(v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_livePhoto) = 0;
-        v440 = OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_videoAsset;
+        v443 = OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_videoAsset;
         *(v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_videoAsset) = 0;
         v334 = (v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_activityName);
-        v441 = (v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_activityName);
+        v444 = (v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_activityName);
         *v334 = 0;
         v334[1] = 0;
         v335 = (v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_activityStepCount);
-        v442 = (v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_activityStepCount);
+        v445 = (v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_activityStepCount);
         *v335 = 0;
         v335[1] = 0;
         v336 = (v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_title);
-        v443 = (v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_title);
+        v446 = (v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_title);
         *v336 = 0;
         v336[1] = 0;
         v337 = (v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_subtitle);
-        v444 = (v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_subtitle);
+        v447 = (v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_subtitle);
         *v337 = 0;
         v337[1] = 0;
         v338 = (v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_weatherString);
-        v445 = (v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_weatherString);
+        v448 = (v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_weatherString);
         *v338 = 0;
         v338[1] = 0;
-        v446 = OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_weatherTemperature;
+        v449 = OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_weatherTemperature;
         v327((v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_weatherTemperature), 1, 1, v326);
         v339 = (v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_calories);
-        v447 = v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_calories;
+        v450 = v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_calories;
         *v339 = 0;
         v339[1] = 0;
         v340 = v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_duration;
-        v448 = v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_duration;
+        v451 = v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_duration;
         *v340 = 0;
         *(v340 + 8) = 1;
         v341 = (v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_distance);
-        v449 = (v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_distance);
+        v452 = (v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_distance);
         *v341 = 0;
         v341[1] = 0;
         v342 = (v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_averageHeartRate);
-        v450 = (v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_averageHeartRate);
+        v453 = (v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_averageHeartRate);
         *v342 = 0;
         v342[1] = 0;
         v343 = v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_squareCropRect;
-        v451 = (v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_squareCropRect);
+        v454 = (v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_squareCropRect);
         *v343 = 0u;
         *(v343 + 16) = 0u;
         *(v343 + 32) = 1;
         v344 = v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_landscapeCropRect;
-        v452 = v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_landscapeCropRect;
+        v455 = v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_landscapeCropRect;
         *v344 = 0u;
         *(v344 + 16) = 0u;
         *(v344 + 32) = 1;
@@ -6319,56 +6334,56 @@ LABEL_51:
         *v345 = 0u;
         *(v345 + 16) = 0u;
         *(v345 + 32) = 1;
-        v453 = OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_assignedAssetTileSize;
+        v456 = OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_assignedAssetTileSize;
         *(v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_assignedAssetTileSize) = 11;
         v346 = (v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_mapPrimaryField);
-        v454 = (v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_mapPrimaryField);
+        v457 = (v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_mapPrimaryField);
         *v346 = 0;
         v346[1] = 0;
         v347 = (v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_mapSecondaryField);
-        v456 = (v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_mapSecondaryField);
+        v459 = (v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_mapSecondaryField);
         *v347 = 0;
         v347[1] = 0;
         v348 = v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_mapLocationCount;
-        v457 = (v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_mapLocationCount);
+        v460 = (v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_mapLocationCount);
         *v348 = 0;
         *(v348 + 8) = 1;
-        v455 = OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_preComposedView;
+        v458 = OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_preComposedView;
         *(v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_preComposedView) = 0;
         v349 = (v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_valenceClassificationAndReflectiveInterval);
-        v458 = v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_valenceClassificationAndReflectiveInterval;
+        v461 = v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_valenceClassificationAndReflectiveInterval;
         *v349 = 0;
         v349[1] = 0;
         v350 = (v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_stateOfMindLabels);
-        v459 = v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_stateOfMindLabels;
+        v462 = v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_stateOfMindLabels;
         *v350 = 0;
         v350[1] = 0;
         v351 = (v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_stateOfMindLabelsShortened);
-        v460 = v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_stateOfMindLabelsShortened;
+        v463 = v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_stateOfMindLabelsShortened;
         *v351 = 0;
         v351[1] = 0;
         v352 = (v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_stateOfMindDomains);
-        v461 = v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_stateOfMindDomains;
+        v464 = v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_stateOfMindDomains;
         *v352 = 0;
         v352[1] = 0;
         v353 = (v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_stateOfMindDomainsShortened);
-        v432 = (v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_stateOfMindDomainsShortened);
+        v435 = (v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_stateOfMindDomainsShortened);
         *v353 = 0;
         v353[1] = 0;
-        v467 = OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_stateOfMindAssociatedColorsLight;
+        v470 = OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_stateOfMindAssociatedColorsLight;
         *(v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_stateOfMindAssociatedColorsLight) = 0;
-        v475 = OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_stateOfMindAssociatedColorsDark;
+        v478 = OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_stateOfMindAssociatedColorsDark;
         *(v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_stateOfMindAssociatedColorsDark) = 0;
         v354 = OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_stateOfMindDate;
-        v431((v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_stateOfMindDate), 1, 1, v476);
-        v476 = OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_bgColor;
+        v434((v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_stateOfMindDate), 1, 1, v479);
+        v479 = OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_bgColor;
         *(v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_bgColor) = 0;
-        v477 = OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_mediaThirdPartyAppAssociatedColors;
+        v480 = OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_mediaThirdPartyAppAssociatedColors;
         *(v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_mediaThirdPartyAppAssociatedColors) = 0;
         swift_weakInit();
         v355 = OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_uuid;
 
-        v431 = v355;
+        v434 = v355;
         UUID.init()();
         *(v39 + 16) = 0x6C6F686563616C70;
         *(v39 + 24) = 0xEB00000000726564;
@@ -6391,103 +6406,103 @@ LABEL_51:
         v359 = *(v39 + 56);
         *(v39 + 56) = 0;
 
-        v360 = v433;
+        v360 = v436;
         swift_beginAccess();
         v361 = *v360;
         *v360 = 0;
 
-        v362 = v434;
+        v362 = v437;
         swift_beginAccess();
         *v362 = 26;
-        v363 = v435;
+        v363 = v438;
         swift_beginAccess();
         v364 = *v363;
         *v363 = 0;
 
         *(v39 + 88) = 0;
-        v365 = v436;
+        v365 = v439;
         swift_beginAccess();
         *v365 = 0;
         *(v39 + 104) = 0;
 
-        v366 = v483;
+        v366 = v486;
         swift_beginAccess();
-        outlined assign with copy of URL?(v478, v39 + v366, &_s10Foundation3URLVSgMd);
+        outlined assign with copy of URL?(v481, v39 + v366, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
         swift_endAccess();
         *(v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_mediaType) = 0;
         *(v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_isSquare) = 0;
-        v367 = v437;
+        v367 = v440;
         swift_beginAccess();
-        v483 = xmmword_1002A8990;
+        v486 = xmmword_1002A8990;
         *v367 = xmmword_1002A8990;
 
-        v368 = v438;
+        v368 = v441;
         swift_beginAccess();
-        *v368 = v483;
+        *v368 = v486;
 
-        v369 = v439;
+        v369 = v442;
         swift_beginAccess();
-        *v369 = v483;
+        *v369 = v486;
 
         swift_beginAccess();
         v370 = *(v39 + v333);
         *(v39 + v333) = 0;
 
-        v371 = v440;
+        v371 = v443;
         swift_beginAccess();
         v372 = *(v39 + v371);
         *(v39 + v371) = 0;
 
-        v373 = v441;
+        v373 = v444;
         swift_beginAccess();
-        *v373 = v483;
+        *v373 = v486;
 
-        v374 = v442;
+        v374 = v445;
         swift_beginAccess();
-        *v374 = v483;
+        *v374 = v486;
 
         *(v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_motionActivityNumSteps) = 0;
-        v375 = v443;
+        v375 = v446;
         swift_beginAccess();
         *v375 = 0;
         *(v375 + 1) = 0;
 
-        v376 = v444;
+        v376 = v447;
         swift_beginAccess();
         *v376 = 0;
         *(v376 + 1) = 0;
 
-        v377 = v445;
+        v377 = v448;
         swift_beginAccess();
-        *v377 = v483;
+        *v377 = v486;
 
-        v378 = v446;
+        v378 = v449;
         swift_beginAccess();
-        outlined assign with copy of URL?(v479, v39 + v378, &_s10Foundation11MeasurementVySo17NSUnitTemperatureCGSgMd);
+        outlined assign with copy of URL?(v482, v39 + v378, &_s10Foundation11MeasurementVySo17NSUnitTemperatureCGSgMd, &_s10Foundation11MeasurementVySo17NSUnitTemperatureCGSgMR);
         swift_endAccess();
-        v379 = v447;
+        v379 = v450;
         swift_beginAccess();
-        *v379 = v483;
+        *v379 = v486;
 
-        v380 = v448;
+        v380 = v451;
         swift_beginAccess();
         *v380 = 0;
         *(v380 + 8) = 0;
-        v381 = v449;
+        v381 = v452;
         swift_beginAccess();
-        *v381 = v483;
+        *v381 = v486;
 
-        v382 = v450;
+        v382 = v453;
         swift_beginAccess();
-        *v382 = v483;
+        *v382 = v486;
 
         *(v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_shouldAutoPlay) = 0;
-        v383 = v451;
+        v383 = v454;
         swift_beginAccess();
         *v383 = 0u;
         *(v383 + 1) = 0u;
         v383[32] = 1;
-        v384 = v452;
+        v384 = v455;
         swift_beginAccess();
         *v384 = 0u;
         *(v384 + 16) = 0u;
@@ -6496,67 +6511,67 @@ LABEL_51:
         *v345 = 0u;
         *(v345 + 16) = 0u;
         *(v345 + 32) = 1;
-        v385 = v453;
+        v385 = v456;
         swift_beginAccess();
         *(v39 + v385) = 11;
-        v386 = v454;
+        v386 = v457;
         swift_beginAccess();
         *v386 = 0;
         *(v386 + 1) = 0;
 
-        v387 = v456;
+        v387 = v459;
         swift_beginAccess();
         *v387 = 0;
         *(v387 + 1) = 0;
 
-        v388 = v457;
+        v388 = v460;
         swift_beginAccess();
         *v388 = 0;
         v388[8] = 1;
         *(v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_isLoadingPlaceHolder) = 1;
-        v389 = v455;
+        v389 = v458;
         swift_beginAccess();
         v390 = *(v39 + v389);
         *(v39 + v389) = 0;
 
-        v391 = v458;
+        v391 = v461;
         swift_beginAccess();
-        *v391 = v483;
+        *v391 = v486;
 
         *(v39 + OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_reflectiveInterval) = 1;
-        v392 = v459;
+        v392 = v462;
         swift_beginAccess();
-        *v392 = v483;
+        *v392 = v486;
 
-        v393 = v460;
+        v393 = v463;
         swift_beginAccess();
-        *v393 = v483;
+        *v393 = v486;
 
-        v394 = v461;
+        v394 = v464;
         swift_beginAccess();
-        *v394 = v483;
+        *v394 = v486;
 
-        v395 = v432;
+        v395 = v435;
         swift_beginAccess();
-        *v395 = v483;
+        *v395 = v486;
 
-        v396 = v467;
+        v396 = v470;
         swift_beginAccess();
         *&v396[v39] = 0;
 
-        v397 = v475;
+        v397 = v478;
         swift_beginAccess();
         *(v39 + v397) = 0;
 
         swift_beginAccess();
-        outlined assign with copy of URL?(v480, v39 + v354, &_s10Foundation4DateVSgMd);
+        outlined assign with copy of URL?(v483, v39 + v354, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
         swift_endAccess();
-        v398 = v476;
+        v398 = v479;
         swift_beginAccess();
         v399 = *(v39 + v398);
         *(v39 + v398) = 0;
 
-        v400 = v477;
+        v400 = v480;
         swift_beginAccess();
         *(v39 + v400) = 0;
 
@@ -6573,10 +6588,10 @@ LABEL_46:
           if (os_log_type_enabled(v402, v403))
           {
             v404 = swift_slowAlloc();
-            v490[0] = swift_slowAlloc();
+            v493[0] = swift_slowAlloc();
             *v404 = 136315394;
             v405 = UUID.uuidString.getter();
-            v407 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v405, v406, v490);
+            v407 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v405, v406, v493);
 
             *(v404 + 4) = v407;
             *(v404 + 12) = 2080;
@@ -6584,55 +6599,59 @@ LABEL_46:
             v408 = *(v39 + 16);
             v409 = *(v39 + 24);
 
-            v410 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v408, v409, v490);
+            v410 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v408, v409, v493);
 
             *(v404 + 14) = v410;
             _os_log_impl(&_mh_execute_header, v402, v403, "[MOSuggestionSheetAssetViewModel] init=%s\t id=%s", v404, 0x16u);
             swift_arrayDestroy();
           }
 
-          v411 = v473;
+          v411 = v476;
 
-          outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v480, &_s10Foundation4DateVSgMd);
-          outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v479, &_s10Foundation11MeasurementVySo17NSUnitTemperatureCGSgMd);
-          outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v478, &_s10Foundation3URLVSgMd);
-          v413 = v468;
-          v412 = v469;
-          v414 = v472;
-          v72 = v474;
-          (*((swift_isaMask & *v474) + 0x170))(v39);
+          outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v483, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+          outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v482, &_s10Foundation11MeasurementVySo17NSUnitTemperatureCGSgMd, &_s10Foundation11MeasurementVySo17NSUnitTemperatureCGSgMR);
+          outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v481, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+          v413 = v471;
+          v412 = v472;
+          v414 = v475;
+          v415 = v467;
+          v72 = v477;
+          (*((swift_isaMask & *v477) + 0x170))(v39);
 
-          v416 = (*((swift_isaMask & *v72) + 0x108))(v415);
-          v417 = v482;
-          v418 = v412;
-          v419 = v413;
-          if (v416)
+          v417 = (*((swift_isaMask & *v72) + 0x108))(v416);
+          v418 = v485;
+          v419 = v412;
+          v420 = v413;
+          if (v417)
           {
-            v420 = v430;
-            LODWORD(v483) = v481();
-            v421 = v486;
-            v422 = v418;
-            v423 = v487;
-            v428(v486, v488, v487);
-            v424 = swift_allocObject();
-            *(v424 + 2) = v72;
-            *(v424 + 3) = v411;
-            *(v424 + 4) = v482;
-            *(v424 + 5) = v422;
-            v419 = v468;
-            v427(&v424[(v420 + 48) & ~v420], v421, v423);
+            v421 = v433;
+            LODWORD(v486) = v484();
+            v422 = v489;
+            v423 = v419;
+            v424 = v490;
+            v431(v489, v491, v490);
+            v425 = (v421 + 48) & ~v421;
+            v415 = v467;
+            v426 = swift_allocObject();
+            v426[2] = v72;
+            v426[3] = v411;
+            v426[4] = v485;
+            v426[5] = v423;
+            v427 = v426 + v425;
+            v420 = v471;
+            v430(v427, v422, v424);
 
-            v425 = v482;
+            v428 = v485;
 
-            v426 = v462;
-            MOSuggestionCollectionViewCellViewModel.fetchAssetsForBundle(previewOnly:previewMax:style:completionHandler:)(1, 1, v483, partial apply for closure #6 in MOSuggestionCollectionView.collectionView(_:cellForItemAt:), v424);
-            v417 = v482;
-            v414 = v472;
+            v429 = v465;
+            MOSuggestionCollectionViewCellViewModel.fetchAssetsForBundle(previewOnly:previewMax:style:completionHandler:)(1, 1, v486, partial apply for closure #6 in MOSuggestionCollectionView.collectionView(_:cellForItemAt:), v426);
+            v418 = v485;
+            v414 = v475;
           }
 
-          $defer #1 () in MOSuggestionCollectionView.collectionView(_:cellForItemAt:)(v470, v466, v471);
+          $defer #1 () in MOSuggestionCollectionView.collectionView(_:cellForItemAt:)(v473, v469, v474, v415);
 
-          (*(v414 + 8))(v465, v419);
+          (*(v414 + 8))(v468, v420);
           return v72;
         }
 
@@ -6650,78 +6669,78 @@ LABEL_64:
       if (!v170)
       {
 LABEL_52:
-        v292 = v466;
+        v292 = v469;
         goto LABEL_53;
       }
 
-      v462 = v54;
-      v464 = v47;
-      v465 = v30;
+      v465 = v54;
+      v467 = v47;
+      v468 = v30;
       v171 = *v170;
-      v474 = v170;
+      v477 = v170;
       v172 = v51;
       v173 = *((swift_isaMask & v171) + 0x100);
       v174 = swift_retain_n();
       v173(v174);
       v175 = swift_allocObject();
       swift_unknownObjectWeakInit();
-      v176 = v484;
-      v177 = v486;
+      v176 = v487;
+      v177 = v489;
       v178 = v172;
-      v179 = v487;
-      v480 = *(v484 + 16);
-      (v480)(v486, v178, v487);
+      v179 = v490;
+      v483 = *(v487 + 16);
+      (v483)(v489, v178, v490);
       v180 = *(v176 + 80);
       v181 = (v180 + 32) & ~v180;
-      v182 = (v485 + v181 + 7) & 0xFFFFFFFFFFFFFFF8;
+      v182 = (v488 + v181 + 7) & 0xFFFFFFFFFFFFFFF8;
       v183 = swift_allocObject();
-      v184 = v473;
+      v184 = v476;
       *(v183 + 16) = v175;
       *(v183 + 24) = v184;
-      v484 = *(v176 + 32);
-      (v484)(v183 + v181, v177, v179);
-      v185 = v467;
-      *(v183 + v182) = v467;
-      v186 = *((swift_isaMask & *v474) + 0xB8);
+      v487 = *(v176 + 32);
+      (v487)(v183 + v181, v177, v179);
+      v185 = v470;
+      *(v183 + v182) = v470;
+      v186 = *((swift_isaMask & *v477) + 0xB8);
 
       v187 = v185;
       v186(partial apply for closure #5 in MOSuggestionCollectionView.collectionView(_:cellForItemAt:), v183);
-      v188 = v473;
+      v188 = v476;
 
       v189 = (*(*v188 + 304))(0);
-      v72 = v474;
-      v190 = (*((swift_isaMask & *v474) + 0xF8))(v189);
+      v72 = v477;
+      v190 = (*((swift_isaMask & *v477) + 0xF8))(v189);
       if (!v190)
       {
 
-        v284 = v468;
-        v285 = v465;
-        v286 = v466;
+        v284 = v471;
+        v285 = v468;
+        v286 = v469;
         v287 = v187;
 LABEL_56:
-        $defer #1 () in MOSuggestionCollectionView.collectionView(_:cellForItemAt:)(v470, v286, v471);
+        $defer #1 () in MOSuggestionCollectionView.collectionView(_:cellForItemAt:)(v473, v286, v474, v467);
 
-        (*(v472 + 8))(v285, v284);
+        (*(v475 + 8))(v285, v284);
         return v72;
       }
 
       v191 = *(*v188 + 400);
-      v479 = v190;
-      LODWORD(v478) = v191();
-      v192 = v486;
-      v193 = v487;
-      (v480)(v486, v488, v487);
+      v482 = v190;
+      LODWORD(v481) = v191();
+      v192 = v489;
+      v193 = v490;
+      (v483)(v489, v491, v490);
       v194 = (v180 + 40) & ~v180;
       v195 = swift_allocObject();
       v195[2] = v72;
       v195[3] = v187;
-      v195[4] = v469;
-      (v484)(v195 + v194, v192, v193);
-      v487 = v187;
+      v195[4] = v472;
+      (v487)(v195 + v194, v192, v193);
+      v490 = v187;
       v196 = v187;
-      v197 = v462;
+      v197 = v465;
 
-      if (v478)
+      if (v481)
       {
         v198 = 4;
       }
@@ -6731,88 +6750,88 @@ LABEL_56:
         v198 = 0;
       }
 
-      v486 = MOSuggestionCollectionViewCellViewModel.fetchAssetsWithPlaceHolderSingleResult(previewOnly:previewMax:style:typeSorted:completionHandler:)(1, 5, v198, 0, partial apply for closure #2 in MOSuggestionCollectionView.collectionView(_:cellForItemAt:), v195);
+      v489 = MOSuggestionCollectionViewCellViewModel.fetchAssetsWithPlaceHolderSingleResult(previewOnly:previewMax:style:typeSorted:completionHandler:)(1, 5, v198, 0, partial apply for closure #2 in MOSuggestionCollectionView.collectionView(_:cellForItemAt:), v195);
 
       v199 = type metadata accessor for URL();
       v200 = *(*(v199 - 8) + 56);
-      v200(v481, 1, 1, v199);
-      v201 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation11MeasurementVySo17NSUnitTemperatureCGMd);
+      v200(v484, 1, 1, v199);
+      v201 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation11MeasurementVySo17NSUnitTemperatureCGMd, &_s10Foundation11MeasurementVySo17NSUnitTemperatureCGMR);
       v202 = *(*(v201 - 8) + 56);
-      v202(v482, 1, 1, v201);
-      v459 = type metadata accessor for Date();
-      v203 = *(v459 - 8);
-      v438 = *(v203 + 56);
-      v485 = v203 + 56;
-      v438(v483, 1, 1, v459);
+      v202(v485, 1, 1, v201);
+      v462 = type metadata accessor for Date();
+      v203 = *(v462 - 8);
+      v441 = *(v203 + 56);
+      v488 = v203 + 56;
+      v441(v486, 1, 1, v462);
       type metadata accessor for MOSuggestionSheetAssetViewModel(0);
       v30 = swift_allocObject();
       *(v30 + 8) = 0;
-      v440 = (v30 + 64);
+      v443 = (v30 + 64);
       *(v30 + 3) = 0u;
       *(v30 + 2) = 0u;
       v30[72] = 26;
       *(v30 + 10) = 0;
-      v441 = (v30 + 72);
-      v442 = v30 + 80;
+      v444 = (v30 + 72);
+      v445 = v30 + 80;
       *(v30 + 13) = 0;
       *(v30 + 12) = 0;
-      v443 = v30 + 96;
-      *&v488 = OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_URL;
+      v446 = v30 + 96;
+      *&v491 = OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_URL;
       v200(&v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_URL], 1, 1, v199);
       v204 = &v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_contactName];
-      v444 = &v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_contactName];
+      v447 = &v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_contactName];
       *v204 = 0;
       *(v204 + 1) = 0;
       v205 = &v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_contactID];
       *v205 = 0;
       *(v205 + 1) = 0;
       v206 = &v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_contactFirstName];
-      v445 = &v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_contactFirstName];
+      v448 = &v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_contactFirstName];
       *v206 = 0;
       *(v206 + 1) = 0;
       v207 = &v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_workoutName];
-      v446 = &v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_workoutName];
+      v449 = &v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_workoutName];
       *v207 = 0;
       *(v207 + 1) = 0;
-      v447 = OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_livePhoto;
+      v450 = OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_livePhoto;
       *&v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_livePhoto] = 0;
-      v448 = OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_videoAsset;
+      v451 = OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_videoAsset;
       *&v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_videoAsset] = 0;
       v208 = &v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_activityName];
-      v449 = &v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_activityName];
+      v452 = &v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_activityName];
       *v208 = 0;
       *(v208 + 1) = 0;
       v209 = &v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_activityStepCount];
-      v450 = &v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_activityStepCount];
+      v453 = &v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_activityStepCount];
       *v209 = 0;
       *(v209 + 1) = 0;
       v210 = &v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_title];
       *v210 = 0;
       *(v210 + 1) = 0;
       v211 = &v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_subtitle];
-      v451 = &v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_subtitle];
+      v454 = &v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_subtitle];
       *v211 = 0;
       *(v211 + 1) = 0;
       v212 = &v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_weatherString];
-      v452 = &v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_weatherString];
+      v455 = &v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_weatherString];
       *v212 = 0;
       *(v212 + 1) = 0;
-      v453 = OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_weatherTemperature;
+      v456 = OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_weatherTemperature;
       v202(&v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_weatherTemperature], 1, 1, v201);
       v213 = &v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_calories];
-      v454 = &v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_calories];
+      v457 = &v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_calories];
       *v213 = 0;
       *(v213 + 1) = 0;
       v214 = &v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_duration];
-      v455 = &v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_duration];
+      v458 = &v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_duration];
       *v214 = 0;
       v214[8] = 1;
       v215 = &v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_distance];
-      v456 = &v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_distance];
+      v459 = &v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_distance];
       *v215 = 0;
       *(v215 + 1) = 0;
       v216 = &v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_averageHeartRate];
-      v457 = &v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_averageHeartRate];
+      v460 = &v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_averageHeartRate];
       *v216 = 0;
       *(v216 + 1) = 0;
       v217 = &v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_squareCropRect];
@@ -6824,60 +6843,60 @@ LABEL_56:
       *(v218 + 1) = 0u;
       v218[32] = 1;
       v219 = &v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_portraitCropRect];
-      v439 = &v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_portraitCropRect];
+      v442 = &v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_portraitCropRect];
       *v219 = 0u;
       *(v219 + 1) = 0u;
       v219[32] = 1;
-      v460 = OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_assignedAssetTileSize;
+      v463 = OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_assignedAssetTileSize;
       v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_assignedAssetTileSize] = 11;
       v220 = &v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_mapPrimaryField];
-      v461 = &v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_mapPrimaryField];
+      v464 = &v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_mapPrimaryField];
       *v220 = 0;
       *(v220 + 1) = 0;
       v221 = &v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_mapSecondaryField];
-      v463 = &v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_mapSecondaryField];
+      v466 = &v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_mapSecondaryField];
       *v221 = 0;
       *(v221 + 1) = 0;
       v222 = &v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_mapLocationCount];
-      v467 = &v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_mapLocationCount];
+      v470 = &v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_mapLocationCount];
       *v222 = 0;
       v222[8] = 1;
-      v458 = OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_preComposedView;
+      v461 = OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_preComposedView;
       *&v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_preComposedView] = 0;
       v223 = &v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_valenceClassificationAndReflectiveInterval];
-      v475 = &v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_valenceClassificationAndReflectiveInterval];
+      v478 = &v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_valenceClassificationAndReflectiveInterval];
       *v223 = 0;
       *(v223 + 1) = 0;
       v224 = &v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_stateOfMindLabels];
-      v476 = &v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_stateOfMindLabels];
+      v479 = &v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_stateOfMindLabels];
       *v224 = 0;
       *(v224 + 1) = 0;
       v225 = &v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_stateOfMindLabelsShortened];
-      v477 = &v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_stateOfMindLabelsShortened];
+      v480 = &v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_stateOfMindLabelsShortened];
       *v225 = 0;
       *(v225 + 1) = 0;
       v226 = &v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_stateOfMindDomains];
-      v478 = &v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_stateOfMindDomains];
+      v481 = &v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_stateOfMindDomains];
       *v226 = 0;
       *(v226 + 1) = 0;
       v227 = &v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_stateOfMindDomainsShortened];
-      v479 = &v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_stateOfMindDomainsShortened];
+      v482 = &v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_stateOfMindDomainsShortened];
       *v227 = 0;
       *(v227 + 1) = 0;
-      v480 = OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_stateOfMindAssociatedColorsLight;
+      v483 = OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_stateOfMindAssociatedColorsLight;
       *&v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_stateOfMindAssociatedColorsLight] = 0;
-      v484 = OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_stateOfMindAssociatedColorsDark;
+      v487 = OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_stateOfMindAssociatedColorsDark;
       *&v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_stateOfMindAssociatedColorsDark] = 0;
-      v462 = OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_stateOfMindDate;
-      v438(&v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_stateOfMindDate], 1, 1, v459);
-      v459 = OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_bgColor;
+      v465 = OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_stateOfMindDate;
+      v441(&v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_stateOfMindDate], 1, 1, v462);
+      v462 = OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_bgColor;
       *&v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_bgColor] = 0;
-      v485 = OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_mediaThirdPartyAppAssociatedColors;
+      v488 = OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_mediaThirdPartyAppAssociatedColors;
       *&v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_mediaThirdPartyAppAssociatedColors] = 0;
       swift_weakInit();
       v228 = OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_uuid;
 
-      v438 = v228;
+      v441 = v228;
       UUID.init()();
       *(v30 + 2) = 0x6C6F686563616C70;
       *(v30 + 3) = 0xEB00000000726564;
@@ -6900,95 +6919,95 @@ LABEL_56:
       v232 = *(v30 + 7);
       *(v30 + 7) = 0;
 
-      v233 = v440;
+      v233 = v443;
       swift_beginAccess();
       v234 = *v233;
       *v233 = 0;
 
-      v235 = v441;
+      v235 = v444;
       swift_beginAccess();
       *v235 = 26;
-      v236 = v442;
+      v236 = v445;
       swift_beginAccess();
       v237 = *v236;
       *v236 = 0;
 
       *(v30 + 11) = 0;
-      v238 = v443;
+      v238 = v446;
       swift_beginAccess();
       *v238 = 0;
       *(v30 + 13) = 0;
 
-      v239 = v488;
+      v239 = v491;
       swift_beginAccess();
-      outlined assign with copy of URL?(v481, &v30[v239], &_s10Foundation3URLVSgMd);
+      outlined assign with copy of URL?(v484, &v30[v239], &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
       swift_endAccess();
       *&v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_mediaType] = 0;
       v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_isSquare] = 0;
-      v240 = v444;
+      v240 = v447;
       swift_beginAccess();
-      v488 = xmmword_1002A8990;
+      v491 = xmmword_1002A8990;
       *v240 = xmmword_1002A8990;
 
-      v241 = v445;
+      v241 = v448;
       swift_beginAccess();
-      *v241 = v488;
+      *v241 = v491;
 
-      v242 = v446;
+      v242 = v449;
       swift_beginAccess();
-      *v242 = v488;
+      *v242 = v491;
 
-      v243 = v447;
+      v243 = v450;
       swift_beginAccess();
       v244 = *&v30[v243];
       *&v30[v243] = 0;
 
-      v245 = v448;
+      v245 = v451;
       swift_beginAccess();
       v246 = *&v30[v245];
       *&v30[v245] = 0;
 
-      v247 = v449;
+      v247 = v452;
       swift_beginAccess();
-      *v247 = v488;
+      *v247 = v491;
 
-      v248 = v450;
+      v248 = v453;
       swift_beginAccess();
-      *v248 = v488;
+      *v248 = v491;
 
       *&v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_motionActivityNumSteps] = 0;
       swift_beginAccess();
       *v210 = 0;
       *(v210 + 1) = 0;
 
-      v249 = v451;
+      v249 = v454;
       swift_beginAccess();
       *v249 = 0;
       *(v249 + 1) = 0;
 
-      v250 = v452;
+      v250 = v455;
       swift_beginAccess();
-      *v250 = v488;
+      *v250 = v491;
 
-      v251 = v453;
+      v251 = v456;
       swift_beginAccess();
-      outlined assign with copy of URL?(v482, &v30[v251], &_s10Foundation11MeasurementVySo17NSUnitTemperatureCGSgMd);
+      outlined assign with copy of URL?(v485, &v30[v251], &_s10Foundation11MeasurementVySo17NSUnitTemperatureCGSgMd, &_s10Foundation11MeasurementVySo17NSUnitTemperatureCGSgMR);
       swift_endAccess();
-      v252 = v454;
+      v252 = v457;
       swift_beginAccess();
-      *v252 = v488;
+      *v252 = v491;
 
-      v253 = v455;
+      v253 = v458;
       swift_beginAccess();
       *v253 = 0;
       *(v253 + 8) = 0;
-      v254 = v456;
+      v254 = v459;
       swift_beginAccess();
-      *v254 = v488;
+      *v254 = v491;
 
-      v255 = v457;
+      v255 = v460;
       swift_beginAccess();
-      *v255 = v488;
+      *v255 = v491;
 
       v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_shouldAutoPlay] = 0;
       swift_beginAccess();
@@ -6999,73 +7018,73 @@ LABEL_56:
       *v218 = 0u;
       *(v218 + 1) = 0u;
       v218[32] = 1;
-      v256 = v439;
+      v256 = v442;
       swift_beginAccess();
       *v256 = 0u;
       *(v256 + 1) = 0u;
       *(v256 + 32) = 1;
-      v257 = v460;
+      v257 = v463;
       swift_beginAccess();
       v30[v257] = 11;
-      v258 = v461;
+      v258 = v464;
       swift_beginAccess();
       *v258 = 0;
       v258[1] = 0;
 
-      v259 = v463;
+      v259 = v466;
       swift_beginAccess();
       *v259 = 0;
       v259[1] = 0;
 
-      v260 = v467;
+      v260 = v470;
       swift_beginAccess();
       *v260 = 0;
       v260[8] = 1;
       v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_isLoadingPlaceHolder] = 1;
-      v261 = v458;
+      v261 = v461;
       swift_beginAccess();
       v262 = *&v30[v261];
       *&v30[v261] = 0;
 
-      v263 = v475;
+      v263 = v478;
       swift_beginAccess();
-      *v263 = v488;
+      *v263 = v491;
 
       *&v30[OBJC_IVAR____TtC16MomentsUIService31MOSuggestionSheetAssetViewModel_reflectiveInterval] = 1;
-      v264 = v476;
+      v264 = v479;
       swift_beginAccess();
-      *v264 = v488;
+      *v264 = v491;
 
-      v265 = v477;
+      v265 = v480;
       swift_beginAccess();
-      *v265 = v488;
+      *v265 = v491;
 
-      v266 = v478;
+      v266 = v481;
       swift_beginAccess();
-      *v266 = v488;
+      *v266 = v491;
 
-      v267 = v479;
+      v267 = v482;
       swift_beginAccess();
-      *v267 = v488;
+      *v267 = v491;
 
-      v268 = v480;
+      v268 = v483;
       swift_beginAccess();
       *&v268[v30] = 0;
 
-      v269 = v484;
+      v269 = v487;
       swift_beginAccess();
       *&v30[v269] = 0;
 
-      v270 = v462;
+      v270 = v465;
       swift_beginAccess();
-      outlined assign with copy of URL?(v483, v270 + v30, &_s10Foundation4DateVSgMd);
+      outlined assign with copy of URL?(v486, v270 + v30, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
       swift_endAccess();
-      v271 = v459;
+      v271 = v462;
       swift_beginAccess();
       v272 = *&v30[v271];
       *&v30[v271] = 0;
 
-      v273 = v485;
+      v273 = v488;
       swift_beginAccess();
       *&v30[v273] = 0;
 
@@ -7082,10 +7101,10 @@ LABEL_37:
         if (os_log_type_enabled(v275, v276))
         {
           v277 = swift_slowAlloc();
-          v490[0] = swift_slowAlloc();
+          v493[0] = swift_slowAlloc();
           *v277 = 136315394;
           v278 = UUID.uuidString.getter();
-          v280 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v278, v279, v490);
+          v280 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v278, v279, v493);
 
           *(v277 + 4) = v280;
           *(v277 + 12) = 2080;
@@ -7093,22 +7112,22 @@ LABEL_37:
           v281 = *(v30 + 2);
           v282 = *(v30 + 3);
 
-          v283 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v281, v282, v490);
+          v283 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v281, v282, v493);
 
           *(v277 + 14) = v283;
           _os_log_impl(&_mh_execute_header, v275, v276, "[MOSuggestionSheetAssetViewModel] init=%s\t id=%s", v277, 0x16u);
           swift_arrayDestroy();
         }
 
-        outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v483, &_s10Foundation4DateVSgMd);
-        outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v482, &_s10Foundation11MeasurementVySo17NSUnitTemperatureCGSgMd);
-        outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v481, &_s10Foundation3URLVSgMd);
-        v284 = v468;
-        v285 = v465;
-        v286 = v466;
-        v72 = v474;
-        v287 = v487;
-        v288 = _sSa9repeating5countSayxGx_SitcfC16MomentsUIService31MOSuggestionSheetAssetViewModelC_Tt1g5Tf4gn_n(v30, v486);
+        outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v486, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+        outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v485, &_s10Foundation11MeasurementVySo17NSUnitTemperatureCGSgMd, &_s10Foundation11MeasurementVySo17NSUnitTemperatureCGSgMR);
+        outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v484, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+        v284 = v471;
+        v285 = v468;
+        v286 = v469;
+        v72 = v477;
+        v287 = v490;
+        v288 = _sSa9repeating5countSayxGx_SitcfC16MomentsUIService31MOSuggestionSheetAssetViewModelC_Tt1g5Tf4gn_n(v30, v489);
 
         (*((swift_isaMask & *v72) + 0x170))(v288);
 
@@ -7120,10 +7139,10 @@ LABEL_62:
       goto LABEL_37;
     }
 
-    if ((v471 & 1) == 0)
+    if ((v474 & 1) == 0)
     {
-      v42 = v470;
-      if (!v470)
+      v42 = v473;
+      if (!v473)
       {
         __break(1u);
         goto LABEL_10;
@@ -7132,30 +7151,30 @@ LABEL_62:
       goto LABEL_19;
     }
 
-    if (v470 >> 32)
+    if (v473 >> 32)
     {
       __break(1u);
     }
 
     else
     {
-      if ((v470 & 0xFFFFF800) == 0xD800)
+      if ((v473 & 0xFFFFF800) == 0xD800)
       {
         __break(1u);
         goto LABEL_64;
       }
 
-      if (v470 >> 16 <= 0x10)
+      if (v473 >> 16 <= 0x10)
       {
-        v42 = &v489;
+        v42 = &v492;
 LABEL_19:
         v45 = swift_slowAlloc();
         *v45 = 0;
         v46 = OSSignpostID.rawValue.getter();
         _os_signpost_emit_with_name_impl(&_mh_execute_header, v39, v40, v46, v42, "", v45, 2u);
 
-        v23 = v468;
-        v24 = v472;
+        v23 = v471;
+        v24 = v475;
         goto LABEL_20;
       }
     }
@@ -7170,34 +7189,34 @@ LABEL_12:
   return [v43 init];
 }
 
-uint64_t $defer #1 () in MOSuggestionCollectionView.collectionView(_:cellForItemAt:)(const char *a1, uint64_t a2, int a3)
+uint64_t $defer #1 () in MOSuggestionCollectionView.collectionView(_:cellForItemAt:)(const char *a1, uint64_t a2, int a3, uint64_t a4)
 {
-  v19 = a3;
-  v4 = type metadata accessor for OSSignpostError();
-  v5 = *(v4 - 8);
-  __chkstk_darwin(v4);
-  v7 = &v18 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = type metadata accessor for OSSignpostID();
-  v9 = *(v8 - 8);
-  __chkstk_darwin(v8);
-  v11 = &v18 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v20 = a3;
+  v5 = type metadata accessor for OSSignpostError();
+  v6 = *(v5 - 8);
+  __chkstk_darwin(v5);
+  v8 = &v19 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = type metadata accessor for OSSignpostID();
+  v10 = *(v9 - 8);
+  __chkstk_darwin(v9);
+  v12 = &v19 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (one-time initialization token for bundleProcessing != -1)
   {
     swift_once();
   }
 
-  v12 = type metadata accessor for OSSignposter();
-  __swift_project_value_buffer(v12, static MOAngelSignposter.bundleProcessing);
-  v13 = OSSignposter.logHandle.getter();
+  v13 = type metadata accessor for OSSignposter();
+  __swift_project_value_buffer(v13, static MOAngelSignposter.bundleProcessing);
+  v14 = OSSignposter.logHandle.getter();
   OSSignpostIntervalState.signpostID.getter();
-  v18 = static os_signpost_type_t.end.getter();
+  v19 = static os_signpost_type_t.end.getter();
   result = OS_os_log.signpostsEnabled.getter();
   if ((result & 1) == 0)
   {
     goto LABEL_15;
   }
 
-  if ((v19 & 1) == 0)
+  if ((v20 & 1) == 0)
   {
     if (a1)
     {
@@ -7205,25 +7224,25 @@ LABEL_11:
 
       checkForErrorAndConsumeState(state:)();
 
-      if ((*(v5 + 88))(v7, v4) == enum case for OSSignpostError.doubleEnd(_:))
+      if ((*(v6 + 88))(v8, v5) == enum case for OSSignpostError.doubleEnd(_:))
       {
-        v15 = "[Error] Interval already ended";
+        v16 = "[Error] Interval already ended";
       }
 
       else
       {
-        (*(v5 + 8))(v7, v4);
-        v15 = "";
+        (*(v6 + 8))(v8, v5);
+        v16 = "";
       }
 
-      v16 = swift_slowAlloc();
-      *v16 = 0;
-      v17 = OSSignpostID.rawValue.getter();
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v13, v18, v17, a1, v15, v16, 2u);
+      v17 = swift_slowAlloc();
+      *v17 = 0;
+      v18 = OSSignpostID.rawValue.getter();
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v14, v19, v18, a1, v16, v17, 2u);
 
 LABEL_15:
 
-      return (*(v9 + 8))(v11, v8);
+      return (*(v10 + 8))(v12, v9);
     }
 
     __break(1u);
@@ -7241,7 +7260,7 @@ LABEL_17:
   {
     if (a1 >> 16 <= 0x10)
     {
-      a1 = &v20;
+      a1 = &v21;
       goto LABEL_11;
     }
 
@@ -7277,216 +7296,223 @@ uint64_t MOSuggestionCollectionView.collectionViewHandleSuggestionSelection(inde
   return result;
 }
 
-uint64_t closure #4 in MOSuggestionCollectionView.collectionView(_:cellForItemAt:)(uint64_t *a1, void *a2, void *a3, uint64_t a4, NSObject *a5)
+void closure #4 in MOSuggestionCollectionView.collectionView(_:cellForItemAt:)(uint64_t *a1, void *a2, void *a3, void *a4, NSObject *a5)
 {
-  v78 = a3;
-  v79 = a5;
-  v77 = a4;
+  v77 = a3;
+  v78 = a5;
+  v76 = a4;
   v7 = type metadata accessor for IndexPath();
-  v80 = *(v7 - 8);
+  v79 = *(v7 - 8);
   v8 = __chkstk_darwin(v7);
-  v81 = &v69 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v80 = &v68 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v8);
-  v11 = &v69 - v10;
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd);
+  v11 = &v68 - v10;
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
   __chkstk_darwin(v12 - 8);
-  v14 = &v69 - v13;
+  v14 = &v68 - v13;
   v15 = type metadata accessor for UUID();
   v16 = *(v15 - 8);
   v17 = __chkstk_darwin(v15);
-  v19 = &v69 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v19 = &v68 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
   v20 = __chkstk_darwin(v17);
-  v22 = &v69 - v21;
+  v22 = &v68 - v21;
   __chkstk_darwin(v20);
-  v24 = &v69 - v23;
+  v24 = &v68 - v23;
   v25 = type metadata accessor for MOSuggestionCollectionViewCellViewModel.MOSuggestionCollectionViewAssetPlaceHolderSingleResult(0);
   outlined init with copy of UUID?(a1 + *(v25 + 24), v14);
   if ((*(v16 + 48))(v14, 1, v15) == 1)
   {
-    return outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v14, &_s10Foundation4UUIDVSgMd);
+    outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v14, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+    return;
   }
 
-  v76 = v7;
+  v75 = v7;
   (*(v16 + 32))(v24, v14, v15);
-  v27 = *a1;
+  v26 = *a1;
   if (!*a1)
   {
-    return (*(v16 + 8))(v24, v15);
+    (*(v16 + 8))(v24, v15);
+    return;
   }
 
-  v74 = v11;
-  v71 = v19;
-  v28 = *((swift_isaMask & *a2) + 0xA0);
-  v29 = (swift_isaMask & *a2) + 160;
+  v73 = v11;
+  v70 = v19;
+  v27 = *((swift_isaMask & *a2) + 0xA0);
+  v28 = (swift_isaMask & *a2) + 160;
 
-  v72 = v29;
-  v73 = v28;
-  v31 = v28(v30);
-  if (!v31)
+  v71 = v28;
+  v72 = v27;
+  v30 = v27(v29);
+  if (!v30)
   {
     (*(v16 + 8))(v24, v15);
+LABEL_11:
+
+    return;
   }
 
-  v75 = v27;
-  v32 = v31;
-  (*(*v31 + 344))();
-  v33 = static UUID.== infix(_:_:)();
-  v34 = v22;
-  v35 = *(v16 + 8);
-  v35(v34, v15);
-  if ((v33 & 1) == 0 || (v70 = v32, *(a1 + 16) == 1))
+  v74 = v26;
+  v31 = v30;
+  (*(*v30 + 344))();
+  v32 = static UUID.== infix(_:_:)();
+  v33 = v22;
+  v34 = *(v16 + 8);
+  v34(v33, v15);
+  if ((v32 & 1) == 0 || (v69 = v31, *(a1 + 16) == 1))
   {
-    v35(v24, v15);
+    v34(v24, v15);
+
+    goto LABEL_11;
   }
 
-  v69 = v35;
-  (*((swift_isaMask & *a2) + 0x100))(v75, a1[1]);
-  v36 = *(*v77 + 440);
-  v37 = *(v70 + 16);
-  v38 = v36();
-  if (v38)
+  v68 = v34;
+  (*((swift_isaMask & *a2) + 0x100))(v74, a1[1]);
+  v35 = *(*v76 + 440);
+  v36 = *(v69 + 16);
+  v37 = v35();
+  if (v37)
   {
-    v39 = 0x746E65636552;
+    v38 = 0x746E65636552;
   }
 
   else
   {
-    v39 = 0x6E656D6D6F636552;
+    v38 = 0x6E656D6D6F636552;
   }
 
-  if (v38)
+  if (v37)
   {
-    v40 = 0xE600000000000000;
+    v39 = 0xE600000000000000;
   }
 
   else
   {
-    v40 = 0xEB00000000646564;
+    v39 = 0xEB00000000646564;
   }
 
-  (*((swift_isaMask & *v78) + 0x188))(v37, v39, v40);
+  (*((swift_isaMask & *v77) + 0x188))(v36, v38, v39);
 
   if (one-time initialization token for ranking != -1)
   {
     swift_once();
   }
 
-  v41 = type metadata accessor for Logger();
-  v78 = __swift_project_value_buffer(v41, static MOAngelLogger.ranking);
+  v40 = type metadata accessor for Logger();
+  v77 = __swift_project_value_buffer(v40, static MOAngelLogger.ranking);
+  v41 = v78;
   v42 = v79;
-  v43 = v80;
-  v44 = *(v80 + 16);
-  v45 = v74;
-  v46 = v76;
-  v44(v74, v79, v76);
-  v44(v81, v42, v46);
-  v47 = a2;
-  v48 = Logger.logObject.getter();
-  v49 = static os_log_type_t.debug.getter();
+  v43 = *(v79 + 16);
+  v44 = v73;
+  v45 = v75;
+  v43(v73, v78, v75);
+  v43(v80, v41, v45);
+  v46 = a2;
+  v47 = Logger.logObject.getter();
+  v48 = static os_log_type_t.debug.getter();
 
-  if (os_log_type_enabled(v48, v49))
+  if (os_log_type_enabled(v47, v48))
   {
-    LODWORD(v78) = v49;
-    v79 = v48;
-    v50 = swift_slowAlloc();
-    v77 = swift_slowAlloc();
-    v82 = v77;
-    *v50 = 134218498;
-    v51 = IndexPath.row.getter();
-    v52 = *(v43 + 8);
-    v53 = v45;
-    v54 = v76;
-    v52(v53, v76);
-    *(v50 + 4) = v51;
-    *(v50 + 12) = 2048;
-    v55 = v81;
-    v56 = IndexPath.section.getter();
-    v57 = (v52)(v55, v54);
-    *(v50 + 14) = v56;
-    *(v50 + 22) = 2080;
-    v58 = v73(v57);
-    if (v58)
+    LODWORD(v77) = v48;
+    v78 = v47;
+    v49 = swift_slowAlloc();
+    v76 = swift_slowAlloc();
+    v81 = v76;
+    *v49 = 134218498;
+    v50 = IndexPath.row.getter();
+    v51 = *(v42 + 8);
+    v52 = v44;
+    v53 = v75;
+    v51(v52, v75);
+    *(v49 + 4) = v50;
+    *(v49 + 12) = 2048;
+    v54 = v80;
+    v55 = IndexPath.section.getter();
+    v56 = (v51)(v54, v53);
+    *(v49 + 14) = v55;
+    *(v49 + 22) = 2080;
+    v57 = v72(v56);
+    if (v57)
     {
-      v59 = v71;
-      (*(*v58 + 344))(v58);
+      v58 = v70;
+      (*(*v57 + 344))(v57);
 
-      v60 = UUID.uuidString.getter();
-      v62 = v61;
-      v63 = v59;
-      v64 = v69;
-      v69(v63, v15);
+      v59 = UUID.uuidString.getter();
+      v61 = v60;
+      v62 = v58;
+      v63 = v68;
+      v68(v62, v15);
     }
 
     else
     {
-      v62 = 0xE300000000000000;
-      v60 = 7104878;
-      v64 = v69;
+      v61 = 0xE300000000000000;
+      v59 = 7104878;
+      v63 = v68;
     }
 
-    v67 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v60, v62, &v82);
+    v66 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v59, v61, &v81);
 
-    *(v50 + 24) = v67;
-    v68 = v79;
-    _os_log_impl(&_mh_execute_header, v79, v78, "(collectionView) layout cell %ld, %ld, bundleId=%s", v50, 0x20u);
-    __swift_destroy_boxed_opaque_existential_0(v77);
+    *(v49 + 24) = v66;
+    v67 = v78;
+    _os_log_impl(&_mh_execute_header, v78, v77, "(collectionView) layout cell %ld, %ld, bundleId=%s", v49, 0x20u);
+    __swift_destroy_boxed_opaque_existential_0(v76);
 
-    return v64(v24, v15);
+    v63(v24, v15);
   }
 
   else
   {
-    v65 = *(v43 + 8);
-    v66 = v76;
-    v65(v81, v76);
-    v65(v45, v66);
+    v64 = *(v42 + 8);
+    v65 = v75;
+    v64(v80, v75);
+    v64(v44, v65);
 
-    return (v69)(v24, v15);
+    v68(v24, v15);
   }
 }
 
-uint64_t closure #6 in MOSuggestionCollectionView.collectionView(_:cellForItemAt:)(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, void *a5, uint64_t a6, uint64_t a7)
+void closure #6 in MOSuggestionCollectionView.collectionView(_:cellForItemAt:)(uint64_t a1, void *a2, void *a3, uint64_t a4, void *a5, uint64_t a6, uint64_t a7)
 {
-  v84 = a5;
-  v85 = a7;
-  v83 = a6;
-  v86 = a4;
-  v93 = a2;
-  v90 = type metadata accessor for IndexPath();
-  v9 = *(v90 - 8);
-  v10 = __chkstk_darwin(v90);
-  v89 = &v76 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v87 = a5;
+  v88 = a7;
+  v86 = a6;
+  v89 = a4;
+  v96 = a2;
+  v93 = type metadata accessor for IndexPath();
+  v9 = *(v93 - 8);
+  v10 = __chkstk_darwin(v93);
+  v92 = &v79 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v10);
-  v88 = &v76 - v12;
+  v91 = &v79 - v12;
   v13 = type metadata accessor for UUID();
   v14 = *(v13 - 8);
   v15 = __chkstk_darwin(v13);
-  v92 = &v76 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v95 = &v79 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v15);
-  v91 = &v76 - v17;
-  v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSg_ADtMd);
+  v94 = &v79 - v17;
+  v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSg_ADtMd, &_s10Foundation4UUIDVSg_ADtMR);
   __chkstk_darwin(v18);
-  v20 = &v76 - v19;
-  v21 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd);
+  v20 = &v79 - v19;
+  v21 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
   v22 = __chkstk_darwin(v21 - 8);
-  v24 = &v76 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v24 = &v79 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
   v25 = __chkstk_darwin(v22);
-  v27 = &v76 - v26;
-  result = __chkstk_darwin(v25);
-  v30 = &v76 - v29;
-  v87 = a1;
+  v27 = &v79 - v26;
+  v28 = __chkstk_darwin(v25);
+  v30 = &v79 - v29;
+  v90 = a1;
   if (!a1)
   {
-    return result;
+    return;
   }
 
-  v80 = v9;
+  v83 = v9;
   v31 = *((swift_isaMask & *a3) + 0x108);
   v32 = (swift_isaMask & *a3) + 264;
-  v81 = a3;
-  v78 = v32;
-  v79 = v31;
-  v33 = v31(result);
+  v84 = a3;
+  v81 = v32;
+  v82 = v31;
+  v33 = v31(v28);
   if (v33)
   {
     (*(*v33 + 344))(v33);
@@ -7502,185 +7528,187 @@ uint64_t closure #6 in MOSuggestionCollectionView.collectionView(_:cellForItemAt
   }
 
   v35 = v14 + 2;
-  v77 = v14[2];
-  v77(v27, v93, v13);
+  v80 = v14[2];
+  v80(v27, v96, v13);
   v34(v27, 0, 1, v13);
   v36 = v13;
   v37 = *(v18 + 48);
   outlined init with copy of UUID?(v30, v20);
   outlined init with copy of UUID?(v27, &v20[v37]);
-  v82 = v14;
+  v85 = v14;
   v38 = v14[6];
   if (v38(v20, 1, v36) != 1)
   {
     outlined init with copy of UUID?(v20, v24);
     if (v38(&v20[v37], 1, v36) != 1)
     {
-      v76 = v14 + 2;
-      v41 = v82;
-      v42 = v91;
-      (v82[4])(v91, &v20[v37], v36);
-      _sSo21NSAttributedStringKeyaABSHSCWlTm_0(&lazy protocol witness table cache variable for type UUID and conformance UUID, &type metadata accessor for UUID);
-      v43 = dispatch thunk of static Equatable.== infix(_:_:)();
-      v44 = v41[1];
-      v44(v42, v36);
-      outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v27, &_s10Foundation4UUIDVSgMd);
-      outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v30, &_s10Foundation4UUIDVSgMd);
-      v44(v24, v36);
-      result = outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v20, &_s10Foundation4UUIDVSgMd);
+      v79 = v14 + 2;
+      v42 = v85;
+      v43 = v94;
+      (v85[4])(v94, &v20[v37], v36);
+      _sSo21NSAttributedStringKeyaABSHSCWlTm_0(&lazy protocol witness table cache variable for type UUID and conformance UUID, &type metadata accessor for UUID, &protocol conformance descriptor for UUID);
+      v44 = dispatch thunk of static Equatable.== infix(_:_:)();
+      v45 = v42[1];
+      v45(v43, v36);
+      outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v27, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+      outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v30, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+      v45(v24, v36);
+      v40 = outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v20, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
       v39 = v36;
-      v40 = v80;
-      if ((v43 & 1) == 0)
+      v41 = v83;
+      if ((v44 & 1) == 0)
       {
-        return result;
+        return;
       }
 
       goto LABEL_12;
     }
 
-    outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v27, &_s10Foundation4UUIDVSgMd);
-    outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v30, &_s10Foundation4UUIDVSgMd);
-    (v82[1])(v24, v36);
-    return outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v20, &_s10Foundation4UUIDVSg_ADtMd);
+    outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v27, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+    outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v30, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+    (v85[1])(v24, v36);
+LABEL_10:
+    outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v20, &_s10Foundation4UUIDVSg_ADtMd, &_s10Foundation4UUIDVSg_ADtMR);
+    return;
   }
 
-  outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v27, &_s10Foundation4UUIDVSgMd);
-  outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v30, &_s10Foundation4UUIDVSgMd);
+  outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v27, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+  outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v30, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
   if (v38(&v20[v37], 1, v36) != 1)
   {
-    return outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v20, &_s10Foundation4UUIDVSg_ADtMd);
+    goto LABEL_10;
   }
 
   v39 = v36;
-  v76 = v35;
-  result = outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v20, &_s10Foundation4UUIDVSgMd);
-  v40 = v80;
+  v79 = v35;
+  v40 = outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v20, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+  v41 = v83;
 LABEL_12:
-  result = v79(result);
-  if (result)
+  v46 = v82(v40);
+  if (v46)
   {
-    v45 = result;
-    v46 = *(v86 + 16);
-    v47 = [v46 interfaceType];
-    v48 = (*(*v45 + 520))(v87, 2, v47);
+    v47 = v46;
+    v48 = *(v89 + 16);
+    v49 = [v48 interfaceType];
+    v50 = (*(*v47 + 520))(v90, 2, v49);
 
-    if (v48 >> 62)
+    if (v50 >> 62)
     {
-      result = _CocoaArrayWrapper.endIndex.getter();
+      v51 = _CocoaArrayWrapper.endIndex.getter();
     }
 
     else
     {
-      result = *((v48 & 0xFFFFFFFFFFFFFF8) + 0x10);
+      v51 = *((v50 & 0xFFFFFFFFFFFFFF8) + 0x10);
     }
 
-    v49 = v89;
-    v50 = v90;
-    v51 = v92;
-    v52 = v88;
-    if (!result)
+    v52 = v92;
+    v53 = v93;
+    v54 = v95;
+    v55 = v91;
+    if (!v51)
     {
+
+      return;
     }
 
-    if ((v48 & 0xC000000000000001) != 0)
+    if ((v50 & 0xC000000000000001) != 0)
     {
-      v53 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+      v56 = specialized _ArrayBuffer._getElementSlowPath(_:)();
     }
 
     else
     {
-      if (!*((v48 & 0xFFFFFFFFFFFFFF8) + 0x10))
+      if (!*((v50 & 0xFFFFFFFFFFFFFF8) + 0x10))
       {
         __break(1u);
-        return result;
+        return;
       }
 
-      v53 = *(v48 + 32);
+      v56 = *(v50 + 32);
     }
 
-    v54 = *((swift_isaMask & *v81) + 0x170);
-    v91 = v53;
-    v55 = v54(v53);
-    v56 = (*(*v83 + 440))(v55);
-    if (v56)
+    v57 = *((swift_isaMask & *v84) + 0x170);
+    v94 = v56;
+    v58 = v57(v56);
+    v59 = (*(*v86 + 440))(v58);
+    if (v59)
     {
-      v57 = 0x746E65636552;
+      v60 = 0x746E65636552;
     }
 
     else
     {
-      v57 = 0x6E656D6D6F636552;
+      v60 = 0x6E656D6D6F636552;
     }
 
-    if (v56)
+    if (v59)
     {
-      v58 = 0xE600000000000000;
+      v61 = 0xE600000000000000;
     }
 
     else
     {
-      v58 = 0xEB00000000646564;
+      v61 = 0xEB00000000646564;
     }
 
-    (*((swift_isaMask & *v84) + 0x188))(v46, v57, v58);
+    (*((swift_isaMask & *v87) + 0x188))(v48, v60, v61);
 
     if (one-time initialization token for ranking != -1)
     {
       swift_once();
     }
 
-    v59 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v59, static MOAngelLogger.ranking);
-    v60 = *(v40 + 16);
-    v61 = v85;
-    v60(v52, v85, v50);
-    v60(v49, v61, v50);
-    v77(v51, v93, v39);
-    v62 = Logger.logObject.getter();
-    v63 = v51;
-    v64 = static os_log_type_t.debug.getter();
-    if (os_log_type_enabled(v62, v64))
+    v62 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v62, static MOAngelLogger.ranking);
+    v63 = *(v41 + 16);
+    v64 = v88;
+    v63(v55, v88, v53);
+    v63(v52, v64, v53);
+    v80(v54, v96, v39);
+    v65 = Logger.logObject.getter();
+    v66 = v54;
+    v67 = static os_log_type_t.debug.getter();
+    if (os_log_type_enabled(v65, v67))
     {
-      v65 = swift_slowAlloc();
-      v66 = v52;
-      v93 = swift_slowAlloc();
-      v94 = v93;
-      *v65 = 134218498;
-      v67 = IndexPath.row.getter();
-      v68 = *(v40 + 8);
-      v68(v66, v50);
-      *(v65 + 4) = v67;
-      *(v65 + 12) = 2048;
-      v69 = IndexPath.section.getter();
-      v68(v49, v50);
-      *(v65 + 14) = v69;
-      *(v65 + 22) = 2080;
-      _sSo21NSAttributedStringKeyaABSHSCWlTm_0(&lazy protocol witness table cache variable for type UUID and conformance UUID, &type metadata accessor for UUID);
-      v70 = v92;
-      v71 = dispatch thunk of CustomStringConvertible.description.getter();
-      v73 = v72;
-      (v82[1])(v70, v39);
-      v74 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v71, v73, &v94);
+      v68 = swift_slowAlloc();
+      v69 = v55;
+      v96 = swift_slowAlloc();
+      v97 = v96;
+      *v68 = 134218498;
+      v70 = IndexPath.row.getter();
+      v71 = *(v41 + 8);
+      v71(v69, v53);
+      *(v68 + 4) = v70;
+      *(v68 + 12) = 2048;
+      v72 = IndexPath.section.getter();
+      v71(v52, v53);
+      *(v68 + 14) = v72;
+      *(v68 + 22) = 2080;
+      _sSo21NSAttributedStringKeyaABSHSCWlTm_0(&lazy protocol witness table cache variable for type UUID and conformance UUID, &type metadata accessor for UUID, &protocol conformance descriptor for UUID);
+      v73 = v95;
+      v74 = dispatch thunk of CustomStringConvertible.description.getter();
+      v76 = v75;
+      (v85[1])(v73, v39);
+      v77 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v74, v76, &v97);
 
-      *(v65 + 24) = v74;
-      _os_log_impl(&_mh_execute_header, v62, v64, "(collectionView) layout cell %ld, %ld, bundleId=%s", v65, 0x20u);
-      __swift_destroy_boxed_opaque_existential_0(v93);
+      *(v68 + 24) = v77;
+      _os_log_impl(&_mh_execute_header, v65, v67, "(collectionView) layout cell %ld, %ld, bundleId=%s", v68, 0x20u);
+      __swift_destroy_boxed_opaque_existential_0(v96);
     }
 
     else
     {
-      v75 = *(v40 + 8);
-      v75(v49, v50);
-      v75(v52, v50);
+      v78 = *(v41 + 8);
+      v78(v52, v53);
+      v78(v55, v53);
 
-      return (v82[1])(v63, v39);
+      (v85[1])(v66, v39);
     }
   }
-
-  return result;
 }
 
-uint64_t closure #7 in MOSuggestionCollectionView.collectionView(_:cellForItemAt:)(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, void *a5, uint64_t a6, uint64_t a7)
+uint64_t closure #7 in MOSuggestionCollectionView.collectionView(_:cellForItemAt:)(uint64_t a1, void *a2, void *a3, uint64_t a4, void *a5, uint64_t a6, uint64_t a7)
 {
   v85 = a5;
   v86 = a7;
@@ -7700,10 +7728,10 @@ uint64_t closure #7 in MOSuggestionCollectionView.collectionView(_:cellForItemAt
   v88 = &v74[-((v17 + 15) & 0xFFFFFFFFFFFFFFF0)];
   __chkstk_darwin(v16);
   v91 = &v74[-v18];
-  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSg_ADtMd);
+  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSg_ADtMd, &_s10Foundation4UUIDVSg_ADtMR);
   __chkstk_darwin(v19);
   v21 = &v74[-v20];
-  v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd);
+  v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
   v23 = __chkstk_darwin(v22 - 8);
   v25 = &v74[-((v24 + 15) & 0xFFFFFFFFFFFFFFF0)];
   v26 = __chkstk_darwin(v23);
@@ -7753,14 +7781,14 @@ uint64_t closure #7 in MOSuggestionCollectionView.collectionView(_:cellForItemAt
       v40 = v82;
       v41 = v91;
       (v82[4])(v91, &v21[v35], v14);
-      _sSo21NSAttributedStringKeyaABSHSCWlTm_0(&lazy protocol witness table cache variable for type UUID and conformance UUID, &type metadata accessor for UUID);
+      _sSo21NSAttributedStringKeyaABSHSCWlTm_0(&lazy protocol witness table cache variable for type UUID and conformance UUID, &type metadata accessor for UUID, &protocol conformance descriptor for UUID);
       v75 = dispatch thunk of static Equatable.== infix(_:_:)();
       v42 = v40[1];
       v42(v41, v14);
-      outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v28, &_s10Foundation4UUIDVSgMd);
-      outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v31, &_s10Foundation4UUIDVSgMd);
+      outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v28, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+      outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v31, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
       v42(v25, v14);
-      result = outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v21, &_s10Foundation4UUIDVSgMd);
+      result = outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v21, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
       v37 = v92;
       v38 = v80;
       v39 = v81;
@@ -7772,20 +7800,20 @@ uint64_t closure #7 in MOSuggestionCollectionView.collectionView(_:cellForItemAt
       goto LABEL_12;
     }
 
-    outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v28, &_s10Foundation4UUIDVSgMd);
-    outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v31, &_s10Foundation4UUIDVSgMd);
+    outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v28, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+    outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v31, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
     (v82[1])(v25, v14);
-    return outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v21, &_s10Foundation4UUIDVSg_ADtMd);
+    return outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v21, &_s10Foundation4UUIDVSg_ADtMd, &_s10Foundation4UUIDVSg_ADtMR);
   }
 
-  outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v28, &_s10Foundation4UUIDVSgMd);
-  outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v31, &_s10Foundation4UUIDVSgMd);
+  outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v28, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+  outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v31, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
   if (v36(&v21[v35], 1, v14) != 1)
   {
-    return outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v21, &_s10Foundation4UUIDVSg_ADtMd);
+    return outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v21, &_s10Foundation4UUIDVSg_ADtMd, &_s10Foundation4UUIDVSg_ADtMR);
   }
 
-  result = outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v21, &_s10Foundation4UUIDVSgMd);
+  result = outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v21, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
   v37 = v92;
   v38 = v80;
   v39 = v81;
@@ -7861,7 +7889,7 @@ LABEL_12:
       v67(v65, v53);
       *(v61 + 14) = v68;
       *(v61 + 22) = 2080;
-      _sSo21NSAttributedStringKeyaABSHSCWlTm_0(&lazy protocol witness table cache variable for type UUID and conformance UUID, &type metadata accessor for UUID);
+      _sSo21NSAttributedStringKeyaABSHSCWlTm_0(&lazy protocol witness table cache variable for type UUID and conformance UUID, &type metadata accessor for UUID, &protocol conformance descriptor for UUID);
       v69 = dispatch thunk of CustomStringConvertible.description.getter();
       v71 = v70;
       (v82[1])(v66, v14);
@@ -7906,171 +7934,178 @@ void closure #3 in MOSuggestionCollectionView.collectionView(_:cellForItemAt:)(u
   }
 }
 
-uint64_t closure #2 in MOSuggestionCollectionView.collectionView(_:cellForItemAt:)(uint64_t *a1, void *a2, void *a3, uint64_t a4, NSObject *a5)
+void closure #2 in MOSuggestionCollectionView.collectionView(_:cellForItemAt:)(uint64_t *a1, void *a2, void *a3, void *a4, NSObject *a5)
 {
-  v78 = a3;
-  v79 = a5;
-  v77 = a4;
+  v77 = a3;
+  v78 = a5;
+  v76 = a4;
   v7 = type metadata accessor for IndexPath();
-  v80 = *(v7 - 8);
+  v79 = *(v7 - 8);
   v8 = __chkstk_darwin(v7);
-  v81 = &v69 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v80 = &v68 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v8);
-  v11 = &v69 - v10;
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd);
+  v11 = &v68 - v10;
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
   __chkstk_darwin(v12 - 8);
-  v14 = &v69 - v13;
+  v14 = &v68 - v13;
   v15 = type metadata accessor for UUID();
   v16 = *(v15 - 8);
   v17 = __chkstk_darwin(v15);
-  v19 = &v69 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v19 = &v68 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
   v20 = __chkstk_darwin(v17);
-  v22 = &v69 - v21;
+  v22 = &v68 - v21;
   __chkstk_darwin(v20);
-  v24 = &v69 - v23;
+  v24 = &v68 - v23;
   v25 = type metadata accessor for MOSuggestionCollectionViewCellViewModel.MOSuggestionCollectionViewAssetPlaceHolderSingleResult(0);
   outlined init with copy of UUID?(a1 + *(v25 + 24), v14);
   if ((*(v16 + 48))(v14, 1, v15) == 1)
   {
-    return outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v14, &_s10Foundation4UUIDVSgMd);
+    outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v14, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+    return;
   }
 
-  v76 = v7;
+  v75 = v7;
   (*(v16 + 32))(v24, v14, v15);
-  v27 = *a1;
+  v26 = *a1;
   if (!*a1)
   {
-    return (*(v16 + 8))(v24, v15);
+    (*(v16 + 8))(v24, v15);
+    return;
   }
 
-  v74 = v11;
-  v71 = v19;
-  v28 = *((swift_isaMask & *a2) + 0xF8);
-  v29 = (swift_isaMask & *a2) + 248;
+  v73 = v11;
+  v70 = v19;
+  v27 = *((swift_isaMask & *a2) + 0xF8);
+  v28 = (swift_isaMask & *a2) + 248;
 
-  v72 = v29;
-  v73 = v28;
-  v31 = v28(v30);
-  if (!v31)
+  v71 = v28;
+  v72 = v27;
+  v30 = v27(v29);
+  if (!v30)
   {
     (*(v16 + 8))(v24, v15);
+LABEL_11:
+
+    return;
   }
 
-  v75 = v27;
-  v32 = v31;
-  (*(*v31 + 344))();
-  v33 = static UUID.== infix(_:_:)();
-  v34 = v22;
-  v35 = *(v16 + 8);
-  v35(v34, v15);
-  if ((v33 & 1) == 0 || (v70 = v32, *(a1 + 16) == 1))
+  v74 = v26;
+  v31 = v30;
+  (*(*v30 + 344))();
+  v32 = static UUID.== infix(_:_:)();
+  v33 = v22;
+  v34 = *(v16 + 8);
+  v34(v33, v15);
+  if ((v32 & 1) == 0 || (v69 = v31, *(a1 + 16) == 1))
   {
-    v35(v24, v15);
+    v34(v24, v15);
+
+    goto LABEL_11;
   }
 
-  v69 = v35;
-  (*((swift_isaMask & *a2) + 0x180))(v75, a1[1]);
-  v36 = *(*v77 + 440);
-  v37 = *(v70 + 16);
-  v38 = v36();
-  if (v38)
+  v68 = v34;
+  (*((swift_isaMask & *a2) + 0x180))(v74, a1[1]);
+  v35 = *(*v76 + 440);
+  v36 = *(v69 + 16);
+  v37 = v35();
+  if (v37)
   {
-    v39 = 0x746E65636552;
+    v38 = 0x746E65636552;
   }
 
   else
   {
-    v39 = 0x6E656D6D6F636552;
+    v38 = 0x6E656D6D6F636552;
   }
 
-  if (v38)
+  if (v37)
   {
-    v40 = 0xE600000000000000;
+    v39 = 0xE600000000000000;
   }
 
   else
   {
-    v40 = 0xEB00000000646564;
+    v39 = 0xEB00000000646564;
   }
 
-  (*((swift_isaMask & *v78) + 0x188))(v37, v39, v40);
+  (*((swift_isaMask & *v77) + 0x188))(v36, v38, v39);
 
   if (one-time initialization token for ranking != -1)
   {
     swift_once();
   }
 
-  v41 = type metadata accessor for Logger();
-  v78 = __swift_project_value_buffer(v41, static MOAngelLogger.ranking);
+  v40 = type metadata accessor for Logger();
+  v77 = __swift_project_value_buffer(v40, static MOAngelLogger.ranking);
+  v41 = v78;
   v42 = v79;
-  v43 = v80;
-  v44 = *(v80 + 16);
-  v45 = v74;
-  v46 = v76;
-  v44(v74, v79, v76);
-  v44(v81, v42, v46);
-  v47 = a2;
-  v48 = Logger.logObject.getter();
-  v49 = static os_log_type_t.debug.getter();
+  v43 = *(v79 + 16);
+  v44 = v73;
+  v45 = v75;
+  v43(v73, v78, v75);
+  v43(v80, v41, v45);
+  v46 = a2;
+  v47 = Logger.logObject.getter();
+  v48 = static os_log_type_t.debug.getter();
 
-  if (os_log_type_enabled(v48, v49))
+  if (os_log_type_enabled(v47, v48))
   {
-    LODWORD(v78) = v49;
-    v79 = v48;
-    v50 = swift_slowAlloc();
-    v77 = swift_slowAlloc();
-    v82 = v77;
-    *v50 = 134218498;
-    v51 = IndexPath.row.getter();
-    v52 = *(v43 + 8);
-    v53 = v45;
-    v54 = v76;
-    v52(v53, v76);
-    *(v50 + 4) = v51;
-    *(v50 + 12) = 2048;
-    v55 = v81;
-    v56 = IndexPath.section.getter();
-    v57 = (v52)(v55, v54);
-    *(v50 + 14) = v56;
-    *(v50 + 22) = 2080;
-    v58 = v73(v57);
-    if (v58)
+    LODWORD(v77) = v48;
+    v78 = v47;
+    v49 = swift_slowAlloc();
+    v76 = swift_slowAlloc();
+    v81 = v76;
+    *v49 = 134218498;
+    v50 = IndexPath.row.getter();
+    v51 = *(v42 + 8);
+    v52 = v44;
+    v53 = v75;
+    v51(v52, v75);
+    *(v49 + 4) = v50;
+    *(v49 + 12) = 2048;
+    v54 = v80;
+    v55 = IndexPath.section.getter();
+    v56 = (v51)(v54, v53);
+    *(v49 + 14) = v55;
+    *(v49 + 22) = 2080;
+    v57 = v72(v56);
+    if (v57)
     {
-      v59 = v71;
-      (*(*v58 + 344))(v58);
+      v58 = v70;
+      (*(*v57 + 344))(v57);
 
-      v60 = UUID.uuidString.getter();
-      v62 = v61;
-      v63 = v59;
-      v64 = v69;
-      v69(v63, v15);
+      v59 = UUID.uuidString.getter();
+      v61 = v60;
+      v62 = v58;
+      v63 = v68;
+      v68(v62, v15);
     }
 
     else
     {
-      v62 = 0xE300000000000000;
-      v60 = 7104878;
-      v64 = v69;
+      v61 = 0xE300000000000000;
+      v59 = 7104878;
+      v63 = v68;
     }
 
-    v67 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v60, v62, &v82);
+    v66 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v59, v61, &v81);
 
-    *(v50 + 24) = v67;
-    v68 = v79;
-    _os_log_impl(&_mh_execute_header, v79, v78, "(collectionView) layout cell %ld, %ld, bundleId=%s", v50, 0x20u);
-    __swift_destroy_boxed_opaque_existential_0(v77);
+    *(v49 + 24) = v66;
+    v67 = v78;
+    _os_log_impl(&_mh_execute_header, v78, v77, "(collectionView) layout cell %ld, %ld, bundleId=%s", v49, 0x20u);
+    __swift_destroy_boxed_opaque_existential_0(v76);
 
-    return v64(v24, v15);
+    v63(v24, v15);
   }
 
   else
   {
-    v65 = *(v43 + 8);
-    v66 = v76;
-    v65(v81, v76);
-    v65(v45, v66);
+    v64 = *(v42 + 8);
+    v65 = v75;
+    v64(v80, v75);
+    v64(v44, v65);
 
-    return (v69)(v24, v15);
+    v68(v24, v15);
   }
 }
 
@@ -8097,7 +8132,7 @@ void *MOSuggestionCollectionView.collectionView(_:viewForSupplementaryElementOfK
   v8 = *(v7 - 8);
   v9 = *(v8 + 64);
   __chkstk_darwin(v7);
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   v11 = __chkstk_darwin(v10 - 8);
   v13 = &v188 - v12;
   v14 = (*((swift_isaMask & *v4) + 0x100))(v11);
@@ -8387,7 +8422,7 @@ LABEL_69:
           v182 = IndexPath._bridgeToObjectiveC()().super.isa;
           v183 = [v200 dequeueReusableSupplementaryViewOfKind:v180 withReuseIdentifier:v181 forIndexPath:v182];
 
-          type metadata accessor for MOSuggestionCollectionViewDateSectionHeaderView();
+          type metadata accessor for MOSuggestionCollectionViewDateSectionHeaderView(0);
           v184 = swift_dynamicCastClass();
           if (v184)
           {
@@ -8625,14 +8660,14 @@ void closure #2 in MOSuggestionCollectionView.collectionView(_:viewForSupplement
   v8 = v14 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   v9 = IndexPath.section.getter();
   (*(*a1 + 896))(v9);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySiGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySiGMd, &_ss23_ContiguousArrayStorageCySiGMR);
   v10 = swift_allocObject();
   *(v10 + 16) = xmmword_1002A48B0;
   *(v10 + 32) = IndexPath.section.getter();
   v14[1] = v10;
-  _sSo21NSAttributedStringKeyaABSHSCWlTm_0(&lazy protocol witness table cache variable for type IndexSet and conformance IndexSet, &type metadata accessor for IndexSet);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySiGMd);
-  lazy protocol witness table accessor for type [OS_dispatch_queue.Attributes] and conformance [A](&lazy protocol witness table cache variable for type [Int] and conformance [A], &_sSaySiGMd);
+  _sSo21NSAttributedStringKeyaABSHSCWlTm_0(&lazy protocol witness table cache variable for type IndexSet and conformance IndexSet, &type metadata accessor for IndexSet, &protocol conformance descriptor for IndexSet);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySiGMd, &_sSaySiGMR);
+  lazy protocol witness table accessor for type [OS_dispatch_queue.Attributes] and conformance [A](&lazy protocol witness table cache variable for type [Int] and conformance [A], &_sSaySiGMd, &_sSaySiGMR);
   dispatch thunk of SetAlgebra.init<A>(_:)();
   IndexSet._bridgeToObjectiveC()(v11);
   v13 = v12;
@@ -8736,7 +8771,7 @@ LABEL_20:
 
 double MOSuggestionCollectionView.collectionView(_:layout:referenceSizeForFooterInSection:)(void *a1, uint64_t a2, uint64_t a3)
 {
-  v6 = (*((swift_isaMask & *v3) + 0x100))();
+  v6 = (*((swift_isaMask & *v3) + 0x100))(a1, a2);
   if (!v6)
   {
     return CGSizeZero.width;
@@ -8837,7 +8872,7 @@ void *closure #1 in MOSuggestionCollectionView.collectionView(_:contextMenuConfi
         v18._object = 0xE000000000000000;
         NSLocalizedString(_:tableName:bundle:value:comment:)(v17, 0, v16, v18, v130);
 
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys7CVarArg_pGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys7CVarArg_pGMd, &_ss23_ContiguousArrayStorageCys7CVarArg_pGMR);
         v19 = swift_allocObject();
         *(v19 + 16) = xmmword_1002A48B0;
         *(v19 + 56) = &type metadata for String;
@@ -8867,7 +8902,7 @@ void *closure #1 in MOSuggestionCollectionView.collectionView(_:contextMenuConfi
     object = v24._object;
 
 LABEL_9:
-    v107 = type metadata accessor for UIApplication(0, &lazy cache variable for type metadata for UIAction);
+    v107 = type metadata accessor for UIApplication(0, &lazy cache variable for type metadata for UIAction, UIAction_ptr);
     v25 = String._bridgeToObjectiveC()();
     v119 = objc_opt_self();
     v114 = [v119 systemImageNamed:v25];
@@ -8980,8 +9015,8 @@ LABEL_9:
     v74 = v72;
     v75 = v73;
     v76 = UIAction.init(title:subtitle:image:selectedImage:identifier:discoverabilityTitle:attributes:state:handler:)();
-    type metadata accessor for UIApplication(0, &lazy cache variable for type metadata for UIMenu);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
+    type metadata accessor for UIApplication(0, &lazy cache variable for type metadata for UIMenu, UIMenu_ptr);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
     v77 = swift_allocObject();
     v122 = xmmword_1002A4A70;
     *(v77 + 16) = xmmword_1002A4A70;
@@ -9141,26 +9176,26 @@ LABEL_34:
   return result;
 }
 
-uint64_t closure #1 in closure #1 in MOSuggestionCollectionView.collectionView(_:contextMenuConfigurationForItemAt:point:)(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
+double closure #1 in closure #1 in MOSuggestionCollectionView.collectionView(_:contextMenuConfigurationForItemAt:point:)(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  result = (*((swift_isaMask & *a2) + 0x100))();
-  if (result)
+  v6 = (*((swift_isaMask & *a2) + 0x100))(a1);
+  if (v6)
   {
-    v7 = (*(*result + 752))(a3);
+    v8 = (*(*v6 + 752))(a3);
 
-    if (v7)
+    if (v8)
     {
-      v8 = IndexPath.row.getter();
-      v9 = (*(*v7 + 66))(v8, 0, 0, 1, a4);
-      (*(*v7 + 55))(v9);
+      v9 = IndexPath.row.getter();
+      v10 = (*(*v8 + 66))(v9, 0, 0, 1, a4);
+      (*(*v8 + 55))(v10);
       if (one-time initialization token for shared != -1)
       {
         swift_once();
       }
 
-      v10 = *(*static MOSuggestionAssetCacheManager.shared + 280);
-      v11 = v7[2];
-      v10();
+      v11 = *(*static MOSuggestionAssetCacheManager.shared + 280);
+      v12 = v8[2];
+      v11();
 
       MOSuggestionCollectionView.collectionViewHandleSuggestionSelection(indexPath:interactionState:)(a3, 0);
     }
@@ -9169,27 +9204,27 @@ uint64_t closure #1 in closure #1 in MOSuggestionCollectionView.collectionView(_
   return result;
 }
 
-uint64_t closure #2 in closure #1 in MOSuggestionCollectionView.collectionView(_:contextMenuConfigurationForItemAt:point:)(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
+double closure #2 in closure #1 in MOSuggestionCollectionView.collectionView(_:contextMenuConfigurationForItemAt:point:)(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  result = (*((swift_isaMask & *a2) + 0x100))();
-  if (result)
+  v6 = (*((swift_isaMask & *a2) + 0x100))(a1);
+  if (v6)
   {
-    v7 = (*(*result + 752))(a3);
+    v8 = (*(*v6 + 752))(a3);
 
-    if (v7)
+    if (v8)
     {
       if (one-time initialization token for shared != -1)
       {
         swift_once();
       }
 
-      v8 = *(*static MOSuggestionAssetCacheManager.shared + 280);
-      v9 = v7[2];
-      v8();
+      v9 = *(*static MOSuggestionAssetCacheManager.shared + 280);
+      v10 = v8[2];
+      v9();
 
-      v10 = IndexPath.row.getter();
-      v11 = (*(*v7 + 69))(v10, 0, 0, 1, a4);
-      (*(*v7 + 55))(v11);
+      v11 = IndexPath.row.getter();
+      v12 = (*(*v8 + 69))(v11, 0, 0, 1, a4);
+      (*(*v8 + 55))(v12);
       MOSuggestionCollectionView.collectionViewHandleSuggestionSelection(indexPath:interactionState:)(a3, 1);
     }
   }
@@ -9305,17 +9340,17 @@ void confirmRemove #1 () in MOSuggestionCollectionView.collectionView(_:contextM
   }
 }
 
-uint64_t closure #4 in closure #1 in MOSuggestionCollectionView.collectionView(_:contextMenuConfigurationForItemAt:point:)(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
+double closure #4 in closure #1 in MOSuggestionCollectionView.collectionView(_:contextMenuConfigurationForItemAt:point:)(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  result = (*((swift_isaMask & *a2) + 0x100))();
-  if (result)
+  v6 = (*((swift_isaMask & *a2) + 0x100))(a1);
+  if (v6)
   {
-    v7 = (*(*result + 752))(a3);
+    v8 = (*(*v6 + 752))(a3);
 
-    if (v7)
+    if (v8)
     {
-      v8 = IndexPath.row.getter();
-      (*(*v7 + 536))(v8, a4);
+      v9 = IndexPath.row.getter();
+      (*(*v8 + 536))(v9, a4);
     }
   }
 
@@ -9326,24 +9361,24 @@ id UIContextMenuConfiguration.init(identifier:previewProvider:actionProvider:)(u
 {
   if (!a2)
   {
-    v9 = 0;
+    v10 = 0;
     if (a4)
     {
       goto LABEL_3;
     }
 
 LABEL_5:
-    v10 = 0;
+    v11 = 0;
     goto LABEL_6;
   }
 
-  v17 = a2;
-  v18 = a3;
-  v13 = _NSConcreteStackBlock;
-  v14 = 1107296256;
-  v15 = thunk for @escaping @callee_guaranteed () -> (@owned UIViewController?);
-  v16 = &block_descriptor_100_0;
-  v9 = _Block_copy(&v13);
+  v18 = a2;
+  v19 = a3;
+  v14 = _NSConcreteStackBlock;
+  v15 = 1107296256;
+  v16 = thunk for @escaping @callee_guaranteed () -> (@owned UIViewController?);
+  v17 = &block_descriptor_100_0;
+  v10 = _Block_copy(&v14);
 
   if (!a4)
   {
@@ -9351,22 +9386,22 @@ LABEL_5:
   }
 
 LABEL_3:
-  v17 = a4;
-  v18 = a5;
-  v13 = _NSConcreteStackBlock;
-  v14 = 1107296256;
-  v15 = thunk for @escaping @callee_guaranteed (@guaranteed [UIMenuElement]) -> (@owned UIMenu?);
-  v16 = &block_descriptor_97;
-  v10 = _Block_copy(&v13);
+  v18 = a4;
+  v19 = a5;
+  v14 = _NSConcreteStackBlock;
+  v15 = 1107296256;
+  v16 = thunk for @escaping @callee_guaranteed (@guaranteed [UIMenuElement]) -> (@owned UIMenu?);
+  v17 = &block_descriptor_97;
+  v11 = _Block_copy(&v14);
 
 LABEL_6:
-  v11 = [swift_getObjCClassFromMetadata() configurationWithIdentifier:a1 previewProvider:v9 actionProvider:v10];
-  outlined consume of (@escaping @callee_guaranteed () -> ())?(a4);
-  outlined consume of (@escaping @callee_guaranteed () -> ())?(a2);
+  v12 = [swift_getObjCClassFromMetadata() configurationWithIdentifier:a1 previewProvider:v10 actionProvider:v11];
+  outlined consume of (@escaping @callee_guaranteed () -> ())?(a4, a5);
+  outlined consume of (@escaping @callee_guaranteed () -> ())?(a2, a3);
   swift_unknownObjectRelease();
+  _Block_release(v11);
   _Block_release(v10);
-  _Block_release(v9);
-  return v11;
+  return v12;
 }
 
 void closure #1 in confirmRemove #1 () in MOSuggestionCollectionView.collectionView(_:contextMenuConfigurationForItemAt:point:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -9431,15 +9466,15 @@ id thunk for @escaping @callee_guaranteed () -> (@owned UIViewController?)(uint6
   return v3;
 }
 
-id thunk for @escaping @callee_guaranteed (@guaranteed [UIMenuElement]) -> (@owned UIMenu?)(uint64_t a1)
+id thunk for @escaping @callee_guaranteed (@guaranteed [UIMenuElement]) -> (@owned UIMenu?)(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
-  type metadata accessor for UIApplication(0, &lazy cache variable for type metadata for UIMenuElement);
-  v2 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+  v2 = *(a1 + 32);
+  type metadata accessor for UIApplication(0, &lazy cache variable for type metadata for UIMenuElement, UIMenuElement_ptr);
+  v3 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
-  v3 = v1(v2);
+  v4 = v2(v3);
 
-  return v3;
+  return v4;
 }
 
 char *specialized MOSuggestionCollectionView.init(controller:presentationDelegate:dialogDelegate:segmentedVisibilityDelegate:options:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, char *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
@@ -9509,7 +9544,7 @@ char *specialized MOSuggestionCollectionView.init(controller:presentationDelegat
   v73.receiver = a6;
   v73.super_class = type metadata accessor for MOSuggestionCollectionView();
   v34 = objc_msgSendSuper2(&v73, "initWithFrame:", CGRectZero.origin.x, y, width, height);
-  v35 = *&v34[OBJC_IVAR____TtC16MomentsUIService26MOSuggestionCollectionView_tipCoordinator];
+  v35 = *(v34 + OBJC_IVAR____TtC16MomentsUIService26MOSuggestionCollectionView_tipCoordinator);
   if (v35)
   {
     v36 = *(*v35 + 128);
@@ -9519,56 +9554,56 @@ char *specialized MOSuggestionCollectionView.init(controller:presentationDelegat
   }
 
   v38 = OBJC_IVAR____TtC16MomentsUIService26MOSuggestionCollectionView_activityIndicator;
-  v39 = *&v34[OBJC_IVAR____TtC16MomentsUIService26MOSuggestionCollectionView_activityIndicator];
+  v39 = *(v34 + OBJC_IVAR____TtC16MomentsUIService26MOSuggestionCollectionView_activityIndicator);
   v40 = v34;
   [v40 addSubview:v39];
   v41 = OBJC_IVAR____TtC16MomentsUIService26MOSuggestionCollectionView_supportingLoadingTextLabel;
-  [v40 addSubview:*&v40[OBJC_IVAR____TtC16MomentsUIService26MOSuggestionCollectionView_supportingLoadingTextLabel]];
+  [v40 addSubview:*(v40 + OBJC_IVAR____TtC16MomentsUIService26MOSuggestionCollectionView_supportingLoadingTextLabel)];
   v72 = objc_opt_self();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
   v42 = swift_allocObject();
   *(v42 + 16) = xmmword_1002A48D0;
-  v43 = [*&v34[v38] centerYAnchor];
+  v43 = [*(v34 + v38) centerYAnchor];
   v44 = [v40 centerYAnchor];
   v45 = [v43 constraintEqualToAnchor:v44];
 
   *(v42 + 32) = v45;
-  v46 = [*&v34[v38] centerXAnchor];
+  v46 = [*(v34 + v38) centerXAnchor];
   v47 = [v40 centerXAnchor];
 
   v48 = [v46 constraintEqualToAnchor:v47];
   *(v42 + 40) = v48;
-  v49 = [*&v34[v38] heightAnchor];
+  v49 = [*(v34 + v38) heightAnchor];
   v50 = [v49 constraintEqualToConstant:50.0];
 
   *(v42 + 48) = v50;
-  v51 = [*&v34[v38] widthAnchor];
+  v51 = [*(v34 + v38) widthAnchor];
   v52 = [v51 constraintEqualToConstant:50.0];
 
   *(v42 + 56) = v52;
-  type metadata accessor for UIApplication(0, &lazy cache variable for type metadata for NSLayoutConstraint);
+  type metadata accessor for UIApplication(0, &lazy cache variable for type metadata for NSLayoutConstraint, NSLayoutConstraint_ptr);
   isa = Array._bridgeToObjectiveC()().super.isa;
 
   [v72 activateConstraints:isa];
 
   v54 = swift_allocObject();
   *(v54 + 16) = xmmword_1002A48D0;
-  v55 = [*&v40[v41] topAnchor];
-  v56 = [*&v34[v38] bottomAnchor];
+  v55 = [*(v40 + v41) topAnchor];
+  v56 = [*(v34 + v38) bottomAnchor];
   v57 = [v55 constraintEqualToAnchor:v56 constant:2.0];
 
   *(v54 + 32) = v57;
-  v58 = [*&v40[v41] centerXAnchor];
+  v58 = [*(v40 + v41) centerXAnchor];
   v59 = [v40 centerXAnchor];
 
   v60 = [v58 constraintEqualToAnchor:v59];
   *(v54 + 40) = v60;
-  v61 = [*&v40[v41] leadingAnchor];
+  v61 = [*(v40 + v41) leadingAnchor];
   v62 = [v40 leadingAnchor];
 
   v63 = [v61 constraintEqualToAnchor:v62 constant:20.0];
   *(v54 + 48) = v63;
-  v64 = [*&v40[v41] trailingAnchor];
+  v64 = [*(v40 + v41) trailingAnchor];
   v65 = [v40 trailingAnchor];
   v66 = [v64 constraintEqualToAnchor:v65 constant:-20.0];
 
@@ -9577,7 +9612,7 @@ char *specialized MOSuggestionCollectionView.init(controller:presentationDelegat
 
   [v72 activateConstraints:v67];
 
-  v68 = *&v40[OBJC_IVAR____TtC16MomentsUIService26MOSuggestionCollectionView_refresher];
+  v68 = *(v40 + OBJC_IVAR____TtC16MomentsUIService26MOSuggestionCollectionView_refresher);
   [v68 addTarget:v40 action:"handlePullToRefreshTrigger" forControlEvents:4096];
 
   return v40;
@@ -9703,25 +9738,4 @@ uint64_t objectdestroy_24Tm()
   (*(v2 + 8))(v0 + v4, v1);
 
   return _swift_deallocObject(v0, v4 + v5, v3 | 7);
-}
-
-uint64_t partial apply for closure #4 in MOSuggestionCollectionView.collectionView(_:cellForItemAt:)(uint64_t a1, uint64_t (*a2)(uint64_t, uint64_t, uint64_t, uint64_t, char *))
-{
-  v4 = *(type metadata accessor for IndexPath() - 8);
-  v5 = v2[2];
-  v6 = v2[3];
-  v7 = v2[4];
-  v8 = v2 + ((*(v4 + 80) + 40) & ~*(v4 + 80));
-
-  return a2(a1, v5, v6, v7, v8);
-}
-
-void partial apply for closure #2 in MOSuggestionCollectionView.collectionView(_:viewForSupplementaryElementOfKind:at:)()
-{
-  v1 = *(type metadata accessor for IndexPath() - 8);
-  v2 = (*(v1 + 80) + 24) & ~*(v1 + 80);
-  v3 = *(v0 + 16);
-  v4 = *(v0 + ((*(v1 + 64) + v2 + 7) & 0xFFFFFFFFFFFFFFF8));
-
-  closure #2 in MOSuggestionCollectionView.collectionView(_:viewForSupplementaryElementOfKind:at:)(v3, v0 + v2, v4);
 }

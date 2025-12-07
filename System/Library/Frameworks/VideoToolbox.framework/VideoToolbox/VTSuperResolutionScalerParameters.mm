@@ -7,7 +7,7 @@
 
 - (VTSuperResolutionScalerParameters)initWithSourceFrame:(id)frame previousFrame:(id)previousFrame previousOutputFrame:(id)outputFrame opticalFlow:(id)flow submissionMode:(int64_t)mode destinationFrame:(id)destinationFrame
 {
-  if (loadVEFrameworkOnce())
+  if (loadVEFrameworkOnce(self, a2))
   {
     v18.receiver = self;
     v18.super_class = VTSuperResolutionScalerParameters;

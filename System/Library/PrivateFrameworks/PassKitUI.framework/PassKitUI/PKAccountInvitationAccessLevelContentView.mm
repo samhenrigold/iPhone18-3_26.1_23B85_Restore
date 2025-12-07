@@ -163,29 +163,35 @@
   }
 
   v9 = *(MEMORY[0x1E695F050] + 16);
-  v24.origin = *MEMORY[0x1E695F050];
+  v32.origin = *MEMORY[0x1E695F050];
   remainder.origin.x = x + 14.0;
   remainder.origin.y = y + 14.0;
   remainder.size.width = width + -28.0;
   remainder.size.height = height + -28.0;
-  v10 = [(UIImageView *)self->_imageView image:*&v24.origin];
+  v10 = [(UIImageView *)self->_imageView image:*&v32.origin];
 
   if (v10)
   {
-    v27.origin.x = x + 14.0;
-    v27.origin.y = y + 14.0;
-    v27.size.width = width + -28.0;
-    v27.size.height = height + -28.0;
-    CGRectDivide(v27, &v24, &remainder, 46.0, v8);
+    v35.origin.x = x + 14.0;
+    v35.origin.y = y + 14.0;
+    v35.size.width = width + -28.0;
+    v35.size.height = height + -28.0;
+    CGRectDivide(v35, &v32, &remainder, 46.0, v8);
     if (!self->_isTemplateLayout)
     {
       imageView = self->_imageView;
-      PKContentAlignmentMake();
-      PKSizeAlignedInRect();
+      v12 = PKContentAlignmentMake();
+      v14.n128_u64[0] = *&v32.origin.y;
+      v13.n128_u64[0] = *&v32.origin.x;
+      v16.n128_u64[0] = *&v32.size.height;
+      v15.n128_u64[0] = *&v32.size.width;
+      v17.n128_u64[0] = 0x4047000000000000;
+      v18.n128_u64[0] = 0x4047000000000000;
+      PKSizeAlignedInRect(v12, v17, v18, v13, v14, v15, v16, v19);
       [(UIImageView *)imageView setFrame:?];
     }
 
-    CGRectDivide(remainder, &v24, &remainder, 10.0, v8);
+    CGRectDivide(remainder, &v32, &remainder, 10.0, v8);
   }
 
   else if (!self->_isTemplateLayout)
@@ -198,19 +204,19 @@
   if (text)
   {
     [(UILabel *)self->_titleLabel pkui_sizeThatFits:1 forceWordWrap:remainder.size.width, remainder.size.height];
-    v14 = v13;
-    CGRectDivide(remainder, &v24, &remainder, v13, CGRectMinYEdge);
+    v22 = v21;
+    CGRectDivide(remainder, &v32, &remainder, v21, CGRectMinYEdge);
     if (!self->_isTemplateLayout)
     {
-      [(UILabel *)self->_titleLabel setFrame:*&v24.origin, *&v24.size];
+      [(UILabel *)self->_titleLabel setFrame:*&v32.origin, *&v32.size];
     }
 
-    v15 = v14 + 0.0;
+    v23 = v22 + 0.0;
   }
 
   else
   {
-    v15 = 0.0;
+    v23 = 0.0;
     if (!self->_isTemplateLayout)
     {
       [(UILabel *)self->_titleLabel setFrame:*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)];
@@ -222,15 +228,15 @@
   if (text2)
   {
     [(UILabel *)self->_subtitleLabel pkui_sizeThatFits:1 forceWordWrap:remainder.size.width, remainder.size.height];
-    v18 = v17;
-    CGRectDivide(remainder, &v24, &remainder, 5.0, CGRectMinYEdge);
-    CGRectDivide(remainder, &v24, &remainder, v18, CGRectMinYEdge);
+    v26 = v25;
+    CGRectDivide(remainder, &v32, &remainder, 5.0, CGRectMinYEdge);
+    CGRectDivide(remainder, &v32, &remainder, v26, CGRectMinYEdge);
     if (!self->_isTemplateLayout)
     {
-      [(UILabel *)self->_subtitleLabel setFrame:*&v24.origin, *&v24.size];
+      [(UILabel *)self->_subtitleLabel setFrame:*&v32.origin, *&v32.size];
     }
 
-    v15 = v15 + v18 + 5.0;
+    v23 = v23 + v26 + 5.0;
   }
 
   else if (!self->_isTemplateLayout)
@@ -243,15 +249,15 @@
   if (text3)
   {
     [(UILabel *)self->_secondarySubtitleLabel pkui_sizeThatFits:1 forceWordWrap:remainder.size.width, remainder.size.height];
-    v21 = v20;
-    CGRectDivide(remainder, &v24, &remainder, 14.0, CGRectMinYEdge);
-    CGRectDivide(remainder, &v24, &remainder, v21, CGRectMinYEdge);
+    v29 = v28;
+    CGRectDivide(remainder, &v32, &remainder, 14.0, CGRectMinYEdge);
+    CGRectDivide(remainder, &v32, &remainder, v29, CGRectMinYEdge);
     if (!self->_isTemplateLayout)
     {
-      [(UILabel *)self->_secondarySubtitleLabel setFrame:*&v24.origin, *&v24.size];
+      [(UILabel *)self->_secondarySubtitleLabel setFrame:*&v32.origin, *&v32.size];
     }
 
-    v15 = v15 + v21 + 14.0;
+    v23 = v23 + v29 + 14.0;
   }
 
   else if (!self->_isTemplateLayout)
@@ -259,14 +265,14 @@
     [(UILabel *)self->_secondarySubtitleLabel setFrame:*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)];
   }
 
-  v28.origin.x = x;
-  v28.origin.y = y;
-  v28.size.width = width;
-  v28.size.height = height;
-  v22 = CGRectGetWidth(v28);
-  v23 = fmax(v15, 46.0) + 28.0;
-  result.height = v23;
-  result.width = v22;
+  v36.origin.x = x;
+  v36.origin.y = y;
+  v36.size.width = width;
+  v36.size.height = height;
+  v30 = CGRectGetWidth(v36);
+  v31 = fmax(v23, 46.0) + 28.0;
+  result.height = v31;
+  result.width = v30;
   return result;
 }
 

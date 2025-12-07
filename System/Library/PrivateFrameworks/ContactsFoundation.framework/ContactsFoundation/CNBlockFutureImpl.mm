@@ -3,7 +3,7 @@
 
 @implementation CNBlockFutureImpl
 
-uint64_t __43___CNBlockFutureImpl_implicitlyResumeQueue__block_invoke(uint64_t a1)
+void *__43___CNBlockFutureImpl_implicitlyResumeQueue__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) workBlockScheduled];
   if (result)

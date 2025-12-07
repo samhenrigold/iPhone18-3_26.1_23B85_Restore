@@ -65,7 +65,7 @@
   v27.super_class = SBHPageManagementCheckbox;
   [(SBHPageManagementCheckbox *)&v27 layoutSubviews];
   [(SBHPageManagementCheckbox *)self sendSubviewToBack:self->_highlightView];
-  [(SBHPageManagementCheckbox *)self bounds];
+  objc_msgSend_bounds(self);
   v4 = v3;
   v6 = v5;
   v8 = v7;

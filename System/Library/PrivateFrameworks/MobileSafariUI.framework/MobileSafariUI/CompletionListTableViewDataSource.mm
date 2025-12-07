@@ -122,13 +122,13 @@ id __55__CompletionListTableViewDataSource_initWithTableView___block_invoke(uint
 
 - (id)buildSnapshot
 {
-  v56[1] = *MEMORY[0x277D85DE8];
+  v59[1] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CFB890]);
   if ([(CompletionList *)self->_completionList numberOfGroups])
   {
     v4 = 0;
     v5 = 0x277CBE000uLL;
-    v35 = v3;
+    v38 = v3;
     selfCopy = self;
     do
     {
@@ -138,61 +138,61 @@ id __55__CompletionListTableViewDataSource_initWithTableView___block_invoke(uint
       v9 = [v6 stringWithFormat:@"%@-%@", v7, v8];
 
       v10 = [(CompletionList *)self->_completionList completionsForGroupAtIndex:v4];
-      v42 = v9;
-      v56[0] = v9;
-      v11 = [*(v5 + 2656) arrayWithObjects:v56 count:1];
+      v45 = v9;
+      v59[0] = v9;
+      v11 = [*(v5 + 2656) arrayWithObjects:v59 count:1];
       [v3 appendSectionsWithIdentifiers:v11];
 
       v12 = [v10 safari_mapObjectsUsingBlock:&__block_literal_global_9];
-      v40 = [MEMORY[0x277CBEB70] orderedSetWithArray:v12];
-      array = [v40 array];
+      v43 = [MEMORY[0x277CBEB70] orderedSetWithArray:v12];
+      array = [v43 array];
       v14 = [v12 count];
-      v41 = array;
+      v44 = array;
       if (v14 != [array count])
       {
-        v38 = v10;
-        v39 = v4;
+        v41 = v10;
+        v42 = v4;
         v15 = [MEMORY[0x277CBEB58] set];
-        v43 = 0u;
-        v44 = 0u;
-        v45 = 0u;
         v46 = 0u;
+        v47 = 0u;
+        v48 = 0u;
+        v49 = 0u;
         v16 = v12;
-        v17 = [v16 countByEnumeratingWithState:&v43 objects:v55 count:16];
-        v37 = v12;
+        v17 = [v16 countByEnumeratingWithState:&v46 objects:v58 count:16];
+        v40 = v12;
         if (v17)
         {
           v18 = v17;
-          v19 = *v44;
+          v19 = *v47;
           do
           {
             for (i = 0; i != v18; ++i)
             {
-              if (*v44 != v19)
+              if (*v47 != v19)
               {
                 objc_enumerationMutation(v16);
               }
 
-              v21 = *(*(&v43 + 1) + 8 * i);
+              v21 = *(*(&v46 + 1) + 8 * i);
               if ([v15 containsObject:v21])
               {
                 completionItem = [v21 completionItem];
-                v23 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete();
-                if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
+                v24 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete(completionItem, v23);
+                if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
                 {
-                  v24 = v23;
-                  v25 = objc_opt_class();
-                  v26 = NSStringFromClass(v25);
+                  v25 = v24;
+                  v26 = objc_opt_class();
+                  v27 = NSStringFromClass(v26);
                   tableItemEqualityInfo = [completionItem tableItemEqualityInfo];
                   *buf = 138544130;
-                  v48 = v42;
-                  v49 = 2114;
-                  v50 = v26;
-                  v51 = 2114;
-                  v52 = tableItemEqualityInfo;
-                  v53 = 2114;
-                  v54 = completionItem;
-                  _os_log_fault_impl(&dword_215819000, v24, OS_LOG_TYPE_FAULT, "Duplicate completion item found in section '%{public}@': class=%{public}@, tableItemEqualityInfo=%{public}@, completionItem=%{public}@", buf, 0x2Au);
+                  v51 = v45;
+                  v52 = 2114;
+                  v53 = v27;
+                  v54 = 2114;
+                  v55 = tableItemEqualityInfo;
+                  v56 = 2114;
+                  v57 = completionItem;
+                  _os_log_fault_impl(&dword_215819000, v25, OS_LOG_TYPE_FAULT, "Duplicate completion item found in section '%{public}@': class=%{public}@, tableItemEqualityInfo=%{public}@, completionItem=%{public}@", buf, 0x2Au);
                 }
               }
 
@@ -202,40 +202,40 @@ id __55__CompletionListTableViewDataSource_initWithTableView___block_invoke(uint
               }
             }
 
-            v18 = [v16 countByEnumeratingWithState:&v43 objects:v55 count:16];
+            v18 = [v16 countByEnumeratingWithState:&v46 objects:v58 count:16];
           }
 
           while (v18);
         }
 
-        v28 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_FAULT))
+        v31 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete(v29, v30);
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_FAULT))
         {
-          v29 = v28;
-          v30 = [v16 count];
-          v31 = [v41 count];
-          v32 = [v16 count];
-          v33 = [v41 count];
+          v32 = v31;
+          v33 = [v16 count];
+          v34 = [v44 count];
+          v35 = [v16 count];
+          v36 = [v44 count];
           *buf = 138544130;
-          v48 = v42;
-          v49 = 2048;
-          v50 = v30;
-          v51 = 2048;
-          v52 = v31;
-          v53 = 2048;
-          v54 = v32 - v33;
-          _os_log_fault_impl(&dword_215819000, v29, OS_LOG_TYPE_FAULT, "Section '%{public}@' had %lu items before deduplication, %lu items after deduplication (%lu duplicates removed)", buf, 0x2Au);
+          v51 = v45;
+          v52 = 2048;
+          v53 = v33;
+          v54 = 2048;
+          v55 = v34;
+          v56 = 2048;
+          v57 = v35 - v36;
+          _os_log_fault_impl(&dword_215819000, v32, OS_LOG_TYPE_FAULT, "Section '%{public}@' had %lu items before deduplication, %lu items after deduplication (%lu duplicates removed)", buf, 0x2Au);
         }
 
-        v3 = v35;
+        v3 = v38;
         self = selfCopy;
-        v10 = v38;
-        v4 = v39;
+        v10 = v41;
+        v4 = v42;
         v5 = 0x277CBE000;
-        v12 = v37;
+        v12 = v40;
       }
 
-      [v3 appendItemsWithIdentifiers:v41];
+      [v3 appendItemsWithIdentifiers:v44];
 
       ++v4;
     }
@@ -273,11 +273,11 @@ CompletionListTableItem *__50__CompletionListTableViewDataSource_buildSnapshot__
 
 - (id)tableView:(id)view cellForItem:(id)item atIndexPath:(id)path
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   val = view;
   itemCopy = item;
   pathCopy = path;
-  v48 = itemCopy;
+  v50 = itemCopy;
   completionItem = [itemCopy completionItem];
   completionTableViewCellReuseIdentifier = [completionItem completionTableViewCellReuseIdentifier];
   objc_opt_class();
@@ -363,7 +363,7 @@ CompletionListTableItem *__50__CompletionListTableViewDataSource_buildSnapshot__
     v29 = ([pathCopy section] | v21) == 0;
   }
 
-  v47 = v21;
+  v49 = v21;
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
   v31 = completionCellBackgroundModeInTopSection;
@@ -409,13 +409,14 @@ CompletionListTableItem *__50__CompletionListTableViewDataSource_buildSnapshot__
   aBlock[1] = 3221225472;
   aBlock[2] = __71__CompletionListTableViewDataSource_tableView_cellForItem_atIndexPath___block_invoke;
   aBlock[3] = &unk_2781D73C8;
-  objc_copyWeak(&v53, &location);
+  objc_copyWeak(&v55, &location);
   v37 = pathCopy;
-  v52 = v37;
+  v54 = v37;
   v38 = _Block_copy(aBlock);
   [CompletionListTableViewController configureCell:v14 backgroundMode:v35 separatorStyle:separatorStyle shouldHaveTopPadding:v36 configurationStateDidChangeCallback:v38];
   [v14 setClipsToBounds:0];
-  if (objc_opt_respondsToSelector())
+  v39 = objc_opt_respondsToSelector();
+  if (v39)
   {
     WeakRetained = objc_loadWeakRetained(&self->_actionHandler);
     [completionItem setHandlerForActionItem:WeakRetained];
@@ -423,38 +424,38 @@ CompletionListTableItem *__50__CompletionListTableViewDataSource_buildSnapshot__
 
   if (!v14)
   {
-    v40 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete();
-    if (os_log_type_enabled(v40, OS_LOG_TYPE_FAULT))
+    v42 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete(v39, v40);
+    if (os_log_type_enabled(v42, OS_LOG_TYPE_FAULT))
     {
       if (self->_completionList)
       {
-        v42 = @"IS NOT";
+        v44 = @"IS NOT";
       }
 
       else
       {
-        v42 = @"IS";
+        v44 = @"IS";
       }
 
-      v43 = objc_opt_class();
+      v45 = objc_opt_class();
       numberOfGroups = [(CompletionList *)self->_completionList numberOfGroups];
-      v45 = -[CompletionList completionsForGroupAtIndex:](self->_completionList, "completionsForGroupAtIndex:", [v37 section]);
-      v46 = [v45 count];
+      v47 = -[CompletionList completionsForGroupAtIndex:](self->_completionList, "completionsForGroupAtIndex:", [v37 section]);
+      v48 = [v47 count];
       *buf = 138544386;
-      v56 = v37;
-      v57 = 2114;
-      v58 = v42;
+      v58 = v37;
       v59 = 2114;
-      v60 = v43;
-      v61 = 2048;
-      v62 = numberOfGroups;
+      v60 = v44;
+      v61 = 2114;
+      v62 = v45;
       v63 = 2048;
-      v64 = v46;
-      _os_log_fault_impl(&dword_215819000, v40, OS_LOG_TYPE_FAULT, "No cell returned for completion item at index path %{public}@; completion list %{public}@ nil; item class: %{public}@; number of groups: %ld; number of completions in group: %ld", buf, 0x34u);
+      v64 = numberOfGroups;
+      v65 = 2048;
+      v66 = v48;
+      _os_log_fault_impl(&dword_215819000, v42, OS_LOG_TYPE_FAULT, "No cell returned for completion item at index path %{public}@; completion list %{public}@ nil; item class: %{public}@; number of groups: %ld; number of completions in group: %ld", buf, 0x34u);
     }
   }
 
-  objc_destroyWeak(&v53);
+  objc_destroyWeak(&v55);
   objc_destroyWeak(&location);
 
   return v14;

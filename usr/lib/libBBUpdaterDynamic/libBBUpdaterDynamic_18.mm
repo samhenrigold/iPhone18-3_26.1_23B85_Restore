@@ -1,3 +1,395 @@
+void sub_1E5328128(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, void *a20, uint64_t a21, int a22, __int16 a23, char a24, char a25, uint64_t a26, char a27)
+{
+  if (a18 < 0)
+  {
+    operator delete(__p);
+    if ((a25 & 0x80000000) == 0)
+    {
+LABEL_3:
+      std::pair<std::string,std::string>::~pair(&a27);
+      _Unwind_Resume(a1);
+    }
+  }
+
+  else if ((a25 & 0x80000000) == 0)
+  {
+    goto LABEL_3;
+  }
+
+  operator delete(a20);
+  std::pair<std::string,std::string>::~pair(&a27);
+  _Unwind_Resume(a1);
+}
+
+uint64_t saveNVRAMFile(const __CFDictionary *a1, ACFURTKitNVRMGenerator **a2)
+{
+  v30 = *MEMORY[0x1E69E9840];
+  v26 = 0;
+  memset(&v25, 0, sizeof(v25));
+  memset(v29, 170, sizeof(v29));
+  *&v29[456] = 0;
+  v27[1] = 0;
+  *&v29[408] = &unk_1F5F01790;
+  std::ios_base::init(&v29[408], v29);
+  *&v29[552] = -1;
+  *&v29[544] = 0;
+  v4 = MEMORY[0x1E6926FC0](v29);
+  if (!a1)
+  {
+    LogInstance = ACFULogging::getLogInstance(v4);
+    ACFULogging::handleMessage(LogInstance, 2, "%s::%s: updaterOptions parameter is NULL\n");
+LABEL_27:
+    v6 = 0;
+    v8 = 1;
+    goto LABEL_19;
+  }
+
+  if (!*a2)
+  {
+    v22 = ACFULogging::getLogInstance(v4);
+    ACFULogging::handleMessage(v22, 2, "%s::%s: nv parameter is NULL\n");
+    goto LABEL_27;
+  }
+
+  Value = CFDictionaryGetValue(a1, @"NVRAMOutputPath");
+  v6 = Value;
+  if (!Value)
+  {
+    v8 = 0;
+    goto LABEL_19;
+  }
+
+  v7 = CFGetTypeID(Value);
+  if (v7 == CFStringGetTypeID())
+  {
+    CFRetain(v6);
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  v26 = v6;
+  v9 = CFGetTypeID(v6);
+  TypeID = CFStringGetTypeID();
+  if (v9 == TypeID)
+  {
+    CStringPtr = CFStringGetCStringPtr(v6, 0x8000100u);
+    v12 = std::string::__assign_external(&v25, CStringPtr);
+    v13 = ACFULogging::getLogInstance(v12);
+    v14 = &v25;
+    if ((v25.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    {
+      v14 = v25.__r_.__value_.__r.__words[0];
+    }
+
+    ACFULogging::handleMessage(v13, 3, "%s::%s: Saving NVRAM binary file as: %s\n", "BasebandNVRAM", "saveNVRAMFile", v14);
+    v15 = ACFURTKitNVRMGenerator::copy(*a2);
+    v16 = std::filebuf::open();
+    v17 = (v27 + *(v27[0] - 24));
+    if (v16)
+    {
+      v18 = 0;
+    }
+
+    else
+    {
+      v18 = v17->__rdstate_ | 4;
+    }
+
+    std::ios_base::clear(v17, v18);
+    if (*&v29[120])
+    {
+      CFDataGetBytePtr(v15);
+      CFDataGetLength(v15);
+      std::ostream::write();
+      if (!std::filebuf::close())
+      {
+        std::ios_base::clear((v27 + *(v27[0] - 24)), *&v29[*(v27[0] - 24) + 8] | 4);
+      }
+
+      v8 = 0;
+      if (v15)
+      {
+        goto LABEL_18;
+      }
+    }
+
+    else
+    {
+      v24 = ACFULogging::getLogInstance(v19);
+      ACFULogging::handleMessage(v24, 2, "%s::%s: Failed creating nvram.bin.\n", "BasebandNVRAM", "saveNVRAMFile");
+      v8 = 1;
+      if (v15)
+      {
+LABEL_18:
+        CFRelease(v15);
+      }
+    }
+  }
+
+  else
+  {
+    v23 = ACFULogging::getLogInstance(TypeID);
+    ACFULogging::handleMessage(v23, 2, "%s::%s: Incorrect type for nvramOutputPath, fail.\n", "BasebandNVRAM", "saveNVRAMFile");
+    v8 = 1;
+  }
+
+LABEL_19:
+  MEMORY[0x1E6926FD0](v29);
+  std::iostream::~basic_iostream();
+  MEMORY[0x1E69273B0](&v29[408]);
+  if ((SHIBYTE(v25.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+  {
+    if (!v6)
+    {
+      return v8;
+    }
+
+    goto LABEL_23;
+  }
+
+  operator delete(v25.__r_.__value_.__l.__data_);
+  if (v6)
+  {
+LABEL_23:
+    CFRelease(v6);
+  }
+
+  return v8;
+}
+
+void sub_1E5328580(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19, char a20, int a21, __int16 a22, char a23, char a24)
+{
+  if (a2)
+  {
+    __clang_call_terminate(exception_object);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t std::pair<std::string const,std::string>::pair[abi:ne200100]<char const* const&,char const* const&,0>(uint64_t a1, char *__s, const char **a3)
+{
+  v6 = strlen(__s);
+  if (v6 > 0x7FFFFFFFFFFFFFF7)
+  {
+    std::string::__throw_length_error[abi:ne200100]();
+  }
+
+  v7 = v6;
+  if (v6 >= 0x17)
+  {
+    if ((v6 | 7) == 0x17)
+    {
+      v9 = 25;
+    }
+
+    else
+    {
+      v9 = (v6 | 7) + 1;
+    }
+
+    v8 = operator new(v9);
+    *(a1 + 8) = v7;
+    *(a1 + 16) = v9 | 0x8000000000000000;
+    *a1 = v8;
+    goto LABEL_9;
+  }
+
+  *(a1 + 23) = v6;
+  v8 = a1;
+  if (v6)
+  {
+LABEL_9:
+    memmove(v8, __s, v7);
+  }
+
+  *(v8 + v7) = 0;
+  v10 = *a3;
+  v11 = strlen(*a3);
+  if (v11 > 0x7FFFFFFFFFFFFFF7)
+  {
+    std::string::__throw_length_error[abi:ne200100]();
+  }
+
+  v12 = v11;
+  if (v11 >= 0x17)
+  {
+    if ((v11 | 7) == 0x17)
+    {
+      v14 = 25;
+    }
+
+    else
+    {
+      v14 = (v11 | 7) + 1;
+    }
+
+    v13 = operator new(v14);
+    *(a1 + 32) = v12;
+    *(a1 + 40) = v14 | 0x8000000000000000;
+    *(a1 + 24) = v13;
+  }
+
+  else
+  {
+    v13 = (a1 + 24);
+    *(a1 + 47) = v11;
+    if (!v11)
+    {
+      goto LABEL_19;
+    }
+  }
+
+  memmove(v13, v10, v12);
+LABEL_19:
+  *(v13 + v12) = 0;
+  return a1;
+}
+
+void sub_1E5328734(_Unwind_Exception *exception_object)
+{
+  if (*(v1 + 23) < 0)
+  {
+    operator delete(*v1);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void std::vector<std::pair<std::string,std::string>>::push_back[abi:ne200100](uint64_t a1, __int128 *a2)
+{
+  v5 = *(a1 + 8);
+  v4 = *(a1 + 16);
+  if (v5 < v4)
+  {
+    if (*(a2 + 23) < 0)
+    {
+      std::string::__init_copy_ctor_external(*(a1 + 8), *a2, *(a2 + 1));
+    }
+
+    else
+    {
+      v6 = *a2;
+      *(v5 + 16) = *(a2 + 2);
+      *v5 = v6;
+    }
+
+    if (*(a2 + 47) < 0)
+    {
+      std::string::__init_copy_ctor_external((v5 + 24), *(a2 + 3), *(a2 + 4));
+    }
+
+    else
+    {
+      v12 = *(a2 + 24);
+      *(v5 + 40) = *(a2 + 5);
+      *(v5 + 24) = v12;
+    }
+
+    v13 = (v5 + 48);
+    *(a1 + 8) = v13;
+LABEL_18:
+    *(a1 + 8) = v13;
+    return;
+  }
+
+  v7 = 0xAAAAAAAAAAAAAAABLL * ((v5 - *a1) >> 4);
+  if (v7 + 1 > 0x555555555555555)
+  {
+    std::vector<std::sub_match<char const*>>::__throw_length_error[abi:ne200100]();
+  }
+
+  v8 = 0xAAAAAAAAAAAAAAABLL * ((v4 - *a1) >> 4);
+  v9 = 2 * v8;
+  if (2 * v8 <= v7 + 1)
+  {
+    v9 = v7 + 1;
+  }
+
+  if (v8 >= 0x2AAAAAAAAAAAAAALL)
+  {
+    v10 = 0x555555555555555;
+  }
+
+  else
+  {
+    v10 = v9;
+  }
+
+  if (v10)
+  {
+    if (v10 > 0x555555555555555)
+    {
+      std::__throw_bad_array_new_length[abi:ne200100]();
+    }
+
+    v11 = operator new(48 * v10);
+  }
+
+  else
+  {
+    v11 = 0;
+  }
+
+  v14 = &v11[48 * v7];
+  v18 = v14;
+  v19 = v14;
+  v20 = &v11[48 * v10];
+  if (*(a2 + 23) < 0)
+  {
+    std::string::__init_copy_ctor_external(v14, *a2, *(a2 + 1));
+  }
+
+  else
+  {
+    *&v14->__r_.__value_.__l.__data_ = *a2;
+    v14->__r_.__value_.__r.__words[2] = *(a2 + 2);
+  }
+
+  if (*(a2 + 47) < 0)
+  {
+    std::string::__init_copy_ctor_external(v14 + 1, *(a2 + 3), *(a2 + 4));
+  }
+
+  else
+  {
+    *&v14[1].__r_.__value_.__l.__data_ = *(a2 + 24);
+    v14[1].__r_.__value_.__r.__words[2] = *(a2 + 5);
+  }
+
+  v13 = v14 + 2;
+  v15 = *(a1 + 8) - *a1;
+  v16 = v18 - v15;
+  memcpy(v18 - v15, *a1, v15);
+  v17 = *a1;
+  *a1 = v16;
+  *(a1 + 8) = v19 + 2;
+  *(a1 + 16) = v20;
+  if (!v17)
+  {
+    goto LABEL_18;
+  }
+
+  operator delete(v17);
+  *(a1 + 8) = v13;
+}
+
+void sub_1E532891C(_Unwind_Exception *a1, std::__split_buffer<std::pair<std::string, std::string>> *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+{
+  if (*(v10 + 23) < 0)
+  {
+    operator delete(*v10);
+    std::__split_buffer<std::pair<std::string,std::string>>::~__split_buffer(&a10);
+    _Unwind_Resume(a1);
+  }
+
+  std::__split_buffer<std::pair<std::string,std::string>>::~__split_buffer(&a10);
+  _Unwind_Resume(a1);
+}
+
 void sub_1E5328954(_Unwind_Exception *exception_object)
 {
   if (*(v2 + 23) < 0)
@@ -121,7 +513,7 @@ uint64_t *std::__tree<std::__value_type<std::string,std::string>,std::__map_valu
       v6 = *(v1 + 55);
       v7 = v6 >= 0 ? (v1 + 32) : *(v1 + 32);
       v8 = v6 >= 0 ? *(v1 + 55) : *(v1 + 40);
-      v9 = v4 >= v8 ? v8 : v4;
+      v9 = (v4 >= v8 ? v8 : v4);
       v10 = memcmp(v7, v3, v9);
       if (v10)
       {
@@ -390,14 +782,14 @@ LABEL_10:
   return a1;
 }
 
-void std::vector<std::pair<std::string,std::string>>::__assign_with_size[abi:ne200100]<std::pair<std::string,std::string>*,std::pair<std::string,std::string>*>(uint64_t a1, size_t *a2, __int128 *a3, unint64_t a4)
+void std::vector<std::pair<std::string,std::string>>::__assign_with_size[abi:ne200100]<std::pair<std::string,std::string>*,std::pair<std::string,std::string>*>(void ****a1, size_t **a2, __int128 *a3, unint64_t a4)
 {
   v5 = a2;
-  v7 = *(a1 + 16);
+  v7 = a1[2];
   v8 = *a1;
   if (0xAAAAAAAAAAAAAAABLL * ((v7 - *a1) >> 4) >= a4)
   {
-    v13 = *(a1 + 8);
+    v13 = a1[1];
     v14 = v13 - v8;
     if (0xAAAAAAAAAAAAAAABLL * ((v13 - v8) >> 4) < a4)
     {
@@ -414,7 +806,7 @@ void std::vector<std::pair<std::string,std::string>>::__assign_with_size[abi:ne2
         }
 
         while (v15);
-        v13 = *(a1 + 8);
+        v13 = a1[1];
       }
 
       v17 = std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::pair<std::string,std::string>>,std::pair<std::string,std::string>*,std::pair<std::string,std::string>*,std::pair<std::string,std::string>*>(a1, (v5 + v14), a3, v13);
@@ -431,13 +823,13 @@ void std::vector<std::pair<std::string,std::string>>::__assign_with_size[abi:ne2
       }
 
       while (v5 != a3);
-      v13 = *(a1 + 8);
+      v13 = a1[1];
     }
 
     if (v13 == v8)
     {
 LABEL_21:
-      *(a1 + 8) = v8;
+      a1[1] = v8;
       return;
     }
 
@@ -477,17 +869,17 @@ LABEL_27:
   }
 
   v9 = a4;
-  v10 = *(a1 + 8);
+  v10 = a1[1];
   v11 = *a1;
   if (v10 != v8)
   {
     while (1)
     {
-      if (*(v10 - 1) < 0)
+      if (SHIBYTE(v10[-1].__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(*(v10 - 3));
-        v12 = v10 - 6;
-        if (*(v10 - 25) < 0)
+        operator delete(v10[-1].__r_.__value_.__l.__data_);
+        v12 = &v10[-2].__r_.__value_.__l.__data_;
+        if (SHIBYTE(v10[-2].__r_.__value_.__r.__words[2]) < 0)
         {
 LABEL_10:
           operator delete(*v12);
@@ -496,8 +888,8 @@ LABEL_10:
 
       else
       {
-        v12 = v10 - 6;
-        if (*(v10 - 25) < 0)
+        v12 = &v10[-2].__r_.__value_.__l.__data_;
+        if (SHIBYTE(v10[-2].__r_.__value_.__r.__words[2]) < 0)
         {
           goto LABEL_10;
         }
@@ -512,12 +904,12 @@ LABEL_10:
     }
   }
 
-  *(a1 + 8) = v8;
+  a1[1] = v8;
   operator delete(v11);
   v7 = 0;
   *a1 = 0;
-  *(a1 + 8) = 0;
-  *(a1 + 16) = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   a4 = v9;
 LABEL_30:
   if (a4 > 0x555555555555555)
@@ -542,14 +934,14 @@ LABEL_39:
   v22 = 2 * v21;
   v23 = operator new(48 * v21);
   *a1 = v23;
-  *(a1 + 8) = v23;
-  *(a1 + 16) = &v23[v22];
+  a1[1] = v23;
+  a1[2] = &v23[v22];
   v17 = std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::pair<std::string,std::string>>,std::pair<std::string,std::string>*,std::pair<std::string,std::string>*,std::pair<std::string,std::string>*>(a1, v5, a3, v23);
 LABEL_38:
-  *(a1 + 8) = v17;
+  a1[1] = v17;
 }
 
-void **std::pair<std::string,std::string>::operator=[abi:ne200100](void **a1, size_t *a2)
+void ***std::pair<std::string,std::string>::operator=[abi:ne200100](void ***a1, size_t **a2)
 {
   if (a1 == a2)
   {
@@ -609,13 +1001,13 @@ LABEL_10:
     }
 
     v8 = *v5;
-    a1[5] = *(v5 + 2);
+    a1[5] = v5[2];
     *(a1 + 3) = v8;
     return a1;
   }
 
 LABEL_14:
-  if ((v6 & 0x80u) == 0)
+  if (v6 >= 0)
   {
     v10 = v5;
   }
@@ -625,7 +1017,7 @@ LABEL_14:
     v10 = v3[3];
   }
 
-  if ((v6 & 0x80u) == 0)
+  if (v6 >= 0)
   {
     v11 = v6;
   }
@@ -1114,35 +1506,35 @@ uint64_t std::__shared_ptr_pointer<ACFURTKitNVRMGenerator  *>::__get_deleter(uin
 
 void _GLOBAL__sub_I_BasebandNVRAM_mm()
 {
-  v57 = *MEMORY[0x1E69E9840];
-  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const* const&,char const* const&,0>(v9, "boot-args", kBootArgsShort);
-  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const* const&,char const* const&,0>(&v13, "boot-command", kBootCommadShort);
-  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const* const&,char const* const&,0>(&v17, "auto-boot", kAutoBootShort);
-  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const* const&,char const* const&,0>(&v21, "bootdelay", kBootDelayShort);
-  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const* const&,char const* const&,0>(&v25, "boot-script", kBootScriptShort);
-  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const* const&,char const* const&,0>(&v29, "boot-device", kBootDeviceShort);
-  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const* const&,char const* const&,0>(&v33, "debug-soc", kDebugSocShort);
-  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const* const&,char const* const&,0>(&v37, "debug-uarts", kDebugUartsShort);
-  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const* const&,char const* const&,0>(&v41, "force-ctrr-lock", kForceCtrrLockShort);
-  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const* const&,char const* const&,0>(&v45, "enable-auth-debug", kEnableAuthDebugShort);
-  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const* const&,char const* const&,0>(&v49, "reconfig-breakpoints", kReconfigBreakpointsShort);
-  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const* const&,char const* const&,0>(&v53, "reconfig-behavior", kReconfigBehaviorShort);
+  v55 = *MEMORY[0x1E69E9840];
+  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const* const&,char const* const&,0>(v7, "boot-args", kBootArgsShort);
+  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const* const&,char const* const&,0>(&v11, "boot-command", kBootCommadShort);
+  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const* const&,char const* const&,0>(&v15, "auto-boot", kAutoBootShort);
+  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const* const&,char const* const&,0>(&v19, "bootdelay", kBootDelayShort);
+  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const* const&,char const* const&,0>(&v23, "boot-script", kBootScriptShort);
+  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const* const&,char const* const&,0>(&v27, "boot-device", kBootDeviceShort);
+  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const* const&,char const* const&,0>(&v31, "debug-soc", kDebugSocShort);
+  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const* const&,char const* const&,0>(&v35, "debug-uarts", kDebugUartsShort);
+  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const* const&,char const* const&,0>(&v39, "force-ctrr-lock", kForceCtrrLockShort);
+  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const* const&,char const* const&,0>(&v43, "enable-auth-debug", kEnableAuthDebugShort);
+  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const* const&,char const* const&,0>(&v47, "reconfig-breakpoints", kReconfigBreakpointsShort);
+  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const* const&,char const* const&,0>(&v51, "reconfig-behavior", kReconfigBehaviorShort);
   v0 = 0;
   qword_1ED949C00 = 0;
   qword_1ED949BF8 = 0;
   mNVRAMItems = &qword_1ED949BF8;
   do
   {
-    v7 = 0xAAAAAAAAAAAAAAAALL;
-    v8 = 0xAAAAAAAAAAAAAAAALL;
-    v1 = std::__tree<std::__value_type<std::string,__CFData const*>,std::__map_value_compare<std::string,std::__value_type<std::string,__CFData const*>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,__CFData const*>>>::__find_equal<std::string>(&mNVRAMItems, &qword_1ED949BF8, &v8, &v7, &v9[v0]);
+    v5 = 0xAAAAAAAAAAAAAAAALL;
+    v6 = 0xAAAAAAAAAAAAAAAALL;
+    v1 = std::__tree<std::__value_type<std::string,__CFData const*>,std::__map_value_compare<std::string,std::__value_type<std::string,__CFData const*>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,__CFData const*>>>::__find_equal<std::string>(&mNVRAMItems, &qword_1ED949BF8, &v6, &v5, &v7[v0]);
     if (!*v1)
     {
-      memset(v6, 170, sizeof(v6));
-      std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__construct_node<std::pair<std::string const,std::string> const&>(&mNVRAMItems, &v9[v0], v6);
-      v2 = v8;
-      v3 = v6[0];
-      *v6[0] = 0;
+      memset(v4, 170, sizeof(v4));
+      std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__construct_node<std::pair<std::string const,std::string> const&>(&mNVRAMItems, &v7[v0], v4);
+      v2 = v6;
+      v3 = v4[0];
+      *v4[0] = 0;
       v3[1] = 0;
       v3[2] = v2;
       *v1 = v3;
@@ -1159,310 +1551,306 @@ void _GLOBAL__sub_I_BasebandNVRAM_mm()
   }
 
   while (v0 != 72);
-  if (v56 < 0)
+  if (v54 < 0)
   {
     operator delete(__p);
-    if ((v54 & 0x80000000) == 0)
+    if ((v52 & 0x80000000) == 0)
     {
 LABEL_9:
-      if ((v52 & 0x80000000) == 0)
+      if ((v50 & 0x80000000) == 0)
       {
         goto LABEL_10;
       }
 
-      goto LABEL_35;
+      goto LABEL_34;
     }
   }
 
-  else if ((v54 & 0x80000000) == 0)
+  else if ((v52 & 0x80000000) == 0)
   {
     goto LABEL_9;
   }
 
-  operator delete(v53);
-  if ((v52 & 0x80000000) == 0)
+  operator delete(v51);
+  if ((v50 & 0x80000000) == 0)
   {
 LABEL_10:
-    if ((v50 & 0x80000000) == 0)
+    if ((v48 & 0x80000000) == 0)
     {
       goto LABEL_11;
+    }
+
+    goto LABEL_35;
+  }
+
+LABEL_34:
+  operator delete(v49);
+  if ((v48 & 0x80000000) == 0)
+  {
+LABEL_11:
+    if ((v46 & 0x80000000) == 0)
+    {
+      goto LABEL_12;
     }
 
     goto LABEL_36;
   }
 
 LABEL_35:
-  operator delete(v51);
-  if ((v50 & 0x80000000) == 0)
+  operator delete(v47);
+  if ((v46 & 0x80000000) == 0)
   {
-LABEL_11:
-    if ((v48 & 0x80000000) == 0)
+LABEL_12:
+    if ((v44 & 0x80000000) == 0)
     {
-      goto LABEL_12;
+      goto LABEL_13;
     }
 
     goto LABEL_37;
   }
 
 LABEL_36:
-  operator delete(v49);
-  if ((v48 & 0x80000000) == 0)
+  operator delete(v45);
+  if ((v44 & 0x80000000) == 0)
   {
-LABEL_12:
-    if ((v46 & 0x80000000) == 0)
+LABEL_13:
+    if ((v42 & 0x80000000) == 0)
     {
-      goto LABEL_13;
+      goto LABEL_14;
     }
 
     goto LABEL_38;
   }
 
 LABEL_37:
-  operator delete(v47);
-  if ((v46 & 0x80000000) == 0)
+  operator delete(v43);
+  if ((v42 & 0x80000000) == 0)
   {
-LABEL_13:
-    if ((v44 & 0x80000000) == 0)
+LABEL_14:
+    if ((v40 & 0x80000000) == 0)
     {
-      goto LABEL_14;
+      goto LABEL_15;
     }
 
     goto LABEL_39;
   }
 
 LABEL_38:
-  operator delete(v45);
-  if ((v44 & 0x80000000) == 0)
+  operator delete(v41);
+  if ((v40 & 0x80000000) == 0)
   {
-LABEL_14:
-    if ((v42 & 0x80000000) == 0)
+LABEL_15:
+    if ((v38 & 0x80000000) == 0)
     {
-      goto LABEL_15;
+      goto LABEL_16;
     }
 
     goto LABEL_40;
   }
 
 LABEL_39:
-  operator delete(v43);
-  if ((v42 & 0x80000000) == 0)
+  operator delete(v39);
+  if ((v38 & 0x80000000) == 0)
   {
-LABEL_15:
-    if ((v40 & 0x80000000) == 0)
+LABEL_16:
+    if ((v36 & 0x80000000) == 0)
     {
-      goto LABEL_16;
+      goto LABEL_17;
     }
 
     goto LABEL_41;
   }
 
 LABEL_40:
-  operator delete(v41);
-  if ((v40 & 0x80000000) == 0)
+  operator delete(v37);
+  if ((v36 & 0x80000000) == 0)
   {
-LABEL_16:
-    if ((v38 & 0x80000000) == 0)
+LABEL_17:
+    if ((v34 & 0x80000000) == 0)
     {
-      goto LABEL_17;
+      goto LABEL_18;
     }
 
     goto LABEL_42;
   }
 
 LABEL_41:
-  operator delete(v39);
-  if ((v38 & 0x80000000) == 0)
+  operator delete(v35);
+  if ((v34 & 0x80000000) == 0)
   {
-LABEL_17:
-    if ((v36 & 0x80000000) == 0)
+LABEL_18:
+    if ((v32 & 0x80000000) == 0)
     {
-      goto LABEL_18;
+      goto LABEL_19;
     }
 
     goto LABEL_43;
   }
 
 LABEL_42:
-  operator delete(v37);
-  if ((v36 & 0x80000000) == 0)
+  operator delete(v33);
+  if ((v32 & 0x80000000) == 0)
   {
-LABEL_18:
-    if ((v34 & 0x80000000) == 0)
+LABEL_19:
+    if ((v30 & 0x80000000) == 0)
     {
-      goto LABEL_19;
+      goto LABEL_20;
     }
 
     goto LABEL_44;
   }
 
 LABEL_43:
-  operator delete(v35);
-  if ((v34 & 0x80000000) == 0)
+  operator delete(v31);
+  if ((v30 & 0x80000000) == 0)
   {
-LABEL_19:
-    if ((v32 & 0x80000000) == 0)
+LABEL_20:
+    if ((v28 & 0x80000000) == 0)
     {
-      goto LABEL_20;
+      goto LABEL_21;
     }
 
     goto LABEL_45;
   }
 
 LABEL_44:
-  operator delete(v33);
-  if ((v32 & 0x80000000) == 0)
+  operator delete(v29);
+  if ((v28 & 0x80000000) == 0)
   {
-LABEL_20:
-    if ((v30 & 0x80000000) == 0)
+LABEL_21:
+    if ((v26 & 0x80000000) == 0)
     {
-      goto LABEL_21;
+      goto LABEL_22;
     }
 
     goto LABEL_46;
   }
 
 LABEL_45:
-  operator delete(v31);
-  if ((v30 & 0x80000000) == 0)
+  operator delete(v27);
+  if ((v26 & 0x80000000) == 0)
   {
-LABEL_21:
-    if ((v28 & 0x80000000) == 0)
+LABEL_22:
+    if ((v24 & 0x80000000) == 0)
     {
-      goto LABEL_22;
+      goto LABEL_23;
     }
 
     goto LABEL_47;
   }
 
 LABEL_46:
-  operator delete(v29);
-  if ((v28 & 0x80000000) == 0)
+  operator delete(v25);
+  if ((v24 & 0x80000000) == 0)
   {
-LABEL_22:
-    if ((v26 & 0x80000000) == 0)
+LABEL_23:
+    if ((v22 & 0x80000000) == 0)
     {
-      goto LABEL_23;
+      goto LABEL_24;
     }
 
     goto LABEL_48;
   }
 
 LABEL_47:
-  operator delete(v27);
-  if ((v26 & 0x80000000) == 0)
+  operator delete(v23);
+  if ((v22 & 0x80000000) == 0)
   {
-LABEL_23:
-    if ((v24 & 0x80000000) == 0)
+LABEL_24:
+    if ((v20 & 0x80000000) == 0)
     {
-      goto LABEL_24;
+      goto LABEL_25;
     }
 
     goto LABEL_49;
   }
 
 LABEL_48:
-  operator delete(v25);
-  if ((v24 & 0x80000000) == 0)
+  operator delete(v21);
+  if ((v20 & 0x80000000) == 0)
   {
-LABEL_24:
-    if ((v22 & 0x80000000) == 0)
+LABEL_25:
+    if ((v18 & 0x80000000) == 0)
     {
-      goto LABEL_25;
+      goto LABEL_26;
     }
 
     goto LABEL_50;
   }
 
 LABEL_49:
-  operator delete(v23);
-  if ((v22 & 0x80000000) == 0)
+  operator delete(v19);
+  if ((v18 & 0x80000000) == 0)
   {
-LABEL_25:
-    if ((v20 & 0x80000000) == 0)
+LABEL_26:
+    if ((v16 & 0x80000000) == 0)
     {
-      goto LABEL_26;
+      goto LABEL_27;
     }
 
     goto LABEL_51;
   }
 
 LABEL_50:
-  operator delete(v21);
-  if ((v20 & 0x80000000) == 0)
+  operator delete(v17);
+  if ((v16 & 0x80000000) == 0)
   {
-LABEL_26:
-    if ((v18 & 0x80000000) == 0)
+LABEL_27:
+    if ((v14 & 0x80000000) == 0)
     {
-      goto LABEL_27;
+      goto LABEL_28;
     }
 
     goto LABEL_52;
   }
 
 LABEL_51:
-  operator delete(v19);
-  if ((v18 & 0x80000000) == 0)
+  operator delete(v15);
+  if ((v14 & 0x80000000) == 0)
   {
-LABEL_27:
-    if ((v16 & 0x80000000) == 0)
+LABEL_28:
+    if ((v12 & 0x80000000) == 0)
     {
-      goto LABEL_28;
+      goto LABEL_29;
     }
 
     goto LABEL_53;
   }
 
 LABEL_52:
-  operator delete(v17);
-  if ((v16 & 0x80000000) == 0)
+  operator delete(v13);
+  if ((v12 & 0x80000000) == 0)
   {
-LABEL_28:
-    if ((v14 & 0x80000000) == 0)
+LABEL_29:
+    if ((v10 & 0x80000000) == 0)
     {
-      goto LABEL_29;
+      goto LABEL_30;
     }
 
     goto LABEL_54;
   }
 
 LABEL_53:
-  operator delete(v15);
-  if ((v14 & 0x80000000) == 0)
+  operator delete(v11);
+  if ((v10 & 0x80000000) == 0)
   {
-LABEL_29:
-    if ((v12 & 0x80000000) == 0)
+LABEL_30:
+    if ((v8 & 0x80000000) == 0)
     {
-      goto LABEL_30;
+      return;
     }
 
 LABEL_55:
-    operator delete(v11);
-    if ((v10 & 0x80000000) == 0)
-    {
-      goto LABEL_31;
-    }
-
-LABEL_56:
-    operator delete(v9[0]);
-    v5 = *MEMORY[0x1E69E9840];
+    operator delete(v7[0]);
     return;
   }
 
 LABEL_54:
-  operator delete(v13);
-  if (v12 < 0)
+  operator delete(v9);
+  if (v8 < 0)
   {
     goto LABEL_55;
   }
-
-LABEL_30:
-  if (v10 < 0)
-  {
-    goto LABEL_56;
-  }
-
-LABEL_31:
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1E5329D98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23)
@@ -1477,21 +1865,21 @@ void sub_1E5329D98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_1E5329DBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_1E5329DBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
-  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,ctu::Http::case_insensitive_key_comparer,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v16, *(v16 + 8));
-  std::pair<std::string,std::string>::~pair(v17);
-  std::pair<std::string,std::string>::~pair(v15);
-  std::pair<std::string,std::string>::~pair(v18);
-  std::pair<std::string,std::string>::~pair(a3);
-  std::pair<std::string,std::string>::~pair(a4);
-  std::pair<std::string,std::string>::~pair(a5);
-  std::pair<std::string,std::string>::~pair(a6);
-  std::pair<std::string,std::string>::~pair(a7);
-  std::pair<std::string,std::string>::~pair(a8);
-  std::pair<std::string,std::string>::~pair(a9);
+  va_start(va, a22);
+  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,ctu::Http::case_insensitive_key_comparer,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v23, *(v23 + 8));
+  std::pair<std::string,std::string>::~pair(v24);
+  std::pair<std::string,std::string>::~pair(v22);
+  std::pair<std::string,std::string>::~pair(v25);
   std::pair<std::string,std::string>::~pair(a10);
+  std::pair<std::string,std::string>::~pair(a11);
+  std::pair<std::string,std::string>::~pair(a12);
+  std::pair<std::string,std::string>::~pair(a13);
+  std::pair<std::string,std::string>::~pair(a14);
+  std::pair<std::string,std::string>::~pair(a15);
+  std::pair<std::string,std::string>::~pair(a16);
+  std::pair<std::string,std::string>::~pair(a17);
   std::pair<std::string,std::string>::~pair(va);
   _Unwind_Resume(a1);
 }
@@ -1539,28 +1927,28 @@ uint64_t BBUICEMRCImage::getWritePayloadData(BBUICEMRCImage *this, unsigned __in
   if (result <= a4)
   {
     exception = __cxa_allocate_exception(0x210uLL);
-    _BBUException::_BBUException(exception, 106, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/Images/ICE/BBUICEMRCImage.cpp", 0x1Du, "Assertion failure((offset < (getWritePayloadLength())) && Chunk size is not sufficient to write payload data of the MRC image!)", v10, v11, v12, v19);
+    _BBUException::_BBUException(exception, 106, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/Images/ICE/BBUICEMRCImage.cpp", 0x1Du, "Assertion failure((offset < (getWritePayloadLength())) && Chunk size is not sufficient to write payload data of the MRC image!)");
     goto LABEL_9;
   }
 
-  v20 = -1431655766;
+  v10 = -1431655766;
   if (!a3)
   {
     return result;
   }
 
-  result = (*(**(this + 5) + 16))(*(this + 5), a2, a3, &v20, *(this + 8) + a4);
+  result = (*(**(this + 5) + 16))(*(this + 5), a2, a3, &v10, *(this + 8) + a4);
   if (result)
   {
     exception = __cxa_allocate_exception(0x210uLL);
-    _BBUException::_BBUException(exception, 106, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/Images/ICE/BBUICEMRCImage.cpp", 0x24u, "Assertion failure((ret == kBBUReturnSuccess) && Failed to copy MRC image payload data to buffer!)", v13, v14, v15, v19);
+    _BBUException::_BBUException(exception, 106, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/Images/ICE/BBUICEMRCImage.cpp", 0x24u, "Assertion failure((ret == kBBUReturnSuccess) && Failed to copy MRC image payload data to buffer!)");
     goto LABEL_9;
   }
 
-  if (v20 != a3)
+  if (v10 != a3)
   {
     exception = __cxa_allocate_exception(0x210uLL);
-    _BBUException::_BBUException(exception, 106, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/Images/ICE/BBUICEMRCImage.cpp", 0x25u, "Assertion failure((amountCopied == amount) && Copied data size mismatch: Failed to copy MRC image payload data to buffer)", v16, v17, v18, v19);
+    _BBUException::_BBUException(exception, 106, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/Images/ICE/BBUICEMRCImage.cpp", 0x25u, "Assertion failure((amountCopied == amount) && Copied data size mismatch: Failed to copy MRC image payload data to buffer)");
 LABEL_9:
   }
 
@@ -1589,11 +1977,11 @@ uint64_t BBUICEMRCImage::getWritePayloadLength(BBUICEMRCImage *this)
   return result;
 }
 
-void BBUICEMRCImage::generateHash(uint64_t a1, unsigned __int8 *a2, int a3)
+void BBUICEMRCImage::generateHash(uint64_t result, unsigned __int8 *a2, uint64_t a3)
 {
   if (a2)
   {
-    v3 = *(a1 + 40);
+    v3 = *(result + 40);
     if (v3)
     {
       BBUDataSource::generateHash(v3, a2, a3);
@@ -1601,7 +1989,7 @@ void BBUICEMRCImage::generateHash(uint64_t a1, unsigned __int8 *a2, int a3)
   }
 }
 
-uint64_t BBUEUR10Programmer::EUR10Item::EUR10Item(uint64_t result, int a2, char **lpsrc)
+uint64_t BBUEUR10Programmer::EUR10Item::EUR10Item(uint64_t result, int a2, void *lpsrc)
 {
   *(result + 8) = a2;
   *result = &unk_1F5F045F0;
@@ -1611,145 +1999,136 @@ uint64_t BBUEUR10Programmer::EUR10Item::EUR10Item(uint64_t result, int a2, char 
     case 16391:
       if (lpsrc)
       {
-        v3 = **lpsrc;
-        v4 = result;
-        result = v4;
+        v3 = result;
+        result = v3;
       }
 
       else
       {
-        v5 = 0;
+        v4 = 0;
       }
 
-      *(result + 16) = v5;
+      *(result + 16) = v4;
       *(result + 24) = 21;
       goto LABEL_81;
     case 16392:
       if (lpsrc)
       {
-        v24 = **lpsrc;
-        v25 = result;
-        result = v25;
+        v10 = result;
+        result = v10;
       }
 
       else
       {
-        v5 = 0;
+        v4 = 0;
       }
 
-      *(result + 16) = v5;
+      *(result + 16) = v4;
       *(result + 24) = 23;
       goto LABEL_81;
     case 16393:
       if (lpsrc)
       {
-        v18 = **lpsrc;
-        v19 = result;
-        result = v19;
+        v7 = result;
+        result = v7;
       }
 
       else
       {
-        v5 = 0;
+        v4 = 0;
       }
 
-      *(result + 16) = v5;
+      *(result + 16) = v4;
       *(result + 24) = 6;
       goto LABEL_81;
     case 16394:
       if (lpsrc)
       {
-        v20 = **lpsrc;
-        v21 = result;
-        result = v21;
+        v8 = result;
+        result = v8;
       }
 
       else
       {
-        v5 = 0;
+        v4 = 0;
       }
 
-      *(result + 16) = v5;
+      *(result + 16) = v4;
       *(result + 24) = 28;
       goto LABEL_81;
     case 16395:
       if (lpsrc)
       {
-        v14 = **lpsrc;
-        v15 = result;
-        result = v15;
+        v6 = result;
+        result = v6;
       }
 
       else
       {
-        v5 = 0;
+        v4 = 0;
       }
 
-      *(result + 16) = v5;
+      *(result + 16) = v4;
       *(result + 24) = 31;
       goto LABEL_81;
     case 16396:
       if (lpsrc)
       {
-        v29 = **lpsrc;
-        v30 = result;
-        result = v30;
+        v11 = result;
+        result = v11;
       }
 
       else
       {
-        v5 = 0;
+        v4 = 0;
       }
 
-      *(result + 16) = v5;
+      *(result + 16) = v4;
       *(result + 24) = 8;
       goto LABEL_81;
     case 16397:
       if (lpsrc)
       {
-        v32 = **lpsrc;
-        v33 = result;
-        result = v33;
+        v12 = result;
+        result = v12;
       }
 
       else
       {
-        v5 = 0;
+        v4 = 0;
       }
 
-      *(result + 16) = v5;
+      *(result + 16) = v4;
       *(result + 24) = 25;
       goto LABEL_81;
     case 16398:
       if (lpsrc)
       {
-        v22 = **lpsrc;
-        v23 = result;
-        result = v23;
+        v9 = result;
+        result = v9;
       }
 
       else
       {
-        v5 = 0;
+        v4 = 0;
       }
 
-      *(result + 16) = v5;
+      *(result + 16) = v4;
       *(result + 24) = 30;
       goto LABEL_81;
     case 16399:
       if (lpsrc)
       {
-        v37 = **lpsrc;
-        v38 = result;
-        result = v38;
+        v14 = result;
+        result = v14;
       }
 
       else
       {
-        v5 = 0;
+        v4 = 0;
       }
 
-      *(result + 16) = v5;
+      *(result + 16) = v4;
       *(result + 24) = 29;
       goto LABEL_81;
     case 16400:
@@ -1808,7 +2187,6 @@ uint64_t BBUEUR10Programmer::EUR10Item::EUR10Item(uint64_t result, int a2, char 
       }
 
 LABEL_59:
-      v35 = **lpsrc;
       goto LABEL_60;
     case 16407:
       *(result + 24) = 1128679168;
@@ -1817,7 +2195,6 @@ LABEL_59:
         goto LABEL_79;
       }
 
-      v12 = **lpsrc;
       goto LABEL_60;
     case 16408:
       *(result + 24) = 40;
@@ -1826,7 +2203,6 @@ LABEL_59:
         goto LABEL_79;
       }
 
-      v27 = **lpsrc;
       goto LABEL_60;
     case 16409:
       *(result + 24) = 41;
@@ -1835,7 +2211,6 @@ LABEL_59:
         goto LABEL_79;
       }
 
-      v34 = **lpsrc;
       goto LABEL_60;
     case 16410:
       *(result + 24) = 42;
@@ -1844,7 +2219,6 @@ LABEL_59:
         goto LABEL_79;
       }
 
-      v42 = **lpsrc;
       goto LABEL_60;
     case 16411:
       *(result + 24) = 33;
@@ -1853,7 +2227,6 @@ LABEL_59:
         goto LABEL_79;
       }
 
-      v28 = **lpsrc;
       goto LABEL_60;
     case 16412:
       *(result + 24) = 23;
@@ -1862,7 +2235,6 @@ LABEL_59:
         goto LABEL_79;
       }
 
-      v31 = **lpsrc;
       goto LABEL_60;
     case 16413:
       *(result + 24) = 34;
@@ -1871,7 +2243,6 @@ LABEL_59:
         goto LABEL_79;
       }
 
-      v41 = **lpsrc;
       goto LABEL_60;
     case 16414:
       *(result + 24) = 37;
@@ -1880,7 +2251,6 @@ LABEL_59:
         goto LABEL_79;
       }
 
-      v43 = **lpsrc;
       goto LABEL_60;
     case 16415:
       *(result + 24) = 36;
@@ -1889,7 +2259,6 @@ LABEL_59:
         goto LABEL_79;
       }
 
-      v17 = **lpsrc;
       goto LABEL_60;
     case 16416:
       *(result + 24) = 38;
@@ -1898,7 +2267,6 @@ LABEL_59:
         goto LABEL_79;
       }
 
-      v16 = **lpsrc;
       goto LABEL_60;
     case 16417:
       *(result + 24) = 5;
@@ -1907,7 +2275,6 @@ LABEL_59:
         goto LABEL_79;
       }
 
-      v46 = **lpsrc;
       goto LABEL_60;
     case 16418:
       *(result + 24) = 48;
@@ -1916,7 +2283,6 @@ LABEL_59:
         goto LABEL_79;
       }
 
-      v10 = **lpsrc;
       goto LABEL_60;
     case 16419:
       *(result + 24) = 21;
@@ -1925,7 +2291,6 @@ LABEL_59:
         goto LABEL_79;
       }
 
-      v44 = **lpsrc;
       goto LABEL_60;
     case 16420:
       *(result + 24) = 21;
@@ -1934,7 +2299,6 @@ LABEL_59:
         goto LABEL_79;
       }
 
-      v45 = **lpsrc;
       goto LABEL_60;
     case 16421:
       *(result + 24) = 21;
@@ -1943,7 +2307,6 @@ LABEL_59:
         goto LABEL_79;
       }
 
-      v39 = **lpsrc;
       goto LABEL_60;
     case 16422:
       *(result + 24) = 49;
@@ -1952,7 +2315,6 @@ LABEL_59:
         goto LABEL_79;
       }
 
-      v26 = **lpsrc;
       goto LABEL_60;
     case 16423:
       *(result + 24) = 50;
@@ -1961,7 +2323,6 @@ LABEL_59:
         goto LABEL_79;
       }
 
-      v40 = **lpsrc;
       goto LABEL_60;
     case 16424:
       *(result + 24) = 51;
@@ -1970,7 +2331,6 @@ LABEL_59:
         goto LABEL_79;
       }
 
-      v13 = **lpsrc;
       goto LABEL_60;
     case 16425:
       *(result + 24) = 53;
@@ -1979,7 +2339,6 @@ LABEL_59:
         goto LABEL_79;
       }
 
-      v11 = **lpsrc;
       goto LABEL_60;
     case 16426:
       *(result + 24) = 54;
@@ -1988,7 +2347,6 @@ LABEL_59:
         goto LABEL_79;
       }
 
-      v8 = **lpsrc;
       goto LABEL_60;
     case 16427:
       *(result + 24) = 34;
@@ -1997,557 +2355,544 @@ LABEL_59:
         goto LABEL_79;
       }
 
-      v9 = **lpsrc;
       goto LABEL_60;
     case 16428:
       *(result + 24) = 1347376896;
       if (lpsrc)
       {
-        v6 = **lpsrc;
 LABEL_60:
-        v36 = result;
-        result = v36;
+        v13 = result;
+        result = v13;
       }
 
       else
       {
 LABEL_79:
-        v5 = 0;
+        v4 = 0;
       }
 
-      *(result + 16) = v5;
+      *(result + 16) = v4;
 LABEL_81:
-      if (!v5)
+      if (!v4)
       {
         exception = __cxa_allocate_exception(0x210uLL);
-        _BBUException::_BBUException(exception, 66, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/Protocol/Eureka/BBUEUR10Programmer.cpp", 0xFDu, "Assertion failure(fImage && BBU Programmer item creation failed.)", v48, v49, v50, v54);
+        _BBUException::_BBUException(exception, 66, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/Protocol/Eureka/BBUEUR10Programmer.cpp", 0xFDu, "Assertion failure(fImage && BBU Programmer item creation failed.)");
 LABEL_102:
       }
 
       return result;
     default:
       exception = __cxa_allocate_exception(0x210uLL);
-      _BBUException::_BBUException(exception, 85, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/Protocol/Eureka/BBUEUR10Programmer.cpp", 0xFAu, "Assertion failure(false && Unrecognized BBU Programmer item type.)", v51, v52, v53, v54);
+      _BBUException::_BBUException(exception, 85, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/Protocol/Eureka/BBUEUR10Programmer.cpp", 0xFAu, "Assertion failure(false && Unrecognized BBU Programmer item type.)");
       goto LABEL_102;
   }
 }
 
-uint64_t BBUEUR10Programmer::connectForImage_nl(uint64_t a1, int *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t BBUEUR10Programmer::connectForImage_nl(uint64_t a1, int *a2)
 {
-  v83 = *MEMORY[0x1E69E9840];
-  v71 = 256;
-  v70 = 0;
-  v69 = 0;
+  v47 = *MEMORY[0x1E69E9840];
+  v35 = 256;
+  v34 = 0;
+  v33 = 0;
   __p = 0;
-  v67 = 0;
-  v68 = 0;
+  v31 = 0;
+  v32 = 0;
   if (gBBULogMaskGet(void)::once != -1)
   {
     dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
   }
 
-  *&v10 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v10 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v81 = v10;
-  v82 = v10;
-  v79 = v10;
-  v80 = v10;
-  v77 = v10;
-  v78 = v10;
-  v75 = v10;
-  v76 = v10;
+  *&v4 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v45 = v4;
+  v46 = v4;
+  v43 = v4;
+  v44 = v4;
+  v41 = v4;
+  v42 = v4;
+  v39 = v4;
+  v40 = v4;
   if ((*(gBBULogMaskGet(void)::sBBULogMask + 1) & 0x20) != 0 && gBBULogVerbosity >= 1)
   {
-    _BBULog(13, 1, "BBUProgrammer", "", "Waiting for Hello\n", a6, a7, a8, v63);
+    _BBULog(13, 1, "BBUProgrammer", "", "Waiting for Hello\n");
   }
 
-  v11 = *(a1 + 16);
   if ((ETLSAHCommandReceive() & 1) == 0)
   {
     if (gBBULogMaskGet(void)::once == -1)
     {
-      v21 = 3;
+      v8 = 3;
       if ((*(gBBULogMaskGet(void)::sBBULogMask + 1) & 0x20) == 0)
       {
-        goto LABEL_93;
+        goto LABEL_92;
       }
     }
 
     else
     {
       dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
-      v21 = 3;
+      v8 = 3;
       if ((*(gBBULogMaskGet(void)::sBBULogMask + 1) & 0x20) == 0)
       {
-        goto LABEL_93;
+        goto LABEL_92;
       }
     }
 
-    if (gBBULogVerbosity < 0)
+    if ((gBBULogVerbosity & 0x80000000) == 0)
     {
-      goto LABEL_93;
+      _BBULog(13, 0, "BBUProgrammer", "", "failed receiving sahara hello\n");
     }
 
-    v22 = "failed receiving sahara hello\n";
-    goto LABEL_20;
+    goto LABEL_92;
   }
 
-  if (ETLSAHCommandParseHello())
+  if ((ETLSAHCommandParseHello() & 1) == 0)
   {
-    if (*(a1 + 4284) == 2)
-    {
-      v18 = 2;
-    }
-
-    else
-    {
-      v18 = v71;
-    }
-
-    *a2 = v18;
     if (gBBULogMaskGet(void)::once == -1)
     {
+      v8 = 12;
       if ((*(gBBULogMaskGet(void)::sBBULogMask + 1) & 0x20) == 0)
       {
-        goto LABEL_27;
+        goto LABEL_92;
       }
     }
 
     else
     {
       dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
+      v8 = 12;
       if ((*(gBBULogMaskGet(void)::sBBULogMask + 1) & 0x20) == 0)
       {
-        goto LABEL_27;
+        goto LABEL_92;
       }
     }
 
-    if (gBBULogVerbosity >= 3)
+    if ((gBBULogVerbosity & 0x80000000) == 0)
     {
-      v19 = *(a1 + 4284);
-      if (v19 > 2)
-      {
-        v20 = "Unknown";
-      }
-
-      else
-      {
-        v20 = off_1E876E9E8[v19];
-      }
-
-      ETLSAHModeAsString();
-      v23 = *a2;
-      ETLSAHModeAsString();
-      _BBULog(13, 3, "BBUProgrammer", "", "\n Boot mode => Requested : %s, Received : %s, Override : %s\n", v24, v25, v26, v20);
+      _BBULog(13, 0, "BBUProgrammer", "", "failed parsing sahara hello\n");
     }
 
-LABEL_27:
-    v72 = 0;
-    v73 = 0;
-    v74 = 0;
-    v27 = (a1 + 4304);
-    if (*(a1 + 4327) < 0)
-    {
-      if (*(a1 + 4312))
-      {
-        v27 = *v27;
-        v28 = strlen(v27);
-        if (v28 < 0x7FFFFFFFFFFFFFF8)
-        {
-LABEL_30:
-          v29 = v28;
-          if (v28 >= 0x17)
-          {
-            if ((v28 | 7) == 0x17)
-            {
-              v39 = 25;
-            }
-
-            else
-            {
-              v39 = (v28 | 7) + 1;
-            }
-
-            v30 = operator new(v39);
-            __dst[1] = v29;
-            v65 = v39 | 0x8000000000000000;
-            __dst[0] = v30;
-          }
-
-          else
-          {
-            HIBYTE(v65) = v28;
-            v30 = __dst;
-            if (!v28)
-            {
-              goto LABEL_45;
-            }
-          }
-
-          memmove(v30, v27, v29);
-LABEL_45:
-          *(v30 + v29) = 0;
-          v40 = SHIBYTE(v65);
-          v41 = __dst[0];
-          if (v65 >= 0)
-          {
-            v42 = __dst;
-          }
-
-          else
-          {
-            v42 = __dst[0];
-          }
-
-          v43 = strtoul(v42, 0, 16);
-          if (v40 < 0)
-          {
-            operator delete(v41);
-          }
-
-          LODWORD(v72) = v43;
-          if (gBBULogMaskGet(void)::once == -1)
-          {
-            if ((*(gBBULogMaskGet(void)::sBBULogMask + 1) & 0x20) == 0)
-            {
-              goto LABEL_54;
-            }
-          }
-
-          else
-          {
-            dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
-            if ((*(gBBULogMaskGet(void)::sBBULogMask + 1) & 0x20) == 0)
-            {
-              goto LABEL_54;
-            }
-          }
-
-          if (gBBULogVerbosity >= 1)
-          {
-            _BBULog(13, 1, "BBUProgrammer", "", "Overriding Product Type : %u and Hardware Config: 0x%x in Reserved %zu\n", v32, v33, v34, v43);
-          }
-
-          goto LABEL_54;
-        }
-
-LABEL_35:
-        std::string::__throw_length_error[abi:ne200100]();
-      }
-    }
-
-    else if (*(a1 + 4327))
-    {
-      v28 = strlen((a1 + 4304));
-      if (v28 < 0x7FFFFFFFFFFFFFF8)
-      {
-        goto LABEL_30;
-      }
-
-      goto LABEL_35;
-    }
-
-    HardwareConfig = TelephonyRadiosGetHardwareConfig();
-    LODWORD(v72) = TelephonyRadiosGetProduct() | (HardwareConfig << 30);
-    if (gBBULogMaskGet(void)::once == -1)
-    {
-      if ((*(gBBULogMaskGet(void)::sBBULogMask + 1) & 0x20) == 0)
-      {
-        goto LABEL_54;
-      }
-    }
-
-    else
-    {
-      dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
-      if ((*(gBBULogMaskGet(void)::sBBULogMask + 1) & 0x20) == 0)
-      {
-        goto LABEL_54;
-      }
-    }
-
-    if (gBBULogVerbosity >= 1)
-    {
-      Product = TelephonyRadiosGetProduct();
-      TelephonyRadiosGetHardwareConfig();
-      _BBULog(13, 1, "BBUProgrammer", "", "Product Type : %d and Hardware Config: 0x%x in Reserved%lu\n", v36, v37, v38, Product);
-    }
-
-LABEL_54:
-    if (*(a1 + 4302) != 1)
-    {
-      goto LABEL_59;
-    }
-
-    HIDWORD(v72) |= 1u;
-    if (gBBULogMaskGet(void)::once == -1)
-    {
-      if ((*(gBBULogMaskGet(void)::sBBULogMask + 1) & 0x20) == 0)
-      {
-        goto LABEL_59;
-      }
-    }
-
-    else
-    {
-      dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
-      if ((*(gBBULogMaskGet(void)::sBBULogMask + 1) & 0x20) == 0)
-      {
-        goto LABEL_59;
-      }
-    }
-
-    if (gBBULogVerbosity >= 1)
-    {
-      _BBULog(13, 1, "BBUProgrammer", "", "Sending Erase BB EEPROM in Reserved%lu\n", v32, v33, v34, 1);
-    }
-
-LABEL_59:
-    if (BBUpdaterCommon::inRestoreOS(void)::sOnceRestoreOS == -1)
-    {
-      if (BBUpdaterCommon::inRestoreOS(void)::sOnceRecoveryOS == -1)
-      {
-        goto LABEL_61;
-      }
-    }
-
-    else
-    {
-      dispatch_once(&BBUpdaterCommon::inRestoreOS(void)::sOnceRestoreOS, &__block_literal_global_7);
-      if (BBUpdaterCommon::inRestoreOS(void)::sOnceRecoveryOS == -1)
-      {
-LABEL_61:
-        if ((BBUpdaterCommon::inRestoreOS(void)::restoreOS & 1) == 0)
-        {
-LABEL_62:
-          if ((BBUpdaterCommon::inRestoreOS(void)::recoveryOS & 1) == 0 && *(a1 + 4303) != 1)
-          {
-            goto LABEL_68;
-          }
-        }
-
-LABEL_64:
-        LODWORD(v73) = 1381192786;
-        if (gBBULogMaskGet(void)::once == -1)
-        {
-          if ((*(gBBULogMaskGet(void)::sBBULogMask + 1) & 0x20) == 0)
-          {
-            goto LABEL_68;
-          }
-        }
-
-        else
-        {
-          dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
-          if ((*(gBBULogMaskGet(void)::sBBULogMask + 1) & 0x20) == 0)
-          {
-            goto LABEL_68;
-          }
-        }
-
-        if ((gBBULogVerbosity & 0x80000000) == 0)
-        {
-          _BBULog(13, 0, "BBUProgrammer", "", "Sending restore mode cookie in Reserved%lu\n", v32, v33, v34, 2);
-        }
-
-LABEL_68:
-        v44 = *(a1 + 4276);
-        v45 = *a2;
-        if (ETLSAHCommandCreateHelloResponseExt())
-        {
-          v49 = *(a1 + 16);
-          if (ETLSAHCommandSend())
-          {
-            if (gBBULogMaskGet(void)::once == -1)
-            {
-              if ((*(gBBULogMaskGet(void)::sBBULogMask + 1) & 0x20) == 0)
-              {
-                goto LABEL_75;
-              }
-            }
-
-            else
-            {
-              dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
-              if ((*(gBBULogMaskGet(void)::sBBULogMask + 1) & 0x20) == 0)
-              {
-                goto LABEL_75;
-              }
-            }
-
-            if (gBBULogVerbosity >= 1)
-            {
-              v50 = ETLSAHModeAsString();
-              _BBULog(13, 1, "BBUProgrammer", "", "Hello received boot mode:  %s\n", v51, v52, v53, v50);
-              if (gBBULogMaskGet(void)::once != -1)
-              {
-                dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
-                if ((*(gBBULogMaskGet(void)::sBBULogMask + 1) & 0x20) != 0)
-                {
-LABEL_76:
-                  if (gBBULogVerbosity >= 1)
-                  {
-                    v54 = *a2;
-                    v55 = ETLSAHModeAsString();
-                    _BBULog(13, 1, "BBUProgrammer", "", "Hello response boot mode:  %s\n", v56, v57, v58, v55);
-                  }
-                }
-
-LABEL_78:
-                v59 = HIBYTE(v68);
-                if (v68 < 0)
-                {
-                  v59 = v67;
-                }
-
-                if (!v59)
-                {
-LABEL_87:
-                  v21 = 0;
-                  goto LABEL_93;
-                }
-
-                if (gBBULogMaskGet(void)::once == -1)
-                {
-                  v21 = 0;
-                  if ((*(gBBULogMaskGet(void)::sBBULogMask + 1) & 0x20) == 0)
-                  {
-                    goto LABEL_93;
-                  }
-
-                  goto LABEL_83;
-                }
-
-                dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
-                v21 = 0;
-                if ((*(gBBULogMaskGet(void)::sBBULogMask + 1) & 0x20) != 0)
-                {
-LABEL_83:
-                  if (gBBULogVerbosity < 1)
-                  {
-                    goto LABEL_93;
-                  }
-
-                  p_p = &__p;
-                  if (v68 < 0)
-                  {
-                    LOBYTE(p_p) = __p;
-                  }
-
-                  _BBULog(13, 1, "BBUProgrammer", "", "Hello reserved fields:  %s\n", v12, v13, v14, p_p);
-                  goto LABEL_87;
-                }
-
-                goto LABEL_93;
-              }
-            }
-
-LABEL_75:
-            if ((*(gBBULogMaskGet(void)::sBBULogMask + 1) & 0x20) != 0)
-            {
-              goto LABEL_76;
-            }
-
-            goto LABEL_78;
-          }
-
-          if (gBBULogMaskGet(void)::once == -1)
-          {
-            v21 = 3;
-            if ((*(gBBULogMaskGet(void)::sBBULogMask + 1) & 0x20) == 0)
-            {
-              goto LABEL_93;
-            }
-          }
-
-          else
-          {
-            dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
-            v21 = 3;
-            if ((*(gBBULogMaskGet(void)::sBBULogMask + 1) & 0x20) == 0)
-            {
-              goto LABEL_93;
-            }
-          }
-
-          if (gBBULogVerbosity < 0)
-          {
-            goto LABEL_93;
-          }
-
-          v22 = "failed sending hello response\n";
-LABEL_20:
-          _BBULog(13, 0, "BBUProgrammer", "", v22, v12, v13, v14, v63);
-          goto LABEL_93;
-        }
-
-        if (gBBULogMaskGet(void)::once == -1)
-        {
-          if ((*(gBBULogMaskGet(void)::sBBULogMask + 1) & 0x20) != 0)
-          {
-            goto LABEL_90;
-          }
-        }
-
-        else
-        {
-          dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
-          if ((*(gBBULogMaskGet(void)::sBBULogMask + 1) & 0x20) != 0)
-          {
-LABEL_90:
-            if ((gBBULogVerbosity & 0x80000000) == 0)
-            {
-              _BBULog(13, 0, "BBUProgrammer", "", "failed creating hello response\n", v46, v47, v48, v63);
-            }
-          }
-        }
-
-        v21 = 11;
-        goto LABEL_93;
-      }
-    }
-
-    dispatch_once(&BBUpdaterCommon::inRestoreOS(void)::sOnceRecoveryOS, &__block_literal_global_13);
-    if ((BBUpdaterCommon::inRestoreOS(void)::restoreOS & 1) == 0)
-    {
-      goto LABEL_62;
-    }
-
-    goto LABEL_64;
+    goto LABEL_92;
   }
 
+  if (*(a1 + 4284) == 2)
+  {
+    v5 = 2;
+  }
+
+  else
+  {
+    v5 = v35;
+  }
+
+  *a2 = v5;
   if (gBBULogMaskGet(void)::once == -1)
   {
-    v21 = 12;
     if ((*(gBBULogMaskGet(void)::sBBULogMask + 1) & 0x20) == 0)
     {
-      goto LABEL_93;
+      goto LABEL_26;
     }
   }
 
   else
   {
     dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
-    v21 = 12;
     if ((*(gBBULogMaskGet(void)::sBBULogMask + 1) & 0x20) == 0)
     {
-      goto LABEL_93;
+      goto LABEL_26;
+    }
+  }
+
+  if (gBBULogVerbosity >= 3)
+  {
+    v6 = *(a1 + 4284);
+    if (v6 > 2)
+    {
+      v7 = "Unknown";
+    }
+
+    else
+    {
+      v7 = off_1E876E9E8[v6];
+    }
+
+    v9 = ETLSAHModeAsString();
+    v10 = ETLSAHModeAsString();
+    _BBULog(13, 3, "BBUProgrammer", "", "\n Boot mode => Requested : %s, Received : %s, Override : %s\n", v7, v9, v10);
+  }
+
+LABEL_26:
+  v36 = 0;
+  v37 = 0;
+  v38 = 0;
+  v11 = (a1 + 4304);
+  if (*(a1 + 4327) < 0)
+  {
+    if (*(a1 + 4312))
+    {
+      v11 = *v11;
+      v12 = strlen(v11);
+      if (v12 < 0x7FFFFFFFFFFFFFF8)
+      {
+LABEL_29:
+        v13 = v12;
+        if (v12 >= 0x17)
+        {
+          if ((v12 | 7) == 0x17)
+          {
+            v18 = 25;
+          }
+
+          else
+          {
+            v18 = (v12 | 7) + 1;
+          }
+
+          v14 = operator new(v18);
+          __dst[1] = v13;
+          v29 = v18 | 0x8000000000000000;
+          __dst[0] = v14;
+        }
+
+        else
+        {
+          HIBYTE(v29) = v12;
+          v14 = __dst;
+          if (!v12)
+          {
+            goto LABEL_44;
+          }
+        }
+
+        memmove(v14, v11, v13);
+LABEL_44:
+        *(v14 + v13) = 0;
+        v19 = SHIBYTE(v29);
+        v20 = __dst[0];
+        if (v29 >= 0)
+        {
+          v21 = __dst;
+        }
+
+        else
+        {
+          v21 = __dst[0];
+        }
+
+        v22 = strtoul(v21, 0, 16);
+        if (v19 < 0)
+        {
+          operator delete(v20);
+        }
+
+        LODWORD(v36) = v22;
+        if (gBBULogMaskGet(void)::once == -1)
+        {
+          if ((*(gBBULogMaskGet(void)::sBBULogMask + 1) & 0x20) == 0)
+          {
+            goto LABEL_53;
+          }
+        }
+
+        else
+        {
+          dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
+          if ((*(gBBULogMaskGet(void)::sBBULogMask + 1) & 0x20) == 0)
+          {
+            goto LABEL_53;
+          }
+        }
+
+        if (gBBULogVerbosity >= 1)
+        {
+          _BBULog(13, 1, "BBUProgrammer", "", "Overriding Product Type : %u and Hardware Config: 0x%x in Reserved %zu\n", v22 & 0x3FFFFFFF, v22 >> 30, 0);
+        }
+
+        goto LABEL_53;
+      }
+
+LABEL_34:
+      std::string::__throw_length_error[abi:ne200100]();
+    }
+  }
+
+  else if (*(a1 + 4327))
+  {
+    v12 = strlen((a1 + 4304));
+    if (v12 < 0x7FFFFFFFFFFFFFF8)
+    {
+      goto LABEL_29;
+    }
+
+    goto LABEL_34;
+  }
+
+  HardwareConfig = TelephonyRadiosGetHardwareConfig();
+  LODWORD(v36) = TelephonyRadiosGetProduct() | (HardwareConfig << 30);
+  if (gBBULogMaskGet(void)::once == -1)
+  {
+    if ((*(gBBULogMaskGet(void)::sBBULogMask + 1) & 0x20) == 0)
+    {
+      goto LABEL_53;
+    }
+  }
+
+  else
+  {
+    dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
+    if ((*(gBBULogMaskGet(void)::sBBULogMask + 1) & 0x20) == 0)
+    {
+      goto LABEL_53;
+    }
+  }
+
+  if (gBBULogVerbosity >= 1)
+  {
+    Product = TelephonyRadiosGetProduct();
+    v17 = TelephonyRadiosGetHardwareConfig();
+    _BBULog(13, 1, "BBUProgrammer", "", "Product Type : %d and Hardware Config: 0x%x in Reserved%lu\n", Product, v17, 0);
+  }
+
+LABEL_53:
+  if (*(a1 + 4302) != 1)
+  {
+    goto LABEL_58;
+  }
+
+  HIDWORD(v36) |= 1u;
+  if (gBBULogMaskGet(void)::once == -1)
+  {
+    if ((*(gBBULogMaskGet(void)::sBBULogMask + 1) & 0x20) == 0)
+    {
+      goto LABEL_58;
+    }
+  }
+
+  else
+  {
+    dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
+    if ((*(gBBULogMaskGet(void)::sBBULogMask + 1) & 0x20) == 0)
+    {
+      goto LABEL_58;
+    }
+  }
+
+  if (gBBULogVerbosity >= 1)
+  {
+    _BBULog(13, 1, "BBUProgrammer", "", "Sending Erase BB EEPROM in Reserved%lu\n", 1);
+  }
+
+LABEL_58:
+  if (BBUpdaterCommon::inRestoreOS(void)::sOnceRestoreOS == -1)
+  {
+    if (BBUpdaterCommon::inRestoreOS(void)::sOnceRecoveryOS == -1)
+    {
+      goto LABEL_60;
+    }
+
+LABEL_107:
+    dispatch_once(&BBUpdaterCommon::inRestoreOS(void)::sOnceRecoveryOS, &__block_literal_global_13);
+    if ((BBUpdaterCommon::inRestoreOS(void)::restoreOS & 1) == 0)
+    {
+      goto LABEL_61;
+    }
+
+    goto LABEL_63;
+  }
+
+  dispatch_once(&BBUpdaterCommon::inRestoreOS(void)::sOnceRestoreOS, &__block_literal_global_7);
+  if (BBUpdaterCommon::inRestoreOS(void)::sOnceRecoveryOS != -1)
+  {
+    goto LABEL_107;
+  }
+
+LABEL_60:
+  if ((BBUpdaterCommon::inRestoreOS(void)::restoreOS & 1) == 0)
+  {
+LABEL_61:
+    if ((BBUpdaterCommon::inRestoreOS(void)::recoveryOS & 1) == 0 && *(a1 + 4303) != 1)
+    {
+      goto LABEL_67;
+    }
+  }
+
+LABEL_63:
+  LODWORD(v37) = 1381192786;
+  if (gBBULogMaskGet(void)::once == -1)
+  {
+    if ((*(gBBULogMaskGet(void)::sBBULogMask + 1) & 0x20) == 0)
+    {
+      goto LABEL_67;
+    }
+  }
+
+  else
+  {
+    dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
+    if ((*(gBBULogMaskGet(void)::sBBULogMask + 1) & 0x20) == 0)
+    {
+      goto LABEL_67;
     }
   }
 
   if ((gBBULogVerbosity & 0x80000000) == 0)
   {
-    _BBULog(13, 0, "BBUProgrammer", "", "failed parsing sahara hello\n", v15, v16, v17, v63);
+    _BBULog(13, 0, "BBUProgrammer", "", "Sending restore mode cookie in Reserved%lu\n", 2);
   }
 
-LABEL_93:
-  if (SHIBYTE(v68) < 0)
+LABEL_67:
+  if ((ETLSAHCommandCreateHelloResponseExt() & 1) == 0)
+  {
+    if (gBBULogMaskGet(void)::once == -1)
+    {
+      if ((*(gBBULogMaskGet(void)::sBBULogMask + 1) & 0x20) != 0)
+      {
+        goto LABEL_89;
+      }
+    }
+
+    else
+    {
+      dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
+      if ((*(gBBULogMaskGet(void)::sBBULogMask + 1) & 0x20) != 0)
+      {
+LABEL_89:
+        if ((gBBULogVerbosity & 0x80000000) == 0)
+        {
+          _BBULog(13, 0, "BBUProgrammer", "", "failed creating hello response\n");
+        }
+      }
+    }
+
+    v8 = 11;
+    goto LABEL_92;
+  }
+
+  if (ETLSAHCommandSend())
+  {
+    if (gBBULogMaskGet(void)::once == -1)
+    {
+      if ((*(gBBULogMaskGet(void)::sBBULogMask + 1) & 0x20) == 0)
+      {
+        goto LABEL_74;
+      }
+    }
+
+    else
+    {
+      dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
+      if ((*(gBBULogMaskGet(void)::sBBULogMask + 1) & 0x20) == 0)
+      {
+        goto LABEL_74;
+      }
+    }
+
+    if (gBBULogVerbosity >= 1)
+    {
+      v23 = ETLSAHModeAsString();
+      _BBULog(13, 1, "BBUProgrammer", "", "Hello received boot mode:  %s\n", v23);
+      if (gBBULogMaskGet(void)::once != -1)
+      {
+        dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
+        if ((*(gBBULogMaskGet(void)::sBBULogMask + 1) & 0x20) != 0)
+        {
+LABEL_75:
+          if (gBBULogVerbosity >= 1)
+          {
+            v24 = ETLSAHModeAsString();
+            _BBULog(13, 1, "BBUProgrammer", "", "Hello response boot mode:  %s\n", v24);
+          }
+        }
+
+LABEL_77:
+        v25 = HIBYTE(v32);
+        if (v32 < 0)
+        {
+          v25 = v31;
+        }
+
+        if (!v25)
+        {
+LABEL_86:
+          v8 = 0;
+          goto LABEL_92;
+        }
+
+        if (gBBULogMaskGet(void)::once == -1)
+        {
+          v8 = 0;
+          if ((*(gBBULogMaskGet(void)::sBBULogMask + 1) & 0x20) == 0)
+          {
+            goto LABEL_92;
+          }
+
+          goto LABEL_82;
+        }
+
+        dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
+        v8 = 0;
+        if ((*(gBBULogMaskGet(void)::sBBULogMask + 1) & 0x20) != 0)
+        {
+LABEL_82:
+          if (gBBULogVerbosity < 1)
+          {
+            goto LABEL_92;
+          }
+
+          p_p = &__p;
+          if (v32 < 0)
+          {
+            p_p = __p;
+          }
+
+          _BBULog(13, 1, "BBUProgrammer", "", "Hello reserved fields:  %s\n", p_p);
+          goto LABEL_86;
+        }
+
+        goto LABEL_92;
+      }
+    }
+
+LABEL_74:
+    if ((*(gBBULogMaskGet(void)::sBBULogMask + 1) & 0x20) != 0)
+    {
+      goto LABEL_75;
+    }
+
+    goto LABEL_77;
+  }
+
+  if (gBBULogMaskGet(void)::once == -1)
+  {
+    v8 = 3;
+    if ((*(gBBULogMaskGet(void)::sBBULogMask + 1) & 0x20) == 0)
+    {
+      goto LABEL_92;
+    }
+  }
+
+  else
+  {
+    dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
+    v8 = 3;
+    if ((*(gBBULogMaskGet(void)::sBBULogMask + 1) & 0x20) == 0)
+    {
+      goto LABEL_92;
+    }
+  }
+
+  if ((gBBULogVerbosity & 0x80000000) == 0)
+  {
+    _BBULog(13, 0, "BBUProgrammer", "", "failed sending hello response\n");
+  }
+
+LABEL_92:
+  if (SHIBYTE(v32) < 0)
   {
     operator delete(__p);
   }
 
-  v61 = *MEMORY[0x1E69E9840];
-  return v21;
+  return v8;
 }
 
 void sub_1E532B6EC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21)
@@ -2560,139 +2905,133 @@ void sub_1E532B6EC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t BBUEUR10Programmer::disconnectForImage_nl(uint64_t a1, _DWORD *a2)
+uint64_t BBUEUR10Programmer::disconnectForImage_nl(uint64_t a1, unsigned int *a2)
 {
-  v24 = *MEMORY[0x1E69E9840];
   BBUFeedback::handleBeginQuickStep(*(a1 + 8), "Disconnecting");
-  if ((ETLSAHCommandCreateDone() & 1) == 0)
+  if (ETLSAHCommandCreateDone())
   {
-    if (gBBULogMaskGet(void)::once == -1)
+    if (ETLSAHCommandSend())
     {
-      v18 = 11;
-      if ((*(gBBULogMaskGet(void)::sBBULogMask + 1) & 0x20) == 0)
+      if (ETLSAHCommandReceive())
       {
-        goto LABEL_23;
+        done = ETLSAHCommandParseDoneResponse();
+        if (gBBULogMaskGet(void)::once != -1)
+        {
+          v9 = done;
+          dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
+          done = v9;
+        }
+
+        v5 = (gBBULogVerbosity >= 0) & (*(gBBULogMaskGet(void)::sBBULogMask + 1) >> 5);
+        if (done)
+        {
+          if (v5)
+          {
+            v6 = ETLSAHModeAsString();
+            _BBULog(13, 0, "BBUProgrammer", "", "status is %s\n", v6);
+          }
+
+          v7 = 0;
+          *a2 = 256;
+        }
+
+        else
+        {
+          if (v5)
+          {
+            _BBULog(13, 0, "BBUProgrammer", "", "failed parsing done response\n");
+          }
+
+          v7 = 11;
+        }
+      }
+
+      else
+      {
+        if (gBBULogMaskGet(void)::once == -1)
+        {
+          v7 = 3;
+          if ((*(gBBULogMaskGet(void)::sBBULogMask + 1) & 0x20) == 0)
+          {
+            goto LABEL_22;
+          }
+        }
+
+        else
+        {
+          dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
+          v7 = 3;
+          if ((*(gBBULogMaskGet(void)::sBBULogMask + 1) & 0x20) == 0)
+          {
+            goto LABEL_22;
+          }
+        }
+
+        if ((gBBULogVerbosity & 0x80000000) == 0)
+        {
+          _BBULog(13, 0, "BBUProgrammer", "", "failed receiving done response\n");
+        }
       }
     }
 
     else
     {
-      dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
-      v18 = 11;
-      if ((*(gBBULogMaskGet(void)::sBBULogMask + 1) & 0x20) == 0)
+      if (gBBULogMaskGet(void)::once == -1)
       {
-        goto LABEL_23;
+        v7 = 3;
+        if ((*(gBBULogMaskGet(void)::sBBULogMask + 1) & 0x20) == 0)
+        {
+          goto LABEL_22;
+        }
+      }
+
+      else
+      {
+        dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
+        v7 = 3;
+        if ((*(gBBULogMaskGet(void)::sBBULogMask + 1) & 0x20) == 0)
+        {
+          goto LABEL_22;
+        }
+      }
+
+      if ((gBBULogVerbosity & 0x80000000) == 0)
+      {
+        _BBULog(13, 0, "BBUProgrammer", "", "failed sending done command\n");
       }
     }
-
-    if (gBBULogVerbosity < 0)
-    {
-      goto LABEL_23;
-    }
-
-    v19 = "failed creating done command\n";
-LABEL_22:
-    _BBULog(13, 0, "BBUProgrammer", "", v19, v4, v5, v6, v23);
-    goto LABEL_23;
-  }
-
-  v7 = *(a1 + 16);
-  if ((ETLSAHCommandSend() & 1) == 0)
-  {
-    if (gBBULogMaskGet(void)::once == -1)
-    {
-      v18 = 3;
-      if ((*(gBBULogMaskGet(void)::sBBULogMask + 1) & 0x20) == 0)
-      {
-        goto LABEL_23;
-      }
-    }
-
-    else
-    {
-      dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
-      v18 = 3;
-      if ((*(gBBULogMaskGet(void)::sBBULogMask + 1) & 0x20) == 0)
-      {
-        goto LABEL_23;
-      }
-    }
-
-    if (gBBULogVerbosity < 0)
-    {
-      goto LABEL_23;
-    }
-
-    v19 = "failed sending done command\n";
-    goto LABEL_22;
-  }
-
-  v8 = *(a1 + 16);
-  if ((ETLSAHCommandReceive() & 1) == 0)
-  {
-    if (gBBULogMaskGet(void)::once == -1)
-    {
-      v18 = 3;
-      if ((*(gBBULogMaskGet(void)::sBBULogMask + 1) & 0x20) == 0)
-      {
-        goto LABEL_23;
-      }
-    }
-
-    else
-    {
-      dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
-      v18 = 3;
-      if ((*(gBBULogMaskGet(void)::sBBULogMask + 1) & 0x20) == 0)
-      {
-        goto LABEL_23;
-      }
-    }
-
-    if (gBBULogVerbosity < 0)
-    {
-      goto LABEL_23;
-    }
-
-    v19 = "failed receiving done response\n";
-    goto LABEL_22;
-  }
-
-  done = ETLSAHCommandParseDoneResponse();
-  if (gBBULogMaskGet(void)::once != -1)
-  {
-    v22 = done;
-    dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
-    done = v22;
-  }
-
-  v13 = (gBBULogVerbosity >= 0) & (*(gBBULogMaskGet(void)::sBBULogMask + 1) >> 5);
-  if (done)
-  {
-    if (v13)
-    {
-      v14 = ETLSAHModeAsString();
-      _BBULog(13, 0, "BBUProgrammer", "", "status is %s\n", v15, v16, v17, v14);
-    }
-
-    v18 = 0;
-    *a2 = 256;
   }
 
   else
   {
-    if (v13)
+    if (gBBULogMaskGet(void)::once == -1)
     {
-      _BBULog(13, 0, "BBUProgrammer", "", "failed parsing done response\n", v10, v11, v12, v23);
+      v7 = 11;
+      if ((*(gBBULogMaskGet(void)::sBBULogMask + 1) & 0x20) == 0)
+      {
+        goto LABEL_22;
+      }
     }
 
-    v18 = 11;
+    else
+    {
+      dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
+      v7 = 11;
+      if ((*(gBBULogMaskGet(void)::sBBULogMask + 1) & 0x20) == 0)
+      {
+        goto LABEL_22;
+      }
+    }
+
+    if ((gBBULogVerbosity & 0x80000000) == 0)
+    {
+      _BBULog(13, 0, "BBUProgrammer", "", "failed creating done command\n");
+    }
   }
 
-LABEL_23:
-  (*(**(a1 + 8) + 24))(*(a1 + 8), v18);
-  v20 = *MEMORY[0x1E69E9840];
-  return v18;
+LABEL_22:
+  (*(**(a1 + 8) + 24))(*(a1 + 8), v7);
+  return v7;
 }
 
 uint64_t BBUEUR10Programmer::load(uint64_t a1, uint64_t a2)
@@ -2701,8 +3040,8 @@ uint64_t BBUEUR10Programmer::load(uint64_t a1, uint64_t a2)
   BBUFeedback::handleBeginPhase(*(a1 + 8), "Sending Loader");
   if (*(a1 + 32))
   {
-    v10 = BBUProgrammer::addItemsFromList(a1, a2);
-    if (v10)
+    v4 = BBUProgrammer::addItemsFromList(a1, a2);
+    if (v4)
     {
       if (gBBULogMaskGet(void)::once == -1)
       {
@@ -2723,15 +3062,15 @@ uint64_t BBUEUR10Programmer::load(uint64_t a1, uint64_t a2)
 
       if ((gBBULogVerbosity & 0x80000000) == 0)
       {
-        _BBULog(13, 0, "BBUProgrammer", "", "failed adding loader item to programmer list\n", v7, v8, v9, v21);
+        _BBULog(13, 0, "BBUProgrammer", "", "failed adding loader item to programmer list\n");
       }
     }
 
     else
     {
-      v23 = 256;
-      v10 = (*(*a1 + 184))(a1, &v23);
-      if (v10)
+      v7 = 256;
+      v4 = (*(*a1 + 184))(a1, &v7);
+      if (v4)
       {
         if (gBBULogMaskGet(void)::once == -1)
         {
@@ -2752,14 +3091,14 @@ uint64_t BBUEUR10Programmer::load(uint64_t a1, uint64_t a2)
 
         if ((gBBULogVerbosity & 0x80000000) == 0)
         {
-          _BBULog(13, 0, "BBUProgrammer", "", "failed connecting to sahara for pushing secondary loader\n", v12, v13, v14, v21);
+          _BBULog(13, 0, "BBUProgrammer", "", "failed connecting to sahara for pushing secondary loader\n");
         }
       }
 
       else
       {
-        v10 = (*(*a1 + 224))(a1, a1 + 40);
-        if (v10)
+        v4 = (*(*a1 + 224))(a1, a1 + 40);
+        if (v4)
         {
           if (gBBULogMaskGet(void)::once == -1)
           {
@@ -2780,15 +3119,15 @@ uint64_t BBUEUR10Programmer::load(uint64_t a1, uint64_t a2)
 
           if ((gBBULogVerbosity & 0x80000000) == 0)
           {
-            _BBULog(13, 0, "BBUProgrammer", "", "failed sending secondary loader\n", v15, v16, v17, v21);
+            _BBULog(13, 0, "BBUProgrammer", "", "failed sending secondary loader\n");
           }
         }
 
         else
         {
-          v22 = 256;
-          v10 = (*(*a1 + 248))(a1, &v22);
-          if (v10)
+          v6 = 256;
+          v4 = (*(*a1 + 248))(a1, &v6);
+          if (v4)
           {
             if (gBBULogMaskGet(void)::once == -1)
             {
@@ -2809,7 +3148,7 @@ uint64_t BBUEUR10Programmer::load(uint64_t a1, uint64_t a2)
 
             if ((gBBULogVerbosity & 0x80000000) == 0)
             {
-              _BBULog(5, 0, "BBUProgrammer", "", "Failed disconnecting after pushing secondary loader\n", v18, v19, v20, v21);
+              _BBULog(5, 0, "BBUProgrammer", "", "Failed disconnecting after pushing secondary loader\n");
             }
           }
         }
@@ -2821,7 +3160,7 @@ uint64_t BBUEUR10Programmer::load(uint64_t a1, uint64_t a2)
   {
     if (gBBULogMaskGet(void)::once == -1)
     {
-      v10 = 74;
+      v4 = 74;
       if ((*(gBBULogMaskGet(void)::sBBULogMask + 1) & 0x20) == 0)
       {
         goto LABEL_11;
@@ -2831,7 +3170,7 @@ uint64_t BBUEUR10Programmer::load(uint64_t a1, uint64_t a2)
     else
     {
       dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
-      v10 = 74;
+      v4 = 74;
       if ((*(gBBULogMaskGet(void)::sBBULogMask + 1) & 0x20) == 0)
       {
         goto LABEL_11;
@@ -2840,14 +3179,14 @@ uint64_t BBUEUR10Programmer::load(uint64_t a1, uint64_t a2)
 
     if ((gBBULogVerbosity & 0x80000000) == 0)
     {
-      _BBULog(13, 0, "BBUProgrammer", "", "not connected to programmer\n", v4, v5, v6, v21);
+      _BBULog(13, 0, "BBUProgrammer", "", "not connected to programmer\n");
     }
   }
 
 LABEL_11:
-  (*(**(a1 + 8) + 16))(*(a1 + 8), v10);
+  (*(**(a1 + 8) + 16))(*(a1 + 8), v4);
   pthread_mutex_unlock((a1 + 88));
-  return v10;
+  return v4;
 }
 
 uint64_t BBUEUR10Programmer::processItems(uint64_t a1, uint64_t a2, unsigned int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, unsigned int a9)
@@ -2875,60 +3214,60 @@ uint64_t BBUEUR10Programmer::processItems(uint64_t a1, uint64_t a2, unsigned int
 
     if ((gBBULogVerbosity & 0x80000000) == 0)
     {
-      _BBULog(13, 0, "BBUProgrammer", "", "not connected to programmer\n", v11, v12, v13, v74);
+      _BBULog(13, 0, "BBUProgrammer", "", "not connected to programmer\n");
     }
 
 LABEL_8:
     pthread_mutex_lock(&ctu::Singleton<BBUError,BBUError,ctu::PthreadMutexGuardPolicy<BBUError>>::sInstance);
-    v15 = off_1ED944120;
+    v12 = off_1ED944120;
     if (!off_1ED944120)
     {
-      v16 = operator new(0x38uLL);
-      v17 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_UTILITY, 0);
-      v18 = dispatch_queue_create("BBUError", v17);
-      *v16 = 0;
-      v16[1] = 0;
-      v16[2] = v18;
-      if (v18)
+      v13 = operator new(0x38uLL);
+      v14 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_UTILITY, 0);
+      v15 = dispatch_queue_create("BBUError", v14);
+      *v13 = 0;
+      v13[1] = 0;
+      v13[2] = v15;
+      if (v15)
       {
-        v19 = v18;
-        dispatch_retain(v18);
-        v16[3] = 0;
-        dispatch_release(v19);
+        v16 = v15;
+        dispatch_retain(v15);
+        v13[3] = 0;
+        dispatch_release(v16);
       }
 
       else
       {
-        v16[3] = 0;
+        v13[3] = 0;
       }
 
-      v16[4] = 0;
-      v16[5] = 0;
-      v16[6] = 0;
-      std::shared_ptr<BBUError>::shared_ptr[abi:ne200100]<BBUError,std::shared_ptr<BBUError> ctu::SharedSynchronizable<BBUError>::make_shared_ptr<BBUError>(BBUError*)::{lambda(BBUError*)#1},0>(&v84, v16);
-      v20 = v84;
-      v84 = 0uLL;
-      v21 = *(&off_1ED944120 + 1);
-      off_1ED944120 = v20;
-      if (v21 && !atomic_fetch_add(&v21->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+      v13[4] = 0;
+      v13[5] = 0;
+      v13[6] = 0;
+      std::shared_ptr<BBUError>::shared_ptr[abi:ne200100]<BBUError,std::shared_ptr<BBUError> ctu::SharedSynchronizable<BBUError>::make_shared_ptr<BBUError>(BBUError*)::{lambda(BBUError*)#1},0>(&v72, v13);
+      v17 = v72;
+      v72 = 0uLL;
+      v18 = *(&off_1ED944120 + 1);
+      off_1ED944120 = v17;
+      if (v18 && !atomic_fetch_add(&v18->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
       {
-        (v21->__on_zero_shared)(v21);
-        std::__shared_weak_count::__release_weak(v21);
+        (v18->__on_zero_shared)(v18);
+        std::__shared_weak_count::__release_weak(v18);
       }
 
-      v22 = *(&v84 + 1);
-      if (*(&v84 + 1) && !atomic_fetch_add((*(&v84 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
+      v19 = *(&v72 + 1);
+      if (*(&v72 + 1) && !atomic_fetch_add((*(&v72 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
       {
-        (v22->__on_zero_shared)(v22);
-        std::__shared_weak_count::__release_weak(v22);
+        (v19->__on_zero_shared)(v19);
+        std::__shared_weak_count::__release_weak(v19);
       }
 
-      v15 = off_1ED944120;
+      v12 = off_1ED944120;
     }
 
-    v23 = *(&off_1ED944120 + 1);
-    v82 = v15;
-    v83 = *(&off_1ED944120 + 1);
+    v20 = *(&off_1ED944120 + 1);
+    v70 = v12;
+    v71 = *(&off_1ED944120 + 1);
     if (*(&off_1ED944120 + 1))
     {
       atomic_fetch_add_explicit((*(&off_1ED944120 + 1) + 8), 1uLL, memory_order_relaxed);
@@ -2936,27 +3275,27 @@ LABEL_8:
 
     pthread_mutex_unlock(&ctu::Singleton<BBUError,BBUError,ctu::PthreadMutexGuardPolicy<BBUError>>::sInstance);
     __p = operator new(0x20uLL);
-    v81 = xmmword_1E5390FE0;
+    v69 = xmmword_1E5390FE0;
     strcpy(__p, "not connected to programmer\n");
-    *&v84 = MEMORY[0x1E69E9820];
-    *(&v84 + 1) = 0x40000000;
-    v85 = ___ZN8BBUError8addErrorERKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEE9BBUReturn_block_invoke;
-    v86 = &__block_descriptor_tmp_8;
-    v87 = v15;
+    *&v72 = MEMORY[0x1E69E9820];
+    *(&v72 + 1) = 0x40000000;
+    v73 = ___ZN8BBUError8addErrorERKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEE9BBUReturn_block_invoke;
+    v74 = &__block_descriptor_tmp_8;
+    v75 = v12;
     p_p = &__p;
-    v89 = 12;
-    v90 = &v84;
+    v77 = 12;
+    v78 = &v72;
     block = MEMORY[0x1E69E9820];
-    v92 = 0x40000000;
-    v93 = ___ZNK3ctu20SharedSynchronizableI8BBUErrorE20execute_wrapped_syncIRU13block_pointerFvvEEEDTclsr8dispatchE4syncLDnEclsr3stdE7forwardIT_Efp_EEEOS7__block_invoke;
-    v94 = &__block_descriptor_tmp_13_0;
-    v95 = v15;
-    v96 = &v90;
-    v24 = *(v15 + 16);
-    if (*(v15 + 24))
+    v80 = 0x40000000;
+    v81 = ___ZNK3ctu20SharedSynchronizableI8BBUErrorE20execute_wrapped_syncIRU13block_pointerFvvEEEDTclsr8dispatchE4syncLDnEclsr3stdE7forwardIT_Efp_EEEOS7__block_invoke;
+    v82 = &__block_descriptor_tmp_13_0;
+    v83 = v12;
+    v84 = &v78;
+    v21 = *(v12 + 16);
+    if (*(v12 + 24))
     {
-      dispatch_async_and_wait(v24, &block);
-      if ((SHIBYTE(v81) & 0x80000000) == 0)
+      dispatch_async_and_wait(v21, &block);
+      if ((SHIBYTE(v69) & 0x80000000) == 0)
       {
         goto LABEL_24;
       }
@@ -2964,17 +3303,17 @@ LABEL_8:
 
     else
     {
-      dispatch_sync(v24, &block);
-      if ((SHIBYTE(v81) & 0x80000000) == 0)
+      dispatch_sync(v21, &block);
+      if ((SHIBYTE(v69) & 0x80000000) == 0)
       {
 LABEL_24:
-        if (v23 && !atomic_fetch_add(&v23->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+        if (v20 && !atomic_fetch_add(&v20->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
         {
-          (v23->__on_zero_shared)(v23);
-          std::__shared_weak_count::__release_weak(v23);
+          (v20->__on_zero_shared)(v20);
+          std::__shared_weak_count::__release_weak(v20);
         }
 
-        v25 = 74;
+        v22 = 74;
         goto LABEL_32;
       }
     }
@@ -2983,17 +3322,17 @@ LABEL_24:
     goto LABEL_24;
   }
 
-  v79 = 256;
+  v67 = 256;
   if (a4)
   {
-    v14 = 256;
+    v11 = 256;
     goto LABEL_44;
   }
 
   while (1)
   {
-    v25 = (*(*a1 + 184))(a1, &v79);
-    if (v25)
+    v22 = (*(*a1 + 184))(a1, &v67);
+    if (v22)
     {
       if (gBBULogMaskGet(void)::once == -1)
       {
@@ -3014,66 +3353,66 @@ LABEL_24:
 
       if ((gBBULogVerbosity & 0x80000000) == 0)
       {
-        _BBULog(13, 0, "BBUProgrammer", "", "failed connecting to sahara\n", v27, v28, v29, v74);
+        _BBULog(13, 0, "BBUProgrammer", "", "failed connecting to sahara\n");
       }
 
 LABEL_39:
       pthread_mutex_lock(&ctu::Singleton<BBUError,BBUError,ctu::PthreadMutexGuardPolicy<BBUError>>::sInstance);
-      v30 = off_1ED944120;
+      v24 = off_1ED944120;
       if (off_1ED944120)
       {
-        v31 = *(&off_1ED944120 + 1);
-        v82 = off_1ED944120;
-        v83 = *(&off_1ED944120 + 1);
+        v25 = *(&off_1ED944120 + 1);
+        v70 = off_1ED944120;
+        v71 = *(&off_1ED944120 + 1);
         if (!*(&off_1ED944120 + 1))
         {
 LABEL_42:
           pthread_mutex_unlock(&ctu::Singleton<BBUError,BBUError,ctu::PthreadMutexGuardPolicy<BBUError>>::sInstance);
-          v32 = operator new(0x20uLL);
-          strcpy(v32, "failed connecting to sahara\n");
-          __p = v32;
-          v33 = xmmword_1E5390FE0;
+          v26 = operator new(0x20uLL);
+          strcpy(v26, "failed connecting to sahara\n");
+          __p = v26;
+          v27 = xmmword_1E5390FE0;
           goto LABEL_53;
         }
 
 LABEL_41:
-        atomic_fetch_add_explicit(&v31->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v25->__shared_owners_, 1uLL, memory_order_relaxed);
         goto LABEL_42;
       }
 
-      v50 = operator new(0x38uLL);
-      v51 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_UTILITY, 0);
-      v52 = dispatch_queue_create("BBUError", v51);
-      *v50 = 0;
-      v50[1] = 0;
-      v50[2] = v52;
-      if (v52)
+      v41 = operator new(0x38uLL);
+      v42 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_UTILITY, 0);
+      v43 = dispatch_queue_create("BBUError", v42);
+      *v41 = 0;
+      v41[1] = 0;
+      v41[2] = v43;
+      if (v43)
       {
-        v53 = v52;
-        dispatch_retain(v52);
-        v50[3] = 0;
-        dispatch_release(v53);
+        v44 = v43;
+        dispatch_retain(v43);
+        v41[3] = 0;
+        dispatch_release(v44);
       }
 
       else
       {
-        v50[3] = 0;
+        v41[3] = 0;
       }
 
-      v50[4] = 0;
-      v50[5] = 0;
-      v50[6] = 0;
-      std::shared_ptr<BBUError>::shared_ptr[abi:ne200100]<BBUError,std::shared_ptr<BBUError> ctu::SharedSynchronizable<BBUError>::make_shared_ptr<BBUError>(BBUError*)::{lambda(BBUError*)#1},0>(&v84, v50);
-      v57 = v84;
-      v84 = 0uLL;
-      v58 = *(&off_1ED944120 + 1);
-      off_1ED944120 = v57;
-      if (v58 && !atomic_fetch_add(&v58->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+      v41[4] = 0;
+      v41[5] = 0;
+      v41[6] = 0;
+      std::shared_ptr<BBUError>::shared_ptr[abi:ne200100]<BBUError,std::shared_ptr<BBUError> ctu::SharedSynchronizable<BBUError>::make_shared_ptr<BBUError>(BBUError*)::{lambda(BBUError*)#1},0>(&v72, v41);
+      v48 = v72;
+      v72 = 0uLL;
+      v49 = *(&off_1ED944120 + 1);
+      off_1ED944120 = v48;
+      if (v49 && !atomic_fetch_add(&v49->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
       {
-        (v58->__on_zero_shared)(v58);
-        std::__shared_weak_count::__release_weak(v58);
-        v59 = *(&v84 + 1);
-        if (!*(&v84 + 1))
+        (v49->__on_zero_shared)(v49);
+        std::__shared_weak_count::__release_weak(v49);
+        v50 = *(&v72 + 1);
+        if (!*(&v72 + 1))
         {
           goto LABEL_112;
         }
@@ -3081,21 +3420,21 @@ LABEL_41:
 
       else
       {
-        v59 = *(&v84 + 1);
-        if (!*(&v84 + 1))
+        v50 = *(&v72 + 1);
+        if (!*(&v72 + 1))
         {
           goto LABEL_112;
         }
       }
 
-      if (!atomic_fetch_add(&v59->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+      if (!atomic_fetch_add(&v50->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
       {
-        (v59->__on_zero_shared)(v59);
-        std::__shared_weak_count::__release_weak(v59);
-        v30 = off_1ED944120;
-        v31 = *(&off_1ED944120 + 1);
-        v82 = off_1ED944120;
-        v83 = *(&off_1ED944120 + 1);
+        (v50->__on_zero_shared)(v50);
+        std::__shared_weak_count::__release_weak(v50);
+        v24 = off_1ED944120;
+        v25 = *(&off_1ED944120 + 1);
+        v70 = off_1ED944120;
+        v71 = *(&off_1ED944120 + 1);
         if (!*(&off_1ED944120 + 1))
         {
           goto LABEL_42;
@@ -3105,10 +3444,10 @@ LABEL_41:
       }
 
 LABEL_112:
-      v30 = off_1ED944120;
-      v31 = *(&off_1ED944120 + 1);
-      v82 = off_1ED944120;
-      v83 = *(&off_1ED944120 + 1);
+      v24 = off_1ED944120;
+      v25 = *(&off_1ED944120 + 1);
+      v70 = off_1ED944120;
+      v71 = *(&off_1ED944120 + 1);
       if (!*(&off_1ED944120 + 1))
       {
         goto LABEL_42;
@@ -3117,10 +3456,10 @@ LABEL_112:
       goto LABEL_41;
     }
 
-    v14 = v79;
+    v11 = v67;
 LABEL_44:
-    v25 = (*(*a1 + 216))(a1, v14, a2, a3, a4, a5, a8, a9);
-    if (!v25)
+    v22 = (*(*a1 + 216))(a1, v11, a2, a3, a4, a5, a8, a9);
+    if (!v22)
     {
       break;
     }
@@ -3144,45 +3483,45 @@ LABEL_44:
 
     if ((gBBULogVerbosity & 0x80000000) == 0)
     {
-      _BBULog(13, 0, "BBUProgrammer", "", "failed handling sahara mode operation\n", v34, v35, v36, v74);
+      _BBULog(13, 0, "BBUProgrammer", "", "failed handling sahara mode operation\n");
     }
 
 LABEL_49:
     pthread_mutex_lock(&ctu::Singleton<BBUError,BBUError,ctu::PthreadMutexGuardPolicy<BBUError>>::sInstance);
-    v30 = off_1ED944120;
+    v24 = off_1ED944120;
     if (!off_1ED944120)
     {
-      v46 = operator new(0x38uLL);
-      v47 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_UTILITY, 0);
-      v48 = dispatch_queue_create("BBUError", v47);
-      *v46 = 0;
-      v46[1] = 0;
-      v46[2] = v48;
-      if (v48)
+      v37 = operator new(0x38uLL);
+      v38 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_UTILITY, 0);
+      v39 = dispatch_queue_create("BBUError", v38);
+      *v37 = 0;
+      v37[1] = 0;
+      v37[2] = v39;
+      if (v39)
       {
-        v49 = v48;
-        dispatch_retain(v48);
-        v46[3] = 0;
-        dispatch_release(v49);
+        v40 = v39;
+        dispatch_retain(v39);
+        v37[3] = 0;
+        dispatch_release(v40);
       }
 
       else
       {
-        v46[3] = 0;
+        v37[3] = 0;
       }
 
-      v46[4] = 0;
-      v46[5] = 0;
-      v46[6] = 0;
-      std::shared_ptr<BBUError>::shared_ptr[abi:ne200100]<BBUError,std::shared_ptr<BBUError> ctu::SharedSynchronizable<BBUError>::make_shared_ptr<BBUError>(BBUError*)::{lambda(BBUError*)#1},0>(&v84, v46);
-      v54 = v84;
-      v84 = 0uLL;
-      v55 = *(&off_1ED944120 + 1);
-      off_1ED944120 = v54;
-      if (!v55 || atomic_fetch_add(&v55->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+      v37[4] = 0;
+      v37[5] = 0;
+      v37[6] = 0;
+      std::shared_ptr<BBUError>::shared_ptr[abi:ne200100]<BBUError,std::shared_ptr<BBUError> ctu::SharedSynchronizable<BBUError>::make_shared_ptr<BBUError>(BBUError*)::{lambda(BBUError*)#1},0>(&v72, v37);
+      v45 = v72;
+      v72 = 0uLL;
+      v46 = *(&off_1ED944120 + 1);
+      off_1ED944120 = v45;
+      if (!v46 || atomic_fetch_add(&v46->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
       {
-        v56 = *(&v84 + 1);
-        if (*(&v84 + 1))
+        v47 = *(&v72 + 1);
+        if (*(&v72 + 1))
         {
           goto LABEL_104;
         }
@@ -3190,22 +3529,22 @@ LABEL_49:
         goto LABEL_105;
       }
 
-      (v55->__on_zero_shared)(v55);
-      std::__shared_weak_count::__release_weak(v55);
-      v56 = *(&v84 + 1);
-      if (!*(&v84 + 1))
+      (v46->__on_zero_shared)(v46);
+      std::__shared_weak_count::__release_weak(v46);
+      v47 = *(&v72 + 1);
+      if (!*(&v72 + 1))
       {
         goto LABEL_105;
       }
 
 LABEL_104:
-      if (atomic_fetch_add(&v56->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+      if (atomic_fetch_add(&v47->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
       {
 LABEL_105:
-        v30 = off_1ED944120;
-        v31 = *(&off_1ED944120 + 1);
-        v82 = off_1ED944120;
-        v83 = *(&off_1ED944120 + 1);
+        v24 = off_1ED944120;
+        v25 = *(&off_1ED944120 + 1);
+        v70 = off_1ED944120;
+        v71 = *(&off_1ED944120 + 1);
         if (!*(&off_1ED944120 + 1))
         {
           goto LABEL_52;
@@ -3214,12 +3553,12 @@ LABEL_105:
 
       else
       {
-        (v56->__on_zero_shared)(v56);
-        std::__shared_weak_count::__release_weak(v56);
-        v30 = off_1ED944120;
-        v31 = *(&off_1ED944120 + 1);
-        v82 = off_1ED944120;
-        v83 = *(&off_1ED944120 + 1);
+        (v47->__on_zero_shared)(v47);
+        std::__shared_weak_count::__release_weak(v47);
+        v24 = off_1ED944120;
+        v25 = *(&off_1ED944120 + 1);
+        v70 = off_1ED944120;
+        v71 = *(&off_1ED944120 + 1);
         if (!*(&off_1ED944120 + 1))
         {
           goto LABEL_52;
@@ -3227,13 +3566,13 @@ LABEL_105:
       }
 
 LABEL_51:
-      atomic_fetch_add_explicit(&v31->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v25->__shared_owners_, 1uLL, memory_order_relaxed);
       goto LABEL_52;
     }
 
-    v31 = *(&off_1ED944120 + 1);
-    v82 = off_1ED944120;
-    v83 = *(&off_1ED944120 + 1);
+    v25 = *(&off_1ED944120 + 1);
+    v70 = off_1ED944120;
+    v71 = *(&off_1ED944120 + 1);
     if (*(&off_1ED944120 + 1))
     {
       goto LABEL_51;
@@ -3241,31 +3580,31 @@ LABEL_51:
 
 LABEL_52:
     pthread_mutex_unlock(&ctu::Singleton<BBUError,BBUError,ctu::PthreadMutexGuardPolicy<BBUError>>::sInstance);
-    v37 = operator new(0x28uLL);
-    strcpy(v37, "failed handling sahara mode operation\n");
-    __p = v37;
-    v33 = xmmword_1E5393C00;
+    v28 = operator new(0x28uLL);
+    strcpy(v28, "failed handling sahara mode operation\n");
+    __p = v28;
+    v27 = xmmword_1E5393C00;
 LABEL_53:
-    v81 = v33;
-    *&v84 = MEMORY[0x1E69E9820];
-    *(&v84 + 1) = 0x40000000;
-    v85 = ___ZN8BBUError8addErrorERKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEE9BBUReturn_block_invoke;
-    v86 = &__block_descriptor_tmp_8;
-    v87 = v30;
+    v69 = v27;
+    *&v72 = MEMORY[0x1E69E9820];
+    *(&v72 + 1) = 0x40000000;
+    v73 = ___ZN8BBUError8addErrorERKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEE9BBUReturn_block_invoke;
+    v74 = &__block_descriptor_tmp_8;
+    v75 = v24;
     p_p = &__p;
-    v89 = 12;
-    v90 = &v84;
+    v77 = 12;
+    v78 = &v72;
     block = MEMORY[0x1E69E9820];
-    v92 = 0x40000000;
-    v93 = ___ZNK3ctu20SharedSynchronizableI8BBUErrorE20execute_wrapped_syncIRU13block_pointerFvvEEEDTclsr8dispatchE4syncLDnEclsr3stdE7forwardIT_Efp_EEEOS7__block_invoke;
-    v94 = &__block_descriptor_tmp_13_0;
-    v95 = v30;
-    v96 = &v90;
-    v38 = *(v30 + 16);
-    if (!*(v30 + 24))
+    v80 = 0x40000000;
+    v81 = ___ZNK3ctu20SharedSynchronizableI8BBUErrorE20execute_wrapped_syncIRU13block_pointerFvvEEEDTclsr8dispatchE4syncLDnEclsr3stdE7forwardIT_Efp_EEEOS7__block_invoke;
+    v82 = &__block_descriptor_tmp_13_0;
+    v83 = v24;
+    v84 = &v78;
+    v29 = *(v24 + 16);
+    if (!*(v24 + 24))
     {
-      dispatch_sync(v38, &block);
-      if ((SHIBYTE(v81) & 0x80000000) == 0)
+      dispatch_sync(v29, &block);
+      if ((SHIBYTE(v69) & 0x80000000) == 0)
       {
         goto LABEL_56;
       }
@@ -3275,20 +3614,20 @@ LABEL_55:
       goto LABEL_56;
     }
 
-    dispatch_async_and_wait(v38, &block);
-    if (SHIBYTE(v81) < 0)
+    dispatch_async_and_wait(v29, &block);
+    if (SHIBYTE(v69) < 0)
     {
       goto LABEL_55;
     }
 
 LABEL_56:
-    if (v31 && !atomic_fetch_add(&v31->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    if (v25 && !atomic_fetch_add(&v25->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
     {
-      (v31->__on_zero_shared)(v31);
-      std::__shared_weak_count::__release_weak(v31);
+      (v25->__on_zero_shared)(v25);
+      std::__shared_weak_count::__release_weak(v25);
     }
 
-    if (v79 != 3)
+    if (v67 != 3)
     {
       goto LABEL_32;
     }
@@ -3313,19 +3652,19 @@ LABEL_60:
 
     if ((gBBULogVerbosity & 0x80000000) == 0)
     {
-      _BBULog(5, 0, "BBUProgrammer", "", "not performing disconnect as the previous mode was CommandMode\n", v34, v35, v36, v74);
+      _BBULog(5, 0, "BBUProgrammer", "", "not performing disconnect as the previous mode was CommandMode\n");
     }
 
 LABEL_64:
-    if (v25)
+    if (v22)
     {
       goto LABEL_32;
     }
 
 LABEL_65:
-    if (v79 > 2)
+    if (v67 > 2)
     {
-      if (v79 != 3 && v79 != 256)
+      if (v67 != 3 && v67 != 256)
       {
         goto LABEL_124;
       }
@@ -3333,11 +3672,11 @@ LABEL_65:
       goto LABEL_76;
     }
 
-    if (v79)
+    if (v67)
     {
-      if (v79 != 1)
+      if (v67 != 1)
       {
-        if (v79 != 2)
+        if (v67 != 2)
         {
 LABEL_124:
           if (gBBULogMaskGet(void)::once == -1)
@@ -3347,9 +3686,9 @@ LABEL_124:
 LABEL_126:
               if ((gBBULogVerbosity & 0x80000000) == 0)
               {
-                v60 = v79;
-                ETLSAHModeAsString();
-                _BBULog(5, 0, "BBUProgrammer", "", "unexpected hello disconnect mode %u, %s\n", v61, v62, v63, v60);
+                v51 = v67;
+                v52 = ETLSAHModeAsString();
+                _BBULog(5, 0, "BBUProgrammer", "", "unexpected hello disconnect mode %u, %s\n", v51, v52);
               }
             }
           }
@@ -3364,55 +3703,55 @@ LABEL_126:
           }
 
           pthread_mutex_lock(&ctu::Singleton<BBUError,BBUError,ctu::PthreadMutexGuardPolicy<BBUError>>::sInstance);
-          v64 = off_1ED944120;
+          v53 = off_1ED944120;
           if (!off_1ED944120)
           {
-            v65 = operator new(0x38uLL);
-            v66 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_UTILITY, 0);
-            v67 = dispatch_queue_create("BBUError", v66);
-            *v65 = 0;
-            v65[1] = 0;
-            v65[2] = v67;
-            if (v67)
+            v54 = operator new(0x38uLL);
+            v55 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_UTILITY, 0);
+            v56 = dispatch_queue_create("BBUError", v55);
+            *v54 = 0;
+            v54[1] = 0;
+            v54[2] = v56;
+            if (v56)
             {
-              v68 = v67;
-              dispatch_retain(v67);
-              v65[3] = 0;
-              dispatch_release(v68);
+              v57 = v56;
+              dispatch_retain(v56);
+              v54[3] = 0;
+              dispatch_release(v57);
             }
 
             else
             {
-              v65[3] = 0;
+              v54[3] = 0;
             }
 
-            v65[4] = 0;
-            v65[5] = 0;
-            v65[6] = 0;
-            std::shared_ptr<BBUError>::shared_ptr[abi:ne200100]<BBUError,std::shared_ptr<BBUError> ctu::SharedSynchronizable<BBUError>::make_shared_ptr<BBUError>(BBUError*)::{lambda(BBUError*)#1},0>(&v84, v65);
-            v69 = v84;
-            v84 = 0uLL;
-            v70 = *(&off_1ED944120 + 1);
-            off_1ED944120 = v69;
-            if (v70 && !atomic_fetch_add(&v70->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+            v54[4] = 0;
+            v54[5] = 0;
+            v54[6] = 0;
+            std::shared_ptr<BBUError>::shared_ptr[abi:ne200100]<BBUError,std::shared_ptr<BBUError> ctu::SharedSynchronizable<BBUError>::make_shared_ptr<BBUError>(BBUError*)::{lambda(BBUError*)#1},0>(&v72, v54);
+            v58 = v72;
+            v72 = 0uLL;
+            v59 = *(&off_1ED944120 + 1);
+            off_1ED944120 = v58;
+            if (v59 && !atomic_fetch_add(&v59->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
             {
-              (v70->__on_zero_shared)(v70);
-              std::__shared_weak_count::__release_weak(v70);
+              (v59->__on_zero_shared)(v59);
+              std::__shared_weak_count::__release_weak(v59);
             }
 
-            v71 = *(&v84 + 1);
-            if (*(&v84 + 1) && !atomic_fetch_add((*(&v84 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
+            v60 = *(&v72 + 1);
+            if (*(&v72 + 1) && !atomic_fetch_add((*(&v72 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
             {
-              (v71->__on_zero_shared)(v71);
-              std::__shared_weak_count::__release_weak(v71);
+              (v60->__on_zero_shared)(v60);
+              std::__shared_weak_count::__release_weak(v60);
             }
 
-            v64 = off_1ED944120;
+            v53 = off_1ED944120;
           }
 
-          v72 = *(&off_1ED944120 + 1);
-          v82 = v64;
-          v83 = *(&off_1ED944120 + 1);
+          v61 = *(&off_1ED944120 + 1);
+          v70 = v53;
+          v71 = *(&off_1ED944120 + 1);
           if (*(&off_1ED944120 + 1))
           {
             atomic_fetch_add_explicit((*(&off_1ED944120 + 1) + 8), 1uLL, memory_order_relaxed);
@@ -3420,50 +3759,50 @@ LABEL_126:
 
           pthread_mutex_unlock(&ctu::Singleton<BBUError,BBUError,ctu::PthreadMutexGuardPolicy<BBUError>>::sInstance);
           __p = operator new(0x28uLL);
-          v81 = xmmword_1E5392800;
+          v69 = xmmword_1E5392800;
           strcpy(__p, "Unexpected hello disconnect mode\n");
-          *&v84 = MEMORY[0x1E69E9820];
-          *(&v84 + 1) = 0x40000000;
-          v85 = ___ZN8BBUError8addErrorERKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEE9BBUReturn_block_invoke;
-          v86 = &__block_descriptor_tmp_8;
-          v87 = v64;
+          *&v72 = MEMORY[0x1E69E9820];
+          *(&v72 + 1) = 0x40000000;
+          v73 = ___ZN8BBUError8addErrorERKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEE9BBUReturn_block_invoke;
+          v74 = &__block_descriptor_tmp_8;
+          v75 = v53;
           p_p = &__p;
-          v89 = 12;
-          v90 = &v84;
+          v77 = 12;
+          v78 = &v72;
           block = MEMORY[0x1E69E9820];
-          v92 = 0x40000000;
-          v93 = ___ZNK3ctu20SharedSynchronizableI8BBUErrorE20execute_wrapped_syncIRU13block_pointerFvvEEEDTclsr8dispatchE4syncLDnEclsr3stdE7forwardIT_Efp_EEEOS7__block_invoke;
-          v94 = &__block_descriptor_tmp_13_0;
-          v95 = v64;
-          v96 = &v90;
-          v73 = *(v64 + 16);
-          if (*(v64 + 24))
+          v80 = 0x40000000;
+          v81 = ___ZNK3ctu20SharedSynchronizableI8BBUErrorE20execute_wrapped_syncIRU13block_pointerFvvEEEDTclsr8dispatchE4syncLDnEclsr3stdE7forwardIT_Efp_EEEOS7__block_invoke;
+          v82 = &__block_descriptor_tmp_13_0;
+          v83 = v53;
+          v84 = &v78;
+          v62 = *(v53 + 16);
+          if (*(v53 + 24))
           {
-            dispatch_async_and_wait(v73, &block);
+            dispatch_async_and_wait(v62, &block);
           }
 
           else
           {
-            dispatch_sync(v73, &block);
+            dispatch_sync(v62, &block);
           }
 
-          if (SHIBYTE(v81) < 0)
+          if (SHIBYTE(v69) < 0)
           {
             operator delete(__p);
           }
 
-          if (v72 && !atomic_fetch_add(&v72->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+          if (v61 && !atomic_fetch_add(&v61->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
           {
-            (v72->__on_zero_shared)(v72);
-            std::__shared_weak_count::__release_weak(v72);
+            (v61->__on_zero_shared)(v61);
+            std::__shared_weak_count::__release_weak(v61);
           }
 
-          v25 = 12;
+          v22 = 12;
           goto LABEL_32;
         }
 
 LABEL_135:
-        v25 = 0;
+        v22 = 0;
         goto LABEL_32;
       }
 
@@ -3486,7 +3825,7 @@ LABEL_135:
 
       if ((gBBULogVerbosity & 0x80000000) == 0)
       {
-        _BBULog(5, 0, "BBUProgrammer", "", "All images transferred\n", v34, v35, v36, v74);
+        _BBULog(5, 0, "BBUProgrammer", "", "All images transferred\n");
       }
 
       goto LABEL_135;
@@ -3511,7 +3850,7 @@ LABEL_135:
 
     if ((gBBULogVerbosity & 0x80000000) == 0)
     {
-      _BBULog(5, 0, "BBUProgrammer", "", "Next image requested\n", v34, v35, v36, v74);
+      _BBULog(5, 0, "BBUProgrammer", "", "Next image requested\n");
     }
 
 LABEL_76:
@@ -3520,16 +3859,16 @@ LABEL_76:
       goto LABEL_135;
     }
 
-    v79 = 256;
+    v67 = 256;
   }
 
-  if (v79 == 3)
+  if (v67 == 3)
   {
     goto LABEL_60;
   }
 
-  v25 = (*(*a1 + 248))(a1, &v79);
-  if (!v25)
+  v22 = (*(*a1 + 248))(a1, &v67);
+  if (!v22)
   {
     goto LABEL_65;
   }
@@ -3541,7 +3880,7 @@ LABEL_76:
 LABEL_82:
       if ((gBBULogVerbosity & 0x80000000) == 0)
       {
-        _BBULog(5, 0, "BBUProgrammer", "", "Failed disconnecting for image\n", v34, v35, v36, v74);
+        _BBULog(5, 0, "BBUProgrammer", "", "Failed disconnecting for image\n");
       }
     }
   }
@@ -3556,35 +3895,35 @@ LABEL_82:
   }
 
   pthread_mutex_lock(&ctu::Singleton<BBUError,BBUError,ctu::PthreadMutexGuardPolicy<BBUError>>::sInstance);
-  v39 = off_1ED944120;
+  v30 = off_1ED944120;
   if (!off_1ED944120)
   {
-    v40 = operator new(0x38uLL);
-    BBUError::BBUError(v40);
-    std::shared_ptr<BBUError>::shared_ptr[abi:ne200100]<BBUError,std::shared_ptr<BBUError> ctu::SharedSynchronizable<BBUError>::make_shared_ptr<BBUError>(BBUError*)::{lambda(BBUError*)#1},0>(&v84, v40);
-    v41 = v84;
-    v84 = 0uLL;
-    v42 = *(&off_1ED944120 + 1);
-    off_1ED944120 = v41;
-    if (v42 && !atomic_fetch_add(&v42->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    v31 = operator new(0x38uLL);
+    BBUError::BBUError(v31);
+    std::shared_ptr<BBUError>::shared_ptr[abi:ne200100]<BBUError,std::shared_ptr<BBUError> ctu::SharedSynchronizable<BBUError>::make_shared_ptr<BBUError>(BBUError*)::{lambda(BBUError*)#1},0>(&v72, v31);
+    v32 = v72;
+    v72 = 0uLL;
+    v33 = *(&off_1ED944120 + 1);
+    off_1ED944120 = v32;
+    if (v33 && !atomic_fetch_add(&v33->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
     {
-      (v42->__on_zero_shared)(v42);
-      std::__shared_weak_count::__release_weak(v42);
+      (v33->__on_zero_shared)(v33);
+      std::__shared_weak_count::__release_weak(v33);
     }
 
-    v43 = *(&v84 + 1);
-    if (*(&v84 + 1) && !atomic_fetch_add((*(&v84 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
+    v34 = *(&v72 + 1);
+    if (*(&v72 + 1) && !atomic_fetch_add((*(&v72 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
     {
-      (v43->__on_zero_shared)(v43);
-      std::__shared_weak_count::__release_weak(v43);
+      (v34->__on_zero_shared)(v34);
+      std::__shared_weak_count::__release_weak(v34);
     }
 
-    v39 = off_1ED944120;
+    v30 = off_1ED944120;
   }
 
-  v44 = *(&off_1ED944120 + 1);
-  v82 = v39;
-  v83 = *(&off_1ED944120 + 1);
+  v35 = *(&off_1ED944120 + 1);
+  v70 = v30;
+  v71 = *(&off_1ED944120 + 1);
   if (*(&off_1ED944120 + 1))
   {
     atomic_fetch_add_explicit((*(&off_1ED944120 + 1) + 8), 1uLL, memory_order_relaxed);
@@ -3592,54 +3931,54 @@ LABEL_82:
 
   pthread_mutex_unlock(&ctu::Singleton<BBUError,BBUError,ctu::PthreadMutexGuardPolicy<BBUError>>::sInstance);
   __p = operator new(0x20uLL);
-  v81 = xmmword_1E5391A90;
+  v69 = xmmword_1E5391A90;
   strcpy(__p, "Failed disconnecting for image\n");
-  *&v84 = MEMORY[0x1E69E9820];
-  *(&v84 + 1) = 0x40000000;
-  v85 = ___ZN8BBUError8addErrorERKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEE9BBUReturn_block_invoke;
-  v86 = &__block_descriptor_tmp_8;
-  v87 = v39;
+  *&v72 = MEMORY[0x1E69E9820];
+  *(&v72 + 1) = 0x40000000;
+  v73 = ___ZN8BBUError8addErrorERKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEE9BBUReturn_block_invoke;
+  v74 = &__block_descriptor_tmp_8;
+  v75 = v30;
   p_p = &__p;
-  v89 = 12;
-  v90 = &v84;
+  v77 = 12;
+  v78 = &v72;
   block = MEMORY[0x1E69E9820];
-  v92 = 0x40000000;
-  v93 = ___ZNK3ctu20SharedSynchronizableI8BBUErrorE20execute_wrapped_syncIRU13block_pointerFvvEEEDTclsr8dispatchE4syncLDnEclsr3stdE7forwardIT_Efp_EEEOS7__block_invoke;
-  v94 = &__block_descriptor_tmp_13_0;
-  v95 = v39;
-  v96 = &v90;
-  v45 = *(v39 + 16);
-  if (*(v39 + 24))
+  v80 = 0x40000000;
+  v81 = ___ZNK3ctu20SharedSynchronizableI8BBUErrorE20execute_wrapped_syncIRU13block_pointerFvvEEEDTclsr8dispatchE4syncLDnEclsr3stdE7forwardIT_Efp_EEEOS7__block_invoke;
+  v82 = &__block_descriptor_tmp_13_0;
+  v83 = v30;
+  v84 = &v78;
+  v36 = *(v30 + 16);
+  if (*(v30 + 24))
   {
-    dispatch_async_and_wait(v45, &block);
+    dispatch_async_and_wait(v36, &block);
   }
 
   else
   {
-    dispatch_sync(v45, &block);
+    dispatch_sync(v36, &block);
   }
 
-  if (SHIBYTE(v81) < 0)
+  if (SHIBYTE(v69) < 0)
   {
     operator delete(__p);
   }
 
-  if (v44 && !atomic_fetch_add(&v44->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  if (v35 && !atomic_fetch_add(&v35->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v44->__on_zero_shared)(v44);
-    std::__shared_weak_count::__release_weak(v44);
+    (v35->__on_zero_shared)(v35);
+    std::__shared_weak_count::__release_weak(v35);
   }
 
 LABEL_32:
-  (*(**(a1 + 8) + 16))(*(a1 + 8), v25);
+  (*(**(a1 + 8) + 16))(*(a1 + 8), v22);
   pthread_mutex_unlock((a1 + 88));
-  return v25;
+  return v22;
 }
 
-uint64_t BBUEUR10Programmer::handleSaharaMode_nl(_DWORD *a1, unsigned int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+uint64_t BBUEUR10Programmer::handleSaharaMode_nl(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   v6 = a2;
-  v28 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   if (a4)
   {
     v7 = a2 == 2;
@@ -3649,37 +3988,39 @@ uint64_t BBUEUR10Programmer::handleSaharaMode_nl(_DWORD *a1, unsigned int a2, ui
     }
 
 LABEL_12:
-    result = (*(*a1 + 224))(a1, a1 + 10);
-    if (result)
+    result = (*(*a1 + 224))(a1, a1 + 10, a3);
+    if (!result)
     {
-      if (gBBULogMaskGet(void)::once == -1)
-      {
-        if ((*gBBULogMaskGet(void)::sBBULogMask & 0x20) == 0)
-        {
-          goto LABEL_34;
-        }
-      }
+      return result;
+    }
 
-      else
+    if (gBBULogMaskGet(void)::once == -1)
+    {
+      if ((*gBBULogMaskGet(void)::sBBULogMask & 0x20) == 0)
       {
-        v23 = result;
-        dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
-        result = v23;
-        if ((*gBBULogMaskGet(void)::sBBULogMask & 0x20) == 0)
-        {
-          goto LABEL_34;
-        }
-      }
-
-      if ((gBBULogVerbosity & 0x80000000) == 0)
-      {
-        v17 = "failed sending image\n";
-        v16 = result;
-        goto LABEL_33;
+        return result;
       }
     }
 
-    goto LABEL_34;
+    else
+    {
+      v16 = result;
+      dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
+      result = v16;
+      if ((*gBBULogMaskGet(void)::sBBULogMask & 0x20) == 0)
+      {
+        return result;
+      }
+    }
+
+    if (gBBULogVerbosity < 0)
+    {
+      return result;
+    }
+
+    v13 = result;
+    _BBULog(5, 0, "BBUProgrammer", "", "failed sending image\n");
+    return v13;
   }
 
   a4 = (a1[1070] - 8);
@@ -3692,18 +4033,129 @@ LABEL_12:
 LABEL_3:
   if (v7)
   {
-    result = 28;
-    goto LABEL_34;
+    return 28;
   }
 
-  if (a2 != 256)
+  if (a2 == 256)
+  {
+    memset(v20, 0, sizeof(v20));
+    if ((a5 & 1) == 0)
+    {
+      v9 = a3;
+      v10 = a6;
+      v11 = a1;
+      result = BBUEUR4Programmer::handleMaverickGetNonce_nl(a1, 0, v20);
+      if (result)
+      {
+        if (gBBULogMaskGet(void)::once == -1)
+        {
+          if ((*gBBULogMaskGet(void)::sBBULogMask & 0x20) == 0)
+          {
+            return result;
+          }
+
+          goto LABEL_9;
+        }
+
+        v18 = result;
+        dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
+        result = v18;
+        if ((*gBBULogMaskGet(void)::sBBULogMask & 0x20) != 0)
+        {
+LABEL_9:
+          if (gBBULogVerbosity < 0)
+          {
+            return result;
+          }
+
+          v13 = result;
+          _BBULog(5, 0, "BBUProgrammer", "", "failed getting nonce\n");
+          return v13;
+        }
+
+        return result;
+      }
+
+      a4 = LODWORD(v20[0]);
+      a1 = v11;
+      a6 = v10;
+      a3 = v9;
+    }
+
+    v15 = a1;
+    result = (*(*a1 + 192))(a1, a3, a4, a6, 0, a5);
+    if (result)
+    {
+      if (gBBULogMaskGet(void)::once == -1)
+      {
+        if ((*gBBULogMaskGet(void)::sBBULogMask & 0x20) == 0)
+        {
+          return result;
+        }
+      }
+
+      else
+      {
+        v17 = result;
+        dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
+        result = v17;
+        if ((*gBBULogMaskGet(void)::sBBULogMask & 0x20) == 0)
+        {
+          return result;
+        }
+      }
+
+      if (gBBULogVerbosity < 0)
+      {
+        return result;
+      }
+
+      v13 = result;
+      _BBULog(5, 0, "BBUProgrammer", "", "failed handling sahara send hashes command\n");
+      return v13;
+    }
+
+    result = (*(*v15 + 200))(v15);
+    if (!result)
+    {
+      return result;
+    }
+
+    if (gBBULogMaskGet(void)::once == -1)
+    {
+      if ((*gBBULogMaskGet(void)::sBBULogMask & 0x20) == 0)
+      {
+        return result;
+      }
+    }
+
+    else
+    {
+      v19 = result;
+      dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
+      result = v19;
+      if ((*gBBULogMaskGet(void)::sBBULogMask & 0x20) == 0)
+      {
+        return result;
+      }
+    }
+
+    if ((gBBULogVerbosity & 0x80000000) == 0)
+    {
+      v13 = result;
+      _BBULog(5, 0, "BBUProgrammer", "", "failed handling maverick end\n");
+      return v13;
+    }
+  }
+
+  else
   {
     if (gBBULogMaskGet(void)::once == -1)
     {
       result = 12;
       if ((*gBBULogMaskGet(void)::sBBULogMask & 0x20) == 0)
       {
-        goto LABEL_34;
+        return result;
       }
     }
 
@@ -3713,133 +4165,18 @@ LABEL_3:
       result = 12;
       if ((*gBBULogMaskGet(void)::sBBULogMask & 0x20) == 0)
       {
-        goto LABEL_34;
+        return result;
       }
     }
 
     if ((gBBULogVerbosity & 0x80000000) == 0)
     {
-      ETLSAHModeAsString();
-      _BBULog(5, 0, "BBUProgrammer", "", "unexpected hello start mode %u, %s\n", v18, v19, v20, v6);
-      result = 12;
-    }
-
-    goto LABEL_34;
-  }
-
-  if (a5)
-  {
-LABEL_23:
-    v21 = a1;
-    result = (*(*a1 + 192))(a1, a3, a4, a6, 0, a5);
-    if (result)
-    {
-      if (gBBULogMaskGet(void)::once == -1)
-      {
-        if ((*gBBULogMaskGet(void)::sBBULogMask & 0x20) == 0)
-        {
-          goto LABEL_34;
-        }
-      }
-
-      else
-      {
-        v24 = result;
-        dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
-        result = v24;
-        if ((*gBBULogMaskGet(void)::sBBULogMask & 0x20) == 0)
-        {
-          goto LABEL_34;
-        }
-      }
-
-      if ((gBBULogVerbosity & 0x80000000) == 0)
-      {
-        v16 = result;
-        v17 = "failed handling sahara send hashes command\n";
-        goto LABEL_33;
-      }
-    }
-
-    else
-    {
-      result = (*(*v21 + 200))(v21);
-      if (result)
-      {
-        if (gBBULogMaskGet(void)::once == -1)
-        {
-          if ((*gBBULogMaskGet(void)::sBBULogMask & 0x20) == 0)
-          {
-            goto LABEL_34;
-          }
-        }
-
-        else
-        {
-          v26 = result;
-          dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
-          result = v26;
-          if ((*gBBULogMaskGet(void)::sBBULogMask & 0x20) == 0)
-          {
-            goto LABEL_34;
-          }
-        }
-
-        if ((gBBULogVerbosity & 0x80000000) == 0)
-        {
-          v16 = result;
-          v17 = "failed handling maverick end\n";
-          goto LABEL_33;
-        }
-      }
-    }
-
-    goto LABEL_34;
-  }
-
-  v9 = a3;
-  v10 = a6;
-  v11 = a1;
-  result = BBUEUR4Programmer::handleMaverickGetNonce_nl(a1, 0);
-  if (!result)
-  {
-    a4 = 0;
-    a1 = v11;
-    a6 = v10;
-    a3 = v9;
-    goto LABEL_23;
-  }
-
-  if (gBBULogMaskGet(void)::once == -1)
-  {
-    if ((*gBBULogMaskGet(void)::sBBULogMask & 0x20) == 0)
-    {
-      goto LABEL_34;
+      v14 = ETLSAHModeAsString();
+      _BBULog(5, 0, "BBUProgrammer", "", "unexpected hello start mode %u, %s\n", v6, v14);
+      return 12;
     }
   }
 
-  else
-  {
-    v25 = result;
-    dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
-    result = v25;
-    if ((*gBBULogMaskGet(void)::sBBULogMask & 0x20) == 0)
-    {
-      goto LABEL_34;
-    }
-  }
-
-  if ((gBBULogVerbosity & 0x80000000) == 0)
-  {
-    v16 = result;
-    v17 = "failed getting nonce\n";
-LABEL_33:
-    _BBULog(5, 0, "BBUProgrammer", "", v17, v13, v14, v15, v27);
-    result = v16;
-  }
-
-LABEL_34:
-  v22 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -3847,38 +4184,36 @@ uint64_t BBUEUR10Programmer::sendImageInternal_nl(BBUFeedback **a1, uint64_t a2)
 {
   Current = CFAbsoluteTimeGetCurrent();
   v5 = operator new[](0x100000uLL);
-  v61 = 0;
-  v62[0] = 0;
-  v60 = 0;
-  if ((*(*a1 + 29))(a1, v5, 0x100000, v62 + 4, v62, &v61, &v60))
+  v47 = 0;
+  v48[0] = 0;
+  v46 = 0;
+  if ((*(*a1 + 29))(a1, v5, 0x100000, v48 + 4, v48, &v47, &v46))
   {
-    v9 = HIDWORD(v62[0]);
-    v10 = a2;
+    v6 = HIDWORD(v48[0]);
+    v7 = a2;
     while (1)
     {
-      v10 = *(v10 + 8);
-      if (v10 == a2)
+      v7 = *(v7 + 8);
+      if (v7 == a2)
       {
         break;
       }
 
-      v11 = *(v10 + 16);
-      v12 = **v11;
-      if (*(v13 + 6) == v9)
+      if (*(v8 + 6) == v6)
       {
-        v14 = v13[2];
-        v15 = (*(*v14 + 32))(v14);
-        v59.__r_.__value_.__l.__size_ = 0xAAAAAAAAAAAAAAAALL;
-        v59.__r_.__value_.__r.__words[2] = 0x7AAAAAAAAAAAAAALL;
-        strcpy(&v59, "unknown");
-        v16 = (*(*v14 + 16))(v14);
-        std::string::__assign_external(&v59, v16);
-        v17 = 0;
-        v18 = 0;
-        v19 = HIDWORD(v62[0]);
-        if (SHIDWORD(v62[0]) <= 16410)
+        v9 = v8[2];
+        v10 = (*(*v9 + 32))(v9);
+        v45.__r_.__value_.__l.__size_ = 0xAAAAAAAAAAAAAAAALL;
+        v45.__r_.__value_.__r.__words[2] = 0x7AAAAAAAAAAAAAALL;
+        strcpy(&v45, "unknown");
+        v11 = (*(*v9 + 16))(v9);
+        std::string::__assign_external(&v45, v11);
+        v12 = 0;
+        v13 = 0;
+        v14 = HIDWORD(v48[0]);
+        if (SHIDWORD(v48[0]) <= 16410)
         {
-          goto LABEL_22;
+          goto LABEL_21;
         }
 
         goto LABEL_6;
@@ -3887,511 +4222,506 @@ uint64_t BBUEUR10Programmer::sendImageInternal_nl(BBUFeedback **a1, uint64_t a2)
 
     if (gBBULogMaskGet(void)::once == -1)
     {
-      v17 = 15;
+      v12 = 15;
       if ((*gBBULogMaskGet(void)::sBBULogMask & 0x20) == 0)
       {
-        goto LABEL_21;
+        goto LABEL_20;
       }
     }
 
     else
     {
       dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
-      v17 = 15;
+      v12 = 15;
       if ((*gBBULogMaskGet(void)::sBBULogMask & 0x20) == 0)
       {
-        goto LABEL_21;
+        goto LABEL_20;
       }
     }
 
-    if (gBBULogVerbosity < 0)
+    if ((gBBULogVerbosity & 0x80000000) == 0)
     {
-      goto LABEL_21;
+      _BBULog(5, 0, "BBUProgrammer", "", "item not found in item list\n");
     }
-
-    v21 = "item not found in item list\n";
-    v22 = 0;
-LABEL_20:
-    _BBULog(5, v22, "BBUProgrammer", "", v21, v6, v7, v8, v49);
-    goto LABEL_21;
-  }
-
-  if (gBBULogMaskGet(void)::once == -1)
-  {
-    v17 = 12;
-    if ((*gBBULogMaskGet(void)::sBBULogMask & 0x20) == 0)
-    {
-      goto LABEL_21;
-    }
-
-    goto LABEL_14;
-  }
-
-  dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
-  v17 = 12;
-  if ((*gBBULogMaskGet(void)::sBBULogMask & 0x20) != 0)
-  {
-LABEL_14:
-    if (gBBULogVerbosity < 1)
-    {
-      goto LABEL_21;
-    }
-
-    v21 = "failed receiving next segment request\n";
-    v22 = 1;
-    goto LABEL_20;
-  }
-
-LABEL_21:
-  v14 = 0;
-  v15 = 0;
-  v59.__r_.__value_.__l.__size_ = 0xAAAAAAAAAAAAAAAALL;
-  v59.__r_.__value_.__r.__words[2] = 0x7AAAAAAAAAAAAAALL;
-  strcpy(&v59, "unknown");
-  v18 = 1;
-  v19 = HIDWORD(v62[0]);
-  if (SHIDWORD(v62[0]) <= 16410)
-  {
-LABEL_22:
-    if (v19 > 28)
-    {
-      if (v19 > 16407)
-      {
-        switch(v19)
-        {
-          case 16408:
-            v20 = 23;
-            goto LABEL_69;
-          case 16409:
-            v20 = 24;
-            goto LABEL_69;
-          case 16410:
-            v20 = 25;
-            goto LABEL_69;
-        }
-      }
-
-      else
-      {
-        switch(v19)
-        {
-          case 29:
-            v20 = 10;
-            goto LABEL_69;
-          case 30:
-            v20 = 14;
-            goto LABEL_69;
-          case 31:
-            v20 = 11;
-            goto LABEL_69;
-        }
-      }
-    }
-
-    else if (v19 > 20)
-    {
-      switch(v19)
-      {
-        case 21:
-          v20 = 1;
-          goto LABEL_69;
-        case 23:
-          v20 = 3;
-          goto LABEL_69;
-        case 28:
-          v20 = 8;
-          goto LABEL_69;
-      }
-    }
-
-    else
-    {
-      switch(v19)
-      {
-        case 6:
-          v20 = 9;
-          goto LABEL_69;
-        case 8:
-          v20 = 7;
-          goto LABEL_69;
-        case 16:
-          v20 = 15;
-          goto LABEL_69;
-      }
-    }
-
-LABEL_134:
-    v24 = 0;
-    v23 = a1[1];
-    goto LABEL_72;
-  }
-
-LABEL_6:
-  if (v19 > 16416)
-  {
-    if (v19 > 1128679167)
-    {
-      switch(v19)
-      {
-        case 1128679168:
-          v20 = 22;
-          goto LABEL_69;
-        case 1346454272:
-          v20 = 20;
-          goto LABEL_69;
-        case 1347571542:
-          v20 = 19;
-          goto LABEL_69;
-      }
-    }
-
-    else
-    {
-      switch(v19)
-      {
-        case 16417:
-          v20 = 32;
-          goto LABEL_69;
-        case 16418:
-          v20 = 33;
-          goto LABEL_69;
-        case 1128352768:
-          v20 = 18;
-          goto LABEL_69;
-      }
-    }
-
-    goto LABEL_134;
-  }
-
-  if (v19 > 16413)
-  {
-    if (v19 == 16414)
-    {
-      v20 = 29;
-    }
-
-    else if (v19 == 16415)
-    {
-      v20 = 30;
-    }
-
-    else
-    {
-      v20 = 31;
-    }
-
-    goto LABEL_69;
-  }
-
-  if (v19 == 16411)
-  {
-    v20 = 26;
-    goto LABEL_69;
-  }
-
-  if (v19 == 16412)
-  {
-    v20 = 27;
-    goto LABEL_69;
-  }
-
-  if (v19 != 16413)
-  {
-    goto LABEL_134;
-  }
-
-  v20 = 28;
-LABEL_69:
-  v23 = a1[1];
-  if (*(v23 + 44) == 1)
-  {
-    *(v23 + 10) = v20;
-  }
-
-  v24 = 1;
-LABEL_72:
-  *(&v54.__r_.__value_.__s + 23) = 15;
-  strcpy(&v54, "Sending Image '");
-  if ((v59.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-  {
-    v25 = &v59;
   }
 
   else
   {
-    v25 = v59.__r_.__value_.__r.__words[0];
-  }
-
-  if ((v59.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-  {
-    size = HIBYTE(v59.__r_.__value_.__r.__words[2]);
-  }
-
-  else
-  {
-    size = v59.__r_.__value_.__l.__size_;
-  }
-
-  v27 = std::string::append(&v54, v25, size);
-  v28 = *&v27->__r_.__value_.__l.__data_;
-  v56 = v27->__r_.__value_.__r.__words[2];
-  *v55 = v28;
-  v27->__r_.__value_.__l.__size_ = 0;
-  v27->__r_.__value_.__r.__words[2] = 0;
-  v27->__r_.__value_.__r.__words[0] = 0;
-  v29 = SHIBYTE(v56);
-  if ((SHIBYTE(v56) & 0x8000000000000000) == 0)
-  {
-    v30 = v55;
-    if (SHIBYTE(v56) == 22)
-    {
-      v52 = v24;
-      v53 = v18;
-      v51 = v14;
-      v50 = v17;
-      v31 = 22;
-      v32 = 23;
-LABEL_84:
-      v34 = 2 * v31;
-      if (v32 > 2 * v31)
-      {
-        v34 = v32;
-      }
-
-      if ((v34 | 7) == 0x17)
-      {
-        v35 = 25;
-      }
-
-      else
-      {
-        v35 = (v34 | 7) + 1;
-      }
-
-      if (v34 >= 0x17)
-      {
-        v33 = v35;
-      }
-
-      else
-      {
-        v33 = 23;
-      }
-
-      v36 = v31 == 22;
-      goto LABEL_93;
-    }
-
-LABEL_99:
-    *(v29 + v30) = 39;
-    v40 = v29 + 1;
-    if (SHIBYTE(v56) < 0)
-    {
-      v55[1] = v40;
-    }
-
-    else
-    {
-      HIBYTE(v56) = v40 & 0x7F;
-    }
-
-    v39 = &v40[v30];
-    goto LABEL_103;
-  }
-
-  v52 = v24;
-  v53 = v18;
-  v29 = v55[1];
-  v32 = v56 & 0x7FFFFFFFFFFFFFFFLL;
-  v31 = (v56 & 0x7FFFFFFFFFFFFFFFLL) - 1;
-  if (v31 != v55[1])
-  {
-    v30 = v55[0];
-    v24 = v52;
-    v18 = v53;
-    goto LABEL_99;
-  }
-
-  v51 = v14;
-  v33 = 0x7FFFFFFFFFFFFFF7;
-  if (v32 == 0x7FFFFFFFFFFFFFF7)
-  {
-    std::string::__throw_length_error[abi:ne200100]();
-  }
-
-  v30 = v55[0];
-  v50 = v17;
-  if (v31 <= 0x3FFFFFFFFFFFFFF2)
-  {
-    goto LABEL_84;
-  }
-
-  v36 = 0;
-LABEL_93:
-  v37 = operator new(v33);
-  v38 = v37;
-  if (v31)
-  {
-    memmove(v37, v30, v31);
-  }
-
-  v38[v31] = 39;
-  if (!v36)
-  {
-    operator delete(v30);
-  }
-
-  v55[1] = v32;
-  v56 = v33 | 0x8000000000000000;
-  v55[0] = v38;
-  v39 = &v38[v32];
-  v17 = v50;
-  v14 = v51;
-  v24 = v52;
-  v18 = v53;
-LABEL_103:
-  *v39 = 0;
-  *__p = *v55;
-  v58 = v56;
-  v55[1] = 0;
-  v56 = 0;
-  v55[0] = 0;
-  (*(*v23 + 32))(v23, __p, 0, v15);
-  if (SHIBYTE(v58) < 0)
-  {
-    operator delete(__p[0]);
-    if ((SHIBYTE(v56) & 0x80000000) == 0)
-    {
-LABEL_105:
-      if ((SHIBYTE(v54.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-      {
-        goto LABEL_106;
-      }
-
-      goto LABEL_110;
-    }
-  }
-
-  else if ((SHIBYTE(v56) & 0x80000000) == 0)
-  {
-    goto LABEL_105;
-  }
-
-  operator delete(v55[0]);
-  if ((SHIBYTE(v54.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-  {
-LABEL_106:
-    if (((v18 | v60) & 1) == 0)
-    {
-      goto LABEL_111;
-    }
-
-    goto LABEL_126;
-  }
-
-LABEL_110:
-  operator delete(v54.__r_.__value_.__l.__data_);
-  if (((v18 | v60) & 1) == 0)
-  {
-    while (1)
-    {
-LABEL_111:
-      if (v15 < v61 + LODWORD(v62[0]))
-      {
-        BBUFeedback::handleComment(a1[1], "Error: Chunk size is not sufficient to write payload data of the image!");
-        v17 = 72;
-        goto LABEL_126;
-      }
-
-      if (((*(*a1 + 30))(a1, v14, v5, 0x100000, v62, &v61, &v61 + 4, v15) & 1) == 0)
-      {
-        break;
-      }
-
-      if (((*(*a1 + 29))(a1, v5, 0x100000, v62 + 4, v62, &v61, &v60) & 1) == 0)
-      {
-        if (gBBULogMaskGet(void)::once == -1)
-        {
-          v17 = 0;
-          if ((*gBBULogMaskGet(void)::sBBULogMask & 0x20) == 0)
-          {
-            goto LABEL_126;
-          }
-
-          goto LABEL_123;
-        }
-
-        dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
-        v17 = 0;
-        if ((*gBBULogMaskGet(void)::sBBULogMask & 0x20) != 0)
-        {
-LABEL_123:
-          if (gBBULogVerbosity < 1)
-          {
-            goto LABEL_126;
-          }
-
-          _BBULog(5, 1, "BBUProgrammer", "", "failed receiving next segment request\n", v44, v45, v46, v49);
-LABEL_125:
-          v17 = 0;
-          goto LABEL_126;
-        }
-
-        goto LABEL_126;
-      }
-
-      if (v60)
-      {
-        goto LABEL_125;
-      }
-    }
-
     if (gBBULogMaskGet(void)::once == -1)
     {
-      v17 = 3;
+      v12 = 12;
       if ((*gBBULogMaskGet(void)::sBBULogMask & 0x20) == 0)
       {
-        goto LABEL_126;
+        goto LABEL_20;
       }
     }
 
     else
     {
       dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
-      v17 = 3;
+      v12 = 12;
       if ((*gBBULogMaskGet(void)::sBBULogMask & 0x20) == 0)
       {
-        goto LABEL_126;
+        goto LABEL_20;
       }
     }
 
     if (gBBULogVerbosity >= 1)
     {
-      _BBULog(5, 1, "BBUProgrammer", "", "failed transfering segment\n", v41, v42, v43, v49);
+      _BBULog(5, 1, "BBUProgrammer", "", "failed receiving next segment request\n");
     }
   }
 
-LABEL_126:
+LABEL_20:
+  v9 = 0;
+  v10 = 0;
+  v45.__r_.__value_.__l.__size_ = 0xAAAAAAAAAAAAAAAALL;
+  v45.__r_.__value_.__r.__words[2] = 0x7AAAAAAAAAAAAAALL;
+  strcpy(&v45, "unknown");
+  v13 = 1;
+  v14 = HIDWORD(v48[0]);
+  if (SHIDWORD(v48[0]) <= 16410)
+  {
+LABEL_21:
+    if (v14 > 28)
+    {
+      if (v14 > 16407)
+      {
+        switch(v14)
+        {
+          case 16408:
+            v15 = 23;
+            goto LABEL_68;
+          case 16409:
+            v15 = 24;
+            goto LABEL_68;
+          case 16410:
+            v15 = 25;
+            goto LABEL_68;
+        }
+      }
+
+      else
+      {
+        switch(v14)
+        {
+          case 29:
+            v15 = 10;
+            goto LABEL_68;
+          case 30:
+            v15 = 14;
+            goto LABEL_68;
+          case 31:
+            v15 = 11;
+            goto LABEL_68;
+        }
+      }
+    }
+
+    else if (v14 > 20)
+    {
+      switch(v14)
+      {
+        case 21:
+          v15 = 1;
+          goto LABEL_68;
+        case 23:
+          v15 = 3;
+          goto LABEL_68;
+        case 28:
+          v15 = 8;
+          goto LABEL_68;
+      }
+    }
+
+    else
+    {
+      switch(v14)
+      {
+        case 6:
+          v15 = 9;
+          goto LABEL_68;
+        case 8:
+          v15 = 7;
+          goto LABEL_68;
+        case 16:
+          v15 = 15;
+          goto LABEL_68;
+      }
+    }
+
+LABEL_133:
+    v17 = 0;
+    v16 = a1[1];
+    goto LABEL_71;
+  }
+
+LABEL_6:
+  if (v14 > 16416)
+  {
+    if (v14 > 1128679167)
+    {
+      switch(v14)
+      {
+        case 1128679168:
+          v15 = 22;
+          goto LABEL_68;
+        case 1346454272:
+          v15 = 20;
+          goto LABEL_68;
+        case 1347571542:
+          v15 = 19;
+          goto LABEL_68;
+      }
+    }
+
+    else
+    {
+      switch(v14)
+      {
+        case 16417:
+          v15 = 32;
+          goto LABEL_68;
+        case 16418:
+          v15 = 33;
+          goto LABEL_68;
+        case 1128352768:
+          v15 = 18;
+          goto LABEL_68;
+      }
+    }
+
+    goto LABEL_133;
+  }
+
+  if (v14 > 16413)
+  {
+    if (v14 == 16414)
+    {
+      v15 = 29;
+    }
+
+    else if (v14 == 16415)
+    {
+      v15 = 30;
+    }
+
+    else
+    {
+      v15 = 31;
+    }
+
+    goto LABEL_68;
+  }
+
+  if (v14 == 16411)
+  {
+    v15 = 26;
+    goto LABEL_68;
+  }
+
+  if (v14 == 16412)
+  {
+    v15 = 27;
+    goto LABEL_68;
+  }
+
+  if (v14 != 16413)
+  {
+    goto LABEL_133;
+  }
+
+  v15 = 28;
+LABEL_68:
+  v16 = a1[1];
+  if (*(v16 + 44) == 1)
+  {
+    *(v16 + 10) = v15;
+  }
+
+  v17 = 1;
+LABEL_71:
+  *(&v40.__r_.__value_.__s + 23) = 15;
+  strcpy(&v40, "Sending Image '");
+  if ((v45.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v18 = &v45;
+  }
+
+  else
+  {
+    v18 = v45.__r_.__value_.__r.__words[0];
+  }
+
+  if ((v45.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    size = HIBYTE(v45.__r_.__value_.__r.__words[2]);
+  }
+
+  else
+  {
+    size = v45.__r_.__value_.__l.__size_;
+  }
+
+  v20 = std::string::append(&v40, v18, size);
+  v21 = *&v20->__r_.__value_.__l.__data_;
+  v42 = v20->__r_.__value_.__r.__words[2];
+  *v41 = v21;
+  v20->__r_.__value_.__l.__size_ = 0;
+  v20->__r_.__value_.__r.__words[2] = 0;
+  v20->__r_.__value_.__r.__words[0] = 0;
+  v22 = SHIBYTE(v42);
+  if ((SHIBYTE(v42) & 0x8000000000000000) == 0)
+  {
+    v23 = v41;
+    if (SHIBYTE(v42) == 22)
+    {
+      v38 = v17;
+      v39 = v13;
+      v37 = v9;
+      v36 = v12;
+      v24 = 22;
+      v25 = 23;
+LABEL_83:
+      v27 = 2 * v24;
+      if (v25 > 2 * v24)
+      {
+        v27 = v25;
+      }
+
+      if ((v27 | 7) == 0x17)
+      {
+        v28 = 25;
+      }
+
+      else
+      {
+        v28 = (v27 | 7) + 1;
+      }
+
+      if (v27 >= 0x17)
+      {
+        v26 = v28;
+      }
+
+      else
+      {
+        v26 = 23;
+      }
+
+      v29 = v24 == 22;
+      goto LABEL_92;
+    }
+
+LABEL_98:
+    *(v22 + v23) = 39;
+    v33 = v22 + 1;
+    if (SHIBYTE(v42) < 0)
+    {
+      v41[1] = v33;
+    }
+
+    else
+    {
+      HIBYTE(v42) = v33 & 0x7F;
+    }
+
+    v32 = &v33[v23];
+    goto LABEL_102;
+  }
+
+  v38 = v17;
+  v39 = v13;
+  v22 = v41[1];
+  v25 = v42 & 0x7FFFFFFFFFFFFFFFLL;
+  v24 = (v42 & 0x7FFFFFFFFFFFFFFFLL) - 1;
+  if (v24 != v41[1])
+  {
+    v23 = v41[0];
+    v17 = v38;
+    v13 = v39;
+    goto LABEL_98;
+  }
+
+  v37 = v9;
+  v26 = 0x7FFFFFFFFFFFFFF7;
+  if (v25 == 0x7FFFFFFFFFFFFFF7)
+  {
+    std::string::__throw_length_error[abi:ne200100]();
+  }
+
+  v23 = v41[0];
+  v36 = v12;
+  if (v24 <= 0x3FFFFFFFFFFFFFF2)
+  {
+    goto LABEL_83;
+  }
+
+  v29 = 0;
+LABEL_92:
+  v30 = operator new(v26);
+  v31 = v30;
   if (v24)
+  {
+    memmove(v30, v23, v24);
+  }
+
+  v31[v24] = 39;
+  if (!v29)
+  {
+    operator delete(v23);
+  }
+
+  v41[1] = v25;
+  v42 = v26 | 0x8000000000000000;
+  v41[0] = v31;
+  v32 = &v31[v25];
+  v12 = v36;
+  v9 = v37;
+  v17 = v38;
+  v13 = v39;
+LABEL_102:
+  *v32 = 0;
+  *__p = *v41;
+  v44 = v42;
+  v41[1] = 0;
+  v42 = 0;
+  v41[0] = 0;
+  (*(*v16 + 32))(v16, __p, 0, v10);
+  if (SHIBYTE(v44) < 0)
+  {
+    operator delete(__p[0]);
+    if ((SHIBYTE(v42) & 0x80000000) == 0)
+    {
+LABEL_104:
+      if ((SHIBYTE(v40.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+      {
+        goto LABEL_105;
+      }
+
+      goto LABEL_109;
+    }
+  }
+
+  else if ((SHIBYTE(v42) & 0x80000000) == 0)
+  {
+    goto LABEL_104;
+  }
+
+  operator delete(v41[0]);
+  if ((SHIBYTE(v40.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+  {
+LABEL_105:
+    if (((v13 | v46) & 1) == 0)
+    {
+      goto LABEL_110;
+    }
+
+    goto LABEL_125;
+  }
+
+LABEL_109:
+  operator delete(v40.__r_.__value_.__l.__data_);
+  if (((v13 | v46) & 1) == 0)
+  {
+    while (1)
+    {
+LABEL_110:
+      if (v10 < v47 + LODWORD(v48[0]))
+      {
+        BBUFeedback::handleComment(a1[1], "Error: Chunk size is not sufficient to write payload data of the image!");
+        v12 = 72;
+        goto LABEL_125;
+      }
+
+      if (((*(*a1 + 30))(a1, v9, v5, 0x100000, v48, &v47, &v47 + 4, v10) & 1) == 0)
+      {
+        break;
+      }
+
+      if (((*(*a1 + 29))(a1, v5, 0x100000, v48 + 4, v48, &v47, &v46) & 1) == 0)
+      {
+        if (gBBULogMaskGet(void)::once == -1)
+        {
+          v12 = 0;
+          if ((*gBBULogMaskGet(void)::sBBULogMask & 0x20) == 0)
+          {
+            goto LABEL_125;
+          }
+
+          goto LABEL_122;
+        }
+
+        dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
+        v12 = 0;
+        if ((*gBBULogMaskGet(void)::sBBULogMask & 0x20) != 0)
+        {
+LABEL_122:
+          if (gBBULogVerbosity < 1)
+          {
+            goto LABEL_125;
+          }
+
+          _BBULog(5, 1, "BBUProgrammer", "", "failed receiving next segment request\n");
+LABEL_124:
+          v12 = 0;
+          goto LABEL_125;
+        }
+
+        goto LABEL_125;
+      }
+
+      if (v46)
+      {
+        goto LABEL_124;
+      }
+    }
+
+    if (gBBULogMaskGet(void)::once == -1)
+    {
+      v12 = 3;
+      if ((*gBBULogMaskGet(void)::sBBULogMask & 0x20) == 0)
+      {
+        goto LABEL_125;
+      }
+    }
+
+    else
+    {
+      dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
+      v12 = 3;
+      if ((*gBBULogMaskGet(void)::sBBULogMask & 0x20) == 0)
+      {
+        goto LABEL_125;
+      }
+    }
+
+    if (gBBULogVerbosity >= 1)
+    {
+      _BBULog(5, 1, "BBUProgrammer", "", "failed transfering segment\n");
+    }
+  }
+
+LABEL_125:
+  if (v17)
   {
     BBUFeedback::endProgressBarItem(a1[1]);
   }
 
-  (*(*a1[1] + 48))(a1[1], v17);
-  if (!v17)
+  (*(*a1[1] + 48))(a1[1], v12);
+  if (!v12)
   {
-    v47 = CFAbsoluteTimeGetCurrent();
-    BBUFeedback::handleComment(a1[1], "Took %f seconds", v47 - Current);
+    v34 = CFAbsoluteTimeGetCurrent();
+    BBUFeedback::handleComment(a1[1], "Took %f seconds", v34 - Current);
   }
 
   operator delete[](v5);
-  if (SHIBYTE(v59.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v59.__r_.__value_.__l.__data_);
+    operator delete(v45.__r_.__value_.__l.__data_);
   }
 
-  return v17;
+  return v12;
 }
 
 void sub_1E532DE70(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, int a16, __int16 a17, char a18, char a19, void *a20, uint64_t a21, int a22, __int16 a23, char a24, char a25, uint64_t a26, void *a27, uint64_t a28, int a29, __int16 a30, char a31, char a32, void *__p, uint64_t a34, int a35, __int16 a36, char a37, char a38)
@@ -4405,9 +4735,8 @@ void sub_1E532DE70(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t BBUEUR10Programmer::getSegmentRequestInternal_nl(uint64_t a1, int *a2, uint64_t a3, int *a4, unsigned int *a5, unsigned int *a6, _BYTE *a7)
+uint64_t BBUEUR10Programmer::getSegmentRequestInternal_nl(uint64_t a1, _DWORD *a2, uint64_t a3, _DWORD *a4, uint64_t a5, uint64_t a6, _BYTE *a7)
 {
-  v12 = *(a1 + 16);
   if ((ETLSAHCommandReceive() & 1) == 0)
   {
     if (gBBULogMaskGet(void)::once == -1)
@@ -4434,9 +4763,8 @@ uint64_t BBUEUR10Programmer::getSegmentRequestInternal_nl(uint64_t a1, int *a2, 
       return result;
     }
 
-    v21 = "no response from baseband after segment transfer\n";
-    v22 = 1;
-    goto LABEL_34;
+    _BBULog(5, 1, "BBUProgrammer", "", "no response from baseband after segment transfer\n");
+    return 0;
   }
 
   if (*a2 != 4)
@@ -4446,35 +4774,28 @@ uint64_t BBUEUR10Programmer::getSegmentRequestInternal_nl(uint64_t a1, int *a2, 
       Data = ETLSAHCommandParseReadData();
       if (gBBULogMaskGet(void)::once != -1)
       {
-        v24 = Data;
+        v14 = Data;
         dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
-        Data = v24;
+        Data = v14;
       }
 
-      v17 = (gBBULogVerbosity >= 0) & (*gBBULogMaskGet(void)::sBBULogMask >> 5);
+      v11 = (gBBULogVerbosity >= 0) & (*gBBULogMaskGet(void)::sBBULogMask >> 5);
       if (Data)
       {
-        if (!v17)
+        if (v11)
         {
-          return 1;
+          _BBULog(5, 0, "BBUProgrammer", "", "request image ID %u, data offset 0x%x, data length %u\n");
         }
 
-        v18 = *a4;
-        v26 = *a5;
-        v27 = *a6;
-        v19 = "request image ID %u, data offset 0x%x, data length %u\n";
-LABEL_18:
-        _BBULog(5, 0, "BBUProgrammer", "", v19, v13, v14, v15, v18);
         return 1;
       }
 
-      if (!v17)
+      if (v11)
       {
-        return 0;
+        _BBULog(5, 0, "BBUProgrammer", "", "Failed parsing read command");
       }
 
-      v21 = "Failed parsing read command";
-      goto LABEL_33;
+      return 0;
     }
 
     if (gBBULogMaskGet(void)::once == -1)
@@ -4498,22 +4819,20 @@ LABEL_16:
         return result;
       }
 
-      v18 = *a2;
-      v19 = "unexpected command %u";
-      goto LABEL_18;
+      _BBULog(5, 0, "BBUProgrammer", "", "unexpected command %u");
+      return 1;
     }
 
     return result;
   }
 
-  v28 = 0;
   if (ETLSAHCommandParseEndOfImageTransfer())
   {
     if (gBBULogMaskGet(void)::once == -1)
     {
       if ((*gBBULogMaskGet(void)::sBBULogMask & 0x20) != 0)
       {
-        goto LABEL_26;
+        goto LABEL_25;
       }
     }
 
@@ -4522,10 +4841,10 @@ LABEL_16:
       dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
       if ((*gBBULogMaskGet(void)::sBBULogMask & 0x20) != 0)
       {
-LABEL_26:
+LABEL_25:
         if ((gBBULogVerbosity & 0x80000000) == 0)
         {
-          _BBULog(5, 0, "BBUProgrammer", "", "end of image %u\n", v13, v14, v15, *a4);
+          _BBULog(5, 0, "BBUProgrammer", "", "end of image %u\n", *a4);
         }
       }
     }
@@ -4556,31 +4875,27 @@ LABEL_26:
 
   if ((gBBULogVerbosity & 0x80000000) == 0)
   {
-    v21 = "Failed parsing image end command";
-LABEL_33:
-    v22 = 0;
-LABEL_34:
-    _BBULog(5, v22, "BBUProgrammer", "", v21, v13, v14, v15, v25);
+    _BBULog(5, 0, "BBUProgrammer", "", "Failed parsing image end command");
     return 0;
   }
 
   return result;
 }
 
-void sub_1E532E7D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, void *__p, uint64_t a6, int a7, __int16 a8, char a9, char a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
+void sub_1E532E7D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, void *__p, uint64_t a6, int a7, __int16 a8, char a9, char a10, char a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
-  va_start(va, a24);
-  if (a10 < 0)
+  va_start(va, a30);
+  if (SHIBYTE(a16) < 0)
   {
-    operator delete(__p);
+    operator delete(a14);
   }
 
-  std::ostringstream::~ostringstream(&a11, MEMORY[0x1E69E54E8]);
+  std::ostringstream::~ostringstream(&a17, MEMORY[0x1E69E54E8]);
   MEMORY[0x1E69273B0](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t BBUEUR10Programmer::sendSegmentInternal_nl(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4, _DWORD *a5, unsigned int *a6, _DWORD *a7, unsigned int a8)
+uint64_t BBUEUR10Programmer::sendSegmentInternal_nl(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4, unsigned int *a5, unsigned int *a6, _DWORD *a7, unsigned int a8)
 {
   v8 = *a6;
   if (*a6)
@@ -4599,12 +4914,11 @@ uint64_t BBUEUR10Programmer::sendSegmentInternal_nl(uint64_t a1, uint64_t a2, ui
       }
 
       (*(*a2 + 24))(a2, a3, v18, *a5);
-      v19 = *(a1 + 16);
       Data = ETLSAHSendReadData();
       if (Data)
       {
-        LODWORD(v24) = *a5;
-        BBUFeedback::updateProgressBarItem(*(a1 + 8), v24 / v16);
+        LODWORD(v20) = *a5;
+        BBUFeedback::updateProgressBarItem(*(a1 + 8), v20 / v16);
         (*(**(a1 + 8) + 40))(*(a1 + 8), *a5);
       }
 
@@ -4624,7 +4938,7 @@ uint64_t BBUEUR10Programmer::sendSegmentInternal_nl(uint64_t a1, uint64_t a2, ui
 LABEL_14:
           if (gBBULogVerbosity >= 1)
           {
-            _BBULog(5, 1, "BBUProgrammer", "", "Failed sending data at offset 0x%x, chunk %u\n", v20, v21, v22, *a5);
+            _BBULog(5, 1, "BBUProgrammer", "", "Failed sending data at offset 0x%x, chunk %u\n", *a5, v18);
           }
         }
       }
@@ -4653,31 +4967,31 @@ LABEL_14:
   return 1;
 }
 
-uint64_t BBUEUR10Programmer::handleHashesQuery(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t BBUEUR10Programmer::handleHashesQuery(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v44 = *MEMORY[0x1E69E9840];
-  *&v8 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v8 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v43[0] = v8;
-  v43[1] = v8;
-  v42[0] = v8;
-  v42[1] = v8;
-  v41[0] = v8;
-  v41[1] = v8;
-  v40[0] = v8;
-  v40[1] = v8;
-  v39[0] = v8;
-  v39[1] = v8;
-  v38[0] = v8;
-  v38[1] = v8;
-  v37[0] = v8;
-  v37[1] = v8;
-  v36[0] = v8;
-  v36[1] = v8;
-  v35[0] = v8;
-  v35[1] = v8;
-  __src[0] = v8;
-  __src[1] = v8;
+  v32 = *MEMORY[0x1E69E9840];
+  *&v4 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v31[0] = v4;
+  v31[1] = v4;
+  v30[0] = v4;
+  v30[1] = v4;
+  v29[0] = v4;
+  v29[1] = v4;
+  v28[0] = v4;
+  v28[1] = v4;
+  v27[0] = v4;
+  v27[1] = v4;
+  v26[0] = v4;
+  v26[1] = v4;
+  v25[0] = v4;
+  v25[1] = v4;
+  v24[0] = v4;
+  v24[1] = v4;
+  v23[0] = v4;
+  v23[1] = v4;
+  __src[0] = v4;
+  __src[1] = v4;
   if (a2)
   {
     if (ETLSAHCommandParseMaverickSendHashesQuery())
@@ -4685,42 +4999,41 @@ uint64_t BBUEUR10Programmer::handleHashesQuery(uint64_t a1, uint64_t a2, uint64_
       result = 0;
       if (a3 && a4)
       {
-        v16 = operator new(0x148uLL);
-        *v16 = &unk_1F5F01520;
-        v17 = off_1F5F01540(v16);
-        memcpy(v16 + 8, __src, v17);
-        v18 = (*(*v16 + 32))(v16);
-        memcpy(v16 + 40, v38, v18);
-        v19 = (*(*v16 + 32))(v16);
-        memcpy(v16 + 72, v39, v19);
-        v20 = (*(*v16 + 32))(v16);
-        memcpy(v16 + 104, v42, v20);
-        v21 = (*(*v16 + 32))(v16);
-        memcpy(v16 + 136, v40, v21);
-        v22 = (*(*v16 + 32))(v16);
-        memcpy(v16 + 168, v41, v22);
-        v23 = (*(*v16 + 32))(v16);
-        memcpy(v16 + 200, v35, v23);
-        v24 = (*(*v16 + 32))(v16);
-        memcpy(v16 + 232, v36, v24);
-        v25 = (*(*v16 + 32))(v16);
-        memcpy(v16 + 264, v37, v25);
-        v26 = (*(*v16 + 32))(v16);
-        memcpy(v16 + 296, v43, v26);
-        (*(*v16 + 24))(v16, *(a1 + 8));
-        if ((*(*a4 + 16))(a4, *(a1 + 8), v16))
+        v9 = operator new(0x148uLL);
+        *v9 = &unk_1F5F01520;
+        v10 = off_1F5F01540(v9);
+        memcpy(v9 + 8, __src, v10);
+        v11 = (*(*v9 + 32))(v9);
+        memcpy(v9 + 40, v26, v11);
+        v12 = (*(*v9 + 32))(v9);
+        memcpy(v9 + 72, v27, v12);
+        v13 = (*(*v9 + 32))(v9);
+        memcpy(v9 + 104, v30, v13);
+        v14 = (*(*v9 + 32))(v9);
+        memcpy(v9 + 136, v28, v14);
+        v15 = (*(*v9 + 32))(v9);
+        memcpy(v9 + 168, v29, v15);
+        v16 = (*(*v9 + 32))(v9);
+        memcpy(v9 + 200, v23, v16);
+        v17 = (*(*v9 + 32))(v9);
+        memcpy(v9 + 232, v24, v17);
+        v18 = (*(*v9 + 32))(v9);
+        memcpy(v9 + 264, v25, v18);
+        v19 = (*(*v9 + 32))(v9);
+        memcpy(v9 + 296, v31, v19);
+        (*(*v9 + 24))(v9, *(a1 + 8));
+        if ((*(*a4 + 16))(a4, *(a1 + 8), v9))
         {
-          v30 = 0;
+          v20 = 0;
 LABEL_19:
-          v31 = v30;
-          (*(*v16 + 8))(v16);
-          result = v31;
-          goto LABEL_20;
+          v21 = v20;
+          (*(*v9 + 8))(v9);
+          return v21;
         }
 
         if (gBBULogMaskGet(void)::once == -1)
         {
-          v30 = 33;
+          v20 = 33;
           if ((*gBBULogMaskGet(void)::sBBULogMask & 0x20) == 0)
           {
             goto LABEL_19;
@@ -4730,7 +5043,7 @@ LABEL_19:
         else
         {
           dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
-          v30 = 33;
+          v20 = 33;
           if ((*gBBULogMaskGet(void)::sBBULogMask & 0x20) == 0)
           {
             goto LABEL_19;
@@ -4739,8 +5052,8 @@ LABEL_19:
 
         if (gBBULogVerbosity >= 1)
         {
-          _BBULog(5, 1, "BBUProgrammer", "", "root manifest hash data mismatches baseband hash query\n", v27, v28, v29, v33);
-          v30 = 33;
+          _BBULog(5, 1, "BBUProgrammer", "", "root manifest hash data mismatches baseband hash query\n");
+          v20 = 33;
         }
 
         goto LABEL_19;
@@ -4754,7 +5067,7 @@ LABEL_19:
         result = 12;
         if ((*gBBULogMaskGet(void)::sBBULogMask & 0x20) == 0)
         {
-          goto LABEL_20;
+          return result;
         }
       }
 
@@ -4764,14 +5077,14 @@ LABEL_19:
         result = 12;
         if ((*gBBULogMaskGet(void)::sBBULogMask & 0x20) == 0)
         {
-          goto LABEL_20;
+          return result;
         }
       }
 
       if (gBBULogVerbosity >= 1)
       {
-        _BBULog(5, 1, "BBUProgrammer", "", "Failed parsing maverick hash query results\n", v12, v13, v14, v33);
-        result = 12;
+        _BBULog(5, 1, "BBUProgrammer", "", "Failed parsing maverick hash query results\n");
+        return 12;
       }
     }
   }
@@ -4783,7 +5096,7 @@ LABEL_19:
       result = 2;
       if ((*gBBULogMaskGet(void)::sBBULogMask & 0x20) == 0)
       {
-        goto LABEL_20;
+        return result;
       }
     }
 
@@ -4793,27 +5106,25 @@ LABEL_19:
       result = 2;
       if ((*gBBULogMaskGet(void)::sBBULogMask & 0x20) == 0)
       {
-        goto LABEL_20;
+        return result;
       }
     }
 
     if (gBBULogVerbosity >= 1)
     {
-      _BBULog(5, 1, "BBUProgrammer", "", "Bad arguments:  header = %p\n", a6, a7, a8, 0);
-      result = 2;
+      _BBULog(5, 1, "BBUProgrammer", "", "Bad arguments:  header = %p\n", 0);
+      return 2;
     }
   }
 
-LABEL_20:
-  v32 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-uint64_t BBUEUR10Programmer::collectCoreDump(_DWORD *a1, uint64_t a2, uint64_t a3)
+uint64_t BBUEUR10Programmer::collectCoreDump(BBUFeedback **a1, uint64_t a2, uint64_t a3)
 {
-  v13 = 2;
-  a1[1071] = 2;
-  result = (*(*a1 + 184))(a1, &v13);
+  v9 = 2;
+  *(a1 + 1071) = 2;
+  result = (*(*a1 + 23))(a1, &v9);
   if (result)
   {
     if (gBBULogMaskGet(void)::once == -1)
@@ -4826,9 +5137,9 @@ uint64_t BBUEUR10Programmer::collectCoreDump(_DWORD *a1, uint64_t a2, uint64_t a
       goto LABEL_4;
     }
 
-    v10 = result;
+    v7 = result;
     dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
-    result = v10;
+    result = v7;
     if ((*(gBBULogMaskGet(void)::sBBULogMask + 1) & 0x20) != 0)
     {
 LABEL_4:
@@ -4837,30 +5148,30 @@ LABEL_4:
         return result;
       }
 
-      v9 = result;
-      _BBULog(13, 0, "BBUProgrammer", "", "failed connecting to sahara for collecting coredump\n", v6, v7, v8, v11);
-      return v9;
+      v6 = result;
+      _BBULog(13, 0, "BBUProgrammer", "", "failed connecting to sahara for collecting coredump\n");
+      return v6;
     }
   }
 
-  else if (v13 == 2)
+  else if (v9 == 2)
   {
     if (*(a3 + 23) < 0)
     {
-      std::string::__init_copy_ctor_external(&v12, *a3, *(a3 + 8));
+      std::string::__init_copy_ctor_external(&v8, *a3, *(a3 + 8));
     }
 
     else
     {
-      v12 = *a3;
+      v8 = *a3;
     }
 
-    result = BBUEUR2Programmer::collectCoreDump(a1, &v12);
-    if (SHIBYTE(v12.__r_.__value_.__r.__words[2]) < 0)
+    result = BBUEUR2Programmer::collectCoreDump(a1, &v8);
+    if (SHIBYTE(v8.__r_.__value_.__r.__words[2]) < 0)
     {
-      v9 = result;
-      operator delete(v12.__r_.__value_.__l.__data_);
-      return v9;
+      v6 = result;
+      operator delete(v8.__r_.__value_.__l.__data_);
+      return v6;
     }
   }
 
@@ -4887,7 +5198,7 @@ LABEL_4:
 
     if ((gBBULogVerbosity & 0x80000000) == 0)
     {
-      _BBULog(13, 0, "BBUProgrammer", "", "failed to enter debug mode, unknown mode: %d \n", v6, v7, v8, v13);
+      _BBULog(13, 0, "BBUProgrammer", "", "failed to enter debug mode, unknown mode: %d \n", v9);
       return 12;
     }
   }
@@ -5058,37 +5369,29 @@ uint64_t BBUICE16Programmer::addItemsToHashmap(BBUICE16Programmer *this)
     while (1)
     {
       v4 = *(v2 + 2);
-      if (!v4)
       {
         break;
       }
 
-      v5 = *v4;
-      v6 = **v4;
-      {
-        break;
-      }
-
-      v7 = *v5;
-      if (!v8)
+      if (!v5)
       {
         exception = __cxa_allocate_exception(0x210uLL);
-        _BBUException::_BBUException(exception, 66, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/Protocol/ICE/BBUICE16Programmer.cpp", 0x4Eu, "Assertion failure(ice16item && Error: loading programmer items!)", v14, v15, v16, __p.__r_.__value_.__s.__data_[0]);
+        _BBUException::_BBUException(exception, 66, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/Protocol/ICE/BBUICE16Programmer.cpp", 0x4Eu, "Assertion failure(ice16item && Error: loading programmer items!)");
 LABEL_15:
       }
 
-      if (v8[55] < 0)
+      if (v5[55] < 0)
       {
-        std::string::__init_copy_ctor_external(&__p, *(v8 + 4), *(v8 + 5));
+        std::string::__init_copy_ctor_external(&__p, *(v5 + 4), *(v5 + 5));
       }
 
       else
       {
-        __p = *(v8 + 32);
+        __p = *(v5 + 32);
       }
 
       p_p = &__p;
-      std::__hash_table<std::__hash_value_type<std::string,BBUProgrammer::Item *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,BBUProgrammer::Item *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,BBUProgrammer::Item *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,BBUProgrammer::Item *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 192, &__p, &std::piecewise_construct, &p_p)[5] = v4;
+      std::__hash_table<std::__hash_value_type<std::string,BBUProgrammer::Item *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,BBUProgrammer::Item *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,BBUProgrammer::Item *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,BBUProgrammer::Item *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 48, &__p, &std::piecewise_construct, &p_p)[5] = v4;
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__p.__r_.__value_.__l.__data_);
@@ -5102,7 +5405,7 @@ LABEL_15:
     }
 
     exception = __cxa_allocate_exception(0x210uLL);
-    _BBUException::_BBUException(exception, 66, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/Protocol/ICE/BBUICE16Programmer.cpp", 0x5Au, "Assertion failure(item && Error: loading programmer items!)", v11, v12, v13, __p.__r_.__value_.__s.__data_[0]);
+    _BBUException::_BBUException(exception, 66, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/Protocol/ICE/BBUICE16Programmer.cpp", 0x5Au, "Assertion failure(item && Error: loading programmer items!)");
     goto LABEL_15;
   }
 
@@ -5119,7 +5422,7 @@ void sub_1E532F6E4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t BBUICE16Programmer::ICE16Item::ICE16Item(uint64_t a1, int a2, char **lpsrc)
+uint64_t BBUICE16Programmer::ICE16Item::ICE16Item(uint64_t a1, int a2, uint64_t *lpsrc)
 {
   *(a1 + 8) = a2;
   *a1 = &unk_1F5F047A8;
@@ -5132,20 +5435,19 @@ uint64_t BBUICE16Programmer::ICE16Item::ICE16Item(uint64_t a1, int a2, char **lp
   if ((a2 - 20480) >= 8)
   {
     exception = __cxa_allocate_exception(0x210uLL);
-    _BBUException::_BBUException(exception, 85, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/Protocol/ICE/BBUICE16Programmer.cpp", 0x8Du, "Assertion failure(false && Unrecognized BBU Programmer item type!)", v13, v14, v15, v19);
+    _BBUException::_BBUException(exception, 85, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/Protocol/ICE/BBUICE16Programmer.cpp", 0x8Du, "Assertion failure(false && Unrecognized BBU Programmer item type!)");
     goto LABEL_6;
   }
 
   v7 = dword_1E5393CD8[v5];
   v8 = *lpsrc;
-  v9 = **lpsrc;
   *(a1 + 24) = v7;
-  v10 = (*(v8 + 2))(lpsrc);
-  std::string::__assign_external(v4, v10);
+  v9 = (*(v8 + 16))(lpsrc);
+  std::string::__assign_external(v4, v9);
   if (!*(a1 + 16))
   {
     exception = __cxa_allocate_exception(0x210uLL);
-    _BBUException::_BBUException(exception, 66, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/Protocol/ICE/BBUICE16Programmer.cpp", 0x90u, "Assertion failure(fImage && Failed to to create BBU Image for the programmer item!)", v16, v17, v18, v19);
+    _BBUException::_BBUException(exception, 66, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/Protocol/ICE/BBUICE16Programmer.cpp", 0x90u, "Assertion failure(fImage && Failed to to create BBU Image for the programmer item!)");
 LABEL_6:
   }
 
@@ -5238,27 +5540,27 @@ void sub_1E532FA50(_Unwind_Exception *a1)
 
 uint64_t BBUICE16Programmer::sendImageSegment(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v45 = 0xAAAAAAAAAAAAAAAALL;
+  v40 = 0xAAAAAAAAAAAAAAAALL;
   *&v10 = 0xAAAAAAAAAAAAAAAALL;
   *(&v10 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v44[7] = v10;
-  v44[8] = v10;
-  v44[5] = v10;
-  v44[6] = v10;
-  v44[3] = v10;
-  v44[4] = v10;
-  v44[1] = v10;
-  v44[2] = v10;
-  v44[0] = v10;
-  v42 = v10;
-  v43 = v10;
-  v40 = v10;
-  *__p = v10;
-  v38 = v10;
-  v39 = v10;
+  v39[7] = v10;
+  v39[8] = v10;
+  v39[5] = v10;
+  v39[6] = v10;
+  v39[3] = v10;
+  v39[4] = v10;
+  v39[1] = v10;
+  v39[2] = v10;
+  v39[0] = v10;
   v37 = v10;
-  std::ostringstream::basic_ostringstream[abi:ne200100](&v37);
-  v11 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v37, "Reading file '", 14);
+  v38 = v10;
+  v35 = v10;
+  *__p = v10;
+  v33 = v10;
+  v34 = v10;
+  v32 = v10;
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v32);
+  v11 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v32, "Reading file '", 14);
   v12 = (*(*a2 + 16))(a2);
   v13 = strlen(v12);
   v14 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v11, v12, v13);
@@ -5268,18 +5570,18 @@ uint64_t BBUICE16Programmer::sendImageSegment(uint64_t a1, uint64_t a2, uint64_t
   v18 = MEMORY[0x1E69270E0](v17, a4);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v18, ")", 1);
   v19 = *(a1 + 8);
-  if ((BYTE8(v43) & 0x10) != 0)
+  if ((BYTE8(v38) & 0x10) != 0)
   {
-    v22 = v43;
-    if (v43 < *(&v40 + 1))
+    v22 = v38;
+    if (v38 < *(&v35 + 1))
     {
-      *&v43 = *(&v40 + 1);
-      v22 = *(&v40 + 1);
+      *&v38 = *(&v35 + 1);
+      v22 = *(&v35 + 1);
     }
 
-    v23 = v40;
-    v20 = v22 - v40;
-    if ((v22 - v40) >= 0x7FFFFFFFFFFFFFF8)
+    v23 = v35;
+    v20 = v22 - v35;
+    if ((v22 - v35) >= 0x7FFFFFFFFFFFFFF8)
     {
       goto LABEL_42;
     }
@@ -5287,17 +5589,17 @@ uint64_t BBUICE16Programmer::sendImageSegment(uint64_t a1, uint64_t a2, uint64_t
 
   else
   {
-    if ((BYTE8(v43) & 8) == 0)
+    if ((BYTE8(v38) & 8) == 0)
     {
       v20 = 0;
-      HIBYTE(v36) = 0;
+      HIBYTE(v31) = 0;
       v21 = __dst;
       goto LABEL_15;
     }
 
-    v23 = *(&v38 + 1);
-    v20 = *(&v39 + 1) - *(&v38 + 1);
-    if (*(&v39 + 1) - *(&v38 + 1) >= 0x7FFFFFFFFFFFFFF8uLL)
+    v23 = *(&v33 + 1);
+    v20 = *(&v34 + 1) - *(&v33 + 1);
+    if (*(&v34 + 1) - *(&v33 + 1) >= 0x7FFFFFFFFFFFFFF8uLL)
     {
 LABEL_42:
       std::string::__throw_length_error[abi:ne200100]();
@@ -5318,13 +5620,13 @@ LABEL_42:
 
     v21 = operator new(v24);
     __dst[1] = v20;
-    v36 = v24 | 0x8000000000000000;
+    v31 = v24 | 0x8000000000000000;
     __dst[0] = v21;
   }
 
   else
   {
-    HIBYTE(v36) = v20;
+    HIBYTE(v31) = v20;
     v21 = __dst;
     if (!v20)
     {
@@ -5337,7 +5639,7 @@ LABEL_15:
   v25 = a4 + a3;
   *(v21 + v20) = 0;
   (*(*v19 + 32))(v19, __dst, a3, (a4 + a3));
-  if ((SHIBYTE(v36) & 0x80000000) == 0)
+  if ((SHIBYTE(v31) & 0x80000000) == 0)
   {
     if (a4)
     {
@@ -5351,7 +5653,7 @@ LABEL_15:
   if (!a4)
   {
 LABEL_32:
-    v33 = 0;
+    v28 = 0;
     goto LABEL_33;
   }
 
@@ -5361,8 +5663,6 @@ LABEL_19:
     v26 = *(a1 + 292);
     v27 = v26 >= a4 ? a4 : v26;
     (*(*a2 + 24))(a2, a5, v27, a3);
-    v28 = *(a1 + 16);
-    v29 = *(a1 + 284);
     if (!KTLEBLSendReadfileData())
     {
       break;
@@ -5384,7 +5684,7 @@ LABEL_19:
 LABEL_26:
         if (gBBULogVerbosity >= 1)
         {
-          _BBULog(5, 1, "BBUProgrammer", "", "Sent read data at offset 0x%08x, chunk %u\n", v30, v31, v32, a3);
+          _BBULog(5, 1, "BBUProgrammer", "", "Sent read data at offset 0x%08x, chunk %u\n", a3, v27);
         }
       }
     }
@@ -5401,7 +5701,7 @@ LABEL_26:
 
   if (gBBULogMaskGet(void)::once == -1)
   {
-    v33 = 3;
+    v28 = 3;
     if ((*gBBULogMaskGet(void)::sBBULogMask & 0x20) == 0)
     {
       goto LABEL_33;
@@ -5411,7 +5711,7 @@ LABEL_26:
   else
   {
     dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
-    v33 = 3;
+    v28 = 3;
     if ((*gBBULogMaskGet(void)::sBBULogMask & 0x20) == 0)
     {
       goto LABEL_33;
@@ -5420,30 +5720,30 @@ LABEL_26:
 
   if (gBBULogVerbosity >= 1)
   {
-    _BBULog(5, 1, "BBUProgrammer", "", "Failed sending data at offset 0x%08x, chunk %u\n", v30, v31, v32, a3);
+    _BBULog(5, 1, "BBUProgrammer", "", "Failed sending data at offset 0x%08x, chunk %u\n", a3, v27);
   }
 
 LABEL_33:
-  (*(**(a1 + 8) + 48))(*(a1 + 8), v33);
-  *&v37 = *MEMORY[0x1E69E54E8];
-  *(&v37 + *(v37 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
-  *(&v37 + 1) = MEMORY[0x1E69E5548] + 16;
-  if (SHIBYTE(v42) < 0)
+  (*(**(a1 + 8) + 48))(*(a1 + 8), v28);
+  *&v32 = *MEMORY[0x1E69E54E8];
+  *(&v32 + *(v32 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
+  *(&v32 + 1) = MEMORY[0x1E69E5548] + 16;
+  if (SHIBYTE(v37) < 0)
   {
     operator delete(__p[1]);
   }
 
-  *(&v37 + 1) = MEMORY[0x1E69E5538] + 16;
-  std::locale::~locale(&v38);
+  *(&v32 + 1) = MEMORY[0x1E69E5538] + 16;
+  std::locale::~locale(&v33);
   std::ostream::~ostream();
-  MEMORY[0x1E69273B0](v44);
-  return v33;
+  MEMORY[0x1E69273B0](v39);
+  return v28;
 }
 
-void sub_1E532FFA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, void *__p, uint64_t a6, int a7, __int16 a8, char a9, char a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
+void sub_1E532FFA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, void *__p, uint64_t a6, int a7, __int16 a8, char a9, char a10, char a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
-  va_start(va, a24);
-  std::ostringstream::~ostringstream(&a11, MEMORY[0x1E69E54E8]);
+  va_start(va, a30);
+  std::ostringstream::~ostringstream(&a17, MEMORY[0x1E69E54E8]);
   MEMORY[0x1E69273B0](va);
   _Unwind_Resume(a1);
 }
@@ -5471,8 +5771,6 @@ uint64_t BBUICE16Programmer::sendEBL(uint64_t a1, uint64_t a2)
   if (KTLPSIFormatEnhancedCommand())
   {
     BBUFeedback::handleComment(*(a1 + 8), "Sending PSI enhanced command 'Load and execute EBL'");
-    v6 = *(a1 + 16);
-    v7 = *(a1 + 284);
     if ((KTLPSISendEnhancedCommand() & 1) == 0)
     {
       BBUFeedback::handleComment(*(a1 + 8), "Failed sending PSI command for Loading EBL\n");
@@ -5495,19 +5793,17 @@ uint64_t BBUICE16Programmer::sendEBL(uint64_t a1, uint64_t a2)
 LABEL_9:
         if (gBBULogVerbosity >= 1)
         {
-          _BBULog(9, 1, "BBUProgrammer", "", "Waiting for PSI command response\n", v8, v9, v10, v16);
+          _BBULog(9, 1, "BBUProgrammer", "", "Waiting for PSI command response\n");
         }
       }
     }
 
-    v11 = *(a1 + 16);
-    v12 = *(a1 + 284);
     if (KTLPSIReadResponse())
     {
       KTLParsePSIRunning();
-      v14 = *(a1 + 8);
-      v15 = PSIModeDescription();
-      BBUFeedback::handleComment(v14, "Unexpected PSI running mode %d (%s)\n", 0, v15);
+      v7 = *(a1 + 8);
+      v8 = PSIModeDescription();
+      BBUFeedback::handleComment(v7, "Unexpected PSI running mode %d (%s)\n", 0, v8);
     }
 
     else
@@ -5537,93 +5833,91 @@ void sub_1E53305E8(_Unwind_Exception *exception_object)
 
 uint64_t BBUICE16Programmer::readPSIRunningMode(uint64_t a1, int *a2)
 {
-  v38 = -21846;
+  v36 = -21846;
   *a2 = 0;
-  v4 = *(a1 + 16);
-  v5 = *(a1 + 284);
   if ((KTLPSIReadResponse() & 1) == 0)
   {
     BBUFeedback::handleComment(*(a1 + 8), "Failed reading PSI-RAM Running status\n");
     pthread_mutex_lock(&ctu::Singleton<BBUError,BBUError,ctu::PthreadMutexGuardPolicy<BBUError>>::sInstance);
-    v11 = off_1ED944120;
+    v9 = off_1ED944120;
     if (!off_1ED944120)
     {
-      v12 = operator new(0x38uLL);
-      v13 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_UTILITY, 0);
-      v14 = dispatch_queue_create("BBUError", v13);
-      *v12 = 0;
-      v12[1] = 0;
-      v12[2] = v14;
-      if (v14)
+      v10 = operator new(0x38uLL);
+      v11 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_UTILITY, 0);
+      v12 = dispatch_queue_create("BBUError", v11);
+      *v10 = 0;
+      v10[1] = 0;
+      v10[2] = v12;
+      if (v12)
       {
-        v15 = v14;
-        dispatch_retain(v14);
-        v12[3] = 0;
-        dispatch_release(v15);
+        v13 = v12;
+        dispatch_retain(v12);
+        v10[3] = 0;
+        dispatch_release(v13);
       }
 
       else
       {
-        v12[3] = 0;
+        v10[3] = 0;
       }
 
-      v12[4] = 0;
-      v12[5] = 0;
-      v12[6] = 0;
-      std::shared_ptr<BBUError>::shared_ptr[abi:ne200100]<BBUError,std::shared_ptr<BBUError> ctu::SharedSynchronizable<BBUError>::make_shared_ptr<BBUError>(BBUError*)::{lambda(BBUError*)#1},0>(&v39, v12);
-      v21 = v39;
-      v39 = 0uLL;
-      v22 = *(&off_1ED944120 + 1);
-      off_1ED944120 = v21;
-      if (v22 && !atomic_fetch_add(&v22->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+      v10[4] = 0;
+      v10[5] = 0;
+      v10[6] = 0;
+      std::shared_ptr<BBUError>::shared_ptr[abi:ne200100]<BBUError,std::shared_ptr<BBUError> ctu::SharedSynchronizable<BBUError>::make_shared_ptr<BBUError>(BBUError*)::{lambda(BBUError*)#1},0>(&v37, v10);
+      v19 = v37;
+      v37 = 0uLL;
+      v20 = *(&off_1ED944120 + 1);
+      off_1ED944120 = v19;
+      if (v20 && !atomic_fetch_add(&v20->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
       {
-        (v22->__on_zero_shared)(v22);
-        std::__shared_weak_count::__release_weak(v22);
+        (v20->__on_zero_shared)(v20);
+        std::__shared_weak_count::__release_weak(v20);
       }
 
-      v23 = *(&v39 + 1);
-      if (*(&v39 + 1) && !atomic_fetch_add((*(&v39 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
+      v21 = *(&v37 + 1);
+      if (*(&v37 + 1) && !atomic_fetch_add((*(&v37 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
       {
-        (v23->__on_zero_shared)(v23);
-        std::__shared_weak_count::__release_weak(v23);
+        (v21->__on_zero_shared)(v21);
+        std::__shared_weak_count::__release_weak(v21);
       }
 
-      v11 = off_1ED944120;
+      v9 = off_1ED944120;
     }
 
-    v24 = *(&off_1ED944120 + 1);
-    v36 = v11;
-    v37 = *(&off_1ED944120 + 1);
+    v22 = *(&off_1ED944120 + 1);
+    v34 = v9;
+    v35 = *(&off_1ED944120 + 1);
     if (*(&off_1ED944120 + 1))
     {
       atomic_fetch_add_explicit((*(&off_1ED944120 + 1) + 8), 1uLL, memory_order_relaxed);
     }
 
     pthread_mutex_unlock(&ctu::Singleton<BBUError,BBUError,ctu::PthreadMutexGuardPolicy<BBUError>>::sInstance);
-    v25 = operator new(0x28uLL);
-    strcpy(v25, "Failed reading PSI-RAM Running status\n");
-    v26 = *(v11 + 16);
-    v27 = *(v11 + 24);
-    __p = v25;
-    v35 = xmmword_1E5393C00;
-    *&v39 = MEMORY[0x1E69E9820];
-    *(&v39 + 1) = 0x40000000;
-    v40 = ___ZN8BBUError8addErrorERKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEE9BBUReturn_block_invoke;
-    v41 = &__block_descriptor_tmp_8;
-    v42 = v11;
+    v23 = operator new(0x28uLL);
+    strcpy(v23, "Failed reading PSI-RAM Running status\n");
+    v24 = *(v9 + 16);
+    v25 = *(v9 + 24);
+    __p = v23;
+    v33 = xmmword_1E5393C00;
+    *&v37 = MEMORY[0x1E69E9820];
+    *(&v37 + 1) = 0x40000000;
+    v38 = ___ZN8BBUError8addErrorERKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEE9BBUReturn_block_invoke;
+    v39 = &__block_descriptor_tmp_8;
+    v40 = v9;
     p_p = &__p;
-    v44 = 3;
-    v45 = &v39;
+    v42 = 3;
+    v43 = &v37;
     block = MEMORY[0x1E69E9820];
-    v47 = 0x40000000;
-    v48 = ___ZNK3ctu20SharedSynchronizableI8BBUErrorE20execute_wrapped_syncIRU13block_pointerFvvEEEDTclsr8dispatchE4syncLDnEclsr3stdE7forwardIT_Efp_EEEOS7__block_invoke;
-    v49 = &__block_descriptor_tmp_13_0;
-    v50 = v11;
-    v51 = &v45;
-    if (v27)
+    v45 = 0x40000000;
+    v46 = ___ZNK3ctu20SharedSynchronizableI8BBUErrorE20execute_wrapped_syncIRU13block_pointerFvvEEEDTclsr8dispatchE4syncLDnEclsr3stdE7forwardIT_Efp_EEEOS7__block_invoke;
+    v47 = &__block_descriptor_tmp_13_0;
+    v48 = v9;
+    v49 = &v43;
+    if (v25)
     {
-      dispatch_async_and_wait(v26, &block);
-      if ((SHIBYTE(v35) & 0x80000000) == 0)
+      dispatch_async_and_wait(v24, &block);
+      if ((SHIBYTE(v33) & 0x80000000) == 0)
       {
         goto LABEL_22;
       }
@@ -5631,17 +5925,17 @@ uint64_t BBUICE16Programmer::readPSIRunningMode(uint64_t a1, int *a2)
 
     else
     {
-      dispatch_sync(v26, &block);
-      if ((SHIBYTE(v35) & 0x80000000) == 0)
+      dispatch_sync(v24, &block);
+      if ((SHIBYTE(v33) & 0x80000000) == 0)
       {
 LABEL_22:
-        if (!v24)
+        if (!v22)
         {
           return 3;
         }
 
 LABEL_26:
-        if (!atomic_fetch_add(&v24->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+        if (!atomic_fetch_add(&v22->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
         {
           goto LABEL_44;
         }
@@ -5651,7 +5945,7 @@ LABEL_26:
     }
 
     operator delete(__p);
-    if (!v24)
+    if (!v22)
     {
       return 3;
     }
@@ -5659,97 +5953,97 @@ LABEL_26:
     goto LABEL_26;
   }
 
-  v6 = KTLParsePSIRunning();
-  v7 = *(a1 + 8);
-  if (v6)
+  v4 = KTLParsePSIRunning();
+  v5 = *(a1 + 8);
+  if (v4)
   {
-    v8 = *a2;
-    v9 = PSIModeDescription();
-    BBUFeedback::handleComment(v7, "PSI-Running mode 0x%x (%s)", v8, v9);
+    v6 = *a2;
+    v7 = PSIModeDescription();
+    BBUFeedback::handleComment(v5, "PSI-Running mode 0x%x (%s)", v6, v7);
     return 0;
   }
 
-  BBUFeedback::handleComment(v7, "Failed reading PSI-RAM Running status\n");
+  BBUFeedback::handleComment(v5, "Failed reading PSI-RAM Running status\n");
   pthread_mutex_lock(&ctu::Singleton<BBUError,BBUError,ctu::PthreadMutexGuardPolicy<BBUError>>::sInstance);
-  v16 = off_1ED944120;
+  v14 = off_1ED944120;
   if (!off_1ED944120)
   {
-    v17 = operator new(0x38uLL);
-    v18 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_UTILITY, 0);
-    v19 = dispatch_queue_create("BBUError", v18);
-    *v17 = 0;
-    v17[1] = 0;
-    v17[2] = v19;
-    if (v19)
+    v15 = operator new(0x38uLL);
+    v16 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_UTILITY, 0);
+    v17 = dispatch_queue_create("BBUError", v16);
+    *v15 = 0;
+    v15[1] = 0;
+    v15[2] = v17;
+    if (v17)
     {
-      v20 = v19;
-      dispatch_retain(v19);
-      v17[3] = 0;
-      dispatch_release(v20);
+      v18 = v17;
+      dispatch_retain(v17);
+      v15[3] = 0;
+      dispatch_release(v18);
     }
 
     else
     {
-      v17[3] = 0;
+      v15[3] = 0;
     }
 
-    v17[4] = 0;
-    v17[5] = 0;
-    v17[6] = 0;
-    std::shared_ptr<BBUError>::shared_ptr[abi:ne200100]<BBUError,std::shared_ptr<BBUError> ctu::SharedSynchronizable<BBUError>::make_shared_ptr<BBUError>(BBUError*)::{lambda(BBUError*)#1},0>(&v39, v17);
-    v28 = v39;
-    v39 = 0uLL;
-    v29 = *(&off_1ED944120 + 1);
-    off_1ED944120 = v28;
-    if (v29 && !atomic_fetch_add(&v29->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    v15[4] = 0;
+    v15[5] = 0;
+    v15[6] = 0;
+    std::shared_ptr<BBUError>::shared_ptr[abi:ne200100]<BBUError,std::shared_ptr<BBUError> ctu::SharedSynchronizable<BBUError>::make_shared_ptr<BBUError>(BBUError*)::{lambda(BBUError*)#1},0>(&v37, v15);
+    v26 = v37;
+    v37 = 0uLL;
+    v27 = *(&off_1ED944120 + 1);
+    off_1ED944120 = v26;
+    if (v27 && !atomic_fetch_add(&v27->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
     {
-      (v29->__on_zero_shared)(v29);
-      std::__shared_weak_count::__release_weak(v29);
+      (v27->__on_zero_shared)(v27);
+      std::__shared_weak_count::__release_weak(v27);
     }
 
-    v30 = *(&v39 + 1);
-    if (*(&v39 + 1) && !atomic_fetch_add((*(&v39 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
+    v28 = *(&v37 + 1);
+    if (*(&v37 + 1) && !atomic_fetch_add((*(&v37 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
     {
-      (v30->__on_zero_shared)(v30);
-      std::__shared_weak_count::__release_weak(v30);
+      (v28->__on_zero_shared)(v28);
+      std::__shared_weak_count::__release_weak(v28);
     }
 
-    v16 = off_1ED944120;
+    v14 = off_1ED944120;
   }
 
-  v24 = *(&off_1ED944120 + 1);
-  v36 = v16;
-  v37 = *(&off_1ED944120 + 1);
+  v22 = *(&off_1ED944120 + 1);
+  v34 = v14;
+  v35 = *(&off_1ED944120 + 1);
   if (*(&off_1ED944120 + 1))
   {
     atomic_fetch_add_explicit((*(&off_1ED944120 + 1) + 8), 1uLL, memory_order_relaxed);
   }
 
   pthread_mutex_unlock(&ctu::Singleton<BBUError,BBUError,ctu::PthreadMutexGuardPolicy<BBUError>>::sInstance);
-  v31 = operator new(0x28uLL);
-  strcpy(v31, "Failed reading PSI-RAM Running status\n");
-  v32 = *(v16 + 16);
-  v33 = *(v16 + 24);
-  __p = v31;
-  v35 = xmmword_1E5393C00;
-  *&v39 = MEMORY[0x1E69E9820];
-  *(&v39 + 1) = 0x40000000;
-  v40 = ___ZN8BBUError8addErrorERKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEE9BBUReturn_block_invoke;
-  v41 = &__block_descriptor_tmp_8;
-  v42 = v16;
+  v29 = operator new(0x28uLL);
+  strcpy(v29, "Failed reading PSI-RAM Running status\n");
+  v30 = *(v14 + 16);
+  v31 = *(v14 + 24);
+  __p = v29;
+  v33 = xmmword_1E5393C00;
+  *&v37 = MEMORY[0x1E69E9820];
+  *(&v37 + 1) = 0x40000000;
+  v38 = ___ZN8BBUError8addErrorERKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEE9BBUReturn_block_invoke;
+  v39 = &__block_descriptor_tmp_8;
+  v40 = v14;
   p_p = &__p;
-  v44 = 3;
-  v45 = &v39;
+  v42 = 3;
+  v43 = &v37;
   block = MEMORY[0x1E69E9820];
-  v47 = 0x40000000;
-  v48 = ___ZNK3ctu20SharedSynchronizableI8BBUErrorE20execute_wrapped_syncIRU13block_pointerFvvEEEDTclsr8dispatchE4syncLDnEclsr3stdE7forwardIT_Efp_EEEOS7__block_invoke;
-  v49 = &__block_descriptor_tmp_13_0;
-  v50 = v16;
-  v51 = &v45;
-  if (!v33)
+  v45 = 0x40000000;
+  v46 = ___ZNK3ctu20SharedSynchronizableI8BBUErrorE20execute_wrapped_syncIRU13block_pointerFvvEEEDTclsr8dispatchE4syncLDnEclsr3stdE7forwardIT_Efp_EEEOS7__block_invoke;
+  v47 = &__block_descriptor_tmp_13_0;
+  v48 = v14;
+  v49 = &v43;
+  if (!v31)
   {
-    dispatch_sync(v32, &block);
-    if ((SHIBYTE(v35) & 0x80000000) == 0)
+    dispatch_sync(v30, &block);
+    if ((SHIBYTE(v33) & 0x80000000) == 0)
     {
       goto LABEL_41;
     }
@@ -5757,37 +6051,37 @@ LABEL_26:
     goto LABEL_40;
   }
 
-  dispatch_async_and_wait(v32, &block);
-  if (SHIBYTE(v35) < 0)
+  dispatch_async_and_wait(v30, &block);
+  if (SHIBYTE(v33) < 0)
   {
 LABEL_40:
     operator delete(__p);
   }
 
 LABEL_41:
-  if (!v24 || atomic_fetch_add(&v24->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  if (!v22 || atomic_fetch_add(&v22->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     return 3;
   }
 
 LABEL_44:
-  (v24->__on_zero_shared)(v24);
-  std::__shared_weak_count::__release_weak(v24);
+  (v22->__on_zero_shared)(v22);
+  std::__shared_weak_count::__release_weak(v22);
   return 3;
 }
 
-void sub_1E5330C40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1E5330C40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
 uint64_t BBUICE16Programmer::handleEBLStart(BBUICE16Programmer *this)
 {
-  v25 = *MEMORY[0x1E69E9840];
-  v23 = 0;
-  v24 = 0;
+  v20 = *MEMORY[0x1E69E9840];
+  v18 = 0;
+  v19 = 0;
   v2 = this + 88;
   if ((*(this + 111) & 0x80000000) == 0)
   {
@@ -5805,7 +6099,7 @@ LABEL_9:
 
 LABEL_10:
     HardwareConfig = TelephonyRadiosGetHardwareConfig();
-    LODWORD(v23) = TelephonyRadiosGetProduct() | (HardwareConfig << 30);
+    LODWORD(v18) = TelephonyRadiosGetProduct() | (HardwareConfig << 30);
     v7 = *(this + 1);
     TelephonyRadiosGetProduct();
     TelephonyRadiosGetHardwareConfig();
@@ -5841,13 +6135,13 @@ LABEL_4:
 
     v5 = operator new(v8);
     __dst[1] = v4;
-    v22 = v8 | 0x8000000000000000;
+    v17 = v8 | 0x8000000000000000;
     __dst[0] = v5;
   }
 
   else
   {
-    HIBYTE(v22) = v3;
+    HIBYTE(v17) = v3;
     v5 = __dst;
     if (!v3)
     {
@@ -5858,9 +6152,9 @@ LABEL_4:
   memmove(v5, v2, v4);
 LABEL_16:
   *(v5 + v4) = 0;
-  v9 = SHIBYTE(v22);
+  v9 = SHIBYTE(v17);
   v10 = __dst[0];
-  if (v22 >= 0)
+  if (v17 >= 0)
   {
     v11 = __dst;
   }
@@ -5876,23 +6170,19 @@ LABEL_16:
     operator delete(v10);
   }
 
-  LODWORD(v23) = v12;
+  LODWORD(v18) = v12;
   BBUFeedback::handleComment(*(this + 1), "Overriding Product Type : %u and Hardware Config: 0x%x in Reserved %zu\n");
 LABEL_22:
-  v13 = *(this + 2);
-  v14 = *(this + 71);
   if ((KTLEBLReceivePacket() & 1) == 0)
   {
     BBUFeedback::handleComment(*(this + 1), "Failed to receive Start packet from EBL.\n");
-LABEL_35:
-    result = 3;
-    goto LABEL_36;
+    return 3;
   }
 
   if ((KTLEBLParseStartInfo() & 1) == 0)
   {
     BBUFeedback::handleComment(*(this + 1), "Invalid start packet recieved from EBL.\n");
-    goto LABEL_35;
+    return 3;
   }
 
   if (BBUpdaterCommon::inRestoreOS(void)::sOnceRestoreOS == -1)
@@ -5902,7 +6192,7 @@ LABEL_35:
       goto LABEL_26;
     }
 
-LABEL_40:
+LABEL_39:
     dispatch_once(&BBUpdaterCommon::inRestoreOS(void)::sOnceRecoveryOS, &__block_literal_global_13);
     if ((BBUpdaterCommon::inRestoreOS(void)::restoreOS & 1) == 0)
     {
@@ -5910,7 +6200,7 @@ LABEL_40:
     }
 
 LABEL_29:
-    HIDWORD(v23) = 1381192786;
+    HIDWORD(v18) = 1381192786;
     BBUFeedback::handleComment(*(this + 1), "Sending restore mode cookie in Reserved%lu\n", 1);
     goto LABEL_30;
   }
@@ -5918,7 +6208,7 @@ LABEL_29:
   dispatch_once(&BBUpdaterCommon::inRestoreOS(void)::sOnceRestoreOS, &__block_literal_global_7);
   if (BBUpdaterCommon::inRestoreOS(void)::sOnceRecoveryOS != -1)
   {
-    goto LABEL_40;
+    goto LABEL_39;
   }
 
 LABEL_26:
@@ -5934,35 +6224,33 @@ LABEL_27:
   }
 
 LABEL_30:
-  if ((KTLEBLCreateStartACKPacket() & 1) == 0)
+  if (KTLEBLCreateStartACKPacket())
+  {
+    v13 = KTLEBLSendPacket();
+    v14 = *(this + 1);
+    if (v13)
+    {
+      BBUFeedback::handleComment(v14, "EBL started, continue to image download.");
+      return 0;
+    }
+
+    BBUFeedback::handleComment(v14, "Failed sending Start ACK packet.\n");
+  }
+
+  else
   {
     BBUFeedback::handleComment(*(this + 1), "Failed to create Start ACK packet.\n");
-    goto LABEL_35;
   }
 
-  v15 = *(this + 2);
-  v16 = *(this + 71);
-  v17 = KTLEBLSendPacket();
-  v18 = *(this + 1);
-  if ((v17 & 1) == 0)
-  {
-    BBUFeedback::handleComment(v18, "Failed sending Start ACK packet.\n");
-    goto LABEL_35;
-  }
-
-  BBUFeedback::handleComment(v18, "EBL started, continue to image download.");
-  result = 0;
-LABEL_36:
-  v20 = *MEMORY[0x1E69E9840];
-  return result;
+  return 3;
 }
 
-uint64_t BBUICE16Programmer::handleEBLReadfile(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t BBUICE16Programmer::handleEBLReadfile(BBUFeedback **a1, uint64_t a2, uint64_t a3)
 {
   v5 = operator new(0x400uLL);
   bzero(v5, 0x400uLL);
+  v30 = -1431655766;
   v31 = -1431655766;
-  v32 = -1431655766;
   if ((atomic_load_explicit(&_MergedGlobals_7, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&_MergedGlobals_7))
   {
     __cxa_atexit(MEMORY[0x1E69E52C0], &xmmword_1ED948F80, &dword_1E5234000);
@@ -5971,7 +6259,7 @@ uint64_t BBUICE16Programmer::handleEBLReadfile(uint64_t a1, uint64_t a2, uint64_
 
   if ((KTLEBLParseReadfileExt() & 1) == 0)
   {
-    BBUFeedback::handleComment(*(a1 + 8), "Failed parsing Readfile command.\n");
+    BBUFeedback::handleComment(a1[1], "Failed parsing Readfile command.\n");
     v9 = 3;
     goto LABEL_57;
   }
@@ -5997,13 +6285,13 @@ uint64_t BBUICE16Programmer::handleEBLReadfile(uint64_t a1, uint64_t a2, uint64_
 
     p_dst = operator new(v10);
     *(&__dst + 1) = v7;
-    v30 = v10 | 0x8000000000000000;
+    v29 = v10 | 0x8000000000000000;
     *&__dst = p_dst;
   }
 
   else
   {
-    HIBYTE(v30) = v6;
+    HIBYTE(v29) = v6;
     p_dst = &__dst;
     if (!v6)
     {
@@ -6014,8 +6302,8 @@ uint64_t BBUICE16Programmer::handleEBLReadfile(uint64_t a1, uint64_t a2, uint64_
   memcpy(p_dst, v5, v7);
 LABEL_13:
   *(p_dst + v7) = 0;
-  v11 = std::__hash_table<std::__hash_value_type<std::string,BBUProgrammer::Item *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,BBUProgrammer::Item *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,BBUProgrammer::Item *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,BBUProgrammer::Item *>>>::find<std::string>((a1 + 192), &__dst);
-  if (SHIBYTE(v30) < 0)
+  v11 = std::__hash_table<std::__hash_value_type<std::string,BBUProgrammer::Item *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,BBUProgrammer::Item *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,BBUProgrammer::Item *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,BBUProgrammer::Item *>>>::find<std::string>(a1 + 24, &__dst);
+  if (SHIBYTE(v29) < 0)
   {
     v15 = v11;
     operator delete(__dst);
@@ -6043,24 +6331,23 @@ LABEL_15:
 
         v14 = operator new(v16);
         *(&__dst + 1) = v13;
-        v30 = v16 | 0x8000000000000000;
+        v29 = v16 | 0x8000000000000000;
         *&__dst = v14;
       }
 
       else
       {
-        HIBYTE(v30) = v12;
+        HIBYTE(v29) = v12;
         v14 = &__dst;
         if (!v12)
         {
 LABEL_26:
           *(v14 + v13) = 0;
-          v33 = &__dst;
-          v17 = std::__hash_table<std::__hash_value_type<std::string,BBUProgrammer::Item *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,BBUProgrammer::Item *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,BBUProgrammer::Item *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,BBUProgrammer::Item *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1 + 192, &__dst, &std::piecewise_construct, &v33)[5];
+          v32 = &__dst;
+          v17 = std::__hash_table<std::__hash_value_type<std::string,BBUProgrammer::Item *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,BBUProgrammer::Item *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,BBUProgrammer::Item *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,BBUProgrammer::Item *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1 + 48, &__dst, &std::piecewise_construct, &v32)[5];
           if (v17)
           {
-            v18 = **v17;
-            if ((SHIBYTE(v30) & 0x80000000) == 0)
+            if ((SHIBYTE(v29) & 0x80000000) == 0)
             {
               goto LABEL_29;
             }
@@ -6068,31 +6355,31 @@ LABEL_26:
 
           else
           {
-            v19 = 0;
-            if ((SHIBYTE(v30) & 0x80000000) == 0)
+            v18 = 0;
+            if ((SHIBYTE(v29) & 0x80000000) == 0)
             {
 LABEL_29:
-              v20 = v19[2];
-              BBUFeedback::handleComment(*(a1 + 8), "Loaded file '%s'\n", v5);
-              v21 = strlen(v5);
-              v22 = v21;
-              v23 = byte_1ED948F97;
+              v19 = v18[2];
+              BBUFeedback::handleComment(a1[1], "Loaded file '%s'\n", v5);
+              v20 = strlen(v5);
+              v21 = v20;
+              v22 = byte_1ED948F97;
               if ((byte_1ED948F97 & 0x8000000000000000) != 0)
               {
-                if (v21 != -1)
+                if (v20 != -1)
                 {
-                  v23 = *(&xmmword_1ED948F80 + 1);
-                  if (*(&xmmword_1ED948F80 + 1) >= v21)
+                  v22 = *(&xmmword_1ED948F80 + 1);
+                  if (*(&xmmword_1ED948F80 + 1) >= v20)
                   {
-                    v25 = v21;
+                    v24 = v20;
                   }
 
                   else
                   {
-                    v25 = *(&xmmword_1ED948F80 + 1);
+                    v24 = *(&xmmword_1ED948F80 + 1);
                   }
 
-                  if (memcmp(xmmword_1ED948F80, v5, v25))
+                  if (memcmp(xmmword_1ED948F80, v5, v24))
                   {
                     goto LABEL_44;
                   }
@@ -6101,75 +6388,75 @@ LABEL_29:
                 }
               }
 
-              else if (v21 != -1)
+              else if (v20 != -1)
               {
-                if (byte_1ED948F97 >= v21)
+                if (byte_1ED948F97 >= v20)
                 {
-                  v24 = v21;
+                  v23 = v20;
                 }
 
                 else
                 {
-                  v24 = byte_1ED948F97;
+                  v23 = byte_1ED948F97;
                 }
 
-                if (memcmp(&xmmword_1ED948F80, v5, v24))
+                if (memcmp(&xmmword_1ED948F80, v5, v23))
                 {
                   goto LABEL_44;
                 }
 
 LABEL_43:
-                if (v23 == v22)
+                if (v22 == v21)
                 {
 LABEL_56:
-                  v9 = (*(*a1 + 152))(a1, v20, v32, v31, a3);
+                  v9 = (*(*a1 + 19))(a1, v19, v31, v30, a3);
                   goto LABEL_57;
                 }
 
 LABEL_44:
-                if (v22 > 0x7FFFFFFFFFFFFFF7)
+                if (v21 > 0x7FFFFFFFFFFFFFF7)
                 {
                   std::string::__throw_length_error[abi:ne200100]();
                 }
 
-                if (v22 >= 0x17)
+                if (v21 >= 0x17)
                 {
-                  if ((v22 | 7) == 0x17)
+                  if ((v21 | 7) == 0x17)
                   {
-                    v27 = 25;
+                    v26 = 25;
                   }
 
                   else
                   {
-                    v27 = (v22 | 7) + 1;
+                    v26 = (v21 | 7) + 1;
                   }
 
-                  v26 = operator new(v27);
-                  *(&__dst + 1) = v22;
-                  v30 = v27 | 0x8000000000000000;
-                  *&__dst = v26;
+                  v25 = operator new(v26);
+                  *(&__dst + 1) = v21;
+                  v29 = v26 | 0x8000000000000000;
+                  *&__dst = v25;
                 }
 
                 else
                 {
-                  HIBYTE(v30) = v22;
-                  v26 = &__dst;
-                  if (!v22)
+                  HIBYTE(v29) = v21;
+                  v25 = &__dst;
+                  if (!v21)
                   {
                     goto LABEL_53;
                   }
                 }
 
-                memcpy(v26, v5, v22);
+                memcpy(v25, v5, v21);
 LABEL_53:
-                *(v26 + v22) = 0;
+                *(v25 + v21) = 0;
                 if (byte_1ED948F97 < 0)
                 {
                   operator delete(xmmword_1ED948F80);
                 }
 
                 xmmword_1ED948F80 = __dst;
-                unk_1ED948F90 = v30;
+                unk_1ED948F90 = v29;
                 goto LABEL_56;
               }
 
@@ -6192,22 +6479,22 @@ LABEL_53:
     goto LABEL_15;
   }
 
-  BBUFeedback::handleComment(*(a1 + 8), "file '%s' not found in item list\n", v5);
+  BBUFeedback::handleComment(a1[1], "file '%s' not found in item list\n", v5);
   v9 = 15;
 LABEL_57:
   operator delete(v5);
   return v9;
 }
 
-uint64_t BBUICE16Programmer::handleEBLDone(uint64_t a1)
+uint64_t BBUICE16Programmer::handleEBLDone(uint64_t a1, uint64_t a2)
 {
-  v2 = (a1 + 296);
+  v3 = (a1 + 296);
   if (KTLEBLParseDone())
   {
-    v3 = *v2;
-    if (*v2 == 256)
+    v4 = *v3;
+    if (*v3 == 256)
     {
-      if (KTLEBLCreateDoneACKPacket() & 1) != 0 && (v4 = *(a1 + 16), v5 = *(a1 + 284), (KTLEBLSendPacket()))
+      if (KTLEBLCreateDoneACKPacket() & 1) != 0 && (KTLEBLSendPacket())
       {
         return 0;
       }
@@ -6221,26 +6508,26 @@ uint64_t BBUICE16Programmer::handleEBLDone(uint64_t a1)
 
     else
     {
-      if ((v3 - 257) >= 0x18)
+      if ((v4 - 257) >= 0x18)
       {
-        if (v3 == 281)
+        if (v4 == 281)
         {
-          v7 = "ERR BIN";
+          v6 = "ERR BIN";
         }
 
         else
         {
-          v7 = "Unknown";
+          v6 = "Unknown";
         }
       }
 
       else
       {
-        v7 = off_1E876EA60[v3 - 257];
+        v6 = off_1E876EA60[v4 - 257];
       }
 
-      BBUFeedback::handleComment(*(a1 + 8), "Baseband reported failure during image download (%s).\n", v7);
-      if (*v2 == 261)
+      BBUFeedback::handleComment(*(a1 + 8), "Baseband reported failure during image download (%s).\n", v6);
+      if (*v3 == 261)
       {
         return 65;
       }
@@ -6261,8 +6548,6 @@ uint64_t BBUICE16Programmer::handleEBLDone(uint64_t a1)
 
 uint64_t BBUICE16Programmer::handleEBLCommand(BBUFeedback **a1, _DWORD *a2, uint64_t a3)
 {
-  v6 = a1[2];
-  v7 = *(a1 + 71);
   if (KTLEBLReceivePacket())
   {
     if (dword_1ED948F98 == 4)
@@ -6276,9 +6561,9 @@ uint64_t BBUICE16Programmer::handleEBLCommand(BBUFeedback **a1, _DWORD *a2, uint
 
     else if (dword_1ED948F98 == 3)
     {
-      v8 = *(*a1 + 26);
+      v6 = *(*a1 + 26);
 
-      return v8(a1, &dword_1ED948F98, a3);
+      return v6(a1, &dword_1ED948F98, a3);
     }
 
     else
@@ -6299,7 +6584,7 @@ uint64_t BBUICE16Programmer::handleEBLCommand(BBUFeedback **a1, _DWORD *a2, uint
 
 uint64_t BBUICE16Programmer::program(uint64_t a1, uint64_t a2, uint64_t a3, int a4, uint64_t a5, uint64_t *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, int a11)
 {
-  v64 = -1431655766;
+  v59 = -1431655766;
   pthread_mutex_lock((a1 + 120));
   *(a1 + 312) = a11;
   v16 = *(a1 + 184);
@@ -6332,9 +6617,9 @@ uint64_t BBUICE16Programmer::program(uint64_t a1, uint64_t a2, uint64_t a3, int 
       v18[4] = 0;
       v18[5] = 0;
       v18[6] = 0;
-      std::shared_ptr<BBUError>::shared_ptr[abi:ne200100]<BBUError,std::shared_ptr<BBUError> ctu::SharedSynchronizable<BBUError>::make_shared_ptr<BBUError>(BBUError*)::{lambda(BBUError*)#1},0>(&v65, v18);
-      v28 = *&v65.__r_.__value_.__l.__data_;
-      *&v65.__r_.__value_.__l.__data_ = 0uLL;
+      std::shared_ptr<BBUError>::shared_ptr[abi:ne200100]<BBUError,std::shared_ptr<BBUError> ctu::SharedSynchronizable<BBUError>::make_shared_ptr<BBUError>(BBUError*)::{lambda(BBUError*)#1},0>(&v60, v18);
+      v28 = *&v60.__r_.__value_.__l.__data_;
+      *&v60.__r_.__value_.__l.__data_ = 0uLL;
       v29 = *(&off_1ED944120 + 1);
       off_1ED944120 = v28;
       if (v29 && !atomic_fetch_add(&v29->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
@@ -6343,8 +6628,8 @@ uint64_t BBUICE16Programmer::program(uint64_t a1, uint64_t a2, uint64_t a3, int 
         std::__shared_weak_count::__release_weak(v29);
       }
 
-      size = v65.__r_.__value_.__l.__size_;
-      if (v65.__r_.__value_.__l.__size_ && !atomic_fetch_add((v65.__r_.__value_.__l.__size_ + 8), 0xFFFFFFFFFFFFFFFFLL))
+      size = v60.__r_.__value_.__l.__size_;
+      if (v60.__r_.__value_.__l.__size_ && !atomic_fetch_add((v60.__r_.__value_.__l.__size_ + 8), 0xFFFFFFFFFFFFFFFFLL))
       {
         (size->__on_zero_shared)(size);
         std::__shared_weak_count::__release_weak(size);
@@ -6354,8 +6639,8 @@ uint64_t BBUICE16Programmer::program(uint64_t a1, uint64_t a2, uint64_t a3, int 
     }
 
     v31 = *(&off_1ED944120 + 1);
-    v62 = v17;
-    v63 = *(&off_1ED944120 + 1);
+    v57 = v17;
+    v58 = *(&off_1ED944120 + 1);
     if (*(&off_1ED944120 + 1))
     {
       atomic_fetch_add_explicit((*(&off_1ED944120 + 1) + 8), 1uLL, memory_order_relaxed);
@@ -6363,27 +6648,27 @@ uint64_t BBUICE16Programmer::program(uint64_t a1, uint64_t a2, uint64_t a3, int 
 
     pthread_mutex_unlock(&ctu::Singleton<BBUError,BBUError,ctu::PthreadMutexGuardPolicy<BBUError>>::sInstance);
     __p = operator new(0x28uLL);
-    v61 = xmmword_1E5390C30;
+    v56 = xmmword_1E5390C30;
     strcpy(__p, "Error: loading programmer items!");
-    v65.__r_.__value_.__r.__words[0] = MEMORY[0x1E69E9820];
-    v65.__r_.__value_.__l.__size_ = 0x40000000;
-    v65.__r_.__value_.__r.__words[2] = ___ZN8BBUError8addErrorERKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEE9BBUReturn_block_invoke;
-    v66 = &__block_descriptor_tmp_8;
-    v67 = v17;
+    v60.__r_.__value_.__r.__words[0] = MEMORY[0x1E69E9820];
+    v60.__r_.__value_.__l.__size_ = 0x40000000;
+    v60.__r_.__value_.__r.__words[2] = ___ZN8BBUError8addErrorERKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEE9BBUReturn_block_invoke;
+    v61 = &__block_descriptor_tmp_8;
+    v62 = v17;
     p_p = &__p;
-    v69 = 66;
-    v70 = &v65;
+    v64 = 66;
+    v65 = &v60;
     block = MEMORY[0x1E69E9820];
-    v72 = 0x40000000;
-    v73 = ___ZNK3ctu20SharedSynchronizableI8BBUErrorE20execute_wrapped_syncIRU13block_pointerFvvEEEDTclsr8dispatchE4syncLDnEclsr3stdE7forwardIT_Efp_EEEOS7__block_invoke;
-    v74 = &__block_descriptor_tmp_13_0;
-    v75 = v17;
-    v76 = &v70;
+    v67 = 0x40000000;
+    v68 = ___ZNK3ctu20SharedSynchronizableI8BBUErrorE20execute_wrapped_syncIRU13block_pointerFvvEEEDTclsr8dispatchE4syncLDnEclsr3stdE7forwardIT_Efp_EEEOS7__block_invoke;
+    v69 = &__block_descriptor_tmp_13_0;
+    v70 = v17;
+    v71 = &v65;
     v32 = *(v17 + 16);
     if (*(v17 + 24))
     {
       dispatch_async_and_wait(v32, &block);
-      if ((SHIBYTE(v61) & 0x80000000) == 0)
+      if ((SHIBYTE(v56) & 0x80000000) == 0)
       {
         goto LABEL_29;
       }
@@ -6392,7 +6677,7 @@ uint64_t BBUICE16Programmer::program(uint64_t a1, uint64_t a2, uint64_t a3, int 
     else
     {
       dispatch_sync(v32, &block);
-      if ((SHIBYTE(v61) & 0x80000000) == 0)
+      if ((SHIBYTE(v56) & 0x80000000) == 0)
       {
 LABEL_29:
         if (v31 && !atomic_fetch_add(&v31->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
@@ -6440,9 +6725,9 @@ LABEL_29:
       v23[4] = 0;
       v23[5] = 0;
       v23[6] = 0;
-      std::shared_ptr<BBUError>::shared_ptr[abi:ne200100]<BBUError,std::shared_ptr<BBUError> ctu::SharedSynchronizable<BBUError>::make_shared_ptr<BBUError>(BBUError*)::{lambda(BBUError*)#1},0>(&v65, v23);
-      v33 = *&v65.__r_.__value_.__l.__data_;
-      *&v65.__r_.__value_.__l.__data_ = 0uLL;
+      std::shared_ptr<BBUError>::shared_ptr[abi:ne200100]<BBUError,std::shared_ptr<BBUError> ctu::SharedSynchronizable<BBUError>::make_shared_ptr<BBUError>(BBUError*)::{lambda(BBUError*)#1},0>(&v60, v23);
+      v33 = *&v60.__r_.__value_.__l.__data_;
+      *&v60.__r_.__value_.__l.__data_ = 0uLL;
       v34 = *(&off_1ED944120 + 1);
       off_1ED944120 = v33;
       if (v34 && !atomic_fetch_add(&v34->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
@@ -6451,8 +6736,8 @@ LABEL_29:
         std::__shared_weak_count::__release_weak(v34);
       }
 
-      v35 = v65.__r_.__value_.__l.__size_;
-      if (v65.__r_.__value_.__l.__size_ && !atomic_fetch_add((v65.__r_.__value_.__l.__size_ + 8), 0xFFFFFFFFFFFFFFFFLL))
+      v35 = v60.__r_.__value_.__l.__size_;
+      if (v60.__r_.__value_.__l.__size_ && !atomic_fetch_add((v60.__r_.__value_.__l.__size_ + 8), 0xFFFFFFFFFFFFFFFFLL))
       {
         (v35->__on_zero_shared)(v35);
         std::__shared_weak_count::__release_weak(v35);
@@ -6462,8 +6747,8 @@ LABEL_29:
     }
 
     v36 = *(&off_1ED944120 + 1);
-    v62 = v22;
-    v63 = *(&off_1ED944120 + 1);
+    v57 = v22;
+    v58 = *(&off_1ED944120 + 1);
     if (*(&off_1ED944120 + 1))
     {
       atomic_fetch_add_explicit((*(&off_1ED944120 + 1) + 8), 1uLL, memory_order_relaxed);
@@ -6471,27 +6756,27 @@ LABEL_29:
 
     pthread_mutex_unlock(&ctu::Singleton<BBUError,BBUError,ctu::PthreadMutexGuardPolicy<BBUError>>::sInstance);
     __p = operator new(0x30uLL);
-    v61 = xmmword_1E5393C90;
+    v56 = xmmword_1E5393C90;
     strcpy(__p, "Booted for coredump, not programming firmware");
-    v65.__r_.__value_.__r.__words[0] = MEMORY[0x1E69E9820];
-    v65.__r_.__value_.__l.__size_ = 0x40000000;
-    v65.__r_.__value_.__r.__words[2] = ___ZN8BBUError8addErrorERKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEE9BBUReturn_block_invoke;
-    v66 = &__block_descriptor_tmp_8;
-    v67 = v22;
+    v60.__r_.__value_.__r.__words[0] = MEMORY[0x1E69E9820];
+    v60.__r_.__value_.__l.__size_ = 0x40000000;
+    v60.__r_.__value_.__r.__words[2] = ___ZN8BBUError8addErrorERKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEE9BBUReturn_block_invoke;
+    v61 = &__block_descriptor_tmp_8;
+    v62 = v22;
     p_p = &__p;
-    v69 = 28;
-    v70 = &v65;
+    v64 = 28;
+    v65 = &v60;
     block = MEMORY[0x1E69E9820];
-    v72 = 0x40000000;
-    v73 = ___ZNK3ctu20SharedSynchronizableI8BBUErrorE20execute_wrapped_syncIRU13block_pointerFvvEEEDTclsr8dispatchE4syncLDnEclsr3stdE7forwardIT_Efp_EEEOS7__block_invoke;
-    v74 = &__block_descriptor_tmp_13_0;
-    v75 = v22;
-    v76 = &v70;
+    v67 = 0x40000000;
+    v68 = ___ZNK3ctu20SharedSynchronizableI8BBUErrorE20execute_wrapped_syncIRU13block_pointerFvvEEEDTclsr8dispatchE4syncLDnEclsr3stdE7forwardIT_Efp_EEEOS7__block_invoke;
+    v69 = &__block_descriptor_tmp_13_0;
+    v70 = v22;
+    v71 = &v65;
     v37 = *(v22 + 16);
     if (*(v22 + 24))
     {
       dispatch_async_and_wait(v37, &block);
-      if ((SHIBYTE(v61) & 0x80000000) == 0)
+      if ((SHIBYTE(v56) & 0x80000000) == 0)
       {
 LABEL_48:
         if (v36 && !atomic_fetch_add(&v36->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
@@ -6507,7 +6792,7 @@ LABEL_48:
     else
     {
       dispatch_sync(v37, &block);
-      if ((SHIBYTE(v61) & 0x80000000) == 0)
+      if ((SHIBYTE(v56) & 0x80000000) == 0)
       {
         goto LABEL_48;
       }
@@ -6523,10 +6808,10 @@ LABEL_48:
     goto LABEL_52;
   }
 
-  v27 = BBUICE16Programmer::readPSIRunningMode(a1, &v64);
+  v27 = BBUICE16Programmer::readPSIRunningMode(a1, &v59);
   if (!v27)
   {
-    switch(v64)
+    switch(v59)
     {
       case 462:
         BBUFeedback::handleComment(*(a1 + 8), "Running secure mode");
@@ -6538,14 +6823,14 @@ LABEL_48:
           v43 = off_1ED944120;
           if (!off_1ED944120)
           {
-            BBUError::create_default_global(&v65);
-            std::shared_ptr<BBUError>::operator=[abi:ne200100](&off_1ED944120, &v65);
-            std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](&v65);
+            BBUError::create_default_global(&v60);
+            std::shared_ptr<BBUError>::operator=[abi:ne200100](&off_1ED944120, &v60);
+            std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](&v60);
             v43 = off_1ED944120;
           }
 
           __p = v43;
-          *&v61 = *(&off_1ED944120 + 1);
+          *&v56 = *(&off_1ED944120 + 1);
           if (*(&off_1ED944120 + 1))
           {
             atomic_fetch_add_explicit((*(&off_1ED944120 + 1) + 8), 1uLL, memory_order_relaxed);
@@ -6553,11 +6838,11 @@ LABEL_48:
 
           pthread_mutex_unlock(&ctu::Singleton<BBUError,BBUError,ctu::PthreadMutexGuardPolicy<BBUError>>::sInstance);
           v44 = std::string::basic_string[abi:ne200100]<0>(&block, "Failed executing secure mode");
-          std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(", failing program\n", v44, &v65);
+          std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v60, ", failing program\n", v44);
           goto LABEL_89;
         }
 
-        v64 = 56577;
+        v59 = 56577;
         break;
       case 56577:
         break;
@@ -6572,25 +6857,25 @@ LABEL_51:
         v45 = off_1ED944120;
         if (!off_1ED944120)
         {
-          BBUError::create_default_global(&v65);
-          std::shared_ptr<BBUError>::operator=[abi:ne200100](&off_1ED944120, &v65);
-          std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](&v65);
+          BBUError::create_default_global(&v60);
+          std::shared_ptr<BBUError>::operator=[abi:ne200100](&off_1ED944120, &v60);
+          std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](&v60);
           v45 = off_1ED944120;
         }
 
         block = v45;
-        v72 = *(&off_1ED944120 + 1);
+        v67 = *(&off_1ED944120 + 1);
         if (*(&off_1ED944120 + 1))
         {
           atomic_fetch_add_explicit((*(&off_1ED944120 + 1) + 8), 1uLL, memory_order_relaxed);
         }
 
         pthread_mutex_unlock(&ctu::Singleton<BBUError,BBUError,ctu::PthreadMutexGuardPolicy<BBUError>>::sInstance);
-        std::string::basic_string[abi:ne200100]<0>(&v65, "PSI is not running enhanced mode, unsupported firmware\n");
-        BBUError::addError(v45, &v65, 9);
-        if (SHIBYTE(v65.__r_.__value_.__r.__words[2]) < 0)
+        std::string::basic_string[abi:ne200100]<0>(&v60, "PSI is not running enhanced mode, unsupported firmware\n");
+        BBUError::addError(v45, &v60, 9);
+        if (SHIBYTE(v60.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v65.__r_.__value_.__l.__data_);
+          operator delete(v60.__r_.__value_.__l.__data_);
         }
 
         std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](&block);
@@ -6599,10 +6884,10 @@ LABEL_51:
     }
 
     v46 = (a1 + 256);
-    if (!std::__hash_table<std::__hash_value_type<std::string,BBUProgrammer::Item *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,BBUProgrammer::Item *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,BBUProgrammer::Item *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,BBUProgrammer::Item *>>>::find<std::string>((a1 + 192), a1 + 256))
+    if (!std::__hash_table<std::__hash_value_type<std::string,BBUProgrammer::Item *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,BBUProgrammer::Item *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,BBUProgrammer::Item *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,BBUProgrammer::Item *>>>::find<std::string>((a1 + 192), (a1 + 256)))
     {
-      v50 = *(a1 + 8);
-      v51 = "EBL (%s) not found in item list!";
+      v49 = *(a1 + 8);
+      v50 = "EBL (%s) not found in item list!";
       if ((*(a1 + 279) & 0x80000000) == 0)
       {
         goto LABEL_80;
@@ -6611,21 +6896,21 @@ LABEL_51:
       goto LABEL_79;
     }
 
-    v65.__r_.__value_.__r.__words[0] = a1 + 256;
-    v47 = std::__hash_table<std::__hash_value_type<std::string,BBUProgrammer::Item *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,BBUProgrammer::Item *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,BBUProgrammer::Item *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,BBUProgrammer::Item *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1 + 192, a1 + 256, &std::piecewise_construct, &v65)[5];
+    v60.__r_.__value_.__r.__words[0] = a1 + 256;
+    v47 = std::__hash_table<std::__hash_value_type<std::string,BBUProgrammer::Item *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,BBUProgrammer::Item *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,BBUProgrammer::Item *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,BBUProgrammer::Item *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 192), (a1 + 256), &std::piecewise_construct, &v60)[5];
     {
       exception = __cxa_allocate_exception(0x210uLL);
-      _BBUException::_BBUException(exception, 66, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/Protocol/ICE/BBUICE16Programmer.cpp", 0x34Du, "Assertion failure(eblItem && Error: loading EBL item!)", v56, v57, v58, v59);
+      _BBUException::_BBUException(exception, 66, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/Protocol/ICE/BBUICE16Programmer.cpp", 0x34Du, "Assertion failure(eblItem && Error: loading EBL item!)");
     }
 
-    if (*(v49 + 6))
+    if (*(v48 + 6))
     {
-      v50 = *(a1 + 8);
-      v51 = "EBL (%s) exists, but  is of invalid type!";
+      v49 = *(a1 + 8);
+      v50 = "EBL (%s) exists, but  is of invalid type!";
       if ((*(a1 + 279) & 0x80000000) == 0)
       {
 LABEL_80:
-        BBUFeedback::handleComment(v50, v51, v46);
+        BBUFeedback::handleComment(v49, v50, v46);
         v27 = 15;
         goto LABEL_52;
       }
@@ -6635,7 +6920,7 @@ LABEL_79:
       goto LABEL_80;
     }
 
-    v27 = BBUICE16Programmer::sendEBL(a1, *(v49 + 2));
+    v27 = BBUICE16Programmer::sendEBL(a1, *(v48 + 2));
     if (!v27)
     {
       pthread_mutex_unlock((a1 + 120));
@@ -6644,32 +6929,32 @@ LABEL_79:
       {
         BBUFeedback::handleComment(*(a1 + 8), "Failed image download!");
         pthread_mutex_lock(&ctu::Singleton<BBUError,BBUError,ctu::PthreadMutexGuardPolicy<BBUError>>::sInstance);
-        v53 = off_1ED944120;
+        v52 = off_1ED944120;
         if (!off_1ED944120)
         {
-          BBUError::create_default_global(&v65);
-          std::shared_ptr<BBUError>::operator=[abi:ne200100](&off_1ED944120, &v65);
-          std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](&v65);
-          v53 = off_1ED944120;
+          BBUError::create_default_global(&v60);
+          std::shared_ptr<BBUError>::operator=[abi:ne200100](&off_1ED944120, &v60);
+          std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](&v60);
+          v52 = off_1ED944120;
         }
 
-        __p = v53;
-        *&v61 = *(&off_1ED944120 + 1);
+        __p = v52;
+        *&v56 = *(&off_1ED944120 + 1);
         if (*(&off_1ED944120 + 1))
         {
           atomic_fetch_add_explicit((*(&off_1ED944120 + 1) + 8), 1uLL, memory_order_relaxed);
         }
 
         pthread_mutex_unlock(&ctu::Singleton<BBUError,BBUError,ctu::PthreadMutexGuardPolicy<BBUError>>::sInstance);
-        v54 = std::string::basic_string[abi:ne200100]<0>(&block, "Failed image download");
-        std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("!", v54, &v65);
-        BBUError::addError(v53, &v65, v27);
-        if (SHIBYTE(v65.__r_.__value_.__r.__words[2]) < 0)
+        v53 = std::string::basic_string[abi:ne200100]<0>(&block, "Failed image download");
+        std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v60, "!", v53);
+        BBUError::addError(v52, &v60, v27);
+        if (SHIBYTE(v60.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v65.__r_.__value_.__l.__data_);
+          operator delete(v60.__r_.__value_.__l.__data_);
         }
 
-        if (SHIBYTE(v73) < 0)
+        if (SHIBYTE(v68) < 0)
         {
           operator delete(block);
         }
@@ -6686,30 +6971,30 @@ LABEL_79:
     v43 = off_1ED944120;
     if (!off_1ED944120)
     {
-      BBUError::create_default_global(&v65);
-      std::shared_ptr<BBUError>::operator=[abi:ne200100](&off_1ED944120, &v65);
-      std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](&v65);
+      BBUError::create_default_global(&v60);
+      std::shared_ptr<BBUError>::operator=[abi:ne200100](&off_1ED944120, &v60);
+      std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](&v60);
       v43 = off_1ED944120;
     }
 
     __p = v43;
-    *&v61 = *(&off_1ED944120 + 1);
+    *&v56 = *(&off_1ED944120 + 1);
     if (*(&off_1ED944120 + 1))
     {
       atomic_fetch_add_explicit((*(&off_1ED944120 + 1) + 8), 1uLL, memory_order_relaxed);
     }
 
     pthread_mutex_unlock(&ctu::Singleton<BBUError,BBUError,ctu::PthreadMutexGuardPolicy<BBUError>>::sInstance);
-    v52 = std::string::basic_string[abi:ne200100]<0>(&block, "Failed sending EBL");
-    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("!", v52, &v65);
+    v51 = std::string::basic_string[abi:ne200100]<0>(&block, "Failed sending EBL");
+    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v60, "!", v51);
 LABEL_89:
-    BBUError::addError(v43, &v65, v27);
-    if (SHIBYTE(v65.__r_.__value_.__r.__words[2]) < 0)
+    BBUError::addError(v43, &v60, v27);
+    if (SHIBYTE(v60.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v65.__r_.__value_.__l.__data_);
+      operator delete(v60.__r_.__value_.__l.__data_);
     }
 
-    if (SHIBYTE(v73) < 0)
+    if (SHIBYTE(v68) < 0)
     {
       operator delete(block);
     }
@@ -6757,96 +7042,76 @@ void sub_1E5332150(_Unwind_Exception *a1)
 
 uint64_t BBUICE16Programmer::collectCoreDump(uint64_t a1, uint64_t a2, const char *a3)
 {
-  v20 = -1431655766;
+  v13 = -1431655766;
   v5 = operator new(0x1000uLL);
   bzero(v5, 0x1000uLL);
-  v19 = 0;
-  v6 = BBUICE16Programmer::readPSIRunningMode(a1, &v20);
+  v12 = 0;
+  v6 = BBUICE16Programmer::readPSIRunningMode(a1, &v13);
   if (!v6)
   {
-    if (v20 > 56576)
+    if (v13 > 56576)
     {
-      if (v20 != 56577 && v20 != 61166)
+      if (v13 != 56577 && v13 != 61166)
       {
         goto LABEL_11;
       }
     }
 
-    else if (v20 != 462 && v20 != 52480)
+    else if (v13 != 462 && v13 != 52480)
     {
 LABEL_11:
       BBUFeedback::handleComment(*(a1 + 8), "PSI is not running supported mode, unsupported firmware\n");
       v6 = 9;
-      goto LABEL_26;
+      goto LABEL_21;
     }
 
     BBUFeedback::handleBeginPhase(*(a1 + 8), "Collecting core dump...");
-    v7 = *(a1 + 16);
-    v8 = *(a1 + 76);
     started = KTLCDSendStartCoredumpCommand();
     BBUFeedback::handleComment(*(a1 + 8), "Failed to get coredump list\n");
     if (started)
     {
       v6 = 0;
-      v10 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v10 = 0;
+      v8 = 0;
       v6 = 3;
     }
 
-    if (v10)
+    if (v8)
     {
       BBUFeedback::handleComment(*(a1 + 8), "Sending 'end coredump' command\n");
-      v11 = *(a1 + 16);
-      v12 = *(a1 + 76);
       KTLCDSendEndCoredumpCommand();
     }
 
-    v13 = a3;
+    v9 = a3;
     if (a3[23] < 0)
     {
-      v13 = *a3;
+      v9 = *a3;
     }
 
-    BBUFeedback::handleComment(*(a1 + 8), "Final coredump at %s", v13);
-    v14 = a3[23];
-    if (v14 < 0)
+    BBUFeedback::handleComment(*(a1 + 8), "Final coredump at %s", v9);
+    if ((a3[23] & 0x8000000000000000) != 0)
     {
-      v15 = *a3;
-    }
-
-    if (v14 >= 0)
-    {
-      v16 = a3[23];
+      std::string::__init_copy_ctor_external(&v11, *a3, *(a3 + 1));
     }
 
     else
     {
-      v16 = *(a3 + 1);
-    }
-
-    if (v14 < 0)
-    {
-      std::string::__init_copy_ctor_external(&v18, *a3, *(a3 + 1));
-    }
-
-    else
-    {
-      v18 = *a3;
+      v11 = *a3;
     }
 
     ctu::fs::iterate_folder();
     (*(**(a1 + 8) + 16))(*(a1 + 8), v6);
-    if (SHIBYTE(v18.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v11.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v18.__r_.__value_.__l.__data_);
+      operator delete(v11.__r_.__value_.__l.__data_);
     }
   }
 
-LABEL_26:
+LABEL_21:
   operator delete(v5);
   return v6;
 }
@@ -6898,55 +7163,54 @@ void ___ZN18BBUICE16Programmer15collectCoreDumpEP13BBUDataSourceNSt3__112basic_s
   v3 = *(a1 + 32);
   v4.tv_sec = 0xAAAAAAAAAAAAAAAALL;
   v4.tv_nsec = 0xAAAAAAAAAAAAAAAALL;
-  *&v10.st_blksize = v4;
-  *v10.st_qspare = v4;
-  v10.st_birthtimespec = v4;
-  *&v10.st_size = v4;
-  v10.st_mtimespec = v4;
-  v10.st_ctimespec = v4;
-  *&v10.st_uid = v4;
-  v10.st_atimespec = v4;
-  *&v10.st_dev = v4;
+  *&v9.st_blksize = v4;
+  *v9.st_qspare = v4;
+  v9.st_birthtimespec = v4;
+  *&v9.st_size = v4;
+  v9.st_mtimespec = v4;
+  v9.st_ctimespec = v4;
+  *&v9.st_uid = v4;
+  v9.st_atimespec = v4;
+  *&v9.st_dev = v4;
   v5 = (a2 + 21);
-  v6 = *(a2 + 18);
-  memset(&v9, 170, sizeof(v9));
+  memset(&v8, 170, sizeof(v8));
   if (*(a1 + 63) < 0)
   {
-    std::string::__init_copy_ctor_external(&v9, *(a1 + 40), *(a1 + 48));
+    std::string::__init_copy_ctor_external(&v8, *(a1 + 40), *(a1 + 48));
   }
 
   else
   {
-    v9 = *(a1 + 40);
+    v8 = *(a1 + 40);
   }
 
   ctu::path_join_impl();
-  v7 = *(a2 + 20);
-  if (v7 == 4)
+  v6 = *(a2 + 20);
+  if (v6 == 4)
   {
     BBUFeedback::handleComment(*(v3 + 8), "\t%-30s  <DIR>", v5);
   }
 
-  else if (v7 == 10 || v7 == 8)
+  else if (v6 == 10 || v6 == 8)
   {
-    memset(&v10, 0, sizeof(v10));
-    if ((v9.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    memset(&v9, 0, sizeof(v9));
+    if ((v8.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v8 = &v9;
+      v7 = &v8;
     }
 
     else
     {
-      v8 = v9.__r_.__value_.__r.__words[0];
+      v7 = v8.__r_.__value_.__r.__words[0];
     }
 
-    stat(v8, &v10);
-    BBUFeedback::handleComment(*(v3 + 8), "\t%-30s  0x%-10llx", v5, v10.st_size);
+    stat(v7, &v9);
+    BBUFeedback::handleComment(*(v3 + 8), "\t%-30s  0x%-10llx", v5, v9.st_size);
   }
 
-  if (SHIBYTE(v9.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v8.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v9.__r_.__value_.__l.__data_);
+    operator delete(v8.__r_.__value_.__l.__data_);
   }
 }
 
@@ -6968,20 +7232,19 @@ float BBUICE16Programmer::handleCaptureProgress(uint64_t a1, _DWORD *a2, uint64_
   return result;
 }
 
-uint64_t BBUICE16Programmer::saveCoredumpEntry(uint64_t a1, const void **a2, uint64_t a3)
+uint64_t BBUICE16Programmer::saveCoredumpEntry(uint64_t a1, const void **a2, uint64_t a3, uint64_t a4)
 {
-  v55[2] = *MEMORY[0x1E69E9840];
-  v3 = *(a1 + 76);
-  v54 = 0xAAAAAAAAAAAAAAAALL;
+  v39[2] = *MEMORY[0x1E69E9840];
+  v38 = 0xAAAAAAAAAAAAAAAALL;
   *&v4 = 0xAAAAAAAAAAAAAAAALL;
   *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v52 = v4;
-  v53 = v4;
-  v50 = v4;
-  v51 = v4;
-  v49 = v4;
+  v36 = v4;
+  v37 = v4;
+  v34 = v4;
+  v35 = v4;
+  v33 = v4;
   __p = 0;
-  v48 = 0uLL;
+  v32 = 0uLL;
   v5 = *(a2 + 23);
   if (v5 >= 0)
   {
@@ -7000,12 +7263,11 @@ uint64_t BBUICE16Programmer::saveCoredumpEntry(uint64_t a1, const void **a2, uin
   }
 
   v8 = a3;
-  v10 = a1;
   if (v7 < 0x17)
   {
-    memset(&v46, 0, sizeof(v46));
-    v14 = &v46;
-    *(&v46.__r_.__value_.__s + 23) = v6 + 1;
+    memset(&v30, 0, sizeof(v30));
+    v12 = &v30;
+    *(&v30.__r_.__value_.__s + 23) = v6 + 1;
     if (!v6)
     {
       goto LABEL_15;
@@ -7016,79 +7278,77 @@ uint64_t BBUICE16Programmer::saveCoredumpEntry(uint64_t a1, const void **a2, uin
   {
     if ((v7 | 7) == 0x17)
     {
-      v13 = 25;
+      v11 = 25;
     }
 
     else
     {
-      v13 = (v7 | 7) + 1;
+      v11 = (v7 | 7) + 1;
     }
 
-    v14 = operator new(v13);
-    v46.__r_.__value_.__l.__size_ = v6 + 1;
-    v46.__r_.__value_.__r.__words[2] = v13 | 0x8000000000000000;
-    v46.__r_.__value_.__r.__words[0] = v14;
-    v10 = a1;
+    v12 = operator new(v11);
+    v30.__r_.__value_.__l.__size_ = v6 + 1;
+    v30.__r_.__value_.__r.__words[2] = v11 | 0x8000000000000000;
+    v30.__r_.__value_.__r.__words[0] = v12;
     v8 = a3;
   }
 
-  v15 = *a2;
   if (v5 >= 0)
   {
-    v16 = a2;
+    v13 = a2;
   }
 
   else
   {
-    v16 = *a2;
+    v13 = *a2;
   }
 
-  memmove(v14, v16, v6);
+  memmove(v12, v13, v6);
 LABEL_15:
-  *&v14[v6] = 47;
-  v17 = strlen((v8 + 4));
-  v18 = std::string::append(&v46, (v8 + 4), v17);
-  v19 = v18->__r_.__value_.__r.__words[0];
-  v55[0] = v18->__r_.__value_.__l.__size_;
-  *(v55 + 7) = *(&v18->__r_.__value_.__r.__words[1] + 7);
-  v20 = HIBYTE(v18->__r_.__value_.__r.__words[2]);
-  v18->__r_.__value_.__l.__size_ = 0;
-  v18->__r_.__value_.__r.__words[2] = 0;
-  v18->__r_.__value_.__r.__words[0] = 0;
-  if (SHIBYTE(v48) < 0)
+  *&v12[v6] = 47;
+  v14 = strlen((v8 + 4));
+  v15 = std::string::append(&v30, (v8 + 4), v14);
+  v16 = v15->__r_.__value_.__r.__words[0];
+  v39[0] = v15->__r_.__value_.__l.__size_;
+  *(v39 + 7) = *(&v15->__r_.__value_.__r.__words[1] + 7);
+  v17 = HIBYTE(v15->__r_.__value_.__r.__words[2]);
+  v15->__r_.__value_.__l.__size_ = 0;
+  v15->__r_.__value_.__r.__words[2] = 0;
+  v15->__r_.__value_.__r.__words[0] = 0;
+  if (SHIBYTE(v32) < 0)
   {
     operator delete(__p);
   }
 
-  __p = v19;
-  *&v48 = v55[0];
-  *(&v48 + 7) = *(v55 + 7);
-  HIBYTE(v48) = v20;
-  if (SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
+  __p = v16;
+  *&v32 = v39[0];
+  *(&v32 + 7) = *(v39 + 7);
+  HIBYTE(v32) = v17;
+  if (SHIBYTE(v30.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v46.__r_.__value_.__l.__data_);
-    v20 = HIBYTE(v48);
-    v19 = __p;
+    operator delete(v30.__r_.__value_.__l.__data_);
+    v17 = HIBYTE(v32);
+    v16 = __p;
   }
 
-  if (v20 >= 0)
+  if (v17 >= 0)
   {
     p_p = &__p;
   }
 
   else
   {
-    p_p = v19;
+    p_p = v16;
   }
 
-  v22 = open_dprotected_np(p_p, 1793, 4, 0, 420);
-  if ((v22 & 0x80000000) == 0)
+  v19 = open_dprotected_np(p_p, 1793, 4, 0, 420);
+  if ((v19 & 0x80000000) == 0)
   {
     if ((TelephonyUtilTransportCreateWithFD() & 1) == 0)
     {
       if (gBBULogMaskGet(void)::once == -1)
       {
-        v34 = 1;
+        v24 = 1;
         if ((*gBBULogMaskGet(void)::sBBULogMask & 2) == 0)
         {
           goto LABEL_48;
@@ -7098,7 +7358,7 @@ LABEL_15:
       else
       {
         dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
-        v34 = 1;
+        v24 = 1;
         if ((*gBBULogMaskGet(void)::sBBULogMask & 2) == 0)
         {
           goto LABEL_48;
@@ -7107,44 +7367,43 @@ LABEL_15:
 
       if ((gBBULogVerbosity & 0x80000000) == 0)
       {
-        _BBULog(1, 0, "BBUProgrammer", "", "failed creating transport with fd %i\n", v23, v24, v25, v22);
+        _BBULog(1, 0, "BBUProgrammer", "", "failed creating transport with fd %i\n", v19);
       }
 
       goto LABEL_48;
     }
 
-    v26 = HIWORD(*v8);
+    v20 = HIWORD(*v8);
     if (*v8)
     {
-      ++v26;
+      ++v20;
     }
 
-    if (v26 >= 0x14)
+    if (v20 >= 0x14)
     {
-      v27 = 20;
+      v21 = 20;
     }
 
     else
     {
-      v27 = v26;
+      v21 = v20;
     }
 
-    if (v26)
+    if (v20)
     {
-      v28 = v27;
+      v22 = v21;
     }
 
     else
     {
-      v28 = 1;
+      v22 = 1;
     }
 
-    HIDWORD(v46.__r_.__value_.__r.__words[0]) = *v8;
-    LODWORD(v46.__r_.__value_.__r.__words[1]) = v28;
-    LODWORD(v46.__r_.__value_.__l.__data_) = 0;
-    v29 = *(v10 + 16);
-    v33 = KTLCDProcessCoredumpEntry();
-    if ((v33 & 1) == 0)
+    HIDWORD(v30.__r_.__value_.__r.__words[0]) = *v8;
+    LODWORD(v30.__r_.__value_.__r.__words[1]) = v22;
+    LODWORD(v30.__r_.__value_.__l.__data_) = 0;
+    v23 = KTLCDProcessCoredumpEntry();
+    if ((v23 & 1) == 0)
     {
       if (gBBULogMaskGet(void)::once == -1)
       {
@@ -7162,22 +7421,22 @@ LABEL_15:
 LABEL_35:
           if ((gBBULogVerbosity & 0x80000000) == 0)
           {
-            _BBULog(1, 0, "BBUProgrammer", "", "failed getting entry\n", v30, v31, v32, v44);
+            _BBULog(1, 0, "BBUProgrammer", "", "failed getting entry\n");
           }
         }
       }
     }
 
-    v34 = v33 ^ 1u;
+    v24 = v23 ^ 1u;
 LABEL_48:
-    close(v22);
+    close(v19);
     TelephonyUtilTransportFree();
     goto LABEL_49;
   }
 
   if (gBBULogMaskGet(void)::once == -1)
   {
-    v34 = 1;
+    v24 = 1;
     if ((*gBBULogMaskGet(void)::sBBULogMask & 2) == 0)
     {
       goto LABEL_49;
@@ -7187,7 +7446,7 @@ LABEL_48:
   else
   {
     dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
-    v34 = 1;
+    v24 = 1;
     if ((*gBBULogMaskGet(void)::sBBULogMask & 2) == 0)
     {
       goto LABEL_49;
@@ -7196,28 +7455,26 @@ LABEL_48:
 
   if ((gBBULogVerbosity & 0x80000000) == 0)
   {
-    v35 = SHIBYTE(v48);
-    v36 = __p;
-    v37 = __error();
-    v41 = &__p;
-    if (v35 < 0)
+    v25 = SHIBYTE(v32);
+    v26 = __p;
+    v27 = __error();
+    v28 = &__p;
+    if (v25 < 0)
     {
-      LOBYTE(v41) = v36;
+      v28 = v26;
     }
 
-    v34 = 1;
-    v45 = *v37;
-    _BBULog(1, 0, "BBUProgrammer", "", "failed opening file %s with fd %i errno %d\n", v38, v39, v40, v41);
+    v24 = 1;
+    _BBULog(1, 0, "BBUProgrammer", "", "failed opening file %s with fd %i errno %d\n", v28, v19, *v27);
   }
 
 LABEL_49:
-  if (SHIBYTE(v48) < 0)
+  if (SHIBYTE(v32) < 0)
   {
     operator delete(__p);
   }
 
-  v42 = *MEMORY[0x1E69E9840];
-  return v34;
+  return v24;
 }
 
 void sub_1E533387C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *__p, uint64_t a24, int a25, __int16 a26, char a27, char a28)
@@ -7369,18 +7626,18 @@ void sub_1E5333D64(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t BBUICE16Programmer::fetchPersonalizationParameters(uint64_t a1)
+uint64_t BBUICE16Programmer::fetchPersonalizationParameters(uint64_t a1, void *a2)
 {
-  v2 = operator new(0x4CuLL);
-  *v2 = 0u;
-  v2[1] = 0u;
-  v2[2] = 0u;
-  v2[3] = 0u;
-  *(v2 + 60) = 0u;
+  v3 = operator new(0x4CuLL);
+  *v3 = 0u;
+  v3[1] = 0u;
+  v3[2] = 0u;
+  v3[3] = 0u;
+  *(v3 + 60) = 0u;
   if ((KTLPSIFormatEnhancedCommand() & 1) == 0)
   {
     BBUFeedback::handleComment(*(a1 + 8), "Failed formatting PSI enhanced command to retrieve personalization info\n");
-    v10 = 11;
+    v4 = 11;
     goto LABEL_15;
   }
 
@@ -7403,22 +7660,18 @@ uint64_t BBUICE16Programmer::fetchPersonalizationParameters(uint64_t a1)
 
   if (gBBULogVerbosity >= 1)
   {
-    _BBULog(9, 1, "BBUProgrammer", "", "Sending PSI enhanced command 'Fetch security/personalization info'\n", v3, v4, v5, v12);
+    _BBULog(9, 1, "BBUProgrammer", "", "Sending PSI enhanced command 'Fetch security/personalization info'\n");
   }
 
 LABEL_6:
-  v6 = *(a1 + 16);
-  v7 = *(a1 + 284);
   if (!KTLPSISendEnhancedCommand())
   {
     BBUFeedback::handleComment(*(a1 + 8), "Failed sending PSI command to fetch security info\n");
 LABEL_14:
-    v10 = 3;
+    v4 = 3;
     goto LABEL_15;
   }
 
-  v8 = *(a1 + 16);
-  v9 = *(a1 + 284);
   if (!KTLRawReceiveData())
   {
     BBUFeedback::handleComment(*(a1 + 8), "Failed receiving personalization parameters from device\n");
@@ -7431,10 +7684,10 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  v10 = 0;
+  v4 = 0;
 LABEL_15:
-  operator delete(v2);
-  return v10;
+  operator delete(v3);
+  return v4;
 }
 
 uint64_t BBUICE16Programmer::handleICESecurePSIMode(BBUFeedback **a1, uint64_t a2, uint64_t a3, char a4, uint64_t a5, uint64_t a6)
@@ -7599,12 +7852,12 @@ void sub_1E5334398(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t BBUICE16Programmer::finishSecurePSIMode(uint64_t a1, uint64_t a2, unsigned int a3, uint64_t a4, int a5, _BYTE *a6)
+uint64_t BBUICE16Programmer::finishSecurePSIMode(BBUFeedback **a1, uint64_t a2, unsigned int a3, uint64_t a4, int a5, _BYTE *a6)
 {
-  v40 = 0;
+  v30 = 0;
   if (a5)
   {
-    BBUFeedback::handleComment(*(a1 + 8), "Resuming Secure Mode");
+    BBUFeedback::handleComment(a1[1], "Resuming Secure Mode");
   }
 
   if (a2)
@@ -7612,7 +7865,7 @@ uint64_t BBUICE16Programmer::finishSecurePSIMode(uint64_t a1, uint64_t a2, unsig
     v11 = (*(*a2 + 24))(a2);
     if (v11 > a3)
     {
-      BBUFeedback::handleComment(*(a1 + 8), "root manifest size larger than protocol specification %u, size = %u bytes", a3, v11);
+      BBUFeedback::handleComment(a1[1], "root manifest size larger than protocol specification %u, size = %u bytes", a3, v11);
       return 12;
     }
   }
@@ -7635,17 +7888,17 @@ uint64_t BBUICE16Programmer::finishSecurePSIMode(uint64_t a1, uint64_t a2, unsig
   }
 
   v15 = operator new(0x20uLL);
-  v38 = (v15 + 32);
-  v39 = v15 + 32;
+  v28 = (v15 + 32);
+  v29 = v15 + 32;
   *v15 = 0u;
   *(v15 + 1) = 0u;
   md = v15;
   if (!a2)
   {
-    BBUFeedback::handleComment(*(a1 + 8), "No root manifest present\n");
+    BBUFeedback::handleComment(a1[1], "No root manifest present\n");
     bzero(v14, v13);
     v17 = v13 + 1024;
-    v34 = a6;
+    v24 = a6;
     if (v13 != -1024)
     {
       v16 = 1;
@@ -7667,54 +7920,48 @@ LABEL_23:
     *v18 = v13;
     memcpy(v18 + 1, v14, v13);
     CC_SHA256(v14, v13, md);
-    v19 = *(a1 + 16);
-    v20 = *(a1 + 72);
-    v21 = KTLRawSendData();
-    v22 = *(a1 + 8);
-    if (v21)
+    v19 = KTLRawSendData();
+    v20 = a1[1];
+    if (v19)
     {
       ctu::hex();
-      if (v36 >= 0)
+      if (v26 >= 0)
       {
-        v23 = __p;
+        v21 = __p;
       }
 
       else
       {
-        v23 = __p[0];
+        v21 = __p[0];
       }
 
-      BBUFeedback::handleComment(v22, "Sent Manifest with length %u SHA256 Hash %s", v13, v23);
-      if (v36 < 0)
+      BBUFeedback::handleComment(v20, "Sent Manifest with length %u SHA256 Hash %s", v13, v21);
+      if (v26 < 0)
       {
         operator delete(__p[0]);
       }
 
-      v24 = *(a1 + 16);
-      v25 = *(a1 + 284);
       if (KTLRawReceiveData())
       {
-        v12 = (*(*a1 + 240))(a1, v18, v40, a2, a4);
+        v12 = (*(*a1 + 30))(a1, v18, v30, a2, a4);
         if (v12)
         {
-          BBUFeedback::handleComment(*(a1 + 8), "failed handling hash response\n");
+          BBUFeedback::handleComment(a1[1], "failed handling hash response\n");
         }
 
         else
         {
-          *v34 = 1;
+          *v24 = 1;
           LOWORD(__p[0]) = 3777;
-          v27 = *(a1 + 16);
-          v28 = *(a1 + 72);
           if (KTLRawSendData())
           {
-            BBUFeedback::handleComment(*(a1 + 8), "finished secure mode\n");
+            BBUFeedback::handleComment(a1[1], "finished secure mode\n");
             v12 = 0;
           }
 
           else
           {
-            BBUFeedback::handleComment(*(a1 + 8), "failed sending mode end packet\n");
+            BBUFeedback::handleComment(a1[1], "failed sending mode end packet\n");
             v12 = 11;
           }
         }
@@ -7722,12 +7969,12 @@ LABEL_23:
         goto LABEL_35;
       }
 
-      BBUFeedback::handleComment(*(a1 + 8), "failed reading hash results\n");
+      BBUFeedback::handleComment(a1[1], "failed reading hash results\n");
     }
 
     else
     {
-      BBUFeedback::handleComment(v22, "failed sending root manifest data\n");
+      BBUFeedback::handleComment(v20, "failed sending root manifest data\n");
     }
 
     v12 = 3;
@@ -7741,32 +7988,32 @@ LABEL_35:
   v16 = v12 == 0;
   if (v12)
   {
-    BBUFeedback::handleComment(*(a1 + 8), "failed copying root manifest to buffer\n");
+    BBUFeedback::handleComment(a1[1], "failed copying root manifest to buffer\n");
   }
 
   if (LODWORD(__p[0]) != v13)
   {
     exception = __cxa_allocate_exception(0x210uLL);
-    _BBUException::_BBUException(exception, 11, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/Protocol/ICE/BBUICE16Programmer.cpp", 0x5ADu, "Assertion failure(copied == rootManifestSize && failed copying root manifest to buffer)", v30, v31, v32, v33);
+    _BBUException::_BBUException(exception, 11, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/Protocol/ICE/BBUICE16Programmer.cpp", 0x5ADu, "Assertion failure(copied == rootManifestSize && failed copying root manifest to buffer)");
   }
 
   v17 = v13 + 1024;
   if (v13 != -1024)
   {
-    v34 = a6;
+    v24 = a6;
     goto LABEL_18;
   }
 
   if (!v12)
   {
-    v34 = a6;
+    v24 = a6;
     goto LABEL_22;
   }
 
 LABEL_36:
   if (md)
   {
-    v38 = md;
+    v28 = md;
     operator delete(md);
   }
 
@@ -7849,15 +8096,16 @@ LABEL_7:
   return this;
 }
 
-void sub_1E5334934(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void ***a9, uint64_t a10, char a11)
+void sub_1E5334934(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void ***a9, uint64_t a10, ...)
 {
-  std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<std::string>,std::string*>>::~__exception_guard_exceptions[abi:ne200100](&a11);
-  *(v11 + 8) = v12;
+  va_start(va, a10);
+  std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<std::string>,std::string*>>::~__exception_guard_exceptions[abi:ne200100](va);
+  *(v10 + 8) = v11;
   std::__exception_guard_exceptions<std::vector<std::string>::__destroy_vector>::~__exception_guard_exceptions[abi:ne200100](&a9);
   _Unwind_Resume(a1);
 }
 
-uint64_t BBUICE16Programmer::handleHashResponse(uint64_t a1, const void *a2, int a3, uint64_t a4, uint64_t a5)
+uint64_t BBUICE16Programmer::handleHashResponse(uint64_t a1, const void *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v23 = 0;
   if (a2 && a3)
@@ -7975,8 +8223,7 @@ void std::vector<std::string>::push_back[abi:ne200100](uint64_t a1, __int128 *a2
     v5 = *a2;
     *(v3 + 16) = *(a2 + 2);
     *v3 = v5;
-    *(a2 + 1) = 0;
-    *(a2 + 2) = 0;
+    *(a2 + 8) = 0uLL;
     *a2 = 0;
     v6 = (v3 + 24);
 LABEL_3:
@@ -8028,8 +8275,7 @@ LABEL_3:
   v14 = &v12[24 * v10];
   *v13 = *a2;
   *(v13 + 2) = *(a2 + 2);
-  *(a2 + 1) = 0;
-  *(a2 + 2) = 0;
+  *(a2 + 8) = 0uLL;
   *a2 = 0;
   v6 = v13 + 24;
   v15 = *a1;
@@ -8069,10 +8315,10 @@ void BBUICE16Programmer::ICE16Item::~ICE16Item(void **this)
   operator delete(this);
 }
 
-void *std::__hash_table<std::__hash_value_type<std::string,BBUProgrammer::Item *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,BBUProgrammer::Item *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,BBUProgrammer::Item *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,BBUProgrammer::Item *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t a1, uint64_t a2, uint64_t a3, __int128 **a4)
+void *std::__hash_table<std::__hash_value_type<std::string,BBUProgrammer::Item *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,BBUProgrammer::Item *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,BBUProgrammer::Item *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,BBUProgrammer::Item *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(float *a1, uint64_t *a2, uint64_t a3, __int128 **a4)
 {
   v5 = a2;
-  v7 = *(a2 + 8);
+  v7 = a2[1];
   if (*(a2 + 23) >= 0)
   {
     v8 = *(a2 + 23);
@@ -8086,7 +8332,7 @@ void *std::__hash_table<std::__hash_value_type<std::string,BBUProgrammer::Item *
 
   v9 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:ne200100](v42, a2, v8);
   v10 = v9;
-  v11 = *(a1 + 8);
+  v11 = *(a1 + 1);
   if (v11)
   {
     v12 = vcnt_s8(v11);
@@ -8111,15 +8357,15 @@ void *std::__hash_table<std::__hash_value_type<std::string,BBUProgrammer::Item *
       v15 = *v14;
       if (*v14)
       {
-        v16 = v5[23];
+        v16 = *(v5 + 23);
         if (v16 >= 0)
         {
-          v17 = v5[23];
+          v17 = *(v5 + 23);
         }
 
         else
         {
-          v17 = *(v5 + 1);
+          v17 = v5[1];
         }
 
         if (v16 < 0)
@@ -8227,8 +8473,8 @@ LABEL_43:
   *(v26 + 2) = 0;
   *v26 = 0;
   v15[5] = 0;
-  v28 = (*(a1 + 24) + 1);
-  v29 = *(a1 + 32);
+  v28 = (*(a1 + 3) + 1);
+  v29 = a1[8];
   if (v11 && (v29 * v11) >= v28)
   {
     v30 = *a1;
@@ -8271,7 +8517,7 @@ LABEL_46:
       prime = std::__next_prime(prime);
     }
 
-    v37 = *(a1 + 8);
+    v37 = *(a1 + 2);
     if (prime > *&v37)
     {
       goto LABEL_60;
@@ -8279,7 +8525,7 @@ LABEL_46:
 
     if (prime < *&v37)
     {
-      v38 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+      v38 = vcvtps_u32_f32(*(a1 + 3) / a1[8]);
       if (*&v37 < 3uLL || (v39 = vcnt_s8(v37), v39.i16[0] = vaddlv_u8(v39), v39.u32[0] > 1uLL))
       {
         v38 = std::__next_prime(v38);
@@ -8306,7 +8552,7 @@ LABEL_60:
       }
     }
 
-    v11 = *(a1 + 8);
+    v11 = *(a1 + 1);
     if ((v11 & (v11 - 1)) != 0)
     {
       if (v10 >= v11)
@@ -8344,9 +8590,9 @@ LABEL_60:
     }
   }
 
-  *v15 = *(a1 + 16);
-  *(a1 + 16) = v15;
-  *(v30 + 8 * v13) = a1 + 16;
+  *v15 = *(a1 + 2);
+  *(a1 + 2) = v15;
+  *(v30 + 8 * v13) = a1 + 4;
   if (!*v15)
   {
     goto LABEL_48;
@@ -8371,13 +8617,13 @@ LABEL_60:
 LABEL_47:
   *v31 = v15;
 LABEL_48:
-  ++*(a1 + 24);
+  ++*(a1 + 3);
   return v15;
 }
 
-void sub_1E53351FC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E53351FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,BBUProgrammer::Item *>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,BBUProgrammer::Item *>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -8404,10 +8650,10 @@ void *std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,BBUPro
   return v1;
 }
 
-uint64_t **std::__hash_table<std::__hash_value_type<std::string,BBUProgrammer::Item *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,BBUProgrammer::Item *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,BBUProgrammer::Item *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,BBUProgrammer::Item *>>>::find<std::string>(void *a1, uint64_t a2)
+uint64_t **std::__hash_table<std::__hash_value_type<std::string,BBUProgrammer::Item *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,BBUProgrammer::Item *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,BBUProgrammer::Item *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,BBUProgrammer::Item *>>>::find<std::string>(void *a1, uint64_t *a2)
 {
   v2 = a2;
-  v4 = *(a2 + 8);
+  v4 = a2[1];
   if (*(a2 + 23) >= 0)
   {
     v5 = *(a2 + 23);
@@ -8452,15 +8698,15 @@ uint64_t **std::__hash_table<std::__hash_value_type<std::string,BBUProgrammer::I
   v12 = *v11;
   if (*v11)
   {
-    v13 = v2[23];
+    v13 = *(v2 + 23);
     if (v13 >= 0)
     {
-      v14 = v2[23];
+      v14 = *(v2 + 23);
     }
 
     else
     {
-      v14 = *(v2 + 1);
+      v14 = v2[1];
     }
 
     if (v13 < 0)
@@ -8550,10 +8796,10 @@ uint64_t **std::__hash_table<std::__hash_value_type<std::string,BBUProgrammer::I
   return v12;
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<std::string,BBUProgrammer::Item *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,BBUProgrammer::Item *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,BBUProgrammer::Item *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,BBUProgrammer::Item *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t a1, uint64_t a2, uint64_t a3, __int128 **a4)
+uint64_t *std::__hash_table<std::__hash_value_type<std::string,BBUProgrammer::Item *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,BBUProgrammer::Item *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,BBUProgrammer::Item *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,BBUProgrammer::Item *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(float *a1, uint64_t *a2, uint64_t a3, __int128 **a4)
 {
   v5 = a2;
-  v7 = *(a2 + 8);
+  v7 = a2[1];
   if (*(a2 + 23) >= 0)
   {
     v8 = *(a2 + 23);
@@ -8567,7 +8813,7 @@ uint64_t *std::__hash_table<std::__hash_value_type<std::string,BBUProgrammer::It
 
   v9 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:ne200100](v44, a2, v8);
   v10 = v9;
-  v11 = *(a1 + 8);
+  v11 = *(a1 + 1);
   if (v11)
   {
     v12 = vcnt_s8(v11);
@@ -8592,15 +8838,15 @@ uint64_t *std::__hash_table<std::__hash_value_type<std::string,BBUProgrammer::It
       v15 = *v14;
       if (*v14)
       {
-        v16 = v5[23];
+        v16 = *(v5 + 23);
         if (v16 >= 0)
         {
-          v17 = v5[23];
+          v17 = *(v5 + 23);
         }
 
         else
         {
-          v17 = *(v5 + 1);
+          v17 = v5[1];
         }
 
         if (v16 < 0)
@@ -8717,8 +8963,8 @@ LABEL_43:
 
   *(v26 + 5) = 0;
   LOBYTE(v45) = 1;
-  v30 = (*(a1 + 24) + 1);
-  v31 = *(a1 + 32);
+  v30 = (*(a1 + 3) + 1);
+  v31 = a1[8];
   if (!v11 || (v31 * v11) < v30)
   {
     v35 = 1;
@@ -8749,7 +8995,7 @@ LABEL_43:
       prime = std::__next_prime(prime);
     }
 
-    v39 = *(a1 + 8);
+    v39 = *(a1 + 2);
     if (prime > *&v39)
     {
       goto LABEL_62;
@@ -8757,7 +9003,7 @@ LABEL_43:
 
     if (prime < *&v39)
     {
-      v40 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+      v40 = vcvtps_u32_f32(*(a1 + 3) / a1[8]);
       if (*&v39 < 3uLL || (v41 = vcnt_s8(v39), v41.i16[0] = vaddlv_u8(v41), v41.u32[0] > 1uLL))
       {
         v40 = std::__next_prime(v40);
@@ -8784,7 +9030,7 @@ LABEL_62:
       }
     }
 
-    v11 = *(a1 + 8);
+    v11 = *(a1 + 1);
     if ((v11 & (v11 - 1)) != 0)
     {
       if (v10 >= v11)
@@ -8823,9 +9069,9 @@ LABEL_62:
 
 LABEL_75:
     v15 = v44[0];
-    *v44[0] = *(a1 + 16);
-    *(a1 + 16) = v15;
-    *(v32 + 8 * v13) = a1 + 16;
+    *v44[0] = *(a1 + 2);
+    *(a1 + 2) = v15;
+    *(v32 + 8 * v13) = a1 + 4;
     if (*v15)
     {
       v43 = *(*v15 + 8);
@@ -8860,20 +9106,20 @@ LABEL_49:
   *v44[0] = *v33;
   *v33 = v15;
 LABEL_50:
-  ++*(a1 + 24);
+  ++*(a1 + 3);
   return v15;
 }
 
-void sub_1E533582C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E533582C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,BBUProgrammer::Item *>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,BBUProgrammer::Item *>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_1E5335840(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E5335840(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,BBUProgrammer::Item *>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,BBUProgrammer::Item *>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -8937,23 +9183,23 @@ uint64_t BBUICEDownloadImage::getWritePayloadData(BBUICEDownloadImage *this, uns
   if ((*(*this + 32))(this) <= a4)
   {
     exception = __cxa_allocate_exception(0x210uLL);
-    _BBUException::_BBUException(exception, 81, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/Images/ICE/BBUICEDownloadImage.cpp", 0x1Du, "Assertion failure(( offset < getWritePayloadLength()) && Error: Chunk size is not sufficient to write payload data of the download image.)", v10, v11, v12, v19);
+    _BBUException::_BBUException(exception, 81, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/Images/ICE/BBUICEDownloadImage.cpp", 0x1Du, "Assertion failure(( offset < getWritePayloadLength()) && Error: Chunk size is not sufficient to write payload data of the download image.)");
     goto LABEL_8;
   }
 
-  v20 = -1431655766;
-  result = (*(**(this + 5) + 16))(*(this + 5), a2, a3, &v20, *(this + 8) + a4);
+  v10 = -1431655766;
+  result = (*(**(this + 5) + 16))(*(this + 5), a2, a3, &v10, *(this + 8) + a4);
   if (result)
   {
     exception = __cxa_allocate_exception(0x210uLL);
-    _BBUException::_BBUException(exception, 81, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/Images/ICE/BBUICEDownloadImage.cpp", 0x20u, "Assertion failure((ret == kBBUReturnSuccess) && Failed to copy image payload data to buffer!)", v13, v14, v15, v19);
+    _BBUException::_BBUException(exception, 81, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/Images/ICE/BBUICEDownloadImage.cpp", 0x20u, "Assertion failure((ret == kBBUReturnSuccess) && Failed to copy image payload data to buffer!)");
     goto LABEL_8;
   }
 
-  if (v20 != a3)
+  if (v10 != a3)
   {
     exception = __cxa_allocate_exception(0x210uLL);
-    _BBUException::_BBUException(exception, 81, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/Images/ICE/BBUICEDownloadImage.cpp", 0x21u, "Assertion failure((amountCopied == amount) && Copied data size mismatch: Failed to copy image payload data to buffer!)", v16, v17, v18, v19);
+    _BBUException::_BBUException(exception, 81, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/Images/ICE/BBUICEDownloadImage.cpp", 0x21u, "Assertion failure((amountCopied == amount) && Copied data size mismatch: Failed to copy image payload data to buffer!)");
 LABEL_8:
   }
 
@@ -8982,11 +9228,11 @@ uint64_t BBUICEDownloadImage::getWritePayloadLength(BBUICEDownloadImage *this)
   return result;
 }
 
-void BBUICEDownloadImage::generateHash(uint64_t a1, unsigned __int8 *a2, int a3)
+void BBUICEDownloadImage::generateHash(uint64_t result, unsigned __int8 *a2, uint64_t a3)
 {
   if (a2)
   {
-    v3 = *(a1 + 40);
+    v3 = *(result + 40);
     if (v3)
     {
       BBUDataSource::generateHash(v3, a2, a3);
@@ -9019,13 +9265,13 @@ void BBUEURLoaderVersion::getAsString(BBUEURLoaderVersion *this@<X0>, std::strin
 {
   __src[0] = 0;
   __src[1] = 0;
-  v20 = 0;
+  v17 = 0;
   v4 = *(this + 2);
   if (v4 == 2)
   {
     v5 = &__p.__r_.__value_.__s.__data_[3];
     v6 = 3;
-    HIBYTE(v20) = 3;
+    HIBYTE(v17) = 3;
     qmemcpy(__src, "PBL", 3);
   }
 
@@ -9034,12 +9280,12 @@ void BBUEURLoaderVersion::getAsString(BBUEURLoaderVersion *this@<X0>, std::strin
     if (v4 != 1)
     {
       exception = __cxa_allocate_exception(0x210uLL);
-      _BBUException::_BBUException(exception, 75, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/FirmwareVersion/Eureka/BBUEURLoaderVersion.cpp", 0x1Cu, "Assertion failure(false && Unrecognized BBU loader version type!)", v15, v16, v17, __p.__r_.__value_.__s.__data_[0]);
+      _BBUException::_BBUException(exception, 75, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/FirmwareVersion/Eureka/BBUEURLoaderVersion.cpp", 0x1Cu, "Assertion failure(false && Unrecognized BBU loader version type!)");
     }
 
     v5 = &__p.__r_.__value_.__s.__data_[4];
     v6 = 4;
-    HIBYTE(v20) = 4;
+    HIBYTE(v17) = 4;
     LODWORD(__src[0]) = 1279415119;
   }
 
@@ -9096,15 +9342,15 @@ void sub_1E5335E34(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 void BBUEURLoaderVersion::getAsFilename(BBUEURLoaderVersion *this)
 {
   exception = __cxa_allocate_exception(0x210uLL);
-  _BBUException::_BBUException(exception, 75, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/FirmwareVersion/Eureka/BBUEURLoaderVersion.cpp", 0x24u, "Assertion failure(false && Unrecognized BBU loader version type!)", v2, v3, v4, v5);
+  _BBUException::_BBUException(exception, 75, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/FirmwareVersion/Eureka/BBUEURLoaderVersion.cpp", 0x24u, "Assertion failure(false && Unrecognized BBU loader version type!)");
 }
 
 uint64_t BBUEURLoaderVersion::parseVersionString(uint64_t a1, const void **__s1)
 {
   v2 = __s1;
   __s2[1] = 0xAAAAAAAAAAAAAAAALL;
-  v39 = 0x3AAAAAAAAAAAAAALL;
-  v37 = 0x4AAAAAAAAAAAAAALL;
+  v35 = 0x3AAAAAAAAAAAAAALL;
+  v33 = 0x4AAAAAAAAAAAAAALL;
   __s2[0] = 0xAAAAAAAA00323651;
   __p[1] = 0xAAAAAAAAAAAAAAAALL;
   __p[0] = 0xAAAAAA005F4C4250;
@@ -9128,65 +9374,64 @@ uint64_t BBUEURLoaderVersion::parseVersionString(uint64_t a1, const void **__s1)
     }
 
 LABEL_32:
-    v19 = (a1 + 16);
+    v16 = (a1 + 16);
     if ((a1 + 16) != v2)
     {
       if (*(a1 + 39) < 0)
       {
-        v26 = *v2;
         if ((v4 & 0x80000000) == 0)
         {
-          v27 = v2;
+          v23 = v2;
         }
 
         else
         {
-          v27 = *v2;
+          v23 = *v2;
         }
 
         if ((v4 & 0x80000000) == 0)
         {
-          v28 = v4;
+          v24 = v4;
         }
 
         else
         {
-          v28 = v2[1];
+          v24 = v2[1];
         }
 
-        std::string::__assign_no_alias<false>(v19, v27, v28);
+        std::string::__assign_no_alias<false>(v16, v23, v24);
       }
 
       else if ((v4 & 0x80000000) != 0)
       {
-        std::string::__assign_no_alias<true>(v19, *v2, v2[1]);
+        std::string::__assign_no_alias<true>(v16, *v2, v2[1]);
       }
 
       else
       {
-        v20 = *v2;
+        v17 = *v2;
         *(a1 + 32) = v2[2];
-        *v19 = v20;
+        *v16 = v17;
       }
     }
 
-    v14 = 0;
+    v11 = 0;
     *(a1 + 8) = 1;
     goto LABEL_77;
   }
 
   if (__s1[1] >= 3)
   {
-    v16 = 3;
+    v13 = 3;
   }
 
   else
   {
-    v16 = __s1[1];
+    v13 = __s1[1];
   }
 
-  v17 = memcmp(*__s1, __s2, v16);
-  if (v16 == 3 && v17 == 0)
+  v14 = memcmp(*__s1, __s2, v13);
+  if (v13 == 3 && v14 == 0)
   {
     goto LABEL_32;
   }
@@ -9196,41 +9441,41 @@ LABEL_9:
   {
     if (v2[1] >= 4)
     {
-      v21 = 4;
+      v18 = 4;
     }
 
     else
     {
-      v21 = v2[1];
+      v18 = v2[1];
     }
 
-    v22 = memcmp(*v2, __p, v21);
-    if (v21 != 4 || v22 != 0)
+    v19 = memcmp(*v2, __p, v18);
+    if (v18 != 4 || v19 != 0)
     {
       goto LABEL_17;
     }
 
 LABEL_44:
-    v24 = v2[1];
+    v21 = v2[1];
     if ((v4 & 0x80000000) == 0)
     {
-      v25 = v4;
+      v22 = v4;
     }
 
     else
     {
-      v25 = v2[1];
+      v22 = v2[1];
     }
 
     if ((v4 & 0x80000000) != 0)
     {
-      if (v24 < 4)
+      if (v21 < 4)
       {
         goto LABEL_82;
       }
 
       v2 = *v2;
-      v4 = v24;
+      v4 = v21;
     }
 
     else if (v4 <= 3)
@@ -9239,59 +9484,59 @@ LABEL_82:
       std::string::__throw_out_of_range[abi:ne200100]();
     }
 
-    v29 = v25 - 4;
-    if (v4 - 4 >= v29)
+    v25 = v22 - 4;
+    if (v4 - 4 >= v25)
     {
-      v30 = v29;
+      v26 = v25;
     }
 
     else
     {
-      v30 = v4 - 4;
+      v26 = v4 - 4;
     }
 
-    if (v30 >= 0x7FFFFFFFFFFFFFF8)
+    if (v26 >= 0x7FFFFFFFFFFFFFF8)
     {
       std::string::__throw_length_error[abi:ne200100]();
     }
 
-    if (v30 >= 0x17)
+    if (v26 >= 0x17)
     {
-      if ((v30 | 7) == 0x17)
+      if ((v26 | 7) == 0x17)
       {
-        v32 = 25;
+        v28 = 25;
       }
 
       else
       {
-        v32 = (v30 | 7) + 1;
+        v28 = (v26 | 7) + 1;
       }
 
-      p_dst = operator new(v32);
-      *(&__dst + 1) = v30;
-      v35 = v32 | 0x8000000000000000;
+      p_dst = operator new(v28);
+      *(&__dst + 1) = v26;
+      v31 = v28 | 0x8000000000000000;
       *&__dst = p_dst;
     }
 
     else
     {
-      HIBYTE(v35) = v30;
+      HIBYTE(v31) = v26;
       p_dst = &__dst;
-      if (!v30)
+      if (!v26)
       {
         LOBYTE(__dst) = 0;
         if ((*(a1 + 39) & 0x80000000) == 0)
         {
 LABEL_66:
           *(a1 + 16) = __dst;
-          *(a1 + 32) = v35;
+          *(a1 + 32) = v31;
           *(a1 + 8) = 2;
-          if (SHIBYTE(v37) < 0)
+          if (SHIBYTE(v33) < 0)
           {
             operator delete(__p[0]);
           }
 
-          v14 = 0;
+          v11 = 0;
           goto LABEL_77;
         }
 
@@ -9301,8 +9546,8 @@ LABEL_74:
       }
     }
 
-    memmove(p_dst, v2 + 4, v30);
-    *(p_dst + v30) = 0;
+    memmove(p_dst, v2 + 4, v26);
+    *(p_dst + v26) = 0;
     if ((*(a1 + 39) & 0x80000000) == 0)
     {
       goto LABEL_66;
@@ -9330,7 +9575,7 @@ LABEL_74:
 LABEL_17:
   if (gBBULogMaskGet(void)::once == -1)
   {
-    v14 = 2;
+    v11 = 2;
     if ((*(gBBULogMaskGet(void)::sBBULogMask + 2) & 4) == 0)
     {
       goto LABEL_77;
@@ -9340,7 +9585,7 @@ LABEL_17:
   else
   {
     dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
-    v14 = 2;
+    v11 = 2;
     if ((*(gBBULogMaskGet(void)::sBBULogMask + 2) & 4) == 0)
     {
       goto LABEL_77;
@@ -9351,24 +9596,24 @@ LABEL_17:
   {
     if (*(v2 + 23) >= 0)
     {
-      LOBYTE(v15) = v2;
+      v12 = v2;
     }
 
     else
     {
-      v15 = *v2;
+      v12 = *v2;
     }
 
-    _BBULog(18, 0, "BBULoaderVersion", "", "Unrecognized string %s\n", v10, v11, v12, v15);
+    _BBULog(18, 0, "BBULoaderVersion", "", "Unrecognized string %s\n", v12);
   }
 
 LABEL_77:
-  if (SHIBYTE(v39) < 0)
+  if (SHIBYTE(v35) < 0)
   {
     operator delete(__s2[0]);
   }
 
-  return v14;
+  return v11;
 }
 
 void eUICC::Source::CreateFromZip(uint64_t *a1@<X0>, void *a2@<X8>)
@@ -9380,7 +9625,7 @@ void eUICC::Source::CreateFromZip(uint64_t *a1@<X0>, void *a2@<X8>)
   v9 = v6;
   if (v6)
   {
-    atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
   }
 
   eUICC::Source::Source(v4, &v8);
@@ -9413,29 +9658,29 @@ void *eUICC::Source::Source(void *a1, uint64_t a2)
     atomic_fetch_add_explicit((v4 + 8), 1uLL, memory_order_relaxed);
   }
 
-  v39 = 0xAAAAAAAAAAAAAAAALL;
+  v36 = 0xAAAAAAAAAAAAAAAALL;
   *&v5 = 0xAAAAAAAAAAAAAAAALL;
   *(&v5 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v38[7] = v5;
-  v38[8] = v5;
-  v38[5] = v5;
-  v38[6] = v5;
-  v38[3] = v5;
-  v38[4] = v5;
-  v38[1] = v5;
-  v38[2] = v5;
-  v38[0] = v5;
-  v36 = v5;
-  v37 = v5;
-  v34 = v5;
-  *__p = v5;
-  v32 = v5;
+  v35[7] = v5;
+  v35[8] = v5;
+  v35[5] = v5;
+  v35[6] = v5;
+  v35[3] = v5;
+  v35[4] = v5;
+  v35[1] = v5;
+  v35[2] = v5;
+  v35[0] = v5;
   v33 = v5;
+  v34 = v5;
   v31 = v5;
-  std::ostringstream::basic_ostringstream[abi:ne200100](&v31);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v31, "==== eUICC Source ====\n", 23);
-  BBUZipFile::getFileList(*a2, &__dst);
-  for (i = v29; i != &__dst; i = i[1])
+  *__p = v5;
+  v29 = v5;
+  v30 = v5;
+  v28 = v5;
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v28);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v28, "==== eUICC Source ====\n", 23);
+  BBUZipFile::getFileList(&__dst, *a2);
+  for (i = v26; i != &__dst; i = i[1])
   {
     v7 = *(i + 39);
     if (v7 >= 0)
@@ -9458,575 +9703,137 @@ void *eUICC::Source::Source(void *a1, uint64_t a2)
       v9 = i[3];
     }
 
-    v10 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v31, v8, v9);
+    v10 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v28, v8, v9);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v10, "\n", 1);
   }
 
-  if (v30)
+  if (v27)
   {
-    v11 = v29;
-    v12 = __dst[1];
-    v13 = *v29;
-    *(v13 + 8) = v12;
+    v11 = v26;
+    v12 = *(__dst + 1);
+    v13 = *v26;
+    *(v13 + 1) = v12;
     *v12 = v13;
-    v30 = 0;
+    v27 = 0;
     if (v11 != &__dst)
     {
       do
       {
-        v20 = v11[1];
+        v17 = v11[1];
         if (*(v11 + 39) < 0)
         {
-          v21 = v11;
+          v18 = v11;
           operator delete(v11[2]);
-          v11 = v21;
+          v11 = v18;
         }
 
         operator delete(v11);
-        v11 = v20;
+        v11 = v17;
       }
 
-      while (v20 != &__dst);
+      while (v17 != &__dst);
     }
   }
 
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v31, "====================\n", 21);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v28, "====================\n", 21);
   if (gBBULogMaskGet(void)::once != -1)
   {
     dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
-    v17 = BYTE8(v37);
-    if ((BYTE8(v37) & 0x10) == 0)
+    v14 = BYTE8(v34);
+    if ((BYTE8(v34) & 0x10) == 0)
     {
       goto LABEL_15;
     }
 
 LABEL_22:
-    v23 = v37;
-    if (v37 < *(&v34 + 1))
+    v20 = v34;
+    if (v34 < *(&v31 + 1))
     {
-      *&v37 = *(&v34 + 1);
-      v23 = *(&v34 + 1);
+      *&v34 = *(&v31 + 1);
+      v20 = *(&v31 + 1);
     }
 
-    v22 = &v34;
+    v19 = &v31;
     goto LABEL_25;
   }
 
-  v17 = BYTE8(v37);
-  if ((BYTE8(v37) & 0x10) != 0)
+  v14 = BYTE8(v34);
+  if ((BYTE8(v34) & 0x10) != 0)
   {
     goto LABEL_22;
   }
 
 LABEL_15:
-  if ((v17 & 8) == 0)
+  if ((v14 & 8) == 0)
   {
-    v18 = 0;
-    HIBYTE(v30) = 0;
+    v15 = 0;
+    HIBYTE(v27) = 0;
     p_dst = &__dst;
     goto LABEL_34;
   }
 
-  v22 = &v32 + 1;
-  v23 = *(&v33 + 1);
+  v19 = &v29 + 1;
+  v20 = *(&v30 + 1);
 LABEL_25:
-  v24 = *v22;
-  v18 = v23 - *v22;
-  if (v18 >= 0x7FFFFFFFFFFFFFF8)
+  v21 = *v19;
+  v15 = v20 - *v19;
+  if (v15 >= 0x7FFFFFFFFFFFFFF8)
   {
     std::string::__throw_length_error[abi:ne200100]();
   }
 
-  if (v18 >= 0x17)
+  if (v15 >= 0x17)
   {
-    if ((v18 | 7) == 0x17)
+    if ((v15 | 7) == 0x17)
     {
-      v25 = 25;
+      v22 = 25;
     }
 
     else
     {
-      v25 = (v18 | 7) + 1;
+      v22 = (v15 | 7) + 1;
     }
 
-    p_dst = operator new(v25);
-    v29 = v18;
-    v30 = v25 | 0x8000000000000000;
+    p_dst = operator new(v22);
+    v26 = v15;
+    v27 = v22 | 0x8000000000000000;
     __dst = p_dst;
     goto LABEL_33;
   }
 
-  HIBYTE(v30) = v23 - *v22;
+  HIBYTE(v27) = v20 - *v19;
   p_dst = &__dst;
-  if (v18)
+  if (v15)
   {
 LABEL_33:
-    memmove(p_dst, v24, v18);
+    memmove(p_dst, v21, v15);
   }
 
 LABEL_34:
-  *(p_dst + v18) = 0;
-  v26 = &__dst;
-  if (v30 < 0)
+  p_dst[v15] = 0;
+  v23 = &__dst;
+  if (v27 < 0)
   {
-    LOBYTE(v26) = __dst;
+    v23 = __dst;
   }
 
-  _BBULog(22, 0xFFFFFFFFLL, "eUICC::Source", "", "%s", v14, v15, v16, v26);
-  if (SHIBYTE(v30) < 0)
+  _BBULog(22, 0xFFFFFFFFLL, "eUICC::Source", "", "%s", v23);
+  if (SHIBYTE(v27) < 0)
   {
     operator delete(__dst);
   }
 
-  *&v31 = *MEMORY[0x1E69E54E8];
-  *(&v31 + *(v31 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
-  *(&v31 + 1) = MEMORY[0x1E69E5548] + 16;
-  if (SHIBYTE(v36) < 0)
+  *&v28 = *MEMORY[0x1E69E54E8];
+  *(&v28 + *(v28 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
+  *(&v28 + 1) = MEMORY[0x1E69E5548] + 16;
+  if (SHIBYTE(v33) < 0)
   {
     operator delete(__p[1]);
   }
 
-  *(&v31 + 1) = MEMORY[0x1E69E5538] + 16;
-  std::locale::~locale(&v32);
+  *(&v28 + 1) = MEMORY[0x1E69E5538] + 16;
+  std::locale::~locale(&v29);
   std::ostream::~ostream();
-  MEMORY[0x1E69273B0](v38);
+  MEMORY[0x1E69273B0](v35);
   return a1;
-}
-
-void sub_1E53366B4(_Unwind_Exception *a1, uint64_t a2, void *__p, uint64_t a4, int a5, __int16 a6, char a7, char a8, char a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
-{
-  va_start(va, a22);
-  if (a8 < 0)
-  {
-    operator delete(__p);
-  }
-
-  std::ostringstream::~ostringstream(&a9, MEMORY[0x1E69E54E8]);
-  MEMORY[0x1E69273B0](va);
-  std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](v23);
-  v25 = *(v22 + 8);
-  if (v25)
-  {
-    std::__shared_weak_count::__release_weak(v25);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void eUICC::Source::GetMainFirmware(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
-{
-  if (*(a2 + 23) < 0)
-  {
-    if (*(a2 + 8))
-    {
-      v5 = *a2;
-    }
-
-    else
-    {
-      v5 = "vinyl";
-    }
-  }
-
-  else if (*(a2 + 23))
-  {
-    v5 = a2;
-  }
-
-  else
-  {
-    v5 = "vinyl";
-  }
-
-  memset(__dst, 170, sizeof(__dst));
-  v6 = strlen(v5);
-  if (v6 >= 0x7FFFFFFFFFFFFFF8)
-  {
-    std::string::__throw_length_error[abi:ne200100]();
-  }
-
-  v7 = v6;
-  if (v6 >= 0x17)
-  {
-    if ((v6 | 7) == 0x17)
-    {
-      v9 = 25;
-    }
-
-    else
-    {
-      v9 = (v6 | 7) + 1;
-    }
-
-    v8 = operator new(v9);
-    __dst[1] = v7;
-    __dst[2] = (v9 | 0x8000000000000000);
-    __dst[0] = v8;
-    goto LABEL_16;
-  }
-
-  HIBYTE(__dst[2]) = v6;
-  v8 = __dst;
-  if (v6)
-  {
-LABEL_16:
-    memmove(v8, v5, v7);
-  }
-
-  *(v7 + v8) = 0;
-  ctu::path_join_impl();
-  ctu::path_join_impl();
-  eUICC::Source::GetFirmwareInternal(a1, __dst, a3);
-  if (SHIBYTE(__dst[2]) < 0)
-  {
-    operator delete(__dst[0]);
-  }
-}
-
-void sub_1E5336870(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void eUICC::Source::GetFirmwareInternal(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
-{
-  memset(&v49, 170, sizeof(v49));
-  if (*(a2 + 23) < 0)
-  {
-    std::string::__init_copy_ctor_external(&v49, *a2, *(a2 + 8));
-  }
-
-  else
-  {
-    v49 = *a2;
-  }
-
-  ctu::path_join_impl();
-  memset(&v48, 170, sizeof(v48));
-  if (*(a2 + 23) < 0)
-  {
-    std::string::__init_copy_ctor_external(&v48, *a2, *(a2 + 8));
-  }
-
-  else
-  {
-    v48 = *a2;
-  }
-
-  ctu::path_join_impl();
-  memset(&v47, 170, sizeof(v47));
-  if (*(a2 + 23) < 0)
-  {
-    std::string::__init_copy_ctor_external(&v47, *a2, *(a2 + 8));
-  }
-
-  else
-  {
-    v47 = *a2;
-  }
-
-  ctu::path_join_impl();
-  memset(&v46, 170, sizeof(v46));
-  if (*(a2 + 23) < 0)
-  {
-    std::string::__init_copy_ctor_external(&v46, *a2, *(a2 + 8));
-  }
-
-  else
-  {
-    v46 = *a2;
-  }
-
-  ctu::path_join_impl();
-  v44 = 0;
-  v45 = 0;
-  cf = 0;
-  v43 = 0;
-  v6 = *(a1 + 16);
-  v40 = 0;
-  p_cf = &v45;
-  v10 = BBUZipFile::copyEntireFile(v6, &v49.__r_.__value_.__l.__data_, &v40);
-  v11 = *p_cf;
-  if (v40)
-  {
-    *p_cf = v40;
-    if (v11)
-    {
-      goto LABEL_17;
-    }
-  }
-
-  else
-  {
-    *p_cf = 0;
-    if (v11)
-    {
-LABEL_17:
-      CFRelease(v11);
-    }
-  }
-
-  if (v10 || !v45)
-  {
-    if (gBBULogMaskGet(void)::once != -1)
-    {
-      dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
-    }
-
-    _BBULog(25, 0xFFFFFFFFLL, "eUICC::Source", "", "Condition <<%s>> failed %s %s/%d\n", v7, v8, v9, "kBBUReturnSuccess == r && installData");
-    if (gBBULogMaskGet(void)::once != -1)
-    {
-      dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
-    }
-
-    v21 = v49.__r_.__value_.__s.__data_[0];
-    v22 = (v49.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0;
-    v23 = &v49;
-    goto LABEL_40;
-  }
-
-  v12 = *(a1 + 16);
-  v40 = 0;
-  p_cf = &v43;
-  v16 = BBUZipFile::copyEntireFile(v12, &v47.__r_.__value_.__l.__data_, &v40);
-  v17 = *p_cf;
-  if (v40)
-  {
-    *p_cf = v40;
-    if (!v17)
-    {
-      goto LABEL_30;
-    }
-  }
-
-  else
-  {
-    *p_cf = 0;
-    if (!v17)
-    {
-      goto LABEL_30;
-    }
-  }
-
-  CFRelease(v17);
-LABEL_30:
-  if (!v16 && v43)
-  {
-    v24 = *(a1 + 16);
-    v40 = 0;
-    p_cf = &v44;
-    v25 = BBUZipFile::copyEntireFile(v24, &v48.__r_.__value_.__l.__data_, &v40);
-    v26 = *p_cf;
-    if (v40)
-    {
-      *p_cf = v40;
-      if (v26)
-      {
-        goto LABEL_61;
-      }
-    }
-
-    else
-    {
-      *p_cf = 0;
-      if (v26)
-      {
-LABEL_61:
-        CFRelease(v26);
-      }
-    }
-
-    if (v25)
-    {
-      v27 = v44;
-      v44 = 0;
-      if (v27)
-      {
-        CFRelease(v27);
-      }
-    }
-
-    v28 = *(a1 + 16);
-    v40 = 0;
-    p_cf = &cf;
-    v32 = BBUZipFile::copyEntireFile(v28, &v46.__r_.__value_.__l.__data_, &v40);
-    v33 = *p_cf;
-    if (v40)
-    {
-      *p_cf = v40;
-      if (v33)
-      {
-        goto LABEL_69;
-      }
-    }
-
-    else
-    {
-      *p_cf = 0;
-      if (v33)
-      {
-LABEL_69:
-        CFRelease(v33);
-      }
-    }
-
-    if (v32)
-    {
-      if (gBBULogMaskGet(void)::once != -1)
-      {
-        dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
-      }
-
-      v34 = &v46;
-      if ((v46.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-      {
-        LOBYTE(v34) = v46.__r_.__value_.__s.__data_[0];
-      }
-
-      _BBULog(22, 0xFFFFFFFFLL, "eUICC::Source", "", "File %s ret %d\n", v29, v30, v31, v34);
-      v35 = cf;
-      cf = 0;
-      if (v35)
-      {
-        CFRelease(v35);
-      }
-    }
-
-    v39 = v45;
-    if (v45)
-    {
-      CFRetain(v45);
-    }
-
-    v38 = v44;
-    if (v44)
-    {
-      CFRetain(v44);
-    }
-
-    v37 = v43;
-    if (v43)
-    {
-      CFRetain(v43);
-    }
-
-    v36 = cf;
-    if (cf)
-    {
-      CFRetain(cf);
-    }
-
-    eUICC::Firmware::CreateFromData(&v39, &v38, &v37, a3);
-    if (v36)
-    {
-      CFRelease(v36);
-    }
-
-    if (v37)
-    {
-      CFRelease(v37);
-    }
-
-    if (v38)
-    {
-      CFRelease(v38);
-    }
-
-    if (v39)
-    {
-      CFRelease(v39);
-    }
-
-    goto LABEL_43;
-  }
-
-  if (gBBULogMaskGet(void)::once != -1)
-  {
-    dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
-  }
-
-  _BBULog(25, 0xFFFFFFFFLL, "eUICC::Source", "", "Condition <<%s>> failed %s %s/%d\n", v13, v14, v15, "kBBUReturnSuccess == r && infoPlist");
-  if (gBBULogMaskGet(void)::once != -1)
-  {
-    dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
-  }
-
-  v21 = v47.__r_.__value_.__s.__data_[0];
-  v22 = (v47.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0;
-  v23 = &v47;
-LABEL_40:
-  if (v22)
-  {
-    LOBYTE(v23) = v21;
-  }
-
-  _BBULog(22, 0xFFFFFFFFLL, "eUICC::Source", "", "File %s ret %d\n", v18, v19, v20, v23);
-  *a3 = 0;
-  a3[1] = 0;
-LABEL_43:
-  if (cf)
-  {
-    CFRelease(cf);
-  }
-
-  if (v43)
-  {
-    CFRelease(v43);
-  }
-
-  if (v44)
-  {
-    CFRelease(v44);
-  }
-
-  if (v45)
-  {
-    CFRelease(v45);
-  }
-
-  if (SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v46.__r_.__value_.__l.__data_);
-    if ((SHIBYTE(v47.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-    {
-LABEL_53:
-      if ((SHIBYTE(v48.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-      {
-        goto LABEL_54;
-      }
-
-      goto LABEL_58;
-    }
-  }
-
-  else if ((SHIBYTE(v47.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-  {
-    goto LABEL_53;
-  }
-
-  operator delete(v47.__r_.__value_.__l.__data_);
-  if ((SHIBYTE(v48.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-  {
-LABEL_54:
-    if ((SHIBYTE(v49.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-    {
-      return;
-    }
-
-LABEL_59:
-    operator delete(v49.__r_.__value_.__l.__data_);
-    return;
-  }
-
-LABEL_58:
-  operator delete(v48.__r_.__value_.__l.__data_);
-  if (SHIBYTE(v49.__r_.__value_.__r.__words[2]) < 0)
-  {
-    goto LABEL_59;
-  }
 }

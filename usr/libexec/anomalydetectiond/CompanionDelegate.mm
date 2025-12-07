@@ -2,6 +2,9 @@
 - (CompanionDelegate)initWithSilo:(id)silo idsService:(id)service;
 - (id)downgradeMsgToOlderType:(id)type type:(int *)a4;
 - (void)dealloc;
+- (void)receivedMessage:(int)message data:(id)data identifierString:(id)string;
+- (void)sendData:(id)data type:(int)type;
+- (void)service:(id)service account:(id)account identifier:(id)identifier didSendWithSuccess:(BOOL)success error:(id)error context:(id)context;
 - (void)service:(id)service account:(id)account incomingMessage:(id)message fromID:(id)d context:(id)context;
 - (void)updateIDSStatus;
 @end
@@ -505,6 +508,156 @@ LABEL_23:
   return v18;
 }
 
+- (void)sendData:(id)data type:(int)type
+{
+  v4 = *&type;
+  dataCopy = data;
+  [(CompanionDelegate *)self updateIDSStatus];
+  if (self->_isConnected)
+  {
+    v23 = v4;
+    if (v4 < 101 || self->_hasMsgVersion)
+    {
+      v7 = dataCopy;
+    }
+
+    else
+    {
+      v7 = [(CompanionDelegate *)self downgradeMsgToOlderType:dataCopy type:&v23];
+      v4 = v23;
+    }
+
+    v34[0] = @"type";
+    v8 = [NSNumber numberWithInt:v4];
+    v34[1] = @"payload";
+    v35[0] = v8;
+    v35[1] = v7;
+    v9 = [NSDictionary dictionaryWithObjects:v35 forKeys:v34 count:2];
+
+    v32[0] = IDSSendMessageOptionTimeoutKey;
+    v10 = [NSNumber numberWithDouble:2.0];
+    v33[0] = v10;
+    v33[1] = &__kCFBooleanTrue;
+    v32[1] = IDSSendMessageOptionLocalDeliveryKey;
+    v32[2] = IDSSendMessageOptionEncryptPayloadKey;
+    v33[2] = &__kCFBooleanTrue;
+    v11 = [NSDictionary dictionaryWithObjects:v33 forKeys:v32 count:3];
+
+    idsService = self->_idsService;
+    v13 = [NSSet setWithObject:IDSDefaultPairedDevice];
+    v21 = 0;
+    v22 = 0;
+    v14 = [(IDSService *)idsService sendMessage:v9 toDestinations:v13 priority:300 options:v11 identifier:&v22 error:&v21];
+    v15 = v22;
+    v16 = v21;
+
+    if (qword_100456868 != -1)
+    {
+      sub_10034BBF0();
+    }
+
+    v17 = qword_100456870;
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+    {
+      v18 = v15;
+      uTF8String = [v15 UTF8String];
+      v20 = [v7 length];
+      *buf = 136315906;
+      v25 = uTF8String;
+      v26 = 2048;
+      v27 = v20;
+      v28 = 1024;
+      v29 = v23;
+      v30 = 1024;
+      v31 = v14;
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEBUG, "Sending message: ID:%s size: %lu type: %d over IDSService - Status %d", buf, 0x22u);
+    }
+  }
+}
+
+- (void)receivedMessage:(int)message data:(id)data identifierString:(id)string
+{
+  v6 = *&message;
+  dataCopy = data;
+  stringCopy = string;
+  if (qword_100456868 != -1)
+  {
+    sub_10034BBDC();
+  }
+
+  v10 = qword_100456870;
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  {
+    v20 = 136315650;
+    uTF8String = [stringCopy UTF8String];
+    v22 = 1024;
+    v23 = v6;
+    v24 = 2048;
+    v25 = [dataCopy length];
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEBUG, "Received message: ID:%s, type:%d, size %lu", &v20, 0x1Cu);
+  }
+
+  if (v6)
+  {
+    messageHandler = self->_messageHandler;
+    if (messageHandler)
+    {
+      Current = CFAbsoluteTimeGetCurrent();
+      messageHandler[2](messageHandler, v6, dataCopy, Current);
+      if (v6 == 11 && !self->_hasMsgVersion)
+      {
+        self->_hasMsgVersion = 1;
+      }
+
+      goto LABEL_21;
+    }
+
+    if (qword_100456868 != -1)
+    {
+      sub_10034BBF0();
+    }
+
+    v15 = qword_100456870;
+    if (os_log_type_enabled(qword_100456870, OS_LOG_TYPE_ERROR))
+    {
+      LOWORD(v20) = 0;
+      v16 = "Message handler is nil";
+      v17 = v15;
+      v18 = OS_LOG_TYPE_ERROR;
+LABEL_20:
+      _os_log_impl(&_mh_execute_header, v17, v18, v16, &v20, 2u);
+    }
+  }
+
+  else
+  {
+    testTriggerHandler = self->_testTriggerHandler;
+    if (testTriggerHandler)
+    {
+      v14 = CFAbsoluteTimeGetCurrent();
+      testTriggerHandler[2](testTriggerHandler, v14);
+      goto LABEL_21;
+    }
+
+    if (qword_100456868 != -1)
+    {
+      sub_10034BBF0();
+    }
+
+    v19 = qword_100456870;
+    if (os_log_type_enabled(qword_100456870, OS_LOG_TYPE_DEBUG))
+    {
+      LOWORD(v20) = 0;
+      v16 = "Test trigger handler is nil";
+      v17 = v19;
+      v18 = OS_LOG_TYPE_DEBUG;
+      goto LABEL_20;
+    }
+  }
+
+LABEL_21:
+}
+
 - (void)service:(id)service account:(id)account incomingMessage:(id)message fromID:(id)d context:(id)context
 {
   messageCopy = message;
@@ -538,6 +691,51 @@ LABEL_23:
 
   outgoingResponseIdentifier = [contextCopy outgoingResponseIdentifier];
   [(CompanionDelegate *)self receivedMessage:intValue data:v15 identifierString:outgoingResponseIdentifier];
+}
+
+- (void)service:(id)service account:(id)account identifier:(id)identifier didSendWithSuccess:(BOOL)success error:(id)error context:(id)context
+{
+  successCopy = success;
+  identifierCopy = identifier;
+  errorCopy = error;
+  contextCopy = context;
+  v15 = +[CSTimeManager SPU_estimate_current_timestamp];
+  Current = CFAbsoluteTimeGetCurrent();
+  if (qword_100456868 != -1)
+  {
+    sub_10034BBDC();
+  }
+
+  v17 = qword_100456870;
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+  {
+    v18 = [NSNumber numberWithBool:successCopy];
+    v21 = 138413058;
+    v22 = identifierCopy;
+    v23 = 2112;
+    v24 = v18;
+    v25 = 2112;
+    v26 = errorCopy;
+    v27 = 2112;
+    v28 = contextCopy;
+    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEBUG, "Did send message %@ success %@ error %@ context %@", &v21, 0x2Au);
+  }
+
+  companionStatusHandler = self->_companionStatusHandler;
+  if (companionStatusHandler)
+  {
+    if (successCopy)
+    {
+      v20 = 2;
+    }
+
+    else
+    {
+      v20 = 4294967294;
+    }
+
+    companionStatusHandler[2](companionStatusHandler, v15, v20, Current);
+  }
 }
 
 @end

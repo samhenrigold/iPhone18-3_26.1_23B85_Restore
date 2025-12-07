@@ -63,13 +63,14 @@
     return &unk_1F3E606F0;
   }
 
-  if (([(ATXDefaultHomeScreenItemTilerPodBuilder *)self widgetFamilyMask]& 2) != 0)
+  widgetFamilyMask = [(ATXDefaultHomeScreenItemTilerPodBuilder *)self widgetFamilyMask];
+  if ((widgetFamilyMask & 2) != 0)
   {
     return &unk_1F3E60708;
   }
 
-  v4 = __atxlog_handle_modes();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = __atxlog_handle_modes(widgetFamilyMask);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     [(ATXDefaultHomeScreenItemTilerGridSize5 *)self _tilingBlueprint];
   }

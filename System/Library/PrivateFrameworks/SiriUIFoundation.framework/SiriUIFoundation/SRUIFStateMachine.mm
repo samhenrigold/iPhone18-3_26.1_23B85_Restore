@@ -133,19 +133,17 @@
 
 - (void)_endStateNumberFromDictionary:(uint64_t)a3 forEvent:.cold.1(void *a1, void *a2, uint64_t a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = [a2 state];
   v7 = [a2 _descriptionForEvent:a3];
-  v9 = 136315650;
-  v10 = "[SRUIFStateMachine _endStateNumberFromDictionary:forEvent:]";
-  v11 = 2050;
-  v12 = v6;
-  v13 = 2114;
-  v14 = v7;
-  _os_log_error_impl(&dword_26951F000, v5, OS_LOG_TYPE_ERROR, "%s No transition is defined from state %{public}ld for event %{public}@. Let's not change state, then.", &v9, 0x20u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v8 = 136315650;
+  v9 = "[SRUIFStateMachine _endStateNumberFromDictionary:forEvent:]";
+  v10 = 2050;
+  v11 = v6;
+  v12 = 2114;
+  v13 = v7;
+  _os_log_error_impl(&dword_26951F000, v5, OS_LOG_TYPE_ERROR, "%s No transition is defined from state %{public}ld for event %{public}@. Let's not change state, then.", &v8, 0x20u);
 }
 
 @end

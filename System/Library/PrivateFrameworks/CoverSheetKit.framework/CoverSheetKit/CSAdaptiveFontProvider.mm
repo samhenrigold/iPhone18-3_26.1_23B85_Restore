@@ -159,16 +159,16 @@
   v10 = v9;
   fontCopy = font;
   selfCopy = self;
-  sub_1A2D6B008(height);
-  v13 = fontCopy;
-  v14 = sub_1A2D6BC38(v13);
-  v15 = sub_1A2D9A684(v14, v8, v10);
+  v13 = sub_1A2D6B008(height);
+  v14 = fontCopy;
+  v15 = sub_1A2D6BC38(v14);
+  v16 = sub_1A2D9A684(v15, v8, v10, v13);
 
-  v16 = sub_1A2D6D4C8(fontCopy, v15);
+  v17 = sub_1A2D6D4C8(fontCopy, v16);
 
-  sub_1A2D98B94(v16);
+  sub_1A2D98B94(v17, v13);
 
-  return v16;
+  return v17;
 }
 
 - (id)fontFromFont:(id)font forHeight:(double)height string:(id)string baselineAdjustment:(double *)adjustment
@@ -177,17 +177,17 @@
   v12 = v11;
   fontCopy = font;
   selfCopy = self;
-  sub_1A2D6B008(height);
-  v15 = fontCopy;
-  v16 = sub_1A2D6BC38(v15);
-  v17 = sub_1A2D9A684(v16, v10, v12);
+  v15 = sub_1A2D6B008(height);
+  v16 = fontCopy;
+  v17 = sub_1A2D6BC38(v16);
+  v18 = sub_1A2D9A684(v17, v10, v12, v15);
 
-  v18 = sub_1A2D6D4C8(fontCopy, v17);
+  v19 = sub_1A2D6D4C8(fontCopy, v18);
 
-  sub_1A2D98B94(v18);
-  *adjustment = v19;
+  sub_1A2D98B94(v19, v15);
+  *adjustment = v20;
 
-  return v18;
+  return v19;
 }
 
 - (id)fontFromFont:(id)font forHeight:(double)height portraitFraction:(double)fraction string:(id)string

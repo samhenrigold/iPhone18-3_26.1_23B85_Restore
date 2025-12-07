@@ -98,36 +98,36 @@
 
 - (double)_getTotalScore
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (!self->_isTotalScoreValid)
   {
     self->_total = 0.0;
+    v12 = 0u;
     v13 = 0u;
     v14 = 0u;
     v15 = 0u;
-    v16 = 0u;
     objectEnumerator = [(NSMutableDictionary *)self->_histogram objectEnumerator];
-    v4 = [objectEnumerator countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v4 = [objectEnumerator countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v14;
+      v6 = *v13;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v14 != v6)
+          if (*v13 != v6)
           {
             objc_enumerationMutation(objectEnumerator);
           }
 
-          v8 = *(*(&v13 + 1) + 8 * i);
+          v8 = *(*(&v12 + 1) + 8 * i);
           v9 = [v8 count];
           [v8 score];
           self->_total = self->_total + v9 * v10;
         }
 
-        v5 = [objectEnumerator countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v5 = [objectEnumerator countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v5);
@@ -136,9 +136,7 @@
     self->_isTotalScoreValid = 1;
   }
 
-  result = self->_total;
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  return self->_total;
 }
 
 @end

@@ -164,67 +164,7 @@
   }
 
   v6 = v5;
-  if (!v6)
-  {
-    goto LABEL_13;
-  }
-
-  pairingIdentity = [(HAPAccessoryPairingRequest *)self pairingIdentity];
-  pairingIdentity2 = [v6 pairingIdentity];
-  v9 = HMFEqualObjects();
-
-  if (!v9)
-  {
-    goto LABEL_13;
-  }
-
-  requiresUserConsent = [(HAPAccessoryPairingRequest *)self requiresUserConsent];
-  if (requiresUserConsent != [v6 requiresUserConsent])
-  {
-    goto LABEL_13;
-  }
-
-  ownershipToken = [(HAPAccessoryPairingRequest *)self ownershipToken];
-  ownershipToken2 = [v6 ownershipToken];
-  v13 = HMFEqualObjects();
-
-  if (!v13)
-  {
-    goto LABEL_13;
-  }
-
-  ssid = [(HAPAccessoryPairingRequest *)self ssid];
-  ssid2 = [v6 ssid];
-  v16 = HMFEqualObjects();
-
-  if (!v16)
-  {
-    goto LABEL_13;
-  }
-
-  v17 = [(HAPAccessoryPairingRequest *)self psk];
-  v18 = [v6 psk];
-  v19 = HMFEqualObjects();
-
-  if (!v19)
-  {
-    goto LABEL_13;
-  }
-
-  isoCountryCode = [(HAPAccessoryPairingRequest *)self isoCountryCode];
-  isoCountryCode2 = [v6 isoCountryCode];
-  v22 = HMFEqualObjects();
-
-  if (!v22)
-  {
-    goto LABEL_13;
-  }
-
-  chipFabricID = [(HAPAccessoryPairingRequest *)self chipFabricID];
-  chipFabricID2 = [v6 chipFabricID];
-  v25 = HMFEqualObjects();
-
-  if (v25)
+  if (v6 && (-[HAPAccessoryPairingRequest pairingIdentity](self, "pairingIdentity"), v7 = objc_claimAutoreleasedReturnValue(), [v6 pairingIdentity], v8 = objc_claimAutoreleasedReturnValue(), v9 = HMFEqualObjects(), v8, v7, v9) && (v10 = -[HAPAccessoryPairingRequest requiresUserConsent](self, "requiresUserConsent"), v10 == objc_msgSend(v6, "requiresUserConsent")) && (-[HAPAccessoryPairingRequest ownershipToken](self, "ownershipToken"), v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "ownershipToken"), v12 = objc_claimAutoreleasedReturnValue(), v13 = HMFEqualObjects(), v12, v11, v13) && (-[HAPAccessoryPairingRequest ssid](self, "ssid"), v14 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "ssid"), v15 = objc_claimAutoreleasedReturnValue(), v16 = HMFEqualObjects(), v15, v14, v16) && (-[HAPAccessoryPairingRequest psk](self, "psk"), v17 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "psk"), v18 = objc_claimAutoreleasedReturnValue(), v19 = HMFEqualObjects(), v18, v17, v19) && (-[HAPAccessoryPairingRequest isoCountryCode](self, "isoCountryCode"), v20 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "isoCountryCode"), v21 = objc_claimAutoreleasedReturnValue(), v22 = HMFEqualObjects(), v21, v20, v22) && (-[HAPAccessoryPairingRequest chipFabricID](self, "chipFabricID"), v23 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "chipFabricID"), v24 = objc_claimAutoreleasedReturnValue(), v25 = HMFEqualObjects(), v24, v23, v25))
   {
     doNetworkScan = [(HAPAccessoryPairingRequest *)self doNetworkScan];
     v27 = doNetworkScan ^ [v6 doNetworkScan] ^ 1;
@@ -232,7 +172,6 @@
 
   else
   {
-LABEL_13:
     LOBYTE(v27) = 0;
   }
 

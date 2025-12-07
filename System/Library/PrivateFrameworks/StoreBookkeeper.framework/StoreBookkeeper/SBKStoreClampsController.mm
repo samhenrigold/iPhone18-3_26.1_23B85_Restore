@@ -36,7 +36,7 @@
 
 - (BOOL)_canScheduleTransactionBasedOnUserCancelledSignIn:(id)in error:(id *)error
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   inCopy = in;
   [(SBKStoreClampsController *)self userCancelledSignInBackOffUntil];
   if (fabs(v7) <= 0.00000011920929)
@@ -56,25 +56,25 @@ LABEL_4:
   }
 
   [(SBKStoreClampsController *)self userAcceptedSyncTimestamp];
-  v15 = v14 - v9;
-  v16 = os_log_create("com.apple.amp.StoreBookkeeper", "KVS");
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  v14 = v13 - v9;
+  v15 = os_log_create("com.apple.amp.StoreBookkeeper", "KVS");
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = MEMORY[0x277CBEAA8];
+    v16 = MEMORY[0x277CBEAA8];
     [(SBKStoreClampsController *)self userCancelledSignInBackOffUntil];
-    v18 = [v17 dateWithTimeIntervalSinceReferenceDate:?];
-    v19 = 134218498;
-    v20 = inCopy;
-    v21 = 2112;
-    v22 = v18;
-    v23 = 2048;
-    v24 = v15;
-    _os_log_impl(&dword_26BC19000, v16, OS_LOG_TYPE_DEFAULT, "Drop transaction: <%p> -- userCancelledBackOff until: %@ [%fs]", &v19, 0x20u);
+    v17 = [v16 dateWithTimeIntervalSinceReferenceDate:?];
+    v18 = 134218498;
+    v19 = inCopy;
+    v20 = 2112;
+    v21 = v17;
+    v22 = 2048;
+    v23 = v14;
+    _os_log_impl(&dword_26BC19000, v15, OS_LOG_TYPE_DEFAULT, "Drop transaction: <%p> -- userCancelledBackOff until: %@ [%fs]", &v18, 0x20u);
   }
 
   if (error)
   {
-    [SBKStoreError userClampErrorWithTransaction:inCopy retrySeconds:0 underlyingError:v15];
+    [SBKStoreError userClampErrorWithTransaction:inCopy retrySeconds:0 underlyingError:v14];
     *error = v11 = 0;
   }
 
@@ -85,13 +85,12 @@ LABEL_4:
 
 LABEL_5:
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 - (BOOL)_canScheduleTransactionBasedOnBackOff:(id)off error:(id *)error
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   offCopy = off;
   [(SBKStoreClampsController *)self backOffUntil];
   if (fabs(v7) <= 0.00000011920929)
@@ -111,25 +110,25 @@ LABEL_4:
   }
 
   [(SBKStoreClampsController *)self backOffUntil];
-  v15 = v14 - v9;
-  v16 = os_log_create("com.apple.amp.StoreBookkeeper", "KVS");
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  v14 = v13 - v9;
+  v15 = os_log_create("com.apple.amp.StoreBookkeeper", "KVS");
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = MEMORY[0x277CBEAA8];
+    v16 = MEMORY[0x277CBEAA8];
     [(SBKStoreClampsController *)self backOffUntil];
-    v18 = [v17 dateWithTimeIntervalSinceReferenceDate:?];
-    v19 = 134218498;
-    v20 = offCopy;
-    v21 = 2112;
-    v22 = v18;
-    v23 = 2048;
-    v24 = v15;
-    _os_log_impl(&dword_26BC19000, v16, OS_LOG_TYPE_DEFAULT, "Drop transaction: <%p> -- BackOff until: %@ [%fs]", &v19, 0x20u);
+    v17 = [v16 dateWithTimeIntervalSinceReferenceDate:?];
+    v18 = 134218498;
+    v19 = offCopy;
+    v20 = 2112;
+    v21 = v17;
+    v22 = 2048;
+    v23 = v14;
+    _os_log_impl(&dword_26BC19000, v15, OS_LOG_TYPE_DEFAULT, "Drop transaction: <%p> -- BackOff until: %@ [%fs]", &v18, 0x20u);
   }
 
   if (error)
   {
-    [SBKStoreError serverClampErrorWithTransaction:offCopy retrySeconds:0 underlyingError:v15];
+    [SBKStoreError serverClampErrorWithTransaction:offCopy retrySeconds:0 underlyingError:v14];
     *error = v11 = 0;
   }
 
@@ -140,13 +139,12 @@ LABEL_4:
 
 LABEL_5:
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 - (BOOL)_canScheduleTransactionBasedOnAccountIdentifierCheck:(id)check error:(id *)error
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   checkCopy = check;
   [(SBKStoreClampsController *)self accountIdentifierCheckTimestamp];
   v8 = v7;
@@ -155,9 +153,9 @@ LABEL_5:
     v9 = os_log_create("com.apple.amp.StoreBookkeeper", "KVS");
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 134217984;
-      v13 = checkCopy;
-      _os_log_impl(&dword_26BC19000, v9, OS_LOG_TYPE_DEFAULT, "Drop transaction: <%p> -- AccountIdentifierCheck != 0", &v12, 0xCu);
+      v11 = 134217984;
+      v12 = checkCopy;
+      _os_log_impl(&dword_26BC19000, v9, OS_LOG_TYPE_DEFAULT, "Drop transaction: <%p> -- AccountIdentifierCheck != 0", &v11, 0xCu);
     }
 
     if (error)
@@ -166,13 +164,12 @@ LABEL_5:
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v8 == 0.0;
 }
 
 - (BOOL)_canScheduleTransactionBasedOfNetworkingBlocked:(id)blocked error:(id *)error
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   blockedCopy = blocked;
   isNetworkingBlocked = [(SBKStoreClampsController *)self isNetworkingBlocked];
   if (isNetworkingBlocked)
@@ -183,40 +180,39 @@ LABEL_5:
       v9 = MEMORY[0x277CBEAA8];
       [(SBKStoreClampsController *)self networkingBlockedUntil];
       v10 = [v9 dateWithTimeIntervalSinceReferenceDate:?];
-      v13 = 134218242;
-      v14 = blockedCopy;
-      v15 = 2112;
-      v16 = v10;
-      _os_log_impl(&dword_26BC19000, v8, OS_LOG_TYPE_DEFAULT, "Drop transaction: <%p> -- Networking BlockedUntil: %@", &v13, 0x16u);
+      v12 = 134218242;
+      v13 = blockedCopy;
+      v14 = 2112;
+      v15 = v10;
+      _os_log_impl(&dword_26BC19000, v8, OS_LOG_TYPE_DEFAULT, "Drop transaction: <%p> -- Networking BlockedUntil: %@", &v12, 0x16u);
     }
 
     *error = [SBKStoreError networkingBlockedErrorWithTransaction:blockedCopy underlyingError:0];
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return !isNetworkingBlocked;
 }
 
 - (BOOL)_canScheduleTransactionBasedOnType:(id)type error:(id *)error
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   typeCopy = type;
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x3032000000;
-  v21 = __Block_byref_object_copy_;
-  v22 = __Block_byref_object_dispose_;
-  v23 = 0;
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __69__SBKStoreClampsController__canScheduleTransactionBasedOnType_error___block_invoke;
-  v15[3] = &unk_279D22858;
-  v17 = &v18;
-  v15[4] = self;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = __Block_byref_object_copy_;
+  v21 = __Block_byref_object_dispose_;
+  v22 = 0;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __69__SBKStoreClampsController__canScheduleTransactionBasedOnType_error___block_invoke;
+  v14[3] = &unk_279D22858;
+  v16 = &v17;
+  v14[4] = self;
   v7 = typeCopy;
-  v16 = v7;
-  [(SBKStoreClampsController *)self accessTransactionClampsWithBlock:v15];
-  v8 = v19[5];
+  v15 = v7;
+  [(SBKStoreClampsController *)self accessTransactionClampsWithBlock:v14];
+  v8 = v18[5];
   if (!v8)
   {
     goto LABEL_7;
@@ -245,11 +241,11 @@ LABEL_7:
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
-    v25 = v7;
-    v26 = 2048;
-    v27 = v10;
-    v28 = 2048;
-    v29 = 5.0 - v10;
+    v24 = v7;
+    v25 = 2048;
+    v26 = v10;
+    v27 = 2048;
+    v28 = 5.0 - v10;
     _os_log_impl(&dword_26BC19000, v12, OS_LOG_TYPE_DEFAULT, "Drop transaction: %@ -- Interval since last request: %f [%fs]", buf, 0x20u);
   }
 
@@ -266,8 +262,7 @@ LABEL_7:
 
 LABEL_13:
 
-  _Block_object_dispose(&v18, 8);
-  v13 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v17, 8);
   return v11;
 }
 
@@ -344,7 +339,7 @@ void __69__SBKStoreClampsController__canScheduleTransactionBasedOnType_error___b
 
 - (void)setUserCancelledSignIn
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   [(SBKStoreClampsController *)self _rightNow];
   [(SBKStoreClampsController *)self setUserCancelledSignInBackOffUntil:v3 + self->_nextUserCancelBackOffInterval];
   userCancelledSignInBackOffUntil = self->_userCancelledSignInBackOffUntil;
@@ -357,17 +352,16 @@ void __69__SBKStoreClampsController__canScheduleTransactionBasedOnType_error___b
   if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     v9 = userCancelledSignInBackOffUntil - v7 - (3600 * ((userCancelledSignInBackOffUntil - v7) / 3600.0));
-    v11 = 134218496;
-    v12 = ((userCancelledSignInBackOffUntil - v7) / 3600.0);
-    v13 = 2048;
-    v14 = (v9 / 60.0);
-    v15 = 2048;
-    v16 = v9 - (60 * v14);
-    _os_log_impl(&dword_26BC19000, v8, OS_LOG_TYPE_ERROR, "[StoreBookkeeper] SBKStoreClampsController - will avoid presenting authentication for %02llu:%02llu:%2f", &v11, 0x20u);
+    v10 = 134218496;
+    v11 = ((userCancelledSignInBackOffUntil - v7) / 3600.0);
+    v12 = 2048;
+    v13 = (v9 / 60.0);
+    v14 = 2048;
+    v15 = v9 - (60 * v13);
+    _os_log_impl(&dword_26BC19000, v8, OS_LOG_TYPE_ERROR, "[StoreBookkeeper] SBKStoreClampsController - will avoid presenting authentication for %02llu:%02llu:%2f", &v10, 0x20u);
   }
 
   [(SBKStoreClampsController *)self saveToUserDefaults];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)hasUserRecentlyAcceptedSync
@@ -405,7 +399,7 @@ void __69__SBKStoreClampsController__canScheduleTransactionBasedOnType_error___b
 
 - (BOOL)hasAuthenticatedTooRecentlyForTransaction:(id)transaction error:(id *)error
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   transactionCopy = transaction;
   [(SBKStoreClampsController *)self _rightNow];
   v8 = v7;
@@ -416,13 +410,13 @@ void __69__SBKStoreClampsController__canScheduleTransactionBasedOnType_error___b
     v11 = os_log_create("com.apple.amp.StoreBookkeeper", "KVS");
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 138412802;
-      v15 = transactionCopy;
-      v16 = 2048;
-      v17 = v10;
-      v18 = 2048;
-      v19 = 1.0 - v10;
-      _os_log_impl(&dword_26BC19000, v11, OS_LOG_TYPE_DEFAULT, "Drop transaction: %@ -- Too soon since last authentication: %f [%fs]", &v14, 0x20u);
+      v13 = 138412802;
+      v14 = transactionCopy;
+      v15 = 2048;
+      v16 = v10;
+      v17 = 2048;
+      v18 = 1.0 - v10;
+      _os_log_impl(&dword_26BC19000, v11, OS_LOG_TYPE_DEFAULT, "Drop transaction: %@ -- Too soon since last authentication: %f [%fs]", &v13, 0x20u);
     }
 
     if (error)
@@ -431,7 +425,6 @@ void __69__SBKStoreClampsController__canScheduleTransactionBasedOnType_error___b
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v10 < 1.0;
 }
 
@@ -606,14 +599,14 @@ void __61__SBKStoreClampsController_accessTransactionClampsWithBlock___block_inv
 
 void __46__SBKStoreClampsController_saveToUserDefaults__block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) pendingUserDefaultArchivedData];
   *(*(*(a1 + 40) + 8) + 24) = v2 == 0;
 
   v3 = *(a1 + 32);
-  v9 = 0;
-  v4 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v3 requiringSecureCoding:1 error:&v9];
-  v5 = v9;
+  v8 = 0;
+  v4 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v3 requiringSecureCoding:1 error:&v8];
+  v5 = v8;
   [*(a1 + 32) setPendingUserDefaultArchivedData:v4];
 
   if (v5)
@@ -628,12 +621,10 @@ void __46__SBKStoreClampsController_saveToUserDefaults__block_invoke(uint64_t a1
     else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v11 = v5;
+      v10 = v5;
       _os_log_error_impl(&dword_26BC19000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Archiving SBKStoreClampsController resulted in error:%@", buf, 0xCu);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __46__SBKStoreClampsController_saveToUserDefaults__block_invoke_49(uint64_t a1)
@@ -820,15 +811,15 @@ void __42__SBKStoreClampsController_initWithCoder___block_invoke(uint64_t a1, vo
 
 void __50__SBKStoreClampsController_sharedClampsController__block_invoke()
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v0 = +[SBKPreferences storeBookkeeperPreferences];
   v1 = [v0 objectForKey:@"SBKSyncClamps" withDefaultValue:0];
 
   if (v1)
   {
-    v10 = 0;
-    v2 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v1 error:&v10];
-    v3 = v10;
+    v9 = 0;
+    v2 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v1 error:&v9];
+    v3 = v9;
     v4 = sharedClampsController_sharedInstance;
     sharedClampsController_sharedInstance = v2;
 
@@ -844,7 +835,7 @@ void __50__SBKStoreClampsController_sharedClampsController__block_invoke()
       else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v12 = v3;
+        v11 = v3;
         _os_log_error_impl(&dword_26BC19000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unarchiving SBKStoreClampsController resulted in error:%@", buf, 0xCu);
       }
     }
@@ -856,8 +847,6 @@ void __50__SBKStoreClampsController_sharedClampsController__block_invoke()
     v8 = sharedClampsController_sharedInstance;
     sharedClampsController_sharedInstance = v7;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 @end

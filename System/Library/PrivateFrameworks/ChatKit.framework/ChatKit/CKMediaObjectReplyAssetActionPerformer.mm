@@ -62,7 +62,7 @@ LABEL_12:
 
 + (id)localizedTitleForUseCase:(unint64_t)case actionManager:(id)manager
 {
-  v4 = CKFrameworkBundle();
+  v4 = CKFrameworkBundle(self);
   v5 = [v4 localizedStringForKey:@"REPLY" value:&stru_1F04268F8 table:@"ChatKit"];
 
   return v5;

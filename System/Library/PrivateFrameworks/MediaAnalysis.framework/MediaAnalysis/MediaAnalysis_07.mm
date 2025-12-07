@@ -1,4 +1,4 @@
-uint64_t ma::ObjectTracking::CalculateSimilarityWeights(void **this, int a2, int a3, uint64_t a4, int a5, unsigned __int8 *a6, unsigned __int8 *a7, float *a8)
+uint64_t ma::ObjectTracking::CalculateSimilarityWeights(void **this, int a2, int a3, uint64_t a4, unsigned int a5, unsigned __int8 *a6, unsigned __int8 *a7, float *a8)
 {
   v12 = a4;
   bzero(this[29], 4 * a4 * a5);
@@ -75,15 +75,15 @@ uint64_t ma::ObjectTracking::UpdateStoredBoundingBox(ma::ObjectTracking *this, C
 
   else
   {
-    v39.size.width = *(this + 49);
-    v39.size.height = *(this + 50);
-    v39.origin.x = 0.0;
-    v39.origin.y = 0.0;
-    v40 = CGRectIntersection(v39, *(this + 8));
-    x = v40.origin.x;
-    y = v40.origin.y;
-    width = v40.size.width;
-    height = v40.size.height;
+    v40.size.width = *(this + 49);
+    v40.size.height = *(this + 50);
+    v40.origin.x = 0.0;
+    v40.origin.y = 0.0;
+    v41 = CGRectIntersection(v40, *(this + 8));
+    x = v41.origin.x;
+    y = v41.origin.y;
+    width = v41.size.width;
+    height = v41.size.height;
     v17 = a2[23];
     v16 = a2 + 23;
     v15 = v17;
@@ -110,6 +110,7 @@ uint64_t ma::ObjectTracking::UpdateStoredBoundingBox(ma::ObjectTracking *this, C
       {
         v27 = v26;
         ma::Object::Object(v26);
+        v39 = v27;
         v28 = *(this + 49);
         v29 = *(this + 50);
         v30 = x / v28;
@@ -128,10 +129,10 @@ uint64_t ma::ObjectTracking::UpdateStoredBoundingBox(ma::ObjectTracking *this, C
           printf("[%6.2f, %6.2f, %6.2f, %6.2f]\n", v34, v35, v36, v37);
         }
 
-        v8 = Vector<ma::Object *>::PushBack(v16);
-        if (v8)
+        v8 = Vector<ma::Object *>::PushBack(v16, &v39);
+        if (v8 && v39)
         {
-          MEMORY[0x1CCA95C50](v27, 0x1000C40E841BE39);
+          MEMORY[0x1CCA95C50](v39, 0x1000C40E841BE39);
         }
       }
 
@@ -335,7 +336,7 @@ uint64_t ma::ObjectTracking::CheckUpdateTarget(ma::ObjectTracking *this, unsigne
   return result;
 }
 
-uint64_t ma::ObjectTracking::PrepareKernels(ma::ObjectTracking *this, signed int a2, signed int a3, float *a4)
+uint64_t ma::ObjectTracking::PrepareKernels(ma::ObjectTracking *this, unsigned int a2, unsigned int a3, float *a4)
 {
   bzero(a4, 4 * a2 * a3);
   if (a3 >= 1)
@@ -406,7 +407,7 @@ uint64_t ma::ObjectTracking::PrepareKernels(ma::ObjectTracking *this, signed int
   return 0;
 }
 
-uint64_t ma::ObjectTracking::EstimateDensity(ma::ObjectTracking *this, int a2, int a3, int a4, int a5, unsigned __int8 *a6, unsigned __int8 *a7, float *a8, float *a9)
+uint64_t ma::ObjectTracking::EstimateDensity(ma::ObjectTracking *this, int a2, int a3, unsigned int a4, unsigned int a5, unsigned __int8 *a6, unsigned __int8 *a7, float *a8, float *a9)
 {
   bzero(a9, 0x2000uLL);
   if (a5 < 1)
@@ -504,7 +505,7 @@ const __CFArray *ma::ObjectTracking::UpdateExpertAge(ma::ObjectTracking *this)
   return result;
 }
 
-uint64_t ma::ObjectTracking::GetColorIndex(ma::ObjectTracking *this, int a2, unsigned int a3, unsigned __int8 *a4, unsigned __int8 *a5)
+uint64_t ma::ObjectTracking::GetColorIndex(ma::ObjectTracking *this, int a2, int a3, unsigned __int8 *a4, unsigned __int8 *a5)
 {
   v5 = &a5[*(this + 34) * ((a3 + (a3 >> 31)) >> 1) + (a2 & 0xFFFFFFFFFFFFFFFELL)];
   v6 = vcvtd_n_f64_u32(8 * v5[1], 8uLL);
@@ -523,9 +524,9 @@ uint64_t ma::ObjectTracking::GetColorIndex(ma::ObjectTracking *this, int a2, uns
   return vadd_s32(v10, vdup_lane_s32(v10, 1)).u32[0] | v7 & ~(v7 >> 31);
 }
 
-void sub_1C9E524A8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C9E524A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   CVPixelBufferLock::~CVPixelBufferLock(va);
   _Unwind_Resume(a1);
 }
@@ -632,7 +633,7 @@ LABEL_15:
   return [a2 hasError] ^ 1;
 }
 
-uint64_t SocType()
+uint64_t SocType(uint64_t a1, uint64_t a2)
 {
   if (SocType::once != -1)
   {
@@ -835,7 +836,7 @@ LABEL_190:
   }
 }
 
-uint64_t DeviceHasANE()
+uint64_t DeviceHasANE(uint64_t a1, uint64_t a2)
 {
   if (DeviceHasANE::onceToken != -1)
   {
@@ -852,7 +853,7 @@ uint64_t __DeviceHasANE_block_invoke()
   return espresso_context_destroy();
 }
 
-BOOL DeviceGeqD5x()
+BOOL DeviceGeqD5x(uint64_t a1, uint64_t a2)
 {
   if (SocType::once != -1)
   {
@@ -862,7 +863,7 @@ BOOL DeviceGeqD5x()
   return SocType::soc_type == 253 || SocType::soc_type == 254 || SocType::soc_type == 255 || SocType::soc_type == 256 || SocType::soc_type == 257 || SocType::soc_type == 258;
 }
 
-BOOL DeviceGeqD7x()
+BOOL DeviceGeqD7x(uint64_t a1, uint64_t a2)
 {
   if (SocType::once != -1)
   {
@@ -872,7 +873,7 @@ BOOL DeviceGeqD7x()
   return SocType::soc_type == 255 || SocType::soc_type == 256 || SocType::soc_type == 257 || SocType::soc_type == 258;
 }
 
-uint64_t DeviceWithGreymatterSupport()
+uint64_t DeviceWithGreymatterSupport(uint64_t a1, uint64_t a2)
 {
   if (DeviceWithGreymatterSupport::once != -1)
   {
@@ -1297,13 +1298,13 @@ uint64_t ma::MotionSearch::InitialSearch(ma::MotionSearch *this, CVPixelBufferRe
   return v6;
 }
 
-void sub_1C9E55450(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_1C9E55450(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va1, a14);
-  va_start(va, a14);
-  v15 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
+  va_start(va1, a21);
+  va_start(va, a21);
+  v22 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
   CVPixelBufferLock::~CVPixelBufferLock(va1);
   CVPixelBufferLock::~CVPixelBufferLock(va);
   _Unwind_Resume(a1);
@@ -1541,10 +1542,11 @@ uint64_t ma::MotionSearch::RefinementSearch(ma::MotionSearch *this, CVPixelBuffe
   return v12;
 }
 
-void sub_1C9E55A38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30)
+void sub_1C9E55A38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, ...)
 {
-  CVPixelBufferLock::~CVPixelBufferLock((v30 - 160));
-  CVPixelBufferLock::~CVPixelBufferLock(&a30);
+  va_start(va, a29);
+  CVPixelBufferLock::~CVPixelBufferLock((v29 - 160));
+  CVPixelBufferLock::~CVPixelBufferLock(va);
   _Unwind_Resume(a1);
 }
 
@@ -1606,14 +1608,14 @@ uint64_t ma::MotionSearch::Search(MotionVector **this, __CVBuffer *a2, CVPixelBu
   return result;
 }
 
-void sub_1C9E55FFC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_1C9E55FFC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = VCPPriorityAnalysis;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
-void *std::vector<int>::__assign_with_size[abi:ne200100]<int const*,int const*>(void *result, char *__src, char *a3, unint64_t a4)
+void **std::vector<int>::__assign_with_size[abi:ne200100]<int const*,int const*>(void **result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -1685,8 +1687,7 @@ void *std::vector<int>::__assign_with_size[abi:ne200100]<int const*,int const*>(
       {
         v16 = *v13;
         v13 += 4;
-        *v15 = v16;
-        v15 += 4;
+        *v15++ = v16;
         v14 += 4;
       }
 
@@ -1700,40 +1701,40 @@ void *std::vector<int>::__assign_with_size[abi:ne200100]<int const*,int const*>(
   return result;
 }
 
-void sub_1C9E57AD8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_1C9E57AD8(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = VCPVideoFaceMeshAnalyzer;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
-void sub_1C9E57F00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_1C9E57F00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va1, a8);
-  va_start(va, a8);
-  v9 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
+  va_start(va1, a15);
+  va_start(va, a15);
+  v16 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
   CVPixelBufferLock::~CVPixelBufferLock(va1);
   CVPixelBufferLock::~CVPixelBufferLock(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1C9E58CEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1C9E58CEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   CVPixelBufferLock::~CVPixelBufferLock(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1C9E58F94(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_1C9E58F94(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = VCPImageManager;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
-void sub_1C9E59368(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24)
+void sub_1C9E59368(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24)
 {
   _Block_object_dispose(&a19, 8);
 
@@ -1747,9 +1748,9 @@ uint64_t __Block_byref_object_copy__64(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1C9E59960(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1C9E59960(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   CF<__CVBuffer *>::~CF(va);
 
   _Unwind_Resume(a1);
@@ -1778,17 +1779,17 @@ void sub_1C9E5A078(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_1C9E5D050(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1C9E5D050(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   CVPixelBufferLock::~CVPixelBufferLock(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1C9E5D71C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_1C9E5D71C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = VCPVoiceDetectorV2;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -2067,18 +2068,18 @@ void sub_1C9E635F4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1C9E6559C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C9E6559C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va2, a2);
-  va_start(va1, a2);
-  va_start(va, a2);
-  v4 = va_arg(va1, void);
-  v6 = va_arg(va1, void);
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v5 = va_arg(va1, void);
   v7 = va_arg(va1, void);
+  v8 = va_arg(va1, void);
   va_copy(va2, va1);
-  v8 = va_arg(va2, void);
-  v10 = va_arg(va2, void);
+  v9 = va_arg(va2, void);
   v11 = va_arg(va2, void);
+  v12 = va_arg(va2, void);
   CVPixelBufferLock::~CVPixelBufferLock(va);
   CVPixelBufferLock::~CVPixelBufferLock(va1);
 
@@ -2086,7 +2087,7 @@ void sub_1C9E6559C(_Unwind_Exception *a1, uint64_t a2, ...)
   _Unwind_Resume(a1);
 }
 
-void sub_1C9E66E00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, id a35, char a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, id a41, char a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, id a47, const void *a48, const void *a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, const void *a56)
+void sub_1C9E66E00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, id a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, id a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, id a47, const void *a48, const void *a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, const void *a56)
 {
   _Block_object_dispose(&a30, 8);
 
@@ -2120,10 +2121,10 @@ CFTypeRef __copy_helper_block_ea8_56c22_ZTS2CFIP10__CVBufferE(uint64_t a1, uint6
   return result;
 }
 
-void sub_1C9E68198(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_1C9E68198(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = VCPVideoAnalysisPipelineFrameResource;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -2282,19 +2283,19 @@ void sub_1C9E6B550(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1C9E6B738(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_1C9E6B738(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = VCPPreAnalysisImageEntry;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
-void sub_1C9E6BA04(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C9E6BA04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
 
   CF<__CVBuffer *>::~CF(va);
-  objc_sync_exit(v2);
+  objc_sync_exit(v3);
 
   _Unwind_Resume(a1);
 }
@@ -2360,12 +2361,12 @@ void sub_1C9E6CA20(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void ma::MotionFieldAnalysis::~MotionFieldAnalysis(ma::MotionFieldAnalysis *this)
+void ma::MotionFieldAnalysis::~MotionFieldAnalysis(const __CFArray **this)
 {
   ma::MotionFieldAnalysis::Destroy(this);
-  ma::ObjectTracking::~ObjectTracking((this + 304));
-  ma::ObjectDetection::~ObjectDetection((this + 240));
-  std::__tree<unsigned long>::destroy(this + 216, *(this + 28));
+  ma::ObjectTracking::~ObjectTracking(this + 38);
+  ma::ObjectDetection::~ObjectDetection((this + 30));
+  std::__tree<unsigned long>::destroy((this + 27), this[28]);
 }
 
 uint64_t ma::MotionFieldAnalysis::Destroy(ma::MotionFieldAnalysis *this)
@@ -2462,7 +2463,7 @@ uint64_t ma::MotionFieldAnalysis::Destroy(ma::MotionFieldAnalysis *this)
   return result;
 }
 
-uint64_t ma::MotionFieldAnalysis::Initialize(uint32x2_t *this, __int32 a2, __int32 a3, ma::EncodeStats *a4, signed __int8 *a5, float a6, float a7, __int8 a8, int a9)
+uint64_t ma::MotionFieldAnalysis::Initialize(uint32x2_t *this, int a2, int a3, ma::EncodeStats *a4, signed __int8 *a5, float a6, float a7, char a8, int a9)
 {
   v10 = a3 * a2;
   if (this[4].i32[1] * this[4].i32[0] == a3 * a2)
@@ -2595,7 +2596,7 @@ uint64_t ma::MotionFieldAnalysis::Initialize(uint32x2_t *this, __int32 a2, __int
     if (v35 && v36)
     {
       ma::ObjectDetection::Initialize(&v39[30], 2 * a2, 2 * a3, v39[24]);
-      ma::ObjectTracking::Initialize(&v39[38]);
+      ma::ObjectTracking::Initialize(&v39[38], a2, a3);
     }
   }
 
@@ -3784,7 +3785,7 @@ void ma::MotionFieldAnalysis::CalculateObjectMotion(ma::MotionFieldAnalysis *thi
   v91 = v92;
   v12 = (this + 216);
   v85 = (1 << v6);
-  for (i = (this + 216); ; v12 = i)
+  for (i = this + 216; ; v12 = i)
   {
     v13 = *(a3 + 25);
     v14 = v13 ? CFArrayGetCount(v13) : 0;
@@ -3798,14 +3799,14 @@ void ma::MotionFieldAnalysis::CalculateObjectMotion(ma::MotionFieldAnalysis *thi
     v16 = *(*CFArrayGetValueAtIndex(*(a3 + 25), idx) + 16);
     v17 = *(*CFArrayGetValueAtIndex(*(a3 + 25), idx) + 24);
     v18 = *(*CFArrayGetValueAtIndex(*(a3 + 25), idx) + 32);
-    v93 = &v90;
-    v19 = *(std::__tree<std::__value_type<int,CGRect>,std::__map_value_compare<int,std::__value_type<int,CGRect>,std::less<int>,true>,std::allocator<std::__value_type<int,CGRect>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(i, &v90) + 5);
-    v93 = &v90;
-    v20 = *(std::__tree<std::__value_type<int,CGRect>,std::__map_value_compare<int,std::__value_type<int,CGRect>,std::less<int>,true>,std::allocator<std::__value_type<int,CGRect>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(i, &v90) + 6);
-    v93 = &v90;
-    v21 = *(std::__tree<std::__value_type<int,CGRect>,std::__map_value_compare<int,std::__value_type<int,CGRect>,std::less<int>,true>,std::allocator<std::__value_type<int,CGRect>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(i, &v90) + 7);
-    v93 = &v90;
-    v22 = std::__tree<std::__value_type<int,CGRect>,std::__map_value_compare<int,std::__value_type<int,CGRect>,std::less<int>,true>,std::allocator<std::__value_type<int,CGRect>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(i, &v90);
+    v93[0] = &v90;
+    v19 = *(std::__tree<std::__value_type<int,CGRect>,std::__map_value_compare<int,std::__value_type<int,CGRect>,std::less<int>,true>,std::allocator<std::__value_type<int,CGRect>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(i, &v90, &std::piecewise_construct, v93) + 5);
+    v93[0] = &v90;
+    v20 = *(std::__tree<std::__value_type<int,CGRect>,std::__map_value_compare<int,std::__value_type<int,CGRect>,std::less<int>,true>,std::allocator<std::__value_type<int,CGRect>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(i, &v90, &std::piecewise_construct, v93) + 6);
+    v93[0] = &v90;
+    v21 = *(std::__tree<std::__value_type<int,CGRect>,std::__map_value_compare<int,std::__value_type<int,CGRect>,std::less<int>,true>,std::allocator<std::__value_type<int,CGRect>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(i, &v90, &std::piecewise_construct, v93) + 7);
+    v93[0] = &v90;
+    v22 = std::__tree<std::__value_type<int,CGRect>,std::__map_value_compare<int,std::__value_type<int,CGRect>,std::less<int>,true>,std::allocator<std::__value_type<int,CGRect>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(i, &v90, &std::piecewise_construct, v93);
     v25 = v16;
     v26 = v18;
     v27 = *(*this + 180);
@@ -4001,8 +4002,8 @@ void ma::MotionFieldAnalysis::CalculateObjectMotion(ma::MotionFieldAnalysis *thi
 
     ValueAtIndex = CFArrayGetValueAtIndex(*(a3 + 25), idx);
     ma::Object::SetMotion(*ValueAtIndex, v46 / v81, v47 / v81);
-    v93 = &v90;
-    v83 = std::__tree<std::__value_type<int,CGRect>,std::__map_value_compare<int,std::__value_type<int,CGRect>,std::less<int>,true>,std::allocator<std::__value_type<int,CGRect>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&v91, &v90);
+    v93[0] = &v90;
+    v83 = std::__tree<std::__value_type<int,CGRect>,std::__map_value_compare<int,std::__value_type<int,CGRect>,std::less<int>,true>,std::allocator<std::__value_type<int,CGRect>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&v91, &v90, &std::piecewise_construct, v93);
     v83[5] = v30;
     v83[6] = v25;
     v83[7] = v31;
@@ -4084,7 +4085,7 @@ BOOL ma::MotionFieldAnalysis::IsStable(ma::MotionFieldAnalysis *this, ma::Motion
   return v16 < 40.0 && v10 == 0;
 }
 
-uint64_t ma::MotionFieldAnalysis::MovingObjectDetectTracking(ma::MotionFieldAnalysis *this, CVPixelBufferRef pixelBuffer, int a3, CFMutableArrayRef *a4)
+uint64_t ma::MotionFieldAnalysis::MovingObjectDetectTracking(ma::MotionFieldAnalysis *this, CVPixelBufferRef pixelBuffer, int a3, CFArrayRef *a4)
 {
   v41 = *MEMORY[0x1E69E9840];
   v36 = 0.0;
@@ -4231,9 +4232,9 @@ LABEL_21:
   return updated;
 }
 
-void sub_1C9E6F16C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1C9E6F16C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   CVPixelBufferLock::~CVPixelBufferLock(va);
   _Unwind_Resume(a1);
 }
@@ -4274,7 +4275,7 @@ uint64_t ma::MotionFieldAnalysis::CalculateActionScore(float32x2_t *this, float 
   v11 = v10[10];
   v12 = v10[16];
   v33 = this[v9];
-  *v39 = 0;
+  v39[0] = 0;
   if (v7 < 1)
   {
     goto LABEL_19;
@@ -4354,8 +4355,8 @@ uint64_t ma::MotionFieldAnalysis::CalculateActionScore(float32x2_t *this, float 
   {
     this[20].i32[v30] = v13;
     v26 = a5;
-    ma::MotionFieldAnalysis::CalcOutlierResidual(this, a2, a3, &v39[1], v39);
-    v27 = log2f((v39[1] + sqrtf(v39[0])) / (a4 + 0.000001));
+    ma::MotionFieldAnalysis::CalcOutlierResidual(this, a2, a3, v39 + 1, v39);
+    v27 = log2f((*(v39 + 1) + sqrtf(*v39)) / (a4 + 0.000001));
     a5 = v26;
     v28 = 0.0;
     v26[12] = fmaxf(v27, 0.0);
@@ -4837,7 +4838,7 @@ void ma::MotionFieldAnalysis::GenerateFineForeground(ma::MotionFieldAnalysis *th
   bzero(v14, 4 * v9 * v7);
 }
 
-BOOL ma::MotionFieldAnalysis::IsForegroundObject(ma::MotionFieldAnalysis *this, const CGRect *a2, const ma::MotionResult *a3)
+uint64_t ma::MotionFieldAnalysis::IsForegroundObject(ma::MotionFieldAnalysis *this, const CGRect *a2, const ma::MotionResult *a3)
 {
   v5 = 0;
   v6 = (16 * *(this + 8));
@@ -5140,7 +5141,7 @@ BOOL ma::MotionFieldAnalysis::EstimateMotionParam(ma::MotionFieldAnalysis *this,
   while (v26 != 6);
   memset(v54, 0, 84);
   *v52 = 0;
-  ma::MotionFieldAnalysis::SymmetricSemiPositiveInv(this, *(this + 1), 6u, v54, *(this + 2), &v52[1], v52);
+  ma::MotionFieldAnalysis::SymmetricSemiPositiveInv(this, *(this + 1), 6, v54, *(this + 2), &v52[1], v52);
   if (*v52)
   {
     memset_pattern16(a2, &unk_1C9F63640, 0x18uLL);
@@ -5507,7 +5508,7 @@ uint64_t ma::MotionFieldAnalysis::RemoveUnreliable8x8Outliers(ma::MotionFieldAna
   return 0;
 }
 
-float *ma::MotionFieldAnalysis::SymmetricSemiPositiveInv(float *this, float *a2, unsigned int a3, float *a4, float *a5, int *a6, int *a7)
+float *ma::MotionFieldAnalysis::SymmetricSemiPositiveInv(float *this, float *a2, signed int a3, float *a4, float *a5, int *a6, int *a7)
 {
   *a7 = 0;
   if (a3 <= 0)
@@ -5668,7 +5669,7 @@ void ma::MotionFieldAnalysis::EstimateSuppressedEst(ma::MotionFieldAnalysis *thi
 
   while (v8 != 6);
   v33 = 0;
-  ma::MotionFieldAnalysis::SymmetricSemiPositiveInv(this, v38, 5u, v37, v35, &v33 + 1, &v33);
+  ma::MotionFieldAnalysis::SymmetricSemiPositiveInv(this, v38, 5, v37, v35, &v33 + 1, &v33);
   if (v33)
   {
     memset_pattern16(__b, &unk_1C9F63640, 0x14uLL);
@@ -5799,7 +5800,7 @@ uint64_t ma::MotionFieldAnalysis::CalcMotionParamDiff(uint64_t this, float *a2, 
   return this;
 }
 
-float *ma::MotionFieldAnalysis::CholeskyFactorization(ma::MotionFieldAnalysis *this, float *a2, int a3, signed int a4, float *a5, int *a6, int *a7)
+float *ma::MotionFieldAnalysis::CholeskyFactorization(ma::MotionFieldAnalysis *this, float *a2, unsigned int a3, signed int a4, float *a5, int *a6, int *a7)
 {
   *a7 = 0;
   *a6 = 0;
@@ -5912,56 +5913,56 @@ LABEL_23:
   }
 }
 
-uint64_t *std::__tree<std::__value_type<int,CGRect>,std::__map_value_compare<int,std::__value_type<int,CGRect>,std::less<int>,true>,std::allocator<std::__value_type<int,CGRect>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(uint64_t a1, int *a2)
+uint64_t *std::__tree<std::__value_type<int,CGRect>,std::__map_value_compare<int,std::__value_type<int,CGRect>,std::less<int>,true>,std::allocator<std::__value_type<int,CGRect>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(uint64_t a1, int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 32);
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = *(v4 + 32);
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
   }
 }
 
-uint64_t **std::__tree<std::__value_type<int,CGRect>,std::__map_value_compare<int,std::__value_type<int,CGRect>,std::less<int>,true>,std::allocator<std::__value_type<int,CGRect>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<int,CGRect>,std::__tree_node<std::__value_type<int,CGRect>,void *> *,long>>(uint64_t **result, void *a2, void *a3)
+void *std::__tree<std::__value_type<int,CGRect>,std::__map_value_compare<int,std::__value_type<int,CGRect>,std::less<int>,true>,std::allocator<std::__value_type<int,CGRect>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<int,CGRect>,std::__tree_node<std::__value_type<int,CGRect>,void *> *,long>>(void *result, void *a2, void *a3)
 {
   v5 = result;
   if (result[2])
   {
     v6 = *result;
     v7 = result[1];
-    *result = (result + 1);
-    v7[2] = 0;
+    *result = result + 1;
+    *(v7 + 16) = 0;
     result[1] = 0;
     result[2] = 0;
     if (v6[1])
@@ -6038,23 +6039,23 @@ uint64_t **std::__tree<std::__value_type<int,CGRect>,std::__map_value_compare<in
 
   if (a2 != a3)
   {
-    std::__tree<std::__value_type<int,CGRect>,std::__map_value_compare<int,std::__value_type<int,CGRect>,std::less<int>,true>,std::allocator<std::__value_type<int,CGRect>>>::__emplace_multi<std::pair<int const,CGRect> const&>();
+    std::__tree<std::__value_type<int,CGRect>,std::__map_value_compare<int,std::__value_type<int,CGRect>,std::less<int>,true>,std::allocator<std::__value_type<int,CGRect>>>::__emplace_multi<std::pair<int const,CGRect> const&>(v5, (a2 + 4));
   }
 
   return result;
 }
 
-void sub_1C9E70FDC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C9E70FDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__tree<std::__value_type<int,CGRect>,std::__map_value_compare<int,std::__value_type<int,CGRect>,std::less<int>,true>,std::allocator<std::__value_type<int,CGRect>>>::_DetachedTreeCache::~_DetachedTreeCache[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::__tree<std::__value_type<int,CGRect>,std::__map_value_compare<int,std::__value_type<int,CGRect>,std::less<int>,true>,std::allocator<std::__value_type<int,CGRect>>>::__node_insert_multi(uint64_t **a1, uint64_t a2)
+uint64_t std::__tree<std::__value_type<int,CGRect>,std::__map_value_compare<int,std::__value_type<int,CGRect>,std::less<int>,true>,std::allocator<std::__value_type<int,CGRect>>>::__node_insert_multi(uint64_t a1, uint64_t a2)
 {
-  v3 = a1 + 1;
-  v4 = a1[1];
+  v3 = (a1 + 8);
+  v4 = *(a1 + 8);
   if (v4)
   {
     do
@@ -6084,7 +6085,7 @@ uint64_t std::__tree<std::__value_type<int,CGRect>,std::__map_value_compare<int,
 
   else
   {
-    v5 = a1 + 1;
+    v5 = (a1 + 8);
   }
 
 LABEL_8:
@@ -6162,9 +6163,9 @@ uint64_t std::__tree<std::__value_type<int,CGRect>,std::__map_value_compare<int,
   return a1;
 }
 
-void sub_1C9E715D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1C9E715D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6204,7 +6205,7 @@ void HomeAILibrary()
   v0 = v1[0];
   if (!HomeAILibraryCore_frameworkLibrary)
   {
-    v0 = abort_report_np();
+    v0 = abort_report_np("%s", v1[0]);
     goto LABEL_7;
   }
 
@@ -6215,7 +6216,7 @@ LABEL_7:
   }
 }
 
-uint64_t __HomeAILibraryCore_block_invoke()
+uint64_t __HomeAILibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   HomeAILibraryCore_frameworkLibrary = result;
@@ -6234,7 +6235,7 @@ Class __getHMITaskServiceClass_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = ___ZL22getHMITaskServiceClassv_block_invoke_cold_1();
+    ___ZL22getHMITaskServiceClassv_block_invoke_cold_1();
     return [(VCPProtoImagePetsResult *)v3 resultFromLegacyDictionary:v4, v5];
   }
 
@@ -6248,7 +6249,7 @@ void sub_1C9E734E8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1C9E740C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
+void sub_1C9E740C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
 {
   _Block_object_dispose(&a17, 8);
 
@@ -6263,7 +6264,7 @@ uint64_t __Block_byref_object_copy__66(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1C9E74B24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24)
+void sub_1C9E74B24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24)
 {
   _Block_object_dispose(&a19, 8);
 
@@ -6390,7 +6391,7 @@ AUOutputBL *AUOutputBL::Prepare(AUOutputBL *this, int a2, int a3)
   return this;
 }
 
-AUOutputBL *AUOutputBL::Allocate(AUOutputBL *this, int a2)
+AUOutputBL *AUOutputBL::Allocate(AUOutputBL *this, unsigned int a2)
 {
   v2 = this;
   if (a2)
@@ -6425,7 +6426,7 @@ AUOutputBL *AUOutputBL::Allocate(AUOutputBL *this, int a2)
   return this;
 }
 
-void sub_1C9E77E04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, const void *a30, uint64_t a31, char a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, id a37, char a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, id a43, uint64_t a44, const void *a45)
+void sub_1C9E77E04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, const void *a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, id a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, id a43, uint64_t a44, const void *a45)
 {
   CF<__CVBuffer *>::~CF(&a30);
   _Block_object_dispose(&a32, 8);
@@ -6505,7 +6506,7 @@ double ma::SceneSegment::Merge(ma::Segment *this, const ma::Segment *a2)
   return ma::Segment::Merge(this, a2);
 }
 
-void sub_1C9E78CC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, void *a13, void *a14, void *a15, void *a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, id a29)
+void sub_1C9E78CC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, void *a13, void *a14, void *a15, void *a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, id a29)
 {
   _Block_object_dispose(&a24, 8);
 
@@ -6549,7 +6550,7 @@ uint64_t PhotosFaceLayoutLibrary(void)
   v1 = v3[0];
   if (!PhotosFaceLayoutLibraryCore(char **)::frameworkLibrary)
   {
-    v1 = abort_report_np();
+    v1 = abort_report_np("%s", v3[0]);
     goto LABEL_7;
   }
 
@@ -6562,7 +6563,7 @@ LABEL_7:
   return v0;
 }
 
-uint64_t ___ZL27PhotosFaceLayoutLibraryCorePPc_block_invoke()
+uint64_t ___ZL27PhotosFaceLayoutLibraryCorePPc_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   PhotosFaceLayoutLibraryCore(char **)::frameworkLibrary = result;
@@ -6728,9 +6729,9 @@ void sub_1C9E7EF44(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1C9E7FC30(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C9E7FC30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   CVPixelBufferLock::~CVPixelBufferLock(va);
   _Unwind_Resume(a1);
 }
@@ -6745,7 +6746,7 @@ void sub_1C9E80A6C(_Unwind_Exception *a1)
 void *matrix_inplace_transpose(float *a1, int a2, int a3)
 {
   v10[1] = *MEMORY[0x1E69E9840];
-  v6 = MEMORY[0x1EEE9AC00]();
+  v6 = MEMORY[0x1EEE9AC00](a1);
   v8 = v10 - v7;
   vDSP_mtrans(v6, 1, (v10 - v7), 1, a3, a2);
   return memcpy(a1, v8, 4 * a2 * a3);
@@ -6813,7 +6814,7 @@ float CombineRotAndTransMat2Proj(float *a1, float *a2, float *a3)
   return result;
 }
 
-void sub_1C9E81850(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, id a21, char a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, id a27)
+void sub_1C9E81850(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, id a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, id a27)
 {
   _Block_object_dispose(&a16, 8);
 
@@ -6852,21 +6853,21 @@ id getPISegmentationClass(void)
   return v1;
 }
 
-void sub_1C9E81A48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C9E81A48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1C9E81FF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, void *a13, void *a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *a22, uint64_t a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, id a29)
+void sub_1C9E81FF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, void *a13, void *a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, id a29)
 {
   _Block_object_dispose(&a24, 8);
 
   _Unwind_Resume(a1);
 }
 
-void sub_1C9E825E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, void *a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, id a30)
+void sub_1C9E825E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, id a30)
 {
   _Block_object_dispose(&a19, 8);
 
@@ -6899,7 +6900,7 @@ Class ___ZL22getPISegmentationClassv_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -6917,23 +6918,23 @@ LABEL_4:
   return result;
 }
 
-uint64_t ___ZL23PhotoImagingLibraryCorePPc_block_invoke()
+uint64_t ___ZL23PhotoImagingLibraryCorePPc_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   PhotoImagingLibraryCore(char **)::frameworkLibrary = result;
   return result;
 }
 
-void sub_1C9E82C24(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_1C9E82C24(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = MADTextEmbeddingSafety;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
-void sub_1C9E83C20(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C9E83C20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   CVPixelBufferLock::~CVPixelBufferLock(va);
   _Unwind_Resume(a1);
 }
@@ -7088,9 +7089,9 @@ void sub_1C9E86B14(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1C9E88C30(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C9E88C30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   CVPixelBufferLock::~CVPixelBufferLock(va);
   _Unwind_Resume(a1);
 }
@@ -7477,7 +7478,7 @@ double LkFsMeasure::Process(LkFsMeasure *this, const AudioBufferList *a2, int64_
   return this->var6;
 }
 
-double LkFsMeasure::ComputeProgramLoudnessFromBlockEnergies(uint64_t *a1, double *a2)
+double LkFsMeasure::ComputeProgramLoudnessFromBlockEnergies(uint64_t a1, double *a2)
 {
   if (a2)
   {
@@ -7487,7 +7488,7 @@ double LkFsMeasure::ComputeProgramLoudnessFromBlockEnergies(uint64_t *a1, double
   v33 = 0;
   v34 = 0;
   v35 = 0;
-  std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(&v33, *a1, a1[1], (a1[1] - *a1) >> 3);
+  std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(&v33, *a1, *(a1 + 8), (*(a1 + 8) - *a1) >> 3);
   __src = 0;
   v31 = 0;
   v32 = 0;
@@ -7651,7 +7652,7 @@ void sub_1C9E8B470(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -7695,16 +7696,16 @@ void __VCPLogInstance_block_invoke()
   VCPLogInstance::log = v0;
 }
 
-id VCPPersistentLogInstance()
+id VCPPersistentLogInstance(uint64_t a1)
 {
   if (VCPPersistentLogInstance::token != -1)
   {
     VCPPersistentLogInstance_cold_1();
   }
 
-  v1 = VCPPersistentLogInstance::log;
+  v2 = VCPPersistentLogInstance::log;
 
-  return v1;
+  return v2;
 }
 
 void __VCPPersistentLogInstance_block_invoke()
@@ -7714,16 +7715,16 @@ void __VCPPersistentLogInstance_block_invoke()
   VCPPersistentLogInstance::log = v0;
 }
 
-id VCPCancelBGSTLogInstance()
+id VCPCancelBGSTLogInstance(uint64_t a1)
 {
   if (VCPCancelBGSTLogInstance::token != -1)
   {
     VCPCancelBGSTLogInstance_cold_1();
   }
 
-  v1 = VCPCancelBGSTLogInstance::log;
+  v2 = VCPCancelBGSTLogInstance::log;
 
-  return v1;
+  return v2;
 }
 
 void __VCPCancelBGSTLogInstance_block_invoke()
@@ -8260,9 +8261,9 @@ LABEL_7:
   return result;
 }
 
-void sub_1C9E8CEC0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C9E8CEC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   CF<__CVBuffer *>::~CF(va);
   _Unwind_Resume(a1);
 }
@@ -8308,9 +8309,9 @@ void sub_1C9E8D47C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1C9E8D730(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_1C9E8D730(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
 
   CF<__CVBuffer *>::~CF(va);
   _Unwind_Resume(a1);
@@ -8620,7 +8621,7 @@ ma::EncodeStatsHW *ma::EncodeStatsHW::EncodeStatsHW(ma::EncodeStatsHW *this)
 
 ma::EncodeStatsHW *ma::EncodeStatsHW::CreateAsync(ma::EncodeStatsHW *this, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v8 = SocType();
+  v8 = SocType(this, a2);
   if ((v8 - 247) > 1)
   {
     if ((v8 - 249) > 9)
@@ -8982,9 +8983,9 @@ LABEL_12:
   return v18;
 }
 
-void sub_1C9E90C9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1C9E90C9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   CF<__CVBuffer *>::~CF(va);
   _Unwind_Resume(a1);
 }
@@ -9204,9 +9205,9 @@ LABEL_45:
   return v5;
 }
 
-void sub_1C9E9108C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C9E9108C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   CVPixelBufferLock::~CVPixelBufferLock(va);
   _Unwind_Resume(a1);
 }
@@ -9377,30 +9378,30 @@ void sub_1C9E98BB4(_Unwind_Exception *a1)
 
 uint64_t VCPPromotePersons(void *a1, void *a2, void *a3)
 {
-  v73[8] = *MEMORY[0x1E69E9840];
-  v61 = a1;
+  v79[8] = *MEMORY[0x1E69E9840];
+  v67 = a1;
   v5 = a2;
   v6 = a3;
-  v60 = [[VCPPhotosPersistenceDelegate alloc] initWithPhotoLibrary:v61];
-  v7 = [objc_alloc(MEMORY[0x1E69C1588]) initWithPhotoLibrary:v61 andDelegate:v60];
+  v66 = [[VCPPhotosPersistenceDelegate alloc] initWithPhotoLibrary:v67];
+  v7 = [objc_alloc(MEMORY[0x1E69C1588]) initWithPhotoLibrary:v67 andDelegate:v66];
   v8 = v7;
-  v58 = v5;
-  v59 = v6;
+  v64 = v5;
+  v65 = v6;
   if (v7)
   {
-    v56 = v7;
-    *v66 = 0;
-    v67 = v66;
-    v68 = 0x2020000000;
-    v69 = 0;
+    v62 = v7;
+    *v72 = 0;
+    v73 = v72;
+    v74 = 0x2020000000;
+    v75 = 0;
     aBlock[0] = MEMORY[0x1E69E9820];
     aBlock[1] = 3221225472;
     aBlock[2] = __VCPPromotePersons_block_invoke;
     aBlock[3] = &unk_1E8351B10;
-    v63 = v6;
-    v65 = v66;
-    v64 = v5;
-    v57 = _Block_copy(aBlock);
+    v69 = v6;
+    v71 = v72;
+    v70 = v5;
+    v63 = _Block_copy(aBlock);
     if (MediaAnalysisLogLevel() >= 6 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
     {
       *buf = 0;
@@ -9408,152 +9409,153 @@ uint64_t VCPPromotePersons(void *a1, void *a2, void *a3)
     }
 
     v9 = mach_absolute_time();
-    v10 = VCPSignPostLog();
+    v10 = VCPSignPostLog(v9);
     v11 = os_signpost_id_generate(v10);
 
-    v12 = VCPSignPostLog();
-    v13 = v12;
-    if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
+    v13 = VCPSignPostLog(v12);
+    v14 = v13;
+    if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v11, "VCPFaceProcessingPromotePersonsCoreAnalyticsCollection", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v11, "VCPFaceProcessingPromotePersonsCoreAnalyticsCollection", "", buf, 2u);
     }
 
-    v14 = [v61 vcp_assetCountForTaskID:3];
-    v15 = [v61 librarySpecificFetchOptions];
-    [v15 setIncludeTorsoAndFaceDetectionData:1];
-    [v15 setIncludeNonvisibleFaces:1];
-    [v15 setShouldPrefetchCount:1];
-    v16 = [MEMORY[0x1E696AE18] predicateWithFormat:@"(vuObservationID > 0)"];
-    [v15 setPredicate:v16];
+    v15 = [v67 vcp_assetCountForTaskID:3];
+    v16 = [v67 librarySpecificFetchOptions];
+    [v16 setIncludeTorsoAndFaceDetectionData:1];
+    [v16 setIncludeNonvisibleFaces:1];
+    [v16 setShouldPrefetchCount:1];
+    v17 = [MEMORY[0x1E696AE18] predicateWithFormat:@"(vuObservationID > 0)"];
+    [v16 setPredicate:v17];
 
     if ([MEMORY[0x1E69789B0] mad_clusterVideoFaces])
     {
-      [v15 setIncludeMediaAnalysisProcessingRangeTypes:3];
+      [v16 setIncludeMediaAnalysisProcessingRangeTypes:3];
     }
 
-    v17 = [MEMORY[0x1E69787D0] fetchFacesWithOptions:v15];
-    v54 = [v17 count];
+    v18 = [MEMORY[0x1E69787D0] fetchFacesWithOptions:v16];
+    v60 = [v18 count];
 
-    v18 = [v61 librarySpecificFetchOptions];
-    [v18 setMinimumVerifiedFaceCount:0];
-    [v18 setMinimumUnverifiedFaceCount:0];
-    [v18 setIncludeTorsoOnlyPerson:1];
-    [v18 setShouldPrefetchCount:1];
-    v19 = [MEMORY[0x1E696AE18] predicateWithFormat:@"verifiedType = %@", &unk_1F49BE4E8];
-    [v18 setPredicate:v19];
+    v19 = [v67 librarySpecificFetchOptions];
+    [v19 setMinimumVerifiedFaceCount:0];
+    [v19 setMinimumUnverifiedFaceCount:0];
+    [v19 setIncludeTorsoOnlyPerson:1];
+    [v19 setShouldPrefetchCount:1];
+    v20 = [MEMORY[0x1E696AE18] predicateWithFormat:@"verifiedType = %@", &unk_1F49BE4E8];
+    [v19 setPredicate:v20];
 
-    v20 = [MEMORY[0x1E6978978] fetchPersonsWithOptions:v18];
-    v21 = [v20 count];
+    v21 = [MEMORY[0x1E6978978] fetchPersonsWithOptions:v19];
+    v22 = [v21 count];
 
-    v22 = [MEMORY[0x1E696AE18] predicateWithFormat:@"verifiedType = %@", &unk_1F49BE500];
-    [v18 setPredicate:v22];
+    v23 = [MEMORY[0x1E696AE18] predicateWithFormat:@"verifiedType = %@", &unk_1F49BE500];
+    [v19 setPredicate:v23];
 
-    v23 = [MEMORY[0x1E6978978] fetchPersonsWithOptions:v18];
-    v53 = [v23 count];
+    v24 = [MEMORY[0x1E6978978] fetchPersonsWithOptions:v19];
+    v59 = [v24 count];
 
-    v24 = [MEMORY[0x1E696AE18] predicateWithFormat:@"verifiedType = %@", &unk_1F49BE518];
-    [v18 setPredicate:v24];
+    v25 = [MEMORY[0x1E696AE18] predicateWithFormat:@"verifiedType = %@", &unk_1F49BE518];
+    [v19 setPredicate:v25];
 
-    v25 = [MEMORY[0x1E6978978] fetchPersonsWithOptions:v18];
-    v52 = [v25 count];
+    v26 = [MEMORY[0x1E6978978] fetchPersonsWithOptions:v19];
+    v58 = [v26 count];
 
-    v26 = VCPSignPostLog();
-    v27 = v26;
-    if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v26))
+    v28 = VCPSignPostLog(v27);
+    v29 = v28;
+    if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v28))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v27, OS_SIGNPOST_INTERVAL_END, v11, "VCPFaceProcessingPromotePersonsCoreAnalyticsCollection", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v29, OS_SIGNPOST_INTERVAL_END, v11, "VCPFaceProcessingPromotePersonsCoreAnalyticsCollection", "", buf, 2u);
     }
 
     if (v9)
     {
-      mach_absolute_time();
-      VCPPerformance_LogMeasurement();
+      v30 = mach_absolute_time();
+      VCPPerformance_LogMeasurement("VCPFaceProcessingPromotePersonsCoreAnalyticsCollection", v30 - v9);
     }
 
     Current = CFAbsoluteTimeGetCurrent();
-    v29 = mach_absolute_time();
-    v30 = VCPSignPostLog();
-    v31 = os_signpost_id_generate(v30);
+    v32 = mach_absolute_time();
+    v33 = VCPSignPostLog(v32);
+    v34 = os_signpost_id_generate(v33);
 
-    v32 = VCPSignPostLog();
-    v33 = v32;
-    if (v31 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v32))
+    v36 = VCPSignPostLog(v35);
+    v37 = v36;
+    if (v34 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v36))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v33, OS_SIGNPOST_INTERVAL_BEGIN, v31, "VCPFaceProcessingPromotePersons", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v37, OS_SIGNPOST_INTERVAL_BEGIN, v34, "VCPFaceProcessingPromotePersons", "", buf, 2u);
     }
 
-    v55 = [v56 promoteUnverifiedPersonsWithUpdateBlock:v57];
-    v34 = VCPSignPostLog();
-    v35 = v34;
-    if (v31 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v34))
+    v38 = [v62 promoteUnverifiedPersonsWithUpdateBlock:v63];
+    v61 = v38;
+    v39 = VCPSignPostLog(v38);
+    v40 = v39;
+    if (v34 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v39))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v35, OS_SIGNPOST_INTERVAL_END, v31, "VCPFaceProcessingPromotePersons", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v40, OS_SIGNPOST_INTERVAL_END, v34, "VCPFaceProcessingPromotePersons", "", buf, 2u);
     }
 
-    if (v29)
+    if (v32)
     {
-      mach_absolute_time();
-      VCPPerformance_LogMeasurement();
+      v41 = mach_absolute_time();
+      VCPPerformance_LogMeasurement("VCPFaceProcessingPromotePersons", v41 - v32);
     }
 
-    v36 = CFAbsoluteTimeGetCurrent() - Current;
-    if (v36 > 5.0)
+    v42 = CFAbsoluteTimeGetCurrent() - Current;
+    if (v42 > 5.0)
     {
-      v49 = +[VCPMADCoreAnalyticsManager sharedManager];
-      v72[0] = @"GraphVerifiedPersonCount";
-      v51 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v21];
-      v73[0] = v51;
-      v72[1] = @"ProcessingQoS";
-      v37 = qos_class_self();
-      v50 = VCPMAQoSDescription(v37);
-      v73[1] = v50;
-      v72[2] = @"PromotingInterval";
-      v38 = [MEMORY[0x1E696AD98] numberWithDouble:v36];
-      v73[2] = v38;
-      v72[3] = @"PromotingSequence";
-      v39 = [MEMORY[0x1E695DF00] now];
-      v40 = [v39 description];
-      v73[3] = v40;
-      v72[4] = @"TotalAssetCount";
-      v41 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v14];
-      v73[4] = v41;
-      v72[5] = @"TotalFaceCount";
-      v42 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v54];
-      v73[5] = v42;
-      v72[6] = @"UnverifiedPersonCount";
-      v43 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v53];
-      v73[6] = v43;
-      v72[7] = @"UserVerifiedPersonCount";
-      v44 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v52];
-      v73[7] = v44;
-      v45 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v73 forKeys:v72 count:8];
-      [v49 sendEvent:@"com.apple.mediaanalysisd.photos.personpromoting" withAnalytics:v45];
+      v55 = +[VCPMADCoreAnalyticsManager sharedManager];
+      v78[0] = @"GraphVerifiedPersonCount";
+      v57 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v22];
+      v79[0] = v57;
+      v78[1] = @"ProcessingQoS";
+      v43 = qos_class_self();
+      v56 = VCPMAQoSDescription(v43);
+      v79[1] = v56;
+      v78[2] = @"PromotingInterval";
+      v44 = [MEMORY[0x1E696AD98] numberWithDouble:v42];
+      v79[2] = v44;
+      v78[3] = @"PromotingSequence";
+      v45 = [MEMORY[0x1E695DF00] now];
+      v46 = [v45 description];
+      v79[3] = v46;
+      v78[4] = @"TotalAssetCount";
+      v47 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v15];
+      v79[4] = v47;
+      v78[5] = @"TotalFaceCount";
+      v48 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v60];
+      v79[5] = v48;
+      v78[6] = @"UnverifiedPersonCount";
+      v49 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v59];
+      v79[6] = v49;
+      v78[7] = @"UserVerifiedPersonCount";
+      v50 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v58];
+      v79[7] = v50;
+      v51 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v79 forKeys:v78 count:8];
+      [v55 sendEvent:@"com.apple.mediaanalysisd.photos.personpromoting" withAnalytics:v51];
     }
 
-    if (v55)
+    if (v61)
     {
-      [MEMORY[0x1E69C1588] setProcessed:1 forLibrary:v61];
+      [MEMORY[0x1E69C1588] setProcessed:1 forLibrary:v67];
     }
 
     if (MediaAnalysisLogLevel() >= 6 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
     {
-      v46 = @"failed";
-      if (v55)
+      v52 = @"failed";
+      if (v61)
       {
-        v46 = @"succeeded";
+        v52 = @"succeeded";
       }
 
       *buf = 138412290;
-      v71 = v46;
+      v77 = v52;
       _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "Person Processing: Person Promoting %@", buf, 0xCu);
     }
 
-    v47 = *(v67 + 6);
-    if (v47 == -128)
+    v53 = *(v73 + 6);
+    if (v53 == -128)
     {
       if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
@@ -9561,10 +9563,10 @@ uint64_t VCPPromotePersons(void *a1, void *a2, void *a3)
         _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "VCPPromotePersons canceled", buf, 2u);
       }
 
-      v47 = 4294967168;
+      v53 = 4294967168;
     }
 
-    else if ((v55 & 1) == 0)
+    else if ((v61 & 1) == 0)
     {
       if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
@@ -9572,25 +9574,32 @@ uint64_t VCPPromotePersons(void *a1, void *a2, void *a3)
         _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "VCPPromotePersons failed", buf, 2u);
       }
 
-      v47 = 4294967278;
+      v53 = 4294967278;
     }
 
-    _Block_object_dispose(v66, 8);
-    v8 = v56;
+    _Block_object_dispose(v72, 8);
+    v8 = v62;
   }
 
   else
   {
     if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      *v66 = 0;
-      _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Cannot create PNPersonPromoter", v66, 2u);
+      *v72 = 0;
+      _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Cannot create PNPersonPromoter", v72, 2u);
     }
 
-    v47 = 4294967278;
+    v53 = 4294967278;
   }
 
-  return v47;
+  return v53;
+}
+
+void sub_1C9E99800(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
+{
+  va_start(va, a30);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 void __VCPPromotePersons_block_invoke(void *a1, _BYTE *a2)
@@ -9691,9 +9700,9 @@ uint64_t VCPFetchPersonPromoterClusterForEvaluation(void *a1, void *a2, void *a3
   return v19;
 }
 
-void sub_1C9E99CB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1C9E99CB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -9775,75 +9784,75 @@ uint64_t VCPMAGetRevisionForVisionModel(objc_class *a1, uint64_t a2)
   return v9;
 }
 
-void __VCPMAGetRevisionForVisionModel_block_invoke()
+void __VCPMAGetRevisionForVisionModel_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v38[11] = *MEMORY[0x1E69E9840];
-  v0 = objc_opt_class();
-  v32 = NSStringFromClass(v0);
-  v37[0] = v32;
-  v38[0] = &unk_1F49BE530;
-  v1 = objc_opt_class();
-  v31 = NSStringFromClass(v1);
-  v37[1] = v31;
-  v38[1] = &unk_1F49BE548;
+  v40[11] = *MEMORY[0x1E69E9840];
   v2 = objc_opt_class();
-  v3 = NSStringFromClass(v2);
-  v37[2] = v3;
-  v38[2] = &unk_1F49BE560;
+  v34 = NSStringFromClass(v2);
+  v39[0] = v34;
+  v40[0] = &unk_1F49BE530;
+  v3 = objc_opt_class();
+  v33 = NSStringFromClass(v3);
+  v39[1] = v33;
+  v40[1] = &unk_1F49BE548;
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  v37[3] = v5;
-  v38[3] = &unk_1F49BE578;
+  v39[2] = v5;
+  v40[2] = &unk_1F49BE560;
   v6 = objc_opt_class();
   v7 = NSStringFromClass(v6);
-  v37[4] = v7;
-  v38[4] = &unk_1F49BE590;
+  v39[3] = v7;
+  v40[3] = &unk_1F49BE578;
   v8 = objc_opt_class();
   v9 = NSStringFromClass(v8);
-  v37[5] = v9;
-  v38[5] = &unk_1F49BE560;
+  v39[4] = v9;
+  v40[4] = &unk_1F49BE590;
   v10 = objc_opt_class();
   v11 = NSStringFromClass(v10);
-  v37[6] = v11;
-  v38[6] = &unk_1F49BE560;
+  v39[5] = v11;
+  v40[5] = &unk_1F49BE560;
   v12 = objc_opt_class();
   v13 = NSStringFromClass(v12);
-  v37[7] = v13;
-  v38[7] = &unk_1F49BE578;
+  v39[6] = v13;
+  v40[6] = &unk_1F49BE560;
   v14 = objc_opt_class();
   v15 = NSStringFromClass(v14);
-  v37[8] = v15;
-  v38[8] = &unk_1F49BE5A8;
+  v39[7] = v15;
+  v40[7] = &unk_1F49BE578;
   v16 = objc_opt_class();
   v17 = NSStringFromClass(v16);
-  v37[9] = v17;
-  v38[9] = &unk_1F49BE5C0;
+  v39[8] = v17;
+  v40[8] = &unk_1F49BE5A8;
   v18 = objc_opt_class();
   v19 = NSStringFromClass(v18);
-  v37[10] = v19;
-  v38[10] = &unk_1F49BE560;
-  v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v38 forKeys:v37 count:11];
+  v39[9] = v19;
+  v40[9] = &unk_1F49BE5C0;
+  v20 = objc_opt_class();
+  v21 = NSStringFromClass(v20);
+  v39[10] = v21;
+  v40[10] = &unk_1F49BE560;
+  v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v40 forKeys:v39 count:11];
 
-  v21 = objc_opt_class();
-  v22 = NSStringFromClass(v21);
-  v35[0] = v22;
-  v36[0] = &unk_1F49BE5A8;
   v23 = objc_opt_class();
   v24 = NSStringFromClass(v23);
-  v35[1] = v24;
-  v36[1] = &unk_1F49BE5D8;
+  v37[0] = v24;
+  v38[0] = &unk_1F49BE5A8;
   v25 = objc_opt_class();
   v26 = NSStringFromClass(v25);
-  v35[2] = v26;
-  v36[2] = &unk_1F49BE560;
-  v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v36 forKeys:v35 count:3];
+  v37[1] = v26;
+  v38[1] = &unk_1F49BE5D8;
+  v27 = objc_opt_class();
+  v28 = NSStringFromClass(v27);
+  v37[2] = v28;
+  v38[2] = &unk_1F49BE560;
+  v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v38 forKeys:v37 count:3];
 
-  v28 = [MEMORY[0x1E695DF90] dictionary];
-  [v28 addEntriesFromDictionary:v20];
-  [v28 addEntriesFromDictionary:v27];
-  v33 = &unk_1F49BE5F0;
-  v34 = v28;
-  v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
-  v30 = VCPMAGetRevisionForVisionModel_modelVersionMaps;
-  VCPMAGetRevisionForVisionModel_modelVersionMaps = v29;
+  v30 = [MEMORY[0x1E695DF90] dictionary];
+  [v30 addEntriesFromDictionary:v22];
+  [v30 addEntriesFromDictionary:v29];
+  v35 = &unk_1F49BE5F0;
+  v36 = v30;
+  v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
+  v32 = VCPMAGetRevisionForVisionModel_modelVersionMaps;
+  VCPMAGetRevisionForVisionModel_modelVersionMaps = v31;
 }

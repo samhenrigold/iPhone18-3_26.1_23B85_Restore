@@ -8,9 +8,9 @@
 - (TCCDEventFilter)initWithCriteria:(id)criteria
 {
   criteriaCopy = criteria;
-  v38.receiver = self;
-  v38.super_class = TCCDEventFilter;
-  v5 = [(TCCDEventFilter *)&v38 init];
+  v44.receiver = self;
+  v44.super_class = TCCDEventFilter;
+  v5 = [(TCCDEventFilter *)&v44 init];
   if (!v5)
   {
     goto LABEL_25;
@@ -18,95 +18,98 @@
 
   v6 = _CFXPCCreateCFObjectFromXPCObject();
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v7 = tcc_events_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = tcc_events_log(isKindOfClass);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      sub_100038248();
+      sub_100038248(v6);
     }
 
 LABEL_32:
 
-    v21 = 0;
+    v27 = 0;
     goto LABEL_33;
   }
 
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
-  v35 = 0u;
-  v7 = v6;
-  v29 = [v7 countByEnumeratingWithState:&v34 objects:v40 count:16];
-  if (!v29)
+  v42 = 0u;
+  v43 = 0u;
+  v40 = 0u;
+  v41 = 0u;
+  v8 = v6;
+  v35 = [v8 countByEnumeratingWithState:&v40 objects:v46 count:16];
+  if (!v35)
   {
     goto LABEL_24;
   }
 
-  v8 = *v35;
+  v9 = *v41;
   p_superclass = TCCDAuthorizationRightState.superclass;
-  v26 = v6;
-  v27 = criteriaCopy;
-  v28 = v7;
-  v25 = *v35;
+  v32 = v6;
+  v33 = criteriaCopy;
+  v34 = v8;
+  v31 = *v41;
   while (2)
   {
-    v10 = 0;
+    v11 = 0;
     do
     {
-      if (*v35 != v8)
+      if (*v41 != v9)
       {
-        objc_enumerationMutation(v7);
+        objc_enumerationMutation(v8);
       }
 
-      v11 = *(*(&v34 + 1) + 8 * v10);
+      v12 = *(*(&v40 + 1) + 8 * v11);
       objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) == 0)
+      v13 = objc_opt_isKindOfClass();
+      if ((v13 & 1) == 0)
       {
-        v24 = tcc_events_log();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+        v30 = tcc_events_log(v13);
+        if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
         {
-          sub_1000382CC();
+          sub_1000382CC(v12);
         }
 
         goto LABEL_38;
       }
 
       currentPlatform = [p_superclass + 149 currentPlatform];
-      v13 = [currentPlatform serviceByName:v11];
+      v15 = [currentPlatform serviceByName:v12];
 
-      if (!v13)
+      if (!v15)
       {
-        v24 = tcc_events_log();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+        v30 = tcc_events_log(v16);
+        if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
         {
-          sub_10003846C(v11, v24);
+          sub_10003846C(v12, v30);
         }
 
 LABEL_38:
 
-        v6 = v26;
-        criteriaCopy = v27;
+        v6 = v32;
+        criteriaCopy = v33;
         goto LABEL_32;
       }
 
-      v14 = [v7 objectForKeyedSubscript:v11];
+      v17 = [v8 objectForKeyedSubscript:v12];
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
         objc_opt_class();
-        if ((objc_opt_isKindOfClass() & 1) == 0)
+        v18 = objc_opt_isKindOfClass();
+        if ((v18 & 1) == 0)
         {
-          v15 = tcc_events_log();
-          v6 = v26;
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+          v19 = tcc_events_log(v18);
+          v6 = v32;
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
           {
-            sub_100038350();
+            sub_100038350(v17);
           }
 
 LABEL_31:
 
-          criteriaCopy = v27;
+          criteriaCopy = v33;
           goto LABEL_32;
         }
       }
@@ -114,46 +117,48 @@ LABEL_31:
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v32 = 0u;
-        v33 = 0u;
-        v30 = 0u;
-        v31 = 0u;
-        v15 = v14;
-        v16 = [v15 countByEnumeratingWithState:&v30 objects:v39 count:16];
-        if (v16)
+        v38 = 0u;
+        v39 = 0u;
+        v36 = 0u;
+        v37 = 0u;
+        v19 = v17;
+        v20 = [v19 countByEnumeratingWithState:&v36 objects:v45 count:16];
+        if (v20)
         {
-          v17 = v16;
-          v18 = *v31;
+          v21 = v20;
+          v22 = *v37;
           while (2)
           {
-            v19 = 0;
+            v23 = 0;
             do
             {
-              if (*v31 != v18)
+              if (*v37 != v22)
               {
-                objc_enumerationMutation(v15);
+                objc_enumerationMutation(v19);
               }
 
+              v24 = *(*(&v36 + 1) + 8 * v23);
               objc_opt_class();
-              if ((objc_opt_isKindOfClass() & 1) == 0)
+              v25 = objc_opt_isKindOfClass();
+              if ((v25 & 1) == 0)
               {
-                v22 = tcc_events_log();
-                if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+                v28 = tcc_events_log(v25);
+                if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
                 {
-                  sub_1000383D4();
+                  sub_1000383D4(v24);
                 }
 
-                v6 = v26;
-                v7 = v28;
+                v6 = v32;
+                v8 = v34;
                 goto LABEL_31;
               }
 
-              ++v19;
+              v23 = v23 + 1;
             }
 
-            while (v17 != v19);
-            v17 = [v15 countByEnumeratingWithState:&v30 objects:v39 count:16];
-            if (v17)
+            while (v21 != v23);
+            v21 = [v19 countByEnumeratingWithState:&v36 objects:v45 count:16];
+            if (v21)
             {
               continue;
             }
@@ -162,18 +167,18 @@ LABEL_31:
           }
         }
 
-        v7 = v28;
-        v8 = v25;
+        v8 = v34;
+        v9 = v31;
         p_superclass = (TCCDAuthorizationRightState + 8);
       }
 
-      v10 = v10 + 1;
+      v11 = v11 + 1;
     }
 
-    while (v10 != v29);
-    criteriaCopy = v27;
-    v29 = [v7 countByEnumeratingWithState:&v34 objects:v40 count:16];
-    if (v29)
+    while (v11 != v35);
+    criteriaCopy = v33;
+    v35 = [v8 countByEnumeratingWithState:&v40 objects:v46 count:16];
+    if (v35)
     {
       continue;
     }
@@ -184,13 +189,13 @@ LABEL_31:
 LABEL_24:
 
   servicesToSubjects = v5->_servicesToSubjects;
-  v5->_servicesToSubjects = v7;
+  v5->_servicesToSubjects = v8;
 
 LABEL_25:
-  v21 = v5;
+  v27 = v5;
 LABEL_33:
 
-  return v21;
+  return v27;
 }
 
 - (BOOL)matches:(id)matches

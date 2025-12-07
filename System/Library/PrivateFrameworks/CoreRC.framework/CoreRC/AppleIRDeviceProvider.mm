@@ -54,17 +54,17 @@
 
 - (BOOL)dispatchEventsForCommand:(id)command toDevice:(id)device
 {
-  v18 = 0;
+  v27 = 0;
   v7 = [-[AppleIRDeviceProvider busProvider](self "busProvider")];
   timestamp = [command timestamp];
   lastCommandTimestamp = self->_lastCommandTimestamp;
-  v17 = 0;
-  v16 = 0;
+  v26 = 0;
+  v25 = 0;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    [AppleIRDeviceProvider dispatchEventsForCommand:&v19 toDevice:?];
-    v12 = v19;
+    [AppleIRDeviceProvider dispatchEventsForCommand:&v28 toDevice:?];
+    v15 = v28;
     goto LABEL_71;
   }
 
@@ -78,27 +78,31 @@
 
     if (gLogCategory_CoreRCDevice <= 40 && (gLogCategory_CoreRCDevice != -1 || _LogCategory_Initialize()))
     {
-      [AppleIRDeviceProvider dispatchEventsForCommand:command toDevice:?];
+      [AppleIRDeviceProvider dispatchEventsForCommand:command toDevice:v10];
     }
   }
 
-  if ([command isRepeat])
+  isRepeat = [command isRepeat];
+  if (isRepeat)
   {
     if (self->_lastCoreRCCommand)
     {
-      v11 = v10 > _maxRepeatIntervalTicks;
+      v14 = v10 > _maxRepeatIntervalTicks;
     }
 
     else
     {
-      v11 = 1;
+      v14 = 1;
     }
 
-    if (!v11)
+    if (!v14)
     {
-      if (gLogCategory_CoreRCDevice <= 50 && (gLogCategory_CoreRCDevice != -1 || _LogCategory_Initialize()))
+      if (gLogCategory_CoreRCDevice <= 50)
       {
-        [AppleIRDeviceProvider dispatchEventsForCommand:toDevice:];
+        if (gLogCategory_CoreRCDevice != -1 || (isRepeat = _LogCategory_Initialize(), isRepeat))
+        {
+          [(AppleIRDeviceProvider *)isRepeat dispatchEventsForCommand:v12 toDevice:v13];
+        }
       }
 
       -[AppleIRDeviceProvider _dispatchEventWithCommand:timestamp:toDevice:](self, "_dispatchEventWithCommand:timestamp:toDevice:", self->_lastCoreRCCommand, timestamp, [-[AppleIRDeviceProvider busProvider](self "busProvider")]);
@@ -106,15 +110,18 @@
       goto LABEL_70;
     }
 
-    if (gLogCategory_CoreRCDevice <= 50 && (gLogCategory_CoreRCDevice != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_CoreRCDevice <= 50)
     {
-      [AppleIRDeviceProvider dispatchEventsForCommand:toDevice:];
+      if (gLogCategory_CoreRCDevice != -1 || (isRepeat = _LogCategory_Initialize(), isRepeat))
+      {
+        [(AppleIRDeviceProvider *)isRepeat dispatchEventsForCommand:v12 toDevice:v13];
+      }
     }
 
-    v12 = 0;
+    v15 = 0;
 LABEL_71:
-    v13 = v18;
-    if (v18)
+    v16 = v27;
+    if (v27)
     {
       goto LABEL_72;
     }
@@ -123,22 +130,22 @@ LABEL_87:
 
     self->_lastAppleIRCommand = command;
     self->_lastCommandTimestamp = timestamp;
-    return v12;
+    return v15;
   }
 
   if ([command vendorID] != kAppleIRVendorIDApple)
   {
-    [(AppleIRDeviceProvider *)&v18 dispatchEventsForCommand:command toDevice:&v19];
+    [(AppleIRDeviceProvider *)&v27 dispatchEventsForCommand:command toDevice:&v28];
     goto LABEL_86;
   }
 
   if (v7 && v7 != self && ([command isUnpairingRequest] & 1) == 0 && (objc_msgSend(command, "isBTLEDiscoveryModeRequest") & 1) == 0)
   {
-    [(AppleIRDeviceProvider *)&v18 dispatchEventsForCommand:&v19 toDevice:?];
+    [(AppleIRDeviceProvider *)&v27 dispatchEventsForCommand:&v28 toDevice:?];
 LABEL_86:
-    v12 = 0;
-    v13 = v19;
-    if (v19)
+    v15 = 0;
+    v16 = v28;
+    if (v28)
     {
       goto LABEL_72;
     }
@@ -157,14 +164,14 @@ LABEL_86:
     {
       if (gLogCategory_CoreRCDevice <= 40 && (gLogCategory_CoreRCDevice != -1 || _LogCategory_Initialize()))
       {
-        [AppleIRDeviceProvider dispatchEventsForCommand:toDevice:];
+        [AppleIRDeviceProvider dispatchEventsForCommand:command toDevice:?];
       }
 
 LABEL_41:
       [(AppleIRDeviceProvider *)self _cancelPressAndHoldTimer];
       [(AppleIRDeviceProvider *)self _schedulePressAndHoldTimer];
-      v13 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA590] code:-6757 userInfo:0];
-      v18 = v13;
+      v16 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA590] code:-6757 userInfo:0];
+      v27 = v16;
       goto LABEL_42;
     }
 
@@ -172,42 +179,50 @@ LABEL_41:
     {
       if (gLogCategory_CoreRCDevice <= 40 && (gLogCategory_CoreRCDevice != -1 || _LogCategory_Initialize()))
       {
-        [AppleIRDeviceProvider dispatchEventsForCommand:toDevice:];
+        [AppleIRDeviceProvider dispatchEventsForCommand:command toDevice:?];
       }
 
       goto LABEL_41;
     }
   }
 
-  if ([command isPairingRequest])
+  isPairingRequest = [command isPairingRequest];
+  if (isPairingRequest)
   {
-    if (gLogCategory_CoreRCDevice <= 40 && (gLogCategory_CoreRCDevice != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_CoreRCDevice <= 40)
     {
-      [AppleIRDeviceProvider dispatchEventsForCommand:toDevice:];
+      if (gLogCategory_CoreRCDevice != -1 || (isPairingRequest = _LogCategory_Initialize(), isPairingRequest))
+      {
+        [(AppleIRDeviceProvider *)isPairingRequest dispatchEventsForCommand:v18 toDevice:v19];
+      }
     }
 
-    [(AppleIRDeviceProvider *)self pairAppleRemote:&v18];
+    [(AppleIRDeviceProvider *)self pairAppleRemote:&v27];
     goto LABEL_70;
   }
 
-  if ([command isUnpairingRequest])
+  isUnpairingRequest = [command isUnpairingRequest];
+  if (isUnpairingRequest)
   {
-    if (gLogCategory_CoreRCDevice <= 40 && (gLogCategory_CoreRCDevice != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_CoreRCDevice <= 40)
     {
-      [AppleIRDeviceProvider dispatchEventsForCommand:toDevice:];
+      if (gLogCategory_CoreRCDevice != -1 || (isUnpairingRequest = _LogCategory_Initialize(), isUnpairingRequest))
+      {
+        [(AppleIRDeviceProvider *)isUnpairingRequest dispatchEventsForCommand:v21 toDevice:v22];
+      }
     }
 
-    [(AppleIRDeviceProvider *)self unpairAppleRemote:&v18];
+    [(AppleIRDeviceProvider *)self unpairAppleRemote:&v27];
     goto LABEL_70;
   }
 
-  if ([command getVendorSpecificHIDUsagePage:&v17 + 4 usageID:&v17 ignoreRepeats:&v16])
+  if ([command getVendorSpecificHIDUsagePage:&v26 + 4 usageID:&v26 ignoreRepeats:&v25])
   {
-    if (v16 == 1 && [command isEqual:self->_lastAppleIRCommand] && v10 <= _maxRepeatIntervalTicks)
+    if (v25 == 1 && [command isEqual:self->_lastAppleIRCommand] && v10 <= _maxRepeatIntervalTicks)
     {
       if (gLogCategory_CoreRCDevice <= 40 && (gLogCategory_CoreRCDevice != -1 || _LogCategory_Initialize()))
       {
-        [AppleIRDeviceProvider dispatchEventsForCommand:toDevice:];
+        [AppleIRDeviceProvider dispatchEventsForCommand:command toDevice:?];
       }
     }
 
@@ -218,7 +233,7 @@ LABEL_41:
         [AppleIRDeviceProvider dispatchEventsForCommand:toDevice:];
       }
 
-      [(AppleIRDeviceProvider *)self _dispatchAppleVendorEventPage:HIDWORD(v17) usage:v17 timestamp:timestamp toDevice:device];
+      [(AppleIRDeviceProvider *)self _dispatchAppleVendorEventPage:HIDWORD(v26) usage:v26 timestamp:timestamp toDevice:device];
     }
 
     goto LABEL_70;
@@ -229,26 +244,26 @@ LABEL_41:
   {
     -[AppleIRDeviceProvider _dispatchEventWithCommand:timestamp:toDevice:](self, "_dispatchEventWithCommand:timestamp:toDevice:", command, timestamp, [-[AppleIRDeviceProvider busProvider](self "busProvider")]);
 LABEL_70:
-    v12 = 1;
+    v15 = 1;
     goto LABEL_71;
   }
 
-  [(AppleIRDeviceProvider *)&v18 dispatchEventsForCommand:command toDevice:&v19];
-  v13 = v19;
+  [(AppleIRDeviceProvider *)&v27 dispatchEventsForCommand:command toDevice:&v28];
+  v16 = v28;
 LABEL_42:
-  v12 = 1;
-  if (!v13)
+  v15 = 1;
+  if (!v16)
   {
     goto LABEL_87;
   }
 
 LABEL_72:
-  if ([v13 code] != -6757 && gLogCategory_CoreRCDevice <= 90 && (gLogCategory_CoreRCDevice != -1 || _LogCategory_Initialize()))
+  if ([v16 code] != -6757 && gLogCategory_CoreRCDevice <= 90 && (gLogCategory_CoreRCDevice != -1 || _LogCategory_Initialize()))
   {
     [AppleIRDeviceProvider dispatchEventsForCommand:? toDevice:?];
   }
 
-  return v12;
+  return v15;
 }
 
 - (BOOL)_dispatchEventWithCommand:(unint64_t)command timestamp:(unint64_t)timestamp toDevice:(id)device
@@ -262,7 +277,7 @@ LABEL_72:
 
   if (gLogCategory_CoreRCDevice <= 10 && (gLogCategory_CoreRCDevice != -1 || _LogCategory_Initialize()))
   {
-    [AppleIRDeviceProvider _dispatchEventWithCommand:timestamp:toDevice:];
+    [AppleIRDeviceProvider _dispatchEventWithCommand:command timestamp:? toDevice:?];
   }
 
   lastCoreRCCommand = self->_lastCoreRCCommand;
@@ -299,38 +314,40 @@ LABEL_14:
 
 - (BOOL)_dispatchAppleVendorEventPage:(unsigned int)page usage:(unsigned int)usage timestamp:(unint64_t)timestamp toDevice:(id)device
 {
-  v8 = *MEMORY[0x277CBECE8];
   VendorDefinedEvent = IOHIDEventCreateVendorDefinedEvent();
   if (VendorDefinedEvent)
   {
-    v10 = VendorDefinedEvent;
-    v11 = [[CoreRCHIDEvent alloc] initWithIOHIDEvent:VendorDefinedEvent];
-    v12 = v11 != 0;
-    if (v11)
+    v11 = VendorDefinedEvent;
+    v14 = [[CoreRCHIDEvent alloc] initWithIOHIDEvent:VendorDefinedEvent];
+    v15 = v14 != 0;
+    if (v14)
     {
-      [device receivedHIDEvent:v11 fromDevice:self];
+      [device receivedHIDEvent:v14 fromDevice:self];
     }
 
     else
     {
-      [AppleIRDeviceProvider _dispatchAppleVendorEventPage:usage:timestamp:toDevice:];
+      [AppleIRDeviceProvider _dispatchAppleVendorEventPage:v12 usage:v13 timestamp:? toDevice:?];
     }
 
-    CFRelease(v10);
+    CFRelease(v11);
   }
 
   else
   {
-    if (gLogCategory_CoreRCDevice <= 90 && (gLogCategory_CoreRCDevice != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_CoreRCDevice <= 90)
     {
-      [AppleIRDeviceProvider _dispatchAppleVendorEventPage:usage:timestamp:toDevice:];
+      if (gLogCategory_CoreRCDevice != -1 || (VendorDefinedEvent = _LogCategory_Initialize(), VendorDefinedEvent))
+      {
+        [AppleIRDeviceProvider _dispatchAppleVendorEventPage:v9 usage:v10 timestamp:? toDevice:?];
+      }
     }
 
-    v11 = 0;
-    v12 = 0;
+    v14 = 0;
+    v15 = 0;
   }
 
-  return v12;
+  return v15;
 }
 
 - (void)_synthesizeButtonReleaseWithTimestamp:(unint64_t)timestamp
@@ -338,24 +355,27 @@ LABEL_14:
   lastCoreRCCommand = self->_lastCoreRCCommand;
   if (lastCoreRCCommand)
   {
+    selfCopy = self;
     if (gLogCategory_CoreRCDevice <= 40)
     {
-      if (gLogCategory_CoreRCDevice != -1 || (v6 = _LogCategory_Initialize(), lastCoreRCCommand = self->_lastCoreRCCommand, v6))
+      if (gLogCategory_CoreRCDevice != -1 || (v7 = _LogCategory_Initialize(), lastCoreRCCommand = selfCopy->_lastCoreRCCommand, v7))
       {
-        v7 = lastCoreRCCommand;
-        v8 = CoreRCCommandString(lastCoreRCCommand);
-        LogPrintF();
-        lastCoreRCCommand = self->_lastCoreRCCommand;
+        v6 = CoreRCCommandString(lastCoreRCCommand);
+        LogPrintF(&gLogCategory_CoreRCDevice, "[AppleIRDeviceProvider _synthesizeButtonReleaseWithTimestamp:]", 40, "Posting Button Up  %d (%@)\n", lastCoreRCCommand, v6);
+        lastCoreRCCommand = selfCopy->_lastCoreRCCommand;
       }
     }
 
-    -[CoreIRDeviceProvider dispatchButtonEventWithCommand:pressed:timestamp:toDevice:](self, "dispatchButtonEventWithCommand:pressed:timestamp:toDevice:", lastCoreRCCommand, 0, timestamp, [-[AppleIRDeviceProvider busProvider](self busProvider]);
-    self->_lastCoreRCCommand = 0;
+    -[CoreIRDeviceProvider dispatchButtonEventWithCommand:pressed:timestamp:toDevice:](selfCopy, "dispatchButtonEventWithCommand:pressed:timestamp:toDevice:", lastCoreRCCommand, 0, timestamp, [-[AppleIRDeviceProvider busProvider](selfCopy "busProvider")]);
+    selfCopy->_lastCoreRCCommand = 0;
   }
 
-  else if (gLogCategory_CoreRCDevice <= 90 && (gLogCategory_CoreRCDevice != -1 || _LogCategory_Initialize()))
+  else if (gLogCategory_CoreRCDevice <= 90)
   {
-    [AppleIRDeviceProvider _synthesizeButtonReleaseWithTimestamp:];
+    if (gLogCategory_CoreRCDevice != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      [(AppleIRDeviceProvider *)self _synthesizeButtonReleaseWithTimestamp:a2, timestamp];
+    }
   }
 }
 
@@ -373,7 +393,7 @@ LABEL_14:
   dispatch_after(v4, v5, v6);
 }
 
-uint64_t __51__AppleIRDeviceProvider__schedulePressAndHoldTimer__block_invoke(uint64_t result)
+void *__51__AppleIRDeviceProvider__schedulePressAndHoldTimer__block_invoke(void *result)
 {
   v1 = result;
   if (gLogCategory_CoreRCDevice <= 10)
@@ -384,9 +404,9 @@ uint64_t __51__AppleIRDeviceProvider__schedulePressAndHoldTimer__block_invoke(ui
     }
   }
 
-  v3 = v1 + 32;
-  v2 = *(v1 + 32);
-  if (*(v3 + 8) == v2[127])
+  v3 = v1 + 4;
+  v2 = v1[4];
+  if (v3[1] == v2[127])
   {
     v4 = mach_absolute_time();
 
@@ -402,7 +422,7 @@ uint64_t __51__AppleIRDeviceProvider__schedulePressAndHoldTimer__block_invoke(ui
   {
     if (result != -1 || (result = _LogCategory_Initialize(), result))
     {
-      result = LogPrintF();
+      result = LogPrintF(&gLogCategory_CoreRCDevice, "[AppleIRDeviceProvider dispatchEventsForCommand:toDevice:]", 90, "command must be an AppleIRCommand\n");
     }
   }
 
@@ -410,67 +430,65 @@ uint64_t __51__AppleIRDeviceProvider__schedulePressAndHoldTimer__block_invoke(ui
   return result;
 }
 
-- (uint64_t)dispatchEventsForCommand:(void *)a1 toDevice:.cold.3(void *a1)
+- (uint64_t)dispatchEventsForCommand:(void *)a1 toDevice:(uint64_t)a2 .cold.3(void *a1, uint64_t a2)
 {
-  [a1 payload];
-  [a1 vendorID];
-  [a1 deviceUID];
-  [a1 commandPage];
-  [a1 commandID];
-  UpTicksToMilliseconds();
-  return LogPrintF();
+  v2 = a1;
+  v3 = [a1 payload];
+  v4 = [v2 vendorID];
+  v5 = [v2 deviceUID];
+  v6 = [v2 commandPage];
+  LODWORD(v2) = [v2 commandID];
+  v7 = UpTicksToMilliseconds();
+  return LogPrintF(&gLogCategory_CoreRCDevice, "[AppleIRDeviceProvider dispatchEventsForCommand:toDevice:]", 40, "Apple IR: Raw %04llx  Vendor 0x%04x  Device 0x%02x  Page 0x%02x  Cmd 0x%02x + %f ms\n", v3, v4, v5, v6, v2, *&v7);
 }
 
-- (uint64_t)dispatchEventsForCommand:(uint64_t *)a3 toDevice:.cold.4(uint64_t *a1, uint64_t a2, uint64_t *a3)
+- (void)dispatchEventsForCommand:(void *)a3 toDevice:.cold.4(void *a1, uint64_t a2, void *a3)
 {
   if (gLogCategory_CoreRCDevice <= 60 && (gLogCategory_CoreRCDevice != -1 || _LogCategory_Initialize()))
   {
-    v7 = a2;
-    LogPrintF();
+    LogPrintF(&gLogCategory_CoreRCDevice, "[AppleIRDeviceProvider dispatchEventsForCommand:toDevice:]", 60, "Incorrect vendor ID in Apple IR Command: %@\n", a2);
   }
 
-  result = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA590] code:-6707 userInfo:{0, v7}];
+  result = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA590] code:-6707 userInfo:0];
   *a3 = result;
   *a1 = result;
   return result;
 }
 
-- (uint64_t)dispatchEventsForCommand:(uint64_t *)a3 toDevice:.cold.5(uint64_t *a1, uint64_t a2, uint64_t *a3)
+- (void)dispatchEventsForCommand:(void *)a3 toDevice:.cold.5(void *a1, uint64_t a2, void *a3)
 {
   if (gLogCategory_CoreRCDevice <= 50 && (gLogCategory_CoreRCDevice != -1 || _LogCategory_Initialize()))
   {
-    v7 = a2;
-    LogPrintF();
+    LogPrintF(&gLogCategory_CoreRCDevice, "[AppleIRDeviceProvider dispatchEventsForCommand:toDevice:]", 50, "Ignoring Apple IR command from unpaired remote: %@\n", a2);
   }
 
-  result = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA590] code:-6707 userInfo:{0, v7}];
+  result = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA590] code:-6707 userInfo:0];
   *a3 = result;
   *a1 = result;
   return result;
 }
 
-- (uint64_t)dispatchEventsForCommand:(uint64_t *)a3 toDevice:.cold.6(uint64_t *a1, uint64_t a2, uint64_t *a3)
+- (void)dispatchEventsForCommand:(void *)a3 toDevice:.cold.6(void *a1, uint64_t a2, void *a3)
 {
   if (gLogCategory_CoreRCDevice <= 60 && (gLogCategory_CoreRCDevice != -1 || _LogCategory_Initialize()))
   {
-    v7 = a2;
-    LogPrintF();
+    LogPrintF(&gLogCategory_CoreRCDevice, "[AppleIRDeviceProvider dispatchEventsForCommand:toDevice:]", 60, "Unknown Apple IR command %@\n", a2);
   }
 
-  result = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA590] code:-6735 userInfo:{0, v7}];
+  result = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA590] code:-6735 userInfo:0];
   *a3 = result;
   *a1 = result;
   return result;
 }
 
-- (uint64_t)_dispatchEventWithCommand:(uint64_t)result timestamp:toDevice:.cold.3(uint64_t result)
+- (_BYTE)_dispatchEventWithCommand:(_BYTE *)result timestamp:toDevice:.cold.3(_BYTE *result)
 {
   v1 = result;
   if (gLogCategory_CoreRCDevice <= 90)
   {
     if (gLogCategory_CoreRCDevice != -1 || (result = _LogCategory_Initialize(), result))
     {
-      result = LogPrintF();
+      result = LogPrintF(&gLogCategory_CoreRCDevice, "[AppleIRDeviceProvider _dispatchEventWithCommand:timestamp:toDevice:]", 90, "failed to dispatch HID event!\n");
     }
   }
 
@@ -484,7 +502,7 @@ uint64_t __51__AppleIRDeviceProvider__schedulePressAndHoldTimer__block_invoke(ui
   {
     if (result != -1 || (result = _LogCategory_Initialize(), result))
     {
-      result = LogPrintF();
+      result = LogPrintF(&gLogCategory_CoreRCDevice, "[AppleIRDeviceProvider _dispatchEventWithCommand:timestamp:toDevice:]", 90, "matched button has no associated command!\n");
     }
   }
 
@@ -492,19 +510,12 @@ uint64_t __51__AppleIRDeviceProvider__schedulePressAndHoldTimer__block_invoke(ui
   return result;
 }
 
-- (void)_dispatchAppleVendorEventPage:usage:timestamp:toDevice:.cold.1()
+- (void)_dispatchAppleVendorEventPage:(uint64_t)a3 usage:timestamp:toDevice:.cold.1(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (gLogCategory_CoreRCDevice <= 90 && (gLogCategory_CoreRCDevice != -1 || _LogCategory_Initialize()))
   {
-    OUTLINED_FUNCTION_2_0();
+    OUTLINED_FUNCTION_2_0(&gLogCategory_CoreRCDevice, "[AppleIRDeviceProvider _dispatchAppleVendorEventPage:usage:timestamp:toDevice:]", a3, "failed to allocate CoreRCHIDEvent!\n");
   }
-}
-
-uint64_t __51__AppleIRDeviceProvider__schedulePressAndHoldTimer__block_invoke_cold_1(uint64_t a1)
-{
-  v2 = *(a1 + 40);
-  v3 = *(*(a1 + 32) + 1016);
-  return LogPrintF();
 }
 
 @end

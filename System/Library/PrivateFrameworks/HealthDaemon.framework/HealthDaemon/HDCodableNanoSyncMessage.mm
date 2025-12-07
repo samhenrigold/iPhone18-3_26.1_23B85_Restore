@@ -211,54 +211,53 @@ void __64__HDCodableNanoSyncMessage_NanoSyncSupport__nanoSyncDescription__block_
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (*&self->_has)
   {
-    version = self->_version;
     PBDataWriterWriteInt32Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_persistentPairingUUID)
   {
     PBDataWriterWriteDataField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_healthPairingUUID)
   {
     PBDataWriterWriteDataField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_changeSet)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_status)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_activationRestore)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_entityVersionMap)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_currentSyncIdentity)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -364,7 +363,6 @@ void __64__HDCodableNanoSyncMessage_NanoSyncSupport__nanoSyncDescription__block_
     goto LABEL_21;
   }
 
-  v5 = *(equalCopy + 68);
   if (*&self->_has)
   {
     if ((*(equalCopy + 68) & 1) == 0 || self->_version != *(equalCopy + 16))
@@ -376,7 +374,7 @@ void __64__HDCodableNanoSyncMessage_NanoSyncSupport__nanoSyncDescription__block_
   else if (*(equalCopy + 68))
   {
 LABEL_21:
-    v13 = 0;
+    v12 = 0;
     goto LABEL_22;
   }
 
@@ -434,17 +432,17 @@ LABEL_21:
   currentSyncIdentity = self->_currentSyncIdentity;
   if (currentSyncIdentity | *(equalCopy + 3))
   {
-    v13 = [(HDCodableSyncIdentity *)currentSyncIdentity isEqual:?];
+    v12 = [(HDCodableSyncIdentity *)currentSyncIdentity isEqual:?];
   }
 
   else
   {
-    v13 = 1;
+    v12 = 1;
   }
 
 LABEL_22:
 
-  return v13;
+  return v12;
 }
 
 - (unint64_t)hash

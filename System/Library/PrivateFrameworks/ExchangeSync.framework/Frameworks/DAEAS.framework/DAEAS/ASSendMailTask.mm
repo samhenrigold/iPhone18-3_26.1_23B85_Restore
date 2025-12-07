@@ -46,7 +46,7 @@
 
 - (int64_t)taskStatusForExchangeStatus:(int)status
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   result = 2;
   if (status >= 2 && status != 118)
   {
@@ -56,23 +56,22 @@
     {
       v7 = objc_opt_class();
       v8 = NSStringFromClass(v7);
-      v10 = 138412546;
-      v11 = v8;
-      v12 = 1024;
+      v9 = 138412546;
+      v10 = v8;
+      v11 = 1024;
       statusCopy = status;
-      _os_log_impl(&dword_24A0AC000, v5, v6, "%@: Unknown status code (%d)", &v10, 0x12u);
+      _os_log_impl(&dword_24A0AC000, v5, v6, "%@: Unknown status code (%d)", &v9, 0x12u);
     }
 
-    result = 10;
+    return 10;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (void)finishWithError:(id)error
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v5 = [(ASTask *)self taskStatusForError:errorCopy];
   if (errorCopy)
@@ -101,8 +100,8 @@
       {
         *buf = 138412546;
         selfCopy = objc_opt_class();
-        v30 = 2112;
-        v31 = errorCopy;
+        v29 = 2112;
+        v30 = errorCopy;
         v10 = selfCopy;
         _os_log_impl(&dword_24A0AC000, currentlyParsingItem, v9, "%@ failed: %@", buf, 0x16u);
       }
@@ -122,14 +121,14 @@
       {
         v6 = 1;
         status = DALoggingwithCategory();
-        v24 = *(MEMORY[0x277D03988] + 4);
-        if (os_log_type_enabled(status, v24))
+        v23 = *(MEMORY[0x277D03988] + 4);
+        if (os_log_type_enabled(status, v23))
         {
           *buf = 138412546;
           selfCopy = self;
-          v30 = 2112;
-          v31 = currentlyParsingItem;
-          _os_log_impl(&dword_24A0AC000, status, v24, "%@ failed to parse server response %@.", buf, 0x16u);
+          v29 = 2112;
+          v30 = currentlyParsingItem;
+          _os_log_impl(&dword_24A0AC000, status, v23, "%@ failed to parse server response %@.", buf, 0x16u);
           v6 = 1;
         }
       }
@@ -142,8 +141,8 @@
         {
           *buf = 138412546;
           selfCopy = objc_opt_class();
-          v30 = 2112;
-          v31 = currentlyParsingItem;
+          v29 = 2112;
+          v30 = currentlyParsingItem;
           v16 = selfCopy;
           _os_log_impl(&dword_24A0AC000, v14, v15, "%@ Parsed response of %@", buf, 0x16u);
         }
@@ -161,8 +160,8 @@
       {
         *buf = 138412546;
         selfCopy = objc_opt_class();
-        v30 = 2112;
-        v31 = currentlyParsingItem;
+        v29 = 2112;
+        v30 = currentlyParsingItem;
         v21 = selfCopy;
         _os_log_impl(&dword_24A0AC000, status, v20, "%@ Parsed response of %@", buf, 0x16u);
       }
@@ -171,17 +170,15 @@
     }
   }
 
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __34__ASSendMailTask_finishWithError___block_invoke;
-  v25[3] = &unk_278FC7B68;
-  v26 = errorCopy;
-  v27 = v6;
-  v25[4] = self;
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __34__ASSendMailTask_finishWithError___block_invoke;
+  v24[3] = &unk_278FC7B68;
+  v25 = errorCopy;
+  v26 = v6;
+  v24[4] = self;
   v22 = errorCopy;
-  [(ASTask *)self finishWithError:v22 afterDelegateCallout:v25];
-
-  v23 = *MEMORY[0x277D85DE8];
+  [(ASTask *)self finishWithError:v22 afterDelegateCallout:v24];
 }
 
 void __34__ASSendMailTask_finishWithError___block_invoke(void *a1)
@@ -315,7 +312,7 @@ void __34__ASSendMailTask_finishWithError___block_invoke(void *a1)
 
 - (BOOL)processContext:(id)context
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   currentlyParsingItem = [(ASTask *)self currentlyParsingItem];
 
@@ -449,7 +446,6 @@ LABEL_17:
   v16 = 0;
 LABEL_31:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v16;
 }
 

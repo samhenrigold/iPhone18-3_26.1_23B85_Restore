@@ -672,13 +672,17 @@
 - (void)_recognizeForMultiTouchIfNecessary:(void *)a1 .cold.1(void **a1, void *a2)
 {
   v2 = __stringsFromTouches(*a1, a2);
-  OUTLINED_FUNCTION_0_3(&dword_21EB05000, v3, v4, "HorizontalScrollFailureRecognizer - begining recognition for multi-touch: %@", v5, v6, v7, v8, 2u);
+  LODWORD(v9) = 138412290;
+  *(&v9 + 4) = v2;
+  OUTLINED_FUNCTION_0_3(&dword_21EB05000, v3, v4, "HorizontalScrollFailureRecognizer - begining recognition for multi-touch: %@", v5, v6, v7, v8, v9, DWORD2(v9));
 }
 
 - (void)_averagePointFromTouches
 {
   v2 = NSStringFromCGPoint(*&self);
-  OUTLINED_FUNCTION_0_3(&dword_21EB05000, v3, v4, "FAILURE RECOGNIZER - averagePointFromTouches: %@", v5, v6, v7, v8, 2u);
+  LODWORD(v9) = 138412290;
+  *(&v9 + 4) = v2;
+  OUTLINED_FUNCTION_0_3(&dword_21EB05000, v3, v4, "FAILURE RECOGNIZER - averagePointFromTouches: %@", v5, v6, v7, v8, v9, DWORD2(v9));
 }
 
 @end

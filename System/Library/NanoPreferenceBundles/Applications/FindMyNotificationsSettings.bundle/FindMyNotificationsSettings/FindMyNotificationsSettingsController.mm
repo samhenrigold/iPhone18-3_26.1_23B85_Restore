@@ -20,7 +20,7 @@
   v4.super.isa = v3;
   v11._countAndFlagsBits = 0;
   v11._object = 0xE000000000000000;
-  sub_1340(v9, v10, v4, v11, v7);
+  sub_1340(v9, v10, v4, v11, 0xD000000000000011, v7);
 
   v5 = sub_1350();
 

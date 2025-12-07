@@ -16,18 +16,22 @@ void __69__UIView_GKAdditionsAdditional___gkRecursiveDescriptionForKey_depth___b
 
 uint64_t __78__UIView_GKAdditionsAdditional___gkRecursiveDescriptionForValue_forKey_depth___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v7 = a2;
+  v9 = a2;
   NSSelectorFromString(*(a1 + 32));
-  if (objc_opt_respondsToSelector())
+  v5 = objc_opt_respondsToSelector();
+  v6 = v9;
+  if (v5)
   {
-    v5 = [v7 valueForKey:*(a1 + 32)];
-    if ([v5 isEqual:*(a1 + 40)])
+    v7 = [v9 valueForKey:*(a1 + 32)];
+    if ([v7 isEqual:*(a1 + 40)])
     {
-      [*(a1 + 48) appendFormat:@"%*s<%@ %p>: %@\n", a3, "", objc_opt_class(), v7, v5];
+      [*(a1 + 48) appendFormat:@"%*s<%@ %p>: %@\n", a3, "", objc_opt_class(), v9, v7];
     }
+
+    v6 = v9;
   }
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v5, v6);
 }
 
 @end

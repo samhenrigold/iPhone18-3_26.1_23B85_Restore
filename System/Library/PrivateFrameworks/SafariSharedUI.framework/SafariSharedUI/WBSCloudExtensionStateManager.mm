@@ -117,113 +117,113 @@ void __46__WBSCloudExtensionStateManager_sharedManager__block_invoke()
 
 - (void)_updateStateProvidersFromCloudExtensionState
 {
-  v84 = *MEMORY[0x1E69E9840];
+  v88 = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E695DFA8] set];
   allValues = [(NSDictionary *)self->_cloudExtensionStates allValues];
   firstObject = [allValues firstObject];
   v5FirstObject = [firstObject firstObject];
 
-  v43 = v5FirstObject;
+  v47 = v5FirstObject;
   v7 = [v5FirstObject objectForKey:*MEMORY[0x1E69C9610]];
 
   if (v7)
   {
-    v8 = WBS_LOG_CHANNEL_PREFIXCloudExtensions();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v10 = WBS_LOG_CHANNEL_PREFIXCloudExtensions(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_1C6968000, v8, OS_LOG_TYPE_INFO, "Found cloud data in unexpected format, ignoring", buf, 2u);
+      _os_log_impl(&dword_1C6968000, v10, OS_LOG_TYPE_INFO, "Found cloud data in unexpected format, ignoring", buf, 2u);
     }
   }
 
   else
   {
-    v68 = 0u;
-    v69 = 0u;
-    v66 = 0u;
-    v67 = 0u;
+    v72 = 0u;
+    v73 = 0u;
+    v70 = 0u;
+    v71 = 0u;
     obj = self->_cloudExtensionStates;
-    v9 = [(NSDictionary *)obj countByEnumeratingWithState:&v66 objects:v83 count:16];
-    if (v9)
+    v11 = [(NSDictionary *)obj countByEnumeratingWithState:&v70 objects:v87 count:16];
+    if (v11)
     {
-      v10 = v9;
-      v11 = *v67;
+      v12 = v11;
+      v13 = *v71;
       selfCopy = self;
-      v47 = v3;
-      v44 = *v67;
+      v51 = v3;
+      v48 = *v71;
       do
       {
-        v12 = 0;
-        v45 = v10;
+        v14 = 0;
+        v49 = v12;
         do
         {
-          if (*v67 != v11)
+          if (*v71 != v13)
           {
             objc_enumerationMutation(obj);
           }
 
-          v13 = *(*(&v66 + 1) + 8 * v12);
-          if (([v3 containsObject:v13] & 1) == 0)
+          v15 = *(*(&v70 + 1) + 8 * v14);
+          if (([v3 containsObject:v15] & 1) == 0)
           {
-            v48 = v12;
-            v14 = [(WBSCloudExtensionStateManager *)self _allComposedIdentifiersAssociatedWithComposedIdentifier:v13];
-            array = [MEMORY[0x1E695DF70] array];
-            v62 = 0u;
-            v63 = 0u;
-            v64 = 0u;
-            v65 = 0u;
             v52 = v14;
-            v50 = [(NSDictionary *)v52 countByEnumeratingWithState:&v62 objects:v82 count:16];
-            if (v50)
+            v16 = [(WBSCloudExtensionStateManager *)self _allComposedIdentifiersAssociatedWithComposedIdentifier:v15];
+            array = [MEMORY[0x1E695DF70] array];
+            v66 = 0u;
+            v67 = 0u;
+            v68 = 0u;
+            v69 = 0u;
+            v56 = v16;
+            v54 = [(NSDictionary *)v56 countByEnumeratingWithState:&v66 objects:v86 count:16];
+            if (v54)
             {
-              v49 = *v63;
+              v53 = *v67;
               do
               {
-                for (i = 0; i != v50; i = i + 1)
+                for (i = 0; i != v54; i = i + 1)
                 {
-                  if (*v63 != v49)
+                  if (*v67 != v53)
                   {
-                    objc_enumerationMutation(v52);
+                    objc_enumerationMutation(v56);
                   }
 
-                  v17 = *(*(&v62 + 1) + 8 * i);
-                  v58 = 0u;
-                  v59 = 0u;
-                  v60 = 0u;
-                  v61 = 0u;
-                  v18 = self->_stateProviders;
-                  v19 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v58 objects:v81 count:16];
-                  if (v19)
+                  v19 = *(*(&v66 + 1) + 8 * i);
+                  v62 = 0u;
+                  v63 = 0u;
+                  v64 = 0u;
+                  v65 = 0u;
+                  v20 = self->_stateProviders;
+                  v21 = [(NSMutableArray *)v20 countByEnumeratingWithState:&v62 objects:v85 count:16];
+                  if (v21)
                   {
-                    v20 = v19;
-                    v21 = 0;
-                    v22 = *v59;
+                    v22 = v21;
+                    v23 = 0;
+                    v24 = *v63;
                     do
                     {
-                      for (j = 0; j != v20; ++j)
+                      for (j = 0; j != v22; ++j)
                       {
-                        if (*v59 != v22)
+                        if (*v63 != v24)
                         {
-                          objc_enumerationMutation(v18);
+                          objc_enumerationMutation(v20);
                         }
 
-                        v24 = *(*(&v58 + 1) + 8 * j);
-                        if ([v24 hasExtensionWithComposedIdentifier:v17])
+                        v26 = *(*(&v62 + 1) + 8 * j);
+                        if ([v26 hasExtensionWithComposedIdentifier:v19])
                         {
-                          v25 = v17;
+                          v27 = v19;
 
-                          [array addObject:v24];
-                          v21 = v25;
+                          [array addObject:v26];
+                          v23 = v27;
                         }
                       }
 
-                      v20 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v58 objects:v81 count:16];
+                      v22 = [(NSMutableArray *)v20 countByEnumeratingWithState:&v62 objects:v85 count:16];
                     }
 
-                    while (v20);
+                    while (v22);
 
                     self = selfCopy;
-                    if (v21)
+                    if (v23)
                     {
                       goto LABEL_30;
                     }
@@ -234,242 +234,243 @@ void __46__WBSCloudExtensionStateManager_sharedManager__block_invoke()
                   }
                 }
 
-                v50 = [(NSDictionary *)v52 countByEnumeratingWithState:&v62 objects:v82 count:16];
+                v54 = [(NSDictionary *)v56 countByEnumeratingWithState:&v66 objects:v86 count:16];
               }
 
-              while (v50);
+              while (v54);
             }
 
-            v21 = 0;
+            v23 = 0;
 LABEL_30:
-            v26 = v52;
+            v28 = v56;
 
-            allObjects = [(NSDictionary *)v52 allObjects];
-            v3 = v47;
-            [v47 addObjectsFromArray:allObjects];
+            allObjects = [(NSDictionary *)v56 allObjects];
+            v3 = v51;
+            [v51 addObjectsFromArray:allObjects];
 
-            if (v21)
+            if (v23)
             {
-              v28 = [(WBSCloudExtensionStateManager *)self _cloudExtensionStateForComposedIdentifiers:v52];
-              if ([v28 count])
+              v30 = [(WBSCloudExtensionStateManager *)self _cloudExtensionStateForComposedIdentifiers:v56];
+              if ([v30 count])
               {
-                v56 = 0u;
-                v57 = 0u;
-                v54 = 0u;
-                v55 = 0u;
-                v51 = array;
-                v29 = [v51 countByEnumeratingWithState:&v54 objects:v80 count:16];
-                if (v29)
+                v60 = 0u;
+                v61 = 0u;
+                v58 = 0u;
+                v59 = 0u;
+                v55 = array;
+                v32 = [v55 countByEnumeratingWithState:&v58 objects:v84 count:16];
+                if (v32)
                 {
-                  v30 = v29;
-                  v31 = *v55;
+                  v33 = v32;
+                  v34 = *v59;
                   do
                   {
-                    for (k = 0; k != v30; ++k)
+                    for (k = 0; k != v33; ++k)
                     {
-                      if (*v55 != v31)
+                      if (*v59 != v34)
                       {
-                        objc_enumerationMutation(v51);
+                        objc_enumerationMutation(v55);
                       }
 
-                      v33 = *(*(&v54 + 1) + 8 * k);
-                      v34 = [v33 profileServerIDForStateManager:selfCopy];
-                      v35 = [objc_opt_class() _determineEnabledStateFromCloudExtensionState:v28 forProfileServerID:v34];
-                      v36 = WBS_LOG_CHANNEL_PREFIXCloudExtensions();
-                      if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
+                      v36 = *(*(&v58 + 1) + 8 * k);
+                      v37 = [v36 profileServerIDForStateManager:selfCopy];
+                      v38 = [objc_opt_class() _determineEnabledStateFromCloudExtensionState:v30 forProfileServerID:v37];
+                      v40 = WBS_LOG_CHANNEL_PREFIXCloudExtensions(v38, v39);
+                      if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
                       {
                         *buf = 141559043;
-                        v37 = @"OFF";
-                        if (v35)
+                        v41 = @"OFF";
+                        if (v38)
                         {
-                          v37 = @"ON";
+                          v41 = @"ON";
                         }
 
-                        v71 = 1752392040;
-                        v72 = 2117;
-                        v73 = v52;
-                        v74 = 2113;
-                        v75 = v37;
-                        v76 = 2113;
-                        v77 = v34;
+                        v75 = 1752392040;
+                        v76 = 2117;
+                        v77 = v56;
                         v78 = 2113;
-                        v79 = v28;
-                        _os_log_impl(&dword_1C6968000, v36, OS_LOG_TYPE_INFO, "Extensions: %{sensitive, mask.hash}@, cloud state: %{private}@, for profile: %{private}@, computed from: %{private}@", buf, 0x34u);
+                        v79 = v41;
+                        v80 = 2113;
+                        v81 = v37;
+                        v82 = 2113;
+                        v83 = v30;
+                        _os_log_impl(&dword_1C6968000, v40, OS_LOG_TYPE_INFO, "Extensions: %{sensitive, mask.hash}@, cloud state: %{private}@, for profile: %{private}@, computed from: %{private}@", buf, 0x34u);
                       }
 
-                      [v33 setExtensionWithComposedIdentifier:v21 isEnabledInCloud:v35];
+                      [v36 setExtensionWithComposedIdentifier:v23 isEnabledInCloud:v38];
                     }
 
-                    v30 = [v51 countByEnumeratingWithState:&v54 objects:v80 count:16];
+                    v33 = [v55 countByEnumeratingWithState:&v58 objects:v84 count:16];
                   }
 
-                  while (v30);
+                  while (v33);
                 }
 
-                v3 = v47;
-                v26 = v52;
+                v3 = v51;
+                v28 = v56;
               }
 
               else
               {
-                v38 = WBS_LOG_CHANNEL_PREFIXCloudExtensions();
-                if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
+                v42 = WBS_LOG_CHANNEL_PREFIXCloudExtensions(0, v31);
+                if (os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
                 {
                   cloudExtensionStates = selfCopy->_cloudExtensionStates;
-                  v40 = v38;
-                  v41 = [(NSDictionary *)cloudExtensionStates count];
-                  v42 = selfCopy->_cloudExtensionStates;
+                  v44 = v42;
+                  v45 = [(NSDictionary *)cloudExtensionStates count];
+                  v46 = selfCopy->_cloudExtensionStates;
                   *buf = 134218243;
-                  v71 = v41;
-                  v72 = 2113;
-                  v73 = v42;
-                  _os_log_impl(&dword_1C6968000, v40, OS_LOG_TYPE_INFO, "No cloud state found for extension: in %lu item cloud state %{private}@", buf, 0x16u);
+                  v75 = v45;
+                  v76 = 2113;
+                  v77 = v46;
+                  _os_log_impl(&dword_1C6968000, v44, OS_LOG_TYPE_INFO, "No cloud state found for extension: in %lu item cloud state %{private}@", buf, 0x16u);
                 }
               }
 
               self = selfCopy;
             }
 
-            v11 = v44;
-            v10 = v45;
-            v12 = v48;
+            v13 = v48;
+            v12 = v49;
+            v14 = v52;
           }
 
-          ++v12;
+          ++v14;
         }
 
-        while (v12 != v10);
-        v10 = [(NSDictionary *)obj countByEnumeratingWithState:&v66 objects:v83 count:16];
+        while (v14 != v12);
+        v12 = [(NSDictionary *)obj countByEnumeratingWithState:&v70 objects:v87 count:16];
       }
 
-      while (v10);
+      while (v12);
     }
   }
 }
 
 - (void)updateNewTabPageFromCloudDeviceState
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   if (!self->_extensionSyncEnabled)
   {
-    v10 = WBS_LOG_CHANNEL_PREFIXCloudExtensions();
-    if (!os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    v15 = WBS_LOG_CHANNEL_PREFIXCloudExtensions(self, a2);
+    if (!os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
       return;
     }
 
     *buf = 0;
-    v11 = "Skipping updating new tab page from cloud state since sharing across devices isn't enabled";
+    v16 = "Skipping updating new tab page from cloud state since sharing across devices isn't enabled";
 LABEL_13:
-    _os_log_impl(&dword_1C6968000, v10, OS_LOG_TYPE_INFO, v11, buf, 2u);
+    _os_log_impl(&dword_1C6968000, v15, OS_LOG_TYPE_INFO, v16, buf, 2u);
     return;
   }
 
   if (![(NSArray *)self->_cloudDevices count])
   {
-    v10 = WBS_LOG_CHANNEL_PREFIXCloudExtensions();
-    if (!os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    v15 = WBS_LOG_CHANNEL_PREFIXCloudExtensions(0, v3);
+    if (!os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
       return;
     }
 
     *buf = 0;
-    v11 = "Skipping updating new tab page from cloud state since there aren't any cloud devices";
+    v16 = "Skipping updating new tab page from cloud state since there aren't any cloud devices";
     goto LABEL_13;
   }
 
   safari_browserDefaults = [MEMORY[0x1E695E000] safari_browserDefaults];
-  v4 = [objc_opt_class() _determineNewTabPageFromCloudDeviceState:self->_cloudDevices];
+  v5 = [objc_opt_class() _determineNewTabPageFromCloudDeviceState:self->_cloudDevices];
   _defaultWebExtensionsController = [(WBSCloudExtensionStateManager *)self _defaultWebExtensionsController];
   tabOverridePreferencesManager = [_defaultWebExtensionsController tabOverridePreferencesManager];
-  v7 = [tabOverridePreferencesManager extensionComposedIdentifierForNewTabPreferenceInDefaults:safari_browserDefaults];
+  v8 = [tabOverridePreferencesManager extensionComposedIdentifierForNewTabPreferenceInDefaults:safari_browserDefaults];
 
-  v8 = WBS_LOG_CHANNEL_PREFIXCloudExtensions();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  v11 = WBS_LOG_CHANNEL_PREFIXCloudExtensions(v9, v10);
+  v12 = os_log_type_enabled(v11, OS_LOG_TYPE_INFO);
+  if (v12)
   {
     *buf = 141558275;
-    v34 = 1752392040;
-    v35 = 2117;
-    v36 = v4;
-    _os_log_impl(&dword_1C6968000, v8, OS_LOG_TYPE_INFO, "Attempting to set local new tab page from sync to %{sensitive, mask.hash}@", buf, 0x16u);
+    v44 = 1752392040;
+    v45 = 2117;
+    v46 = v5;
+    _os_log_impl(&dword_1C6968000, v11, OS_LOG_TYPE_INFO, "Attempting to set local new tab page from sync to %{sensitive, mask.hash}@", buf, 0x16u);
   }
 
-  if (v4 == v7 || [v4 isEqualToString:v7])
+  if (v5 == v8 || (v12 = [v5 isEqualToString:v8], v12))
   {
-    v9 = WBS_LOG_CHANNEL_PREFIXCloudExtensions();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v14 = WBS_LOG_CHANNEL_PREFIXCloudExtensions(v12, v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_1C6968000, v9, OS_LOG_TYPE_INFO, "Skipping setting local new tab page because there would be no change", buf, 2u);
+      _os_log_impl(&dword_1C6968000, v14, OS_LOG_TYPE_INFO, "Skipping setting local new tab page because there would be no change", buf, 2u);
     }
   }
 
   else
   {
-    if ([v4 length])
+    if ([v5 length])
     {
-      [(WBSCloudExtensionStateManager *)self _allComposedIdentifiersAssociatedWithComposedIdentifier:v4];
-      v28 = 0u;
-      v29 = 0u;
-      v30 = 0u;
-      defaultCenter2 = v31 = 0u;
-      v13 = [defaultCenter2 countByEnumeratingWithState:&v28 objects:v32 count:16];
-      if (v13)
+      [(WBSCloudExtensionStateManager *)self _allComposedIdentifiersAssociatedWithComposedIdentifier:v5];
+      v38 = 0u;
+      v39 = 0u;
+      v40 = 0u;
+      defaultCenter2 = v41 = 0u;
+      v19 = [defaultCenter2 countByEnumeratingWithState:&v38 objects:v42 count:16];
+      if (v19)
       {
-        v14 = v13;
-        v15 = *v29;
+        v20 = v19;
+        v21 = *v39;
         while (2)
         {
-          for (i = 0; i != v14; ++i)
+          for (i = 0; i != v20; ++i)
           {
-            if (*v29 != v15)
+            if (*v39 != v21)
             {
               objc_enumerationMutation(defaultCenter2);
             }
 
-            v17 = [_defaultWebExtensionsController extensionWithComposedIdentifier:{*(*(&v28 + 1) + 8 * i), v28}];
-            v18 = [_defaultWebExtensionsController webExtensionForExtension:v17];
+            v23 = [_defaultWebExtensionsController extensionWithComposedIdentifier:{*(*(&v38 + 1) + 8 * i), v38}];
+            v24 = [_defaultWebExtensionsController webExtensionForExtension:v23];
 
-            if (v18)
+            if (v24)
             {
 
-              newTabOverridePageURL = [v18 newTabOverridePageURL];
-              v21 = WBS_LOG_CHANNEL_PREFIXCloudExtensions();
-              v22 = os_log_type_enabled(v21, OS_LOG_TYPE_INFO);
+              newTabOverridePageURL = [v24 newTabOverridePageURL];
+              v31 = WBS_LOG_CHANNEL_PREFIXCloudExtensions(v29, v30);
+              v32 = os_log_type_enabled(v31, OS_LOG_TYPE_INFO);
               if (newTabOverridePageURL)
               {
-                if (v22)
+                if (v32)
                 {
                   *buf = 141558275;
-                  v34 = 1752392040;
-                  v35 = 2117;
-                  v36 = v4;
-                  _os_log_impl(&dword_1C6968000, v21, OS_LOG_TYPE_INFO, "Setting the new tab page to be existing extension %{sensitive, mask.hash}@ from sync", buf, 0x16u);
+                  v44 = 1752392040;
+                  v45 = 2117;
+                  v46 = v5;
+                  _os_log_impl(&dword_1C6968000, v31, OS_LOG_TYPE_INFO, "Setting the new tab page to be existing extension %{sensitive, mask.hash}@ from sync", buf, 0x16u);
                 }
 
                 tabOverridePreferencesManager2 = [_defaultWebExtensionsController tabOverridePreferencesManager];
-                composedIdentifier = [v18 composedIdentifier];
+                composedIdentifier = [v24 composedIdentifier];
                 [tabOverridePreferencesManager2 setNewTabBehaviorWithExtensionComposedIdentifier:composedIdentifier inDefaults:safari_browserDefaults fromUserGesture:0];
 
                 defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
                 [defaultCenter postNotificationName:@"WBSNewTabPageDidChange" object:0];
               }
 
-              else if (v22)
+              else if (v32)
               {
                 *buf = 141558275;
-                v34 = 1752392040;
-                v35 = 2117;
-                v36 = v4;
-                _os_log_impl(&dword_1C6968000, v21, OS_LOG_TYPE_INFO, "New tab page extension %{sensitive, mask.hash}@ not set from sync because it doesn't have a new tab page", buf, 0x16u);
+                v44 = 1752392040;
+                v45 = 2117;
+                v46 = v5;
+                _os_log_impl(&dword_1C6968000, v31, OS_LOG_TYPE_INFO, "New tab page extension %{sensitive, mask.hash}@ not set from sync because it doesn't have a new tab page", buf, 0x16u);
               }
 
               goto LABEL_35;
             }
           }
 
-          v14 = [defaultCenter2 countByEnumeratingWithState:&v28 objects:v32 count:16];
-          if (v14)
+          v20 = [defaultCenter2 countByEnumeratingWithState:&v38 objects:v42 count:16];
+          if (v20)
           {
             continue;
           }
@@ -478,24 +479,24 @@ LABEL_13:
         }
       }
 
-      v19 = WBS_LOG_CHANNEL_PREFIXCloudExtensions();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+      v27 = WBS_LOG_CHANNEL_PREFIXCloudExtensions(v25, v26);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
       {
         *buf = 141558275;
-        v34 = 1752392040;
-        v35 = 2117;
-        v36 = v4;
-        _os_log_impl(&dword_1C6968000, v19, OS_LOG_TYPE_INFO, "New tab page extension %{sensitive, mask.hash}@ not set from sync because it's not installed on the system", buf, 0x16u);
+        v44 = 1752392040;
+        v45 = 2117;
+        v46 = v5;
+        _os_log_impl(&dword_1C6968000, v27, OS_LOG_TYPE_INFO, "New tab page extension %{sensitive, mask.hash}@ not set from sync because it's not installed on the system", buf, 0x16u);
       }
     }
 
     else
     {
-      v26 = WBS_LOG_CHANNEL_PREFIXCloudExtensions();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+      v36 = WBS_LOG_CHANNEL_PREFIXCloudExtensions(0, v17);
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_1C6968000, v26, OS_LOG_TYPE_INFO, "Clearing local new tab page from sync", buf, 2u);
+        _os_log_impl(&dword_1C6968000, v36, OS_LOG_TYPE_INFO, "Clearing local new tab page from sync", buf, 2u);
       }
 
       tabOverridePreferencesManager3 = [_defaultWebExtensionsController tabOverridePreferencesManager];
@@ -515,7 +516,7 @@ LABEL_35:
   if (self->_extensionSyncEnabled != enabled)
   {
     enabledCopy = enabled;
-    v5 = WBS_LOG_CHANNEL_PREFIXCloudExtensions();
+    v5 = WBS_LOG_CHANNEL_PREFIXCloudExtensions(self, a2);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       v6 = @"NO";
@@ -598,12 +599,13 @@ LABEL_35:
 void __61__WBSCloudExtensionStateManager_localExtensionStateDidChange__block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v5 = v3;
   if (v3)
   {
-    v4 = WBS_LOG_CHANNEL_PREFIXCloudExtensions();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = WBS_LOG_CHANNEL_PREFIXCloudExtensions(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __61__WBSCloudExtensionStateManager_localExtensionStateDidChange__block_invoke_cold_1(v4);
+      __61__WBSCloudExtensionStateManager_localExtensionStateDidChange__block_invoke_cold_1(v6);
     }
   }
 
@@ -618,7 +620,7 @@ void __61__WBSCloudExtensionStateManager_localExtensionStateDidChange__block_inv
   }
 }
 
-uint64_t __61__WBSCloudExtensionStateManager_localExtensionStateDidChange__block_invoke_25(uint64_t a1)
+void *__61__WBSCloudExtensionStateManager_localExtensionStateDidChange__block_invoke_25(uint64_t a1)
 {
   v2 = [MEMORY[0x1E695E000] safari_browserDefaults];
   v3 = [MEMORY[0x1E695DF00] now];
@@ -627,11 +629,11 @@ uint64_t __61__WBSCloudExtensionStateManager_localExtensionStateDidChange__block
   result = [*(a1 + 32) _ensureCurrentDeviceIsSavedPeriodically];
   if (*(*(a1 + 32) + 64) == 1)
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXCloudExtensions();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v6 = WBS_LOG_CHANNEL_PREFIXCloudExtensions(result, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_1C6968000, v5, OS_LOG_TYPE_INFO, "Performing requested fetch after saving cloud extension states", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_1C6968000, v6, OS_LOG_TYPE_INFO, "Performing requested fetch after saving cloud extension states", v7, 2u);
     }
 
     result = [*(a1 + 32) _updateCloudExtensionStatesFromSafariBookmarksSyncAgent:0];
@@ -701,107 +703,108 @@ LABEL_12:
 
 - (id)extensionAppsFromOtherDevices
 {
-  v81 = *MEMORY[0x1E69E9840];
+  v87 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   v3 = [MEMORY[0x1E695DFA8] set];
-  v69 = 0u;
-  v70 = 0u;
-  v71 = 0u;
-  v72 = 0u;
+  v75 = 0u;
+  v76 = 0u;
+  v77 = 0u;
+  v78 = 0u;
   v4 = self->_cloudExtensionStates;
-  v5 = [(NSDictionary *)v4 countByEnumeratingWithState:&v69 objects:v80 count:16];
+  v5 = [(NSDictionary *)v4 countByEnumeratingWithState:&v75 objects:v86 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v70;
-    v53 = *MEMORY[0x1E69C9600];
-    v52 = *MEMORY[0x1E69C9618];
-    v50 = *MEMORY[0x1E69C95A8];
-    v48 = *MEMORY[0x1E69C9198];
+    v7 = *v76;
+    v59 = *MEMORY[0x1E69C9600];
+    v58 = *MEMORY[0x1E69C9618];
+    v56 = *MEMORY[0x1E69C95A8];
+    v54 = *MEMORY[0x1E69C9198];
     selfCopy = self;
-    v59 = v3;
-    v54 = v4;
-    v58 = *v70;
+    v65 = v3;
+    v60 = v4;
+    v64 = *v76;
     do
     {
       v8 = 0;
-      v60 = v6;
+      v66 = v6;
       do
       {
-        if (*v70 != v7)
+        if (*v76 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v69 + 1) + 8 * v8);
+        v9 = *(*(&v75 + 1) + 8 * v8);
         if (([v3 containsObject:v9] & 1) == 0)
         {
-          v61 = [(WBSCloudExtensionStateManager *)self _allComposedIdentifiersAssociatedWithComposedIdentifier:v9];
+          v67 = [(WBSCloudExtensionStateManager *)self _allComposedIdentifiersAssociatedWithComposedIdentifier:v9];
           v10 = [(WBSCloudExtensionStateManager *)self _cloudExtensionStateForComposedIdentifiers:?];
           v11 = MEMORY[0x1E695DFD8];
           stateProviders = self->_stateProviders;
-          v68[0] = MEMORY[0x1E69E9820];
-          v68[1] = 3221225472;
-          v68[2] = __62__WBSCloudExtensionStateManager_extensionAppsFromOtherDevices__block_invoke;
-          v68[3] = &unk_1E8283858;
-          v68[4] = self;
-          v13 = [(NSMutableArray *)stateProviders safari_mapObjectsUsingBlock:v68];
+          v74[0] = MEMORY[0x1E69E9820];
+          v74[1] = 3221225472;
+          v74[2] = __62__WBSCloudExtensionStateManager_extensionAppsFromOtherDevices__block_invoke;
+          v74[3] = &unk_1E8283858;
+          v74[4] = self;
+          v13 = [(NSMutableArray *)stateProviders safari_mapObjectsUsingBlock:v74];
           v14 = [v11 setWithArray:v13];
 
-          v66[0] = MEMORY[0x1E69E9820];
-          v66[1] = 3221225472;
-          v66[2] = __62__WBSCloudExtensionStateManager_extensionAppsFromOtherDevices__block_invoke_2;
-          v66[3] = &unk_1E8283880;
-          v66[4] = self;
+          v72[0] = MEMORY[0x1E69E9820];
+          v72[1] = 3221225472;
+          v72[2] = __62__WBSCloudExtensionStateManager_extensionAppsFromOtherDevices__block_invoke_2;
+          v72[3] = &unk_1E8283880;
+          v72[4] = self;
           v15 = v10;
-          v67 = v15;
-          if ([v14 safari_containsObjectPassingTest:v66])
+          v73 = v15;
+          v16 = [v14 safari_containsObjectPassingTest:v72];
+          if (v16)
           {
-            v57 = v14;
-            v16 = v53;
-            v17 = v52;
-            v62 = 0u;
-            v63 = 0u;
-            v64 = 0u;
-            v65 = 0u;
-            v56 = v15;
-            v18 = v15;
-            v19 = [v18 countByEnumeratingWithState:&v62 objects:v79 count:16];
-            if (v19)
+            v63 = v14;
+            v18 = v59;
+            v19 = v58;
+            v68 = 0u;
+            v69 = 0u;
+            v70 = 0u;
+            v71 = 0u;
+            v62 = v15;
+            v20 = v15;
+            v21 = [v20 countByEnumeratingWithState:&v68 objects:v85 count:16];
+            if (v21)
             {
-              v20 = v19;
-              v21 = *v63;
+              v22 = v21;
+              v23 = *v69;
 LABEL_10:
-              v22 = 0;
+              v24 = 0;
               while (1)
               {
-                if (*v63 != v21)
+                if (*v69 != v23)
                 {
-                  objc_enumerationMutation(v18);
+                  objc_enumerationMutation(v20);
                 }
 
-                v23 = *(*(&v62 + 1) + 8 * v22);
-                v24 = [v23 safari_stringForKey:v16 returningNilIfEmpty:1];
-                if (v24)
+                v25 = *(*(&v68 + 1) + 8 * v24);
+                v26 = [v25 safari_stringForKey:v18 returningNilIfEmpty:1];
+                if (v26)
                 {
-                  v27 = v24;
+                  v29 = v26;
 
-                  v28 = 0;
+                  v30 = 0;
                   self = selfCopy;
                   goto LABEL_24;
                 }
 
-                v25 = [v23 safari_stringForKey:v17 returningNilIfEmpty:1];
-                if (v25)
+                v27 = [v25 safari_stringForKey:v19 returningNilIfEmpty:1];
+                if (v27)
                 {
                   break;
                 }
 
-                if (v20 == ++v22)
+                if (v22 == ++v24)
                 {
-                  v20 = [v18 countByEnumeratingWithState:&v62 objects:v79 count:16];
+                  v22 = [v20 countByEnumeratingWithState:&v68 objects:v85 count:16];
                   self = selfCopy;
-                  if (v20)
+                  if (v22)
                   {
                     goto LABEL_10;
                   }
@@ -810,11 +813,11 @@ LABEL_10:
                 }
               }
 
-              v29 = v25;
-              v28 = [v23 safari_stringForKey:v50];
+              v31 = v27;
+              v30 = [v25 safari_stringForKey:v56];
 
               self = selfCopy;
-              if (v28)
+              if (v30)
               {
                 goto LABEL_25;
               }
@@ -825,23 +828,23 @@ LABEL_10:
 LABEL_17:
             }
 
-            firstObject = [v18 firstObject];
-            v28 = [firstObject safari_stringForKey:v50];
+            firstObject = [v20 firstObject];
+            v30 = [firstObject safari_stringForKey:v56];
 
             if ([MEMORY[0x1E69C8880] isInternalInstall])
             {
               safari_browserDefaults = [MEMORY[0x1E695E000] safari_browserDefaults];
-              v32 = [safari_browserDefaults dictionaryForKey:v48];
-              v27 = [v32 safari_stringForKey:v28];
+              v34 = [safari_browserDefaults dictionaryForKey:v54];
+              v29 = [v34 safari_stringForKey:v30];
 
-              if (v27)
+              if (v29)
               {
 LABEL_24:
-                v33 = MEMORY[0x1E696AEC0];
-                v34 = developerIdentifierFromComposedIdentifier(v9);
-                v35 = [v33 stringWithFormat:@"%@.%@", v34, v27];
+                v35 = MEMORY[0x1E696AEC0];
+                v36 = developerIdentifierFromComposedIdentifier(v9);
+                v37 = [v35 stringWithFormat:@"%@.%@", v36, v29];
 
-                v55 = 0;
+                v61 = 0;
                 goto LABEL_27;
               }
             }
@@ -849,106 +852,106 @@ LABEL_24:
             else
             {
 LABEL_25:
-              v27 = 0;
+              v29 = 0;
             }
 
-            v35 = 0;
-            v55 = 1;
+            v37 = 0;
+            v61 = 1;
 LABEL_27:
-            if (v35)
+            if (v37)
             {
-              v36 = v35;
+              v38 = v37;
             }
 
             else
             {
-              v36 = v28;
+              v38 = v30;
             }
 
-            v37 = [(WBSCloudExtensionStateManager *)self _hasInstalledApplicationWithIdentifier:v36];
-            allObjects = [v61 allObjects];
-            [v59 addObjectsFromArray:allObjects];
+            v39 = [(WBSCloudExtensionStateManager *)self _hasInstalledApplicationWithIdentifier:v38];
+            allObjects = [v67 allObjects];
+            [v65 addObjectsFromArray:allObjects];
 
-            if (v37)
+            if (v39)
             {
-              v39 = WBS_LOG_CHANNEL_PREFIXCloudExtensions();
-              if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
+              v43 = WBS_LOG_CHANNEL_PREFIXCloudExtensions(v41, v42);
+              if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
               {
                 *buf = 138477827;
-                v74 = v9;
-                _os_log_impl(&dword_1C6968000, v39, OS_LOG_TYPE_INFO, "Skipping %{private}@ in extensionAppsFromOtherDevices because its containing app is installed", buf, 0xCu);
+                v80 = v9;
+                _os_log_impl(&dword_1C6968000, v43, OS_LOG_TYPE_INFO, "Skipping %{private}@ in extensionAppsFromOtherDevices because its containing app is installed", buf, 0xCu);
               }
             }
 
             else
             {
-              if (v55)
+              if (v61)
               {
-                v40 = v28;
+                v44 = v30;
               }
 
               else
               {
-                v40 = v27;
+                v44 = v29;
               }
 
-              v41 = v40;
-              if (v41)
+              v45 = v44;
+              if (v45)
               {
-                v42 = [dictionary objectForKeyedSubscript:v41];
+                v46 = [dictionary objectForKeyedSubscript:v45];
 
-                if (!v42)
+                if (!v46)
                 {
-                  v43 = WBS_LOG_CHANNEL_PREFIXCloudExtensions();
-                  if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
+                  v49 = WBS_LOG_CHANNEL_PREFIXCloudExtensions(v47, v48);
+                  if (os_log_type_enabled(v49, OS_LOG_TYPE_INFO))
                   {
                     *buf = 138478339;
-                    v74 = v9;
-                    v75 = 2113;
-                    v76 = v28;
-                    v77 = 2113;
-                    v78 = v27;
-                    _os_log_impl(&dword_1C6968000, v43, OS_LOG_TYPE_INFO, "Creating available app for composed identifier: %{private}@ with adamID: %{private}@, platform specific bundle identifier: %{private}@", buf, 0x20u);
+                    v80 = v9;
+                    v81 = 2113;
+                    v82 = v30;
+                    v83 = 2113;
+                    v84 = v29;
+                    _os_log_impl(&dword_1C6968000, v49, OS_LOG_TYPE_INFO, "Creating available app for composed identifier: %{private}@ with adamID: %{private}@, platform specific bundle identifier: %{private}@", buf, 0x20u);
                   }
 
-                  v44 = [[WBSAvailableAppWithExtension alloc] initWithAdamID:v28 platformSpecificBundleID:v27];
-                  if ((v55 & 1) == 0)
+                  v50 = [[WBSAvailableAppWithExtension alloc] initWithAdamID:v30 platformSpecificBundleID:v29];
+                  if ((v61 & 1) == 0)
                   {
-                    v45 = developerIdentifierFromComposedIdentifier(v9);
-                    [(WBSAvailableAppWithExtension *)v44 setRequiredTeamID:v45];
+                    v51 = developerIdentifierFromComposedIdentifier(v9);
+                    [(WBSAvailableAppWithExtension *)v50 setRequiredTeamID:v51];
                   }
 
-                  [dictionary setObject:v44 forKeyedSubscript:v41];
+                  [dictionary setObject:v50 forKeyedSubscript:v45];
                 }
               }
             }
 
-            v3 = v59;
-            v4 = v54;
-            v15 = v56;
-            v14 = v57;
+            v3 = v65;
+            v4 = v60;
+            v15 = v62;
+            v14 = v63;
           }
 
           else
           {
-            v26 = WBS_LOG_CHANNEL_PREFIXCloudExtensions();
-            if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+            v28 = WBS_LOG_CHANNEL_PREFIXCloudExtensions(v16, v17);
+            if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
             {
               *buf = 138477827;
-              v74 = v9;
-              _os_log_impl(&dword_1C6968000, v26, OS_LOG_TYPE_INFO, "Skipping %{private}@ in extensionAppsFromOtherDevices because it isn't enabled", buf, 0xCu);
+              v80 = v9;
+              _os_log_impl(&dword_1C6968000, v28, OS_LOG_TYPE_INFO, "Skipping %{private}@ in extensionAppsFromOtherDevices because it isn't enabled", buf, 0xCu);
             }
           }
 
-          v6 = v60;
-          v7 = v58;
+          v6 = v66;
+          v7 = v64;
         }
 
         ++v8;
       }
 
       while (v8 != v6);
-      v6 = [(NSDictionary *)v4 countByEnumeratingWithState:&v69 objects:v80 count:16];
+      v6 = [(NSDictionary *)v4 countByEnumeratingWithState:&v75 objects:v86 count:16];
     }
 
     while (v6);
@@ -1071,38 +1074,38 @@ void __93__WBSCloudExtensionStateManager__getCloudSettingsContainerManateeStateW
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __93__WBSCloudExtensionStateManager__getCloudSettingsContainerManateeStateWithCompletionHandler___block_invoke_2(uint64_t a1)
+uint64_t __93__WBSCloudExtensionStateManager__getCloudSettingsContainerManateeStateWithCompletionHandler___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v2 = WBS_LOG_CHANNEL_PREFIXCloudExtensions();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v9 = *MEMORY[0x1E69E9840];
+  v3 = WBS_LOG_CHANNEL_PREFIXCloudExtensions(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     if (*(a1 + 48))
     {
-      v3 = @"is";
+      v4 = @"is";
     }
 
     else
     {
-      v3 = @"is not";
+      v4 = @"is not";
     }
 
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_impl(&dword_1C6968000, v2, OS_LOG_TYPE_INFO, "Encryption %{public}@ supported for cloud extension state", &v6, 0xCu);
+    v7 = 138543362;
+    v8 = v4;
+    _os_log_impl(&dword_1C6968000, v3, OS_LOG_TYPE_INFO, "Encryption %{public}@ supported for cloud extension state", &v7, 0xCu);
   }
 
   if (*(a1 + 48))
   {
-    v4 = 1;
+    v5 = 1;
   }
 
   else
   {
-    v4 = 2;
+    v5 = 2;
   }
 
-  [*(a1 + 32) setManateeState:v4];
+  [*(a1 + 32) setManateeState:v5];
   return (*(*(a1 + 40) + 16))();
 }
 
@@ -1145,7 +1148,7 @@ uint64_t __98__WBSCloudExtensionStateManager__getPrimaryAppleAccountHasSafariSyn
 
 - (id)_extensionDeviceDictionaryForCurrentDevice
 {
-  v16[2] = *MEMORY[0x1E69E9840];
+  v18[2] = *MEMORY[0x1E69E9840];
   _defaultWebExtensionsController = [(WBSCloudExtensionStateManager *)self _defaultWebExtensionsController];
   _deviceUUIDString = [_defaultWebExtensionsController _deviceUUIDString];
   if ([_deviceUUIDString length])
@@ -1155,8 +1158,8 @@ uint64_t __98__WBSCloudExtensionStateManager__getPrimaryAppleAccountHasSafariSyn
 
     if (![(__CFString *)userAssignedName length])
     {
-      v6 = WBS_LOG_CHANNEL_PREFIXCloudExtensions();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v8 = WBS_LOG_CHANNEL_PREFIXCloudExtensions(0, v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         [WBSCloudExtensionStateManager _extensionDeviceDictionaryForCurrentDevice];
       }
@@ -1164,30 +1167,30 @@ uint64_t __98__WBSCloudExtensionStateManager__getPrimaryAppleAccountHasSafariSyn
       userAssignedName = &stru_1F4646D10;
     }
 
-    v7 = *MEMORY[0x1E69C95D8];
-    v15[0] = *MEMORY[0x1E69C95B8];
-    v15[1] = v7;
-    v16[0] = userAssignedName;
-    v16[1] = _deviceUUIDString;
-    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:2];
+    v9 = *MEMORY[0x1E69C95D8];
+    v17[0] = *MEMORY[0x1E69C95B8];
+    v17[1] = v9;
+    v18[0] = userAssignedName;
+    v18[1] = _deviceUUIDString;
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:2];
     tabOverridePreferencesManager = [_defaultWebExtensionsController tabOverridePreferencesManager];
     safari_browserDefaults = [MEMORY[0x1E695E000] safari_browserDefaults];
-    v11 = [tabOverridePreferencesManager cloudExtensionStateForDefaults:safari_browserDefaults];
-    v12 = [v8 safari_dictionaryByMergingWithDictionary:v11];
+    v13 = [tabOverridePreferencesManager cloudExtensionStateForDefaults:safari_browserDefaults];
+    v14 = [v10 safari_dictionaryByMergingWithDictionary:v13];
   }
 
   else
   {
-    v13 = WBS_LOG_CHANNEL_PREFIXCloudExtensions();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v15 = WBS_LOG_CHANNEL_PREFIXCloudExtensions(0, v4);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [WBSCloudExtensionStateManager _extensionDeviceDictionaryForCurrentDevice];
     }
 
-    v12 = 0;
+    v14 = 0;
   }
 
-  return v12;
+  return v14;
 }
 
 - (id)_extensionStatesDictionaryForCurrentDevice
@@ -1364,31 +1367,31 @@ uint64_t __75__WBSCloudExtensionStateManager__extensionStatesDictionaryForCurren
 
 - (void)_saveExtensionStatesWithDictionaryRepresentation:(id)representation forDevice:(id)device completionHandler:(id)handler
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   representationCopy = representation;
   deviceCopy = device;
   handlerCopy = handler;
-  v11 = WBS_LOG_CHANNEL_PREFIXCloudExtensions();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+  v12 = WBS_LOG_CHANNEL_PREFIXCloudExtensions(handlerCopy, v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
     *buf = 138478083;
-    v20 = representationCopy;
-    v21 = 2113;
-    v22 = deviceCopy;
-    _os_log_impl(&dword_1C6968000, v11, OS_LOG_TYPE_INFO, "Saving extension state to cloud: %{private}@, for device: %{private}@", buf, 0x16u);
+    v21 = representationCopy;
+    v22 = 2113;
+    v23 = deviceCopy;
+    _os_log_impl(&dword_1C6968000, v12, OS_LOG_TYPE_INFO, "Saving extension state to cloud: %{private}@, for device: %{private}@", buf, 0x16u);
   }
 
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __110__WBSCloudExtensionStateManager__saveExtensionStatesWithDictionaryRepresentation_forDevice_completionHandler___block_invoke;
-  v15[3] = &unk_1E8283948;
-  v17 = deviceCopy;
-  v18 = handlerCopy;
-  v16 = representationCopy;
-  v12 = deviceCopy;
-  v13 = representationCopy;
-  v14 = handlerCopy;
-  [(WBSCloudExtensionStateManager *)self _determineExtensionSyncAvailabilityWithCompletionHandler:v15];
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __110__WBSCloudExtensionStateManager__saveExtensionStatesWithDictionaryRepresentation_forDevice_completionHandler___block_invoke;
+  v16[3] = &unk_1E8283948;
+  v18 = deviceCopy;
+  v19 = handlerCopy;
+  v17 = representationCopy;
+  v13 = deviceCopy;
+  v14 = representationCopy;
+  v15 = handlerCopy;
+  [(WBSCloudExtensionStateManager *)self _determineExtensionSyncAvailabilityWithCompletionHandler:v16];
 }
 
 void __110__WBSCloudExtensionStateManager__saveExtensionStatesWithDictionaryRepresentation_forDevice_completionHandler___block_invoke(void *a1, char a2)
@@ -1410,21 +1413,21 @@ void __110__WBSCloudExtensionStateManager__saveExtensionStatesWithDictionaryRepr
 - (void)_saveCurrentDeviceToCloudKitWithCompletionHandler:(id)handler
 {
   handlerCopy = handler;
-  v5 = WBS_LOG_CHANNEL_PREFIXCloudExtensions();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = WBS_LOG_CHANNEL_PREFIXCloudExtensions(handlerCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1C6968000, v5, OS_LOG_TYPE_DEFAULT, "Doing periodic save of current device to CloudKit", buf, 2u);
+    _os_log_impl(&dword_1C6968000, v6, OS_LOG_TYPE_DEFAULT, "Doing periodic save of current device to CloudKit", buf, 2u);
   }
 
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = __83__WBSCloudExtensionStateManager__saveCurrentDeviceToCloudKitWithCompletionHandler___block_invoke;
-  v7[3] = &unk_1E82838A8;
-  v7[4] = self;
-  v8 = handlerCopy;
-  v6 = handlerCopy;
-  [(WBSCloudExtensionStateManager *)self _determineExtensionSyncAvailabilityWithCompletionHandler:v7];
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __83__WBSCloudExtensionStateManager__saveCurrentDeviceToCloudKitWithCompletionHandler___block_invoke;
+  v8[3] = &unk_1E82838A8;
+  v8[4] = self;
+  v9 = handlerCopy;
+  v7 = handlerCopy;
+  [(WBSCloudExtensionStateManager *)self _determineExtensionSyncAvailabilityWithCompletionHandler:v8];
 }
 
 void __83__WBSCloudExtensionStateManager__saveCurrentDeviceToCloudKitWithCompletionHandler___block_invoke(uint64_t a1, char a2)
@@ -1456,7 +1459,7 @@ void __83__WBSCloudExtensionStateManager__saveCurrentDeviceToCloudKitWithComplet
 
 - (void)_deleteCurrentDeviceFromCloudKit
 {
-  v3 = WBS_LOG_CHANNEL_PREFIXCloudExtensions();
+  v3 = WBS_LOG_CHANNEL_PREFIXCloudExtensions(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1471,9 +1474,9 @@ void __83__WBSCloudExtensionStateManager__saveCurrentDeviceToCloudKitWithComplet
   [(WBSCloudExtensionStateManager *)self _determineExtensionSyncAvailabilityIgnoringExtensionSyncEnabled:1 completionHandler:v4];
 }
 
-void __65__WBSCloudExtensionStateManager__deleteCurrentDeviceFromCloudKit__block_invoke(uint64_t a1, char a2)
+void __65__WBSCloudExtensionStateManager__deleteCurrentDeviceFromCloudKit__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   if (a2)
   {
     v2 = [*(a1 + 32) _defaultWebExtensionsController];
@@ -1481,16 +1484,16 @@ void __65__WBSCloudExtensionStateManager__deleteCurrentDeviceFromCloudKit__block
 
     if ([v3 length])
     {
-      v4 = [MEMORY[0x1E69C8A08] sharedProxy];
-      v8[0] = v3;
-      v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
-      [v4 deleteCloudExtensionDevicesWithUUIDStrings:v5 completionHandler:&__block_literal_global_60];
+      v5 = [MEMORY[0x1E69C8A08] sharedProxy];
+      v9[0] = v3;
+      v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
+      [v5 deleteCloudExtensionDevicesWithUUIDStrings:v6 completionHandler:&__block_literal_global_60];
     }
 
     else
     {
-      v7 = WBS_LOG_CHANNEL_PREFIXCloudExtensions();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = WBS_LOG_CHANNEL_PREFIXCloudExtensions(0, v4);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         __65__WBSCloudExtensionStateManager__deleteCurrentDeviceFromCloudKit__block_invoke_cold_2();
       }
@@ -1499,8 +1502,8 @@ void __65__WBSCloudExtensionStateManager__deleteCurrentDeviceFromCloudKit__block
 
   else
   {
-    v6 = WBS_LOG_CHANNEL_PREFIXCloudExtensions();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = WBS_LOG_CHANNEL_PREFIXCloudExtensions(a1, a2);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __65__WBSCloudExtensionStateManager__deleteCurrentDeviceFromCloudKit__block_invoke_cold_1();
     }
@@ -1510,12 +1513,13 @@ void __65__WBSCloudExtensionStateManager__deleteCurrentDeviceFromCloudKit__block
 void __65__WBSCloudExtensionStateManager__deleteCurrentDeviceFromCloudKit__block_invoke_58(uint64_t a1, void *a2)
 {
   v2 = a2;
+  v4 = v2;
   if (v2)
   {
-    v3 = WBS_LOG_CHANNEL_PREFIXCloudExtensions();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = WBS_LOG_CHANNEL_PREFIXCloudExtensions(v2, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __65__WBSCloudExtensionStateManager__deleteCurrentDeviceFromCloudKit__block_invoke_58_cold_1(v3);
+      __65__WBSCloudExtensionStateManager__deleteCurrentDeviceFromCloudKit__block_invoke_58_cold_1(v5);
     }
   }
 }
@@ -1523,20 +1527,20 @@ void __65__WBSCloudExtensionStateManager__deleteCurrentDeviceFromCloudKit__block
 - (void)_getCloudExtensionStatesWithCompletionHandler:(id)handler
 {
   handlerCopy = handler;
-  v5 = WBS_LOG_CHANNEL_PREFIXCloudExtensions();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  v6 = WBS_LOG_CHANNEL_PREFIXCloudExtensions(handlerCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_1C6968000, v5, OS_LOG_TYPE_INFO, "Fetching cloud extension state", buf, 2u);
+    _os_log_impl(&dword_1C6968000, v6, OS_LOG_TYPE_INFO, "Fetching cloud extension state", buf, 2u);
   }
 
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = __79__WBSCloudExtensionStateManager__getCloudExtensionStatesWithCompletionHandler___block_invoke;
-  v7[3] = &unk_1E8283998;
-  v8 = handlerCopy;
-  v6 = handlerCopy;
-  [(WBSCloudExtensionStateManager *)self _determineExtensionSyncAvailabilityIgnoringExtensionSyncEnabled:1 completionHandler:v7];
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __79__WBSCloudExtensionStateManager__getCloudExtensionStatesWithCompletionHandler___block_invoke;
+  v8[3] = &unk_1E8283998;
+  v9 = handlerCopy;
+  v7 = handlerCopy;
+  [(WBSCloudExtensionStateManager *)self _determineExtensionSyncAvailabilityIgnoringExtensionSyncEnabled:1 completionHandler:v8];
 }
 
 void __79__WBSCloudExtensionStateManager__getCloudExtensionStatesWithCompletionHandler___block_invoke(uint64_t a1, char a2)
@@ -1766,7 +1770,8 @@ LABEL_27:
 
 - (void)_cloudExtensionStatesWereUpdated
 {
-  if ([(WBSCloudExtensionStateManager *)self _cloudStateMatchesLocalStateForCurrentDevice])
+  _cloudStateMatchesLocalStateForCurrentDevice = [(WBSCloudExtensionStateManager *)self _cloudStateMatchesLocalStateForCurrentDevice];
+  if (_cloudStateMatchesLocalStateForCurrentDevice)
   {
 
     [(WBSCloudExtensionStateManager *)self _updateLocalStateFromCloudExtensionState];
@@ -1774,11 +1779,11 @@ LABEL_27:
 
   else
   {
-    v3 = WBS_LOG_CHANNEL_PREFIXCloudExtensions();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+    v5 = WBS_LOG_CHANNEL_PREFIXCloudExtensions(_cloudStateMatchesLocalStateForCurrentDevice, v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      *v4 = 0;
-      _os_log_impl(&dword_1C6968000, v3, OS_LOG_TYPE_INFO, "Cloud state doesn't match local state at fetch time, saving local state to the cloud and fetching again", v4, 2u);
+      *v6 = 0;
+      _os_log_impl(&dword_1C6968000, v5, OS_LOG_TYPE_INFO, "Cloud state doesn't match local state at fetch time, saving local state to the cloud and fetching again", v6, 2u);
     }
 
     self->_performFetchAfterNextSave = 1;
@@ -1788,22 +1793,22 @@ LABEL_27:
 
 - (void)_updateCloudExtensionStatesFromSafariBookmarksSyncAgent:(id)agent
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   agentCopy = agent;
-  v5 = WBS_LOG_CHANNEL_PREFIXCloudExtensions();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  v6 = WBS_LOG_CHANNEL_PREFIXCloudExtensions(agentCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v8 = agentCopy;
-    _os_log_impl(&dword_1C6968000, v5, OS_LOG_TYPE_INFO, "Updating cloud extension states from notification: %@", buf, 0xCu);
+    v9 = agentCopy;
+    _os_log_impl(&dword_1C6968000, v6, OS_LOG_TYPE_INFO, "Updating cloud extension states from notification: %@", buf, 0xCu);
   }
 
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = __89__WBSCloudExtensionStateManager__updateCloudExtensionStatesFromSafariBookmarksSyncAgent___block_invoke;
-  v6[3] = &unk_1E8283A10;
-  v6[4] = self;
-  [(WBSCloudExtensionStateManager *)self _getCloudExtensionStatesWithCompletionHandler:v6];
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __89__WBSCloudExtensionStateManager__updateCloudExtensionStatesFromSafariBookmarksSyncAgent___block_invoke;
+  v7[3] = &unk_1E8283A10;
+  v7[4] = self;
+  [(WBSCloudExtensionStateManager *)self _getCloudExtensionStatesWithCompletionHandler:v7];
 }
 
 void __89__WBSCloudExtensionStateManager__updateCloudExtensionStatesFromSafariBookmarksSyncAgent___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
@@ -1826,103 +1831,105 @@ void __89__WBSCloudExtensionStateManager__updateCloudExtensionStatesFromSafariBo
   dispatch_async(MEMORY[0x1E69E96A0], v14);
 }
 
-void __89__WBSCloudExtensionStateManager__updateCloudExtensionStatesFromSafariBookmarksSyncAgent___block_invoke_2(uint64_t a1)
+void __89__WBSCloudExtensionStateManager__updateCloudExtensionStatesFromSafariBookmarksSyncAgent___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v26 = *MEMORY[0x1E69E9840];
-  v2 = a1 + 32;
+  v31 = *MEMORY[0x1E69E9840];
+  v3 = a1 + 32;
   if (*(a1 + 32))
   {
-    v3 = WBS_LOG_CHANNEL_PREFIXCloudExtensions();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = WBS_LOG_CHANNEL_PREFIXCloudExtensions(a1, a2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __89__WBSCloudExtensionStateManager__updateCloudExtensionStatesFromSafariBookmarksSyncAgent___block_invoke_2_cold_1(v2, v3);
+      __89__WBSCloudExtensionStateManager__updateCloudExtensionStatesFromSafariBookmarksSyncAgent___block_invoke_2_cold_1(v3, v4);
     }
 
-    v4 = *(a1 + 40);
-    v5 = *(v4 + 24);
-    *(v4 + 24) = 0;
+    v5 = *(a1 + 40);
+    v6 = *(v5 + 24);
+    *(v5 + 24) = 0;
 
-    v6 = *(a1 + 40);
-    v7 = *(v6 + 32);
-    *(v6 + 32) = 0;
+    v7 = *(a1 + 40);
+    v8 = *(v7 + 32);
+    *(v7 + 32) = 0;
 
     *(*(a1 + 40) + 40) = 0;
-    v8 = *(a1 + 40);
-    if (v8[65] == 1)
+    v9 = *(a1 + 40);
+    if (v9[65] == 1)
     {
-      [v8 _updateLocalStateFromCloudExtensionState];
+      [v9 _updateLocalStateFromCloudExtensionState];
     }
   }
 
   else
   {
     *(*(a1 + 40) + 40) = 1;
-    v9 = WBS_LOG_CHANNEL_PREFIXCloudExtensions();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v10 = WBS_LOG_CHANNEL_PREFIXCloudExtensions(a1, a2);
+    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_INFO);
+    if (v11)
     {
-      v10 = *(a1 + 48);
-      v24 = 138477827;
-      v25 = v10;
-      _os_log_impl(&dword_1C6968000, v9, OS_LOG_TYPE_INFO, "Received cloud devices: %{private}@", &v24, 0xCu);
+      v13 = *(a1 + 48);
+      v29 = 138477827;
+      v30 = v13;
+      _os_log_impl(&dword_1C6968000, v10, OS_LOG_TYPE_INFO, "Received cloud devices: %{private}@", &v29, 0xCu);
     }
 
-    v11 = WBS_LOG_CHANNEL_PREFIXCloudExtensions();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    v14 = WBS_LOG_CHANNEL_PREFIXCloudExtensions(v11, v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
-      v12 = *(a1 + 56);
-      v24 = 138477827;
-      v25 = v12;
-      _os_log_impl(&dword_1C6968000, v11, OS_LOG_TYPE_INFO, "Received cloud extension state: %{private}@", &v24, 0xCu);
+      v15 = *(a1 + 56);
+      v29 = 138477827;
+      v30 = v15;
+      _os_log_impl(&dword_1C6968000, v14, OS_LOG_TYPE_INFO, "Received cloud extension state: %{private}@", &v29, 0xCu);
     }
 
-    v13 = [*(a1 + 56) copy];
-    v14 = *(a1 + 40);
-    v15 = *(v14 + 24);
-    *(v14 + 24) = v13;
-
-    v16 = [*(a1 + 48) copy];
+    v16 = [*(a1 + 56) copy];
     v17 = *(a1 + 40);
-    v18 = *(v17 + 32);
-    *(v17 + 32) = v16;
+    v18 = *(v17 + 24);
+    *(v17 + 24) = v16;
 
-    v19 = *(a1 + 40);
-    if (*(v19 + 65))
+    v19 = [*(a1 + 48) copy];
+    v20 = *(a1 + 40);
+    v21 = *(v20 + 32);
+    *(v20 + 32) = v19;
+
+    v22 = *(a1 + 40);
+    if (*(v22 + 65))
     {
-      if (!*(v19 + 48))
+      if (!*(v22 + 48))
       {
-        [v19 _schedulePruningOfInactiveDevices];
-        v19 = *(a1 + 40);
+        [v22 _schedulePruningOfInactiveDevices];
+        v22 = *(a1 + 40);
       }
 
-      [v19 _cloudExtensionStatesWereUpdated];
-      v20 = *(a1 + 40);
-      if ((*(v20 + 8) & 1) == 0)
+      [v22 _cloudExtensionStatesWereUpdated];
+      v23 = *(a1 + 40);
+      if ((*(v23 + 8) & 1) == 0)
       {
-        *(v20 + 8) = 1;
-        if (([*(a1 + 40) _cloudStateMatchesLocalStateForCurrentDevice] & 1) == 0)
+        *(v23 + 8) = 1;
+        v24 = [*(a1 + 40) _cloudStateMatchesLocalStateForCurrentDevice];
+        if ((v24 & 1) == 0)
         {
-          v21 = WBS_LOG_CHANNEL_PREFIXCloudExtensions();
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+          v26 = WBS_LOG_CHANNEL_PREFIXCloudExtensions(v24, v25);
+          if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
           {
-            LOWORD(v24) = 0;
-            _os_log_impl(&dword_1C6968000, v21, OS_LOG_TYPE_INFO, "Cloud state for the current device doesn't match local state, saving extension state to cloud", &v24, 2u);
+            LOWORD(v29) = 0;
+            _os_log_impl(&dword_1C6968000, v26, OS_LOG_TYPE_INFO, "Cloud state for the current device doesn't match local state, saving extension state to cloud", &v29, 2u);
           }
 
           [*(a1 + 40) localExtensionStateDidChange];
         }
       }
 
-      v22 = *(a1 + 40);
-      if (*(v22 + 65) == 1 && !*(v22 + 56))
+      v27 = *(a1 + 40);
+      if (*(v27 + 65) == 1 && !*(v27 + 56))
       {
-        [v22 _ensureCurrentDeviceIsSavedPeriodically];
+        [v27 _ensureCurrentDeviceIsSavedPeriodically];
       }
     }
 
     else
     {
-      v23 = [MEMORY[0x1E696AD88] defaultCenter];
-      [v23 postNotificationName:@"WBSCloudExtensionStateDidChange" object:0];
+      v28 = [MEMORY[0x1E696AD88] defaultCenter];
+      [v28 postNotificationName:@"WBSCloudExtensionStateDidChange" object:0];
     }
   }
 }
@@ -1979,12 +1986,13 @@ void __72__WBSCloudExtensionStateManager__ensureCurrentDeviceIsSavedPeriodically
 void __72__WBSCloudExtensionStateManager__ensureCurrentDeviceIsSavedPeriodically__block_invoke_3(uint64_t a1, void *a2)
 {
   v2 = a2;
+  v4 = v2;
   if (v2)
   {
-    v3 = WBS_LOG_CHANNEL_PREFIXCloudExtensions();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = WBS_LOG_CHANNEL_PREFIXCloudExtensions(v2, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __72__WBSCloudExtensionStateManager__ensureCurrentDeviceIsSavedPeriodically__block_invoke_3_cold_1(v3);
+      __72__WBSCloudExtensionStateManager__ensureCurrentDeviceIsSavedPeriodically__block_invoke_3_cold_1(v5);
     }
   }
 
@@ -2254,26 +2262,26 @@ id __96__WBSCloudExtensionStateManager__singleExtensionStates_withStateRemovedFo
 - (void)_pruneInactiveDevicesFromCloudKitWithCompletionHandler:(id)handler
 {
   handlerCopy = handler;
-  v5 = WBS_LOG_CHANNEL_PREFIXCloudExtensions();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = WBS_LOG_CHANNEL_PREFIXCloudExtensions(handlerCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1C6968000, v5, OS_LOG_TYPE_DEFAULT, "Pruning inactive extension devices from CloudKit", buf, 2u);
+    _os_log_impl(&dword_1C6968000, v6, OS_LOG_TYPE_DEFAULT, "Pruning inactive extension devices from CloudKit", buf, 2u);
   }
 
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = __88__WBSCloudExtensionStateManager__pruneInactiveDevicesFromCloudKitWithCompletionHandler___block_invoke;
-  v7[3] = &unk_1E82838A8;
-  v7[4] = self;
-  v8 = handlerCopy;
-  v6 = handlerCopy;
-  [(WBSCloudExtensionStateManager *)self _determineExtensionSyncAvailabilityWithCompletionHandler:v7];
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __88__WBSCloudExtensionStateManager__pruneInactiveDevicesFromCloudKitWithCompletionHandler___block_invoke;
+  v8[3] = &unk_1E82838A8;
+  v8[4] = self;
+  v9 = handlerCopy;
+  v7 = handlerCopy;
+  [(WBSCloudExtensionStateManager *)self _determineExtensionSyncAvailabilityWithCompletionHandler:v8];
 }
 
-void __88__WBSCloudExtensionStateManager__pruneInactiveDevicesFromCloudKitWithCompletionHandler___block_invoke(uint64_t a1, char a2)
+void __88__WBSCloudExtensionStateManager__pruneInactiveDevicesFromCloudKitWithCompletionHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   if (a2)
   {
     v3 = objc_opt_class();
@@ -2284,63 +2292,63 @@ void __88__WBSCloudExtensionStateManager__pruneInactiveDevicesFromCloudKitWithCo
     v8 = [v3 _uuidStringsOfInactiveCloudDevices:v5 currentDeviceUUIDString:v7];
 
     v9 = [v8 count];
-    v10 = WBS_LOG_CHANNEL_PREFIXCloudExtensions();
-    v11 = v10;
+    v11 = WBS_LOG_CHANNEL_PREFIXCloudExtensions(v9, v10);
+    v12 = v11;
     if (v9)
     {
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v32 = v8;
-        _os_log_impl(&dword_1C6968000, v11, OS_LOG_TYPE_DEFAULT, "Pruning inactive extension devices with UUIDs: %{public}@", buf, 0xCu);
+        v33 = v8;
+        _os_log_impl(&dword_1C6968000, v12, OS_LOG_TYPE_DEFAULT, "Pruning inactive extension devices with UUIDs: %{public}@", buf, 0xCu);
       }
 
-      v28 = 0u;
       v29 = 0u;
-      v26 = 0u;
+      v30 = 0u;
       v27 = 0u;
-      v12 = v8;
-      v13 = [v12 countByEnumeratingWithState:&v26 objects:v30 count:16];
-      if (v13)
+      v28 = 0u;
+      v13 = v8;
+      v14 = [v13 countByEnumeratingWithState:&v27 objects:v31 count:16];
+      if (v14)
       {
-        v14 = v13;
-        v15 = *v27;
+        v15 = v14;
+        v16 = *v28;
         do
         {
-          v16 = 0;
+          v17 = 0;
           do
           {
-            if (*v27 != v15)
+            if (*v28 != v16)
             {
-              objc_enumerationMutation(v12);
+              objc_enumerationMutation(v13);
             }
 
-            v17 = *(*(&v26 + 1) + 8 * v16);
-            v18 = [objc_opt_class() _removeDeviceWithUUIDString:v17 fromCloudDevices:{*(*(a1 + 32) + 32), v26}];
-            v19 = *(a1 + 32);
-            v20 = *(v19 + 32);
-            *(v19 + 32) = v18;
+            v18 = *(*(&v27 + 1) + 8 * v17);
+            v19 = [objc_opt_class() _removeDeviceWithUUIDString:v18 fromCloudDevices:{*(*(a1 + 32) + 32), v27}];
+            v20 = *(a1 + 32);
+            v21 = *(v20 + 32);
+            *(v20 + 32) = v19;
 
-            v21 = [objc_opt_class() _removeStatesForDeviceWithUUIDString:v17 fromCloudExtensionStates:*(*(a1 + 32) + 24)];
-            v22 = *(a1 + 32);
-            v23 = *(v22 + 24);
-            *(v22 + 24) = v21;
+            v22 = [objc_opt_class() _removeStatesForDeviceWithUUIDString:v18 fromCloudExtensionStates:*(*(a1 + 32) + 24)];
+            v23 = *(a1 + 32);
+            v24 = *(v23 + 24);
+            *(v23 + 24) = v22;
 
-            ++v16;
+            ++v17;
           }
 
-          while (v14 != v16);
-          v14 = [v12 countByEnumeratingWithState:&v26 objects:v30 count:16];
+          while (v15 != v17);
+          v15 = [v13 countByEnumeratingWithState:&v27 objects:v31 count:16];
         }
 
-        while (v14);
+        while (v15);
       }
 
-      v24 = [MEMORY[0x1E69C8A08] sharedProxy];
-      [v24 deleteCloudExtensionDevicesWithUUIDStrings:v12 completionHandler:&__block_literal_global_82];
+      v25 = [MEMORY[0x1E69C8A08] sharedProxy];
+      [v25 deleteCloudExtensionDevicesWithUUIDStrings:v13 completionHandler:&__block_literal_global_82];
     }
 
-    else if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    else if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       __88__WBSCloudExtensionStateManager__pruneInactiveDevicesFromCloudKitWithCompletionHandler___block_invoke_cold_1();
     }
@@ -2350,11 +2358,11 @@ void __88__WBSCloudExtensionStateManager__pruneInactiveDevicesFromCloudKitWithCo
 
   else
   {
-    v25 = WBS_LOG_CHANNEL_PREFIXCloudExtensions();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+    v26 = WBS_LOG_CHANNEL_PREFIXCloudExtensions(a1, a2);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1C6968000, v25, OS_LOG_TYPE_DEFAULT, "Skipping pruning inactive extension devices from CloudKit because extension sync is off", buf, 2u);
+      _os_log_impl(&dword_1C6968000, v26, OS_LOG_TYPE_DEFAULT, "Skipping pruning inactive extension devices from CloudKit because extension sync is off", buf, 2u);
     }
 
     (*(*(a1 + 40) + 16))();
@@ -2364,12 +2372,13 @@ void __88__WBSCloudExtensionStateManager__pruneInactiveDevicesFromCloudKitWithCo
 void __88__WBSCloudExtensionStateManager__pruneInactiveDevicesFromCloudKitWithCompletionHandler___block_invoke_80(uint64_t a1, void *a2)
 {
   v2 = a2;
+  v4 = v2;
   if (v2)
   {
-    v3 = WBS_LOG_CHANNEL_PREFIXCloudExtensions();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = WBS_LOG_CHANNEL_PREFIXCloudExtensions(v2, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __88__WBSCloudExtensionStateManager__pruneInactiveDevicesFromCloudKitWithCompletionHandler___block_invoke_80_cold_1(v3);
+      __88__WBSCloudExtensionStateManager__pruneInactiveDevicesFromCloudKitWithCompletionHandler___block_invoke_80_cold_1(v5);
     }
   }
 }
@@ -2464,7 +2473,7 @@ uint64_t __98__WBSCloudExtensionStateManager__determineEnabledStateFromCloudExte
 
 - (BOOL)_cloudDeviceMatchesLocalDeviceForCurrentDevice
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   _extensionDeviceDictionaryForCurrentDevice = [(WBSCloudExtensionStateManager *)self _extensionDeviceDictionaryForCurrentDevice];
   if (_extensionDeviceDictionaryForCurrentDevice)
   {
@@ -2474,71 +2483,74 @@ uint64_t __98__WBSCloudExtensionStateManager__determineEnabledStateFromCloudExte
     if ([_deviceUUIDString length])
     {
       cloudDevices = self->_cloudDevices;
-      v17[0] = MEMORY[0x1E69E9820];
-      v17[1] = 3221225472;
-      v17[2] = __79__WBSCloudExtensionStateManager__cloudDeviceMatchesLocalDeviceForCurrentDevice__block_invoke;
-      v17[3] = &unk_1E8283B48;
-      v18 = _deviceUUIDString;
-      v7 = [(NSArray *)cloudDevices safari_firstObjectPassingTest:v17];
-      if (!v7)
+      v24[0] = MEMORY[0x1E69E9820];
+      v24[1] = 3221225472;
+      v24[2] = __79__WBSCloudExtensionStateManager__cloudDeviceMatchesLocalDeviceForCurrentDevice__block_invoke;
+      v24[3] = &unk_1E8283B48;
+      v25 = _deviceUUIDString;
+      v8 = [(NSArray *)cloudDevices safari_firstObjectPassingTest:v24];
+      if (!v8)
       {
-        v8 = WBS_LOG_CHANNEL_PREFIXCloudExtensions();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+        v9 = WBS_LOG_CHANNEL_PREFIXCloudExtensions(0, v7);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&dword_1C6968000, v8, OS_LOG_TYPE_INFO, "Current extension device doesn't exist in cloud", buf, 2u);
+          _os_log_impl(&dword_1C6968000, v9, OS_LOG_TYPE_INFO, "Current extension device doesn't exist in cloud", buf, 2u);
         }
       }
 
-      v9 = extensionDeviceDictionaryToUseForComparison_once;
-      v10 = v7;
-      if (v9 != -1)
+      v10 = extensionDeviceDictionaryToUseForComparison_once;
+      v11 = v8;
+      if (v10 != -1)
       {
         [WBSCloudExtensionStateManager _cloudDeviceMatchesLocalDeviceForCurrentDevice];
       }
 
-      v11 = [v10 safari_mapAndFilterKeysAndObjectsUsingBlock:&__block_literal_global_217];
+      v12 = [v11 safari_mapAndFilterKeysAndObjectsUsingBlock:&__block_literal_global_217];
 
-      v12 = [v11 isEqualToDictionary:_extensionDeviceDictionaryForCurrentDevice];
-      if ((v12 & 1) == 0)
+      v13 = [v12 isEqualToDictionary:_extensionDeviceDictionaryForCurrentDevice];
+      v15 = v13;
+      if ((v13 & 1) == 0)
       {
-        v13 = WBS_LOG_CHANNEL_PREFIXCloudExtensions();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+        v16 = WBS_LOG_CHANNEL_PREFIXCloudExtensions(v13, v14);
+        v17 = os_log_type_enabled(v16, OS_LOG_TYPE_INFO);
+        if (v17)
         {
           *buf = 0;
-          _os_log_impl(&dword_1C6968000, v13, OS_LOG_TYPE_INFO, "Cloud extension device doesn't match local device", buf, 2u);
+          _os_log_impl(&dword_1C6968000, v16, OS_LOG_TYPE_INFO, "Cloud extension device doesn't match local device", buf, 2u);
         }
 
-        v14 = WBS_LOG_CHANNEL_PREFIXCloudExtensions();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+        v19 = WBS_LOG_CHANNEL_PREFIXCloudExtensions(v17, v18);
+        v20 = os_log_type_enabled(v19, OS_LOG_TYPE_INFO);
+        if (v20)
         {
           *buf = 138477827;
-          v20 = _extensionDeviceDictionaryForCurrentDevice;
-          _os_log_impl(&dword_1C6968000, v14, OS_LOG_TYPE_INFO, "Local extension device: %{private}@", buf, 0xCu);
+          v27 = _extensionDeviceDictionaryForCurrentDevice;
+          _os_log_impl(&dword_1C6968000, v19, OS_LOG_TYPE_INFO, "Local extension device: %{private}@", buf, 0xCu);
         }
 
-        v15 = WBS_LOG_CHANNEL_PREFIXCloudExtensions();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+        v22 = WBS_LOG_CHANNEL_PREFIXCloudExtensions(v20, v21);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
         {
           *buf = 138477827;
-          v20 = v11;
-          _os_log_impl(&dword_1C6968000, v15, OS_LOG_TYPE_INFO, "Cloud extension device: %{private}@", buf, 0xCu);
+          v27 = v12;
+          _os_log_impl(&dword_1C6968000, v22, OS_LOG_TYPE_INFO, "Cloud extension device: %{private}@", buf, 0xCu);
         }
       }
     }
 
     else
     {
-      v12 = 0;
+      v15 = 0;
     }
   }
 
   else
   {
-    v12 = 1;
+    v15 = 1;
   }
 
-  return v12;
+  return v15;
 }
 
 uint64_t __79__WBSCloudExtensionStateManager__cloudDeviceMatchesLocalDeviceForCurrentDevice__block_invoke(uint64_t a1, void *a2)
@@ -2615,7 +2627,7 @@ LABEL_11:
 
 - (BOOL)_cloudExtensionStatesMatchLocalExtensionStatesForCurrentDevice
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   _extensionStatesDictionaryForCurrentDevice = [(WBSCloudExtensionStateManager *)self _extensionStatesDictionaryForCurrentDevice];
   v4 = extensionsStatesDictionaryToUseForComparison(_extensionStatesDictionaryForCurrentDevice);
 
@@ -2626,45 +2638,46 @@ LABEL_11:
   v8 = extensionsStatesDictionaryToUseForComparison(v7);
 
   v9 = [v4 isEqualToDictionary:v8];
-  v10 = WBS_LOG_CHANNEL_PREFIXCloudExtensions();
-  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_INFO);
+  v11 = WBS_LOG_CHANNEL_PREFIXCloudExtensions(v9, v10);
+  v12 = os_log_type_enabled(v11, OS_LOG_TYPE_INFO);
   if (v9)
   {
-    if (v11)
+    if (v12)
     {
-      LOWORD(v18) = 0;
-      v12 = "Cloud extension states for the current devices matches local states";
-      v13 = v10;
-      v14 = 2;
+      LOWORD(v22) = 0;
+      v14 = "Cloud extension states for the current devices matches local states";
+      v15 = v11;
+      v16 = 2;
 LABEL_10:
-      _os_log_impl(&dword_1C6968000, v13, OS_LOG_TYPE_INFO, v12, &v18, v14);
+      _os_log_impl(&dword_1C6968000, v15, OS_LOG_TYPE_INFO, v14, &v22, v16);
     }
   }
 
   else
   {
-    if (v11)
+    if (v12)
     {
-      LOWORD(v18) = 0;
-      _os_log_impl(&dword_1C6968000, v10, OS_LOG_TYPE_INFO, "Cloud extension states for the current device doesn't match local states", &v18, 2u);
+      LOWORD(v22) = 0;
+      _os_log_impl(&dword_1C6968000, v11, OS_LOG_TYPE_INFO, "Cloud extension states for the current device doesn't match local states", &v22, 2u);
     }
 
-    v15 = WBS_LOG_CHANNEL_PREFIXCloudExtensions();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+    v17 = WBS_LOG_CHANNEL_PREFIXCloudExtensions(v12, v13);
+    v18 = os_log_type_enabled(v17, OS_LOG_TYPE_INFO);
+    if (v18)
     {
-      v18 = 138477827;
-      v19 = v4;
-      _os_log_impl(&dword_1C6968000, v15, OS_LOG_TYPE_INFO, "Local extension states: %{private}@", &v18, 0xCu);
+      v22 = 138477827;
+      v23 = v4;
+      _os_log_impl(&dword_1C6968000, v17, OS_LOG_TYPE_INFO, "Local extension states: %{private}@", &v22, 0xCu);
     }
 
-    v16 = WBS_LOG_CHANNEL_PREFIXCloudExtensions();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+    v20 = WBS_LOG_CHANNEL_PREFIXCloudExtensions(v18, v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
     {
-      v18 = 138477827;
-      v19 = v8;
-      v12 = "Cloud extension states: %{private}@";
-      v13 = v16;
-      v14 = 12;
+      v22 = 138477827;
+      v23 = v8;
+      v14 = "Cloud extension states: %{private}@";
+      v15 = v20;
+      v16 = 12;
       goto LABEL_10;
     }
   }
@@ -2747,11 +2760,11 @@ BOOL __64__WBSCloudExtensionStateManager__defaultWebExtensionsController__block_
   }
 }
 
-uint64_t __65__WBSCloudExtensionStateManager__managedExtensionStateDidChange___block_invoke(uint64_t result, int a2)
+id *__65__WBSCloudExtensionStateManager__managedExtensionStateDidChange___block_invoke(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) _updateCloudExtensionStatesFromSafariBookmarksSyncAgent:0];
+    return [result[4] _updateCloudExtensionStatesFromSafariBookmarksSyncAgent:0];
   }
 
   return result;
@@ -2863,7 +2876,7 @@ void __61__WBSCloudExtensionStateManager_localExtensionStateDidChange__block_inv
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_3() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1C6968000, v4, v5, "Saving cloud extension states failed with error %{public}@", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_0(&dword_1C6968000, v4, v5, "Saving cloud extension states failed with error %{public}@", v6, v7, v8, v9);
 }
 
 void __65__WBSCloudExtensionStateManager__deleteCurrentDeviceFromCloudKit__block_invoke_58_cold_1(void *a1)
@@ -2871,7 +2884,7 @@ void __65__WBSCloudExtensionStateManager__deleteCurrentDeviceFromCloudKit__block
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_3() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1C6968000, v4, v5, "Deleting current device failed with error %{public}@", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_0(&dword_1C6968000, v4, v5, "Deleting current device failed with error %{public}@", v6, v7, v8, v9);
 }
 
 void __89__WBSCloudExtensionStateManager__updateCloudExtensionStatesFromSafariBookmarksSyncAgent___block_invoke_2_cold_1(uint64_t a1, void *a2)
@@ -2879,7 +2892,7 @@ void __89__WBSCloudExtensionStateManager__updateCloudExtensionStatesFromSafariBo
   v3 = a2;
   v4 = [OUTLINED_FUNCTION_3() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1C6968000, v5, v6, "Fetching cloud extension states failed with error %{public}@", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_0(&dword_1C6968000, v5, v6, "Fetching cloud extension states failed with error %{public}@", v7, v8, v9, v10);
 }
 
 void __72__WBSCloudExtensionStateManager__ensureCurrentDeviceIsSavedPeriodically__block_invoke_3_cold_1(void *a1)
@@ -2887,7 +2900,7 @@ void __72__WBSCloudExtensionStateManager__ensureCurrentDeviceIsSavedPeriodically
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_3() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1C6968000, v4, v5, "Periodic save of current device to CloudKit failed with error %{public}@", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_0(&dword_1C6968000, v4, v5, "Periodic save of current device to CloudKit failed with error %{public}@", v6, v7, v8, v9);
 }
 
 void __88__WBSCloudExtensionStateManager__pruneInactiveDevicesFromCloudKitWithCompletionHandler___block_invoke_80_cold_1(void *a1)
@@ -2895,7 +2908,7 @@ void __88__WBSCloudExtensionStateManager__pruneInactiveDevicesFromCloudKitWithCo
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_3() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1C6968000, v4, v5, "Deleting inactive extension devices failed with error %{public}@", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_0(&dword_1C6968000, v4, v5, "Deleting inactive extension devices failed with error %{public}@", v6, v7, v8, v9);
 }
 
 @end

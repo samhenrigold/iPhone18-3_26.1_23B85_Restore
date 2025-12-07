@@ -5,6 +5,7 @@
 - (void)parser:(id)parser foundAttributes:(id)attributes atCharacterIndex:(int64_t)index fileTransferGUID:(id)d filename:(id)filename bookmark:(id)bookmark width:(id)width height:(id)self0 isAnimoji:(id)self1;
 - (void)parser:(id)parser foundAttributes:(id)attributes inRange:(_NSRange)range characters:(id)characters;
 - (void)parser:(id)parser foundAttributes:(id)attributes inRange:(_NSRange)range fileTransferGUID:(id)d filename:(id)filename bookmark:(id)bookmark width:(id)width height:(id)self0 isAnimoji:(id)self1;
+- (void)parser:(id)parser foundBreadcrumbText:(id)text withOptions:(unsigned int)options;
 - (void)parserDidEnd:(id)end;
 - (void)parserDidStart:(id)start bodyAttributes:(id)attributes;
 @end
@@ -795,6 +796,15 @@ LABEL_66:
       }
     }
   }
+}
+
+- (void)parser:(id)parser foundBreadcrumbText:(id)text withOptions:(unsigned int)options
+{
+  v5 = *&options;
+  v8 = IMCreateEscapedAttributeValueFromString();
+  v7 = [NSString stringWithFormat:@"<object breadcrumbText=%@ breadcrumbOptions=%u></object>", v8, v5];
+  [(NSMutableString *)self->_outHTML appendString:v7];
+  [(NSMutableString *)self->_AuxHTML appendString:v7];
 }
 
 - (void)parserDidEnd:(id)end

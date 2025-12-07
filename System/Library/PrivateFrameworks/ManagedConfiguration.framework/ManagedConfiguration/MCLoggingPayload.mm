@@ -10,10 +10,9 @@
 
 + (id)typeStrings
 {
-  v5[1] = *MEMORY[0x1E69E9840];
-  v5[0] = @"com.apple.system.logging";
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x1E69E9840];
+  v4[1] = *MEMORY[0x1E69E9840];
+  v4[0] = @"com.apple.system.logging";
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:1];
 
   return v2;
 }
@@ -34,21 +33,21 @@
 
 - (MCLoggingPayload)initWithDictionary:(id)dictionary profile:(id)profile outError:(id *)error
 {
-  v74 = *MEMORY[0x1E69E9840];
+  v73 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   profileCopy = profile;
-  v69.receiver = self;
-  v69.super_class = MCLoggingPayload;
-  v10 = [(MCPayload *)&v69 initWithDictionary:dictionaryCopy profile:profileCopy outError:error];
+  v68.receiver = self;
+  v68.super_class = MCLoggingPayload;
+  v10 = [(MCPayload *)&v68 initWithDictionary:dictionaryCopy profile:profileCopy outError:error];
   if (!v10)
   {
     goto LABEL_41;
   }
 
   dictionary = [MEMORY[0x1E695DF90] dictionary];
-  v68 = 0;
-  v12 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"Processes" isRequired:0 outError:&v68];
-  v13 = v68;
+  v67 = 0;
+  v12 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"Processes" isRequired:0 outError:&v67];
+  v13 = v67;
   if (v13)
   {
     mCCopyAsPrimaryError = v13;
@@ -70,9 +69,9 @@ LABEL_32:
       v55 = v54;
       mCVerboseDescription = [v50 MCVerboseDescription];
       *buf = 138543618;
-      v71 = v54;
-      v72 = 2114;
-      v73 = mCVerboseDescription;
+      v70 = v54;
+      v71 = 2114;
+      v72 = mCVerboseDescription;
       _os_log_impl(&dword_1A795B000, v53, OS_LOG_TYPE_ERROR, "%{public}@ Can't parse payload: %{public}@", buf, 0x16u);
     }
 
@@ -85,20 +84,20 @@ LABEL_32:
     [dictionary setObject:v12 forKey:@"Processes"];
   }
 
-  v64 = dictionary;
-  v67 = 0;
-  v15 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"Subsystems" isRequired:0 outError:&v67];
-  mCCopyAsPrimaryError = v67;
+  v63 = dictionary;
+  v66 = 0;
+  v15 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"Subsystems" isRequired:0 outError:&v66];
+  mCCopyAsPrimaryError = v66;
   if (!mCCopyAsPrimaryError)
   {
     if (v15)
     {
-      [v64 setObject:v15 forKey:@"Subsystems"];
+      [v63 setObject:v15 forKey:@"Subsystems"];
     }
 
-    v66 = 0;
-    v16 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"System" isRequired:0 outError:&v66];
-    v17 = v66;
+    v65 = 0;
+    v16 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"System" isRequired:0 outError:&v65];
+    v17 = v65;
     if (v17)
     {
       mCCopyAsPrimaryError = v17;
@@ -139,7 +138,7 @@ LABEL_30:
 
     if (v18)
     {
-      [v64 setObject:v18 forKey:@"System"];
+      [v63 setObject:v18 forKey:@"System"];
     }
 
     profile2 = [(MCPayload *)v10 profile];
@@ -150,16 +149,16 @@ LABEL_30:
       goto LABEL_22;
     }
 
-    v65 = 0;
-    v27 = MCOSLogValidateProfilePayload(v64, &v65);
-    loggingPayload = v65;
+    v64 = 0;
+    v27 = MCOSLogValidateProfilePayload(v63, &v64);
+    loggingPayload = v64;
     if (v27)
     {
       if ([(MCLoggingPayload *)v10 isAllowedToWriteLogging])
       {
 
 LABEL_22:
-        v25 = [v64 copy];
+        v25 = [v63 copy];
         mCCopyAsPrimaryError = 0;
         loggingPayload = v10->_loggingPayload;
         v10->_loggingPayload = v25;
@@ -173,8 +172,8 @@ LABEL_29:
       v47 = MCErrorArray(@"ERROR_PROFILE_DEFAULTS_BAD_SIGNATURE_P_ID", v40, v41, v42, v43, v44, v45, v46, friendlyName);
       v48 = v39;
       v38 = v47;
-      v62 = [v48 MCErrorWithDomain:@"MCLoggingSettingsErrorDomain" code:49000 descriptionArray:? errorType:?];
-      mCCopyAsPrimaryError = [v62 MCCopyAsPrimaryError];
+      v61 = [v48 MCErrorWithDomain:@"MCLoggingSettingsErrorDomain" code:49000 descriptionArray:? errorType:?];
+      mCCopyAsPrimaryError = [v61 MCCopyAsPrimaryError];
     }
 
     else
@@ -206,15 +205,14 @@ LABEL_37:
       v58 = v57;
       friendlyName2 = [(MCPayload *)v10 friendlyName];
       *buf = 138543618;
-      v71 = friendlyName2;
-      v72 = 2114;
-      v73 = dictionaryCopy;
+      v70 = friendlyName2;
+      v71 = 2114;
+      v72 = dictionaryCopy;
       _os_log_impl(&dword_1A795B000, v58, OS_LOG_TYPE_INFO, "Payload “%{public}@” contains ignored fields. They are: %{public}@", buf, 0x16u);
     }
   }
 
 LABEL_41:
-  v60 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

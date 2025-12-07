@@ -28,7 +28,7 @@
 
 + (id)lastExitStatusForLabel:(id)label error:(id *)error
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   labelCopy = label;
   v6 = labelCopy;
   if (!labelCopy)
@@ -38,7 +38,6 @@ LABEL_10:
     goto LABEL_11;
   }
 
-  v21 = 0;
   [labelCopy UTF8String];
   last_exit_reason_4SB = _launch_get_last_exit_reason_4SB();
   if (!last_exit_reason_4SB)
@@ -47,7 +46,7 @@ LABEL_10:
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v25 = v6;
+      v23 = v6;
       _os_log_impl(&dword_262485000, v18, OS_LOG_TYPE_DEFAULT, "Launchd says label %{public}@ has never exited", buf, 0xCu);
     }
 
@@ -61,11 +60,11 @@ LABEL_10:
   if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
     *buf = 138543874;
-    v25 = v6;
-    v26 = 2080;
-    v27 = v10;
-    v28 = 1024;
-    v29 = v8;
+    v23 = v6;
+    v24 = 2080;
+    v25 = v10;
+    v26 = 1024;
+    v27 = v8;
     _os_log_error_impl(&dword_262485000, v11, OS_LOG_TYPE_ERROR, "failed to get process exit details for %{public}@ : %s (%d)", buf, 0x1Cu);
   }
 
@@ -76,17 +75,15 @@ LABEL_10:
     v14 = MEMORY[0x277CCA9B8];
     v15 = *MEMORY[0x277CCA5B8];
     v16 = *MEMORY[0x277CCA470];
-    v22[0] = *MEMORY[0x277CCA450];
-    v22[1] = v16;
-    v23[0] = v12;
-    v23[1] = v13;
-    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:2];
+    v20[0] = *MEMORY[0x277CCA450];
+    v20[1] = v16;
+    v21[0] = v12;
+    v21[1] = v13;
+    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:2];
     *error = [v14 errorWithDomain:v15 code:v8 userInfo:v17];
   }
 
 LABEL_11:
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -150,7 +147,7 @@ LABEL_11:
 
 - (void)_addSharedPropertiesToData:(id)data forIdentity:(id)identity context:(id)context
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   identityCopy = identity;
   contextCopy = context;
@@ -207,8 +204,8 @@ LABEL_13:
   _overrideExecutablePath = [contextCopy _overrideExecutablePath];
   fileSystemRepresentation = [_overrideExecutablePath fileSystemRepresentation];
 
-  v40 = executionOptions;
-  v41 = identityCopy;
+  v39 = executionOptions;
+  v40 = identityCopy;
   if (fileSystemRepresentation)
   {
     xpc_array_set_string(v16, 0xFFFFFFFFFFFFFFFFLL, fileSystemRepresentation);
@@ -224,58 +221,58 @@ LABEL_13:
     }
   }
 
-  v50 = 0u;
-  v51 = 0u;
-  v48 = 0u;
   v49 = 0u;
+  v50 = 0u;
+  v47 = 0u;
+  v48 = 0u;
   arguments = [contextCopy arguments];
-  v21 = [arguments countByEnumeratingWithState:&v48 objects:v55 count:16];
+  v21 = [arguments countByEnumeratingWithState:&v47 objects:v54 count:16];
   if (v21)
   {
     v22 = v21;
-    v23 = *v49;
+    v23 = *v48;
     do
     {
       for (i = 0; i != v22; ++i)
       {
-        if (*v49 != v23)
+        if (*v48 != v23)
         {
           objc_enumerationMutation(arguments);
         }
 
-        v25 = [*(*(&v48 + 1) + 8 * i) description];
+        v25 = [*(*(&v47 + 1) + 8 * i) description];
         xpc_array_set_string(v16, 0xFFFFFFFFFFFFFFFFLL, [v25 UTF8String]);
       }
 
-      v22 = [arguments countByEnumeratingWithState:&v48 objects:v55 count:16];
+      v22 = [arguments countByEnumeratingWithState:&v47 objects:v54 count:16];
     }
 
     while (v22);
   }
 
-  v42 = dataCopy;
+  v41 = dataCopy;
   xpc_dictionary_set_value(dataCopy, "ProgramArguments", v16);
   v26 = xpc_dictionary_create(0, 0, 0);
+  v43 = 0u;
   v44 = 0u;
   v45 = 0u;
   v46 = 0u;
-  v47 = 0u;
   _additionalEnvironment = [contextCopy _additionalEnvironment];
-  v28 = [_additionalEnvironment countByEnumeratingWithState:&v44 objects:v54 count:16];
+  v28 = [_additionalEnvironment countByEnumeratingWithState:&v43 objects:v53 count:16];
   if (v28)
   {
     v29 = v28;
-    v30 = *v45;
+    v30 = *v44;
     do
     {
       for (j = 0; j != v29; ++j)
       {
-        if (*v45 != v30)
+        if (*v44 != v30)
         {
           objc_enumerationMutation(_additionalEnvironment);
         }
 
-        v32 = *(*(&v44 + 1) + 8 * j);
+        v32 = *(*(&v43 + 1) + 8 * j);
         _additionalEnvironment2 = [contextCopy _additionalEnvironment];
         v34 = [_additionalEnvironment2 objectForKey:v32];
 
@@ -285,32 +282,30 @@ LABEL_13:
         xpc_dictionary_set_string(v26, uTF8String, [v37 UTF8String]);
       }
 
-      v29 = [_additionalEnvironment countByEnumeratingWithState:&v44 objects:v54 count:16];
+      v29 = [_additionalEnvironment countByEnumeratingWithState:&v43 objects:v53 count:16];
     }
 
     while (v29);
   }
 
-  if ((v40 & 4) != 0)
+  if ((v39 & 4) != 0)
   {
     v38 = rbs_job_log();
     if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v53 = v41;
+      v52 = v40;
       _os_log_impl(&dword_262485000, v38, OS_LOG_TYPE_DEFAULT, "Launching %{public}@ to build DYLD closure. The new process will exit as soon as the operation completes.", buf, 0xCu);
     }
 
     xpc_dictionary_set_string(v26, "DYLD_JUST_BUILD_CLOSURE", "1");
   }
 
-  xpc_dictionary_set_value(v42, "EnvironmentVariables", v26);
-  if ((v40 & 0x100000) != 0)
+  xpc_dictionary_set_value(v41, "EnvironmentVariables", v26);
+  if ((v39 & 0x100000) != 0)
   {
-    xpc_dictionary_set_BOOL(v42, "RunAtLoad", 1);
+    xpc_dictionary_set_BOOL(v41, "RunAtLoad", 1);
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_addDextPropertiesToData:(id)data forIdentity:(id)identity context:(id)context
@@ -363,14 +358,14 @@ LABEL_13:
 
 - (BOOL)_addAppPropertiesToData:(id)data forIdentity:(id)identity context:(id)context actualIdentity:(id *)actualIdentity error:(id *)error
 {
-  v118 = *MEMORY[0x277D85DE8];
+  v117 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   identityCopy = identity;
   contextCopy = context;
   executionOptions = [contextCopy executionOptions];
   *actualIdentity = 0;
   [(RBLaunchdJobManager *)self _addStandardAppPropertiesToData:dataCopy];
-  v93 = contextCopy;
+  v92 = contextCopy;
   if (([contextCopy lsSpawnFlags] & 4) == 0)
   {
     spawnType = [contextCopy spawnType];
@@ -422,49 +417,49 @@ LABEL_13:
   _additionalMachServices = [contextCopy _additionalMachServices];
   launchRequestIdentifierToMachNameMap = [contextCopy launchRequestIdentifierToMachNameMap];
   v24 = launchRequestIdentifierToMachNameMap;
-  v90 = dataCopy;
+  v89 = dataCopy;
   selfCopy = self;
   if ((executionOptions & 4) != 0)
   {
 
-    v92 = 0;
+    v91 = 0;
     _additionalMachServices = 0;
   }
 
   else
   {
-    v92 = launchRequestIdentifierToMachNameMap;
+    v91 = launchRequestIdentifierToMachNameMap;
   }
 
   xdict = xpc_dictionary_create(0, 0, 0);
+  v107 = 0u;
   v108 = 0u;
   v109 = 0u;
   v110 = 0u;
-  v111 = 0u;
   v25 = _additionalMachServices;
-  v26 = [v25 countByEnumeratingWithState:&v108 objects:v117 count:16];
+  v26 = [v25 countByEnumeratingWithState:&v107 objects:v116 count:16];
   obj = v25;
   if (v26)
   {
     v27 = v26;
-    v28 = *v109;
+    v28 = *v108;
     do
     {
       for (i = 0; i != v27; ++i)
       {
-        if (*v109 != v28)
+        if (*v108 != v28)
         {
           objc_enumerationMutation(obj);
         }
 
-        v30 = *(*(&v108 + 1) + 8 * i);
+        v30 = *(*(&v107 + 1) + 8 * i);
         v31 = rbs_general_log();
         if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543618;
-          v114 = v30;
-          v115 = 2114;
-          v116 = identityCopy;
+          v113 = v30;
+          v114 = 2114;
+          v115 = identityCopy;
           _os_log_impl(&dword_262485000, v31, OS_LOG_TYPE_DEFAULT, "Inserting mach service %{public}@ into job for %{public}@", buf, 0x16u);
         }
 
@@ -474,71 +469,71 @@ LABEL_13:
       }
 
       v25 = obj;
-      v27 = [obj countByEnumeratingWithState:&v108 objects:v117 count:16];
+      v27 = [obj countByEnumeratingWithState:&v107 objects:v116 count:16];
     }
 
     while (v27);
   }
 
-  xpc_dictionary_set_value(v90, "MachServices", xdict);
-  v33 = v92;
-  if ([v92 count])
+  xpc_dictionary_set_value(v89, "MachServices", xdict);
+  v33 = v91;
+  if ([v91 count])
   {
-    v34 = [MEMORY[0x277CBEB58] setWithCapacity:{objc_msgSend(v92, "count")}];
-    v104[0] = MEMORY[0x277D85DD0];
-    v104[1] = 3221225472;
-    v104[2] = __88__RBLaunchdJobManager__addAppPropertiesToData_forIdentity_context_actualIdentity_error___block_invoke;
-    v104[3] = &unk_279B33140;
-    v105 = identityCopy;
-    v106 = v25;
-    v107 = v34;
+    v34 = [MEMORY[0x277CBEB58] setWithCapacity:{objc_msgSend(v91, "count")}];
+    v103[0] = MEMORY[0x277D85DD0];
+    v103[1] = 3221225472;
+    v103[2] = __88__RBLaunchdJobManager__addAppPropertiesToData_forIdentity_context_actualIdentity_error___block_invoke;
+    v103[3] = &unk_279B33140;
+    v104 = identityCopy;
+    v105 = v25;
+    v106 = v34;
     v35 = v34;
-    [v92 enumerateKeysAndObjectsUsingBlock:v104];
+    [v91 enumerateKeysAndObjectsUsingBlock:v103];
     empty = xpc_array_create_empty();
-    v102[0] = MEMORY[0x277D85DD0];
-    v102[1] = 3221225472;
-    v102[2] = __88__RBLaunchdJobManager__addAppPropertiesToData_forIdentity_context_actualIdentity_error___block_invoke_45;
-    v102[3] = &unk_279B33168;
-    v103 = empty;
+    v101[0] = MEMORY[0x277D85DD0];
+    v101[1] = 3221225472;
+    v101[2] = __88__RBLaunchdJobManager__addAppPropertiesToData_forIdentity_context_actualIdentity_error___block_invoke_45;
+    v101[3] = &unk_279B33168;
+    v102 = empty;
     v37 = empty;
-    [v35 enumerateObjectsUsingBlock:v102];
-    xpc_dictionary_set_value(v90, "_ManagedBy_Services", v37);
+    [v35 enumerateObjectsUsingBlock:v101];
+    xpc_dictionary_set_value(v89, "_ManagedBy_Services", v37);
   }
 
-  v38 = v93;
-  standardOutputPath = [v93 standardOutputPath];
+  v38 = v92;
+  standardOutputPath = [v92 standardOutputPath];
 
   if (standardOutputPath)
   {
-    standardOutputPath2 = [v93 standardOutputPath];
-    xpc_dictionary_set_string(v90, "StandardOutPath", [standardOutputPath2 UTF8String]);
+    standardOutputPath2 = [v92 standardOutputPath];
+    xpc_dictionary_set_string(v89, "StandardOutPath", [standardOutputPath2 UTF8String]);
   }
 
-  standardErrorPath = [v93 standardErrorPath];
+  standardErrorPath = [v92 standardErrorPath];
 
   if (standardErrorPath)
   {
-    standardErrorPath2 = [v93 standardErrorPath];
-    xpc_dictionary_set_string(v90, "StandardErrorPath", [standardErrorPath2 UTF8String]);
+    standardErrorPath2 = [v92 standardErrorPath];
+    xpc_dictionary_set_string(v89, "StandardErrorPath", [standardErrorPath2 UTF8String]);
   }
 
-  standardInPath = [v93 standardInPath];
+  standardInPath = [v92 standardInPath];
 
   v44 = selfCopy;
   if (standardInPath)
   {
-    standardInPath2 = [v93 standardInPath];
-    xpc_dictionary_set_string(v90, "StandardInPath", [standardInPath2 UTF8String]);
+    standardInPath2 = [v92 standardInPath];
+    xpc_dictionary_set_string(v89, "StandardInPath", [standardInPath2 UTF8String]);
   }
 
   if ((executionOptions & 5) == 1)
   {
-    xpc_dictionary_set_BOOL(v90, "WaitForDebugger", 1);
+    xpc_dictionary_set_BOOL(v89, "WaitForDebugger", 1);
   }
 
   if ((executionOptions & 6) == 2)
   {
-    xpc_dictionary_set_BOOL(v90, "DisableASLR", 1);
+    xpc_dictionary_set_BOOL(v89, "DisableASLR", 1);
   }
 
   if (executionOptions < 0)
@@ -547,30 +542,30 @@ LABEL_13:
     if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v114 = identityCopy;
+      v113 = identityCopy;
       _os_log_impl(&dword_262485000, v46, OS_LOG_TYPE_DEFAULT, "Launching %{public}@ with MTE enabled.", buf, 0xCu);
     }
 
-    xpc_dictionary_set_BOOL(v90, "EnableCheckedAllocations", 1);
+    xpc_dictionary_set_BOOL(v89, "EnableCheckedAllocations", 1);
   }
 
-  if ([v93 lsSpawnFlags])
+  if ([v92 lsSpawnFlags])
   {
-    xpc_dictionary_set_BOOL(v90, "WaitForDebugger", 1);
+    xpc_dictionary_set_BOOL(v89, "WaitForDebugger", 1);
   }
 
-  if ([v93 initialRole])
+  if ([v92 initialRole])
   {
-    [v93 initialRole];
+    [v92 initialRole];
     v47 = RBSDarwinRoleFromRBSRole();
-    xpc_dictionary_set_int64(v90, "InitialTaskRole", v47);
+    xpc_dictionary_set_int64(v89, "InitialTaskRole", v47);
   }
 
-  lsBinpref = [v93 lsBinpref];
-  if (lsBinpref && (v49 = lsBinpref, [v93 lsBinprefSubtype], v50 = objc_claimAutoreleasedReturnValue(), v50, v49, v50))
+  lsBinpref = [v92 lsBinpref];
+  if (lsBinpref && (v49 = lsBinpref, [v92 lsBinprefSubtype], v50 = objc_claimAutoreleasedReturnValue(), v50, v49, v50))
   {
     v51 = xpc_array_create(0, 0);
-    lsBinpref2 = [v93 lsBinpref];
+    lsBinpref2 = [v92 lsBinpref];
     v53 = [lsBinpref2 count];
 
     if (v53)
@@ -579,12 +574,12 @@ LABEL_13:
       v55 = 0;
       do
       {
-        lsBinpref3 = [v93 lsBinpref];
+        lsBinpref3 = [v92 lsBinpref];
         v57 = [lsBinpref3 objectAtIndex:v55];
 
         v58 = xpc_dictionary_create(0, 0, 0);
         xpc_dictionary_set_int64(v58, "CPUType", [v57 integerValue]);
-        lsBinprefSubtype = [v93 lsBinprefSubtype];
+        lsBinprefSubtype = [v92 lsBinprefSubtype];
         v60 = [lsBinprefSubtype count];
 
         if (v60 <= v55)
@@ -594,7 +589,7 @@ LABEL_13:
 
         else
         {
-          lsBinprefSubtype2 = [v93 lsBinprefSubtype];
+          lsBinprefSubtype2 = [v92 lsBinprefSubtype];
           v62 = [lsBinprefSubtype2 objectAtIndex:v55];
           integerValue = [v62 integerValue];
         }
@@ -603,20 +598,20 @@ LABEL_13:
         xpc_array_set_value(v51, 0xFFFFFFFFFFFFFFFFLL, v58);
 
         ++v55;
-        lsBinpref4 = [v93 lsBinpref];
+        lsBinpref4 = [v92 lsBinpref];
         v65 = [lsBinpref4 count];
       }
 
       while (v65 > v55);
       identityCopy = v54;
       v44 = selfCopy;
-      v33 = v92;
+      v33 = v91;
     }
   }
 
   else
   {
-    lsBinpref5 = [v93 lsBinpref];
+    lsBinpref5 = [v92 lsBinpref];
 
     if (!lsBinpref5)
     {
@@ -625,20 +620,20 @@ LABEL_13:
 
     v51 = xpc_array_create(0, 0);
     *&value[1] = 0u;
+    v98 = 0u;
     v99 = 0u;
     v100 = 0u;
-    v101 = 0u;
-    lsBinpref6 = [v93 lsBinpref];
-    v68 = [lsBinpref6 countByEnumeratingWithState:&value[1] objects:v112 count:16];
+    lsBinpref6 = [v92 lsBinpref];
+    v68 = [lsBinpref6 countByEnumeratingWithState:&value[1] objects:v111 count:16];
     if (v68)
     {
       v69 = v68;
-      v70 = *v99;
+      v70 = *v98;
       do
       {
         for (j = 0; j != v69; ++j)
         {
-          if (*v99 != v70)
+          if (*v98 != v70)
           {
             objc_enumerationMutation(lsBinpref6);
           }
@@ -646,51 +641,51 @@ LABEL_13:
           xpc_array_set_int64(v51, 0xFFFFFFFFFFFFFFFFLL, [*(*&value[3] + 8 * j) unsignedIntegerValue]);
         }
 
-        v69 = [lsBinpref6 countByEnumeratingWithState:&value[1] objects:v112 count:16];
+        v69 = [lsBinpref6 countByEnumeratingWithState:&value[1] objects:v111 count:16];
       }
 
       while (v69);
     }
 
-    v38 = v93;
+    v38 = v92;
   }
 
-  xpc_dictionary_set_value(v90, "BinaryOrderPreference", v51);
+  xpc_dictionary_set_value(v89, "BinaryOrderPreference", v51);
 
 LABEL_65:
   if ([v38 lsUMask])
   {
-    xpc_dictionary_set_int64(v90, "Umask", [v38 lsUMask]);
+    xpc_dictionary_set_int64(v89, "Umask", [v38 lsUMask]);
   }
 
   if ([identityCopy platform])
   {
-    xpc_dictionary_set_int64(v90, "Platform", [identityCopy platform]);
+    xpc_dictionary_set_int64(v89, "Platform", [identityCopy platform]);
   }
 
   os_unfair_lock_lock(&v44->_lock);
   if ([(NSMutableOrderedSet *)v44->_lock_reslideIdentities containsObject:identityCopy])
   {
-    xpc_dictionary_set_BOOL(v90, "ReslideSharedCache", 1);
+    xpc_dictionary_set_BOOL(v89, "ReslideSharedCache", 1);
   }
 
   os_unfair_lock_unlock(&v44->_lock);
   value[0] = 0;
   personaManager = v44->_personaManager;
-  v97 = 0;
-  v73 = [(RBPersonaManager *)personaManager personaForIdentity:identityCopy context:v38 personaUID:value personaUniqueString:&v97];
-  v74 = v97;
+  v96 = 0;
+  v73 = [(RBPersonaManager *)personaManager personaForIdentity:identityCopy context:v38 personaUID:value personaUniqueString:&v96];
+  v74 = v96;
   if (v73)
   {
-    xpc_dictionary_set_int64(v90, "PersonaEnterprise", value[0]);
+    xpc_dictionary_set_int64(v89, "PersonaEnterprise", value[0]);
     v75 = [identityCopy copyWithPersonaString:v74];
 
     v76 = v75;
-    *v89 = v75;
+    *v88 = v75;
     v77 = [v76 description];
-    xpc_dictionary_set_string(v90, "_ResourceCoalition", [v77 UTF8String]);
+    xpc_dictionary_set_string(v89, "_ResourceCoalition", [v77 UTF8String]);
 
-    _addRBProperties(v90, v75, v38);
+    _addRBProperties(v89, v75, v38);
     identityCopy = v75;
   }
 
@@ -700,15 +695,15 @@ LABEL_65:
   if ((bOOLValue & 1) == 0)
   {
     containerManager = v44->_containerManager;
-    v96 = 0;
-    v82 = [(RBContainerManager *)containerManager containerPathForIdentity:identityCopy context:v38 persona:v74 error:&v96];
-    v83 = v96;
+    v95 = 0;
+    v82 = [(RBContainerManager *)containerManager containerPathForIdentity:identityCopy context:v38 persona:v74 error:&v95];
+    v83 = v95;
     v80 = v83;
     if (v82)
     {
       fileSystemRepresentation = [v82 fileSystemRepresentation];
-      xpc_dictionary_set_string(v90, "SandboxContainer", fileSystemRepresentation);
-      v85 = xpc_dictionary_get_value(v90, "EnvironmentVariables");
+      xpc_dictionary_set_string(v89, "SandboxContainer", fileSystemRepresentation);
+      v85 = xpc_dictionary_get_value(v89, "EnvironmentVariables");
       v86 = v85;
       if (v85)
       {
@@ -719,7 +714,7 @@ LABEL_65:
         xpc_dictionary_set_string(v86, "HOME", fileSystemRepresentation);
       }
 
-      v33 = v92;
+      v33 = v91;
     }
 
     else
@@ -745,21 +740,20 @@ LABEL_84:
   if (os_log_type_enabled(v80, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
-    v114 = identityCopy;
-    v115 = 2114;
-    v116 = v38;
+    v113 = identityCopy;
+    v114 = 2114;
+    v115 = v38;
     _os_log_impl(&dword_262485000, v80, OS_LOG_TYPE_DEFAULT, "'%{public}@' Skipping container path lookup because containerization was prevented (%{public}@)", buf, 0x16u);
   }
 
 LABEL_85:
 
-  v87 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 void __88__RBLaunchdJobManager__addAppPropertiesToData_forIdentity_context_actualIdentity_error___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   objc_opt_class();
@@ -780,19 +774,17 @@ void __88__RBLaunchdJobManager__addAppPropertiesToData_forIdentity_context_actua
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       v12 = *(a1 + 32);
-      v14 = 138543874;
-      v15 = v12;
-      v16 = 2114;
-      v17 = v5;
-      v18 = 2114;
-      v19 = v6;
-      _os_log_impl(&dword_262485000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ ignoring unsupported MANAGEDBY_SERVICES value for launchIdentifier %{public}@: value=%{public}@", &v14, 0x20u);
+      v13 = 138543874;
+      v14 = v12;
+      v15 = 2114;
+      v16 = v5;
+      v17 = 2114;
+      v18 = v6;
+      _os_log_impl(&dword_262485000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ ignoring unsupported MANAGEDBY_SERVICES value for launchIdentifier %{public}@: value=%{public}@", &v13, 0x20u);
     }
 
     v9 = 0;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __88__RBLaunchdJobManager__addAppPropertiesToData_forIdentity_context_actualIdentity_error___block_invoke_45(uint64_t a1, id a2)
@@ -864,7 +856,7 @@ LABEL_7:
 
 - (id)_createLaunchdJobWithIdentity:(id)identity context:(id)context actualIdentity:(id *)actualIdentity error:(id *)error
 {
-  v146 = *MEMORY[0x277D85DE8];
+  v145 = *MEMORY[0x277D85DE8];
   identityCopy = identity;
   contextCopy = context;
   isApplication = [identityCopy isApplication];
@@ -954,7 +946,7 @@ LABEL_7:
     array = [MEMORY[0x277CBEB18] array];
   }
 
-  v128 = array;
+  v127 = array;
   [v13 _setAdditionalMachServices:array];
   if (_os_feature_enabled_impl())
   {
@@ -1004,10 +996,10 @@ LABEL_27:
   requiredSequenceNumber = [v13 requiredSequenceNumber];
   v39 = rbs_general_log();
   v40 = os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT);
-  v129 = requiredSequenceNumber;
+  v128 = requiredSequenceNumber;
   if (_overrideExecutablePath && !requiredCacheUUID && !requiredSequenceNumber)
   {
-    v130 = v39;
+    v129 = v39;
     if (v40)
     {
       *buf = 0;
@@ -1027,16 +1019,16 @@ LABEL_27:
 
   v41 = [MEMORY[0x277CC1E60] applicationProxyForIdentifier:bundleIdentifier];
   appState = [v41 appState];
-  v130 = v41;
+  v129 = v41;
   if (([appState isInstalled] & 1) == 0)
   {
     errorCopy2 = error;
     v51 = bundleIdentifier;
     v52 = MEMORY[0x277CCA9B8];
     v53 = *MEMORY[0x277CCA5B8];
-    v138[0] = *MEMORY[0x277CCA450];
+    v137[0] = *MEMORY[0x277CCA450];
     *buf = @"Unable to load a valid LSApplicationProxy.";
-    v54 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:v138 count:1];
+    v54 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:v137 count:1];
     v22 = [v52 errorWithDomain:v53 code:22 userInfo:v54];
 
     v55 = v22;
@@ -1058,19 +1050,19 @@ LABEL_27:
 
   if (jobLabel)
   {
-    v122 = bundleIdentifier;
+    v121 = bundleIdentifier;
     v44 = MEMORY[0x277CCA9B8];
     v45 = *MEMORY[0x277CCA5B8];
-    v138[0] = *MEMORY[0x277CCA450];
+    v137[0] = *MEMORY[0x277CCA450];
     *buf = @"Trying to launch a daemon, agent, or angel as an app.";
-    v46 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:v138 count:1];
+    v46 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:v137 count:1];
     v22 = [v44 errorWithDomain:v45 code:22 userInfo:v46];
 
     v47 = v22;
     cacheGUID = rbs_general_log();
     if (os_log_type_enabled(cacheGUID, OS_LOG_TYPE_DEFAULT))
     {
-      correspondingApplicationRecord2 = [v130 correspondingApplicationRecord];
+      correspondingApplicationRecord2 = [v129 correspondingApplicationRecord];
       jobLabel2 = [correspondingApplicationRecord2 jobLabel];
       *buf = 138543362;
       *&buf[4] = jobLabel2;
@@ -1078,7 +1070,7 @@ LABEL_27:
     }
 
     v23 = 0;
-    bundleIdentifier = v122;
+    bundleIdentifier = v121;
     goto LABEL_48;
   }
 
@@ -1091,7 +1083,7 @@ LABEL_27:
   if (!canonicalExecutablePath)
   {
     v22 = _posixErrorWithCodeAndDescription(22, @"Unable to find executable path");
-    v79 = v22;
+    v78 = v22;
     cacheGUID = rbs_general_log();
     if (os_log_type_enabled(cacheGUID, OS_LOG_TYPE_DEFAULT))
     {
@@ -1105,9 +1097,9 @@ LABEL_27:
   }
 
   _overrideExecutablePath = canonicalExecutablePath;
-  v77 = v41;
+  v76 = v41;
   [v13 _setOverrideExecutablePath:canonicalExecutablePath];
-  v78 = v129;
+  v77 = v128;
   if (requiredCacheUUID)
   {
     cacheGUID = [v41 cacheGUID];
@@ -1118,148 +1110,148 @@ LABEL_27:
     cacheGUID = 0;
   }
 
-  if (v129)
+  if (v128)
   {
-    v80 = MEMORY[0x277CCABB0];
-    sequenceNumber = [v77 sequenceNumber];
-    v82 = v80;
-    v78 = v129;
-    v121 = [v82 numberWithUnsignedInteger:sequenceNumber];
+    v79 = MEMORY[0x277CCABB0];
+    sequenceNumber = [v76 sequenceNumber];
+    v81 = v79;
+    v77 = v128;
+    v120 = [v81 numberWithUnsignedInteger:sequenceNumber];
   }
 
   else
   {
-    v121 = 0;
+    v120 = 0;
   }
 
-  if (requiredCacheUUID != cacheGUID && (!requiredCacheUUID || !cacheGUID || !-[NSObject isEqual:](requiredCacheUUID, "isEqual:", cacheGUID)) || v78 != v121 && (!v78 || !v121 || ([v78 isEqual:v121] & 1) == 0))
+  if (requiredCacheUUID != cacheGUID && (!requiredCacheUUID || !cacheGUID || !-[NSObject isEqual:](requiredCacheUUID, "isEqual:", cacheGUID)) || v77 != v120 && (!v77 || !v120 || ([v77 isEqual:v120] & 1) == 0))
   {
-    v88 = rbs_job_log();
-    if (os_log_type_enabled(v88, OS_LOG_TYPE_ERROR))
+    v87 = rbs_job_log();
+    if (os_log_type_enabled(v87, OS_LOG_TYPE_ERROR))
     {
       bundleIdentifier3 = [v13 bundleIdentifier];
       [requiredCacheUUID UUIDString];
-      v118 = _overrideExecutablePath;
-      v109 = cacheGUID;
+      v117 = _overrideExecutablePath;
+      v108 = cacheGUID;
       errorCopy3 = error;
-      v112 = v111 = bundleIdentifier;
+      v111 = v110 = bundleIdentifier;
       *buf = 138544386;
       *&buf[4] = bundleIdentifier3;
       *&buf[12] = 2114;
-      *&buf[14] = v112;
-      v140 = 2114;
-      v141 = v129;
-      v142 = 2114;
-      v143 = v109;
-      v144 = 2114;
-      v145 = v121;
-      _os_log_error_impl(&dword_262485000, v88, OS_LOG_TYPE_ERROR, "LaunchServices database mismatch: Failed to lookup executable path for app %{public}@ with {UUID: %{public}@, Sequence: %{public}@} vs {UUID: %{public}@, Sequence: %{public}@", buf, 0x34u);
+      *&buf[14] = v111;
+      v139 = 2114;
+      v140 = v128;
+      v141 = 2114;
+      v142 = v108;
+      v143 = 2114;
+      v144 = v120;
+      _os_log_error_impl(&dword_262485000, v87, OS_LOG_TYPE_ERROR, "LaunchServices database mismatch: Failed to lookup executable path for app %{public}@ with {UUID: %{public}@, Sequence: %{public}@} vs {UUID: %{public}@, Sequence: %{public}@", buf, 0x34u);
 
-      bundleIdentifier = v111;
+      bundleIdentifier = v110;
       error = errorCopy3;
-      cacheGUID = v109;
-      _overrideExecutablePath = v118;
+      cacheGUID = v108;
+      _overrideExecutablePath = v117;
     }
 
     v22 = _posixErrorWithCodeAndDescription(22, @"Failed to lookup executable path.");
-    v89 = v22;
+    v88 = v22;
     v23 = 0;
     goto LABEL_126;
   }
 
-  v124 = bundleIdentifier;
-  applicationType = [v77 applicationType];
-  v84 = objc_opt_class();
-  v120 = [v77 objectForInfoDictionaryKey:@"SBMachServices" ofClass:v84 valuesOfClass:objc_opt_class()];
-  v119 = applicationType;
+  v123 = bundleIdentifier;
+  applicationType = [v76 applicationType];
+  v83 = objc_opt_class();
+  v119 = [v76 objectForInfoDictionaryKey:@"SBMachServices" ofClass:v83 valuesOfClass:objc_opt_class()];
+  v118 = applicationType;
   if (([applicationType isEqualToString:*MEMORY[0x277CC1E30]] & 1) != 0 || (objc_msgSend(applicationType, "isEqualToString:", *MEMORY[0x277CC1E00]) & 1) != 0 || objc_msgSend(applicationType, "isEqualToString:", *MEMORY[0x277CC1E08]))
   {
     [v13 setSpawnType:1];
-    if (![v120 count])
+    if (![v119 count])
     {
       goto LABEL_107;
     }
 
-    v116 = RBSAppViewServiceMachServiceName();
-    if ([v120 containsObject:v116] && -[NSObject rb_hasEntitlement:](v77, "rb_hasEntitlement:", *MEMORY[0x277D47040]))
+    v115 = RBSAppViewServiceMachServiceName();
+    if ([v119 containsObject:v115] && -[NSObject rb_hasEntitlement:](v76, "rb_hasEntitlement:", *MEMORY[0x277D47040]))
     {
-      v85 = _knownViewServices();
-      v86 = [v85 containsObject:v124];
+      v84 = _knownViewServices();
+      v85 = [v84 containsObject:v123];
 
-      if ((v86 & 1) == 0)
+      if ((v85 & 1) == 0)
       {
-        v113 = rbs_job_log();
-        if (os_log_type_enabled(v113, OS_LOG_TYPE_ERROR))
+        v112 = rbs_job_log();
+        if (os_log_type_enabled(v112, OS_LOG_TYPE_ERROR))
         {
-          [RBLaunchdJobManager _createLaunchdJobWithIdentity:v113 context:? actualIdentity:? error:?];
+          [RBLaunchdJobManager _createLaunchdJobWithIdentity:v112 context:? actualIdentity:? error:?];
         }
 
         v22 = _posixErrorWithCodeAndDescription(22, @"Unknown ViewService App: ViewService Apps are deprecated and you should not be adding new ones - if you need an exception please file a radar to RunningBoard|All to be added to the allowlist.");
-        v114 = v22;
+        v113 = v22;
         v23 = 0;
-        bundleIdentifier = v124;
-        v107 = v116;
+        bundleIdentifier = v123;
+        v106 = v115;
         goto LABEL_125;
       }
 
-      v87 = 1;
+      v86 = 1;
     }
 
     else
     {
-      v87 = 0;
+      v86 = 0;
     }
 
-    v90 = rbs_general_log();
-    if (os_log_type_enabled(v90, OS_LOG_TYPE_DEFAULT))
+    v89 = rbs_general_log();
+    if (os_log_type_enabled(v89, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
       *&buf[4] = applicationType;
       *&buf[12] = 2114;
-      *&buf[14] = v120;
-      _os_log_impl(&dword_262485000, v90, OS_LOG_TYPE_DEFAULT, "_mutateContextIfNeeded bundleType %{public}@ SBMachServices %{public}@", buf, 0x16u);
+      *&buf[14] = v119;
+      _os_log_impl(&dword_262485000, v89, OS_LOG_TYPE_DEFAULT, "_mutateContextIfNeeded bundleType %{public}@ SBMachServices %{public}@", buf, 0x16u);
     }
 
-    [v128 addObjectsFromArray:v120];
-    if (v87)
+    [v127 addObjectsFromArray:v119];
+    if (v86)
     {
-      v138[0] = v116;
-      v138[1] = @"com.apple.frontboard.workspace-service";
+      v137[0] = v115;
+      v137[1] = @"com.apple.frontboard.workspace-service";
       *buf = MEMORY[0x277CBEC38];
-      *&buf[8] = v116;
-      v91 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:v138 count:2];
-      [v13 setLaunchRequestIdentifierToMachNameMap:v91];
+      *&buf[8] = v115;
+      v90 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:v137 count:2];
+      [v13 setLaunchRequestIdentifierToMachNameMap:v90];
 
-      v92 = v116;
-      v77 = v130;
+      v91 = v115;
+      v76 = v129;
     }
 
     else
     {
-      v77 = v130;
-      v92 = v116;
+      v76 = v129;
+      v91 = v115;
     }
 
     goto LABEL_106;
   }
 
-  if ([v120 count])
+  if ([v119 count])
   {
-    v92 = rbs_general_log();
-    if (os_log_type_enabled(v92, OS_LOG_TYPE_DEFAULT))
+    v91 = rbs_general_log();
+    if (os_log_type_enabled(v91, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
       *&buf[4] = applicationType;
       *&buf[12] = 2114;
-      *&buf[14] = v120;
-      _os_log_impl(&dword_262485000, v92, OS_LOG_TYPE_DEFAULT, "_mutateContextIfNeeded bundleType %{public}@ refusing SBMachServices %{public}@", buf, 0x16u);
+      *&buf[14] = v119;
+      _os_log_impl(&dword_262485000, v91, OS_LOG_TYPE_DEFAULT, "_mutateContextIfNeeded bundleType %{public}@ refusing SBMachServices %{public}@", buf, 0x16u);
     }
 
 LABEL_106:
   }
 
 LABEL_107:
-  correspondingApplicationRecord3 = [v77 correspondingApplicationRecord];
+  correspondingApplicationRecord3 = [v76 correspondingApplicationRecord];
   wasBuiltWithThreadSanitizer = [correspondingApplicationRecord3 wasBuiltWithThreadSanitizer];
 
   if (wasBuiltWithThreadSanitizer)
@@ -1267,14 +1259,14 @@ LABEL_107:
     [v13 setExecutionOptions:{objc_msgSend(v13, "executionOptions") | 0x10}];
   }
 
-  [v13 _setAdditionalMachServices:v128];
+  [v13 _setAdditionalMachServices:v127];
   preventContainerization2 = [v13 preventContainerization];
 
   if (!preventContainerization2)
   {
-    isContainerized = [v130 isContainerized];
-    v97 = [MEMORY[0x277CCABB0] numberWithBool:isContainerized ^ 1u];
-    [v13 setPreventContainerization:v97];
+    isContainerized = [v129 isContainerized];
+    v96 = [MEMORY[0x277CCABB0] numberWithBool:isContainerized ^ 1u];
+    [v13 setPreventContainerization:v96];
   }
 
   preventContainerization3 = [v13 preventContainerization];
@@ -1287,36 +1279,36 @@ LABEL_107:
 
   if (!containerIdentifier)
   {
-    v100 = objc_opt_self();
-    preventContainerization3 = [v130 entitlementValueForKey:@"com.apple.private.security.container-required" ofClass:v100];
+    v99 = objc_opt_self();
+    preventContainerization3 = [v129 entitlementValueForKey:@"com.apple.private.security.container-required" ofClass:v99];
 
     [v13 setContainerIdentifier:preventContainerization3];
     [v13 setCalculatedContainerIdentifier:1];
 LABEL_114:
   }
 
-  v117 = _overrideExecutablePath;
-  managedPersonas = [v130 managedPersonas];
-  v102 = [managedPersonas count];
-  v115 = managedPersonas;
-  if (v102)
+  v116 = _overrideExecutablePath;
+  managedPersonas = [v129 managedPersonas];
+  v101 = [managedPersonas count];
+  v114 = managedPersonas;
+  if (v101)
   {
-    v103 = v102;
-    v104 = [managedPersonas objectAtIndexedSubscript:{0, managedPersonas}];
-    v105 = rbs_job_log();
-    v106 = v105;
-    bundleIdentifier = v124;
-    if (v103 == 1)
+    v102 = v101;
+    v103 = [managedPersonas objectAtIndexedSubscript:{0, managedPersonas}];
+    v104 = rbs_job_log();
+    v105 = v104;
+    bundleIdentifier = v123;
+    if (v102 == 1)
     {
-      if (os_log_type_enabled(v105, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v104, OS_LOG_TYPE_INFO))
       {
-        *v136 = 138543362;
-        v137 = v104;
-        _os_log_impl(&dword_262485000, v106, OS_LOG_TYPE_INFO, "Persona chosen for bundle identifier: %{public}@", v136, 0xCu);
+        *v135 = 138543362;
+        v136 = v103;
+        _os_log_impl(&dword_262485000, v105, OS_LOG_TYPE_INFO, "Persona chosen for bundle identifier: %{public}@", v135, 0xCu);
       }
     }
 
-    else if (os_log_type_enabled(v105, OS_LOG_TYPE_ERROR))
+    else if (os_log_type_enabled(v104, OS_LOG_TYPE_ERROR))
     {
       [RBLaunchdJobManager _createLaunchdJobWithIdentity:context:actualIdentity:error:];
     }
@@ -1324,23 +1316,23 @@ LABEL_114:
 
   else
   {
-    v106 = rbs_job_log();
-    bundleIdentifier = v124;
-    if (os_log_type_enabled(v106, OS_LOG_TYPE_INFO))
+    v105 = rbs_job_log();
+    bundleIdentifier = v123;
+    if (os_log_type_enabled(v105, OS_LOG_TYPE_INFO))
     {
-      *v136 = 138543362;
-      v137 = v124;
-      _os_log_impl(&dword_262485000, v106, OS_LOG_TYPE_INFO, "No personas found for bundle identifier: %{public}@", v136, 0xCu);
+      *v135 = 138543362;
+      v136 = v123;
+      _os_log_impl(&dword_262485000, v105, OS_LOG_TYPE_INFO, "No personas found for bundle identifier: %{public}@", v135, 0xCu);
     }
 
-    v104 = 0;
+    v103 = 0;
   }
 
-  [v13 setManagedPersona:v104];
+  [v13 setManagedPersona:v103];
   v22 = 0;
-  v107 = v104;
+  v106 = v103;
   v23 = 1;
-  _overrideExecutablePath = v117;
+  _overrideExecutablePath = v116;
 LABEL_125:
 
 LABEL_126:
@@ -1376,9 +1368,9 @@ LABEL_52:
 
   if (_overrideExecutablePath2)
   {
-    v135 = v20;
-    v59 = [(RBLaunchdJobManager *)self _generateDataWithIdentity:identityCopy context:contextCopy actualIdentity:actualIdentity error:&v135];
-    v57 = v135;
+    v134 = v20;
+    v59 = [(RBLaunchdJobManager *)self _generateDataWithIdentity:identityCopy context:contextCopy actualIdentity:actualIdentity error:&v134];
+    v57 = v134;
 
     if (v59)
     {
@@ -1394,9 +1386,9 @@ LABEL_52:
       block[1] = 3221225472;
       block[2] = __82__RBLaunchdJobManager__createLaunchdJobWithIdentity_context_actualIdentity_error___block_invoke;
       block[3] = &unk_279B32B80;
-      v133 = v61;
+      v132 = v61;
       v63 = v59;
-      v134 = v63;
+      v133 = v63;
       v64 = v61;
       dispatch_async(logQueue, block);
       v65 = [(RBLaunchdInterfacing *)self->_launchdInterface jobWithPlist:v63];
@@ -1421,9 +1413,9 @@ LABEL_52:
     {
       v66 = MEMORY[0x277CCA9B8];
       v67 = *MEMORY[0x277CCA5B8];
-      v138[0] = *MEMORY[0x277CCA450];
+      v137[0] = *MEMORY[0x277CCA450];
       *buf = @"Unable to determine executable path.";
-      v68 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:v138 count:1];
+      v68 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:v137 count:1];
       v69 = [v66 errorWithDomain:v67 code:22 userInfo:v68];
 
       v70 = v69;
@@ -1441,28 +1433,23 @@ LABEL_52:
 
 LABEL_68:
 
-  v73 = *MEMORY[0x277D85DE8];
-
   return v65;
 }
 
 void __82__RBLaunchdJobManager__createLaunchdJobWithIdentity_context_actualIdentity_error___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = rbs_job_oversize_log();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = *(a1 + 32);
-    v3 = *(a1 + 40);
-    v5 = _describeXPCObject();
-    v7 = 138412546;
+    v3 = *(a1 + 32);
+    v4 = _describeXPCObject();
+    v5 = 138412546;
+    v6 = v3;
+    v7 = 2112;
     v8 = v4;
-    v9 = 2112;
-    v10 = v5;
-    _os_log_impl(&dword_262485000, v2, OS_LOG_TYPE_DEFAULT, "'%@' Constructed job description:\n%@", &v7, 0x16u);
+    _os_log_impl(&dword_262485000, v2, OS_LOG_TYPE_DEFAULT, "'%@' Constructed job description:\n%@", &v5, 0x16u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_addPersonaFromExtensionContext:(id)context toServiceDict:(id)dict
@@ -1761,7 +1748,7 @@ LABEL_29:
 
 void __59__RBLaunchdJobManager__adjustLaunchdJobProperties_context___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   objc_opt_class();
@@ -1776,22 +1763,20 @@ void __59__RBLaunchdJobManager__adjustLaunchdJobProperties_context___block_invok
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = *(a1 + 40);
-      v10 = 138543874;
-      v11 = v8;
-      v12 = 2114;
-      v13 = v5;
-      v14 = 2114;
-      v15 = v6;
-      _os_log_impl(&dword_262485000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ ignoring unsupported LaunchRequestEndpointIdentifiers value for launchIdentifier %{public}@: value=%{public}@", &v10, 0x20u);
+      v9 = 138543874;
+      v10 = v8;
+      v11 = 2114;
+      v12 = v5;
+      v13 = 2114;
+      v14 = v6;
+      _os_log_impl(&dword_262485000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ ignoring unsupported LaunchRequestEndpointIdentifiers value for launchIdentifier %{public}@: value=%{public}@", &v9, 0x20u);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_createAndSubmitExtensionJob:(id)job UUID:(id)d error:(id *)error
 {
-  v80[2] = *MEMORY[0x277D85DE8];
+  v79[2] = *MEMORY[0x277D85DE8];
   jobCopy = job;
   dCopy = d;
   v10 = -[RBLaunchdInterfacing domainForPid:](self->_launchdInterface, "domainForPid:", [jobCopy hostPid]);
@@ -1808,17 +1793,17 @@ void __59__RBLaunchdJobManager__adjustLaunchdJobProperties_context___block_invok
     block[1] = 3221225472;
     block[2] = __63__RBLaunchdJobManager__createAndSubmitExtensionJob_UUID_error___block_invoke;
     block[3] = &unk_279B331B8;
-    v75 = dCopy;
-    v76 = jobCopy;
-    v77 = v14;
+    v74 = dCopy;
+    v75 = jobCopy;
+    v76 = v14;
     v16 = launchdJobProperties;
-    v78 = v16;
+    v77 = v16;
     v17 = v14;
     dispatch_async(logQueue, block);
     launchdInterface = self->_launchdInterface;
-    v73 = 0;
-    v19 = [(RBLaunchdInterfacing *)launchdInterface submitExtensionWithExecutableURL:v17 properties:v16 domain:v10 error:&v73];
-    v20 = v73;
+    v72 = 0;
+    v19 = [(RBLaunchdInterfacing *)launchdInterface submitExtensionWithExecutableURL:v17 properties:v16 domain:v10 error:&v72];
+    v20 = v72;
 
     goto LABEL_4;
   }
@@ -1835,8 +1820,8 @@ void __59__RBLaunchdJobManager__adjustLaunchdJobProperties_context___block_invok
     v33 = MEMORY[0x277CCA9B8];
     v34 = *MEMORY[0x277CCA5B8];
     *buf = *MEMORY[0x277CCA450];
-    v80[0] = @"Unable to launch extension without overlay";
-    v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v80 forKeys:buf count:1];
+    v79[0] = @"Unable to launch extension without overlay";
+    v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v79 forKeys:buf count:1];
     v32 = [v33 errorWithDomain:v34 code:22 userInfo:v35];
 
     v26 = 0;
@@ -1861,8 +1846,8 @@ LABEL_29:
     v29 = MEMORY[0x277CCA9B8];
     v30 = *MEMORY[0x277CCA5B8];
     *buf = *MEMORY[0x277CCA450];
-    v80[0] = @"Unable to launch extension using invalid overlay (not a dictionary)";
-    v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v80 forKeys:buf count:1];
+    v79[0] = @"Unable to launch extension using invalid overlay (not a dictionary)";
+    v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v79 forKeys:buf count:1];
     v32 = [v29 errorWithDomain:v30 code:22 userInfo:v31];
 
 LABEL_18:
@@ -1882,13 +1867,13 @@ LABEL_26:
       goto LABEL_28;
     }
 
-    v64 = MEMORY[0x277CCA9B8];
+    v63 = MEMORY[0x277CCA9B8];
     v41 = *MEMORY[0x277CCA5B8];
     *buf = *MEMORY[0x277CCA450];
-    v80[0] = @"Unable to launch extension using invalid overlay (missing XPCService dict)";
-    [MEMORY[0x277CBEAC0] dictionaryWithObjects:v80 forKeys:buf count:1];
+    v79[0] = @"Unable to launch extension using invalid overlay (missing XPCService dict)";
+    [MEMORY[0x277CBEAC0] dictionaryWithObjects:v79 forKeys:buf count:1];
     v43 = v42 = v40;
-    v44 = [v64 errorWithDomain:v41 code:22 userInfo:v43];
+    v44 = [v63 errorWithDomain:v41 code:22 userInfo:v43];
 
     v40 = v42;
 LABEL_25:
@@ -1903,14 +1888,14 @@ LABEL_25:
 
   identity2 = [jobCopy identity];
   [identity2 personaString];
-  v55 = v63 = v40;
+  v54 = v62 = v40;
 
-  if (v55)
+  if (v54)
   {
-    v40 = v63;
-    if ([(RBLaunchdJobManager *)self _addPersonaFromExtensionContext:jobCopy toServiceDict:v63])
+    v40 = v62;
+    if ([(RBLaunchdJobManager *)self _addPersonaFromExtensionContext:jobCopy toServiceDict:v62])
     {
-      if ([(RBLaunchdJobManager *)self _addContainerPropertiesFromExtensionContext:jobCopy toServiceDict:v63])
+      if ([(RBLaunchdJobManager *)self _addContainerPropertiesFromExtensionContext:jobCopy toServiceDict:v62])
       {
         goto LABEL_44;
       }
@@ -1920,7 +1905,7 @@ LABEL_25:
         goto LABEL_26;
       }
 
-      v61 = @"Unable to launch extension (could not add container path to overlay)";
+      v60 = @"Unable to launch extension (could not add container path to overlay)";
     }
 
     else
@@ -1930,35 +1915,35 @@ LABEL_25:
         goto LABEL_26;
       }
 
-      v61 = @"Unable to launch extension (could not get persona values for overlay)";
+      v60 = @"Unable to launch extension (could not get persona values for overlay)";
     }
 
-    v44 = _posixErrorWithCodeAndDescription(22, v61);
+    v44 = _posixErrorWithCodeAndDescription(22, v60);
     goto LABEL_25;
   }
 
 LABEL_44:
   _overrideExecutablePath2 = [jobCopy _overrideExecutablePath];
-  v65 = _overrideExecutablePath2;
+  v64 = _overrideExecutablePath2;
   if (_overrideExecutablePath2)
   {
-    v57 = _overrideExecutablePath2;
+    v56 = _overrideExecutablePath2;
     queue = self->_logQueue;
-    v68[0] = MEMORY[0x277D85DD0];
-    v68[1] = 3221225472;
-    v68[2] = __63__RBLaunchdJobManager__createAndSubmitExtensionJob_UUID_error___block_invoke_151;
-    v68[3] = &unk_279B331B8;
-    v69 = dCopy;
-    v70 = jobCopy;
-    v58 = v57;
+    v67[0] = MEMORY[0x277D85DD0];
+    v67[1] = 3221225472;
+    v67[2] = __63__RBLaunchdJobManager__createAndSubmitExtensionJob_UUID_error___block_invoke_151;
+    v67[3] = &unk_279B331B8;
+    v68 = dCopy;
+    v69 = jobCopy;
+    v57 = v56;
+    v70 = v57;
+    v58 = v26;
     v71 = v58;
-    v59 = v26;
-    v72 = v59;
-    dispatch_async(queue, v68);
-    v60 = self->_launchdInterface;
-    v67 = 0;
-    v19 = [(RBLaunchdInterfacing *)v60 submitExtension:v58 overlay:v59 domain:v10 error:&v67];
-    v20 = v67;
+    dispatch_async(queue, v67);
+    v59 = self->_launchdInterface;
+    v66 = 0;
+    v19 = [(RBLaunchdInterfacing *)v59 submitExtension:v57 overlay:v58 domain:v10 error:&v66];
+    v20 = v66;
   }
 
   else if (error)
@@ -1974,7 +1959,7 @@ LABEL_44:
     v20 = 0;
   }
 
-  if (!v65)
+  if (!v64)
   {
     goto LABEL_29;
   }
@@ -1997,9 +1982,9 @@ LABEL_4:
 
   if (dCopy || ([jobCopy oneShotUUID], (dCopy = objc_claimAutoreleasedReturnValue()) != 0))
   {
-    v80[0] = 0;
-    v80[1] = 0;
-    [dCopy getUUIDBytes:{v80, queue}];
+    v79[0] = 0;
+    v79[1] = 0;
+    [dCopy getUUIDBytes:{v79, queue}];
     v21 = rbs_job_log();
     if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
     {
@@ -2021,9 +2006,9 @@ LABEL_4:
     }
 
     v47 = self->_launchdInterface;
-    v66 = 0;
-    v48 = [(RBLaunchdInterfacing *)v47 forJob:v19 createInstance:v80 properties:v23 error:&v66];
-    v49 = v66;
+    v65 = 0;
+    v48 = [(RBLaunchdInterfacing *)v47 forJob:v19 createInstance:v79 properties:v23 error:&v65];
+    v49 = v65;
 
     if (error && !v48)
     {
@@ -2043,14 +2028,12 @@ LABEL_4:
   v38 = v19;
 LABEL_36:
 
-  v51 = *MEMORY[0x277D85DE8];
-
   return v38;
 }
 
 void __63__RBLaunchdJobManager__createAndSubmitExtensionJob_UUID_error___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = rbs_job_oversize_log();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
@@ -2058,48 +2041,43 @@ void __63__RBLaunchdJobManager__createAndSubmitExtensionJob_UUID_error___block_i
     v4 = [*(a1 + 40) hostPid];
     v5 = *(a1 + 48);
     v6 = [*(a1 + 56) debugDescription];
-    v8 = 138544130;
-    v9 = v3;
-    v10 = 1024;
-    v11 = v4;
-    v12 = 2114;
-    v13 = v5;
-    v14 = 2114;
-    v15 = v6;
-    _os_log_impl(&dword_262485000, v2, OS_LOG_TYPE_DEFAULT, "'%{public}@' Submitting extension job properties (host PID %d, path %{public}@):\n%{public}@", &v8, 0x26u);
+    v7 = 138544130;
+    v8 = v3;
+    v9 = 1024;
+    v10 = v4;
+    v11 = 2114;
+    v12 = v5;
+    v13 = 2114;
+    v14 = v6;
+    _os_log_impl(&dword_262485000, v2, OS_LOG_TYPE_DEFAULT, "'%{public}@' Submitting extension job properties (host PID %d, path %{public}@):\n%{public}@", &v7, 0x26u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __63__RBLaunchdJobManager__createAndSubmitExtensionJob_UUID_error___block_invoke_151(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = rbs_job_oversize_log();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = [*(a1 + 40) hostPid];
-    v6 = *(a1 + 48);
-    v5 = *(a1 + 56);
-    v7 = _describeXPCObject();
-    v9 = 138544130;
-    v10 = v3;
-    v11 = 1024;
-    v12 = v4;
+    v5 = *(a1 + 48);
+    v6 = _describeXPCObject();
+    v7 = 138544130;
+    v8 = v3;
+    v9 = 1024;
+    v10 = v4;
+    v11 = 2114;
+    v12 = v5;
     v13 = 2114;
     v14 = v6;
-    v15 = 2114;
-    v16 = v7;
-    _os_log_impl(&dword_262485000, v2, OS_LOG_TYPE_DEFAULT, "'%{public}@' Submitting extension overlay (host PID %d, path %{public}@):\n%{public}@", &v9, 0x26u);
+    _os_log_impl(&dword_262485000, v2, OS_LOG_TYPE_DEFAULT, "'%{public}@' Submitting extension overlay (host PID %d, path %{public}@):\n%{public}@", &v7, 0x26u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)createAndLaunchWithIdentity:(id)identity context:(id)context error:(id *)error
 {
-  v118[1] = *MEMORY[0x277D85DE8];
+  v117[1] = *MEMORY[0x277D85DE8];
   identityCopy = identity;
   contextCopy = context;
   v10 = rbs_job_log();
@@ -2123,9 +2101,9 @@ void __63__RBLaunchdJobManager__createAndSubmitExtensionJob_UUID_error___block_i
       if (v15)
       {
         v16 = self->_launchdInterface;
-        v96 = 0;
-        handle = [(RBLaunchdInterfacing *)v16 propertiesForJob:v15 error:&v96];
-        v18 = v96;
+        v95 = 0;
+        handle = [(RBLaunchdInterfacing *)v16 propertiesForJob:v15 error:&v95];
+        v18 = v95;
         if (!handle)
         {
           v32 = rbs_process_log();
@@ -2139,20 +2117,20 @@ void __63__RBLaunchdJobManager__createAndSubmitExtensionJob_UUID_error___block_i
 
         if ([identityCopy osServiceType] == 3 && objc_msgSend(handle, "serviceType") != 3)
         {
-          v79 = rbs_process_log();
-          if (os_log_type_enabled(v79, OS_LOG_TYPE_FAULT))
+          v78 = rbs_process_log();
+          if (os_log_type_enabled(v78, OS_LOG_TYPE_FAULT))
           {
             [RBLaunchdJobManager createAndLaunchWithIdentity:context:error:];
           }
 
-          v84 = MEMORY[0x277CCA9B8];
-          v82 = *MEMORY[0x277D47098];
-          v114 = *MEMORY[0x277CCA450];
-          v88 = [MEMORY[0x277CCACA8] stringWithFormat:@"Launchd could not find angel job"];
-          v115 = v88;
+          v83 = MEMORY[0x277CCA9B8];
+          v81 = *MEMORY[0x277D47098];
+          v113 = *MEMORY[0x277CCA450];
+          v87 = [MEMORY[0x277CCACA8] stringWithFormat:@"Launchd could not find angel job"];
+          v114 = v87;
           v20 = MEMORY[0x277CBEAC0];
-          v21 = &v115;
-          v22 = &v114;
+          v21 = &v114;
+          v22 = &v113;
         }
 
         else
@@ -2168,21 +2146,21 @@ void __63__RBLaunchdJobManager__createAndSubmitExtensionJob_UUID_error___block_i
             [RBLaunchdJobManager createAndLaunchWithIdentity:context:error:];
           }
 
-          v84 = MEMORY[0x277CCA9B8];
-          v82 = *MEMORY[0x277D47098];
-          v112 = *MEMORY[0x277CCA450];
-          v88 = [MEMORY[0x277CCACA8] stringWithFormat:@"Launchd found an angel job for requested daemon launch"];
-          v113 = v88;
+          v83 = MEMORY[0x277CCA9B8];
+          v81 = *MEMORY[0x277D47098];
+          v111 = *MEMORY[0x277CCA450];
+          v87 = [MEMORY[0x277CCACA8] stringWithFormat:@"Launchd found an angel job for requested daemon launch"];
+          v112 = v87;
           v20 = MEMORY[0x277CBEAC0];
-          v21 = &v113;
-          v22 = &v112;
+          v21 = &v112;
+          v22 = &v111;
         }
 
-        v80 = [v20 dictionaryWithObjects:v21 forKeys:v22 count:1];
-        v86 = [v84 errorWithDomain:v82 code:4 userInfo:v80];
+        v79 = [v20 dictionaryWithObjects:v21 forKeys:v22 count:1];
+        v85 = [v83 errorWithDomain:v81 code:4 userInfo:v79];
 
         v32 = v15;
-        v18 = v86;
+        v18 = v85;
 LABEL_29:
         v15 = 0;
 LABEL_30:
@@ -2192,10 +2170,10 @@ LABEL_30:
 
       v36 = MEMORY[0x277CCA9B8];
       v37 = *MEMORY[0x277D47098];
-      v116 = *MEMORY[0x277CCA450];
+      v115 = *MEMORY[0x277CCA450];
       handle = [MEMORY[0x277CCACA8] stringWithFormat:@"Launchd could not find job"];
-      v117 = handle;
-      v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v117 forKeys:&v116 count:1];
+      v116 = handle;
+      v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v116 forKeys:&v115 count:1];
       v33 = v36;
       v34 = v37;
       v35 = 4;
@@ -2205,10 +2183,10 @@ LABEL_30:
     {
       v30 = MEMORY[0x277CCA9B8];
       v31 = *MEMORY[0x277D47098];
-      v110 = *MEMORY[0x277CCA450];
+      v109 = *MEMORY[0x277CCA450];
       handle = [MEMORY[0x277CCACA8] stringWithFormat:@"Identity doesn't have required label"];
-      v111 = handle;
-      v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v111 forKeys:&v110 count:1];
+      v110 = handle;
+      v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v110 forKeys:&v109 count:1];
       v33 = v30;
       v34 = v31;
       v35 = 3;
@@ -2221,9 +2199,9 @@ LABEL_30:
   if ([identityCopy isExtension])
   {
     uuid = [identityCopy uuid];
-    v95 = 0;
-    v15 = [(RBLaunchdJobManager *)self _createAndSubmitExtensionJob:contextCopy UUID:uuid error:&v95];
-    v18 = v95;
+    v94 = 0;
+    v15 = [(RBLaunchdJobManager *)self _createAndSubmitExtensionJob:contextCopy UUID:uuid error:&v94];
+    v18 = v94;
 
     consistentLaunchdJobLabel = rbs_general_log();
     if (!os_log_type_enabled(consistentLaunchdJobLabel, OS_LOG_TYPE_INFO))
@@ -2240,11 +2218,11 @@ LABEL_31:
 LABEL_32:
     if (v15)
     {
-      v89 = contextCopy;
+      v88 = contextCopy;
       v29 = hasConsistentLaunchdJob ^ 1;
-      v91 = v18;
-      v27 = &v91;
-      v28 = [v15 start:&v91];
+      v90 = v18;
+      v27 = &v90;
+      v28 = [v15 start:&v90];
 LABEL_34:
       v38 = *v27;
 
@@ -2265,10 +2243,10 @@ LABEL_34:
 
         v51 = MEMORY[0x277CCA9B8];
         v52 = *MEMORY[0x277D47098];
-        v103 = *MEMORY[0x277CCA450];
+        v102 = *MEMORY[0x277CCA450];
         v38 = [MEMORY[0x277CCACA8] stringWithFormat:@"Launchd job spawn failed for unknown reason"];
-        v104 = v38;
-        v53 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v104 forKeys:&v103 count:1];
+        v103 = v38;
+        v53 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v103 forKeys:&v102 count:1];
         v54 = [v51 errorWithDomain:v52 code:0 userInfo:v53];
 
         goto LABEL_65;
@@ -2291,12 +2269,12 @@ LABEL_34:
 
         v41 = MEMORY[0x277CCA9B8];
         v42 = *MEMORY[0x277D47098];
-        v97 = *MEMORY[0x277CCA450];
+        v96 = *MEMORY[0x277CCA450];
         v43 = [MEMORY[0x277CCACA8] stringWithFormat:@"Launchd job spawn failed for unknown reason"];
-        v98 = v43;
+        v97 = v43;
         v44 = MEMORY[0x277CBEAC0];
-        v45 = &v98;
-        v46 = &v97;
+        v45 = &v97;
+        v46 = &v96;
         goto LABEL_61;
       }
 
@@ -2310,12 +2288,12 @@ LABEL_60:
           v39 = v29;
           v41 = MEMORY[0x277CCA9B8];
           v42 = *MEMORY[0x277D47098];
-          v99 = *MEMORY[0x277CCA450];
+          v98 = *MEMORY[0x277CCA450];
           v43 = [MEMORY[0x277CCACA8] stringWithFormat:@"Launchd job spawn failed for unknown reason"];
-          v100 = v43;
+          v99 = v43;
           v44 = MEMORY[0x277CBEAC0];
-          v45 = &v100;
-          v46 = &v99;
+          v45 = &v99;
+          v46 = &v98;
 LABEL_61:
           v65 = [v44 dictionaryWithObjects:v45 forKeys:v46 count:1];
           v54 = [v41 errorWithDomain:v42 code:0 userInfo:v65];
@@ -2335,17 +2313,17 @@ LABEL_61:
         if (state == 4)
         {
           v39 = v29;
-          v83 = MEMORY[0x277CCA9B8];
-          v81 = *MEMORY[0x277D47098];
-          v101 = *MEMORY[0x277CCA450];
+          v82 = MEMORY[0x277CCA9B8];
+          v80 = *MEMORY[0x277D47098];
+          v100 = *MEMORY[0x277CCA450];
           v66 = MEMORY[0x277CCACA8];
           lastExitStatus = [v28 lastExitStatus];
           os_reason_namespace = [lastExitStatus os_reason_namespace];
           lastExitStatus2 = [v28 lastExitStatus];
           v69 = [v66 stringWithFormat:@"Launchd job spawn immediately exited with namespace %d code %lld", os_reason_namespace, objc_msgSend(lastExitStatus2, "os_reason_code")];
-          v102 = v69;
-          v70 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v102 forKeys:&v101 count:1];
-          v54 = [v83 errorWithDomain:v81 code:0 userInfo:v70];
+          v101 = v69;
+          v70 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v101 forKeys:&v100 count:1];
+          v54 = [v82 errorWithDomain:v80 code:0 userInfo:v70];
 
           v38 = lastExitStatus;
           goto LABEL_65;
@@ -2357,9 +2335,9 @@ LABEL_61:
           lastSpawnError = [v28 lastSpawnError];
           v57 = MEMORY[0x277CCA9B8];
           v58 = *MEMORY[0x277CCA5B8];
-          v118[0] = *MEMORY[0x277CCA450];
+          v117[0] = *MEMORY[0x277CCA450];
           *buf = @"Launchd job spawn failed";
-          v59 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:v118 count:1];
+          v59 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:v117 count:1];
           v54 = [v57 errorWithDomain:v58 code:lastSpawnError userInfo:v59];
 
 LABEL_65:
@@ -2379,7 +2357,7 @@ LABEL_66:
 
             v49 = [MEMORY[0x277D46F70] instanceWithIdentifier:v76 identity:identityCopy];
             v75 = 0;
-            contextCopy = v89;
+            contextCopy = v88;
             goto LABEL_83;
           }
 
@@ -2390,7 +2368,7 @@ LABEL_67:
             [RBLaunchdJobManager createAndLaunchWithIdentity:context:error:];
           }
 
-          contextCopy = v89;
+          contextCopy = v88;
           if (error)
           {
             v72 = v38;
@@ -2410,15 +2388,15 @@ LABEL_67:
             _os_log_impl(&dword_262485000, v73, OS_LOG_TYPE_INFO, "Removing job after failed start", buf, 2u);
           }
 
-          v90 = v38;
-          v74 = [v15 remove:&v90];
-          v75 = v90;
+          v89 = v38;
+          v74 = [v15 remove:&v89];
+          v75 = v89;
 
           if (v74)
           {
             v49 = 0;
             v38 = v75;
-            contextCopy = v89;
+            contextCopy = v88;
 LABEL_84:
 
             v18 = v38;
@@ -2432,7 +2410,7 @@ LABEL_84:
           }
 
           v49 = 0;
-          contextCopy = v89;
+          contextCopy = v88;
 LABEL_83:
 
           v38 = v75;
@@ -2452,11 +2430,11 @@ LABEL_83:
     goto LABEL_40;
   }
 
+  v92 = 0;
   v93 = 0;
-  v94 = 0;
-  v15 = [(RBLaunchdJobManager *)self _createLaunchdJobWithIdentity:identityCopy context:contextCopy actualIdentity:&v94 error:&v93];
-  v24 = v94;
-  v18 = v93;
+  v15 = [(RBLaunchdJobManager *)self _createLaunchdJobWithIdentity:identityCopy context:contextCopy actualIdentity:&v93 error:&v92];
+  v24 = v93;
+  v18 = v92;
   if (_os_feature_enabled_impl() && v24 && v24 != identityCopy && ([v24 isEqual:identityCopy] & 1) == 0)
   {
     v25 = rbs_job_log();
@@ -2464,8 +2442,8 @@ LABEL_83:
     {
       *buf = 138543618;
       *&buf[4] = identityCopy;
-      v108 = 2114;
-      v109 = v24;
+      v107 = 2114;
+      v108 = v24;
       _os_log_impl(&dword_262485000, v25, OS_LOG_TYPE_DEFAULT, "Adjusting identity of job from %{public}@ to %{public}@", buf, 0x16u);
     }
 
@@ -2475,10 +2453,10 @@ LABEL_83:
 
   if (v15)
   {
-    v89 = contextCopy;
-    v92 = v18;
-    v27 = &v92;
-    v28 = [v15 submitAndStart:&v92];
+    v88 = contextCopy;
+    v91 = v18;
+    v27 = &v91;
+    v28 = [v15 submitAndStart:&v91];
     v29 = 1;
     goto LABEL_34;
   }
@@ -2502,10 +2480,10 @@ LABEL_40:
 
     v60 = MEMORY[0x277CCA9B8];
     v61 = *MEMORY[0x277D47098];
-    v105 = *MEMORY[0x277CCA450];
+    v104 = *MEMORY[0x277CCA450];
     v62 = [MEMORY[0x277CCACA8] stringWithFormat:@"Launchd job spawn failed to create job"];
-    v106 = v62;
-    v63 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v106 forKeys:&v105 count:1];
+    v105 = v62;
+    v63 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v105 forKeys:&v104 count:1];
     *error = [v60 errorWithDomain:v61 code:0 userInfo:v63];
 
     v18 = 0;
@@ -2514,18 +2492,16 @@ LABEL_40:
   v49 = 0;
 LABEL_85:
 
-  v77 = *MEMORY[0x277D85DE8];
-
   return v49;
 }
 
 - (BOOL)_isRunningBoardLaunched:(id)launched
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   launchdInterface = self->_launchdInterface;
-  v16 = 0;
-  v4 = [(RBLaunchdInterfacing *)launchdInterface propertiesForJob:launched error:&v16];
-  v5 = v16;
+  v15 = 0;
+  v4 = [(RBLaunchdInterfacing *)launchdInterface propertiesForJob:launched error:&v15];
+  v5 = v15;
   if (v4)
   {
     additionalProperties = [v4 additionalProperties];
@@ -2568,20 +2544,19 @@ LABEL_15:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v18 = v5;
+    v17 = v5;
     _os_log_impl(&dword_262485000, v7, OS_LOG_TYPE_DEFAULT, "propertiesForJob failed for _isRunningBoardLaunched %{public}@", buf, 0xCu);
   }
 
   v11 = 1;
 LABEL_16:
 
-  v14 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 - (BOOL)_removeJobWithInstance:(id)instance orJob:(id)job error:(id *)error
 {
-  v45[1] = *MEMORY[0x277D85DE8];
+  v44[1] = *MEMORY[0x277D85DE8];
   instanceCopy = instance;
   jobCopy = job;
   if (!instanceCopy)
@@ -2621,9 +2596,9 @@ LABEL_31:
         _os_log_impl(&dword_262485000, v20, OS_LOG_TYPE_DEFAULT, "Removing launch job for: %{public}@", buf, 0xCu);
       }
 
-      v43 = 0;
-      v21 = [jobCopy remove:&v43];
-      v22 = v43;
+      v42 = 0;
+      v21 = [jobCopy remove:&v42];
+      v22 = v42;
       v23 = v22;
       if ((v21 & 1) != 0 || [v22 code] == 36)
       {
@@ -2651,11 +2626,11 @@ LABEL_31:
         code = [v23 code];
         v35 = MEMORY[0x277CCA9B8];
         v36 = *MEMORY[0x277CCA5B8];
-        v45[0] = *MEMORY[0x277CCA450];
+        v44[0] = *MEMORY[0x277CCA450];
         *buf = instanceCopy;
         v37 = MEMORY[0x277CBEAC0];
         v24 = instanceCopy;
-        v38 = [v37 dictionaryWithObjects:buf forKeys:v45 count:1];
+        v38 = [v37 dictionaryWithObjects:buf forKeys:v44 count:1];
         v39 = [v35 errorWithDomain:v36 code:code userInfo:v38];
 
         v40 = v39;
@@ -2678,9 +2653,9 @@ LABEL_31:
         v24 = [MEMORY[0x277CCACA8] stringWithFormat:@"Unable to delete job not submitted by RunningBoard"];
         v27 = MEMORY[0x277CCA9B8];
         v28 = *MEMORY[0x277CCA5B8];
-        v45[0] = *MEMORY[0x277CCA450];
+        v44[0] = *MEMORY[0x277CCA450];
         *buf = v24;
-        v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:v45 count:1];
+        v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:v44 count:1];
         v30 = [v27 errorWithDomain:v28 code:-1 userInfo:v29];
 
         v31 = v30;
@@ -2729,67 +2704,66 @@ LABEL_30:
   v25 = 1;
 LABEL_32:
 
-  v41 = *MEMORY[0x277D85DE8];
   return v25;
 }
 
 - (id)synchronizeJobs
 {
-  v70 = *MEMORY[0x277D85DE8];
+  v69 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   launchdInterface = self->_launchdInterface;
-  v62 = 0;
-  v34 = [(RBLaunchdInterfacing *)launchdInterface copyJobsManagedBy:@"com.apple.runningboard" error:&v62];
-  v3 = v62;
-  if (v34)
+  v61 = 0;
+  v33 = [(RBLaunchdInterfacing *)launchdInterface copyJobsManagedBy:@"com.apple.runningboard" error:&v61];
+  v3 = v61;
+  if (v33)
   {
-    v60 = 0u;
-    v61 = 0u;
-    v58 = 0u;
     v59 = 0u;
-    obj = v34;
-    v4 = [obj countByEnumeratingWithState:&v58 objects:v69 count:16];
+    v60 = 0u;
+    v57 = 0u;
+    v58 = 0u;
+    obj = v33;
+    v4 = [obj countByEnumeratingWithState:&v57 objects:v68 count:16];
     if (!v4)
     {
       goto LABEL_46;
     }
 
-    v44 = *v59;
+    v43 = *v58;
     while (1)
     {
       v5 = 0;
       v6 = v3;
       do
       {
-        if (*v59 != v44)
+        if (*v58 != v43)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v58 + 1) + 8 * v5);
-        v54 = 0;
-        v55 = &v54;
-        v56 = 0x2020000000;
-        v57 = 0;
+        v7 = *(*(&v57 + 1) + 8 * v5);
+        v53 = 0;
+        v54 = &v53;
+        v55 = 0x2020000000;
+        v56 = 0;
         if (_synchronizeJobsQueue_onceToken != -1)
         {
           [RBLaunchdJobManager synchronizeJobs];
         }
 
         v8 = _synchronizeJobsQueue_queue;
-        v53[0] = MEMORY[0x277D85DD0];
-        v53[1] = 3221225472;
-        v53[2] = __38__RBLaunchdJobManager_synchronizeJobs__block_invoke;
-        v53[3] = &unk_279B331E0;
-        v53[4] = v7;
-        v53[5] = &v54;
-        [v7 monitorOnQueue:v8 withHandler:v53];
+        v52[0] = MEMORY[0x277D85DD0];
+        v52[1] = 3221225472;
+        v52[2] = __38__RBLaunchdJobManager_synchronizeJobs__block_invoke;
+        v52[3] = &unk_279B331E0;
+        v52[4] = v7;
+        v52[5] = &v53;
+        [v7 monitorOnQueue:v8 withHandler:v52];
 
         [v7 cancelMonitor];
         v9 = self->_launchdInterface;
-        v52 = 0;
-        v10 = [(RBLaunchdInterfacing *)v9 propertiesForJob:v7 error:&v52];
-        v3 = v52;
+        v51 = 0;
+        v10 = [(RBLaunchdInterfacing *)v9 propertiesForJob:v7 error:&v51];
+        v3 = v51;
 
         if (v10)
         {
@@ -2800,7 +2774,7 @@ LABEL_32:
             v13 = rbs_general_log();
             if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
             {
-              [(RBLaunchdJobManager *)&v50 synchronizeJobs];
+              [(RBLaunchdJobManager *)&v49 synchronizeJobs];
             }
 
             goto LABEL_43;
@@ -2813,7 +2787,7 @@ LABEL_32:
             v15 = rbs_general_log();
             if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
             {
-              [(RBLaunchdJobManager *)&v48 synchronizeJobs];
+              [(RBLaunchdJobManager *)&v47 synchronizeJobs];
             }
 
             goto LABEL_42;
@@ -2823,13 +2797,13 @@ LABEL_32:
           if (v15)
           {
             v16 = objc_alloc(MEMORY[0x277D46F50]);
-            v17 = *(v55 + 6);
+            v17 = *(v54 + 6);
             if (!v17)
             {
               v17 = getpid();
             }
 
-            v42 = [v16 initWithPid:{v17, v34}];
+            v41 = [v16 initWithPid:{v17, v33}];
             if (MEMORY[0x26672A380](v15) != MEMORY[0x277D86458])
             {
               if (MEMORY[0x26672A380](v15) == MEMORY[0x277D86468])
@@ -2858,12 +2832,12 @@ LABEL_29:
             {
 LABEL_34:
               log = v24;
-              v36 = [MEMORY[0x277D46F70] instanceWithIdentifier:v42 identity:v24];
-              if (*(v55 + 6))
+              v35 = [MEMORY[0x277D46F70] instanceWithIdentifier:v41 identity:v24];
+              if (*(v54 + 6))
               {
-                [array addObject:v36];
+                [array addObject:v35];
                 os_unfair_lock_lock(&self->_lock);
-                [(NSMutableDictionary *)self->_lock_jobsByIdentifier setObject:v7 forKey:v42];
+                [(NSMutableDictionary *)self->_lock_jobsByIdentifier setObject:v7 forKey:v41];
                 os_unfair_lock_unlock(&self->_lock);
               }
 
@@ -2873,10 +2847,10 @@ LABEL_34:
                 if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
                 {
                   handle = [v7 handle];
-                  [(RBLaunchdJobManager *)handle synchronizeJobs:v63];
+                  [(RBLaunchdJobManager *)handle synchronizeJobs:v62];
                 }
 
-                [(RBLaunchdJobManager *)self _removeJobWithInstance:v36 orJob:v7 error:0];
+                [(RBLaunchdJobManager *)self _removeJobWithInstance:v35 orJob:v7 error:0];
               }
             }
 
@@ -2900,17 +2874,17 @@ LABEL_30:
               if (os_log_type_enabled(log, OS_LOG_TYPE_ERROR))
               {
                 handle2 = [v7 handle];
-                [(RBLaunchdJobManager *)handle2 synchronizeJobs:v65];
+                [(RBLaunchdJobManager *)handle2 synchronizeJobs:v64];
               }
             }
           }
 
           else
           {
-            v42 = rbs_general_log();
-            if (os_log_type_enabled(v42, OS_LOG_TYPE_FAULT))
+            v41 = rbs_general_log();
+            if (os_log_type_enabled(v41, OS_LOG_TYPE_FAULT))
             {
-              [(RBLaunchdJobManager *)&v46 synchronizeJobs];
+              [(RBLaunchdJobManager *)&v45 synchronizeJobs];
             }
           }
 
@@ -2924,19 +2898,19 @@ LABEL_43:
         if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
         {
           *buf = 138543362;
-          v68 = v3;
+          v67 = v3;
           _os_log_fault_impl(&dword_262485000, v12, OS_LOG_TYPE_FAULT, "propertiesForPid failed for job %{public}@", buf, 0xCu);
         }
 
 LABEL_44:
 
-        _Block_object_dispose(&v54, 8);
+        _Block_object_dispose(&v53, 8);
         ++v5;
         v6 = v3;
       }
 
       while (v4 != v5);
-      v4 = [obj countByEnumeratingWithState:&v58 objects:v69 count:16];
+      v4 = [obj countByEnumeratingWithState:&v57 objects:v68 count:16];
       if (!v4)
       {
 LABEL_46:
@@ -2956,12 +2930,10 @@ LABEL_46:
 
 LABEL_49:
 
-  v32 = *MEMORY[0x277D85DE8];
-
   return array;
 }
 
-void __38__RBLaunchdJobManager_synchronizeJobs__block_invoke(uint64_t a1, void *a2)
+void __38__RBLaunchdJobManager_synchronizeJobs__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   if (a2)
   {
@@ -2970,8 +2942,8 @@ void __38__RBLaunchdJobManager_synchronizeJobs__block_invoke(uint64_t a1, void *
 
   else
   {
-    v3 = rbs_general_log();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = rbs_general_log();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       __38__RBLaunchdJobManager_synchronizeJobs__block_invoke_cold_1(a1);
     }
@@ -3049,7 +3021,7 @@ LABEL_13:
 
 void __60__RBLaunchdJobManager_invokeOnProcessDeath_handler_onQueue___block_invoke(uint64_t a1, void *a2, int a3)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = v5;
   if (v5)
@@ -3069,18 +3041,18 @@ void __60__RBLaunchdJobManager_invokeOnProcessDeath_handler_onQueue___block_invo
         {
           if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
           {
-            __60__RBLaunchdJobManager_invokeOnProcessDeath_handler_onQueue___block_invoke_cold_1((a1 + 32), v6);
+            __60__RBLaunchdJobManager_invokeOnProcessDeath_handler_onQueue___block_invoke_cold_1(a1 + 32, v6);
           }
         }
 
         else if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
         {
           v22 = *v8;
-          v37 = 138543618;
-          v38 = v22;
-          v39 = 1024;
-          v40 = [v6 pid];
-          _os_log_impl(&dword_262485000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@ reported with incorrect pid %d", &v37, 0x12u);
+          v36 = 138543618;
+          v37 = v22;
+          v38 = 1024;
+          v39 = [v6 pid];
+          _os_log_impl(&dword_262485000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@ reported with incorrect pid %d", &v36, 0x12u);
         }
       }
     }
@@ -3094,8 +3066,8 @@ void __60__RBLaunchdJobManager_invokeOnProcessDeath_handler_onQueue___block_invo
         if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
         {
           v35 = *(a1 + 32);
-          v37 = 138543362;
-          v38 = v35;
+          v36 = 138543362;
+          v37 = v35;
           v25 = "%{public}@ reported to RB as never ran";
           goto LABEL_33;
         }
@@ -3111,11 +3083,11 @@ LABEL_34:
         if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
         {
           v24 = *(a1 + 32);
-          v37 = 138543362;
-          v38 = v24;
+          v36 = 138543362;
+          v37 = v24;
           v25 = "%{public}@ reported to RB as running";
 LABEL_33:
-          _os_log_impl(&dword_262485000, v14, OS_LOG_TYPE_DEFAULT, v25, &v37, 0xCu);
+          _os_log_impl(&dword_262485000, v14, OS_LOG_TYPE_DEFAULT, v25, &v36, 0xCu);
           goto LABEL_34;
         }
 
@@ -3178,16 +3150,14 @@ LABEL_28:
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     v15 = *(a1 + 32);
-    v37 = 138543362;
-    v38 = v15;
-    _os_log_impl(&dword_262485000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@ job reported to RB as removed", &v37, 0xCu);
+    v36 = 138543362;
+    v37 = v15;
+    _os_log_impl(&dword_262485000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@ job reported to RB as removed", &v36, 0xCu);
   }
 
   _handleDeath(*(a1 + 32), *(a1 + 56), 0);
   [*(a1 + 40) cancelMonitor];
 LABEL_35:
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)test_trackedJobCount
@@ -3199,53 +3169,38 @@ LABEL_35:
   return v4 + v3;
 }
 
-+ (void)lastExitStatusForLabel:(uint64_t)a1 error:(uint64_t *)a2 .cold.1(uint64_t a1, uint64_t *a2)
++ (void)lastExitStatusForLabel:error:.cold.1()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  OUTLINED_FUNCTION_2();
-  v7 = 2048;
-  v8 = v3;
-  _os_log_error_impl(&dword_262485000, v4, OS_LOG_TYPE_ERROR, "Unexpected exit reason from launchd %{public}@: %llu", v6, 0x16u);
   v5 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2();
+  v3 = 2048;
+  v4 = v0;
+  _os_log_error_impl(&dword_262485000, v1, OS_LOG_TYPE_ERROR, "Unexpected exit reason from launchd %{public}@: %llu", v2, 0x16u);
 }
 
 - (void)_addSharedPropertiesToData:(void *)a1 forIdentity:context:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 identity];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_2_4();
   _os_log_fault_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_addAppPropertiesToData:(int)a1 forIdentity:(NSObject *)a2 context:actualIdentity:error:.cold.1(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_fault_impl(&dword_262485000, a2, OS_LOG_TYPE_FAULT, "Unrecognized RBSLaunchSpawnType %d", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_fault_impl(&dword_262485000, a2, OS_LOG_TYPE_FAULT, "Unrecognized RBSLaunchSpawnType %d", v2, 8u);
 }
 
 - (void)_addAppPropertiesToData:forIdentity:context:actualIdentity:error:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
-  v4 = 2114;
-  v5 = v0;
-  _os_log_fault_impl(&dword_262485000, v1, OS_LOG_TYPE_FAULT, "'%{public}@' container path lookup failed: %{public}@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_createLaunchdJobWithIdentity:context:actualIdentity:error:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_2(&dword_262485000, v0, v1, "Multiple personas available for %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v3 = 2114;
+  v4 = v0;
+  _os_log_fault_impl(&dword_262485000, v1, OS_LOG_TYPE_FAULT, "'%{public}@' container path lookup failed: %{public}@", v2, 0x16u);
 }
 
 - (void)_adjustLaunchdJobProperties:context:.cold.1()
@@ -3254,76 +3209,24 @@ LABEL_35:
   v2 = [MEMORY[0x277CCA890] currentHandler];
 }
 
-- (void)createAndLaunchWithIdentity:context:error:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1_5(&dword_262485000, v0, v1, "Attempted to launch angel found a non-angel job: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)createAndLaunchWithIdentity:context:error:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1_5(&dword_262485000, v0, v1, "Attempted to launch daemon found an angel job: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)createAndLaunchWithIdentity:context:error:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1_5(&dword_262485000, v0, v1, "Failed to fetch properties for job for %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 - (void)createAndLaunchWithIdentity:context:error:.cold.4()
 {
   OUTLINED_FUNCTION_0_0();
-  v8 = *MEMORY[0x277D85DE8];
   [v1 pid];
   [v0 state];
   OUTLINED_FUNCTION_6_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xEu);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)createAndLaunchWithIdentity:context:error:.cold.5()
 {
   OUTLINED_FUNCTION_0_0();
-  v8 = *MEMORY[0x277D85DE8];
   [v1 pid];
   [v0 state];
   OUTLINED_FUNCTION_6_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x18u);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-- (void)createAndLaunchWithIdentity:context:error:.cold.7()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_2(&dword_262485000, v0, v1, "Process start failed with %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)createAndLaunchWithIdentity:context:error:.cold.8()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_2(&dword_262485000, v0, v1, "Job remove after failed start failed with %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)createAndLaunchWithIdentity:context:error:.cold.9()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_2(&dword_262485000, v0, v1, "Process start failed to launch/find job with error %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_removeJobWithInstance:orJob:error:.cold.1()
@@ -3333,86 +3236,55 @@ LABEL_35:
   [v2 handleFailureInMethod:v1 object:v0 file:@"RBLaunchdJobManager.m" lineNumber:1499 description:{@"Invalid parameter not satisfying: %@", @"instance"}];
 }
 
-- (void)_removeJobWithInstance:orJob:error:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1_5(&dword_262485000, v0, v1, "About to attempt job removal for job not submitted by RunningBoard: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_removeJobWithInstance:orJob:error:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1_5(&dword_262485000, v0, v1, "Job removal failed with %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 - (void)synchronizeJobs
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1_5(&dword_262485000, v0, v1, "copyJobsManagedBy failed with %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  *buf = 138543362;
+  *a3 = self;
+  _os_log_error_impl(&dword_262485000, log, OS_LOG_TYPE_ERROR, "Skipping recovery for process with invalid identity %{public}@", buf, 0xCu);
 }
 
 void __38__RBLaunchdJobManager_synchronizeJobs__block_invoke_cold_1(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [*(a1 + 32) handle];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x12u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invokeOnProcessDeath:(void *)a1 handler:onQueue:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 description];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_2_4();
   _os_log_fault_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
-void __60__RBLaunchdJobManager_invokeOnProcessDeath_handler_onQueue___block_invoke_cold_1(uint64_t *a1, void *a2)
+void __60__RBLaunchdJobManager_invokeOnProcessDeath_handler_onQueue___block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v8 = *a1;
   [a2 pid];
   OUTLINED_FUNCTION_2_4();
   _os_log_fault_impl(v2, v3, v4, v5, v6, 0x12u);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __60__RBLaunchdJobManager_invokeOnProcessDeath_handler_onQueue___block_invoke_cold_2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*(a1 + 32));
-  OUTLINED_FUNCTION_1_5(&dword_262485000, a2, a3, "%{public}@ termination reported but no exit status is present", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = *(a1 + 32);
+  OUTLINED_FUNCTION_1_5(&dword_262485000, a2, a3, "%{public}@ termination reported but no exit status is present", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __60__RBLaunchdJobManager_invokeOnProcessDeath_handler_onQueue___block_invoke_cold_3(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v8 = *(a1 + 32);
   [a2 state];
   OUTLINED_FUNCTION_2_4();
   _os_log_fault_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __60__RBLaunchdJobManager_invokeOnProcessDeath_handler_onQueue___block_invoke_cold_4(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*(a1 + 32));
-  OUTLINED_FUNCTION_1_5(&dword_262485000, a2, a3, "OSLaunchdJob monitor called with nil info for %{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = *(a1 + 32);
+  OUTLINED_FUNCTION_1_5(&dword_262485000, a2, a3, "OSLaunchdJob monitor called with nil info for %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

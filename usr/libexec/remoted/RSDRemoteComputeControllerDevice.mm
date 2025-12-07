@@ -38,7 +38,7 @@
   interfaceCopy = interface;
   selfCopy = 0;
   *__s1 = 0u;
-  memset(v15, 0, sizeof(v15));
+  memset(v14, 0, sizeof(v14));
   if (!interfaceCopy || !address)
   {
     goto LABEL_18;
@@ -55,10 +55,10 @@ LABEL_17:
   self->remote_address_storage = *address;
   if (!inet_ntop(30, address, __s1, 0x2Eu))
   {
-    v11 = __error();
+    __error();
     if (os_log_type_enabled(qword_100064410, OS_LOG_TYPE_ERROR))
     {
-      sub_10003DB3C(v11);
+      sub_10003DB3C();
     }
 
     goto LABEL_17;
@@ -83,7 +83,7 @@ LABEL_17:
     v10 = strdup(__s1);
     if (!v10)
     {
-      sub_10003DA8C(__s1, &v13, v16);
+      sub_10003DA8C(__s1, &v12, v15);
     }
   }
 
@@ -214,26 +214,28 @@ LABEL_18:
 
 - (uint64_t)tlsRequirement
 {
-  v0 = sub_10002DA14();
-  v1 = sub_10001A4AC(v0, @"rsd_compute_platform_tls_requirement", @"compute-platform-tls-requirement", @"ComputePlatformEncryptionIsRequired");
+  v1 = sub_10002DA14(self);
+  v2 = sub_10001A4AC(v1, @"rsd_compute_platform_tls_requirement", @"compute-platform-tls-requirement", @"ComputePlatformEncryptionIsRequired");
 
-  if (v1)
+  if (v2)
   {
-    v2 = &unk_100053A79;
+    v5 = &unk_100053A79;
     goto LABEL_20;
   }
 
-  if (sub_10000FE64())
+  v3 = sub_10000FE64(v3, v4);
+  if (v3)
   {
-    v2 = " by default on hactivated devices";
-    v1 = 1;
+    v5 = " by default on hactivated devices";
+    v2 = 1;
     goto LABEL_20;
   }
 
-  if (sub_100025390())
+  v3 = sub_100025390(v3, v6);
+  if (v3)
   {
-    v2 = " by default in the factory";
-    v1 = 2;
+    v5 = " by default in the factory";
+    v2 = 2;
     goto LABEL_20;
   }
 
@@ -244,25 +246,25 @@ LABEL_18:
 
   if (qword_100064600)
   {
-    v3 = [&off_10005F370 objectForKeyedSubscript:?];
-    v4 = v3;
-    v2 = " by default";
-    if (v3)
+    v7 = [&off_10005F370 objectForKeyedSubscript:?];
+    v8 = v7;
+    v5 = " by default";
+    if (v7)
     {
-      unsignedIntValue = [v3 unsignedIntValue];
+      unsignedIntValue = [v7 unsignedIntValue];
       if (unsignedIntValue)
       {
-        v1 = unsignedIntValue;
+        v2 = unsignedIntValue;
       }
 
       else
       {
-        v1 = 1;
+        v2 = 1;
       }
 
       if (unsignedIntValue)
       {
-        v2 = " by default on this hardware model";
+        v5 = " by default on this hardware model";
       }
 
       goto LABEL_19;
@@ -271,25 +273,25 @@ LABEL_18:
 
   else
   {
-    v4 = 0;
-    v2 = " by default";
+    v8 = 0;
+    v5 = " by default";
   }
 
-  v1 = 1;
+  v2 = 1;
 LABEL_19:
 
 LABEL_20:
-  v6 = sub_10002DA14();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v10 = sub_10002DA14(v3);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315394;
-    v9 = sub_100019E60(v1);
-    v10 = 2080;
-    v11 = v2;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "TLS is %s for compute peers%s", &v8, 0x16u);
+    v12 = 136315394;
+    v13 = sub_100019E60(v2);
+    v14 = 2080;
+    v15 = v5;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "TLS is %s for compute peers%s", &v12, 0x16u);
   }
 
-  return v1;
+  return v2;
 }
 
 @end

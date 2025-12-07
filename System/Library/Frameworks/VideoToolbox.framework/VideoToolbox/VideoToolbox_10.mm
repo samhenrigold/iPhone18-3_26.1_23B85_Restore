@@ -5,7 +5,7 @@ uint64_t vt_Copy_420f_444f(uint64_t a1, void *a2, void *a3, uint64_t *a4, uint64
   v10 = v9 & 0xFFFFFFFE;
   v11 = a2[3] + v9;
   v12 = a4[1];
-  v13 = (a3[1] + v12 * (v9 >> 1) + (v8 & 0xFFFFFFFE));
+  v13 = a3[1] + v12 * (v9 >> 1) + (v8 & 0xFFFFFFFE);
   v14 = a6[4];
   v15 = a6[5];
   v16 = a6[2];
@@ -166,8 +166,8 @@ LABEL_33:
       if (v32)
       {
         v48 = *v13;
-        v49 = v13[1];
-        v47 = v13 + 2;
+        v49 = *(v13 + 1);
+        v47 = (v13 + 2);
         *v19 = *v13;
         *(v19 + 1) = v49;
         v50 = (v19 + v18);

@@ -43,7 +43,7 @@
 
 - (id)_gkCredentialForUsername:()GameCenter environment:
 {
-  v5 = [self _gkAccountForAppleID:?];
+  v5 = [self _gkAccountForAppleID:a3];
   v6 = [v5 _gkCredentialForEnvironment:a4];
 
   return v6;
@@ -51,7 +51,7 @@
 
 - (void)_gkSetScope:()GameCenter forCredential:completionHandler:
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v9 = a4;
   v10 = a5;
   environment = [v9 environment];
@@ -72,29 +72,29 @@
       v17 = os_log_GKAccount;
       if (os_log_type_enabled(os_log_GKAccount, OS_LOG_TYPE_DEBUG))
       {
-        v22 = v17;
-        v23 = NSStringFromSelector(a2);
+        v21 = v17;
+        v22 = NSStringFromSelector(a2);
         *buf = 138412802;
-        v29 = v23;
-        v30 = 2048;
-        v31 = a3;
-        v32 = 2112;
-        v33 = v9;
-        _os_log_debug_impl(&dword_227904000, v22, OS_LOG_TYPE_DEBUG, "%@: set bits:%lX cred:%@ ", buf, 0x20u);
+        v28 = v22;
+        v29 = 2048;
+        v30 = a3;
+        v31 = 2112;
+        v32 = v9;
+        _os_log_debug_impl(&dword_227904000, v21, OS_LOG_TYPE_DEBUG, "%@: set bits:%lX cred:%@ ", buf, 0x20u);
       }
     }
 
     v18 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:a3];
     [v13 _gkSetProperty:v18 forKey:@"GKCredentialScope" environment:environment];
 
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __74__ACAccountStore_GameCenter___gkSetScope_forCredential_completionHandler___block_invoke;
-    v24[3] = &unk_2785E08E8;
-    v27 = a2;
-    v25 = v9;
-    v26 = v10;
-    [self saveVerifiedAccount:v13 withCompletionHandler:v24];
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __74__ACAccountStore_GameCenter___gkSetScope_forCredential_completionHandler___block_invoke;
+    v23[3] = &unk_2785E08E8;
+    v26 = a2;
+    v24 = v9;
+    v25 = v10;
+    [self saveVerifiedAccount:v13 withCompletionHandler:v23];
   }
 
   else if (isInternalBuild)
@@ -110,8 +110,6 @@
       [ACAccountStore(GameCenter) _gkSetScope:v20 forCredential:a2 completionHandler:v9];
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_gkAllCredentialsForEnvironment:()GameCenter
@@ -259,9 +257,9 @@
 
 - (void)_gkSaveCredential:()GameCenter completionHandler:
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   v6 = a3;
-  v53 = a4;
+  v52 = a4;
   environment = [v6 environment];
   accountName = [v6 accountName];
   scope = [v6 scope];
@@ -283,11 +281,11 @@
   if (os_log_type_enabled(os_log_GKAccount, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412802;
-    v62 = v10;
-    v63 = 1024;
-    *v64 = environment;
-    *&v64[4] = 2048;
-    *&v64[6] = scope;
+    v61 = v10;
+    v62 = 1024;
+    *v63 = environment;
+    *&v63[4] = 2048;
+    *&v63[6] = scope;
     _os_log_debug_impl(&dword_227904000, v14, OS_LOG_TYPE_DEBUG, "STORING ACCOUNT: account:%@ environment:%d scope:%lX", buf, 0x1Cu);
     if (v10)
     {
@@ -327,7 +325,7 @@ LABEL_5:
   }
 
 LABEL_13:
-  v54 = accountName;
+  v53 = accountName;
   v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:scope];
   [v10 _gkSetProperty:v19 forKey:@"GKCredentialScope" environment:environment];
 
@@ -371,16 +369,16 @@ LABEL_13:
     if (os_log_type_enabled(os_log_GKAccount, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412802;
-      v62 = v10;
-      v63 = 2112;
-      *v64 = playerInternal;
-      *&v64[8] = 2112;
-      *&v64[10] = authenticationToken;
+      v61 = v10;
+      v62 = 2112;
+      *v63 = playerInternal;
+      *&v63[8] = 2112;
+      *&v63[10] = authenticationToken;
       _os_log_debug_impl(&dword_227904000, v29, OS_LOG_TYPE_DEBUG, "STORING ACCOUNT will save: account:%@ player:%@ token:%@", buf, 0x20u);
     }
   }
 
-  v52 = authenticationToken;
+  v51 = authenticationToken;
   [v10 _gkSetPlayerInternal:playerInternal];
   v30 = [MEMORY[0x277CCABB0] numberWithInteger:environment];
   [v10 setAccountProperty:v30 forKey:@"GKEnvironment"];
@@ -440,39 +438,37 @@ LABEL_30:
     }
   }
 
-  v58[0] = MEMORY[0x277D85DD0];
-  v58[1] = 3221225472;
-  v58[2] = __66__ACAccountStore_GameCenter___gkSaveCredential_completionHandler___block_invoke;
-  v58[3] = &unk_2785DD910;
-  v58[4] = self;
-  v59 = v10;
+  v57[0] = MEMORY[0x277D85DD0];
+  v57[1] = 3221225472;
+  v57[2] = __66__ACAccountStore_GameCenter___gkSaveCredential_completionHandler___block_invoke;
+  v57[3] = &unk_2785DD910;
+  v57[4] = self;
+  v58 = v10;
   v46 = v43;
-  v60 = v46;
+  v59 = v46;
   v47 = v10;
-  [v46 perform:v58];
+  [v46 perform:v57];
   v48 = dispatch_get_global_queue(21, 0);
-  v55[0] = MEMORY[0x277D85DD0];
-  v55[1] = 3221225472;
-  v55[2] = __66__ACAccountStore_GameCenter___gkSaveCredential_completionHandler___block_invoke_120;
-  v55[3] = &unk_2785DDC10;
-  v56 = v46;
-  v57 = v53;
+  v54[0] = MEMORY[0x277D85DD0];
+  v54[1] = 3221225472;
+  v54[2] = __66__ACAccountStore_GameCenter___gkSaveCredential_completionHandler___block_invoke_120;
+  v54[3] = &unk_2785DDC10;
+  v55 = v46;
+  v56 = v52;
   v49 = v46;
-  v50 = v53;
-  [v49 notifyOnQueue:v48 block:v55];
-
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = v52;
+  [v49 notifyOnQueue:v48 block:v54];
 }
 
 - (void)_gkDeleteCredential:()GameCenter completionHandler:
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = a4;
   if (v6)
   {
-    v13[0] = v6;
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+    v12[0] = v6;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
     [self _gkDeleteCredentials:v8 completionHandler:v7];
   }
 
@@ -496,46 +492,44 @@ LABEL_30:
 
     v7[2](v7, 0);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_gkDeleteCredentials:()GameCenter completionHandler:
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v6 = a4;
-  v32[0] = MEMORY[0x277D85DD0];
-  v32[1] = 3221225472;
-  v32[2] = __69__ACAccountStore_GameCenter___gkDeleteCredentials_completionHandler___block_invoke;
-  v32[3] = &unk_2785E0A38;
-  v32[4] = self;
-  v7 = [a3 _gkMapWithBlock:v32];
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 3221225472;
+  v31[2] = __69__ACAccountStore_GameCenter___gkDeleteCredentials_completionHandler___block_invoke;
+  v31[3] = &unk_2785E0A38;
+  v31[4] = self;
+  v7 = [a3 _gkMapWithBlock:v31];
   if ([v7 count])
   {
     v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d %s", "ACAccount+GameCenter.m", 892, "-[ACAccountStore(GameCenter) _gkDeleteCredentials:completionHandler:]"];
     v9 = [GKDispatchGroup dispatchGroupWithName:v8];
 
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
     v29 = 0u;
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
     obj = v7;
-    v10 = [obj countByEnumeratingWithState:&v28 objects:v35 count:16];
+    v10 = [obj countByEnumeratingWithState:&v27 objects:v34 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v29;
+      v12 = *v28;
       do
       {
         v13 = 0;
         do
         {
-          if (*v29 != v12)
+          if (*v28 != v12)
           {
             objc_enumerationMutation(obj);
           }
 
-          v14 = *(*(&v28 + 1) + 8 * v13);
+          v14 = *(*(&v27 + 1) + 8 * v13);
           v15 = +[GKPreferences shared];
           isInternalBuild = [v15 isInternalBuild];
 
@@ -549,97 +543,73 @@ LABEL_30:
             v18 = os_log_GKAccount;
             if (os_log_type_enabled(os_log_GKAccount, OS_LOG_TYPE_DEBUG))
             {
-              [(ACAccountStore(GameCenter) *)v33 _gkDeleteCredentials:v18 completionHandler:v14, &v34];
+              [(ACAccountStore(GameCenter) *)v32 _gkDeleteCredentials:v18 completionHandler:v14, &v33];
             }
           }
 
-          v26[0] = MEMORY[0x277D85DD0];
-          v26[1] = 3221225472;
-          v26[2] = __69__ACAccountStore_GameCenter___gkDeleteCredentials_completionHandler___block_invoke_122;
-          v26[3] = &unk_2785DD910;
-          v26[4] = self;
-          v26[5] = v14;
-          v27 = v9;
-          [v27 perform:v26];
+          v25[0] = MEMORY[0x277D85DD0];
+          v25[1] = 3221225472;
+          v25[2] = __69__ACAccountStore_GameCenter___gkDeleteCredentials_completionHandler___block_invoke_122;
+          v25[3] = &unk_2785DD910;
+          v25[4] = self;
+          v25[5] = v14;
+          v26 = v9;
+          [v26 perform:v25];
 
           ++v13;
         }
 
         while (v11 != v13);
-        v11 = [obj countByEnumeratingWithState:&v28 objects:v35 count:16];
+        v11 = [obj countByEnumeratingWithState:&v27 objects:v34 count:16];
       }
 
       while (v11);
     }
 
     v19 = dispatch_get_global_queue(21, 0);
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __69__ACAccountStore_GameCenter___gkDeleteCredentials_completionHandler___block_invoke_123;
-    v23[3] = &unk_2785DDC10;
-    v24 = v9;
-    v25 = v6;
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __69__ACAccountStore_GameCenter___gkDeleteCredentials_completionHandler___block_invoke_123;
+    v22[3] = &unk_2785DDC10;
+    v23 = v9;
+    v24 = v6;
     v20 = v9;
-    [v20 notifyOnQueue:v19 block:v23];
+    [v20 notifyOnQueue:v19 block:v22];
   }
 
   else
   {
     (*(v6 + 2))(v6, 0);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_gkSetScope:()GameCenter forCredential:completionHandler:.cold.1(void *a1, const char *a2, uint64_t a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = NSStringFromSelector(a2);
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
-  v9 = a3;
-  _os_log_debug_impl(&dword_227904000, v5, OS_LOG_TYPE_DEBUG, "%@: No account for credential %@", v8, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v8 = a3;
+  _os_log_debug_impl(&dword_227904000, v5, OS_LOG_TYPE_DEBUG, "%@: No account for credential %@", v7, 0x16u);
 }
 
 - (void)_gkAccountForAppleID:()GameCenter .cold.1(void *a1, const char *a2, uint64_t a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = NSStringFromSelector(a2);
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
-  v9 = a3;
-  _os_log_error_impl(&dword_227904000, v5, OS_LOG_TYPE_ERROR, "%@: More than one existing account for username %@. Shouldn't be possible.", v8, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_gkSaveCredential:()GameCenter completionHandler:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_6(&dword_227904000, v0, v1, "STORING ACCOUNT: account:%@ does not exist, creating", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v8 = a3;
+  _os_log_error_impl(&dword_227904000, v5, OS_LOG_TYPE_ERROR, "%@: More than one existing account for username %@. Shouldn't be possible.", v7, 0x16u);
 }
 
 - (void)_gkSaveCredential:()GameCenter completionHandler:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_gkSaveCredential:()GameCenter completionHandler:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_6(&dword_227904000, v0, v1, "STORING ACCOUNT: SAVING ACCOUNT:%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_gkDeleteCredentials:()GameCenter completionHandler:.cold.1(uint8_t *a1, void *a2, void *a3, void *a4)

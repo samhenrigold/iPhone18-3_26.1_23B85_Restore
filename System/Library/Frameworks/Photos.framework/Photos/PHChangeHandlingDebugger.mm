@@ -111,7 +111,7 @@ double __50__PHChangeHandlingDebugger_stateCaptureDictionary__block_invoke_2(voi
   return result;
 }
 
-uint64_t __64__PHChangeHandlingDebugger_processPendingChangesStateDidChange___block_invoke(uint64_t a1)
+void *__64__PHChangeHandlingDebugger_processPendingChangesStateDidChange___block_invoke(uint64_t a1)
 {
   *(*(a1 + 32) + 44) = *(a1 + 40);
   result = [MEMORY[0x1E695DF00] timeIntervalSinceReferenceDate];
@@ -119,7 +119,7 @@ uint64_t __64__PHChangeHandlingDebugger_processPendingChangesStateDidChange___bl
   return result;
 }
 
-uint64_t __63__PHChangeHandlingDebugger_changeHandlingActiveStateDidChange___block_invoke(uint64_t a1)
+void *__63__PHChangeHandlingDebugger_changeHandlingActiveStateDidChange___block_invoke(uint64_t a1)
 {
   *(*(a1 + 32) + 28) = *(a1 + 40);
   result = [MEMORY[0x1E695DF00] timeIntervalSinceReferenceDate];

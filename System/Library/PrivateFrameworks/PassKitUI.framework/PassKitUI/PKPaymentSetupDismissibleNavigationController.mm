@@ -45,8 +45,8 @@
     _os_log_impl(&dword_1BD026000, v5, OS_LOG_TYPE_DEFAULT, "PKPaymentSetupNavigationController: Calling didCompleteFlow for Buddy", buf, 2u);
   }
 
-  v6 = objc_alloc_init(_MergedGlobals_3_7[0]());
-  v7 = off_1EE9A1C78[0]();
+  v6 = objc_alloc_init(_MergedGlobals_3_7());
+  v7 = off_1EE9A1C78();
   [v6 didCompleteFlow:v7];
 
   v8.receiver = self;

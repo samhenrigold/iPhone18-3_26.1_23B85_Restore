@@ -1,10 +1,14 @@
 @interface BKMousePointerAnnotationController
+- (id)_stringDescribingContextID:(unsigned int)d pid:(int)pid;
 - (void)_updateEventsPerSecond;
 - (void)dealloc;
 - (void)invalidate;
 - (void)observeMouseAbsolutePointDidChange:(CGPoint)change;
 - (void)observeMouseAvailabilityDidChange:(BOOL)change;
 - (void)observeMouseButtonMaskDidChange:(unsigned int)change;
+- (void)observeMouseDidEnterContextID:(unsigned int)d pid:(int)pid;
+- (void)observeMouseDidExitContextID:(unsigned int)d pid:(int)pid;
+- (void)observeMouseForceDidChange:(double)change stage:(unsigned int)stage;
 - (void)observeMouseModelPointDidChange:(CGPoint)change display:(id)display reason:(id)reason;
 - (void)observeMouseRelativePointDidChange:(CGPoint)change;
 - (void)observeMouseScrollPhaseDidChange:(unsigned __int16)change;
@@ -12,6 +16,27 @@
 @end
 
 @implementation BKMousePointerAnnotationController
+
+- (id)_stringDescribingContextID:(unsigned int)d pid:(int)pid
+{
+  v4 = *&d;
+  if (pid < 1)
+  {
+    v9 = [NSString stringWithFormat:@"ctx:%X", *&d];
+  }
+
+  else
+  {
+    v5 = *&pid;
+    v6 = BSBundleIDForPID();
+    v7 = [v6 stringByReplacingOccurrencesOfString:@"com.apple." withString:&stru_1001013E0 options:0 range:{0, 10}];
+    v8 = [v7 stringByAppendingFormat:@" (%d)", v5];
+
+    v9 = [NSString stringWithFormat:@"ctx:%X -- %@", v4, v8];
+  }
+
+  return v9;
+}
 
 - (void)observeMouseAvailabilityDidChange:(BOOL)change
 {
@@ -40,6 +65,19 @@
     }
 
     v4 = v7;
+  }
+}
+
+- (void)observeMouseForceDidChange:(double)change stage:(unsigned int)stage
+{
+  currentAnnotationController = self->_currentAnnotationController;
+  if (currentAnnotationController)
+  {
+    v5 = *&stage;
+    v7 = currentAnnotationController;
+    v9 = [NSString stringWithFormat:@"force: %.4g stage %u", *&change, v5];
+    v8 = [BKDisplayAnnotation subannotationWithString:v9];
+    [(BKDisplayAnnotationController *)v7 setAnnotation:v8 forKeyPath:@"mouse.force"];
   }
 }
 
@@ -127,6 +165,38 @@
     {
       [(BKDisplayAnnotationController *)v4 removeAnnotationsForKeyPath:@"mouse.buttons"];
     }
+  }
+}
+
+- (void)observeMouseDidExitContextID:(unsigned int)d pid:(int)pid
+{
+  currentAnnotationController = self->_currentAnnotationController;
+  v5 = [NSString stringWithFormat:@"mouse.ctx.%X", *&pid, *&d];
+  [(BKDisplayAnnotationController *)currentAnnotationController removeAnnotationsForKeyPath:v5];
+}
+
+- (void)observeMouseDidEnterContextID:(unsigned int)d pid:(int)pid
+{
+  v4 = *&pid;
+  v5 = *&d;
+  v7 = self->_currentAnnotationController;
+  if (v7)
+  {
+    v11 = v7;
+    v8 = [NSString stringWithFormat:@"mouse.ctx.%X", v5];
+    if (v5)
+    {
+      v9 = [(BKMousePointerAnnotationController *)self _stringDescribingContextID:v5 pid:v4];
+      v10 = [BKDisplayAnnotation subannotationWithString:v9];
+      [(BKDisplayAnnotationController *)v11 setAnnotation:v10 forKeyPath:v8];
+    }
+
+    else
+    {
+      [(BKDisplayAnnotationController *)v11 removeAnnotationsForKeyPath:v8];
+    }
+
+    v7 = v11;
   }
 }
 

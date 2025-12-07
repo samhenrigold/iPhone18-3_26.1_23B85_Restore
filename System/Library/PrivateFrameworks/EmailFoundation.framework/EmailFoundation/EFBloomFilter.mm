@@ -24,7 +24,7 @@
 
 - (EFBloomFilter)initWithValues:(id)values falsePositiveRate:(double)rate seed:(unint64_t)seed
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   valuesCopy = values;
   if (rate <= 0.0)
   {
@@ -72,28 +72,28 @@
   }
 
   v15 = objc_alloc_init(MEMORY[0x1E696AD50]);
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   v16 = valuesCopy;
-  v17 = [v16 countByEnumeratingWithState:&v30 objects:v34 count:16];
+  v17 = [v16 countByEnumeratingWithState:&v29 objects:v33 count:16];
   v18 = vcvtpd_u64_f64(fmin(v12, 100.0));
   v19 = vcvtpd_u64_f64(fmin(v14 * v10, 9.22337204e18));
   if (v17)
   {
-    v20 = *v31;
+    v20 = *v30;
     do
     {
       v21 = 0;
       do
       {
-        if (*v31 != v20)
+        if (*v30 != v20)
         {
           objc_enumerationMutation(v16);
         }
 
-        v22 = *(*(&v30 + 1) + 8 * v21);
+        v22 = *(*(&v29 + 1) + 8 * v21);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -113,14 +113,13 @@
       }
 
       while (v17 != v21);
-      v17 = [v16 countByEnumeratingWithState:&v30 objects:v34 count:16];
+      v17 = [v16 countByEnumeratingWithState:&v29 objects:v33 count:16];
     }
 
     while (v17);
   }
 
   v23 = [(EFBloomFilter *)self _initWithBucketCount:v19 hashFunctionCount:v18 seed:seed indexes:v15];
-  v24 = *MEMORY[0x1E69E9840];
   return v23;
 }
 

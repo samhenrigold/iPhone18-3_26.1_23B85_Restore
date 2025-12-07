@@ -1,1003 +1,11 @@
-uint64_t CA::Render::NamedFunction::input_count(CA::Render::NamedFunction *this)
-{
-  v1 = *(this + 4);
-  if (v1 > 0xC)
-  {
-    return 0;
-  }
-
-  else
-  {
-    return dword_183E264E8[v1];
-  }
-}
-
-void *CA::Render::NamedFunction::encode(CA::Render::NamedFunction *this, CA::Render::Encoder *a2)
-{
-  v4 = (*(*this + 96))(this);
-  v5 = *(a2 + 4);
-  if ((v5 + 1) > *(a2 + 5))
-  {
-    CA::Render::Encoder::grow(a2, 1);
-    v5 = *(a2 + 4);
-  }
-
-  *(a2 + 4) = v5 + 1;
-  *v5 = v4;
-  CA::Render::Encoder::encode_sanity_check(a2);
-  v6 = *(this + 4);
-  v7 = *(a2 + 4);
-  if ((v7 + 1) > *(a2 + 5))
-  {
-    CA::Render::Encoder::grow(a2, 1);
-    v7 = *(a2 + 4);
-  }
-
-  *(a2 + 4) = v7 + 1;
-  *v7 = v6;
-
-  return CA::Render::Encoder::encode_sanity_check(a2);
-}
-
-void CA::Render::NamedFunction::~NamedFunction(CA::Render::NamedFunction *this, const CA::Render::Object *a2)
-{
-  --dword_1ED4EAA80;
-  *this = &unk_1EF1F6D08;
-  if ((*(this + 3) & 0x80000000) != 0)
-  {
-    CA::Render::Encoder::ObjectCache::invalidate(this, a2);
-  }
-
-  if (x_malloc_get_zone::once != -1)
-  {
-    dispatch_once_f(&x_malloc_get_zone::once, 0, malloc_zone_init);
-  }
-
-  v3 = malloc_zone;
-
-  malloc_zone_free(v3, this);
-}
-
-{
-  --dword_1ED4EAA80;
-  *this = &unk_1EF1F6D08;
-  if ((*(this + 3) & 0x80000000) != 0)
-  {
-    CA::Render::Encoder::ObjectCache::invalidate(this, a2);
-  }
-}
-
-atomic_ullong CA::Render::Function::decode(CA::Render::Function *this, CA::Render::Decoder *a2)
-{
-  v3 = CA::Render::Decoder::decode_int8(this);
-  CA::Render::Decoder::decode_sanity_check(this, "/Library/Caches/com.apple.xbs/Sources/QuartzCore/LayerKit/render/render-function.mm", 39);
-  switch(v3)
-  {
-    case 3:
-      if (x_malloc_get_zone::once != -1)
-      {
-        dispatch_once_f(&x_malloc_get_zone::once, 0, malloc_zone_init);
-      }
-
-      v7 = malloc_type_zone_calloc(malloc_zone, 1uLL, 0x38uLL, 0xDEEC3011uLL);
-      v5 = v7;
-      if (v7)
-      {
-        CA::Render::Gradient::Gradient(v7, this);
-      }
-
-      break;
-    case 2:
-      if (x_malloc_get_zone::once != -1)
-      {
-        dispatch_once_f(&x_malloc_get_zone::once, 0, malloc_zone_init);
-      }
-
-      v6 = malloc_type_zone_calloc(malloc_zone, 1uLL, 0x38uLL, 0xDEEC3011uLL);
-      v5 = v6;
-      if (v6)
-      {
-        CA::Render::InterpolatedFunction::InterpolatedFunction(v6, this);
-      }
-
-      break;
-    case 1:
-      v4 = CA::Render::Decoder::decode_int8(this);
-      v5 = CA::Render::NamedFunction::new_function(v4);
-      CA::Render::Decoder::decode_sanity_check(this, "/Library/Caches/com.apple.xbs/Sources/QuartzCore/LayerKit/render/render-function.mm", 214);
-      break;
-    default:
-      return 0;
-  }
-
-  return v5;
-}
-
-void sub_183D1AA0C(_Unwind_Exception *a1)
-{
-  if (x_malloc_get_zone::once != -1)
-  {
-    dispatch_once_f(&x_malloc_get_zone::once, 0, malloc_zone_init);
-  }
-
-  malloc_zone_free(malloc_zone, v1);
-  _Unwind_Resume(a1);
-}
-
-atomic_ullong CA::Render::NamedFunction::new_function(unsigned int a1)
-{
-  if (a1 > 0xC)
-  {
-    return 0;
-  }
-
-  result = CA::Render::NamedFunction::new_function(CA::Render::FunctionName)::table[a1];
-  if (result)
-  {
-    goto LABEL_12;
-  }
-
-  if (x_malloc_get_zone::once != -1)
-  {
-    dispatch_once_f(&x_malloc_get_zone::once, 0, malloc_zone_init);
-  }
-
-  v3 = malloc_type_zone_calloc(malloc_zone, 1uLL, 0x18uLL, 0xDEEC3011uLL);
-  v4 = 0;
-  if (v3)
-  {
-    v3[2] = 1;
-    v3[3] = 18;
-    ++dword_1ED4EAA80;
-    *v3 = &unk_1EF1FBFB8;
-    v3[4] = a1;
-    atomic_compare_exchange_strong(&CA::Render::NamedFunction::new_function(CA::Render::FunctionName)::table[a1], &v4, v3);
-    if (v4 && atomic_fetch_add(v3 + 2, 0xFFFFFFFF) == 1)
-    {
-      (*(*v3 + 16))(v3);
-    }
-  }
-
-  else
-  {
-    atomic_compare_exchange_strong(&CA::Render::NamedFunction::new_function(CA::Render::FunctionName)::table[a1], &v4, 0);
-  }
-
-  result = CA::Render::NamedFunction::new_function(CA::Render::FunctionName)::table[a1];
-  if (result)
-  {
-LABEL_12:
-    v5 = (result + 8);
-    if (!atomic_fetch_add((result + 8), 1u))
-    {
-      result = 0;
-      atomic_fetch_add(v5, 0xFFFFFFFF);
-    }
-  }
-
-  return result;
-}
-
-uint64_t CA::Render::InterpolatedFunction::set_location(uint64_t this, unint64_t a2, float a3)
-{
-  v3 = *(this + 40);
-  if (v3 && *(this + 16) > a2)
-  {
-    v4 = (v3 + 4 * a2);
-    *v4 = a3;
-    if (a2)
-    {
-      if (*(v4 - 1) > a3)
-      {
-        *(this + 12) &= ~0x100u;
-      }
-    }
-
-    *(this + 12) |= 0x200u;
-  }
-
-  return this;
-}
-
-uint64_t CA::Render::Gradient::set_colors(uint64_t this, const double *a2)
-{
-  v2 = *(this + 32);
-  if (v2)
-  {
-    v3 = *(this + 16);
-    if (!v3)
-    {
-      goto LABEL_8;
-    }
-
-    v4 = 0;
-    v5 = 1;
-    do
-    {
-      v6 = 0;
-      v7 = (v2 + 20 * v4++);
-      v8 = v7;
-      do
-      {
-        v9 = a2[v6];
-        *v8++ = v9;
-        ++v6;
-      }
-
-      while (v6 != 5);
-      v5 &= v7[3] >= 1.0;
-      a2 += 5;
-    }
-
-    while (v4 != v3);
-    if ((v5 & 1) == 0)
-    {
-      v10 = *(this + 12) & 0xFFFFF7FF;
-    }
-
-    else
-    {
-LABEL_8:
-      v10 = *(this + 12) | 0x800;
-    }
-
-    *(this + 12) = v10;
-  }
-
-  return this;
-}
-
-uint64_t CA::Render::Gradient::set_color(uint64_t this, unint64_t a2, const double *a3)
-{
-  v3 = *(this + 32);
-  if (v3 && *(this + 16) > a2)
-  {
-    v4 = 0;
-    v5 = (v3 + 20 * a2);
-    v6 = v5;
-    do
-    {
-      v7 = a3[v4];
-      *v6++ = v7;
-      ++v4;
-    }
-
-    while (v4 != 5);
-    if (v5[3] < 1.0)
-    {
-      *(this + 12) &= ~0x800u;
-    }
-  }
-
-  return this;
-}
-
-__n128 CA::Render::Gradient::set_values(CA::Render::Gradient *this, uint64_t a2, const unsigned int *a3, unint64_t a4, const double *a5, CGColorSpace *a6, CGColorSpace *a7, CGColorSpace *a8, __n128 result)
-{
-  v45 = *MEMORY[0x1E69E9840];
-  v15 = *a3;
-  if (*a3 == 490 || v15 == 121)
-  {
-    if (a2 == 2)
-    {
-      v20 = a3[1];
-      if ((v20 & 0x40000000) == 0)
-      {
-        goto LABEL_31;
-      }
-
-      v21 = v20 & 0xFFFFFFFFBFFFFFFFLL;
-      if (*(this + 2) <= (v20 & 0xFFFFFFFFBFFFFFFFLL))
-      {
-        goto LABEL_31;
-      }
-
-      if (a4 < 5 || v15 != 121)
-      {
-        if (v15 == 490 && a4 && *(this + 5))
-        {
-          v22 = *a5;
-          CA::Render::InterpolatedFunction::set_location(this, v21, v22);
-        }
-
-        goto LABEL_31;
-      }
-
-      if ((CARequiresColorMatching(a6, a7, 0) & 1) == 0)
-      {
-        CA::Render::Gradient::set_color(this, v21, a5);
-        goto LABEL_31;
-      }
-
-      if (CARetainColorTransform(a7))
-      {
-        memset(v40, 0, 40);
-        CA::Render::convert_color(a5, v40);
-        CA::Render::Gradient::set_color(this, v21, v40);
-LABEL_21:
-        CGColorTransformRelease();
-      }
-    }
-
-    else if (a2 == 1)
-    {
-      if (v15 == 490)
-      {
-        if (*(this + 5) && *(this + 2) <= a4)
-        {
-          CA::Render::InterpolatedFunction::set_locations(this, a5);
-        }
-
-        goto LABEL_31;
-      }
-
-      if (v15 == 121 && 5 * *(this + 2) <= a4)
-      {
-        if ((CARequiresColorMatching(a6, a7, 0) & 1) == 0)
-        {
-          CA::Render::Gradient::set_colors(this, a5);
-          goto LABEL_31;
-        }
-
-        if (CARetainColorTransform(a7))
-        {
-          if (*(this + 2))
-          {
-            v16 = 0;
-            v17 = (a5 + 3);
-            do
-            {
-              v41 = 0u;
-              v42 = 0u;
-              v18 = *(v17 - 1);
-              v43 = *(v17 - 3);
-              v44 = v18;
-              CGColorTransformConvertColorComponents();
-              v40[0] = v41;
-              *&v40[1] = v42;
-              v19 = *v17;
-              v17 += 5;
-              *(&v40[1] + 8) = v19;
-              CA::Render::Gradient::set_color(this, v16++, v40);
-            }
-
-            while (v16 < *(this + 2));
-          }
-
-          goto LABEL_21;
-        }
-      }
-    }
-
-LABEL_31:
-    v15 = *a3;
-  }
-
-  if (v15 == 446)
-  {
-    if (a2 == 2)
-    {
-      if (a4 >= 4)
-      {
-        v33 = a3[1];
-        if ((v33 & 0x40000000) != 0)
-        {
-          v34 = *(this + 2);
-          _CF = v34 != 0;
-          v35 = v34 - 1;
-          if (_CF)
-          {
-            v36 = v33 & 0xFFFFFFFFBFFFFFFFLL;
-            if (v35 > (v33 & 0xFFFFFFFFBFFFFFFFLL))
-            {
-              *(this + 3) |= 0x400u;
-              CA::Render::InterpolatedFunction::allocate_storage(this);
-              v37 = *(this + 6);
-              if (v37)
-              {
-                v38 = (v37 + 32 * v36);
-                result = *a5;
-                v39 = *(a5 + 1);
-                *v38 = *a5;
-                v38[1] = v39;
-              }
-            }
-          }
-        }
-      }
-    }
-
-    else if (a2 == 1)
-    {
-      *(this + 3) |= 0x400u;
-      v23 = *(this + 2);
-      CA::Render::InterpolatedFunction::allocate_storage(this);
-      v24 = *(this + 6);
-      if (v24)
-      {
-        if (v23 - 1 >= a4 >> 2)
-        {
-          v25 = a4 >> 2;
-        }
-
-        else
-        {
-          v25 = v23 - 1;
-        }
-
-        memcpy(v24, a5, 32 * v25);
-        v26 = *(this + 2);
-        if (v25 < v26 - 1)
-        {
-          v27 = ~v25 + v26;
-          v28 = (*(this + 6) + 32 * v25 + 16);
-          __asm { FMOV            V0.2D, #1.0 }
-
-          do
-          {
-            v28[-1].n128_u64[0] = 0;
-            v28[-1].n128_u64[1] = 0;
-            *v28 = result;
-            v28 += 2;
-            --v27;
-          }
-
-          while (v27);
-        }
-      }
-    }
-  }
-
-  return result;
-}
-
-double CA::Render::convert_color(uint64_t a1, uint64_t a2)
-{
-  CGColorTransformConvertColorComponents();
-  *a2 = 0u;
-  *(a2 + 16) = 0;
-  *(a2 + 24) = *(a1 + 24);
-  result = *(a1 + 32);
-  *(a2 + 32) = result;
-  return result;
-}
-
-uint64_t CA::Render::Image::TiledImage::copy_subtexture(CA::Render::Image::TiledImage *this, unsigned int a2, unsigned int a3, int a4, int a5, int a6, unsigned int a7, unsigned int a8, double a9, float *a10, unsigned int *a11)
-{
-  v24 = *MEMORY[0x1E69E9840];
-  v22 = __PAIR64__(a3, a2);
-  v23 = a4;
-  os_unfair_lock_lock(this + 42);
-  v15 = x_hash_table_lookup(*(this + 20), &v22, 0);
-  if (!v15)
-  {
-    v16 = *(this + 28);
-    v17 = *(this + 29);
-    v21[0] = v16 * a3;
-    v21[1] = v17 * a4;
-    v21[2] = v16;
-    v21[3] = v17;
-    v15 = CA::Render::Image::copy_subimage(*(this + 19), a2, v21, *(this + 22), (*(this + 184) & 1) == 0);
-    if (!v15)
-    {
-      os_unfair_lock_unlock(this + 42);
-      goto LABEL_9;
-    }
-
-    if (x_malloc_get_zone::once != -1)
-    {
-      dispatch_once_f(&x_malloc_get_zone::once, 0, malloc_zone_init);
-    }
-
-    v18 = malloc_type_zone_malloc(malloc_zone, 0xCuLL, 0x10000403E1C8BA9uLL);
-    v19 = v22;
-    v18[2] = v23;
-    *v18 = v19;
-    hash_table_modify(*(this + 20), v18, v15, 0);
-  }
-
-  if (!atomic_fetch_add((v15 + 8), 1u))
-  {
-    atomic_fetch_add((v15 + 8), 0xFFFFFFFF);
-  }
-
-  os_unfair_lock_unlock(this + 42);
-  *(v15 + 36) = *(*(this + 19) + 36);
-LABEL_9:
-  *a10 = 1.0;
-  *a11 = 0;
-  return v15;
-}
-
-uint64_t CA::Render::Image::TiledImage::finalize(os_unfair_lock_s *this)
-{
-  os_unfair_lock_lock(this + 42);
-  v2 = *&this[38]._os_unfair_lock_opaque;
-  if (v2)
-  {
-    CA::Render::remove_observer(3u, v2, CA::Render::Image::TiledImage::will_deallocate, this);
-    *&this[38]._os_unfair_lock_opaque = 0;
-  }
-
-  os_unfair_lock_unlock(this + 42);
-  v3 = *(*&this->_os_unfair_lock_opaque + 8);
-
-  return v3(this);
-}
-
-void CA::Render::Image::TiledImage::will_deallocate(CA::Render::Image::TiledImage *this, os_unfair_lock_s *a2, void *a3, void *a4)
-{
-  os_unfair_lock_lock(a2 + 42);
-  v5 = 0;
-  *&a2[38]._os_unfair_lock_opaque = 0;
-  v6 = *&a2[40]._os_unfair_lock_opaque;
-  v7 = 1 << *v6;
-  do
-  {
-    for (i = *(*(v6 + 16) + 8 * v5); i; i = *i)
-    {
-      CA::Render::Image::TiledImage::free_tile(i[2], i[3]);
-    }
-
-    ++v5;
-  }
-
-  while (v5 != v7);
-  x_hash_table_remove_all(*&a2[40]._os_unfair_lock_opaque);
-
-  os_unfair_lock_unlock(a2 + 42);
-}
-
-void CA::Render::Image::TiledImage::free_tile(void *ptr, atomic_uint *a2)
-{
-  if (x_malloc_get_zone::once != -1)
-  {
-    dispatch_once_f(&x_malloc_get_zone::once, 0, malloc_zone_init);
-  }
-
-  malloc_zone_free(malloc_zone, ptr);
-  if (atomic_fetch_add(a2 + 2, 0xFFFFFFFF) == 1)
-  {
-    v4 = *(*a2 + 16);
-
-    v4(a2);
-  }
-}
-
-void CA::Render::Image::TiledImage::~TiledImage(CA::Render::Image::TiledImage *this)
-{
-  CA::Render::Image::TiledImage::~TiledImage(this);
-  if (x_malloc_get_zone::once != -1)
-  {
-    dispatch_once_f(&x_malloc_get_zone::once, 0, malloc_zone_init);
-  }
-
-  v2 = malloc_zone;
-
-  malloc_zone_free(v2, this);
-}
-
-{
-  v2 = 0;
-  *this = &unk_1EF1FC050;
-  v3 = *(this + 20);
-  v4 = 1 << *v3;
-  do
-  {
-    for (i = *(*(v3 + 16) + 8 * v2); i; i = *i)
-    {
-      CA::Render::Image::TiledImage::free_tile(i[2], i[3]);
-    }
-
-    ++v2;
-  }
-
-  while (v2 != v4);
-  x_hash_table_free(*(this + 20));
-  --CA::Render::Object::_instance_counts[0];
-  *this = &unk_1EF1FC198;
-  v6 = *(this + 17);
-  if (v6 && atomic_fetch_add(v6 + 2, 0xFFFFFFFF) == 1)
-  {
-    (*(*v6 + 16))(v6);
-  }
-
-  CA::Render::Texture::~Texture(this);
-}
-
-unint64_t CA::Render::Image::TiledImage::Key::hash(_DWORD *a1)
-{
-  v1 = ((a1[1] << 10) ^ (*a1 << 20)) ^ a1[2];
-  v2 = (~(v1 << 32) + v1) ^ ((~(v1 << 32) + v1) >> 22);
-  v3 = 9 * ((v2 + ~(v2 << 13)) ^ ((v2 + ~(v2 << 13)) >> 8));
-  v4 = (v3 ^ (v3 >> 15)) + ~((v3 ^ (v3 >> 15)) << 27);
-  return v4 ^ (v4 >> 31);
-}
-
-uint64_t CA::Render::Image::copy_tiled_texture(CA::Render::Image *this, uint64_t a2, int a3)
-{
-  if (CA::Render::tiled_image_mutex_once[0] != -1)
-  {
-    dispatch_once_f(CA::Render::tiled_image_mutex_once, 0, CA::Render::Image::tiled_image_mutex_init);
-  }
-
-  pthread_mutex_lock(&CA::Render::Image::_tiled_image_lock);
-  v6 = *(this + 18);
-  if (v6)
-  {
-    while (*(v6 + 176) != a2 || *(v6 + 184) != a3)
-    {
-      v6 = *(v6 + 144);
-      if (!v6)
-      {
-        goto LABEL_7;
-      }
-    }
-
-    goto LABEL_33;
-  }
-
-LABEL_7:
-  v7 = *(this + 4);
-  if (v7 >= 0x40)
-  {
-    v8 = 64;
-  }
-
-  else
-  {
-    v8 = 32;
-  }
-
-  if (v7 >= 0x40)
-  {
-    v9 = 1024;
-  }
-
-  else
-  {
-    v9 = 2048;
-  }
-
-  if (v7 <= 0x7F)
-  {
-    v10 = v9;
-  }
-
-  else
-  {
-    v8 = 128;
-    v10 = 512;
-  }
-
-  if (v7 <= 0xFF)
-  {
-    v11 = v8;
-  }
-
-  else
-  {
-    v11 = 256;
-  }
-
-  if (v7 <= 0xFF)
-  {
-    v12 = v10;
-  }
-
-  else
-  {
-    v12 = 256;
-  }
-
-  while (v12 > *(this + 5))
-  {
-    v13 = v12 >> 1;
-    v11 *= 2;
-    v14 = v12 > 0x41;
-    v12 >>= 1;
-    if (!v14)
-    {
-      goto LABEL_26;
-    }
-  }
-
-  v13 = v12;
-LABEL_26:
-  if (x_malloc_get_zone::once != -1)
-  {
-    dispatch_once_f(&x_malloc_get_zone::once, 0, malloc_zone_init);
-  }
-
-  v15 = malloc_type_zone_calloc(malloc_zone, 1uLL, 0xC0uLL, 0xDEEC3011uLL);
-  v6 = v15;
-  if (v15)
-  {
-    v16 = *(this + 169);
-    v17 = CA::Render::Texture::Texture(v15, *(this + 4), *(this + 5));
-    *(v6 + 112) = v11;
-    *(v6 + 116) = v13;
-    *(v6 + 124) = 0;
-    *(v6 + 128) = 0;
-    *(v6 + 120) = v16;
-    *(v6 + 136) = 0;
-    *(v6 + 12) &= 0xFFFFFF00;
-    ++CA::Render::Object::_instance_counts[0];
-    *v6 = &unk_1EF1FC050;
-    *(v6 + 152) = this;
-    *(v6 + 168) = 0;
-    *(v6 + 176) = a2;
-    *(v6 + 184) = a3;
-    CA::Render::Texture::set_colorspace(v17, *(this + 7));
-    *(v6 + 160) = x_hash_table_new_(CA::Render::Image::TiledImage::Key::hash, CA::Render::Image::TiledImage::Key::compare, 0, 0, 0, 0);
-    CA::Render::add_observer(3u, *(v6 + 152), CA::Render::Image::TiledImage::will_deallocate, v6, 0);
-    v18 = *(this + 168);
-    if (v18 > 0x23 || ((0xC99B4EB03uLL >> v18) & 1) == 0)
-    {
-      *(v6 + 12) |= 0x1000u;
-    }
-
-    *(v6 + 144) = *(this + 18);
-    *(this + 18) = v6;
-LABEL_33:
-    v19 = (v6 + 8);
-    if (!atomic_fetch_add((v6 + 8), 1u))
-    {
-      v6 = 0;
-      atomic_fetch_add(v19, 0xFFFFFFFF);
-    }
-  }
-
-  pthread_mutex_unlock(&CA::Render::Image::_tiled_image_lock);
-  return v6;
-}
-
-uint64_t CA::Render::Image::get_tiled_texture_size(CA::Render::Image *this, unsigned int *a2, unsigned int *a3)
-{
-  v3 = *(this + 4);
-  if (v3 >= 0x40)
-  {
-    v4 = 64;
-  }
-
-  else
-  {
-    v4 = 32;
-  }
-
-  if (v3 >= 0x40)
-  {
-    v5 = 1024;
-  }
-
-  else
-  {
-    v5 = 2048;
-  }
-
-  if (v3 <= 0x7F)
-  {
-    v6 = v4;
-  }
-
-  else
-  {
-    v6 = 128;
-  }
-
-  if (v3 <= 0x7F)
-  {
-    v7 = v5;
-  }
-
-  else
-  {
-    v7 = 512;
-  }
-
-  if (v3 <= 0xFF)
-  {
-    v8 = v6;
-  }
-
-  else
-  {
-    v8 = 256;
-  }
-
-  if (v3 <= 0xFF)
-  {
-    v9 = v7;
-  }
-
-  else
-  {
-    v9 = 256;
-  }
-
-  while (v9 > *(this + 5))
-  {
-    v10 = v9 >> 1;
-    v8 *= 2;
-    v11 = v9 > 0x41;
-    v9 >>= 1;
-    if (!v11)
-    {
-      goto LABEL_23;
-    }
-  }
-
-  v10 = v9;
-LABEL_23:
-  *a2 = v8;
-  *a3 = v10;
-  return 1;
-}
-
-uint64_t CAImageProviderMaxLOD(unsigned int a1, unsigned int a2)
-{
-  if (a1 >= a2)
-  {
-    v2 = a2;
-  }
-
-  else
-  {
-    v2 = a1;
-  }
-
-  v3 = 32 - __clz(v2);
-  if (v2 <= 1)
-  {
-    return 1;
-  }
-
-  else
-  {
-    return v3;
-  }
-}
-
-uint64_t CAImageProviderCreate(unsigned int a1, unsigned int a2, int a3, int a4, int a5, int a6, int a7, double a8)
-{
-  if (a1 >= a2)
-  {
-    v15 = a2;
-  }
-
-  else
-  {
-    v15 = a1;
-  }
-
-  v16 = 32 - __clz(v15);
-  if (v15 <= 1)
-  {
-    v17 = 1;
-  }
-
-  else
-  {
-    v17 = v16;
-  }
-
-  if (a5 - a6 <= v17)
-  {
-    v18 = a5;
-  }
-
-  else
-  {
-    v18 = v17 + a6;
-  }
-
-  if (CAImageProviderGetTypeID::once[0] != -1)
-  {
-    dispatch_once(CAImageProviderGetTypeID::once, &__block_literal_global_5_9450);
-  }
-
-  Instance = _CFRuntimeCreateInstance();
-  v20 = Instance;
-  if (Instance)
-  {
-    *(Instance + 240) = 0u;
-    *(Instance + 256) = 0u;
-    *(Instance + 208) = 0u;
-    *(Instance + 224) = 0u;
-    *(Instance + 176) = 0u;
-    *(Instance + 192) = 0u;
-    *(Instance + 144) = 0u;
-    *(Instance + 160) = 0u;
-    *(Instance + 112) = 0u;
-    *(Instance + 128) = 0u;
-    *(Instance + 80) = 0u;
-    *(Instance + 96) = 0u;
-    *(Instance + 48) = 0u;
-    *(Instance + 64) = 0u;
-    *(Instance + 16) = 0u;
-    *(Instance + 32) = 0u;
-    do
-    {
-      add = atomic_fetch_add(CA::Render::next_sequence(void)::sequence, 1u);
-      v22 = __CFADD__(add, 1);
-      v23 = add + 1;
-    }
-
-    while (v22);
-    *(Instance + 20) = v23;
-    pthread_mutex_init((Instance + 88), 0);
-    pthread_cond_init((v20 + 152), 0);
-    *(v20 + 200) = v20 + 200;
-    *(v20 + 208) = v20 + 200;
-    *(v20 + 216) = a7;
-    *(v20 + 220) = a1;
-    *(v20 + 224) = a2;
-    *(v20 + 228) = a3;
-    *(v20 + 232) = a4;
-    *(v20 + 236) = v18;
-    *(v20 + 240) = a6;
-    v24 = a8;
-    *(v20 + 244) = v24;
-    *(v20 + 56) = ++CAImageProviderCreate::id;
-    if (CAImageProviderCreate::once != -1)
-    {
-      dispatch_once(&CAImageProviderCreate::once, &__block_literal_global_9451);
-    }
-  }
-
-  return v20;
-}
-
-dispatch_queue_t __CAImageProviderCreate_block_invoke()
-{
-  v0 = dispatch_queue_attr_make_with_qos_class(MEMORY[0x1E69E96A8], QOS_CLASS_USER_INITIATED, 0);
-  result = dispatch_queue_create("com.apple.coreanimation.imageprovider.concurrent", v0);
-  provider_queue = result;
-  return result;
-}
-
-uint64_t imageProviderFinalize(char *a1)
-{
-  if (*(a1 + 8))
-  {
-    CAImageProviderSetCallback(a1, 0, 0);
-  }
-
-  v2 = *(a1 + 5);
-  if (v2)
-  {
-    CFRelease(v2);
-  }
-
-  v3 = CA::Transaction::ensure_compat(v2);
-  CA::Transaction::add_deleted_id(*(v3 + 15), *(a1 + 7), *(a1 + 5), 0);
-  CGColorRelease(*(a1 + 32));
-  v4 = *(a1 + 4);
-  if (v4)
-  {
-    do
-    {
-      v5 = v4[1];
-      free(v4);
-      v4 = v5;
-    }
-
-    while (v5);
-  }
-
-  pthread_mutex_destroy((a1 + 88));
-
-  return pthread_cond_destroy((a1 + 152));
-}
-
-void CAImageProviderSetCallback(uint64_t a1, uint64_t a2, uint64_t a3)
+void CAImageProviderSetCallback(uint64_t a1, unint64_t a2, unint64_t a3)
 {
   v11 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&provider_lock);
   v6 = *(a1 + 64);
-  if (v6 == a2 && *(a1 + 72) == a3)
+  if (*(a1 + 64) == __PAIR128__(a3, a2))
   {
-    goto LABEL_15;
+    goto LABEL_14;
   }
 
   if (a2)
@@ -1020,21 +28,20 @@ void CAImageProviderSetCallback(uint64_t a1, uint64_t a2, uint64_t a3)
       return;
     }
 
-    goto LABEL_14;
+    goto LABEL_13;
   }
 
   if (!v6)
   {
-LABEL_14:
+LABEL_13:
     *(a1 + 64) = a2;
     *(a1 + 72) = a3;
-LABEL_15:
+LABEL_14:
 
     os_unfair_lock_unlock(&provider_lock);
     return;
   }
 
-  v9 = provider_list;
   x_list_remove(provider_list, a1);
   provider_list = v9;
   *(a1 + 64) = 0;
@@ -1394,7 +401,7 @@ uint64_t CAImageProviderGetTypeID()
 
 void CAImageProviderSetImageSize(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (*(a1 + 220) != a2 || *(a1 + 224) != a3)
+  if (*(a1 + 220) != __PAIR64__(a3, a2))
   {
     *(a1 + 220) = a2;
     *(a1 + 224) = a3;
@@ -1410,6 +417,7 @@ void CAImageProviderSetImageSize(uint64_t a1, uint64_t a2, uint64_t a3)
 
 CFArrayRef create_cfarray(int a1, uint64_t a2, ...)
 {
+  va_start(va, a2);
   v2 = 0;
   v3 = 0;
   v30 = *MEMORY[0x1E69E9840];
@@ -1430,13 +438,14 @@ CFArrayRef create_cfarray(int a1, uint64_t a2, ...)
   *values = 0u;
   v15 = 0u;
   valuePtr = 0;
-  v13 = &a2;
+  va_copy(v13, va);
   v4 = *MEMORY[0x1E695E738];
   while (1)
   {
     if (a1 == 1)
     {
-      v6 = v13++;
+      v6 = v13;
+      v13 += 8;
       v7 = *v6;
       if (!v7)
       {
@@ -1452,14 +461,16 @@ CFArrayRef create_cfarray(int a1, uint64_t a2, ...)
       break;
     }
 
-    v5 = v13++;
+    v5 = v13;
+    v13 += 8;
     valuePtr = *v5;
     v2 |= 1 << v3;
     values[v3] = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
 LABEL_10:
     ++v3;
 LABEL_11:
-    v8 = v13++;
+    v8 = v13;
+    v13 += 8;
     a1 = *v8;
   }
 
@@ -1849,8 +860,7 @@ _DWORD *CAImageProviderCopyRenderValue(uint64_t a1, uint64_t a2)
 void CAImageProviderRemoveLayer(uint64_t a1, uint64_t a2)
 {
   os_unfair_lock_lock((a1 + 16));
-  v4 = *(a1 + 32);
-  x_list_remove(v4, a2);
+  x_list_remove(*(a1 + 32), a2);
   *(a1 + 32) = v4;
 
   os_unfair_lock_unlock((a1 + 16));
@@ -2066,7 +1076,7 @@ uint64_t CA::OGL::GLContext::needs_destination_group(CA::OGL::GLContext *this)
   }
 }
 
-uint64_t *CA::OGL::GLContext::bind_table_image(os_unfair_lock_s *this, uint64_t a2, atomic_uint *a3)
+uint64_t **CA::OGL::GLContext::bind_table_image(os_unfair_lock_s *this, uint64_t a2, atomic_uint *a3)
 {
   result = CA::OGL::Context::lookup_image(this, a3, 1);
   if (result)
@@ -2097,7 +1107,7 @@ uint64_t *CA::OGL::GLContext::bind_table_image(os_unfair_lock_s *this, uint64_t 
 
     else
     {
-      *(result + 52) = v7 | 0x100000000000DE1;
+      *(result + 52) = (v7 | 0x100000000000DE1);
     }
 
     v10 = *(*&this->_os_unfair_lock_opaque + 1296);
@@ -2108,7 +1118,7 @@ uint64_t *CA::OGL::GLContext::bind_table_image(os_unfair_lock_s *this, uint64_t 
   return result;
 }
 
-uint64_t *CA::OGL::GLContext::bind_color_cube(os_unfair_lock_s *this, uint64_t a2, atomic_uint *a3)
+uint64_t **CA::OGL::GLContext::bind_color_cube(os_unfair_lock_s *this, uint64_t a2, atomic_uint *a3)
 {
   result = CA::OGL::Context::lookup_image(this, a3, 1);
   if (result && *(a3 + 12) == 23)
@@ -2158,55 +1168,13 @@ uint64_t *CA::OGL::GLContext::bind_color_cube(os_unfair_lock_s *this, uint64_t a
         }
       }
 
-      *(v7 + 52) = v8 & 0xFFFFFFFFFFFF0000 | v11 | 0x100000000000000;
+      *(v7 + 52) = (v8 & 0xFFFFFFFFFFFF0000 | v11 | 0x100000000000000);
       v12 = *(*&this->_os_unfair_lock_opaque + 1296);
     }
 
     return v12(this, v7, a3, a2, 0);
   }
 
-  return result;
-}
-
-int32x2_t CA::OGL::GLContext::draw_points(int32x2_t *this, uint64_t a2, unint64_t a3, const float *a4, float32x4_t a5, double a6, __n128 a7)
-{
-  v11 = this[85];
-  v12 = this[84];
-  if (*&v11 != *&v12 || (!*&v11 ? (v13 = 0) : (v13 = (*(*&v12 + 144) >> 1) & 0x1F), this[83].i32[1] != v13))
-  {
-    CA::OGL::Context::prepare_destination_(this);
-  }
-
-  if ((this[173].i16[0] & 0x200) != 0)
-  {
-    CA::OGL::Context::flatten_detached_layers_(this);
-  }
-
-  this[338].i8[4] |= 2u;
-  CA::OGL::GLContext::update_state(this, a5, a6, a7, a2, a3, a4);
-  this[338].i8[4] &= ~2u;
-  if (this[335] != a4 || this[336].i32[0] != 3)
-  {
-    v14 = this[337];
-    (v14[512])(*v14, 0, 2, 5126, 0, 16, a4);
-    (v14[513])(*v14, 0);
-    (v14[512])(*v14, 4, 1, 5126, 0, 16, a4 + 2);
-    (v14[513])(*v14, 4);
-    (v14[512])(*v14, 1, 4, 5121, 1, 16, a4 + 3);
-    (v14[513])(*v14, 1);
-    (v14[514])(*v14, 2);
-    (v14[514])(*v14, 3);
-    this[335] = a4;
-    this[336].i32[0] = 3;
-  }
-
-  (*(*&this[337] + 528))(**&this[337], 0, a2, a3);
-  CA::OGL::GLContext::unload_state(this);
-  CA::OGL::Context::marked_destination(this);
-  v15.i32[0] = 1;
-  v15.i32[1] = a3;
-  result = vadd_s32(this[157], v15);
-  this[157] = result;
   return result;
 }
 
@@ -2222,7 +1190,7 @@ void CA::OGL::GLContext::update_state(CA::OGL::GLContext *this, float32x4_t _Q0,
   v156 = v9;
   if (v11)
   {
-    if (*v11 == v10[1].n128_u32[0] && *(v11 + 4) == v10[1].n128_u32[1])
+    if (*v11 == v10[1].i32[0] && *(v11 + 4) == v10[1].i32[1])
     {
       v12 = *(v11 + 34);
       if (*(v11 + 34))
@@ -2231,7 +1199,7 @@ void CA::OGL::GLContext::update_state(CA::OGL::GLContext *this, float32x4_t _Q0,
         v14 = (v11 + 8);
         while (1)
         {
-          v16 = v13->n128_u16[0];
+          v16 = v13->u16[0];
           v13 = (v13 + 2);
           v15 = v16;
           v17 = *v14++;
@@ -2253,7 +1221,7 @@ LABEL_8:
         v18 = *(v11 + 35);
         if (*(v11 + 35))
         {
-          v19 = &v10[2].n128_u64[1];
+          v19 = &v10[2].i64[1];
           v20 = (v11 + 280);
           while (1)
           {
@@ -2281,9 +1249,9 @@ LABEL_8:
         {
 LABEL_14:
           v22 = *(v11 + 36);
-          v23 = v10[31].n128_u8[1];
-          v24 = v10[31].n128_u8[0];
-          if (((v23 & 1) == 0 || v24 <= 0x19) && v10[31].n128_u8[0] && (*v11 & 0xFE) != 0x10)
+          v23 = v10[31].u8[1];
+          v24 = v10[31].u8[0];
+          if (((v23 & 1) == 0 || v24 <= 0x19) && v10[31].i8[0] && (*v11 & 0xFE) != 0x10)
           {
             v24 = 62;
           }
@@ -2296,13 +1264,13 @@ LABEL_14:
       }
     }
 
-    if (v10[1].n128_u32[0] == 120)
+    if (v10[1].i32[0] == 120)
     {
       goto LABEL_23;
     }
   }
 
-  else if (v10[1].n128_u8[0] == 120)
+  else if (v10[1].i8[0] == 120)
   {
 LABEL_208:
     v157 = v7 + 307;
@@ -2310,13 +1278,13 @@ LABEL_208:
     goto LABEL_209;
   }
 
-  v25 = v10[1].n128_u64[0];
+  v25 = v10[1].i64[0];
   v26 = CA::OGL::tex_image_count[v25];
   if (CA::OGL::tex_image_count[v25])
   {
     v27 = 0;
-    v28 = &v10[1].n128_u8[1];
-    v29 = &v10[2].n128_u64[1];
+    v28 = &v10[1].u8[1];
+    v29 = &v10[2].i64[1];
     v30 = CA::OGL::tex_image_count[v25];
     do
     {
@@ -2388,9 +1356,9 @@ LABEL_208:
   memset(&v160[8], 0, 80);
   *v160 = v25;
   DWORD2(v171) = -1;
-  v38 = v10[31].n128_u8[1];
-  v39 = v10[31].n128_u8[0];
-  if (((v38 & 1) == 0 || v39 <= 0x19) && v10[31].n128_u8[0] && (v25 & 0xFE) != 0x10)
+  v38 = v10[31].u8[1];
+  v39 = v10[31].u8[0];
+  if (((v38 & 1) == 0 || v39 <= 0x19) && v10[31].i8[0] && (v25 & 0xFE) != 0x10)
   {
     LOWORD(v39) = 62;
   }
@@ -2399,7 +1367,7 @@ LABEL_208:
   LODWORD(v172) = -1;
   v160[38] = (*(this + 692) >> 12) & 7;
   BYTE6(v161) = (*(this + 2708) & 2) != 0;
-  v160[39] = v10[20].n128_u8[0];
+  v160[39] = v10[20].i8[0];
   if (v27 < 1 || (memcpy(&v160[8], &v10[9], (2 * v27)), v27 <= 0xC))
   {
     bzero(&v160[2 * v27 + 8], 2 * (12 - v27) + 2);
@@ -2484,11 +1452,11 @@ LABEL_54:
   v173 = 0u;
   v174 = 0u;
   v43 = v10;
-  v44 = &v10[2].n128_i8[8];
+  v44 = &v10[2].i8[8];
   v175 = 0u;
   v176 = 0u;
-  v45 = &v43[3].n128_i8[8];
-  v46 = &v43[3].n128_i8[10];
+  v45 = &v43[3].i8[8];
+  v46 = &v43[3].i8[10];
   v47 = 1;
   do
   {
@@ -2600,15 +1568,15 @@ LABEL_78:
   if (*(v11 + 92) == 1)
   {
     v60 = (v10 + 24);
-    if (*(v11 + 60) != v10[1].n128_f32[2] || *(v11 + 64) != v10[1].n128_f32[3] || *(v11 + 68) != v10[2].n128_f32[0] || *(v11 + 72) != v10[2].n128_f32[1])
+    if (*(v11 + 60) != v10[1].f32[2] || *(v11 + 64) != v10[1].f32[3] || *(v11 + 68) != v10[2].f32[0] || *(v11 + 72) != v10[2].f32[1])
     {
-      (v8[614])(*v8, *(v11 + 144), 1, &v10[1].n128_i64[1]);
+      (v8[614])(*v8, *(v11 + 144), 1, &v10[1].i64[1]);
       _Q0 = *v60;
       *(v11 + 60) = *v60;
     }
   }
 
-  if (*(v11 + 93) == 1 && (*(v11 + 76) != v10[24].n128_f32[0] || *(v11 + 80) != v10[24].n128_f32[1] || *(v11 + 84) != v10[24].n128_f32[2] || *(v11 + 88) != v10[24].n128_f32[3]))
+  if (*(v11 + 93) == 1 && (*(v11 + 76) != v10[24].f32[0] || *(v11 + 80) != v10[24].f32[1] || *(v11 + 84) != v10[24].f32[2] || *(v11 + 88) != v10[24].f32[3]))
   {
     (v8[614])(*v8, *(v11 + 148), 1, &v10[24]);
     _Q0 = v10[24];
@@ -2679,7 +1647,7 @@ LABEL_95:
   if (*(v11 + 35))
   {
     v69 = 0;
-    v70 = &v10[2].n128_i8[8];
+    v70 = &v10[2].i8[8];
     v71 = (v11 + 304);
     do
     {
@@ -2734,7 +1702,7 @@ LABEL_95:
           if ((*(v11 + v75) & 0x80000000) == 0)
           {
             v82 = v11 + v74 * 16;
-            if (*(v11 + v74 * 16 + 348) != v159[v74 + 4].n128_f32[0] || *(v82 + 352) != v159[v74 + 4].n128_f32[1] || *(v11 + v74 * 16 + 356) != v159[v74 + 4].n128_f32[2] || *(v11 + v74 * 16 + 360) != v159[v74 + 4].n128_f32[3])
+            if (*(v11 + v74 * 16 + 348) != v159[v74 + 4].f32[0] || *(v82 + 352) != v159[v74 + 4].f32[1] || *(v11 + v74 * 16 + 356) != v159[v74 + 4].f32[2] || *(v11 + v74 * 16 + 360) != v159[v74 + 4].f32[3])
             {
               *(v82 + 348) = v159[v74 + 4];
               (v8[614])(*v8, *(v11 + v75), 1);
@@ -2903,7 +1871,7 @@ LABEL_157:
 
     if ((*(v11 + 272) & 0x80000000) == 0)
     {
-      if (*(v11 + 128) != v159[8].n128_f32[0] || *(v11 + 132) != v159[8].n128_f32[1] || *(v11 + 136) != v159[8].n128_f32[2] || (_Q0.i32[0] = *(v11 + 140), v104.n128_u32[0] = v159[8].n128_u32[3], _Q0.f32[0] != v104.n128_f32[0]))
+      if (*(v11 + 128) != v159[8].f32[0] || *(v11 + 132) != v159[8].f32[1] || *(v11 + 136) != v159[8].f32[2] || (_Q0.i32[0] = *(v11 + 140), v104.n128_u32[0] = v159[8].u32[3], _Q0.f32[0] != v104.n128_f32[0]))
       {
         *(v11 + 128) = v159[8];
         (v8[614])(*v8);
@@ -3067,18 +2035,18 @@ LABEL_215:
         *(v138 + 144) = v141;
       }
 
-      a6 = v136->n128_u64[v134];
+      a6 = v136->u64[v134];
       if (a6 != v142)
       {
         if (v134 != v132)
         {
           (v8[343])(*v8, (v134 + 33984));
-          a6 = v136->n128_u64[v134];
+          a6 = v136->u64[v134];
           v132 = v134;
         }
 
         (v8[6])(*v8, *(v140 + 72), a6);
-        *(v135 + 8 * v134) = v136->n128_u64[v134];
+        *(v135 + 8 * v134) = v136->i64[v134];
       }
 
       ++v134;
@@ -3091,17 +2059,17 @@ LABEL_215:
 LABEL_227:
   v143 = v9;
   v157->i32[0] = v132;
-  v144 = v10[31].n128_u8[0];
-  v145 = (v144 < 0x1A) & v10[31].n128_u8[1];
+  v144 = v10[31].u8[0];
+  v145 = (v144 < 0x1A) & v10[31].i8[1];
   if (v145)
   {
-    v146 = v10[31].n128_u8[1];
+    v146 = v10[31].u8[1];
     v147 = *(v143 + 496);
     v148 = this;
     if (v144 != v147)
     {
       CA::OGL::GLContext::load_blend_func(this, v144, v147);
-      *(v143 + 496) = v10[31].n128_u8[0];
+      *(v143 + 496) = v10[31].i8[0];
     }
 
     if ((*(v143 + 497) ^ v146))
@@ -5371,48 +4339,9 @@ uint64_t CA::OGL::gl_shader_hash(unsigned int *a1)
   return 33 * (33 * v6 + a1[70]) + a1[78];
 }
 
-int32x2_t CA::OGL::GLContext::draw_lines(int32x2_t *this, uint64_t a2, unint64_t a3, const float *a4, float32x4_t a5, double a6, __n128 a7)
-{
-  v11 = this[85];
-  v12 = this[84];
-  if (*&v11 != *&v12 || (!*&v11 ? (v13 = 0) : (v13 = (*(*&v12 + 144) >> 1) & 0x1F), this[83].i32[1] != v13))
-  {
-    CA::OGL::Context::prepare_destination_(this);
-  }
-
-  if ((this[173].i16[0] & 0x200) != 0)
-  {
-    CA::OGL::Context::flatten_detached_layers_(this);
-  }
-
-  CA::OGL::GLContext::update_state(this, a5, a6, a7, a2, a3, a4);
-  if (this[335] != a4 || this[336].i32[0] != 2)
-  {
-    v14 = this[337];
-    (v14[512])(*v14, 0, 2, 5126, 0, 16, a4);
-    (v14[513])(*v14, 0);
-    (v14[512])(*v14, 1, 4, 5131, 1, 16, a4 + 2);
-    (v14[513])(*v14, 1);
-    (v14[514])(*v14, 2);
-    (v14[514])(*v14, 3);
-    (v14[514])(*v14, 4);
-    this[335] = a4;
-    this[336].i32[0] = 2;
-  }
-
-  (*(*&this[337] + 528))(**&this[337], 1, a2, a3);
-  CA::OGL::GLContext::unload_state(this);
-  CA::OGL::Context::marked_destination(this);
-  v15.i32[0] = 1;
-  v15.i32[1] = a3;
-  result = vadd_s32(this[157], v15);
-  this[157] = result;
-  return result;
-}
-
 double CA::OGL::GLContext::draw_elements(int32x2_t *this, uint64_t a2, unint64_t a3, const float *a4, uint64_t a5, float32x4_t a6, double a7, __n128 a8, uint64_t a9, uint64_t a10, void *a11)
 {
-  v33[4] = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   if (a2)
   {
     v16 = this;
@@ -5440,14 +4369,14 @@ double CA::OGL::GLContext::draw_elements(int32x2_t *this, uint64_t a2, unint64_t
       }
 
       MEMORY[0x1EEE9AC00](this);
-      bzero(v32, 0x300FuLL);
+      bzero(v39, 0x300FuLL);
       CA::OGL::GLContext::update_state(v16, v26, v27, v28, v23, v24, v25);
-      CA::OGL::GLContext::init_client_state(v16, v32);
-      v33[0] = &unk_1EF1FC928;
-      v33[1] = v16;
-      v33[3] = v33;
-      CA::OGL::clip_primitives(a2, a3, a4, a5, 0, a11, v22, v32, 0x100u, v33, 1u);
-      std::__function::__value_func<BOOL ()(CA::OGL::Vertex *,unsigned int)>::~__value_func[abi:nn200100](v33);
+      CA::OGL::GLContext::init_client_state(v16, v39);
+      v41 = &unk_1EF1FC928;
+      v42 = v16;
+      v44 = &v41;
+      CA::OGL::clip_primitives(a2, a3, a4, a5, 0, a11, v22, v39, 0x100u, &v41, 1u);
+      std::__function::__value_func<BOOL ()(CA::OGL::Vertex *,unsigned int)>::~__value_func[abi:nn200100](&v41);
       if (v22)
       {
         v16[171] = v22;
@@ -5472,10 +4401,10 @@ double CA::OGL::GLContext::draw_elements(int32x2_t *this, uint64_t a2, unint64_t
     }
 
     CA::OGL::GLContext::unload_state(v16);
-    CA::OGL::Context::marked_destination(v16);
-    v30.i32[0] = 1;
-    v30.i32[1] = a3;
-    *a6.f32 = vadd_s32(v16[157], v30);
+    CA::OGL::Context::marked_destination(v16, v30, v31, v32, v33, v34, v35, v36, v40, v41, v42, v43, v44, v45, v46, v47, v48, v49, v50);
+    v37.i32[0] = 1;
+    v37.i32[1] = a3;
+    *a6.f32 = vadd_s32(v16[157], v37);
     v16[157] = *a6.f32;
   }
 
@@ -5517,7 +4446,7 @@ uint64_t CA::OGL::GLContext::restore_state(CA::OGL::GLContext *this, __n128 a2)
   v3 = *(this + 337);
   if (*(this + 672))
   {
-    (v3[514])(*v3, 0);
+    (v3[514])(*v3, 0, a2);
     (v3[512])(*v3, 0, 4, 5126, 0, 0, 0);
     (v3[514])(*v3, 1);
     (v3[512])(*v3, 1, 4, 5121, 0, 0, 0);
@@ -5531,7 +4460,7 @@ uint64_t CA::OGL::GLContext::restore_state(CA::OGL::GLContext *this, __n128 a2)
   if (*(this + 308))
   {
     *(this + 308) = 0;
-    (*(*(this + 337) + 4808))(**(this + 337), 0);
+    (*(*(this + 337) + 4808))(**(this + 337), 0, a2);
   }
 
   v4 = *(this + 3);
@@ -5561,7 +4490,7 @@ uint64_t CA::OGL::GLContext::restore_state(CA::OGL::GLContext *this, __n128 a2)
         {
           if (v7 != v6)
           {
-            (v3[343])(*v3, (v7 + 33984));
+            (v3[343])(*v3, (v7 + 33984), a2);
             v10 = *(v9 + 2 * v7);
             v6 = v7;
           }
@@ -5759,7 +4688,7 @@ void CA::OGL::GLContext::collect(CA::OGL::GLContext *this, char a2)
   }
 }
 
-const char *CA::OGL::GLContext::get_error_string(CA::OGL::GLContext *this, int a2)
+char *CA::OGL::GLContext::get_error_string(CA::OGL::GLContext *this, int a2)
 {
   if (a2 > 1282)
   {
@@ -5859,7 +4788,7 @@ os_log_t ___Z20x_log_get_ogl_openglv_block_invoke()
   return result;
 }
 
-uint64_t CA::OGL::GLContext::check_extension(CA::OGL::GLContext *this, char *a2, const char *a3, const char *a4)
+uint64_t CA::OGL::GLContext::check_extension(CA::OGL::GLContext *this, CA::OGL *a2, const char *a3, const char *a4)
 {
   v15 = *MEMORY[0x1E69E9840];
   if (CA::OGL::GLContext::check_extension(char const*,char const*,char const*)::initialized == 1)
@@ -6099,7 +5028,7 @@ uint64_t CA::ASEScalerStatistics::update_with_stats(uint64_t this, void *a2)
   return this;
 }
 
-uint64_t CA::ASEScalerStatistics::create_iosa_params(CA::ASEScalerStatistics *this, __IOSurface *a2, __IOSurface *a3, uint64_t a4)
+void *CA::ASEScalerStatistics::create_iosa_params(CA::ASEScalerStatistics *this, __IOSurface *a2, __IOSurface *a3, uint64_t a4)
 {
   v29 = *MEMORY[0x1E69E9840];
   v8 = malloc_type_calloc(1uLL, 0x200uLL, 0x1080040D934B4C6uLL);
@@ -6226,7 +5155,7 @@ void CA::ASEScalerStatistics::~ASEScalerStatistics(id *this)
   *this = &unk_1EF1FC970;
 }
 
-uint64_t ___ZN2CA16ScalerStatistics14should_enhanceEmmmm_block_invoke()
+uint64_t ___ZN2CA16ScalerStatistics14should_enhanceEmmmm_block_invoke(uint64_t a1)
 {
   objc_opt_class();
   result = objc_opt_respondsToSelector();
@@ -6267,7 +5196,7 @@ CA::CG::ContextDelegate *CA::CG::ContextDelegate::ContextDelegate(CA::CG::Contex
   return this;
 }
 
-uint64_t CA::CG::ContextDelegate::draw_conic_gradient_(double a1, double a2, double a3, uint64_t a4, uint64_t a5, uint64_t a6, const void *a7)
+uint64_t CA::CG::ContextDelegate::draw_conic_gradient_(uint64_t a1, uint64_t a2, uint64_t a3, const void *a4, double a5, double a6, double a7)
 {
   Info = CGContextDelegateGetInfo();
   v14 = (*(*Info + 16))(Info);
@@ -6278,12 +5207,12 @@ uint64_t CA::CG::ContextDelegate::draw_conic_gradient_(double a1, double a2, dou
     if (v16)
     {
       v17 = v16;
-      v18 = CA::CG::DrawGradient::DrawGradient(v16, Info, a5, a6, a7, 0);
+      v18 = CA::CG::DrawGradient::DrawGradient(v16, Info, a2, a3, a4, 0);
       *v18 = &unk_1EF203750;
-      *(v18 + 128) = a1;
-      *(v18 + 136) = a2;
-      *(v18 + 144) = a3;
-      CA::CG::ContextDelegate::submit(Info, v15, v17, a5, a6);
+      *(v18 + 128) = a5;
+      *(v18 + 136) = a6;
+      *(v18 + 144) = a7;
+      CA::CG::ContextDelegate::submit(Info, v15, v17, a2, a3);
     }
   }
 
@@ -6298,7 +5227,7 @@ void CA::CG::ContextDelegate::submit(uint64_t a1, uint64_t a2, uint64_t a3, uint
   }
 
   *(a2 + 24) = CGContextDelegateGetOwnerIdentity();
-  updated = CA::CG::ContextDelegate::update_style(a1);
+  updated = CA::CG::ContextDelegate::update_style(a1, a4, a5);
   if (updated)
   {
     CA::CG::ContextDelegate::resolve_style(a1, a3, a4, a5, updated);
@@ -6393,23 +5322,24 @@ LABEL_27:
   dispatch_group_async_f(v13, v15, v12, CA::CG::Queue::render_callback);
 }
 
-double *CA::CG::ContextDelegate::update_style(uint64_t a1)
+double *CA::CG::ContextDelegate::update_style(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = CGGStateGetStyle();
   if (result)
   {
-    v3 = *(a1 + 328);
-    if (v3)
+    v5 = result;
+    v6 = *(a1 + 328);
+    if (v6)
     {
-      v4 = *(v3 + 12);
-      if (v4 == CGStyleGetIdentifier())
+      v7 = *(v6 + 12);
+      if (v7 == CGStyleGetIdentifier())
       {
         goto LABEL_32;
       }
     }
 
     Type = CGStyleGetType();
-    v6 = 0;
+    v9 = 0;
     if (Type > 2)
     {
       if (Type == 3)
@@ -6419,13 +5349,13 @@ double *CA::CG::ContextDelegate::update_style(uint64_t a1)
           dispatch_once_f(&x_malloc_get_zone::once, 0, malloc_zone_init);
         }
 
-        v16 = malloc_type_zone_malloc(malloc_zone, 0x58uLL, 0x165299FDuLL);
-        v6 = v16;
-        if (v16)
+        v19 = malloc_type_zone_malloc(malloc_zone, 0x58uLL, 0x165299FDuLL);
+        v9 = v19;
+        if (v19)
         {
-          CA::CG::Style::Style(v16);
-          *v6 = &unk_1EF204CB8;
-          v6[10] = *(CGStyleGetData() + 8) * 0.5;
+          CA::CG::Style::Style(v19, v5);
+          *v9 = &unk_1EF204CB8;
+          v9[10] = *(CGStyleGetData() + 8) * 0.5;
         }
       }
 
@@ -6436,19 +5366,19 @@ double *CA::CG::ContextDelegate::update_style(uint64_t a1)
           dispatch_once_f(&x_malloc_get_zone::once, 0, malloc_zone_init);
         }
 
-        v10 = malloc_type_zone_malloc(malloc_zone, 0xA0uLL, 0x165299FDuLL);
-        v6 = v10;
-        if (v10)
+        v13 = malloc_type_zone_malloc(malloc_zone, 0xA0uLL, 0x165299FDuLL);
+        v9 = v13;
+        if (v13)
         {
-          CA::CG::Style::Style(v10);
-          *v6 = &unk_1EF1FC3A0;
-          v11 = (CGStyleGetData() + 8);
+          CA::CG::Style::Style(v13, v5);
+          *v9 = &unk_1EF1FC3A0;
+          v14 = (CGStyleGetData() + 8);
           for (i = 76; i != 156; i += 16)
           {
-            v14 = *v11;
-            v13 = v11[1];
-            v11 += 2;
-            *(v6 + i) = vcvt_hight_f32_f64(vcvt_f32_f64(v14), v13);
+            v17 = *v14;
+            v16 = v14[1];
+            v14 += 2;
+            *(v9 + i) = vcvt_hight_f32_f64(vcvt_f32_f64(v17), v16);
           }
         }
       }
@@ -6461,13 +5391,13 @@ double *CA::CG::ContextDelegate::update_style(uint64_t a1)
         dispatch_once_f(&x_malloc_get_zone::once, 0, malloc_zone_init);
       }
 
-      v15 = malloc_type_zone_malloc(malloc_zone, 0x60uLL, 0x165299FDuLL);
-      v6 = v15;
-      if (v15)
+      v18 = malloc_type_zone_malloc(malloc_zone, 0x60uLL, 0x165299FDuLL);
+      v9 = v18;
+      if (v18)
       {
-        CA::CG::Style::Style(v15);
-        *v6 = &unk_1EF2025C0;
-        *(v6 + 44) = 0;
+        CA::CG::Style::Style(v18, v5);
+        *v9 = &unk_1EF2025C0;
+        *(v9 + 44) = 0;
       }
     }
 
@@ -6478,66 +5408,66 @@ double *CA::CG::ContextDelegate::update_style(uint64_t a1)
         dispatch_once_f(&x_malloc_get_zone::once, 0, malloc_zone_init);
       }
 
-      v7 = malloc_type_zone_malloc(malloc_zone, 0x58uLL, 0x165299FDuLL);
-      v6 = v7;
-      if (v7)
+      v10 = malloc_type_zone_malloc(malloc_zone, 0x58uLL, 0x165299FDuLL);
+      v9 = v10;
+      if (v10)
       {
-        CA::CG::Style::Style(v7);
-        *v6 = &unk_1EF200A18;
+        CA::CG::Style::Style(v10, v5);
+        *v9 = &unk_1EF200A18;
         Data = CGStyleGetData();
-        v9 = *(Data + 32);
-        *(v6 + 20) = v9;
-        *(v6 + 21) = *(Data + 72);
+        v12 = *(Data + 32);
+        *(v9 + 20) = v12;
+        *(v9 + 21) = *(Data + 72);
       }
     }
 
-    v17 = *(a1 + 328);
-    *(a1 + 328) = v6;
-    if (v17)
+    v20 = *(a1 + 328);
+    *(a1 + 328) = v9;
+    if (v20)
     {
-      if (atomic_fetch_add(v17 + 2, 0xFFFFFFFF) == 1)
+      if (atomic_fetch_add(v20 + 2, 0xFFFFFFFF) == 1)
       {
-        (*(*v17 + 8))(v17);
+        (*(*v20 + 8))(v20);
       }
 
-      v6 = *(a1 + 328);
+      v9 = *(a1 + 328);
     }
 
-    if (v6)
+    if (v9)
     {
 LABEL_32:
       BaseCTM = CGRenderingStateGetBaseCTM();
-      v19 = *BaseCTM;
-      v20 = BaseCTM[1];
-      v21 = BaseCTM[2];
-      v22 = BaseCTM[3];
-      v23 = BaseCTM[4];
-      v24 = BaseCTM[5];
+      v22 = *BaseCTM;
+      v23 = BaseCTM[1];
+      v24 = BaseCTM[2];
+      v25 = BaseCTM[3];
+      v26 = BaseCTM[4];
+      v27 = BaseCTM[5];
       result = *(a1 + 328);
-      if (result[3] != v19 || result[4] != v20 || result[5] != v21 || result[6] != v22 || result[7] != v23 || result[8] != v24)
+      if (result[3] != v22 || result[4] != v23 || result[5] != v24 || result[6] != v25 || result[7] != v26 || result[8] != v27)
       {
         if (*(result + 2) != 1)
         {
           result = (*(*result + 40))(result);
-          v25 = *(a1 + 328);
+          v28 = *(a1 + 328);
           *(a1 + 328) = result;
-          if (v25)
+          if (v28)
           {
-            if (atomic_fetch_add(v25 + 2, 0xFFFFFFFF) == 1)
+            if (atomic_fetch_add(v28 + 2, 0xFFFFFFFF) == 1)
             {
-              (*(*v25 + 8))(v25);
+              (*(*v28 + 8))(v28);
             }
 
             result = *(a1 + 328);
           }
         }
 
-        result[3] = v19;
-        result[4] = v20;
-        result[5] = v21;
-        result[6] = v22;
-        result[7] = v23;
-        result[8] = v24;
+        result[3] = v22;
+        result[4] = v23;
+        result[5] = v24;
+        result[6] = v25;
+        result[7] = v26;
+        result[8] = v27;
         (*(*result + 16))(result);
         return *(a1 + 328);
       }
@@ -6600,7 +5530,7 @@ uint64_t CA::CG::ContextDelegate::resolve_style(CA::CG::Queue *,CA::CG::DrawOp *
   return result;
 }
 
-uint64_t CA::CG::ContextDelegate::draw_path_direct_(uint64_t a1, uint64_t a2, uint64_t a3, int a4, const CGPath *a5, uint64_t a6)
+uint64_t CA::CG::ContextDelegate::draw_path_direct_(uint64_t a1, uint64_t a2, uint64_t a3, int a4, const CGPath *a5, double *a6)
 {
   v45 = *MEMORY[0x1E69E9840];
   Info = CGContextDelegateGetInfo();
@@ -6613,7 +5543,7 @@ uint64_t CA::CG::ContextDelegate::draw_path_direct_(uint64_t a1, uint64_t a2, ui
       goto LABEL_22;
     }
 
-    if (!a6 || ((v14 = *a6, v15 = *(a6 + 8), v16 = *(a6 + 16), v17 = *(a6 + 24), CTM = CGGStateGetCTM(), v20 = CTM[1], v19 = CTM[2], *&v44.a = *CTM, *&v44.c = v20, *&v44.tx = v19, *&v19 = v14, *&v20 = v15, v21 = v16, v22 = v17, v46 = CGRectApplyAffineTransform(*(&v20 - 8), &v44), x = v46.origin.x, y = v46.origin.y, width = v46.size.width, height = v46.size.height, v27 = *(Info + 24), v28 = *(Info + 28), v27 <= v28) ? (v29 = *(Info + 28)) : (v29 = *(Info + 24)), (LODWORD(v46.origin.x) = 1073741822, LODWORD(v46.origin.y) = v29, v30 = vdupq_lane_s32(*&vcgtq_s32(*&v46.origin.y, v46.origin), 0), v31 = *(Info + 16), v32.i64[0] = v31, v32.i64[1] = SHIDWORD(v31), v33 = vbslq_s8(v30, vdupq_n_s64(0xFFDFFFFFFFFFFFFFLL), vcvtq_f64_s64(v32)), v29 <= 1073741822) ? (v34 = v27) : (v34 = 1.79769313e308), v29 <= 1073741822 ? (v35 = v28) : (v35 = 1.79769313e308), v36 = v33.i64[1], CGRectIntersectsRect(*v33.i8, *&x)))
+    if (!a6 || ((v14 = *a6, v15 = *(a6 + 1), v16 = *(a6 + 2), v17 = *(a6 + 3), CTM = CGGStateGetCTM(), v20 = CTM[1], v19 = CTM[2], *&v44.a = *CTM, *&v44.c = v20, *&v44.tx = v19, *&v19 = v14, *&v20 = v15, v21 = v16, v22 = v17, v46 = CGRectApplyAffineTransform(*(&v20 - 8), &v44), x = v46.origin.x, y = v46.origin.y, width = v46.size.width, height = v46.size.height, v27 = *(Info + 24), v28 = *(Info + 28), v27 <= v28) ? (v29 = *(Info + 28)) : (v29 = *(Info + 24)), (LODWORD(v46.origin.x) = 1073741822, LODWORD(v46.origin.y) = v29, v30 = vdupq_lane_s32(*&vcgtq_s32(*&v46.origin.y, v46.origin), 0), v31 = *(Info + 16), v32.i64[0] = v31, v32.i64[1] = SHIDWORD(v31), v33 = vbslq_s8(v30, vdupq_n_s64(0xFFDFFFFFFFFFFFFFLL), vcvtq_f64_s64(v32)), v29 <= 1073741822) ? (v34 = v27) : (v34 = 1.79769313e308), v29 <= 1073741822 ? (v35 = v28) : (v35 = 1.79769313e308), v36 = v33.i64[1], CGRectIntersectsRect(*v33.i8, *&x)))
     {
       FillColor = CGGStateGetFillColor();
       v39 = a4 == 1 || a4 == 4;
@@ -6805,7 +5735,7 @@ LABEL_108:
   }
 
 LABEL_36:
-  updated = CA::CG::ContextDelegate::update_style(a1);
+  updated = CA::CG::ContextDelegate::update_style(a1, a3, a4);
   if (!updated)
   {
 LABEL_100:
@@ -6842,10 +5772,10 @@ LABEL_100:
   }
 
   v102.f64[1] = 0.0;
-  *v103 = 0;
+  v103[0] = 0;
   *&v102.f64[0] = &unk_1EF1FCCD0;
   (*(*updated + 32))(updated, &v102);
-  v37 = CA::CG::ContextDelegate::clip_stack(a1);
+  v37 = CA::CG::ContextDelegate::clip_stack(a1, a4);
   if (v37)
   {
     v40 = *(v37 + 40);
@@ -6944,8 +5874,8 @@ LABEL_98:
 
   if (v63 < 1.79769313e308 && (cornerWidth.f64[0] >= cornerWidth.f64[1] ? (v64 = cornerWidth.f64[1]) : (v64 = cornerWidth.f64[0]), v64 > 0.0))
   {
-    v97 = vaddq_f64(v62, vdupq_lane_s64(COERCE__INT64(v103[0] * -2.7), 0));
-    v61.f64[0] = v103[0] * 5.4;
+    v97 = vaddq_f64(v62, vdupq_lane_s64(COERCE__INT64(*v103 * -2.7), 0));
+    v61.f64[0] = *v103 * 5.4;
     *v65.i64 = v61.f64[0] + cornerWidth.f64[0];
     v60.f64[0] = v61.f64[0] + cornerWidth.f64[1];
     v61.f64[0] = fmin(v61.f64[0] + cornerWidth.f64[0], v61.f64[0] + cornerWidth.f64[1]);
@@ -7153,7 +6083,7 @@ LABEL_97:
     CGPathRelease(v48);
   }
 
-  v19 = CA::CG::ContextDelegate::fill_path(a1, a2, a3, a4, a5, v89, 1, 1, 0, 257);
+  v19 = CA::CG::ContextDelegate::fill_path(a1, a2, a3, a4, a5, v89, 1, 1, 0, 1, 1);
   *(v19 + 100) |= 0x400u;
   CGPathRelease(path);
   return v19;
@@ -7241,7 +6171,7 @@ LABEL_6:
       *v18 = &unk_1EF1FCE90;
       v19 = (v18 + 19);
 LABEL_11:
-      CA::CG::StrokeState::StrokeState(v19);
+      CA::CG::StrokeState::StrokeState(v19, a4);
       return v15;
     }
 
@@ -7477,7 +6407,7 @@ CA::CG::DrawOp *CA::CG::ContextDelegate::draw_lines(const double *a1, CA::CG::Dr
 
   CA::CG::DrawOp::DrawOp(v17, a1, a3, a4, a5, v23);
   *v18 = &unk_1EF2052F8;
-  CA::CG::StrokeState::StrokeState((v18 + 14));
+  CA::CG::StrokeState::StrokeState((v18 + 14), a4);
   v18[19] = a7;
   v24 = this[5];
   if (v24 && !*(v24 + 13) && !CGGStateGetStyle() && (*(*v24 + 104))(v24, v18) && CA::CG::Queue::cancel_and_grow(this, v18, v24, v16))
@@ -7532,7 +6462,7 @@ unint64_t *CA::CG::ContextDelegate::stroke_rects(const double *a1, CA::CG::Queue
   CA::CG::DrawOp::DrawOp(v15, a1, a3, a4, a5, v21 | ((a7 == 1) << 24));
   v16[14] = a7;
   *v16 = &unk_1EF202428;
-  CA::CG::StrokeState::StrokeState((v16 + 15));
+  CA::CG::StrokeState::StrokeState((v16 + 15), a4);
   return v16;
 }
 
@@ -7548,7 +6478,7 @@ unint64_t *CA::CG::ContextDelegate::stroke_ellipse(const double *a1, CA::CG::Que
     *(v12 + 7) = *a6;
     *(v12 + 8) = v13;
     *v12 = &unk_1EF1FD230;
-    CA::CG::StrokeState::StrokeState((v12 + 18));
+    CA::CG::StrokeState::StrokeState((v12 + 18), a4);
   }
 
   return v12;
@@ -7577,7 +6507,7 @@ unint64_t *CA::CG::ContextDelegate::stroke_rounded_rect(const double *a1, CA::CG
     *(v16 + 8) = v18;
     *(v16 + 9) = *a7;
     *v16 = &unk_1EF2002C8;
-    CA::CG::StrokeState::StrokeState((v16 + 20));
+    CA::CG::StrokeState::StrokeState((v16 + 20), a4);
   }
 
   return v16;
@@ -7596,7 +6526,7 @@ unint64_t *CA::CG::ContextDelegate::stroke_arc(const double *a1, CA::CG::Queue *
     v22 = *a6;
     CA::CG::DrawOp::DrawOp(v16, a1, a3, a4, a5, 0);
     *v17 = &unk_1EF201FC8;
-    CA::CG::StrokeState::StrokeState((v17 + 14));
+    CA::CG::StrokeState::StrokeState((v17 + 14), a4);
     *(v17 + 21) = v21;
     *(v17 + 19) = v22;
     v17[23] = v19;
@@ -7649,7 +6579,7 @@ uint64_t CA::CG::DrawOp::DrawOp(uint64_t a1, const double *a2, uint64_t a3, uint
 
   *(a1 + 100) = a6 | (2 * (a5 != 0)) | ShouldAntialias;
   *(a1 + 104) = 0;
-  v17 = CA::CG::ContextDelegate::clip_stack(a2);
+  v17 = CA::CG::ContextDelegate::clip_stack(a2, a4);
   if (v17)
   {
     v18 = v17;
@@ -7756,9 +6686,9 @@ uint64_t CA::CG::DrawPath::DrawPath(uint64_t a1, const double *a2, uint64_t a3, 
   return a1;
 }
 
-uint64_t CA::CG::ContextDelegate::clip_stack(uint64_t a1)
+uint64_t CA::CG::ContextDelegate::clip_stack(uint64_t a1, uint64_t a2)
 {
-  v169 = *MEMORY[0x1E69E9840];
+  v170 = *MEMORY[0x1E69E9840];
   CGGStateGetClipStack();
   Identifier = CGClipStackGetIdentifier();
   if (*(a1 + 312) == Identifier)
@@ -7766,25 +6696,25 @@ uint64_t CA::CG::ContextDelegate::clip_stack(uint64_t a1)
     return *(a1 + 320);
   }
 
-  v3 = Identifier;
+  v4 = Identifier;
   Count = CGClipStackGetCount();
   CGClipStackGetRect();
-  *v8.i64 = v7;
-  *&v8.i64[1] = v5;
-  v9.f64[0] = 0.0;
-  v11.i64[0] = *&v10.f64[0];
-  v11.i64[1] = v6;
-  v12 = vdupq_lane_s64(vcgtq_f64(v9, v10).i64[0], 0);
-  v13.i64[1] = v6;
-  *v13.i64 = -v10.f64[0];
-  v14 = vbslq_s8(v12, v13, v11);
-  v10.f64[1] = v5;
-  v10.f64[0] = v10.f64[0] + v7;
-  v15 = vbslq_s8(v12, v10, v8);
-  if (*&v6 < 0.0)
+  *v9.i64 = v8;
+  *&v9.i64[1] = v6;
+  v10.f64[0] = 0.0;
+  v12.i64[0] = *&v11.f64[0];
+  v12.i64[1] = v7;
+  v13 = vdupq_lane_s64(vcgtq_f64(v10, v11).i64[0], 0);
+  v14.i64[1] = v7;
+  *v14.i64 = -v11.f64[0];
+  v15 = vbslq_s8(v13, v14, v12);
+  v11.f64[1] = v6;
+  v11.f64[0] = v11.f64[0] + v8;
+  v16 = vbslq_s8(v13, v11, v9);
+  if (*&v7 < 0.0)
   {
-    *&v15.i64[1] = *&v6 + v5;
-    *&v14.i64[1] = -*&v6;
+    *&v16.i64[1] = *&v7 + v6;
+    *&v15.i64[1] = -*&v7;
   }
 
   if (Count)
@@ -7792,77 +6722,77 @@ uint64_t CA::CG::ContextDelegate::clip_stack(uint64_t a1)
     goto LABEL_9;
   }
 
-  v16 = *&v14.i64[1];
-  if (*v14.i64 > *&v14.i64[1])
+  v17 = *&v15.i64[1];
+  if (*v15.i64 > *&v15.i64[1])
   {
-    v16 = *v14.i64;
+    v17 = *v15.i64;
   }
 
-  if (v16 < 1.79769313e308)
+  if (v17 < 1.79769313e308)
   {
 LABEL_9:
-    v146 = v15;
-    v148 = v14;
-    v18 = malloc_type_malloc(104 * Count + 56, 0x81C6F351uLL);
-    v17 = v18;
-    *v18 = 1;
-    *(v18 + 8) = v146;
-    *(v18 + 24) = v148;
-    *(v18 + 1) = 0;
+    v147 = v16;
+    v149 = v15;
+    v19 = malloc_type_malloc(104 * Count + 56, 0x81C6F351uLL);
+    v18 = v19;
+    *v19 = 1;
+    *(v19 + 8) = v147;
+    *(v19 + 24) = v149;
+    *(v19 + 1) = 0;
     if (!Count)
     {
-      v139 = vceqzq_f64(v148);
-      if ((vorrq_s8(vdupq_laneq_s64(v139, 1), v139).u64[0] & 0x8000000000000000) != 0 || (v140 = vceqq_f64(v148, v148), (vornq_s8(vdupq_laneq_s64(vmvnq_s8(v140), 1), v140).u64[0] & 0x8000000000000000) != 0))
+      v140 = vceqzq_f64(v149);
+      if ((vorrq_s8(vdupq_laneq_s64(v140, 1), v140).u64[0] & 0x8000000000000000) != 0 || (v141 = vceqq_f64(v149, v149), (vornq_s8(vdupq_laneq_s64(vmvnq_s8(v141), 1), v141).u64[0] & 0x8000000000000000) != 0))
       {
-        *(v18 + 5) = 0;
-        *(v18 + 6) = 0;
+        *(v19 + 5) = 0;
+        *(v19 + 6) = 0;
       }
 
       else
       {
-        v141 = vcvtmq_s64_f64(vmaxnmq_f64(v146, vdupq_n_s64(0xC1BFFFFFFF000000)));
-        *(v18 + 40) = vuzp1q_s32(v141, vsubq_s64(vcvtpq_s64_f64(vminnmq_f64(vaddq_f64(v146, v148), vdupq_n_s64(0x41C0000000000000uLL))), v141));
+        v142 = vcvtmq_s64_f64(vmaxnmq_f64(v147, vdupq_n_s64(0xC1BFFFFFFF000000)));
+        *(v19 + 40) = vuzp1q_s32(v142, vsubq_s64(vcvtpq_s64_f64(vminnmq_f64(vaddq_f64(v147, v149), vdupq_n_s64(0x41C0000000000000uLL))), v142));
       }
 
       goto LABEL_66;
     }
 
     CGClipStackGetBounds();
-    *v22.i64 = v21;
-    v22.i64[1] = v19;
-    v23.f64[0] = 0.0;
-    v25.i64[0] = *&v24.f64[0];
-    v25.i64[1] = v20;
-    v26 = vdupq_lane_s64(vcgtq_f64(v23, v24).i64[0], 0);
-    v27.i64[1] = v19;
-    *v27.i64 = v24.f64[0] + v21;
-    v28 = vbslq_s8(v26, v27, v22);
-    v22.i64[1] = v20;
-    *v22.i64 = -v24.f64[0];
-    v29 = vbslq_s8(v26, v22, v25);
-    if (*&v20 < 0.0)
+    *v23.i64 = v22;
+    v23.i64[1] = v20;
+    v24.f64[0] = 0.0;
+    v26.i64[0] = *&v25.f64[0];
+    v26.i64[1] = v21;
+    v27 = vdupq_lane_s64(vcgtq_f64(v24, v25).i64[0], 0);
+    v28.i64[1] = v20;
+    *v28.i64 = v25.f64[0] + v22;
+    v29 = vbslq_s8(v27, v28, v23);
+    v23.i64[1] = v21;
+    *v23.i64 = -v25.f64[0];
+    v30 = vbslq_s8(v27, v23, v26);
+    if (*&v21 < 0.0)
     {
-      v28.f64[1] = *&v20 + *&v19;
-      v29.f64[1] = -*&v20;
+      v29.f64[1] = *&v21 + *&v20;
+      v30.f64[1] = -*&v21;
     }
 
-    v30 = vceqzq_f64(v29);
-    v145 = a1;
-    v144 = v3;
-    if ((vorrq_s8(vdupq_laneq_s64(v30, 1), v30).u64[0] & 0x8000000000000000) != 0 || (v31 = vceqq_f64(v29, v29), (vornq_s8(vdupq_laneq_s64(vmvnq_s8(v31), 1), v31).u64[0] & 0x8000000000000000) != 0))
+    v31 = vceqzq_f64(v30);
+    v146 = a1;
+    v145 = v4;
+    if ((vorrq_s8(vdupq_laneq_s64(v31, 1), v31).u64[0] & 0x8000000000000000) != 0 || (v32 = vceqq_f64(v30, v30), (vornq_s8(vdupq_laneq_s64(vmvnq_s8(v32), 1), v32).u64[0] & 0x8000000000000000) != 0))
     {
-      *(v17 + 5) = 0;
-      *(v17 + 6) = 0;
+      *(v18 + 5) = 0;
+      *(v18 + 6) = 0;
     }
 
     else
     {
-      v32 = vcvtmq_s64_f64(vmaxnmq_f64(v28, vdupq_n_s64(0xC1BFFFFFFF000000)));
-      *(v17 + 40) = vuzp1q_s32(v32, vsubq_s64(vcvtpq_s64_f64(vminnmq_f64(vaddq_f64(v28, v29), vdupq_n_s64(0x41C0000000000000uLL))), v32));
+      v33 = vcvtmq_s64_f64(vmaxnmq_f64(v29, vdupq_n_s64(0xC1BFFFFFFF000000)));
+      *(v18 + 40) = vuzp1q_s32(v33, vsubq_s64(vcvtpq_s64_f64(vminnmq_f64(vaddq_f64(v29, v30), vdupq_n_s64(0x41C0000000000000uLL))), v33));
     }
 
-    v33 = 0;
-    v34 = v17 + 56;
+    v34 = 0;
+    v35 = v18 + 56;
     while (1)
     {
       CGClipStackGetClipAtIndex();
@@ -7877,43 +6807,43 @@ LABEL_9:
       {
         CGClipGetMask();
         Image = CGClipMaskGetImage();
-        v166 = 0u;
         v167 = 0u;
-        v165 = 0u;
+        v168 = 0u;
+        v166 = 0u;
         CGClipMaskGetMatrix();
         CGClipMaskGetRect();
-        *&v63.i64[1] = v61;
-        v64.f64[0] = 0.0;
-        v66.i64[0] = *&v65.f64[0];
-        v66.i64[1] = v62;
-        v67 = vdupq_lane_s64(vcgtq_f64(v64, v65).i64[0], 0);
-        v68.i64[1] = v62;
-        *v68.i64 = -v65.f64[0];
-        v69 = vbslq_s8(v67, v68, v66);
-        v65.f64[1] = v61;
-        v65.f64[0] = v65.f64[0] + *v63.i64;
-        v70 = vbslq_s8(v67, v65, v63);
-        if (*&v62 < 0.0)
+        *&v64.i64[1] = v62;
+        v65.f64[0] = 0.0;
+        v67.i64[0] = *&v66.f64[0];
+        v67.i64[1] = v63;
+        v68 = vdupq_lane_s64(vcgtq_f64(v65, v66).i64[0], 0);
+        v69.i64[1] = v63;
+        *v69.i64 = -v66.f64[0];
+        v70 = vbslq_s8(v68, v69, v67);
+        v66.f64[1] = v62;
+        v66.f64[0] = v66.f64[0] + *v64.i64;
+        v71 = vbslq_s8(v68, v66, v64);
+        if (*&v63 < 0.0)
         {
-          *&v70.i64[1] = *&v62 + v61;
-          *&v69.i64[1] = -*&v62;
+          *&v71.i64[1] = *&v63 + v62;
+          *&v70.i64[1] = -*&v63;
         }
 
-        v147 = v70;
-        v149 = v69;
-        v71 = *(v17 + 1);
-        *(v17 + 1) = v71 + 1;
-        v72 = &v34[104 * v71];
-        *v72 = &unk_1EF1FE0F8;
-        *(v72 + 1) = CGImageRetain(Image);
-        v73 = v166;
+        v148 = v71;
+        v150 = v70;
+        v72 = *(v18 + 1);
+        *(v18 + 1) = v72 + 1;
+        v73 = &v35[104 * v72];
+        *v73 = &unk_1EF1FE0F8;
+        *(v73 + 1) = CGImageRetain(Image);
         v74 = v167;
-        *(v72 + 1) = v165;
-        *(v72 + 2) = v73;
-        *(v72 + 3) = v74;
-        *(v72 + 4) = v147;
-        *(v72 + 5) = v149;
-        v72[96] = ShouldAntialias;
+        v75 = v168;
+        *(v73 + 1) = v166;
+        *(v73 + 2) = v74;
+        *(v73 + 3) = v75;
+        *(v73 + 4) = v148;
+        *(v73 + 5) = v150;
+        v73[96] = ShouldAntialias;
         goto LABEL_59;
       }
 
@@ -7923,25 +6853,25 @@ LABEL_9:
         Path = CGTextClippingCreatePath();
         if (Path)
         {
-          v42 = Path;
-          v43 = *(v17 + 1);
-          *(v17 + 1) = v43 + 1;
-          v44 = &v34[104 * v43];
-          *v44 = &unk_1EF1FE0C0;
-          *(v44 + 1) = CFRetain(Path);
-          v44[16] = 0;
-          v44[17] = ShouldAntialias;
-          v45 = v42;
+          v43 = Path;
+          v44 = *(v18 + 1);
+          *(v18 + 1) = v44 + 1;
+          v45 = &v35[104 * v44];
+          *v45 = &unk_1EF1FE0C0;
+          *(v45 + 1) = CFRetain(Path);
+          v45[16] = 0;
+          v45[17] = ShouldAntialias;
+          v46 = v43;
 LABEL_58:
-          CGPathRelease(v45);
+          CGPathRelease(v46);
         }
       }
 
 LABEL_59:
-      if (++v33 == Count)
+      if (++v34 == Count)
       {
-        a1 = v145;
-        v3 = v144;
+        a1 = v146;
+        v4 = v145;
         goto LABEL_66;
       }
     }
@@ -7955,63 +6885,63 @@ LABEL_59:
         {
           CGClipGetStroke();
           CGClipStrokeGetLineWidth();
-          v76 = v75;
+          v77 = v76;
           CGClipGetRect();
-          v79.i64[1] = v77;
-          v80.f64[0] = 0.0;
-          v82.i64[0] = *&v81.f64[0];
-          v82.i64[1] = v78;
-          v83 = vdupq_lane_s64(vcgtq_f64(v80, v81).i64[0], 0);
-          v84.i64[1] = v77;
-          *v84.i64 = v81.f64[0] + *v79.i64;
-          v85 = vbslq_s8(v83, v84, v79);
-          v86.i64[1] = v78;
-          *v86.i64 = -v81.f64[0];
-          v87 = vbslq_s8(v83, v86, v82);
-          if (*&v78 < 0.0)
+          v80.i64[1] = v78;
+          v81.f64[0] = 0.0;
+          v83.i64[0] = *&v82.f64[0];
+          v83.i64[1] = v79;
+          v84 = vdupq_lane_s64(vcgtq_f64(v81, v82).i64[0], 0);
+          v85.i64[1] = v78;
+          *v85.i64 = v82.f64[0] + *v80.i64;
+          v86 = vbslq_s8(v84, v85, v80);
+          v87.i64[1] = v79;
+          *v87.i64 = -v82.f64[0];
+          v88 = vbslq_s8(v84, v87, v83);
+          if (*&v79 < 0.0)
           {
-            *&v85.i64[1] = *&v78 + *&v77;
-            *&v87.i64[1] = -*&v78;
+            *&v86.i64[1] = *&v79 + *&v78;
+            *&v88.i64[1] = -*&v79;
           }
 
-          v88 = *(v17 + 1);
-          *(v17 + 1) = v88 + 1;
-          v89 = &v34[104 * v88];
-          *v89 = &unk_1EF1FE168;
-          *(v89 + 8) = v85;
-          *(v89 + 24) = v87;
-          *(v89 + 5) = v76;
-          v89[48] = ShouldAntialias;
+          v89 = *(v18 + 1);
+          *(v18 + 1) = v89 + 1;
+          v90 = &v35[104 * v89];
+          *v90 = &unk_1EF1FE168;
+          *(v90 + 8) = v86;
+          *(v90 + 24) = v88;
+          *(v90 + 5) = v77;
+          v90[48] = ShouldAntialias;
         }
       }
 
       else
       {
         CGClipGetRect();
-        v49.i64[1] = v47;
-        v50.f64[0] = 0.0;
-        v52.i64[0] = *&v51.f64[0];
-        v52.i64[1] = v48;
-        v53 = vdupq_lane_s64(vcgtq_f64(v50, v51).i64[0], 0);
-        v54.i64[1] = v47;
-        *v54.i64 = v51.f64[0] + *v49.i64;
-        v55 = vbslq_s8(v53, v54, v49);
-        v56.i64[1] = v48;
-        *v56.i64 = -v51.f64[0];
-        v57 = vbslq_s8(v53, v56, v52);
-        if (*&v48 < 0.0)
+        v50.i64[1] = v48;
+        v51.f64[0] = 0.0;
+        v53.i64[0] = *&v52.f64[0];
+        v53.i64[1] = v49;
+        v54 = vdupq_lane_s64(vcgtq_f64(v51, v52).i64[0], 0);
+        v55.i64[1] = v48;
+        *v55.i64 = v52.f64[0] + *v50.i64;
+        v56 = vbslq_s8(v54, v55, v50);
+        v57.i64[1] = v49;
+        *v57.i64 = -v52.f64[0];
+        v58 = vbslq_s8(v54, v57, v53);
+        if (*&v49 < 0.0)
         {
-          *&v55.i64[1] = *&v48 + *&v47;
-          *&v57.i64[1] = -*&v48;
+          *&v56.i64[1] = *&v49 + *&v48;
+          *&v58.i64[1] = -*&v49;
         }
 
-        v58 = *(v17 + 1);
-        *(v17 + 1) = v58 + 1;
-        v59 = &v34[104 * v58];
-        *v59 = &unk_1EF1FE130;
-        *(v59 + 8) = v55;
-        *(v59 + 24) = v57;
-        v59[40] = ShouldAntialias;
+        v59 = *(v18 + 1);
+        *(v18 + 1) = v59 + 1;
+        v60 = &v35[104 * v59];
+        *v60 = &unk_1EF1FE130;
+        *(v60 + 8) = v56;
+        *(v60 + 24) = v58;
+        v60[40] = ShouldAntialias;
       }
 
       goto LABEL_59;
@@ -8022,9 +6952,9 @@ LABEL_59:
       goto LABEL_59;
     }
 
-    v37 = CGClipGetMode();
+    v38 = CGClipGetMode();
     StrokedPath = CGClipGetPath();
-    if (v37 == 2)
+    if (v38 == 2)
     {
       CGClipGetStroke();
       StrokedPath = CGClipStrokeCreateStrokedPath();
@@ -8034,13 +6964,13 @@ LABEL_59:
     {
       if (CGPathIsRegion())
       {
-        v39 = *(v17 + 1);
-        *(v17 + 1) = v39 + 1;
-        v40 = &v34[104 * v39];
-        *v40 = &unk_1EF1FE0C0;
-        *(v40 + 1) = CFRetain(StrokedPath);
-        v40[16] = v37 == 1;
-        v40[17] = ShouldAntialias;
+        v40 = *(v18 + 1);
+        *(v18 + 1) = v40 + 1;
+        v41 = &v35[104 * v40];
+        *v41 = &unk_1EF1FE0C0;
+        *(v41 + 1) = CFRetain(StrokedPath);
+        v41[16] = v38 == 1;
+        v41[17] = ShouldAntialias;
         goto LABEL_56;
       }
 
@@ -8052,76 +6982,76 @@ LABEL_59:
 
       if ((CGPathGetNumberOfElements() - 7) > 0xFFFFFFFFFFFFFFFDLL)
       {
-        v167 = 0u;
         v168 = 0u;
-        v165 = 0u;
+        v169 = 0u;
         v166 = 0u;
-        v164[0] = 0;
-        v164[1] = v164;
-        v164[2] = 0x2000000000;
-        v164[3] = &v165;
-        v162[0] = 0;
-        v162[1] = v162;
-        v162[2] = 0x2000000000;
-        v163 = 0;
-        v158 = 0;
-        v159 = &v158;
-        v160 = 0x2000000000;
-        v161 = 1;
-        v151 = MEMORY[0x1E69E9820];
-        v152 = 0x40000000;
-        v153 = __CA_CGPathIsRectShape_block_invoke;
-        v154 = &unk_1E6DFA5B8;
-        v155 = v162;
-        v156 = &v158;
-        v157 = v164;
+        v167 = 0u;
+        v165[0] = 0;
+        v165[1] = v165;
+        v165[2] = 0x2000000000;
+        v165[3] = &v166;
+        v163[0] = 0;
+        v163[1] = v163;
+        v163[2] = 0x2000000000;
+        v164 = 0;
+        v159 = 0;
+        v160 = &v159;
+        v161 = 0x2000000000;
+        v162 = 1;
+        v152 = MEMORY[0x1E69E9820];
+        v153 = 0x40000000;
+        v154 = __CA_CGPathIsRectShape_block_invoke;
+        v155 = &unk_1E6DFA5B8;
+        v156 = v163;
+        v157 = &v159;
+        v158 = v165;
         CGPathApplyWithBlock2();
-        if (*(v159 + 24) == 1)
+        if (*(v160 + 24) == 1)
         {
-          v100 = v165;
-          v101 = 16;
-          v102 = v165;
+          v101 = v166;
+          v102 = 16;
+          v103 = v166;
           do
           {
-            v103 = *(&v165 + v101);
-            v102 = vbslq_s8(vcgtq_f64(v102, v103), v103, v102);
-            v100 = vbslq_s8(vcgtq_f64(v103, v100), v103, v100);
-            v101 += 16;
+            v104 = *(&v166 + v102);
+            v103 = vbslq_s8(vcgtq_f64(v103, v104), v104, v103);
+            v101 = vbslq_s8(vcgtq_f64(v104, v101), v104, v101);
+            v102 += 16;
           }
 
-          while (v101 != 64);
-          rect.origin = v102;
-          rect.size = vsubq_f64(v100, v102);
-          _Block_object_dispose(&v158, 8);
-          _Block_object_dispose(v162, 8);
-          _Block_object_dispose(v164, 8);
+          while (v102 != 64);
+          rect.origin = v103;
+          rect.size = vsubq_f64(v101, v103);
+          _Block_object_dispose(&v159, 8);
+          _Block_object_dispose(v163, 8);
+          _Block_object_dispose(v165, 8);
 LABEL_41:
-          v91 = *(v17 + 1);
-          *(v17 + 1) = v91 + 1;
-          v90.f64[0] = 0.0;
-          v92 = vdupq_lane_s64(vcgtq_f64(v90, rect.size).i64[0], 0);
-          v93 = &v34[104 * v91];
-          v94.i64[1] = *&rect.size.height;
-          *v94.i64 = -rect.size.width;
-          v95 = vaddq_f64(rect.size, rect.origin);
-          v96.i64[0] = vbslq_s8(v92, v95, rect.origin).u64[0];
-          v97.i64[0] = v96.i64[0];
-          v97.i64[1] = *&rect.origin.y;
-          v98 = vbslq_s8(v92, v94, rect.size);
-          v99 = vdupq_lane_s64(vcgtq_f64(v90, vdupq_laneq_s64(rect.size, 1)).i64[0], 0);
-          v94.i64[0] = v98.i64[0];
-          v94.i64[1] = *&vnegq_f64(*(&rect + 16)).f64[1];
-          v96.i64[1] = v95.i64[1];
-          *v93 = &unk_1EF1FE130;
-          *(v93 + 8) = vbslq_s8(v99, v96, v97);
-          *(v93 + 24) = vbslq_s8(v99, v94, v98);
-          v93[40] = ShouldAntialias;
+          v92 = *(v18 + 1);
+          *(v18 + 1) = v92 + 1;
+          v91.f64[0] = 0.0;
+          v93 = vdupq_lane_s64(vcgtq_f64(v91, rect.size).i64[0], 0);
+          v94 = &v35[104 * v92];
+          v95.i64[1] = *&rect.size.height;
+          *v95.i64 = -rect.size.width;
+          v96 = vaddq_f64(rect.size, rect.origin);
+          v97.i64[0] = vbslq_s8(v93, v96, rect.origin).u64[0];
+          v98.i64[0] = v97.i64[0];
+          v98.i64[1] = *&rect.origin.y;
+          v99 = vbslq_s8(v93, v95, rect.size);
+          v100 = vdupq_lane_s64(vcgtq_f64(v91, vdupq_laneq_s64(rect.size, 1)).i64[0], 0);
+          v95.i64[0] = v99.i64[0];
+          v95.i64[1] = *&vnegq_f64(*(&rect + 16)).f64[1];
+          v97.i64[1] = v96.i64[1];
+          *v94 = &unk_1EF1FE130;
+          *(v94 + 8) = vbslq_s8(v100, v97, v98);
+          *(v94 + 24) = vbslq_s8(v100, v95, v99);
+          v94[40] = ShouldAntialias;
           goto LABEL_56;
         }
 
-        _Block_object_dispose(&v158, 8);
-        _Block_object_dispose(v162, 8);
-        _Block_object_dispose(v164, 8);
+        _Block_object_dispose(&v159, 8);
+        _Block_object_dispose(v163, 8);
+        _Block_object_dispose(v165, 8);
       }
 
       if (!ShouldAntialias)
@@ -8131,115 +7061,115 @@ LABEL_41:
 
       if (CGPathIsEllipse())
       {
-        v105 = *(v17 + 1);
-        *(v17 + 1) = v105 + 1;
-        v106 = &v34[104 * v105];
-        v104.f64[0] = 0.0;
-        v107 = vdupq_lane_s64(vcgtq_f64(v104, rect.size).i64[0], 0);
-        v108.i64[1] = *&rect.size.height;
-        *v108.i64 = -rect.size.width;
-        v109 = vbslq_s8(v107, v108, rect.size);
-        v110 = vaddq_f64(rect.size, rect.origin);
-        v107.i64[0] = vbslq_s8(v107, v110, rect.origin).u64[0];
-        v111.i64[0] = v107.i64[0];
-        v111.i64[1] = *&rect.origin.y;
-        v112 = vdupq_lane_s64(vcgtq_f64(v104, vdupq_laneq_s64(rect.size, 1)).i64[0], 0);
-        v113.i64[0] = v109.i64[0];
-        v113.i64[1] = *&vnegq_f64(*(&rect + 16)).f64[1];
-        v107.i64[1] = v110.i64[1];
-        *v106 = &unk_1EF1FE1A0;
-        *(v106 + 8) = vbslq_s8(v112, v107, v111);
-        *(v106 + 24) = vbslq_s8(v112, v113, v109);
+        v106 = *(v18 + 1);
+        *(v18 + 1) = v106 + 1;
+        v107 = &v35[104 * v106];
+        v105.f64[0] = 0.0;
+        v108 = vdupq_lane_s64(vcgtq_f64(v105, rect.size).i64[0], 0);
+        v109.i64[1] = *&rect.size.height;
+        *v109.i64 = -rect.size.width;
+        v110 = vbslq_s8(v108, v109, rect.size);
+        v111 = vaddq_f64(rect.size, rect.origin);
+        v108.i64[0] = vbslq_s8(v108, v111, rect.origin).u64[0];
+        v112.i64[0] = v108.i64[0];
+        v112.i64[1] = *&rect.origin.y;
+        v113 = vdupq_lane_s64(vcgtq_f64(v105, vdupq_laneq_s64(rect.size, 1)).i64[0], 0);
+        v114.i64[0] = v110.i64[0];
+        v114.i64[1] = *&vnegq_f64(*(&rect + 16)).f64[1];
+        v108.i64[1] = v111.i64[1];
+        *v107 = &unk_1EF1FE1A0;
+        *(v107 + 8) = vbslq_s8(v113, v108, v112);
+        *(v107 + 24) = vbslq_s8(v113, v114, v110);
         goto LABEL_56;
       }
 
       if (CGPathIsRoundedRect())
       {
         size = rect.size;
-        v118 = -rect.size.width;
-        v119 = vnegq_f64(rect.size);
-        if (rect.size.width == 0.0 + 0.0 && (v114.f64[0] = rect.size.height, rect.size.height == 0.0 + 0.0))
+        v119 = -rect.size.width;
+        v120 = vnegq_f64(rect.size);
+        if (rect.size.width == 0.0 + 0.0 && (v115.f64[0] = rect.size.height, rect.size.height == 0.0 + 0.0))
         {
-          v120 = *(v17 + 1);
-          *(v17 + 1) = v120 + 1;
-          v121 = &v34[104 * v120];
-          v115.f64[0] = 0.0;
-          v122 = vdupq_lane_s64(vcgtq_f64(v115, size).i64[0], 0);
-          v123.i64[1] = *&size.height;
-          *v123.i64 = v118;
-          v124 = vbslq_s8(v122, v123, size);
-          v125 = vaddq_f64(size, rect.origin);
-          v122.i64[0] = vbslq_s8(v122, v125, rect.origin).u64[0];
-          v123.i64[0] = v122.i64[0];
-          v123.i64[1] = *&rect.origin.y;
-          v126 = vdupq_lane_s64(vcgtq_f64(v115, v114).i64[0], 0);
-          v127.i64[0] = v124.i64[0];
-          v127.i64[1] = *&v119.f64[1];
-          v122.i64[1] = v125.i64[1];
-          *v121 = &unk_1EF1FE1A0;
-          *(v121 + 8) = vbslq_s8(v126, v122, v123);
-          *(v121 + 24) = vbslq_s8(v126, v127, v124);
+          v121 = *(v18 + 1);
+          *(v18 + 1) = v121 + 1;
+          v122 = &v35[104 * v121];
+          v116.f64[0] = 0.0;
+          v123 = vdupq_lane_s64(vcgtq_f64(v116, size).i64[0], 0);
+          v124.i64[1] = *&size.height;
+          *v124.i64 = v119;
+          v125 = vbslq_s8(v123, v124, size);
+          v126 = vaddq_f64(size, rect.origin);
+          v123.i64[0] = vbslq_s8(v123, v126, rect.origin).u64[0];
+          v124.i64[0] = v123.i64[0];
+          v124.i64[1] = *&rect.origin.y;
+          v127 = vdupq_lane_s64(vcgtq_f64(v116, v115).i64[0], 0);
+          v128.i64[0] = v125.i64[0];
+          v128.i64[1] = *&v120.f64[1];
+          v123.i64[1] = v126.i64[1];
+          *v122 = &unk_1EF1FE1A0;
+          *(v122 + 8) = vbslq_s8(v127, v123, v124);
+          *(v122 + 24) = vbslq_s8(v127, v128, v125);
         }
 
         else
         {
-          v130 = *(v17 + 1);
-          *(v17 + 1) = v130 + 1;
-          v116.f64[0] = 0.0;
-          v131 = vdupq_lane_s64(vcgtq_f64(v116, size).i64[0], 0);
-          v132.i64[1] = *&size.height;
-          *v132.i64 = v118;
-          v133 = vaddq_f64(size, rect.origin);
-          v134.i64[0] = vbslq_s8(v131, v133, rect.origin).u64[0];
-          v135.i64[0] = v134.i64[0];
-          v135.i64[1] = *&rect.origin.y;
-          v136 = vbslq_s8(v131, v132, size);
-          v137 = vdupq_lane_s64(vcgtq_f64(v116, vdupq_laneq_s64(size, 1)).i64[0], 0);
-          v138 = &v34[104 * v130];
-          v131.i64[0] = v136.i64[0];
-          v131.i64[1] = *&v119.f64[1];
-          v134.i64[1] = v133.i64[1];
-          *v138 = &unk_1EF1FE1D8;
-          *(v138 + 8) = vbslq_s8(v137, v134, v135);
-          *(v138 + 24) = vbslq_s8(v137, v131, v136);
-          *(v138 + 5) = fabs(0.0);
-          *(v138 + 6) = fabs(0.0);
+          v131 = *(v18 + 1);
+          *(v18 + 1) = v131 + 1;
+          v117.f64[0] = 0.0;
+          v132 = vdupq_lane_s64(vcgtq_f64(v117, size).i64[0], 0);
+          v133.i64[1] = *&size.height;
+          *v133.i64 = v119;
+          v134 = vaddq_f64(size, rect.origin);
+          v135.i64[0] = vbslq_s8(v132, v134, rect.origin).u64[0];
+          v136.i64[0] = v135.i64[0];
+          v136.i64[1] = *&rect.origin.y;
+          v137 = vbslq_s8(v132, v133, size);
+          v138 = vdupq_lane_s64(vcgtq_f64(v117, vdupq_laneq_s64(size, 1)).i64[0], 0);
+          v139 = &v35[104 * v131];
+          v132.i64[0] = v137.i64[0];
+          v132.i64[1] = *&v120.f64[1];
+          v135.i64[1] = v134.i64[1];
+          *v139 = &unk_1EF1FE1D8;
+          *(v139 + 8) = vbslq_s8(v138, v135, v136);
+          *(v139 + 24) = vbslq_s8(v138, v132, v137);
+          *(v139 + 5) = fabs(0.0);
+          *(v139 + 6) = fabs(0.0);
         }
       }
 
       else
       {
 LABEL_55:
-        v128 = *(v17 + 1);
-        *(v17 + 1) = v128 + 1;
-        v129 = &v34[104 * v128];
-        *v129 = &unk_1EF1FE0C0;
-        *(v129 + 1) = CFRetain(StrokedPath);
-        v129[16] = v37 == 1;
-        v129[17] = ShouldAntialias;
+        v129 = *(v18 + 1);
+        *(v18 + 1) = v129 + 1;
+        v130 = &v35[104 * v129];
+        *v130 = &unk_1EF1FE0C0;
+        *(v130 + 1) = CFRetain(StrokedPath);
+        v130[16] = v38 == 1;
+        v130[17] = ShouldAntialias;
       }
     }
 
 LABEL_56:
-    if (v37 == 2)
+    if (v38 == 2)
     {
-      v45 = StrokedPath;
+      v46 = StrokedPath;
       goto LABEL_58;
     }
 
     goto LABEL_59;
   }
 
-  v17 = 0;
+  v18 = 0;
 LABEL_66:
-  v142 = *(a1 + 320);
-  *(a1 + 320) = v17;
-  if (v142 && atomic_fetch_add(v142, 0xFFFFFFFF) == 1)
+  v143 = *(a1 + 320);
+  *(a1 + 320) = v18;
+  if (v143 && atomic_fetch_add(v143, 0xFFFFFFFF) == 1)
   {
-    CA::CG::ClipStack::destroy_clip_stack(v142);
+    CA::CG::ClipStack::destroy_clip_stack(v143);
   }
 
-  *(a1 + 312) = v3;
+  *(a1 + 312) = v4;
   return *(a1 + 320);
 }
 
@@ -8249,7 +7179,7 @@ CA::CG::DrawOp *CA::CG::ContextDelegate::fill_rects(const double *a1, CA::CG::Dr
   v16 = 32 * a7;
   v17 = CA::CG::Queue::alloc(this, 32 * a7 + 120);
   v18 = v17;
-  v19 = v17 + 15;
+  v19 = (v17 + 15);
   v20 = a6;
   v21 = a7;
   do
@@ -8430,7 +7360,7 @@ CA::CG::DrawOp *CA::CG::ContextDelegate::fill_rects(const double *a1, CA::CG::Dr
     if ((vorrq_s8(vdupq_laneq_s64(v79, 1), v79).u64[0] & 0x8000000000000000) == 0 && (v80 = *(v18 + 15), v81 = vaddq_f64(v72, v80), v82.i64[0] = vbslq_s8(v73, v81, v80).u64[0], v83.i64[0] = v82.i64[0], v83.i64[1] = v18[16], v82.i64[1] = v81.i64[1], v84 = vbslq_s8(v76, v82, v83), v85 = vandq_s8(vcgeq_f64(vaddq_f64(v84, v78), vaddq_f64(v38, v40)), vcgeq_f64(v38, v84)), (vandq_s8(vdupq_laneq_s64(v85, 1), v85).u64[0] & 0x8000000000000000) != 0) && (!CGGStateGetStyle() || CGStyleGetType() != 2))
     {
       CA::CG::Queue::cancel(this, v18);
-      v87 = CA::CG::ContextDelegate::fill_path(a1, this, a3, a4, a5, *(v32 + 64), *(v32 + 72), 1, 0, 0);
+      v87 = CA::CG::ContextDelegate::fill_path(a1, this, a3, a4, a5, *(v32 + 64), *(v32 + 72), 1, 0, 0, 0);
       v25 = v87;
       v88 = *(v87 + 100);
       v89 = v88 & 0xFFFFFFDE | 0x20;
@@ -8498,91 +7428,91 @@ float CA::CG::ContextDelegate::fill_path(CA::CG::Queue *,CGRenderingState *,CGGS
   return result;
 }
 
-uint64_t CA::CG::ContextDelegate::draw_layer_()
+uint64_t CA::CG::ContextDelegate::draw_layer_(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, double a5, double a6, double a7, double a8)
 {
-  v0 = *(CGContextDelegateGetInfo() + 344);
-  if (!v0)
+  v8 = *(CGContextDelegateGetInfo() + 344);
+  if (!v8)
   {
     return 1004;
   }
 
-  v1 = *(v0 + 9);
-  if (v1)
+  v9 = *(v8 + 9);
+  if (v9)
   {
-    CA::CG::Queue::flush(v1, 3, 1);
+    CA::CG::Queue::flush(v9, 3, 1);
   }
 
-  v2 = CA::CG::IOSurfaceDrawable::copy_cgimage(v0);
-  if (!v2)
+  v10 = CA::CG::IOSurfaceDrawable::copy_cgimage(v8);
+  if (!v10)
   {
     return 1004;
   }
 
-  v3 = v2;
-  v4 = CGContextDelegateDrawImage();
-  CGImageRelease(v3);
-  return v4;
+  v11 = v10;
+  v12 = CGContextDelegateDrawImage();
+  CGImageRelease(v11);
+  return v12;
 }
 
-uint64_t CA::CG::ContextDelegate::get_layer_(double a1, double a2, float64x2_t a3, double a4)
+uint64_t CA::CG::ContextDelegate::get_layer_(uint64_t a1, uint64_t a2, double a3, double a4, float64x2_t a5, double a6)
 {
   Info = CGContextDelegateGetInfo();
-  v7 = (*(*Info + 3))(Info);
-  if (v7)
+  v9 = (*(*Info + 3))(Info);
+  if (v9)
   {
-    *v9.i64 = a1;
-    *&v9.i64[1] = a2;
-    v8.f64[0] = 0.0;
-    v10.i64[0] = *&a3.f64[0];
-    *&v10.i64[1] = a4;
-    v11 = vdupq_lane_s64(vcgtq_f64(v8, a3).i64[0], 0);
-    *&v12.i64[1] = a4;
-    *v12.i64 = -a3.f64[0];
-    v13 = vbslq_s8(v11, v12, v10);
-    *&v12.i64[1] = a2;
-    *v12.i64 = a3.f64[0] + a1;
-    v14 = vbslq_s8(v11, v12, v9);
-    if (a4 < 0.0)
+    *v11.i64 = a3;
+    *&v11.i64[1] = a4;
+    v10.f64[0] = 0.0;
+    v12.i64[0] = *&a5.f64[0];
+    *&v12.i64[1] = a6;
+    v13 = vdupq_lane_s64(vcgtq_f64(v10, a5).i64[0], 0);
+    *&v14.i64[1] = a6;
+    *v14.i64 = -a5.f64[0];
+    v15 = vbslq_s8(v13, v14, v12);
+    *&v14.i64[1] = a4;
+    *v14.i64 = a5.f64[0] + a3;
+    v16 = vbslq_s8(v13, v14, v11);
+    if (a6 < 0.0)
     {
-      v14.f64[1] = a4 + a2;
-      v13.f64[1] = -a4;
+      v16.f64[1] = a6 + a4;
+      v15.f64[1] = -a6;
     }
 
-    v15 = vceqzq_f64(v13);
-    v16 = 0uLL;
-    if ((vorrq_s8(vdupq_laneq_s64(v15, 1), v15).u64[0] & 0x8000000000000000) == 0)
+    v17 = vceqzq_f64(v15);
+    v18 = 0uLL;
+    if ((vorrq_s8(vdupq_laneq_s64(v17, 1), v17).u64[0] & 0x8000000000000000) == 0)
     {
-      v17 = vceqq_f64(v13, v13);
-      if ((vornq_s8(vdupq_laneq_s64(vmvnq_s8(v17), 1), v17).u64[0] & 0x8000000000000000) == 0)
+      v19 = vceqq_f64(v15, v15);
+      if ((vornq_s8(vdupq_laneq_s64(vmvnq_s8(v19), 1), v19).u64[0] & 0x8000000000000000) == 0)
       {
-        v18 = vminnmq_f64(vaddq_f64(v14, v13), vdupq_n_s64(0x41C0000000000000uLL));
-        v19 = vcvtmq_s64_f64(vmaxnmq_f64(v14, vdupq_n_s64(0xC1BFFFFFFF000000)));
-        v16 = vuzp1q_s32(v19, vsubq_s64(vcvtpq_s64_f64(v18), v19));
+        v20 = vminnmq_f64(vaddq_f64(v16, v15), vdupq_n_s64(0x41C0000000000000uLL));
+        v21 = vcvtmq_s64_f64(vmaxnmq_f64(v16, vdupq_n_s64(0xC1BFFFFFFF000000)));
+        v18 = vuzp1q_s32(v21, vsubq_s64(vcvtpq_s64_f64(v20), v21));
       }
     }
 
-    v30 = v16.i64[0];
-    iosurface = CA::Render::create_iosurface(1, v16.u32[2], v16.u32[3], @"CA Whippet GetLayer", v5, v6);
+    v32 = v18.i64[0];
+    iosurface = CA::Render::create_iosurface(1, v18.u32[2], v18.u32[3], @"CA Whippet GetLayer", v7, v8);
     if (iosurface)
     {
-      v21 = iosurface;
+      v23 = iosurface;
       if (x_malloc_get_zone::once != -1)
       {
         dispatch_once_f(&x_malloc_get_zone::once, 0, malloc_zone_init);
       }
 
-      v22 = malloc_type_zone_malloc(malloc_zone, 0x70uLL, 0x165299FDuLL);
-      v23 = v22;
-      if (v22)
+      v24 = malloc_type_zone_malloc(malloc_zone, 0x70uLL, 0x165299FDuLL);
+      v25 = v24;
+      if (v24)
       {
-        CA::CG::IOSurfaceDrawable::IOSurfaceDrawable(v22, v21, 1, 8194, Info[4], v30, HIDWORD(v30), 0, 0);
-        CFRelease(v21);
-        v24 = *(v23 + 9);
-        if (!v24)
+        CA::CG::IOSurfaceDrawable::IOSurfaceDrawable(v24, v23, 1, 8194, Info[4], v32, HIDWORD(v32), 0, 0);
+        CFRelease(v23);
+        v26 = *(v25 + 9);
+        if (!v26)
         {
-          v24 = (*(*v23 + 80))(v23);
-          *(v23 + 9) = v24;
-          if (!v24)
+          v26 = (*(*v25 + 80))(v25);
+          *(v25 + 9) = v26;
+          if (!v26)
           {
 LABEL_17:
             operator new();
@@ -8592,18 +7522,18 @@ LABEL_17:
 
       else
       {
-        CFRelease(v21);
-        v24 = MEMORY[0x48];
+        CFRelease(v23);
+        v26 = MEMORY[0x48];
       }
 
-      *(v24 + 192) = v7;
+      *(v26 + 192) = v9;
       goto LABEL_17;
     }
 
     return 0;
   }
 
-  return v7;
+  return v9;
 }
 
 CGColorSpace *CA::CG::ContextDelegate::set_colorspace(CA::CG::ContextDelegate *this, CGColorSpace *a2)
@@ -8723,7 +7653,7 @@ void CA::CG::ContextDelegate::~ContextDelegate(CGColorSpaceRef *this)
   {
     do
     {
-      v3 = v2[1];
+      v3 = *(v2 + 1);
       free(v2);
       v2 = v3;
     }
@@ -8852,7 +7782,7 @@ uint64_t CA::CG::ContextDelegate::end_transparency_layer_(uint64_t a1, uint64_t 
     if (v16)
     {
       v17 = v16;
-      updated = CA::CG::ContextDelegate::update_style(Info);
+      updated = CA::CG::ContextDelegate::update_style(Info, a2, a3);
       if (*(v8 + 244) > 1u || (v19 = *(v17 + 5)) == 0 || (v20 = updated) != 0 && *(v19 + 104) || CGGStateGetCompositeOperation() != 2 || (v21 = *(v17 + 5), *(v21 + 56) != 2) || (*(v21 + 101) & 0x10) != 0 || (v22 = *(v21 - 8), v22 != v8) || *(v21 + 72) || (v27 = *(v21 + 104)) != 0 && *(v27 + 72) || ((CA::CG::TransparencyLayer::unref(v22), (v28 = *(v17 + 2)) == 0) ? (*(v21 - 8) = 0) : ((atomic_fetch_add(v28, 1u), *(v21 - 8) = v28, v29 = *(v17 + 2), v30 = *(v29 + 244), v30 < 2) ? (v31 = v30 + 1) : (v31 = 2), *(v29 + 244) = v31), (v32 = *(v17 + 5)) == 0))
       {
         v23 = CA::CG::Queue::alloc(v17, 120);
@@ -8869,7 +7799,7 @@ uint64_t CA::CG::ContextDelegate::end_transparency_layer_(uint64_t a1, uint64_t 
 
       else
       {
-        v33 = CA::CG::ContextDelegate::clip_stack(Info);
+        v33 = CA::CG::ContextDelegate::clip_stack(Info, a3);
         CA::CG::DrawOp::set_clip_stack(v32, v33);
         v34 = v32[13];
         if (v34)
@@ -8897,7 +7827,7 @@ uint64_t CA::CG::ContextDelegate::end_transparency_layer_(uint64_t a1, uint64_t 
   return a1;
 }
 
-void CA::CG::DrawOp::set_clip_stack(CA::CG::DrawOp *this, atomic_uint *a2)
+void CA::CG::DrawOp::set_clip_stack(CA::CG::DrawOp *this, void (***a2)(char *))
 {
   v3 = *(this + 9);
   if (v3 != a2)
@@ -8916,83 +7846,83 @@ void CA::CG::DrawOp::set_clip_stack(CA::CG::DrawOp *this, atomic_uint *a2)
   }
 }
 
-uint64_t CA::CG::ContextDelegate::begin_transparency_layer_(uint64_t a1, float64_t a2, float64_t a3, int32x4_t a4, float64_t a5)
+uint64_t CA::CG::ContextDelegate::begin_transparency_layer_(uint64_t a1, uint64_t a2, uint64_t a3, float64_t a4, float64_t a5, float64x2_t a6, float64_t a7)
 {
-  v89 = *MEMORY[0x1E69E9840];
+  v93 = *MEMORY[0x1E69E9840];
   Info = CGContextDelegateGetInfo();
-  v8 = a2;
-  v7 = a3;
-  v10 = a4;
-  v9 = a5;
-  v11 = Info;
-  v87.f64[0] = a2;
-  v87.f64[1] = a3;
-  *&v88.f64[0] = a4.i64[0];
-  v88.f64[1] = a5;
-  if (*a4.i64 < 0.0)
+  v12 = a4;
+  v11 = a5;
+  v14 = a6;
+  v13 = a7;
+  v15 = Info;
+  v91.f64[0] = a4;
+  v91.f64[1] = a5;
+  v92.f64[0] = a6.f64[0];
+  v92.f64[1] = a7;
+  if (a6.f64[0] < 0.0)
   {
-    v8 = *a4.i64 + a2;
-    *v10.i64 = -*a4.i64;
-    v87.f64[0] = *a4.i64 + a2;
-    v88.f64[0] = -*a4.i64;
+    v12 = a6.f64[0] + a4;
+    v14.f64[0] = -a6.f64[0];
+    v91.f64[0] = a6.f64[0] + a4;
+    v92.f64[0] = -a6.f64[0];
   }
 
-  if (a5 < 0.0)
+  if (a7 < 0.0)
   {
-    v7 = a5 + a3;
-    v9 = -a5;
-    v87.f64[1] = a5 + a3;
-    v88.f64[1] = -a5;
+    v11 = a7 + a5;
+    v13 = -a7;
+    v91.f64[1] = a7 + a5;
+    v92.f64[1] = -a7;
   }
 
-  if (*v10.i64 <= v9)
+  if (v14.f64[0] <= v13)
   {
-    v12 = v9;
+    v16 = v13;
   }
 
   else
   {
-    v12 = *v10.i64;
+    v16 = v14.f64[0];
   }
 
-  if (v12 < 1.79769313e308)
+  if (v16 < 1.79769313e308)
   {
-    v82 = *v10.i64;
-    v85 = v9;
-    v78 = v8;
-    v80 = v7;
+    v86 = v14.f64[0];
+    v89 = v13;
+    v82 = v12;
+    v84 = v11;
     CTM = CGGStateGetCTM();
-    v14 = *(CTM + 16);
-    v15 = vmlaq_n_f64(vmulq_n_f64(*CTM, v78), v14, v80);
-    v16 = vmulq_n_f64(*CTM, v82);
-    v17 = vaddq_f64(v15, v16);
-    v18 = vminnmq_f64(v15, v17);
-    v10 = vmaxnmq_f64(v15, v17);
-    v19 = vmlaq_n_f64(v15, v14, v85);
-    v20 = vaddq_f64(v19, v16);
-    v21 = vminnmq_f64(v18, vminnmq_f64(v19, v20));
-    v87 = vaddq_f64(v21, *(CTM + 32));
-    v88 = vsubq_f64(vmaxnmq_f64(v10, vmaxnmq_f64(v19, v20)), v21);
+    v18 = *(CTM + 16);
+    v19 = vmlaq_n_f64(vmulq_n_f64(*CTM, v82), v18, v84);
+    v20 = vmulq_n_f64(*CTM, v86);
+    v21 = vaddq_f64(v19, v20);
+    v22 = vminnmq_f64(v19, v21);
+    v14 = vmaxnmq_f64(v19, v21);
+    v23 = vmlaq_n_f64(v19, v18, v89);
+    v24 = vaddq_f64(v23, v20);
+    v25 = vminnmq_f64(v22, vminnmq_f64(v23, v24));
+    v91 = vaddq_f64(v25, *(CTM + 32));
+    v92 = vsubq_f64(vmaxnmq_f64(v14, vmaxnmq_f64(v23, v24)), v25);
   }
 
-  v22 = *(v11 + 336);
-  if (v22)
+  v26 = *(v15 + 336);
+  if (v26)
   {
-    v23 = *v22;
-    v24 = v88;
-    if (v23)
+    v27 = *v26;
+    v28 = v92;
+    if (v27)
     {
-      v25 = vclezq_f64(v88);
-      if ((vorrq_s8(vdupq_laneq_s64(v25, 1), v25).u64[0] & 0x8000000000000000) == 0)
+      v29 = vclezq_f64(v92);
+      if ((vorrq_s8(vdupq_laneq_s64(v29, 1), v29).u64[0] & 0x8000000000000000) == 0)
       {
-        v26 = *(v23 + 24);
-        v27 = vclezq_f64(v26);
-        if ((vorrq_s8(vdupq_laneq_s64(v27, 1), v27).u64[0] & 0x8000000000000000) == 0)
+        v30 = *(v27 + 24);
+        v31 = vclezq_f64(v30);
+        if ((vorrq_s8(vdupq_laneq_s64(v31, 1), v31).u64[0] & 0x8000000000000000) == 0)
         {
-          v28 = *(v23 + 8);
-          v29 = vaddq_f64(v87, v88);
-          v30 = vaddq_f64(v28, v26);
-          v31 = vmaxnmq_f64(v87, v28);
+          v32 = *(v27 + 8);
+          v33 = vaddq_f64(v91, v92);
+          v34 = vaddq_f64(v32, v30);
+          v35 = vmaxnmq_f64(v91, v32);
           goto LABEL_21;
         }
 
@@ -9005,113 +7935,113 @@ uint64_t CA::CG::ContextDelegate::begin_transparency_layer_(uint64_t a1, float64
 
   else
   {
-    v24 = v88;
+    v28 = v92;
   }
 
-  v32 = *(v11 + 24);
-  v33 = v32;
-  if (v32 <= SHIDWORD(v32))
+  v36 = *(v15 + 24);
+  v37 = v36;
+  if (v36 <= SHIDWORD(v36))
   {
-    v33 = HIDWORD(v32);
+    v37 = HIDWORD(v36);
   }
 
-  v34 = vclezq_f64(v24);
-  if ((vorrq_s8(vdupq_laneq_s64(v34, 1), v34).u64[0] & 0x8000000000000000) == 0)
+  v38 = vclezq_f64(v28);
+  if ((vorrq_s8(vdupq_laneq_s64(v38, 1), v38).u64[0] & 0x8000000000000000) == 0)
   {
-    v35.i64[0] = v32;
-    v35.i64[1] = SHIDWORD(v32);
-    v36 = vcvtq_f64_s64(v35);
-    v37 = vdup_n_s32(v33 > 1073741822);
-    v35.i64[0] = v37.u32[0];
-    v35.i64[1] = v37.u32[1];
-    v38 = vbslq_s8(vcltzq_s64(vshlq_n_s64(v35, 0x3FuLL)), vdupq_n_s64(0x7FEFFFFFFFFFFFFFuLL), v36);
-    v39 = vclezq_f64(v38);
-    v40 = vdupq_laneq_s64(v39, 1);
-    if ((vorrq_s8(v40, v39).u64[0] & 0x8000000000000000) == 0)
+    v39.i64[0] = v36;
+    v39.i64[1] = SHIDWORD(v36);
+    v40 = vcvtq_f64_s64(v39);
+    v41 = vdup_n_s32(v37 > 1073741822);
+    v39.i64[0] = v41.u32[0];
+    v39.i64[1] = v41.u32[1];
+    v42 = vbslq_s8(vcltzq_s64(vshlq_n_s64(v39, 0x3FuLL)), vdupq_n_s64(0x7FEFFFFFFFFFFFFFuLL), v40);
+    v43 = vclezq_f64(v42);
+    v44 = vdupq_laneq_s64(v43, 1);
+    if ((vorrq_s8(v44, v43).u64[0] & 0x8000000000000000) == 0)
     {
-      v41 = *(v11 + 16);
-      v42.i64[0] = v41;
-      v42.i64[1] = SHIDWORD(v41);
-      v40.i32[0] = v33;
-      v10.i32[0] = 1073741822;
-      v43 = vbslq_s8(vdupq_lane_s32(*&vcgtq_s32(v40, v10), 0), vdupq_n_s64(0xFFDFFFFFFFFFFFFFLL), vcvtq_f64_s64(v42));
-      v29 = vaddq_f64(v87, v24);
-      v30 = vaddq_f64(v43, v38);
-      v31 = vmaxnmq_f64(v87, v43);
+      v45 = *(v15 + 16);
+      v46.i64[0] = v45;
+      v46.i64[1] = SHIDWORD(v45);
+      v44.i32[0] = v37;
+      LODWORD(v14.f64[0]) = 1073741822;
+      v47 = vbslq_s8(vdupq_lane_s32(*&vcgtq_s32(v44, v14), 0), vdupq_n_s64(0xFFDFFFFFFFFFFFFFLL), vcvtq_f64_s64(v46));
+      v33 = vaddq_f64(v91, v28);
+      v34 = vaddq_f64(v47, v42);
+      v35 = vmaxnmq_f64(v91, v47);
 LABEL_21:
-      v44 = vsubq_f64(vminnmq_f64(v29, v30), v31);
-      v45 = vclezq_f64(v44);
-      if ((vorrq_s8(vdupq_laneq_s64(v45, 1), v45).u64[0] & 0x8000000000000000) == 0)
+      v48 = vsubq_f64(vminnmq_f64(v33, v34), v35);
+      v49 = vclezq_f64(v48);
+      if ((vorrq_s8(vdupq_laneq_s64(v49, 1), v49).u64[0] & 0x8000000000000000) == 0)
       {
-        v86 = v44;
-        v87 = v31;
-        v88 = v44;
+        v90 = v48;
+        v91 = v35;
+        v92 = v48;
         goto LABEL_25;
       }
     }
 
 LABEL_23:
-    v88 = 0uLL;
-    v86 = 0u;
+    v92 = 0uLL;
+    v90 = 0u;
     goto LABEL_25;
   }
 
 LABEL_24:
-  v86 = v24;
+  v90 = v28;
 LABEL_25:
-  v46 = CA::CG::ContextDelegate::clip_stack(v11);
-  if (v46)
+  v50 = CA::CG::ContextDelegate::clip_stack(v15, a3);
+  if (v50)
   {
-    v47 = *(v46 + 48);
-    v48 = *(v46 + 52);
-    if (v47 <= v48)
+    v51 = *(v50 + 48);
+    v52 = *(v50 + 52);
+    if (v51 <= v52)
     {
-      v49 = *(v46 + 52);
+      v53 = *(v50 + 52);
     }
 
     else
     {
-      v49 = *(v46 + 48);
+      v53 = *(v50 + 48);
     }
 
-    v50.f64[0] = v47;
-    v51 = v48;
-    if (v49 > 1073741822)
+    v54.f64[0] = v51;
+    v55 = v52;
+    if (v53 > 1073741822)
     {
-      v50.f64[0] = 1.79769313e308;
-      v51 = 1.79769313e308;
+      v54.f64[0] = 1.79769313e308;
+      v55 = 1.79769313e308;
     }
 
-    if (fmax(v50.f64[0], v51) < 1.79769313e308)
+    if (fmax(v54.f64[0], v55) < 1.79769313e308)
     {
-      v52 = vclezq_f64(v86);
-      if ((vorrq_s8(vdupq_laneq_s64(v52, 1), v52).u64[0] & 0x8000000000000000) == 0)
+      v56 = vclezq_f64(v90);
+      if ((vorrq_s8(vdupq_laneq_s64(v56, 1), v56).u64[0] & 0x8000000000000000) == 0)
       {
-        v50.f64[1] = v51;
-        v53 = vclezq_f64(v50);
-        v54 = vdupq_laneq_s64(v53, 1);
-        v55 = vorrq_s8(v54, v53);
-        if (v55.i64[0] < 0 || (v55.i32[0] = 1073741822, v54.i32[0] = v49, v56 = vdupq_lane_s32(*&vcgtq_s32(v54, v55), 0), v57 = *(v46 + 40), v58.i64[0] = v57, v58.i64[1] = SHIDWORD(v57), v59 = vbslq_s8(v56, vdupq_n_s64(0xFFDFFFFFFFFFFFFFLL), vcvtq_f64_s64(v58)), v60 = vaddq_f64(v59, v50), v61 = vmaxnmq_f64(v87, v59), v62 = vsubq_f64(vminnmq_f64(vaddq_f64(v87, v86), v60), v61), v63 = vclezq_f64(v62), (vorrq_s8(vdupq_laneq_s64(v63, 1), v63).u64[0] & 0x8000000000000000) != 0))
+        v54.f64[1] = v55;
+        v57 = vclezq_f64(v54);
+        v58 = vdupq_laneq_s64(v57, 1);
+        v59 = vorrq_s8(v58, v57);
+        if (v59.i64[0] < 0 || (v59.i32[0] = 1073741822, v58.i32[0] = v53, v60 = vdupq_lane_s32(*&vcgtq_s32(v58, v59), 0), v61 = *(v50 + 40), v62.i64[0] = v61, v62.i64[1] = SHIDWORD(v61), v63 = vbslq_s8(v60, vdupq_n_s64(0xFFDFFFFFFFFFFFFFLL), vcvtq_f64_s64(v62)), v64 = vaddq_f64(v63, v54), v65 = vmaxnmq_f64(v91, v63), v66 = vsubq_f64(vminnmq_f64(vaddq_f64(v91, v90), v64), v65), v67 = vclezq_f64(v66), (vorrq_s8(vdupq_laneq_s64(v67, 1), v67).u64[0] & 0x8000000000000000) != 0))
         {
-          v88 = 0uLL;
-          v86 = 0u;
+          v92 = 0uLL;
+          v90 = 0u;
         }
 
         else
         {
-          v86 = v62;
-          v87 = v61;
-          v88 = v62;
+          v90 = v66;
+          v91 = v65;
+          v92 = v66;
         }
       }
     }
   }
 
-  v83 = v87;
-  updated = CA::CG::ContextDelegate::update_style(v11);
+  v87 = v91;
+  updated = CA::CG::ContextDelegate::update_style(v15, a2, a3);
   if (updated)
   {
-    (*(*updated + 24))(updated, &v87);
+    (*(*updated + 24))(updated, &v91);
   }
 
   if (x_malloc_get_zone::once != -1)
@@ -9119,72 +8049,72 @@ LABEL_25:
     dispatch_once_f(&x_malloc_get_zone::once, 0, malloc_zone_init);
   }
 
-  v65 = malloc_type_zone_malloc(malloc_zone, 0xF8uLL, 0x165299FDuLL);
-  v66 = v65;
-  if (v65)
+  v69 = malloc_type_zone_malloc(malloc_zone, 0xF8uLL, 0x165299FDuLL);
+  v70 = v69;
+  if (v69)
   {
-    v67 = *(v11 + 320);
-    v68 = *(v11 + 312);
-    *v65 = 0;
-    v69 = v88;
-    *(v65 + 8) = v87;
-    *(v65 + 24) = v69;
-    *(v65 + 40) = v83;
-    *(v65 + 56) = v86;
-    *(v65 + 9) = 0;
-    *(v65 + 10) = 0;
-    if (v67)
+    v71 = *(v15 + 320);
+    v72 = *(v15 + 312);
+    *v69 = 0;
+    v73 = v92;
+    *(v69 + 8) = v91;
+    *(v69 + 24) = v73;
+    *(v69 + 40) = v87;
+    *(v69 + 56) = v90;
+    *(v69 + 9) = 0;
+    *(v69 + 10) = 0;
+    if (v71)
     {
-      atomic_fetch_add(v67, 1u);
+      atomic_fetch_add(v71, 1u);
     }
 
-    *(v65 + 29) = v67;
-    *(v65 + 60) = v68;
-    *(v65 + 122) = 256;
-    v65[246] = 0;
-    *v65 = 1;
-    *(v65 + 21) = 0x3C003C003C003C00;
-    *(v65 + 23) = 0;
-    *(v65 + 24) = 0;
-    *(v65 + 22) = 0;
-    v70 = *(v65 + 108);
-    *(v65 + 26) = 0;
-    *(v65 + 17) = 0;
-    *(v65 + 18) = 0;
-    *(v65 + 50) = 1065353216;
-    *(v65 + 19) = 0;
-    *(v65 + 20) = &CA::identity_transform;
-    *(v65 + 18) = v65 + 88;
-    *(v65 + 108) = v70 & 0xF800 | 0x503;
-    v71 = *(v11 + 336);
-    v72 = v66;
+    *(v69 + 29) = v71;
+    *(v69 + 60) = v72;
+    *(v69 + 122) = 256;
+    v69[246] = 0;
+    *v69 = 1;
+    *(v69 + 21) = 0x3C003C003C003C00;
+    *(v69 + 23) = 0;
+    *(v69 + 24) = 0;
+    *(v69 + 22) = 0;
+    v74 = *(v69 + 108);
+    *(v69 + 26) = 0;
+    *(v69 + 17) = 0;
+    *(v69 + 18) = 0;
+    *(v69 + 50) = 1065353216;
+    *(v69 + 19) = 0;
+    *(v69 + 20) = &CA::identity_transform;
+    *(v69 + 18) = v69 + 88;
+    *(v69 + 108) = v74 & 0xF800 | 0x503;
+    v75 = *(v15 + 336);
+    v76 = v70;
   }
 
   else
   {
-    v71 = *(v11 + 336);
-    v72 = 0;
+    v75 = *(v15 + 336);
+    v76 = 0;
   }
 
-  *(v11 + 336) = x_list_prepend(v71, v72);
-  v73 = (*(*v11 + 16))(v11);
-  if (v73)
+  *(v15 + 336) = x_list_prepend(v75, v76);
+  v77 = (*(*v15 + 16))(v15);
+  if (v77)
   {
-    v74 = v73;
-    v75 = *(v73 + 16);
-    if (v75 != v66)
+    v78 = v77;
+    v79 = *(v77 + 16);
+    if (v79 != v70)
     {
-      if (v75)
+      if (v79)
       {
-        CA::CG::TransparencyLayer::unref(v75);
+        CA::CG::TransparencyLayer::unref(v79);
       }
 
-      if (v66)
+      if (v70)
       {
-        atomic_fetch_add(v66, 1u);
+        atomic_fetch_add(v70, 1u);
       }
 
-      *(v74 + 16) = v66;
+      *(v78 + 16) = v70;
     }
   }
 
@@ -9314,13 +8244,13 @@ LABEL_7:
   return 0;
 }
 
-uint64_t CA::CG::ContextDelegate::draw_image_from_rect_(double a1, double a2, double a3, double a4, double a5, double a6, float64x2_t a7, double a8, uint64_t a9, uint64_t a10, uint64_t a11, CGImage *AlternateImage)
+uint64_t CA::CG::ContextDelegate::draw_image_from_rect_(uint64_t a1, uint64_t a2, uint64_t a3, CGImage *AlternateImage, double a5, double a6, double a7, double a8, double a9, double a10, float64x2_t a11, double a12)
 {
   v56 = *MEMORY[0x1E69E9840];
-  *&v53 = a1;
-  *(&v53 + 1) = a2;
-  v54 = a3;
-  v55 = a4;
+  *&v53 = a5;
+  *(&v53 + 1) = a6;
+  v54 = a7;
+  v55 = a8;
   Info = CGContextDelegateGetInfo();
   v16 = (*(*Info + 16))(Info);
   if (v16)
@@ -9338,22 +8268,22 @@ uint64_t CA::CG::ContextDelegate::draw_image_from_rect_(double a1, double a2, do
 
     Width = CGImageGetWidth(AlternateImage);
     Height = CGImageGetHeight(AlternateImage);
-    *v21.i64 = a5;
-    *&v21.i64[1] = a6;
+    *v21.i64 = a9;
+    *&v21.i64[1] = a10;
     v22.f64[0] = 0.0;
-    v23.i64[0] = *&a7.f64[0];
-    *&v23.i64[1] = a8;
-    v24 = vdupq_lane_s64(vcgtq_f64(v22, a7).i64[0], 0);
-    *&v25.i64[1] = a8;
-    *v25.i64 = -a7.f64[0];
+    v23.i64[0] = *&a11.f64[0];
+    *&v23.i64[1] = a12;
+    v24 = vdupq_lane_s64(vcgtq_f64(v22, a11).i64[0], 0);
+    *&v25.i64[1] = a12;
+    *v25.i64 = -a11.f64[0];
     v26 = vbslq_s8(v24, v25, v23);
-    *&v25.i64[1] = a6;
-    *v25.i64 = a7.f64[0] + a5;
+    *&v25.i64[1] = a10;
+    *v25.i64 = a11.f64[0] + a9;
     v27 = vbslq_s8(v24, v25, v21);
-    if (a8 < 0.0)
+    if (a12 < 0.0)
     {
-      v27.f64[1] = a8 + a6;
-      v26.f64[1] = -a8;
+      v27.f64[1] = a12 + a10;
+      v26.f64[1] = -a12;
     }
 
     v28 = vceqzq_f64(v26);
@@ -9393,7 +8323,7 @@ uint64_t CA::CG::ContextDelegate::draw_image_from_rect_(double a1, double a2, do
             v42 = v44;
             if (v44)
             {
-              CA::CG::DrawImage::DrawImage(v44, Info, a10, a11, FillColor, &v53, AlternateImage);
+              CA::CG::DrawImage::DrawImage(v44, Info, a2, a3, FillColor, &v53, AlternateImage);
             }
           }
 
@@ -9408,13 +8338,13 @@ uint64_t CA::CG::ContextDelegate::draw_image_from_rect_(double a1, double a2, do
               *&v43 = v51;
               *(&v43 + 1) = v49;
               v52 = v43;
-              CA::CG::DrawImage::DrawImage(v41, Info, a10, a11, FillColor, &v53, AlternateImage);
+              CA::CG::DrawImage::DrawImage(v41, Info, a2, a3, FillColor, &v53, AlternateImage);
               *v42 = &unk_1EF204FC8;
               *(v42 + 168) = v52;
             }
           }
 
-          CA::CG::ContextDelegate::submit(Info, v17, v42, a10, a11);
+          CA::CG::ContextDelegate::submit(Info, v17, v42, a2, a3);
         }
       }
     }
@@ -9613,8 +8543,9 @@ uint64_t CA::CG::ContextDelegate::draw_images_(uint64_t a1, uint64_t a2, uint64_
   return 0;
 }
 
-uint64_t CA::CG::ContextDelegate::draw_radial_gradient_(double a1, double a2, double a3, double a4, double a5, double a6, uint64_t a7, uint64_t a8, uint64_t a9, const void *a10, char a11)
+uint64_t CA::CG::ContextDelegate::draw_radial_gradient_(uint64_t a1, uint64_t a2, uint64_t a3, const void *a4, uint64_t a5, double a6, double a7, double a8, double a9, double a10, double a11)
 {
+  v11 = a5;
   Info = CGContextDelegateGetInfo();
   v22 = (*(*Info + 16))(Info);
   if (v22)
@@ -9624,23 +8555,24 @@ uint64_t CA::CG::ContextDelegate::draw_radial_gradient_(double a1, double a2, do
     if (v24)
     {
       v25 = v24;
-      v26 = CA::CG::DrawGradient::DrawGradient(v24, Info, a8, a9, a10, a11);
+      v26 = CA::CG::DrawGradient::DrawGradient(v24, Info, a2, a3, a4, v11);
       *v26 = &unk_1EF203688;
-      *(v26 + 128) = a1;
-      *(v26 + 136) = a2;
-      *(v26 + 144) = a4;
-      *(v26 + 152) = a5;
-      *(v26 + 160) = a3;
-      *(v26 + 168) = a6;
-      CA::CG::ContextDelegate::submit(Info, v23, v25, a8, a9);
+      *(v26 + 128) = a6;
+      *(v26 + 136) = a7;
+      *(v26 + 144) = a9;
+      *(v26 + 152) = a10;
+      *(v26 + 160) = a8;
+      *(v26 + 168) = a11;
+      CA::CG::ContextDelegate::submit(Info, v23, v25, a2, a3);
     }
   }
 
   return 0;
 }
 
-uint64_t CA::CG::ContextDelegate::draw_linear_gradient_(double a1, double a2, double a3, double a4, uint64_t a5, uint64_t a6, uint64_t a7, const void *a8, char a9)
+uint64_t CA::CG::ContextDelegate::draw_linear_gradient_(uint64_t a1, uint64_t a2, uint64_t a3, const void *a4, uint64_t a5, double a6, double a7, double a8, double a9)
 {
+  v9 = a5;
   Info = CGContextDelegateGetInfo();
   v18 = (*(*Info + 16))(Info);
   if (v18)
@@ -9650,12 +8582,12 @@ uint64_t CA::CG::ContextDelegate::draw_linear_gradient_(double a1, double a2, do
     if (v20)
     {
       v21 = v20;
-      v22 = CA::CG::DrawGradient::DrawGradient(v20, Info, a6, a7, a8, a9);
+      v22 = CA::CG::DrawGradient::DrawGradient(v20, Info, a2, a3, a4, v9);
       *v22 = &unk_1EF2035C0;
-      *(v22 + 128) = a1;
-      *(v22 + 136) = a2;
-      *(v22 + 144) = a3;
-      *(v22 + 152) = a4;
+      *(v22 + 128) = a6;
+      *(v22 + 136) = a7;
+      *(v22 + 144) = a8;
+      *(v22 + 152) = a9;
       if (CGGradientGetLocationCount() <= 0x2000)
       {
         ColorSpace = CGGradientGetColorSpace();
@@ -9677,7 +8609,7 @@ uint64_t CA::CG::ContextDelegate::draw_linear_gradient_(double a1, double a2, do
         }
       }
 
-      CA::CG::ContextDelegate::submit(Info, v19, v21, a6, a7);
+      CA::CG::ContextDelegate::submit(Info, v19, v21, a2, a3);
     }
   }
 
@@ -9728,7 +8660,7 @@ uint64_t CA::CG::ContextDelegate::draw_shading_(uint64_t a1, uint64_t a2, uint64
   return 0;
 }
 
-uint64_t CA::CG::ContextDelegate::draw_glyphs_(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, __int16 *a5, __int128 *a6, unint64_t a7)
+uint64_t CA::CG::ContextDelegate::draw_glyphs_(uint64_t a1, uint64_t a2, uint64_t a3, double *a4, __int16 *a5, __int128 *a6, unint64_t a7)
 {
   TextDrawingMode = CGGStateGetTextDrawingMode();
   if (TextDrawingMode == 3)
@@ -9793,11 +8725,11 @@ LABEL_11:
         if (!CGGStateGetStyle() && (*(*v66 + 88))(v66, v19) && CA::CG::Queue::cancel_and_grow(v17, v19, v66, 18 * a7))
         {
           v30 = *a4;
-          v29 = *(a4 + 8);
-          v32 = *(a4 + 16);
-          v31 = *(a4 + 24);
-          v33 = *(a4 + 32);
-          v34 = *(a4 + 40);
+          v29 = a4[1];
+          v32 = a4[2];
+          v31 = a4[3];
+          v33 = a4[4];
+          v34 = a4[5];
           v19 = v66;
           v35 = *(v66 + 21);
           v36 = *(v66 + 22);
@@ -9884,11 +8816,1042 @@ LABEL_11:
 LABEL_34:
         v63 = CA::CG::DrawGlyphs::DrawGlyphs(v56, Info, a2, a3, StrokeColor, a4, a7);
         *v63 = &unk_1EF203A88;
-        CA::CG::StrokeState::StrokeState((v63 + 24));
+        CA::CG::StrokeState::StrokeState((v63 + 24), a3);
         CA::CG::ContextDelegate::submit(Info, v17, v57, a2, a3);
       }
     }
   }
 
   return 0;
+}
+
+uint64_t CA::CG::DrawGlyphs::DrawGlyphs(uint64_t a1, const double *a2, uint64_t a3, uint64_t a4, CGColor *a5, _OWORD *a6, unint64_t a7)
+{
+  *CA::CG::DrawOp::DrawOp(a1, a2, a3, a4, a5, 512) = &unk_1EF203DB0;
+  Font = CGGStateGetFont();
+  *(a1 + 112) = Font;
+  if (Font)
+  {
+    CFRetain(Font);
+  }
+
+  CGGStateGetFontSize();
+  *(a1 + 120) = v11;
+  FontRenderingStyle = CGGStateGetFontRenderingStyle();
+  *(a1 + 128) = CGRenderingStateGetFontRenderingStyle() & FontRenderingStyle;
+  *(a1 + 132) = CGGStateGetTextDrawingMode();
+  v14 = a6[1];
+  v13 = a6[2];
+  *(a1 + 136) = *a6;
+  *(a1 + 152) = v14;
+  *(a1 + 168) = v13;
+  *(a1 + 184) = a7;
+  if (CGGStateGetShouldDrawBitmapRuns())
+  {
+    *(a1 + 100) |= 0x1000000u;
+  }
+
+  if (a7 >= 2)
+  {
+    *(a1 + 100) |= 0x1000u;
+  }
+
+  return a1;
+}
+
+uint64_t CA::CG::ContextDelegate::draw_image_(uint64_t a1, uint64_t a2, uint64_t a3, CGImage *AlternateImage, double a5, double a6, double a7, double a8)
+{
+  v21 = *MEMORY[0x1E69E9840];
+  *&v18 = a5;
+  *(&v18 + 1) = a6;
+  v19 = a7;
+  v20 = a8;
+  Info = CGContextDelegateGetInfo();
+  if (CGImageIsMask(AlternateImage))
+  {
+    FillColor = CGGStateGetFillColor();
+  }
+
+  else
+  {
+    FillColor = 0;
+  }
+
+  v13 = (*(*Info + 16))(Info);
+  if (v13)
+  {
+    v14 = v13;
+    if (CGImageGetEPSRep())
+    {
+      AlternateImage = CGImageEPSRepGetAlternateImage();
+    }
+
+    v15 = CA::CG::Queue::alloc(v14, 168);
+    if (v15)
+    {
+      v16 = v15;
+      CA::CG::DrawImage::DrawImage(v15, Info, a2, a3, FillColor, &v18, AlternateImage);
+      CA::CG::ContextDelegate::submit(Info, v14, v16, a2, a3);
+    }
+  }
+
+  return 0;
+}
+
+uint64_t CA::CG::ContextDelegate::draw_path_(uint64_t a1, uint64_t a2, uint64_t a3, int a4, const CGPath *a5)
+{
+  Info = CGContextDelegateGetInfo();
+  v10 = (*(*Info + 16))(Info);
+  if (v10)
+  {
+    v11 = v10;
+    if (a4 == 2 || ((FillColor = CGGStateGetFillColor(), a4 != 1) ? (v13 = a4 == 4) : (v13 = 1), !v13 ? (v14 = 0) : (v14 = 1), v15 = CA::CG::ContextDelegate::fill_path(Info, v11, a2, a3, FillColor, a5, v14, 1, 0, 1, 1), CA::CG::ContextDelegate::submit(Info, v11, v15, a2, a3), a4 >= 2))
+    {
+      StrokeColor = CGGStateGetStrokeColor();
+      v17 = CA::CG::ContextDelegate::stroke_path(Info, v11, a2, a3, StrokeColor, a5, 1);
+      CA::CG::ContextDelegate::submit(Info, v11, v17, a2, a3);
+    }
+  }
+
+  return 0;
+}
+
+uint64_t CA::CG::ContextDelegate::draw_rects_(uint64_t a1, uint64_t a2, uint64_t a3, int a4, __int128 *a5, unint64_t a6)
+{
+  if (a6)
+  {
+    Info = CGContextDelegateGetInfo();
+    v12 = (*(*Info + 16))(Info);
+    if (v12)
+    {
+      v13 = v12;
+      if (a4 == 2 || (FillColor = CGGStateGetFillColor(), v15 = CA::CG::ContextDelegate::fill_rects(Info, v13, a2, a3, FillColor, a5, a6, 0, 1), CA::CG::ContextDelegate::submit(Info, v13, v15, a2, a3), a4 >= 2))
+      {
+        StrokeColor = CGGStateGetStrokeColor();
+        v17 = CA::CG::ContextDelegate::stroke_rects(Info, v13, a2, a3, StrokeColor, a5, a6, 0);
+        CA::CG::ContextDelegate::submit(Info, v13, v17, a2, a3);
+      }
+    }
+  }
+
+  return 0;
+}
+
+void CA::CG::ContextDelegate::draw_lines_(uint64_t a1, uint64_t a2, uint64_t a3, __int128 *a4, unint64_t a5)
+{
+  if (a5)
+  {
+    Info = CGContextDelegateGetInfo();
+    StrokeColor = CGGStateGetStrokeColor();
+    v11 = (*(*Info + 16))(Info);
+    if (v11)
+    {
+      v12 = v11;
+      v13 = CA::CG::ContextDelegate::draw_lines(Info, v11, a2, a3, StrokeColor, a4, a5, 0);
+
+      CA::CG::ContextDelegate::submit(Info, v12, v13, a2, a3);
+    }
+  }
+}
+
+double CA::CG::ContextDelegate::get_transform_@<D0>(uint64_t a2@<X8>)
+{
+  Info = CGContextDelegateGetInfo();
+  *(a2 + 8) = 0;
+  *(a2 + 16) = 0;
+  *a2 = 0x3FF0000000000000;
+  *(a2 + 24) = xmmword_183E20F00;
+  result = -*(Info + 28);
+  *(a2 + 40) = result;
+  return result;
+}
+
+int8x16_t CA::CG::ContextDelegate::get_bounds_(uint64_t a1)
+{
+  Info = CGContextDelegateGetInfo();
+  if (*(Info + 24) <= *(Info + 28))
+  {
+    v4 = *(Info + 28);
+  }
+
+  else
+  {
+    v4 = *(Info + 24);
+  }
+
+  v2.i32[0] = 1073741822;
+  v3.i32[0] = v4;
+  v5 = vdupq_lane_s32(*&vcgtq_s32(v3, v2), 0);
+  v6 = *(Info + 16);
+  v7.i64[0] = v6;
+  v7.i64[1] = SHIDWORD(v6);
+  return vbslq_s8(v5, vdupq_n_s64(0xFFDFFFFFFFFFFFFFLL), vcvtq_f64_s64(v7));
+}
+
+uint64_t CA::CG::ContextDelegate::finalize_(uint64_t a1)
+{
+  result = CGContextDelegateGetInfo();
+  if (result)
+  {
+    v2 = *(*result + 8);
+
+    return v2();
+  }
+
+  return result;
+}
+
+void CA::CG::ContextDelegate::device_color(CA::CG::ContextDelegate *this, const double *a2, float64x2_t *a3, float a4, float a5, CGColorSpace *a6)
+{
+  v8 = a6;
+  v47 = *MEMORY[0x1E69E9840];
+  if (a4 <= 1.0)
+  {
+    goto LABEL_13;
+  }
+
+  v12 = 0;
+  while (colorspaces[v12] != a6)
+  {
+    if (++v12 == 39)
+    {
+      v12 = 0;
+      goto LABEL_7;
+    }
+  }
+
+  v12 = v12;
+LABEL_7:
+  if (((0xFFFAF57B7uLL >> v12) & 1) == 0)
+  {
+    v8 = CAGetColorSpace(extended_colorspaces[v12]);
+LABEL_13:
+    v14 = 0;
+    goto LABEL_14;
+  }
+
+  if (CGColorSpaceGetModel(a6) != kCGColorSpaceModelRGB)
+  {
+    goto LABEL_13;
+  }
+
+  Extended = CGColorSpaceCreateExtended(v8);
+  v14 = Extended;
+  if (Extended)
+  {
+    v8 = Extended;
+  }
+
+LABEL_14:
+  v46 = 0uLL;
+  Model = CGColorSpaceGetModel(v8);
+  if (Model)
+  {
+    if (Model != kCGColorSpaceModelRGB)
+    {
+      if (Model == kCGColorSpaceModelPattern)
+      {
+        *this = 1006648320;
+        _H0 = COERCE_UNSIGNED_INT(1.0);
+        *(this + 2) = COERCE_UNSIGNED_INT(1.0);
+        goto LABEL_56;
+      }
+
+      v27 = 0;
+      goto LABEL_45;
+    }
+
+    *v46.f32 = vcvt_f32_f64(*a3);
+    v17 = a3[1].f64[0];
+    v46.f32[2] = v17;
+    v18 = 3;
+  }
+
+  else
+  {
+    v19 = a3->f64[0];
+    v46.f32[1] = v19;
+    v46.f32[2] = v19;
+    v46.f32[0] = v19;
+    v18 = 1;
+  }
+
+  v20 = a3->f64[v18];
+  v46.f32[3] = v20;
+  v21 = *(a2 + 38);
+  if (!v21)
+  {
+    if (x_malloc_get_zone::once != -1)
+    {
+      dispatch_once_f(&x_malloc_get_zone::once, 0, malloc_zone_init);
+    }
+
+    v22 = malloc_type_zone_malloc(malloc_zone, 0x70uLL, 0x165299FDuLL);
+    v21 = v22;
+    if (v22)
+    {
+      CA::ColorProgram::Cache::Cache(v22, *(a2 + 4));
+    }
+
+    *(a2 + 38) = v21;
+  }
+
+  if (a4 > 1.0 && (a5 == 0.0 || a5 > 1.0))
+  {
+    v23 = (a2 + 5);
+    v24 = *(a2 + 5);
+    if (!v24)
+    {
+      v25 = 0;
+      v26 = *(a2 + 4);
+      while (colorspaces[v25] != v26)
+      {
+        if (++v25 == 39)
+        {
+          v25 = 0;
+          goto LABEL_36;
+        }
+      }
+
+      v25 = v25;
+LABEL_36:
+      if ((0xFFFAF57B7uLL >> v25))
+      {
+        if (CGColorSpaceGetModel(v26) == kCGColorSpaceModelRGB)
+        {
+          v24 = CGColorSpaceCreateExtended(*(a2 + 4));
+          v29 = *(a2 + 5);
+          if (v29)
+          {
+            CFRelease(v29);
+          }
+
+          *v23 = v24;
+          goto LABEL_43;
+        }
+      }
+
+      else
+      {
+        v28 = CAGetColorSpace(extended_colorspaces[v25]);
+        X::CFRef<CGColorSpace *>::operator=(a2 + 5, v28);
+      }
+
+      v24 = *v23;
+    }
+
+LABEL_43:
+    CA::ColorProgram::Cache::set_colorspace(v21, v24);
+    v21 = *(a2 + 38);
+  }
+
+  v27 = CA::ColorProgram::Cache::push_whippet_cache(v21, v8, 0, 0, a4, a5);
+  if ((CA::ColorProgram::Cache::convert_color(*(a2 + 38), v8, v46.f32, v30) & 1) == 0)
+  {
+LABEL_45:
+    if (CARetainColorTransform(*(a2 + 4)))
+    {
+      NumberOfComponents = CGColorSpaceGetNumberOfComponents(v8);
+      CGColorTransformConvertColorComponents();
+      CGColorTransformRelease();
+      v32.f64[0] = 0.0;
+      v32.f64[1] = a3->f64[NumberOfComponents];
+      _Q0 = vcvt_hight_f32_f64(vcvt_f32_f64(0), v32);
+    }
+
+    else
+    {
+      __asm { FMOV            V0.4S, #1.0 }
+    }
+
+    v46 = _Q0;
+  }
+
+  v38 = *(a2 + 38);
+  if (v38)
+  {
+    if (v27)
+    {
+      CA::ColorProgram::Cache::pop_whippet_cache(v38);
+      v38 = *(a2 + 38);
+    }
+
+    CA::ColorProgram::Cache::set_colorspace(v38, *(a2 + 4));
+  }
+
+  v39 = CGColorSpaceGetModel(*(a2 + 4));
+  v40 = v46.f32[1];
+  _S3 = v46.i32[3];
+  v41 = v46.f32[2];
+  if (v39 == kCGColorSpaceModelMonochrome)
+  {
+    v41 = v46.f32[0];
+    v40 = v46.f32[0];
+  }
+
+  _S0 = v46.f32[3] * v46.f32[0];
+  _S1 = v40 * v46.f32[3];
+  _S2 = v41 * v46.f32[3];
+  __asm { FCVT            H0, S0 }
+
+  *this = LOWORD(_S0);
+  __asm { FCVT            H0, S1 }
+
+  *(this + 1) = LOWORD(_S0);
+  __asm { FCVT            H0, S2 }
+
+  *(this + 2) = LOWORD(_S0);
+  __asm { FCVT            H0, S3 }
+
+LABEL_56:
+  *(this + 3) = _H0;
+  if (v14)
+  {
+    CFRelease(v14);
+  }
+}
+
+CA::Render *CA::WindowServer::IOSurface::reload_edr_factor(CA::WindowServer::IOSurface *this)
+{
+  result = (*(*this + 168))(this);
+  if (result)
+  {
+    v4.n128_f32[0] = CA::Render::iosurface_get_edr_factor(result, v3);
+    v5 = *(*this + 208);
+
+    return v5(this, v4);
+  }
+
+  return result;
+}
+
+BOOL CA::WindowServer::IOSurface::clear_iosurface(CA::WindowServer::IOSurface *this, CA::WindowServer::Surface *a2, __int16 a3, float64x2_t *a4)
+{
+  v58 = *MEMORY[0x1E69E9840];
+  v7 = (*(*a2 + 168))(a2);
+  v9 = *(this + 1);
+  if (v9)
+  {
+    v10 = v7 == 0;
+  }
+
+  else
+  {
+    v10 = 1;
+  }
+
+  if (v10)
+  {
+    return 0;
+  }
+
+  v12 = v7;
+  v13 = a3 & 0x1000;
+  v14 = *(this + 2);
+  if (byte_1ED4E987C == 1)
+  {
+    if (x_log_get_sharedevent(void)::once != -1)
+    {
+      dispatch_once(&x_log_get_sharedevent(void)::once, &__block_literal_global_16251);
+    }
+
+    v40 = x_log_get_sharedevent(void)::log;
+    if (os_log_type_enabled(x_log_get_sharedevent(void)::log, OS_LOG_TYPE_DEBUG))
+    {
+      v41 = (*(*this + 168))(this);
+      ID = IOSurfaceGetID(v41);
+      v43 = *(this + 2);
+      LODWORD(keys) = 67109376;
+      HIDWORD(keys) = ID;
+      LOWORD(v55) = 2048;
+      *(&v55 + 2) = v43;
+      _os_log_debug_impl(&dword_183AA6000, v40, OS_LOG_TYPE_DEBUG, "IOSurfaceID: 0x%x  clear_iosurface (DST) SharedEvent: %p", &keys, 0x12u);
+    }
+  }
+
+  v15 = 0;
+  if (v14)
+  {
+    v16 = 192;
+  }
+
+  else
+  {
+    v16 = 128;
+  }
+
+  while (*(v9 + v15 + 352) != v16)
+  {
+    v15 += 16;
+    if (v15 == 64)
+    {
+      goto LABEL_15;
+    }
+  }
+
+  v17 = *(v9 + v15 + 344);
+  if (v17)
+  {
+    goto LABEL_26;
+  }
+
+LABEL_15:
+  v53 = 0;
+  v47 = 0;
+  valuePtr = 255;
+  v46 = 0;
+  v18 = *MEMORY[0x1E69A85D8];
+  v57 = 0;
+  keys = v18;
+  values = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
+  *&v55 = *MEMORY[0x1E69A85F0];
+  cf = CFNumberCreate(0, kCFNumberIntType, &v47);
+  *(&v55 + 1) = *MEMORY[0x1E69A85E8];
+  v51 = CFNumberCreate(0, kCFNumberIntType, &v46 + 4);
+  v56 = *MEMORY[0x1E69A85E0];
+  v52 = CFNumberCreate(0, kCFNumberIntType, &v46);
+  if (v13)
+  {
+    v19 = 4;
+  }
+
+  else
+  {
+    v57 = *MEMORY[0x1E69A8510];
+    v53 = *MEMORY[0x1E695E4D0];
+    v19 = 5;
+  }
+
+  v20 = CFDictionaryCreate(0, &keys, &values, v19, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+  v17 = v20;
+  if (v14)
+  {
+    Count = CFDictionaryGetCount(v20);
+    MutableCopy = CFDictionaryCreateMutableCopy(0, Count + 3, v17);
+    CFRelease(v17);
+    v17 = MutableCopy;
+  }
+
+  v23 = *(v9 + 392);
+  if (v23)
+  {
+    CFRelease(v23);
+  }
+
+  v24 = (v9 + 392);
+  v25 = -3;
+  do
+  {
+    *v24 = *(v24 - 1);
+    --v24;
+  }
+
+  while (!__CFADD__(v25++, 1));
+  *(v9 + 344) = v17;
+  *(v9 + 352) = v16;
+  *(v9 + 356) = 0;
+  CFRelease(values);
+  CFRelease(cf);
+  CFRelease(v51);
+  CFRelease(v52);
+LABEL_26:
+  v27 = CA::WindowServer::Display::copy_iosa_manager(v9, v8);
+  v28 = *(v27 + 16);
+  v29 = (*(*this + 168))(this);
+  if (!v28)
+  {
+    v11 = 0;
+LABEL_48:
+    CA::IOSAManager::unref(v27);
+    return v11;
+  }
+
+  v30 = v29;
+  v45 = v13;
+  if (a4)
+  {
+    v44 = vmovn_s64(vcvtq_u64_f64(*a4));
+    v31 = a4[1].f64[1];
+    Width = a4[1].f64[0];
+    Height = v31;
+  }
+
+  else
+  {
+    Width = IOSurfaceGetWidth(v29);
+    Height = IOSurfaceGetHeight(v30);
+    v44 = 0;
+  }
+
+  v34 = Width;
+  if (IOSurfaceGetWidth(v12) < Width)
+  {
+    v34 = IOSurfaceGetWidth(v12);
+  }
+
+  v35 = Height;
+  if (IOSurfaceGetHeight(v12) < Height)
+  {
+    v35 = IOSurfaceGetHeight(v12);
+  }
+
+  if (v14)
+  {
+    CA::WindowServer::dict_shared_event_set_value(v17, v14, 0, 0);
+  }
+
+  keys = 0;
+  v55 = __PAIR64__(v35, v34);
+  values = v44;
+  cf = __PAIR64__(Height, Width);
+  v51 = 0;
+  v36 = IOSurfaceAcceleratorBlitSurface();
+  v11 = v36 == 0;
+  if (v36)
+  {
+    if (x_log_get_windowserver(void)::once != -1)
+    {
+      dispatch_once(&x_log_get_windowserver(void)::once, &__block_literal_global_17283);
+    }
+
+    v37 = x_log_get_windowserver(void)::log;
+    if (os_log_type_enabled(x_log_get_windowserver(void)::log, OS_LOG_TYPE_ERROR))
+    {
+      LODWORD(keys) = 67109120;
+      HIDWORD(keys) = v36;
+      _os_log_error_impl(&dword_183AA6000, v37, OS_LOG_TYPE_ERROR, "IOSurfaceAcceleratorBlitSurface returned: 0x%x", &keys, 8u);
+      if (!v14)
+      {
+        goto LABEL_47;
+      }
+    }
+
+    else if (!v14)
+    {
+      goto LABEL_47;
+    }
+
+    if (x_log_get_sharedevent(void)::once != -1)
+    {
+      dispatch_once(&x_log_get_sharedevent(void)::once, &__block_literal_global_16251);
+    }
+
+    v38 = x_log_get_sharedevent(void)::log;
+    if (os_log_type_enabled(x_log_get_sharedevent(void)::log, OS_LOG_TYPE_ERROR))
+    {
+      LOWORD(keys) = 0;
+      _os_log_error_impl(&dword_183AA6000, v38, OS_LOG_TYPE_ERROR, "clear_iosurface error, ensure shared event signal is complete for destination", &keys, 2u);
+    }
+
+    CA::CASharedEvent::force_complete(v14, [v14[4] signaledValue] + 1, 0, 1);
+  }
+
+LABEL_47:
+  if (v36 | v45)
+  {
+    goto LABEL_48;
+  }
+
+  return v11;
+}
+
+uint64_t CA::WindowServer::IOSurface::unlock(uint64_t this)
+{
+  v2 = *(this + 280) - 1;
+  *(this + 280) = v2;
+  if (!v2)
+  {
+    v3 = this;
+    IOSurfaceUnlock(*(this + 264), 0, 0);
+    v4 = *(v3 + 264);
+
+    return MEMORY[0x1EEDC8750](v4);
+  }
+
+  return this;
+}
+
+uint64_t CA::WindowServer::IOSurface::lock(CA::WindowServer::IOSurface *this, unsigned __int8 **a2, unint64_t *a3)
+{
+  v6 = *(this + 70);
+  *(this + 70) = v6 + 1;
+  if (v6 || !IOSurfaceLock(*(this + 33), 0, 0))
+  {
+    *a2 = IOSurfaceGetBaseAddress(*(this + 33));
+    *a3 = IOSurfaceGetBytesPerRow(*(this + 33));
+    return 1;
+  }
+
+  else
+  {
+    result = 0;
+    --*(this + 70);
+  }
+
+  return result;
+}
+
+void CA::WindowServer::IOSurface::copy_avd_histogram_info(IOSurfaceRef *this, const CA::WindowServer::Surface *a2)
+{
+  v12 = *MEMORY[0x1E69E9840];
+  if (a2 && this[33] && (*(*a2 + 168))(a2))
+  {
+    v4 = (*(*a2 + 168))(a2);
+    v5 = IOSurfaceCopyValue(v4, @"kIOSurfacePixelMetadata");
+    if (v5)
+    {
+      v6 = v5;
+      IOSurfaceSetValue(this[33], @"kIOSurfacePixelMetadata", v5);
+
+      CFRelease(v6);
+      return;
+    }
+
+    if (x_log_get_windowserver(void)::once != -1)
+    {
+      dispatch_once(&x_log_get_windowserver(void)::once, &__block_literal_global_17283);
+    }
+
+    v7 = x_log_get_windowserver(void)::log;
+    if (os_log_type_enabled(x_log_get_windowserver(void)::log, OS_LOG_TYPE_ERROR))
+    {
+      v10 = 0;
+      v8 = "Failed to copy avd histogram info, missing histogram";
+      v9 = &v10;
+LABEL_17:
+      _os_log_error_impl(&dword_183AA6000, v7, OS_LOG_TYPE_ERROR, v8, v9, 2u);
+    }
+  }
+
+  else
+  {
+    if (x_log_get_windowserver(void)::once != -1)
+    {
+      dispatch_once(&x_log_get_windowserver(void)::once, &__block_literal_global_17283);
+    }
+
+    v7 = x_log_get_windowserver(void)::log;
+    if (os_log_type_enabled(x_log_get_windowserver(void)::log, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 0;
+      v8 = "Failed to copy avd histogram info, invalid buffer";
+      v9 = buf;
+      goto LABEL_17;
+    }
+  }
+}
+
+void CA::WindowServer::IOSurface::copy_hdr10_plus_metadata(IOSurfaceRef *this, const CA::WindowServer::Surface *a2)
+{
+  if (a2)
+  {
+    if (this[33])
+    {
+      if ((*(*a2 + 168))(a2))
+      {
+        if ((*(*a2 + 40))(a2) == 16)
+        {
+          v4 = (*(*a2 + 168))(a2);
+          v5 = IOSurfaceCopyValue(v4, @"HDR10PlusData");
+          if (v5)
+          {
+            v6 = v5;
+            IOSurfaceSetValue(this[33], @"HDR10PlusData", v5);
+
+            CFRelease(v6);
+          }
+        }
+      }
+    }
+  }
+}
+
+uint64_t CA::WindowServer::IOSurface::set_ycbcr_matrix(uint64_t this, int a2)
+{
+  if (*(this + 288) != a2)
+  {
+    *(this + 288) = a2;
+    return IOSurfaceSetYCbCrMatrix();
+  }
+
+  return this;
+}
+
+uint64_t CA::WindowServer::IOSurface::ycbcr_matrix(CA::WindowServer::IOSurface *this)
+{
+  result = *(this + 72);
+  if (result == -1)
+  {
+    v3 = (this + 288);
+    if (IOSurfaceGetYCbCrMatrix())
+    {
+      result = 0;
+      *v3 = 0;
+    }
+
+    else
+    {
+      return *v3;
+    }
+  }
+
+  return result;
+}
+
+CA::WindowServer::Surface *CA::WindowServer::IOSurface::allocate_iosurface(CA::WindowServer::IOSurface *a1, int a2, unsigned int a3, uint64_t a4, uint64_t a5, uint64_t a6, int a7, unsigned int a8, uint64_t a9, const __CFString *theString1)
+{
+  v31 = *MEMORY[0x1E69E9840];
+  v30 = 0;
+  v28 = 0u;
+  v29 = 0u;
+  (*(*a1 + 192))(&v28);
+  block = v28;
+  v26 = v29;
+  v27 = v30;
+  v18 = CA::SurfaceUtil::CAIOSurfaceCreate(a2, a3, a4, a7, 0, a8, a9, &block, theString1);
+  if (!v18)
+  {
+    return 0;
+  }
+
+  v19 = v18;
+  if (BYTE11(xmmword_1ED4E980C) != 1)
+  {
+    if (!a5)
+    {
+      goto LABEL_5;
+    }
+
+    goto LABEL_4;
+  }
+
+  IOSurfaceGetID(v18);
+  IOSurfaceGetProtectionOptions();
+  IOSurfaceGetAllocSize(v19);
+  kdebug_trace();
+  if (a5)
+  {
+LABEL_4:
+    IOSurfaceSetYCbCrMatrix();
+  }
+
+LABEL_5:
+  v20 = CA::WindowServer::IOSurface::wrap_buffer(a1, v19, 0, 1);
+  v21 = v20;
+  if (v20)
+  {
+    *(v20 + 236) |= 0x2000000uLL;
+    (*(*v20 + 32))(v20, a5);
+    (*(*v21 + 72))(v21, a6, 0);
+    *(v21 + 236) = (a8 << 22) & 0x1000000 | (((a8 >> 1) & 1) << 29) | (((a8 >> 5) & 1) << 28) | ((a8 & 1) << 34) | *(v21 + 236) & 0xFFFFFFFBCEFFFFFFLL;
+    if (a8)
+    {
+      IOSurfaceSetValue(v19, @"CAWindowServerSurface", *MEMORY[0x1E695E4D0]);
+    }
+
+    if (theString1)
+    {
+      CFRetain(theString1);
+      *(v21 + 32) = theString1;
+    }
+
+    if (!*(v21 + 2))
+    {
+      v22 = *(v21 + 1);
+      if (v22)
+      {
+        v23 = *(v22 + 312);
+        if (!v23)
+        {
+          v23 = CAMetalContextCreate();
+          *(v22 + 312) = v23;
+        }
+
+        if (CADeviceIsVirtualized::once[0] != -1)
+        {
+          dispatch_once(CADeviceIsVirtualized::once, &__block_literal_global_323);
+        }
+
+        *&block = MEMORY[0x1E69E9820];
+        *(&block + 1) = 0x40000000;
+        *&v26 = __CADeviceUseSharedEvents_block_invoke;
+        *(&v26 + 1) = &__block_descriptor_tmp_401;
+        LOBYTE(v27) = CADeviceIsVirtualized::is_virtualized ^ 1;
+        if (CADeviceUseSharedEvents::once != -1)
+        {
+          dispatch_once(&CADeviceUseSharedEvents::once, &block);
+        }
+
+        if (CADeviceUseSharedEvents::ca_shared_event_enabled && [v23 supportsFamily:1007])
+        {
+          operator new();
+        }
+      }
+    }
+  }
+
+  else
+  {
+    CFRelease(v19);
+  }
+
+  return v21;
+}
+
+uint64_t ___ZN2CA14CAPSEProcessor16needs_processingEv_block_invoke()
+{
+  result = objc_opt_class();
+  CA::CAPSEProcessor::needs_processing(void)::has_class = result != 0;
+  return result;
+}
+
+atomic_uint *CA::CAPSEProcessor::process_surface(id *this, atomic_uint *a2, double a3, float a4, float a5)
+{
+  v8 = a2;
+  v39[3] = *MEMORY[0x1E69E9840];
+  if ([*this canProcessSurface:*(a2 + 16)])
+  {
+    v10 = 0;
+    v11 = this + 1;
+    for (i = 1; i != 4; ++i)
+    {
+      v13 = this[i];
+      if (v13)
+      {
+        if (v8[4] == *(v13 + 4) && v8[5] == *(v13 + 5) && (v14 = (*(*v8 + 256))(v8), v15 = (*(*this[i] + 256))(), v13 = this[i], v14 == v15))
+        {
+          if (*(v13 + 2) == 1 && !IOSurfaceIsInUse(*(v13 + 16)))
+          {
+            v10 = this[i];
+          }
+        }
+
+        else
+        {
+          if (atomic_fetch_add(v13 + 2, 0xFFFFFFFF) == 1)
+          {
+            (*(*v13 + 16))(v13);
+          }
+
+          this[i] = 0;
+        }
+      }
+    }
+
+    if (!v10)
+    {
+      v16 = MEMORY[0xFFFFFC020] >> 9;
+      v17 = v8[4];
+      v18 = v8[5];
+      v19 = (*(*v8 + 256))(v8);
+      iosurface_with_pixel_format = CA::Render::create_iosurface_with_pixel_format(0x52476841, v17, v18, v16 & 4, v19, @"CA PSE Surface", v20);
+      if (!iosurface_with_pixel_format)
+      {
+        return 0;
+      }
+
+      v22 = iosurface_with_pixel_format;
+      if (x_malloc_get_zone::once != -1)
+      {
+        dispatch_once_f(&x_malloc_get_zone::once, 0, malloc_zone_init);
+      }
+
+      v23 = malloc_type_zone_calloc(malloc_zone, 1uLL, 0x178uLL, 0xDEEC3011uLL);
+      v10 = v23;
+      if (v23)
+      {
+        CA::Render::Surface::Surface(v23, v22, -1, 127, 0, 0, 0);
+      }
+
+      *(v10 + 3) |= v8[3] & 0xFFFFFF00;
+      CFRelease(v22);
+      for (j = 0; j != 3; ++j)
+      {
+        if (!v11[j])
+        {
+          j = j;
+          goto LABEL_30;
+        }
+      }
+
+      v25 = *v11;
+      if (atomic_fetch_add(*v11 + 2, 0xFFFFFFFF) == 1)
+      {
+        (*(*v25 + 16))(v25);
+      }
+
+      j = 0;
+LABEL_30:
+      v11[j] = v10;
+    }
+
+    if (!IOSurfaceGetBulkAttachments())
+    {
+      IOSurfaceSetBulkAttachments2();
+    }
+
+    v27 = IOSurfaceCopyAllValues(*(v8 + 16));
+    if (v27)
+    {
+      v28 = v27;
+      IOSurfaceSetValues(*(v10 + 16), v27);
+      CFRelease(v28);
+      IOSurfaceSetValue(*(v10 + 16), *MEMORY[0x1E696CF98], @"CA PSE Surface");
+    }
+
+    if (a5 <= 1.0)
+    {
+      v29 = 1.0;
+    }
+
+    else
+    {
+      v29 = 1.0 / a5;
+    }
+
+    v30 = *this;
+    v31 = *(v8 + 16);
+    v32 = *(v10 + 16);
+    v38[0] = @"sourceSurfaceEDR";
+    v33 = MEMORY[0x1E696AD98];
+    (*(*v8 + 168))(v8);
+    v39[0] = [v33 numberWithFloat:?];
+    v38[1] = @"displayMaxNits";
+    *&v34 = a4;
+    v39[1] = [MEMORY[0x1E696AD98] numberWithFloat:v34];
+    v38[2] = @"displayEDRFactor";
+    *&v35 = v29;
+    v39[2] = [MEMORY[0x1E696AD98] numberWithFloat:v35];
+    [v30 processSourceSurface:v31 withTimestamp:v32 toDestinationSurface:objc_msgSend(MEMORY[0x1E695DF20] options:{"dictionaryWithObjects:forKeys:count:", v39, v38, 3), a3}];
+    CA::Render::Surface::reload_iosurface_color_attributes(v10, 0x7E);
+    if ((*(*v8 + 176))(v8))
+    {
+      v36 = 8;
+    }
+
+    else
+    {
+      v36 = 0;
+    }
+
+    *(v10 + 184) = *(v10 + 184) & 0xFFF7 | v36;
+    if (!atomic_fetch_add(v10 + 2, 1u))
+    {
+      atomic_fetch_add(v10 + 2, 0xFFFFFFFF);
+    }
+
+    return v10;
+  }
+
+  else
+  {
+    v26 = v8 + 2;
+    if (!atomic_fetch_add(v8 + 2, 1u))
+    {
+      v8 = 0;
+      atomic_fetch_add(v26, 0xFFFFFFFF);
+    }
+  }
+
+  return v8;
 }

@@ -5,6 +5,7 @@
 + (HAP2Lock)lock;
 + (NSMutableArray)consumers;
 + (id)new;
++ (void)queueSessionBlockForConsumer:(id)consumer sessionBlock:(id)block withTimeout:(double)timeout requiresCompletion:(BOOL)completion;
 + (void)queueSessionCompletionForConsumer:(id)consumer;
 + (void)registerConsumer:(id)consumer;
 + (void)setConsumers:(id)consumers;
@@ -31,54 +32,52 @@
 + (BOOL)setCoapAddressFromString:(id)string port:(unsigned __int16)port coapAddress:(coap_address_t *)address
 {
   portCopy = port;
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   uTF8String = [string UTF8String];
   if (uTF8String)
   {
     v8 = uTF8String;
-    memset(&v12[4], 0, 24);
-    *v12 = 7708;
+    memset(&v11[4], 0, 24);
+    *v11 = 7708;
     v9 = __rev16(portCopy);
-    *&v12[2] = v9;
-    if (inet_pton(30, uTF8String, &v12[8]) == 1)
+    *&v11[2] = v9;
+    if (inet_pton(30, uTF8String, &v11[8]) == 1)
     {
       if (address)
       {
-        address->size = v12[0];
-        address->addr.sa = *v12;
-        *(&address->addr.sin6.sin6_addr + 4) = *&v12[12];
+        address->size = v11[0];
+        address->addr.sa = *v11;
+        *(&address->addr.sin6.sin6_addr + 4) = *&v11[12];
         LOBYTE(uTF8String) = 1;
-        goto LABEL_9;
+        return uTF8String;
       }
     }
 
     else
     {
-      *v12 = 528;
-      *&v12[2] = v9;
-      *&v12[4] = 0;
-      *&v12[8] = 0;
-      LOBYTE(uTF8String) = inet_pton(2, v8, &v12[4]) == 1;
+      *v11 = 528;
+      *&v11[2] = v9;
+      *&v11[4] = 0;
+      *&v11[8] = 0;
+      LOBYTE(uTF8String) = inet_pton(2, v8, &v11[4]) == 1;
       if (!uTF8String)
       {
-        goto LABEL_9;
+        return uTF8String;
       }
 
       if (address)
       {
         address->addr.sin6.sin6_scope_id = 0;
         *&address->addr.sin6.sin6_addr.__u6_addr32[2] = 0;
-        address->size = v12[0];
-        address->addr.sa = *v12;
-        goto LABEL_9;
+        address->size = v11[0];
+        address->addr.sa = *v11;
+        return uTF8String;
       }
     }
 
     __assert_rtn("coap_address_init", "address.c", 72, "addr");
   }
 
-LABEL_9:
-  v10 = *MEMORY[0x277D85DE8];
   return uTF8String;
 }
 
@@ -137,6 +136,37 @@ void __48__HAP2CoAPIO_queueSessionCompletionForConsumer___block_invoke_2(uint64_
     v6 = v10;
     *a4 = 1;
   }
+}
+
++ (void)queueSessionBlockForConsumer:(id)consumer sessionBlock:(id)block withTimeout:(double)timeout requiresCompletion:(BOOL)completion
+{
+  completionCopy = completion;
+  consumerCopy = consumer;
+  blockCopy = block;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x3032000000;
+  v22 = __Block_byref_object_copy__17262;
+  v23 = __Block_byref_object_dispose__17263;
+  v24 = 0;
+  lock = [self lock];
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __87__HAP2CoAPIO_queueSessionBlockForConsumer_sessionBlock_withTimeout_requiresCompletion___block_invoke;
+  v15[3] = &unk_2786D5778;
+  selfCopy = self;
+  v13 = consumerCopy;
+  v16 = v13;
+  v17 = &v19;
+  [lock performBlock:v15];
+
+  v14 = v20[5];
+  if (v14)
+  {
+    [v14 queueSessionBlockForConsumer:v13 sessionBlock:blockCopy withTimeout:completionCopy requiresCompletion:timeout];
+  }
+
+  _Block_object_dispose(&v19, 8);
 }
 
 void __87__HAP2CoAPIO_queueSessionBlockForConsumer_sessionBlock_withTimeout_requiresCompletion___block_invoke(uint64_t a1)

@@ -41,8 +41,8 @@
 
 - (void)sendNewInvitesForGroup:(KCSharingGroup *)group completion:(id)completion
 {
-  v7 = (*(*(sub_100003338(&qword_100024DC0, &qword_100017480) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
+  v7 = sub_100003338(&qword_100024DC0, &qword_100017480);
+  __chkstk_darwin(v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(completion);
   v11 = swift_allocObject();
@@ -68,8 +68,8 @@
 
 - (void)cancelPendingInvitesForGroup:(KCSharingGroup *)group participantHandles:(NSArray *)handles completion:(id)completion
 {
-  v9 = (*(*(sub_100003338(&qword_100024DC0, &qword_100017480) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
+  v9 = sub_100003338(&qword_100024DC0, &qword_100017480);
+  __chkstk_darwin(v9 - 8);
   v11 = &v20 - v10;
   v12 = _Block_copy(completion);
   v13 = swift_allocObject();
@@ -97,8 +97,8 @@
 
 - (void)didAcceptInviteForGroupID:(NSString *)d completion:(id)completion
 {
-  v7 = (*(*(sub_100003338(&qword_100024DC0, &qword_100017480) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
+  v7 = sub_100003338(&qword_100024DC0, &qword_100017480);
+  __chkstk_darwin(v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(completion);
   v11 = swift_allocObject();
@@ -124,8 +124,8 @@
 
 - (void)didDeclineInviteForGroupID:(NSString *)d completion:(id)completion
 {
-  v7 = (*(*(sub_100003338(&qword_100024DC0, &qword_100017480) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
+  v7 = sub_100003338(&qword_100024DC0, &qword_100017480);
+  __chkstk_darwin(v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(completion);
   v11 = swift_allocObject();
@@ -151,8 +151,8 @@
 
 - (void)fetchReceivedInviteWithGroupID:(id)d completion:(id)completion
 {
-  v6 = (*(*(sub_100003338(&qword_100024DC0, &qword_100017480) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
+  v6 = sub_100003338(&qword_100024DC0, &qword_100017480);
+  __chkstk_darwin(v6 - 8);
   v8 = &v17 - v7;
   v9 = _Block_copy(completion);
   v10 = static String._unconditionallyBridgeFromObjectiveC(_:)();
@@ -175,8 +175,8 @@
 
 - (void)fetchReceivedInvitesWithCompletion:(id)completion
 {
-  v5 = (*(*(sub_100003338(&qword_100024DC0, &qword_100017480) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
+  v5 = sub_100003338(&qword_100024DC0, &qword_100017480);
+  __chkstk_darwin(v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(completion);
   v9 = swift_allocObject();

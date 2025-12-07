@@ -18,30 +18,33 @@
 
 + (id)IMChipListFromSuggestions:(id)suggestions
 {
-  sub_1A88C82E8();
+  v3 = sub_1A88C82E8();
+  v5 = v4;
   swift_getObjCClassMetadata();
-  v3 = sub_1A87BA620();
+  v6 = sub_1A87BA620(v3, v5);
 
-  return v3;
+  return v6;
 }
 
 + (id)IMChipListFromCTChipList:(id)list originalID:(id)d
 {
-  sub_1A88C82E8();
+  v5 = sub_1A88C82E8();
+  v7 = v6;
   swift_getObjCClassMetadata();
   listCopy = list;
-  v6 = sub_1A87BA95C(list);
+  v9 = sub_1A87BA95C(list, v5, v7);
 
-  return v6;
+  return v9;
 }
 
 + (id)IMChipFromCTChip:(id)chip originalID:(id)d
 {
-  sub_1A88C82E8();
+  v5 = sub_1A88C82E8();
+  v7 = v6;
   chipCopy = chip;
-  v6 = sub_1A87BC3A0(chipCopy);
+  v9 = sub_1A87BC3A0(chipCopy, v5, v7);
 
-  return v6;
+  return v9;
 }
 
 - (IMCTChatBotUtilities)init

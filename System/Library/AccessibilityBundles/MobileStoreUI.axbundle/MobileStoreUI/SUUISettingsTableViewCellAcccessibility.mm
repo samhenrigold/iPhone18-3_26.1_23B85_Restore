@@ -32,32 +32,32 @@
 
 - (id)_axLockupView
 {
-  v18 = *MEMORY[0x29EDCA608];
+  v17 = *MEMORY[0x29EDCA608];
   v2 = [(SUUISettingsTableViewCellAcccessibility *)self safeValueForKey:@"_settingDescriptionView"];
   NSClassFromString(&cfstr_Suuidefaultset.isa);
   if (objc_opt_isKindOfClass())
   {
     v3 = [v2 safeValueForKey:@"_viewReuseView"];
     [v3 subviews];
+    v12 = 0u;
     v13 = 0u;
     v14 = 0u;
-    v15 = 0u;
-    v4 = v16 = 0u;
-    v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v4 = v15 = 0u;
+    v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v14;
+      v7 = *v13;
       while (2)
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v14 != v7)
+          if (*v13 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = *(*(&v13 + 1) + 8 * i);
+          v9 = *(*(&v12 + 1) + 8 * i);
           NSClassFromString(&cfstr_Suuihorizontal_5.isa);
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
@@ -72,7 +72,7 @@
           goto LABEL_15;
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
         v10 = 0;
         if (v6)
         {
@@ -96,38 +96,36 @@ LABEL_15:
     v10 = 0;
   }
 
-  v11 = *MEMORY[0x29EDCA608];
-
   return v10;
 }
 
 - (id)_axViewContainsSwitch
 {
-  v17 = *MEMORY[0x29EDCA608];
+  v16 = *MEMORY[0x29EDCA608];
   v2 = [(SUUISettingsTableViewCellAcccessibility *)self safeValueForKey:@"_settingDescriptionView"];
   NSClassFromString(&cfstr_Suuicheckboxfi.isa);
   if (objc_opt_isKindOfClass())
   {
     [v2 subviews];
+    v11 = 0u;
     v12 = 0u;
     v13 = 0u;
-    v14 = 0u;
-    v3 = v15 = 0u;
-    v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v3 = v14 = 0u;
+    v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v13;
+      v6 = *v12;
       while (2)
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v13 != v6)
+          if (*v12 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          v8 = *(*(&v12 + 1) + 8 * i);
+          v8 = *(*(&v11 + 1) + 8 * i);
           NSClassFromString(&cfstr_Uiswitch.isa);
           if (objc_opt_isKindOfClass())
           {
@@ -136,7 +134,7 @@ LABEL_15:
           }
         }
 
-        v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
         if (v5)
         {
           continue;
@@ -154,8 +152,6 @@ LABEL_13:
   {
     v9 = 0;
   }
-
-  v10 = *MEMORY[0x29EDCA608];
 
   return v9;
 }

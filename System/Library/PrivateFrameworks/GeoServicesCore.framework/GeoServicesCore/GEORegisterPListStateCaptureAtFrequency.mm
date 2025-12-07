@@ -5,7 +5,7 @@
 
 char *___GEORegisterPListStateCaptureAtFrequency_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   v4 = objc_autoreleasePoolPush();
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (!WeakRetained)
@@ -111,9 +111,9 @@ LABEL_50:
       *&buf[12] = 2080;
       *&buf[14] = v35;
       *&buf[22] = 2048;
-      v47 = v13;
-      LOWORD(v48) = 2048;
-      *(&v48 + 2) = v12;
+      v46 = v13;
+      LOWORD(v47) = 2048;
+      *(&v47 + 2) = v12;
       _os_signpost_emit_with_name_impl(&dword_1AB6F6000, v26, OS_SIGNPOST_INTERVAL_END, v7, "CapturePlistState", "Skipped: %s & %s delta(%f) < minDelta(%f)", buf, 0x2Au);
     }
 
@@ -121,22 +121,22 @@ LABEL_50:
   }
 
 LABEL_14:
-  v38 = 0;
-  v39 = &v38;
-  v40 = 0x3032000000;
-  v41 = __Block_byref_object_copy_;
-  v42 = __Block_byref_object_dispose_;
-  v43 = 0;
+  v37 = 0;
+  v38 = &v37;
+  v39 = 0x3032000000;
+  v40 = __Block_byref_object_copy_;
+  v41 = __Block_byref_object_dispose_;
+  v42 = 0;
   v14 = *(WeakRetained + 2);
   *buf = MEMORY[0x1E69E9820];
   *&buf[8] = 3221225472;
   *&buf[16] = __47__geo_state_capture_handle__capturePlistState___block_invoke;
-  v47 = COERCE_DOUBLE(&unk_1E795E7B8);
-  *&v48 = WeakRetained;
-  *(&v48 + 1) = &v38;
-  v49 = a2;
+  v46 = COERCE_DOUBLE(&unk_1E795E7B8);
+  *&v47 = WeakRetained;
+  *(&v47 + 1) = &v37;
+  v48 = a2;
   dispatch_async_and_wait(v14, buf);
-  v15 = v39[5];
+  v15 = v38[5];
   if (v15)
   {
     v16 = [MEMORY[0x1E696AE40] dataWithPropertyList:v15 format:200 options:0 error:0];
@@ -168,9 +168,9 @@ LABEL_14:
       v24 = v29;
       if (v10 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v29))
       {
-        *v44 = 134217984;
-        v45 = v18;
-        _os_signpost_emit_with_name_impl(&dword_1AB6F6000, v24, OS_SIGNPOST_INTERVAL_END, v7, "CapturePlistState", "Captured %zu bytes", v44, 0xCu);
+        *v43 = 134217984;
+        v44 = v18;
+        _os_signpost_emit_with_name_impl(&dword_1AB6F6000, v24, OS_SIGNPOST_INTERVAL_END, v7, "CapturePlistState", "Captured %zu bytes", v43, 0xCu);
       }
     }
 
@@ -180,8 +180,8 @@ LABEL_14:
       v24 = v23;
       if (v10 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v23))
       {
-        *v44 = 0;
-        _os_signpost_emit_with_name_impl(&dword_1AB6F6000, v24, OS_SIGNPOST_INTERVAL_END, v7, "CapturePlistState", "Failed: serialization", v44, 2u);
+        *v43 = 0;
+        _os_signpost_emit_with_name_impl(&dword_1AB6F6000, v24, OS_SIGNPOST_INTERVAL_END, v7, "CapturePlistState", "Failed: serialization", v43, 2u);
       }
 
       v19 = 0;
@@ -194,18 +194,17 @@ LABEL_14:
     v16 = v22;
     if (v10 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v22))
     {
-      *v44 = 0;
-      _os_signpost_emit_with_name_impl(&dword_1AB6F6000, v16, OS_SIGNPOST_INTERVAL_END, v7, "CapturePlistState", "Failed: nil plist", v44, 2u);
+      *v43 = 0;
+      _os_signpost_emit_with_name_impl(&dword_1AB6F6000, v16, OS_SIGNPOST_INTERVAL_END, v7, "CapturePlistState", "Failed: nil plist", v43, 2u);
     }
 
     v19 = 0;
   }
 
-  _Block_object_dispose(&v38, 8);
+  _Block_object_dispose(&v37, 8);
 LABEL_51:
 
   objc_autoreleasePoolPop(v4);
-  v36 = *MEMORY[0x1E69E9840];
   return v19;
 }
 

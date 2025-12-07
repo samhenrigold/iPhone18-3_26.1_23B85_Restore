@@ -1,13 +1,13 @@
-id PHDefaultLog()
+id PHDefaultLog(uint64_t a1)
 {
   if (qword_C578 != -1)
   {
     sub_2CC8();
   }
 
-  v1 = qword_C570;
+  v2 = qword_C570;
 
-  return v1;
+  return v2;
 }
 
 void sub_2088(id a1)
@@ -17,16 +17,16 @@ void sub_2088(id a1)
   _objc_release_x1();
 }
 
-id PHOversizedLog()
+id PHOversizedLog(uint64_t a1)
 {
   if (qword_C588 != -1)
   {
     sub_2CDC();
   }
 
-  v1 = qword_C580;
+  v2 = qword_C580;
 
-  return v1;
+  return v2;
 }
 
 void sub_2110(id a1)
@@ -36,16 +36,16 @@ void sub_2110(id a1)
   _objc_release_x1();
 }
 
-id PHOversizedLogQueue()
+id PHOversizedLogQueue(uint64_t a1)
 {
   if (qword_C598[0] != -1)
   {
     sub_2CF0();
   }
 
-  v1 = qword_C590;
+  v2 = qword_C590;
 
-  return v1;
+  return v2;
 }
 
 void sub_2198(id a1)
@@ -60,14 +60,13 @@ uint64_t PhoneSettingsReplyWithMessageBundleController.isStateDrivenNavigationPo
 {
   v2 = sub_2D84();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   __chkstk_darwin();
-  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = [a1 traitCollection];
+  v5 = &v8 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = [a1 traitCollection];
   sub_2DD4();
 
   LOBYTE(a1) = sub_2D64();
-  (*(v3 + 8))(v6, v2);
+  (*(v3 + 8))(v5, v2);
   return a1 & 1;
 }
 
@@ -75,25 +74,23 @@ uint64_t PhoneSettingsReplyWithMessageBundleController.handleUserDidTapOnMainSpe
 {
   v3 = sub_2D84();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   __chkstk_darwin();
-  v7 = &v16 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = *(*(sub_2DF4() - 8) + 64);
+  v6 = &v13 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_2DF4();
   __chkstk_darwin();
-  v9 = sub_2D54();
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
+  v7 = sub_2D54();
+  v8 = *(v7 - 8);
   __chkstk_darwin();
-  v13 = &v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_2DE4();
   sub_2D44();
-  v14 = [a2 traitCollection];
+  v11 = [a2 traitCollection];
   sub_2DD4();
 
   sub_2680();
   sub_2D74();
-  (*(v4 + 8))(v7, v3);
-  return (*(v10 + 8))(v13, v9);
+  (*(v4 + 8))(v6, v3);
+  return (*(v8 + 8))(v10, v7);
 }
 
 unint64_t sub_2680()
@@ -123,7 +120,7 @@ unint64_t sub_2998()
 
 uint64_t sub_2A08()
 {
-  v0 = *(*(sub_2D34() - 8) + 64);
+  sub_2D34();
   __chkstk_darwin();
   sub_2DC4();
   sub_2DB4();
@@ -190,7 +187,6 @@ uint64_t sub_2C80(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }

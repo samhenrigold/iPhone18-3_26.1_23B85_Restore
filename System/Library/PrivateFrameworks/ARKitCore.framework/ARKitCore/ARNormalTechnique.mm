@@ -23,10 +23,10 @@
 
 - (id)processData:(id)data
 {
-  v53 = *MEMORY[0x1E69E9840];
-  v46.receiver = self;
-  v46.super_class = ARNormalTechnique;
-  v4 = [(ARTechnique *)&v46 processData:data];
+  v54 = *MEMORY[0x1E69E9840];
+  v47.receiver = self;
+  v47.super_class = ARNormalTechnique;
+  v4 = [(ARTechnique *)&v47 processData:data];
   objc_opt_class();
   if (objc_opt_isKindOfClass() & 1) == 0 || (objc_opt_class(), (objc_opt_isKindOfClass()))
   {
@@ -42,27 +42,28 @@
     if (v10)
     {
       v11 = v10;
-      [v7 timestamp];
+      objc_msgSend_timestamp(v7);
       kdebug_trace();
       sourceImageData = [v7 sourceImageData];
       [sourceImageData cameraIntrinsics];
-      v44 = v14;
-      v45 = v13;
-      v42 = v15;
+      v45 = v14;
+      v46 = v13;
+      v43 = v15;
       sourceImageData2 = [v7 sourceImageData];
       [sourceImageData2 imageResolution];
       v18 = v17;
       v20 = v19;
       [v7 depthBufferSize];
-      ARAdjustIntrinsicsForViewportSize(v45, v44, v42, v18, v20, v21, v22);
-      v43 = v23;
+      ARAdjustIntrinsicsForViewportSize(v46, v45, v43, v18, v20, v21, v22);
+      v44 = v23;
 
       [v7 depthBuffer];
-      if (CV3DNormalEstimationSessionCompute())
+      v24 = CV3DNormalEstimationSessionCompute();
+      if (v24)
       {
         [v7 setNormalsBuffer:v11];
 LABEL_29:
-        [v7 timestamp];
+        objc_msgSend_timestamp(v7, v44);
         kdebug_trace();
         CVPixelBufferRelease(v11);
         goto LABEL_4;
@@ -73,42 +74,42 @@ LABEL_29:
         [ARNormalTechnique processData:];
       }
 
-      v32 = ARShouldUseLogTypeError_internalOSVersion_12;
-      v33 = _ARLogTechnique_7();
-      v34 = v33;
-      if (v32 == 1)
+      v33 = ARShouldUseLogTypeError_internalOSVersion_12;
+      v34 = _ARLogTechnique_7(v24);
+      v35 = v34;
+      if (v33 == 1)
       {
-        if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
         {
-          v35 = objc_opt_class();
-          v36 = NSStringFromClass(v35);
+          v36 = objc_opt_class();
+          v37 = NSStringFromClass(v36);
           *buf = 138543874;
-          v48 = v36;
-          v49 = 2048;
+          v49 = v37;
+          v50 = 2048;
           selfCopy4 = self;
-          v51 = 2112;
-          v52 = 0;
-          v37 = "%{public}@ <%p>: Failed to compute normals: %@";
-          v38 = v34;
-          v39 = OS_LOG_TYPE_ERROR;
+          v52 = 2112;
+          v53 = 0;
+          v38 = "%{public}@ <%p>: Failed to compute normals: %@";
+          v39 = v35;
+          v40 = OS_LOG_TYPE_ERROR;
 LABEL_27:
-          _os_log_impl(&dword_1C241C000, v38, v39, v37, buf, 0x20u);
+          _os_log_impl(&dword_1C241C000, v39, v40, v38, buf, 0x20u);
         }
       }
 
-      else if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
+      else if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
       {
-        v41 = objc_opt_class();
-        v36 = NSStringFromClass(v41);
+        v42 = objc_opt_class();
+        v37 = NSStringFromClass(v42);
         *buf = 138543874;
-        v48 = v36;
-        v49 = 2048;
+        v49 = v37;
+        v50 = 2048;
         selfCopy4 = self;
-        v51 = 2112;
-        v52 = 0;
-        v37 = "Error: %{public}@ <%p>: Failed to compute normals: %@";
-        v38 = v34;
-        v39 = OS_LOG_TYPE_INFO;
+        v52 = 2112;
+        v53 = 0;
+        v38 = "Error: %{public}@ <%p>: Failed to compute normals: %@";
+        v39 = v35;
+        v40 = OS_LOG_TYPE_INFO;
         goto LABEL_27;
       }
 
@@ -120,38 +121,38 @@ LABEL_27:
       [ARNormalTechnique processData:];
     }
 
-    v24 = ARShouldUseLogTypeError_internalOSVersion_12;
-    v25 = _ARLogTechnique_7();
-    v26 = v25;
-    if (v24 == 1)
+    v25 = ARShouldUseLogTypeError_internalOSVersion_12;
+    v26 = _ARLogTechnique_7(v10);
+    v27 = v26;
+    if (v25 == 1)
     {
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
-        v27 = objc_opt_class();
-        v28 = NSStringFromClass(v27);
+        v28 = objc_opt_class();
+        v29 = NSStringFromClass(v28);
         *buf = 138543618;
-        v48 = v28;
-        v49 = 2048;
+        v49 = v29;
+        v50 = 2048;
         selfCopy4 = self;
-        v29 = "%{public}@ <%p>: CVPixelBuffer to store normals could not be created from pool";
-        v30 = v26;
-        v31 = OS_LOG_TYPE_ERROR;
+        v30 = "%{public}@ <%p>: CVPixelBuffer to store normals could not be created from pool";
+        v31 = v27;
+        v32 = OS_LOG_TYPE_ERROR;
 LABEL_23:
-        _os_log_impl(&dword_1C241C000, v30, v31, v29, buf, 0x16u);
+        _os_log_impl(&dword_1C241C000, v31, v32, v30, buf, 0x16u);
       }
     }
 
-    else if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
     {
-      v40 = objc_opt_class();
-      v28 = NSStringFromClass(v40);
+      v41 = objc_opt_class();
+      v29 = NSStringFromClass(v41);
       *buf = 138543618;
-      v48 = v28;
-      v49 = 2048;
+      v49 = v29;
+      v50 = 2048;
       selfCopy4 = self;
-      v29 = "Error: %{public}@ <%p>: CVPixelBuffer to store normals could not be created from pool";
-      v30 = v26;
-      v31 = OS_LOG_TYPE_INFO;
+      v30 = "Error: %{public}@ <%p>: CVPixelBuffer to store normals could not be created from pool";
+      v31 = v27;
+      v32 = OS_LOG_TYPE_INFO;
       goto LABEL_23;
     }
   }

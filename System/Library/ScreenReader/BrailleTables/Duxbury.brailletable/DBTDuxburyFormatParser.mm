@@ -70,12 +70,12 @@
 {
   stringCopy = string;
   [(DBTDuxburyFormatParser *)self _initState];
-  v92 = 0;
-  v7 = [NSRegularExpression regularExpressionWithPattern:@"\\x{1c}([a-zA-Z0-9]+)\\x{1f}" options:1 error:&v92];
-  v8 = v92;
-  v91 = v8;
-  v78 = [NSRegularExpression regularExpressionWithPattern:@"[^\\x{1c}]*" options:1 error:&v91];
-  v9 = v91;
+  v93 = 0;
+  v7 = [NSRegularExpression regularExpressionWithPattern:@"\\x{1c}([a-zA-Z0-9]+)\\x{1f}" options:1 error:&v93];
+  v8 = v93;
+  v92 = v8;
+  v79 = [NSRegularExpression regularExpressionWithPattern:@"[^\\x{1c}]*" options:1 error:&v92];
+  v9 = v92;
 
   if (v9)
   {
@@ -95,14 +95,15 @@
   }
 
   v12 = [stringCopy length];
-  v76 = v7;
+  v77 = v7;
   if (![stringCopy length])
   {
     v13 = 0;
 LABEL_59:
     parserStack = self->_parserStack;
     p_parserStack = &self->_parserStack;
-    if ([(NSMutableArray *)parserStack count]>= 2)
+    v64 = [(NSMutableArray *)parserStack count];
+    if (v64 >= 2)
     {
       do
       {
@@ -110,22 +111,24 @@ LABEL_59:
         [(NSMutableArray *)*p_parserStack removeLastObject];
         lastObject2 = [(NSMutableArray *)*p_parserStack lastObject];
         children = [lastObject2 children];
-        v67 = [children containsObject:lastObject];
+        v68 = [children containsObject:lastObject];
 
-        if ((v67 & 1) == 0)
+        if ((v68 & 1) == 0)
         {
           lastObject3 = [(NSMutableArray *)*p_parserStack lastObject];
           [lastObject3 addChild:lastObject];
         }
+
+        v64 = [(NSMutableArray *)*p_parserStack count];
       }
 
-      while ([(NSMutableArray *)*p_parserStack count]> 1);
+      while (v64 > 1);
     }
 
-    v69 = DBTLogFormatParser();
-    if (os_log_type_enabled(v69, OS_LOG_TYPE_DEBUG))
+    v70 = DBTLogFormatParser(v64);
+    if (os_log_type_enabled(v70, OS_LOG_TYPE_DEBUG))
     {
-      [DBTDuxburyFormatParser _parseInputString:v69 error:?];
+      [DBTDuxburyFormatParser _parseInputString:v70 error:?];
     }
 
     lastObject4 = [(NSMutableArray *)*p_parserStack lastObject];
@@ -135,7 +138,7 @@ LABEL_59:
   errorCopy = error;
   v13 = 0;
   v14 = 0;
-  v75 = stringCopy;
+  v76 = stringCopy;
   while (1)
   {
     v15 = v13;
@@ -146,7 +149,7 @@ LABEL_59:
       break;
     }
 
-    v13 = [v78 firstMatchInString:stringCopy options:4 range:{v14, v12}];
+    v13 = [v79 firstMatchInString:stringCopy options:4 range:{v14, v12}];
     if (v13)
     {
       [(DBTDuxburyFormatParser *)self closeENodeIfNeeded];
@@ -177,29 +180,29 @@ LABEL_34:
     goto LABEL_34;
   }
 
-  v77 = v12;
+  v78 = v12;
   v16 = [v13 rangeAtIndex:1];
   v18 = [stringCopy substringWithRange:{v16, v17}];
-  v87 = 0u;
   v88 = 0u;
   v89 = 0u;
   v90 = 0u;
+  v91 = 0u;
   reverseObjectEnumerator = [(NSMutableArray *)self->_parserStack reverseObjectEnumerator];
-  v20 = [reverseObjectEnumerator countByEnumeratingWithState:&v87 objects:v97 count:16];
+  v20 = [reverseObjectEnumerator countByEnumeratingWithState:&v88 objects:v98 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v88;
+    v22 = *v89;
 LABEL_10:
     v23 = 0;
     while (1)
     {
-      if (*v88 != v22)
+      if (*v89 != v22)
       {
         objc_enumerationMutation(reverseObjectEnumerator);
       }
 
-      v24 = *(*(&v87 + 1) + 8 * v23);
+      v24 = *(*(&v88 + 1) + 8 * v23);
       endCode = [objc_opt_class() endCode];
       if ([v18 isEqualToString:endCode])
       {
@@ -210,9 +213,9 @@ LABEL_10:
           [v24 foundEndCode:v18];
           [(NSMutableArray *)self->_parserStack removeObject:v24];
 LABEL_30:
-          stringCopy = v75;
-          v7 = v76;
-          v12 = v77;
+          stringCopy = v76;
+          v7 = v77;
+          v12 = v78;
 LABEL_31:
 
           goto LABEL_32;
@@ -225,7 +228,7 @@ LABEL_31:
 
       if (v21 == ++v23)
       {
-        v21 = [reverseObjectEnumerator countByEnumeratingWithState:&v87 objects:v97 count:16];
+        v21 = [reverseObjectEnumerator countByEnumeratingWithState:&v88 objects:v98 count:16];
         if (!v21)
         {
           break;
@@ -236,29 +239,29 @@ LABEL_31:
     }
   }
 
-  v85 = 0u;
   v86 = 0u;
-  v83 = 0u;
+  v87 = 0u;
   v84 = 0u;
+  v85 = 0u;
   reverseObjectEnumerator2 = [(NSMutableArray *)self->_parserStack reverseObjectEnumerator];
-  v28 = [reverseObjectEnumerator2 countByEnumeratingWithState:&v83 objects:v96 count:16];
+  v28 = [reverseObjectEnumerator2 countByEnumeratingWithState:&v84 objects:v97 count:16];
   if (!v28)
   {
     goto LABEL_27;
   }
 
   v29 = v28;
-  v30 = *v84;
+  v30 = *v85;
 LABEL_21:
   v31 = 0;
   while (1)
   {
-    if (*v84 != v30)
+    if (*v85 != v30)
     {
       objc_enumerationMutation(reverseObjectEnumerator2);
     }
 
-    v32 = *(*(&v83 + 1) + 8 * v31);
+    v32 = *(*(&v84 + 1) + 8 * v31);
     innerCodes = [objc_opt_class() innerCodes];
     v34 = [innerCodes containsObject:v18];
 
@@ -269,7 +272,7 @@ LABEL_21:
 
     if (v29 == ++v31)
     {
-      v29 = [reverseObjectEnumerator2 countByEnumeratingWithState:&v83 objects:v96 count:16];
+      v29 = [reverseObjectEnumerator2 countByEnumeratingWithState:&v84 objects:v97 count:16];
       if (!v29)
       {
 LABEL_27:
@@ -294,9 +297,9 @@ LABEL_27:
     [(NSMutableArray *)self->_parserStack removeLastObject];
   }
 
-  stringCopy = v75;
-  v7 = v76;
-  v12 = v77;
+  stringCopy = v76;
+  v7 = v77;
+  v12 = v78;
   if (v46)
   {
 LABEL_32:
@@ -308,30 +311,30 @@ LABEL_32:
   }
 
 LABEL_40:
-  v81 = 0u;
   v82 = 0u;
-  v79 = 0u;
+  v83 = 0u;
   v80 = 0u;
+  v81 = 0u;
   reverseObjectEnumerator = [objc_opt_class() allCodeNodes];
-  v48 = [reverseObjectEnumerator countByEnumeratingWithState:&v79 objects:v95 count:16];
+  v48 = [reverseObjectEnumerator countByEnumeratingWithState:&v80 objects:v96 count:16];
   if (!v48)
   {
     goto LABEL_70;
   }
 
   v49 = v48;
-  v50 = *v80;
+  v50 = *v81;
   while (2)
   {
     v51 = 0;
     while (2)
     {
-      if (*v80 != v50)
+      if (*v81 != v50)
       {
         objc_enumerationMutation(reverseObjectEnumerator);
       }
 
-      v52 = *(*(&v79 + 1) + 8 * v51);
+      v52 = *(*(&v80 + 1) + 8 * v51);
       beginCode = [v52 beginCode];
       v54 = [beginCode isEqualToString:v18];
 
@@ -350,9 +353,9 @@ LABEL_40:
         [lastObject7 addChild:v59];
 
         endCode2 = [objc_opt_class() endCode];
-        stringCopy = v75;
-        v7 = v76;
-        v12 = v77;
+        stringCopy = v76;
+        v7 = v77;
+        v12 = v78;
         if (endCode2)
         {
         }
@@ -388,7 +391,7 @@ LABEL_56:
       break;
     }
 
-    v49 = [reverseObjectEnumerator countByEnumeratingWithState:&v79 objects:v95 count:16];
+    v49 = [reverseObjectEnumerator countByEnumeratingWithState:&v80 objects:v96 count:16];
     if (v49)
     {
       continue;
@@ -401,19 +404,19 @@ LABEL_70:
 
   if (errorCopy)
   {
-    v93 = NSLocalizedDescriptionKey;
-    v71 = [NSString stringWithFormat:@"Found unexpected Duxbury format code: %@", v18];
-    v94 = v71;
-    v72 = [NSDictionary dictionaryWithObjects:&v94 forKeys:&v93 count:1];
+    v94 = NSLocalizedDescriptionKey;
+    v72 = [NSString stringWithFormat:@"Found unexpected Duxbury format code: %@", v18];
+    v95 = v72;
+    v73 = [NSDictionary dictionaryWithObjects:&v95 forKeys:&v94 count:1];
 
-    v73 = [NSError errorWithDomain:@"com.apple.accessibility.duxbury.dbtParserErrorDomain" code:1 userInfo:v72];
-    *errorCopy = v73;
+    v74 = [NSError errorWithDomain:@"com.apple.accessibility.duxbury.dbtParserErrorDomain" code:1 userInfo:v73];
+    *errorCopy = v74;
   }
 
   lastObject4 = 0;
-  stringCopy = v75;
+  stringCopy = v76;
 LABEL_66:
-  v7 = v76;
+  v7 = v77;
 
   v9 = 0;
 LABEL_67:

@@ -5,8 +5,8 @@
 + (id)ic_permanentObjectIDsFromObjects:()IC;
 + (id)ic_resultsMatchingPredicate:()IC sortDescriptors:resultType:relationshipKeyPathsForPrefetching:fetchLimit:context:;
 + (void)ic_enumerateObjectsMatchingPredicate:()IC sortDescriptors:relationshipKeyPathsForPrefetching:context:batchSize:saveAfterBatch:usingBlock:;
+- (BOOL)ic_isTransitioning;
 - (id)ic_postNotificationOnMainThreadAfterSaveWithName:()IC;
-- (uint64_t)ic_isTransitioning;
 - (uint64_t)ic_obtainPermanentObjectIDIfNecessary;
 - (uint64_t)ic_permanentObjectID;
 - (void)ic_obtainPermanentObjectIDIfNecessary;
@@ -15,7 +15,7 @@
 
 @implementation NSManagedObject(IC)
 
-- (uint64_t)ic_isTransitioning
+- (BOOL)ic_isTransitioning
 {
   if (([self _isDeallocating] & 1) != 0 || (objc_msgSend(self, "faultingState") & 2) != 0)
   {
@@ -62,7 +62,7 @@
     v8 = os_log_create("com.apple.notes", "CoreData");
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [NSManagedObject(IC) ic_obtainPermanentObjectIDIfNecessary];
+      [(NSManagedObject(IC) *)self ic_obtainPermanentObjectIDIfNecessary];
     }
   }
 
@@ -517,7 +517,7 @@ LABEL_17:
 {
   [a1 count];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_1_2(&dword_1D4576000, v1, v2, "Error fetching objects from (%ld) object IDs: %@", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_1_2(&dword_1D4576000, v1, v2, "Error fetching objects from (%ld) object IDs: %@", v3, v4, v5, v6);
 }
 
 + (void)ic_permanentObjectIDsFromObjects:()IC .cold.1()
@@ -531,8 +531,8 @@ LABEL_17:
 {
   objc_opt_class();
   OUTLINED_FUNCTION_1();
-  v1 = v0;
-  OUTLINED_FUNCTION_1_2(&dword_1D4576000, v2, v3, "Error obtaining permanent object ID for %@: %@", v4, v5, v6, v7, v8);
+  v2 = v1;
+  OUTLINED_FUNCTION_1_2(&dword_1D4576000, v3, v4, "Error obtaining permanent object ID for %@: %@", v5, v6, v7, v8);
 }
 
 @end

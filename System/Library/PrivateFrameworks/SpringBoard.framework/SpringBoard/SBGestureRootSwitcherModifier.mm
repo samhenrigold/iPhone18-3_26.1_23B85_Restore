@@ -66,80 +66,81 @@
 
 - (id)handleTransitionEvent:(id)event
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   eventCopy = event;
-  v25.receiver = self;
-  v25.super_class = SBGestureRootSwitcherModifier;
-  v5 = [(SBSwitcherModifier *)&v25 handleTransitionEvent:eventCopy];
+  v28.receiver = self;
+  v28.super_class = SBGestureRootSwitcherModifier;
+  v5 = [(SBSwitcherModifier *)&v28 handleTransitionEvent:eventCopy];
   if ([eventCopy phase]== 1 && [eventCopy isGestureInitiated])
   {
     gestureModifierBeforeHandlingEvent = self->_gestureModifierBeforeHandlingEvent;
     if (!gestureModifierBeforeHandlingEvent)
     {
-      if (![(SBGestureRootSwitcherModifier *)self canTransitionWithoutGestureModifier])
+      canTransitionWithoutGestureModifier = [(SBGestureRootSwitcherModifier *)self canTransitionWithoutGestureModifier];
+      if (!canTransitionWithoutGestureModifier)
       {
-        v7 = SBLogAppSwitcher();
-        if (!os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+        v8 = SBLogAppSwitcher(canTransitionWithoutGestureModifier);
+        if (!os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
         {
           goto LABEL_13;
         }
 
-        v24 = objc_opt_class();
-        v12 = NSStringFromClass(v24);
+        v27 = objc_opt_class();
+        v14 = NSStringFromClass(v27);
         *buf = 138412546;
-        v27 = v12;
-        v28 = 2112;
-        v29 = eventCopy;
-        _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_INFO, "[%@]: No gesture modifier to handle gesture initiated transition event %@", buf, 0x16u);
+        v30 = v14;
+        v31 = 2112;
+        v32 = eventCopy;
+        _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_INFO, "[%@]: No gesture modifier to handle gesture initiated transition event %@", buf, 0x16u);
         goto LABEL_12;
       }
 
       gestureModifierBeforeHandlingEvent = self->_gestureModifierBeforeHandlingEvent;
     }
 
-    v7 = [(SBGestureRootSwitcherModifier *)self transitionChildModifierForMainTransitionEvent:eventCopy activeGestureModifier:gestureModifierBeforeHandlingEvent];
-    if (v7)
+    v8 = [(SBGestureRootSwitcherModifier *)self transitionChildModifierForMainTransitionEvent:eventCopy activeGestureModifier:gestureModifierBeforeHandlingEvent];
+    if (v8)
     {
-      [(SBChainableModifier *)self addChildModifier:v7 atLevel:0 key:@"Transition"];
-      v8 = MEMORY[0x277CCACA8];
-      v9 = objc_opt_class();
-      v10 = NSStringFromClass(v9);
-      v11 = [v8 stringWithFormat:@"%@ handling gesture initiated transition.", v10];
-      [eventCopy handleWithReason:v11];
+      [(SBChainableModifier *)self addChildModifier:v8 atLevel:0 key:@"Transition"];
+      v9 = MEMORY[0x277CCACA8];
+      v10 = objc_opt_class();
+      v11 = NSStringFromClass(v10);
+      v12 = [v9 stringWithFormat:@"%@ handling gesture initiated transition.", v11];
+      [eventCopy handleWithReason:v12];
 
-      v12 = SBLogAppSwitcher();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+      v14 = SBLogAppSwitcher(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
-        v13 = objc_opt_class();
-        v14 = NSStringFromClass(v13);
+        v15 = objc_opt_class();
+        v16 = NSStringFromClass(v15);
         *buf = 138412802;
-        v27 = v14;
-        v28 = 2112;
-        v29 = v7;
-        v30 = 2112;
-        v31 = eventCopy;
-        v15 = "[%@]: Adding transition modifier %@ for event %@";
-        v16 = v12;
-        v17 = 32;
+        v30 = v16;
+        v31 = 2112;
+        v32 = v8;
+        v33 = 2112;
+        v34 = eventCopy;
+        v17 = "[%@]: Adding transition modifier %@ for event %@";
+        v18 = v14;
+        v19 = 32;
 LABEL_11:
-        _os_log_impl(&dword_21ED4E000, v16, OS_LOG_TYPE_INFO, v15, buf, v17);
+        _os_log_impl(&dword_21ED4E000, v18, OS_LOG_TYPE_INFO, v17, buf, v19);
       }
     }
 
     else
     {
-      v12 = SBLogAppSwitcher();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+      v14 = SBLogAppSwitcher(0);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
-        v18 = objc_opt_class();
-        v14 = NSStringFromClass(v18);
+        v20 = objc_opt_class();
+        v16 = NSStringFromClass(v20);
         *buf = 138412546;
-        v27 = v14;
-        v28 = 2112;
-        v29 = eventCopy;
-        v15 = "[%@]: No transition modifier to handle transition event %@";
-        v16 = v12;
-        v17 = 22;
+        v30 = v16;
+        v31 = 2112;
+        v32 = eventCopy;
+        v17 = "[%@]: No transition modifier to handle transition event %@";
+        v18 = v14;
+        v19 = 22;
         goto LABEL_11;
       }
     }
@@ -151,18 +152,19 @@ LABEL_13:
 
   if ([eventCopy phase]== 1)
   {
-    self->_currentEnvironmentMode = [eventCopy toEnvironmentMode];
-    v19 = SBLogAppSwitcher();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+    toEnvironmentMode = [eventCopy toEnvironmentMode];
+    self->_currentEnvironmentMode = toEnvironmentMode;
+    v22 = SBLogAppSwitcher(toEnvironmentMode);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
     {
-      v20 = objc_opt_class();
-      v21 = NSStringFromClass(v20);
-      v22 = SBStringForUnlockedEnvironmentMode(self->_currentEnvironmentMode);
+      v23 = objc_opt_class();
+      v24 = NSStringFromClass(v23);
+      v25 = SBStringForUnlockedEnvironmentMode(self->_currentEnvironmentMode);
       *buf = 138412546;
-      v27 = v21;
-      v28 = 2112;
-      v29 = v22;
-      _os_log_impl(&dword_21ED4E000, v19, OS_LOG_TYPE_INFO, "[%@] Updating our notion of starting environment to %@", buf, 0x16u);
+      v30 = v24;
+      v31 = 2112;
+      v32 = v25;
+      _os_log_impl(&dword_21ED4E000, v22, OS_LOG_TYPE_INFO, "[%@] Updating our notion of starting environment to %@", buf, 0x16u);
     }
   }
 
@@ -188,8 +190,7 @@ LABEL_13:
       v9 = [(SBGestureRootSwitcherModifier *)self gestureChildModifierForGestureEvent:eventCopy activeTransitionModifier:self->_transitionModifierBeforeHandlingEvent];
       if (v9)
       {
-        [(SBChainableModifier *)self addChildModifier:v9 atLevel:1 key:@"Gesture"];
-        v10 = SBLogAppSwitcher();
+        v10 = SBLogAppSwitcher([(SBChainableModifier *)self addChildModifier:v9 atLevel:1 key:@"Gesture"]);
         if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
         {
           v11 = objc_opt_class();
@@ -240,22 +241,22 @@ LABEL_13:
 
 - (int64_t)gestureType
 {
-  objc_opt_class();
-  OUTLINED_FUNCTION_6();
+  v2 = objc_opt_class();
+  OUTLINED_FUNCTION_6(v2);
   return 0;
 }
 
 - (id)gestureChildModifierForGestureEvent:(id)event activeTransitionModifier:(id)modifier
 {
-  objc_opt_class();
-  OUTLINED_FUNCTION_6();
+  v4 = objc_opt_class();
+  OUTLINED_FUNCTION_6(v4);
   return 0;
 }
 
 - (id)transitionChildModifierForMainTransitionEvent:(id)event activeGestureModifier:(id)modifier
 {
-  objc_opt_class();
-  OUTLINED_FUNCTION_6();
+  v4 = objc_opt_class();
+  OUTLINED_FUNCTION_6(v4);
   return 0;
 }
 

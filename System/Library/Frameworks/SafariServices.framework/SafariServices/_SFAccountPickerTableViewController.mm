@@ -325,7 +325,7 @@
       configuration = self->_configuration;
       if (configuration)
       {
-        [(SFAccountPickerConfiguration *)configuration connectedAppAuditToken];
+        objc_msgSend_connectedAppAuditToken(configuration);
       }
 
       mainBundle = WBSApplicationIdentifierFromAuditToken();
@@ -769,11 +769,11 @@ LABEL_11:
 
     else
     {
-      v14 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v16 = WBS_LOG_CHANNEL_PREFIXAutoFill(v12, v13);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1D4644000, v14, OS_LOG_TYPE_DEFAULT, "Newly created saved account has a password that doesn't match the generated password record it was created from. The generated password record was not deleted.", buf, 2u);
+        _os_log_impl(&dword_1D4644000, v16, OS_LOG_TYPE_DEFAULT, "Newly created saved account has a password that doesn't match the generated password record it was created from. The generated password record was not deleted.", buf, 2u);
       }
     }
 
@@ -786,13 +786,13 @@ LABEL_11:
 
   if ([(SFAccountPickerConfiguration *)self->_configuration isForFillingIndividualAccountFields])
   {
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __95___SFAccountPickerTableViewController_addSavedAccountViewControllerDidFinish_withSavedAccount___block_invoke;
-    v17[3] = &unk_1E848F548;
-    v17[4] = self;
-    v18 = v8;
-    [(_SFAccountPickerTableViewController *)self dismissViewControllerAnimated:1 completion:v17];
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __95___SFAccountPickerTableViewController_addSavedAccountViewControllerDidFinish_withSavedAccount___block_invoke;
+    v19[3] = &unk_1E848F548;
+    v19[4] = self;
+    v20 = v8;
+    [(_SFAccountPickerTableViewController *)self dismissViewControllerAnimated:1 completion:v19];
   }
 
   else
@@ -801,7 +801,7 @@ LABEL_11:
   }
 
 LABEL_12:
-  v16 = self->_addPasswordViewController;
+  v18 = self->_addPasswordViewController;
   self->_addPasswordViewController = 0;
 }
 
@@ -1200,20 +1200,20 @@ LABEL_10:
     if ([pathCopy section] == self->_sectionForPasskeys)
     {
       v13 = [(_SFAccountPickerTableViewController *)self _savedAccountForIndexPath:pathCopy];
-      v14 = v13;
+      v15 = v13;
       if (v13)
       {
         autoFillPasskeys = self->_autoFillPasskeys;
-        v23 = MEMORY[0x1E69E9820];
-        v24 = 3221225472;
-        v25 = __73___SFAccountPickerTableViewController_tableView_didSelectRowAtIndexPath___block_invoke_247;
-        v26 = &unk_1E8495778;
-        v27 = v13;
-        v16 = [(NSArray *)autoFillPasskeys safari_firstObjectPassingTest:&v23];
+        v25 = MEMORY[0x1E69E9820];
+        v26 = 3221225472;
+        v27 = __73___SFAccountPickerTableViewController_tableView_didSelectRowAtIndexPath___block_invoke_247;
+        v28 = &unk_1E8495778;
+        v29 = v13;
+        v17 = [(NSArray *)autoFillPasskeys safari_firstObjectPassingTest:&v25];
         authenticationServicesAgentProxy = self->_authenticationServicesAgentProxy;
         authenticatedContext = self->_authenticatedContext;
-        v19 = [(SFAccountPickerConfiguration *)self->_configuration savedAccountContext:v23];
-        [(WBSAuthenticationServicesAgentProxy *)authenticationServicesAgentProxy userSelectedAutoFillPasskey:v16 authenticatedLAContext:authenticatedContext savedAccountContext:v19 completionHandler:&__block_literal_global_250_0];
+        v20 = [(SFAccountPickerConfiguration *)self->_configuration savedAccountContext:v25];
+        [(WBSAuthenticationServicesAgentProxy *)authenticationServicesAgentProxy userSelectedAutoFillPasskey:v17 authenticatedLAContext:authenticatedContext savedAccountContext:v20 completionHandler:&__block_literal_global_250_0];
 
         delegate = [(_SFAccountPickerTableViewController *)self delegate];
         [delegate accountPickerTableViewControllerDidCancel:self];
@@ -1221,8 +1221,8 @@ LABEL_10:
 
       else
       {
-        v21 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+        v23 = WBS_LOG_CHANNEL_PREFIXAutoFill(0, v14);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
         {
           [_SFAccountPickerTableViewController tableView:didSelectRowAtIndexPath:];
         }
@@ -1237,16 +1237,16 @@ LABEL_10:
         goto LABEL_22;
       }
 
-      v14 = [(_SFAccountPickerTableViewController *)self _savedAccountForIndexPath:pathCopy];
-      if (v14)
+      v15 = [(_SFAccountPickerTableViewController *)self _savedAccountForIndexPath:pathCopy];
+      if (v15)
       {
-        [(_SFAccountPickerTableViewController *)self _didPickSavedAccountForPasswordButPresentAlertToAddAdditionalSiteIfApplicable:v14];
+        [(_SFAccountPickerTableViewController *)self _didPickSavedAccountForPasswordButPresentAlertToAddAdditionalSiteIfApplicable:v15];
       }
 
       else
       {
-        v22 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+        v24 = WBS_LOG_CHANNEL_PREFIXAutoFill(0, v22);
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
         {
           [_SFAccountPickerTableViewController tableView:didSelectRowAtIndexPath:];
         }
@@ -1271,12 +1271,12 @@ LABEL_10:
 
   v9 = self->_authenticationServicesAgentProxy;
   passkeyNearbyDeviceOptions = self->_passkeyNearbyDeviceOptions;
-  v28[0] = MEMORY[0x1E69E9820];
-  v28[1] = 3221225472;
-  v28[2] = __73___SFAccountPickerTableViewController_tableView_didSelectRowAtIndexPath___block_invoke;
-  v28[3] = &unk_1E848FA00;
-  v28[4] = self;
-  [(WBSAuthenticationServicesAgentProxy *)v9 userSelectedAutoFillNearbyDevice:passkeyNearbyDeviceOptions completionHandler:v28];
+  v30[0] = MEMORY[0x1E69E9820];
+  v30[1] = 3221225472;
+  v30[2] = __73___SFAccountPickerTableViewController_tableView_didSelectRowAtIndexPath___block_invoke;
+  v30[3] = &unk_1E848FA00;
+  v30[4] = self;
+  [(WBSAuthenticationServicesAgentProxy *)v9 userSelectedAutoFillNearbyDevice:passkeyNearbyDeviceOptions completionHandler:v30];
 LABEL_22:
 }
 
@@ -1773,10 +1773,10 @@ LABEL_22:
 
   if (section == self->_sectionForPasskeys)
   {
-    if (v6 < 0 || (v7 = 1120, v6 >= [(NSMutableArray *)self->_savedAccountsWithUsablePasskeys count]))
+    if (v6 < 0 || (v9 = 1120, v7 = [(NSMutableArray *)self->_savedAccountsWithUsablePasskeys count], v6 >= v7))
     {
-      v8 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v10 = WBS_LOG_CHANNEL_PREFIXAutoFill(v7, v8);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         [_SFAccountPickerTableViewController _savedAccountForIndexPath:];
       }
@@ -1785,16 +1785,16 @@ LABEL_22:
     }
 
 LABEL_14:
-    v10 = [*(&self->super.super.super.super.super.isa + v7) objectAtIndexedSubscript:v6];
+    v12 = [*(&self->super.super.super.super.super.isa + v9) objectAtIndexedSubscript:v6];
     goto LABEL_18;
   }
 
   if (section == self->_sectionForPasswordsMatchingHintStrings)
   {
-    if (v6 < 0 || (v7 = 1088, v6 >= [(NSMutableArray *)self->_savedAccountsMatchingHintStrings count]))
+    if (v6 < 0 || (v9 = 1088, v7 = [(NSMutableArray *)self->_savedAccountsMatchingHintStrings count], v6 >= v7))
     {
-      v9 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v11 = WBS_LOG_CHANNEL_PREFIXAutoFill(v7, v8);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         [_SFAccountPickerTableViewController _savedAccountForIndexPath:];
       }
@@ -1807,10 +1807,10 @@ LABEL_14:
 
   if (section == self->_sectionForAllPasswords)
   {
-    if (v6 < 0 || (v7 = 1104, v6 >= [(NSMutableArray *)self->_matchingSavedAccounts count]))
+    if (v6 < 0 || (v9 = 1104, v7 = [(NSMutableArray *)self->_matchingSavedAccounts count], v6 >= v7))
     {
-      v11 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v13 = WBS_LOG_CHANNEL_PREFIXAutoFill(v7, v8);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         [_SFAccountPickerTableViewController _savedAccountForIndexPath:];
       }
@@ -1822,10 +1822,10 @@ LABEL_14:
   }
 
 LABEL_17:
-  v10 = 0;
+  v12 = 0;
 LABEL_18:
 
-  return v10;
+  return v12;
 }
 
 - (id)_indexPathForSavedAccount:(id)account

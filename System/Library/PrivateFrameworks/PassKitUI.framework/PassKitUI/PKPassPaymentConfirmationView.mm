@@ -784,34 +784,50 @@ void __58__PKPassPaymentConfirmationView__updateContentPrimaryView__block_invoke
 
 - (void)layoutSubviews
 {
-  v19.receiver = self;
-  v19.super_class = PKPassPaymentConfirmationView;
-  [(PKPassFooterContentView *)&v19 layoutSubviews];
+  v35.receiver = self;
+  v35.super_class = PKPassPaymentConfirmationView;
+  [(PKPassFooterContentView *)&v35 layoutSubviews];
   [(PKPassPaymentConfirmationView *)self bounds];
-  x = v20.origin.x;
-  y = v20.origin.y;
-  width = v20.size.width;
-  height = v20.size.height;
+  x = v36.origin.x;
+  y = v36.origin.y;
+  width = v36.size.width;
+  height = v36.size.height;
   memset(&slice, 0, sizeof(slice));
-  remainder = v20;
-  CGRectDivide(v20, &slice, &remainder, 10.0, CGRectMinYEdge);
+  remainder = v36;
+  CGRectDivide(v36, &slice, &remainder, 10.0, CGRectMinYEdge);
+  v7 = *&remainder.origin.y;
+  v8 = *&remainder.origin.x;
+  v9 = *&remainder.size.height;
+  v10 = *&remainder.size.width;
   if ([(PKPassPaymentConfirmationView *)self _shouldDisplayPrimaryView]&& !self->_receivedTransaction)
   {
     [(UIView *)self->_displayedCellPrimary sizeThatFits:width, 1.79769313e308];
-    amount = v7;
+    amount = v11.n128_f64[0];
     displayedCellPrimary = self->_displayedCellPrimary;
-    PKSizeAlignedInRect();
+    v13.n128_u64[0] = v8;
+    v14.n128_u64[0] = v7;
+    v15.n128_u64[0] = v10;
+    v16.n128_u64[0] = v9;
+    PKSizeAlignedInRect(1, v17, v11, v13, v14, v15, v16, v18);
     [(UIView *)displayedCellPrimary pkui_setFrame:self->_animated animated:?];
     CGRectDivide(remainder, &slice, &remainder, amount, CGRectMinYEdge);
     CGRectDivide(remainder, &slice, &remainder, 10.0, CGRectMinYEdge);
+    v8 = *&remainder.origin.x;
+    v7 = *&remainder.origin.y;
+    v10 = *&remainder.size.width;
+    v9 = *&remainder.size.height;
   }
 
   if ([(PKPassPaymentConfirmationView *)self _shouldDisplaySecondaryView]&& !self->_receivedTransaction)
   {
     [(PKPaymentDashboardCellActionHandleable *)self->_singleValueCellSecondary sizeThatFits:width, 1.79769313e308];
-    amounta = v9;
+    amounta = v19.n128_f64[0];
     singleValueCellSecondary = self->_singleValueCellSecondary;
-    PKSizeAlignedInRect();
+    v21.n128_u64[0] = v8;
+    v22.n128_u64[0] = v7;
+    v23.n128_u64[0] = v10;
+    v24.n128_u64[0] = v9;
+    PKSizeAlignedInRect(1, v25, v19, v21, v22, v23, v24, v26);
     [(PKPaymentDashboardCellActionHandleable *)singleValueCellSecondary pkui_setFrame:self->_animated animated:?];
     CGRectDivide(remainder, &slice, &remainder, amounta, CGRectMinYEdge);
   }
@@ -820,29 +836,29 @@ void __58__PKPassPaymentConfirmationView__updateContentPrimaryView__block_invoke
   remainder.origin.y = y;
   remainder.size.width = width;
   remainder.size.height = height;
-  v21.origin.x = x;
-  v21.origin.y = y;
-  v21.size.width = width;
-  v21.size.height = height;
-  CGRectDivide(v21, &slice, &remainder, 10.0, CGRectMinYEdge);
+  v37.origin.x = x;
+  v37.origin.y = y;
+  v37.size.width = width;
+  v37.size.height = height;
+  CGRectDivide(v37, &slice, &remainder, 10.0, CGRectMinYEdge);
   if ([(PKPassPaymentConfirmationView *)self _shouldDisplayPrimaryView])
   {
-    v11 = self->_displayedCellPrimary;
-    if (v11)
+    v27 = self->_displayedCellPrimary;
+    if (v27)
     {
-      [(UIView *)v11 frame];
-      CGRectDivide(remainder, &slice, &remainder, v12, CGRectMinYEdge);
+      [(UIView *)v27 frame];
+      CGRectDivide(remainder, &slice, &remainder, v28, CGRectMinYEdge);
       CGRectDivide(remainder, &slice, &remainder, 10.0, CGRectMinYEdge);
     }
   }
 
   if ([(PKPassPaymentConfirmationView *)self _shouldDisplaySecondaryView])
   {
-    v13 = self->_singleValueCellSecondary;
-    if (v13)
+    v29 = self->_singleValueCellSecondary;
+    if (v29)
     {
-      [(PKPaymentDashboardCellActionHandleable *)v13 frame];
-      CGRectDivide(remainder, &slice, &remainder, v14, CGRectMinYEdge);
+      [(PKPaymentDashboardCellActionHandleable *)v29 frame];
+      CGRectDivide(remainder, &slice, &remainder, v30, CGRectMinYEdge);
     }
   }
 

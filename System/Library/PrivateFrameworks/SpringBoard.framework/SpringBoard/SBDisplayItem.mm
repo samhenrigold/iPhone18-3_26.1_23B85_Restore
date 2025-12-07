@@ -664,9 +664,9 @@ LABEL_19:
   v5 = 0;
   if (item && v3)
   {
-    if (*(item + 40) == *(v3 + 5))
+    if (*(item + 40) == v3[5])
     {
-      v5 = [*(item + 8) isEqualToString:*(v3 + 1)];
+      v5 = [*(item + 8) isEqualToString:v3[1]];
     }
 
     else

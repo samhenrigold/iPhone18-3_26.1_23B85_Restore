@@ -7,25 +7,23 @@
 
 + (void)activateWithDomainIdentifier:(id)identifier noteIdentifier:(id)noteIdentifier completion:(id)completion
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v9 = 0;
   if (identifier && noteIdentifier)
   {
-    v17[0] = identifier;
+    v16[0] = identifier;
     v10 = MEMORY[0x277CBEA60];
     noteIdentifierCopy = noteIdentifier;
     identifierCopy = identifier;
-    v13 = [v10 arrayWithObjects:v17 count:1];
-    v16 = noteIdentifierCopy;
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v16 count:1];
+    v13 = [v10 arrayWithObjects:v16 count:1];
+    v15 = noteIdentifierCopy;
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v15 count:1];
 
     v9 = SYMakeEditNoteUserActivity(v13, v14);
   }
 
   [self _activateWithActivity:v9 completion:completionCopy];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_activateWithActivity:(id)activity completion:(id)completion

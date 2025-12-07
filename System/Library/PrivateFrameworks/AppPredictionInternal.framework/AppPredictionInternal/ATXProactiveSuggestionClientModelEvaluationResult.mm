@@ -220,33 +220,33 @@ LABEL_9:
 - (id)filteredSuggestions:(id)suggestions removeDockedApps:(BOOL)apps
 {
   appsCopy = apps;
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   suggestionsCopy = suggestions;
   v7 = objc_opt_new();
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v8 = suggestionsCopy;
-  v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v20;
+    v11 = *v19;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v20 != v11)
+        if (*v19 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v19 + 1) + 8 * i);
+        v13 = *(*(&v18 + 1) + 8 * i);
         if (appsCopy)
         {
           dockedApps = self->_dockedApps;
-          executableIdentifier = [*(*(&v19 + 1) + 8 * i) executableIdentifier];
+          executableIdentifier = [*(*(&v18 + 1) + 8 * i) executableIdentifier];
           v16 = [(NSSet *)dockedApps containsObject:executableIdentifier];
         }
 
@@ -261,20 +261,18 @@ LABEL_9:
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v10);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
 - (id)description
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   v3 = [(NSMutableDictionary *)self->_shownInTop8PerCandidate keysSortedByValueUsingComparator:&__block_literal_global_80];
   v4 = [(NSMutableDictionary *)self->_shownInTop8PerCandidate count];
   if (v4 >= 0x14)
@@ -347,16 +345,16 @@ LABEL_9:
   [v7 appendFormat:@"# Sessions w predictions: %lu\n", self->_numberOfSessionsWithPredictions];
   [v7 appendFormat:@"# Sessions: %lu\n", self->_numberOfSessions];
   [v7 appendFormat:@"Top predicted candidates:\n"];
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
   v41 = 0u;
+  v42 = 0u;
+  v39 = 0u;
+  v40 = 0u;
   v13 = v6;
-  v14 = [v13 countByEnumeratingWithState:&v40 objects:v44 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v39 objects:v43 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v41;
+    v16 = *v40;
     v17 = 0.0;
     v18 = 0.0;
     v19 = 0.0;
@@ -364,12 +362,12 @@ LABEL_9:
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v41 != v16)
+        if (*v40 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v21 = *(*(&v40 + 1) + 8 * i);
+        v21 = *(*(&v39 + 1) + 8 * i);
         v22 = [(NSMutableDictionary *)self->_engagedInTop8PerCandidate objectForKeyedSubscript:v21];
         [v22 floatValue];
         v24 = v23;
@@ -394,10 +392,10 @@ LABEL_9:
         v17 = v17 + v35;
         v36 = [(NSMutableDictionary *)self->_shownInTop8PerCandidate objectForKeyedSubscript:v21];
         [v36 floatValue];
-        [v7 appendFormat:@"\t launched: %.02f; shown %.02f; precision %.02f; recall %.02f; f1 %.02f; candidate: %@\n", v35, (v37 / self->_numberOfSessions), *&v29, *&v24, v32, v21, v40];
+        [v7 appendFormat:@"\t launched: %.02f; shown %.02f; precision %.02f; recall %.02f; f1 %.02f; candidate: %@\n", v35, (v37 / self->_numberOfSessions), *&v29, *&v24, v32, v21, v39];
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v40 objects:v44 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v39 objects:v43 count:16];
     }
 
     while (v15);
@@ -412,8 +410,6 @@ LABEL_9:
 
   [v7 appendFormat:@"\tAverage F1 Score in top predicted candidates: %.02f\n", (v19 / objc_msgSend(v13, "count"))];
   [v7 appendFormat:@"\tLaunch-weighted Average F1 Score for top predicted candidates: %.02f\n", (v18 / v17)];
-
-  v38 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

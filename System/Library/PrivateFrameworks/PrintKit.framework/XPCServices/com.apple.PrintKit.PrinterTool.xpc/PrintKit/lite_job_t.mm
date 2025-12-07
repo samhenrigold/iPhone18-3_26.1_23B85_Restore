@@ -3,6 +3,7 @@
 + (void)cancelJob:(int)job;
 + (void)checkJobsOnMainQueue;
 + (void)getAllJobsCompletionHandler:(id)handler;
++ (void)getJobAttributes:(int)attributes includeThumbnail:(BOOL)thumbnail completionHandler:(id)handler;
 - (BOOL)_isCanceled:(id)canceled;
 - (BOOL)is_canceled;
 - (NSString)debugDescription;
@@ -32,6 +33,7 @@
 - (void)resetJob;
 - (void)set_cancel_flag;
 - (void)set_processing;
+- (void)updateSheetsAndPostNotification:(int)notification logMsg:(id)msg;
 @end
 
 @implementation lite_job_t
@@ -381,6 +383,15 @@ LABEL_38:
   [(lite_job_t *)self setLocalJobState:5];
 
   [(lite_job_t *)self postGlobalNotification:2048 logMsg:@"Job printing."];
+}
+
+- (void)updateSheetsAndPostNotification:(int)notification logMsg:(id)msg
+{
+  v4 = *&notification;
+  msgCopy = msg;
+  [(lite_job_t *)self setSheetsCompleted:v4];
+  self->_mediaProgress = 0;
+  [(lite_job_t *)self postGlobalNotification:0x10000 logMsg:msgCopy];
 }
 
 - (id)allowThisJobToProceedNoLock
@@ -989,7 +1000,7 @@ LABEL_11:
 
 - (id)logInfo
 {
-  v19[0] = @"isCanceled";
+  v20[0] = @"isCanceled";
   if ([(lite_job_t *)self is_canceled])
   {
     v3 = @"yes";
@@ -1000,49 +1011,37 @@ LABEL_11:
     v3 = @"no";
   }
 
-  v20[0] = v3;
-  v19[1] = @"printd_job_id";
-  v18 = [NSNumber numberWithInt:self->_printd_job_id];
-  v20[1] = v18;
-  v19[2] = @"printer_job_id";
-  v17 = [NSNumber numberWithInt:[(lite_job_t *)self destination_job_id]];
-  v20[2] = v17;
-  v19[3] = @"printer";
+  v21[0] = v3;
+  v20[1] = @"printd_job_id";
+  v19 = [NSNumber numberWithInt:self->_printd_job_id];
+  v21[1] = v19;
+  v20[2] = @"printer_job_id";
+  v18 = [NSNumber numberWithInt:[(lite_job_t *)self destination_job_id]];
+  v21[2] = v18;
+  v20[3] = @"printer";
   printer = [(lite_job_t *)self printer];
-  v15 = [printer debugDescription];
-  v20[3] = v15;
-  v19[4] = @"format";
+  v16 = [printer debugDescription];
+  v21[3] = v16;
+  v20[4] = @"format";
   spoolDocumentFormat = [(lite_job_t *)self spoolDocumentFormat];
-  v20[4] = spoolDocumentFormat;
-  v19[5] = @"filename";
+  v21[4] = spoolDocumentFormat;
+  v20[5] = @"filename";
   spoolDocumentFilename = [(lite_job_t *)self spoolDocumentFilename];
-  v20[5] = spoolDocumentFilename;
-  v19[6] = @"state";
-  v6 = jobStateString(self->_localJobState);
-  v20[6] = v6;
-  v19[7] = @"mediaProgress";
-  v7 = [NSNumber numberWithInt:self->_mediaProgress];
-  v20[7] = v7;
-  v19[8] = @"ready_time";
-  v8 = [NSDate dateWithTimeIntervalSince1970:[(lite_job_t *)self readyTime]];
-  v20[8] = v8;
-  v19[9] = @"ptr";
-  v9 = [NSString stringWithFormat:@"<%@@%p>", objc_opt_class(), self];
-  v20[9] = v9;
-  v19[10] = @"in_active_jobs";
+  v21[5] = spoolDocumentFilename;
+  v20[6] = @"state";
+  v7 = jobStateString(self->_localJobState, v6);
+  v21[6] = v7;
+  v20[7] = @"mediaProgress";
+  v8 = [NSNumber numberWithInt:self->_mediaProgress];
+  v21[7] = v8;
+  v20[8] = @"ready_time";
+  v9 = [NSDate dateWithTimeIntervalSince1970:[(lite_job_t *)self readyTime]];
+  v21[8] = v9;
+  v20[9] = @"ptr";
+  v10 = [NSString stringWithFormat:@"<%@@%p>", objc_opt_class(), self];
+  v21[9] = v10;
+  v20[10] = @"in_active_jobs";
   if ([qword_1000C7BE0 containsObject:self])
-  {
-    v10 = @"yes";
-  }
-
-  else
-  {
-    v10 = @"no";
-  }
-
-  v20[10] = v10;
-  v19[11] = @"in_processing_jobs";
-  if ([qword_1000C7BE8 containsObject:self])
   {
     v11 = @"yes";
   }
@@ -1052,18 +1051,30 @@ LABEL_11:
     v11 = @"no";
   }
 
-  v20[11] = v11;
-  v19[12] = @"try_count";
-  v12 = [NSNumber numberWithUnsignedInteger:[(lite_job_t *)self printTriesCount]];
-  v20[12] = v12;
-  v13 = [NSDictionary dictionaryWithObjects:v20 forKeys:v19 count:13];
+  v21[10] = v11;
+  v20[11] = @"in_processing_jobs";
+  if ([qword_1000C7BE8 containsObject:self])
+  {
+    v12 = @"yes";
+  }
 
-  return v13;
+  else
+  {
+    v12 = @"no";
+  }
+
+  v21[11] = v12;
+  v20[12] = @"try_count";
+  v13 = [NSNumber numberWithUnsignedInteger:[(lite_job_t *)self printTriesCount]];
+  v21[12] = v13;
+  v14 = [NSDictionary dictionaryWithObjects:v21 forKeys:v20 count:13];
+
+  return v14;
 }
 
 - (NSString)description
 {
-  v3 = jobStateString(self->_localJobState);
+  v3 = jobStateString(self->_localJobState, a2);
   if (self->_localJobState == 5)
   {
     v4 = [NSString stringWithFormat:@"%@ %ld of %ld", v3, [(lite_job_t *)self payloadSent], [(lite_job_t *)self payloadTotal]];
@@ -1086,6 +1097,53 @@ LABEL_11:
   v5 = [NSString stringWithFormat:@"%@ %@", v3, logInfo];
 
   return v5;
+}
+
++ (void)getJobAttributes:(int)attributes includeThumbnail:(BOOL)thumbnail completionHandler:(id)handler
+{
+  thumbnailCopy = thumbnail;
+  handlerCopy = handler;
+  pthread_mutex_lock(&stru_1000C7630);
+  v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v8 = qword_1000C7BD8;
+  v9 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  if (v9)
+  {
+    v10 = *v14;
+    while (2)
+    {
+      for (i = 0; i != v9; i = i + 1)
+      {
+        if (*v14 != v10)
+        {
+          objc_enumerationMutation(v8);
+        }
+
+        v12 = *(*(&v13 + 1) + 8 * i);
+        if ([v12 printd:v13 job:?id] == attributes)
+        {
+          v9 = [v12 getJobAttributes:thumbnailCopy];
+          goto LABEL_11;
+        }
+      }
+
+      v9 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      if (v9)
+      {
+        continue;
+      }
+
+      break;
+    }
+  }
+
+LABEL_11:
+
+  pthread_mutex_unlock(&stru_1000C7630);
+  handlerCopy[2](handlerCopy, v9);
 }
 
 - (id)getJobAttributes:(BOOL)attributes

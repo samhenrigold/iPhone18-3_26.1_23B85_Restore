@@ -62,27 +62,27 @@
 
 - (uint64_t)isUpdatedForBolt
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   accessories = [self accessories];
-  v2 = [accessories countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v2 = [accessories countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v11;
+    v4 = *v10;
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v11 != v4)
+        if (*v10 != v4)
         {
           objc_enumerationMutation(accessories);
         }
 
-        v6 = *(*(&v10 + 1) + 8 * i);
+        v6 = *(*(&v9 + 1) + 8 * i);
         if ([v6 isHomePod] && !objc_msgSend(v6, "supportsThirdPartyMusic"))
         {
           v7 = 0;
@@ -90,7 +90,7 @@
         }
       }
 
-      v3 = [accessories countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v3 = [accessories countByEnumeratingWithState:&v9 objects:v13 count:16];
       if (v3)
       {
         continue;
@@ -103,7 +103,6 @@
   v7 = 1;
 LABEL_12:
 
-  v8 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -130,7 +129,7 @@ LABEL_12:
 
   else
   {
-    v8 = _MSLogingFacility();
+    v8 = _MSLogingFacility(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [HMHome(MediaSetup) userIdentifierBelongsInHome:v8];
@@ -153,11 +152,10 @@ LABEL_12:
 
 - (void)userIdentifierBelongsInHome:()MediaSetup .cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[HMHome(MediaSetup) userIdentifierBelongsInHome:]";
-  _os_log_error_impl(&dword_23986C000, log, OS_LOG_TYPE_ERROR, "%s NIL userIdentifier passed", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[HMHome(MediaSetup) userIdentifierBelongsInHome:]";
+  _os_log_error_impl(&dword_23986C000, log, OS_LOG_TYPE_ERROR, "%s NIL userIdentifier passed", &v1, 0xCu);
 }
 
 @end

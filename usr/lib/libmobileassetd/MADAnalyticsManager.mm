@@ -367,55 +367,55 @@ LABEL_13:
     return;
   }
 
-  v26 = 66053;
+  v27 = 66053;
   v9 = [*(a1 + 40) eventName];
   v10 = [*(a1 + 40) eventUUID];
   v11 = [NSString stringWithFormat:@"%@_%@%s", v9, v10, ".MADAnalytics"];
 
   v12 = [*(*(a1 + 32) + 40) stringByAppendingPathComponent:v11];
-  IsVerboseLoggingEnabled = _MAPreferencesIsVerboseLoggingEnabled();
+  IsVerboseLoggingEnabled = _MAPreferencesIsVerboseLoggingEnabled(v12, v13);
   if (IsVerboseLoggingEnabled)
   {
-    v14 = _MADLog(@"Analytics");
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = _MADLog(@"Analytics");
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = [*(a1 + 40) eventName];
-      v16 = [*(a1 + 40) eventUUID];
+      v16 = [*(a1 + 40) eventName];
+      v17 = [*(a1 + 40) eventUUID];
       *buf = 138543874;
-      v28 = v15;
-      v29 = 2114;
-      v30 = v16;
-      v31 = 2114;
-      v32 = v12;
-      _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "Saving event %{public}@:%{public}@ to %{public}@", buf, 0x20u);
+      v29 = v16;
+      v30 = 2114;
+      v31 = v17;
+      v32 = 2114;
+      v33 = v12;
+      _os_log_impl(&dword_0, v15, OS_LOG_TYPE_DEFAULT, "Saving event %{public}@:%{public}@ to %{public}@", buf, 0x20u);
     }
   }
 
-  v17 = *(a1 + 40);
-  v25 = 0;
-  v18 = [NSKeyedArchiver archivedDataWithRootObject:v17 requiringSecureCoding:1 error:&v25];
-  v19 = v25;
-  if (v18 && ([v18 writeToFile:v12 atomically:1] & 1) != 0)
+  v18 = *(a1 + 40);
+  v26 = 0;
+  v19 = [NSKeyedArchiver archivedDataWithRootObject:v18 requiringSecureCoding:1 error:&v26];
+  v20 = v26;
+  if (v19 && ([v19 writeToFile:v12 atomically:1] & 1) != 0)
   {
     if (IsVerboseLoggingEnabled)
     {
-      v20 = _MADLog(@"Analytics");
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      v21 = _MADLog(@"Analytics");
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_0, v20, OS_LOG_TYPE_DEFAULT, "Successfully saved event", buf, 2u);
+        _os_log_impl(&dword_0, v21, OS_LOG_TYPE_DEFAULT, "Successfully saved event", buf, 2u);
       }
     }
 
-    if (fsctl([v12 UTF8String], 0xC0084A44uLL, &v26, 0))
+    if (fsctl([v12 UTF8String], 0xC0084A44uLL, &v27, 0))
     {
-      v21 = _MADLog(@"Analytics");
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      v22 = _MADLog(@"Analytics");
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
-        v22 = *__error();
+        v23 = *__error();
         *buf = 67109120;
-        LODWORD(v28) = v22;
-        _os_log_impl(&dword_0, v21, OS_LOG_TYPE_ERROR, "Failed to mark analytics file purgeable, errno:%d", buf, 8u);
+        LODWORD(v29) = v23;
+        _os_log_impl(&dword_0, v22, OS_LOG_TYPE_ERROR, "Failed to mark analytics file purgeable, errno:%d", buf, 8u);
       }
     }
 
@@ -424,18 +424,18 @@ LABEL_13:
 
   else
   {
-    v23 = _MADLog(@"Analytics");
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v24 = _MADLog(@"Analytics");
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
-      v24 = @"Unknown Archiver Error";
-      if (v19)
+      v25 = @"Unknown Archiver Error";
+      if (v20)
       {
-        v24 = v19;
+        v25 = v20;
       }
 
       *buf = 138543362;
-      v28 = v24;
-      _os_log_impl(&dword_0, v23, OS_LOG_TYPE_ERROR, "Unable to save MAD analytics event(%{public}@)", buf, 0xCu);
+      v29 = v25;
+      _os_log_impl(&dword_0, v24, OS_LOG_TYPE_ERROR, "Unable to save MAD analytics event(%{public}@)", buf, 0xCu);
     }
   }
 }
@@ -682,31 +682,31 @@ void __43__MADAnalyticsManager_analyticsPreferences__block_invoke(uint64_t a1)
 
 void __44__MADAnalyticsManager_removeEventsWithName___block_invoke(uint64_t a1)
 {
-  v31 = +[NSFileManager defaultManager];
+  v32 = +[NSFileManager defaultManager];
   v1 = [*(a1 + 32) savePath];
-  v2 = [v31 enumeratorAtPath:v1];
+  v2 = [v32 enumeratorAtPath:v1];
 
-  v38 = 0u;
   v39 = 0u;
-  v36 = 0u;
+  v40 = 0u;
   v37 = 0u;
+  v38 = 0u;
   obj = v2;
-  v3 = [obj countByEnumeratingWithState:&v36 objects:v44 count:16];
+  v3 = [obj countByEnumeratingWithState:&v37 objects:v45 count:16];
   if (v3)
   {
-    v34 = *v37;
+    v35 = *v38;
     *&v4 = 138543362;
-    v29 = v4;
+    v30 = v4;
     while (2)
     {
       for (i = 0; i != v3; i = i + 1)
       {
-        if (*v37 != v34)
+        if (*v38 != v35)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v36 + 1) + 8 * i);
+        v6 = *(*(&v37 + 1) + 8 * i);
         v7 = objc_autoreleasePoolPush();
         if ([v6 hasSuffix:@".MADAnalytics"])
         {
@@ -714,110 +714,110 @@ void __44__MADAnalyticsManager_removeEventsWithName___block_invoke(uint64_t a1)
           v9 = [v8 stringByAppendingPathComponent:v6];
 
           v10 = [*(a1 + 32) copyEventFromPath:v9];
-          IsVerboseLoggingEnabled = _MAPreferencesIsVerboseLoggingEnabled();
-          if (v10 && (v12 = IsVerboseLoggingEnabled, [v10 eventName], v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v13, "isEqualToString:", *(a1 + 40)), v13, v14))
+          IsVerboseLoggingEnabled = _MAPreferencesIsVerboseLoggingEnabled(v10, v11);
+          if (v10 && (v13 = IsVerboseLoggingEnabled, [v10 eventName], v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v14, "isEqualToString:", *(a1 + 40)), v14, v15))
           {
-            v35 = 0;
-            [v31 removeItemAtPath:v9 error:&v35];
-            v15 = v35;
-            if (v15)
+            v36 = 0;
+            [v32 removeItemAtPath:v9 error:&v36];
+            v16 = v36;
+            if (v16)
             {
-              v16 = v15;
-              v17 = _MADLog(@"Analytics");
-              if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+              v17 = v16;
+              v18 = _MADLog(@"Analytics");
+              if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138543618;
-                v41 = v9;
-                v42 = 2114;
-                v43 = v16;
-                _os_log_impl(&dword_0, v17, OS_LOG_TYPE_ERROR, "Unable to remove event file %{public}@: %{public}@", buf, 0x16u);
+                v42 = v9;
+                v43 = 2114;
+                v44 = v17;
+                _os_log_impl(&dword_0, v18, OS_LOG_TYPE_ERROR, "Unable to remove event file %{public}@: %{public}@", buf, 0x16u);
               }
             }
 
             else
             {
-              if (v12)
+              if (v13)
               {
-                v18 = _MADLog(@"Analytics");
-                if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+                v19 = _MADLog(@"Analytics");
+                if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
                 {
-                  *buf = v29;
-                  v41 = v9;
-                  _os_log_impl(&dword_0, v18, OS_LOG_TYPE_DEFAULT, "Successfully removed event file %{public}@", buf, 0xCu);
+                  *buf = v30;
+                  v42 = v9;
+                  _os_log_impl(&dword_0, v19, OS_LOG_TYPE_DEFAULT, "Successfully removed event file %{public}@", buf, 0xCu);
                 }
               }
 
-              v17 = [*(a1 + 32) assetTypeEventTracker];
-              objc_sync_enter(v17);
-              v19 = [v10 eventPayload];
-              if (!v19)
+              v18 = [*(a1 + 32) assetTypeEventTracker];
+              objc_sync_enter(v18);
+              v20 = [v10 eventPayload];
+              if (!v20)
               {
-                v28 = _MADLog(@"Analytics");
-                if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+                v29 = _MADLog(@"Analytics");
+                if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 0;
-                  _os_log_impl(&dword_0, v28, OS_LOG_TYPE_ERROR, "Unable to read event to decrement tracker!", buf, 2u);
+                  _os_log_impl(&dword_0, v29, OS_LOG_TYPE_ERROR, "Unable to read event to decrement tracker!", buf, 2u);
                 }
 
                 goto LABEL_35;
               }
 
-              v30 = v19;
-              v20 = [v19 objectForKey:@"AssetType"];
-              if (!v20 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+              v31 = v20;
+              v21 = [v20 objectForKey:@"AssetType"];
+              if (!v21 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
               {
-                v26 = _MADLog(@"Analytics");
-                if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+                v27 = _MADLog(@"Analytics");
+                if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 0;
-                  _os_log_impl(&dword_0, v26, OS_LOG_TYPE_ERROR, "Unable to read assetType to decrement tracker!", buf, 2u);
+                  _os_log_impl(&dword_0, v27, OS_LOG_TYPE_ERROR, "Unable to read assetType to decrement tracker!", buf, 2u);
                 }
 
                 goto LABEL_34;
               }
 
-              v21 = v20;
-              v22 = [*(a1 + 32) assetTypeEventTracker];
-              v23 = [v22 objectForKey:v21];
+              v22 = v21;
+              v23 = [*(a1 + 32) assetTypeEventTracker];
+              v24 = [v23 objectForKey:v22];
 
-              if (!v23 || [v23 intValue] <= 0)
+              if (!v24 || [v24 intValue] <= 0)
               {
-                v27 = _MADLog(@"Analytics");
-                if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+                v28 = _MADLog(@"Analytics");
+                if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
                 {
-                  *buf = v29;
-                  v41 = v21;
-                  _os_log_impl(&dword_0, v27, OS_LOG_TYPE_ERROR, "Unable to read number of events written for assetType: %{public}@", buf, 0xCu);
+                  *buf = v30;
+                  v42 = v22;
+                  _os_log_impl(&dword_0, v28, OS_LOG_TYPE_ERROR, "Unable to read number of events written for assetType: %{public}@", buf, 0xCu);
                 }
 
 LABEL_34:
-                v28 = v30;
+                v29 = v31;
 LABEL_35:
 
-                objc_sync_exit(v17);
+                objc_sync_exit(v18);
                 objc_autoreleasePoolPop(v7);
                 goto LABEL_36;
               }
 
-              v24 = [*(a1 + 32) assetTypeEventTracker];
-              v25 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [v23 intValue] - 1);
-              [v24 setObject:v25 forKey:v21];
+              v25 = [*(a1 + 32) assetTypeEventTracker];
+              v26 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [v24 intValue] - 1);
+              [v25 setObject:v26 forKey:v22];
 
-              objc_sync_exit(v17);
-              v16 = 0;
+              objc_sync_exit(v18);
+              v17 = 0;
             }
           }
 
           else
           {
-            v16 = 0;
+            v17 = 0;
           }
         }
 
         objc_autoreleasePoolPop(v7);
       }
 
-      v3 = [obj countByEnumeratingWithState:&v36 objects:v44 count:16];
+      v3 = [obj countByEnumeratingWithState:&v37 objects:v45 count:16];
       if (v3)
       {
         continue;
@@ -848,125 +848,125 @@ void __38__MADAnalyticsManager_removeAllEvents__block_invoke(uint64_t a1)
   v3 = [*(a1 + 32) savePath];
   v4 = [v2 enumeratorAtPath:v3];
 
-  IsVerboseLoggingEnabled = _MAPreferencesIsVerboseLoggingEnabled();
-  v29 = 0u;
-  v30 = 0u;
+  IsVerboseLoggingEnabled = _MAPreferencesIsVerboseLoggingEnabled(v5, v6);
   v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   obj = v4;
-  v5 = [obj countByEnumeratingWithState:&v29 objects:v37 count:16];
-  if (v5)
+  v7 = [obj countByEnumeratingWithState:&v31 objects:v39 count:16];
+  if (v7)
   {
-    v6 = *v30;
+    v8 = *v32;
     do
     {
-      for (i = 0; i != v5; i = i + 1)
+      for (i = 0; i != v7; i = i + 1)
       {
-        if (*v30 != v6)
+        if (*v32 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v29 + 1) + 8 * i);
-        v9 = objc_autoreleasePoolPush();
-        v10 = [v8 hasSuffix:@".MADAnalytics"];
-        v11 = [*(a1 + 32) savePath];
-        v12 = [v11 stringByAppendingPathComponent:v8];
+        v10 = *(*(&v31 + 1) + 8 * i);
+        v11 = objc_autoreleasePoolPush();
+        v12 = [v10 hasSuffix:@".MADAnalytics"];
+        v13 = [*(a1 + 32) savePath];
+        v14 = [v13 stringByAppendingPathComponent:v10];
 
-        if (v10)
+        if (v12)
         {
-          v28 = 0;
-          v13 = [v2 removeItemAtPath:v12 error:&v28];
-          v14 = v28;
-          if (v13)
+          v30 = 0;
+          v15 = [v2 removeItemAtPath:v14 error:&v30];
+          v16 = v30;
+          if (v15)
           {
             if (!IsVerboseLoggingEnabled)
             {
               goto LABEL_27;
             }
 
-            v15 = _MADLog(@"Analytics");
-            if (!os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+            v17 = _MADLog(@"Analytics");
+            if (!os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
             {
               goto LABEL_26;
             }
 
             *buf = 138543362;
-            v34 = v12;
-            v16 = v15;
-            v17 = OS_LOG_TYPE_DEFAULT;
-            v18 = "Successfully removed event file %{public}@";
+            v36 = v14;
+            v18 = v17;
+            v19 = OS_LOG_TYPE_DEFAULT;
+            v20 = "Successfully removed event file %{public}@";
 LABEL_15:
-            v20 = 12;
+            v22 = 12;
             goto LABEL_25;
           }
 
-          v15 = _MADLog(@"Analytics");
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+          v17 = _MADLog(@"Analytics");
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
           {
             *buf = 138543618;
-            v21 = @"Unknown Error";
-            if (v14)
+            v23 = @"Unknown Error";
+            if (v16)
             {
-              v21 = v14;
+              v23 = v16;
             }
 
-            v34 = v12;
-            v35 = 2114;
-            v36 = v21;
-            v16 = v15;
-            v17 = OS_LOG_TYPE_ERROR;
-            v18 = "Unable to remove event file %{public}@: %{public}@";
+            v36 = v14;
+            v37 = 2114;
+            v38 = v23;
+            v18 = v17;
+            v19 = OS_LOG_TYPE_ERROR;
+            v20 = "Unable to remove event file %{public}@: %{public}@";
             goto LABEL_24;
           }
         }
 
         else
         {
-          v27 = 0;
-          v19 = [v2 removeItemAtPath:v12 error:&v27];
-          v14 = v27;
-          if (v19)
+          v29 = 0;
+          v21 = [v2 removeItemAtPath:v14 error:&v29];
+          v16 = v29;
+          if (v21)
           {
             if (!IsVerboseLoggingEnabled)
             {
               goto LABEL_27;
             }
 
-            v15 = _MADLog(@"Analytics");
-            if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+            v17 = _MADLog(@"Analytics");
+            if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138543362;
-              v34 = v12;
-              v16 = v15;
-              v17 = OS_LOG_TYPE_DEFAULT;
-              v18 = "Successfully removed item %{public}@";
+              v36 = v14;
+              v18 = v17;
+              v19 = OS_LOG_TYPE_DEFAULT;
+              v20 = "Successfully removed item %{public}@";
               goto LABEL_15;
             }
           }
 
           else
           {
-            v15 = _MADLog(@"Analytics");
-            if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+            v17 = _MADLog(@"Analytics");
+            if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
             {
               *buf = 138543618;
-              v22 = @"Unknown Error";
-              if (v14)
+              v24 = @"Unknown Error";
+              if (v16)
               {
-                v22 = v14;
+                v24 = v16;
               }
 
-              v34 = v12;
-              v35 = 2114;
-              v36 = v22;
-              v16 = v15;
-              v17 = OS_LOG_TYPE_ERROR;
-              v18 = "Unable to remove item %{public}@: %{public}@";
+              v36 = v14;
+              v37 = 2114;
+              v38 = v24;
+              v18 = v17;
+              v19 = OS_LOG_TYPE_ERROR;
+              v20 = "Unable to remove item %{public}@: %{public}@";
 LABEL_24:
-              v20 = 22;
+              v22 = 22;
 LABEL_25:
-              _os_log_impl(&dword_0, v16, v17, v18, buf, v20);
+              _os_log_impl(&dword_0, v18, v19, v20, buf, v22);
             }
           }
         }
@@ -974,21 +974,21 @@ LABEL_25:
 LABEL_26:
 
 LABEL_27:
-        objc_autoreleasePoolPop(v9);
+        objc_autoreleasePoolPop(v11);
       }
 
-      v5 = [obj countByEnumeratingWithState:&v29 objects:v37 count:16];
+      v7 = [obj countByEnumeratingWithState:&v31 objects:v39 count:16];
     }
 
-    while (v5);
+    while (v7);
   }
 
-  v23 = [*(a1 + 32) assetTypeEventTracker];
-  objc_sync_enter(v23);
-  v24 = objc_opt_new();
-  [*(a1 + 32) setAssetTypeEventTracker:v24];
+  v25 = [*(a1 + 32) assetTypeEventTracker];
+  objc_sync_enter(v25);
+  v26 = objc_opt_new();
+  [*(a1 + 32) setAssetTypeEventTracker:v26];
 
-  objc_sync_exit(v23);
+  objc_sync_exit(v25);
 }
 
 - (void)submitEvent:(id)event
@@ -1013,76 +1013,76 @@ void __35__MADAnalyticsManager_submitEvent___block_invoke(uint64_t a1)
   v4 = [*(a1 + 32) eventUUID];
   v5 = [NSString stringWithFormat:@"%@_%@%s", v3, v4, ".MADAnalytics"];
 
-  IsVerboseLoggingEnabled = _MAPreferencesIsVerboseLoggingEnabled();
+  IsVerboseLoggingEnabled = _MAPreferencesIsVerboseLoggingEnabled(v6, v7);
   if ([*(a1 + 40) reportingLevel] > -10)
   {
-    v7 = [*(*(a1 + 40) + 40) stringByAppendingPathComponent:v5];
-    if (![v2 fileExistsAtPath:v7])
+    v9 = [*(*(a1 + 40) + 40) stringByAppendingPathComponent:v5];
+    if (![v2 fileExistsAtPath:v9])
     {
-      v9 = _MADLog(@"Analytics");
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v11 = _MADLog(@"Analytics");
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        v11 = [*(a1 + 32) eventName];
-        v12 = [*(a1 + 32) eventUUID];
+        v13 = [*(a1 + 32) eventName];
+        v14 = [*(a1 + 32) eventUUID];
         *buf = 138543618;
-        v18 = v11;
-        v19 = 2114;
-        v20 = v12;
-        _os_log_impl(&dword_0, v9, OS_LOG_TYPE_ERROR, "Event %{public}@ with uuid %{public}@ does not exist", buf, 0x16u);
+        v20 = v13;
+        v21 = 2114;
+        v22 = v14;
+        _os_log_impl(&dword_0, v11, OS_LOG_TYPE_ERROR, "Event %{public}@ with uuid %{public}@ does not exist", buf, 0x16u);
       }
 
-      v8 = 0;
+      v10 = 0;
       goto LABEL_22;
     }
 
-    v9 = [*(a1 + 40) copyEventFromPath:v7];
-    if (v9)
+    v11 = [*(a1 + 40) copyEventFromPath:v9];
+    if (v11)
     {
-      [*(a1 + 40) _queue_setEvent:v9];
-      [*(a1 + 40) _queue_submitEvent:v9];
+      [*(a1 + 40) _queue_setEvent:v11];
+      [*(a1 + 40) _queue_submitEvent:v11];
       if (!IsVerboseLoggingEnabled)
       {
         goto LABEL_18;
       }
 
-      v10 = _MADLog(@"Analytics");
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v12 = _MADLog(@"Analytics");
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v18 = v9;
-        _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "Submitted event %{public}@\n", buf, 0xCu);
+        v20 = v11;
+        _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "Submitted event %{public}@\n", buf, 0xCu);
       }
     }
 
     else
     {
-      v10 = _MADLog(@"Analytics");
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v12 = _MADLog(@"Analytics");
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        v13 = [*(a1 + 32) eventName];
-        v14 = [*(a1 + 32) eventUUID];
+        v15 = [*(a1 + 32) eventName];
+        v16 = [*(a1 + 32) eventUUID];
         *buf = 138543618;
-        v18 = v13;
-        v19 = 2114;
-        v20 = v14;
-        _os_log_impl(&dword_0, v10, OS_LOG_TYPE_ERROR, "Unable to find/reconstruct stashed event for event %{public}@ with uuid %{public}@", buf, 0x16u);
+        v20 = v15;
+        v21 = 2114;
+        v22 = v16;
+        _os_log_impl(&dword_0, v12, OS_LOG_TYPE_ERROR, "Unable to find/reconstruct stashed event for event %{public}@ with uuid %{public}@", buf, 0x16u);
       }
     }
 
 LABEL_18:
-    v16 = 0;
-    [v2 removeItemAtPath:v7 error:&v16];
-    v8 = v16;
-    if (v8)
+    v18 = 0;
+    [v2 removeItemAtPath:v9 error:&v18];
+    v10 = v18;
+    if (v10)
     {
-      v15 = _MADLog(@"Analytics");
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v17 = _MADLog(@"Analytics");
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543618;
-        v18 = v7;
-        v19 = 2114;
-        v20 = v8;
-        _os_log_impl(&dword_0, v15, OS_LOG_TYPE_ERROR, "Failed to remove event file after event submission %{public}@: %{public}@", buf, 0x16u);
+        v20 = v9;
+        v21 = 2114;
+        v22 = v10;
+        _os_log_impl(&dword_0, v17, OS_LOG_TYPE_ERROR, "Failed to remove event file after event submission %{public}@: %{public}@", buf, 0x16u);
       }
     }
 
@@ -1094,19 +1094,19 @@ LABEL_23:
 
   if (IsVerboseLoggingEnabled)
   {
-    v7 = _MADLog(@"Analytics");
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v9 = _MADLog(@"Analytics");
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v18 = v5;
-      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "Submit called for event but reportingLevel does not allow sending. Skipping event: %{public}@", buf, 0xCu);
+      v20 = v5;
+      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "Submit called for event but reportingLevel does not allow sending. Skipping event: %{public}@", buf, 0xCu);
     }
 
-    v8 = 0;
+    v10 = 0;
     goto LABEL_23;
   }
 
-  v8 = 0;
+  v10 = 0;
 LABEL_24:
 }
 
@@ -1421,34 +1421,34 @@ LABEL_7:
   v15 = [(MADAnalyticsManager *)self recordEventWithName:@"com.apple.mobileassetd.Download.Success" assetType:v16 payload:v14];
 }
 
-void __44__MADAnalyticsManager_eventRecordingEnabled__block_invoke(uint64_t a1)
+void __44__MADAnalyticsManager_eventRecordingEnabled__block_invoke(uint64_t a1, uint64_t a2)
 {
   mainPort = 0;
-  if (_MAPreferencesIsInternalAllowed())
+  if (_MAPreferencesIsInternalAllowed(a1, a2))
   {
     buf[0] = 0;
     AppBooleanValue = _MAPreferencesGetAppBooleanValue(@"AnalyticsClientNameTestToolOverride", buf);
     if (buf[0])
     {
-      v3 = AppBooleanValue == 0;
+      v4 = AppBooleanValue == 0;
     }
 
     else
     {
-      v3 = 1;
+      v4 = 1;
     }
 
-    if (!v3)
+    if (!v4)
     {
       [*(a1 + 32) setOverrideClientNameAsTestTool:1];
     }
 
     if (([*(a1 + 32) overrideClientNameAsTestTool] & 1) == 0)
     {
-      v4 = _MAPreferencesGetAppBooleanValue(@"AnalyticsClientNameTestToolPrepend", buf);
+      v5 = _MAPreferencesGetAppBooleanValue(@"AnalyticsClientNameTestToolPrepend", buf);
       if (buf[0])
       {
-        if (v4)
+        if (v5)
         {
           [*(a1 + 32) setPrependClientNameWithTestTool:1];
         }
@@ -1456,12 +1456,12 @@ void __44__MADAnalyticsManager_eventRecordingEnabled__block_invoke(uint64_t a1)
     }
   }
 
-  v5 = IOMasterPort(bootstrap_port, &mainPort);
-  if (v5)
+  v6 = IOMasterPort(bootstrap_port, &mainPort);
+  if (v6)
   {
-    v6 = v5;
-    v7 = _MADLog(@"Analytics");
-    if (!os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v7 = v6;
+    v8 = _MADLog(@"Analytics");
+    if (!os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
 LABEL_15:
 
@@ -1469,121 +1469,121 @@ LABEL_15:
     }
 
     *buf = 136446466;
-    v27 = "[MADAnalyticsManager eventRecordingEnabled]_block_invoke";
-    v28 = 1024;
-    LODWORD(v29) = v6;
-    v8 = "%{public}s: Unable to get event submission overrides(Could not get master port[%d])";
-    v9 = v7;
-    v10 = 18;
+    v28 = "[MADAnalyticsManager eventRecordingEnabled]_block_invoke";
+    v29 = 1024;
+    LODWORD(v30) = v7;
+    v9 = "%{public}s: Unable to get event submission overrides(Could not get master port[%d])";
+    v10 = v8;
+    v11 = 18;
 LABEL_14:
-    _os_log_impl(&dword_0, v9, OS_LOG_TYPE_ERROR, v8, buf, v10);
+    _os_log_impl(&dword_0, v10, OS_LOG_TYPE_ERROR, v9, buf, v11);
     goto LABEL_15;
   }
 
-  v13 = IORegistryEntryFromPath(mainPort, "IODeviceTree:/options");
-  if (!v13)
+  v14 = IORegistryEntryFromPath(mainPort, "IODeviceTree:/options");
+  if (!v14)
   {
-    v7 = _MADLog(@"Analytics");
-    if (!os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _MADLog(@"Analytics");
+    if (!os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_15;
     }
 
     *buf = 136446210;
-    v27 = "[MADAnalyticsManager eventRecordingEnabled]_block_invoke";
-    v8 = "%{public}s: Unable to get event submission override(unable to get options entry from the device tree)";
-    v9 = v7;
-    v10 = 12;
+    v28 = "[MADAnalyticsManager eventRecordingEnabled]_block_invoke";
+    v9 = "%{public}s: Unable to get event submission override(unable to get options entry from the device tree)";
+    v10 = v8;
+    v11 = 12;
     goto LABEL_14;
   }
 
-  v14 = v13;
-  CFProperty = IORegistryEntryCreateCFProperty(v13, @"stress-rack", kCFAllocatorDefault, 0);
+  v15 = v14;
+  CFProperty = IORegistryEntryCreateCFProperty(v14, @"stress-rack", kCFAllocatorDefault, 0);
   if (CFProperty)
   {
-    v16 = CFProperty;
-    v17 = _MADLog(@"Analytics");
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+    v17 = CFProperty;
+    v18 = _MADLog(@"Analytics");
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315138;
-      v27 = "[MADAnalyticsManager eventRecordingEnabled]_block_invoke";
-      _os_log_impl(&dword_0, v17, OS_LOG_TYPE_DEBUG, "%s: Stress rack flag detected", buf, 0xCu);
+      v28 = "[MADAnalyticsManager eventRecordingEnabled]_block_invoke";
+      _os_log_impl(&dword_0, v18, OS_LOG_TYPE_DEBUG, "%s: Stress rack flag detected", buf, 0xCu);
     }
 
     eventRecordingEnabled_recordingEnabled = 1;
-    CFRelease(v16);
+    CFRelease(v17);
   }
 
-  v18 = IORegistryEntryCreateCFProperty(v14, @"boot-args", kCFAllocatorDefault, 0);
-  v19 = _MADLog(@"Analytics");
-  v20 = v19;
-  if (v18)
+  v19 = IORegistryEntryCreateCFProperty(v15, @"boot-args", kCFAllocatorDefault, 0);
+  v20 = _MADLog(@"Analytics");
+  v21 = v20;
+  if (v19)
   {
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v20, OS_LOG_TYPE_DEBUG, "Checking for test environment", buf, 2u);
+      _os_log_impl(&dword_0, v21, OS_LOG_TYPE_DEBUG, "Checking for test environment", buf, 2u);
     }
 
-    v20 = v18;
+    v21 = v19;
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) != 0 && [v20 containsString:@"TESTPLAN_ID"])
+    if ((objc_opt_isKindOfClass() & 1) != 0 && [v21 containsString:@"TESTPLAN_ID"])
     {
-      v21 = _MADLog(@"Analytics");
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+      v22 = _MADLog(@"Analytics");
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315138;
-        v27 = "[MADAnalyticsManager eventRecordingEnabled]_block_invoke";
-        _os_log_impl(&dword_0, v21, OS_LOG_TYPE_DEBUG, "%s: Test flag detected", buf, 0xCu);
+        v28 = "[MADAnalyticsManager eventRecordingEnabled]_block_invoke";
+        _os_log_impl(&dword_0, v22, OS_LOG_TYPE_DEBUG, "%s: Test flag detected", buf, 0xCu);
       }
 
       eventRecordingEnabled_recordingEnabled = 1;
     }
 
-    CFRelease(v20);
+    CFRelease(v21);
   }
 
-  else if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
   {
     *buf = 136446210;
-    v27 = "[MADAnalyticsManager eventRecordingEnabled]_block_invoke";
-    _os_log_impl(&dword_0, v20, OS_LOG_TYPE_ERROR, "%{public}s: Failed to read boot-args", buf, 0xCu);
+    v28 = "[MADAnalyticsManager eventRecordingEnabled]_block_invoke";
+    _os_log_impl(&dword_0, v21, OS_LOG_TYPE_ERROR, "%{public}s: Failed to read boot-args", buf, 0xCu);
   }
 
-  v22 = IORegistryEntryCreateCFProperty(v14, @"ma-analytics-force-submit", kCFAllocatorDefault, 0);
-  if (v22)
+  v23 = IORegistryEntryCreateCFProperty(v15, @"ma-analytics-force-submit", kCFAllocatorDefault, 0);
+  if (v23)
   {
-    v23 = v22;
-    v24 = _MADLog(@"Analytics");
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+    v24 = v23;
+    v25 = _MADLog(@"Analytics");
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v24, OS_LOG_TYPE_DEBUG, "Analytics force submit flag detected", buf, 2u);
+      _os_log_impl(&dword_0, v25, OS_LOG_TYPE_DEBUG, "Analytics force submit flag detected", buf, 2u);
     }
 
     eventRecordingEnabled_recordingEnabled = 0;
-    CFRelease(v23);
+    CFRelease(v24);
   }
 
 LABEL_16:
-  v11 = _MADLog(@"Analytics");
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = _MADLog(@"Analytics");
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     if (eventRecordingEnabled_recordingEnabled)
     {
-      v12 = "disabled";
+      v13 = "disabled";
     }
 
     else
     {
-      v12 = "enabled";
+      v13 = "enabled";
     }
 
     *buf = 136446466;
-    v27 = "[MADAnalyticsManager eventRecordingEnabled]_block_invoke";
-    v28 = 2082;
-    v29 = v12;
-    _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "%{public}s: Analytics event recording is %{public}s", buf, 0x16u);
+    v28 = "[MADAnalyticsManager eventRecordingEnabled]_block_invoke";
+    v29 = 2082;
+    v30 = v13;
+    _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "%{public}s: Analytics event recording is %{public}s", buf, 0x16u);
   }
 }
 
@@ -1610,22 +1610,22 @@ LABEL_16:
   urlCopy = url;
   nameCopy = name;
   v29 = [(MADAnalyticsManager *)self nilToNoneString:type];
-  v110 = [(MADAnalyticsManager *)self removePrefix:@"com.apple.MobileAsset." fromString:v29];
+  v112 = [(MADAnalyticsManager *)self removePrefix:@"com.apple.MobileAsset." fromString:v29];
 
   v30 = [(MADAnalyticsManager *)self nilToNoneString:resultCopy];
 
-  v102 = [(MADAnalyticsManager *)self removePrefix:@"MADownload" fromString:v30];
+  v104 = [(MADAnalyticsManager *)self removePrefix:@"MADownload" fromString:v30];
 
   v31 = [(MADAnalyticsManager *)self nilToNoneString:purposeCopy];
 
   v32 = [(MADAnalyticsManager *)self nilToNoneString:nameCopy];
 
-  v98 = [(MADAnalyticsManager *)self nilToNoneString:fileTypeCopy];
+  v100 = [(MADAnalyticsManager *)self nilToNoneString:fileTypeCopy];
 
   v33 = writtenCopy;
-  v100 = [(MADAnalyticsManager *)self nilToNoneString:urlCopy];
+  v102 = [(MADAnalyticsManager *)self nilToNoneString:urlCopy];
 
-  v96 = [(MADAnalyticsManager *)self nilToNoneString:pathCopy];
+  v98 = [(MADAnalyticsManager *)self nilToNoneString:pathCopy];
 
   v34 = [(MADAnalyticsManager *)self nilToNoneString:versionCopy];
 
@@ -1640,20 +1640,20 @@ LABEL_16:
     v35 = [[NSNumber alloc] initWithLongLong:0];
   }
 
-  v95 = [(MADAnalyticsManager *)self yesNoString:pallas];
+  v97 = [(MADAnalyticsManager *)self yesNoString:pallas];
   v36 = [(MADAnalyticsManager *)self yesNoString:download];
   selfCopy = self;
   v37 = [(MADAnalyticsManager *)self yesNoString:priority];
   v38 = objc_alloc_init(NSMutableDictionary);
-  [v38 setSafeObject:v110 forKey:@"AssetType"];
-  v91 = v32;
+  [v38 setSafeObject:v112 forKey:@"AssetType"];
+  v93 = v32;
   v39 = v32;
   v40 = v38;
   [v38 setSafeObject:v39 forKey:@"ClientName"];
-  v90 = v31;
+  v92 = v31;
   [v38 setSafeObject:v31 forKey:@"Purpose"];
-  [v38 setSafeObject:v98 forKey:@"FileType"];
-  v88 = v36;
+  [v38 setSafeObject:v100 forKey:@"FileType"];
+  v90 = v36;
   [v38 setSafeObject:v36 forKey:@"IsAutoDownload"];
   p_weak_ivar_lyt = &MAAIRBMobileAssetOperationMetadata__metaData.weak_ivar_lyt;
   v43 = metricsCopy;
@@ -1667,21 +1667,21 @@ LABEL_16:
     }
   }
 
-  [v38 setSafeObject:v102 forKey:@"Result"];
+  [v38 setSafeObject:v104 forKey:@"Result"];
   [v38 setSafeObject:v33 forKey:@"BytesWritten"];
   [v38 setSafeObject:v35 forKey:@"BytesTransferredEst"];
-  [v38 setSafeObject:v100 forKey:@"BaseURL"];
-  [v38 setSafeObject:v96 forKey:@"RelativePath"];
-  v87 = v37;
+  [v38 setSafeObject:v102 forKey:@"BaseURL"];
+  [v38 setSafeObject:v98 forKey:@"RelativePath"];
+  v89 = v37;
   [v38 setSafeObject:v37 forKey:@"IsUserPriority"];
-  [v38 setSafeObject:v95 forKey:@"IsPallas"];
-  v89 = v34;
+  [v38 setSafeObject:v97 forKey:@"IsPallas"];
+  v91 = v34;
   [v38 setSafeObject:v34 forKey:@"BrainVersion"];
   [v38 setSafeObject:@"NO" forKey:@"IsAssetPatch"];
   [v38 setSafeObject:@"NO" forKey:@"IsMAAutoAsset"];
   [v38 setSafeObject:@"NO" forKey:@"BaseAssetVersion"];
   [v38 setSafeObject:@"NO" forKey:@"WasAssetPatchingAttempted"];
-  v111 = v38;
+  v113 = v38;
   if (metricsCopy && ([metricsCopy transactionMetrics], (v44 = objc_claimAutoreleasedReturnValue()) != 0) && (v45 = v44, objc_msgSend(metricsCopy, "transactionMetrics"), v46 = objc_claimAutoreleasedReturnValue(), v47 = objc_msgSend(v46, "count"), v46, v40 = v38, v45, v47) && (objc_msgSend(metricsCopy, "transactionMetrics"), v48 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v48, "lastObject"), v49 = objc_claimAutoreleasedReturnValue(), v48, v40 = v38, v49))
   {
     v50 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [v49 isCellular]);
@@ -1734,36 +1734,36 @@ LABEL_16:
     }
   }
 
-  v63 = v110;
+  v63 = v112;
   if (dataCopy)
   {
-    v105 = v35;
-    v107 = v33;
+    v107 = v35;
+    v109 = v33;
+    v117 = 0u;
+    v118 = 0u;
     v115 = 0u;
     v116 = 0u;
-    v113 = 0u;
-    v114 = 0u;
     v64 = dataCopy;
-    v65 = [v64 countByEnumeratingWithState:&v113 objects:v119 count:16];
+    v65 = [v64 countByEnumeratingWithState:&v115 objects:v121 count:16];
     if (!v65)
     {
       goto LABEL_40;
     }
 
     v66 = v65;
-    v67 = *v114;
+    v67 = *v116;
     while (1)
     {
       v68 = 0;
-      v112 = v66;
+      v114 = v66;
       do
       {
-        if (*v114 != v67)
+        if (*v116 != v67)
         {
           objc_enumerationMutation(v64);
         }
 
-        v69 = *(*(&v113 + 1) + 8 * v68);
+        v69 = *(*(&v115 + 1) + 8 * v68);
         v70 = objc_autoreleasePoolPush();
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -1792,7 +1792,7 @@ LABEL_34:
           }
 
           *buf = 138543362;
-          v118 = v69;
+          v120 = v69;
           v72 = v71;
           v73 = "Not adding %{public}@ to analytics payload due to unallowed name";
           v74 = 12;
@@ -1802,7 +1802,7 @@ LABEL_34:
         v71 = [v64 objectForKeyedSubscript:v69];
         if (v71 && ((objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0)))
         {
-          [v111 setSafeObject:v71 forKey:v69];
+          [v113 setSafeObject:v71 forKey:v69];
         }
 
         else
@@ -1814,14 +1814,14 @@ LABEL_34:
           if (os_log_type_enabled(v78, OS_LOG_TYPE_ERROR))
           {
             *buf = 138543362;
-            v118 = v69;
+            v120 = v69;
             _os_log_impl(&dword_0, v78, OS_LOG_TYPE_ERROR, "Not adding %{public}@ to analytics payload due to invalid type", buf, 0xCu);
           }
 
           p_weak_ivar_lyt = v77;
           v64 = v76;
           v67 = v75;
-          v66 = v112;
+          v66 = v114;
         }
 
 LABEL_38:
@@ -1831,16 +1831,16 @@ LABEL_38:
       }
 
       while (v66 != v68);
-      v66 = [v64 countByEnumeratingWithState:&v113 objects:v119 count:16];
+      v66 = [v64 countByEnumeratingWithState:&v115 objects:v121 count:16];
       if (!v66)
       {
 LABEL_40:
 
         v43 = metricsCopy;
         v42 = audienceCopy;
-        v35 = v105;
-        v33 = v107;
-        v63 = v110;
+        v35 = v107;
+        v33 = v109;
+        v63 = v112;
         break;
       }
     }
@@ -1849,62 +1849,63 @@ LABEL_40:
   v79 = selfCopy;
   if ([(MADAnalyticsManager *)selfCopy eventRecordingEnabled])
   {
-    v80 = v111;
+    v80 = v113;
     if ([(MADAnalyticsManager *)selfCopy overrideClientNameAsTestTool])
     {
-      [v111 setSafeObject:@"TestTool" forKey:@"ClientName"];
-      v81 = optionsCopy;
+      prependClientNameWithTestTool = [v113 setSafeObject:@"TestTool" forKey:@"ClientName"];
+      v83 = optionsCopy;
     }
 
     else
     {
-      v81 = optionsCopy;
-      if ([(MADAnalyticsManager *)selfCopy prependClientNameWithTestTool])
+      prependClientNameWithTestTool = [(MADAnalyticsManager *)selfCopy prependClientNameWithTestTool];
+      v83 = optionsCopy;
+      if (prependClientNameWithTestTool)
       {
-        v83 = [v111 safeObjectForKey:@"ClientName" ofClass:objc_opt_class()];
-        if (v83)
+        v85 = [v113 safeObjectForKey:@"ClientName" ofClass:objc_opt_class()];
+        if (v85)
         {
-          v84 = [objc_alloc(p_weak_ivar_lyt[226]) initWithFormat:@"%@:%@", @"TestTool", v83];
-          [v111 setSafeObject:v84 forKey:@"ClientName"];
+          v86 = [objc_alloc(p_weak_ivar_lyt[226]) initWithFormat:@"%@:%@", @"TestTool", v85];
+          [v113 setSafeObject:v86 forKey:@"ClientName"];
 
-          v80 = v111;
+          v80 = v113;
         }
 
         else
         {
-          [v111 setSafeObject:@"TestTool" forKey:@"ClientName"];
+          [v113 setSafeObject:@"TestTool" forKey:@"ClientName"];
         }
 
         v79 = selfCopy;
       }
     }
 
-    if (_MAPreferencesIsVerboseLoggingEnabled())
+    if (_MAPreferencesIsVerboseLoggingEnabled(prependClientNameWithTestTool, v82))
     {
-      v85 = _MADLog(@"Analytics");
-      if (os_log_type_enabled(v85, OS_LOG_TYPE_DEBUG))
+      v87 = _MADLog(@"Analytics");
+      if (os_log_type_enabled(v87, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138543362;
-        v118 = v80;
-        _os_log_impl(&dword_0, v85, OS_LOG_TYPE_DEBUG, "Recording event for: %{public}@", buf, 0xCu);
+        v120 = v80;
+        _os_log_impl(&dword_0, v87, OS_LOG_TYPE_DEBUG, "Recording event for: %{public}@", buf, 0xCu);
       }
 
       v79 = selfCopy;
     }
 
-    v86 = [(MADAnalyticsManager *)v79 recordEventWithName:@"com.apple.mobileassetd.Download.Attempt" assetType:v63 payload:v80];
+    v88 = [(MADAnalyticsManager *)v79 recordEventWithName:@"com.apple.mobileassetd.Download.Attempt" assetType:v63 payload:v80];
   }
 
   else
   {
-    v82 = _MADLog(@"Analytics");
-    v81 = optionsCopy;
-    v80 = v111;
-    if (os_log_type_enabled(v82, OS_LOG_TYPE_DEFAULT))
+    v84 = _MADLog(@"Analytics");
+    v83 = optionsCopy;
+    v80 = v113;
+    if (os_log_type_enabled(v84, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v118 = v111;
-      _os_log_impl(&dword_0, v82, OS_LOG_TYPE_DEFAULT, "Not recording event for: %{public}@", buf, 0xCu);
+      v120 = v113;
+      _os_log_impl(&dword_0, v84, OS_LOG_TYPE_DEFAULT, "Not recording event for: %{public}@", buf, 0xCu);
     }
   }
 }

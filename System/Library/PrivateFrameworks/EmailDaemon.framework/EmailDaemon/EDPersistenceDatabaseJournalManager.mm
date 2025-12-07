@@ -79,7 +79,7 @@ void __42__EDPersistenceDatabaseJournalManager_log__block_invoke(uint64_t a1)
 
 void __56__EDPersistenceDatabaseJournalManager_initWithBasePath___block_invoke(uint64_t a1)
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   v2 = +[EDPersistenceDatabaseJournalManager log];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
@@ -87,18 +87,18 @@ void __56__EDPersistenceDatabaseJournalManager_initWithBasePath___block_invoke(u
     _os_log_impl(&dword_1C61EF000, v2, OS_LOG_TYPE_DEFAULT, "Checking for existing journals", buf, 2u);
   }
 
-  v33 = [MEMORY[0x1E696AC08] defaultManager];
-  v30 = [*(a1 + 32) journalDirectoryPath];
-  if ([v33 fileExistsAtPath:?])
+  v31 = [MEMORY[0x1E696AC08] defaultManager];
+  v28 = [*(a1 + 32) journalDirectoryPath];
+  if ([v31 fileExistsAtPath:?])
   {
-    v31 = 0;
+    v29 = 0;
   }
 
   else
   {
-    v39 = 0;
-    v3 = [v33 createDirectoryAtPath:v30 withIntermediateDirectories:1 attributes:0 error:&v39];
-    v31 = v39;
+    v37 = 0;
+    v3 = [v31 createDirectoryAtPath:v28 withIntermediateDirectories:1 attributes:0 error:&v37];
+    v29 = v37;
     if (v3)
     {
       v4 = +[EDPersistenceDatabaseJournalManager log];
@@ -114,31 +114,31 @@ void __56__EDPersistenceDatabaseJournalManager_initWithBasePath___block_invoke(u
       v4 = +[EDPersistenceDatabaseJournalManager log];
       if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
-        v5 = [v31 ef_publicDescription];
+        v5 = [v29 ef_publicDescription];
         __56__EDPersistenceDatabaseJournalManager_initWithBasePath___block_invoke_cold_1(v5, buf, v4);
       }
     }
   }
 
-  if (v30)
+  if (v28)
   {
     v6 = [MEMORY[0x1E695DFF8] fileURLWithPath:?];
-    v43 = *MEMORY[0x1E695DAF0];
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v43 count:1];
-    v38 = v31;
-    v32 = [v33 contentsOfDirectoryAtURL:v6 includingPropertiesForKeys:v7 options:0 error:&v38];
-    v8 = v38;
+    v41 = *MEMORY[0x1E695DAF0];
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v41 count:1];
+    v36 = v29;
+    v30 = [v31 contentsOfDirectoryAtURL:v6 includingPropertiesForKeys:v7 options:0 error:&v36];
+    v8 = v36;
 
-    v31 = v8;
+    v29 = v8;
   }
 
   else
   {
-    v32 = MEMORY[0x1E695E0F0];
+    v30 = MEMORY[0x1E695E0F0];
   }
 
-  v29 = *(a1 + 32);
-  os_unfair_lock_lock(v29 + 2);
+  v27 = *(a1 + 32);
+  os_unfair_lock_lock(v27 + 2);
   v9 = objc_alloc_init(MEMORY[0x1E696AD50]);
   v10 = *(a1 + 32);
   v11 = *(v10 + 32);
@@ -154,70 +154,68 @@ void __56__EDPersistenceDatabaseJournalManager_initWithBasePath___block_invoke(u
   v17 = *(v16 + 48);
   *(v16 + 48) = v15;
 
-  if ([v32 count])
+  if ([v30 count])
   {
-    v36 = 0u;
-    v37 = 0u;
     v34 = 0u;
     v35 = 0u;
-    v18 = v32;
-    v19 = [v18 countByEnumeratingWithState:&v34 objects:v42 count:16];
+    v32 = 0u;
+    v33 = 0u;
+    v18 = v30;
+    v19 = [v18 countByEnumeratingWithState:&v32 objects:v40 count:16];
     if (v19)
     {
-      v20 = *v35;
-      v21 = *MEMORY[0x1E695DAE0];
+      v20 = *v33;
       do
       {
         for (i = 0; i != v19; ++i)
         {
-          if (*v35 != v20)
+          if (*v33 != v20)
           {
             objc_enumerationMutation(v18);
           }
 
-          v23 = [*(*(&v34 + 1) + 8 * i) lastPathComponent];
-          if (([v23 hasSuffix:@"-wal"] & 1) == 0 && (objc_msgSend(v23, "hasSuffix:", @"-shm") & 1) == 0)
+          v22 = [*(*(&v32 + 1) + 8 * i) lastPathComponent];
+          if (([v22 hasSuffix:@"-wal"] & 1) == 0 && (objc_msgSend(v22, "hasSuffix:", @"-shm") & 1) == 0)
           {
-            v24 = [v23 integerValue];
-            if (v24 >= 1)
+            v23 = [v22 integerValue];
+            if (v23 >= 1)
             {
-              [*(*(a1 + 32) + 32) addIndex:v24];
+              [*(*(a1 + 32) + 32) addIndex:v23];
             }
 
             EFVerifyFileProtectionType();
           }
         }
 
-        v19 = [v18 countByEnumeratingWithState:&v34 objects:v42 count:16];
+        v19 = [v18 countByEnumeratingWithState:&v32 objects:v40 count:16];
       }
 
       while (v19);
     }
 
-    v25 = +[EDPersistenceDatabaseJournalManager log];
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+    v24 = +[EDPersistenceDatabaseJournalManager log];
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
-      v26 = *(*(a1 + 32) + 32);
-      *v40 = 138543362;
-      v41 = v26;
-      _os_log_impl(&dword_1C61EF000, v25, OS_LOG_TYPE_DEFAULT, "Found journal numbers: %{public}@", v40, 0xCu);
+      v25 = *(*(a1 + 32) + 32);
+      *v38 = 138543362;
+      v39 = v25;
+      _os_log_impl(&dword_1C61EF000, v24, OS_LOG_TYPE_DEFAULT, "Found journal numbers: %{public}@", v38, 0xCu);
     }
   }
 
   else
   {
-    v25 = +[EDPersistenceDatabaseJournalManager log];
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+    v24 = +[EDPersistenceDatabaseJournalManager log];
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
-      v27 = [v31 ef_publicDescription];
-      *v40 = 138543362;
-      v41 = v27;
-      _os_log_impl(&dword_1C61EF000, v25, OS_LOG_TYPE_DEFAULT, "Unable to iterate journal directory: %{public}@", v40, 0xCu);
+      v26 = [v29 ef_publicDescription];
+      *v38 = 138543362;
+      v39 = v26;
+      _os_log_impl(&dword_1C61EF000, v24, OS_LOG_TYPE_DEFAULT, "Unable to iterate journal directory: %{public}@", v38, 0xCu);
     }
   }
 
-  os_unfair_lock_unlock(v29 + 2);
-  v28 = *MEMORY[0x1E69E9840];
+  os_unfair_lock_unlock(v27 + 2);
 }
 
 - (id)currentJournalCreateIfNeeded:(BOOL)needed
@@ -236,7 +234,7 @@ void __56__EDPersistenceDatabaseJournalManager_initWithBasePath___block_invoke(u
 
 id __68__EDPersistenceDatabaseJournalManager_currentJournalCreateIfNeeded___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v2 = *(*(a1 + 32) + 16);
   if (v2)
   {
@@ -252,8 +250,8 @@ id __68__EDPersistenceDatabaseJournalManager_currentJournalCreateIfNeeded___bloc
     v4 = +[EDPersistenceDatabaseJournalManager log];
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v21) = 0;
-      _os_log_impl(&dword_1C61EF000, v4, OS_LOG_TYPE_DEFAULT, "Creating a new journal", &v21, 2u);
+      LOWORD(v20) = 0;
+      _os_log_impl(&dword_1C61EF000, v4, OS_LOG_TYPE_DEFAULT, "Creating a new journal", &v20, 2u);
     }
 
     v5 = (a1 + 32);
@@ -304,20 +302,19 @@ id __68__EDPersistenceDatabaseJournalManager_currentJournalCreateIfNeeded___bloc
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     v17 = *(*(a1 + 32) + 16);
-    v21 = 138412290;
-    v22 = v17;
-    _os_log_impl(&dword_1C61EF000, v16, OS_LOG_TYPE_DEFAULT, "Returning current journal %@", &v21, 0xCu);
+    v20 = 138412290;
+    v21 = v17;
+    _os_log_impl(&dword_1C61EF000, v16, OS_LOG_TYPE_DEFAULT, "Returning current journal %@", &v20, 0xCu);
   }
 
   v18 = *(*(a1 + 32) + 16);
-  v19 = *MEMORY[0x1E69E9840];
 
   return v18;
 }
 
 - (void)_journalNoLongerReferenced:(id)referenced
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   referencedCopy = referenced;
   os_unfair_lock_lock(&self->_journalLock);
   currentJournal = self->_currentJournal;
@@ -352,11 +349,11 @@ id __68__EDPersistenceDatabaseJournalManager_currentJournalCreateIfNeeded___bloc
         v10 = @"NO";
       }
 
-      v12 = 138412546;
-      v13 = referencedCopy;
-      v14 = 2114;
-      v15 = v10;
-      _os_log_impl(&dword_1C61EF000, v9, OS_LOG_TYPE_DEFAULT, "Unsetting current journal %@ - should delete: %{public}@", &v12, 0x16u);
+      v11 = 138412546;
+      v12 = referencedCopy;
+      v13 = 2114;
+      v14 = v10;
+      _os_log_impl(&dword_1C61EF000, v9, OS_LOG_TYPE_DEFAULT, "Unsetting current journal %@ - should delete: %{public}@", &v11, 0x16u);
     }
 
     os_unfair_lock_unlock(&self->_journalLock);
@@ -370,8 +367,6 @@ id __68__EDPersistenceDatabaseJournalManager_currentJournalCreateIfNeeded___bloc
   {
     os_unfair_lock_unlock(&self->_journalLock);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (NSArray)allJournals
@@ -393,27 +388,26 @@ id __68__EDPersistenceDatabaseJournalManager_currentJournalCreateIfNeeded___bloc
 
 uint64_t __50__EDPersistenceDatabaseJournalManager_allJournals__block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
   v2 = *(a1 + 40);
   v4 = *(v3 + 32);
-  v9 = MEMORY[0x1E69E9820];
-  v10 = 3221225472;
-  v11 = __50__EDPersistenceDatabaseJournalManager_allJournals__block_invoke_2;
-  v12 = &unk_1E8255C80;
-  v13 = v3;
-  v14 = v2;
-  [v4 enumerateIndexesUsingBlock:&v9];
-  v5 = [EDPersistenceDatabaseJournalManager log:v9];
+  v8 = MEMORY[0x1E69E9820];
+  v9 = 3221225472;
+  v10 = __50__EDPersistenceDatabaseJournalManager_allJournals__block_invoke_2;
+  v11 = &unk_1E8255C80;
+  v12 = v3;
+  v13 = v2;
+  [v4 enumerateIndexesUsingBlock:&v8];
+  v5 = [EDPersistenceDatabaseJournalManager log:v8];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = [*(a1 + 40) count];
     *buf = 134217984;
-    v16 = v6;
+    v15 = v6;
     _os_log_impl(&dword_1C61EF000, v5, OS_LOG_TYPE_DEFAULT, "Getting %lu journals", buf, 0xCu);
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -449,7 +443,7 @@ void __50__EDPersistenceDatabaseJournalManager_allJournals__block_invoke_2(uint6
 
 id __52__EDPersistenceDatabaseJournalManager_oldestJournal__block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = [*(*(a1 + 32) + 32) firstIndex];
   v3 = [*(a1 + 32) _journalForIndex:v2];
   if (v3)
@@ -457,20 +451,18 @@ id __52__EDPersistenceDatabaseJournalManager_oldestJournal__block_invoke(uint64_
     v4 = +[EDPersistenceDatabaseJournalManager log];
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 134217984;
-      v8 = v2;
-      _os_log_impl(&dword_1C61EF000, v4, OS_LOG_TYPE_DEFAULT, "Getting oldest journal %lu", &v7, 0xCu);
+      v6 = 134217984;
+      v7 = v2;
+      _os_log_impl(&dword_1C61EF000, v4, OS_LOG_TYPE_DEFAULT, "Getting oldest journal %lu", &v6, 0xCu);
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 - (id)_journalForIndex:(unint64_t)index
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (index == 0x7FFFFFFFFFFFFFFFLL)
   {
     v3 = 0;
@@ -487,9 +479,9 @@ id __52__EDPersistenceDatabaseJournalManager_oldestJournal__block_invoke(uint64_
       v8 = +[EDPersistenceDatabaseJournalManager log];
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = 134217984;
+        v12 = 134217984;
         indexCopy = index;
-        _os_log_impl(&dword_1C61EF000, v8, OS_LOG_TYPE_DEFAULT, "Journal %lu does not already exist. Creating...", &v13, 0xCu);
+        _os_log_impl(&dword_1C61EF000, v8, OS_LOG_TYPE_DEFAULT, "Journal %lu does not already exist. Creating...", &v12, 0xCu);
       }
 
       v3 = [[EDPersistenceDatabaseJournal alloc] initWithJournalManager:self number:index];
@@ -499,14 +491,12 @@ id __52__EDPersistenceDatabaseJournalManager_oldestJournal__block_invoke(uint64_
     }
   }
 
-  v11 = *MEMORY[0x1E69E9840];
-
   return v3;
 }
 
 - (void)mergedJournal:(id)journal
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   journalCopy = journal;
   number = [(EDPersistenceDatabaseJournal *)journalCopy number];
   os_unfair_lock_lock(&self->_journalLock);
@@ -535,24 +525,22 @@ id __52__EDPersistenceDatabaseJournalManager_oldestJournal__block_invoke(uint64_
       v10 = @"NO";
     }
 
-    v12 = 134218242;
-    v13 = number;
-    v14 = 2114;
-    v15 = v10;
-    _os_log_impl(&dword_1C61EF000, v9, OS_LOG_TYPE_DEFAULT, "Merged journal %lu - should delete: %{public}@", &v12, 0x16u);
+    v11 = 134218242;
+    v12 = number;
+    v13 = 2114;
+    v14 = v10;
+    _os_log_impl(&dword_1C61EF000, v9, OS_LOG_TYPE_DEFAULT, "Merged journal %lu - should delete: %{public}@", &v11, 0x16u);
   }
 
   if (currentJournal != journalCopy)
   {
     [(EDPersistenceDatabaseJournalManager *)self _deleteJournalNumber:number];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_deleteJournalNumber:(unint64_t)number
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = +[EDPersistenceDatabaseJournalManager log];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
@@ -577,8 +565,8 @@ id __52__EDPersistenceDatabaseJournalManager_oldestJournal__block_invoke(uint64_
     block[2] = __60__EDPersistenceDatabaseJournalManager__deleteJournalNumber___block_invoke_2;
     block[3] = &unk_1E8255CF8;
     numberCopy2 = number;
-    v13 = journalDirectoryPath;
-    v14 = v6;
+    v12 = journalDirectoryPath;
+    v13 = v6;
     v9 = dispatch_block_create_with_qos_class(0, QOS_CLASS_BACKGROUND, 0, block);
     deleteQueue = [(EDPersistenceDatabaseJournalManager *)self deleteQueue];
     dispatch_async(deleteQueue, v9);
@@ -588,8 +576,6 @@ id __52__EDPersistenceDatabaseJournalManager_oldestJournal__block_invoke(uint64_
   {
     v6[2](v6);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __60__EDPersistenceDatabaseJournalManager__deleteJournalNumber___block_invoke(uint64_t a1)
@@ -603,61 +589,58 @@ void __60__EDPersistenceDatabaseJournalManager__deleteJournalNumber___block_invo
 
 void __60__EDPersistenceDatabaseJournalManager__deleteJournalNumber___block_invoke_2(uint64_t a1)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(a1 + 48)];
   v3 = [v2 stringValue];
 
   v4 = [v3 stringByAppendingString:@"-wal"];
-  v23 = v4;
-  v24 = [v3 stringByAppendingString:@"-shm"];
+  v19 = v4;
+  v20 = [v3 stringByAppendingString:@"-shm"];
   v5 = [MEMORY[0x1E696AC08] defaultManager];
   [*(a1 + 32) stringByAppendingPathComponent:v3];
-  v22 = v27 = 0;
+  v18 = v23 = 0;
   v6 = [v5 removeItemAtPath:? error:?];
-  v7 = v27;
+  v7 = v23;
   if ((v6 & 1) == 0)
   {
     v8 = +[EDPersistenceDatabaseJournalManager log];
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v9 = *(a1 + 48);
       [v7 ef_publicDescription];
       objc_claimAutoreleasedReturnValue();
       __60__EDPersistenceDatabaseJournalManager__deleteJournalNumber___block_invoke_2_cold_1();
     }
 
-    v4 = v23;
+    v4 = v19;
   }
 
-  v10 = [*(a1 + 32) stringByAppendingPathComponent:v4];
-  v26 = v7;
-  v11 = [v5 removeItemAtPath:v10 error:&v26];
-  v12 = v26;
+  v9 = [*(a1 + 32) stringByAppendingPathComponent:v4];
+  v22 = v7;
+  v10 = [v5 removeItemAtPath:v9 error:&v22];
+  v11 = v22;
 
-  if ((v11 & 1) == 0)
+  if ((v10 & 1) == 0)
   {
-    v13 = +[EDPersistenceDatabaseJournalManager log];
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v12 = +[EDPersistenceDatabaseJournalManager log];
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v14 = *(a1 + 48);
-      [v12 ef_publicDescription];
+      [v11 ef_publicDescription];
       objc_claimAutoreleasedReturnValue();
       __60__EDPersistenceDatabaseJournalManager__deleteJournalNumber___block_invoke_2_cold_2();
     }
   }
 
-  v15 = [*(a1 + 32) stringByAppendingPathComponent:v24];
-  v25 = v12;
-  v16 = [v5 removeItemAtPath:v15 error:&v25];
-  v17 = v25;
+  v13 = [*(a1 + 32) stringByAppendingPathComponent:v20];
+  v21 = v11;
+  v14 = [v5 removeItemAtPath:v13 error:&v21];
+  v15 = v21;
 
-  if ((v16 & 1) == 0)
+  if ((v14 & 1) == 0)
   {
-    v18 = +[EDPersistenceDatabaseJournalManager log];
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v16 = +[EDPersistenceDatabaseJournalManager log];
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      v20 = *(a1 + 48);
-      [v17 ef_publicDescription];
+      [v15 ef_publicDescription];
       objc_claimAutoreleasedReturnValue();
       __60__EDPersistenceDatabaseJournalManager__deleteJournalNumber___block_invoke_2_cold_3();
     }
@@ -665,23 +648,21 @@ void __60__EDPersistenceDatabaseJournalManager__deleteJournalNumber___block_invo
     goto LABEL_15;
   }
 
-  if ((v6 & v11) == 1)
+  if ((v6 & v10) == 1)
   {
-    v18 = +[EDPersistenceDatabaseJournalManager log];
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v16 = +[EDPersistenceDatabaseJournalManager log];
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = *(a1 + 48);
+      v17 = *(a1 + 48);
       *buf = 134217984;
-      v29 = v19;
-      _os_log_impl(&dword_1C61EF000, v18, OS_LOG_TYPE_DEFAULT, "Deleted journal %lu", buf, 0xCu);
+      v25 = v17;
+      _os_log_impl(&dword_1C61EF000, v16, OS_LOG_TYPE_DEFAULT, "Deleted journal %lu", buf, 0xCu);
     }
 
 LABEL_15:
   }
 
   (*(*(a1 + 40) + 16))();
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_getJournalWithBlock:(id)block
@@ -731,11 +712,10 @@ void __56__EDPersistenceDatabaseJournalManager_initWithBasePath___block_invoke_c
 
 void __50__EDPersistenceDatabaseJournalManager_allJournals__block_invoke_2_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_fault_impl(&dword_1C61EF000, a2, OS_LOG_TYPE_FAULT, "Unable to get journal %lu", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_fault_impl(&dword_1C61EF000, a2, OS_LOG_TYPE_FAULT, "Unable to get journal %lu", &v2, 0xCu);
 }
 
 void __60__EDPersistenceDatabaseJournalManager__deleteJournalNumber___block_invoke_2_cold_1()

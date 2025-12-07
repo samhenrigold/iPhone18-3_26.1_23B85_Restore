@@ -13,7 +13,7 @@
 
 - (void)dealloc
 {
-  v3 = sub_100002880();
+  v3 = sub_100002880(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_1002258DC(self, v3);
@@ -70,13 +70,13 @@
     v7 = [NSTimer scheduledTimerWithTimeInterval:self target:"_processStopTimeout:" selector:0 userInfo:0 repeats:self->_duration];
     [(FMDLocator *)self setFinishedTimer:v7];
 
-    v8 = sub_100002880();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_100002880(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       fm_logID = [(FMDLocator *)self fm_logID];
-      v10 = 138412290;
-      v11 = fm_logID;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%@ Starting location service now", &v10, 0xCu);
+      v11 = 138412290;
+      v12 = fm_logID;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%@ Starting location service now", &v11, 0xCu);
     }
 
     [(FMDLocationManaging *)self->_locManager startUpdatingLocation];
@@ -85,7 +85,7 @@
 
 - (void)stopLocator
 {
-  v3 = sub_100002880();
+  v3 = sub_100002880(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     fm_logID = [(FMDLocator *)self fm_logID];
@@ -142,22 +142,22 @@
     if (locatorPublisher)
     {
       +[NSMutableArray array];
-      v9[0] = _NSConcreteStackBlock;
-      v9[1] = 3221225472;
-      v9[2] = sub_10015A614;
-      v10 = v9[3] = &unk_1002CF030;
-      v7 = v10;
-      [locationsCopy enumerateObjectsUsingBlock:v9];
+      v10[0] = _NSConcreteStackBlock;
+      v10[1] = 3221225472;
+      v10[2] = sub_10015A614;
+      v11 = v10[3] = &unk_1002CF030;
+      v8 = v11;
+      [locationsCopy enumerateObjectsUsingBlock:v10];
       locatorPublisher2 = [(FMDLocator *)self locatorPublisher];
-      [locatorPublisher2 updatedLocations:v7];
+      [locatorPublisher2 updatedLocations:v8];
     }
 
     else
     {
-      v7 = sub_100002880();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = sub_100002880(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        sub_1002287F0(v7);
+        sub_1002287F0(v8);
       }
     }
   }
@@ -166,15 +166,15 @@
 - (void)locationManager:(id)manager didFailWithError:(id)error
 {
   errorCopy = error;
-  v6 = sub_100002880();
+  v6 = sub_100002880(errorCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     fm_logID = [(FMDLocator *)self fm_logID];
-    v11 = 138412546;
-    v12 = fm_logID;
-    v13 = 2112;
-    v14 = errorCopy;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%@ Location updates failed with error: %@", &v11, 0x16u);
+    v12 = 138412546;
+    v13 = fm_logID;
+    v14 = 2112;
+    v15 = errorCopy;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%@ Location updates failed with error: %@", &v12, 0x16u);
   }
 
   domain = [errorCopy domain];
@@ -193,11 +193,11 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  v10 = sub_100002880();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = sub_100002880(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v11) = 0;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Not stopping the locator service because the error is temporary.", &v11, 2u);
+    LOWORD(v12) = 0;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Not stopping the locator service because the error is temporary.", &v12, 2u);
   }
 
 LABEL_10:
@@ -206,7 +206,7 @@ LABEL_10:
 - (void)locationManagerDidChangeAuthorization:(id)authorization
 {
   authorizationCopy = authorization;
-  v4 = sub_100002880();
+  v4 = sub_100002880(authorizationCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5[0] = 67109120;
@@ -217,7 +217,7 @@ LABEL_10:
 
 - (void)_processStopTimeout:(id)timeout
 {
-  v4 = sub_100002880();
+  v4 = sub_100002880(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     fm_logID = [(FMDLocator *)self fm_logID];

@@ -117,23 +117,23 @@ void __91__PXSystemAuthenticationTypeObserver__beginObservingApplicationStateCha
   dispatch_async(observationQueue, block);
 }
 
-void __75__PXSystemAuthenticationTypeObserver__updateAuthenticationTypeInBackground__block_invoke(uint64_t a1)
+void __75__PXSystemAuthenticationTypeObserver__updateAuthenticationTypeInBackground__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = PLContentPrivacyUIGetLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = PLContentPrivacyUIGetLog();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1A3C1C000, v2, OS_LOG_TYPE_DEFAULT, "[SystemAuthenticationObserver] Performing authentication type update in background", buf, 2u);
+    _os_log_impl(&dword_1A3C1C000, v3, OS_LOG_TYPE_DEFAULT, "[SystemAuthenticationObserver] Performing authentication type update in background", buf, 2u);
   }
 
-  v3 = [*(a1 + 32) _calculateAuthenticationType];
-  v4[0] = MEMORY[0x1E69E9820];
-  v4[1] = 3221225472;
-  v4[2] = __75__PXSystemAuthenticationTypeObserver__updateAuthenticationTypeInBackground__block_invoke_10;
-  v4[3] = &unk_1E77498A0;
-  v4[4] = *(a1 + 32);
-  v4[5] = v3;
-  dispatch_async(MEMORY[0x1E69E96A0], v4);
+  v4 = [*(a1 + 32) _calculateAuthenticationType];
+  v5[0] = MEMORY[0x1E69E9820];
+  v5[1] = 3221225472;
+  v5[2] = __75__PXSystemAuthenticationTypeObserver__updateAuthenticationTypeInBackground__block_invoke_10;
+  v5[3] = &unk_1E77498A0;
+  v5[4] = *(a1 + 32);
+  v5[5] = v4;
+  dispatch_async(MEMORY[0x1E69E96A0], v5);
 }
 
 uint64_t __75__PXSystemAuthenticationTypeObserver__updateAuthenticationTypeInBackground__block_invoke_10(uint64_t a1)

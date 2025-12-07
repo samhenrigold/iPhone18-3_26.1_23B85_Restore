@@ -5,7 +5,7 @@ uint64_t SIValueSet<unsigned int>::RLEKeyHolder<unsigned int>::AddSortedValuesWi
     return 0;
   }
 
-  v5 = SIValueSet<unsigned int>::FlatContextWithPfx::peek(a2);
+  v5 = SIValueSet<unsigned int>::FlatContextWithPfx::peek(a2, a2);
   v6 = v5;
   v7 = *(a1 + 8);
   v8 = 4 * v7 + 12;
@@ -130,7 +130,7 @@ uint64_t SIValueSet<unsigned int>::RLEKeyHolder<unsigned int>::AddSortedValuesWi
           v31 = 1;
         }
 
-        if (SIValueSet<unsigned int>::FlatContextWithPfx::nextKey(a2) != v6)
+        if (SIValueSet<unsigned int>::FlatContextWithPfx::nextKey(a2, v9) != v6)
         {
           SIValueSet<unsigned int>::RLEKeyHolder<unsigned long long>::AddSortedValuesWithContext<SIValueSet<unsigned int>::FlatContext,SIValueSet<unsigned int>::RLEKeyHolder<unsigned long long>::InertContext>();
         }
@@ -159,7 +159,7 @@ uint64_t SIValueSet<unsigned int>::RLEKeyHolder<unsigned int>::AddSortedValuesWi
           goto LABEL_51;
         }
 
-        v6 = SIValueSet<unsigned int>::FlatContextWithPfx::peek(a2);
+        v6 = SIValueSet<unsigned int>::FlatContextWithPfx::peek(a2, v9);
         ++v18;
       }
 
@@ -843,18 +843,18 @@ LABEL_40:
 
 void SIValueSet<unsigned int>::RLEKeyHolder<unsigned short>::Apply(uint64_t a1, uint64_t a2, int a3, void (*a4)(char *, uint64_t, uint64_t), uint64_t a5)
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   v9 = MEMORY[0x28223BE20](a1);
-  v11 = v20 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = v19 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   v12 = *(v9 + 8);
   if (v12 > 0x3F)
   {
-    goto LABEL_19;
+    return;
   }
 
   v13 = (v9 + 10);
   v14 = v9 + 10 + 2 * v12;
-  bzero(v20 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0), v10);
+  bzero(v19 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0), v10);
   v15 = 0;
   v16 = 0;
 LABEL_3:
@@ -912,9 +912,6 @@ LABEL_15:
   {
     a4(v11, v17, a5);
   }
-
-LABEL_19:
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t SIValueSet<unsigned int>::RLEKeyHolder<unsigned short>::Serialize(uint64_t a1, uint64_t a2)
@@ -1317,161 +1314,161 @@ uint64_t SIValueSet<unsigned int>::RLEKeyHolder<unsigned short>::AddSortedValues
     return 0;
   }
 
-  v5 = SIValueSet<unsigned int>::FlatContextWithPfx::peek(a2);
-  v6 = v5;
-  v7 = *(a1 + 8);
-  v8 = 2 * v7 + 10;
-  v9 = (a1 + 10);
-  if (v7 >= 3)
+  v5 = SIValueSet<unsigned int>::FlatContextWithPfx::peek(a2, a2);
+  v7 = v5;
+  v8 = *(a1 + 8);
+  v9 = 2 * v8 + 10;
+  v10 = (a1 + 10);
+  if (v8 >= 3)
   {
-    v10 = (a1 + v8);
-    v9 = (a1 + 10);
+    v11 = (a1 + v9);
+    v10 = (a1 + 10);
     do
     {
-      v11 = (v9 + (v7 & 0xFFFFFFFFFFFFFFFELL));
-      v12 = *v11;
-      if (v12 < 0)
+      v12 = (v10 + (v8 & 0xFFFFFFFFFFFFFFFELL));
+      v13 = *v12;
+      if (v13 < 0)
       {
-        v13 = *--v11;
-        LOWORD(v12) = v13;
+        v14 = *--v12;
+        LOWORD(v13) = v14;
       }
 
-      if (v11 <= v9)
+      if (v12 <= v10)
       {
         break;
       }
 
-      if (v12 == v5)
+      if (v13 == v5)
       {
-        v9 = v11;
+        v10 = v12;
         break;
       }
 
-      if (v12 > v5)
+      if (v13 > v5)
       {
-        v10 = v11;
+        v11 = v12;
       }
 
       else
       {
-        v9 = v11;
+        v10 = v12;
       }
 
-      v7 = v10 - v9;
+      v8 = v11 - v10;
     }
 
-    while (v10 > v9 && v7 > 2);
+    while (v11 > v10 && v8 > 2);
   }
 
-  v44 = a1 + 10;
-  v45 = a1;
-  v16 = 0;
-  v50 = 0;
-  v46 = a1 + 136;
-  v17 = v9;
-  v18 = 1;
-  v19 = v8;
+  v45 = a1 + 10;
+  v46 = a1;
+  v17 = 0;
+  v51 = 0;
+  v47 = a1 + 136;
+  v18 = v10;
+  v19 = 1;
+  v20 = v9;
   while (2)
   {
-    v47 = v19;
-    v48 = v17;
-    LOWORD(v20) = 0;
-    v21 = 0;
-    v22 = a1 + v19;
-    v23 = v9;
+    v48 = v20;
+    v49 = v18;
+    LOWORD(v21) = 0;
+    v22 = 0;
+    v23 = a1 + v20;
+    v24 = v10;
     do
     {
-      v24 = v21;
-      while (v23 >= v22 || *v23 > v6)
+      v25 = v22;
+      while (v24 >= v23 || *v24 > v7)
       {
-        if (!v24)
+        if (!v25)
         {
-          v24 = 1;
-          LOWORD(v20) = v6;
+          v25 = 1;
+          LOWORD(v21) = v7;
           goto LABEL_34;
         }
 
-        v25 = v24 + v20;
-        v26 = 1;
-        if (v25 < v6)
+        v26 = v25 + v21;
+        v27 = 1;
+        if (v26 < v7)
         {
           goto LABEL_46;
         }
 
-        v27 = v6 + 1;
-        if (v27 < v20)
+        v28 = v7 + 1;
+        if (v28 < v21)
         {
           goto LABEL_46;
         }
 
-        v28 = v20;
-        v29 = v24 + v20 - 1;
-        v30 = v20 > v6;
-        if (v20 >= v6)
+        v29 = v21;
+        v30 = v25 + v21 - 1;
+        v31 = v21 > v7;
+        if (v21 >= v7)
         {
-          LOWORD(v20) = v6;
+          LOWORD(v21) = v7;
         }
 
-        if (v28 > v6)
+        if (v29 > v7)
         {
-          v24 = v29;
-          v25 = v29 + v6;
+          v25 = v30;
+          v26 = v30 + v7;
         }
 
-        if (v25 <= v6)
+        if (v26 <= v7)
         {
-          v24 = v24 + v27 - v25;
+          v25 = v25 + v28 - v26;
 LABEL_34:
-          v30 = 1;
+          v31 = 1;
         }
 
-        if (v6 != SIValueSet<unsigned int>::FlatContextWithPfx::nextKey(a2))
+        if (v7 != SIValueSet<unsigned int>::FlatContextWithPfx::nextKey(a2, v6))
         {
           SIValueSet<unsigned int>::RLEKeyHolder<unsigned long long>::AddSortedValuesWithContext<SIValueSet<unsigned int>::FlatContext,SIValueSet<unsigned int>::RLEKeyHolder<unsigned long long>::InertContext>();
         }
 
-        if (v30)
+        if (v31)
         {
-          ++v50;
+          ++v51;
         }
 
         else if (a3)
         {
-          SIValueSet<unsigned int>::SIValueSetInsert(*(a3 + 8), *a3 | v6);
+          SIValueSet<unsigned int>::SIValueSetInsert(*(a3 + 8), *a3 | v7);
         }
 
         if (*a2 >= *(a2 + 8))
         {
-          v26 = 0;
-          ++v16;
+          v27 = 0;
+          ++v17;
           goto LABEL_46;
         }
 
-        ++v16;
+        ++v17;
         if ((*(a2 + 20) & **a2) != *(a2 + 16))
         {
-          v26 = 0;
+          v27 = 0;
           goto LABEL_46;
         }
 
-        v6 = SIValueSet<unsigned int>::FlatContextWithPfx::peek(a2);
-        ++v18;
+        v7 = SIValueSet<unsigned int>::FlatContextWithPfx::peek(a2, v6);
+        ++v19;
       }
 
-      v26 = 1;
+      v27 = 1;
 LABEL_46:
-      v31 = v20;
-      if (v23 >= v22)
+      v32 = v21;
+      if (v24 >= v23)
       {
         goto LABEL_71;
       }
 
-      v20 = *v23;
-      if ((v23 + 1) >= v22)
+      v21 = *v24;
+      if ((v24 + 1) >= v23)
       {
-        v35 = 1;
-        v21 = 1;
-        if (!v24)
+        v36 = 1;
+        v22 = 1;
+        if (!v25)
         {
           goto LABEL_66;
         }
@@ -1479,123 +1476,123 @@ LABEL_46:
 
       else
       {
-        v32 = v23[1];
-        v33 = v32 & 0x7FFF;
-        v34 = v32 >= 0;
-        v35 = 2;
-        if (v34)
+        v33 = v24[1];
+        v34 = v33 & 0x7FFF;
+        v35 = v33 >= 0;
+        v36 = 2;
+        if (v35)
         {
-          v35 = 1;
-          v21 = 1;
+          v36 = 1;
+          v22 = 1;
         }
 
         else
         {
-          v21 = v33 + 1;
+          v22 = v34 + 1;
         }
 
-        if (!v24)
+        if (!v25)
         {
           goto LABEL_66;
         }
       }
 
-      v36 = v24 + v31;
-      if (v36 < v20 || (v37 = v21 + v20, v21 + v20 < v31))
+      v37 = v25 + v32;
+      if (v37 < v21 || (v38 = v22 + v21, v22 + v21 < v32))
       {
 LABEL_71:
-        LOWORD(v20) = v31;
-        v21 = v24;
+        LOWORD(v21) = v32;
+        v22 = v25;
         break;
       }
 
-      v38 = v24 - v21 + v31 + v20;
-      v39 = v31 > v20;
-      if (v31 < v20)
+      v39 = v25 - v22 + v32 + v21;
+      v40 = v32 > v21;
+      if (v32 < v21)
       {
-        LOWORD(v20) = v31;
+        LOWORD(v21) = v32;
       }
 
-      if (v39)
+      if (v40)
       {
-        v40 = v24 - v21 + v31;
-      }
-
-      else
-      {
-        v40 = v24;
-      }
-
-      if (v39)
-      {
-        v36 = v38;
-      }
-
-      if (v37 > v36)
-      {
-        v21 = v40 + v37 - v36;
+        v41 = v25 - v22 + v32;
       }
 
       else
       {
-        v21 = v40;
+        v41 = v25;
+      }
+
+      if (v40)
+      {
+        v37 = v39;
+      }
+
+      if (v38 > v37)
+      {
+        v22 = v41 + v38 - v37;
+      }
+
+      else
+      {
+        v22 = v41;
       }
 
 LABEL_66:
-      v23 += v35;
-      if (v21 + v20 >= v6)
+      v24 += v36;
+      if (v22 + v21 >= v7)
       {
-        v41 = v26;
-      }
-
-      else
-      {
-        v41 = 0;
-      }
-    }
-
-    while ((v41 & 1) != 0);
-    if (v21 == 1)
-    {
-      if (v48 >= v23)
-      {
-        if (v47 >= 133)
-        {
-          SIValueSet<unsigned int>::RLEKeyHolder<unsigned long long>::AddSortedValuesWithContext<SIValueSet<unsigned int>::FlatContext,SIValueSet<unsigned int>::RLEKeyHolder<unsigned long long>::InertContext>();
-        }
-
-        v9 = (v46 - (v22 - v23));
-        if (v22 != v23)
-        {
-          memmove((v46 - (v22 - v23)), v23, v22 - v23);
-        }
-
-        v19 = 136;
-        a1 = v45;
-      }
-
-      else
-      {
-        v9 = v23;
-        a1 = v45;
-        v19 = v47;
-      }
-
-      *v48 = v20;
-      v17 = v48 + 1;
-LABEL_88:
-      v22 = a1 + v19;
-      if (v17 + a1 + v19 - v9 + 4 <= v46)
-      {
-        v42 = v26;
+        v42 = v27;
       }
 
       else
       {
         v42 = 0;
       }
+    }
 
-      if ((v42 & 1) == 0)
+    while ((v42 & 1) != 0);
+    if (v22 == 1)
+    {
+      if (v49 >= v24)
+      {
+        if (v48 >= 133)
+        {
+          SIValueSet<unsigned int>::RLEKeyHolder<unsigned long long>::AddSortedValuesWithContext<SIValueSet<unsigned int>::FlatContext,SIValueSet<unsigned int>::RLEKeyHolder<unsigned long long>::InertContext>();
+        }
+
+        v10 = (v47 - (v23 - v24));
+        if (v23 != v24)
+        {
+          memmove((v47 - (v23 - v24)), v24, v23 - v24);
+        }
+
+        v20 = 136;
+        a1 = v46;
+      }
+
+      else
+      {
+        v10 = v24;
+        a1 = v46;
+        v20 = v48;
+      }
+
+      *v49 = v21;
+      v18 = v49 + 1;
+LABEL_88:
+      v23 = a1 + v20;
+      if (v18 + a1 + v20 - v10 + 4 <= v47)
+      {
+        v43 = v27;
+      }
+
+      else
+      {
+        v43 = 0;
+      }
+
+      if ((v43 & 1) == 0)
       {
         goto LABEL_95;
       }
@@ -1606,64 +1603,64 @@ LABEL_88:
     break;
   }
 
-  if (v21)
+  if (v22)
   {
-    if (v48 + 1 >= v23)
+    if (v49 + 1 >= v24)
     {
-      if (v47 >= 133)
+      if (v48 >= 133)
       {
         SIValueSet<unsigned int>::RLEKeyHolder<unsigned long long>::AddSortedValuesWithContext<SIValueSet<unsigned int>::FlatContext,SIValueSet<unsigned int>::RLEKeyHolder<unsigned long long>::InertContext>();
       }
 
-      v9 = (v46 - (v22 - v23));
-      if (v22 != v23)
+      v10 = (v47 - (v23 - v24));
+      if (v23 != v24)
       {
-        memmove((v46 - (v22 - v23)), v23, v22 - v23);
+        memmove((v47 - (v23 - v24)), v24, v23 - v24);
       }
 
-      v19 = 136;
-      a1 = v45;
+      v20 = 136;
+      a1 = v46;
     }
 
     else
     {
-      v9 = v23;
-      a1 = v45;
-      v19 = v47;
+      v10 = v24;
+      a1 = v46;
+      v20 = v48;
     }
 
-    *v48 = v20;
-    v48[1] = (v21 - 1) | 0x8000;
-    v17 = v48 + 2;
+    *v49 = v21;
+    v49[1] = (v22 - 1) | 0x8000;
+    v18 = v49 + 2;
     goto LABEL_88;
   }
 
-  v9 = v23;
-  a1 = v45;
-  v17 = v48;
+  v10 = v24;
+  a1 = v46;
+  v18 = v49;
 LABEL_95:
-  v43 = v17;
-  if (v26)
+  v44 = v18;
+  if (v27)
   {
-    if (v16 >= v18)
+    if (v17 >= v19)
     {
       SIValueSet<unsigned int>::RLEKeyHolder<unsigned long long>::AddSortedValuesWithContext<SIValueSet<unsigned int>::FlatContext,SIValueSet<unsigned int>::RLEKeyHolder<unsigned long long>::InertContext>();
     }
   }
 
-  else if (v16 != v18)
+  else if (v17 != v19)
   {
     SIValueSet<unsigned int>::RLEKeyHolder<unsigned long long>::AddSortedValuesWithContext<SIValueSet<unsigned int>::FlatContext,SIValueSet<unsigned int>::RLEKeyHolder<unsigned long long>::InertContext>();
   }
 
-  if (v22 > v9)
+  if (v23 > v10)
   {
-    memmove(v17, v9, v22 - v9);
-    v43 = v17 + v22 - v9;
+    memmove(v18, v10, v23 - v10);
+    v44 = v18 + v23 - v10;
   }
 
-  *(a1 + 8) = (v43 - v44) >> 1;
-  return v50;
+  *(a1 + 8) = (v44 - v45) >> 1;
+  return v51;
 }
 
 uint64_t SIValueSet<unsigned int>::RLEKeyHolder<unsigned short>::KeyHolderContext::nextKey(__int16 **a1)
@@ -1731,7 +1728,7 @@ uint64_t SIValueSet<unsigned int>::BitmapHolder::AddSortedKeysWithContext(uint64
       return 0;
     }
 
-    Key = SIValueSet<unsigned int>::FlatContextWithPfx::nextKey(a2);
+    Key = SIValueSet<unsigned int>::FlatContextWithPfx::nextKey(a2, a2);
     v8 = *(v6 + 8 * (Key >> 6));
     if (((1 << Key) & v8) == 0)
     {
@@ -1808,33 +1805,33 @@ BOOL SIValueSet<unsigned int>::BitmapHolder::RemoveKey(uint64_t a1, int a2, int 
 
 uint64_t SIValueSet<unsigned int>::BitmapHolder::Apply(uint64_t a1, uint64_t a2, int a3, uint64_t (*a4)(char *, uint64_t, uint64_t), uint64_t a5)
 {
-  v15[3] = *MEMORY[0x277D85DE8];
+  v14[3] = *MEMORY[0x277D85DE8];
   MEMORY[0x28223BE20](a1);
-  v11 = v15 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   bzero(v11, v10);
-  v15[1] = a1 + 8;
-  v15[2] = 0;
-  v15[0] = 0;
-  result = SIValueSet<unsigned int>::BitmapHolder::BitmapHolderContext::hasMore(v15);
+  v14[1] = a1 + 8;
+  v14[2] = 0;
+  v14[0] = 0;
+  result = SIValueSet<unsigned int>::BitmapHolder::BitmapHolderContext::hasMore(v14);
   v13 = 0;
   if (result)
   {
     v13 = 0;
     do
     {
-      *&v11[4 * v13++] = SIValueSet<unsigned int>::BitmapHolder::BitmapHolderContext::nextKey(v15) | a3;
+      *&v11[4 * v13++] = SIValueSet<unsigned int>::BitmapHolder::BitmapHolderContext::nextKey(v14) | a3;
       if (v13 == a2)
       {
         result = a4(v11, a2, a5);
         if (result)
         {
-          goto LABEL_9;
+          return result;
         }
 
         v13 = 0;
       }
 
-      result = SIValueSet<unsigned int>::BitmapHolder::BitmapHolderContext::hasMore(v15);
+      result = SIValueSet<unsigned int>::BitmapHolder::BitmapHolderContext::hasMore(v14);
     }
 
     while ((result & 1) != 0);
@@ -1842,11 +1839,9 @@ uint64_t SIValueSet<unsigned int>::BitmapHolder::Apply(uint64_t a1, uint64_t a2,
 
   if (v13)
   {
-    result = a4(v11, v13, a5);
+    return a4(v11, v13, a5);
   }
 
-LABEL_9:
-  v14 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1978,7 +1973,7 @@ uint64_t SIValueSet<unsigned long long>::_SIValueSetInnerContains(uint64_t a1, u
   return result;
 }
 
-uint64_t SIValueSet<unsigned long long>::_SIValueSetInnerInsert(unint64_t a1, unint64_t a2, int a3, uint64_t a4)
+uint64_t SIValueSet<unsigned long long>::_SIValueSetInnerInsert(unint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4)
 {
   v5 = a3;
   v7 = 60 - 4 * a3;
@@ -2163,7 +2158,7 @@ uint64_t SIValueSet<unsigned long long>::_SIValueSetInnerInsert(unint64_t a1, un
   return v15;
 }
 
-uint64_t SIValueSet<unsigned long long>::_SIValueSetBurstRLE(void *a1, int a2, uint64_t a3)
+unint64_t SIValueSet<unsigned long long>::_SIValueSetBurstRLE(void *a1, int a2, uint64_t a3)
 {
   v6 = SIValueSet<unsigned int>::CombLevel_s::malloc_chain_s::chain_alloc_level(a3);
   v7 = v6;
@@ -2226,7 +2221,7 @@ BOOL SIValueSet<unsigned long long>::BitmapHolder::AddKey(uint64_t a1, int a2, i
   return (v4 & v3) == 0;
 }
 
-BOOL SIValueSet<unsigned long long>::RLEKeyHolder<unsigned long long>::AddKey(uint64_t a1, uint64_t a2, uint64_t a3)
+BOOL SIValueSet<unsigned long long>::RLEKeyHolder<unsigned long long>::AddKey(void *a1, uint64_t a2, uint64_t a3)
 {
   v5 = a3 & a2;
   v4[0] = &v5;
@@ -2658,18 +2653,18 @@ LABEL_41:
 
 void SIValueSet<unsigned long long>::RLEKeyHolder<unsigned long long>::Apply(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(char *, uint64_t, uint64_t), uint64_t a5)
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   v9 = MEMORY[0x28223BE20](a1);
-  v11 = v20 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = v19 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   v12 = *(v9 + 8);
   if (v12 > 0x3F)
   {
-    goto LABEL_19;
+    return;
   }
 
   v13 = (v9 + 16);
   v14 = v9 + 16 + 8 * v12;
-  bzero(v20 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0), v10);
+  bzero(v19 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0), v10);
   v15 = 0;
   v16 = 0;
 LABEL_3:
@@ -2727,9 +2722,6 @@ LABEL_15:
   {
     a4(v11, v17, a5);
   }
-
-LABEL_19:
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t SIValueSet<unsigned long long>::RLEKeyHolder<unsigned long long>::Serialize(uint64_t a1, uint64_t a2)
@@ -2754,7 +2746,7 @@ void *SIValueSet<unsigned long long>::RLEKeyHolder<unsigned long long>::valueIte
   return a3;
 }
 
-uint64_t SIValueSet<unsigned long long>::RLEKeyHolder<unsigned long long>::AddSortedValuesWithContext<SIValueSet<unsigned long long>::FlatContext,SIValueSet<unsigned long long>::RLEKeyHolder<unsigned long long>::InertContext>(uint64_t a1, unint64_t **a2)
+uint64_t SIValueSet<unsigned long long>::RLEKeyHolder<unsigned long long>::AddSortedValuesWithContext<SIValueSet<unsigned long long>::FlatContext,SIValueSet<unsigned long long>::RLEKeyHolder<unsigned long long>::InertContext>(void *a1, unint64_t **a2)
 {
   if (*a2 >= a2[1])
   {
@@ -2762,13 +2754,13 @@ uint64_t SIValueSet<unsigned long long>::RLEKeyHolder<unsigned long long>::AddSo
   }
 
   v3 = **a2;
-  v4 = (a1 + 16);
-  v5 = *(a1 + 8);
-  v6 = a1 + 16 + 8 * v5;
-  v42 = a1 + 16;
+  v4 = a1 + 2;
+  v5 = a1[1];
+  v6 = &a1[v5 + 2];
+  v42 = a1 + 2;
   if (v5 >= 3)
   {
-    v7 = a1 + 16 + 8 * v5;
+    v7 = &a1[v5 + 2];
     do
     {
       v8 = &v4[v5 >> 1];
@@ -2800,7 +2792,7 @@ uint64_t SIValueSet<unsigned long long>::RLEKeyHolder<unsigned long long>::AddSo
         v4 = v8;
       }
 
-      v5 = (v7 - v4) >> 3;
+      v5 = v7 - v4;
     }
 
     while (v7 > v4 && v5 > 2);
@@ -2808,10 +2800,10 @@ uint64_t SIValueSet<unsigned long long>::RLEKeyHolder<unsigned long long>::AddSo
 
   v13 = 0;
   v12 = 0;
-  v14 = a1 + 520;
+  v14 = a1 + 65;
   v15 = v4;
   v16 = 1;
-  v45 = a1 + 520;
+  v45 = a1 + 65;
   while (2)
   {
     v17 = 0;
@@ -2897,7 +2889,7 @@ LABEL_39:
       }
 
       v29 = *v19;
-      if ((v19 + 1) >= v6)
+      if (v19 + 1 >= v6)
       {
         v31 = 1;
         v18 = 1;
@@ -2996,7 +2988,7 @@ LABEL_65:
     {
       if (v15 >= v19)
       {
-        if (v6 + 16 > v14)
+        if (v6 + 2 > v14)
         {
           SIValueSet<unsigned int>::RLEKeyHolder<unsigned long long>::AddSortedValuesWithContext<SIValueSet<unsigned int>::FlatContext,SIValueSet<unsigned int>::RLEKeyHolder<unsigned long long>::InertContext>();
         }
@@ -3005,7 +2997,7 @@ LABEL_65:
         if (v6 != v19)
         {
           v37 = v15;
-          memmove((v14 - (v6 - v19)), v19, v6 - v19);
+          memmove(v14 - (v6 - v19), v19, v6 - v19);
           v14 = v45;
           v15 = v37;
         }
@@ -3020,7 +3012,7 @@ LABEL_65:
 
       *v15++ = v17;
 LABEL_81:
-      if (v15 + v6 - v4 + 16 <= v14)
+      if ((v15 + v6 - v4 + 16) <= v14)
       {
         v38 = v21;
       }
@@ -3045,7 +3037,7 @@ LABEL_81:
   {
     if (v15 + 1 >= v19)
     {
-      if (v6 + 16 > v14)
+      if (v6 + 2 > v14)
       {
         SIValueSet<unsigned int>::RLEKeyHolder<unsigned long long>::AddSortedValuesWithContext<SIValueSet<unsigned int>::FlatContext,SIValueSet<unsigned int>::RLEKeyHolder<unsigned long long>::InertContext>();
       }
@@ -3054,7 +3046,7 @@ LABEL_81:
       if (v6 != v19)
       {
         v44 = v15;
-        memmove((v14 - (v6 - v19)), v19, v6 - v19);
+        memmove(v14 - (v6 - v19), v19, v6 - v19);
         v15 = v44;
         v14 = v45;
       }
@@ -3096,18 +3088,18 @@ LABEL_88:
     v15 = (v40 + v39);
   }
 
-  *(a1 + 8) = (v15 - v42) >> 3;
+  a1[1] = v15 - v42;
   return v12;
 }
 
-uint64_t SIValueSet<unsigned long long>::RLEKeyHolder<unsigned long long>::AddSortedValuesWithContext<SIValueSet<unsigned long long>::FlatContextWithPfx,SIValueSet<unsigned long long>::CollectorContext>(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t SIValueSet<unsigned long long>::RLEKeyHolder<unsigned long long>::AddSortedValuesWithContext<SIValueSet<unsigned long long>::FlatContextWithPfx,SIValueSet<unsigned long long>::CollectorContext>(uint64_t a1, uint64_t **a2, uint64_t a3)
 {
-  if (*a2 >= *(a2 + 8) || (*(a2 + 24) & **a2) != *(a2 + 16))
+  if (*a2 >= a2[1] || (a2[3] & **a2) != a2[2])
   {
     return 0;
   }
 
-  v6 = SIValueSet<unsigned long long>::FlatContextWithPfx::peek(a2);
+  v6 = SIValueSet<unsigned long long>::FlatContextWithPfx::peek(a2, a2);
   v7 = v6;
   v8 = *(a1 + 8);
   v9 = a1 + 16 + 8 * v8;
@@ -3223,7 +3215,7 @@ uint64_t SIValueSet<unsigned long long>::RLEKeyHolder<unsigned long long>::AddSo
           v30 = 1;
         }
 
-        if (SIValueSet<unsigned long long>::FlatContextWithPfx::nextKey(a2) != v7)
+        if (SIValueSet<unsigned long long>::FlatContextWithPfx::nextKey(a2, v10) != v7)
         {
           SIValueSet<unsigned int>::RLEKeyHolder<unsigned long long>::AddSortedValuesWithContext<SIValueSet<unsigned int>::FlatContext,SIValueSet<unsigned int>::RLEKeyHolder<unsigned long long>::InertContext>();
         }
@@ -3238,7 +3230,7 @@ uint64_t SIValueSet<unsigned long long>::RLEKeyHolder<unsigned long long>::AddSo
           SIValueSet<unsigned long long>::SIValueSetInsert(*(a3 + 8), *a3 | v7);
         }
 
-        if (*a2 >= *(a2 + 8))
+        if (*a2 >= a2[1])
         {
           v25 = 0;
           ++v17;
@@ -3246,13 +3238,13 @@ uint64_t SIValueSet<unsigned long long>::RLEKeyHolder<unsigned long long>::AddSo
         }
 
         ++v17;
-        if ((*(a2 + 24) & **a2) != *(a2 + 16))
+        if ((a2[3] & **a2) != a2[2])
         {
           v25 = 0;
           goto LABEL_50;
         }
 
-        v7 = SIValueSet<unsigned long long>::FlatContextWithPfx::peek(a2);
+        v7 = SIValueSet<unsigned long long>::FlatContextWithPfx::peek(a2, v10);
         ++v20;
       }
 
@@ -3463,28 +3455,28 @@ LABEL_96:
   return v51;
 }
 
-uint64_t SIValueSet<unsigned long long>::FlatContextWithPfx::peek(uint64_t **a1)
+unint64_t SIValueSet<unsigned long long>::FlatContextWithPfx::peek(uint64_t **a1, uint64_t a2)
 {
-  v1 = **a1;
-  v2 = a1[3];
-  if ((v2 & v1) != a1[2])
+  v2 = **a1;
+  v3 = a1[3];
+  if ((v3 & v2) != a1[2])
   {
     SIValueSet<unsigned int>::FlatContextWithPfx::peek();
   }
 
-  return v1 & ~v2;
+  return v2 & ~v3;
 }
 
-uint64_t SIValueSet<unsigned long long>::FlatContextWithPfx::nextKey(uint64_t **a1)
+unint64_t SIValueSet<unsigned long long>::FlatContextWithPfx::nextKey(uint64_t **a1, uint64_t a2)
 {
-  v1 = *(*a1)++;
-  v2 = a1[3];
-  if ((v2 & v1) != a1[2])
+  v2 = *(*a1)++;
+  v3 = a1[3];
+  if ((v3 & v2) != a1[2])
   {
     SIValueSet<unsigned int>::FlatContextWithPfx::nextKey();
   }
 
-  return v1 & ~v2;
+  return v2 & ~v3;
 }
 
 BOOL SIValueSet<unsigned long long>::RLEKeyHolder<unsigned int>::AddKey(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -3902,18 +3894,18 @@ LABEL_42:
 
 void SIValueSet<unsigned long long>::RLEKeyHolder<unsigned int>::Apply(uint64_t a1, uint64_t a2, unint64_t a3, void (*a4)(char *, uint64_t, uint64_t), uint64_t a5)
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   v9 = MEMORY[0x28223BE20](a1);
-  v11 = v20 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = v19 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   v12 = *(v9 + 8);
   if (v12 > 0x3F)
   {
-    goto LABEL_19;
+    return;
   }
 
   v13 = (v9 + 12);
   v14 = v9 + 12 + 4 * v12;
-  bzero(v20 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0), v10);
+  bzero(v19 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0), v10);
   v15 = 0;
   v16 = 0;
 LABEL_3:
@@ -3971,9 +3963,6 @@ LABEL_15:
   {
     a4(v11, v17, a5);
   }
-
-LABEL_19:
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t SIValueSet<unsigned long long>::RLEKeyHolder<unsigned int>::Serialize(uint64_t a1, uint64_t a2)
@@ -4373,7 +4362,7 @@ uint64_t SIValueSet<unsigned long long>::RLEKeyHolder<unsigned int>::AddSortedVa
     return 0;
   }
 
-  v5 = SIValueSet<unsigned long long>::FlatContextWithPfx::peek(a2);
+  v5 = SIValueSet<unsigned long long>::FlatContextWithPfx::peek(a2, a2);
   v6 = v5;
   v7 = *(a1 + 8);
   v8 = 4 * v7 + 12;
@@ -4498,7 +4487,7 @@ uint64_t SIValueSet<unsigned long long>::RLEKeyHolder<unsigned int>::AddSortedVa
           v31 = 1;
         }
 
-        if (v6 != SIValueSet<unsigned long long>::FlatContextWithPfx::nextKey(a2))
+        if (v6 != SIValueSet<unsigned long long>::FlatContextWithPfx::nextKey(a2, v9))
         {
           SIValueSet<unsigned int>::RLEKeyHolder<unsigned long long>::AddSortedValuesWithContext<SIValueSet<unsigned int>::FlatContext,SIValueSet<unsigned int>::RLEKeyHolder<unsigned long long>::InertContext>();
         }
@@ -4527,7 +4516,7 @@ uint64_t SIValueSet<unsigned long long>::RLEKeyHolder<unsigned int>::AddSortedVa
           goto LABEL_51;
         }
 
-        v6 = SIValueSet<unsigned long long>::FlatContextWithPfx::peek(a2);
+        v6 = SIValueSet<unsigned long long>::FlatContextWithPfx::peek(a2, v9);
         ++v18;
       }
 
@@ -5175,18 +5164,18 @@ LABEL_42:
 
 void SIValueSet<unsigned long long>::RLEKeyHolder<unsigned short>::Apply(uint64_t a1, uint64_t a2, unint64_t a3, void (*a4)(char *, uint64_t, uint64_t), uint64_t a5)
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   v9 = MEMORY[0x28223BE20](a1);
-  v11 = v20 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = v19 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   v12 = *(v9 + 8);
   if (v12 > 0x3F)
   {
-    goto LABEL_19;
+    return;
   }
 
   v13 = (v9 + 10);
   v14 = v9 + 10 + 2 * v12;
-  bzero(v20 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0), v10);
+  bzero(v19 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0), v10);
   v15 = 0;
   v16 = 0;
 LABEL_3:
@@ -5244,9 +5233,6 @@ LABEL_15:
   {
     a4(v11, v17, a5);
   }
-
-LABEL_19:
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t SIValueSet<unsigned long long>::RLEKeyHolder<unsigned short>::Serialize(uint64_t a1, uint64_t a2)
@@ -5649,161 +5635,161 @@ uint64_t SIValueSet<unsigned long long>::RLEKeyHolder<unsigned short>::AddSorted
     return 0;
   }
 
-  v5 = SIValueSet<unsigned long long>::FlatContextWithPfx::peek(a2);
-  v6 = v5;
-  v7 = *(a1 + 8);
-  v8 = 2 * v7 + 10;
-  v9 = (a1 + 10);
-  if (v7 >= 3)
+  v5 = SIValueSet<unsigned long long>::FlatContextWithPfx::peek(a2, a2);
+  v7 = v5;
+  v8 = *(a1 + 8);
+  v9 = 2 * v8 + 10;
+  v10 = (a1 + 10);
+  if (v8 >= 3)
   {
-    v10 = (a1 + v8);
-    v9 = (a1 + 10);
+    v11 = (a1 + v9);
+    v10 = (a1 + 10);
     do
     {
-      v11 = (v9 + (v7 & 0xFFFFFFFFFFFFFFFELL));
-      v12 = *v11;
-      if (v12 < 0)
+      v12 = (v10 + (v8 & 0xFFFFFFFFFFFFFFFELL));
+      v13 = *v12;
+      if (v13 < 0)
       {
-        v13 = *--v11;
-        LOWORD(v12) = v13;
+        v14 = *--v12;
+        LOWORD(v13) = v14;
       }
 
-      if (v11 <= v9)
+      if (v12 <= v10)
       {
         break;
       }
 
-      if (v12 == v5)
+      if (v13 == v5)
       {
-        v9 = v11;
+        v10 = v12;
         break;
       }
 
-      if (v12 > v5)
+      if (v13 > v5)
       {
-        v10 = v11;
+        v11 = v12;
       }
 
       else
       {
-        v9 = v11;
+        v10 = v12;
       }
 
-      v7 = v10 - v9;
+      v8 = v11 - v10;
     }
 
-    while (v10 > v9 && v7 > 2);
+    while (v11 > v10 && v8 > 2);
   }
 
-  v44 = a1 + 10;
-  v45 = a1;
-  v16 = 0;
-  v50 = 0;
-  v46 = a1 + 136;
-  v17 = v9;
-  v18 = 1;
-  v19 = v8;
+  v45 = a1 + 10;
+  v46 = a1;
+  v17 = 0;
+  v51 = 0;
+  v47 = a1 + 136;
+  v18 = v10;
+  v19 = 1;
+  v20 = v9;
   while (2)
   {
-    v47 = v19;
-    v48 = v17;
-    LOWORD(v20) = 0;
-    v21 = 0;
-    v22 = a1 + v19;
-    v23 = v9;
+    v48 = v20;
+    v49 = v18;
+    LOWORD(v21) = 0;
+    v22 = 0;
+    v23 = a1 + v20;
+    v24 = v10;
     do
     {
-      v24 = v21;
-      while (v23 >= v22 || *v23 > v6)
+      v25 = v22;
+      while (v24 >= v23 || *v24 > v7)
       {
-        if (!v24)
+        if (!v25)
         {
-          v24 = 1;
-          LOWORD(v20) = v6;
+          v25 = 1;
+          LOWORD(v21) = v7;
           goto LABEL_34;
         }
 
-        v25 = v24 + v20;
-        v26 = 1;
-        if (v25 < v6)
+        v26 = v25 + v21;
+        v27 = 1;
+        if (v26 < v7)
         {
           goto LABEL_46;
         }
 
-        v27 = v6 + 1;
-        if (v27 < v20)
+        v28 = v7 + 1;
+        if (v28 < v21)
         {
           goto LABEL_46;
         }
 
-        v28 = v20;
-        v29 = v24 + v20 - 1;
-        v30 = v20 > v6;
-        if (v20 >= v6)
+        v29 = v21;
+        v30 = v25 + v21 - 1;
+        v31 = v21 > v7;
+        if (v21 >= v7)
         {
-          LOWORD(v20) = v6;
+          LOWORD(v21) = v7;
         }
 
-        if (v28 > v6)
+        if (v29 > v7)
         {
-          v24 = v29;
-          v25 = v29 + v6;
+          v25 = v30;
+          v26 = v30 + v7;
         }
 
-        if (v25 <= v6)
+        if (v26 <= v7)
         {
-          v24 = v24 + v27 - v25;
+          v25 = v25 + v28 - v26;
 LABEL_34:
-          v30 = 1;
+          v31 = 1;
         }
 
-        if (v6 != SIValueSet<unsigned long long>::FlatContextWithPfx::nextKey(a2))
+        if (v7 != SIValueSet<unsigned long long>::FlatContextWithPfx::nextKey(a2, v6))
         {
           SIValueSet<unsigned int>::RLEKeyHolder<unsigned long long>::AddSortedValuesWithContext<SIValueSet<unsigned int>::FlatContext,SIValueSet<unsigned int>::RLEKeyHolder<unsigned long long>::InertContext>();
         }
 
-        if (v30)
+        if (v31)
         {
-          ++v50;
+          ++v51;
         }
 
         else if (a3)
         {
-          SIValueSet<unsigned long long>::SIValueSetInsert(*(a3 + 8), *a3 | v6);
+          SIValueSet<unsigned long long>::SIValueSetInsert(*(a3 + 8), *a3 | v7);
         }
 
         if (*a2 >= *(a2 + 8))
         {
-          v26 = 0;
-          ++v16;
+          v27 = 0;
+          ++v17;
           goto LABEL_46;
         }
 
-        ++v16;
+        ++v17;
         if ((*(a2 + 24) & **a2) != *(a2 + 16))
         {
-          v26 = 0;
+          v27 = 0;
           goto LABEL_46;
         }
 
-        ++v18;
-        v6 = SIValueSet<unsigned long long>::FlatContextWithPfx::peek(a2);
+        ++v19;
+        v7 = SIValueSet<unsigned long long>::FlatContextWithPfx::peek(a2, v6);
       }
 
-      v26 = 1;
+      v27 = 1;
 LABEL_46:
-      v31 = v20;
-      if (v23 >= v22)
+      v32 = v21;
+      if (v24 >= v23)
       {
         goto LABEL_71;
       }
 
-      v20 = *v23;
-      if ((v23 + 1) >= v22)
+      v21 = *v24;
+      if ((v24 + 1) >= v23)
       {
-        v35 = 1;
-        v21 = 1;
-        if (!v24)
+        v36 = 1;
+        v22 = 1;
+        if (!v25)
         {
           goto LABEL_66;
         }
@@ -5811,123 +5797,123 @@ LABEL_46:
 
       else
       {
-        v32 = v23[1];
-        v33 = v32 & 0x7FFF;
-        v34 = v32 >= 0;
-        v35 = 2;
-        if (v34)
+        v33 = v24[1];
+        v34 = v33 & 0x7FFF;
+        v35 = v33 >= 0;
+        v36 = 2;
+        if (v35)
         {
-          v35 = 1;
-          v21 = 1;
+          v36 = 1;
+          v22 = 1;
         }
 
         else
         {
-          v21 = v33 + 1;
+          v22 = v34 + 1;
         }
 
-        if (!v24)
+        if (!v25)
         {
           goto LABEL_66;
         }
       }
 
-      v36 = v24 + v31;
-      if (v36 < v20 || (v37 = v21 + v20, v21 + v20 < v31))
+      v37 = v25 + v32;
+      if (v37 < v21 || (v38 = v22 + v21, v22 + v21 < v32))
       {
 LABEL_71:
-        LOWORD(v20) = v31;
-        v21 = v24;
+        LOWORD(v21) = v32;
+        v22 = v25;
         break;
       }
 
-      v38 = v24 - v21 + v31 + v20;
-      v39 = v31 > v20;
-      if (v31 < v20)
+      v39 = v25 - v22 + v32 + v21;
+      v40 = v32 > v21;
+      if (v32 < v21)
       {
-        LOWORD(v20) = v31;
+        LOWORD(v21) = v32;
       }
 
-      if (v39)
+      if (v40)
       {
-        v40 = v24 - v21 + v31;
-      }
-
-      else
-      {
-        v40 = v24;
-      }
-
-      if (v39)
-      {
-        v36 = v38;
-      }
-
-      if (v37 > v36)
-      {
-        v21 = v40 + v37 - v36;
+        v41 = v25 - v22 + v32;
       }
 
       else
       {
-        v21 = v40;
+        v41 = v25;
+      }
+
+      if (v40)
+      {
+        v37 = v39;
+      }
+
+      if (v38 > v37)
+      {
+        v22 = v41 + v38 - v37;
+      }
+
+      else
+      {
+        v22 = v41;
       }
 
 LABEL_66:
-      v23 += v35;
-      if (v21 + v20 >= v6)
+      v24 += v36;
+      if (v22 + v21 >= v7)
       {
-        v41 = v26;
-      }
-
-      else
-      {
-        v41 = 0;
-      }
-    }
-
-    while ((v41 & 1) != 0);
-    if (v21 == 1)
-    {
-      if (v48 >= v23)
-      {
-        if (v47 >= 133)
-        {
-          SIValueSet<unsigned int>::RLEKeyHolder<unsigned long long>::AddSortedValuesWithContext<SIValueSet<unsigned int>::FlatContext,SIValueSet<unsigned int>::RLEKeyHolder<unsigned long long>::InertContext>();
-        }
-
-        v9 = (v46 - (v22 - v23));
-        if (v22 != v23)
-        {
-          memmove((v46 - (v22 - v23)), v23, v22 - v23);
-        }
-
-        v19 = 136;
-        a1 = v45;
-      }
-
-      else
-      {
-        v9 = v23;
-        a1 = v45;
-        v19 = v47;
-      }
-
-      *v48 = v20;
-      v17 = v48 + 1;
-LABEL_88:
-      v22 = a1 + v19;
-      if (v17 + a1 + v19 - v9 + 4 <= v46)
-      {
-        v42 = v26;
+        v42 = v27;
       }
 
       else
       {
         v42 = 0;
       }
+    }
 
-      if ((v42 & 1) == 0)
+    while ((v42 & 1) != 0);
+    if (v22 == 1)
+    {
+      if (v49 >= v24)
+      {
+        if (v48 >= 133)
+        {
+          SIValueSet<unsigned int>::RLEKeyHolder<unsigned long long>::AddSortedValuesWithContext<SIValueSet<unsigned int>::FlatContext,SIValueSet<unsigned int>::RLEKeyHolder<unsigned long long>::InertContext>();
+        }
+
+        v10 = (v47 - (v23 - v24));
+        if (v23 != v24)
+        {
+          memmove((v47 - (v23 - v24)), v24, v23 - v24);
+        }
+
+        v20 = 136;
+        a1 = v46;
+      }
+
+      else
+      {
+        v10 = v24;
+        a1 = v46;
+        v20 = v48;
+      }
+
+      *v49 = v21;
+      v18 = v49 + 1;
+LABEL_88:
+      v23 = a1 + v20;
+      if (v18 + a1 + v20 - v10 + 4 <= v47)
+      {
+        v43 = v27;
+      }
+
+      else
+      {
+        v43 = 0;
+      }
+
+      if ((v43 & 1) == 0)
       {
         goto LABEL_95;
       }
@@ -5938,67 +5924,67 @@ LABEL_88:
     break;
   }
 
-  if (v21)
+  if (v22)
   {
-    if (v48 + 1 >= v23)
+    if (v49 + 1 >= v24)
     {
-      if (v47 >= 133)
+      if (v48 >= 133)
       {
         SIValueSet<unsigned int>::RLEKeyHolder<unsigned long long>::AddSortedValuesWithContext<SIValueSet<unsigned int>::FlatContext,SIValueSet<unsigned int>::RLEKeyHolder<unsigned long long>::InertContext>();
       }
 
-      v9 = (v46 - (v22 - v23));
-      if (v22 != v23)
+      v10 = (v47 - (v23 - v24));
+      if (v23 != v24)
       {
-        memmove((v46 - (v22 - v23)), v23, v22 - v23);
+        memmove((v47 - (v23 - v24)), v24, v23 - v24);
       }
 
-      v19 = 136;
-      a1 = v45;
+      v20 = 136;
+      a1 = v46;
     }
 
     else
     {
-      v9 = v23;
-      a1 = v45;
-      v19 = v47;
+      v10 = v24;
+      a1 = v46;
+      v20 = v48;
     }
 
-    *v48 = v20;
-    v48[1] = (v21 - 1) | 0x8000;
-    v17 = v48 + 2;
+    *v49 = v21;
+    v49[1] = (v22 - 1) | 0x8000;
+    v18 = v49 + 2;
     goto LABEL_88;
   }
 
-  v9 = v23;
-  a1 = v45;
-  v17 = v48;
+  v10 = v24;
+  a1 = v46;
+  v18 = v49;
 LABEL_95:
-  v43 = v17;
-  if (v26)
+  v44 = v18;
+  if (v27)
   {
-    if (v16 >= v18)
+    if (v17 >= v19)
     {
       SIValueSet<unsigned int>::RLEKeyHolder<unsigned long long>::AddSortedValuesWithContext<SIValueSet<unsigned int>::FlatContext,SIValueSet<unsigned int>::RLEKeyHolder<unsigned long long>::InertContext>();
     }
   }
 
-  else if (v16 != v18)
+  else if (v17 != v19)
   {
     SIValueSet<unsigned int>::RLEKeyHolder<unsigned long long>::AddSortedValuesWithContext<SIValueSet<unsigned int>::FlatContext,SIValueSet<unsigned int>::RLEKeyHolder<unsigned long long>::InertContext>();
   }
 
-  if (v22 > v9)
+  if (v23 > v10)
   {
-    memmove(v17, v9, v22 - v9);
-    v43 = v17 + v22 - v9;
+    memmove(v18, v10, v23 - v10);
+    v44 = v18 + v23 - v10;
   }
 
-  *(a1 + 8) = (v43 - v44) >> 1;
-  return v50;
+  *(a1 + 8) = (v44 - v45) >> 1;
+  return v51;
 }
 
-uint64_t SIValueSet<unsigned long long>::applyFun(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t SIValueSet<unsigned long long>::applyFun(unint64_t *a1, uint64_t a2, uint64_t a3)
 {
   if (a2)
   {
@@ -6032,7 +6018,7 @@ uint64_t SIValueSet<unsigned long long>::BitmapHolder::AddSortedKeysWithContext(
       return 0;
     }
 
-    Key = SIValueSet<unsigned long long>::FlatContextWithPfx::nextKey(a2);
+    Key = SIValueSet<unsigned long long>::FlatContextWithPfx::nextKey(a2, a2);
     v8 = *(v6 + 8 * (Key >> 6));
     if (((1 << Key) & v8) == 0)
     {
@@ -6109,33 +6095,33 @@ BOOL SIValueSet<unsigned long long>::BitmapHolder::RemoveKey(uint64_t a1, int a2
 
 uint64_t SIValueSet<unsigned long long>::BitmapHolder::Apply(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(char *, uint64_t, uint64_t), uint64_t a5)
 {
-  v15[3] = *MEMORY[0x277D85DE8];
+  v14[3] = *MEMORY[0x277D85DE8];
   MEMORY[0x28223BE20](a1);
-  v11 = v15 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   bzero(v11, v10);
-  v15[1] = a1 + 8;
-  v15[2] = 0;
-  v15[0] = 0;
-  result = SIValueSet<unsigned int>::BitmapHolder::BitmapHolderContext::hasMore(v15);
+  v14[1] = a1 + 8;
+  v14[2] = 0;
+  v14[0] = 0;
+  result = SIValueSet<unsigned int>::BitmapHolder::BitmapHolderContext::hasMore(v14);
   v13 = 0;
   if (result)
   {
     v13 = 0;
     do
     {
-      *&v11[8 * v13++] = SIValueSet<unsigned long long>::BitmapHolder::BitmapHolderContext::nextKey(v15) | a3;
+      *&v11[8 * v13++] = SIValueSet<unsigned long long>::BitmapHolder::BitmapHolderContext::nextKey(v14) | a3;
       if (v13 == a2)
       {
         result = a4(v11, a2, a5);
         if (result)
         {
-          goto LABEL_9;
+          return result;
         }
 
         v13 = 0;
       }
 
-      result = SIValueSet<unsigned int>::BitmapHolder::BitmapHolderContext::hasMore(v15);
+      result = SIValueSet<unsigned int>::BitmapHolder::BitmapHolderContext::hasMore(v14);
     }
 
     while ((result & 1) != 0);
@@ -6143,11 +6129,9 @@ uint64_t SIValueSet<unsigned long long>::BitmapHolder::Apply(uint64_t a1, uint64
 
   if (v13)
   {
-    result = a4(v11, v13, a5);
+    return a4(v11, v13, a5);
   }
 
-LABEL_9:
-  v14 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -6270,7 +6254,7 @@ LABEL_10:
 uint64_t SIValueSet<unsigned long long>::_SIValueSetInnerIterate(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   v11 = 0;
-  v12 = (a3 + 1);
+  v12 = a3 + 1;
   v13 = 64 - 4 * (a3 + 1);
   do
   {
@@ -6299,7 +6283,7 @@ uint64_t SIValueSet<unsigned long long>::_SIValueSetInnerIterate(uint64_t a1, ui
 CFStringRef SIStringCopyComposedString(const __CFString *a1, CFIndex a2, CFIndex a3)
 {
   result = 0;
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (a1)
   {
     v5 = a3;
@@ -6312,40 +6296,39 @@ CFStringRef SIStringCopyComposedString(const __CFString *a1, CFIndex a2, CFIndex
 
   if (v5 && v5 <= 299)
   {
-    v20 = 0;
+    v19 = 0;
     MaximumSizeForEncoding = CFStringGetMaximumSizeForEncoding(v5, 0x8000100u);
     v9 = MaximumSizeForEncoding + 1;
     MEMORY[0x28223BE20](MaximumSizeForEncoding);
-    v11 = (&v18 - v10);
-    bzero(&v18 - v10, v12);
-    v22.location = a2;
-    v22.length = a3;
-    CFStringGetCharacters(a1, v22, v11);
-    v19 = 0;
+    v11 = (&v17 - v10);
+    bzero(&v17 - v10, v12);
+    v21.location = a2;
+    v21.length = a3;
+    CFStringGetCharacters(a1, v21, v11);
+    v18 = 0;
     MEMORY[0x28223BE20](v13);
-    v15 = &v18 - v14;
-    bzero(&v18 - v14, v9);
+    v15 = &v17 - v14;
+    bzero(&v17 - v14, v9);
     if (CFStringEncodingUnicodeToBytes())
     {
-      result = 0;
+      return 0;
     }
 
     else
     {
-      v16 = v19;
-      v15[v19] = 0;
-      result = CFStringCreateWithBytes(*MEMORY[0x277CBECE8], v15, v16, 0x8000100u, 0);
+      v16 = v18;
+      v15[v18] = 0;
+      return CFStringCreateWithBytes(*MEMORY[0x277CBECE8], v15, v16, 0x8000100u, 0);
     }
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 __CFString *SIStringCopyIndexableStringForLocale(const __CFLocale *a1, const __CFString *a2, CFIndex a3, CFIndex a4)
 {
   MutableCopy = 0;
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     v5 = a4;
@@ -6358,22 +6341,31 @@ __CFString *SIStringCopyIndexableStringForLocale(const __CFLocale *a1, const __C
 
   if (v5 && v5 <= 299)
   {
-    v26 = 0;
+    v25 = 0;
     MaximumSizeForEncoding = CFStringGetMaximumSizeForEncoding(v5, 0x8000100u);
     v11 = MaximumSizeForEncoding + 1;
     MEMORY[0x28223BE20](MaximumSizeForEncoding);
-    v13 = (&v24 - v12);
-    bzero(&v24 - v12, v14);
-    v28.location = a3;
-    v28.length = a4;
-    CFStringGetCharacters(a2, v28, v13);
-    v25 = 0;
+    v13 = (&v23 - v12);
+    bzero(&v23 - v12, v14);
+    v27.location = a3;
+    v27.length = a4;
+    CFStringGetCharacters(a2, v27, v13);
+    v24 = 0;
     MEMORY[0x28223BE20](v15);
-    v17 = &v24 - v16;
-    bzero(&v24 - v16, v11);
-    if (CFStringEncodingUnicodeToBytes() || (v18 = v25, v17[v25] = 0, v19 = *MEMORY[0x277CBECE8], (v20 = CFStringCreateWithBytesNoCopy(*MEMORY[0x277CBECE8], v17, v18, 0x8000100u, 0, *MEMORY[0x277CBED00])) == 0))
+    v17 = &v23 - v16;
+    bzero(&v23 - v16, v11);
+    if (CFStringEncodingUnicodeToBytes())
     {
-      MutableCopy = 0;
+      return 0;
+    }
+
+    v18 = v24;
+    v17[v24] = 0;
+    v19 = *MEMORY[0x277CBECE8];
+    v20 = CFStringCreateWithBytesNoCopy(*MEMORY[0x277CBECE8], v17, v18, 0x8000100u, 0, *MEMORY[0x277CBED00]);
+    if (!v20)
+    {
+      return 0;
     }
 
     else
@@ -6385,7 +6377,6 @@ __CFString *SIStringCopyIndexableStringForLocale(const __CFLocale *a1, const __C
     }
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return MutableCopy;
 }
 
@@ -6708,7 +6699,7 @@ uint64_t SILanguagesGuessLanguageInStringWithHints(uint64_t a1, uint64_t a2, uin
   if ((a6 & 2) != 0)
   {
 
-    return MEMORY[0x282152450]();
+    return MEMORY[0x282152450](a1, a2, a3, a4, a5);
   }
 
   else
@@ -6736,9 +6727,9 @@ CFArrayRef ___ZL10getRegionsv_block_invoke()
   return result;
 }
 
-uint64_t SIMurmurHash3_x86_32(uint64_t a1, int a2, int a3)
+uint64_t SIMurmurHash3_x86_32(uint64_t a1, unsigned int a2, unsigned int a3)
 {
-  if (a2 >= 0)
+  if ((a2 & 0x80000000) == 0)
   {
     v3 = a2;
   }
@@ -6750,7 +6741,7 @@ uint64_t SIMurmurHash3_x86_32(uint64_t a1, int a2, int a3)
 
   v4 = a3 ^ 0x971E137B;
   v5 = (a1 + (v3 & 0xFFFFFFFC));
-  if ((a2 + 3) >= 7)
+  if (a2 + 3 >= 7)
   {
     v8 = -(v3 >> 2);
     v9 = -1789642873;
@@ -6779,7 +6770,7 @@ uint64_t SIMurmurHash3_x86_32(uint64_t a1, int a2, int a3)
   }
 
   v14 = 0;
-  if ((a2 & 3u) > 1)
+  if ((a2 & 3) > 1)
   {
     if ((a2 & 3) != 2)
     {
@@ -6805,31 +6796,28 @@ LABEL_17:
   return a3 ^ HIWORD(v17) ^ v17;
 }
 
-uint64_t SIMurmurHash3_x86_32String(const __CFString *a1, int a2)
+uint64_t SIMurmurHash3_x86_32String(const __CFString *a1, unsigned int a2)
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   Length = CFStringGetLength(a1);
-  v12[0] = Length;
+  v11[0] = Length;
   MaximumSizeForEncoding = CFStringGetMaximumSizeForEncoding(Length, 0x8000100u);
   v6 = MEMORY[0x28223BE20](MaximumSizeForEncoding);
-  v8 = v12 - v7;
-  bzero(v12 - v7, v6 + 1);
-  v13.location = 0;
-  v13.length = Length;
-  CFStringGetBytes(a1, v13, 0x8000100u, 0x2Du, 0, v8, MaximumSizeForEncoding + 1, v12);
-  v9 = v12[0];
-  v8[v12[0]] = 0;
-  result = SIMurmurHash3_x86_32(v8, v9, a2);
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  v8 = v11 - v7;
+  bzero(v11 - v7, v6 + 1);
+  v12.location = 0;
+  v12.length = Length;
+  CFStringGetBytes(a1, v12, 0x8000100u, 0x2Du, 0, v8, MaximumSizeForEncoding + 1, v11);
+  v9 = v11[0];
+  v8[v11[0]] = 0;
+  return SIMurmurHash3_x86_32(v8, v9, a2);
 }
 
 uint64_t store_stream_init(uint64_t a1, _DWORD *a2, char a3)
 {
-  v10 = 0;
-  v6 = fd_open(a2, &v10);
-  v7 = v6;
-  inited = store_stream_init_fd(a1, v6, v10, 0, a3);
+  v9 = 0;
+  v6 = fd_open(a2, &v9);
+  inited = store_stream_init_fd(a1, v6, v9, 0, a3);
   if (inited)
   {
     *(a1 + 56) = a2;
@@ -6837,7 +6825,7 @@ uint64_t store_stream_init(uint64_t a1, _DWORD *a2, char a3)
 
   else
   {
-    fd_close(a2, v7, v10);
+    fd_close(a2, v6, v9);
   }
 
   return inited;
@@ -6906,53 +6894,54 @@ LABEL_13:
   return 0;
 }
 
-void store_stream_destroy(uint64_t a1)
+void store_stream_destroy(unsigned int *a1)
 {
-  v2 = *(a1 + 48);
+  v2 = *(a1 + 6);
   if (v2)
   {
     free(v2);
-    *(a1 + 48) = 0;
-    *(a1 + 32) = 0;
-    if (*a1 != -1)
+    *(a1 + 6) = 0;
+    *(a1 + 4) = 0;
+    v3 = *a1;
+    if (v3 != -1)
     {
-      v3 = *(a1 + 56);
-      if (v3)
+      v4 = *(a1 + 7);
+      if (v4)
       {
-        fd_close(v3, *a1, *(a1 + 8));
+        fd_close(v4, v3, *(a1 + 1));
         *a1 = -1;
       }
     }
 
-    *(a1 + 56) = 0;
+    *(a1 + 7) = 0;
   }
 }
 
 uint64_t store_stream_flush(unsigned int *a1, int a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = a1[4];
   if (v2)
   {
-    goto LABEL_2;
+    return v2;
   }
 
-  v7 = (a1 + 2);
-  v8 = *(a1 + 1);
-  v9 = *a1;
-  if (v8)
+  v6 = a1 + 2;
+  v7 = *(a1 + 1);
+  v8 = *a1;
+  if (v7)
   {
-    v10 = prot_pwrite_guarded(v9, v7, *(a1 + 6), *(a1 + 5), *(a1 + 3));
+    v9 = prot_pwrite_guarded(v8, v6, *(a1 + 6), *(a1 + 5), *(a1 + 3));
   }
 
   else
   {
-    v10 = prot_pwrite(v9, *(a1 + 6), *(a1 + 5), *(a1 + 3));
+    v9 = prot_pwrite(v8, *(a1 + 6), *(a1 + 5), *(a1 + 3));
   }
 
-  if (*(a1 + 5) == v10)
+  if (*(a1 + 5) == v9)
   {
-    *(a1 + 3) += v10;
+    *(a1 + 3) += v9;
   }
 
   else
@@ -6972,61 +6961,59 @@ LABEL_10:
   *(a1 + 5) = 0;
   if (a2 && !v2)
   {
-    v11 = fsync(*a1);
-    a1[4] = v11;
-    if (v11)
+    v10 = fsync(*a1);
+    a1[4] = v10;
+    if (v10)
     {
       v2 = *__error();
       a1[4] = v2;
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        v12[0] = 67109120;
-        v12[1] = v2;
-        _os_log_error_impl(&dword_26B7AA000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "store_stream_flush sync err:%d", v12, 8u);
-        v2 = a1[4];
+        v11[0] = 67109120;
+        v11[1] = v2;
+        _os_log_error_impl(&dword_26B7AA000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "store_stream_flush sync err:%d", v11, 8u);
+        return a1[4];
       }
     }
 
     else
     {
-      v2 = 0;
+      return 0;
     }
   }
 
-LABEL_2:
-  v3 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
-uint64_t data_map32_get_data_entry@<X0>(uint64_t result@<X0>, unsigned int a2@<W1>, _BYTE *a3@<X2>, int a4@<W3>, uint64_t a5@<X5>, uint64_t a6@<X6>, uint64_t a7@<X7>, uint64_t a8@<X8>)
+uint64_t data_map32_get_data_entry@<X0>(uint64_t result@<X0>, unsigned int a2@<W1>, _BYTE *a3@<X2>, int a4@<W3>, uint64_t a5@<X8>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>)
 {
   v10 = result;
-  v94 = *MEMORY[0x277D85DE8];
-  *(a8 + 16) = 0;
+  v85 = *MEMORY[0x277D85DE8];
+  *(a5 + 16) = 0;
   *a3 = 0;
-  *a8 = 0;
-  *(a8 + 8) = 0;
-  *(a8 + 20) = *(result + 224);
-  v69 = 0;
+  *a5 = 0;
+  *(a5 + 8) = 0;
+  *(a5 + 20) = *(result + 224);
+  v67 = 0;
   if (!a4)
   {
-    result = data_map32_get_data(result, a2, &v69);
+    result = data_map32_get_data(result, a2, &v67);
 LABEL_14:
     if (result)
     {
       *a3 = 1;
       v29 = *(v10 + 224);
-      v30 = v69 - v29;
-      *a8 = result;
-      *(a8 + 8) = v30;
-      *(a8 + 20) = v29;
+      v30 = v67 - v29;
+      *a5 = result;
+      *(a5 + 8) = v30;
+      *(a5 + 20) = v29;
       if (v29)
       {
-        result = __memcpy_chk();
+        return __memcpy_chk();
       }
     }
 
-    goto LABEL_20;
+    return result;
   }
 
   if (*(result + 220) > a2)
@@ -7034,53 +7021,53 @@ LABEL_14:
     v12 = *(result + 1352);
     if (!v12)
     {
-      goto LABEL_20;
+      return result;
     }
 
     v13 = *(v12 + 4 * a2);
     if (v13 == 1)
     {
-      goto LABEL_20;
+      return result;
     }
 
-    v70 = 0;
-    v71 = 0;
-    HIBYTE(v72) = 0;
+    v68 = 0;
+    v69 = 0;
+    HIBYTE(v70) = 0;
     v14 = *(result + 1328);
     if (v14 <= v13)
     {
-      bzero(v84, 0x100uLL);
-      v42 = *__error();
-      v43 = _SILogForLogForCategory(0);
-      v44 = os_log_type_enabled(v43, OS_LOG_TYPE_ERROR);
-      if (v44)
+      bzero(v75, 0x100uLL);
+      v40 = *__error();
+      v41 = _SILogForLogForCategory(0);
+      v42 = os_log_type_enabled(v41, OS_LOG_TYPE_ERROR);
+      if (v42)
       {
-        v56 = *(v10 + 1328);
-        v57 = OUTLINED_FUNCTION_10(v44, v45, v46, v47, v48, v49, v50, v51, v67, v68, v69, v70, v71, v72, *buf, *&buf[8]);
+        v54 = *(v10 + 1328);
+        v55 = OUTLINED_FUNCTION_10(v42, v43, v44, v45, v46, v47, v48, v49, v65, v66, v67, v68, v69, v70, *buf, *&buf[8], *&buf[16], *&buf[24], *&buf[32], v72, *v73, *&v73[8], *&v73[16], v74);
         *__s = 136316418;
-        v86 = "_data_map32_get_data_entry";
-        v87 = 1024;
-        v88 = 446;
-        v89 = 2048;
-        *v90 = v13;
-        *&v90[8] = 2048;
-        *v91 = v56;
-        *&v91[8] = 2048;
-        *v92 = v10;
-        *&v92[8] = 2080;
-        v93 = v57;
-        _os_log_error_impl(&dword_26B7AA000, v43, OS_LOG_TYPE_ERROR, "%s:%d: invalid data offset 0x%lx 0x%lx %p %s", __s, 0x3Au);
+        v77 = "_data_map32_get_data_entry";
+        v78 = 1024;
+        v79 = 446;
+        v80 = 2048;
+        *v81 = v13;
+        *&v81[8] = 2048;
+        *v82 = v54;
+        *&v82[8] = 2048;
+        *v83 = v10;
+        *&v83[8] = 2080;
+        v84 = v55;
+        _os_log_error_impl(&dword_26B7AA000, v41, OS_LOG_TYPE_ERROR, "%s:%d: invalid data offset 0x%lx 0x%lx %p %s", __s, 0x3Au);
       }
 
-      v52 = __error();
+      v50 = __error();
       result = 0;
-      *v52 = v42;
+      *v50 = v40;
     }
 
     else
     {
-      data_entry_restore_32(*(result + 1320), v13, v14, &v70, &v72 + 7, a5, a6, a7);
-      if (HIBYTE(v72) == 1)
+      data_entry_restore_32(*(result + 1320), v13, v14, &v68, &v70 + 7, a6, a7, a8);
+      if (HIBYTE(v70) == 1)
       {
         bzero(__s, 0xC8uLL);
         v15 = 5;
@@ -7098,28 +7085,28 @@ LABEL_14:
         }
 
         while (v15);
-        bzero(v84, 0x100uLL);
+        bzero(v75, 0x100uLL);
         v18 = *__error();
         v19 = _SILogForLogForCategory(0);
         v20 = os_log_type_enabled(v19, OS_LOG_TYPE_ERROR);
         if (v20)
         {
-          v58 = OUTLINED_FUNCTION_10(v20, v21, v22, v23, v24, v25, v26, v27, v67, v68, v69, v70, v71, v72, *buf, *&buf[8]);
-          v59 = *(v10 + 1328);
+          v56 = OUTLINED_FUNCTION_10(v20, v21, v22, v23, v24, v25, v26, v27, v65, v66, v67, v68, v69, v70, *buf, *&buf[8], *&buf[16], *&buf[24], *&buf[32], v72, *v73, *&v73[8], *&v73[16], v74);
+          v57 = *(v10 + 1328);
           *buf = 136316674;
           *&buf[4] = "_data_map32_get_data_entry";
           *&buf[12] = 1024;
           *&buf[14] = 442;
-          v74 = 2080;
-          v75 = v58;
-          v76 = 2048;
-          v77 = v13;
-          v78 = 2048;
-          v79 = v59;
-          v80 = 2048;
-          v81 = v70;
-          v82 = 2080;
-          v83 = __s;
+          *&buf[18] = 2080;
+          *&buf[20] = v56;
+          *&buf[28] = 2048;
+          *&buf[30] = v13;
+          *&buf[38] = 2048;
+          v72 = v57;
+          *v73 = 2048;
+          *&v73[2] = v68;
+          *&v73[10] = 2080;
+          *&v73[12] = __s;
           _os_log_error_impl(&dword_26B7AA000, v19, OS_LOG_TYPE_ERROR, "%s:%d: data_entry_restore_32 failure: %s off: 0x%lx end: 0x%lx sz: 0x%lx sz bytes: %s", buf, 0x44u);
         }
 
@@ -7130,82 +7117,80 @@ LABEL_14:
 
       else
       {
-        v53 = *(v10 + 224);
-        v69 = v70 - v53;
+        v51 = *(v10 + 224);
+        v67 = v68 - v51;
         if (*(v10 + 1440))
         {
           os_unfair_lock_lock((v10 + 1436));
-          v66 = *(v10 + 1440);
-          if (v66)
+          v64 = *(v10 + 1440);
+          if (v64)
           {
-            bit_vector_set(v66, a2, v60, v61, v62, v63, v64, v65);
+            bit_vector_set(v64, a2, v58, v59, v60, v61, v62, v63);
           }
 
           os_unfair_lock_unlock((v10 + 1436));
-          v53 = *(v10 + 224);
+          v51 = *(v10 + 224);
         }
 
-        result = v71 + v53;
+        result = v69 + v51;
       }
     }
 
     goto LABEL_14;
   }
 
-  bzero(v84, 0x100uLL);
-  v31 = __error();
-  v32 = OUTLINED_FUNCTION_11(v31);
-  v33 = os_log_type_enabled(v32, OS_LOG_TYPE_ERROR);
-  if (v33)
+  bzero(v75, 0x100uLL);
+  __error();
+  v31 = OUTLINED_FUNCTION_11();
+  v32 = os_log_type_enabled(v31, OS_LOG_TYPE_ERROR);
+  if (v32)
   {
-    v54 = *(v10 + 220);
-    v55 = OUTLINED_FUNCTION_10(v33, v34, v35, v36, v37, v38, v39, v40, v67, v68, v69, v70, v71, v72, *buf, *&buf[8]);
+    v52 = *(v10 + 220);
+    v53 = OUTLINED_FUNCTION_10(v32, v33, v34, v35, v36, v37, v38, v39, v65, v66, v67, v68, v69, v70, *buf, *&buf[8], *&buf[16], *&buf[24], *&buf[32], v72, *v73, *&v73[8], *&v73[16], v74);
     *__s = 136316418;
-    v86 = "_data_map32_get_offset_entry";
-    v87 = 1024;
-    v88 = 422;
-    v89 = 1024;
-    *v90 = a2;
-    *&v90[4] = 1024;
-    *&v90[6] = v54;
-    *v91 = 2048;
-    *&v91[2] = v10;
-    *v92 = 2080;
-    *&v92[2] = v55;
-    _os_log_error_impl(&dword_26B7AA000, v32, OS_LOG_TYPE_ERROR, "%s:%d: invalid data id %d max %u %p %s", __s, 0x32u);
+    v77 = "_data_map32_get_offset_entry";
+    v78 = 1024;
+    v79 = 422;
+    v80 = 1024;
+    *v81 = a2;
+    *&v81[4] = 1024;
+    *&v81[6] = v52;
+    *v82 = 2048;
+    *&v82[2] = v10;
+    *v83 = 2080;
+    *&v83[2] = v53;
+    _os_log_error_impl(&dword_26B7AA000, v31, OS_LOG_TYPE_ERROR, "%s:%d: invalid data id %d max %u %p %s", __s, 0x32u);
   }
 
   result = __error();
-  *result = a8;
-LABEL_20:
-  v41 = *MEMORY[0x277D85DE8];
+  *result = a5;
   return result;
 }
 
 uint64_t data_map32_get_data_offset_locked(uint64_t a1, unsigned int a2)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   if (*(a1 + 220) <= a2)
   {
-    bzero(v28, 0x100uLL);
+    bzero(v27, 0x100uLL);
     v13 = *__error();
     v14 = _SILogForLogForCategory(0);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v17 = *(a1 + 220);
-      fd_name(*(a1 + 1272), v28, 0x100uLL);
-      *v20 = 136316418;
+      v16 = *(a1 + 220);
+      fd_name(*(a1 + 1272), v27, 0x100uLL);
+      *v19 = 136316418;
       OUTLINED_FUNCTION_1();
-      *&v20[7] = 422;
-      v20[9] = v18;
-      v21 = a2;
-      v22 = v18;
-      v23 = v17;
-      v24 = 2048;
-      v25 = a1;
-      v26 = 2080;
-      v27 = v19;
-      _os_log_error_impl(&dword_26B7AA000, v14, OS_LOG_TYPE_ERROR, "%s:%d: invalid data id %d max %u %p %s", v20, 0x32u);
+      *&v19[7] = 422;
+      v19[9] = v17;
+      v20 = a2;
+      v21 = v17;
+      v22 = v16;
+      v23 = 2048;
+      v24 = a1;
+      v25 = 2080;
+      v26 = v18;
+      _os_log_error_impl(&dword_26B7AA000, v14, OS_LOG_TYPE_ERROR, "%s:%d: invalid data id %d max %u %p %s", v19, 0x32u);
     }
 
     v5 = 0;
@@ -7215,9 +7200,15 @@ uint64_t data_map32_get_data_offset_locked(uint64_t a1, unsigned int a2)
   else
   {
     v4 = *(a1 + 1352);
-    if (!v4 || (v5 = *(v4 + 4 * a2), v5 == 1))
+    if (!v4)
     {
-      v5 = 0;
+      return 0;
+    }
+
+    v5 = *(v4 + 4 * a2);
+    if (v5 == 1)
+    {
+      return 0;
     }
 
     else if (*(a1 + 1440))
@@ -7233,305 +7224,105 @@ uint64_t data_map32_get_data_offset_locked(uint64_t a1, unsigned int a2)
     }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 int *_data_map32_wrlock_cold_1(int a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v3 = __error();
-  v4 = OUTLINED_FUNCTION_11(v3);
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  __error();
+  v3 = OUTLINED_FUNCTION_11();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     if (a1 == -1)
     {
-      v7 = *__error();
+      __error();
     }
 
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_7();
-    OUTLINED_FUNCTION_5(&dword_26B7AA000, v8, v9, "%s:%d: _data_map32_wrlock error %d", v10, v11, v12, v13, 2u);
+    OUTLINED_FUNCTION_5(&dword_26B7AA000, v5, v6, "%s:%d: _data_map32_wrlock error %d", v7, v8, v9, v10, 136315650);
   }
 
   result = __error();
   *result = v1;
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 int *_data_map32_rdlock_cold_1(int a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v3 = __error();
-  v4 = OUTLINED_FUNCTION_11(v3);
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  __error();
+  v3 = OUTLINED_FUNCTION_11();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     if (a1 == -1)
     {
-      v7 = *__error();
+      __error();
     }
 
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_7();
-    OUTLINED_FUNCTION_5(&dword_26B7AA000, v8, v9, "%s:%d: _data_map32_rdlock error %d", v10, v11, v12, v13, 2u);
+    OUTLINED_FUNCTION_5(&dword_26B7AA000, v5, v6, "%s:%d: _data_map32_rdlock error %d", v7, v8, v9, v10, 136315650);
   }
 
   result = __error();
   *result = v1;
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 int *_data_map32_unlock_cold_1(int a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v3 = __error();
-  v4 = OUTLINED_FUNCTION_11(v3);
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  __error();
+  v3 = OUTLINED_FUNCTION_11();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     if (a1 == -1)
     {
-      v7 = *__error();
+      __error();
     }
 
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_7();
-    OUTLINED_FUNCTION_5(&dword_26B7AA000, v8, v9, "%s:%d: _data_map32_unlock error %d", v10, v11, v12, v13, 2u);
+    OUTLINED_FUNCTION_5(&dword_26B7AA000, v5, v6, "%s:%d: _data_map32_unlock error %d", v7, v8, v9, v10, 136315650);
   }
 
   result = __error();
   *result = v1;
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void data_map32_init_with_ctx_cold_1()
+void data_map32_init_with_ctx_cold_10()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_2(&dword_26B7AA000, v0, v1, "%s:%d: hash fd_mmap error", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void data_map32_init_with_ctx_cold_2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_2(&dword_26B7AA000, v0, v1, "%s:%d: fd_truncate error", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void data_map32_init_with_ctx_cold_3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_2(&dword_26B7AA000, v0, v1, "%s:%d: offsets fd_mmap error", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void data_map32_init_with_ctx_cold_4()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_2(&dword_26B7AA000, v0, v1, "%s:%d: fd_truncate error", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void data_map32_init_with_ctx_cold_5()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_2(&dword_26B7AA000, v0, v1, "%s:%d: storage fd_mmap error", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void data_map32_init_with_ctx_cold_6()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_2(&dword_26B7AA000, v0, v1, "%s:%d: fd_truncate error", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void data_map32_init_with_ctx_cold_7()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_2(&dword_26B7AA000, v0, v1, "%s:%d: fd_truncate error", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void data_map32_init_with_ctx_cold_8()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_2(&dword_26B7AA000, v0, v1, "%s:%d: header pread error", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void data_map32_init_with_ctx_cold_9()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_2(&dword_26B7AA000, v0, v1, "%s:%d: invalid offset signature", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void data_map32_init_with_ctx_cold_10(uint64_t a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(*a1 + 12);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x1Eu);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Eu);
 }
 
-void data_map32_init_with_ctx_cold_11()
+void data_map32_init_with_ctx_cold_14()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_2(&dword_26B7AA000, v0, v1, "%s:%d: re-build hash error", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void data_map32_init_with_ctx_cold_12()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_2(&dword_26B7AA000, v0, v1, "%s:%d: invalid hash size 1", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void data_map32_init_with_ctx_cold_13(int *a1, int *a2)
-{
-  v10 = *MEMORY[0x277D85DE8];
-  v8 = *a1;
-  v9 = *a2;
-  OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x1Eu);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-void data_map32_init_with_ctx_cold_14(unsigned int *a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *a1;
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x22u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x22u);
 }
 
 void data_map32_init_with_ctx_cold_15()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void data_map32_init_with_ctx_cold_16(unsigned int *a1, int *a2)
+void data_map32_init_with_ctx_cold_21()
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v8 = *a1;
-  v9 = *a2;
-  OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x22u);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-void data_map32_init_with_ctx_cold_17()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_2(&dword_26B7AA000, v0, v1, "%s:%d: offset fd_mmap error", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void data_map32_init_with_ctx_cold_18()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_2(&dword_26B7AA000, v0, v1, "%s:%d: offset fd_mmap error", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void data_map32_init_with_ctx_cold_19()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_2(&dword_26B7AA000, v0, v1, "%s:%d: storage fd_mmap error", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void data_map32_init_with_ctx_cold_20()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_2(&dword_26B7AA000, v0, v1, "%s:%d: fd_truncate error", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void data_map32_init_with_ctx_cold_21(unsigned int *a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *a1;
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x1Cu);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-void data_map32_init_with_ctx_cold_22()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_2(&dword_26B7AA000, v0, v1, "%s:%d: param error", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
 }
 
 void _data_map32_rehash_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void data_map32_validate_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_2(&dword_26B7AA000, v0, v1, "%s:%d: Error mismatch hash ", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void data_map32_validate_cold_2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_2(&dword_26B7AA000, v0, v1, "%s:%d: Error mismatch hash ids ", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void data_map32_validate_cold_3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_2(&dword_26B7AA000, v0, v1, "%s:%d: Error mismatch offset ids ", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void data_map32_validate_cold_4()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_2(&dword_26B7AA000, v0, v1, "%s:%d: entry exceeds storage", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void data_map32_id_get_with_key_noextra_cold_1(os_unfair_lock_s *a1, uint64_t a2, unsigned int a3)
@@ -7567,31 +7358,7 @@ void data_map32_get_data_cold_1(os_unfair_lock_s *a1, uint64_t a2, CFIndex a3)
   os_unfair_lock_unlock(v3 + 359);
 }
 
-void data_map32_garbage_collect_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_2(&dword_26B7AA000, v0, v1, "%s:%d: storage fd_mmap error", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void data_map32_garbage_collect_cold_2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_2(&dword_26B7AA000, v0, v1, "%s:%d: offsets fd_mmap error", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void data_map32_garbage_collect_cold_3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_2(&dword_26B7AA000, v0, v1, "%s:%d: storage fd_mmap error", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void bit_vector_set_cold_1(__CFBitVector *MutableCopy, uint64_t a2, uint64_t a3, CFIndex *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void bit_vector_set_cold_1(__CFBitVector *MutableCopy, CFIndex a2, uint64_t a3, CFIndex *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (MutableCopy)
   {
@@ -7613,7 +7380,8 @@ void bit_vector_set_cold_1(__CFBitVector *MutableCopy, uint64_t a2, uint64_t a3,
 
     if (v10 <= MutableCopy)
     {
-      goto LABEL_6;
+      __message_assert(MutableCopy, a2, a3, a4, a5, a6, a7, a8, "bit_vector.h", 124, "newCapacity > bv->capacity", "");
+      goto LABEL_7;
     }
   }
 
@@ -7621,53 +7389,52 @@ void bit_vector_set_cold_1(__CFBitVector *MutableCopy, uint64_t a2, uint64_t a3,
   v12 = *MEMORY[0x277CBECE8];
   if (v11)
   {
-    MutableCopy = CFBitVectorCreateMutableCopy(v12, v10, v11);
+    Mutable = CFBitVectorCreateMutableCopy(v12, v10, v11);
   }
 
   else
   {
-    MutableCopy = CFBitVectorCreateMutable(v12, v10);
+    Mutable = CFBitVectorCreateMutable(v12, v10);
   }
 
-  v13 = MutableCopy;
-  if (!MutableCopy)
+  v21 = Mutable;
+  if (!Mutable)
   {
-LABEL_6:
-    __message_assert(MutableCopy, a2, a3, a4, a5, a6, a7, a8, "bit_vector.h");
+    __message_assert(0, v14, v15, v16, v17, v18, v19, v20, "bit_vector.h", 128, "newBV", "");
+LABEL_7:
     OUTLINED_FUNCTION_0();
   }
 
-  CFBitVectorSetCount(MutableCopy, v10);
-  v14 = *(a3 + 16);
-  if (v14)
+  CFBitVectorSetCount(Mutable, v10);
+  v22 = *(a3 + 16);
+  if (v22)
   {
-    CFRelease(v14);
+    CFRelease(v22);
   }
 
-  *(a3 + 16) = v13;
+  *(a3 + 16) = v21;
   *a4 = v10;
 }
 
 void data_entry_restore_32_cold_1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  si_analytics_log(a1, a2, a3, a4, a5, a6, a7, a8, "VIntUtils.h");
+  si_analytics_log(a1, a2, a3, a4, a5, a6, a7, a8, "VIntUtils.h", 389, "(b4 & 0x80) == 0", "");
   MEMORY[0xB00] = -559038737;
   abort();
 }
 
 void si_analytics_log_cold_1(uint64_t *a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   v1 = *a1;
-  v3 = 136315138;
-  v4 = v1;
-  _os_log_fault_impl(&dword_26B7AA000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "%s", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v2 = 136315138;
+  v3 = v1;
+  _os_log_fault_impl(&dword_26B7AA000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "%s", &v2, 0xCu);
 }
 
 void si_get_token_info_cold_1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  __message_assert_0(a1, a2, a3, a4, a5, a6, a7, a8, "VIntUtils.h");
+  __message_assert_0(a1, a2, a3, a4, a5, a6, a7, a8, "VIntUtils.h", 342, "(b4 & 0x80) == 0", "");
   MEMORY[0xBAD] = -559038737;
   abort();
 }
@@ -7703,34 +7470,31 @@ void si_calendar_retain_cold_1(void *a1)
 
 int *_expandFunctions_cold_2(double *a1, uint64_t a2, uint64_t a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v6 = *__error();
   v7 = _SILogForLogForCategory(1);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = *a1;
-    v11 = 134218498;
-    v12 = v8;
-    v13 = 2080;
-    v14 = a2;
-    v15 = 2080;
-    v16 = a3;
-    _os_log_impl(&dword_26B7AA000, v7, OS_LOG_TYPE_DEFAULT, "Computed time (%lld) %s from %s", &v11, 0x20u);
+    v10 = 134218498;
+    v11 = v8;
+    v12 = 2080;
+    v13 = a2;
+    v14 = 2080;
+    v15 = a3;
+    _os_log_impl(&dword_26B7AA000, v7, OS_LOG_TYPE_DEFAULT, "Computed time (%lld) %s from %s", &v10, 0x20u);
   }
 
   result = __error();
   *result = v6;
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void SIDataMapLookupStringKey_cold_1(uint64_t *a1)
+void SIDataMapLookupStringKey_cold_1()
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *a1;
+  v1 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(&dword_26B7AA000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "SIDataMap: length didn't match expected (%ld, %ld)", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_26B7AA000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "SIDataMap: length didn't match expected (%ld, %ld)", v0, 0x16u);
 }
 
 void CITokenizerCreate_cold_1()
@@ -7747,52 +7511,47 @@ void CITokenizerStateInit_cold_1(int a1)
   OUTLINED_FUNCTION_0();
 }
 
-void nosymlink_chown_chmod_directory_cold_1()
+void nosymlink_chown_chmod_directory_cold_1(uint64_t a1, int a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  LODWORD(v7) = 67109634;
+  HIDWORD(v7) = a2;
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_1(&dword_26B7AA000, MEMORY[0x277D86220], v0, "Changing user ID (%u -> %u): %s", v1, v2, v3, v4, 2u);
-  v5 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_26B7AA000, MEMORY[0x277D86220], v2, "Changing user ID (%u -> %u): %s", v3, v4, v5, v6, v7);
 }
 
-void nosymlink_chown_chmod_directory_cold_2()
+void nosymlink_chown_chmod_directory_cold_2(uint64_t a1, int a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  LODWORD(v7) = 67109634;
+  HIDWORD(v7) = a2;
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_1(&dword_26B7AA000, MEMORY[0x277D86220], v0, "Changing group ID (%u -> %u): %s", v1, v2, v3, v4, 2u);
-  v5 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_26B7AA000, MEMORY[0x277D86220], v2, "Changing group ID (%u -> %u): %s", v3, v4, v5, v6, v7);
 }
 
-void nosymlink_chown_chmod_directory_cold_3()
+void nosymlink_chown_chmod_directory_cold_3(unsigned __int16 a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  LODWORD(v6) = 67109634;
+  HIDWORD(v6) = a1;
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_1(&dword_26B7AA000, MEMORY[0x277D86220], v0, "Modifying permissions (%o -> %o): %s", v1, v2, v3, v4, 2u);
-  v5 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_26B7AA000, MEMORY[0x277D86220], v1, "Modifying permissions (%o -> %o): %s", v2, v3, v4, v5, v6);
 }
 
 void createStaticLexicon(uint64_t *a1, int a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = *a1;
-  v5[0] = 67109378;
-  v5[1] = a2;
-  v6 = 2112;
-  v7 = v3;
-  _os_log_error_impl(&dword_26B7AA000, log, OS_LOG_TYPE_ERROR, "Failed to create system lexicon for language ID %d, error:%@", v5, 0x12u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4[0] = 67109378;
+  v4[1] = a2;
+  v5 = 2112;
+  v6 = v3;
+  _os_log_error_impl(&dword_26B7AA000, log, OS_LOG_TYPE_ERROR, "Failed to create system lexicon for language ID %d, error:%@", v4, 0x12u);
 }
 
-void fd_create_sibling_protected_cold_1(uint64_t *a1, int *a2)
+void fd_create_sibling_protected_cold_1()
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v2 = *a1;
-  v3 = *a2;
-  v4 = *__error();
+  __error();
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0x28u);
-  v10 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x28u);
 }
 
 int *_fd_acquire_fd_cold_2()
@@ -7801,7 +7560,8 @@ int *_fd_acquire_fd_cold_2()
   v1 = _SILogForLogForCategory(0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    OUTLINED_FUNCTION_2_0(&dword_26B7AA000, v2, v3, "open file failed to change fdguard", v4, v5, v6, v7, 0);
+    v9 = 0;
+    OUTLINED_FUNCTION_2_0(&dword_26B7AA000, v2, v3, "open file failed to change fdguard", v4, v5, v6, v7, v9);
   }
 
   result = __error();
@@ -7811,48 +7571,41 @@ int *_fd_acquire_fd_cold_2()
 
 void _fd_acquire_fd_cold_3(os_log_t log)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = 136315394;
-  v3 = "_fd_acquire_fd";
-  v4 = 1024;
-  v5 = 1649;
-  _os_log_error_impl(&dword_26B7AA000, log, OS_LOG_TYPE_ERROR, "%s:%d: fd_ptr instance was invalidated", &v2, 0x12u);
-  v1 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
+  v1 = 136315394;
+  v2 = "_fd_acquire_fd";
+  v3 = 1024;
+  v4 = 1649;
+  _os_log_error_impl(&dword_26B7AA000, log, OS_LOG_TYPE_ERROR, "%s:%d: fd_ptr instance was invalidated", &v1, 0x12u);
 }
 
 void fd_hold_assertion_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   v0 = __error();
   strerror(*v0);
-  v1 = *__error();
+  __error();
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x22u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0x22u);
 }
 
 void fd_hold_assertion_cold_2()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
-  v1 = __error();
-  strerror(*v1);
+  __error();
+  v0 = __error();
+  strerror(*v0);
   OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x2Cu);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0x2Cu);
 }
 
 void fd_drop_assertion_cold_1(uint64_t a1, char *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
   fd_name(a1, a2, 0x400uLL);
-  v2 = *__error();
-  v3 = __error();
-  strerror(*v3);
+  __error();
+  v2 = __error();
+  strerror(*v2);
   OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x2Cu);
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x2Cu);
 }
 
 int *fd_drop_assertion_cold_2()
@@ -7861,7 +7614,8 @@ int *fd_drop_assertion_cold_2()
   v1 = _SILogForLogForCategory(10);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    OUTLINED_FUNCTION_2_0(&dword_26B7AA000, v2, v3, "Unable to drop assertion as obj is invalid", v4, v5, v6, v7, 0);
+    v9 = 0;
+    OUTLINED_FUNCTION_2_0(&dword_26B7AA000, v2, v3, "Unable to drop assertion as obj is invalid", v4, v5, v6, v7, v9);
   }
 
   result = __error();
@@ -7875,7 +7629,8 @@ int *fd_copyfile_cold_1()
   v1 = _SILogForLogForCategory(0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    OUTLINED_FUNCTION_2_0(&dword_26B7AA000, v2, v3, "copy file failed to change fdguard", v4, v5, v6, v7, 0);
+    v9 = 0;
+    OUTLINED_FUNCTION_2_0(&dword_26B7AA000, v2, v3, "copy file failed to change fdguard", v4, v5, v6, v7, v9);
   }
 
   result = __error();
@@ -7885,19 +7640,17 @@ int *fd_copyfile_cold_1()
 
 void fd_system_status_set_busy_cold_1(char a1)
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 67109120;
-  v2[1] = a1 & 1;
-  _os_log_error_impl(&dword_26B7AA000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "======= fd_system_status_set_busy:%d", v2, 8u);
-  v1 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 67109120;
+  v1[1] = a1 & 1;
+  _os_log_error_impl(&dword_26B7AA000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "======= fd_system_status_set_busy:%d", v1, 8u);
 }
 
-void SIGeneralTrieAddStringKey_cold_1(uint64_t *a1)
+void SIGeneralTrieAddStringKey_cold_1()
 {
-  OUTLINED_FUNCTION_3_1(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_3_1(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_2_1(&dword_26B7AA000, MEMORY[0x277D86220], v1, "SIGeneralTrie: length didn't match expected (%ld, %ld)", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_1(&dword_26B7AA000, MEMORY[0x277D86220], v0, "SIGeneralTrie: length didn't match expected (%ld, %ld)", v1, v2, v3, v4);
 }
 
 void SILanguageResourcesCreate()
@@ -7911,45 +7664,44 @@ void SILanguageResourcesCreate()
 
 void __SILanguageModelIsStopWord_block_invoke_cold_2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_26B7AA000, a2, OS_LOG_TYPE_ERROR, "localization (IsStopWord): %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_26B7AA000, a2, OS_LOG_TYPE_ERROR, "localization (IsStopWord): %@", &v2, 0xCu);
 }
 
 void SILanguageResourcesRelease(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 40);
-  v4[0] = 67109120;
-  v4[1] = v2;
-  _os_log_debug_impl(&dword_26B7AA000, a2, OS_LOG_TYPE_DEBUG, "Releasing resources for language ID %d", v4, 8u);
-  v3 = *MEMORY[0x277D85DE8];
+  v3[0] = 67109120;
+  v3[1] = v2;
+  _os_log_debug_impl(&dword_26B7AA000, a2, OS_LOG_TYPE_DEBUG, "Releasing resources for language ID %d", v3, 8u);
 }
 
-void SIResourcePool::acquireResourceLocked(uint64_t a1, uint64_t *a2)
+void SIResourcePool::acquireResourceLocked()
 {
-  OUTLINED_FUNCTION_2_2(a1, a2, *MEMORY[0x277D85DE8]);
+  dispatch_once(&logger(void)::token, &__block_literal_global_11_0);
+}
+
+{
+  OUTLINED_FUNCTION_2_2(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_3_2(&dword_26B7AA000, v2, v3, "pool %d resource acquired, %lu active, %lu unused", v5, v6, v7);
-  v4 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_2(&dword_26B7AA000, v0, v1, "pool %d resource acquired, %lu active, %lu unused", v2, v3, v4);
 }
 
 void SIResourcePool::acquireResourceLocked(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v8 = *(a1 + 8);
-  OUTLINED_FUNCTION_1_3(&dword_26B7AA000, a2, a3, "pool %d got compacted to zero or timeout while waiting for resource acquisition, failed to acquire", a5, a6, a7, a8, 0);
-  v9 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = *(a1 + 8);
+  OUTLINED_FUNCTION_1_3(&dword_26B7AA000, a2, a3, "pool %d got compacted to zero or timeout while waiting for resource acquisition, failed to acquire", a5, a6, a7, a8, v8);
 }
 
-void SIResourcePool::releaseResource(uint64_t a1, uint64_t *a2)
+void SIResourcePool::releaseResource()
 {
-  OUTLINED_FUNCTION_2_2(a1, a2, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_2_2(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_3_2(&dword_26B7AA000, v2, v3, "pool %d resource released, %lu active, %lu unused", v5, v6, v7);
-  v4 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_2(&dword_26B7AA000, v0, v1, "pool %d resource released, %lu active, %lu unused", v2, v3, v4);
 }
 
 void SIResourcePools::populateLocked()
@@ -7963,168 +7715,146 @@ void SIResourcePools::populateLocked()
 
 void SIResourcePools::populateLocked(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_3(&dword_26B7AA000, a2, a3, "pool %d marked as 'failing'", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = a1;
+  OUTLINED_FUNCTION_1_3(&dword_26B7AA000, a2, a3, "pool %d marked as 'failing'", a5, a6, a7, a8, v8);
 }
 
 void ___ZN15SIResourcePools14populateLockedEimbRKNSt3__18functionIFPvvEEE_block_invoke_2_cold_2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v8 = *(a1 + 96);
-  OUTLINED_FUNCTION_1_3(&dword_26B7AA000, a2, a3, "pool %d marked as 'failing'", a5, a6, a7, a8, 0);
-  v9 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = *(a1 + 96);
+  OUTLINED_FUNCTION_1_3(&dword_26B7AA000, a2, a3, "pool %d marked as 'failing'", a5, a6, a7, a8, v8);
 }
 
 void _copyFile_cold_1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  __message_assert(a1, a2, a3, a4, a5, a6, a7, a8, "copyFile.c");
+  __message_assert(a1, a2, a3, a4, a5, a6, a7, a8, "copyFile.c", 188, "wLen <= actual", "");
   MEMORY[0xBAD] = -559038737;
   abort();
 }
 
 void _copyFile_cold_2()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_2_3();
   OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
 }
 
 void _copyFile_cold_3()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_2_3();
   OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
 }
 
-void _copyFile_cold_4(uint64_t *a1)
+void _copyFile_cold_4()
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v1 = *a1;
-  *v6 = 136315906;
+  v7 = *MEMORY[0x277D85DE8];
+  *v3 = 136315906;
   OUTLINED_FUNCTION_8();
-  *&v6[7] = 208;
-  v6[9] = 2048;
-  v7 = v2;
-  v8 = 2048;
-  v9 = v3;
-  _os_log_error_impl(&dword_26B7AA000, v4, OS_LOG_TYPE_ERROR, "%s:%d: write failed - expected:%lld, actual: %lld", v6, 0x26u);
-  v5 = *MEMORY[0x277D85DE8];
+  *&v3[7] = 208;
+  v3[9] = 2048;
+  v4 = v0;
+  v5 = 2048;
+  v6 = v1;
+  _os_log_error_impl(&dword_26B7AA000, v2, OS_LOG_TYPE_ERROR, "%s:%d: write failed - expected:%lld, actual: %lld", v3, 0x26u);
 }
 
 void _copyFile_cold_5()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_2_3();
   OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
 }
 
 void _copyFile_cold_6()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_2_3();
   OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x22u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x22u);
 }
 
 void _copyFile_cold_7()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_2_3();
   OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
 }
 
 void _copyFile_cold_8()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_2_3();
   OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x22u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x22u);
 }
 
 void copyFileFallback_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_2_3();
   OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x2Cu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x2Cu);
 }
 
 void copyFileFallback_cold_2()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_2_3();
   OUTLINED_FUNCTION_3_3();
   OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x28u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x28u);
 }
 
 void copyFileFallback_cold_3()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_2_3();
   OUTLINED_FUNCTION_3_3();
   OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x28u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x28u);
 }
 
 void my_vm_allocate_cold_1(uint64_t a1, int a2, int a3)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v6 = *__error();
   v7 = __error();
   v8 = strerror(*v7);
-  v10 = 136317186;
-  v11 = "slab_allocator.h";
-  v12 = 1024;
-  v13 = 85;
-  v14 = 2048;
-  v15 = a1;
-  v16 = 1024;
-  v17 = 3;
-  v18 = 1024;
-  v19 = 4098;
-  v20 = 1024;
-  v21 = a2;
-  v22 = 1024;
-  v23 = a3;
-  v24 = 1024;
-  v25 = v6;
-  v26 = 2080;
-  v27 = v8;
-  _os_log_error_impl(&dword_26B7AA000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s:%u: mmap failed for addr NULL, len 0x%08lx, prot 0x%04x, flags 0x%04x, fd 0x%04x, flags %u, errno %d(%s)", &v10, 0x44u);
-  v9 = *MEMORY[0x277D85DE8];
+  v9 = 136317186;
+  v10 = "slab_allocator.h";
+  v11 = 1024;
+  v12 = 85;
+  v13 = 2048;
+  v14 = a1;
+  v15 = 1024;
+  v16 = 3;
+  v17 = 1024;
+  v18 = 4098;
+  v19 = 1024;
+  v20 = a2;
+  v21 = 1024;
+  v22 = a3;
+  v23 = 1024;
+  v24 = v6;
+  v25 = 2080;
+  v26 = v8;
+  _os_log_error_impl(&dword_26B7AA000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s:%u: mmap failed for addr NULL, len 0x%08lx, prot 0x%04x, flags 0x%04x, fd 0x%04x, flags %u, errno %d(%s)", &v9, 0x44u);
 }
 
 void SIValueSet<unsigned int>::SIValueSetInsert()
@@ -8161,20 +7891,18 @@ void SIValueSet<unsigned int>::RLEKeyHolder<unsigned long long>::AddSortedValues
 
 void store_stream_init_fd_cold_1(int a1)
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 67109120;
-  v2[1] = a1;
-  _os_log_error_impl(&dword_26B7AA000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "store_stream_init err:%d", v2, 8u);
-  v1 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 67109120;
+  v1[1] = a1;
+  _os_log_error_impl(&dword_26B7AA000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "store_stream_init err:%d", v1, 8u);
 }
 
 void store_stream_flush_cold_1(int a1)
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 67109120;
-  v2[1] = a1;
-  _os_log_error_impl(&dword_26B7AA000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "store_stream_flush write err:%d", v2, 8u);
-  v1 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 67109120;
+  v1[1] = a1;
+  _os_log_error_impl(&dword_26B7AA000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "store_stream_flush write err:%d", v1, 8u);
 }
 
 Boolean CFCalendarDecomposeAbsoluteTime(CFCalendarRef calendar, CFAbsoluteTime at, const char *componentDesc, ...)

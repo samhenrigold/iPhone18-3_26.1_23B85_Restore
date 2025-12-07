@@ -89,7 +89,7 @@ void __62__SRUIFWatchAuthenticationManager_requestWatchAuthentication___block_in
 
 - (void)_requestWatchAuthentication:(id)authentication
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   authenticationCopy = authentication;
   currentSessionID = [(SRUIFWatchAuthenticationManager *)self currentSessionID];
   if (currentSessionID)
@@ -105,9 +105,9 @@ void __62__SRUIFWatchAuthenticationManager_requestWatchAuthentication___block_in
         v9 = v8;
         currentSessionID2 = [(SRUIFWatchAuthenticationManager *)self currentSessionID];
         *buf = 136315394;
-        v39 = "[SRUIFWatchAuthenticationManager _requestWatchAuthentication:]";
-        v40 = 2112;
-        v41 = currentSessionID2;
+        v38 = "[SRUIFWatchAuthenticationManager _requestWatchAuthentication:]";
+        v39 = 2112;
+        v40 = currentSessionID2;
         _os_log_impl(&dword_26951F000, v9, OS_LOG_TYPE_DEFAULT, "%s Watch authentication request already in progress. Cancelling session: %@", buf, 0x16u);
       }
 
@@ -132,14 +132,14 @@ void __62__SRUIFWatchAuthenticationManager_requestWatchAuthentication___block_in
     objc_initWeak(&location, self);
     v19 = objc_alloc(MEMORY[0x277CEF530]);
     watchAuthenticationQueue = self->_watchAuthenticationQueue;
-    v34[0] = MEMORY[0x277D85DD0];
-    v34[1] = 3221225472;
-    v34[2] = __63__SRUIFWatchAuthenticationManager__requestWatchAuthentication___block_invoke;
-    v34[3] = &unk_279C61898;
-    objc_copyWeak(&v36, &location);
+    v33[0] = MEMORY[0x277D85DD0];
+    v33[1] = 3221225472;
+    v33[2] = __63__SRUIFWatchAuthenticationManager__requestWatchAuthentication___block_invoke;
+    v33[3] = &unk_279C61898;
+    objc_copyWeak(&v35, &location);
     v21 = v18;
-    v35 = v21;
-    v22 = [v19 initWithTimeoutInterval:watchAuthenticationQueue onQueue:v34 timeoutHandler:5.0];
+    v34 = v21;
+    v22 = [v19 initWithTimeoutInterval:watchAuthenticationQueue onQueue:v33 timeoutHandler:5.0];
     authenticationWatchdogTimer = self->_authenticationWatchdogTimer;
     self->_authenticationWatchdogTimer = v22;
 
@@ -152,13 +152,13 @@ void __62__SRUIFWatchAuthenticationManager_requestWatchAuthentication___block_in
     {
       currentSessionID4 = [(SRUIFWatchAuthenticationManager *)self currentSessionID];
       *buf = 136315394;
-      v39 = "[SRUIFWatchAuthenticationManager _requestWatchAuthentication:]";
-      v40 = 2112;
-      v41 = currentSessionID4;
+      v38 = "[SRUIFWatchAuthenticationManager _requestWatchAuthentication:]";
+      v39 = 2112;
+      v40 = currentSessionID4;
       _os_log_impl(&dword_26951F000, v25, OS_LOG_TYPE_DEFAULT, "%s Attempting watch authentication with sessionID: %@", buf, 0x16u);
     }
 
-    objc_destroyWeak(&v36);
+    objc_destroyWeak(&v35);
     objc_destroyWeak(&location);
   }
 
@@ -172,11 +172,11 @@ void __62__SRUIFWatchAuthenticationManager_requestWatchAuthentication___block_in
       v30 = [v28 numberWithBool:v14];
       v31 = [MEMORY[0x277CCABB0] numberWithBool:v16];
       *buf = 136315650;
-      v39 = "[SRUIFWatchAuthenticationManager _requestWatchAuthentication:]";
-      v40 = 2112;
-      v41 = v30;
-      v42 = 2112;
-      v43 = v31;
+      v38 = "[SRUIFWatchAuthenticationManager _requestWatchAuthentication:]";
+      v39 = 2112;
+      v40 = v30;
+      v41 = 2112;
+      v42 = v31;
       _os_log_impl(&dword_26951F000, v29, OS_LOG_TYPE_DEFAULT, "%s Not attempting watch authentication, supported: %@, enabled: %@", buf, 0x20u);
     }
 
@@ -185,8 +185,6 @@ void __62__SRUIFWatchAuthenticationManager_requestWatchAuthentication___block_in
 
     [(SRUIFWatchAuthenticationManager *)self setAuthenticationCompletion:0];
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 void __63__SRUIFWatchAuthenticationManager__requestWatchAuthentication___block_invoke(uint64_t a1)
@@ -197,21 +195,19 @@ void __63__SRUIFWatchAuthenticationManager__requestWatchAuthentication___block_i
     v3 = MEMORY[0x277CEF098];
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
     {
-      __63__SRUIFWatchAuthenticationManager__requestWatchAuthentication___block_invoke_cold_1(a1);
+      __63__SRUIFWatchAuthenticationManager__requestWatchAuthentication___block_invoke_cold_1();
     }
 
     v4 = [WeakRetained authenticationManager];
-    v6 = *(a1 + 32);
-    v5 = (a1 + 32);
-    [v4 cancelAuthenticationSessionWithID:v6];
+    [v4 cancelAuthenticationSessionWithID:*(a1 + 32)];
 
-    v7 = [WeakRetained currentSessionID];
-    v8 = [v7 isEqual:*v5];
+    v5 = [WeakRetained currentSessionID];
+    v6 = [v5 isEqual:*(a1 + 32)];
 
-    if (v8)
+    if (v6)
     {
-      v9 = [WeakRetained authenticationCompletion];
-      v9[2](v9, 0);
+      v7 = [WeakRetained authenticationCompletion];
+      v7[2](v7, 0);
 
       [WeakRetained setAuthenticationCompletion:0];
       [WeakRetained setCurrentSessionID:0];
@@ -219,31 +215,29 @@ void __63__SRUIFWatchAuthenticationManager__requestWatchAuthentication___block_i
 
     else if (os_log_type_enabled(*v3, OS_LOG_TYPE_ERROR))
     {
-      __63__SRUIFWatchAuthenticationManager__requestWatchAuthentication___block_invoke_cold_2(v5);
+      __63__SRUIFWatchAuthenticationManager__requestWatchAuthentication___block_invoke_cold_2();
     }
   }
 }
 
 - (void)manager:(id)manager didStartAuthenticationForSessionWithID:(id)d
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   dCopy = d;
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315394;
-    v8 = "[SRUIFWatchAuthenticationManager manager:didStartAuthenticationForSessionWithID:]";
-    v9 = 2112;
-    v10 = dCopy;
-    _os_log_impl(&dword_26951F000, v5, OS_LOG_TYPE_DEFAULT, "%s Starting new watch authentication request with sessionID: %@", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[SRUIFWatchAuthenticationManager manager:didStartAuthenticationForSessionWithID:]";
+    v8 = 2112;
+    v9 = dCopy;
+    _os_log_impl(&dword_26951F000, v5, OS_LOG_TYPE_DEFAULT, "%s Starting new watch authentication request with sessionID: %@", &v6, 0x16u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)manager:(id)manager didCompleteAuthenticationForSessionWithID:(id)d
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   dCopy = d;
   currentSessionID = [(SRUIFWatchAuthenticationManager *)self currentSessionID];
   v7 = [currentSessionID isEqual:dCopy];
@@ -254,11 +248,11 @@ void __63__SRUIFWatchAuthenticationManager__requestWatchAuthentication___block_i
   {
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 136315394;
-      v14 = "[SRUIFWatchAuthenticationManager manager:didCompleteAuthenticationForSessionWithID:]";
-      v15 = 2112;
-      v16 = dCopy;
-      _os_log_impl(&dword_26951F000, v8, OS_LOG_TYPE_DEFAULT, "%s Completed watch authentication request with sessionID: %@", &v13, 0x16u);
+      v12 = 136315394;
+      v13 = "[SRUIFWatchAuthenticationManager manager:didCompleteAuthenticationForSessionWithID:]";
+      v14 = 2112;
+      v15 = dCopy;
+      _os_log_impl(&dword_26951F000, v8, OS_LOG_TYPE_DEFAULT, "%s Completed watch authentication request with sessionID: %@", &v12, 0x16u);
     }
 
     authenticationCompletion = [(SRUIFWatchAuthenticationManager *)self authenticationCompletion];
@@ -275,13 +269,11 @@ void __63__SRUIFWatchAuthenticationManager__requestWatchAuthentication___block_i
   {
     [SRUIFWatchAuthenticationManager manager:didCompleteAuthenticationForSessionWithID:];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)manager:(id)manager didFailAuthenticationForSessionWithID:(id)d error:(id)error
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   dCopy = d;
   errorCopy = error;
   currentSessionID = [(SRUIFWatchAuthenticationManager *)self currentSessionID];
@@ -293,13 +285,13 @@ void __63__SRUIFWatchAuthenticationManager__requestWatchAuthentication___block_i
   {
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 136315650;
-      v17 = "[SRUIFWatchAuthenticationManager manager:didFailAuthenticationForSessionWithID:error:]";
-      v18 = 2112;
-      v19 = dCopy;
-      v20 = 2112;
-      v21 = errorCopy;
-      _os_log_impl(&dword_26951F000, v11, OS_LOG_TYPE_DEFAULT, "%s Failed authentication request with sessionID: %@, error: %@", &v16, 0x20u);
+      v15 = 136315650;
+      v16 = "[SRUIFWatchAuthenticationManager manager:didFailAuthenticationForSessionWithID:error:]";
+      v17 = 2112;
+      v18 = dCopy;
+      v19 = 2112;
+      v20 = errorCopy;
+      _os_log_impl(&dword_26951F000, v11, OS_LOG_TYPE_DEFAULT, "%s Failed authentication request with sessionID: %@, error: %@", &v15, 0x20u);
     }
 
     authenticationCompletion = [(SRUIFWatchAuthenticationManager *)self authenticationCompletion];
@@ -316,54 +308,45 @@ void __63__SRUIFWatchAuthenticationManager__requestWatchAuthentication___block_i
   {
     [SRUIFWatchAuthenticationManager manager:didFailAuthenticationForSessionWithID:error:];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)requestWatchAuthentication:(os_log_t)log .cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[SRUIFWatchAuthenticationManager requestWatchAuthentication:]";
-  _os_log_error_impl(&dword_26951F000, log, OS_LOG_TYPE_ERROR, "%s No completion handler provided.", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[SRUIFWatchAuthenticationManager requestWatchAuthentication:]";
+  _os_log_error_impl(&dword_26951F000, log, OS_LOG_TYPE_ERROR, "%s No completion handler provided.", &v1, 0xCu);
 }
 
-void __63__SRUIFWatchAuthenticationManager__requestWatchAuthentication___block_invoke_cold_1(uint64_t a1)
+void __63__SRUIFWatchAuthenticationManager__requestWatchAuthentication___block_invoke_cold_1()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
+  v6 = 136315394;
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_26951F000, v2, v3, "%s Watch authentication request timed out for sessionID: %@", v4, v5, v6, v7, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_26951F000, v0, v1, "%s Watch authentication request timed out for sessionID: %@", v2, v3, v4, v5, v6);
 }
 
-void __63__SRUIFWatchAuthenticationManager__requestWatchAuthentication___block_invoke_cold_2(uint64_t *a1)
+void __63__SRUIFWatchAuthenticationManager__requestWatchAuthentication___block_invoke_cold_2()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v1 = *a1;
+  v6 = 136315394;
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_26951F000, v2, v3, "%s Ignoring unexpected watch authentication timeout for unknown sessionID: %@", v4, v5, v6, v7, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_26951F000, v0, v1, "%s Ignoring unexpected watch authentication timeout for unknown sessionID: %@", v2, v3, v4, v5, v6);
 }
 
 - (void)manager:didCompleteAuthenticationForSessionWithID:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_26951F000, v0, v1, "%s Ignoring unexpected watch authentication session completion for unknown sessionID: %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_26951F000, v0, v1, "%s Ignoring unexpected watch authentication session completion for unknown sessionID: %@", v2, v3, v4, v5, v6);
 }
 
 - (void)manager:didFailAuthenticationForSessionWithID:error:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4[0] = 136315650;
+  v6 = *MEMORY[0x277D85DE8];
+  v3[0] = 136315650;
   OUTLINED_FUNCTION_1_0();
-  v5 = v0;
-  v6 = v1;
-  _os_log_error_impl(&dword_26951F000, v2, OS_LOG_TYPE_ERROR, "%s Ignoring unexpected watch authentication session failure for unknown sessionID: %@ error: %@", v4, 0x20u);
-  v3 = *MEMORY[0x277D85DE8];
+  v4 = v0;
+  v5 = v1;
+  _os_log_error_impl(&dword_26951F000, v2, OS_LOG_TYPE_ERROR, "%s Ignoring unexpected watch authentication session failure for unknown sessionID: %@ error: %@", v3, 0x20u);
 }
 
 @end

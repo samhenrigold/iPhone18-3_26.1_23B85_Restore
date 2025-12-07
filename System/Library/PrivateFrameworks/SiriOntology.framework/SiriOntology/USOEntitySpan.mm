@@ -1,6 +1,7 @@
 @interface USOEntitySpan
 - (USOEntitySpan)init;
 - (USOEntitySpan)initWithCoder:(id)coder;
+- (USOEntitySpan)initWithOriginAppId:(id)id sourceComponent:(unsigned int)component label:(id)label matchInfo:(id)info properties:(id)properties startIndex:(unsigned int)index endIndex:(unsigned int)endIndex alternatives:(id)self0 originEntityId:(id)self1;
 - (void)encodeWithCoder:(id)coder;
 @end
 
@@ -89,6 +90,68 @@
   }
 
   return v5;
+}
+
+- (USOEntitySpan)initWithOriginAppId:(id)id sourceComponent:(unsigned int)component label:(id)label matchInfo:(id)info properties:(id)properties startIndex:(unsigned int)index endIndex:(unsigned int)endIndex alternatives:(id)self0 originEntityId:(id)self1
+{
+  v14 = *&component;
+  idCopy = id;
+  labelCopy = label;
+  infoCopy = info;
+  propertiesCopy = properties;
+  alternativesCopy = alternatives;
+  entityIdCopy = entityId;
+  v37.receiver = self;
+  v37.super_class = USOEntitySpan;
+  v20 = [(USOEntitySpan *)&v37 init];
+  v21 = v20;
+  if (v20)
+  {
+    objc_storeStrong(&v20->_originAppId, id);
+    v22 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v14];
+    sourceComponent = v21->_sourceComponent;
+    v21->_sourceComponent = v22;
+
+    objc_storeStrong(&v21->_label, label);
+    objc_storeStrong(&v21->_matchInfo, info);
+    if (propertiesCopy)
+    {
+      array = [propertiesCopy mutableCopy];
+    }
+
+    else
+    {
+      array = [MEMORY[0x1E695DF70] array];
+    }
+
+    properties = v21->_properties;
+    v21->_properties = array;
+
+    v26 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:index];
+    startIndex = v21->_startIndex;
+    v21->_startIndex = v26;
+
+    v28 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:endIndex];
+    endIndex = v21->_endIndex;
+    v21->_endIndex = v28;
+
+    if (alternativesCopy)
+    {
+      array2 = [alternativesCopy mutableCopy];
+    }
+
+    else
+    {
+      array2 = [MEMORY[0x1E695DF70] array];
+    }
+
+    alternatives = v21->_alternatives;
+    v21->_alternatives = array2;
+
+    objc_storeStrong(&v21->_originEntityId, entityId);
+  }
+
+  return v21;
 }
 
 - (USOEntitySpan)init

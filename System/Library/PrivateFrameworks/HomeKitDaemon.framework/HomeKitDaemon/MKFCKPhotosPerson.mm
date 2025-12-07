@@ -9,38 +9,45 @@
 
 - (BOOL)validateUser:(id *)user error:(id *)error
 {
-  v24 = *MEMORY[0x277D85DE8];
-  if ([(MKFCKModel *)self shouldSkipValidationDuringImport]|| (v7 = *user, objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), v7, (isKindOfClass & 1) != 0) && v7)
+  v23 = *MEMORY[0x277D85DE8];
+  if ([(MKFCKModel *)self shouldSkipValidationDuringImport])
   {
-    result = 1;
+    return 1;
   }
 
-  else
+  v7 = *user;
+  objc_opt_class();
+  isKindOfClass = objc_opt_isKindOfClass();
+
+  if (isKindOfClass)
   {
-    v10 = objc_autoreleasePoolPush();
-    selfCopy = self;
-    v12 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    if (v7)
     {
-      v13 = HMFGetLogIdentifier();
-      v14 = *user;
-      v18 = 138543874;
-      v19 = v13;
-      v20 = 2114;
-      v21 = @"user";
-      v22 = 2112;
-      v23 = v14;
-      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Invalid value for %{public}@: %@", &v18, 0x20u);
+      return 1;
     }
-
-    objc_autoreleasePoolPop(v10);
-    v15 = [objc_opt_class() hmd_errorForInvalidValue:*user key:@"user"];
-    v16 = v15;
-    result = 0;
-    *error = v15;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
+  v10 = objc_autoreleasePoolPush();
+  selfCopy = self;
+  v12 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+  {
+    v13 = HMFGetLogIdentifier();
+    v14 = *user;
+    v17 = 138543874;
+    v18 = v13;
+    v19 = 2114;
+    v20 = @"user";
+    v21 = 2112;
+    v22 = v14;
+    _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Invalid value for %{public}@: %@", &v17, 0x20u);
+  }
+
+  objc_autoreleasePoolPop(v10);
+  v15 = [objc_opt_class() hmd_errorForInvalidValue:*user key:@"user"];
+  v16 = v15;
+  result = 0;
+  *error = v15;
   return result;
 }
 

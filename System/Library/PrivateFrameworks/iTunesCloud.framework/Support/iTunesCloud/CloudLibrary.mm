@@ -3,6 +3,7 @@
 + (id)oversizeLogCategory;
 - (CloudLibrary)init;
 - (id)_initWithConfiguration:(id)configuration pendingChangesCoordinator:(id)coordinator;
+- (void)_connectToLibraryWithCompletionHandler:(id)handler allowRetry:(BOOL)retry forceBagReload:(BOOL)reload;
 - (void)_continueConnectingToLibraryWithCompletionHandler:(id)handler;
 - (void)_enqueueFailedOperation:(id)operation;
 - (void)_enqueuePendingOperation:(id)operation;
@@ -70,6 +71,36 @@
   v6 = v5;
   v7 = handlerCopy;
   [(CloudLibraryConnection *)v6 connectWithCompletionHandler:v8];
+}
+
+- (void)_connectToLibraryWithCompletionHandler:(id)handler allowRetry:(BOOL)retry forceBagReload:(BOOL)reload
+{
+  reloadCopy = reload;
+  handlerCopy = handler;
+  logCategory = [objc_opt_class() logCategory];
+  if (os_log_type_enabled(logCategory, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 134217984;
+    selfCopy = self;
+    _os_log_impl(&_mh_execute_header, logCategory, OS_LOG_TYPE_DEFAULT, "CloudLibrary %p - Loading URL bag...", buf, 0xCu);
+  }
+
+  v16[0] = _NSConcreteStackBlock;
+  v16[1] = 3221225472;
+  v16[2] = sub_1000834CC;
+  v16[3] = &unk_1001DEFB8;
+  v16[4] = self;
+  v10 = [[ICStoreRequestContext alloc] initWithBlock:v16];
+  v11 = +[ICURLBagProvider sharedBagProvider];
+  v13[0] = _NSConcreteStackBlock;
+  v13[1] = 3221225472;
+  v13[2] = sub_10008353C;
+  v13[3] = &unk_1001DC240;
+  v13[4] = self;
+  v14 = handlerCopy;
+  retryCopy = retry;
+  v12 = handlerCopy;
+  [v11 getBagForRequestContext:v10 forceRefetch:reloadCopy withCompletionHandler:v13];
 }
 
 - (void)_ensureConnectionWithCompletionHandler:(id)handler

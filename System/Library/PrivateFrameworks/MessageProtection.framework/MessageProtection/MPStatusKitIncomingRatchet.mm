@@ -1,5 +1,6 @@
 @interface MPStatusKitIncomingRatchet
 - (MPStatusKitIncomingRatchet)initWithData:(id)data error:(id *)error;
+- (MPStatusKitIncomingRatchet)initWithIndex:(unsigned __int16)index chainKey:(id)key signingKey:(id)signingKey error:(id *)error;
 - (id)serializedData;
 - (id)signingKeyIdentifier;
 - (id)unsealStatusWithIndex:(unsigned __int16)index encryptedMessage:(id)message authenticating:(id)authenticating signature:(id)signature error:(id *)error;
@@ -19,6 +20,22 @@
   }
 
   return v9;
+}
+
+- (MPStatusKitIncomingRatchet)initWithIndex:(unsigned __int16)index chainKey:(id)key signingKey:(id)signingKey error:(id *)error
+{
+  indexCopy = index;
+  keyCopy = key;
+  signingKeyCopy = signingKey;
+  v16.receiver = self;
+  v16.super_class = MPStatusKitIncomingRatchet;
+  v12 = [(MPStatusKitIncomingRatchet *)&v16 init];
+  if (!v12 || (v13 = [[_TtC17MessageProtection17SKIncomingRatchet alloc] initWithKey:keyCopy index:indexCopy signingKey:signingKeyCopy error:error], [(MPStatusKitIncomingRatchet *)v12 setRatchet:v13], v13, [(MPStatusKitIncomingRatchet *)v12 ratchet], v14 = objc_claimAutoreleasedReturnValue(), v14, v14))
+  {
+    v14 = v12;
+  }
+
+  return v14;
 }
 
 - (id)unsealStatusWithIndex:(unsigned __int16)index encryptedMessage:(id)message authenticating:(id)authenticating signature:(id)signature error:(id *)error

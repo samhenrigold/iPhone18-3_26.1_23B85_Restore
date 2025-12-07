@@ -32,7 +32,7 @@
 
       if (requestCopy)
       {
-        [requestCopy compositionTime];
+        objc_msgSend_compositionTime(requestCopy);
       }
 
       else

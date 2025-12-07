@@ -299,25 +299,9 @@ uint64_t __46__SASLockStateMonitor_initWithLoggingAllowed___block_invoke(uint64_
   name = [changeCopy name];
   v5 = [name isEqual:@"SBBiometricEventMonitorHasAuthenticated"];
 
-  if (v5)
+  if ((v5 & 1) != 0 || ([changeCopy name], v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v6, "isEqual:", @"SBDeviceLockStateChangedNotification"), v6, v7) && (objc_msgSend(changeCopy, "userInfo"), v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "valueForKey:", @"kSBNotificationKeyState"), v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v9, "BOOLValue"), v9, v8, v10))
   {
-    goto LABEL_2;
-  }
-
-  name2 = [changeCopy name];
-  v7 = [name2 isEqual:@"SBDeviceLockStateChangedNotification"];
-
-  if (v7)
-  {
-    userInfo = [changeCopy userInfo];
-    v9 = [userInfo valueForKey:@"kSBNotificationKeyState"];
-    bOOLValue = [v9 BOOLValue];
-
-    if (bOOLValue)
-    {
-LABEL_2:
-      [(SASLockStateMonitor *)self setUnlockedByTouchID:v5];
-    }
+    [(SASLockStateMonitor *)self setUnlockedByTouchID:v5];
   }
 
   [(SASLockStateMonitor *)self _updateLockState];

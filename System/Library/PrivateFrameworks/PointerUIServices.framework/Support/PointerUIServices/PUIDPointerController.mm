@@ -1507,7 +1507,7 @@ LABEL_39:
   else if (self->_pointerIsAutohidden)
   {
     SenderID = IOHIDEventGetSenderID();
-    if (sub_100009A84())
+    if (sub_100009A84(event))
     {
       if (!self->_loggedRange)
       {
@@ -1526,7 +1526,7 @@ LABEL_39:
       }
     }
 
-    else if (sub_100009B20())
+    else if (sub_100009B20(event))
     {
       v28 = PSLogAutohide();
       if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
@@ -3357,7 +3357,7 @@ LABEL_15:
   v10 = 0uLL;
   if (v4)
   {
-    [v4 transformFromClientContextToDisplay];
+    objc_msgSend_transformFromClientContextToDisplay(v4);
     v10 = 0uLL;
   }
 
@@ -3381,7 +3381,7 @@ LABEL_15:
   if (v11)
   {
     memset(&a, 0, sizeof(a));
-    [v11 transformToLocalWindowForCoordinateSpaceTransformToDisplay:&a];
+    objc_msgSend_transformToLocalWindowForCoordinateSpaceTransformToDisplay_(v11);
   }
 
   else
@@ -3405,7 +3405,7 @@ LABEL_15:
   [(PUIDPointerController *)self _pointerPositionFromPointerEvent:self->_lastPointerEvent];
   v18 = v17;
   v20 = v19;
-  v21 = sub_100019EA0();
+  v21 = sub_100019EA0(b.m13);
   v22 = __rbit32(v9) >> 30;
   if (!v21)
   {
@@ -3469,7 +3469,7 @@ LABEL_6:
   v9 = 0uLL;
   if (v7)
   {
-    [v7 transformFromClientContextToDisplay];
+    objc_msgSend_transformFromClientContextToDisplay(v7);
     v9 = 0uLL;
   }
 
@@ -3485,8 +3485,7 @@ LABEL_6:
   v11 = v10;
   if (v10)
   {
-    memset(v23, 0, sizeof(v23));
-    [v10 transformToLocalWindowForCoordinateSpaceTransformToDisplay:{v23, v15, v16, v17, v18, v19, v20, v21, v22}];
+    objc_msgSend_transformToLocalWindowForCoordinateSpaceTransformToDisplay_(v10, v15, v16, v17, v18, v19, v20, v21, v22);
   }
 
   CATransform3DGetDecomposition_();
@@ -3571,27 +3570,27 @@ LABEL_19:
   v15 = v14;
   if (v161)
   {
-    v178 = 0u;
-    v179 = 0u;
-    v176 = 0u;
-    v177 = 0u;
+    v185 = 0u;
+    v186 = 0u;
+    v183 = 0u;
+    v184 = 0u;
     keyEnumerator = [(NSMapTable *)self->_pointerClientToClientStateMap keyEnumerator];
     allObjects = [keyEnumerator allObjects];
 
-    v18 = [allObjects countByEnumeratingWithState:&v176 objects:v183 count:16];
+    v18 = [allObjects countByEnumeratingWithState:&v183 objects:v190 count:16];
     if (v18)
     {
-      v19 = *v177;
+      v19 = *v184;
       while (2)
       {
         for (i = 0; i != v18; i = i + 1)
         {
-          if (*v177 != v19)
+          if (*v184 != v19)
           {
             objc_enumerationMutation(allObjects);
           }
 
-          v21 = *(*(&v176 + 1) + 8 * i);
+          v21 = *(*(&v183 + 1) + 8 * i);
           v22 = [v21 pid];
           if (v22 == [v161 pid])
           {
@@ -3614,7 +3613,7 @@ LABEL_19:
           }
         }
 
-        v18 = [allObjects countByEnumeratingWithState:&v176 objects:v183 count:16];
+        v18 = [allObjects countByEnumeratingWithState:&v183 objects:v190 count:16];
         if (v18)
         {
           continue;
@@ -3665,30 +3664,30 @@ LABEL_24:
     goto LABEL_56;
   }
 
-  v174 = 0u;
-  v175 = 0u;
-  v172 = 0u;
-  v173 = 0u;
+  v181 = 0u;
+  v182 = 0u;
+  v179 = 0u;
+  v180 = 0u;
   keyEnumerator2 = [(NSMapTable *)self->_pointerClientToClientStateMap keyEnumerator];
   allObjects2 = [keyEnumerator2 allObjects];
 
-  v39 = [allObjects2 countByEnumeratingWithState:&v172 objects:v182 count:16];
+  v39 = [allObjects2 countByEnumeratingWithState:&v179 objects:v189 count:16];
   if (!v39)
   {
     goto LABEL_54;
   }
 
-  v40 = *v173;
+  v40 = *v180;
 LABEL_34:
   v41 = 0;
   while (1)
   {
-    if (*v173 != v40)
+    if (*v180 != v40)
     {
       objc_enumerationMutation(allObjects2);
     }
 
-    v42 = *(*(&v172 + 1) + 8 * v41);
+    v42 = *(*(&v179 + 1) + 8 * v41);
     v43 = sub_1000278B0(self->_activeDisplayContext);
     v44 = v42 == v43;
 
@@ -3711,7 +3710,7 @@ LABEL_34:
 LABEL_42:
     if (v39 == ++v41)
     {
-      v39 = [allObjects2 countByEnumeratingWithState:&v172 objects:v182 count:16];
+      v39 = [allObjects2 countByEnumeratingWithState:&v179 objects:v189 count:16];
       if (v39)
       {
         goto LABEL_34;
@@ -3794,11 +3793,11 @@ LABEL_56:
   else if (activeHoverRegion5)
   {
     [activeHoverRegion5 hitTestBounds];
-    x = v185.origin.x;
-    y = v185.origin.y;
-    width = v185.size.width;
-    height = v185.size.height;
-    if (CGRectIsEmpty(v185) || (v186.origin.x = x, v186.origin.y = y, v186.size.width = width, v186.size.height = height, CGRectIsNull(v186)))
+    x = v192.origin.x;
+    y = v192.origin.y;
+    width = v192.size.width;
+    height = v192.size.height;
+    if (CGRectIsEmpty(v192) || (v193.origin.x = x, v193.origin.y = y, v193.size.width = width, v193.size.height = height, CGRectIsNull(v193)))
     {
       [activeHoverRegion5 contentBounds];
     }
@@ -3807,7 +3806,7 @@ LABEL_56:
     v67 = sub_100027868(self->_activeDisplayContext);
     if (v159)
     {
-      [v159 transformFromClientContextToDisplay];
+      objc_msgSend_transformFromClientContextToDisplay(v159);
       if (v67)
       {
         goto LABEL_67;
@@ -3819,21 +3818,28 @@ LABEL_71:
 
     else
     {
-      memset(v171, 0, sizeof(v171));
+      v177 = 0u;
+      v178 = 0u;
+      v175 = 0u;
+      v176 = 0u;
+      v173 = 0u;
+      v174 = 0u;
+      v171 = 0u;
+      v172 = 0u;
       if (!v67)
       {
         goto LABEL_71;
       }
 
 LABEL_67:
-      [v67 transformToLocalWindowForCoordinateSpaceTransformToDisplay:v171];
+      objc_msgSend_transformToLocalWindowForCoordinateSpaceTransformToDisplay_(v67);
     }
 
     b = buf;
     CA_CGRectApplyTransform();
-    v184.x = v13;
-    v184.y = v15;
-    if (CGRectContainsPoint(v187, v184))
+    v191.x = v13;
+    v191.y = v15;
+    if (CGRectContainsPoint(v194, v191))
     {
       v68 = 1;
     }
@@ -3967,7 +3973,7 @@ LABEL_67:
   memset(&v166[2], 0, 128);
   if (v159)
   {
-    [v159 transformFromClientContextToDisplay];
+    objc_msgSend_transformFromClientContextToDisplay(v159);
   }
 
   buf = *&v166[2];

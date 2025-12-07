@@ -29,7 +29,7 @@
 
 - (void)runHDBSCANClusteringOn:(id)on
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   onCopy = on;
   v5 = _plc_log_get_normal_handle(PCLogCategoryWorkoutPredictor);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
@@ -39,25 +39,25 @@
   }
 
   v6 = objc_opt_new();
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v7 = onCopy;
-  v8 = [v7 countByEnumeratingWithState:&v24 objects:v30 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v23 objects:v29 count:16];
   if (v8)
   {
-    v9 = *v25;
+    v9 = *v24;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v25 != v9)
+        if (*v24 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        v11 = *(*(&v24 + 1) + 8 * i);
+        v11 = *(*(&v23 + 1) + 8 * i);
         bundleIdentifier = [v11 bundleIdentifier];
         v13 = bundleIdentifier == 0;
 
@@ -79,7 +79,7 @@
         [v6 addObject:uUIDString];
       }
 
-      v8 = [v7 countByEnumeratingWithState:&v24 objects:v30 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v23 objects:v29 count:16];
       if (v8)
       {
         continue;
@@ -90,14 +90,14 @@
   }
 
   objc_storeStrong(&self->_bundleIDs, v6);
-  [(PCHDBSCANClustering *)self _getDistanceMatrixFrom:v7];
+  objc_msgSend__getDistanceMatrixFrom_(self);
   if (self->_HDBSCAN.__ptr_)
   {
-    memset(v23, 0, sizeof(v23));
-    std::vector<std::vector<double>>::__init_with_size[abi:ne200100]<std::vector<double>*,std::vector<double>*>(v23, buf, *(&buf + 1), 0xAAAAAAAAAAAAAAABLL * ((*(&buf + 1) - buf) >> 3));
-    [(PCHDBSCANClustering *)self loadDistanceMatrix:v23];
-    *v28 = v23;
-    std::vector<std::vector<double>>::__destroy_vector::operator()[abi:ne200100](v28);
+    memset(v22, 0, sizeof(v22));
+    std::vector<std::vector<double>>::__init_with_size[abi:ne200100]<std::vector<double>*,std::vector<double>*>(v22, buf, *(&buf + 1), 0xAAAAAAAAAAAAAAABLL * ((*(&buf + 1) - buf) >> 3));
+    [(PCHDBSCANClustering *)self loadDistanceMatrix:v22];
+    *v27 = v22;
+    std::vector<std::vector<double>>::__destroy_vector::operator()[abi:ne200100](v27);
     minPoints = [(PCDistanceWeightingConfig *)self->_config minPoints];
     minClusterSize = [(PCDistanceWeightingConfig *)self->_config minClusterSize];
     ptr = self->_HDBSCAN.__ptr_;
@@ -109,15 +109,13 @@
   v20 = _plc_log_get_normal_handle(PCLogCategoryWorkoutPredictor);
   if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
   {
-    *v28 = 0;
-    _os_log_impl(&dword_1CEE74000, v20, OS_LOG_TYPE_ERROR, "HDBSCAN was not instantiated", v28, 2u);
+    *v27 = 0;
+    _os_log_impl(&dword_1CEE74000, v20, OS_LOG_TYPE_ERROR, "HDBSCAN was not instantiated", v27, 2u);
   }
 
-  *v28 = &buf;
-  std::vector<std::vector<double>>::__destroy_vector::operator()[abi:ne200100](v28);
+  *v27 = &buf;
+  std::vector<std::vector<double>>::__destroy_vector::operator()[abi:ne200100](v27);
 LABEL_19:
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (id)getClusterLabels
@@ -189,7 +187,7 @@ LABEL_19:
 
 - (id)getOutlierScoreDict
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
   if (*(self->_HDBSCAN.__ptr_ + 23) == *(self->_HDBSCAN.__ptr_ + 22) || (v4 = [(NSArray *)self->_bundleIDs count], ptr = self->_HDBSCAN.__ptr_, v7 = *(ptr + 22), v6 = *(ptr + 23), v4 != 0xAAAAAAAAAAAAAAABLL * ((v6 - v7) >> 3)))
   {
@@ -219,19 +217,17 @@ LABEL_19:
       if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
         *buf = 67109634;
-        v18 = v9;
-        v19 = 2112;
-        v20 = v11;
-        v21 = 2048;
-        v22 = v8;
+        v17 = v9;
+        v18 = 2112;
+        v19 = v11;
+        v20 = 2048;
+        v21 = v8;
         _os_log_impl(&dword_1CEE74000, v13, OS_LOG_TYPE_INFO, "Current outlierScore: idx %d,bundleID %@,score %.3f", buf, 0x1Cu);
       }
 
       objc_autoreleasePoolPop(v10);
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -326,7 +322,7 @@ LABEL_19:
     v14 = v20;
   }
 
-  v15 = [MEMORY[0x1E695DF70] arrayWithCapacity:v21 - v14];
+  v15 = [MEMORY[0x1E695DF70] arrayWithCapacity:(v21 - v14) >> 3];
   v16 = v20;
   if (v21 != v20)
   {
@@ -363,7 +359,7 @@ LABEL_19:
     std::vector<std::vector<double>>::__init_with_size[abi:ne200100]<std::vector<double>*,std::vector<double>*>(&v5, std->var0, std->var1, 0xAAAAAAAAAAAAAAABLL * ((std->var1 - std->var0) >> 3));
     if ((ptr + 104) != &v5)
     {
-      std::vector<std::vector<double>>::__assign_with_size[abi:ne200100]<std::vector<double>*,std::vector<double>*>(ptr + 13, v5, v6, 0xAAAAAAAAAAAAAAABLL * (v6 - v5));
+      std::vector<std::vector<double>>::__assign_with_size[abi:ne200100]<std::vector<double>*,std::vector<double>*>(ptr + 104, v5, v6, 0xAAAAAAAAAAAAAAABLL * (v6 - v5));
     }
 
     *buf = &v5;

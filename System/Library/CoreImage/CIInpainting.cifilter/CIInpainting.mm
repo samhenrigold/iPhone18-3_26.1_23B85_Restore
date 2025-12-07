@@ -295,35 +295,36 @@ void sub_4450(uint64_t a1)
   if (v5)
   {
 LABEL_7:
-    v7 = [*(a1 + 32) loadModelConfig];
-    v16 = 0;
-    v8 = [MLModel modelWithContentsOfURL:v5 configuration:v7 error:&v16];
-    v9 = v16;
-    v10 = qword_18D98;
-    qword_18D98 = v8;
+    v9 = [*(a1 + 32) loadModelConfig];
+    v20 = 0;
+    v10 = [MLModel modelWithContentsOfURL:v5 configuration:v9 error:&v20];
+    v11 = v20;
+    v12 = qword_18D98;
+    qword_18D98 = v10;
 
-    v11 = [qword_18D98 valueForKeyPath:@"modelDescription.metadata.MLModelDescriptionKey"];
+    v13 = [qword_18D98 valueForKeyPath:@"modelDescription.metadata.MLModelDescriptionKey"];
+    v15 = v13;
     if (qword_18D98)
     {
-      v12 = sub_A028();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v16 = sub_A028(v13, v14);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = [objc_opt_class() description];
-        v14 = [v5 path];
+        v17 = [objc_opt_class() description];
+        v18 = [v5 path];
         *buf = 138543874;
-        v18 = v13;
-        v19 = 2114;
-        v20 = v11;
-        v21 = 2114;
-        v22 = v14;
-        _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "%{public}@: using model %{public}@ at path: %{public}@.", buf, 0x20u);
+        v22 = v17;
+        v23 = 2114;
+        v24 = v15;
+        v25 = 2114;
+        v26 = v18;
+        _os_log_impl(&dword_0, v16, OS_LOG_TYPE_DEFAULT, "%{public}@: using model %{public}@ at path: %{public}@.", buf, 0x20u);
       }
     }
 
     else
     {
-      v12 = sub_A028();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v16 = sub_A028(v13, v14);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         [objc_opt_class() description];
         objc_claimAutoreleasedReturnValue();
@@ -334,16 +335,16 @@ LABEL_7:
     goto LABEL_16;
   }
 
-  v5 = sub_A028();
+  v5 = sub_A028(v7, v8);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = [objc_opt_class() description];
+    v19 = [objc_opt_class() description];
     *buf = 138543362;
-    v18 = v15;
+    v22 = v19;
     _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: The inpaint.mlmodelc is no longer part of the filter bundle. It needs to be passed to the filter using the inputModel argument.\n", buf, 0xCu);
   }
 
-  v9 = 0;
+  v11 = 0;
 LABEL_16:
 }
 
@@ -383,36 +384,37 @@ void sub_4904(uint64_t a1)
   if (v4)
   {
 LABEL_7:
-    v6 = objc_alloc_init(MLModelConfiguration);
-    [v6 setComputeUnits:3];
-    v15 = 0;
-    v7 = [MLModel modelWithContentsOfURL:v4 configuration:v6 error:&v15];
-    v8 = v15;
-    v9 = qword_18DA8;
-    qword_18DA8 = v7;
+    v8 = objc_alloc_init(MLModelConfiguration);
+    [v8 setComputeUnits:3];
+    v19 = 0;
+    v9 = [MLModel modelWithContentsOfURL:v4 configuration:v8 error:&v19];
+    v10 = v19;
+    v11 = qword_18DA8;
+    qword_18DA8 = v9;
 
-    v10 = [qword_18DA8 valueForKeyPath:@"modelDescription.metadata.MLModelDescriptionKey"];
+    v12 = [qword_18DA8 valueForKeyPath:@"modelDescription.metadata.MLModelDescriptionKey"];
+    v14 = v12;
     if (qword_18DA8)
     {
-      v11 = sub_A028();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v15 = sub_A028(v12, v13);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = [objc_opt_class() description];
-        v13 = [v4 path];
+        v16 = [objc_opt_class() description];
+        v17 = [v4 path];
         *buf = 138543874;
-        v17 = v12;
-        v18 = 2114;
-        v19 = v10;
-        v20 = 2114;
-        v21 = v13;
-        _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "%{public}@: using model %{public}@ at path: %{public}@.", buf, 0x20u);
+        v21 = v16;
+        v22 = 2114;
+        v23 = v14;
+        v24 = 2114;
+        v25 = v17;
+        _os_log_impl(&dword_0, v15, OS_LOG_TYPE_DEFAULT, "%{public}@: using model %{public}@ at path: %{public}@.", buf, 0x20u);
       }
     }
 
     else
     {
-      v11 = sub_A028();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v15 = sub_A028(v12, v13);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         [objc_opt_class() description];
         objc_claimAutoreleasedReturnValue();
@@ -423,16 +425,16 @@ LABEL_7:
     goto LABEL_16;
   }
 
-  v4 = sub_A028();
+  v4 = sub_A028(v6, v7);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = [objc_opt_class() description];
+    v18 = [objc_opt_class() description];
     *buf = 138543362;
-    v17 = v14;
+    v21 = v18;
     _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: The deep_transfer.mlmodelc is no longer part of the filter bundle. It needs to be passed to the filter using the inputRefinementModel argument.\n", buf, 0xCu);
   }
 
-  v8 = 0;
+  v10 = 0;
 LABEL_16:
 }
 
@@ -530,7 +532,7 @@ void sub_5B28(void *a1, CGColorSpaceRef a2, void *a3, uint64_t a4)
   if (v7)
   {
     [v7 extent];
-    if (!CGRectIsEmpty(v25))
+    if (!CGRectIsEmpty(v27))
     {
       v9 = [NSURL fileURLWithPath:v8];
       if (([v9 checkResourceIsReachableAndReturnError:0] & 1) == 0)
@@ -542,25 +544,25 @@ void sub_5B28(void *a1, CGColorSpaceRef a2, void *a3, uint64_t a4)
           a2 = v10;
         }
 
-        [v7 extent];
-        v13 = v12;
-        v15 = v14;
-        v16 = sub_A028();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+        v12 = [v7 extent];
+        v14 = v13;
+        v16 = v15;
+        v18 = sub_A028(v12, v17);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
-          v20[0] = 67109634;
-          v20[1] = v13;
-          v21 = 1024;
-          v22 = v15;
-          v23 = 2082;
-          v24 = [v8 UTF8String];
-          _os_log_impl(&dword_0, v16, OS_LOG_TYPE_DEFAULT, "CIInpaintFilter: saving: %dx%d %{public}s\n", v20, 0x18u);
+          v22[0] = 67109634;
+          v22[1] = v14;
+          v23 = 1024;
+          v24 = v16;
+          v25 = 2082;
+          v26 = [v8 UTF8String];
+          _os_log_impl(&dword_0, v18, OS_LOG_TYPE_DEFAULT, "CIInpaintFilter: saving: %dx%d %{public}s\n", v22, 0x18u);
         }
 
-        v17 = sub_9CBC();
-        v18 = [v7 imageBySettingProperties:&__NSDictionary0__struct];
-        v19 = [v18 imageByApplyingOrientation:a4];
-        [v17 writePNGRepresentationOfImage:v19 toURL:v9 format:kCIFormatRGBA8 colorSpace:a2 options:&__NSDictionary0__struct error:0];
+        v19 = sub_9CBC();
+        v20 = [v7 imageBySettingProperties:&__NSDictionary0__struct];
+        v21 = [v20 imageByApplyingOrientation:a4];
+        [v19 writePNGRepresentationOfImage:v21 toURL:v9 format:kCIFormatRGBA8 colorSpace:a2 options:&__NSDictionary0__struct error:0];
 
         CGColorSpaceRelease(v11);
       }
@@ -575,7 +577,7 @@ void sub_5D84(void *a1, void *a2, uint64_t a3)
   if (v5)
   {
     [v5 extent];
-    if (CGRectIsEmpty(v23))
+    if (CGRectIsEmpty(v25))
     {
       v7 = v5;
     }
@@ -592,28 +594,28 @@ void sub_5D84(void *a1, void *a2, uint64_t a3)
       {
         v7 = sub_9200(v5);
 
-        [v7 extent];
-        v10 = v9;
-        v12 = v11;
-        v13 = sub_A028();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+        v9 = [v7 extent];
+        v11 = v10;
+        v13 = v12;
+        v15 = sub_A028(v9, v14);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
         {
-          v18[0] = 67109634;
-          v18[1] = v10;
-          v19 = 1024;
-          v20 = v12;
-          v21 = 2082;
-          v22 = [v6 UTF8String];
-          _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "CIInpaintFilter: saving: %dx%d %{public}s\n", v18, 0x18u);
+          v20[0] = 67109634;
+          v20[1] = v11;
+          v21 = 1024;
+          v22 = v13;
+          v23 = 2082;
+          v24 = [v6 UTF8String];
+          _os_log_impl(&dword_0, v15, OS_LOG_TYPE_DEFAULT, "CIInpaintFilter: saving: %dx%d %{public}s\n", v20, 0x18u);
         }
 
-        v14 = sub_9CBC();
-        v15 = CGColorSpaceCreateWithName(kCGColorSpaceLinearGray);
-        v16 = [v7 imageBySettingProperties:&__NSDictionary0__struct];
-        v17 = [v16 imageByApplyingOrientation:a3];
-        [v14 writePNGRepresentationOfImage:v17 toURL:v8 format:kCIFormatL8 colorSpace:v15 options:&__NSDictionary0__struct error:0];
+        v16 = sub_9CBC();
+        v17 = CGColorSpaceCreateWithName(kCGColorSpaceLinearGray);
+        v18 = [v7 imageBySettingProperties:&__NSDictionary0__struct];
+        v19 = [v18 imageByApplyingOrientation:a3];
+        [v16 writePNGRepresentationOfImage:v19 toURL:v8 format:kCIFormatL8 colorSpace:v17 options:&__NSDictionary0__struct error:0];
 
-        CGColorSpaceRelease(v15);
+        CGColorSpaceRelease(v17);
       }
     }
   }
@@ -1078,7 +1080,7 @@ uint64_t sub_A004(uint64_t result, uint64_t a2, uint64_t a3, float a4)
   return result;
 }
 
-uint64_t sub_A028()
+uint64_t sub_A028(uint64_t a1, uint64_t a2)
 {
   if (qword_18DE8 != -1)
   {
@@ -1101,9 +1103,9 @@ void sub_A0D4(id a1)
   [v3 setEvictsObjectsWhenApplicationEntersBackground:1];
 }
 
-void sub_A49C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_A49C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1190,9 +1192,9 @@ void sub_A564(uint64_t a1)
   }
 }
 
-void sub_A7D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_A7D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1221,9 +1223,9 @@ uint64_t sub_A7F4(uint64_t a1)
   return v2(a1, 0xFFFFFFFFLL);
 }
 
-void sub_A8E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_A8E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1268,37 +1270,37 @@ uint64_t sub_A9C0(uint64_t result)
   return result;
 }
 
-void sub_AB04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_AB04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_AC90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_AC90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_AE1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_AE1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_AF4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_AF4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_B11C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_B11C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1354,7 +1356,7 @@ uint64_t sub_B254()
   return v0;
 }
 
-uint64_t sub_B34C()
+uint64_t sub_B34C(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_18E08 = result;

@@ -34,12 +34,10 @@
 
 - (NSSet)featureNames
 {
-  v7[1] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEB98];
   inputName = [(HMIInputFeatureProvider *)self inputName];
-  v7[0] = inputName;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
-  v5 = [v2 setWithArray:v4];
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:inputName count:?];
+  v5 = [v2 setWithArray:?];
 
   return v5;
 }
@@ -48,19 +46,21 @@
 {
   nameCopy = name;
   inputName = [(HMIInputFeatureProvider *)self inputName];
-  v6 = [nameCopy isEqualToString:inputName];
+  v6 = [nameCopy isEqualToString:?];
 
   if (v6)
   {
-    v7 = [MEMORY[0x277CBFEF8] featureValueWithPixelBuffer:{-[HMIInputFeatureProvider pixelBuffer](self, "pixelBuffer")}];
+    v7 = MEMORY[0x277CBFEF8];
+    [(HMIInputFeatureProvider *)self pixelBuffer];
+    v8 = [v7 featureValueWithPixelBuffer:?];
   }
 
   else
   {
-    v7 = 0;
+    v8 = 0;
   }
 
-  return v7;
+  return v8;
 }
 
 @end

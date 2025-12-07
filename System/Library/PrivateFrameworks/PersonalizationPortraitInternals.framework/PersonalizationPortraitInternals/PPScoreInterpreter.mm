@@ -22,7 +22,7 @@
 
 - (id)evaluateWithScoreInputs:(id)inputs previousSubscores:(id)subscores
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   inputsCopy = inputs;
   subscoresCopy = subscores;
   v8 = self->_bytecode->_bytecodeDataBySubscoreTypeAndIndex;
@@ -42,23 +42,22 @@
     v16 = pp_default_log_handle();
     if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
     {
-      v21 = 0xAAAAAAAAAAAAAAABLL * ((*(v15[1] + 1) - *v15[1]) >> 3);
-      v22 = 134217984;
-      v23 = v21;
-      _os_log_fault_impl(&dword_23224A000, v16, OS_LOG_TYPE_FAULT, "%lu items left on score interpreter stack", &v22, 0xCu);
+      v20 = 0xAAAAAAAAAAAAAAABLL * ((*(v15[1] + 1) - *v15[1]) >> 3);
+      v21 = 134217984;
+      v22 = v20;
+      _os_log_fault_impl(&dword_23224A000, v16, OS_LOG_TYPE_FAULT, "%lu items left on score interpreter stack", &v21, 0xCu);
     }
   }
 
   v17 = v15[4];
   v18 = v17;
 
-  v19 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
 - (void)evaluateScoresWithContext:(uint64_t)context
 {
-  v39._subscores = *MEMORY[0x277D85DE8];
+  v38._subscores = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (context)
   {
@@ -68,7 +67,7 @@
     if (*v5 != v6)
     {
       *&v4 = 67109120;
-      v29 = v4;
+      v28 = v4;
       do
       {
         v8 = *v7;
@@ -80,14 +79,14 @@
           v25 = [v24 objectAtIndexedSubscript:v9];
           [(PPScoreInterpreter *)context _runBytecode:v25 context:v23];
 
-          memset(&v39, 0, 24);
-          pop(&v39, v23);
-          v26 = PPScoreInterpreterValue::getObject(&v39);
+          memset(&v38, 0, 24);
+          pop(&v38, v23);
+          v26 = PPScoreInterpreterValue::getObject(&v38);
           [v3[4] setObject:v26 forIndex:v9];
-          PPScoreInterpreterValue::PPScoreInterpreterValue(v30, v26);
+          PPScoreInterpreterValue::PPScoreInterpreterValue(v29, v26);
 
-          PPScoreInterpreterValue::~PPScoreInterpreterValue(&v39);
-          v16 = v30;
+          PPScoreInterpreterValue::~PPScoreInterpreterValue(&v38);
+          v16 = v29;
         }
 
         else if (v8 == 1)
@@ -97,48 +96,48 @@
           v19 = [v18 objectAtIndexedSubscript:v9];
           [(PPScoreInterpreter *)context _runBytecode:v19 context:v17];
 
-          memset(&v39, 0, 24);
-          pop(&v39, v17);
+          memset(&v38, 0, 24);
+          pop(&v38, v17);
           *buf = 0;
           *&buf[8] = 0;
-          PPScoreInterpreterValue::getFloatVector(&v39, buf);
+          PPScoreInterpreterValue::getFloatVector(buf, &v38);
           v20 = v3[4];
           v22 = *buf;
           v21 = *&buf[8];
-          v36 = *buf;
-          v37 = *&buf[8];
+          v35 = *buf;
+          v36 = *&buf[8];
           if (*&buf[8])
           {
             atomic_fetch_add_explicit((*&buf[8] + 8), 1uLL, memory_order_relaxed);
           }
 
-          [v20 setArraySharedPtr:&v36 forIndex:{v9, v29}];
-          if (v37)
+          [v20 setArraySharedPtr:&v35 forIndex:{v9, v28}];
+          if (v36)
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v37);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v36);
           }
 
           if (v21)
           {
             atomic_fetch_add_explicit(&v21->__shared_owners_, 1uLL, memory_order_relaxed);
-            v31 = v22;
-            v32 = v21;
+            v30 = v22;
+            v31 = v21;
             atomic_fetch_add_explicit(&v21->__shared_owners_, 1uLL, memory_order_relaxed);
-            v33 = 1;
+            v32 = 1;
             std::__shared_weak_count::__release_shared[abi:ne200100](v21);
             std::__shared_weak_count::__release_shared[abi:ne200100](v21);
           }
 
           else
           {
-            v31 = v22;
-            v32 = 0;
-            v33 = 1;
+            v30 = v22;
+            v31 = 0;
+            v32 = 1;
           }
 
-          PPScoreInterpreterValue::~PPScoreInterpreterValue(&v39);
+          PPScoreInterpreterValue::~PPScoreInterpreterValue(&v38);
 
-          v16 = &v31;
+          v16 = &v30;
         }
 
         else
@@ -148,8 +147,8 @@
             v27 = pp_default_log_handle();
             if (os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
             {
-              v39.super.isa = __PAIR64__(v8, v29);
-              _os_log_fault_impl(&dword_23224A000, v27, OS_LOG_TYPE_FAULT, "Invalid subscoreType of %d", &v39, 8u);
+              v38.super.isa = __PAIR64__(v8, v28);
+              _os_log_fault_impl(&dword_23224A000, v27, OS_LOG_TYPE_FAULT, "Invalid subscoreType of %d", &v38, 8u);
             }
 
             goto LABEL_25;
@@ -160,9 +159,9 @@
           v12 = [v11 objectAtIndexedSubscript:v9];
           [(PPScoreInterpreter *)context _runBytecode:v12 context:v10];
 
-          memset(&v39, 0, 24);
-          pop(&v39, v10);
-          Double = PPScoreInterpreterValue::getDouble(&v39);
+          memset(&v38, 0, 24);
+          pop(&v38, v10);
+          Double = PPScoreInterpreterValue::getDouble(&v38);
           v14 = Double;
           if ((*&Double & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000)
           {
@@ -178,12 +177,12 @@
           }
 
           *&Double = v14;
-          [v3[4] setScalarValue:v9 forIndex:{Double, v29}];
-          v34 = v14;
-          v35 = 0;
-          PPScoreInterpreterValue::~PPScoreInterpreterValue(&v39);
+          [v3[4] setScalarValue:v9 forIndex:{Double, v28}];
+          v33 = v14;
+          v34 = 0;
+          PPScoreInterpreterValue::~PPScoreInterpreterValue(&v38);
 
-          v16 = &v34;
+          v16 = &v33;
         }
 
         PPScoreInterpreterValue::~PPScoreInterpreterValue(v16);
@@ -194,13 +193,11 @@ LABEL_25:
       while (v7 != v6);
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_runBytecode:(void *)bytecode context:
 {
-  v83 = *MEMORY[0x277D85DE8];
+  v82 = *MEMORY[0x277D85DE8];
   v5 = a2;
   bytecodeCopy = bytecode;
   bytes = [v5 bytes];
@@ -208,21 +205,21 @@ LABEL_25:
   __dst = 0;
   if (v8 >= 2)
   {
-    v10 = bytes + v8;
-    v11 = bytes + 1;
-    v12 = 1;
+    v9 = bytes + v8;
+    v10 = bytes + 1;
+    v11 = 1;
     do
     {
-      v13 = *bytes;
+      v12 = *bytes;
       if (*bytes > 0x190u)
       {
         if (*bytes <= 0xFFFAu)
         {
           if (*bytes > 0x192u)
           {
-            if (v13 != 403)
+            if (v12 != 403)
             {
-              if (v13 != 404)
+              if (v12 != 404)
               {
                 goto LABEL_76;
               }
@@ -231,54 +228,54 @@ LABEL_25:
             }
 
             HIDWORD(__dst) = 0;
-            v14 = &v11[v12];
-            if (&v11[v12] > v10)
+            v13 = &v10[v11];
+            if (&v10[v11] > v9)
             {
               break;
             }
 
-            memcpy(&__dst + 4, v11, v12 * 2);
-            v28 = [bytecodeCopy[3] objectForIndex:HIDWORD(__dst)];
-            PPScoreInterpreterValue::PPScoreInterpreterValue(v49, v28);
-            push(bytecodeCopy, v49);
-            PPScoreInterpreterValue::~PPScoreInterpreterValue(v49);
+            memcpy(&__dst + 4, v10, v11 * 2);
+            v27 = [bytecodeCopy[3] objectForIndex:HIDWORD(__dst)];
+            PPScoreInterpreterValue::PPScoreInterpreterValue(v48, v27);
+            push(bytecodeCopy, v48);
+            PPScoreInterpreterValue::~PPScoreInterpreterValue(v48);
           }
 
-          else if (v13 == 401)
+          else if (v12 == 401)
           {
             HIDWORD(__dst) = 0;
-            v14 = &v11[v12];
-            if (&v11[v12] > v10)
+            v13 = &v10[v11];
+            if (&v10[v11] > v9)
             {
               break;
             }
 
-            memcpy(&__dst + 4, v11, v12 * 2);
-            v27 = [bytecodeCopy[2] objectForIndex:HIDWORD(__dst)];
-            PPScoreInterpreterValue::PPScoreInterpreterValue(v51, v27);
-            push(bytecodeCopy, v51);
-            PPScoreInterpreterValue::~PPScoreInterpreterValue(v51);
+            memcpy(&__dst + 4, v10, v11 * 2);
+            v26 = [bytecodeCopy[2] objectForIndex:HIDWORD(__dst)];
+            PPScoreInterpreterValue::PPScoreInterpreterValue(v50, v26);
+            push(bytecodeCopy, v50);
+            PPScoreInterpreterValue::~PPScoreInterpreterValue(v50);
           }
 
           else
           {
-            if (v13 != 402)
+            if (v12 != 402)
             {
               goto LABEL_76;
             }
 
             HIDWORD(__dst) = 0;
-            v14 = &v11[v12];
-            if (&v11[v12] > v10)
+            v13 = &v10[v11];
+            if (&v10[v11] > v9)
             {
               break;
             }
 
-            memcpy(&__dst + 4, v11, v12 * 2);
-            v17 = [bytecodeCopy[4] objectForIndex:HIDWORD(__dst)];
-            PPScoreInterpreterValue::PPScoreInterpreterValue(v50, v17);
-            push(bytecodeCopy, v50);
-            PPScoreInterpreterValue::~PPScoreInterpreterValue(v50);
+            memcpy(&__dst + 4, v10, v11 * 2);
+            v16 = [bytecodeCopy[4] objectForIndex:HIDWORD(__dst)];
+            PPScoreInterpreterValue::PPScoreInterpreterValue(v49, v16);
+            push(bytecodeCopy, v49);
+            PPScoreInterpreterValue::~PPScoreInterpreterValue(v49);
           }
         }
 
@@ -286,44 +283,44 @@ LABEL_25:
         {
           if (*bytes > 0xFFFCu)
           {
-            if (v13 != 65533)
+            if (v12 != 65533)
             {
-              if (v13 != 65534)
+              if (v12 != 65534)
               {
                 goto LABEL_95;
               }
 
-              pop(&v79, bytecodeCopy);
-              Double = PPScoreInterpreterValue::getDouble(&v79);
-              PPScoreInterpreterValue::~PPScoreInterpreterValue(&v79);
-              v30 = Double != -31338.0;
+              pop(&v78, bytecodeCopy);
+              Double = PPScoreInterpreterValue::getDouble(&v78);
+              PPScoreInterpreterValue::~PPScoreInterpreterValue(&v78);
+              v29 = Double != -31338.0;
               if (Double == -31338.0)
               {
-                v31 = -31337.0;
+                v30 = -31337.0;
               }
 
               else
               {
-                v31 = Double;
+                v30 = Double;
               }
 
               if ((*&Double & 0x7FFFFFFFFFFFFFFFuLL) <= 0x7FEFFFFFFFFFFFFFLL)
               {
-                v30 = 0;
+                v29 = 0;
               }
 
-              if (v31 != -31337.0 && !v30)
+              if (v30 != -31337.0 && !v29)
               {
-                *v77 = v31;
-                v78 = 0;
-                push(bytecodeCopy, v77);
-                v32 = v77;
+                *v76 = v30;
+                v77 = 0;
+                push(bytecodeCopy, v76);
+                v31 = v76;
                 goto LABEL_94;
               }
 
 LABEL_101:
-              v11 = (v11 + v12 * 2);
-              if (v11 > v10)
+              v10 = (v10 + v11 * 2);
+              if (v10 > v9)
               {
                 break;
               }
@@ -331,29 +328,29 @@ LABEL_101:
               goto LABEL_102;
             }
 
-            memset(&v79, 0, 24);
-            pop(&v79, bytecodeCopy);
-            if (LOBYTE(v79._scoreInputs))
+            memset(&v78, 0, 24);
+            pop(&v78, bytecodeCopy);
+            if (LOBYTE(v78._scoreInputs))
             {
-              if (LOBYTE(v79._scoreInputs) != 2)
+              if (LOBYTE(v78._scoreInputs) != 2)
               {
-                v44 = pp_score_interpreter_log_handle();
-                if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+                v43 = pp_score_interpreter_log_handle();
+                if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 67109120;
-                  scoreInputs_low = LOBYTE(v79._scoreInputs);
-                  _os_log_error_impl(&dword_23224A000, v44, OS_LOG_TYPE_ERROR, "Attempted to compute IfThenElse with an invalid value type of %d in the if condition", buf, 8u);
+                  scoreInputs_low = LOBYTE(v78._scoreInputs);
+                  _os_log_error_impl(&dword_23224A000, v43, OS_LOG_TYPE_ERROR, "Attempted to compute IfThenElse with an invalid value type of %d in the if condition", buf, 8u);
                 }
 
-                PPScoreInterpreterValue::~PPScoreInterpreterValue(&v79);
+                PPScoreInterpreterValue::~PPScoreInterpreterValue(&v78);
                 goto LABEL_101;
               }
 
-              v39 = PPScoreInterpreterValue::getObject(&v79);
-              v40 = v39 == 0;
+              v38 = PPScoreInterpreterValue::getObject(&v78);
+              v39 = v38 == 0;
 
-              PPScoreInterpreterValue::~PPScoreInterpreterValue(&v79);
-              if (v40)
+              PPScoreInterpreterValue::~PPScoreInterpreterValue(&v78);
+              if (v39)
               {
                 goto LABEL_101;
               }
@@ -361,38 +358,38 @@ LABEL_101:
 
             else
             {
-              v43 = PPScoreInterpreterValue::getDouble(&v79);
-              if (v43 == -31337.0)
+              v42 = PPScoreInterpreterValue::getDouble(&v78);
+              if (v42 == -31337.0)
               {
-                v32 = &v79;
+                v31 = &v78;
 LABEL_94:
-                PPScoreInterpreterValue::~PPScoreInterpreterValue(v32);
+                PPScoreInterpreterValue::~PPScoreInterpreterValue(v31);
               }
 
               else
               {
-                v45 = (*&v43 & 0x7FFFFFFFFFFFFFFFuLL) - 1 < 0xFFFFFFFFFFFFFLL;
-                v46 = ((*&v43 & 0x7FFFFFFFFFFFFFFFuLL) - 0x10000000000000) >> 53 < 0x3FF;
-                if (v43 >= 0.0)
+                v44 = (*&v42 & 0x7FFFFFFFFFFFFFFFuLL) - 1 < 0xFFFFFFFFFFFFFLL;
+                v45 = ((*&v42 & 0x7FFFFFFFFFFFFFFFuLL) - 0x10000000000000) >> 53 < 0x3FF;
+                if (v42 >= 0.0)
                 {
-                  v46 = 0;
                   v45 = 0;
+                  v44 = 0;
                 }
 
-                if ((*&v43 & 0x7FFFFFFFFFFFFFFFLL) == 0)
+                if ((*&v42 & 0x7FFFFFFFFFFFFFFFLL) == 0)
                 {
-                  v45 = 1;
+                  v44 = 1;
                 }
 
-                v47 = (*&v43 & 0x7FFFFFFFFFFFFFFFLL) == 0x7FF0000000000000 || v45;
-                if ((*&v43 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FF0000000000000)
+                v46 = (*&v42 & 0x7FFFFFFFFFFFFFFFLL) == 0x7FF0000000000000 || v44;
+                if ((*&v42 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FF0000000000000)
                 {
-                  v47 = 1;
+                  v46 = 1;
                 }
 
-                v48 = v47 | v46;
-                PPScoreInterpreterValue::~PPScoreInterpreterValue(&v79);
-                if ((v48 & 1) == 0)
+                v47 = v46 | v45;
+                PPScoreInterpreterValue::~PPScoreInterpreterValue(&v78);
+                if ((v47 & 1) == 0)
                 {
                   goto LABEL_101;
                 }
@@ -401,14 +398,14 @@ LABEL_94:
 
 LABEL_95:
             HIDWORD(__dst) = 0;
-            if (&v11[v12] > v10)
+            if (&v10[v11] > v9)
             {
               break;
             }
 
-            memcpy(&__dst + 4, v11, v12 * 2);
-            v11 = (v11 + v12 * 2 + HIDWORD(__dst));
-            if (v11 >= v10)
+            memcpy(&__dst + 4, v10, v11 * 2);
+            v10 = (v10 + v11 * 2 + HIDWORD(__dst));
+            if (v10 >= v9)
             {
               break;
             }
@@ -416,29 +413,29 @@ LABEL_95:
             goto LABEL_102;
           }
 
-          if (v13 == 65531)
+          if (v12 == 65531)
           {
-            if (v12 != 1)
+            if (v11 != 1)
             {
               __assert_rtn("[PPScoreInterpreter _runBytecode:context:]", "PPScoreInterpreter.mm", 2025, "nextUIntArgumentSize == sizeof(uint16_t)");
             }
 
-            v12 = 2;
+            v11 = 2;
             goto LABEL_103;
           }
 
           HIDWORD(__dst) = 0;
-          v14 = &v11[v12];
-          if (&v11[v12] > v10)
+          v13 = &v10[v11];
+          if (&v10[v11] > v9)
           {
             break;
           }
 
-          memcpy(&__dst + 4, v11, v12 * 2);
-          v26 = [*(*(self + 8) + 24) objectAtIndexedSubscript:HIDWORD(__dst)];
-          PPScoreInterpreterValue::PPScoreInterpreterValue(&v79._previousSubscores, v26);
-          push(bytecodeCopy, &v79._previousSubscores);
-          PPScoreInterpreterValue::~PPScoreInterpreterValue(&v79._previousSubscores);
+          memcpy(&__dst + 4, v10, v11 * 2);
+          v25 = [*(*(self + 8) + 24) objectAtIndexedSubscript:HIDWORD(__dst)];
+          PPScoreInterpreterValue::PPScoreInterpreterValue(&v78._previousSubscores, v25);
+          push(bytecodeCopy, &v78._previousSubscores);
+          PPScoreInterpreterValue::~PPScoreInterpreterValue(&v78._previousSubscores);
         }
 
         goto LABEL_90;
@@ -448,142 +445,142 @@ LABEL_95:
       {
         if (*bytes > 0x12Eu)
         {
-          if (v13 != 303)
+          if (v12 != 303)
           {
-            if (v13 != 304)
+            if (v12 != 304)
             {
 LABEL_76:
               objc_opt_self();
-              if ((0xBE0009uLL >> v13))
+              if ((0xBE0009uLL >> v12))
               {
                 HIDWORD(__dst) = 0;
-                v42 = &v11[v12];
-                if (&v11[v12] > v10)
+                v41 = &v10[v11];
+                if (&v10[v11] > v9)
                 {
                   break;
                 }
 
-                memcpy(&__dst + 4, v11, v12 * 2);
-                v41 = HIDWORD(__dst);
-                v12 = 1;
-                v11 = v42;
+                memcpy(&__dst + 4, v10, v11 * 2);
+                v40 = HIDWORD(__dst);
+                v11 = 1;
+                v10 = v41;
               }
 
               else
               {
-                v41 = qword_232418600[v13 + 1];
+                v40 = qword_232418600[v12 + 1];
               }
 
-              [PPScoreInterpreter _runOperator:v13 arity:v41 context:bytecodeCopy];
+              [PPScoreInterpreter _runOperator:v12 arity:v40 context:bytecodeCopy];
               goto LABEL_103;
             }
 
 LABEL_36:
             LODWORD(__dst) = 0;
-            v19 = &v11[v12];
-            if (&v11[v12] > v10)
+            v18 = &v10[v11];
+            if (&v10[v11] > v9)
             {
               break;
             }
 
-            memcpy(&__dst, v11, v12 * 2);
-            v20 = objc_alloc(MEMORY[0x277CBEB28]);
-            v21 = __dst;
-            v22 = [v20 initWithLength:__dst];
-            v23 = v22;
-            v11 = &v19[v21];
-            if (&v19[v21] > v10)
+            memcpy(&__dst, v10, v11 * 2);
+            v19 = objc_alloc(MEMORY[0x277CBEB28]);
+            v20 = __dst;
+            v21 = [v19 initWithLength:__dst];
+            v22 = v21;
+            v10 = &v18[v20];
+            if (&v18[v20] > v9)
             {
 
               break;
             }
 
-            v24 = v22;
-            memcpy([v23 mutableBytes], v19, v21);
-            v53[0] = 0;
-            v25 = [MEMORY[0x277D425D8] propertyListWithData:v23 error:v53];
+            v23 = v21;
+            memcpy([v22 mutableBytes], v18, v20);
+            v52[0] = 0;
+            v24 = [MEMORY[0x277D425D8] propertyListWithData:v22 error:v52];
 
-            if (!v25)
+            if (!v24)
             {
               __assert_rtn("[PPScoreInterpreter _runBytecode:context:]", "PPScoreInterpreter.mm", 2154, "plpObject");
             }
 
-            PPScoreInterpreterValue::PPScoreInterpreterValue(v52, v25);
-            push(bytecodeCopy, v52);
-            PPScoreInterpreterValue::~PPScoreInterpreterValue(v52);
+            PPScoreInterpreterValue::PPScoreInterpreterValue(v51, v24);
+            push(bytecodeCopy, v51);
+            PPScoreInterpreterValue::~PPScoreInterpreterValue(v51);
 
 LABEL_102:
-            v12 = 1;
+            v11 = 1;
             goto LABEL_103;
           }
 
           HIDWORD(__dst) = 0;
-          v14 = &v11[v12];
-          if (&v11[v12] > v10)
+          v13 = &v10[v11];
+          if (&v10[v11] > v9)
           {
             break;
           }
 
-          memcpy(&__dst + 4, v11, v12 * 2);
-          v37 = bytecodeCopy[3];
-          if (!v37)
+          memcpy(&__dst + 4, v10, v11 * 2);
+          v36 = bytecodeCopy[3];
+          if (!v36)
           {
             operator new();
           }
 
-          [v37 arraySharedPtrForIndex:HIDWORD(__dst)];
-          v55[0] = v53[1];
-          v55[1] = v54;
-          if (v54)
+          objc_msgSend_arraySharedPtrForIndex_(v36);
+          v54[0] = v52[1];
+          v54[1] = v53;
+          if (v53)
           {
-            atomic_fetch_add_explicit(&v54->__shared_owners_, 1uLL, memory_order_relaxed);
+            atomic_fetch_add_explicit(&v53->__shared_owners_, 1uLL, memory_order_relaxed);
           }
 
-          v56 = 1;
-          push(bytecodeCopy, v55);
-          PPScoreInterpreterValue::~PPScoreInterpreterValue(v55);
-          v38 = v54;
-          if (!v54)
+          v55 = 1;
+          push(bytecodeCopy, v54);
+          PPScoreInterpreterValue::~PPScoreInterpreterValue(v54);
+          v37 = v53;
+          if (!v53)
           {
             goto LABEL_90;
           }
         }
 
-        else if (v13 == 301)
+        else if (v12 == 301)
         {
           HIDWORD(__dst) = 0;
-          v14 = &v11[v12];
-          if (&v11[v12] > v10)
+          v13 = &v10[v11];
+          if (&v10[v11] > v9)
           {
             break;
           }
 
-          memcpy(&__dst + 4, v11, v12 * 2);
-          v34 = bytecodeCopy[2];
-          if (v34)
+          memcpy(&__dst + 4, v10, v11 * 2);
+          v33 = bytecodeCopy[2];
+          if (v33)
           {
-            [v34 arraySharedPtrForIndex:HIDWORD(__dst)];
+            objc_msgSend_arraySharedPtrForIndex_(v33);
+            v63 = v61;
             v64 = v62;
-            v65 = v63;
-            if (v63)
+            if (v62)
             {
-              atomic_fetch_add_explicit(&v63->__shared_owners_, 1uLL, memory_order_relaxed);
+              atomic_fetch_add_explicit(&v62->__shared_owners_, 1uLL, memory_order_relaxed);
             }
           }
 
           else
           {
+            v61 = 0;
             v62 = 0;
             v63 = 0;
             v64 = 0;
-            v65 = 0;
           }
 
-          v66 = 1;
-          push(bytecodeCopy, &v64);
-          PPScoreInterpreterValue::~PPScoreInterpreterValue(&v64);
-          v38 = v63;
-          if (!v63)
+          v65 = 1;
+          push(bytecodeCopy, &v63);
+          PPScoreInterpreterValue::~PPScoreInterpreterValue(&v63);
+          v37 = v62;
+          if (!v62)
           {
             goto LABEL_90;
           }
@@ -592,158 +589,156 @@ LABEL_102:
         else
         {
           HIDWORD(__dst) = 0;
-          v14 = &v11[v12];
-          if (&v11[v12] > v10)
+          v13 = &v10[v11];
+          if (&v10[v11] > v9)
           {
             break;
           }
 
-          memcpy(&__dst + 4, v11, v12 * 2);
-          v18 = bytecodeCopy[4];
-          if (v18)
+          memcpy(&__dst + 4, v10, v11 * 2);
+          v17 = bytecodeCopy[4];
+          if (v17)
           {
-            [v18 arraySharedPtrForIndex:HIDWORD(__dst)];
+            objc_msgSend_arraySharedPtrForIndex_(v17);
+            v58 = v56;
             v59 = v57;
-            v60 = v58;
-            if (v58)
+            if (v57)
             {
-              atomic_fetch_add_explicit(&v58->__shared_owners_, 1uLL, memory_order_relaxed);
+              atomic_fetch_add_explicit(&v57->__shared_owners_, 1uLL, memory_order_relaxed);
             }
           }
 
           else
           {
+            v56 = 0;
             v57 = 0;
             v58 = 0;
             v59 = 0;
-            v60 = 0;
           }
 
-          v61 = 1;
-          push(bytecodeCopy, &v59);
-          PPScoreInterpreterValue::~PPScoreInterpreterValue(&v59);
-          v38 = v58;
-          if (!v58)
+          v60 = 1;
+          push(bytecodeCopy, &v58);
+          PPScoreInterpreterValue::~PPScoreInterpreterValue(&v58);
+          v37 = v57;
+          if (!v57)
           {
             goto LABEL_90;
           }
         }
 
-        std::__shared_weak_count::__release_shared[abi:ne200100](v38);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v37);
       }
 
       else
       {
         if (*bytes > 0xCAu)
         {
-          if (v13 != 203)
+          if (v12 != 203)
           {
-            if (v13 != 204)
+            if (v12 != 204)
             {
               goto LABEL_76;
             }
 
-            v14 = bytes + 5;
-            if ((bytes + 5) > v10)
+            v13 = bytes + 5;
+            if ((bytes + 5) > v9)
             {
               break;
             }
 
-            v73[0] = *v11;
-            v74 = 0;
-            push(bytecodeCopy, v73);
-            PPScoreInterpreterValue::~PPScoreInterpreterValue(v73);
+            v72[0] = *v10;
+            v73 = 0;
+            push(bytecodeCopy, v72);
+            PPScoreInterpreterValue::~PPScoreInterpreterValue(v72);
             goto LABEL_91;
           }
 
           HIDWORD(__dst) = 0;
-          v14 = &v11[v12];
-          if (&v11[v12] > v10)
+          v13 = &v10[v11];
+          if (&v10[v11] > v9)
           {
             break;
           }
 
-          memcpy(&__dst + 4, v11, v12 * 2);
-          v35 = bytecodeCopy[3];
-          if (v35)
+          memcpy(&__dst + 4, v10, v11 * 2);
+          v34 = bytecodeCopy[3];
+          if (v34)
           {
-            [v35 scalarValueForIndex:HIDWORD(__dst)];
-            v67[0] = v36;
-            v68 = 0;
-            push(bytecodeCopy, v67);
-            v16 = v67;
+            [v34 scalarValueForIndex:HIDWORD(__dst)];
+            v66[0] = v35;
+            v67 = 0;
+            push(bytecodeCopy, v66);
+            v15 = v66;
           }
 
           else
           {
-            v69[0] = 0xC0DE9A8000000000;
-            v70 = 0;
-            push(bytecodeCopy, v69);
-            v16 = v69;
+            v68[0] = 0xC0DE9A8000000000;
+            v69 = 0;
+            push(bytecodeCopy, v68);
+            v15 = v68;
           }
         }
 
-        else if (v13 == 201)
+        else if (v12 == 201)
         {
           HIDWORD(__dst) = 0;
-          v14 = &v11[v12];
-          if (&v11[v12] > v10)
+          v13 = &v10[v11];
+          if (&v10[v11] > v9)
           {
             break;
           }
 
-          memcpy(&__dst + 4, v11, v12 * 2);
+          memcpy(&__dst + 4, v10, v11 * 2);
           [bytecodeCopy[2] scalarValueForIndex:HIDWORD(__dst)];
-          v75[0] = v33;
-          v76 = 0;
-          push(bytecodeCopy, v75);
-          v16 = v75;
+          v74[0] = v32;
+          v75 = 0;
+          push(bytecodeCopy, v74);
+          v15 = v74;
         }
 
         else
         {
-          if (v13 != 202)
+          if (v12 != 202)
           {
             goto LABEL_76;
           }
 
           HIDWORD(__dst) = 0;
-          v14 = &v11[v12];
-          if (&v11[v12] > v10)
+          v13 = &v10[v11];
+          if (&v10[v11] > v9)
           {
             break;
           }
 
-          memcpy(&__dst + 4, v11, v12 * 2);
+          memcpy(&__dst + 4, v10, v11 * 2);
           [bytecodeCopy[4] scalarValueForIndex:HIDWORD(__dst)];
-          v71[0] = v15;
-          v72 = 0;
-          push(bytecodeCopy, v71);
-          v16 = v71;
+          v70[0] = v14;
+          v71 = 0;
+          push(bytecodeCopy, v70);
+          v15 = v70;
         }
 
-        PPScoreInterpreterValue::~PPScoreInterpreterValue(v16);
+        PPScoreInterpreterValue::~PPScoreInterpreterValue(v15);
       }
 
 LABEL_90:
-      v12 = 1;
+      v11 = 1;
 LABEL_91:
-      v11 = v14;
+      v10 = v13;
 LABEL_103:
-      bytes = v11;
+      bytes = v10;
       __dst = 0;
-      ++v11;
+      ++v10;
     }
 
-    while (v11 <= v10);
+    while (v10 <= v9);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_runOperator:(uint64_t)operator arity:(unint64_t)arity context:(void *)context
 {
-  v648 = *MEMORY[0x277D85DE8];
+  v647 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v6 = contextCopy;
   v7 = 0;
@@ -754,10 +749,10 @@ LABEL_103:
       if (shouldReturnUndefined(contextCopy, arity))
       {
         drop(v6, arity);
-        v640[0] = 0xC0DE9A4000000000;
-        v641 = 0;
-        push(v6, v640);
-        v9 = v640;
+        v639[0] = 0xC0DE9A4000000000;
+        v640 = 0;
+        push(v6, v639);
+        v9 = v639;
         goto LABEL_558;
       }
 
@@ -765,10 +760,10 @@ LABEL_103:
       {
         v243 = 0.0;
 LABEL_407:
-        *v636 = v243;
-        v637 = 0;
-        push(v6, v636);
-        v9 = v636;
+        *v635 = v243;
+        v636 = 0;
+        push(v6, v635);
+        v9 = v635;
         goto LABEL_558;
       }
 
@@ -783,12 +778,12 @@ LABEL_407:
           Double = PPScoreInterpreterValue::getDouble(buf);
           if (Double == -31338.0)
           {
-            v246 = 0.0;
+            v245 = 0.0;
           }
 
           else
           {
-            v246 = Double;
+            v245 = Double;
           }
 
           goto LABEL_345;
@@ -796,24 +791,23 @@ LABEL_407:
 
         if (buf[16] == 1)
         {
-          v646 = 0uLL;
-          PPScoreInterpreterValue::getFloatVector(buf, &v646);
-          v244 = *v646;
-          v245 = *v646;
-          v246 = 0.0;
-          while (v245 != *(v646 + 8))
+          v645 = 0uLL;
+          PPScoreInterpreterValue::getFloatVector(&v645, buf);
+          v244 = *v645;
+          v245 = 0.0;
+          while (v244 != *(v645 + 8))
           {
-            v247 = *v245++;
-            v246 = v246 + v247;
+            v246 = *v244++;
+            v245 = v245 + v246;
           }
 
-          if (*(&v646 + 1))
+          if (*(&v645 + 1))
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](*(&v646 + 1));
+            std::__shared_weak_count::__release_shared[abi:ne200100](*(&v645 + 1));
           }
 
 LABEL_345:
-          v243 = v243 + v246;
+          v243 = v243 + v245;
           PPScoreInterpreterValue::~PPScoreInterpreterValue(buf);
           if (++v242 == arity)
           {
@@ -826,27 +820,27 @@ LABEL_345:
         break;
       }
 
-      v351 = pp_score_interpreter_log_handle();
-      if (os_log_type_enabled(v351, OS_LOG_TYPE_ERROR))
+      v348 = pp_score_interpreter_log_handle();
+      if (os_log_type_enabled(v348, OS_LOG_TYPE_ERROR))
       {
-        LODWORD(v646) = 67109120;
-        DWORD1(v646) = buf[16];
-        _os_log_error_impl(&dword_23224A000, v351, OS_LOG_TYPE_ERROR, "Invalid value of type %d passed to PPOperatorSum", &v646, 8u);
+        LODWORD(v645) = 67109120;
+        DWORD1(v645) = buf[16];
+        _os_log_error_impl(&dword_23224A000, v348, OS_LOG_TYPE_ERROR, "Invalid value of type %d passed to PPOperatorSum", &v645, 8u);
       }
 
-      v638[0] = 0xC0DE9A4000000000;
-      v639 = 0;
-      push(v6, v638);
-      v308 = v638;
+      v637[0] = 0xC0DE9A4000000000;
+      v638 = 0;
+      push(v6, v637);
+      v305 = v637;
       goto LABEL_546;
     case 1:
       if (shouldReturnUndefined(contextCopy, 2uLL))
       {
         drop(v6, arity);
-        v634[0] = 0xC0DE9A4000000000;
-        v635 = 0;
-        push(v6, v634);
-        v9 = v634;
+        v633[0] = 0xC0DE9A4000000000;
+        v634 = 0;
+        push(v6, v633);
+        v9 = v633;
       }
 
       else
@@ -889,10 +883,10 @@ LABEL_345:
           v194 = v192;
         }
 
-        v632[0] = v193 - v194;
-        v633 = 0;
-        push(v6, v632);
-        v9 = v632;
+        v631[0] = v193 - v194;
+        v632 = 0;
+        push(v6, v631);
+        v9 = v631;
       }
 
       goto LABEL_558;
@@ -900,10 +894,10 @@ LABEL_345:
       if (shouldReturnUndefined(contextCopy, 1uLL))
       {
         drop(v6, arity);
-        v630[0] = 0xC0DE9A4000000000;
-        v631 = 0;
-        push(v6, v630);
-        v9 = v630;
+        v629[0] = 0xC0DE9A4000000000;
+        v630 = 0;
+        push(v6, v629);
+        v9 = v629;
         goto LABEL_558;
       }
 
@@ -923,19 +917,19 @@ LABEL_345:
       {
         if (buf[16] == 1)
         {
-          PPScoreInterpreterValue::getFloatVector(buf, &v645);
-          v647 = 0;
-          v646 = 0uLL;
-          std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v646, *v645, *(v645 + 8), (*(v645 + 8) - *v645) >> 2);
-          if (*(&v645 + 1))
+          PPScoreInterpreterValue::getFloatVector(&v644, buf);
+          v646 = 0;
+          v645 = 0uLL;
+          std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v645, *v644, *(v644 + 8), (*(v644 + 8) - *v644) >> 2);
+          if (*(&v644 + 1))
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](*(&v645 + 1));
+            std::__shared_weak_count::__release_shared[abi:ne200100](*(&v644 + 1));
           }
 
-          v225 = *(&v646 + 1);
-          if (v646 != *(&v646 + 1))
+          v225 = *(&v645 + 1);
+          if (v645 != *(&v645 + 1))
           {
-            v226 = v646;
+            v226 = v645;
             do
             {
               *v226 = -*v226;
@@ -945,38 +939,38 @@ LABEL_345:
             while (v226 != v225);
           }
 
-          std::allocate_shared[abi:ne200100]<std::vector<float>,std::allocator<std::vector<float>>,std::vector<float> const&,0>();
+          std::allocate_shared[abi:ne200100]<std::vector<float>,std::allocator<std::vector<float>>,std::vector<float> const&,0>(&v626, &v645);
         }
 
-        v313 = pp_score_interpreter_log_handle();
-        if (os_log_type_enabled(v313, OS_LOG_TYPE_ERROR))
+        v310 = pp_score_interpreter_log_handle();
+        if (os_log_type_enabled(v310, OS_LOG_TYPE_ERROR))
         {
-          LODWORD(v646) = 67109120;
-          DWORD1(v646) = buf[16];
-          _os_log_error_impl(&dword_23224A000, v313, OS_LOG_TYPE_ERROR, "Invalid value of type %d passed to PPOperatorNegate", &v646, 8u);
+          LODWORD(v645) = 67109120;
+          DWORD1(v645) = buf[16];
+          _os_log_error_impl(&dword_23224A000, v310, OS_LOG_TYPE_ERROR, "Invalid value of type %d passed to PPOperatorNegate", &v645, 8u);
         }
 
-        v626[0] = 0xC0DE9A4000000000;
-        v627 = 0;
-        push(v6, v626);
-        v308 = v626;
+        v624[0] = 0xC0DE9A4000000000;
+        v625 = 0;
+        push(v6, v624);
+        v305 = v624;
       }
 
       else
       {
-        v310 = PPScoreInterpreterValue::getDouble(buf);
-        v311 = -v310;
-        v306 = v310 == -31338.0;
-        v312 = -0.0;
-        if (!v306)
+        v307 = PPScoreInterpreterValue::getDouble(buf);
+        v308 = -v307;
+        v303 = v307 == -31338.0;
+        v309 = -0.0;
+        if (!v303)
         {
-          v312 = v311;
+          v309 = v308;
         }
 
-        *v628 = v312;
-        v629 = 0;
-        push(v6, v628);
-        v308 = v628;
+        *v627 = v309;
+        v628 = 0;
+        push(v6, v627);
+        v305 = v627;
       }
 
       goto LABEL_546;
@@ -984,10 +978,10 @@ LABEL_345:
       if (shouldReturnUndefined(contextCopy, arity))
       {
         drop(v6, arity);
-        v624[0] = 0xC0DE9A4000000000;
-        v625 = 0;
-        push(v6, v624);
-        v9 = v624;
+        v622[0] = 0xC0DE9A4000000000;
+        v623 = 0;
+        push(v6, v622);
+        v9 = v622;
         goto LABEL_558;
       }
 
@@ -995,10 +989,10 @@ LABEL_345:
       {
         v153 = 1.0;
 LABEL_401:
-        *v620 = v153;
-        v621 = 0;
-        push(v6, v620);
-        v9 = v620;
+        *v618 = v153;
+        v619 = 0;
+        push(v6, v618);
+        v9 = v618;
         goto LABEL_558;
       }
 
@@ -1026,19 +1020,19 @@ LABEL_401:
 
         if (buf[16] == 1)
         {
-          v646 = 0uLL;
-          PPScoreInterpreterValue::getFloatVector(buf, &v646);
-          v154 = *v646;
+          v645 = 0uLL;
+          PPScoreInterpreterValue::getFloatVector(&v645, buf);
+          v154 = *v645;
           v155 = 1.0;
-          while (v154 != *(v646 + 8))
+          while (v154 != *(v645 + 8))
           {
             v156 = *v154++;
             v155 = v155 * v156;
           }
 
-          if (*(&v646 + 1))
+          if (*(&v645 + 1))
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](*(&v646 + 1));
+            std::__shared_weak_count::__release_shared[abi:ne200100](*(&v645 + 1));
           }
 
 LABEL_214:
@@ -1055,30 +1049,30 @@ LABEL_214:
         break;
       }
 
-      v350 = pp_score_interpreter_log_handle();
-      if (os_log_type_enabled(v350, OS_LOG_TYPE_ERROR))
+      v347 = pp_score_interpreter_log_handle();
+      if (os_log_type_enabled(v347, OS_LOG_TYPE_ERROR))
       {
-        LODWORD(v646) = 67109120;
-        DWORD1(v646) = buf[16];
-        _os_log_error_impl(&dword_23224A000, v350, OS_LOG_TYPE_ERROR, "Invalid value of type %d passed to PPOperatorProduct", &v646, 8u);
+        LODWORD(v645) = 67109120;
+        DWORD1(v645) = buf[16];
+        _os_log_error_impl(&dword_23224A000, v347, OS_LOG_TYPE_ERROR, "Invalid value of type %d passed to PPOperatorProduct", &v645, 8u);
       }
 
-      v622[0] = 0xC0DE9A4000000000;
-      v623 = 0;
-      push(v6, v622);
-      v308 = v622;
+      v620[0] = 0xC0DE9A4000000000;
+      v621 = 0;
+      push(v6, v620);
+      v305 = v620;
 LABEL_546:
-      PPScoreInterpreterValue::~PPScoreInterpreterValue(v308);
+      PPScoreInterpreterValue::~PPScoreInterpreterValue(v305);
       v9 = buf;
       goto LABEL_558;
     case 4:
       if (shouldReturnUndefined(contextCopy, 2uLL))
       {
         drop(v6, arity);
-        v618[0] = 0xC0DE9A4000000000;
-        v619 = 0;
-        push(v6, v618);
-        v9 = v618;
+        v616[0] = 0xC0DE9A4000000000;
+        v617 = 0;
+        push(v6, v616);
+        v9 = v616;
       }
 
       else
@@ -1128,10 +1122,10 @@ LABEL_546:
           v220 = 0.0;
         }
 
-        *v616 = v220;
-        v617 = 0;
-        push(v6, v616);
-        v9 = v616;
+        *v614 = v220;
+        v615 = 0;
+        push(v6, v614);
+        v9 = v614;
       }
 
       goto LABEL_558;
@@ -1139,10 +1133,10 @@ LABEL_546:
       if (shouldReturnUndefined(contextCopy, 2uLL))
       {
         drop(v6, arity);
-        v614[0] = 0xC0DE9A4000000000;
-        v615 = 0;
-        push(v6, v614);
-        v9 = v614;
+        v612[0] = 0xC0DE9A4000000000;
+        v613 = 0;
+        push(v6, v612);
+        v9 = v612;
         goto LABEL_558;
       }
 
@@ -1167,15 +1161,15 @@ LABEL_546:
       if (v236 <= 0.0)
       {
         currentHandler = [MEMORY[0x277CCA890] currentHandler];
-        v401 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PPScoreInterpreter _runOperator:arity:context:]"];
-        [currentHandler handleFailureInFunction:v401 file:@"PPScoreInterpreter.mm" lineNumber:1206 description:{@"Invalid parameter not satisfying: %@", @"value > 0"}];
+        v397 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PPScoreInterpreter _runOperator:arity:context:]"];
+        [currentHandler handleFailureInFunction:v397 file:@"PPScoreInterpreter.mm" lineNumber:1206 description:{@"Invalid parameter not satisfying: %@", @"value > 0"}];
       }
 
       if (v237 <= 0.0)
       {
         currentHandler2 = [MEMORY[0x277CCA890] currentHandler];
-        v403 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PPScoreInterpreter _runOperator:arity:context:]"];
-        [currentHandler2 handleFailureInFunction:v403 file:@"PPScoreInterpreter.mm" lineNumber:1207 description:{@"Invalid parameter not satisfying: %@", @"base > 0"}];
+        v399 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PPScoreInterpreter _runOperator:arity:context:]"];
+        [currentHandler2 handleFailureInFunction:v399 file:@"PPScoreInterpreter.mm" lineNumber:1207 description:{@"Invalid parameter not satisfying: %@", @"base > 0"}];
       }
 
       if (v236 <= 0.0)
@@ -1216,20 +1210,20 @@ LABEL_611:
 LABEL_396:
 
 LABEL_397:
-      v298 = log2(v236);
-      v612[0] = v298 / log2(v237);
-      v613 = 0;
-      push(v6, v612);
-      v9 = v612;
+      v295 = log2(v236);
+      v610[0] = v295 / log2(v237);
+      v611 = 0;
+      push(v6, v610);
+      v9 = v610;
       goto LABEL_558;
     case 6:
       if (shouldReturnUndefined(contextCopy, 2uLL))
       {
         drop(v6, arity);
-        v610[0] = 0xC0DE9A4000000000;
-        v611 = 0;
-        push(v6, v610);
-        v9 = v610;
+        v608[0] = 0xC0DE9A4000000000;
+        v609 = 0;
+        push(v6, v608);
+        v9 = v608;
       }
 
       else
@@ -1255,31 +1249,31 @@ LABEL_397:
         if (v125 == 0.0)
         {
           currentHandler3 = [MEMORY[0x277CCA890] currentHandler];
-          v398 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PPScoreInterpreter _runOperator:arity:context:]"];
-          [currentHandler3 handleFailureInFunction:v398 file:@"PPScoreInterpreter.mm" lineNumber:1218 description:{@"Invalid parameter not satisfying: %@", @"denominator != 0"}];
+          v394 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PPScoreInterpreter _runOperator:arity:context:]"];
+          [currentHandler3 handleFailureInFunction:v394 file:@"PPScoreInterpreter.mm" lineNumber:1218 description:{@"Invalid parameter not satisfying: %@", @"denominator != 0"}];
 
-          v399 = pp_score_interpreter_log_handle();
-          if (os_log_type_enabled(v399, OS_LOG_TYPE_ERROR))
+          v395 = pp_score_interpreter_log_handle();
+          if (os_log_type_enabled(v395, OS_LOG_TYPE_ERROR))
           {
             *buf = 134218240;
             *&buf[4] = v124;
             *&buf[12] = 2048;
             *&buf[14] = v125;
-            _os_log_error_impl(&dword_23224A000, v399, OS_LOG_TYPE_ERROR, "Divide by zero error (%f / %f) -- setting output to PPScoreNotSet", buf, 0x16u);
+            _os_log_error_impl(&dword_23224A000, v395, OS_LOG_TYPE_ERROR, "Divide by zero error (%f / %f) -- setting output to PPScoreNotSet", buf, 0x16u);
           }
 
-          v608[0] = 0xC0DE9A4000000000;
-          v609 = 0;
-          push(v6, v608);
-          v9 = v608;
+          v606[0] = 0xC0DE9A4000000000;
+          v607 = 0;
+          push(v6, v606);
+          v9 = v606;
         }
 
         else
         {
-          v606[0] = v124 / v125;
-          v607 = 0;
-          push(v6, v606);
-          v9 = v606;
+          v604[0] = v124 / v125;
+          v605 = 0;
+          push(v6, v604);
+          v9 = v604;
         }
       }
 
@@ -1288,10 +1282,10 @@ LABEL_397:
       if (shouldReturnUndefined(contextCopy, 1uLL))
       {
         drop(v6, arity);
-        v604[0] = 0xC0DE9A4000000000;
-        v605 = 0;
-        push(v6, v604);
-        v9 = v604;
+        v602[0] = 0xC0DE9A4000000000;
+        v603 = 0;
+        push(v6, v602);
+        v9 = v602;
       }
 
       else
@@ -1308,8 +1302,8 @@ LABEL_397:
         if (v229 <= 0.0)
         {
           currentHandler4 = [MEMORY[0x277CCA890] currentHandler];
-          v394 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PPScoreInterpreter _runOperator:arity:context:]"];
-          [currentHandler4 handleFailureInFunction:v394 file:@"PPScoreInterpreter.mm" lineNumber:1228 description:{@"Invalid parameter not satisfying: %@", @"value > 0"}];
+          v390 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PPScoreInterpreter _runOperator:arity:context:]"];
+          [currentHandler4 handleFailureInFunction:v390 file:@"PPScoreInterpreter.mm" lineNumber:1228 description:{@"Invalid parameter not satisfying: %@", @"value > 0"}];
 
           v230 = pp_score_interpreter_log_handle();
           if (os_log_type_enabled(v230, OS_LOG_TYPE_ERROR))
@@ -1320,10 +1314,10 @@ LABEL_397:
           }
         }
 
-        v602[0] = log(v229);
-        v603 = 0;
-        push(v6, v602);
-        v9 = v602;
+        v600[0] = log(v229);
+        v601 = 0;
+        push(v6, v600);
+        v9 = v600;
       }
 
       goto LABEL_558;
@@ -1331,10 +1325,10 @@ LABEL_397:
       if (shouldReturnUndefined(contextCopy, 1uLL))
       {
         drop(v6, arity);
-        v600[0] = 0xC0DE9A4000000000;
-        v601 = 0;
-        push(v6, v600);
-        v9 = v600;
+        v598[0] = 0xC0DE9A4000000000;
+        v599 = 0;
+        push(v6, v598);
+        v9 = v598;
       }
 
       else
@@ -1354,10 +1348,10 @@ LABEL_397:
           v129 = v128;
         }
 
-        v598[0] = exp(v129);
-        v599 = 0;
-        push(v6, v598);
-        v9 = v598;
+        v596[0] = exp(v129);
+        v597 = 0;
+        push(v6, v596);
+        v9 = v596;
       }
 
       goto LABEL_558;
@@ -1365,10 +1359,10 @@ LABEL_397:
       if (shouldReturnUndefined(contextCopy, 2uLL))
       {
         drop(v6, arity);
-        v596[0] = 0xC0DE9A4000000000;
-        v597 = 0;
-        push(v6, v596);
-        v9 = v596;
+        v594[0] = 0xC0DE9A4000000000;
+        v595 = 0;
+        push(v6, v594);
+        v9 = v594;
       }
 
       else
@@ -1404,24 +1398,24 @@ LABEL_397:
         if (v89 <= 0.0 && (v89 != 0.0 || v90 < 0.0) && v90 != v90)
         {
           currentHandler5 = [MEMORY[0x277CCA890] currentHandler];
-          v405 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PPScoreInterpreter _runOperator:arity:context:]"];
-          [currentHandler5 handleFailureInFunction:v405 file:@"PPScoreInterpreter.mm" lineNumber:1247 description:{@"Attempted to compute pow(%f, %f)", *&v89, *&v90}];
+          v401 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PPScoreInterpreter _runOperator:arity:context:]"];
+          [currentHandler5 handleFailureInFunction:v401 file:@"PPScoreInterpreter.mm" lineNumber:1247 description:{@"Attempted to compute pow(%f, %f)", *&v89, *&v90}];
 
-          v406 = pp_score_interpreter_log_handle();
-          if (os_log_type_enabled(v406, OS_LOG_TYPE_ERROR))
+          v402 = pp_score_interpreter_log_handle();
+          if (os_log_type_enabled(v402, OS_LOG_TYPE_ERROR))
           {
             *buf = 134218240;
             *&buf[4] = v89;
             *&buf[12] = 2048;
             *&buf[14] = v90;
-            _os_log_error_impl(&dword_23224A000, v406, OS_LOG_TYPE_ERROR, "Attempted to compute pow(%f,%f) -- output is NaN", buf, 0x16u);
+            _os_log_error_impl(&dword_23224A000, v402, OS_LOG_TYPE_ERROR, "Attempted to compute pow(%f,%f) -- output is NaN", buf, 0x16u);
           }
         }
 
-        v594[0] = pow(v89, v90);
-        v595 = 0;
-        push(v6, v594);
-        v9 = v594;
+        v592[0] = pow(v89, v90);
+        v593 = 0;
+        push(v6, v592);
+        v9 = v592;
       }
 
       goto LABEL_558;
@@ -1429,10 +1423,10 @@ LABEL_397:
       if (shouldReturnUndefined(contextCopy, 3uLL))
       {
         drop(v6, arity);
-        v592[0] = 0xC0DE9A4000000000;
-        v593 = 0;
-        push(v6, v592);
-        v9 = v592;
+        v590[0] = 0xC0DE9A4000000000;
+        v591 = 0;
+        push(v6, v590);
+        v9 = v590;
         goto LABEL_558;
       }
 
@@ -1465,15 +1459,15 @@ LABEL_397:
       if (v113 < 0.0)
       {
         currentHandler6 = [MEMORY[0x277CCA890] currentHandler];
-        v410 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PPScoreInterpreter _runOperator:arity:context:]"];
-        [currentHandler6 handleFailureInFunction:v410 file:@"PPScoreInterpreter.mm" lineNumber:1259 description:{@"Invalid parameter not satisfying: %@", @"age >= 0"}];
+        v406 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PPScoreInterpreter _runOperator:arity:context:]"];
+        [currentHandler6 handleFailureInFunction:v406 file:@"PPScoreInterpreter.mm" lineNumber:1259 description:{@"Invalid parameter not satisfying: %@", @"age >= 0"}];
       }
 
       if (v116 <= 0.0)
       {
         currentHandler7 = [MEMORY[0x277CCA890] currentHandler];
-        v414 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PPScoreInterpreter _runOperator:arity:context:]"];
-        [currentHandler7 handleFailureInFunction:v414 file:@"PPScoreInterpreter.mm" lineNumber:1260 description:{@"Invalid parameter not satisfying: %@", @"halflife > 0"}];
+        v410 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PPScoreInterpreter _runOperator:arity:context:]"];
+        [currentHandler7 handleFailureInFunction:v410 file:@"PPScoreInterpreter.mm" lineNumber:1260 description:{@"Invalid parameter not satisfying: %@", @"halflife > 0"}];
       }
 
       if (v113 < 0.0)
@@ -1492,34 +1486,34 @@ LABEL_397:
       if (v116 > 0.0)
       {
 LABEL_399:
-        v588[0] = exp(v113 * (-0.693147181 / v116)) * v117;
-        v589 = 0;
-        push(v6, v588);
-        v9 = v588;
+        v586[0] = exp(v113 * (-0.693147181 / v116)) * v117;
+        v587 = 0;
+        push(v6, v586);
+        v9 = v586;
         goto LABEL_558;
       }
 
-      v337 = pp_score_interpreter_log_handle();
-      if (os_log_type_enabled(v337, OS_LOG_TYPE_ERROR))
+      v334 = pp_score_interpreter_log_handle();
+      if (os_log_type_enabled(v334, OS_LOG_TYPE_ERROR))
       {
         *buf = 134217984;
         *&buf[4] = v116;
-        _os_log_error_impl(&dword_23224A000, v337, OS_LOG_TYPE_ERROR, "Attempted to compute ExpDecay with non-positive half-life: %f -- forcing output to PPScoreNotSet", buf, 0xCu);
+        _os_log_error_impl(&dword_23224A000, v334, OS_LOG_TYPE_ERROR, "Attempted to compute ExpDecay with non-positive half-life: %f -- forcing output to PPScoreNotSet", buf, 0xCu);
       }
 
-      v590[0] = 0xC0DE9A4000000000;
-      v591 = 0;
-      push(v6, v590);
-      v9 = v590;
+      v588[0] = 0xC0DE9A4000000000;
+      v589 = 0;
+      push(v6, v588);
+      v9 = v588;
       goto LABEL_558;
     case 12:
       if (shouldReturnUndefined(contextCopy, 3uLL))
       {
         drop(v6, arity);
-        v586[0] = 0xC0DE9A4000000000;
-        v587 = 0;
-        push(v6, v586);
-        v9 = v586;
+        v584[0] = 0xC0DE9A4000000000;
+        v585 = 0;
+        push(v6, v584);
+        v9 = v584;
       }
 
       else
@@ -1553,15 +1547,15 @@ LABEL_399:
         if (v70 == 1.0)
         {
           currentHandler8 = [MEMORY[0x277CCA890] currentHandler];
-          v408 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PPScoreInterpreter _runOperator:arity:context:]"];
-          [currentHandler8 handleFailureInFunction:v408 file:@"PPScoreInterpreter.mm" lineNumber:1272 description:{@"Invalid parameter not satisfying: %@", @"ratio != 1"}];
+          v404 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PPScoreInterpreter _runOperator:arity:context:]"];
+          [currentHandler8 handleFailureInFunction:v404 file:@"PPScoreInterpreter.mm" lineNumber:1272 description:{@"Invalid parameter not satisfying: %@", @"ratio != 1"}];
         }
 
         if (v70 < 0.0)
         {
           currentHandler9 = [MEMORY[0x277CCA890] currentHandler];
-          v412 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PPScoreInterpreter _runOperator:arity:context:]"];
-          [currentHandler9 handleFailureInFunction:v412 file:@"PPScoreInterpreter.mm" lineNumber:1273 description:{@"Invalid parameter not satisfying: %@", @"ratio >= 0"}];
+          v408 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PPScoreInterpreter _runOperator:arity:context:]"];
+          [currentHandler9 handleFailureInFunction:v408 file:@"PPScoreInterpreter.mm" lineNumber:1273 description:{@"Invalid parameter not satisfying: %@", @"ratio >= 0"}];
         }
 
         if (v70 == 1.0)
@@ -1573,31 +1567,31 @@ LABEL_399:
             _os_log_error_impl(&dword_23224A000, v71, OS_LOG_TYPE_ERROR, "Attempted to compute GeometricSum with a ratio of 1 -- setting output to PPScoreNotSet", buf, 2u);
           }
 
-          v584[0] = 0xC0DE9A4000000000;
-          v585 = 0;
-          push(v6, v584);
-          v9 = v584;
+          v582[0] = 0xC0DE9A4000000000;
+          v583 = 0;
+          push(v6, v582);
+          v9 = v582;
         }
 
         else
         {
           if (v70 < 0.0 && v66 != v66)
           {
-            v303 = pp_score_interpreter_log_handle();
-            if (os_log_type_enabled(v303, OS_LOG_TYPE_ERROR))
+            v300 = pp_score_interpreter_log_handle();
+            if (os_log_type_enabled(v300, OS_LOG_TYPE_ERROR))
             {
               *buf = 134218240;
               *&buf[4] = v70;
               *&buf[12] = 2048;
               *&buf[14] = v66;
-              _os_log_error_impl(&dword_23224A000, v303, OS_LOG_TYPE_ERROR, "Attempted to compute GeometricSum with ratio of %f and terms of %f -- result will be NaN", buf, 0x16u);
+              _os_log_error_impl(&dword_23224A000, v300, OS_LOG_TYPE_ERROR, "Attempted to compute GeometricSum with ratio of %f and terms of %f -- result will be NaN", buf, 0x16u);
             }
           }
 
-          v582[0] = v69 * ((1.0 - pow(v70, v66)) / (1.0 - v70));
-          v583 = 0;
-          push(v6, v582);
-          v9 = v582;
+          v580[0] = v69 * ((1.0 - pow(v70, v66)) / (1.0 - v70));
+          v581 = 0;
+          push(v6, v580);
+          v9 = v580;
         }
       }
 
@@ -1606,10 +1600,10 @@ LABEL_399:
       if (shouldReturnUndefined(contextCopy, 3uLL))
       {
         drop(v6, arity);
-        v580[0] = 0xC0DE9A4000000000;
-        v581 = 0;
-        push(v6, v580);
-        v9 = v580;
+        v578[0] = 0xC0DE9A4000000000;
+        v579 = 0;
+        push(v6, v578);
+        v9 = v578;
       }
 
       else
@@ -1640,10 +1634,10 @@ LABEL_399:
         v106 = v104;
         v107 = PPScoreInterpreterValue::getDouble((v105 + 24 * (v100 + 2)));
         drop(v6, arity);
-        v578[0] = v106 / (exp(-(v107 * v103)) + 1.0);
-        v579 = 0;
-        push(v6, v578);
-        v9 = v578;
+        v576[0] = v106 / (exp(-(v107 * v103)) + 1.0);
+        v577 = 0;
+        push(v6, v576);
+        v9 = v576;
       }
 
       goto LABEL_558;
@@ -1651,10 +1645,10 @@ LABEL_399:
       if (shouldReturnUndefined(contextCopy, 4uLL))
       {
         drop(v6, arity);
-        v576[0] = 0xC0DE9A4000000000;
-        v577 = 0;
-        push(v6, v576);
-        v9 = v576;
+        v574[0] = 0xC0DE9A4000000000;
+        v575 = 0;
+        push(v6, v574);
+        v9 = v574;
       }
 
       else
@@ -1696,15 +1690,15 @@ LABEL_399:
         if (v138 > v142)
         {
           currentHandler10 = [MEMORY[0x277CCA890] currentHandler];
-          v416 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PPScoreInterpreter _runOperator:arity:context:]"];
-          [currentHandler10 handleFailureInFunction:v416 file:@"PPScoreInterpreter.mm" lineNumber:1294 description:{@"ClampToRange: minVal (%f) must be <= defaultVal (%f) ", *&v138, *&v142}];
+          v412 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PPScoreInterpreter _runOperator:arity:context:]"];
+          [currentHandler10 handleFailureInFunction:v412 file:@"PPScoreInterpreter.mm" lineNumber:1294 description:{@"ClampToRange: minVal (%f) must be <= defaultVal (%f) ", *&v138, *&v142}];
         }
 
         if (v142 > v141)
         {
           currentHandler11 = [MEMORY[0x277CCA890] currentHandler];
-          v418 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PPScoreInterpreter _runOperator:arity:context:]"];
-          [currentHandler11 handleFailureInFunction:v418 file:@"PPScoreInterpreter.mm" lineNumber:1295 description:{@"ClampToRange: defaultVal (%f) must be <= maxVal (%f) ", *&v142, *&v141}];
+          v414 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PPScoreInterpreter _runOperator:arity:context:]"];
+          [currentHandler11 handleFailureInFunction:v414 file:@"PPScoreInterpreter.mm" lineNumber:1295 description:{@"ClampToRange: defaultVal (%f) must be <= maxVal (%f) ", *&v142, *&v141}];
         }
 
         v143 = v135;
@@ -1734,18 +1728,18 @@ LABEL_399:
             *&buf[14] = v138;
             *&buf[22] = 2048;
             *&buf[24] = v141;
-            LOWORD(v643[0]) = 2048;
-            *(v643 + 2) = v142;
-            WORD1(v643[1]) = 2048;
-            *(&v643[1] + 4) = v144;
+            LOWORD(v642[0]) = 2048;
+            *(v642 + 2) = v142;
+            WORD1(v642[1]) = 2048;
+            *(&v642[1] + 4) = v144;
             _os_log_impl(&dword_23224A000, v145, OS_LOG_TYPE_INFO, "ClampToRange(input=%f, min=%f, max=%f, default=%f): input coerced to %f", buf, 0x34u);
           }
         }
 
-        *v574 = v144;
-        v575 = 0;
-        push(v6, v574);
-        v9 = v574;
+        *v572 = v144;
+        v573 = 0;
+        push(v6, v572);
+        v9 = v572;
       }
 
       goto LABEL_558;
@@ -1773,19 +1767,19 @@ LABEL_399:
         v22 = v19 / fmax(v21, 0.0000001);
       }
 
-      *v572 = v22;
-      v573 = 0;
-      push(v6, v572);
-      v9 = v572;
+      *v570 = v22;
+      v571 = 0;
+      push(v6, v570);
+      v9 = v570;
       goto LABEL_558;
     case 17:
       if (shouldReturnUndefined(contextCopy, arity))
       {
         drop(v6, arity);
-        v570[0] = 0xC0DE9A4000000000;
-        v571 = 0;
-        push(v6, v570);
-        v9 = v570;
+        v568[0] = 0xC0DE9A4000000000;
+        v569 = 0;
+        push(v6, v568);
+        v9 = v568;
         goto LABEL_558;
       }
 
@@ -1793,10 +1787,10 @@ LABEL_399:
       {
         v174 = -INFINITY;
 LABEL_405:
-        *v561 = v174;
-        v562 = 0;
-        push(v6, v561);
-        v9 = v561;
+        *v559 = v174;
+        v560 = 0;
+        push(v6, v559);
+        v9 = v559;
         goto LABEL_558;
       }
 
@@ -1845,28 +1839,28 @@ LABEL_405:
               goto LABEL_273;
             }
 
-            v359 = pp_score_interpreter_log_handle();
-            if (os_log_type_enabled(v359, OS_LOG_TYPE_ERROR))
+            v355 = pp_score_interpreter_log_handle();
+            if (os_log_type_enabled(v355, OS_LOG_TYPE_ERROR))
             {
-              LODWORD(v646) = 67109120;
-              DWORD1(v646) = buf[16];
-              _os_log_error_impl(&dword_23224A000, v359, OS_LOG_TYPE_ERROR, "Invalid value of type %d passed to PPOperatorMaximum", &v646, 8u);
+              LODWORD(v645) = 67109120;
+              DWORD1(v645) = buf[16];
+              _os_log_error_impl(&dword_23224A000, v355, OS_LOG_TYPE_ERROR, "Invalid value of type %d passed to PPOperatorMaximum", &v645, 8u);
             }
 
-            v564[0] = 0xC0DE9A4000000000;
-            v565 = 0;
-            v360 = v564;
-            push(v6, v564);
+            v562[0] = 0xC0DE9A4000000000;
+            v563 = 0;
+            v356 = v562;
+            push(v6, v562);
             break;
           }
 
           if (!v172)
           {
-            v646 = 0uLL;
-            PPScoreInterpreterValue::getFloatVector(buf, &v646);
-            v180 = *v646;
-            v181 = *(v646 + 8);
-            if (*v646 == v181)
+            v645 = 0uLL;
+            PPScoreInterpreterValue::getFloatVector(&v645, buf);
+            v180 = *v645;
+            v181 = *(v645 + 8);
+            if (*v645 == v181)
             {
               v184 = -INFINITY;
             }
@@ -1884,9 +1878,9 @@ LABEL_405:
               v184 = v182;
             }
 
-            if (*(&v646 + 1))
+            if (*(&v645 + 1))
             {
-              std::__shared_weak_count::__release_shared[abi:ne200100](*(&v646 + 1));
+              std::__shared_weak_count::__release_shared[abi:ne200100](*(&v645 + 1));
             }
 
             v172 = 0;
@@ -1894,18 +1888,18 @@ LABEL_405:
             goto LABEL_273;
           }
 
-          v362 = pp_score_interpreter_log_handle();
-          if (os_log_type_enabled(v362, OS_LOG_TYPE_ERROR))
+          v358 = pp_score_interpreter_log_handle();
+          if (os_log_type_enabled(v358, OS_LOG_TYPE_ERROR))
           {
-            LODWORD(v646) = 67109120;
-            DWORD1(v646) = buf[16];
-            _os_log_error_impl(&dword_23224A000, v362, OS_LOG_TYPE_ERROR, "Invalid value of type %d passed to PPOperatorMaximum", &v646, 8u);
+            LODWORD(v645) = 67109120;
+            DWORD1(v645) = buf[16];
+            _os_log_error_impl(&dword_23224A000, v358, OS_LOG_TYPE_ERROR, "Invalid value of type %d passed to PPOperatorMaximum", &v645, 8u);
           }
 
-          v566[0] = 0xC0DE9A4000000000;
-          v567 = 0;
-          v360 = v566;
-          push(v6, v566);
+          v564[0] = 0xC0DE9A4000000000;
+          v565 = 0;
+          v356 = v564;
+          push(v6, v564);
         }
 
         else
@@ -1926,9 +1920,9 @@ LABEL_273:
             {
               if (v172)
               {
-                PPScoreInterpreterValue::PPScoreInterpreterValue(v563, v172);
-                push(v6, v563);
-                PPScoreInterpreterValue::~PPScoreInterpreterValue(v563);
+                PPScoreInterpreterValue::PPScoreInterpreterValue(v561, v172);
+                push(v6, v561);
+                PPScoreInterpreterValue::~PPScoreInterpreterValue(v561);
 
                 goto LABEL_559;
               }
@@ -1939,24 +1933,24 @@ LABEL_273:
             continue;
           }
 
-          v364 = pp_score_interpreter_log_handle();
-          if (os_log_type_enabled(v364, OS_LOG_TYPE_ERROR))
+          v360 = pp_score_interpreter_log_handle();
+          if (os_log_type_enabled(v360, OS_LOG_TYPE_ERROR))
           {
-            LODWORD(v646) = 67109120;
-            DWORD1(v646) = buf[16];
-            _os_log_error_impl(&dword_23224A000, v364, OS_LOG_TYPE_ERROR, "Invalid value of type %d passed to PPOperatorMaximum", &v646, 8u);
+            LODWORD(v645) = 67109120;
+            DWORD1(v645) = buf[16];
+            _os_log_error_impl(&dword_23224A000, v360, OS_LOG_TYPE_ERROR, "Invalid value of type %d passed to PPOperatorMaximum", &v645, 8u);
           }
 
-          v568[0] = 0xC0DE9A4000000000;
-          v569 = 0;
-          v360 = v568;
-          push(v6, v568);
+          v566[0] = 0xC0DE9A4000000000;
+          v567 = 0;
+          v356 = v566;
+          push(v6, v566);
         }
 
         break;
       }
 
-      PPScoreInterpreterValue::~PPScoreInterpreterValue(v360);
+      PPScoreInterpreterValue::~PPScoreInterpreterValue(v356);
       PPScoreInterpreterValue::~PPScoreInterpreterValue(buf);
 
       goto LABEL_559;
@@ -1964,10 +1958,10 @@ LABEL_273:
       if (shouldReturnUndefined(contextCopy, arity))
       {
         drop(v6, arity);
-        v559[0] = 0xC0DE9A4000000000;
-        v560 = 0;
-        push(v6, v559);
-        v9 = v559;
+        v557[0] = 0xC0DE9A4000000000;
+        v558 = 0;
+        push(v6, v557);
+        v9 = v557;
         goto LABEL_558;
       }
 
@@ -1975,10 +1969,10 @@ LABEL_273:
       {
         v160 = INFINITY;
 LABEL_403:
-        *v550 = v160;
-        v551 = 0;
-        push(v6, v550);
-        v9 = v550;
+        *v548 = v160;
+        v549 = 0;
+        push(v6, v548);
+        v9 = v548;
         goto LABEL_558;
       }
 
@@ -2027,28 +2021,28 @@ LABEL_403:
               goto LABEL_243;
             }
 
-            v357 = pp_score_interpreter_log_handle();
-            if (os_log_type_enabled(v357, OS_LOG_TYPE_ERROR))
+            v353 = pp_score_interpreter_log_handle();
+            if (os_log_type_enabled(v353, OS_LOG_TYPE_ERROR))
             {
-              LODWORD(v646) = 67109120;
-              DWORD1(v646) = buf[16];
-              _os_log_error_impl(&dword_23224A000, v357, OS_LOG_TYPE_ERROR, "Invalid value of type %d passed to PPOperatorMinimum", &v646, 8u);
+              LODWORD(v645) = 67109120;
+              DWORD1(v645) = buf[16];
+              _os_log_error_impl(&dword_23224A000, v353, OS_LOG_TYPE_ERROR, "Invalid value of type %d passed to PPOperatorMinimum", &v645, 8u);
             }
 
-            v553[0] = 0xC0DE9A4000000000;
-            v554 = 0;
-            v358 = v553;
-            push(v6, v553);
+            v551[0] = 0xC0DE9A4000000000;
+            v552 = 0;
+            v354 = v551;
+            push(v6, v551);
             break;
           }
 
           if (!v158)
           {
-            v646 = 0uLL;
-            PPScoreInterpreterValue::getFloatVector(buf, &v646);
-            v166 = *v646;
-            v167 = *(v646 + 8);
-            if (*v646 == v167)
+            v645 = 0uLL;
+            PPScoreInterpreterValue::getFloatVector(&v645, buf);
+            v166 = *v645;
+            v167 = *(v645 + 8);
+            if (*v645 == v167)
             {
               v170 = INFINITY;
             }
@@ -2066,9 +2060,9 @@ LABEL_403:
               v170 = v168;
             }
 
-            if (*(&v646 + 1))
+            if (*(&v645 + 1))
             {
-              std::__shared_weak_count::__release_shared[abi:ne200100](*(&v646 + 1));
+              std::__shared_weak_count::__release_shared[abi:ne200100](*(&v645 + 1));
             }
 
             v158 = 0;
@@ -2076,18 +2070,18 @@ LABEL_403:
             goto LABEL_243;
           }
 
-          v361 = pp_score_interpreter_log_handle();
-          if (os_log_type_enabled(v361, OS_LOG_TYPE_ERROR))
+          v357 = pp_score_interpreter_log_handle();
+          if (os_log_type_enabled(v357, OS_LOG_TYPE_ERROR))
           {
-            LODWORD(v646) = 67109120;
-            DWORD1(v646) = buf[16];
-            _os_log_error_impl(&dword_23224A000, v361, OS_LOG_TYPE_ERROR, "Invalid value of type %d passed to PPOperatorMinimum", &v646, 8u);
+            LODWORD(v645) = 67109120;
+            DWORD1(v645) = buf[16];
+            _os_log_error_impl(&dword_23224A000, v357, OS_LOG_TYPE_ERROR, "Invalid value of type %d passed to PPOperatorMinimum", &v645, 8u);
           }
 
-          v555[0] = 0xC0DE9A4000000000;
-          v556 = 0;
-          v358 = v555;
-          push(v6, v555);
+          v553[0] = 0xC0DE9A4000000000;
+          v554 = 0;
+          v354 = v553;
+          push(v6, v553);
         }
 
         else
@@ -2108,9 +2102,9 @@ LABEL_243:
             {
               if (v158)
               {
-                PPScoreInterpreterValue::PPScoreInterpreterValue(v552, v158);
-                push(v6, v552);
-                PPScoreInterpreterValue::~PPScoreInterpreterValue(v552);
+                PPScoreInterpreterValue::PPScoreInterpreterValue(v550, v158);
+                push(v6, v550);
+                PPScoreInterpreterValue::~PPScoreInterpreterValue(v550);
 
                 goto LABEL_559;
               }
@@ -2121,24 +2115,24 @@ LABEL_243:
             continue;
           }
 
-          v363 = pp_score_interpreter_log_handle();
-          if (os_log_type_enabled(v363, OS_LOG_TYPE_ERROR))
+          v359 = pp_score_interpreter_log_handle();
+          if (os_log_type_enabled(v359, OS_LOG_TYPE_ERROR))
           {
-            LODWORD(v646) = 67109120;
-            DWORD1(v646) = buf[16];
-            _os_log_error_impl(&dword_23224A000, v363, OS_LOG_TYPE_ERROR, "Invalid value of type %d passed to PPOperatorMinimum", &v646, 8u);
+            LODWORD(v645) = 67109120;
+            DWORD1(v645) = buf[16];
+            _os_log_error_impl(&dword_23224A000, v359, OS_LOG_TYPE_ERROR, "Invalid value of type %d passed to PPOperatorMinimum", &v645, 8u);
           }
 
-          v557[0] = 0xC0DE9A4000000000;
-          v558 = 0;
-          v358 = v557;
-          push(v6, v557);
+          v555[0] = 0xC0DE9A4000000000;
+          v556 = 0;
+          v354 = v555;
+          push(v6, v555);
         }
 
         break;
       }
 
-      PPScoreInterpreterValue::~PPScoreInterpreterValue(v358);
+      PPScoreInterpreterValue::~PPScoreInterpreterValue(v354);
       PPScoreInterpreterValue::~PPScoreInterpreterValue(buf);
 
       goto LABEL_559;
@@ -2151,56 +2145,56 @@ LABEL_243:
         _os_log_error_impl(&dword_23224A000, v17, OS_LOG_TYPE_ERROR, "PPOperatorNeuralNet is not supported anymore", buf, 2u);
       }
 
-      v548[0] = 0xC0DE9A4000000000;
-      v549 = 0;
-      push(v6, v548);
-      v9 = v548;
+      v546[0] = 0xC0DE9A4000000000;
+      v547 = 0;
+      push(v6, v546);
+      v9 = v546;
       goto LABEL_558;
     case 21:
       if (shouldReturnUndefined(contextCopy, 2uLL))
       {
         drop(v6, arity);
-        v546[0] = 0xC0DE9A4000000000;
-        v547 = 0;
-        push(v6, v546);
-        v9 = v546;
+        v544[0] = 0xC0DE9A4000000000;
+        v545 = 0;
+        push(v6, v544);
+        v9 = v544;
         goto LABEL_558;
       }
 
-      v256 = *v6->_stack.__ptr_;
-      v257 = 0xAAAAAAAAAAAAAAABLL * ((*(v6->_stack.__ptr_ + 1) - v256) >> 3);
-      v258 = v257 - arity;
-      if (v257 <= v257 - arity)
+      v255 = *v6->_stack.__ptr_;
+      v256 = 0xAAAAAAAAAAAAAAABLL * ((*(v6->_stack.__ptr_ + 1) - v255) >> 3);
+      v257 = v256 - arity;
+      if (v256 <= v256 - arity)
       {
         std::vector<std::vector<std::unordered_set<PPSubscoreIdentifier>>>::__throw_out_of_range[abi:ne200100]();
       }
 
-      v259 = PPScoreInterpreterValue::getObject((v256 + 24 * v258));
-      v260 = *v6->_stack.__ptr_;
-      if (0xAAAAAAAAAAAAAAABLL * ((*(v6->_stack.__ptr_ + 1) - v260) >> 3) <= v258 + 1)
+      v258 = PPScoreInterpreterValue::getObject((v255 + 24 * v257));
+      v259 = *v6->_stack.__ptr_;
+      if (0xAAAAAAAAAAAAAAABLL * ((*(v6->_stack.__ptr_ + 1) - v259) >> 3) <= v257 + 1)
       {
         std::vector<std::vector<std::unordered_set<PPSubscoreIdentifier>>>::__throw_out_of_range[abi:ne200100]();
       }
 
-      v261 = PPScoreInterpreterValue::getObject((v260 + 24 * (v258 + 1)));
+      v260 = PPScoreInterpreterValue::getObject((v259 + 24 * (v257 + 1)));
       drop(v6, arity);
-      v262 = v259;
-      v263 = v261;
-      [v262 length];
-      v544[0] = [v263 containsObject:v262];
-      v545 = 0;
-      push(v6, v544);
-      PPScoreInterpreterValue::~PPScoreInterpreterValue(v544);
+      v261 = v258;
+      v262 = v260;
+      [v261 length];
+      v542[0] = [v262 containsObject:v261];
+      v543 = 0;
+      push(v6, v542);
+      PPScoreInterpreterValue::~PPScoreInterpreterValue(v542);
 
       goto LABEL_559;
     case 22:
       if (shouldReturnUndefined(contextCopy, 2uLL))
       {
         drop(v6, arity);
-        v542[0] = 0xC0DE9A4000000000;
-        v543 = 0;
-        push(v6, v542);
-        v9 = v542;
+        v540[0] = 0xC0DE9A4000000000;
+        v541 = 0;
+        push(v6, v540);
+        v9 = v540;
       }
 
       else
@@ -2226,14 +2220,14 @@ LABEL_243:
         if (v96 > v97)
         {
           currentHandler12 = [MEMORY[0x277CCA890] currentHandler];
-          v396 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PPScoreInterpreter _runOperator:arity:context:]"];
-          [currentHandler12 handleFailureInFunction:v396 file:@"PPScoreInterpreter.mm" lineNumber:1463 description:{@"RandomUniform: start (%f) must be <= end (%f) ", *&v96, *&v97}];
+          v392 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PPScoreInterpreter _runOperator:arity:context:]"];
+          [currentHandler12 handleFailureInFunction:v392 file:@"PPScoreInterpreter.mm" lineNumber:1463 description:{@"RandomUniform: start (%f) must be <= end (%f) ", *&v96, *&v97}];
         }
 
-        v540[0] = v96 + (v97 - v96) * (arc4random_uniform(0xFFFFFFFF) / 4294967300.0);
-        v541 = 0;
-        push(v6, v540);
-        v9 = v540;
+        v538[0] = v96 + (v97 - v96) * (arc4random_uniform(0xFFFFFFFF) / 4294967300.0);
+        v539 = 0;
+        push(v6, v538);
+        v9 = v538;
       }
 
       goto LABEL_558;
@@ -2241,10 +2235,10 @@ LABEL_243:
       if (shouldReturnUndefined(contextCopy, 1uLL))
       {
         drop(v6, arity);
-        v538[0] = 0xC0DE9A4000000000;
-        v539 = 0;
-        push(v6, v538);
-        v9 = v538;
+        v536[0] = 0xC0DE9A4000000000;
+        v537 = 0;
+        push(v6, v536);
+        v9 = v536;
         goto LABEL_558;
       }
 
@@ -2264,19 +2258,19 @@ LABEL_243:
       {
         if (buf[16] == 1)
         {
-          PPScoreInterpreterValue::getFloatVector(buf, &v645);
-          v647 = 0;
-          v646 = 0uLL;
-          std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v646, *v645, *(v645 + 8), (*(v645 + 8) - *v645) >> 2);
-          if (*(&v645 + 1))
+          PPScoreInterpreterValue::getFloatVector(&v644, buf);
+          v646 = 0;
+          v645 = 0uLL;
+          std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v645, *v644, *(v644 + 8), (*(v644 + 8) - *v644) >> 2);
+          if (*(&v644 + 1))
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](*(&v645 + 1));
+            std::__shared_weak_count::__release_shared[abi:ne200100](*(&v644 + 1));
           }
 
-          v76 = *(&v646 + 1);
-          if (v646 != *(&v646 + 1))
+          v76 = *(&v645 + 1);
+          if (v645 != *(&v645 + 1))
           {
-            v77 = v646;
+            v77 = v645;
             do
             {
               v78 = *v77;
@@ -2291,38 +2285,38 @@ LABEL_243:
             while (v77 != v76);
           }
 
-          std::allocate_shared[abi:ne200100]<std::vector<float>,std::allocator<std::vector<float>>,std::vector<float> const&,0>();
+          std::allocate_shared[abi:ne200100]<std::vector<float>,std::allocator<std::vector<float>>,std::vector<float> const&,0>(&v533, &v645);
         }
 
-        v309 = pp_score_interpreter_log_handle();
-        if (os_log_type_enabled(v309, OS_LOG_TYPE_ERROR))
+        v306 = pp_score_interpreter_log_handle();
+        if (os_log_type_enabled(v306, OS_LOG_TYPE_ERROR))
         {
-          LODWORD(v646) = 67109120;
-          DWORD1(v646) = buf[16];
-          _os_log_error_impl(&dword_23224A000, v309, OS_LOG_TYPE_ERROR, "Invalid value of type %d in argument to PPOperatorAbsVal", &v646, 8u);
+          LODWORD(v645) = 67109120;
+          DWORD1(v645) = buf[16];
+          _os_log_error_impl(&dword_23224A000, v306, OS_LOG_TYPE_ERROR, "Invalid value of type %d in argument to PPOperatorAbsVal", &v645, 8u);
         }
 
-        v534[0] = 0xC0DE9A4000000000;
-        v535 = 0;
-        push(v6, v534);
-        v308 = v534;
+        v531[0] = 0xC0DE9A4000000000;
+        v532 = 0;
+        push(v6, v531);
+        v305 = v531;
       }
 
       else
       {
-        v304 = PPScoreInterpreterValue::getDouble(buf);
-        v305 = fabs(v304);
-        v306 = v304 == -31338.0;
-        v307 = 0.0;
-        if (!v306)
+        v301 = PPScoreInterpreterValue::getDouble(buf);
+        v302 = fabs(v301);
+        v303 = v301 == -31338.0;
+        v304 = 0.0;
+        if (!v303)
         {
-          v307 = v305;
+          v304 = v302;
         }
 
-        *v536 = v307;
-        v537 = 0;
-        push(v6, v536);
-        v308 = v536;
+        *v534 = v304;
+        v535 = 0;
+        push(v6, v534);
+        v305 = v534;
       }
 
       goto LABEL_546;
@@ -2332,21 +2326,21 @@ LABEL_243:
         v146 = *v6->_stack.__ptr_;
         v147 = 0xAAAAAAAAAAAAAAABLL * ((*(v6->_stack.__ptr_ + 1) - v146) >> 3);
         v148 = v147 - arity;
-        v646 = 0uLL;
+        v645 = 0uLL;
         if (v147 > v147 - arity)
         {
-          PPScoreInterpreterValue::getFloatVector((v146 + 24 * v148), &v646);
+          PPScoreInterpreterValue::getFloatVector(&v645, (v146 + 24 * v148));
           v149 = *v6->_stack.__ptr_;
           if (0xAAAAAAAAAAAAAAABLL * ((*(v6->_stack.__ptr_ + 1) - v149) >> 3) > v148 + 1)
           {
             v150 = PPScoreInterpreterValue::getDouble((v149 + 24 * (v148 + 1)));
             drop(v6, arity);
             memset(buf, 0, 24);
-            std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(buf, *v646, *(v646 + 8), (*(v646 + 8) - *v646) >> 2);
+            std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(buf, *v645, *(v645 + 8), (*(v645 + 8) - *v645) >> 2);
             v151 = v150;
-            *&v645 = v151;
-            std::vector<float>::emplace_back<float>(buf, &v645);
-            std::allocate_shared[abi:ne200100]<std::vector<float>,std::allocator<std::vector<float>>,std::vector<float> const&,0>();
+            *&v644 = v151;
+            std::vector<float>::emplace_back<float>(buf, &v644);
+            std::allocate_shared[abi:ne200100]<std::vector<float>,std::allocator<std::vector<float>>,std::vector<float> const&,0>(&v528, buf);
           }
 
           std::vector<std::vector<std::unordered_set<PPSubscoreIdentifier>>>::__throw_out_of_range[abi:ne200100]();
@@ -2356,55 +2350,12 @@ LABEL_243:
       }
 
       drop(v6, arity);
-      v532[0] = 0xC0DE9A4000000000;
-      v533 = 0;
-      push(v6, v532);
-      v9 = v532;
+      v529[0] = 0xC0DE9A4000000000;
+      v530 = 0;
+      push(v6, v529);
+      v9 = v529;
       goto LABEL_558;
     case 26:
-      if (shouldReturnUndefined(contextCopy, 1uLL))
-      {
-        drop(v6, arity);
-        v530[0] = 0xC0DE9A4000000000;
-        v531 = 0;
-        push(v6, v530);
-        v9 = v530;
-        goto LABEL_558;
-      }
-
-      v267 = *v6->_stack.__ptr_;
-      v268 = 0xAAAAAAAAAAAAAAABLL * ((*(v6->_stack.__ptr_ + 1) - v267) >> 3);
-      *&buf[8] = 0;
-      *buf = 0;
-      if (v268 <= v268 - arity)
-      {
-        std::vector<std::vector<std::unordered_set<PPSubscoreIdentifier>>>::__throw_out_of_range[abi:ne200100]();
-      }
-
-      PPScoreInterpreterValue::getFloatVector((v267 + 24 * (v268 - arity)), buf);
-      drop(v6, arity);
-      v269 = **buf;
-      v270 = *(*buf + 8);
-      v271 = 0.0;
-      if (**buf != v270)
-      {
-        v272 = **buf;
-        do
-        {
-          v273 = *v272++;
-          v271 = v271 + v273;
-        }
-
-        while (v272 != v270);
-        v271 = v271 / ((v270 - **buf) >> 2);
-      }
-
-      *v528 = v271;
-      v529 = 0;
-      push(v6, v528);
-      v266 = v528;
-      goto LABEL_410;
-    case 27:
       if (shouldReturnUndefined(contextCopy, 1uLL))
       {
         drop(v6, arity);
@@ -2412,6 +2363,48 @@ LABEL_243:
         v527 = 0;
         push(v6, v526);
         v9 = v526;
+        goto LABEL_558;
+      }
+
+      v266 = *v6->_stack.__ptr_;
+      v267 = 0xAAAAAAAAAAAAAAABLL * ((*(v6->_stack.__ptr_ + 1) - v266) >> 3);
+      *&buf[8] = 0;
+      *buf = 0;
+      if (v267 <= v267 - arity)
+      {
+        std::vector<std::vector<std::unordered_set<PPSubscoreIdentifier>>>::__throw_out_of_range[abi:ne200100]();
+      }
+
+      PPScoreInterpreterValue::getFloatVector(buf, (v266 + 24 * (v267 - arity)));
+      drop(v6, arity);
+      v268 = *(*buf + 8);
+      v269 = 0.0;
+      if (**buf != v268)
+      {
+        v270 = **buf;
+        do
+        {
+          v271 = *v270++;
+          v269 = v269 + v271;
+        }
+
+        while (v270 != v268);
+        v269 = v269 / ((v268 - **buf) >> 2);
+      }
+
+      *v524 = v269;
+      v525 = 0;
+      push(v6, v524);
+      v265 = v524;
+      goto LABEL_410;
+    case 27:
+      if (shouldReturnUndefined(contextCopy, 1uLL))
+      {
+        drop(v6, arity);
+        v522[0] = 0xC0DE9A4000000000;
+        v523 = 0;
+        push(v6, v522);
+        v9 = v522;
 LABEL_558:
         PPScoreInterpreterValue::~PPScoreInterpreterValue(v9);
         goto LABEL_559;
@@ -2419,32 +2412,32 @@ LABEL_558:
 
       v38 = *v6->_stack.__ptr_;
       v39 = 0xAAAAAAAAAAAAAAABLL * ((*(v6->_stack.__ptr_ + 1) - v38) >> 3);
-      v646 = 0uLL;
+      v645 = 0uLL;
       if (v39 <= v39 - arity)
       {
         std::vector<std::vector<std::unordered_set<PPSubscoreIdentifier>>>::__throw_out_of_range[abi:ne200100]();
       }
 
-      PPScoreInterpreterValue::getFloatVector((v38 + 24 * (v39 - arity)), &v646);
+      PPScoreInterpreterValue::getFloatVector(&v645, (v38 + 24 * (v39 - arity)));
       drop(v6, arity);
       memset(buf, 0, 24);
-      std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(buf, *v646, *(v646 + 8), (*(v646 + 8) - *v646) >> 2);
+      std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(buf, *v645, *(v645 + 8), (*(v645 + 8) - *v645) >> 2);
       v40 = *buf;
       v41 = *&buf[8] - *buf;
       if (*&buf[8] == *buf)
       {
-        v524[0] = 0xC0DE9A4000000000;
-        v525 = 0;
-        push(v6, v524);
-        PPScoreInterpreterValue::~PPScoreInterpreterValue(v524);
+        v520[0] = 0xC0DE9A4000000000;
+        v521 = 0;
+        push(v6, v520);
+        PPScoreInterpreterValue::~PPScoreInterpreterValue(v520);
         if (!v40)
         {
 LABEL_532:
-          v299 = *(&v646 + 1);
-          if (*(&v646 + 1))
+          v296 = *(&v645 + 1);
+          if (*(&v645 + 1))
           {
 LABEL_533:
-            std::__shared_weak_count::__release_shared[abi:ne200100](v299);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v296);
           }
 
           goto LABEL_559;
@@ -2455,7 +2448,7 @@ LABEL_531:
         goto LABEL_532;
       }
 
-      LOBYTE(v645) = 0;
+      LOBYTE(v644) = 0;
       std::__sort<std::__less<float,float> &,float *>();
       v42 = v41 >> 2;
       v43 = vcvtd_n_f64_u64(v41 >> 2, 1uLL) + -1.0;
@@ -2466,10 +2459,10 @@ LABEL_531:
         {
           v45 = (*(v40 + v44) + *(v40 + v44 + 1)) * 0.5;
 LABEL_530:
-          *v522 = v45;
-          v523 = 0;
-          push(v6, v522);
-          PPScoreInterpreterValue::~PPScoreInterpreterValue(v522);
+          *v518 = v45;
+          v519 = 0;
+          push(v6, v518);
+          PPScoreInterpreterValue::~PPScoreInterpreterValue(v518);
           goto LABEL_531;
         }
       }
@@ -2486,33 +2479,6 @@ LABEL_643:
       if (shouldReturnUndefined(contextCopy, 1uLL))
       {
         drop(v6, arity);
-        v520[0] = 0xC0DE9A4000000000;
-        v521 = 0;
-        push(v6, v520);
-        v9 = v520;
-        goto LABEL_558;
-      }
-
-      v264 = *v6->_stack.__ptr_;
-      v265 = 0xAAAAAAAAAAAAAAABLL * ((*(v6->_stack.__ptr_ + 1) - v264) >> 3);
-      *&buf[8] = 0;
-      *buf = 0;
-      if (v265 <= v265 - arity)
-      {
-        std::vector<std::vector<std::unordered_set<PPSubscoreIdentifier>>>::__throw_out_of_range[abi:ne200100]();
-      }
-
-      PPScoreInterpreterValue::getFloatVector((v264 + 24 * (v265 - arity)), buf);
-      drop(v6, arity);
-      v518[0] = ((*(*buf + 8) - **buf) >> 2);
-      v519 = 0;
-      push(v6, v518);
-      v266 = v518;
-      goto LABEL_410;
-    case 29:
-      if (shouldReturnUndefined(contextCopy, 1uLL))
-      {
-        drop(v6, arity);
         v516[0] = 0xC0DE9A4000000000;
         v517 = 0;
         push(v6, v516);
@@ -2520,59 +2486,85 @@ LABEL_643:
         goto LABEL_558;
       }
 
-      v280 = *v6->_stack.__ptr_;
-      v281 = 0xAAAAAAAAAAAAAAABLL * ((*(v6->_stack.__ptr_ + 1) - v280) >> 3);
+      v263 = *v6->_stack.__ptr_;
+      v264 = 0xAAAAAAAAAAAAAAABLL * ((*(v6->_stack.__ptr_ + 1) - v263) >> 3);
       *&buf[8] = 0;
       *buf = 0;
-      if (v281 <= v281 - arity)
+      if (v264 <= v264 - arity)
       {
         std::vector<std::vector<std::unordered_set<PPSubscoreIdentifier>>>::__throw_out_of_range[abi:ne200100]();
       }
 
-      PPScoreInterpreterValue::getFloatVector((v280 + 24 * (v281 - arity)), buf);
+      PPScoreInterpreterValue::getFloatVector(buf, (v263 + 24 * (v264 - arity)));
       drop(v6, arity);
-      v282 = **buf;
-      v283 = *(*buf + 8);
-      v284 = **buf;
-      if (**buf == v283)
+      v514[0] = ((*(*buf + 8) - **buf) >> 2);
+      v515 = 0;
+      push(v6, v514);
+      v265 = v514;
+      goto LABEL_410;
+    case 29:
+      if (shouldReturnUndefined(contextCopy, 1uLL))
       {
-        v514[0] = 0;
-        v515 = 0;
-        v292 = v514;
-        push(v6, v514);
+        drop(v6, arity);
+        v512[0] = 0xC0DE9A4000000000;
+        v513 = 0;
+        push(v6, v512);
+        v9 = v512;
+        goto LABEL_558;
+      }
+
+      v278 = *v6->_stack.__ptr_;
+      v279 = 0xAAAAAAAAAAAAAAABLL * ((*(v6->_stack.__ptr_ + 1) - v278) >> 3);
+      *&buf[8] = 0;
+      *buf = 0;
+      if (v279 <= v279 - arity)
+      {
+        std::vector<std::vector<std::unordered_set<PPSubscoreIdentifier>>>::__throw_out_of_range[abi:ne200100]();
+      }
+
+      PPScoreInterpreterValue::getFloatVector(buf, (v278 + 24 * (v279 - arity)));
+      drop(v6, arity);
+      v280 = *(*buf + 8);
+      v281 = **buf;
+      if (**buf == v280)
+      {
+        v510[0] = 0;
+        v511 = 0;
+        v289 = v510;
+        push(v6, v510);
       }
 
       else
       {
-        v285 = v283 - v284;
-        v286 = 0.0;
-        v287 = **buf;
+        v282 = v280 - v281;
+        v283 = 0.0;
+        v284 = **buf;
         do
         {
-          v288 = *v287++;
-          v286 = v286 + v288;
+          v285 = *v284++;
+          v283 = v283 + v285;
         }
 
-        while (v287 != v283);
-        v289 = v286 / v285;
-        v290 = 0.0;
+        while (v284 != v280);
+        v286 = v283 / v282;
+        v287 = 0.0;
         do
         {
-          v291 = *v284++;
-          v290 = v290 + (v291 - v289) * (v291 - v289);
+          v288 = *v281++;
+          v287 = v287 + (v288 - v286) * (v288 - v286);
         }
 
-        while (v284 != v283);
-        v512[0] = sqrt(v290 / v285);
-        v513 = 0;
-        v292 = v512;
-        push(v6, v512);
+        while (v281 != v280);
+        v508[0] = sqrt(v287 / v282);
+        v509 = 0;
+        v289 = v508;
+        push(v6, v508);
       }
 
-      v266 = v292;
+      v265 = v289;
 LABEL_410:
-      PPScoreInterpreterValue::~PPScoreInterpreterValue(v266);
-      v299 = *&buf[8];
+      PPScoreInterpreterValue::~PPScoreInterpreterValue(v265);
+      v296 = *&buf[8];
       if (!*&buf[8])
       {
         goto LABEL_559;
@@ -2583,10 +2575,10 @@ LABEL_410:
       if (shouldReturnUndefined(contextCopy, 2uLL))
       {
         drop(v6, arity);
-        v510[0] = 0xC0DE9A4000000000;
-        v511 = 0;
-        push(v6, v510);
-        v9 = v510;
+        v506[0] = 0xC0DE9A4000000000;
+        v507 = 0;
+        push(v6, v506);
+        v9 = v506;
         goto LABEL_558;
       }
 
@@ -2621,27 +2613,27 @@ LABEL_410:
 
       else
       {
-        v317 = pp_score_interpreter_log_handle();
-        if (os_log_type_enabled(v317, OS_LOG_TYPE_ERROR))
+        v314 = pp_score_interpreter_log_handle();
+        if (os_log_type_enabled(v314, OS_LOG_TYPE_ERROR))
         {
-          v382 = objc_opt_class();
-          v383 = NSStringFromClass(v382);
-          LODWORD(v646) = 138412290;
-          *(&v646 + 4) = v383;
-          _os_log_error_impl(&dword_23224A000, v317, OS_LOG_TYPE_ERROR, "PPOperatorUpdateItemCounts was passed an existingCountsObj of the wrong type: %@", &v646, 0xCu);
+          v378 = objc_opt_class();
+          v379 = NSStringFromClass(v378);
+          LODWORD(v645) = 138412290;
+          *(&v645 + 4) = v379;
+          _os_log_error_impl(&dword_23224A000, v314, OS_LOG_TYPE_ERROR, "PPOperatorUpdateItemCounts was passed an existingCountsObj of the wrong type: %@", &v645, 0xCu);
         }
 
 LABEL_449:
         v200 = objc_opt_new();
       }
 
-      v318 = v200;
+      v315 = v200;
       if (buf[16] == 2)
       {
-        v342 = PPScoreInterpreterValue::getObject(buf);
-        if (v342)
+        v339 = PPScoreInterpreterValue::getObject(buf);
+        if (v339)
         {
-          [v318 addObject:v342];
+          [v315 addObject:v339];
         }
 
 LABEL_509:
@@ -2653,50 +2645,50 @@ LABEL_509:
       {
         if (!buf[16])
         {
-          v319 = [MEMORY[0x277CCABB0] numberWithDouble:PPScoreInterpreterValue::getDouble(buf)];
-          [v318 addObject:v319];
+          v316 = [MEMORY[0x277CCABB0] numberWithDouble:PPScoreInterpreterValue::getDouble(buf)];
+          [v315 addObject:v316];
 
           goto LABEL_510;
         }
 
-        v342 = pp_score_interpreter_log_handle();
-        if (os_log_type_enabled(v342, OS_LOG_TYPE_ERROR))
+        v339 = pp_score_interpreter_log_handle();
+        if (os_log_type_enabled(v339, OS_LOG_TYPE_ERROR))
         {
-          LODWORD(v646) = 67109120;
-          DWORD1(v646) = buf[16];
-          _os_log_error_impl(&dword_23224A000, v342, OS_LOG_TYPE_ERROR, "Attempted to store invalid value of type %d in argument to PPOperatorUpdateItemCounts", &v646, 8u);
+          LODWORD(v645) = 67109120;
+          DWORD1(v645) = buf[16];
+          _os_log_error_impl(&dword_23224A000, v339, OS_LOG_TYPE_ERROR, "Attempted to store invalid value of type %d in argument to PPOperatorUpdateItemCounts", &v645, 8u);
         }
 
         goto LABEL_509;
       }
 
-      v646 = 0uLL;
-      PPScoreInterpreterValue::getFloatVector(buf, &v646);
-      v339 = *v646;
-      v340 = *(v646 + 8);
-      if (*v646 != v340)
+      v645 = 0uLL;
+      PPScoreInterpreterValue::getFloatVector(&v645, buf);
+      v336 = *v645;
+      v337 = *(v645 + 8);
+      if (*v645 != v337)
       {
         do
         {
-          LODWORD(v338) = *v339;
-          v341 = [MEMORY[0x277CCABB0] numberWithFloat:v338];
-          [v318 addObject:v341];
+          LODWORD(v335) = *v336;
+          v338 = [MEMORY[0x277CCABB0] numberWithFloat:v335];
+          [v315 addObject:v338];
 
-          ++v339;
+          ++v336;
         }
 
-        while (v339 != v340);
+        while (v336 != v337);
       }
 
-      if (*(&v646 + 1))
+      if (*(&v645 + 1))
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](*(&v646 + 1));
+        std::__shared_weak_count::__release_shared[abi:ne200100](*(&v645 + 1));
       }
 
 LABEL_510:
-      PPScoreInterpreterValue::PPScoreInterpreterValue(v509, v318);
-      push(v6, v509);
-      PPScoreInterpreterValue::~PPScoreInterpreterValue(v509);
+      PPScoreInterpreterValue::PPScoreInterpreterValue(v505, v315);
+      push(v6, v505);
+      PPScoreInterpreterValue::~PPScoreInterpreterValue(v505);
 
       PPScoreInterpreterValue::~PPScoreInterpreterValue(buf);
       goto LABEL_559;
@@ -2704,32 +2696,32 @@ LABEL_510:
       if (shouldReturnUndefined(contextCopy, 2uLL))
       {
         drop(v6, arity);
-        v507[0] = 0xC0DE9A4000000000;
-        v508 = 0;
-        push(v6, v507);
-        v9 = v507;
+        v503[0] = 0xC0DE9A4000000000;
+        v504 = 0;
+        push(v6, v503);
+        v9 = v503;
         goto LABEL_558;
       }
 
-      v274 = *v6->_stack.__ptr_;
-      v275 = 0xAAAAAAAAAAAAAAABLL * ((*(v6->_stack.__ptr_ + 1) - v274) >> 3);
-      v276 = v275 - arity;
-      if (v275 <= v275 - arity)
+      v272 = *v6->_stack.__ptr_;
+      v273 = 0xAAAAAAAAAAAAAAABLL * ((*(v6->_stack.__ptr_ + 1) - v272) >> 3);
+      v274 = v273 - arity;
+      if (v273 <= v273 - arity)
       {
         std::vector<std::vector<std::unordered_set<PPSubscoreIdentifier>>>::__throw_out_of_range[abi:ne200100]();
       }
 
-      v277 = PPScoreInterpreterValue::getObject((v274 + 24 * v276));
+      v275 = PPScoreInterpreterValue::getObject((v272 + 24 * v274));
       memset(buf, 0, 24);
-      v278 = *v6->_stack.__ptr_;
-      if (0xAAAAAAAAAAAAAAABLL * ((*(v6->_stack.__ptr_ + 1) - v278) >> 3) <= v276 + 1)
+      v276 = *v6->_stack.__ptr_;
+      if (0xAAAAAAAAAAAAAAABLL * ((*(v6->_stack.__ptr_ + 1) - v276) >> 3) <= v274 + 1)
       {
         std::vector<std::vector<std::unordered_set<PPSubscoreIdentifier>>>::__throw_out_of_range[abi:ne200100]();
       }
 
-      PPScoreInterpreterValue::PPScoreInterpreterValue(buf, (v278 + 24 * (v276 + 1)));
+      PPScoreInterpreterValue::PPScoreInterpreterValue(buf, (v276 + 24 * (v274 + 1)));
       drop(v6, arity);
-      if (!v277)
+      if (!v275)
       {
         goto LABEL_457;
       }
@@ -2737,62 +2729,62 @@ LABEL_510:
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v279 = v277;
+        v277 = v275;
       }
 
       else
       {
-        v320 = pp_score_interpreter_log_handle();
-        if (os_log_type_enabled(v320, OS_LOG_TYPE_ERROR))
+        v317 = pp_score_interpreter_log_handle();
+        if (os_log_type_enabled(v317, OS_LOG_TYPE_ERROR))
         {
-          v384 = objc_opt_class();
-          v385 = NSStringFromClass(v384);
-          LODWORD(v646) = 138412290;
-          *(&v646 + 4) = v385;
-          _os_log_error_impl(&dword_23224A000, v320, OS_LOG_TYPE_ERROR, "PPOperatorUpdateCompactNumericItemCounts was passed an existingCountsObj of the wrong type: %@", &v646, 0xCu);
+          v380 = objc_opt_class();
+          v381 = NSStringFromClass(v380);
+          LODWORD(v645) = 138412290;
+          *(&v645 + 4) = v381;
+          _os_log_error_impl(&dword_23224A000, v317, OS_LOG_TYPE_ERROR, "PPOperatorUpdateCompactNumericItemCounts was passed an existingCountsObj of the wrong type: %@", &v645, 0xCu);
         }
 
 LABEL_457:
-        v279 = objc_opt_new();
+        v277 = objc_opt_new();
       }
 
-      v321 = v279;
+      v318 = v277;
       if (buf[16] == 1)
       {
-        v646 = 0uLL;
-        PPScoreInterpreterValue::getFloatVector(buf, &v646);
-        v322 = *v646;
-        v323 = *(v646 + 8);
-        while (v322 != v323)
+        v645 = 0uLL;
+        PPScoreInterpreterValue::getFloatVector(&v645, buf);
+        v319 = *v645;
+        v320 = *(v645 + 8);
+        while (v319 != v320)
         {
-          [v321 addValue:*v322++];
+          [v318 addValue:*v319++];
         }
 
-        if (*(&v646 + 1))
+        if (*(&v645 + 1))
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](*(&v646 + 1));
+          std::__shared_weak_count::__release_shared[abi:ne200100](*(&v645 + 1));
         }
       }
 
       else if (buf[16])
       {
-        v324 = pp_score_interpreter_log_handle();
-        if (os_log_type_enabled(v324, OS_LOG_TYPE_ERROR))
+        v321 = pp_score_interpreter_log_handle();
+        if (os_log_type_enabled(v321, OS_LOG_TYPE_ERROR))
         {
-          LODWORD(v646) = 67109120;
-          DWORD1(v646) = buf[16];
-          _os_log_error_impl(&dword_23224A000, v324, OS_LOG_TYPE_ERROR, "Attempted to store invalid value of type %d in argument to PPOperatorUpdateCompactNumericItemCounts", &v646, 8u);
+          LODWORD(v645) = 67109120;
+          DWORD1(v645) = buf[16];
+          _os_log_error_impl(&dword_23224A000, v321, OS_LOG_TYPE_ERROR, "Attempted to store invalid value of type %d in argument to PPOperatorUpdateCompactNumericItemCounts", &v645, 8u);
         }
       }
 
       else
       {
-        [v279 addValue:PPScoreInterpreterValue::getDouble(buf)];
+        [v277 addValue:PPScoreInterpreterValue::getDouble(buf)];
       }
 
-      PPScoreInterpreterValue::PPScoreInterpreterValue(v506, v321);
-      push(v6, v506);
-      PPScoreInterpreterValue::~PPScoreInterpreterValue(v506);
+      PPScoreInterpreterValue::PPScoreInterpreterValue(v502, v318);
+      push(v6, v502);
+      PPScoreInterpreterValue::~PPScoreInterpreterValue(v502);
 
       PPScoreInterpreterValue::~PPScoreInterpreterValue(buf);
       goto LABEL_559;
@@ -2800,66 +2792,66 @@ LABEL_457:
       if (shouldReturnUndefined(contextCopy, 2uLL))
       {
         drop(v6, arity);
-        v504[0] = 0xC0DE9A4000000000;
-        v505 = 0;
-        push(v6, v504);
-        v9 = v504;
+        v500[0] = 0xC0DE9A4000000000;
+        v501 = 0;
+        push(v6, v500);
+        v9 = v500;
         goto LABEL_558;
       }
 
-      v249 = *v6->_stack.__ptr_;
-      v250 = 0xAAAAAAAAAAAAAAABLL * ((*(v6->_stack.__ptr_ + 1) - v249) >> 3);
-      v251 = v250 - arity;
-      if (v250 <= v250 - arity)
+      v248 = *v6->_stack.__ptr_;
+      v249 = 0xAAAAAAAAAAAAAAABLL * ((*(v6->_stack.__ptr_ + 1) - v248) >> 3);
+      v250 = v249 - arity;
+      if (v249 <= v249 - arity)
       {
         std::vector<std::vector<std::unordered_set<PPSubscoreIdentifier>>>::__throw_out_of_range[abi:ne200100]();
       }
 
-      v252 = PPScoreInterpreterValue::getObject((v249 + 24 * v251));
+      v251 = PPScoreInterpreterValue::getObject((v248 + 24 * v250));
       memset(buf, 0, 24);
-      v253 = *v6->_stack.__ptr_;
-      if (0xAAAAAAAAAAAAAAABLL * ((*(v6->_stack.__ptr_ + 1) - v253) >> 3) <= v251 + 1)
+      v252 = *v6->_stack.__ptr_;
+      if (0xAAAAAAAAAAAAAAABLL * ((*(v6->_stack.__ptr_ + 1) - v252) >> 3) <= v250 + 1)
       {
         std::vector<std::vector<std::unordered_set<PPSubscoreIdentifier>>>::__throw_out_of_range[abi:ne200100]();
       }
 
-      PPScoreInterpreterValue::PPScoreInterpreterValue(buf, (v253 + 24 * (v251 + 1)));
+      PPScoreInterpreterValue::PPScoreInterpreterValue(buf, (v252 + 24 * (v250 + 1)));
       drop(v6, arity);
       if (buf[16])
       {
         if (buf[16] != 2)
         {
-          v316 = pp_score_interpreter_log_handle();
-          if (os_log_type_enabled(v316, OS_LOG_TYPE_ERROR))
+          v313 = pp_score_interpreter_log_handle();
+          if (os_log_type_enabled(v313, OS_LOG_TYPE_ERROR))
           {
-            LODWORD(v646) = 67109120;
-            DWORD1(v646) = buf[16];
-            _os_log_error_impl(&dword_23224A000, v316, OS_LOG_TYPE_ERROR, "Attempted to store invalid value of type %d in 2nd argument to PPOperatorCountsForItem", &v646, 8u);
+            LODWORD(v645) = 67109120;
+            DWORD1(v645) = buf[16];
+            _os_log_error_impl(&dword_23224A000, v313, OS_LOG_TYPE_ERROR, "Attempted to store invalid value of type %d in 2nd argument to PPOperatorCountsForItem", &v645, 8u);
           }
 
-          v502[0] = 0xC0DE9A4000000000;
-          v503 = 0;
-          push(v6, v502);
-          PPScoreInterpreterValue::~PPScoreInterpreterValue(v502);
+          v498[0] = 0xC0DE9A4000000000;
+          v499 = 0;
+          push(v6, v498);
+          PPScoreInterpreterValue::~PPScoreInterpreterValue(v498);
           goto LABEL_609;
         }
 
         PPScoreInterpreterValue::getObject(buf);
-        v255 = v254 = -31337.0;
+        v254 = v253 = -31337.0;
       }
 
       else
       {
-        v255 = 0;
-        v254 = PPScoreInterpreterValue::getDouble(buf);
+        v254 = 0;
+        v253 = PPScoreInterpreterValue::getDouble(buf);
       }
 
-      if (!v252)
+      if (!v251)
       {
-        v500[0] = 0;
-        v501 = 0;
-        push(v6, v500);
-        PPScoreInterpreterValue::~PPScoreInterpreterValue(v500);
+        v496[0] = 0;
+        v497 = 0;
+        push(v6, v496);
+        PPScoreInterpreterValue::~PPScoreInterpreterValue(v496);
 
         goto LABEL_609;
       }
@@ -2867,11 +2859,11 @@ LABEL_457:
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v314 = v252;
-        if (v254 != -31337.0)
+        v311 = v251;
+        if (v253 != -31337.0)
         {
-          v368 = [MEMORY[0x277CCABB0] numberWithDouble:v254];
-          v315 = [v314 countForObject:v368];
+          v364 = [MEMORY[0x277CCABB0] numberWithDouble:v253];
+          v312 = [v311 countForObject:v364];
 
           goto LABEL_596;
         }
@@ -2879,29 +2871,29 @@ LABEL_457:
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v315 = [v314 countForObject:v255];
+          v312 = [v311 countForObject:v254];
 LABEL_596:
 
-          v492[0] = v315;
-          v493 = 0;
-          push(v6, v492);
-          PPScoreInterpreterValue::~PPScoreInterpreterValue(v492);
+          v488[0] = v312;
+          v489 = 0;
+          push(v6, v488);
+          PPScoreInterpreterValue::~PPScoreInterpreterValue(v488);
 
           goto LABEL_609;
         }
 
-        v369 = pp_score_interpreter_log_handle();
-        if (os_log_type_enabled(v369, OS_LOG_TYPE_ERROR))
+        v365 = pp_score_interpreter_log_handle();
+        if (os_log_type_enabled(v365, OS_LOG_TYPE_ERROR))
         {
-          LODWORD(v646) = 138412290;
-          *(&v646 + 4) = v255;
-          _os_log_error_impl(&dword_23224A000, v369, OS_LOG_TYPE_ERROR, "Invalid key passed to PPOperatorCountsForItem using NSCountedSet: %@", &v646, 0xCu);
+          LODWORD(v645) = 138412290;
+          *(&v645 + 4) = v254;
+          _os_log_error_impl(&dword_23224A000, v365, OS_LOG_TYPE_ERROR, "Invalid key passed to PPOperatorCountsForItem using NSCountedSet: %@", &v645, 0xCu);
         }
 
-        v498[0] = 0xC0DE9A4000000000;
-        v499 = 0;
-        push(v6, v498);
-        PPScoreInterpreterValue::~PPScoreInterpreterValue(v498);
+        v494[0] = 0xC0DE9A4000000000;
+        v495 = 0;
+        push(v6, v494);
+        PPScoreInterpreterValue::~PPScoreInterpreterValue(v494);
 
 LABEL_609:
         PPScoreInterpreterValue::~PPScoreInterpreterValue(buf);
@@ -2912,49 +2904,49 @@ LABEL_609:
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        v365 = pp_score_interpreter_log_handle();
-        if (os_log_type_enabled(v365, OS_LOG_TYPE_ERROR))
+        v361 = pp_score_interpreter_log_handle();
+        if (os_log_type_enabled(v361, OS_LOG_TYPE_ERROR))
         {
-          LODWORD(v646) = 138412290;
-          *(&v646 + 4) = v252;
-          _os_log_error_impl(&dword_23224A000, v365, OS_LOG_TYPE_ERROR, "Invalid counted set object passed to PPOperatorCountsForItem: %@", &v646, 0xCu);
+          LODWORD(v645) = 138412290;
+          *(&v645 + 4) = v251;
+          _os_log_error_impl(&dword_23224A000, v361, OS_LOG_TYPE_ERROR, "Invalid counted set object passed to PPOperatorCountsForItem: %@", &v645, 0xCu);
         }
 
-        v494[0] = 0xC0DE9A4000000000;
-        v495 = 0;
-        push(v6, v494);
-        PPScoreInterpreterValue::~PPScoreInterpreterValue(v494);
+        v490[0] = 0xC0DE9A4000000000;
+        v491 = 0;
+        push(v6, v490);
+        PPScoreInterpreterValue::~PPScoreInterpreterValue(v490);
 
         goto LABEL_609;
       }
 
-      v352 = v252;
-      if (v254 == -31337.0)
+      v349 = v251;
+      if (v253 == -31337.0)
       {
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
-          v376 = pp_score_interpreter_log_handle();
-          if (os_log_type_enabled(v376, OS_LOG_TYPE_ERROR))
+          v372 = pp_score_interpreter_log_handle();
+          if (os_log_type_enabled(v372, OS_LOG_TYPE_ERROR))
           {
-            LODWORD(v646) = 138412290;
-            *(&v646 + 4) = v255;
-            _os_log_error_impl(&dword_23224A000, v376, OS_LOG_TYPE_ERROR, "Invalid key passed to PPOperatorCountsForItem using PPU16CountedSet: %@", &v646, 0xCu);
+            LODWORD(v645) = 138412290;
+            *(&v645 + 4) = v254;
+            _os_log_error_impl(&dword_23224A000, v372, OS_LOG_TYPE_ERROR, "Invalid key passed to PPOperatorCountsForItem using PPU16CountedSet: %@", &v645, 0xCu);
           }
 
-          v496[0] = 0xC0DE9A4000000000;
-          v497 = 0;
-          push(v6, v496);
-          PPScoreInterpreterValue::~PPScoreInterpreterValue(v496);
+          v492[0] = 0xC0DE9A4000000000;
+          v493 = 0;
+          push(v6, v492);
+          PPScoreInterpreterValue::~PPScoreInterpreterValue(v492);
 
           goto LABEL_609;
         }
 
-        [v255 doubleValue];
-        v254 = v353;
+        [v254 doubleValue];
+        v253 = v350;
       }
 
-      v315 = [v352 countForValue:v254];
+      v312 = [v349 countForValue:v253];
       goto LABEL_596;
     case 33:
       goto LABEL_65;
@@ -2964,17 +2956,17 @@ LABEL_65:
       if (shouldReturnUndefined(contextCopy, 1uLL))
       {
         drop(v6, arity);
-        v490[0] = 0xC0DE9A4000000000;
-        v491 = 0;
-        push(v6, v490);
-        v9 = v490;
+        v486[0] = 0xC0DE9A4000000000;
+        v487 = 0;
+        push(v6, v486);
+        v9 = v486;
         goto LABEL_558;
       }
 
       v23 = v6->_stack.__ptr_;
       v24 = 0xAAAAAAAAAAAAAAABLL * ((v23[1] - *v23) >> 3) - arity;
-      v647 = 0;
-      v646 = 0uLL;
+      v646 = 0;
+      v645 = 0uLL;
       v26 = v23;
       v25 = *v23;
       if (0xAAAAAAAAAAAAAAABLL * ((v26[1] - v25) >> 3) <= v24)
@@ -2982,26 +2974,26 @@ LABEL_65:
         std::vector<std::vector<std::unordered_set<PPSubscoreIdentifier>>>::__throw_out_of_range[abi:ne200100]();
       }
 
-      PPScoreInterpreterValue::PPScoreInterpreterValue(&v646, (v25 + 24 * v24));
+      PPScoreInterpreterValue::PPScoreInterpreterValue(&v645, (v25 + 24 * v24));
       drop(v6, arity);
-      if (v647)
+      if (v646)
       {
-        if (v647 == 1)
+        if (v646 == 1)
         {
-          PPScoreInterpreterValue::getFloatVector(&v646, buf);
-          v295 = *buf;
+          PPScoreInterpreterValue::getFloatVector(buf, &v645);
+          v292 = *buf;
           v28 = *&buf[8];
           if (v8)
           {
             if (*buf)
             {
-              v643[0] = 0;
+              v642[0] = 0;
               memset(buf, 0, sizeof(buf));
-              std::unordered_set<float>::unordered_set<std::__wrap_iter<float *>>(buf, *v295, v295[1]);
-              v472[0] = *&buf[24];
-              v473 = 0;
-              push(v6, v472);
-              PPScoreInterpreterValue::~PPScoreInterpreterValue(v472);
+              std::unordered_set<float>::unordered_set<std::__wrap_iter<float *>>(buf, *v292, v292[1]);
+              v468[0] = *&buf[24];
+              v469 = 0;
+              push(v6, v468);
+              PPScoreInterpreterValue::~PPScoreInterpreterValue(v468);
               std::__hash_table<PPSubscoreIdentifier,std::hash<PPSubscoreIdentifier>,std::equal_to<PPSubscoreIdentifier>,std::allocator<PPSubscoreIdentifier>>::~__hash_table(buf);
               goto LABEL_555;
             }
@@ -3011,12 +3003,12 @@ LABEL_65:
 
           if (*buf)
           {
-            v451[0] = ((*(*buf + 8) - **buf) >> 2);
-            v452 = 0;
-            push(v6, v451);
-            v329 = v451;
+            v447[0] = ((*(*buf + 8) - **buf) >> 2);
+            v448 = 0;
+            push(v6, v447);
+            v326 = v447;
 LABEL_554:
-            PPScoreInterpreterValue::~PPScoreInterpreterValue(v329);
+            PPScoreInterpreterValue::~PPScoreInterpreterValue(v326);
 LABEL_555:
             if (v28)
             {
@@ -3027,16 +3019,16 @@ LABEL_555:
           }
 
 LABEL_553:
-          v453[0] = 0;
-          v454 = 0;
-          push(v6, v453);
-          v329 = v453;
+          v449[0] = 0;
+          v450 = 0;
+          push(v6, v449);
+          v326 = v449;
           goto LABEL_554;
         }
 
-        if (v647 == 2)
+        if (v646 == 2)
         {
-          v27 = PPScoreInterpreterValue::getObject(&v646);
+          v27 = PPScoreInterpreterValue::getObject(&v645);
           v28 = v27;
           if (v8)
           {
@@ -3046,10 +3038,10 @@ LABEL_553:
               if (objc_opt_isKindOfClass())
               {
                 v29 = v28;
-                v484[0] = [(std::__shared_weak_count *)v29 count];
-                v485 = 0;
-                push(v6, v484);
-                PPScoreInterpreterValue::~PPScoreInterpreterValue(v484);
+                v480[0] = [(std::__shared_weak_count *)v29 count];
+                v481 = 0;
+                push(v6, v480);
+                PPScoreInterpreterValue::~PPScoreInterpreterValue(v480);
               }
 
               else
@@ -3057,11 +3049,11 @@ LABEL_553:
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
-                  v366 = v28;
-                  v482[0] = [(std::__shared_weak_count *)v366 uniqueValueCount];
-                  v483 = 0;
-                  push(v6, v482);
-                  PPScoreInterpreterValue::~PPScoreInterpreterValue(v482);
+                  v362 = v28;
+                  v478[0] = [(std::__shared_weak_count *)v362 uniqueValueCount];
+                  v479 = 0;
+                  push(v6, v478);
+                  PPScoreInterpreterValue::~PPScoreInterpreterValue(v478);
                 }
 
                 else
@@ -3069,12 +3061,12 @@ LABEL_553:
                   objc_opt_class();
                   if (objc_opt_isKindOfClass())
                   {
-                    v373 = v28;
-                    v374 = [objc_alloc(MEMORY[0x277CBEB98]) initWithArray:v373];
-                    v480[0] = [v374 count];
-                    v481 = 0;
-                    push(v6, v480);
-                    PPScoreInterpreterValue::~PPScoreInterpreterValue(v480);
+                    v369 = v28;
+                    v370 = [objc_alloc(MEMORY[0x277CBEB98]) initWithArray:v369];
+                    v476[0] = [v370 count];
+                    v477 = 0;
+                    push(v6, v476);
+                    PPScoreInterpreterValue::~PPScoreInterpreterValue(v476);
                   }
 
                   else
@@ -3082,51 +3074,51 @@ LABEL_553:
                     objc_opt_class();
                     if (objc_opt_isKindOfClass())
                     {
-                      v377 = v28;
-                      v378 = objc_opt_new();
-                      for (i = 0; i < [(std::__shared_weak_count *)v377 length]; ++i)
+                      v373 = v28;
+                      v374 = objc_opt_new();
+                      for (i = 0; i < [(std::__shared_weak_count *)v373 length]; ++i)
                       {
-                        v380 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:{-[std::__shared_weak_count characterAtIndex:](v377, "characterAtIndex:", i)}];
-                        [v378 addObject:v380];
+                        v376 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:{-[std::__shared_weak_count characterAtIndex:](v373, "characterAtIndex:", i)}];
+                        [v374 addObject:v376];
                       }
 
-                      v478[0] = [v378 count];
-                      v479 = 0;
-                      push(v6, v478);
-                      PPScoreInterpreterValue::~PPScoreInterpreterValue(v478);
+                      v474[0] = [v374 count];
+                      v475 = 0;
+                      push(v6, v474);
+                      PPScoreInterpreterValue::~PPScoreInterpreterValue(v474);
                     }
 
                     else
                     {
-                      v388 = pp_score_interpreter_log_handle();
-                      if (os_log_type_enabled(v388, OS_LOG_TYPE_ERROR))
+                      v384 = pp_score_interpreter_log_handle();
+                      if (os_log_type_enabled(v384, OS_LOG_TYPE_ERROR))
                       {
-                        v391 = objc_opt_class();
-                        v392 = NSStringFromClass(v391);
+                        v387 = objc_opt_class();
+                        v388 = NSStringFromClass(v387);
                         *buf = 138412290;
-                        *&buf[4] = v392;
-                        _os_log_error_impl(&dword_23224A000, v388, OS_LOG_TYPE_ERROR, "Unhandled object type of %@ encountered in PPOperator<Distinct/Total>ItemCount", buf, 0xCu);
+                        *&buf[4] = v388;
+                        _os_log_error_impl(&dword_23224A000, v384, OS_LOG_TYPE_ERROR, "Unhandled object type of %@ encountered in PPOperator<Distinct/Total>ItemCount", buf, 0xCu);
                       }
 
-                      v476[0] = 0xC0DE9A4000000000;
-                      v477 = 0;
-                      push(v6, v476);
-                      PPScoreInterpreterValue::~PPScoreInterpreterValue(v476);
+                      v472[0] = 0xC0DE9A4000000000;
+                      v473 = 0;
+                      push(v6, v472);
+                      PPScoreInterpreterValue::~PPScoreInterpreterValue(v472);
                     }
                   }
                 }
               }
 
 LABEL_557:
-              v9 = &v646;
+              v9 = &v645;
               goto LABEL_558;
             }
 
 LABEL_552:
-            v474[0] = 0;
-            v475 = 0;
-            push(v6, v474);
-            v329 = v474;
+            v470[0] = 0;
+            v471 = 0;
+            push(v6, v470);
+            v326 = v470;
             goto LABEL_554;
           }
 
@@ -3135,45 +3127,45 @@ LABEL_552:
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v330 = v28;
-              [(std::__shared_weak_count *)v330 objectEnumerator];
-              v470 = 0u;
-              v471 = 0u;
-              v468 = 0u;
-              v331 = v469 = 0u;
-              v332 = [v331 countByEnumeratingWithState:&v468 objects:v644 count:16];
-              if (v332)
+              v327 = v28;
+              [(std::__shared_weak_count *)v327 objectEnumerator];
+              v466 = 0u;
+              v467 = 0u;
+              v464 = 0u;
+              v328 = v465 = 0u;
+              v329 = [v328 countByEnumeratingWithState:&v464 objects:v643 count:16];
+              if (v329)
               {
-                v333 = 0;
-                v334 = *v469;
+                v330 = 0;
+                v331 = *v465;
                 do
                 {
-                  for (j = 0; j != v332; ++j)
+                  for (j = 0; j != v329; ++j)
                   {
-                    if (*v469 != v334)
+                    if (*v465 != v331)
                     {
-                      objc_enumerationMutation(v331);
+                      objc_enumerationMutation(v328);
                     }
 
-                    v333 += [(std::__shared_weak_count *)v330 countForObject:*(*(&v468 + 1) + 8 * j)];
+                    v330 += [(std::__shared_weak_count *)v327 countForObject:*(*(&v464 + 1) + 8 * j)];
                   }
 
-                  v332 = [v331 countByEnumeratingWithState:&v468 objects:v644 count:16];
+                  v329 = [v328 countByEnumeratingWithState:&v464 objects:v643 count:16];
                 }
 
-                while (v332);
-                v336 = v333;
+                while (v329);
+                v333 = v330;
               }
 
               else
               {
-                v336 = 0.0;
+                v333 = 0.0;
               }
 
-              *v466 = v336;
-              v467 = 0;
-              push(v6, v466);
-              PPScoreInterpreterValue::~PPScoreInterpreterValue(v466);
+              *v462 = v333;
+              v463 = 0;
+              push(v6, v462);
+              PPScoreInterpreterValue::~PPScoreInterpreterValue(v462);
             }
 
             else
@@ -3181,11 +3173,11 @@ LABEL_552:
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v367 = v28;
-                v464[0] = [(std::__shared_weak_count *)v367 count];
-                v465 = 0;
-                push(v6, v464);
-                PPScoreInterpreterValue::~PPScoreInterpreterValue(v464);
+                v363 = v28;
+                v460[0] = [(std::__shared_weak_count *)v363 count];
+                v461 = 0;
+                push(v6, v460);
+                PPScoreInterpreterValue::~PPScoreInterpreterValue(v460);
               }
 
               else
@@ -3193,21 +3185,21 @@ LABEL_552:
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
-                  v375 = v28;
+                  v371 = v28;
                   *buf = 0;
                   *&buf[8] = buf;
                   *&buf[16] = 0x2020000000;
                   *&buf[24] = 0;
-                  v463[0] = MEMORY[0x277D85DD0];
-                  v463[1] = 3221225472;
-                  v463[2] = __49__PPScoreInterpreter__runOperator_arity_context___block_invoke;
-                  v463[3] = &unk_2789721B8;
-                  v463[4] = buf;
-                  [(std::__shared_weak_count *)v375 enumerateValuesAndCountsUsingBlock:v463];
-                  v461[0] = *(*&buf[8] + 24);
-                  v462 = 0;
-                  push(v6, v461);
-                  PPScoreInterpreterValue::~PPScoreInterpreterValue(v461);
+                  v459[0] = MEMORY[0x277D85DD0];
+                  v459[1] = 3221225472;
+                  v459[2] = __49__PPScoreInterpreter__runOperator_arity_context___block_invoke;
+                  v459[3] = &unk_2789721B8;
+                  v459[4] = buf;
+                  [(std::__shared_weak_count *)v371 enumerateValuesAndCountsUsingBlock:v459];
+                  v457[0] = *(*&buf[8] + 24);
+                  v458 = 0;
+                  push(v6, v457);
+                  PPScoreInterpreterValue::~PPScoreInterpreterValue(v457);
                   _Block_object_dispose(buf, 8);
                 }
 
@@ -3216,11 +3208,11 @@ LABEL_552:
                   objc_opt_class();
                   if (objc_opt_isKindOfClass())
                   {
-                    v381 = v28;
-                    v459[0] = [(std::__shared_weak_count *)v381 count];
-                    v460 = 0;
-                    push(v6, v459);
-                    PPScoreInterpreterValue::~PPScoreInterpreterValue(v459);
+                    v377 = v28;
+                    v455[0] = [(std::__shared_weak_count *)v377 count];
+                    v456 = 0;
+                    push(v6, v455);
+                    PPScoreInterpreterValue::~PPScoreInterpreterValue(v455);
                   }
 
                   else
@@ -3228,29 +3220,29 @@ LABEL_552:
                     objc_opt_class();
                     if (objc_opt_isKindOfClass())
                     {
-                      v389 = v28;
-                      v457[0] = [(std::__shared_weak_count *)v389 length];
-                      v458 = 0;
-                      push(v6, v457);
-                      PPScoreInterpreterValue::~PPScoreInterpreterValue(v457);
+                      v385 = v28;
+                      v453[0] = [(std::__shared_weak_count *)v385 length];
+                      v454 = 0;
+                      push(v6, v453);
+                      PPScoreInterpreterValue::~PPScoreInterpreterValue(v453);
                     }
 
                     else
                     {
-                      v390 = pp_score_interpreter_log_handle();
-                      if (os_log_type_enabled(v390, OS_LOG_TYPE_ERROR))
+                      v386 = pp_score_interpreter_log_handle();
+                      if (os_log_type_enabled(v386, OS_LOG_TYPE_ERROR))
                       {
-                        v419 = objc_opt_class();
-                        v420 = NSStringFromClass(v419);
+                        v415 = objc_opt_class();
+                        v416 = NSStringFromClass(v415);
                         *buf = 138412290;
-                        *&buf[4] = v420;
-                        _os_log_error_impl(&dword_23224A000, v390, OS_LOG_TYPE_ERROR, "Unhandled object type of %@ encountered in PPOperator<Distinct/Total>ItemCount", buf, 0xCu);
+                        *&buf[4] = v416;
+                        _os_log_error_impl(&dword_23224A000, v386, OS_LOG_TYPE_ERROR, "Unhandled object type of %@ encountered in PPOperator<Distinct/Total>ItemCount", buf, 0xCu);
                       }
 
-                      v455[0] = 0xC0DE9A4000000000;
-                      v456 = 0;
-                      push(v6, v455);
-                      PPScoreInterpreterValue::~PPScoreInterpreterValue(v455);
+                      v451[0] = 0xC0DE9A4000000000;
+                      v452 = 0;
+                      push(v6, v451);
+                      PPScoreInterpreterValue::~PPScoreInterpreterValue(v451);
                     }
                   }
                 }
@@ -3263,38 +3255,38 @@ LABEL_552:
           goto LABEL_553;
         }
 
-        v297 = pp_score_interpreter_log_handle();
-        if (os_log_type_enabled(v297, OS_LOG_TYPE_ERROR))
+        v294 = pp_score_interpreter_log_handle();
+        if (os_log_type_enabled(v294, OS_LOG_TYPE_ERROR))
         {
           *buf = 67109120;
-          *&buf[4] = v647;
-          _os_log_error_impl(&dword_23224A000, v297, OS_LOG_TYPE_ERROR, "Attempted to store invalid value of type %d in 2nd argument to PPOperator<Distinct/Total>ItemCount", buf, 8u);
+          *&buf[4] = v646;
+          _os_log_error_impl(&dword_23224A000, v294, OS_LOG_TYPE_ERROR, "Attempted to store invalid value of type %d in 2nd argument to PPOperator<Distinct/Total>ItemCount", buf, 8u);
         }
 
-        v486[0] = 0xC0DE9A4000000000;
-        v487 = 0;
-        push(v6, v486);
-        v296 = v486;
+        v482[0] = 0xC0DE9A4000000000;
+        v483 = 0;
+        push(v6, v482);
+        v293 = v482;
       }
 
       else
       {
-        v488[0] = 0x3FF0000000000000;
-        v489 = 0;
-        push(v6, v488);
-        v296 = v488;
+        v484[0] = 0x3FF0000000000000;
+        v485 = 0;
+        push(v6, v484);
+        v293 = v484;
       }
 
-      PPScoreInterpreterValue::~PPScoreInterpreterValue(v296);
+      PPScoreInterpreterValue::~PPScoreInterpreterValue(v293);
       goto LABEL_557;
     case 35:
       if (shouldReturnUndefined(contextCopy, 2uLL))
       {
         drop(v6, arity);
-        v439[0] = 0xC0DE9A4000000000;
-        v440 = 0;
-        push(v6, v439);
-        v9 = v439;
+        v435[0] = 0xC0DE9A4000000000;
+        v436 = 0;
+        push(v6, v435);
+        v9 = v435;
         goto LABEL_558;
       }
 
@@ -3317,15 +3309,15 @@ LABEL_552:
 
       v207 = v203 + 2;
       PPScoreInterpreterValue::PPScoreInterpreterValue(buf, (v206 + 24 * v205));
-      v647 = 0;
-      v646 = 0uLL;
+      v646 = 0;
+      v645 = 0uLL;
       v208 = *v6->_stack.__ptr_;
       if (0xAAAAAAAAAAAAAAABLL * ((*(v6->_stack.__ptr_ + 1) - v208) >> 3) <= v207)
       {
         std::vector<std::vector<std::unordered_set<PPSubscoreIdentifier>>>::__throw_out_of_range[abi:ne200100]();
       }
 
-      PPScoreInterpreterValue::PPScoreInterpreterValue(&v646, (v208 + 24 * v207));
+      PPScoreInterpreterValue::PPScoreInterpreterValue(&v645, (v208 + 24 * v207));
       drop(v6, arity);
       if (!v204)
       {
@@ -3340,119 +3332,118 @@ LABEL_552:
 
       else
       {
-        v325 = pp_score_interpreter_log_handle();
-        if (os_log_type_enabled(v325, OS_LOG_TYPE_ERROR))
+        v322 = pp_score_interpreter_log_handle();
+        if (os_log_type_enabled(v322, OS_LOG_TYPE_ERROR))
         {
-          v386 = objc_opt_class();
-          v387 = NSStringFromClass(v386);
-          LODWORD(v645) = 138412290;
-          *(&v645 + 4) = v387;
-          _os_log_error_impl(&dword_23224A000, v325, OS_LOG_TYPE_ERROR, "PPOperatorAddToDictionary was passed an existingDictObj of the wrong type: %@", &v645, 0xCu);
+          v382 = objc_opt_class();
+          v383 = NSStringFromClass(v382);
+          LODWORD(v644) = 138412290;
+          *(&v644 + 4) = v383;
+          _os_log_error_impl(&dword_23224A000, v322, OS_LOG_TYPE_ERROR, "PPOperatorAddToDictionary was passed an existingDictObj of the wrong type: %@", &v644, 0xCu);
         }
 
 LABEL_473:
         v209 = objc_opt_new();
       }
 
-      v326 = v209;
-      if (v647 == 2)
+      v323 = v209;
+      if (v646 == 2)
       {
-        v327 = PPScoreInterpreterValue::getObject(&v646);
+        v324 = PPScoreInterpreterValue::getObject(&v645);
       }
 
-      else if (v647 == 1)
+      else if (v646 == 1)
       {
-        v327 = PPScoreInterpreterValue::getNumericArray(&v646);
+        v324 = PPScoreInterpreterValue::getNumericArray(&v645);
       }
 
-      else if (v647)
+      else if (v646)
       {
-        v343 = pp_score_interpreter_log_handle();
-        if (os_log_type_enabled(v343, OS_LOG_TYPE_ERROR))
+        v340 = pp_score_interpreter_log_handle();
+        if (os_log_type_enabled(v340, OS_LOG_TYPE_ERROR))
         {
-          LODWORD(v645) = 67109120;
-          DWORD1(v645) = v647;
-          _os_log_error_impl(&dword_23224A000, v343, OS_LOG_TYPE_ERROR, "Attempted to store invalid value of type %d in PPOperatorAddToDictionary", &v645, 8u);
+          LODWORD(v644) = 67109120;
+          DWORD1(v644) = v646;
+          _os_log_error_impl(&dword_23224A000, v340, OS_LOG_TYPE_ERROR, "Attempted to store invalid value of type %d in PPOperatorAddToDictionary", &v644, 8u);
         }
 
-        v344 = pp_score_interpreter_log_handle();
-        if (os_log_type_enabled(v344, OS_LOG_TYPE_ERROR))
+        v341 = pp_score_interpreter_log_handle();
+        if (os_log_type_enabled(v341, OS_LOG_TYPE_ERROR))
         {
-          LOWORD(v645) = 0;
-          _os_log_error_impl(&dword_23224A000, v344, OS_LOG_TYPE_ERROR, "Attempted to store nil object value in PPOperatorAddToDictionary", &v645, 2u);
+          LOWORD(v644) = 0;
+          _os_log_error_impl(&dword_23224A000, v341, OS_LOG_TYPE_ERROR, "Attempted to store nil object value in PPOperatorAddToDictionary", &v644, 2u);
         }
 
-        v327 = objc_opt_new();
+        v324 = objc_opt_new();
       }
 
       else
       {
-        v327 = [MEMORY[0x277CCABB0] numberWithDouble:PPScoreInterpreterValue::getDouble(&v646)];
+        v324 = [MEMORY[0x277CCABB0] numberWithDouble:PPScoreInterpreterValue::getDouble(&v645)];
       }
 
-      v345 = v327;
+      v342 = v324;
       if (buf[16] != 2)
       {
         if (!buf[16])
         {
-          v346 = [MEMORY[0x277CCABB0] numberWithDouble:PPScoreInterpreterValue::getDouble(buf)];
+          v343 = [MEMORY[0x277CCABB0] numberWithDouble:PPScoreInterpreterValue::getDouble(buf)];
           goto LABEL_526;
         }
 
-        v348 = pp_score_interpreter_log_handle();
-        if (!os_log_type_enabled(v348, OS_LOG_TYPE_ERROR))
+        v345 = pp_score_interpreter_log_handle();
+        if (!os_log_type_enabled(v345, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_525;
         }
 
-        LODWORD(v645) = 67109120;
-        DWORD1(v645) = buf[16];
-        v370 = "Attempted to store invalid key of type %d in PPOperatorAddToDictionary";
-        v371 = v348;
-        v372 = 8;
+        LODWORD(v644) = 67109120;
+        DWORD1(v644) = buf[16];
+        v366 = "Attempted to store invalid key of type %d in PPOperatorAddToDictionary";
+        v367 = v345;
+        v368 = 8;
 LABEL_615:
-        _os_log_error_impl(&dword_23224A000, v371, OS_LOG_TYPE_ERROR, v370, &v645, v372);
+        _os_log_error_impl(&dword_23224A000, v367, OS_LOG_TYPE_ERROR, v366, &v644, v368);
         goto LABEL_525;
       }
 
-      v347 = PPScoreInterpreterValue::getObject(buf);
-      if (v347)
+      v344 = PPScoreInterpreterValue::getObject(buf);
+      if (v344)
       {
         goto LABEL_527;
       }
 
       if ([objc_opt_class() conformsToProtocol:&unk_284788E50])
       {
-        v347 = 0;
+        v344 = 0;
         goto LABEL_527;
       }
 
-      v348 = pp_score_interpreter_log_handle();
-      if (os_log_type_enabled(v348, OS_LOG_TYPE_ERROR))
+      v345 = pp_score_interpreter_log_handle();
+      if (os_log_type_enabled(v345, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v645) = 0;
-        v370 = "Attempted to store nil object key in PPOperatorAddToDictionary";
-        v371 = v348;
-        v372 = 2;
+        LOWORD(v644) = 0;
+        v366 = "Attempted to store nil object key in PPOperatorAddToDictionary";
+        v367 = v345;
+        v368 = 2;
         goto LABEL_615;
       }
 
 LABEL_525:
 
-      v346 = objc_opt_new();
+      v343 = objc_opt_new();
 LABEL_526:
-      v347 = v346;
+      v344 = v343;
 LABEL_527:
-      [v326 setObject:v345 forKeyedSubscript:v347];
-      PPScoreInterpreterValue::PPScoreInterpreterValue(v438, &v646);
-      push(v6, v438);
-      PPScoreInterpreterValue::~PPScoreInterpreterValue(v438);
+      [v323 setObject:v342 forKeyedSubscript:v344];
+      PPScoreInterpreterValue::PPScoreInterpreterValue(v434, &v645);
+      push(v6, v434);
+      PPScoreInterpreterValue::~PPScoreInterpreterValue(v434);
 
-      PPScoreInterpreterValue::~PPScoreInterpreterValue(&v646);
+      PPScoreInterpreterValue::~PPScoreInterpreterValue(&v645);
       PPScoreInterpreterValue::~PPScoreInterpreterValue(buf);
 
 LABEL_559:
-      v354 = *MEMORY[0x277D85DE8];
       return;
     case 36:
       goto LABEL_22;
@@ -3465,10 +3456,10 @@ LABEL_22:
       if (shouldReturnUndefined(contextCopy, 2uLL))
       {
         drop(v6, arity);
-        v449[0] = 0xC0DE9A4000000000;
-        v450 = 0;
-        push(v6, v449);
-        v9 = v449;
+        v445[0] = 0xC0DE9A4000000000;
+        v446 = 0;
+        push(v6, v445);
+        v9 = v445;
         goto LABEL_558;
       }
 
@@ -3494,12 +3485,12 @@ LABEL_22:
       {
         if (buf[16] != 2)
         {
-          v293 = pp_score_interpreter_log_handle();
-          if (os_log_type_enabled(v293, OS_LOG_TYPE_ERROR))
+          v290 = pp_score_interpreter_log_handle();
+          if (os_log_type_enabled(v290, OS_LOG_TYPE_ERROR))
           {
-            LODWORD(v646) = 67109120;
-            DWORD1(v646) = buf[16];
-            _os_log_error_impl(&dword_23224A000, v293, OS_LOG_TYPE_ERROR, "Attempted to store invalid value of type %d in 2nd argument to PPOperator<Type>ForKey", &v646, 8u);
+            LODWORD(v645) = 67109120;
+            DWORD1(v645) = buf[16];
+            _os_log_error_impl(&dword_23224A000, v290, OS_LOG_TYPE_ERROR, "Attempted to store invalid value of type %d in 2nd argument to PPOperator<Type>ForKey", &v645, 8u);
           }
 
           v16 = 0;
@@ -3519,11 +3510,11 @@ LABEL_22:
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v293 = v13;
+        v290 = v13;
         if (v15 != -31337.0)
         {
-          v300 = [MEMORY[0x277CCABB0] numberWithDouble:v15];
-          v294 = [v293 objectForKeyedSubscript:v300];
+          v297 = [MEMORY[0x277CCABB0] numberWithDouble:v15];
+          v291 = [v290 objectForKeyedSubscript:v297];
 
           goto LABEL_415;
         }
@@ -3531,7 +3522,7 @@ LABEL_22:
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v294 = [v293 objectForKeyedSubscript:v16];
+          v291 = [v290 objectForKeyedSubscript:v16];
 LABEL_415:
 
           if (v7 != 1)
@@ -3541,91 +3532,91 @@ LABEL_415:
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                [v294 doubleValue];
-                v447[0] = v301;
-                v448 = 0;
-                v302 = v447;
-                push(v6, v447);
+                [v291 doubleValue];
+                v443[0] = v298;
+                v444 = 0;
+                v299 = v443;
+                push(v6, v443);
 LABEL_564:
-                PPScoreInterpreterValue::~PPScoreInterpreterValue(v302);
+                PPScoreInterpreterValue::~PPScoreInterpreterValue(v299);
 
                 PPScoreInterpreterValue::~PPScoreInterpreterValue(buf);
                 goto LABEL_559;
               }
 
-              v355 = pp_score_interpreter_log_handle();
-              if (os_log_type_enabled(v355, OS_LOG_TYPE_ERROR))
+              v351 = pp_score_interpreter_log_handle();
+              if (os_log_type_enabled(v351, OS_LOG_TYPE_ERROR))
               {
-                LODWORD(v646) = 138412290;
-                *(&v646 + 4) = v293;
-                _os_log_error_impl(&dword_23224A000, v355, OS_LOG_TYPE_ERROR, "Invalid dictionary object (expected NSNumber) passed to PPOperator<Type>ForKey: %@", &v646, 0xCu);
+                LODWORD(v645) = 138412290;
+                *(&v645 + 4) = v290;
+                _os_log_error_impl(&dword_23224A000, v351, OS_LOG_TYPE_ERROR, "Invalid dictionary object (expected NSNumber) passed to PPOperator<Type>ForKey: %@", &v645, 0xCu);
               }
 
 LABEL_563:
-              v444[0] = 0xC0DE9A4000000000;
-              v445 = 0;
-              v302 = v444;
-              push(v6, v444);
+              v440[0] = 0xC0DE9A4000000000;
+              v441 = 0;
+              v299 = v440;
+              push(v6, v440);
               goto LABEL_564;
             }
 
-            v349 = pp_score_interpreter_log_handle();
-            if (os_log_type_enabled(v349, OS_LOG_TYPE_ERROR))
+            v346 = pp_score_interpreter_log_handle();
+            if (os_log_type_enabled(v346, OS_LOG_TYPE_ERROR))
             {
-              LODWORD(v646) = 67109120;
-              DWORD1(v646) = v7;
-              _os_log_error_impl(&dword_23224A000, v349, OS_LOG_TYPE_ERROR, "Invalid type of %d requested from PPOperator<Type>ForKey", &v646, 8u);
+              LODWORD(v645) = 67109120;
+              DWORD1(v645) = v7;
+              _os_log_error_impl(&dword_23224A000, v346, OS_LOG_TYPE_ERROR, "Invalid type of %d requested from PPOperator<Type>ForKey", &v645, 8u);
             }
 
 LABEL_539:
-            v442 = 2;
-            v441[0] = 0;
-            v302 = v441;
-            push(v6, v441);
+            v438 = 2;
+            v437[0] = 0;
+            v299 = v437;
+            push(v6, v437);
             goto LABEL_564;
           }
 
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            PPScoreInterpreterValue::PPScoreInterpreterValue(v446, v294);
+            PPScoreInterpreterValue::PPScoreInterpreterValue(v442, v291);
           }
 
-          v356 = pp_score_interpreter_log_handle();
-          if (os_log_type_enabled(v356, OS_LOG_TYPE_ERROR))
+          v352 = pp_score_interpreter_log_handle();
+          if (os_log_type_enabled(v352, OS_LOG_TYPE_ERROR))
           {
-            LODWORD(v646) = 138412290;
-            *(&v646 + 4) = v293;
-            _os_log_error_impl(&dword_23224A000, v356, OS_LOG_TYPE_ERROR, "Invalid dictionary object (expected NSArray) passed to PPOperator<Type>ForKey: %@", &v646, 0xCu);
+            LODWORD(v645) = 138412290;
+            *(&v645 + 4) = v290;
+            _os_log_error_impl(&dword_23224A000, v352, OS_LOG_TYPE_ERROR, "Invalid dictionary object (expected NSArray) passed to PPOperator<Type>ForKey: %@", &v645, 0xCu);
           }
 
 LABEL_483:
-          PPScoreInterpreterValue::PPScoreInterpreterValue(v443, MEMORY[0x277CBEBF8]);
+          PPScoreInterpreterValue::PPScoreInterpreterValue(v439, MEMORY[0x277CBEBF8]);
         }
 
-        v328 = pp_score_interpreter_log_handle();
-        if (os_log_type_enabled(v328, OS_LOG_TYPE_ERROR))
+        v325 = pp_score_interpreter_log_handle();
+        if (os_log_type_enabled(v325, OS_LOG_TYPE_ERROR))
         {
-          LODWORD(v646) = 138412290;
-          *(&v646 + 4) = v16;
-          _os_log_error_impl(&dword_23224A000, v328, OS_LOG_TYPE_ERROR, "Invalid key passed to PPOperator<Type>ForKey: %@", &v646, 0xCu);
+          LODWORD(v645) = 138412290;
+          *(&v645 + 4) = v16;
+          _os_log_error_impl(&dword_23224A000, v325, OS_LOG_TYPE_ERROR, "Invalid key passed to PPOperator<Type>ForKey: %@", &v645, 0xCu);
         }
       }
 
       else
       {
-        v293 = pp_score_interpreter_log_handle();
-        if (os_log_type_enabled(v293, OS_LOG_TYPE_ERROR))
+        v290 = pp_score_interpreter_log_handle();
+        if (os_log_type_enabled(v290, OS_LOG_TYPE_ERROR))
         {
-          LODWORD(v646) = 138412290;
-          *(&v646 + 4) = v13;
-          _os_log_error_impl(&dword_23224A000, v293, OS_LOG_TYPE_ERROR, "Invalid dictionary object passed to PPOperator<Type>ForKey: %@", &v646, 0xCu);
+          LODWORD(v645) = 138412290;
+          *(&v645 + 4) = v13;
+          _os_log_error_impl(&dword_23224A000, v290, OS_LOG_TYPE_ERROR, "Invalid dictionary object passed to PPOperator<Type>ForKey: %@", &v645, 0xCu);
         }
       }
 
 LABEL_481:
 
-      v294 = 0;
+      v291 = 0;
       if (v7 == 2)
       {
         goto LABEL_539;
@@ -3641,10 +3632,10 @@ LABEL_481:
       if (shouldReturnUndefined(contextCopy, 3uLL))
       {
         drop(v6, arity);
-        v436[0] = 0xC0DE9A4000000000;
-        v437 = 0;
-        push(v6, v436);
-        v9 = v436;
+        v432[0] = 0xC0DE9A4000000000;
+        v433 = 0;
+        push(v6, v432);
+        v9 = v432;
       }
 
       else
@@ -3675,10 +3666,10 @@ LABEL_481:
         v54 = v52;
         v55 = PPScoreInterpreterValue::getDouble((v53 + 24 * (v48 + 2)));
         drop(v6, arity);
-        v434[0] = v51 * exp(-fabs(v54 * v55));
-        v435 = 0;
-        push(v6, v434);
-        v9 = v434;
+        v430[0] = v51 * exp(-fabs(v54 * v55));
+        v431 = 0;
+        push(v6, v430);
+        v9 = v430;
       }
 
       goto LABEL_558;
@@ -3686,10 +3677,10 @@ LABEL_481:
       if (shouldReturnUndefined(contextCopy, 1uLL))
       {
         drop(v6, arity);
-        v432[0] = 0xC0DE9A4000000000;
-        v433 = 0;
-        push(v6, v432);
-        v9 = v432;
+        v428[0] = 0xC0DE9A4000000000;
+        v429 = 0;
+        push(v6, v428);
+        v9 = v428;
         goto LABEL_558;
       }
 
@@ -3704,20 +3695,20 @@ LABEL_481:
       drop(v6, arity);
       v59 = v58;
       [v59 timeIntervalSince1970];
-      v430[0] = v60;
-      v431 = 0;
-      push(v6, v430);
-      PPScoreInterpreterValue::~PPScoreInterpreterValue(v430);
+      v426[0] = v60;
+      v427 = 0;
+      push(v6, v426);
+      PPScoreInterpreterValue::~PPScoreInterpreterValue(v426);
 
       goto LABEL_559;
     case 41:
       if (shouldReturnUndefined(contextCopy, 1uLL))
       {
         drop(v6, arity);
-        v428[0] = 0xC0DE9A4000000000;
-        v429 = 0;
-        push(v6, v428);
-        v9 = v428;
+        v424[0] = 0xC0DE9A4000000000;
+        v425 = 0;
+        push(v6, v424);
+        v9 = v424;
         goto LABEL_558;
       }
 
@@ -3731,7 +3722,7 @@ LABEL_481:
       v81 = PPScoreInterpreterValue::getObject((v79 + 24 * (v80 - arity)));
       drop(v6, arity);
       v82 = v81;
-      memset(v643, 0, sizeof(v643));
+      memset(v642, 0, sizeof(v642));
       memset(buf, 0, sizeof(buf));
       v83 = -1.0;
       if (v82 && ([MEMORY[0x277D3A578] localizedTimeStructForDate:v82 tm:buf] & 1) != 0)
@@ -3739,20 +3730,20 @@ LABEL_481:
         v83 = (*&buf[24] + 1);
       }
 
-      *v426 = v83;
-      v427 = 0;
-      push(v6, v426);
-      PPScoreInterpreterValue::~PPScoreInterpreterValue(v426);
+      *v422 = v83;
+      v423 = 0;
+      push(v6, v422);
+      PPScoreInterpreterValue::~PPScoreInterpreterValue(v422);
 
       goto LABEL_559;
     case 42:
       if (shouldReturnUndefined(contextCopy, 2uLL))
       {
         drop(v6, arity);
-        v424[0] = 0xC0DE9A4000000000;
-        v425 = 0;
-        push(v6, v424);
-        v9 = v424;
+        v420[0] = 0xC0DE9A4000000000;
+        v421 = 0;
+        push(v6, v420);
+        v9 = v420;
         goto LABEL_558;
       }
 
@@ -3774,7 +3765,7 @@ LABEL_481:
       v35 = PPScoreInterpreterValue::getDouble((v34 + 24 * (v32 + 1)));
       drop(v6, arity);
       v36 = v33;
-      memset(v643, 0, sizeof(v643));
+      memset(v642, 0, sizeof(v642));
       memset(buf, 0, sizeof(buf));
       v37 = -1.0;
       if (v36 && ([MEMORY[0x277D3A578] localizedTimeStructForDate:v36 tm:buf] & 1) != 0)
@@ -3782,19 +3773,19 @@ LABEL_481:
         v37 = ((3600 * *&buf[8] + 60 * *&buf[4] + *buf) / (86400 / v35));
       }
 
-      *v422 = v37;
-      v423 = 0;
-      push(v6, v422);
-      PPScoreInterpreterValue::~PPScoreInterpreterValue(v422);
+      *v418 = v37;
+      v419 = 0;
+      push(v6, v418);
+      PPScoreInterpreterValue::~PPScoreInterpreterValue(v418);
 
       goto LABEL_559;
     default:
-      v421 = pp_score_interpreter_log_handle();
-      if (os_log_type_enabled(v421, OS_LOG_TYPE_ERROR))
+      v417 = pp_score_interpreter_log_handle();
+      if (os_log_type_enabled(v417, OS_LOG_TYPE_ERROR))
       {
         *buf = 134217984;
         *&buf[4] = operator;
-        _os_log_error_impl(&dword_23224A000, v421, OS_LOG_TYPE_ERROR, "Undefined operator of value %tu", buf, 0xCu);
+        _os_log_error_impl(&dword_23224A000, v417, OS_LOG_TYPE_ERROR, "Undefined operator of value %tu", buf, 0xCu);
       }
 
       __break(1u);
@@ -3836,7 +3827,7 @@ void __47__PPScoreInterpreter_cleanupReusableComponents__block_invoke(uint64_t a
 
 void __125__PPScoreInterpreter_evaluateWithPreviousStageSubscores_scoreInputInitializationBlock_scoreInputAssignmentBlock_outputBlock___block_invoke(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3[1];
   if (v4)
@@ -3864,28 +3855,25 @@ void __125__PPScoreInterpreter_evaluateWithPreviousStageSubscores_scoreInputInit
     v3[1] = v14;
   }
 
-  v16 = *(v3[1] + 2);
   (*(*(a1 + 56) + 16))();
   [(PPScoreInterpreter *)*(a1 + 32) evaluateScoresWithContext:?];
   if (*(*(v3[1] + 1) + 8) != **(v3[1] + 1))
   {
-    v17 = pp_default_log_handle();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
+    v16 = pp_default_log_handle();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
     {
-      v20 = 0xAAAAAAAAAAAAAAABLL * ((*(*(v3[1] + 1) + 8) - **(v3[1] + 1)) >> 3);
-      v21 = 134217984;
-      v22 = v20;
-      _os_log_fault_impl(&dword_23224A000, v17, OS_LOG_TYPE_FAULT, "%lu items left on score interpreter stack", &v21, 0xCu);
+      v18 = 0xAAAAAAAAAAAAAAABLL * ((*(*(v3[1] + 1) + 8) - **(v3[1] + 1)) >> 3);
+      v19 = 134217984;
+      v20 = v18;
+      _os_log_fault_impl(&dword_23224A000, v16, OS_LOG_TYPE_FAULT, "%lu items left on score interpreter stack", &v19, 0xCu);
     }
   }
 
-  v18 = *(a1 + 64);
-  if (v18)
+  v17 = *(a1 + 64);
+  if (v17)
   {
-    (*(v18 + 16))(v18, *(v3[1] + 4));
+    (*(v17 + 16))(v17, *(v3[1] + 4));
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (PPScoreInterpreter)initWithBytecode:(id)bytecode scoreInputSet:(id)set

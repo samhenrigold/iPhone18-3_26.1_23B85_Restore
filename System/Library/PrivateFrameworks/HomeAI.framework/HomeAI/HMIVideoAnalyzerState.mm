@@ -63,7 +63,7 @@
   array = [MEMORY[0x277CBEB18] array];
   identifier = [(HMIVideoAnalyzerState *)self identifier];
   v5 = HMIUUIDShortDescription(identifier);
-  [array addObject:v5];
+  [array addObject:?];
 
   v6 = MEMORY[0x277CCACA8];
   configuration = [(HMIVideoAnalyzerState *)self configuration];
@@ -72,8 +72,8 @@
   configuration2 = [(HMIVideoAnalyzerState *)self configuration];
   camera2 = [configuration2 camera];
   model = [camera2 model];
-  v13 = [v6 stringWithFormat:@"%@/%@", name, model];
-  [array addObject:v13];
+  v13 = [v6 stringWithFormat:name, model];
+  [array addObject:?];
 
   v14 = MEMORY[0x277CCACA8];
   monitored = [(HMIVideoAnalyzerState *)self monitored];
@@ -83,319 +83,242 @@
     v16 = @"Y";
   }
 
-  v17 = [v14 stringWithFormat:@"%@", v16];
-  [array addObject:v17];
+  v17 = [v14 stringWithFormat:v16];
+  [array addObject:?];
 
-  decodeMode = [(HMIVideoAnalyzerState *)self decodeMode];
-  if (decodeMode <= 2)
+  if ([(HMIVideoAnalyzerState *)self decodeMode]<= 2)
   {
-    [array addObject:off_278755C88[decodeMode]];
+    [array addObject:?];
   }
 
-  v19 = MEMORY[0x277CCACA8];
+  v18 = MEMORY[0x277CCACA8];
   [(HMIVideoAnalyzerState *)self analysisFPS];
-  v21 = [v19 stringWithFormat:@"%.2f", v20];
-  [array addObject:v21];
+  v20 = [v18 stringWithFormat:v19];
+  [array addObject:?];
 
-  v22 = MEMORY[0x277CCACA8];
+  v21 = MEMORY[0x277CCACA8];
   [(HMIVideoAnalyzerState *)self timeSinceAnalyzerStarted];
-  v24 = [v22 stringWithFormat:@"%ld", v23];
-  [array addObject:v24];
+  v23 = [v21 stringWithFormat:v22];
+  [array addObject:?];
 
-  v25 = MEMORY[0x277CCACA8];
+  v24 = MEMORY[0x277CCACA8];
   [(HMIVideoAnalyzerState *)self timeSinceLastFragmentWasReceived];
-  v27 = [v25 stringWithFormat:@"%ld", v26];
-  [array addObject:v27];
+  v26 = [v24 stringWithFormat:v25];
+  [array addObject:?];
 
   string = [MEMORY[0x277CCAB68] string];
   [(HMIVideoAnalyzerState *)self bufferFillRatio];
-  v30 = (v29 * 10.0);
-  v31 = [&stru_284057FB8 stringByPaddingToLength:v30 withString:@"=" startingAtIndex:0];
-  [string appendFormat:@"[%@", v31];
+  v28 = [&stru_284057FB8 stringByPaddingToLength:? withString:? startingAtIndex:?];
+  [string appendFormat:v28];
 
-  v32 = [&stru_284057FB8 stringByPaddingToLength:10 - v30 withString:@" " startingAtIndex:0];
-  [string appendFormat:@"%@", v32];
+  v29 = [&stru_284057FB8 stringByPaddingToLength:? withString:? startingAtIndex:?];
+  [string appendFormat:v29];
 
-  [string appendFormat:@"] %5ld KB", -[HMIVideoAnalyzerState bufferSize](self, "bufferSize") >> 10];
-  v76 = string;
-  [array addObject:string];
-  v33 = MEMORY[0x277CCACA8];
+  [string appendFormat:-[HMIVideoAnalyzerState bufferSize](self, "bufferSize") >> 10];
+  v66 = string;
+  [array addObject:?];
+  v30 = MEMORY[0x277CCACA8];
   [(HMIVideoAnalyzerState *)self delay];
-  v35 = [v33 stringWithFormat:@"%.1f", v34];
-  [array addObject:v35];
+  v32 = [v30 stringWithFormat:v31];
+  [array addObject:?];
 
-  v36 = MEMORY[0x277CCACA8];
+  v33 = MEMORY[0x277CCACA8];
   numDecodedSamples = [(HMIVideoAnalyzerState *)self numDecodedSamples];
-  [(HMIVideoAnalyzerState *)self currentPTS];
-  v38 = [v36 stringWithFormat:@"%4ld:%.1f", numDecodedSamples, CMTimeGetSeconds(&time)];
-  [array addObject:v38];
+  [&time currentPTS];
+  v35 = [v33 stringWithFormat:numDecodedSamples, CMTimeGetSeconds(&time)];
+  [array addObject:?];
 
-  v39 = [MEMORY[0x277CCACA8] stringWithFormat:@"%ld, %ld", -[HMIVideoAnalyzerState numDidAnalyzeFrames](self, "numDidAnalyzeFrames"), -[HMIVideoAnalyzerState numDidAnalyzeFragments](self, "numDidAnalyzeFragments")];
-  [array addObject:v39];
+  v36 = [MEMORY[0x277CCACA8] stringWithFormat:-[HMIVideoAnalyzerState numDidAnalyzeFrames](self, "numDidAnalyzeFrames"), -[HMIVideoAnalyzerState numDidAnalyzeFragments](self, "numDidAnalyzeFragments")];
+  [array addObject:?];
 
-  v40 = [MEMORY[0x277CCACA8] stringWithFormat:@"%ld", self->_numDidAnalyzePackages];
-  [array addObject:v40];
+  v37 = [MEMORY[0x277CCACA8] stringWithFormat:self->_numDidAnalyzePackages];
+  [array addObject:?];
 
-  v41 = MEMORY[0x277CCACA8];
+  v38 = MEMORY[0x277CCACA8];
   [(HMIVideoAnalyzerState *)self averageAnalysisTime];
-  v43 = [v41 stringWithFormat:@"%.2f", v42];
-  [array addObject:v43];
+  v40 = [v38 stringWithFormat:v39];
+  [array addObject:?];
 
-  v74 = MEMORY[0x277CCACA8];
+  v64 = MEMORY[0x277CCACA8];
   configuration3 = [(HMIVideoAnalyzerState *)self configuration];
   transcode = [configuration3 transcode];
   encode = [(HMIVideoAnalyzerState *)self encode];
   encoder = [(HMIVideoAnalyzerState *)self encoder];
   configuration4 = [(HMIVideoAnalyzerState *)self configuration];
-  v48 = HMIFourCCString([configuration4 transcodeCodecType]);
+  v45 = HMIFourCCString([configuration4 transcodeCodecType]);
   configuration5 = [(HMIVideoAnalyzerState *)self configuration];
-  v50 = configuration5;
-  v51 = @"T";
+  v47 = @"T";
   if (configuration5)
   {
-    v52 = @"t";
-    [configuration5 timelapseInterval];
-    if (v77)
+    v48 = @"t";
+    [&v67 timelapseInterval];
+    if ((v68 & 0x100000000) != 0)
     {
-      v52 = @"T";
+      v48 = @"T";
     }
   }
 
   else
   {
-    v52 = @"t";
+    v67 = 0;
+    v68 = 0;
+    v48 = @"t";
+    v69 = 0;
   }
 
   if (encoder)
   {
-    v53 = @"C";
+    v49 = @"C";
   }
 
   else
   {
-    v53 = @"c";
+    v49 = @"c";
   }
 
   if (encode)
   {
-    v54 = @"E";
+    v50 = @"E";
   }
 
   else
   {
-    v54 = @"e";
+    v50 = @"e";
   }
 
   if (!transcode)
   {
-    v51 = @"t";
+    v47 = @"t";
   }
 
-  v55 = [v74 stringWithFormat:@"%@%@%@ %@, %@:%ld", v51, v54, v53, v48, v52, -[HMIVideoAnalyzerState numDidCreateTimelapseFragments](self, "numDidCreateTimelapseFragments")];
-  [array addObject:v55];
+  v51 = [v64 stringWithFormat:v47, v50, v49, v45, v48, -[HMIVideoAnalyzerState numDidCreateTimelapseFragments](self, "numDidCreateTimelapseFragments")];
+  [array addObject:?];
 
   dynamicConfiguration = [(HMIVideoAnalyzerState *)self dynamicConfiguration];
-  v57 = MEMORY[0x277CCACA8];
+  v53 = MEMORY[0x277CCACA8];
   recognizeFaces = [dynamicConfiguration recognizeFaces];
-  v59 = @"N";
+  v55 = @"N";
   if (recognizeFaces)
   {
-    v59 = @"Y";
+    v55 = @"Y";
   }
 
-  v60 = [v57 stringWithFormat:@"%@", v59];
-  [array addObject:v60];
+  v56 = [v53 stringWithFormat:v55];
+  [array addObject:?];
 
-  v61 = MEMORY[0x277CCACA8];
+  v57 = MEMORY[0x277CCACA8];
   activityZones = [dynamicConfiguration activityZones];
-  v63 = [v61 stringWithFormat:@"%lu", objc_msgSend(activityZones, "count")];
-  [array addObject:v63];
+  v59 = [v57 stringWithFormat:objc_msgSend(activityZones, "count")];
+  [array addObject:?];
 
   string2 = [MEMORY[0x277CCAB68] string];
-  eventTriggers = [dynamicConfiguration eventTriggers];
-  if (eventTriggers)
-  {
-    v66 = @"M";
-  }
+  [dynamicConfiguration eventTriggers];
+  [string2 appendString:?];
+  [string2 appendString:?];
+  [string2 appendString:?];
+  [string2 appendString:?];
+  [string2 appendString:?];
+  v61 = [MEMORY[0x277CCACA8] stringWithFormat:string2];
+  [array addObject:?];
 
-  else
-  {
-    v66 = @"m";
-  }
+  v62 = [array copy];
 
-  [string2 appendString:v66];
-  if ((eventTriggers & 2) != 0)
-  {
-    v67 = @"P";
-  }
-
-  else
-  {
-    v67 = @"p";
-  }
-
-  [string2 appendString:v67];
-  if ((eventTriggers & 4) != 0)
-  {
-    v68 = @"A";
-  }
-
-  else
-  {
-    v68 = @"a";
-  }
-
-  [string2 appendString:v68];
-  if ((eventTriggers & 8) != 0)
-  {
-    v69 = @"V";
-  }
-
-  else
-  {
-    v69 = @"v";
-  }
-
-  [string2 appendString:v69];
-  if ((eventTriggers & 0x10) != 0)
-  {
-    v70 = @"K";
-  }
-
-  else
-  {
-    v70 = @"k";
-  }
-
-  [string2 appendString:v70];
-  v71 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@", string2];
-  [array addObject:v71];
-
-  v72 = [array copy];
-
-  return v72;
+  return v62;
 }
 
 - (NSDictionary)JSONObject
 {
-  v63[21] = *MEMORY[0x277D85DE8];
-  v62[0] = @"identifier";
   identifier = [(HMIVideoAnalyzerState *)self identifier];
   uUIDString = [identifier UUIDString];
-  v63[0] = uUIDString;
-  v62[1] = @"monitored";
-  v57 = [MEMORY[0x277CCABB0] numberWithBool:{-[HMIVideoAnalyzerState monitored](self, "monitored")}];
-  v63[1] = v57;
-  v62[2] = @"analysisFPS";
   v3 = MEMORY[0x277CCABB0];
-  [(HMIVideoAnalyzerState *)self analysisFPS];
-  v56 = [v3 numberWithDouble:?];
-  v55 = HMIJSONDecimalNumberForNumber(v56, 3);
-  v63[2] = v55;
-  v62[3] = @"timeSinceAnalyzerStarted";
+  [(HMIVideoAnalyzerState *)self monitored];
+  v48 = [v3 numberWithBool:?];
   v4 = MEMORY[0x277CCABB0];
-  [(HMIVideoAnalyzerState *)self timeSinceAnalyzerStarted];
-  v54 = [v4 numberWithDouble:?];
-  v53 = HMIJSONDecimalNumberForNumber(v54, 3);
-  v63[3] = v53;
-  v62[4] = @"timeSinceLastFragmentWasReceived";
+  [(HMIVideoAnalyzerState *)self analysisFPS];
+  v43 = [v4 numberWithDouble:?];
+  v49 = HMIJSONDecimalNumberForNumber(v43, 3);
   v5 = MEMORY[0x277CCABB0];
-  [(HMIVideoAnalyzerState *)self timeSinceLastFragmentWasReceived];
-  v52 = [v5 numberWithDouble:?];
-  v51 = HMIJSONDecimalNumberForNumber(v52, 3);
-  v63[4] = v51;
-  v62[5] = @"bufferFillRatio";
+  [(HMIVideoAnalyzerState *)self timeSinceAnalyzerStarted];
+  v42 = [v5 numberWithDouble:?];
+  v50 = HMIJSONDecimalNumberForNumber(v42, 3);
   v6 = MEMORY[0x277CCABB0];
-  [(HMIVideoAnalyzerState *)self bufferFillRatio];
-  v50 = [v6 numberWithDouble:?];
-  v49 = HMIJSONDecimalNumberForNumber(v50, 3);
-  v63[5] = v49;
-  v62[6] = @"bufferSize";
-  v48 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HMIVideoAnalyzerState bufferSize](self, "bufferSize")}];
-  v63[6] = v48;
-  v62[7] = @"delay";
+  [(HMIVideoAnalyzerState *)self timeSinceLastFragmentWasReceived];
+  v41 = [v6 numberWithDouble:?];
+  v51 = HMIJSONDecimalNumberForNumber(v41, 3);
   v7 = MEMORY[0x277CCABB0];
-  [(HMIVideoAnalyzerState *)self delay];
-  v47 = [v7 numberWithDouble:?];
-  v46 = HMIJSONDecimalNumberForNumber(v47, 3);
-  v63[7] = v46;
-  v62[8] = @"numDecodedSamples";
-  v45 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HMIVideoAnalyzerState numDecodedSamples](self, "numDecodedSamples")}];
-  v63[8] = v45;
-  v62[9] = @"numDidAnalyzeFrames";
-  v44 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HMIVideoAnalyzerState numDidAnalyzeFrames](self, "numDidAnalyzeFrames")}];
-  v63[9] = v44;
-  v62[10] = @"numDidAnalyzePackages";
-  v43 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HMIVideoAnalyzerState numDidAnalyzePackages](self, "numDidAnalyzePackages")}];
-  v63[10] = v43;
-  v62[11] = @"numDidCreateTimelapseFragments";
-  v42 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HMIVideoAnalyzerState numDidCreateTimelapseFragments](self, "numDidCreateTimelapseFragments")}];
-  v63[11] = v42;
-  v62[12] = @"averageAnalysisTime";
+  [(HMIVideoAnalyzerState *)self bufferFillRatio];
+  v40 = [v7 numberWithDouble:?];
+  v52 = HMIJSONDecimalNumberForNumber(v40, 3);
   v8 = MEMORY[0x277CCABB0];
-  [(HMIVideoAnalyzerState *)self averageAnalysisTime];
-  v41 = [v8 numberWithDouble:?];
-  v40 = HMIJSONDecimalNumberForNumber(v41, 3);
-  v63[12] = v40;
-  v62[13] = @"decodeMode";
-  v39 = HMIVideoAnalyzerDecodeModeAsString([(HMIVideoAnalyzerState *)self decodeMode]);
-  v63[13] = v39;
-  v62[14] = @"transcode";
+  [(HMIVideoAnalyzerState *)self bufferSize];
+  v53 = [v8 numberWithUnsignedInteger:?];
   v9 = MEMORY[0x277CCABB0];
-  configuration = [(HMIVideoAnalyzerState *)self configuration];
-  v37 = [v9 numberWithBool:{objc_msgSend(configuration, "transcode")}];
-  v63[14] = v37;
-  v62[15] = @"transcodeCodecType";
-  configuration2 = [(HMIVideoAnalyzerState *)self configuration];
-  v35 = HMIFourCCString([configuration2 transcodeCodecType]);
-  v63[15] = v35;
-  v62[16] = @"encode";
-  v34 = [MEMORY[0x277CCABB0] numberWithBool:{-[HMIVideoAnalyzerState encode](self, "encode")}];
-  v63[16] = v34;
-  v62[17] = @"encoder";
-  v33 = [MEMORY[0x277CCABB0] numberWithBool:{-[HMIVideoAnalyzerState encoder](self, "encoder")}];
-  v63[17] = v33;
-  v62[18] = @"recognizeFaces";
+  [(HMIVideoAnalyzerState *)self delay];
+  v39 = [v9 numberWithDouble:?];
+  v54 = HMIJSONDecimalNumberForNumber(v39, 3);
   v10 = MEMORY[0x277CCABB0];
-  dynamicConfiguration = [(HMIVideoAnalyzerState *)self dynamicConfiguration];
-  v12 = [v10 numberWithBool:{objc_msgSend(dynamicConfiguration, "recognizeFaces")}];
-  v63[18] = v12;
-  v62[19] = @"activityZones";
+  [(HMIVideoAnalyzerState *)self numDecodedSamples];
+  v55 = [v10 numberWithUnsignedInteger:?];
+  v11 = MEMORY[0x277CCABB0];
+  [(HMIVideoAnalyzerState *)self numDidAnalyzeFrames];
+  v56 = [v11 numberWithUnsignedInteger:?];
+  v12 = MEMORY[0x277CCABB0];
+  [(HMIVideoAnalyzerState *)self numDidAnalyzePackages];
+  v57 = [v12 numberWithUnsignedInteger:?];
   v13 = MEMORY[0x277CCABB0];
+  [(HMIVideoAnalyzerState *)self numDidCreateTimelapseFragments];
+  v58 = [v13 numberWithUnsignedInteger:?];
+  v14 = MEMORY[0x277CCABB0];
+  [(HMIVideoAnalyzerState *)self averageAnalysisTime];
+  v38 = [v14 numberWithDouble:?];
+  v59 = HMIJSONDecimalNumberForNumber(v38, 3);
+  v60 = HMIVideoAnalyzerDecodeModeAsString([(HMIVideoAnalyzerState *)self decodeMode]);
+  v15 = MEMORY[0x277CCABB0];
+  configuration = [(HMIVideoAnalyzerState *)self configuration];
+  [configuration transcode];
+  v61 = [v15 numberWithBool:?];
+  configuration2 = [(HMIVideoAnalyzerState *)self configuration];
+  v62 = HMIFourCCString([configuration2 transcodeCodecType]);
+  v16 = MEMORY[0x277CCABB0];
+  [(HMIVideoAnalyzerState *)self encode];
+  v63 = [v16 numberWithBool:?];
+  v17 = MEMORY[0x277CCABB0];
+  [(HMIVideoAnalyzerState *)self encoder];
+  v64 = [v17 numberWithBool:?];
+  v18 = MEMORY[0x277CCABB0];
+  dynamicConfiguration = [(HMIVideoAnalyzerState *)self dynamicConfiguration];
+  [dynamicConfiguration recognizeFaces];
+  v65 = [v18 numberWithBool:?];
+  v20 = MEMORY[0x277CCABB0];
   dynamicConfiguration2 = [(HMIVideoAnalyzerState *)self dynamicConfiguration];
   activityZones = [dynamicConfiguration2 activityZones];
-  v16 = [v13 numberWithUnsignedInteger:{objc_msgSend(activityZones, "count")}];
-  v63[19] = v16;
-  v62[20] = @"eventTriggers";
-  v17 = MEMORY[0x277CCABB0];
+  [activityZones count];
+  v66 = [v20 numberWithUnsignedInteger:?];
+  v23 = MEMORY[0x277CCABB0];
   dynamicConfiguration3 = [(HMIVideoAnalyzerState *)self dynamicConfiguration];
-  v19 = [v17 numberWithInteger:{objc_msgSend(dynamicConfiguration3, "eventTriggers")}];
-  v63[20] = v19;
-  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v63 forKeys:v62 count:21];
-  v21 = [v20 mutableCopy];
+  [dynamicConfiguration3 eventTriggers];
+  v67 = [v23 numberWithInteger:?];
+  v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
+  v26 = [v25 mutableCopy];
 
   configuration3 = [(HMIVideoAnalyzerState *)self configuration];
   camera = [configuration3 camera];
 
   if (camera)
   {
-    v60[0] = @"name";
     configuration4 = [(HMIVideoAnalyzerState *)self configuration];
     camera2 = [configuration4 camera];
     name = [camera2 name];
-    v60[1] = @"manufacturer";
-    v61[0] = name;
     configuration5 = [(HMIVideoAnalyzerState *)self configuration];
     camera3 = [configuration5 camera];
     manufacturer = [camera3 manufacturer];
-    v61[1] = manufacturer;
-    v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v61 forKeys:v60 count:2];
-    [v21 setObject:v30 forKeyedSubscript:@"camera"];
+    v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
+    [v26 setObject:? forKeyedSubscript:?];
   }
 
-  v31 = [v21 copy];
+  v34 = [v26 copy];
 
-  return v31;
+  return v34;
 }
 
 - (void)check
@@ -404,13 +327,13 @@
   [(HMIVideoAnalyzerState *)self timeSinceLastFragmentWasReceived];
   if (v3 > 60.0)
   {
-    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"Session has not received any new data for over 60 seconds."];
-    [array addObject:v4];
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:?];
+    [array addObject:?];
   }
 
   if ([array count])
   {
-    v5 = [array componentsJoinedByString:@"\n"];
+    v5 = [array componentsJoinedByString:?];
     HMISimulateCrash(@"Session Check", v5, 1);
   }
 }

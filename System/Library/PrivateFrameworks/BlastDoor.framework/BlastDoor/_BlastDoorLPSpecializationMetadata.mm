@@ -7,12 +7,10 @@
 
 - (_BlastDoorLPSpecializationMetadata)initWithCoder:(id)coder
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v5.receiver = self;
-  v5.super_class = _BlastDoorLPSpecializationMetadata;
-  result = [(_BlastDoorLPSpecializationMetadata *)&v5 init];
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  v5 = *MEMORY[0x277D85DE8];
+  v4.receiver = self;
+  v4.super_class = _BlastDoorLPSpecializationMetadata;
+  return [(_BlastDoorLPSpecializationMetadata *)&v4 init];
 }
 
 + (id)keyPathsForValuesAffecting_dummyPropertyForObservation

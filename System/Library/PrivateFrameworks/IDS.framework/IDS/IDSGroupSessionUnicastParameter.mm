@@ -25,12 +25,12 @@
 
 - (IDSGroupSessionUnicastParameter)initWithGroupSessionID:(id)d localParticipantID:(unint64_t)iD remoteParticipantID:(unint64_t)participantID salt:(id)salt dataMode:(int64_t)mode connectionIndex:(unint64_t)index
 {
-  v61 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   dCopy = d;
   saltCopy = salt;
-  v56.receiver = self;
-  v56.super_class = IDSGroupSessionUnicastParameter;
-  v17 = [(IDSGroupSessionUnicastParameter *)&v56 init];
+  v50.receiver = self;
+  v50.super_class = IDSGroupSessionUnicastParameter;
+  v17 = [(IDSGroupSessionUnicastParameter *)&v50 init];
   v18 = v17;
   if (!v17)
   {
@@ -53,9 +53,9 @@ LABEL_31:
     [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:participantID];
     v22 = v21 = dCopy;
     *buf = 138412546;
-    v58 = v20;
-    v59 = 2112;
-    v60 = v22;
+    v52 = v20;
+    v53 = 2112;
+    v54 = v22;
     _os_log_impl(&dword_1959FF000, v19, OS_LOG_TYPE_DEFAULT, "Creating IDSGroupSessionUnicastParameter with local id %@ and remote id %@", buf, 0x16u);
 
     dCopy = v21;
@@ -117,43 +117,38 @@ LABEL_19:
         [v37 setSessionID:v18->_groupSessionID];
         [v37 setParticipantID:v18->_remoteParticipantID];
         [v37 setSalt:v18->_salt];
-        v38 = v18->_parameters;
         stringRepresentation = [v37 stringRepresentation];
         [stringRepresentation UTF8String];
         nw_parameters_set_account_id();
 
         MEMORY[0x19A8BBA70](v18->_parameters, v36);
-        v40 = v18->_parameters;
         nw_parameters_set_indefinite();
-        v41 = xpc_array_create(0, 0);
-        v42 = xpc_array_create(0, 0);
-        v43 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%u", *MEMORY[0x1E69A4EC8], getuid()];
-        xpc_array_set_string(v41, 0xFFFFFFFFFFFFFFFFLL, [v43 UTF8String]);
+        v39 = xpc_array_create(0, 0);
+        v40 = xpc_array_create(0, 0);
+        v41 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%u", *MEMORY[0x1E69A4EC8], getuid()];
+        xpc_array_set_string(v39, 0xFFFFFFFFFFFFFFFFLL, [v41 UTF8String]);
 
-        xpc_array_set_string(v42, 0xFFFFFFFFFFFFFFFFLL, [*MEMORY[0x1E69A4ED0] UTF8String]);
+        xpc_array_set_string(v40, 0xFFFFFFFFFFFFFFFFLL, [*MEMORY[0x1E69A4ED0] UTF8String]);
         if (((1 << mode) & 9) == 0 && ((1 << mode) & 0x12) == 0)
         {
-          v44 = nw_parameters_copy_default_protocol_stack(v18->_parameters);
-          v55 = v36;
-          v45 = saltCopy;
-          v46 = dCopy;
-          v47 = sub_195A15A18();
-          options = nw_framer_create_options(v47);
-          nw_protocol_stack_prepend_application_protocol(v44, options);
+          v42 = nw_parameters_copy_default_protocol_stack(v18->_parameters);
+          v49 = v36;
+          v43 = saltCopy;
+          v44 = dCopy;
+          v45 = sub_195A15A18(v42);
+          options = nw_framer_create_options(v45);
+          nw_protocol_stack_prepend_application_protocol(v42, options);
 
-          dCopy = v46;
-          saltCopy = v45;
-          v36 = v55;
+          dCopy = v44;
+          saltCopy = v43;
+          v36 = v49;
         }
 
-        v49 = v18->_parameters;
         nw_parameters_set_data_mode();
-        v50 = v18->_parameters;
         nw_parameters_set_required_netagent_classes();
         if ((mode - 3) <= 2)
         {
-          v51 = v18->_parameters;
-          v52 = IDSRealTimeContext();
+          v47 = IDSRealTimeContext();
           nw_parameters_set_context();
         }
 
@@ -187,7 +182,6 @@ LABEL_18:
 
 LABEL_32:
 
-  v53 = *MEMORY[0x1E69E9840];
   return v23;
 }
 
@@ -258,7 +252,7 @@ LABEL_32:
     {
       secure_tcp = nw_parameters_create_secure_tcp(*MEMORY[0x1E6977EC0], *MEMORY[0x1E6977EB8]);
       v7 = nw_parameters_copy_default_protocol_stack(secure_tcp);
-      v8 = sub_195A15A18();
+      v8 = sub_195A15A18(v7);
       options = nw_framer_create_options(v8);
       nw_protocol_stack_prepend_application_protocol(v7, options);
 

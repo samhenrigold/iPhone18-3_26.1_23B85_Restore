@@ -770,7 +770,7 @@ uint64_t CAVDAvcDecoder::decodeGetRenderTargetRef(uint64_t a1, uint64_t a2, unsi
   *a5 = 0;
   if (a3 > 0x80)
   {
-    goto LABEL_10;
+    goto LABEL_9;
   }
 
   v7 = *(a1 + 1056 + 8 * a3);
@@ -778,32 +778,32 @@ uint64_t CAVDAvcDecoder::decodeGetRenderTargetRef(uint64_t a1, uint64_t a2, unsi
   {
     if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_15;
+      goto LABEL_14;
     }
 
     *buf = 136315138;
     *&buf[4] = "decodeGetRenderTargetRef";
     v12 = MEMORY[0x277D86220];
     v13 = "AppleAVD: %s(): AVC pOrigRef is NULL!";
-LABEL_13:
+LABEL_12:
     v14 = 12;
-LABEL_14:
+LABEL_13:
     _os_log_impl(&dword_277606000, v12, OS_LOG_TYPE_DEFAULT, v13, buf, v14);
-    goto LABEL_15;
+    goto LABEL_14;
   }
 
   v9 = *(a1 + 2744);
-  if (*(v7 + 204) == v9 && *(v7 + 208) == *(a1 + 2748))
+  if (*(v7 + 204) == *(a1 + 2744))
   {
     *a5 = v7;
-LABEL_10:
+LABEL_9:
     v11 = 1;
-    goto LABEL_16;
+    goto LABEL_15;
   }
 
   if (a4 > 0x80)
   {
-    goto LABEL_10;
+    goto LABEL_9;
   }
 
   v10 = *(a1 + 1056 + 8 * a4);
@@ -812,19 +812,19 @@ LABEL_10:
   {
     if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_15;
+      goto LABEL_14;
     }
 
     *buf = 136315138;
     *&buf[4] = "decodeGetRenderTargetRef";
     v12 = MEMORY[0x277D86220];
     v13 = "AppleAVD: %s(): AVC pScaledRef is NULL!";
-    goto LABEL_13;
+    goto LABEL_12;
   }
 
   if (*(v10 + 204) == v9 && *(v10 + 208) == *(a1 + 2748))
   {
-    goto LABEL_10;
+    goto LABEL_9;
   }
 
   v39 = (*(**(a1 + 2096) + 184))(*(a1 + 2096), a2);
@@ -837,15 +837,15 @@ LABEL_10:
   {
     if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_15;
+      goto LABEL_14;
     }
 
     *buf = 0;
     v12 = MEMORY[0x277D86220];
     v13 = "AppleAVD: CAVDAvcDecoder::DecodeGetRenderTargetRef rvra scaler buffers are not allocated!";
-LABEL_32:
+LABEL_30:
     v14 = 2;
-    goto LABEL_14;
+    goto LABEL_13;
   }
 
   v23 = *(a1 + 3184) + 2224 * *(a1 + 3500);
@@ -865,13 +865,13 @@ LABEL_32:
   {
     if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_15;
+      goto LABEL_14;
     }
 
     *buf = 0;
     v12 = MEMORY[0x277D86220];
     v13 = "AppleAVD: CAVDAvcDecoder::DecodeGetRenderTargetRef rvra scaler backup buffers are not allocated!";
-    goto LABEL_32;
+    goto LABEL_30;
   }
 
   v26 = *(a1 + 2344);
@@ -902,12 +902,12 @@ LABEL_32:
   if (!AppleAVDCommandBuilder::scaleOutputFrame(v26, v7 + 8, v10 + 8, v27, v28, v29, v30, v31, v32, v33, 16 * v37 + 16, 16 * v38 + 16, &v40, buf, v24 + 8, v25 + 8))
   {
     *(v10 + 204) = *(a1 + 2744);
-    goto LABEL_10;
+    goto LABEL_9;
   }
 
-LABEL_15:
+LABEL_14:
   v11 = 0;
-LABEL_16:
+LABEL_15:
   if (*a5)
   {
     return v11;
@@ -919,7 +919,7 @@ LABEL_16:
   }
 }
 
-BOOL CAVDAvcDecoder::GetSDataMemInfo(CAVDDecoder *a1, unsigned int a2, void *a3, uint64_t *a4)
+BOOL CAVDAvcDecoder::GetSDataMemInfo(CAVDDecoder *a1, unsigned int a2, void *a3, unint64_t *a4)
 {
   v16 = *MEMORY[0x277D85DE8];
   v4 = *(*(a1 + 293) + 6036);
@@ -1918,8 +1918,8 @@ LABEL_133:
   qSort(&v14[176 * v43], (v58 - v43), 0xB0u, compareLongTermPicNumAscending);
   v71 = __dst + 7224;
   memcpy(__dsta, &v14[176 * v17], 176 * v56);
-  memcpy(&__dsta[11 * v56], __dst + 1416, 176 * v17);
-  memcpy(&__dsta[11 * v43], &v14[176 * v43], 176 * (v58 - v43));
+  memcpy(&__dsta[176 * v56], __dst + 1416, 176 * v17);
+  memcpy(&__dsta[176 * v43], &v14[176 * v43], 176 * (v58 - v43));
   *(__dst + 3258) = v58;
   *(__dst + 3259) = v58;
   if (v58)
@@ -1959,7 +1959,7 @@ LABEL_133:
 
       *(v74 - 2) = v76;
       *(v74 - 1) = v79;
-      v74 += 44;
+      v74 += 176;
       --v75;
     }
 
@@ -1998,7 +1998,7 @@ LABEL_133:
 
       *(v81 - 2) = v83;
       *(v81 - 1) = v86;
-      v81 += 44;
+      v81 += 176;
       --v82;
     }
 
@@ -2106,7 +2106,7 @@ LABEL_94:
           break;
         }
 
-        v111 += 44;
+        v111 += 176;
         if (!--v112)
         {
           goto LABEL_101;
@@ -2172,7 +2172,7 @@ LABEL_101:
       break;
     }
 
-    v107 += 44;
+    v107 += 176;
     if (!--v108)
     {
       goto LABEL_94;
@@ -3780,7 +3780,7 @@ void AppleAVDCommandBuilder::destroyDecoder(uint64_t a1, uint64_t a2, _WORD *a3)
   v5 = *(a1 + 8);
   if (v5)
   {
-    (*(*v5 + 40))(v5);
+    (*(*v5 + 40))(v5, a2);
   }
 
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -4113,19 +4113,19 @@ LABEL_11:
   return v6;
 }
 
-void AppleAVDCommandBuilder::setReleaseCurrentBuffersToResponseBuffer(uint64_t a1, uint64_t a2)
+void AppleAVDCommandBuilder::setReleaseCurrentBuffersToResponseBuffer(uint64_t result, uint64_t a2)
 {
   v3 = *(a2 + 3440);
   if (v3 != -1)
   {
-    AppleAVDCommandBuilder::setReleaseBufferIndexToResponseBuffer(a1, a2, v3, 1u);
+    AppleAVDCommandBuilder::setReleaseBufferIndexToResponseBuffer(result, a2, v3, 1u);
   }
 
   v4 = *(a2 + 3444);
   if (v4 != -1)
   {
 
-    AppleAVDCommandBuilder::setReleaseBufferIndexToResponseBuffer(a1, a2, v4, 0);
+    AppleAVDCommandBuilder::setReleaseBufferIndexToResponseBuffer(result, a2, v4, 0);
   }
 }
 
@@ -4312,7 +4312,7 @@ uint64_t AppleAVDCommandBuilder::checkRVRAScalingRatio(AppleAVDCommandBuilder *t
   return v11;
 }
 
-uint64_t AppleAVDCommandBuilder::scaleOutputFrame(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4, unsigned int a5, unsigned int a6, unsigned int a7, int a8, uint64_t a9, unsigned int a10, int a11, int a12, uint64_t a13, _OWORD *a14, uint64_t a15, uint64_t a16)
+uint64_t AppleAVDCommandBuilder::scaleOutputFrame(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4, unsigned int a5, uint64_t a6, uint64_t a7, int a8, uint64_t a9, unsigned int a10, int a11, int a12, uint64_t a13, _OWORD *a14, uint64_t a15, uint64_t a16)
 {
   v93 = *MEMORY[0x277D85DE8];
   v22 = *(a2 + 152);
@@ -5513,7 +5513,7 @@ uint64_t CAVDHevcDecoder::decodeGetRenderTargetRef(uint64_t a1, uint64_t a2, voi
   v5 = *(*(*(a1 + 8288) + 8 * v4) + 4 * a2);
   if (v5 > 0x80)
   {
-    goto LABEL_10;
+    goto LABEL_9;
   }
 
   v7 = *(a1 + 1056 + 8 * v5);
@@ -5521,33 +5521,33 @@ uint64_t CAVDHevcDecoder::decodeGetRenderTargetRef(uint64_t a1, uint64_t a2, voi
   {
     if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_15;
+      goto LABEL_14;
     }
 
     *buf = 136315138;
     *&buf[4] = "decodeGetRenderTargetRef";
     v13 = MEMORY[0x277D86220];
     v14 = "AppleAVD: %s(): HEVC pOrigRef is NULL!";
-LABEL_13:
+LABEL_12:
     v15 = 12;
-LABEL_14:
+LABEL_13:
     _os_log_impl(&dword_277606000, v13, OS_LOG_TYPE_DEFAULT, v14, buf, v15);
-    goto LABEL_15;
+    goto LABEL_14;
   }
 
   v9 = *(a1 + 2744);
-  if (*(v7 + 204) == v9 && *(v7 + 208) == *(a1 + 2748))
+  if (*(v7 + 204) == *(a1 + 2744))
   {
     *a3 = v7;
-LABEL_10:
+LABEL_9:
     v12 = 1;
-    goto LABEL_16;
+    goto LABEL_15;
   }
 
   v10 = *(*(*(a1 + 8304) + 8 * v4) + 4 * a2);
   if (v10 > 0x80)
   {
-    goto LABEL_10;
+    goto LABEL_9;
   }
 
   v11 = *(a1 + 1056 + 8 * v10);
@@ -5556,19 +5556,19 @@ LABEL_10:
   {
     if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_15;
+      goto LABEL_14;
     }
 
     *buf = 136315138;
     *&buf[4] = "decodeGetRenderTargetRef";
     v13 = MEMORY[0x277D86220];
     v14 = "AppleAVD: %s(): HEVC pScaledRef is NULL!";
-    goto LABEL_13;
+    goto LABEL_12;
   }
 
   if (*(v11 + 204) == v9 && *(v11 + 208) == *(a1 + 2748))
   {
-    goto LABEL_10;
+    goto LABEL_9;
   }
 
   v40 = (*(**(a1 + 2096) + 184))(*(a1 + 2096), a2);
@@ -5581,15 +5581,15 @@ LABEL_10:
   {
     if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_15;
+      goto LABEL_14;
     }
 
     *buf = 0;
     v13 = MEMORY[0x277D86220];
     v14 = "AppleAVD: CAVDHevcDecoder::DecodeGetRenderTargetRef rvra scaler buffers are not allocated!";
-LABEL_32:
+LABEL_30:
     v15 = 2;
-    goto LABEL_14;
+    goto LABEL_13;
   }
 
   v24 = *(a1 + 8168) + 23176 * *(a1 + 8208);
@@ -5609,13 +5609,13 @@ LABEL_32:
   {
     if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_15;
+      goto LABEL_14;
     }
 
     *buf = 0;
     v13 = MEMORY[0x277D86220];
     v14 = "AppleAVD: CAVDHevcDecoder::DecodeGetRenderTargetRef rvra scaler backup buffers are not allocated!";
-    goto LABEL_32;
+    goto LABEL_30;
   }
 
   v27 = *(a1 + 2344);
@@ -5646,12 +5646,12 @@ LABEL_32:
   if (!AppleAVDCommandBuilder::scaleOutputFrame(v27, v7 + 8, v11 + 8, v28, v29, v30, v31, v32, v33, v34, v39, v38, &v41, buf, v25 + 8, v26 + 8))
   {
     *(v11 + 204) = *(a1 + 2744);
-    goto LABEL_10;
+    goto LABEL_9;
   }
 
-LABEL_15:
+LABEL_14:
   v12 = 0;
-LABEL_16:
+LABEL_15:
   if (*a3)
   {
     return v12;
@@ -8624,11 +8624,11 @@ LABEL_84:
 
     v48 = a3[15];
     v49 = a2[5718];
-    v50 = (a3 + 37);
+    v50 = a3 + 37;
     v52 = *(v25 + 2644) == 1 && v47 != 0;
     do
     {
-      v53 = v49 + v49 * *&v50[4 * v36];
+      v53 = v49 + v49 * v50[v36];
       if (v53 + v37 > v44)
       {
         v53 = v44 - v37;

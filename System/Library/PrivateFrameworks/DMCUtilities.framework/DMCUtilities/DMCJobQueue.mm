@@ -46,22 +46,21 @@
 
 - (void)dealloc
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v3 = *DMCLogObjects();
+  v10 = *MEMORY[0x1E69E9840];
+  v3 = *DMCLogObjects(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     queueID = self->_queueID;
     *buf = 138543618;
-    v8 = queueID;
-    v9 = 2114;
-    v10 = queueID;
+    v7 = queueID;
+    v8 = 2114;
+    v9 = queueID;
     _os_log_impl(&dword_1B1630000, v3, OS_LOG_TYPE_DEFAULT, "DMCJQ %{public}@ Destroying job queue %{public}@", buf, 0x16u);
   }
 
-  v6.receiver = self;
-  v6.super_class = DMCJobQueue;
-  [(DMCJobQueue *)&v6 dealloc];
-  v5 = *MEMORY[0x1E69E9840];
+  v5.receiver = self;
+  v5.super_class = DMCJobQueue;
+  [(DMCJobQueue *)&v5 dealloc];
 }
 
 - (void)fromFunction:(const char *)function enqueueJob:(id)job
@@ -70,8 +69,8 @@
   jobCopy = job;
   v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%u", self->_nextJobSequenceNumber];
   ++self->_nextJobSequenceNumber;
-  v8 = *DMCLogObjects();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = *DMCLogObjects(v7, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     queueID = self->_queueID;
     *buf = 138543874;
@@ -80,7 +79,7 @@
     v21 = v7;
     v22 = 2082;
     functionCopy = function;
-    _os_log_impl(&dword_1B1630000, v8, OS_LOG_TYPE_DEFAULT, "DMCJQ %{public}@ Enqueueing jobBlock %{public}@, calling function %{public}s", buf, 0x20u);
+    _os_log_impl(&dword_1B1630000, v9, OS_LOG_TYPE_DEFAULT, "DMCJQ %{public}@ Enqueueing jobBlock %{public}@, calling function %{public}s", buf, 0x20u);
   }
 
   jobQueue = [(DMCJobQueue *)self jobQueue];
@@ -92,89 +91,83 @@
   v15 = v7;
   v16 = jobCopy;
   functionCopy2 = function;
-  v11 = jobCopy;
-  v12 = v7;
+  v12 = jobCopy;
+  v13 = v7;
   dispatch_async(jobQueue, block);
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __39__DMCJobQueue_fromFunction_enqueueJob___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) jobQueue];
   dispatch_suspend(v2);
 
-  v3 = *DMCLogObjects();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v5 = *DMCLogObjects(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = *(a1 + 40);
-    v5 = *(*(a1 + 32) + 32);
-    v6 = *(a1 + 56);
+    v6 = *(a1 + 40);
+    v7 = *(*(a1 + 32) + 32);
+    v8 = *(a1 + 56);
     *buf = 138543874;
-    v16 = v5;
-    v17 = 2114;
-    v18 = v4;
-    v19 = 2082;
-    v20 = v6;
-    _os_log_impl(&dword_1B1630000, v3, OS_LOG_TYPE_DEFAULT, "DMCJQ %{public}@ Dispatching to executionQueue jobBlock %{public}@ - %{public}s", buf, 0x20u);
+    v17 = v7;
+    v18 = 2114;
+    v19 = v6;
+    v20 = 2082;
+    v21 = v8;
+    _os_log_impl(&dword_1B1630000, v5, OS_LOG_TYPE_DEFAULT, "DMCJQ %{public}@ Dispatching to executionQueue jobBlock %{public}@ - %{public}s", buf, 0x20u);
   }
 
-  v7 = [*(a1 + 32) executionQueue];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __39__DMCJobQueue_fromFunction_enqueueJob___block_invoke_11;
-  v12[3] = &unk_1E7ADCBB8;
-  v8 = *(a1 + 40);
-  v12[4] = *(a1 + 32);
-  v13 = v8;
-  v11 = *(a1 + 48);
-  v9 = v11;
-  v14 = v11;
-  [v7 queueBlock:v12];
-
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = [*(a1 + 32) executionQueue];
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __39__DMCJobQueue_fromFunction_enqueueJob___block_invoke_11;
+  v13[3] = &unk_1E7ADCBB8;
+  v10 = *(a1 + 40);
+  v13[4] = *(a1 + 32);
+  v14 = v10;
+  v12 = *(a1 + 48);
+  v11 = v12;
+  v15 = v12;
+  [v9 queueBlock:v13];
 }
 
-void __39__DMCJobQueue_fromFunction_enqueueJob___block_invoke_11(void *a1)
+void __39__DMCJobQueue_fromFunction_enqueueJob___block_invoke_11(void *a1, uint64_t a2)
 {
   v19 = *MEMORY[0x1E69E9840];
-  v2 = *DMCLogObjects();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = *DMCLogObjects(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = a1[5];
-    v4 = *(a1[4] + 32);
-    v5 = a1[7];
+    v4 = a1[5];
+    v5 = *(a1[4] + 32);
+    v6 = a1[7];
     *buf = 138543874;
-    v14 = v4;
+    v14 = v5;
     v15 = 2114;
-    v16 = v3;
+    v16 = v4;
     v17 = 2082;
-    v18 = v5;
-    _os_log_impl(&dword_1B1630000, v2, OS_LOG_TYPE_DEFAULT, "DMCJQ %{public}@ Executing jobBlock %{public}@ - %{public}s", buf, 0x20u);
+    v18 = v6;
+    _os_log_impl(&dword_1B1630000, v3, OS_LOG_TYPE_DEFAULT, "DMCJQ %{public}@ Executing jobBlock %{public}@ - %{public}s", buf, 0x20u);
   }
 
   v10[0] = MEMORY[0x1E69E9820];
   v10[1] = 3221225472;
   v10[2] = __39__DMCJobQueue_fromFunction_enqueueJob___block_invoke_12;
   v10[3] = &unk_1E7ADCB90;
-  v7 = a1[6];
-  v6 = a1[7];
-  v8 = a1[5];
+  v8 = a1[6];
+  v7 = a1[7];
+  v9 = a1[5];
   v10[4] = a1[4];
-  v12 = v6;
-  v11 = v8;
-  (*(v7 + 16))(v7, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  v12 = v7;
+  v11 = v9;
+  (*(v8 + 16))(v8, v10);
 }
 
 - (void)jobDidFinishFromFunction:(const char *)function jobBlockDescription:(id)description
 {
   v16 = *MEMORY[0x1E69E9840];
   descriptionCopy = description;
-  v7 = *DMCLogObjects();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = *DMCLogObjects(descriptionCopy, v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     queueID = self->_queueID;
     v10 = 138543874;
@@ -183,12 +176,10 @@ void __39__DMCJobQueue_fromFunction_enqueueJob___block_invoke_11(void *a1)
     v13 = descriptionCopy;
     v14 = 2082;
     functionCopy = function;
-    _os_log_impl(&dword_1B1630000, v7, OS_LOG_TYPE_DEFAULT, "DMCJQ %{public}@ JobBlock %{public}@ finished, calling function %{public}s", &v10, 0x20u);
+    _os_log_impl(&dword_1B1630000, v8, OS_LOG_TYPE_DEFAULT, "DMCJQ %{public}@ JobBlock %{public}@ finished, calling function %{public}s", &v10, 0x20u);
   }
 
   dispatch_resume(self->_jobQueue);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)queueBlock:(id)block

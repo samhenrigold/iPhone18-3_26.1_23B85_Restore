@@ -10,13 +10,14 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_100144204();
+  sub_100144204(selfCopy);
 }
 
 - (void)viewDidDisappear:(BOOL)disappear
 {
+  disappearCopy = disappear;
   selfCopy = self;
-  sub_10014534C(disappear);
+  sub_10014534C(disappearCopy);
 }
 
 - (_TtC11Diagnostics37SelfServiceInstructionsViewController)initWithTitle:(id)title detailText:(id)text symbolName:(id)name contentLayout:(int64_t)layout

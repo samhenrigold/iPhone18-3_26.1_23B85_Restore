@@ -1,6 +1,6 @@
 @interface SBDisplayProfileRegistry
 - (id)_modifyParameters:(id)parameters orientation:(int64_t)orientation interfaceOrientationMode:(int64_t)mode chamoisEnabled:(BOOL)enabled;
-- (uint64_t)activate;
+- (id)activate;
 - (void)_registerEmbeddedDisplayProfile;
 - (void)_registerExtendedProfile;
 - (void)_registerMirroringProfile;
@@ -144,11 +144,11 @@ void __98__SBDisplayProfileRegistry__modifyParameters_orientation_interfaceOrien
   return v3;
 }
 
-- (uint64_t)activate
+- (id)activate
 {
   if (result)
   {
-    return [*(result + 8) activate];
+    return [result[1] activate];
   }
 
   return result;

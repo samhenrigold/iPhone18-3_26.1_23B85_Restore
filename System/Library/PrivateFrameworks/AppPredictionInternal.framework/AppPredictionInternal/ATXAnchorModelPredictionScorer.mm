@@ -8,7 +8,7 @@
 
 - (double)scoreForTrainingResult:(id)result
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   resultCopy = result;
   phase1TrainingResult = [resultCopy phase1TrainingResult];
   [phase1TrainingResult classConditionalProbability];
@@ -38,16 +38,16 @@
   [ATXAnchorModelPredictionScorer normalizeValue:@"standardDeviation" parameterKey:v15];
   v25 = v24;
   [ATXAnchorModelPredictionScorer normalizeValue:@"uniqueOccurrences" parameterKey:numUniqueAnchorOccurrencesWithUniqueCandidateOccurrence];
-  [ATXAnchorModelPredictionScorer predictedProbabilityFromNormalizedClassConditionalProbability:v19 posteriorProbability:v21 minutesAfterAnchor:v23 standardDeviation:v25 uniqueOccurrences:v26];
-  v28 = v27;
-  v29 = __atxlog_handle_anchor();
-  if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+  v27 = [ATXAnchorModelPredictionScorer predictedProbabilityFromNormalizedClassConditionalProbability:v19 posteriorProbability:v21 minutesAfterAnchor:v23 standardDeviation:v25 uniqueOccurrences:v26];
+  v29 = v28;
+  v30 = __atxlog_handle_anchor(v27);
+  if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
   {
-    v41 = 134218242;
-    v42 = v28;
-    v43 = 2112;
-    v44 = *&resultCopy;
-    _os_log_impl(&dword_2263AA000, v29, OS_LOG_TYPE_DEFAULT, "Predicted probability for trainingResult was %.2f. Training result: %@", &v41, 0x16u);
+    v42 = 134218242;
+    v43 = v29;
+    v44 = 2112;
+    v45 = *&resultCopy;
+    _os_log_impl(&dword_2263AA000, v30, OS_LOG_TYPE_DEFAULT, "Predicted probability for trainingResult was %.2f. Training result: %@", &v42, 0x16u);
   }
 
   phase1TrainingResult5 = [resultCopy phase1TrainingResult];
@@ -61,72 +61,71 @@
 
   if (numRejectedSuggestion)
   {
-    if (v28 + numRejectedSuggestion * -0.25 >= 0.0)
+    if (v29 + numRejectedSuggestion * -0.25 >= 0.0)
     {
-      v28 = v28 + numRejectedSuggestion * -0.25;
+      v29 = v29 + numRejectedSuggestion * -0.25;
     }
 
     else
     {
-      v28 = 0.0;
+      v29 = 0.0;
     }
 
-    v36 = __atxlog_handle_anchor();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+    v38 = __atxlog_handle_anchor(v37);
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
     {
-      v41 = 134218498;
-      v42 = *&numRejectedSuggestion;
-      v43 = 2048;
-      v44 = v28;
-      v45 = 2112;
-      v46 = resultCopy;
-      _os_log_impl(&dword_2263AA000, v36, OS_LOG_TYPE_DEFAULT, "Predicted probability after taking into account %ld rejections was %.2f. Training result: %@", &v41, 0x20u);
+      v42 = 134218498;
+      v43 = *&numRejectedSuggestion;
+      v44 = 2048;
+      v45 = v29;
+      v46 = 2112;
+      v47 = resultCopy;
+      _os_log_impl(&dword_2263AA000, v38, OS_LOG_TYPE_DEFAULT, "Predicted probability after taking into account %ld rejections was %.2f. Training result: %@", &v42, 0x20u);
     }
   }
 
   if (numShownSuggestions)
   {
-    if (v28 + numShownSuggestions * -0.025 >= 0.1)
+    if (v29 + numShownSuggestions * -0.025 >= 0.1)
     {
-      v28 = v28 + numShownSuggestions * -0.025;
+      v29 = v29 + numShownSuggestions * -0.025;
     }
 
     else
     {
-      v28 = 0.1;
+      v29 = 0.1;
     }
 
-    v37 = __atxlog_handle_anchor();
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+    v39 = __atxlog_handle_anchor(v37);
+    if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
     {
-      v41 = 134218498;
-      v42 = *&numShownSuggestions;
-      v43 = 2048;
-      v44 = v28;
-      v45 = 2112;
-      v46 = resultCopy;
-      _os_log_impl(&dword_2263AA000, v37, OS_LOG_TYPE_DEFAULT, "Predicted probability after taking into account %ld abandons was %.2f. Training result: %@", &v41, 0x20u);
+      v42 = 134218498;
+      v43 = *&numShownSuggestions;
+      v44 = 2048;
+      v45 = v29;
+      v46 = 2112;
+      v47 = resultCopy;
+      _os_log_impl(&dword_2263AA000, v39, OS_LOG_TYPE_DEFAULT, "Predicted probability after taking into account %ld abandons was %.2f. Training result: %@", &v42, 0x20u);
     }
   }
 
   if (numEngagedSuggestions)
   {
-    v28 = fmin(v28 + numEngagedSuggestions * 0.1, 1.0);
-    v38 = __atxlog_handle_anchor();
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+    v29 = fmin(v29 + numEngagedSuggestions * 0.1, 1.0);
+    v40 = __atxlog_handle_anchor(v37);
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
     {
-      v41 = 134218498;
-      v42 = *&numEngagedSuggestions;
-      v43 = 2048;
-      v44 = v28;
-      v45 = 2112;
-      v46 = resultCopy;
-      _os_log_impl(&dword_2263AA000, v38, OS_LOG_TYPE_DEFAULT, "Predicted probability after taking into account %ld engagements was %.2f. Training result: %@", &v41, 0x20u);
+      v42 = 134218498;
+      v43 = *&numEngagedSuggestions;
+      v44 = 2048;
+      v45 = v29;
+      v46 = 2112;
+      v47 = resultCopy;
+      _os_log_impl(&dword_2263AA000, v40, OS_LOG_TYPE_DEFAULT, "Predicted probability after taking into account %ld engagements was %.2f. Training result: %@", &v42, 0x20u);
     }
   }
 
-  v39 = *MEMORY[0x277D85DE8];
-  return v28;
+  return v29;
 }
 
 + (double)normalizeValue:(double)value parameterKey:(id)key
@@ -181,29 +180,28 @@
   v29 = v28;
 
   v30 = v14 + v17 + v20 + v23 + v26 + v29;
-  v31 = 1.0 / (expf(-v30) + 1.0);
-  v32 = v31;
-  if (v31 > 1.0)
+  v32 = 1.0 / (expf(-v30) + 1.0);
+  v33 = v32;
+  if (v32 > 1.0)
   {
-    v33 = __atxlog_handle_anchor();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_FAULT))
+    v34 = __atxlog_handle_anchor(v31);
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_FAULT))
     {
-      [ATXAnchorModelPredictionScorer predictedProbabilityFromNormalizedClassConditionalProbability:v33 posteriorProbability:v32 minutesAfterAnchor:? standardDeviation:? uniqueOccurrences:?];
+      [ATXAnchorModelPredictionScorer predictedProbabilityFromNormalizedClassConditionalProbability:v34 posteriorProbability:v33 minutesAfterAnchor:? standardDeviation:? uniqueOccurrences:?];
     }
 
     return 1.0;
   }
 
-  return v32;
+  return v33;
 }
 
 + (void)predictedProbabilityFromNormalizedClassConditionalProbability:(os_log_t)log posteriorProbability:(double)a2 minutesAfterAnchor:standardDeviation:uniqueOccurrences:.cold.1(os_log_t log, double a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 134217984;
-  v4 = a2;
-  _os_log_fault_impl(&dword_2263AA000, log, OS_LOG_TYPE_FAULT, "Predicted probability in anchor model scoring function was above 1.0. Predicted probability: %.2f", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 134217984;
+  v3 = a2;
+  _os_log_fault_impl(&dword_2263AA000, log, OS_LOG_TYPE_FAULT, "Predicted probability in anchor model scoring function was above 1.0. Predicted probability: %.2f", &v2, 0xCu);
 }
 
 @end

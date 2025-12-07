@@ -492,9 +492,9 @@ LABEL_13:
   {
     _transitioningTilingView = [(PUOneUpPresentationHelper *)self _transitioningTilingView];
     layout = [_transitioningTilingView layout];
-    indexPath = [infoCopy indexPath];
+    v9 = objc_msgSend_indexPath(infoCopy);
     tileKind = [infoCopy tileKind];
-    v11 = [layout layoutInfoForTileWithIndexPath:indexPath kind:tileKind];
+    v11 = [layout layoutInfoForTileWithIndexPath:v9 kind:tileKind];
   }
 
   else
@@ -551,8 +551,8 @@ LABEL_13:
   if (assetsDataSource)
   {
 LABEL_8:
-    indexPath = [infoCopy indexPath];
-    v19 = [assetsDataSource assetAtIndexPath:indexPath];
+    v18 = objc_msgSend_indexPath(infoCopy);
+    v19 = [assetsDataSource assetAtIndexPath:v18];
 
     [v19 aspectRatio];
     v15 = v20;
@@ -1338,7 +1338,7 @@ LABEL_8:
   {
     if (([v13 isActive] & 1) != 0 || (objc_msgSend(v13, "layoutInfo"), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "alpha"), v11 = v10, v9, v11 == 1.0))
     {
-      v6 = [v5 indexPath];
+      v6 = objc_msgSend_indexPath(v5);
       v12 = [*(a1 + 40) assetReferenceAtIndexPath:v6];
       if (v12)
       {
@@ -1406,7 +1406,7 @@ void __40__PUOneUpPresentationHelper__handleTap___block_invoke(uint64_t a1, uint
 
   if (v7)
   {
-    v8 = [v11 indexPath];
+    v8 = objc_msgSend_indexPath(v11);
     v9 = *(*(a1 + 32) + 8);
     v10 = *(v9 + 40);
     *(v9 + 40) = v8;
@@ -1677,7 +1677,7 @@ LABEL_17:
 LABEL_18:
 
   memset(&v69, 0, sizeof(v69));
-  [(PUOneUpPresentationHelper *)self _tilingViewTransitionTransform];
+  objc_msgSend__tilingViewTransitionTransform(self);
   [_transitionHostingView bounds];
   v68 = v69;
   v78 = CGRectApplyAffineTransform(v77, &v68);
@@ -2816,7 +2816,7 @@ uint64_t __53__PUOneUpPresentationHelper__prepareDismissalForced___block_invoke(
         v41 = v40;
         v43 = v42;
         memset(&buf, 0, sizeof(buf));
-        [(PUOneUpPresentationHelper *)self _tilingViewTransitionTransform];
+        objc_msgSend__tilingViewTransitionTransform(self);
         v60 = 0u;
         v61 = 0u;
         v59 = 0u;
@@ -2930,7 +2930,7 @@ uint64_t __112__PUOneUpPresentationHelper_presentOneUpViewControllerAnimated_int
   *&retstr->tx = 0u;
   if (_transitionHostingView)
   {
-    [_transitionHostingView transform];
+    objc_msgSend_transform(_transitionHostingView);
   }
 
   presentingViewController = [(PUOneUpPresentationHelper *)self presentingViewController];

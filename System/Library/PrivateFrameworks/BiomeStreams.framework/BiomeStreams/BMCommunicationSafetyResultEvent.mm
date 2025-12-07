@@ -3,6 +3,7 @@
 - (BMCommunicationSafetyResultEvent)initWithChildID:(id)d deviceID:(id)iD sourceBundleID:(id)bundleID absoluteTimeStamp:(double)stamp eventDirection:(unint64_t)direction eventType:(unint64_t)type contentType:(unint64_t)contentType contactHandles:(id)self0 contentID:(id)self1 conversationID:(id)self2 imageData:(id)self3 senderHandle:(id)self4 contentURL:(id)self5 conversationURL:(id)self6;
 - (BMCommunicationSafetyResultEvent)initWithCoder:(id)coder;
 - (BMCommunicationSafetyResultEvent)initWithProto:(id)proto;
+- (BMCommunicationSafetyResultEvent)initWithProtoData:(id)data skipImage:(BOOL)image;
 - (BOOL)isEqual:(id)equal;
 - (id)encodeAsProto;
 - (id)json;
@@ -102,46 +103,44 @@ LABEL_9:
 
 - (id)jsonDict
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v3 = *&self->_childID;
-  v16[0] = @"childId";
-  v16[1] = @"deviceId";
+  v15[0] = @"childId";
+  v15[1] = @"deviceId";
   sourceBundleID = self->_sourceBundleID;
-  v17 = v3;
-  v16[2] = @"sourceBundleId";
-  v16[3] = @"absoluteTimestamp";
+  v16 = v3;
+  v15[2] = @"sourceBundleId";
+  v15[3] = @"absoluteTimestamp";
   v4 = [MEMORY[0x1E696AD98] numberWithDouble:self->_absoluteTimestamp];
-  v19 = v4;
-  v16[4] = @"eventDirection";
+  v18 = v4;
+  v15[4] = @"eventDirection";
   v5 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_eventDirection];
-  v20 = v5;
-  v16[5] = @"eventType";
+  v19 = v5;
+  v15[5] = @"eventType";
   v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_eventType];
-  v21 = v6;
-  v16[6] = @"contentType";
+  v20 = v6;
+  v15[6] = @"contentType";
   v7 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_contentType];
-  v22 = v7;
-  v23 = *&self->_contactHandles;
-  v16[7] = @"contactHandles";
-  v16[8] = @"contentID";
+  v21 = v7;
+  v22 = *&self->_contactHandles;
+  v15[7] = @"contactHandles";
+  v15[8] = @"contentID";
   conversationID = self->_conversationID;
-  v16[9] = @"conversationID";
-  v16[10] = @"imageDataLengthInBytes";
+  v15[9] = @"conversationID";
+  v15[10] = @"imageDataLengthInBytes";
   v8 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[NSData length](self->_imageData, "length")}];
   senderHandle = self->_senderHandle;
   contentURL = self->_contentURL;
-  v25 = v8;
-  v26 = senderHandle;
-  v16[11] = @"senderHandle";
-  v16[12] = @"contentURL";
+  v24 = v8;
+  v25 = senderHandle;
+  v15[11] = @"senderHandle";
+  v15[12] = @"contentURL";
   absoluteString = [(NSURL *)contentURL absoluteString];
-  v27 = absoluteString;
-  v16[13] = @"conversationURL";
+  v26 = absoluteString;
+  v15[13] = @"conversationURL";
   absoluteString2 = [(NSURL *)self->_conversationURL absoluteString];
-  v28 = absoluteString2;
-  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v17 forKeys:v16 count:14];
-
-  v14 = *MEMORY[0x1E69E9840];
+  v27 = absoluteString2;
+  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v16 forKeys:v15 count:14];
 
   return v13;
 }
@@ -298,6 +297,26 @@ LABEL_9:
 
       selfCopy = 0;
     }
+  }
+
+  else
+  {
+    selfCopy = 0;
+  }
+
+  return selfCopy;
+}
+
+- (BMCommunicationSafetyResultEvent)initWithProtoData:(id)data skipImage:(BOOL)image
+{
+  if (data)
+  {
+    imageCopy = image;
+    dataCopy = data;
+    v7 = [[BMPBCommunicationSafetyResultEvent alloc] initWithData:dataCopy skipImage:imageCopy];
+
+    self = [(BMCommunicationSafetyResultEvent *)self initWithProto:v7];
+    selfCopy = self;
   }
 
   else

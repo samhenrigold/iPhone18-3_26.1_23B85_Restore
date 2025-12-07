@@ -9,7 +9,7 @@
 {
   coderCopy = coder;
   selfCopy = self;
-  sub_1B1AC5444(coderCopy);
+  sub_1B1AC5444(coderCopy, selfCopy, v5);
 }
 
 - (_NSRange)textRange

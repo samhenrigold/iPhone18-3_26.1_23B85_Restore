@@ -17,9 +17,9 @@
 - (uint64_t)hf_hasNonStandardTileUI
 {
   _profilesWithNonStandardTileUI = [objc_opt_class() _profilesWithNonStandardTileUI];
-  v1 = [_profilesWithNonStandardTileUI containsObject:objc_opt_class()];
+  v3 = [_profilesWithNonStandardTileUI containsObject:objc_opt_class()];
 
-  return v1;
+  return v3;
 }
 
 + (id)_profilesWithNonStandardTileUI

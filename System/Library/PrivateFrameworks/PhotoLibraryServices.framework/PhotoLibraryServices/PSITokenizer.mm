@@ -99,7 +99,7 @@ LABEL_12:
   }
 
   v13 = v22;
-  if (v13 == [v11 count])
+  if (v13 == objc_msgSend_count(v11))
   {
     if (v13 >= 1)
     {
@@ -148,7 +148,7 @@ LABEL_15:
   if (self->_useCache)
   {
     v7 = [(NSMutableDictionary *)self->_cache objectForKeyedSubscript:stringCopy];
-    if ([v7 count])
+    if (objc_msgSend_count(v7))
     {
       v73 = 0u;
       v74 = 0u;
@@ -223,7 +223,7 @@ LABEL_15:
   useCache = self->_useCache;
   selfCopy = self;
   v50 = v65;
-  if ((context->var1 & 4) != 0 && [v19 count] >= 9)
+  if ((context->var1 & 4) != 0 && objc_msgSend_count(v19) >= 9)
   {
     if ((context->var1 & 8) != 0)
     {
@@ -235,7 +235,7 @@ LABEL_15:
       v26 = 1;
     }
 
-    v27 = [v19 objectAtIndexedSubscript:{objc_msgSend(v19, "count") - v26}];
+    v27 = [v19 objectAtIndexedSubscript:objc_msgSend_count(v19) - v26];
     range2 = [v27 range];
     v30 = v29;
 
@@ -248,7 +248,7 @@ LABEL_15:
     v34 = CFStringCreateWithSubstring(*MEMORY[0x1E695E480], v24, v80);
     v35 = [[PSIToken alloc] initWithString:v34 range:range3, v33];
     CFRelease(v34);
-    v36 = [v19 count] - 7;
+    v36 = objc_msgSend_count(v19) - 7;
     v77 = v35;
     v37 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v77 count:1];
     [v19 replaceObjectsInRange:8 - v26 withObjectsFromArray:{v36, v37}];

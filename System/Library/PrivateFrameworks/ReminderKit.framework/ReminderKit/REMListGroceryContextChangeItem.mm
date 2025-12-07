@@ -6,6 +6,7 @@
 - (REMListGroceryContextChangeItem)initWithListChangeItem:(id)item;
 - (void)categorizeGroceryItemsWithReminderIDs:(id)ds;
 - (void)setGroceryLocaleID:(id)d;
+- (void)setShouldCategorizeGroceryItems:(BOOL)items;
 @end
 
 @implementation REMListGroceryContextChangeItem
@@ -36,6 +37,13 @@
   shouldCategorizeGroceryItems = [listChangeItem shouldCategorizeGroceryItems];
 
   return shouldCategorizeGroceryItems;
+}
+
+- (void)setShouldCategorizeGroceryItems:(BOOL)items
+{
+  itemsCopy = items;
+  listChangeItem = [(REMListGroceryContextChangeItem *)self listChangeItem];
+  [listChangeItem setShouldCategorizeGroceryItems:itemsCopy];
 }
 
 - (BOOL)shouldSuggestConversionToGroceryList

@@ -61,7 +61,7 @@
 
 - (void)_addFetcher:(id)fetcher atIndex:(unint64_t)index
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   fetcherCopy = fetcher;
   if (self->_done)
   {
@@ -74,20 +74,20 @@
   }
 
   v7 = objc_alloc_init(LPFetcherGroupTask);
-  [(LPFetcherGroupTask *)v7 setFetcher:fetcherCopy];
-  v8 = LPLogChannelFetching();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v8 = [(LPFetcherGroupTask *)v7 setFetcher:fetcherCopy];
+  v10 = LPLogChannelFetching(v8, v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     loggingID = self->_loggingID;
     _loggingID = [fetcherCopy _loggingID];
     description = self->_description;
-    v12[0] = 67109634;
-    v12[1] = loggingID;
-    v13 = 1024;
-    v14 = _loggingID;
-    v15 = 2112;
-    v16 = description;
-    _os_log_impl(&dword_1AE886000, v8, OS_LOG_TYPE_DEFAULT, "LPFetcherGroup<%d>: adding LPFetcher<%d> for %@", v12, 0x18u);
+    v14[0] = 67109634;
+    v14[1] = loggingID;
+    v15 = 1024;
+    v16 = _loggingID;
+    v17 = 2112;
+    v18 = description;
+    _os_log_impl(&dword_1AE886000, v10, OS_LOG_TYPE_DEFAULT, "LPFetcherGroup<%d>: adding LPFetcher<%d> for %@", v14, 0x18u);
   }
 
   [(NSMutableArray *)self->_tasks insertObject:v7 atIndex:index];
@@ -210,7 +210,7 @@ void __38__LPFetcherGroup_startFetchesIfNeeded__block_invoke(uint64_t a1, void *
 {
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_2_0(&dword_1AE886000, v0, v1, "LPFetcherGroup<%d>: complete, but without successful fetcher", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_0(&dword_1AE886000, v0, v1, "LPFetcherGroup<%d>: complete, but without successful fetcher", v2, v3, v4, v5);
 }
 
 - (id)_responsesRespectingPolicy

@@ -161,8 +161,10 @@ void __52__TIRecentInputs_validateInputFormat_forIdentifier___block_invoke()
 {
   if (!validateInputFormat_forIdentifier__regExEmail)
   {
+    v1 = validateInputFormat_forIdentifier__regExEmail;
+    validateInputFormat_forIdentifier__regExEmail = v0;
 
-    MEMORY[0x1EEE66BB8]();
+    MEMORY[0x1EEE66BB8](v0, v1);
   }
 }
 

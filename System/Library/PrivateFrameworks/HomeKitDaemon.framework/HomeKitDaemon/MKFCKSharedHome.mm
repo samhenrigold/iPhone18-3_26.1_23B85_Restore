@@ -62,7 +62,7 @@
 
 + (BOOL)importUpdateWithObjectID:(id)d updatedProperties:(id)properties additionalUpdates:(id)updates context:(id)context
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v8 = [contextCopy objectWithID:d];
   v9 = contextCopy;
@@ -81,13 +81,13 @@
       {
         v28 = HMFGetLogIdentifier();
         modelID2 = [v13 modelID];
-        v43 = 138543874;
-        v44 = v28;
-        v45 = 2160;
-        v46 = 1752392040;
-        v47 = 2112;
-        v48 = modelID2;
-        _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_FAULT, "%{public}@No existing local model for shared home with modelID %{mask.hash}@, skipping update", &v43, 0x20u);
+        v42 = 138543874;
+        v43 = v28;
+        v44 = 2160;
+        v45 = 1752392040;
+        v46 = 2112;
+        v47 = modelID2;
+        _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_FAULT, "%{public}@No existing local model for shared home with modelID %{mask.hash}@, skipping update", &v42, 0x20u);
       }
 
       objc_autoreleasePoolPop(v12);
@@ -98,13 +98,13 @@
     {
       v16 = HMFGetLogIdentifier();
       modelID3 = [v13 modelID];
-      v43 = 138543874;
-      v44 = v16;
-      v45 = 2160;
-      v46 = 1752392040;
-      v47 = 2112;
-      v48 = modelID3;
-      _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Found existing local model for shared home with modelID %{mask.hash}@", &v43, 0x20u);
+      v42 = 138543874;
+      v43 = v16;
+      v44 = 2160;
+      v45 = 1752392040;
+      v46 = 2112;
+      v47 = modelID3;
+      _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Found existing local model for shared home with modelID %{mask.hash}@", &v42, 0x20u);
     }
 
     objc_autoreleasePoolPop(v12);
@@ -125,13 +125,13 @@
         {
           v39 = HMFGetLogIdentifier();
           modelID4 = [v37 modelID];
-          v43 = 138543874;
-          v44 = v39;
-          v45 = 2160;
-          v46 = 1752392040;
-          v47 = 2112;
-          v48 = modelID4;
-          _os_log_impl(&dword_229538000, v38, OS_LOG_TYPE_FAULT, "%{public}@Local home model with modelID %{mask.hash}@ does not have an owner user", &v43, 0x20u);
+          v42 = 138543874;
+          v43 = v39;
+          v44 = 2160;
+          v45 = 1752392040;
+          v46 = 2112;
+          v47 = modelID4;
+          _os_log_impl(&dword_229538000, v38, OS_LOG_TYPE_FAULT, "%{public}@Local home model with modelID %{mask.hash}@ does not have an owner user", &v42, 0x20u);
         }
 
         objc_autoreleasePoolPop(v36);
@@ -165,17 +165,17 @@ LABEL_20:
         v33 = HMFGetLogIdentifier();
         ownerAccountHandle2 = [v31 ownerAccountHandle];
         modelID5 = [v31 modelID];
-        v43 = 138544386;
-        v44 = v33;
-        v45 = 2160;
-        v46 = 1752392040;
-        v47 = 2112;
-        v48 = ownerAccountHandle2;
-        v49 = 2160;
-        v50 = 1752392040;
-        v51 = 2112;
-        v52 = modelID5;
-        _os_log_impl(&dword_229538000, v32, OS_LOG_TYPE_ERROR, "%{public}@Invalid account handle %{mask.hash}@ found on shared home with model ID %{mask.hash}@", &v43, 0x34u);
+        v42 = 138544386;
+        v43 = v33;
+        v44 = 2160;
+        v45 = 1752392040;
+        v46 = 2112;
+        v47 = ownerAccountHandle2;
+        v48 = 2160;
+        v49 = 1752392040;
+        v50 = 2112;
+        v51 = modelID5;
+        _os_log_impl(&dword_229538000, v32, OS_LOG_TYPE_ERROR, "%{public}@Invalid account handle %{mask.hash}@ found on shared home with model ID %{mask.hash}@", &v42, 0x34u);
       }
 
       objc_autoreleasePoolPop(v30);
@@ -191,13 +191,12 @@ LABEL_20:
 
 LABEL_21:
 
-  v41 = *MEMORY[0x277D85DE8];
   return v8 != 0;
 }
 
 + (BOOL)importInsertWithObjectID:(id)d additionalUpdates:(id)updates context:(id)context
 {
-  v88 = *MEMORY[0x277D85DE8];
+  v87 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v7 = [contextCopy objectWithID:d];
   v8 = contextCopy;
@@ -224,7 +223,7 @@ LABEL_21:
       *&buf[12] = 2160;
       *&buf[14] = 1752392040;
       *&buf[22] = 2112;
-      v84 = modelID2;
+      v83 = modelID2;
       _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Found existing local home with modelID %{mask.hash}@, skipping insert", buf, 0x20u);
     }
   }
@@ -255,7 +254,7 @@ LABEL_21:
         *&buf[12] = 2160;
         *&buf[14] = 1752392040;
         *&buf[22] = 2112;
-        v84 = modelID3;
+        v83 = modelID3;
         _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_DEBUG, "%{public}@Found existing local room with modelID %{mask.hash}@, skipping insert", buf, 0x20u);
       }
 
@@ -326,46 +325,46 @@ LABEL_21:
     }
 
     v45 = v35;
-    v77 = 0;
-    v78 = &v77;
-    v79 = 0x3032000000;
-    v80 = __Block_byref_object_copy__149252;
-    v81 = __Block_byref_object_dispose__149253;
     v76 = 0;
-    v46 = [_MKFHomeManager fetchWithContext:v45 error:&v76];
-    v47 = v76;
-    v82 = v46;
-    v48 = v78[5];
+    v77 = &v76;
+    v78 = 0x3032000000;
+    v79 = __Block_byref_object_copy__149252;
+    v80 = __Block_byref_object_dispose__149253;
+    v75 = 0;
+    v46 = [_MKFHomeManager fetchWithContext:v45 error:&v75];
+    v47 = v75;
+    v81 = v46;
+    v48 = v77[5];
     if (v48)
     {
-      v72 = 0;
-      v73 = &v72;
-      v74 = 0x2020000000;
-      v75 = 1;
+      v71 = 0;
+      v72 = &v71;
+      v73 = 0x2020000000;
+      v74 = 1;
       homes = [v48 homes];
-      v71[0] = MEMORY[0x277D85DD0];
-      v71[1] = 3221225472;
-      v71[2] = __49__MKFCKSharedHome__importHomeManagerWithContext___block_invoke;
-      v71[3] = &unk_27867B6F0;
-      v71[4] = v7;
-      v71[5] = &v72;
-      [homes hmf_enumerateWithAutoreleasePoolUsingBlock:v71];
+      v70[0] = MEMORY[0x277D85DD0];
+      v70[1] = 3221225472;
+      v70[2] = __49__MKFCKSharedHome__importHomeManagerWithContext___block_invoke;
+      v70[3] = &unk_27867B6F0;
+      v70[4] = v7;
+      v70[5] = &v71;
+      [homes hmf_enumerateWithAutoreleasePoolUsingBlock:v70];
 
-      if (*(v73 + 24) == 1)
+      if (*(v72 + 24) == 1)
       {
         v50 = [MKFCKHome _homeManagerContextFromContext:v45];
         *buf = MEMORY[0x277D85DD0];
         *&buf[8] = 3221225472;
         *&buf[16] = __49__MKFCKSharedHome__importHomeManagerWithContext___block_invoke_2;
-        v84 = &unk_27868A4D8;
-        v87 = &v77;
+        v83 = &unk_27868A4D8;
+        v86 = &v76;
         v51 = v50;
-        v85 = v51;
-        v86 = v7;
+        v84 = v51;
+        v85 = v7;
         [v51 performBlockAndWait:buf];
       }
 
-      _Block_object_dispose(&v72, 8);
+      _Block_object_dispose(&v71, 8);
     }
 
     else
@@ -386,7 +385,7 @@ LABEL_21:
       objc_autoreleasePoolPop(v52);
     }
 
-    _Block_object_dispose(&v77, 8);
+    _Block_object_dispose(&v76, 8);
 
     if (!v48)
     {
@@ -443,7 +442,6 @@ LABEL_21:
 LABEL_33:
 
 LABEL_34:
-  v69 = *MEMORY[0x277D85DE8];
   return v68;
 }
 
@@ -466,11 +464,11 @@ void __49__MKFCKSharedHome__importHomeManagerWithContext___block_invoke(uint64_t
 
 void __49__MKFCKSharedHome__importHomeManagerWithContext___block_invoke_2(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  v14 = 0;
-  v3 = [_MKFHomeManager fetchWithContext:v2 error:&v14];
-  v4 = v14;
+  v13 = 0;
+  v3 = [_MKFHomeManager fetchWithContext:v2 error:&v13];
+  v4 = v13;
   v5 = *(*(a1 + 48) + 8);
   v6 = *(v5 + 40);
   *(v5 + 40) = v3;
@@ -487,16 +485,14 @@ void __49__MKFCKSharedHome__importHomeManagerWithContext___block_invoke_2(uint64
     {
       v12 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v16 = v12;
-      v17 = 2112;
-      v18 = v8;
+      v15 = v12;
+      v16 = 2112;
+      v17 = v8;
       _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Created new home manager home during import: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v9);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 + (id)createWithModelID:(id)d persistentStore:(id)store context:(id)context

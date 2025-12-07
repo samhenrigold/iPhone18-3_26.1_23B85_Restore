@@ -187,7 +187,7 @@ void __48__WBUFeatureManager__primaryAppleAccountChanged__block_invoke(uint64_t 
   return selfCopy;
 }
 
-uint64_t __43__WBUFeatureManager__isUsingManagedAppleID__block_invoke(uint64_t a1)
+void *__43__WBUFeatureManager__isUsingManagedAppleID__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 16) aa_isManagedAppleID];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -392,27 +392,28 @@ void __81__WBUFeatureManager_determineIfScreenTimeIsManagedByParentWithCompletio
     v2 = *(a1 + 32);
   }
 
-  if ([v2 _locallyRestricted])
+  v6 = [v2 _locallyRestricted];
+  if (v6)
   {
-    v6 = *(*(a1 + 32) + 32);
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __81__WBUFeatureManager_determineIfScreenTimeIsManagedByParentWithCompletionHandler___block_invoke_21;
-    v8[3] = &unk_279EB1420;
-    objc_copyWeak(&v10, (a1 + 48));
-    v9 = *(a1 + 40);
-    [v6 shouldRequestMoreTime:v8];
+    v8 = *(*(a1 + 32) + 32);
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __81__WBUFeatureManager_determineIfScreenTimeIsManagedByParentWithCompletionHandler___block_invoke_21;
+    v10[3] = &unk_279EB1420;
+    objc_copyWeak(&v12, (a1 + 48));
+    v11 = *(a1 + 40);
+    [v8 shouldRequestMoreTime:v10];
 
-    objc_destroyWeak(&v10);
+    objc_destroyWeak(&v12);
   }
 
   else
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXScreenTime();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v9 = WBS_LOG_CHANNEL_PREFIXScreenTime(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_273D58000, v7, OS_LOG_TYPE_INFO, "Determined user is not restricted because there is not a Screen Time passcode set", buf, 2u);
+      _os_log_impl(&dword_273D58000, v9, OS_LOG_TYPE_INFO, "Determined user is not restricted because there is not a Screen Time passcode set", buf, 2u);
     }
 
     (*(*(a1 + 40) + 16))();
@@ -421,35 +422,34 @@ void __81__WBUFeatureManager_determineIfScreenTimeIsManagedByParentWithCompletio
 
 void __81__WBUFeatureManager_determineIfScreenTimeIsManagedByParentWithCompletionHandler___block_invoke_21(uint64_t a1, int a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v6 = WeakRetained;
   if (WeakRetained)
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXScreenTime();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v7 = WBS_LOG_CHANNEL_PREFIXScreenTime(WeakRetained, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v6 = @"not";
+      v8 = @"not";
       if (a2)
       {
-        v6 = &stru_2882C1EC0;
+        v8 = &stru_2882C1EC0;
       }
 
-      v9 = 138543362;
-      v10 = v6;
-      _os_log_impl(&dword_273D58000, v5, OS_LOG_TYPE_INFO, "Determined user is %{public}@ an iCloud managed child", &v9, 0xCu);
+      v10 = 138543362;
+      v11 = v8;
+      _os_log_impl(&dword_273D58000, v7, OS_LOG_TYPE_INFO, "Determined user is %{public}@ an iCloud managed child", &v10, 0xCu);
     }
 
-    v7 = *(*(a1 + 32) + 16);
+    v9 = *(*(a1 + 32) + 16);
   }
 
   else
   {
-    v7 = *(*(a1 + 32) + 16);
+    v9 = *(*(a1 + 32) + 16);
   }
 
-  v7();
-
-  v8 = *MEMORY[0x277D85DE8];
+  v9();
 }
 
 + (BOOL)shouldOfferVirtualCards
@@ -460,15 +460,16 @@ void __81__WBUFeatureManager_determineIfScreenTimeIsManagedByParentWithCompletio
   }
 
   v2 = objc_alloc_init(MEMORY[0x277CD4790]);
-  v7 = 0;
-  v3 = [v2 canEvaluatePolicy:2 error:&v7];
-  v4 = v7;
+  v9 = 0;
+  v3 = [v2 canEvaluatePolicy:2 error:&v9];
+  v4 = v9;
+  v6 = v4;
   if (v4)
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = WBS_LOG_CHANNEL_PREFIXAutoFill(v4, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      +[(WBUFeatureManager *)v5];
+      +[(WBUFeatureManager *)v7];
     }
   }
 
@@ -514,14 +515,12 @@ void __81__WBUFeatureManager_determineIfScreenTimeIsManagedByParentWithCompletio
 
 + (void)shouldOfferVirtualCards
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   safari_privacyPreservingDescription = [a2 safari_privacyPreservingDescription];
-  v6 = 138543362;
-  v7 = safari_privacyPreservingDescription;
-  _os_log_error_impl(&dword_273D58000, selfCopy, OS_LOG_TYPE_ERROR, "Encountered error when determining can evaluate policy: %{public}@", &v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138543362;
+  v6 = safari_privacyPreservingDescription;
+  _os_log_error_impl(&dword_273D58000, selfCopy, OS_LOG_TYPE_ERROR, "Encountered error when determining can evaluate policy: %{public}@", &v5, 0xCu);
 }
 
 @end

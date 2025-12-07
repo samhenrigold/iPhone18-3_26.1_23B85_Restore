@@ -1,5 +1,6 @@
 @interface CalDAVReplyToSharedCalendarInvitationTaskGroup
 - (CalDAVReplyToSharedCalendarInvitationTaskGroup)initWithAccountInfoProvider:(id)provider taskManager:(id)manager;
+- (CalDAVReplyToSharedCalendarInvitationTaskGroup)initWithInvitation:(id)invitation acceptInvitation:(BOOL)acceptInvitation atCalendarHomeURL:(id)l accountInfoProvider:(id)provider taskManager:(id)manager;
 - (id)generateReply;
 - (void)startTaskGroup;
 - (void)task:(id)task didFinishWithError:(id)error;
@@ -13,6 +14,25 @@
   managerCopy = manager;
   v7 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE648] reason:@"Initializing this class instance with an inherited initializer not allowed." userInfo:0];
   objc_exception_throw(v7);
+}
+
+- (CalDAVReplyToSharedCalendarInvitationTaskGroup)initWithInvitation:(id)invitation acceptInvitation:(BOOL)acceptInvitation atCalendarHomeURL:(id)l accountInfoProvider:(id)provider taskManager:(id)manager
+{
+  acceptInvitationCopy = acceptInvitation;
+  invitationCopy = invitation;
+  lCopy = l;
+  v17.receiver = self;
+  v17.super_class = CalDAVReplyToSharedCalendarInvitationTaskGroup;
+  v14 = [(CoreDAVTaskGroup *)&v17 initWithAccountInfoProvider:provider taskManager:manager];
+  v15 = v14;
+  if (v14)
+  {
+    [(CalDAVReplyToSharedCalendarInvitationTaskGroup *)v14 setInvitation:invitationCopy];
+    [(CalDAVReplyToSharedCalendarInvitationTaskGroup *)v15 setAcceptInvitation:acceptInvitationCopy];
+    [(CalDAVReplyToSharedCalendarInvitationTaskGroup *)v15 setCalendarHomeURL:lCopy];
+  }
+
+  return v15;
 }
 
 - (void)startTaskGroup

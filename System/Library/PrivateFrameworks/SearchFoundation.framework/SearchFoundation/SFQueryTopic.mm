@@ -2,6 +2,7 @@
 - (BOOL)isEqual:(id)equal;
 - (NSString)description;
 - (SFQueryTopic)initWithCoder:(id)coder;
+- (SFQueryTopic)initWithType:(int)type query:(id)query identifier:(id)identifier;
 - (id)copyWithZone:(_NSZone *)zone;
 - (unint64_t)hash;
 - (void)encodeWithCoder:(id)coder;
@@ -103,6 +104,23 @@
 
   [v4 setQueryType:{-[SFQueryTopic queryType](self, "queryType")}];
   return v4;
+}
+
+- (SFQueryTopic)initWithType:(int)type query:(id)query identifier:(id)identifier
+{
+  v6 = *&type;
+  queryCopy = query;
+  v12.receiver = self;
+  v12.super_class = SFQueryTopic;
+  v9 = [(SFTopic *)&v12 initWithIdentifier:identifier];
+  v10 = v9;
+  if (v9)
+  {
+    [(SFQueryTopic *)v9 setQueryType:v6];
+    [(SFQueryTopic *)v10 setQuery:queryCopy];
+  }
+
+  return v10;
 }
 
 @end

@@ -85,7 +85,7 @@
     swift_task_reportUnexpectedExecutor();
   }
 
-  sub_1C3C27CB4(0, &qword_1EC085778);
+  sub_1C3C27CB4(0, &qword_1EC085778, off_1E81B2C00);
   v5 = sub_1C3D202A4();
 
   return v5;

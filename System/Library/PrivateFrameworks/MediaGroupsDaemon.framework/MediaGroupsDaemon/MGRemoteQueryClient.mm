@@ -168,7 +168,7 @@ LABEL_5:
 
 - (void)_prepareConnection:(id)connection
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   dispatchQueue = [(MGRemoteQueryClient *)self dispatchQueue];
   dispatch_assert_queue_V2(dispatchQueue);
@@ -181,11 +181,11 @@ LABEL_5:
     if (os_log_type_enabled(_prepareURL, OS_LOG_TYPE_ERROR))
     {
       task2 = [(MGRemoteQueryClient *)self task];
-      v16 = 134218242;
+      v15 = 134218242;
       selfCopy3 = self;
-      v18 = 2112;
-      v19 = task2;
-      _os_log_error_impl(&dword_25863A000, _prepareURL, OS_LOG_TYPE_ERROR, "%p client already running %@", &v16, 0x16u);
+      v17 = 2112;
+      v18 = task2;
+      _os_log_error_impl(&dword_25863A000, _prepareURL, OS_LOG_TYPE_ERROR, "%p client already running %@", &v15, 0x16u);
 LABEL_10:
     }
   }
@@ -208,15 +208,15 @@ LABEL_10:
       {
         handler = [(MGRemoteQueryClient *)self handler];
         target2 = [(MGRemoteQueryClient *)self target];
-        v16 = 134218754;
+        v15 = 134218754;
         selfCopy3 = self;
-        v18 = 2112;
-        v19 = v9;
-        v20 = 2112;
-        v21 = handler;
-        v22 = 2112;
-        v23 = target2;
-        _os_log_impl(&dword_25863A000, v12, OS_LOG_TYPE_DEFAULT, "%p client using %@ for issuing handler %@ to %@", &v16, 0x2Au);
+        v17 = 2112;
+        v18 = v9;
+        v19 = 2112;
+        v20 = handler;
+        v21 = 2112;
+        v22 = target2;
+        _os_log_impl(&dword_25863A000, v12, OS_LOG_TYPE_DEFAULT, "%p client using %@ for issuing handler %@ to %@", &v15, 0x2Au);
       }
 
       goto LABEL_10;
@@ -225,18 +225,16 @@ LABEL_10:
     _prepareURL = MGLogForCategory(6);
     if (os_log_type_enabled(_prepareURL, OS_LOG_TYPE_ERROR))
     {
-      v16 = 134217984;
+      v15 = 134217984;
       selfCopy3 = self;
-      _os_log_error_impl(&dword_25863A000, _prepareURL, OS_LOG_TYPE_ERROR, "%p client invalidated, not starting", &v16, 0xCu);
+      _os_log_error_impl(&dword_25863A000, _prepareURL, OS_LOG_TYPE_ERROR, "%p client invalidated, not starting", &v15, 0xCu);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleError:(id)error
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   dispatchQueue = [(MGRemoteQueryClient *)self dispatchQueue];
   dispatch_assert_queue_V2(dispatchQueue);
@@ -250,43 +248,39 @@ LABEL_10:
       v7 = MGLogForCategory(6);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        v9 = 134218242;
+        v8 = 134218242;
         selfCopy = self;
-        v11 = 2112;
-        v12 = errorCopy;
-        _os_log_error_impl(&dword_25863A000, v7, OS_LOG_TYPE_ERROR, "%p client failed, error %@", &v9, 0x16u);
+        v10 = 2112;
+        v11 = errorCopy;
+        _os_log_error_impl(&dword_25863A000, v7, OS_LOG_TYPE_ERROR, "%p client failed, error %@", &v8, 0x16u);
       }
 
       [(MGRemoteQueryClient *)self setError:errorCopy];
       [(MGRemoteQueryClient *)self _invalidate];
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_invalidate
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (![(MGRemoteQueryClient *)self invalidated])
   {
     v3 = MGLogForCategory(6);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       error = [(MGRemoteQueryClient *)self error];
-      v7 = 134218242;
+      v6 = 134218242;
       selfCopy = self;
-      v9 = 2112;
-      v10 = error;
-      _os_log_impl(&dword_25863A000, v3, OS_LOG_TYPE_DEFAULT, "%p client invalidating, error %@", &v7, 0x16u);
+      v8 = 2112;
+      v9 = error;
+      _os_log_impl(&dword_25863A000, v3, OS_LOG_TYPE_DEFAULT, "%p client invalidating, error %@", &v6, 0x16u);
     }
 
     [(MGRemoteQueryClient *)self setInvalidated:1];
     task = [(MGRemoteQueryClient *)self task];
     [task cancel];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_invalidated
@@ -350,7 +344,7 @@ LABEL_10:
 
 - (void)_responseStart:(id)start
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   startCopy = start;
   dispatchQueue = [(MGRemoteQueryClient *)self dispatchQueue];
   dispatch_assert_queue_V2(dispatchQueue);
@@ -360,11 +354,11 @@ LABEL_10:
     data = MGLogForCategory(6);
     if (os_log_type_enabled(data, OS_LOG_TYPE_DEBUG))
     {
-      v9 = 134218242;
+      v8 = 134218242;
       selfCopy2 = self;
-      v11 = 2112;
-      v12 = startCopy;
-      _os_log_debug_impl(&dword_25863A000, data, OS_LOG_TYPE_DEBUG, "%p client invalidated, so disregarding new response %@", &v9, 0x16u);
+      v10 = 2112;
+      v11 = startCopy;
+      _os_log_debug_impl(&dword_25863A000, data, OS_LOG_TYPE_DEBUG, "%p client invalidated, so disregarding new response %@", &v8, 0x16u);
     }
   }
 
@@ -381,18 +375,16 @@ LABEL_10:
     v7 = MGLogForCategory(6);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v9 = 134218242;
+      v8 = 134218242;
       selfCopy2 = self;
-      v11 = 2112;
-      v12 = startCopy;
-      _os_log_error_impl(&dword_25863A000, v7, OS_LOG_TYPE_ERROR, "%p client received invalid response %@", &v9, 0x16u);
+      v10 = 2112;
+      v11 = startCopy;
+      _os_log_error_impl(&dword_25863A000, v7, OS_LOG_TYPE_ERROR, "%p client received invalid response %@", &v8, 0x16u);
     }
 
     data = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:94 userInfo:0];
     [(MGRemoteQueryClient *)self _handleError:data];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_responseValidate:(id)validate
@@ -449,7 +441,7 @@ LABEL_17:
 
 - (void)_responseAppend:(id)append
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   appendCopy = append;
   dispatchQueue = [(MGRemoteQueryClient *)self dispatchQueue];
   dispatch_assert_queue_V2(dispatchQueue);
@@ -459,11 +451,11 @@ LABEL_17:
     v6 = MGLogForCategory(6);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      v15 = 134218242;
+      v14 = 134218242;
       selfCopy3 = self;
-      v17 = 2112;
-      v18 = appendCopy;
-      _os_log_debug_impl(&dword_25863A000, v6, OS_LOG_TYPE_DEBUG, "%p client invalidated, so disregarding data %@", &v15, 0x16u);
+      v16 = 2112;
+      v17 = appendCopy;
+      _os_log_debug_impl(&dword_25863A000, v6, OS_LOG_TYPE_DEBUG, "%p client invalidated, so disregarding data %@", &v14, 0x16u);
     }
 
 LABEL_11:
@@ -478,11 +470,11 @@ LABEL_11:
     v6 = MGLogForCategory(6);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v15 = 134218242;
+      v14 = 134218242;
       selfCopy3 = self;
-      v17 = 2112;
-      v18 = appendCopy;
-      _os_log_error_impl(&dword_25863A000, v6, OS_LOG_TYPE_ERROR, "%p discarding responseless data %@", &v15, 0x16u);
+      v16 = 2112;
+      v17 = appendCopy;
+      _os_log_error_impl(&dword_25863A000, v6, OS_LOG_TYPE_ERROR, "%p discarding responseless data %@", &v14, 0x16u);
     }
 
     goto LABEL_11;
@@ -501,13 +493,13 @@ LABEL_11:
     v13 = MGLogForCategory(6);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v15 = 134218496;
+      v14 = 134218496;
       selfCopy3 = self;
-      v17 = 2048;
-      v18 = v10;
-      v19 = 2048;
-      v20 = v12;
-      _os_log_error_impl(&dword_25863A000, v13, OS_LOG_TYPE_ERROR, "%p client payload %lu exceeds expectations %lu", &v15, 0x20u);
+      v16 = 2048;
+      v17 = v10;
+      v18 = 2048;
+      v19 = v12;
+      _os_log_error_impl(&dword_25863A000, v13, OS_LOG_TYPE_ERROR, "%p client payload %lu exceeds expectations %lu", &v14, 0x20u);
     }
 
     v6 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:27 userInfo:0];
@@ -521,13 +513,11 @@ LABEL_11:
   }
 
 LABEL_12:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_responseComplete
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   dispatchQueue = [(MGRemoteQueryClient *)self dispatchQueue];
   dispatch_assert_queue_V2(dispatchQueue);
 
@@ -536,9 +526,9 @@ LABEL_12:
     [(MGRemoteQueryClient *)self setProcessedResult:1];
     v4 = MEMORY[0x277CCAAA0];
     payload = [(MGRemoteQueryClient *)self payload];
-    v15 = 0;
-    v6 = [v4 JSONObjectWithData:payload options:0 error:&v15];
-    v7 = v15;
+    v14 = 0;
+    v6 = [v4 JSONObjectWithData:payload options:0 error:&v14];
+    v7 = v14;
 
     if (v7)
     {
@@ -547,8 +537,8 @@ LABEL_12:
       {
         *buf = 134218242;
         selfCopy3 = self;
-        v18 = 2112;
-        v19 = v7;
+        v17 = 2112;
+        v18 = v7;
         _os_log_error_impl(&dword_25863A000, v8, OS_LOG_TYPE_ERROR, "%p client encountered decoding error %@", buf, 0x16u);
       }
 
@@ -570,10 +560,10 @@ LABEL_12:
           {
             *buf = 134218498;
             selfCopy3 = self;
-            v18 = 2048;
-            v19 = handler;
-            v20 = 2112;
-            v21 = v11;
+            v17 = 2048;
+            v18 = handler;
+            v19 = 2112;
+            v20 = v11;
             _os_log_error_impl(&dword_25863A000, v13, OS_LOG_TYPE_ERROR, "%p client response handling via %p encountered error %@", buf, 0x20u);
           }
 
@@ -586,16 +576,14 @@ LABEL_12:
           {
             *buf = 134218240;
             selfCopy3 = self;
-            v18 = 2048;
-            v19 = handler;
+            v17 = 2048;
+            v18 = handler;
             _os_log_debug_impl(&dword_25863A000, v13, OS_LOG_TYPE_DEBUG, "%p client response handling via %p succeeded", buf, 0x16u);
           }
         }
       }
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (MGRemoteQueryClientDelegate)delegate

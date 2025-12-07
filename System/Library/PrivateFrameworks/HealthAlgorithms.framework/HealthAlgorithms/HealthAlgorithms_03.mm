@@ -1219,7 +1219,7 @@ void std::__variant_detail::__visitation::__base::__dispatcher<7ul>::__dispatch[
   }
 }
 
-void std::__variant_detail::__visitation::__base::__dispatcher<8ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<mimosa::v2::PacketState::update(std::variant<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&)::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&>(uint64_t **a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+void std::__variant_detail::__visitation::__base::__dispatcher<8ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<mimosa::v2::PacketState::update(std::variant<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&)::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&>(uint64_t **a1@<X0>, unsigned __int8 *a2@<X1>, uint64_t a3@<X8>)
 {
   mimosa::v2::PacketState::update_(**a1, a2, &v12);
   *a3 = v12;
@@ -1325,7 +1325,7 @@ void std::__variant_detail::__visitation::__base::__dispatcher<8ul>::__dispatch[
   }
 }
 
-void std::__variant_detail::__visitation::__base::__dispatcher<9ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<mimosa::v2::PacketState::update(std::variant<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&)::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&>(uint64_t **a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+void std::__variant_detail::__visitation::__base::__dispatcher<9ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<mimosa::v2::PacketState::update(std::variant<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&)::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&>(uint64_t **a1@<X0>, unsigned __int8 *a2@<X1>, uint64_t a3@<X8>)
 {
   mimosa::v2::PacketState::update_(**a1, a2, &v5);
   *a3 = v5;
@@ -1409,7 +1409,7 @@ void std::__variant_detail::__visitation::__base::__dispatcher<9ul>::__dispatch[
   }
 }
 
-void std::__variant_detail::__visitation::__base::__dispatcher<10ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<mimosa::v2::PacketState::update(std::variant<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&)::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&>(uint64_t **a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+void std::__variant_detail::__visitation::__base::__dispatcher<10ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<mimosa::v2::PacketState::update(std::variant<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&)::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&>(uint64_t **a1@<X0>, unsigned __int8 *a2@<X1>, uint64_t a3@<X8>)
 {
   mimosa::v2::PacketState::update_(**a1, a2, &v5);
   *a3 = v5;
@@ -1493,7 +1493,7 @@ void std::__variant_detail::__visitation::__base::__dispatcher<10ul>::__dispatch
   }
 }
 
-void std::__variant_detail::__visitation::__base::__dispatcher<11ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<mimosa::v2::PacketState::update(std::variant<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&)::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&>(uint64_t **a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+void std::__variant_detail::__visitation::__base::__dispatcher<11ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<mimosa::v2::PacketState::update(std::variant<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&)::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&>(uint64_t **a1@<X0>, unsigned __int8 *a2@<X1>, uint64_t a3@<X8>)
 {
   mimosa::v2::PacketState::update_(**a1, a2, &v5);
   *a3 = v5;
@@ -1608,8 +1608,7 @@ __n128 std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispatc
   result = *a2;
   *v2 = *a2;
   v2[1].n128_u64[0] = a2[1].n128_u64[0];
-  a2->n128_u64[0] = 0;
-  a2->n128_u64[1] = 0;
+  *a2 = 0uLL;
   a2[1].n128_u64[0] = 0;
   return result;
 }
@@ -1645,8 +1644,7 @@ __n128 std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispatc
   result = *a2;
   *v2 = *a2;
   v2[1].n128_u64[0] = a2[1].n128_u64[0];
-  a2->n128_u64[0] = 0;
-  a2->n128_u64[1] = 0;
+  *a2 = 0uLL;
   a2[1].n128_u64[0] = 0;
   return result;
 }
@@ -1703,8 +1701,7 @@ __n128 std::__optional_storage_base<std::vector<mimosa::v2::OpticalSamplesV1Subp
     result = *a2;
     *a1 = *a2;
     *(a1 + 16) = a2[1].n128_u64[0];
-    a2->n128_u64[0] = 0;
-    a2->n128_u64[1] = 0;
+    *a2 = 0uLL;
     a2[1].n128_u64[0] = 0;
     *(a1 + 24) = 1;
   }
@@ -2014,139 +2011,139 @@ void mimosa::v2::PacketState::PatchV6::~PatchV6(mimosa::v2::PacketState::PatchV6
   }
 }
 
-void mimosa::v2::encode(mimosa::v2 *this@<X0>, void **a2@<X8>)
+void mimosa::v2::encode(void **__return_ptr a1@<X8>, mimosa::v2 *this@<X0>)
 {
-  v4 = *(this + 1);
-  if (*this == v4)
+  v3 = *(this + 1);
+  if (*this == v3)
   {
     mimosa::v2::encode();
   }
 
-  v6 = 4 * (v4 - *this);
-  if (v6 != *(this + 4) - *(this + 3))
+  v5 = 4 * (v3 - *this);
+  if (v5 != *(this + 4) - *(this + 3))
   {
     mimosa::v2::encode();
   }
 
-  if (v6 != *(this + 7) - *(this + 6))
+  if (v5 != *(this + 7) - *(this + 6))
   {
     mimosa::v2::encode();
   }
 
-  *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
-  std::vector<std::byte>::reserve(a2, 0x40uLL);
-  mimosa::v2::nanite::leb128_encode<std::back_insert_iterator<std::vector<std::byte>>>(*(this + 1) - *this, a2);
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  std::vector<std::byte>::reserve(a1, 0x40uLL);
+  mimosa::v2::nanite::leb128_encode<std::back_insert_iterator<std::vector<std::byte>>>(*(this + 1) - *this, a1);
+  v19 = 0;
   v20 = 0;
   v21 = 0;
-  v22 = 0;
-  std::vector<std::byte>::reserve(&v20, 0x40uLL);
-  v7 = *this;
-  v8 = *(this + 1);
-  v23 = 1;
-  v24 = &v20;
+  std::vector<std::byte>::reserve(&v19, 0x40uLL);
+  v6 = *this;
+  v7 = *(this + 1);
+  v22 = 1;
+  v23 = &v19;
+  v24 = 0;
   v25 = 0;
-  v26 = 0;
-  mimosa::v2::nanite::Codec<unsigned char,1ull,2ull,1ull,2ull,2ull,1ull,1ull,1ull,1ull,1ull,2ull,1ull,2ull,29ull>::Encoder<std::back_insert_iterator<std::vector<std::byte>>>::encode<std::__wrap_iter<unsigned char const*>>(&v23, v7, v8);
-  mimosa::v2::nanite::Codec<unsigned char,1ull,2ull,1ull,2ull,2ull,1ull,1ull,1ull,1ull,1ull,2ull,1ull,2ull,29ull>::Encoder<std::back_insert_iterator<std::vector<std::byte>>>::finalise(&v23);
-  mimosa::v2::nanite::leb128_encode<std::back_insert_iterator<std::vector<std::byte>>>(v21 - v20, a2);
+  mimosa::v2::nanite::Codec<unsigned char,1ull,2ull,1ull,2ull,2ull,1ull,1ull,1ull,1ull,1ull,2ull,1ull,2ull,29ull>::Encoder<std::back_insert_iterator<std::vector<std::byte>>>::encode<std::__wrap_iter<unsigned char const*>>(&v22, v6, v7);
+  mimosa::v2::nanite::Codec<unsigned char,1ull,2ull,1ull,2ull,2ull,1ull,1ull,1ull,1ull,1ull,2ull,1ull,2ull,29ull>::Encoder<std::back_insert_iterator<std::vector<std::byte>>>::finalise(&v22);
+  mimosa::v2::nanite::leb128_encode<std::back_insert_iterator<std::vector<std::byte>>>(v20 - v19, a1);
+  v8 = v19;
   v9 = v20;
-  v10 = v21;
-  v23 = a2;
-  if (v20 != v21)
+  v22 = a1;
+  if (v19 != v20)
   {
     do
     {
-      std::back_insert_iterator<std::vector<std::byte>>::operator=[abi:ne200100](&v23, v9++);
+      std::back_insert_iterator<std::vector<std::byte>>::operator=[abi:ne200100](&v22, v8++);
     }
 
-    while (v9 != v10);
-    v9 = v20;
+    while (v8 != v9);
+    v8 = v19;
   }
 
-  v21 = v9;
-  v19 = 0;
-  v11 = 0uLL;
+  v20 = v8;
+  v18 = 0;
+  v10 = 0uLL;
   *__p = 0u;
-  v12 = *(this + 3);
-  if (v12 != *(this + 4))
+  v11 = *(this + 3);
+  if (v11 != *(this + 4))
   {
     do
     {
-      if (*v12)
+      if (*v11)
       {
-        if (*v12 == 134480385)
+        if (*v11 == 134480385)
         {
-          LOBYTE(v23) = 17;
-          std::vector<std::byte>::push_back[abi:ne200100](__p, &v23);
+          LOBYTE(v22) = 17;
+          std::vector<std::byte>::push_back[abi:ne200100](__p, &v22);
         }
 
-        else if (*v12 == 589830)
+        else if (*v11 == 589830)
         {
-          LOBYTE(v23) = 18;
-          std::vector<std::byte>::push_back[abi:ne200100](__p, &v23);
+          LOBYTE(v22) = 18;
+          std::vector<std::byte>::push_back[abi:ne200100](__p, &v22);
         }
 
         else
         {
-          v13 = v12;
+          v12 = v11;
           do
           {
-            std::vector<std::byte>::push_back[abi:ne200100](__p, v13++);
+            std::vector<std::byte>::push_back[abi:ne200100](__p, v12++);
           }
 
-          while (v13 != (v12 + 1));
+          while (v12 != v11 + 4);
         }
       }
 
       else
       {
-        LOBYTE(v23) = 16;
-        std::vector<std::byte>::push_back[abi:ne200100](__p, &v23);
+        LOBYTE(v22) = 16;
+        std::vector<std::byte>::push_back[abi:ne200100](__p, &v22);
       }
 
-      ++v12;
+      v11 += 4;
     }
 
-    while (v12 != *(this + 4));
-    v11 = *__p;
+    while (v11 != *(this + 4));
+    v10 = *__p;
   }
 
-  v23 = 1;
-  v24 = &v20;
+  v22 = 1;
+  v23 = &v19;
+  v24 = 0;
   v25 = 0;
-  v26 = 0;
-  mimosa::v2::nanite::Codec<unsigned char,1ull,1ull,1ull,1ull,1ull,1ull,1ull,1ull,1ull,1ull,1ull,1ull,1ull,1ull,1ull,1ull,230ull,210ull,30ull>::Encoder<std::back_insert_iterator<std::vector<std::byte>>>::encode<std::__wrap_iter<unsigned char *>>(&v23, v11, *(&v11 + 1));
-  mimosa::v2::nanite::Codec<unsigned char,1ull,2ull,1ull,2ull,2ull,1ull,1ull,1ull,1ull,1ull,2ull,1ull,2ull,29ull>::Encoder<std::back_insert_iterator<std::vector<std::byte>>>::finalise(&v23);
-  mimosa::v2::nanite::leb128_encode<std::back_insert_iterator<std::vector<std::byte>>>(v21 - v20, a2);
-  mimosa::v2::nanite::leb128_encode<std::back_insert_iterator<std::vector<std::byte>>>(__p[1] - __p[0], a2);
+  mimosa::v2::nanite::Codec<unsigned char,1ull,1ull,1ull,1ull,1ull,1ull,1ull,1ull,1ull,1ull,1ull,1ull,1ull,1ull,1ull,1ull,230ull,210ull,30ull>::Encoder<std::back_insert_iterator<std::vector<std::byte>>>::encode<std::__wrap_iter<unsigned char *>>(&v22, v10, *(&v10 + 1));
+  mimosa::v2::nanite::Codec<unsigned char,1ull,2ull,1ull,2ull,2ull,1ull,1ull,1ull,1ull,1ull,2ull,1ull,2ull,29ull>::Encoder<std::back_insert_iterator<std::vector<std::byte>>>::finalise(&v22);
+  mimosa::v2::nanite::leb128_encode<std::back_insert_iterator<std::vector<std::byte>>>(v20 - v19, a1);
+  mimosa::v2::nanite::leb128_encode<std::back_insert_iterator<std::vector<std::byte>>>(__p[1] - __p[0], a1);
+  v13 = v19;
   v14 = v20;
-  v15 = v21;
-  v23 = a2;
-  while (v14 != v15)
+  v22 = a1;
+  while (v13 != v14)
   {
-    std::back_insert_iterator<std::vector<std::byte>>::operator=[abi:ne200100](&v23, v14++);
+    std::back_insert_iterator<std::vector<std::byte>>::operator=[abi:ne200100](&v22, v13++);
   }
 
-  v16 = *(this + 6);
-  v17 = *(this + 7);
-  v23 = 1;
-  v24 = a2;
+  v15 = *(this + 6);
+  v16 = *(this + 7);
+  v22 = 1;
+  v23 = a1;
+  v24 = 0;
   v25 = 0;
-  v26 = 0;
-  mimosa::v2::nanite::Codec<unsigned char,1800ull,80ull,1ull>::Encoder<std::back_insert_iterator<std::vector<std::byte>>>::encode<std::__wrap_iter<unsigned char const*>>(&v23, v16, v17);
-  mimosa::v2::nanite::Codec<unsigned char,1ull,2ull,1ull,2ull,2ull,1ull,1ull,1ull,1ull,1ull,2ull,1ull,2ull,29ull>::Encoder<std::back_insert_iterator<std::vector<std::byte>>>::finalise(&v23);
+  mimosa::v2::nanite::Codec<unsigned char,1800ull,80ull,1ull>::Encoder<std::back_insert_iterator<std::vector<std::byte>>>::encode<std::__wrap_iter<unsigned char const*>>(&v22, v15, v16);
+  mimosa::v2::nanite::Codec<unsigned char,1ull,2ull,1ull,2ull,2ull,1ull,1ull,1ull,1ull,1ull,2ull,1ull,2ull,29ull>::Encoder<std::back_insert_iterator<std::vector<std::byte>>>::finalise(&v22);
   if (__p[0])
   {
     __p[1] = __p[0];
     operator delete(__p[0]);
   }
 
-  if (v20)
+  if (v19)
   {
-    v21 = v20;
-    operator delete(v20);
+    v20 = v19;
+    operator delete(v19);
   }
 }
 
@@ -3984,36 +3981,30 @@ LABEL_29:
   *(this + 2506) = -51 * ((v45 - v44) >> 3);
 }
 
-void *std::vector<mimosa::OpticalSampleV1>::reserve(void *result, unint64_t a2)
+void std::vector<mimosa::OpticalSampleV1>::reserve(void *a1, unint64_t a2)
 {
-  if (0x8E38E38E38E38E39 * ((result[2] - *result) >> 2) < a2)
+  if (0x8E38E38E38E38E39 * ((a1[2] - *a1) >> 2) < a2)
   {
     if (a2 < 0x71C71C71C71C71DLL)
     {
-      v2 = result[1] - *result;
-      std::__allocate_at_least[abi:ne200100]<std::allocator<mimosa::OpticalSampleV1>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<mimosa::OpticalSampleV1>>(a1, a2);
     }
 
     std::vector<mimosa::OpticalSampleV1>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
-void *std::vector<mimosa::AccelSample>::reserve(void *result, unint64_t a2)
+void std::vector<mimosa::AccelSample>::reserve(void *a1, unint64_t a2)
 {
-  if (0xCCCCCCCCCCCCCCCDLL * ((result[2] - *result) >> 2) < a2)
+  if (0xCCCCCCCCCCCCCCCDLL * ((a1[2] - *a1) >> 2) < a2)
   {
     if (a2 < 0xCCCCCCCCCCCCCCDLL)
     {
-      v2 = result[1] - *result;
-      std::__allocate_at_least[abi:ne200100]<std::allocator<mimosa::AccelSample>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<mimosa::AccelSample>>(a1, a2);
     }
 
     std::vector<mimosa::OpticalSampleV1>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 __n128 mimosa::v1::Decoder::to_packet@<Q0>(mimosa::v1::Decoder *this@<X0>, uint64_t a2@<X8>)
@@ -4053,35 +4044,35 @@ __n128 mimosa::v1::Decoder::to_packet@<Q0>(mimosa::v1::Decoder *this@<X0>, uint6
   return result;
 }
 
-void std::vector<mimosa::OpticalSampleV1>::resize(void *a1, unint64_t a2)
+void std::vector<mimosa::OpticalSampleV1>::resize(void *result, unint64_t a2)
 {
-  v2 = 0x8E38E38E38E38E39 * ((a1[1] - *a1) >> 2);
+  v2 = 0x8E38E38E38E38E39 * ((result[1] - *result) >> 2);
   v3 = a2 >= v2;
   v4 = a2 - v2;
   if (v4 != 0 && v3)
   {
-    std::vector<mimosa::OpticalSampleV1>::__append(a1, v4);
+    std::vector<mimosa::OpticalSampleV1>::__append(result, v4);
   }
 
   else if (!v3)
   {
-    a1[1] = *a1 + 36 * a2;
+    result[1] = *result + 36 * a2;
   }
 }
 
-void std::vector<mimosa::AccelSample>::resize(void *a1, unint64_t a2)
+void std::vector<mimosa::AccelSample>::resize(void *result, unint64_t a2)
 {
-  v2 = 0xCCCCCCCCCCCCCCCDLL * ((a1[1] - *a1) >> 2);
+  v2 = 0xCCCCCCCCCCCCCCCDLL * ((result[1] - *result) >> 2);
   v3 = a2 >= v2;
   v4 = a2 - v2;
   if (v4 != 0 && v3)
   {
-    std::vector<mimosa::AccelSample>::__append(a1, v4);
+    std::vector<mimosa::AccelSample>::__append(result, v4);
   }
 
   else if (!v3)
   {
-    a1[1] = *a1 + 20 * a2;
+    result[1] = *result + 20 * a2;
   }
 }
 
@@ -4150,21 +4141,21 @@ void sub_2512B9D0C(_Unwind_Exception *a1)
 
 uint64_t mimosa::v1::Decoder::decode(mimosa::v1::Decoder *this, const byte *a2, uint64_t a3)
 {
-  v39 = *MEMORY[0x277D85DE8];
-  v17 = a2;
+  v38 = *MEMORY[0x277D85DE8];
+  v16 = a2;
   v5 = &a2[a3];
   while (1)
   {
-    v6 = v17;
-    if (v17 == v5)
+    v6 = v16;
+    if (v16 == v5)
     {
-      break;
+      return v5 - a2;
     }
 
     if (*(this + 2480))
     {
-      mimosa::v1::Decoder::decode_metadata(&v17, v5, v18);
-      if (v38 == 1)
+      mimosa::v1::Decoder::decode_metadata(&v16, v5, v17);
+      if (v37 == 1)
       {
         v7 = *(this + 336);
         if (!v7)
@@ -4172,7 +4163,7 @@ uint64_t mimosa::v1::Decoder::decode(mimosa::v1::Decoder *this, const byte *a2, 
           std::__throw_bad_function_call[abi:ne200100]();
         }
 
-        if ((*(*v7 + 48))(v7, v18))
+        if ((*(*v7 + 48))(v7, v17))
         {
           v8 = 0;
           *(this + 2480) = 0;
@@ -4186,47 +4177,47 @@ uint64_t mimosa::v1::Decoder::decode(mimosa::v1::Decoder *this, const byte *a2, 
       else
       {
         v9 = 0;
-        v17 = v6;
+        v16 = v6;
       }
 
       v8 = 3;
 LABEL_24:
-      if (v38 == 1)
+      if (v37 == 1)
       {
         if (__p == 1)
         {
-          if (v34)
+          if (v33)
           {
-            v35 = v34;
-            operator delete(v34);
+            v34 = v33;
+            operator delete(v33);
           }
 
-          if (v32)
+          if (v31)
           {
-            v33 = v32;
-            operator delete(v32);
+            v32 = v31;
+            operator delete(v31);
           }
 
-          if (v30)
+          if (v29)
           {
-            v31 = v30;
-            operator delete(v30);
+            v30 = v29;
+            operator delete(v29);
           }
         }
 
-        if (v29 == 1 && v28 < 0)
+        if (v28 == 1 && v27 < 0)
         {
-          operator delete(v27);
+          operator delete(v26);
         }
 
-        if (v26 == 1 && v25 < 0)
+        if (v25 == 1 && v24 < 0)
         {
-          operator delete(v24);
+          operator delete(v23);
         }
 
-        if (v23 == 1 && SHIBYTE(v22) < 0)
+        if (v22 == 1 && SHIBYTE(v21) < 0)
         {
-          operator delete(v21);
+          operator delete(v20);
         }
       }
 
@@ -4238,50 +4229,50 @@ LABEL_24:
       goto LABEL_42;
     }
 
-    if (*v17)
+    if (*v16)
     {
       mimosa::v1::Decoder::reset(this);
 LABEL_47:
       v5 = v6;
-      break;
+      return v5 - a2;
     }
 
-    mimosa::v1::Decoder::PatchHeader::parse_representation(v17, v5, &v13);
-    if (v15 != 1 || v5 - v16 < v14)
+    mimosa::v1::Decoder::PatchHeader::parse_representation(v16, v5, &v12);
+    if (v14 != 1 || v5 - v15 < v13)
     {
       goto LABEL_47;
     }
 
-    v6 = &v16[v14];
-    mimosa::v1::Decoder::decode_patch(this, &v13, v16, v6, v18);
-    mimosa::v1::Decoder::apply_patch(this, v18);
+    v6 = &v15[v13];
+    mimosa::v1::Decoder::decode_patch(this, &v12, v15, v6, v17);
+    mimosa::v1::Decoder::apply_patch(this, v17);
     if (__p)
     {
-      v37 = __p;
+      v36 = __p;
       operator delete(__p);
     }
 
-    if (v34)
+    if (v33)
     {
-      v35 = v34;
-      operator delete(v34);
+      v34 = v33;
+      operator delete(v33);
     }
 
-    mimosa::v1::Decoder::to_packet(this, v18);
-    v10 = std::function<BOOL ()(mimosa::PacketV1 const&,double)>::operator()(this + 2696, v18, *(this + 312));
-    if (v22)
+    mimosa::v1::Decoder::to_packet(this, v17);
+    v10 = std::function<BOOL ()(mimosa::PacketV1 const&,double)>::operator()(this + 2696, v17, *(this + 312));
+    if (v21)
     {
-      v23 = v22;
-      operator delete(v22);
+      v22 = v21;
+      operator delete(v21);
     }
 
-    if (v19)
+    if (v18)
     {
-      v20 = v19;
-      operator delete(v19);
+      v19 = v18;
+      operator delete(v18);
     }
 
-    v17 = v6;
+    v16 = v6;
     if ((v10 & 1) == 0)
     {
       goto LABEL_47;
@@ -4292,18 +4283,15 @@ LABEL_42:
 LABEL_43:
     if (v8)
     {
-      v5 = v17;
-      break;
+      v5 = v16;
+      return v5 - a2;
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
-  return v5 - a2;
 }
 
-void sub_2512BA010(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_2512BA010(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   if (LOBYTE(STACK[0x9D0]) == 1)
   {
     mimosa::Metadata::~Metadata(va);
@@ -4314,66 +4302,66 @@ void sub_2512BA010(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 double mimosa::v1::Decoder::reset(mimosa::v1::Decoder *this)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
+  LOBYTE(v5) = 0;
+  BYTE4(v5) = 0;
+  BYTE8(v5) = 0;
+  BYTE12(v5) = 0;
   LOBYTE(v6) = 0;
-  BYTE4(v6) = 0;
-  BYTE8(v6) = 0;
-  BYTE12(v6) = 0;
-  LOBYTE(v7) = 0;
-  LOWORD(v8) = 0;
-  v10.n128_u8[0] = 0;
-  v12 = 0;
-  v13.n128_u8[0] = 0;
-  v15 = 0;
-  v16.n128_u8[0] = 0;
-  v18 = 0;
-  LOBYTE(v19[0]) = 0;
-  v24 = 0;
-  v25[0] = 0;
-  v25[2244] = 0;
-  *(this + 24) = v9;
-  *(this + 1) = v7;
-  *(this + 2) = v8;
-  *this = v6;
-  std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>(this + 56, &v10);
-  std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>(this + 88, &v13);
-  std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>(this + 120, &v16);
-  std::__optional_storage_base<mimosa::LightPathSemantics,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<mimosa::LightPathSemantics,false>>(this + 152, v19);
-  memcpy(this + 232, v25, 0x8C5uLL);
-  if (v24 == 1)
+  LOWORD(v7) = 0;
+  v9.n128_u8[0] = 0;
+  v11 = 0;
+  v12.n128_u8[0] = 0;
+  v14 = 0;
+  v15.n128_u8[0] = 0;
+  v17 = 0;
+  LOBYTE(v18[0]) = 0;
+  v23 = 0;
+  v24[0] = 0;
+  v24[2244] = 0;
+  *(this + 24) = v8;
+  *(this + 1) = v6;
+  *(this + 2) = v7;
+  *this = v5;
+  std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>(this + 56, &v9);
+  std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>(this + 88, &v12);
+  std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>(this + 120, &v15);
+  std::__optional_storage_base<mimosa::LightPathSemantics,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<mimosa::LightPathSemantics,false>>(this + 152, v18);
+  memcpy(this + 232, v24, 0x8C5uLL);
+  if (v23 == 1)
   {
     if (__p)
     {
-      v23 = __p;
+      v22 = __p;
       operator delete(__p);
     }
 
-    if (v20)
+    if (v19)
     {
-      v21 = v20;
-      operator delete(v20);
+      v20 = v19;
+      operator delete(v19);
     }
 
-    if (v19[0])
+    if (v18[0])
     {
-      v19[1] = v19[0];
-      operator delete(v19[0]);
+      v18[1] = v18[0];
+      operator delete(v18[0]);
     }
   }
 
-  if (v18 == 1 && v17 < 0)
+  if (v17 == 1 && v16 < 0)
   {
-    operator delete(v16.n128_u64[0]);
+    operator delete(v15.n128_u64[0]);
   }
 
-  if (v15 == 1 && v14 < 0)
+  if (v14 == 1 && v13 < 0)
   {
-    operator delete(v13.n128_u64[0]);
+    operator delete(v12.n128_u64[0]);
   }
 
-  if (v12 == 1 && v11 < 0)
+  if (v11 == 1 && v10 < 0)
   {
-    operator delete(v10.n128_u64[0]);
+    operator delete(v9.n128_u64[0]);
   }
 
   *(this + 2480) = 1;
@@ -4412,7 +4400,6 @@ double mimosa::v1::Decoder::reset(mimosa::v1::Decoder *this)
   *(this + 330) = 0;
   *(this + 332) = 0;
   *(this + 331) = 0;
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -4428,52 +4415,52 @@ void sub_2512BA26C(_Unwind_Exception *a1, int a2)
 
 void mimosa::v1::Decoder::decode_metadata(unsigned __int8 **a1@<X1>, unsigned __int8 *a2@<X2>, uint64_t a3@<X8>)
 {
-  v39 = *MEMORY[0x277D85DE8];
-  v22 = *a1;
+  v38 = *MEMORY[0x277D85DE8];
+  v21 = *a1;
+  LOBYTE(v22) = 0;
+  BYTE4(v22) = 0;
+  BYTE8(v22) = 0;
+  BYTE12(v22) = 0;
   LOBYTE(v23) = 0;
-  BYTE4(v23) = 0;
-  BYTE8(v23) = 0;
-  BYTE12(v23) = 0;
-  LOBYTE(v24) = 0;
-  *v25 = 0;
-  v25[17] = 0;
+  *v24 = 0;
+  v24[17] = 0;
   __p.__r_.__value_.__s.__data_[0] = 0;
-  v27 = 0;
-  v28.__r_.__value_.__s.__data_[0] = 0;
-  v29 = 0;
-  v30.__r_.__value_.__s.__data_[0] = 0;
-  v31 = 0;
-  LOBYTE(v32[0]) = 0;
-  v37 = 0;
-  v38[0] = 0;
-  v38[2244] = 0;
-  if (a2 - v22 > 1 && (v6 = mimosa::v1::decode_verbatim<unsigned short,true>(&v22, a2), v7 = v22, a2 - v22 >= v6))
+  v26 = 0;
+  v27.__r_.__value_.__s.__data_[0] = 0;
+  v28 = 0;
+  v29.__r_.__value_.__s.__data_[0] = 0;
+  v30 = 0;
+  LOBYTE(v31[0]) = 0;
+  v36 = 0;
+  v37[0] = 0;
+  v37[2244] = 0;
+  if (a2 - v21 > 1 && (v6 = mimosa::v1::decode_verbatim<unsigned short,true>(&v21, a2), v7 = v21, a2 - v21 >= v6))
   {
     v9 = v6;
-    for (i = &v22[v6]; v22 < i; v7 = v22)
+    for (i = &v21[v6]; v21 < i; v7 = v21)
     {
-      v11 = mimosa::v1::decode_verbatim<unsigned char,true>(&v22, a2);
+      v11 = mimosa::v1::decode_verbatim<unsigned char,true>(&v21, a2);
       if (v11 > 5)
       {
         if (v11 > 7)
         {
           if (v11 == 8)
           {
-            mimosa::v1::decode_metadata_string(&v22, a2, &v21);
-            if (v29 == 1)
+            mimosa::v1::decode_metadata_string(&v21, a2, &v20);
+            if (v28 == 1)
             {
-              if (SHIBYTE(v28.__r_.__value_.__r.__words[2]) < 0)
+              if (SHIBYTE(v27.__r_.__value_.__r.__words[2]) < 0)
               {
-                operator delete(v28.__r_.__value_.__l.__data_);
+                operator delete(v27.__r_.__value_.__l.__data_);
               }
 
-              v28 = v21;
+              v27 = v20;
             }
 
             else
             {
-              v28 = v21;
-              v29 = 1;
+              v27 = v20;
+              v28 = 1;
             }
           }
 
@@ -4484,52 +4471,52 @@ void mimosa::v1::Decoder::decode_metadata(unsigned __int8 **a1@<X1>, unsigned __
               goto LABEL_63;
             }
 
-            mimosa::v1::decode_metadata_string(&v22, a2, &v21);
-            if (v31 == 1)
+            mimosa::v1::decode_metadata_string(&v21, a2, &v20);
+            if (v30 == 1)
             {
-              if (SHIBYTE(v30.__r_.__value_.__r.__words[2]) < 0)
+              if (SHIBYTE(v29.__r_.__value_.__r.__words[2]) < 0)
               {
-                operator delete(v30.__r_.__value_.__l.__data_);
+                operator delete(v29.__r_.__value_.__l.__data_);
               }
 
-              v30 = v21;
+              v29 = v20;
             }
 
             else
             {
-              v30 = v21;
-              v31 = 1;
+              v29 = v20;
+              v30 = 1;
             }
           }
         }
 
         else if (v11 == 6)
         {
-          *&v25[1] = mimosa::v1::decode_uuid(&v22, a2);
-          *&v25[9] = v13;
-          if ((v25[17] & 1) == 0)
+          *&v24[1] = mimosa::v1::decode_uuid(&v21, a2);
+          *&v24[9] = v13;
+          if ((v24[17] & 1) == 0)
           {
-            v25[17] = 1;
+            v24[17] = 1;
           }
         }
 
         else
         {
-          mimosa::v1::decode_metadata_string(&v22, a2, &v21);
-          if (v27 == 1)
+          mimosa::v1::decode_metadata_string(&v21, a2, &v20);
+          if (v26 == 1)
           {
             if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
             {
               operator delete(__p.__r_.__value_.__l.__data_);
             }
 
-            __p = v21;
+            __p = v20;
           }
 
           else
           {
-            __p = v21;
-            v27 = 1;
+            __p = v20;
+            v26 = 1;
           }
         }
       }
@@ -4538,8 +4525,8 @@ void mimosa::v1::Decoder::decode_metadata(unsigned __int8 **a1@<X1>, unsigned __
       {
         if (v11 == 1)
         {
-          LODWORD(v23) = mimosa::v1::decode_verbatim<unsigned int,true>(&v22, a2);
-          BYTE4(v23) = 1;
+          LODWORD(v22) = mimosa::v1::decode_verbatim<unsigned int,true>(&v21, a2);
+          BYTE4(v22) = 1;
         }
 
         else
@@ -4549,8 +4536,8 @@ void mimosa::v1::Decoder::decode_metadata(unsigned __int8 **a1@<X1>, unsigned __
             goto LABEL_63;
           }
 
-          DWORD2(v23) = mimosa::v1::decode_verbatim<unsigned int,true>(&v22, a2);
-          BYTE12(v23) = 1;
+          DWORD2(v22) = mimosa::v1::decode_verbatim<unsigned int,true>(&v21, a2);
+          BYTE12(v22) = 1;
         }
       }
 
@@ -4559,44 +4546,44 @@ void mimosa::v1::Decoder::decode_metadata(unsigned __int8 **a1@<X1>, unsigned __
         if (v11 != 5)
         {
 LABEL_63:
-          v16 = v11;
+          v15 = v11;
           exception = __cxa_allocate_exception(0x10uLL);
-          std::to_string(&v20, v16);
-          v18 = std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("unrecognized key: ", &v20, &v21);
-          MEMORY[0x25306FCE0](exception, &v21, v18);
+          std::to_string(&v19, v15);
+          v17 = std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("unrecognized key: ", &v19, &v20);
+          MEMORY[0x25306FCE0](exception, &v20, v17);
           __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
         }
 
-        *&v24 = mimosa::v1::decode_uuid(&v22, a2);
-        *(&v24 + 1) = v12;
-        if ((v25[0] & 1) == 0)
+        *&v23 = mimosa::v1::decode_uuid(&v21, a2);
+        *(&v23 + 1) = v12;
+        if ((v24[0] & 1) == 0)
         {
-          v25[0] = 1;
+          v24[0] = 1;
         }
       }
 
       else
       {
-        mimosa::v1::decode_verbatim<unsigned int,true>(&v22, a2);
+        mimosa::v1::decode_verbatim<unsigned int,true>(&v21, a2);
       }
     }
 
     if (v7 != &(*a1)[v9 + 2])
     {
-      v19 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v19, "something went wrong during v1 metadata decoding");
-      __cxa_throw(v19, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+      v18 = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(v18, "something went wrong during v1 metadata decoding");
+      __cxa_throw(v18, MEMORY[0x277D82760], MEMORY[0x277D82600]);
     }
 
     *a1 = v7;
-    v14 = v24;
-    *a3 = v23;
+    v14 = v23;
+    *a3 = v22;
     *(a3 + 16) = v14;
-    *(a3 + 32) = *v25;
-    *(a3 + 48) = *&v25[16];
+    *(a3 + 32) = *v24;
+    *(a3 + 48) = *&v24[16];
     *(a3 + 56) = 0;
     *(a3 + 80) = 0;
-    if (v27 == 1)
+    if (v26 == 1)
     {
       *(a3 + 56) = __p;
       memset(&__p, 0, sizeof(__p));
@@ -4605,24 +4592,24 @@ LABEL_63:
 
     *(a3 + 88) = 0;
     *(a3 + 112) = 0;
-    if (v29 == 1)
+    if (v28 == 1)
     {
-      *(a3 + 88) = v28;
-      memset(&v28, 0, sizeof(v28));
+      *(a3 + 88) = v27;
+      memset(&v27, 0, sizeof(v27));
       *(a3 + 112) = 1;
     }
 
     *(a3 + 120) = 0;
     *(a3 + 144) = 0;
-    if (v31 == 1)
+    if (v30 == 1)
     {
-      *(a3 + 120) = v30;
-      memset(&v30, 0, sizeof(v30));
+      *(a3 + 120) = v29;
+      memset(&v29, 0, sizeof(v29));
       *(a3 + 144) = 1;
     }
 
-    std::__optional_move_base<mimosa::LightPathSemantics,false>::__optional_move_base[abi:ne200100]((a3 + 152), v32);
-    memcpy((a3 + 232), v38, 0x8C8uLL);
+    std::__optional_move_base<mimosa::LightPathSemantics,false>::__optional_move_base[abi:ne200100]((a3 + 152), v31);
+    memcpy((a3 + 232), v37, 0x8C8uLL);
     v8 = 1;
   }
 
@@ -4633,43 +4620,41 @@ LABEL_63:
   }
 
   *(a3 + 2480) = v8;
-  if (v37 == 1)
+  if (v36 == 1)
   {
-    if (v35)
+    if (v34)
     {
-      v36 = v35;
-      operator delete(v35);
+      v35 = v34;
+      operator delete(v34);
     }
 
-    if (v33)
+    if (v32)
     {
-      v34 = v33;
-      operator delete(v33);
+      v33 = v32;
+      operator delete(v32);
     }
 
-    if (v32[0])
+    if (v31[0])
     {
-      v32[1] = v32[0];
-      operator delete(v32[0]);
+      v31[1] = v31[0];
+      operator delete(v31[0]);
     }
   }
 
-  if (v31 == 1 && SHIBYTE(v30.__r_.__value_.__r.__words[2]) < 0)
+  if (v30 == 1 && SHIBYTE(v29.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v30.__r_.__value_.__l.__data_);
+    operator delete(v29.__r_.__value_.__l.__data_);
   }
 
-  if (v29 == 1 && SHIBYTE(v28.__r_.__value_.__r.__words[2]) < 0)
+  if (v28 == 1 && SHIBYTE(v27.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v28.__r_.__value_.__l.__data_);
+    operator delete(v27.__r_.__value_.__l.__data_);
   }
 
-  if (v27 == 1 && SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+  if (v26 == 1 && SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2512BA7C8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, uint64_t a21, char a22)
@@ -4699,7 +4684,7 @@ LABEL_8:
   goto LABEL_8;
 }
 
-void mimosa::v1::Decoder::decode_patch(unsigned __int8 *a1@<X0>, int *a2@<X1>, uint64_t *a3@<X2>, uint64_t *a4@<X3>, uint64_t a5@<X8>)
+void mimosa::v1::Decoder::decode_patch(unsigned __int8 *a1@<X0>, int *a2@<X1>, char *a3@<X2>, char *a4@<X3>, uint64_t a5@<X8>)
 {
   v43 = a3;
   *a5 = 0;
@@ -4714,7 +4699,7 @@ void mimosa::v1::Decoder::decode_patch(unsigned __int8 *a1@<X0>, int *a2@<X1>, u
   v8 = a5 + 48;
   *(a5 + 52) = 0;
   *(a5 + 56) = 0;
-  v9 = a5 + 56;
+  v9 = (a5 + 56);
   *(a5 + 72) = 0;
   v10 = a5 + 72;
   *(a5 + 64) = 0;
@@ -4729,7 +4714,7 @@ void mimosa::v1::Decoder::decode_patch(unsigned __int8 *a1@<X0>, int *a2@<X1>, u
   *(a5 + 100) = 0;
   *(a5 + 112) = 0;
   *(a5 + 120) = 0;
-  v40 = a5 + 120;
+  v40 = (a5 + 120);
   *(a5 + 124) = 0;
   *(a5 + 128) = 0;
   v39 = a5 + 128;
@@ -4771,7 +4756,7 @@ void mimosa::v1::Decoder::decode_patch(unsigned __int8 *a1@<X0>, int *a2@<X1>, u
     }
 
     v16 = *a3;
-    v43 = a3 + 1;
+    v43 = a3 + 8;
     *a5 = v16;
     *(a5 + 8) = 1;
   }
@@ -5172,7 +5157,7 @@ uint64_t mimosa::v1::decode_verbatim<unsigned int,true>(unsigned int **a1, uint6
 
 uint64_t mimosa::v1::decode_uuid(uint64_t *a1, uint64_t a2)
 {
-  v7[2] = *MEMORY[0x277D85DE8];
+  v6[2] = *MEMORY[0x277D85DE8];
   v2 = *a1;
   if (a2 - *a1 < 16)
   {
@@ -5184,12 +5169,10 @@ uint64_t mimosa::v1::decode_uuid(uint64_t *a1, uint64_t a2)
   for (i = 0; i != 16; ++i)
   {
     *a1 = v2 + i + 1;
-    *(v7 + i) = *(v2 + i);
+    *(v6 + i) = *(v2 + i);
   }
 
-  result = v7[0];
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return v6[0];
 }
 
 void mimosa::v1::decode_metadata_string(unsigned __int8 **a1@<X0>, unsigned __int8 *a2@<X1>, uint64_t a3@<X8>)
@@ -5272,35 +5255,35 @@ LABEL_8:
   }
 }
 
-void std::vector<mimosa::v1::Decoder::Patch::OpticalSamplePatch>::resize(void *a1, unint64_t a2)
+void std::vector<mimosa::v1::Decoder::Patch::OpticalSamplePatch>::resize(void *result, unint64_t a2)
 {
-  v2 = 0x8E38E38E38E38E39 * ((a1[1] - *a1) >> 3);
+  v2 = 0x8E38E38E38E38E39 * ((result[1] - *result) >> 3);
   v3 = a2 >= v2;
   v4 = a2 - v2;
   if (v4 != 0 && v3)
   {
-    std::vector<mimosa::v1::Decoder::Patch::OpticalSamplePatch>::__append(a1, v4);
+    std::vector<mimosa::v1::Decoder::Patch::OpticalSamplePatch>::__append(result, v4);
   }
 
   else if (!v3)
   {
-    a1[1] = *a1 + 72 * a2;
+    result[1] = *result + 72 * a2;
   }
 }
 
-void std::vector<mimosa::v1::Decoder::Patch::AccelSamplePatch>::resize(void *a1, unint64_t a2)
+void std::vector<mimosa::v1::Decoder::Patch::AccelSamplePatch>::resize(void *result, unint64_t a2)
 {
-  v2 = 0xCCCCCCCCCCCCCCCDLL * ((a1[1] - *a1) >> 3);
+  v2 = 0xCCCCCCCCCCCCCCCDLL * ((result[1] - *result) >> 3);
   v3 = a2 >= v2;
   v4 = a2 - v2;
   if (v4 != 0 && v3)
   {
-    std::vector<mimosa::v1::Decoder::Patch::AccelSamplePatch>::__append(a1, v4);
+    std::vector<mimosa::v1::Decoder::Patch::AccelSamplePatch>::__append(result, v4);
   }
 
   else if (!v3)
   {
-    a1[1] = *a1 + 40 * a2;
+    result[1] = *result + 40 * a2;
   }
 }
 
@@ -5392,13 +5375,13 @@ void mimosa::v1::Decoder::decode_pgg_flag_changes(uint64_t a1, uint64_t a2, unsi
       v14 = 0;
       v15 = 0;
       v16 = (v13 >> 3);
-      v17 = *a3 + 1;
+      v17 = (*a3 + 1);
       do
       {
         *a3 = v17;
         v15 |= *(v17 - 1) << v14;
         v14 += 8;
-        ++v17;
+        v17 = (v17 + 1);
         --v16;
       }
 
@@ -5645,7 +5628,7 @@ LABEL_6:
   }
 }
 
-void *std::vector<mimosa::OpticalSampleV1>::__assign_with_size[abi:ne200100]<mimosa::OpticalSampleV1*,mimosa::OpticalSampleV1*>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<mimosa::OpticalSampleV1>::__assign_with_size[abi:ne200100]<mimosa::OpticalSampleV1*,mimosa::OpticalSampleV1*>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -5786,7 +5769,7 @@ void std::vector<mimosa::OpticalSampleV1>::__append(uint64_t a1, unint64_t a2)
   }
 }
 
-void *std::vector<mimosa::AccelSample>::__assign_with_size[abi:ne200100]<mimosa::AccelSample*,mimosa::AccelSample*>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<mimosa::AccelSample>::__assign_with_size[abi:ne200100]<mimosa::AccelSample*,mimosa::AccelSample*>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -6154,8 +6137,7 @@ __n128 std::__optional_storage_base<std::string,false>::__assign_from[abi:ne2001
     result = *a2;
     *(a1 + 16) = a2[1].n128_u64[0];
     *a1 = result;
-    a2->n128_u64[1] = 0;
-    a2[1].n128_u64[0] = 0;
+    *(a2 + 8) = 0uLL;
     a2->n128_u64[0] = 0;
     *(a1 + 24) = 1;
   }
@@ -6238,36 +6220,35 @@ uint64_t std::__function::__value_func<BOOL ()(mimosa::PacketV1 const&,double)>:
 
 uint64_t mimosa::Decoder::Decoder(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v7 = std::__function::__value_func<BOOL ()(mimosa::CodecVersion const&)>::__value_func[abi:ne200100](a1, a2);
   std::__function::__value_func<BOOL ()(mimosa::Metadata const&)>::__value_func[abi:ne200100](v7 + 32, a3);
   std::__function::__value_func<BOOL ()(std::variant<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&,double)>::__value_func[abi:ne200100](a1 + 64, a4);
-  std::__function::__value_func<BOOL ()(mimosa::Metadata const&)>::__value_func[abi:ne200100](v11, a3);
-  std::__function::__value_func<BOOL ()(std::variant<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&,double)>::__value_func[abi:ne200100](v10, a4);
-  mimosa::v2::Decoder::Decoder(v12, v11, v10);
-  mimosa::v2::Decoder::Decoder(a1 + 96, v12);
+  std::__function::__value_func<BOOL ()(mimosa::Metadata const&)>::__value_func[abi:ne200100](v10, a3);
+  std::__function::__value_func<BOOL ()(std::variant<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&,double)>::__value_func[abi:ne200100](v9, a4);
+  mimosa::v2::Decoder::Decoder(v11, v10, v9);
+  mimosa::v2::Decoder::Decoder(a1 + 96, v11);
   *(a1 + 2824) = 1;
-  mimosa::v2::Decoder::~Decoder(v12);
-  std::__function::__value_func<BOOL ()(std::variant<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&,double)>::~__value_func[abi:ne200100](v10);
-  std::__function::__value_func<BOOL ()(mimosa::Metadata const&)>::~__value_func[abi:ne200100](v11);
+  mimosa::v2::Decoder::~Decoder(v11);
+  std::__function::__value_func<BOOL ()(std::variant<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&,double)>::~__value_func[abi:ne200100](v9);
+  std::__function::__value_func<BOOL ()(mimosa::Metadata const&)>::~__value_func[abi:ne200100](v10);
   *(a1 + 2832) = 1;
-  v8 = *MEMORY[0x277D85DE8];
   return a1;
 }
 
-void sub_2512BC90C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2512BC90C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v4 = va_arg(va1, void);
-  v6 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v5 = va_arg(va1, void);
   v7 = va_arg(va1, void);
   v8 = va_arg(va1, void);
+  v9 = va_arg(va1, void);
   std::__function::__value_func<BOOL ()(std::variant<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&,double)>::~__value_func[abi:ne200100](va);
   std::__function::__value_func<BOOL ()(mimosa::Metadata const&)>::~__value_func[abi:ne200100](va1);
-  std::__function::__value_func<BOOL ()(std::variant<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&,double)>::~__value_func[abi:ne200100](v2 + 64);
-  std::__function::__value_func<BOOL ()(mimosa::Metadata const&)>::~__value_func[abi:ne200100](v2 + 32);
-  std::__function::__value_func<BOOL ()(mimosa::CodecVersion const&)>::~__value_func[abi:ne200100](v2);
+  std::__function::__value_func<BOOL ()(std::variant<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&,double)>::~__value_func[abi:ne200100](v3 + 64);
+  std::__function::__value_func<BOOL ()(mimosa::Metadata const&)>::~__value_func[abi:ne200100](v3 + 32);
+  std::__function::__value_func<BOOL ()(mimosa::CodecVersion const&)>::~__value_func[abi:ne200100](v3);
   _Unwind_Resume(a1);
 }
 
@@ -6309,8 +6290,8 @@ uint64_t mimosa::Decoder::decode_version_if_needed(mimosa::Decoder *this, const 
 
 uint64_t mimosa::Decoder::select_codec_for_version(std::string::size_type a1, __int16 a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v10 = a2;
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = a2;
   if (a2 == 2)
   {
     if (HIBYTE(a2) <= 8u)
@@ -6323,16 +6304,16 @@ uint64_t mimosa::Decoder::select_codec_for_version(std::string::size_type a1, __
 
 LABEL_8:
     exception = __cxa_allocate_exception(0x10uLL);
-    mimosa::CodecVersion::operator std::string(&v10, &v9);
-    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("unsupported codec version (", &v9, &v11);
-    v7 = std::string::append(&v11, ")", 1uLL);
-    v8 = *&v7->__r_.__value_.__l.__data_;
-    v14 = v7->__r_.__value_.__r.__words[2];
-    v13 = v8;
-    v7->__r_.__value_.__l.__size_ = 0;
-    v7->__r_.__value_.__r.__words[2] = 0;
-    v7->__r_.__value_.__r.__words[0] = 0;
-    MEMORY[0x25306FCE0](exception, &v13);
+    mimosa::CodecVersion::operator std::string(&v9, &v8);
+    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("unsupported codec version (", &v8, &v10);
+    v6 = std::string::append(&v10, ")", 1uLL);
+    v7 = *&v6->__r_.__value_.__l.__data_;
+    v13 = v6->__r_.__value_.__r.__words[2];
+    v12 = v7;
+    v6->__r_.__value_.__l.__size_ = 0;
+    v6->__r_.__value_.__r.__words[2] = 0;
+    v6->__r_.__value_.__r.__words[0] = 0;
+    MEMORY[0x25306FCE0](exception, &v12);
     __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
   }
 
@@ -6342,17 +6323,16 @@ LABEL_8:
   }
 
   std::__variant_detail::__dtor<std::__variant_detail::__traits<mimosa::v1::Decoder,mimosa::v2::Decoder>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](a1 + 96);
-  std::__function::__value_func<BOOL ()(mimosa::Metadata const&)>::__value_func[abi:ne200100](&v13, a1 + 32);
-  v11.__r_.__value_.__r.__words[0] = &unk_286352E18;
-  v11.__r_.__value_.__l.__size_ = a1;
-  v12 = &v11;
-  mimosa::v1::Decoder::Decoder(a1 + 96, &v13, &v11);
-  std::__function::__value_func<BOOL ()(mimosa::PacketV1 const&,double)>::~__value_func[abi:ne200100](&v11);
-  result = std::__function::__value_func<BOOL ()(mimosa::Metadata const&)>::~__value_func[abi:ne200100](&v13);
+  std::__function::__value_func<BOOL ()(mimosa::Metadata const&)>::__value_func[abi:ne200100](&v12, a1 + 32);
+  v10.__r_.__value_.__r.__words[0] = &unk_286352E18;
+  v10.__r_.__value_.__l.__size_ = a1;
+  v11 = &v10;
+  mimosa::v1::Decoder::Decoder(a1 + 96, &v12, &v10);
+  std::__function::__value_func<BOOL ()(mimosa::PacketV1 const&,double)>::~__value_func[abi:ne200100](&v10);
+  result = std::__function::__value_func<BOOL ()(mimosa::Metadata const&)>::~__value_func[abi:ne200100](&v12);
   v4 = 0;
 LABEL_7:
   *(a1 + 2824) = v4;
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -6558,24 +6538,23 @@ uint64_t std::function<BOOL ()(std::variant<mimosa::PacketV1,mimosa::PacketV2,mi
 
 uint64_t std::__variant_detail::__alt<1ul,mimosa::v2::Decoder>::__alt[abi:ne200100]<std::function<BOOL ()(mimosa::Metadata const&)> const&,std::function<BOOL ()(std::variant<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&,double)> const&>(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  std::__function::__value_func<BOOL ()(mimosa::Metadata const&)>::__value_func[abi:ne200100](v8, a2);
-  std::__function::__value_func<BOOL ()(std::variant<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&,double)>::__value_func[abi:ne200100](v7, a3);
-  mimosa::v2::Decoder::Decoder(a1, v8, v7);
-  std::__function::__value_func<BOOL ()(std::variant<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&,double)>::~__value_func[abi:ne200100](v7);
-  std::__function::__value_func<BOOL ()(mimosa::Metadata const&)>::~__value_func[abi:ne200100](v8);
-  v5 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
+  std::__function::__value_func<BOOL ()(mimosa::Metadata const&)>::__value_func[abi:ne200100](v7, a2);
+  std::__function::__value_func<BOOL ()(std::variant<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&,double)>::__value_func[abi:ne200100](v6, a3);
+  mimosa::v2::Decoder::Decoder(a1, v7, v6);
+  std::__function::__value_func<BOOL ()(std::variant<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&,double)>::~__value_func[abi:ne200100](v6);
+  std::__function::__value_func<BOOL ()(mimosa::Metadata const&)>::~__value_func[abi:ne200100](v7);
   return a1;
 }
 
-void sub_2512BD210(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2512BD210(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
   v6 = va_arg(va1, void);
   v7 = va_arg(va1, void);
+  v8 = va_arg(va1, void);
   std::__function::__value_func<BOOL ()(std::variant<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&,double)>::~__value_func[abi:ne200100](va);
   std::__function::__value_func<BOOL ()(mimosa::Metadata const&)>::~__value_func[abi:ne200100](va1);
   _Unwind_Resume(a1);
@@ -6594,7 +6573,7 @@ uint64_t **mimosa::v2::WavelengthV3SubpacketState::update@<X0>(uint64_t a1@<X0>,
   *(a3 + 8) = v8;
   *(a1 + 146) = v7;
   *&v26 = a1 + 147;
-  v9 = *(std::__hash_table<std::__hash_value_type<unsigned char,unsigned char>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,unsigned char>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,unsigned char>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,unsigned char>>>::__emplace_unique_key_args<unsigned char,std::piecewise_construct_t const&,std::tuple<unsigned char const&>,std::tuple<>>((a1 + 64), (a1 + 147)) + 17);
+  v9 = *(std::__hash_table<std::__hash_value_type<unsigned char,unsigned char>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,unsigned char>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,unsigned char>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,unsigned char>>>::__emplace_unique_key_args<unsigned char,std::piecewise_construct_t const&,std::tuple<unsigned char const&>,std::tuple<>>((a1 + 64), (a1 + 147), &std::piecewise_construct, &v26) + 17);
   *(a1 + 147) = v9;
   if (*(a2 + 126))
   {
@@ -6655,7 +6634,7 @@ uint64_t **mimosa::v2::WavelengthV3SubpacketState::update@<X0>(uint64_t a1@<X0>,
       while (v19 != 18);
 LABEL_17:
       *&v26 = a1 + 146;
-      *(std::__hash_table<std::__hash_value_type<unsigned char,unsigned char>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,unsigned char>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,unsigned char>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,unsigned char>>>::__emplace_unique_key_args<unsigned char,std::piecewise_construct_t const&,std::tuple<unsigned char const&>,std::tuple<>>((a1 + 64), (a1 + 146)) + 17) = v13;
+      *(std::__hash_table<std::__hash_value_type<unsigned char,unsigned char>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,unsigned char>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,unsigned char>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,unsigned char>>>::__emplace_unique_key_args<unsigned char,std::piecewise_construct_t const&,std::tuple<unsigned char const&>,std::tuple<>>((a1 + 64), (a1 + 146), &std::piecewise_construct, &v26) + 17) = v13;
       goto LABEL_18;
     }
 
@@ -6686,7 +6665,7 @@ LABEL_18:
   for (i = 24; i != 96; i += 8)
   {
     *&v26 = v22;
-    result = std::__hash_table<std::__hash_value_type<unsigned short,unsigned int>,std::__unordered_map_hasher<unsigned short,std::__hash_value_type<unsigned short,unsigned int>,std::hash<unsigned short>,std::equal_to<unsigned short>,true>,std::__unordered_map_equal<unsigned short,std::__hash_value_type<unsigned short,unsigned int>,std::equal_to<unsigned short>,std::hash<unsigned short>,true>,std::allocator<std::__hash_value_type<unsigned short,unsigned int>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>((a1 + 104), v22);
+    result = std::__hash_table<std::__hash_value_type<unsigned short,unsigned int>,std::__unordered_map_hasher<unsigned short,std::__hash_value_type<unsigned short,unsigned int>,std::hash<unsigned short>,std::equal_to<unsigned short>,true>,std::__unordered_map_equal<unsigned short,std::__hash_value_type<unsigned short,unsigned int>,std::equal_to<unsigned short>,std::hash<unsigned short>,true>,std::allocator<std::__hash_value_type<unsigned short,unsigned int>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>((a1 + 104), v22, &std::piecewise_construct, &v26);
     v25 = *(result + 5) + *(a2 + i);
     *(result + 5) = v25;
     *(v22 - 1) = v25;
@@ -6712,7 +6691,7 @@ LABEL_18:
   *(a3 + 16) = v20;
   *(a1 + 146) = v6;
   *&v19 = a1 + 147;
-  *(a1 + 147) = *(std::__hash_table<std::__hash_value_type<unsigned char,unsigned char>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,unsigned char>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,unsigned char>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,unsigned char>>>::__emplace_unique_key_args<unsigned char,std::piecewise_construct_t const&,std::tuple<unsigned char const&>,std::tuple<>>((a1 + 64), (a1 + 147)) + 17);
+  *(a1 + 147) = *(std::__hash_table<std::__hash_value_type<unsigned char,unsigned char>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,unsigned char>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,unsigned char>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,unsigned char>>>::__emplace_unique_key_args<unsigned char,std::piecewise_construct_t const&,std::tuple<unsigned char const&>,std::tuple<>>((a1 + 64), (a1 + 147), &std::piecewise_construct, &v19) + 17);
   v8 = *(a2 + 88);
   if (*(a1 + 144) != v8)
   {
@@ -6753,14 +6732,14 @@ LABEL_9:
     *(a3 + 120) = 1;
     *v7 = v11;
     *&v17 = a1 + 146;
-    *(std::__hash_table<std::__hash_value_type<unsigned char,unsigned char>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,unsigned char>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,unsigned char>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,unsigned char>>>::__emplace_unique_key_args<unsigned char,std::piecewise_construct_t const&,std::tuple<unsigned char const&>,std::tuple<>>((a1 + 64), (a1 + 146)) + 17) = v11;
+    *(std::__hash_table<std::__hash_value_type<unsigned char,unsigned char>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,unsigned char>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,unsigned char>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,unsigned char>>>::__emplace_unique_key_args<unsigned char,std::piecewise_construct_t const&,std::tuple<unsigned char const&>,std::tuple<>>((a1 + 64), (a1 + 146), &std::piecewise_construct, &v17) + 17) = v11;
   }
 
   v13 = (a2 + 20);
   for (i = 24; i != 96; i += 8)
   {
     *&v17 = v13;
-    result = std::__hash_table<std::__hash_value_type<unsigned short,unsigned int>,std::__unordered_map_hasher<unsigned short,std::__hash_value_type<unsigned short,unsigned int>,std::hash<unsigned short>,std::equal_to<unsigned short>,true>,std::__unordered_map_equal<unsigned short,std::__hash_value_type<unsigned short,unsigned int>,std::equal_to<unsigned short>,std::hash<unsigned short>,true>,std::allocator<std::__hash_value_type<unsigned short,unsigned int>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>((a1 + 104), v13);
+    result = std::__hash_table<std::__hash_value_type<unsigned short,unsigned int>,std::__unordered_map_hasher<unsigned short,std::__hash_value_type<unsigned short,unsigned int>,std::hash<unsigned short>,std::equal_to<unsigned short>,true>,std::__unordered_map_equal<unsigned short,std::__hash_value_type<unsigned short,unsigned int>,std::equal_to<unsigned short>,std::hash<unsigned short>,true>,std::allocator<std::__hash_value_type<unsigned short,unsigned int>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>((a1 + 104), v13, &std::piecewise_construct, &v17);
     v16 = *(v13 - 1);
     *(a3 + i) = v16 - *(result + 5);
     *(result + 5) = v16;
@@ -6774,15 +6753,16 @@ uint64_t **mimosa::v2::WavelengthV3SubpacketState::predict(mimosa::v2::Wavelengt
 {
   v1 = this + 147;
   *(this + 146) = *(this + 147);
-  result = std::__hash_table<std::__hash_value_type<unsigned char,unsigned char>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,unsigned char>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,unsigned char>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,unsigned char>>>::__emplace_unique_key_args<unsigned char,std::piecewise_construct_t const&,std::tuple<unsigned char const&>,std::tuple<>>(this + 8, this + 147);
+  v3 = this + 147;
+  result = std::__hash_table<std::__hash_value_type<unsigned char,unsigned char>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,unsigned char>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,unsigned char>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,unsigned char>>>::__emplace_unique_key_args<unsigned char,std::piecewise_construct_t const&,std::tuple<unsigned char const&>,std::tuple<>>(this + 8, this + 147, &std::piecewise_construct, &v3);
   *v1 = *(result + 17);
   return result;
 }
 
-uint64_t mimosa::v2::ItemCoder<std::array<unsigned short,9ul>>::encode(uint64_t a1, __int128 *a2)
+uint64_t mimosa::v2::ItemCoder<std::array<unsigned short,9ul>>::encode(char **a1, __int128 *a2)
 {
   v5 = *a1;
-  v4 = *(a1 + 8);
+  v4 = a1[1];
   if (*a1 == v4)
   {
     v6 = *a1;
@@ -6804,7 +6784,7 @@ uint64_t mimosa::v2::ItemCoder<std::array<unsigned short,9ul>>::encode(uint64_t 
       v6 += 18;
       if (v7 == v4)
       {
-        v6 = *(a1 + 8);
+        v6 = a1[1];
         break;
       }
     }
@@ -6821,13 +6801,13 @@ uint64_t mimosa::v2::ItemCoder<std::array<unsigned short,9ul>>::encode(uint64_t 
       }
 
       v4 = &v5[v11];
-      *(a1 + 8) = &v5[v11];
+      a1[1] = &v5[v11];
     }
 
-    v12 = *(a1 + 16);
+    v12 = a1[2];
     if (v4 >= v12)
     {
-      v15 = 0x8E38E38E38E38E39 * (&v4[-*a1] >> 1);
+      v15 = 0x8E38E38E38E38E39 * ((v4 - *a1) >> 1);
       v16 = v15 + 1;
       if (v15 + 1 > 0xE38E38E38E38E38)
       {
@@ -6859,14 +6839,14 @@ uint64_t mimosa::v2::ItemCoder<std::array<unsigned short,9ul>>::encode(uint64_t 
       v20 = *a2;
       *(v19 + 16) = *(a2 + 8);
       *v19 = v20;
-      v14 = 18 * v15 + 18;
-      v21 = *(a1 + 8) - *a1;
-      v22 = v19 - v21;
+      v14 = (18 * v15 + 18);
+      v21 = a1[1] - *a1;
+      v22 = (v19 - v21);
       memcpy((v19 - v21), *a1, v21);
       v23 = *a1;
       *a1 = v22;
-      *(a1 + 8) = v14;
-      *(a1 + 16) = 0;
+      a1[1] = v14;
+      a1[2] = 0;
       if (v23)
       {
         operator delete(v23);
@@ -6878,10 +6858,10 @@ uint64_t mimosa::v2::ItemCoder<std::array<unsigned short,9ul>>::encode(uint64_t 
       v13 = *a2;
       *(v4 + 8) = *(a2 + 8);
       *v4 = v13;
-      v14 = (v4 + 18);
+      v14 = v4 + 18;
     }
 
-    *(a1 + 8) = v14;
+    a1[1] = v14;
     LODWORD(v6) = 57 * ((v14 - *a1) >> 1) - 1;
     v10 = 1;
   }
@@ -6991,10 +6971,10 @@ void mimosa::v2::OpticalDecoderV1SubpacketState::update(uint64_t a1@<X0>, uint64
   *(a3 + 41) = *(a1 + 80) - v11;
   if (*(a2 + 56) != 1)
   {
-    mimosa::v2::ItemCoder<std::vector<unsigned short>>::decode((a1 + 40), *(v11 + v9), &v21);
+    mimosa::v2::ItemCoder<std::vector<unsigned short>>::decode((a1 + 40), *(v11 + v9), &v22);
 LABEL_11:
-    v14 = v22;
-    *(a3 + 16) = v21;
+    v14 = v23;
+    *(a3 + 16) = v22;
     *(a3 + 32) = v14;
     return;
   }
@@ -7009,7 +6989,7 @@ LABEL_11:
     }
 
     *(v11 + v9) = *v12;
-    mimosa::v2::ItemCoder<std::vector<unsigned short>>::decode((a1 + 40), *(*(a1 + 72) + *(a1 + 64)), &v21);
+    mimosa::v2::ItemCoder<std::vector<unsigned short>>::decode((a1 + 40), *(*(a1 + 72) + *(a1 + 64)), &v22);
     goto LABEL_11;
   }
 
@@ -7027,13 +7007,13 @@ LABEL_11:
   }
 
   __p = 0;
-  v19 = 0;
   v20 = 0;
+  v21 = 0;
   std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short *,unsigned short *>(&__p, v15, v16, (v16 - v15) >> 1);
-  *(*(a1 + 72) + *(a1 + 64)) = mimosa::v2::ItemCoder<std::vector<unsigned short>>::encode((a1 + 40), &__p);
+  *(*(a1 + 72) + *(a1 + 64)) = mimosa::v2::ItemCoder<std::vector<unsigned short>>::encode((a1 + 40), &__p, v17);
   if (__p)
   {
-    v19 = __p;
+    v20 = __p;
     operator delete(__p);
   }
 }
@@ -7048,46 +7028,46 @@ LABEL_11:
 
   if (*(a2 + 40) >= *(a2 + 41))
   {
-    v18 = __cxa_allocate_exception(0x10uLL);
-    std::to_string(&v29, *(a2 + 40));
-    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("beat index ", &v29, &v30);
-    v19 = std::string::append(&v30, " is invalid given a beat count of ", 0x22uLL);
-    v20 = *&v19->__r_.__value_.__l.__data_;
-    v31.__r_.__value_.__r.__words[2] = v19->__r_.__value_.__r.__words[2];
-    *&v31.__r_.__value_.__l.__data_ = v20;
-    v19->__r_.__value_.__l.__size_ = 0;
-    v19->__r_.__value_.__r.__words[2] = 0;
-    v19->__r_.__value_.__r.__words[0] = 0;
-    std::to_string(&v28, *(a2 + 41));
-    if ((v28.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    v19 = __cxa_allocate_exception(0x10uLL);
+    std::to_string(&v30, *(a2 + 40));
+    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("beat index ", &v30, &v31);
+    v20 = std::string::append(&v31, " is invalid given a beat count of ", 0x22uLL);
+    v21 = *&v20->__r_.__value_.__l.__data_;
+    v32.__r_.__value_.__r.__words[2] = v20->__r_.__value_.__r.__words[2];
+    *&v32.__r_.__value_.__l.__data_ = v21;
+    v20->__r_.__value_.__l.__size_ = 0;
+    v20->__r_.__value_.__r.__words[2] = 0;
+    v20->__r_.__value_.__r.__words[0] = 0;
+    std::to_string(&v29, *(a2 + 41));
+    if ((v29.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v21 = &v28;
+      v22 = &v29;
     }
 
     else
     {
-      v21 = v28.__r_.__value_.__r.__words[0];
+      v22 = v29.__r_.__value_.__r.__words[0];
     }
 
-    if ((v28.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    if ((v29.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      size = HIBYTE(v28.__r_.__value_.__r.__words[2]);
+      size = HIBYTE(v29.__r_.__value_.__r.__words[2]);
     }
 
     else
     {
-      size = v28.__r_.__value_.__l.__size_;
+      size = v29.__r_.__value_.__l.__size_;
     }
 
-    v23 = std::string::append(&v31, v21, size);
-    v24 = *&v23->__r_.__value_.__l.__data_;
-    v33 = v23->__r_.__value_.__r.__words[2];
-    v32 = v24;
-    v23->__r_.__value_.__l.__size_ = 0;
-    v23->__r_.__value_.__r.__words[2] = 0;
-    v23->__r_.__value_.__r.__words[0] = 0;
-    MEMORY[0x25306FCE0](v18, &v32);
-    __cxa_throw(v18, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+    v24 = std::string::append(&v32, v22, size);
+    v25 = *&v24->__r_.__value_.__l.__data_;
+    v34 = v24->__r_.__value_.__r.__words[2];
+    v33 = v25;
+    v24->__r_.__value_.__l.__size_ = 0;
+    v24->__r_.__value_.__r.__words[2] = 0;
+    v24->__r_.__value_.__r.__words[0] = 0;
+    MEMORY[0x25306FCE0](v19, &v33);
+    __cxa_throw(v19, MEMORY[0x277D82760], MEMORY[0x277D82600]);
   }
 
   *(a3 + 24) = 0;
@@ -7096,9 +7076,9 @@ LABEL_11:
   *(a3 + 8) = 0;
   *(a3 + 16) = 0;
   *(a3 + 64) = 0;
-  mimosa::v2::SubpacketHeaderState::update(a1, a2, &v32);
-  *a3 = v32;
-  *(a3 + 16) = v33;
+  mimosa::v2::SubpacketHeaderState::update(a1, a2, &v33);
+  *a3 = v33;
+  *(a3 + 16) = v34;
   v6 = *(a1 + 72);
   v7 = *(a1 + 80) - v6;
   v8 = (*(a1 + 64) + 1) % v7;
@@ -7126,30 +7106,30 @@ LABEL_11:
 
   v11 = *(a2 + 16);
   v12 = *(a2 + 24);
-  v13 = (a2 + 16);
+  v13 = a2 + 16;
   __p = 0;
-  v26 = 0;
   v27 = 0;
+  v28 = 0;
   std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short *,unsigned short *>(&__p, v11, v12, (v12 - v11) >> 1);
-  v14 = mimosa::v2::ItemCoder<std::vector<unsigned short>>::encode((a1 + 40), &__p);
+  v15 = mimosa::v2::ItemCoder<std::vector<unsigned short>>::encode((a1 + 40), &__p, v14);
   if (__p)
   {
-    v26 = __p;
+    v27 = __p;
     operator delete(__p);
   }
 
-  if ((v14 & 0x100) != 0)
+  if ((v15 & 0x100) != 0)
   {
-    std::optional<std::variant<std::vector<unsigned short>,unsigned char>>::operator=[abi:ne200100]<std::vector<unsigned short> const&,void>(a3 + 24, v13);
-    v15 = *(a1 + 64);
-    v16 = *(a1 + 72);
+    std::optional<std::variant<std::vector<unsigned short>,unsigned char>>::operator=[abi:ne200100]<std::vector<unsigned short> const&,void>((a3 + 24), v13);
+    v16 = *(a1 + 64);
+    v17 = *(a1 + 72);
   }
 
   else
   {
-    v15 = *(a1 + 64);
-    v16 = *(a1 + 72);
-    if (*(v16 + v15) == v14)
+    v16 = *(a1 + 64);
+    v17 = *(a1 + 72);
+    if (*(v17 + v16) == v15)
     {
       return;
     }
@@ -7160,22 +7140,22 @@ LABEL_11:
       {
         std::__variant_detail::__dtor<std::__variant_detail::__traits<std::vector<unsigned short>,unsigned char>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](a3 + 24);
         *(a3 + 48) = 1;
-        v15 = *(a1 + 64);
-        v16 = *(a1 + 72);
+        v16 = *(a1 + 64);
+        v17 = *(a1 + 72);
       }
 
-      *(a3 + 24) = v14;
+      *(a3 + 24) = v15;
     }
 
     else
     {
-      *(a3 + 24) = v14;
+      *(a3 + 24) = v15;
       *(a3 + 48) = 1;
       *(a3 + 56) = 1;
     }
   }
 
-  *(v16 + v15) = v14;
+  *(v17 + v16) = v15;
 }
 
 void sub_2512BDC00(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11)
@@ -7195,105 +7175,105 @@ void sub_2512BDC00(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t mimosa::v2::ItemCoder<std::vector<unsigned short>>::decode@<X0>(void *a1@<X0>, unsigned int a2@<W1>, void *a3@<X8>)
+uint64_t *mimosa::v2::ItemCoder<std::vector<unsigned short>>::decode@<X0>(void *a1@<X0>, unsigned int a2@<W1>, uint64_t *a3@<X8>)
 {
   if (0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 3) <= a2)
   {
     std::vector<std::array<unsigned short,6ul>>::__throw_out_of_range[abi:ne200100]();
   }
 
-  v4 = (*a1 + 24 * a2);
+  v4 = *a1 + 24 * a2;
   *a3 = 0;
   a3[1] = 0;
   a3[2] = 0;
   v5 = *v4;
-  v6 = v4[1];
+  v6 = *(v4 + 8);
   v7 = (v6 - *v4) >> 1;
 
   return std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short *,unsigned short *>(a3, v5, v6, v7);
 }
 
-uint64_t mimosa::v2::ItemCoder<std::vector<unsigned short>>::encode(uint64_t *a1, uint64_t *a2)
+uint64_t mimosa::v2::ItemCoder<std::vector<unsigned short>>::encode(uint64_t *a1, const void **a2, __n128 a3)
 {
-  v4 = *a1;
-  v5 = a1[1];
-  if (*a1 == v5)
+  v5 = *a1;
+  v6 = a1[1];
+  if (*a1 == v6)
   {
-    v8 = *a1;
+    v9 = *a1;
   }
 
   else
   {
-    v6 = *a2;
-    v7 = a2[1] - *a2;
-    v8 = *a1;
+    v7 = *a2;
+    v8 = a2[1] - *a2;
     v9 = *a1;
-    while (*(v9 + 8) - *v9 != v7 || memcmp(*v9, v6, v7))
+    v10 = *a1;
+    while (*(v10 + 8) - *v10 != v8 || memcmp(*v10, v7, v8))
     {
+      v10 += 24;
       v9 += 24;
-      v8 += 24;
-      if (v9 == v5)
+      if (v10 == v6)
       {
-        v8 = v5;
+        v9 = v6;
         break;
       }
     }
   }
 
-  if (v5 == v8)
+  if (v6 == v9)
   {
-    if (v5 - v4 == 6144)
+    if (v6 - v5 == 6144)
     {
-      if (v4 + 24 != v5)
+      if (v5 + 24 != v6)
       {
         do
         {
-          v12 = v4 + 24;
-          std::vector<unsigned short>::__move_assign(v4, (v4 + 24));
-          v13 = v4 + 48;
-          v4 += 24;
+          v13 = v5 + 24;
+          std::vector<unsigned short>::__move_assign(v5, (v5 + 24));
+          v14 = v5 + 48;
+          v5 += 24;
         }
 
-        while (v13 != v5);
-        v5 = a1[1];
-        v4 = v12;
+        while (v14 != v6);
+        v6 = a1[1];
+        v5 = v13;
       }
 
-      if (v5 != v4)
+      if (v6 != v5)
       {
-        v14 = v5;
+        v15 = v6;
         do
         {
-          v16 = *(v14 - 24);
-          v14 -= 24;
-          v15 = v16;
-          if (v16)
+          v17 = *(v15 - 24);
+          v15 -= 24;
+          v16 = v17;
+          if (v17)
           {
-            *(v5 - 16) = v15;
-            operator delete(v15);
+            *(v6 - 16) = v16;
+            operator delete(v16);
           }
 
-          v5 = v14;
+          v6 = v15;
         }
 
-        while (v14 != v4);
+        while (v15 != v5);
       }
 
-      a1[1] = v4;
+      a1[1] = v5;
     }
 
     std::vector<std::vector<unsigned short>>::push_back[abi:ne200100](a1, a2);
-    v11 = -85 * ((*(a1 + 2) - *a1) >> 3) - 1;
-    v10 = 1;
+    v12 = -85 * ((*(a1 + 2) - *a1) >> 3) - 1;
+    v11 = 1;
   }
 
   else
   {
-    v10 = 0;
-    LOBYTE(v11) = -85 * ((v8 - v4) >> 3);
+    v11 = 0;
+    LOBYTE(v12) = -85 * ((v9 - v5) >> 3);
   }
 
-  return v11 | (v10 << 8);
+  return v12 | (v11 << 8);
 }
 
 void sub_2512BE100(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, void *a24, uint64_t a25, int a26, __int16 a27, char a28, char a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35)
@@ -7337,7 +7317,7 @@ LABEL_14:
   goto LABEL_14;
 }
 
-uint64_t std::optional<std::variant<std::vector<unsigned short>,unsigned char>>::operator=[abi:ne200100]<std::vector<unsigned short> const&,void>(uint64_t a1, uint64_t *a2)
+uint64_t *std::optional<std::variant<std::vector<unsigned short>,unsigned char>>::operator=[abi:ne200100]<std::vector<unsigned short> const&,void>(uint64_t *a1, uint64_t a2)
 {
   if (*(a1 + 32) == 1)
   {
@@ -7347,17 +7327,17 @@ uint64_t std::optional<std::variant<std::vector<unsigned short>,unsigned char>>:
   else
   {
     *a1 = 0;
-    *(a1 + 8) = 0;
-    *(a1 + 16) = 0;
-    std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short *,unsigned short *>(a1, *a2, a2[1], (a2[1] - *a2) >> 1);
-    *(a1 + 24) = 0;
+    a1[1] = 0;
+    a1[2] = 0;
+    std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short *,unsigned short *>(a1, *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 1);
+    *(a1 + 6) = 0;
     *(a1 + 32) = 1;
   }
 
   return a1;
 }
 
-void *std::vector<unsigned short>::__assign_with_size[abi:ne200100]<unsigned short *,unsigned short *>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<unsigned short>::__assign_with_size[abi:ne200100]<unsigned short *,unsigned short *>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -7436,11 +7416,11 @@ void *std::vector<unsigned short>::__assign_with_size[abi:ne200100]<unsigned sho
   return result;
 }
 
-void std::__variant_detail::__assignment<std::__variant_detail::__traits<std::vector<unsigned short>,unsigned char>>::__assign_alt[abi:ne200100]<0ul,std::vector<unsigned short>,std::vector<unsigned short> const&>(uint64_t a1, void *a2, uint64_t a3)
+void std::__variant_detail::__assignment<std::__variant_detail::__traits<std::vector<unsigned short>,unsigned char>>::__assign_alt[abi:ne200100]<0ul,std::vector<unsigned short>,std::vector<unsigned short> const&>(uint64_t result, uint64_t *a2, char **a3)
 {
-  if (*(a1 + 24))
+  if (*(result + 24))
   {
-    v6[0] = a1;
+    v6[0] = result;
     v6[1] = a3;
     std::__variant_detail::__assignment<std::__variant_detail::__traits<std::vector<unsigned short>,unsigned char>>::__assign_alt[abi:ne200100]<0ul,std::vector<unsigned short>,std::vector<unsigned short> const&>(std::__variant_detail::__alt<0ul,std::vector<unsigned short>> &,std::vector<unsigned short> const&)::{unnamed type#1}::operator()(v6);
   }
@@ -7448,7 +7428,7 @@ void std::__variant_detail::__assignment<std::__variant_detail::__traits<std::ve
   else if (a2 != a3)
   {
     v5 = *a3;
-    v4 = *(a3 + 8);
+    v4 = a3[1];
 
     std::vector<unsigned short>::__assign_with_size[abi:ne200100]<unsigned short *,unsigned short *>(a2, v5, v4, (v4 - v5) >> 1);
   }
@@ -7460,7 +7440,7 @@ double std::__variant_detail::__assignment<std::__variant_detail::__traits<std::
   v1 = a1[1];
   v5 = 0;
   v4 = 0uLL;
-  std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short *,unsigned short *>(&v4, *v1, v1[1], (v1[1] - *v1) >> 1);
+  std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short *,unsigned short *>(&v4, *v1, *(v1 + 8), (*(v1 + 8) - *v1) >> 1);
   std::__variant_detail::__dtor<std::__variant_detail::__traits<std::vector<unsigned short>,unsigned char>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v2);
   result = *&v4;
   *v2 = v4;
@@ -7469,7 +7449,7 @@ double std::__variant_detail::__assignment<std::__variant_detail::__traits<std::
   return result;
 }
 
-uint64_t std::vector<std::vector<unsigned short>>::push_back[abi:ne200100](uint64_t a1, uint64_t *a2)
+void *std::vector<std::vector<unsigned short>>::push_back[abi:ne200100](uint64_t a1, uint64_t a2)
 {
   v3 = *(a1 + 8);
   if (v3 >= *(a1 + 16))
@@ -7480,39 +7460,39 @@ uint64_t std::vector<std::vector<unsigned short>>::push_back[abi:ne200100](uint6
   else
   {
     std::vector<std::vector<unsigned short>>::__construct_one_at_end[abi:ne200100]<std::vector<unsigned short> const&>(a1, a2);
-    result = v3 + 24;
+    result = (v3 + 24);
   }
 
   *(a1 + 8) = result;
   return result;
 }
 
-uint64_t std::vector<std::vector<unsigned short>>::__construct_one_at_end[abi:ne200100]<std::vector<unsigned short> const&>(uint64_t a1, uint64_t *a2)
+uint64_t *std::vector<std::vector<unsigned short>>::__construct_one_at_end[abi:ne200100]<std::vector<unsigned short> const&>(uint64_t a1, uint64_t a2)
 {
   v3 = *(a1 + 8);
   *v3 = 0;
   v3[1] = 0;
   v3[2] = 0;
-  result = std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short *,unsigned short *>(v3, *a2, a2[1], (a2[1] - *a2) >> 1);
+  result = std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short *,unsigned short *>(v3, *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 1);
   *(a1 + 8) = v3 + 3;
   return result;
 }
 
-uint64_t std::vector<std::vector<unsigned short>>::__emplace_back_slow_path<std::vector<unsigned short> const&>(uint64_t a1, uint64_t *a2)
+void *std::vector<std::vector<unsigned short>>::__emplace_back_slow_path<std::vector<unsigned short> const&>(char **a1, uint64_t a2)
 {
-  v2 = 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 8) - *a1) >> 3);
+  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
   if (v2 + 1 > 0xAAAAAAAAAAAAAAALL)
   {
     std::vector<mimosa::OpticalSampleV1>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0x5555555555555556 * ((*(a1 + 16) - *a1) >> 3) > v3)
+  if (0x5555555555555556 * ((a1[2] - *a1) >> 3) > v3)
   {
-    v3 = 0x5555555555555556 * ((*(a1 + 16) - *a1) >> 3);
+    v3 = 0x5555555555555556 * ((a1[2] - *a1) >> 3);
   }
 
-  if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *a1) >> 3) >= 0x555555555555555)
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 3) >= 0x555555555555555)
   {
     v6 = 0xAAAAAAAAAAAAAAALL;
   }
@@ -7536,16 +7516,16 @@ uint64_t std::vector<std::vector<unsigned short>>::__emplace_back_slow_path<std:
   *v7 = 0;
   *(v7 + 8) = 0;
   *(v7 + 16) = 0;
-  std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short *,unsigned short *>(24 * v2, *a2, a2[1], (a2[1] - *a2) >> 1);
+  std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short *,unsigned short *>((24 * v2), *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 1);
   v8 = v16 + 24;
-  v9 = *(a1 + 8) - *a1;
+  v9 = a1[1] - *a1;
   v10 = &v15[-v9];
   memcpy(&v15[-v9], *a1, v9);
   v11 = *a1;
   *a1 = v10;
-  *(a1 + 8) = v8;
-  v12 = *(a1 + 16);
-  *(a1 + 16) = v17;
+  a1[1] = v8;
+  v12 = a1[2];
+  a1[2] = v17;
   v16 = v11;
   v17 = v12;
   v14 = v11;
@@ -7554,9 +7534,9 @@ uint64_t std::vector<std::vector<unsigned short>>::__emplace_back_slow_path<std:
   return v8;
 }
 
-void sub_2512BE5F4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2512BE5F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<std::vector<unsigned short>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -7824,27 +7804,27 @@ LABEL_13:
   return 0;
 }
 
-void mimosa::v2::OpticalSamplesV2SubpacketState::update(mimosa::v2::OpticalSamplesV2SubpacketState *this@<X0>, const mimosa::v2::OpticalSamplesV2SubpacketState::Patch *a2@<X1>, char a3@<W2>, unsigned int a4@<W3>, uint64_t a5@<X8>)
+void mimosa::v2::OpticalSamplesV2SubpacketState::update(uint64_t *__return_ptr a1@<X8>, mimosa::v2::OpticalSamplesV2SubpacketState *this@<X0>, const mimosa::v2::OpticalSamplesV2SubpacketState::Patch *a3@<X1>, char a4@<W2>, unsigned int a5@<W3>)
 {
   v10 = *(this + 13);
   v8 = (this + 104);
   v9 = v10;
-  *(v8 + 24) = a3;
-  if (&v8[1][-v10] != a4)
+  *(v8 + 24) = a4;
+  if (&v8[1][-v10] != a5)
   {
     *(this + 14) = v9;
-    if (a4)
+    if (a5)
     {
-      std::vector<std::byte>::__append(v8, a4);
+      std::vector<std::byte>::__append(v8, a5);
     }
   }
 
   __p[0] = 0;
   __p[1] = 0;
-  v49 = 0;
-  if (*(a2 + 56) != 1)
+  v50 = 0;
+  if (*(a3 + 56) != 1)
   {
-    mimosa::v2::ItemCoder<std::vector<unsigned short>>::decode(this + 5, *(*(this + 13) + *(this + 128)), &v46);
+    mimosa::v2::ItemCoder<std::vector<unsigned short>>::decode(this + 5, *(*(this + 13) + *(this + 128)), &v47);
 LABEL_9:
     if (__p[0])
     {
@@ -7852,13 +7832,13 @@ LABEL_9:
       operator delete(__p[0]);
     }
 
-    *__p = v46;
-    v49 = v47;
+    *__p = v47;
+    v50 = v48;
     goto LABEL_12;
   }
 
-  v11 = (a2 + 24);
-  v12 = *(a2 + 12);
+  v11 = (a3 + 24);
+  v12 = *(a3 + 12);
   if (v12)
   {
     if (v12 != 1)
@@ -7867,7 +7847,7 @@ LABEL_9:
     }
 
     *(*(this + 13) + *(this + 128)) = *v11;
-    mimosa::v2::ItemCoder<std::vector<unsigned short>>::decode(this + 5, *(*(this + 13) + *(this + 128)), &v46);
+    mimosa::v2::ItemCoder<std::vector<unsigned short>>::decode(this + 5, *(*(this + 13) + *(this + 128)), &v47);
     goto LABEL_9;
   }
 
@@ -7879,40 +7859,40 @@ LABEL_9:
 
   else
   {
-    std::vector<unsigned short>::__assign_with_size[abi:ne200100]<unsigned short *,unsigned short *>(__p, *(a2 + 3), *(a2 + 4), (*(a2 + 4) - *(a2 + 3)) >> 1);
+    std::vector<unsigned short>::__assign_with_size[abi:ne200100]<unsigned short *,unsigned short *>(__p, *(a3 + 3), *(a3 + 4), (*(a3 + 4) - *(a3 + 3)) >> 1);
     v39 = __p[0];
     v40 = __p[1];
   }
 
-  v43 = 0;
   v44 = 0;
   v45 = 0;
-  std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short *,unsigned short *>(&v43, v39, v40, (v40 - v39) >> 1);
-  *(*(this + 13) + *(this + 128)) = mimosa::v2::ItemCoder<std::vector<unsigned short>>::encode(this + 5, &v43);
-  if (v43)
+  v46 = 0;
+  std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short *,unsigned short *>(&v44, v39, v40, (v40 - v39) >> 1);
+  *(*(this + 13) + *(this + 128)) = mimosa::v2::ItemCoder<std::vector<unsigned short>>::encode(this + 5, &v44, v41);
+  if (v44)
   {
-    v44 = v43;
-    operator delete(v43);
+    v45 = v44;
+    operator delete(v44);
   }
 
 LABEL_12:
-  if (0xAAAAAAAAAAAAAAABLL * ((*(a2 + 13) - *(a2 + 12)) >> 3) != (__p[1] - __p[0]) >> 1)
+  if (0xAAAAAAAAAAAAAAABLL * ((*(a3 + 13) - *(a3 + 12)) >> 3) != (__p[1] - __p[0]) >> 1)
   {
     exception = __cxa_allocate_exception(0x10uLL);
     std::runtime_error::runtime_error(exception, "the number of light paths doesn't match the number of ADC deltas in the patch");
     __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
   }
 
-  *a5 = 0;
-  *(a5 + 8) = 0;
-  *(a5 + 12) = 0;
-  *(a5 + 16) = 0;
-  v13 = (a5 + 16);
-  *(a5 + 24) = 0;
-  *(a5 + 32) = 0;
-  *a5 = mimosa::v2::SubpacketHeaderState::update(this, a2);
-  *(a5 + 8) = v14;
-  std::vector<mimosa::OpticalSampleV2>::reserve((a5 + 16), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 13) - *(a2 + 12)) >> 3));
+  *a1 = 0;
+  *(a1 + 2) = 0;
+  *(a1 + 12) = 0;
+  a1[2] = 0;
+  v13 = a1 + 2;
+  a1[3] = 0;
+  a1[4] = 0;
+  *a1 = mimosa::v2::SubpacketHeaderState::update(this, a3);
+  a1[1] = v14;
+  std::vector<mimosa::OpticalSampleV2>::reserve(a1 + 2, 0xAAAAAAAAAAAAAAABLL * ((*(a3 + 13) - *(a3 + 12)) >> 3));
   v15 = __p[0];
   if (__p[1] != __p[0])
   {
@@ -7920,23 +7900,23 @@ LABEL_12:
     v17 = 1;
     do
     {
-      *&v46 = &v15[2 * v16];
-      v18 = std::__hash_table<std::__hash_value_type<unsigned short,mimosa::OpticalSampleV2>,std::__unordered_map_hasher<unsigned short,std::__hash_value_type<unsigned short,mimosa::OpticalSampleV2>,std::hash<unsigned short>,std::equal_to<unsigned short>,true>,std::__unordered_map_equal<unsigned short,std::__hash_value_type<unsigned short,mimosa::OpticalSampleV2>,std::equal_to<unsigned short>,std::hash<unsigned short>,true>,std::allocator<std::__hash_value_type<unsigned short,mimosa::OpticalSampleV2>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(this + 8, v46);
+      *&v47 = &v15[2 * v16];
+      v18 = std::__hash_table<std::__hash_value_type<unsigned short,mimosa::OpticalSampleV2>,std::__unordered_map_hasher<unsigned short,std::__hash_value_type<unsigned short,mimosa::OpticalSampleV2>,std::hash<unsigned short>,std::equal_to<unsigned short>,true>,std::__unordered_map_equal<unsigned short,std::__hash_value_type<unsigned short,mimosa::OpticalSampleV2>,std::equal_to<unsigned short>,std::hash<unsigned short>,true>,std::allocator<std::__hash_value_type<unsigned short,mimosa::OpticalSampleV2>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(this + 8, v47, &std::piecewise_construct, &v47);
       v19 = (v18 + 20);
-      v20 = (*(a2 + 12) + 24 * v16);
+      v20 = (*(a3 + 12) + 24 * v16);
       *(v18 + 20) = vadd_s32(*(v18 + 20), vmovn_s64(*v20));
       *(v18 + 7) += v20[1].i32[0];
       v21 = __p[0];
       *(v18 + 16) = *(__p[0] + v16);
-      if (*(a2 + 88) == 1)
+      if (*(a3 + 88) == 1)
       {
         v22 = __p[1] - v21;
-        v23 = *(a2 + 8);
-        if (0xF0F0F0F0F0F0F0F1 * ((*(a2 + 9) - v23) >> 1) != v22 >> 1)
+        v23 = *(a3 + 8);
+        if (0xF0F0F0F0F0F0F0F1 * ((*(a3 + 9) - v23) >> 1) != v22 >> 1)
         {
-          v41 = __cxa_allocate_exception(0x10uLL);
-          std::runtime_error::runtime_error(v41, "the number of light paths doesn't match the number of samples in the patch");
-          __cxa_throw(v41, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+          v42 = __cxa_allocate_exception(0x10uLL);
+          std::runtime_error::runtime_error(v42, "the number of light paths doesn't match the number of samples in the patch");
+          __cxa_throw(v42, MEMORY[0x277D82760], MEMORY[0x277D82600]);
         }
 
         v24 = v23 + 34 * v16;
@@ -8001,8 +7981,8 @@ LABEL_12:
         }
       }
 
-      v25 = *(a5 + 24);
-      v26 = *(a5 + 32);
+      v25 = a1[3];
+      v26 = a1[4];
       if (v25 >= v26)
       {
         v29 = (v25 - *v13) >> 5;
@@ -8030,7 +8010,7 @@ LABEL_12:
 
         if (v32)
         {
-          std::__allocate_at_least[abi:ne200100]<std::allocator<mimosa::OpticalSampleV2>>(a5 + 16, v32);
+          std::__allocate_at_least[abi:ne200100]<std::allocator<mimosa::OpticalSampleV2>>((a1 + 2), v32);
         }
 
         v33 = (32 * v29);
@@ -8038,14 +8018,14 @@ LABEL_12:
         *v33 = *v19;
         v33[1] = v34;
         v28 = 32 * v29 + 32;
-        v35 = *(a5 + 16);
-        v36 = *(a5 + 24) - v35;
+        v35 = a1[2];
+        v36 = a1[3] - v35;
         v37 = v33 - v36;
         memcpy(v33 - v36, v35, v36);
-        v38 = *(a5 + 16);
-        *(a5 + 16) = v37;
-        *(a5 + 24) = v28;
-        *(a5 + 32) = 0;
+        v38 = a1[2];
+        a1[2] = v37;
+        a1[3] = v28;
+        a1[4] = 0;
         if (v38)
         {
           operator delete(v38);
@@ -8060,7 +8040,7 @@ LABEL_12:
         v28 = (v25 + 2);
       }
 
-      *(a5 + 24) = v28;
+      a1[3] = v28;
       v16 = v17;
       v15 = __p[0];
       ++v17;
@@ -8091,59 +8071,56 @@ void sub_2512BF01C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<mimosa::OpticalSampleV2>::reserve(void *result, unint64_t a2)
+void std::vector<mimosa::OpticalSampleV2>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 5)
+  if (a2 > (a1[2] - *a1) >> 5)
   {
     if (!(a2 >> 59))
     {
-      v2 = result[1] - *result;
-      std::__allocate_at_least[abi:ne200100]<std::allocator<mimosa::OpticalSampleV2>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<mimosa::OpticalSampleV2>>(a1, a2);
     }
 
     std::vector<mimosa::OpticalSampleV1>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
-void mimosa::v2::OpticalSamplesV2SubpacketState::update(uint64_t a1@<X0>, uint64_t a2@<X1>, char a3@<W2>, unsigned int a4@<W3>, uint64_t a5@<X8>)
+void mimosa::v2::OpticalSamplesV2SubpacketState::update(uint64_t *__return_ptr a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>, char a4@<W2>, unsigned int a5@<W3>)
 {
-  v10 = *(a1 + 104);
-  v8 = a1 + 104;
+  v10 = *(a2 + 104);
+  v8 = a2 + 104;
   v9 = v10;
-  *(v8 + 24) = a3;
-  if (*(v8 + 8) - v10 != a4)
+  *(v8 + 24) = a4;
+  if (*(v8 + 8) - v10 != a5)
   {
-    *(a1 + 112) = v9;
-    if (a4)
+    *(a2 + 112) = v9;
+    if (a5)
     {
-      std::vector<std::byte>::__append(v8, a4);
+      std::vector<std::byte>::__append(v8, a5);
     }
   }
 
-  *(a5 + 24) = 0;
-  *(a5 + 56) = 0;
-  *(a5 + 64) = 0;
-  v11 = (a5 + 64);
-  *(a5 + 96) = 0;
-  v46 = (a5 + 96);
-  *(a5 + 88) = 0;
-  *(a5 + 104) = 0;
-  *(a5 + 112) = 0;
-  *a5 = 0;
-  *(a5 + 8) = 0;
-  *(a5 + 16) = 0;
-  mimosa::v2::SubpacketHeaderState::update(a1, a2, v52);
-  *a5 = *v52;
-  *(a5 + 16) = v53;
-  std::vector<unsigned short>::vector[abi:ne200100](v52, (*(a2 + 24) - *(a2 + 16)) >> 5);
-  v12 = *(a2 + 16);
-  v13 = *(a2 + 24);
-  v14 = v52[0];
+  *(a1 + 24) = 0;
+  *(a1 + 56) = 0;
+  *(a1 + 64) = 0;
+  v11 = a1 + 8;
+  a1[12] = 0;
+  v47 = a1 + 12;
+  *(a1 + 88) = 0;
+  a1[13] = 0;
+  a1[14] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  *(a1 + 8) = 0;
+  mimosa::v2::SubpacketHeaderState::update(a2, a3, v53);
+  *a1 = *v53;
+  *(a1 + 8) = v54;
+  std::vector<unsigned short>::vector[abi:ne200100](v53, (*(a3 + 24) - *(a3 + 16)) >> 5);
+  v12 = *(a3 + 16);
+  v13 = *(a3 + 24);
+  v14 = v53[0];
   if (v12 != v13)
   {
-    v15 = v52[0];
+    v15 = v53[0];
     do
     {
       *v15++ = *(v12 + 12);
@@ -8154,257 +8131,257 @@ void mimosa::v2::OpticalSamplesV2SubpacketState::update(uint64_t a1@<X0>, uint64
   }
 
   __p = 0;
-  v50 = 0;
   v51 = 0;
-  std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short *,unsigned short *>(&__p, v14, v52[1], (v52[1] - v14) >> 1);
-  v16 = mimosa::v2::ItemCoder<std::vector<unsigned short>>::encode((a1 + 40), &__p);
+  v52 = 0;
+  std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short *,unsigned short *>(&__p, v14, v53[1], (v53[1] - v14) >> 1);
+  v17 = mimosa::v2::ItemCoder<std::vector<unsigned short>>::encode((a2 + 40), &__p, v16);
   if (__p)
   {
-    v50 = __p;
+    v51 = __p;
     operator delete(__p);
   }
 
-  if ((v16 & 0x100) != 0)
+  if ((v17 & 0x100) != 0)
   {
-    std::optional<std::variant<std::vector<unsigned short>,unsigned char>>::operator=[abi:ne200100]<std::vector<unsigned short> const&,void>(a5 + 24, v52);
-    v17 = *(a1 + 128);
-    v18 = *(a1 + 104);
+    std::optional<std::variant<std::vector<unsigned short>,unsigned char>>::operator=[abi:ne200100]<std::vector<unsigned short> const&,void>(a1 + 3, v53);
+    v18 = *(a2 + 128);
+    v19 = *(a2 + 104);
   }
 
   else
   {
-    v17 = *(a1 + 128);
-    v18 = *(a1 + 104);
-    if (*(v18 + v17) == v16)
+    v18 = *(a2 + 128);
+    v19 = *(a2 + 104);
+    if (*(v19 + v18) == v17)
     {
       goto LABEL_18;
     }
 
-    if (*(a5 + 56) == 1)
+    if (*(a1 + 56) == 1)
     {
-      if (*(a5 + 48) != 1)
+      if (*(a1 + 12) != 1)
       {
-        std::__variant_detail::__dtor<std::__variant_detail::__traits<std::vector<unsigned short>,unsigned char>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](a5 + 24);
-        *(a5 + 48) = 1;
-        v17 = *(a1 + 128);
-        v18 = *(a1 + 104);
+        std::__variant_detail::__dtor<std::__variant_detail::__traits<std::vector<unsigned short>,unsigned char>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100]((a1 + 3));
+        *(a1 + 12) = 1;
+        v18 = *(a2 + 128);
+        v19 = *(a2 + 104);
       }
 
-      *(a5 + 24) = v16;
+      *(a1 + 24) = v17;
     }
 
     else
     {
-      *(a5 + 24) = v16;
-      *(a5 + 48) = 1;
-      *(a5 + 56) = 1;
+      *(a1 + 24) = v17;
+      *(a1 + 12) = 1;
+      *(a1 + 56) = 1;
     }
   }
 
-  *(v18 + v17) = v16;
+  *(v19 + v18) = v17;
 LABEL_18:
-  std::vector<mimosa::v2::OpticalSamplesV1SubpacketState::Patch::ADCDelta>::resize(v46, (*(a2 + 24) - *(a2 + 16)) >> 5);
-  v19 = *(a2 + 16);
-  v20 = *(a2 + 24) - v19;
-  v47 = a5 + 64;
-  v48 = v20 >> 5;
-  if (v20)
+  std::vector<mimosa::v2::OpticalSamplesV1SubpacketState::Patch::ADCDelta>::resize(v47, (*(a3 + 24) - *(a3 + 16)) >> 5);
+  v20 = *(a3 + 16);
+  v21 = *(a3 + 24) - v20;
+  v48 = a1 + 8;
+  v49 = v21 >> 5;
+  if (v21)
   {
-    v21 = 0;
-    v22 = 1;
+    v22 = 0;
+    v23 = 1;
     do
     {
-      v54 = (v19 + 32 * v21 + 12);
-      v23 = std::__hash_table<std::__hash_value_type<unsigned short,mimosa::OpticalSampleV2>,std::__unordered_map_hasher<unsigned short,std::__hash_value_type<unsigned short,mimosa::OpticalSampleV2>,std::hash<unsigned short>,std::equal_to<unsigned short>,true>,std::__unordered_map_equal<unsigned short,std::__hash_value_type<unsigned short,mimosa::OpticalSampleV2>,std::equal_to<unsigned short>,std::hash<unsigned short>,true>,std::allocator<std::__hash_value_type<unsigned short,mimosa::OpticalSampleV2>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>((a1 + 64), v54);
-      v24 = (*(a2 + 16) + 32 * v21);
-      v25 = (*v46 + 24 * v21);
-      v26 = *v24;
-      *v25 = v26 - *(v23 + 5);
-      *(v23 + 5) = v26;
-      v27 = v24[1];
-      v25[1] = v27 - *(v23 + 6);
-      *(v23 + 6) = v27;
-      v28 = v24[2];
-      v25[2] = v28 - *(v23 + 7);
-      *(v23 + 7) = v28;
-      v29 = *(v24 + 7);
-      if (*(v23 + 17) != v29)
+      v55 = (v20 + 32 * v22 + 12);
+      v24 = std::__hash_table<std::__hash_value_type<unsigned short,mimosa::OpticalSampleV2>,std::__unordered_map_hasher<unsigned short,std::__hash_value_type<unsigned short,mimosa::OpticalSampleV2>,std::hash<unsigned short>,std::equal_to<unsigned short>,true>,std::__unordered_map_equal<unsigned short,std::__hash_value_type<unsigned short,mimosa::OpticalSampleV2>,std::equal_to<unsigned short>,std::hash<unsigned short>,true>,std::allocator<std::__hash_value_type<unsigned short,mimosa::OpticalSampleV2>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>((a2 + 64), v55, &std::piecewise_construct, &v55);
+      v25 = (*(a3 + 16) + 32 * v22);
+      v26 = (*v47 + 24 * v22);
+      v27 = *v25;
+      *v26 = v27 - *(v24 + 5);
+      *(v24 + 5) = v27;
+      v28 = v25[1];
+      v26[1] = v28 - *(v24 + 6);
+      *(v24 + 6) = v28;
+      v29 = v25[2];
+      v26[2] = v29 - *(v24 + 7);
+      *(v24 + 7) = v29;
+      v30 = *(v25 + 7);
+      if (*(v24 + 17) != v30)
       {
-        if ((*(a5 + 88) & 1) == 0)
+        if ((a1[11] & 1) == 0)
         {
-          std::optional<std::vector<mimosa::v2::OpticalSamplesV2SubpacketState::Patch::Sample>>::emplace[abi:ne200100]<unsigned long const&,void>(v47, &v48);
-          LOWORD(v29) = *(v24 + 7);
+          std::optional<std::vector<mimosa::v2::OpticalSamplesV2SubpacketState::Patch::Sample>>::emplace[abi:ne200100]<unsigned long const&,void>(v48, &v49);
+          LOWORD(v30) = *(v25 + 7);
         }
 
-        v30 = *v11 + 34 * v21;
-        *v30 = v29;
-        *(v30 + 2) = 1;
-        *(v23 + 17) = *(v24 + 7);
+        v31 = *v11 + 34 * v22;
+        *v31 = v30;
+        *(v31 + 2) = 1;
+        *(v24 + 17) = *(v25 + 7);
       }
 
-      v31 = *(v24 + 8);
-      if (*(v23 + 18) != v31)
+      v32 = *(v25 + 8);
+      if (*(v24 + 18) != v32)
       {
-        if ((*(a5 + 88) & 1) == 0)
+        if ((a1[11] & 1) == 0)
         {
-          std::optional<std::vector<mimosa::v2::OpticalSamplesV2SubpacketState::Patch::Sample>>::emplace[abi:ne200100]<unsigned long const&,void>(v47, &v48);
-          LOWORD(v31) = *(v24 + 8);
+          std::optional<std::vector<mimosa::v2::OpticalSamplesV2SubpacketState::Patch::Sample>>::emplace[abi:ne200100]<unsigned long const&,void>(v48, &v49);
+          LOWORD(v32) = *(v25 + 8);
         }
 
-        v32 = *v11 + 34 * v21;
-        *(v32 + 4) = v31;
-        *(v32 + 6) = 1;
-        *(v23 + 18) = *(v24 + 8);
+        v33 = *v11 + 34 * v22;
+        *(v33 + 4) = v32;
+        *(v33 + 6) = 1;
+        *(v24 + 18) = *(v25 + 8);
       }
 
-      v33 = *(v24 + 9);
-      if (*(v23 + 19) != v33)
+      v34 = *(v25 + 9);
+      if (*(v24 + 19) != v34)
       {
-        if ((*(a5 + 88) & 1) == 0)
+        if ((a1[11] & 1) == 0)
         {
-          std::optional<std::vector<mimosa::v2::OpticalSamplesV2SubpacketState::Patch::Sample>>::emplace[abi:ne200100]<unsigned long const&,void>(v47, &v48);
-          LOWORD(v33) = *(v24 + 9);
+          std::optional<std::vector<mimosa::v2::OpticalSamplesV2SubpacketState::Patch::Sample>>::emplace[abi:ne200100]<unsigned long const&,void>(v48, &v49);
+          LOWORD(v34) = *(v25 + 9);
         }
 
-        v34 = *v11 + 34 * v21;
-        *(v34 + 8) = v33;
-        *(v34 + 10) = 1;
-        *(v23 + 19) = *(v24 + 9);
+        v35 = *v11 + 34 * v22;
+        *(v35 + 8) = v34;
+        *(v35 + 10) = 1;
+        *(v24 + 19) = *(v25 + 9);
       }
 
-      v35 = *(v24 + 10);
-      if (*(v23 + 20) != v35)
+      v36 = *(v25 + 10);
+      if (*(v24 + 20) != v36)
       {
-        if ((*(a5 + 88) & 1) == 0)
+        if ((a1[11] & 1) == 0)
         {
-          std::optional<std::vector<mimosa::v2::OpticalSamplesV2SubpacketState::Patch::Sample>>::emplace[abi:ne200100]<unsigned long const&,void>(v47, &v48);
-          LOWORD(v35) = *(v24 + 10);
+          std::optional<std::vector<mimosa::v2::OpticalSamplesV2SubpacketState::Patch::Sample>>::emplace[abi:ne200100]<unsigned long const&,void>(v48, &v49);
+          LOWORD(v36) = *(v25 + 10);
         }
 
-        v36 = *v11 + 34 * v21;
-        *(v36 + 12) = v35;
-        *(v36 + 14) = 1;
-        *(v23 + 20) = *(v24 + 10);
+        v37 = *v11 + 34 * v22;
+        *(v37 + 12) = v36;
+        *(v37 + 14) = 1;
+        *(v24 + 20) = *(v25 + 10);
       }
 
-      v37 = *(v24 + 11);
-      if (*(v23 + 21) != v37)
+      v38 = *(v25 + 11);
+      if (*(v24 + 21) != v38)
       {
-        if ((*(a5 + 88) & 1) == 0)
+        if ((a1[11] & 1) == 0)
         {
-          std::optional<std::vector<mimosa::v2::OpticalSamplesV2SubpacketState::Patch::Sample>>::emplace[abi:ne200100]<unsigned long const&,void>(v47, &v48);
-          LOWORD(v37) = *(v24 + 11);
+          std::optional<std::vector<mimosa::v2::OpticalSamplesV2SubpacketState::Patch::Sample>>::emplace[abi:ne200100]<unsigned long const&,void>(v48, &v49);
+          LOWORD(v38) = *(v25 + 11);
         }
 
-        v38 = *v11 + 34 * v21;
-        *(v38 + 16) = v37;
-        *(v38 + 18) = 1;
-        *(v23 + 21) = *(v24 + 11);
+        v39 = *v11 + 34 * v22;
+        *(v39 + 16) = v38;
+        *(v39 + 18) = 1;
+        *(v24 + 21) = *(v25 + 11);
       }
 
-      v39 = *(v24 + 24);
-      if (*(v23 + 44) != v39)
+      v40 = *(v25 + 24);
+      if (*(v24 + 44) != v40)
       {
-        if ((*(a5 + 88) & 1) == 0)
+        if ((a1[11] & 1) == 0)
         {
-          std::optional<std::vector<mimosa::v2::OpticalSamplesV2SubpacketState::Patch::Sample>>::emplace[abi:ne200100]<unsigned long const&,void>(v47, &v48);
-          LOWORD(v39) = *(v24 + 24);
+          std::optional<std::vector<mimosa::v2::OpticalSamplesV2SubpacketState::Patch::Sample>>::emplace[abi:ne200100]<unsigned long const&,void>(v48, &v49);
+          LOWORD(v40) = *(v25 + 24);
         }
 
-        *(*v11 + 34 * v21 + 20) = v39 | 0x100;
-        *(v23 + 44) = *(v24 + 24);
+        *(*v11 + 34 * v22 + 20) = v40 | 0x100;
+        *(v24 + 44) = *(v25 + 24);
       }
 
-      v40 = *(v24 + 25);
-      if (*(v23 + 45) != v40)
+      v41 = *(v25 + 25);
+      if (*(v24 + 45) != v41)
       {
-        if ((*(a5 + 88) & 1) == 0)
+        if ((a1[11] & 1) == 0)
         {
-          std::optional<std::vector<mimosa::v2::OpticalSamplesV2SubpacketState::Patch::Sample>>::emplace[abi:ne200100]<unsigned long const&,void>(v47, &v48);
-          LOWORD(v40) = *(v24 + 25);
+          std::optional<std::vector<mimosa::v2::OpticalSamplesV2SubpacketState::Patch::Sample>>::emplace[abi:ne200100]<unsigned long const&,void>(v48, &v49);
+          LOWORD(v41) = *(v25 + 25);
         }
 
-        *(*v11 + 34 * v21 + 22) = v40 | 0x100;
-        *(v23 + 45) = *(v24 + 25);
+        *(*v11 + 34 * v22 + 22) = v41 | 0x100;
+        *(v24 + 45) = *(v25 + 25);
       }
 
-      v41 = *(v24 + 26);
-      if (*(v23 + 46) != v41)
+      v42 = *(v25 + 26);
+      if (*(v24 + 46) != v42)
       {
-        if ((*(a5 + 88) & 1) == 0)
+        if ((a1[11] & 1) == 0)
         {
-          std::optional<std::vector<mimosa::v2::OpticalSamplesV2SubpacketState::Patch::Sample>>::emplace[abi:ne200100]<unsigned long const&,void>(v47, &v48);
-          LOWORD(v41) = *(v24 + 26);
+          std::optional<std::vector<mimosa::v2::OpticalSamplesV2SubpacketState::Patch::Sample>>::emplace[abi:ne200100]<unsigned long const&,void>(v48, &v49);
+          LOWORD(v42) = *(v25 + 26);
         }
 
-        *(*v11 + 34 * v21 + 24) = v41 | 0x100;
-        *(v23 + 46) = *(v24 + 26);
+        *(*v11 + 34 * v22 + 24) = v42 | 0x100;
+        *(v24 + 46) = *(v25 + 26);
       }
 
-      v42 = *(v24 + 27);
-      if (*(v23 + 47) != v42)
+      v43 = *(v25 + 27);
+      if (*(v24 + 47) != v43)
       {
-        if ((*(a5 + 88) & 1) == 0)
+        if ((a1[11] & 1) == 0)
         {
-          std::optional<std::vector<mimosa::v2::OpticalSamplesV2SubpacketState::Patch::Sample>>::emplace[abi:ne200100]<unsigned long const&,void>(v47, &v48);
-          LOWORD(v42) = *(v24 + 27);
+          std::optional<std::vector<mimosa::v2::OpticalSamplesV2SubpacketState::Patch::Sample>>::emplace[abi:ne200100]<unsigned long const&,void>(v48, &v49);
+          LOWORD(v43) = *(v25 + 27);
         }
 
-        *(*v11 + 34 * v21 + 26) = v42 | 0x100;
-        *(v23 + 47) = *(v24 + 27);
+        *(*v11 + 34 * v22 + 26) = v43 | 0x100;
+        *(v24 + 47) = *(v25 + 27);
       }
 
-      v43 = *(v24 + 28);
-      if (*(v23 + 48) != v43)
+      v44 = *(v25 + 28);
+      if (*(v24 + 48) != v44)
       {
-        if ((*(a5 + 88) & 1) == 0)
+        if ((a1[11] & 1) == 0)
         {
-          std::optional<std::vector<mimosa::v2::OpticalSamplesV2SubpacketState::Patch::Sample>>::emplace[abi:ne200100]<unsigned long const&,void>(v47, &v48);
-          LOWORD(v43) = *(v24 + 28);
+          std::optional<std::vector<mimosa::v2::OpticalSamplesV2SubpacketState::Patch::Sample>>::emplace[abi:ne200100]<unsigned long const&,void>(v48, &v49);
+          LOWORD(v44) = *(v25 + 28);
         }
 
-        *(*v11 + 34 * v21 + 28) = v43 | 0x100;
-        *(v23 + 48) = *(v24 + 28);
+        *(*v11 + 34 * v22 + 28) = v44 | 0x100;
+        *(v24 + 48) = *(v25 + 28);
       }
 
-      v44 = *(v24 + 29);
-      if (*(v23 + 49) != v44)
+      v45 = *(v25 + 29);
+      if (*(v24 + 49) != v45)
       {
-        if ((*(a5 + 88) & 1) == 0)
+        if ((a1[11] & 1) == 0)
         {
-          std::optional<std::vector<mimosa::v2::OpticalSamplesV2SubpacketState::Patch::Sample>>::emplace[abi:ne200100]<unsigned long const&,void>(v47, &v48);
-          LOWORD(v44) = *(v24 + 29);
+          std::optional<std::vector<mimosa::v2::OpticalSamplesV2SubpacketState::Patch::Sample>>::emplace[abi:ne200100]<unsigned long const&,void>(v48, &v49);
+          LOWORD(v45) = *(v25 + 29);
         }
 
-        *(*v11 + 34 * v21 + 30) = v44 | 0x100;
-        *(v23 + 49) = *(v24 + 29);
+        *(*v11 + 34 * v22 + 30) = v45 | 0x100;
+        *(v24 + 49) = *(v25 + 29);
       }
 
-      v45 = *(v24 + 30);
-      if (*(v23 + 50) != v45)
+      v46 = *(v25 + 30);
+      if (*(v24 + 50) != v46)
       {
-        if ((*(a5 + 88) & 1) == 0)
+        if ((a1[11] & 1) == 0)
         {
-          std::optional<std::vector<mimosa::v2::OpticalSamplesV2SubpacketState::Patch::Sample>>::emplace[abi:ne200100]<unsigned long const&,void>(v47, &v48);
-          LOWORD(v45) = *(v24 + 30);
+          std::optional<std::vector<mimosa::v2::OpticalSamplesV2SubpacketState::Patch::Sample>>::emplace[abi:ne200100]<unsigned long const&,void>(v48, &v49);
+          LOWORD(v46) = *(v25 + 30);
         }
 
-        *(*v11 + 34 * v21 + 32) = v45 | 0x100;
-        *(v23 + 50) = *(v24 + 30);
+        *(*v11 + 34 * v22 + 32) = v46 | 0x100;
+        *(v24 + 50) = *(v25 + 30);
       }
 
-      v21 = v22;
-      v19 = *(a2 + 16);
-      ++v22;
+      v22 = v23;
+      v20 = *(a3 + 16);
+      ++v23;
     }
 
-    while (v21 < (*(a2 + 24) - v19) >> 5);
+    while (v22 < (*(a3 + 24) - v20) >> 5);
   }
 
-  if (v52[0])
+  if (v53[0])
   {
-    v52[1] = v52[0];
-    operator delete(v52[0]);
+    v53[1] = v53[0];
+    operator delete(v53[0]);
   }
 }
 
@@ -8424,7 +8401,7 @@ void sub_2512BF6F0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::optional<std::vector<mimosa::v2::OpticalSamplesV2SubpacketState::Patch::Sample>>::emplace[abi:ne200100]<unsigned long const&,void>(uint64_t a1, unint64_t *a2)
+uint64_t *std::optional<std::vector<mimosa::v2::OpticalSamplesV2SubpacketState::Patch::Sample>>::emplace[abi:ne200100]<unsigned long const&,void>(uint64_t a1, unint64_t *a2)
 {
   if (*(a1 + 24) == 1)
   {
@@ -8468,33 +8445,33 @@ void mimosa::v2::OpticalSamplesV2SubpacketState::Patch::~Patch(mimosa::v2::Optic
   }
 }
 
-uint64_t **std::__hash_table<std::__hash_value_type<unsigned short,mimosa::OpticalSampleV2>,std::__unordered_map_hasher<unsigned short,std::__hash_value_type<unsigned short,mimosa::OpticalSampleV2>,std::hash<unsigned short>,std::equal_to<unsigned short>,true>,std::__unordered_map_equal<unsigned short,std::__hash_value_type<unsigned short,mimosa::OpticalSampleV2>,std::equal_to<unsigned short>,std::hash<unsigned short>,true>,std::allocator<std::__hash_value_type<unsigned short,mimosa::OpticalSampleV2>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(void *a1, unsigned __int16 *a2)
+uint64_t **std::__hash_table<std::__hash_value_type<unsigned short,mimosa::OpticalSampleV2>,std::__unordered_map_hasher<unsigned short,std::__hash_value_type<unsigned short,mimosa::OpticalSampleV2>,std::hash<unsigned short>,std::equal_to<unsigned short>,true>,std::__unordered_map_equal<unsigned short,std::__hash_value_type<unsigned short,mimosa::OpticalSampleV2>,std::equal_to<unsigned short>,std::hash<unsigned short>,true>,std::allocator<std::__hash_value_type<unsigned short,mimosa::OpticalSampleV2>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(void *a1, unsigned __int16 *a2, uint64_t a3, _WORD **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v7 = *a2;
+    if (*&v5 <= v4)
     {
-      v5 = v2 % a1[1];
+      v7 = v4 % a1[1];
     }
   }
 
   else
   {
-    v5 = (v3.i32[0] - 1) & v2;
+    v7 = (v5.i32[0] - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -8502,44 +8479,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 8) != v2)
+  if (*(v9 + 8) != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
 uint64_t mimosa::v2::OpticalScalarsSubpacketState::update@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
@@ -8626,10 +8603,10 @@ void mimosa::v2::OpticalDecoderV2SubpacketState::update(uint64_t a1@<X0>, uint64
   *(a3 + 49) = *(a1 + 88) - v11;
   if (*(a2 + 56) != 1)
   {
-    mimosa::v2::ItemCoder<std::vector<unsigned short>>::decode((a1 + 40), *(v11 + v9), &v21);
+    mimosa::v2::ItemCoder<std::vector<unsigned short>>::decode((a1 + 40), *(v11 + v9), &v22);
 LABEL_13:
-    v14 = v22;
-    *(a3 + 16) = v21;
+    v14 = v23;
+    *(a3 + 16) = v22;
     *(a3 + 32) = v14;
     return;
   }
@@ -8644,7 +8621,7 @@ LABEL_13:
     }
 
     *(v11 + v9) = *v12;
-    mimosa::v2::ItemCoder<std::vector<unsigned short>>::decode((a1 + 40), *(*(a1 + 80) + *(a1 + 72)), &v21);
+    mimosa::v2::ItemCoder<std::vector<unsigned short>>::decode((a1 + 40), *(*(a1 + 80) + *(a1 + 72)), &v22);
     goto LABEL_13;
   }
 
@@ -8662,13 +8639,13 @@ LABEL_13:
   }
 
   __p = 0;
-  v19 = 0;
   v20 = 0;
+  v21 = 0;
   std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short *,unsigned short *>(&__p, v15, v16, (v16 - v15) >> 1);
-  *(*(a1 + 80) + *(a1 + 72)) = mimosa::v2::ItemCoder<std::vector<unsigned short>>::encode((a1 + 40), &__p);
+  *(*(a1 + 80) + *(a1 + 72)) = mimosa::v2::ItemCoder<std::vector<unsigned short>>::encode((a1 + 40), &__p, v17);
   if (__p)
   {
-    v19 = __p;
+    v20 = __p;
     operator delete(__p);
   }
 }
@@ -8683,46 +8660,46 @@ LABEL_13:
 
   if (*(a2 + 48) >= *(a2 + 49))
   {
-    v19 = __cxa_allocate_exception(0x10uLL);
-    std::to_string(&v30, *(a2 + 48));
-    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("beat index ", &v30, &v31);
-    v20 = std::string::append(&v31, " is invalid given a beat count of ", 0x22uLL);
-    v21 = *&v20->__r_.__value_.__l.__data_;
-    v32.__r_.__value_.__r.__words[2] = v20->__r_.__value_.__r.__words[2];
-    *&v32.__r_.__value_.__l.__data_ = v21;
-    v20->__r_.__value_.__l.__size_ = 0;
-    v20->__r_.__value_.__r.__words[2] = 0;
-    v20->__r_.__value_.__r.__words[0] = 0;
-    std::to_string(&v29, *(a2 + 49));
-    if ((v29.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    v20 = __cxa_allocate_exception(0x10uLL);
+    std::to_string(&v31, *(a2 + 48));
+    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("beat index ", &v31, &v32);
+    v21 = std::string::append(&v32, " is invalid given a beat count of ", 0x22uLL);
+    v22 = *&v21->__r_.__value_.__l.__data_;
+    v33.__r_.__value_.__r.__words[2] = v21->__r_.__value_.__r.__words[2];
+    *&v33.__r_.__value_.__l.__data_ = v22;
+    v21->__r_.__value_.__l.__size_ = 0;
+    v21->__r_.__value_.__r.__words[2] = 0;
+    v21->__r_.__value_.__r.__words[0] = 0;
+    std::to_string(&v30, *(a2 + 49));
+    if ((v30.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v22 = &v29;
+      v23 = &v30;
     }
 
     else
     {
-      v22 = v29.__r_.__value_.__r.__words[0];
+      v23 = v30.__r_.__value_.__r.__words[0];
     }
 
-    if ((v29.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    if ((v30.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      size = HIBYTE(v29.__r_.__value_.__r.__words[2]);
+      size = HIBYTE(v30.__r_.__value_.__r.__words[2]);
     }
 
     else
     {
-      size = v29.__r_.__value_.__l.__size_;
+      size = v30.__r_.__value_.__l.__size_;
     }
 
-    v24 = std::string::append(&v32, v22, size);
-    v25 = *&v24->__r_.__value_.__l.__data_;
-    v34 = v24->__r_.__value_.__r.__words[2];
-    v33 = v25;
-    v24->__r_.__value_.__l.__size_ = 0;
-    v24->__r_.__value_.__r.__words[2] = 0;
-    v24->__r_.__value_.__r.__words[0] = 0;
-    MEMORY[0x25306FCE0](v19, &v33);
-    __cxa_throw(v19, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+    v25 = std::string::append(&v33, v23, size);
+    v26 = *&v25->__r_.__value_.__l.__data_;
+    v35 = v25->__r_.__value_.__r.__words[2];
+    v34 = v26;
+    v25->__r_.__value_.__l.__size_ = 0;
+    v25->__r_.__value_.__r.__words[2] = 0;
+    v25->__r_.__value_.__r.__words[0] = 0;
+    MEMORY[0x25306FCE0](v20, &v34);
+    __cxa_throw(v20, MEMORY[0x277D82760], MEMORY[0x277D82600]);
   }
 
   *(a3 + 24) = 0;
@@ -8733,9 +8710,9 @@ LABEL_13:
   *(a3 + 8) = 0;
   *(a3 + 16) = 0;
   *(a3 + 80) = 0;
-  mimosa::v2::SubpacketHeaderState::update(a1, a2, &v33);
-  *a3 = v33;
-  *(a3 + 16) = v34;
+  mimosa::v2::SubpacketHeaderState::update(a1, a2, &v34);
+  *a3 = v34;
+  *(a3 + 16) = v35;
   v6 = *(a1 + 80);
   v7 = *(a1 + 88) - v6;
   v8 = (*(a1 + 72) + 1) % v7;
@@ -8771,30 +8748,30 @@ LABEL_13:
 
   v12 = *(a2 + 16);
   v13 = *(a2 + 24);
-  v14 = (a2 + 16);
+  v14 = a2 + 16;
   __p = 0;
-  v27 = 0;
   v28 = 0;
+  v29 = 0;
   std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short *,unsigned short *>(&__p, v12, v13, (v13 - v12) >> 1);
-  v15 = mimosa::v2::ItemCoder<std::vector<unsigned short>>::encode((a1 + 40), &__p);
+  v16 = mimosa::v2::ItemCoder<std::vector<unsigned short>>::encode((a1 + 40), &__p, v15);
   if (__p)
   {
-    v27 = __p;
+    v28 = __p;
     operator delete(__p);
   }
 
-  if ((v15 & 0x100) != 0)
+  if ((v16 & 0x100) != 0)
   {
-    std::optional<std::variant<std::vector<unsigned short>,unsigned char>>::operator=[abi:ne200100]<std::vector<unsigned short> const&,void>(a3 + 24, v14);
-    v16 = *(a1 + 72);
-    v17 = *(a1 + 80);
+    std::optional<std::variant<std::vector<unsigned short>,unsigned char>>::operator=[abi:ne200100]<std::vector<unsigned short> const&,void>((a3 + 24), v14);
+    v17 = *(a1 + 72);
+    v18 = *(a1 + 80);
   }
 
   else
   {
-    v16 = *(a1 + 72);
-    v17 = *(a1 + 80);
-    if (*(v17 + v16) == v15)
+    v17 = *(a1 + 72);
+    v18 = *(a1 + 80);
+    if (*(v18 + v17) == v16)
     {
       return;
     }
@@ -8805,22 +8782,22 @@ LABEL_13:
       {
         std::__variant_detail::__dtor<std::__variant_detail::__traits<std::vector<unsigned short>,unsigned char>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](a3 + 24);
         *(a3 + 48) = 1;
-        v16 = *(a1 + 72);
-        v17 = *(a1 + 80);
+        v17 = *(a1 + 72);
+        v18 = *(a1 + 80);
       }
 
-      *(a3 + 24) = v15;
+      *(a3 + 24) = v16;
     }
 
     else
     {
-      *(a3 + 24) = v15;
+      *(a3 + 24) = v16;
       *(a3 + 48) = 1;
       *(a3 + 56) = 1;
     }
   }
 
-  *(v17 + v16) = v15;
+  *(v18 + v17) = v16;
 }
 
 void sub_2512BFD14(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11)
@@ -8931,11 +8908,11 @@ LABEL_13:
   return 0;
 }
 
-void mimosa::v2::OpticalSamplesV1SubpacketState::update(mimosa::v2::OpticalSamplesV1SubpacketState *this@<X0>, const mimosa::v2::OpticalSamplesV1SubpacketState::Patch *a2@<X1>, uint64_t a3@<X8>)
+void mimosa::v2::OpticalSamplesV1SubpacketState::update(uint64_t *__return_ptr a1@<X8>, mimosa::v2::OpticalSamplesV1SubpacketState *this@<X0>, const mimosa::v2::OpticalSamplesV1SubpacketState::Patch *a3@<X1>)
 {
-  mimosa::v2::OpticalSamplesV1SubpacketState::update_pseudo_light_path_pattern(this, (-85 * ((*(a2 + 16) - *(a2 + 14)) >> 3)));
+  mimosa::v2::OpticalSamplesV1SubpacketState::update_pseudo_light_path_pattern(this, (-85 * ((*(a3 + 16) - *(a3 + 14)) >> 3)));
 
-  mimosa::v2::OpticalSamplesV1SubpacketState::update(this, a2, this + 10, a3);
+  mimosa::v2::OpticalSamplesV1SubpacketState::update(this, a3, this + 10, a1);
 }
 
 void mimosa::v2::OpticalSamplesV1SubpacketState::update_pseudo_light_path_pattern(mimosa::v2::OpticalSamplesV1SubpacketState *this, unsigned int a2)
@@ -9031,7 +9008,7 @@ void mimosa::v2::OpticalSamplesV1SubpacketState::update(uint64_t a1@<X0>, uint64
       v13 = v12;
       v36 = *(v9 + 2 * v10);
       v37 = &v36;
-      v14 = std::__hash_table<std::__hash_value_type<unsigned short,mimosa::OpticalSampleV1>,std::__unordered_map_hasher<unsigned short,std::__hash_value_type<unsigned short,mimosa::OpticalSampleV1>,std::hash<unsigned short>,std::equal_to<unsigned short>,true>,std::__unordered_map_equal<unsigned short,std::__hash_value_type<unsigned short,mimosa::OpticalSampleV1>,std::equal_to<unsigned short>,std::hash<unsigned short>,true>,std::allocator<std::__hash_value_type<unsigned short,mimosa::OpticalSampleV1>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>((a1 + 40), &v36);
+      v14 = std::__hash_table<std::__hash_value_type<unsigned short,mimosa::OpticalSampleV1>,std::__unordered_map_hasher<unsigned short,std::__hash_value_type<unsigned short,mimosa::OpticalSampleV1>,std::hash<unsigned short>,std::equal_to<unsigned short>,true>,std::__unordered_map_equal<unsigned short,std::__hash_value_type<unsigned short,mimosa::OpticalSampleV1>,std::equal_to<unsigned short>,std::hash<unsigned short>,true>,std::allocator<std::__hash_value_type<unsigned short,mimosa::OpticalSampleV1>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>((a1 + 40), &v36, &std::piecewise_construct, &v37);
       v15 = (v14 + 20);
       v16 = (*(a2 + 56) + 24 * v10);
       *(v14 + 5) += *v16;
@@ -9205,7 +9182,7 @@ void mimosa::v2::OpticalSamplesV1SubpacketState::update(uint64_t a1@<X0>, uint64
     {
       v39 = *(v8 + 2 * v10);
       v42 = &v39;
-      v12 = std::__hash_table<std::__hash_value_type<unsigned short,mimosa::OpticalSampleV1>,std::__unordered_map_hasher<unsigned short,std::__hash_value_type<unsigned short,mimosa::OpticalSampleV1>,std::hash<unsigned short>,std::equal_to<unsigned short>,true>,std::__unordered_map_equal<unsigned short,std::__hash_value_type<unsigned short,mimosa::OpticalSampleV1>,std::equal_to<unsigned short>,std::hash<unsigned short>,true>,std::allocator<std::__hash_value_type<unsigned short,mimosa::OpticalSampleV1>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>((a1 + 40), &v39);
+      v12 = std::__hash_table<std::__hash_value_type<unsigned short,mimosa::OpticalSampleV1>,std::__unordered_map_hasher<unsigned short,std::__hash_value_type<unsigned short,mimosa::OpticalSampleV1>,std::hash<unsigned short>,std::equal_to<unsigned short>,true>,std::__unordered_map_equal<unsigned short,std::__hash_value_type<unsigned short,mimosa::OpticalSampleV1>,std::equal_to<unsigned short>,std::hash<unsigned short>,true>,std::allocator<std::__hash_value_type<unsigned short,mimosa::OpticalSampleV1>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>((a1 + 40), &v39, &std::piecewise_construct, &v42);
       v13 = (*(a2 + 16) + 36 * v10);
       v14 = (*v36 + 24 * v10);
       v15 = *v13;
@@ -9394,31 +9371,31 @@ void mimosa::v2::OpticalSamplesV1SubpacketState::update(uint64_t a1@<X0>, uint64
   }
 }
 
-void mimosa::v2::OpticalSamplesV1SubpacketState::update(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+void mimosa::v2::OpticalSamplesV1SubpacketState::update(mimosa::v2::OpticalSamplesV1SubpacketState *a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
 {
   mimosa::v2::OpticalSamplesV1SubpacketState::update_pseudo_light_path_pattern(a1, (57 * ((*(a2 + 24) - *(a2 + 16)) >> 2)));
 
   mimosa::v2::OpticalSamplesV1SubpacketState::update(a1, a2, a1 + 10, a3);
 }
 
-void std::vector<unsigned short>::resize(void *a1, unint64_t a2)
+void std::vector<unsigned short>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 1;
+  v2 = (result[1] - *result) >> 1;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 2 * a2;
+      result[1] = *result + 2 * a2;
     }
   }
 
   else
   {
-    std::vector<unsigned short>::__append(a1, a2 - v2);
+    std::vector<unsigned short>::__append(result, a2 - v2);
   }
 }
 
-void *std::optional<std::vector<mimosa::v2::OpticalSamplesV1SubpacketState::Patch::Sample>>::emplace[abi:ne200100]<unsigned long const&,void>(uint64_t a1, unint64_t *a2)
+uint64_t *std::optional<std::vector<mimosa::v2::OpticalSamplesV1SubpacketState::Patch::Sample>>::emplace[abi:ne200100]<unsigned long const&,void>(uint64_t a1, unint64_t *a2)
 {
   if (*(a1 + 24) == 1)
   {
@@ -9518,33 +9495,33 @@ void std::vector<unsigned short>::__append(uint64_t a1, unint64_t a2)
   }
 }
 
-uint64_t **std::__hash_table<std::__hash_value_type<unsigned short,mimosa::OpticalSampleV1>,std::__unordered_map_hasher<unsigned short,std::__hash_value_type<unsigned short,mimosa::OpticalSampleV1>,std::hash<unsigned short>,std::equal_to<unsigned short>,true>,std::__unordered_map_equal<unsigned short,std::__hash_value_type<unsigned short,mimosa::OpticalSampleV1>,std::equal_to<unsigned short>,std::hash<unsigned short>,true>,std::allocator<std::__hash_value_type<unsigned short,mimosa::OpticalSampleV1>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(void *a1, unsigned __int16 *a2)
+uint64_t **std::__hash_table<std::__hash_value_type<unsigned short,mimosa::OpticalSampleV1>,std::__unordered_map_hasher<unsigned short,std::__hash_value_type<unsigned short,mimosa::OpticalSampleV1>,std::hash<unsigned short>,std::equal_to<unsigned short>,true>,std::__unordered_map_equal<unsigned short,std::__hash_value_type<unsigned short,mimosa::OpticalSampleV1>,std::equal_to<unsigned short>,std::hash<unsigned short>,true>,std::allocator<std::__hash_value_type<unsigned short,mimosa::OpticalSampleV1>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(void *a1, unsigned __int16 *a2, uint64_t a3, _WORD **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v7 = *a2;
+    if (*&v5 <= v4)
     {
-      v5 = v2 % a1[1];
+      v7 = v4 % a1[1];
     }
   }
 
   else
   {
-    v5 = (v3.i32[0] - 1) & v2;
+    v7 = (v5.i32[0] - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -9552,61 +9529,60 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 8) != v2)
+  if (*(v9 + 8) != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
 uint64_t mimosa::v2::Decoder::Decoder(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v8[4] = *MEMORY[0x277D85DE8];
-  v8[0] = &unk_286352EA8;
-  v8[1] = a1;
-  v8[3] = v8;
-  mimosa::v2::PatchDecoder::PatchDecoder(a1, v8);
-  std::__function::__value_func<BOOL ()(std::variant<mimosa::v2::PacketState::PatchV1,mimosa::v2::PacketState::PatchV2,mimosa::v2::PacketState::PatchV3,mimosa::v2::PacketState::PatchV4,mimosa::v2::PacketState::PatchV5,mimosa::v2::PacketState::PatchV6,mimosa::v2::PacketState::PatchV7,mimosa::v2::PacketState::PatchV8,mimosa::v2::PacketState::PatchV9,mimosa::v2::PacketState::PatchV10,mimosa::v2::PacketState::PatchV11,mimosa::v2::PacketState::PatchV12> const&)>::~__value_func[abi:ne200100](v8);
+  v7[4] = *MEMORY[0x277D85DE8];
+  v7[0] = &unk_286352EA8;
+  v7[1] = a1;
+  v7[3] = v7;
+  mimosa::v2::PatchDecoder::PatchDecoder(a1, v7);
+  std::__function::__value_func<BOOL ()(std::variant<mimosa::v2::PacketState::PatchV1,mimosa::v2::PacketState::PatchV2,mimosa::v2::PacketState::PatchV3,mimosa::v2::PacketState::PatchV4,mimosa::v2::PacketState::PatchV5,mimosa::v2::PacketState::PatchV6,mimosa::v2::PacketState::PatchV7,mimosa::v2::PacketState::PatchV8,mimosa::v2::PacketState::PatchV9,mimosa::v2::PacketState::PatchV10,mimosa::v2::PacketState::PatchV11,mimosa::v2::PacketState::PatchV12> const&)>::~__value_func[abi:ne200100](v7);
   std::__function::__value_func<BOOL ()(mimosa::Metadata const&)>::__value_func[abi:ne200100](a1 + 40, a2);
   std::__function::__value_func<BOOL ()(std::variant<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&,double)>::__value_func[abi:ne200100](a1 + 72, a3);
   bzero((a1 + 104), 0x528uLL);
   mimosa::v2::PacketState::PacketState((a1 + 104));
   *(a1 + 1424) = 0;
   *(a1 + 1432) = 0;
-  v6 = *MEMORY[0x277D85DE8];
   return a1;
 }
 
@@ -9620,18 +9596,17 @@ void sub_2512C1204(_Unwind_Exception *a1)
 
 uint64_t mimosa::v2::Decoder::Decoder(uint64_t a1, uint64_t a2)
 {
-  v6[4] = *MEMORY[0x277D85DE8];
-  v6[0] = &unk_286352F38;
-  v6[1] = a1;
-  v6[3] = v6;
-  mimosa::v2::PatchDecoder::PatchDecoder(a1, v6);
-  std::__function::__value_func<BOOL ()(std::variant<mimosa::v2::PacketState::PatchV1,mimosa::v2::PacketState::PatchV2,mimosa::v2::PacketState::PatchV3,mimosa::v2::PacketState::PatchV4,mimosa::v2::PacketState::PatchV5,mimosa::v2::PacketState::PatchV6,mimosa::v2::PacketState::PatchV7,mimosa::v2::PacketState::PatchV8,mimosa::v2::PacketState::PatchV9,mimosa::v2::PacketState::PatchV10,mimosa::v2::PacketState::PatchV11,mimosa::v2::PacketState::PatchV12> const&)>::~__value_func[abi:ne200100](v6);
+  v5[4] = *MEMORY[0x277D85DE8];
+  v5[0] = &unk_286352F38;
+  v5[1] = a1;
+  v5[3] = v5;
+  mimosa::v2::PatchDecoder::PatchDecoder(a1, v5);
+  std::__function::__value_func<BOOL ()(std::variant<mimosa::v2::PacketState::PatchV1,mimosa::v2::PacketState::PatchV2,mimosa::v2::PacketState::PatchV3,mimosa::v2::PacketState::PatchV4,mimosa::v2::PacketState::PatchV5,mimosa::v2::PacketState::PatchV6,mimosa::v2::PacketState::PatchV7,mimosa::v2::PacketState::PatchV8,mimosa::v2::PacketState::PatchV9,mimosa::v2::PacketState::PatchV10,mimosa::v2::PacketState::PatchV11,mimosa::v2::PacketState::PatchV12> const&)>::~__value_func[abi:ne200100](v5);
   std::__function::__value_func<BOOL ()(mimosa::Metadata const&)>::__value_func[abi:ne200100](a1 + 40, a2 + 40);
   std::__function::__value_func<BOOL ()(std::variant<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&,double)>::__value_func[abi:ne200100](a1 + 72, a2 + 72);
   mimosa::v2::PacketState::PacketState((a1 + 104), (a2 + 104));
   *(a1 + 1424) = *(a2 + 1424);
   *(a1 + 1432) = *(a2 + 1432);
-  v4 = *MEMORY[0x277D85DE8];
   return a1;
 }
 
@@ -9653,16 +9628,16 @@ uint64_t mimosa::v2::Decoder::handle_patch(uint64_t a1, uint64_t a2)
   return v3;
 }
 
-void sub_2512C1370(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2512C1370(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__variant_detail::__dtor<std::__variant_detail::__traits<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
 unsigned __int8 *mimosa::v2::Decoder::decode(mimosa::v2::Decoder *this, const byte *a2, uint64_t a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (*(this + 1432))
   {
     v6 = 0;
@@ -9671,84 +9646,82 @@ unsigned __int8 *mimosa::v2::Decoder::decode(mimosa::v2::Decoder *this, const by
 
   else
   {
-    std::__function::__value_func<BOOL ()(mimosa::Metadata const&)>::__value_func[abi:ne200100](v19, this + 40);
+    std::__function::__value_func<BOOL ()(mimosa::Metadata const&)>::__value_func[abi:ne200100](v18, this + 40);
     v6 = mimosa::v2::decode_metadata();
     v9 = v8;
-    std::__function::__value_func<BOOL ()(mimosa::Metadata const&)>::~__value_func[abi:ne200100](v19);
+    std::__function::__value_func<BOOL ()(mimosa::Metadata const&)>::~__value_func[abi:ne200100](v18);
     v7 = v9 & 1;
     if (v6)
     {
       *(this + 1432) = 1;
       if ((v9 & 1) == 0)
       {
-        goto LABEL_5;
+        return v6;
       }
     }
 
     else if ((*(this + 1432) & v9 & 1) == 0)
     {
-      goto LABEL_5;
+      return v6;
     }
   }
 
-  v12 = &a2[a3];
-  v13 = &v6[a2];
+  v11 = &a2[a3];
+  v12 = &v6[a2];
   do
   {
-    v14 = (v12 - v13);
-    if (v12 - v13 < 1)
+    v13 = (v11 - v12);
+    if (v11 - v12 < 1)
     {
       break;
     }
 
-    v15 = *v13;
-    if (*v13)
+    v14 = *v12;
+    if (*v12)
     {
-      if (v15 == 109)
+      if (v14 == 109)
       {
-        break;
+        return v6;
       }
 
-      if ((v15 - 1) < 7)
+      if ((v14 - 1) < 7)
       {
         exception = __cxa_allocate_exception(0x10uLL);
         std::runtime_error::runtime_error(exception, "input is corrupt");
         __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
       }
 
-      v16 = mimosa::v2::PatchDecoder::decode(this, v13, v14);
-      v7 = v17 & 1;
+      v15 = mimosa::v2::PatchDecoder::decode(this, v12, v13);
+      v7 = v16 & 1;
     }
 
     else
     {
-      if (v14 < 9)
+      if (v13 < 9)
       {
-        break;
+        return v6;
       }
 
-      *(this + 178) = *(v13 + 1);
-      v16 = 9;
+      *(this + 178) = *(v12 + 1);
+      v15 = 9;
     }
 
-    v6 += v16;
+    v6 += v15;
     if ((v7 & 1) == 0)
     {
       break;
     }
 
-    v13 += v16;
+    v12 += v15;
   }
 
-  while (v16);
-LABEL_5:
-  v10 = *MEMORY[0x277D85DE8];
+  while (v15);
   return v6;
 }
 
-void sub_2512C1514(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2512C1514(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<BOOL ()(mimosa::Metadata const&)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -9812,7 +9785,7 @@ mimosa::v2::PacketState *mimosa::v2::PacketState::PacketState(mimosa::v2::Packet
   *(this + 86) = 0;
   *(this + 88) = 0;
   *(this + 87) = 0;
-  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(this + 688, &v4, v5, 1);
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(this + 86, &v4, v5, 1);
   *(this + 760) = 0u;
   *(this + 776) = 0u;
   *(this + 728) = 0u;
@@ -9822,7 +9795,7 @@ mimosa::v2::PacketState *mimosa::v2::PacketState::PacketState(mimosa::v2::Packet
   *(this + 99) = 0;
   *(this + 101) = 0;
   *(this + 100) = 0;
-  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(this + 792, &v4, v5, 1);
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(this + 99, &v4, v5, 1);
   *(this + 108) = 0;
   *(this + 52) = 0u;
   *(this + 53) = 0u;

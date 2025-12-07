@@ -648,7 +648,7 @@ LABEL_8:
   dispatch_async(serialQueue, v15);
 }
 
-uint64_t __104__MCProfileTitlePageViewModel__respondToMAIDAuthenticationRequestIfNeeded_successful_error_isCancelled___block_invoke(uint64_t a1)
+void *__104__MCProfileTitlePageViewModel__respondToMAIDAuthenticationRequestIfNeeded_successful_error_isCancelled___block_invoke(uint64_t a1)
 {
   [*(a1 + 32) setCleanupTask:0];
   result = [*(a1 + 32) isInstallingProfile];
@@ -668,7 +668,7 @@ uint64_t __104__MCProfileTitlePageViewModel__respondToMAIDAuthenticationRequestI
 
 - (void)_signInMAID:(id)d authenticationResult:(id)result personaID:(id)iD completionHandler:(id)handler
 {
-  v22[2] = *MEMORY[0x277D85DE8];
+  v21[2] = *MEMORY[0x277D85DE8];
   dCopy = d;
   resultCopy = result;
   iDCopy = iD;
@@ -685,19 +685,17 @@ uint64_t __104__MCProfileTitlePageViewModel__respondToMAIDAuthenticationRequestI
     [(MCProfileTitlePageViewModel *)self setInstallState:6];
     v14 = objc_opt_new();
     v15 = *MEMORY[0x277CB8D58];
-    v22[0] = *MEMORY[0x277CB8BA0];
-    v22[1] = v15;
-    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
+    v21[0] = *MEMORY[0x277CB8BA0];
+    v21[1] = v15;
+    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
     delegate = [(MCProfileTitlePageViewModel *)self delegate];
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __92__MCProfileTitlePageViewModel__signInMAID_authenticationResult_personaID_completionHandler___block_invoke_2;
-    v19[3] = &unk_279861DD0;
-    v20 = handlerCopy;
-    [v14 signInAccountsWithTypes:v16 authenticationResult:resultCopy personaID:iDCopy canMakeAccountActive:0 baseViewController:delegate completionHandler:v19];
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __92__MCProfileTitlePageViewModel__signInMAID_authenticationResult_personaID_completionHandler___block_invoke_2;
+    v18[3] = &unk_279861DD0;
+    v19 = handlerCopy;
+    [v14 signInAccountsWithTypes:v16 authenticationResult:resultCopy personaID:iDCopy canMakeAccountActive:0 baseViewController:delegate completionHandler:v18];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __92__MCProfileTitlePageViewModel__signInMAID_authenticationResult_personaID_completionHandler___block_invoke(uint64_t a1)
@@ -708,7 +706,7 @@ void __92__MCProfileTitlePageViewModel__signInMAID_authenticationResult_personaI
 
 - (id)_createAuthenticationContext:(id)context presentingViewController:(id)controller
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277CF0380];
   controllerCopy = controller;
   contextCopy = context;
@@ -719,12 +717,10 @@ void __92__MCProfileTitlePageViewModel__signInMAID_authenticationResult_personaI
 
   [v8 setUsername:contextCopy];
   [v8 setIsUsernameEditable:0];
-  v12 = @"shouldAllowManagedAppleIDOnly";
-  v13[0] = MEMORY[0x277CBEC38];
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v11 = @"shouldAllowManagedAppleIDOnly";
+  v12[0] = MEMORY[0x277CBEC38];
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
   [v8 setAppProvidedData:v9];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

@@ -16,6 +16,7 @@
 - (void)logFinalResultGeneratedWithEARPackage:(id)package firstSeenPartialResultTokens:(id)tokens partialResultOffset:(unint64_t)offset timeInTicks:(id)ticks;
 - (void)logFirstAudioPacketProcessedWithTimeInTicks:(id)ticks;
 - (void)logFrameProcessingReadyWithTimeInTicks:(id)ticks;
+- (void)logInitializationEndedWithTimeInTicks:(id)ticks isSpeechRecognizerCreated:(BOOL)created;
 - (void)logInitializationStartedOrChangedWithTimeInTicks:(id)ticks cachedRecognizerExisted:(BOOL)existed newRecognizerCreated:(BOOL)created;
 - (void)logJitLmeEndedAndEndedTier1WithDialogContext:(id)context timeInTicks:(id)ticks;
 - (void)logJitLmeStartedOrChangedWithTimeInTicks:(id)ticks;
@@ -735,6 +736,26 @@
     }
 
     [(CESRSignpostHelper *)self->_signpostHelper storeSignpostId:v9 forEventName:@"ES: ANE Model Init"];
+  }
+}
+
+- (void)logInitializationEndedWithTimeInTicks:(id)ticks isSpeechRecognizerCreated:(BOOL)created
+{
+  createdCopy = created;
+  ticksCopy = ticks;
+  [(ESSelfHelper *)self->_selfHelper logInitializationEndedIsSpeechRecognizerCreated:createdCopy];
+  if (self->_signpostHelper)
+  {
+    v7 = +[CESRUtilities machAbsoluteTimeToMachContinuousTime:](CESRUtilities, "machAbsoluteTimeToMachContinuousTime:", [ticksCopy unsignedLongLongValue]);
+    v8 = [(CESRSignpostHelper *)self->_signpostHelper fetchAndDestroySignpostIdForEventName:@"ES: Engine Init"];
+    v9 = AFSiriLogContextSpeech;
+    v10 = v9;
+    if ((v8 - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
+    {
+      v11 = 134349056;
+      v12 = v7;
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v10, OS_SIGNPOST_INTERVAL_END, v8, "ES: Engine Init", "%{public, signpost.description:end_time}llu", &v11, 0xCu);
+    }
   }
 }
 

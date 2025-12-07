@@ -107,9 +107,11 @@ LABEL_11:
 
 uint64_t __64__GKDashboardButtonSectionHeaderView_widthForTitle_buttonTitle___block_invoke(uint64_t a1)
 {
-  widthForTitle_buttonTitle__sSectionHeaderView = [*(a1 + 32) _gkViewFromNib];
+  v1 = [*(a1 + 32) _gkViewFromNib];
+  v2 = widthForTitle_buttonTitle__sSectionHeaderView;
+  widthForTitle_buttonTitle__sSectionHeaderView = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 + (CGSize)platformSizeForTitle:(id)title buttonTitle:(id)buttonTitle
@@ -261,11 +263,13 @@ void __63__GKDashboardButtonSectionHeaderView_setAttributedButtonTitle___block_i
     buttonAction = self->_buttonAction;
     if (buttonAction)
     {
-      [buttonTarget performSelector:buttonAction withObject:pressedCopy];
+      v7 = pressedCopy;
+      buttonTarget = [buttonTarget performSelector:buttonAction withObject:pressedCopy];
+      pressedCopy = v7;
     }
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](buttonTarget, pressedCopy);
 }
 
 - (void)prepareForReuse

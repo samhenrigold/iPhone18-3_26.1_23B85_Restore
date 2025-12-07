@@ -10,10 +10,10 @@ void __56___SFWebAppServiceViewController_serviceViewControllers__block_invoke()
   serviceViewControllers_serviceViewControllers = v0;
 }
 
-uint64_t __75___SFWebAppServiceViewController_clearWebViewAndWebsiteDataWithCompletion___block_invoke(uint64_t a1)
+uint64_t __75___SFWebAppServiceViewController_clearWebViewAndWebsiteDataWithCompletion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXWebApp();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = WBS_LOG_CHANNEL_PREFIXWebApp(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __75___SFWebAppServiceViewController_clearWebViewAndWebsiteDataWithCompletion___block_invoke_cold_1();
   }
@@ -25,12 +25,13 @@ uint64_t __75___SFWebAppServiceViewController_clearWebViewAndWebsiteDataWithComp
 void __75___SFWebAppServiceViewController_clearWebViewAndWebsiteDataWithCompletion___block_invoke_135(uint64_t a1, void *a2)
 {
   v2 = a2;
+  v4 = v2;
   if (v2)
   {
-    v3 = WBS_LOG_CHANNEL_PREFIXWebApp();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = WBS_LOG_CHANNEL_PREFIXWebApp(v2, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __75___SFWebAppServiceViewController_clearWebViewAndWebsiteDataWithCompletion___block_invoke_135_cold_1(v3, v2);
+      __75___SFWebAppServiceViewController_clearWebViewAndWebsiteDataWithCompletion___block_invoke_135_cold_1(v5, v4);
     }
   }
 }
@@ -64,32 +65,32 @@ void __65___SFWebAppServiceViewController__showBlankViewWithAlertIfNeeded__block
 
 void __115___SFWebAppServiceViewController_webViewController_requestNotificationPermissionForSecurityOrigin_decisionHandler___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  v6 = WBS_LOG_CHANNEL_PREFIXWebPush();
-  v7 = v6;
+  v7 = WBS_LOG_CHANNEL_PREFIXWebPush(v5, v6);
+  v8 = v7;
   if (v5)
   {
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __115___SFWebAppServiceViewController_webViewController_requestNotificationPermissionForSecurityOrigin_decisionHandler___block_invoke_cold_1(a2, v7, v5);
+      __115___SFWebAppServiceViewController_webViewController_requestNotificationPermissionForSecurityOrigin_decisionHandler___block_invoke_cold_1(a2, v8, v5);
     }
   }
 
-  else if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  else if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    v12 = a2;
-    _os_log_impl(&dword_1D4644000, v7, OS_LOG_TYPE_DEFAULT, "Push notification permission request finished with result %i", buf, 8u);
+    v13 = a2;
+    _os_log_impl(&dword_1D4644000, v8, OS_LOG_TYPE_DEFAULT, "Push notification permission request finished with result %i", buf, 8u);
   }
 
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __115___SFWebAppServiceViewController_webViewController_requestNotificationPermissionForSecurityOrigin_decisionHandler___block_invoke_168;
-  v8[3] = &unk_1E8491E60;
-  v9 = *(a1 + 32);
-  v10 = a2;
-  dispatch_async(MEMORY[0x1E69E96A0], v8);
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __115___SFWebAppServiceViewController_webViewController_requestNotificationPermissionForSecurityOrigin_decisionHandler___block_invoke_168;
+  v9[3] = &unk_1E8491E60;
+  v10 = *(a1 + 32);
+  v11 = a2;
+  dispatch_async(MEMORY[0x1E69E96A0], v9);
 }
 
 void __100___SFWebAppServiceViewController_webViewController_decidePolicyForNavigationAction_decisionHandler___block_invoke(uint64_t a1, uint64_t a2)
@@ -177,12 +178,13 @@ void __77___SFWebAppServiceViewController_notificationPermissionsForWebsiteDataS
 void __68___SFWebAppServiceViewController_websiteDataStore_showNotification___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
+  v4 = v2;
   if (v2)
   {
-    v3 = WBS_LOG_CHANNEL_PREFIXWebPush();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = WBS_LOG_CHANNEL_PREFIXWebPush(v2, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __68___SFWebAppServiceViewController_websiteDataStore_showNotification___block_invoke_cold_1(v3, v2);
+      __68___SFWebAppServiceViewController_websiteDataStore_showNotification___block_invoke_cold_1(v5, v4);
     }
   }
 }
@@ -230,100 +232,101 @@ void __110___SFWebAppServiceViewController_websiteDataStore_getDisplayedNotifica
   (*(*(a1 + 32) + 16))();
 }
 
-void __72___SFWebAppServiceViewController_processWebPushForWebAppWithIdentifier___block_invoke()
+void __72___SFWebAppServiceViewController_processWebPushForWebAppWithIdentifier___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = WBS_LOG_CHANNEL_PREFIXWebPush();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v2 = WBS_LOG_CHANNEL_PREFIXWebPush(a1, a2);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __72___SFWebAppServiceViewController_processWebPushForWebAppWithIdentifier___block_invoke_cold_1();
   }
 }
 
-void __72___SFWebAppServiceViewController_processWebPushForWebAppWithIdentifier___block_invoke_290(uint64_t a1, int a2)
+void __72___SFWebAppServiceViewController_processWebPushForWebAppWithIdentifier___block_invoke_290(void *a1, int a2)
 {
   if (a2)
   {
-    v3 = *(a1 + 32);
+    v3 = a1[4];
 
     dispatch_group_leave(v3);
   }
 
   else
   {
-    WeakRetained = objc_loadWeakRetained((*(*(a1 + 48) + 8) + 40));
-    getAndProcessPendingPushMessage(*(a1 + 40), WeakRetained);
+    WeakRetained = objc_loadWeakRetained((*(a1[6] + 8) + 40));
+    getAndProcessPendingPushMessage(a1[5], WeakRetained);
   }
 }
 
 void __72___SFWebAppServiceViewController_processWebPushForWebAppWithIdentifier___block_invoke_2(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = WBS_LOG_CHANNEL_PREFIXWebPush();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = WBS_LOG_CHANNEL_PREFIXWebPush(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = v4;
+    v6 = v5;
     *buf = 67109120;
-    v23 = [v3 count];
-    _os_log_impl(&dword_1D4644000, v5, OS_LOG_TYPE_DEFAULT, "Processing %i push messages", buf, 8u);
+    v24 = [v3 count];
+    _os_log_impl(&dword_1D4644000, v6, OS_LOG_TYPE_DEFAULT, "Processing %i push messages", buf, 8u);
   }
 
-  v19 = 0u;
   v20 = 0u;
-  v17 = 0u;
+  v21 = 0u;
   v18 = 0u;
-  v6 = v3;
-  v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
-  if (v7)
+  v19 = 0u;
+  v7 = v3;
+  v8 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  if (v8)
   {
-    v8 = v7;
-    v9 = *v18;
+    v9 = v8;
+    v10 = *v19;
     do
     {
-      v10 = 0;
+      v11 = 0;
       do
       {
-        if (*v18 != v9)
+        if (*v19 != v10)
         {
-          objc_enumerationMutation(v6);
+          objc_enumerationMutation(v7);
         }
 
-        v11 = *(*(&v17 + 1) + 8 * v10);
+        v12 = *(*(&v18 + 1) + 8 * v11);
         dispatch_group_enter(*(a1 + 32));
         CFRetain(*(a1 + 40));
-        v12 = *(a1 + 40);
-        v14[0] = MEMORY[0x1E69E9820];
-        v14[1] = 3221225472;
-        v14[2] = __72___SFWebAppServiceViewController_processWebPushForWebAppWithIdentifier___block_invoke_291;
-        v14[3] = &unk_1E8491FC8;
-        v14[4] = v11;
-        v13 = v12;
-        v15 = v13;
-        v16 = *(a1 + 32);
-        [v13 _processPushMessage:v11 completionHandler:v14];
+        v13 = *(a1 + 40);
+        v15[0] = MEMORY[0x1E69E9820];
+        v15[1] = 3221225472;
+        v15[2] = __72___SFWebAppServiceViewController_processWebPushForWebAppWithIdentifier___block_invoke_291;
+        v15[3] = &unk_1E8491FC8;
+        v15[4] = v12;
+        v14 = v13;
+        v16 = v14;
+        v17 = *(a1 + 32);
+        [v14 _processPushMessage:v12 completionHandler:v15];
 
-        ++v10;
+        ++v11;
       }
 
-      while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      while (v9 != v11);
+      v9 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
-    while (v8);
+    while (v9);
   }
 
   dispatch_group_leave(*(a1 + 32));
 }
 
-void __72___SFWebAppServiceViewController_processWebPushForWebAppWithIdentifier___block_invoke_291(uint64_t a1, int a2)
+void __72___SFWebAppServiceViewController_processWebPushForWebAppWithIdentifier___block_invoke_291(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v11 = *MEMORY[0x1E69E9840];
-  v4 = WBS_LOG_CHANNEL_PREFIXWebPush();
+  v4 = WBS_LOG_CHANNEL_PREFIXWebPush(a1, a2);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = @"FAILURE";
     v6 = *(a1 + 32);
-    if (a2)
+    if (v2)
     {
       v5 = @"SUCCESS";
     }
@@ -339,23 +342,24 @@ void __72___SFWebAppServiceViewController_processWebPushForWebAppWithIdentifier_
   dispatch_group_leave(*(a1 + 48));
 }
 
-void __67___SFWebAppServiceViewController_handlePushNotificationActivation___block_invoke()
+void __67___SFWebAppServiceViewController_handlePushNotificationActivation___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = WBS_LOG_CHANNEL_PREFIXWebPush();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v2 = WBS_LOG_CHANNEL_PREFIXWebPush(a1, a2);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __67___SFWebAppServiceViewController_handlePushNotificationActivation___block_invoke_cold_1();
   }
 }
 
-void __67___SFWebAppServiceViewController_handlePushNotificationActivation___block_invoke_299(uint64_t a1, int a2)
+void __67___SFWebAppServiceViewController_handlePushNotificationActivation___block_invoke_299(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v6 = *MEMORY[0x1E69E9840];
-  v4 = WBS_LOG_CHANNEL_PREFIXWebPush();
+  v4 = WBS_LOG_CHANNEL_PREFIXWebPush(a1, a2);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5[0] = 67109120;
-    v5[1] = a2;
+    v5[1] = v2;
     _os_log_impl(&dword_1D4644000, v4, OS_LOG_TYPE_DEFAULT, "Push notification activation event handler done. Result: %i", v5, 8u);
   }
 

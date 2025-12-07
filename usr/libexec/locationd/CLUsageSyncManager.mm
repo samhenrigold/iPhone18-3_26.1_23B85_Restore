@@ -197,13 +197,13 @@
     v5 = off_1025D47A8;
     if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 68289282;
-      v9 = 0;
-      v10 = 2082;
-      v11 = "";
+      v10 = 68289282;
+      v11 = 0;
       v12 = 2082;
+      v13 = "";
+      v14 = 2082;
       uTF8String = [objc_msgSend(v4 "UUIDString")];
-      _os_log_impl(dword_100000000, v5, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#usesync Non-active device unpaired, current id:%{public, location:escape_only}s}", &v8, 0x1Cu);
+      _os_log_impl(dword_100000000, v5, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#usesync Non-active device unpaired, current id:%{public, location:escape_only}s}", &v10, 0x1Cu);
     }
   }
 
@@ -217,15 +217,15 @@
     v6 = off_1025D47A8;
     if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 68289538;
-      v9 = 0;
-      v10 = 2082;
-      v11 = "";
+      v10 = 68289538;
+      v11 = 0;
       v12 = 2082;
-      uTF8String = [(NSString *)[(NSUUID *)[(CLUsageSyncManager *)self pairedDeviceID] UUIDString] UTF8String];
+      v13 = "";
       v14 = 2082;
-      v15 = [objc_msgSend(v4 "UUIDString")];
-      _os_log_impl(dword_100000000, v6, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#usesync Unpair, current id:%{public, location:escape_only}s, active id:%{public, location:escape_only}s}", &v8, 0x26u);
+      uTF8String = [(NSString *)[(NSUUID *)[(CLUsageSyncManager *)self pairedDeviceID] UUIDString] UTF8String];
+      v16 = 2082;
+      v17 = [objc_msgSend(v4 "UUIDString")];
+      _os_log_impl(dword_100000000, v6, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#usesync Unpair, current id:%{public, location:escape_only}s, active id:%{public, location:escape_only}s}", &v10, 0x26u);
     }
 
     [(CLClientManagerPublicProtocol *)[(CLUsageSyncManager *)self manager] syncgetDoSync:&stru_102478478];
@@ -233,9 +233,9 @@
     [(CLUsageSyncManager *)self setErrorQueue:+[NSMutableArray array]];
     [(CLTimer *)self->_retryTimer setNextFireDelay:1.79769313e308];
     self->_retryTimerSet = 0;
-    [(CLUsageSyncManager *)self setMessagesWaitingForAck:+[NSMutableDictionary dictionary]];
-    v7 = sub_1000206B4();
-    sub_1004FA94C(v7);
+    v7 = [(CLUsageSyncManager *)self setMessagesWaitingForAck:+[NSMutableDictionary dictionary]];
+    v9 = sub_1000206B4(v7, v8);
+    sub_1004FA94C(v9);
     [(CLUsageSyncManager *)self service:[(CLUsageSyncManager *)self service] nearbyDevicesChanged:[(IDSService *)[(CLUsageSyncManager *)self service] devices]];
   }
 }
@@ -253,26 +253,26 @@
   v5 = off_1025D47A8;
   if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
   {
-    v8[0] = 68289538;
-    v8[1] = 0;
-    v9 = 2082;
-    v10 = "";
-    v11 = 2082;
-    v12 = [objc_msgSend(v4 "UUIDString")];
+    v12[0] = 68289538;
+    v12[1] = 0;
     v13 = 2082;
+    v14 = "";
+    v15 = 2082;
+    v16 = [objc_msgSend(v4 "UUIDString")];
+    v17 = 2082;
     uTF8String = [(NSString *)[(NSUUID *)[(CLUsageSyncManager *)self pairedDeviceID] UUIDString] UTF8String];
-    _os_log_impl(dword_100000000, v5, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#usesync Pairing, new id:%{public, location:escape_only}s, old id:%{public, location:escape_only}s}", v8, 0x26u);
+    _os_log_impl(dword_100000000, v5, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#usesync Pairing, new id:%{public, location:escape_only}s, old id:%{public, location:escape_only}s}", v12, 0x26u);
   }
 
   if (v4)
   {
     if (([v4 isEqual:{-[CLUsageSyncManager pairedDeviceID](self, "pairedDeviceID")}] & 1) == 0)
     {
-      [(CLUsageSyncManager *)self setPairedDeviceID:v4];
-      v6 = sub_1000206B4();
-      sub_1002DC480(v6, @"kCLUsageSyncPairedDeviceID", [(NSString *)[(NSUUID *)self->_pairedDeviceID UUIDString] UTF8String]);
-      v7 = *sub_1000206B4();
-      (*(v7 + 944))();
+      v6 = [(CLUsageSyncManager *)self setPairedDeviceID:v4];
+      v8 = sub_1000206B4(v6, v7);
+      v9 = sub_1002DC480(v8, @"kCLUsageSyncPairedDeviceID", [(NSString *)[(NSUUID *)self->_pairedDeviceID UUIDString] UTF8String]);
+      v11 = *sub_1000206B4(v9, v10);
+      (*(v11 + 944))();
       [(CLUsageSyncManager *)self service:[(CLUsageSyncManager *)self service] nearbyDevicesChanged:[(IDSService *)[(CLUsageSyncManager *)self service] devices]];
     }
   }
@@ -314,8 +314,8 @@
     }
 
     buf = 68289026;
-    v33 = 2082;
-    v34 = "";
+    v23 = 2082;
+    v24 = "";
     v20 = "{msg%{public}.0s:#usesync #warning PDRRegistry is missing from this system}";
 LABEL_34:
     _os_log_impl(dword_100000000, v19, OS_LOG_TYPE_DEFAULT, v20, &buf, 0x12u);
@@ -323,12 +323,8 @@ LABEL_34:
   }
 
   pairedDeviceID = [(CLUsageSyncManager *)self pairedDeviceID];
-  v26 = 0u;
-  v27 = 0u;
-  v28 = 0u;
-  v29 = 0u;
   getPairedDevices = [+[PDRRegistry sharedInstance](PDRRegistry getPairedDevices];
-  v5 = [getPairedDevices countByEnumeratingWithState:&v26 objects:v31 count:16];
+  v5 = objc_msgSend_countByEnumeratingWithState_objects_count_(getPairedDevices);
   if (!v5)
   {
 LABEL_21:
@@ -344,25 +340,25 @@ LABEL_21:
     }
 
     buf = 68289026;
-    v33 = 2082;
-    v34 = "";
+    v23 = 2082;
+    v24 = "";
     v20 = "{msg%{public}.0s:#usesync #warning Couldn't find an active device}";
     goto LABEL_34;
   }
 
   v6 = v5;
-  v7 = *v27;
+  v7 = MEMORY[0];
   v8 = PDRDevicePropertyKeyPairingID;
 LABEL_4:
   v9 = 0;
   while (1)
   {
-    if (*v27 != v7)
+    if (MEMORY[0] != v7)
     {
       objc_enumerationMutation(getPairedDevices);
     }
 
-    v10 = *(*(&v26 + 1) + 8 * v9);
+    v10 = *(8 * v9);
     if ([objc_msgSend(v10 valueForProperty:{v8), "isEqual:", pairedDeviceID}])
     {
       break;
@@ -370,7 +366,7 @@ LABEL_4:
 
     if (v6 == ++v9)
     {
-      v6 = [getPairedDevices countByEnumeratingWithState:&v26 objects:v31 count:16];
+      v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(getPairedDevices);
       if (v6)
       {
         goto LABEL_4;
@@ -388,25 +384,21 @@ LABEL_4:
 
   v12 = [v11 valueForProperty:PDRDevicePropertyKeyBluetoothIdentifier];
   v13 = [(IDSService *)[(CLUsageSyncManager *)self service] linkedDevicesWithRelationship:1];
-  v22 = 0u;
-  v23 = 0u;
-  v24 = 0u;
-  v25 = 0u;
-  v14 = [v13 countByEnumeratingWithState:&v22 objects:v30 count:16];
+  v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, 0);
   if (v14)
   {
     v15 = v14;
-    v16 = *v23;
+    v16 = MEMORY[0];
 LABEL_14:
     v17 = 0;
     while (1)
     {
-      if (*v23 != v16)
+      if (MEMORY[0] != v16)
       {
         objc_enumerationMutation(v13);
       }
 
-      v18 = *(*(&v22 + 1) + 8 * v17);
+      v18 = *(8 * v17);
       if ([objc_msgSend(v18 "nsuuid")])
       {
         break;
@@ -414,7 +406,7 @@ LABEL_14:
 
       if (v15 == ++v17)
       {
-        v15 = [v13 countByEnumeratingWithState:&v22 objects:v30 count:16];
+        v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13);
         if (v15)
         {
           goto LABEL_14;
@@ -441,8 +433,8 @@ LABEL_30:
   if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
   {
     buf = 68289026;
-    v33 = 2082;
-    v34 = "";
+    v23 = 2082;
+    v24 = "";
     v20 = "{msg%{public}.0s:#usesync #warning Couldn't find a matching IDS device}";
     goto LABEL_34;
   }
@@ -457,25 +449,26 @@ LABEL_30:
   {
     v9 = +[NSMutableDictionary dictionary];
     [v9 setObject:objc_msgSend(message forKeyedSubscript:{"messageType"), @"kCLUsageSyncMessageTypeKey"}];
-    if ([message dataPayload])
+    dataPayload = [message dataPayload];
+    if (dataPayload)
     {
-      [v9 setObject:objc_msgSend(message forKeyedSubscript:{"dataPayload"), @"kCLUsageSyncMessageDataKey"}];
+      dataPayload = [v9 setObject:objc_msgSend(message forKeyedSubscript:{"dataPayload"), @"kCLUsageSyncMessageDataKey"}];
     }
 
-    v10 = sub_10001A3E8();
-    if ((**v10)(v10))
+    v12 = sub_10001A3E8(dataPayload, v11);
+    if ((**v12)(v12))
     {
       currentlyActiveDevice = [(CLUsageSyncManager *)self currentlyActiveDevice];
-      if (!currentlyActiveDevice || ([currentlyActiveDevice operatingSystemVersion], *buf <= 4))
+      if (!currentlyActiveDevice || (currentlyActiveDevice = objc_msgSend_operatingSystemVersion(currentlyActiveDevice), *buf <= 4))
       {
         *buf = 0;
-        v12 = sub_1000206B4();
-        sub_10016B550(v12, @"kCLUsageSyncNextSequenceNumberKey", buf);
-        v13 = sub_1000206B4();
-        v20 = *buf + 1;
-        sub_1004FD04C(v13, @"kCLUsageSyncNextSequenceNumberKey", &v20);
-        v14 = *sub_1000206B4();
-        (*(v14 + 944))();
+        v15 = sub_1000206B4(currentlyActiveDevice, v14);
+        v16 = sub_10016B550(v15, @"kCLUsageSyncNextSequenceNumberKey", buf);
+        v18 = sub_1000206B4(v16, v17);
+        v27 = *buf + 1;
+        v19 = sub_1004FD04C(v18, @"kCLUsageSyncNextSequenceNumberKey", &v27);
+        v21 = *sub_1000206B4(v19, v20);
+        (*(v21 + 944))();
         [v9 setObject:+[NSNumber numberWithLongLong:](NSNumber forKeyedSubscript:{"numberWithLongLong:", *buf), @"kCLUsageSyncMessageSequenceNumberKey"}];
       }
     }
@@ -490,14 +483,14 @@ LABEL_30:
           sub_10195F074();
         }
 
-        v16 = off_1025D47A8;
+        v23 = off_1025D47A8;
         if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 68289026;
           *&buf[4] = 0;
-          v22 = 2082;
-          v23 = "";
-          _os_log_impl(dword_100000000, v16, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#usesync device is standalone watch. Spoof it is sent}", buf, 0x12u);
+          v29 = 2082;
+          v30 = "";
+          _os_log_impl(dword_100000000, v23, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#usesync device is standalone watch. Spoof it is sent}", buf, 0x12u);
         }
 
         LOBYTE(currentlyActiveDevice2) = 1;
@@ -517,29 +510,29 @@ LABEL_30:
       sub_10195F060();
     }
 
-    v17 = off_1025D47A8;
+    v24 = off_1025D47A8;
     if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_FAULT))
     {
       *buf = 68289026;
       *&buf[4] = 0;
-      v22 = 2082;
-      v23 = "";
-      _os_log_impl(dword_100000000, v17, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:#usesync Attempted to send when unpaired}", buf, 0x12u);
+      v29 = 2082;
+      v30 = "";
+      _os_log_impl(dword_100000000, v24, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:#usesync Attempted to send when unpaired}", buf, 0x12u);
       if (qword_1025D47A0 != -1)
       {
         sub_10195F074();
       }
     }
 
-    v18 = off_1025D47A8;
+    v25 = off_1025D47A8;
     LODWORD(currentlyActiveDevice2) = os_signpost_enabled(off_1025D47A8);
     if (currentlyActiveDevice2)
     {
       *buf = 68289026;
       *&buf[4] = 0;
-      v22 = 2082;
-      v23 = "";
-      _os_signpost_emit_with_name_impl(dword_100000000, v18, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "#usesync Attempted to send when unpaired", "{msg%{public}.0s:#usesync Attempted to send when unpaired}", buf, 0x12u);
+      v29 = 2082;
+      v30 = "";
+      _os_signpost_emit_with_name_impl(dword_100000000, v25, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "#usesync Attempted to send when unpaired", "{msg%{public}.0s:#usesync Attempted to send when unpaired}", buf, 0x12u);
       LOBYTE(currentlyActiveDevice2) = 0;
     }
   }
@@ -605,10 +598,10 @@ LABEL_30:
   {
     v4 = [(NSMutableArray *)self->_errorQueue count];
     buf = 68289282;
-    v17 = 2082;
-    v18 = "";
-    v19 = 2050;
-    v20 = v4;
+    v12 = 2082;
+    v13 = "";
+    v14 = 2050;
+    v15 = v4;
     _os_log_impl(dword_100000000, v3, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#usesync Draining the error queue, count:%{public}lu}", &buf, 0x1Cu);
   }
 
@@ -616,28 +609,24 @@ LABEL_30:
   [(CLUsageSyncManager *)self setErrorQueue:+[NSMutableArray array]];
   [(CLTimer *)self->_retryTimer setNextFireDelay:1.79769313e308];
   self->_retryTimerSet = 0;
-  v11 = 0u;
-  v12 = 0u;
-  v13 = 0u;
-  v14 = 0u;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, 0);
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = MEMORY[0];
     do
     {
       for (i = 0; i != v7; i = i + 1)
       {
-        if (*v12 != v8)
+        if (MEMORY[0] != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [(CLUsageSyncManager *)self handleMessageError:*(*(&v11 + 1) + 8 * i)];
+        [(CLUsageSyncManager *)self handleMessageError:*(8 * i)];
       }
 
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5);
     }
 
     while (v7);
@@ -652,8 +641,8 @@ LABEL_30:
   if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
   {
     buf = 68289026;
-    v17 = 2082;
-    v18 = "";
+    v12 = 2082;
+    v13 = "";
     _os_log_impl(dword_100000000, v10, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#usesync Error queue drained}", &buf, 0x12u);
   }
 }
@@ -727,36 +716,37 @@ LABEL_30:
   {
     *buf = 68289282;
     *&buf[4] = 0;
-    *v16 = 2082;
-    *&v16[2] = "";
-    *&v16[10] = 2114;
-    *&v16[12] = error;
+    *v18 = 2082;
+    *&v18[2] = "";
+    *&v18[10] = 2114;
+    *&v18[12] = error;
     _os_log_impl(dword_100000000, v7, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#usesync #warning Got error from IDS, attempting to recover, error:%{public, location:escape_only}@}", buf, 0x1Cu);
   }
 
   if ([message isMessageOfType:@"kCLUsageSyncMessageUsageUpdateKey"])
   {
-    v8 = sub_10086B004([objc_msgSend(message "dataPayload")]);
+    v8 = [objc_msgSend(message "dataPayload")];
+    v10 = sub_10086B004(v8, v9);
     *buf = 0;
-    *v16 = buf;
-    *&v16[8] = 0x3052000000;
-    *&v16[16] = sub_100047608;
-    v17 = sub_100048504;
-    v18 = 0;
-    v14[0] = _NSConcreteStackBlock;
-    v14[1] = 3221225472;
-    v14[2] = sub_10086B084;
-    v14[3] = &unk_1024784A0;
-    v14[4] = v8;
-    v14[5] = buf;
-    v13[0] = _NSConcreteStackBlock;
-    v13[1] = 3221225472;
-    v13[2] = sub_10086B19C;
-    v13[3] = &unk_1024784C8;
-    v13[5] = v8;
-    v13[6] = buf;
-    v13[4] = self;
-    [(CLClientManagerPublicProtocol *)[(CLUsageSyncManager *)self manager] doAsync:v14 withReply:v13];
+    *v18 = buf;
+    *&v18[8] = 0x3052000000;
+    *&v18[16] = sub_100047608;
+    v19 = sub_100048504;
+    v20 = 0;
+    v16[0] = _NSConcreteStackBlock;
+    v16[1] = 3221225472;
+    v16[2] = sub_10086B084;
+    v16[3] = &unk_1024784A0;
+    v16[4] = v10;
+    v16[5] = buf;
+    v15[0] = _NSConcreteStackBlock;
+    v15[1] = 3221225472;
+    v15[2] = sub_10086B19C;
+    v15[3] = &unk_1024784C8;
+    v15[5] = v10;
+    v15[6] = buf;
+    v15[4] = self;
+    [(CLClientManagerPublicProtocol *)[(CLUsageSyncManager *)self manager] doAsync:v16 withReply:v15];
     _Block_object_dispose(buf, 8);
   }
 
@@ -777,34 +767,34 @@ LABEL_30:
       sub_10195F074();
     }
 
-    v9 = off_1025D47A8;
+    v11 = off_1025D47A8;
     if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_FAULT))
     {
-      v10 = [objc_msgSend(message "messageType")];
+      v12 = [objc_msgSend(message "messageType")];
       *buf = 68289282;
       *&buf[4] = 0;
-      *v16 = 2082;
-      *&v16[2] = "";
-      *&v16[10] = 2082;
-      *&v16[12] = v10;
-      _os_log_impl(dword_100000000, v9, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:#usesync Unrecognized type message failed to send.  Cannot recover., type:%{public, location:escape_only}s}", buf, 0x1Cu);
+      *v18 = 2082;
+      *&v18[2] = "";
+      *&v18[10] = 2082;
+      *&v18[12] = v12;
+      _os_log_impl(dword_100000000, v11, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:#usesync Unrecognized type message failed to send.  Cannot recover., type:%{public, location:escape_only}s}", buf, 0x1Cu);
       if (qword_1025D47A0 != -1)
       {
         sub_10195F074();
       }
     }
 
-    v11 = off_1025D47A8;
+    v13 = off_1025D47A8;
     if (os_signpost_enabled(off_1025D47A8))
     {
-      v12 = [objc_msgSend(message "messageType")];
+      v14 = [objc_msgSend(message "messageType")];
       *buf = 68289282;
       *&buf[4] = 0;
-      *v16 = 2082;
-      *&v16[2] = "";
-      *&v16[10] = 2082;
-      *&v16[12] = v12;
-      _os_signpost_emit_with_name_impl(dword_100000000, v11, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "#usesync Unrecognized type message failed to send.  Cannot recover.", "{msg%{public}.0s:#usesync Unrecognized type message failed to send.  Cannot recover., type:%{public, location:escape_only}s}", buf, 0x1Cu);
+      *v18 = 2082;
+      *&v18[2] = "";
+      *&v18[10] = 2082;
+      *&v18[12] = v14;
+      _os_signpost_emit_with_name_impl(dword_100000000, v13, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "#usesync Unrecognized type message failed to send.  Cannot recover.", "{msg%{public}.0s:#usesync Unrecognized type message failed to send.  Cannot recover., type:%{public, location:escape_only}s}", buf, 0x1Cu);
     }
   }
 }
@@ -957,8 +947,9 @@ LABEL_10:
 - (void)client:(id)client didChangeUsageData:(id)data
 {
   v7 = _os_feature_enabled_impl();
-  v8 = sub_10001A3E8();
-  if (v7)
+  v8 = v7;
+  v10 = sub_10001A3E8(v7, v9);
+  if (v8)
   {
     if (sub_10001CF3C())
     {
@@ -967,16 +958,16 @@ LABEL_10:
         sub_10195F060();
       }
 
-      v9 = off_1025D47A8;
+      v11 = off_1025D47A8;
       if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = 68289026;
-        v12 = 0;
-        v13 = 2082;
-        v14 = "";
-        v10 = "{msg%{public}.0s:#usesync dropping watch usage data change}";
+        v13 = 68289026;
+        v14 = 0;
+        v15 = 2082;
+        v16 = "";
+        v12 = "{msg%{public}.0s:#usesync dropping watch usage data change}";
 LABEL_12:
-        _os_log_impl(dword_100000000, v9, OS_LOG_TYPE_DEFAULT, v10, &v11, 0x12u);
+        _os_log_impl(dword_100000000, v11, OS_LOG_TYPE_DEFAULT, v12, &v13, 0x12u);
         return;
       }
 
@@ -989,7 +980,7 @@ LABEL_14:
     return;
   }
 
-  if (!(**v8)(v8))
+  if (!(**v10)(v10))
   {
     goto LABEL_14;
   }
@@ -999,14 +990,14 @@ LABEL_14:
     sub_10195F060();
   }
 
-  v9 = off_1025D47A8;
+  v11 = off_1025D47A8;
   if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 68289026;
-    v12 = 0;
-    v13 = 2082;
-    v14 = "";
-    v10 = "{msg%{public}.0s:#didChangeUsageData dropping companion usage data change}";
+    v13 = 68289026;
+    v14 = 0;
+    v15 = 2082;
+    v16 = "";
+    v12 = "{msg%{public}.0s:#didChangeUsageData dropping companion usage data change}";
     goto LABEL_12;
   }
 }
@@ -1122,7 +1113,7 @@ LABEL_18:
 
 - (void)onStatusBarIconChange:(int)change
 {
-  sub_10001A3E8();
+  sub_10001A3E8(self, a2);
   if (sub_10001CF3C())
   {
     if (qword_1025D47A0 != -1)
@@ -1318,7 +1309,7 @@ LABEL_11:
 
 - (id)mungedUsageDataForPotentiallyOldUsageData:(id)data
 {
-  v5 = sub_10001A3E8();
+  v5 = sub_10001A3E8(self, a2);
   if (!(**v5)(v5))
   {
     return data;
@@ -1327,7 +1318,7 @@ LABEL_11:
   currentlyActiveDevice = [(CLUsageSyncManager *)self currentlyActiveDevice];
   if (currentlyActiveDevice)
   {
-    [currentlyActiveDevice operatingSystemVersion];
+    objc_msgSend_operatingSystemVersion(currentlyActiveDevice);
     if (*buf > 3)
     {
       return data;
@@ -1617,7 +1608,8 @@ LABEL_42:
 
 - (void)handleMessageUsageUpdateWithMessageData:(id)data
 {
-  if (!_os_feature_enabled_impl() || (v5 = sub_10001A3E8(), ((**v5)(v5) & 1) == 0))
+  v5 = _os_feature_enabled_impl();
+  if (!v5 || (v7 = sub_10001A3E8(v5, v6), ((**v7)(v7) & 1) == 0))
   {
     [-[CLUsageSyncManager universe](self "universe")];
     if (qword_1025D47A0 != -1)
@@ -1625,40 +1617,40 @@ LABEL_42:
       sub_10195F060();
     }
 
-    v6 = off_1025D47A8;
+    v8 = off_1025D47A8;
     if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 68289026;
-      LOWORD(v17) = 2082;
-      *(&v17 + 2) = "";
-      _os_log_impl(dword_100000000, v6, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#usesync Got usage update}", buf, 0x12u);
+      LOWORD(v20) = 2082;
+      *(&v20 + 2) = "";
+      _os_log_impl(dword_100000000, v8, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#usesync Got usage update}", buf, 0x12u);
     }
 
-    v7 = [data objectForKeyedSubscript:@"kCLUsageSyncClientKey"];
-    v8 = [data objectForKeyedSubscript:@"kCLUsageSyncUsageKey"];
-    v9 = v8;
-    if (v7 && v8)
+    v9 = [data objectForKeyedSubscript:@"kCLUsageSyncClientKey"];
+    v10 = [data objectForKeyedSubscript:@"kCLUsageSyncUsageKey"];
+    v12 = v10;
+    if (v9 && v10)
     {
-      v10 = sub_10086B004(v7);
-      v11 = [(CLUsageSyncManager *)self mungedUsageDataForPotentiallyOldUsageData:v9];
+      v13 = sub_10086B004(v9, v11);
+      v14 = [(CLUsageSyncManager *)self mungedUsageDataForPotentiallyOldUsageData:v12];
       *buf = 0;
-      *&v17 = buf;
-      *(&v17 + 1) = 0x2020000000;
-      LOBYTE(v18) = 0;
-      v15[0] = _NSConcreteStackBlock;
-      v15[1] = 3221225472;
-      v15[2] = sub_10086D140;
-      v15[3] = &unk_102478518;
-      v15[4] = v10;
-      v15[5] = v11;
-      v15[6] = buf;
-      v14[0] = _NSConcreteStackBlock;
-      v14[1] = 3221225472;
-      v14[2] = sub_10086D258;
-      v14[3] = &unk_1024784F0;
-      v14[4] = self;
-      v14[5] = buf;
-      [(CLClientManagerPublicProtocol *)[(CLUsageSyncManager *)self manager] doAsync:v15 withReply:v14];
+      *&v20 = buf;
+      *(&v20 + 1) = 0x2020000000;
+      LOBYTE(v21) = 0;
+      v18[0] = _NSConcreteStackBlock;
+      v18[1] = 3221225472;
+      v18[2] = sub_10086D140;
+      v18[3] = &unk_102478518;
+      v18[4] = v13;
+      v18[5] = v14;
+      v18[6] = buf;
+      v17[0] = _NSConcreteStackBlock;
+      v17[1] = 3221225472;
+      v17[2] = sub_10086D258;
+      v17[3] = &unk_1024784F0;
+      v17[4] = self;
+      v17[5] = buf;
+      [(CLClientManagerPublicProtocol *)[(CLUsageSyncManager *)self manager] doAsync:v18 withReply:v17];
       _Block_object_dispose(buf, 8);
     }
 
@@ -1669,36 +1661,36 @@ LABEL_42:
         sub_10195F074();
       }
 
-      v12 = off_1025D47A8;
+      v15 = off_1025D47A8;
       if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_FAULT))
       {
         *buf = 68289538;
         *&buf[4] = 0;
-        LOWORD(v17) = 2082;
-        *(&v17 + 2) = "";
-        WORD5(v17) = 1026;
-        HIDWORD(v17) = v7 != 0;
-        v18 = 1026;
-        v19 = v9 != 0;
-        _os_log_impl(dword_100000000, v12, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:#usesync Didn't get an expected parameter, client key:%{public}hhd, usage data:%{public}hhd}", buf, 0x1Eu);
+        LOWORD(v20) = 2082;
+        *(&v20 + 2) = "";
+        WORD5(v20) = 1026;
+        HIDWORD(v20) = v9 != 0;
+        v21 = 1026;
+        v22 = v12 != 0;
+        _os_log_impl(dword_100000000, v15, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:#usesync Didn't get an expected parameter, client key:%{public}hhd, usage data:%{public}hhd}", buf, 0x1Eu);
         if (qword_1025D47A0 != -1)
         {
           sub_10195F074();
         }
       }
 
-      v13 = off_1025D47A8;
+      v16 = off_1025D47A8;
       if (os_signpost_enabled(off_1025D47A8))
       {
         *buf = 68289538;
         *&buf[4] = 0;
-        LOWORD(v17) = 2082;
-        *(&v17 + 2) = "";
-        WORD5(v17) = 1026;
-        HIDWORD(v17) = v7 != 0;
-        v18 = 1026;
-        v19 = v9 != 0;
-        _os_signpost_emit_with_name_impl(dword_100000000, v13, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "#usesync Didn't get an expected parameter", "{msg%{public}.0s:#usesync Didn't get an expected parameter, client key:%{public}hhd, usage data:%{public}hhd}", buf, 0x1Eu);
+        LOWORD(v20) = 2082;
+        *(&v20 + 2) = "";
+        WORD5(v20) = 1026;
+        HIDWORD(v20) = v9 != 0;
+        v21 = 1026;
+        v22 = v12 != 0;
+        _os_signpost_emit_with_name_impl(dword_100000000, v16, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "#usesync Didn't get an expected parameter", "{msg%{public}.0s:#usesync Didn't get an expected parameter, client key:%{public}hhd, usage data:%{public}hhd}", buf, 0x1Eu);
       }
     }
   }
@@ -1738,55 +1730,57 @@ LABEL_42:
   {
     *buf = 68289026;
     *&buf[4] = 0;
-    LOWORD(v17) = 2082;
-    *(&v17 + 2) = "";
+    LOWORD(v20) = 2082;
+    *(&v20 + 2) = "";
     _os_log_impl(dword_100000000, v5, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#usesync Got full resync data}", buf, 0x12u);
   }
 
   v6 = +[NSMutableDictionary dictionary];
-  v14 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v15 = 0u;
-  v12 = 0u;
-  v13 = 0u;
-  v7 = [data countByEnumeratingWithState:&v12 objects:v19 count:16];
+  v16 = 0u;
+  v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(data);
   if (v7)
   {
-    v8 = *v13;
+    v8 = *v16;
     do
     {
       for (i = 0; i != v7; i = i + 1)
       {
-        if (*v13 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(data);
         }
 
-        [v6 setObject:-[CLUsageSyncManager mungedUsageDataForPotentiallyOldUsageData:](self forKeyedSubscript:{"mungedUsageDataForPotentiallyOldUsageData:", objc_msgSend(data, "objectForKeyedSubscript:", *(*(&v12 + 1) + 8 * i))), sub_10086B004(*(*(&v12 + 1) + 8 * i))}];
+        v10 = *(*(&v15 + 1) + 8 * i);
+        v11 = -[CLUsageSyncManager mungedUsageDataForPotentiallyOldUsageData:](self, "mungedUsageDataForPotentiallyOldUsageData:", [data objectForKeyedSubscript:v10]);
+        [v6 setObject:v11 forKeyedSubscript:{sub_10086B004(v10, v12)}];
       }
 
-      v7 = [data countByEnumeratingWithState:&v12 objects:v19 count:16];
+      v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(data);
     }
 
     while (v7);
   }
 
   *buf = 0;
-  *&v17 = buf;
-  *(&v17 + 1) = 0x2020000000;
-  v18 = 0;
-  v11[0] = _NSConcreteStackBlock;
-  v11[1] = 3221225472;
-  v11[2] = sub_10086D5F8;
-  v11[3] = &unk_102478540;
-  v11[4] = v6;
-  v11[5] = buf;
-  v10[0] = _NSConcreteStackBlock;
-  v10[1] = 3221225472;
-  v10[2] = sub_10086D714;
-  v10[3] = &unk_1024784F0;
-  v10[4] = self;
-  v10[5] = buf;
-  [(CLClientManagerPublicProtocol *)[(CLUsageSyncManager *)self manager] doAsync:v11 withReply:v10];
+  *&v20 = buf;
+  *(&v20 + 1) = 0x2020000000;
+  v21 = 0;
+  v14[0] = _NSConcreteStackBlock;
+  v14[1] = 3221225472;
+  v14[2] = sub_10086D5F8;
+  v14[3] = &unk_102478540;
+  v14[4] = v6;
+  v14[5] = buf;
+  v13[0] = _NSConcreteStackBlock;
+  v13[1] = 3221225472;
+  v13[2] = sub_10086D714;
+  v13[3] = &unk_1024784F0;
+  v13[4] = self;
+  v13[5] = buf;
+  [(CLClientManagerPublicProtocol *)[(CLUsageSyncManager *)self manager] doAsync:v14 withReply:v13];
   _Block_object_dispose(buf, 8);
 }
 
@@ -1865,58 +1859,58 @@ LABEL_19:
 
 - (void)service:(id)service account:(id)account incomingMessage:(id)message fromID:(id)d context:(id)context
 {
-  [-[CLUsageSyncManager universe](self universe];
-  sub_10001A3E8();
+  universe = [-[CLUsageSyncManager universe](self universe];
+  sub_10001A3E8(universe, v10);
   if (!sub_10001CF3C())
   {
     return;
   }
 
-  v9 = [message objectForKeyedSubscript:@"kCLUsageSyncMessageTypeKey"];
-  if (v9)
+  v11 = [message objectForKeyedSubscript:@"kCLUsageSyncMessageTypeKey"];
+  if (v11)
   {
-    v10 = v9;
-    v11 = [message objectForKeyedSubscript:@"kCLUsageSyncMessageDataKey"];
-    v23[0] = _NSConcreteStackBlock;
-    v23[1] = 3221225472;
-    v24 = sub_10086DDEC;
-    v25 = &unk_102478568;
-    v26 = v10;
-    if ([@"kCLUsageSyncMessageUsageUpdateKey" isEqualToString:v10])
+    v12 = v11;
+    v13 = [message objectForKeyedSubscript:@"kCLUsageSyncMessageDataKey"];
+    v25[0] = _NSConcreteStackBlock;
+    v25[1] = 3221225472;
+    v26 = sub_10086DDEC;
+    v27 = &unk_102478568;
+    v28 = v12;
+    if ([@"kCLUsageSyncMessageUsageUpdateKey" isEqualToString:v12])
     {
-      [(CLUsageSyncManager *)self handleMessageUsageUpdateWithMessageData:v11];
+      [(CLUsageSyncManager *)self handleMessageUsageUpdateWithMessageData:v13];
       return;
     }
 
-    if (v24(v23, @"kCLUsageSyncMessageResyncRequestKey"))
+    if (v26(v25, @"kCLUsageSyncMessageResyncRequestKey"))
     {
-      [(CLUsageSyncManager *)self handleMessageResyncRequestWithMessageData:v11];
+      [(CLUsageSyncManager *)self handleMessageResyncRequestWithMessageData:v13];
       return;
     }
 
-    if (v24(v23, @"kCLUsageSyncMessageResyncResponseKey"))
+    if (v26(v25, @"kCLUsageSyncMessageResyncResponseKey"))
     {
-      [(CLUsageSyncManager *)self handleMessageResyncResponseWithMessageData:v11];
+      [(CLUsageSyncManager *)self handleMessageResyncResponseWithMessageData:v13];
       return;
     }
 
-    if (v24(v23, @"kCLUsageSyncMessagePromptKey"))
+    if (v26(v25, @"kCLUsageSyncMessagePromptKey"))
     {
       if (qword_1025D47A0 != -1)
       {
         sub_10195F074();
       }
 
-      v18 = off_1025D47A8;
+      v20 = off_1025D47A8;
       if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 68289283;
         *&buf[4] = 0;
-        v28 = 2082;
-        v29 = "";
-        v30 = 2113;
+        v30 = 2082;
+        v31 = "";
+        v32 = 2113;
         messageCopy5 = message;
-        _os_log_impl(dword_100000000, v18, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#usesync #warning received legacy kCLUsageSyncMessagePromptKey message, ignoring, payload:%{private, location:escape_only}@}", buf, 0x1Cu);
+        _os_log_impl(dword_100000000, v20, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#usesync #warning received legacy kCLUsageSyncMessagePromptKey message, ignoring, payload:%{private, location:escape_only}@}", buf, 0x1Cu);
       }
 
       return;
@@ -1927,41 +1921,41 @@ LABEL_19:
       sub_10195F074();
     }
 
-    v19 = off_1025D47A8;
+    v21 = off_1025D47A8;
     if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_FAULT))
     {
-      uTF8String = [v10 UTF8String];
+      uTF8String = [v12 UTF8String];
       *buf = 68289539;
       *&buf[4] = 0;
-      v28 = 2082;
-      v29 = "";
       v30 = 2082;
+      v31 = "";
+      v32 = 2082;
       messageCopy5 = uTF8String;
-      v32 = 2113;
+      v34 = 2113;
       messageCopy3 = message;
-      _os_log_impl(dword_100000000, v19, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:#usesync Unrecognized message, type:%{public, location:escape_only}s, payload:%{private, location:escape_only}@}", buf, 0x26u);
+      _os_log_impl(dword_100000000, v21, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:#usesync Unrecognized message, type:%{public, location:escape_only}s, payload:%{private, location:escape_only}@}", buf, 0x26u);
       if (qword_1025D47A0 != -1)
       {
         sub_10195F074();
       }
     }
 
-    v21 = off_1025D47A8;
+    v23 = off_1025D47A8;
     if (os_signpost_enabled(off_1025D47A8))
     {
-      uTF8String2 = [v10 UTF8String];
+      uTF8String2 = [v12 UTF8String];
       *buf = 68289539;
       *&buf[4] = 0;
-      v28 = 2082;
-      v29 = "";
       v30 = 2082;
+      v31 = "";
+      v32 = 2082;
       messageCopy5 = uTF8String2;
-      v32 = 2113;
+      v34 = 2113;
       messageCopy3 = message;
-      v14 = "#usesync Unrecognized message";
-      v15 = "{msg%{public}.0s:#usesync Unrecognized message, type:%{public, location:escape_only}s, payload:%{private, location:escape_only}@}";
-      v16 = v21;
-      v17 = 38;
+      v16 = "#usesync Unrecognized message";
+      v17 = "{msg%{public}.0s:#usesync Unrecognized message, type:%{public, location:escape_only}s, payload:%{private, location:escape_only}@}";
+      v18 = v23;
+      v19 = 38;
       goto LABEL_12;
     }
   }
@@ -1973,36 +1967,36 @@ LABEL_19:
       sub_10195F060();
     }
 
-    v12 = off_1025D47A8;
+    v14 = off_1025D47A8;
     if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_FAULT))
     {
       *buf = 68289282;
-      v28 = 2082;
-      v29 = "";
-      v30 = 2114;
+      v30 = 2082;
+      v31 = "";
+      v32 = 2114;
       messageCopy5 = message;
-      _os_log_impl(dword_100000000, v12, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:#usesync Got invalid message from IDS, message:%{public, location:escape_only}@}", buf, 0x1Cu);
+      _os_log_impl(dword_100000000, v14, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:#usesync Got invalid message from IDS, message:%{public, location:escape_only}@}", buf, 0x1Cu);
       if (qword_1025D47A0 != -1)
       {
         sub_10195F074();
       }
     }
 
-    v13 = off_1025D47A8;
+    v15 = off_1025D47A8;
     if (os_signpost_enabled(off_1025D47A8))
     {
       *buf = 68289282;
       *&buf[4] = 0;
-      v28 = 2082;
-      v29 = "";
-      v30 = 2114;
+      v30 = 2082;
+      v31 = "";
+      v32 = 2114;
       messageCopy5 = message;
-      v14 = "#usesync Got invalid message from IDS";
-      v15 = "{msg%{public}.0s:#usesync Got invalid message from IDS, message:%{public, location:escape_only}@}";
-      v16 = v13;
-      v17 = 28;
+      v16 = "#usesync Got invalid message from IDS";
+      v17 = "{msg%{public}.0s:#usesync Got invalid message from IDS, message:%{public, location:escape_only}@}";
+      v18 = v15;
+      v19 = 28;
 LABEL_12:
-      _os_signpost_emit_with_name_impl(dword_100000000, v16, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, v14, v15, buf, v17);
+      _os_signpost_emit_with_name_impl(dword_100000000, v18, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, v16, v17, buf, v19);
     }
   }
 }

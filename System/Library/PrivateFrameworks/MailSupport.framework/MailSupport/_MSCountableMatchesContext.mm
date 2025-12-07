@@ -26,28 +26,28 @@
 
 - (void)countInstances:(id)instances usingPredicate:(id)predicate
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   instancesCopy = instances;
   predicateCopy = predicate;
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   obj = instancesCopy;
-  v8 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v8 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v8)
   {
-    v23 = *v25;
+    v22 = *v24;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v25 != v23)
+        if (*v24 != v22)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v24 + 1) + 8 * i);
+        v10 = *(*(&v23 + 1) + 8 * i);
         v11 = predicateCopy[2](predicateCopy, v10);
         if (v11)
         {
@@ -92,13 +92,11 @@ LABEL_13:
         }
       }
 
-      v8 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v8 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v8);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -45,21 +45,21 @@
 
 - (FCWebURLResolutionEndpointConnection)initWithConfigurationManager:(id)manager cachesDirectoryURL:(id)l networkReachability:(id)reachability
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   managerCopy = manager;
   lCopy = l;
   reachabilityCopy = reachability;
   if (!managerCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v26 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "configurationManager"];
+    v25 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "configurationManager"];
     *buf = 136315906;
-    v31 = "[FCWebURLResolutionEndpointConnection initWithConfigurationManager:cachesDirectoryURL:networkReachability:]";
-    v32 = 2080;
-    v33 = "FCWebURLResolutionEndpointConnection.m";
-    v34 = 1024;
-    v35 = 52;
-    v36 = 2114;
-    v37 = v26;
+    v30 = "[FCWebURLResolutionEndpointConnection initWithConfigurationManager:cachesDirectoryURL:networkReachability:]";
+    v31 = 2080;
+    v32 = "FCWebURLResolutionEndpointConnection.m";
+    v33 = 1024;
+    v34 = 52;
+    v35 = 2114;
+    v36 = v25;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (lCopy)
@@ -75,36 +75,36 @@
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v27 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "cachesDirectoryURL"];
+    v26 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "cachesDirectoryURL"];
     *buf = 136315906;
-    v31 = "[FCWebURLResolutionEndpointConnection initWithConfigurationManager:cachesDirectoryURL:networkReachability:]";
-    v32 = 2080;
-    v33 = "FCWebURLResolutionEndpointConnection.m";
-    v34 = 1024;
-    v35 = 53;
-    v36 = 2114;
-    v37 = v27;
+    v30 = "[FCWebURLResolutionEndpointConnection initWithConfigurationManager:cachesDirectoryURL:networkReachability:]";
+    v31 = 2080;
+    v32 = "FCWebURLResolutionEndpointConnection.m";
+    v33 = 1024;
+    v34 = 53;
+    v35 = 2114;
+    v36 = v26;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
 LABEL_6:
   if (!reachabilityCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v28 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "networkReachability"];
+    v27 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "networkReachability"];
     *buf = 136315906;
-    v31 = "[FCWebURLResolutionEndpointConnection initWithConfigurationManager:cachesDirectoryURL:networkReachability:]";
-    v32 = 2080;
-    v33 = "FCWebURLResolutionEndpointConnection.m";
-    v34 = 1024;
-    v35 = 54;
-    v36 = 2114;
-    v37 = v28;
+    v30 = "[FCWebURLResolutionEndpointConnection initWithConfigurationManager:cachesDirectoryURL:networkReachability:]";
+    v31 = 2080;
+    v32 = "FCWebURLResolutionEndpointConnection.m";
+    v33 = 1024;
+    v34 = 54;
+    v35 = 2114;
+    v36 = v27;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
-  v29.receiver = self;
-  v29.super_class = FCWebURLResolutionEndpointConnection;
-  v12 = [(FCWebURLResolutionEndpointConnection *)&v29 init];
+  v28.receiver = self;
+  v28.super_class = FCWebURLResolutionEndpointConnection;
+  v12 = [(FCWebURLResolutionEndpointConnection *)&v28 init];
   v13 = v12;
   if (v12)
   {
@@ -131,7 +131,6 @@ LABEL_6:
     v13->_bucketer = v22;
   }
 
-  v24 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
@@ -180,7 +179,7 @@ void __108__FCWebURLResolutionEndpointConnection_initWithConfigurationManager_ca
 
 - (void)resolveWebURL:(id)l withQualityOfService:(int64_t)service completion:(id)completion
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   lCopy = l;
   completionCopy = completion;
   v10 = FCWebURLResolutionLog;
@@ -193,88 +192,87 @@ void __108__FCWebURLResolutionEndpointConnection_initWithConfigurationManager_ca
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v46 = 0x3032000000;
-  v47 = __Block_byref_object_copy__72;
-  v48 = __Block_byref_object_dispose__72;
-  v49 = 0;
-  v43[0] = 0;
-  v43[1] = v43;
-  v43[2] = 0x3032000000;
-  v43[3] = __Block_byref_object_copy__72;
-  v43[4] = __Block_byref_object_dispose__72;
-  v44 = 0;
-  v41[0] = 0;
-  v41[1] = v41;
-  v41[2] = 0x3032000000;
-  v41[3] = __Block_byref_object_copy__72;
-  v41[4] = __Block_byref_object_dispose__72;
-  v42 = 0;
-  v40[0] = MEMORY[0x1E69E9820];
-  v40[1] = 3221225472;
-  v40[2] = __86__FCWebURLResolutionEndpointConnection_resolveWebURL_withQualityOfService_completion___block_invoke;
-  v40[3] = &unk_1E7C396C0;
-  v40[4] = self;
-  v11 = [MEMORY[0x1E69B68F8] firstly:v40];
+  v45 = 0x3032000000;
+  v46 = __Block_byref_object_copy__72;
+  v47 = __Block_byref_object_dispose__72;
+  v48 = 0;
+  v42[0] = 0;
+  v42[1] = v42;
+  v42[2] = 0x3032000000;
+  v42[3] = __Block_byref_object_copy__72;
+  v42[4] = __Block_byref_object_dispose__72;
+  v43 = 0;
+  v40[0] = 0;
+  v40[1] = v40;
+  v40[2] = 0x3032000000;
+  v40[3] = __Block_byref_object_copy__72;
+  v40[4] = __Block_byref_object_dispose__72;
+  v41 = 0;
   v39[0] = MEMORY[0x1E69E9820];
   v39[1] = 3221225472;
-  v39[2] = __86__FCWebURLResolutionEndpointConnection_resolveWebURL_withQualityOfService_completion___block_invoke_2;
-  v39[3] = &unk_1E7C452F0;
+  v39[2] = __86__FCWebURLResolutionEndpointConnection_resolveWebURL_withQualityOfService_completion___block_invoke;
+  v39[3] = &unk_1E7C396C0;
   v39[4] = self;
-  v39[5] = &buf;
-  v39[6] = service;
-  v12 = [v11 then:v39];
-  v35[0] = MEMORY[0x1E69E9820];
-  v35[1] = 3221225472;
-  v35[2] = __86__FCWebURLResolutionEndpointConnection_resolveWebURL_withQualityOfService_completion___block_invoke_3;
-  v35[3] = &unk_1E7C45318;
-  v13 = lCopy;
-  v36 = v13;
-  selfCopy = self;
-  serviceCopy = service;
-  v14 = [v12 then:v35];
+  v11 = [MEMORY[0x1E69B68F8] firstly:v39];
+  v38[0] = MEMORY[0x1E69E9820];
+  v38[1] = 3221225472;
+  v38[2] = __86__FCWebURLResolutionEndpointConnection_resolveWebURL_withQualityOfService_completion___block_invoke_2;
+  v38[3] = &unk_1E7C452F0;
+  v38[4] = self;
+  v38[5] = &buf;
+  v38[6] = service;
+  v12 = [v11 then:v38];
   v34[0] = MEMORY[0x1E69E9820];
   v34[1] = 3221225472;
-  v34[2] = __86__FCWebURLResolutionEndpointConnection_resolveWebURL_withQualityOfService_completion___block_invoke_27;
-  v34[3] = &unk_1E7C45340;
-  v34[4] = self;
-  v34[5] = v43;
-  v34[6] = service;
-  v15 = [v14 then:v34];
-  v29[0] = MEMORY[0x1E69E9820];
-  v29[1] = 3221225472;
-  v29[2] = __86__FCWebURLResolutionEndpointConnection_resolveWebURL_withQualityOfService_completion___block_invoke_2_29;
-  v29[3] = &unk_1E7C45368;
-  v31 = v41;
-  v29[4] = self;
+  v34[2] = __86__FCWebURLResolutionEndpointConnection_resolveWebURL_withQualityOfService_completion___block_invoke_3;
+  v34[3] = &unk_1E7C45318;
+  v13 = lCopy;
+  v35 = v13;
+  selfCopy = self;
+  serviceCopy = service;
+  v14 = [v12 then:v34];
+  v33[0] = MEMORY[0x1E69E9820];
+  v33[1] = 3221225472;
+  v33[2] = __86__FCWebURLResolutionEndpointConnection_resolveWebURL_withQualityOfService_completion___block_invoke_27;
+  v33[3] = &unk_1E7C45340;
+  v33[4] = self;
+  v33[5] = v42;
+  v33[6] = service;
+  v15 = [v14 then:v33];
+  v28[0] = MEMORY[0x1E69E9820];
+  v28[1] = 3221225472;
+  v28[2] = __86__FCWebURLResolutionEndpointConnection_resolveWebURL_withQualityOfService_completion___block_invoke_2_29;
+  v28[3] = &unk_1E7C45368;
+  v30 = v40;
+  v28[4] = self;
   v16 = v13;
-  v30 = v16;
-  v32 = v43;
+  v29 = v16;
+  v31 = v42;
   serviceCopy2 = service;
-  v17 = [v15 then:v29];
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v25[2] = __86__FCWebURLResolutionEndpointConnection_resolveWebURL_withQualityOfService_completion___block_invoke_31;
-  v25[3] = &unk_1E7C45390;
-  v25[4] = self;
-  v27 = v41;
+  v17 = [v15 then:v28];
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = __86__FCWebURLResolutionEndpointConnection_resolveWebURL_withQualityOfService_completion___block_invoke_31;
+  v24[3] = &unk_1E7C45390;
+  v24[4] = self;
+  v26 = v40;
   p_buf = &buf;
   v18 = completionCopy;
-  v26 = v18;
-  v19 = [v17 then:v25];
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __86__FCWebURLResolutionEndpointConnection_resolveWebURL_withQualityOfService_completion___block_invoke_2_33;
-  v23[3] = &unk_1E7C40A20;
-  v23[4] = self;
+  v25 = v18;
+  v19 = [v17 then:v24];
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __86__FCWebURLResolutionEndpointConnection_resolveWebURL_withQualityOfService_completion___block_invoke_2_33;
+  v22[3] = &unk_1E7C40A20;
+  v22[4] = self;
   v20 = v18;
-  v24 = v20;
-  v21 = [v19 error:v23];
+  v23 = v20;
+  v21 = [v19 error:v22];
 
-  _Block_object_dispose(v41, 8);
-  _Block_object_dispose(v43, 8);
+  _Block_object_dispose(v40, 8);
+  _Block_object_dispose(v42, 8);
 
   _Block_object_dispose(&buf, 8);
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 id __86__FCWebURLResolutionEndpointConnection_resolveWebURL_withQualityOfService_completion___block_invoke(uint64_t a1)
@@ -392,45 +390,43 @@ void __86__FCWebURLResolutionEndpointConnection_resolveWebURL_withQualityOfServi
 
 - (void)fetchWebURLBloomFilterInfoWithQualityOfService:(int64_t)service completion:(id)completion
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   if (!completionCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v13 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "completion"];
+    v12 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "completion"];
     *buf = 136315906;
-    v20 = "[FCWebURLResolutionEndpointConnection fetchWebURLBloomFilterInfoWithQualityOfService:completion:]";
-    v21 = 2080;
-    v22 = "FCWebURLResolutionEndpointConnection.m";
-    v23 = 1024;
-    v24 = 130;
-    v25 = 2114;
-    v26 = v13;
+    v19 = "[FCWebURLResolutionEndpointConnection fetchWebURLBloomFilterInfoWithQualityOfService:completion:]";
+    v20 = 2080;
+    v21 = "FCWebURLResolutionEndpointConnection.m";
+    v22 = 1024;
+    v23 = 130;
+    v24 = 2114;
+    v25 = v12;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __98__FCWebURLResolutionEndpointConnection_fetchWebURLBloomFilterInfoWithQualityOfService_completion___block_invoke;
-  v18[3] = &unk_1E7C3CB30;
-  v18[4] = self;
-  v18[5] = service;
-  v7 = [MEMORY[0x1E69B68F8] firstly:v18];
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __98__FCWebURLResolutionEndpointConnection_fetchWebURLBloomFilterInfoWithQualityOfService_completion___block_invoke_2;
-  v16[3] = &unk_1E7C453B8;
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __98__FCWebURLResolutionEndpointConnection_fetchWebURLBloomFilterInfoWithQualityOfService_completion___block_invoke;
+  v17[3] = &unk_1E7C3CB30;
+  v17[4] = self;
+  v17[5] = service;
+  v7 = [MEMORY[0x1E69B68F8] firstly:v17];
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __98__FCWebURLResolutionEndpointConnection_fetchWebURLBloomFilterInfoWithQualityOfService_completion___block_invoke_2;
+  v15[3] = &unk_1E7C453B8;
   v8 = completionCopy;
-  v17 = v8;
-  v9 = [v7 then:v16];
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __98__FCWebURLResolutionEndpointConnection_fetchWebURLBloomFilterInfoWithQualityOfService_completion___block_invoke_3;
-  v14[3] = &unk_1E7C39F48;
-  v15 = v8;
+  v16 = v8;
+  v9 = [v7 then:v15];
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __98__FCWebURLResolutionEndpointConnection_fetchWebURLBloomFilterInfoWithQualityOfService_completion___block_invoke_3;
+  v13[3] = &unk_1E7C39F48;
+  v14 = v8;
   v10 = v8;
-  v11 = [v9 error:v14];
-
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = [v9 error:v13];
 }
 
 + (id)_sharedProxyingScheduler
@@ -521,19 +517,19 @@ void __99__FCWebURLResolutionEndpointConnection__fetchCoreConfigurationIfNeededP
 
 - (id)_fetchConfigIfNeededPromiseWithCoreConfiguration:(id)configuration qualityOfService:(int64_t)service
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
   if (!configurationCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v28 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "coreConfiguration"];
+    v27 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "coreConfiguration"];
     *buf = 136315906;
-    *v34 = "[FCWebURLResolutionEndpointConnection _fetchConfigIfNeededPromiseWithCoreConfiguration:qualityOfService:]";
-    *&v34[8] = 2080;
-    *&v34[10] = "FCWebURLResolutionEndpointConnection.m";
-    *&v34[18] = 1024;
-    *&v34[20] = 187;
-    v35 = 2114;
-    v36 = v28;
+    *v33 = "[FCWebURLResolutionEndpointConnection _fetchConfigIfNeededPromiseWithCoreConfiguration:qualityOfService:]";
+    *&v33[8] = 2080;
+    *&v33[10] = "FCWebURLResolutionEndpointConnection.m";
+    *&v33[18] = 1024;
+    *&v33[20] = 187;
+    v34 = 2114;
+    v35 = v27;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
@@ -576,29 +572,29 @@ void __99__FCWebURLResolutionEndpointConnection__fetchCoreConfigurationIfNeededP
     if (v22)
     {
       *buf = 67109634;
-      *v34 = version;
-      *&v34[4] = 2114;
-      *&v34[6] = v15;
-      *&v34[14] = 2048;
-      *&v34[16] = minimumBucketGroupConfigVersion;
+      *v33 = version;
+      *&v33[4] = 2114;
+      *&v33[6] = v15;
+      *&v33[14] = 2048;
+      *&v33[16] = minimumBucketGroupConfigVersion;
       _os_log_impl(&dword_1B63EF000, v21, OS_LOG_TYPE_DEFAULT, "fetching new bucket group config of version %d because expiration date %{public}@ was in the past or cached version did not meet or exceed minimum version of %lld", buf, 0x1Cu);
     }
 
     self = selfCopy;
 LABEL_15:
-    v32[0] = MEMORY[0x1E69E9820];
-    v32[1] = 3221225472;
-    v32[2] = __106__FCWebURLResolutionEndpointConnection__fetchConfigIfNeededPromiseWithCoreConfiguration_qualityOfService___block_invoke;
-    v32[3] = &unk_1E7C3CB30;
-    v32[4] = self;
-    v32[5] = service;
-    v25 = [MEMORY[0x1E69B68F8] firstly:v32];
-    v30[0] = MEMORY[0x1E69E9820];
-    v30[1] = 3221225472;
-    v30[2] = __106__FCWebURLResolutionEndpointConnection__fetchConfigIfNeededPromiseWithCoreConfiguration_qualityOfService___block_invoke_2;
-    v30[3] = &unk_1E7C453E0;
-    v31 = v8;
-    v23 = [v25 then:v30];
+    v31[0] = MEMORY[0x1E69E9820];
+    v31[1] = 3221225472;
+    v31[2] = __106__FCWebURLResolutionEndpointConnection__fetchConfigIfNeededPromiseWithCoreConfiguration_qualityOfService___block_invoke;
+    v31[3] = &unk_1E7C3CB30;
+    v31[4] = self;
+    v31[5] = service;
+    v25 = [MEMORY[0x1E69B68F8] firstly:v31];
+    v29[0] = MEMORY[0x1E69E9820];
+    v29[1] = 3221225472;
+    v29[2] = __106__FCWebURLResolutionEndpointConnection__fetchConfigIfNeededPromiseWithCoreConfiguration_qualityOfService___block_invoke_2;
+    v29[3] = &unk_1E7C453E0;
+    v30 = v8;
+    v23 = [v25 then:v29];
 
     goto LABEL_16;
   }
@@ -606,18 +602,16 @@ LABEL_15:
   if (v22)
   {
     *buf = 67109634;
-    *v34 = version;
-    *&v34[4] = 2114;
-    *&v34[6] = v15;
-    *&v34[14] = 2048;
-    *&v34[16] = minimumBucketGroupConfigVersion;
+    *v33 = version;
+    *&v33[4] = 2114;
+    *&v33[6] = v15;
+    *&v33[14] = 2048;
+    *&v33[16] = minimumBucketGroupConfigVersion;
     _os_log_impl(&dword_1B63EF000, v21, OS_LOG_TYPE_DEFAULT, "using cached bucket group config of version %d because expiration date %{public}@ was not in the past and cached version met or exceeded minimum version of %lld", buf, 0x1Cu);
   }
 
   v23 = [objc_alloc(MEMORY[0x1E69B68F8]) initWithValue:v11];
 LABEL_16:
-
-  v26 = *MEMORY[0x1E69E9840];
 
   return v23;
 }
@@ -761,39 +755,38 @@ void __89__FCWebURLResolutionEndpointConnection__fetchBloomFilterInfoPromiseWith
   {
     v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"https://%@/open-web-links/domainBloomFilter", v7];
     v9 = [MEMORY[0x1E695DFF8] URLWithString:v8];
-    v10 = *(a1 + 32);
-    v11 = [objc_opt_class() _bloomFilterScheduler];
-    v12 = [FCAssetDownloadOperation alloc];
-    v13 = [*(a1 + 32) networkReachability];
-    v14 = [(FCAssetDownloadOperation *)v12 initWithNetworkReachability:v13 URLRequestScheduler:v11];
+    v10 = [objc_opt_class() _bloomFilterScheduler];
+    v11 = [FCAssetDownloadOperation alloc];
+    v12 = [*(a1 + 32) networkReachability];
+    v13 = [(FCAssetDownloadOperation *)v11 initWithNetworkReachability:v12 URLRequestScheduler:v10];
 
-    [(FCAssetDownloadOperation *)v14 setURL:v9];
-    [(FCAssetDownloadOperation *)v14 setLoggingKey:@"webURLResolution:bloomFilter"];
-    [(FCOperation *)v14 setQualityOfService:*(a1 + 40)];
-    [(FCAssetDownloadOperation *)v14 setCachePolicy:0];
-    [(FCAssetDownloadOperation *)v14 setDownloadDestination:1];
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __89__FCWebURLResolutionEndpointConnection__fetchBloomFilterInfoPromiseWithQualityOfService___block_invoke_3;
-    v17[3] = &unk_1E7C45408;
-    v18 = v6;
-    v19 = v5;
-    v15 = v6;
-    [(FCAssetDownloadOperation *)v14 setDataDownloadCompletionHandler:v17];
-    v16 = [MEMORY[0x1E696ADC8] fc_sharedConcurrentQueue];
-    [v16 addOperation:v14];
+    [(FCAssetDownloadOperation *)v13 setURL:v9];
+    [(FCAssetDownloadOperation *)v13 setLoggingKey:@"webURLResolution:bloomFilter"];
+    [(FCOperation *)v13 setQualityOfService:*(a1 + 40)];
+    [(FCAssetDownloadOperation *)v13 setCachePolicy:0];
+    [(FCAssetDownloadOperation *)v13 setDownloadDestination:1];
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __89__FCWebURLResolutionEndpointConnection__fetchBloomFilterInfoPromiseWithQualityOfService___block_invoke_3;
+    v16[3] = &unk_1E7C45408;
+    v17 = v6;
+    v18 = v5;
+    v14 = v6;
+    [(FCAssetDownloadOperation *)v13 setDataDownloadCompletionHandler:v16];
+    v15 = [MEMORY[0x1E696ADC8] fc_sharedConcurrentQueue];
+    [v15 addOperation:v13];
   }
 
   else
   {
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __89__FCWebURLResolutionEndpointConnection__fetchBloomFilterInfoPromiseWithQualityOfService___block_invoke_2;
-    v20[3] = &unk_1E7C379C8;
-    v21 = v6;
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __89__FCWebURLResolutionEndpointConnection__fetchBloomFilterInfoPromiseWithQualityOfService___block_invoke_2;
+    v19[3] = &unk_1E7C379C8;
+    v20 = v6;
     v8 = v6;
-    __89__FCWebURLResolutionEndpointConnection__fetchBloomFilterInfoPromiseWithQualityOfService___block_invoke_2(v20);
-    v9 = v21;
+    __89__FCWebURLResolutionEndpointConnection__fetchBloomFilterInfoPromiseWithQualityOfService___block_invoke_2(v19);
+    v9 = v20;
   }
 }
 
@@ -848,20 +841,20 @@ void __89__FCWebURLResolutionEndpointConnection__fetchBloomFilterInfoPromiseWith
 
 - (id)_hashOfURLWithWebURL:(id)l config:(id)config
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   lCopy = l;
   configCopy = config;
   if (!lCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "webURL"];
+    v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "webURL"];
     *buf = 136315906;
-    v19 = "[FCWebURLResolutionEndpointConnection _hashOfURLWithWebURL:config:]";
-    v20 = 2080;
-    v21 = "FCWebURLResolutionEndpointConnection.m";
-    v22 = 1024;
-    v23 = 311;
-    v24 = 2114;
-    v25 = v16;
+    v18 = "[FCWebURLResolutionEndpointConnection _hashOfURLWithWebURL:config:]";
+    v19 = 2080;
+    v20 = "FCWebURLResolutionEndpointConnection.m";
+    v21 = 1024;
+    v22 = 311;
+    v23 = 2114;
+    v24 = v15;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (configCopy)
@@ -877,15 +870,15 @@ void __89__FCWebURLResolutionEndpointConnection__fetchBloomFilterInfoPromiseWith
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "config"];
+    v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "config"];
     *buf = 136315906;
-    v19 = "[FCWebURLResolutionEndpointConnection _hashOfURLWithWebURL:config:]";
-    v20 = 2080;
-    v21 = "FCWebURLResolutionEndpointConnection.m";
-    v22 = 1024;
-    v23 = 312;
-    v24 = 2114;
-    v25 = v17;
+    v18 = "[FCWebURLResolutionEndpointConnection _hashOfURLWithWebURL:config:]";
+    v19 = 2080;
+    v20 = "FCWebURLResolutionEndpointConnection.m";
+    v21 = 1024;
+    v22 = 312;
+    v23 = 2114;
+    v24 = v16;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
@@ -897,7 +890,7 @@ LABEL_6:
   if (os_log_type_enabled(FCWebURLResolutionLog, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138739971;
-    v19 = v9;
+    v18 = v9;
     _os_log_impl(&dword_1B63EF000, v10, OS_LOG_TYPE_DEFAULT, "canonicalized URL is %{sensitive}@", buf, 0xCu);
   }
 
@@ -908,32 +901,30 @@ LABEL_6:
   if (os_log_type_enabled(FCWebURLResolutionLog, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138477827;
-    v19 = v12;
+    v18 = v12;
     _os_log_impl(&dword_1B63EF000, v13, OS_LOG_TYPE_DEFAULT, "hash is %{private}@", buf, 0xCu);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
 
 - (id)_fetchListsPromiseWithConfig:(id)config coreConfiguration:(id)configuration hash:(id)hash qualityOfService:(int64_t)service
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   configCopy = config;
   configurationCopy = configuration;
   hashCopy = hash;
   if (!configCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v22 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "config"];
+    v21 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "config"];
     *buf = 136315906;
-    v32 = "[FCWebURLResolutionEndpointConnection _fetchListsPromiseWithConfig:coreConfiguration:hash:qualityOfService:]";
-    v33 = 2080;
-    v34 = "FCWebURLResolutionEndpointConnection.m";
-    v35 = 1024;
-    v36 = 326;
-    v37 = 2114;
-    v38 = v22;
+    v31 = "[FCWebURLResolutionEndpointConnection _fetchListsPromiseWithConfig:coreConfiguration:hash:qualityOfService:]";
+    v32 = 2080;
+    v33 = "FCWebURLResolutionEndpointConnection.m";
+    v34 = 1024;
+    v35 = 326;
+    v36 = 2114;
+    v37 = v21;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (configurationCopy)
@@ -949,30 +940,30 @@ LABEL_6:
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v23 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "coreConfiguration"];
+    v22 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "coreConfiguration"];
     *buf = 136315906;
-    v32 = "[FCWebURLResolutionEndpointConnection _fetchListsPromiseWithConfig:coreConfiguration:hash:qualityOfService:]";
-    v33 = 2080;
-    v34 = "FCWebURLResolutionEndpointConnection.m";
-    v35 = 1024;
-    v36 = 327;
-    v37 = 2114;
-    v38 = v23;
+    v31 = "[FCWebURLResolutionEndpointConnection _fetchListsPromiseWithConfig:coreConfiguration:hash:qualityOfService:]";
+    v32 = 2080;
+    v33 = "FCWebURLResolutionEndpointConnection.m";
+    v34 = 1024;
+    v35 = 327;
+    v36 = 2114;
+    v37 = v22;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
 LABEL_6:
   if (!hashCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v24 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "hash"];
+    v23 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "hash"];
     *buf = 136315906;
-    v32 = "[FCWebURLResolutionEndpointConnection _fetchListsPromiseWithConfig:coreConfiguration:hash:qualityOfService:]";
-    v33 = 2080;
-    v34 = "FCWebURLResolutionEndpointConnection.m";
-    v35 = 1024;
-    v36 = 328;
-    v37 = 2114;
-    v38 = v24;
+    v31 = "[FCWebURLResolutionEndpointConnection _fetchListsPromiseWithConfig:coreConfiguration:hash:qualityOfService:]";
+    v32 = 2080;
+    v33 = "FCWebURLResolutionEndpointConnection.m";
+    v34 = 1024;
+    v35 = 328;
+    v36 = 2114;
+    v37 = v23;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
@@ -983,25 +974,23 @@ LABEL_6:
   if (os_log_type_enabled(FCWebURLResolutionLog, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v32 = v14;
+    v31 = v14;
     _os_log_impl(&dword_1B63EF000, v15, OS_LOG_TYPE_DEFAULT, "bucket is %ld", buf, 0xCu);
   }
 
   v16 = objc_alloc(MEMORY[0x1E69B68F8]);
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v25[2] = __109__FCWebURLResolutionEndpointConnection__fetchListsPromiseWithConfig_coreConfiguration_hash_qualityOfService___block_invoke;
-  v25[3] = &unk_1E7C45458;
-  v26 = configCopy;
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = __109__FCWebURLResolutionEndpointConnection__fetchListsPromiseWithConfig_coreConfiguration_hash_qualityOfService___block_invoke;
+  v24[3] = &unk_1E7C45458;
+  v25 = configCopy;
   selfCopy = self;
-  v29 = v14;
+  v28 = v14;
   serviceCopy = service;
-  v28 = configurationCopy;
+  v27 = configurationCopy;
   v17 = configurationCopy;
   v18 = configCopy;
-  v19 = [v16 initWithResolver:v25];
-
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = [v16 initWithResolver:v24];
 
   return v19;
 }
@@ -1125,20 +1114,20 @@ uint64_t __109__FCWebURLResolutionEndpointConnection__fetchListsPromiseWithConfi
 - (void)_fetchListsPromiseThroughProxy:(BOOL)proxy withResourceURL:(id)l qualityOfService:(int64_t)service completion:(id)completion
 {
   proxyCopy = proxy;
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   lCopy = l;
   completionCopy = completion;
   if (!lCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v19 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "resourceURL"];
+    v18 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "resourceURL"];
     *buf = 136315906;
-    v24 = "[FCWebURLResolutionEndpointConnection _fetchListsPromiseThroughProxy:withResourceURL:qualityOfService:completion:]";
-    v25 = 2080;
-    v26 = "FCWebURLResolutionEndpointConnection.m";
-    v27 = 1024;
-    v28 = 395;
-    v29 = 2114;
-    v30 = v19;
+    v23 = "[FCWebURLResolutionEndpointConnection _fetchListsPromiseThroughProxy:withResourceURL:qualityOfService:completion:]";
+    v24 = 2080;
+    v25 = "FCWebURLResolutionEndpointConnection.m";
+    v26 = 1024;
+    v27 = 395;
+    v28 = 2114;
+    v29 = v18;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (completionCopy)
@@ -1154,15 +1143,15 @@ uint64_t __109__FCWebURLResolutionEndpointConnection__fetchListsPromiseWithConfi
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v20 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "completion"];
+    v19 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "completion"];
     *buf = 136315906;
-    v24 = "[FCWebURLResolutionEndpointConnection _fetchListsPromiseThroughProxy:withResourceURL:qualityOfService:completion:]";
-    v25 = 2080;
-    v26 = "FCWebURLResolutionEndpointConnection.m";
-    v27 = 1024;
-    v28 = 396;
-    v29 = 2114;
-    v30 = v20;
+    v23 = "[FCWebURLResolutionEndpointConnection _fetchListsPromiseThroughProxy:withResourceURL:qualityOfService:completion:]";
+    v24 = 2080;
+    v25 = "FCWebURLResolutionEndpointConnection.m";
+    v26 = 1024;
+    v27 = 396;
+    v28 = 2114;
+    v29 = v19;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
@@ -1185,17 +1174,15 @@ LABEL_6:
   [(FCAssetDownloadOperation *)v15 setLoggingKey:@"webURLResolution:lists"];
   [(FCOperation *)v15 setQualityOfService:service];
   [(FCAssetDownloadOperation *)v15 setDownloadDestination:1];
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __115__FCWebURLResolutionEndpointConnection__fetchListsPromiseThroughProxy_withResourceURL_qualityOfService_completion___block_invoke;
-  v21[3] = &unk_1E7C45480;
-  v22 = completionCopy;
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __115__FCWebURLResolutionEndpointConnection__fetchListsPromiseThroughProxy_withResourceURL_qualityOfService_completion___block_invoke;
+  v20[3] = &unk_1E7C45480;
+  v21 = completionCopy;
   v16 = completionCopy;
-  [(FCAssetDownloadOperation *)v15 setDataDownloadCompletionHandler:v21];
+  [(FCAssetDownloadOperation *)v15 setDataDownloadCompletionHandler:v20];
   fc_sharedConcurrentQueue = [MEMORY[0x1E696ADC8] fc_sharedConcurrentQueue];
   [fc_sharedConcurrentQueue addOperation:v15];
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __115__FCWebURLResolutionEndpointConnection__fetchListsPromiseThroughProxy_withResourceURL_qualityOfService_completion___block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4)
@@ -1246,21 +1233,21 @@ void __115__FCWebURLResolutionEndpointConnection__fetchListsPromiseThroughProxy_
 
 - (id)_articleIDWithHash:(id)hash lists:(id)lists storeFrontID:(id)d
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   hashCopy = hash;
   listsCopy = lists;
   dCopy = d;
   if (!hashCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "hash"];
+    v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "hash"];
     *buf = 136315906;
-    v23 = "[FCWebURLResolutionEndpointConnection _articleIDWithHash:lists:storeFrontID:]";
-    v24 = 2080;
-    v25 = "FCWebURLResolutionEndpointConnection.m";
-    v26 = 1024;
-    v27 = 424;
-    v28 = 2114;
-    v29 = v17;
+    v22 = "[FCWebURLResolutionEndpointConnection _articleIDWithHash:lists:storeFrontID:]";
+    v23 = 2080;
+    v24 = "FCWebURLResolutionEndpointConnection.m";
+    v25 = 1024;
+    v26 = 424;
+    v27 = 2114;
+    v28 = v16;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (listsCopy)
@@ -1276,46 +1263,44 @@ void __115__FCWebURLResolutionEndpointConnection__fetchListsPromiseThroughProxy_
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v18 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "lists"];
+    v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "lists"];
     *buf = 136315906;
-    v23 = "[FCWebURLResolutionEndpointConnection _articleIDWithHash:lists:storeFrontID:]";
-    v24 = 2080;
-    v25 = "FCWebURLResolutionEndpointConnection.m";
-    v26 = 1024;
-    v27 = 425;
-    v28 = 2114;
-    v29 = v18;
+    v22 = "[FCWebURLResolutionEndpointConnection _articleIDWithHash:lists:storeFrontID:]";
+    v23 = 2080;
+    v24 = "FCWebURLResolutionEndpointConnection.m";
+    v25 = 1024;
+    v26 = 425;
+    v27 = 2114;
+    v28 = v17;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
 LABEL_6:
   if (!dCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v19 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "storeFrontID"];
+    v18 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "storeFrontID"];
     *buf = 136315906;
-    v23 = "[FCWebURLResolutionEndpointConnection _articleIDWithHash:lists:storeFrontID:]";
-    v24 = 2080;
-    v25 = "FCWebURLResolutionEndpointConnection.m";
-    v26 = 1024;
-    v27 = 426;
-    v28 = 2114;
-    v29 = v19;
+    v22 = "[FCWebURLResolutionEndpointConnection _articleIDWithHash:lists:storeFrontID:]";
+    v23 = 2080;
+    v24 = "FCWebURLResolutionEndpointConnection.m";
+    v25 = 1024;
+    v26 = 426;
+    v27 = 2114;
+    v28 = v18;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
   v10 = [listsCopy fc_objectInSortedOrderedCollectionWithFeature:hashCopy usingFeatureProvider:&__block_literal_global_96_2 comparator:&__block_literal_global_99_0];
   articleInfos = [v10 articleInfos];
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __78__FCWebURLResolutionEndpointConnection__articleIDWithHash_lists_storeFrontID___block_invoke_3;
-  v20[3] = &unk_1E7C454E8;
-  v21 = dCopy;
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __78__FCWebURLResolutionEndpointConnection__articleIDWithHash_lists_storeFrontID___block_invoke_3;
+  v19[3] = &unk_1E7C454E8;
+  v20 = dCopy;
   v12 = dCopy;
-  v13 = [articleInfos fc_firstObjectPassingTest:v20];
+  v13 = [articleInfos fc_firstObjectPassingTest:v19];
 
   articleId = [v13 articleId];
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return articleId;
 }

@@ -257,7 +257,7 @@
         [v17 setMaximumTerminationResistance:40];
         v28 = v14;
         v18 = [objc_alloc(MEMORY[0x277D47018]) initWithPredicate:v14 context:v17];
-        v19 = SBLogCaptureApplication();
+        v19 = SBLogCaptureApplication(v18);
         if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
           bundle = [processHandle bundle];

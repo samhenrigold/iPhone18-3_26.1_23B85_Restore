@@ -163,7 +163,7 @@ LABEL_3:
     {
       objc_storeStrong(&self->_selectionSnapshot, snapshot);
       dataSource = [(PXSelectionSnapshot *)snapshotCopy dataSource];
-      [(PXActionableSectionHeaderLayout *)self sectionIndexPath];
+      objc_msgSend_sectionIndexPath(self);
       v10 = [off_1E7721768 indexPathSetWithIndexPath:&v14];
       v11 = [dataSource itemIndexPathsForSections:v10];
 

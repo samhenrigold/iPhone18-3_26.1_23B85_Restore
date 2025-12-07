@@ -20,6 +20,7 @@
 - (void)passcodeField:(id)field didChangePasscodeLength:(unint64_t)length;
 - (void)passcodeField:(id)field didSubmitPasscode:(id)passcode;
 - (void)passcodeOptionsViewController:(id)controller didSelectPasscodeType:(id)type;
+- (void)passcodeOptionsViewController:(id)controller didSetPasscodeRecoveryEnabled:(BOOL)enabled;
 - (void)passcodeOptionsViewControllerWillDisappear:(id)disappear;
 - (void)setErrorMessage:(id)message;
 - (void)setFooter:(id)footer;
@@ -29,8 +30,10 @@
 - (void)showSpinner;
 - (void)submit;
 - (void)unfocus;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLayoutSubviews;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 - (void)willMoveToParentViewController:(id)controller;
 @end
 
@@ -216,6 +219,36 @@
   [(LAPSPasscodeViewControllerBase *)self setupNavigationItem];
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v7.receiver = self;
+  v7.super_class = LAPSPasscodeViewControllerBase;
+  [(LAPSPasscodeViewControllerBase *)&v7 viewWillAppear:appear];
+  config = [(LAPSPasscodeViewControllerBase *)self config];
+  shouldAvoidBecomingFirstResponderOnStart = [config shouldAvoidBecomingFirstResponderOnStart];
+
+  if ((shouldAvoidBecomingFirstResponderOnStart & 1) == 0)
+  {
+    _passcodeFieldVC = [(LAPSPasscodeViewControllerBase *)self _passcodeFieldVC];
+    [_passcodeFieldVC becomeFirstResponder];
+  }
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v7.receiver = self;
+  v7.super_class = LAPSPasscodeViewControllerBase;
+  [(LAPSPasscodeViewControllerBase *)&v7 viewDidAppear:appear];
+  config = [(LAPSPasscodeViewControllerBase *)self config];
+  shouldAvoidBecomingFirstResponderOnStart = [config shouldAvoidBecomingFirstResponderOnStart];
+
+  if ((shouldAvoidBecomingFirstResponderOnStart & 1) == 0)
+  {
+    _passcodeFieldVC = [(LAPSPasscodeViewControllerBase *)self _passcodeFieldVC];
+    [_passcodeFieldVC becomeFirstResponder];
+  }
+}
+
 - (void)viewDidLayoutSubviews
 {
   v10.receiver = self;
@@ -399,6 +432,20 @@
   {
     v8 = objc_loadWeakRetained(&self->_delegate);
     [v8 passcodeViewController:self didSelectPasscodeType:typeCopy];
+  }
+}
+
+- (void)passcodeOptionsViewController:(id)controller didSetPasscodeRecoveryEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  self->_isPasscodeRecoveryEnabled = enabled;
+  WeakRetained = objc_loadWeakRetained(&self->_delegate);
+  v7 = objc_opt_respondsToSelector();
+
+  if (v7)
+  {
+    v8 = objc_loadWeakRetained(&self->_delegate);
+    [v8 passcodeViewController:self didSetPasscodeRecoveryEnabled:enabledCopy];
   }
 }
 

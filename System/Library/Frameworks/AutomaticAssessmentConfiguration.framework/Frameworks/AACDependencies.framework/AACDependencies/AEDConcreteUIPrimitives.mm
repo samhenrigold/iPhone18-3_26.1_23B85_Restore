@@ -9,15 +9,15 @@
 
 - (void)presentBannerWithTitle:(id)title duration:(double)duration completion:(id)completion
 {
-  v52[1] = *MEMORY[0x277D85DE8];
+  v51[1] = *MEMORY[0x277D85DE8];
   titleCopy = title;
   completionCopy = completion;
   v10 = objc_alloc(MEMORY[0x277CCA898]);
-  v51 = *MEMORY[0x277D764E8];
+  v50 = *MEMORY[0x277D764E8];
   v11 = *MEMORY[0x277D76438];
   v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*MEMORY[0x277D76438]];
-  v52[0] = v12;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v52 forKeys:&v51 count:1];
+  v51[0] = v12;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v51 forKeys:&v50 count:1];
   v14 = [v10 initWithString:titleCopy attributes:v13];
 
   UIAccessibilityPostNotification(v11, v14);
@@ -26,61 +26,61 @@
   if (keyWindow)
   {
     rootViewController = [keyWindow rootViewController];
-    v19 = [(AEDConcreteUIPrimitives *)self suitableViewControllerForViewController:rootViewController];
+    v18 = [(AEDConcreteUIPrimitives *)self suitableViewControllerForViewController:rootViewController];
 
-    if (v19)
+    if (v18)
     {
-      view = [v19 view];
-      v21 = [[AEDBannerView alloc] initWithTitle:titleCopy];
-      [(AEDBannerView *)v21 setTranslatesAutoresizingMaskIntoConstraints:0];
-      [(AEDBannerView *)v21 setAlpha:0.0];
-      [(AEDBannerView *)v21 layer];
-      v22 = v44 = v19;
-      [v22 setZPosition:10000002.0];
+      view = [v18 view];
+      v20 = [[AEDBannerView alloc] initWithTitle:titleCopy];
+      [(AEDBannerView *)v20 setTranslatesAutoresizingMaskIntoConstraints:0];
+      [(AEDBannerView *)v20 setAlpha:0.0];
+      [(AEDBannerView *)v20 layer];
+      v21 = v43 = v18;
+      [v21 setZPosition:10000002.0];
 
-      [view addSubview:v21];
-      v38 = MEMORY[0x277CCAAD0];
-      leadingAnchor = [(AEDBannerView *)v21 leadingAnchor];
+      [view addSubview:v20];
+      v37 = MEMORY[0x277CCAAD0];
+      leadingAnchor = [(AEDBannerView *)v20 leadingAnchor];
       leadingAnchor2 = [view leadingAnchor];
-      v41 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-      v50[0] = v41;
-      trailingAnchor = [(AEDBannerView *)v21 trailingAnchor];
+      v40 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+      v49[0] = v40;
+      trailingAnchor = [(AEDBannerView *)v20 trailingAnchor];
       trailingAnchor2 = [view trailingAnchor];
-      v37 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-      v50[1] = v37;
-      topAnchor = [(AEDBannerView *)v21 topAnchor];
-      v36 = view;
-      v23 = view;
+      v36 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
+      v49[1] = v36;
+      topAnchor = [(AEDBannerView *)v20 topAnchor];
+      v35 = view;
+      v22 = view;
       topAnchor2 = [view topAnchor];
-      v24 = [topAnchor constraintEqualToAnchor:topAnchor2];
-      v50[2] = v24;
-      bottomAnchor = [(AEDBannerView *)v21 bottomAnchor];
-      bottomAnchor2 = [v23 bottomAnchor];
-      v27 = [bottomAnchor constraintLessThanOrEqualToAnchor:bottomAnchor2];
-      v50[3] = v27;
-      v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v50 count:4];
-      [v38 activateConstraints:v28];
+      v23 = [topAnchor constraintEqualToAnchor:topAnchor2];
+      v49[2] = v23;
+      bottomAnchor = [(AEDBannerView *)v20 bottomAnchor];
+      bottomAnchor2 = [v22 bottomAnchor];
+      v26 = [bottomAnchor constraintLessThanOrEqualToAnchor:bottomAnchor2];
+      v49[3] = v26;
+      v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v49 count:4];
+      [v37 activateConstraints:v27];
 
-      [v36 setNeedsLayout];
-      v29 = MEMORY[0x277D75D18];
-      v48[0] = MEMORY[0x277D85DD0];
-      v48[1] = 3221225472;
-      v48[2] = __70__AEDConcreteUIPrimitives_presentBannerWithTitle_duration_completion___block_invoke;
-      v48[3] = &unk_278A0C4B8;
-      v30 = v21;
-      v49 = v30;
-      [v29 animateWithDuration:v48 animations:0.8];
-      v31 = dispatch_time(0, ((duration + 0.8) * 1000000000.0));
+      [v35 setNeedsLayout];
+      v28 = MEMORY[0x277D75D18];
+      v47[0] = MEMORY[0x277D85DD0];
+      v47[1] = 3221225472;
+      v47[2] = __70__AEDConcreteUIPrimitives_presentBannerWithTitle_duration_completion___block_invoke;
+      v47[3] = &unk_278A0C4B8;
+      v29 = v20;
+      v48 = v29;
+      [v28 animateWithDuration:v47 animations:0.8];
+      v30 = dispatch_time(0, ((duration + 0.8) * 1000000000.0));
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __70__AEDConcreteUIPrimitives_presentBannerWithTitle_duration_completion___block_invoke_2;
       block[3] = &unk_278A0C508;
-      v46 = v30;
-      v47 = completionCopy;
+      v45 = v29;
+      v46 = completionCopy;
+      v31 = v29;
       v32 = v30;
-      v33 = v31;
-      v19 = v44;
-      dispatch_after(v33, MEMORY[0x277D85CD0], block);
+      v18 = v43;
+      dispatch_after(v32, MEMORY[0x277D85CD0], block);
     }
 
     else
@@ -93,8 +93,6 @@
   {
     completionCopy[2](completionCopy);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __70__AEDConcreteUIPrimitives_presentBannerWithTitle_duration_completion___block_invoke_2(uint64_t a1)

@@ -1295,7 +1295,7 @@ LABEL_35:
     v42 = screenReplicatorLayer;
     if (screenReplicatorLayer)
     {
-      [screenReplicatorLayer instanceTransform];
+      objc_msgSend_instanceTransform(screenReplicatorLayer);
     }
 
     else

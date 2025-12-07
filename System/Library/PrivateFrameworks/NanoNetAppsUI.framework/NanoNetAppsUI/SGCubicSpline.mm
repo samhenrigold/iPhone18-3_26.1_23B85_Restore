@@ -1,4 +1,5 @@
 @interface SGCubicSpline
+- (SGCubicSpline)initWithNumberOfControlPoints:(int)points isClosed:(BOOL)closed;
 - (float32x2_t)interpolateAt:(double)at derivative:(double)derivative;
 - (void)_processClosedSpline;
 - (void)_processOpenSpline;
@@ -9,6 +10,40 @@
 @end
 
 @implementation SGCubicSpline
+
+- (SGCubicSpline)initWithNumberOfControlPoints:(int)points isClosed:(BOOL)closed
+{
+  closedCopy = closed;
+  v5 = *&points;
+  v12.receiver = self;
+  v12.super_class = SGCubicSpline;
+  v6 = [(SGCubicSpline *)&v12 init];
+  v7 = v6;
+  if (v6)
+  {
+    v6->_length = v5;
+    v6->_startIndex = -1;
+    v6->_processedPoints = SGSplineVector_new(v5);
+    v7->_controlPoints = SGSplineVector_new(v5);
+    v7->_workspace = SGSplineVector_new(v5);
+    v7->_closed = closedCopy;
+    v8 = +[SGCubicSplineMatrixCache sharedInstance];
+    v9 = v8;
+    if (closedCopy)
+    {
+      v10 = [v8 closedSplineMatrixWithDimension:v5];
+    }
+
+    else
+    {
+      v10 = [v8 openSplineMatrixWithDimension:v5];
+    }
+
+    v7->_splineMatrix = v10;
+  }
+
+  return v7;
+}
 
 - (void)dealloc
 {

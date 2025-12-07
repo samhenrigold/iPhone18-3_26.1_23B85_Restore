@@ -8,11 +8,11 @@
 
 - (GKPlayerActivityInternal)initWithServerResponse:(id)response
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   responseCopy = response;
-  v21.receiver = self;
-  v21.super_class = GKPlayerActivityInternal;
-  v5 = [(GKPlayerActivityInternal *)&v21 init];
+  v20.receiver = self;
+  v20.super_class = GKPlayerActivityInternal;
+  v5 = [(GKPlayerActivityInternal *)&v20 init];
   if (v5)
   {
     array = [MEMORY[0x277CBEB18] array];
@@ -20,33 +20,33 @@
     v8 = v7;
     if (v7)
     {
-      v19 = 0u;
-      v20 = 0u;
-      v17 = 0u;
       v18 = 0u;
-      v9 = [v7 countByEnumeratingWithState:&v17 objects:v22 count:16];
+      v19 = 0u;
+      v16 = 0u;
+      v17 = 0u;
+      v9 = [v7 countByEnumeratingWithState:&v16 objects:v21 count:16];
       if (v9)
       {
         v10 = v9;
-        v11 = *v18;
+        v11 = *v17;
         do
         {
           v12 = 0;
           do
           {
-            if (*v18 != v11)
+            if (*v17 != v11)
             {
               objc_enumerationMutation(v8);
             }
 
-            v13 = [[GKPlayerActivitySectionInternal alloc] initWithDictionary:*(*(&v17 + 1) + 8 * v12)];
+            v13 = [[GKPlayerActivitySectionInternal alloc] initWithDictionary:*(*(&v16 + 1) + 8 * v12)];
             [array addObject:v13];
 
             ++v12;
           }
 
           while (v10 != v12);
-          v10 = [v8 countByEnumeratingWithState:&v17 objects:v22 count:16];
+          v10 = [v8 countByEnumeratingWithState:&v16 objects:v21 count:16];
         }
 
         while (v10);
@@ -58,7 +58,6 @@
     [(GKPlayerActivityInternal *)v5 setContinuationToken:v14];
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -84,22 +83,20 @@
   return v3;
 }
 
-void __51__GKPlayerActivityInternal_secureCodedPropertyKeys__block_invoke()
+void __51__GKPlayerActivityInternal_secureCodedPropertyKeys__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v7[2] = *MEMORY[0x277D85DE8];
-  v6[0] = @"sections";
-  v0 = MEMORY[0x277CBEB98];
-  v1 = objc_opt_class();
-  v2 = [v0 setWithObjects:{v1, objc_opt_class(), 0}];
-  v6[1] = @"continuationToken";
-  v7[0] = v2;
-  v7[1] = objc_opt_class();
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
+  v8[2] = *MEMORY[0x277D85DE8];
+  v7[0] = @"sections";
+  v2 = MEMORY[0x277CBEB98];
+  v3 = objc_opt_class();
+  v4 = [v2 setWithObjects:{v3, objc_opt_class(), 0}];
+  v7[1] = @"continuationToken";
+  v8[0] = v4;
+  v8[1] = objc_opt_class();
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
 
-  v4 = secureCodedPropertyKeys_sSecureCodedKeys_276;
-  secureCodedPropertyKeys_sSecureCodedKeys_276 = v3;
-
-  v5 = *MEMORY[0x277D85DE8];
+  v6 = secureCodedPropertyKeys_sSecureCodedKeys_276;
+  secureCodedPropertyKeys_sSecureCodedKeys_276 = v5;
 }
 
 @end

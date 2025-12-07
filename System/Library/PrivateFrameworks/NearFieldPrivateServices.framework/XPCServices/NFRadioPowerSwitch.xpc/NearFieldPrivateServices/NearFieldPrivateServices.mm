@@ -20,9 +20,9 @@ void sub_100000E5C(uint64_t a1, void *a2, uint64_t a3)
   (*(*(a1 + 32) + 16))();
 }
 
-void sub_100000F34(double a1, uint64_t a2, void *a3)
+void sub_100000F34(uint64_t a1, void *a2, double a3)
 {
-  v4 = a3;
+  v4 = a2;
   objc_opt_self();
   v5 = objc_autoreleasePoolPush();
   v6 = dispatch_get_global_queue(25, 0);
@@ -32,7 +32,7 @@ void sub_100000F34(double a1, uint64_t a2, void *a3)
   v8[3] = &unk_100004290;
   v7 = v4;
   v9 = v7;
-  v10 = a1;
+  v10 = a3;
   dispatch_async(v6, v8);
 
   objc_autoreleasePoolPop(v5);

@@ -27,11 +27,12 @@
   sub_1BF17B01C();
   swift_unknownObjectRelease();
   ObjCClassMetadata = swift_getObjCClassMetadata();
-  sub_1BF17A0AC();
+  v10 = sub_1BF17A0AC();
+  v12 = v11;
 
-  sub_1BF0B6634(v10, ObjCClassMetadata);
+  sub_1BF0B6634(v13, ObjCClassMetadata, v10, v12);
 
-  __swift_destroy_boxed_opaque_existential_1(v10);
+  __swift_destroy_boxed_opaque_existential_1(v13);
 }
 
 - (void)useObject:(id)object forProtocol:(id)protocol
@@ -54,11 +55,12 @@
   selfCopy = self;
   sub_1BF17B01C();
   swift_unknownObjectRelease();
-  sub_1BF17A0AC();
+  v11 = sub_1BF17A0AC();
+  v13 = v12;
 
-  sub_1BF0B68E4(v11, protocolCopy);
+  sub_1BF0B68E4(v14, protocolCopy, v11, v13);
 
-  __swift_destroy_boxed_opaque_existential_1(v11);
+  __swift_destroy_boxed_opaque_existential_1(v14);
 }
 
 @end

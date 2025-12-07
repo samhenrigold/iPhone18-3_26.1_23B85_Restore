@@ -23,83 +23,81 @@
 {
   inCopy = in;
   controllerCopy = controller;
-  v27.receiver = self;
-  v27.super_class = WebProcessPlugInBrowserPageController;
-  v8 = [(_SFWebProcessPlugInReaderEnabledPageController *)&v27 initWithPlugIn:inCopy contextController:controllerCopy];
-  v12 = v8;
+  v13.receiver = self;
+  v13.super_class = WebProcessPlugInBrowserPageController;
+  v8 = [(_SFWebProcessPlugInReaderEnabledPageController *)&v13 initWithPlugIn:inCopy contextController:controllerCopy];
+  v9 = v8;
   if (v8)
   {
-    objc_msgSend__setupPageLoadTestController(v8, v9, v10, v11);
-    objc_msgSend__readPageLoadTestParameters(v12, v13, v14, v15);
-    v12->_haveCheckedIfPageLoadTestIsEnabled = 0;
-    objc_msgSend__setupTouchIconFetcherController(v12, v16, v17, v18);
-    v19 = [SafariFormMetadataController alloc];
-    v22 = objc_msgSend_initWithPageController_(v19, v20, v12, v21);
-    objc_msgSend_setFormMetadataController_(v12, v23, v22, v24);
-    v25 = v12;
+    [(WebProcessPlugInBrowserPageController *)v8 _setupPageLoadTestController];
+    [(WebProcessPlugInBrowserPageController *)v9 _readPageLoadTestParameters];
+    v9->_haveCheckedIfPageLoadTestIsEnabled = 0;
+    [(WebProcessPlugInBrowserPageController *)v9 _setupTouchIconFetcherController];
+    v10 = [(_SFFormMetadataController *)[SafariFormMetadataController alloc] initWithPageController:v9];
+    [(_SFWebProcessPlugInAutoFillPageController *)v9 setFormMetadataController:v10];
+    v11 = v9;
   }
 
-  return v12;
+  return v9;
 }
 
 - (void)dealloc
 {
-  v5 = objc_msgSend_browserContextController(self, a2, v2, v3);
-  objc_msgSend_setLoadDelegate_(v5, v6, 0, v7);
+  browserContextController = [(WBSWebProcessPlugInPageController *)self browserContextController];
+  [browserContextController setLoadDelegate:0];
 
-  v8.receiver = self;
-  v8.super_class = WebProcessPlugInBrowserPageController;
-  [(WebProcessPlugInBrowserPageController *)&v8 dealloc];
+  v4.receiver = self;
+  v4.super_class = WebProcessPlugInBrowserPageController;
+  [(WebProcessPlugInBrowserPageController *)&v4 dealloc];
 }
 
 - (void)willDestroyBrowserContextController:(id)controller
 {
   controllerCopy = controller;
-  v8 = objc_msgSend__remoteObjectRegistry(controllerCopy, v5, v6, v7);
-  objc_msgSend_unregisterExportedObject_interface_(v8, v9, self, self->_pageLoadTestControllerInterface);
+  _remoteObjectRegistry = [controllerCopy _remoteObjectRegistry];
+  [_remoteObjectRegistry unregisterExportedObject:self interface:self->_pageLoadTestControllerInterface];
   pageLoadTestControllerInterface = self->_pageLoadTestControllerInterface;
   self->_pageLoadTestControllerInterface = 0;
 
-  objc_msgSend_unregisterExportedObject_interface_(v8, v11, self, self->_touchIconFetcherControllerInterface);
+  [_remoteObjectRegistry unregisterExportedObject:self interface:self->_touchIconFetcherControllerInterface];
   touchIconFetcherControllerInterface = self->_touchIconFetcherControllerInterface;
   self->_touchIconFetcherControllerInterface = 0;
 
-  v13.receiver = self;
-  v13.super_class = WebProcessPlugInBrowserPageController;
-  [(_SFWebProcessPlugInReaderEnabledPageController *)&v13 willDestroyBrowserContextController:controllerCopy];
+  v8.receiver = self;
+  v8.super_class = WebProcessPlugInBrowserPageController;
+  [(_SFWebProcessPlugInReaderEnabledPageController *)&v8 willDestroyBrowserContextController:controllerCopy];
 }
 
 - (void)_setupTouchIconFetcherController
 {
-  v4 = objc_msgSend_remoteObjectInterfaceWithProtocol_(MEMORY[0x277CE3898], a2, &unk_286AD5910, v2);
+  v3 = [MEMORY[0x277CE3898] remoteObjectInterfaceWithProtocol:&unk_286AD5910];
   touchIconFetcherControllerInterface = self->_touchIconFetcherControllerInterface;
-  self->_touchIconFetcherControllerInterface = v4;
+  self->_touchIconFetcherControllerInterface = v3;
 
-  v14 = objc_msgSend_browserContextController(self, v6, v7, v8);
-  v12 = objc_msgSend__remoteObjectRegistry(v14, v9, v10, v11);
-  objc_msgSend_registerExportedObject_interface_(v12, v13, self, self->_touchIconFetcherControllerInterface);
+  browserContextController = [(WBSWebProcessPlugInPageController *)self browserContextController];
+  _remoteObjectRegistry = [browserContextController _remoteObjectRegistry];
+  [_remoteObjectRegistry registerExportedObject:self interface:self->_touchIconFetcherControllerInterface];
 }
 
 - (void)fetchTouchIconURLs
 {
-  v40 = objc_msgSend_mainFrame(self, a2, v2, v3);
-  v5 = objc_alloc(MEMORY[0x277D4A7A8]);
-  v8 = objc_msgSend_initWithWebProcessPlugInFrame_(v5, v6, v40, v7);
-  v12 = objc_msgSend_URL(v40, v9, v10, v11);
-  v16 = objc_msgSend_appleTouchIconURLs(v8, v13, v14, v15);
-  v20 = objc_msgSend_mutableCopy(v16, v17, v18, v19);
+  mainFrame = [(WBSWebProcessPlugInPageController *)self mainFrame];
+  v3 = [objc_alloc(MEMORY[0x277D4A7A8]) initWithWebProcessPlugInFrame:mainFrame];
+  v4 = [mainFrame URL];
+  appleTouchIconURLs = [v3 appleTouchIconURLs];
+  v6 = [appleTouchIconURLs mutableCopy];
 
-  v22 = objc_msgSend_URLWithString_relativeToURL_(MEMORY[0x277CBEBC0], v21, @"/apple-touch-icon-precomposed.png", v12);
-  objc_msgSend_addObject_(v20, v23, v22, v24);
+  v7 = [MEMORY[0x277CBEBC0] URLWithString:@"/apple-touch-icon-precomposed.png" relativeToURL:v4];
+  [v6 addObject:v7];
 
-  v26 = objc_msgSend_URLWithString_relativeToURL_(MEMORY[0x277CBEBC0], v25, @"/apple-touch-icon.png", v12);
-  objc_msgSend_addObject_(v20, v27, v26, v28);
+  v8 = [MEMORY[0x277CBEBC0] URLWithString:@"/apple-touch-icon.png" relativeToURL:v4];
+  [v6 addObject:v8];
 
-  v32 = objc_msgSend_faviconURLs(v8, v29, v30, v31);
-  objc_msgSend_addObjectsFromArray_(v20, v33, v32, v34);
+  faviconURLs = [v3 faviconURLs];
+  [v6 addObjectsFromArray:faviconURLs];
 
-  v38 = objc_msgSend__touchIconFetcherObserverProxy(self, v35, v36, v37);
-  objc_msgSend_didFetchTouchIconURLs_forURL_(v38, v39, v20, v12);
+  _touchIconFetcherObserverProxy = [(WebProcessPlugInBrowserPageController *)self _touchIconFetcherObserverProxy];
+  [_touchIconFetcherObserverProxy didFetchTouchIconURLs:v6 forURL:v4];
 }
 
 - (id)_touchIconFetcherObserverProxy
@@ -107,52 +105,52 @@
   touchIconFetcherObserverProxy = self->_touchIconFetcherObserverProxy;
   if (touchIconFetcherObserverProxy)
   {
-    v4 = touchIconFetcherObserverProxy;
+    v3 = touchIconFetcherObserverProxy;
   }
 
   else
   {
-    v6 = objc_msgSend_remoteObjectInterfaceWithProtocol_(MEMORY[0x277CE3898], a2, &unk_286ADAC90, v2);
-    v10 = objc_msgSend_browserContextController(self, v7, v8, v9);
-    v14 = objc_msgSend__remoteObjectRegistry(v10, v11, v12, v13);
-    v17 = objc_msgSend_remoteObjectProxyWithInterface_(v14, v15, v6, v16);
-    v18 = self->_touchIconFetcherObserverProxy;
-    self->_touchIconFetcherObserverProxy = v17;
+    v5 = [MEMORY[0x277CE3898] remoteObjectInterfaceWithProtocol:&unk_286ADAC90];
+    browserContextController = [(WBSWebProcessPlugInPageController *)self browserContextController];
+    _remoteObjectRegistry = [browserContextController _remoteObjectRegistry];
+    v8 = [_remoteObjectRegistry remoteObjectProxyWithInterface:v5];
+    v9 = self->_touchIconFetcherObserverProxy;
+    self->_touchIconFetcherObserverProxy = v8;
 
-    v4 = self->_touchIconFetcherObserverProxy;
+    v3 = self->_touchIconFetcherObserverProxy;
   }
 
-  return v4;
+  return v3;
 }
 
 - (void)enablePageMemoryMeasurementCollection:(id)collection
 {
   collectionCopy = collection;
   v4 = [PageMemoryMeasurementController alloc];
-  v8 = objc_msgSend_browserContextController(self, v5, v6, v7);
-  v10 = objc_msgSend_initWithPluginPageContextController_pagesNeedingMemoryWarningSent_(v4, v9, v8, collectionCopy);
+  browserContextController = [(WBSWebProcessPlugInPageController *)self browserContextController];
+  v6 = [(PageMemoryMeasurementController *)v4 initWithPluginPageContextController:browserContextController pagesNeedingMemoryWarningSent:collectionCopy];
   pageLoadTestMeasurementController = self->_pageLoadTestMeasurementController;
-  self->_pageLoadTestMeasurementController = v10;
+  self->_pageLoadTestMeasurementController = v6;
 }
 
 - (void)_setupPageLoadTestController
 {
-  v4 = objc_msgSend_remoteObjectInterfaceWithProtocol_(MEMORY[0x277CE3898], a2, &unk_286AD5838, v2);
+  v3 = [MEMORY[0x277CE3898] remoteObjectInterfaceWithProtocol:&unk_286AD5838];
   pageLoadTestControllerInterface = self->_pageLoadTestControllerInterface;
-  self->_pageLoadTestControllerInterface = v4;
+  self->_pageLoadTestControllerInterface = v3;
 
-  v14 = objc_msgSend_browserContextController(self, v6, v7, v8);
-  v12 = objc_msgSend__remoteObjectRegistry(v14, v9, v10, v11);
-  objc_msgSend_registerExportedObject_interface_(v12, v13, self, self->_pageLoadTestControllerInterface);
+  browserContextController = [(WBSWebProcessPlugInPageController *)self browserContextController];
+  _remoteObjectRegistry = [browserContextController _remoteObjectRegistry];
+  [_remoteObjectRegistry registerExportedObject:self interface:self->_pageLoadTestControllerInterface];
 }
 
 - (void)_readPageLoadTestParameters
 {
-  v63 = objc_msgSend_webProcessPlugIn(self, a2, v2, v3);
-  v8 = objc_msgSend_plugInController(v63, v5, v6, v7);
-  v12 = objc_msgSend_parameters(v8, v9, v10, v11);
-  v15 = objc_msgSend_valueForKey_(v12, v13, @"enablePageLoadMeasurementCollection", v14);
-  if (v15)
+  webProcessPlugIn = [(WBSWebProcessPlugInPageController *)self webProcessPlugIn];
+  plugInController = [webProcessPlugIn plugInController];
+  parameters = [plugInController parameters];
+  v5 = [parameters valueForKey:@"enablePageLoadMeasurementCollection"];
+  if (v5)
   {
     pageLoadTestMeasurementController = self->_pageLoadTestMeasurementController;
 
@@ -161,25 +159,24 @@
       return;
     }
 
-    v17 = [PageLoadTestMeasurementController alloc];
-    v64 = objc_msgSend_browserContextController(self, v18, v19, v20);
-    v23 = objc_msgSend_initWithPluginPageContextController_(v17, v21, v64, v22);
-    v24 = self->_pageLoadTestMeasurementController;
-    self->_pageLoadTestMeasurementController = v23;
+    v7 = [PageLoadTestMeasurementController alloc];
+    browserContextController = [(WBSWebProcessPlugInPageController *)self browserContextController];
+    v8 = [(MeasurementControllerBase *)v7 initWithPluginPageContextController:?];
+    v9 = self->_pageLoadTestMeasurementController;
+    self->_pageLoadTestMeasurementController = v8;
 
-    v65 = objc_msgSend_webProcessPlugIn(self, v25, v26, v27);
-    v31 = objc_msgSend_plugInController(v65, v28, v29, v30);
-    v35 = objc_msgSend_parameters(v31, v32, v33, v34);
-    v38 = objc_msgSend_valueForKey_(v35, v36, @"pageLoadMeasurementVersionNumber", v37);
-    v42 = objc_msgSend_intValue(v38, v39, v40, v41);
-    objc_msgSend_setVersion_(self->_pageLoadTestMeasurementController, v43, v42, v44);
+    webProcessPlugIn2 = [(WBSWebProcessPlugInPageController *)self webProcessPlugIn];
+    plugInController2 = [webProcessPlugIn2 plugInController];
+    parameters2 = [plugInController2 parameters];
+    v12 = [parameters2 valueForKey:@"pageLoadMeasurementVersionNumber"];
+    -[MeasurementControllerBase setVersion:](self->_pageLoadTestMeasurementController, "setVersion:", [v12 intValue]);
 
-    v63 = objc_msgSend_webProcessPlugIn(self, v45, v46, v47);
-    v8 = objc_msgSend_plugInController(v63, v48, v49, v50);
-    v12 = objc_msgSend_parameters(v8, v51, v52, v53);
-    v56 = objc_msgSend_valueForKey_(v12, v54, @"pageLoadMeasurementAllSubresourcesFinishedLoadingDelay", v55);
-    objc_msgSend_doubleValue(v56, v57, v58, v59);
-    objc_msgSend_setAllSubresourcesFinishedLoadingDelay_(self->_pageLoadTestMeasurementController, v60, v61, v62);
+    webProcessPlugIn = [(WBSWebProcessPlugInPageController *)self webProcessPlugIn];
+    plugInController = [webProcessPlugIn plugInController];
+    parameters = [plugInController parameters];
+    v13 = [parameters valueForKey:@"pageLoadMeasurementAllSubresourcesFinishedLoadingDelay"];
+    [v13 doubleValue];
+    [(MeasurementControllerBase *)self->_pageLoadTestMeasurementController setAllSubresourcesFinishedLoadingDelay:?];
   }
 }
 
@@ -187,21 +184,21 @@
 {
   controllerCopy = controller;
   frameCopy = frame;
-  v17.receiver = self;
-  v17.super_class = WebProcessPlugInBrowserPageController;
-  [(_SFWebProcessPlugInReaderEnabledPageController *)&v17 webProcessPlugInBrowserContextController:controllerCopy didStartProvisionalLoadForFrame:frameCopy];
-  v11 = objc_msgSend_mainFrame(controllerCopy, v8, v9, v10);
+  v9.receiver = self;
+  v9.super_class = WebProcessPlugInBrowserPageController;
+  [(_SFWebProcessPlugInReaderEnabledPageController *)&v9 webProcessPlugInBrowserContextController:controllerCopy didStartProvisionalLoadForFrame:frameCopy];
+  mainFrame = [controllerCopy mainFrame];
 
-  if (v11 == frameCopy)
+  if (mainFrame == frameCopy)
   {
-    objc_msgSend__logPageLoadStarted_(self, v12, frameCopy, v13);
+    [(WebProcessPlugInBrowserPageController *)self _logPageLoadStarted:frameCopy];
     if (!self->_haveCheckedIfPageLoadTestIsEnabled)
     {
-      objc_msgSend__readPageLoadTestParameters(self, v14, v15, v16);
+      [(WebProcessPlugInBrowserPageController *)self _readPageLoadTestParameters];
     }
 
     self->_haveCheckedIfPageLoadTestIsEnabled = 1;
-    objc_msgSend_webProcessPlugInBrowserContextController_didStartProvisionalLoadForFrame_(self->_pageLoadTestMeasurementController, v14, controllerCopy, frameCopy);
+    [(MeasurementControllerBase *)self->_pageLoadTestMeasurementController webProcessPlugInBrowserContextController:controllerCopy didStartProvisionalLoadForFrame:frameCopy];
   }
 }
 
@@ -209,45 +206,45 @@
 {
   controllerCopy = controller;
   frameCopy = frame;
-  v9.receiver = self;
-  v9.super_class = WebProcessPlugInBrowserPageController;
-  [(_SFWebProcessPlugInReaderEnabledPageController *)&v9 webProcessPlugInBrowserContextController:controllerCopy didCommitLoadForFrame:frameCopy];
-  objc_msgSend_webProcessPlugInBrowserContextController_didCommitLoadForFrame_(self->_pageLoadTestMeasurementController, v8, controllerCopy, frameCopy);
+  v8.receiver = self;
+  v8.super_class = WebProcessPlugInBrowserPageController;
+  [(_SFWebProcessPlugInReaderEnabledPageController *)&v8 webProcessPlugInBrowserContextController:controllerCopy didCommitLoadForFrame:frameCopy];
+  [(MeasurementControllerBase *)self->_pageLoadTestMeasurementController webProcessPlugInBrowserContextController:controllerCopy didCommitLoadForFrame:frameCopy];
 }
 
 - (void)webProcessPlugInBrowserContextController:(id)controller didFinishDocumentLoadForFrame:(id)frame
 {
   controllerCopy = controller;
   frameCopy = frame;
-  v9.receiver = self;
-  v9.super_class = WebProcessPlugInBrowserPageController;
-  [(_SFWebProcessPlugInReaderEnabledPageController *)&v9 webProcessPlugInBrowserContextController:controllerCopy didFinishDocumentLoadForFrame:frameCopy];
-  objc_msgSend_webProcessPlugInBrowserContextController_didFinishDocumentLoadForFrame_(self->_pageLoadTestMeasurementController, v8, controllerCopy, frameCopy);
+  v8.receiver = self;
+  v8.super_class = WebProcessPlugInBrowserPageController;
+  [(_SFWebProcessPlugInReaderEnabledPageController *)&v8 webProcessPlugInBrowserContextController:controllerCopy didFinishDocumentLoadForFrame:frameCopy];
+  [(MeasurementControllerBase *)self->_pageLoadTestMeasurementController webProcessPlugInBrowserContextController:controllerCopy didFinishDocumentLoadForFrame:frameCopy];
 }
 
 - (void)webProcessPlugInBrowserContextController:(id)controller didFinishLoadForFrame:(id)frame
 {
   controllerCopy = controller;
   frameCopy = frame;
-  v14.receiver = self;
-  v14.super_class = WebProcessPlugInBrowserPageController;
-  [(_SFWebProcessPlugInReaderEnabledPageController *)&v14 webProcessPlugInBrowserContextController:controllerCopy didFinishLoadForFrame:frameCopy];
-  v11 = objc_msgSend_mainFrame(controllerCopy, v8, v9, v10);
+  v9.receiver = self;
+  v9.super_class = WebProcessPlugInBrowserPageController;
+  [(_SFWebProcessPlugInReaderEnabledPageController *)&v9 webProcessPlugInBrowserContextController:controllerCopy didFinishLoadForFrame:frameCopy];
+  mainFrame = [controllerCopy mainFrame];
 
-  if (v11 == frameCopy)
+  if (mainFrame == frameCopy)
   {
-    objc_msgSend__logPageLoadCompleted_withErrorCode_(self, v12, frameCopy, 0);
-    objc_msgSend_webProcessPlugInBrowserContextController_didFinishLoadForFrame_(self->_pageLoadTestMeasurementController, v13, controllerCopy, frameCopy);
+    [(WebProcessPlugInBrowserPageController *)self _logPageLoadCompleted:frameCopy withErrorCode:0];
+    [(MeasurementControllerBase *)self->_pageLoadTestMeasurementController webProcessPlugInBrowserContextController:controllerCopy didFinishLoadForFrame:frameCopy];
   }
 }
 
 - (void)webProcessPlugInBrowserContextController:(id)controller renderingProgressDidChange:(unint64_t)change
 {
   controllerCopy = controller;
-  v8.receiver = self;
-  v8.super_class = WebProcessPlugInBrowserPageController;
-  [(_SFWebProcessPlugInReaderEnabledPageController *)&v8 webProcessPlugInBrowserContextController:controllerCopy renderingProgressDidChange:change];
-  objc_msgSend_webProcessPlugInBrowserContextController_renderingProgressDidChange_(self->_pageLoadTestMeasurementController, v7, controllerCopy, change);
+  v7.receiver = self;
+  v7.super_class = WebProcessPlugInBrowserPageController;
+  [(_SFWebProcessPlugInReaderEnabledPageController *)&v7 webProcessPlugInBrowserContextController:controllerCopy renderingProgressDidChange:change];
+  [(MeasurementControllerBase *)self->_pageLoadTestMeasurementController webProcessPlugInBrowserContextController:controllerCopy renderingProgressDidChange:change];
 }
 
 - (void)webProcessPlugInBrowserContextController:(id)controller didFailProvisionalLoadWithErrorForFrame:(id)frame error:(id)error
@@ -255,16 +252,15 @@
   controllerCopy = controller;
   frameCopy = frame;
   errorCopy = error;
-  v13 = objc_msgSend_mainFrame(controllerCopy, v10, v11, v12);
-  v17 = v13;
-  if (v13 == frameCopy)
+  mainFrame = [controllerCopy mainFrame];
+  v11 = mainFrame;
+  if (mainFrame == frameCopy)
   {
-    v18 = objc_msgSend_code(errorCopy, v14, v15, v16);
+    code = [errorCopy code];
 
-    if (v18 != -999)
+    if (code != -999)
     {
-      v22 = objc_msgSend_code(errorCopy, v19, v20, v21);
-      objc_msgSend__logPageLoadCompleted_withErrorCode_(self, v23, frameCopy, v22);
+      -[WebProcessPlugInBrowserPageController _logPageLoadCompleted:withErrorCode:](self, "_logPageLoadCompleted:withErrorCode:", frameCopy, [errorCopy code]);
     }
   }
 
@@ -278,16 +274,15 @@
   controllerCopy = controller;
   frameCopy = frame;
   errorCopy = error;
-  v13 = objc_msgSend_mainFrame(controllerCopy, v10, v11, v12);
-  v17 = v13;
-  if (v13 == frameCopy)
+  mainFrame = [controllerCopy mainFrame];
+  v11 = mainFrame;
+  if (mainFrame == frameCopy)
   {
-    v19 = objc_msgSend_code(errorCopy, v14, v15, v16);
+    code = [errorCopy code];
 
-    if (v19 != -999)
+    if (code != -999)
     {
-      v22 = objc_msgSend_code(errorCopy, v18, v20, v21);
-      objc_msgSend__logPageLoadCompleted_withErrorCode_(self, v23, frameCopy, v22);
+      -[WebProcessPlugInBrowserPageController _logPageLoadCompleted:withErrorCode:](self, "_logPageLoadCompleted:withErrorCode:", frameCopy, [errorCopy code]);
     }
   }
 
@@ -295,7 +290,7 @@
   {
   }
 
-  objc_msgSend_webProcessPlugInBrowserContextController_didFailLoadWithErrorForFrame_error_(self->_pageLoadTestMeasurementController, v18, controllerCopy, frameCopy, errorCopy);
+  [(MeasurementControllerBase *)self->_pageLoadTestMeasurementController webProcessPlugInBrowserContextController:controllerCopy didFailLoadWithErrorForFrame:frameCopy error:errorCopy];
 }
 
 @end

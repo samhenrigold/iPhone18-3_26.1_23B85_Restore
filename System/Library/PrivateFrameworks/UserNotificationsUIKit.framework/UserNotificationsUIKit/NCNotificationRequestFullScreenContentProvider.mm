@@ -80,11 +80,11 @@ void __80__NCNotificationRequestFullScreenContentProvider_loadImageAssetsWithCom
 
   if (interruptionLevel == 2)
   {
-    v5 = @"TIME_SENSITIVE_TEXT";
+    v6 = @"TIME_SENSITIVE_TEXT";
 LABEL_5:
-    v8 = NCUserNotificationsUIKitFrameworkBundle();
-    v9 = [v8 localizedStringForKey:v5 value:&stru_282FE84F8 table:0];
-    localizedLowercaseString = [v9 localizedLowercaseString];
+    v9 = NCUserNotificationsUIKitFrameworkBundle(v5);
+    v10 = [v9 localizedStringForKey:v6 value:&stru_282FE84F8 table:0];
+    localizedLowercaseString = [v10 localizedLowercaseString];
 
     goto LABEL_7;
   }
@@ -94,7 +94,7 @@ LABEL_5:
 
   if (interruptionLevel2 == 3)
   {
-    v5 = @"CRITICAL_TEXT";
+    v6 = @"CRITICAL_TEXT";
     goto LABEL_5;
   }
 

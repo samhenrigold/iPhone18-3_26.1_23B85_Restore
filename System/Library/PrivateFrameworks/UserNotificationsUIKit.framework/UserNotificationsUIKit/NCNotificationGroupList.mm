@@ -299,17 +299,18 @@ LABEL_22:
   else
   {
     v5 = *MEMORY[0x277D77DD0];
-    if (os_log_type_enabled(*MEMORY[0x277D77DD0], OS_LOG_TYPE_FAULT))
+    v6 = os_log_type_enabled(*MEMORY[0x277D77DD0], OS_LOG_TYPE_FAULT);
+    if (v6)
     {
       [(NCNotificationListSupplementaryViewsGroup *)delegate animator];
     }
 
-    animator = NCDefaultAnimator();
+    animator = NCDefaultAnimator(v6);
   }
 
-  v6 = animator;
+  v7 = animator;
 
-  return v6;
+  return v7;
 }
 
 - (void)_loadLeadingNotificationRequestCellIfNecessary
@@ -1004,21 +1005,21 @@ LABEL_8:
 
   if (defaultHeader)
   {
-    v10 = defaultHeader;
+    v11 = defaultHeader;
   }
 
   else
   {
-    v11 = NCUserNotificationsUIKitFrameworkBundle();
-    v10 = [v11 localizedStringForKey:@"NOTIFICATION_SECTION_GENERAL_TITLE" value:&stru_282FE84F8 table:0];
+    v12 = NCUserNotificationsUIKitFrameworkBundle(v10);
+    v11 = [v12 localizedStringForKey:@"NOTIFICATION_SECTION_GENERAL_TITLE" value:&stru_282FE84F8 table:0];
   }
 
-  return v10;
+  return v11;
 }
 
 - (id)clearAllText
 {
-  v2 = NCUserNotificationsUIKitFrameworkBundle();
+  v2 = NCUserNotificationsUIKitFrameworkBundle(self);
   v3 = [v2 localizedStringForKey:@"NOTIFICATION_LIST_CLEAR_ALL" value:&stru_282FE84F8 table:0];
 
   return v3;
@@ -1569,11 +1570,11 @@ LABEL_7:
 LABEL_8:
 }
 
-uint64_t __85__NCNotificationGroupList_updateNotificationSectionSettings_previousSectionSettings___block_invoke(uint64_t result, uint64_t a2, unint64_t a3)
+id *__85__NCNotificationGroupList_updateNotificationSectionSettings_previousSectionSettings___block_invoke(id *result, uint64_t a2, unint64_t a3)
 {
-  if (a3 < 3 || (*(result + 40) & 1) == 0)
+  if (a3 < 3 || (result[5] & 1) == 0)
   {
-    return [*(result + 32) reloadNotificationRequest:a2];
+    return [result[4] reloadNotificationRequest:a2];
   }
 
   return result;
@@ -2172,45 +2173,45 @@ LABEL_10:
 LABEL_13:
 }
 
-void __96__NCNotificationGroupList_notificationRequestPresenter_executeAction_withParameters_completion___block_invoke(void *a1)
+void __96__NCNotificationGroupList_notificationRequestPresenter_executeAction_withParameters_completion___block_invoke(void *a1, uint64_t a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
-  v2 = a1[6];
-  v3 = *MEMORY[0x277D77DD0];
-  v4 = os_log_type_enabled(*MEMORY[0x277D77DD0], OS_LOG_TYPE_DEFAULT);
-  if (v2)
+  v20 = *MEMORY[0x277D85DE8];
+  v3 = a1[6];
+  v4 = *MEMORY[0x277D77DD0];
+  v5 = os_log_type_enabled(*MEMORY[0x277D77DD0], OS_LOG_TYPE_DEFAULT);
+  if (v3)
   {
-    if (v4)
+    if (v5)
     {
-      v5 = a1[4];
-      v6 = a1[5];
-      v7 = v3;
-      v8 = NSStringFromBOOL();
-      v13 = 138543874;
-      v14 = v5;
-      v15 = 2114;
-      v16 = v6;
-      v17 = 2112;
-      v18 = v8;
-      _os_log_impl(&dword_21E77E000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ Completion of action execution for %{public}@. didExecute: %@", &v13, 0x20u);
+      v6 = a1[4];
+      v7 = a1[5];
+      v8 = v4;
+      v9 = NSStringFromBOOL();
+      v14 = 138543874;
+      v15 = v6;
+      v16 = 2114;
+      v17 = v7;
+      v18 = 2112;
+      v19 = v9;
+      _os_log_impl(&dword_21E77E000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ Completion of action execution for %{public}@. didExecute: %@", &v14, 0x20u);
     }
 
     (*(a1[6] + 16))();
   }
 
-  else if (v4)
+  else if (v5)
   {
-    v9 = a1[4];
-    v10 = a1[5];
-    v11 = v3;
-    v12 = NSStringFromBOOL();
-    v13 = 138543874;
-    v14 = v9;
-    v15 = 2114;
-    v16 = v10;
-    v17 = 2112;
-    v18 = v12;
-    _os_log_impl(&dword_21E77E000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ Quiet Completion (no handler) of action execution for %{public}@: %@", &v13, 0x20u);
+    v10 = a1[4];
+    v11 = a1[5];
+    v12 = v4;
+    v13 = NSStringFromBOOL();
+    v14 = 138543874;
+    v15 = v10;
+    v16 = 2114;
+    v17 = v11;
+    v18 = 2112;
+    v19 = v13;
+    _os_log_impl(&dword_21E77E000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@ Quiet Completion (no handler) of action execution for %{public}@: %@", &v14, 0x20u);
   }
 }
 
@@ -3286,31 +3287,31 @@ LABEL_11:
 - (id)_openActionForRequest:(id)request
 {
   requestCopy = request;
-  objc_initWeak(&location, self);
-  v5 = MEMORY[0x277D750C8];
-  v6 = NCUserNotificationsUIKitFrameworkBundle();
-  v7 = [v6 localizedStringForKey:@"NOTIFICATION_LIST_OPEN" value:&stru_282FE84F8 table:0];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __49__NCNotificationGroupList__openActionForRequest___block_invoke;
-  v12[3] = &unk_278371940;
-  objc_copyWeak(&v14, &location);
-  v8 = requestCopy;
-  v13 = v8;
-  v9 = [v5 actionWithTitle:v7 image:0 identifier:@"NCNotificationGroupListActionIdentifierOpen" handler:v12];
+  inited = objc_initWeak(&location, self);
+  v6 = MEMORY[0x277D750C8];
+  v7 = NCUserNotificationsUIKitFrameworkBundle(inited);
+  v8 = [v7 localizedStringForKey:@"NOTIFICATION_LIST_OPEN" value:&stru_282FE84F8 table:0];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __49__NCNotificationGroupList__openActionForRequest___block_invoke;
+  v13[3] = &unk_278371940;
+  objc_copyWeak(&v15, &location);
+  v9 = requestCopy;
+  v14 = v9;
+  v10 = [v6 actionWithTitle:v8 image:0 identifier:@"NCNotificationGroupListActionIdentifierOpen" handler:v13];
 
   delegate = [(NCNotificationListPresentableGroup *)self delegate];
   LOBYTE(self) = [delegate isAttachmentImageFeaturedForNotificationGroupList:self];
 
   if ((self & 1) == 0)
   {
-    [v9 setPl_defaultAction:1];
+    [v10 setPl_defaultAction:1];
   }
 
-  objc_destroyWeak(&v14);
+  objc_destroyWeak(&v15);
   objc_destroyWeak(&location);
 
-  return v9;
+  return v10;
 }
 
 void __49__NCNotificationGroupList__openActionForRequest___block_invoke(uint64_t a1)
@@ -3329,23 +3330,23 @@ void __49__NCNotificationGroupList__openActionForRequest___block_invoke(uint64_t
 - (id)_optionsActionForRequest:(id)request
 {
   requestCopy = request;
-  objc_initWeak(&location, self);
-  v5 = MEMORY[0x277D750C8];
-  v6 = NCUserNotificationsUIKitFrameworkBundle();
-  v7 = [v6 localizedStringForKey:@"NOTIFICATION_LIST_OPTIONS" value:&stru_282FE84F8 table:0];
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __52__NCNotificationGroupList__optionsActionForRequest___block_invoke;
-  v11[3] = &unk_278371940;
-  objc_copyWeak(&v13, &location);
-  v8 = requestCopy;
-  v12 = v8;
-  v9 = [v5 actionWithTitle:v7 image:0 identifier:@"NCNotificationGroupListActionIdentifierOptions" handler:v11];
+  inited = objc_initWeak(&location, self);
+  v6 = MEMORY[0x277D750C8];
+  v7 = NCUserNotificationsUIKitFrameworkBundle(inited);
+  v8 = [v7 localizedStringForKey:@"NOTIFICATION_LIST_OPTIONS" value:&stru_282FE84F8 table:0];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __52__NCNotificationGroupList__optionsActionForRequest___block_invoke;
+  v12[3] = &unk_278371940;
+  objc_copyWeak(&v14, &location);
+  v9 = requestCopy;
+  v13 = v9;
+  v10 = [v6 actionWithTitle:v8 image:0 identifier:@"NCNotificationGroupListActionIdentifierOptions" handler:v12];
 
-  objc_destroyWeak(&v13);
+  objc_destroyWeak(&v14);
   objc_destroyWeak(&location);
 
-  return v9;
+  return v10;
 }
 
 void __52__NCNotificationGroupList__optionsActionForRequest___block_invoke(uint64_t a1, void *a2)
@@ -3411,7 +3412,7 @@ uint64_t __66__NCNotificationGroupList__executeOptionsActionForRequest_action___
 - (id)_presentLongLookActionWithOpenTitleForRequest:(id)request
 {
   requestCopy = request;
-  v5 = NCUserNotificationsUIKitFrameworkBundle();
+  v5 = NCUserNotificationsUIKitFrameworkBundle(requestCopy);
   v6 = [v5 localizedStringForKey:@"NOTIFICATION_LIST_OPEN" value:&stru_282FE84F8 table:0];
   v7 = [(NCNotificationGroupList *)self _presentLongLookActionForRequest:requestCopy title:v6 identifier:@"NCNotificationGroupListActionIdentifierOpen"];
 
@@ -3421,7 +3422,7 @@ uint64_t __66__NCNotificationGroupList__executeOptionsActionForRequest_action___
 - (id)_presentLongLookActionWithViewTitleForRequest:(id)request
 {
   requestCopy = request;
-  v5 = NCUserNotificationsUIKitFrameworkBundle();
+  v5 = NCUserNotificationsUIKitFrameworkBundle(requestCopy);
   v6 = [v5 localizedStringForKey:@"NOTIFICATION_LIST_VIEW" value:&stru_282FE84F8 table:0];
   v7 = [(NCNotificationGroupList *)self _presentLongLookActionForRequest:requestCopy title:v6 identifier:@"NCNotificationGroupListActionIdentifierView"];
 
@@ -3500,7 +3501,7 @@ void __56__NCNotificationGroupList__executeViewActionForRequest___block_invoke(u
 {
   allCopy = all;
   requestCopy = request;
-  v7 = NCUserNotificationsUIKitFrameworkBundle();
+  v7 = NCUserNotificationsUIKitFrameworkBundle(requestCopy);
   v8 = v7;
   if (allCopy)
   {

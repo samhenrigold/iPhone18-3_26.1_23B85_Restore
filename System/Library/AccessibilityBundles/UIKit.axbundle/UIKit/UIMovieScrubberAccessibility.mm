@@ -89,124 +89,129 @@
 - (void)setTrimStartValue:(double)value
 {
   selfCopy = self;
-  v25 = a2;
+  v27 = a2;
   valueCopy = value;
-  v14 = [(UIMovieScrubberAccessibility *)self safeValueForKey:?];
-  [v14 doubleValue];
-  v15 = v3;
-  MEMORY[0x29EDC9740](v14);
-  v23 = v15;
-  v22.receiver = selfCopy;
-  v22.super_class = UIMovieScrubberAccessibility;
-  [(UIMovieScrubberAccessibility *)&v22 setTrimStartValue:valueCopy];
-  v16 = [(UIMovieScrubberAccessibility *)selfCopy safeValueForKey:@"_trimStartValue"];
+  v16 = [(UIMovieScrubberAccessibility *)self safeValueForKey:?];
   [v16 doubleValue];
-  v17 = v4;
+  v17 = v3;
   MEMORY[0x29EDC9740](v16);
-  v21 = v17;
-  if (v17 != v23)
+  v25 = v17;
+  v24.receiver = selfCopy;
+  v24.super_class = UIMovieScrubberAccessibility;
+  [(UIMovieScrubberAccessibility *)&v24 setTrimStartValue:valueCopy];
+  v18 = [(UIMovieScrubberAccessibility *)selfCopy safeValueForKey:@"_trimStartValue"];
+  [v18 doubleValue];
+  v19 = v4;
+  MEMORY[0x29EDC9740](v18);
+  v23 = v19;
+  if (v19 != v25)
   {
-    v20 = [(UIMovieScrubberAccessibility *)selfCopy _accessibilityValueForKey:@"userInfo", v17];
-    v19 = [v20 objectForKey:@"LeftHandle"];
-    v12 = [(UIMovieScrubberAccessibility *)selfCopy safeValueForKey:@"isEditing"];
-    bOOLValue = [v12 BOOLValue];
-    *&v5 = MEMORY[0x29EDC9740](v12).n128_u64[0];
+    v22 = [(UIMovieScrubberAccessibility *)selfCopy _accessibilityValueForKey:@"userInfo", v19];
+    v21 = [v22 objectForKey:@"LeftHandle"];
+    v14 = [(UIMovieScrubberAccessibility *)selfCopy safeValueForKey:@"isEditing"];
+    bOOLValue = [v14 BOOLValue];
+    *&v5 = MEMORY[0x29EDC9740](v14).n128_u64[0];
     if ((bOOLValue & 1) == 0)
     {
-      v11 = [(UIMovieScrubberAccessibility *)selfCopy safeValueForKey:@"_minimumValue", v5];
-      [v11 doubleValue];
-      v21 = v6;
-      MEMORY[0x29EDC9740](v11);
+      v13 = [(UIMovieScrubberAccessibility *)selfCopy safeValueForKey:@"_minimumValue", v5];
+      [v13 doubleValue];
+      v23 = v6;
+      MEMORY[0x29EDC9740](v13);
     }
 
-    v10 = [(UIMovieScrubberAccessibility *)selfCopy safeValueForKey:@"_maximumValue", *&v21];
-    [v10 doubleValue];
-    v18 = _createFormatDurationString(v9, v7);
-    *&v8 = MEMORY[0x29EDC9740](v10).n128_u64[0];
-    [v19 setAccessibilityValue:{v18, v8}];
-    UIAccessibilityPostNotification(*MEMORY[0x29EDC7428], v19);
-    objc_storeStrong(&v18, 0);
-    objc_storeStrong(&v19, 0);
+    v12 = [(UIMovieScrubberAccessibility *)selfCopy safeValueForKey:@"_maximumValue", *&v23];
+    [v12 doubleValue];
+    v8 = v7;
+    v9.n128_u64[0] = v11;
+    v20 = _createFormatDurationString(v9, v8);
+    *&v10 = MEMORY[0x29EDC9740](v12).n128_u64[0];
+    [v21 setAccessibilityValue:{v20, v10}];
+    UIAccessibilityPostNotification(*MEMORY[0x29EDC7428], v21);
     objc_storeStrong(&v20, 0);
+    objc_storeStrong(&v21, 0);
+    objc_storeStrong(&v22, 0);
   }
 }
 
 - (void)setTrimEndValue:(double)value
 {
   selfCopy = self;
-  v22 = a2;
+  v23 = a2;
   valueCopy = value;
-  v10 = [(UIMovieScrubberAccessibility *)self safeValueForKey:?];
-  [v10 doubleValue];
-  v11 = v3;
-  MEMORY[0x29EDC9740](v10);
-  v20 = v11;
-  v19.receiver = selfCopy;
-  v19.super_class = UIMovieScrubberAccessibility;
-  [(UIMovieScrubberAccessibility *)&v19 setTrimEndValue:valueCopy];
-  v12 = [(UIMovieScrubberAccessibility *)selfCopy safeValueForKey:@"_trimEndValue"];
-  [v12 doubleValue];
-  v13 = v4;
-  MEMORY[0x29EDC9740](v12);
-  v18 = v13;
-  if (v13 != v20)
+  v11 = [(UIMovieScrubberAccessibility *)self safeValueForKey:?];
+  [v11 doubleValue];
+  v12 = v3;
+  MEMORY[0x29EDC9740](v11);
+  v21 = v12;
+  v20.receiver = selfCopy;
+  v20.super_class = UIMovieScrubberAccessibility;
+  [(UIMovieScrubberAccessibility *)&v20 setTrimEndValue:valueCopy];
+  v13 = [(UIMovieScrubberAccessibility *)selfCopy safeValueForKey:@"_trimEndValue"];
+  [v13 doubleValue];
+  v14 = v4;
+  MEMORY[0x29EDC9740](v13);
+  v19 = *&v14;
+  if (v14 != v21)
   {
-    v17 = [(UIMovieScrubberAccessibility *)selfCopy _accessibilityValueForKey:@"userInfo", v13];
-    v16 = [v17 objectForKey:@"RightHandle"];
-    v6 = [(UIMovieScrubberAccessibility *)selfCopy safeValueForKey:@"_maximumValue"];
-    [v6 doubleValue];
-    v7 = v5;
-    MEMORY[0x29EDC9740](v6);
-    v15 = v7;
-    v8 = [(UIMovieScrubberAccessibility *)selfCopy safeValueForKey:@"isEditing"];
-    bOOLValue = [v8 BOOLValue];
-    MEMORY[0x29EDC9740](v8);
+    v18 = [(UIMovieScrubberAccessibility *)selfCopy _accessibilityValueForKey:@"userInfo", v14];
+    v17 = [v18 objectForKey:@"RightHandle"];
+    v7 = [(UIMovieScrubberAccessibility *)selfCopy safeValueForKey:@"_maximumValue"];
+    [v7 doubleValue];
+    v8 = v5;
+    MEMORY[0x29EDC9740](v7);
+    v16 = v8;
+    v9 = [(UIMovieScrubberAccessibility *)selfCopy safeValueForKey:@"isEditing"];
+    bOOLValue = [v9 BOOLValue];
+    v6 = MEMORY[0x29EDC9740](v9);
     if ((bOOLValue & 1) == 0)
     {
-      v18 = v15;
+      v19 = *&v16;
     }
 
-    v14 = _createFormatDurationString(v18, v15);
-    [v16 setAccessibilityValue:v14];
-    UIAccessibilityPostNotification(*MEMORY[0x29EDC7428], v16);
-    objc_storeStrong(&v14, 0);
-    objc_storeStrong(&v16, 0);
+    v6.n128_u64[0] = v19;
+    v15 = _createFormatDurationString(v6, v16);
+    [v17 setAccessibilityValue:v15];
+    UIAccessibilityPostNotification(*MEMORY[0x29EDC7428], v17);
+    objc_storeStrong(&v15, 0);
     objc_storeStrong(&v17, 0);
+    objc_storeStrong(&v18, 0);
   }
 }
 
 - (void)_setValue:(double)value andSendAction:(BOOL)action
 {
   selfCopy = self;
-  v22 = a2;
+  v24 = a2;
   valueCopy = value;
   actionCopy = action;
-  v10 = [(UIMovieScrubberAccessibility *)self safeValueForKey:?];
-  [v10 doubleValue];
-  v11 = v4;
-  MEMORY[0x29EDC9740](v10);
-  v19 = v11;
-  v18.receiver = selfCopy;
-  v18.super_class = UIMovieScrubberAccessibility;
-  [(UIMovieScrubberAccessibility *)&v18 _setValue:actionCopy andSendAction:valueCopy];
-  v12 = [(UIMovieScrubberAccessibility *)selfCopy safeValueForKey:@"value"];
+  v12 = [(UIMovieScrubberAccessibility *)self safeValueForKey:?];
   [v12 doubleValue];
-  v13 = v5;
+  v13 = v4;
   MEMORY[0x29EDC9740](v12);
-  v17 = v13;
-  if (v13 != v19)
+  v21 = v13;
+  v20.receiver = selfCopy;
+  v20.super_class = UIMovieScrubberAccessibility;
+  [(UIMovieScrubberAccessibility *)&v20 _setValue:actionCopy andSendAction:valueCopy];
+  v14 = [(UIMovieScrubberAccessibility *)selfCopy safeValueForKey:@"value"];
+  [v14 doubleValue];
+  v15 = v5;
+  MEMORY[0x29EDC9740](v14);
+  v19 = v15;
+  if (v15 != v21)
   {
-    v16 = [(UIMovieScrubberAccessibility *)selfCopy _accessibilityValueForKey:@"userInfo", v13];
-    v15 = [v16 objectForKey:@"Scrubber"];
-    v8 = v17;
-    v9 = [(UIMovieScrubberAccessibility *)selfCopy safeValueForKey:@"_maximumValue"];
-    [v9 doubleValue];
-    v14 = _createFormatDurationString(v8, v6);
-    *&v7 = MEMORY[0x29EDC9740](v9).n128_u64[0];
-    [v15 setAccessibilityValue:{v14, v7}];
-    objc_storeStrong(&v14, 0);
-    objc_storeStrong(&v15, 0);
+    v18 = [(UIMovieScrubberAccessibility *)selfCopy _accessibilityValueForKey:@"userInfo", v15];
+    v17 = [v18 objectForKey:@"Scrubber"];
+    v10 = *&v19;
+    v11 = [(UIMovieScrubberAccessibility *)selfCopy safeValueForKey:@"_maximumValue"];
+    [v11 doubleValue];
+    v7 = v6;
+    v8.n128_u64[0] = v10;
+    v16 = _createFormatDurationString(v8, v7);
+    *&v9 = MEMORY[0x29EDC9740](v11).n128_u64[0];
+    [v17 setAccessibilityValue:{v16, v9}];
     objc_storeStrong(&v16, 0);
+    objc_storeStrong(&v17, 0);
+    objc_storeStrong(&v18, 0);
   }
 }
 
@@ -518,19 +523,20 @@
       [v43 doubleValue];
     }
 
-    v26 = v9;
+    v26 = v9.n128_u64[0];
     if (v42)
     {
-      MEMORY[0x29EDC9740](v43);
+      v9 = MEMORY[0x29EDC9740](v43);
     }
 
     if (v44)
     {
-      MEMORY[0x29EDC9740](v45);
+      v9 = MEMORY[0x29EDC9740](v45);
     }
 
     v46 = v26;
-    v41 = _createFormatDurationString(v26, v49);
+    v9.n128_u64[0] = v26;
+    v41 = _createFormatDurationString(v9, v49);
     [v47 setAccessibilityValue:v41];
     [v55[0] addObject:v47];
     [dictionary setObject:v47 forKey:@"LeftHandle"];
@@ -556,9 +562,10 @@
     v24 = [(UIMovieScrubberAccessibility *)selfCopy safeValueForKey:@"value", v11];
     [v24 doubleValue];
     v25 = v12;
-    MEMORY[0x29EDC9740](v24);
+    v13 = MEMORY[0x29EDC9740](v24);
     v38[1] = v25;
-    v38[0] = _createFormatDurationString(*&v25, v49);
+    v13.n128_u64[0] = v25;
+    v38[0] = _createFormatDurationString(v13, v49);
     [v39 setAccessibilityValue:v38[0]];
     [v55[0] addObject:v39];
     [dictionary setObject:v39 forKey:@"Scrubber"];
@@ -569,35 +576,36 @@
   v37 = [v52 safeValueForKey:@"_rightImageView"];
   if (v37 && (bOOLValue & 1) != 0)
   {
-    v13 = objc_allocWithZone(UIAccessibilityElementMockSlider);
-    v36 = [v13 initWithAccessibilityContainer:selfCopy];
+    v14 = objc_allocWithZone(UIAccessibilityElementMockSlider);
+    v36 = [v14 initWithAccessibilityContainer:selfCopy];
     [(UIAccessibilityElementMockSlider *)v36 setView:v37];
     [(UIAccessibilityElementMockSlider *)v36 setDelegate:selfCopy];
     [v36 setIsAccessibilityElement:1];
     v19 = accessibilityLocalizedString(@"trim.end.slider");
     [v36 setAccessibilityLabel:?];
-    *&v14 = MEMORY[0x29EDC9740](v19).n128_u64[0];
+    v15 = MEMORY[0x29EDC9740](v19);
     v33 = 0;
     if (bOOLValue2)
     {
-      v34 = [(UIMovieScrubberAccessibility *)selfCopy safeValueForKey:@"_trimEndValue", v14];
+      v34 = [(UIMovieScrubberAccessibility *)selfCopy safeValueForKey:@"_trimEndValue", v15.n128_f64[0]];
       v33 = 1;
       [v34 doubleValue];
-      v18 = v15;
+      v18 = v15.n128_u64[0];
     }
 
     else
     {
-      v18 = v49;
+      v18 = *&v49;
     }
 
     if (v33)
     {
-      MEMORY[0x29EDC9740](v34);
+      v15 = MEMORY[0x29EDC9740](v34);
     }
 
     v35 = v18;
-    v32 = _createFormatDurationString(v18, v49);
+    v15.n128_u64[0] = v18;
+    v32 = _createFormatDurationString(v15, v49);
     [v36 setAccessibilityValue:v32];
     [v55[0] addObject:v36];
     [dictionary setObject:v36 forKey:@"RightHandle"];

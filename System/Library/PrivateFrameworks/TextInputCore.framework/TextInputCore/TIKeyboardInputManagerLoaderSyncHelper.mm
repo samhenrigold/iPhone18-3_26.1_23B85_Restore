@@ -117,8 +117,8 @@
       }
     }
 
-    dlerror();
-    abort_report_np();
+    v23 = dlerror();
+    abort_report_np("%s", v23);
     goto LABEL_15;
   }
 
@@ -131,9 +131,9 @@ LABEL_15:
   v20 = TIOSLogFacility();
   if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
   {
-    v23 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Got notification before block configured! Delaying...", "-[TIKeyboardInputManagerLoaderSyncHelper languagePulled:]"];
+    v22 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Got notification before block configured! Delaying...", "-[TIKeyboardInputManagerLoaderSyncHelper languagePulled:]"];
     LODWORD(buf) = 138412290;
-    *(&buf + 4) = v23;
+    *(&buf + 4) = v22;
     _os_log_debug_impl(&dword_22CA55000, v20, OS_LOG_TYPE_DEBUG, "%@", &buf, 0xCu);
   }
 
@@ -147,12 +147,11 @@ LABEL_15:
   dispatch_after(v21, MEMORY[0x277D85CD0], block);
 
 LABEL_13:
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __57__TIKeyboardInputManagerLoaderSyncHelper_languagePulled___block_invoke_2(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = [*(*(a1 + 32) + 16) objectForKey:*(a1 + 40)];
   [v2 invalidate];
 
@@ -162,26 +161,26 @@ void __57__TIKeyboardInputManagerLoaderSyncHelper_languagePulled___block_invoke_
   v5 = v4;
   if (v4)
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
-    v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
+    v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v14;
+      v8 = *v13;
       do
       {
         v9 = 0;
         do
         {
-          if (*v14 != v8)
+          if (*v13 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v13 + 1) + 8 * v9);
+          v10 = *(*(&v12 + 1) + 8 * v9);
           if (v10)
           {
             objc_setAssociatedObject(v10, &kTidyObject, v3, 0x301);
@@ -191,7 +190,7 @@ void __57__TIKeyboardInputManagerLoaderSyncHelper_languagePulled___block_invoke_
         }
 
         while (v7 != v9);
-        v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v7);
@@ -200,40 +199,36 @@ void __57__TIKeyboardInputManagerLoaderSyncHelper_languagePulled___block_invoke_
 
   v11 = [*(a1 + 32) languageUpdated];
   v11[2](v11, *(a1 + 40));
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __59__TIKeyboardInputManagerLoaderSyncHelper_languagesChanged___block_invoke()
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277CBEB58] set];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v17 = 0u;
-  v1 = +[TIAssetManager sharedAssetManager];
+  v1 = [TIAssetManager sharedAssetManager:0];
   v2 = [v1 enabledInputModes];
 
-  v3 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v15;
+    v5 = *v13;
     do
     {
       v6 = 0;
       do
       {
-        if (*v15 != v5)
+        if (*v13 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v14 + 1) + 8 * v6);
-        v8 = TIInputModeGetLanguageWithRegion();
-        [v0 addObject:v8];
-        [v8 UTF8String];
+        v7 = TIInputModeGetLanguageWithRegion();
+        [v0 addObject:v7];
+        [v7 UTF8String];
         if (_os_feature_enabled_impl())
         {
           [v0 addObject:@"mul"];
@@ -243,7 +238,7 @@ void __59__TIKeyboardInputManagerLoaderSyncHelper_languagesChanged___block_invok
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v4);
@@ -252,22 +247,20 @@ void __59__TIKeyboardInputManagerLoaderSyncHelper_languagesChanged___block_invok
   get_KSUserWordsSynchroniserClass();
   if (objc_opt_respondsToSelector())
   {
-    v9 = [get_KSUserWordsSynchroniserClass() sharedAcrossLanguagesNegativeLearningValue];
-    [v0 addObject:v9];
+    v8 = [get_KSUserWordsSynchroniserClass() sharedAcrossLanguagesNegativeLearningValue];
+    [v0 addObject:v8];
   }
 
   get_KSUserWordsSynchroniserClass();
   if (objc_opt_respondsToSelector())
   {
-    v10 = [get_KSUserWordsSynchroniserClass() sharedAcrossLanguagesVulgarWordUsageValue];
-    [v0 addObject:v10];
+    v9 = [get_KSUserWordsSynchroniserClass() sharedAcrossLanguagesVulgarWordUsageValue];
+    [v0 addObject:v9];
   }
 
-  v11 = [get_KSUserWordsSynchroniserClass() sharedInstance];
-  v12 = [v0 allObjects];
-  [v11 setRequiredLanguages:v12];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v10 = [get_KSUserWordsSynchroniserClass() sharedInstance];
+  v11 = [v0 allObjects];
+  [v10 setRequiredLanguages:v11];
 }
 
 - (void)dealloc
@@ -282,9 +275,9 @@ void __59__TIKeyboardInputManagerLoaderSyncHelper_languagesChanged___block_invok
 
 - (TIKeyboardInputManagerLoaderSyncHelper)init
 {
-  v14.receiver = self;
-  v14.super_class = TIKeyboardInputManagerLoaderSyncHelper;
-  v2 = [(TIKeyboardInputManagerLoaderSyncHelper *)&v14 init];
+  v15.receiver = self;
+  v15.super_class = TIKeyboardInputManagerLoaderSyncHelper;
+  v2 = [(TIKeyboardInputManagerLoaderSyncHelper *)&v15 init];
   if (!v2)
   {
     return v2;
@@ -302,26 +295,26 @@ void __59__TIKeyboardInputManagerLoaderSyncHelper_languagesChanged___block_invok
   [defaultCenter addObserver:v2 selector:sel_languagesChanged_ name:@"AppleKeyboardsPreferencesChangedNotification_Private" object:0];
 
   defaultCenter2 = [MEMORY[0x277CCAB98] defaultCenter];
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x2020000000;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x2020000000;
   v9 = get_KSUserWordsWereDownloadedNotificationSymbolLoc_ptr;
-  v23 = get_KSUserWordsWereDownloadedNotificationSymbolLoc_ptr;
+  v24 = get_KSUserWordsWereDownloadedNotificationSymbolLoc_ptr;
   if (!get_KSUserWordsWereDownloadedNotificationSymbolLoc_ptr)
   {
-    v15 = MEMORY[0x277D85DD0];
-    v16 = 3221225472;
-    v17 = __get_KSUserWordsWereDownloadedNotificationSymbolLoc_block_invoke;
-    v18 = &unk_278733760;
-    v19 = &v20;
+    v16 = MEMORY[0x277D85DD0];
+    v17 = 3221225472;
+    v18 = __get_KSUserWordsWereDownloadedNotificationSymbolLoc_block_invoke;
+    v19 = &unk_278733760;
+    v20 = &v21;
     v10 = KeyboardServicesLibrary();
     v11 = dlsym(v10, "_KSUserWordsWereDownloadedNotification");
-    *(v19[1] + 24) = v11;
-    get_KSUserWordsWereDownloadedNotificationSymbolLoc_ptr = *(v19[1] + 24);
-    v9 = v21[3];
+    *(v20[1] + 24) = v11;
+    get_KSUserWordsWereDownloadedNotificationSymbolLoc_ptr = *(v20[1] + 24);
+    v9 = v22[3];
   }
 
-  _Block_object_dispose(&v20, 8);
+  _Block_object_dispose(&v21, 8);
   if (v9)
   {
     [defaultCenter2 addObserver:v2 selector:sel_languagePulled_ name:*v9 object:0];
@@ -330,9 +323,9 @@ void __59__TIKeyboardInputManagerLoaderSyncHelper_languagesChanged___block_invok
     return v2;
   }
 
-  dlerror();
-  v13 = abort_report_np();
-  return __get_KSUserWordsWereDownloadedNotificationSymbolLoc_block_invoke(v13);
+  v13 = dlerror();
+  v14 = abort_report_np("%s", v13);
+  return __get_KSUserWordsWereDownloadedNotificationSymbolLoc_block_invoke(v14);
 }
 
 + (void)deleteCloudKitBackup
@@ -343,7 +336,7 @@ void __59__TIKeyboardInputManagerLoaderSyncHelper_languagesChanged___block_invok
 
 void __62__TIKeyboardInputManagerLoaderSyncHelper_deleteCloudKitBackup__block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = a2;
   if (TICanLogMessageAtLevel_onceToken != -1)
   {
@@ -355,20 +348,18 @@ void __62__TIKeyboardInputManagerLoaderSyncHelper_deleteCloudKitBackup__block_in
     v3 = TIOSLogFacility();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
-      v5 = @"Success";
+      v4 = @"Success";
       if (v2)
       {
-        v5 = v2;
+        v4 = v2;
       }
 
-      v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s User word zone delete result: %@", "+[TIKeyboardInputManagerLoaderSyncHelper deleteCloudKitBackup]_block_invoke", v5];
+      v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s User word zone delete result: %@", "+[TIKeyboardInputManagerLoaderSyncHelper deleteCloudKitBackup]_block_invoke", v4];
       *buf = 138412290;
-      v8 = v6;
+      v7 = v5;
       _os_log_debug_impl(&dword_22CA55000, v3, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 @end

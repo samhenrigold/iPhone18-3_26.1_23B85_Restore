@@ -11,16 +11,16 @@
 
 - (void)_handleNetworkEvent:(kern_event_msg *)event
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   v4 = evaluationLogHandle;
   if (os_log_type_enabled(evaluationLogHandle, OS_LOG_TYPE_DEBUG))
   {
     kev_subclass = event->kev_subclass;
     event_code = event->event_code;
     *buf = 67109376;
-    v49 = kev_subclass;
-    v50 = 1024;
-    v51 = event_code;
+    v48 = kev_subclass;
+    v49 = 1024;
+    v50 = event_code;
     _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEBUG, "entry with subclass %d  code %d", buf, 0xEu);
   }
 
@@ -30,24 +30,22 @@
     if (v7 != 1)
     {
       v14 = evaluationLogHandle;
-      if (os_log_type_enabled(evaluationLogHandle, OS_LOG_TYPE_DEBUG))
+      if (!os_log_type_enabled(evaluationLogHandle, OS_LOG_TYPE_DEBUG))
       {
-        v15 = event->kev_subclass;
-        v16 = event->event_code;
-        *buf = 67109376;
-        v49 = v15;
-        v50 = 1024;
-        v51 = v16;
-        v11 = "Received kernel network event subclass %d, code %d";
-        v17 = v14;
-        v18 = OS_LOG_TYPE_DEBUG;
-        v19 = 14;
-LABEL_30:
-        _os_log_impl(&dword_23255B000, v17, v18, v11, buf, v19);
-        goto LABEL_44;
+        return;
       }
 
-      goto LABEL_44;
+      v15 = event->kev_subclass;
+      v16 = event->event_code;
+      *buf = 67109376;
+      v48 = v15;
+      v49 = 1024;
+      v50 = v16;
+      v11 = "Received kernel network event subclass %d, code %d";
+      v17 = v14;
+      v18 = OS_LOG_TYPE_DEBUG;
+      v19 = 14;
+      goto LABEL_30;
     }
 
     v8 = event->event_code;
@@ -57,15 +55,15 @@ LABEL_30:
       v10 = evaluationLogHandle;
       if (v20 <= 0x17)
       {
-        if (os_log_type_enabled(evaluationLogHandle, OS_LOG_TYPE_ERROR))
+        if (!os_log_type_enabled(evaluationLogHandle, OS_LOG_TYPE_ERROR))
         {
-          *buf = 67109120;
-          v49 = v20;
-          v11 = "Received arp event with bad length %d";
-          goto LABEL_23;
+          return;
         }
 
-        goto LABEL_44;
+        *buf = 67109120;
+        v48 = v20;
+        v11 = "Received arp event with bad length %d";
+        goto LABEL_23;
       }
 
       if (os_log_type_enabled(evaluationLogHandle, OS_LOG_TYPE_DEFAULT))
@@ -73,24 +71,24 @@ LABEL_30:
         v33 = event->event_data[0];
         total_size = event[1].total_size;
         *buf = 67109634;
-        v49 = v33;
-        v50 = 1024;
-        v51 = total_size;
-        v52 = 2080;
+        v48 = v33;
+        v49 = 1024;
+        v50 = total_size;
+        v51 = 2080;
         p_vendor_code = &event[1].vendor_code;
         _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEFAULT, "Receive arp alive family %d unit %d name %s", buf, 0x18u);
       }
 
       v35 = [[EventDescription alloc] initWithType:1 length:event->total_size data:event fromPid:0 named:"kevent" bundleId:0];
       [(EventDescription *)v35 setEventKey:@"com.apple.symptoms.kevent.arp-alive"];
-      v44[0] = MEMORY[0x277D85DD0];
-      v44[1] = 3221225472;
-      v44[2] = __42__KernelEventMonitor__handleNetworkEvent___block_invoke_13;
-      v44[3] = &unk_27898A0C8;
-      v45 = v35;
+      v43[0] = MEMORY[0x277D85DD0];
+      v43[1] = 3221225472;
+      v43[2] = __42__KernelEventMonitor__handleNetworkEvent___block_invoke_13;
+      v43[3] = &unk_27898A0C8;
+      v44 = v35;
       v28 = v35;
-      dispatch_async(MEMORY[0x277D85CD0], v44);
-      v29 = v45;
+      dispatch_async(MEMORY[0x277D85CD0], v43);
+      v29 = v44;
       goto LABEL_43;
     }
 
@@ -100,20 +98,22 @@ LABEL_30:
       v10 = evaluationLogHandle;
       if (v9 <= 0x17)
       {
-        if (os_log_type_enabled(evaluationLogHandle, OS_LOG_TYPE_ERROR))
+        if (!os_log_type_enabled(evaluationLogHandle, OS_LOG_TYPE_ERROR))
         {
-          *buf = 67109120;
-          v49 = v9;
-          v11 = "Received arp event with bad length %d";
-LABEL_23:
-          v17 = v10;
-          v18 = OS_LOG_TYPE_ERROR;
-LABEL_29:
-          v19 = 8;
-          goto LABEL_30;
+          return;
         }
 
-        goto LABEL_44;
+        *buf = 67109120;
+        v48 = v9;
+        v11 = "Received arp event with bad length %d";
+LABEL_23:
+        v17 = v10;
+        v18 = OS_LOG_TYPE_ERROR;
+LABEL_29:
+        v19 = 8;
+LABEL_30:
+        _os_log_impl(&dword_23255B000, v17, v18, v11, buf, v19);
+        return;
       }
 
       if (os_log_type_enabled(evaluationLogHandle, OS_LOG_TYPE_DEFAULT))
@@ -121,10 +121,10 @@ LABEL_29:
         v25 = event->event_data[0];
         v26 = event[1].total_size;
         *buf = 67109634;
-        v49 = v25;
-        v50 = 1024;
-        v51 = v26;
-        v52 = 2080;
+        v48 = v25;
+        v49 = 1024;
+        v50 = v26;
+        v51 = 2080;
         p_vendor_code = &event[1].vendor_code;
         _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEFAULT, "Receive arp failure family %d unit %d name %s", buf, 0x18u);
       }
@@ -135,24 +135,22 @@ LABEL_29:
       block[1] = 3221225472;
       block[2] = __42__KernelEventMonitor__handleNetworkEvent___block_invoke;
       block[3] = &unk_27898A0C8;
-      v47 = v27;
+      v46 = v27;
       v28 = v27;
       dispatch_async(MEMORY[0x277D85CD0], block);
-      v29 = v47;
-LABEL_43:
-
-      goto LABEL_44;
+      v29 = v46;
+      goto LABEL_43;
     }
 
     v22 = evaluationLogHandle;
     if (!os_log_type_enabled(evaluationLogHandle, OS_LOG_TYPE_DEBUG))
     {
-      goto LABEL_44;
+      return;
     }
 
     v23 = event->event_code;
     *buf = 67109120;
-    v49 = v23;
+    v48 = v23;
     v11 = "Received INET event %d";
 LABEL_28:
     v17 = v22;
@@ -167,15 +165,15 @@ LABEL_28:
     v10 = evaluationLogHandle;
     if (v21 <= 0x17)
     {
-      if (os_log_type_enabled(evaluationLogHandle, OS_LOG_TYPE_ERROR))
+      if (!os_log_type_enabled(evaluationLogHandle, OS_LOG_TYPE_ERROR))
       {
-        *buf = 67109120;
-        v49 = v21;
-        v11 = "Received nd6 alive event with bad length %d";
-        goto LABEL_23;
+        return;
       }
 
-      goto LABEL_44;
+      *buf = 67109120;
+      v48 = v21;
+      v11 = "Received nd6 alive event with bad length %d";
+      goto LABEL_23;
     }
 
     if (os_log_type_enabled(evaluationLogHandle, OS_LOG_TYPE_DEFAULT))
@@ -183,24 +181,24 @@ LABEL_28:
       v36 = event->event_data[0];
       v37 = event[1].total_size;
       *buf = 67109634;
-      v49 = v36;
-      v50 = 1024;
-      v51 = v37;
-      v52 = 2080;
+      v48 = v36;
+      v49 = 1024;
+      v50 = v37;
+      v51 = 2080;
       p_vendor_code = &event[1].vendor_code;
       _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEFAULT, "Receive nd6 alive family %d unit %d name %s", buf, 0x18u);
     }
 
     v38 = [[EventDescription alloc] initWithType:1 length:event->total_size data:event fromPid:0 named:"kevent" bundleId:0];
     [(EventDescription *)v38 setEventKey:@"com.apple.symptoms.kevent.nd6-alive"];
-    v40[0] = MEMORY[0x277D85DD0];
-    v40[1] = 3221225472;
-    v40[2] = __42__KernelEventMonitor__handleNetworkEvent___block_invoke_15;
-    v40[3] = &unk_27898A0C8;
-    v41 = v38;
+    v39[0] = MEMORY[0x277D85DD0];
+    v39[1] = 3221225472;
+    v39[2] = __42__KernelEventMonitor__handleNetworkEvent___block_invoke_15;
+    v39[3] = &unk_27898A0C8;
+    v40 = v38;
     v28 = v38;
-    dispatch_async(MEMORY[0x277D85CD0], v40);
-    v29 = v41;
+    dispatch_async(MEMORY[0x277D85CD0], v39);
+    v29 = v40;
     goto LABEL_43;
   }
 
@@ -209,63 +207,62 @@ LABEL_28:
     v22 = evaluationLogHandle;
     if (!os_log_type_enabled(evaluationLogHandle, OS_LOG_TYPE_DEBUG))
     {
-      goto LABEL_44;
+      return;
     }
 
     v24 = event->event_code;
     *buf = 67109120;
-    v49 = v24;
+    v48 = v24;
     v11 = "Received ND6 event %d";
     goto LABEL_28;
   }
 
   v13 = event->total_size - 24;
   v10 = evaluationLogHandle;
-  if (v13 > 0x17)
+  if (v13 <= 0x17)
   {
-    if (os_log_type_enabled(evaluationLogHandle, OS_LOG_TYPE_DEFAULT))
+    if (!os_log_type_enabled(evaluationLogHandle, OS_LOG_TYPE_ERROR))
     {
-      v30 = event->event_data[0];
-      v31 = event[1].total_size;
-      *buf = 67109634;
-      v49 = v30;
-      v50 = 1024;
-      v51 = v31;
-      v52 = 2080;
-      p_vendor_code = &event[1].vendor_code;
-      _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEFAULT, "Receive nd6 failure family %d unit %d name %s", buf, 0x18u);
+      return;
     }
 
-    v32 = [[EventDescription alloc] initWithType:1 length:event->total_size data:event fromPid:0 named:"kevent" bundleId:0];
-    [(EventDescription *)v32 setEventKey:@"com.apple.symptoms.kevent.nd6-failure"];
-    v42[0] = MEMORY[0x277D85DD0];
-    v42[1] = 3221225472;
-    v42[2] = __42__KernelEventMonitor__handleNetworkEvent___block_invoke_14;
-    v42[3] = &unk_27898A0C8;
-    v43 = v32;
-    v28 = v32;
-    dispatch_async(MEMORY[0x277D85CD0], v42);
-    v29 = v43;
-    goto LABEL_43;
-  }
-
-  if (os_log_type_enabled(evaluationLogHandle, OS_LOG_TYPE_ERROR))
-  {
     *buf = 67109120;
-    v49 = v13;
+    v48 = v13;
     v11 = "Received nd6 fail event with bad length %d";
     goto LABEL_23;
   }
 
-LABEL_44:
-  v39 = *MEMORY[0x277D85DE8];
+  if (os_log_type_enabled(evaluationLogHandle, OS_LOG_TYPE_DEFAULT))
+  {
+    v30 = event->event_data[0];
+    v31 = event[1].total_size;
+    *buf = 67109634;
+    v48 = v30;
+    v49 = 1024;
+    v50 = v31;
+    v51 = 2080;
+    p_vendor_code = &event[1].vendor_code;
+    _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEFAULT, "Receive nd6 failure family %d unit %d name %s", buf, 0x18u);
+  }
+
+  v32 = [[EventDescription alloc] initWithType:1 length:event->total_size data:event fromPid:0 named:"kevent" bundleId:0];
+  [(EventDescription *)v32 setEventKey:@"com.apple.symptoms.kevent.nd6-failure"];
+  v41[0] = MEMORY[0x277D85DD0];
+  v41[1] = 3221225472;
+  v41[2] = __42__KernelEventMonitor__handleNetworkEvent___block_invoke_14;
+  v41[3] = &unk_27898A0C8;
+  v42 = v32;
+  v28 = v32;
+  dispatch_async(MEMORY[0x277D85CD0], v41);
+  v29 = v42;
+LABEL_43:
 }
 
 - (void)_handleSocket:(int)socket
 {
-  v33 = *MEMORY[0x277D85DE8];
-  memset(v32, 0, 512);
-  v4 = recv(socket, v32, 0x400uLL, 0);
+  v32 = *MEMORY[0x277D85DE8];
+  memset(v31, 0, 512);
+  v4 = recv(socket, v31, 0x400uLL, 0);
   if (v4 == -1)
   {
     v13 = evaluationLogHandle;
@@ -285,11 +282,11 @@ LABEL_44:
     if (v4 >= 1)
     {
       v6 = 0;
-      v7 = v32;
+      v7 = v31;
       while (1)
       {
         v8 = evaluationLogHandle;
-        if (v6 + *(v32 + v6) > v5)
+        if (v6 + *(v31 + v6) > v5)
         {
           break;
         }
@@ -302,18 +299,18 @@ LABEL_44:
           v12 = v7[5];
           *buf = 67110656;
           socketCopy = socket;
-          v20 = 2048;
-          v21 = v6;
-          v22 = 2048;
-          v23 = v5;
-          v24 = 1024;
-          v25 = v9;
-          v26 = 1024;
-          v27 = v10;
-          v28 = 1024;
-          v29 = v11;
-          v30 = 1024;
-          v31 = v12;
+          v19 = 2048;
+          v20 = v6;
+          v21 = 2048;
+          v22 = v5;
+          v23 = 1024;
+          v24 = v9;
+          v25 = 1024;
+          v26 = v10;
+          v27 = 1024;
+          v28 = v11;
+          v29 = 1024;
+          v30 = v12;
           _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEBUG, "socket message on fd %d with offset %ld status %ld vendor %d  class %d subclass %d code %d", buf, 0x34u);
         }
 
@@ -322,11 +319,11 @@ LABEL_44:
           [(KernelEventMonitor *)self _handleNetworkEvent:v7];
         }
 
-        v6 += *(v32 + v6);
-        v7 = (v32 + v6);
+        v6 += *(v31 + v6);
+        v7 = (v31 + v6);
         if (v6 >= v5)
         {
-          goto LABEL_16;
+          return;
         }
       }
 
@@ -337,9 +334,6 @@ LABEL_44:
       }
     }
   }
-
-LABEL_16:
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initListening
@@ -357,7 +351,7 @@ LABEL_16:
 
 void __35__KernelEventMonitor_initListening__block_invoke(uint64_t a1)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   *(*(a1 + 32) + 16) = socket(32, 3, 1);
   if (*(*(a1 + 32) + 16) != -1)
   {
@@ -371,14 +365,14 @@ void __35__KernelEventMonitor_initListening__block_invoke(uint64_t a1)
     }
 
     *buf = 0x100000001;
-    v29 = 1;
+    v28 = 1;
     if (ioctl(*(*(a1 + 32) + 16), 0x800C6502uLL, buf))
     {
       v4 = evaluationLogHandle;
       if (os_log_type_enabled(evaluationLogHandle, OS_LOG_TYPE_ERROR))
       {
-        *v27 = 0;
-        _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_ERROR, "Fail to set up network event socket for filtering", v27, 2u);
+        *v26 = 0;
+        _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_ERROR, "Fail to set up network event socket for filtering", v26, 2u);
       }
 
       close(*(*(a1 + 32) + 16));
@@ -394,8 +388,8 @@ void __35__KernelEventMonitor_initListening__block_invoke(uint64_t a1)
         v6 = evaluationLogHandle;
         if (os_log_type_enabled(evaluationLogHandle, OS_LOG_TYPE_ERROR))
         {
-          *v27 = 0;
-          _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_ERROR, "Fail to set up network event socket as non-blocking", v27, 2u);
+          *v26 = 0;
+          _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_ERROR, "Fail to set up network event socket as non-blocking", v26, 2u);
         }
 
         close(*(*(a1 + 32) + 16));
@@ -412,12 +406,12 @@ void __35__KernelEventMonitor_initListening__block_invoke(uint64_t a1)
         handler[3] = &unk_27898A0C8;
         handler[4] = *(a1 + 32);
         dispatch_source_set_event_handler(v8, handler);
-        v25[0] = MEMORY[0x277D85DD0];
-        v25[1] = 3221225472;
-        v25[2] = __35__KernelEventMonitor_initListening__block_invoke_2;
-        v25[3] = &unk_27898A0C8;
-        v25[4] = *(a1 + 32);
-        dispatch_source_set_cancel_handler(v8, v25);
+        v24[0] = MEMORY[0x277D85DD0];
+        v24[1] = 3221225472;
+        v24[2] = __35__KernelEventMonitor_initListening__block_invoke_2;
+        v24[3] = &unk_27898A0C8;
+        v24[4] = *(a1 + 32);
+        dispatch_source_set_cancel_handler(v8, v24);
         v9 = *(a1 + 32);
         v10 = *(v9 + 24);
         *(v9 + 24) = v8;
@@ -441,14 +435,14 @@ void __35__KernelEventMonitor_initListening__block_invoke(uint64_t a1)
     }
 
     *buf = 0x100000001;
-    v29 = 7;
+    v28 = 7;
     if (ioctl(*(*(a1 + 32) + 20), 0x800C6502uLL, buf))
     {
       v14 = evaluationLogHandle;
       if (os_log_type_enabled(evaluationLogHandle, OS_LOG_TYPE_ERROR))
       {
-        *v27 = 0;
-        _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_ERROR, "Fail to set up network event socket 2 for filtering", v27, 2u);
+        *v26 = 0;
+        _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_ERROR, "Fail to set up network event socket 2 for filtering", v26, 2u);
       }
 
       close(*(*(a1 + 32) + 20));
@@ -464,8 +458,8 @@ void __35__KernelEventMonitor_initListening__block_invoke(uint64_t a1)
         v16 = evaluationLogHandle;
         if (os_log_type_enabled(evaluationLogHandle, OS_LOG_TYPE_ERROR))
         {
-          *v27 = 0;
-          _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_ERROR, "Fail to set up network event socket 2 as non-blocking", v27, 2u);
+          *v26 = 0;
+          _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_ERROR, "Fail to set up network event socket 2 as non-blocking", v26, 2u);
         }
 
         close(*(*(a1 + 32) + 20));
@@ -476,18 +470,18 @@ void __35__KernelEventMonitor_initListening__block_invoke(uint64_t a1)
       if (v17 != -1)
       {
         v18 = dispatch_source_create(MEMORY[0x277D85D28], v17, 0, MEMORY[0x277D85CD0]);
-        v24[0] = MEMORY[0x277D85DD0];
-        v24[1] = 3221225472;
-        v24[2] = __35__KernelEventMonitor_initListening__block_invoke_17;
-        v24[3] = &unk_27898A0C8;
-        v24[4] = *(a1 + 32);
-        dispatch_source_set_event_handler(v18, v24);
         v23[0] = MEMORY[0x277D85DD0];
         v23[1] = 3221225472;
-        v23[2] = __35__KernelEventMonitor_initListening__block_invoke_2_18;
+        v23[2] = __35__KernelEventMonitor_initListening__block_invoke_17;
         v23[3] = &unk_27898A0C8;
         v23[4] = *(a1 + 32);
-        dispatch_source_set_cancel_handler(v18, v23);
+        dispatch_source_set_event_handler(v18, v23);
+        v22[0] = MEMORY[0x277D85DD0];
+        v22[1] = 3221225472;
+        v22[2] = __35__KernelEventMonitor_initListening__block_invoke_2_18;
+        v22[3] = &unk_27898A0C8;
+        v22[4] = *(a1 + 32);
+        dispatch_source_set_cancel_handler(v18, v22);
         v19 = *(a1 + 32);
         v20 = *(v19 + 32);
         *(v19 + 32) = v18;
@@ -497,8 +491,6 @@ void __35__KernelEventMonitor_initListening__block_invoke(uint64_t a1)
       }
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __35__KernelEventMonitor_initListening__block_invoke_2(uint64_t a1)

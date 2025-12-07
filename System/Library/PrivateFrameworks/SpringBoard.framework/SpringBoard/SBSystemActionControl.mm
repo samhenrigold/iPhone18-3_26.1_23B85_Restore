@@ -8,8 +8,7 @@
 - (id)initWithDataSource:(void *)source previewCoordinator:(void *)coordinator authenticationStatusProvider:(void *)provider coachingController:(void *)controller soundController:;
 - (id)performSelectedActionFromSource:(void *)source withContext:;
 - (id)previewSelectedActionFromSource:(void *)source withSuppressionStatus:;
-- (uint64_t)isSelectedActionHostedByApplicationWithBundleIdentifier:(uint64_t)result;
-- (uint64_t)removeObserver:(uint64_t)result;
+- (id)removeObserver:(id *)result;
 - (uint64_t)selectedActionAnalyticsData;
 - (void)_activateFeedbackForAction:(uint64_t)action;
 - (void)_cancelCameraPrewarmIfNecessaryForAction:(uint64_t)action;
@@ -24,6 +23,7 @@
 - (void)_prewarmCameraIfNecessaryForAction:(uint64_t)action;
 - (void)addObserver:(uint64_t)observer;
 - (void)addSystemActionValidator:(uint64_t)validator;
+- (void)isSelectedActionHostedByApplicationWithBundleIdentifier:(void *)result;
 - (void)systemActionDataSource:(id)source didUpdateSelectedAction:(id)action;
 @end
 
@@ -86,7 +86,7 @@
 
 - (void)_configureWithSelectedAction
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"selectedAction != ((void *)0)"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(self);
@@ -94,7 +94,7 @@
     v3 = OUTLINED_FUNCTION_5_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"selectedAction != ((void *)0)", v10, v11);
+    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -104,12 +104,12 @@
 
 - (id)previewSelectedActionFromSource:(void *)source withSuppressionStatus:
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v5 = a2;
   sourceCopy = source;
   if (self)
   {
-    if (![(__CFString *)v5 length])
+    if (![v5 length])
     {
       [SBSystemActionControl previewSelectedActionFromSource:? withSuppressionStatus:?];
     }
@@ -117,11 +117,11 @@
     v7 = self[4];
     selectedSystemAction = [v7 selectedSystemAction];
 
-    v27 = 0;
-    v26 = 0;
-    v9 = [(SBSystemActionControl *)self _shouldPerformAction:selectedSystemAction withSuppressionStatus:sourceCopy reason:&v26 isSuppressed:&v27];
-    v10 = v26;
-    if (v27)
+    v29 = 0;
+    v28 = 0;
+    v9 = [(SBSystemActionControl *)self _shouldPerformAction:selectedSystemAction withSuppressionStatus:sourceCopy reason:&v28 isSuppressed:&v29];
+    v10 = v28;
+    if (v29)
     {
       v11 = 2;
     }
@@ -136,29 +136,30 @@
 
     if (v9)
     {
-      v13 = SBLogSystemActionControl();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v14 = SBLogSystemActionControl(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543874;
         selfCopy4 = self;
-        v30 = 2114;
-        v31 = v5;
         v32 = 2114;
-        v33 = sourceCopy;
-        _os_log_impl(&dword_21ED4E000, v13, OS_LOG_TYPE_DEFAULT, "(%{public}@) requested to preview selected action from source '%{public}@' with suppression status: %{public}@", buf, 0x20u);
+        v33 = v5;
+        v34 = 2114;
+        v35 = sourceCopy;
+        _os_log_impl(&dword_21ED4E000, v14, OS_LOG_TYPE_DEFAULT, "(%{public}@) requested to preview selected action from source '%{public}@' with suppression status: %{public}@", buf, 0x20u);
       }
 
-      v14 = self[9];
-      if (v14)
+      v15 = self[9];
+      v16 = v15;
+      if (v15)
       {
-        v15 = SBLogSystemActionControl();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+        v17 = SBLogSystemActionControl(v15);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543618;
           selfCopy4 = self;
-          v30 = 2114;
-          v31 = v14;
-          _os_log_impl(&dword_21ED4E000, v15, OS_LOG_TYPE_DEFAULT, "(%{public}@) cannot preview action; an executor is already previewing: %{public}@", buf, 0x16u);
+          v32 = 2114;
+          v33 = v16;
+          _os_log_impl(&dword_21ED4E000, v17, OS_LOG_TYPE_DEFAULT, "(%{public}@) cannot preview action; an executor is already previewing: %{public}@", buf, 0x16u);
         }
 
         self = 0;
@@ -166,19 +167,19 @@
 
       else
       {
-        v15 = [(SBSystemActionControl *)self _executorForSystemAction:selectedSystemAction];
+        v17 = [(SBSystemActionControl *)self _executorForSystemAction:selectedSystemAction];
         [(SBSystemActionControl *)self _noteWillPreviewAction:selectedSystemAction];
-        v19 = self[5];
-        objc_storeStrong(self + 9, v15);
-        v20 = [v15 previewWithCoordinator:v19];
-        if (v20)
+        v21 = self[5];
+        objc_storeStrong(self + 9, v17);
+        v22 = [v17 previewWithCoordinator:v21];
+        if (v22)
         {
           [(SBSystemActionControl *)self _cancelCameraPrewarmIfNecessaryForAction:selectedSystemAction];
           [self[10] invalidate];
-          v22 = self[10];
+          v24 = self[10];
           self[10] = 0;
 
-          v23 = self[9];
+          v25 = self[9];
           self[9] = 0;
 
           self = 0;
@@ -186,47 +187,47 @@
 
         else
         {
-          v21 = objc_alloc(MEMORY[0x277CF0CE8]);
-          v24[0] = MEMORY[0x277D85DD0];
-          v24[1] = 3221225472;
-          v24[2] = __79__SBSystemActionControl_previewSelectedActionFromSource_withSuppressionStatus___block_invoke;
-          v24[3] = &unk_2783B18A8;
-          v24[4] = self;
-          v25 = v5;
-          self = [v21 initWithIdentifier:@"SBSystemAction-Previewing" forReason:v25 invalidationBlock:v24];
+          v23 = objc_alloc(MEMORY[0x277CF0CE8]);
+          v26[0] = MEMORY[0x277D85DD0];
+          v26[1] = 3221225472;
+          v26[2] = __79__SBSystemActionControl_previewSelectedActionFromSource_withSuppressionStatus___block_invoke;
+          v26[3] = &unk_2783B18A8;
+          v26[4] = self;
+          v27 = v5;
+          self = [v23 initWithIdentifier:@"SBSystemAction-Previewing" forReason:v27 invalidationBlock:v26];
         }
       }
     }
 
     else
     {
-      if (v27 == 1)
+      if (v29 == 1)
       {
-        v16 = SBLogSystemActionSuppression();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+        v18 = SBLogSystemActionSuppression(v13);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543874;
           selfCopy4 = self;
-          v30 = 2114;
-          v31 = selectedSystemAction;
           v32 = 2114;
-          v33 = v10;
-          _os_log_impl(&dword_21ED4E000, v16, OS_LOG_TYPE_DEFAULT, "(%{public}@) Suppressing action: %{public}@; %{public}@", buf, 0x20u);
+          v33 = selectedSystemAction;
+          v34 = 2114;
+          v35 = v10;
+          _os_log_impl(&dword_21ED4E000, v18, OS_LOG_TYPE_DEFAULT, "(%{public}@) Suppressing action: %{public}@; %{public}@", buf, 0x20u);
         }
       }
 
       else
       {
-        v17 = SBLogSystemActionControl();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+        v19 = SBLogSystemActionControl(v13);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543874;
           selfCopy4 = self;
-          v30 = 2114;
-          v31 = v10;
           v32 = 2114;
-          v33 = selectedSystemAction;
-          _os_log_impl(&dword_21ED4E000, v17, OS_LOG_TYPE_DEFAULT, "(%{public}@) Disallowing action (%{public}@); action: %{public}@", buf, 0x20u);
+          v33 = v10;
+          v34 = 2114;
+          v35 = selectedSystemAction;
+          _os_log_impl(&dword_21ED4E000, v19, OS_LOG_TYPE_DEFAULT, "(%{public}@) Disallowing action (%{public}@); action: %{public}@", buf, 0x20u);
         }
 
         [self[5] provideDiscreteNoActionInteractionFeedback];
@@ -257,7 +258,7 @@
     if (v7)
     {
       v8 = v7;
-      v9 = SBLogSystemActionControl();
+      v9 = SBLogSystemActionControl(v7);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543874;
@@ -306,7 +307,7 @@
 
 - (BOOL)_cancelPreviewingSelectedActionFromSource:(uint64_t)source
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3;
   if (source)
@@ -317,47 +318,49 @@
     }
 
     v5 = *(source + 72);
-    v6 = v5 != 0;
+    v6 = v5;
+    v7 = v5 != 0;
     if (v5)
     {
-      v8 = SBLogSystemActionControl();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = SBLogSystemActionControl(v5);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = 138543618;
+        v13 = 138543618;
         sourceCopy = source;
-        v14 = 2114;
-        v15 = v4;
-        _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "(%{public}@) Cancelling previewing selected action from source '%{public}@'", &v12, 0x16u);
+        v15 = 2114;
+        v16 = v4;
+        _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "(%{public}@) Cancelling previewing selected action from source '%{public}@'", &v13, 0x16u);
       }
 
-      systemAction = [v5 systemAction];
+      systemAction = [v6 systemAction];
       [(SBSystemActionControl *)source _cancelCameraPrewarmIfNecessaryForAction:systemAction];
       [*(source + 80) invalidate];
-      v10 = *(source + 80);
+      v11 = *(source + 80);
       *(source + 80) = 0;
 
-      [v5 cancelPreviewing];
-      v11 = *(source + 72);
+      [v6 cancelPreviewing];
+      v12 = *(source + 72);
       *(source + 72) = 0;
     }
   }
 
   else
   {
-    v6 = 0;
+    v7 = 0;
   }
 
-  return v6;
+  return v7;
 }
 
 - (id)performSelectedActionFromSource:(void *)source withContext:
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   v5 = a2;
   sourceCopy = source;
   if (self)
   {
-    if (![v5 length])
+    v7 = [v5 length];
+    if (!v7)
     {
       [SBSystemActionControl performSelectedActionFromSource:? withContext:?];
     }
@@ -367,48 +370,48 @@
       [SBSystemActionControl performSelectedActionFromSource:? withContext:?];
     }
 
-    v7 = SBLogSystemActionControl();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = SBLogSystemActionControl(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543874;
       selfCopy4 = self;
-      v35 = 2114;
-      v36 = v5;
-      v37 = 2114;
-      v38 = sourceCopy;
-      _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "(%{public}@) requested to perform selected action from source '%{public}@' with context: %{public}@", buf, 0x20u);
+      v39 = 2114;
+      v40 = v5;
+      v41 = 2114;
+      v42 = sourceCopy;
+      _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "(%{public}@) requested to perform selected action from source '%{public}@' with context: %{public}@", buf, 0x20u);
     }
 
-    v8 = *(self + 72);
-    if (v8)
+    v9 = *(self + 72);
+    if (v9)
     {
       authenticator = [(SBHomeScreenConfigurationServer *)sourceCopy authenticator];
       if ([(SBCameraActivationManager *)authenticator workspace]== 1)
       {
-        systemAction = [v8 systemAction];
+        systemAction = [v9 systemAction];
         shouldBePerformedWhenSuppressed = [systemAction shouldBePerformedWhenSuppressed];
 
         if ((shouldBePerformedWhenSuppressed & 1) == 0)
         {
-          v12 = SBLogSystemActionSuppression();
-          if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+          v14 = SBLogSystemActionSuppression(v13);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
           {
-            systemAction2 = [v8 systemAction];
+            systemAction2 = [v9 systemAction];
             authenticator2 = [(SBHomeScreenConfigurationServer *)sourceCopy authenticator];
             *buf = 138543874;
             selfCopy4 = self;
-            v35 = 2114;
-            v36 = systemAction2;
-            v37 = 2114;
-            v38 = authenticator2;
-            _os_log_impl(&dword_21ED4E000, v12, OS_LOG_TYPE_DEFAULT, "(%{public}@) Suppressing action: %{public}@, suppression status: %{public}@", buf, 0x20u);
+            v39 = 2114;
+            v40 = systemAction2;
+            v41 = 2114;
+            v42 = authenticator2;
+            _os_log_impl(&dword_21ED4E000, v14, OS_LOG_TYPE_DEFAULT, "(%{public}@) Suppressing action: %{public}@, suppression status: %{public}@", buf, 0x20u);
           }
 
           [(SBSystemActionControl *)self _cancelPreviewingSelectedActionFromSource:v5];
-          v15 = +[SBSystemActionAnalyticsTracker sharedTracker];
-          systemAction3 = [v8 systemAction];
+          v17 = +[SBSystemActionAnalyticsTracker sharedTracker];
+          systemAction3 = [v9 systemAction];
           authenticator3 = [(SBHomeScreenConfigurationServer *)sourceCopy authenticator];
-          [(SBSystemActionAnalyticsTracker *)v15 trackInteractionWithType:systemAction3 forAction:authenticator3 suppressionStatus:?];
+          [(SBSystemActionAnalyticsTracker *)v17 trackInteractionWithType:systemAction3 forAction:authenticator3 suppressionStatus:?];
 
           goto LABEL_13;
         }
@@ -418,70 +421,71 @@
       {
       }
 
-      v18 = *(self + 72);
+      v20 = *(self + 72);
       *(self + 72) = 0;
 
-      v19 = *(self + 24);
-      if (v19)
+      v21 = *(self + 24);
+      if (v21)
       {
-        [v19 addObject:v8];
+        [v21 addObject:v9];
       }
 
       else
       {
-        v20 = [MEMORY[0x277CBEB18] arrayWithObject:v8];
-        v21 = *(self + 24);
-        *(self + 24) = v20;
+        v22 = [MEMORY[0x277CBEB18] arrayWithObject:v9];
+        v23 = *(self + 24);
+        *(self + 24) = v22;
       }
 
-      systemAction4 = [v8 systemAction];
+      systemAction4 = [v9 systemAction];
+      v25 = systemAction4;
       if (!systemAction4)
       {
         [SBSystemActionControl performSelectedActionFromSource:? withContext:?];
       }
 
-      v23 = SBLogSystemActionControl();
-      if (os_signpost_enabled(v23))
+      v26 = SBLogSystemActionControl(systemAction4);
+      if (os_signpost_enabled(v26))
       {
         *buf = 138543874;
         selfCopy4 = self;
-        v35 = 2114;
-        v36 = systemAction4;
-        v37 = 2114;
-        v38 = v8;
-        _os_signpost_emit_with_name_impl(&dword_21ED4E000, v23, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "SB_SYSTEM_ACTION_PERFORM_EXECUTION", "(%{public}@) performing action '%{public}@' with executor '%{public}@'", buf, 0x20u);
+        v39 = 2114;
+        v40 = v25;
+        v41 = 2114;
+        v42 = v9;
+        _os_signpost_emit_with_name_impl(&dword_21ED4E000, v26, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "SB_SYSTEM_ACTION_PERFORM_EXECUTION", "(%{public}@) performing action '%{public}@' with executor '%{public}@'", buf, 0x20u);
       }
 
-      kdebug_trace();
-      v24 = SBLogSystemActionControl();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+      v27 = kdebug_trace();
+      v28 = SBLogSystemActionControl(v27);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543874;
         selfCopy4 = self;
-        v35 = 2114;
-        v36 = systemAction4;
-        v37 = 2114;
-        v38 = v8;
-        _os_log_impl(&dword_21ED4E000, v24, OS_LOG_TYPE_DEFAULT, "(%{public}@) performing action '%{public}@' with executor '%{public}@'", buf, 0x20u);
+        v39 = 2114;
+        v40 = v25;
+        v41 = 2114;
+        v42 = v9;
+        _os_log_impl(&dword_21ED4E000, v28, OS_LOG_TYPE_DEFAULT, "(%{public}@) performing action '%{public}@' with executor '%{public}@'", buf, 0x20u);
       }
 
-      v25 = +[SBSystemActionAnalyticsTracker sharedTracker];
+      v29 = +[SBSystemActionAnalyticsTracker sharedTracker];
       authenticator4 = [(SBHomeScreenConfigurationServer *)sourceCopy authenticator];
-      [(SBSystemActionAnalyticsTracker *)v25 trackInteractionWithType:systemAction4 forAction:authenticator4 suppressionStatus:?];
+      [(SBSystemActionAnalyticsTracker *)v29 trackInteractionWithType:v25 forAction:authenticator4 suppressionStatus:?];
 
-      [(SBSystemActionControl *)self _noteWillPerformAction:systemAction4];
-      v27 = [(SBSystemActionControl *)self _executionHandlerForExecutor:v8];
+      [(SBSystemActionControl *)self _noteWillPerformAction:v25];
+      v31 = [(SBSystemActionControl *)self _executionHandlerForExecutor:v9];
       objc_initWeak(buf, self);
-      v30[0] = MEMORY[0x277D85DD0];
-      v30[1] = 3221225472;
-      v30[2] = __69__SBSystemActionControl_performSelectedActionFromSource_withContext___block_invoke;
-      v30[3] = &unk_2783B18D0;
-      objc_copyWeak(&v32, buf);
-      v28 = systemAction4;
-      v31 = v28;
-      self = [v8 executeWithContext:sourceCopy executionHandler:v27 completion:v30];
+      v34[0] = MEMORY[0x277D85DD0];
+      v34[1] = 3221225472;
+      v34[2] = __69__SBSystemActionControl_performSelectedActionFromSource_withContext___block_invoke;
+      v34[3] = &unk_2783B18D0;
+      objc_copyWeak(&v36, buf);
+      v32 = v25;
+      v35 = v32;
+      self = [v9 executeWithContext:sourceCopy executionHandler:v31 completion:v34];
 
-      objc_destroyWeak(&v32);
+      objc_destroyWeak(&v36);
       objc_destroyWeak(buf);
 
       goto LABEL_24;
@@ -569,7 +573,7 @@ LABEL_13:
 {
   v12 = *MEMORY[0x277D85DE8];
   actionCopy = action;
-  v6 = SBLogSystemActionControl();
+  v6 = SBLogSystemActionControl(actionCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 138543618;
@@ -651,11 +655,11 @@ void __54__SBSystemActionControl__executionHandlerForExecutor___block_invoke_134
   }
 }
 
-- (uint64_t)removeObserver:(uint64_t)result
+- (id)removeObserver:(id *)result
 {
   if (result)
   {
-    return [*(result + 8) removeObject:a2];
+    return [result[1] removeObject:a2];
   }
 
   return result;
@@ -682,11 +686,11 @@ void __54__SBSystemActionControl__executionHandlerForExecutor___block_invoke_134
   }
 }
 
-- (uint64_t)isSelectedActionHostedByApplicationWithBundleIdentifier:(uint64_t)result
+- (void)isSelectedActionHostedByApplicationWithBundleIdentifier:(void *)result
 {
   if (result)
   {
-    v2 = *(result + 32);
+    v2 = result[4];
     v3 = a2;
     selectedSystemAction = [v2 selectedSystemAction];
     hostBundleIdentifier = [selectedSystemAction hostBundleIdentifier];
@@ -935,61 +939,62 @@ LABEL_22:
 
 - (void)_executor:(void *)_executor didFinishPerformingAction:(void *)action withResult:
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v7 = a2;
   _executorCopy = _executor;
   actionCopy = action;
   if (self)
   {
-    if ([*(self + 24) containsObject:v7])
+    v10 = objc_msgSend_containsObject_(*(self + 24));
+    if (v10)
     {
       [v7 executionStartTime];
-      v11 = v10;
-      [v7 executionEndTime];
-      v13 = v12;
-      v14 = SBLogSystemActionControl();
-      if (os_signpost_enabled(v14))
+      v12 = v11;
+      executionEndTime = [v7 executionEndTime];
+      v15 = v14;
+      v16 = SBLogSystemActionControl(executionEndTime);
+      if (os_signpost_enabled(v16))
       {
         systemAction = [v7 systemAction];
         OUTLINED_FUNCTION_5_2();
-        v24 = v16;
-        v25 = v17;
-        *v26 = v7;
-        _os_signpost_emit_with_name_impl(&dword_21ED4E000, v14, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SB_SYSTEM_ACTION_PERFORM_EXECUTION", "(%{public}@) performing action '%{public}@' with executor '%{public}@'", &v21, 0x20u);
+        v27 = v18;
+        v28 = v19;
+        *v29 = v7;
+        _os_signpost_emit_with_name_impl(&dword_21ED4E000, v16, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SB_SYSTEM_ACTION_PERFORM_EXECUTION", "(%{public}@) performing action '%{public}@' with executor '%{public}@'", &v24, 0x20u);
       }
 
-      v18 = v13 - v11;
+      v20 = v15 - v12;
 
-      kdebug_trace();
-      v19 = SBLogSystemActionControl();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      v21 = kdebug_trace();
+      v22 = SBLogSystemActionControl(v21);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
-        v21 = 138544386;
+        v24 = 138544386;
         selfCopy = self;
-        v23 = 2114;
-        v24 = v7;
-        v25 = 1024;
-        *v26 = actionCopy == 0;
-        *&v26[4] = 2048;
-        *&v26[6] = v18;
-        v27 = 2114;
-        v28 = actionCopy;
-        _os_log_impl(&dword_21ED4E000, v19, OS_LOG_TYPE_DEFAULT, "(%{public}@) executor '%{public}@' did finish successfully: %{BOOL}u\n    executionTime: %fs\n    error: %{public}@", &v21, 0x30u);
+        v26 = 2114;
+        v27 = v7;
+        v28 = 1024;
+        *v29 = actionCopy == 0;
+        *&v29[4] = 2048;
+        *&v29[6] = v20;
+        v30 = 2114;
+        v31 = actionCopy;
+        _os_log_impl(&dword_21ED4E000, v22, OS_LOG_TYPE_DEFAULT, "(%{public}@) executor '%{public}@' did finish successfully: %{BOOL}u\n    executionTime: %fs\n    error: %{public}@", &v24, 0x30u);
       }
 
       [*(self + 24) removeObject:v7];
-      v20 = +[SBSystemActionAnalyticsTracker sharedTracker];
-      [(SBSystemActionAnalyticsTracker *)v20 trackPerformedAction:_executorCopy executionTime:v18];
+      v23 = +[SBSystemActionAnalyticsTracker sharedTracker];
+      [(SBSystemActionAnalyticsTracker *)v23 trackPerformedAction:_executorCopy executionTime:v20];
     }
 
     else
     {
-      v20 = SBLogSystemActionControl();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+      v23 = SBLogSystemActionControl(v10);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
       {
         OUTLINED_FUNCTION_5_2();
-        v24 = v7;
-        _os_log_impl(&dword_21ED4E000, v20, OS_LOG_TYPE_INFO, "(%{public}@) skipping processing finished result from no-longer-tracked executor '%{public}@'", &v21, 0x16u);
+        v27 = v7;
+        _os_log_impl(&dword_21ED4E000, v23, OS_LOG_TYPE_INFO, "(%{public}@) skipping processing finished result from no-longer-tracked executor '%{public}@'", &v24, 0x16u);
       }
     }
   }
@@ -997,7 +1002,7 @@ LABEL_22:
 
 - (void)_prewarmCameraIfNecessaryForAction:(uint64_t)action
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3;
   if (action && [v3 isCameraCaptureAction])
@@ -1006,27 +1011,27 @@ LABEL_22:
     hostBundleIdentifier = [v4 hostBundleIdentifier];
     v7 = [v5 predictedPrewarmBundleIdentifierForApplicationBundleIdentifier:hostBundleIdentifier];
 
-    v8 = SBLogSystemActionControl();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = SBLogSystemActionControl(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = 138543618;
+      v19 = 138543618;
       actionCopy = action;
-      v20 = 2114;
-      v21 = v7;
-      OUTLINED_FUNCTION_3_11(&dword_21ED4E000, v9, v10, "(%{public}@) prewarming camera for bundleID: '%{public}@' ", &v18);
+      v21 = 2114;
+      v22 = v7;
+      OUTLINED_FUNCTION_3_11(&dword_21ED4E000, v10, v11, "(%{public}@) prewarming camera for bundleID: '%{public}@' ", &v19);
     }
 
-    v11 = [MEMORY[0x277CCABB0] numberWithLongLong:mach_absolute_time()];
-    v12 = [MEMORY[0x277CCABB0] numberWithLongLong:mach_continuous_time()];
-    v13 = *MEMORY[0x277CE58C0];
-    v14 = *MEMORY[0x277CE5910];
-    v16[0] = *MEMORY[0x277CE5908];
-    v16[1] = v14;
-    v17[0] = v13;
-    v17[1] = v11;
-    v16[2] = *MEMORY[0x277CE5920];
-    v17[2] = v12;
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:3];
+    v12 = [MEMORY[0x277CCABB0] numberWithLongLong:mach_absolute_time()];
+    v13 = [MEMORY[0x277CCABB0] numberWithLongLong:mach_continuous_time()];
+    v14 = *MEMORY[0x277CE58C0];
+    v15 = *MEMORY[0x277CE5910];
+    v17[0] = *MEMORY[0x277CE5908];
+    v17[1] = v15;
+    v18[0] = v14;
+    v18[1] = v12;
+    v17[2] = *MEMORY[0x277CE5920];
+    v18[2] = v13;
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:3];
     AVCapturePrewarmWithOptions();
   }
 }
@@ -1051,7 +1056,7 @@ LABEL_22:
   if (action && [v3 isCameraCaptureAction])
   {
     hostBundleIdentifier = [v4 hostBundleIdentifier];
-    v6 = SBLogSystemActionControl();
+    v6 = SBLogSystemActionControl(hostBundleIdentifier);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v12 = 138543618;
@@ -1089,7 +1094,7 @@ LABEL_22:
 
 void __54__SBSystemActionControl__executionHandlerForExecutor___block_invoke(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(a1 + 32);
   if (v4)
@@ -1098,47 +1103,47 @@ void __54__SBSystemActionControl__executionHandlerForExecutor___block_invoke(uin
   }
 
   v5 = v4;
-  if ([*(a1 + 40) requiresAuthenticationAtLeastOnceSinceBootBeforeExecution] && (objc_msgSend(v5, "hasAuthenticatedAtLeastOnceSinceBoot") & 1) == 0)
+  if ([*(a1 + 40) requiresAuthenticationAtLeastOnceSinceBootBeforeExecution] && (v6 = objc_msgSend(v5, "hasAuthenticatedAtLeastOnceSinceBoot"), (v6 & 1) == 0))
   {
-    v6 = SBLogSystemActionControl();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = SBLogSystemActionControl(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = *(a1 + 32);
-      v10 = *(a1 + 40);
-      v20 = 138543618;
-      v21 = v9;
-      v22 = 2114;
-      v23 = v10;
-      OUTLINED_FUNCTION_3_11(&dword_21ED4E000, v7, v8, "(%{public}@) requesting device authentication for executor '%{public}@'", &v20);
+      v10 = *(a1 + 32);
+      v11 = *(a1 + 40);
+      v21 = 138543618;
+      v22 = v10;
+      v23 = 2114;
+      v24 = v11;
+      OUTLINED_FUNCTION_3_11(&dword_21ED4E000, v8, v9, "(%{public}@) requesting device authentication for executor '%{public}@'", &v21);
     }
 
-    v11 = objc_alloc_init(SBLockScreenUnlockRequest);
-    [(SBLockScreenUnlockRequest *)v11 setSource:39];
-    [(SBLockScreenUnlockRequest *)v11 setIntent:2];
-    v12 = objc_opt_class();
-    v13 = NSStringFromClass(v12);
-    [(SBLockScreenUnlockRequest *)v11 setName:v13];
+    v12 = objc_alloc_init(SBLockScreenUnlockRequest);
+    [(SBLockScreenUnlockRequest *)v12 setSource:39];
+    [(SBLockScreenUnlockRequest *)v12 setIntent:2];
+    v13 = objc_opt_class();
+    v14 = NSStringFromClass(v13);
+    [(SBLockScreenUnlockRequest *)v12 setName:v14];
 
-    v14 = *(a1 + 32);
-    if (v14)
+    v15 = *(a1 + 32);
+    if (v15)
     {
-      v15 = *(v14 + 40);
+      v16 = *(v15 + 40);
     }
 
     else
     {
-      v15 = 0;
+      v16 = 0;
     }
 
-    v16 = [v15 windowScene];
-    v17 = [v16 lockScreenManager];
+    v17 = [v16 windowScene];
+    v18 = [v17 lockScreenManager];
 
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __54__SBSystemActionControl__executionHandlerForExecutor___block_invoke_134;
-    v18[3] = &unk_2783A9C70;
-    v19 = v3;
-    [v17 unlockWithRequest:v11 completion:v18];
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __54__SBSystemActionControl__executionHandlerForExecutor___block_invoke_134;
+    v19[3] = &unk_2783A9C70;
+    v20 = v3;
+    [v18 unlockWithRequest:v12 completion:v19];
   }
 
   else
@@ -1213,7 +1218,7 @@ void __54__SBSystemActionControl__executionHandlerForExecutor___block_invoke(uin
 
 - (void)initWithDataSource:(char *)a1 previewCoordinator:authenticationStatusProvider:coachingController:soundController:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"soundController != ((void *)0)"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1221,7 +1226,7 @@ void __54__SBSystemActionControl__executionHandlerForExecutor___block_invoke(uin
     v3 = OUTLINED_FUNCTION_5_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"soundController != ((void *)0)", v10, v11);
+    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1231,7 +1236,7 @@ void __54__SBSystemActionControl__executionHandlerForExecutor___block_invoke(uin
 
 - (void)initWithDataSource:(char *)a1 previewCoordinator:authenticationStatusProvider:coachingController:soundController:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"coachingController != ((void *)0)"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1239,7 +1244,7 @@ void __54__SBSystemActionControl__executionHandlerForExecutor___block_invoke(uin
     v3 = OUTLINED_FUNCTION_5_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"coachingController != ((void *)0)", v10, v11);
+    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1249,7 +1254,7 @@ void __54__SBSystemActionControl__executionHandlerForExecutor___block_invoke(uin
 
 - (void)initWithDataSource:(char *)a1 previewCoordinator:authenticationStatusProvider:coachingController:soundController:.cold.3(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"authenticationStatusProvider != ((void *)0)"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1257,7 +1262,7 @@ void __54__SBSystemActionControl__executionHandlerForExecutor___block_invoke(uin
     v3 = OUTLINED_FUNCTION_5_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"authenticationStatusProvider != ((void *)0)", v10, v11);
+    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1267,7 +1272,7 @@ void __54__SBSystemActionControl__executionHandlerForExecutor___block_invoke(uin
 
 - (void)initWithDataSource:(char *)a1 previewCoordinator:authenticationStatusProvider:coachingController:soundController:.cold.4(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"previewCoordinator != ((void *)0)"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1275,7 +1280,7 @@ void __54__SBSystemActionControl__executionHandlerForExecutor___block_invoke(uin
     v3 = OUTLINED_FUNCTION_5_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"previewCoordinator != ((void *)0)", v10, v11);
+    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1285,7 +1290,7 @@ void __54__SBSystemActionControl__executionHandlerForExecutor___block_invoke(uin
 
 - (void)initWithDataSource:(char *)a1 previewCoordinator:authenticationStatusProvider:coachingController:soundController:.cold.5(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"dataSource != ((void *)0)"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1293,7 +1298,7 @@ void __54__SBSystemActionControl__executionHandlerForExecutor___block_invoke(uin
     v3 = OUTLINED_FUNCTION_5_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"dataSource != ((void *)0)", v10, v11);
+    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1303,7 +1308,7 @@ void __54__SBSystemActionControl__executionHandlerForExecutor___block_invoke(uin
 
 - (void)previewSelectedActionFromSource:(char *)a1 withSuppressionStatus:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[source length] > 0"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1311,7 +1316,7 @@ void __54__SBSystemActionControl__executionHandlerForExecutor___block_invoke(uin
     v3 = OUTLINED_FUNCTION_5_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[source length] > 0", v10, v11);
+    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1338,7 +1343,7 @@ void __54__SBSystemActionControl__executionHandlerForExecutor___block_invoke(uin
 
 - (void)_cancelPreviewingSelectedActionFromSource:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[source length] > 0"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1346,7 +1351,7 @@ void __54__SBSystemActionControl__executionHandlerForExecutor___block_invoke(uin
     v3 = OUTLINED_FUNCTION_5_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[source length] > 0", v10, v11);
+    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1383,7 +1388,7 @@ void __54__SBSystemActionControl__executionHandlerForExecutor___block_invoke(uin
 
 - (void)performSelectedActionFromSource:(char *)a1 withContext:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"context != ((void *)0)"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1391,7 +1396,7 @@ void __54__SBSystemActionControl__executionHandlerForExecutor___block_invoke(uin
     v3 = OUTLINED_FUNCTION_5_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"context != ((void *)0)", v11, v12);
+    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v11, v12);
   }
 
   v10 = v2;
@@ -1402,7 +1407,7 @@ void __54__SBSystemActionControl__executionHandlerForExecutor___block_invoke(uin
 
 - (void)performSelectedActionFromSource:(char *)a1 withContext:.cold.3(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[source length] > 0"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1410,7 +1415,7 @@ void __54__SBSystemActionControl__executionHandlerForExecutor___block_invoke(uin
     v3 = OUTLINED_FUNCTION_5_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[source length] > 0", v11, v12);
+    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v11, v12);
   }
 
   v10 = v2;
@@ -1422,7 +1427,7 @@ void __54__SBSystemActionControl__executionHandlerForExecutor___block_invoke(uin
 - (void)performSelectedActionFromSource:(uint64_t)a1 withContext:.cold.4(uint64_t a1)
 {
   v5 = *MEMORY[0x277D85DE8];
-  v2 = SBLogSystemActionControl();
+  v2 = SBLogSystemActionControl(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = 138543362;

@@ -63,16 +63,16 @@
 
 - (void)invalidate
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = *MEMORY[0x1E698D0A0];
   if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
   {
     connection = self->_connection;
-    v7 = 136315394;
-    v8 = "[SiriActivationSource invalidate]";
-    v9 = 2112;
-    v10 = connection;
-    _os_log_impl(&dword_1C8137000, v3, OS_LOG_TYPE_DEFAULT, "%s #activation invalidating BSServiceConnection %@", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[SiriActivationSource invalidate]";
+    v8 = 2112;
+    v9 = connection;
+    _os_log_impl(&dword_1C8137000, v3, OS_LOG_TYPE_DEFAULT, "%s #activation invalidating BSServiceConnection %@", &v6, 0x16u);
   }
 
   os_unfair_lock_lock(&self->_lock);
@@ -82,12 +82,11 @@
 
   *&self->_active = 256;
   os_unfair_lock_unlock(&self->_lock);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)activeChangedTo:(id)to
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   toCopy = to;
   v5 = *MEMORY[0x1E698D0A0];
   if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
@@ -97,19 +96,17 @@
     v8 = v5;
     v9 = [v6 numberWithBool:active];
     v10 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(toCopy, "BOOLValue")}];
-    v12 = 136315650;
-    v13 = "[SiriActivationSource activeChangedTo:]";
-    v14 = 2112;
-    v15 = v9;
-    v16 = 2112;
-    v17 = v10;
-    _os_log_impl(&dword_1C8137000, v8, OS_LOG_TYPE_DEFAULT, "%s #activation old availability: %@, new availability: %@", &v12, 0x20u);
+    v11 = 136315650;
+    v12 = "[SiriActivationSource activeChangedTo:]";
+    v13 = 2112;
+    v14 = v9;
+    v15 = 2112;
+    v16 = v10;
+    _os_log_impl(&dword_1C8137000, v8, OS_LOG_TYPE_DEFAULT, "%s #activation old availability: %@, new availability: %@", &v11, 0x20u);
   }
 
   self->_active = [toCopy BOOLValue];
   self->_knowsIfActive = 1;
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 @end

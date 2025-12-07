@@ -64,11 +64,10 @@
 
 uint64_t __52__HMDAccessCodeManagerContext_hapAccessoryWithUUID___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = [a2 uuid];
-  v4 = *(a1 + 32);
-  v5 = HMFEqualObjects();
+  v2 = [a2 uuid];
+  v3 = HMFEqualObjects();
 
-  return v5;
+  return v3;
 }
 
 - (NSArray)UUIDsOfMatterAccessoriesSupportingAccessCodes
@@ -186,11 +185,10 @@ id __78__HMDAccessCodeManagerContext_uuidsOfAccessoriesSupportingAccessCodesForU
 
 uint64_t __44__HMDAccessCodeManagerContext_userWithUUID___block_invoke(uint64_t a1, void *a2)
 {
-  v2 = *(a1 + 32);
-  v3 = [a2 uuid];
-  v4 = HMFEqualObjects();
+  v2 = [a2 uuid];
+  v3 = HMFEqualObjects();
 
-  return v4;
+  return v3;
 }
 
 - (id)userForMessage:(id)message
@@ -213,7 +211,7 @@ uint64_t __44__HMDAccessCodeManagerContext_userWithUUID___block_invoke(uint64_t 
 
 - (id)_performMockedReadRequests:(id)requests
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   requestsCopy = requests;
   demoDataMocker = [(HMDAccessCodeManagerContext *)self demoDataMocker];
   v6 = [demoDataMocker handleReadRequests:requestsCopy];
@@ -231,11 +229,11 @@ uint64_t __44__HMDAccessCodeManagerContext_userWithUUID___block_invoke(uint64_t 
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v11 = HMFGetLogIdentifier();
-      v16 = 138543618;
-      v17 = v11;
-      v18 = 2112;
-      v19 = requestsCopy;
-      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to mock data for write requests: %@", &v16, 0x16u);
+      v15 = 138543618;
+      v16 = v11;
+      v17 = 2112;
+      v18 = requestsCopy;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to mock data for write requests: %@", &v15, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
@@ -244,14 +242,12 @@ uint64_t __44__HMDAccessCodeManagerContext_userWithUUID___block_invoke(uint64_t 
     v7 = [v12 futureWithError:v13];
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 - (id)performReadRequests:(id)requests withRetries:(int64_t)retries timeInterval:(double)interval loggingObject:(id)object flow:(id)flow
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   requestsCopy = requests;
   objectCopy = object;
   flowCopy = flow;
@@ -263,9 +259,9 @@ uint64_t __44__HMDAccessCodeManagerContext_userWithUUID___block_invoke(uint64_t 
     if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
       v18 = HMFGetLogIdentifier();
-      v23 = 138543362;
-      v24 = v18;
-      _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Demo Data Mocker is enabled, not reading from real accessory.", &v23, 0xCu);
+      v22 = 138543362;
+      v23 = v18;
+      _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Demo Data Mocker is enabled, not reading from real accessory.", &v22, 0xCu);
     }
 
     objc_autoreleasePoolPop(v15);
@@ -278,14 +274,12 @@ uint64_t __44__HMDAccessCodeManagerContext_userWithUUID___block_invoke(uint64_t 
     v19 = [home performReadRequests:requestsCopy withRetries:retries timeInterval:objectCopy loggingObject:flowCopy flow:interval];
   }
 
-  v21 = *MEMORY[0x277D85DE8];
-
   return v19;
 }
 
 - (id)performWriteRequests:(id)requests withRetries:(int64_t)retries timeInterval:(double)interval loggingObject:(id)object flow:(id)flow
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   requestsCopy = requests;
   objectCopy = object;
   flowCopy = flow;
@@ -297,9 +291,9 @@ uint64_t __44__HMDAccessCodeManagerContext_userWithUUID___block_invoke(uint64_t 
     if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
       v18 = HMFGetLogIdentifier();
-      v23 = 138543362;
-      v24 = v18;
-      _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Demo Data Mocker is enabled, not writing to real accessory.", &v23, 0xCu);
+      v22 = 138543362;
+      v23 = v18;
+      _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Demo Data Mocker is enabled, not writing to real accessory.", &v22, 0xCu);
     }
 
     objc_autoreleasePoolPop(v15);
@@ -312,14 +306,12 @@ uint64_t __44__HMDAccessCodeManagerContext_userWithUUID___block_invoke(uint64_t 
     v19 = [home performWriteRequests:requestsCopy withRetries:retries timeInterval:objectCopy loggingObject:flowCopy flow:interval];
   }
 
-  v21 = *MEMORY[0x277D85DE8];
-
   return v19;
 }
 
 - (id)_performMockedWriteRequests:(id)requests
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   requestsCopy = requests;
   demoDataMocker = [(HMDAccessCodeManagerContext *)self demoDataMocker];
   v6 = [demoDataMocker handleWriteRequests:requestsCopy];
@@ -337,11 +329,11 @@ uint64_t __44__HMDAccessCodeManagerContext_userWithUUID___block_invoke(uint64_t 
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v11 = HMFGetLogIdentifier();
-      v16 = 138543618;
-      v17 = v11;
-      v18 = 2112;
-      v19 = requestsCopy;
-      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to mock data for write requests: %@", &v16, 0x16u);
+      v15 = 138543618;
+      v16 = v11;
+      v17 = 2112;
+      v18 = requestsCopy;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to mock data for write requests: %@", &v15, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
@@ -349,8 +341,6 @@ uint64_t __44__HMDAccessCodeManagerContext_userWithUUID___block_invoke(uint64_t 
     v13 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:15];
     v7 = [v12 futureWithError:v13];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -615,10 +605,9 @@ LABEL_9:
 
 void __42__HMDAccessCodeManagerContext_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v5;
-  logCategory__hmf_once_v5 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v5;
+  logCategory__hmf_once_v5 = v0;
 }
 
 @end

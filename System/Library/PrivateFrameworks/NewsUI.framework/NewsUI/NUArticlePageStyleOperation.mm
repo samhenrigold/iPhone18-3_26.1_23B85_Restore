@@ -84,37 +84,37 @@ void __47__NUArticlePageStyleOperation_performOperation__block_invoke_2(id *a1)
   {
     v3 = MEMORY[0x277D755B8];
     v4 = [a1[4] filePath];
-    v16 = [v3 imageWithContentsOfFile:v4];
+    v17 = [v3 imageWithContentsOfFile:v4];
 
     v5 = objc_alloc_init(NUPageStyle);
     [a1[5] setPageStyle:v5];
 
     v6 = [a1[5] pageStyle];
-    [v6 setTitleImage:v16];
+    [v6 setTitleImage:v17];
 
     v7 = [a1[6] headline];
     v8 = [v7 sourceName];
     v9 = [a1[5] pageStyle];
     [v9 setTitle:v8];
 
-    v10 = NUBundle();
-    v11 = [v10 localizedStringForKey:@"Next Story" value:&stru_286E03B58 table:0];
-    v12 = [a1[5] pageStyle];
-    [v12 setNextButtonTitle:v11];
+    v11 = NUBundle(v10);
+    v12 = [v11 localizedStringForKey:@"Next Story" value:&stru_286E03B58 table:0];
+    v13 = [a1[5] pageStyle];
+    [v13 setNextButtonTitle:v12];
 
-    v13 = a1[5];
-    v14 = 0;
+    v14 = a1[5];
+    v15 = 0;
   }
 
   else
   {
-    v15 = a1[5];
-    v14 = [a1[4] downloadError];
-    v13 = v15;
-    v16 = v14;
+    v16 = a1[5];
+    v15 = [a1[4] downloadError];
+    v14 = v16;
+    v17 = v15;
   }
 
-  [v13 operationDidFinishWithError:v14];
+  [v14 operationDidFinishWithError:v15];
 }
 
 - (void)operationDidFinishWithError:(id)error

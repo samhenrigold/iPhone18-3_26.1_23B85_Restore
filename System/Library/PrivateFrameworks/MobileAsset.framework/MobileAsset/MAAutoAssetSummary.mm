@@ -623,7 +623,7 @@
     [stringsCopy setSafeObject:v86 forKey:@"assetIsStaged"];
   }
 
-  v29 = [(__CFString *)v76 length];
+  v29 = [v76 length];
   v30 = [stringsCopy safeStringForKey:@"assetIsSecureMobileAsset"];
   v31 = [v30 length];
 

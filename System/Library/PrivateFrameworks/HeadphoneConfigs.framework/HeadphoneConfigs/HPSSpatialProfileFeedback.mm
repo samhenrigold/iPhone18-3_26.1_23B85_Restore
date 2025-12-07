@@ -9,17 +9,16 @@
 {
   v2 = sub_2512116CC();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   MEMORY[0x28223BE20](v2);
-  v6 = &v11 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = objc_allocWithZone(sub_2512116EC());
+  v5 = &v10 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = objc_allocWithZone(sub_2512116EC());
   sub_2512116BC();
-  (*(v3 + 104))(v6, *MEMORY[0x277D08490], v2);
+  (*(v3 + 104))(v5, *MEMORY[0x277D08490], v2);
   sub_2512116DC();
-  v8 = objc_allocWithZone(sub_25121170C());
-  v9 = sub_2512116FC();
+  v7 = objc_allocWithZone(sub_25121170C());
+  v8 = sub_2512116FC();
 
-  return v9;
+  return v8;
 }
 
 - (_TtC16HeadphoneConfigs25HPSSpatialProfileFeedback)init

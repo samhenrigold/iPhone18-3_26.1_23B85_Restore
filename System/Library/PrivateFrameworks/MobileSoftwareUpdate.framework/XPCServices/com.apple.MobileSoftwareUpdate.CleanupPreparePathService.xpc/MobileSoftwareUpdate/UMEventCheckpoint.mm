@@ -166,14 +166,14 @@ id __35__UMEventCheckpoint_sharedInstance__block_invoke(uint64_t a1)
 + (id)lastSyncedNvram:(id)nvram
 {
   properties = 0;
-  logfunction(", 1, @"start\n"", v3, v4, v5, v6, v7, v43);
+  logfunction(", 1, @"start\n"", v3, v4, v5, v6, v7);
   v9 = IORegistryEntryFromPath(kIOMasterPortDefault, "IODeviceTree:/options");
   if (v9)
   {
     v15 = v9;
     if (IORegistryEntryCreateCFProperties(v9, &properties, 0, 0))
     {
-      logfunction(", 1, @"Could not load nvram from nvram\n"", v16, v17, v18, v19, v20, v44);
+      logfunction(", 1, @"Could not load nvram from nvram\n"", v16, v17, v18, v19, v20);
     }
 
     v21 = properties;
@@ -210,12 +210,12 @@ LABEL_20:
           v33 = _longFromNVRAMVar([(__CFDictionary *)v29 objectForKey:@"ramrod-nvram-sequence"]);
           if (v32 > v30 || v32 == v30 && v33 >= v31)
           {
-            logfunction(", 1, @"filesystem copy of nvram will be used. ([%ld][%ld] vs. [%ld][%ld])\n"", v34, v35, v36, v37, v38, v32);
+            logfunction(", 1, @"filesystem copy of nvram will be used. ([%ld][%ld] vs. [%ld][%ld])\n"", v34, v35, v36, v37, v38, v32, v33, v30, v31);
           }
 
           else
           {
-            logfunction(", 1, @"nvram is up to date and will be used. ([%ld][%ld] vs. [%ld][%ld])\n"", v34, v35, v36, v37, v38, v32);
+            logfunction(", 1, @"nvram is up to date and will be used. ([%ld][%ld] vs. [%ld][%ld])\n"", v34, v35, v36, v37, v38, v32, v33, v30, v31);
             v41 = properties;
             v42 = [(__CFDictionary *)v29 objectForKey:@"ramrod-file-only-vars"];
             if (v42)
@@ -240,12 +240,12 @@ LABEL_20:
       v39 = @"NVRAM dictionary from IODeviceTree will be used since dictFileSystem is nil\n\n";
     }
 
-    logfunction("", 1, v39, v24, v25, v26, v27, v28, v44);
+    logfunction("", 1, v39, v24, v25, v26, v27, v28);
     v29 = properties;
     goto LABEL_20;
   }
 
-  logfunction(", 1, @"unable to get registry entry for IODeviceTree:/options\n"", v10, v11, v12, v13, v14, v44);
+  logfunction(", 1, @"unable to get registry entry for IODeviceTree:/options\n"", v10, v11, v12, v13, v14);
   return 0;
 }
 
@@ -335,7 +335,7 @@ LABEL_20:
 
       else
       {
-        logfunction(", 1, @"NVRAM variable %@ has unexpected value '%@'\n"", v15, v16, v17, v18, v19, v11);
+        logfunction(", 1, @"NVRAM variable %@ has unexpected value '%@'\n"", v15, v16, v17, v18, v19, v11, v13);
       }
     }
 
@@ -376,7 +376,7 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  logfunction(", 1, @"NVRAM sync failed\n"", v13, v14, v15, v16, v17, v19);
+  logfunction(", 1, @"NVRAM sync failed\n"", v13, v14, v15, v16, v17);
   v18 = [NSError errorWithDomain:NSPOSIXErrorDomain code:5 userInfo:0];
   result = 0;
   v19 = v18;
@@ -392,47 +392,46 @@ LABEL_6:
 
 - (BOOL)cleanupCheckpointsNvramReturnDirty:(BOOL *)dirty error:(id *)error
 {
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   nvramMapping = self->_nvramMapping;
-  v8 = [(NSDictionary *)nvramMapping countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v8 = [(NSDictionary *)nvramMapping countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v8)
   {
     v9 = v8;
     v10 = 0;
-    v11 = *v24;
+    v11 = *v23;
     while (2)
     {
       for (i = 0; i != v9; i = i + 1)
       {
-        if (*v24 != v11)
+        if (*v23 != v11)
         {
           objc_enumerationMutation(nvramMapping);
         }
 
-        v13 = [(NSDictionary *)self->_nvramMapping objectForKey:*(*(&v23 + 1) + 8 * i)];
-        v14 = v13;
-        v22 = 0;
-        if (!msu_delete_nvram_variable_if_exists(v13, &v22))
+        v13 = [(NSDictionary *)self->_nvramMapping objectForKey:*(*(&v22 + 1) + 8 * i)];
+        v21 = 0;
+        if (!msu_delete_nvram_variable_if_exists(v13, &v21))
         {
-          logfunction(", 1, @"clearing NVRAM variable %@ failed\n"", v15, v16, v17, v18, v19, v14);
-          v20 = [NSError errorWithDomain:NSPOSIXErrorDomain code:5 userInfo:0];
+          logfunction(", 1, @"clearing NVRAM variable %@ failed\n"", v14, v15, v16, v17, v18, v13);
+          v19 = [NSError errorWithDomain:NSPOSIXErrorDomain code:5 userInfo:0];
           result = 0;
-          if (error && v20)
+          if (error && v19)
           {
             result = 0;
-            *error = v20;
+            *error = v19;
           }
 
           return result;
         }
 
-        v10 |= v22;
+        v10 |= v21;
       }
 
-      v9 = [(NSDictionary *)nvramMapping countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v9 = [(NSDictionary *)nvramMapping countByEnumeratingWithState:&v22 objects:v26 count:16];
       if (v9)
       {
         continue;

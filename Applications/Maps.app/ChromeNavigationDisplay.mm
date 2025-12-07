@@ -117,13 +117,13 @@
   dCopy = d;
   chromeViewController = [(ChromeNavigationDisplay *)self chromeViewController];
   routeAnnotationsController = [chromeViewController routeAnnotationsController];
-  configuration = [routeAnnotationsController configuration];
+  v8 = objc_msgSend_configuration(routeAnnotationsController);
 
   v19 = 0u;
   v20 = 0u;
   v17 = 0u;
   v18 = 0u;
-  routes = [configuration routes];
+  routes = [v8 routes];
   v10 = [routes countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v10)
   {
@@ -309,14 +309,14 @@
     [(NavigationDisplay *)self->_navigationDisplay stopCameraMotion];
   }
 
-  configuration = [(ChromeNavigationDisplay *)self configuration];
-  v4 = [configuration cameraStyle] == 5;
+  v3 = objc_msgSend_configuration(self);
+  v4 = [v3 cameraStyle] == 5;
 
-  configuration2 = [(ChromeNavigationDisplay *)self configuration];
-  v6 = configuration2;
+  v5 = objc_msgSend_configuration(self);
+  v6 = v5;
   if (!v4)
   {
-    cameraStyle = [configuration2 cameraStyle];
+    cameraStyle = [v5 cameraStyle];
 
     if (cameraStyle != 6)
     {
@@ -347,8 +347,8 @@
       }
     }
 
-    configuration3 = [(ChromeNavigationDisplay *)self configuration];
-    staticMapCamera = [configuration3 staticMapCamera];
+    v11 = objc_msgSend_configuration(self);
+    staticMapCamera = [v11 staticMapCamera];
 
     if (staticMapCamera)
     {
@@ -366,8 +366,8 @@
 
     else
     {
-      configuration4 = [(ChromeNavigationDisplay *)self configuration];
-      [configuration4 staticMapRect];
+      v21 = objc_msgSend_configuration(self);
+      [v21 staticMapRect];
       v23 = v22;
       v25 = v24;
       v27 = v26;
@@ -424,22 +424,22 @@ LABEL_37:
     return;
   }
 
-  staticStepIndex = [configuration2 staticStepIndex];
+  staticStepIndex = [v5 staticStepIndex];
 
   if (staticStepIndex == 0x7FFFFFFFFFFFFFFFLL)
   {
-    configuration5 = +[MNNavigationService sharedService];
-    displayedStepIndex = [configuration5 displayedStepIndex];
+    v8 = +[MNNavigationService sharedService];
+    displayedStepIndex = [v8 displayedStepIndex];
     if (displayedStepIndex == 0x7FFFFFFFFFFFFFFFLL)
     {
-      displayedStepIndex = [configuration5 stepIndex];
+      displayedStepIndex = [v8 stepIndex];
     }
   }
 
   else
   {
-    configuration5 = [(ChromeNavigationDisplay *)self configuration];
-    displayedStepIndex = [configuration5 staticStepIndex];
+    v8 = objc_msgSend_configuration(self);
+    displayedStepIndex = [v8 staticStepIndex];
   }
 
   v15 = displayedStepIndex;
@@ -456,8 +456,8 @@ LABEL_37:
         self->_transitStepFramer = v16;
       }
 
-      configuration6 = [(ChromeNavigationDisplay *)self configuration];
-      cameraStyle2 = [configuration6 cameraStyle];
+      v18 = objc_msgSend_configuration(self);
+      cameraStyle2 = [v18 cameraStyle];
 
       objc_initWeak(buf, self);
       v20 = self->_transitStepFramer;
@@ -714,8 +714,8 @@ LABEL_23:
 - (void)_startNavigationCameraMotionIfNeededAnimated:(BOOL)animated
 {
   animatedCopy = animated;
-  configuration = [(ChromeNavigationDisplay *)self configuration];
-  cameraPaused = [configuration cameraPaused];
+  v5 = objc_msgSend_configuration(self, a2);
+  cameraPaused = [v5 cameraPaused];
   bOOLValue = [cameraPaused BOOLValue];
 
   if (bOOLValue)
@@ -723,8 +723,8 @@ LABEL_23:
     v8 = sub_10009B590();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      configuration2 = [(ChromeNavigationDisplay *)self configuration];
-      cameraPaused2 = [configuration2 cameraPaused];
+      v9 = objc_msgSend_configuration(self);
+      cameraPaused2 = [v9 cameraPaused];
       if ([cameraPaused2 BOOLValue])
       {
         v11 = @"YES";
@@ -757,8 +757,8 @@ LABEL_23:
 
   else
   {
-    configuration3 = [(ChromeNavigationDisplay *)self configuration];
-    requiresCameraMotion = [configuration3 requiresCameraMotion];
+    v15 = objc_msgSend_configuration(self);
+    requiresCameraMotion = [v15 requiresCameraMotion];
 
     if (requiresCameraMotion)
     {
@@ -781,8 +781,8 @@ LABEL_23:
       }
 
       [(ChromeNavigationDisplay *)self setCameraPanning:0];
-      configuration4 = [(ChromeNavigationDisplay *)self configuration];
-      -[ChromeNavigationDisplay _applyHorizontalCameraOffset:animated:](self, "_applyHorizontalCameraOffset:animated:", ([configuration4 cameraStyle] & 0xFFFFFFFFFFFFFFFDLL) != 0, animatedCopy);
+      v21 = objc_msgSend_configuration(self);
+      -[ChromeNavigationDisplay _applyHorizontalCameraOffset:animated:](self, "_applyHorizontalCameraOffset:animated:", ([v21 cameraStyle] & 0xFFFFFFFFFFFFFFFDLL) != 0, animatedCopy);
 
       [(NavigationDisplay *)self->_navigationDisplay startMotion:animatedCopy];
     }
@@ -792,8 +792,8 @@ LABEL_23:
       v22 = sub_10009B590();
       if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
-        configuration5 = [(ChromeNavigationDisplay *)self configuration];
-        v24 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [configuration5 cameraStyle]);
+        v23 = objc_msgSend_configuration(self);
+        v24 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [v23 cameraStyle]);
         v25 = 138412290;
         v26 = v24;
         _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Will not start navigation camera (cameraStyle:%@)", &v25, 0xCu);
@@ -805,11 +805,11 @@ LABEL_23:
 - (void)mapInsetsDidChangeAnimated:(BOOL)animated
 {
   animatedCopy = animated;
-  configuration = [(ChromeNavigationDisplay *)self configuration];
-  requiresCameraMotion = [configuration requiresCameraMotion];
+  v5 = objc_msgSend_configuration(self, a2);
+  requiresCameraMotion = [v5 requiresCameraMotion];
 
-  configuration2 = [(ChromeNavigationDisplay *)self configuration];
-  cameraStyle = [configuration2 cameraStyle];
+  v10 = objc_msgSend_configuration(self);
+  cameraStyle = [v10 cameraStyle];
   if (requiresCameraMotion)
   {
     [(ChromeNavigationDisplay *)self _applyHorizontalCameraOffset:(cameraStyle & 0xFFFFFFFFFFFFFFFDLL) != 0 animated:animatedCopy];
@@ -823,8 +823,8 @@ LABEL_23:
 
     else
     {
-      configuration3 = [(ChromeNavigationDisplay *)self configuration];
-      cameraStyle2 = [configuration3 cameraStyle];
+      v8 = objc_msgSend_configuration(self);
+      cameraStyle2 = [v8 cameraStyle];
 
       if (cameraStyle2 != 6)
       {
@@ -901,8 +901,8 @@ LABEL_23:
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%s, navigationCameraReturnToPuck! on mapView: %{public}@", &v13, 0x16u);
   }
 
-  configuration = [(ChromeNavigationDisplay *)self configuration];
-  requiresCameraMotion = [configuration requiresCameraMotion];
+  v7 = objc_msgSend_configuration(self);
+  requiresCameraMotion = [v7 requiresCameraMotion];
 
   if (requiresCameraMotion)
   {
@@ -912,15 +912,15 @@ LABEL_23:
     return;
   }
 
-  configuration2 = [(ChromeNavigationDisplay *)self configuration];
-  if ([configuration2 cameraStyle] == 5)
+  v10 = objc_msgSend_configuration(self);
+  if ([v10 cameraStyle] == 5)
   {
   }
 
   else
   {
-    configuration3 = [(ChromeNavigationDisplay *)self configuration];
-    cameraStyle = [configuration3 cameraStyle];
+    v11 = objc_msgSend_configuration(self);
+    cameraStyle = [v11 cameraStyle];
 
     if (cameraStyle != 6)
     {
@@ -1167,8 +1167,8 @@ LABEL_23:
     [(ChromeNavigationDisplay *)self _captureCurrentNavigationState];
     self->_currentStepIndex = 0x7FFFFFFFFFFFFFFFLL;
     [(ChromeNavigationDisplay *)self _prepareNavigationDisplay];
-    configuration = [(ChromeNavigationDisplay *)self configuration];
-    [(ChromeNavigationDisplay *)self _setConfiguration:configuration animated:animatedCopy];
+    v10 = objc_msgSend_configuration(self);
+    [(ChromeNavigationDisplay *)self _setConfiguration:v10 animated:animatedCopy];
 
     v6 = +[MNNavigationService sharedService];
     [v6 registerObserver:self];
@@ -1234,14 +1234,14 @@ LABEL_23:
   suppressedCopy = suppressed;
   self->_suppressed = suppressed;
   isRunning = self->_isRunning;
-  configuration2 = sub_10009B590();
-  v9 = os_log_type_enabled(configuration2, OS_LOG_TYPE_INFO);
+  v8 = sub_10009B590();
+  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_INFO);
   if (!isRunning)
   {
     if (v9)
     {
       LOWORD(v12) = 0;
-      _os_log_impl(&_mh_execute_header, configuration2, OS_LOG_TYPE_INFO, "Not navigating, will not pause", &v12, 2u);
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "Not navigating, will not pause", &v12, 2u);
     }
 
     goto LABEL_15;
@@ -1251,10 +1251,10 @@ LABEL_23:
   {
     if (v9)
     {
-      configuration = [(ChromeNavigationDisplay *)self configuration];
+      v11 = objc_msgSend_configuration(self);
       v12 = 138412290;
-      v13 = configuration;
-      _os_log_impl(&_mh_execute_header, configuration2, OS_LOG_TYPE_INFO, "Will unsuppress navigation display and unpause camera display by refreshing current configuration (configuration:%@)", &v12, 0xCu);
+      v13 = v11;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "Will unsuppress navigation display and unpause camera display by refreshing current configuration (configuration:%@)", &v12, 0xCu);
     }
 
     if (self->_route)
@@ -1268,8 +1268,8 @@ LABEL_23:
     }
 
     [(ChromeNavigationDisplay *)self _prepareNavigationDisplay];
-    configuration2 = [(ChromeNavigationDisplay *)self configuration];
-    [(ChromeNavigationDisplay *)self _setConfiguration:configuration2 animated:animatedCopy];
+    v8 = objc_msgSend_configuration(self);
+    [(ChromeNavigationDisplay *)self _setConfiguration:v8 animated:animatedCopy];
 LABEL_15:
 
     return;
@@ -1278,7 +1278,7 @@ LABEL_15:
   if (v9)
   {
     LOWORD(v12) = 0;
-    _os_log_impl(&_mh_execute_header, configuration2, OS_LOG_TYPE_INFO, "Will suppress navigation display and pause camera", &v12, 2u);
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "Will suppress navigation display and pause camera", &v12, 2u);
   }
 
   lastAppliedConfiguration = self->_lastAppliedConfiguration;
@@ -1296,8 +1296,8 @@ LABEL_15:
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Will zoom out", v7, 2u);
   }
 
-  configuration = [(ChromeNavigationDisplay *)self configuration];
-  cameraStyle = [configuration cameraStyle];
+  v4 = objc_msgSend_configuration(self);
+  cameraStyle = [v4 cameraStyle];
 
   if ((cameraStyle - 1) <= 5)
   {
@@ -1315,8 +1315,8 @@ LABEL_15:
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Will zoom in", v7, 2u);
   }
 
-  configuration = [(ChromeNavigationDisplay *)self configuration];
-  cameraStyle = [configuration cameraStyle];
+  v4 = objc_msgSend_configuration(self);
+  cameraStyle = [v4 cameraStyle];
 
   if ((cameraStyle - 1) <= 5)
   {
@@ -1402,8 +1402,8 @@ LABEL_15:
   _mapLayer = [mapView _mapLayer];
   v7 = [_mapLayer carDisplayType] != 2;
 
-  configuration = [(ChromeNavigationDisplay *)self configuration];
-  if ([configuration cameraStyle] != 2 && !self->_trafficAlert)
+  v8 = objc_msgSend_configuration(self);
+  if ([v8 cameraStyle] != 2 && !self->_trafficAlert)
   {
     v7 = 0;
   }
@@ -1723,8 +1723,8 @@ LABEL_18:
 {
   animatedCopy = animated;
   displayCopy = display;
-  configuration = [(ChromeNavigationDisplay *)self configuration];
-  v8 = [configuration copy];
+  v7 = objc_msgSend_configuration(self);
+  v8 = [v7 copy];
   v9 = v8;
   if (v8)
   {

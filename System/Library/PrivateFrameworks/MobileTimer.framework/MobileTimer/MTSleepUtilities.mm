@@ -102,16 +102,14 @@
 
 + (void)alarmFromSleepOccurrence:(uint64_t)a1 scheduleEnabled:(void *)a2 keepOffUntilDate:(NSObject *)a3 .cold.1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v5 = [a2 alarmConfiguration];
   [v5 snoozeDuration];
-  v8 = 138543618;
-  v9 = a1;
-  v10 = 2050;
-  v11 = v6;
-  _os_log_error_impl(&dword_1B1F9F000, a3, OS_LOG_TYPE_ERROR, "%{public}@ Received invalid snooze duration from Sleep: %{public}f@. Defaulting to 9mins.", &v8, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
+  v7 = 138543618;
+  v8 = a1;
+  v9 = 2050;
+  v10 = v6;
+  _os_log_error_impl(&dword_1B1F9F000, a3, OS_LOG_TYPE_ERROR, "%{public}@ Received invalid snooze duration from Sleep: %{public}f@. Defaulting to 9mins.", &v7, 0x16u);
 }
 
 @end

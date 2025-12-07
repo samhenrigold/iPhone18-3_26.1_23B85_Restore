@@ -12,8 +12,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v20[6] = *MEMORY[0x1E69E9840];
-  v19[0] = @"itemReference";
+  v19[6] = *MEMORY[0x1E69E9840];
+  v18[0] = @"itemReference";
   itemReference = self->_itemReference;
   null = itemReference;
   if (!itemReference)
@@ -21,9 +21,9 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18 = null;
-  v20[0] = null;
-  v19[1] = @"reservationNumber";
+  v17 = null;
+  v19[0] = null;
+  v18[1] = @"reservationNumber";
   reservationNumber = self->_reservationNumber;
   null2 = reservationNumber;
   if (!reservationNumber)
@@ -31,9 +31,9 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v17 = null2;
-  v20[1] = null2;
-  v19[2] = @"bookingTime";
+  v16 = null2;
+  v19[1] = null2;
+  v18[2] = @"bookingTime";
   bookingTime = self->_bookingTime;
   null3 = bookingTime;
   if (!bookingTime)
@@ -41,11 +41,11 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v20[2] = null3;
-  v19[3] = @"reservationStatus";
+  v19[2] = null3;
+  v18[3] = @"reservationStatus";
   v9 = [MEMORY[0x1E696AD98] numberWithInteger:self->_reservationStatus];
-  v20[3] = v9;
-  v19[4] = @"reservationHolderName";
+  v19[3] = v9;
+  v18[4] = @"reservationHolderName";
   reservationHolderName = self->_reservationHolderName;
   null4 = reservationHolderName;
   if (!reservationHolderName)
@@ -53,8 +53,8 @@
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v20[4] = null4;
-  v19[5] = @"URL";
+  v19[4] = null4;
+  v18[5] = @"URL";
   URL = self->_URL;
   null5 = URL;
   if (!URL)
@@ -62,8 +62,8 @@
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v20[5] = null5;
-  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:6];
+  v19[5] = null5;
+  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:6];
   if (URL)
   {
     if (reservationHolderName)
@@ -113,7 +113,6 @@ LABEL_15:
 LABEL_23:
 
 LABEL_16:
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }

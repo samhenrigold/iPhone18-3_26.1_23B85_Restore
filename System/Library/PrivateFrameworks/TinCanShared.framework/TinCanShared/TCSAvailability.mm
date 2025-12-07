@@ -9,6 +9,7 @@
 - (id)_unavailabilityText:(BOOL)text;
 - (void)_handleDeviceFirstUnlock;
 - (void)_postNotificationName:(id)name;
+- (void)_setUserUnavailable:(BOOL)unavailable;
 - (void)dealloc;
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context;
 - (void)setShouldObserveFriendListDefaultChanges:(BOOL)changes;
@@ -120,11 +121,11 @@ uint64_t __33__TCSAvailability_sharedInstance__block_invoke()
 
 - (void)setShouldShowStatusIndicator:(BOOL)indicator
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (self->_shouldShowStatusIndicator != indicator)
   {
     self->_shouldShowStatusIndicator = indicator;
-    _TCSInitializeLogging();
+    _TCSInitializeLogging(self, a2);
     v4 = TCSLogDefault;
     if (os_log_type_enabled(TCSLogDefault, OS_LOG_TYPE_DEFAULT))
     {
@@ -138,15 +139,13 @@ uint64_t __33__TCSAvailability_sharedInstance__block_invoke()
         v5 = @"not ";
       }
 
-      v7 = 138412290;
-      v8 = v5;
-      _os_log_impl(&dword_26F110000, v4, OS_LOG_TYPE_DEFAULT, "Walkie-Talkie status indicator should %@be shown.", &v7, 0xCu);
+      v6 = 138412290;
+      v7 = v5;
+      _os_log_impl(&dword_26F110000, v4, OS_LOG_TYPE_DEFAULT, "Walkie-Talkie status indicator should %@be shown.", &v6, 0xCu);
     }
 
     [(TCSAvailability *)self _postNotificationName:@"TCSStatusIndicatorStateDidChangeNotification"];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)isUserAvailable
@@ -220,6 +219,63 @@ uint64_t __66__TCSAvailability_observeValueForKeyPath_ofObject_change_context___
   return [(NSUserDefaults *)tinCanDefaults BOOLForKey:@"Unavailable"];
 }
 
+- (void)_setUserUnavailable:(BOOL)unavailable
+{
+  unavailableCopy = unavailable;
+  v19 = *MEMORY[0x277D85DE8];
+  v5 = +[TCSBehavior isMobileKeyBagDisabledOrDeviceUnlockedSinceBoot];
+  if (v5)
+  {
+    if ([(TCSAvailability *)self _isUserUnavailable]!= unavailableCopy)
+    {
+      [(TCSAvailability *)self setShouldObserveUnavailabilityDefaultChanges:0];
+      tinCanDefaults = self->_tinCanDefaults;
+      if (unavailableCopy)
+      {
+        [(NSUserDefaults *)tinCanDefaults setBool:1 forKey:@"Unavailable"];
+      }
+
+      else
+      {
+        [(NSUserDefaults *)tinCanDefaults removeObjectForKey:@"Unavailable"];
+      }
+
+      v9 = [(TCSAvailability *)self setShouldObserveUnavailabilityDefaultChanges:1];
+      _TCSInitializeLogging(v9, v10);
+      v11 = TCSLogDefault;
+      if (os_log_type_enabled(TCSLogDefault, OS_LOG_TYPE_DEFAULT))
+      {
+        v12 = v11;
+        v13 = [(TCSAvailability *)self _unavailabilityText:unavailableCopy];
+        v17 = 138412290;
+        v18 = v13;
+        _os_log_impl(&dword_26F110000, v12, OS_LOG_TYPE_DEFAULT, "User has become %@ for Walkie-Talkie communication.", &v17, 0xCu);
+      }
+
+      [(TCSAvailability *)self _postNotificationName:@"TCSAvailabilityDidChangeNotification"];
+      if (NPSHasCompletedInitialSync())
+      {
+        npsManager = self->_npsManager;
+        v15 = [MEMORY[0x277CBEB98] setWithObject:@"Unavailable"];
+        [(NPSManager *)npsManager synchronizeUserDefaultsDomain:@"com.apple.tincan" keys:v15];
+      }
+
+      v16 = !unavailableCopy && [(TCSAvailability *)self _calculateShouldShowStatusIndicator];
+      [(TCSAvailability *)self setShouldShowStatusIndicator:v16];
+    }
+  }
+
+  else
+  {
+    _TCSInitializeLogging(v5, v6);
+    v8 = TCSLogDefault;
+    if (os_log_type_enabled(TCSLogDefault, OS_LOG_TYPE_ERROR))
+    {
+      [TCSAvailability _setUserUnavailable:v8];
+    }
+  }
+}
+
 - (BOOL)_calculateShouldShowStatusIndicator
 {
   if (!+[TCSBehavior isMobileKeyBagDisabledOrDeviceUnlockedSinceBoot])
@@ -265,7 +321,7 @@ uint64_t __66__TCSAvailability_observeValueForKeyPath_ofObject_change_context___
 
 - (void)_handleDeviceFirstUnlock
 {
-  _TCSInitializeLogging();
+  _TCSInitializeLogging(self, a2);
   v3 = TCSLogDefault;
   if (os_log_type_enabled(TCSLogDefault, OS_LOG_TYPE_DEFAULT))
   {

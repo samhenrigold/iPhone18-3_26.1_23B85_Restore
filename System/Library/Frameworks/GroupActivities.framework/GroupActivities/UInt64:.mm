@@ -24,10 +24,10 @@
   if (!lazy cache variable for type metadata for Published<[UInt64 : PubSubTopic.Participant]>)
   {
     __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSDys6UInt64V14CopresenceCore11PubSubTopicC11ParticipantVGMd, &_sSDys6UInt64V14CopresenceCore11PubSubTopicC11ParticipantVGMR);
-    v0 = type metadata accessor for Published();
-    if (!v1)
+    v1 = type metadata accessor for Published();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for Published<[UInt64 : PubSubTopic.Participant]>);
+      atomic_store(v1, &lazy cache variable for type metadata for Published<[UInt64 : PubSubTopic.Participant]>);
     }
   }
 }
@@ -38,7 +38,7 @@
   if (!lazy protocol witness table cache variable for type [UInt64 : PubSubTopic.Participant] and conformance <> [A : B])
   {
     __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSDys6UInt64V14CopresenceCore11PubSubTopicC11ParticipantVGMd, &_sSDys6UInt64V14CopresenceCore11PubSubTopicC11ParticipantVGMR);
-    lazy protocol witness table accessor for type Topic and conformance Topic(&lazy protocol witness table cache variable for type PubSubTopic.Participant and conformance PubSubTopic.Participant, MEMORY[0x1E69974C8]);
+    lazy protocol witness table accessor for type Topic and conformance Topic(&lazy protocol witness table cache variable for type PubSubTopic.Participant and conformance PubSubTopic.Participant, MEMORY[0x1E69974C8], MEMORY[0x1E69974D0]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type [UInt64 : PubSubTopic.Participant] and conformance <> [A : B]);
   }

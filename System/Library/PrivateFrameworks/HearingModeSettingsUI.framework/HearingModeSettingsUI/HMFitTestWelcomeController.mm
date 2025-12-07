@@ -3,8 +3,10 @@
 - (HMFitTestWelcomeController)initWithHeadphoneDevice:(id)device;
 - (HPMHeadphoneDevice)headphoneDevice;
 - (id)getAssetsDictionary;
+- (id)leftImage:(BOOL)image;
 - (id)marketingName;
 - (id)platformName;
+- (id)rightImage:(BOOL)image;
 - (id)singularName;
 - (unsigned)defaultFiltersID;
 - (unsigned)deviceColor;
@@ -203,6 +205,24 @@
   isProductOfDifferentColors = [provider isProductOfDifferentColors];
 
   return isProductOfDifferentColors;
+}
+
+- (id)leftImage:(BOOL)image
+{
+  imageCopy = image;
+  provider = [(HMFitTestWelcomeController *)self provider];
+  v5 = [provider leftImageWithIsDark:imageCopy];
+
+  return v5;
+}
+
+- (id)rightImage:(BOOL)image
+{
+  imageCopy = image;
+  provider = [(HMFitTestWelcomeController *)self provider];
+  v5 = [provider rightImageWithIsDark:imageCopy];
+
+  return v5;
 }
 
 - (id)marketingName

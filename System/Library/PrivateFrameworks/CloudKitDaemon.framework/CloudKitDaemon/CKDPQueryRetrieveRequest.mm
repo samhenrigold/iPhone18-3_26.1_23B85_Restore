@@ -85,42 +85,41 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (self->_query)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_continuationMarker)
   {
     PBDataWriterWriteDataField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    limit = self->_limit;
     PBDataWriterWriteUint32Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_zoneIdentifier)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_requestedFields)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_assetsToDownload)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -233,7 +232,6 @@
     }
   }
 
-  v12 = *(equalCopy + 56);
   if (*&self->_has)
   {
     if ((equalCopy[7] & 1) == 0 || self->_limit != *(equalCopy + 6))
@@ -250,27 +248,27 @@ LABEL_17:
   }
 
   zoneIdentifier = self->_zoneIdentifier;
-  v14 = equalCopy[6];
-  if (zoneIdentifier | v14 && !objc_msgSend_isEqual_(zoneIdentifier, v7, v14))
+  v13 = equalCopy[6];
+  if (zoneIdentifier | v13 && !objc_msgSend_isEqual_(zoneIdentifier, v7, v13))
   {
     goto LABEL_17;
   }
 
   requestedFields = self->_requestedFields;
-  v16 = equalCopy[5];
-  if (requestedFields | v16)
+  v15 = equalCopy[5];
+  if (requestedFields | v15)
   {
-    if (!objc_msgSend_isEqual_(requestedFields, v7, v16))
+    if (!objc_msgSend_isEqual_(requestedFields, v7, v15))
     {
       goto LABEL_17;
     }
   }
 
   assetsToDownload = self->_assetsToDownload;
-  v18 = equalCopy[1];
-  if (assetsToDownload | v18)
+  v17 = equalCopy[1];
+  if (assetsToDownload | v17)
   {
-    isEqual = objc_msgSend_isEqual_(assetsToDownload, v7, v18);
+    isEqual = objc_msgSend_isEqual_(assetsToDownload, v7, v17);
   }
 
   else

@@ -16,35 +16,53 @@
 + (id)getCustodianInfo;
 + (void)isMultipleFullAccountsEnabled;
 + (void)setCustodianInfo:(id)info;
++ (void)setCustomHealthCheckIntervalEnabled:(BOOL)enabled;
 + (void)setCustomHealthCheckIntervalMinutes:(int64_t)minutes;
 + (void)setCustomHealthCheckVersion:(int64_t)version;
 + (void)setCustomHealthFailureReachabilityIntervalMinutes:(int64_t)minutes;
++ (void)setCustomMaintenanceIntervalEnabled:(BOOL)enabled;
 + (void)setCustomMaintenanceIntervalMinutes:(int64_t)minutes;
++ (void)setDisableADPStateHealing:(BOOL)healing;
++ (void)setExperimentalModeEnabled:(BOOL)enabled;
 + (void)setHealthCheckTTREnabled:(BOOL)enabled;
++ (void)setLCInviteAcceptanceEnabled:(BOOL)enabled;
++ (void)setMultipleFullAccountsEnabled:(BOOL)enabled;
++ (void)setNeverSkipCustodianCheckEnabled:(BOOL)enabled;
++ (void)setShouldShowAccountContacts:(BOOL)contacts;
 + (void)setShouldUseUnifiedLoginEndpoint:(BOOL)endpoint;
++ (void)setSimulateUnhealthyCustodianEnabled:(BOOL)enabled;
 @end
 
 @implementation AAPreferences
 
 + (BOOL)isMultipleFullAccountsEnabled
 {
-  if ([MEMORY[0x1E6985E20] isInternalBuild])
+  AppBooleanValue = [MEMORY[0x1E6985E20] isInternalBuild];
+  if (AppBooleanValue)
   {
-    v2 = CFPreferencesGetAppBooleanValue(@"AAMultipleFullAccounts", @"com.apple.appleaccount", 0) != 0;
+    AppBooleanValue = CFPreferencesGetAppBooleanValue(@"AAMultipleFullAccounts", @"com.apple.appleaccount", 0);
+    v3 = AppBooleanValue != 0;
   }
 
   else
   {
-    v2 = 0;
+    v3 = 0;
   }
 
-  v3 = _AALogSystem();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+  v4 = _AALogSystem(AppBooleanValue);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    +[(AAPreferences *)v2];
+    +[(AAPreferences *)v3];
   }
 
-  return v2;
+  return v3;
+}
+
++ (void)setMultipleFullAccountsEnabled:(BOOL)enabled
+{
+  v3 = [MEMORY[0x1E696AD98] numberWithBool:enabled];
+
+  CFPreferencesSetAppValue(@"AAMultipleFullAccounts", v3, @"com.apple.appleaccount");
 }
 
 + (void)setShouldUseUnifiedLoginEndpoint:(BOOL)endpoint
@@ -52,6 +70,13 @@
   v3 = [MEMORY[0x1E696AD98] numberWithBool:!endpoint];
 
   CFPreferencesSetAppValue(@"AAUseLegacyLoginEndpoint", v3, @"com.apple.appleaccount");
+}
+
++ (void)setShouldShowAccountContacts:(BOOL)contacts
+{
+  v3 = [MEMORY[0x1E696AD98] numberWithBool:contacts];
+
+  CFPreferencesSetAppValue(@"AAShowAccountContacts", v3, @"com.apple.appleaccount");
 }
 
 + (BOOL)isRunningInStoreDemoMode
@@ -79,6 +104,13 @@
   }
 
   return isInternalBuild;
+}
+
++ (void)setExperimentalModeEnabled:(BOOL)enabled
+{
+  v3 = [MEMORY[0x1E696AD98] numberWithBool:enabled];
+
+  CFPreferencesSetAppValue(@"AAExperimentalMode", v3, @"com.apple.appleaccount");
 }
 
 + (BOOL)isHealthCheckTTREnabled
@@ -113,6 +145,13 @@
   return AppBooleanValue;
 }
 
++ (void)setSimulateUnhealthyCustodianEnabled:(BOOL)enabled
+{
+  v3 = [MEMORY[0x1E696AD98] numberWithBool:enabled];
+
+  CFPreferencesSetAppValue(@"AASimulateUnhealthyCustodian", v3, @"com.apple.appleaccount");
+}
+
 + (BOOL)isCustomHealthCheckIntervalEnabled
 {
   AppBooleanValue = CFPreferencesGetAppBooleanValue(@"AACustomHealthCheckIntervalEnabled", @"com.apple.appleaccount", 0);
@@ -124,6 +163,20 @@
   }
 
   return AppBooleanValue;
+}
+
++ (void)setCustomHealthCheckIntervalEnabled:(BOOL)enabled
+{
+  v3 = [MEMORY[0x1E696AD98] numberWithBool:enabled];
+
+  CFPreferencesSetAppValue(@"AACustomHealthCheckIntervalEnabled", v3, @"com.apple.appleaccount");
+}
+
++ (void)setNeverSkipCustodianCheckEnabled:(BOOL)enabled
+{
+  v3 = [MEMORY[0x1E696AD98] numberWithBool:enabled];
+
+  CFPreferencesSetAppValue(@"AANeverSkipCustodianCheck", v3, @"com.apple.appleaccount");
 }
 
 + (void)setCustomHealthCheckIntervalMinutes:(int64_t)minutes
@@ -160,6 +213,13 @@
   return AppBooleanValue;
 }
 
++ (void)setCustomMaintenanceIntervalEnabled:(BOOL)enabled
+{
+  v3 = [MEMORY[0x1E696AD98] numberWithBool:enabled];
+
+  CFPreferencesSetAppValue(@"AACustomMaintenanceIntervalEnabled", v3, @"com.apple.appleaccount");
+}
+
 + (void)setCustomMaintenanceIntervalMinutes:(int64_t)minutes
 {
   v3 = [MEMORY[0x1E696AD98] numberWithInteger:minutes];
@@ -178,6 +238,13 @@
   }
 
   return AppBooleanValue;
+}
+
++ (void)setLCInviteAcceptanceEnabled:(BOOL)enabled
+{
+  v3 = [MEMORY[0x1E696AD98] numberWithBool:enabled];
+
+  CFPreferencesSetAppValue(@"AALCInviteAcceptance", v3, @"com.apple.appleaccount");
 }
 
 + (BOOL)isMomentsDataclassEnabled
@@ -264,19 +331,31 @@
   return v2;
 }
 
++ (void)setDisableADPStateHealing:(BOOL)healing
+{
+  healingCopy = healing;
+  if (+[AADeviceInfo isInternalBuild])
+  {
+    CFPreferencesSetAppValue(@"disableWalrusStatusMismatchDetectionEnabled", [MEMORY[0x1E696AD98] numberWithBool:healingCopy], @"com.apple.appleaccount");
+    v4 = *MEMORY[0x1E695E8B8];
+    v5 = *MEMORY[0x1E695E898];
+
+    CFPreferencesSynchronize(@"com.apple.appleaccount", v4, v5);
+  }
+}
+
 + (void)isMultipleFullAccountsEnabled
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = @"NO";
   if (self)
   {
     v2 = @"YES";
   }
 
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_debug_impl(&dword_1B6F6A000, a2, OS_LOG_TYPE_DEBUG, "AAPreferences: Multiple full accounts are enabled on this platform: %@", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_debug_impl(&dword_1B6F6A000, a2, OS_LOG_TYPE_DEBUG, "AAPreferences: Multiple full accounts are enabled on this platform: %@", &v3, 0xCu);
 }
 
 @end

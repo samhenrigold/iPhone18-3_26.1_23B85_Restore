@@ -11,7 +11,7 @@
 
 - (id)attributeDescriptions
 {
-  v17[3] = *MEMORY[0x277D85DE8];
+  v16[3] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   userUUID = [(HMDHomeLockNotificationContextResolutionResult *)self userUUID];
   v5 = [v3 initWithName:@"UserUUID" value:userUUID];
@@ -19,15 +19,13 @@
   label = [(HMDHomeLockNotificationContextResolutionResult *)self label];
   defaultFormatter = [MEMORY[0x277D0F8D8] defaultFormatter];
   v9 = [v6 initWithName:@"Label" value:label options:2 formatter:defaultFormatter];
-  v17[1] = v9;
+  v16[1] = v9;
   v10 = objc_alloc(MEMORY[0x277D0F778]);
   labelIdentifier = [(HMDHomeLockNotificationContextResolutionResult *)self labelIdentifier];
   defaultFormatter2 = [MEMORY[0x277D0F8D8] defaultFormatter];
   v13 = [v10 initWithName:@"LabelIdentifier" value:labelIdentifier options:2 formatter:defaultFormatter2];
-  v17[2] = v13;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:3];
-
-  v15 = *MEMORY[0x277D85DE8];
+  v16[2] = v13;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:3];
 
   return v14;
 }
@@ -96,25 +94,7 @@
 
   v6 = v5;
   v7 = v6;
-  if (!v6)
-  {
-    goto LABEL_8;
-  }
-
-  userUUID = [v6 userUUID];
-  userUUID2 = [(HMDHomeLockNotificationContextResolutionResult *)self userUUID];
-  v10 = HMFEqualObjects();
-
-  if (!v10)
-  {
-    goto LABEL_8;
-  }
-
-  label = [v7 label];
-  label2 = [(HMDHomeLockNotificationContextResolutionResult *)self label];
-  v13 = HMFEqualObjects();
-
-  if (v13)
+  if (v6 && ([v6 userUUID], v8 = objc_claimAutoreleasedReturnValue(), -[HMDHomeLockNotificationContextResolutionResult userUUID](self, "userUUID"), v9 = objc_claimAutoreleasedReturnValue(), v10 = HMFEqualObjects(), v9, v8, v10) && (objc_msgSend(v7, "label"), v11 = objc_claimAutoreleasedReturnValue(), -[HMDHomeLockNotificationContextResolutionResult label](self, "label"), v12 = objc_claimAutoreleasedReturnValue(), v13 = HMFEqualObjects(), v12, v11, v13))
   {
     labelIdentifier = [v7 labelIdentifier];
     labelIdentifier2 = [(HMDHomeLockNotificationContextResolutionResult *)self labelIdentifier];
@@ -123,7 +103,6 @@
 
   else
   {
-LABEL_8:
     v16 = 0;
   }
 

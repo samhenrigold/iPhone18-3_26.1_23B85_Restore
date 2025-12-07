@@ -22,117 +22,115 @@
 
 - (id)dictionaryMetrics
 {
-  v71 = *MEMORY[0x277D85DE8];
-  v42[0] = @"character_count";
-  v41 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[NSString length](self->_utterance, "length")}];
-  v43 = v41;
-  v42[1] = @"voice_asset_key";
-  v42[2] = @"voice_resource_asset_key";
-  v27 = vdupq_n_s64(&stru_2881D71A8);
-  v44 = vbslq_s8(vceqzq_s64(*&self->_voiceAssetKey), v27, *&self->_voiceAssetKey);
-  v42[3] = @"is_warm_start";
-  v40 = [MEMORY[0x277CCABB0] numberWithBool:self->_isWarmStart];
-  v45 = v40;
-  v42[4] = @"tts_synthesis_latency";
+  v70 = *MEMORY[0x277D85DE8];
+  v41[0] = @"character_count";
+  v40 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[NSString length](self->_utterance, "length")}];
+  v42 = v40;
+  v41[1] = @"voice_asset_key";
+  v41[2] = @"voice_resource_asset_key";
+  v26 = vdupq_n_s64(&stru_2881D71A8);
+  v43 = vbslq_s8(vceqzq_s64(*&self->_voiceAssetKey), v26, *&self->_voiceAssetKey);
+  v41[3] = @"is_warm_start";
+  v39 = [MEMORY[0x277CCABB0] numberWithBool:self->_isWarmStart];
+  v44 = v39;
+  v41[4] = @"tts_synthesis_latency";
   v3 = MEMORY[0x277CCABB0];
   [(VSInstrumentMetrics *)self ttsSynthesisLatency];
-  v39 = [v3 numberWithDouble:?];
-  v46 = v39;
-  v42[5] = @"tts_total_latency";
+  v38 = [v3 numberWithDouble:?];
+  v45 = v38;
+  v41[5] = @"tts_total_latency";
   v4 = MEMORY[0x277CCABB0];
   [(VSInstrumentMetrics *)self timeToSpeakLatency];
-  v38 = [v4 numberWithDouble:?];
-  v47 = v38;
-  v42[6] = @"tts_and_playback_total_latency";
+  v37 = [v4 numberWithDouble:?];
+  v46 = v37;
+  v41[6] = @"tts_and_playback_total_latency";
   v5 = MEMORY[0x277CCABB0];
   [(VSInstrumentMetrics *)self timeToPlaybackLatency];
-  v37 = [v5 numberWithDouble:?];
-  v48 = v37;
-  v42[7] = @"audio_queue_latency";
+  v36 = [v5 numberWithDouble:?];
+  v47 = v36;
+  v41[7] = @"audio_queue_latency";
   v6 = MEMORY[0x277CCABB0];
   [(VSInstrumentMetrics *)self audioQueueLatency];
-  v36 = [v6 numberWithDouble:?];
-  v49 = v36;
-  v42[8] = @"audio_duration";
-  v35 = [MEMORY[0x277CCABB0] numberWithDouble:self->_audioDuration];
-  v50 = v35;
-  v42[9] = @"is_speech_request";
-  v34 = [MEMORY[0x277CCABB0] numberWithBool:self->_isSpeechRequest];
-  v51 = v34;
-  v42[10] = @"synthesis_to_speech_time_gap";
+  v35 = [v6 numberWithDouble:?];
+  v48 = v35;
+  v41[8] = @"audio_duration";
+  v34 = [MEMORY[0x277CCABB0] numberWithDouble:self->_audioDuration];
+  v49 = v34;
+  v41[9] = @"is_speech_request";
+  v33 = [MEMORY[0x277CCABB0] numberWithBool:self->_isSpeechRequest];
+  v50 = v33;
+  v41[10] = @"synthesis_to_speech_time_gap";
   v7 = MEMORY[0x277CCABB0];
   [(VSInstrumentMetrics *)self eagerRequestTimeGap];
-  v33 = [v7 numberWithDouble:?];
-  v52 = v33;
-  v42[11] = @"is_synthesis_cached";
-  v32 = [MEMORY[0x277CCABB0] numberWithBool:{-[VSInstrumentMetrics isSynthesisCached](self, "isSynthesisCached")}];
-  v53 = v32;
-  v42[12] = @"prompt_count";
-  v31 = [MEMORY[0x277CCABB0] numberWithInteger:self->_promptCount];
-  v54 = v31;
-  v42[13] = @"source_of_tts";
+  v32 = [v7 numberWithDouble:?];
+  v51 = v32;
+  v41[11] = @"is_synthesis_cached";
+  v31 = [MEMORY[0x277CCABB0] numberWithBool:{-[VSInstrumentMetrics isSynthesisCached](self, "isSynthesisCached")}];
+  v52 = v31;
+  v41[12] = @"prompt_count";
+  v30 = [MEMORY[0x277CCABB0] numberWithInteger:self->_promptCount];
+  v53 = v30;
+  v41[13] = @"source_of_tts";
   v8 = [MEMORY[0x277CCABB0] numberWithInteger:self->_sourceOfTTS];
-  v30 = v8;
+  v29 = v8;
   audioOutputRoute = self->_audioOutputRoute;
   if (!audioOutputRoute)
   {
     audioOutputRoute = &stru_2881D71A8;
   }
 
-  v55 = v8;
-  v56 = audioOutputRoute;
-  v42[14] = @"audio_output_route";
-  v42[15] = @"error_code";
-  v29 = [MEMORY[0x277CCABB0] numberWithInteger:self->_errorCode];
-  v57 = v29;
-  v42[16] = @"client_bundle_identifier";
-  v42[17] = @"experiment_identifier";
-  v58 = vbslq_s8(vceqzq_s64(*&self->_clientBundleIdentifier), v27, *&self->_clientBundleIdentifier);
-  v42[18] = @"is_server_tts";
-  v28 = [MEMORY[0x277CCABB0] numberWithBool:self->_isServerTTS];
-  v59 = v28;
-  v42[19] = @"is_server_stream_tts";
-  v26 = [MEMORY[0x277CCABB0] numberWithBool:self->_isServerStreamTTS];
-  v60 = v26;
-  v42[20] = @"is_server_timeout";
-  v25 = [MEMORY[0x277CCABB0] numberWithBool:self->_isServerTimeout];
-  v61 = v25;
-  v42[21] = @"can_use_server_tts";
+  v54 = v8;
+  v55 = audioOutputRoute;
+  v41[14] = @"audio_output_route";
+  v41[15] = @"error_code";
+  v28 = [MEMORY[0x277CCABB0] numberWithInteger:self->_errorCode];
+  v56 = v28;
+  v41[16] = @"client_bundle_identifier";
+  v41[17] = @"experiment_identifier";
+  v57 = vbslq_s8(vceqzq_s64(*&self->_clientBundleIdentifier), v26, *&self->_clientBundleIdentifier);
+  v41[18] = @"is_server_tts";
+  v27 = [MEMORY[0x277CCABB0] numberWithBool:self->_isServerTTS];
+  v58 = v27;
+  v41[19] = @"is_server_stream_tts";
+  v25 = [MEMORY[0x277CCABB0] numberWithBool:self->_isServerStreamTTS];
+  v59 = v25;
+  v41[20] = @"is_server_timeout";
+  v24 = [MEMORY[0x277CCABB0] numberWithBool:self->_isServerTimeout];
+  v60 = v24;
+  v41[21] = @"can_use_server_tts";
   v10 = [MEMORY[0x277CCABB0] numberWithBool:self->_canUseServerTTS];
-  v62 = v10;
-  v42[22] = @"is_server_tts_racing";
+  v61 = v10;
+  v41[22] = @"is_server_tts_racing";
   v11 = [MEMORY[0x277CCABB0] numberWithBool:self->_isServerTTSRacing];
-  v63 = v11;
-  v42[23] = @"server_first_packet_latency";
+  v62 = v11;
+  v41[23] = @"server_first_packet_latency";
   v12 = MEMORY[0x277CCABB0];
   [(VSInstrumentMetrics *)self serverStreamFirstPacketLatency];
   v13 = [v12 numberWithDouble:?];
-  v64 = v13;
-  v42[24] = @"server_last_packet_latency";
+  v63 = v13;
+  v41[24] = @"server_last_packet_latency";
   v14 = MEMORY[0x277CCABB0];
   [(VSInstrumentMetrics *)self serverStreamLastPacketLatency];
   v15 = [v14 numberWithDouble:?];
-  v65 = v15;
-  v42[25] = @"server_streamed_audio_duration";
+  v64 = v15;
+  v41[25] = @"server_streamed_audio_duration";
   v16 = [MEMORY[0x277CCABB0] numberWithDouble:self->_serverStreamedAudioDuration];
-  v66 = v16;
-  v42[26] = @"real_time_factor";
+  v65 = v16;
+  v41[26] = @"real_time_factor";
   v17 = MEMORY[0x277CCABB0];
   [(VSInstrumentMetrics *)self cappedRealTimeFactor];
   v18 = [v17 numberWithDouble:?];
-  v67 = v18;
-  v42[27] = @"neural_alignment_stall";
+  v66 = v18;
+  v41[27] = @"neural_alignment_stall";
   v19 = [MEMORY[0x277CCABB0] numberWithBool:self->_neuralAlignmentStall];
-  v68 = v19;
-  v42[28] = @"neural_audio_click";
+  v67 = v19;
+  v41[28] = @"neural_audio_click";
   v20 = [MEMORY[0x277CCABB0] numberWithBool:self->_neuralAudioClick];
-  v69 = v20;
-  v42[29] = @"neural_fallback";
+  v68 = v20;
+  v41[29] = @"neural_fallback";
   v21 = [MEMORY[0x277CCABB0] numberWithBool:self->_neuralFallback];
-  v70 = v21;
-  v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v43 forKeys:v42 count:30];
-
-  v23 = *MEMORY[0x277D85DE8];
+  v69 = v21;
+  v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v42 forKeys:v41 count:30];
 
   return v22;
 }
@@ -366,28 +364,28 @@ double __35__VSInstrumentMetrics__clockFactor__block_invoke()
 
 - (id)description
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCAB68] stringWithString:@"{\n"];
   dictionaryMetrics = [(VSInstrumentMetrics *)self dictionaryMetrics];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v5 = [&unk_2881E0BD8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [&unk_2881E0BD8 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v16;
+    v7 = *v15;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(&unk_2881E0BD8);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * i);
+        v9 = *(*(&v14 + 1) + 8 * i);
         v10 = [dictionaryMetrics objectForKeyedSubscript:v9];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
@@ -403,15 +401,13 @@ double __35__VSInstrumentMetrics__clockFactor__block_invoke()
         }
       }
 
-      v6 = [&unk_2881E0BD8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [&unk_2881E0BD8 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v6);
   }
 
   [v3 appendString:@"}"];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

@@ -44,7 +44,7 @@
       [self operatorType];
       v3 = HDSQLiteComparisonTypeForPredicateOperator();
       value = [self value];
-      HDMedicationDoseEventEntityPredicateForScheduledDate(v3);
+      HDMedicationDoseEventEntityPredicateForScheduledDate(v3, value);
     }
     v4 = ;
   }

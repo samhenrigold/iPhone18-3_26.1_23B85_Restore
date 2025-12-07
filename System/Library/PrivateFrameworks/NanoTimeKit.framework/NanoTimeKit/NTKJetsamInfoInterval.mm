@@ -90,7 +90,7 @@
 - (BOOL)waitUntilDirtyMemoryReaches:(int64_t)reaches maxWaitMS:(int)s
 {
   v21 = *MEMORY[0x277D85DE8];
-  [(NTKJetsamInfoInterval *)self currentInfo];
+  objc_msgSend_currentInfo(self, a2);
   v7 = v15;
   if (v15 > reaches && s >= 1)
   {
@@ -100,7 +100,7 @@
       *__rqtp = xmmword_22DCE9730;
       nanosleep(__rqtp, 0);
       v9 += 100;
-      [(NTKJetsamInfoInterval *)self currentInfo];
+      objc_msgSend_currentInfo(self);
       v7 = v14;
     }
 

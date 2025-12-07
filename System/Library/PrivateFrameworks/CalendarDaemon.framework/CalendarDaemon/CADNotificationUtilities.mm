@@ -5,9 +5,12 @@
 + (id)_notificationTypesFromNotifications:(id)notifications;
 + (id)_objectIDsFromNotifications:(id)notifications;
 + (id)_occurrenceDatesFromNotifications:(id)notifications;
++ (id)_stringForNotificationType:(int)type;
 + (id)flattenedNotificationsFromNotifications:(id)notifications expanded:(BOOL)expanded;
++ (int)CADDatabaseGetEventNotificationItemsWithConnection:(id)connection afterDate:(id)date forSourceWithExternalIdentifier:(id)identifier excludingDelegateSources:(BOOL)sources excludingUncheckedCalendars:(BOOL)calendars filteredByShowsNotificationsFlag:(BOOL)flag expanded:(BOOL)expanded earliestExpirationDate:(id *)self0 notificationTypes:(id *)self1 objectIDs:(id *)self2 occurrenceDates:(id *)self3 attendeeObjectIDs:(id *)self4;
 + (int)_gatherEventInvitationsAndRepliesWithContext:(id)context;
 + (int)_gatherSharedCalendarInvitationsWithContext:(id)context;
++ (int)_gatherSharedCalendarInviteReplyNotification:(void *)notification withContext:(id)context database:(CalDatabase *)database databaseID:(int)d;
 + (int)_gatherSharedCalendarResourceChangeNotification:(void *)notification withContext:(id)context database:(CalDatabase *)database databaseID:(int)d;
 + (int)_gatherSharedCalendarResponsesAndResourceChangesWithContext:(id)context;
 + (int)_gatherSuggestionResourceChangeNotification:(void *)notification withContext:(id)context database:(CalDatabase *)database databaseID:(int)d;
@@ -154,6 +157,71 @@ void __64__CADNotificationUtilities__attendeeObjectIDsFromNotifications___block_
   [v5 addObject:v4];
 }
 
++ (int)CADDatabaseGetEventNotificationItemsWithConnection:(id)connection afterDate:(id)date forSourceWithExternalIdentifier:(id)identifier excludingDelegateSources:(BOOL)sources excludingUncheckedCalendars:(BOOL)calendars filteredByShowsNotificationsFlag:(BOOL)flag expanded:(BOOL)expanded earliestExpirationDate:(id *)self0 notificationTypes:(id *)self1 objectIDs:(id *)self2 occurrenceDates:(id *)self3 attendeeObjectIDs:(id *)self4
+{
+  flagCopy = flag;
+  calendarsCopy = calendars;
+  sourcesCopy = sources;
+  identifierCopy = identifier;
+  dateCopy = date;
+  connectionCopy = connection;
+  LOBYTE(v39) = expanded;
+  v23 = [[CADNotificationGatheringContext alloc] initWithConnection:connectionCopy afterDate:dateCopy forSourceWithExternalIdentifier:identifierCopy excludingDelegateSources:sourcesCopy excludingUncheckedCalendars:calendarsCopy filteredByShowsNotificationsFlag:flagCopy expanded:v39];
+
+  v24 = [self _gatherEventInvitationsAndRepliesWithContext:v23];
+  if (!v24)
+  {
+    v24 = [self _gatherSharedCalendarInvitationsWithContext:v23];
+    if (!v24)
+    {
+      v24 = [self _gatherSharedCalendarResponsesAndResourceChangesWithContext:v23];
+    }
+  }
+
+  v25 = v24;
+  v26 = objc_opt_class();
+  notifications = [(CADNotificationGatheringContext *)v23 notifications];
+  [v26 _logNotificationCountsForNotifications:notifications];
+
+  if (expirationDate)
+  {
+    *expirationDate = [(CADNotificationGatheringContext *)v23 earliestExpiringNotification];
+  }
+
+  notifications2 = [(CADNotificationGatheringContext *)v23 notifications];
+  v29 = [self flattenedNotificationsFromNotifications:notifications2 expanded:expanded];
+
+  v30 = [self _notificationTypesFromNotifications:v29];
+  v31 = [self _objectIDsFromNotifications:v29];
+  v32 = [self _occurrenceDatesFromNotifications:v29];
+  v33 = [self _attendeeObjectIDsFromNotifications:v29];
+  if (types)
+  {
+    v34 = v30;
+    *types = v30;
+  }
+
+  if (ds)
+  {
+    v35 = v31;
+    *ds = v31;
+  }
+
+  if (dates)
+  {
+    v36 = v32;
+    *dates = v32;
+  }
+
+  if (iDs)
+  {
+    v37 = v33;
+    *iDs = v33;
+  }
+
+  return v25;
+}
+
 + (int)_gatherEventInvitationsAndRepliesWithContext:(id)context
 {
   contextCopy = context;
@@ -171,53 +239,53 @@ void __64__CADNotificationUtilities__attendeeObjectIDsFromNotifications___block_
 
 void __73__CADNotificationUtilities__gatherEventInvitationsAndRepliesWithContext___block_invoke(uint64_t a1, unsigned int a2, uint64_t a3)
 {
-  v107 = *MEMORY[0x277D85DE8];
+  v106 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) now];
   v5 = v4;
-  v79 = a3;
+  v78 = a3;
+  v93 = 0u;
   v94 = 0u;
   v95 = 0u;
   v96 = 0u;
-  v97 = 0u;
   obj = CalDatabaseCopyOfAllNotifiableEventsInStore();
-  v6 = [obj countByEnumeratingWithState:&v94 objects:v106 count:16];
+  v6 = [obj countByEnumeratingWithState:&v93 objects:v105 count:16];
   if (!v6)
   {
 
     goto LABEL_107;
   }
 
-  v80 = 0;
-  v8 = *v95;
+  v79 = 0;
+  v8 = *v94;
   v9 = *MEMORY[0x277CF78E8];
   v10 = *MEMORY[0x277CF78F0];
   *&v7 = 67109632;
-  v78 = v7;
+  v77 = v7;
   do
   {
     v11 = 0;
     do
     {
-      if (*v95 != v8)
+      if (*v94 != v8)
       {
         objc_enumerationMutation(obj);
       }
 
-      v12 = *(*(&v94 + 1) + 8 * v11);
+      v12 = *(*(&v93 + 1) + 8 * v11);
       v13 = CalEventCopyStore();
       v14 = CalCalendarItemCopyCalendar();
-      v90 = 0;
-      v91 = &v90;
-      v92 = 0x2020000000;
-      v93 = 0;
-      v89[0] = MEMORY[0x277D85DD0];
-      v89[1] = 3221225472;
-      v89[2] = __73__CADNotificationUtilities__gatherEventInvitationsAndRepliesWithContext___block_invoke_2;
-      v89[3] = &unk_27851B200;
-      v89[4] = &v90;
-      v89[5] = v13;
-      v89[6] = v14;
-      v15 = MEMORY[0x22AA4DCD0](v89);
+      v89 = 0;
+      v90 = &v89;
+      v91 = 0x2020000000;
+      v92 = 0;
+      v88[0] = MEMORY[0x277D85DD0];
+      v88[1] = 3221225472;
+      v88[2] = __73__CADNotificationUtilities__gatherEventInvitationsAndRepliesWithContext___block_invoke_2;
+      v88[3] = &unk_27851B200;
+      v88[4] = &v89;
+      v88[5] = v13;
+      v88[6] = v14;
+      v15 = MEMORY[0x22AA4DCD0](v88);
       if (CalStoreIsFacebook())
       {
         v16 = CADNotificationLogHandle;
@@ -225,7 +293,7 @@ void __73__CADNotificationUtilities__gatherEventInvitationsAndRepliesWithContext
         {
           RowID = CalCalendarItemGetRowID();
           *buf = 67109120;
-          v99 = RowID;
+          v98 = RowID;
           v18 = v16;
           v19 = "Skipping notifiable event %d because it's in a facebook store";
           goto LABEL_15;
@@ -241,7 +309,7 @@ void __73__CADNotificationUtilities__gatherEventInvitationsAndRepliesWithContext
         {
           v21 = CalCalendarItemGetRowID();
           *buf = 67109120;
-          v99 = v21;
+          v98 = v21;
           v18 = v16;
           v19 = "Skipping notifiable event %d because it's in a store that doesn't support incoming invitations";
           goto LABEL_15;
@@ -260,7 +328,7 @@ LABEL_16:
         {
           v20 = CalCalendarItemGetRowID();
           *buf = 67109120;
-          v99 = v20;
+          v98 = v20;
           v18 = v16;
           v19 = "Skipping notifiable event %d because it's marked as junk";
           goto LABEL_15;
@@ -276,7 +344,7 @@ LABEL_16:
         {
           v22 = CalCalendarItemGetRowID();
           *buf = 67109120;
-          v99 = v22;
+          v98 = v22;
           v18 = v16;
           v19 = "Skipping notificable event %d because organizer is blocked";
 LABEL_15:
@@ -294,7 +362,7 @@ LABEL_15:
         {
           v29 = CalCalendarItemGetRowID();
           *buf = 67109120;
-          v99 = v29;
+          v98 = v29;
           _os_log_impl(&dword_22430B000, v16, OS_LOG_TYPE_DEFAULT, "Skipping notifiable event %d because we failed to get the store identifier", buf, 8u);
         }
 
@@ -310,7 +378,7 @@ LABEL_15:
         {
           v30 = CalCalendarItemGetRowID();
           *buf = 67109120;
-          v99 = v30;
+          v98 = v30;
           v27 = v25;
           v28 = "Skipping notifiable event %d because we failed to get the event unique identifier";
 LABEL_35:
@@ -337,7 +405,7 @@ LABEL_37:
         {
           v26 = CalCalendarItemGetRowID();
           *buf = 67109120;
-          v99 = v26;
+          v98 = v26;
           v27 = v25;
           v28 = "Skipping notifiable event %d because it's been declined";
           goto LABEL_35;
@@ -357,7 +425,7 @@ LABEL_37:
           {
             v57 = CalCalendarItemGetRowID();
             *buf = 67109120;
-            v99 = v57;
+            v98 = v57;
             _os_log_impl(&dword_22430B000, v16, OS_LOG_TYPE_DEFAULT, "Skipping notifiable event %d because it's an attendee status change, and the user has disabled those alerts", buf, 8u);
           }
 
@@ -371,7 +439,7 @@ LABEL_37:
           {
             v34 = CalCalendarItemGetRowID();
             *buf = 67109120;
-            v99 = v34;
+            v98 = v34;
             _os_log_impl(&dword_22430B000, v33, OS_LOG_TYPE_DEFAULT, "Skipping notifiable event %d because it's cancelled", buf, 8u);
           }
 
@@ -379,12 +447,12 @@ LABEL_44:
 
           CalEventSetNeedsNotification();
           v15[2](v15);
-          v80 = 1;
+          v79 = 1;
           goto LABEL_17;
         }
 
         v36 = CalCalendarItemCopyAttendees();
-        v84 = v32 & 0x11F;
+        v83 = v32 & 0x11F;
         if (v36)
         {
           CalEventGetStartDate();
@@ -394,19 +462,19 @@ LABEL_44:
           Count = CFArrayGetCount(v36);
           Mutable = CFArrayCreateMutable(0, Count, 0);
           theArray = v36;
-          v91[3] = Mutable;
+          v90[3] = Mutable;
           if (Count < 1)
           {
-            v86 = 1;
+            v85 = 1;
             v35 = v9;
           }
 
           else
           {
-            v81 = Count;
+            v80 = Count;
             v43 = 0;
             v44 = v40 - v38;
-            v86 = 1;
+            v85 = 1;
             v35 = v9;
             do
             {
@@ -414,13 +482,13 @@ LABEL_44:
               if ((v32 & 0x20) != 0 && CalParticipantGetStatusChanged())
               {
                 Status = CalAttendeeGetStatus();
-                v47 = v84;
+                v47 = v83;
                 if (Status == 2)
                 {
-                  v47 = v84 | 0x20;
+                  v47 = v83 | 0x20;
                 }
 
-                v84 = v47;
+                v83 = v47;
               }
 
               v48 = CalCalendarItemCopySelfAttendee();
@@ -428,21 +496,21 @@ LABEL_44:
               {
                 v49 = CalAttendeeGetProposedStartDateStatus() == 3;
                 v50 = v48 == ValueAtIndex;
-                v51 = v84;
+                v51 = v83;
                 v52 = !v49 || !v50;
                 if (v49 && v50)
                 {
-                  v51 = v84 | 0x80;
+                  v51 = v83 | 0x80;
                 }
 
-                v84 = v51;
-                v53 = v86;
+                v83 = v51;
+                v53 = v85;
                 if (!v52)
                 {
                   v53 = 0;
                 }
 
-                v86 = v53;
+                v85 = v53;
               }
 
               if ((v32 & 0x40) != 0 && CalParticipantGetProposedStartDateChanged())
@@ -452,7 +520,7 @@ LABEL_44:
                 if (v54 == v10)
                 {
                   CalParticipantSetProposedStartDateChanged();
-                  v80 = 1;
+                  v79 = 1;
                 }
 
                 else
@@ -463,15 +531,15 @@ LABEL_44:
                     v35 = v44 + v55;
                   }
 
-                  CFArrayAppendValue(v91[3], v56);
-                  v84 |= 0x40u;
+                  CFArrayAppendValue(v90[3], v56);
+                  v83 |= 0x40u;
                 }
               }
 
               ++v43;
             }
 
-            while (v81 != v43);
+            while (v80 != v43);
           }
 
           CFRelease(theArray);
@@ -479,22 +547,22 @@ LABEL_44:
 
         else
         {
-          v86 = 1;
+          v85 = 1;
           v35 = v9;
         }
 
-        if (v84 != v32)
+        if (v83 != v32)
         {
           CalEventSetInvitationChangedProperties();
           v33 = CADNotificationLogHandle;
           v58 = os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT);
-          if (!v84)
+          if (!v83)
           {
             if (v58)
             {
               v75 = CalCalendarItemGetRowID();
               *buf = 67109120;
-              v99 = v75;
+              v98 = v75;
               _os_log_impl(&dword_22430B000, v33, OS_LOG_TYPE_DEFAULT, "Skipping notifiable event %d because it was marked as having invitation changes, but they were all false positives", buf, 8u);
             }
 
@@ -504,22 +572,22 @@ LABEL_44:
           if (v58)
           {
             v59 = CalCalendarItemGetRowID();
-            *buf = v78;
-            v99 = v84;
-            v100 = 1024;
-            v101 = v32;
-            v102 = 1024;
-            v103 = v59;
+            *buf = v77;
+            v98 = v83;
+            v99 = 1024;
+            v100 = v32;
+            v101 = 1024;
+            v102 = v59;
             _os_log_impl(&dword_22430B000, v33, OS_LOG_TYPE_DEFAULT, "actualInvitationChangedProperties 0x%x didn't match invitationChangedProperties 0x%x; updating event %d", buf, 0x14u);
           }
 
-          v80 = 1;
+          v79 = 1;
         }
       }
 
       else
       {
-        v86 = 0;
+        v85 = 0;
         v35 = v9;
       }
 
@@ -527,7 +595,7 @@ LABEL_44:
       CalEventOccurrenceGetDate();
       v62 = v61;
       CFRelease(v60);
-      [*(a1 + 32) expirationTimestampForEvent:v12 withInitialOccurrenceDate:v79 database:v62];
+      [*(a1 + 32) expirationTimestampForEvent:v12 withInitialOccurrenceDate:v78 database:v62];
       if (v63 >= v35)
       {
         v35 = v63;
@@ -541,7 +609,7 @@ LABEL_44:
         {
           v68 = CalCalendarItemGetRowID();
           *buf = 67109120;
-          v99 = v68;
+          v98 = v68;
           _os_log_impl(&dword_22430B000, v16, OS_LOG_TYPE_DEFAULT, "Skipping notifiable event %d because it takes place in the past", buf, 8u);
         }
 
@@ -552,18 +620,18 @@ LABEL_44:
       {
         v65 = CalCalendarItemGetRowID();
         *buf = 67109888;
-        v99 = v65;
-        v100 = 1024;
-        v101 = v86;
-        v102 = 1024;
-        v103 = v32;
-        v104 = 2048;
-        v105 = v35;
+        v98 = v65;
+        v99 = 1024;
+        v100 = v85;
+        v101 = 1024;
+        v102 = v32;
+        v103 = 2048;
+        v104 = v35;
         _os_log_impl(&dword_22430B000, v16, OS_LOG_TYPE_DEFAULT, "Including notifiable event %d with type %d, invitationChangedProperties 0x%x and expiration date %f", buf, 0x1Eu);
       }
 
-      v85 = [objc_alloc(MEMORY[0x277CF74C8]) initWithEntityType:2 entityID:CalCalendarItemGetRowID() databaseID:a2];
-      v66 = v91[3];
+      v84 = [objc_alloc(MEMORY[0x277CF74C8]) initWithEntityType:2 entityID:CalCalendarItemGetRowID() databaseID:a2];
+      v66 = v90[3];
       if (v66)
       {
         v67 = CFArrayGetCount(v66);
@@ -587,12 +655,12 @@ LABEL_44:
 
       if (v70 == 1)
       {
-        v71 = [[CADNotification alloc] initWithType:v86 objectID:v85 occurrenceDate:v62 expirationDate:v35];
+        v71 = [[CADNotification alloc] initWithType:v85 objectID:v84 occurrenceDate:v62 expirationDate:v35];
         v72 = 0;
         do
         {
-          v73 = [objc_alloc(MEMORY[0x277CF74C8]) initWithEntityType:7 entityID:CFArrayGetValueAtIndex(v91[3] databaseID:{v72), a2}];
-          v74 = [[CADExpandedNotification alloc] initWithType:v86 objectID:v85 occurrenceDate:v73 expirationDate:v62 attendeeObjectID:v35];
+          v73 = [objc_alloc(MEMORY[0x277CF74C8]) initWithEntityType:7 entityID:CFArrayGetValueAtIndex(v90[3] databaseID:{v72), a2}];
+          v74 = [[CADExpandedNotification alloc] initWithType:v85 objectID:v84 occurrenceDate:v73 expirationDate:v62 attendeeObjectID:v35];
           [(CADNotification *)v71 addExpandedNotification:v74];
 
           ++v72;
@@ -604,32 +672,30 @@ LABEL_44:
 
       else
       {
-        v71 = [[CADNotification alloc] initWithType:v86 objectID:v85 occurrenceDate:v62 expirationDate:v35];
+        v71 = [[CADNotification alloc] initWithType:v85 objectID:v84 occurrenceDate:v62 expirationDate:v35];
         [*(a1 + 32) addNotification:v71];
       }
 
       v15[2](v15);
 LABEL_17:
 
-      _Block_object_dispose(&v90, 8);
+      _Block_object_dispose(&v89, 8);
       ++v11;
     }
 
     while (v11 != v6);
-    v76 = [obj countByEnumeratingWithState:&v94 objects:v106 count:16];
+    v76 = [obj countByEnumeratingWithState:&v93 objects:v105 count:16];
     v6 = v76;
   }
 
   while (v76);
 
-  if (v80)
+  if (v79)
   {
     CalDatabaseSave();
   }
 
 LABEL_107:
-
-  v77 = *MEMORY[0x277D85DE8];
 }
 
 void __73__CADNotificationUtilities__gatherEventInvitationsAndRepliesWithContext___block_invoke_2(void *a1)
@@ -669,37 +735,37 @@ void __73__CADNotificationUtilities__gatherEventInvitationsAndRepliesWithContext
   return 0;
 }
 
-void __72__CADNotificationUtilities__gatherSharedCalendarInvitationsWithContext___block_invoke(uint64_t a1, unsigned int a2)
+void __72__CADNotificationUtilities__gatherSharedCalendarInvitationsWithContext___block_invoke(uint64_t a1, unsigned int a2, uint64_t a3)
 {
   v36 = *MEMORY[0x277D85DE8];
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v3 = CalDatabaseCopyOfAllCalendarsInStoreWithOptions();
-  v4 = [v3 countByEnumeratingWithState:&v29 objects:v35 count:16];
-  if (v4)
+  v4 = CalDatabaseCopyOfAllCalendarsInStoreWithOptions();
+  v5 = [v4 countByEnumeratingWithState:&v29 objects:v35 count:16];
+  if (v5)
   {
-    v5 = v4;
-    v6 = *v30;
-    v7 = *MEMORY[0x277CF78E0];
+    v6 = v5;
+    v7 = *v30;
+    v8 = *MEMORY[0x277CF78E0];
     do
     {
-      for (i = 0; i != v5; ++i)
+      for (i = 0; i != v6; ++i)
       {
-        if (*v30 != v6)
+        if (*v30 != v7)
         {
-          objc_enumerationMutation(v3);
+          objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v29 + 1) + 8 * i);
-        v10 = CalCalendarCopyStore();
-        if (v10)
+        v10 = *(*(&v29 + 1) + 8 * i);
+        v11 = CalCalendarCopyStore();
+        if (v11)
         {
-          v11 = v10;
-          v12 = [*(a1 + 32) shouldSkipNotificationForStore:v10];
-          CFRelease(v11);
-          if (v12)
+          v12 = v11;
+          v13 = [*(a1 + 32) shouldSkipNotificationForStore:v11];
+          CFRelease(v12);
+          if (v13)
           {
             continue;
           }
@@ -707,81 +773,79 @@ void __72__CADNotificationUtilities__gatherSharedCalendarInvitationsWithContext_
 
         if ((CalCalendarCanContainEntityType() & 1) == 0)
         {
-          v19 = CADNotificationLogHandle;
+          v20 = CADNotificationLogHandle;
           if (!os_log_type_enabled(CADNotificationLogHandle, OS_LOG_TYPE_DEFAULT))
           {
             continue;
           }
 
-          v15 = v19;
+          v16 = v20;
           UID = CalCalendarGetUID();
           *buf = 67109120;
           v34 = UID;
-          v17 = v15;
-          v18 = "Skipping shared calendar invitation for calendar %d because it doesn't allow events";
+          v18 = v16;
+          v19 = "Skipping shared calendar invitation for calendar %d because it doesn't allow events";
           goto LABEL_17;
         }
 
-        v13 = CalCalendarCopyUUID();
-        if (!v13)
+        v14 = CalCalendarCopyUUID();
+        if (!v14)
         {
-          v21 = CADNotificationLogHandle;
+          v22 = CADNotificationLogHandle;
           if (!os_log_type_enabled(CADNotificationLogHandle, OS_LOG_TYPE_DEFAULT))
           {
             continue;
           }
 
-          v15 = v21;
-          v22 = CalCalendarGetUID();
+          v16 = v22;
+          v23 = CalCalendarGetUID();
           *buf = 67109120;
-          v34 = v22;
-          v17 = v15;
-          v18 = "Skipping shared calendar invitation for calendar %d because it lacks a UUID";
+          v34 = v23;
+          v18 = v16;
+          v19 = "Skipping shared calendar invitation for calendar %d because it lacks a UUID";
           goto LABEL_17;
         }
 
-        CFRelease(v13);
-        if ([*(a1 + 32) isSharedCalendarOwnerBlocked:v9])
+        CFRelease(v14);
+        if ([*(a1 + 32) isSharedCalendarOwnerBlocked:v10])
         {
-          v14 = CADNotificationLogHandle;
+          v15 = CADNotificationLogHandle;
           if (!os_log_type_enabled(CADNotificationLogHandle, OS_LOG_TYPE_DEFAULT))
           {
             continue;
           }
 
-          v15 = v14;
-          v16 = CalCalendarGetUID();
+          v16 = v15;
+          v17 = CalCalendarGetUID();
           *buf = 67109120;
-          v34 = v16;
-          v17 = v15;
-          v18 = "Skipping shared calendar invitation for calendar %d because the owner is blocked";
+          v34 = v17;
+          v18 = v16;
+          v19 = "Skipping shared calendar invitation for calendar %d because the owner is blocked";
 LABEL_17:
-          _os_log_impl(&dword_22430B000, v17, OS_LOG_TYPE_DEFAULT, v18, buf, 8u);
+          _os_log_impl(&dword_22430B000, v18, OS_LOG_TYPE_DEFAULT, v19, buf, 8u);
 
           continue;
         }
 
-        v23 = CalCalendarGetUID();
-        v24 = [objc_alloc(MEMORY[0x277CF74C8]) initWithEntityType:1 entityID:v23 databaseID:a2];
-        v25 = CADNotificationLogHandle;
+        v24 = CalCalendarGetUID();
+        v25 = [objc_alloc(MEMORY[0x277CF74C8]) initWithEntityType:1 entityID:v24 databaseID:a2];
+        v26 = CADNotificationLogHandle;
         if (os_log_type_enabled(CADNotificationLogHandle, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 67109120;
-          v34 = v23;
-          _os_log_impl(&dword_22430B000, v25, OS_LOG_TYPE_DEFAULT, "Including shared calendar invitation %d", buf, 8u);
+          v34 = v24;
+          _os_log_impl(&dword_22430B000, v26, OS_LOG_TYPE_DEFAULT, "Including shared calendar invitation %d", buf, 8u);
         }
 
-        v26 = [[CADNotification alloc] initWithType:2 objectID:v24 occurrenceDate:0.0 expirationDate:v7];
-        [*(a1 + 32) addNotification:v26];
+        v27 = [[CADNotification alloc] initWithType:2 objectID:v25 occurrenceDate:0.0 expirationDate:v8];
+        [*(a1 + 32) addNotification:v27];
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v29 objects:v35 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v29 objects:v35 count:16];
     }
 
-    while (v5);
+    while (v6);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 + (int)_gatherSharedCalendarResponsesAndResourceChangesWithContext:(id)context
@@ -810,28 +874,28 @@ LABEL_17:
 
 void __88__CADNotificationUtilities__gatherSharedCalendarResponsesAndResourceChangesWithContext___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v7 = CalDatabaseCopyOfAllNotifications();
-  v8 = [v7 countByEnumeratingWithState:&v22 objects:v30 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v21 objects:v29 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v23;
+    v10 = *v22;
     do
     {
       v11 = 0;
       do
       {
-        if (*v23 != v10)
+        if (*v22 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v22 + 1) + 8 * v11);
+        v12 = *(*(&v21 + 1) + 8 * v11);
         EntityType = CalNotificationGetEntityType();
         if (EntityType == 19)
         {
@@ -860,9 +924,9 @@ LABEL_12:
           v17 = v16;
           UID = CalNotificationGetUID();
           *buf = 67109376;
-          v27 = UID;
-          v28 = 1024;
-          v29 = v14;
+          v26 = UID;
+          v27 = 1024;
+          v28 = v14;
           _os_log_impl(&dword_22430B000, v17, OS_LOG_TYPE_DEFAULT, "Skipping notification %d because it's of an unexpected type %d", buf, 0xEu);
         }
 
@@ -877,7 +941,7 @@ LABEL_13:
       }
 
       while (v9 != v11);
-      v19 = [v7 countByEnumeratingWithState:&v22 objects:v30 count:16];
+      v19 = [v7 countByEnumeratingWithState:&v21 objects:v29 count:16];
       v9 = v19;
     }
 
@@ -885,24 +949,193 @@ LABEL_13:
   }
 
 LABEL_21:
+}
 
-  v20 = *MEMORY[0x277D85DE8];
++ (int)_gatherSharedCalendarInviteReplyNotification:(void *)notification withContext:(id)context database:(CalDatabase *)database databaseID:(int)d
+{
+  v6 = *&d;
+  v43 = *MEMORY[0x277D85DE8];
+  contextCopy = context;
+  v8 = CalInviteReplyNotificationCopyInviteReplyCalendar();
+  if (v8)
+  {
+    goto LABEL_6;
+  }
+
+  v9 = CalInviteReplyNotificationCopyHostURL();
+  if (v9)
+  {
+    v8 = v9;
+    CFURLGetString(v9);
+    v10 = CalDatabaseCopyCalendarWithExternalIDInStore();
+    if (v10)
+    {
+      v11 = v10;
+LABEL_5:
+      CFRelease(v8);
+      v8 = v11;
+      goto LABEL_6;
+    }
+
+    v19 = CFURLGetString(v8);
+    MutableCopy = CFStringCreateMutableCopy(0, 0, v19);
+    if (MutableCopy)
+    {
+      v21 = MutableCopy;
+      CFStringAppend(MutableCopy, @"/");
+      v11 = CalDatabaseCopyCalendarWithExternalIDInStore();
+      CFRelease(v21);
+      if (v11)
+      {
+        goto LABEL_5;
+      }
+    }
+
+    v22 = CFURLCopyPath(v8);
+    if (!v22)
+    {
+LABEL_22:
+      CFRelease(v8);
+      goto LABEL_23;
+    }
+
+    v23 = v22;
+    v24 = CFStringCreateMutableCopy(0, 0, v22);
+    if (v24)
+    {
+      v25 = v24;
+      CFStringAppend(v24, @"/");
+      v26 = CalDatabaseCopyCalendarWithExternalIDInStore();
+      CFRelease(v25);
+    }
+
+    else
+    {
+      v26 = 0;
+    }
+
+    CFRelease(v23);
+    CFRelease(v8);
+    v8 = v26;
+    if (!v26)
+    {
+LABEL_23:
+      CalNotificationGetCreationDate();
+      v28 = v27 + 2592000.0;
+      [contextCopy now];
+      if (v28 >= v29)
+      {
+        UID = CalNotificationGetUID();
+        v36 = [objc_alloc(MEMORY[0x277CF74C8]) initWithEntityType:16 entityID:UID databaseID:v6];
+        v37 = CADNotificationLogHandle;
+        if (os_log_type_enabled(CADNotificationLogHandle, OS_LOG_TYPE_DEFAULT))
+        {
+          v41 = 67109120;
+          v42 = UID;
+          _os_log_impl(&dword_22430B000, v37, OS_LOG_TYPE_DEFAULT, "Including invite reply notification %d", &v41, 8u);
+        }
+
+        v38 = [CADNotification alloc];
+        v39 = [(CADNotification *)v38 initWithType:3 objectID:v36 occurrenceDate:*MEMORY[0x277CF78F0] expirationDate:v28];
+        [contextCopy addNotification:v39];
+      }
+
+      else
+      {
+        v30 = CADNotificationLogHandle;
+        if (os_log_type_enabled(CADNotificationLogHandle, OS_LOG_TYPE_DEFAULT))
+        {
+          v31 = v30;
+          v41 = 67109120;
+          v42 = CalNotificationGetUID();
+          _os_log_impl(&dword_22430B000, v31, OS_LOG_TYPE_DEFAULT, "Skipping invite reply notification %d because it is too old", &v41, 8u);
+        }
+
+        if ([contextCopy deleteOldNotifications])
+        {
+          v32 = CADNotificationLogHandle;
+          if (os_log_type_enabled(CADNotificationLogHandle, OS_LOG_TYPE_DEFAULT))
+          {
+            v33 = v32;
+            v34 = CalNotificationGetUID();
+            v41 = 67109120;
+            v42 = v34;
+            _os_log_impl(&dword_22430B000, v33, OS_LOG_TYPE_DEFAULT, "Deleting invite reply notification %d because it is too old", &v41, 8u);
+          }
+
+          CalRemoveNotification();
+        }
+      }
+
+      goto LABEL_33;
+    }
+
+LABEL_6:
+    if (CalEntityGetType() == 1 && (CalCalendarCanContainEntityType() & 1) == 0)
+    {
+      v14 = CADNotificationLogHandle;
+      if (os_log_type_enabled(CADNotificationLogHandle, OS_LOG_TYPE_DEFAULT))
+      {
+        v15 = v14;
+        v41 = 67109120;
+        v42 = CalNotificationGetUID();
+        _os_log_impl(&dword_22430B000, v15, OS_LOG_TYPE_DEFAULT, "Skipping invite reply notification %d because it is on a calendar that does not allow events", &v41, 8u);
+      }
+
+      goto LABEL_14;
+    }
+
+    v12 = CalCalendarCopyStore();
+    if (v12)
+    {
+      v13 = v12;
+      if ([contextCopy shouldSkipNotificationForStore:v12])
+      {
+        CFRelease(v13);
+LABEL_14:
+        CFRelease(v8);
+        goto LABEL_33;
+      }
+
+      v16 = [contextCopy shouldSkipNotificationForCalendar:v8];
+      CFRelease(v13);
+      if (v16)
+      {
+        goto LABEL_14;
+      }
+    }
+
+    goto LABEL_22;
+  }
+
+  v17 = CADNotificationLogHandle;
+  if (os_log_type_enabled(CADNotificationLogHandle, OS_LOG_TYPE_DEFAULT))
+  {
+    v18 = v17;
+    v41 = 67109120;
+    v42 = CalNotificationGetUID();
+    _os_log_impl(&dword_22430B000, v18, OS_LOG_TYPE_DEFAULT, "Skipping invite reply notification %d because it lacks an external ID", &v41, 8u);
+  }
+
+LABEL_33:
+
+  return 0;
 }
 
 + (int)_gatherSharedCalendarResourceChangeNotification:(void *)notification withContext:(id)context database:(CalDatabase *)database databaseID:(int)d
 {
-  v82 = *MEMORY[0x277D85DE8];
+  v80 = *MEMORY[0x277D85DE8];
   contextCopy = context;
+  v73 = 0u;
+  v74 = 0u;
   v75 = 0u;
   v76 = 0u;
-  v77 = 0u;
-  v78 = 0u;
   obj = CalResourceChangeNotificationCopyChanges();
-  v7 = [obj countByEnumeratingWithState:&v75 objects:v81 count:16];
+  v7 = [obj countByEnumeratingWithState:&v73 objects:v79 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v76;
+    v9 = *v74;
     v10 = *MEMORY[0x277CF78E0];
     v11 = *MEMORY[0x277CF78F0];
     do
@@ -910,146 +1143,145 @@ LABEL_21:
       v12 = 0;
       do
       {
-        if (*v76 != v9)
+        if (*v74 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v75 + 1) + 8 * v12);
-        v14 = CalResourceChangeGetType();
-        if (v14 == 5 && CalResourceChangeGetPublicStatus() != 2)
+        v13 = CalResourceChangeGetType();
+        if (v13 == 5 && CalResourceChangeGetPublicStatus() != 2)
         {
-          v27 = CADNotificationLogHandle;
+          v26 = CADNotificationLogHandle;
           if (!os_log_type_enabled(CADNotificationLogHandle, OS_LOG_TYPE_DEFAULT))
           {
             goto LABEL_28;
           }
 
-          v23 = v27;
-          v28 = CalResourceChangeGetUID();
+          v22 = v26;
+          v27 = CalResourceChangeGetUID();
           *buf = 67109120;
-          v80 = v28;
-          v25 = v23;
-          v26 = "Skipping resource change notification %d because it is not public";
+          v78 = v27;
+          v24 = v22;
+          v25 = "Skipping resource change notification %d because it is not public";
           goto LABEL_17;
         }
 
-        v15 = CalResourceChangeCopyCalendar();
-        if (!v15)
+        v14 = CalResourceChangeCopyCalendar();
+        if (!v14)
         {
-          v22 = CADNotificationLogHandle;
+          v21 = CADNotificationLogHandle;
           if (!os_log_type_enabled(CADNotificationLogHandle, OS_LOG_TYPE_DEFAULT))
           {
             goto LABEL_28;
           }
 
-          v23 = v22;
-          v24 = CalResourceChangeGetUID();
+          v22 = v21;
+          v23 = CalResourceChangeGetUID();
           *buf = 67109120;
-          v80 = v24;
-          v25 = v23;
-          v26 = "Skipping resource change notification %d because it has no calendar";
+          v78 = v23;
+          v24 = v22;
+          v25 = "Skipping resource change notification %d because it has no calendar";
 LABEL_17:
-          _os_log_impl(&dword_22430B000, v25, OS_LOG_TYPE_DEFAULT, v26, buf, 8u);
+          _os_log_impl(&dword_22430B000, v24, OS_LOG_TYPE_DEFAULT, v25, buf, 8u);
           goto LABEL_18;
         }
 
-        v16 = v15;
+        v15 = v14;
         if ((CalCalendarCanContainEntityType() & 1) == 0)
         {
-          v29 = CADNotificationLogHandle;
+          v28 = CADNotificationLogHandle;
           if (os_log_type_enabled(CADNotificationLogHandle, OS_LOG_TYPE_DEFAULT))
           {
-            v18 = v29;
-            v30 = CalResourceChangeGetUID();
+            v17 = v28;
+            v29 = CalResourceChangeGetUID();
             *buf = 67109120;
-            v80 = v30;
-            v20 = v18;
-            v21 = "Skipping resource change notification %d because it is on a calendar that does not allow events";
+            v78 = v29;
+            v19 = v17;
+            v20 = "Skipping resource change notification %d because it is on a calendar that does not allow events";
 LABEL_21:
-            _os_log_impl(&dword_22430B000, v20, OS_LOG_TYPE_DEFAULT, v21, buf, 8u);
+            _os_log_impl(&dword_22430B000, v19, OS_LOG_TYPE_DEFAULT, v20, buf, 8u);
           }
 
 LABEL_22:
-          v31 = 1;
+          v30 = 1;
           goto LABEL_24;
         }
 
         if (CalCalendarIsIgnoringSharedCalendarNotifications())
         {
-          v17 = CADNotificationLogHandle;
+          v16 = CADNotificationLogHandle;
           if (os_log_type_enabled(CADNotificationLogHandle, OS_LOG_TYPE_DEFAULT))
           {
-            v18 = v17;
-            v19 = CalResourceChangeGetUID();
+            v17 = v16;
+            v18 = CalResourceChangeGetUID();
             *buf = 67109120;
-            v80 = v19;
-            v20 = v18;
-            v21 = "Skipping resource change notification %d because it is on a calendar that is ignoring shared calendar notifications";
+            v78 = v18;
+            v19 = v17;
+            v20 = "Skipping resource change notification %d because it is on a calendar that is ignoring shared calendar notifications";
             goto LABEL_21;
           }
 
           goto LABEL_22;
         }
 
-        v31 = 0;
+        v30 = 0;
 LABEL_24:
-        v32 = v31 | [contextCopy shouldSkipNotificationForCalendar:v16];
-        v33 = CalCalendarCopyStore();
-        if (v33)
+        v31 = v30 | [contextCopy shouldSkipNotificationForCalendar:v15];
+        v32 = CalCalendarCopyStore();
+        if (v32)
         {
-          v34 = v33;
-          LOBYTE(v32) = v32 | [contextCopy shouldSkipNotificationForStore:v33];
-          CFRelease(v34);
+          v33 = v32;
+          LOBYTE(v31) = v31 | [contextCopy shouldSkipNotificationForStore:v32];
+          CFRelease(v33);
         }
 
-        if (v32)
+        if (v31)
         {
           goto LABEL_27;
         }
 
         if (CalCalendarCanContainEntityType())
         {
-          v35 = CADNotificationLogHandle;
+          v34 = CADNotificationLogHandle;
           if (os_log_type_enabled(CADNotificationLogHandle, OS_LOG_TYPE_INFO))
           {
             *buf = 0;
-            _os_log_impl(&dword_22430B000, v35, OS_LOG_TYPE_INFO, "Calendar has support for both events and reminders", buf, 2u);
+            _os_log_impl(&dword_22430B000, v34, OS_LOG_TYPE_INFO, "Calendar has support for both events and reminders", buf, 2u);
           }
         }
 
-        CFRelease(v16);
-        v36 = CalResourceChangeCopyCalendarItem();
-        if (v36)
+        CFRelease(v15);
+        v35 = CalResourceChangeCopyCalendarItem();
+        if (v35)
         {
-          v16 = v36;
+          v15 = v35;
           if (CalEntityGetType() == 2)
           {
-            [contextCopy expirationTimestampForEvent:v16 database:database];
-            v38 = v37;
+            [contextCopy expirationTimestampForEvent:v15 database:database];
+            v37 = v36;
             [contextCopy now];
-            if (v38 < v39)
+            if (v37 < v38)
             {
-              v40 = CADNotificationLogHandle;
+              v39 = CADNotificationLogHandle;
               if (os_log_type_enabled(CADNotificationLogHandle, OS_LOG_TYPE_DEFAULT))
               {
-                v41 = v40;
-                v42 = CalResourceChangeGetUID();
+                v40 = v39;
+                v41 = CalResourceChangeGetUID();
                 *buf = 67109120;
-                v80 = v42;
-                _os_log_impl(&dword_22430B000, v41, OS_LOG_TYPE_DEFAULT, "Skipping resource change notification %d because it is for an event in the past", buf, 8u);
+                v78 = v41;
+                _os_log_impl(&dword_22430B000, v40, OS_LOG_TYPE_DEFAULT, "Skipping resource change notification %d because it is for an event in the past", buf, 8u);
               }
 
               if ([contextCopy deleteOldNotifications])
               {
-                v43 = CADNotificationLogHandle;
+                v42 = CADNotificationLogHandle;
                 if (os_log_type_enabled(CADNotificationLogHandle, OS_LOG_TYPE_DEFAULT))
                 {
-                  v44 = v43;
-                  v45 = CalResourceChangeGetUID();
+                  v43 = v42;
+                  v44 = CalResourceChangeGetUID();
                   *buf = 67109120;
-                  v80 = v45;
-                  _os_log_impl(&dword_22430B000, v44, OS_LOG_TYPE_DEFAULT, "Deleting resource change notification %d because it is for an event in the past", buf, 8u);
+                  v78 = v44;
+                  _os_log_impl(&dword_22430B000, v43, OS_LOG_TYPE_DEFAULT, "Deleting resource change notification %d because it is for an event in the past", buf, 8u);
                 }
 
                 CalRemoveResourceChange();
@@ -1058,79 +1290,79 @@ LABEL_24:
               goto LABEL_27;
             }
 
-            v53 = CalEventCopyStore();
-            if (v53)
+            v52 = CalEventCopyStore();
+            if (v52)
             {
-              v54 = v53;
-              v55 = CalStoreCopyUUID();
-              if (!v55)
+              v53 = v52;
+              v54 = CalStoreCopyUUID();
+              if (!v54)
               {
-                v64 = CADNotificationLogHandle;
+                v63 = CADNotificationLogHandle;
                 if (os_log_type_enabled(CADNotificationLogHandle, OS_LOG_TYPE_DEFAULT))
                 {
-                  v65 = v64;
-                  v66 = CalResourceChangeGetUID();
+                  v64 = v63;
+                  v65 = CalResourceChangeGetUID();
                   *buf = 67109120;
-                  v80 = v66;
-                  _os_log_impl(&dword_22430B000, v65, OS_LOG_TYPE_DEFAULT, "Skipping resource change notification %d because it is for an event in a store with no persistent id", buf, 8u);
+                  v78 = v65;
+                  _os_log_impl(&dword_22430B000, v64, OS_LOG_TYPE_DEFAULT, "Skipping resource change notification %d because it is for an event in a store with no persistent id", buf, 8u);
                 }
 
-                CFRelease(v54);
+                CFRelease(v53);
                 goto LABEL_27;
               }
 
-              CFRelease(v55);
               CFRelease(v54);
-              v56 = CalEventCopyUniqueIdentifier();
-              if (v56)
+              CFRelease(v53);
+              v55 = CalEventCopyUniqueIdentifier();
+              if (v55)
               {
-                CFRelease(v56);
-                CFRelease(v16);
+                CFRelease(v55);
+                CFRelease(v15);
 LABEL_53:
-                v57 = CalResourceChangeGetUID();
-                v23 = [objc_alloc(MEMORY[0x277CF74C8]) initWithEntityType:18 entityID:v57 databaseID:d];
-                v58 = CADNotificationLogHandle;
+                v56 = CalResourceChangeGetUID();
+                v22 = [objc_alloc(MEMORY[0x277CF74C8]) initWithEntityType:18 entityID:v56 databaseID:d];
+                v57 = CADNotificationLogHandle;
                 if (os_log_type_enabled(CADNotificationLogHandle, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 67109120;
-                  v80 = v57;
-                  _os_log_impl(&dword_22430B000, v58, OS_LOG_TYPE_DEFAULT, "Including resource change notification %d", buf, 8u);
+                  v78 = v56;
+                  _os_log_impl(&dword_22430B000, v57, OS_LOG_TYPE_DEFAULT, "Including resource change notification %d", buf, 8u);
                 }
 
-                v59 = [[CADNotification alloc] initWithType:4 objectID:v23 occurrenceDate:v11 expirationDate:v38];
-                [contextCopy addNotification:v59];
+                v58 = [[CADNotification alloc] initWithType:4 objectID:v22 occurrenceDate:v11 expirationDate:v37];
+                [contextCopy addNotification:v58];
 
 LABEL_18:
                 goto LABEL_28;
               }
 
-              v67 = CADNotificationLogHandle;
+              v66 = CADNotificationLogHandle;
               if (!os_log_type_enabled(CADNotificationLogHandle, OS_LOG_TYPE_DEFAULT))
               {
                 goto LABEL_27;
               }
 
-              v49 = v67;
-              v68 = CalResourceChangeGetUID();
+              v48 = v66;
+              v67 = CalResourceChangeGetUID();
               *buf = 67109120;
-              v80 = v68;
-              v51 = v49;
-              v52 = "Skipping resource change notification %d because it is for an event with no unique ID";
+              v78 = v67;
+              v50 = v48;
+              v51 = "Skipping resource change notification %d because it is for an event with no unique ID";
 LABEL_48:
-              _os_log_impl(&dword_22430B000, v51, OS_LOG_TYPE_DEFAULT, v52, buf, 8u);
+              _os_log_impl(&dword_22430B000, v50, OS_LOG_TYPE_DEFAULT, v51, buf, 8u);
             }
 
             else
             {
-              v62 = CADNotificationLogHandle;
+              v61 = CADNotificationLogHandle;
               if (os_log_type_enabled(CADNotificationLogHandle, OS_LOG_TYPE_DEFAULT))
               {
-                v49 = v62;
-                v63 = CalResourceChangeGetUID();
+                v48 = v61;
+                v62 = CalResourceChangeGetUID();
                 *buf = 67109120;
-                v80 = v63;
-                v51 = v49;
-                v52 = "Skipping resource change notification %d because it is for an event not in a store";
+                v78 = v62;
+                v50 = v48;
+                v51 = "Skipping resource change notification %d because it is for an event not in a store";
                 goto LABEL_48;
               }
             }
@@ -1138,56 +1370,56 @@ LABEL_48:
 
           else
           {
-            v48 = CADNotificationLogHandle;
+            v47 = CADNotificationLogHandle;
             if (os_log_type_enabled(CADNotificationLogHandle, OS_LOG_TYPE_DEFAULT))
             {
-              v49 = v48;
-              v50 = CalResourceChangeGetUID();
+              v48 = v47;
+              v49 = CalResourceChangeGetUID();
               *buf = 67109120;
-              v80 = v50;
-              v51 = v49;
-              v52 = "Skipping resource change notification %d because it is a change for a non-event";
+              v78 = v49;
+              v50 = v48;
+              v51 = "Skipping resource change notification %d because it is a change for a non-event";
               goto LABEL_48;
             }
           }
 
 LABEL_27:
-          CFRelease(v16);
+          CFRelease(v15);
           goto LABEL_28;
         }
 
-        if (v14 == 2)
+        if (v13 == 2)
         {
-          v60 = CADNotificationLogHandle;
+          v59 = CADNotificationLogHandle;
           if (os_log_type_enabled(CADNotificationLogHandle, OS_LOG_TYPE_DEFAULT))
           {
-            v23 = v60;
-            v61 = CalResourceChangeGetUID();
+            v22 = v59;
+            v60 = CalResourceChangeGetUID();
             *buf = 67109120;
-            v80 = v61;
-            v25 = v23;
-            v26 = "Skipping resource change notification %d because it is an update without an event";
+            v78 = v60;
+            v24 = v22;
+            v25 = "Skipping resource change notification %d because it is an update without an event";
             goto LABEL_17;
           }
         }
 
         else
         {
-          v38 = v10;
-          if (v14 != 1)
+          v37 = v10;
+          if (v13 != 1)
           {
             goto LABEL_53;
           }
 
-          v46 = CADNotificationLogHandle;
+          v45 = CADNotificationLogHandle;
           if (os_log_type_enabled(CADNotificationLogHandle, OS_LOG_TYPE_DEFAULT))
           {
-            v23 = v46;
-            v47 = CalResourceChangeGetUID();
+            v22 = v45;
+            v46 = CalResourceChangeGetUID();
             *buf = 67109120;
-            v80 = v47;
-            v25 = v23;
-            v26 = "Skipping resource change notification %d because it is an add without an event";
+            v78 = v46;
+            v24 = v22;
+            v25 = "Skipping resource change notification %d because it is an add without an event";
             goto LABEL_17;
           }
         }
@@ -1197,33 +1429,32 @@ LABEL_28:
       }
 
       while (v8 != v12);
-      v69 = [obj countByEnumeratingWithState:&v75 objects:v81 count:16];
-      v8 = v69;
+      v68 = [obj countByEnumeratingWithState:&v73 objects:v79 count:16];
+      v8 = v68;
     }
 
-    while (v69);
+    while (v68);
   }
 
-  v70 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 + (int)_gatherSuggestionResourceChangeNotification:(void *)notification withContext:(id)context database:(CalDatabase *)database databaseID:(int)d
 {
-  v85 = *MEMORY[0x277D85DE8];
+  v84 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v7 = CalResourceChangeNotificationCopyChanges();
-  v73 = objc_opt_new();
+  v72 = objc_opt_new();
+  v77 = 0u;
   v78 = 0u;
   v79 = 0u;
   v80 = 0u;
-  v81 = 0u;
   obj = v7;
-  v8 = [obj countByEnumeratingWithState:&v78 objects:v84 count:16];
+  v8 = [obj countByEnumeratingWithState:&v77 objects:v83 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v79;
+    v10 = *v78;
     v11 = *MEMORY[0x277CF78E0];
     v12 = *MEMORY[0x277CF78F0];
     do
@@ -1231,250 +1462,249 @@ LABEL_28:
       v13 = 0;
       do
       {
-        if (*v79 != v10)
+        if (*v78 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v78 + 1) + 8 * v13);
-        v15 = CalResourceChangeGetType();
-        v16 = CalResourceChangeCopyCalendarItem();
-        if (v16)
+        v14 = CalResourceChangeGetType();
+        v15 = CalResourceChangeCopyCalendarItem();
+        if (v15)
         {
-          v17 = v16;
+          v16 = v15;
           if (CalEntityGetType() != 2)
           {
-            v33 = CADNotificationLogHandle;
+            v32 = CADNotificationLogHandle;
             if (os_log_type_enabled(CADNotificationLogHandle, OS_LOG_TYPE_DEFAULT))
             {
-              v27 = v33;
-              v34 = CalResourceChangeGetUID();
+              v26 = v32;
+              v33 = CalResourceChangeGetUID();
               *buf = 67109120;
-              v83 = v34;
-              v35 = v27;
-              v36 = "Skipping suggestion resource change notification %d because it is for a non-event";
+              v82 = v33;
+              v34 = v26;
+              v35 = "Skipping suggestion resource change notification %d because it is for a non-event";
               goto LABEL_22;
             }
 
             goto LABEL_24;
           }
 
-          [contextCopy expirationTimestampForEvent:v17 database:database];
-          v19 = v18;
+          [contextCopy expirationTimestampForEvent:v16 database:database];
+          v18 = v17;
           [contextCopy now];
-          if (v19 < v20)
+          if (v18 < v19)
           {
-            v21 = CADNotificationLogHandle;
+            v20 = CADNotificationLogHandle;
             if (os_log_type_enabled(CADNotificationLogHandle, OS_LOG_TYPE_DEFAULT))
             {
-              v22 = v21;
-              v23 = CalResourceChangeGetUID();
+              v21 = v20;
+              v22 = CalResourceChangeGetUID();
               *buf = 67109120;
-              v83 = v23;
-              _os_log_impl(&dword_22430B000, v22, OS_LOG_TYPE_DEFAULT, "Skipping suggestion resource change notification %d because it is for an event in the past", buf, 8u);
+              v82 = v22;
+              _os_log_impl(&dword_22430B000, v21, OS_LOG_TYPE_DEFAULT, "Skipping suggestion resource change notification %d because it is for an event in the past", buf, 8u);
             }
 
             if ([contextCopy deleteOldNotifications])
             {
-              v24 = CADNotificationLogHandle;
+              v23 = CADNotificationLogHandle;
               if (os_log_type_enabled(CADNotificationLogHandle, OS_LOG_TYPE_DEFAULT))
               {
-                v25 = v24;
-                v26 = CalResourceChangeGetUID();
+                v24 = v23;
+                v25 = CalResourceChangeGetUID();
                 *buf = 67109120;
-                v83 = v26;
-                _os_log_impl(&dword_22430B000, v25, OS_LOG_TYPE_DEFAULT, "Deleting suggestion resource change notification %d because it is for an event in the past", buf, 8u);
+                v82 = v25;
+                _os_log_impl(&dword_22430B000, v24, OS_LOG_TYPE_DEFAULT, "Deleting suggestion resource change notification %d because it is for an event in the past", buf, 8u);
               }
 
-              v27 = [MEMORY[0x277CCABB0] numberWithInt:CPRecordGetID()];
-              [v73 addObject:v27];
+              v26 = [MEMORY[0x277CCABB0] numberWithInt:CPRecordGetID()];
+              [v72 addObject:v26];
               goto LABEL_23;
             }
 
             goto LABEL_24;
           }
 
-          v37 = CalEventCopyStore();
-          if (!v37)
+          v36 = CalEventCopyStore();
+          if (!v36)
           {
-            v54 = CADNotificationLogHandle;
+            v53 = CADNotificationLogHandle;
             if (os_log_type_enabled(CADNotificationLogHandle, OS_LOG_TYPE_DEFAULT))
             {
-              v27 = v54;
-              v55 = CalResourceChangeGetUID();
+              v26 = v53;
+              v54 = CalResourceChangeGetUID();
               *buf = 67109120;
-              v83 = v55;
-              v35 = v27;
-              v36 = "Skipping suggestion resource change notification %d because it is for an event not in a store";
+              v82 = v54;
+              v34 = v26;
+              v35 = "Skipping suggestion resource change notification %d because it is for an event not in a store";
               goto LABEL_22;
             }
 
             goto LABEL_24;
           }
 
-          v38 = v37;
-          v39 = CalStoreCopyUUID();
-          v40 = v39;
-          if (v39)
+          v37 = v36;
+          v38 = CalStoreCopyUUID();
+          v39 = v38;
+          if (v38)
           {
-            CFRelease(v39);
+            CFRelease(v38);
           }
 
           else
           {
-            v56 = CADNotificationLogHandle;
+            v55 = CADNotificationLogHandle;
             if (os_log_type_enabled(CADNotificationLogHandle, OS_LOG_TYPE_DEFAULT))
             {
-              v57 = v56;
-              v58 = CalResourceChangeGetUID();
+              v56 = v55;
+              v57 = CalResourceChangeGetUID();
               *buf = 67109120;
-              v83 = v58;
-              _os_log_impl(&dword_22430B000, v57, OS_LOG_TYPE_DEFAULT, "Skipping suggestion resource change notification %d because it is for an event in a store with no persistent id", buf, 8u);
+              v82 = v57;
+              _os_log_impl(&dword_22430B000, v56, OS_LOG_TYPE_DEFAULT, "Skipping suggestion resource change notification %d because it is for an event in a store with no persistent id", buf, 8u);
             }
           }
 
-          v59 = [contextCopy shouldSkipNotificationForStore:v38];
-          CFRelease(v38);
-          if (!v40 || (v59 & 1) != 0)
+          v58 = [contextCopy shouldSkipNotificationForStore:v37];
+          CFRelease(v37);
+          if (!v39 || (v58 & 1) != 0)
           {
             goto LABEL_24;
           }
 
-          v60 = CalEventCopyUniqueIdentifier();
-          if (!v60)
+          v59 = CalEventCopyUniqueIdentifier();
+          if (!v59)
           {
-            v66 = CADNotificationLogHandle;
+            v65 = CADNotificationLogHandle;
             if (os_log_type_enabled(CADNotificationLogHandle, OS_LOG_TYPE_DEFAULT))
             {
-              v27 = v66;
-              v67 = CalResourceChangeGetUID();
+              v26 = v65;
+              v66 = CalResourceChangeGetUID();
               *buf = 67109120;
-              v83 = v67;
-              v35 = v27;
-              v36 = "Skipping suggestion resource change notification %d because it is for an event with no unique ID";
+              v82 = v66;
+              v34 = v26;
+              v35 = "Skipping suggestion resource change notification %d because it is for an event with no unique ID";
 LABEL_22:
-              _os_log_impl(&dword_22430B000, v35, OS_LOG_TYPE_DEFAULT, v36, buf, 8u);
+              _os_log_impl(&dword_22430B000, v34, OS_LOG_TYPE_DEFAULT, v35, buf, 8u);
 LABEL_23:
             }
 
 LABEL_24:
-            CFRelease(v17);
+            CFRelease(v16);
             goto LABEL_55;
           }
 
-          CFRelease(v60);
-          CFRelease(v17);
+          CFRelease(v59);
+          CFRelease(v16);
 LABEL_48:
-          v61 = CalResourceChangeGetUID();
-          v29 = [objc_alloc(MEMORY[0x277CF74C8]) initWithEntityType:18 entityID:v61 databaseID:d];
-          v62 = CADNotificationLogHandle;
+          v60 = CalResourceChangeGetUID();
+          v28 = [objc_alloc(MEMORY[0x277CF74C8]) initWithEntityType:18 entityID:v60 databaseID:d];
+          v61 = CADNotificationLogHandle;
           if (os_log_type_enabled(CADNotificationLogHandle, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 67109120;
-            v83 = v61;
-            _os_log_impl(&dword_22430B000, v62, OS_LOG_TYPE_DEFAULT, "Including suggestion resource change notification %d", buf, 8u);
+            v82 = v60;
+            _os_log_impl(&dword_22430B000, v61, OS_LOG_TYPE_DEFAULT, "Including suggestion resource change notification %d", buf, 8u);
           }
 
-          v63 = [[CADNotification alloc] initWithType:5 objectID:v29 occurrenceDate:v12 expirationDate:v19];
-          [contextCopy addNotification:v63];
+          v62 = [[CADNotification alloc] initWithType:5 objectID:v28 occurrenceDate:v12 expirationDate:v18];
+          [contextCopy addNotification:v62];
 
 LABEL_54:
           goto LABEL_55;
         }
 
-        switch(v15)
+        switch(v14)
         {
           case 3:
-            v43 = CADNotificationLogHandle;
+            v42 = CADNotificationLogHandle;
             if (!os_log_type_enabled(CADNotificationLogHandle, OS_LOG_TYPE_DEFAULT))
             {
               goto LABEL_55;
             }
 
-            v29 = v43;
-            v44 = CalResourceChangeGetUID();
+            v28 = v42;
+            v43 = CalResourceChangeGetUID();
             *buf = 67109120;
-            v83 = v44;
-            v31 = v29;
-            v32 = "Skipping suggestion resource change notification %d because it is a delete (i.e., cancel) without an event";
+            v82 = v43;
+            v30 = v28;
+            v31 = "Skipping suggestion resource change notification %d because it is a delete (i.e., cancel) without an event";
             goto LABEL_53;
           case 2:
-            v41 = CADNotificationLogHandle;
+            v40 = CADNotificationLogHandle;
             if (!os_log_type_enabled(CADNotificationLogHandle, OS_LOG_TYPE_DEFAULT))
             {
               goto LABEL_55;
             }
 
-            v29 = v41;
-            v42 = CalResourceChangeGetUID();
+            v28 = v40;
+            v41 = CalResourceChangeGetUID();
             *buf = 67109120;
-            v83 = v42;
-            v31 = v29;
-            v32 = "Skipping suggestion resource change notification %d because it is an update without an event";
+            v82 = v41;
+            v30 = v28;
+            v31 = "Skipping suggestion resource change notification %d because it is an update without an event";
             goto LABEL_53;
           case 1:
-            v28 = CADNotificationLogHandle;
+            v27 = CADNotificationLogHandle;
             if (!os_log_type_enabled(CADNotificationLogHandle, OS_LOG_TYPE_DEFAULT))
             {
               goto LABEL_55;
             }
 
-            v29 = v28;
-            v30 = CalResourceChangeGetUID();
+            v28 = v27;
+            v29 = CalResourceChangeGetUID();
             *buf = 67109120;
-            v83 = v30;
-            v31 = v29;
-            v32 = "Skipping suggestion resource change notification %d because it is an add without an event";
+            v82 = v29;
+            v30 = v28;
+            v31 = "Skipping suggestion resource change notification %d because it is an add without an event";
 LABEL_53:
-            _os_log_impl(&dword_22430B000, v31, OS_LOG_TYPE_DEFAULT, v32, buf, 8u);
+            _os_log_impl(&dword_22430B000, v30, OS_LOG_TYPE_DEFAULT, v31, buf, 8u);
             goto LABEL_54;
         }
 
-        v45 = CalResourceChangeCopyCalendar();
-        if (!v45)
+        v44 = CalResourceChangeCopyCalendar();
+        if (!v44)
         {
-          v64 = CADNotificationLogHandle;
+          v63 = CADNotificationLogHandle;
           if (!os_log_type_enabled(CADNotificationLogHandle, OS_LOG_TYPE_DEFAULT))
           {
             goto LABEL_55;
           }
 
-          v29 = v64;
-          v65 = CalResourceChangeGetUID();
+          v28 = v63;
+          v64 = CalResourceChangeGetUID();
           *buf = 67109120;
-          v83 = v65;
-          v31 = v29;
-          v32 = "Skipping suggestion resource change notification %d because it has no calendar";
+          v82 = v64;
+          v30 = v28;
+          v31 = "Skipping suggestion resource change notification %d because it has no calendar";
           goto LABEL_53;
         }
 
-        v46 = v45;
+        v45 = v44;
         CanContainEntityType = CalCalendarCanContainEntityType();
         if ((CanContainEntityType & 1) == 0)
         {
-          v48 = CADNotificationLogHandle;
+          v47 = CADNotificationLogHandle;
           if (os_log_type_enabled(CADNotificationLogHandle, OS_LOG_TYPE_DEFAULT))
           {
-            v49 = v48;
-            v50 = CalResourceChangeGetUID();
+            v48 = v47;
+            v49 = CalResourceChangeGetUID();
             *buf = 67109120;
-            v83 = v50;
-            _os_log_impl(&dword_22430B000, v49, OS_LOG_TYPE_DEFAULT, "Skipping suggestion resource change notification %d because it is on a calendar that does not allow events", buf, 8u);
+            v82 = v49;
+            _os_log_impl(&dword_22430B000, v48, OS_LOG_TYPE_DEFAULT, "Skipping suggestion resource change notification %d because it is on a calendar that does not allow events", buf, 8u);
           }
         }
 
-        v51 = [contextCopy shouldSkipNotificationForCalendar:v46] | CanContainEntityType ^ 1;
-        v52 = CalCalendarCopyStore();
-        if (v52)
+        v50 = [contextCopy shouldSkipNotificationForCalendar:v45] | CanContainEntityType ^ 1;
+        v51 = CalCalendarCopyStore();
+        if (v51)
         {
-          v53 = v52;
-          LOBYTE(v51) = v51 | [contextCopy shouldSkipNotificationForStore:v52];
-          CFRelease(v53);
+          v52 = v51;
+          LOBYTE(v50) = v50 | [contextCopy shouldSkipNotificationForStore:v51];
+          CFRelease(v52);
         }
 
-        CFRelease(v46);
-        v19 = v11;
-        if ((v51 & 1) == 0)
+        CFRelease(v45);
+        v18 = v11;
+        if ((v50 & 1) == 0)
         {
           goto LABEL_48;
         }
@@ -1484,56 +1714,56 @@ LABEL_55:
       }
 
       while (v9 != v13);
-      v68 = [obj countByEnumeratingWithState:&v78 objects:v84 count:16];
-      v9 = v68;
+      v67 = [obj countByEnumeratingWithState:&v77 objects:v83 count:16];
+      v9 = v67;
     }
 
-    while (v68);
+    while (v67);
   }
 
-  if ([v73 count])
+  v68 = [v72 count];
+  if (v68)
   {
-    v69 = _resourceChangeDeletionQueue();
+    v69 = _resourceChangeDeletionQueue(v68);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __104__CADNotificationUtilities__gatherSuggestionResourceChangeNotification_withContext_database_databaseID___block_invoke;
     block[3] = &unk_27851AAD8;
-    v77 = v73;
+    v76 = v72;
     dispatch_async(v69, block);
   }
 
-  v70 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 void __104__CADNotificationUtilities__gatherSuggestionResourceChangeNotification_withContext_database_databaseID___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = CalDatabaseCreateWithOptions();
   if (v2)
   {
     v3 = v2;
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     v4 = *(a1 + 32);
-    v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v5)
     {
       v6 = v5;
       v7 = 0;
-      v8 = *v16;
+      v8 = *v15;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v16 != v8)
+          if (*v15 != v8)
           {
             objc_enumerationMutation(v4);
           }
 
-          [*(*(&v15 + 1) + 8 * i) intValue];
+          [*(*(&v14 + 1) + 8 * i) intValue];
           v10 = CalDatabaseCopyResourceChangeWithUID();
           if (v10)
           {
@@ -1541,8 +1771,8 @@ void __104__CADNotificationUtilities__gatherSuggestionResourceChangeNotification
             v12 = CADNotificationLogHandle;
             if (os_log_type_enabled(CADNotificationLogHandle, OS_LOG_TYPE_DEFAULT))
             {
-              *v14 = 0;
-              _os_log_impl(&dword_22430B000, v12, OS_LOG_TYPE_DEFAULT, "Removing a resource change due to a pseudo event expiring", v14, 2u);
+              *v13 = 0;
+              _os_log_impl(&dword_22430B000, v12, OS_LOG_TYPE_DEFAULT, "Removing a resource change due to a pseudo event expiring", v13, 2u);
             }
 
             CalRemoveResourceChange();
@@ -1551,7 +1781,7 @@ void __104__CADNotificationUtilities__gatherSuggestionResourceChangeNotification
           }
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v6);
@@ -1569,8 +1799,6 @@ void __104__CADNotificationUtilities__gatherSuggestionResourceChangeNotification
 
     CFRelease(v3);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)storeIsReadOnlyDelegate:(void *)delegate
@@ -1587,7 +1815,7 @@ void __104__CADNotificationUtilities__gatherSuggestionResourceChangeNotification
 + (id)flattenedNotificationsFromNotifications:(id)notifications expanded:(BOOL)expanded
 {
   expandedCopy = expanded;
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   notificationsCopy = notifications;
   v6 = notificationsCopy;
   if (notificationsCopy)
@@ -1595,26 +1823,26 @@ void __104__CADNotificationUtilities__gatherSuggestionResourceChangeNotification
     if (expandedCopy)
     {
       v7 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(notificationsCopy, "count")}];
+      v18 = 0u;
       v19 = 0u;
       v20 = 0u;
       v21 = 0u;
-      v22 = 0u;
       v8 = v6;
-      v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
       if (v9)
       {
         v10 = v9;
-        v11 = *v20;
+        v11 = *v19;
         do
         {
           for (i = 0; i != v10; ++i)
           {
-            if (*v20 != v11)
+            if (*v19 != v11)
             {
               objc_enumerationMutation(v8);
             }
 
-            v13 = *(*(&v19 + 1) + 8 * i);
+            v13 = *(*(&v18 + 1) + 8 * i);
             expandedNotifications = [v13 expandedNotifications];
             v15 = [expandedNotifications count];
 
@@ -1630,7 +1858,7 @@ void __104__CADNotificationUtilities__gatherSuggestionResourceChangeNotification
             }
           }
 
-          v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+          v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
         }
 
         while (v10);
@@ -1648,88 +1876,84 @@ void __104__CADNotificationUtilities__gatherSuggestionResourceChangeNotification
     v7 = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 + (void)_logNotificationCountsForNotifications:(id)notifications
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   notificationsCopy = notifications;
   v5 = [MEMORY[0x277CCA940] set];
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   v6 = notificationsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v29 objects:v38 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v28 objects:v37 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v30;
+    v9 = *v29;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v30 != v9)
+        if (*v29 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        type = [*(*(&v29 + 1) + 8 * i) type];
+        type = [*(*(&v28 + 1) + 8 * i) type];
         v12 = [MEMORY[0x277CCABB0] numberWithInt:type];
         [v5 addObject:v12];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v29 objects:v38 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v28 objects:v37 count:16];
     }
 
     while (v8);
   }
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v13 = v5;
-  v14 = [v13 countByEnumeratingWithState:&v25 objects:v37 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v24 objects:v36 count:16];
   if (v14)
   {
     v16 = v14;
-    v17 = *v26;
+    v17 = *v25;
     *&v15 = 67240450;
-    v24 = v15;
+    v23 = v15;
     do
     {
       for (j = 0; j != v16; ++j)
       {
-        if (*v26 != v17)
+        if (*v25 != v17)
         {
           objc_enumerationMutation(v13);
         }
 
-        v19 = *(*(&v25 + 1) + 8 * j);
-        v20 = [v13 countForObject:{v19, v24, v25}];
+        v19 = *(*(&v24 + 1) + 8 * j);
+        v20 = [v13 countForObject:{v19, v23, v24}];
         v21 = [self _stringForNotificationType:{objc_msgSend(v19, "intValue")}];
         v22 = CADLogHandle;
         if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_ERROR))
         {
-          *buf = v24;
-          v34 = v20;
-          v35 = 2114;
-          v36 = v21;
+          *buf = v23;
+          v33 = v20;
+          v34 = 2114;
+          v35 = v21;
           _os_log_impl(&dword_22430B000, v22, OS_LOG_TYPE_ERROR, "Found %{public}d notifications of type %{public}@", buf, 0x12u);
         }
       }
 
-      v16 = [v13 countByEnumeratingWithState:&v25 objects:v37 count:16];
+      v16 = [v13 countByEnumeratingWithState:&v24 objects:v36 count:16];
     }
 
     while (v16);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)_storeIsDelegate:(void *)delegate
@@ -1742,6 +1966,21 @@ void __104__CADNotificationUtilities__gatherSuggestionResourceChangeNotification
   }
 
   return v4 != 0;
+}
+
++ (id)_stringForNotificationType:(int)type
+{
+  if (type >= 6)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"%d", *&type];
+  }
+
+  else
+  {
+    v4 = off_27851B288[type];
+  }
+
+  return v4;
 }
 
 @end

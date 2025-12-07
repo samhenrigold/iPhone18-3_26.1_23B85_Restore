@@ -4,15 +4,19 @@
 - (BOOL)headerIsInvalid:(id)invalid;
 - (BOOL)verifyFirmwareAtIndex:(unint64_t)index againstData:(id)data;
 - (BOOL)verifyHeadersAtIndex:(unint64_t)index;
+- (IODualSPIWriter)initWithService:(unsigned int)service;
 - (id)_getSFRManifestHashForPayload:(id)payload;
 - (id)_loadRegionLayout:(unsigned int)layout;
 - (id)findHeaders;
 - (id)readDataAtOffset:(unsigned int)offset ofLength:(unsigned int)length;
 - (int)_commitHeader:(id)header withError:(id *)error;
+- (int)_writeBytes:(char *)bytes atOffset:(unsigned int)offset ofLength:(unsigned int)length withError:(id *)error;
 - (int)_writeFirmware:(id)firmware toHeader:(id)header withError:(id *)error;
 - (int)commitHeaderAtIndex:(unint64_t)index withError:(id *)error;
 - (int)commitPreparedHeaderWithError:(id *)error;
+- (int)eraseBytes:(unsigned int)bytes ofLength:(unsigned int)length withError:(id *)error;
 - (int)openService;
+- (int)readDataAtOffset:(unsigned int)offset ofLength:(unsigned int)length intoBuffer:(void *)buffer;
 - (int)writeData:(id)data withError:(id *)error;
 - (int)writeFirstGenerationFirmware:(id)firmware withError:(id *)error;
 - (int)writeNewerGenerationFirmware:(id)firmware withError:(id *)error;
@@ -25,6 +29,29 @@
 @end
 
 @implementation IODualSPIWriter
+
+- (IODualSPIWriter)initWithService:(unsigned int)service
+{
+  v3 = *&service;
+  v7.receiver = self;
+  v7.super_class = IODualSPIWriter;
+  v4 = [(IOServiceWriter *)&v7 initWithService:?];
+  v5 = v4;
+  if (v4)
+  {
+    *&v4->_usesAFUH = 0;
+    *(&v4->super._serviceConnect + 4) = +[MSUBootFirmwareUpdater supportsAFUH];
+    *(&v5->_regStruct + 4) = [-[IODualSPIWriter _loadRegionLayout:](v5 _loadRegionLayout:{v3), "copy"}];
+    *(&v5->_regData + 4) = objc_alloc_init(NSMutableArray);
+    if (![*(&v5->_regStruct + 4) length])
+    {
+
+      return 0;
+    }
+  }
+
+  return v5;
+}
 
 - (unsigned)_findFirmwareInfoEntry
 {
@@ -953,6 +980,33 @@ LABEL_9:
   return v15;
 }
 
+- (int)readDataAtOffset:(unsigned int)offset ofLength:(unsigned int)length intoBuffer:(void *)buffer
+{
+  input[0] = offset;
+  input[1] = length;
+  outputStructCnt = length;
+  iBU_LOG_real(@"inputs[0] = 0x%llx; inputs[1] = 0x%llx; buf = %p; outSize = 0x%lx; &outSize = %p\n", "[IODualSPIWriter readDataAtOffset:ofLength:intoBuffer:]", *&offset, *&length, buffer, v5, v6, v7, offset);
+  v10 = IOConnectCallMethod([(IODualSPIWriter *)self spiDriverConnect], 2u, input, 2u, 0, 0, 0, 0, buffer, &outputStructCnt);
+  iBU_LOG_real(@"Got result: 0x%x", "[IODualSPIWriter readDataAtOffset:ofLength:intoBuffer:]", v11, v12, v13, v14, v15, v16, v10);
+  return v10;
+}
+
+- (int)eraseBytes:(unsigned int)bytes ofLength:(unsigned int)length withError:(id *)error
+{
+  v9 = *&length;
+  input[0] = bytes;
+  input[1] = length;
+  iBU_LOG_real(@"inputs[0] = 0x%llx; inputs[1] = 0x%llx", "[IODualSPIWriter eraseBytes:ofLength:withError:]", *&bytes, *&length, error, v5, v6, v7, bytes);
+  v11 = IOConnectCallMethod(*&self->_usesAFUH, 3u, input, 2u, 0, 0, 0, 0, 0, 0);
+  v17 = v11;
+  if (error && v11)
+  {
+    *error = MSUBootFirmwareError(v11, 0, @"_eraseBytes: Failed to erase %d bytes with error %d", v12, v13, v14, v15, v16, v9);
+  }
+
+  return v17;
+}
+
 - (int)_writeFirmware:(id)firmware toHeader:(id)header withError:(id *)error
 {
   packStructure = [header packStructure];
@@ -1129,6 +1183,23 @@ LABEL_18:
 
     return [(IODualSPIWriter *)self _writeBytes:bytes atOffset:startLocation ofLength:v22 withError:error];
   }
+}
+
+- (int)_writeBytes:(char *)bytes atOffset:(unsigned int)offset ofLength:(unsigned int)length withError:(id *)error
+{
+  v9 = *&length;
+  lengthCopy = length;
+  input[0] = offset;
+  input[1] = length;
+  iBU_LOG_real(@"inputs[0] = 0x%llx; inputs[1] = 0x%llx", "[IODualSPIWriter _writeBytes:atOffset:ofLength:withError:]", bytes, *&offset, *&length, error, v6, v7, offset);
+  v13 = IOConnectCallMethod([(IODualSPIWriter *)self spiDriverConnect], 1u, input, 2u, bytes, lengthCopy, 0, 0, 0, 0);
+  v19 = v13;
+  if (error && v13)
+  {
+    *error = MSUBootFirmwareError(v13, 0, @"_writeBytes: Failed writing %d bytes with error %d", v14, v15, v16, v17, v18, v9);
+  }
+
+  return v19;
 }
 
 - (void)dealloc

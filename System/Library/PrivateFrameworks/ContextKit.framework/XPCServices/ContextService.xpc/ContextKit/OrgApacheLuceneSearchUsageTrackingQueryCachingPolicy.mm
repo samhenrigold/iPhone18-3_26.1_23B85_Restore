@@ -1,5 +1,6 @@
 @interface OrgApacheLuceneSearchUsageTrackingQueryCachingPolicy
 - (BOOL)shouldCacheWithOrgApacheLuceneSearchQuery:(id)query withOrgApacheLuceneIndexLeafReaderContext:(id)context;
+- (OrgApacheLuceneSearchUsageTrackingQueryCachingPolicy)initWithInt:(int)int withFloat:(float)float withInt:(int)withInt;
 - (int)frequencyWithOrgApacheLuceneSearchQuery:(id)query;
 - (int)minFrequencyToCacheWithOrgApacheLuceneSearchQuery:(id)query;
 - (void)dealloc;
@@ -8,9 +9,16 @@
 
 @implementation OrgApacheLuceneSearchUsageTrackingQueryCachingPolicy
 
+- (OrgApacheLuceneSearchUsageTrackingQueryCachingPolicy)initWithInt:(int)int withFloat:(float)float withInt:(int)withInt
+{
+  v7 = new_OrgApacheLuceneSearchQueryCachingPolicy_CacheOnLargeSegments_initWithInt_withFloat_(*&int, float);
+  sub_100070AAC(self, v7, withInt);
+  return self;
+}
+
 - (int)minFrequencyToCacheWithOrgApacheLuceneSearchQuery:(id)query
 {
-  if (OrgApacheLuceneSearchUsageTrackingQueryCachingPolicy_isCostlyWithOrgApacheLuceneSearchQuery_())
+  if (OrgApacheLuceneSearchUsageTrackingQueryCachingPolicy_isCostlyWithOrgApacheLuceneSearchQuery_(query))
   {
     return 2;
   }

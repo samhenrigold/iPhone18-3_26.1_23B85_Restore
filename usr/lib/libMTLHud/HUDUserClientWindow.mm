@@ -44,19 +44,19 @@
   objc_sync_enter(selfCopy);
   v6 = [(NSMutableDictionary *)selfCopy->_map objectForKeyedSubscript:metricCopy];
   v7 = v6;
-  if (v6 && (*([v6 descriptor] + 48) & 2) != 0 && (MTLHudIsInternalInstall() & 1) == 0)
+  if (v6 && (v8 = [v6 descriptor], (v8[48] & 2) != 0) && (MTLHudIsInternalInstall(v8, v9) & 1) == 0)
   {
-    v8 = 0;
+    v10 = 0;
   }
 
   else
   {
-    v8 = v7;
+    v10 = v7;
   }
 
   objc_sync_exit(selfCopy);
 
-  return v8;
+  return v10;
 }
 
 - (void)addMetric:(id)metric after:(id)after
@@ -78,7 +78,7 @@
 
   if (!v11)
   {
-    if ((v11 = -[HUDUserClientMetricGroup initWithCategory:]([HUDUserClientMetricGroup alloc], "initWithCategory:", *([metricCopy descriptor] + 10)), v12 = selfCopy->_metrics, +[NSNumber numberWithUnsignedInt:](NSNumber, "numberWithUnsignedInt:", *(objc_msgSend(metricCopy, "descriptor") + 10)), v13 = objc_claimAutoreleasedReturnValue(), -[NSMutableDictionary setObject:forKeyedSubscript:](v12, "setObject:forKeyedSubscript:", v11, v13), v13, -[HUDUserClientMetricGroup category](v11, "category") == 2) && (*(HUDGetGlobalConfig() + 15) & 1) != 0 || -[HUDUserClientMetricGroup category](v11, "category") == 3 && *(HUDGetGlobalConfig() + 14) == 1)
+    if ((v11 = -[HUDUserClientMetricGroup initWithCategory:]([HUDUserClientMetricGroup alloc], "initWithCategory:", *([metricCopy descriptor] + 10)), v12 = selfCopy->_metrics, +[NSNumber numberWithUnsignedInt:](NSNumber, "numberWithUnsignedInt:", *(objc_msgSend(metricCopy, "descriptor") + 10)), v13 = objc_claimAutoreleasedReturnValue(), -[NSMutableDictionary setObject:forKeyedSubscript:](v12, "setObject:forKeyedSubscript:", v11, v13), v13, v14 = -[HUDUserClientMetricGroup category](v11, "category"), v14 == 2) && (*(HUDGetGlobalConfig(v14, v15) + 15) & 1) != 0 || (v16 = -[HUDUserClientMetricGroup category](v11, "category"), v16 == 3) && *(HUDGetGlobalConfig(v16, v17) + 14) == 1)
     {
       [(HUDUserClientMetricGroup *)v11 setEnabled:0];
     }
@@ -89,25 +89,25 @@
     for (i = 0; ; ++i)
     {
       metrics = [(HUDUserClientMetricGroup *)v11 metrics];
-      v16 = [metrics count];
+      v20 = [metrics count];
 
-      if (i >= v16)
+      if (i >= v20)
       {
         break;
       }
 
       metrics2 = [(HUDUserClientMetricGroup *)v11 metrics];
-      v18 = [metrics2 objectAtIndexedSubscript:i];
-      v19 = [*(objc_msgSend(v18 "descriptor") + 1)];
+      v22 = [metrics2 objectAtIndexedSubscript:i];
+      v23 = [*(objc_msgSend(v22 "descriptor") + 1)];
 
-      if (v19)
+      if (v23)
       {
         if (i != 0x7FFFFFFFFFFFFFFFLL)
         {
           metrics3 = [(HUDUserClientMetricGroup *)v11 metrics];
-          v21 = [metrics3 count] - 1;
+          v25 = [metrics3 count] - 1;
 
-          if (i < v21)
+          if (i < v25)
           {
             metrics4 = [(HUDUserClientMetricGroup *)v11 metrics];
             [metrics4 insertObject:metricCopy atIndex:i + 1];

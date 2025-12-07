@@ -65,20 +65,29 @@ void __53__BRTimer_initWithName_interval_callbackQueue_block___block_invoke(uint
 
 - (void)dealloc
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v1 = *(self + 24);
-  OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_6(&dword_1AE2A9000, v2, v3, "[DEBUG] dealloc timer %@%@");
-  v4 = *MEMORY[0x1E69E9840];
+  v3 = brc_bread_crumbs("[BRTimer dealloc]", 41);
+  v4 = brc_default_log(1, 0);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  {
+    [BRTimer dealloc];
+  }
+
+  dispatch_source_cancel(self->_timer);
+  v5.receiver = self;
+  v5.super_class = BRTimer;
+  [(BRTimer *)&v5 dealloc];
 }
 
 - (void)stop
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v1 = *(self + 24);
-  OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_6(&dword_1AE2A9000, v2, v3, "[DEBUG] stop timer %@%@");
-  v4 = *MEMORY[0x1E69E9840];
+  v3 = brc_bread_crumbs("[BRTimer stop]", 52);
+  v4 = brc_default_log(1, 0);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  {
+    [BRTimer stop];
+  }
+
+  dispatch_source_cancel(self->_timer);
 }
 
 @end

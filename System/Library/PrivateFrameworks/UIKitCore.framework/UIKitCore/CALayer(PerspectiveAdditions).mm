@@ -6,25 +6,25 @@
 
 - (uint64_t)setPerspectiveDistance:()PerspectiveAdditions
 {
-  v12 = 0u;
   v13 = 0u;
-  v10 = 0u;
+  v14 = 0u;
   v11 = 0u;
-  v8 = 0u;
+  v12 = 0u;
   v9 = 0u;
-  v6 = 0u;
+  v10 = 0u;
   v7 = 0u;
-  [self sublayerTransform];
-  *(&v11 + 1) = -1.0 / a2;
-  v5[4] = v10;
-  v5[5] = v11;
-  v5[6] = v12;
-  v5[7] = v13;
-  v5[0] = v6;
-  v5[1] = v7;
-  v5[2] = v8;
-  v5[3] = v9;
-  return [self setSublayerTransform:v5];
+  v8 = 0u;
+  objc_msgSend_sublayerTransform(self, a2);
+  *(&v12 + 1) = -1.0 / a3;
+  v6[4] = v11;
+  v6[5] = v12;
+  v6[6] = v13;
+  v6[7] = v14;
+  v6[0] = v7;
+  v6[1] = v8;
+  v6[2] = v9;
+  v6[3] = v10;
+  return [self setSublayerTransform:v6];
 }
 
 @end

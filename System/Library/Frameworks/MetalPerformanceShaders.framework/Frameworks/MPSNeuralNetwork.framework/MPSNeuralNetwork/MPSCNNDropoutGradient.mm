@@ -10,9 +10,9 @@
 
 - (MPSCNNDropoutGradient)initWithDevice:(id)device keepProbability:(float)keepProbability seed:(NSUInteger)seed maskStrideInPixels:(MTLSize *)maskStrideInPixels
 {
-  v14.receiver = self;
-  v14.super_class = MPSCNNDropoutGradient;
-  result = [(MPSCNNGradientKernel *)&v14 initWithDevice:device];
+  v18.receiver = self;
+  v18.super_class = MPSCNNDropoutGradient;
+  result = [(MPSCNNGradientKernel *)&v18 initWithDevice:device];
   if (result)
   {
     if (keepProbability <= 0.0 || keepProbability > 1.0)
@@ -22,7 +22,7 @@
       {
         v13 = objc_opt_class();
         NSStringFromClass(v13);
-        MTLReportFailure();
+        MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNDropout.mm", 0x261, @"[%@ initWithDevice:keepProbability:seed:] Failed: the valid range of keepProbability (%lu) is (0.0f, 1.0f]"), v14, v15, v16, v17;
       }
 
       return 0;
@@ -47,9 +47,9 @@
 
 - (MPSCNNDropoutGradient)initWithCoder:(NSCoder *)aDecoder device:(id)device
 {
-  v40.receiver = self;
-  v40.super_class = MPSCNNDropoutGradient;
-  v5 = [(MPSCNNGradientKernel *)&v40 initWithCoder:aDecoder device:device];
+  v44.receiver = self;
+  v44.super_class = MPSCNNDropoutGradient;
+  v5 = [(MPSCNNGradientKernel *)&v44 initWithCoder:aDecoder device:device];
   v12 = v5;
   if (!v5)
   {
@@ -75,7 +75,7 @@
   {
     v39 = objc_opt_class();
     NSStringFromClass(v39);
-    MTLReportFailure();
+    MTLReportFailure(1, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNDropout.mm", 0x28B, @"[%@ initWithCoder:device:] Failed: unsupported file version.", v40, v41, v42, v43);
   }
 
   return 0;

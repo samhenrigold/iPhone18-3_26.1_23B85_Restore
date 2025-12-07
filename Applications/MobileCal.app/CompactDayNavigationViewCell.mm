@@ -811,7 +811,7 @@ LABEL_11:
   if (overlayString != stringCopy)
   {
     v9 = stringCopy;
-    if (!stringCopy || ![(NSString *)overlayString isEqualToString:stringCopy])
+    if (!stringCopy || (overlayString = [(NSString *)overlayString isEqualToString:stringCopy], stringCopy = v9, (overlayString & 1) == 0))
     {
       objc_storeStrong(&self->_overlayString, string);
       self->_hasOverlay = [(NSString *)v9 length]!= 0;
@@ -829,11 +829,12 @@ LABEL_11:
       }
 
       [(CompactDayNavigationViewCell *)self _updateToMatchMonthViewIfNeeded];
-      [(CompactDayNavigationViewCell *)self setNeedsLayout];
+      overlayString = [(CompactDayNavigationViewCell *)self setNeedsLayout];
+      stringCopy = v9;
     }
   }
 
-  _objc_release_x1();
+  _objc_release_x1(overlayString, stringCopy);
 }
 
 - (void)setCircleDiameter:(double)diameter overlayDiameter:(double)overlayDiameter largeOverlayDiameter:(double)largeOverlayDiameter
@@ -873,26 +874,40 @@ LABEL_11:
 {
   colorCopy = color;
   badgeColor = self->_badgeColor;
-  if (colorCopy | badgeColor && ([(UIColor *)badgeColor isEqual:colorCopy]& 1) == 0)
+  if (colorCopy | badgeColor)
   {
-    objc_storeStrong(&self->_badgeColor, color);
-    [(CompactDayNavigationViewCell *)self _updateBadge];
+    v7 = colorCopy;
+    badgeColor = [(UIColor *)badgeColor isEqual:colorCopy];
+    colorCopy = v7;
+    if ((badgeColor & 1) == 0)
+    {
+      objc_storeStrong(&self->_badgeColor, color);
+      badgeColor = [(CompactDayNavigationViewCell *)self _updateBadge];
+      colorCopy = v7;
+    }
   }
 
-  _objc_release_x1();
+  _objc_release_x1(badgeColor, colorCopy);
 }
 
 - (void)setBadgeLocale:(id)locale
 {
   localeCopy = locale;
   badgeLocale = self->_badgeLocale;
-  if (localeCopy | badgeLocale && ([(NSString *)badgeLocale isEqual:localeCopy]& 1) == 0)
+  if (localeCopy | badgeLocale)
   {
-    objc_storeStrong(&self->_badgeLocale, locale);
-    [(CompactDayNavigationViewCell *)self _updateBadge];
+    v7 = localeCopy;
+    badgeLocale = [(NSString *)badgeLocale isEqual:localeCopy];
+    localeCopy = v7;
+    if ((badgeLocale & 1) == 0)
+    {
+      objc_storeStrong(&self->_badgeLocale, locale);
+      badgeLocale = [(CompactDayNavigationViewCell *)self _updateBadge];
+      localeCopy = v7;
+    }
   }
 
-  _objc_release_x1();
+  _objc_release_x1(badgeLocale, localeCopy);
 }
 
 - (void)_updateBadge

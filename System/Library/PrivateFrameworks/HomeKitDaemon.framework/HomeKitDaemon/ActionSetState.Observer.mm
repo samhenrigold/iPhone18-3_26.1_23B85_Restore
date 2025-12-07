@@ -13,98 +13,93 @@
 - (void)stopMonitoringActionSet:(id)set
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27D87D8F0, &qword_22A578D70);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = &v12 - v7;
-  v9 = sub_22A4DD9DC();
-  (*(*(v9 - 8) + 56))(v8, 1, 1, v9);
-  v10 = swift_allocObject();
-  v10[2] = 0;
-  v10[3] = 0;
-  v10[4] = self;
-  v10[5] = set;
+  v7 = &v11 - v6;
+  v8 = sub_22A4DD9DC();
+  (*(*(v8 - 8) + 56))(v7, 1, 1, v8);
+  v9 = swift_allocObject();
+  v9[2] = 0;
+  v9[3] = 0;
+  v9[4] = self;
+  v9[5] = set;
   setCopy = set;
 
-  sub_22957F3C0(0, 0, v8, &unk_22A581EC0, v10);
+  sub_22957F3C0(0, 0, v7, &unk_22A581EC0, v9);
 }
 
 - (void)stateRegistrationsDidChangeForActionSetUUIDs:(id)ds
 {
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27D87D8F0, &qword_22A578D70);
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x28223BE20](v4 - 8);
-  v7 = &v11 - v6;
+  v6 = &v10 - v5;
   sub_22A4DB7DC();
-  v8 = sub_22A4DD83C();
-  v9 = sub_22A4DD9DC();
-  (*(*(v9 - 8) + 56))(v7, 1, 1, v9);
-  v10 = swift_allocObject();
-  v10[2] = 0;
-  v10[3] = 0;
-  v10[4] = self;
-  v10[5] = v8;
+  v7 = sub_22A4DD83C();
+  v8 = sub_22A4DD9DC();
+  (*(*(v8 - 8) + 56))(v6, 1, 1, v8);
+  v9 = swift_allocObject();
+  v9[2] = 0;
+  v9[3] = 0;
+  v9[4] = self;
+  v9[5] = v7;
 
-  sub_22957F3C0(0, 0, v7, &unk_22A5832D0, v10);
+  sub_22957F3C0(0, 0, v6, &unk_22A5832D0, v9);
 }
 
 - (void)handleWithCharacteristicsChangedNotification:(id)notification
 {
   v3 = sub_22A4DB21C();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x28223BE20](v3);
-  v7 = &v8 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v7 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_22A4DB1DC();
 
-  sub_22974FE88(v7);
+  sub_22974FE88(v6);
 
-  (*(v4 + 8))(v7, v3);
+  (*(v4 + 8))(v6, v3);
 }
 
 - (void)currentStateForActionSetUUIDs:(NSArray *)ds completionHandler:(id)handler
 {
   v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27D87D8F0, &qword_22A578D70);
-  v8 = *(*(v7 - 8) + 64);
   MEMORY[0x28223BE20](v7 - 8);
-  v10 = &v17 - v9;
-  v11 = _Block_copy(handler);
-  v12 = swift_allocObject();
-  v12[2] = ds;
-  v12[3] = v11;
-  v12[4] = self;
-  v13 = sub_22A4DD9DC();
-  (*(*(v13 - 8) + 56))(v10, 1, 1, v13);
+  v9 = &v16 - v8;
+  v10 = _Block_copy(handler);
+  v11 = swift_allocObject();
+  v11[2] = ds;
+  v11[3] = v10;
+  v11[4] = self;
+  v12 = sub_22A4DD9DC();
+  (*(*(v12 - 8) + 56))(v9, 1, 1, v12);
+  v13 = swift_allocObject();
+  v13[2] = 0;
+  v13[3] = 0;
+  v13[4] = &unk_22A581EA8;
+  v13[5] = v11;
   v14 = swift_allocObject();
   v14[2] = 0;
   v14[3] = 0;
-  v14[4] = &unk_22A581EA8;
-  v14[5] = v12;
-  v15 = swift_allocObject();
-  v15[2] = 0;
-  v15[3] = 0;
-  v15[4] = &unk_22A57B590;
-  v15[5] = v14;
+  v14[4] = &unk_22A57B590;
+  v14[5] = v13;
   dsCopy = ds;
 
-  sub_229859F70(0, 0, v10, &unk_22A581CC0, v15);
+  sub_229859F70(0, 0, v9, &unk_22A581CC0, v14);
 }
 
 - (void)timerDidFire:(id)fire
 {
   ObjectType = swift_getObjectType();
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27D87D8F0, &qword_22A578D70);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = &v11 - v7;
-  v9 = sub_22A4DD9DC();
-  (*(*(v9 - 8) + 56))(v8, 1, 1, v9);
-  v10 = swift_allocObject();
-  v10[2] = 0;
-  v10[3] = 0;
-  v10[4] = self;
-  v10[5] = ObjectType;
+  v7 = &v10 - v6;
+  v8 = sub_22A4DD9DC();
+  (*(*(v8 - 8) + 56))(v7, 1, 1, v8);
+  v9 = swift_allocObject();
+  v9[2] = 0;
+  v9[3] = 0;
+  v9[4] = self;
+  v9[5] = ObjectType;
 
-  sub_22957F3C0(0, 0, v8, &unk_22A581E98, v10);
+  sub_22957F3C0(0, 0, v7, &unk_22A581E98, v9);
 }
 
 - (_TtCC13HomeKitDaemon14ActionSetState8Observer)init

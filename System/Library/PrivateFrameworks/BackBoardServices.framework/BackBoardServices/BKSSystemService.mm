@@ -1,7 +1,9 @@
 @interface BKSSystemService
 - (BKSSystemService)init;
 - (BOOL)canOpenApplication:(id)application reason:(int *)reason;
+- (void)openApplication:(id)application options:(id)options clientPort:(unsigned int)port withResult:(id)result;
 - (void)openApplication:(id)application options:(id)options withResult:(id)result;
+- (void)openURL:(id)l application:(id)application options:(id)options clientPort:(unsigned int)port withResult:(id)result;
 @end
 
 @implementation BKSSystemService
@@ -39,6 +41,15 @@
   return v2;
 }
 
+- (void)openURL:(id)l application:(id)application options:(id)options clientPort:(unsigned int)port withResult:(id)result
+{
+  resultCopy = result;
+  fbsSystemService = self->_fbsSystemService;
+  v11 = resultCopy;
+  v10 = resultCopy;
+  [FBSSystemService openURL:"openURL:application:options:clientPort:withResult:" application:? options:? clientPort:? withResult:?];
+}
+
 uint64_t __70__BKSSystemService_openURL_application_options_clientPort_withResult___block_invoke(uint64_t a1)
 {
   result = *(a1 + 32);
@@ -48,6 +59,15 @@ uint64_t __70__BKSSystemService_openURL_application_options_clientPort_withResul
   }
 
   return result;
+}
+
+- (void)openApplication:(id)application options:(id)options clientPort:(unsigned int)port withResult:(id)result
+{
+  resultCopy = result;
+  fbsSystemService = self->_fbsSystemService;
+  v10 = resultCopy;
+  v9 = resultCopy;
+  [FBSSystemService openApplication:"openApplication:options:clientPort:withResult:" options:? clientPort:? withResult:?];
 }
 
 uint64_t __66__BKSSystemService_openApplication_options_clientPort_withResult___block_invoke(uint64_t a1)
@@ -65,13 +85,9 @@ uint64_t __66__BKSSystemService_openApplication_options_clientPort_withResult___
 {
   resultCopy = result;
   fbsSystemService = self->_fbsSystemService;
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __55__BKSSystemService_openApplication_options_withResult___block_invoke;
-  v11[3] = &unk_1E6F46F00;
-  v12 = resultCopy;
-  v10 = resultCopy;
-  [(FBSSystemService *)fbsSystemService openApplication:application options:options withResult:v11];
+  v9 = resultCopy;
+  v8 = resultCopy;
+  [FBSSystemService openApplication:"openApplication:options:withResult:" options:? withResult:?];
 }
 
 uint64_t __55__BKSSystemService_openApplication_options_withResult___block_invoke(uint64_t a1)
@@ -87,19 +103,14 @@ uint64_t __55__BKSSystemService_openApplication_options_withResult___block_invok
 
 - (BOOL)canOpenApplication:(id)application reason:(int *)reason
 {
-  if (reason)
+  if (!reason)
   {
-    v6 = *reason;
-    result = [(FBSSystemService *)self->_fbsSystemService canOpenApplication:application reason:&v6];
-    *reason = v6;
+    return [FBSSystemService canOpenApplication:"canOpenApplication:reason:" reason:?];
   }
 
-  else
-  {
-    v6 = 0;
-    return [(FBSSystemService *)self->_fbsSystemService canOpenApplication:application reason:&v6];
-  }
-
+  v6 = *reason;
+  result = [FBSSystemService canOpenApplication:"canOpenApplication:reason:" reason:?];
+  *reason = v6;
   return result;
 }
 

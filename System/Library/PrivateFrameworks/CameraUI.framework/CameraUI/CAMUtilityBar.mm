@@ -20,28 +20,28 @@
   filterScrubberView = self->_filterScrubberView;
   if (filterScrubberView != viewCopy)
   {
-    v12 = viewCopy;
+    v14 = viewCopy;
     [(CEKWheelScrubberView *)filterScrubberView removeFromSuperview];
     objc_storeStrong(&self->_filterScrubberView, view);
     v7 = *(MEMORY[0x1E69DDCE0] + 8);
     v8 = *(MEMORY[0x1E69DDCE0] + 24);
-    v9 = CAMIsSmallPhone();
-    v10 = 14.0;
-    if (v9)
+    v11 = CAMIsSmallPhone(v9, v10);
+    v12 = 14.0;
+    if (v11)
     {
-      v10 = 12.5;
+      v12 = 12.5;
     }
 
-    v11 = 15.0;
-    if (v9)
+    v13 = 15.0;
+    if (v11)
     {
-      v11 = 12.5;
+      v13 = 12.5;
     }
 
-    [(CEKWheelScrubberView *)self->_filterScrubberView setThumbnailEdgeInsets:v10, v7, v11, v8];
-    [(CAMUtilityBar *)self addSubview:v12];
-    filterScrubberView = [(CAMUtilityBar *)self _updateVisibilityForUpdatedContent:1 contentView:v12];
-    viewCopy = v12;
+    [(CEKWheelScrubberView *)self->_filterScrubberView setThumbnailEdgeInsets:v12, v7, v13, v8];
+    [(CAMUtilityBar *)self addSubview:v14];
+    filterScrubberView = [(CAMUtilityBar *)self _updateVisibilityForUpdatedContent:1 contentView:v14];
+    viewCopy = v14;
   }
 
   MEMORY[0x1EEE66BB8](filterScrubberView, viewCopy);

@@ -29,7 +29,7 @@
 
 + (id)compositeSettingValueFromImmutableSettingsValue:(id)value
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -131,23 +131,23 @@ LABEL_28:
 
       if (!inputLanguageCode)
       {
-        v31 = objc_autoreleasePoolPush();
+        v30 = objc_autoreleasePoolPush();
         selfCopy = self;
-        v33 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+        v32 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
         {
           HMFGetLogIdentifier();
-          v34 = v35 = v31;
+          v33 = v34 = v30;
           *buf = 138543618;
-          v37 = v34;
-          v38 = 2112;
-          v39 = v26;
-          _os_log_impl(&dword_2531F8000, v33, OS_LOG_TYPE_ERROR, "%{public}@Failed to get a composite setting value from immutable settings value: %@", buf, 0x16u);
+          v36 = v33;
+          v37 = 2112;
+          v38 = v26;
+          _os_log_impl(&dword_2531F8000, v32, OS_LOG_TYPE_ERROR, "%{public}@Failed to get a composite setting value from immutable settings value: %@", buf, 0x16u);
 
-          v31 = v35;
+          v30 = v34;
         }
 
-        objc_autoreleasePoolPop(v31);
+        objc_autoreleasePoolPop(v30);
         v7 = 0;
         goto LABEL_27;
       }
@@ -167,8 +167,6 @@ LABEL_27:
 
 LABEL_29:
 LABEL_30:
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

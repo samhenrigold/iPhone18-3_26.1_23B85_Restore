@@ -11,35 +11,21 @@
 + (id)objectClassesForProperty:(id)property
 {
   propertyCopy = property;
-  v13.receiver = self;
-  v13.super_class = &OBJC_METACLASS___CKDIdentityCacheTable;
-  v5 = objc_msgSendSuper2(&v13, sel_objectClassesForProperty_, propertyCopy);
-  if (objc_msgSend_isEqualToString_(propertyCopy, v6, @"lookupInfo"))
+  v11.receiver = self;
+  v11.super_class = &OBJC_METACLASS___CKDIdentityCacheTable;
+  v5 = objc_msgSendSuper2(&v11, sel_objectClassesForProperty_, propertyCopy);
+  if ((objc_msgSend_isEqualToString_(propertyCopy, v6, @"lookupInfo") & 1) != 0 || objc_msgSend_isEqualToString_(propertyCopy, v7, @"identity"))
   {
-    v8 = 0x277CBC7C8;
+    v8 = objc_opt_class();
+    objc_msgSend_addObject_(v5, v9, v8);
   }
-
-  else
-  {
-    if (!objc_msgSend_isEqualToString_(propertyCopy, v7, @"identity"))
-    {
-      goto LABEL_6;
-    }
-
-    v8 = 0x277CBC7C0;
-  }
-
-  v9 = *v8;
-  v10 = objc_opt_class();
-  objc_msgSend_addObject_(v5, v11, v10);
-LABEL_6:
 
   return v5;
 }
 
 - (id)valuesDictionaryForLookupInfo:(id)info container:(id)container
 {
-  v24[3] = *MEMORY[0x277D85DE8];
+  v23[3] = *MEMORY[0x277D85DE8];
   containerCopy = container;
   infoCopy = info;
   v9 = objc_msgSend_containerID(containerCopy, v7, v8);
@@ -49,15 +35,13 @@ LABEL_6:
 
   v18 = objc_msgSend_dataSeparationHash(v15, v16, v17);
 
-  v23[0] = @"LOOKUPINFO";
-  v23[1] = @"ID";
-  v24[0] = infoCopy;
-  v24[1] = v12;
-  v23[2] = @"HASH";
-  v24[2] = v18;
-  v20 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v19, v24, v23, 3);
-
-  v21 = *MEMORY[0x277D85DE8];
+  v22[0] = @"LOOKUPINFO";
+  v22[1] = @"ID";
+  v23[0] = infoCopy;
+  v23[1] = v12;
+  v22[2] = @"HASH";
+  v23[2] = v18;
+  v20 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v19, v23, v22, 3);
 
   return v20;
 }

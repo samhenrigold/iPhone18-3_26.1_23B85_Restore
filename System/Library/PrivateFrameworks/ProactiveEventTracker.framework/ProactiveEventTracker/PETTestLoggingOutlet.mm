@@ -23,9 +23,7 @@
   allLoggedKeys = self->_allLoggedKeys;
   self->_allLoggedKeys = array;
 
-  array2 = [MEMORY[0x1E695DF70] array];
-  allLoggedValues = self->_allLoggedValues;
-  self->_allLoggedValues = array2;
+  self->_allLoggedValues = [MEMORY[0x1E695DF70] array];
 
   MEMORY[0x1EEE66BB8]();
 }
@@ -38,17 +36,17 @@
 
 - (void)logDoubleValue:(double)value forEvent:(id)event featureId:(id)id stringifiedProperties:(id)properties metaData:(id)data
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v9 = [PETLoggingUtils keyStringForEvent:event featureId:id stringifiedProperties:properties metaData:data];
   if ([v9 length] >= 0x100)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
     {
-      v20 = 138412546;
-      v21 = v9;
-      v22 = 1024;
-      v23 = 255;
-      _os_log_impl(&dword_1DF726000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "AggD key %@ exceeds max length of %d. Try to shorten the event/property names", &v20, 0x12u);
+      v19 = 138412546;
+      v20 = v9;
+      v21 = 1024;
+      v22 = 255;
+      _os_log_impl(&dword_1DF726000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "AggD key %@ exceeds max length of %d. Try to shorten the event/property names", &v19, 0x12u);
     }
 
     v10 = [MEMORY[0x1E695DF30] exceptionWithName:@"PETEventTrackingException" reason:@"key exceeds max length" userInfo:0];
@@ -72,23 +70,21 @@
   [v16 doubleValue];
   value = [v15 numberWithDouble:v17 + value];
   [(NSMutableDictionary *)self->_keyValues setObject:value forKeyedSubscript:v12];
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setUnsignedIntegerValue:(unint64_t)value forEvent:(id)event featureId:(id)id stringifiedProperties:(id)properties metaData:(id)data
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v9 = [PETLoggingUtils keyStringForEvent:event featureId:id stringifiedProperties:properties metaData:data];
   if ([v9 length] >= 0x100)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 138412546;
-      v18 = v9;
-      v19 = 1024;
-      v20 = 255;
-      _os_log_impl(&dword_1DF726000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "AggD key %@ exceeds max length of %d. Try to shorten the event/property names", &v17, 0x12u);
+      v16 = 138412546;
+      v17 = v9;
+      v18 = 1024;
+      v19 = 255;
+      _os_log_impl(&dword_1DF726000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "AggD key %@ exceeds max length of %d. Try to shorten the event/property names", &v16, 0x12u);
     }
 
     v10 = [MEMORY[0x1E695DF30] exceptionWithName:@"PETEventTrackingException" reason:@"key exceeds max length" userInfo:0];
@@ -109,23 +105,21 @@
 
   v15 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:value];
   [(NSMutableDictionary *)self->_keyValues setObject:v15 forKeyedSubscript:v12];
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)logUnsignedIntegerValue:(unint64_t)value forEvent:(id)event featureId:(id)id stringifiedProperties:(id)properties metaData:(id)data
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v9 = [PETLoggingUtils keyStringForEvent:event featureId:id stringifiedProperties:properties metaData:data];
   if ([v9 length] >= 0x100)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 138412546;
-      v20 = v9;
-      v21 = 1024;
-      v22 = 255;
-      _os_log_impl(&dword_1DF726000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "AggD key %@ exceeds max length of %d. Try to shorten the event/property names", &v19, 0x12u);
+      v18 = 138412546;
+      v19 = v9;
+      v20 = 1024;
+      v21 = 255;
+      _os_log_impl(&dword_1DF726000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "AggD key %@ exceeds max length of %d. Try to shorten the event/property names", &v18, 0x12u);
     }
 
     v10 = [MEMORY[0x1E695DF30] exceptionWithName:@"PETEventTrackingException" reason:@"key exceeds max length" userInfo:0];
@@ -148,8 +142,6 @@
   v16 = [(NSMutableDictionary *)self->_keyValues objectForKeyedSubscript:v12];
   v17 = [v15 numberWithUnsignedInteger:{objc_msgSend(v16, "unsignedIntegerValue") + value}];
   [(NSMutableDictionary *)self->_keyValues setObject:v17 forKeyedSubscript:v12];
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (PETTestLoggingOutlet)init

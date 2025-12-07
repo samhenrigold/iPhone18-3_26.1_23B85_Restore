@@ -19,7 +19,7 @@
   v7 = sub_21549E93C();
   (*(*(v7 - 8) + 56))(self + v6, 1, 1, v7);
   v9.receiver = self;
-  v9.super_class = type metadata accessor for LinkAcceleratorViewController();
+  v9.super_class = type metadata accessor for LinkAcceleratorViewController(0);
   return [(LinkAcceleratorViewController *)&v9 initWithNibName:0 bundle:0];
 }
 

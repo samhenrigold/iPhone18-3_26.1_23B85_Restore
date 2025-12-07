@@ -24,11 +24,11 @@
 
 - (ASTSuiteResult)initWithDictionary:(id)dictionary error:(id *)error
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
-  v30.receiver = self;
-  v30.super_class = ASTSuiteResult;
-  v7 = [(ASTSuiteResult *)&v30 init];
+  v29.receiver = self;
+  v29.super_class = ASTSuiteResult;
+  v7 = [(ASTSuiteResult *)&v29 init];
   if (!v7)
   {
 LABEL_19:
@@ -44,29 +44,29 @@ LABEL_19:
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v25 = v8;
+      v24 = v8;
       array = [MEMORY[0x277CBEB18] array];
+      v25 = 0u;
       v26 = 0u;
       v27 = 0u;
       v28 = 0u;
-      v29 = 0u;
       v13 = v9;
-      v14 = [v13 countByEnumeratingWithState:&v26 objects:v31 count:16];
+      v14 = [v13 countByEnumeratingWithState:&v25 objects:v30 count:16];
       if (v14)
       {
         v15 = v14;
-        v16 = *v27;
+        v16 = *v26;
         while (2)
         {
           v17 = 0;
           do
           {
-            if (*v27 != v16)
+            if (*v26 != v16)
             {
               objc_enumerationMutation(v13);
             }
 
-            v18 = [[ASTSuiteResultComponent alloc] initWithDictionary:*(*(&v26 + 1) + 8 * v17) error:error];
+            v18 = [[ASTSuiteResultComponent alloc] initWithDictionary:*(*(&v25 + 1) + 8 * v17) error:error];
             if (!v18)
             {
 
@@ -80,7 +80,7 @@ LABEL_19:
           }
 
           while (v15 != v17);
-          v15 = [v13 countByEnumeratingWithState:&v26 objects:v31 count:16];
+          v15 = [v13 countByEnumeratingWithState:&v25 objects:v30 count:16];
           if (v15)
           {
             continue;
@@ -91,8 +91,8 @@ LABEL_19:
       }
 
       suiteName = v7->_suiteName;
-      v7->_suiteName = v25;
-      v21 = v25;
+      v7->_suiteName = v24;
+      v21 = v24;
 
       components = v7->_components;
       v7->_components = array;
@@ -116,19 +116,16 @@ LABEL_9:
   v11 = 0;
 LABEL_20:
 
-  v23 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 - (void)initWithDictionary:(uint64_t)a1 error:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v5 = 138412290;
-  v6 = objc_opt_class();
-  v3 = v6;
-  _os_log_error_impl(&dword_240F3C000, a2, OS_LOG_TYPE_ERROR, "[%@] Bad dictionary format", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = objc_opt_class();
+  v3 = v5;
+  _os_log_error_impl(&dword_240F3C000, a2, OS_LOG_TYPE_ERROR, "[%@] Bad dictionary format", &v4, 0xCu);
 }
 
 @end

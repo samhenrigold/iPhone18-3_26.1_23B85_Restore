@@ -1,19 +1,4 @@
-uint64_t sub_100010FDC(unint64_t *a1, void *a2, unsigned int a3)
-{
-  *a2 = &RSA4K_SHA384_DDI_ROOT_CA_CERTIFICATE;
-  a2[1] = 1394;
-  if (sub_100011AD4(a1, a2, a3))
-  {
-    return 0xFFFFFFFFLL;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t sub_100011028(unint64_t *a1, void *a2, unsigned int a3)
+uint64_t sub_100011028(unint64_t *a1, void *a2, uint64_t a3)
 {
   *a2 = &RSA4K_SHA384_DDI_GLOBAL_ROOT_CA_CERTIFICATE;
   a2[1] = 1404;
@@ -28,7 +13,7 @@ uint64_t sub_100011028(unint64_t *a1, void *a2, unsigned int a3)
   }
 }
 
-uint64_t sub_100011074(unint64_t *a1, void *a2, unsigned int a3)
+uint64_t sub_100011074(unint64_t *a1, void *a2, uint64_t a3)
 {
   *a2 = &RSA4K_SHA384_DDI_FAKE_ROOT_CA_CERTIFICATE;
   a2[1] = 1425;
@@ -43,7 +28,7 @@ uint64_t sub_100011074(unint64_t *a1, void *a2, unsigned int a3)
   }
 }
 
-uint64_t sub_1000110C0(unint64_t *a1, void *a2, unsigned int a3)
+uint64_t sub_1000110C0(unint64_t *a1, void *a2, uint64_t a3)
 {
   *a2 = &RSA4K_SHA384_DDI_FAKE_GLOBAL_ROOT_CA_CERTIFICATE;
   a2[1] = 1435;
@@ -58,7 +43,7 @@ uint64_t sub_1000110C0(unint64_t *a1, void *a2, unsigned int a3)
   }
 }
 
-uint64_t sub_10001110C(unint64_t *a1, void *a2, unsigned int a3)
+uint64_t sub_10001110C(unint64_t *a1, void *a2, uint64_t a3)
 {
   *a2 = &RSA4K_SHA384_AVP_ROOT_CA_CERTIFICATE;
   a2[1] = 1431;
@@ -73,7 +58,7 @@ uint64_t sub_10001110C(unint64_t *a1, void *a2, unsigned int a3)
   }
 }
 
-uint64_t sub_100011158(unint64_t *a1, void *a2, unsigned int a3)
+uint64_t sub_100011158(unint64_t *a1, void *a2, uint64_t a3)
 {
   *a2 = &RSA4K_SHA384_LP_ROOT_CA_CERTIFICATE;
   a2[1] = 1382;
@@ -88,7 +73,7 @@ uint64_t sub_100011158(unint64_t *a1, void *a2, unsigned int a3)
   }
 }
 
-uint64_t sub_1000111A4(unint64_t *a1, void *a2, unsigned int a3)
+uint64_t sub_1000111A4(unint64_t *a1, void *a2, uint64_t a3)
 {
   *a2 = &LOCAL_RSA4K_SHA384_LP_ROOT_CA_CERTIFICATE;
   a2[1] = 1442;
@@ -103,7 +88,7 @@ uint64_t sub_1000111A4(unint64_t *a1, void *a2, unsigned int a3)
   }
 }
 
-uint64_t sub_1000111F0(unint64_t *a1, void *a2, unsigned int a3)
+uint64_t sub_1000111F0(unint64_t *a1, void *a2, uint64_t a3)
 {
   *a2 = &RSA3K_SHA384_ROOT_CA_CERTIFICATE;
   a2[1] = 1118;
@@ -118,7 +103,7 @@ uint64_t sub_1000111F0(unint64_t *a1, void *a2, unsigned int a3)
   }
 }
 
-uint64_t sub_10001123C(unint64_t *a1, void *a2, unsigned int a3)
+uint64_t sub_10001123C(unint64_t *a1, void *a2, uint64_t a3)
 {
   *a2 = &RSA4K_SHA384_ROOT_CA_CERTIFICATE;
   a2[1] = 1374;
@@ -133,7 +118,7 @@ uint64_t sub_10001123C(unint64_t *a1, void *a2, unsigned int a3)
   }
 }
 
-uint64_t sub_100011288(unint64_t *a1, void *a2, unsigned int a3)
+uint64_t sub_100011288(unint64_t *a1, void *a2, uint64_t a3)
 {
   *a2 = &RSA4K_SHA384_ROOT_CA_CERTIFICATE_AWG1;
   a2[1] = 1404;
@@ -148,7 +133,7 @@ uint64_t sub_100011288(unint64_t *a1, void *a2, unsigned int a3)
   }
 }
 
-uint64_t sub_1000112D4(unint64_t *a1, void *a2, unsigned int a3)
+uint64_t sub_1000112D4(unint64_t *a1, void *a2, uint64_t a3)
 {
   *a2 = &RSA4K_SHA384_PED_ROOT_CA_CERTIFICATE;
   a2[1] = 1400;
@@ -306,7 +291,7 @@ uint64_t sub_1000114BC(uint64_t result, unsigned int a2, unint64_t a3, unint64_t
     v30 = 0;
     v28 = 0u;
     v29 = 0u;
-    if (DERParseSequenceContentToObject((v7 + 96), DERNumSubjPubKeyInfoItemSpecs, &DERSubjPubKeyInfoItemSpecs, &v31, 0x20uLL, 0x20uLL))
+    if (DERParseSequenceContentToObject(v7 + 12, DERNumSubjPubKeyInfoItemSpecs, &DERSubjPubKeyInfoItemSpecs, &v31, 0x20uLL, 0x20uLL))
     {
       return 0xFFFFFFFFLL;
     }
@@ -357,7 +342,7 @@ uint64_t sub_1000114BC(uint64_t result, unsigned int a2, unint64_t a3, unint64_t
 
     v11 += 16;
     v8 += 48;
-    v7 += 160;
+    v7 += 20;
     v10 += 48;
     v9 += 160;
     if (v15 == v11)
@@ -465,7 +450,7 @@ LABEL_22:
   return result;
 }
 
-uint64_t sub_10001189C(unint64_t *a1, void *a2, unsigned int a3)
+uint64_t sub_10001189C(unint64_t *a1, void *a2, uint64_t a3)
 {
   *a2 = &LOCAL_EC256_SHA256_ROOT_CA_CERTIFICATE;
   a2[1] = 551;
@@ -480,7 +465,7 @@ uint64_t sub_10001189C(unint64_t *a1, void *a2, unsigned int a3)
   }
 }
 
-uint64_t sub_1000118E8(unint64_t *a1, void *a2, unsigned int a3)
+uint64_t sub_1000118E8(unint64_t *a1, void *a2, uint64_t a3)
 {
   *a2 = &LOCAL_EC384_SHA384_ROOT_CA_CERTIFICATE;
   a2[1] = 610;
@@ -495,7 +480,7 @@ uint64_t sub_1000118E8(unint64_t *a1, void *a2, unsigned int a3)
   }
 }
 
-uint64_t sub_100011950(unint64_t *a1, void *a2, unsigned int a3)
+uint64_t sub_100011950(unint64_t *a1, void *a2, uint64_t a3)
 {
   *a2 = &EC384_SHA384_LP_ROOT_CA_CERTIFICATE;
   a2[1] = 542;
@@ -510,7 +495,7 @@ uint64_t sub_100011950(unint64_t *a1, void *a2, unsigned int a3)
   }
 }
 
-uint64_t sub_1000119E8(unint64_t *a1, void *a2, unsigned int a3)
+uint64_t sub_1000119E8(unint64_t *a1, void *a2, uint64_t a3)
 {
   *a2 = &QA_EC384_SHA384_ROOT_CA_CERTIFICATE;
   a2[1] = 540;
@@ -935,7 +920,7 @@ uint64_t DERImg4DecodePayloadCompression(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t DERImg4DecodePayloadWithProperties(uint64_t a1, unint64_t a2)
+uint64_t DERImg4DecodePayloadWithProperties(uint64_t a1, void *a2)
 {
   result = 6;
   if (a1)
@@ -950,10 +935,10 @@ uint64_t DERImg4DecodePayloadWithProperties(uint64_t a1, unint64_t a2)
           return 2;
         }
 
-        else if (!*(a2 + 80) || (sub_10000E66C(), result = DERImg4DecodePayloadCompression(v7, v8), !result))
+        else if (!a2[10] || (sub_10000E66C(), result = DERImg4DecodePayloadCompression(v7, v8), !result))
         {
-          v6 = *(a2 + 96);
-          v5 = a2 + 96;
+          v6 = a2[12];
+          v5 = a2 + 12;
           if (!v6)
           {
             return 0;
@@ -1005,7 +990,7 @@ uint64_t DERImg4DecodePayloadProperties(uint64_t result, _OWORD *a2)
   return result;
 }
 
-uint64_t DERImg4DecodePayload(uint64_t a1, unint64_t a2)
+uint64_t DERImg4DecodePayload(uint64_t a1, _OWORD *a2)
 {
   result = 6;
   if (a1 && a2)
@@ -1024,8 +1009,8 @@ uint64_t DERImg4DecodePayload(uint64_t a1, unint64_t a2)
 
         else
         {
-          v6 = *(a2 + 80);
-          v5 = a2 + 80;
+          v6 = *(a2 + 10);
+          v5 = a2 + 5;
           if (!v6)
           {
             return 0;
@@ -1045,13 +1030,13 @@ uint64_t DERImg4DecodePayload(uint64_t a1, unint64_t a2)
     {
       v7 = v11[1];
       *a2 = v11[0];
-      *(a2 + 16) = v7;
+      a2[1] = v7;
       v8 = v11[3];
-      *(a2 + 32) = v11[2];
-      *(a2 + 48) = v8;
+      a2[2] = v11[2];
+      a2[3] = v8;
       v9 = v11[5];
-      *(a2 + 64) = v11[4];
-      *(a2 + 80) = v9;
+      a2[4] = v11[4];
+      a2[5] = v9;
     }
   }
 
@@ -1171,7 +1156,7 @@ uint64_t DERImg4DecodeRestoreInfo(uint64_t result, _OWORD *a2)
   return result;
 }
 
-uint64_t DERImg4DecodePropertyWithItem(uint64_t a1, uint64_t a2, unint64_t a3, unint64_t a4)
+uint64_t DERImg4DecodePropertyWithItem(uint64_t a1, uint64_t a2, unint64_t a3, void *a4)
 {
   v8 = 0;
   v9[0] = 0;
@@ -1188,8 +1173,8 @@ uint64_t DERImg4DecodePropertyWithItem(uint64_t a1, uint64_t a2, unint64_t a3, u
       if ((v8 | 0xE000000000000000) == a2)
       {
         result = 0;
-        *(a4 + 16) = a2 | 0xE000000000000000;
-        *(a4 + 40) = a3;
+        a4[2] = a2 | 0xE000000000000000;
+        a4[5] = a3;
       }
 
       else
@@ -1202,7 +1187,7 @@ uint64_t DERImg4DecodePropertyWithItem(uint64_t a1, uint64_t a2, unint64_t a3, u
   return result;
 }
 
-unint64_t *DERImg4DecodeFindProperty(unint64_t *a1, uint64_t a2, unint64_t a3, unint64_t a4)
+unint64_t *DERImg4DecodeFindProperty(unint64_t *a1, uint64_t a2, unint64_t a3, void *a4)
 {
   v8[0] = 0;
   v8[1] = 0;
@@ -1312,25 +1297,25 @@ uint64_t Img4DecodeGetManifest(uint64_t a1, void *a2, _DWORD *a3)
   return result;
 }
 
-uint64_t Img4DecodePayloadPropertiesExists(uint64_t a1)
+uint64_t Img4DecodePayloadPropertiesExists(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
     return 6;
   }
 
-  sub_10000F978(a1);
+  sub_10000F978(a1, a2);
   result = 6;
-  if (v1)
+  if (v2)
   {
-    v5 = *(v2 + 8);
-    v4 = v2 + 8;
-    if (v5)
+    v6 = *(v3 + 8);
+    v5 = v3 + 8;
+    if (v6)
     {
-      result = DERImg4DecodePayloadWithProperties(v4, v6);
+      result = DERImg4DecodePayloadWithProperties(v5, v7);
       if (!result)
       {
-        *v1 = v7 != 0;
+        *v2 = v7[12] != 0;
       }
     }
   }
@@ -1338,30 +1323,30 @@ uint64_t Img4DecodePayloadPropertiesExists(uint64_t a1)
   return result;
 }
 
-uint64_t Img4DecodeGetPayloadProperties(uint64_t a1)
+uint64_t Img4DecodeGetPayloadProperties(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
     return 6;
   }
 
-  sub_10000F978(a1);
+  sub_10000F978(a1, a2);
   result = 6;
-  if (v1)
+  if (v2)
   {
-    v5 = *(v2 + 8);
-    v4 = v2 + 8;
-    if (v5)
+    v6 = *(v3 + 8);
+    v5 = v3 + 8;
+    if (v6)
     {
-      result = DERImg4DecodePayloadWithProperties(v4, v7);
+      result = DERImg4DecodePayloadWithProperties(v5, v8);
       if (!result)
       {
-        if (v8)
+        if (v9)
         {
           result = 0;
-          v6 = v9;
-          *v1 = v8;
-          v1[1] = v6;
+          v7 = v10;
+          *v2 = v9;
+          v2[1] = v7;
           return result;
         }
 
@@ -1484,7 +1469,7 @@ void Img4DecodePayloadPropertiesFindItemWithTag(unint64_t *a1, unsigned int a2, 
 void Img4DecodeGetPayloadPropertiesBoolean()
 {
   sub_10000F8F4();
-  sub_10000F9B0(v0, v1, 1uLL, &v5, 0);
+  sub_10000F9B0(v0, v1, 1uLL, v5, 0);
   if (!v2)
   {
     v3 = sub_10000F94C();
@@ -1997,7 +1982,7 @@ uint64_t verify_signature_hybrid_scheme3_no_pqc(uint64_t a1, uint64_t a2, uint64
   return verify_signature_rsa4096_fixed(v9, v10, v11, v12, v13, v14, v15);
 }
 
-uint64_t Img4DecodeDigestInit(uint64_t a1, uint64_t *a2)
+uint64_t Img4DecodeDigestInit(uint64_t a1, void *a2)
 {
   if (!a1)
   {
@@ -2010,19 +1995,17 @@ uint64_t Img4DecodeDigestInit(uint64_t a1, uint64_t *a2)
     return 0xFFFFFFFFLL;
   }
 
-  v3 = *a2;
   ccdigest_init();
   return 0;
 }
 
-uint64_t Img4DecodeDigestUpdate(uint64_t a1, uint64_t *a2)
+uint64_t Img4DecodeDigestUpdate(uint64_t a1, void *a2)
 {
   if (!a1 || !**(a1 + 16))
   {
     return 0xFFFFFFFFLL;
   }
 
-  v2 = *a2;
   ccdigest_update();
   return 0;
 }

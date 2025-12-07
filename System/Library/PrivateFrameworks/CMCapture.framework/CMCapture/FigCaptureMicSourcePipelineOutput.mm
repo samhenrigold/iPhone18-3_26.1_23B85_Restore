@@ -12,7 +12,7 @@
   v2 = MEMORY[0x1E696AEC0];
   v3 = [objc_loadWeak(&self->_output) description];
   v4 = BWStringFromAudioChannelLayout(v6);
-  return [v2 stringWithFormat:@"Pipeline output: %@, audioChannelLayout: %@", v3, v4, *v6, *&v6[16]];
+  return [v2 stringWithFormat:@"Pipeline output: %@, audioChannelLayout: %@", v3, v4, *v6, *&v6[8], *&v6[16], *&v6[24]];
 }
 
 - (id)initWithOutput:(int)output forAudioChannelLayoutTag:

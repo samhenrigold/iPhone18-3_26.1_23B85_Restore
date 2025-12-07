@@ -41,18 +41,25 @@ uint64_t sub_100001700(uint64_t a1)
   v2 = qword_100011988;
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = sub_100003A58();
-    if (!os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v8 = 0;
+    LODWORD(v3) = sub_100003A58();
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
-      v3 &= ~1u;
+      v3 = v3;
+    }
+
+    else
+    {
+      v3 = v3 & 0xFFFFFFFE;
     }
 
     if (v3)
     {
       v4 = *(a1 + 32);
       v5 = v2;
-      [v4 pid];
-      v6 = _os_log_send_and_compose_impl();
+      v9[0] = 67109120;
+      v9[1] = [v4 pid];
+      v6 = _os_log_send_and_compose_impl(v3, &v8, 0, 0, &_mh_execute_header, v5, 0, "willSwitchToUser:client: Set wasToldWillSwitchUser: Pid:%d", v9);
 
       if (v6)
       {
@@ -68,7 +75,7 @@ uint64_t sub_100001700(uint64_t a1)
     free(v6);
   }
 
-  return (*(*(a1 + 40) + 16))(*(a1 + 40), v7);
+  return (*(*(a1 + 40) + 16))();
 }
 
 uint64_t sub_100001934(uint64_t a1)
@@ -81,18 +88,25 @@ uint64_t sub_100001934(uint64_t a1)
   v2 = qword_100011988;
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = sub_100003A58();
-    if (!os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v8 = 0;
+    LODWORD(v3) = sub_100003A58();
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
-      v3 &= ~1u;
+      v3 = v3;
+    }
+
+    else
+    {
+      v3 = v3 & 0xFFFFFFFE;
     }
 
     if (v3)
     {
       v4 = *(a1 + 32);
       v5 = v2;
-      [v4 pid];
-      v6 = _os_log_send_and_compose_impl();
+      v9[0] = 67109120;
+      v9[1] = [v4 pid];
+      v6 = _os_log_send_and_compose_impl(v3, &v8, 0, 0, &_mh_execute_header, v5, 0, "personaListDidUpdateCompletionHandler was told to Pid:%d", v9);
 
       if (v6)
       {
@@ -108,7 +122,7 @@ uint64_t sub_100001934(uint64_t a1)
     free(v6);
   }
 
-  return (*(*(a1 + 40) + 16))(*(a1 + 40), v7);
+  return (*(*(a1 + 40) + 16))();
 }
 
 uint64_t sub_100001C78(uint64_t a1)
@@ -121,18 +135,25 @@ uint64_t sub_100001C78(uint64_t a1)
   v2 = qword_100011988;
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = sub_100003A58();
-    if (!os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v8 = 0;
+    LODWORD(v3) = sub_100003A58();
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
-      v3 &= ~1u;
+      v3 = v3;
+    }
+
+    else
+    {
+      v3 = v3 & 0xFFFFFFFE;
     }
 
     if (v3)
     {
       v4 = *(a1 + 32);
       v5 = v2;
-      [v4 pid];
-      v6 = _os_log_send_and_compose_impl();
+      v9[0] = 67109120;
+      v9[1] = [v4 pid];
+      v6 = _os_log_send_and_compose_impl(v3, &v8, 0, 0, &_mh_execute_header, v5, 0, "personaUpdateCallbackForMachServiceCompletionHandler was told to Pid:%d", v9);
 
       if (v6)
       {
@@ -148,7 +169,7 @@ uint64_t sub_100001C78(uint64_t a1)
     free(v6);
   }
 
-  return (*(*(a1 + 40) + 16))(*(a1 + 40), v7);
+  return (*(*(a1 + 40) + 16))();
 }
 
 void sub_1000024C8(id a1)
@@ -632,14 +653,13 @@ uint64_t sub_100002D38()
 
 id sub_100002F5C(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = objc_opt_new();
+  v1 = objc_opt_new();
+  v2 = qword_100011998;
+  qword_100011998 = v1;
+
   v3 = qword_100011998;
-  qword_100011998 = v2;
 
-  v4 = qword_100011998;
-
-  return [v4 setSwitchState:0];
+  return [v3 setSwitchState:0];
 }
 
 void sub_100002FEC(id a1)
@@ -677,8 +697,8 @@ uint64_t start()
     *v10 = 0;
     if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 2;
-      if (_os_log_send_and_compose_impl())
+      v9 = 0;
+      if (_os_log_send_and_compose_impl(1, v10, 0, 0, &_mh_execute_header, v1, 0, "Starting bubbled...", &v9, 2))
       {
         sub_100003A60();
       }
@@ -690,12 +710,12 @@ uint64_t start()
   bzero(v10, 0x400uLL);
   if (confstr(65537, v10, 0x400uLL))
   {
-    NSLog(@"confstr returns %s", v10, v9);
+    NSLog(@"confstr returns %s", v10);
   }
 
   else
   {
-    NSLog(@"confstr failed", v7, v9);
+    NSLog(@"confstr failed", v7);
   }
 
   bzero(v10, 0x400uLL);
@@ -804,12 +824,12 @@ void sub_100004670(uint64_t a1)
   [WeakRetained removeCurrentClient];
 }
 
-void sub_100004818(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_100004818(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
-  objc_destroyWeak((v8 + 40));
+  va_start(va, a15);
+  objc_destroyWeak((v15 + 40));
   _Block_object_dispose(va, 8);
-  objc_destroyWeak((v9 - 24));
+  objc_destroyWeak((v16 - 24));
   _Unwind_Resume(a1);
 }
 
@@ -839,12 +859,11 @@ void sub_10000486C(uint64_t a1)
     v7 = [v6 firstObject];
     v8 = [v7 isEqualToString:*(*(*(a1 + 32) + 8) + 40)];
 
-    v9 = *(*(*(a1 + 32) + 8) + 40);
     if (v8)
     {
       NSLog(@"***** Removing Current Service:%@ ********", *(*(*(a1 + 32) + 8) + 40));
-      v10 = objc_loadWeakRetained((a1 + 40));
-      [v10 removeCurrentClientAndMachServiceName];
+      v9 = objc_loadWeakRetained((a1 + 40));
+      [v9 removeCurrentClientAndMachServiceName];
     }
 
     else

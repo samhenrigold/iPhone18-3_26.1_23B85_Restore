@@ -279,9 +279,12 @@ void __31___TVRUIUpNextCell__actionMenu__block_invoke_11(uint64_t a1)
 
 uint64_t __31___TVRUIUpNextCell__actionMenu__block_invoke_444(uint64_t a1, uint64_t a2)
 {
-  *(*(*(a1 + 32) + 8) + 40) = [*(*(*(a1 + 32) + 8) + 40) arrayByAddingObject:a2];
+  v3 = [*(*(*(a1 + 32) + 8) + 40) arrayByAddingObject:a2];
+  v4 = *(*(a1 + 32) + 8);
+  v5 = *(v4 + 40);
+  *(v4 + 40) = v3;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v3, v5);
 }
 
 void __31___TVRUIUpNextCell__actionMenu__block_invoke_2_446(uint64_t a1, uint64_t a2, void *a3)

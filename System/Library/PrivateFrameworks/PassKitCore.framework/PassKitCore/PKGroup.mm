@@ -281,7 +281,7 @@
 
       else if (v8)
       {
-        v6 = [v8 isEqualToString:v9] ^ 1;
+        v6 = objc_msgSend_isEqualToString_(v8) ^ 1;
       }
     }
   }

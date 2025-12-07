@@ -6,47 +6,47 @@
 
 + (id)summaryFromSamples:(id)samples journal:(id)journal
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   samplesCopy = samples;
   journalCopy = journal;
   v7 = [[HKHRLearnHypertensionJournalEntryProvider alloc] initWithJournal:journalCopy];
   if (v7)
   {
-    v30 = journalCopy;
+    v29 = journalCopy;
     v8 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    v34 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    v31 = samplesCopy;
+    v33 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v30 = samplesCopy;
     [samplesCopy sortedArrayUsingComparator:&__block_literal_global];
+    v37 = 0u;
     v38 = 0u;
     v39 = 0u;
-    v40 = 0u;
-    obj = v41 = 0u;
-    v37 = [obj countByEnumeratingWithState:&v38 objects:v48 count:16];
+    obj = v40 = 0u;
+    v36 = [obj countByEnumeratingWithState:&v37 objects:v47 count:16];
     startDate = 0;
     v10 = 0;
-    if (!v37)
+    if (!v36)
     {
       goto LABEL_28;
     }
 
-    v36 = *v39;
-    v32 = v7;
-    v33 = v8;
+    v35 = *v38;
+    v31 = v7;
+    v32 = v8;
     while (1)
     {
-      for (i = 0; i != v37; ++i)
+      for (i = 0; i != v36; ++i)
       {
-        if (*v39 != v36)
+        if (*v38 != v35)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v38 + 1) + 8 * i);
-        v13 = [(HKHRLearnHypertensionJournalEntryProvider *)v7 journalEntryForSample:v12, v30];
+        v12 = *(*(&v37 + 1) + 8 * i);
+        v13 = [(HKHRLearnHypertensionJournalEntryProvider *)v7 journalEntryForSample:v12, v29];
         dayWindowType = [v13 dayWindowType];
         if (dayWindowType == 1)
         {
-          v15 = v34;
+          v15 = v33;
           goto LABEL_11;
         }
 
@@ -65,11 +65,11 @@ LABEL_11:
         {
           dayWindowType2 = [v13 dayWindowType];
           *buf = 136446722;
-          v43 = "+[HKHRLearnHypertensionJournalSummaryBuilder summaryFromSamples:journal:]";
-          v44 = 2048;
-          v45 = dayWindowType2;
-          v46 = 2112;
-          v47 = v13;
+          v42 = "+[HKHRLearnHypertensionJournalSummaryBuilder summaryFromSamples:journal:]";
+          v43 = 2048;
+          v44 = dayWindowType2;
+          v45 = 2112;
+          v46 = v13;
           _os_log_error_impl(&dword_228942000, v16, OS_LOG_TYPE_ERROR, "[%{public}s] Unsupported dayWindowType:%ld entry:%@", buf, 0x20u);
         }
 
@@ -99,31 +99,31 @@ LABEL_14:
           allKeys = [v8 allKeys];
           if ([allKeys count]>= 7)
           {
-            allKeys2 = [v34 allKeys];
+            allKeys2 = [v33 allKeys];
             v25 = [allKeys2 count];
 
             if (v25 < 7)
             {
               startDate = 0;
-              v7 = v32;
-              v8 = v33;
+              v7 = v31;
+              v8 = v32;
               goto LABEL_26;
             }
 
             startDate = [v12 startDate];
             _HKInitializeLogging();
             allKeys = HKHRBloodPressureLogForCategory(1);
-            v7 = v32;
+            v7 = v31;
             if (os_log_type_enabled(allKeys, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 136446466;
-              v43 = "+[HKHRLearnHypertensionJournalSummaryBuilder summaryFromSamples:journal:]";
-              v44 = 2112;
-              v45 = startDate;
+              v42 = "+[HKHRLearnHypertensionJournalSummaryBuilder summaryFromSamples:journal:]";
+              v43 = 2112;
+              v44 = startDate;
               _os_log_impl(&dword_228942000, allKeys, OS_LOG_TYPE_DEFAULT, "[%{public}s] date of sample that completed journal: %@)", buf, 0x16u);
             }
 
-            v8 = v33;
+            v8 = v32;
           }
 
           else
@@ -135,14 +135,14 @@ LABEL_14:
 LABEL_26:
       }
 
-      v37 = [obj countByEnumeratingWithState:&v38 objects:v48 count:16];
-      if (!v37)
+      v36 = [obj countByEnumeratingWithState:&v37 objects:v47 count:16];
+      if (!v36)
       {
 LABEL_28:
-        v27 = [[HKHRLearnHypertensionJournalSummary alloc] initWithWakeupSampleMap:v8 bedtimeSampleMap:v34 completeDate:startDate];
+        v27 = [[HKHRLearnHypertensionJournalSummary alloc] initWithWakeupSampleMap:v8 bedtimeSampleMap:v33 completeDate:startDate];
 
-        journalCopy = v30;
-        samplesCopy = v31;
+        journalCopy = v29;
+        samplesCopy = v30;
         goto LABEL_32;
       }
     }
@@ -157,8 +157,6 @@ LABEL_28:
 
   v27 = 0;
 LABEL_32:
-
-  v28 = *MEMORY[0x277D85DE8];
 
   return v27;
 }
@@ -175,15 +173,13 @@ uint64_t __73__HKHRLearnHypertensionJournalSummaryBuilder_summaryFromSamples_jou
 
 + (void)summaryFromSamples:(void *)a1 journal:(NSObject *)a2 .cold.1(void *a1, NSObject *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = [a1 UUID];
-  v5 = 136446466;
-  v6 = "+[HKHRLearnHypertensionJournalSummaryBuilder summaryFromSamples:journal:]";
-  v7 = 2112;
-  v8 = v3;
-  _os_log_error_impl(&dword_228942000, a2, OS_LOG_TYPE_ERROR, "[%{public}s] Unable to initialize entryProvider with journal:%@", &v5, 0x16u);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 136446466;
+  v5 = "+[HKHRLearnHypertensionJournalSummaryBuilder summaryFromSamples:journal:]";
+  v6 = 2112;
+  v7 = v3;
+  _os_log_error_impl(&dword_228942000, a2, OS_LOG_TYPE_ERROR, "[%{public}s] Unable to initialize entryProvider with journal:%@", &v4, 0x16u);
 }
 
 @end

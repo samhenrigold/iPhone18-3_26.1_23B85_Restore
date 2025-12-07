@@ -1,9 +1,11 @@
 @interface UAFAssetSetObserver
++ (BOOL)sendUAFNotificationForAssetSet:(id)set forRoot:(BOOL)root;
 + (id)getConcurrentQueue;
 + (id)getSerialQueue;
 + (id)notificationForAssetSet:(id)set forRoot:(BOOL)root;
 + (int)listenForMAStartupNotification:(id)notification updateHandler:(id)handler;
 + (int)listenForNotification:(id)notification queue:(id)queue updateHandler:(id)handler;
++ (int)listenForUAFNotificationsForAssetSet:(id)set forRoot:(BOOL)root queue:(id)queue updateHandler:(id)handler;
 - (UAFAssetSetObserver)initWithAssetSet:(id)set ignoreMobileAssetStartup:(BOOL)startup configurationDirURLs:(id)ls queue:(id)queue updateHandler:(id)handler;
 - (void)dealloc;
 - (void)invalidate;
@@ -65,9 +67,42 @@ void __37__UAFAssetSetObserver_getSerialQueue__block_invoke()
   return v5;
 }
 
++ (BOOL)sendUAFNotificationForAssetSet:(id)set forRoot:(BOOL)root
+{
+  v15 = *MEMORY[0x1E69E9840];
+  v4 = [UAFAssetSetObserver notificationForAssetSet:set forRoot:root];
+  v5 = UAFGetLogCategory(&UAFLogContextClient);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v9 = 136315394;
+    v10 = "+[UAFAssetSetObserver sendUAFNotificationForAssetSet:forRoot:]";
+    v11 = 2114;
+    v12 = v4;
+    _os_log_impl(&dword_1BCF2C000, v5, OS_LOG_TYPE_DEFAULT, "%s Sending notification %{public}@", &v9, 0x16u);
+  }
+
+  v6 = notify_post([v4 UTF8String]);
+  if (v6)
+  {
+    v7 = UAFGetLogCategory(&UAFLogContextClient);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    {
+      v9 = 136315650;
+      v10 = "+[UAFAssetSetObserver sendUAFNotificationForAssetSet:forRoot:]";
+      v11 = 2112;
+      v12 = v4;
+      v13 = 2048;
+      v14 = v6;
+      _os_log_error_impl(&dword_1BCF2C000, v7, OS_LOG_TYPE_ERROR, "%s notify_post to %@ failed: %lu", &v9, 0x20u);
+    }
+  }
+
+  return v6 == 0;
+}
+
 + (int)listenForNotification:(id)notification queue:(id)queue updateHandler:(id)handler
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
   handlerCopy = handler;
   out_token = -1;
@@ -79,8 +114,8 @@ void __37__UAFAssetSetObserver_getSerialQueue__block_invoke()
   handler[2] = __65__UAFAssetSetObserver_listenForNotification_queue_updateHandler___block_invoke;
   handler[3] = &unk_1E7FFD9C0;
   v12 = notificationCopy;
-  v20 = v12;
-  v21 = handlerCopy;
+  v19 = v12;
+  v20 = handlerCopy;
   v13 = handlerCopy;
   v14 = notify_register_dispatch(uTF8String, &out_token, queueCopy, handler);
 
@@ -90,38 +125,46 @@ void __37__UAFAssetSetObserver_getSerialQueue__block_invoke()
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v24 = "+[UAFAssetSetObserver listenForNotification:queue:updateHandler:]";
-      v25 = 2112;
-      v26 = v12;
-      v27 = 2048;
-      v28 = v14;
+      v23 = "+[UAFAssetSetObserver listenForNotification:queue:updateHandler:]";
+      v24 = 2112;
+      v25 = v12;
+      v26 = 2048;
+      v27 = v14;
       _os_log_error_impl(&dword_1BCF2C000, v15, OS_LOG_TYPE_ERROR, "%s notify_register_dispatch for %@ failed: %lu", buf, 0x20u);
     }
   }
 
   v16 = out_token;
 
-  v17 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
 uint64_t __65__UAFAssetSetObserver_listenForNotification_queue_updateHandler___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = UAFGetLogCategory(&UAFLogContextClient);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v6 = 136315394;
-    v7 = "+[UAFAssetSetObserver listenForNotification:queue:updateHandler:]_block_invoke";
-    v8 = 2112;
-    v9 = v3;
-    _os_log_impl(&dword_1BCF2C000, v2, OS_LOG_TYPE_DEFAULT, "%s notification %@ received", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "+[UAFAssetSetObserver listenForNotification:queue:updateHandler:]_block_invoke";
+    v7 = 2112;
+    v8 = v3;
+    _os_log_impl(&dword_1BCF2C000, v2, OS_LOG_TYPE_DEFAULT, "%s notification %@ received", &v5, 0x16u);
   }
 
-  result = (*(*(a1 + 40) + 16))();
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 40) + 16))();
+}
+
++ (int)listenForUAFNotificationsForAssetSet:(id)set forRoot:(BOOL)root queue:(id)queue updateHandler:(id)handler
+{
+  rootCopy = root;
+  handlerCopy = handler;
+  queueCopy = queue;
+  v11 = [UAFAssetSetObserver notificationForAssetSet:set forRoot:rootCopy];
+  LODWORD(set) = [UAFAssetSetObserver listenForNotification:v11 queue:queueCopy updateHandler:handlerCopy];
+
+  return set;
 }
 
 + (int)listenForMAStartupNotification:(id)notification updateHandler:(id)handler
@@ -138,14 +181,14 @@ uint64_t __65__UAFAssetSetObserver_listenForNotification_queue_updateHandler___b
 - (UAFAssetSetObserver)initWithAssetSet:(id)set ignoreMobileAssetStartup:(BOOL)startup configurationDirURLs:(id)ls queue:(id)queue updateHandler:(id)handler
 {
   startupCopy = startup;
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   setCopy = set;
   lsCopy = ls;
   queueCopy = queue;
   handlerCopy = handler;
-  v45.receiver = self;
-  v45.super_class = UAFAssetSetObserver;
-  v17 = [(UAFAssetSetObserver *)&v45 init];
+  v44.receiver = self;
+  v44.super_class = UAFAssetSetObserver;
+  v17 = [(UAFAssetSetObserver *)&v44 init];
   v18 = v17;
   if (v17)
   {
@@ -166,9 +209,9 @@ uint64_t __65__UAFAssetSetObserver_listenForNotification_queue_updateHandler___b
       if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v47 = "[UAFAssetSetObserver initWithAssetSet:ignoreMobileAssetStartup:configurationDirURLs:queue:updateHandler:]";
-        v48 = 2114;
-        v49 = setCopy;
+        v46 = "[UAFAssetSetObserver initWithAssetSet:ignoreMobileAssetStartup:configurationDirURLs:queue:updateHandler:]";
+        v47 = 2114;
+        v48 = setCopy;
         _os_log_error_impl(&dword_1BCF2C000, v29, OS_LOG_TYPE_ERROR, "%s Could not init asset set %{public}@ for observer", buf, 0x16u);
       }
 
@@ -188,17 +231,17 @@ uint64_t __65__UAFAssetSetObserver_listenForNotification_queue_updateHandler___b
     v18->_updateHandler = v23;
 
     objc_initWeak(&location, v18);
-    v37 = MEMORY[0x1E69E9820];
-    v38 = 3221225472;
-    v39 = __106__UAFAssetSetObserver_initWithAssetSet_ignoreMobileAssetStartup_configurationDirURLs_queue_updateHandler___block_invoke;
-    v40 = &unk_1E7FFD9E8;
+    v36 = MEMORY[0x1E69E9820];
+    v37 = 3221225472;
+    v38 = __106__UAFAssetSetObserver_initWithAssetSet_ignoreMobileAssetStartup_configurationDirURLs_queue_updateHandler___block_invoke;
+    v39 = &unk_1E7FFD9E8;
     queueCopy = queueCopy;
-    v41 = queueCopy;
-    objc_copyWeak(&v43, &location);
+    v40 = queueCopy;
+    objc_copyWeak(&v42, &location);
     v25 = setCopy;
-    v42 = v25;
-    v26 = MEMORY[0x1BFB33950](&v37);
-    v27 = [UAFAssetSetObserver listenForUAFNotificationsForAssetSet:v25 forRoot:0 queue:queueCopy updateHandler:v26, v37, v38, v39, v40];
+    v41 = v25;
+    v26 = MEMORY[0x1BFB33950](&v36);
+    v27 = [UAFAssetSetObserver listenForUAFNotificationsForAssetSet:v25 forRoot:0 queue:queueCopy updateHandler:v26, v36, v37, v38, v39];
     v18->_uafNotifyToken = v27;
     if (v27 == -1)
     {
@@ -206,9 +249,9 @@ uint64_t __65__UAFAssetSetObserver_listenForNotification_queue_updateHandler___b
       if (os_log_type_enabled(v30, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315394;
-        v47 = "[UAFAssetSetObserver initWithAssetSet:ignoreMobileAssetStartup:configurationDirURLs:queue:updateHandler:]";
-        v48 = 2114;
-        v49 = v25;
+        v46 = "[UAFAssetSetObserver initWithAssetSet:ignoreMobileAssetStartup:configurationDirURLs:queue:updateHandler:]";
+        v47 = 2114;
+        v48 = v25;
         _os_log_fault_impl(&dword_1BCF2C000, v30, OS_LOG_TYPE_FAULT, "%s Error registering update handler for %{public}@", buf, 0x16u);
       }
 
@@ -225,7 +268,7 @@ LABEL_18:
         v28 = v18;
 LABEL_23:
 
-        objc_destroyWeak(&v43);
+        objc_destroyWeak(&v42);
         objc_destroyWeak(&location);
 LABEL_24:
 
@@ -243,9 +286,9 @@ LABEL_24:
       if (os_log_type_enabled(v33, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315394;
-        v47 = "[UAFAssetSetObserver initWithAssetSet:ignoreMobileAssetStartup:configurationDirURLs:queue:updateHandler:]";
-        v48 = 2114;
-        v49 = v25;
+        v46 = "[UAFAssetSetObserver initWithAssetSet:ignoreMobileAssetStartup:configurationDirURLs:queue:updateHandler:]";
+        v47 = 2114;
+        v48 = v25;
         _os_log_fault_impl(&dword_1BCF2C000, v33, OS_LOG_TYPE_FAULT, "%s Error registering MA update handler for %{public}@", buf, 0x16u);
       }
 
@@ -260,7 +303,6 @@ LABEL_24:
   v28 = 0;
 LABEL_25:
 
-  v35 = *MEMORY[0x1E69E9840];
   return v28;
 }
 
@@ -280,7 +322,7 @@ void __106__UAFAssetSetObserver_initWithAssetSet_ignoreMobileAssetStartup_config
 
 void __106__UAFAssetSetObserver_initWithAssetSet_ignoreMobileAssetStartup_configurationDirURLs_queue_updateHandler___block_invoke_2(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = UAFGetLogCategory(&UAFLogContextClient);
   v4 = v3;
@@ -288,12 +330,12 @@ void __106__UAFAssetSetObserver_initWithAssetSet_ignoreMobileAssetStartup_config
   {
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v8 = *(a1 + 32);
-      v9 = 136315394;
-      v10 = "[UAFAssetSetObserver initWithAssetSet:ignoreMobileAssetStartup:configurationDirURLs:queue:updateHandler:]_block_invoke_2";
-      v11 = 2114;
-      v12 = v8;
-      _os_log_error_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_ERROR, "%s Self is nil while calling Update notification for %{public}@", &v9, 0x16u);
+      v7 = *(a1 + 32);
+      v8 = 136315394;
+      v9 = "[UAFAssetSetObserver initWithAssetSet:ignoreMobileAssetStartup:configurationDirURLs:queue:updateHandler:]_block_invoke_2";
+      v10 = 2114;
+      v11 = v7;
+      _os_log_error_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_ERROR, "%s Self is nil while calling Update notification for %{public}@", &v8, 0x16u);
     }
 
     goto LABEL_8;
@@ -302,11 +344,11 @@ void __106__UAFAssetSetObserver_initWithAssetSet_ignoreMobileAssetStartup_config
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v9 = 136315394;
-    v10 = "[UAFAssetSetObserver initWithAssetSet:ignoreMobileAssetStartup:configurationDirURLs:queue:updateHandler:]_block_invoke";
-    v11 = 2114;
-    v12 = v5;
-    _os_log_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_DEFAULT, "%s Update notification for %{public}@", &v9, 0x16u);
+    v8 = 136315394;
+    v9 = "[UAFAssetSetObserver initWithAssetSet:ignoreMobileAssetStartup:configurationDirURLs:queue:updateHandler:]_block_invoke";
+    v10 = 2114;
+    v11 = v5;
+    _os_log_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_DEFAULT, "%s Update notification for %{public}@", &v8, 0x16u);
   }
 
   v6 = [WeakRetained updateHandler];
@@ -317,8 +359,6 @@ void __106__UAFAssetSetObserver_initWithAssetSet_ignoreMobileAssetStartup_config
     (*(v4 + 16))();
 LABEL_8:
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)invalidate

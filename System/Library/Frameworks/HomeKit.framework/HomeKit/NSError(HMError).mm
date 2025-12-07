@@ -146,14 +146,14 @@ LABEL_4:
 
 + (id)hmInternalErrorWithCode:()HMError underlyingError:
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   v5 = a4;
   v6 = v5;
   if (v5)
   {
-    v11 = *MEMORY[0x1E696AA08];
-    v12[0] = v5;
-    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    v10 = *MEMORY[0x1E696AA08];
+    v11[0] = v5;
+    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
   }
 
   else
@@ -162,8 +162,6 @@ LABEL_4:
   }
 
   v8 = [MEMORY[0x1E696ABC0] errorWithDomain:@"HMErrorDomain" code:a3 userInfo:v7];
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

@@ -7,6 +7,7 @@
 - (void)tableView:(id)view commitEditingStyle:(int64_t)style forRowAtIndexPath:(id)path;
 - (void)updateHLSSpecs;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation STStorageHLSController
@@ -18,6 +19,16 @@
   [(STStorageHLSController *)&v4 viewDidLoad];
   table = [(STStorageHLSController *)self table];
   [table setAllowsMultipleSelectionDuringEditing:0];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v6.receiver = self;
+  v6.super_class = STStorageHLSController;
+  [(STStorageHLSController *)&v6 viewWillAppear:appear];
+  v4 = STStorageLocStr(@"REVIEW_VIDEOS_TITLE");
+  navigationItem = [(STStorageHLSController *)self navigationItem];
+  [navigationItem setTitle:v4];
 }
 
 - (id)hlsSpecifiers

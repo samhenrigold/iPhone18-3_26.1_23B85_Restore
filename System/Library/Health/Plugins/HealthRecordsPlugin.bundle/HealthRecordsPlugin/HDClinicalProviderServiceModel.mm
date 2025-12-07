@@ -15,7 +15,7 @@
 
 + (void)initialize
 {
-  v3 = HDHealthRecordsPluginBundle();
+  v3 = HDHealthRecordsPluginBundle(self);
   resourceURL = [v3 resourceURL];
   [HKJSONValidator registerSearchPath:resourceURL];
 }
@@ -138,7 +138,7 @@
   else
   {
     v12 = [HKJSONValidator alloc];
-    v13 = HDHealthRecordsPluginBundle();
+    v13 = HDHealthRecordsPluginBundle(v12);
     v11 = [v12 initWithSchemaNamed:schemaName bundle:v13];
 
     [qword_128830 setObject:v11 forKeyedSubscript:schemaName];

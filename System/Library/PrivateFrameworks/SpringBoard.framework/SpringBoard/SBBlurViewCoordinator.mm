@@ -303,7 +303,7 @@ LABEL_8:
   if (self->_state != state)
   {
     self->_state = state;
-    v4 = SBLogAppResize();
+    v4 = SBLogAppResize(self);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       v5 = objc_opt_class();

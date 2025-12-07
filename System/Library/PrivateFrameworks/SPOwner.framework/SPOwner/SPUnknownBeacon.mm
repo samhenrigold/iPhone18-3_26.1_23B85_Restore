@@ -134,7 +134,7 @@
 
 - (SPUnknownBeacon)initWithCoder:(id)coder
 {
-  v42[2] = *MEMORY[0x277D85DE8];
+  v41[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"name"];
   name = self->_name;
@@ -153,9 +153,9 @@
   self->_beaconIdentifier = v11;
 
   v13 = MEMORY[0x277CBEB98];
-  v42[0] = objc_opt_class();
-  v42[1] = objc_opt_class();
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:2];
+  v41[0] = objc_opt_class();
+  v41[1] = objc_opt_class();
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:2];
   v15 = [v13 setWithArray:v14];
   v16 = [coderCopy decodeObjectOfClasses:v15 forKey:@"beaconLocations"];
 
@@ -205,11 +205,11 @@
   self->_productInformation = v30;
 
   v32 = MEMORY[0x277CBEB98];
+  v38 = objc_opt_class();
   v39 = objc_opt_class();
   v40 = objc_opt_class();
-  v41 = objc_opt_class();
-  v33 = [MEMORY[0x277CBEA60] arrayWithObjects:&v39 count:3];
-  v34 = [v32 setWithArray:{v33, v39, v40}];
+  v33 = [MEMORY[0x277CBEA60] arrayWithObjects:&v38 count:3];
+  v34 = [v32 setWithArray:{v33, v38, v39}];
   v35 = [coderCopy decodeObjectOfClasses:v34 forKey:@"taskInformation"];
   taskInformation = self->_taskInformation;
   self->_taskInformation = v35;
@@ -217,7 +217,6 @@
   self->_isFindMyNetwork = [coderCopy decodeBoolForKey:@"isFindMyNetwork"];
   self->_isPosh = [coderCopy decodeBoolForKey:@"isPosh"];
 
-  v37 = *MEMORY[0x277D85DE8];
   return self;
 }
 

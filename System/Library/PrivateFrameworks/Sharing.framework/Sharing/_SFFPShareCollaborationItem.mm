@@ -1,12 +1,115 @@
 @interface _SFFPShareCollaborationItem
 - (BOOL)hasSeparateSendCopyRepresentation;
 - (BOOL)isCollaborativeURL;
+- (_SFFPShareCollaborationItem)initWithFileURL:(id)l itemProvider:(id)provider activityItem:(id)item defaultCollaboration:(BOOL)collaboration managedFileURL:(id)rL;
 - (id)_defaultLoadingOptionsSummary;
 - (void)_loadMetadataIfNeeded;
 - (void)loadCopyRepresentationURLWithCompletionHandler:(id)handler;
 @end
 
 @implementation _SFFPShareCollaborationItem
+
+- (_SFFPShareCollaborationItem)initWithFileURL:(id)l itemProvider:(id)provider activityItem:(id)item defaultCollaboration:(BOOL)collaboration managedFileURL:(id)rL
+{
+  collaborationCopy = collaboration;
+  v42 = *MEMORY[0x1E69E9840];
+  lCopy = l;
+  providerCopy = provider;
+  itemCopy = item;
+  rLCopy = rL;
+  if (!providerCopy)
+  {
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      v17 = itemCopy;
+    }
+
+    else
+    {
+      v17 = [objc_alloc(MEMORY[0x1E696ACA0]) initWithObject:lCopy];
+    }
+
+    providerCopy = v17;
+  }
+
+  if (lCopy && providerCopy && ([providerCopy canLoadObjectOfClass:objc_opt_class()] & 1) == 0)
+  {
+    [providerCopy registerObject:lCopy visibility:0];
+  }
+
+  v18 = [MEMORY[0x1E695DFF8] URLWithString:@"https://www.apple.com/icloud/"];
+  v29.receiver = self;
+  v29.super_class = _SFFPShareCollaborationItem;
+  v19 = [(SFCollaborationItem *)&v29 initWithItemProvider:providerCopy activityItem:itemCopy placeholderActivityItem:v18 defaultCollaboration:collaborationCopy];
+  if (v19)
+  {
+    v19->_isShared = [SFCollaborationUtilities isSharedFileURL:lCopy isLocalStorageFileURL:&v19->_isLocalStorage isiCloudDriveFileURL:&v19->_isiCloudDrive isInSharedFolder:&v19->_isInSharedFolder];
+    v19->_isThirdPartyFileProviderBacked = [SFCollaborationUtilities isThirdPartyFileProviderBackedURL:lCopy];
+    objc_storeStrong(&v19->_fileURL, l);
+    objc_storeStrong(&v19->_managedFileURL, rL);
+    v20 = share_sheet_log([(SFCollaborationItem *)v19 setType:0]);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    {
+      v21 = "no";
+      isiCloudDrive = v19->_isiCloudDrive;
+      isInSharedFolder = v19->_isInSharedFolder;
+      isThirdPartyFileProviderBacked = v19->_isThirdPartyFileProviderBacked;
+      if (v19->_isShared)
+      {
+        v25 = "yes";
+      }
+
+      else
+      {
+        v25 = "no";
+      }
+
+      *buf = 138413570;
+      if (isiCloudDrive)
+      {
+        v26 = "yes";
+      }
+
+      else
+      {
+        v26 = "no";
+      }
+
+      v31 = v19;
+      v32 = 2112;
+      if (isInSharedFolder)
+      {
+        v27 = "yes";
+      }
+
+      else
+      {
+        v27 = "no";
+      }
+
+      v33 = lCopy;
+      if (isThirdPartyFileProviderBacked)
+      {
+        v21 = "yes";
+      }
+
+      v34 = 2080;
+      v35 = v25;
+      v36 = 2080;
+      v37 = v26;
+      v38 = 2080;
+      v39 = v27;
+      v40 = 2080;
+      v41 = v21;
+      _os_log_impl(&dword_1A9662000, v20, OS_LOG_TYPE_DEFAULT, "%@: fileURL:%@ isShared:%s isiCloudDrive:%s isInSharedFolder:%s isThirdPartyFileProviderBacked:%s", buf, 0x3Eu);
+    }
+
+    [(_SFFPShareCollaborationItem *)v19 _loadMetadataIfNeeded];
+  }
+
+  return v19;
+}
 
 - (void)_loadMetadataIfNeeded
 {

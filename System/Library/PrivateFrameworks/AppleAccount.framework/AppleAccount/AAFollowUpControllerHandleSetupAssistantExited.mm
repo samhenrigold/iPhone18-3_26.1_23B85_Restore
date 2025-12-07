@@ -15,7 +15,7 @@ void ___AAFollowUpControllerHandleSetupAssistantExited_block_invoke(uint64_t a1,
 
     else
     {
-      v4 = _AALogSystem();
+      v4 = _AALogSystem(0);
       if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
         *v5 = 0;
@@ -26,7 +26,7 @@ void ___AAFollowUpControllerHandleSetupAssistantExited_block_invoke(uint64_t a1,
 
   else
   {
-    v3 = _AALogSystem();
+    v3 = _AALogSystem(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -37,9 +37,9 @@ void ___AAFollowUpControllerHandleSetupAssistantExited_block_invoke(uint64_t a1,
 
 void ___AAFollowUpControllerHandleSetupAssistantExited_block_invoke_443(uint64_t a1, int a2, void *a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v4 = a3;
-  v5 = _AALogSystem();
+  v5 = _AALogSystem(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = @"NO";
@@ -48,14 +48,12 @@ void ___AAFollowUpControllerHandleSetupAssistantExited_block_invoke_443(uint64_t
       v6 = @"YES";
     }
 
-    v8 = 138412546;
-    v9 = v6;
-    v10 = 2112;
-    v11 = v4;
-    _os_log_impl(&dword_1B6F6A000, v5, OS_LOG_TYPE_DEFAULT, "Reposted follow up with success: %@, error: %@", &v8, 0x16u);
+    v7 = 138412546;
+    v8 = v6;
+    v9 = 2112;
+    v10 = v4;
+    _os_log_impl(&dword_1B6F6A000, v5, OS_LOG_TYPE_DEFAULT, "Reposted follow up with success: %@, error: %@", &v7, 0x16u);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 @end

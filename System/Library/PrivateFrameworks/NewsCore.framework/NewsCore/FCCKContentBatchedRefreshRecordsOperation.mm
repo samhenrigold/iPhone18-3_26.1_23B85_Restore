@@ -47,7 +47,7 @@
 - (BOOL)validateOperation
 {
   selfCopy = self;
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (self && self->_database)
   {
     goto LABEL_5;
@@ -55,16 +55,16 @@
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"refresh operation must have a database"];
-    v10 = 136315906;
-    v11 = "[FCCKContentBatchedRefreshRecordsOperation validateOperation]";
-    v12 = 2080;
-    v13 = "FCCKContentBatchedRefreshRecordsOperation.m";
-    v14 = 1024;
-    v15 = 55;
-    v16 = 2114;
-    v17 = v8;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v10, 0x26u);
+    v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"refresh operation must have a database"];
+    v9 = 136315906;
+    v10 = "[FCCKContentBatchedRefreshRecordsOperation validateOperation]";
+    v11 = 2080;
+    v12 = "FCCKContentBatchedRefreshRecordsOperation.m";
+    v13 = 1024;
+    v14 = 55;
+    v15 = 2114;
+    v16 = v7;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v9, 0x26u);
 
     if (selfCopy)
     {
@@ -86,26 +86,26 @@ LABEL_5:
 LABEL_6:
   if (![(NSArray *)recordIDs count]&& os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"refresh operation must have record IDs"];
-    v10 = 136315906;
-    v11 = "[FCCKContentBatchedRefreshRecordsOperation validateOperation]";
-    v12 = 2080;
-    v13 = "FCCKContentBatchedRefreshRecordsOperation.m";
-    v14 = 1024;
-    v15 = 56;
-    v16 = 2114;
-    v17 = v9;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v10, 0x26u);
+    v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"refresh operation must have record IDs"];
+    v9 = 136315906;
+    v10 = "[FCCKContentBatchedRefreshRecordsOperation validateOperation]";
+    v11 = 2080;
+    v12 = "FCCKContentBatchedRefreshRecordsOperation.m";
+    v13 = 1024;
+    v14 = 56;
+    v15 = 2114;
+    v16 = v8;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v9, 0x26u);
 
     if (!selfCopy)
     {
-      goto LABEL_12;
+      return selfCopy;
     }
   }
 
   else if (!selfCopy)
   {
-    goto LABEL_12;
+    return selfCopy;
   }
 
   v4 = selfCopy->_database;
@@ -120,8 +120,6 @@ LABEL_6:
     LOBYTE(selfCopy) = 0;
   }
 
-LABEL_12:
-  v6 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -450,36 +448,13 @@ LABEL_9:
   }
 
   v10 = *(a1 + 32);
-  if (!v10)
+  if (v10 && (!*(v10 + 408) || (([*(a1 + 48) removeObject:?], (v11 = *(a1 + 32)) == 0) ? (v12 = 0) : (v12 = *(v11 + 408)), (objc_msgSend(*(a1 + 40), "removeObject:", v12), (v13 = *(a1 + 32)) == 0) ? (v14 = 0) : (v14 = *(v13 + 408)), (objc_msgSend(*(a1 + 56), "removeObjectForKey:", v14), (v15 = *(a1 + 32)) == 0) ? (v16 = 0) : (v16 = *(v15 + 408)), objc_msgSend(*(a1 + 64), "removeObjectForKey:", v16), (v10 = *(a1 + 32)) != 0)))
   {
-    goto LABEL_41;
-  }
-
-  if (!*(v10 + 408))
-  {
-    goto LABEL_19;
-  }
-
-  [*(a1 + 48) removeObject:?];
-  v11 = *(a1 + 32);
-  v12 = v11 ? *(v11 + 408) : 0;
-  [*(a1 + 40) removeObject:v12];
-  v13 = *(a1 + 32);
-  v14 = v13 ? *(v13 + 408) : 0;
-  [*(a1 + 56) removeObjectForKey:v14];
-  v15 = *(a1 + 32);
-  v16 = v15 ? *(v15 + 408) : 0;
-  [*(a1 + 64) removeObjectForKey:v16];
-  v10 = *(a1 + 32);
-  if (v10)
-  {
-LABEL_19:
     v17 = *(v10 + 432);
   }
 
   else
   {
-LABEL_41:
     v17 = 0;
   }
 

@@ -73,28 +73,11 @@
 + (BOOL)getCVAMatrix3xXf:(void *)xf fromDictionary:(id)dictionary forKey:(id)key
 {
   keyCopy = key;
-  cva::DictionaryHandler::DictionaryHandler(v9, dictionary);
-  cva::DictionaryHandler::item(v8, v9, [keyCopy UTF8String]);
-  if (cva::ItemHandler::isMatrixType(v8))
-  {
-    cva::ItemHandler::getMatrix<float,3u,0u>();
-  }
-
-  cva::ItemHandler::~ItemHandler(v8);
-  cva::DictionaryHandler::~DictionaryHandler(v9);
-
-  return 0;
-}
-
-+ (BOOL)getCVAMatrix3xXui:(void *)xui fromDictionary:(id)dictionary forKey:(id)key
-{
-  dictionaryCopy = dictionary;
-  keyCopy = key;
-  cva::DictionaryHandler::DictionaryHandler(v10, dictionaryCopy);
+  cva::DictionaryHandler::DictionaryHandler(v10, dictionary);
   cva::DictionaryHandler::item(v9, v10, [keyCopy UTF8String]);
   if (cva::ItemHandler::isMatrixType(v9))
   {
-    cva::ItemHandler::getMatrix<int,3u,0u>();
+    cva::ItemHandler::getMatrix<float,3u,0u>(v9, xf);
   }
 
   cva::ItemHandler::~ItemHandler(v9);
@@ -103,18 +86,38 @@
   return 0;
 }
 
++ (BOOL)getCVAMatrix3xXui:(void *)xui fromDictionary:(id)dictionary forKey:(id)key
+{
+  dictionaryCopy = dictionary;
+  keyCopy = key;
+  cva::DictionaryHandler::DictionaryHandler(v12, dictionaryCopy);
+  cva::DictionaryHandler::item(v11, v12, [keyCopy UTF8String]);
+  if (cva::ItemHandler::isMatrixType(v11))
+  {
+    v9[0] = 0;
+    v9[1] = 0;
+    v10 = 0;
+    cva::ItemHandler::getMatrix<int,3u,0u>(v11, v9);
+  }
+
+  cva::ItemHandler::~ItemHandler(v11);
+  cva::DictionaryHandler::~DictionaryHandler(v12);
+
+  return 0;
+}
+
 + (BOOL)getCVAMatrix4x4f:(void *)matrix4x4f fromDictionary:(id)dictionary forKey:(id)key
 {
   keyCopy = key;
-  cva::DictionaryHandler::DictionaryHandler(v9, dictionary);
-  cva::DictionaryHandler::item(v8, v9, [keyCopy UTF8String]);
-  if (cva::ItemHandler::isMatrixType(v8))
+  cva::DictionaryHandler::DictionaryHandler(v10, dictionary);
+  cva::DictionaryHandler::item(v9, v10, [keyCopy UTF8String]);
+  if (cva::ItemHandler::isMatrixType(v9))
   {
-    cva::ItemHandler::getMatrix<float,4u,4u>();
+    cva::ItemHandler::getMatrix<float,4u,4u>(v9, matrix4x4f);
   }
 
-  cva::ItemHandler::~ItemHandler(v8);
-  cva::DictionaryHandler::~DictionaryHandler(v9);
+  cva::ItemHandler::~ItemHandler(v9);
+  cva::DictionaryHandler::~DictionaryHandler(v10);
 
   return 0;
 }

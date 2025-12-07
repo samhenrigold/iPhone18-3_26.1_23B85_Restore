@@ -172,7 +172,7 @@ LABEL_23:
 
 - (id)uniqueIdentifier
 {
-  v11[3] = *MEMORY[0x1E69E9840];
+  v10[3] = *MEMORY[0x1E69E9840];
   operation = [(WFToggleAlarmContextualAction *)self operation];
   if (operation > 3)
   {
@@ -186,13 +186,11 @@ LABEL_23:
 
   identifier = [(WFContextualAction *)self identifier];
   alarmIdentifier = [(WFToggleAlarmContextualAction *)self alarmIdentifier];
-  v11[1] = alarmIdentifier;
-  v11[2] = v4;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:3];
+  v10[1] = alarmIdentifier;
+  v10[2] = v4;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:3];
 
   v8 = [v7 componentsJoinedByString:@"."];
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -311,7 +309,7 @@ LABEL_13:
 
 - (WFToggleAlarmContextualAction)initWithAlarmIdentifier:(id)identifier alarmName:(id)name alarmData:(id)data operation:(unint64_t)operation
 {
-  v40[2] = *MEMORY[0x1E69E9840];
+  v39[2] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   nameCopy = name;
   dataCopy = data;
@@ -340,13 +338,13 @@ LABEL_13:
 LABEL_3:
   selfCopy = self;
   v14 = [(WFToggleAlarmContextualAction *)self displayStringFromOperation:operation alarmName:nameCopy];
-  v38 = dataCopy;
+  v37 = dataCopy;
   v15 = [[WFContextualActionParameter alloc] initWithType:@"WFDictionaryContentItem" displayString:0 wfParameterKey:@"alarm" wfSerializedRepresentation:dataCopy];
   v16 = [[WFContextualActionParameter alloc] initWithType:@"WFStringContentItem" displayString:0 wfParameterKey:@"operation" wfSerializedRepresentation:@"toggle"];
-  v36 = v15;
-  v40[0] = v15;
-  v40[1] = v16;
-  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v40 count:2];
+  v35 = v15;
+  v39[0] = v15;
+  v39[1] = v16;
+  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v39 count:2];
   v18 = [v17 mutableCopy];
 
   operationCopy = operation;
@@ -357,9 +355,9 @@ LABEL_3:
     [v18 addObject:v20];
   }
 
-  v39[0] = @"com.apple.mobiletimer-framework.MobileTimerIntents.MTToggleAlarmIntent";
-  v39[1] = identifierCopy;
-  v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v39 count:2];
+  v38[0] = @"com.apple.mobiletimer-framework.MobileTimerIntents.MTToggleAlarmIntent";
+  v38[1] = identifierCopy;
+  v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v38 count:2];
   v22 = [v21 componentsJoinedByString:@"."];
 
   v23 = WFLocalizedString(@"Alarm");
@@ -380,7 +378,6 @@ LABEL_3:
     v30 = v25;
   }
 
-  v31 = *MEMORY[0x1E69E9840];
   return v25;
 }
 

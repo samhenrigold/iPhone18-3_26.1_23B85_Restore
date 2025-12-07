@@ -194,7 +194,7 @@ void __84__ACHGizmoAwardingScheduler__queue_requestRetryingAwardingEvaluationWit
 
 void __84__ACHGizmoAwardingScheduler__queue_requestRetryingAwardingEvaluationWithCompletion___block_invoke_2(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (*(a1 + 64) != 1 || *(a1 + 32))
   {
     *(*(a1 + 40) + 56) = 1;
@@ -211,32 +211,32 @@ void __84__ACHGizmoAwardingScheduler__queue_requestRetryingAwardingEvaluationWit
 
   if ((*(v2 + 57) & 1) == 0)
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v4 = *(v2 + 32);
-    v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v14;
+      v7 = *v13;
       do
       {
         v8 = 0;
         do
         {
-          if (*v14 != v7)
+          if (*v13 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          (*(*(*(&v13 + 1) + 8 * v8) + 16))(*(*(&v13 + 1) + 8 * v8));
+          (*(*(*(&v12 + 1) + 8 * v8) + 16))(*(*(&v12 + 1) + 8 * v8));
           ++v8;
         }
 
         while (v6 != v8);
-        v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v6);
@@ -255,8 +255,6 @@ void __84__ACHGizmoAwardingScheduler__queue_requestRetryingAwardingEvaluationWit
   v10 = *(*(a1 + 56) + 8);
   v11 = *(v10 + 40);
   *(v10 + 40) = 0;
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_scheduleRetryAwardingEvaluation

@@ -8,12 +8,12 @@
 - (id)nextMessage
 {
   v3 = 0;
-  v20 = *MEMORY[0x1E69E9840];
-  v18 = 0;
-  while ([(NSInputStream *)self->_stream read:&v18 maxLength:1]== 1)
+  v19 = *MEMORY[0x1E69E9840];
+  v17 = 0;
+  while ([(NSInputStream *)self->_stream read:&v17 maxLength:1]== 1)
   {
-    v4 = v18;
-    v19[v3] = v18;
+    v4 = v17;
+    v18[v3] = v17;
     v5 = v3 + 1;
     if (v4 < 0 && v3++ < 9)
     {
@@ -22,26 +22,25 @@
 
     v7 = 0;
     v8 = 0;
-    v9 = v19;
-    v10 = v5;
-    while (v10)
+    v9 = v18;
+    for (i = v5; i; --i)
     {
       v8 |= (*v9 & 0x7F) << v7;
       if ((*v9 & 0x80) == 0)
       {
-        v14 = [objc_alloc(MEMORY[0x1E695DF88]) initWithLength:v8];
-        v15 = v14;
-        if (v14 && [v14 length] == v8 && -[NSInputStream read:maxLength:](self->_stream, "read:maxLength:", objc_msgSend(v15, "mutableBytes"), v8) == v8)
+        v13 = [objc_alloc(MEMORY[0x1E695DF88]) initWithLength:v8];
+        v14 = v13;
+        if (v13 && [v13 length] == v8 && -[NSInputStream read:maxLength:](self->_stream, "read:maxLength:", objc_msgSend(v14, "mutableBytes"), v8) == v8)
         {
           self->_position += v8 + v5;
-          v16 = [[PBDataReader alloc] initWithData:v15];
+          v15 = [[PBDataReader alloc] initWithData:v14];
           if ([(PBMessageStreamReader *)self classOfNextMessage])
           {
-            v17 = objc_alloc_init([(PBMessageStreamReader *)self classOfNextMessage]);
-            v11 = v17;
-            if (v17)
+            v16 = objc_alloc_init([(PBMessageStreamReader *)self classOfNextMessage]);
+            v11 = v16;
+            if (v16)
             {
-              [v17 readFrom:v16];
+              [v16 readFrom:v15];
             }
           }
 
@@ -56,26 +55,21 @@
           v11 = 0;
         }
 
-        goto LABEL_11;
+        return v11;
       }
 
       v7 += 7;
       ++v9;
-      --v10;
       if (v7 == 70)
       {
-        goto LABEL_10;
+        return 0;
       }
     }
 
-    break;
+    return 0;
   }
 
-LABEL_10:
-  v11 = 0;
-LABEL_11:
-  v12 = *MEMORY[0x1E69E9840];
-  return v11;
+  return 0;
 }
 
 - (PBMessageStreamReader)initWithStream:(id)stream

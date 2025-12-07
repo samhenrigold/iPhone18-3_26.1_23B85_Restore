@@ -16,20 +16,19 @@
 {
   v4 = xmlBufferCreate();
   v5 = xmlNewTextWriterMemory(v4, 0);
-  v7 = objc_msgSend_exportToXMLWriter_ns_prefix_characterCount_(equation, v6, v5, "http://www.w3.org/1998/Math/MathML", "m", 0);
-  v8 = 0;
-  if (v7)
+  v6 = [equation exportToXMLWriter:v5 ns:"http://www.w3.org/1998/Math/MathML" prefix:"m" characterCount:0];
+  v7 = 0;
+  if (v6)
   {
     xmlTextWriterFlush(v5);
-    v9 = objc_alloc(MEMORY[0x277CBEA90]);
-    v10 = xmlBufferContent(v4);
-    v11 = xmlBufferLength(v4);
-    v8 = objc_msgSend_initWithBytes_length_(v9, v12, v10, v11);
+    v8 = objc_alloc(MEMORY[0x277CBEA90]);
+    v9 = xmlBufferContent(v4);
+    v7 = [v8 initWithBytes:v9 length:xmlBufferLength(v4)];
   }
 
   xmlFreeTextWriter(v5);
   xmlBufferFree(v4);
-  return v8;
+  return v7;
 }
 
 @end

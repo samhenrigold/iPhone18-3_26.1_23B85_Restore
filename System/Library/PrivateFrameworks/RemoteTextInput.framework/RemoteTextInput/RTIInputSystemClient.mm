@@ -4,12 +4,14 @@
 - (RTIInputSystemClient)initWithMachNames:(id)names;
 - (RTIInputSystemClientDelegate)delegate;
 - (RTIServiceOptions)serviceOptions;
+- (void)_beginAllActiveSessionsForServices:(id)services force:(BOOL)force;
 - (void)_beginSessionWithID:(id)d forServices:(id)services force:(BOOL)force;
 - (void)_configureConnection:(id)connection withMachName:(id)name;
 - (void)_didIntializeConnection:(id)connection withMachName:(id)name;
 - (void)_endAllActiveSessionsForServices:(id)services animated:(BOOL)animated completion:(id)completion;
 - (void)_endSessionWithID:(id)d forServices:(id)services options:(id)options completion:(id)completion;
 - (void)_initializeConnectionWithMachName:(id)name;
+- (void)_modifyTextEditingAllowedForReason:(id)reason notify:(BOOL)notify animated:(BOOL)animated modifyAllowancesBlock:(id)block completion:(id)completion;
 - (void)_queueFromCurrentConnection:(id)connection remoteTextInputSessionWithID:(id)d didUpdateServiceOptions:(id)options;
 - (void)_updateAttributesForSessionWithID:(id)d;
 - (void)_updateTextForSessionWithID:(id)d;
@@ -21,6 +23,7 @@
 - (void)endAllowingRemoteTextInput:(id)input completion:(id)completion;
 - (void)endRemoteTextInputSessionWithID:(id)d options:(id)options completion:(id)completion;
 - (void)enumerateConnections:(id)connections force:(BOOL)force withBlock:(id)block;
+- (void)enumerateServices:(id)services force:(BOOL)force withBlock:(id)block;
 - (void)invalidateConnections;
 - (void)notifyServiceOfPause:(BOOL)pause withReason:(id)reason;
 - (void)performDocumentRequest:(id)request completion:(id)completion;
@@ -79,11 +82,11 @@
 
 - (RTIInputSystemClient)initWithMachNames:(id)names
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   namesCopy = names;
-  v33.receiver = self;
-  v33.super_class = RTIInputSystemClient;
-  v5 = [(RTIInputSystemClient *)&v33 init];
+  v32.receiver = self;
+  v32.super_class = RTIInputSystemClient;
+  v5 = [(RTIInputSystemClient *)&v32 init];
   v6 = v5;
   if (v5)
   {
@@ -119,75 +122,72 @@
     connectionServiceOptions = v6->_connectionServiceOptions;
     v6->_connectionServiceOptions = v20;
 
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
     v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
     v22 = namesCopy;
-    v23 = [v22 countByEnumeratingWithState:&v29 objects:v34 count:16];
+    v23 = [v22 countByEnumeratingWithState:&v28 objects:v33 count:16];
     if (v23)
     {
       v24 = v23;
-      v25 = *v30;
+      v25 = *v29;
       do
       {
         v26 = 0;
         do
         {
-          if (*v30 != v25)
+          if (*v29 != v25)
           {
             objc_enumerationMutation(v22);
           }
 
-          [(RTIInputSystemClient *)v6 _initializeConnectionWithMachName:*(*(&v29 + 1) + 8 * v26++), v29];
+          [(RTIInputSystemClient *)v6 _initializeConnectionWithMachName:*(*(&v28 + 1) + 8 * v26++), v28];
         }
 
         while (v24 != v26);
-        v24 = [v22 countByEnumeratingWithState:&v29 objects:v34 count:16];
+        v24 = [v22 countByEnumeratingWithState:&v28 objects:v33 count:16];
       }
 
       while (v24);
     }
   }
 
-  v27 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (void)addMachNames:(id)names
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   namesCopy = names;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v5 = [namesCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [namesCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(namesCopy);
         }
 
-        [(RTIInputSystemClient *)self _initializeConnectionWithMachName:*(*(&v10 + 1) + 8 * v8++)];
+        [(RTIInputSystemClient *)self _initializeConnectionWithMachName:*(*(&v9 + 1) + 8 * v8++)];
       }
 
       while (v6 != v8);
-      v6 = [namesCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [namesCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeMachNames:(id)names
@@ -308,7 +308,7 @@
 
 void __58__RTIInputSystemClient__configureConnection_withMachName___block_invoke(uint64_t a1)
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained && (WeakRetained[16] & 1) == 0)
@@ -330,8 +330,8 @@ void __58__RTIInputSystemClient__configureConnection_withMachName___block_invoke
 
     if (*(a1 + 32))
     {
-      v15[0] = *(a1 + 32);
-      v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
+      v14[0] = *(a1 + 32);
+      v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
     }
 
     else
@@ -343,14 +343,12 @@ void __58__RTIInputSystemClient__configureConnection_withMachName___block_invoke
     block[1] = 3221225472;
     block[2] = __58__RTIInputSystemClient__configureConnection_withMachName___block_invoke_132;
     block[3] = &unk_1E75142D0;
-    v12 = v3;
-    v13 = WeakRetained;
-    v14 = v8;
+    v11 = v3;
+    v12 = WeakRetained;
+    v13 = v8;
     v9 = v8;
     dispatch_async(MEMORY[0x1E69E96A0], block);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __58__RTIInputSystemClient__configureConnection_withMachName___block_invoke_132(uint64_t a1)
@@ -364,7 +362,7 @@ uint64_t __58__RTIInputSystemClient__configureConnection_withMachName___block_in
 
 void __58__RTIInputSystemClient__configureConnection_withMachName___block_invoke_2(id *a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained(a1 + 5);
   v3 = objc_loadWeakRetained(a1 + 6);
   if (WeakRetained && (WeakRetained[16] & 1) == 0)
@@ -373,9 +371,9 @@ void __58__RTIInputSystemClient__configureConnection_withMachName___block_invoke
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v12 = "[RTIInputSystemClient _configureConnection:withMachName:]_block_invoke_2";
-      v13 = 2112;
-      v14 = v3;
+      v11 = "[RTIInputSystemClient _configureConnection:withMachName:]_block_invoke_2";
+      v12 = 2112;
+      v13 = v3;
       _os_log_impl(&dword_19A2A6000, v4, OS_LOG_TYPE_DEFAULT, "%s  Client connection to service was invalidated: %@", buf, 0x16u);
     }
 
@@ -390,17 +388,15 @@ void __58__RTIInputSystemClient__configureConnection_withMachName___block_invoke
 
     if (a1[4])
     {
-      v9[0] = MEMORY[0x1E69E9820];
-      v9[1] = 3221225472;
-      v9[2] = __58__RTIInputSystemClient__configureConnection_withMachName___block_invoke_136;
-      v9[3] = &unk_1E75141E0;
-      v9[4] = WeakRetained;
-      v10 = a1[4];
-      dispatch_async(MEMORY[0x1E69E96A0], v9);
+      v8[0] = MEMORY[0x1E69E9820];
+      v8[1] = 3221225472;
+      v8[2] = __58__RTIInputSystemClient__configureConnection_withMachName___block_invoke_136;
+      v8[3] = &unk_1E75141E0;
+      v8[4] = WeakRetained;
+      v9 = a1[4];
+      dispatch_async(MEMORY[0x1E69E96A0], v8);
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addEndpoint:(id)endpoint
@@ -490,7 +486,7 @@ void __39__RTIInputSystemClient_removeEndpoint___block_invoke(void *a1, void *a2
 
 - (void)beginAllowingRemoteTextInput:(id)input
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   inputCopy = input;
   if (inputCopy)
   {
@@ -498,9 +494,9 @@ void __39__RTIInputSystemClient_removeEndpoint___block_invoke(void *a1, void *a2
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v13 = "[RTIInputSystemClient beginAllowingRemoteTextInput:]";
-      v14 = 2112;
-      v15 = inputCopy;
+      v12 = "[RTIInputSystemClient beginAllowingRemoteTextInput:]";
+      v13 = 2112;
+      v14 = inputCopy;
       _os_log_impl(&dword_19A2A6000, v5, OS_LOG_TYPE_DEFAULT, "%s  Begin allowing remote text input: %@", buf, 0x16u);
     }
 
@@ -512,21 +508,19 @@ void __39__RTIInputSystemClient_removeEndpoint___block_invoke(void *a1, void *a2
     }
 
     inputCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"Allower added: %@", inputCopy];
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __53__RTIInputSystemClient_beginAllowingRemoteTextInput___block_invoke;
-    v10[3] = &unk_1E75141E0;
-    v10[4] = self;
-    v11 = inputCopy;
-    [(RTIInputSystemClient *)self _modifyTextEditingAllowedForReason:inputCopy notify:0 animated:1 modifyAllowancesBlock:v10 completion:0];
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __53__RTIInputSystemClient_beginAllowingRemoteTextInput___block_invoke;
+    v9[3] = &unk_1E75141E0;
+    v9[4] = self;
+    v10 = inputCopy;
+    [(RTIInputSystemClient *)self _modifyTextEditingAllowedForReason:inputCopy notify:0 animated:1 modifyAllowancesBlock:v9 completion:0];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)endAllowingRemoteTextInput:(id)input completion:(id)completion
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   inputCopy = input;
   completionCopy = completion;
   v8 = completionCopy;
@@ -536,22 +530,22 @@ void __39__RTIInputSystemClient_removeEndpoint___block_invoke(void *a1, void *a2
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v19 = "[RTIInputSystemClient endAllowingRemoteTextInput:completion:]";
-      v20 = 2112;
-      v21 = inputCopy;
+      v18 = "[RTIInputSystemClient endAllowingRemoteTextInput:completion:]";
+      v19 = 2112;
+      v20 = inputCopy;
       _os_log_impl(&dword_19A2A6000, v9, OS_LOG_TYPE_DEFAULT, "%s  End allowing remote text input: %@", buf, 0x16u);
     }
 
     inputCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"Allower removed: %@", inputCopy];
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __62__RTIInputSystemClient_endAllowingRemoteTextInput_completion___block_invoke_143;
-    v14[3] = &unk_1E75141E0;
-    v14[4] = self;
-    v15 = inputCopy;
-    [(RTIInputSystemClient *)self _modifyTextEditingAllowedForReason:inputCopy notify:0 animated:1 modifyAllowancesBlock:v14 completion:v8];
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __62__RTIInputSystemClient_endAllowingRemoteTextInput_completion___block_invoke_143;
+    v13[3] = &unk_1E75141E0;
+    v13[4] = self;
+    v14 = inputCopy;
+    [(RTIInputSystemClient *)self _modifyTextEditingAllowedForReason:inputCopy notify:0 animated:1 modifyAllowancesBlock:v13 completion:v8];
 
-    v11 = v15;
+    v11 = v14;
     goto LABEL_7;
   }
 
@@ -562,14 +556,25 @@ void __39__RTIInputSystemClient_removeEndpoint___block_invoke(void *a1, void *a2
     block[1] = 3221225472;
     block[2] = __62__RTIInputSystemClient_endAllowingRemoteTextInput_completion___block_invoke;
     block[3] = &unk_1E7514348;
-    v17 = v8;
+    v16 = v8;
     dispatch_async(internalQueue, block);
 
-    v11 = v17;
+    v11 = v16;
 LABEL_7:
   }
+}
 
-  v13 = *MEMORY[0x1E69E9840];
+- (void)enumerateServices:(id)services force:(BOOL)force withBlock:(id)block
+{
+  forceCopy = force;
+  blockCopy = block;
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __58__RTIInputSystemClient_enumerateServices_force_withBlock___block_invoke;
+  v10[3] = &unk_1E7514760;
+  v11 = blockCopy;
+  v9 = blockCopy;
+  [(RTIInputSystemClient *)self enumerateConnections:services force:forceCopy withBlock:v10];
 }
 
 void __58__RTIInputSystemClient_enumerateServices_force_withBlock___block_invoke(uint64_t a1, void *a2)
@@ -651,7 +656,7 @@ void __61__RTIInputSystemClient_enumerateConnections_force_withBlock___block_inv
 
 - (void)_beginSessionWithID:(id)d forServices:(id)services force:(BOOL)force
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   dCopy = d;
   servicesCopy = services;
   _remoteTextEditingIsAllowed = [(RTIInputSystemClient *)self _remoteTextEditingIsAllowed];
@@ -682,30 +687,29 @@ void __61__RTIInputSystemClient_enumerateConnections_force_withBlock___block_inv
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v27 = "[RTIInputSystemClient _beginSessionWithID:forServices:force:]";
-    v28 = 2112;
-    v29 = dCopy;
-    v30 = 2112;
-    v31 = beginOptions;
+    v26 = "[RTIInputSystemClient _beginSessionWithID:forServices:force:]";
+    v27 = 2112;
+    v28 = dCopy;
+    v29 = 2112;
+    v30 = beginOptions;
     _os_log_impl(&dword_19A2A6000, v16, OS_LOG_TYPE_DEFAULT, "%s  Begin text input session. sessionID = %@, options = %@", buf, 0x20u);
   }
 
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = __62__RTIInputSystemClient__beginSessionWithID_forServices_force___block_invoke;
-  v22[3] = &unk_1E75147D8;
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = __62__RTIInputSystemClient__beginSessionWithID_forServices_force___block_invoke;
+  v21[3] = &unk_1E75147D8;
   v17 = dCopy;
-  v23 = v17;
-  v24 = beginOptions;
-  v25 = v14;
+  v22 = v17;
+  v23 = beginOptions;
+  v24 = v14;
   v18 = v14;
   v19 = beginOptions;
-  [(RTIInputSystemClient *)self enumerateServices:servicesCopy force:0 withBlock:v22];
+  [(RTIInputSystemClient *)self enumerateServices:servicesCopy force:0 withBlock:v21];
   begunSessionIDs2 = [(RTIInputSystemClient *)self begunSessionIDs];
   [begunSessionIDs2 addObject:v17];
 
 LABEL_9:
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void __62__RTIInputSystemClient__beginSessionWithID_forServices_force___block_invoke(uint64_t a1, void *a2)
@@ -783,7 +787,7 @@ void __58__RTIInputSystemClient__updateAttributesForSessionWithID___block_invoke
 
 - (void)_endSessionWithID:(id)d forServices:(id)services options:(id)options completion:(id)completion
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   dCopy = d;
   servicesCopy = services;
   optionsCopy = options;
@@ -792,9 +796,9 @@ void __58__RTIInputSystemClient__updateAttributesForSessionWithID___block_invoke
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v34 = "[RTIInputSystemClient _endSessionWithID:forServices:options:completion:]";
-    v35 = 2112;
-    v36 = dCopy;
+    v33 = "[RTIInputSystemClient _endSessionWithID:forServices:options:completion:]";
+    v34 = 2112;
+    v35 = dCopy;
     _os_log_impl(&dword_19A2A6000, v14, OS_LOG_TYPE_DEFAULT, "%s  End input session: %@", buf, 0x16u);
   }
 
@@ -805,16 +809,16 @@ void __58__RTIInputSystemClient__updateAttributesForSessionWithID___block_invoke
 
   if (v18)
   {
-    v28[0] = MEMORY[0x1E69E9820];
-    v28[1] = 3221225472;
-    v28[2] = __73__RTIInputSystemClient__endSessionWithID_forServices_options_completion___block_invoke;
-    v28[3] = &unk_1E7514850;
-    v32 = completionCopy;
-    v29 = v15;
+    v27[0] = MEMORY[0x1E69E9820];
+    v27[1] = 3221225472;
+    v27[2] = __73__RTIInputSystemClient__endSessionWithID_forServices_options_completion___block_invoke;
+    v27[3] = &unk_1E7514850;
+    v31 = completionCopy;
+    v28 = v15;
     v19 = dCopy;
-    v30 = v19;
-    v31 = optionsCopy;
-    [(RTIInputSystemClient *)self enumerateConnections:servicesCopy force:1 withBlock:v28];
+    v29 = v19;
+    v30 = optionsCopy;
+    [(RTIInputSystemClient *)self enumerateConnections:servicesCopy force:1 withBlock:v27];
     begunSessionIDs2 = [(RTIInputSystemClient *)self begunSessionIDs];
     [begunSessionIDs2 removeObject:v19];
   }
@@ -822,18 +826,16 @@ void __58__RTIInputSystemClient__updateAttributesForSessionWithID___block_invoke
   if (completionCopy)
   {
     internalQueue = [(RTIInputSystemClient *)self internalQueue];
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __73__RTIInputSystemClient__endSessionWithID_forServices_options_completion___block_invoke_2_149;
-    v23[3] = &unk_1E7514878;
-    v24 = v15;
-    v27 = v16;
-    v25 = dCopy;
-    v26 = completionCopy;
-    dispatch_async(internalQueue, v23);
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __73__RTIInputSystemClient__endSessionWithID_forServices_options_completion___block_invoke_2_149;
+    v22[3] = &unk_1E7514878;
+    v23 = v15;
+    v26 = v16;
+    v24 = dCopy;
+    v25 = completionCopy;
+    dispatch_async(internalQueue, v22);
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __73__RTIInputSystemClient__endSessionWithID_forServices_options_completion___block_invoke(uint64_t a1, void *a2)
@@ -893,34 +895,78 @@ uint64_t __73__RTIInputSystemClient__endSessionWithID_forServices_options_comple
   return (*(*(a1 + 48) + 16))();
 }
 
+- (void)_beginAllActiveSessionsForServices:(id)services force:(BOOL)force
+{
+  forceCopy = force;
+  v21 = *MEMORY[0x1E69E9840];
+  servicesCopy = services;
+  v16 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  activeSessions = [(RTIInputSystemClient *)self activeSessions];
+  v8 = [activeSessions countByEnumeratingWithState:&v16 objects:v20 count:16];
+  if (v8)
+  {
+    v9 = v8;
+    v10 = *v17;
+    do
+    {
+      v11 = 0;
+      do
+      {
+        if (*v17 != v10)
+        {
+          objc_enumerationMutation(activeSessions);
+        }
+
+        v12 = *(*(&v16 + 1) + 8 * v11);
+        activeSessions2 = [(RTIInputSystemClient *)self activeSessions];
+        v14 = [activeSessions2 objectForKey:v12];
+
+        beginOptions = [v14 beginOptions];
+        [beginOptions setAnimated:0];
+        [(RTIInputSystemClient *)self _beginSessionWithID:v12 forServices:servicesCopy force:forceCopy];
+
+        ++v11;
+      }
+
+      while (v9 != v11);
+      v9 = [activeSessions countByEnumeratingWithState:&v16 objects:v20 count:16];
+    }
+
+    while (v9);
+  }
+}
+
 - (void)_endAllActiveSessionsForServices:(id)services animated:(BOOL)animated completion:(id)completion
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   servicesCopy = services;
   completionCopy = completion;
   v9 = dispatch_group_create();
-  v18 = dispatch_time(0, 2100000000);
+  v17 = dispatch_time(0, 2100000000);
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   obj = [(RTIInputSystemClient *)self activeSessions];
-  v10 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v10 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v28;
+    v12 = *v27;
     do
     {
       v13 = 0;
       do
       {
-        if (*v28 != v12)
+        if (*v27 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v27 + 1) + 8 * v13);
+        v14 = *(*(&v26 + 1) + 8 * v13);
         if (animated)
         {
           v15 = 0;
@@ -938,12 +984,12 @@ uint64_t __73__RTIInputSystemClient__endSessionWithID_forServices_options_comple
           {
 LABEL_8:
             dispatch_group_enter(v9);
-            v25[0] = MEMORY[0x1E69E9820];
-            v25[1] = 3221225472;
-            v25[2] = __77__RTIInputSystemClient__endAllActiveSessionsForServices_animated_completion___block_invoke;
-            v25[3] = &unk_1E75140C8;
-            v26 = v9;
-            [(RTIInputSystemClient *)self _endSessionWithID:v14 forServices:servicesCopy options:v15 completion:v25];
+            v24[0] = MEMORY[0x1E69E9820];
+            v24[1] = 3221225472;
+            v24[2] = __77__RTIInputSystemClient__endAllActiveSessionsForServices_animated_completion___block_invoke;
+            v24[3] = &unk_1E75140C8;
+            v25 = v9;
+            [(RTIInputSystemClient *)self _endSessionWithID:v14 forServices:servicesCopy options:v15 completion:v24];
 
             goto LABEL_11;
           }
@@ -956,7 +1002,7 @@ LABEL_11:
       }
 
       while (v11 != v13);
-      v11 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v11 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
     }
 
     while (v11);
@@ -969,13 +1015,11 @@ LABEL_11:
     block[1] = 3221225472;
     block[2] = __77__RTIInputSystemClient__endAllActiveSessionsForServices_animated_completion___block_invoke_2;
     block[3] = &unk_1E75148A0;
-    v22 = v9;
-    v24 = v18;
-    v23 = completionCopy;
+    v21 = v9;
+    v23 = v17;
+    v22 = completionCopy;
     dispatch_async(internalQueue, block);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __77__RTIInputSystemClient__endAllActiveSessionsForServices_animated_completion___block_invoke_2(uint64_t a1)
@@ -1014,57 +1058,153 @@ uint64_t __77__RTIInputSystemClient__endAllActiveSessionsForServices_animated_co
   [(RTIInputSystemClient *)self _modifyTextEditingAllowedForReason:reason notify:(options >> 1) & 1 animated:0 modifyAllowancesBlock:v5 completion:completion];
 }
 
+- (void)_modifyTextEditingAllowedForReason:(id)reason notify:(BOOL)notify animated:(BOOL)animated modifyAllowancesBlock:(id)block completion:(id)completion
+{
+  animatedCopy = animated;
+  notifyCopy = notify;
+  v37 = *MEMORY[0x1E69E9840];
+  reasonCopy = reason;
+  completionCopy = completion;
+  blockCopy = block;
+  _remoteTextEditingIsAllowed = [(RTIInputSystemClient *)self _remoteTextEditingIsAllowed];
+  blockCopy[2](blockCopy);
+
+  _remoteTextEditingIsAllowed2 = [(RTIInputSystemClient *)self _remoteTextEditingIsAllowed];
+  v17 = RTILogFacility();
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 136316162;
+    v28 = "[RTIInputSystemClient _modifyTextEditingAllowedForReason:notify:animated:modifyAllowancesBlock:completion:]";
+    v29 = 2112;
+    v30 = reasonCopy;
+    v31 = 1024;
+    v32 = notifyCopy;
+    v33 = 1024;
+    v34 = _remoteTextEditingIsAllowed;
+    v35 = 1024;
+    v36 = _remoteTextEditingIsAllowed2;
+    _os_log_debug_impl(&dword_19A2A6000, v17, OS_LOG_TYPE_DEBUG, "%s  Re-evaluating if text editing is allowed; reason: '%@'; notify: %d; allowed before: %d, allowed after: %d.", buf, 0x28u);
+  }
+
+  if (_remoteTextEditingIsAllowed == _remoteTextEditingIsAllowed2)
+  {
+    if (completionCopy)
+    {
+      internalQueue = [(RTIInputSystemClient *)self internalQueue];
+      v23[0] = MEMORY[0x1E69E9820];
+      v23[1] = 3221225472;
+      v23[2] = __108__RTIInputSystemClient__modifyTextEditingAllowedForReason_notify_animated_modifyAllowancesBlock_completion___block_invoke_2;
+      v23[3] = &unk_1E7514348;
+      v24 = completionCopy;
+      dispatch_async(internalQueue, v23);
+
+      v21 = v24;
+      goto LABEL_15;
+    }
+  }
+
+  else
+  {
+    v18 = RTIInputSessionChangeLogFacility();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    {
+      v19 = "NO";
+      if (_remoteTextEditingIsAllowed2)
+      {
+        v19 = "YES";
+      }
+
+      *buf = 136315394;
+      v28 = "[RTIInputSystemClient _modifyTextEditingAllowedForReason:notify:animated:modifyAllowancesBlock:completion:]";
+      v29 = 2080;
+      v30 = v19;
+      _os_log_impl(&dword_19A2A6000, v18, OS_LOG_TYPE_DEFAULT, "%s  Text editing allowed did change (editingAllowedAfter = %s)", buf, 0x16u);
+    }
+
+    if (_remoteTextEditingIsAllowed2)
+    {
+      [(RTIInputSystemClient *)self _beginAllActiveSessions];
+      if (notifyCopy)
+      {
+        [(RTIInputSystemClient *)self notifyServiceOfPause:0 withReason:reasonCopy];
+      }
+
+      if (completionCopy)
+      {
+        internalQueue2 = [(RTIInputSystemClient *)self internalQueue];
+        block[0] = MEMORY[0x1E69E9820];
+        block[1] = 3221225472;
+        block[2] = __108__RTIInputSystemClient__modifyTextEditingAllowedForReason_notify_animated_modifyAllowancesBlock_completion___block_invoke;
+        block[3] = &unk_1E7514348;
+        v26 = completionCopy;
+        dispatch_async(internalQueue2, block);
+
+        v21 = v26;
+LABEL_15:
+      }
+    }
+
+    else
+    {
+      if (notifyCopy)
+      {
+        [(RTIInputSystemClient *)self notifyServiceOfPause:1 withReason:reasonCopy];
+      }
+
+      [(RTIInputSystemClient *)self _endAllActiveSessionsAnimated:animatedCopy completion:completionCopy];
+    }
+  }
+}
+
 - (void)notifyServiceOfPause:(BOOL)pause withReason:(id)reason
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   reasonCopy = reason;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   activeSessions = [(RTIInputSystemClient *)self activeSessions];
-  v7 = [activeSessions countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v7 = [activeSessions countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v20;
+    v9 = *v19;
     do
     {
       v10 = 0;
       do
       {
-        if (*v20 != v9)
+        if (*v19 != v9)
         {
           objc_enumerationMutation(activeSessions);
         }
 
-        v11 = *(*(&v19 + 1) + 8 * v10);
+        v11 = *(*(&v18 + 1) + 8 * v10);
         begunSessionIDs = [(RTIInputSystemClient *)self begunSessionIDs];
         v13 = [begunSessionIDs containsObject:v11];
 
         if (v13)
         {
-          v16[0] = MEMORY[0x1E69E9820];
-          v16[1] = 3221225472;
-          v16[2] = __56__RTIInputSystemClient_notifyServiceOfPause_withReason___block_invoke;
-          v16[3] = &unk_1E75148F0;
-          v16[4] = v11;
+          v15[0] = MEMORY[0x1E69E9820];
+          v15[1] = 3221225472;
+          v15[2] = __56__RTIInputSystemClient_notifyServiceOfPause_withReason___block_invoke;
+          v15[3] = &unk_1E75148F0;
+          v15[4] = v11;
           pauseCopy = pause;
-          v17 = reasonCopy;
-          [(RTIInputSystemClient *)self enumerateServices:0 force:1 withBlock:v16];
+          v16 = reasonCopy;
+          [(RTIInputSystemClient *)self enumerateServices:0 force:1 withBlock:v15];
         }
 
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [activeSessions countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v8 = [activeSessions countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v8);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __56__RTIInputSystemClient_notifyServiceOfPause_withReason___block_invoke(uint64_t a1, void *a2)
@@ -1078,18 +1218,18 @@ void __56__RTIInputSystemClient_notifyServiceOfPause_withReason___block_invoke(u
 
 - (void)beginRemoteTextInputSessionWithID:(id)d options:(id)options documentTraits:(id)traits initialDocumentState:(id)state
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   dCopy = d;
   optionsCopy = options;
   traitsCopy = traits;
   stateCopy = state;
   invalidatedServices = self->_invalidatedServices;
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __102__RTIInputSystemClient_beginRemoteTextInputSessionWithID_options_documentTraits_initialDocumentState___block_invoke;
-  v19[3] = &unk_1E7514918;
-  v19[4] = self;
-  [(NSMutableSet *)invalidatedServices enumerateObjectsUsingBlock:v19];
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __102__RTIInputSystemClient_beginRemoteTextInputSessionWithID_options_documentTraits_initialDocumentState___block_invoke;
+  v18[3] = &unk_1E7514918;
+  v18[4] = self;
+  [(NSMutableSet *)invalidatedServices enumerateObjectsUsingBlock:v18];
   [(NSMutableSet *)self->_invalidatedServices removeAllObjects];
   activeSessions = [(RTIInputSystemClient *)self activeSessions];
   v16 = [activeSessions objectForKey:dCopy];
@@ -1099,9 +1239,9 @@ void __56__RTIInputSystemClient_notifyServiceOfPause_withReason___block_invoke(u
     if (os_log_type_enabled(&v17->super, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v21 = "[RTIInputSystemClient beginRemoteTextInputSessionWithID:options:documentTraits:initialDocumentState:]";
-      v22 = 2112;
-      v23 = dCopy;
+      v20 = "[RTIInputSystemClient beginRemoteTextInputSessionWithID:options:documentTraits:initialDocumentState:]";
+      v21 = 2112;
+      v22 = dCopy;
       _os_log_impl(&dword_19A2A6000, &v17->super, OS_LOG_TYPE_DEFAULT, "%s  Cannot begin a session that is already active. session = %@", buf, 0x16u);
     }
   }
@@ -1115,31 +1255,28 @@ void __56__RTIInputSystemClient_notifyServiceOfPause_withReason___block_invoke(u
     [activeSessions setObject:v17 forKey:dCopy];
     [(RTIInputSystemClient *)self _beginSessionWithID:dCopy forServices:0 force:0];
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __102__RTIInputSystemClient_beginRemoteTextInputSessionWithID_options_documentTraits_initialDocumentState___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = RTIInputSessionChangeLogFacility();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315394;
-    v7 = "[RTIInputSystemClient beginRemoteTextInputSessionWithID:options:documentTraits:initialDocumentState:]_block_invoke";
-    v8 = 2112;
-    v9 = v3;
-    _os_log_impl(&dword_19A2A6000, v4, OS_LOG_TYPE_DEFAULT, "%s  Connection to service with mach name %@ was invalidated. Attempting to create a new connection.", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "[RTIInputSystemClient beginRemoteTextInputSessionWithID:options:documentTraits:initialDocumentState:]_block_invoke";
+    v7 = 2112;
+    v8 = v3;
+    _os_log_impl(&dword_19A2A6000, v4, OS_LOG_TYPE_DEFAULT, "%s  Connection to service with mach name %@ was invalidated. Attempting to create a new connection.", &v5, 0x16u);
   }
 
   [*(a1 + 32) _initializeConnectionWithMachName:v3];
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)remoteTextInputSessionWithID:(id)d documentDidChange:(id)change
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   dCopy = d;
   changeCopy = change;
   if (dCopy)
@@ -1158,21 +1295,19 @@ void __102__RTIInputSystemClient_beginRemoteTextInputSessionWithID_options_docum
       v10 = RTILogFacility();
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = 136315394;
-        v13 = "[RTIInputSystemClient remoteTextInputSessionWithID:documentDidChange:]";
-        v14 = 2112;
-        v15 = dCopy;
-        _os_log_impl(&dword_19A2A6000, v10, OS_LOG_TYPE_DEFAULT, "%s  Can only update text of an active session. sessionID = %@", &v12, 0x16u);
+        v11 = 136315394;
+        v12 = "[RTIInputSystemClient remoteTextInputSessionWithID:documentDidChange:]";
+        v13 = 2112;
+        v14 = dCopy;
+        _os_log_impl(&dword_19A2A6000, v10, OS_LOG_TYPE_DEFAULT, "%s  Can only update text of an active session. sessionID = %@", &v11, 0x16u);
       }
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)remoteTextInputSessionWithID:(id)d documentTraitsDidChange:(id)change
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   dCopy = d;
   changeCopy = change;
   if (dCopy)
@@ -1191,21 +1326,19 @@ void __102__RTIInputSystemClient_beginRemoteTextInputSessionWithID_options_docum
       v10 = RTILogFacility();
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = 136315394;
-        v13 = "[RTIInputSystemClient remoteTextInputSessionWithID:documentTraitsDidChange:]";
-        v14 = 2112;
-        v15 = dCopy;
-        _os_log_impl(&dword_19A2A6000, v10, OS_LOG_TYPE_DEFAULT, "%s  Can only update attributes of an active session. sessionID = %@", &v12, 0x16u);
+        v11 = 136315394;
+        v12 = "[RTIInputSystemClient remoteTextInputSessionWithID:documentTraitsDidChange:]";
+        v13 = 2112;
+        v14 = dCopy;
+        _os_log_impl(&dword_19A2A6000, v10, OS_LOG_TYPE_DEFAULT, "%s  Can only update attributes of an active session. sessionID = %@", &v11, 0x16u);
       }
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)endRemoteTextInputSessionWithID:(id)d options:(id)options completion:(id)completion
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   dCopy = d;
   optionsCopy = options;
   completionCopy = completion;
@@ -1213,11 +1346,11 @@ void __102__RTIInputSystemClient_beginRemoteTextInputSessionWithID_options_docum
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v24 = "[RTIInputSystemClient endRemoteTextInputSessionWithID:options:completion:]";
-    v25 = 2112;
-    v26 = dCopy;
-    v27 = 2112;
-    v28 = optionsCopy;
+    v25 = "[RTIInputSystemClient endRemoteTextInputSessionWithID:options:completion:]";
+    v26 = 2112;
+    v27 = dCopy;
+    v28 = 2112;
+    v29 = optionsCopy;
     _os_log_impl(&dword_19A2A6000, v11, OS_LOG_TYPE_DEFAULT, "%s  Ending text input session. sessionID = %@, options = %@", buf, 0x20u);
   }
 
@@ -1233,8 +1366,8 @@ void __102__RTIInputSystemClient_beginRemoteTextInputSessionWithID_options_docum
 
     else
     {
-      v16 = RTIInputSessionChangeLogFacility();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v18 = RTIInputSessionChangeLogFacility();
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         [RTIInputSystemClient endRemoteTextInputSessionWithID:options:completion:];
       }
@@ -1242,12 +1375,12 @@ void __102__RTIInputSystemClient_beginRemoteTextInputSessionWithID_options_docum
       if (completionCopy)
       {
         internalQueue = [(RTIInputSystemClient *)self internalQueue];
-        v19[0] = MEMORY[0x1E69E9820];
-        v19[1] = 3221225472;
-        v19[2] = __75__RTIInputSystemClient_endRemoteTextInputSessionWithID_options_completion___block_invoke_156;
-        v19[3] = &unk_1E7514348;
-        v20 = completionCopy;
-        dispatch_async(internalQueue, v19);
+        v20[0] = MEMORY[0x1E69E9820];
+        v20[1] = 3221225472;
+        v20[2] = __75__RTIInputSystemClient_endRemoteTextInputSessionWithID_options_completion___block_invoke_156;
+        v20[3] = &unk_1E7514348;
+        v21 = completionCopy;
+        dispatch_async(internalQueue, v20);
       }
     }
 
@@ -1257,7 +1390,7 @@ void __102__RTIInputSystemClient_beginRemoteTextInputSessionWithID_options_docum
   v14 = RTIInputSessionChangeLogFacility();
   if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
-    [RTIInputSystemClient endRemoteTextInputSessionWithID:options:completion:];
+    [RTIInputSystemClient endRemoteTextInputSessionWithID:v14 options:v15 completion:v16];
   }
 
   if (completionCopy)
@@ -1267,28 +1400,26 @@ void __102__RTIInputSystemClient_beginRemoteTextInputSessionWithID_options_docum
     block[1] = 3221225472;
     block[2] = __75__RTIInputSystemClient_endRemoteTextInputSessionWithID_options_completion___block_invoke;
     block[3] = &unk_1E7514348;
-    v22 = completionCopy;
+    v23 = completionCopy;
     dispatch_async(internalQueue2, block);
 
-    activeSessions = v22;
+    activeSessions = v23;
 LABEL_15:
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)remoteTextInputSessionWithID:(id)d textSuggestionsChanged:(id)changed
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   dCopy = d;
   changedCopy = changed;
   v8 = RTILogFacility();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v17 = "[RTIInputSystemClient remoteTextInputSessionWithID:textSuggestionsChanged:]";
-    v18 = 2112;
-    v19 = dCopy;
+    v16 = "[RTIInputSystemClient remoteTextInputSessionWithID:textSuggestionsChanged:]";
+    v17 = 2112;
+    v18 = dCopy;
     _os_log_impl(&dword_19A2A6000, v8, OS_LOG_TYPE_DEFAULT, "%s  Text input session suggestions changed. sessionID = %@", buf, 0x16u);
   }
 
@@ -1299,15 +1430,15 @@ LABEL_15:
 
     if (v10)
     {
-      v13[0] = MEMORY[0x1E69E9820];
-      v13[1] = 3221225472;
-      v13[2] = __76__RTIInputSystemClient_remoteTextInputSessionWithID_textSuggestionsChanged___block_invoke;
-      v13[3] = &unk_1E7514800;
-      v14 = dCopy;
-      v15 = changedCopy;
-      [(RTIInputSystemClient *)self enumerateServices:0 force:0 withBlock:v13];
+      v12[0] = MEMORY[0x1E69E9820];
+      v12[1] = 3221225472;
+      v12[2] = __76__RTIInputSystemClient_remoteTextInputSessionWithID_textSuggestionsChanged___block_invoke;
+      v12[3] = &unk_1E7514800;
+      v13 = dCopy;
+      v14 = changedCopy;
+      [(RTIInputSystemClient *)self enumerateServices:0 force:0 withBlock:v12];
 
-      v11 = v14;
+      v11 = v13;
     }
 
     else
@@ -1319,8 +1450,6 @@ LABEL_15:
       }
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __76__RTIInputSystemClient_remoteTextInputSessionWithID_textSuggestionsChanged___block_invoke(uint64_t a1, void *a2)
@@ -1358,15 +1487,15 @@ void __76__RTIInputSystemClient_remoteTextInputSessionWithID_textSuggestionsChan
 
     if (v9)
     {
-      v11[0] = MEMORY[0x1E69E9820];
-      v11[1] = 3221225472;
-      v11[2] = __79__RTIInputSystemClient_remoteTextInputSessionWithID_didAddSupplementalLexicon___block_invoke;
-      v11[3] = &unk_1E7514800;
-      v12 = dCopy;
-      v13 = lexiconCopy;
-      [(RTIInputSystemClient *)self enumerateServices:0 force:1 withBlock:v11];
+      v13[0] = MEMORY[0x1E69E9820];
+      v13[1] = 3221225472;
+      v13[2] = __79__RTIInputSystemClient_remoteTextInputSessionWithID_didAddSupplementalLexicon___block_invoke;
+      v13[3] = &unk_1E7514800;
+      v14 = dCopy;
+      v15 = lexiconCopy;
+      [(RTIInputSystemClient *)self enumerateServices:0 force:1 withBlock:v13];
 
-      v10 = v12;
+      v10 = v14;
     }
 
     else
@@ -1384,7 +1513,7 @@ void __76__RTIInputSystemClient_remoteTextInputSessionWithID_textSuggestionsChan
     v9 = RTILogFacility();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [RTIInputSystemClient remoteTextInputSessionWithID:didAddSupplementalLexicon:];
+      [(RTIInputSystemClient *)v9 remoteTextInputSessionWithID:v11 didAddSupplementalLexicon:v12];
     }
   }
 }
@@ -1409,15 +1538,15 @@ void __79__RTIInputSystemClient_remoteTextInputSessionWithID_didAddSupplementalL
 
     if (v9)
     {
-      v11[0] = MEMORY[0x1E69E9820];
-      v11[1] = 3221225472;
-      v11[2] = __82__RTIInputSystemClient_remoteTextInputSessionWithID_didAddRTISupplementalLexicon___block_invoke;
-      v11[3] = &unk_1E7514800;
-      v12 = dCopy;
-      v13 = lexiconCopy;
-      [(RTIInputSystemClient *)self enumerateServices:0 force:1 withBlock:v11];
+      v13[0] = MEMORY[0x1E69E9820];
+      v13[1] = 3221225472;
+      v13[2] = __82__RTIInputSystemClient_remoteTextInputSessionWithID_didAddRTISupplementalLexicon___block_invoke;
+      v13[3] = &unk_1E7514800;
+      v14 = dCopy;
+      v15 = lexiconCopy;
+      [(RTIInputSystemClient *)self enumerateServices:0 force:1 withBlock:v13];
 
-      v10 = v12;
+      v10 = v14;
     }
 
     else
@@ -1435,7 +1564,7 @@ void __79__RTIInputSystemClient_remoteTextInputSessionWithID_didAddSupplementalL
     v9 = RTILogFacility();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [RTIInputSystemClient remoteTextInputSessionWithID:didAddRTISupplementalLexicon:];
+      [(RTIInputSystemClient *)v9 remoteTextInputSessionWithID:v11 didAddRTISupplementalLexicon:v12];
     }
   }
 }
@@ -1459,14 +1588,14 @@ void __82__RTIInputSystemClient_remoteTextInputSessionWithID_didAddRTISupplement
 
     if (v8)
     {
-      v10[0] = MEMORY[0x1E69E9820];
-      v10[1] = 3221225472;
-      v10[2] = __96__RTIInputSystemClient_remoteTextInputSessionWithID_didRemoveSupplementalLexiconWithIdentifier___block_invoke;
-      v10[3] = &unk_1E7514940;
-      v11 = dCopy;
+      v12[0] = MEMORY[0x1E69E9820];
+      v12[1] = 3221225472;
+      v12[2] = __96__RTIInputSystemClient_remoteTextInputSessionWithID_didRemoveSupplementalLexiconWithIdentifier___block_invoke;
+      v12[3] = &unk_1E7514940;
+      v13 = dCopy;
       identifierCopy = identifier;
-      [(RTIInputSystemClient *)self enumerateServices:0 force:1 withBlock:v10];
-      v9 = v11;
+      [(RTIInputSystemClient *)self enumerateServices:0 force:1 withBlock:v12];
+      v9 = v13;
     }
 
     else
@@ -1484,7 +1613,7 @@ void __82__RTIInputSystemClient_remoteTextInputSessionWithID_didAddRTISupplement
     v8 = RTILogFacility();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [RTIInputSystemClient remoteTextInputSessionWithID:didRemoveSupplementalLexiconWithIdentifier:];
+      [(RTIInputSystemClient *)v8 remoteTextInputSessionWithID:v10 didRemoveSupplementalLexiconWithIdentifier:v11];
     }
   }
 }
@@ -1508,14 +1637,14 @@ void __96__RTIInputSystemClient_remoteTextInputSessionWithID_didRemoveSupplement
 
     if (v8)
     {
-      v10[0] = MEMORY[0x1E69E9820];
-      v10[1] = 3221225472;
-      v10[2] = __99__RTIInputSystemClient_remoteTextInputSessionWithID_didRemoveRTISupplementalLexiconWithIdentifier___block_invoke;
-      v10[3] = &unk_1E7514940;
-      v11 = dCopy;
+      v12[0] = MEMORY[0x1E69E9820];
+      v12[1] = 3221225472;
+      v12[2] = __99__RTIInputSystemClient_remoteTextInputSessionWithID_didRemoveRTISupplementalLexiconWithIdentifier___block_invoke;
+      v12[3] = &unk_1E7514940;
+      v13 = dCopy;
       identifierCopy = identifier;
-      [(RTIInputSystemClient *)self enumerateServices:0 force:1 withBlock:v10];
-      v9 = v11;
+      [(RTIInputSystemClient *)self enumerateServices:0 force:1 withBlock:v12];
+      v9 = v13;
     }
 
     else
@@ -1533,7 +1662,7 @@ void __96__RTIInputSystemClient_remoteTextInputSessionWithID_didRemoveSupplement
     v8 = RTILogFacility();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [RTIInputSystemClient remoteTextInputSessionWithID:didRemoveRTISupplementalLexiconWithIdentifier:];
+      [(RTIInputSystemClient *)v8 remoteTextInputSessionWithID:v10 didRemoveRTISupplementalLexiconWithIdentifier:v11];
     }
   }
 }
@@ -1850,27 +1979,8 @@ void __77__RTIInputSystemClient_remoteTextInputSessionWithID_didUpdateServiceOpt
   }
 
   os_unfair_lock_unlock(&self->_connectionsLock);
-  if (v33[3])
+  if (v33[3] & 1) != 0 || (os_unfair_lock_lock(&self->_endpointsLock), endpointConnections = self->_endpointConnections, v24 = MEMORY[0x1E69E9820], v25 = 3221225472, v26 = __105__RTIInputSystemClient__queueFromCurrentConnection_remoteTextInputSessionWithID_didUpdateServiceOptions___block_invoke, v27 = &unk_1E75149E0, v28 = connectionCopy, v29 = self, v30 = optionsCopy, v31 = &v32, [(NSMutableArray *)endpointConnections enumerateObjectsUsingBlock:&v24], os_unfair_lock_unlock(&self->_endpointsLock), v30, v28, (v33[3]))
   {
-    goto LABEL_14;
-  }
-
-  os_unfair_lock_lock(&self->_endpointsLock);
-  endpointConnections = self->_endpointConnections;
-  v24 = MEMORY[0x1E69E9820];
-  v25 = 3221225472;
-  v26 = __105__RTIInputSystemClient__queueFromCurrentConnection_remoteTextInputSessionWithID_didUpdateServiceOptions___block_invoke;
-  v27 = &unk_1E75149E0;
-  v28 = connectionCopy;
-  selfCopy = self;
-  v30 = optionsCopy;
-  v31 = &v32;
-  [(NSMutableArray *)endpointConnections enumerateObjectsUsingBlock:&v24];
-  os_unfair_lock_unlock(&self->_endpointsLock);
-
-  if (v33[3])
-  {
-LABEL_14:
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
     if (WeakRetained)
     {
@@ -1917,175 +2027,118 @@ void *__105__RTIInputSystemClient__queueFromCurrentConnection_remoteTextInputSes
 
 void __58__RTIInputSystemClient__configureConnection_withMachName___block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136315394;
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1_0(&dword_19A2A6000, v0, v1, "%s  Client connection to service was interrupted: %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0(&dword_19A2A6000, v0, v1, "%s  Client connection to service was interrupted: %@", v2, v3, v4, v5, v6);
 }
 
 void __73__RTIInputSystemClient__endSessionWithID_forServices_options_completion___block_invoke_2_cold_1()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136315394;
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1_0(&dword_19A2A6000, v0, v1, "%s  Error sending [service endRemoteTextInputSessionWithID:] message: %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0(&dword_19A2A6000, v0, v1, "%s  Error sending [service endRemoteTextInputSessionWithID:] message: %@", v2, v3, v4, v5, v6);
 }
 
 void __73__RTIInputSystemClient__endSessionWithID_forServices_options_completion___block_invoke_2_149_cold_1(uint64_t a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 40);
-  v4 = 136315394;
-  v5 = "[RTIInputSystemClient _endSessionWithID:forServices:options:completion:]_block_invoke_2";
-  v6 = 2112;
-  v7 = v2;
-  _os_log_fault_impl(&dword_19A2A6000, a2, OS_LOG_TYPE_FAULT, "%s  Timeout while waiting to end session. sessionID = %@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 136315394;
+  v4 = "[RTIInputSystemClient _endSessionWithID:forServices:options:completion:]_block_invoke_2";
+  v5 = 2112;
+  v6 = v2;
+  _os_log_fault_impl(&dword_19A2A6000, a2, OS_LOG_TYPE_FAULT, "%s  Timeout while waiting to end session. sessionID = %@", &v3, 0x16u);
 }
 
 void __77__RTIInputSystemClient__endAllActiveSessionsForServices_animated_completion___block_invoke_2_cold_1(os_log_t log)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = 136315138;
-  v3 = "[RTIInputSystemClient _endAllActiveSessionsForServices:animated:completion:]_block_invoke_2";
-  _os_log_fault_impl(&dword_19A2A6000, log, OS_LOG_TYPE_FAULT, "%s  Timeout while waiting to end all active sessions.", &v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v1 = 136315138;
+  v2 = "[RTIInputSystemClient _endAllActiveSessionsForServices:animated:completion:]_block_invoke_2";
+  _os_log_fault_impl(&dword_19A2A6000, log, OS_LOG_TYPE_FAULT, "%s  Timeout while waiting to end all active sessions.", &v1, 0xCu);
 }
 
 - (void)endRemoteTextInputSessionWithID:options:completion:.cold.1()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136315394;
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1_0(&dword_19A2A6000, v0, v1, "%s  Can only end an active session. sessionID = %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)endRemoteTextInputSessionWithID:options:completion:.cold.2()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0(&dword_19A2A6000, v0, v1, "%s  Can only end an active session. sessionID = %@", v2, v3, v4, v5, v6);
 }
 
 - (void)remoteTextInputSessionWithID:textSuggestionsChanged:.cold.1()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136315394;
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1_0(&dword_19A2A6000, v0, v1, "%s  Can only set suggestions for an active session. sessionID = %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0(&dword_19A2A6000, v0, v1, "%s  Can only set suggestions for an active session. sessionID = %@", v2, v3, v4, v5, v6);
 }
 
 - (void)remoteTextInputSessionWithID:didAddSupplementalLexicon:.cold.1()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136315394;
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1_0(&dword_19A2A6000, v0, v1, "%s  Can only didAddSupplementalLexicon for an active session. sessionID = %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)remoteTextInputSessionWithID:didAddSupplementalLexicon:.cold.2()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0(&dword_19A2A6000, v0, v1, "%s  Can only didAddSupplementalLexicon for an active session. sessionID = %@", v2, v3, v4, v5, v6);
 }
 
 - (void)remoteTextInputSessionWithID:didAddRTISupplementalLexicon:.cold.1()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136315394;
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1_0(&dword_19A2A6000, v0, v1, "%s  Can only didAddRTISupplementalLexicon for an active session. sessionID = %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)remoteTextInputSessionWithID:didAddRTISupplementalLexicon:.cold.2()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0(&dword_19A2A6000, v0, v1, "%s  Can only didAddRTISupplementalLexicon for an active session. sessionID = %@", v2, v3, v4, v5, v6);
 }
 
 - (void)remoteTextInputSessionWithID:didRemoveSupplementalLexiconWithIdentifier:.cold.1()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136315394;
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1_0(&dword_19A2A6000, v0, v1, "%s  Can only didRemoveSupplementalLexiconWithIdentifier for an active session. sessionID = %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)remoteTextInputSessionWithID:didRemoveSupplementalLexiconWithIdentifier:.cold.2()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0(&dword_19A2A6000, v0, v1, "%s  Can only didRemoveSupplementalLexiconWithIdentifier for an active session. sessionID = %@", v2, v3, v4, v5, v6);
 }
 
 - (void)remoteTextInputSessionWithID:didRemoveRTISupplementalLexiconWithIdentifier:.cold.1()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136315394;
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1_0(&dword_19A2A6000, v0, v1, "%s  Can only didRemoveRTISupplementalLexiconWithIdentifier for an active session. sessionID = %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)remoteTextInputSessionWithID:didRemoveRTISupplementalLexiconWithIdentifier:.cold.2()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0(&dword_19A2A6000, v0, v1, "%s  Can only didRemoveRTISupplementalLexiconWithIdentifier for an active session. sessionID = %@", v2, v3, v4, v5, v6);
 }
 
 - (void)remoteTextInputSessionWithID:performInputOperation:.cold.1()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136315394;
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1_0(&dword_19A2A6000, v0, v1, "%s  Can only perform input operation for an active session. sessionID = %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0(&dword_19A2A6000, v0, v1, "%s  Can only perform input operation for an active session. sessionID = %@", v2, v3, v4, v5, v6);
 }
 
 - (void)remoteTextInputSessionWithID:(void *)a1 performInputOperation:.cold.2(void *a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v2 = _RTI_NSStringFromRTIInputModality([a1 inputModality]);
   sel_getName([a1 actionSelector]);
   v3 = [a1 customInfoType];
+  v10 = 136315906;
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_4(&dword_19A2A6000, v4, v5, "%s  perform input operation requires a valid sessionID. inputModality = %@, inputOperation = %s, customInfoType = %@", v6, v7, v8, v9, 2u);
-
-  v10 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_4(&dword_19A2A6000, v4, v5, "%s  perform input operation requires a valid sessionID. inputModality = %@, inputOperation = %s, customInfoType = %@", v6, v7, v8, v9, v10);
 }
 
 - (void)remoteTextInputSessionWithID:performInputOperation:withResponse:.cold.1()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136315394;
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1_0(&dword_19A2A6000, v0, v1, "%s  No services for this session. sessionID = %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0(&dword_19A2A6000, v0, v1, "%s  No services for this session. sessionID = %@", v2, v3, v4, v5, v6);
 }
 
 - (void)remoteTextInputSessionWithID:performInputOperation:withResponse:.cold.2()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136315394;
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1_0(&dword_19A2A6000, v0, v1, "%s  Can only perform input operation for an active session. sessionID = %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0(&dword_19A2A6000, v0, v1, "%s  Can only perform input operation for an active session. sessionID = %@", v2, v3, v4, v5, v6);
 }
 
 - (void)remoteTextInputSessionWithID:(void *)a1 performInputOperation:withResponse:.cold.3(void *a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v2 = _RTI_NSStringFromRTIInputModality([a1 inputModality]);
   sel_getName([a1 actionSelector]);
   v3 = [a1 customInfoType];
+  v10 = 136315906;
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_4(&dword_19A2A6000, v4, v5, "%s  perform input operation requires a valid sessionID. inputModality = %@, inputOperation = %s, customInfoType = %@", v6, v7, v8, v9, 2u);
-
-  v10 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_4(&dword_19A2A6000, v4, v5, "%s  perform input operation requires a valid sessionID. inputModality = %@, inputOperation = %s, customInfoType = %@", v6, v7, v8, v9, v10);
 }
 
 @end

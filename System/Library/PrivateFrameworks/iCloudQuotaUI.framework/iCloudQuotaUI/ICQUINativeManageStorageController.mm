@@ -108,18 +108,11 @@
 
 - (void)dealloc
 {
-  v3 = _ICQGetLogSystem();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
-  {
-    [(ICQUINativeManageStorageController *)v3 dealloc:v4];
-  }
-
-  defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-  [defaultCenter removeObserver:self];
-
-  v12.receiver = self;
-  v12.super_class = ICQUINativeManageStorageController;
-  [(ICQUINativeManageStorageController *)&v12 dealloc];
+  *v8 = 136315394;
+  *&v8[4] = "[ICQUINativeManageStorageController dealloc]";
+  *&v8[12] = 2112;
+  *&v8[14] = @"QuotaDidChange";
+  OUTLINED_FUNCTION_1_4(&dword_275623000, self, a3, "%s: Unregistering from notification: %@", a5, a6, a7, a8, *v8, *&v8[8], *&v8[16], *MEMORY[0x277D85DE8]);
 }
 
 - (id)specifiers
@@ -1023,88 +1016,89 @@ void __81__ICQUINativeManageStorageController__fetchStorageSummaryIgnoreCache_co
   }
 
   [(ICQUINativeManageStorageController *)self _startSpinnerInSpecifier:specifierCopy];
-  v35 = 0;
-  v36 = &v35;
-  v37 = 0x2050000000;
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x2050000000;
   v6 = getFACircleContextClass_softClass_2;
-  v38 = getFACircleContextClass_softClass_2;
+  v31 = getFACircleContextClass_softClass_2;
   if (!getFACircleContextClass_softClass_2)
   {
     *buf = MEMORY[0x277D85DD0];
-    v30 = 3221225472;
-    v31 = __getFACircleContextClass_block_invoke_2;
-    v32 = &unk_27A65A9F8;
-    v33 = &v35;
+    v23 = 3221225472;
+    v24 = __getFACircleContextClass_block_invoke_2;
+    v25 = &unk_27A65A9F8;
+    v26 = &v28;
     __getFACircleContextClass_block_invoke_2(buf);
-    v6 = *(v36 + 24);
+    v6 = *(v29 + 24);
   }
 
   v7 = v6;
-  _Block_object_dispose(&v35, 8);
+  _Block_object_dispose(&v28, 8);
   v8 = [v6 alloc];
-  v35 = 0;
-  v36 = &v35;
-  v37 = 0x2020000000;
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x2020000000;
   v9 = getFACircleEventTypeInitiateSymbolLoc_ptr_2;
-  v38 = getFACircleEventTypeInitiateSymbolLoc_ptr_2;
+  v31 = getFACircleEventTypeInitiateSymbolLoc_ptr_2;
   if (!getFACircleEventTypeInitiateSymbolLoc_ptr_2)
   {
     *buf = MEMORY[0x277D85DD0];
-    v30 = 3221225472;
-    v31 = __getFACircleEventTypeInitiateSymbolLoc_block_invoke_2;
-    v32 = &unk_27A65A9F8;
-    v33 = &v35;
+    v23 = 3221225472;
+    v24 = __getFACircleEventTypeInitiateSymbolLoc_block_invoke_2;
+    v25 = &unk_27A65A9F8;
+    v26 = &v28;
     v10 = FamilyCircleUILibrary_2();
     v11 = dlsym(v10, "FACircleEventTypeInitiate");
-    *(*(v33 + 1) + 24) = v11;
-    getFACircleEventTypeInitiateSymbolLoc_ptr_2 = *(*(v33 + 1) + 24);
-    v9 = *(v36 + 24);
+    *(*(v26 + 1) + 24) = v11;
+    getFACircleEventTypeInitiateSymbolLoc_ptr_2 = *(*(v26 + 1) + 24);
+    v9 = *(v29 + 24);
   }
 
-  _Block_object_dispose(&v35, 8);
+  _Block_object_dispose(&v28, 8);
   if (!v9)
   {
-    v24 = [ICQFamilySharingHook _beginFamilySharingFlowWithCompletion:];
-    _Block_object_dispose(&v40, 8);
-    _Unwind_Resume(v24);
+    [ICQFamilySharingHook _beginFamilySharingFlowWithCompletion:];
+    v18 = v17;
+    _Block_object_dispose(&v33, 8);
+    _Unwind_Resume(v18);
   }
 
   v12 = [v8 initWithEventType:*v9];
   [v12 setClientName:@"iCloudStorage"];
   *buf = 0;
-  v30 = buf;
-  v31 = 0x3032000000;
-  v32 = __Block_byref_object_copy__15;
-  v33 = __Block_byref_object_dispose__15;
-  v40 = 0;
-  v41 = &v40;
-  v42 = 0x2050000000;
-  v20 = getFACircleStateControllerClass_softClass_2;
-  v43 = getFACircleStateControllerClass_softClass_2;
+  v23 = buf;
+  v24 = 0x3032000000;
+  v25 = __Block_byref_object_copy__15;
+  v26 = __Block_byref_object_dispose__15;
+  v33 = 0;
+  v34 = &v33;
+  v35 = 0x2050000000;
+  v13 = getFACircleStateControllerClass_softClass_2;
+  v36 = getFACircleStateControllerClass_softClass_2;
   if (!getFACircleStateControllerClass_softClass_2)
   {
-    v35 = MEMORY[0x277D85DD0];
-    v36 = 3221225472;
-    v37 = __getFACircleStateControllerClass_block_invoke_2;
-    v38 = &unk_27A65A9F8;
-    v39 = &v40;
-    __getFACircleStateControllerClass_block_invoke_2(&v35, v13, v14, v15, v16, v17, v18, v19, v25);
-    v20 = v41[3];
+    v28 = MEMORY[0x277D85DD0];
+    v29 = 3221225472;
+    v30 = __getFACircleStateControllerClass_block_invoke_2;
+    v31 = &unk_27A65A9F8;
+    v32 = &v33;
+    __getFACircleStateControllerClass_block_invoke_2(&v28);
+    v13 = v34[3];
   }
 
-  v21 = v20;
-  _Block_object_dispose(&v40, 8);
-  v34 = [[v20 alloc] initWithPresenter:self];
-  v22 = *(v30 + 40);
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __70__ICQUINativeManageStorageController_startFamilySharingFromSpecifier___block_invoke;
-  v26[3] = &unk_27A65CA00;
-  v26[4] = self;
-  v23 = specifierCopy;
-  v27 = v23;
-  v28 = buf;
-  [v22 performWithContext:v12 completion:v26];
+  v14 = v13;
+  _Block_object_dispose(&v33, 8);
+  v27 = [[v13 alloc] initWithPresenter:self];
+  v15 = *(v23 + 40);
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __70__ICQUINativeManageStorageController_startFamilySharingFromSpecifier___block_invoke;
+  v19[3] = &unk_27A65CA00;
+  v19[4] = self;
+  v16 = specifierCopy;
+  v20 = v16;
+  v21 = buf;
+  [v15 performWithContext:v12 completion:v19];
 
   _Block_object_dispose(buf, 8);
 }
@@ -1471,25 +1465,74 @@ void __61__ICQUINativeManageStorageController_showAlertFromSpecifier___block_inv
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
+- (void)loadDrilldownFromSpecifier:.cold.2()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_0_3();
+  OUTLINED_FUNCTION_1_4(&dword_275623000, v0, v1, "%s called for specifier %@.", v2, v3, v4, v5, v6);
+}
+
 - (void)loadDrilldownFromSpecifier:(void *)a1 .cold.3(void *a1)
 {
   [a1 action];
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_2(&dword_275623000, v1, v2, "Invalid drilldown action %ld", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_0_2(&dword_275623000, v1, v2, "Invalid drilldown action %ld", v3, v4, v5, v6);
+}
+
+- (void)loadLiftUIDrilldownFromSpecifier:.cold.1()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_0_3();
+  OUTLINED_FUNCTION_1_4(&dword_275623000, v0, v1, "%s called for specifier %@.", v2, v3, v4, v5, v6);
+}
+
+- (void)loadRemoteUIDrilldownFromSpecifier:.cold.1()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_0_3();
+  OUTLINED_FUNCTION_1_4(&dword_275623000, v0, v1, "%s called for specifier %@.", v2, v3, v4, v5, v6);
 }
 
 - (void)loadRemoteUIDrilldownFromSpecifier:(void *)a1 .cold.2(void *a1)
 {
   v1 = [a1 identifier];
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_2(&dword_275623000, v2, v3, "Found no url for specifier w/ id: %@, Bailing.", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_2(&dword_275623000, v2, v3, "Found no url for specifier w/ id: %@, Bailing.", v4, v5, v6, v7);
+}
+
+- (void)presentRemoteUISheetFromSpecifier:.cold.1()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_0_3();
+  OUTLINED_FUNCTION_1_4(&dword_275623000, v0, v1, "%s called for specifier %@.", v2, v3, v4, v5, v6);
+}
+
+- (void)presentLiftUISheetFromSpecifier:.cold.1()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_0_3();
+  OUTLINED_FUNCTION_1_4(&dword_275623000, v0, v1, "%s called for specifier %@.", v2, v3, v4, v5, v6);
+}
+
+- (void)launchFreshmintFlowForSpecifier:.cold.1()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_0_3();
+  OUTLINED_FUNCTION_1_4(&dword_275623000, v0, v1, "%s called for specifier %@.", v2, v3, v4, v5, v6);
+}
+
+- (void)launchFreshmintFlowForLink:.cold.1()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_0_3();
+  OUTLINED_FUNCTION_1_4(&dword_275623000, v0, v1, "%s called for icqLink %@.", v2, v3, v4, v5, v6);
 }
 
 void __70__ICQUINativeManageStorageController_startFamilySharingFromSpecifier___block_invoke_cold_1(void *a1)
 {
   v1 = [a1 error];
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_2(&dword_275623000, v2, v3, "Family sharing launch error %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_2(&dword_275623000, v2, v3, "Family sharing launch error %@", v4, v5, v6, v7);
 }
 
 @end

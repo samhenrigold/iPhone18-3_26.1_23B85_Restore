@@ -32,13 +32,14 @@
   v5 = equalCopy;
   if (equalCopy == self)
   {
-    v11 = 1;
+    isEqual = 1;
     goto LABEL_13;
   }
 
   v6 = equalCopy;
   v7 = objc_opt_class();
-  if (![v7 isEqual:objc_opt_class()])
+  objc_opt_class();
+  if (!objc_msgSend_isEqual_(v7))
   {
     goto LABEL_10;
   }
@@ -50,7 +51,7 @@
   }
 
   URL = self->_URL;
-  if (URL != v6->_URL && (!URL || ![(NSURL *)URL isEqual:?]))
+  if (URL != v6->_URL && (!URL || !objc_msgSend_isEqual_(URL)))
   {
     goto LABEL_10;
   }
@@ -58,25 +59,25 @@
   options = self->_options;
   if (options == v6->_options)
   {
-    v11 = 1;
+    isEqual = 1;
     goto LABEL_11;
   }
 
   if (options)
   {
-    v11 = [(UISceneOpenURLOptions *)options isEqual:?];
+    isEqual = objc_msgSend_isEqual_(options);
   }
 
   else
   {
 LABEL_10:
-    v11 = 0;
+    isEqual = 0;
   }
 
 LABEL_11:
 
 LABEL_13:
-  return v11;
+  return isEqual;
 }
 
 - (NSDictionary)URLOptionsDictionary

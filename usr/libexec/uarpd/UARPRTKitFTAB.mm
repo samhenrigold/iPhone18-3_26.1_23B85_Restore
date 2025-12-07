@@ -234,9 +234,7 @@ LABEL_11:
 
 - (void)setManifest:(id)manifest
 {
-  v4 = [manifest copy];
-  manifestData = self->_manifestData;
-  self->_manifestData = v4;
+  self->_manifestData = [manifest copy];
 
   _objc_release_x1();
 }
@@ -361,20 +359,7 @@ LABEL_11:
           subFileTag = [v16 subFileTag];
           v18 = [subFileTag length];
 
-          if (v18 != 4)
-          {
-            goto LABEL_30;
-          }
-
-          subFileTag2 = [v16 subFileTag];
-          uTF8String = [subFileTag2 UTF8String];
-
-          LODWORD(v43) = *uTF8String;
-          HIDWORD(v43) = v13;
-          LODWORD(v44) = [v16 subFileLength];
-          subFileLength = [v16 subFileLength];
-          v22 = [NSData dataWithBytes:&v43 length:16];
-          if (!v22)
+          if (v18 != 4 || ([v16 subFileTag], v19 = objc_claimAutoreleasedReturnValue(), v20 = objc_msgSend(v19, "UTF8String"), v19, LODWORD(v43) = *v20, HIDWORD(v43) = v13, LODWORD(v44) = objc_msgSend(v16, "subFileLength"), v21 = objc_msgSend(v16, "subFileLength"), +[NSData dataWithBytes:length:](NSData, "dataWithBytes:length:", &v43, 16), (v22 = objc_claimAutoreleasedReturnValue()) == 0))
           {
 LABEL_30:
             v34 = 0;
@@ -382,7 +367,7 @@ LABEL_30:
           }
 
           v23 = v22;
-          v13 += subFileLength;
+          v13 += v21;
           [v8 writeData:v22];
         }
 

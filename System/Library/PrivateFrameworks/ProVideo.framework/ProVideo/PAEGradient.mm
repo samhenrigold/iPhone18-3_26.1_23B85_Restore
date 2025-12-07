@@ -231,228 +231,228 @@ LABEL_20:
   }
 
   versionAtCreation = [v13 versionAtCreation];
-  v98 = 1.0;
-  v95 = 0x3FF0000000000000;
-  v92 = 1.0;
-  v89 = 1.0;
+  v97 = 1.0;
+  v94 = 0x3FF0000000000000;
+  v91 = 1.0;
+  v88 = 1.0;
+  v89 = 0u;
   v90 = 0u;
-  v91 = 0u;
+  v92 = 0u;
   v93 = 0u;
-  v94 = 0u;
+  v95 = 0u;
   v96 = 0u;
-  v97 = 0u;
   if (v9)
   {
-    [v9 inversePixelTransform];
+    objc_msgSend_inversePixelTransform(v9);
     for (i = 0; i != 16; i += 4)
     {
-      v16 = (&v89 + i * 8);
-      v17 = *&v88[i + 2];
-      *v16 = *&v88[i];
+      v16 = (&v88 + i * 8);
+      v17 = *&v87[i + 2];
+      *v16 = *&v87[i];
       v16[1] = v17;
     }
   }
 
-  v18 = HGRectMake4i(0, 0, 0x400u, 1u);
+  v18 = HGRectMake4i(0, 0, 1024, 1);
   v20 = v19;
   v21 = HGObject::operator new(0x80uLL);
-  *&v22 = HGBitmap::HGBitmap(v21, v18, v20, 24).n128_u64[0];
-  v23 = *(v21 + 10);
-  [v8 getGradientSamples:v23 numSamples:1024 depth:8 fromParm:310 atFxTime:{info->var0.var1, v22}];
-  v24 = 0;
-  v25 = (v23 + 1);
+  HGBitmap::HGBitmap(v21, v18, v20, 24);
+  v22 = *(v21 + 10);
+  [v8 getGradientSamples:v22 numSamples:1024 depth:8 fromParm:310 atFxTime:info->var0.var1];
+  v23 = 0;
+  v24 = (v22 + 1);
   do
   {
-    v26 = (v23 + 4 * v24);
-    v27 = *v26;
-    v28 = 3;
-    v29 = v25;
+    v25 = (v22 + 4 * v23);
+    v26 = *v25;
+    v27 = 3;
+    v28 = v24;
     do
     {
-      *(v29 - 1) = *v29;
-      ++v29;
-      --v28;
+      *(v28 - 1) = *v28;
+      ++v28;
+      --v27;
     }
 
-    while (v28);
-    v26[3] = v27;
-    ++v24;
-    v25 += 4;
+    while (v27);
+    v25[3] = v26;
+    ++v23;
+    v24 += 4;
   }
 
-  while (v24 != 1024);
-  v87 = 0.0;
-  v88[0] = 0.0;
-  v85 = 0.0;
+  while (v23 != 1024);
   v86 = 0.0;
-  v84 = 0;
-  [v8 getGradientStartEnd:v88 startY:&v87 endX:&v86 endY:&v85 type:&v84 fromParm:310 atFxTime:info->var0.var1];
+  v87[0] = 0.0;
+  v84 = 0.0;
+  v85 = 0.0;
   v83 = 0;
+  [v8 getGradientStartEnd:v87 startY:&v86 endX:&v85 endY:&v84 type:&v83 fromParm:310 atFxTime:info->var0.var1];
+  v82 = 0;
   if (versionAtCreation)
   {
-    [v7 getIntValue:&v83 fromParm:2 atFxTime:info->var0.var1];
+    [v7 getIntValue:&v82 fromParm:2 atFxTime:info->var0.var1];
   }
 
-  v82 = 0;
-  [v7 getBoolValue:&v82 fromParm:3 atFxTime:info->var0.var1];
-  if (v82 == 1)
+  v81 = 0;
+  [v7 getBoolValue:&v81 fromParm:3 atFxTime:info->var0.var1];
+  if (v81 == 1)
   {
-    v84 = 0;
+    v83 = 0;
     height = [output height];
     height2 = [output height];
-    v32 = vcvtd_n_f64_u64(height, 1uLL);
-    v33 = height2 * -0.5;
-    v34 = v98 + *(&v96 + 1) * 0.0 + v32 * *&v97;
-    v35 = v98 + *(&v96 + 1) * 0.0 + v33 * *&v97;
-    v87 = (*(&v93 + 1) + *(&v91 + 1) * 0.0 + v32 * v92) / v34;
-    v88[0] = (*&v91 + v89 * 0.0 + v32 * *&v90) / v34;
-    v85 = (*(&v93 + 1) + *(&v91 + 1) * 0.0 + v33 * v92) / v35;
-    v86 = (*&v91 + v89 * 0.0 + v33 * *&v90) / v35;
+    v31 = vcvtd_n_f64_u64(height, 1uLL);
+    v32 = height2 * -0.5;
+    v33 = v97 + *(&v95 + 1) * 0.0 + v31 * *&v96;
+    v34 = v97 + *(&v95 + 1) * 0.0 + v32 * *&v96;
+    v86 = (*(&v92 + 1) + *(&v90 + 1) * 0.0 + v31 * v91) / v33;
+    v87[0] = (*&v90 + v88 * 0.0 + v31 * *&v89) / v33;
+    v84 = (*(&v92 + 1) + *(&v90 + 1) * 0.0 + v32 * v91) / v34;
+    v85 = (*&v90 + v88 * 0.0 + v32 * *&v89) / v34;
   }
 
   [output pixelAspect];
-  v37 = v36;
-  v81 = 0;
-  v38 = sqrt(v37 * (v86 - v88[0]) * (v37 * (v86 - v88[0])) + (v85 - v87) * (v85 - v87));
-  if (PCMatrix44Tmpl<double>::isIdentity(&v89))
+  v36 = v35;
+  v80 = 0;
+  v37 = sqrt(v36 * (v85 - v87[0]) * (v36 * (v85 - v87[0])) + (v84 - v86) * (v84 - v86));
+  if (PCMatrix44Tmpl<double>::isIdentity(&v88))
   {
-    if (v84)
+    if (v83)
     {
-      v39 = HGObject::operator new(0x1A0uLL);
-      HGradientRadial::HGradientRadial(v39);
-      if (v39)
+      v38 = HGObject::operator new(0x1A0uLL);
+      HGradientRadial::HGradientRadial(v38);
+      if (v38)
       {
-        v81 = v39;
+        v80 = v38;
       }
 
       width = [output width];
-      v88[0] = vcvtd_n_f64_u64(width, 1uLL) + v88[0];
+      v87[0] = vcvtd_n_f64_u64(width, 1uLL) + v87[0];
       height3 = [output height];
-      v87 = vcvtd_n_f64_u64(height3, 1uLL) + v87;
-      v42 = v88[0];
-      v43 = v87;
-      (*(*v39 + 96))(v39, 0, v42, v43, 0.0, 0.0);
-      v44 = fabs(v38);
-      (*(*v39 + 96))(v39, 1, 0.0, v44, 1024.0, 1023.0);
-      v45 = v37;
-      (*(*v39 + 96))(v39, 2, v45, 1.0, 1.0, 1.0);
-      if (!versionAtCreation || v83 == 1)
+      v86 = vcvtd_n_f64_u64(height3, 1uLL) + v86;
+      v41 = v87[0];
+      v42 = v86;
+      (*(*v38 + 96))(v38, 0, v41, v42, 0.0, 0.0);
+      v43 = fabs(v37);
+      (*(*v38 + 96))(v38, 1, 0.0, v43, 1024.0, 1023.0);
+      v44 = v36;
+      (*(*v38 + 96))(v38, 2, v44, 1.0, 1.0, 1.0);
+      if (!versionAtCreation || v82 == 1)
       {
-        v46 = HGObject::operator new(0x1A0uLL);
-        HgcRadialMask::HgcRadialMask(v46);
-        (*(*v46 + 96))(v46, 0, v45, 1.0, 1.0, 1.0);
-        v47 = v88[0];
-        v48 = v87;
-        (*(*v46 + 96))(v46, 1, v47, v48, 0.0, 0.0);
-        (*(*v46 + 96))(v46, 2, v44, 0.0, 0.0, 0.0);
-        v49 = v89;
+        v45 = HGObject::operator new(0x1A0uLL);
+        HgcRadialMask::HgcRadialMask(v45);
+        (*(*v45 + 96))(v45, 0, v44, 1.0, 1.0, 1.0);
+        v46 = v87[0];
+        v47 = v86;
+        (*(*v45 + 96))(v45, 1, v46, v47, 0.0, 0.0);
+        (*(*v45 + 96))(v45, 2, v43, 0.0, 0.0, 0.0);
+        v48 = v88;
+        v49 = *&v89;
         v50 = *&v90;
-        v51 = *&v91;
-        (*(*v46 + 96))(v46, 3, v49, v50, 0.0, v51);
-        v52 = *(&v91 + 1);
-        v53 = v92;
-        v54 = *(&v93 + 1);
-        (*(*v46 + 96))(v46, 4, v52, v53, 0.0, v54);
-        v55 = *(&v96 + 1);
-        v56 = *&v97;
-        v57 = v98;
-        (*(*v46 + 96))(v46, 5, v55, v56, 0.0, v57);
-        (*(*v46 + 120))(v46, 0, v39);
-        if (v39 != v46)
+        (*(*v45 + 96))(v45, 3, v48, v49, 0.0, v50);
+        v51 = *(&v90 + 1);
+        v52 = v91;
+        v53 = *(&v92 + 1);
+        (*(*v45 + 96))(v45, 4, v51, v52, 0.0, v53);
+        v54 = *(&v95 + 1);
+        v55 = *&v96;
+        v56 = v97;
+        (*(*v45 + 96))(v45, 5, v54, v55, 0.0, v56);
+        (*(*v45 + 120))(v45, 0, v38);
+        if (v38 != v45)
         {
-          (*(*v39 + 24))(v39);
-          v81 = v46;
-          (*(*v46 + 16))(v46);
-          v39 = v46;
+          (*(*v38 + 24))(v38);
+          v80 = v45;
+          (*(*v45 + 16))(v45);
+          v38 = v45;
         }
 
-        (*(*v46 + 24))(v46);
+        (*(*v45 + 24))(v45);
       }
     }
 
     else
     {
-      v39 = HGObject::operator new(0x1A0uLL);
-      HGradientLinear::HGradientLinear(v39);
-      if (v39)
+      v38 = HGObject::operator new(0x1A0uLL);
+      HGradientLinear::HGradientLinear(v38);
+      if (v38)
       {
-        v81 = v39;
+        v80 = v38;
       }
 
-      v62 = v88[0];
-      v63 = v87;
-      (*(*v39 + 96))(v39, 0, v62, v63, 0.0, 0.0);
-      v64 = v86;
-      v65 = v85;
-      (*(*v39 + 96))(v39, 1, v64, v65, 0.0, 0.0);
-      (*(*v39 + 96))(v39, 2, 1024.0, 1023.0, 0.0, 0.0);
+      v61 = v87[0];
+      v62 = v86;
+      (*(*v38 + 96))(v38, 0, v61, v62, 0.0, 0.0);
+      v63 = v85;
+      v64 = v84;
+      (*(*v38 + 96))(v38, 1, v63, v64, 0.0, 0.0);
+      (*(*v38 + 96))(v38, 2, 1024.0, 1023.0, 0.0, 0.0);
     }
   }
 
   else
   {
-    v39 = HGObject::operator new(0x210uLL);
-    HGGradient::HGGradient(v39);
-    if (v39)
+    v38 = HGObject::operator new(0x210uLL);
+    HGGradient::HGGradient(v38);
+    if (v38)
     {
-      v81 = v39;
-      (*(*v39 + 16))(v39);
+      v80 = v38;
+      (*(*v38 + 16))(v38);
     }
 
-    if (v84)
+    if (v83)
     {
-      HGGradient::SetGradientMode(v39, 1);
-      v60 = v83 == 1 || versionAtCreation == 0;
-      v59.n128_u32[0] = 1.0;
-      if (!v60)
+      HGGradient::SetGradientMode(v38, 1);
+      v59 = v82 == 1 || versionAtCreation == 0;
+      v58.n128_u32[0] = 1.0;
+      if (!v59)
       {
-        v59.n128_f32[0] = 0.0;
+        v58.n128_f32[0] = 0.0;
       }
 
-      v61 = v38;
-      (*(*v39 + 96))(v39, 2, fabsf(v61), v59, 0.0, 0.0);
+      v60 = v37;
+      (*(*v38 + 96))(v38, 2, fabsf(v60), v58, 0.0, 0.0);
     }
 
     else
     {
-      HGGradient::SetGradientMode(v39, 0);
-      v66 = v86;
-      v67 = v85;
-      (*(*v39 + 96))(v39, 2, v66, v67, 0.0, 0.0);
+      HGGradient::SetGradientMode(v38, 0);
+      v65 = v85;
+      v66 = v84;
+      (*(*v38 + 96))(v38, 2, v65, v66, 0.0, 0.0);
     }
 
-    v68 = v37;
-    (*(*v39 + 96))(v39, 0, v68, 1.0, 1.0, 1.0);
-    v69 = v88[0];
-    v70 = v87;
-    (*(*v39 + 96))(v39, 1, v69, v70, 0.0, 0.0);
-    v71 = v89;
+    v67 = v36;
+    (*(*v38 + 96))(v38, 0, v67, 1.0, 1.0, 1.0);
+    v68 = v87[0];
+    v69 = v86;
+    (*(*v38 + 96))(v38, 1, v68, v69, 0.0, 0.0);
+    v70 = v88;
+    v71 = *&v89;
     v72 = *&v90;
-    v73 = *&v91;
-    (*(*v39 + 96))(v39, 3, v71, v72, 0.0, v73);
-    v74 = *(&v91 + 1);
-    v75 = v92;
-    v76 = *(&v93 + 1);
-    (*(*v39 + 96))(v39, 4, v74, v75, 0.0, v76);
-    v77 = *(&v96 + 1);
-    v78 = *&v97;
-    v79 = v98;
-    (*(*v39 + 96))(v39, 5, v77, v78, 0.0, v79);
-    (*(*v39 + 24))(v39);
+    (*(*v38 + 96))(v38, 3, v70, v71, 0.0, v72);
+    v73 = *(&v90 + 1);
+    v74 = v91;
+    v75 = *(&v92 + 1);
+    (*(*v38 + 96))(v38, 4, v73, v74, 0.0, v75);
+    v76 = *(&v95 + 1);
+    v77 = *&v96;
+    v78 = v97;
+    (*(*v38 + 96))(v38, 5, v76, v77, 0.0, v78);
+    (*(*v38 + 24))(v38);
   }
 
-  v80 = HGObject::operator new(0x1F0uLL);
-  HGBitmapLoader::HGBitmapLoader(v80, v21);
-  (*(*v39 + 120))(v39, 0, v80);
-  [output setHeliumRef:&v81];
+  v79 = HGObject::operator new(0x1F0uLL);
+  HGBitmapLoader::HGBitmapLoader(v79, v21);
+  (*(*v38 + 120))(v38, 0, v79);
+  [output setHeliumRef:&v80];
+  if (v79)
+  {
+    (*(*v79 + 24))(v79);
+  }
+
   if (v80)
   {
     (*(*v80 + 24))(v80);
-  }
-
-  if (v81)
-  {
-    (*(*v81 + 24))(v81);
   }
 
   if (v21)

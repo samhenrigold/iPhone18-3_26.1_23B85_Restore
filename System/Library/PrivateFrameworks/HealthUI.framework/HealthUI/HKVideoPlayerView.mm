@@ -141,7 +141,7 @@
   [layer setShouldRasterize:1];
 
   mainScreen = [MEMORY[0x1E69DCEB0] mainScreen];
-  [mainScreen scale];
+  objc_msgSend_scale(mainScreen);
   v15 = v14;
   layer2 = [(HKVideoPlayerView *)self layer];
   [layer2 setRasterizationScale:v15];

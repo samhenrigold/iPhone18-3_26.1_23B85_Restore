@@ -3,6 +3,7 @@
 - (CKContainer)repairContainer;
 - (CKSyncEngine)repairZoneSyncEngine;
 - (CKUploadRequestManager)initWithContainer:(id)container repairContainerOverrides:(id)overrides;
+- (CKUploadRequestManager)initWithContainer:(id)container repairContainerOverrides:(id)overrides ignoringSystemConditions:(BOOL)conditions;
 - (CKUploadRequestManagerResponseActionThrottler)responseActionThrottler;
 - (CKUploadRequestPersistentStore)database;
 - (NSString)activityIdentifierForSchedulingRepairs;
@@ -284,6 +285,25 @@
   }
 
   return v8;
+}
+
+- (CKUploadRequestManager)initWithContainer:(id)container repairContainerOverrides:(id)overrides ignoringSystemConditions:(BOOL)conditions
+{
+  conditionsCopy = conditions;
+  containerCopy = container;
+  overridesCopy = overrides;
+  v16.receiver = self;
+  v16.super_class = CKUploadRequestManager;
+  v10 = [(CKUploadRequestManager *)&v16 init];
+  if (v10)
+  {
+    v11 = [CKUploadRequestManagerInternals alloc];
+    v13 = objc_msgSend_initWithContainer_repairContainerOverrides_ignoringSystemConditions_(v11, v12, containerCopy, overridesCopy, conditionsCopy);
+    internals = v10->_internals;
+    v10->_internals = v13;
+  }
+
+  return v10;
 }
 
 - (id)assetRequestCallback

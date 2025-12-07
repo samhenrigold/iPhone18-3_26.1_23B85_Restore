@@ -95,7 +95,7 @@
     {
       elementIdentitiesWithBumpApplied = self->_elementIdentitiesWithBumpApplied;
       associatedSystemApertureElementIdentity2 = [v18 associatedSystemApertureElementIdentity];
-      LODWORD(elementIdentitiesWithBumpApplied) = [(NSArray *)elementIdentitiesWithBumpApplied containsObject:associatedSystemApertureElementIdentity2];
+      LODWORD(elementIdentitiesWithBumpApplied) = objc_msgSend_containsObject_(elementIdentitiesWithBumpApplied);
 
       if (!elementIdentitiesWithBumpApplied)
       {

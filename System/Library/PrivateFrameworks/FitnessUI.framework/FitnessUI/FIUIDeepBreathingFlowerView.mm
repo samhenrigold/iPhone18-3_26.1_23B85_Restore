@@ -65,7 +65,7 @@
 
 - (void)_preloadPetalRings
 {
-  if (FIUIDeepBreathingShouldOptimizePetalCount())
+  if (FIUIDeepBreathingShouldOptimizePetalCount(self, a2))
   {
     v3 = [(FIUIDeepBreathingFlowerView *)self _petalRingWithNumberOfShaderPetals:6 showBlurTrails:0];
     v4 = [(FIUIDeepBreathingFlowerView *)self _petalRingWithNumberOfShaderPetals:10 showBlurTrails:0];
@@ -86,7 +86,7 @@
 - (id)_petalRingWithNumberOfShaderPetals:(int64_t)petals showBlurTrails:(BOOL)trails
 {
   trailsCopy = trails;
-  v31 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v7 = 100;
   if (!trails)
   {
@@ -105,11 +105,11 @@
       v12 = v10;
       v13 = [v11 numberWithInteger:petals];
       v14 = [MEMORY[0x1E696AD98] numberWithBool:trailsCopy];
-      v27 = 138412546;
-      v28 = v13;
-      v29 = 2112;
-      v30 = v14;
-      _os_log_impl(&dword_1E5D0F000, v12, OS_LOG_TYPE_DEFAULT, "creating petal ring with %@ petals (blur trails = %@)", &v27, 0x16u);
+      v28 = 138412546;
+      v29 = v13;
+      v30 = 2112;
+      v31 = v14;
+      _os_log_impl(&dword_1E5D0F000, v12, OS_LOG_TYPE_DEFAULT, "creating petal ring with %@ petals (blur trails = %@)", &v28, 0x16u);
     }
 
     v15 = [FIUIBreathingPetalRingMetalView alloc];
@@ -125,10 +125,10 @@
     }
 
     v9 = [(FIUIBreathingPetalRingMetalView *)v15 initWithFrame:petalColor petalColor:petals numberOfPetals:trailsCopy showBlurTrails:_defaultMetalDevice_metalDevice device:v17, v19, v21, v23];
-    if (FIUIDeepBreathingShouldOptimizePetalCount())
+    if (FIUIDeepBreathingShouldOptimizePetalCount(v9, v25))
     {
-      LODWORD(v25) = 30.0;
-      [(FIUIBreathingPetalRingMetalView *)v9 setPreferredFramesPerSecond:v25];
+      LODWORD(v26) = 30.0;
+      [(FIUIBreathingPetalRingMetalView *)v9 setPreferredFramesPerSecond:v26];
     }
 
     [(FIUIBreathingPetalRingMetalView *)v9 setPetalRingDelegate:self];
@@ -187,7 +187,7 @@
 {
   trailsCopy = trails;
   v27 = *MEMORY[0x1E69E9840];
-  ShouldOptimizePetalCount = FIUIDeepBreathingShouldOptimizePetalCount();
+  ShouldOptimizePetalCount = FIUIDeepBreathingShouldOptimizePetalCount(self, a2);
   petalsCopy = 6;
   if (petals > 6)
   {

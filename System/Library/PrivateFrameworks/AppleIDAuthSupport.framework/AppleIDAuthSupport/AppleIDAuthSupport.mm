@@ -1,9 +1,9 @@
-void vsetError(const void **a1, CFIndex a2, const __CFDictionary *a3, __CFError *a4, void *a5, CFStringRef format, va_list arguments)
+void vsetError(CFErrorRef *a1, CFIndex a2, const __CFDictionary *a3, __CFError *a4, void *a5, CFStringRef format, va_list arguments)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   if (!a1)
   {
-    goto LABEL_25;
+    return;
   }
 
   v14 = *a1;
@@ -35,18 +35,18 @@ void vsetError(const void **a1, CFIndex a2, const __CFDictionary *a3, __CFError 
   }
 
   *userInfoKeys = 0u;
-  v36 = 0u;
+  v37 = 0u;
   *userInfoValues = 0u;
-  v33 = 0u;
+  v34 = 0u;
   if (!v18)
   {
     v18 = @"out of memory";
   }
 
   v21 = *MEMORY[0x277CBEE30];
-  v37 = 0;
+  v38 = 0;
   userInfoKeys[0] = v21;
-  v34 = 0;
+  v35 = 0;
   userInfoValues[0] = v18;
   if (isCFDictionary(a3))
   {
@@ -60,10 +60,10 @@ void vsetError(const void **a1, CFIndex a2, const __CFDictionary *a3, __CFError 
       v25 = CFDictionaryGetValue(Value, @"ad");
       if (v25)
       {
-        v15 = &v33 + 1;
-        v16 = &v36 + 1;
-        *&v36 = @"ActionData";
-        *&v33 = v25;
+        v15 = &v34 + 1;
+        v16 = &v37 + 1;
+        *&v37 = @"ActionData";
+        *&v34 = v25;
         v24 = 3;
         if (!a4)
         {
@@ -73,8 +73,8 @@ void vsetError(const void **a1, CFIndex a2, const __CFDictionary *a3, __CFError 
 
       else
       {
-        v15 = &v33;
-        v16 = &v36;
+        v15 = &v34;
+        v16 = &v37;
         v24 = 2;
         if (!a4)
         {
@@ -106,23 +106,22 @@ LABEL_20:
     userInfoValues[v24++] = a5;
   }
 
-  *a1 = CFErrorCreateWithUserInfoKeysAndValues(0, @"com.apple.AppleIDAuthSupport", a2, userInfoKeys, userInfoValues, v24);
-  v26 = _AIDASOSLog();
-  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+  v26 = CFErrorCreateWithUserInfoKeysAndValues(0, @"com.apple.AppleIDAuthSupport", a2, userInfoKeys, userInfoValues, v24);
+  *a1 = v26;
+  v28 = _AIDASOSLog(v26, v27);
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109378;
-    v29 = a2;
-    v30 = 2114;
-    v31 = v18;
-    _os_log_impl(&dword_24056C000, v26, OS_LOG_TYPE_DEFAULT, "AppleIDAuthSupport: setError: %d:%{public}@", buf, 0x12u);
+    v30 = a2;
+    v31 = 2114;
+    v32 = v18;
+    _os_log_impl(&dword_24056C000, v28, OS_LOG_TYPE_DEFAULT, "AppleIDAuthSupport: setError: %d:%{public}@", buf, 0x12u);
   }
 
   CFRelease(v18);
-LABEL_25:
-  v27 = *MEMORY[0x277D85DE8];
 }
 
-void setError(const void **a1, CFIndex a2, const __CFDictionary *a3, __CFError *a4, CFStringRef format, ...)
+void setError(CFErrorRef *a1, CFIndex a2, const __CFDictionary *a3, __CFError *a4, CFStringRef format, ...)
 {
   va_start(va, format);
   if (a1)
@@ -131,61 +130,67 @@ void setError(const void **a1, CFIndex a2, const __CFDictionary *a3, __CFError *
   }
 }
 
-void setErrorNetwork(const void **a1, CFIndex a2, const __CFDictionary *a3, __CFError *a4, void *a5, const __CFString *a6, uint64_t a7, uint64_t a8, char a9)
+void setErrorNetwork(CFErrorRef *a1, CFIndex a2, const __CFDictionary *a3, __CFError *a4, void *a5, const __CFString *a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
   if (a1)
   {
-    vsetError(a1, a2, a3, a4, a5, a6, &a9);
+    vsetError(a1, a2, a3, a4, a5, a6, va);
   }
 }
 
 uint64_t checkChannelBindings(__SecTrust *a1, CFDictionaryRef *a2)
 {
-  v14[1] = *MEMORY[0x277D85DE8];
-  if (SecTrustGetCertificateCount(a1) >= 1 && (CertificateAtIndex = SecTrustGetCertificateAtIndex(a1, 0)) != 0 && (v5 = SecCertificateCopyData(CertificateAtIndex)) != 0)
+  v15[1] = *MEMORY[0x277D85DE8];
+  if (SecTrustGetCertificateCount(a1) < 1)
   {
-    v6 = v5;
-    v7 = *ccsha256_di();
-    MEMORY[0x28223BE20]();
-    CFDataGetLength(v6);
-    CFDataGetBytePtr(v6);
-    ccdigest();
-    CFRelease(v6);
-    v8 = CFDataCreate(0, v14 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0), v7);
-    if (v8)
-    {
-      v9 = v8;
-      Option = AppleIDAuthSupportGetOption(a2, @"sc");
-      if (Option && !CFEqual(Option, v9))
-      {
-        v11 = 0;
-      }
+    return 0;
+  }
 
-      else
-      {
-        AppleIDAuthSupportSetOption(a2, @"sc", v9);
-        v11 = 1;
-      }
+  CertificateAtIndex = SecTrustGetCertificateAtIndex(a1, 0);
+  if (!CertificateAtIndex)
+  {
+    return 0;
+  }
 
-      CFRelease(v9);
-    }
+  v5 = SecCertificateCopyData(CertificateAtIndex);
+  if (!v5)
+  {
+    return 0;
+  }
 
-    else
-    {
-      v11 = 0;
-    }
+  v6 = v5;
+  v7 = ccsha256_di();
+  v8 = *v7;
+  MEMORY[0x28223BE20](v7, v9);
+  CFDataGetLength(v6);
+  CFDataGetBytePtr(v6);
+  ccdigest();
+  CFRelease(v6);
+  v10 = CFDataCreate(0, v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0), v8);
+  if (!v10)
+  {
+    return 0;
+  }
+
+  v11 = v10;
+  Option = AppleIDAuthSupportGetOption(a2, @"sc");
+  if (Option && !CFEqual(Option, v11))
+  {
+    v13 = 0;
   }
 
   else
   {
-    v11 = 0;
+    AppleIDAuthSupportSetOption(a2, @"sc", v11);
+    v13 = 1;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-  return v11;
+  CFRelease(v11);
+  return v13;
 }
 
-BOOL AppleIDAuthSupportAuthenticate(CFDictionaryRef *a1, void *a2, const void **a3)
+BOOL AppleIDAuthSupportAuthenticate(CFDictionaryRef *a1, void *a2, CFErrorRef *a3)
 {
   *v9 = 0;
   cf = 0;
@@ -238,283 +243,283 @@ LABEL_14:
   return AppleIDAuthSupportSuccess(a1);
 }
 
-id SendRequestAndCreateResponse(CFDictionaryRef *a1, const __CFDictionary *a2, void *a3, void *a4, const void **a5)
+id SendRequestAndCreateResponse(CFDictionaryRef *a1, const __CFDictionary *a2, void *a3, void *a4, CFErrorRef *a5)
 {
-  v74 = *MEMORY[0x277D85DE8];
-  v10 = _AIDASOSLog();
+  v8 = a2;
+  v84 = *MEMORY[0x277D85DE8];
+  v10 = _AIDASOSLog(a1, a2);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     *buf = 136446722;
-    v65 = "SendRequestAndCreateResponse";
-    v66 = 2112;
-    v67 = a4;
-    v68 = 2112;
-    v69 = a3;
+    v75 = "SendRequestAndCreateResponse";
+    v76 = 2112;
+    v77 = a4;
+    v78 = 2112;
+    v79 = a3;
     _os_log_impl(&dword_24056C000, v10, OS_LOG_TYPE_INFO, "%{public}s: sending request %@ to server %@", buf, 0x20u);
   }
 
-  v62 = a5;
-  if (a1 && !a2)
+  v72 = a5;
+  if (a1 && !v8)
   {
     Option = AppleIDAuthSupportGetOption(a1, @"kAppleIDAuthSupportClientInfo");
     Value = AppleIDAuthSupportGetOption(a1, @"kAppleIDAuthSupportProxiedClientInfo");
-    v13 = AppleIDAuthSupportGetOption(a1, @"kAppleIDAuthSupportCompanionClientInfo");
-    v59 = AppleIDAuthSupportGetOption(a1, @"kAppleIDAuthSupportAppleITeamID");
-    v58 = AppleIDAuthSupportGetOption(a1, @"kAppleIDAuthSupportAppleIClientID");
-    v14 = AppleIDAuthSupportGetOption(a1, @"kAppleIDAuthSupportAdditionalHeaders");
+    v15 = AppleIDAuthSupportGetOption(a1, @"kAppleIDAuthSupportCompanionClientInfo");
+    v69 = AppleIDAuthSupportGetOption(a1, @"kAppleIDAuthSupportAppleITeamID");
+    v68 = AppleIDAuthSupportGetOption(a1, @"kAppleIDAuthSupportAppleIClientID");
+    v11 = AppleIDAuthSupportGetOption(a1, @"kAppleIDAuthSupportAdditionalHeaders");
 LABEL_8:
-    a2 = v14;
+    v8 = v11;
     goto LABEL_9;
   }
 
-  if (a2)
+  if (v8)
   {
-    Option = CFDictionaryGetValue(a2, @"kAppleIDAuthSupportClientInfo");
-    Value = CFDictionaryGetValue(a2, @"kAppleIDAuthSupportProxiedClientInfo");
-    v13 = CFDictionaryGetValue(a2, @"kAppleIDAuthSupportCompanionClientInfo");
-    v59 = CFDictionaryGetValue(a2, @"kAppleIDAuthSupportAppleITeamID");
-    v58 = CFDictionaryGetValue(a2, @"kAppleIDAuthSupportAppleIClientID");
-    v14 = CFDictionaryGetValue(a2, @"kAppleIDAuthSupportAdditionalHeaders");
+    Option = CFDictionaryGetValue(v8, @"kAppleIDAuthSupportClientInfo");
+    Value = CFDictionaryGetValue(v8, @"kAppleIDAuthSupportProxiedClientInfo");
+    v15 = CFDictionaryGetValue(v8, @"kAppleIDAuthSupportCompanionClientInfo");
+    v69 = CFDictionaryGetValue(v8, @"kAppleIDAuthSupportAppleITeamID");
+    v68 = CFDictionaryGetValue(v8, @"kAppleIDAuthSupportAppleIClientID");
+    v11 = CFDictionaryGetValue(v8, @"kAppleIDAuthSupportAdditionalHeaders");
     goto LABEL_8;
   }
 
-  v58 = 0;
-  v59 = 0;
-  v13 = 0;
+  v68 = 0;
+  v69 = 0;
+  v15 = 0;
   Value = 0;
   Option = 0;
 LABEL_9:
-  v60 = a3;
-  v61 = a4;
-  v15 = _AIDASOSLog();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+  v70 = a3;
+  v71 = a4;
+  v16 = _AIDASOSLog(v11, v12);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
   {
     *buf = 136447234;
-    v65 = "SendRequestAndCreateResponse";
-    v66 = 2112;
-    v67 = Option;
-    v68 = 2112;
-    v69 = Value;
-    v70 = 2112;
-    v71 = v13;
-    v72 = 2112;
-    v73 = a2;
-    _os_log_impl(&dword_24056C000, v15, OS_LOG_TYPE_INFO, "%{public}s: CI: %@ PCI: %@ CCI: %@ AH: %@", buf, 0x34u);
+    v75 = "SendRequestAndCreateResponse";
+    v76 = 2112;
+    v77 = Option;
+    v78 = 2112;
+    v79 = Value;
+    v80 = 2112;
+    v81 = v15;
+    v82 = 2112;
+    v83 = v8;
+    _os_log_impl(&dword_24056C000, v16, OS_LOG_TYPE_INFO, "%{public}s: CI: %@ PCI: %@ CCI: %@ AH: %@", buf, 0x34u);
   }
 
-  v16 = v13;
-  v17 = Value;
+  v17 = v15;
+  v18 = Value;
 
-  v18 = objc_alloc_init(AIASSession);
-  v19 = [MEMORY[0x277CBABC8] ephemeralSessionConfiguration];
-  v20 = [v19 copy];
+  v19 = objc_alloc_init(AIASSession);
+  v20 = [MEMORY[0x277CBABC8] ephemeralSessionConfiguration];
+  v21 = [v20 copy];
 
-  [v20 setWaitsForConnectivity:1];
-  v21 = AppleIDAuthSupportGetOption(a1, @"kAppleIDAuthSupportOptionTimeoutIntervalForRequest");
-  objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 && [v21 intValue] >= 1)
-  {
-    [v20 setTimeoutIntervalForRequest:{objc_msgSend(v21, "intValue")}];
-  }
-
-  v22 = AppleIDAuthSupportGetOption(a1, @"kAppleIDAuthSupportOptionTimeoutIntervalForResource");
+  [v21 setWaitsForConnectivity:1];
+  v22 = AppleIDAuthSupportGetOption(a1, @"kAppleIDAuthSupportOptionTimeoutIntervalForRequest");
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) != 0 && [v22 intValue] >= 1)
   {
-    v23 = [v22 intValue];
+    [v21 setTimeoutIntervalForRequest:{objc_msgSend(v22, "intValue")}];
+  }
+
+  v23 = AppleIDAuthSupportGetOption(a1, @"kAppleIDAuthSupportOptionTimeoutIntervalForResource");
+  objc_opt_class();
+  if ((objc_opt_isKindOfClass() & 1) != 0 && [v23 intValue] >= 1)
+  {
+    v24 = [v23 intValue];
   }
 
   else
   {
-    v23 = 60.0;
+    v24 = 60.0;
   }
 
-  [v20 setTimeoutIntervalForResource:v23];
-  v24 = AppleIDAuthSupportGetOption(a1, @"kAppleIDAuthSupportSourceApplicationAuditTokenData");
-  if (v24)
+  [v21 setTimeoutIntervalForResource:v24];
+  v25 = AppleIDAuthSupportGetOption(a1, @"kAppleIDAuthSupportSourceApplicationAuditTokenData");
+  if (v25)
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      [v20 set_sourceApplicationAuditTokenData:v24];
+      [v21 set_sourceApplicationAuditTokenData:v25];
     }
   }
 
-  v25 = [MEMORY[0x277CBABB8] sessionWithConfiguration:v20 delegate:v18 delegateQueue:0];
-  [(AIASSession *)v18 setURLSession:v25];
+  v26 = [MEMORY[0x277CBABB8] sessionWithConfiguration:v21 delegate:v19 delegateQueue:0];
+  [(AIASSession *)v19 setURLSession:v26];
 
-  v26 = [AIASSession requestWithURL:v18 data:"requestWithURL:data:clientInfo:proxiedClientInfo:companionClientInfo:appleITeamId:appleIClientId:additionalHeaders:" clientInfo:v60 proxiedClientInfo:v61 companionClientInfo:Option appleITeamId:v17 appleIClientId:v16 additionalHeaders:v59];
-  v27 = _AIDASOSLog();
-  v28 = os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT);
-  if (!v26)
+  v27 = [(AIASSession *)v19 requestWithURL:v70 data:v71 clientInfo:Option proxiedClientInfo:v18 companionClientInfo:v17 appleITeamId:v69 appleIClientId:v68 additionalHeaders:v8];
+  v29 = _AIDASOSLog(v27, v28);
+  v30 = os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT);
+  if (!v27)
   {
-    if (v28)
+    if (v30)
     {
       *buf = 136446210;
-      v65 = "SendRequestAndCreateResponse";
-      _os_log_impl(&dword_24056C000, v27, OS_LOG_TYPE_DEFAULT, "%{public}s: failed getting session", buf, 0xCu);
+      v75 = "SendRequestAndCreateResponse";
+      _os_log_impl(&dword_24056C000, v29, OS_LOG_TYPE_DEFAULT, "%{public}s: failed getting session", buf, 0xCu);
     }
 
-    errorNetworkProtocol(0, v62, 6, @"Failed getting sessionWithConfiguration");
+    errorNetworkProtocol(0, v72, 6, @"Failed getting sessionWithConfiguration");
     goto LABEL_56;
   }
 
-  if (v28)
-  {
-    *buf = 136446466;
-    v65 = "SendRequestAndCreateResponse";
-    v66 = 2112;
-    v67 = v26;
-    _os_log_impl(&dword_24056C000, v27, OS_LOG_TYPE_DEFAULT, "%{public}s: submissing a request to: %@", buf, 0x16u);
-  }
-
-  [v26 resume];
-  v29 = [v26 sema];
-  v30 = dispatch_semaphore_wait(v29, 0xFFFFFFFFFFFFFFFFLL);
-
   if (v30)
   {
-    v31 = _AIDASOSLog();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+    *buf = 136446466;
+    v75 = "SendRequestAndCreateResponse";
+    v76 = 2112;
+    v77 = v27;
+    _os_log_impl(&dword_24056C000, v29, OS_LOG_TYPE_DEFAULT, "%{public}s: submissing a request to: %@", buf, 0x16u);
+  }
+
+  [v27 resume];
+  v31 = [v27 sema];
+  v32 = dispatch_semaphore_wait(v31, 0xFFFFFFFFFFFFFFFFLL);
+
+  if (v32)
+  {
+    v35 = _AIDASOSLog(v33, v34);
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446466;
-      v65 = "SendRequestAndCreateResponse";
-      v66 = 2112;
-      v67 = v26;
-      _os_log_impl(&dword_24056C000, v31, OS_LOG_TYPE_DEFAULT, "%{public}s: request %@ timed out", buf, 0x16u);
+      v75 = "SendRequestAndCreateResponse";
+      v76 = 2112;
+      v77 = v27;
+      _os_log_impl(&dword_24056C000, v35, OS_LOG_TYPE_DEFAULT, "%{public}s: request %@ timed out", buf, 0x16u);
     }
 
-    v32 = [v26 task];
-    [v32 cancel];
+    v36 = [v27 task];
+    [v36 cancel];
 
-    [(AIASSession *)v18 invalidateAndCancel];
-    v33 = [v26 networkTaskDescription];
-    setErrorNetwork(v62, 6, 0, 0, v33, @"Time out, see underlying network error", v34, v35, v58);
+    [(AIASSession *)v19 invalidateAndCancel];
+    v37 = [v27 networkTaskDescription];
+    setErrorNetwork(v72, 6, 0, 0, v37, @"Time out, see underlying network error", v38, v39, v67);
     goto LABEL_28;
   }
 
-  v36 = [v26 success];
-  v37 = _AIDASOSLog();
-  v38 = v37;
-  if (!v36)
+  v40 = [v27 success];
+  v41 = v40;
+  v43 = _AIDASOSLog(v40, v42);
+  v44 = v43;
+  if (!v41)
   {
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
     {
-      v47 = [v26 error];
+      v57 = [v27 error];
       *buf = 136446722;
-      v65 = "SendRequestAndCreateResponse";
-      v66 = 2112;
-      v67 = v26;
-      v68 = 2112;
-      v69 = v47;
-      _os_log_impl(&dword_24056C000, v38, OS_LOG_TYPE_DEFAULT, "%{public}s: failed to fetch request %@: %@", buf, 0x20u);
+      v75 = "SendRequestAndCreateResponse";
+      v76 = 2112;
+      v77 = v27;
+      v78 = 2112;
+      v79 = v57;
+      _os_log_impl(&dword_24056C000, v44, OS_LOG_TYPE_DEFAULT, "%{public}s: failed to fetch request %@: %@", buf, 0x20u);
     }
 
-    v48 = [v26 error];
+    v58 = [v27 error];
 
-    if (v48)
+    if (v58)
     {
-      v49 = [v26 error];
-      v50 = [v26 networkTaskDescription];
-      setErrorNetwork(v62, 6, 0, v49, v50, @"Request failed, see underlying network error", v51, v52, v58);
+      v59 = [v27 error];
+      v60 = [v27 networkTaskDescription];
+      setErrorNetwork(v72, 6, 0, v59, v60, @"Request failed, see underlying network error", v61, v62);
     }
 
     else
     {
-      setError(v62, 10, 0, 0, @"%s: failed, but no error from NSURLSession", "SendRequestAndCreateResponse");
+      setError(v72, 10, 0, 0, @"%s: failed, but no error from NSURLSession", "SendRequestAndCreateResponse");
     }
 
-    [(AIASSession *)v18 invalidateAndCancel];
+    [(AIASSession *)v19 invalidateAndCancel];
     goto LABEL_56;
   }
 
-  if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
   {
-    SendRequestAndCreateResponse_cold_1(v38);
+    SendRequestAndCreateResponse_cold_1(v44);
   }
 
-  if (v62 && *v62)
+  if (v72 && *v72)
   {
-    CFRelease(*v62);
-    *v62 = 0;
+    CFRelease(*v72);
+    *v72 = 0;
   }
 
-  [(AIASSession *)v18 invalidateAndCancel];
-  v39 = [v26 data];
-  v40 = [v39 length];
+  [(AIASSession *)v19 invalidateAndCancel];
+  v45 = [v27 data];
+  v46 = [v45 length];
 
-  if (!v40)
+  if (!v46)
   {
-    v53 = _AIDASOSLog();
-    if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
+    v63 = _AIDASOSLog(v47, v48);
+    if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446466;
-      v65 = "SendRequestAndCreateResponse";
-      v66 = 2112;
-      v67 = v26;
-      _os_log_impl(&dword_24056C000, v53, OS_LOG_TYPE_DEFAULT, "%{public}s: no data returned in request %@", buf, 0x16u);
+      v75 = "SendRequestAndCreateResponse";
+      v76 = 2112;
+      v77 = v27;
+      _os_log_impl(&dword_24056C000, v63, OS_LOG_TYPE_DEFAULT, "%{public}s: no data returned in request %@", buf, 0x16u);
     }
 
-    v33 = [v26 networkTaskDescription];
-    setErrorNetwork(v62, 10, 0, 0, v33, @"%s: success with no data, no error from NSURLSession", v54, v55, "SendRequestAndCreateResponse");
+    v37 = [v27 networkTaskDescription];
+    setErrorNetwork(v72, 10, 0, 0, v37, @"%s: success with no data, no error from NSURLSession", v64, v65, "SendRequestAndCreateResponse");
     goto LABEL_28;
   }
 
-  v41 = MEMORY[0x277CCAC58];
-  v42 = [v26 data];
-  v63 = 0;
-  v33 = [v41 propertyListWithData:v42 options:0 format:0 error:&v63];
-  v43 = v63;
+  v49 = MEMORY[0x277CCAC58];
+  v50 = [v27 data];
+  v73 = 0;
+  v37 = [v49 propertyListWithData:v50 options:0 format:0 error:&v73];
+  v51 = v73;
 
-  if (!v33)
+  if (!v37)
   {
-    setError(v62, 6, 0, v43, @"%s: Failed to parse the response", "SendRequestAndCreateResponse");
+    setError(v72, 6, 0, v51, @"%s: Failed to parse the response", "SendRequestAndCreateResponse");
 
     goto LABEL_56;
   }
 
-  v44 = _AIDASOSLog();
-  if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+  v54 = _AIDASOSLog(v52, v53);
+  if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v65 = "SendRequestAndCreateResponse";
-    v66 = 2112;
-    v67 = v33;
-    _os_log_impl(&dword_24056C000, v44, OS_LOG_TYPE_DEFAULT, "%{public}s: completed request %@", buf, 0x16u);
+    v75 = "SendRequestAndCreateResponse";
+    v76 = 2112;
+    v77 = v37;
+    _os_log_impl(&dword_24056C000, v54, OS_LOG_TYPE_DEFAULT, "%{public}s: completed request %@", buf, 0x16u);
   }
 
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    errorNetworkProtocol(0, v62, 2, @"Not a dictionary");
+    errorNetworkProtocol(0, v72, 2, @"Not a dictionary");
 
 LABEL_28:
 LABEL_56:
-    v46 = 0;
+    v56 = 0;
     goto LABEL_57;
   }
 
-  v45 = [v33 objectForKey:@"Response"];
-  if (!v45 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+  v55 = [v37 objectForKey:@"Response"];
+  if (!v55 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
   {
-    errorNetworkProtocol(v33, v62, 2, @"could not find Response key");
+    errorNetworkProtocol(v37, v72, 2, @"could not find Response key");
 
     goto LABEL_28;
   }
 
-  v46 = v45;
+  v56 = v55;
 
 LABEL_57:
-  v56 = *MEMORY[0x277D85DE8];
-  return v46;
+  return v56;
 }
 
 CFDataRef _AppleIDAuthSupportCreateEncryptedData(const __CFData *a1, const char *a2, const void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
   ccaes_gcm_encrypt_mode();
   v6 = ccgcm_context_size();
-  MEMORY[0x28223BE20](v6);
+  MEMORY[0x28223BE20](v6, v7);
   if (!allowSkipSettingOnInternalHardware(@"AppleIDAuthSupportNoEncryption", 0))
   {
     if (a2)
@@ -523,8 +528,6 @@ CFDataRef _AppleIDAuthSupportCreateEncryptedData(const __CFData *a1, const char 
       v10 = DerivedKey;
       if (!DerivedKey)
       {
-LABEL_15:
-        v19 = *MEMORY[0x277D85DE8];
         return v10;
       }
 
@@ -546,44 +549,38 @@ LABEL_15:
     }
 
     Data = CFPropertyListCreateData(0, a3, kCFPropertyListXMLFormat_v1_0, 0, 0);
-    if (Data)
+    if (!Data)
     {
-      v15 = Data;
-      v16 = CFDataGetLength(Data);
-      Mutable = CFDataCreateMutable(0, v16 + 35);
-      v10 = Mutable;
-      if (Mutable)
-      {
-        CFDataSetLength(Mutable, v16 + 35);
-        v18 = CFDataGetMutableBytePtr(v10);
-        *v18 = 22872;
-        v18[2] = 90;
-        if (SecRandomCopyBytes(*MEMORY[0x277CDC540], 0x10uLL, v18 + 3))
-        {
-          abort();
-        }
+      return 0;
+    }
 
-        ccgcm_set_iv();
-        ccgcm_aad();
-        CFDataGetLength(v15);
-        CFDataGetBytePtr(v15);
-        ccgcm_update();
-        CFDataGetLength(v15);
-        ccgcm_finalize();
+    v15 = Data;
+    v16 = CFDataGetLength(Data);
+    Mutable = CFDataCreateMutable(0, v16 + 35);
+    v10 = Mutable;
+    if (Mutable)
+    {
+      CFDataSetLength(Mutable, v16 + 35);
+      v18 = CFDataGetMutableBytePtr(v10);
+      *v18 = 22872;
+      v18[2] = 90;
+      if (SecRandomCopyBytes(*MEMORY[0x277CDC540], 0x10uLL, v18 + 3))
+      {
+        abort();
       }
 
-      CFRelease(v15);
+      ccgcm_set_iv();
+      ccgcm_aad();
+      CFDataGetLength(v15);
+      CFDataGetBytePtr(v15);
+      ccgcm_update();
+      CFDataGetLength(v15);
+      ccgcm_finalize();
     }
 
-    else
-    {
-      v10 = 0;
-    }
-
-    goto LABEL_15;
+    CFRelease(v15);
+    return v10;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return CFPropertyListCreateData(0, a3, kCFPropertyListXMLFormat_v1_0, 0, 0);
 }
@@ -592,44 +589,39 @@ __CFData *CreateDerivedKey(const __CFData *a1, const char *a2)
 {
   v15[1] = *MEMORY[0x277D85DE8];
   v4 = ccsha256_di();
-  if (CFDataGetLength(a1) <= *v4)
+  if (CFDataGetLength(a1) > *v4)
   {
-    Length = CFDataGetLength(a1);
-    Mutable = CFDataCreateMutable(0, Length);
-    if (Mutable)
-    {
-      v7 = CFDataGetLength(a1);
-      CFDataSetLength(Mutable, v7);
-      v8 = *v4;
-      MEMORY[0x28223BE20]();
-      v10 = v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-      CFDataGetLength(a1);
-      CFDataGetBytePtr(a1);
-      strlen(a2);
-      cchmac();
-      MutableBytePtr = CFDataGetMutableBytePtr(Mutable);
-      v12 = CFDataGetLength(a1);
-      memcpy(MutableBytePtr, v10, v12);
-      memset_s(v10, *v4, 0, *v4);
-    }
+    return 0;
   }
 
-  else
+  Length = CFDataGetLength(a1);
+  Mutable = CFDataCreateMutable(0, Length);
+  if (Mutable)
   {
-    Mutable = 0;
+    v7 = CFDataGetLength(a1);
+    CFDataSetLength(Mutable, v7);
+    MEMORY[0x28223BE20](v8, v9);
+    v11 = v15 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+    CFDataGetLength(a1);
+    CFDataGetBytePtr(a1);
+    strlen(a2);
+    cchmac();
+    MutableBytePtr = CFDataGetMutableBytePtr(Mutable);
+    v13 = CFDataGetLength(a1);
+    memcpy(MutableBytePtr, v11, v13);
+    memset_s(v11, *v4, 0, *v4);
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return Mutable;
 }
 
-CFPropertyListRef _AppleIDAuthSupportCreateDecryptedData(const __CFData *a1, const char *a2, const __CFData *a3, const void **a4)
+CFPropertyListRef _AppleIDAuthSupportCreateDecryptedData(const __CFData *a1, const char *a2, const __CFData *a3, CFErrorRef *a4)
 {
   error[3] = *MEMORY[0x277D85DE8];
   ccaes_gcm_decrypt_mode();
   error[0] = 0;
-  ccgcm_context_size();
-  MEMORY[0x28223BE20]();
+  v8 = ccgcm_context_size();
+  MEMORY[0x28223BE20](v8, v9);
   if (!allowSkipSettingOnInternalHardware(@"AppleIDAuthSupportNoEncryption", 0))
   {
     if (a2)
@@ -637,17 +629,17 @@ CFPropertyListRef _AppleIDAuthSupportCreateDecryptedData(const __CFData *a1, con
       DerivedKey = CreateDerivedKey(a1, a2);
       if (!DerivedKey)
       {
-        goto LABEL_11;
+        return 0;
       }
 
-      v10 = DerivedKey;
+      v12 = DerivedKey;
       CFDataGetLength(DerivedKey);
-      CFDataGetBytePtr(v10);
+      CFDataGetBytePtr(v12);
       ccgcm_init();
-      MutableBytePtr = CFDataGetMutableBytePtr(v10);
-      Length = CFDataGetLength(v10);
+      MutableBytePtr = CFDataGetMutableBytePtr(v12);
+      Length = CFDataGetLength(v12);
       bzero(MutableBytePtr, Length);
-      CFRelease(v10);
+      CFRelease(v12);
     }
 
     else
@@ -657,9 +649,9 @@ CFPropertyListRef _AppleIDAuthSupportCreateDecryptedData(const __CFData *a1, con
       ccgcm_init();
     }
 
-    v13 = CFDataGetLength(a3);
+    v15 = CFDataGetLength(a3);
     CFDataGetBytePtr(a3);
-    if (v13 > 34)
+    if (v15 > 34)
     {
       if (cc_cmp_safe())
       {
@@ -668,38 +660,38 @@ CFPropertyListRef _AppleIDAuthSupportCreateDecryptedData(const __CFData *a1, con
 
       else
       {
-        v16 = v13 - 35;
+        v17 = v15 - 35;
         ccgcm_set_iv();
         ccgcm_aad();
-        Mutable = CFDataCreateMutable(0, v16);
-        CFDataSetLength(Mutable, v16);
+        Mutable = CFDataCreateMutable(0, v17);
+        CFDataSetLength(Mutable, v17);
         CFDataGetMutableBytePtr(Mutable);
         ccgcm_update();
         ccgcm_finalize();
         if (cc_cmp_safe())
         {
           setError(a4, 5, 0, 0, @"tag version");
-          v18 = Mutable;
+          v19 = Mutable;
         }
 
         else
         {
-          v8 = CFPropertyListCreateWithData(0, Mutable, 0, 0, error);
+          v10 = CFPropertyListCreateWithData(0, Mutable, 0, 0, error);
           CFRelease(Mutable);
-          if (v8)
+          if (v10)
           {
-            goto LABEL_12;
+            return v10;
           }
 
           setError(a4, 5, 0, error[0], @"failed to decode decrypted data");
-          v18 = error[0];
+          v19 = error[0];
           if (!error[0])
           {
-            goto LABEL_11;
+            return 0;
           }
         }
 
-        CFRelease(v18);
+        CFRelease(v19);
       }
     }
 
@@ -708,18 +700,13 @@ CFPropertyListRef _AppleIDAuthSupportCreateDecryptedData(const __CFData *a1, con
       setError(a4, 5, 0, 0, @"encrypted token too short", error[0]);
     }
 
-LABEL_11:
-    v8 = 0;
-    goto LABEL_12;
+    return 0;
   }
 
-  v8 = CFPropertyListCreateWithData(0, a3, 0, 0, a4);
-LABEL_12:
-  v14 = *MEMORY[0x277D85DE8];
-  return v8;
+  return CFPropertyListCreateWithData(0, a3, 0, 0, a4);
 }
 
-__CFDictionary *AppleIDAuthSupportCopyAppTokensOptions(uint64_t a1, void *a2, const __CFString *a3, const __CFDictionary *a4, const void **a5)
+__CFDictionary *AppleIDAuthSupportCopyAppTokensOptions(uint64_t a1, void *a2, const __CFString *a3, const __CFDictionary *a4, CFErrorRef *a5)
 {
   *v27 = 0;
   if (!a1)
@@ -728,7 +715,7 @@ __CFDictionary *AppleIDAuthSupportCopyAppTokensOptions(uint64_t a1, void *a2, co
     return 0;
   }
 
-  if (!isCFArray(a3))
+  if ((isCFArray(a3) & 1) == 0)
   {
     setError(a5, 7, 0, 0, @"Caller passed a non array as apps to CopyAppTokens: %@", a3);
     return 0;
@@ -813,7 +800,7 @@ LABEL_38:
   }
 
   DecryptedData = _AppleIDAuthSupportCreateDecryptedData(*(a1 + 24), 0, v21, a5);
-  if (!isCFDictionary(DecryptedData))
+  if ((isCFDictionary(DecryptedData) & 1) == 0)
   {
     errorNetworkProtocol(Response, a5, 5, @"Failed to decrypt EncryptedToken (et)");
     CFRelease(Response);
@@ -845,9 +832,12 @@ LABEL_37:
   MutableCopy = 0;
 LABEL_31:
   v26 = CFDictionaryGetValue(Response, @"Status");
-  if (isCFDictionary(v26) && (MutableCopy || (MutableCopy = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150])) != 0))
+  if (isCFDictionary(v26))
   {
-    CFDictionarySetValue(MutableCopy, @"Status", v26);
+    if (MutableCopy || (MutableCopy = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150])) != 0)
+    {
+      CFDictionarySetValue(MutableCopy, @"Status", v26);
+    }
   }
 
   CFRelease(Response);
@@ -855,13 +845,12 @@ LABEL_31:
   return MutableCopy;
 }
 
-__CFData *CreateAppTokensChecksum(uint64_t a1, const __CFString *a2, const void **a3)
+__CFData *CreateAppTokensChecksum(uint64_t a1, const __CFString *a2, CFErrorRef *a3)
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v6 = ccsha256_di();
-  v7 = (((v6[1] + ((v6[1] + v6[2] + 19) & 0xFFFFFFFFFFFFFFF8) + 7) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
-  v9 = v14 - v8;
+  MEMORY[0x28223BE20](v6, v7);
+  v9 = v13 - v8;
   CFDataGetLength(*(a1 + 24));
   CFDataGetBytePtr(*(a1 + 24));
   cchmac_init();
@@ -870,24 +859,19 @@ __CFData *CreateAppTokensChecksum(uint64_t a1, const __CFString *a2, const void 
   strlen(v10);
   cchmac_update();
   free(v10);
-  if (cfHMAC(v6, v9, a2, a3))
+  if (!cfHMAC(v6, v9, a2, a3))
   {
-    Mutable = CFDataCreateMutable(0, *v6);
-    CFDataSetLength(Mutable, *v6);
-    CFDataGetMutableBytePtr(Mutable);
-    cchmac_final();
+    return 0;
   }
 
-  else
-  {
-    Mutable = 0;
-  }
-
-  v12 = *MEMORY[0x277D85DE8];
+  Mutable = CFDataCreateMutable(0, *v6);
+  CFDataSetLength(Mutable, *v6);
+  CFDataGetMutableBytePtr(Mutable);
+  cchmac_final();
   return Mutable;
 }
 
-void *AppleIDAuthSupportCopyAppNewAppTokensWithAuthAttribute(void *a1, void *a2, const __CFString *a3, CFDictionaryRef theDict, const void **a5)
+void *AppleIDAuthSupportCopyAppNewAppTokensWithAuthAttribute(void *a1, void *a2, const __CFString *a3, CFDictionaryRef theDict, CFErrorRef *a5)
 {
   DecryptedData = a1;
   *v21 = 0;
@@ -997,7 +981,7 @@ void *AppleIDAuthSupportCopyAppNewAppTokensWithAuthAttribute(void *a1, void *a2,
   return DecryptedData;
 }
 
-uint64_t AppleIDAuthSupportGSGetID()
+uint64_t AppleIDAuthSupportGSGetID(uint64_t a1, uint64_t a2)
 {
   if (AppleIDAuthSupportGSGetID_inited != -1)
   {
@@ -1054,7 +1038,7 @@ void GSRelease(void *a1)
   }
 }
 
-uint64_t AppleIDAuthSupportGSCreateContext(const void *a1, const void *a2, const void *a3, const void **a4)
+uint64_t AppleIDAuthSupportGSCreateContext(const void *a1, const void *a2, const void *a3, CFErrorRef *a4)
 {
   if (AppleIDAuthSupportGSGetID_inited != -1)
   {
@@ -1121,16 +1105,16 @@ uint64_t allowSkipSettingOnInternalHardware(const __CFString *a1, char a2)
   }
 
   v2 = os_variant_allows_internal_security_policies();
-  v3 = _AIDASOSLog();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+  v4 = _AIDASOSLog(v2, v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    allowSkipSettingOnInternalHardware_cold_1(v2, v3);
+    allowSkipSettingOnInternalHardware_cold_1(v2, v4);
   }
 
   return v2;
 }
 
-uint64_t cfHMAC(uint64_t a1, uint64_t a2, const __CFString *a3, const void **a4)
+uint64_t cfHMAC(uint64_t a1, uint64_t a2, const __CFString *a3, CFErrorRef *a4)
 {
   v8 = CFGetTypeID(a3);
   if (v8 != CFArrayGetTypeID())
@@ -1181,7 +1165,7 @@ uint64_t cfHMAC(uint64_t a1, uint64_t a2, const __CFString *a3, const void **a4)
   return result;
 }
 
-uint64_t AppleIDAuthSupportGetClientInfo()
+uint64_t AppleIDAuthSupportGetClientInfo(uint64_t a1, uint64_t a2)
 {
   if (AppleIDAuthSupportGetClientInfo_onceToken != -1)
   {
@@ -1191,55 +1175,55 @@ uint64_t AppleIDAuthSupportGetClientInfo()
   return AppleIDAuthSupportGetClientInfo_clientInfo;
 }
 
-BOOL isCFArray(_BOOL8 result)
+const void *isCFArray(const void *result)
 {
   if (result)
   {
     v1 = result;
     TypeID = CFArrayGetTypeID();
-    return TypeID == CFGetTypeID(v1);
+    return (TypeID == CFGetTypeID(v1));
   }
 
   return result;
 }
 
-BOOL isCFString(_BOOL8 result)
+const void *isCFString(const void *result)
 {
   if (result)
   {
     v1 = result;
     TypeID = CFStringGetTypeID();
-    return TypeID == CFGetTypeID(v1);
+    return (TypeID == CFGetTypeID(v1));
   }
 
   return result;
 }
 
-BOOL isCFData(_BOOL8 result)
+const void *isCFData(const void *result)
 {
   if (result)
   {
     v1 = result;
     TypeID = CFDataGetTypeID();
-    return TypeID == CFGetTypeID(v1);
+    return (TypeID == CFGetTypeID(v1));
   }
 
   return result;
 }
 
-BOOL isCFDictionary(_BOOL8 result)
+const void *isCFDictionary(const void *result)
 {
   if (result)
   {
     v1 = result;
     TypeID = CFDictionaryGetTypeID();
-    return TypeID == CFGetTypeID(v1);
+    return (TypeID == CFGetTypeID(v1));
   }
 
   return result;
 }
 
-uint64_t _AIDASOSLog()
+uint64_t _AIDASOSLog(uint64_t a1, uint64_t a2)
 {
   if (_AIDASOSLog_onceToken != -1)
   {
@@ -1377,13 +1361,12 @@ uint64_t AppleIDAuthSupportDeterministicRandomCreate(const __CFString *a1)
   *(Instance + 16) = malloc_type_calloc(1uLL, 0x1010uLL, 0x10800408508BC16uLL);
   v3 = AppleIDAuthSupportCopyString(a1, 0);
   *(Instance + 24) = v3;
-  v4 = *(Instance + 16);
   strlen(v3);
   ccrng_pbkdf2_prng_init();
   return Instance;
 }
 
-uint64_t AppleIDAuthSupportGetTypeID()
+uint64_t AppleIDAuthSupportGetTypeID(uint64_t a1, uint64_t a2)
 {
   if (AppleIDAuthSupportGetTypeID_inited != -1)
   {
@@ -1452,7 +1435,7 @@ void GSRelease_0(void *a1)
   }
 }
 
-__CFDictionary *_PIICreateClearedOptions(CFDictionaryRef theDict)
+CFMutableDictionaryRef _PIICreateClearedOptions(CFDictionaryRef theDict)
 {
   if (!theDict)
   {
@@ -1480,9 +1463,10 @@ void _HideKeyValue(__CFDictionary *a1, const void *a2)
   }
 }
 
-uint64_t AppleIDAuthSupportCreate(char a1, const __CFDictionary *a2, const void **a3)
+uint64_t AppleIDAuthSupportCreate(uint64_t a1, const __CFDictionary *a2, CFErrorRef *a3)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v5 = a1;
+  v38 = *MEMORY[0x277D85DE8];
   if (_AIDASOSLog_onceToken != -1)
   {
     _AIDASOSLog_cold_1();
@@ -1500,9 +1484,9 @@ uint64_t AppleIDAuthSupportCreate(char a1, const __CFDictionary *a2, const void 
     if (os_log_type_enabled(_AIDASOSLog_log, OS_LOG_TYPE_INFO))
     {
       *buf = 136446466;
-      v38 = "AppleIDAuthSupportCreate";
-      v39 = 2112;
-      v40 = v6;
+      v35 = "AppleIDAuthSupportCreate";
+      v36 = 2112;
+      v37 = v6;
       _os_log_impl(&dword_24056C000, v7, OS_LOG_TYPE_INFO, "%{public}s: %@", buf, 0x16u);
     }
 
@@ -1521,7 +1505,7 @@ uint64_t AppleIDAuthSupportCreate(char a1, const __CFDictionary *a2, const void 
   if (!Instance)
   {
     setErrorOOM(a3);
-    goto LABEL_58;
+    return Instance;
   }
 
   if (a2)
@@ -1531,9 +1515,7 @@ uint64_t AppleIDAuthSupportCreate(char a1, const __CFDictionary *a2, const void 
     {
       CFRelease(Instance);
       setError(a3, 7, 0, 0, @"Options argument is not a dictionary");
-LABEL_57:
-      Instance = 0;
-      goto LABEL_58;
+      return 0;
     }
 
     *(Instance + 16) = CFDictionaryCreateMutableCopy(0, 0, a2);
@@ -1548,11 +1530,11 @@ LABEL_57:
 LABEL_47:
       CFRelease(Instance);
       setErrorOOM(a3);
-      goto LABEL_57;
+      return 0;
     }
   }
 
-  if (a1)
+  if (v5)
   {
     *(Instance + 96) = stateServerNeg1;
     if (stateServerNeg1 != stateClientNeg1)
@@ -1575,7 +1557,7 @@ LABEL_47:
     {
       CFRelease(Instance);
       setError(a3, 2, 0, 0, @"Create function for client passed invalid username key");
-      goto LABEL_57;
+      return 0;
     }
 
     *(Instance + 24) = CFRetain(v12);
@@ -1590,7 +1572,7 @@ LABEL_47:
     {
       CFRelease(Instance);
       setError(a3, 2, 0, 0, @"Create function for client passed invalid altDSID key");
-      goto LABEL_57;
+      return 0;
     }
 
     *(Instance + 32) = CFRetain(v15);
@@ -1603,7 +1585,7 @@ LABEL_47:
     {
       CFRelease(Instance);
       setError(a3, 2, 0, 0, @"Create function for client have no username nor dsid");
-      goto LABEL_57;
+      return 0;
     }
 
     *(Instance + 24) = CFRetain(v17);
@@ -1631,7 +1613,7 @@ LABEL_47:
         v22 = @"Protocol selected %@ is not supported";
 LABEL_52:
         setError(a3, 2, 0, 0, v22, v19);
-        goto LABEL_57;
+        return 0;
       }
     }
 
@@ -1670,44 +1652,40 @@ LABEL_38:
     {
       CFRelease(Instance);
       setError(a3, 2, 0, 0, @"client provided data is no a dictionary");
-      goto LABEL_57;
+      return 0;
     }
 
     CFRetain(*(Instance + 56));
   }
 
-  v30 = *(Instance + 128);
-  v31 = *(Instance + 136);
   ccdigest_init();
-  v32 = CFArrayCreateMutable(0, 0, MEMORY[0x277CBF128]);
-  if (!v32)
+  v30 = CFArrayCreateMutable(0, 0, MEMORY[0x277CBF128]);
+  if (!v30)
   {
     goto LABEL_47;
   }
 
-  v33 = v32;
-  *(Instance + 88) = v32;
+  v31 = v30;
+  *(Instance + 88) = v30;
   if (v23)
   {
-    CFArrayAppendValue(v32, @"s2k");
-    v34 = @"s2k_fo";
-    v32 = v33;
+    CFArrayAppendValue(v30, @"s2k");
+    v32 = @"s2k_fo";
+    v30 = v31;
   }
 
   else
   {
-    v34 = v21;
+    v32 = v21;
   }
 
-  CFArrayAppendValue(v32, v34);
-LABEL_58:
-  v35 = *MEMORY[0x277D85DE8];
+  CFArrayAppendValue(v30, v32);
   return Instance;
 }
 
-uint64_t stateServerNeg1(uint64_t a1, const __CFDictionary *a2, __CFDictionary **a3, const void **a4)
+uint64_t stateServerNeg1(uint64_t a1, const __CFDictionary *a2, __CFDictionary **a3, CFErrorRef *a4)
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   if (_AIDASOSLog_onceToken != -1)
   {
     _AIDASOSLog_cold_1();
@@ -1717,9 +1695,9 @@ uint64_t stateServerNeg1(uint64_t a1, const __CFDictionary *a2, __CFDictionary *
   if (os_log_type_enabled(_AIDASOSLog_log, OS_LOG_TYPE_INFO))
   {
     *buf = 136446466;
-    v63 = "stateServerNeg1";
-    v64 = 2112;
-    v65 = a2;
+    v60 = "stateServerNeg1";
+    v61 = 2112;
+    v62 = a2;
     _os_log_impl(&dword_24056C000, v8, OS_LOG_TYPE_INFO, "%{public}s: %@", buf, 0x16u);
   }
 
@@ -1759,7 +1737,7 @@ uint64_t stateServerNeg1(uint64_t a1, const __CFDictionary *a2, __CFDictionary *
       result = validateProtocolName(a1, v16, a4);
       if (!result)
       {
-        goto LABEL_32;
+        return result;
       }
 
       addStringToNegProt(a1, v16);
@@ -1834,15 +1812,15 @@ LABEL_37:
     }
   }
 
-  v34 = v29;
+  v33 = v29;
   addStringToNegProt(a1, @"|");
   addStringToNegProt(a1, v28);
-  v35 = CFDictionaryGetValue(a2, @"cpd");
-  *(a1 + 56) = v35;
-  if (v35)
+  v34 = CFDictionaryGetValue(a2, @"cpd");
+  *(a1 + 56) = v34;
+  if (v34)
   {
-    CFRetain(v35);
-    if (!isCFDictionary(*(a1 + 56)))
+    CFRetain(v34);
+    if ((isCFDictionary(*(a1 + 56)) & 1) == 0)
     {
       v30 = @"Client provided data not a dictionary";
 LABEL_35:
@@ -1852,11 +1830,8 @@ LABEL_35:
     }
   }
 
-  v36 = *(a1 + 120);
-  v37 = ccdh_ccn_size();
-  *(a1 + 104) = malloc_type_calloc(1uLL, 4 * (**(a1 + 112) + v37) + 48, 0x106004070A5FD05uLL);
-  v38 = *(a1 + 112);
-  v39 = *(a1 + 120);
+  v35 = ccdh_ccn_size();
+  *(a1 + 104) = malloc_type_calloc(1uLL, 4 * (**(a1 + 112) + v35) + 48, 0x106004070A5FD05uLL);
   ccsrp_ctx_init();
   if (*(a1 + 24))
   {
@@ -1865,69 +1840,69 @@ LABEL_35:
 
   *(a1 + 24) = v23;
   CFRetain(v23);
-  v40 = CFDictionaryGetValue(v34, @"s");
-  v61 = CFDictionaryGetValue(v34, @"i");
-  v41 = CFDictionaryGetValue(v34, @"SRP2KVerifier");
-  CFRelease(v34);
-  v67.length = CFArrayGetCount(v10);
-  v67.location = 0;
-  if (CFArrayContainsValue(v10, v67, v28))
+  v36 = CFDictionaryGetValue(v33, @"s");
+  v58 = CFDictionaryGetValue(v33, @"i");
+  v37 = CFDictionaryGetValue(v33, @"SRP2KVerifier");
+  CFRelease(v33);
+  v64.length = CFArrayGetCount(v10);
+  v64.location = 0;
+  if (CFArrayContainsValue(v10, v64, v28))
   {
-    if (isCFData(v40) && isCFNumber(v61) && isCFData(v41))
+    if (isCFData(v36) && isCFNumber(v58) && (isCFData(v37) & 1) != 0)
     {
-      if (isCFData(v41) && (v42 = CFDataGetLength(v41), v42 == 8 * MEMORY[0x245CC4B60](*(*(a1 + 104) + 8))))
+      if (isCFData(v37) && (v38 = CFDataGetLength(v37), v38 == 8 * MEMORY[0x245CC4B60](*(*(a1 + 104) + 8))))
       {
-        v43 = CFDictionaryGetValue(a2, @"A2k");
-        if (isCFData(v43))
+        v39 = CFDictionaryGetValue(a2, @"A2k");
+        if (isCFData(v39))
         {
-          Length = CFDataGetLength(v43);
+          Length = CFDataGetLength(v39);
           if (Length == 8 * MEMORY[0x245CC4B60](*(*(a1 + 104) + 8)))
           {
-            v45 = CFDictionaryGetValue(*(a1 + 16), @"kAppleIDAuthSupportSRPRandomSource");
-            if (!v45)
+            v41 = CFDictionaryGetValue(*(a1 + 16), @"kAppleIDAuthSupportSRPRandomSource");
+            if (!v41)
             {
               goto LABEL_59;
             }
 
-            v46 = v45;
-            v47 = CFGetTypeID(v45);
+            v42 = v41;
+            v43 = CFGetTypeID(v41);
             if (AppleIDAuthSupportRandomGetTypeID_inited != -1)
             {
               stateServerNeg1_cold_2();
             }
 
-            if (v47 == AppleIDAuthSupportRandomGetTypeID_type)
+            if (v43 == AppleIDAuthSupportRandomGetTypeID_type)
             {
-              v60 = v46[2];
+              v57 = v42[2];
             }
 
             else
             {
 LABEL_59:
-              v60 = ccDRBGGetRngState();
+              v57 = ccDRBGGetRngState();
             }
 
-            v48 = AppleIDAuthSupportCopyString(v23, 1);
-            if (!v48)
+            v44 = AppleIDAuthSupportCopyString(v23, 1);
+            if (!v44)
             {
               setErrorOOM(a4);
               goto LABEL_31;
             }
 
-            v49 = v48;
-            v50 = MEMORY[0x245CC4B60](*(*(a1 + 104) + 8));
-            v59[3] = v59;
-            MEMORY[0x28223BE20](v50);
-            v59[0] = v51;
-            v52 = v59 - ((v51 + 15) & 0xFFFFFFFFFFFFFFF0);
-            v59[2] = *(a1 + 104);
-            v59[1] = CFDataGetLength(v40);
-            CFDataGetBytePtr(v40);
-            CFDataGetBytePtr(v41);
-            CFDataGetBytePtr(v43);
+            v45 = v44;
+            v46 = MEMORY[0x245CC4B60](*(*(a1 + 104) + 8));
+            v56[3] = v56;
+            MEMORY[0x28223BE20](v46, v47);
+            v56[0] = v48;
+            v49 = v56 - ((v48 + 15) & 0xFFFFFFFFFFFFFFF0);
+            v56[2] = *(a1 + 104);
+            v56[1] = CFDataGetLength(v36);
+            CFDataGetBytePtr(v36);
+            CFDataGetBytePtr(v37);
+            CFDataGetBytePtr(v39);
             started = ccsrp_server_start_authentication();
-            free(v49);
-            if (started || (v55 = v59[0], v56 = CFDataCreate(0, v52, v59[0]), bzero(v52, v55), !v56))
+            free(v45);
+            if (started || (v52 = v56[0], v53 = CFDataCreate(0, v49, v56[0]), bzero(v49, v52), !v53))
             {
               setErrorOOM(a4);
             }
@@ -1937,27 +1912,27 @@ LABEL_59:
               Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
               if (Mutable)
               {
-                v58 = Mutable;
+                v55 = Mutable;
                 CFDictionarySetValue(Mutable, @"sp", v28);
-                CFDictionarySetValue(v58, @"B", v56);
-                CFDictionarySetValue(v58, @"s", v40);
-                CFDictionarySetValue(v58, @"i", v61);
-                CFRelease(v56);
-                *a3 = v58;
+                CFDictionarySetValue(v55, @"B", v53);
+                CFDictionarySetValue(v55, @"s", v36);
+                CFDictionarySetValue(v55, @"i", v58);
+                CFRelease(v53);
+                *a3 = v55;
                 result = 1;
-                v54 = stateServerNeg2;
+                v51 = stateServerNeg2;
                 goto LABEL_64;
               }
 
               setErrorOOM(a4);
-              CFRelease(v56);
+              CFRelease(v53);
             }
 
             result = 0;
-            v54 = stateInvalid;
+            v51 = stateInvalid;
 LABEL_64:
-            *(a1 + 96) = v54;
-            goto LABEL_32;
+            *(a1 + 96) = v51;
+            return result;
           }
         }
 
@@ -1989,14 +1964,12 @@ LABEL_30:
 LABEL_31:
   result = 0;
   *(a1 + 96) = stateInvalid;
-LABEL_32:
-  v33 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t stateClientNeg1(uint64_t a1, const void *a2, __CFDictionary **a3, const void **a4)
+uint64_t stateClientNeg1(uint64_t a1, const __CFDictionary *a2, __CFDictionary **a3, CFErrorRef *a4)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   if (_AIDASOSLog_onceToken != -1)
   {
     _AIDASOSLog_cold_1();
@@ -2006,144 +1979,138 @@ uint64_t stateClientNeg1(uint64_t a1, const void *a2, __CFDictionary **a3, const
   if (os_log_type_enabled(_AIDASOSLog_log, OS_LOG_TYPE_INFO))
   {
     *buf = 136446466;
-    v40 = "stateClientNeg1";
-    v41 = 2112;
-    v42 = a2;
+    v33 = "stateClientNeg1";
+    v34 = 2112;
+    v35 = a2;
     _os_log_impl(&dword_24056C000, v8, OS_LOG_TYPE_INFO, "%{public}s: %@", buf, 0x16u);
   }
 
-  if (!a2 || (v9 = CFDictionaryGetTypeID(), v9 == CFGetTypeID(a2)) || !CFDictionaryGetCount(a2))
+  if (a2)
   {
-    Count = CFArrayGetCount(*(a1 + 88));
-    if (Count >= 1)
+    TypeID = CFDictionaryGetTypeID();
+    if (TypeID != CFGetTypeID(a2))
     {
-      v12 = Count;
-      v13 = 0;
-      do
+      if (CFDictionaryGetCount(a2))
       {
-        ValueAtIndex = CFArrayGetValueAtIndex(*(a1 + 88), v13);
-        if (!ValueAtIndex || (v15 = ValueAtIndex, TypeID = CFStringGetTypeID(), TypeID != CFGetTypeID(v15)))
-        {
-          abort();
-        }
-
-        addStringToNegProt(a1, v15);
-        if (v12 != 1)
-        {
-          addStringToNegProt(a1, @",");
-        }
-
-        ++v13;
-        --v12;
+        setError(a4, 2, 0, 0, @"client neg1: input dict with content");
+        result = 0;
+        *(a1 + 96) = stateInvalid;
+        return result;
       }
-
-      while (v12);
     }
-
-    Value = CFDictionaryGetValue(*(a1 + 16), @"kAppleIDAuthSupportSRPRandomSource");
-    if (!Value)
-    {
-      goto LABEL_21;
-    }
-
-    v18 = Value;
-    v19 = CFGetTypeID(Value);
-    if (AppleIDAuthSupportRandomGetTypeID_inited != -1)
-    {
-      stateServerNeg1_cold_2();
-    }
-
-    if (v19 == AppleIDAuthSupportRandomGetTypeID_type)
-    {
-      v20 = v18[2];
-    }
-
-    else
-    {
-LABEL_21:
-      ccDRBGGetRngState();
-    }
-
-    v21 = *(a1 + 120);
-    v22 = ccdh_ccn_size();
-    *(a1 + 104) = malloc_type_calloc(1uLL, 4 * (**(a1 + 112) + v22) + 48, 0x106004070A5FD05uLL);
-    v23 = *(a1 + 112);
-    v24 = *(a1 + 120);
-    ccsrp_ctx_init();
-    v25 = *(a1 + 104);
-    ccsrp_client_set_noUsernameInX();
-    v26 = MEMORY[0x245CC4B60](*(*(a1 + 104) + 8));
-    v27 = 8 * v26;
-    MEMORY[0x28223BE20](v26);
-    v28 = *(a1 + 104);
-    ccsrp_client_start_authentication();
-    v29 = CFDataCreate(0, &buf[-((v27 + 15) & 0xFFFFFFFFFFFFFFF0)], v27);
-    if (v29)
-    {
-      v30 = v29;
-      Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-      if (Mutable)
-      {
-        v32 = Mutable;
-        addStringToNegProt(a1, @"|");
-        if (*(a1 + 80))
-        {
-          *buf = 1;
-          v33 = CFNumberCreate(0, kCFNumberIntType, buf);
-          CFDictionarySetValue(v32, @"dch", v33);
-          addStringToNegProt(a1, @"DisregardChannelBindings");
-          CFRelease(v33);
-        }
-
-        v34 = *(a1 + 56);
-        if (v34)
-        {
-          CFDictionarySetValue(v32, @"cpd", v34);
-        }
-
-        CFDictionarySetValue(v32, @"A2k", v30);
-        CFDictionarySetValue(v32, @"ps", *(a1 + 88));
-        CFRelease(v30);
-        v35 = *(a1 + 24);
-        if (v35)
-        {
-          CFDictionarySetValue(v32, @"u", v35);
-        }
-
-        v36 = *(a1 + 32);
-        if (v36)
-        {
-          CFDictionarySetValue(v32, @"u", v36);
-        }
-
-        CFDictionarySetValue(v32, @"o", @"init");
-        *a3 = v32;
-        result = 1;
-        v37 = stateClientNeg2;
-        goto LABEL_36;
-      }
-
-      setErrorOOM(a4);
-      CFRelease(v30);
-    }
-
-    else
-    {
-      setErrorOOM(a4);
-    }
-
-    result = 0;
-    v37 = stateInvalid;
-LABEL_36:
-    *(a1 + 96) = v37;
-    goto LABEL_37;
   }
 
-  setError(a4, 2, 0, 0, @"client neg1: input dict with content");
+  Count = CFArrayGetCount(*(a1 + 88));
+  if (Count >= 1)
+  {
+    v12 = Count;
+    v13 = 0;
+    do
+    {
+      ValueAtIndex = CFArrayGetValueAtIndex(*(a1 + 88), v13);
+      if (!ValueAtIndex || (v15 = ValueAtIndex, v16 = CFStringGetTypeID(), v16 != CFGetTypeID(v15)))
+      {
+        abort();
+      }
+
+      addStringToNegProt(a1, v15);
+      if (v12 != 1)
+      {
+        addStringToNegProt(a1, @",");
+      }
+
+      ++v13;
+      --v12;
+    }
+
+    while (v12);
+  }
+
+  Value = CFDictionaryGetValue(*(a1 + 16), @"kAppleIDAuthSupportSRPRandomSource");
+  if (!Value)
+  {
+    goto LABEL_20;
+  }
+
+  v18 = CFGetTypeID(Value);
+  if (AppleIDAuthSupportRandomGetTypeID_inited != -1)
+  {
+    stateServerNeg1_cold_2();
+  }
+
+  if (v18 != AppleIDAuthSupportRandomGetTypeID_type)
+  {
+LABEL_20:
+    ccDRBGGetRngState();
+  }
+
+  v19 = ccdh_ccn_size();
+  *(a1 + 104) = malloc_type_calloc(1uLL, 4 * (**(a1 + 112) + v19) + 48, 0x106004070A5FD05uLL);
+  ccsrp_ctx_init();
+  ccsrp_client_set_noUsernameInX();
+  v20 = MEMORY[0x245CC4B60](*(*(a1 + 104) + 8));
+  v21 = 8 * v20;
+  MEMORY[0x28223BE20](v20, v22);
+  ccsrp_client_start_authentication();
+  v23 = CFDataCreate(0, &buf[-((v21 + 15) & 0xFFFFFFFFFFFFFFF0)], v21);
+  if (v23)
+  {
+    v24 = v23;
+    Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+    if (Mutable)
+    {
+      v26 = Mutable;
+      addStringToNegProt(a1, @"|");
+      if (*(a1 + 80))
+      {
+        *buf = 1;
+        v27 = CFNumberCreate(0, kCFNumberIntType, buf);
+        CFDictionarySetValue(v26, @"dch", v27);
+        addStringToNegProt(a1, @"DisregardChannelBindings");
+        CFRelease(v27);
+      }
+
+      v28 = *(a1 + 56);
+      if (v28)
+      {
+        CFDictionarySetValue(v26, @"cpd", v28);
+      }
+
+      CFDictionarySetValue(v26, @"A2k", v24);
+      CFDictionarySetValue(v26, @"ps", *(a1 + 88));
+      CFRelease(v24);
+      v29 = *(a1 + 24);
+      if (v29)
+      {
+        CFDictionarySetValue(v26, @"u", v29);
+      }
+
+      v30 = *(a1 + 32);
+      if (v30)
+      {
+        CFDictionarySetValue(v26, @"u", v30);
+      }
+
+      CFDictionarySetValue(v26, @"o", @"init");
+      *a3 = v26;
+      result = 1;
+      v31 = stateClientNeg2;
+      goto LABEL_35;
+    }
+
+    setErrorOOM(a4);
+    CFRelease(v24);
+  }
+
+  else
+  {
+    setErrorOOM(a4);
+  }
+
   result = 0;
-  *(a1 + 96) = stateInvalid;
-LABEL_37:
-  v38 = *MEMORY[0x277D85DE8];
+  v31 = stateInvalid;
+LABEL_35:
+  *(a1 + 96) = v31;
   return result;
 }
 
@@ -2178,7 +2145,7 @@ const __CFNumber *getIntValue(const __CFNumber *result)
 
 void AppleIDAuthSupportSetOption(uint64_t a1, const void *a2, const void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (_AIDASOSLog_onceToken != -1)
   {
     _AIDASOSLog_cold_1();
@@ -2187,17 +2154,16 @@ void AppleIDAuthSupportSetOption(uint64_t a1, const void *a2, const void *a3)
   v6 = _AIDASOSLog_log;
   if (os_log_type_enabled(_AIDASOSLog_log, OS_LOG_TYPE_INFO))
   {
-    v8 = 136446722;
-    v9 = "AppleIDAuthSupportSetOption";
-    v10 = 2112;
-    v11 = a2;
-    v12 = 2112;
-    v13 = a3;
-    _os_log_impl(&dword_24056C000, v6, OS_LOG_TYPE_INFO, "%{public}s: %@ : %@", &v8, 0x20u);
+    v7 = 136446722;
+    v8 = "AppleIDAuthSupportSetOption";
+    v9 = 2112;
+    v10 = a2;
+    v11 = 2112;
+    v12 = a3;
+    _os_log_impl(&dword_24056C000, v6, OS_LOG_TYPE_INFO, "%{public}s: %@ : %@", &v7, 0x20u);
   }
 
   CFDictionarySetValue(*(a1 + 16), a2, a3);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 CFDictionaryRef *AppleIDAuthSupportGetOption(CFDictionaryRef *result, const void *a2)
@@ -2224,15 +2190,15 @@ uint64_t AppleIDAuthSupportServerSetServerDataCallback(uint64_t result, uint64_t
   return result;
 }
 
-__CFData *_AppleIDAuthSupportPBKDF2SRP(CFIndex *a1, int a2, const __CFString *a3, const __CFData *a4, const __CFNumber *a5, int a6, const void **a7)
+__CFData *_AppleIDAuthSupportPBKDF2SRP(CFIndex *a1, int a2, const __CFString *a3, const __CFData *a4, const __CFNumber *a5, int a6, CFErrorRef *a7)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   ccsha256_di();
   valuePtr[0] = 0;
   if (!CFNumberGetValue(a5, kCFNumberLongType, valuePtr))
   {
     setError(a7, 2, 0, 0, @"Could not get iteration: %@", a5);
-    goto LABEL_20;
+    return 0;
   }
 
   if (!a2)
@@ -2240,30 +2206,30 @@ __CFData *_AppleIDAuthSupportPBKDF2SRP(CFIndex *a1, int a2, const __CFString *a3
     if (valuePtr[0] <= 998)
     {
       setError(a7, 2, 0, 0, @"iteration too few, server sent %ld", valuePtr[0]);
-      goto LABEL_20;
+      return 0;
     }
 
     if (CFDataGetLength(a4) <= 7)
     {
       Length = CFDataGetLength(a4);
       setError(a7, 2, 0, 0, @"salt too short: %ld", Length);
-      goto LABEL_20;
+      return 0;
     }
 
-    v26 = AppleIDAuthSupportCopyString(a3, a6);
-    if (v26)
+    v25 = AppleIDAuthSupportCopyString(a3, a6);
+    if (v25)
     {
-      v15 = v26;
-      strlen(v26);
+      v15 = v25;
+      strlen(v25);
       ccdigest();
-      v27 = strlen(v15);
-      bzero(v15, v27);
+      v26 = strlen(v15);
+      bzero(v15, v26);
       goto LABEL_7;
     }
 
 LABEL_19:
     setErrorOOM(a7);
-    goto LABEL_20;
+    return 0;
   }
 
   v14 = AppleIDAuthSupportCopyString(a3, a6);
@@ -2278,7 +2244,7 @@ LABEL_19:
   v16 = strlen(v15);
   bzero(v15, v16);
   v17 = 0;
-  v18 = v31;
+  v18 = v29;
   do
   {
     v19 = *(&valuePtr[1] + v17 + 7);
@@ -2289,7 +2255,7 @@ LABEL_19:
   }
 
   while (v17 != 32);
-  v31[63] = 0;
+  v29[63] = 0;
 LABEL_7:
   Mutable = CFDataCreateMutable(0, *a1);
   v21 = Mutable;
@@ -2298,35 +2264,32 @@ LABEL_7:
     CFDataSetLength(Mutable, *a1);
     CFDataGetLength(a4);
     CFDataGetBytePtr(a4);
-    v22 = *a1;
     CFDataGetMutableBytePtr(v21);
-    v23 = ccpbkdf2_hmac();
+    v22 = ccpbkdf2_hmac();
     __memset_chk();
     free(v15);
-    if (v23)
+    if (v22)
     {
       setErrorOOM(a7);
       CFRelease(v21);
-LABEL_20:
-      v21 = 0;
+      return 0;
     }
   }
 
   else
   {
     setErrorOOM(a7);
-    v25 = strlen(v15);
-    bzero(v15, v25);
+    v24 = strlen(v15);
+    bzero(v15, v24);
     free(v15);
   }
 
-  v28 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
-CFDataRef AppleIDAuthSupportCreateVerifier(const __CFString *a1, uint64_t a2, const __CFData *a3, const __CFNumber *a4, const __CFString *a5, const void **a6)
+CFDataRef AppleIDAuthSupportCreateVerifier(const __CFString *a1, uint64_t a2, const __CFData *a3, const __CFNumber *a4, const __CFString *a5, CFErrorRef *a6)
 {
-  v27[1] = *MEMORY[0x277D85DE8];
+  v28[1] = *MEMORY[0x277D85DE8];
   if (CFStringCompare(a1, @"s2k", 0))
   {
     if (CFStringCompare(a1, @"s2k_fo", 0) == kCFCompareEqualTo)
@@ -2340,7 +2303,7 @@ CFDataRef AppleIDAuthSupportCreateVerifier(const __CFString *a1, uint64_t a2, co
     if (CFStringCompare(a1, @"s4k", 0))
     {
       setError(a6, 3, 0, 0, @"Unsupported protocol: %@", a1);
-      goto LABEL_14;
+      return 0;
     }
 
     v11 = ccsha256_di();
@@ -2358,129 +2321,125 @@ LABEL_9:
   if (!getIntValue(a4))
   {
     setError(a6, 2, 0, 0, @"iteration count invalid %@", a4);
-    goto LABEL_14;
+    return 0;
   }
 
   v13 = _AppleIDAuthSupportPBKDF2SRP(v11, v12, a5, a3, a4, 2, a6);
   if (!v13)
   {
-LABEL_14:
-    v24 = 0;
-    goto LABEL_16;
+    return 0;
   }
 
   v14 = v13;
   v15 = ccdh_ccn_size();
-  v27[0] = v27;
+  v28[0] = v28;
   v16 = 48 * ((4 * (*v11 + v15) + 95) / 0x30uLL);
-  MEMORY[0x28223BE20](v15);
-  v18 = &v27[-2 * v17];
+  MEMORY[0x28223BE20](v15, v17);
+  v19 = &v28[-2 * v18];
   ccsrp_ctx_init();
-  v19 = MEMORY[0x245CC4B60](v18[1]);
-  v20 = 8 * v19;
-  MEMORY[0x28223BE20](v19);
-  v22 = v27 - v21;
+  v20 = MEMORY[0x245CC4B60](v19[1]);
+  v21 = 8 * v20;
+  MEMORY[0x28223BE20](v20, v22);
+  v24 = v28 - v23;
   CFDataGetLength(v14);
   CFDataGetBytePtr(v14);
   CFDataGetLength(a3);
   CFDataGetBytePtr(a3);
   verifier = ccsrp_generate_verifier();
   CFRelease(v14);
-  bzero(v18, v16);
-  if (verifier || (v24 = CFDataCreate(0, v22, v20), bzero(v22, v20), !v24))
+  bzero(v19, v16);
+  if (verifier || (v26 = CFDataCreate(0, v24, v21), bzero(v24, v21), !v26))
   {
     setErrorOOM(a6);
-    v24 = 0;
+    return 0;
   }
 
-LABEL_16:
-  v25 = *MEMORY[0x277D85DE8];
-  return v24;
+  return v26;
 }
 
 CFDataRef SRPCreateSessionKey(uint64_t a1, const char *a2)
 {
-  v13[1] = *MEMORY[0x277D85DE8];
-  v4 = *(a1 + 104);
-  if (ccsrp_is_authenticated() && (*(a1 + 48) || (v13[0] = 0, v5 = *(a1 + 104), session_key = ccsrp_get_session_key(), v7 = CFDataCreate(0, session_key, 0), (*(a1 + 48) = v7) != 0)))
+  v11[1] = *MEMORY[0x277D85DE8];
+  if (!ccsrp_is_authenticated())
   {
-    v8 = ccsha256_di();
-    v9 = *v8;
-    MEMORY[0x28223BE20]();
-    CFDataGetLength(*(a1 + 48));
-    CFDataGetBytePtr(*(a1 + 48));
-    strlen(a2);
-    cchmac();
-    v10 = CFDataCreate(0, v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0), v9);
-    bzero(v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0), *v8);
+    return 0;
   }
 
-  else
+  if (!*(a1 + 48))
   {
-    v10 = 0;
+    v11[0] = 0;
+    session_key = ccsrp_get_session_key();
+    v5 = CFDataCreate(0, session_key, 0);
+    *(a1 + 48) = v5;
+    if (!v5)
+    {
+      return 0;
+    }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-  return v10;
+  v6 = ccsha256_di();
+  v7 = *v6;
+  MEMORY[0x28223BE20](v6, v8);
+  CFDataGetLength(*(a1 + 48));
+  CFDataGetBytePtr(*(a1 + 48));
+  strlen(a2);
+  cchmac();
+  v9 = CFDataCreate(0, v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0), v7);
+  bzero(v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0), *v6);
+  return v9;
 }
 
-__CFData *CreateEncryptedData(uint64_t a1, CFDataRef theData, const void **a3)
+__CFData *CreateEncryptedData(uint64_t a1, CFDataRef theData, CFErrorRef *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
   Length = CFDataGetLength(theData);
-  v7 = ccaes_cbc_encrypt_mode();
-  v8 = v7[1];
-  v9 = SRPCreateSessionKey(a1, "extra data key:");
-  if (!v9)
+  v7 = *(ccaes_cbc_encrypt_mode() + 8);
+  v8 = SRPCreateSessionKey(a1, "extra data key:");
+  if (!v8)
   {
     goto LABEL_8;
   }
 
-  v10 = v9;
-  if (CFDataGetLength(v9) <= 0x1F || (v11 = SRPCreateSessionKey(a1, "extra data iv:")) == 0)
+  v9 = v8;
+  if (CFDataGetLength(v8) <= 0x1F || (v10 = SRPCreateSessionKey(a1, "extra data iv:")) == 0)
   {
-    v19 = v10;
+    v19 = v9;
 LABEL_7:
     CFRelease(v19);
 LABEL_8:
     setErrorOOM(a3);
-    v15 = 0;
+    v14 = 0;
     *(a1 + 96) = stateInvalid;
-    goto LABEL_9;
+    return v14;
   }
 
-  v12 = v11;
-  v13 = (v8 + Length - 1) / v8 * v8;
-  Mutable = CFDataCreateMutable(0, v13);
+  v11 = v10;
+  v12 = (v7 + Length - 1) / v7 * v7;
+  Mutable = CFDataCreateMutable(0, v12);
   if (!theData)
   {
-    CFRelease(v10);
-    v19 = v12;
+    CFRelease(v9);
+    v19 = v11;
     goto LABEL_7;
   }
 
-  v15 = Mutable;
-  CFDataSetLength(Mutable, v13);
-  v16 = (v7[1] + 15) & 0xFFFFFFFFFFFFFFF0;
-  (MEMORY[0x28223BE20])();
-  CFDataGetBytePtr(v12);
+  v14 = Mutable;
+  CFDataSetLength(Mutable, v12);
+  MEMORY[0x28223BE20](v15, v16);
+  CFDataGetBytePtr(v11);
   v17 = cccbc_set_iv();
-  v18 = (*v7 + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v17);
-  CFDataGetBytePtr(v10);
+  MEMORY[0x28223BE20](v17, v18);
+  CFDataGetBytePtr(v9);
   cccbc_init();
   CFDataGetLength(theData);
   CFDataGetBytePtr(theData);
-  CFDataGetMutableBytePtr(v15);
+  CFDataGetMutableBytePtr(v14);
   ccpad_pkcs7_encrypt();
-  CFRelease(v10);
-  CFRelease(v12);
-LABEL_9:
-  v20 = *MEMORY[0x277D85DE8];
-  return v15;
+  CFRelease(v9);
+  CFRelease(v11);
+  return v14;
 }
 
-uint64_t AppleIDAuthSupportStep(uint64_t a1, int a2, uint64_t a3, const void **a4)
+uint64_t AppleIDAuthSupportStep(uint64_t a1, int a2, uint64_t a3, CFErrorRef *a4)
 {
   if (a3)
   {
@@ -2496,7 +2455,7 @@ uint64_t AppleIDAuthSupportStep(uint64_t a1, int a2, uint64_t a3, const void **a
   }
 }
 
-uint64_t stateDone(uint64_t a1, int a2, int a3, const void **a4)
+uint64_t stateDone(uint64_t a1, int a2, int a3, CFErrorRef *a4)
 {
   *(a1 + 96) = stateInvalid;
   setError(a4, 5, 0, 0, @"Called Step function one too many times (at done)");
@@ -2557,7 +2516,7 @@ CFTypeRef _AppleIDAuthSupportSetStatus(uint64_t a1, CFTypeRef cf)
   return result;
 }
 
-uint64_t AppleIDAuthSupportTokenGetTypeID()
+uint64_t AppleIDAuthSupportTokenGetTypeID(uint64_t a1, uint64_t a2)
 {
   if (_MergedGlobals != -1)
   {
@@ -2705,30 +2664,25 @@ uint64_t AppleIDAuthSupportTokenUpdate(CFTypeRef *a1, CFDictionaryRef theDict)
 
 CFDataRef AppleIDAuthSupportTokenCopyExternalizedVersion(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v13 = @"adsid";
+  v13 = *MEMORY[0x277D85DE8];
+  v12 = @"adsid";
   v2 = *(a1 + 40);
   v1 = *(a1 + 48);
   values[0] = *(a1 + 16);
   values[1] = v1;
   *keys = xmmword_278CABA90;
-  v12 = *off_278CABAA0;
-  v9 = *(a1 + 24);
-  v10 = v2;
+  v11 = *off_278CABAA0;
+  v8 = *(a1 + 24);
+  v9 = v2;
   v3 = CFDictionaryCreate(0, keys, values, 5, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-  if (v3)
+  if (!v3)
   {
-    v4 = v3;
-    Data = CFPropertyListCreateData(0, v3, kCFPropertyListXMLFormat_v1_0, 0, 0);
-    CFRelease(v4);
+    return 0;
   }
 
-  else
-  {
-    Data = 0;
-  }
-
-  v6 = *MEMORY[0x277D85DE8];
+  v4 = v3;
+  Data = CFPropertyListCreateData(0, v3, kCFPropertyListXMLFormat_v1_0, 0, 0);
+  CFRelease(v4);
   return Data;
 }
 
@@ -2749,25 +2703,22 @@ void RandomRelease(uint64_t a1)
 
 void addStringToNegProt(uint64_t a1, const __CFString *a2)
 {
-  v3 = AppleIDAuthSupportCopyString(a2, 0);
-  if (v3)
+  v2 = AppleIDAuthSupportCopyString(a2, 0);
+  if (v2)
   {
-    v4 = v3;
-    v6 = *(a1 + 128);
-    v5 = *(a1 + 136);
-    strlen(v3);
+    v3 = v2;
+    strlen(v2);
     ccdigest_update();
 
-    free(v4);
+    free(v3);
   }
 }
 
-uint64_t stateClientNeg2(uint64_t a1, const __CFDictionary *a2, __CFDictionary **a3, const void **a4)
+uint64_t stateClientNeg2(uint64_t a1, const __CFDictionary *a2, __CFDictionary **a3, CFErrorRef *a4)
 {
-  v62 = *MEMORY[0x277D85DE8];
-  v8 = *(a1 + 104);
+  v60 = *MEMORY[0x277D85DE8];
   session_key_length = ccsrp_get_session_key_length();
-  v10 = &BytePtr - ((MEMORY[0x28223BE20](session_key_length) + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = &BytePtr - ((MEMORY[0x28223BE20](session_key_length, v9) + 15) & 0xFFFFFFFFFFFFFFF0);
   if (_AIDASOSLog_onceToken != -1)
   {
     _AIDASOSLog_cold_1();
@@ -2777,31 +2728,23 @@ uint64_t stateClientNeg2(uint64_t a1, const __CFDictionary *a2, __CFDictionary *
   if (os_log_type_enabled(_AIDASOSLog_log, OS_LOG_TYPE_INFO))
   {
     *buf = 136446466;
-    v59 = "stateClientNeg2";
-    v60 = 2112;
-    v61 = a2;
+    v57 = "stateClientNeg2";
+    v58 = 2112;
+    v59 = a2;
     _os_log_impl(&dword_24056C000, v11, OS_LOG_TYPE_INFO, "%{public}s: %@", buf, 0x16u);
   }
 
   if (!a2)
   {
     v15 = @"client neg2: input dict missing";
-LABEL_14:
-    v16 = a4;
-    v17 = 0;
-    goto LABEL_15;
+    goto LABEL_14;
   }
 
   Value = CFDictionaryGetValue(a2, @"sp");
   if (!Value || (v13 = Value, TypeID = CFStringGetTypeID(), TypeID != CFGetTypeID(v13)))
   {
     v15 = @"selected protocol key missing";
-LABEL_12:
-    v16 = a4;
-    v17 = a2;
-LABEL_15:
-    setError(v16, 2, v17, 0, v15);
-    goto LABEL_16;
+    goto LABEL_12;
   }
 
   if (CFStringCompare(v13, @"s2k", 0))
@@ -2812,182 +2755,190 @@ LABEL_15:
       goto LABEL_16;
     }
 
-    v21 = 1;
+    v20 = 1;
   }
 
   else
   {
-    v21 = 0;
+    v20 = 0;
   }
 
   result = validateProtocolName(a1, v13, a4);
-  if (!result)
+  if (result)
   {
-    goto LABEL_18;
-  }
-
-  addStringToNegProt(a1, @"|");
-  addStringToNegProt(a1, v13);
-  v22 = CFDictionaryGetValue(a2, @"c");
-  if (v22)
-  {
-    v23 = CFStringGetTypeID();
-    if (v23 != CFGetTypeID(v22))
+    addStringToNegProt(a1, @"|");
+    addStringToNegProt(a1, v13);
+    v21 = CFDictionaryGetValue(a2, @"c");
+    if (v21)
     {
-      v24 = CFDataGetTypeID();
-      if (v24 != CFGetTypeID(v22))
+      v22 = CFStringGetTypeID();
+      if (v22 != CFGetTypeID(v21))
       {
-        v15 = @"cookie not a data object";
-        goto LABEL_12;
+        v23 = CFDataGetTypeID();
+        if (v23 != CFGetTypeID(v21))
+        {
+          v15 = @"cookie not a data object";
+          goto LABEL_12;
+        }
       }
     }
-  }
 
-  v25 = CFDictionaryGetValue(*(a1 + 16), @"Password");
-  if (!v25 || (v26 = v25, v27 = CFStringGetTypeID(), v27 != CFGetTypeID(v26)))
-  {
-    v15 = @"password missing in options";
-    goto LABEL_14;
-  }
-
-  LODWORD(v57) = v21;
-  v28 = CFDictionaryGetValue(a2, @"s");
-  if (!v28 || (v29 = v28, v30 = CFDataGetTypeID(), v30 != CFGetTypeID(v29)))
-  {
-    v15 = @"salt missing from server";
-    goto LABEL_12;
-  }
-
-  v56 = v29;
-  v31 = CFDictionaryGetValue(a2, @"i");
-  if (!v31 || (v32 = v31, v33 = CFNumberGetTypeID(), v33 != CFGetTypeID(v32)))
-  {
-    v15 = @"iteration missing from server";
-    goto LABEL_12;
-  }
-
-  v55 = v32;
-  v34 = CFDictionaryGetValue(a2, @"B");
-  if (!isCFData(v34))
-  {
-    v15 = @"B missing from server";
-    goto LABEL_12;
-  }
-
-  v35 = CFDictionaryGetValue(a2, @"p");
-  v36 = v35 != 0;
-  if (v35)
-  {
-    v37 = 2;
-  }
-
-  else
-  {
-    v37 = 1;
-  }
-
-  v54 = v34;
-  Length = CFDataGetLength(v34);
-  v39 = *(a1 + 104);
-  if (Length < ccsrp_get_session_key_length())
-  {
-    v15 = @"B wrong size";
-    goto LABEL_14;
-  }
-
-  v40 = *(a1 + 32);
-  if (!v40)
-  {
-    v40 = *(a1 + 24);
-  }
-
-  v53 = v40;
-  v41 = AppleIDAuthSupportCopyString(v40, v37);
-  v42 = v56;
-  if (!v41)
-  {
-    goto LABEL_47;
-  }
-
-  v43 = v41;
-  v44 = _AppleIDAuthSupportPBKDF2SRP(*(a1 + 112), v57, v26, v56, v55, 2 * v36, a4);
-  if (!v44)
-  {
-    free(v43);
-    goto LABEL_16;
-  }
-
-  v45 = v44;
-  v57 = *(a1 + 104);
-  v55 = CFDataGetLength(v44);
-  BytePtr = CFDataGetBytePtr(v45);
-  CFDataGetLength(v42);
-  CFDataGetBytePtr(v42);
-  CFDataGetBytePtr(v54);
-  v46 = ccsrp_client_process_challenge();
-  CFRelease(v45);
-  free(v43);
-  if (v46)
-  {
-    goto LABEL_47;
-  }
-
-  v47 = CFDataCreate(0, v10, session_key_length);
-  bzero(v10, session_key_length);
-  if (v47)
-  {
-    Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-    if (Mutable)
+    v24 = CFDictionaryGetValue(*(a1 + 16), @"Password");
+    if (v24)
     {
-      v49 = Mutable;
-      CFDictionarySetValue(Mutable, @"u", v53);
-      CFDictionarySetValue(v49, @"M1", v47);
-      CFDictionarySetValue(v49, @"o", @"complete");
-      if (v22)
+      v25 = v24;
+      v26 = CFStringGetTypeID();
+      if (v26 == CFGetTypeID(v25))
       {
-        CFDictionarySetValue(v49, @"c", v22);
-      }
+        LODWORD(v55) = v20;
+        v27 = CFDictionaryGetValue(a2, @"s");
+        if (v27 && (v28 = v27, v29 = CFDataGetTypeID(), v29 == CFGetTypeID(v28)))
+        {
+          v54 = v28;
+          v30 = CFDictionaryGetValue(a2, @"i");
+          if (v30 && (v31 = v30, v32 = CFNumberGetTypeID(), v32 == CFGetTypeID(v31)))
+          {
+            v53 = v31;
+            v33 = CFDictionaryGetValue(a2, @"B");
+            if (isCFData(v33))
+            {
+              v34 = CFDictionaryGetValue(a2, @"p");
+              v35 = v34 != 0;
+              if (v34)
+              {
+                v36 = 2;
+              }
 
-      v50 = *(a1 + 56);
-      if (v50)
-      {
-        CFDictionarySetValue(v49, @"cpd", v50);
-      }
+              else
+              {
+                v36 = 1;
+              }
 
-      v51 = CFDictionaryGetValue(*(a1 + 16), @"sc");
-      if (isCFData(v51))
-      {
-        CFDictionarySetValue(v49, @"sc", v51);
-      }
+              v52 = v33;
+              Length = CFDataGetLength(v33);
+              if (Length >= ccsrp_get_session_key_length())
+              {
+                v38 = *(a1 + 32);
+                if (!v38)
+                {
+                  v38 = *(a1 + 24);
+                }
 
-      CFRelease(v47);
-      *a3 = v49;
-      result = 1;
-      v19 = stateClientNeg3;
-      goto LABEL_17;
-    }
+                v51 = v38;
+                v39 = AppleIDAuthSupportCopyString(v38, v36);
+                v40 = v54;
+                if (!v39)
+                {
+                  goto LABEL_47;
+                }
 
-    setErrorOOM(a4);
-    CFRelease(v47);
-  }
+                v41 = v39;
+                v42 = _AppleIDAuthSupportPBKDF2SRP(*(a1 + 112), v55, v25, v54, v53, 2 * v35, a4);
+                if (!v42)
+                {
+                  free(v41);
+                  goto LABEL_16;
+                }
 
-  else
-  {
+                v43 = v42;
+                v55 = *(a1 + 104);
+                v53 = CFDataGetLength(v42);
+                BytePtr = CFDataGetBytePtr(v43);
+                CFDataGetLength(v40);
+                CFDataGetBytePtr(v40);
+                CFDataGetBytePtr(v52);
+                v44 = ccsrp_client_process_challenge();
+                CFRelease(v43);
+                free(v41);
+                if (!v44 && (v45 = CFDataCreate(0, v10, session_key_length), bzero(v10, session_key_length), v45))
+                {
+                  Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+                  if (Mutable)
+                  {
+                    v47 = Mutable;
+                    CFDictionarySetValue(Mutable, @"u", v51);
+                    CFDictionarySetValue(v47, @"M1", v45);
+                    CFDictionarySetValue(v47, @"o", @"complete");
+                    if (v21)
+                    {
+                      CFDictionarySetValue(v47, @"c", v21);
+                    }
+
+                    v48 = *(a1 + 56);
+                    if (v48)
+                    {
+                      CFDictionarySetValue(v47, @"cpd", v48);
+                    }
+
+                    v49 = CFDictionaryGetValue(*(a1 + 16), @"sc");
+                    if (isCFData(v49))
+                    {
+                      CFDictionarySetValue(v47, @"sc", v49);
+                    }
+
+                    CFRelease(v45);
+                    *a3 = v47;
+                    result = 1;
+                    v19 = stateClientNeg3;
+                    goto LABEL_17;
+                  }
+
+                  setErrorOOM(a4);
+                  CFRelease(v45);
+                }
+
+                else
+                {
 LABEL_47:
-    setErrorOOM(a4);
-  }
+                  setErrorOOM(a4);
+                }
 
 LABEL_16:
-  result = 0;
-  v19 = stateInvalid;
+                result = 0;
+                v19 = stateInvalid;
 LABEL_17:
-  *(a1 + 96) = v19;
-LABEL_18:
-  v20 = *MEMORY[0x277D85DE8];
+                *(a1 + 96) = v19;
+                return result;
+              }
+
+              v15 = @"B wrong size";
+              goto LABEL_14;
+            }
+
+            v15 = @"B missing from server";
+          }
+
+          else
+          {
+            v15 = @"iteration missing from server";
+          }
+        }
+
+        else
+        {
+          v15 = @"salt missing from server";
+        }
+
+LABEL_12:
+        v16 = a4;
+        v17 = a2;
+LABEL_15:
+        setError(v16, 2, v17, 0, v15);
+        goto LABEL_16;
+      }
+    }
+
+    v15 = @"password missing in options";
+LABEL_14:
+    v16 = a4;
+    v17 = 0;
+    goto LABEL_15;
+  }
+
   return result;
 }
 
-uint64_t validateProtocolName(uint64_t a1, CFStringRef theString, const void **a3)
+uint64_t validateProtocolName(uint64_t a1, CFStringRef theString, CFErrorRef *a3)
 {
   if (CFStringFind(theString, @",", 0).location != -1)
   {
@@ -3007,192 +2958,182 @@ LABEL_5:
   return 1;
 }
 
-BOOL isCFNumber(_BOOL8 result)
+const void *isCFNumber(const void *result)
 {
   if (result)
   {
     v1 = result;
     TypeID = CFNumberGetTypeID();
-    return TypeID == CFGetTypeID(v1);
+    return (TypeID == CFGetTypeID(v1));
   }
 
   return result;
 }
 
-const __CFData *stateClientNeg3(uint64_t a1, const __CFDictionary *a2, uint64_t a3, const void **a4)
+uint64_t stateClientNeg3(uint64_t a1, const __CFDictionary *a2, uint64_t a3, CFErrorRef *a4)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v7 = **(a1 + 128);
-  v8 = MEMORY[0x28223BE20](a1);
-  MEMORY[0x28223BE20](v8);
+  v8 = MEMORY[0x28223BE20](a1, a2);
+  MEMORY[0x28223BE20](v8, v9);
   if (_AIDASOSLog_onceToken != -1)
   {
     _AIDASOSLog_cold_1();
   }
 
-  v9 = _AIDASOSLog_log;
+  v10 = _AIDASOSLog_log;
   if (os_log_type_enabled(_AIDASOSLog_log, OS_LOG_TYPE_INFO))
   {
     *buf = 136446466;
-    v40 = "stateClientNeg3";
-    v41 = 2112;
-    v42 = a2;
-    _os_log_impl(&dword_24056C000, v9, OS_LOG_TYPE_INFO, "%{public}s: %@", buf, 0x16u);
+    v36 = "stateClientNeg3";
+    v37 = 2112;
+    v38 = a2;
+    _os_log_impl(&dword_24056C000, v10, OS_LOG_TYPE_INFO, "%{public}s: %@", buf, 0x16u);
   }
 
   if (!a2)
   {
-    v30 = @"client neg3: input dict missing";
+    v27 = @"client neg3: input dict missing";
 LABEL_26:
-    v31 = a4;
-    v32 = 2;
+    v28 = a4;
+    v29 = 2;
 LABEL_27:
-    v33 = 0;
+    v30 = 0;
     goto LABEL_28;
   }
 
   Value = CFDictionaryGetValue(a2, @"M2");
-  if (!Value || (v11 = Value, TypeID = CFDataGetTypeID(), TypeID != CFGetTypeID(v11)))
+  if (!Value || (v12 = Value, TypeID = CFDataGetTypeID(), TypeID != CFGetTypeID(v12)))
   {
-    v30 = @"M2 missing (bad password)";
+    v27 = @"M2 missing (bad password)";
     goto LABEL_23;
   }
 
-  Length = CFDataGetLength(v11);
-  v14 = *(a1 + 104);
+  Length = CFDataGetLength(v12);
   if (Length != ccsrp_get_session_key_length())
   {
-    v30 = @"M2 wrong size";
+    v27 = @"M2 wrong size";
     goto LABEL_26;
   }
 
-  v15 = *(a1 + 104);
-  CFDataGetBytePtr(v11);
+  CFDataGetBytePtr(v12);
   if ((ccsrp_client_verify_session() & 1) == 0)
   {
-    v30 = @"server passed bad M2";
+    v27 = @"server passed bad M2";
     goto LABEL_32;
   }
 
   addStringToNegProt(a1, @"|");
-  v16 = CFDictionaryGetValue(a2, @"spd");
-  if (v16)
+  v15 = CFDictionaryGetValue(a2, @"spd");
+  if (v15)
   {
-    v17 = CFDataGetTypeID();
-    if (v17 == CFGetTypeID(v16))
+    v16 = CFDataGetTypeID();
+    if (v16 == CFGetTypeID(v15))
     {
-      addDataToNegProt(a1, v16);
+      addDataToNegProt(a1, v15);
     }
   }
 
   addStringToNegProt(a1, @"|");
-  v18 = CFDictionaryGetValue(*(a1 + 16), @"sc");
-  if (v18)
+  v17 = CFDictionaryGetValue(*(a1 + 16), @"sc");
+  if (v17)
   {
-    v19 = v18;
-    v20 = CFDataGetTypeID();
-    if (v20 == CFGetTypeID(v19))
+    v18 = v17;
+    v19 = CFDataGetTypeID();
+    if (v19 == CFGetTypeID(v18))
     {
-      addDataToNegProt(a1, v19);
+      addDataToNegProt(a1, v18);
     }
   }
 
   addStringToNegProt(a1, @"|");
-  v21 = CFDictionaryGetValue(a2, @"np");
-  if (v21)
+  v20 = CFDictionaryGetValue(a2, @"np");
+  if (v20)
   {
-    v22 = v21;
-    v23 = CFDataGetTypeID();
-    if (v23 == CFGetTypeID(v22))
+    v21 = v20;
+    v22 = CFDataGetTypeID();
+    if (v22 == CFGetTypeID(v21))
     {
-      v24 = CFDataGetLength(v22);
-      v25 = *(a1 + 128);
-      if (v24 != *v25)
+      v23 = CFDataGetLength(v21);
+      v24 = *(a1 + 128);
+      if (v23 != *v24)
       {
-        v38 = CFDataGetLength(v22);
-        setError(a4, 2, 0, 0, @"NegProto hash too short: %d", v38);
+        v34 = CFDataGetLength(v21);
+        setError(a4, 2, 0, 0, @"NegProto hash too short: %d", v34);
         goto LABEL_29;
       }
 
-      (*(v25 + 56))(v25, *(a1 + 136), &buf[-((v7 + 15) & 0xFFFFFFFFFFFFFFF0)]);
-      v26 = SRPCreateSessionKey(a1, "HMAC key:");
-      if (!v26)
+      (*(v24 + 56))(v24, *(a1 + 136), &buf[-((v7 + 15) & 0xFFFFFFFFFFFFFFF0)]);
+      v25 = SRPCreateSessionKey(a1, "HMAC key:");
+      if (!v25)
       {
         setErrorOOM(a4);
         goto LABEL_29;
       }
 
-      v27 = v26;
-      v28 = *(a1 + 128);
-      CFDataGetLength(v26);
-      CFDataGetBytePtr(v27);
+      v26 = v25;
+      CFDataGetLength(v25);
+      CFDataGetBytePtr(v26);
       cchmac();
-      CFRelease(v27);
-      v29 = **(a1 + 128);
-      CFDataGetBytePtr(v22);
+      CFRelease(v26);
+      CFDataGetBytePtr(v21);
       if (cc_cmp_safe())
       {
-        v30 = @"NegotationProtection HMAC invalid";
+        v27 = @"NegotationProtection HMAC invalid";
 LABEL_32:
-        v31 = a4;
-        v32 = 5;
+        v28 = a4;
+        v29 = 5;
         goto LABEL_27;
       }
 
       goto LABEL_33;
     }
 
-    v30 = @"neg proto field missing";
+    v27 = @"neg proto field missing";
 LABEL_23:
-    v31 = a4;
-    v32 = 2;
-    v33 = a2;
+    v28 = a4;
+    v29 = 2;
+    v30 = a2;
 LABEL_28:
-    setError(v31, v32, v33, 0, v30);
+    setError(v28, v29, v30, 0, v27);
 LABEL_29:
     result = 0;
-    v35 = stateInvalid;
+    v32 = stateInvalid;
     goto LABEL_30;
   }
 
 LABEL_33:
-  if (!v16 || (result = CreateDecryptedData(a1, v16, a4), v35 = stateInvalid, result) && (v37 = result, *(a1 + 64) = CFPropertyListCreateWithData(0, result, 0, 0, a4), CFRelease(v37), result = isCFDictionary(*(a1 + 64)), v35 = stateInvalid, result))
+  if (!v15 || (result = CreateDecryptedData(a1, v15, a4), v32 = stateInvalid, result) && (v33 = result, *(a1 + 64) = CFPropertyListCreateWithData(0, result, 0, 0, a4), CFRelease(v33), result = isCFDictionary(*(a1 + 64)), v32 = stateInvalid, result))
   {
     result = 1;
-    v35 = stateDone;
+    v32 = stateDone;
   }
 
 LABEL_30:
-  *(a1 + 96) = v35;
-  v36 = *MEMORY[0x277D85DE8];
+  *(a1 + 96) = v32;
   return result;
 }
 
 uint64_t addDataToNegProt(uint64_t a1, CFDataRef theData)
 {
   CFDataGetLength(theData);
-  v4 = *(a1 + 128);
-  v5 = *(a1 + 136);
   ccdigest_update();
-  v7 = *(a1 + 128);
-  v6 = *(a1 + 136);
   CFDataGetLength(theData);
   CFDataGetBytePtr(theData);
   return ccdigest_update();
 }
 
-__CFData *CreateDecryptedData(uint64_t a1, const __CFData *a2, const void **a3)
+__CFData *CreateDecryptedData(uint64_t a1, const __CFData *a2, CFErrorRef *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
   v6 = ccaes_cbc_decrypt_mode();
-  if (CFDataGetLength(a2) % v6[1])
+  if (CFDataGetLength(a2) % *(v6 + 8))
   {
     setError(a3, 5, 0, 0, @"Encrypted PKCS7 padded data not on block aligned");
 LABEL_11:
     Mutable = 0;
 LABEL_12:
     *(a1 + 96) = stateInvalid;
-    goto LABEL_13;
+    return Mutable;
   }
 
   v7 = SRPCreateSessionKey(a1, "extra data key:");
@@ -3223,12 +3164,10 @@ LABEL_10:
 
   v13 = CFDataGetLength(a2);
   CFDataSetLength(Mutable, v13);
-  v14 = (v6[1] + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v15);
+  MEMORY[0x28223BE20](v14, v15);
   CFDataGetBytePtr(v10);
   v16 = cccbc_set_iv();
-  v17 = (*v6 + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v16);
+  MEMORY[0x28223BE20](v16, v17);
   CFDataGetBytePtr(v8);
   cccbc_init();
   CFDataGetLength(a2);
@@ -3243,35 +3182,32 @@ LABEL_10:
   CFDataSetLength(Mutable, v18);
   CFRelease(v10);
   CFRelease(v8);
-LABEL_13:
-  v19 = *MEMORY[0x277D85DE8];
   return Mutable;
 }
 
-uint64_t stateServerNeg2(uint64_t a1, const __CFDictionary *a2, __CFDictionary **a3, const void **a4)
+uint64_t stateServerNeg2(uint64_t a1, const __CFDictionary *a2, __CFDictionary **a3, CFErrorRef *a4)
 {
-  v51 = *MEMORY[0x277D85DE8];
-  v8 = *(a1 + 104);
+  v48 = *MEMORY[0x277D85DE8];
   session_key_length = ccsrp_get_session_key_length();
-  v10 = MEMORY[0x28223BE20](session_key_length);
-  v11 = &v45 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = MEMORY[0x28223BE20](session_key_length, v9);
+  v11 = &v42 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   v12 = **(a1 + 128);
-  v13 = MEMORY[0x28223BE20](v10);
-  MEMORY[0x28223BE20](v13);
-  v15 = &v45 - v14;
+  v14 = MEMORY[0x28223BE20](v10, v13);
+  MEMORY[0x28223BE20](v14, v15);
+  v17 = &v42 - v16;
   if (_AIDASOSLog_onceToken != -1)
   {
     _AIDASOSLog_cold_1();
   }
 
-  v16 = _AIDASOSLog_log;
+  v18 = _AIDASOSLog_log;
   if (os_log_type_enabled(_AIDASOSLog_log, OS_LOG_TYPE_INFO))
   {
     *buf = 136446466;
-    v48 = "stateServerNeg2";
-    v49 = 2112;
-    v50 = a2;
-    _os_log_impl(&dword_24056C000, v16, OS_LOG_TYPE_INFO, "%{public}s: %@", buf, 0x16u);
+    v45 = "stateServerNeg2";
+    v46 = 2112;
+    v47 = a2;
+    _os_log_impl(&dword_24056C000, v18, OS_LOG_TYPE_INFO, "%{public}s: %@", buf, 0x16u);
   }
 
   if (!a2)
@@ -3280,24 +3216,22 @@ uint64_t stateServerNeg2(uint64_t a1, const __CFDictionary *a2, __CFDictionary *
     goto LABEL_21;
   }
 
-  v46 = a3;
+  v43 = a3;
   Value = CFDictionaryGetValue(a2, @"M1");
-  if (!Value || (v18 = Value, TypeID = CFDataGetTypeID(), TypeID != CFGetTypeID(v18)))
+  if (!Value || (v20 = Value, TypeID = CFDataGetTypeID(), TypeID != CFGetTypeID(v20)))
   {
     setError(a4, 2, 0, 0, @"M1 missing");
     goto LABEL_21;
   }
 
-  Length = CFDataGetLength(v18);
-  v21 = *(a1 + 104);
+  Length = CFDataGetLength(v20);
   if (Length != ccsrp_get_session_key_length())
   {
     setError(a4, 2, 0, 0, @"M1 wrong size");
     goto LABEL_21;
   }
 
-  v22 = *(a1 + 104);
-  CFDataGetBytePtr(v18);
+  CFDataGetBytePtr(v20);
   if ((ccsrp_server_verify_session() & 1) == 0)
   {
     setError(a4, 2, 0, 0, @"session bad");
@@ -3307,7 +3241,7 @@ uint64_t stateServerNeg2(uint64_t a1, const __CFDictionary *a2, __CFDictionary *
   Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
   if (!Mutable)
   {
-LABEL_24:
+LABEL_23:
     setErrorOOM(a4);
     goto LABEL_21;
   }
@@ -3317,7 +3251,7 @@ LABEL_24:
   bzero(v11, session_key_length);
   if (!v25)
   {
-    goto LABEL_23;
+    goto LABEL_22;
   }
 
   CFDictionarySetValue(v24, @"M2", v25);
@@ -3326,7 +3260,7 @@ LABEL_24:
   v26 = *(a1 + 160);
   if (!v26)
   {
-    goto LABEL_27;
+    goto LABEL_26;
   }
 
   EncryptedData = v26(*(a1 + 24), *(a1 + 168));
@@ -3334,19 +3268,19 @@ LABEL_24:
   {
     if (!EncryptedData)
     {
-      goto LABEL_27;
+      goto LABEL_26;
     }
 
-    goto LABEL_26;
+    goto LABEL_25;
   }
 
   Data = CFPropertyListCreateData(0, EncryptedData, kCFPropertyListXMLFormat_v1_0, 0, 0);
   *(a1 + 64) = EncryptedData;
   if (!Data)
   {
-LABEL_23:
+LABEL_22:
     CFRelease(v24);
-    goto LABEL_24;
+    goto LABEL_23;
   }
 
   v29 = Data;
@@ -3355,25 +3289,24 @@ LABEL_23:
   if (!EncryptedData)
   {
     CFRelease(v24);
-    result = 0;
-    goto LABEL_22;
+    return 0;
   }
 
   CFDictionarySetValue(v24, @"spd", EncryptedData);
   addDataToNegProt(a1, EncryptedData);
-LABEL_26:
+LABEL_25:
   CFRelease(EncryptedData);
-LABEL_27:
-  v32 = v24;
+LABEL_26:
+  v31 = v24;
   addStringToNegProt(a1, @"|");
-  v33 = CFDictionaryGetValue(a2, @"sc");
-  v34 = CFDictionaryGetValue(*(a1 + 16), @"sc");
-  v35 = v34;
-  if (!v33)
+  v32 = CFDictionaryGetValue(a2, @"sc");
+  v33 = CFDictionaryGetValue(*(a1 + 16), @"sc");
+  v34 = v33;
+  if (!v32)
   {
-    if (!v34)
+    if (!v33)
     {
-      goto LABEL_35;
+      goto LABEL_34;
     }
 
     CFRelease(v24);
@@ -3381,79 +3314,74 @@ LABEL_27:
 LABEL_21:
     result = 0;
     *(a1 + 96) = stateInvalid;
-    goto LABEL_22;
+    return result;
   }
 
-  v36 = CFDataGetTypeID();
-  if (v36 != CFGetTypeID(v33))
+  v35 = CFDataGetTypeID();
+  if (v35 != CFGetTypeID(v32))
   {
-    CFRelease(v32);
+    CFRelease(v31);
     setError(a4, 2, 0, 0, @"server certificate field is not a data element");
     goto LABEL_21;
   }
 
-  v24 = v32;
-  if (isCFData(v35) && !CFEqual(v35, v33) && !*(a1 + 80))
+  v24 = v31;
+  if (isCFData(v34) && !CFEqual(v34, v32) && !*(a1 + 80))
   {
-    CFRelease(v32);
+    CFRelease(v31);
     setError(a4, 2, 0, 0, @"server certificate field is not a same");
     goto LABEL_21;
   }
 
-  addDataToNegProt(a1, v33);
-LABEL_35:
+  addDataToNegProt(a1, v32);
+LABEL_34:
   addStringToNegProt(a1, @"|");
-  v37 = *(a1 + 136);
   (*(*(a1 + 128) + 56))();
-  v38 = SRPCreateSessionKey(a1, "HMAC key:");
-  if (!v38)
+  v36 = SRPCreateSessionKey(a1, "HMAC key:");
+  if (!v36)
   {
     setErrorOOM(a4);
-    v44 = v24;
-LABEL_45:
-    CFRelease(v44);
+    v41 = v24;
+LABEL_44:
+    CFRelease(v41);
     goto LABEL_21;
   }
 
-  v39 = v38;
-  v40 = *(a1 + 128);
-  CFDataGetLength(v38);
-  CFDataGetBytePtr(v39);
+  v37 = v36;
+  CFDataGetLength(v36);
+  CFDataGetBytePtr(v37);
   cchmac();
-  CFRelease(v39);
-  v41 = CFDataCreate(0, v15, v12);
-  if (!v41)
+  CFRelease(v37);
+  v38 = CFDataCreate(0, v17, v12);
+  if (!v38)
   {
     setErrorOOM(a4);
-    v44 = v32;
-    goto LABEL_45;
+    v41 = v31;
+    goto LABEL_44;
   }
 
-  v42 = v41;
-  CFDictionarySetValue(v32, @"np", v41);
-  CFRelease(v42);
-  *v46 = v32;
+  v39 = v38;
+  CFDictionarySetValue(v31, @"np", v38);
+  CFRelease(v39);
+  *v43 = v31;
   if (_AIDASOSLog_onceToken != -1)
   {
     stateServerNeg2_cold_2();
   }
 
-  v43 = _AIDASOSLog_log;
+  v40 = _AIDASOSLog_log;
   if (os_log_type_enabled(_AIDASOSLog_log, OS_LOG_TYPE_INFO))
   {
     *buf = 136446210;
-    v48 = "stateServerNeg2";
-    _os_log_impl(&dword_24056C000, v43, OS_LOG_TYPE_INFO, "%{public}s: auth done", buf, 0xCu);
+    v45 = "stateServerNeg2";
+    _os_log_impl(&dword_24056C000, v40, OS_LOG_TYPE_INFO, "%{public}s: auth done", buf, 0xCu);
   }
 
   *(a1 + 96) = stateDone;
-  result = 1;
-LABEL_22:
-  v31 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
-const void *AppleIDAuthSupportGSRequestCopyResponse(void *a1, const __CFDictionary *cf, const void **a3)
+const void *AppleIDAuthSupportGSRequestCopyResponse(void *a1, const __CFDictionary *cf, CFErrorRef *a3)
 {
   if (!a1[4])
   {
@@ -3522,7 +3450,7 @@ LABEL_20:
   return 0;
 }
 
-const __CFDictionary *GSRequestCopyResponse(uint64_t a1, const char *a2, const char *a3, const void *a4, const __CFDictionary *cf, const void **a6)
+const __CFDictionary *GSRequestCopyResponse(uint64_t a1, const char *a2, const char *a3, const void *a4, const __CFDictionary *cf, CFErrorRef *a6)
 {
   v7 = cf;
   error = 0;
@@ -3617,7 +3545,7 @@ LABEL_20:
   }
 
   v21 = CFDictionaryGetValue(Data, @"clearData");
-  if (!isCFData(v21))
+  if ((isCFData(v21) & 1) == 0)
   {
 LABEL_34:
     setError(a6, 2, 0, 0, @"data missing for server request");
@@ -3658,7 +3586,7 @@ LABEL_25:
   return DecryptedData;
 }
 
-uint64_t AppleIDAuthSupportGSOperation(const void *a1, const void *a2, const __CFDictionary *a3, const void *a4, const void *a5, const void **a6)
+const __CFDictionary *AppleIDAuthSupportGSOperation(const void *a1, const void *a2, const __CFDictionary *a3, const void *a4, const void *a5, CFErrorRef *a6)
 {
   result = AppleIDAuthSupportGSCreateContext(a1, a4, a5, a6);
   if (result)
@@ -3674,13 +3602,12 @@ uint64_t AppleIDAuthSupportGSOperation(const void *a1, const void *a2, const __C
 
 void allowSkipSettingOnInternalHardware_cold_1(char a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 136446466;
-  v4 = "allowSkipSettingOnInternalHardware";
-  v5 = 1024;
-  v6 = a1 & 1;
-  _os_log_debug_impl(&dword_24056C000, a2, OS_LOG_TYPE_DEBUG, "%{public}s: isInternal: %d", &v3, 0x12u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 136446466;
+  v3 = "allowSkipSettingOnInternalHardware";
+  v4 = 1024;
+  v5 = a1 & 1;
+  _os_log_debug_impl(&dword_24056C000, a2, OS_LOG_TYPE_DEBUG, "%{public}s: isInternal: %d", &v2, 0x12u);
 }
 
 void __AppleIDAuthSupportGetClientInfo_block_invoke()

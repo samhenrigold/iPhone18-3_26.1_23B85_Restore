@@ -37,16 +37,9 @@
 
 - (void)_performWithContext:(id)context
 {
-  userActivity = self->_userActivity;
-  if (userActivity)
+  if (self->_userActivity)
   {
-    applicationID = self->_applicationID;
-    v6[0] = MEMORY[0x277D85DD0];
-    v6[1] = 3221225472;
-    v6[2] = __51__REElementUserActivityAction__performWithContext___block_invoke;
-    v6[3] = &unk_2785F9FF0;
-    v6[4] = self;
-    REOpenUserActivity(userActivity, applicationID, v6);
+    REOpenUserActivity();
   }
 }
 
@@ -61,13 +54,12 @@ uint64_t __51__REElementUserActivityAction__performWithContext___block_invoke(ui
 
 - (id)description
 {
-  v7.receiver = self;
-  v7.super_class = REElementUserActivityAction;
-  v3 = [(REElementUserActivityAction *)&v7 description];
-  userActivity = self->_userActivity;
-  v5 = [v3 stringByAppendingFormat:@" userActivity=%@, applicationId=%@", userActivity, self->_applicationID];
+  v6.receiver = self;
+  v6.super_class = REElementUserActivityAction;
+  v3 = [(REElementUserActivityAction *)&v6 description];
+  v4 = [v3 stringByAppendingFormat:@" userActivity=%@, applicationId=%@", self->_userActivity, self->_applicationID];
 
-  return v5;
+  return v4;
 }
 
 - (BOOL)isEqual:(id)equal

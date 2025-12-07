@@ -25,7 +25,7 @@
 
 - (id)burdenForTachogramClassifications:(id)classifications calculationType:(int64_t)type calculationTypeContext:(id)context error:(id *)error
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   classificationsCopy = classifications;
   contextCopy = context;
   if (![MEMORY[0x277CCDD30] isAppleInternalInstall])
@@ -86,34 +86,34 @@
   if (!v13)
   {
 LABEL_17:
-    v61 = contextCopy;
+    v60 = contextCopy;
     typeCopy = type;
     v27 = [classificationsCopy hk_map:{&__block_literal_global_2, error}];
     v28 = [(ABAfibBurdenAnalyzer *)self->_analyzer determineBurdenForTachogramClassificationBuckets:v27];
+    v61 = 0u;
     v62 = 0u;
     v63 = 0u;
     v64 = 0u;
-    v65 = 0u;
     v29 = classificationsCopy;
-    v30 = [v29 countByEnumeratingWithState:&v62 objects:v66 count:16];
+    v30 = [v29 countByEnumeratingWithState:&v61 objects:v65 count:16];
     if (v30)
     {
       v31 = v30;
       v32 = 0;
-      v33 = *v63;
+      v33 = *v62;
       do
       {
         for (i = 0; i != v31; ++i)
         {
-          if (*v63 != v33)
+          if (*v62 != v33)
           {
             objc_enumerationMutation(v29);
           }
 
-          v32 += [*(*(&v62 + 1) + 8 * i) count];
+          v32 += [*(*(&v61 + 1) + 8 * i) count];
         }
 
-        v31 = [v29 countByEnumeratingWithState:&v62 objects:v66 count:16];
+        v31 = [v29 countByEnumeratingWithState:&v61 objects:v65 count:16];
       }
 
       while (v31);
@@ -135,17 +135,17 @@ LABEL_17:
 
       v48 = [HDHRAFibBurdenAnalysisAnalyticsEvent alloc];
       v49 = typeCopy;
-      contextCopy = v61;
-      v46 = [(HDHRAFibBurdenAnalysisAnalyticsEvent *)v48 initWithResult:0 calculationType:v49 calculationTypeDetails:v61 numberOfTachograms:v32 additionalPayloadFromAlgorithm:0];
+      contextCopy = v60;
+      v46 = [(HDHRAFibBurdenAnalysisAnalyticsEvent *)v48 initWithResult:0 calculationType:v49 calculationTypeDetails:v60 numberOfTachograms:v32 additionalPayloadFromAlgorithm:0];
       [(HKAnalyticsEventSubmissionManager *)self->_analyticsEventSubmissionManager submitEvent:v46 error:0];
       v50 = [MEMORY[0x277CCA9B8] hk_error:100 description:@"Infrastructure error when determining AFib Burden value"];
       v51 = v50;
       if (v50)
       {
-        if (v60)
+        if (v59)
         {
           v52 = v50;
-          *v60 = v51;
+          *v59 = v51;
         }
 
         else
@@ -190,10 +190,10 @@ LABEL_17:
       if (!unavailabilityReason)
       {
         _HKInitializeLogging();
-        v58 = HKHRAFibBurdenLogForCategory();
-        if (os_log_type_enabled(v58, OS_LOG_TYPE_FAULT))
+        v57 = HKHRAFibBurdenLogForCategory();
+        if (os_log_type_enabled(v57, OS_LOG_TYPE_FAULT))
         {
-          [BerylliumBurdenDeterminer burdenForTachogramClassifications:v58 calculationType:? calculationTypeContext:? error:?];
+          [BerylliumBurdenDeterminer burdenForTachogramClassifications:v57 calculationType:? calculationTypeContext:? error:?];
         }
 
         goto LABEL_56;
@@ -208,22 +208,22 @@ LABEL_17:
 
 LABEL_52:
       _HKInitializeLogging();
-      v58 = HKHRAFibBurdenLogForCategory();
-      if (os_log_type_enabled(v58, OS_LOG_TYPE_FAULT))
+      v57 = HKHRAFibBurdenLogForCategory();
+      if (os_log_type_enabled(v57, OS_LOG_TYPE_FAULT))
       {
-        [BerylliumBurdenDeterminer burdenForTachogramClassifications:v28 calculationType:v58 calculationTypeContext:? error:?];
+        [BerylliumBurdenDeterminer burdenForTachogramClassifications:v28 calculationType:v57 calculationTypeContext:? error:?];
       }
 
 LABEL_56:
 
       v46 = [MEMORY[0x277CCA9B8] hk_error:100 description:@"Unknown error occurred in AFib Burden infrastructure"];
-      contextCopy = v61;
+      contextCopy = v60;
       if (v46)
       {
-        if (v60)
+        if (v59)
         {
-          v59 = v46;
-          *v60 = v46;
+          v58 = v46;
+          *v59 = v46;
         }
 
         else
@@ -262,8 +262,8 @@ LABEL_31:
       v43 = [HDHRAFibBurdenAnalysisAnalyticsEvent alloc];
       metricsForCoreAnalytics = [v28 metricsForCoreAnalytics];
       v45 = typeCopy;
-      contextCopy = v61;
-      v46 = [(HDHRAFibBurdenAnalysisAnalyticsEvent *)v43 initWithResult:v13 calculationType:v45 calculationTypeDetails:v61 numberOfTachograms:v32 additionalPayloadFromAlgorithm:metricsForCoreAnalytics];
+      contextCopy = v60;
+      v46 = [(HDHRAFibBurdenAnalysisAnalyticsEvent *)v43 initWithResult:v13 calculationType:v45 calculationTypeDetails:v60 numberOfTachograms:v32 additionalPayloadFromAlgorithm:metricsForCoreAnalytics];
 
       [(HKAnalyticsEventSubmissionManager *)self->_analyticsEventSubmissionManager submitEvent:v46 error:0];
 LABEL_47:
@@ -273,53 +273,47 @@ LABEL_48:
     }
 
 LABEL_61:
-    contextCopy = v61;
+    contextCopy = v60;
     goto LABEL_48;
   }
 
 LABEL_49:
-
-  v56 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
 
 - (void)burdenForTachogramClassifications:(uint64_t)a1 calculationType:(NSObject *)a2 calculationTypeContext:error:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_error_impl(&dword_229486000, a2, OS_LOG_TYPE_ERROR, "Invalid percentage given for HKHRAFibBurdenAnalysisPercentageOverride: %ld", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_error_impl(&dword_229486000, a2, OS_LOG_TYPE_ERROR, "Invalid percentage given for HKHRAFibBurdenAnalysisPercentageOverride: %ld", &v2, 0xCu);
 }
 
 - (void)burdenForTachogramClassifications:(uint64_t)a1 calculationType:(NSObject *)a2 calculationTypeContext:error:.cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_fault_impl(&dword_229486000, a2, OS_LOG_TYPE_FAULT, "[%@] No burden percentage given but also no unavailability reason", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_fault_impl(&dword_229486000, a2, OS_LOG_TYPE_FAULT, "[%@] No burden percentage given but also no unavailability reason", &v2, 0xCu);
 }
 
 - (void)burdenForTachogramClassifications:(NSObject *)a3 calculationType:calculationTypeContext:error:.cold.3(uint64_t a1, void *a2, NSObject *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v5 = 138412546;
-  v6 = a1;
-  v7 = 2048;
-  v8 = [a2 unavailabilityReason];
-  _os_log_fault_impl(&dword_229486000, a3, OS_LOG_TYPE_FAULT, "[%@] Unexpected unavailability reason given: %lu", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
+  v4 = 138412546;
+  v5 = a1;
+  v6 = 2048;
+  v7 = [a2 unavailabilityReason];
+  _os_log_fault_impl(&dword_229486000, a3, OS_LOG_TYPE_FAULT, "[%@] Unexpected unavailability reason given: %lu", &v4, 0x16u);
 }
 
 - (void)burdenForTachogramClassifications:(uint64_t)a1 calculationType:(NSObject *)a2 calculationTypeContext:error:.cold.4(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_229486000, a2, OS_LOG_TYPE_ERROR, "[%@] Nil result received from Beryllium, implying infrastructure error", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_229486000, a2, OS_LOG_TYPE_ERROR, "[%@] Nil result received from Beryllium, implying infrastructure error", &v2, 0xCu);
 }
 
 @end

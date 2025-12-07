@@ -104,46 +104,44 @@
 
 void __29__ICCameraDeviceBrowser_init__block_invoke_3(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) msDevManager];
   [v2 stopRunning];
 
   v3 = [*(a1 + 32) ptpDevManager];
   [v3 stopRunning];
 
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v4 = [*(a1 + 32) browsers];
   v5 = [v4 copy];
 
-  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [*(a1 + 32) stop:*(*(&v11 + 1) + 8 * v9++)];
+        [*(a1 + 32) stop:*(*(&v10 + 1) + 8 * v9++)];
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)runSuspensionTimer:(BOOL)timer
@@ -159,7 +157,7 @@ void __29__ICCameraDeviceBrowser_init__block_invoke_3(uint64_t a1)
 
 void __44__ICCameraDeviceBrowser_runSuspensionTimer___block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 40);
   v3 = *(a1 + 32);
   if (v2 == 1)
@@ -184,9 +182,9 @@ void __44__ICCameraDeviceBrowser_runSuspensionTimer___block_invoke(uint64_t a1)
         v9 = v5;
         v10 = v8;
         *buf = 136446466;
-        v21 = [(__CFString *)v5 UTF8String];
-        v22 = 2114;
-        v23 = v7;
+        v20 = [(__CFString *)v5 UTF8String];
+        v21 = 2114;
+        v22 = v7;
         _os_log_impl(&dword_1C6F19000, v10, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
       }
 
@@ -214,15 +212,13 @@ void __44__ICCameraDeviceBrowser_runSuspensionTimer___block_invoke(uint64_t a1)
   else
   {
     v16 = [v3 suspensionTimerQueue];
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __44__ICCameraDeviceBrowser_runSuspensionTimer___block_invoke_47;
-    v18[3] = &unk_1E829C848;
-    v18[4] = *(a1 + 32);
-    dispatch_sync(v16, v18);
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __44__ICCameraDeviceBrowser_runSuspensionTimer___block_invoke_47;
+    v17[3] = &unk_1E829C848;
+    v17[4] = *(a1 + 32);
+    dispatch_sync(v16, v17);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __44__ICCameraDeviceBrowser_runSuspensionTimer___block_invoke_39(uint64_t a1)
@@ -241,7 +237,7 @@ void __44__ICCameraDeviceBrowser_runSuspensionTimer___block_invoke_39(uint64_t a
 
 void __44__ICCameraDeviceBrowser_runSuspensionTimer___block_invoke_2(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   __ICOSLogCreate();
   v2 = @"[**-> Suspend]";
   if ([@"[**-> Suspend]" length] >= 0x15)
@@ -256,11 +252,11 @@ void __44__ICCameraDeviceBrowser_runSuspensionTimer___block_invoke_2(uint64_t a1
   {
     v6 = v2;
     v7 = v5;
-    v11 = 136446466;
-    v12 = [(__CFString *)v2 UTF8String];
-    v13 = 2114;
-    v14 = v4;
-    _os_log_impl(&dword_1C6F19000, v7, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", &v11, 0x16u);
+    v10 = 136446466;
+    v11 = [(__CFString *)v2 UTF8String];
+    v12 = 2114;
+    v13 = v4;
+    _os_log_impl(&dword_1C6F19000, v7, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", &v10, 0x16u);
   }
 
   [*(a1 + 32) notifySuspension:3];
@@ -269,13 +265,11 @@ void __44__ICCameraDeviceBrowser_runSuspensionTimer___block_invoke_2(uint64_t a1
 
   v9 = [*(a1 + 32) ptpDevManager];
   [v9 suspendOperations];
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __44__ICCameraDeviceBrowser_runSuspensionTimer___block_invoke_47(uint64_t a1)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) suspensionTimer];
 
   if (v2)
@@ -298,11 +292,11 @@ uint64_t __44__ICCameraDeviceBrowser_runSuspensionTimer___block_invoke_47(uint64
     {
       v8 = v4;
       v9 = v7;
-      v20 = 136446466;
-      v21 = [(__CFString *)v4 UTF8String];
-      v22 = 2114;
-      v23 = v6;
-      _os_log_impl(&dword_1C6F19000, v9, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", &v20, 0x16u);
+      v19 = 136446466;
+      v20 = [(__CFString *)v4 UTF8String];
+      v21 = 2114;
+      v22 = v6;
+      _os_log_impl(&dword_1C6F19000, v9, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", &v19, 0x16u);
     }
 
     v10 = 1;
@@ -324,11 +318,11 @@ uint64_t __44__ICCameraDeviceBrowser_runSuspensionTimer___block_invoke_47(uint64
     {
       v15 = v11;
       v16 = v14;
-      v20 = 136446466;
-      v21 = [(__CFString *)v11 UTF8String];
-      v22 = 2114;
-      v23 = v13;
-      _os_log_impl(&dword_1C6F19000, v16, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", &v20, 0x16u);
+      v19 = 136446466;
+      v20 = [(__CFString *)v11 UTF8String];
+      v21 = 2114;
+      v22 = v13;
+      _os_log_impl(&dword_1C6F19000, v16, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", &v19, 0x16u);
     }
 
     v17 = [*(a1 + 32) ptpDevManager];
@@ -339,9 +333,7 @@ uint64_t __44__ICCameraDeviceBrowser_runSuspensionTimer___block_invoke_47(uint64
     v10 = 4;
   }
 
-  result = [*(a1 + 32) notifySuspension:v10];
-  v19 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) notifySuspension:v10];
 }
 
 - (void)dealloc
@@ -386,7 +378,7 @@ uint64_t __44__ICCameraDeviceBrowser_runSuspensionTimer___block_invoke_47(uint64
 
 - (void)start:(id)start
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   startCopy = start;
   [(ICCameraDeviceBrowser *)self addBrowser:startCopy];
   if (self->_numberOfBrowsingBrowsers)
@@ -396,29 +388,29 @@ uint64_t __44__ICCameraDeviceBrowser_runSuspensionTimer___block_invoke_47(uint64
 
     if (v6)
     {
-      v21 = 0u;
-      v22 = 0u;
-      v19 = 0u;
       v20 = 0u;
+      v21 = 0u;
+      v18 = 0u;
+      v19 = 0u;
       devices2 = [(ICCameraDeviceBrowser *)self devices];
-      v8 = [devices2 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v8 = [devices2 countByEnumeratingWithState:&v18 objects:v22 count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v20;
+        v10 = *v19;
         do
         {
           for (i = 0; i != v9; ++i)
           {
-            if (*v20 != v10)
+            if (*v19 != v10)
             {
               objc_enumerationMutation(devices2);
             }
 
-            [startCopy addDevice:*(*(&v19 + 1) + 8 * i) moreComing:v6 - 1 != i];
+            [startCopy addDevice:*(*(&v18 + 1) + 8 * i) moreComing:v6 - 1 != i];
           }
 
-          v9 = [devices2 countByEnumeratingWithState:&v19 objects:v23 count:16];
+          v9 = [devices2 countByEnumeratingWithState:&v18 objects:v22 count:16];
           v6 -= i;
         }
 
@@ -445,8 +437,8 @@ uint64_t __44__ICCameraDeviceBrowser_runSuspensionTimer___block_invoke_47(uint64
       v17 = v15;
       *buf = 136446466;
       uTF8String = [(__CFString *)v12 UTF8String];
-      v26 = 2114;
-      v27 = v14;
+      v25 = 2114;
+      v26 = v14;
       _os_log_impl(&dword_1C6F19000, v17, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
     }
 
@@ -456,13 +448,11 @@ uint64_t __44__ICCameraDeviceBrowser_runSuspensionTimer___block_invoke_47(uint64
   }
 
   ++self->_numberOfBrowsingBrowsers;
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)notifySuspension:(unint64_t)suspension
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if (suspension > 2)
   {
     if (suspension == 3)
@@ -475,7 +465,7 @@ uint64_t __44__ICCameraDeviceBrowser_runSuspensionTimer___block_invoke_47(uint64
     {
       if (suspension != 4)
       {
-        goto LABEL_22;
+        return;
       }
 
       v4 = 0;
@@ -493,7 +483,7 @@ uint64_t __44__ICCameraDeviceBrowser_runSuspensionTimer___block_invoke_47(uint64
   {
     if (suspension != 2)
     {
-      goto LABEL_22;
+      return;
     }
 
     v4 = 0;
@@ -503,48 +493,48 @@ uint64_t __44__ICCameraDeviceBrowser_runSuspensionTimer___block_invoke_47(uint64
   v6 = *v5;
   if (*v5)
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     browsers = [(ICCameraDeviceBrowser *)self browsers];
-    v8 = [browsers countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v8 = [browsers countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v16;
+      v10 = *v15;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v16 != v10)
+          if (*v15 != v10)
           {
             objc_enumerationMutation(browsers);
           }
 
-          v12 = *(*(&v15 + 1) + 8 * i);
+          v12 = *(*(&v14 + 1) + 8 * i);
           [v12 setSuspended:v4];
           delegate = [v12 delegate];
-          if (delegate && (objc_opt_respondsToSelector() & 1) != 0)
+          if (delegate)
           {
-            [delegate performSelector:v6 withObject:self];
+            if (objc_opt_respondsToSelector())
+            {
+              [delegate performSelector:v6 withObject:self];
+            }
           }
         }
 
-        v9 = [browsers countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v9 = [browsers countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v9);
     }
   }
-
-LABEL_22:
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stop:(id)stop
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   stopCopy = stop;
   if ([(NSMutableArray *)self->_browsers containsObject:stopCopy])
   {
@@ -560,29 +550,29 @@ LABEL_22:
       if (v9)
       {
         v10 = v9;
-        v27 = v8;
+        v26 = v8;
         selfCopy = self;
-        v35 = 0u;
-        v36 = 0u;
-        v33 = 0u;
         v34 = 0u;
+        v35 = 0u;
+        v32 = 0u;
+        v33 = 0u;
         v11 = v8;
-        v12 = [v11 countByEnumeratingWithState:&v33 objects:v38 count:16];
+        v12 = [v11 countByEnumeratingWithState:&v32 objects:v37 count:16];
         if (v12)
         {
           v13 = v12;
-          v14 = *v34;
+          v14 = *v33;
           do
           {
             for (i = 0; i != v13; ++i)
             {
-              if (*v34 != v14)
+              if (*v33 != v14)
               {
                 objc_enumerationMutation(v11);
               }
 
-              v16 = *(*(&v33 + 1) + 8 * i);
-              [v16 willChangeValueForKey:{@"hasOpenSession", v27, selfCopy}];
+              v16 = *(*(&v32 + 1) + 8 * i);
+              [v16 willChangeValueForKey:{@"hasOpenSession", v26, selfCopy}];
               [v16 didChangeValueForKey:@"hasOpenSession"];
               delegate = [v16 delegate];
 
@@ -595,44 +585,44 @@ LABEL_22:
               [stopCopy removeDevice:v16 moreGoing:v10 - 1 != i];
             }
 
-            v13 = [v11 countByEnumeratingWithState:&v33 objects:v38 count:16];
+            v13 = [v11 countByEnumeratingWithState:&v32 objects:v37 count:16];
             v10 -= i;
           }
 
           while (v13);
         }
 
-        v8 = v27;
+        v8 = v26;
         self = selfCopy;
       }
 
       if (!self->_numberOfBrowsingBrowsers)
       {
-        v31 = 0u;
-        v32 = 0u;
-        v29 = 0u;
         v30 = 0u;
+        v31 = 0u;
+        v28 = 0u;
+        v29 = 0u;
         v19 = self->_devices;
-        v20 = [(NSMutableArray *)v19 countByEnumeratingWithState:&v29 objects:v37 count:16];
+        v20 = [(NSMutableArray *)v19 countByEnumeratingWithState:&v28 objects:v36 count:16];
         if (v20)
         {
           v21 = v20;
-          v22 = *v30;
+          v22 = *v29;
           do
           {
             for (j = 0; j != v21; ++j)
             {
-              if (*v30 != v22)
+              if (*v29 != v22)
               {
                 objc_enumerationMutation(v19);
               }
 
-              v24 = *(*(&v29 + 1) + 8 * j);
+              v24 = *(*(&v28 + 1) + 8 * j);
               deviceManager = [v24 deviceManager];
               [deviceManager closeDevice:v24 contextInfo:0];
             }
 
-            v21 = [(NSMutableArray *)v19 countByEnumeratingWithState:&v29 objects:v37 count:16];
+            v21 = [(NSMutableArray *)v19 countByEnumeratingWithState:&v28 objects:v36 count:16];
           }
 
           while (v21);
@@ -641,11 +631,9 @@ LABEL_22:
         [(NSMutableArray *)self->_devices removeAllObjects];
       }
 
-      [(ICCameraDeviceBrowser *)self removeBrowser:stopCopy, v27, selfCopy];
+      [(ICCameraDeviceBrowser *)self removeBrowser:stopCopy, v26, selfCopy];
     }
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleCommandCompletionNotification:(id)notification
@@ -662,7 +650,7 @@ LABEL_22:
 
 - (void)handleImageCaptureEventNotification:(id)notification
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
   userInfo = [notificationCopy userInfo];
   v6 = [userInfo objectForKeyedSubscript:@"type"];
@@ -672,33 +660,33 @@ LABEL_22:
     if (v7)
     {
       [(NSMutableArray *)self->_devices addObject:v7];
-      v35 = 0u;
-      v36 = 0u;
-      v33 = 0u;
       v34 = 0u;
+      v35 = 0u;
+      v32 = 0u;
+      v33 = 0u;
       v8 = self->_browsers;
-      v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v33 objects:v40 count:16];
+      v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v32 objects:v39 count:16];
       if (v9)
       {
         v10 = v9;
-        v11 = *v34;
+        v11 = *v33;
         do
         {
           for (i = 0; i != v10; ++i)
           {
-            if (*v34 != v11)
+            if (*v33 != v11)
             {
               objc_enumerationMutation(v8);
             }
 
-            v13 = *(*(&v33 + 1) + 8 * i);
+            v13 = *(*(&v32 + 1) + 8 * i);
             if ([v13 isBrowsing])
             {
               [v13 addDevice:v7 moreComing:0];
             }
           }
 
-          v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v33 objects:v40 count:16];
+          v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v32 objects:v39 count:16];
         }
 
         while (v10);
@@ -733,7 +721,7 @@ LABEL_31:
           if (os_log_type_enabled(*MEMORY[0x1E69A8B08], OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
-            v39 = v19;
+            v38 = v19;
             _os_log_impl(&dword_1C6F19000, v21, OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
           }
         }
@@ -751,29 +739,29 @@ LABEL_31:
           [delegate2 didRemoveDevice:v7];
         }
 
-        v31 = 0u;
-        v32 = 0u;
-        v29 = 0u;
         v30 = 0u;
+        v31 = 0u;
+        v28 = 0u;
+        v29 = 0u;
         v8 = self->_browsers;
-        v24 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v29 objects:v37 count:16];
+        v24 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v28 objects:v36 count:16];
         if (v24)
         {
           v25 = v24;
-          v26 = *v30;
+          v26 = *v29;
           do
           {
             for (j = 0; j != v25; ++j)
             {
-              if (*v30 != v26)
+              if (*v29 != v26)
               {
                 objc_enumerationMutation(v8);
               }
 
-              [*(*(&v29 + 1) + 8 * j) removeDevice:v7 moreGoing:0];
+              [*(*(&v28 + 1) + 8 * j) removeDevice:v7 moreGoing:0];
             }
 
-            v25 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v29 objects:v37 count:16];
+            v25 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v28 objects:v36 count:16];
           }
 
           while (v25);
@@ -788,36 +776,34 @@ LABEL_31:
       [v15 performSelector:sel_handleImageCaptureEventNotification_ withObject:notificationCopy];
     }
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 - (id)deviceWithDelegate:(id)delegate
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   delegateCopy = delegate;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v5 = self->_devices;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
-    v9 = *v16;
+    v9 = *v15;
 LABEL_3:
     v10 = 0;
     v11 = v8;
     while (1)
     {
-      if (*v16 != v9)
+      if (*v15 != v9)
       {
         objc_enumerationMutation(v5);
       }
 
-      v8 = *(*(&v15 + 1) + 8 * v10);
+      v8 = *(*(&v14 + 1) + 8 * v10);
 
       delegate = [v8 delegate];
 
@@ -830,7 +816,7 @@ LABEL_3:
       v11 = v8;
       if (v7 == v10)
       {
-        v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
         if (v7)
         {
           goto LABEL_3;
@@ -847,18 +833,15 @@ LABEL_10:
     v8 = 0;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
-
   return v8;
 }
 
 - (void)handleImageCaptureEventNotification:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1C6F19000, a2, OS_LOG_TYPE_DEBUG, "%{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1C6F19000, a2, OS_LOG_TYPE_DEBUG, "%{public}@", &v2, 0xCu);
 }
 
 @end

@@ -1,6 +1,6 @@
-void sub_10000128C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_10000128C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -73,7 +73,7 @@ void *sub_10000150C(uint64_t a1)
 
     else
     {
-      v3 = abort_report_np();
+      v3 = abort_report_np("%s", v5[0]);
     }
 
     free(v3);
@@ -90,7 +90,6 @@ LABEL_5:
 
 uint64_t sub_10000164C(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_100025A08 = result;
   return result;
@@ -120,7 +119,7 @@ Class sub_1000016C0(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -140,7 +139,6 @@ LABEL_4:
 
 uint64_t sub_100001804(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_100025A18 = result;
   return result;
@@ -390,13 +388,14 @@ void sub_1000095C0(uint64_t a1, void *a2, void *a3, void *a4)
   }
 }
 
-void sub_10000A0BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37)
+void sub_10000A0BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, ...)
 {
-  _Block_object_dispose(&a37, 8);
-  _Block_object_dispose((v37 - 240), 8);
-  _Block_object_dispose((v37 - 192), 8);
-  _Block_object_dispose((v37 - 160), 8);
-  _Block_object_dispose((v37 - 128), 8);
+  va_start(va, a36);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v36 - 240), 8);
+  _Block_object_dispose((v36 - 192), 8);
+  _Block_object_dispose((v36 - 160), 8);
+  _Block_object_dispose((v36 - 128), 8);
   _Unwind_Resume(a1);
 }
 
@@ -412,16 +411,13 @@ id sub_10000A130(void *a1)
   v2 = *(DEPLogObjects() + 8);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    *v7 = 0;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "Done retrieving mid", v7, 2u);
+    *v4 = 0;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "Done retrieving mid", v4, 2u);
   }
 
   [*(*(a1[5] + 8) + 40) lock];
   if (*(*(a1[6] + 8) + 24) == 1)
   {
-    v3 = *(*(a1[7] + 8) + 24);
-    v4 = *(*(a1[8] + 8) + 40);
-    v5 = *(*(a1[9] + 8) + 40);
     (*(a1[4] + 16))();
   }
 
@@ -916,36 +912,36 @@ void sub_10000CA64(id a1)
   qword_100025AB0 = v8;
 }
 
-uint64_t start()
+uint64_t start(uint64_t a1)
 {
-  v0 = *(DEPLogObjects() + 8);
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = *(DEPLogObjects() + 8);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v0, OS_LOG_TYPE_DEFAULT, "service starting...", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v1, OS_LOG_TYPE_DEFAULT, "service starting...", buf, 2u);
   }
 
-  v1 = objc_alloc_init(CCDServer);
-  v2 = objc_opt_new();
-  [v2 setServer:v1];
-  v3 = [NSXPCListener alloc];
-  v4 = [v3 initWithMachServiceName:kCCServiceName];
-  [v4 setDelegate:v2];
-  v5 = *(DEPLogObjects() + 8);
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
-  {
-    *v9 = 0;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "awaiting connections...", v9, 2u);
-  }
-
-  [v4 resume];
-  CFRunLoopRun();
-  [v4 invalidate];
+  v2 = objc_alloc_init(CCDServer);
+  v3 = objc_opt_new();
+  [v3 setServer:v2];
+  v4 = [NSXPCListener alloc];
+  v5 = [v4 initWithMachServiceName:kCCServiceName];
+  [v5 setDelegate:v3];
   v6 = *(DEPLogObjects() + 8);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    *v8 = 0;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "service stopping.", v8, 2u);
+    *v10 = 0;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "awaiting connections...", v10, 2u);
+  }
+
+  [v5 resume];
+  CFRunLoopRun();
+  [v5 invalidate];
+  v7 = *(DEPLogObjects() + 8);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    *v9 = 0;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "service stopping.", v9, 2u);
   }
 
   return 0;
@@ -953,7 +949,7 @@ uint64_t start()
 
 uint64_t sub_10000F93C()
 {
-  dlerror();
-  v0 = abort_report_np();
-  return sub_10000F960(v0);
+  v0 = dlerror();
+  abort_report_np("%s", v0);
+  return sub_10000F960();
 }

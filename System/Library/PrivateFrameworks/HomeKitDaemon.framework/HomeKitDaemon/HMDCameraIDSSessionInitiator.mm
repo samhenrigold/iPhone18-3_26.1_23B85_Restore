@@ -8,6 +8,7 @@
 - (void)_callSessionEndedWithError:(id)error;
 - (void)_callSessionStarted;
 - (void)_sendInvitation;
+- (void)_startPacketRelayWithVideoSocket:(int)socket videoNetworkConfig:(id)config cameraVideoSSRC:(unsigned int)c audioSocket:(int)audioSocket audioNetworkConfig:(id)networkConfig cameraAudioSSRC:(unsigned int)rC;
 - (void)dealloc;
 - (void)openRelaySession;
 - (void)packetRelay:(id)relay didStart:(BOOL)start error:(id)error;
@@ -17,6 +18,7 @@
 - (void)session:(id)session receivedInvitationDeclineFromID:(id)d;
 - (void)sessionEnded:(id)ended withReason:(unsigned int)reason error:(id)error;
 - (void)sessionStarted:(id)started;
+- (void)startPacketRelayWithVideoSocket:(int)socket videoNetworkConfig:(id)config cameraVideoSSRC:(unsigned int)c audioSocket:(int)audioSocket audioNetworkConfig:(id)networkConfig cameraAudioSSRC:(unsigned int)rC;
 @end
 
 @implementation HMDCameraIDSSessionInitiator
@@ -38,7 +40,7 @@
 
 - (void)_callSessionEndedWithError:(id)error
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   workQueue = [(HMDCameraIDSSessionHandler *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -49,11 +51,11 @@
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v12 = 138543618;
-    v13 = v9;
-    v14 = 2112;
-    v15 = errorCopy;
-    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Calling didEndSession delegate with error %@", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = v9;
+    v13 = 2112;
+    v14 = errorCopy;
+    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Calling didEndSession delegate with error %@", &v11, 0x16u);
   }
 
   objc_autoreleasePoolPop(v6);
@@ -62,13 +64,11 @@
   {
     [delegate sessionInitiator:selfCopy didEndSessionWithError:errorCopy];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_callSessionStarted
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDCameraIDSSessionHandler *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -78,9 +78,9 @@
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v10 = 138543362;
-    v11 = v7;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Calling didSetUp delegate", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v7;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Calling didSetUp delegate", &v9, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
@@ -89,13 +89,11 @@
   {
     [delegate sessionInitiator:selfCopy didSetUpWithError:0];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sessionEnded:(id)ended withReason:(unsigned int)reason error:(id)error
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   endedCopy = ended;
   errorCopy = error;
   workQueue = [(HMDCameraIDSSessionHandler *)self workQueue];
@@ -107,27 +105,25 @@
   if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
     v14 = HMFGetLogIdentifier();
-    v17 = 138544130;
-    v18 = v14;
-    v19 = 2114;
-    v20 = endedCopy;
-    v21 = 1026;
+    v16 = 138544130;
+    v17 = v14;
+    v18 = 2114;
+    v19 = endedCopy;
+    v20 = 1026;
     reasonCopy = reason;
-    v23 = 2114;
-    v24 = errorCopy;
-    _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@IDSSession %{public}@ has ended with reason: %{public}u and error %{public}@", &v17, 0x26u);
+    v22 = 2114;
+    v23 = errorCopy;
+    _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@IDSSession %{public}@ has ended with reason: %{public}u and error %{public}@", &v16, 0x26u);
   }
 
   objc_autoreleasePoolPop(v11);
   v15 = [MEMORY[0x277CCA9B8] hmInternalErrorWithCode:1030 underlyingError:errorCopy];
   [(HMDCameraIDSSessionInitiator *)selfCopy _callSessionEndedWithError:v15];
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sessionStarted:(id)started
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   startedCopy = started;
   workQueue = [(HMDCameraIDSSessionHandler *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -138,11 +134,11 @@
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v12 = 138543618;
-    v13 = v9;
-    v14 = 2114;
-    v15 = startedCopy;
-    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@IDSSession %{public}@ has started", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = v9;
+    v13 = 2114;
+    v14 = startedCopy;
+    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@IDSSession %{public}@ has started", &v11, 0x16u);
   }
 
   objc_autoreleasePoolPop(v6);
@@ -150,12 +146,11 @@
   [sessionID markMilestoneFor:@"IDSSessionStartedOnInitiator"];
 
   [(HMDCameraIDSSessionInitiator *)selfCopy _callSessionStarted];
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)session:(id)session receivedInvitationCancelFromID:(id)d
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   dCopy = d;
   workQueue = [(HMDCameraIDSSessionHandler *)self workQueue];
@@ -167,24 +162,22 @@
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     v12 = HMFGetLogIdentifier();
-    v14 = 138543874;
-    v15 = v12;
-    v16 = 2112;
-    v17 = sessionCopy;
-    v18 = 2112;
-    v19 = dCopy;
-    _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Invitation for IDSSession %@ was canceled by: %@", &v14, 0x20u);
+    v13 = 138543874;
+    v14 = v12;
+    v15 = 2112;
+    v16 = sessionCopy;
+    v17 = 2112;
+    v18 = dCopy;
+    _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Invitation for IDSSession %@ was canceled by: %@", &v13, 0x20u);
   }
 
   objc_autoreleasePoolPop(v9);
   [(HMDCameraIDSSessionInitiator *)selfCopy _callSessionEndedWithError:0];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)session:(id)session receivedInvitationDeclineFromID:(id)d
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   dCopy = d;
   workQueue = [(HMDCameraIDSSessionHandler *)self workQueue];
@@ -196,24 +189,22 @@
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     v12 = HMFGetLogIdentifier();
-    v14 = 138543874;
-    v15 = v12;
-    v16 = 2112;
-    v17 = sessionCopy;
-    v18 = 2112;
-    v19 = dCopy;
-    _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Invitation for IDSSession %@ has been declined by: %@", &v14, 0x20u);
+    v13 = 138543874;
+    v14 = v12;
+    v15 = 2112;
+    v16 = sessionCopy;
+    v17 = 2112;
+    v18 = dCopy;
+    _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Invitation for IDSSession %@ has been declined by: %@", &v13, 0x20u);
   }
 
   objc_autoreleasePoolPop(v9);
   [(HMDCameraIDSSessionInitiator *)selfCopy _callSessionEndedWithError:0];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)session:(id)session receivedInvitationAcceptFromID:(id)d
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   dCopy = d;
   workQueue = [(HMDCameraIDSSessionHandler *)self workQueue];
@@ -225,17 +216,16 @@
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     v12 = HMFGetLogIdentifier();
-    v14 = 138543874;
-    v15 = v12;
-    v16 = 2114;
-    v17 = sessionCopy;
-    v18 = 2112;
-    v19 = dCopy;
-    _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Invitation for IDSSession %{public}@ has been accepted by: %@, waiting for session to get started", &v14, 0x20u);
+    v13 = 138543874;
+    v14 = v12;
+    v15 = 2114;
+    v16 = sessionCopy;
+    v17 = 2112;
+    v18 = dCopy;
+    _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Invitation for IDSSession %{public}@ has been accepted by: %@, waiting for session to get started", &v13, 0x20u);
   }
 
   objc_autoreleasePoolPop(v9);
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)packetRelay:(id)relay didStop:(BOOL)stop error:(id)error
@@ -255,27 +245,25 @@
 
 void __58__HMDCameraIDSSessionInitiator_packetRelay_didStop_error___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = HMFGetLogIdentifier();
-    v6 = *(a1 + 48);
-    v7 = HMFBooleanToString();
-    v8 = *(a1 + 40);
-    v10 = 138543874;
-    v11 = v5;
+    v6 = HMFBooleanToString();
+    v7 = *(a1 + 40);
+    v8 = 138543874;
+    v9 = v5;
+    v10 = 2112;
+    v11 = v6;
     v12 = 2112;
     v13 = v7;
-    v14 = 2112;
-    v15 = v8;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Packet relay did stop: %@ error: %@", &v10, 0x20u);
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Packet relay did stop: %@ error: %@", &v8, 0x20u);
   }
 
   objc_autoreleasePoolPop(v2);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)packetRelay:(id)relay didStart:(BOOL)start error:(id)error
@@ -295,32 +283,235 @@ void __58__HMDCameraIDSSessionInitiator_packetRelay_didStop_error___block_invoke
 
 void __59__HMDCameraIDSSessionInitiator_packetRelay_didStart_error___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = HMFGetLogIdentifier();
-    v6 = *(a1 + 48);
-    v7 = HMFBooleanToString();
-    v8 = *(a1 + 40);
-    v10 = 138543874;
-    v11 = v5;
+    v6 = HMFBooleanToString();
+    v7 = *(a1 + 40);
+    v8 = 138543874;
+    v9 = v5;
+    v10 = 2114;
+    v11 = v6;
     v12 = 2114;
     v13 = v7;
-    v14 = 2114;
-    v15 = v8;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Packet relay did start: %{public}@ error: %{public}@", &v10, 0x20u);
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Packet relay did start: %{public}@ error: %{public}@", &v8, 0x20u);
   }
 
   objc_autoreleasePoolPop(v2);
-  v9 = *MEMORY[0x277D85DE8];
+}
+
+- (void)_startPacketRelayWithVideoSocket:(int)socket videoNetworkConfig:(id)config cameraVideoSSRC:(unsigned int)c audioSocket:(int)audioSocket audioNetworkConfig:(id)networkConfig cameraAudioSSRC:(unsigned int)rC
+{
+  v8 = *&rC;
+  audioSocketCopy = audioSocket;
+  v11 = *&c;
+  socketCopy = socket;
+  v76 = *MEMORY[0x277D85DE8];
+  configCopy = config;
+  networkConfigCopy = networkConfig;
+  workQueue = [(HMDCameraIDSSessionHandler *)self workQueue];
+  dispatch_assert_queue_V2(workQueue);
+
+  v17 = [objc_alloc(MEMORY[0x277D0F880]) initWithName:@"com.apple.homed.packet-relay"];
+  [(HMDCameraIDSSessionInitiator *)self setPacketRelayTransaction:v17];
+
+  idsSession = [(HMDCameraIDSSessionHandler *)self idsSession];
+  if (idsSession)
+  {
+    v18 = objc_alloc_init(MEMORY[0x277CE5710]);
+    ipAddress = [configCopy ipAddress];
+    [v18 setIp:ipAddress];
+
+    [v18 setIsIPv6:{objc_msgSend(configCopy, "ipv6")}];
+    rtpPort = [configCopy rtpPort];
+    [v18 setPort:{objc_msgSend(rtpPort, "unsignedShortValue")}];
+
+    v64 = [objc_alloc(MEMORY[0x277CE5718]) initWithIncomingSSRC:v11 acceptPacketType:0];
+    v66 = [MEMORY[0x277CE5728] connectionWithSocket:socketCopy remoteAddress:v18 packetFilter:?];
+    v21 = objc_autoreleasePoolPush();
+    selfCopy = self;
+    v23 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+    {
+      v24 = HMFGetLogIdentifier();
+      *buf = 138543874;
+      v71 = v24;
+      v72 = 1024;
+      *v73 = v11;
+      *&v73[4] = 2112;
+      *&v73[6] = configCopy;
+      _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_INFO, "%{public}@Created video relay connection with SSRC %08x and config: %@", buf, 0x1Cu);
+    }
+
+    objc_autoreleasePoolPop(v21);
+    v25 = objc_alloc_init(MEMORY[0x277CE5710]);
+    ipAddress2 = [networkConfigCopy ipAddress];
+    [v25 setIp:ipAddress2];
+
+    [v25 setIsIPv6:{objc_msgSend(networkConfigCopy, "ipv6")}];
+    rtpPort2 = [networkConfigCopy rtpPort];
+    [v25 setPort:{objc_msgSend(rtpPort2, "unsignedShortValue")}];
+
+    v63 = [objc_alloc(MEMORY[0x277CE5718]) initWithIncomingSSRC:v8 acceptPacketType:0];
+    v28 = [MEMORY[0x277CE5728] connectionWithSocket:audioSocketCopy remoteAddress:v25 packetFilter:?];
+    v29 = objc_autoreleasePoolPush();
+    v30 = selfCopy;
+    v31 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
+    {
+      v32 = HMFGetLogIdentifier();
+      *buf = 138543874;
+      v71 = v32;
+      v72 = 1024;
+      *v73 = v8;
+      *&v73[4] = 2112;
+      *&v73[6] = networkConfigCopy;
+      _os_log_impl(&dword_229538000, v31, OS_LOG_TYPE_INFO, "%{public}@Created audio relay connection with SSRC %08x and config: %@", buf, 0x1Cu);
+    }
+
+    objc_autoreleasePoolPop(v29);
+    v33 = MEMORY[0x277CE5728];
+    destination = [idsSession destination];
+    v35 = [v33 connectionWithIDSDestination:destination];
+
+    v36 = objc_autoreleasePoolPush();
+    v37 = v30;
+    v38 = HMFGetOSLogHandle();
+    v65 = v28;
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
+    {
+      v39 = HMFGetLogIdentifier();
+      destination2 = [idsSession destination];
+      *buf = 138543618;
+      v71 = v39;
+      v72 = 2112;
+      *v73 = destination2;
+      _os_log_impl(&dword_229538000, v38, OS_LOG_TYPE_INFO, "%{public}@Created IDS relay connection with destination: %@", buf, 0x16u);
+
+      v28 = v65;
+    }
+
+    objc_autoreleasePoolPop(v36);
+    if (v66 && v28 && v35)
+    {
+      v41 = objc_alloc(MEMORY[0x277CE5720]);
+      v69[0] = v66;
+      v69[1] = v28;
+      v42 = [MEMORY[0x277CBEA60] arrayWithObjects:v69 count:2];
+      v68 = 0;
+      v43 = [v41 initWithConnections:v42 multiplexedConnection:v35 error:&v68];
+      v44 = v68;
+      [(HMDCameraIDSSessionInitiator *)v37 setPacketRelay:v43];
+
+      packetRelay = [(HMDCameraIDSSessionInitiator *)v37 packetRelay];
+
+      v46 = objc_autoreleasePoolPush();
+      v47 = v37;
+      v48 = HMFGetOSLogHandle();
+      v49 = v48;
+      if (packetRelay)
+      {
+        if (os_log_type_enabled(v48, OS_LOG_TYPE_INFO))
+        {
+          v50 = HMFGetLogIdentifier();
+          *buf = 138543362;
+          v71 = v50;
+          _os_log_impl(&dword_229538000, v49, OS_LOG_TYPE_INFO, "%{public}@Starting packet relay", buf, 0xCu);
+        }
+
+        objc_autoreleasePoolPop(v46);
+        packetRelay2 = [(HMDCameraIDSSessionInitiator *)v47 packetRelay];
+        [packetRelay2 setDelegate:v47];
+
+        packetRelay3 = [(HMDCameraIDSSessionInitiator *)v47 packetRelay];
+        [packetRelay3 start];
+      }
+
+      else
+      {
+        if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+        {
+          v62 = HMFGetLogIdentifier();
+          *buf = 138543618;
+          v71 = v62;
+          v72 = 2112;
+          *v73 = v44;
+          _os_log_impl(&dword_229538000, v49, OS_LOG_TYPE_ERROR, "%{public}@Failed to create video packet relay: %@", buf, 0x16u);
+        }
+
+        objc_autoreleasePoolPop(v46);
+        [(HMDCameraIDSSessionInitiator *)v47 _callSessionEndedWithError:v44];
+      }
+
+      v60 = v64;
+    }
+
+    else
+    {
+      v57 = objc_autoreleasePoolPush();
+      v58 = v37;
+      v59 = HMFGetOSLogHandle();
+      v60 = v64;
+      if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
+      {
+        v61 = HMFGetLogIdentifier();
+        *buf = 138544130;
+        v71 = v61;
+        v72 = 2112;
+        *v73 = v66;
+        *&v73[8] = 2112;
+        *&v73[10] = v65;
+        v74 = 2112;
+        v75 = v35;
+        _os_log_impl(&dword_229538000, v59, OS_LOG_TYPE_ERROR, "%{public}@Failed to start packet relay with relayConnectionCameraVideo: %@, relayConnectionCameraAudio: %@, relayConnectionIDS: %@", buf, 0x2Au);
+      }
+
+      objc_autoreleasePoolPop(v57);
+      v44 = [MEMORY[0x277CCA9B8] hmInternalErrorWithCode:1017];
+      [(HMDCameraIDSSessionInitiator *)v58 _callSessionEndedWithError:v44];
+    }
+  }
+
+  else
+  {
+    v53 = objc_autoreleasePoolPush();
+    selfCopy2 = self;
+    v55 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
+    {
+      v56 = HMFGetLogIdentifier();
+      *buf = 138543362;
+      v71 = v56;
+      _os_log_impl(&dword_229538000, v55, OS_LOG_TYPE_ERROR, "%{public}@Cannot start packet relay because no IDS session exists", buf, 0xCu);
+    }
+
+    objc_autoreleasePoolPop(v53);
+    v18 = [MEMORY[0x277CCA9B8] hmInternalErrorWithCode:1017];
+    [(HMDCameraIDSSessionInitiator *)selfCopy2 _callSessionEndedWithError:v18];
+  }
+}
+
+- (void)startPacketRelayWithVideoSocket:(int)socket videoNetworkConfig:(id)config cameraVideoSSRC:(unsigned int)c audioSocket:(int)audioSocket audioNetworkConfig:(id)networkConfig cameraAudioSSRC:(unsigned int)rC
+{
+  v8 = *&rC;
+  v9 = *&audioSocket;
+  v10 = *&c;
+  v12 = *&socket;
+  networkConfigCopy = networkConfig;
+  configCopy = config;
+  workQueue = [(HMDCameraIDSSessionHandler *)self workQueue];
+  dispatch_assert_queue_V2(workQueue);
+
+  [(HMDCameraIDSSessionInitiator *)self _startPacketRelayWithVideoSocket:v12 videoNetworkConfig:configCopy cameraVideoSSRC:v10 audioSocket:v9 audioNetworkConfig:networkConfigCopy cameraAudioSSRC:v8];
 }
 
 - (void)_sendInvitation
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDCameraIDSSessionHandler *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -360,21 +551,21 @@ void __59__HMDCameraIDSSessionInitiator_packetRelay_didStart_error___block_invok
       device2 = [(HMDCameraIDSSessionInitiator *)selfCopy device];
       shortDescription = [device2 shortDescription];
       *buf = 138544130;
-      v32 = v18;
-      v33 = 2112;
-      v34 = idsSession2;
-      v35 = 2112;
-      v36 = shortDescription;
-      v37 = 2112;
-      v38 = dictionary;
+      v31 = v18;
+      v32 = 2112;
+      v33 = idsSession2;
+      v34 = 2112;
+      v35 = shortDescription;
+      v36 = 2112;
+      v37 = dictionary;
       _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Sending out invitation for IDSSession %@ to device %@ with options: %@", buf, 0x2Au);
     }
 
     objc_autoreleasePoolPop(v15);
     sessionID = [(HMDCameraIDSSessionHandler *)selfCopy sessionID];
     v22SessionID = [sessionID sessionID];
-    v30 = v22SessionID;
-    v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
+    v29 = v22SessionID;
+    v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
 
     v25 = encodeRootObject();
     idsSession3 = [(HMDCameraIDSSessionHandler *)selfCopy idsSession];
@@ -389,8 +580,6 @@ void __59__HMDCameraIDSSessionInitiator_packetRelay_didStart_error___block_invok
     dictionary = [MEMORY[0x277CCA9B8] hmInternalErrorWithCode:1024];
     [(HMDCameraIDSSessionInitiator *)self _callSessionEndedWithError:dictionary];
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)openRelaySession
@@ -403,7 +592,7 @@ void __59__HMDCameraIDSSessionInitiator_packetRelay_didStart_error___block_invok
 
 - (void)dealloc
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -411,7 +600,7 @@ void __59__HMDCameraIDSSessionInitiator_packetRelay_didStart_error___block_invok
   {
     v6 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v12 = v6;
+    v11 = v6;
     _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Resetting the IDS session initiator", buf, 0xCu);
   }
 
@@ -422,10 +611,9 @@ void __59__HMDCameraIDSSessionInitiator_packetRelay_didStart_error___block_invok
   idsSession = [(HMDCameraIDSSessionHandler *)selfCopy idsSession];
   [idsSession endSession];
 
-  v10.receiver = selfCopy;
-  v10.super_class = HMDCameraIDSSessionInitiator;
-  [(HMDCameraIDSSessionHandler *)&v10 dealloc];
-  v9 = *MEMORY[0x277D85DE8];
+  v9.receiver = selfCopy;
+  v9.super_class = HMDCameraIDSSessionInitiator;
+  [(HMDCameraIDSSessionHandler *)&v9 dealloc];
 }
 
 - (NSNumber)mtu
@@ -538,10 +726,9 @@ LABEL_13:
 
 void __43__HMDCameraIDSSessionInitiator_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v19;
-  logCategory__hmf_once_v19 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v19;
+  logCategory__hmf_once_v19 = v0;
 }
 
 @end

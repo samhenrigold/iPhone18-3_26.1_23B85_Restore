@@ -81,7 +81,7 @@
 
 - (_TtC18SharingViewService28SVSMoreHelpWebViewController)initWithURL:(id)l
 {
-  v4 = sub_100005DCC(&qword_1001BA7B0);
+  v4 = sub_100005DCC(&qword_1001BA7B0, &qword_10016D9A0);
   __chkstk_darwin(v4 - 8);
   v6 = &v10 - v5;
   if (l)

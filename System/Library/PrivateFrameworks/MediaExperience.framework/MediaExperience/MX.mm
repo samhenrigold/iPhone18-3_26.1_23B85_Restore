@@ -11,81 +11,81 @@ void __MX_RunningBoardServices_StartMonitoringForPID_block_invoke(uint64_t a1, v
 
 void __MX_SystemStatus_PublishRecordingClientsInfo_block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   if (dword_1EB75DE40)
   {
-    v17 = 0;
+    v15 = 0;
     type[0] = OS_LOG_TYPE_DEFAULT;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x3052000000;
-  v22 = __Block_byref_object_copy__4;
-  v23 = __Block_byref_object_dispose__4;
-  v24 = dispatch_semaphore_create(0);
-  if (!v20[5])
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x3052000000;
+  v20 = __Block_byref_object_copy__4;
+  v21 = __Block_byref_object_dispose__4;
+  v22 = dispatch_semaphore_create(0);
+  if (!v18[5])
   {
     *type = 0;
-    v15 = OS_LOG_TYPE_DEFAULT;
+    v13 = OS_LOG_TYPE_DEFAULT;
     v3 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __MX_SystemStatus_PublishRecordingClientsInfo_block_invoke_23;
-  v13[3] = &unk_1E7AEB2A0;
-  v14 = *(a1 + 32);
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __MX_SystemStatus_PublishRecordingClientsInfo_block_invoke_2;
-  v12[3] = &unk_1E7AE73A0;
-  v12[4] = &v19;
-  [stMediaStatusDomainPublisher updateVolatileDataWithBlock:v13 completion:{v12, v10, v11}];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __MX_SystemStatus_PublishRecordingClientsInfo_block_invoke_23;
+  v11[3] = &unk_1E7AEB2A0;
+  v12 = *(a1 + 32);
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __MX_SystemStatus_PublishRecordingClientsInfo_block_invoke_2;
+  v10[3] = &unk_1E7AE73A0;
+  v10[4] = &v17;
+  [stMediaStatusDomainPublisher updateVolatileDataWithBlock:v11 completion:v10];
   v4 = dispatch_time(0, 3000000000);
-  if (dispatch_semaphore_wait(v20[5], v4))
+  if (dispatch_semaphore_wait(v18[5], v4))
   {
     *type = 0;
-    v15 = OS_LOG_TYPE_DEFAULT;
+    v13 = OS_LOG_TYPE_DEFAULT;
     v5 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     v6 = *type;
-    if (os_log_type_enabled(v5, v15))
+    v7 = v13;
+    if (os_log_type_enabled(v5, v13))
     {
-      v7 = v6;
+      v8 = v6;
     }
 
     else
     {
-      v7 = v6 & 0xFFFFFFFE;
+      v8 = v6 & 0xFFFFFFFE;
     }
 
-    if (v7)
+    if (v8)
     {
-      v17 = 136315138;
-      v18 = "MX_SystemStatus_PublishRecordingClientsInfo_block_invoke_3";
-      _os_log_send_and_compose_impl();
+      v15 = 136315138;
+      v16 = "MX_SystemStatus_PublishRecordingClientsInfo_block_invoke_3";
+      _os_log_send_and_compose_impl(v8, 0, v23, 128, &dword_1B17A2000, v5, v7, "-MX_SystemStatus- %s: completionStatusSemaphore: Timeout occurred", &v15);
     }
 
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
   FigSimpleMutexLock();
-  v8 = v20[5];
-  if (v8)
+  v9 = v18[5];
+  if (v9)
   {
-    dispatch_release(v8);
-    v20[5] = 0;
+    dispatch_release(v9);
+    v18[5] = 0;
   }
 
   FigSimpleMutexUnlock();
 
-  _Block_object_dispose(&v19, 8);
-  v9 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v17, 8);
 }
 
 uint64_t __MX_SystemStatus_PublishRecordingClientsInfo_block_invoke_23(uint64_t a1, void *a2)
@@ -118,7 +118,7 @@ uint64_t __MX_FeatureFlags_IsSharePlayEnabled_block_invoke()
 
   else
   {
-    result = TelephonyUtilitiesLibraryCore();
+    result = TelephonyUtilitiesLibraryCore(0);
     if (!result)
     {
       return result;
@@ -158,55 +158,52 @@ uint64_t __MX_FeatureFlags_IsSharePlayEnabled_block_invoke()
 
 uint64_t __MX_FeatureFlags_IsAdditiveRoutingEnabled_block_invoke()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   result = _os_feature_enabled_impl();
   MX_FeatureFlags_IsAdditiveRoutingEnabled_additiveRoutingEnabled = result;
   if (dword_1EB75DE40)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-    result = fig_log_call_emit_and_clean_up_after_send_and_compose();
+    return fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __MX_FeatureFlags_IsCorianderEnabled_block_invoke()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   result = _os_feature_enabled_impl();
   MX_FeatureFlags_IsCorianderEnabled_corianderEnabled = result;
   if (dword_1EB75DE40)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-    result = fig_log_call_emit_and_clean_up_after_send_and_compose();
+    return fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __MX_FeatureFlags_IsRelativeVoiceOverVolumeEnabled_block_invoke()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   result = _os_feature_enabled_impl();
   MX_FeatureFlags_IsRelativeVoiceOverVolumeEnabled_relativeVoiceOverVolumeEnabled = result;
   if (dword_1EB75DE40)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-    result = fig_log_call_emit_and_clean_up_after_send_and_compose();
+    return fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-uint64_t __MX_FeatureFlags_IsAlertsRelativeVoiceOverVolumeEnabled_block_invoke()
+uint64_t __MX_FeatureFlags_IsAlertsRelativeVoiceOverVolumeEnabled_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   if (MX_FeatureFlags_IsRelativeVoiceOverVolumeEnabled_onceToken != -1)
   {
     MX_FeatureFlags_IsRelativeVoiceOverVolumeEnabled_cold_1();
@@ -227,10 +224,9 @@ uint64_t __MX_FeatureFlags_IsAlertsRelativeVoiceOverVolumeEnabled_block_invoke()
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-    result = fig_log_call_emit_and_clean_up_after_send_and_compose();
+    return fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -250,17 +246,16 @@ uint64_t __MX_FeatureFlags_IsCallManagementMuteControlEnabled_block_invoke()
 
 uint64_t __MX_FeatureFlags_IsAVODDiscoveryEnhancementEnabled_block_invoke()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   result = _os_feature_enabled_impl();
   MX_FeatureFlags_IsAVODDiscoveryEnhancementEnabled_sIsDiscoveryEnhancementEnabled = result;
   if (dword_1EB75DE40)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-    result = fig_log_call_emit_and_clean_up_after_send_and_compose();
+    return fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -273,167 +268,157 @@ uint64_t __MX_FeatureFlags_IsCounterfeitDetectionEnabled_block_invoke()
 
 uint64_t __MX_FeatureFlags_IsConversationDetectSupported_block_invoke()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   result = _os_feature_enabled_impl();
   MX_FeatureFlags_IsConversationDetectSupported_conversationDetectSupported = result;
   if (dword_1EB75DE40)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-    result = fig_log_call_emit_and_clean_up_after_send_and_compose();
+    return fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __MX_FeatureFlags_IsSmartRoutingOnActivationEnabled_block_invoke()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   result = _os_feature_enabled_impl();
   MX_FeatureFlags_IsSmartRoutingOnActivationEnabled_sSmartRoutingOnActivationEnabled = result;
   if (dword_1EB75DE40)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-    result = fig_log_call_emit_and_clean_up_after_send_and_compose();
+    return fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __MX_FeatureFlags_IsInterruptOnRouteDisconnectEnabled_block_invoke()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   result = _os_feature_enabled_impl();
   MX_FeatureFlags_IsInterruptOnRouteDisconnectEnabled_sInterruptOnRouteDisconnect = result;
   if (dword_1EB75DE40)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-    result = fig_log_call_emit_and_clean_up_after_send_and_compose();
+    return fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __MX_FeatureFlags_IsInterruptLongFormVideoOnSpeechDetectEnabled_block_invoke()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   result = _os_feature_enabled_impl();
   MX_FeatureFlags_IsInterruptLongFormVideoOnSpeechDetectEnabled_sInterruptLongFormVideoOnSpeechDetect = result;
   if (dword_1EB75DE40)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-    result = fig_log_call_emit_and_clean_up_after_send_and_compose();
+    return fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __MX_FeatureFlags_IsAssertionActivityReportingEnabled_block_invoke()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   result = _os_feature_enabled_impl();
   MX_FeatureFlags_IsAssertionActivityReportingEnabled_sAssertionActivityReportingEnabled = result;
   if (dword_1EB75DE40)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-    result = fig_log_call_emit_and_clean_up_after_send_and_compose();
+    return fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __MX_FeatureFlags_IsAudioFormatArbitrationEnabled_block_invoke()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   result = _os_feature_enabled_impl();
   MX_FeatureFlags_IsAudioFormatArbitrationEnabled_sAudioFormatArbitrationEnabled = result;
   if (dword_1EB75DE40)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-    result = fig_log_call_emit_and_clean_up_after_send_and_compose();
+    return fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __MX_FeatureFlags_IsMXSilentModeEnabled_block_invoke()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   result = _os_feature_enabled_impl();
   MX_FeatureFlags_IsMXSilentModeEnabled_sIsUseMXSilentModeEnabled = result;
   if (dword_1EB75DE40)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-    result = fig_log_call_emit_and_clean_up_after_send_and_compose();
+    return fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __MX_FeatureFlags_IsAdaptiveVolumeControlEnabled_block_invoke()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   result = _os_feature_enabled_impl();
   MX_FeatureFlags_IsAdaptiveVolumeControlEnabled_sAdaptiveVolumeControlEnabled = result;
   if (dword_1EB75DE40)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-    result = fig_log_call_emit_and_clean_up_after_send_and_compose();
+    return fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __MX_FeatureFlags_IsSpeechDetectEnabled_block_invoke()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   result = _os_feature_enabled_impl();
   MX_FeatureFlags_IsSpeechDetectEnabled_sSpeechDetectEnabled = result;
   if (dword_1EB75DE40)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-    result = fig_log_call_emit_and_clean_up_after_send_and_compose();
+    return fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __MX_FeatureFlags_IsKeyboardCHAudioEnabled_block_invoke()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   result = _os_feature_enabled_impl();
   MX_FeatureFlags_IsKeyboardCHAudioEnabled_sIsKeyboardCHAudioEnabled = result;
   if (dword_1EB75DE40)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-    result = fig_log_call_emit_and_clean_up_after_send_and_compose();
+    return fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __MX_FeatureFlags_IsQuiesceableWiredConnectionEnabled_block_invoke()
 {
-  v4 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
   v0 = MGGetBoolAnswer();
   if (v0)
   {
@@ -461,80 +446,75 @@ uint64_t __MX_FeatureFlags_IsQuiesceableWiredConnectionEnabled_block_invoke()
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-    result = fig_log_call_emit_and_clean_up_after_send_and_compose();
+    return fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __MX_FeatureFlags_IsPublishHostAttributionToSystemStatusEnabled_block_invoke()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   result = _os_feature_enabled_impl();
   MX_FeatureFlags_IsPublishHostAttributionToSystemStatusEnabled_sPublishHostAttributionToSystemStatusEnabled = result;
   if (dword_1EB75DE40)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-    result = fig_log_call_emit_and_clean_up_after_send_and_compose();
+    return fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __MX_FeatureFlags_IsSystemInputPickerEnabled_block_invoke()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   result = _os_feature_enabled_impl();
   MX_FeatureFlags_IsSystemInputPickerEnabled_sIsSystemInputPickerEnabled = result;
   if (dword_1EB75DE40)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-    result = fig_log_call_emit_and_clean_up_after_send_and_compose();
+    return fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __MX_FeatureFlags_IsBufferedBadgingAndCapabilitiesEnabled_block_invoke()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   result = _os_feature_enabled_impl();
   MX_FeatureFlags_IsBufferedBadgingAndCapabilitiesEnabled_isBufferedBadgingAndCapabilitiesEnabled = result;
   if (dword_1EB75DE40)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-    result = fig_log_call_emit_and_clean_up_after_send_and_compose();
+    return fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __MX_FeatureFlags_IsAsyncDuckingEnabled_block_invoke()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   result = _os_feature_enabled_impl();
   MX_FeatureFlags_IsAsyncDuckingEnabled_isAsyncDuckingEnabled = result;
   if (dword_1EB75DE40)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-    result = fig_log_call_emit_and_clean_up_after_send_and_compose();
+    return fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 void __MX_FeatureFlags_IsOffloadActivationOffACQEnabled_block_invoke()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   if (_os_feature_enabled_impl())
   {
     if (MX_FeatureFlags_IsAsyncDuckingEnabled_onceToken != -1)
@@ -557,61 +537,56 @@ void __MX_FeatureFlags_IsOffloadActivationOffACQEnabled_block_invoke()
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __MX_FeatureFlags_IsSystemRemoteDisplayContextEnabled_block_invoke()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   result = _os_feature_enabled_impl();
   MX_FeatureFlags_IsSystemRemoteDisplayContextEnabled_isSystemRemoteDisplayContextEnabled = result;
   if (dword_1EB75DE40)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-    result = fig_log_call_emit_and_clean_up_after_send_and_compose();
+    return fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __MX_FeatureFlags_IsMaxSpeakerVolumeLimitEnabled_block_invoke()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   result = _os_feature_enabled_impl();
   MX_FeatureFlags_IsMaxSpeakerVolumeLimitEnabled_sIsMaxSpeakerVolumeLimitEnabled = result;
   if (dword_1EB75DE40)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-    result = fig_log_call_emit_and_clean_up_after_send_and_compose();
+    return fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __MX_FeatureFlags_IsOnenessEnabled_block_invoke()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   result = _os_feature_enabled_impl();
   MX_FeatureFlags_IsOnenessEnabled_sIsOnenessEnabled = result;
   if (dword_1EB75DE40)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-    result = fig_log_call_emit_and_clean_up_after_send_and_compose();
+    return fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 void __MX_FeatureFlags_IsSystemSoundsMutingBehaviorInOnenessEnabled_block_invoke()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   if (_os_feature_enabled_impl())
   {
     if (MX_FeatureFlags_IsOnenessEnabled_onceToken != -1)
@@ -634,13 +609,11 @@ void __MX_FeatureFlags_IsSystemSoundsMutingBehaviorInOnenessEnabled_block_invoke
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 void __MX_FeatureFlags_IsInterruptingPlayingSessionsInOnenessEnabled_block_invoke()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   if (_os_feature_enabled_impl())
   {
     if (MX_FeatureFlags_IsOnenessEnabled_onceToken != -1)
@@ -663,109 +636,101 @@ void __MX_FeatureFlags_IsInterruptingPlayingSessionsInOnenessEnabled_block_invok
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __MX_FeatureFlags_IsHangsBufferedSizeHintEnabled_block_invoke()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   result = _os_feature_enabled_impl();
   MX_FeatureFlags_IsHangsBufferedSizeHintEnabled_sHangsBufferedSizeHintEnabled = result;
   if (dword_1EB75DE40)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-    result = fig_log_call_emit_and_clean_up_after_send_and_compose();
+    return fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __MX_FeatureFlags_IsHangsAudioSessionClientCachingEnabled_block_invoke()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   result = _os_feature_enabled_impl();
   MX_FeatureFlags_IsHangsAudioSessionClientCachingEnabled_sHangsAudioSessionClientCachingEnabled = result;
   if (dword_1EB75DE40)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-    result = fig_log_call_emit_and_clean_up_after_send_and_compose();
+    return fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __MX_FeatureFlags_IsCarPlayRingtoneFadeInEnabled_block_invoke()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   result = _os_feature_enabled_impl();
   MX_FeatureFlags_IsCarPlayRingtoneFadeInEnabled_sIsCarPlayRingtoneFadeInEnabled = result;
   if (dword_1EB75DE40)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-    result = fig_log_call_emit_and_clean_up_after_send_and_compose();
+    return fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __MX_FeatureFlags_IsPersonalDevicesMediaVolumeUpdateEnabled_block_invoke()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   result = _os_feature_enabled_impl();
   MX_FeatureFlags_IsPersonalDevicesMediaVolumeUpdateEnabled_sIsPersonalDevicesMediaVolumeUpdateEnabled = result;
   if (dword_1EB75DE40)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-    result = fig_log_call_emit_and_clean_up_after_send_and_compose();
+    return fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __MX_FeatureFlags_IsStartupSequenceChangeEnabled_block_invoke()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   result = _os_feature_enabled_impl();
   MX_FeatureFlags_IsStartupSequenceChangeEnabled_isStartupSequenceChangeEnabled = result;
   if (dword_1EB75DE40)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-    result = fig_log_call_emit_and_clean_up_after_send_and_compose();
+    return fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __MX_FeatureFlags_IsNowPlayingAppStackEnabled_block_invoke()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   result = _os_feature_enabled_impl();
   MX_FeatureFlags_IsNowPlayingAppStackEnabled_sIsNowPlayingAppStackEnabled = result;
   if (dword_1EB75DE40)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-    result = fig_log_call_emit_and_clean_up_after_send_and_compose();
+    return fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __MX_FeatureFlags_IsSessionBasedMutingEnabled_block_invoke()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   result = _os_feature_enabled_impl();
   if (result)
   {
@@ -777,361 +742,347 @@ uint64_t __MX_FeatureFlags_IsSessionBasedMutingEnabled_block_invoke()
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-    result = fig_log_call_emit_and_clean_up_after_send_and_compose();
+    return fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __MX_FeatureFlags_IsProtectedAppsEnabled_block_invoke()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   result = _os_feature_enabled_impl();
   MX_FeatureFlags_IsProtectedAppsEnabled_isProtectedAppsEnabled = result;
   if (dword_1EB75DE40)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-    result = fig_log_call_emit_and_clean_up_after_send_and_compose();
+    return fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __MX_FeatureFlags_IsAllowBackgroundPlaybackEnabled_block_invoke()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   result = _os_feature_enabled_impl();
   MX_FeatureFlags_IsAllowBackgroundPlaybackEnabled_isAllowBackgroundPlaybackEnabled = result;
   if (dword_1EB75DE40)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-    result = fig_log_call_emit_and_clean_up_after_send_and_compose();
+    return fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __MX_FeatureFlags_IsOverdubRecordingEnabled_block_invoke()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   result = _os_feature_enabled_impl();
   MX_FeatureFlags_IsOverdubRecordingEnabled_isOverdubRecordingEnabled = result;
   if (dword_1EB75DE40)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-    result = fig_log_call_emit_and_clean_up_after_send_and_compose();
+    return fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __MX_FeatureFlags_IsMediaMultitaskingEnabled_block_invoke()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   result = _os_feature_enabled_impl();
   MX_FeatureFlags_IsMediaMultitaskingEnabled_isMediaMultitaskingEnabled = result;
   if (dword_1EB75DE40)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-    result = fig_log_call_emit_and_clean_up_after_send_and_compose();
+    return fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __MX_FeatureFlags_IsInputAudioCoexistenceSupportEnabled_block_invoke()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   result = _os_feature_enabled_impl();
   MX_FeatureFlags_IsInputAudioCoexistenceSupportEnabled_isInputAudioCoexistenceSupportEnabled = result;
   if (dword_1EB75DE40)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-    result = fig_log_call_emit_and_clean_up_after_send_and_compose();
+    return fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __MX_FeatureFlags_IsAirPodsStudioVoiceMicEnabled_block_invoke()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   result = _os_feature_enabled_impl();
   MX_FeatureFlags_IsAirPodsStudioVoiceMicEnabled_sIsAirPodsStudioVoiceMicEnabled = result;
   if (dword_1EB75DE40)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-    result = fig_log_call_emit_and_clean_up_after_send_and_compose();
+    return fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __MX_FeatureFlags_IsHighQualityLocalRecordingEnabled_block_invoke()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   result = _os_feature_enabled_impl();
   MX_FeatureFlags_IsHighQualityLocalRecordingEnabled_sIsHighQualityLocalRecordingEnabled = result;
   if (dword_1EB75DE40)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-    result = fig_log_call_emit_and_clean_up_after_send_and_compose();
+    return fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __MX_FeatureFlags_IsPersonalTranslatorEnabled_block_invoke()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   result = _os_feature_enabled_impl();
   MX_FeatureFlags_IsPersonalTranslatorEnabled_isPersonalTranslatorEnabled = result;
   if (dword_1EB75DE40)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-    result = fig_log_call_emit_and_clean_up_after_send_and_compose();
+    return fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __MX_FeatureFlags_IsAirPodsInEarRoutingWithCarsAndSpeakersEnabled_block_invoke()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   result = _os_feature_enabled_impl();
   MX_FeatureFlags_IsAirPodsInEarRoutingWithCarsAndSpeakersEnabled_isAirPodsInEarRoutingWithCarsAndSpeakersEnabled = result;
   if (dword_1EB75DE40)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-    result = fig_log_call_emit_and_clean_up_after_send_and_compose();
+    return fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __MX_FeatureFlags_IsCustomizedRoutingWithCarsAndSpeakersEnabled_block_invoke()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   result = _os_feature_enabled_impl();
   MX_FeatureFlags_IsCustomizedRoutingWithCarsAndSpeakersEnabled_isCustomizedRoutingWithCarsAndSpeakersEnabled = result;
   if (dword_1EB75DE40)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-    result = fig_log_call_emit_and_clean_up_after_send_and_compose();
+    return fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __MX_FeatureFlags_IsRoutingContextReportingEnabled_block_invoke()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   result = _os_feature_enabled_impl();
   MX_FeatureFlags_IsRoutingContextReportingEnabled_isRoutingContextReportingEnabled = result;
   if (dword_1EB75DE40)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-    result = fig_log_call_emit_and_clean_up_after_send_and_compose();
+    return fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __MX_FeatureFlags_IsWHAInstantDiscoveryCachingEnabled_block_invoke()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   result = _os_feature_enabled_impl();
   MX_FeatureFlags_IsWHAInstantDiscoveryCachingEnabled_isWHAInstantDiscoveryCachingEnabled = result;
   if (dword_1EB75DE40)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-    result = fig_log_call_emit_and_clean_up_after_send_and_compose();
+    return fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __MX_FeatureFlags_IsShortFormOutputMutingEnabled_block_invoke()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   result = _os_feature_enabled_impl();
   MX_FeatureFlags_IsShortFormOutputMutingEnabled_isShortFormOutputMutingEnabled = result;
   if (dword_1EB75DE40)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-    result = fig_log_call_emit_and_clean_up_after_send_and_compose();
+    return fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __MX_FeatureFlags_IsCallConnectHapticsEnabled_block_invoke()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   result = _os_feature_enabled_impl();
   MX_FeatureFlags_IsCallConnectHapticsEnabled_isCallConnectHapticsEnabled = result;
   if (dword_1EB75DE40)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-    result = fig_log_call_emit_and_clean_up_after_send_and_compose();
+    return fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __MX_FeatureFlags_IsSynchronizeSiriAlarmVolumesToMediaVolumeEnabled_block_invoke()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   result = _os_feature_enabled_impl();
   MX_FeatureFlags_IsSynchronizeSiriAlarmVolumesToMediaVolumeEnabled_sIsSynchronizeSiriAlarmVolumesToMediaVolumeEnabled = result;
   if (dword_1EB75DE40)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-    result = fig_log_call_emit_and_clean_up_after_send_and_compose();
+    return fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 id __26__MX_TelephonyClient_init__block_invoke(uint64_t a1)
 {
-  v6[20] = *MEMORY[0x1E69E9840];
-  v6[0] = 0;
-  result = [*(*(a1 + 32) + 8) getUserDefaultVoiceSubscriptionContext:v6];
-  if (v6[0] || result && ((result = [*(*(a1 + 32) + 8) copyMobileSubscriberCountryCode:result error:v6], v6[0]) || result && ((result = objc_msgSend(*(*(a1 + 32) + 8), "copyMobileSubscriberIsoCountryCode:error:", result, v6), v6[0]) || (result ? (v5 = dword_1EB75DE40 == 0) : (v5 = 1), !v5))))
+  v5[20] = *MEMORY[0x1E69E9840];
+  v5[0] = 0;
+  result = [*(*(a1 + 32) + 8) getUserDefaultVoiceSubscriptionContext:v5];
+  if (v5[0] || result && ((result = [*(*(a1 + 32) + 8) copyMobileSubscriberCountryCode:result error:v5], v5[0]) || result && ((result = objc_msgSend(*(*(a1 + 32) + 8), "copyMobileSubscriberIsoCountryCode:error:", result, v5), v5[0]) || (result ? (v4 = dword_1EB75DE40 == 0) : (v4 = 1), !v4))))
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-    result = fig_log_call_emit_and_clean_up_after_send_and_compose();
+    return fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __46__MX_TelephonyClient_copyIsoCountryCodeForMCC__block_invoke(uint64_t a1)
-{
-  v6[20] = *MEMORY[0x1E69E9840];
-  v6[0] = 0;
-  result = [*(*(a1 + 32) + 8) getUserDefaultVoiceSubscriptionContext:v6];
-  if (v6[0])
-  {
-    goto LABEL_7;
-  }
-
-  if (result)
-  {
-    result = [*(*(a1 + 32) + 8) copyMobileSubscriberCountryCode:result error:v6];
-    if (v6[0])
-    {
-      goto LABEL_7;
-    }
-
-    if (result)
-    {
-      result = [*(*(a1 + 32) + 8) copyMobileSubscriberIsoCountryCode:result error:v6];
-      if (v6[0])
-      {
-LABEL_7:
-        os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-        os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-        result = fig_log_call_emit_and_clean_up_after_send_and_compose();
-        goto LABEL_8;
-      }
-
-      v5 = result;
-      if (result)
-      {
-        result = [result length];
-        if (result)
-        {
-          result = [v5 isEqualToString:&stru_1F2890CF0];
-          if ((result & 1) == 0)
-          {
-            result = [v5 uppercaseString];
-            *(*(*(a1 + 40) + 8) + 40) = result;
-          }
-        }
-      }
-    }
-  }
-
-LABEL_8:
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-id __40__MX_TelephonyClient_getIsInHomeCountry__block_invoke(uint64_t a1)
 {
   v5[20] = *MEMORY[0x1E69E9840];
   v5[0] = 0;
   result = [*(*(a1 + 32) + 8) getUserDefaultVoiceSubscriptionContext:v5];
   if (v5[0])
   {
+    goto LABEL_7;
+  }
+
+  if (!result)
+  {
+    return result;
+  }
+
+  result = [*(*(a1 + 32) + 8) copyMobileSubscriberCountryCode:result error:v5];
+  if (v5[0])
+  {
+    goto LABEL_7;
+  }
+
+  if (!result)
+  {
+    return result;
+  }
+
+  result = [*(*(a1 + 32) + 8) copyMobileSubscriberIsoCountryCode:result error:v5];
+  if (v5[0])
+  {
+LABEL_7:
+    os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
+    return fig_log_call_emit_and_clean_up_after_send_and_compose();
+  }
+
+  else
+  {
+    v4 = result;
+    if (result)
+    {
+      result = [result length];
+      if (result)
+      {
+        result = [v4 isEqualToString:&stru_1F2890CF0];
+        if ((result & 1) == 0)
+        {
+          result = [v4 uppercaseString];
+          *(*(*(a1 + 40) + 8) + 40) = result;
+        }
+      }
+    }
+  }
+
+  return result;
+}
+
+id __40__MX_TelephonyClient_getIsInHomeCountry__block_invoke(uint64_t a1)
+{
+  v4[20] = *MEMORY[0x1E69E9840];
+  v4[0] = 0;
+  result = [*(*(a1 + 32) + 8) getUserDefaultVoiceSubscriptionContext:v4];
+  if (v4[0])
+  {
     goto LABEL_4;
   }
 
-  if (result)
+  if (!result)
   {
-    result = [*(*(a1 + 32) + 8) copyIsInHomeCountry:result error:v5];
-    if (v5[0])
-    {
-LABEL_4:
-      os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-      result = fig_log_call_emit_and_clean_up_after_send_and_compose();
-      goto LABEL_5;
-    }
-
-    if (result)
-    {
-      result = [result BOOLValue];
-      *(*(*(a1 + 40) + 8) + 24) = result;
-    }
+    return result;
   }
 
-LABEL_5:
-  v4 = *MEMORY[0x1E69E9840];
+  result = [*(*(a1 + 32) + 8) copyIsInHomeCountry:result error:v4];
+  if (v4[0])
+  {
+LABEL_4:
+    os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
+    return fig_log_call_emit_and_clean_up_after_send_and_compose();
+  }
+
+  else if (result)
+  {
+    result = [result BOOLValue];
+    *(*(*(a1 + 40) + 8) + 24) = result;
+  }
+
   return result;
 }
 
 void __62__MX_TelephonyClient_copyCountryNameFromOperatorCountryBundle__block_invoke(uint64_t a1)
 {
-  v18[5] = *MEMORY[0x1E69E9840];
-  v11 = 0;
-  v2 = [*(*(a1 + 32) + 8) getUserDefaultVoiceSubscriptionContext:&v11];
-  if (v11)
+  v17[5] = *MEMORY[0x1E69E9840];
+  v10 = 0;
+  v2 = [*(*(a1 + 32) + 8) getUserDefaultVoiceSubscriptionContext:&v10];
+  if (v10)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
@@ -1143,49 +1094,50 @@ void __62__MX_TelephonyClient_copyCountryNameFromOperatorCountryBundle__block_in
     v4 = v2;
     if (v2)
     {
-      v12 = 0;
-      v13 = &v12;
-      v14 = 0x3052000000;
-      v15 = __Block_byref_object_copy__2;
+      v11 = 0;
+      v12 = &v11;
+      v13 = 0x3052000000;
+      v14 = __Block_byref_object_copy__2;
       v5 = getCTBundleClass_softClass;
-      v16 = __Block_byref_object_dispose__2;
-      v17 = getCTBundleClass_softClass;
+      v15 = __Block_byref_object_dispose__2;
+      v16 = getCTBundleClass_softClass;
       if (!getCTBundleClass_softClass)
       {
-        v18[0] = MEMORY[0x1E69E9820];
-        v18[1] = 3221225472;
-        v18[2] = __getCTBundleClass_block_invoke;
-        v18[3] = &unk_1E7AE73A0;
-        v18[4] = &v12;
-        __getCTBundleClass_block_invoke(v18);
-        v5 = v13[5];
+        v17[0] = MEMORY[0x1E69E9820];
+        v17[1] = 3221225472;
+        v17[2] = __getCTBundleClass_block_invoke;
+        v17[3] = &unk_1E7AE73A0;
+        v17[4] = &v11;
+        __getCTBundleClass_block_invoke(v17);
+        v5 = v12[5];
       }
 
-      _Block_object_dispose(&v12, 8);
+      _Block_object_dispose(&v11, 8);
       v6 = [[v5 alloc] initWithBundleType:6];
-      v7 = [*(*(a1 + 32) + 8) copyCarrierBundleValue:v4 key:@"CountryName" bundleType:v6 error:&v11];
+      v7 = [*(*(a1 + 32) + 8) copyCarrierBundleValue:v4 key:@"CountryName" bundleType:v6 error:&v10];
       v8 = v7;
-      if (v11)
+      if (v10)
       {
         v9 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
         os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
         fig_log_call_emit_and_clean_up_after_send_and_compose();
       }
 
-      else if ([v7 length] && (objc_msgSend(v8, "isEqualToString:", &stru_1F2890CF0) & 1) == 0)
+      else if ([v7 length])
       {
-        *(*(*(a1 + 40) + 8) + 40) = v8;
+        if (([v8 isEqualToString:&stru_1F2890CF0] & 1) == 0)
+        {
+          *(*(*(a1 + 40) + 8) + 40) = v8;
+        }
       }
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 MX_TelephonyClient *__mx_telephonyClient_Initialize_block_invoke()
 {
-  v3 = *MEMORY[0x1E69E9840];
-  result = CoreTelephonyLibraryCore();
+  v2 = *MEMORY[0x1E69E9840];
+  result = CoreTelephonyLibraryCore(0);
   if (result)
   {
     result = objc_alloc_init(MX_TelephonyClient);
@@ -1194,11 +1146,10 @@ MX_TelephonyClient *__mx_telephonyClient_Initialize_block_invoke()
     {
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-      result = fig_log_call_emit_and_clean_up_after_send_and_compose();
+      return fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -1232,31 +1183,30 @@ dispatch_queue_t __MX_CoreServices_GetSerialQueue_block_invoke()
 
 void __78__MX_DeviceManagementPolicyDidChangeObserver_deviceManagementPolicyDidChange___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (gCoreServicesIsInitialized == 1)
   {
-    v15 = 0u;
-    v16 = 0u;
+    v12 = 0u;
     v13 = 0u;
-    v14 = 0u;
+    v10 = 0u;
+    v11 = 0u;
     v1 = *(a1 + 32);
-    v2 = [v1 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v2 = [v1 countByEnumeratingWithState:&v10 objects:v14 count:16];
     if (v2)
     {
       v3 = v2;
-      v4 = *v14;
+      v4 = *v11;
       do
       {
         for (i = 0; i != v3; ++i)
         {
-          if (*v14 != v4)
+          if (*v11 != v4)
           {
             objc_enumerationMutation(v1);
           }
 
-          v6 = *(*(&v13 + 1) + 8 * i);
-          [v6 bundleIdentifier];
-          cmsmLSUpdateDeviceManagementCache([v6 deviceManagementPolicy]);
+          v6 = *(*(&v10 + 1) + 8 * i);
+          cmsmLSUpdateDeviceManagementCache([v6 deviceManagementPolicy], objc_msgSend(v6, "bundleIdentifier"));
           if ([v6 deviceManagementPolicy])
           {
             if (CMSMUtility_IsCarPlaySessionPresent())
@@ -1283,38 +1233,36 @@ void __78__MX_DeviceManagementPolicyDidChangeObserver_deviceManagementPolicyDidC
           }
         }
 
-        v3 = [v1 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v3 = [v1 countByEnumeratingWithState:&v10 objects:v14 count:16];
       }
 
       while (v3);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __42__MX_GEOCountryConfigurationObserver_init__block_invoke(uint64_t a1)
 {
-  v14[5] = *MEMORY[0x1E69E9840];
-  v8 = 0;
-  v9 = &v8;
-  v10 = 0x3052000000;
-  v11 = __Block_byref_object_copy__7;
+  v11[5] = *MEMORY[0x1E69E9840];
+  v5 = 0;
+  v6 = &v5;
+  v7 = 0x3052000000;
+  v8 = __Block_byref_object_copy__7;
   v2 = getGEOCountryConfigurationClass_softClass;
-  v12 = __Block_byref_object_dispose__7;
-  v13 = getGEOCountryConfigurationClass_softClass;
+  v9 = __Block_byref_object_dispose__7;
+  v10 = getGEOCountryConfigurationClass_softClass;
   if (!getGEOCountryConfigurationClass_softClass)
   {
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __getGEOCountryConfigurationClass_block_invoke;
-    v14[3] = &unk_1E7AE73A0;
-    v14[4] = &v8;
-    __getGEOCountryConfigurationClass_block_invoke(v14);
-    v2 = v9[5];
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __getGEOCountryConfigurationClass_block_invoke;
+    v11[3] = &unk_1E7AE73A0;
+    v11[4] = &v5;
+    __getGEOCountryConfigurationClass_block_invoke(v11);
+    v2 = v6[5];
   }
 
-  _Block_object_dispose(&v8, 8);
+  _Block_object_dispose(&v5, 8);
   *(*(a1 + 32) + 16) = [v2 sharedConfiguration];
   *(*(a1 + 32) + 24) = [*(*(a1 + 32) + 16) countryCode];
   if (dword_1EB75DE40)
@@ -1324,12 +1272,10 @@ uint64_t __42__MX_GEOCountryConfigurationObserver_init__block_invoke(uint64_t a1
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  result = [objc_msgSend(MEMORY[0x1E696AD88] defaultCenter];
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  return [objc_msgSend(MEMORY[0x1E696AD88] "defaultCenter")];
 }
 
-uint64_t __59__MX_GEOCountryConfigurationObserver_getCurrentCountryCode__block_invoke(uint64_t a1)
+void *__59__MX_GEOCountryConfigurationObserver_getCurrentCountryCode__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 24) length];
   if (result)
@@ -1346,7 +1292,7 @@ uint64_t __59__MX_GEOCountryConfigurationObserver_getCurrentCountryCode__block_i
 
 uint64_t __91__MX_GEOCountryConfigurationObserver__updateCountryCodeFromCurrentGeoCountryConfiguration___block_invoke(uint64_t a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   result = [*(*(a1 + 32) + 24) isEqualToString:*(a1 + 40)];
   if ((result & 1) == 0)
   {
@@ -1355,18 +1301,17 @@ uint64_t __91__MX_GEOCountryConfigurationObserver__updateCountryCodeFromCurrentG
     {
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-      result = fig_log_call_emit_and_clean_up_after_send_and_compose();
+      return fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 MX_GEOCountryConfigurationObserver *__mx_geoCountryConfigurationObserver_Initialize_block_invoke()
 {
-  v3 = *MEMORY[0x1E69E9840];
-  result = GeoServicesLibraryCore();
+  v2 = *MEMORY[0x1E69E9840];
+  result = GeoServicesLibraryCore(0);
   if (result)
   {
     result = objc_alloc_init(MX_GEOCountryConfigurationObserver);
@@ -1375,40 +1320,25 @@ MX_GEOCountryConfigurationObserver *__mx_geoCountryConfigurationObserver_Initial
     {
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-      result = fig_log_call_emit_and_clean_up_after_send_and_compose();
+      return fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 void __27__MX_HIDEventObserver_init__block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v2 = *MEMORY[0x1E695E480];
+  v8 = *MEMORY[0x1E69E9840];
   *(*(a1 + 32) + 8) = IOHIDEventSystemClientCreateWithType();
-  if (!*(*(a1 + 32) + 8))
+  if (*(*(a1 + 32) + 8) && (IOHIDEventSystemClientSetMatchingMultiple(), IOHIDEventSystemClientRegisterEventCallback(), CFRunLoopGetMain(), IOHIDEventSystemClientScheduleWithRunLoop(), (v2 = *(*(a1 + 32) + 8)) != 0))
   {
-    goto LABEL_5;
-  }
-
-  IOHIDEventSystemClientSetMatchingMultiple();
-  v3 = *(*(a1 + 32) + 8);
-  IOHIDEventSystemClientRegisterEventCallback();
-  v4 = *(*(a1 + 32) + 8);
-  CFRunLoopGetMain();
-  v5 = *MEMORY[0x1E695E8E0];
-  IOHIDEventSystemClientScheduleWithRunLoop();
-  v6 = *(*(a1 + 32) + 8);
-  if (v6)
-  {
-    v7 = IOHIDEventSystemClientCopyServices(v6);
-    SmartCoverState = mx_ioKit_getSmartCoverState(v7, 1);
-    v9 = mx_ioKit_getSmartCoverState(v7, 2) | SmartCoverState;
-    v10 = v9 == 3;
-    gFlap1StateIsEngaged = v9 > 1;
-    gOpenStateIsEngaged = v9 & 1;
+    v3 = IOHIDEventSystemClientCopyServices(v2);
+    SmartCoverState = mx_ioKit_getSmartCoverState(v3, 1);
+    v5 = mx_ioKit_getSmartCoverState(v3, 2) | SmartCoverState;
+    v6 = v5 == 3;
+    gFlap1StateIsEngaged = v5 > 1;
+    gOpenStateIsEngaged = v5 & 1;
     if (dword_1EB75DE40)
     {
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -1416,49 +1346,46 @@ void __27__MX_HIDEventObserver_init__block_invoke(uint64_t a1)
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    if (v7)
+    if (v3)
     {
-      CFRelease(v7);
+      CFRelease(v3);
     }
   }
 
   else
   {
-LABEL_5:
-    v10 = 0;
+    v6 = 0;
   }
 
-  *(*(a1 + 32) + 16) = v10;
+  *(*(a1 + 32) + 16) = v6;
   CMSMDeviceState_UpdateSmartCoverState(*(*(a1 + 32) + 16));
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __35__MX_HIDEventObserver_handleEvent___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) smartCoverClosed];
-  v3 = *(*(*(a1 + 40) + 8) + 24);
   if (IOHIDEventGetType() == 3)
   {
     [*(a1 + 32) handleButtonEvent:*(*(*(a1 + 40) + 8) + 24)];
   }
 
-  v4 = [*(a1 + 32) smartCoverClosed];
-  if (v2 != v4)
+  v3 = [*(a1 + 32) smartCoverClosed];
+  if (v2 != v3)
   {
-    CMSMDeviceState_UpdateSmartCoverState(v4);
+    CMSMDeviceState_UpdateSmartCoverState(v3);
   }
 
-  v5 = *(*(*(a1 + 40) + 8) + 24);
-  if (v5)
+  v4 = *(*(*(a1 + 40) + 8) + 24);
+  if (v4)
   {
 
-    CFRelease(v5);
+    CFRelease(v4);
   }
 }
 
 void __MX_IOKit_Initialize_block_invoke()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   v0 = objc_autoreleasePoolPush();
   gMXHIDEventObserver = objc_alloc_init(MX_HIDEventObserver);
   if (!gMXHIDEventObserver)
@@ -1469,7 +1396,6 @@ void __MX_IOKit_Initialize_block_invoke()
   }
 
   objc_autoreleasePoolPop(v0);
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 void __MX_RunningBoardServices_StopMonitoringForPID_block_invoke(uint64_t a1, void *a2)
@@ -1480,26 +1406,26 @@ void __MX_RunningBoardServices_StopMonitoringForPID_block_invoke(uint64_t a1, vo
 
 uint64_t __26__MX_NetworkObserver_init__block_invoke(uint64_t a1)
 {
-  v39 = *MEMORY[0x1E69E9840];
-  v35 = 0;
-  v36 = &v35;
-  v37 = 0x2020000000;
+  v36 = *MEMORY[0x1E69E9840];
+  v34[0] = 0;
+  v34[1] = v34;
+  v34[2] = 0x2020000000;
   v2 = getnw_path_monitor_create_with_typeSymbolLoc_ptr;
-  v38 = getnw_path_monitor_create_with_typeSymbolLoc_ptr;
+  v35 = getnw_path_monitor_create_with_typeSymbolLoc_ptr;
   if (!getnw_path_monitor_create_with_typeSymbolLoc_ptr)
   {
-    v30 = MEMORY[0x1E69E9820];
-    v31 = 3221225472;
-    v32 = __getnw_path_monitor_create_with_typeSymbolLoc_block_invoke;
-    v33 = &unk_1E7AE73A0;
-    v34 = &v35;
+    v29 = MEMORY[0x1E69E9820];
+    v30 = 3221225472;
+    v31 = __getnw_path_monitor_create_with_typeSymbolLoc_block_invoke;
+    v32 = &unk_1E7AE73A0;
+    v33 = v34;
     v3 = NetworkLibrary();
-    v36[3] = dlsym(v3, "nw_path_monitor_create_with_type");
-    getnw_path_monitor_create_with_typeSymbolLoc_ptr = *(v34[1] + 24);
-    v2 = v36[3];
+    *(v34[1] + 24) = dlsym(v3, "nw_path_monitor_create_with_type");
+    getnw_path_monitor_create_with_typeSymbolLoc_ptr = *(v33[1] + 24);
+    v2 = *(v34[1] + 24);
   }
 
-  _Block_object_dispose(&v35, 8);
+  _Block_object_dispose(v34, 8);
   if (!v2)
   {
     goto LABEL_24;
@@ -1508,30 +1434,30 @@ uint64_t __26__MX_NetworkObserver_init__block_invoke(uint64_t a1)
   *(*(a1 + 32) + 16) = v2(2);
   v4 = *(a1 + 32);
   v5 = *(v4 + 16);
-  v29[0] = MEMORY[0x1E69E9820];
-  v29[1] = 3221225472;
-  v29[2] = __26__MX_NetworkObserver_init__block_invoke_2;
-  v29[3] = &unk_1E7AEC6F0;
-  v29[4] = v4;
-  v35 = 0;
-  v36 = &v35;
-  v37 = 0x2020000000;
+  v28[0] = MEMORY[0x1E69E9820];
+  v28[1] = 3221225472;
+  v28[2] = __26__MX_NetworkObserver_init__block_invoke_2;
+  v28[3] = &unk_1E7AEC6F0;
+  v28[4] = v4;
+  v34[0] = 0;
+  v34[1] = v34;
+  v34[2] = 0x2020000000;
   v6 = getnw_path_monitor_set_update_handlerSymbolLoc_ptr;
-  v38 = getnw_path_monitor_set_update_handlerSymbolLoc_ptr;
+  v35 = getnw_path_monitor_set_update_handlerSymbolLoc_ptr;
   if (!getnw_path_monitor_set_update_handlerSymbolLoc_ptr)
   {
-    v30 = MEMORY[0x1E69E9820];
-    v31 = 3221225472;
-    v32 = __getnw_path_monitor_set_update_handlerSymbolLoc_block_invoke;
-    v33 = &unk_1E7AE73A0;
-    v34 = &v35;
+    v29 = MEMORY[0x1E69E9820];
+    v30 = 3221225472;
+    v31 = __getnw_path_monitor_set_update_handlerSymbolLoc_block_invoke;
+    v32 = &unk_1E7AE73A0;
+    v33 = v34;
     v7 = NetworkLibrary();
-    v36[3] = dlsym(v7, "nw_path_monitor_set_update_handler");
-    getnw_path_monitor_set_update_handlerSymbolLoc_ptr = *(v34[1] + 24);
-    v6 = v36[3];
+    *(v34[1] + 24) = dlsym(v7, "nw_path_monitor_set_update_handler");
+    getnw_path_monitor_set_update_handlerSymbolLoc_ptr = *(v33[1] + 24);
+    v6 = *(v34[1] + 24);
   }
 
-  _Block_object_dispose(&v35, 8);
+  _Block_object_dispose(v34, 8);
   if (!v6)
   {
 LABEL_24:
@@ -1539,30 +1465,30 @@ LABEL_24:
     goto LABEL_27;
   }
 
-  v6(v5, v29);
+  v6(v5, v28);
   v8 = *(a1 + 32);
   v10 = *(v8 + 8);
   v9 = *(v8 + 16);
-  v35 = 0;
-  v36 = &v35;
-  v37 = 0x2020000000;
+  v34[0] = 0;
+  v34[1] = v34;
+  v34[2] = 0x2020000000;
   v11 = getnw_path_monitor_set_queueSymbolLoc_ptr;
-  v38 = getnw_path_monitor_set_queueSymbolLoc_ptr;
+  v35 = getnw_path_monitor_set_queueSymbolLoc_ptr;
   if (!getnw_path_monitor_set_queueSymbolLoc_ptr)
   {
-    v30 = MEMORY[0x1E69E9820];
-    v31 = 3221225472;
-    v32 = __getnw_path_monitor_set_queueSymbolLoc_block_invoke;
-    v33 = &unk_1E7AE73A0;
-    v34 = &v35;
+    v29 = MEMORY[0x1E69E9820];
+    v30 = 3221225472;
+    v31 = __getnw_path_monitor_set_queueSymbolLoc_block_invoke;
+    v32 = &unk_1E7AE73A0;
+    v33 = v34;
     v12 = NetworkLibrary();
     v13 = dlsym(v12, "nw_path_monitor_set_queue");
-    *(v34[1] + 24) = v13;
-    getnw_path_monitor_set_queueSymbolLoc_ptr = *(v34[1] + 24);
-    v11 = v36[3];
+    *(v33[1] + 24) = v13;
+    getnw_path_monitor_set_queueSymbolLoc_ptr = *(v33[1] + 24);
+    v11 = *(v34[1] + 24);
   }
 
-  _Block_object_dispose(&v35, 8);
+  _Block_object_dispose(v34, 8);
   if (!v11)
   {
     goto LABEL_26;
@@ -1570,52 +1496,52 @@ LABEL_24:
 
   v11(v9, v10);
   v14 = *(*(a1 + 32) + 16);
-  v35 = 0;
-  v36 = &v35;
-  v37 = 0x2020000000;
+  v34[0] = 0;
+  v34[1] = v34;
+  v34[2] = 0x2020000000;
   v15 = getnw_path_monitor_startSymbolLoc_ptr;
-  v38 = getnw_path_monitor_startSymbolLoc_ptr;
+  v35 = getnw_path_monitor_startSymbolLoc_ptr;
   if (!getnw_path_monitor_startSymbolLoc_ptr)
   {
-    v30 = MEMORY[0x1E69E9820];
-    v31 = 3221225472;
-    v32 = __getnw_path_monitor_startSymbolLoc_block_invoke;
-    v33 = &unk_1E7AE73A0;
-    v34 = &v35;
+    v29 = MEMORY[0x1E69E9820];
+    v30 = 3221225472;
+    v31 = __getnw_path_monitor_startSymbolLoc_block_invoke;
+    v32 = &unk_1E7AE73A0;
+    v33 = v34;
     v16 = NetworkLibrary();
     v17 = dlsym(v16, "nw_path_monitor_start");
-    *(v34[1] + 24) = v17;
-    getnw_path_monitor_startSymbolLoc_ptr = *(v34[1] + 24);
-    v15 = v36[3];
+    *(v33[1] + 24) = v17;
+    getnw_path_monitor_startSymbolLoc_ptr = *(v33[1] + 24);
+    v15 = *(v34[1] + 24);
   }
 
-  _Block_object_dispose(&v35, 8);
+  _Block_object_dispose(v34, 8);
   if (!v15)
   {
     goto LABEL_26;
   }
 
   v15(v14);
-  v35 = 0;
-  v36 = &v35;
-  v37 = 0x2020000000;
+  v34[0] = 0;
+  v34[1] = v34;
+  v34[2] = 0x2020000000;
   v18 = getnw_path_create_evaluator_for_endpointSymbolLoc_ptr;
-  v38 = getnw_path_create_evaluator_for_endpointSymbolLoc_ptr;
+  v35 = getnw_path_create_evaluator_for_endpointSymbolLoc_ptr;
   if (!getnw_path_create_evaluator_for_endpointSymbolLoc_ptr)
   {
-    v30 = MEMORY[0x1E69E9820];
-    v31 = 3221225472;
-    v32 = __getnw_path_create_evaluator_for_endpointSymbolLoc_block_invoke;
-    v33 = &unk_1E7AE73A0;
-    v34 = &v35;
+    v29 = MEMORY[0x1E69E9820];
+    v30 = 3221225472;
+    v31 = __getnw_path_create_evaluator_for_endpointSymbolLoc_block_invoke;
+    v32 = &unk_1E7AE73A0;
+    v33 = v34;
     v19 = NetworkLibrary();
     v20 = dlsym(v19, "nw_path_create_evaluator_for_endpoint");
-    *(v34[1] + 24) = v20;
-    getnw_path_create_evaluator_for_endpointSymbolLoc_ptr = *(v34[1] + 24);
-    v18 = v36[3];
+    *(v33[1] + 24) = v20;
+    getnw_path_create_evaluator_for_endpointSymbolLoc_ptr = *(v33[1] + 24);
+    v18 = *(v34[1] + 24);
   }
 
-  _Block_object_dispose(&v35, 8);
+  _Block_object_dispose(v34, 8);
   if (!v18)
   {
     goto LABEL_26;
@@ -1628,26 +1554,26 @@ LABEL_24:
     goto LABEL_21;
   }
 
-  v35 = 0;
-  v36 = &v35;
-  v37 = 0x2020000000;
+  v34[0] = 0;
+  v34[1] = v34;
+  v34[2] = 0x2020000000;
   v23 = getnw_path_evaluator_copy_pathSymbolLoc_ptr;
-  v38 = getnw_path_evaluator_copy_pathSymbolLoc_ptr;
+  v35 = getnw_path_evaluator_copy_pathSymbolLoc_ptr;
   if (!getnw_path_evaluator_copy_pathSymbolLoc_ptr)
   {
-    v30 = MEMORY[0x1E69E9820];
-    v31 = 3221225472;
-    v32 = __getnw_path_evaluator_copy_pathSymbolLoc_block_invoke;
-    v33 = &unk_1E7AE73A0;
-    v34 = &v35;
+    v29 = MEMORY[0x1E69E9820];
+    v30 = 3221225472;
+    v31 = __getnw_path_evaluator_copy_pathSymbolLoc_block_invoke;
+    v32 = &unk_1E7AE73A0;
+    v33 = v34;
     v24 = NetworkLibrary();
     v25 = dlsym(v24, "nw_path_evaluator_copy_path");
-    *(v34[1] + 24) = v25;
-    getnw_path_evaluator_copy_pathSymbolLoc_ptr = *(v34[1] + 24);
-    v23 = v36[3];
+    *(v33[1] + 24) = v25;
+    getnw_path_evaluator_copy_pathSymbolLoc_ptr = *(v33[1] + 24);
+    v23 = *(v34[1] + 24);
   }
 
-  _Block_object_dispose(&v35, 8);
+  _Block_object_dispose(v34, 8);
   if (!v23)
   {
 LABEL_26:
@@ -1664,17 +1590,16 @@ LABEL_21:
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-    result = fig_log_call_emit_and_clean_up_after_send_and_compose();
+    return fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v28 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 MX_NetworkObserver *__mx_networkObserver_Initialize_block_invoke()
 {
-  v3 = *MEMORY[0x1E69E9840];
-  result = NetworkLibraryCore();
+  v2 = *MEMORY[0x1E69E9840];
+  result = NetworkLibraryCore(0);
   if (result)
   {
     result = objc_alloc_init(MX_NetworkObserver);
@@ -1683,11 +1608,10 @@ MX_NetworkObserver *__mx_networkObserver_Initialize_block_invoke()
     {
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-      result = fig_log_call_emit_and_clean_up_after_send_and_compose();
+      return fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -1715,7 +1639,7 @@ dispatch_queue_t __49__MX_BannerManager_getBannerCleanupDispatchQueue__block_inv
   return result;
 }
 
-uint64_t __41__MX_BannerManager_getSharedBannerClient__block_invoke()
+void *__41__MX_BannerManager_getSharedBannerClient__block_invoke()
 {
   result = [MEMORY[0x1E69ADA30] sharedInstance];
   sBannerClient = result;
@@ -1756,9 +1680,10 @@ void __81__MX_BannerManager_cleanupBannersIfNeededForRoute_routeName_endpointMan
   }
 }
 
-void __62__MX_BannerManager_promptUserResponseForRoute_connectHandler___block_invoke(uint64_t a1, int a2)
+void __62__MX_BannerManager_promptUserResponseForRoute_connectHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v2 = a2;
+  v21 = *MEMORY[0x1E69E9840];
   v4 = bannerResponseCacheMutex;
   objc_sync_enter(bannerResponseCacheMutex);
   v5 = *(*(a1 + 64) + 8);
@@ -1798,7 +1723,7 @@ LABEL_8:
   v9 = *(a1 + 88);
   v10 = *(*(*(a1 + 72) + 8) + 24);
   v11 = *(*(*(a1 + 80) + 8) + 24);
-  if (a2)
+  if (v2)
   {
     [v8 sendBannerActionToAudioStatistics:0 bannerType:0 targetDeviceType:v9 targetProductID:v10 sourceDeviceType:v11];
     [objc_msgSend(*(*(a1 + 32) + 8) objectForKey:{*(a1 + 40)), "setBannerResponse:", 2}];
@@ -1817,69 +1742,65 @@ LABEL_8:
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    v13 = *(a1 + 104);
-    v14 = *(a1 + 112);
-    (*(*(a1 + 56) + 16))(*(a1 + 56), *(a1 + 96));
+    (*(*(a1 + 56) + 16))();
   }
 
 LABEL_14:
   objc_sync_exit(v4);
-  v15 = *(a1 + 96);
+  v13 = *(a1 + 96);
+  if (v13)
+  {
+    CFRelease(v13);
+  }
+
+  v14 = *(a1 + 112);
+  if (v14)
+  {
+    CFRelease(v14);
+  }
+
+  v15 = *(a1 + 104);
   if (v15)
   {
     CFRelease(v15);
   }
 
-  v16 = *(a1 + 112);
+  v16 = *(a1 + 120);
   if (v16)
   {
     CFRelease(v16);
   }
 
-  v17 = *(a1 + 104);
+  v17 = *(a1 + 128);
   if (v17)
   {
     CFRelease(v17);
   }
 
-  v18 = *(a1 + 120);
+  v18 = *(a1 + 48);
   if (v18)
   {
-    CFRelease(v18);
+    dispatch_release(v18);
   }
 
-  v19 = *(a1 + 128);
+  v19 = *(*(*(a1 + 72) + 8) + 24);
   if (v19)
   {
     CFRelease(v19);
-  }
-
-  v20 = *(a1 + 48);
-  if (v20)
-  {
-    dispatch_release(v20);
-  }
-
-  v21 = *(*(*(a1 + 72) + 8) + 24);
-  if (v21)
-  {
-    CFRelease(v21);
     *(*(*(a1 + 72) + 8) + 24) = 0;
   }
 
-  v22 = *(*(*(a1 + 80) + 8) + 24);
-  if (v22)
+  v20 = *(*(*(a1 + 80) + 8) + 24);
+  if (v20)
   {
-    CFRelease(v22);
+    CFRelease(v20);
     *(*(*(a1 + 80) + 8) + 24) = 0;
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 void __62__MX_BannerManager_promptUserResponseForRoute_connectHandler___block_invoke_101(uint64_t a1)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (dword_1EB75DE40)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -1932,7 +1853,7 @@ void __62__MX_BannerManager_promptUserResponseForRoute_connectHandler___block_in
   os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
   fig_log_call_emit_and_clean_up_after_send_and_compose();
 LABEL_14:
-  if ([v7 isEqualToNumber:{&unk_1F28AF6F8, v21, v22}])
+  if ([v7 isEqualToNumber:&unk_1F28AF6F8])
   {
     if (dword_1EB75DE40)
     {
@@ -1941,54 +1862,51 @@ LABEL_14:
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    v12 = *(a1 + 80);
-    v13 = *(a1 + 88);
-    (*(*(a1 + 56) + 16))(*(a1 + 56), *(a1 + 72));
+    (*(*(a1 + 56) + 16))();
   }
 
   objc_sync_exit(v6);
-  v14 = *(a1 + 72);
+  v12 = *(a1 + 72);
+  if (v12)
+  {
+    CFRelease(v12);
+  }
+
+  v13 = *(a1 + 88);
+  if (v13)
+  {
+    CFRelease(v13);
+  }
+
+  v14 = *(a1 + 96);
   if (v14)
   {
     CFRelease(v14);
   }
 
-  v15 = *(a1 + 88);
+  v15 = *(a1 + 80);
   if (v15)
   {
     CFRelease(v15);
   }
 
-  v16 = *(a1 + 96);
+  v16 = *(a1 + 64);
   if (v16)
   {
     CFRelease(v16);
   }
 
-  v17 = *(a1 + 80);
+  v17 = *(a1 + 40);
   if (v17)
   {
-    CFRelease(v17);
+    dispatch_release(v17);
   }
-
-  v18 = *(a1 + 64);
-  if (v18)
-  {
-    CFRelease(v18);
-  }
-
-  v19 = *(a1 + 40);
-  if (v19)
-  {
-    dispatch_release(v19);
-  }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
-void __63__MX_BannerManager_promptUserResponseForUndoRoute_undoHandler___block_invoke(uint64_t a1, int a2)
+void __63__MX_BannerManager_promptUserResponseForUndoRoute_undoHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v2 = a2;
+  v55 = *MEMORY[0x1E69E9840];
   v4 = bannerResponseCacheMutex;
   objc_sync_enter(bannerResponseCacheMutex);
   v5 = *(*(a1 + 64) + 8);
@@ -2024,7 +1942,7 @@ void __63__MX_BannerManager_promptUserResponseForUndoRoute_undoHandler___block_i
     v12 = *(a1 + 112);
     v13 = *(*(*(a1 + 72) + 8) + 24);
     v14 = *(*(*(a1 + 80) + 8) + 24);
-    if (a2)
+    if (v2)
     {
       [v11 sendBannerActionToAudioStatistics:0 bannerType:1 targetDeviceType:v12 targetProductID:v13 sourceDeviceType:v14];
       [v6 setBannerResponse:2];
@@ -2039,47 +1957,47 @@ void __63__MX_BannerManager_promptUserResponseForUndoRoute_undoHandler___block_i
       }
 
 LABEL_58:
-      v40 = *(a1 + 96);
-      if (v40)
-      {
-        CFRelease(v40);
-      }
-
-      v41 = *(a1 + 88);
+      v41 = *(a1 + 96);
       if (v41)
       {
         CFRelease(v41);
       }
 
-      v42 = *(a1 + 48);
+      v42 = *(a1 + 88);
       if (v42)
       {
         CFRelease(v42);
       }
 
-      v43 = *(a1 + 104);
+      v43 = *(a1 + 48);
       if (v43)
       {
         CFRelease(v43);
       }
 
-LABEL_67:
-      objc_sync_exit(v4);
-      v44 = *(*(*(a1 + 72) + 8) + 24);
+      v44 = *(a1 + 104);
       if (v44)
       {
         CFRelease(v44);
-        *(*(*(a1 + 72) + 8) + 24) = 0;
       }
 
-      v45 = *(*(*(a1 + 80) + 8) + 24);
+LABEL_67:
+      objc_sync_exit(v4);
+      v45 = *(*(*(a1 + 72) + 8) + 24);
       if (v45)
       {
         CFRelease(v45);
+        *(*(*(a1 + 72) + 8) + 24) = 0;
+      }
+
+      v46 = *(*(*(a1 + 80) + 8) + 24);
+      if (v46)
+      {
+        CFRelease(v46);
         *(*(*(a1 + 80) + 8) + 24) = 0;
       }
 
-      goto LABEL_71;
+      return;
     }
 
     [v11 sendBannerActionToAudioStatistics:1 bannerType:1 targetDeviceType:v12 targetProductID:v13 sourceDeviceType:v14];
@@ -2094,21 +2012,21 @@ LABEL_67:
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    v21 = [*(a1 + 32) copyUndoEndpointsForRoute:{*(a1 + 40), v48, v50}];
+    v21 = [*(a1 + 32) copyUndoEndpointsForRoute:*(a1 + 40)];
     v22 = [objc_msgSend(objc_msgSend(*(a1 + 48) "fromPorts")];
     v23 = [+[MXSessionManager sharedInstance](MXSessionManager isPortHeadphoneAndInEar:"isPortHeadphoneAndInEar:", v22];
     IsPortOfTypeBuiltInSpeakerOrReceiver = CMSMVAUtility_IsPortOfTypeBuiltInSpeakerOrReceiver(v22);
     if (!v23)
     {
-      v25 = IsPortOfTypeBuiltInSpeakerOrReceiver;
-      if (!MX_FeatureFlags_IsCustomizedRoutingWithCarsAndSpeakersEnabled() || !v25)
+      v26 = IsPortOfTypeBuiltInSpeakerOrReceiver;
+      if (!MX_FeatureFlags_IsCustomizedRoutingWithCarsAndSpeakersEnabled(IsPortOfTypeBuiltInSpeakerOrReceiver, v25) || !v26)
       {
         if (dword_1EB75DE40)
         {
           LODWORD(cf) = 0;
           type[0] = OS_LOG_TYPE_DEFAULT;
-          v35 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-          os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT);
+          v36 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+          os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT);
           fig_log_call_emit_and_clean_up_after_send_and_compose();
         }
 
@@ -2119,24 +2037,24 @@ LABEL_67:
     if (v21)
     {
       Count = CFArrayGetCount(v21);
-      v27 = Count;
+      v28 = Count;
       if (Count || !dword_1EB75DE40)
       {
         if (Count >= 1)
         {
-          v28 = 0;
-          v53 = *MEMORY[0x1E695E480];
-          v51 = *MEMORY[0x1E69621E8];
-          v52 = v4;
+          v29 = 0;
+          v49 = *MEMORY[0x1E695E480];
+          v47 = *MEMORY[0x1E69621E8];
+          v48 = v4;
           do
           {
-            CFArrayGetValueAtIndex(v21, v28);
+            CFArrayGetValueAtIndex(v21, v29);
             cf = 0;
             CMBaseObject = FigEndpointGetCMBaseObject();
-            v30 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-            if (v30)
+            v31 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+            if (v31)
             {
-              v30(CMBaseObject, 0x1F289CDB0, v53, &cf);
+              v31(CMBaseObject, 0x1F289CDB0, v49, &cf);
             }
 
             if (cf)
@@ -2150,19 +2068,19 @@ LABEL_67:
             }
 
             *type = 0;
-            v31 = FigEndpointGetCMBaseObject();
-            v32 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-            if (v32)
+            v32 = FigEndpointGetCMBaseObject();
+            v33 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+            if (v33)
             {
-              v32(v31, v51, v53, type);
+              v33(v32, v47, v49, type);
             }
 
             if (dword_1EB75DE40)
             {
-              v33 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-              os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT);
+              v34 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+              os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT);
               fig_log_call_emit_and_clean_up_after_send_and_compose();
-              v4 = v52;
+              v4 = v48;
             }
 
             if (*type)
@@ -2170,10 +2088,10 @@ LABEL_67:
               CFRelease(*type);
             }
 
-            ++v28;
+            ++v29;
           }
 
-          while (v27 != v28);
+          while (v28 != v29);
         }
 
         goto LABEL_48;
@@ -2183,8 +2101,7 @@ LABEL_67:
     else if (!dword_1EB75DE40)
     {
 LABEL_55:
-      v39 = *(a1 + 88);
-      (*(*(a1 + 56) + 16))(*(a1 + 56), v21);
+      (*(*(a1 + 56) + 16))();
       [+[MX_BannerManager getSharedBannerClient](MX_BannerManager "getSharedBannerClient")];
 LABEL_56:
       if (v21)
@@ -2197,31 +2114,32 @@ LABEL_56:
 
     LODWORD(cf) = 0;
     type[0] = OS_LOG_TYPE_DEFAULT;
-    v34 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT);
+    v35 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
 LABEL_48:
     if (dword_1EB75DE40)
     {
       LODWORD(cf) = 0;
       type[0] = OS_LOG_TYPE_DEFAULT;
-      v36 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      v37 = cf;
-      if (os_log_type_enabled(v36, type[0]))
+      v37 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      v38 = cf;
+      v39 = type[0];
+      if (os_log_type_enabled(v37, type[0]))
       {
-        v38 = v37;
+        v40 = v38;
       }
 
       else
       {
-        v38 = v37 & 0xFFFFFFFE;
+        v40 = v38 & 0xFFFFFFFE;
       }
 
-      if (v38)
+      if (v40)
       {
-        v56 = 136315138;
-        v57 = "[MX_BannerManager promptUserResponseForUndoRoute:undoHandler:]_block_invoke";
-        _os_log_send_and_compose_impl();
+        v52 = 136315138;
+        v53 = "[MX_BannerManager promptUserResponseForUndoRoute:undoHandler:]_block_invoke";
+        _os_log_send_and_compose_impl(v40, 0, v54, 128, &dword_1B17A2000, v37, v39, "-MX_BannerManager- %s: UndoBannerResponse = connect", &v52);
       }
 
       fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -2264,8 +2182,6 @@ LABEL_48:
   }
 
   objc_sync_exit(v4);
-LABEL_71:
-  v46 = *MEMORY[0x1E69E9840];
 }
 
 @end

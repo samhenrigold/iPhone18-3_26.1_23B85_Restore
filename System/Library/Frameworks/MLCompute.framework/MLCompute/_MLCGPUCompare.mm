@@ -1,5 +1,6 @@
 @interface _MLCGPUCompare
 + (BOOL)compileWithDevice:(id)device deviceOps:(id)ops sourceTensors:(id)tensors resultTensor:(id)tensor;
++ (id)layerWithDevice:(id)device operation:(int)operation;
 - (_MLCGPUCompare)initWithDevice:(id)device operation:(int)operation;
 @end
 
@@ -7,11 +8,11 @@
 
 - (_MLCGPUCompare)initWithDevice:(id)device operation:(int)operation
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
-  v23.receiver = self;
-  v23.super_class = _MLCGPUCompare;
-  v8 = [(_MLCGPUCompare *)&v23 init];
+  v22.receiver = self;
+  v22.super_class = _MLCGPUCompare;
+  v8 = [(_MLCGPUCompare *)&v22 init];
   if (v8)
   {
     deviceList = [deviceCopy deviceList];
@@ -22,7 +23,7 @@
     {
       v13 = 0;
       *&v12 = 138412546;
-      v21 = v12;
+      v20 = v12;
       do
       {
         if ((operation - 6) < 6)
@@ -38,9 +39,9 @@
             if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
             {
               v17 = NSStringFromSelector(a2);
-              *buf = v21;
-              v25 = v17;
-              v26 = 1024;
+              *buf = v20;
+              v24 = v17;
+              v25 = 1024;
               operationCopy = operation;
               _os_log_error_impl(&dword_238C1D000, v16, OS_LOG_TYPE_ERROR, "%@: unknown comparison type = %d", buf, 0x12u);
               goto LABEL_11;
@@ -55,7 +56,7 @@ LABEL_12:
         }
 
         v15 = gpuPipelineStatesCompareLogicalOpForward;
-        v16 = [gpuPipelineStatesCompareLogicalOpForward objectAtIndexedSubscript:{v13, v21}];
+        v16 = [gpuPipelineStatesCompareLogicalOpForward objectAtIndexedSubscript:{v13, v20}];
 
         if (v16)
         {
@@ -81,12 +82,11 @@ LABEL_13:
     }
 
     v18 = [v11 copy];
-    v22.receiver = v8;
-    v22.super_class = _MLCGPUCompare;
-    [(_MLCGPULayer *)&v22 setDeviceOps:v18];
+    v21.receiver = v8;
+    v21.super_class = _MLCGPUCompare;
+    [(_MLCGPULayer *)&v21 setDeviceOps:v18];
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -268,6 +268,15 @@ LABEL_19:
   }
 
   return 1;
+}
+
++ (id)layerWithDevice:(id)device operation:(int)operation
+{
+  v4 = *&operation;
+  deviceCopy = device;
+  v7 = [[self alloc] initWithDevice:deviceCopy operation:v4];
+
+  return v7;
 }
 
 @end

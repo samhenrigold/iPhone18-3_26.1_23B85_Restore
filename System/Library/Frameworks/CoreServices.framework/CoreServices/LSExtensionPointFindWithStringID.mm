@@ -3,8 +3,9 @@
 
 @implementation LSExtensionPointFindWithStringID
 
-void ___LSExtensionPointFindWithStringID_block_invoke(uint64_t a1, uint64_t a2, int a3, _BYTE *a4)
+void ___LSExtensionPointFindWithStringID_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
+  v5 = a3;
   v7 = _LSGetExtensionPointData(*(a1 + 32), a3);
   if (v7)
   {
@@ -22,24 +23,25 @@ void ___LSExtensionPointFindWithStringID_block_invoke(uint64_t a1, uint64_t a2, 
 
       else
       {
-        v10 = _LSDefaultLog();
+        v10 = _LSDefaultLog(v7);
         if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
         {
-          ___LSExtensionPointFindWithStringID_block_invoke_cold_1(a3, v10);
+          ___LSExtensionPointFindWithStringID_block_invoke_cold_1(v5, v10);
         }
       }
 
-      *(*(*(a1 + 40) + 8) + 24) = a3;
+      *(*(*(a1 + 40) + 8) + 24) = v5;
       *(*(*(a1 + 48) + 8) + 24) = v8;
       *a4 = 1;
     }
   }
 }
 
-void ___LSExtensionPointFindWithStringID_block_invoke_1(uint64_t a1, int a2, _DWORD *a3, uint64_t a4, _BYTE *a5)
+void ___LSExtensionPointFindWithStringID_block_invoke_1(uint64_t a1, uint64_t a2, _DWORD *a3, uint64_t a4, _BYTE *a5)
 {
   if (a3[10] == *(a1 + 48) && a3[11] == *(a1 + 52))
   {
+    v8 = a2;
     v9 = *(a1 + 56);
     if (v9)
     {
@@ -51,14 +53,14 @@ void ___LSExtensionPointFindWithStringID_block_invoke_1(uint64_t a1, int a2, _DW
 
     else
     {
-      v10 = _LSDefaultLog();
+      v10 = _LSDefaultLog(a1);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
-        ___LSExtensionPointFindWithStringID_block_invoke_cold_1(a2, v10);
+        ___LSExtensionPointFindWithStringID_block_invoke_cold_1(v8, v10);
       }
     }
 
-    *(*(*(a1 + 32) + 8) + 24) = a2;
+    *(*(*(a1 + 32) + 8) + 24) = v8;
     *(*(*(a1 + 40) + 8) + 24) = a3;
     *a5 = 1;
   }
@@ -66,11 +68,10 @@ void ___LSExtensionPointFindWithStringID_block_invoke_1(uint64_t a1, int a2, _DW
 
 void ___LSExtensionPointFindWithStringID_block_invoke_cold_1(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_debug_impl(&dword_18162D000, a2, OS_LOG_TYPE_DEBUG, "No extension point parent specified, returning first extension point found id: %u", v3, 8u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_debug_impl(&dword_18162D000, a2, OS_LOG_TYPE_DEBUG, "No extension point parent specified, returning first extension point found id: %u", v2, 8u);
 }
 
 @end

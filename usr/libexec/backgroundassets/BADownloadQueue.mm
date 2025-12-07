@@ -371,59 +371,60 @@ LABEL_6:
     essentialAssetIdentifiersMonitored = [(BADownloadQueue *)self essentialAssetIdentifiersMonitored];
     v7 = [essentialAssetIdentifiersMonitored copy];
 
-    if ([v7 count])
+    v8 = [v7 count];
+    if (v8)
     {
-      v8 = sub_100010584();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = sub_100010584(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         identifier = [(BADownloadQueue *)self identifier];
         *buf = 138543618;
-        v33 = identifier;
-        v34 = 2048;
-        v35 = [v7 count];
-        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "New manifest being enqueued for %{public}@, canceling existing essential downloads. (Count: %ld)", buf, 0x16u);
+        v34 = identifier;
+        v35 = 2048;
+        v36 = [v7 count];
+        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "New manifest being enqueued for %{public}@, canceling existing essential downloads. (Count: %ld)", buf, 0x16u);
       }
 
-      v29 = 0u;
       v30 = 0u;
-      v27 = 0u;
+      v31 = 0u;
       v28 = 0u;
-      v10 = v7;
-      v11 = [v10 countByEnumeratingWithState:&v27 objects:v31 count:16];
-      if (v11)
+      v29 = 0u;
+      v11 = v7;
+      v12 = [v11 countByEnumeratingWithState:&v28 objects:v32 count:16];
+      if (v12)
       {
-        v12 = v11;
-        v13 = *v28;
+        v13 = v12;
+        v14 = *v29;
         do
         {
-          v14 = 0;
+          v15 = 0;
           do
           {
-            if (*v28 != v13)
+            if (*v29 != v14)
             {
-              objc_enumerationMutation(v10);
+              objc_enumerationMutation(v11);
             }
 
-            v15 = [(BADownloadQueue *)self _downloadWithIdentifier:*(*(&v27 + 1) + 8 * v14), v27];
-            v16 = v15;
-            if (v15)
+            v16 = [(BADownloadQueue *)self _downloadWithIdentifier:*(*(&v28 + 1) + 8 * v15), v28];
+            v17 = v16;
+            if (v16)
             {
-              [v15 cancelDownload];
-              [(BADownloadQueue *)self _removeDownload:v16];
+              [v16 cancelDownload];
+              [(BADownloadQueue *)self _removeDownload:v17];
             }
 
-            v14 = v14 + 1;
+            v15 = v15 + 1;
           }
 
-          while (v12 != v14);
-          v12 = [v10 countByEnumeratingWithState:&v27 objects:v31 count:16];
+          while (v13 != v15);
+          v13 = [v11 countByEnumeratingWithState:&v28 objects:v32 count:16];
         }
 
-        while (v12);
+        while (v13);
       }
     }
 
-    [(BADownloadQueue *)self setActiveManifestDownload:v5, v27];
+    [(BADownloadQueue *)self setActiveManifestDownload:v5, v28];
     [(BADownloadQueue *)self setEssentialAssetsBytesTotal:0];
     [(BADownloadQueue *)self setEssentialAssetsBytesDownloaded:0];
     if ((sub_100048424(v5) - 1) > 1)
@@ -435,8 +436,8 @@ LABEL_6:
     else
     {
       identifier2 = [v5 identifier];
-      v18 = [NSMutableSet setWithObject:identifier2];
-      [(BADownloadQueue *)self setEssentialAssetIdentifiersMonitored:v18];
+      v19 = [NSMutableSet setWithObject:identifier2];
+      [(BADownloadQueue *)self setEssentialAssetIdentifiersMonitored:v19];
     }
 
     [(BADownloadQueue *)self _reportEssentialAssetStateAndProgress];
@@ -444,10 +445,10 @@ LABEL_6:
 
   downloads = [(BADownloadQueue *)self downloads];
   downloads2 = [(BADownloadQueue *)self downloads];
-  v21 = [downloads indexOfObject:downloadCopy inSortedRange:0 options:objc_msgSend(downloads2 usingComparator:{"count"), 1024, &stru_1000797E8}];
+  v22 = [downloads indexOfObject:downloadCopy inSortedRange:0 options:objc_msgSend(downloads2 usingComparator:{"count"), 1024, &stru_1000797E8}];
 
   downloads3 = [(BADownloadQueue *)self downloads];
-  [downloads3 insertObject:downloadCopy atIndex:v21];
+  [downloads3 insertObject:downloadCopy atIndex:v22];
 
   uniqueIdentifiersToDownloads = [(BADownloadQueue *)self uniqueIdentifiersToDownloads];
   uniqueIdentifier = [downloadCopy uniqueIdentifier];
@@ -686,7 +687,7 @@ LABEL_23:
 
   sub_10004C130(downloadCopy, 1);
   necessity = [downloadCopy necessity];
-  v37 = downloadCopy;
+  v39 = downloadCopy;
   os_unfair_lock_unlock([downloadCopy downloadLock]);
   v12 = qos_class_self();
   v13 = dispatch_get_global_queue(v12, 0);
@@ -694,63 +695,63 @@ LABEL_23:
   if ((isKindOfClass & 1) != 0 || necessity != 1)
   {
     queue = v13;
-    v36 = handlerCopy;
+    v38 = handlerCopy;
     os_unfair_recursive_lock_lock_with_options();
-    v17 = +[NSMutableSet set];
-    v47 = 0u;
-    v48 = 0u;
+    v18 = +[NSMutableSet set];
     v49 = 0u;
     v50 = 0u;
+    v51 = 0u;
+    v52 = 0u;
     downloads = [(BADownloadQueue *)self downloads];
-    v19 = [downloads countByEnumeratingWithState:&v47 objects:v55 count:16];
-    if (v19)
+    v20 = [downloads countByEnumeratingWithState:&v49 objects:v57 count:16];
+    if (v20)
     {
-      v20 = v19;
-      v21 = *v48;
+      v21 = v20;
+      v22 = *v50;
       while (2)
       {
-        for (i = 0; i != v20; i = i + 1)
+        for (i = 0; i != v21; i = i + 1)
         {
-          if (*v48 != v21)
+          if (*v50 != v22)
           {
             objc_enumerationMutation(downloads);
           }
 
-          v23 = *(*(&v47 + 1) + 8 * i);
+          v24 = *(*(&v49 + 1) + 8 * i);
           if (isKindOfClass & 1) != 0 && (objc_opt_class(), (objc_opt_isKindOfClass()))
           {
-            [v17 addObject:v23];
+            [v18 addObject:v24];
           }
 
           else
           {
-            identifier2 = [v23 identifier];
-            identifier3 = [v37 identifier];
-            v26 = [identifier2 isEqual:identifier3];
+            identifier2 = [v24 identifier];
+            identifier3 = [v39 identifier];
+            v27 = [identifier2 isEqual:identifier3];
 
-            if (v26)
+            if (v27)
             {
-              v32 = sub_100027BE4(100);
-              os_unfair_lock_lock([v37 downloadLock]);
-              [v37 setDownloadError:v32];
-              sub_10004C130(v37, -1);
-              os_unfair_lock_unlock([v37 downloadLock]);
-              v33 = sub_1000104FC();
-              if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+              v33 = sub_100027BE4(100);
+              os_unfair_lock_lock([v39 downloadLock]);
+              [v39 setDownloadError:v33];
+              sub_10004C130(v39, -1);
+              os_unfair_lock_unlock([v39 downloadLock]);
+              v35 = sub_1000104FC(v34);
+              if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
               {
                 sub_10004904C();
               }
 
-              v44[0] = _NSConcreteStackBlock;
-              v44[1] = 3221225472;
-              v44[2] = sub_1000135EC;
-              v44[3] = &unk_100079810;
-              handlerCopy = v36;
-              v45 = v32;
-              v46 = v36;
-              v34 = v32;
+              v46[0] = _NSConcreteStackBlock;
+              v46[1] = 3221225472;
+              v46[2] = sub_1000135EC;
+              v46[3] = &unk_100079810;
+              handlerCopy = v38;
+              v47 = v33;
+              v48 = v38;
+              v36 = v33;
               v14 = queue;
-              dispatch_async(queue, v44);
+              dispatch_async(queue, v46);
               os_unfair_recursive_lock_unlock();
 
               goto LABEL_28;
@@ -758,8 +759,8 @@ LABEL_23:
           }
         }
 
-        v20 = [downloads countByEnumeratingWithState:&v47 objects:v55 count:16];
-        if (v20)
+        v21 = [downloads countByEnumeratingWithState:&v49 objects:v57 count:16];
+        if (v21)
         {
           continue;
         }
@@ -768,47 +769,47 @@ LABEL_23:
       }
     }
 
+    v44 = 0u;
+    v45 = 0u;
     v42 = 0u;
     v43 = 0u;
-    v40 = 0u;
-    v41 = 0u;
-    v17 = v17;
-    v27 = [v17 countByEnumeratingWithState:&v40 objects:v54 count:16];
-    handlerCopy = v36;
-    if (v27)
+    v18 = v18;
+    v28 = [v18 countByEnumeratingWithState:&v42 objects:v56 count:16];
+    handlerCopy = v38;
+    if (v28)
     {
-      v28 = v27;
-      v29 = *v41;
+      v29 = v28;
+      v30 = *v43;
       do
       {
-        for (j = 0; j != v28; j = j + 1)
+        for (j = 0; j != v29; j = j + 1)
         {
-          if (*v41 != v29)
+          if (*v43 != v30)
           {
-            objc_enumerationMutation(v17);
+            objc_enumerationMutation(v18);
           }
 
-          v31 = *(*(&v40 + 1) + 8 * j);
-          [v31 cancelDownloadSilently];
-          [(BADownloadQueue *)self _removeDownload:v31];
+          v32 = *(*(&v42 + 1) + 8 * j);
+          [v32 cancelDownloadSilently];
+          [(BADownloadQueue *)self _removeDownload:v32];
         }
 
-        v28 = [v17 countByEnumeratingWithState:&v40 objects:v54 count:16];
+        v29 = [v18 countByEnumeratingWithState:&v42 objects:v56 count:16];
       }
 
-      while (v28);
+      while (v29);
     }
 
-    [(BADownloadQueue *)self _addDownload:v37];
+    [(BADownloadQueue *)self _addDownload:v39];
     os_unfair_recursive_lock_unlock();
-    v38[0] = _NSConcreteStackBlock;
-    v38[1] = 3221225472;
-    v38[2] = sub_100013600;
-    v38[3] = &unk_100079838;
-    v39 = v36;
+    v40[0] = _NSConcreteStackBlock;
+    v40[1] = 3221225472;
+    v40[2] = sub_100013600;
+    v40[3] = &unk_100079838;
+    v41 = v38;
     v14 = queue;
-    dispatch_async(queue, v38);
-    downloads = v39;
+    dispatch_async(queue, v40);
+    downloads = v41;
   }
 
   else
@@ -818,8 +819,8 @@ LABEL_23:
     [downloadCopy setDownloadError:v15];
     sub_10004C130(downloadCopy, -1);
     os_unfair_lock_unlock([downloadCopy downloadLock]);
-    v16 = sub_1000104FC();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v17 = sub_1000104FC(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       sub_100048F90();
     }
@@ -828,12 +829,12 @@ LABEL_23:
     block[1] = 3221225472;
     block[2] = sub_1000135D8;
     block[3] = &unk_100079810;
-    v52 = v15;
-    v53 = handlerCopy;
-    v17 = v15;
+    v54 = v15;
+    v55 = handlerCopy;
+    v18 = v15;
     dispatch_async(v14, block);
 
-    downloads = v53;
+    downloads = v55;
   }
 
 LABEL_28:
@@ -860,36 +861,36 @@ LABEL_28:
 
   os_unfair_recursive_lock_lock_with_options();
   [(BADownloadQueue *)self setEssentialAssetsWaitingOnContentRequest:0];
-  v61 = infoCopy;
+  v64 = infoCopy;
   v15 = [infoCopy remainingDownloadAllowanceWithNecessity:1 isManifest:0];
-  v59 = downloadsCopy;
+  v62 = downloadsCopy;
   allObjects = [downloadsCopy allObjects];
   v17 = [allObjects sortedArrayUsingSelector:"compare:"];
 
-  v75 = 0u;
+  v78 = 0u;
+  v79 = 0u;
   v76 = 0u;
-  v73 = 0u;
-  v74 = 0u;
-  v56 = v17;
+  v77 = 0u;
+  v59 = v17;
   obj = [v17 reverseObjectEnumerator];
-  v18 = [obj countByEnumeratingWithState:&v73 objects:v83 count:16];
+  v18 = [obj countByEnumeratingWithState:&v76 objects:v86 count:16];
   if (v18)
   {
     v19 = v18;
-    v64 = *v74;
-    v62 = request - 1;
-    v60 = v14;
+    v67 = *v77;
+    v65 = request - 1;
+    v63 = v14;
     do
     {
       v20 = 0;
       do
       {
-        if (*v74 != v64)
+        if (*v77 != v67)
         {
           objc_enumerationMutation(obj);
         }
 
-        v21 = *(*(&v73 + 1) + 8 * v20);
+        v21 = *(*(&v76 + 1) + 8 * v20);
         os_unfair_lock_lock([v21 downloadLock]);
         identifier2 = [(BADownloadQueue *)self identifier];
         [v21 setApplicationIdentifier:identifier2];
@@ -907,21 +908,21 @@ LABEL_28:
           v26 = sub_100027BE4(100);
           [v21 setDownloadError:v26];
           sub_10004C130(v21, -1);
-          v27 = sub_1000104FC();
-          if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+          v28 = sub_1000104FC(v27);
+          if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
           {
             identifier4 = [v21 identifier];
             uniqueIdentifier = [v21 uniqueIdentifier];
             identifier5 = [(BADownloadQueue *)self identifier];
             *buf = 138543874;
-            v78 = identifier4;
-            v79 = 2114;
-            v80 = uniqueIdentifier;
-            v81 = 2114;
-            v82 = identifier5;
-            _os_log_error_impl(&_mh_execute_header, v27, OS_LOG_TYPE_ERROR, "Failing download (%{public}@ , %{public}@) because it is already scheduled. App:(%{public}@).", buf, 0x20u);
+            v81 = identifier4;
+            v82 = 2114;
+            v83 = uniqueIdentifier;
+            v84 = 2114;
+            v85 = identifier5;
+            _os_log_error_impl(&_mh_execute_header, v28, OS_LOG_TYPE_ERROR, "Failing download (%{public}@ , %{public}@) because it is already scheduled. App:(%{public}@).", buf, 0x20u);
 
-            v14 = v60;
+            v14 = v63;
           }
 
           responseQueue = [v21 responseQueue];
@@ -931,11 +932,11 @@ LABEL_28:
           block[3] = &unk_100079720;
           block[4] = self;
           block[5] = v21;
-          v72 = v26;
-          v29 = v26;
+          v75 = v26;
+          v30 = v26;
           dispatch_async(responseQueue, block);
 
-          v30 = v72;
+          v31 = v75;
 LABEL_21:
 
           goto LABEL_22;
@@ -944,81 +945,81 @@ LABEL_21:
         necessity = [v21 necessity];
         if (!((necessity == 1) | v14 & 1))
         {
-          v37 = sub_100027BE4(111);
-          [v21 setDownloadError:v37];
+          v39 = sub_100027BE4(111);
+          [v21 setDownloadError:v39];
           sub_10004C130(v21, -1);
-          v38 = sub_1000104FC();
-          if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+          v41 = sub_1000104FC(v40);
+          if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
           {
             identifier6 = [v21 identifier];
             uniqueIdentifier2 = [v21 uniqueIdentifier];
             identifier7 = [(BADownloadQueue *)self identifier];
             *buf = 138543874;
-            v78 = identifier6;
-            v79 = 2114;
-            v80 = uniqueIdentifier2;
-            v81 = 2114;
-            v82 = identifier7;
-            _os_log_error_impl(&_mh_execute_header, v38, OS_LOG_TYPE_ERROR, "Failing download (%{public}@ , %{public}@) because download is optional and background activity is disabled. App:(%{public}@).", buf, 0x20u);
+            v81 = identifier6;
+            v82 = 2114;
+            v83 = uniqueIdentifier2;
+            v84 = 2114;
+            v85 = identifier7;
+            _os_log_error_impl(&_mh_execute_header, v41, OS_LOG_TYPE_ERROR, "Failing download (%{public}@ , %{public}@) because download is optional and background activity is disabled. App:(%{public}@).", buf, 0x20u);
 
-            v14 = v60;
+            v14 = v63;
           }
 
           responseQueue2 = [v21 responseQueue];
-          v69[0] = _NSConcreteStackBlock;
-          v69[1] = 3221225472;
-          v69[2] = sub_100013EA4;
-          v69[3] = &unk_100079720;
-          v69[4] = self;
-          v69[5] = v21;
-          v70 = v37;
-          v29 = v37;
-          dispatch_async(responseQueue2, v69);
+          v72[0] = _NSConcreteStackBlock;
+          v72[1] = 3221225472;
+          v72[2] = sub_100013EA4;
+          v72[3] = &unk_100079720;
+          v72[4] = self;
+          v72[5] = v21;
+          v73 = v39;
+          v30 = v39;
+          dispatch_async(responseQueue2, v72);
 
-          v30 = v70;
+          v31 = v73;
           goto LABEL_21;
         }
 
-        if (v62 <= 1 && necessity == 1)
+        if (v65 <= 1 && necessity == 1)
         {
-          initialRestrictionsAreEnforced = [v61 initialRestrictionsAreEnforced];
-          v33 = sub_10004C1FC(v21);
+          initialRestrictionsAreEnforced = [v64 initialRestrictionsAreEnforced];
+          v34 = sub_10004C1FC(v21);
           if (initialRestrictionsAreEnforced)
           {
-            if (v15 < v33)
+            if (v15 < v34)
             {
-              v34 = sub_100027BE4(112);
-              [v21 setDownloadError:v34];
+              v35 = sub_100027BE4(112);
+              [v21 setDownloadError:v35];
               sub_10004C130(v21, -1);
-              v35 = sub_1000104FC();
-              if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+              v37 = sub_1000104FC(v36);
+              if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
               {
                 identifier8 = [v21 identifier];
                 uniqueIdentifier3 = [v21 uniqueIdentifier];
                 identifier9 = [(BADownloadQueue *)self identifier];
                 *buf = 138543874;
-                v78 = identifier8;
-                v79 = 2114;
-                v80 = uniqueIdentifier3;
-                v81 = 2114;
-                v82 = identifier9;
-                _os_log_error_impl(&_mh_execute_header, v35, OS_LOG_TYPE_ERROR, "Failing download (%{public}@ , %{public}@) because enqueueing download would exceed essential download allowance. App:(%{public}@).", buf, 0x20u);
+                v81 = identifier8;
+                v82 = 2114;
+                v83 = uniqueIdentifier3;
+                v84 = 2114;
+                v85 = identifier9;
+                _os_log_error_impl(&_mh_execute_header, v37, OS_LOG_TYPE_ERROR, "Failing download (%{public}@ , %{public}@) because enqueueing download would exceed essential download allowance. App:(%{public}@).", buf, 0x20u);
 
-                v14 = v60;
+                v14 = v63;
               }
 
               responseQueue3 = [v21 responseQueue];
-              v67[0] = _NSConcreteStackBlock;
-              v67[1] = 3221225472;
-              v67[2] = sub_100013EB4;
-              v67[3] = &unk_100079720;
-              v67[4] = self;
-              v67[5] = v21;
-              v68 = v34;
-              v29 = v34;
-              dispatch_async(responseQueue3, v67);
+              v70[0] = _NSConcreteStackBlock;
+              v70[1] = 3221225472;
+              v70[2] = sub_100013EB4;
+              v70[3] = &unk_100079720;
+              v70[4] = self;
+              v70[5] = v21;
+              v71 = v35;
+              v30 = v35;
+              dispatch_async(responseQueue3, v70);
 
-              v30 = v68;
+              v31 = v71;
               goto LABEL_21;
             }
 
@@ -1027,10 +1028,10 @@ LABEL_21:
             identifier10 = [v21 identifier];
             [essentialAssetIdentifiersMonitored addObject:identifier10];
 
-            v47 = sub_10004C1FC(v21);
-            if (v15 >= v47)
+            v50 = sub_10004C1FC(v21);
+            if (v15 >= v50)
             {
-              v15 -= v47;
+              v15 -= v50;
             }
 
             else
@@ -1041,7 +1042,7 @@ LABEL_21:
 
           else
           {
-            [(BADownloadQueue *)self setEssentialAssetsBytesTotal:[(BADownloadQueue *)self essentialAssetsBytesTotal]+ v33];
+            [(BADownloadQueue *)self setEssentialAssetsBytesTotal:[(BADownloadQueue *)self essentialAssetsBytesTotal]+ v34];
             essentialAssetIdentifiersMonitored2 = [(BADownloadQueue *)self essentialAssetIdentifiersMonitored];
             identifier11 = [v21 identifier];
             [essentialAssetIdentifiersMonitored2 addObject:identifier11];
@@ -1054,22 +1055,22 @@ LABEL_22:
       }
 
       while (v19 != v20);
-      v54 = [obj countByEnumeratingWithState:&v73 objects:v83 count:16];
-      v19 = v54;
+      v57 = [obj countByEnumeratingWithState:&v76 objects:v86 count:16];
+      v19 = v57;
     }
 
-    while (v54);
+    while (v57);
   }
 
   [(BADownloadQueue *)self _reportEssentialAssetStateAndProgress];
   os_unfair_recursive_lock_unlock();
-  v65[0] = _NSConcreteStackBlock;
-  v65[1] = 3221225472;
-  v65[2] = sub_100013EC4;
-  v65[3] = &unk_100079838;
-  v66 = handlerCopy;
-  v55 = handlerCopy;
-  dispatch_async(queue, v65);
+  v68[0] = _NSConcreteStackBlock;
+  v68[1] = 3221225472;
+  v68[2] = sub_100013EC4;
+  v68[3] = &unk_100079838;
+  v69 = handlerCopy;
+  v58 = handlerCopy;
+  dispatch_async(queue, v68);
 }
 
 - (void)startForegroundDownload:(id)download completionHandler:(id)handler
@@ -1083,29 +1084,29 @@ LABEL_22:
   {
     if ([downloadCopy necessity] == 1)
     {
-      v10 = sub_1000104FC();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = sub_1000104FC(1);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         sub_100049250();
       }
 
-      v11 = qos_class_self();
-      v12 = dispatch_get_global_queue(v11, 0);
+      v12 = qos_class_self();
+      v13 = dispatch_get_global_queue(v12, 0);
       block[0] = _NSConcreteStackBlock;
       block[1] = 3221225472;
       block[2] = sub_100014400;
       block[3] = &unk_100079838;
-      v39 = handlerCopy;
-      dispatch_async(v12, block);
+      v41 = handlerCopy;
+      dispatch_async(v13, block);
 
-      v13 = v39;
+      v14 = v41;
       goto LABEL_38;
     }
 
     if ([v9 necessity] == 1 && !objc_msgSend(downloadCopy, "necessity"))
     {
-      v17 = sub_1000104FC();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v18 = sub_1000104FC(0);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         sub_100049108();
       }
@@ -1113,32 +1114,32 @@ LABEL_22:
 
     os_unfair_recursive_lock_lock_with_options();
     frozen = [(BADownloadQueue *)self frozen];
-    os_unfair_recursive_lock_unlock();
+    v20 = os_unfair_recursive_lock_unlock();
     if (frozen)
     {
-      v19 = sub_1000104FC();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v21 = sub_1000104FC(v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         sub_1000491AC();
       }
 
-      v20 = qos_class_self();
-      v21 = dispatch_get_global_queue(v20, 0);
-      v36[0] = _NSConcreteStackBlock;
-      v36[1] = 3221225472;
-      v36[2] = sub_100014460;
-      v36[3] = &unk_100079838;
-      v37 = handlerCopy;
-      dispatch_async(v21, v36);
+      v22 = qos_class_self();
+      v23 = dispatch_get_global_queue(v22, 0);
+      v38[0] = _NSConcreteStackBlock;
+      v38[1] = 3221225472;
+      v38[2] = sub_100014460;
+      v38[3] = &unk_100079838;
+      v39 = handlerCopy;
+      dispatch_async(v23, v38);
 
-      v13 = v37;
+      v14 = v39;
       goto LABEL_38;
     }
 
     os_unfair_lock_lock([v9 downloadLock]);
     if ([v9 isForegroundDownload])
     {
-      v22 = 0;
+      v24 = 0;
     }
 
     else
@@ -1146,59 +1147,59 @@ LABEL_22:
       state = [v9 state];
       if (state == 2)
       {
-        v22 = 0;
         v24 = 0;
-        v25 = 1;
+        v26 = 0;
+        v27 = 1;
         goto LABEL_26;
       }
 
       if (state == -1)
       {
-        v24 = sub_100027BE4(103);
-        v22 = 0;
-        v25 = 0;
+        v26 = sub_100027BE4(103);
+        v24 = 0;
+        v27 = 0;
         goto LABEL_26;
       }
 
-      v22 = 1;
+      v24 = 1;
       [v9 setIsForegroundDownload:1];
     }
 
-    v25 = 0;
-    v24 = 0;
+    v27 = 0;
+    v26 = 0;
 LABEL_26:
     os_unfair_lock_unlock([v9 downloadLock]);
-    if (!v24)
+    if (!v26)
     {
-      if (v25)
+      if (v27)
       {
         [v9 promoteToForeground];
       }
 
-      else if (v22)
+      else if (v24)
       {
         os_unfair_recursive_lock_lock_with_options();
-        v35 = 0;
-        v26 = [v9 startDownloadWithDelegate:self error:&v35];
-        v27 = v35;
-        v28 = v27;
-        if (v26)
+        v37 = 0;
+        v28 = [v9 startDownloadWithDelegate:self error:&v37];
+        v29 = v37;
+        v30 = v29;
+        if (v28)
         {
           activeDownloads = [(BADownloadQueue *)self activeDownloads];
           [activeDownloads addObject:v9];
 
-          v24 = 0;
+          v26 = 0;
         }
 
         else
         {
-          if (!v27)
+          if (!v29)
           {
-            v28 = sub_100027BE4(102);
+            v30 = sub_100027BE4(102);
           }
 
-          v24 = v28;
-          v28 = v24;
+          v26 = v30;
+          v30 = v26;
         }
 
         os_unfair_recursive_lock_unlock();
@@ -1206,40 +1207,40 @@ LABEL_26:
         goto LABEL_37;
       }
 
-      v24 = 0;
+      v26 = 0;
     }
 
 LABEL_37:
-    v30 = qos_class_self();
-    v31 = dispatch_get_global_queue(v30, 0);
-    v32[0] = _NSConcreteStackBlock;
-    v32[1] = 3221225472;
-    v32[2] = sub_1000144C0;
-    v32[3] = &unk_100079810;
-    v33 = v24;
-    v34 = handlerCopy;
-    v13 = v24;
-    dispatch_async(v31, v32);
+    v32 = qos_class_self();
+    v33 = dispatch_get_global_queue(v32, 0);
+    v34[0] = _NSConcreteStackBlock;
+    v34[1] = 3221225472;
+    v34[2] = sub_1000144C0;
+    v34[3] = &unk_100079810;
+    v35 = v26;
+    v36 = handlerCopy;
+    v14 = v26;
+    dispatch_async(v33, v34);
 
     goto LABEL_38;
   }
 
-  v14 = sub_1000104FC();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+  v15 = sub_1000104FC(v10);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
   {
     sub_1000492F4();
   }
 
-  v15 = qos_class_self();
-  v16 = dispatch_get_global_queue(v15, 0);
-  v40[0] = _NSConcreteStackBlock;
-  v40[1] = 3221225472;
-  v40[2] = sub_1000143A0;
-  v40[3] = &unk_100079838;
-  v41 = handlerCopy;
-  dispatch_async(v16, v40);
+  v16 = qos_class_self();
+  v17 = dispatch_get_global_queue(v16, 0);
+  v42[0] = _NSConcreteStackBlock;
+  v42[1] = 3221225472;
+  v42[2] = sub_1000143A0;
+  v42[3] = &unk_100079838;
+  v43 = handlerCopy;
+  dispatch_async(v17, v42);
 
-  v13 = v41;
+  v14 = v43;
 LABEL_38:
 }
 
@@ -1412,12 +1413,12 @@ LABEL_38:
 
 - (BOOL)startNextDownload
 {
-  v30 = 0;
-  v31 = &v30;
-  v32 = 0x3032000000;
-  v33 = sub_100014D3C;
-  v34 = sub_100014D4C;
-  v35 = 0;
+  v31 = 0;
+  v32 = &v31;
+  v33 = 0x3032000000;
+  v34 = sub_100014D3C;
+  v35 = sub_100014D4C;
+  v36 = 0;
   delegate = [(BADownloadQueue *)self delegate];
   v4 = [delegate downloadQueue:self permittedToStartDownloadsWithNecessity:1];
 
@@ -1425,89 +1426,69 @@ LABEL_38:
   v6 = [delegate2 downloadQueue:self permittedToStartDownloadsWithNecessity:0];
 
   os_unfair_recursive_lock_lock_with_options();
-  if ([(BADownloadQueue *)self frozen])
+  if (-[BADownloadQueue frozen](self, "frozen") || (-[BADownloadQueue essentialAssetIdentifiersMonitored](self, "essentialAssetIdentifiersMonitored"), v7 = objc_claimAutoreleasedReturnValue(), v8 = [v7 count], v7, -[BADownloadQueue downloads](self, "downloads"), v9 = objc_claimAutoreleasedReturnValue(), v27[0] = _NSConcreteStackBlock, v27[1] = 3221225472, v27[2] = sub_100014D54, v27[3] = &unk_100079860, v28 = v4, v29 = v6, v30 = v8 != 0, v27[4] = &v31, objc_msgSend(v9, "enumerateObjectsWithOptions:usingBlock:", 2, v27), v9, (v10 = v32[5]) == 0))
   {
-    goto LABEL_5;
-  }
-
-  essentialAssetIdentifiersMonitored = [(BADownloadQueue *)self essentialAssetIdentifiersMonitored];
-  v8 = [essentialAssetIdentifiersMonitored count];
-
-  downloads = [(BADownloadQueue *)self downloads];
-  v26[0] = _NSConcreteStackBlock;
-  v26[1] = 3221225472;
-  v26[2] = sub_100014D54;
-  v26[3] = &unk_100079860;
-  v27 = v4;
-  v28 = v6;
-  v29 = v8 != 0;
-  v26[4] = &v30;
-  [downloads enumerateObjectsWithOptions:2 usingBlock:v26];
-
-  v10 = v31[5];
-  if (!v10)
-  {
-LABEL_5:
     v11 = 0;
   }
 
   else
   {
-    v25 = 0;
-    v11 = [v10 startDownloadWithDelegate:self error:&v25];
-    v12 = v25;
+    v26 = 0;
+    v11 = [v10 startDownloadWithDelegate:self error:&v26];
+    v12 = v26;
+    v13 = v12;
     if (v11)
     {
-      downloadStartDate = [v31[5] downloadStartDate];
+      downloadStartDate = [v32[5] downloadStartDate];
       [(BADownloadQueue *)self setLastDownloadStartDate:downloadStartDate];
 
       activeDownloads = [(BADownloadQueue *)self activeDownloads];
-      [activeDownloads addObject:v31[5]];
+      [activeDownloads addObject:v32[5]];
     }
 
     else
     {
-      v15 = sub_100010584();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v16 = sub_100010584(v12);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         identifier = [(BADownloadQueue *)self identifier];
-        identifier2 = [v31[5] identifier];
+        identifier2 = [v32[5] identifier];
         *buf = 138543874;
-        v37 = identifier;
-        v38 = 2114;
-        v39 = identifier2;
-        v40 = 2114;
-        v41 = v12;
-        _os_log_error_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "Failed to start the next download in the queue. (Client Identifier: %{public}@) (Download Identifier: %{public}@) Error:%{public}@", buf, 0x20u);
+        v38 = identifier;
+        v39 = 2114;
+        v40 = identifier2;
+        v41 = 2114;
+        v42 = v13;
+        _os_log_error_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "Failed to start the next download in the queue. (Client Identifier: %{public}@) (Download Identifier: %{public}@) Error:%{public}@", buf, 0x20u);
       }
 
-      if (!v12)
+      if (!v13)
       {
-        v12 = sub_100027BE4(102);
+        v13 = sub_100027BE4(102);
       }
 
-      os_unfair_lock_lock([v31[5] downloadLock]);
-      sub_10004C130(v31[5], -1);
-      [v31[5] setDownloadError:v12];
-      os_unfair_lock_unlock([v31[5] downloadLock]);
-      v16 = os_transaction_create();
-      responseQueue = [v31[5] responseQueue];
+      os_unfair_lock_lock([v32[5] downloadLock]);
+      sub_10004C130(v32[5], -1);
+      [v32[5] setDownloadError:v13];
+      os_unfair_lock_unlock([v32[5] downloadLock]);
+      v17 = os_transaction_create();
+      responseQueue = [v32[5] responseQueue];
       block[0] = _NSConcreteStackBlock;
       block[1] = 3221225472;
       block[2] = sub_100014E28;
       block[3] = &unk_100079888;
       block[4] = self;
-      v24 = &v30;
-      v12 = v12;
-      v22 = v12;
-      v23 = v16;
-      activeDownloads = v16;
+      v25 = &v31;
+      v13 = v13;
+      v23 = v13;
+      v24 = v17;
+      activeDownloads = v17;
       dispatch_async(responseQueue, block);
     }
   }
 
   os_unfair_recursive_lock_unlock();
-  _Block_object_dispose(&v30, 8);
+  _Block_object_dispose(&v31, 8);
 
   return v11;
 }
@@ -1556,45 +1537,45 @@ LABEL_5:
   if (![(BADownloadQueue *)self frozen])
   {
     [(BADownloadQueue *)self setFrozen:1];
-    v13 = 0u;
     v14 = 0u;
-    v11 = 0u;
+    v15 = 0u;
     v12 = 0u;
+    v13 = 0u;
     downloads = [(BADownloadQueue *)self downloads];
-    v4 = [downloads countByEnumeratingWithState:&v11 objects:v17 count:16];
+    v4 = [downloads countByEnumeratingWithState:&v12 objects:v18 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v12;
+      v6 = *v13;
       do
       {
         for (i = 0; i != v5; i = i + 1)
         {
-          if (*v12 != v6)
+          if (*v13 != v6)
           {
             objc_enumerationMutation(downloads);
           }
 
-          v8 = *(*(&v11 + 1) + 8 * i);
+          v8 = *(*(&v12 + 1) + 8 * i);
           if ([v8 state] == 2)
           {
             [v8 pauseDownload];
           }
         }
 
-        v5 = [downloads countByEnumeratingWithState:&v11 objects:v17 count:16];
+        v5 = [downloads countByEnumeratingWithState:&v12 objects:v18 count:16];
       }
 
       while (v5);
     }
 
-    v9 = sub_1000104FC();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_1000104FC(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       identifier = [(BADownloadQueue *)self identifier];
       *buf = 138543362;
-      v16 = identifier;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Download queue (%{public}@) has been frozen.", buf, 0xCu);
+      v17 = identifier;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Download queue (%{public}@) has been frozen.", buf, 0xCu);
     }
 
     [(BADownloadQueue *)self _reportEssentialAssetStateAndProgress];
@@ -1608,8 +1589,7 @@ LABEL_5:
   os_unfair_recursive_lock_lock_with_options();
   if ([(BADownloadQueue *)self frozen])
   {
-    [(BADownloadQueue *)self setFrozen:0];
-    v3 = sub_1000104FC();
+    v3 = sub_1000104FC([(BADownloadQueue *)self setFrozen:0]);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       identifier = [(BADownloadQueue *)self identifier];

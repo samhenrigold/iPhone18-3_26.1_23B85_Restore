@@ -922,34 +922,31 @@ LABEL_7:
   }
 }
 
-uint64_t AppleEthernetRL::stop(AppleEthernetRL *this, IOService *a2)
+uint64_t AppleEthernetRL::stop(unsigned int **this, IOService *a2)
 {
   AppleEthernetRL::stopInterface(this);
   AppleEthernetRL::stopEQs(this);
-  v4 = *(this + 71);
-  *(this + 71) = 0;
+  this[71] = 0;
   IOFreeTypeVarImpl();
   AppleEthernetRL::freeTallyInfo(this);
   AppleEthernetRL::freeAVB(this);
   AppleEthernetRL::freeIPC(this);
-  v5 = *(this + 177);
-  if (v5)
+  if (this[177])
   {
-    v6 = *v5;
     IOFreeData();
-    *(this + 177) = 0;
+    this[177] = 0;
   }
 
-  if (*(this + 175))
+  if (this[175])
   {
     IOFreeData();
-    *(this + 175) = 0;
+    this[175] = 0;
   }
 
   AppleEthernetRL::freePowerStateHandling(this);
   AppleEthernetRL::freeDebuggerResources(this);
 
-  return v7(this, a2);
+  return (v4)(this, a2);
 }
 
 void *AppleEthernetRL::stopEQs(void *this)
@@ -1035,7 +1032,7 @@ uint64_t AppleEthernetRL::free(AppleEthernetRL *this)
   *(this + 161) = 0;
   (*(*this + 2096))(this);
 
-  return v3(this);
+  return (v3)(this);
 }
 
 uint64_t AppleEthernetRL::initReceiveUnit(AppleEthernetRL *this)
@@ -1171,7 +1168,6 @@ void AppleEthernetRL::enableIntrs(AppleEthernetRL *this)
   re_hw_start_unlock_8125(this + 296);
   *(this + 1208) = 1;
   IOLog("[0x%llx] rl::%s(%d): Enabling Link change Interrupt\n", *(this + 76), "enableIntrs", 479);
-  v2 = *(this + 463);
   if (*(this + 535))
   {
     if (*(this + 463))
@@ -1186,10 +1182,10 @@ void AppleEthernetRL::enableIntrs(AppleEthernetRL *this)
       goto LABEL_10;
     }
 
-    v3 = (this + 336);
+    v2 = (this + 336);
     __dmb(2u);
-    v4 = 127;
-    v5 = 10240;
+    v3 = 127;
+    v4 = 10240;
   }
 
   else
@@ -1200,12 +1196,12 @@ void AppleEthernetRL::enableIntrs(AppleEthernetRL *this)
     }
 
     __dmb(2u);
-    v3 = (this + 336);
-    v4 = 32;
-    v5 = 56;
+    v2 = (this + 336);
+    v3 = 32;
+    v4 = 56;
   }
 
-  *(*v3 + v5) = v4;
+  *(*v2 + v4) = v3;
 LABEL_10:
   if (*(this + 600))
   {
@@ -1550,13 +1546,6 @@ OSMetaClass *_GLOBAL__sub_I_AppleEthernetRLUserClient_cpp()
   return result;
 }
 
-void *OUTLINED_FUNCTION_3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12)
-{
-  result = a12;
-  v13 = *a12;
-  return result;
-}
-
 OSMetaClass *OSValueObject<IOEthernetController::IOEthernetAVBIngressFilterElement>::MetaClass::MetaClass(OSMetaClass *a1)
 {
   result = OSMetaClass::OSMetaClass(a1, "OSValueObject<IOEthernetController::IOEthernetAVBIngressFilterElement>", &OSObject::gMetaClass, 0x18u);
@@ -1602,17 +1591,17 @@ void AppleEthernetRL::updateTimestampAdjustments(AppleEthernetRL *this, unint64_
     *(this + 163) = *(this + v4 + 211);
     if (PE_i_can_has_debugger(0))
     {
-      v11 = 0;
-      v9 = 0;
       v10 = 0;
-      if (PE_parse_boot_argn("aerl_override_ptp", &v9, 8))
+      v8 = 0;
+      v9 = 0;
+      if (PE_parse_boot_argn("aerl_override_ptp", &v8, 8))
       {
-        if (PE_parse_boot_argn("override_ptp_ingress", &v11, 8))
+        if (PE_parse_boot_argn("override_ptp_ingress", &v10, 8))
         {
-          if (PE_parse_boot_argn("override_ptp_egress", &v10, 8))
+          if (PE_parse_boot_argn("override_ptp_egress", &v9, 8))
           {
-            *(this + 162) = v11;
-            *(this + 163) = v10;
+            *(this + 162) = v10;
+            *(this + 163) = v9;
             _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_DEFAULT, "overriding PTP offsets from boot-args\n");
           }
         }
@@ -1620,8 +1609,7 @@ void AppleEthernetRL::updateTimestampAdjustments(AppleEthernetRL *this, unint64_
     }
 
     (*(*this + 1968))(this, *(this + 162), *(this + 163));
-    v8 = *(this + 162);
-    _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_DEFAULT, "updateTimestampAdjustments speed %llu ingress offset %lld egress offset %lld\n", a2, v8, *(this + 163));
+    _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_DEFAULT, "updateTimestampAdjustments speed %llu ingress offset %lld egress offset %lld\n", a2, *(this + 162), *(this + 163));
   }
 }
 
@@ -2471,7 +2459,7 @@ OSMetaClassBase *OSValueObject<IOEthernetController::IOEthernetAVBIngressFilterE
   return result;
 }
 
-uint64_t OSValueObject<IOEthernetController::IOEthernetAVBIngressFilterElement>::init(uint64_t a1)
+_OWORD *OSValueObject<IOEthernetController::IOEthernetAVBIngressFilterElement>::init(uint64_t a1)
 {
   if (result)
   {
@@ -2479,7 +2467,6 @@ uint64_t OSValueObject<IOEthernetController::IOEthernetAVBIngressFilterElement>:
     v4 = *(a1 + 16);
     if (v4)
     {
-      v5 = *(a1 + 16);
       v4[15] = 0u;
       v4[16] = 0u;
       v4[13] = 0u;
@@ -2497,26 +2484,26 @@ uint64_t OSValueObject<IOEthernetController::IOEthernetAVBIngressFilterElement>:
       v4[1] = 0u;
       v4[2] = 0u;
       *v4 = 0u;
-      v6 = *v3;
+      v5 = *v3;
 LABEL_6:
-      v6[15] = 0u;
-      v6[16] = 0u;
-      v6[13] = 0u;
-      v6[14] = 0u;
-      v6[11] = 0u;
-      v6[12] = 0u;
-      v6[9] = 0u;
-      v6[10] = 0u;
-      v6[7] = 0u;
-      v6[8] = 0u;
-      v6[5] = 0u;
-      v6[6] = 0u;
-      v6[3] = 0u;
-      v6[4] = 0u;
-      v6[1] = 0u;
-      v6[2] = 0u;
-      result = 1;
-      *v6 = 0u;
+      v5[15] = 0u;
+      v5[16] = 0u;
+      v5[13] = 0u;
+      v5[14] = 0u;
+      v5[11] = 0u;
+      v5[12] = 0u;
+      v5[9] = 0u;
+      v5[10] = 0u;
+      v5[7] = 0u;
+      v5[8] = 0u;
+      v5[5] = 0u;
+      v5[6] = 0u;
+      v5[3] = 0u;
+      v5[4] = 0u;
+      v5[1] = 0u;
+      v5[2] = 0u;
+      result = (&dword_0 + 1);
+      *v5 = 0u;
       return result;
     }
 
@@ -2524,7 +2511,7 @@ LABEL_6:
     if (result)
     {
       *v3 = result;
-      v6 = result;
+      v5 = result;
       goto LABEL_6;
     }
 
@@ -2536,11 +2523,6 @@ LABEL_6:
 
 uint64_t OSValueObject<IOEthernetController::IOEthernetAVBIngressFilterElement>::free(uint64_t a1)
 {
-  if (*(a1 + 16))
-  {
-    v2 = *(a1 + 16);
-  }
-
   *(a1 + 16) = 0;
   IOFreeTypeImpl();
   *(a1 + 16) = 0;
@@ -2574,13 +2556,6 @@ BOOL OSValueObject<IOEthernetController::IOEthernetAVBIngressFilterElement>::isE
   }
 
   return memcmp(v2, a2, 0x110uLL) == 0;
-}
-
-void OUTLINED_FUNCTION_1_1()
-{
-  v2 = (*(v0 + 64) + 8 * v1);
-  v3 = *v2;
-  *v2 = 0;
 }
 
 uint64_t AppleEthernetRL::initializeIPC(AppleEthernetRL *this)
@@ -2820,7 +2795,7 @@ LABEL_11:
   return v4;
 }
 
-uint64_t AppleEthernetRL::fetchIPC_ReadNVRAM(AppleEthernetRL *this, unsigned int a2, unsigned __int8 *a3, unint64_t a4, unsigned int a5)
+uint64_t AppleEthernetRL::fetchIPC_ReadNVRAM(AppleEthernetRL *this, unsigned int a2, unsigned __int8 *a3, unint64_t a4, int a5)
 {
   IPC_Connect = 3758097090;
   v14[0] = xmmword_A50;
@@ -2944,7 +2919,7 @@ uint64_t AppleEthernetRL::fetchIPC_EraseNVRAM(AppleEthernetRL *this, unsigned in
   return v5;
 }
 
-uint64_t AppleEthernetRL::fetchIPC_WriteNVRAM(AppleEthernetRL *this, unsigned int a2, char *a3, unint64_t a4, unsigned int a5)
+uint64_t AppleEthernetRL::fetchIPC_WriteNVRAM(AppleEthernetRL *this, unsigned int a2, char *a3, unint64_t a4, int a5)
 {
   v6 = 3758097090;
   v18[0] = xmmword_A50;
@@ -3421,7 +3396,6 @@ uint64_t AppleEthernetRL::allocateRings(AppleEthernetRL *this)
           *(v3 + 14) = ~v5 + v2;
         }
 
-        v6 = *(v3 + 3);
         *(v3 + 8) = IOMallocTypeVarImpl();
         LODWORD(v5) = *(this + 311);
       }
@@ -3434,7 +3408,7 @@ uint64_t AppleEthernetRL::allocateRings(AppleEthernetRL *this)
       }
     }
 
-    v9 = v4;
+    v8 = v4;
   }
 
   else
@@ -3442,27 +3416,26 @@ uint64_t AppleEthernetRL::allocateRings(AppleEthernetRL *this)
 LABEL_11:
     if (*(this + 312) + *(this + 310) + *(this + 313))
     {
-      v7 = 0;
-      v8 = this + 776;
+      v6 = 0;
+      v7 = this + 776;
       while (1)
       {
-        v9 = AppleEthernetRL::allocRing(this, v8);
-        *(v8 + 14) = -1;
-        *(v8 + 8) = 0;
-        if (v7 >= *(this + 310))
+        v8 = AppleEthernetRL::allocRing(this, v7);
+        *(v7 + 14) = -1;
+        *(v7 + 8) = 0;
+        if (v6 >= *(this + 310))
         {
-          v10 = *(v8 + 3);
-          *(v8 + 8) = IOMallocTypeVarImpl();
+          *(v7 + 8) = IOMallocTypeVarImpl();
         }
 
-        if (v9)
+        if (v8)
         {
           break;
         }
 
-        ++v7;
-        v8 += 72;
-        if (v7 >= (*(this + 312) + *(this + 310) + *(this + 313)))
+        ++v6;
+        v7 += 72;
+        if (v6 >= (*(this + 312) + *(this + 310) + *(this + 313)))
         {
           goto LABEL_17;
         }
@@ -3473,28 +3446,26 @@ LABEL_11:
     {
 LABEL_17:
       *(this + 165) = 0;
-      v11 = *(this + 197);
-      v12 = IOMallocTypeVarImpl();
-      *(this + 79) = v12;
-      if (!v12)
+      v9 = IOMallocTypeVarImpl();
+      *(this + 79) = v9;
+      if (!v9)
       {
         AppleEthernetRL::allocateRings();
       }
 
-      v13 = *(this + 197);
-      v14 = IOMallocData();
-      *(this + 80) = v14;
-      if (!v14)
+      v10 = IOMallocData();
+      *(this + 80) = v10;
+      if (!v10)
       {
         AppleEthernetRL::allocateRings();
       }
 
-      v15 = 0;
-      v16 = 1;
+      v11 = 0;
+      v12 = 1;
       do
       {
-        v17 = v16;
-        if (v16)
+        v13 = v12;
+        if (v12)
         {
           *(this + 177) = 0;
         }
@@ -3504,42 +3475,41 @@ LABEL_17:
           *(this + 189) = -1;
         }
 
-        v18 = *(this + 18 * v15 + 251);
-        v19 = IOMallocTypeVarImpl();
-        *(this + 6 * v15 + 85) = v19;
-        if (!v19)
+        v14 = IOMallocTypeVarImpl();
+        *(this + 6 * v11 + 85) = v14;
+        if (!v14)
         {
           AppleEthernetRL::allocateRings();
         }
 
-        v16 = 0;
-        v15 = 1;
+        v12 = 0;
+        v11 = 1;
       }
 
-      while ((v17 & 1) != 0);
-      v9 = 0;
+      while ((v13 & 1) != 0);
+      v8 = 0;
     }
   }
 
   if (*(this + 600))
   {
-    IOLog("[0x%llx] rl::%s(%d): ==> 0x%08x\n", *(this + 76), "allocateRings", 97, v9);
+    IOLog("[0x%llx] rl::%s(%d): ==> 0x%08x\n", *(this + 76), "allocateRings", 97, v8);
   }
 
-  return v9;
+  return v8;
 }
 
 uint64_t AppleEthernetRL::allocRing(uint64_t a1, uint64_t a2)
 {
-  v14 = 0;
-  v13 = 1;
+  v11 = 0;
+  v10 = 1;
   if (*(a1 + 600))
   {
     IOLog("[0x%llx] rl::%s(%d): <== ring_size=%d, desc_size=%d\n", *(a1 + 608), "allocRing", 148, *(a2 + 12), *(a2 + 24));
   }
 
-  v15[0] = 0;
-  v15[1] = 0;
+  v12[0] = 0;
+  v12[1] = 0;
   v4 = IOBufferMemoryDescriptor::inTaskWithPhysicalMask(kernel_task, 3u, (*(a2 + 24) * *(a2 + 12) + 0x3FFF) & 0xFFFFC000, 0x3FFFuLL);
   if (v4)
   {
@@ -3554,26 +3524,24 @@ uint64_t AppleEthernetRL::allocRing(uint64_t a1, uint64_t a2)
         v8 = v7;
         if ((*(a1 + 600) & 2) != 0)
         {
-          v9 = *(a1 + 608);
           IOLog("[0x%llx] rl::%s(%d): setMemoryDescriptor failed\n");
         }
       }
 
       else
       {
-        v8 = (*(**(a2 + 48) + 184))(*(a2 + 48), &v14, v15, &v13);
+        v8 = (*(**(a2 + 48) + 184))(*(a2 + 48), &v11, v12, &v10);
         if (v8)
         {
           if ((*(a1 + 600) & 2) != 0)
           {
-            v11 = *(a1 + 608);
             IOLog("[0x%llx] rl::%s(%d): gen64IOVMSegments failed\n");
           }
         }
 
         else
         {
-          *(a2 + 40) = v15[0];
+          *(a2 + 40) = v12[0];
           *(a2 + 32) = (v5->getBytesNoCopy)(v5);
         }
       }
@@ -3584,7 +3552,6 @@ uint64_t AppleEthernetRL::allocRing(uint64_t a1, uint64_t a2)
       v8 = 3758097085;
       if ((*(a1 + 600) & 2) != 0)
       {
-        v10 = *(a1 + 608);
         IOLog("[0x%llx] rl::%s(%d): can't alloc IODMACommand failed\n");
       }
     }
@@ -3611,64 +3578,52 @@ uint64_t AppleEthernetRL::allocRing(uint64_t a1, uint64_t a2)
 
 uint64_t AppleEthernetRL::freeRings(AppleEthernetRL *this)
 {
-  v2 = *(this + 197);
-  v3 = *(this + 79);
   *(this + 79) = 0;
   IOFreeTypeVarImpl();
-  v4 = *(this + 80);
-  v5 = *(this + 197);
   IOFreeData();
   *(this + 80) = 0;
-  v6 = *(this + 251);
-  v7 = *(this + 85);
   *(this + 85) = 0;
   IOFreeTypeVarImpl();
-  v8 = *(this + 269);
-  v9 = *(this + 91);
   *(this + 91) = 0;
   result = IOFreeTypeVarImpl();
-  v11 = *(this + 312);
-  if (v11 + *(this + 311) + *(this + 314))
+  v3 = *(this + 312);
+  if (v3 + *(this + 311) + *(this + 314))
   {
-    v12 = 0;
-    v13 = this + 992;
+    v4 = 0;
+    v5 = this + 992;
     do
     {
-      AppleEthernetRL::freeRing(result, v13);
-      v14 = *(v13 + 3);
-      v15 = *(v13 + 8);
-      *(v13 + 8) = 0;
+      AppleEthernetRL::freeRing(result, v5);
+      *(v5 + 8) = 0;
       result = IOFreeTypeVarImpl();
-      ++v12;
-      v11 = *(this + 312);
-      v13 += 72;
+      ++v4;
+      v3 = *(this + 312);
+      v5 += 72;
     }
 
-    while (v12 < (v11 + *(this + 311) + *(this + 314)));
+    while (v4 < (v3 + *(this + 311) + *(this + 314)));
   }
 
-  if (v11 + *(this + 310) + *(this + 313))
+  if (v3 + *(this + 310) + *(this + 313))
   {
-    v16 = 0;
-    v17 = this + 776;
+    v6 = 0;
+    v7 = this + 776;
     do
     {
-      result = AppleEthernetRL::freeRing(result, v17);
-      v18 = *(this + 310);
-      if (v16 >= v18)
+      result = AppleEthernetRL::freeRing(result, v7);
+      v8 = *(this + 310);
+      if (v6 >= v8)
       {
-        v19 = *(v17 + 3);
-        v20 = *(v17 + 8);
-        *(v17 + 8) = 0;
+        *(v7 + 8) = 0;
         result = IOFreeTypeVarImpl();
-        LODWORD(v18) = *(this + 310);
+        LODWORD(v8) = *(this + 310);
       }
 
-      ++v16;
-      v17 += 72;
+      ++v6;
+      v7 += 72;
     }
 
-    while (v16 < (*(this + 312) + v18 + *(this + 313)));
+    while (v6 < (*(this + 312) + v8 + *(this + 313)));
   }
 
   return result;
@@ -3719,11 +3674,10 @@ uint64_t AppleEthernetRL::startInterface(AppleEthernetRL *this)
   *(v3 + 268) = *(this + 150);
   *(v3 + 264) = v4;
   IOLog("[0x%llx] rl::%s(%d): Assigned MAC address: %6D\n", *(this + 76), "startInterface", 230, v3 + 264, ":");
-  v27 = *(this + 70);
   IOSkywalkTxSubmissionQueue::getEffectiveCapacity(&stru_B8.reserved2, v5);
   IOSkywalkTxCompletionQueue::getEffectiveCapacity(&stru_B8.reserved2, v6);
   *__str = 0u;
-  v32 = 0u;
+  v28 = 0u;
   v7 = *(*(**(this + 69) + 280))();
   v8 = (*(v7 + 168))();
   snprintf(__str, 0x20uLL, "rl:%s:%d:%s", v8, 0, "tx");
@@ -3754,11 +3708,6 @@ uint64_t AppleEthernetRL::startInterface(AppleEthernetRL *this)
     do
     {
       v18 = v17;
-      if ((v17 & 1) != 0 && *(this + 312))
-      {
-        *(this + 314);
-      }
-
       v19 = this + 48 * v16 + 680;
       v20 = IOSkywalkRxSubmissionQueue::withPool();
       *(v19 + 4) = v20;
@@ -3790,23 +3739,20 @@ uint64_t AppleEthernetRL::startInterface(AppleEthernetRL *this)
 
     (*(*v22 + 160))(v22, *(this + 84));
     (*(*v22 + 160))(v22, *(this + 83));
-    v28 = *(this + 664);
-    v29 = *(this + 712);
-    v30 = *(this + 760);
     v25 = IOSkywalkEthernetInterface::registerEthernetInterface();
     if (v25)
     {
       IOLog("rl: registerEthernetInterface failed\n");
     }
 
-    goto LABEL_20;
+    goto LABEL_17;
   }
 
   IOLog("alloc pool failed\n");
   v25 = 0;
   if (v9)
   {
-LABEL_20:
+LABEL_17:
     (*(*v9 + 40))(v9);
   }
 
@@ -4073,76 +4019,75 @@ void AppleEthernetRL::updateCarrier(AppleEthernetRL *this)
     IOLog("[0x%llx] rl::%s(%d): <==\n", *(this + 76), "updateCarrier", 52);
   }
 
-  v14 = 0x2000000001;
-  re_ifmedia_sts_8125(this + 296, &v14);
-  if ((v14 & 2) != 0)
+  v12 = 0x2000000001;
+  re_ifmedia_sts_8125(this + 296, &v12);
+  if ((v12 & 2) != 0)
   {
     *(this + 1216) = 1;
-    v4 = HIDWORD(v14) & 0xF001F;
-    v5 = 5000000000;
-    v6 = 2500000000;
-    v7 = 10000000000;
-    if ((HIDWORD(v14) & 0xF001F) != 0x15)
+    v3 = HIDWORD(v12) & 0xF001F;
+    v4 = 5000000000;
+    v5 = 2500000000;
+    v6 = 10000000000;
+    if ((HIDWORD(v12) & 0xF001F) != 0x15)
     {
-      v7 = 0;
+      v6 = 0;
     }
 
-    if (v4 != 22)
-    {
-      v6 = v7;
-    }
-
-    if (v4 != 23)
+    if (v3 != 22)
     {
       v5 = v6;
     }
 
-    v8 = 10000000;
-    v9 = 100000000;
-    v10 = 1000000000;
-    if (v4 != 16)
+    if (v3 != 23)
     {
-      v10 = 0;
+      v4 = v5;
     }
 
-    if (v4 != 6)
+    v7 = 10000000;
+    v8 = 100000000;
+    v9 = 1000000000;
+    if (v3 != 16)
     {
-      v9 = v10;
+      v9 = 0;
     }
 
-    if (v4 != 3)
+    if (v3 != 6)
     {
       v8 = v9;
     }
 
-    if ((HIDWORD(v14) & 0xF001Fu) <= 0x14)
+    if (v3 != 3)
     {
-      v11 = v8;
+      v7 = v8;
+    }
+
+    if ((HIDWORD(v12) & 0xF001Fu) <= 0x14)
+    {
+      v10 = v7;
     }
 
     else
     {
-      v11 = v5;
+      v10 = v4;
     }
 
     if ((*(this + 600) & 4) != 0)
     {
-      IOLog("[0x%llx] rl::%s(%d): setting Link mode=0%08x, baud=%lld\n", *(this + 76), "updateCarrier", 103, HIDWORD(v14), v11);
+      IOLog("[0x%llx] rl::%s(%d): setting Link mode=0%08x, baud=%lld\n", *(this + 76), "updateCarrier", 103, HIDWORD(v12), v10);
     }
 
-    AppleEthernetRL::updateTimestampAdjustments(this, v11);
-    (*(*this + 1936))(this, HIDWORD(v14));
-    IOSkywalkNetworkInterface::reportLinkStatus(this, v14, HIDWORD(v14));
+    AppleEthernetRL::updateTimestampAdjustments(this, v10);
+    (*(*this + 1936))(this, HIDWORD(v12));
+    IOSkywalkNetworkInterface::reportLinkStatus(this, v12, HIDWORD(v12));
     IOSkywalkNetworkInterface::reportLinkQuality(this, 0x64u);
-    v12 = *(this + 161);
-    if (v12)
+    v11 = *(this + 161);
+    if (v11)
     {
-      (*(*v12 + 1480))(v12);
+      (*(*v11 + 1480))(v11);
     }
 
     if ((*(this + 600) & 4) != 0)
     {
-      v13 = *(this + 76);
       IOLog("[0x%llx] rl::%s(%d): ==>(up)\n");
     }
   }
@@ -4150,9 +4095,9 @@ void AppleEthernetRL::updateCarrier(AppleEthernetRL *this)
   else
   {
     *(this + 1216) = 0;
-    HIDWORD(v14) |= 2u;
+    HIDWORD(v12) |= 2u;
     (*(*this + 1936))(this);
-    IOSkywalkNetworkInterface::reportLinkStatus(this, v14, HIDWORD(v14));
+    IOSkywalkNetworkInterface::reportLinkStatus(this, v12, HIDWORD(v12));
     IOSkywalkNetworkInterface::reportLinkQuality(this, 0xFFFFFFFE);
     v2 = *(this + 161);
     if (v2)
@@ -4162,7 +4107,6 @@ void AppleEthernetRL::updateCarrier(AppleEthernetRL *this)
 
     if ((*(this + 600) & 4) != 0)
     {
-      v3 = *(this + 76);
       IOLog("[0x%llx] rl::%s(%d): ==>(down)\n");
     }
   }
@@ -4819,7 +4763,7 @@ uint64_t AppleEthernetRL::dequeueTx4DWLegacyPackets(uint64_t a1, uint64_t a2, IO
   {
     v16 = *a3++;
     v15 = v16;
-    v17 = (*(*v16 + 160))(v16);
+    v17 = (*(*v16 + 160))(v16, a2);
     v45 = 0;
     (*(*v16 + 128))(v16, &v45, 1);
     v18 = (*(*v16 + 176))(v16);
@@ -4967,7 +4911,7 @@ uint64_t AppleEthernetRL::enqueueTx4DWLegacyPackets(uint64_t a1, uint64_t a2, ui
 LABEL_15:
   *v9 = v12;
   *(a5 + 16) = v13;
-  (*(**(a5 + 32) + 352))(*(a5 + 32), 0, 1);
+  (*(**(a5 + 32) + 352))(*(a5 + 32), 0, 1, a4);
   if (*(v14 + 1))
   {
     IOLog("[0x%llx] rl::%s(%d): head %03x, tail %03x, done %03x :: %u\n", *(a1 + 608), "enqueueTx4DWLegacyPackets", 260, v12, v10, v12, v15);
@@ -5483,7 +5427,6 @@ void AppleEthernetRL::intrHandler(AppleEthernetRL *this)
   if (*(this + 1208))
   {
     v2 = this + 296;
-    v3 = *(this + 463);
     if (*(this + 535))
     {
       if (!*(this + 463))
@@ -5496,13 +5439,13 @@ void AppleEthernetRL::intrHandler(AppleEthernetRL *this)
           *(*(this + 42) + 3344) = -1;
           if (!*(this + 463))
           {
-            v4 = this + 336;
-            v11 = (this + 848);
+            v3 = this + 336;
+            v10 = (this + 848);
             do
             {
-              v5 = *(*v4 + 3332);
+              v4 = *(*v3 + 3332);
               __dmb(1u);
-              if (v5 == -1)
+              if (v4 == -1)
               {
                 break;
               }
@@ -5512,31 +5455,31 @@ void AppleEthernetRL::intrHandler(AppleEthernetRL *this)
                 break;
               }
 
-              v6 = *(*v4 + 3348);
+              v5 = *(*v3 + 3348);
               __dmb(1u);
-              if (v6 == -1)
+              if (v5 == -1)
               {
                 break;
               }
 
               if ((*(this + 600) & 0x10) != 0)
               {
-                IOLog("[0x%llx] rl::%s(%d): isr 0x%08x, l2 isr 0x%08x\n", *(this + 76), "intrHandler", 73, v5, v6);
+                IOLog("[0x%llx] rl::%s(%d): isr 0x%08x, l2 isr 0x%08x\n", *(this + 76), "intrHandler", 73, v4, v5);
               }
 
               if (!*(this + 463))
               {
                 __dmb(2u);
-                *(*(this + 42) + 3332) = v5;
+                *(*(this + 42) + 3332) = v4;
                 if (!*(this + 463))
                 {
                   __dmb(2u);
-                  *(*v4 + 3348) = v6;
+                  *(*v3 + 3348) = v5;
                 }
               }
 
-              v7 = *(this + 386);
-              if (((v7 | *(this + 394)) & v5) == 0 && (*(this + 395) & v6) == 0)
+              v6 = *(this + 386);
+              if (((v6 | *(this + 394)) & v4) == 0 && (*(this + 395) & v5) == 0)
               {
 LABEL_65:
                 if (!*(this + 463))
@@ -5546,8 +5489,8 @@ LABEL_65:
                   if (!*(this + 463))
                   {
                     __dmb(2u);
-                    v9 = *(this + 395);
-                    v10 = 3352;
+                    v8 = *(this + 395);
+                    v9 = 3352;
                     goto LABEL_64;
                   }
                 }
@@ -5555,39 +5498,39 @@ LABEL_65:
                 return;
               }
 
-              if ((v7 & v5) != 0)
+              if ((v6 & v4) != 0)
               {
                 re_check_link_status(v2);
                 AppleEthernetRL::updateCarrier(this);
               }
 
               __dmb(1u);
-              if ((*(this + 390) & v6) != 0 && AppleEthernetRL::checkForTX4DWLegacy(this, 1u))
+              if ((*(this + 390) & v5) != 0 && AppleEthernetRL::checkForTX4DWLegacy(this, 1u))
               {
-                AppleEthernetRL::handleTxPTPPacketsCompleted(this, v11);
+                AppleEthernetRL::handleTxPTPPacketsCompleted(this, v10);
               }
 
-              if ((*(this + 392) & v6) != 0 && AppleEthernetRL::checkForTX8DW(this, 2u))
+              if ((*(this + 392) & v5) != 0 && AppleEthernetRL::checkForTX8DW(this, 2u))
               {
                 AppleEthernetRL::handleTxAVBPacketsCompleted(this, this + 920);
               }
 
-              if ((*(this + 389) & v5) != 0 && (*(this + 169))(this, 1, *(this + 270)))
+              if ((*(this + 389) & v4) != 0 && (*(this + 169))(this, 1, *(this + 270)))
               {
                 AppleEthernetRL::handleRxPTPPacketsAvailable(this, this + 1064);
               }
 
-              if ((*(this + 391) & v5) != 0 && (*(this + 169))(this, 2, *(this + 288)))
+              if ((*(this + 391) & v4) != 0 && (*(this + 169))(this, 2, *(this + 288)))
               {
                 AppleEthernetRL::handleRxAVBPacketsAvailable(this, this + 1136);
               }
 
-              if ((*(this + 388) & v5) != 0 && (*(this + 170))(this, 0))
+              if ((*(this + 388) & v4) != 0 && (*(this + 170))(this, 0))
               {
                 (*(**(this + 84) + 352))(*(this + 84), this + 632, 0);
               }
 
-              if ((*(this + 387) & v5) != 0)
+              if ((*(this + 387) & v4) != 0)
               {
                 if (!(*(this + 169))(this, 0, *(this + 252)))
                 {
@@ -5597,7 +5540,7 @@ LABEL_65:
                 (*(**(this + 90) + 352))(*(this + 90), this + 680, 0);
               }
 
-              if ((*(this + 393) & v6) != 0)
+              if ((*(this + 393) & v5) != 0)
               {
                 AppleEthernetRL::handleMiscIrq(this);
               }
@@ -5615,59 +5558,59 @@ LABEL_65:
       *(*(this + 42) + 56) = 0;
       if (!*(this + 463))
       {
-        v4 = this + 336;
+        v3 = this + 336;
         do
         {
-          v8 = *(*v4 + 60);
+          v7 = *(*v3 + 60);
           __dmb(1u);
-          if (v8 == -1)
+          if (v7 == -1)
           {
             break;
           }
 
           if ((*(this + 600) & 0x10) != 0)
           {
-            IOLog("[0x%llx] rl::%s(%d): isr 0x%08x\n", *(this + 76), "intrHandler", 138, v8);
+            IOLog("[0x%llx] rl::%s(%d): isr 0x%08x\n", *(this + 76), "intrHandler", 138, v7);
           }
 
           if (!*(this + 463))
           {
             __dmb(2u);
-            *(*v4 + 60) = v8 & 0xFFFFFFBF;
+            *(*v3 + 60) = v7 & 0xFFFFFFBF;
           }
 
-          if ((v8 & 0x8000) != 0)
+          if ((v7 & 0x8000) != 0)
           {
             AppleEthernetRL::intrHandler(v2);
           }
 
-          if ((v8 & 0x40BF) == 0)
+          if ((v7 & 0x40BF) == 0)
           {
             if (!*(this + 463))
             {
               __dmb(2u);
-              v9 = 49343;
-              v10 = 56;
+              v8 = 49343;
+              v9 = 56;
 LABEL_64:
-              *(*v4 + v10) = v9;
+              *(*v3 + v9) = v8;
             }
 
             return;
           }
 
-          if ((v8 & 0x20) != 0)
+          if ((v7 & 0x20) != 0)
           {
             re_check_link_status(v2);
             AppleEthernetRL::updateCarrier(this);
           }
 
           __dmb(1u);
-          if ((v8 & 4) != 0 && (*(this + 170))(this, 0))
+          if ((v7 & 4) != 0 && (*(this + 170))(this, 0))
           {
             (*(**(this + 84) + 352))(*(this + 84), this + 632, 0);
           }
 
-          if ((v8 & 1) != 0 && (*(this + 169))(this, 0, *(this + 252)))
+          if ((v7 & 1) != 0 && (*(this + 169))(this, 0, *(this + 252)))
           {
             (*(**(this + 90) + 352))(*(this + 90), this + 680, 0);
           }
@@ -5913,15 +5856,15 @@ void re_phy_power_up(uint64_t a1)
   re_wait_phy_ups_resume(a1, 3);
 }
 
-void re_mdio_write(uint64_t a1, unsigned int a2, __int16 a3)
+void re_mdio_write(uint64_t result, unsigned int a2, __int16 a3)
 {
   if (a2 == 31)
   {
-    *(a1 + 160) = a3;
+    *(result + 160) = a3;
     return;
   }
 
-  LOWORD(v3) = *(a1 + 160);
+  LOWORD(v3) = *(result + 160);
   if (!v3)
   {
     v3 = (a2 >> 3) | 0xA40;
@@ -5939,7 +5882,7 @@ LABEL_8:
 
   v4 = 0;
 LABEL_9:
-  re_real_ocp_phy_write(a1, v4, a3);
+  re_real_ocp_phy_write(result, v4, a3);
 }
 
 void re_wait_phy_ups_resume(uint64_t a1, int a2)
@@ -6156,10 +6099,10 @@ LABEL_5:
     else
     {
       v18 = 4 * v7 - 4;
-      v19 = (&unk_225B8 + v18);
+      v19 = (dword_225B8 + v18);
       if (v18 != v18)
       {
-        v19 = ((&unk_225B8 + v18) & 0xFFFFFFFFFFFFLL | 0x2BAD000000000000);
+        v19 = ((dword_225B8 + v18) & 0xFFFFFFFFFFFFLL | 0x2BAD000000000000);
       }
 
       v20 = *v19;
@@ -6230,10 +6173,10 @@ LABEL_5:
     else
     {
       v17 = 4 * v10 - 4;
-      v18 = (&unk_225B8 + v17);
+      v18 = (dword_225B8 + v17);
       if (v17 != v17)
       {
-        v18 = ((&unk_225B8 + v17) & 0xFFFFFFFFFFFFLL | 0x2BAD000000000000);
+        v18 = ((dword_225B8 + v17) & 0xFFFFFFFFFFFFLL | 0x2BAD000000000000);
       }
 
       v19 = *v18;
@@ -6427,7 +6370,7 @@ void re_exit_oob(uint64_t a1)
 
   if ((v13 - 2) < 2)
   {
-    re_ocp_write(a1, 384, 1u, 5);
+    re_ocp_write(a1, 384, 1, 5);
     v17 = re_ocp_read(a1, 48, 1u) | 1;
     v14 = a1;
     v15 = 48;
@@ -6439,8 +6382,8 @@ LABEL_38:
 
   if (v13 == 4)
   {
-    re_ocp_write(a1, 20, 4u, 5);
-    re_ocp_write(a1, 24, 4u, 0);
+    re_ocp_write(a1, 20, 4, 5);
+    re_ocp_write(a1, 24, 4, 0);
     v14 = a1;
     v15 = 16;
     v16 = 4;
@@ -8054,32 +7997,32 @@ LABEL_48:
             {
               if (v19 == 80)
               {
-                re_ephy_write(a1, 1u, 43026);
-                re_ephy_write(a1, 9u, 21004);
-                re_ephy_write(a1, 4u, 53248);
-                re_ephy_write(a1, 0xDu, 63234);
-                re_ephy_write(a1, 0xAu, 34387);
-                re_ephy_write(a1, 6u, 30);
-                re_ephy_write(a1, 8u, 13717);
-                re_ephy_write(a1, 0x20u, 37973);
-                re_ephy_write(a1, 0x21u, 39423);
-                re_ephy_write(a1, 2u, 24646);
-                re_ephy_write(a1, 0x29u, 65024);
-                re_ephy_write(a1, 0x23u, 43874);
-                re_clear_set_ephy_bit(a1, 0x24u, 2048, 0);
-                re_ephy_write(a1, 0x41u, 43020);
-                re_ephy_write(a1, 0x49u, 21004);
-                re_ephy_write(a1, 0x44u, 53248);
-                re_ephy_write(a1, 0x4Du, 63234);
-                re_ephy_write(a1, 0x4Au, 34387);
-                re_ephy_write(a1, 0x46u, 30);
-                re_ephy_write(a1, 0x48u, 13717);
-                re_ephy_write(a1, 0x60u, 37973);
-                re_ephy_write(a1, 0x61u, 39423);
-                re_ephy_write(a1, 0x42u, 24646);
-                re_ephy_write(a1, 0x69u, 65024);
-                re_ephy_write(a1, 0x63u, 43874);
-                re_clear_set_ephy_bit(a1, 0x64u, 2048, 0);
+                re_ephy_write(a1, 1, 43026);
+                re_ephy_write(a1, 9, 21004);
+                re_ephy_write(a1, 4, 53248);
+                re_ephy_write(a1, 13, 63234);
+                re_ephy_write(a1, 10, 34387);
+                re_ephy_write(a1, 6, 30);
+                re_ephy_write(a1, 8, 13717);
+                re_ephy_write(a1, 32, 37973);
+                re_ephy_write(a1, 33, 39423);
+                re_ephy_write(a1, 2, 24646);
+                re_ephy_write(a1, 41, 65024);
+                re_ephy_write(a1, 35, 43874);
+                re_clear_set_ephy_bit(a1, 36, 2048, 0);
+                re_ephy_write(a1, 65, 43020);
+                re_ephy_write(a1, 73, 21004);
+                re_ephy_write(a1, 68, 53248);
+                re_ephy_write(a1, 77, 63234);
+                re_ephy_write(a1, 74, 34387);
+                re_ephy_write(a1, 70, 30);
+                re_ephy_write(a1, 72, 13717);
+                re_ephy_write(a1, 96, 37973);
+                re_ephy_write(a1, 97, 39423);
+                re_ephy_write(a1, 66, 24646);
+                re_ephy_write(a1, 105, 65024);
+                re_ephy_write(a1, 99, 43874);
+                re_clear_set_ephy_bit(a1, 100, 2048, 0);
                 goto LABEL_61;
               }
 
@@ -8352,7 +8295,6 @@ LABEL_72:
                       OOB_mutex_lock(a1);
                     }
 
-                    v56 = *(a1 + 167);
                     if ((*(a1 + 57) & 0xFE) == 0x56)
                     {
                       if (*(a1 + 167))
@@ -8361,7 +8303,7 @@ LABEL_72:
                       }
 
                       __dmb(2u);
-                      v57 = -262126589;
+                      v56 = -262126589;
                     }
 
                     else
@@ -8371,11 +8313,11 @@ LABEL_72:
                         goto LABEL_143;
                       }
 
-                      v57 = -262127616;
+                      v56 = -262127616;
                       __dmb(2u);
                     }
 
-                    *(*(a1 + 40) + 176) = v57;
+                    *(*(a1 + 40) + 176) = v56;
 LABEL_143:
                     re_clear_set_mac_ocp_bit(a1, 57426, 0, 96);
                     re_clear_set_mac_ocp_bit(a1, 57426, 136, 0);
@@ -8384,63 +8326,63 @@ LABEL_143:
                       OOB_mutex_unlock(a1);
                     }
 
-                    v58 = *(a1 + 167);
+                    v57 = *(a1 + 167);
                     if (!*(a1 + 167))
                     {
                       __dmb(2u);
-                      v59 = *(a1 + 40);
-                      *(v59 + 176) = 1616248832;
-                      v58 = *(a1 + 167);
+                      v58 = *(a1 + 40);
+                      *(v58 + 176) = 1616248832;
+                      v57 = *(a1 + 167);
                       if (!*(a1 + 167))
                       {
-                        v60 = *(v59 + 176);
+                        v59 = *(v58 + 176);
                         __dmb(1u);
-                        v58 = *(a1 + 167);
+                        v57 = *(a1 + 167);
                         if (!*(a1 + 167))
                         {
-                          v61 = v60 | 0x1F80;
-                          v62 = v60 & 0xE07F | 0x1F00;
+                          v60 = v59 | 0x1F80;
+                          v61 = v59 & 0xE07F | 0x1F00;
                           if (v4 == 1619001344)
                           {
-                            v61 = v62;
+                            v60 = v61;
                           }
 
                           __dmb(2u);
-                          *(*(a1 + 40) + 176) = v61 | 0xE0560000;
-                          v58 = *(a1 + 167);
+                          *(*(a1 + 40) + 176) = v60 | 0xE0560000;
+                          v57 = *(a1 + 167);
                           if (!*(a1 + 167))
                           {
                             __dmb(2u);
-                            v63 = *(a1 + 40);
-                            *(v63 + 176) = 1779957760;
-                            v58 = *(a1 + 167);
+                            v62 = *(a1 + 40);
+                            *(v62 + 176) = 1779957760;
+                            v57 = *(a1 + 167);
                             if (!*(a1 + 167))
                             {
-                              v64 = *(v63 + 176);
+                              v63 = *(v62 + 176);
                               __dmb(1u);
-                              v58 = *(a1 + 167);
+                              v57 = *(a1 + 167);
                               if (!*(a1 + 167))
                               {
                                 __dmb(2u);
-                                *(*(a1 + 40) + 176) = v64 & 0xF000 | 0xEA18045F;
-                                v58 = *(a1 + 167);
+                                *(*(a1 + 40) + 176) = v63 & 0xF000 | 0xEA18045F;
+                                v57 = *(a1 + 167);
                                 if (!*(a1 + 167))
                                 {
                                   __dmb(2u);
                                   if (*(a1 + 167))
                                   {
-                                    v65 = -1;
+                                    v64 = -1;
                                   }
 
                                   else
                                   {
-                                    v66 = *(*(a1 + 40) + 208);
+                                    v65 = *(*(a1 + 40) + 208);
                                     __dmb(1u);
-                                    v65 = v66 | 0xC0;
+                                    v64 = v65 | 0xC0;
                                   }
 
-                                  *(*(a1 + 40) + 208) = v65;
-                                  v58 = *(a1 + 167);
+                                  *(*(a1 + 40) + 208) = v64;
+                                  v57 = *(a1 + 167);
                                 }
                               }
                             }
@@ -8449,25 +8391,25 @@ LABEL_143:
                       }
                     }
 
-                    v67 = *(a1 + 57);
-                    v68 = v67 & 0xFE;
-                    if (v68 == 80)
+                    v66 = *(a1 + 57);
+                    v67 = v66 & 0xFE;
+                    if (v67 == 80)
                     {
-                      if (v58)
+                      if (v57)
                       {
-                        LOWORD(v69) = -1;
+                        LOWORD(v68) = -1;
 LABEL_175:
-                        v75 = v69 & 0xFFFB;
-                        v76 = v67 - 91;
-                        if (v76 <= 0xA && ((1 << v76) & 0x603) != 0)
+                        v74 = v68 & 0xFFFB;
+                        v75 = v66 - 91;
+                        if (v75 <= 0xA && ((1 << v75) & 0x603) != 0)
                         {
-                          v75 = v69 & 0xFCFB;
+                          v74 = v68 & 0xFCFB;
                         }
 
                         if (!*(a1 + 167))
                         {
                           __dmb(2u);
-                          *(*(a1 + 40) + 176) = v75 | 0xF50E0000;
+                          *(*(a1 + 40) + 176) = v74 | 0xF50E0000;
                         }
 
                         re_clear_set_mac_ocp_bit(a1, 60244, 0, 1);
@@ -8478,17 +8420,17 @@ LABEL_175:
                           __dmb(2u);
                           if (*(a1 + 167))
                           {
-                            v77 = -49;
+                            v76 = -49;
                           }
 
                           else
                           {
-                            v78 = *(*(a1 + 40) + 6272);
+                            v77 = *(*(a1 + 40) + 6272);
                             __dmb(1u);
-                            v77 = v78 & 0xFFCF;
+                            v76 = v77 & 0xFFCF;
                           }
 
-                          *(*(a1 + 40) + 6272) = v77;
+                          *(*(a1 + 40) + 6272) = v76;
                         }
 
                         if (v4 <= 1753219071)
@@ -8498,7 +8440,7 @@ LABEL_175:
                             goto LABEL_192;
                           }
 
-                          v79 = 1744830464;
+                          v78 = 1744830464;
                         }
 
                         else
@@ -8508,10 +8450,10 @@ LABEL_175:
                             goto LABEL_192;
                           }
 
-                          v79 = 1820327936;
+                          v78 = 1820327936;
                         }
 
-                        if (v4 != v79)
+                        if (v4 != v78)
                         {
                           for (i = 2556; i < 0xA7C; i += 4)
                           {
@@ -8530,37 +8472,37 @@ LABEL_196:
 
                           if (*(a1 + 167))
                           {
-                            v81 = -7;
+                            v80 = -7;
                           }
 
                           else
                           {
-                            v82 = *(*(a1 + 40) + 52);
+                            v81 = *(*(a1 + 40) + 52);
                             __dmb(1u);
-                            v81 = v82 & 0xF9;
+                            v80 = v81 & 0xF9;
                           }
 
-                          v83 = *(a1 + 57);
-                          if ((v83 - 91) <= 0xA && ((1 << (v83 - 91)) & 0x603) != 0)
+                          v82 = *(a1 + 57);
+                          if ((v82 - 91) <= 0xA && ((1 << (v82 - 91)) & 0x603) != 0)
                           {
-                            v81 &= 0xE9u;
+                            v80 &= 0xE9u;
                           }
 
                           if (!*(a1 + 167))
                           {
-                            v85 = *(a1 + 239) != 0;
-                            if ((v83 - 84) < 5)
+                            v84 = *(a1 + 239) != 0;
+                            if ((v82 - 84) < 5)
                             {
-                              v81 &= ~0x20u;
+                              v80 &= ~0x20u;
                             }
 
-                            if ((v83 & 0xFE) == 0x64)
+                            if ((v82 & 0xFE) == 0x64)
                             {
-                              v81 &= 0x9Fu;
+                              v80 &= 0x9Fu;
                             }
 
                             __dmb(2u);
-                            *(*(a1 + 40) + 52) = v81 | v85;
+                            *(*(a1 + 40) + 52) = v80 | v84;
                             if (!*(a1 + 167))
                             {
                               __dmb(2u);
@@ -8572,9 +8514,9 @@ LABEL_196:
                           {
                             if (v4 != 1686110208)
                             {
-                              v86 = 1744830464;
+                              v85 = 1744830464;
 LABEL_218:
-                              if (v4 == v86)
+                              if (v4 == v85)
                               {
                                 goto LABEL_219;
                               }
@@ -8596,19 +8538,19 @@ LABEL_222:
 
                           else if (v4 != 1753219072 && v4 != 1887436800)
                           {
-                            v86 = 1820327936;
+                            v85 = 1820327936;
                             goto LABEL_218;
                           }
 
 LABEL_219:
                           if (!*(a1 + 167))
                           {
-                            v87 = *(*(a1 + 40) + 4096);
+                            v86 = *(*(a1 + 40) + 4096);
                             __dmb(1u);
                             if (!*(a1 + 167))
                             {
                               __dmb(2u);
-                              *(*(a1 + 40) + 4096) = v87 & 0xFFFD;
+                              *(*(a1 + 40) + 4096) = v86 & 0xFFFD;
                             }
                           }
 
@@ -8631,24 +8573,24 @@ LABEL_192:
                       __dmb(2u);
                       if (*(a1 + 167))
                       {
-                        v70 = -1;
+                        v69 = -1;
                       }
 
                       else
                       {
-                        v71 = *(*(a1 + 40) + 211);
+                        v70 = *(*(a1 + 40) + 211);
                         __dmb(1u);
-                        v70 = v71 | 1;
+                        v69 = v70 | 1;
                       }
 
-                      *(*(a1 + 40) + 211) = v70;
-                      v58 = *(a1 + 167);
-                      v68 = *(a1 + 57) & 0xFE;
+                      *(*(a1 + 40) + 211) = v69;
+                      v57 = *(a1 + 167);
+                      v67 = *(a1 + 57) & 0xFE;
                     }
 
-                    if (v68 == 86)
+                    if (v67 == 86)
                     {
-                      if (v58)
+                      if (v57)
                       {
                         goto LABEL_173;
                       }
@@ -8656,20 +8598,20 @@ LABEL_192:
 
                     else
                     {
-                      if (v58)
+                      if (v57)
                       {
                         goto LABEL_173;
                       }
 
                       __dmb(2u);
-                      v73 = *(a1 + 40);
-                      *(v73 + 176) = 1883242496;
+                      v72 = *(a1 + 40);
+                      *(v72 + 176) = 1883242496;
                       if (*(a1 + 167))
                       {
                         goto LABEL_173;
                       }
 
-                      v74 = *(v73 + 176);
+                      v73 = *(v72 + 176);
                       __dmb(1u);
                       if (*(a1 + 167))
                       {
@@ -8677,7 +8619,7 @@ LABEL_192:
                       }
 
                       __dmb(2u);
-                      *(*(a1 + 40) + 176) = (v74 & 0xFFFD | 0xF0200000) + 0x200000;
+                      *(*(a1 + 40) + 176) = (v73 & 0xFFFD | 0xF0200000) + 0x200000;
                       if (*(a1 + 167))
                       {
                         goto LABEL_173;
@@ -8685,19 +8627,19 @@ LABEL_192:
                     }
 
                     __dmb(2u);
-                    v72 = *(a1 + 40);
-                    *(v72 + 176) = 1963851776;
+                    v71 = *(a1 + 40);
+                    *(v71 + 176) = 1963851776;
                     if (!*(a1 + 167))
                     {
-                      v69 = *(v72 + 176);
+                      v68 = *(v71 + 176);
                       __dmb(1u);
 LABEL_174:
-                      v67 = *(a1 + 57);
+                      v66 = *(a1 + 57);
                       goto LABEL_175;
                     }
 
 LABEL_173:
-                    LOWORD(v69) = -1;
+                    LOWORD(v68) = -1;
                     goto LABEL_174;
                   }
 
@@ -8712,29 +8654,29 @@ LABEL_173:
                 goto LABEL_72;
               }
 
-              re_ephy_write(a1, 4u, 53248);
-              re_ephy_write(a1, 0xAu, 34387);
-              re_ephy_write(a1, 0x23u, 43878);
-              re_ephy_write(a1, 0x20u, 37973);
-              re_ephy_write(a1, 0x21u, 39423);
-              re_ephy_write(a1, 0x29u, 65028);
-              re_ephy_write(a1, 0x44u, 53248);
-              re_ephy_write(a1, 0x4Au, 34387);
-              re_ephy_write(a1, 0x63u, 43878);
-              re_ephy_write(a1, 0x60u, 37973);
-              re_ephy_write(a1, 0x61u, 39423);
-              re_ephy_write(a1, 0x69u, 65028);
-              re_clear_set_ephy_bit(a1, 0x2Au, 28672, 0x3000u);
-              re_clear_set_ephy_bit(a1, 0x19u, 64, 0);
-              re_clear_set_ephy_bit(a1, 0x1Bu, 0, 0xE00u);
-              re_clear_set_ephy_bit(a1, 0x1Bu, 28672, 0);
-              re_ephy_write(a1, 2u, 24642);
-              re_ephy_write(a1, 6u, 20);
-              re_clear_set_ephy_bit(a1, 0x6Au, 28672, 0x3000u);
-              re_clear_set_ephy_bit(a1, 0x59u, 64, 0);
-              re_clear_set_ephy_bit(a1, 0x5Bu, 0, 0xE00u);
-              re_clear_set_ephy_bit(a1, 0x5Bu, 28672, 0);
-              re_ephy_write(a1, 0x42u, 24642);
+              re_ephy_write(a1, 4, 53248);
+              re_ephy_write(a1, 10, 34387);
+              re_ephy_write(a1, 35, 43878);
+              re_ephy_write(a1, 32, 37973);
+              re_ephy_write(a1, 33, 39423);
+              re_ephy_write(a1, 41, 65028);
+              re_ephy_write(a1, 68, 53248);
+              re_ephy_write(a1, 74, 34387);
+              re_ephy_write(a1, 99, 43878);
+              re_ephy_write(a1, 96, 37973);
+              re_ephy_write(a1, 97, 39423);
+              re_ephy_write(a1, 105, 65028);
+              re_clear_set_ephy_bit(a1, 42, 28672, 12288);
+              re_clear_set_ephy_bit(a1, 25, 64, 0);
+              re_clear_set_ephy_bit(a1, 27, 0, 3584);
+              re_clear_set_ephy_bit(a1, 27, 28672, 0);
+              re_ephy_write(a1, 2, 24642);
+              re_ephy_write(a1, 6, 20);
+              re_clear_set_ephy_bit(a1, 106, 28672, 12288);
+              re_clear_set_ephy_bit(a1, 89, 64, 0);
+              re_clear_set_ephy_bit(a1, 91, 0, 3584);
+              re_clear_set_ephy_bit(a1, 91, 28672, 0);
+              re_ephy_write(a1, 66, 24642);
               v20 = a1;
               v21 = 70;
               v22 = 20;
@@ -8742,31 +8684,31 @@ LABEL_173:
 
             else if (v19 == 82)
             {
-              re_ephy_write(a1, 6u, 31);
-              re_ephy_write(a1, 0xAu, 46699);
-              re_ephy_write(a1, 1u, 43090);
-              re_ephy_write(a1, 0x24u, 8);
-              re_ephy_write(a1, 0x2Fu, 24658);
-              re_ephy_write(a1, 0xDu, 63254);
-              re_ephy_write(a1, 0x20u, 54391);
-              re_ephy_write(a1, 0x21u, 17527);
-              re_ephy_write(a1, 0x22u, 19);
-              re_ephy_write(a1, 0x23u, 47974);
-              re_ephy_write(a1, 0xBu, 43273);
-              re_ephy_write(a1, 0x29u, 65284);
-              re_ephy_write(a1, 0x1Bu, 7840);
-              re_ephy_write(a1, 0x46u, 31);
-              re_ephy_write(a1, 0x4Au, 46699);
-              re_ephy_write(a1, 0x41u, 43082);
-              re_ephy_write(a1, 0x64u, 12);
-              re_ephy_write(a1, 0x6Fu, 24650);
-              re_ephy_write(a1, 0x4Du, 63254);
-              re_ephy_write(a1, 0x60u, 54391);
-              re_ephy_write(a1, 0x61u, 17527);
-              re_ephy_write(a1, 0x62u, 19);
-              re_ephy_write(a1, 0x63u, 47974);
-              re_ephy_write(a1, 0x4Bu, 43273);
-              re_ephy_write(a1, 0x69u, 65284);
+              re_ephy_write(a1, 6, 31);
+              re_ephy_write(a1, 10, 46699);
+              re_ephy_write(a1, 1, 43090);
+              re_ephy_write(a1, 36, 8);
+              re_ephy_write(a1, 47, 24658);
+              re_ephy_write(a1, 13, 63254);
+              re_ephy_write(a1, 32, 54391);
+              re_ephy_write(a1, 33, 17527);
+              re_ephy_write(a1, 34, 19);
+              re_ephy_write(a1, 35, 47974);
+              re_ephy_write(a1, 11, 43273);
+              re_ephy_write(a1, 41, 65284);
+              re_ephy_write(a1, 27, 7840);
+              re_ephy_write(a1, 70, 31);
+              re_ephy_write(a1, 74, 46699);
+              re_ephy_write(a1, 65, 43082);
+              re_ephy_write(a1, 100, 12);
+              re_ephy_write(a1, 111, 24650);
+              re_ephy_write(a1, 77, 63254);
+              re_ephy_write(a1, 96, 54391);
+              re_ephy_write(a1, 97, 17527);
+              re_ephy_write(a1, 98, 19);
+              re_ephy_write(a1, 99, 47974);
+              re_ephy_write(a1, 75, 43273);
+              re_ephy_write(a1, 105, 65284);
               v20 = a1;
               v21 = 91;
               v22 = 7840;
@@ -8778,42 +8720,42 @@ LABEL_173:
               {
                 if (v19 == 101)
                 {
-                  re_ephy_write(a1, 0x8088u, 100);
-                  re_ephy_write(a1, 0x8488u, 100);
-                  re_ephy_write(a1, 0x8888u, 100);
-                  re_ephy_write(a1, 0x8C88u, 100);
-                  re_ephy_write(a1, 0x8188u, 100);
-                  re_ephy_write(a1, 0x8588u, 100);
-                  re_ephy_write(a1, 0x8988u, 100);
-                  re_ephy_write(a1, 0x8D88u, 100);
-                  re_ephy_write(a1, 0x808Cu, 2480);
-                  re_ephy_write(a1, 0x848Cu, 2480);
-                  re_ephy_write(a1, 0x888Cu, 3984);
-                  re_ephy_write(a1, 0x8C8Cu, 3984);
-                  re_ephy_write(a1, 0x818Cu, 2480);
-                  re_ephy_write(a1, 0x858Cu, 2480);
-                  re_ephy_write(a1, 0x898Cu, 3984);
-                  re_ephy_write(a1, 0x8D8Cu, 3984);
-                  re_ephy_write(a1, 0x808Au, 2488);
-                  re_ephy_write(a1, 0x848Au, 2488);
-                  re_ephy_write(a1, 0x888Au, 3992);
-                  re_ephy_write(a1, 0x8C8Au, 3992);
-                  re_ephy_write(a1, 0x818Au, 2488);
-                  re_ephy_write(a1, 0x858Au, 2488);
-                  re_ephy_write(a1, 0x898Au, 3992);
-                  re_ephy_write(a1, 0x8D8Au, 3992);
-                  re_ephy_write(a1, 0x9020u, 128);
-                  re_ephy_write(a1, 0x9420u, 128);
-                  re_ephy_write(a1, 0x9820u, 128);
-                  re_ephy_write(a1, 0x9C20u, 128);
-                  re_ephy_write(a1, 0x901Eu, 400);
-                  re_ephy_write(a1, 0x941Eu, 400);
-                  re_ephy_write(a1, 0x981Eu, 320);
-                  re_ephy_write(a1, 0x9C1Eu, 320);
-                  re_ephy_write(a1, 0x901Cu, 400);
-                  re_ephy_write(a1, 0x941Cu, 400);
-                  re_ephy_write(a1, 0x981Cu, 320);
-                  re_ephy_write(a1, 0x9C1Cu, 320);
+                  re_ephy_write(a1, 32904, 100);
+                  re_ephy_write(a1, 33928, 100);
+                  re_ephy_write(a1, 34952, 100);
+                  re_ephy_write(a1, 35976, 100);
+                  re_ephy_write(a1, 33160, 100);
+                  re_ephy_write(a1, 34184, 100);
+                  re_ephy_write(a1, 35208, 100);
+                  re_ephy_write(a1, 36232, 100);
+                  re_ephy_write(a1, 32908, 2480);
+                  re_ephy_write(a1, 33932, 2480);
+                  re_ephy_write(a1, 34956, 3984);
+                  re_ephy_write(a1, 35980, 3984);
+                  re_ephy_write(a1, 33164, 2480);
+                  re_ephy_write(a1, 34188, 2480);
+                  re_ephy_write(a1, 35212, 3984);
+                  re_ephy_write(a1, 36236, 3984);
+                  re_ephy_write(a1, 32906, 2488);
+                  re_ephy_write(a1, 33930, 2488);
+                  re_ephy_write(a1, 34954, 3992);
+                  re_ephy_write(a1, 35978, 3992);
+                  re_ephy_write(a1, 33162, 2488);
+                  re_ephy_write(a1, 34186, 2488);
+                  re_ephy_write(a1, 35210, 3992);
+                  re_ephy_write(a1, 36234, 3992);
+                  re_ephy_write(a1, 36896, 128);
+                  re_ephy_write(a1, 37920, 128);
+                  re_ephy_write(a1, 38944, 128);
+                  re_ephy_write(a1, 39968, 128);
+                  re_ephy_write(a1, 36894, 400);
+                  re_ephy_write(a1, 37918, 400);
+                  re_ephy_write(a1, 38942, 320);
+                  re_ephy_write(a1, 39966, 320);
+                  re_ephy_write(a1, 36892, 400);
+                  re_ephy_write(a1, 37916, 400);
+                  re_ephy_write(a1, 38940, 320);
+                  re_ephy_write(a1, 39964, 320);
                   if ((*(a1 + 57) & 0xFE) == 0x64)
                   {
                     _re_ephy_write(a1, 4094, 0);
@@ -8823,15 +8765,15 @@ LABEL_173:
                 goto LABEL_61;
               }
 
-              re_ephy_write(a1, 0xBu, 43272);
-              re_ephy_write(a1, 0x1Eu, 8427);
-              re_ephy_write(a1, 0x22u, 35);
-              re_ephy_write(a1, 2u, 24770);
-              re_ephy_write(a1, 0x29u, 65280);
-              re_ephy_write(a1, 0x4Bu, 43272);
-              re_ephy_write(a1, 0x5Eu, 10475);
-              re_ephy_write(a1, 0x62u, 35);
-              re_ephy_write(a1, 0x42u, 24770);
+              re_ephy_write(a1, 11, 43272);
+              re_ephy_write(a1, 30, 8427);
+              re_ephy_write(a1, 34, 35);
+              re_ephy_write(a1, 2, 24770);
+              re_ephy_write(a1, 41, 65280);
+              re_ephy_write(a1, 75, 43272);
+              re_ephy_write(a1, 94, 10475);
+              re_ephy_write(a1, 98, 35);
+              re_ephy_write(a1, 66, 24770);
               v20 = a1;
               v21 = 105;
               v22 = 65280;
@@ -8857,17 +8799,17 @@ LABEL_226:
     __dmb(2u);
     if (*(a1 + 167))
     {
-      v88 = 127;
+      v87 = 127;
     }
 
     else
     {
-      v89 = *(*(a1 + 40) + 241);
+      v88 = *(*(a1 + 40) + 241);
       __dmb(1u);
-      v88 = v89 & 0x7F;
+      v87 = v88 & 0x7F;
     }
 
-    *(*(a1 + 40) + 241) = v88;
+    *(*(a1 + 40) + 241) = v87;
   }
 
   re_clrwol(a1);
@@ -8875,7 +8817,7 @@ LABEL_226:
   {
     if (v4 != 1744830464)
     {
-      v90 = 1753219072;
+      v89 = 1753219072;
       goto LABEL_238;
     }
 
@@ -8886,7 +8828,7 @@ LABEL_239:
     }
 
     __dmb(2u);
-    v91 = 1310740;
+    v90 = 1310740;
     goto LABEL_241;
   }
 
@@ -8895,9 +8837,9 @@ LABEL_239:
     goto LABEL_239;
   }
 
-  v90 = 1820327936;
+  v89 = 1820327936;
 LABEL_238:
-  if (v4 == v90)
+  if (v4 == v89)
   {
     goto LABEL_239;
   }
@@ -8905,13 +8847,12 @@ LABEL_238:
   if (!*(a1 + 167))
   {
     __dmb(2u);
-    v91 = 6488163;
+    v90 = 6488163;
 LABEL_241:
-    *(*(a1 + 40) + 2560) = v91;
+    *(*(a1 + 40) + 2560) = v90;
   }
 
 LABEL_243:
-  v92 = *(a1 + 167);
   if ((*(a1 + 8) & 8) == 0)
   {
     if (!*(a1 + 167))
@@ -8919,24 +8860,24 @@ LABEL_243:
       __dmb(2u);
       if (*(a1 + 167))
       {
-        v93 = -12582913;
+        v91 = -12582913;
       }
 
       else
       {
-        v94 = *(*(a1 + 40) + 68);
+        v92 = *(*(a1 + 40) + 68);
         __dmb(1u);
-        v93 = v94 & 0xFF3FFFFF;
+        v91 = v92 & 0xFF3FFFFF;
       }
 
       goto LABEL_253;
     }
 
 LABEL_256:
-    v99 = a1 + 20;
+    v97 = a1 + 20;
     *(a1 + 20) |= 0x8302u;
 LABEL_257:
-    v100 = -1;
+    v98 = -1;
     goto LABEL_258;
   }
 
@@ -8948,34 +8889,34 @@ LABEL_257:
   __dmb(2u);
   if (*(a1 + 167))
   {
-    v93 = -1;
+    v91 = -1;
   }
 
   else
   {
-    v95 = *(*(a1 + 40) + 68);
+    v93 = *(*(a1 + 40) + 68);
     __dmb(1u);
-    v93 = v95 | 0x400000;
+    v91 = v93 | 0x400000;
   }
 
 LABEL_253:
-  v96 = *(a1 + 40);
-  *(v96 + 68) = v93;
+  v94 = *(a1 + 40);
+  *(v94 + 68) = v91;
   if (*(a1 + 167))
   {
     goto LABEL_256;
   }
 
-  v97 = *(v96 + 224);
+  v95 = *(v94 + 224);
   __dmb(1u);
   if (*(a1 + 167))
   {
     goto LABEL_256;
   }
 
-  v98 = (32 * (*(a1 + 8) & 1)) | v97 & 0xFFDF;
+  v96 = (32 * (*(a1 + 8) & 1)) | v95 & 0xFFDF;
   __dmb(2u);
-  *(*(a1 + 40) + 224) = v98;
+  *(*(a1 + 40) + 224) = v96;
   if (*(a1 + 167))
   {
     goto LABEL_256;
@@ -8984,53 +8925,53 @@ LABEL_253:
   __dmb(2u);
   if (*(a1 + 167))
   {
-    v119 = 63;
+    v116 = 63;
   }
 
   else
   {
-    v121 = *(*(a1 + 40) + 80);
+    v118 = *(*(a1 + 40) + 80);
     __dmb(1u);
-    v119 = v121 & 0x3F;
+    v116 = v118 & 0x3F;
   }
 
-  *(*(a1 + 40) + 80) = v119;
-  v122 = *(a1 + 167);
-  v99 = a1 + 20;
+  *(*(a1 + 40) + 80) = v116;
+  v119 = *(a1 + 167);
+  v97 = a1 + 20;
   *(a1 + 20) |= 0x8302u;
-  if (v122)
+  if (v119)
   {
     goto LABEL_257;
   }
 
-  v123 = *(*(a1 + 40) + 68);
+  v120 = *(*(a1 + 40) + 68);
   __dmb(1u);
   if (*(a1 + 167))
   {
     goto LABEL_257;
   }
 
-  v124 = v123 & 0xFFFFFFC0 | 2;
-  v125 = v123 | 6;
+  v121 = v120 & 0xFFFFFFC0 | 2;
+  v122 = v120 | 6;
   if ((*(a1 + 20) & 0x8300) == 0)
   {
-    v125 = v124;
+    v122 = v121;
   }
 
-  v126 = ((*(a1 + 20) << 23) >> 31) & 0x31 | (8 * ((*(a1 + 20) & 0x102) != 0)) | v125 & 0xFFFFFFC6;
+  v123 = ((*(a1 + 20) << 23) >> 31) & 0x31 | (8 * ((*(a1 + 20) & 0x102) != 0)) | v122 & 0xFFFFFFC6;
   __dmb(2u);
-  v127 = *(a1 + 40);
-  *(v127 + 68) = v126;
+  v124 = *(a1 + 40);
+  *(v124 + 68) = v123;
   if (*(a1 + 167))
   {
     goto LABEL_257;
   }
 
-  v128 = *(v127 + 68);
+  v125 = *(v124 + 68);
   __dmb(1u);
-  v100 = v128 | 4;
+  v98 = v125 | 4;
 LABEL_258:
-  if ((*(v99 + 1) & 3) != 0)
+  if ((*(v97 + 1) & 3) != 0)
   {
     if (*(a1 + 167))
     {
@@ -9038,7 +8979,7 @@ LABEL_258:
     }
 
     __dmb(2u);
-    *(*(a1 + 40) + 68) = v100;
+    *(*(a1 + 40) + 68) = v98;
     if (*(a1 + 167))
     {
       goto LABEL_268;
@@ -9052,7 +8993,7 @@ LABEL_258:
     }
 
     __dmb(2u);
-    v101 = -1;
+    v99 = -1;
   }
 
   else
@@ -9062,78 +9003,77 @@ LABEL_258:
       goto LABEL_268;
     }
 
-    v102 = *(a1 + 120);
+    v100 = *(a1 + 120);
     __dmb(2u);
-    *(*(a1 + 40) + 68) = v100;
+    *(*(a1 + 40) + 68) = v98;
     if (*(a1 + 167))
     {
       goto LABEL_268;
     }
 
     __dmb(2u);
-    *(*(a1 + 40) + 8) = (v102 & 0x40000000) == 0;
+    *(*(a1 + 40) + 8) = (v100 & 0x40000000) == 0;
     if (*(a1 + 167))
     {
       goto LABEL_268;
     }
 
-    v101 = (v102 & 0x40000000u) >> 6;
+    v99 = (v100 & 0x40000000u) >> 6;
     __dmb(2u);
   }
 
-  v103 = *(a1 + 40);
-  *(v103 + 12) = v101;
+  v101 = *(a1 + 40);
+  *(v101 + 12) = v99;
   if (!*(a1 + 167))
   {
-    v120 = *(v103 + 5650);
+    v117 = *(v101 + 5650);
     __dmb(1u);
-    v104 = v120 & 0xFFF1;
+    v102 = v117 & 0xFFF1;
     goto LABEL_269;
   }
 
 LABEL_268:
-  v104 = -15;
+  v102 = -15;
 LABEL_269:
   platform_avb_enabled = re_get_platform_avb_enabled(a1);
-  if (*(a1 + 167) || (!platform_avb_enabled ? (v106 = v104) : (v106 = v104 | 2), __dmb(2u), v107 = *(a1 + 40), *(v107 + 5650) = v106, *(a1 + 167)))
+  if (*(a1 + 167) || (!platform_avb_enabled ? (v104 = v102) : (v104 = v102 | 2), __dmb(2u), v105 = *(a1 + 40), *(v105 + 5650) = v104, *(a1 + 167)))
   {
-    v108 = -2;
+    v106 = -2;
   }
 
   else
   {
-    v117 = *(v107 + 4096);
+    v114 = *(v105 + 4096);
     __dmb(1u);
-    v108 = v117 & 0xFFFE;
+    v106 = v114 & 0xFFFE;
   }
 
-  v109 = re_get_platform_avb_enabled(a1);
+  v107 = re_get_platform_avb_enabled(a1);
   if (!*(a1 + 167))
   {
     __dmb(2u);
-    *(*(a1 + 40) + 4096) = v108 | v109;
+    *(*(a1 + 40) + 4096) = v106 | v107;
   }
 
-  v110 = re_get_platform_avb_enabled(a1);
+  v108 = re_get_platform_avb_enabled(a1);
   if (!*(a1 + 167))
   {
-    if (v110)
+    if (v108)
     {
-      v111 = 45;
+      v109 = 45;
     }
 
     else
     {
-      v111 = 12;
+      v109 = 12;
     }
 
     __dmb(2u);
-    *(*(a1 + 40) + 55) = v111;
+    *(*(a1 + 40) + 55) = v109;
   }
 
   *(a1 + 16) = *(a1 + 16) & 0xFFFFFFFC | 1;
   IOLog("rl::%s(%d): Enabling Interrupts\n", "re_hw_start_unlock_8125", 5500);
-  v112 = *(a1 + 167);
   if (!*(a1 + 239))
   {
     if (*(a1 + 167))
@@ -9142,8 +9082,8 @@ LABEL_269:
     }
 
     __dmb(2u);
-    v115 = 49343;
-    v116 = 56;
+    v112 = 49343;
+    v113 = 56;
     goto LABEL_300;
   }
 
@@ -9152,29 +9092,29 @@ LABEL_269:
     __dmb(2u);
     if (*(a1 + 239))
     {
-      v113 = *(a1 + 238) - 2;
-      if (v113 >= 6)
+      v110 = *(a1 + 238) - 2;
+      if (v110 >= 6)
       {
         IOLog("rl::%s(%d): invalid isr version \n", "re_get_default_imr_8125", 4906);
-        v114 = 0;
+        v111 = 0;
       }
 
       else
       {
-        v114 = dword_22588[v113];
+        v111 = dword_22588[v110];
       }
     }
 
     else
     {
-      v114 = 49343;
+      v111 = 49343;
     }
 
-    *(*(a1 + 40) + 3340) = v114;
+    *(*(a1 + 40) + 3340) = v111;
   }
 
-  v118 = *(a1 + 57);
-  if ((v118 - 100) < 2)
+  v115 = *(a1 + 57);
+  if ((v115 - 100) < 2)
   {
     if (*(a1 + 167))
     {
@@ -9182,18 +9122,18 @@ LABEL_269:
     }
 
     __dmb(2u);
-    v115 = 3;
+    v112 = 3;
     goto LABEL_299;
   }
 
-  if (v118 == 88 && !*(a1 + 167))
+  if (v115 == 88 && !*(a1 + 167))
   {
     __dmb(2u);
-    v115 = 2;
+    v112 = 2;
 LABEL_299:
-    v116 = 3352;
+    v113 = 3352;
 LABEL_300:
-    *(*(a1 + 40) + v116) = v115;
+    *(*(a1 + 40) + v113) = v112;
   }
 }
 
@@ -9204,7 +9144,6 @@ uint64_t _re_enable_aspm_clkreq_lock(uint64_t result, int a2)
   v4 = (1 << v2) & 0x603;
   if (v3 || v4 == 0)
   {
-    v9 = *(result + 167);
     if (a2)
     {
       if (*(result + 167))
@@ -9215,34 +9154,34 @@ uint64_t _re_enable_aspm_clkreq_lock(uint64_t result, int a2)
       __dmb(2u);
       if (*(result + 167))
       {
-        v10 = -1;
+        v8 = -1;
       }
 
       else
       {
-        v19 = *(*(result + 40) + 86);
+        v17 = *(*(result + 40) + 86);
         __dmb(1u);
-        v10 = v19 | 1;
+        v8 = v17 | 1;
       }
 
-      *(*(result + 40) + 86) = v10;
+      *(*(result + 40) + 86) = v8;
       if (*(result + 167))
       {
         return result;
       }
 
-      v13 = result + 40;
+      v11 = result + 40;
       __dmb(2u);
       if (*(result + 167))
       {
-        v14 = -1;
+        v12 = -1;
       }
 
       else
       {
-        v21 = *(*v13 + 83);
+        v19 = *(*v11 + 83);
         __dmb(1u);
-        v14 = v21 | 0x80;
+        v12 = v19 | 0x80;
       }
     }
 
@@ -9256,42 +9195,41 @@ uint64_t _re_enable_aspm_clkreq_lock(uint64_t result, int a2)
       __dmb(2u);
       if (*(result + 167))
       {
-        v11 = -2;
+        v9 = -2;
       }
 
       else
       {
-        v20 = *(*(result + 40) + 86);
+        v18 = *(*(result + 40) + 86);
         __dmb(1u);
-        v11 = v20 & 0xFE;
+        v9 = v18 & 0xFE;
       }
 
-      *(*(result + 40) + 86) = v11;
+      *(*(result + 40) + 86) = v9;
       if (*(result + 167))
       {
         return result;
       }
 
-      v13 = result + 40;
+      v11 = result + 40;
       __dmb(2u);
       if (*(result + 167))
       {
-        v14 = 127;
+        v12 = 127;
       }
 
       else
       {
-        v22 = *(*v13 + 83);
+        v20 = *(*v11 + 83);
         __dmb(1u);
-        v14 = v22 & 0x7F;
+        v12 = v20 & 0x7F;
       }
     }
 
-    v18 = 83;
+    v16 = 83;
     goto LABEL_31;
   }
 
-  v6 = *(result + 167);
   if (a2)
   {
     if (!*(result + 167))
@@ -9299,37 +9237,37 @@ uint64_t _re_enable_aspm_clkreq_lock(uint64_t result, int a2)
       __dmb(2u);
       if (*(result + 167))
       {
-        v7 = -1;
+        v6 = -1;
       }
 
       else
       {
-        v12 = *(*(result + 40) + 52);
+        v10 = *(*(result + 40) + 52);
         __dmb(1u);
-        v7 = v12 | 8;
+        v6 = v10 | 8;
       }
 
-      *(*(result + 40) + 52) = v7;
+      *(*(result + 40) + 52) = v6;
       if (!*(result + 167))
       {
-        v13 = result + 40;
+        v11 = result + 40;
         __dmb(2u);
         if (*(result + 167))
         {
-          v14 = -1;
+          v12 = -1;
         }
 
         else
         {
-          v16 = *(*v13 + 86);
+          v14 = *(*v11 + 86);
           __dmb(1u);
-          v14 = v16 | 1;
+          v12 = v14 | 1;
         }
 
 LABEL_30:
-        v18 = 86;
+        v16 = 86;
 LABEL_31:
-        *(*v13 + v18) = v14;
+        *(*v11 + v16) = v12;
       }
     }
   }
@@ -9339,31 +9277,31 @@ LABEL_31:
     __dmb(2u);
     if (*(result + 167))
     {
-      v8 = -9;
+      v7 = -9;
     }
 
     else
     {
-      v15 = *(*(result + 40) + 52);
+      v13 = *(*(result + 40) + 52);
       __dmb(1u);
-      v8 = v15 & 0xF7;
+      v7 = v13 & 0xF7;
     }
 
-    *(*(result + 40) + 52) = v8;
+    *(*(result + 40) + 52) = v7;
     if (!*(result + 167))
     {
-      v13 = result + 40;
+      v11 = result + 40;
       __dmb(2u);
       if (*(result + 167))
       {
-        v14 = -2;
+        v12 = -2;
       }
 
       else
       {
-        v17 = *(*v13 + 86);
+        v15 = *(*v11 + 86);
         __dmb(1u);
-        v14 = v17 & 0xFE;
+        v12 = v15 & 0xFE;
       }
 
       goto LABEL_30;
@@ -9373,8 +9311,9 @@ LABEL_31:
   return result;
 }
 
-void re_ephy_write(uint64_t a1, unsigned int a2, int a3)
+void re_ephy_write(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a3;
   v4 = a2;
   if ((*(a1 + 57) & 0xFE) == 0x64)
   {
@@ -9382,10 +9321,10 @@ void re_ephy_write(uint64_t a1, unsigned int a2, int a3)
     v4 &= 0xFFFu;
   }
 
-  _re_ephy_write(a1, v4, a3);
+  _re_ephy_write(a1, v4, v3);
 }
 
-void re_clear_set_ephy_bit(uint64_t a1, unsigned int a2, __int16 a3, unsigned __int16 a4)
+void re_clear_set_ephy_bit(uint64_t a1, uint64_t a2, __int16 a3, __int16 a4)
 {
   if ((*(a1 + 57) & 0xFE) == 0x64)
   {
@@ -9425,7 +9364,7 @@ void re_clear_set_ephy_bit(uint64_t a1, unsigned int a2, __int16 a3, unsigned __
   LOWORD(v10) = -1;
 LABEL_11:
 
-  re_ephy_write(a1, a2, (v10 & ~a3) | a4);
+  re_ephy_write(a1, a2, (v10 & ~a3 | a4));
 }
 
 uint64_t OOB_mutex_lock(uint64_t result)
@@ -9438,7 +9377,7 @@ uint64_t OOB_mutex_lock(uint64_t result)
     v4 = (1 << v2) & 0x133;
     if (!v3 && v4 != 0)
     {
-      re_ocp_write(result, 276, 1u, 1);
+      re_ocp_write(result, 276, 1, 1);
       result = re_ocp_read(v1, 272, 1u);
       if (result)
       {
@@ -9447,7 +9386,7 @@ uint64_t OOB_mutex_lock(uint64_t result)
         {
           if (re_ocp_read(v1, 284, 1u))
           {
-            re_ocp_write(v1, 276, 1u, 0);
+            re_ocp_write(v1, 276, 1, 0);
             if (re_ocp_read(v1, 284, 1u))
             {
               v7 = 0;
@@ -9465,7 +9404,7 @@ uint64_t OOB_mutex_lock(uint64_t result)
               while (v8);
             }
 
-            re_ocp_write(v1, 276, 1u, 1);
+            re_ocp_write(v1, 276, 1, 1);
           }
 
           result = re_ocp_read(v1, 272, 1u);
@@ -9485,18 +9424,18 @@ uint64_t OOB_mutex_lock(uint64_t result)
   return result;
 }
 
-void OOB_mutex_unlock(uint64_t a1)
+void OOB_mutex_unlock(uint64_t result)
 {
-  if (*(a1 + 171))
+  if (*(result + 171))
   {
-    v2 = *(a1 + 57) - 80;
+    v2 = *(result + 57) - 80;
     v3 = v2 > 8;
     v4 = (1 << v2) & 0x133;
     if (!v3 && v4 != 0)
     {
-      re_ocp_write(a1, 284, 1u, 1);
+      re_ocp_write(result, 284, 1, 1);
 
-      re_ocp_write(a1, 276, 1u, 0);
+      re_ocp_write(result, 276, 1, 0);
     }
   }
 }
@@ -9775,5 +9714,204 @@ LABEL_22:
     {
       re_set_pfm_patch(a1, !v14);
     }
+  }
+}
+
+void re_check_link_status(uint64_t a1)
+{
+  v2 = 1;
+  if (!*(a1 + 167))
+  {
+    v3 = *(*(a1 + 40) + 108);
+    __dmb(1u);
+    if ((v3 & 2) != 0)
+    {
+      v2 = 1;
+    }
+
+    else
+    {
+      v2 = 2;
+    }
+  }
+
+  v20 = v2;
+  if (re_get_platform_forced_link_state(a1, &v20))
+  {
+    if (v20 == 1)
+    {
+      v4 = "up";
+    }
+
+    else
+    {
+      v4 = "down";
+    }
+
+    IOLog("rl::%s(%d): forced link state: %s\n", "re_check_link_status", 7429, v4);
+  }
+
+  v5 = v20;
+  if (v20 != *(a1 + 166))
+  {
+    *(a1 + 166) = v20;
+    if (v5 == 1)
+    {
+      if (!*(a1 + 167))
+      {
+        v10 = *(*(a1 + 40) + 108);
+        __dmb(1u);
+        if (v10)
+        {
+          if (*(a1 + 167))
+          {
+            goto LABEL_13;
+          }
+
+          __dmb(2u);
+          if (*(a1 + 167))
+          {
+            v11 = -524289;
+          }
+
+          else
+          {
+            v15 = *(*(a1 + 40) + 64);
+            __dmb(1u);
+            v11 = v15 & 0xFCF7FFFF | 0x3000000;
+          }
+        }
+
+        else
+        {
+          if (*(a1 + 167))
+          {
+            goto LABEL_13;
+          }
+
+          __dmb(2u);
+          if (*(a1 + 167))
+          {
+            v11 = -17301505;
+          }
+
+          else
+          {
+            v14 = *(*(a1 + 40) + 64);
+            __dmb(1u);
+            v11 = v14 & 0xFCF7FFFF | 0x2000000;
+          }
+        }
+
+        v16 = *(a1 + 40);
+        *(v16 + 64) = v11;
+        if (!*(a1 + 167))
+        {
+          v17 = *(v16 + 108);
+          __dmb(1u);
+          if ((v17 & 4) == 0)
+          {
+LABEL_43:
+            if (*(a1 + 152))
+            {
+              if (*(a1 + 167))
+              {
+                v18 = 1;
+              }
+
+              else
+              {
+                v19 = *(*(a1 + 40) + 108);
+                __dmb(1u);
+                v18 = (v19 >> 2) & 1;
+              }
+
+              re_set_pfm_patch(a1, v18);
+            }
+
+            v21 = 0;
+            _re_stop(a1);
+            LODWORD(v21) = *a1;
+            WORD2(v21) = *(a1 + 4);
+            re_rar_set(a1, &v21);
+            (*(a1 + 248))(a1);
+            re_link_state_change(a1, 1);
+            return;
+          }
+        }
+      }
+
+LABEL_13:
+      v6 = *(a1 + 57) - 80;
+      if (v6 <= 0x15 && ((1 << v6) & 0x301D3F) != 0 && !*(a1 + 167))
+      {
+        __dmb(2u);
+        v7 = *(a1 + 40);
+        *(v7 + 176) = 1883242496;
+        if (!*(a1 + 167))
+        {
+          v8 = *(v7 + 176);
+          __dmb(1u);
+          if (!*(a1 + 167))
+          {
+            __dmb(2u);
+            *(*(a1 + 40) + 176) = v8 | 0xF0400002;
+          }
+        }
+      }
+
+      goto LABEL_43;
+    }
+
+    re_link_state_change(a1, 2);
+    if (*(a1 + 152))
+    {
+      re_set_pfm_patch(a1, 1);
+    }
+
+    _re_stop(a1);
+    if (*(a1 + 239))
+    {
+      if (*(a1 + 167))
+      {
+        return;
+      }
+
+      __dmb(2u);
+      v9 = 3340;
+    }
+
+    else
+    {
+      if (*(a1 + 167))
+      {
+        return;
+      }
+
+      __dmb(2u);
+      v9 = 56;
+    }
+
+    if (*(a1 + 239))
+    {
+      v12 = *(a1 + 238) - 2;
+      if (v12 >= 6)
+      {
+        IOLog("rl::%s(%d): invalid isr version \n", "re_get_linkchg_intr", 4970);
+        v13 = 0;
+      }
+
+      else
+      {
+        v13 = dword_225A0[v12];
+      }
+    }
+
+    else
+    {
+      v13 = 32;
+    }
+
+    *(*(a1 + 40) + v9) = v13;
   }
 }

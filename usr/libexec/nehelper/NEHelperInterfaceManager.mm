@@ -511,7 +511,7 @@ LABEL_78:
 - (NEHelperInterfaceManager)initWithFirstMessage:(id)message
 {
   v4 = xpc_dictionary_get_remote_connection(message);
-  if (sub_10000E080(NEHelperServer, v4))
+  if (sub_10000E080(NEHelperServer, v4, "com.apple.private.nehelper.privileged"))
   {
     v13.receiver = self;
     v13.super_class = NEHelperInterfaceManager;

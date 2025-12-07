@@ -8,38 +8,38 @@
 
 - (id)translationsForStrings:(id)strings
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   stringsCopy = strings;
   if ([stringsCopy count])
   {
     v5 = [MEMORY[0x277CBEB40] orderedSetWithCapacity:{objc_msgSend(stringsCopy, "count")}];
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
     v6 = stringsCopy;
-    v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v16;
+      v9 = *v15;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v16 != v9)
+          if (*v15 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = [(TIDictionaryLookup *)self translationForString:*(*(&v15 + 1) + 8 * i), v15];
+          v11 = [(TIDictionaryLookup *)self translationForString:*(*(&v14 + 1) + 8 * i), v14];
           if ([v11 length])
           {
             [v5 addObject:v11];
           }
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v8);
@@ -52,8 +52,6 @@
   {
     array = 0;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return array;
 }

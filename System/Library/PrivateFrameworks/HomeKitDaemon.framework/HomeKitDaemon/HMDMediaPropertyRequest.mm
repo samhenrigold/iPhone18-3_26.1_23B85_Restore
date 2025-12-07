@@ -39,73 +39,72 @@
 
 + (id)deserializeReadRequests:(id)requests mediaProfile:(id)profile
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   requestsCopy = requests;
   profileCopy = profile;
   v7 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(requestsCopy, "count")}];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v8 = requestsCopy;
-  v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v18;
+    v11 = *v17;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v18 != v11)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = [HMDMediaPropertyRequest requestWithProperty:*(*(&v17 + 1) + 8 * i) mediaProfile:profileCopy, v17];
+        v13 = [HMDMediaPropertyRequest requestWithProperty:*(*(&v16 + 1) + 8 * i) mediaProfile:profileCopy, v16];
         if (v13)
         {
           [v7 addObject:v13];
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v10);
   }
 
-  v14 = [v7 copy];
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = objc_msgSend_copy(v7);
 
   return v14;
 }
 
 + (id)serializeReadRequests:(id)requests
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   requestsCopy = requests;
   v4 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(requestsCopy, "count")}];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v5 = requestsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v20;
+    v8 = *v19;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v20 != v8)
+        if (*v19 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v19 + 1) + 8 * i);
+        v10 = *(*(&v18 + 1) + 8 * i);
         mediaProfile = [v10 mediaProfile];
         uniqueIdentifier = [mediaProfile uniqueIdentifier];
         uUIDString = [uniqueIdentifier UUIDString];
@@ -121,14 +120,13 @@
         [v14 addObject:property];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v7);
   }
 
-  v16 = [v4 copy];
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = objc_msgSend_copy(v4);
 
   return v16;
 }

@@ -51,9 +51,9 @@ void __57___UISupplementalLexicon_initWithRTISupplementalLexicon___block_invoke(
   if (v6)
   {
     v7 = [v5 dataType];
-    v8 = [v7 isEqualToString:@"CodedUIImage"];
+    isEqualToString = objc_msgSend_isEqualToString_(v7);
 
-    if (v8)
+    if (isEqualToString)
     {
       v9 = MEMORY[0x1E696ACD0];
       v10 = objc_opt_class();

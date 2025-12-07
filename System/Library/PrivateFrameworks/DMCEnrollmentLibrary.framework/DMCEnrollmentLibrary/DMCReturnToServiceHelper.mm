@@ -13,7 +13,7 @@
 
 + (id)preseveReturnToServiceDataWithMDMProfileData:(id)data wifiProfileData:(id)profileData additionalDetails:(id)details error:(id *)error
 {
-  v77 = *MEMORY[0x277D85DE8];
+  v76 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   profileDataCopy = profileData;
   detailsCopy = details;
@@ -56,62 +56,62 @@
 
   if ([MEMORY[0x277D03500] shouldPreserveUserDefaultsForReturnToService])
   {
-    v45 = v14;
-    v47 = mEMORY[0x277D24640];
+    v44 = v14;
+    v46 = mEMORY[0x277D24640];
     errorCopy = error;
-    v51 = detailsCopy;
-    v53 = profileDataCopy;
-    v55 = dataCopy;
-    v57 = objc_opt_new();
+    v50 = detailsCopy;
+    v52 = profileDataCopy;
+    v54 = dataCopy;
+    v56 = objc_opt_new();
     [self _userDefaultsToPreserve];
+    v66 = 0u;
     v67 = 0u;
     v68 = 0u;
-    v69 = 0u;
-    obj = v70 = 0u;
-    v59 = [obj countByEnumeratingWithState:&v67 objects:v76 count:16];
-    if (v59)
+    obj = v69 = 0u;
+    v58 = [obj countByEnumeratingWithState:&v66 objects:v75 count:16];
+    if (v58)
     {
-      v58 = *v68;
+      v57 = *v67;
       do
       {
         v23 = 0;
         do
         {
-          if (*v68 != v58)
+          if (*v67 != v57)
           {
             objc_enumerationMutation(obj);
           }
 
-          v61 = v23;
-          v24 = *(*(&v67 + 1) + 8 * v23);
+          v60 = v23;
+          v24 = *(*(&v66 + 1) + 8 * v23);
           v25 = objc_opt_new();
+          v62 = 0u;
           v63 = 0u;
           v64 = 0u;
           v65 = 0u;
-          v66 = 0u;
           v26 = [obj objectForKeyedSubscript:v24];
-          v27 = [v26 countByEnumeratingWithState:&v63 objects:v75 count:16];
+          v27 = [v26 countByEnumeratingWithState:&v62 objects:v74 count:16];
           if (v27)
           {
             v28 = v27;
-            v29 = *v64;
+            v29 = *v63;
             do
             {
               for (i = 0; i != v28; ++i)
               {
-                if (*v64 != v29)
+                if (*v63 != v29)
                 {
                   objc_enumerationMutation(v26);
                 }
 
-                v31 = *(*(&v63 + 1) + 8 * i);
+                v31 = *(*(&v62 + 1) + 8 * i);
                 standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
                 v33 = [standardUserDefaults objectForKey:v31 inDomain:v24];
 
                 [v25 setObject:v33 forKeyedSubscript:v31];
               }
 
-              v28 = [v26 countByEnumeratingWithState:&v63 objects:v75 count:16];
+              v28 = [v26 countByEnumeratingWithState:&v62 objects:v74 count:16];
             }
 
             while (v28);
@@ -120,46 +120,46 @@
           if ([v25 count])
           {
             v34 = [v25 copy];
-            [v57 setObject:v34 forKeyedSubscript:v24];
+            [v56 setObject:v34 forKeyedSubscript:v24];
           }
 
-          v23 = v61 + 1;
+          v23 = v60 + 1;
         }
 
-        while (v61 + 1 != v59);
-        v59 = [obj countByEnumeratingWithState:&v67 objects:v76 count:16];
+        while (v60 + 1 != v58);
+        v58 = [obj countByEnumeratingWithState:&v66 objects:v75 count:16];
       }
 
-      while (v59);
+      while (v58);
     }
 
     v35 = *DMCLogObjects();
     if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315394;
-      v72 = "+[DMCReturnToServiceHelper preseveReturnToServiceDataWithMDMProfileData:wifiProfileData:additionalDetails:error:]";
-      v73 = 2114;
-      v74 = v57;
+      v71 = "+[DMCReturnToServiceHelper preseveReturnToServiceDataWithMDMProfileData:wifiProfileData:additionalDetails:error:]";
+      v72 = 2114;
+      v73 = v56;
       _os_log_impl(&dword_247E39000, v35, OS_LOG_TYPE_DEBUG, "%s preserving user defaults: %{public}@", buf, 0x16u);
     }
 
-    v36 = [v57 count];
-    profileDataCopy = v54;
-    dataCopy = v56;
-    error = v50;
-    detailsCopy = v52;
-    v14 = v46;
-    mEMORY[0x277D24640] = v48;
+    v36 = [v56 count];
+    profileDataCopy = v53;
+    dataCopy = v55;
+    error = v49;
+    detailsCopy = v51;
+    v14 = v45;
+    mEMORY[0x277D24640] = v47;
     if (v36)
     {
-      v37 = [v57 copy];
-      [v46 setUserDefaults:v37];
+      v37 = [v56 copy];
+      [v45 setUserDefaults:v37];
     }
   }
 
-  v62 = 0;
-  v38 = [v14 preserveWithError:&v62];
-  v39 = v62;
+  v61 = 0;
+  v38 = [v14 preserveWithError:&v61];
+  v39 = v61;
   v40 = v39;
   if (v38)
   {
@@ -176,8 +176,6 @@
       *error = v40;
     }
   }
-
-  v43 = *MEMORY[0x277D85DE8];
 
   return v41;
 }
@@ -247,15 +245,13 @@
 
 + (id)_userDefaultsToPreserve
 {
-  v7[2] = *MEMORY[0x277D85DE8];
-  v6[0] = @"com.apple.managedconfiguration.notbackedup";
-  v6[1] = @"Apple Global Domain";
-  v7[0] = &unk_2859F9E68;
+  v6[2] = *MEMORY[0x277D85DE8];
+  v5[0] = @"com.apple.managedconfiguration.notbackedup";
+  v5[1] = @"Apple Global Domain";
+  v6[0] = &unk_2859F9E68;
   _allOverrides = [MEMORY[0x277D03500] _allOverrides];
-  v7[1] = _allOverrides;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[1] = _allOverrides;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:2];
 
   return v3;
 }

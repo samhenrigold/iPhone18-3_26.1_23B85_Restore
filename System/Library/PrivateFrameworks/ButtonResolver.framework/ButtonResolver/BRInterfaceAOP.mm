@@ -45,25 +45,8 @@
     v4->_maxAssetSlots = 0;
     v4->_notificationBlock = 0;
     v6 = dlopen("/System/Library/PrivateFrameworks/Haptics.framework/Haptics", 1);
-    if (!v6)
+    if (!v6 || (v7 = dlsym(v6, "HAButtonHapticsLoaderServiceIsAvailableNotification"), v8 = *v7, v5->_notificationName = *v7, !v8) || ([objc_msgSend(MEMORY[0x277CCAB98] "defaultCenter")], v9 = -[objc_class sharedInstance](NSClassFromString(&cfstr_Habuttonhaptic_0.isa), "sharedInstance"), (v5->_loader = v9) == 0) || (v5->_freeSlots = 0, v10 = objc_alloc_init(MEMORY[0x277CBEB18]), (v5->_slotArray = v10) == 0) || (v11 = objc_alloc_init(MEMORY[0x277CBEB38]), (v5->_stateDict = v11) == 0))
     {
-      goto LABEL_8;
-    }
-
-    v7 = dlsym(v6, "HAButtonHapticsLoaderServiceIsAvailableNotification");
-    v8 = *v7;
-    v5->_notificationName = *v7;
-    if (!v8)
-    {
-      goto LABEL_8;
-    }
-
-    [objc_msgSend(MEMORY[0x277CCAB98] "defaultCenter")];
-    nSClassFromString(&cfstr_Habuttonhaptic_0.isa) = [NSClassFromString(&cfstr_Habuttonhaptic_0.isa) sharedInstance];
-    v5->_loader = nSClassFromString(&cfstr_Habuttonhaptic_0.isa);
-    if (!nSClassFromString(&cfstr_Habuttonhaptic_0.isa) || (v5->_freeSlots = 0, v10 = objc_alloc_init(MEMORY[0x277CBEB18]), (v5->_slotArray = v10) == 0) || (v11 = objc_alloc_init(MEMORY[0x277CBEB38]), (v5->_stateDict = v11) == 0))
-    {
-LABEL_8:
       [BRInterfaceAOP initWithFastHaptics:?];
       return 0;
     }
@@ -120,10 +103,10 @@ LABEL_8:
 
 - (id)propertyList
 {
-  v36 = *MEMORY[0x277D85DE8];
-  v33.receiver = self;
-  v33.super_class = BRInterfaceAOP;
-  v3 = [MEMORY[0x277CBEB38] dictionaryWithDictionary:{-[BRInterface propertyList](&v33, sel_propertyList)}];
+  v35 = *MEMORY[0x277D85DE8];
+  v32.receiver = self;
+  v32.super_class = BRInterfaceAOP;
+  v3 = [MEMORY[0x277CBEB38] dictionaryWithDictionary:{-[BRInterface propertyList](&v32, sel_propertyList)}];
   array = [MEMORY[0x277CBEB18] array];
   array2 = [MEMORY[0x277CBEB18] array];
   array3 = [MEMORY[0x277CBEB18] array];
@@ -141,66 +124,66 @@ LABEL_8:
   }
 
   [v3 setObject:array forKey:@"FreeSlots"];
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   slotArray = self->_slotArray;
-  v11 = [(NSMutableArray *)slotArray countByEnumeratingWithState:&v29 objects:v35 count:16];
+  v11 = [(NSMutableArray *)slotArray countByEnumeratingWithState:&v28 objects:v34 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v30;
+    v13 = *v29;
     do
     {
       for (j = 0; j != v12; ++j)
       {
-        if (*v30 != v13)
+        if (*v29 != v13)
         {
           objc_enumerationMutation(slotArray);
         }
 
-        v15 = *(*(&v29 + 1) + 8 * j);
+        v15 = *(*(&v28 + 1) + 8 * j);
         if ([v15 propertyList])
         {
           [array2 addObject:{objc_msgSend(v15, "propertyList")}];
         }
       }
 
-      v12 = [(NSMutableArray *)slotArray countByEnumeratingWithState:&v29 objects:v35 count:16];
+      v12 = [(NSMutableArray *)slotArray countByEnumeratingWithState:&v28 objects:v34 count:16];
     }
 
     while (v12);
   }
 
   [v3 setObject:array2 forKey:@"SlotData"];
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   stateDict = self->_stateDict;
-  v17 = [(NSMutableDictionary *)stateDict countByEnumeratingWithState:&v25 objects:v34 count:16];
+  v17 = [(NSMutableDictionary *)stateDict countByEnumeratingWithState:&v24 objects:v33 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v26;
+    v19 = *v25;
     do
     {
       for (k = 0; k != v18; ++k)
       {
-        if (*v26 != v19)
+        if (*v25 != v19)
         {
           objc_enumerationMutation(stateDict);
         }
 
-        v21 = [(NSMutableDictionary *)self->_stateDict objectForKeyedSubscript:*(*(&v25 + 1) + 8 * k)];
+        v21 = [(NSMutableDictionary *)self->_stateDict objectForKeyedSubscript:*(*(&v24 + 1) + 8 * k)];
         if ([v21 propertyList])
         {
           [array3 addObject:{objc_msgSend(v21, "propertyList")}];
         }
       }
 
-      v18 = [(NSMutableDictionary *)stateDict countByEnumeratingWithState:&v25 objects:v34 count:16];
+      v18 = [(NSMutableDictionary *)stateDict countByEnumeratingWithState:&v24 objects:v33 count:16];
     }
 
     while (v18);
@@ -219,35 +202,31 @@ LABEL_8:
     [BRInterfaceAOP propertyList];
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 + (id)interface
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (MGGetSInt32Answer() == 1)
   {
     v2 = [[BRInterfaceAOP alloc] initWithFastHaptics:0];
-    v3 = *MEMORY[0x277D85DE8];
 
     return v2;
   }
 
   else
   {
-    v10 = -337121064;
-    v9 = xmmword_242155248;
-    v8 = 450980336;
-    v7 = xmmword_24215525C;
-    v5 = MGIsDeviceOneOfType();
+    v8 = -337121064;
+    v7 = xmmword_242155248;
+    v6 = 450980336;
+    v5 = xmmword_24215525C;
+    v4 = MGIsDeviceOneOfType();
     result = 0;
-    if (v5)
+    if (v4)
     {
-      result = [[BRInterfaceAOP alloc] initWithFastHaptics:1, &v7, 0];
+      return [[BRInterfaceAOP alloc] initWithFastHaptics:1, &v5, 0];
     }
-
-    v6 = *MEMORY[0x277D85DE8];
   }
 
   return result;
@@ -290,51 +269,51 @@ LABEL_8:
 - (BOOL)enableStates:(id)states error:(id *)error
 {
   v5 = a2;
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v7 = 0x277CCA000uLL;
   -[BRInterface timestampWithLabel:](self, "timestampWithLabel:", [MEMORY[0x277CCACA8] stringWithFormat:@"%@ %@", NSStringFromSelector(a2), @"start"]);
   dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
   obj = states;
-  v29 = [states countByEnumeratingWithState:&v34 objects:v39 count:16];
-  if (v29)
+  v28 = [states countByEnumeratingWithState:&v33 objects:v38 count:16];
+  if (v28)
   {
-    v28 = *v35;
-    v25 = v5;
+    v27 = *v34;
+    v24 = v5;
     while (2)
     {
-      for (i = 0; i != v29; ++i)
+      for (i = 0; i != v28; ++i)
       {
-        if (*v35 != v28)
+        if (*v34 != v27)
         {
           objc_enumerationMutation(obj);
         }
 
-        unsignedIntegerValue = [*(*(&v34 + 1) + 8 * i) unsignedIntegerValue];
-        if (unsignedIntegerValue > 0x10 || (v11 = unsignedIntegerValue, v32 = 0u, v33 = 0u, v30 = 0u, v31 = 0u, stateDict = self->_stateDict, (v13 = [(NSMutableDictionary *)stateDict countByEnumeratingWithState:&v30 objects:v38 count:16]) == 0))
+        unsignedIntegerValue = [*(*(&v33 + 1) + 8 * i) unsignedIntegerValue];
+        if (unsignedIntegerValue > 0x10 || (v11 = unsignedIntegerValue, v31 = 0u, v32 = 0u, v29 = 0u, v30 = 0u, stateDict = self->_stateDict, (v13 = [(NSMutableDictionary *)stateDict countByEnumeratingWithState:&v29 objects:v37 count:16]) == 0))
         {
 LABEL_21:
           v21 = -536870206;
-          v5 = v25;
+          v5 = v24;
           v7 = 0x277CCA000uLL;
           goto LABEL_22;
         }
 
         v14 = v13;
-        v15 = *v31;
+        v15 = *v30;
 LABEL_9:
         v16 = 0;
         while (1)
         {
-          if (*v31 != v15)
+          if (*v30 != v15)
           {
             objc_enumerationMutation(stateDict);
           }
 
-          v17 = [(NSMutableDictionary *)self->_stateDict objectForKeyedSubscript:*(*(&v30 + 1) + 8 * v16)];
+          v17 = [(NSMutableDictionary *)self->_stateDict objectForKeyedSubscript:*(*(&v29 + 1) + 8 * v16)];
           if ([v17 state] == v11)
           {
             break;
@@ -342,7 +321,7 @@ LABEL_9:
 
           if (v14 == ++v16)
           {
-            v14 = [(NSMutableDictionary *)stateDict countByEnumeratingWithState:&v30 objects:v38 count:16];
+            v14 = [(NSMutableDictionary *)stateDict countByEnumeratingWithState:&v29 objects:v37 count:16];
             if (v14)
             {
               goto LABEL_9;
@@ -363,10 +342,10 @@ LABEL_9:
         [dictionary setObject:v19 forKeyedSubscript:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithUnsignedInteger:", v11)}];
       }
 
-      v5 = v25;
+      v5 = v24;
       v7 = 0x277CCA000;
-      v29 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
-      if (v29)
+      v28 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
+      if (v28)
       {
         continue;
       }
@@ -395,63 +374,62 @@ LABEL_22:
   }
 
   -[BRInterface timestampWithLabel:](self, "timestampWithLabel:", [*(v7 + 3240) stringWithFormat:@"%@ %@", NSStringFromSelector(v5), @"end"]);
-  v23 = *MEMORY[0x277D85DE8];
   return !v20;
 }
 
 - (BOOL)disableStates:(id)states clearAsset:(BOOL)asset error:(id *)error
 {
   assetCopy = asset;
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   -[BRInterface timestampWithLabel:](self, "timestampWithLabel:", [MEMORY[0x277CCACA8] stringWithFormat:@"%@ %@", NSStringFromSelector(a2), @"start"]);
   dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v56 = 0u;
   v57 = 0u;
   v58 = 0u;
   v59 = 0u;
-  v60 = 0u;
   obj = states;
-  v7 = [states countByEnumeratingWithState:&v57 objects:v64 count:16];
+  v7 = [states countByEnumeratingWithState:&v56 objects:v63 count:16];
   if (v7)
   {
     v8 = v7;
-    v42 = *v58;
+    v41 = *v57;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v58 != v42)
+        if (*v57 != v41)
         {
           objc_enumerationMutation(obj);
         }
 
-        unsignedIntegerValue = [*(*(&v57 + 1) + 8 * i) unsignedIntegerValue];
+        unsignedIntegerValue = [*(*(&v56 + 1) + 8 * i) unsignedIntegerValue];
         if (unsignedIntegerValue > 0x10)
         {
-          v34 = -536870206;
+          v33 = -536870206;
           goto LABEL_45;
         }
 
         v11 = unsignedIntegerValue;
-        v55 = 0u;
-        v56 = 0u;
-        v53 = 0u;
         v54 = 0u;
+        v55 = 0u;
+        v52 = 0u;
+        v53 = 0u;
         stateDict = self->_stateDict;
-        v13 = [(NSMutableDictionary *)stateDict countByEnumeratingWithState:&v53 objects:v63 count:16];
+        v13 = [(NSMutableDictionary *)stateDict countByEnumeratingWithState:&v52 objects:v62 count:16];
         if (v13)
         {
           v14 = v13;
-          v15 = *v54;
+          v15 = *v53;
           while (2)
           {
             for (j = 0; j != v14; ++j)
             {
-              if (*v54 != v15)
+              if (*v53 != v15)
               {
                 objc_enumerationMutation(stateDict);
               }
 
-              v17 = [(NSMutableDictionary *)self->_stateDict objectForKeyedSubscript:*(*(&v53 + 1) + 8 * j)];
+              v17 = [(NSMutableDictionary *)self->_stateDict objectForKeyedSubscript:*(*(&v52 + 1) + 8 * j)];
               if ([v17 state] == v11)
               {
                 v18 = [v17 copy];
@@ -466,7 +444,7 @@ LABEL_22:
               }
             }
 
-            v14 = [(NSMutableDictionary *)stateDict countByEnumeratingWithState:&v53 objects:v63 count:16];
+            v14 = [(NSMutableDictionary *)stateDict countByEnumeratingWithState:&v52 objects:v62 count:16];
             if (v14)
             {
               continue;
@@ -480,7 +458,7 @@ LABEL_18:
         ;
       }
 
-      v8 = [obj countByEnumeratingWithState:&v57 objects:v64 count:16];
+      v8 = [obj countByEnumeratingWithState:&v56 objects:v63 count:16];
       if (v8)
       {
         continue;
@@ -494,41 +472,41 @@ LABEL_18:
   {
     if (assetCopy)
     {
-      v51 = 0u;
-      v52 = 0u;
-      v49 = 0u;
       v50 = 0u;
-      v41 = [dictionary countByEnumeratingWithState:&v49 objects:v62 count:16];
-      if (v41)
+      v51 = 0u;
+      v48 = 0u;
+      v49 = 0u;
+      v40 = [dictionary countByEnumeratingWithState:&v48 objects:v61 count:16];
+      if (v40)
       {
-        v39 = *v50;
+        v38 = *v49;
         do
         {
           v20 = 0;
           do
           {
-            if (*v50 != v39)
+            if (*v49 != v38)
             {
               objc_enumerationMutation(dictionary);
             }
 
-            v43 = v20;
-            v21 = [dictionary objectForKeyedSubscript:*(*(&v49 + 1) + 8 * v20)];
+            v42 = v20;
+            v21 = [dictionary objectForKeyedSubscript:*(*(&v48 + 1) + 8 * v20)];
+            v44 = 0u;
             v45 = 0u;
             v46 = 0u;
             v47 = 0u;
-            v48 = 0u;
             speedSlots = [v21 speedSlots];
-            v23 = [speedSlots countByEnumeratingWithState:&v45 objects:v61 count:16];
+            v23 = [speedSlots countByEnumeratingWithState:&v44 objects:v60 count:16];
             if (v23)
             {
               v24 = v23;
-              v25 = *v46;
+              v25 = *v45;
               do
               {
                 for (k = 0; k != v24; ++k)
                 {
-                  if (*v46 != v25)
+                  if (*v45 != v25)
                   {
                     objc_enumerationMutation(speedSlots);
                   }
@@ -546,20 +524,20 @@ LABEL_18:
                   }
                 }
 
-                v24 = [speedSlots countByEnumeratingWithState:&v45 objects:v61 count:16];
+                v24 = [speedSlots countByEnumeratingWithState:&v44 objects:v60 count:16];
               }
 
               while (v24);
             }
 
-            v20 = v43 + 1;
+            v20 = v42 + 1;
           }
 
-          while (v43 + 1 != v41);
-          v41 = [dictionary countByEnumeratingWithState:&v49 objects:v62 count:16];
+          while (v42 + 1 != v40);
+          v40 = [dictionary countByEnumeratingWithState:&v48 objects:v61 count:16];
         }
 
-        while (v41);
+        while (v40);
       }
 
       [(NSMutableDictionary *)self->_stateDict removeObjectsForKeys:obj];
@@ -577,10 +555,10 @@ LABEL_42:
     goto LABEL_43;
   }
 
-  v34 = -536870167;
+  v33 = -536870167;
 LABEL_45:
-  v35 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA590] code:v34 userInfo:0];
-  v29 = v35 != 0;
+  v34 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA590] code:v33 userInfo:0];
+  v29 = v34 != 0;
   if (!error)
   {
     goto LABEL_42;
@@ -588,103 +566,109 @@ LABEL_45:
 
   v30 = a2;
   v31 = 0x277CCA000;
-  if (v35)
+  if (v34)
   {
-    *error = v35;
+    *error = v34;
     v29 = 1;
   }
 
 LABEL_43:
   -[BRInterface timestampWithLabel:](self, "timestampWithLabel:", [*(v31 + 3240) stringWithFormat:@"%@ %@", NSStringFromSelector(v30), @"end"]);
-  v32 = *MEMORY[0x277D85DE8];
   return !v29;
 }
 
 - (id)dataForSlot:(id)slot fromArray:(id)array
 {
-  v18 = *MEMORY[0x277D85DE8];
-  if (slot && [slot integerValue] != -1 && (v15 = 0u, v16 = 0u, v13 = 0u, v14 = 0u, (v6 = objc_msgSend(array, "countByEnumeratingWithState:objects:count:", &v13, v17, 16)) != 0))
+  v17 = *MEMORY[0x277D85DE8];
+  if (!slot)
   {
-    v7 = v6;
-    v8 = *v14;
+    return 0;
+  }
+
+  if ([slot integerValue] == -1)
+  {
+    return 0;
+  }
+
+  v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v6 = [array countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (!v6)
+  {
+    return 0;
+  }
+
+  v7 = v6;
+  v8 = *v13;
 LABEL_5:
-    v9 = 0;
-    while (1)
+  v9 = 0;
+  while (1)
+  {
+    if (*v13 != v8)
     {
-      if (*v14 != v8)
+      objc_enumerationMutation(array);
+    }
+
+    v10 = *(*(&v12 + 1) + 8 * v9);
+    if ([slot isEqualToNumber:{objc_msgSend(v10, "slot")}])
+    {
+      return v10;
+    }
+
+    if (v7 == ++v9)
+    {
+      v7 = [array countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v10 = 0;
+      if (v7)
       {
-        objc_enumerationMutation(array);
+        goto LABEL_5;
       }
 
-      v10 = *(*(&v13 + 1) + 8 * v9);
-      if ([slot isEqualToNumber:{objc_msgSend(v10, "slot")}])
-      {
-        break;
-      }
-
-      if (v7 == ++v9)
-      {
-        v7 = [array countByEnumeratingWithState:&v13 objects:v17 count:16];
-        v10 = 0;
-        if (v7)
-        {
-          goto LABEL_5;
-        }
-
-        break;
-      }
+      return v10;
     }
   }
-
-  else
-  {
-    v10 = 0;
-  }
-
-  v11 = *MEMORY[0x277D85DE8];
-  return v10;
 }
 
 - (void)mergeStateChanges:(id)changes into:(id)into
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v6 = [changes countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [changes countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(changes);
         }
 
-        [into setObject:objc_msgSend(changes forKeyedSubscript:{"objectForKeyedSubscript:", *(*(&v11 + 1) + 8 * v9)), *(*(&v11 + 1) + 8 * v9)}];
+        [into setObject:objc_msgSend(changes forKeyedSubscript:{"objectForKeyedSubscript:", *(*(&v10 + 1) + 8 * v9)), *(*(&v10 + 1) + 8 * v9)}];
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [changes countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [changes countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)playState:(unint64_t)state forSpeed:(unint64_t)speed error:(id *)error
 {
-  v12 = *MEMORY[0x277D85DE8];
-  -[BRInterface timestampWithLabel:](self, "timestampWithLabel:", [MEMORY[0x277CCACA8] stringWithFormat:@"%@ %@", NSStringFromSelector(a2), @"start", speed, state, 0, v12]);
+  v11 = *MEMORY[0x277D85DE8];
+  -[BRInterface timestampWithLabel:](self, "timestampWithLabel:", [MEMORY[0x277CCACA8] stringWithFormat:@"%@ %@", NSStringFromSelector(a2), @"start", speed, state, 0, v11]);
   v8 = IOConnectCallScalarMethod(self->_connect, 2u, &input, 3u, 0, 0);
   if (v8)
   {
@@ -692,7 +676,6 @@ LABEL_5:
   }
 
   -[BRInterface timestampWithLabel:](self, "timestampWithLabel:", [MEMORY[0x277CCACA8] stringWithFormat:@"%@ %@", NSStringFromSelector(a2), @"end"]);
-  v9 = *MEMORY[0x277D85DE8];
   return v8 == 0;
 }
 
@@ -709,7 +692,7 @@ LABEL_5:
   [(BRInterfaceAOP *)self _findService];
 }
 
-uint64_t __53__BRInterfaceAOP_scheduleReadyNotificationWithBlock___block_invoke(uint64_t a1)
+void *__53__BRInterfaceAOP_scheduleReadyNotificationWithBlock___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 40) copy];
   *(*(a1 + 32) + 64) = result;
@@ -718,7 +701,7 @@ uint64_t __53__BRInterfaceAOP_scheduleReadyNotificationWithBlock___block_invoke(
 
 - (BOOL)updateReadyState
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = _BRLog_log_0;
   if (!_BRLog_log_0)
   {
@@ -739,8 +722,8 @@ uint64_t __53__BRInterfaceAOP_scheduleReadyNotificationWithBlock___block_invoke(
     }
 
     serviceAvailable = [(HAButtonHapticsLoader *)self->_loader serviceAvailable];
-    *v11 = 136315650;
-    *&v11[4] = "[BRInterfaceAOP updateReadyState]";
+    *v10 = 136315650;
+    *&v10[4] = "[BRInterfaceAOP updateReadyState]";
     if (serviceAvailable)
     {
       v8 = "YES";
@@ -751,11 +734,11 @@ uint64_t __53__BRInterfaceAOP_scheduleReadyNotificationWithBlock___block_invoke(
       v8 = "NO";
     }
 
-    *&v11[12] = 2080;
-    *&v11[14] = v6;
-    v12 = 2080;
-    v13 = v8;
-    _os_log_debug_impl(&dword_242149000, v3, OS_LOG_TYPE_DEBUG, "%s isReady: %s loaderReady: %s", v11, 0x20u);
+    *&v10[12] = 2080;
+    *&v10[14] = v6;
+    v11 = 2080;
+    v12 = v8;
+    _os_log_debug_impl(&dword_242149000, v3, OS_LOG_TYPE_DEBUG, "%s isReady: %s loaderReady: %s", v10, 0x20u);
   }
 
   if (!self->_isReady && self->_service && [(HAButtonHapticsLoader *)self->_loader serviceAvailable])
@@ -772,7 +755,7 @@ uint64_t __53__BRInterfaceAOP_scheduleReadyNotificationWithBlock___block_invoke(
       [(BRInterfaceAOP *)v4 updateReadyState];
     }
 
-    if ([(HAButtonHapticsLoader *)self->_loader maxNumberOfSlots]< 1)
+    if ([(HAButtonHapticsLoader *)self->_loader maxNumberOfSlots:*v10]< 1)
     {
       maxNumberOfSlots = 0;
     }
@@ -799,9 +782,7 @@ uint64_t __53__BRInterfaceAOP_scheduleReadyNotificationWithBlock___block_invoke(
     }
   }
 
-  result = self->_isReady;
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  return self->_isReady;
 }
 
 - (void)_findService
@@ -858,7 +839,7 @@ uint64_t __53__BRInterfaceAOP_scheduleReadyNotificationWithBlock___block_invoke(
   v8 = IORegistryEntrySetCFProperty(self->_service, key, property);
   if (v8)
   {
-    [BRInterfaceAOP _serviceSetProperty:? forKey:?];
+    [BRInterfaceAOP _serviceSetProperty:forKey:];
   }
 
   return v8 == 0;
@@ -892,11 +873,11 @@ uint64_t __53__BRInterfaceAOP_scheduleReadyNotificationWithBlock___block_invoke(
 
 - (BOOL)setConfigs:(id)configs withAssets:(id)assets forStates:(id)states error:(id *)error
 {
-  v201 = *MEMORY[0x277D85DE8];
-  v184 = 0;
+  v192 = *MEMORY[0x277D85DE8];
+  v175 = 0;
   v11 = MEMORY[0x277CCACA8];
   aSelector = a2;
-  v124 = NSStringFromSelector(a2);
+  v118 = NSStringFromSelector(a2);
   [v11 stringWithFormat:@"%@ %@"];
   [OUTLINED_FUNCTION_4() timestampWithLabel:?];
   configsCopy = configs;
@@ -904,13 +885,13 @@ uint64_t __53__BRInterfaceAOP_scheduleReadyNotificationWithBlock___block_invoke(
   if (!configs || !assets)
   {
 LABEL_132:
-    v121 = MEMORY[0x277CCA9B8];
-    v122 = *MEMORY[0x277CCA590];
-    v123 = -536870206;
+    v115 = MEMORY[0x277CCA9B8];
+    v116 = *MEMORY[0x277CCA590];
+    v117 = -536870206;
     goto LABEL_133;
   }
 
-  v133 = [(NSMutableIndexSet *)self->_freeSlots mutableCopy];
+  v127 = [(NSMutableIndexSet *)self->_freeSlots mutableCopy];
   obj = [MEMORY[0x277CBEB38] dictionary];
   v12 = [objc_alloc(MEMORY[0x277CBEB18]) initWithArray:self->_slotArray copyItems:1];
   array = [MEMORY[0x277CBEB18] array];
@@ -921,7 +902,7 @@ LABEL_132:
   if (v13)
   {
     v21 = 0;
-    v135 = @"Speed";
+    v129 = @"Speed";
     do
     {
       v22 = [objc_msgSend(states objectAtIndexedSubscript:{v21), "unsignedIntegerValue"}];
@@ -932,62 +913,58 @@ LABEL_132:
         goto LABEL_132;
       }
 
-      v182 = 0u;
-      v183 = 0u;
-      v180 = 0u;
-      v181 = 0u;
+      v173 = 0u;
+      v174 = 0u;
+      v171 = 0u;
+      v172 = 0u;
       stateDict = self->_stateDict;
       v26 = OUTLINED_FUNCTION_7();
       if (v26)
       {
         v27 = v26;
-        v28 = *v181;
+        v28 = *v172;
         while (2)
         {
           for (i = 0; i != v27; ++i)
           {
-            if (*v181 != v28)
+            if (*v172 != v28)
             {
               objc_enumerationMutation(stateDict);
             }
 
-            v30 = [(NSMutableDictionary *)selfCopy->_stateDict objectForKeyedSubscript:*(*(&v180 + 1) + 8 * i)];
+            v30 = [(NSMutableDictionary *)selfCopy->_stateDict objectForKeyedSubscript:*(*(&v171 + 1) + 8 * i)];
             if ([v30 state] == v22)
             {
-              v178 = 0u;
-              v179 = 0u;
-              v176 = 0u;
-              v177 = 0u;
+              memset(v170, 0, sizeof(v170));
               speedSlots = [v30 speedSlots];
-              v32 = [speedSlots countByEnumeratingWithState:&v176 objects:v200 count:16];
+              v32 = [speedSlots countByEnumeratingWithState:v170 objects:v191 count:16];
               if (v32)
               {
                 v33 = v32;
-                v34 = *v177;
                 while (2)
                 {
                   for (j = 0; j != v33; ++j)
                   {
-                    OUTLINED_FUNCTION_5(v177);
-                    if (!v36)
+                    OUTLINED_FUNCTION_5();
+                    if (!v35)
                     {
                       objc_enumerationMutation(speedSlots);
                     }
 
-                    v37 = *(*(&v176 + 1) + 8 * j);
-                    if ([v37 unsignedIntegerValue] == v24)
+                    v36 = *(*(&v170[0] + 1) + 8 * j);
+                    if ([v36 unsignedIntegerValue] == v24)
                     {
-                      v38 = -[BRInterfaceAOP dataForSlot:fromArray:](selfCopy, "dataForSlot:fromArray:", [objc_msgSend(v30 "speedSlots")], v12);
-                      if (v38)
+                      v37 = -[BRInterfaceAOP dataForSlot:fromArray:](selfCopy, "dataForSlot:fromArray:", [objc_msgSend(v30 "speedSlots")], v12);
+                      if (v37)
                       {
-                        [v38 setRefCount:{objc_msgSend(v38, "refCount") - 1}];
+                        [v37 setRefCount:{objc_msgSend(v37, "refCount") - 1}];
                       }
 
                       goto LABEL_29;
                     }
                   }
 
-                  v33 = [speedSlots countByEnumeratingWithState:&v176 objects:v200 count:16];
+                  v33 = [speedSlots countByEnumeratingWithState:v170 objects:v191 count:16];
                   if (v33)
                   {
                     continue;
@@ -1022,61 +999,60 @@ LABEL_29:
     while (v21 < v13);
   }
 
-  v174 = 0u;
-  v175 = 0u;
-  v172 = 0u;
-  v173 = 0u;
-  v39 = OUTLINED_FUNCTION_8(v13, v14, v15, v16, v17, v18, v19, v20, v124, @"start", 96, 88, array, errorCopy, aSelector, v133, v135, v137, configsCopy, statesCopy, assetsCopy, v144, obj, selfCopy, v150, *(&v150 + 1), v151, *(&v151 + 1), v152, *(&v152 + 1), v153, *(&v153 + 1), v154, *(&v154 + 1), v155, *(&v155 + 1), v156, *(&v156 + 1), v157, *(&v157 + 1), v158, *(&v158 + 1), v159, *(&v159 + 1), v160, *(&v160 + 1), v161, *(&v161 + 1), v162, *(&v162 + 1), v163, *(&v163 + 1), v164, *(&v164 + 1), v165, *(&v165 + 1), v166, v167, v168, *(&v168 + 1), v169, *(&v169 + 1), v170);
-  if (v39)
+  v168 = 0u;
+  v169 = 0u;
+  v166 = 0u;
+  v167 = 0u;
+  v38 = OUTLINED_FUNCTION_8(v13, v14, v15, v16, v17, v18, v19, v20, v118, @"start", 96, 88, array, error, aSelector, v127, v129, v131, configsCopy, statesCopy, assetsCopy, v138, obj, selfCopy, v144, *(&v144 + 1), v145, *(&v145 + 1), v146, *(&v146 + 1), v147, *(&v147 + 1), v148, *(&v148 + 1), v149, *(&v149 + 1), v150, *(&v150 + 1), v151, *(&v151 + 1), v152, *(&v152 + 1), v153, *(&v153 + 1), v154, *(&v154 + 1), v155, *(&v155 + 1), v156, *(&v156 + 1), v157, *(&v157 + 1), v158, *(&v158 + 1), v159, *(&v159 + 1), v160, v161, v162, *(&v162 + 1), v163, *(&v163 + 1), v164);
+  if (v38)
   {
-    v41 = v39;
-    v42 = *v173;
-    *&v40 = 136316162;
-    v136 = v40;
+    v40 = v38;
+    v41 = *v167;
+    *&v39 = 136316162;
+    v130 = v39;
     do
     {
-      v43 = 0;
+      v42 = 0;
       do
       {
-        if (*v173 != v42)
+        if (*v167 != v41)
         {
           objc_enumerationMutation(assets);
         }
 
-        v44 = *(*(&v172 + 1) + 8 * v43);
-        isNull = [v44 isNull];
+        v43 = *(*(&v166 + 1) + 8 * v42);
+        isNull = [v43 isNull];
         if ((isNull & 1) == 0)
         {
-          v170 = 0u;
-          v171 = 0u;
-          v168 = 0u;
-          v169 = 0u;
-          v53 = OUTLINED_FUNCTION_2(isNull, v46, &v168, v199);
-          if (v53)
+          v164 = 0u;
+          v165 = 0u;
+          v162 = 0u;
+          v163 = 0u;
+          v52 = OUTLINED_FUNCTION_2(isNull, v45, &v162, v190);
+          if (v52)
           {
-            v54 = v53;
-            v55 = *v169;
+            v53 = v52;
             while (2)
             {
-              for (k = 0; k != v54; ++k)
+              for (k = 0; k != v53; ++k)
               {
-                OUTLINED_FUNCTION_5(v169);
-                if (!v36)
+                OUTLINED_FUNCTION_5();
+                if (!v35)
                 {
                   objc_enumerationMutation(v12);
                 }
 
-                v57 = *(*(&v168 + 1) + 8 * k);
-                v58 = [objc_msgSend(v57 "asset")];
-                if (v58)
+                v55 = *(*(&v162 + 1) + 8 * k);
+                v56 = [objc_msgSend(v55 "asset")];
+                if (v56)
                 {
-                  isNull = [v57 setRefCount:{objc_msgSend(v57, "refCount") + 1}];
+                  isNull = [v55 setRefCount:{objc_msgSend(v55, "refCount") + 1}];
                   goto LABEL_52;
                 }
               }
 
-              v54 = OUTLINED_FUNCTION_2(v58, v59, &v168, v199);
-              if (v54)
+              v53 = OUTLINED_FUNCTION_2(v56, v57, &v162, v190);
+              if (v53)
               {
                 continue;
               }
@@ -1085,273 +1061,271 @@ LABEL_29:
             }
           }
 
-          v60 = objc_alloc_init(BRSlotData);
-          if (([v44 isNull] & 1) == 0)
+          v58 = objc_alloc_init(BRSlotData);
+          if (([v43 isNull] & 1) == 0)
           {
-            HIWORD(v167) = 0;
-            v61 = [v149[10] hapticAssetType:objc_msgSend(v44 hasAudio:"type") hasHaptic:&v167 + 7 error:{&v167 + 6, &v184}];
-            v62 = _BRLog_log_0;
+            HIWORD(v161) = 0;
+            v59 = [v143[10] hapticAssetType:objc_msgSend(v43 hasAudio:"type") hasHaptic:&v161 + 7 error:{&v161 + 6, &v175}];
+            v60 = _BRLog_log_0;
             if (!_BRLog_log_0)
             {
-              v62 = os_log_create("com.apple.ButtonResolver", "default");
-              _BRLog_log_0 = v62;
+              v60 = os_log_create("com.apple.ButtonResolver", "default");
+              _BRLog_log_0 = v60;
             }
 
-            if (os_log_type_enabled(v62, OS_LOG_TYPE_DEBUG))
+            if (os_log_type_enabled(v60, OS_LOG_TYPE_DEBUG))
             {
-              v63 = "NO";
-              if (HIBYTE(v167))
+              v61 = "NO";
+              if (HIBYTE(v161))
               {
-                v64 = "YES";
+                v62 = "YES";
               }
 
               else
               {
-                v64 = "NO";
+                v62 = "NO";
               }
 
-              if (BYTE6(v167))
-              {
-                v65 = "YES";
-              }
-
-              else
-              {
-                v65 = "NO";
-              }
-
-              *buf = v136;
-              if (v61)
+              if (BYTE6(v161))
               {
                 v63 = "YES";
               }
 
-              v190 = "[BRInterfaceAOP setConfigs:withAssets:forStates:error:]";
-              v191 = 2112;
-              v192 = v44;
-              v193 = 2080;
-              v194 = v64;
-              v195 = 2080;
-              v196 = v65;
-              v197 = 2080;
-              v198 = v63;
-              _os_log_debug_impl(&dword_242149000, v62, OS_LOG_TYPE_DEBUG, "%s get asset components: %@ audio: %s haptic: %s success: %s", buf, 0x34u);
-              if (!v61)
+              else
+              {
+                v63 = "NO";
+              }
+
+              *buf = v130;
+              if (v59)
+              {
+                v61 = "YES";
+              }
+
+              v181 = "[BRInterfaceAOP setConfigs:withAssets:forStates:error:]";
+              v182 = 2112;
+              v183 = v43;
+              v184 = 2080;
+              v185 = v62;
+              v186 = 2080;
+              v187 = v63;
+              v188 = 2080;
+              v189 = v61;
+              _os_log_debug_impl(&dword_242149000, v60, OS_LOG_TYPE_DEBUG, "%s get asset components: %@ audio: %s haptic: %s success: %s", buf, 0x34u);
+              if (!v59)
               {
                 goto LABEL_128;
               }
             }
 
-            else if (!v61)
+            else if (!v59)
             {
               goto LABEL_128;
             }
 
-            [v44 setHasAudio:HIBYTE(v167)];
-            [v44 setHasHaptic:BYTE6(v167)];
-            assets = v143;
+            [v43 setHasAudio:HIBYTE(v161)];
+            [v43 setHasHaptic:BYTE6(v161)];
+            assets = v137;
           }
 
-          [(BRSlotData *)v60 setAsset:v44];
-          [(BRSlotData *)v60 setRefCount:1];
-          isNull = [v12 addObject:v60];
+          [(BRSlotData *)v58 setAsset:v43];
+          [(BRSlotData *)v58 setRefCount:1];
+          isNull = [v12 addObject:v58];
         }
 
 LABEL_52:
-        ++v43;
+        ++v42;
       }
 
-      while (v43 != v41);
-      v66 = OUTLINED_FUNCTION_8(isNull, v46, v47, v48, v49, v50, v51, v52, v125, v126, v127, v128, v130, errorCopy, aSelector, v134, v136, *(&v136 + 1), v139, v141, v143, v145, obja, v149, v150, *(&v150 + 1), v151, *(&v151 + 1), v152, *(&v152 + 1), v153, *(&v153 + 1), v154, *(&v154 + 1), v155, *(&v155 + 1), v156, *(&v156 + 1), v157, *(&v157 + 1), v158, *(&v158 + 1), v159, *(&v159 + 1), v160, *(&v160 + 1), v161, *(&v161 + 1), v162, *(&v162 + 1), v163, *(&v163 + 1), v164, *(&v164 + 1), v165, *(&v165 + 1), v166, v167, v168, *(&v168 + 1), v169, *(&v169 + 1), v170);
-      v41 = v66;
+      while (v42 != v40);
+      v64 = OUTLINED_FUNCTION_8(isNull, v45, v46, v47, v48, v49, v50, v51, v119, v120, v121, v122, v124, errorCopy, aSelector, v128, v130, *(&v130 + 1), v133, v135, v137, v139, obja, v143, v144, *(&v144 + 1), v145, *(&v145 + 1), v146, *(&v146 + 1), v147, *(&v147 + 1), v148, *(&v148 + 1), v149, *(&v149 + 1), v150, *(&v150 + 1), v151, *(&v151 + 1), v152, *(&v152 + 1), v153, *(&v153 + 1), v154, *(&v154 + 1), v155, *(&v155 + 1), v156, *(&v156 + 1), v157, *(&v157 + 1), v158, *(&v158 + 1), v159, *(&v159 + 1), v160, v161, v162, *(&v162 + 1), v163, *(&v163 + 1), v164);
+      v40 = v64;
     }
 
-    while (v66);
+    while (v64);
   }
 
-  v67 = [v149 timestampWithLabel:{objc_msgSend(MEMORY[0x277CCACA8], "stringWithFormat:", @"%@ %@", NSStringFromSelector(aSelector), @"hapticComponents"}];
-  v164 = 0u;
-  v165 = 0u;
-  v162 = 0u;
-  v163 = 0u;
-  v69 = OUTLINED_FUNCTION_2(v67, v68, &v162, v188);
-  v70 = v141;
-  if (v69)
+  v65 = [v143 timestampWithLabel:{objc_msgSend(MEMORY[0x277CCACA8], "stringWithFormat:", @"%@ %@", NSStringFromSelector(aSelector), @"hapticComponents"}];
+  v158 = 0u;
+  v159 = 0u;
+  v156 = 0u;
+  v157 = 0u;
+  v67 = OUTLINED_FUNCTION_2(v65, v66, &v156, v179);
+  v68 = v135;
+  if (v67)
   {
-    v71 = v69;
-    v72 = *v163;
+    v69 = v67;
     do
     {
-      for (m = 0; m != v71; ++m)
+      for (m = 0; m != v69; ++m)
       {
-        OUTLINED_FUNCTION_5(v163);
-        if (!v36)
+        OUTLINED_FUNCTION_5();
+        if (!v35)
         {
           objc_enumerationMutation(v12);
         }
 
-        v74 = *(*(&v162 + 1) + 8 * m);
-        refCount = [v74 refCount];
+        v71 = *(*(&v156 + 1) + 8 * m);
+        refCount = [v71 refCount];
         if (!refCount)
         {
-          [objc_msgSend(v74 "slot")];
+          [objc_msgSend(v71 "slot")];
           [OUTLINED_FUNCTION_4() addIndex:?];
-          refCount = [v130 addObject:v74];
+          refCount = [v124 addObject:v71];
         }
       }
 
-      v71 = OUTLINED_FUNCTION_2(refCount, v76, &v162, v188);
+      v69 = OUTLINED_FUNCTION_2(refCount, v73, &v156, v179);
     }
 
-    while (v71);
+    while (v69);
   }
 
-  [v12 removeObjectsInArray:v130];
-  if (![v141 count])
+  [v12 removeObjectsInArray:v124];
+  if (![v135 count])
   {
 LABEL_107:
-    v103 = v149;
-    if (![v149 disableStates:v70 clearAsset:0 error:&v184])
+    v98 = v143;
+    if (![v143 disableStates:v68 clearAsset:0 error:&v175])
     {
       goto LABEL_128;
     }
 
     [MEMORY[0x277CCACA8] stringWithFormat:@"%@ %@", NSStringFromSelector(aSelector), @"disabledStates"];
-    v104 = [OUTLINED_FUNCTION_4() timestampWithLabel:?];
-    v152 = 0u;
-    v153 = 0u;
-    v150 = 0u;
-    v151 = 0u;
-    v106 = OUTLINED_FUNCTION_2(v104, v105, &v150, v185);
-    if (v106)
+    v99 = [OUTLINED_FUNCTION_4() timestampWithLabel:?];
+    v146 = 0u;
+    v147 = 0u;
+    v144 = 0u;
+    v145 = 0u;
+    v101 = OUTLINED_FUNCTION_2(v99, v100, &v144, v176);
+    if (v101)
     {
-      v107 = v106;
-      v108 = *v151;
+      v102 = v101;
+      v103 = *v145;
       do
       {
-        v109 = 0;
+        v104 = 0;
         do
         {
-          if (*v151 != v108)
+          if (*v145 != v103)
           {
             objc_enumerationMutation(v12);
           }
 
-          v110 = *(*(&v150 + 1) + 8 * v109);
-          isProgrammed = [v110 isProgrammed];
+          v105 = *(*(&v144 + 1) + 8 * v104);
+          isProgrammed = [v105 isProgrammed];
           if ((isProgrammed & 1) == 0)
           {
-            asset = [v110 asset];
+            asset = [v105 asset];
             if (([asset isNull] & 1) == 0)
             {
-              v114 = [v103[10] loadButtonHapticOfType:objc_msgSend(asset withParameters:"type") atSlot:objc_msgSend(asset error:{"parameters"), objc_msgSend(objc_msgSend(v110, "slot"), "integerValue"), &v184}];
-              v115 = _BRLog_log_0;
+              v109 = [v98[10] loadButtonHapticOfType:objc_msgSend(asset withParameters:"type") atSlot:objc_msgSend(asset error:{"parameters"), objc_msgSend(objc_msgSend(v105, "slot"), "integerValue"), &v175}];
+              v110 = _BRLog_log_0;
               if (!_BRLog_log_0)
               {
-                v115 = os_log_create("com.apple.ButtonResolver", "default");
-                _BRLog_log_0 = v115;
+                v110 = os_log_create("com.apple.ButtonResolver", "default");
+                _BRLog_log_0 = v110;
               }
 
-              if (os_log_type_enabled(v115, OS_LOG_TYPE_DEBUG))
+              if (os_log_type_enabled(v110, OS_LOG_TYPE_DEBUG))
               {
-                slot = [v110 slot];
+                slot = [v105 slot];
                 *buf = 136315906;
-                v117 = "NO";
-                if (v114)
+                v112 = "NO";
+                if (v109)
                 {
-                  v117 = "YES";
+                  v112 = "YES";
                 }
 
-                v190 = "[BRInterfaceAOP setConfigs:withAssets:forStates:error:]";
-                v191 = 2112;
-                v192 = asset;
-                v193 = 2112;
-                v194 = slot;
-                v195 = 2080;
-                v196 = v117;
-                _os_log_debug_impl(&dword_242149000, v115, OS_LOG_TYPE_DEBUG, "%s loaded asset: %@ at slot: %@ success: %s", buf, 0x2Au);
+                v181 = "[BRInterfaceAOP setConfigs:withAssets:forStates:error:]";
+                v182 = 2112;
+                v183 = asset;
+                v184 = 2112;
+                v185 = slot;
+                v186 = 2080;
+                v187 = v112;
+                _os_log_debug_impl(&dword_242149000, v110, OS_LOG_TYPE_DEBUG, "%s loaded asset: %@ at slot: %@ success: %s", buf, 0x2Au);
               }
 
-              v103 = v149;
-              if (!v114)
+              v98 = v143;
+              if (!v109)
               {
                 goto LABEL_128;
               }
             }
 
-            isProgrammed = [v110 setIsProgrammed:1];
+            isProgrammed = [v105 setIsProgrammed:1];
           }
 
-          ++v109;
+          ++v104;
         }
 
-        while (v107 != v109);
-        v118 = OUTLINED_FUNCTION_2(isProgrammed, v112, &v150, v185);
-        v107 = v118;
+        while (v102 != v104);
+        v113 = OUTLINED_FUNCTION_2(isProgrammed, v107, &v144, v176);
+        v102 = v113;
       }
 
-      while (v118);
+      while (v113);
     }
 
     [MEMORY[0x277CCACA8] stringWithFormat:@"%@ %@", NSStringFromSelector(aSelector), @"loadedHaptics"];
     [OUTLINED_FUNCTION_4() timestampWithLabel:?];
-    if ([v103 _setStateAOPConfigsFromStateData:obja andSlotData:v12])
+    if ([v98 _setStateAOPConfigsFromStateData:obja andSlotData:v12])
     {
 
-      *(v103 + v128) = v134;
-      *(v103 + v127) = v12;
-      [v103 mergeStateChanges:obja into:v103[13]];
+      *(v98 + v122) = v128;
+      *(v98 + v121) = v12;
+      [v98 mergeStateChanges:obja into:v98[13]];
       goto LABEL_128;
     }
 
-    v121 = MEMORY[0x277CCA9B8];
-    v122 = *MEMORY[0x277CCA590];
-    v123 = -536870167;
+    v115 = MEMORY[0x277CCA9B8];
+    v116 = *MEMORY[0x277CCA590];
+    v117 = -536870167;
 LABEL_133:
-    v184 = [v121 errorWithDomain:v122 code:v123 userInfo:0];
+    v175 = [v115 errorWithDomain:v116 code:v117 userInfo:0];
     goto LABEL_128;
   }
 
-  v77 = 0;
+  v74 = 0;
   while (1)
   {
-    v78 = [objc_msgSend(v70 objectAtIndexedSubscript:{v77), "unsignedIntegerValue"}];
-    v79 = [assets objectAtIndexedSubscript:v77];
-    v80 = [v139 objectAtIndexedSubscript:v77];
-    if ([v80 objectForKeyedSubscript:@"Speed"])
+    v75 = [objc_msgSend(v68 objectAtIndexedSubscript:{v74), "unsignedIntegerValue"}];
+    v76 = [assets objectAtIndexedSubscript:v74];
+    v77 = [v133 objectAtIndexedSubscript:v74];
+    if ([v77 objectForKeyedSubscript:@"Speed"])
     {
-      [objc_msgSend(v80 objectForKeyedSubscript:{@"Speed", "unsignedIntegerValue"}];
+      [objc_msgSend(v77 objectForKeyedSubscript:{@"Speed", "unsignedIntegerValue"}];
     }
 
-    v160 = 0u;
-    v161 = 0u;
-    v158 = 0u;
-    v159 = 0u;
-    v81 = [obja countByEnumeratingWithState:&v158 objects:v187 count:16];
-    if (v81)
+    v154 = 0u;
+    v155 = 0u;
+    v152 = 0u;
+    v153 = 0u;
+    v78 = [obja countByEnumeratingWithState:&v152 objects:v178 count:16];
+    if (v78)
     {
-      v82 = v81;
-      v83 = *v159;
+      v79 = v78;
 LABEL_80:
-      v84 = 0;
+      v80 = 0;
       while (1)
       {
-        OUTLINED_FUNCTION_5(v159);
-        if (!v36)
+        OUTLINED_FUNCTION_5();
+        if (!v35)
         {
           objc_enumerationMutation(obja);
         }
 
-        v85 = [obja objectForKey:*(*(&v158 + 1) + 8 * v84)];
-        if ([(BRStateData *)v85 state]== v78)
+        v81 = [obja objectForKey:*(*(&v152 + 1) + 8 * v80)];
+        if ([(BRStateData *)v81 state]== v75)
         {
           break;
         }
 
-        if (v82 == ++v84)
+        if (v79 == ++v80)
         {
-          v82 = [obja countByEnumeratingWithState:&v158 objects:v187 count:16];
-          if (v82)
+          v79 = [obja countByEnumeratingWithState:&v152 objects:v178 count:16];
+          if (v79)
           {
             goto LABEL_80;
           }
@@ -1360,74 +1334,73 @@ LABEL_80:
         }
       }
 
-      if (v85)
+      if (v81)
       {
         goto LABEL_89;
       }
     }
 
 LABEL_88:
-    v85 = [[BRStateData alloc] initWithState:v78 enabled:1];
+    v81 = [[BRStateData alloc] initWithState:v75 enabled:1];
 LABEL_89:
-    v86 = 0x277CCA000;
-    [(NSMutableDictionary *)[(BRStateData *)v85 speedConfigs] setObject:v80 forKeyedSubscript:OUTLINED_FUNCTION_9()];
-    isNull2 = [v79 isNull];
+    v82 = 0x277CCA000;
+    [(NSMutableDictionary *)[(BRStateData *)v81 speedConfigs] setObject:v77 forKeyedSubscript:OUTLINED_FUNCTION_9()];
+    isNull2 = [v76 isNull];
     if (isNull2)
     {
-      speedSlots2 = [(BRStateData *)v85 speedSlots];
-      v90 = OUTLINED_FUNCTION_9();
-      v91 = speedSlots2;
-      v92 = &unk_285467E68;
+      speedSlots2 = [(BRStateData *)v81 speedSlots];
+      v86 = OUTLINED_FUNCTION_9();
+      v87 = speedSlots2;
+      v88 = &unk_285467E68;
 LABEL_102:
-      [v91 setObject:v92 forKeyedSubscript:v90];
+      [v87 setObject:v88 forKeyedSubscript:v86];
       goto LABEL_103;
     }
 
-    v156 = 0u;
-    v157 = 0u;
-    v154 = 0u;
-    v155 = 0u;
-    v93 = OUTLINED_FUNCTION_2(isNull2, v88, &v154, v186);
-    if (v93)
+    v150 = 0u;
+    v151 = 0u;
+    v148 = 0u;
+    v149 = 0u;
+    v89 = OUTLINED_FUNCTION_2(isNull2, v84, &v148, v177);
+    if (v89)
     {
       break;
     }
 
 LABEL_103:
-    [obja setObject:v85 forKeyedSubscript:{objc_msgSend(*(v86 + 2992), "numberWithUnsignedInteger:", v78)}];
-    ++v77;
-    v70 = v141;
-    assets = v143;
-    if (v77 >= [v141 count])
+    [obja setObject:v81 forKeyedSubscript:{objc_msgSend(*(v82 + 2992), "numberWithUnsignedInteger:", v75)}];
+    ++v74;
+    v68 = v135;
+    assets = v137;
+    if (v74 >= [v135 count])
     {
       goto LABEL_107;
     }
   }
 
-  v94 = v93;
-  v95 = *v155;
+  v90 = v89;
 LABEL_93:
-  v96 = 0;
+  v91 = 0;
   while (1)
   {
-    OUTLINED_FUNCTION_5(v155);
-    if (!v36)
+    OUTLINED_FUNCTION_5();
+    if (!v35)
     {
       objc_enumerationMutation(v12);
     }
 
-    v97 = *(*(&v154 + 1) + 8 * v96);
-    v98 = [v79 isEqual:{objc_msgSend(v97, "asset")}];
-    if (v98)
+    v92 = *(*(&v148 + 1) + 8 * v91);
+    v93 = [v76 isEqual:{objc_msgSend(v92, "asset")}];
+    if (v93)
     {
       break;
     }
 
-    if (v94 == ++v96)
+    if (v90 == ++v91)
     {
-      v94 = OUTLINED_FUNCTION_2(v98, v99, &v154, v186);
-      v86 = 0x277CCA000;
-      if (v94)
+      v90 = OUTLINED_FUNCTION_2(v93, v94, &v148, v177);
+      v82 = 0x277CCA000;
+      if (v90)
       {
         goto LABEL_93;
       }
@@ -1436,40 +1409,38 @@ LABEL_93:
     }
   }
 
-  if ([v97 slot])
+  if ([v92 slot])
   {
-    slot2 = [v97 slot];
-    speedSlots3 = [(BRStateData *)v85 speedSlots];
-    v86 = 0x277CCA000uLL;
-    v90 = OUTLINED_FUNCTION_9();
-    v91 = speedSlots3;
-    v92 = slot2;
+    slot2 = [v92 slot];
+    speedSlots3 = [(BRStateData *)v81 speedSlots];
+    v82 = 0x277CCA000uLL;
+    v86 = OUTLINED_FUNCTION_9();
+    v87 = speedSlots3;
+    v88 = slot2;
     goto LABEL_102;
   }
 
-  v86 = 0x277CCA000uLL;
-  if ([v134 count])
+  v82 = 0x277CCA000uLL;
+  if ([v128 count])
   {
-    firstIndex = [v134 firstIndex];
-    [v134 removeIndex:firstIndex];
-    [v97 setSlot:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithUnsignedInteger:", firstIndex)}];
-    -[NSMutableDictionary setObject:forKeyedSubscript:](-[BRStateData speedSlots](v85, "speedSlots"), "setObject:forKeyedSubscript:", [MEMORY[0x277CCABB0] numberWithUnsignedInteger:firstIndex], OUTLINED_FUNCTION_9());
-    [v97 setIsProgrammed:0];
+    firstIndex = [v128 firstIndex];
+    [v128 removeIndex:firstIndex];
+    [v92 setSlot:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithUnsignedInteger:", firstIndex)}];
+    -[NSMutableDictionary setObject:forKeyedSubscript:](-[BRStateData speedSlots](v81, "speedSlots"), "setObject:forKeyedSubscript:", [MEMORY[0x277CCABB0] numberWithUnsignedInteger:firstIndex], OUTLINED_FUNCTION_9());
+    [v92 setIsProgrammed:0];
     goto LABEL_103;
   }
 
-  v184 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA590] code:-536870210 userInfo:0];
+  v175 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA590] code:-536870210 userInfo:0];
 LABEL_128:
-  if (errorCopy && v184)
+  if (errorCopy && v175)
   {
-    *errorCopy = v184;
+    *errorCopy = v175;
   }
 
   [MEMORY[0x277CCACA8] stringWithFormat:@"%@ %@", NSStringFromSelector(aSelector), @"end"];
   [OUTLINED_FUNCTION_4() timestampWithLabel:?];
-  result = v184 == 0;
-  v120 = *MEMORY[0x277D85DE8];
-  return result;
+  return v175 == 0;
 }
 
 void __30__BRInterfaceAOP__findService__block_invoke(uint64_t a1)
@@ -1508,7 +1479,7 @@ void __30__BRInterfaceAOP__findService__block_invoke(uint64_t a1)
 
 - (BOOL)_setGlobalAOPConfigsFromBRFConfigs:(id)configs
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v5 = [configs count];
   if (v5)
   {
@@ -1520,155 +1491,147 @@ void __30__BRInterfaceAOP__findService__block_invoke(uint64_t a1)
 
     else
     {
-      v9 = @"GlobalForceFeel";
-      v10[0] = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v6];
-      LOBYTE(v5) = -[BRInterfaceAOP _serviceSetProperty:forKey:](self, "_serviceSetProperty:forKey:", [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1], @"GlobalConfig");
+      v8 = @"GlobalForceFeel";
+      v9[0] = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v6];
+      LOBYTE(v5) = -[BRInterfaceAOP _serviceSetProperty:forKey:](self, "_serviceSetProperty:forKey:", [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1], @"GlobalConfig");
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (BOOL)_setStateAOPConfigsFromStateData:(id)data andSlotData:(id)slotData
 {
-  v66[18] = *MEMORY[0x277D85DE8];
+  v65[18] = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   v5 = [data count];
-  if (v5)
+  if (!v5)
   {
-    v62 = 0u;
-    v63 = 0u;
-    v60 = 0u;
-    v61 = 0u;
-    v43 = OUTLINED_FUNCTION_6(v5, v6, v7, v8, v9, v10, v11, v12, v36, v38, v40, v42, v44, obj, slotData, self, v52, array, v56, *(&v56 + 1), v57, *(&v57 + 1), v58, *(&v58 + 1), v59, *(&v59 + 1), 0);
-    if (v43)
+    return 1;
+  }
+
+  v61 = 0u;
+  v62 = 0u;
+  v59 = 0u;
+  v60 = 0u;
+  v42 = OUTLINED_FUNCTION_6(v5, v6, v7, v8, v9, v10, v11, v12, v35, v37, v39, v41, v43, obj, slotData, self, v51, array, v55, *(&v55 + 1), v56, *(&v56 + 1), v57, *(&v57 + 1), v58, *(&v58 + 1));
+  if (v42)
+  {
+    v38 = *v60;
+    dataCopy = data;
+    do
     {
-      v39 = *v61;
-      dataCopy = data;
+      v13 = 0;
       do
       {
-        v13 = 0;
-        do
+        if (*v60 != v38)
         {
-          if (*v61 != v39)
-          {
-            objc_enumerationMutation(data);
-          }
-
-          v45 = v13;
-          v14 = [data objectForKey:*(*(&v60 + 1) + 8 * v13)];
-          v15 = +[BRInterfaceAOP _convertClickState:](BRInterfaceAOP, "_convertClickState:", [v14 state]);
-          v65[0] = @"StateButtonState";
-          v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v15];
-          v65[1] = @"StateEnable";
-          v66[0] = v16;
-          v66[1] = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v14, "enabled")}];
-          v17 = [objc_msgSend(MEMORY[0x277CBEAC0] dictionaryWithObjects:v66 forKeys:v65 count:{2), "mutableCopy"}];
-          if ([v14 enabled])
-          {
-            v58 = 0u;
-            v59 = 0u;
-            v56 = 0u;
-            v57 = 0u;
-            obja = [v14 speedConfigs];
-            v18 = [obja countByEnumeratingWithState:&v56 objects:v64 count:16];
-            if (v18)
-            {
-              v26 = v18;
-              v53 = *v57;
-              do
-              {
-                v27 = 0;
-                do
-                {
-                  if (*v57 != v53)
-                  {
-                    objc_enumerationMutation(obja);
-                  }
-
-                  v28 = *(*(&v56 + 1) + 8 * v27);
-                  [v17 setObject:v28 forKey:@"StateSpeed"];
-                  [objc_msgSend(v14 "speedSlots")];
-                  [OUTLINED_FUNCTION_3() setObject:? forKey:?];
-                  v29 = [objc_msgSend(v51 dataForSlot:objc_msgSend(objc_msgSend(v14 fromArray:{"speedSlots"), "objectForKeyedSubscript:", v28), v49), "asset"}];
-                  hasAudio = [v29 hasAudio];
-                  if ([v29 hasHaptic])
-                  {
-                    v31 = 2;
-                  }
-
-                  else
-                  {
-                    v31 = 0;
-                  }
-
-                  [MEMORY[0x277CCABB0] numberWithUnsignedInt:v31 | hasAudio];
-                  [OUTLINED_FUNCTION_3() setObject:? forKey:?];
-                  if ([objc_msgSend(objc_msgSend(v14 "speedConfigs")])
-                  {
-                    [objc_msgSend(objc_msgSend(v14 "speedConfigs")];
-                    [OUTLINED_FUNCTION_3() setObject:? forKey:?];
-                  }
-
-                  if ([objc_msgSend(objc_msgSend(v14 "speedConfigs")])
-                  {
-                    [objc_msgSend(objc_msgSend(v14 "speedConfigs")];
-                    [OUTLINED_FUNCTION_3() setObject:? forKey:?];
-                  }
-
-                  if ([objc_msgSend(objc_msgSend(v14 "speedConfigs")])
-                  {
-                    [objc_msgSend(objc_msgSend(objc_msgSend(v14 "speedConfigs")];
-                    LODWORD(v33) = vcvtd_n_s64_f64(v32, 0x10uLL);
-                    [MEMORY[0x277CCABB0] numberWithInt:v33];
-                    [OUTLINED_FUNCTION_3() setObject:? forKey:?];
-                  }
-
-                  [v55 addObject:{objc_msgSend(v17, "copy")}];
-                  ++v27;
-                }
-
-                while (v26 != v27);
-                v18 = [obja countByEnumeratingWithState:&v56 objects:v64 count:16];
-                v26 = v18;
-              }
-
-              while (v18);
-            }
-          }
-
-          else
-          {
-            v18 = [v55 addObject:v17];
-          }
-
-          v13 = v45 + 1;
-          data = dataCopy;
+          objc_enumerationMutation(data);
         }
 
-        while (v45 + 1 != v43);
-        v43 = OUTLINED_FUNCTION_6(v18, v19, v20, v21, v22, v23, v24, v25, v37, v39, dataCopy, v43, v45, obja, v49, v51, v53, v55, v56, *(&v56 + 1), v57, *(&v57 + 1), v58, *(&v58 + 1), v59, *(&v59 + 1), v60);
+        v44 = v13;
+        v14 = [data objectForKey:*(*(&v59 + 1) + 8 * v13)];
+        v15 = +[BRInterfaceAOP _convertClickState:](BRInterfaceAOP, "_convertClickState:", [v14 state]);
+        v64[0] = @"StateButtonState";
+        v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v15];
+        v64[1] = @"StateEnable";
+        v65[0] = v16;
+        v65[1] = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v14, "enabled")}];
+        v17 = [objc_msgSend(MEMORY[0x277CBEAC0] dictionaryWithObjects:v65 forKeys:v64 count:{2), "mutableCopy"}];
+        if ([v14 enabled])
+        {
+          v57 = 0u;
+          v58 = 0u;
+          v55 = 0u;
+          v56 = 0u;
+          obja = [v14 speedConfigs];
+          v18 = [obja countByEnumeratingWithState:&v55 objects:v63 count:16];
+          if (v18)
+          {
+            v26 = v18;
+            v52 = *v56;
+            do
+            {
+              v27 = 0;
+              do
+              {
+                if (*v56 != v52)
+                {
+                  objc_enumerationMutation(obja);
+                }
+
+                v28 = *(*(&v55 + 1) + 8 * v27);
+                [v17 setObject:v28 forKey:@"StateSpeed"];
+                [objc_msgSend(v14 "speedSlots")];
+                [OUTLINED_FUNCTION_3() setObject:? forKey:?];
+                v29 = [objc_msgSend(v50 dataForSlot:objc_msgSend(objc_msgSend(v14 fromArray:{"speedSlots"), "objectForKeyedSubscript:", v28), v48), "asset"}];
+                hasAudio = [v29 hasAudio];
+                if ([v29 hasHaptic])
+                {
+                  v31 = 2;
+                }
+
+                else
+                {
+                  v31 = 0;
+                }
+
+                [MEMORY[0x277CCABB0] numberWithUnsignedInt:v31 | hasAudio];
+                [OUTLINED_FUNCTION_3() setObject:? forKey:?];
+                if ([objc_msgSend(objc_msgSend(v14 "speedConfigs")])
+                {
+                  [objc_msgSend(objc_msgSend(v14 "speedConfigs")];
+                  [OUTLINED_FUNCTION_3() setObject:? forKey:?];
+                }
+
+                if ([objc_msgSend(objc_msgSend(v14 "speedConfigs")])
+                {
+                  [objc_msgSend(objc_msgSend(v14 "speedConfigs")];
+                  [OUTLINED_FUNCTION_3() setObject:? forKey:?];
+                }
+
+                if ([objc_msgSend(objc_msgSend(v14 "speedConfigs")])
+                {
+                  [objc_msgSend(objc_msgSend(objc_msgSend(v14 "speedConfigs")];
+                  LODWORD(v33) = vcvtd_n_s64_f64(v32, 0x10uLL);
+                  [MEMORY[0x277CCABB0] numberWithInt:v33];
+                  [OUTLINED_FUNCTION_3() setObject:? forKey:?];
+                }
+
+                [v54 addObject:{objc_msgSend(v17, "copy")}];
+                ++v27;
+              }
+
+              while (v26 != v27);
+              v18 = [obja countByEnumeratingWithState:&v55 objects:v63 count:16];
+              v26 = v18;
+            }
+
+            while (v18);
+          }
+        }
+
+        else
+        {
+          v18 = [v54 addObject:v17];
+        }
+
+        v13 = v44 + 1;
+        data = dataCopy;
       }
 
-      while (v43);
+      while (v44 + 1 != v42);
+      v42 = OUTLINED_FUNCTION_6(v18, v19, v20, v21, v22, v23, v24, v25, v36, v38, dataCopy, v42, v44, obja, v48, v50, v52, v54, v55, *(&v55 + 1), v56, *(&v56 + 1), v57, *(&v57 + 1), v58, *(&v58 + 1));
     }
 
-    result = [v51 _serviceSetProperty:v55 forKey:@"StateConfig"];
+    while (v42);
   }
 
-  else
-  {
-    result = 1;
-  }
-
-  v35 = *MEMORY[0x277D85DE8];
-  return result;
+  return [v50 _serviceSetProperty:v54 forKey:@"StateConfig"];
 }
 
 - (void)initWithFastHaptics:(id *)a1 .cold.1(id *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v2 = _BRLog_log_0;
   if (!_BRLog_log_0)
   {
@@ -1679,22 +1642,19 @@ void __30__BRInterfaceAOP__findService__block_invoke(uint64_t a1)
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
-    _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
+    _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)propertyList
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_0_0();
-  _os_log_debug_impl(&dword_242149000, v0, OS_LOG_TYPE_DEBUG, "%s %@", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_242149000, v0, OS_LOG_TYPE_DEBUG, "%s %@", v1, 0x16u);
 }
 
-- (uint64_t)playState:(uint64_t *)a1 forSpeed:error:.cold.1(uint64_t *a1)
+- (void)playState:(void *)a1 forSpeed:error:.cold.1(void *a1)
 {
   result = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA590] code:-536870167 userInfo:0];
   if (a1)
@@ -1726,42 +1686,36 @@ void __30__BRInterfaceAOP__findService__block_invoke(uint64_t a1)
 
 - (void)_receiveLoaderAvailableNotification:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_0_0();
-  _os_log_debug_impl(&dword_242149000, v0, OS_LOG_TYPE_DEBUG, "%s notification: %@", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_242149000, v0, OS_LOG_TYPE_DEBUG, "%s notification: %@", v1, 0x16u);
 }
 
 - (void)_serviceSetProperty:forKey:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4[0] = 136315650;
+  v6 = *MEMORY[0x277D85DE8];
+  v3[0] = 136315650;
   OUTLINED_FUNCTION_0_0();
-  v5 = v0;
-  v6 = v1;
-  _os_log_debug_impl(&dword_242149000, v2, OS_LOG_TYPE_DEBUG, "%s property: %@ key: %@", v4, 0x20u);
-  v3 = *MEMORY[0x277D85DE8];
+  v4 = v0;
+  v5 = v1;
+  _os_log_debug_impl(&dword_242149000, v2, OS_LOG_TYPE_DEBUG, "%s property: %@ key: %@", v3, 0x20u);
 }
 
-- (void)_serviceSetProperty:(int *)a1 forKey:.cold.2(int *a1)
+- (void)_serviceSetProperty:forKey:.cold.2()
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = _BRLog_log_0;
+  v0 = _BRLog_log_0;
   if (!_BRLog_log_0)
   {
-    v2 = os_log_create("com.apple.ButtonResolver", "default");
-    _BRLog_log_0 = v2;
+    v0 = os_log_create("com.apple.ButtonResolver", "default");
+    _BRLog_log_0 = v0;
   }
 
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
   {
-    v9 = *a1;
     OUTLINED_FUNCTION_1();
-    _os_log_error_impl(v4, v5, v6, v7, v8, 0x18u);
+    _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 @end

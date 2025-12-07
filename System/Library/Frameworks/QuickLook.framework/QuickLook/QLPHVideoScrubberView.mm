@@ -581,17 +581,16 @@ LABEL_9:
   v7 = v6;
   v9 = v8;
 
-  v10 = *MEMORY[0x277CBF3A0];
-  v11 = *(MEMORY[0x277CBF3A0] + 8);
-  v12 = v7 + v5;
+  v10 = *(MEMORY[0x277CBF3A0] + 8);
+  v11 = v7 + v5;
   if (v5 <= 0.0)
   {
     v5 = *MEMORY[0x277CBF3A0];
-    v7 = v12;
+    v7 = v11;
   }
 
   _filmStripView = [(QLPHVideoScrubberView *)self _filmStripView];
-  [_filmStripView setVisibleRect:{v5, v11, v7, v9}];
+  [_filmStripView setVisibleRect:{v5, v10, v7, v9}];
 }
 
 - (void)_updateScrollViewContentOffset

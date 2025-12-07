@@ -19,80 +19,84 @@
 - (CERecommendationStringTemplate)initWithDictionary:(id)dictionary
 {
   dictionaryCopy = dictionary;
-  v20.receiver = self;
-  v20.super_class = CERecommendationStringTemplate;
-  v5 = [(CERecommendationStringTemplate *)&v20 init];
+  v24.receiver = self;
+  v24.super_class = CERecommendationStringTemplate;
+  v5 = [(CERecommendationStringTemplate *)&v24 init];
   v6 = v5;
   if (v5)
   {
     v5->_lock._os_unfair_lock_opaque = 0;
     v7 = [dictionaryCopy objectForKeyedSubscript:@"title"];
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v8 = v7;
+      v9 = v7;
       p_super = &v6->_titleTemplates->super;
-      v6->_titleTemplates = v8;
+      v6->_titleTemplates = v9;
     }
 
     else
     {
-      p_super = _CELogSystem();
+      p_super = _CELogSystem(isKindOfClass);
       if (os_log_type_enabled(p_super, OS_LOG_TYPE_DEBUG))
       {
         [CERecommendationStringTemplate initWithDictionary:];
       }
     }
 
-    v10 = [dictionaryCopy objectForKeyedSubscript:@"subtitle"];
+    v11 = [dictionaryCopy objectForKeyedSubscript:@"subtitle"];
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    v12 = objc_opt_isKindOfClass();
+    if (v12)
     {
-      v11 = v10;
-      v12 = &v6->_subTitleTemplates->super;
-      v6->_subTitleTemplates = v11;
+      v13 = v11;
+      v14 = &v6->_subTitleTemplates->super;
+      v6->_subTitleTemplates = v13;
     }
 
     else
     {
-      v12 = _CELogSystem();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+      v14 = _CELogSystem(v12);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
         [CERecommendationStringTemplate initWithDictionary:];
       }
     }
 
-    v13 = [dictionaryCopy objectForKeyedSubscript:@"message"];
+    v15 = [dictionaryCopy objectForKeyedSubscript:@"message"];
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    v16 = objc_opt_isKindOfClass();
+    if (v16)
     {
-      v14 = v13;
-      v15 = &v6->_messageTemplates->super;
-      v6->_messageTemplates = v14;
+      v17 = v15;
+      v18 = &v6->_messageTemplates->super;
+      v6->_messageTemplates = v17;
     }
 
     else
     {
-      v15 = _CELogSystem();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
-      {
-        [CERecommendationStringTemplate initWithDictionary:];
-      }
-    }
-
-    v16 = [dictionaryCopy objectForKeyedSubscript:@"actionTitle"];
-    objc_opt_class();
-    if (objc_opt_isKindOfClass())
-    {
-      v17 = v16;
-      v18 = &v6->_actionTitleTemplates->super;
-      v6->_actionTitleTemplates = v17;
-    }
-
-    else
-    {
-      v18 = _CELogSystem();
+      v18 = _CELogSystem(v16);
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+      {
+        [CERecommendationStringTemplate initWithDictionary:];
+      }
+    }
+
+    v19 = [dictionaryCopy objectForKeyedSubscript:@"actionTitle"];
+    objc_opt_class();
+    v20 = objc_opt_isKindOfClass();
+    if (v20)
+    {
+      v21 = v19;
+      v22 = &v6->_actionTitleTemplates->super;
+      v6->_actionTitleTemplates = v21;
+    }
+
+    else
+    {
+      v22 = _CELogSystem(v20);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
       {
         [CERecommendationStringTemplate initWithDictionary:];
       }

@@ -45,32 +45,29 @@ void __47__LACBackgroundTask__queuedStartWorkerIfNeeded__block_invoke(uint64_t a
   v5 = self->_watchdog;
   self->_watchdog = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, v5);
 }
 
 - (id)description
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696AEC0];
   v4 = objc_opt_class();
   v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"identifier: %@", self->_identifier];
-  v11[0] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
+  v10[0] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
   v7 = [v6 componentsJoinedByString:@" "];;
   v8 = [v3 stringWithFormat:@"<%@ %p %@>", v4, self, v7];;
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
 
 - (void)_queuedStartWorkerIfNeeded
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
   selfCopy = self;
-  _os_log_error_impl(&dword_1B0233000, a2, OS_LOG_TYPE_ERROR, "%{public}@ ignoring run request because is already running", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1B0233000, a2, OS_LOG_TYPE_ERROR, "%{public}@ ignoring run request because is already running", &v2, 0xCu);
 }
 
 void __47__LACBackgroundTask__queuedStartWorkerIfNeeded__block_invoke_2(uint64_t a1, void *a2)
@@ -93,7 +90,7 @@ void __47__LACBackgroundTask__queuedStartWorkerIfNeeded__block_invoke_2(uint64_t
 
 - (void)dealloc
 {
-  v3 = LACLogTask();
+  v3 = LACLogTask(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [(LACSharedModeDataSourceFTRCAdapter *)self dealloc];
@@ -260,10 +257,10 @@ void __65__LACBackgroundTask__queuedRunWithTimeout_replyQueue_completion___block
     v5 = [LACBackgroundTaskErrorBuilder errorWithCode:1 debugDescription:v3];
     v6 = [(LACBackgroundTaskResult *)v4 initWithError:v5];
 
-    v7 = LACLogTask();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = LACLogTask(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __65__LACBackgroundTask__queuedRunWithTimeout_replyQueue_completion___block_invoke_cold_1(a1, v6, v7);
+      __65__LACBackgroundTask__queuedRunWithTimeout_replyQueue_completion___block_invoke_cold_1(a1, v6, v8);
     }
 
     (*(*(a1 + 40) + 16))();
@@ -309,43 +306,43 @@ void __59__LACBackgroundTask__queuedStartWorkerWatchdogWithTimeout___block_invok
   v25 = *MEMORY[0x1E69E9840];
   resultCopy = result;
   dispatch_assert_queue_V2(self->_innerQueue);
-  v5 = LACLogTask();
+  v6 = LACLogTask(v5);
   error = [resultCopy error];
-  v7 = 16 * (error != 0);
+  v8 = 16 * (error != 0);
 
-  if (os_log_type_enabled(v5, v7))
+  if (os_log_type_enabled(v6, v8))
   {
     *buf = 138543618;
     selfCopy = self;
     v23 = 2114;
     v24 = resultCopy;
-    _os_log_impl(&dword_1B0233000, v5, v7, "%{public}@ finished run with result %{public}@", buf, 0x16u);
+    _os_log_impl(&dword_1B0233000, v6, v8, "%{public}@ finished run with result %{public}@", buf, 0x16u);
   }
 
   [(LACBackgroundTask *)self _queuedStopWorkerWatchdog];
   currentHandler = self->_currentHandler;
   if (currentHandler)
   {
-    v9 = [currentHandler copy];
-    v10 = self->_currentHandler;
+    v10 = [currentHandler copy];
+    v11 = self->_currentHandler;
     self->_currentHandler = 0;
 
     v18[0] = MEMORY[0x1E69E9820];
     v18[1] = 3221225472;
     v18[2] = __51__LACBackgroundTask__queuedCompleteTaskWithResult___block_invoke;
     v18[3] = &unk_1E7A95798;
-    v20 = v9;
+    v20 = v10;
     v19 = resultCopy;
-    v11 = v9;
+    v12 = v10;
     [(LACBackgroundTask *)self _queuedRunInReplyQueue:v18];
   }
 
   else
   {
     delegate = [(LACBackgroundTask *)self delegate];
-    v13 = delegate == 0;
+    v14 = delegate == 0;
 
-    if (!v13)
+    if (!v14)
     {
       objc_initWeak(buf, self);
       v15[0] = MEMORY[0x1E69E9820];
@@ -360,8 +357,6 @@ void __59__LACBackgroundTask__queuedStartWorkerWatchdogWithTimeout___block_invok
       objc_destroyWeak(buf);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __51__LACBackgroundTask__queuedCompleteTaskWithResult___block_invoke_2(uint64_t a1)
@@ -413,14 +408,13 @@ void __51__LACBackgroundTask__queuedCompleteTaskWithResult___block_invoke_2(uint
 
 void __65__LACBackgroundTask__queuedRunWithTimeout_replyQueue_completion___block_invoke_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
-  v5 = 138543618;
-  v6 = v3;
-  v7 = 2114;
-  v8 = a2;
-  _os_log_error_impl(&dword_1B0233000, log, OS_LOG_TYPE_ERROR, "%{public}@ failed with result %{public}@", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138543618;
+  v5 = v3;
+  v6 = 2114;
+  v7 = a2;
+  _os_log_error_impl(&dword_1B0233000, log, OS_LOG_TYPE_ERROR, "%{public}@ failed with result %{public}@", &v4, 0x16u);
 }
 
 @end

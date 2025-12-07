@@ -25,7 +25,7 @@
   v4 = *(v3 - 8);
   __chkstk_darwin(v3);
   v6 = &v19 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = type metadata accessor for SeparatorSupplementaryView();
+  v7 = type metadata accessor for SeparatorSupplementaryView(0);
   v20.receiver = self;
   v20.super_class = v7;
   selfCopy = self;

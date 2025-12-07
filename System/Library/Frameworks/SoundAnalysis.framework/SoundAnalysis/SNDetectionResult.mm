@@ -100,13 +100,13 @@
 - (id)binarySampleRepresentation
 {
   selfCopy = self;
-  v3 = SNDetectionResult.binarySampleRepresentation()();
-  v5 = v4;
+  v4 = SNDetectionResult.binarySampleRepresentation()(v3);
+  v6 = v5;
 
-  v6 = sub_1C9A915F8();
-  sub_1C97A5978(v3, v5);
+  v7 = sub_1C9A915F8();
+  sub_1C97A5978(v4, v6);
 
-  return v6;
+  return v7;
 }
 
 - (SNDetectionResult)initWithBinarySampleRepresentation:(id)representation metadata:(id)metadata timestamp:(double)timestamp
@@ -129,7 +129,7 @@
   selfCopy = self;
   sub_1C99D9680(v6);
 
-  sub_1C97A5A8C(v6, v6[3]);
+  sub_1C97A5A8C(v6, v7);
   v4 = sub_1C9A93B08();
   sub_1C97A592C(v6);
 

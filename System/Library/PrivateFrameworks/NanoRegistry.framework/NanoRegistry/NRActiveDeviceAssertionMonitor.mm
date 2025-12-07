@@ -117,7 +117,7 @@ LABEL_8:
         if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
         {
           *buf = 67109120;
-          v21 = v9;
+          v20 = v9;
           _os_log_error_impl(&dword_1E0ADF000, v12, OS_LOG_TYPE_ERROR, "Failed to query token value with status: (%u)", buf, 8u);
         }
       }
@@ -126,28 +126,26 @@ LABEL_8:
     *(*(*(a1 + 40) + 8) + 24) = state64[0] == 1;
     if (*(*(a1 + 32) + 8) == -1)
     {
-      v14 = notify_cancel(out_token);
-      if (v14)
+      v13 = notify_cancel(out_token);
+      if (v13)
       {
-        v15 = v14;
-        v16 = nr_framework_log();
-        v17 = os_log_type_enabled(v16, OS_LOG_TYPE_ERROR);
+        v14 = v13;
+        v15 = nr_framework_log();
+        v16 = os_log_type_enabled(v15, OS_LOG_TYPE_ERROR);
 
-        if (v17)
+        if (v16)
         {
-          v18 = nr_framework_log();
-          if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+          v17 = nr_framework_log();
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
           {
             *buf = 67109120;
-            v21 = v15;
-            _os_log_error_impl(&dword_1E0ADF000, v18, OS_LOG_TYPE_ERROR, "Failed to unregister short lived token with status: (%u)", buf, 8u);
+            v20 = v14;
+            _os_log_error_impl(&dword_1E0ADF000, v17, OS_LOG_TYPE_ERROR, "Failed to unregister short lived token with status: (%u)", buf, 8u);
           }
         }
       }
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addObserver:(id)observer
@@ -166,7 +164,7 @@ LABEL_8:
 
 void __46__NRActiveDeviceAssertionMonitor_addObserver___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   [*(*(a1 + 32) + 16) addObject:*(a1 + 40)];
   if ([*(*(a1 + 32) + 16) count] == 1)
   {
@@ -178,12 +176,12 @@ void __46__NRActiveDeviceAssertionMonitor_addObserver___block_invoke(uint64_t a1
       {
         objc_initWeak(&location, v2);
         v4 = *(v2 + 24);
-        v10[0] = MEMORY[0x1E69E9820];
-        v10[1] = 3221225472;
-        v10[2] = __53__NRActiveDeviceAssertionMonitor_startObservingToken__block_invoke;
-        v10[3] = &unk_1E86DB808;
-        objc_copyWeak(&v11, &location);
-        v5 = notify_register_dispatch("com.apple.NanoRegistry.NRActiveDeviceAssertion", v3, v4, v10);
+        v9[0] = MEMORY[0x1E69E9820];
+        v9[1] = 3221225472;
+        v9[2] = __53__NRActiveDeviceAssertionMonitor_startObservingToken__block_invoke;
+        v9[3] = &unk_1E86DB808;
+        objc_copyWeak(&v10, &location);
+        v5 = notify_register_dispatch("com.apple.NanoRegistry.NRActiveDeviceAssertion", v3, v4, v9);
         if (v5)
         {
           v6 = nr_framework_log();
@@ -195,19 +193,17 @@ void __46__NRActiveDeviceAssertionMonitor_addObserver___block_invoke(uint64_t a1
             if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
             {
               *buf = 67109120;
-              v14 = v5;
+              v13 = v5;
               _os_log_error_impl(&dword_1E0ADF000, v8, OS_LOG_TYPE_ERROR, "Failed to register observer with status: (%u)", buf, 8u);
             }
           }
         }
 
-        objc_destroyWeak(&v11);
+        objc_destroyWeak(&v10);
         objc_destroyWeak(&location);
       }
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeObserver:(id)observer
@@ -226,7 +222,7 @@ void __46__NRActiveDeviceAssertionMonitor_addObserver___block_invoke(uint64_t a1
 
 void __49__NRActiveDeviceAssertionMonitor_removeObserver___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   [*(*(a1 + 32) + 16) removeObject:*(a1 + 40)];
   if (![*(*(a1 + 32) + 16) count])
   {
@@ -248,9 +244,9 @@ void __49__NRActiveDeviceAssertionMonitor_removeObserver___block_invoke(uint64_t
             v8 = nr_framework_log();
             if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
             {
-              v10[0] = 67109120;
-              v10[1] = v5;
-              _os_log_error_impl(&dword_1E0ADF000, v8, OS_LOG_TYPE_ERROR, "Failed to unregister observer with status: (%u)", v10, 8u);
+              v9[0] = 67109120;
+              v9[1] = v5;
+              _os_log_error_impl(&dword_1E0ADF000, v8, OS_LOG_TYPE_ERROR, "Failed to unregister observer with status: (%u)", v9, 8u);
             }
           }
         }
@@ -259,39 +255,37 @@ void __49__NRActiveDeviceAssertionMonitor_removeObserver___block_invoke(uint64_t
       }
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __53__NRActiveDeviceAssertionMonitor_startObservingToken__block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
     v13 = 0u;
-    v10 = WeakRetained;
+    v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
+    v9 = WeakRetained;
     v2 = WeakRetained[2];
-    v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v3)
     {
       v4 = v3;
-      v5 = *v13;
+      v5 = *v12;
       v6 = MEMORY[0x1E69E96A0];
       do
       {
         v7 = 0;
         do
         {
-          if (*v13 != v5)
+          if (*v12 != v5)
           {
             objc_enumerationMutation(v2);
           }
 
-          v8 = *(*(&v12 + 1) + 8 * v7);
+          v8 = *(*(&v11 + 1) + 8 * v7);
           block[0] = MEMORY[0x1E69E9820];
           block[1] = 3221225472;
           block[2] = __64__NRActiveDeviceAssertionMonitor_notifyObserversWithTokenValue___block_invoke;
@@ -302,16 +296,14 @@ void __53__NRActiveDeviceAssertionMonitor_startObservingToken__block_invoke(uint
         }
 
         while (v4 != v7);
-        v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v4);
     }
 
-    WeakRetained = v10;
+    WeakRetained = v9;
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -99,25 +99,25 @@ void __73__PUPXPhotoKitPasteAdjustmentsActionPerformer_performUserInteractionTas
   }
 }
 
-uint64_t __73__PUPXPhotoKitPasteAdjustmentsActionPerformer_performUserInteractionTask__block_invoke_3(uint64_t a1)
+uint64_t __73__PUPXPhotoKitPasteAdjustmentsActionPerformer_performUserInteractionTask__block_invoke_3(uint64_t a1, uint64_t a2)
 {
-  v2 = PLUIGetLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v3 = PLUIGetLog();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_1B36F3000, v2, OS_LOG_TYPE_INFO, "User approved pasting edits on spatial assets.", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_1B36F3000, v3, OS_LOG_TYPE_INFO, "User approved pasting edits on spatial assets.", v5, 2u);
   }
 
   return (*(*(a1 + 32) + 16))();
 }
 
-uint64_t __73__PUPXPhotoKitPasteAdjustmentsActionPerformer_performUserInteractionTask__block_invoke_557(uint64_t a1)
+uint64_t __73__PUPXPhotoKitPasteAdjustmentsActionPerformer_performUserInteractionTask__block_invoke_557(uint64_t a1, uint64_t a2)
 {
-  v2 = PLUIGetLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v3 = PLUIGetLog();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_1B36F3000, v2, OS_LOG_TYPE_INFO, "User skipped pasting edits on spatial assets.", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_1B36F3000, v3, OS_LOG_TYPE_INFO, "User skipped pasting edits on spatial assets.", v5, 2u);
   }
 
   return (*(*(a1 + 32) + 16))();

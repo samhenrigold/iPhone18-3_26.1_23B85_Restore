@@ -40,9 +40,9 @@
   if (macOS)
   {
     stringByStandardizingPath = [@"/private/var/mnt/com.apple.mobilestoredemo.storage" stringByStandardizingPath];
-    v20[0] = stringByStandardizingPath;
-    v20[1] = @"/Library/Apple";
-    v6 = [NSArray arrayWithObjects:v20 count:2];
+    v24[0] = stringByStandardizingPath;
+    v24[1] = @"/Library/Apple";
+    v6 = [NSArray arrayWithObjects:v24 count:2];
     v7 = [NSSet setWithArray:v6];
     [(WhitelistChecker *)self setBlackListedPaths:v7];
 
@@ -61,8 +61,8 @@
 
     if (!v10)
     {
-      v16 = sub_1000177C8();
-      [(WhitelistChecker *)self setDomains:v16];
+      v19 = sub_1000177C8(v11);
+      [(WhitelistChecker *)self setDomains:v19];
 
       domains = [(WhitelistChecker *)self domains];
 
@@ -71,18 +71,19 @@
         return 1;
       }
 
-      sub_100032424();
+      sub_100032424(v21);
       return 0;
     }
   }
 
   domainsPlistFilePath = [(WhitelistChecker *)self domainsPlistFilePath];
-  v12 = [MSDDomainsPlistPatcher patchDomainsPlist:domainsPlistFilePath];
-  if (v12 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  isKindOfClass = [MSDDomainsPlistPatcher patchDomainsPlist:domainsPlistFilePath];
+  v14 = isKindOfClass;
+  if (isKindOfClass && (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) != 0))
   {
-    v13 = [v12 objectForKey:@"SystemDomains"];
-    v14 = [NSDictionary dictionaryWithDictionary:v13];
-    [(WhitelistChecker *)self setDomains:v14];
+    v15 = [v14 objectForKey:@"SystemDomains"];
+    v16 = [NSDictionary dictionaryWithDictionary:v15];
+    [(WhitelistChecker *)self setDomains:v16];
 
     domains2 = [(WhitelistChecker *)self domains];
 
@@ -92,19 +93,19 @@
       return 1;
     }
 
-    v19 = sub_100021268();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v23 = sub_100021268(v18);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
-      sub_100032490(v19);
+      sub_100032490(v23);
     }
   }
 
   else
   {
-    v19 = sub_100021268();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v23 = sub_100021268(isKindOfClass);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
-      sub_1000324D4(domainsPlistFilePath, v19);
+      sub_1000324D4(domainsPlistFilePath, v23);
     }
   }
 
@@ -155,7 +156,8 @@
 
       if (macOS)
       {
-        if ([(WhitelistChecker *)self checkFile_macOS:v12 withMetaData:v11])
+        v15 = [(WhitelistChecker *)self checkFile_macOS:v12 withMetaData:v11];
+        if (v15)
         {
           goto LABEL_18;
         }
@@ -168,29 +170,29 @@
       {
 
 LABEL_12:
-        v18 = [(WhitelistChecker *)self checkFile_iOS:v12 withMetaData:v11];
+        v15 = [(WhitelistChecker *)self checkFile_iOS:v12 withMetaData:v11];
         goto LABEL_14;
       }
 
       sharedInstance3 = [p_vtable + 37 sharedInstance];
-      v17 = [sharedInstance3 rOS];
+      v18 = [sharedInstance3 rOS];
 
-      if (v17)
+      if (v18)
       {
         goto LABEL_12;
       }
 
-      v18 = [(WhitelistChecker *)self checkFile_WatchAndTV:v12 withMetaData:v11];
+      v15 = [(WhitelistChecker *)self checkFile_WatchAndTV:v12 withMetaData:v11];
 LABEL_14:
       v6 = v23;
       p_vtable = (MSDKPeerDemoTestScript + 24);
-      if (v18)
+      if (v15)
       {
         goto LABEL_18;
       }
 
 LABEL_15:
-      v19 = sub_100021268();
+      v19 = sub_100021268(v15);
       if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
         *buf = v22;
@@ -239,39 +241,39 @@ LABEL_20:
   v8 = [NSArray arrayWithObjects:@"/var/mobile/Media", @"/var/mobile/Library/Backup/SystemContainers/", @"/var/mobile/Library/IdentityServices/Persistence/DoNotBackup", @"/var/root/Library/Backup/SystemContainers/", @"/var/wireless/Library/Preferences/com.apple.awdd.persistent.plist", @"/var/wireless/Library/Preferences/com.apple.awdd.plist", @"/var/MobileSoftwareUpdate/.MAAMigrated.plist", @"/var/MobileAsset/PreinstalledAssetsV2/InstallWithOs", @"/var/mobile/Library/Mobile Documents", 0];
   if (![(WhitelistChecker *)self file:sCopy whitelisted:v8]&& ![(WhitelistChecker *)self annotated:dataCopy])
   {
-    v31 = v8;
-    v32 = dataCopy;
+    v33 = v8;
+    v34 = dataCopy;
+    v45 = 0u;
+    v46 = 0u;
     v43 = 0u;
     v44 = 0u;
-    v41 = 0u;
-    v42 = 0u;
     obj = [(WhitelistChecker *)self domains];
-    v37 = [obj countByEnumeratingWithState:&v41 objects:v49 count:16];
-    if (!v37)
+    v39 = [obj countByEnumeratingWithState:&v43 objects:v51 count:16];
+    if (!v39)
     {
-      v38 = 0;
+      v40 = 0;
       v10 = 0;
-      v39 = 0;
+      v41 = 0;
       goto LABEL_33;
     }
 
-    v39 = 0;
-    v38 = 0;
+    v41 = 0;
+    v40 = 0;
     v10 = 0;
-    v35 = *v42;
-    v36 = sCopy;
+    v37 = *v44;
+    v38 = sCopy;
     selfCopy = self;
     while (1)
     {
       v11 = 0;
       do
       {
-        if (*v42 != v35)
+        if (*v44 != v37)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v41 + 1) + 8 * v11);
+        v12 = *(*(&v43 + 1) + 8 * v11);
         v13 = objc_autoreleasePoolPush();
         domains = [(WhitelistChecker *)self domains];
         v15 = [domains objectForKey:v12];
@@ -279,20 +281,20 @@ LABEL_20:
         v16 = [v15 objectForKey:@"RootPath"];
         if (!v16)
         {
-          v27 = sub_100021268();
-          if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+          v29 = sub_100021268(0);
+          if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
           {
             *buf = 138543362;
-            v46 = v12;
-            _os_log_error_impl(&_mh_execute_header, v27, OS_LOG_TYPE_ERROR, "No root path find in domain %{public}@", buf, 0xCu);
+            v48 = v12;
+            _os_log_error_impl(&_mh_execute_header, v29, OS_LOG_TYPE_ERROR, "No root path find in domain %{public}@", buf, 0xCu);
           }
 
           v18 = 0;
-          v26 = 0;
+          v28 = 0;
           goto LABEL_16;
         }
 
-        v40 = v13;
+        v42 = v13;
         v17 = [v15 objectForKey:@"RelativePathsToBackupAndRestore"];
         v18 = [v17 mutableCopy];
 
@@ -309,91 +311,92 @@ LABEL_20:
 
         if (!v22)
         {
-          v27 = sub_100021268();
-          if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+          v29 = sub_100021268(v23);
+          if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
           {
             *buf = 138543362;
-            v46 = v12;
-            _os_log_error_impl(&_mh_execute_header, v27, OS_LOG_TYPE_ERROR, "Cannot create allow list for domain %{public}@", buf, 0xCu);
+            v48 = v12;
+            _os_log_error_impl(&_mh_execute_header, v29, OS_LOG_TYPE_ERROR, "Cannot create allow list for domain %{public}@", buf, 0xCu);
           }
 
-          v26 = 0;
+          v28 = 0;
           v10 = 0;
-          v13 = v40;
+          v13 = v42;
           goto LABEL_16;
         }
 
         if ([(WhitelistChecker *)self file:sCopy whitelisted:v22])
         {
-          v23 = [v15 objectForKey:@"RelativePathsNotToRestore"];
+          v24 = [v15 objectForKey:@"RelativePathsNotToRestore"];
 
-          v24 = [(WhitelistChecker *)self createFullPathList:v23 rootPath:v16 isAllowList:0];
+          v25 = [(WhitelistChecker *)self createFullPathList:v24 rootPath:v16 isAllowList:0];
 
-          if ([(WhitelistChecker *)self file:sCopy blacklisted:v24])
+          v26 = [(WhitelistChecker *)self file:sCopy blacklisted:v25];
+          if (v26)
           {
-            v25 = sub_100021268();
-            if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+            v27 = sub_100021268(v26);
+            if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138543618;
-              v46 = sCopy;
-              v47 = 2114;
-              v48 = v12;
-              _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "%{public}@ is black listed in %{public}@", buf, 0x16u);
+              v48 = sCopy;
+              v49 = 2114;
+              v50 = v12;
+              _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "%{public}@ is black listed in %{public}@", buf, 0x16u);
             }
 
-            v39 = 1;
-            v18 = v23;
-            v26 = 1;
-            v38 = v24;
+            v41 = 1;
+            v18 = v24;
+            v28 = 1;
+            v40 = v25;
             v10 = v22;
-            v13 = v40;
-            v27 = v25;
+            v13 = v42;
+            v29 = v27;
             self = selfCopy;
 LABEL_16:
 
-            v28 = 0;
+            v30 = 0;
             goto LABEL_20;
           }
 
-          v28 = 0;
-          v39 = 1;
-          v18 = v23;
-          v26 = 1;
-          v38 = v24;
+          v30 = 0;
+          v41 = 1;
+          v18 = v24;
+          v28 = 1;
+          v40 = v25;
         }
 
         else
         {
-          v28 = 1;
-          v26 = v39;
+          v30 = 1;
+          v28 = v41;
         }
 
         v10 = v22;
-        v13 = v40;
+        v13 = v42;
 LABEL_20:
 
         objc_autoreleasePoolPop(v13);
-        if (!v28)
+        if (!v30)
         {
-          v39 = v26;
-          sCopy = v36;
+          v41 = v28;
+          sCopy = v38;
           goto LABEL_33;
         }
 
         v11 = v11 + 1;
-        sCopy = v36;
+        sCopy = v38;
       }
 
-      while (v37 != v11);
-      v29 = [obj countByEnumeratingWithState:&v41 objects:v49 count:16];
-      v37 = v29;
-      if (!v29)
+      while (v39 != v11);
+      v31 = [obj countByEnumeratingWithState:&v43 objects:v51 count:16];
+      v39 = v31;
+      if (!v31)
       {
 LABEL_33:
 
-        v8 = v31;
-        dataCopy = v32;
-        v9 = v38;
+        v8 = v33;
+        dataCopy = v34;
+        v9 = v40;
         goto LABEL_34;
       }
     }
@@ -401,10 +404,10 @@ LABEL_33:
 
   v9 = 0;
   v10 = 0;
-  v39 = 1;
+  v41 = 1;
 LABEL_34:
 
-  return v39 & 1;
+  return v41 & 1;
 }
 
 - (BOOL)checkFile_WatchAndTV:(id)v withMetaData:(id)data
@@ -666,12 +669,13 @@ LABEL_14:
   if (([v7 isEqualToString:@"NSFileTypeRegular"] & 1) != 0 || objc_msgSend(v7, "isEqualToString:", @"NSFileTypeDirectory"))
   {
     stringByStandardizingPath = [fileCopy stringByStandardizingPath];
-    if (([fileCopy isEqualToString:stringByStandardizingPath] & 1) == 0)
+    v9 = [fileCopy isEqualToString:stringByStandardizingPath];
+    if ((v9 & 1) == 0)
     {
-      v9 = sub_100021268();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      v10 = sub_100021268(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
-        sub_10003254C(fileCopy, stringByStandardizingPath, v9);
+        sub_10003254C(fileCopy, stringByStandardizingPath, v10);
       }
     }
   }
@@ -687,29 +691,33 @@ LABEL_14:
 - (BOOL)shouldRestoreSystemContainer_iOS:(id)s shared:(BOOL)shared
 {
   sCopy = s;
+  v17 = 0;
   v16 = 0;
-  v15 = 0;
   [sCopy cStringUsingEncoding:4];
   v5 = container_create_or_lookup_path_for_current_user();
-  if (v5 && v15 == 1)
+  if (v5 && v16 == 1)
   {
     v6 = [NSString stringWithFormat:@"file://%s", v5];
     v7 = [NSURL fileURLWithString:v6];
+    v15 = 0;
     v14 = 0;
-    v13 = 0;
-    v8 = [v7 getResourceValue:&v14 forKey:NSURLIsExcludedFromBackupKey error:&v13];
-    v9 = v14;
-    v10 = v13;
-    if (v8 && [v9 BOOLValue])
+    v8 = [v7 getResourceValue:&v15 forKey:NSURLIsExcludedFromBackupKey error:&v14];
+    v9 = v15;
+    v10 = v14;
+    if (v8)
     {
-      v11 = sub_100021268();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      bOOLValue = [v9 BOOLValue];
+      if (bOOLValue)
       {
-        *buf = 136315394;
-        v18 = "[WhitelistChecker shouldRestoreSystemContainer_iOS:shared:]";
-        v19 = 2114;
-        v20 = sCopy;
-        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%s:Container check failed for %{public}@. But still restoring.", buf, 0x16u);
+        v12 = sub_100021268(bOOLValue);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 136315394;
+          v19 = "[WhitelistChecker shouldRestoreSystemContainer_iOS:shared:]";
+          v20 = 2114;
+          v21 = sCopy;
+          _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%s:Container check failed for %{public}@. But still restoring.", buf, 0x16u);
+        }
       }
     }
   }
@@ -763,10 +771,10 @@ LABEL_14:
     v11 = &off_100056688;
   }
 
-  v42 = 0u;
   v43 = 0u;
-  v40 = 0u;
+  v44 = 0u;
   v41 = 0u;
+  v42 = 0u;
   if (v9)
   {
     v12 = 6;
@@ -777,22 +785,22 @@ LABEL_14:
     v12 = 8;
   }
 
-  v13 = [v11 countByEnumeratingWithState:&v40 objects:v45 count:{16, self}];
-  v35 = v12;
+  v13 = [v11 countByEnumeratingWithState:&v41 objects:v46 count:{16, self}];
+  v36 = v12;
   if (v13)
   {
     v14 = v13;
-    v15 = *v41;
+    v15 = *v42;
     while (2)
     {
       for (i = 0; i != v14; i = i + 1)
       {
-        if (*v41 != v15)
+        if (*v42 != v15)
         {
           objc_enumerationMutation(v11);
         }
 
-        v17 = *(*(&v40 + 1) + 8 * i);
+        v17 = *(*(&v41 + 1) + 8 * i);
         if ([filesCopy rangeOfString:v17] != 0x7FFFFFFFFFFFFFFFLL)
         {
           v18 = metadataCopy;
@@ -802,7 +810,7 @@ LABEL_14:
         }
       }
 
-      v14 = [v11 countByEnumeratingWithState:&v40 objects:v45 count:16];
+      v14 = [v11 countByEnumeratingWithState:&v41 objects:v46 count:16];
       if (v14)
       {
         continue;
@@ -816,25 +824,25 @@ LABEL_14:
   v19 = 0;
   v20 = 0;
 LABEL_20:
-  v38 = 0u;
   v39 = 0u;
-  v36 = 0u;
+  v40 = 0u;
   v37 = 0u;
-  v21 = [v10 countByEnumeratingWithState:&v36 objects:v44 count:16];
+  v38 = 0u;
+  v21 = [v10 countByEnumeratingWithState:&v37 objects:v45 count:16];
   if (v21)
   {
     v22 = v21;
-    v23 = *v37;
+    v23 = *v38;
     while (2)
     {
       for (j = 0; j != v22; j = j + 1)
       {
-        if (*v37 != v23)
+        if (*v38 != v23)
         {
           objc_enumerationMutation(v10);
         }
 
-        v25 = *(*(&v36 + 1) + 8 * j);
+        v25 = *(*(&v37 + 1) + 8 * j);
         if ([filesCopy rangeOfString:v25] != 0x7FFFFFFFFFFFFFFFLL)
         {
           v28 = [filesCopy stringByReplacingOccurrencesOfString:v25 withString:&stru_1000519D0];
@@ -845,7 +853,7 @@ LABEL_20:
         }
       }
 
-      v22 = [v10 countByEnumeratingWithState:&v36 objects:v44 count:16];
+      v22 = [v10 countByEnumeratingWithState:&v37 objects:v45 count:16];
       if (v22)
       {
         continue;
@@ -864,7 +872,7 @@ LABEL_20:
 
 LABEL_31:
   v27 = [filesCopy componentsSeparatedByString:@"/"];
-  if ([v27 count] != v35 || (objc_msgSend(v34, "annotated:", v18) & 1) != 0)
+  if ([v27 count] != v36 || (objc_msgSend(v35, "annotated:", v18) & 1) != 0)
   {
 LABEL_33:
     LOBYTE(v26) = 1;
@@ -876,21 +884,26 @@ LABEL_33:
 
   if (v31)
   {
-    if ([v34 shouldRestoreSystemContainer_iOS:v19 shared:v26])
+    v32 = [v35 shouldRestoreSystemContainer_iOS:v19 shared:v26];
+    if (v32)
     {
       goto LABEL_33;
     }
   }
 
-  else if ([v34 shouldRestoreSystemContainer_WatchAndTV:v19 shared:v26])
+  else
   {
-    goto LABEL_33;
+    v32 = [v35 shouldRestoreSystemContainer_WatchAndTV:v19 shared:v26];
+    if (v32)
+    {
+      goto LABEL_33;
+    }
   }
 
-  v32 = sub_100021268();
-  if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+  v33 = sub_100021268(v32);
+  if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
   {
-    sub_1000325D4(filesCopy, v32);
+    sub_1000325D4(filesCopy, v33);
   }
 
   LOBYTE(v26) = 0;

@@ -27,41 +27,39 @@
 
 - (void)_removeAssetWithFactorName:(id)name completion:(id)completion
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   completionCopy = completion;
   v8 = VSGetLogEvent();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v20 = nameCopy;
+    v19 = nameCopy;
     _os_log_impl(&dword_272850000, v8, OS_LOG_TYPE_DEFAULT, "#Trial Removing asset with factor name: %@", buf, 0xCu);
   }
 
   objc_initWeak(buf, self);
   triClient = self->_triClient;
-  v18 = nameCopy;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v18 count:1];
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __56__VSTrialService__removeAssetWithFactorName_completion___block_invoke;
-  v14[3] = &unk_279E4FAE0;
+  v17 = nameCopy;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v17 count:1];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __56__VSTrialService__removeAssetWithFactorName_completion___block_invoke;
+  v13[3] = &unk_279E4FAE0;
   v11 = nameCopy;
-  v15 = v11;
-  objc_copyWeak(&v17, buf);
+  v14 = v11;
+  objc_copyWeak(&v16, buf);
   v12 = completionCopy;
-  v16 = v12;
-  [(TRIClient *)triClient removeLevelsForFactors:v10 withNamespace:@"SIRI_TEXT_TO_SPEECH" queue:0 completion:v14];
+  v15 = v12;
+  [(TRIClient *)triClient removeLevelsForFactors:v10 withNamespace:@"SIRI_TEXT_TO_SPEECH" queue:0 completion:v13];
 
-  objc_destroyWeak(&v17);
+  objc_destroyWeak(&v16);
   objc_destroyWeak(buf);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __56__VSTrialService__removeAssetWithFactorName_completion___block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (a2)
   {
@@ -69,9 +67,9 @@ void __56__VSTrialService__removeAssetWithFactorName_completion___block_invoke(u
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = *(a1 + 32);
-      v12 = 138412290;
-      v13 = v7;
-      _os_log_impl(&dword_272850000, v6, OS_LOG_TYPE_DEFAULT, "#Trial Removed asset with factor name: %@", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = v7;
+      _os_log_impl(&dword_272850000, v6, OS_LOG_TYPE_DEFAULT, "#Trial Removed asset with factor name: %@", &v11, 0xCu);
     }
 
     WeakRetained = objc_loadWeakRetained((a1 + 48));
@@ -83,12 +81,12 @@ void __56__VSTrialService__removeAssetWithFactorName_completion___block_invoke(u
     WeakRetained = VSGetLogDefault();
     if (os_log_type_enabled(WeakRetained, OS_LOG_TYPE_ERROR))
     {
-      v11 = *(a1 + 32);
-      v12 = 138412546;
-      v13 = v11;
-      v14 = 2112;
-      v15 = v5;
-      _os_log_error_impl(&dword_272850000, WeakRetained, OS_LOG_TYPE_ERROR, "#Trial Unable to remove asset with factor name '%@', error: %@", &v12, 0x16u);
+      v10 = *(a1 + 32);
+      v11 = 138412546;
+      v12 = v10;
+      v13 = 2112;
+      v14 = v5;
+      _os_log_error_impl(&dword_272850000, WeakRetained, OS_LOG_TYPE_ERROR, "#Trial Unable to remove asset with factor name '%@', error: %@", &v11, 0x16u);
     }
   }
 
@@ -97,13 +95,11 @@ void __56__VSTrialService__removeAssetWithFactorName_completion___block_invoke(u
   {
     (*(v9 + 16))(v9, v5);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_downloadFactorName:(id)name withOptions:(id)options progress:(id)progress completion:(id)completion
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   optionsCopy = options;
   progressCopy = progress;
@@ -112,10 +108,10 @@ void __56__VSTrialService__removeAssetWithFactorName_completion___block_invoke(u
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
-    v31 = nameCopy;
-    v32 = 1024;
+    v30 = nameCopy;
+    v31 = 1024;
     allowDiscretionary = [optionsCopy allowDiscretionary];
-    v34 = 1024;
+    v33 = 1024;
     allowCellularData = [optionsCopy allowCellularData];
     _os_log_impl(&dword_272850000, v14, OS_LOG_TYPE_DEFAULT, "#Trial Downloading asset with factor name: %@, discretionary:%d, allowCellular:%d", buf, 0x18u);
   }
@@ -144,29 +140,27 @@ void __56__VSTrialService__removeAssetWithFactorName_completion___block_invoke(u
 
   objc_initWeak(buf, self);
   triClient = self->_triClient;
-  v29 = nameCopy;
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v29 count:1];
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __70__VSTrialService__downloadFactorName_withOptions_progress_completion___block_invoke;
-  v27[3] = &unk_279E4FAB8;
+  v28 = nameCopy;
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v28 count:1];
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __70__VSTrialService__downloadFactorName_withOptions_progress_completion___block_invoke;
+  v26[3] = &unk_279E4FAB8;
   v19 = progressCopy;
-  v28 = v19;
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __70__VSTrialService__downloadFactorName_withOptions_progress_completion___block_invoke_2;
-  v23[3] = &unk_279E4FAE0;
+  v27 = v19;
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __70__VSTrialService__downloadFactorName_withOptions_progress_completion___block_invoke_2;
+  v22[3] = &unk_279E4FAE0;
   v20 = nameCopy;
-  v24 = v20;
-  objc_copyWeak(&v26, buf);
+  v23 = v20;
+  objc_copyWeak(&v25, buf);
   v21 = completionCopy;
-  v25 = v21;
-  [(TRIClient *)triClient downloadLevelsForFactors:v18 withNamespace:@"SIRI_TEXT_TO_SPEECH" queue:0 options:v15 progress:v27 completion:v23];
+  v24 = v21;
+  [(TRIClient *)triClient downloadLevelsForFactors:v18 withNamespace:@"SIRI_TEXT_TO_SPEECH" queue:0 options:v15 progress:v26 completion:v22];
 
-  objc_destroyWeak(&v26);
+  objc_destroyWeak(&v25);
   objc_destroyWeak(buf);
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __70__VSTrialService__downloadFactorName_withOptions_progress_completion___block_invoke(uint64_t a1, unint64_t a2)
@@ -182,7 +176,7 @@ uint64_t __70__VSTrialService__downloadFactorName_withOptions_progress_completio
 
 void __70__VSTrialService__downloadFactorName_withOptions_progress_completion___block_invoke_2(uint64_t a1, char a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (a2)
   {
@@ -190,9 +184,9 @@ void __70__VSTrialService__downloadFactorName_withOptions_progress_completion___
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = *(a1 + 32);
-      v12 = 138412290;
-      v13 = v7;
-      _os_log_impl(&dword_272850000, v6, OS_LOG_TYPE_DEFAULT, "#Trial Downloaded asset with factor name: %@", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = v7;
+      _os_log_impl(&dword_272850000, v6, OS_LOG_TYPE_DEFAULT, "#Trial Downloaded asset with factor name: %@", &v11, 0xCu);
     }
 
     WeakRetained = objc_loadWeakRetained((a1 + 48));
@@ -204,12 +198,12 @@ void __70__VSTrialService__downloadFactorName_withOptions_progress_completion___
     WeakRetained = VSGetLogDefault();
     if (os_log_type_enabled(WeakRetained, OS_LOG_TYPE_ERROR))
     {
-      v11 = *(a1 + 32);
-      v12 = 138412546;
-      v13 = v11;
-      v14 = 2112;
-      v15 = v5;
-      _os_log_error_impl(&dword_272850000, WeakRetained, OS_LOG_TYPE_ERROR, "#Trial Unable to download asset with factor name: %@, error: %@", &v12, 0x16u);
+      v10 = *(a1 + 32);
+      v11 = 138412546;
+      v12 = v10;
+      v13 = 2112;
+      v14 = v5;
+      _os_log_error_impl(&dword_272850000, WeakRetained, OS_LOG_TYPE_ERROR, "#Trial Unable to download asset with factor name: %@, error: %@", &v11, 0x16u);
     }
   }
 
@@ -218,8 +212,6 @@ void __70__VSTrialService__downloadFactorName_withOptions_progress_completion___
   {
     (*(v9 + 16))(v9, v5);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)downloadNamespaceImmediatelyIfNeededWithOption:(id)option completion:(id)completion
@@ -241,7 +233,7 @@ void __70__VSTrialService__downloadFactorName_withOptions_progress_completion___
 
 void __76__VSTrialService_downloadNamespaceImmediatelyIfNeededWithOption_completion___block_invoke(uint64_t a1)
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   v2 = [*(*(a1 + 32) + 8) rolloutIdentifiersWithNamespaceName:@"SIRI_TEXT_TO_SPEECH"];
   if (v2)
   {
@@ -259,9 +251,9 @@ void __76__VSTrialService_downloadNamespaceImmediatelyIfNeededWithOption_complet
 
     v4 = *(a1 + 48);
     v5 = MEMORY[0x277CCA9B8];
-    v20 = *MEMORY[0x277CCA450];
-    v21[0] = @"immediateDownloadForNamespaceNames cannot use discretionary download option.";
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+    v19 = *MEMORY[0x277CCA450];
+    v20[0] = @"immediateDownloadForNamespaceNames cannot use discretionary download option.";
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
     v7 = [v5 errorWithDomain:@"VSTrialServiceErrorDomain" code:3 userInfo:v6];
     (*(v4 + 16))(v4, 0, v7);
   }
@@ -278,9 +270,9 @@ void __76__VSTrialService_downloadNamespaceImmediatelyIfNeededWithOption_complet
 
     v10 = *(*(a1 + 32) + 8);
     v11 = [*(a1 + 40) allowCellularData];
-    v17 = 0;
-    v12 = [v10 immediateDownloadForNamespaceNames:v8 allowExpensiveNetworking:v11 error:&v17];
-    v13 = v17;
+    v16 = 0;
+    v12 = [v10 immediateDownloadForNamespaceNames:v8 allowExpensiveNetworking:v11 error:&v16];
+    v13 = v16;
     v14 = VSGetLogDefault();
     v15 = v14;
     if (v12)
@@ -299,20 +291,18 @@ void __76__VSTrialService_downloadNamespaceImmediatelyIfNeededWithOption_complet
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v19 = v13;
+        v18 = v13;
         _os_log_error_impl(&dword_272850000, v15, OS_LOG_TYPE_ERROR, "#Trial Unable to download Trial namespace. Error: %@", buf, 0xCu);
       }
     }
 
     (*(*(a1 + 48) + 16))();
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_fileOfFactorName:(id)name
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   v5 = [(TRIClient *)self->_triClient levelForFactor:nameCopy withNamespaceName:@"SIRI_TEXT_TO_SPEECH"];
   v6 = v5;
@@ -338,9 +328,9 @@ void __76__VSTrialService_downloadNamespaceImmediatelyIfNeededWithOption_complet
       v12 = VSGetLogDefault();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
-        v16 = 138412290;
-        v17 = nameCopy;
-        _os_log_impl(&dword_272850000, v12, OS_LOG_TYPE_INFO, "#Trial Factor '%@' is not downloaded yet.", &v16, 0xCu);
+        v15 = 138412290;
+        v16 = nameCopy;
+        _os_log_impl(&dword_272850000, v12, OS_LOG_TYPE_INFO, "#Trial Factor '%@' is not downloaded yet.", &v15, 0xCu);
       }
     }
 
@@ -349,9 +339,9 @@ void __76__VSTrialService_downloadNamespaceImmediatelyIfNeededWithOption_complet
       v13 = VSGetLogDefault();
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        v16 = 138412290;
-        v17 = nameCopy;
-        _os_log_error_impl(&dword_272850000, v13, OS_LOG_TYPE_ERROR, "#Trial Factor '%@' doesn't seem to be a file.", &v16, 0xCu);
+        v15 = 138412290;
+        v16 = nameCopy;
+        _os_log_error_impl(&dword_272850000, v13, OS_LOG_TYPE_ERROR, "#Trial Factor '%@' doesn't seem to be a file.", &v15, 0xCu);
       }
 
       v8 = 0;
@@ -363,23 +353,21 @@ void __76__VSTrialService_downloadNamespaceImmediatelyIfNeededWithOption_complet
     v8 = VSGetLogDefault();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v16 = 138412290;
-      v17 = nameCopy;
-      _os_log_error_impl(&dword_272850000, v8, OS_LOG_TYPE_ERROR, "#Trial Unable to find asset for factor name '%@'.", &v16, 0xCu);
+      v15 = 138412290;
+      v16 = nameCopy;
+      _os_log_error_impl(&dword_272850000, v8, OS_LOG_TYPE_ERROR, "#Trial Unable to find asset for factor name '%@'.", &v15, 0xCu);
     }
   }
 
   v11 = 0;
 LABEL_15:
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 - (id)_directoryOfFactorName:(id)name
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   v5 = [(TRIClient *)self->_triClient levelForFactor:nameCopy withNamespaceName:@"SIRI_TEXT_TO_SPEECH"];
   v6 = v5;
@@ -405,9 +393,9 @@ LABEL_15:
       v12 = VSGetLogDefault();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
-        v16 = 138412290;
-        v17 = nameCopy;
-        _os_log_impl(&dword_272850000, v12, OS_LOG_TYPE_INFO, "#Trial Factor '%@' is not downloaded yet.", &v16, 0xCu);
+        v15 = 138412290;
+        v16 = nameCopy;
+        _os_log_impl(&dword_272850000, v12, OS_LOG_TYPE_INFO, "#Trial Factor '%@' is not downloaded yet.", &v15, 0xCu);
       }
     }
 
@@ -416,9 +404,9 @@ LABEL_15:
       v13 = VSGetLogDefault();
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        v16 = 138412290;
-        v17 = nameCopy;
-        _os_log_error_impl(&dword_272850000, v13, OS_LOG_TYPE_ERROR, "#Trial Factor '%@' doesn't seem to be directory.", &v16, 0xCu);
+        v15 = 138412290;
+        v16 = nameCopy;
+        _os_log_error_impl(&dword_272850000, v13, OS_LOG_TYPE_ERROR, "#Trial Factor '%@' doesn't seem to be directory.", &v15, 0xCu);
       }
 
       v8 = 0;
@@ -430,55 +418,53 @@ LABEL_15:
     v8 = VSGetLogDefault();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v16 = 138412290;
-      v17 = nameCopy;
-      _os_log_error_impl(&dword_272850000, v8, OS_LOG_TYPE_ERROR, "#Trial Unable to find asset for factor name '%@'.", &v16, 0xCu);
+      v15 = 138412290;
+      v16 = nameCopy;
+      _os_log_error_impl(&dword_272850000, v8, OS_LOG_TYPE_ERROR, "#Trial Unable to find asset for factor name '%@'.", &v15, 0xCu);
     }
   }
 
   v11 = 0;
 LABEL_15:
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 - (NSArray)cachedResources
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   [(NSLock *)self->_clientRefreshLock lock];
   v3 = self->_cachedResources;
   if (![(NSArray *)v3 count])
   {
     array = [MEMORY[0x277CBEB18] array];
     v5 = [(TRIClient *)self->_triClient factorLevelsWithNamespaceName:@"SIRI_TEXT_TO_SPEECH"];
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
-    v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v16;
+      v8 = *v15;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v16 != v8)
+          if (*v15 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = [[VSTrialVoiceResource alloc] initWithFactorLevel:*(*(&v15 + 1) + 8 * i)];
+          v10 = [[VSTrialVoiceResource alloc] initWithFactorLevel:*(*(&v14 + 1) + 8 * i)];
           if (v10)
           {
             [array addObject:v10];
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v7);
@@ -493,46 +479,45 @@ LABEL_15:
   }
 
   [(NSLock *)self->_clientRefreshLock unlock];
-  v13 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (NSArray)cachedVoices
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   [(NSLock *)self->_clientRefreshLock lock];
   array = self->_cachedVoices;
   if (!array)
   {
     array = [MEMORY[0x277CBEB18] array];
     v4 = [(TRIClient *)self->_triClient factorLevelsWithNamespaceName:@"SIRI_TEXT_TO_SPEECH"];
+    v11 = 0u;
     v12 = 0u;
     v13 = 0u;
     v14 = 0u;
-    v15 = 0u;
-    v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v13;
+      v7 = *v12;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v13 != v7)
+          if (*v12 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = [[VSTrialVoice alloc] initWithFactorLevel:*(*(&v12 + 1) + 8 * i)];
+          v9 = [[VSTrialVoice alloc] initWithFactorLevel:*(*(&v11 + 1) + 8 * i)];
           if (v9)
           {
             [(NSArray *)array addObject:v9];
           }
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v6);
@@ -542,7 +527,6 @@ LABEL_15:
   }
 
   [(NSLock *)self->_clientRefreshLock unlock];
-  v10 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -701,7 +685,7 @@ void __31__VSTrialService_sharedService__block_invoke()
 
 - (id)definedVoiceResourcesWithLanguage:(id)language
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   languageCopy = language;
   v5 = [(TRIClient *)self->_triClient rolloutIdentifiersWithNamespaceName:@"SIRI_TEXT_TO_SPEECH"];
 
@@ -709,29 +693,29 @@ void __31__VSTrialService_sharedService__block_invoke()
   {
     cachedResources = [(VSTrialService *)self cachedResources];
     v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
     v8 = cachedResources;
-    v9 = [v8 countByEnumeratingWithState:&v19 objects:v25 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v18 objects:v24 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v20;
+      v11 = *v19;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v20 != v11)
+          if (*v19 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v19 + 1) + 8 * i);
+          v13 = *(*(&v18 + 1) + 8 * i);
           if (languageCopy)
           {
-            language = [*(*(&v19 + 1) + 8 * i) language];
+            language = [*(*(&v18 + 1) + 8 * i) language];
             v15 = [language isEqualToString:languageCopy];
 
             if (!v15)
@@ -740,10 +724,10 @@ void __31__VSTrialService_sharedService__block_invoke()
             }
           }
 
-          [v7 addObject:{v13, v19}];
+          [v7 addObject:{v13, v18}];
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v19 objects:v25 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v18 objects:v24 count:16];
       }
 
       while (v10);
@@ -755,7 +739,7 @@ void __31__VSTrialService_sharedService__block_invoke()
       if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
       {
         *buf = 138412290;
-        v24 = languageCopy;
+        v23 = languageCopy;
         _os_log_fault_impl(&dword_272850000, v16, OS_LOG_TYPE_FAULT, "#Trial Cannot find any Trial resource for language %@", buf, 0xCu);
       }
     }
@@ -765,8 +749,6 @@ void __31__VSTrialService_sharedService__block_invoke()
   {
     v7 = MEMORY[0x277CBEBF8];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -820,52 +802,50 @@ void __31__VSTrialService_sharedService__block_invoke()
 
 - (id)_definedVoicesWithLanguage:(id)language name:(id)name type:(int64_t)type footprint:(int64_t)footprint
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   languageCopy = language;
   nameCopy = name;
   cachedVoices = [(VSTrialService *)self cachedVoices];
-  v24 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v23 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   v12 = cachedVoices;
-  v13 = [v12 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v27;
+    v15 = *v26;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v27 != v15)
+        if (*v26 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = *(*(&v26 + 1) + 8 * i);
-        if ((!type || [*(*(&v26 + 1) + 8 * i) type] == type) && (!footprint || objc_msgSend(v17, "footprint") == footprint))
+        v17 = *(*(&v25 + 1) + 8 * i);
+        if ((!type || [*(*(&v25 + 1) + 8 * i) type] == type) && (!footprint || objc_msgSend(v17, "footprint") == footprint))
         {
           if (!nameCopy || ([v17 name], v18 = objc_claimAutoreleasedReturnValue(), v19 = objc_msgSend(nameCopy, "isEqualToString:", v18), v18, v19))
           {
             if (!languageCopy || ([v17 language], v20 = objc_claimAutoreleasedReturnValue(), v21 = objc_msgSend(languageCopy, "isEqualToString:", v20), v20, v21))
             {
-              [v24 addObject:{v17, v24}];
+              [v23 addObject:{v17, v23}];
             }
           }
         }
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v14);
   }
 
-  v22 = *MEMORY[0x277D85DE8];
-
-  return v24;
+  return v23;
 }
 
 - (id)definedVoicesWithLanguage:(id)language name:(id)name type:(int64_t)type footprint:(int64_t)footprint
@@ -889,34 +869,34 @@ void __31__VSTrialService_sharedService__block_invoke()
 
 - (id)definedVoicesWithAssets:(id)assets
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   assetsCopy = assets;
   v5 = [(TRIClient *)self->_triClient rolloutIdentifiersWithNamespaceName:@"SIRI_TEXT_TO_SPEECH"];
 
   if (v5)
   {
     array = [MEMORY[0x277CBEB18] array];
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
-    v18 = assetsCopy;
+    v17 = assetsCopy;
     obj = assetsCopy;
-    v7 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v7 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v21;
+      v9 = *v20;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v21 != v9)
+          if (*v20 != v9)
           {
             objc_enumerationMutation(obj);
           }
 
-          v11 = *(*(&v20 + 1) + 8 * i);
+          v11 = *(*(&v19 + 1) + 8 * i);
           languages = [v11 languages];
           firstObject = [languages firstObject];
           name = [v11 name];
@@ -924,21 +904,19 @@ void __31__VSTrialService_sharedService__block_invoke()
           [array addObjectsFromArray:v15];
         }
 
-        v8 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v8 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v8);
     }
 
-    assetsCopy = v18;
+    assetsCopy = v17;
   }
 
   else
   {
     array = MEMORY[0x277CBEBF8];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return array;
 }

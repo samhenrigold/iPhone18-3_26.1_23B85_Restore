@@ -1,11 +1,9 @@
 BOOL getCoexSpmiExists()
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   v0 = IOServiceNameMatching("wlan-idc");
-  getIORegNodeName(v0, &v3, 9uLL);
-  result = (v3 ^ 0x6364692D6E616C77 | v4) == 0;
-  v2 = *MEMORY[0x277D85DE8];
-  return result;
+  getIORegNodeName(v0, &v2, 9uLL);
+  return (v2 ^ 0x6364692D6E616C77 | v3) == 0;
 }
 
 BOOL getCoexSpmiDisable()
@@ -76,9 +74,8 @@ void getHostPlatformName(char *a1, size_t a2)
 
 const __CFData *CentauriBetaPatchBayCopyData()
 {
-  v43 = *MEMORY[0x277D85DE8];
-  memset(v41, 0, sizeof(v41));
-  v40 = 0u;
+  v42 = *MEMORY[0x277D85DE8];
+  memset(v40, 0, sizeof(v40));
   v39 = 0u;
   v38 = 0u;
   v37 = 0u;
@@ -88,19 +85,20 @@ const __CFData *CentauriBetaPatchBayCopyData()
   v33 = 0u;
   v32 = 0u;
   v31 = 0u;
+  v30 = 0u;
   *bytes = 0x1CAFECAFELL;
-  v42 = -889271554;
+  v41 = -889271554;
   v0 = IOServiceMatching("IOPlatformExpertDevice");
-  getIORegNodeName(v0, &v31, 0x10uLL);
-  v1 = strnlen(&v31, 0x10uLL);
+  getIORegNodeName(v0, &v30, 0x10uLL);
+  v1 = strnlen(&v30, 0x10uLL);
   v2 = strncasecmp(&bytes[v1 + 5], "DEV", 3uLL);
-  v3 = v32 & 0xFFFFFFFE;
+  v3 = v31 & 0xFFFFFFFE;
   if (!v2)
   {
     ++v3;
   }
 
-  LODWORD(v32) = v3;
+  LODWORD(v31) = v3;
   if (getCoexSpmiExists())
   {
     v4 = 2;
@@ -111,9 +109,9 @@ const __CFData *CentauriBetaPatchBayCopyData()
     v4 = 0;
   }
 
-  LODWORD(v32) = v32 & 0xFFFFFFFD | v4;
+  LODWORD(v31) = v31 & 0xFFFFFFFD | v4;
   CoexSpmiDisable = getCoexSpmiDisable();
-  v6 = v32;
+  v6 = v31;
   if (CoexSpmiDisable)
   {
     v7 = 4;
@@ -124,22 +122,22 @@ const __CFData *CentauriBetaPatchBayCopyData()
     v7 = 0;
   }
 
-  LODWORD(v32) = v32 & 0xFFFFFFFB | v7;
+  LODWORD(v31) = v31 & 0xFFFFFFFB | v7;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v20 = 136316418;
-    v21 = "CentauriBetaPatchBayCopyData";
-    v22 = 1024;
-    *v23 = *&bytes[4];
-    *&v23[4] = 2080;
-    *&v23[6] = &v31;
-    v24 = 1024;
-    v25 = v6 & 1;
-    v26 = 1024;
-    v27 = (v6 >> 1) & 1;
-    v28 = 1024;
-    v29 = v7 >> 2;
-    _os_log_impl(&dword_243384000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: version=%d, hostPlatformName=%s, isDevBoard=%d, coexSpmiExists=%d, coexSpmiDisable=%d", &v20, 0x2Eu);
+    v19 = 136316418;
+    v20 = "CentauriBetaPatchBayCopyData";
+    v21 = 1024;
+    *v22 = *&bytes[4];
+    *&v22[4] = 2080;
+    *&v22[6] = &v30;
+    v23 = 1024;
+    v24 = v6 & 1;
+    v25 = 1024;
+    v26 = (v6 >> 1) & 1;
+    v27 = 1024;
+    v28 = v7 >> 2;
+    _os_log_impl(&dword_243384000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: version=%d, hostPlatformName=%s, isDevBoard=%d, coexSpmiExists=%d, coexSpmiDisable=%d", &v19, 0x2Eu);
   }
 
   v8 = CFDataCreate(*MEMORY[0x277CBECE8], bytes, 200);
@@ -148,11 +146,11 @@ const __CFData *CentauriBetaPatchBayCopyData()
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       Length = CFDataGetLength(v8);
-      v20 = 136315394;
-      v21 = "CentauriBetaPatchBayCopyData";
-      v22 = 2048;
-      *v23 = Length;
-      _os_log_impl(&dword_243384000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: returning %ld bytes", &v20, 0x16u);
+      v19 = 136315394;
+      v20 = "CentauriBetaPatchBayCopyData";
+      v21 = 2048;
+      *v22 = Length;
+      _os_log_impl(&dword_243384000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: returning %ld bytes", &v19, 0x16u);
     }
   }
 
@@ -165,13 +163,12 @@ const __CFData *CentauriBetaPatchBayCopyData()
     }
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 void getIORegNodeName(CFDictionaryRef matching, char *a2, size_t a3)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   *a2 = 0;
   if (matching)
   {
@@ -215,61 +212,60 @@ void getIORegNodeName(CFDictionaryRef matching, char *a2, size_t a3)
       getIORegNodeName_cold_3(v15, v16, v17, v18, v19, v20, v21, v22);
     }
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
-void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void getCoexSpmiDisable_cold_1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_243384000, MEMORY[0x277D86220], a3, "%s: wrong type or wrong length", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "getStringFromNVRAM";
+  OUTLINED_FUNCTION_0(&dword_243384000, MEMORY[0x277D86220], a3, "%s: wrong type or wrong length", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void getCoexSpmiDisable_cold_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_243384000, MEMORY[0x277D86220], a3, "%s: variable not found", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "getStringFromNVRAM";
+  OUTLINED_FUNCTION_0(&dword_243384000, MEMORY[0x277D86220], a3, "%s: variable not found", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void getCoexSpmiDisable_cold_3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_243384000, MEMORY[0x277D86220], a3, "%s: failed to get options", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "getStringFromNVRAM";
+  OUTLINED_FUNCTION_0(&dword_243384000, MEMORY[0x277D86220], a3, "%s: failed to get options", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void CentauriBetaPatchBayCopyData_cold_1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_243384000, MEMORY[0x277D86220], a3, "%s: failed to create CF data", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "CentauriBetaPatchBayCopyData";
+  OUTLINED_FUNCTION_0(&dword_243384000, MEMORY[0x277D86220], a3, "%s: failed to create CF data", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void getIORegNodeName_cold_1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_243384000, MEMORY[0x277D86220], a3, "%s: Failed to get name for service\n", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "getIORegNodeName";
+  OUTLINED_FUNCTION_0(&dword_243384000, MEMORY[0x277D86220], a3, "%s: Failed to get name for service\n", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void getIORegNodeName_cold_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_243384000, MEMORY[0x277D86220], a3, "%s: service not found", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "getIORegNodeName";
+  OUTLINED_FUNCTION_0(&dword_243384000, MEMORY[0x277D86220], a3, "%s: service not found", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void getIORegNodeName_cold_3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_243384000, MEMORY[0x277D86220], a3, "%s: failed to create matching dict", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "getIORegNodeName";
+  OUTLINED_FUNCTION_0(&dword_243384000, MEMORY[0x277D86220], a3, "%s: failed to create matching dict", a5, a6, a7, a8, v8, DWORD2(v8));
 }

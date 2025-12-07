@@ -25,9 +25,9 @@
     +[CSProminentLayoutController(PRUtilities) sharedLayoutController];
   }
 
-  v1 = sharedLayoutController_sharedLayoutController;
+  v2 = sharedLayoutController_sharedLayoutController;
 
-  return v1;
+  return v2;
 }
 
 + (double)pr_calculateAdaptiveTimeHeightForInterfaceOrientation:()PRUtilities titleStyleConfiguration:salientContentRect:
@@ -35,12 +35,12 @@
   v15 = a4;
   if (!v15)
   {
-    [CSProminentLayoutController(PRUtilities) pr_calculateAdaptiveTimeHeightForInterfaceOrientation:a2 titleStyleConfiguration:? salientContentRect:?];
+    [CSProminentLayoutController(PRUtilities) pr_calculateAdaptiveTimeHeightForInterfaceOrientation:a2 titleStyleConfiguration:self salientContentRect:?];
   }
 
   if (!a3)
   {
-    [CSProminentLayoutController(PRUtilities) pr_calculateAdaptiveTimeHeightForInterfaceOrientation:a2 titleStyleConfiguration:? salientContentRect:?];
+    [CSProminentLayoutController(PRUtilities) pr_calculateAdaptiveTimeHeightForInterfaceOrientation:a2 titleStyleConfiguration:self salientContentRect:?];
   }
 
   v16 = v15;
@@ -99,46 +99,46 @@
   return v35;
 }
 
-+ (void)pr_calculateAdaptiveTimeHeightForInterfaceOrientation:()PRUtilities titleStyleConfiguration:salientContentRect:.cold.1(const char *a1)
++ (void)pr_calculateAdaptiveTimeHeightForInterfaceOrientation:()PRUtilities titleStyleConfiguration:salientContentRect:.cold.1(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"interfaceOrientation != UIInterfaceOrientationUnknown"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"interfaceOrientation != UIInterfaceOrientationUnknown"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    v8 = @"PRUtilities.m";
-    v9 = 1024;
-    v10 = 265;
-    v11 = v6;
-    v12 = v2;
+    v9 = @"PRUtilities.m";
+    v10 = 1024;
+    v11 = 265;
+    v12 = v7;
+    v13 = v3;
     _os_log_error_impl(&dword_1A8AA7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
-+ (void)pr_calculateAdaptiveTimeHeightForInterfaceOrientation:()PRUtilities titleStyleConfiguration:salientContentRect:.cold.2(const char *a1)
++ (void)pr_calculateAdaptiveTimeHeightForInterfaceOrientation:()PRUtilities titleStyleConfiguration:salientContentRect:.cold.2(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"titleStyleConfiguration"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"titleStyleConfiguration"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    v8 = @"PRUtilities.m";
-    v9 = 1024;
-    v10 = 264;
-    v11 = v6;
-    v12 = v2;
+    v9 = @"PRUtilities.m";
+    v10 = 1024;
+    v11 = 264;
+    v12 = v7;
+    v13 = v3;
     _os_log_error_impl(&dword_1A8AA7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }

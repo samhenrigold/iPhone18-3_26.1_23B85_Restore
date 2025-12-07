@@ -28,11 +28,11 @@ LABEL_7:
   v9 = [(HMMLogEvent *)&v17 init];
   if (v9)
   {
-    v10 = [kindCopy copy];
+    v10 = objc_msgSend_copy(kindCopy);
     kind = v9->_kind;
     v9->_kind = v10;
 
-    v12 = [v8 copy];
+    v12 = objc_msgSend_copy(v8);
     reason = v9->_reason;
     v9->_reason = v12;
   }

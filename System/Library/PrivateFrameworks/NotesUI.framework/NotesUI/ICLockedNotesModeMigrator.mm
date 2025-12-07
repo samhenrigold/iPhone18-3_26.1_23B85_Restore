@@ -83,7 +83,7 @@ void __43__ICLockedNotesModeMigrator_sharedMigrator__block_invoke()
   v13 = os_log_create("com.apple.notes", "Crypto");
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
-    [ICLockedNotesModeMigrator migrateLockedNotesInAccount:accountCopy toMode:? window:? completionHandler:?];
+    [ICLockedNotesModeMigrator migrateLockedNotesInAccount:accountCopy toMode:modeCopy window:? completionHandler:?];
   }
 
   if (modeCopy)
@@ -726,7 +726,7 @@ BOOL __60__ICLockedNotesModeMigrator_account_hasNotesLockedWithMode___block_invo
   v15 = os_log_create("com.apple.notes", "Crypto");
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
-    [ICLockedNotesModeMigrator presentBackwardsCompatibilityAlertIfNeededForAccount:accountCopy mode:? window:? confirmHandler:? cancelHandler:?];
+    [ICLockedNotesModeMigrator presentBackwardsCompatibilityAlertIfNeededForAccount:accountCopy mode:modeCopy window:? confirmHandler:? cancelHandler:?];
   }
 
   if (modeCopy == 2)
@@ -831,7 +831,7 @@ void __123__ICLockedNotesModeMigrator_presentBackwardsCompatibilityAlertIfNeeded
   v12 = os_log_create("com.apple.notes", "Crypto");
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
-    [ICLockedNotesModeMigrator presentDivergedModeAlertForNote:noteCopy mode:? window:? completionHandler:?];
+    [ICLockedNotesModeMigrator presentDivergedModeAlertForNote:noteCopy mode:modeCopy window:? completionHandler:?];
   }
 
   if (modeCopy == 2)
@@ -1191,21 +1191,21 @@ void __84__ICLockedNotesModeMigrator_showMigrationPromptAndMigrateIfNeededForAcc
   }
 }
 
-- (void)migrateLockedNotesInAccount:(void *)a1 toMode:window:completionHandler:.cold.1(void *a1)
+- (void)migrateLockedNotesInAccount:(void *)a1 toMode:(__int16)a2 window:completionHandler:.cold.1(void *a1, __int16 a2)
 {
-  v1 = [a1 shortLoggingDescription];
-  v2 = NSStringFromAccountDataLockedNotesMode();
+  v2 = [a1 shortLoggingDescription];
+  v3 = NSStringFromAccountDataLockedNotesMode();
   OUTLINED_FUNCTION_2_4();
   OUTLINED_FUNCTION_7_0();
   OUTLINED_FUNCTION_1_1();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x26u);
+  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x26u);
 }
 
 - (void)migrateLockedNotesInAccount:(void *)a1 toMode:window:completionHandler:.cold.2(void *a1)
 {
   v1 = [a1 shortLoggingDescription];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_4(&dword_1D4171000, v2, v3, "Cannot migrate locked notes to unknown mode {account: %@}", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_4(&dword_1D4171000, v2, v3, "Cannot migrate locked notes to unknown mode {account: %@}", v4, v5, v6, v7);
 }
 
 - (void)migrateNote:(void *)a1 completionHandler:.cold.1(void *a1)
@@ -1271,27 +1271,27 @@ void __84__ICLockedNotesModeMigrator_showMigrationPromptAndMigrateIfNeededForAcc
 {
   v1 = [a1 shortLoggingDescription];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_4(&dword_1D4171000, v2, v3, "Failed to migrate note — skipping {note: %@}", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_4(&dword_1D4171000, v2, v3, "Failed to migrate note — skipping {note: %@}", v4, v5, v6, v7);
 }
 
-- (void)presentBackwardsCompatibilityAlertIfNeededForAccount:(void *)a1 mode:window:confirmHandler:cancelHandler:.cold.1(void *a1)
+- (void)presentBackwardsCompatibilityAlertIfNeededForAccount:(void *)a1 mode:(__int16)a2 window:confirmHandler:cancelHandler:.cold.1(void *a1, __int16 a2)
 {
-  v1 = [a1 shortLoggingDescription];
-  v2 = NSStringFromAccountDataLockedNotesMode();
+  v2 = [a1 shortLoggingDescription];
+  v3 = NSStringFromAccountDataLockedNotesMode();
   OUTLINED_FUNCTION_2_4();
   OUTLINED_FUNCTION_7_0();
   OUTLINED_FUNCTION_1_1();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x26u);
+  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x26u);
 }
 
-- (void)presentDivergedModeAlertForNote:(void *)a1 mode:window:completionHandler:.cold.1(void *a1)
+- (void)presentDivergedModeAlertForNote:(void *)a1 mode:(__int16)a2 window:completionHandler:.cold.1(void *a1, __int16 a2)
 {
-  v1 = [a1 shortLoggingDescription];
-  v2 = NSStringFromAccountDataLockedNotesMode();
+  v2 = [a1 shortLoggingDescription];
+  v3 = NSStringFromAccountDataLockedNotesMode();
   OUTLINED_FUNCTION_2_4();
   OUTLINED_FUNCTION_7_0();
   OUTLINED_FUNCTION_1_1();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x26u);
+  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x26u);
 }
 
 - (void)presentLockedNotesWelcomeMigrationPromptIfSupportedForAccount:(void *)a1 window:completionHandler:.cold.1(void *a1)

@@ -12,6 +12,7 @@
 - (CAFUInt64Range)distanceMilesRange;
 - (NSMeasurement)distanceKM;
 - (NSMeasurement)distanceMiles;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
 - (void)unregisterObserver:(id)observer;
 @end
@@ -185,6 +186,60 @@
   isInvalid = [distanceMilesCharacteristic isInvalid];
 
   return isInvalid;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if ([characteristicType isEqual:@"0x000000003000004A"])
+  {
+    uniqueIdentifier = [updateCopy uniqueIdentifier];
+    distanceKMCharacteristic = [(CAFDistanceDisplay *)self distanceKMCharacteristic];
+    uniqueIdentifier2 = [distanceKMCharacteristic uniqueIdentifier];
+    v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+    if (v11)
+    {
+      observers = [(CAFService *)self observers];
+      distanceKM = [(CAFDistanceDisplay *)self distanceKM];
+      [observers distanceDisplayService:self didUpdateDistanceKM:distanceKM];
+LABEL_8:
+
+      goto LABEL_9;
+    }
+  }
+
+  else
+  {
+  }
+
+  observers = [updateCopy characteristicType];
+  if (![observers isEqual:@"0x000000003000004B"])
+  {
+LABEL_9:
+
+    goto LABEL_10;
+  }
+
+  uniqueIdentifier3 = [updateCopy uniqueIdentifier];
+  distanceMilesCharacteristic = [(CAFDistanceDisplay *)self distanceMilesCharacteristic];
+  uniqueIdentifier4 = [distanceMilesCharacteristic uniqueIdentifier];
+  v17 = [uniqueIdentifier3 isEqual:uniqueIdentifier4];
+
+  if (v17)
+  {
+    observers = [(CAFService *)self observers];
+    distanceKM = [(CAFDistanceDisplay *)self distanceMiles];
+    [observers distanceDisplayService:self didUpdateDistanceMiles:distanceKM];
+    goto LABEL_8;
+  }
+
+LABEL_10:
+  v18.receiver = self;
+  v18.super_class = CAFDistanceDisplay;
+  [(CAFService *)&v18 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForDistanceKM

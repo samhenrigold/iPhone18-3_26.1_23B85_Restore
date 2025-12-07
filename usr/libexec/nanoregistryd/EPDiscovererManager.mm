@@ -57,26 +57,26 @@
     goto LABEL_19;
   }
 
-  v8 = v5 - discoveryStartTime;
+  v9 = v5 - discoveryStartTime;
   self->_discoveryStartTime = 0.0;
-  v9 = sub_1000A98C0();
-  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+  v10 = sub_1000A98C0(v6);
+  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
 
-  if (v8 <= 3.0 || v8 >= 300.0)
+  if (v9 <= 3.0 || v9 >= 300.0)
   {
-    if (!v10)
+    if (!v11)
     {
       goto LABEL_19;
     }
 
-    manager = sub_1000A98C0();
+    manager = sub_1000A98C0(v12);
     if (os_log_type_enabled(manager, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 134218240;
+      v16 = 134218240;
       selfCopy2 = self;
-      v16 = 2048;
-      v17 = v8;
-      _os_log_impl(&_mh_execute_header, manager, OS_LOG_TYPE_DEFAULT, "EPDiscovererManager[%p]: Not enough time discovering. %1.2f", &v14, 0x16u);
+      v18 = 2048;
+      v19 = v9;
+      _os_log_impl(&_mh_execute_header, manager, OS_LOG_TYPE_DEFAULT, "EPDiscovererManager[%p]: Not enough time discovering. %1.2f", &v16, 0x16u);
     }
 
 LABEL_18:
@@ -84,19 +84,19 @@ LABEL_18:
     goto LABEL_19;
   }
 
-  if (v10)
+  if (v11)
   {
-    v11 = sub_1000A98C0();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v13 = sub_1000A98C0(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       discoveryCounter = self->_discoveryCounter;
-      v14 = 134218496;
+      v16 = 134218496;
       selfCopy2 = self;
-      v16 = 2048;
-      v17 = *&discoveryCounter;
       v18 = 2048;
-      v19 = v8;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "EPDiscovererManager[%p]: Discovery timer canceled. %ld discovery delegate calls received after %1.2f seconds", &v14, 0x20u);
+      v19 = *&discoveryCounter;
+      v20 = 2048;
+      v21 = v9;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "EPDiscovererManager[%p]: Discovery timer canceled. %ld discovery delegate calls received after %1.2f seconds", &v16, 0x20u);
     }
   }
 
@@ -220,11 +220,11 @@ LABEL_19:
       if (!self->_isScanning)
       {
         self->_isScanning = 1;
-        v38[0] = CBCentralManagerScanOptionAllowDuplicatesKey;
-        v38[1] = CBManagerIsPrivilegedDaemonKey;
-        v39[0] = &__kCFBooleanTrue;
-        v39[1] = &__kCFBooleanTrue;
-        v10 = [NSDictionary dictionaryWithObjects:v39 forKeys:v38 count:2];
+        v40[0] = CBCentralManagerScanOptionAllowDuplicatesKey;
+        v40[1] = CBManagerIsPrivilegedDaemonKey;
+        v41[0] = &__kCFBooleanTrue;
+        v41[1] = &__kCFBooleanTrue;
+        v10 = [NSDictionary dictionaryWithObjects:v41 forKeys:v40 count:2];
         v11 = [v10 mutableCopy];
 
         discoverDeviceUUIDs = [(EPDiscovererManager *)self discoverDeviceUUIDs];
@@ -238,24 +238,23 @@ LABEL_19:
           [v11 setObject:&__kCFBooleanTrue forKeyedSubscript:CBCentralManagerScanOptionReloadMigratableItems];
         }
 
-        [(EPDiscovererManager *)self scanForProximity];
-        v15 = sub_1000A98C0();
+        v15 = sub_1000A98C0([(EPDiscovererManager *)self scanForProximity]);
         v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
 
         if (v16)
         {
-          v17 = sub_1000A98C0();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+          v18 = sub_1000A98C0(v17);
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v37 = v11;
-            _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Calling CoreBluetooth CBCentralManager scanForPeripheralsWithServices with options %@", buf, 0xCu);
+            v39 = v11;
+            _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Calling CoreBluetooth CBCentralManager scanForPeripheralsWithServices with options %@", buf, 0xCu);
           }
         }
 
-        v18 = [NRPowerAssertionActivity activityWithName:@"EPDiscoverer"];
+        v19 = [NRPowerAssertionActivity activityWithName:@"EPDiscoverer"];
         powerAssertion = self->_powerAssertion;
-        self->_powerAssertion = v18;
+        self->_powerAssertion = v19;
 
         manager = [(EPCentralManager *)self->_central manager];
         discoverDeviceUUIDs3 = [(EPDiscovererManager *)self discoverDeviceUUIDs];
@@ -266,16 +265,16 @@ LABEL_19:
 
         else
         {
-          v30 = [CBUUID UUIDWithString:@"9AA4730F-B25C-4CC3-B821-C931559FC196"];
-          v35 = v30;
-          v31 = [NSArray arrayWithObjects:&v35 count:1];
-          [manager scanForPeripheralsWithServices:v31 options:v11];
+          v32 = [CBUUID UUIDWithString:@"9AA4730F-B25C-4CC3-B821-C931559FC196"];
+          v37 = v32;
+          v33 = [NSArray arrayWithObjects:&v37 count:1];
+          [manager scanForPeripheralsWithServices:v33 options:v11];
         }
 
         discoverDeviceUUIDs4 = [(EPDiscovererManager *)self discoverDeviceUUIDs];
-        v33 = [discoverDeviceUUIDs4 count];
+        v35 = [discoverDeviceUUIDs4 count];
 
-        if (v33)
+        if (v35)
         {
           [(EPDiscovererManager *)self cancelDiscoveryCounter];
         }
@@ -305,33 +304,33 @@ LABEL_19:
       self->_isScanning = 0;
       if ([(EPResource *)self->_central availability]== 1)
       {
-        v22 = sub_1000A98C0();
-        v23 = os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT);
+        v23 = sub_1000A98C0(1);
+        v24 = os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT);
 
-        if (v23)
+        if (v24)
         {
-          v24 = sub_1000A98C0();
-          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+          v26 = sub_1000A98C0(v25);
+          if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Calling CoreBluetooth CBCentralManager stopScan", buf, 2u);
+            _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "Calling CoreBluetooth CBCentralManager stopScan", buf, 2u);
           }
         }
 
         manager2 = [(EPCentralManager *)self->_central manager];
         [manager2 stopScan];
 
-        v26 = self->_powerAssertion;
+        v28 = self->_powerAssertion;
         self->_powerAssertion = 0;
       }
     }
 
     devicesDictionary = [(EPDeviceCollection *)self->_deviceCollection devicesDictionary];
-    v28 = [devicesDictionary count];
+    v30 = [devicesDictionary count];
 
-    if (!v28)
+    if (!v30)
     {
-      v29 = self->_central;
+      v31 = self->_central;
       self->_central = 0;
     }
   }
@@ -364,16 +363,55 @@ LABEL_19:
       self->_isScanning = 0;
       if ([(EPResource *)self->_central availability]== 1)
       {
-        v7 = sub_1000A98C0();
+        v7 = sub_1000A98C0(1);
         v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
 
         if (v8)
         {
-          v9 = sub_1000A98C0();
+          v10 = sub_1000A98C0(v9);
+          if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 0;
+            _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Calling CoreBluetooth CBCentralManager stopScan because of change in the discoverDeviceUUIDs array", buf, 2u);
+          }
+        }
+
+        manager = [(EPCentralManager *)self->_central manager];
+        [manager stopScan];
+      }
+
+      v12 = +[EPFactory queue];
+      block[0] = _NSConcreteStackBlock;
+      block[1] = 3221225472;
+      block[2] = sub_1000558F8;
+      block[3] = &unk_100175660;
+      block[4] = self;
+      dispatch_async(v12, block);
+    }
+  }
+}
+
+- (void)setScanForProximity:(BOOL)proximity
+{
+  if (self->_scanForProximity != proximity)
+  {
+    v14 = v3;
+    v15 = v4;
+    if (self->_isScanning)
+    {
+      self->_isScanning = 0;
+      if ([(EPResource *)self->_central availability]== 1)
+      {
+        v6 = sub_1000A98C0(1);
+        v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+
+        if (v7)
+        {
+          v9 = sub_1000A98C0(v8);
           if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Calling CoreBluetooth CBCentralManager stopScan because of change in the discoverDeviceUUIDs array", buf, 2u);
+            _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Calling CoreBluetooth CBCentralManager stopScan because of change in the scanForProximity property", buf, 2u);
           }
         }
 
@@ -384,49 +422,10 @@ LABEL_19:
       v11 = +[EPFactory queue];
       block[0] = _NSConcreteStackBlock;
       block[1] = 3221225472;
-      block[2] = sub_1000558F8;
-      block[3] = &unk_100175660;
-      block[4] = self;
-      dispatch_async(v11, block);
-    }
-  }
-}
-
-- (void)setScanForProximity:(BOOL)proximity
-{
-  if (self->_scanForProximity != proximity)
-  {
-    v13 = v3;
-    v14 = v4;
-    if (self->_isScanning)
-    {
-      self->_isScanning = 0;
-      if ([(EPResource *)self->_central availability]== 1)
-      {
-        v6 = sub_1000A98C0();
-        v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
-
-        if (v7)
-        {
-          v8 = sub_1000A98C0();
-          if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
-          {
-            *buf = 0;
-            _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Calling CoreBluetooth CBCentralManager stopScan because of change in the scanForProximity property", buf, 2u);
-          }
-        }
-
-        manager = [(EPCentralManager *)self->_central manager];
-        [manager stopScan];
-      }
-
-      v10 = +[EPFactory queue];
-      block[0] = _NSConcreteStackBlock;
-      block[1] = 3221225472;
       block[2] = sub_100055A44;
       block[3] = &unk_100175660;
       block[4] = self;
-      dispatch_async(v10, block);
+      dispatch_async(v11, block);
     }
   }
 }

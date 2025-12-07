@@ -2,6 +2,7 @@
 - (RWIProtocolConsoleDomainEventDispatcher)initWithController:(AugmentableInspectorController *)controller;
 - (void)heapSnapshotWithTimestamp:(double)timestamp snapshotData:(id)data title:(id *)title;
 - (void)messageAddedWithMessage:(id)message;
+- (void)messageRepeatCountUpdatedWithCount:(int)count timestamp:(double *)timestamp;
 - (void)messagesClearedWithReason:(int64_t)reason;
 @end
 
@@ -26,25 +27,26 @@
   v5 = v4;
   if (!message)
   {
-    v4 = [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:{@"required parameter '%@' cannot be nil", @"message"}];
+    v38 = @"message";
+    v4 = [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:@"required parameter '%@' cannot be nil"];
   }
 
-  WTF::JSONImpl::Object::create(&v31, v4);
-  v6 = v31;
+  WTF::JSONImpl::Object::create(&v45, v4);
+  v6 = v45;
   WTF::StringImpl::createWithoutCopyingNonEmpty();
-  v30 = v32[0];
+  v44 = v46[0];
   WTF::StringImpl::createWithoutCopyingNonEmpty();
-  v29 = v32[0];
-  WTF::JSONImpl::ObjectBase::setString(v6, &v30, &v29);
-  v7 = ___ZN9Inspector33ObjCInspectorCSSBackendDispatcher17getStyleSheetTextElRKN3WTF6StringE_block_invoke_2_cold_1(&v29);
-  WTF::JSONImpl::Object::create(&v30, v7);
-  v8 = v30;
+  v43 = v46[0];
+  WTF::JSONImpl::ObjectBase::setString(v6, &v44, &v43);
+  v7 = ___ZN9Inspector33ObjCInspectorCSSBackendDispatcher17getStyleSheetTextElRKN3WTF6StringE_block_invoke_2_cold_1(&v43);
+  WTF::JSONImpl::Object::create(&v44, v7);
+  v8 = v44;
   WTF::StringImpl::createWithoutCopyingNonEmpty();
-  v28 = v32[0];
+  v42 = v46[0];
   if (message)
   {
-    [message toJSONObject];
-    v9 = v26;
+    objc_msgSend_toJSONObject(message);
+    v9 = v39;
   }
 
   else
@@ -52,176 +54,265 @@
     v9 = 0;
   }
 
-  v27 = v9;
-  WTF::HashMap<WTF::String,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)0,WTF::FastMalloc>::inlineSet<WTF::String const&,WTF::Ref<WTF::JSONImpl::ObjectBase,WTF::RawPtrTraits<WTF::JSONImpl::ObjectBase>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::ObjectBase>>>((v8 + 16), &v28, &v27, v32);
-  if (v33 == 1)
+  v40 = 0;
+  v41 = v9;
+  WTF::HashMap<WTF::String,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)0,WTF::FastMalloc>::inlineSet<WTF::String const&,WTF::Ref<WTF::JSONImpl::ObjectBase,WTF::RawPtrTraits<WTF::JSONImpl::ObjectBase>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::ObjectBase>>>((v8 + 16), &v42, &v41, v46);
+  if (v47 == 1)
   {
-    v11 = *(v8 + 36);
-    if (v11 == *(v8 + 32))
+    v17 = *(v8 + 36);
+    if (v17 == *(v8 + 32))
     {
-      WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::appendSlowCase<(WTF::FailureAction)0,WTF::String const&>(v8 + 24, &v28);
+      WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::appendSlowCase<(WTF::FailureAction)0,WTF::String const&>(v8 + 24, &v42);
     }
 
     else
     {
-      v12 = *(v8 + 24);
-      v13 = v28;
-      if (v28)
+      v18 = *(v8 + 24);
+      v19 = v42;
+      if (v42)
       {
-        atomic_fetch_add_explicit(v28, 2u, memory_order_relaxed);
+        atomic_fetch_add_explicit(v42, 2u, memory_order_relaxed);
       }
 
-      v14 = *(v8 + 36);
-      *(v12 + 8 * v11) = v13;
-      *(v8 + 36) = v14 + 1;
+      v20 = *(v8 + 36);
+      *(v18 + 8 * v17) = v19;
+      *(v8 + 36) = v20 + 1;
     }
   }
 
-  v15 = v27;
-  v27 = 0;
-  if (v15)
+  v21 = v41;
+  v41 = 0;
+  if (v21)
   {
-    Inspector::toJSONObjectArray(v15);
+    Inspector::toJSONObjectArray(v21, v10, v11, v12, v13, v14, v15, v16, v38, 0);
   }
 
-  v16 = v28;
-  v28 = 0;
-  if (v16 && atomic_fetch_add_explicit(v16, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  if (v40)
   {
-    WTF::StringImpl::destroy(v16, v10);
+    if (*v40 == 1)
+    {
+      WTF::JSONImpl::Value::operator delete();
+    }
+
+    else
+    {
+      --*v40;
+    }
   }
 
-  v17 = v31;
+  v22 = v42;
+  v42 = 0;
+  if (v22 && atomic_fetch_add_explicit(v22, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  {
+    WTF::StringImpl::destroy(v22, v10);
+  }
+
+  v23 = v45;
   WTF::StringImpl::createWithoutCopyingNonEmpty();
-  v18 = v30;
-  v30 = 0;
-  v27 = v18;
-  v28 = v32[0];
-  WTF::HashMap<WTF::String,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)0,WTF::FastMalloc>::inlineSet<WTF::String const&,WTF::Ref<WTF::JSONImpl::ObjectBase,WTF::RawPtrTraits<WTF::JSONImpl::ObjectBase>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::ObjectBase>>>(v17 + 2, &v28, &v27, v32);
-  if (v33 == 1)
+  v24 = v44;
+  v44 = 0;
+  v41 = v24;
+  v42 = v46[0];
+  WTF::HashMap<WTF::String,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)0,WTF::FastMalloc>::inlineSet<WTF::String const&,WTF::Ref<WTF::JSONImpl::ObjectBase,WTF::RawPtrTraits<WTF::JSONImpl::ObjectBase>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::ObjectBase>>>(v23 + 2, &v42, &v41, v46);
+  if (v47 == 1)
   {
-    v20 = *(v17 + 9);
-    if (v20 == *(v17 + 8))
+    v32 = *(v23 + 9);
+    if (v32 == *(v23 + 8))
     {
-      WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::appendSlowCase<(WTF::FailureAction)0,WTF::String const&>(v17 + 24, &v28);
+      WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::appendSlowCase<(WTF::FailureAction)0,WTF::String const&>(v23 + 24, &v42);
     }
 
     else
     {
-      v21 = *(v17 + 3);
-      v22 = v28;
-      if (v28)
+      v33 = *(v23 + 3);
+      v34 = v42;
+      if (v42)
       {
-        atomic_fetch_add_explicit(v28, 2u, memory_order_relaxed);
+        atomic_fetch_add_explicit(v42, 2u, memory_order_relaxed);
       }
 
-      v23 = *(v17 + 9);
-      *(v21 + 8 * v20) = v22;
-      *(v17 + 9) = v23 + 1;
+      v35 = *(v23 + 9);
+      *(v33 + 8 * v32) = v34;
+      *(v23 + 9) = v35 + 1;
     }
   }
 
-  v24 = v27;
-  v27 = 0;
+  v36 = v41;
+  v41 = 0;
+  if (v36)
+  {
+    Inspector::toJSONObjectArray(v36, v25, v26, v27, v28, v29, v30, v31, v38, 0);
+  }
+
+  v37 = v42;
+  v42 = 0;
+  if (v37 && atomic_fetch_add_explicit(v37, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  {
+    WTF::StringImpl::destroy(v37, v25);
+  }
+
+  WTF::JSONImpl::Value::toJSONString(v46, v45);
+  Inspector::FrontendRouter::sendEvent(v5, v46);
+  [RWIProtocolCSSDomainEventDispatcher styleSheetChangedWithStyleSheetId:v46];
+}
+
+- (void)messageRepeatCountUpdatedWithCount:(int)count timestamp:(double *)timestamp
+{
+  v5 = *&count;
+  v6 = (*(self->_controller->var0 + 4))(self->_controller, a2);
+  WTF::JSONImpl::Object::create(&v32, v6);
+  v7 = v32;
+  WTF::StringImpl::createWithoutCopyingNonEmpty();
+  v31 = v33[0];
+  WTF::StringImpl::createWithoutCopyingNonEmpty();
+  v30 = v33[0];
+  WTF::JSONImpl::ObjectBase::setString(v7, &v31, &v30);
+  v8 = ___ZN9Inspector33ObjCInspectorCSSBackendDispatcher17getStyleSheetTextElRKN3WTF6StringE_block_invoke_2_cold_1(&v30);
+  WTF::JSONImpl::Object::create(&v31, v8);
+  v9 = v31;
+  WTF::StringImpl::createWithoutCopyingNonEmpty();
+  v29 = v33[0];
+  WTF::JSONImpl::ObjectBase::setInteger(v9, &v29, v5);
+  if (![RWIProtocolConsoleDomainEventDispatcher messageRepeatCountUpdatedWithCount:? timestamp:?])
+  {
+    v10 = v31;
+    WTF::StringImpl::createWithoutCopyingNonEmpty();
+    v28 = v33[0];
+    WTF::JSONImpl::ObjectBase::setDouble(v10, &v28, *timestamp);
+    Inspector::ObjCInspectorCSSBackendDispatcher::setLayoutContextTypeChangedMode(&v28);
+  }
+
+  v11 = v32;
+  WTF::StringImpl::createWithoutCopyingNonEmpty();
+  v12 = v31;
+  v31 = 0;
+  v26 = v12;
+  v27 = v33[0];
+  WTF::HashMap<WTF::String,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)0,WTF::FastMalloc>::inlineSet<WTF::String const&,WTF::Ref<WTF::JSONImpl::ObjectBase,WTF::RawPtrTraits<WTF::JSONImpl::ObjectBase>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::ObjectBase>>>(v11 + 2, &v27, &v26, v33);
+  if (v34 == 1)
+  {
+    v20 = *(v11 + 9);
+    if (v20 == *(v11 + 8))
+    {
+      WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::appendSlowCase<(WTF::FailureAction)0,WTF::String const&>(v11 + 24, &v27);
+    }
+
+    else
+    {
+      v21 = *(v11 + 3);
+      v22 = v27;
+      if (v27)
+      {
+        atomic_fetch_add_explicit(v27, 2u, memory_order_relaxed);
+      }
+
+      v23 = *(v11 + 9);
+      *(v21 + 8 * v20) = v22;
+      *(v11 + 9) = v23 + 1;
+    }
+  }
+
+  v24 = v26;
+  v26 = 0;
   if (v24)
   {
-    Inspector::toJSONObjectArray(v24);
+    Inspector::toJSONObjectArray(v24, v13, v14, v15, v16, v17, v18, v19, v26, v27);
   }
 
-  v25 = v28;
-  v28 = 0;
+  v25 = v27;
+  v27 = 0;
   if (v25 && atomic_fetch_add_explicit(v25, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v25, v19);
+    WTF::StringImpl::destroy(v25, v13);
   }
 
-  WTF::JSONImpl::Value::toJSONString(v32, v31);
-  Inspector::FrontendRouter::sendEvent(v5, v32);
-  [RWIProtocolCSSDomainEventDispatcher styleSheetChangedWithStyleSheetId:v32];
+  WTF::JSONImpl::Value::toJSONString(v33, v32);
+  Inspector::FrontendRouter::sendEvent(v6, v33);
+  [RWIProtocolCSSDomainEventDispatcher styleSheetChangedWithStyleSheetId:v33];
 }
 
 - (void)messagesClearedWithReason:(int64_t)reason
 {
   v3 = (*(self->_controller->var0 + 4))(self->_controller, a2);
-  WTF::JSONImpl::Object::create(&v25, v3);
-  v4 = v25;
+  WTF::JSONImpl::Object::create(&v32, v3);
+  v4 = v32;
   WTF::StringImpl::createWithoutCopyingNonEmpty();
-  v24 = v26[0];
+  v31 = v33[0];
   WTF::StringImpl::createWithoutCopyingNonEmpty();
-  v23 = v26[0];
-  WTF::JSONImpl::ObjectBase::setString(v4, &v24, &v23);
-  v5 = ___ZN9Inspector33ObjCInspectorCSSBackendDispatcher17getStyleSheetTextElRKN3WTF6StringE_block_invoke_2_cold_1(&v23);
-  WTF::JSONImpl::Object::create(&v24, v5);
-  v6 = v24;
+  v30 = v33[0];
+  WTF::JSONImpl::ObjectBase::setString(v4, &v31, &v30);
+  v5 = ___ZN9Inspector33ObjCInspectorCSSBackendDispatcher17getStyleSheetTextElRKN3WTF6StringE_block_invoke_2_cold_1(&v30);
+  WTF::JSONImpl::Object::create(&v31, v5);
+  v6 = v31;
   WTF::StringImpl::createWithoutCopyingNonEmpty();
-  v22 = v26[0];
+  v29 = v33[0];
   WTF::StringImpl::createWithoutCopyingNonEmpty();
-  if (v19)
+  if (v26)
   {
-    atomic_fetch_add_explicit(v19, 2u, memory_order_relaxed);
-    MEMORY[0x2743DB4B0](&v20, v19);
-    if (atomic_fetch_add_explicit(v19, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    atomic_fetch_add_explicit(v26, 2u, memory_order_relaxed);
+    MEMORY[0x2743DB4B0](&v27, v26);
+    if (atomic_fetch_add_explicit(v26, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(v19, v7);
+      WTF::StringImpl::destroy(v26, v7);
     }
   }
 
   else
   {
-    v20 = &stru_2882B1C88;
-    v17 = &stru_2882B1C88;
+    v27 = &stru_2882B1C88;
+    v23 = &stru_2882B1C88;
   }
 
-  MEMORY[0x2743DB520](&v21, v20);
-  WTF::JSONImpl::ObjectBase::setString(v6, &v22, &v21);
+  MEMORY[0x2743DB520](&v28, v27);
+  WTF::JSONImpl::ObjectBase::setString(v6, &v29, &v28);
   [RWIProtocolConsoleDomainEventDispatcher messagesClearedWithReason:?];
-  v8 = v25;
+  v8 = v32;
   WTF::StringImpl::createWithoutCopyingNonEmpty();
-  v22 = v26[0];
-  v9 = v24;
-  v24 = 0;
-  v18 = v9;
-  WTF::HashMap<WTF::String,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)0,WTF::FastMalloc>::inlineSet<WTF::String const&,WTF::Ref<WTF::JSONImpl::ObjectBase,WTF::RawPtrTraits<WTF::JSONImpl::ObjectBase>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::ObjectBase>>>(v8 + 2, &v22, &v18, v26);
-  if (v27 == 1)
+  v29 = v33[0];
+  v9 = v31;
+  v31 = 0;
+  v25 = v9;
+  WTF::HashMap<WTF::String,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)0,WTF::FastMalloc>::inlineSet<WTF::String const&,WTF::Ref<WTF::JSONImpl::ObjectBase,WTF::RawPtrTraits<WTF::JSONImpl::ObjectBase>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::ObjectBase>>>(v8 + 2, &v29, &v25, v33);
+  if (v34 == 1)
   {
-    v11 = *(v8 + 9);
-    if (v11 == *(v8 + 8))
+    v17 = *(v8 + 9);
+    if (v17 == *(v8 + 8))
     {
-      WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::appendSlowCase<(WTF::FailureAction)0,WTF::String const&>(v8 + 24, &v22);
+      WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::appendSlowCase<(WTF::FailureAction)0,WTF::String const&>(v8 + 24, &v29);
     }
 
     else
     {
-      v12 = *(v8 + 3);
-      v13 = v22;
-      if (v22)
+      v18 = *(v8 + 3);
+      v19 = v29;
+      if (v29)
       {
-        atomic_fetch_add_explicit(v22, 2u, memory_order_relaxed);
+        atomic_fetch_add_explicit(v29, 2u, memory_order_relaxed);
       }
 
-      v14 = *(v8 + 9);
-      *(v12 + 8 * v11) = v13;
-      *(v8 + 9) = v14 + 1;
+      v20 = *(v8 + 9);
+      *(v18 + 8 * v17) = v19;
+      *(v8 + 9) = v20 + 1;
     }
   }
 
-  v15 = v18;
-  v18 = 0;
-  if (v15)
+  v21 = v25;
+  v25 = 0;
+  if (v21)
   {
-    Inspector::toJSONObjectArray(v15);
+    Inspector::toJSONObjectArray(v21, v10, v11, v12, v13, v14, v15, v16, v24, v25);
   }
 
-  v16 = v22;
-  v22 = 0;
-  if (v16 && atomic_fetch_add_explicit(v16, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  v22 = v29;
+  v29 = 0;
+  if (v22 && atomic_fetch_add_explicit(v22, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v16, v10);
+    WTF::StringImpl::destroy(v22, v10);
   }
 
-  WTF::JSONImpl::Value::toJSONString(v26, v25);
-  Inspector::FrontendRouter::sendEvent(v3, v26);
-  [RWIProtocolCSSDomainEventDispatcher styleSheetChangedWithStyleSheetId:v26];
+  WTF::JSONImpl::Value::toJSONString(v33, v32);
+  Inspector::FrontendRouter::sendEvent(v3, v33);
+  [RWIProtocolCSSDomainEventDispatcher styleSheetChangedWithStyleSheetId:v33];
 }
 
 - (void)heapSnapshotWithTimestamp:(double)timestamp snapshotData:(id)data title:(id *)title
@@ -230,90 +321,92 @@
   v9 = v8;
   if (!data)
   {
-    v8 = [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:{@"required parameter '%@' cannot be nil", @"snapshotData"}];
+    v30 = @"snapshotData";
+    v8 = [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:@"required parameter '%@' cannot be nil"];
   }
 
   if (title && !*title)
   {
-    v8 = [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:{@"optional parameter '%@' cannot be nil", @"title"}];
+    v30 = @"title";
+    v8 = [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:@"optional parameter '%@' cannot be nil"];
   }
 
-  WTF::JSONImpl::Object::create(&v32, v8);
-  v10 = v32;
+  WTF::JSONImpl::Object::create(&v40, v8);
+  v10 = v40;
   WTF::StringImpl::createWithoutCopyingNonEmpty();
-  v31 = v33[0];
+  v39 = v41[0];
   WTF::StringImpl::createWithoutCopyingNonEmpty();
-  v30 = v33[0];
-  WTF::JSONImpl::ObjectBase::setString(v10, &v31, &v30);
-  v11 = ___ZN9Inspector33ObjCInspectorCSSBackendDispatcher17getStyleSheetTextElRKN3WTF6StringE_block_invoke_2_cold_1(&v30);
-  WTF::JSONImpl::Object::create(&v31, v11);
-  v12 = v31;
+  v38 = v41[0];
+  WTF::JSONImpl::ObjectBase::setString(v10, &v39, &v38);
+  v11 = ___ZN9Inspector33ObjCInspectorCSSBackendDispatcher17getStyleSheetTextElRKN3WTF6StringE_block_invoke_2_cold_1(&v38);
+  WTF::JSONImpl::Object::create(&v39, v11);
+  v12 = v39;
   WTF::StringImpl::createWithoutCopyingNonEmpty();
-  v29 = v33[0];
-  WTF::JSONImpl::ObjectBase::setDouble(v12, &v29, timestamp);
-  Inspector::ObjCInspectorCSSBackendDispatcher::setLayoutContextTypeChangedMode(&v29);
-  v13 = v31;
+  v37 = v41[0];
+  WTF::JSONImpl::ObjectBase::setDouble(v12, &v37, timestamp);
+  Inspector::ObjCInspectorCSSBackendDispatcher::setLayoutContextTypeChangedMode(&v37);
+  v13 = v39;
   WTF::StringImpl::createWithoutCopyingNonEmpty();
-  v29 = v33[0];
-  MEMORY[0x2743DB520](&v28, data);
-  WTF::JSONImpl::ObjectBase::setString(v13, &v29, &v28);
-  if (([RWIProtocolConsoleDomainEventDispatcher heapSnapshotWithTimestamp:&v29 snapshotData:title == 0 title:?]& 1) == 0)
+  v37 = v41[0];
+  MEMORY[0x2743DB520](&v36, data);
+  WTF::JSONImpl::ObjectBase::setString(v13, &v37, &v36);
+  if (([RWIProtocolConsoleDomainEventDispatcher heapSnapshotWithTimestamp:&v37 snapshotData:title == 0 title:?]& 1) == 0)
   {
-    v14 = v31;
+    v14 = v39;
     WTF::StringImpl::createWithoutCopyingNonEmpty();
-    v27 = v33[0];
-    MEMORY[0x2743DB520](&v26, *title);
-    WTF::JSONImpl::ObjectBase::setString(v14, &v27, &v26);
-    ___ZN9Inspector33ObjCInspectorCSSBackendDispatcher17getStyleSheetTextElRKN3WTF6StringE_block_invoke_2_cold_1(&v26);
+    v35 = v41[0];
+    MEMORY[0x2743DB520](&v34, *title);
+    WTF::JSONImpl::ObjectBase::setString(v14, &v35, &v34);
+    ___ZN9Inspector33ObjCInspectorCSSBackendDispatcher17getStyleSheetTextElRKN3WTF6StringE_block_invoke_2_cold_1(&v34);
   }
 
-  v15 = v32;
+  v15 = v40;
   WTF::StringImpl::createWithoutCopyingNonEmpty();
-  v16 = v31;
-  v31 = 0;
-  v24 = v16;
-  v25 = v33[0];
-  WTF::HashMap<WTF::String,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)0,WTF::FastMalloc>::inlineSet<WTF::String const&,WTF::Ref<WTF::JSONImpl::ObjectBase,WTF::RawPtrTraits<WTF::JSONImpl::ObjectBase>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::ObjectBase>>>(v15 + 2, &v25, &v24, v33);
-  if (v34 == 1)
+  v16 = v39;
+  v39 = 0;
+  v32 = v16;
+  v33 = v41[0];
+  WTF::HashMap<WTF::String,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)0,WTF::FastMalloc>::inlineSet<WTF::String const&,WTF::Ref<WTF::JSONImpl::ObjectBase,WTF::RawPtrTraits<WTF::JSONImpl::ObjectBase>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::ObjectBase>>>(v15 + 2, &v33, &v32, v41);
+  if (v42 == 1)
   {
-    v18 = *(v15 + 9);
-    if (v18 == *(v15 + 8))
+    v24 = *(v15 + 9);
+    if (v24 == *(v15 + 8))
     {
-      WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::appendSlowCase<(WTF::FailureAction)0,WTF::String const&>(v15 + 24, &v25);
+      WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::appendSlowCase<(WTF::FailureAction)0,WTF::String const&>(v15 + 24, &v33);
     }
 
     else
     {
-      v19 = *(v15 + 3);
-      v20 = v25;
-      if (v25)
+      v25 = *(v15 + 3);
+      v26 = v33;
+      if (v33)
       {
-        atomic_fetch_add_explicit(v25, 2u, memory_order_relaxed);
+        atomic_fetch_add_explicit(v33, 2u, memory_order_relaxed);
       }
 
-      v21 = *(v15 + 9);
-      *(v19 + 8 * v18) = v20;
-      *(v15 + 9) = v21 + 1;
+      v27 = *(v15 + 9);
+      *(v25 + 8 * v24) = v26;
+      *(v15 + 9) = v27 + 1;
     }
   }
 
-  v22 = v24;
-  v24 = 0;
-  if (v22)
+  v28 = v32;
+  v32 = 0;
+  if (v28)
   {
-    Inspector::toJSONObjectArray(v22);
+    Inspector::toJSONObjectArray(v28, v17, v18, v19, v20, v21, v22, v23, v30, v31);
   }
 
-  v23 = v25;
-  v25 = 0;
-  if (v23 && atomic_fetch_add_explicit(v23, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  v29 = v33;
+  v33 = 0;
+  if (v29 && atomic_fetch_add_explicit(v29, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v23, v17);
+    WTF::StringImpl::destroy(v29, v17);
   }
 
-  WTF::JSONImpl::Value::toJSONString(v33, v32);
-  Inspector::FrontendRouter::sendEvent(v9, v33);
-  [RWIProtocolCSSDomainEventDispatcher styleSheetChangedWithStyleSheetId:v33];
+  WTF::JSONImpl::Value::toJSONString(v41, v40);
+  Inspector::FrontendRouter::sendEvent(v9, v41);
+  [RWIProtocolCSSDomainEventDispatcher styleSheetChangedWithStyleSheetId:v41];
 }
 
 - (BOOL)messageRepeatCountUpdatedWithCount:(uint64_t *)a1 timestamp:.cold.2(uint64_t *a1)

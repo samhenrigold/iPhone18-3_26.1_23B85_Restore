@@ -541,7 +541,7 @@ LABEL_19:
 
 - (BOOL)shouldExcludeDownloadFromFileSystem:(id)system
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   systemCopy = system;
   if (![(_SFDownloadManager *)self shouldExcludeDownloadFromList:systemCopy])
   {
@@ -552,9 +552,11 @@ LABEL_19:
     }
 
     mEMORY[0x1E69ADFB8] = [MEMORY[0x1E69ADFB8] sharedConnection];
-    if ([mEMORY[0x1E69ADFB8] mayOpenFromManagedToUnmanaged])
+    mayOpenFromManagedToUnmanaged = [mEMORY[0x1E69ADFB8] mayOpenFromManagedToUnmanaged];
+    if (mayOpenFromManagedToUnmanaged)
     {
-      if ([mEMORY[0x1E69ADFB8] mayOpenFromUnmanagedToManaged])
+      mayOpenFromUnmanagedToManaged = [mEMORY[0x1E69ADFB8] mayOpenFromUnmanagedToManaged];
+      if (mayOpenFromUnmanagedToManaged)
       {
         v5 = 0;
 LABEL_14:
@@ -562,26 +564,26 @@ LABEL_14:
         goto LABEL_15;
       }
 
-      v7 = WBS_LOG_CHANNEL_PREFIXDownloads();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v11 = WBS_LOG_CHANNEL_PREFIXDownloads(mayOpenFromUnmanagedToManaged, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = 138543362;
-        v11 = systemCopy;
-        v8 = "Excluding %{public}@ from Files because Managed Configuration prohibits moving unmanaged content to managed destinations";
+        v14 = 138543362;
+        v15 = systemCopy;
+        v12 = "Excluding %{public}@ from Files because Managed Configuration prohibits moving unmanaged content to managed destinations";
         goto LABEL_12;
       }
     }
 
     else
     {
-      v7 = WBS_LOG_CHANNEL_PREFIXDownloads();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v11 = WBS_LOG_CHANNEL_PREFIXDownloads(mayOpenFromManagedToUnmanaged, v8);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = 138543362;
-        v11 = systemCopy;
-        v8 = "Excluding %{public}@ from Files because Managed Configuration prohibits moving managed content to unmanaged destinations";
+        v14 = 138543362;
+        v15 = systemCopy;
+        v12 = "Excluding %{public}@ from Files because Managed Configuration prohibits moving managed content to unmanaged destinations";
 LABEL_12:
-        _os_log_impl(&dword_1D4644000, v7, OS_LOG_TYPE_DEFAULT, v8, &v10, 0xCu);
+        _os_log_impl(&dword_1D4644000, v11, OS_LOG_TYPE_DEFAULT, v12, &v14, 0xCu);
       }
     }
 
@@ -836,22 +838,22 @@ LABEL_15:
 
   if (v6)
   {
-    v7 = ![(_SFDownloadManager *)self shouldExcludeDownloadFromFileSystem:folderCopy];
+    v9 = ![(_SFDownloadManager *)self shouldExcludeDownloadFromFileSystem:folderCopy];
   }
 
   else
   {
-    v8 = WBS_LOG_CHANNEL_PREFIXDownloads();
-    LOBYTE(v7) = 0;
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v10 = WBS_LOG_CHANNEL_PREFIXDownloads(v7, v8);
+    LOBYTE(v9) = 0;
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      *v10 = 0;
-      _os_log_impl(&dword_1D4644000, v8, OS_LOG_TYPE_DEFAULT, "Not importing to the Downloads folder because the internal setting is disabled", v10, 2u);
-      LOBYTE(v7) = 0;
+      *v12 = 0;
+      _os_log_impl(&dword_1D4644000, v10, OS_LOG_TYPE_DEFAULT, "Not importing to the Downloads folder because the internal setting is disabled", v12, 2u);
+      LOBYTE(v9) = 0;
     }
   }
 
-  return v7;
+  return v9;
 }
 
 - (void)downloadDidImportFileToDownloadsFolder:(id)folder

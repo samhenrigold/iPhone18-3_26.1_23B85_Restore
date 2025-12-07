@@ -10,19 +10,18 @@
 {
   v4 = type metadata accessor for Date();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   __chkstk_darwin(v4);
-  v8 = &v13 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = _Block_copy(reply);
+  v7 = &v12 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = _Block_copy(reply);
   current = [objc_opt_self() current];
   buildDate = [current buildDate];
 
   static Date._unconditionallyBridgeFromObjectiveC(_:)();
   isa = Date._bridgeToObjectiveC()().super.isa;
-  v9[2](v9, isa);
+  v8[2](v8, isa);
 
-  _Block_release(v9);
-  (*(v5 + 8))(v8, v4);
+  _Block_release(v8);
+  (*(v5 + 8))(v7, v4);
 }
 
 - (void)primerProxyWithConfiguration:(id)configuration reply:(id)reply

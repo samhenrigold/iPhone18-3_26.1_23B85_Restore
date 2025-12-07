@@ -29,7 +29,7 @@
     queue = v3->_queue;
     v3->_queue = v8;
 
-    v3->_fwIsAvailable = sub_100046A60() != 0;
+    v3->_fwIsAvailable = sub_100046A60(0) != 0;
   }
 
   return v3;
@@ -40,23 +40,23 @@
   if (self->_fwIsAvailable)
   {
     dispatch_assert_queue_V2(self->_queue);
-    v23 = 0;
-    v24 = &v23;
-    v25 = 0x2020000000;
+    v22 = 0;
+    v23 = &v22;
+    v24 = 0x2020000000;
     v3 = off_10020B0A0;
-    v26 = off_10020B0A0;
+    v25 = off_10020B0A0;
     if (!off_10020B0A0)
     {
-      v22[0] = _NSConcreteStackBlock;
-      v22[1] = 3221225472;
-      v22[2] = sub_100046BA4;
-      v22[3] = &unk_1001B5798;
-      v22[4] = &v23;
-      sub_100046BA4(v22);
-      v3 = v24[3];
+      v21[0] = _NSConcreteStackBlock;
+      v21[1] = 3221225472;
+      v21[2] = sub_100046BA4;
+      v21[3] = &unk_1001B5798;
+      v21[4] = &v22;
+      sub_100046BA4(v21);
+      v3 = v23[3];
     }
 
-    _Block_object_dispose(&v23, 8);
+    _Block_object_dispose(&v22, 8);
     if (!v3)
     {
       sub_10011E650();
@@ -64,30 +64,30 @@
     }
 
     v4 = v3();
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     keyEnumerator = [(NSMutableDictionary *)self->_buddyCompleteForUserIdentifier keyEnumerator];
-    v6 = [keyEnumerator countByEnumeratingWithState:&v18 objects:v27 count:16];
+    v6 = [keyEnumerator countByEnumeratingWithState:&v17 objects:v26 count:16];
     if (v6)
     {
-      v7 = *v19;
+      v7 = *v18;
       do
       {
         for (i = 0; i != v6; i = i + 1)
         {
-          if (*v19 != v7)
+          if (*v18 != v7)
           {
             objc_enumerationMutation(keyEnumerator);
           }
 
-          v9 = *(*(&v18 + 1) + 8 * i);
+          v9 = *(*(&v17 + 1) + 8 * i);
           v10 = [NSNumber numberWithBool:v4 ^ 1u];
           [(NSMutableDictionary *)self->_buddyCompleteForUserIdentifier setObject:v10 forKeyedSubscript:v9];
         }
 
-        v6 = [keyEnumerator countByEnumeratingWithState:&v18 objects:v27 count:16];
+        v6 = [keyEnumerator countByEnumeratingWithState:&v17 objects:v26 count:16];
       }
 
       while (v6);
@@ -102,16 +102,15 @@
         v13 = self->_timer;
         self->_timer = v12;
 
-        v14 = self->_timer;
         dispatch_set_qos_class_fallback();
         dispatch_source_set_timer(self->_timer, 0, 0x37E11D600uLL, 0x3B9ACA00uLL);
-        v15 = self->_timer;
+        v14 = self->_timer;
         handler[0] = _NSConcreteStackBlock;
         handler[1] = 3221225472;
         handler[2] = sub_1000465A8;
         handler[3] = &unk_1001B5668;
         handler[4] = self;
-        dispatch_source_set_event_handler(v15, handler);
+        dispatch_source_set_event_handler(v14, handler);
         dispatch_activate(self->_timer);
       }
     }
@@ -119,7 +118,7 @@
     else if (timer)
     {
       dispatch_source_cancel(timer);
-      v16 = self->_timer;
+      v15 = self->_timer;
       self->_timer = 0;
     }
   }

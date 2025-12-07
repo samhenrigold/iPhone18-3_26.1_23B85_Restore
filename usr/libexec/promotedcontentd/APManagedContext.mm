@@ -236,70 +236,70 @@ LABEL_8:
   contextCopy = context;
   accountCopy = account;
   fingerprint = [contextCopy fingerprint];
-  v8 = [fingerprint length];
+  v9 = [fingerprint length];
 
-  if (v8)
+  if (v9)
   {
-    v9 = [APManagedContext alloc];
+    v10 = [APManagedContext alloc];
     fingerprint2 = [contextCopy fingerprint];
-    v11 = [(APManagedContext *)v9 initWithIdentifier:fingerprint2];
+    v12 = [(APManagedContext *)v10 initWithIdentifier:fingerprint2];
 
-    v12 = [APContextWrapper alloc];
+    v13 = [APContextWrapper alloc];
     fingerprint3 = [contextCopy fingerprint];
-    v14 = [(APCacheableObjectWrapper *)v12 initWithObject:contextCopy identifier:fingerprint3];
+    v15 = [(APCacheableObjectWrapper *)v13 initWithObject:contextCopy identifier:fingerprint3];
 
-    proxy = [(APCacheableBaseObject *)v14 proxy];
-    [v11 setContextWrapper:proxy];
+    proxy = [(APCacheableBaseObject *)v15 proxy];
+    [v12 setContextWrapper:proxy];
 
-    [v11 setIdAccount:accountCopy];
-    v16 = sub_10037AA18();
-    createTransaction = [v16 createTransaction];
+    [v12 setIdAccount:accountCopy];
+    v17 = sub_10037AA18(self);
+    createTransaction = [v17 createTransaction];
 
-    sub_100396A10(v14, createTransaction);
-    sub_100396A10(v11, createTransaction);
+    sub_100396A10(v15, createTransaction);
+    sub_100396A10(v12, createTransaction);
     commit = [createTransaction commit];
-    v19 = APLogForCategory();
-    v20 = v19;
+    v20 = APLogForCategory();
+    v21 = v20;
     if (commit)
     {
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
         fingerprint4 = [contextCopy fingerprint];
-        v25 = 138543362;
-        v26 = fingerprint4;
-        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Created new managed context for fingerprint '%{public}@'.", &v25, 0xCu);
+        v26 = 138543362;
+        v27 = fingerprint4;
+        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Created new managed context for fingerprint '%{public}@'.", &v26, 0xCu);
       }
 
-      v22 = v11;
+      v23 = v12;
     }
 
     else
     {
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         fingerprint5 = [contextCopy fingerprint];
-        v25 = 138543362;
-        v26 = fingerprint5;
-        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "Failed to create managed context for fingerprint '%{public}@'.", &v25, 0xCu);
+        v26 = 138543362;
+        v27 = fingerprint5;
+        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "Failed to create managed context for fingerprint '%{public}@'.", &v26, 0xCu);
       }
 
-      v22 = 0;
+      v23 = 0;
     }
   }
 
   else
   {
-    v11 = APLogForCategory();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = APLogForCategory();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v25) = 0;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "Failed to create managed context. Fingerprint is empty.", &v25, 2u);
+      LOWORD(v26) = 0;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "Failed to create managed context. Fingerprint is empty.", &v26, 2u);
     }
 
-    v22 = 0;
+    v23 = 0;
   }
 
-  return v22;
+  return v23;
 }
 
 - (id)addContentData:(id)data

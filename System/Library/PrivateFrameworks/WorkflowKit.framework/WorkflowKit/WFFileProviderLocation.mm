@@ -155,14 +155,14 @@ LABEL_5:
 
 void __51__WFFileProviderLocation_resolveLocationWithError___block_invoke(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
     v4 = [MEMORY[0x1E69E0938] standardClient];
-    v11 = 0;
-    v5 = [v4 fetchURLForFPItem:v3 error:&v11];
-    v6 = v11;
+    v10 = 0;
+    v5 = [v4 fetchURLForFPItem:v3 error:&v10];
+    v6 = v10;
 
     if (!v5)
     {
@@ -170,9 +170,9 @@ void __51__WFFileProviderLocation_resolveLocationWithError___block_invoke(uint64
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v13 = "[WFFileProviderLocation resolveLocationWithError:]_block_invoke";
-        v14 = 2112;
-        v15 = v6;
+        v12 = "[WFFileProviderLocation resolveLocationWithError:]_block_invoke";
+        v13 = 2112;
+        v14 = v6;
         _os_log_impl(&dword_1CA256000, v7, OS_LOG_TYPE_ERROR, "%s Could not fetch URL for FPItem with error: %@", buf, 0x16u);
       }
     }
@@ -182,11 +182,11 @@ void __51__WFFileProviderLocation_resolveLocationWithError___block_invoke(uint64
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315650;
-      v13 = "[WFFileProviderLocation resolveLocationWithError:]_block_invoke";
-      v14 = 2112;
-      v15 = v3;
-      v16 = 2112;
-      v17 = v5;
+      v12 = "[WFFileProviderLocation resolveLocationWithError:]_block_invoke";
+      v13 = 2112;
+      v14 = v3;
+      v15 = 2112;
+      v16 = v5;
       _os_log_impl(&dword_1CA256000, v8, OS_LOG_TYPE_DEBUG, "%s Found item: %@ with fetched URL: %@", buf, 0x20u);
     }
 
@@ -199,14 +199,12 @@ void __51__WFFileProviderLocation_resolveLocationWithError___block_invoke(uint64
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v13 = "[WFFileProviderLocation resolveLocationWithError:]_block_invoke";
+      v12 = "[WFFileProviderLocation resolveLocationWithError:]_block_invoke";
       _os_log_impl(&dword_1CA256000, v9, OS_LOG_TYPE_ERROR, "%s WFFPItemResolver found no item", buf, 0xCu);
     }
 
     dispatch_semaphore_signal(*(a1 + 32));
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (id)resolveCrossDeviceItemIDWithError:(id *)error
@@ -230,7 +228,7 @@ void __51__WFFileProviderLocation_resolveLocationWithError___block_invoke(uint64
 
 - (WFFileProviderLocation)initWithURL:(id)l
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   lCopy = l;
   if (!lCopy)
   {
@@ -238,9 +236,9 @@ void __51__WFFileProviderLocation_resolveLocationWithError___block_invoke(uint64
     [currentHandler handleFailureInMethod:a2 object:self file:@"WFFileProviderLocation.m" lineNumber:71 description:{@"Invalid parameter not satisfying: %@", @"URL"}];
   }
 
-  v23.receiver = self;
-  v23.super_class = WFFileProviderLocation;
-  v6 = [(WFFileLocation *)&v23 initWithURL:lCopy];
+  v22.receiver = self;
+  v22.super_class = WFFileProviderLocation;
+  v6 = [(WFFileLocation *)&v22 initWithURL:lCopy];
   if (v6)
   {
     startAccessingSecurityScopedResource = [lCopy startAccessingSecurityScopedResource];
@@ -252,9 +250,9 @@ void __51__WFFileProviderLocation_resolveLocationWithError___block_invoke(uint64
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v25 = "[WFFileProviderLocation initWithURL:]";
-        v26 = 2112;
-        v27 = v9;
+        v24 = "[WFFileProviderLocation initWithURL:]";
+        v25 = 2112;
+        v26 = v9;
         _os_log_impl(&dword_1CA256000, v10, OS_LOG_TYPE_ERROR, "%s Could not create cross device item id with error: %@", buf, 0x16u);
       }
     }
@@ -282,7 +280,6 @@ void __51__WFFileProviderLocation_resolveLocationWithError___block_invoke(uint64
     v19 = v6;
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -345,13 +342,13 @@ void __51__WFFileProviderLocation_resolveLocationWithError___block_invoke(uint64
 
 + (BOOL)canRepresentURL:(id)l
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   lCopy = l;
   startAccessingSecurityScopedResource = [lCopy startAccessingSecurityScopedResource];
   defaultManager = [MEMORY[0x1E69673B0] defaultManager];
-  v14 = 0;
-  v7 = [defaultManager itemForURL:lCopy error:&v14];
-  v8 = v14;
+  v13 = 0;
+  v7 = [defaultManager itemForURL:lCopy error:&v13];
+  v8 = v13;
 
   if (startAccessingSecurityScopedResource)
   {
@@ -364,11 +361,11 @@ void __51__WFFileProviderLocation_resolveLocationWithError___block_invoke(uint64
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315650;
-      v16 = "+[WFFileProviderLocation canRepresentURL:]";
-      v17 = 2112;
-      v18 = lCopy;
-      v19 = 2112;
-      v20 = v8;
+      v15 = "+[WFFileProviderLocation canRepresentURL:]";
+      v16 = 2112;
+      v17 = lCopy;
+      v18 = 2112;
+      v19 = v8;
       _os_log_impl(&dword_1CA256000, v9, OS_LOG_TYPE_DEBUG, "%s Could not create item from URL: %@ with error: %@", buf, 0x20u);
     }
   }
@@ -376,54 +373,51 @@ void __51__WFFileProviderLocation_resolveLocationWithError___block_invoke(uint64
   v10 = [WFFileLocationUtilities parentItemsForItem:v7];
   v11 = [self canRepresentURL:lCopy item:v7 parentItems:v10];
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 + (Class)supportedClassForURL:(id)l
 {
-  v26[7] = *MEMORY[0x1E69E9840];
+  v25[7] = *MEMORY[0x1E69E9840];
   lCopy = l;
-  v26[0] = objc_opt_class();
-  v26[1] = objc_opt_class();
-  v26[2] = objc_opt_class();
-  v26[3] = objc_opt_class();
-  v26[4] = objc_opt_class();
-  v26[5] = objc_opt_class();
-  v26[6] = objc_opt_class();
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:7];
-  v19 = 0;
-  v5 = [WFFileLocationUtilities itemForURL:lCopy error:&v19];
-  v6 = v19;
+  v25[0] = objc_opt_class();
+  v25[1] = objc_opt_class();
+  v25[2] = objc_opt_class();
+  v25[3] = objc_opt_class();
+  v25[4] = objc_opt_class();
+  v25[5] = objc_opt_class();
+  v25[6] = objc_opt_class();
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:7];
+  v18 = 0;
+  v5 = [WFFileLocationUtilities itemForURL:lCopy error:&v18];
+  v6 = v18;
   if (!v5)
   {
     v7 = getWFFilesLogObject();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315650;
-      v21 = "+[WFFileProviderLocation supportedClassForURL:]";
-      v22 = 2112;
-      v23 = lCopy;
-      v24 = 2112;
-      v25 = v6;
+      v20 = "+[WFFileProviderLocation supportedClassForURL:]";
+      v21 = 2112;
+      v22 = lCopy;
+      v23 = 2112;
+      v24 = v6;
       _os_log_impl(&dword_1CA256000, v7, OS_LOG_TYPE_DEBUG, "%s Could not create item from URL: %@ with error: %@", buf, 0x20u);
     }
   }
 
   v8 = [WFFileLocationUtilities parentItemsForItem:v5];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __47__WFFileProviderLocation_supportedClassForURL___block_invoke;
-  v15[3] = &unk_1E8379CC0;
-  v16 = lCopy;
-  v17 = v5;
-  v18 = v8;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __47__WFFileProviderLocation_supportedClassForURL___block_invoke;
+  v14[3] = &unk_1E8379CC0;
+  v15 = lCopy;
+  v16 = v5;
+  v17 = v8;
   v9 = v8;
   v10 = v5;
   v11 = lCopy;
-  v12 = [v4 if_firstObjectPassingTest:v15];
-
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = [v4 if_firstObjectPassingTest:v14];
 
   return v12;
 }

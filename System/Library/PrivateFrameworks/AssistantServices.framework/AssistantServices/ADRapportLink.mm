@@ -625,7 +625,7 @@ LABEL_15:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v16 = [requestCopy objectForKey:@"messageID"];
+    v16 = objc_msgSend_objectForKey_(requestCopy);
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
@@ -656,7 +656,7 @@ LABEL_15:
 
     v73 = optionsCopy;
     v17 = v16;
-    v18 = [requestCopy objectForKey:@"type"];
+    v18 = objc_msgSend_objectForKey_(requestCopy);
     objc_opt_class();
     v75 = v18;
     if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -689,7 +689,7 @@ LABEL_15:
       goto LABEL_94;
     }
 
-    v19 = [requestCopy objectForKey:@"payload"];
+    v19 = objc_msgSend_objectForKey_(requestCopy);
     objc_opt_class();
     v72 = v19;
     if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -723,7 +723,7 @@ LABEL_15:
       goto LABEL_93;
     }
 
-    v20 = [requestCopy objectForKey:@"idsDeviceId"];
+    v20 = objc_msgSend_objectForKey_(requestCopy);
     v16 = v17;
     if (v20)
     {
@@ -771,7 +771,7 @@ LABEL_15:
       optionsCopy = v73;
     }
 
-    v37 = [requestCopy objectForKey:@"rapportDeviceId"];
+    v37 = objc_msgSend_objectForKey_(requestCopy);
     v71 = v20;
     if (v37)
     {
@@ -816,7 +816,7 @@ LABEL_15:
 
     v70 = 0;
 LABEL_56:
-    v45 = [requestCopy objectForKey:@"homeDeviceId"];
+    v45 = objc_msgSend_objectForKey_(requestCopy);
     if (v45)
     {
       v74 = v45;
@@ -853,7 +853,7 @@ LABEL_56:
       if ([v74 length])
       {
 LABEL_61:
-        v46 = [requestCopy objectForKey:@"assistantId"];
+        v46 = objc_msgSend_objectForKey_(requestCopy);
         if (v46)
         {
           v47 = v46;

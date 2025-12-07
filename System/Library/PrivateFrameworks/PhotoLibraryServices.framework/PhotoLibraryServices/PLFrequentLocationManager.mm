@@ -43,7 +43,7 @@
   v18 = v17;
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
   {
-    v19 = [momentsCopy count];
+    v19 = objc_msgSend_count(momentsCopy);
     *buf = 134217984;
     v26 = v19;
     _os_signpost_emit_with_name_impl(&dword_19BF1F000, v18, OS_SIGNPOST_INTERVAL_END, v6, "CreateFrequentLocations", "[FrequentLocationGeneration] Creating Frequent Locations for %lu moments", buf, 0xCu);
@@ -53,7 +53,7 @@
   if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
   {
     v21 = (((v14 - v9) * numer) / denom) / 1000000.0;
-    v22 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[FrequentLocationGeneration] Creating Frequent Locations for %lu moments", objc_msgSend(momentsCopy, "count")];
+    v22 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[FrequentLocationGeneration] Creating Frequent Locations for %lu moments", objc_msgSend_count(momentsCopy)];
     *buf = 136315650;
     v26 = "CreateFrequentLocations";
     v27 = 2112;
@@ -71,7 +71,7 @@
   v37 = *MEMORY[0x1E69E9840];
   momentsCopy = moments;
   currentFrequentLocations = [(PLFrequentLocationManager *)self currentFrequentLocations];
-  if ([currentFrequentLocations count])
+  if (objc_msgSend_count(currentFrequentLocations))
   {
     invalidateCurrentFrequentLocations = self->_invalidateCurrentFrequentLocations;
 
@@ -93,9 +93,9 @@
   [(PLFrequentLocationManager *)self setCurrentFrequentLocations:v10];
 
   self->_invalidateCurrentFrequentLocations = 0;
-  v11 = [v9 count];
+  v11 = objc_msgSend_count(v9);
   currentFrequentLocations3 = [(PLFrequentLocationManager *)self currentFrequentLocations];
-  v13 = [currentFrequentLocations3 count];
+  v13 = objc_msgSend_count(currentFrequentLocations3);
 
   if (v11 == v13)
   {

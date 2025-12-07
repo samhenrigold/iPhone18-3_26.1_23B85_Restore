@@ -63,7 +63,7 @@ void __36__ULDisplayMonitor_startMonitoring___block_invoke(uint64_t a1, uint64_t
 
 void __36__ULDisplayMonitor_startMonitoring___block_invoke_3(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) displayLayoutMinitor];
   v3 = [v2 currentLayout];
 
@@ -77,8 +77,8 @@ void __36__ULDisplayMonitor_startMonitoring___block_invoke_3(uint64_t a1)
     v4 = logObject_MicroLocation_Default;
     if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v14) = 0;
-      _os_log_impl(&dword_258FE9000, v4, OS_LOG_TYPE_ERROR, "DisplayMonitor got currentLayout nil", &v14, 2u);
+      LOWORD(v13) = 0;
+      _os_log_impl(&dword_258FE9000, v4, OS_LOG_TYPE_ERROR, "DisplayMonitor got currentLayout nil", &v13, 2u);
     }
   }
 
@@ -107,28 +107,26 @@ void __36__ULDisplayMonitor_startMonitoring___block_invoke_3(uint64_t a1)
 
     v11 = [*(a1 + 32) screenLocked];
     v12 = @"Unlocked";
-    v14 = 138413058;
-    v15 = v7;
-    v16 = 2112;
+    v13 = 138413058;
+    v14 = v7;
+    v15 = 2112;
     if (v11)
     {
       v12 = @"Locked";
     }
 
-    v17 = v9;
-    v18 = 2112;
-    v19 = v10;
-    v20 = 2112;
-    v21 = v12;
-    _os_log_impl(&dword_258FE9000, v8, OS_LOG_TYPE_DEFAULT, "Start monitoring: %@, appInFocus: %@, display: %@, screen: %@", &v14, 0x2Au);
+    v16 = v9;
+    v17 = 2112;
+    v18 = v10;
+    v19 = 2112;
+    v20 = v12;
+    _os_log_impl(&dword_258FE9000, v8, OS_LOG_TYPE_DEFAULT, "Start monitoring: %@, appInFocus: %@, display: %@, screen: %@", &v13, 0x2Au);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopMonitoring:(id)monitoring
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   monitoringCopy = monitoring;
   queue = [(ULEventMonitor *)self queue];
   dispatch_assert_queue_V2(queue);
@@ -148,12 +146,10 @@ void __36__ULDisplayMonitor_startMonitoring___block_invoke_3(uint64_t a1)
   v7 = logObject_MicroLocation_Default;
   if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138412290;
-    v10 = monitoringCopy;
-    _os_log_impl(&dword_258FE9000, v7, OS_LOG_TYPE_DEFAULT, "Stop monitoring: %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = monitoringCopy;
+    _os_log_impl(&dword_258FE9000, v7, OS_LOG_TYPE_DEFAULT, "Stop monitoring: %@", &v8, 0xCu);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)latestEventAfterAddingObserverForEventName:(id)name
@@ -387,7 +383,7 @@ void __40__ULDisplayMonitor_OSX_startMonitoring___block_invoke_3(uint64_t a1)
 
 void __40__ULDisplayMonitor_OSX_startMonitoring___block_invoke_4(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -423,7 +419,7 @@ void __40__ULDisplayMonitor_OSX_startMonitoring___block_invoke_4(uint64_t a1)
         v8 = @"NO";
       }
 
-      v11 = 138413058;
+      v10 = 138413058;
       if ([v3 screenLocked])
       {
         v9 = @"YES";
@@ -434,18 +430,16 @@ void __40__ULDisplayMonitor_OSX_startMonitoring___block_invoke_4(uint64_t a1)
         v9 = @"NO";
       }
 
-      v12 = v5;
-      v13 = 2112;
-      v14 = v7;
-      v15 = 2112;
-      v16 = v8;
-      v17 = 2112;
-      v18 = v9;
-      _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_DEFAULT, "System monitor activated, Start monitoring: %@, screenOn: %@, clamshellMode: %@, screenLocked: %@", &v11, 0x2Au);
+      v11 = v5;
+      v12 = 2112;
+      v13 = v7;
+      v14 = 2112;
+      v15 = v8;
+      v16 = 2112;
+      v17 = v9;
+      _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_DEFAULT, "System monitor activated, Start monitoring: %@, screenOn: %@, clamshellMode: %@, screenLocked: %@", &v10, 0x2Au);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 @end

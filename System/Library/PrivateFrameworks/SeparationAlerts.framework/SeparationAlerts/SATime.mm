@@ -185,7 +185,7 @@ LABEL_7:
 
 - (void)alarmFired:(id)fired
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   firedCopy = fired;
   client = [firedCopy client];
   v6 = TASALog;
@@ -193,17 +193,17 @@ LABEL_7:
   {
     alarmUUID = [firedCopy alarmUUID];
     fireDate = [firedCopy fireDate];
-    v17[0] = 68289795;
-    v17[1] = 0;
-    v18 = 2082;
-    v19 = "";
-    v20 = 2113;
-    v21 = alarmUUID;
-    v22 = 2113;
-    v23 = fireDate;
-    v24 = 2113;
-    v25 = client;
-    _os_log_impl(&dword_2656EA000, v6, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#SATime alarm fired, uuid:%{private}@, alarmDate:%{private}@, client:%{private}@}", v17, 0x30u);
+    v16[0] = 68289795;
+    v16[1] = 0;
+    v17 = 2082;
+    v18 = "";
+    v19 = 2113;
+    v20 = alarmUUID;
+    v21 = 2113;
+    v22 = fireDate;
+    v23 = 2113;
+    v24 = client;
+    _os_log_impl(&dword_2656EA000, v6, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#SATime alarm fired, uuid:%{private}@, alarmDate:%{private}@, client:%{private}@}", v16, 0x30u);
   }
 
   ongoingAlarms = self->_ongoingAlarms;
@@ -228,13 +228,11 @@ LABEL_7:
     alarmUUID4 = [firedCopy alarmUUID];
     [client alarmFiredForUUID:alarmUUID4];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)advanceTimeWithEvent:(id)event
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   getDate = [eventCopy getDate];
   v6 = [MEMORY[0x277CBEAA8] now];
@@ -246,13 +244,13 @@ LABEL_7:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       v9 = [eventCopy description];
-      v16[0] = 68289283;
-      v16[1] = 0;
-      v17 = 2082;
-      v18 = "";
-      v19 = 2117;
-      v20 = v9;
-      _os_log_impl(&dword_2656EA000, v8, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:#SATime received event with future date, Event:%{sensitive}@}", v16, 0x1Cu);
+      v15[0] = 68289283;
+      v15[1] = 0;
+      v16 = 2082;
+      v17 = "";
+      v18 = 2117;
+      v19 = v9;
+      _os_log_impl(&dword_2656EA000, v8, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:#SATime received event with future date, Event:%{sensitive}@}", v15, 0x1Cu);
     }
   }
 
@@ -271,8 +269,6 @@ LABEL_7:
 
     [(SATime *)self fireAlarmsIfReady];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)getEarliestAlarmDate

@@ -1,4 +1,5 @@
 @interface FSFBMStringData
++ (id)eventWithData:(id)data dataVersion:(unsigned int)version;
 - (FSFBMStringData)initWithContent:(id)content dataVersion:(unsigned int)version;
 - (FSFBMStringData)initWithData:(id)data dataVersion:(unsigned int)version;
 - (id)content;
@@ -66,6 +67,15 @@
   }
 
   return v3;
+}
+
++ (id)eventWithData:(id)data dataVersion:(unsigned int)version
+{
+  v4 = *&version;
+  dataCopy = data;
+  v6 = [[FSFBMStringData alloc] initWithData:dataCopy dataVersion:v4];
+
+  return v6;
 }
 
 @end

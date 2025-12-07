@@ -25,20 +25,18 @@
 
 - (id)inputTensorNames
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = kABPK3DLiftingInputTensorName;
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = kABPK3DLiftingInputTensorName;
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
 
   return v2;
 }
 
 - (id)outputTensorNames
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = kABPK3DLiftingOutputTensorName;
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = kABPK3DLiftingOutputTensorName;
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
 
   return v2;
 }

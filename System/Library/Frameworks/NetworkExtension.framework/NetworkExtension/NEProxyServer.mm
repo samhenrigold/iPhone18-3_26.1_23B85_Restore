@@ -1,10 +1,11 @@
 @interface NEProxyServer
 - (BOOL)checkValidityAndCollectErrors:(id)errors;
-- (BOOL)needToUpdateKeychain;
 - (NEProxyServer)initWithCoder:(id)coder;
 - (NEProxyServer)initWithType:(int64_t)type address:(id)address port:(int64_t)port;
 - (id)copyPassword;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options;
+- (unint64_t)needToUpdateKeychain;
 - (void)copyProtectionSpace;
 - (void)encodeWithCoder:(id)coder;
 - (void)removeFromKeychain;
@@ -77,6 +78,36 @@ LABEL_9:
   }
 
   return selfCopy;
+}
+
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options
+{
+  v5 = *&indent;
+  v7 = [objc_alloc(MEMORY[0x1E696AD60]) initWithCapacity:0];
+  v8 = [(NEProxyServer *)self type]- 2;
+  if (v8 > 4)
+  {
+    v9 = @"http";
+  }
+
+  else
+  {
+    v9 = off_1E7F0A9D8[v8];
+  }
+
+  [v7 appendPrettyObject:v9 withName:@"type" andIndent:v5 options:options];
+  address = [(NEProxyServer *)self address];
+  [v7 appendPrettyObject:address withName:@"address" andIndent:v5 options:options | 1];
+
+  [v7 appendPrettyInt:-[NEProxyServer port](self withName:"port") andIndent:@"port" options:{v5, options}];
+  [v7 appendPrettyBOOL:-[NEProxyServer authenticationRequired](self withName:"authenticationRequired") andIndent:@"authenticationRequired" options:{v5, options}];
+  username = [(NEProxyServer *)self username];
+  [v7 appendPrettyObject:username withName:@"username" andIndent:v5 options:options | 1];
+
+  password = [(NEProxyServer *)self password];
+  [v7 appendPrettyObject:password withName:@"password" andIndent:v5 options:options | 1];
+
+  return v7;
 }
 
 - (BOOL)checkValidityAndCollectErrors:(id)errors
@@ -235,7 +266,7 @@ LABEL_13:
   [self setPassword:0];
 }
 
-- (BOOL)needToUpdateKeychain
+- (unint64_t)needToUpdateKeychain
 {
   selfCopy = self;
   if (self)

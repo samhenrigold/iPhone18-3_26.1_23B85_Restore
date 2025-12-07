@@ -108,18 +108,18 @@
 
 - (void)setConstantData:(id)data
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   std::mutex::lock((self + 24));
   if (data && [data length])
   {
     if (!*(self + 1))
     {
-      LegacySVConstantBufferCache::getOrCreateBuffer((*(self + 2) + 432), data, v8);
-      v5 = v8[1];
-      *(self + 6) = v8[0];
+      LegacySVConstantBufferCache::getOrCreateBuffer(v7, (*(self + 2) + 432), data);
+      v5 = v7[1];
+      *(self + 6) = v7[0];
       *(self + 7) = v5;
-      v6 = v10;
-      *(self + 16) = v9;
+      v6 = v9;
+      *(self + 16) = v8;
       *(self + 17) = v6;
       *(self + 1) = v6;
       if (*(self + 11))
@@ -142,7 +142,6 @@
   }
 
   std::mutex::unlock((self + 24));
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc

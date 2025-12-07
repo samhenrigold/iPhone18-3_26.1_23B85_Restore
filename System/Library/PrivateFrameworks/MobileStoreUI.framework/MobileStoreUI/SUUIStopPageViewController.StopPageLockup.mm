@@ -27,7 +27,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_259F8E834();
+  sub_259F8E834(selfCopy);
 }
 
 - (void)artworkRequest:(id)request didLoadImage:(id)image

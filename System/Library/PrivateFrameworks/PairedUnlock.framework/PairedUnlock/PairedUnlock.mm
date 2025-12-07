@@ -18,20 +18,14 @@ id sub_100001F64(uint64_t a1, uint64_t a2)
 
 uint64_t sub_100001F98(void *a1)
 {
-  v2 = [*(a1[4] + 48) objectForKeyedSubscript:a1[5]];
-  v3 = *(a1[6] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(a1[6] + 8) + 40) = [*(a1[4] + 48) objectForKeyedSubscript:a1[5]];
 
   return _objc_release_x1();
 }
 
 uint64_t sub_100002274(void *a1)
 {
-  v2 = [*(a1[4] + 56) objectForKeyedSubscript:a1[5]];
-  v3 = *(a1[6] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(a1[6] + 8) + 40) = [*(a1[4] + 56) objectForKeyedSubscript:a1[5]];
 
   return _objc_release_x1();
 }
@@ -238,64 +232,60 @@ void sub_100004594(uint64_t a1, uint64_t a2, void *a3)
     v7 = [NSNumber numberWithBool:a2];
     v8 = [NSNumber numberWithBool:*(a1 + 72)];
     *buf = 138412802;
-    v27 = v7;
-    v28 = 2112;
-    v29 = v5;
-    v30 = 2112;
-    v31 = v8;
+    v23 = v7;
+    v24 = 2112;
+    v25 = v5;
+    v26 = 2112;
+    v27 = v8;
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "enableUnlockWithDevice returned success %@ %@ in state %@", buf, 0x20u);
   }
 
   if (!a2)
   {
-    v12 = pu_log();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v10 = pu_log();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = [NSNumber numberWithBool:*(a1 + 72)];
+      v11 = [NSNumber numberWithBool:*(a1 + 72)];
       *buf = 138412290;
-      v27 = v13;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Resetting passcode state = %@", buf, 0xCu);
+      v23 = v11;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Resetting passcode state = %@", buf, 0xCu);
     }
 
-    v14 = *(a1 + 32);
-    v15 = *(a1 + 40);
-    v11 = *(*(a1 + 56) + 16);
+    v9 = *(*(a1 + 56) + 16);
     goto LABEL_9;
   }
 
   if (*(a1 + 72) == 1)
   {
-    v9 = *(a1 + 32);
-    v10 = *(a1 + 40);
-    v11 = *(*(a1 + 56) + 16);
+    v9 = *(*(a1 + 56) + 16);
 LABEL_9:
-    v11();
+    v9();
     goto LABEL_14;
   }
 
-  v16 = [*(a1 + 48) _createAndStoreNewPasscodeWithCurrentPasscode:*(a1 + 32)];
-  if (v16)
+  v12 = [*(a1 + 48) _createAndStoreNewPasscodeWithCurrentPasscode:*(a1 + 32)];
+  if (v12)
   {
-    v17 = +[SFUnlockManager sharedUnlockManager];
-    v18 = IDSDefaultPairedDevice;
-    v21[0] = _NSConcreteStackBlock;
-    v21[1] = 3221225472;
-    v21[2] = sub_100004874;
-    v21[3] = &unk_1000187C0;
-    v25 = *(a1 + 72);
-    v24 = *(a1 + 56);
-    v22 = *(a1 + 32);
-    v23 = v16;
-    [v17 enableUnlockWithDevice:v18 fromKey:0 withPasscode:v23 completionHandler:v21];
+    v13 = +[SFUnlockManager sharedUnlockManager];
+    v14 = IDSDefaultPairedDevice;
+    v17[0] = _NSConcreteStackBlock;
+    v17[1] = 3221225472;
+    v17[2] = sub_100004874;
+    v17[3] = &unk_1000187C0;
+    v21 = *(a1 + 72);
+    v20 = *(a1 + 56);
+    v18 = *(a1 + 32);
+    v19 = v12;
+    [v13 enableUnlockWithDevice:v14 fromKey:0 withPasscode:v19 completionHandler:v17];
 
-    v19 = v24;
+    v15 = v20;
   }
 
   else
   {
-    v20 = *(a1 + 64);
-    v19 = [NSError errorWithDomain:@"com.apple.paired-unlock" code:0 userInfo:0];
-    (*(v20 + 16))(v20, 0, v19);
+    v16 = *(a1 + 64);
+    v15 = [NSError errorWithDomain:@"com.apple.paired-unlock" code:0 userInfo:0];
+    (*(v16 + 16))(v16, 0, v15);
   }
 
 LABEL_14:
@@ -308,13 +298,11 @@ void sub_100004874(uint64_t a1, uint64_t a2, void *a3)
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = [NSNumber numberWithBool:*(a1 + 56)];
-    v9 = 138412290;
-    v10 = v6;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Resetting passcode state = %@", &v9, 0xCu);
+    v7 = 138412290;
+    v8 = v6;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Resetting passcode state = %@", &v7, 0xCu);
   }
 
-  v7 = *(a1 + 40);
-  v8 = *(a1 + 32);
   (*(*(a1 + 48) + 16))();
 }
 
@@ -358,7 +346,7 @@ void sub_1000050B8(id a1, BOOL a2, NSError *a3)
   }
 }
 
-void sub_100005A80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, id a50)
+void sub_100005A80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, id a50)
 {
   _Block_object_dispose(&a18, 8);
   _Block_object_dispose((v50 - 160), 8);
@@ -2378,13 +2366,6 @@ void sub_10000D378()
   sub_100006CC8();
   sub_100006CB0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-}
-
-void sub_10000D3E8(uint64_t a1)
-{
-  v6 = *(*a1 + 40);
-  sub_100006CB0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
 }
 
 void sub_10000D464(uint64_t a1, uint64_t a2, NSObject *a3)

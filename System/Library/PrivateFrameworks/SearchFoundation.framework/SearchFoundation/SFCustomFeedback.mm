@@ -10,10 +10,10 @@
 
 - (void)setJsonFeedback:(id)feedback
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v9 = 0;
-  v4 = [MEMORY[0x1E696ACB0] dataWithJSONObject:feedback options:0 error:&v9];
-  v5 = v9;
+  v11 = *MEMORY[0x1E69E9840];
+  v8 = 0;
+  v4 = [MEMORY[0x1E696ACB0] dataWithJSONObject:feedback options:0 error:&v8];
+  v5 = v8;
   data = self->_data;
   self->_data = v4;
 
@@ -28,12 +28,10 @@
     if (os_log_type_enabled(PARLogHandleForCategory_logHandles_1_34895, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v11 = v5;
+      v10 = v5;
       _os_log_error_impl(&dword_1B116E000, v7, OS_LOG_TYPE_ERROR, "SFCustomFeedback: jsonFeedback did not serialize: %@.", buf, 0xCu);
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)encodeWithCoder:(id)coder

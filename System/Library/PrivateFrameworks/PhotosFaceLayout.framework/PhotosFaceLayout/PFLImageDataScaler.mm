@@ -20,9 +20,9 @@
   v18 = size.width;
   dataCopy = data;
   typeCopy = type;
-  v33.receiver = self;
-  v33.super_class = PFLImageDataScaler;
-  v22 = [(PFLImageDataScaler *)&v33 init];
+  v34.receiver = self;
+  v34.super_class = PFLImageDataScaler;
+  v22 = [(PFLImageDataScaler *)&v34 init];
   v23 = v22;
   if (v22)
   {
@@ -54,10 +54,10 @@
 
       if (!v30)
       {
-        v31 = pfl_layout_log();
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+        v32 = pfl_layout_log(v31);
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
         {
-          [PFLImageDataScaler initWithSize:v31 crop:? data:? orientation:? type:? outputSize:?];
+          [PFLImageDataScaler initWithSize:v32 crop:? data:? orientation:? type:? outputSize:?];
         }
 
         v23 = 0;
@@ -88,339 +88,355 @@ LABEL_10:
   dispatch_async(v5, v7);
 }
 
-void __49__PFLImageDataScaler_cropAndScaleWithCompletion___block_invoke(uint64_t a1)
+void __49__PFLImageDataScaler_cropAndScaleWithCompletion___block_invoke(uint64_t a1, __n128 a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6, __n128 a7, __n128 a8)
 {
-  v105 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 32);
-  if (!*(v2 + 16))
+  v129 = *MEMORY[0x277D85DE8];
+  v9 = *(a1 + 32);
+  if (!*(v9 + 16))
   {
-    reduceRectToAspectRatioAndCenter(*(v2 + 80), *(v2 + 88), *(v2 + 96), *(v2 + 104), *(v2 + 64) / *(v2 + 72));
-    v5 = (v4 * v3);
-    v6 = *(a1 + 32);
-    v7 = v6[8] / v4;
-    if (v7 < v6[9] / v3)
+    a7.n128_u64[0] = *(v9 + 72);
+    a2.n128_u64[0] = *(v9 + 80);
+    a3.n128_u64[0] = *(v9 + 88);
+    a4.n128_u64[0] = *(v9 + 96);
+    a5.n128_u64[0] = *(v9 + 104);
+    a6.n128_f64[0] = *(v9 + 64) / a7.n128_f64[0];
+    reduceRectToAspectRatioAndCenter(a2, a3, a4, a5, a6, a7, a8);
+    v13 = (v12 * v11);
+    v14 = *(a1 + 32);
+    v15 = v14[8] / v12;
+    if (v15 < v14[9] / v11)
     {
-      v7 = v6[9] / v3;
+      v15 = v14[9] / v11;
     }
 
-    v8 = (v7 * (v6[7] * (v6[6] * v7)));
-    v9 = pfl_layout_log();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v16 = (v15 * (v14[7] * (v14[6] * v15)));
+    v17 = pfl_layout_log(v10);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       LODWORD(buf.a) = 134218240;
-      *(&buf.a + 4) = vcvtd_n_f64_s64(v5, 0x14uLL);
+      *(&buf.a + 4) = vcvtd_n_f64_s64(v13, 0x14uLL);
       WORD2(buf.b) = 2048;
-      *(&buf.b + 6) = vcvtd_n_f64_s64(v8, 0x14uLL);
-      _os_log_impl(&dword_22D2ED000, v9, OS_LOG_TYPE_DEFAULT, "cropThenScale ==> %.3f MP; scaleThenCrop ==> %.3f MP", &buf, 0x16u);
+      *(&buf.b + 6) = vcvtd_n_f64_s64(v16, 0x14uLL);
+      _os_log_impl(&dword_22D2ED000, v17, OS_LOG_TYPE_DEFAULT, "cropThenScale ==> %.3f MP; scaleThenCrop ==> %.3f MP", &buf, 0x16u);
     }
 
-    v10 = objc_autoreleasePoolPush();
-    v11 = *(a1 + 32);
-    v12 = *(v11 + 96);
-    if (v5 >= v8)
+    v18 = objc_autoreleasePoolPush();
+    v19 = *(a1 + 32);
+    v20 = *(v19 + 96);
+    if (v13 >= v16)
     {
-      v46 = *(v11 + 32);
-      v47 = *(v11 + 8);
-      v48 = *(v11 + 48);
-      v49 = *(v11 + 56);
-      v50 = *(v11 + 80);
-      v51 = *(v11 + 88);
-      v52 = *(v11 + 104);
-      v53 = *(v11 + 72);
-      v95 = *(v11 + 64);
-      v54 = *(v11 + 40);
-      v55 = CGImageSourceCreateWithData(v46, 0);
-      if (v55)
+      v61 = *(v19 + 32);
+      v62 = *(v19 + 8);
+      v63 = *(v19 + 48);
+      v64 = *(v19 + 56);
+      v65 = *(v19 + 80);
+      v66 = *(v19 + 88);
+      v67 = *(v19 + 104);
+      v68 = *(v19 + 72);
+      v119 = *(v19 + 64);
+      v69 = *(v19 + 40);
+      v70 = CGImageSourceCreateWithData(v61, 0);
+      if (v70)
       {
-        v56 = v55;
-        v89 = v47;
-        v59 = reduceRectToAspectRatioAndCenter(v50, v51, v12, v52, v95 / v53);
-        v61 = v60;
-        v62 = v57;
-        v63 = v58;
-        if (v95 / v57 >= v53 / v58)
+        v78 = v70;
+        v113 = v62;
+        v75.n128_f64[0] = v119 / v68;
+        v71.n128_u64[0] = v65;
+        v72.n128_u64[0] = v66;
+        v73.n128_u64[0] = v20;
+        v74.n128_u64[0] = v67;
+        v81 = reduceRectToAspectRatioAndCenter(v71, v72, v73, v74, v75, v76, v77);
+        v83 = v82;
+        v84 = v79;
+        v85 = v80;
+        if (v119 / v79 >= v68 / v80)
         {
-          v64 = v95 / v57;
+          v86 = v119 / v79;
         }
 
         else
         {
-          v64 = v53 / v58;
+          v86 = v68 / v80;
         }
 
-        v65 = v48 * v64;
-        if (v48 * v64 < v49 * v64)
+        v87 = v63 * v86;
+        if (v63 * v86 < v64 * v86)
         {
-          v65 = v49 * v64;
+          v87 = v64 * v86;
         }
 
-        v66 = *MEMORY[0x277CD3568];
-        v67 = MEMORY[0x277CBEC38];
-        *&v102.a = MEMORY[0x277CBEC38];
-        v68 = *MEMORY[0x277CD3660];
-        v98 = v66;
-        v99 = v68;
-        v69 = [MEMORY[0x277CCABB0] numberWithDouble:{ceil(v65), v89}];
-        v100 = *MEMORY[0x277CD3578];
-        *&v102.b = v69;
-        v102.c = v67;
-        v70 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v102 forKeys:&v98 count:3];
+        v88 = *MEMORY[0x277CD3568];
+        v89 = MEMORY[0x277CBEC38];
+        *&v126.a = MEMORY[0x277CBEC38];
+        v90 = *MEMORY[0x277CD3660];
+        v122 = v88;
+        v123 = v90;
+        v91 = [MEMORY[0x277CCABB0] numberWithDouble:{ceil(v87), v113}];
+        v124 = *MEMORY[0x277CD3578];
+        *&v126.b = v91;
+        v126.c = v89;
+        v92 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v126 forKeys:&v122 count:3];
 
-        ThumbnailAtIndex = CGImageSourceCreateThumbnailAtIndex(v56, 0, v70);
+        ThumbnailAtIndex = CGImageSourceCreateThumbnailAtIndex(v78, 0, v92);
         if (ThumbnailAtIndex)
         {
-          v72 = ThumbnailAtIndex;
-          v93 = v54;
-          CGAffineTransformMakeScale(&buf, v64, v64);
-          v108.origin.x = v59;
-          v108.origin.y = v61;
-          v108.size.width = v62;
-          v108.size.height = v63;
-          v109 = CGRectApplyAffineTransform(v108, &buf);
-          v109.origin.x = rint(v109.origin.x);
-          v109.origin.y = rint(v109.origin.y);
-          v109.size.width = rint(v95);
-          v109.size.height = rint(v53);
-          v73 = CGImageCreateWithImageInRect(v72, v109);
-          if (v73)
+          v94 = ThumbnailAtIndex;
+          v117 = v69;
+          CGAffineTransformMakeScale(&buf, v86, v86);
+          v132.origin.x = v81;
+          v132.origin.y = v83;
+          v132.size.width = v84;
+          v132.size.height = v85;
+          v133 = CGRectApplyAffineTransform(v132, &buf);
+          v133.origin.x = rint(v133.origin.x);
+          v133.origin.y = rint(v133.origin.y);
+          v133.size.width = rint(v119);
+          v133.size.height = rint(v68);
+          v95 = CGImageCreateWithImageInRect(v94, v133);
+          if (v95)
           {
-            v74 = v73;
-            v92 = v10;
-            v37 = [MEMORY[0x277CBEB28] data];
-            v75 = [v93 identifier];
-            v76 = CGImageDestinationCreateWithData(v37, v75, 1uLL, 0);
+            v96 = v95;
+            v116 = v18;
+            v52 = [MEMORY[0x277CBEB28] data];
+            v97 = [v117 identifier];
+            v98 = CGImageDestinationCreateWithData(v52, v97, 1uLL, 0);
 
-            if (v76)
+            if (v98)
             {
-              if (v95 >= v53)
+              if (v119 >= v68)
               {
-                v77 = v95;
+                v99 = v119;
               }
 
               else
               {
-                v77 = v53;
+                v99 = v68;
               }
 
-              v103[0] = *MEMORY[0x277CD2D48];
-              v78 = [MEMORY[0x277CCABB0] numberWithDouble:v90];
-              *&buf.a = v78;
-              v103[1] = *MEMORY[0x277CD2D40];
-              v79 = [MEMORY[0x277CCABB0] numberWithDouble:v77];
-              v103[2] = *MEMORY[0x277CD2D78];
-              *&buf.b = v79;
-              buf.c = v67;
-              v80 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&buf forKeys:v103 count:3];
+              v127[0] = *MEMORY[0x277CD2D48];
+              v100 = [MEMORY[0x277CCABB0] numberWithDouble:v114];
+              *&buf.a = v100;
+              v127[1] = *MEMORY[0x277CD2D40];
+              v101 = [MEMORY[0x277CCABB0] numberWithDouble:v99];
+              v127[2] = *MEMORY[0x277CD2D78];
+              *&buf.b = v101;
+              buf.c = v89;
+              v102 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&buf forKeys:v127 count:3];
 
-              CGImageDestinationAddImage(v76, v74, v80);
-              CGImageDestinationFinalize(v76);
-              CFRelease(v76);
+              CGImageDestinationAddImage(v98, v96, v102);
+              CGImageDestinationFinalize(v98);
+              CFRelease(v98);
             }
 
             else
             {
 
-              v80 = pfl_layout_log();
-              if (os_log_type_enabled(v80, OS_LOG_TYPE_ERROR))
+              v102 = pfl_layout_log(v109);
+              if (os_log_type_enabled(v102, OS_LOG_TYPE_ERROR))
               {
                 __49__PFLImageDataScaler_cropAndScaleWithCompletion___block_invoke_cold_1();
               }
 
-              v37 = 0;
+              v52 = 0;
             }
 
-            v10 = v92;
+            v18 = v116;
 
-            CFRelease(v74);
+            CFRelease(v96);
           }
 
           else
           {
-            v85 = pfl_layout_log();
-            if (os_log_type_enabled(v85, OS_LOG_TYPE_ERROR))
+            v107 = pfl_layout_log(0);
+            if (os_log_type_enabled(v107, OS_LOG_TYPE_ERROR))
             {
               __49__PFLImageDataScaler_cropAndScaleWithCompletion___block_invoke_cold_2();
             }
 
-            v37 = 0;
+            v52 = 0;
           }
 
-          v54 = v93;
-          CFRelease(v72);
+          v69 = v117;
+          CFRelease(v94);
         }
 
         else
         {
-          v83 = pfl_layout_log();
-          if (os_log_type_enabled(v83, OS_LOG_TYPE_ERROR))
+          v105 = pfl_layout_log(0);
+          if (os_log_type_enabled(v105, OS_LOG_TYPE_ERROR))
           {
             __49__PFLImageDataScaler_cropAndScaleWithCompletion___block_invoke_cold_3();
           }
 
-          v37 = 0;
+          v52 = 0;
         }
 
-        CFRelease(v56);
+        CFRelease(v78);
       }
 
       else
       {
-        v70 = pfl_layout_log();
-        if (os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
+        v92 = pfl_layout_log(0);
+        if (os_log_type_enabled(v92, OS_LOG_TYPE_ERROR))
         {
           __49__PFLImageDataScaler_cropAndScaleWithCompletion___block_invoke_cold_4();
         }
 
-        v37 = 0;
+        v52 = 0;
       }
     }
 
     else
     {
-      v13 = *(v11 + 24);
-      v14 = *(v11 + 32);
-      v15 = *(v11 + 8);
-      v16 = *(v11 + 80);
-      v17 = *(v11 + 88);
-      v18 = *(v11 + 104);
-      v19 = *(v11 + 64);
-      v20 = *(v11 + 72);
-      v21 = *(v11 + 40);
-      v22 = CGImageSourceCreateWithData(v14, 0);
-      if (v22)
+      v21 = *(v19 + 24);
+      v22 = *(v19 + 32);
+      v23 = *(v19 + 8);
+      v24 = *(v19 + 80);
+      v25 = *(v19 + 88);
+      v26 = *(v19 + 104);
+      v27 = *(v19 + 64);
+      v28 = *(v19 + 72);
+      v29 = *(v19 + 40);
+      v30 = CGImageSourceCreateWithData(v22, 0);
+      if (v30)
       {
-        v23 = v22;
-        ImageAtIndex = CGImageSourceCreateImageAtIndex(v22, 0, 0);
+        v31 = v30;
+        ImageAtIndex = CGImageSourceCreateImageAtIndex(v30, 0, 0);
         if (ImageAtIndex)
         {
-          v25 = ImageAtIndex;
-          v26 = reduceRectToAspectRatioAndCenter(v16, v17, v12, v18, v19 / v20);
-          v28 = v27;
-          v30 = v29;
-          v32 = v31;
-          Width = CGImageGetWidth(v25);
-          Height = CGImageGetHeight(v25);
+          v40 = ImageAtIndex;
+          v37.n128_f64[0] = v27 / v28;
+          v33.n128_u64[0] = v24;
+          v34.n128_u64[0] = v25;
+          v35.n128_u64[0] = v20;
+          v36.n128_u64[0] = v26;
+          v41 = reduceRectToAspectRatioAndCenter(v33, v34, v35, v36, v37, v38, v39);
+          v43 = v42;
+          v45 = v44;
+          v47 = v46;
+          Width = CGImageGetWidth(v40);
+          Height = CGImageGetHeight(v40);
           memset(&buf, 0, sizeof(buf));
-          makePresentationTransform(v13, Width, Height, &v102);
-          CGAffineTransformInvert(&buf, &v102);
-          v102 = buf;
-          v106.origin.x = v26;
-          v106.origin.y = v28;
-          v106.size.width = v30;
-          v106.size.height = v32;
-          v107 = CGRectApplyAffineTransform(v106, &v102);
-          v35 = CGImageCreateWithImageInRect(v25, v107);
-          if (v35)
+          makePresentationTransform(v21, Width, Height, &v126);
+          CGAffineTransformInvert(&buf, &v126);
+          v126 = buf;
+          v130.origin.x = v41;
+          v130.origin.y = v43;
+          v130.size.width = v45;
+          v130.size.height = v47;
+          v131 = CGRectApplyAffineTransform(v130, &v126);
+          v50 = CGImageCreateWithImageInRect(v40, v131);
+          if (v50)
           {
-            v36 = v35;
-            v91 = v10;
-            v37 = [MEMORY[0x277CBEB28] data];
-            v38 = [v21 identifier];
-            v39 = CGImageDestinationCreateWithData(v37, v38, 1uLL, 0);
+            v51 = v50;
+            v115 = v18;
+            v52 = [MEMORY[0x277CBEB28] data];
+            v53 = [v29 identifier];
+            v54 = CGImageDestinationCreateWithData(v52, v53, 1uLL, 0);
 
-            if (v39)
+            if (v54)
             {
-              if (v19 >= v20)
+              if (v27 >= v28)
               {
-                v40 = v19;
+                v55 = v27;
               }
 
               else
               {
-                v40 = v20;
+                v55 = v28;
               }
 
-              v98 = *MEMORY[0x277CD2D48];
-              v94 = [MEMORY[0x277CCABB0] numberWithDouble:v15];
-              *&v102.a = v94;
-              v99 = *MEMORY[0x277CD2D40];
-              v41 = [MEMORY[0x277CCABB0] numberWithDouble:v40];
-              v42 = *MEMORY[0x277CD2D78];
-              *&v102.b = v41;
-              *&v102.c = MEMORY[0x277CBEC38];
-              v43 = *MEMORY[0x277CD3410];
-              v100 = v42;
-              v101 = v43;
-              v44 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:getImageOrientationFromSource(v23)];
-              *&v102.d = v44;
-              v45 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v102 forKeys:&v98 count:4];
+              v122 = *MEMORY[0x277CD2D48];
+              v118 = [MEMORY[0x277CCABB0] numberWithDouble:v23];
+              *&v126.a = v118;
+              v123 = *MEMORY[0x277CD2D40];
+              v56 = [MEMORY[0x277CCABB0] numberWithDouble:v55];
+              v57 = *MEMORY[0x277CD2D78];
+              *&v126.b = v56;
+              *&v126.c = MEMORY[0x277CBEC38];
+              v58 = *MEMORY[0x277CD3410];
+              v124 = v57;
+              v125 = v58;
+              v59 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:getImageOrientationFromSource(v31)];
+              *&v126.d = v59;
+              v60 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v126 forKeys:&v122 count:4];
 
-              CGImageDestinationAddImage(v39, v36, v45);
-              CGImageDestinationFinalize(v39);
-              CFRelease(v39);
+              CGImageDestinationAddImage(v54, v51, v60);
+              CGImageDestinationFinalize(v54);
+              CFRelease(v54);
             }
 
             else
             {
 
-              v45 = pfl_layout_log();
-              if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+              v60 = pfl_layout_log(v108);
+              if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
               {
                 __49__PFLImageDataScaler_cropAndScaleWithCompletion___block_invoke_cold_1();
               }
 
-              v37 = 0;
+              v52 = 0;
             }
 
-            v10 = v91;
+            v18 = v115;
 
-            CFRelease(v36);
+            CFRelease(v51);
           }
 
           else
           {
-            v84 = pfl_layout_log();
-            if (os_log_type_enabled(v84, OS_LOG_TYPE_ERROR))
+            v106 = pfl_layout_log(0);
+            if (os_log_type_enabled(v106, OS_LOG_TYPE_ERROR))
             {
               __49__PFLImageDataScaler_cropAndScaleWithCompletion___block_invoke_cold_2();
             }
 
-            v37 = 0;
+            v52 = 0;
           }
 
-          CFRelease(v25);
+          CFRelease(v40);
         }
 
         else
         {
-          v82 = pfl_layout_log();
-          if (os_log_type_enabled(v82, OS_LOG_TYPE_ERROR))
+          v104 = pfl_layout_log(0);
+          if (os_log_type_enabled(v104, OS_LOG_TYPE_ERROR))
           {
             __49__PFLImageDataScaler_cropAndScaleWithCompletion___block_invoke_cold_7();
           }
 
-          v37 = 0;
+          v52 = 0;
         }
 
-        CFRelease(v23);
+        CFRelease(v31);
       }
 
       else
       {
-        v81 = pfl_layout_log();
-        if (os_log_type_enabled(v81, OS_LOG_TYPE_ERROR))
+        v103 = pfl_layout_log(0);
+        if (os_log_type_enabled(v103, OS_LOG_TYPE_ERROR))
         {
           __49__PFLImageDataScaler_cropAndScaleWithCompletion___block_invoke_cold_4();
         }
 
-        v37 = 0;
+        v52 = 0;
       }
     }
 
-    v86 = *(a1 + 32);
-    v87 = *(v86 + 16);
-    *(v86 + 16) = v37;
+    v110 = *(a1 + 32);
+    v111 = *(v110 + 16);
+    *(v110 + 16) = v52;
 
-    objc_autoreleasePoolPop(v10);
+    objc_autoreleasePoolPop(v18);
   }
 
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __49__PFLImageDataScaler_cropAndScaleWithCompletion___block_invoke_1;
   block[3] = &unk_27875B9E8;
-  v88 = *(a1 + 40);
+  v112 = *(a1 + 40);
   block[4] = *(a1 + 32);
-  v97 = v88;
+  v121 = v112;
   dispatch_async(MEMORY[0x277D85CD0], block);
 }
 

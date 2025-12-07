@@ -41,6 +41,8 @@
 - (void)_dispatchActivities:(id)activities bundleID:(id)d;
 - (void)_dispatchToReceiversWithBundleID:(id)d protectionClass:(id)class options:(int64_t)options items:(id)items itemsText:(id)text itemsHTML:(id)l deletes:(id)deletes;
 - (void)_forceAppWithBundleID:(id)d toPerformJob:(id)job;
+- (void)_issueCommand:(id)command outFileDescriptor:(int)descriptor searchContext:(id)context completionHandler:(id)handler;
+- (void)_issueDiagnose:(int)diagnose bundleID:(id)d logQuery:(BOOL)query completionHandler:(id)handler;
 - (void)_makeActivityQueueIfNecessary;
 - (void)_processIndexDataForBundle:(id)bundle protectionClass:(id)class personaID:(id)d options:(int64_t)options items:(id)items itemsText:(id)text itemsHTML:(id)l clientState:(id)self0 expectedClientState:(id)self1 clientStateName:(id)self2 deletes:(id)self3 completionHandler:(id)self4;
 - (void)_runLibraryDeletedCommand:(id)command;
@@ -58,6 +60,7 @@
 - (void)deleteUserActivitiesWithPersistentIdentifiers:(id)identifiers bundleID:(id)d options:(int64_t)options completionHandler:(id)handler;
 - (void)donateRelevantActions:(id)actions bundleID:(id)d options:(int64_t)options completionHandler:(id)handler;
 - (void)fetchAttributes:(id)attributes protectionClass:(id)class bundleID:(id)d identifiers:(id)identifiers userCtx:(id)ctx flags:(unsigned int)flags qos:(unsigned int)qos reply:(id)self0 completionHandler:(id)self1;
+- (void)fetchCacheFileDescriptorsForProtectionClass:(id)class bundleID:(id)d identifiers:(id)identifiers userCtx:(id)ctx flags:(unsigned int)flags qos:(unsigned int)qos reply:(id)reply completionHandler:(id)self0;
 - (void)fetchLastClientStateWithProtectionClass:(id)class forBundleID:(id)d clientStateName:(id)name options:(int64_t)options completionHandler:(id)handler;
 - (void)finishIndexingWhileLocked:(id)locked protectionClass:(id)class completionHandler:(id)handler;
 - (void)flushUserActivities;
@@ -68,6 +71,7 @@
 - (void)prepareIndexingWhileLocked:(id)locked protectionClass:(id)class holdAssertionFor:(double)for completionHandler:(id)handler;
 - (void)provideDataForBundle:(id)bundle identifier:(id)identifier type:(id)type completionHandler:(id)handler;
 - (void)provideFileURLForBundle:(id)bundle identifier:(id)identifier type:(id)type completionHandler:(id)handler;
+- (void)transferDeleteJournalsForProtectionClass:(const char *)class toDirectory:(int)directory withCompletionHandler:(id)handler;
 - (void)updateCorrectionsWithFilePath:(id)path options:(int64_t)options completionHandler:(id)handler;
 - (void)userPerformedAction:(id)action withItem:(id)item protectionClass:(id)class;
 - (void)willModifySearchableItemsWithIdentifiers:(id)identifiers protectionClass:(id)class forBundleID:(id)d options:(int64_t)options completionHandler:(id)handler;
@@ -77,22 +81,21 @@
 
 void __57__MDSearchableIndexService__makeActivityQueueIfNecessary__block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
-  v5 = logForCSLogCategoryDefault();
+  v5 = logForCSLogCategoryDefault(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v8 = 134217984;
-    v9 = [v3 count];
-    _os_log_impl(&dword_231A35000, v5, OS_LOG_TYPE_INFO, "Flushing UA queue, count:%lu", &v8, 0xCu);
+    v7 = 134217984;
+    v8 = [v3 count];
+    _os_log_impl(&dword_231A35000, v5, OS_LOG_TYPE_INFO, "Flushing UA queue, count:%lu", &v7, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained _dispatchActivities:v3];
 
   objc_autoreleasePoolPop(v4);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_makeActivityQueueIfNecessary
@@ -162,7 +165,7 @@ void __57__MDSearchableIndexService__makeActivityQueueIfNecessary__block_invoke(
 
   else
   {
-    v6 = logForCSLogCategoryIndex();
+    v6 = logForCSLogCategoryIndex(self);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [MDSearchableIndexService _checkNonEmptyBundle:? protectionClass:?];
@@ -176,7 +179,7 @@ void __57__MDSearchableIndexService__makeActivityQueueIfNecessary__block_invoke(
 
 - (id)_checkItems:(id)items identifiers:(id)identifiers protectionClass:(id)class bundleID:(id)d
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   itemsCopy = items;
   identifiersCopy = identifiers;
   classCopy = class;
@@ -190,110 +193,113 @@ void __57__MDSearchableIndexService__makeActivityQueueIfNecessary__block_invoke(
 
   if (!clientBundleID)
   {
-    v34 = logForCSLogCategoryIndex();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+    v38 = logForCSLogCategoryIndex(v33);
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
     {
       [MDSearchableIndexService _checkItems:? identifiers:? protectionClass:? bundleID:?];
     }
 
-    v23 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CC22E8] code:-1003 userInfo:0];
+    v24 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CC22E8] code:-1003 userInfo:0];
     goto LABEL_44;
   }
 
-  v31 = [(MDSearchableIndexService *)self _checkBundleIDHelper:dCopy];
-  if (v31)
+  v34 = [(MDSearchableIndexService *)self _checkBundleIDHelper:dCopy];
+  v35 = v34;
+  if (v34)
   {
-    v32 = logForCSLogCategoryIndex();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+    v36 = logForCSLogCategoryIndex(v34);
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
     {
       [MDSearchableIndexService _checkItems:identifiers:protectionClass:bundleID:];
     }
 
-    v33 = v31;
+    v37 = v35;
 LABEL_43:
-    v23 = v33;
+    v24 = v37;
 
     goto LABEL_44;
   }
 
-  v38 = geteuid();
-  if (v38 != [(MDSearchableIndexService *)self clientUID])
+  v42 = geteuid();
+  clientUID = [(MDSearchableIndexService *)self clientUID];
+  if (v42 != clientUID)
   {
-    v39 = logForCSLogCategoryIndex();
-    if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+    v44 = logForCSLogCategoryIndex(clientUID);
+    if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
     {
       [MDSearchableIndexService _checkItems:? identifiers:? protectionClass:? bundleID:?];
     }
 
-    v33 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CC22E8] code:-1003 userInfo:0];
+    v37 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CC22E8] code:-1003 userInfo:0];
     goto LABEL_43;
   }
 
 LABEL_2:
-  v43 = classCopy;
-  v50 = 0u;
-  v51 = 0u;
-  v48 = 0u;
-  v49 = 0u;
+  v47 = classCopy;
+  v54 = 0u;
+  v55 = 0u;
+  v52 = 0u;
+  v53 = 0u;
   v14 = itemsCopy;
-  v15 = [v14 countByEnumeratingWithState:&v48 objects:v53 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v52 objects:v57 count:16];
   if (!v15)
   {
     goto LABEL_11;
   }
 
   v16 = v15;
-  v17 = *v49;
-  v42 = itemsCopy;
+  v17 = *v53;
+  v46 = itemsCopy;
   while (2)
   {
     v18 = dCopy;
     v19 = identifiersCopy;
     for (i = 0; i != v16; ++i)
     {
-      if (*v49 != v17)
+      if (*v53 != v17)
       {
         objc_enumerationMutation(v14);
       }
 
-      v21 = *(*(&v48 + 1) + 8 * i);
-      if (([v21 _isFullyFormed] & 1) == 0)
+      v21 = *(*(&v52 + 1) + 8 * i);
+      _isFullyFormed = [v21 _isFullyFormed];
+      if ((_isFullyFormed & 1) == 0)
       {
-        v35 = logForCSLogCategoryIndex();
-        if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+        v39 = logForCSLogCategoryIndex(_isFullyFormed);
+        if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
         {
           [MDSearchableIndexService _checkItems:identifiers:protectionClass:bundleID:];
         }
 
-        v23 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CC22E8] code:-1001 userInfo:0];
+        v24 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CC22E8] code:-1001 userInfo:0];
         goto LABEL_34;
       }
 
       bundleID = [v21 bundleID];
-      v23 = [(MDSearchableIndexService *)self _checkBundleIDHelper:bundleID];
+      v24 = [(MDSearchableIndexService *)self _checkBundleIDHelper:bundleID];
 
-      if (v23)
+      if (v24)
       {
-        v36 = logForCSLogCategoryIndex();
-        if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+        v40 = logForCSLogCategoryIndex(v25);
+        if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
         {
           [MDSearchableIndexService _checkItems:identifiers:protectionClass:bundleID:];
         }
 
 LABEL_34:
-        classCopy = v43;
+        classCopy = v47;
 
         identifiersCopy = v19;
         dCopy = v18;
-        itemsCopy = v42;
+        itemsCopy = v46;
         goto LABEL_44;
       }
     }
 
-    v16 = [v14 countByEnumeratingWithState:&v48 objects:v53 count:16];
+    v16 = [v14 countByEnumeratingWithState:&v52 objects:v57 count:16];
     identifiersCopy = v19;
     dCopy = v18;
-    itemsCopy = v42;
+    itemsCopy = v46;
     if (v16)
     {
       continue;
@@ -304,43 +310,43 @@ LABEL_34:
 
 LABEL_11:
 
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
-  v45 = 0u;
-  v24 = identifiersCopy;
-  v25 = [v24 countByEnumeratingWithState:&v44 objects:v52 count:16];
-  if (v25)
+  v50 = 0u;
+  v51 = 0u;
+  v48 = 0u;
+  v49 = 0u;
+  v26 = identifiersCopy;
+  v27 = [v26 countByEnumeratingWithState:&v48 objects:v56 count:16];
+  if (v27)
   {
-    v26 = v25;
-    v27 = *v45;
+    v28 = v27;
+    v29 = *v49;
     while (2)
     {
-      for (j = 0; j != v26; ++j)
+      for (j = 0; j != v28; ++j)
       {
-        if (*v45 != v27)
+        if (*v49 != v29)
         {
-          objc_enumerationMutation(v24);
+          objc_enumerationMutation(v26);
         }
 
-        v29 = *(*(&v44 + 1) + 8 * j);
         objc_opt_class();
-        if ((objc_opt_isKindOfClass() & 1) == 0)
+        isKindOfClass = objc_opt_isKindOfClass();
+        if ((isKindOfClass & 1) == 0)
         {
-          v37 = logForCSLogCategoryIndex();
-          if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+          v41 = logForCSLogCategoryIndex(isKindOfClass);
+          if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
           {
             [MDSearchableIndexService _checkItems:identifiers:protectionClass:bundleID:];
           }
 
-          v23 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CC22E8] code:-1001 userInfo:0];
+          v24 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CC22E8] code:-1001 userInfo:0];
 
           goto LABEL_38;
         }
       }
 
-      v26 = [v24 countByEnumeratingWithState:&v44 objects:v52 count:16];
-      if (v26)
+      v28 = [v26 countByEnumeratingWithState:&v48 objects:v56 count:16];
+      if (v28)
       {
         continue;
       }
@@ -349,14 +355,12 @@ LABEL_11:
     }
   }
 
-  v23 = 0;
+  v24 = 0;
 LABEL_38:
-  classCopy = v43;
+  classCopy = v47;
 LABEL_44:
 
-  v40 = *MEMORY[0x277D85DE8];
-
-  return v23;
+  return v24;
 }
 
 - (id)_checkBundleIDHelper:(id)helper
@@ -395,7 +399,7 @@ LABEL_44:
 
   if (stateCopy && !nameCopy)
   {
-    v20 = logForCSLogCategoryIndex();
+    v20 = logForCSLogCategoryIndex(0);
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       [MDSearchableIndexService _canProcessIndexDataForBundle:itemsDecoder:deletesDecoder:clientState:clientStateName:outError:];
@@ -415,9 +419,9 @@ LABEL_9:
 
   else
   {
-    if (decoderCopy && ([decoderCopy obj], _MDPlistGetPlistObjectType() == 240))
+    if (decoderCopy && (objc_msgSend_obj(decoderCopy), _MDPlistGetPlistObjectType() == 240))
     {
-      [decoderCopy obj];
+      objc_msgSend_obj(decoderCopy);
       v21 = _MDPlistArrayGetCount() != 0;
     }
 
@@ -426,9 +430,9 @@ LABEL_9:
       v21 = 0;
     }
 
-    if (deletesDecoderCopy && ([deletesDecoderCopy obj], _MDPlistGetPlistObjectType() == 240))
+    if (deletesDecoderCopy && (objc_msgSend_obj(deletesDecoderCopy), _MDPlistGetPlistObjectType() == 240))
     {
-      [deletesDecoderCopy obj];
+      objc_msgSend_obj(deletesDecoderCopy);
       Count = _MDPlistArrayGetCount();
       v19 = 0;
       v21 |= Count != 0;
@@ -463,19 +467,19 @@ LABEL_10:
   nameCopy = name;
   deletesCopy = deletes;
   handlerCopy = handler;
-  if ([(MDSearchableIndexService *)self _jobForIndex:options]&& (v27 = self->_indexer, (objc_opt_respondsToSelector() & 1) != 0))
+  if ([(MDSearchableIndexService *)self _jobForIndex:options]&& (objc_opt_respondsToSelector() & 1) != 0)
   {
     indexer = self->_indexer;
-    LOBYTE(v31) = 1;
-    v29 = itemsCopy;
-    v30 = textCopy;
-    [(MDIndexer *)indexer indexFromBundle:bundleCopy protectionClass:classCopy personaID:dCopy options:options items:itemsCopy itemsText:textCopy itemsHTML:lCopy clientState:stateCopy expectedClientState:clientStateCopy clientStateName:nameCopy deletes:deletesCopy canCreateNewIndex:v31 completionHandler:handlerCopy];
+    LOBYTE(v30) = 1;
+    v28 = itemsCopy;
+    v29 = textCopy;
+    [(MDIndexer *)indexer indexFromBundle:bundleCopy protectionClass:classCopy personaID:dCopy options:options items:itemsCopy itemsText:textCopy itemsHTML:lCopy clientState:stateCopy expectedClientState:clientStateCopy clientStateName:nameCopy deletes:deletesCopy canCreateNewIndex:v30 completionHandler:handlerCopy];
   }
 
   else
   {
-    v30 = textCopy;
-    v29 = itemsCopy;
+    v29 = textCopy;
+    v28 = itemsCopy;
     if (!handlerCopy)
     {
       goto LABEL_7;
@@ -496,25 +500,14 @@ LABEL_7:
   textCopy = text;
   lCopy = l;
   deletesCopy = deletes;
-  v20 = &off_231AED000;
+  v20 = deletesCopy;
+  v21 = &off_231AED000;
   if (deletesCopy)
   {
-    v21 = logForCSLogCategoryDefault();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    v22 = logForCSLogCategoryDefault(deletesCopy);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       if ([SpotlightSender jobForTest:options])
-      {
-        v22 = @"YES";
-      }
-
-      else
-      {
-        v22 = @"NO";
-      }
-
-      v28 = v22;
-      v29 = lCopy;
-      if ([SpotlightSender jobForDuet:options])
       {
         v23 = @"YES";
       }
@@ -524,7 +517,9 @@ LABEL_7:
         v23 = @"NO";
       }
 
-      if ([SpotlightSender jobForSuggestions:options])
+      v28 = v23;
+      v29 = lCopy;
+      if ([SpotlightSender jobForDuet:options])
       {
         v24 = @"YES";
       }
@@ -534,8 +529,7 @@ LABEL_7:
         v24 = @"NO";
       }
 
-      *buf = 138413570;
-      if ([SpotlightSender jobForTextUnderstanding:options])
+      if ([SpotlightSender jobForSuggestions:options])
       {
         v25 = @"YES";
       }
@@ -545,41 +539,52 @@ LABEL_7:
         v25 = @"NO";
       }
 
+      *buf = 138413570;
+      if ([SpotlightSender jobForTextUnderstanding:options])
+      {
+        v26 = @"YES";
+      }
+
+      else
+      {
+        v26 = @"NO";
+      }
+
       v40 = dCopy;
       v41 = 2048;
       optionsCopy = options;
       v43 = 2112;
       v44 = v28;
       v45 = 2112;
-      v46 = v23;
+      v46 = v24;
       lCopy = v29;
       v47 = 2112;
-      v48 = v24;
-      v20 = &off_231AED000;
+      v48 = v25;
+      v21 = &off_231AED000;
       v49 = 2112;
-      v50 = v25;
-      _os_log_impl(&dword_231A35000, v21, OS_LOG_TYPE_DEFAULT, "_dispatchToReceivers, deleteSearchableItemsWithEncodedIdentifiers, bundleID:%@, options:0x%lx, test/duet/suggestions/textunderstanding:%@/%@/%@/%@", buf, 0x3Eu);
+      v50 = v26;
+      _os_log_impl(&dword_231A35000, v22, OS_LOG_TYPE_DEFAULT, "_dispatchToReceivers, deleteSearchableItemsWithEncodedIdentifiers, bundleID:%@, options:0x%lx, test/duet/suggestions/textunderstanding:%@/%@/%@/%@", buf, 0x3Eu);
     }
 
     v36[0] = MEMORY[0x277D85DD0];
-    v36[1] = *(v20 + 179);
+    v36[1] = *(v21 + 179);
     v36[2] = __119__MDSearchableIndexService__dispatchToReceiversWithBundleID_protectionClass_options_items_itemsText_itemsHTML_deletes___block_invoke;
     v36[3] = &unk_278937758;
-    v37 = deletesCopy;
+    v37 = v20;
     v38 = dCopy;
     [SpotlightSender dispatchWithOptions:options block:v36];
   }
 
   if (itemsCopy)
   {
-    v26 = logForCSLogCategoryDefault();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+    v27 = logForCSLogCategoryDefault(deletesCopy);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
     {
       [MDSearchableIndexService _dispatchToReceiversWithBundleID:protectionClass:options:items:itemsText:itemsHTML:deletes:];
     }
 
     v30[0] = MEMORY[0x277D85DD0];
-    v30[1] = *(v20 + 179);
+    v30[1] = *(v21 + 179);
     v30[2] = __119__MDSearchableIndexService__dispatchToReceiversWithBundleID_protectionClass_options_items_itemsText_itemsHTML_deletes___block_invoke_52;
     v30[3] = &unk_278937780;
     v31 = lCopy;
@@ -589,8 +594,6 @@ LABEL_7:
     v35 = classCopy;
     [SpotlightSender dispatchWithOptions:options block:v30];
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __119__MDSearchableIndexService__dispatchToReceiversWithBundleID_protectionClass_options_items_itemsText_itemsHTML_deletes___block_invoke_52(void *a1, unint64_t a2)
@@ -616,12 +619,13 @@ void __119__MDSearchableIndexService__dispatchToReceiversWithBundleID_protection
 
 - (void)willModifySearchableItemsWithIdentifiers:(id)identifiers protectionClass:(id)class forBundleID:(id)d options:(int64_t)options completionHandler:(id)handler
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   classCopy = class;
   dCopy = d;
   handlerCopy = handler;
-  v16 = objc_autoreleasePoolPush();
+  clientBundleID = objc_autoreleasePoolPush();
+  v17 = clientBundleID;
   if (dCopy)
   {
     if (classCopy)
@@ -632,56 +636,54 @@ void __119__MDSearchableIndexService__dispatchToReceiversWithBundleID_protection
 
   else
   {
-    dCopy = [(MDSearchableIndexService *)self clientBundleID];
+    clientBundleID = [(MDSearchableIndexService *)self clientBundleID];
+    dCopy = clientBundleID;
     if (classCopy)
     {
       goto LABEL_3;
     }
   }
 
-  classCopy = [(MDSearchableIndexService *)self protectionClass];
+  clientBundleID = [(MDSearchableIndexService *)self protectionClass];
+  classCopy = clientBundleID;
 LABEL_3:
-  v17 = logForCSLogCategoryIndex();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+  v18 = logForCSLogCategoryIndex(clientBundleID);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138413058;
-    v25 = dCopy;
-    v26 = 2048;
-    v27 = [identifiersCopy count];
-    v28 = 2112;
-    v29 = identifiersCopy;
-    v30 = 2048;
+    v24 = dCopy;
+    v25 = 2048;
+    v26 = [identifiersCopy count];
+    v27 = 2112;
+    v28 = identifiersCopy;
+    v29 = 2048;
     optionsCopy = options;
-    _os_log_debug_impl(&dword_231A35000, v17, OS_LOG_TYPE_DEBUG, "(%@) willModifySearchableItemsWithIdentifiers, identifiers/%ld:%@, options:0x%lx", buf, 0x2Au);
+    _os_log_debug_impl(&dword_231A35000, v18, OS_LOG_TYPE_DEBUG, "(%@) willModifySearchableItemsWithIdentifiers, identifiers/%ld:%@, options:0x%lx", buf, 0x2Au);
   }
 
-  v18 = [(MDSearchableIndexService *)self _checkItems:0 identifiers:identifiersCopy protectionClass:classCopy bundleID:dCopy];
-  if (v18)
+  v19 = [(MDSearchableIndexService *)self _checkItems:0 identifiers:identifiersCopy protectionClass:classCopy bundleID:dCopy];
+  if (v19)
   {
     if (handlerCopy)
     {
-      handlerCopy[2](handlerCopy, v18);
+      handlerCopy[2](handlerCopy, v19);
 LABEL_15:
     }
   }
 
   else
   {
-    if ([(MDSearchableIndexService *)self _jobForIndex:options])
+    if ([(MDSearchableIndexService *)self _jobForIndex:options]&& (objc_opt_respondsToSelector() & 1) != 0)
     {
       indexer = self->_indexer;
-      if (objc_opt_respondsToSelector())
-      {
-        v20 = self->_indexer;
-        v22[0] = MEMORY[0x277D85DD0];
-        v22[1] = 3221225472;
-        v22[2] = __123__MDSearchableIndexService_willModifySearchableItemsWithIdentifiers_protectionClass_forBundleID_options_completionHandler___block_invoke;
-        v22[3] = &unk_278935048;
-        v23 = handlerCopy;
-        [(MDIndexer *)v20 willModifySearchableItemsWithIdentifiers:identifiersCopy protectionClass:classCopy forBundleID:dCopy options:options completionHandler:v22];
-        handlerCopy = v23;
-        goto LABEL_15;
-      }
+      v21[0] = MEMORY[0x277D85DD0];
+      v21[1] = 3221225472;
+      v21[2] = __123__MDSearchableIndexService_willModifySearchableItemsWithIdentifiers_protectionClass_forBundleID_options_completionHandler___block_invoke;
+      v21[3] = &unk_278935048;
+      v22 = handlerCopy;
+      [(MDIndexer *)indexer willModifySearchableItemsWithIdentifiers:identifiersCopy protectionClass:classCopy forBundleID:dCopy options:options completionHandler:v21];
+      handlerCopy = v22;
+      goto LABEL_15;
     }
 
     if (handlerCopy)
@@ -691,8 +693,7 @@ LABEL_15:
     }
   }
 
-  objc_autoreleasePoolPop(v16);
-  v21 = *MEMORY[0x277D85DE8];
+  objc_autoreleasePoolPop(v17);
 }
 
 uint64_t __123__MDSearchableIndexService_willModifySearchableItemsWithIdentifiers_protectionClass_forBundleID_options_completionHandler___block_invoke(uint64_t a1)
@@ -715,18 +716,24 @@ uint64_t __123__MDSearchableIndexService_willModifySearchableItemsWithIdentifier
   clientCopy = client;
   handlerCopy = handler;
   v19 = objc_autoreleasePoolPush();
+  v20 = v19;
   clientBundleID = self->_clientBundleID;
   if (dCopy)
   {
-    if (clientBundleID && ![(NSString *)dCopy isEqualToString:?])
+    if (clientBundleID)
     {
-      goto LABEL_8;
+      v19 = [(NSString *)dCopy isEqualToString:?];
+      if (!v19)
+      {
+        goto LABEL_8;
+      }
     }
   }
 
   else
   {
-    dCopy = clientBundleID;
+    v19 = clientBundleID;
+    dCopy = v19;
   }
 
   if (!self->_protectionClass)
@@ -736,8 +743,8 @@ uint64_t __123__MDSearchableIndexService_willModifySearchableItemsWithIdentifier
   }
 
 LABEL_8:
-  v21 = logForCSLogCategoryIndex();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+  v22 = logForCSLogCategoryIndex(v19);
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
     v39 = dCopy;
@@ -745,21 +752,21 @@ LABEL_8:
     v41 = classCopy;
     v42 = 2048;
     v43 = [identifiersCopy count];
-    _os_log_impl(&dword_231A35000, v21, OS_LOG_TYPE_DEFAULT, "(%@) deleteSearchableItemsWithDomainIdentifiers, protectionClass:%@, domainIdentifier num:%ld", buf, 0x20u);
+    _os_log_impl(&dword_231A35000, v22, OS_LOG_TYPE_DEFAULT, "(%@) deleteSearchableItemsWithDomainIdentifiers, protectionClass:%@, domainIdentifier num:%ld", buf, 0x20u);
   }
 
-  v22 = logForCSLogCategoryIndex();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+  v24 = logForCSLogCategoryIndex(v23);
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
   {
     [MDSearchableIndexService deleteSearchableItemsWithDomainIdentifiers:protectionClass:forBundleID:fromClient:options:completionHandler:];
   }
 
-  v23 = [(MDSearchableIndexService *)self _checkItems:0 identifiers:identifiersCopy protectionClass:classCopy bundleID:dCopy];
-  if (v23)
+  v25 = [(MDSearchableIndexService *)self _checkItems:0 identifiers:identifiersCopy protectionClass:classCopy bundleID:dCopy];
+  if (v25)
   {
     if (handlerCopy)
     {
-      handlerCopy[2](handlerCopy, v23);
+      handlerCopy[2](handlerCopy, v25);
 LABEL_23:
     }
   }
@@ -770,16 +777,16 @@ LABEL_23:
     {
       +[CSRecieverState sharedInstance];
       v32 = identifiersCopy;
-      v24 = clientCopy;
-      v25 = v19;
-      v27 = v26 = options;
-      v28 = [v27 checkBundleIdentifier:dCopy];
+      v26 = clientCopy;
+      v27 = v20;
+      v29 = v28 = options;
+      v30 = [v29 checkBundleIdentifier:dCopy];
 
-      options = v26;
-      v19 = v25;
-      clientCopy = v24;
+      options = v28;
+      v20 = v27;
+      clientCopy = v26;
       identifiersCopy = v32;
-      if (v28)
+      if (v30)
       {
         v35[0] = MEMORY[0x277D85DD0];
         v35[1] = 3221225472;
@@ -791,21 +798,17 @@ LABEL_23:
       }
     }
 
-    if ([(MDSearchableIndexService *)self _jobForIndex:options])
+    if ([(MDSearchableIndexService *)self _jobForIndex:options]&& (objc_opt_respondsToSelector() & 1) != 0)
     {
       indexer = self->_indexer;
-      if (objc_opt_respondsToSelector())
-      {
-        v30 = self->_indexer;
-        v33[0] = MEMORY[0x277D85DD0];
-        v33[1] = 3221225472;
-        v33[2] = __136__MDSearchableIndexService_deleteSearchableItemsWithDomainIdentifiers_protectionClass_forBundleID_fromClient_options_completionHandler___block_invoke_2;
-        v33[3] = &unk_278935048;
-        v34 = handlerCopy;
-        [(MDIndexer *)v30 deleteSearchableItemsWithDomainIdentifiers:identifiersCopy protectionClass:classCopy forBundleID:dCopy fromClient:clientCopy options:options completionHandler:v33];
-        handlerCopy = v34;
-        goto LABEL_23;
-      }
+      v33[0] = MEMORY[0x277D85DD0];
+      v33[1] = 3221225472;
+      v33[2] = __136__MDSearchableIndexService_deleteSearchableItemsWithDomainIdentifiers_protectionClass_forBundleID_fromClient_options_completionHandler___block_invoke_2;
+      v33[3] = &unk_278935048;
+      v34 = handlerCopy;
+      [(MDIndexer *)indexer deleteSearchableItemsWithDomainIdentifiers:identifiersCopy protectionClass:classCopy forBundleID:dCopy fromClient:clientCopy options:options completionHandler:v33];
+      handlerCopy = v34;
+      goto LABEL_23;
     }
 
     if (handlerCopy)
@@ -815,8 +818,7 @@ LABEL_23:
     }
   }
 
-  objc_autoreleasePoolPop(v19);
-  v31 = *MEMORY[0x277D85DE8];
+  objc_autoreleasePoolPop(v20);
 }
 
 uint64_t __136__MDSearchableIndexService_deleteSearchableItemsWithDomainIdentifiers_protectionClass_forBundleID_fromClient_options_completionHandler___block_invoke_2(uint64_t a1)
@@ -832,12 +834,13 @@ uint64_t __136__MDSearchableIndexService_deleteSearchableItemsWithDomainIdentifi
 
 - (void)fetchLastClientStateWithProtectionClass:(id)class forBundleID:(id)d clientStateName:(id)name options:(int64_t)options completionHandler:(id)handler
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   classCopy = class;
   dCopy = d;
   nameCopy = name;
   handlerCopy = handler;
-  v16 = objc_autoreleasePoolPush();
+  clientBundleID = objc_autoreleasePoolPush();
+  v17 = clientBundleID;
   if (dCopy)
   {
     if (classCopy)
@@ -848,59 +851,57 @@ uint64_t __136__MDSearchableIndexService_deleteSearchableItemsWithDomainIdentifi
 
   else
   {
-    dCopy = [(MDSearchableIndexService *)self clientBundleID];
+    clientBundleID = [(MDSearchableIndexService *)self clientBundleID];
+    dCopy = clientBundleID;
     if (classCopy)
     {
       goto LABEL_3;
     }
   }
 
-  classCopy = [(MDSearchableIndexService *)self protectionClass];
+  clientBundleID = [(MDSearchableIndexService *)self protectionClass];
+  classCopy = clientBundleID;
 LABEL_3:
-  v17 = logForCSLogCategoryIndex();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+  v18 = logForCSLogCategoryIndex(clientBundleID);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
   {
     protectionClass = [(MDSearchableIndexService *)self protectionClass];
     *buf = 138413314;
-    v26 = dCopy;
-    v27 = 2112;
-    v28 = nameCopy;
-    v29 = 2112;
-    v30 = classCopy;
-    v31 = 2112;
-    v32 = protectionClass;
-    v33 = 2048;
+    v25 = dCopy;
+    v26 = 2112;
+    v27 = nameCopy;
+    v28 = 2112;
+    v29 = classCopy;
+    v30 = 2112;
+    v31 = protectionClass;
+    v32 = 2048;
     optionsCopy = options;
-    _os_log_debug_impl(&dword_231A35000, v17, OS_LOG_TYPE_DEBUG, "(%@) fetchLastClientStateWithProtectionClass, clientStateName:%@, protectionClass:%@/%@, options:0x%lx", buf, 0x34u);
+    _os_log_debug_impl(&dword_231A35000, v18, OS_LOG_TYPE_DEBUG, "(%@) fetchLastClientStateWithProtectionClass, clientStateName:%@, protectionClass:%@/%@, options:0x%lx", buf, 0x34u);
   }
 
-  v18 = [(MDSearchableIndexService *)self _checkItems:0 identifiers:0 protectionClass:classCopy bundleID:dCopy];
-  if (v18)
+  v19 = [(MDSearchableIndexService *)self _checkItems:0 identifiers:0 protectionClass:classCopy bundleID:dCopy];
+  if (v19)
   {
     if (handlerCopy)
     {
-      handlerCopy[2](handlerCopy, 0, v18);
+      handlerCopy[2](handlerCopy, 0, v19);
 LABEL_15:
     }
   }
 
   else
   {
-    if ([(MDSearchableIndexService *)self _jobForIndex:options])
+    if ([(MDSearchableIndexService *)self _jobForIndex:options]&& (objc_opt_respondsToSelector() & 1) != 0)
     {
       indexer = self->_indexer;
-      if (objc_opt_respondsToSelector())
-      {
-        v20 = self->_indexer;
-        v23[0] = MEMORY[0x277D85DD0];
-        v23[1] = 3221225472;
-        v23[2] = __122__MDSearchableIndexService_fetchLastClientStateWithProtectionClass_forBundleID_clientStateName_options_completionHandler___block_invoke;
-        v23[3] = &unk_2789377A8;
-        v24 = handlerCopy;
-        [(MDIndexer *)v20 fetchLastClientStateWithProtectionClass:classCopy forBundleID:dCopy clientStateName:nameCopy options:options completionHandler:v23];
-        handlerCopy = v24;
-        goto LABEL_15;
-      }
+      v22[0] = MEMORY[0x277D85DD0];
+      v22[1] = 3221225472;
+      v22[2] = __122__MDSearchableIndexService_fetchLastClientStateWithProtectionClass_forBundleID_clientStateName_options_completionHandler___block_invoke;
+      v22[3] = &unk_2789377A8;
+      v23 = handlerCopy;
+      [(MDIndexer *)indexer fetchLastClientStateWithProtectionClass:classCopy forBundleID:dCopy clientStateName:nameCopy options:options completionHandler:v22];
+      handlerCopy = v23;
+      goto LABEL_15;
     }
 
     if (handlerCopy)
@@ -910,8 +911,7 @@ LABEL_15:
     }
   }
 
-  objc_autoreleasePoolPop(v16);
-  v21 = *MEMORY[0x277D85DE8];
+  objc_autoreleasePoolPop(v17);
 }
 
 uint64_t __122__MDSearchableIndexService_fetchLastClientStateWithProtectionClass_forBundleID_clientStateName_options_completionHandler___block_invoke(uint64_t a1)
@@ -930,7 +930,7 @@ uint64_t __122__MDSearchableIndexService_fetchLastClientStateWithProtectionClass
   pathCopy = path;
   handlerCopy = handler;
   v8 = objc_autoreleasePoolPush();
-  v9 = logForCSLogCategoryIndex();
+  v9 = logForCSLogCategoryIndex(v8);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     [MDSearchableIndexService updateCorrectionsWithFilePath:options:completionHandler:];
@@ -1004,6 +1004,51 @@ void __123__MDSearchableIndexService_fetchAttributes_protectionClass_bundleID_id
   (*(*(a1 + 40) + 16))();
 }
 
+- (void)fetchCacheFileDescriptorsForProtectionClass:(id)class bundleID:(id)d identifiers:(id)identifiers userCtx:(id)ctx flags:(unsigned int)flags qos:(unsigned int)qos reply:(id)reply completionHandler:(id)self0
+{
+  v10 = *&flags;
+  classCopy = class;
+  dCopy = d;
+  identifiersCopy = identifiers;
+  ctxCopy = ctx;
+  replyCopy = reply;
+  handlerCopy = handler;
+  v21 = objc_autoreleasePoolPush();
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    v22 = identifiersCopy;
+  }
+
+  else
+  {
+    v22 = 0;
+  }
+
+  v23 = [(MDSearchableIndexService *)self _checkItems:0 identifiers:v22 protectionClass:classCopy bundleID:dCopy];
+  if (v23)
+  {
+    v24 = v23;
+    handlerCopy[2](handlerCopy, v23);
+  }
+
+  else
+  {
+    indexer = self->_indexer;
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = __135__MDSearchableIndexService_fetchCacheFileDescriptorsForProtectionClass_bundleID_identifiers_userCtx_flags_qos_reply_completionHandler___block_invoke;
+    v27[3] = &unk_2789377D0;
+    v28 = replyCopy;
+    v29 = handlerCopy;
+    [(MDIndexer *)indexer fetchCacheFileDescriptorsForProtectionClass:classCopy bundleID:dCopy identifiers:identifiersCopy userCtx:ctxCopy flags:v10 qos:qos completionHandler:v27];
+
+    handlerCopy = v28;
+  }
+
+  objc_autoreleasePoolPop(v21);
+}
+
 void __135__MDSearchableIndexService_fetchCacheFileDescriptorsForProtectionClass_bundleID_identifiers_userCtx_flags_qos_reply_completionHandler___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = a3;
@@ -1017,12 +1062,13 @@ void __135__MDSearchableIndexService_fetchCacheFileDescriptorsForProtectionClass
 
 - (void)deleteSearchableItemsSinceDate:(id)date protectionClass:(id)class forBundleID:(id)d options:(int64_t)options completionHandler:(id)handler
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   classCopy = class;
   dCopy = d;
   handlerCopy = handler;
-  v16 = objc_autoreleasePoolPush();
+  clientBundleID = objc_autoreleasePoolPush();
+  v17 = clientBundleID;
   if (dCopy)
   {
     if (classCopy)
@@ -1033,33 +1079,35 @@ void __135__MDSearchableIndexService_fetchCacheFileDescriptorsForProtectionClass
 
   else
   {
-    dCopy = [(MDSearchableIndexService *)self clientBundleID];
+    clientBundleID = [(MDSearchableIndexService *)self clientBundleID];
+    dCopy = clientBundleID;
     if (classCopy)
     {
       goto LABEL_3;
     }
   }
 
-  classCopy = [(MDSearchableIndexService *)self protectionClass];
+  clientBundleID = [(MDSearchableIndexService *)self protectionClass];
+  classCopy = clientBundleID;
 LABEL_3:
-  v17 = logForCSLogCategoryIndex();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+  v18 = logForCSLogCategoryIndex(clientBundleID);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412802;
-    v30 = dCopy;
-    v31 = 2112;
-    v32 = dateCopy;
-    v33 = 2048;
+    v29 = dCopy;
+    v30 = 2112;
+    v31 = dateCopy;
+    v32 = 2048;
     optionsCopy = options;
-    _os_log_debug_impl(&dword_231A35000, v17, OS_LOG_TYPE_DEBUG, "(%@) deleteSearchableItemsSinceDate, startDate:%@, options:0x%lx", buf, 0x20u);
+    _os_log_debug_impl(&dword_231A35000, v18, OS_LOG_TYPE_DEBUG, "(%@) deleteSearchableItemsSinceDate, startDate:%@, options:0x%lx", buf, 0x20u);
   }
 
-  v18 = [(MDSearchableIndexService *)self _checkItems:0 identifiers:0 protectionClass:classCopy bundleID:dCopy];
-  if (v18)
+  v19 = [(MDSearchableIndexService *)self _checkItems:0 identifiers:0 protectionClass:classCopy bundleID:dCopy];
+  if (v19)
   {
     if (handlerCopy)
     {
-      handlerCopy[2](handlerCopy, v18);
+      handlerCopy[2](handlerCopy, v19);
 LABEL_18:
     }
   }
@@ -1068,36 +1116,32 @@ LABEL_18:
   {
     if (!self->_isPrivate)
     {
-      v19 = +[CSRecieverState sharedInstance];
-      v20 = [v19 checkBundleIdentifier:dCopy];
+      v20 = +[CSRecieverState sharedInstance];
+      v21 = [v20 checkBundleIdentifier:dCopy];
 
-      if (v20)
+      if (v21)
       {
-        v26[0] = MEMORY[0x277D85DD0];
-        v26[1] = 3221225472;
-        v26[2] = __113__MDSearchableIndexService_deleteSearchableItemsSinceDate_protectionClass_forBundleID_options_completionHandler___block_invoke;
-        v26[3] = &unk_278937758;
-        v27 = dateCopy;
-        v28 = dCopy;
-        [SpotlightSender dispatchWithOptions:options block:v26];
+        v25[0] = MEMORY[0x277D85DD0];
+        v25[1] = 3221225472;
+        v25[2] = __113__MDSearchableIndexService_deleteSearchableItemsSinceDate_protectionClass_forBundleID_options_completionHandler___block_invoke;
+        v25[3] = &unk_278937758;
+        v26 = dateCopy;
+        v27 = dCopy;
+        [SpotlightSender dispatchWithOptions:options block:v25];
       }
     }
 
-    if ([(MDSearchableIndexService *)self _jobForIndex:options])
+    if ([(MDSearchableIndexService *)self _jobForIndex:options]&& (objc_opt_respondsToSelector() & 1) != 0)
     {
       indexer = self->_indexer;
-      if (objc_opt_respondsToSelector())
-      {
-        v22 = self->_indexer;
-        v24[0] = MEMORY[0x277D85DD0];
-        v24[1] = 3221225472;
-        v24[2] = __113__MDSearchableIndexService_deleteSearchableItemsSinceDate_protectionClass_forBundleID_options_completionHandler___block_invoke_2;
-        v24[3] = &unk_278935048;
-        v25 = handlerCopy;
-        [(MDIndexer *)v22 deleteSearchableItemsSinceDate:dateCopy protectionClass:classCopy forBundleID:dCopy options:options completionHandler:v24];
-        handlerCopy = v25;
-        goto LABEL_18;
-      }
+      v23[0] = MEMORY[0x277D85DD0];
+      v23[1] = 3221225472;
+      v23[2] = __113__MDSearchableIndexService_deleteSearchableItemsSinceDate_protectionClass_forBundleID_options_completionHandler___block_invoke_2;
+      v23[3] = &unk_278935048;
+      v24 = handlerCopy;
+      [(MDIndexer *)indexer deleteSearchableItemsSinceDate:dateCopy protectionClass:classCopy forBundleID:dCopy options:options completionHandler:v23];
+      handlerCopy = v24;
+      goto LABEL_18;
     }
 
     if (handlerCopy)
@@ -1107,8 +1151,7 @@ LABEL_18:
     }
   }
 
-  objc_autoreleasePoolPop(v16);
-  v23 = *MEMORY[0x277D85DE8];
+  objc_autoreleasePoolPop(v17);
 }
 
 uint64_t __113__MDSearchableIndexService_deleteSearchableItemsSinceDate_protectionClass_forBundleID_options_completionHandler___block_invoke_2(uint64_t a1)
@@ -1128,21 +1171,24 @@ uint64_t __113__MDSearchableIndexService_deleteSearchableItemsSinceDate_protecti
   identifierCopy = identifier;
   typeCopy = type;
   handlerCopy = handler;
-  if (!-[MDSearchableIndexService searchInternal](self, "searchInternal") && (!-[MDSearchableIndexService allowMail](self, "allowMail") || ([bundleCopy isEqualToString:@"com.apple.mobilemail"] & 1) == 0) && (!-[MDSearchableIndexService allowMessagesContent](self, "allowMessagesContent") || (objc_msgSend(bundleCopy, "isEqualToString:", @"com.apple.MobileSMS") & 1) == 0))
+  if (!-[MDSearchableIndexService searchInternal](self, "searchInternal") && (!-[MDSearchableIndexService allowMail](self, "allowMail") || ([bundleCopy isEqualToString:@"com.apple.mobilemail"] & 1) == 0))
   {
-    v15 = logForCSLogCategoryIndex();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    allowMessagesContent = [(MDSearchableIndexService *)self allowMessagesContent];
+    if (!allowMessagesContent || (allowMessagesContent = [bundleCopy isEqualToString:@"com.apple.MobileSMS"], (allowMessagesContent & 1) == 0))
     {
-      [MDSearchableIndexService provideDataForBundle:identifier:type:completionHandler:];
+      v15 = logForCSLogCategoryIndex(allowMessagesContent);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      {
+        [MDSearchableIndexService provideDataForBundle:identifier:type:completionHandler:];
+      }
+
+      v16 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CC22E8] code:-1003 userInfo:0];
+      handlerCopy[2](handlerCopy, 0, v16);
+
+      goto LABEL_13;
     }
-
-    v16 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CC22E8] code:-1003 userInfo:0];
-    handlerCopy[2](handlerCopy, 0, v16);
-
-    goto LABEL_13;
   }
 
-  indexer = self->_indexer;
   if (objc_opt_respondsToSelector())
   {
     [(MDIndexer *)self->_indexer provideDataForBundle:bundleCopy identifier:identifierCopy type:typeCopy completionHandler:handlerCopy];
@@ -1166,9 +1212,10 @@ LABEL_14:
   identifierCopy = identifier;
   typeCopy = type;
   handlerCopy = handler;
-  if (![(MDSearchableIndexService *)self searchInternal])
+  searchInternal = [(MDSearchableIndexService *)self searchInternal];
+  if ((searchInternal & 1) == 0)
   {
-    v15 = logForCSLogCategoryIndex();
+    v15 = logForCSLogCategoryIndex(searchInternal);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [MDSearchableIndexService provideDataForBundle:identifier:type:completionHandler:];
@@ -1180,7 +1227,6 @@ LABEL_14:
     goto LABEL_9;
   }
 
-  indexer = self->_indexer;
   if (objc_opt_respondsToSelector())
   {
     [(MDIndexer *)self->_indexer provideFileURLForBundle:bundleCopy identifier:identifierCopy type:typeCopy completionHandler:handlerCopy];
@@ -1198,12 +1244,202 @@ LABEL_9:
 LABEL_10:
 }
 
+- (void)_issueCommand:(id)command outFileDescriptor:(int)descriptor searchContext:(id)context completionHandler:(id)handler
+{
+  v8 = *&descriptor;
+  commandCopy = command;
+  contextCopy = context;
+  handlerCopy = handler;
+  if (![commandCopy hasPrefix:@"provide:"])
+  {
+    allowMessagesContent = [commandCopy hasPrefix:@"setUISearchEnabled:"];
+    if ((allowMessagesContent & 1) != 0 || self->_isInternal || self->_isPrivate)
+    {
+      goto LABEL_39;
+    }
+
+LABEL_41:
+    v28 = logForCSLogCategoryIndex(allowMessagesContent);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    {
+      [MDSearchableIndexService provideDataForBundle:identifier:type:completionHandler:];
+    }
+
+    v29 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CC22E8] code:-1003 userInfo:0];
+    handlerCopy[2](handlerCopy, 0, v29);
+
+    goto LABEL_46;
+  }
+
+  if ([(MDSearchableIndexService *)self searchInternal])
+  {
+    v13 = 1;
+    goto LABEL_17;
+  }
+
+  if (![(MDSearchableIndexService *)self allowMail])
+  {
+    v13 = 0;
+    goto LABEL_17;
+  }
+
+  v15 = [commandCopy componentsSeparatedByString:@":"];
+  if ([v15 count] < 4)
+  {
+    goto LABEL_15;
+  }
+
+  v16 = [v15 objectAtIndexedSubscript:3];
+  if (![v16 isEqualToString:@"com.apple.mobilemail"])
+  {
+    v17 = [v15 objectAtIndexedSubscript:3];
+    v18 = [v17 isEqualToString:@"com.apple.MobileSMS"];
+
+    if (v18)
+    {
+      goto LABEL_14;
+    }
+
+LABEL_15:
+    v13 = 0;
+    goto LABEL_16;
+  }
+
+LABEL_14:
+  v13 = 1;
+LABEL_16:
+
+LABEL_17:
+  if ([(MDSearchableIndexService *)self allowNotifications])
+  {
+    goto LABEL_29;
+  }
+
+  v19 = [commandCopy componentsSeparatedByString:@":"];
+  if ([v19 count] <= 5)
+  {
+    if ([v19 count] < 4)
+    {
+      v21 = 0;
+      goto LABEL_24;
+    }
+
+    v20 = 3;
+  }
+
+  else
+  {
+    v20 = 4;
+  }
+
+  v21 = [v19 objectAtIndexedSubscript:v20];
+LABEL_24:
+  v22 = [v21 isEqualToString:@"com.apple.usernotificationsd"];
+  if (v22)
+  {
+    v23 = logForCSLogCategoryDefault(v22);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    {
+      [MDSearchableIndexService _issueCommand:? outFileDescriptor:? searchContext:? completionHandler:?];
+    }
+
+    v13 = 0;
+  }
+
+LABEL_29:
+  allowMessagesContent = [(MDSearchableIndexService *)self allowMessagesContent];
+  if ((allowMessagesContent & 1) == 0)
+  {
+    v24 = [commandCopy componentsSeparatedByString:@":"];
+    if ([v24 count] < 5)
+    {
+      v25 = 0;
+    }
+
+    else
+    {
+      v25 = [v24 objectAtIndexedSubscript:2];
+    }
+
+    v26 = [v25 isEqualToString:@"com.apple.metadata-importer.messages.plain-text"];
+    if (v26)
+    {
+      v27 = logForCSLogCategoryDefault(v26);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+      {
+        [MDSearchableIndexService _issueCommand:? outFileDescriptor:? searchContext:? completionHandler:?];
+      }
+
+      goto LABEL_41;
+    }
+  }
+
+  if ((v13 & 1) == 0)
+  {
+    goto LABEL_41;
+  }
+
+LABEL_39:
+  if (objc_opt_respondsToSelector())
+  {
+    [(MDIndexer *)self->_indexer _issueCommand:commandCopy outFileDescriptor:v8 searchContext:contextCopy completionHandler:handlerCopy];
+LABEL_46:
+
+    goto LABEL_47;
+  }
+
+  if (handlerCopy)
+  {
+    handlerCopy[2](handlerCopy, 0, 0);
+    goto LABEL_46;
+  }
+
+LABEL_47:
+}
+
+- (void)_issueDiagnose:(int)diagnose bundleID:(id)d logQuery:(BOOL)query completionHandler:(id)handler
+{
+  queryCopy = query;
+  v8 = *&diagnose;
+  dCopy = d;
+  handlerCopy = handler;
+  v12 = handlerCopy;
+  if (!self->_isInternal && !self->_isPrivate)
+  {
+    v13 = logForCSLogCategoryIndex(handlerCopy);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    {
+      [MDSearchableIndexService provideDataForBundle:identifier:type:completionHandler:];
+    }
+
+    v14 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CC22E8] code:-1003 userInfo:0];
+    (v12)[2](v12, 0, v14);
+
+    goto LABEL_10;
+  }
+
+  if (objc_opt_respondsToSelector())
+  {
+    [(MDIndexer *)self->_indexer _issueDiagnose:v8 bundleID:dCopy logQuery:queryCopy completionHandler:v12];
+LABEL_10:
+
+    goto LABEL_11;
+  }
+
+  if (v12)
+  {
+    v12[2](v12, 0, 0);
+    goto LABEL_10;
+  }
+
+LABEL_11:
+}
+
 - (void)prepareIndexingWhileLocked:(id)locked protectionClass:(id)class holdAssertionFor:(double)for completionHandler:(id)handler
 {
   lockedCopy = locked;
   classCopy = class;
   handlerCopy = handler;
-  indexer = self->_indexer;
   if (objc_opt_respondsToSelector())
   {
     [(MDIndexer *)self->_indexer prepareIndexingWhileLocked:lockedCopy protectionClass:classCopy holdAssertionFor:handlerCopy completionHandler:for];
@@ -1216,8 +1452,8 @@ LABEL_10:
       goto LABEL_6;
     }
 
-    v13 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CC22E8] code:-1 userInfo:0];
-    handlerCopy[2](handlerCopy, v13);
+    v12 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CC22E8] code:-1 userInfo:0];
+    handlerCopy[2](handlerCopy, v12);
   }
 
 LABEL_6:
@@ -1228,7 +1464,6 @@ LABEL_6:
   lockedCopy = locked;
   classCopy = class;
   handlerCopy = handler;
-  indexer = self->_indexer;
   if (objc_opt_respondsToSelector())
   {
     [(MDIndexer *)self->_indexer finishIndexingWhileLocked:lockedCopy protectionClass:classCopy completionHandler:handlerCopy];
@@ -1241,8 +1476,8 @@ LABEL_6:
       goto LABEL_6;
     }
 
-    v11 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CC22E8] code:-1 userInfo:0];
-    handlerCopy[2](handlerCopy, v11);
+    v10 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CC22E8] code:-1 userInfo:0];
+    handlerCopy[2](handlerCopy, v10);
   }
 
 LABEL_6:
@@ -1251,11 +1486,12 @@ LABEL_6:
 - (void)_deleteAllSearchableItemsWithBundleID:(id)d protectionClass:(id)class shouldGC:(BOOL)c options:(int64_t)options deleteAllReason:(int64_t)reason completionHandler:(id)handler
 {
   cCopy = c;
-  v62 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   dCopy = d;
   classCopy = class;
   handlerCopy = handler;
-  clientConnection4 = objc_autoreleasePoolPush();
+  clientBundleID = objc_autoreleasePoolPush();
+  clientConnection4 = clientBundleID;
   if (dCopy)
   {
     if (classCopy)
@@ -1266,27 +1502,29 @@ LABEL_6:
 
   else
   {
-    dCopy = [(MDSearchableIndexService *)self clientBundleID];
+    clientBundleID = [(MDSearchableIndexService *)self clientBundleID];
+    dCopy = clientBundleID;
     if (classCopy)
     {
       goto LABEL_3;
     }
   }
 
-  classCopy = [(MDSearchableIndexService *)self protectionClass];
+  clientBundleID = [(MDSearchableIndexService *)self protectionClass];
+  classCopy = clientBundleID;
 LABEL_3:
-  v18 = logForCSLogCategoryIndex();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  v19 = logForCSLogCategoryIndex(clientBundleID);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     optionsCopy = options;
-    v19 = "NO";
+    v20 = "NO";
     if (cCopy)
     {
-      v19 = "YES";
+      v20 = "YES";
     }
 
-    v36 = v19;
-    v37 = qos_class_self();
+    v34 = v20;
+    v35 = qos_class_self();
     clientConnection = [(MDSearchableIndexService *)self clientConnection];
     reasonCopy = reason;
     if (clientConnection)
@@ -1300,9 +1538,9 @@ LABEL_3:
       name = "";
     }
 
-    v39 = clientConnection4;
+    v37 = clientConnection4;
     clientConnection3 = [(MDSearchableIndexService *)self clientConnection];
-    v23 = clientConnection3;
+    v24 = clientConnection3;
     if (clientConnection3)
     {
       clientConnection4 = [(MDSearchableIndexService *)self clientConnection];
@@ -1310,21 +1548,21 @@ LABEL_3:
     }
 
     *buf = 138413826;
-    v49 = dCopy;
-    v50 = 2112;
-    v51 = classCopy;
-    v52 = 2080;
-    v53 = v36;
+    v47 = dCopy;
+    v48 = 2112;
+    v49 = classCopy;
+    v50 = 2080;
+    v51 = v34;
+    v52 = 2048;
+    v53 = optionsCopy;
     v54 = 2048;
-    v55 = optionsCopy;
-    v56 = 2048;
-    v57 = v37;
-    v58 = 2080;
-    v59 = name;
-    v60 = 1024;
-    v61 = clientConnection3;
-    _os_log_impl(&dword_231A35000, v18, OS_LOG_TYPE_DEFAULT, "(%@) deleteAllSearchableItemsWithBundleID, protectionClass:%@, shouldGC:%s, options:0x%lx, qos:0x%lx conn:%s(%d)", buf, 0x44u);
-    if (v23)
+    v55 = v35;
+    v56 = 2080;
+    v57 = name;
+    v58 = 1024;
+    v59 = clientConnection3;
+    _os_log_impl(&dword_231A35000, v19, OS_LOG_TYPE_DEFAULT, "(%@) deleteAllSearchableItemsWithBundleID, protectionClass:%@, shouldGC:%s, options:0x%lx, qos:0x%lx conn:%s(%d)", buf, 0x44u);
+    if (v24)
     {
     }
 
@@ -1333,69 +1571,67 @@ LABEL_3:
     }
 
     reason = reasonCopy;
-    clientConnection4 = v39;
+    clientConnection4 = v37;
     options = optionsCopy;
   }
 
-  v24 = [(MDSearchableIndexService *)self _checkNonEmptyBundle:dCopy protectionClass:classCopy];
-  if (v24)
+  v25 = [(MDSearchableIndexService *)self _checkNonEmptyBundle:dCopy protectionClass:classCopy];
+  if (v25)
   {
     if (handlerCopy)
     {
-      handlerCopy[2](handlerCopy, v24);
+      handlerCopy[2](handlerCopy, v25);
 LABEL_31:
     }
   }
 
   else
   {
-    v40 = cCopy;
+    v38 = cCopy;
     if (!self->_isPrivate)
     {
-      v25 = +[CSRecieverState sharedInstance];
-      v26 = [v25 checkBundleIdentifier:dCopy];
+      v26 = +[CSRecieverState sharedInstance];
+      v27 = [v26 checkBundleIdentifier:dCopy];
 
-      if (v26)
+      if (v27)
       {
-        v46[0] = MEMORY[0x277D85DD0];
-        v46[1] = 3221225472;
-        v46[2] = __133__MDSearchableIndexService__deleteAllSearchableItemsWithBundleID_protectionClass_shouldGC_options_deleteAllReason_completionHandler___block_invoke;
-        v46[3] = &unk_2789377F8;
-        v47 = dCopy;
-        [SpotlightSender dispatchWithOptions:options block:v46];
+        v44[0] = MEMORY[0x277D85DD0];
+        v44[1] = 3221225472;
+        v44[2] = __133__MDSearchableIndexService__deleteAllSearchableItemsWithBundleID_protectionClass_shouldGC_options_deleteAllReason_completionHandler___block_invoke;
+        v44[3] = &unk_2789377F8;
+        v45 = dCopy;
+        [SpotlightSender dispatchWithOptions:options block:v44];
       }
     }
 
     if ([(MDSearchableIndexService *)self _jobForIndex:options])
     {
-      indexer = self->_indexer;
       v28 = objc_opt_respondsToSelector();
-      v29 = self->_indexer;
+      indexer = self->_indexer;
       if (v28)
       {
-        clientBundleID = [(MDSearchableIndexService *)self clientBundleID];
-        v44[0] = MEMORY[0x277D85DD0];
-        v44[1] = 3221225472;
-        v44[2] = __133__MDSearchableIndexService__deleteAllSearchableItemsWithBundleID_protectionClass_shouldGC_options_deleteAllReason_completionHandler___block_invoke_2;
-        v44[3] = &unk_278935048;
-        v45 = handlerCopy;
-        [(MDIndexer *)v29 deleteAllSearchableItemsWithBundleID:dCopy fromClient:clientBundleID protectionClass:classCopy shouldGC:v40 deleteAllReason:reason completionHandler:v44];
+        clientBundleID2 = [(MDSearchableIndexService *)self clientBundleID];
+        v42[0] = MEMORY[0x277D85DD0];
+        v42[1] = 3221225472;
+        v42[2] = __133__MDSearchableIndexService__deleteAllSearchableItemsWithBundleID_protectionClass_shouldGC_options_deleteAllReason_completionHandler___block_invoke_2;
+        v42[3] = &unk_278935048;
+        v43 = handlerCopy;
+        [(MDIndexer *)indexer deleteAllSearchableItemsWithBundleID:dCopy fromClient:clientBundleID2 protectionClass:classCopy shouldGC:v38 deleteAllReason:reason completionHandler:v42];
 
-        handlerCopy = v45;
+        handlerCopy = v43;
         goto LABEL_31;
       }
 
-      v31 = self->_indexer;
       if (objc_opt_respondsToSelector())
       {
-        v32 = self->_indexer;
-        v42[0] = MEMORY[0x277D85DD0];
-        v42[1] = 3221225472;
-        v42[2] = __133__MDSearchableIndexService__deleteAllSearchableItemsWithBundleID_protectionClass_shouldGC_options_deleteAllReason_completionHandler___block_invoke_3;
-        v42[3] = &unk_278935048;
-        v43 = handlerCopy;
-        [(MDIndexer *)v32 deleteAllSearchableItemsWithProtectionClass:classCopy forBundleID:dCopy options:options deleteAllReason:reason completionHandler:v42];
-        handlerCopy = v43;
+        v31 = self->_indexer;
+        v40[0] = MEMORY[0x277D85DD0];
+        v40[1] = 3221225472;
+        v40[2] = __133__MDSearchableIndexService__deleteAllSearchableItemsWithBundleID_protectionClass_shouldGC_options_deleteAllReason_completionHandler___block_invoke_3;
+        v40[3] = &unk_278935048;
+        v41 = handlerCopy;
+        [(MDIndexer *)v31 deleteAllSearchableItemsWithProtectionClass:classCopy forBundleID:dCopy options:options deleteAllReason:reason completionHandler:v40];
+        handlerCopy = v41;
         goto LABEL_31;
       }
     }
@@ -1408,7 +1644,6 @@ LABEL_31:
   }
 
   objc_autoreleasePoolPop(clientConnection4);
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __133__MDSearchableIndexService__deleteAllSearchableItemsWithBundleID_protectionClass_shouldGC_options_deleteAllReason_completionHandler___block_invoke_2(uint64_t a1)
@@ -1435,7 +1670,7 @@ uint64_t __133__MDSearchableIndexService__deleteAllSearchableItemsWithBundleID_p
 
 - (void)changeStateOfSearchableItemsWithUIDs:(id)ds toState:(int64_t)state protectionClass:(id)class forBundleID:(id)d forUTIType:(id)type options:(int64_t)options
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   classCopy = class;
   dCopy = d;
@@ -1463,8 +1698,8 @@ LABEL_3:
   v19 = [(MDSearchableIndexService *)self _checkItems:0 identifiers:dsCopy protectionClass:classCopy bundleID:dCopy];
   if (!v19)
   {
-    v32 = v18;
-    v20 = logForCSLogCategoryIndex();
+    v30 = v18;
+    v20 = logForCSLogCategoryIndex(0);
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       if ([SpotlightSender jobForTest:options])
@@ -1477,7 +1712,7 @@ LABEL_3:
         v21 = @"NO";
       }
 
-      v31 = v21;
+      v29 = v21;
       if ([SpotlightSender jobForDuet:options])
       {
         v22 = @"YES";
@@ -1488,7 +1723,7 @@ LABEL_3:
         v22 = @"NO";
       }
 
-      v30 = v22;
+      v28 = v22;
       if ([SpotlightSender jobForSuggestions:options])
       {
         v23 = @"YES";
@@ -1510,25 +1745,25 @@ LABEL_3:
       }
 
       *buf = 138414594;
-      v39 = dCopy;
-      v40 = 2112;
-      v41 = typeCopy;
-      v42 = 2048;
+      v37 = dCopy;
+      v38 = 2112;
+      v39 = typeCopy;
+      v40 = 2048;
       stateCopy = state;
-      v44 = 2048;
+      v42 = 2048;
       optionsCopy = options;
+      v44 = 2112;
+      v45 = v29;
       v46 = 2112;
-      v47 = v31;
+      v47 = v28;
       v48 = 2112;
-      v49 = v30;
+      v49 = v27;
       v50 = 2112;
-      v51 = v29;
-      v52 = 2112;
-      v53 = v24;
-      v54 = 2048;
-      v55 = [dsCopy count];
-      v56 = 2112;
-      v57 = dsCopy;
+      v51 = v24;
+      v52 = 2048;
+      v53 = [dsCopy count];
+      v54 = 2112;
+      v55 = dsCopy;
       _os_log_impl(&dword_231A35000, v20, OS_LOG_TYPE_DEFAULT, "(%@) changeStateOfSearchableItemsWithUIDs (delete or purge), uti:%@, state:%ld, options:0x%lx, test/duet/suggestions/textunderstanding:%@/%@/%@/%@, identifiers/%ld:%@", buf, 0x66u);
     }
 
@@ -1539,31 +1774,26 @@ LABEL_3:
 
       if (v26)
       {
-        v33[0] = MEMORY[0x277D85DD0];
-        v33[1] = 3221225472;
-        v33[2] = __120__MDSearchableIndexService_changeStateOfSearchableItemsWithUIDs_toState_protectionClass_forBundleID_forUTIType_options___block_invoke;
-        v33[3] = &unk_278937820;
+        v31[0] = MEMORY[0x277D85DD0];
+        v31[1] = 3221225472;
+        v31[2] = __120__MDSearchableIndexService_changeStateOfSearchableItemsWithUIDs_toState_protectionClass_forBundleID_forUTIType_options___block_invoke;
+        v31[3] = &unk_278937820;
         stateCopy2 = state;
-        v34 = dsCopy;
-        v35 = dCopy;
-        v36 = typeCopy;
-        [SpotlightSender dispatchWithOptions:options block:v33];
+        v32 = dsCopy;
+        v33 = dCopy;
+        v34 = typeCopy;
+        [SpotlightSender dispatchWithOptions:options block:v31];
       }
     }
 
-    v18 = v32;
-    if ([(MDSearchableIndexService *)self _jobForIndex:options])
+    v18 = v30;
+    if ([(MDSearchableIndexService *)self _jobForIndex:options]&& (objc_opt_respondsToSelector() & 1) != 0)
     {
-      indexer = self->_indexer;
-      if (objc_opt_respondsToSelector())
-      {
-        [(MDIndexer *)self->_indexer changeStateOfSearchableItemsWithUIDs:dsCopy toState:state protectionClass:classCopy forBundleID:dCopy forUTIType:typeCopy options:options];
-      }
+      [(MDIndexer *)self->_indexer changeStateOfSearchableItemsWithUIDs:dsCopy toState:state protectionClass:classCopy forBundleID:dCopy forUTIType:typeCopy options:options];
     }
   }
 
   objc_autoreleasePoolPop(v18);
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void *__120__MDSearchableIndexService_changeStateOfSearchableItemsWithUIDs_toState_protectionClass_forBundleID_forUTIType_options___block_invoke(void *result, uint64_t a2)
@@ -1584,88 +1814,89 @@ void *__120__MDSearchableIndexService_changeStateOfSearchableItemsWithUIDs_toSta
 
 - (void)userPerformedAction:(id)action withItem:(id)item protectionClass:(id)class
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   actionCopy = action;
   itemCopy = item;
   classCopy = class;
-  v11 = objc_autoreleasePoolPush();
+  protectionClass = objc_autoreleasePoolPush();
+  v12 = protectionClass;
   if (!classCopy)
   {
-    classCopy = [(MDSearchableIndexService *)self protectionClass];
+    protectionClass = [(MDSearchableIndexService *)self protectionClass];
+    classCopy = protectionClass;
   }
 
-  v12 = logForCSLogCategoryDefault();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v13 = logForCSLogCategoryDefault(protectionClass);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     clientBundleID = [(MDSearchableIndexService *)self clientBundleID];
     *buf = 138413058;
-    v23 = clientBundleID;
-    v24 = 2112;
-    v25 = actionCopy;
-    v26 = 2112;
-    v27 = itemCopy;
-    v28 = 2112;
-    v29 = classCopy;
-    _os_log_debug_impl(&dword_231A35000, v12, OS_LOG_TYPE_DEBUG, "(%@) userPerformedAction, action:%@, item:%@, protectionClass:%@", buf, 0x2Au);
+    v24 = clientBundleID;
+    v25 = 2112;
+    v26 = actionCopy;
+    v27 = 2112;
+    v28 = itemCopy;
+    v29 = 2112;
+    v30 = classCopy;
+    _os_log_debug_impl(&dword_231A35000, v13, OS_LOG_TYPE_DEBUG, "(%@) userPerformedAction, action:%@, item:%@, protectionClass:%@", buf, 0x2Au);
   }
 
   if (actionCopy && itemCopy)
   {
-    v21 = itemCopy;
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v21 count:1];
-    v14 = [(MDSearchableIndexService *)self _checkItems:v13 identifiers:0 protectionClass:classCopy bundleID:0];
+    v22 = itemCopy;
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v22 count:1];
+    v16 = [(MDSearchableIndexService *)self _checkItems:v15 identifiers:0 protectionClass:classCopy bundleID:0];
 
-    if (!v14)
+    if (!v16)
     {
-      v15 = [objc_alloc(MEMORY[0x277CC34F8]) initWithAction:actionCopy item:itemCopy];
-      [v15 setProtectionClass:classCopy];
+      v17 = [objc_alloc(MEMORY[0x277CC34F8]) initWithAction:actionCopy item:itemCopy];
+      [v17 setProtectionClass:classCopy];
       [(MDSearchableIndexService *)self _makeActivityQueueIfNecessary];
       activityQueue = [(MDSearchableIndexService *)self activityQueue];
-      v20 = v15;
-      v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v20 count:1];
-      [activityQueue queueItems:v17];
+      v21 = v17;
+      v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v21 count:1];
+      [activityQueue queueItems:v19];
     }
   }
 
   else
   {
-    v14 = logForCSLogCategoryDefault();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+    v16 = logForCSLogCategoryDefault(v14);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
       [MDSearchableIndexService userPerformedAction:withItem:protectionClass:];
     }
   }
 
-  objc_autoreleasePoolPop(v11);
-  v18 = *MEMORY[0x277D85DE8];
+  objc_autoreleasePoolPop(v12);
 }
 
 - (void)_dispatchActivities:(id)activities bundleID:(id)d
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   activitiesCopy = activities;
   dCopy = d;
   v7 = objc_opt_new();
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v8 = activitiesCopy;
-  v9 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v23;
+    v11 = *v22;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v23 != v11)
+        if (*v22 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v22 + 1) + 8 * i);
+        v13 = *(*(&v21 + 1) + 8 * i);
         protectionClass = [v13 protectionClass];
         v15 = [v7 objectForKeyedSubscript:protectionClass];
         if (!v15)
@@ -1677,31 +1908,29 @@ void *__120__MDSearchableIndexService_changeStateOfSearchableItemsWithUIDs_toSta
         [v15 addObject:v13];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v10);
   }
 
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __57__MDSearchableIndexService__dispatchActivities_bundleID___block_invoke;
-  v19[3] = &unk_278937870;
-  v20 = dCopy;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __57__MDSearchableIndexService__dispatchActivities_bundleID___block_invoke;
+  v18[3] = &unk_278937870;
+  v19 = dCopy;
   selfCopy = self;
   v16 = dCopy;
-  [v7 enumerateKeysAndObjectsUsingBlock:v19];
-
-  v17 = *MEMORY[0x277D85DE8];
+  [v7 enumerateKeysAndObjectsUsingBlock:v18];
 }
 
 void __57__MDSearchableIndexService__dispatchActivities_bundleID___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [v6 count];
-  v8 = logForCSLogCategoryDefault();
+  v8 = logForCSLogCategoryDefault(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = "ies";
@@ -1712,137 +1941,136 @@ void __57__MDSearchableIndexService__dispatchActivities_bundleID___block_invoke(
       v9 = "y";
     }
 
-    v38 = v7;
-    v39 = 2080;
-    v40 = v9;
-    v41 = 2112;
-    v42 = v10;
-    v43 = 2112;
-    v44 = v5;
+    v39 = v7;
+    v40 = 2080;
+    v41 = v9;
+    v42 = 2112;
+    v43 = v10;
+    v44 = 2112;
+    v45 = v5;
     _os_log_impl(&dword_231A35000, v8, OS_LOG_TYPE_INFO, "Sending %lu activit%s to the receivers, bundleID:%@, protectionClass:%@", buf, 0x2Au);
   }
 
   if ((*(*(a1 + 40) + 19) & 1) == 0)
   {
-    v11 = +[CSRecieverState sharedInstance];
-    v12 = [v11 checkBundleIdentifier:*(a1 + 32)];
+    v12 = +[CSRecieverState sharedInstance];
+    v13 = [v12 checkBundleIdentifier:*(a1 + 32)];
 
-    if (v12)
+    if (v13)
     {
-      v32[0] = MEMORY[0x277D85DD0];
-      v32[1] = 3221225472;
-      v32[2] = __57__MDSearchableIndexService__dispatchActivities_bundleID___block_invoke_114;
-      v32[3] = &unk_278937848;
-      v33 = v6;
-      v34 = *(a1 + 32);
-      v35 = v5;
-      [SpotlightSender dispatchWithOptions:0 block:v32];
+      v33[0] = MEMORY[0x277D85DD0];
+      v33[1] = 3221225472;
+      v33[2] = __57__MDSearchableIndexService__dispatchActivities_bundleID___block_invoke_114;
+      v33[3] = &unk_278937848;
+      v34 = v6;
+      v35 = *(a1 + 32);
+      v36 = v5;
+      [SpotlightSender dispatchWithOptions:0 block:v33];
     }
   }
 
-  v13 = logForCSLogCategoryDefault();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+  v14 = logForCSLogCategoryDefault(v11);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
   {
-    v14 = "ies";
-    v15 = *(a1 + 32);
+    v15 = "ies";
+    v16 = *(a1 + 32);
     *buf = 134218754;
     if (v7 == 1)
     {
-      v14 = "y";
+      v15 = "y";
     }
 
-    v38 = v7;
-    v39 = 2080;
-    v40 = v14;
-    v41 = 2112;
-    v42 = v15;
-    v43 = 2112;
-    v44 = v5;
-    _os_log_impl(&dword_231A35000, v13, OS_LOG_TYPE_INFO, "Sending %lu activit%s to the index, bundleID:%@, protectionClass:%@", buf, 0x2Au);
+    v39 = v7;
+    v40 = 2080;
+    v41 = v15;
+    v42 = 2112;
+    v43 = v16;
+    v44 = 2112;
+    v45 = v5;
+    _os_log_impl(&dword_231A35000, v14, OS_LOG_TYPE_INFO, "Sending %lu activit%s to the index, bundleID:%@, protectionClass:%@", buf, 0x2Au);
   }
 
-  v30 = 0u;
   v31 = 0u;
-  v28 = 0u;
+  v32 = 0u;
   v29 = 0u;
-  v16 = v6;
-  v17 = [v16 countByEnumeratingWithState:&v28 objects:v36 count:16];
-  if (v17)
+  v30 = 0u;
+  v17 = v6;
+  v18 = [v17 countByEnumeratingWithState:&v29 objects:v37 count:16];
+  if (v18)
   {
-    v19 = v17;
-    v20 = *v29;
-    *&v18 = 138412546;
-    v27 = v18;
+    v20 = v18;
+    v21 = *v30;
+    *&v19 = 138412546;
+    v28 = v19;
     do
     {
-      for (i = 0; i != v19; ++i)
+      for (i = 0; i != v20; ++i)
       {
-        if (*v29 != v20)
+        if (*v30 != v21)
         {
-          objc_enumerationMutation(v16);
+          objc_enumerationMutation(v17);
         }
 
-        v22 = *(*(&v28 + 1) + 8 * i);
-        v23 = [v22 action];
-        v24 = [v22 searchableItem];
-        if ([v24 noIndex] & 1) == 0 && (objc_msgSend(v23, "eligibility"))
+        v23 = *(*(&v29 + 1) + 8 * i);
+        v24 = [v23 action];
+        v25 = [v23 searchableItem];
+        v26 = [v25 noIndex];
+        if (v26 & 1) == 0 && (v26 = [v24 eligibility], (v26))
         {
-          [*(*(a1 + 40) + 40) userPerformedAction:v23 withItem:v24 protectionClass:v5 forBundleID:*(a1 + 32) personaID:0];
+          [*(*(a1 + 40) + 40) userPerformedAction:v24 withItem:v25 protectionClass:v5 forBundleID:*(a1 + 32) personaID:0];
         }
 
         else
         {
-          v25 = logForCSLogCategoryDefault();
-          if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+          v27 = logForCSLogCategoryDefault(v26);
+          if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
           {
-            *buf = v27;
-            v38 = v23;
-            v39 = 2112;
-            v40 = v24;
-            _os_log_debug_impl(&dword_231A35000, v25, OS_LOG_TYPE_DEBUG, "Ignoring action:%@, item:%@", buf, 0x16u);
+            *buf = v28;
+            v39 = v24;
+            v40 = 2112;
+            v41 = v25;
+            _os_log_debug_impl(&dword_231A35000, v27, OS_LOG_TYPE_DEBUG, "Ignoring action:%@, item:%@", buf, 0x16u);
           }
         }
       }
 
-      v19 = [v16 countByEnumeratingWithState:&v28 objects:v36 count:16];
+      v20 = [v17 countByEnumeratingWithState:&v29 objects:v37 count:16];
     }
 
-    while (v19);
+    while (v20);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_dispatchActivities:(id)activities
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   activitiesCopy = activities;
   clientBundleID = [(MDSearchableIndexService *)self clientBundleID];
   if (self->_isInternal)
   {
     selfCopy = self;
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
     v36 = 0u;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
     v6 = activitiesCopy;
-    v7 = [v6 countByEnumeratingWithState:&v35 objects:v40 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v34 objects:v39 count:16];
     if (v7)
     {
       v8 = v7;
       bundleID = 0;
-      v10 = *v36;
+      v10 = *v35;
 LABEL_4:
       v11 = 0;
       v12 = bundleID;
       while (1)
       {
-        if (*v36 != v10)
+        if (*v35 != v10)
         {
           objc_enumerationMutation(v6);
         }
 
-        item = [*(*(&v35 + 1) + 8 * v11) item];
+        item = [*(*(&v34 + 1) + 8 * v11) item];
         bundleID = [item bundleID];
 
         if ([bundleID length])
@@ -1857,7 +2085,7 @@ LABEL_4:
         v12 = bundleID;
         if (v8 == v11)
         {
-          v8 = [v6 countByEnumeratingWithState:&v35 objects:v40 count:16];
+          v8 = [v6 countByEnumeratingWithState:&v34 objects:v39 count:16];
           if (v8)
           {
             goto LABEL_4;
@@ -1875,28 +2103,28 @@ LABEL_4:
         goto LABEL_17;
       }
 
-      v28 = activitiesCopy;
+      v27 = activitiesCopy;
       v17 = objc_opt_new();
+      v30 = 0u;
       v31 = 0u;
       v32 = 0u;
       v33 = 0u;
-      v34 = 0u;
       v18 = v6;
-      v19 = [v18 countByEnumeratingWithState:&v31 objects:v39 count:16];
+      v19 = [v18 countByEnumeratingWithState:&v30 objects:v38 count:16];
       if (v19)
       {
         v20 = v19;
-        v21 = *v32;
+        v21 = *v31;
         do
         {
           for (i = 0; i != v20; ++i)
           {
-            if (*v32 != v21)
+            if (*v31 != v21)
             {
               objc_enumerationMutation(v18);
             }
 
-            v23 = *(*(&v31 + 1) + 8 * i);
+            v23 = *(*(&v30 + 1) + 8 * i);
             item2 = [v23 item];
             bundleID2 = [item2 bundleID];
 
@@ -1920,20 +2148,20 @@ LABEL_4:
             [v26 addObject:v23];
           }
 
-          v20 = [v18 countByEnumeratingWithState:&v31 objects:v39 count:16];
+          v20 = [v18 countByEnumeratingWithState:&v30 objects:v38 count:16];
         }
 
         while (v20);
       }
 
-      v30[0] = MEMORY[0x277D85DD0];
-      v30[1] = 3221225472;
-      v30[2] = __48__MDSearchableIndexService__dispatchActivities___block_invoke;
-      v30[3] = &unk_278937898;
-      v30[4] = selfCopy;
-      [v17 enumerateKeysAndObjectsUsingBlock:v30];
+      v29[0] = MEMORY[0x277D85DD0];
+      v29[1] = 3221225472;
+      v29[2] = __48__MDSearchableIndexService__dispatchActivities___block_invoke;
+      v29[3] = &unk_278937898;
+      v29[4] = selfCopy;
+      [v17 enumerateKeysAndObjectsUsingBlock:v29];
 
-      activitiesCopy = v28;
+      activitiesCopy = v27;
     }
 
     else
@@ -1953,13 +2181,11 @@ LABEL_17:
   {
     [(MDSearchableIndexService *)self _dispatchActivities:activitiesCopy bundleID:clientBundleID];
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)checkInWithProtectionClass:(id)class completionHandler:(id)handler
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   classCopy = class;
   handlerCopy = handler;
   v8 = objc_autoreleasePoolPush();
@@ -1969,17 +2195,17 @@ LABEL_17:
   }
 
   clientBundleID = [(MDSearchableIndexService *)self clientBundleID];
-  v10 = logForCSLogCategoryIndex();
+  v10 = logForCSLogCategoryIndex(clientBundleID);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     processDescription = [(MDSearchableIndexService *)self processDescription];
-    v16 = 138412802;
-    v17 = clientBundleID;
-    v18 = 2112;
-    v19 = classCopy;
-    v20 = 2112;
-    v21 = processDescription;
-    _os_log_debug_impl(&dword_231A35000, v10, OS_LOG_TYPE_DEBUG, "(%@) checkInWithProtectionClass, protectionClass:%@, process:%@", &v16, 0x20u);
+    v15 = 138412802;
+    v16 = clientBundleID;
+    v17 = 2112;
+    v18 = classCopy;
+    v19 = 2112;
+    v20 = processDescription;
+    _os_log_debug_impl(&dword_231A35000, v10, OS_LOG_TYPE_DEBUG, "(%@) checkInWithProtectionClass, protectionClass:%@, process:%@", &v15, 0x20u);
   }
 
   v11 = [(MDSearchableIndexService *)self _checkItems:0 identifiers:0 protectionClass:0 bundleID:0];
@@ -2007,7 +2233,7 @@ LABEL_16:
 
   else
   {
-    v13 = logForCSLogCategoryIndex();
+    v13 = logForCSLogCategoryIndex(0);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [MDSearchableIndexService checkInWithProtectionClass:? completionHandler:?];
@@ -2021,7 +2247,6 @@ LABEL_16:
   }
 
   objc_autoreleasePoolPop(v8);
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)performIndexJob:(id)job protectionClass:(id)class acknowledgementHandler:(id)handler
@@ -2090,24 +2315,26 @@ void __83__MDSearchableIndexService_performIndexJob_protectionClass_acknowledgem
   activitiesCopy = activities;
   clientCopy = client;
   handlerCopy = handler;
-  v13 = objc_autoreleasePoolPush();
+  clientBundleID = objc_autoreleasePoolPush();
+  v14 = clientBundleID;
   if (!activitiesCopy)
   {
-    activitiesCopy = [(MDSearchableIndexService *)self clientBundleID];
+    clientBundleID = [(MDSearchableIndexService *)self clientBundleID];
+    activitiesCopy = clientBundleID;
   }
 
-  v14 = logForCSLogCategoryDefault();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+  v15 = logForCSLogCategoryDefault(clientBundleID);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
     [MDSearchableIndexService deleteAllUserActivities:fromClient:options:completionHandler:];
   }
 
-  v15 = [(MDSearchableIndexService *)self _checkNonEmptyBundle:activitiesCopy protectionClass:0];
-  if (v15)
+  v16 = [(MDSearchableIndexService *)self _checkNonEmptyBundle:activitiesCopy protectionClass:0];
+  if (v16)
   {
     if (handlerCopy)
     {
-      handlerCopy[2](handlerCopy, v15);
+      handlerCopy[2](handlerCopy, v16);
 LABEL_16:
     }
   }
@@ -2116,10 +2343,10 @@ LABEL_16:
   {
     if (!self->_isPrivate)
     {
-      v16 = +[CSRecieverState sharedInstance];
-      v17 = [v16 checkBundleIdentifier:activitiesCopy];
+      v17 = +[CSRecieverState sharedInstance];
+      v18 = [v17 checkBundleIdentifier:activitiesCopy];
 
-      if (v17)
+      if (v18)
       {
         v23[0] = MEMORY[0x277D85DD0];
         v23[1] = 3221225472;
@@ -2130,23 +2357,19 @@ LABEL_16:
       }
     }
 
-    if ([(MDSearchableIndexService *)self _jobForIndex:options])
+    if ([(MDSearchableIndexService *)self _jobForIndex:options]&& (objc_opt_respondsToSelector() & 1) != 0)
     {
       indexer = self->_indexer;
-      if (objc_opt_respondsToSelector())
-      {
-        v19 = self->_indexer;
-        clientBundleID = [(MDSearchableIndexService *)self clientBundleID];
-        v21[0] = MEMORY[0x277D85DD0];
-        v21[1] = 3221225472;
-        v21[2] = __89__MDSearchableIndexService_deleteAllUserActivities_fromClient_options_completionHandler___block_invoke_2;
-        v21[3] = &unk_278935048;
-        v22 = handlerCopy;
-        [(MDIndexer *)v19 deleteAllUserActivities:activitiesCopy fromClient:clientBundleID completionHandler:v21];
+      clientBundleID2 = [(MDSearchableIndexService *)self clientBundleID];
+      v21[0] = MEMORY[0x277D85DD0];
+      v21[1] = 3221225472;
+      v21[2] = __89__MDSearchableIndexService_deleteAllUserActivities_fromClient_options_completionHandler___block_invoke_2;
+      v21[3] = &unk_278935048;
+      v22 = handlerCopy;
+      [(MDIndexer *)indexer deleteAllUserActivities:activitiesCopy fromClient:clientBundleID2 completionHandler:v21];
 
-        handlerCopy = v22;
-        goto LABEL_16;
-      }
+      handlerCopy = v22;
+      goto LABEL_16;
     }
 
     if (handlerCopy)
@@ -2156,7 +2379,7 @@ LABEL_16:
     }
   }
 
-  objc_autoreleasePoolPop(v13);
+  objc_autoreleasePoolPop(v14);
 }
 
 uint64_t __89__MDSearchableIndexService_deleteAllUserActivities_fromClient_options_completionHandler___block_invoke_2(uint64_t a1)
@@ -2175,24 +2398,26 @@ uint64_t __89__MDSearchableIndexService_deleteAllUserActivities_fromClient_optio
   identifiersCopy = identifiers;
   dCopy = d;
   handlerCopy = handler;
-  v13 = objc_autoreleasePoolPush();
+  clientBundleID = objc_autoreleasePoolPush();
+  v14 = clientBundleID;
   if (!dCopy)
   {
-    dCopy = [(MDSearchableIndexService *)self clientBundleID];
+    clientBundleID = [(MDSearchableIndexService *)self clientBundleID];
+    dCopy = clientBundleID;
   }
 
-  v14 = logForCSLogCategoryDefault();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+  v15 = logForCSLogCategoryDefault(clientBundleID);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
     [MDSearchableIndexService deleteUserActivitiesWithPersistentIdentifiers:bundleID:options:completionHandler:];
   }
 
-  v15 = [(MDSearchableIndexService *)self _checkNonEmptyBundle:dCopy protectionClass:0];
-  if (v15)
+  v16 = [(MDSearchableIndexService *)self _checkNonEmptyBundle:dCopy protectionClass:0];
+  if (v16)
   {
     if (handlerCopy)
     {
-      handlerCopy[2](handlerCopy, v15);
+      handlerCopy[2](handlerCopy, v16);
 LABEL_15:
     }
   }
@@ -2201,33 +2426,33 @@ LABEL_15:
   {
     if (!self->_isPrivate)
     {
-      v16 = +[CSRecieverState sharedInstance];
-      v17 = [v16 checkBundleIdentifier:dCopy];
+      v17 = +[CSRecieverState sharedInstance];
+      v18 = [v17 checkBundleIdentifier:dCopy];
 
-      if (v17)
+      if (v18)
       {
-        v21[0] = MEMORY[0x277D85DD0];
-        v21[1] = 3221225472;
-        v21[2] = __109__MDSearchableIndexService_deleteUserActivitiesWithPersistentIdentifiers_bundleID_options_completionHandler___block_invoke;
-        v21[3] = &unk_2789378E8;
-        v22 = identifiersCopy;
-        v23 = dCopy;
-        v24 = handlerCopy;
-        [SpotlightSender dispatchWithOptions:options block:v21];
+        v22[0] = MEMORY[0x277D85DD0];
+        v22[1] = 3221225472;
+        v22[2] = __109__MDSearchableIndexService_deleteUserActivitiesWithPersistentIdentifiers_bundleID_options_completionHandler___block_invoke;
+        v22[3] = &unk_2789378E8;
+        v23 = identifiersCopy;
+        v24 = dCopy;
+        v25 = handlerCopy;
+        [SpotlightSender dispatchWithOptions:options block:v22];
       }
     }
 
     if ([(MDSearchableIndexService *)self _jobForIndex:options])
     {
       data = [identifiersCopy data];
-      v19[0] = MEMORY[0x277D85DD0];
-      v19[1] = 3221225472;
-      v19[2] = __109__MDSearchableIndexService_deleteUserActivitiesWithPersistentIdentifiers_bundleID_options_completionHandler___block_invoke_2;
-      v19[3] = &unk_278937910;
-      v20 = handlerCopy;
-      [(MDSearchableIndexService *)self _processIndexDataForBundle:dCopy protectionClass:0 personaID:0 options:options items:0 itemsText:0 itemsHTML:0 clientState:0 expectedClientState:0 clientStateName:0 deletes:data completionHandler:v19];
+      v20[0] = MEMORY[0x277D85DD0];
+      v20[1] = 3221225472;
+      v20[2] = __109__MDSearchableIndexService_deleteUserActivitiesWithPersistentIdentifiers_bundleID_options_completionHandler___block_invoke_2;
+      v20[3] = &unk_278937910;
+      v21 = handlerCopy;
+      [(MDSearchableIndexService *)self _processIndexDataForBundle:dCopy protectionClass:0 personaID:0 options:options items:0 itemsText:0 itemsHTML:0 clientState:0 expectedClientState:0 clientStateName:0 deletes:data completionHandler:v20];
 
-      handlerCopy = v20;
+      handlerCopy = v21;
       goto LABEL_15;
     }
 
@@ -2238,7 +2463,7 @@ LABEL_15:
     }
   }
 
-  objc_autoreleasePoolPop(v13);
+  objc_autoreleasePoolPop(v14);
 }
 
 void __109__MDSearchableIndexService_deleteUserActivitiesWithPersistentIdentifiers_bundleID_options_completionHandler___block_invoke(void *a1, uint64_t a2)
@@ -2261,38 +2486,97 @@ uint64_t __109__MDSearchableIndexService_deleteUserActivitiesWithPersistentIdent
 
 - (void)deleteActionsBeforeTime:(double)time options:(int64_t)options completionHandler:(id)handler
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   v9 = objc_autoreleasePoolPush();
-  v10 = logForCSLogCategoryDefault();
+  v10 = logForCSLogCategoryDefault(v9);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     *buf = 134218240;
     timeCopy = time;
-    v19 = 2048;
+    v17 = 2048;
     optionsCopy = options;
     _os_log_impl(&dword_231A35000, v10, OS_LOG_TYPE_INFO, "deleteActionsBeforeTime:%lu options:0x%lx", buf, 0x16u);
   }
 
   if (self->_isInternal)
   {
-    if ([(MDSearchableIndexService *)self _jobForIndex:options])
+    if ([(MDSearchableIndexService *)self _jobForIndex:options]&& (objc_opt_respondsToSelector() & 1) != 0)
     {
       indexer = self->_indexer;
-      if (objc_opt_respondsToSelector())
-      {
-        v12 = self->_indexer;
-        v15[0] = MEMORY[0x277D85DD0];
-        v15[1] = 3221225472;
-        v15[2] = __78__MDSearchableIndexService_deleteActionsBeforeTime_options_completionHandler___block_invoke;
-        v15[3] = &unk_278935048;
-        v16 = handlerCopy;
-        [(MDIndexer *)v12 deleteActionsBeforeTime:v15 completionHandler:time];
-        handlerCopy = v16;
+      v13[0] = MEMORY[0x277D85DD0];
+      v13[1] = 3221225472;
+      v13[2] = __78__MDSearchableIndexService_deleteActionsBeforeTime_options_completionHandler___block_invoke;
+      v13[3] = &unk_278935048;
+      v14 = handlerCopy;
+      [(MDIndexer *)indexer deleteActionsBeforeTime:v13 completionHandler:time];
+      handlerCopy = v14;
 LABEL_11:
 
-        goto LABEL_12;
-      }
+      goto LABEL_12;
+    }
+
+    if (handlerCopy)
+    {
+      (*(handlerCopy + 2))(handlerCopy, 0);
+      goto LABEL_11;
+    }
+  }
+
+  else if (handlerCopy)
+  {
+    v12 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CC22E8] code:-1001 userInfo:0];
+    (*(handlerCopy + 2))(handlerCopy, v12);
+
+    goto LABEL_11;
+  }
+
+LABEL_12:
+  objc_autoreleasePoolPop(v9);
+}
+
+uint64_t __78__MDSearchableIndexService_deleteActionsBeforeTime_options_completionHandler___block_invoke(uint64_t a1)
+{
+  result = *(a1 + 32);
+  if (result)
+  {
+    return (*(result + 16))();
+  }
+
+  return result;
+}
+
+- (void)deleteActionsWithIdentifiers:(id)identifiers options:(int64_t)options completionHandler:(id)handler
+{
+  v20 = *MEMORY[0x277D85DE8];
+  identifiersCopy = identifiers;
+  handlerCopy = handler;
+  v10 = objc_autoreleasePoolPush();
+  v11 = logForCSLogCategoryDefault(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+  {
+    *buf = 134218240;
+    v17 = [identifiersCopy count];
+    v18 = 2048;
+    optionsCopy = options;
+    _os_log_impl(&dword_231A35000, v11, OS_LOG_TYPE_INFO, "deleteActionsWithIdentifiers:%lu options:0x%lx", buf, 0x16u);
+  }
+
+  if (self->_isInternal)
+  {
+    if ([(MDSearchableIndexService *)self _jobForIndex:options]&& (objc_opt_respondsToSelector() & 1) != 0)
+    {
+      indexer = self->_indexer;
+      v14[0] = MEMORY[0x277D85DD0];
+      v14[1] = 3221225472;
+      v14[2] = __83__MDSearchableIndexService_deleteActionsWithIdentifiers_options_completionHandler___block_invoke;
+      v14[3] = &unk_278935048;
+      v15 = handlerCopy;
+      [(MDIndexer *)indexer deleteActionsWithIdentifiers:identifiersCopy completionHandler:v14];
+      handlerCopy = v15;
+LABEL_11:
+
+      goto LABEL_12;
     }
 
     if (handlerCopy)
@@ -2311,77 +2595,7 @@ LABEL_11:
   }
 
 LABEL_12:
-  objc_autoreleasePoolPop(v9);
-  v14 = *MEMORY[0x277D85DE8];
-}
-
-uint64_t __78__MDSearchableIndexService_deleteActionsBeforeTime_options_completionHandler___block_invoke(uint64_t a1)
-{
-  result = *(a1 + 32);
-  if (result)
-  {
-    return (*(result + 16))();
-  }
-
-  return result;
-}
-
-- (void)deleteActionsWithIdentifiers:(id)identifiers options:(int64_t)options completionHandler:(id)handler
-{
-  v22 = *MEMORY[0x277D85DE8];
-  identifiersCopy = identifiers;
-  handlerCopy = handler;
-  v10 = objc_autoreleasePoolPush();
-  v11 = logForCSLogCategoryDefault();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
-  {
-    *buf = 134218240;
-    v19 = [identifiersCopy count];
-    v20 = 2048;
-    optionsCopy = options;
-    _os_log_impl(&dword_231A35000, v11, OS_LOG_TYPE_INFO, "deleteActionsWithIdentifiers:%lu options:0x%lx", buf, 0x16u);
-  }
-
-  if (self->_isInternal)
-  {
-    if ([(MDSearchableIndexService *)self _jobForIndex:options])
-    {
-      indexer = self->_indexer;
-      if (objc_opt_respondsToSelector())
-      {
-        v13 = self->_indexer;
-        v16[0] = MEMORY[0x277D85DD0];
-        v16[1] = 3221225472;
-        v16[2] = __83__MDSearchableIndexService_deleteActionsWithIdentifiers_options_completionHandler___block_invoke;
-        v16[3] = &unk_278935048;
-        v17 = handlerCopy;
-        [(MDIndexer *)v13 deleteActionsWithIdentifiers:identifiersCopy completionHandler:v16];
-        handlerCopy = v17;
-LABEL_11:
-
-        goto LABEL_12;
-      }
-    }
-
-    if (handlerCopy)
-    {
-      (*(handlerCopy + 2))(handlerCopy, 0);
-      goto LABEL_11;
-    }
-  }
-
-  else if (handlerCopy)
-  {
-    v14 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CC22E8] code:-1001 userInfo:0];
-    (*(handlerCopy + 2))(handlerCopy, v14);
-
-    goto LABEL_11;
-  }
-
-LABEL_12:
   objc_autoreleasePoolPop(v10);
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __83__MDSearchableIndexService_deleteActionsWithIdentifiers_options_completionHandler___block_invoke(uint64_t a1)
@@ -2397,20 +2611,20 @@ uint64_t __83__MDSearchableIndexService_deleteActionsWithIdentifiers_options_com
 
 - (void)_forceAppWithBundleID:(id)d toPerformJob:(id)job
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   dCopy = d;
   jobCopy = job;
-  v8 = logForCSLogCategoryIndex();
+  v8 = logForCSLogCategoryIndex(jobCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     clientBundleID = [(MDSearchableIndexService *)self clientBundleID];
-    v13 = 138412802;
-    v14 = clientBundleID;
-    v15 = 2112;
-    v16 = dCopy;
-    v17 = 2112;
-    v18 = jobCopy;
-    _os_log_debug_impl(&dword_231A35000, v8, OS_LOG_TYPE_DEBUG, "(%@) _forceAppWithBundleID, bundleID:%@, job:%@", &v13, 0x20u);
+    v12 = 138412802;
+    v13 = clientBundleID;
+    v14 = 2112;
+    v15 = dCopy;
+    v16 = 2112;
+    v17 = jobCopy;
+    _os_log_debug_impl(&dword_231A35000, v8, OS_LOG_TYPE_DEBUG, "(%@) _forceAppWithBundleID, bundleID:%@, job:%@", &v12, 0x20u);
   }
 
   v9 = [(MDSearchableIndexService *)self _checkItems:0 identifiers:0 protectionClass:0 bundleID:dCopy];
@@ -2419,8 +2633,6 @@ uint64_t __83__MDSearchableIndexService_deleteActionsWithIdentifiers_options_com
     mEMORY[0x277CC3538] = [MEMORY[0x277CC3538] sharedManager];
     [mEMORY[0x277CC3538] indexRequestsPerformJob:jobCopy forBundle:dCopy completionHandler:0];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)performDataMigrationWithTimeout:(id)timeout completionHandler:(id)handler
@@ -2436,9 +2648,9 @@ uint64_t __83__MDSearchableIndexService_deleteActionsWithIdentifiers_options_com
 
 void __78__MDSearchableIndexService_performDataMigrationWithTimeout_completionHandler___block_invoke(uint64_t a1)
 {
-  v33[1] = *MEMORY[0x277D85DE8];
+  v34[1] = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
-  v3 = logForCSLogCategoryIndex();
+  v3 = logForCSLogCategoryIndex(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     __78__MDSearchableIndexService_performDataMigrationWithTimeout_completionHandler___block_invoke_cold_1(a1);
@@ -2465,74 +2677,72 @@ void __78__MDSearchableIndexService_performDataMigrationWithTimeout_completionHa
     v10 = [objc_alloc(MEMORY[0x277CC3420]) initWithJobType:3];
     v11 = dispatch_group_create();
     dispatch_group_enter(v11);
-    v30[0] = MEMORY[0x277D85DD0];
-    v30[1] = 3221225472;
-    v30[2] = __78__MDSearchableIndexService_performDataMigrationWithTimeout_completionHandler___block_invoke_2;
-    v30[3] = &unk_278937938;
+    v31[0] = MEMORY[0x277D85DD0];
+    v31[1] = 3221225472;
+    v31[2] = __78__MDSearchableIndexService_performDataMigrationWithTimeout_completionHandler___block_invoke_2;
+    v31[3] = &unk_278937938;
     v12 = v9;
-    v31 = v12;
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = __78__MDSearchableIndexService_performDataMigrationWithTimeout_completionHandler___block_invoke_142;
-    v28[3] = &unk_278934050;
+    v32 = v12;
+    v29[0] = MEMORY[0x277D85DD0];
+    v29[1] = 3221225472;
+    v29[2] = __78__MDSearchableIndexService_performDataMigrationWithTimeout_completionHandler___block_invoke_142;
+    v29[3] = &unk_278934050;
     v13 = v11;
-    v29 = v13;
-    v27 = v7;
-    [v6 indexRequestsPerformJob:v10 extensions:v7 perExtensionCompletionHandler:v30 completionHandler:v28];
-    v14 = logForCSLogCategoryIndex();
+    v30 = v13;
+    v28 = v7;
+    v14 = logForCSLogCategoryIndex([v6 indexRequestsPerformJob:v10 extensions:v7 perExtensionCompletionHandler:v31 completionHandler:v29]);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
       __78__MDSearchableIndexService_performDataMigrationWithTimeout_completionHandler___block_invoke_cold_2();
     }
 
     dispatch_group_wait(v13, 0xFFFFFFFFFFFFFFFFLL);
-    [*(*(a1 + 40) + 40) lastUpdateTime];
-    v16 = v15;
-    v17 = logForCSLogCategoryIndex();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+    v15 = [*(*(a1 + 40) + 40) lastUpdateTime];
+    v17 = v16;
+    v18 = logForCSLogCategoryIndex(v15);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
       __78__MDSearchableIndexService_performDataMigrationWithTimeout_completionHandler___block_invoke_cold_3();
     }
 
-    v18 = v16;
+    v19 = v17;
     do
     {
-      v19 = v18;
+      v20 = v19;
       sleep(2u);
-      [*(*(a1 + 40) + 40) lastUpdateTime];
-      v18 = v20;
+      v21 = [*(*(a1 + 40) + 40) lastUpdateTime];
+      v19 = v22;
     }
 
-    while (v19 != v20);
-    v21 = logForCSLogCategoryIndex();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+    while (v20 != v22);
+    v23 = logForCSLogCategoryIndex(v21);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
     {
-      __78__MDSearchableIndexService_performDataMigrationWithTimeout_completionHandler___block_invoke_cold_4(v21, v18, v16);
+      __78__MDSearchableIndexService_performDataMigrationWithTimeout_completionHandler___block_invoke_cold_4(v23, v19, v17);
     }
 
-    v22 = [MEMORY[0x277CCAB98] defaultCenter];
-    v23 = *(a1 + 40);
-    v32 = @"bundleIDs";
-    v33[0] = v12;
-    v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:&v32 count:1];
-    [v22 postNotificationName:@"com.apple.corespotlight.dataMigration.finish" object:v23 userInfo:v24];
+    v24 = [MEMORY[0x277CCAB98] defaultCenter];
+    v25 = *(a1 + 40);
+    v33 = @"bundleIDs";
+    v34[0] = v12;
+    v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:&v33 count:1];
+    [v24 postNotificationName:@"com.apple.corespotlight.dataMigration.finish" object:v25 userInfo:v26];
 
-    v25 = *(a1 + 48);
-    if (v25)
+    v27 = *(a1 + 48);
+    if (v27)
     {
-      (*(v25 + 16))(v25, 0);
+      (*(v27 + 16))(v27, 0);
     }
   }
 
   objc_autoreleasePoolPop(v2);
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __78__MDSearchableIndexService_performDataMigrationWithTimeout_completionHandler___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
-  v7 = logForCSLogCategoryIndex();
+  v7 = logForCSLogCategoryIndex(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     __78__MDSearchableIndexService_performDataMigrationWithTimeout_completionHandler___block_invoke_2_cold_1();
@@ -2545,6 +2755,75 @@ void __78__MDSearchableIndexService_performDataMigrationWithTimeout_completionHa
     [*(a1 + 32) addObject:v5];
     objc_sync_exit(v8);
   }
+}
+
+- (void)transferDeleteJournalsForProtectionClass:(const char *)class toDirectory:(int)directory withCompletionHandler:(id)handler
+{
+  v5 = *&directory;
+  handlerCopy = handler;
+  memset(&v23, 0, sizeof(v23));
+  if (fstat(v5, &v23))
+  {
+    v10 = MEMORY[0x277CCA9B8];
+    v11 = *MEMORY[0x277CCA5B8];
+    v12 = *__error();
+    v13 = v10;
+    v14 = v11;
+LABEL_15:
+    v20 = [v13 errorWithDomain:v14 code:v12 userInfo:0];
+    handlerCopy[2](handlerCopy, v20);
+
+    goto LABEL_16;
+  }
+
+  if ((v23.st_mode & 0xF000) != 0x4000)
+  {
+    v13 = MEMORY[0x277CCA9B8];
+    v14 = *MEMORY[0x277CCA5B8];
+    v12 = 20;
+    goto LABEL_15;
+  }
+
+  v15 = objc_autoreleasePoolPush();
+  v16 = logForCSLogCategoryIndex(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+  {
+    [MDSearchableIndexService transferDeleteJournalsForProtectionClass:a2 toDirectory:? withCompletionHandler:?];
+  }
+
+  v17 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:class];
+  v18 = [(MDSearchableIndexService *)self _checkItems:0 identifiers:0 protectionClass:v17 bundleID:0];
+  if (v18)
+  {
+    if (handlerCopy)
+    {
+      handlerCopy[2](handlerCopy, v18);
+    }
+  }
+
+  else if (objc_opt_respondsToSelector())
+  {
+    indexer = self->_indexer;
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __103__MDSearchableIndexService_transferDeleteJournalsForProtectionClass_toDirectory_withCompletionHandler___block_invoke;
+    v21[3] = &unk_278935048;
+    v22 = handlerCopy;
+    [(MDIndexer *)indexer transferDeleteJournalsForProtectionClass:v17 toDirectory:v5 completionHandler:v21];
+
+    handlerCopy = 0;
+  }
+
+  objc_autoreleasePoolPop(v15);
+  if (!v18 && handlerCopy)
+  {
+    v13 = MEMORY[0x277CCA9B8];
+    v14 = *MEMORY[0x277CCA5B8];
+    v12 = 45;
+    goto LABEL_15;
+  }
+
+LABEL_16:
 }
 
 uint64_t __103__MDSearchableIndexService_transferDeleteJournalsForProtectionClass_toDirectory_withCompletionHandler___block_invoke(uint64_t a1)
@@ -2560,13 +2839,14 @@ uint64_t __103__MDSearchableIndexService_transferDeleteJournalsForProtectionClas
 
 - (void)addInteraction:(id)interaction intentClassName:(id)name bundleID:(id)d protectionClass:(id)class options:(int64_t)options completionHandler:(id)handler
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   interactionCopy = interaction;
   nameCopy = name;
   dCopy = d;
   classCopy = class;
   handlerCopy = handler;
-  v19 = objc_autoreleasePoolPush();
+  clientBundleID = objc_autoreleasePoolPush();
+  v20 = clientBundleID;
   if (dCopy)
   {
     if (classCopy)
@@ -2577,27 +2857,133 @@ uint64_t __103__MDSearchableIndexService_transferDeleteJournalsForProtectionClas
 
   else
   {
-    dCopy = [(MDSearchableIndexService *)self clientBundleID];
+    clientBundleID = [(MDSearchableIndexService *)self clientBundleID];
+    dCopy = clientBundleID;
     if (classCopy)
     {
       goto LABEL_3;
     }
   }
 
-  classCopy = [(MDSearchableIndexService *)self protectionClass];
+  clientBundleID = [(MDSearchableIndexService *)self protectionClass];
+  classCopy = clientBundleID;
 LABEL_3:
-  v20 = logForCSLogCategoryDefault();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+  v21 = logForCSLogCategoryDefault(clientBundleID);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138413058;
-    v38 = dCopy;
-    v39 = 2112;
-    v40 = nameCopy;
-    v41 = 2112;
-    v42 = classCopy;
-    v43 = 2048;
+    v37 = dCopy;
+    v38 = 2112;
+    v39 = nameCopy;
+    v40 = 2112;
+    v41 = classCopy;
+    v42 = 2048;
     optionsCopy = options;
-    _os_log_debug_impl(&dword_231A35000, v20, OS_LOG_TYPE_DEBUG, "(%@) addInteraction:%@, protectionClass:%@, options:0x%lx", buf, 0x2Au);
+    _os_log_debug_impl(&dword_231A35000, v21, OS_LOG_TYPE_DEBUG, "(%@) addInteraction:%@, protectionClass:%@, options:0x%lx", buf, 0x2Au);
+  }
+
+  v22 = [(MDSearchableIndexService *)self _checkItems:0 identifiers:0 protectionClass:classCopy bundleID:dCopy];
+  if (v22)
+  {
+    if (handlerCopy)
+    {
+      handlerCopy[2](handlerCopy, v22);
+    }
+  }
+
+  else
+  {
+    if (!self->_isPrivate)
+    {
+      +[CSRecieverState sharedInstance];
+      v30 = interactionCopy;
+      v23 = v20;
+      v24 = nameCopy;
+      v26 = v25 = options;
+      v27 = [v26 checkBundleIdentifier:dCopy];
+
+      v28 = v25;
+      nameCopy = v24;
+      v20 = v23;
+      interactionCopy = v30;
+      if (v27)
+      {
+        v31[0] = MEMORY[0x277D85DD0];
+        v31[1] = 3221225472;
+        v31[2] = __110__MDSearchableIndexService_addInteraction_intentClassName_bundleID_protectionClass_options_completionHandler___block_invoke;
+        v31[3] = &unk_278937988;
+        v32 = v30;
+        v33 = nameCopy;
+        v34 = dCopy;
+        v35 = classCopy;
+        [SpotlightSender dispatchWithOptions:v28 block:v31];
+      }
+    }
+
+    if (interactionCopy)
+    {
+      v29 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:interactionCopy error:0];
+      if (v29 && (objc_opt_respondsToSelector() & 1) != 0)
+      {
+        [(MDIndexer *)self->_indexer addInteraction:v29 bundleID:dCopy protectionClass:classCopy];
+      }
+    }
+
+    if (handlerCopy)
+    {
+      handlerCopy[2](handlerCopy, 0);
+    }
+  }
+
+  objc_autoreleasePoolPop(v20);
+}
+
+- (void)deleteInteractionsWithIdentifiers:(id)identifiers bundleID:(id)d protectionClass:(id)class options:(int64_t)options completionHandler:(id)handler
+{
+  v34 = *MEMORY[0x277D85DE8];
+  identifiersCopy = identifiers;
+  dCopy = d;
+  classCopy = class;
+  handlerCopy = handler;
+  clientBundleID = objc_autoreleasePoolPush();
+  v17 = clientBundleID;
+  if (dCopy)
+  {
+    if (classCopy)
+    {
+      goto LABEL_3;
+    }
+  }
+
+  else
+  {
+    clientBundleID = [(MDSearchableIndexService *)self clientBundleID];
+    dCopy = clientBundleID;
+    if (classCopy)
+    {
+      goto LABEL_3;
+    }
+  }
+
+  clientBundleID = [(MDSearchableIndexService *)self protectionClass];
+  classCopy = clientBundleID;
+LABEL_3:
+  v18 = logForCSLogCategoryDefault(clientBundleID);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412802;
+    v29 = dCopy;
+    v30 = 2112;
+    v31 = classCopy;
+    v32 = 2048;
+    v33 = [identifiersCopy count];
+    _os_log_impl(&dword_231A35000, v18, OS_LOG_TYPE_DEFAULT, "(%@) deleteInteractionsWithIdentifiers, protectionClass:%@, identifiers num:%lu", buf, 0x20u);
+  }
+
+  v20 = logForCSLogCategoryDefault(v19);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+  {
+    [MDSearchableIndexService deleteInteractionsWithIdentifiers:identifiersCopy bundleID:options protectionClass:? options:? completionHandler:?];
   }
 
   v21 = [(MDSearchableIndexService *)self _checkItems:0 identifiers:0 protectionClass:classCopy bundleID:dCopy];
@@ -2613,41 +2999,19 @@ LABEL_3:
   {
     if (!self->_isPrivate)
     {
-      +[CSRecieverState sharedInstance];
-      v31 = interactionCopy;
-      v22 = v19;
-      v23 = nameCopy;
-      v25 = v24 = options;
-      v26 = [v25 checkBundleIdentifier:dCopy];
+      v22 = +[CSRecieverState sharedInstance];
+      v23 = [v22 checkBundleIdentifier:dCopy];
 
-      v27 = v24;
-      nameCopy = v23;
-      v19 = v22;
-      interactionCopy = v31;
-      if (v26)
+      if (v23)
       {
-        v32[0] = MEMORY[0x277D85DD0];
-        v32[1] = 3221225472;
-        v32[2] = __110__MDSearchableIndexService_addInteraction_intentClassName_bundleID_protectionClass_options_completionHandler___block_invoke;
-        v32[3] = &unk_278937988;
-        v33 = v31;
-        v34 = nameCopy;
-        v35 = dCopy;
-        v36 = classCopy;
-        [SpotlightSender dispatchWithOptions:v27 block:v32];
-      }
-    }
-
-    if (interactionCopy)
-    {
-      v28 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:interactionCopy error:0];
-      if (v28)
-      {
-        indexer = self->_indexer;
-        if (objc_opt_respondsToSelector())
-        {
-          [(MDIndexer *)self->_indexer addInteraction:v28 bundleID:dCopy protectionClass:classCopy];
-        }
+        v24[0] = MEMORY[0x277D85DD0];
+        v24[1] = 3221225472;
+        v24[2] = __113__MDSearchableIndexService_deleteInteractionsWithIdentifiers_bundleID_protectionClass_options_completionHandler___block_invoke;
+        v24[3] = &unk_278937848;
+        v25 = identifiersCopy;
+        v26 = dCopy;
+        v27 = classCopy;
+        [SpotlightSender dispatchWithOptions:options block:v24];
       }
     }
 
@@ -2657,102 +3021,18 @@ LABEL_3:
     }
   }
 
-  objc_autoreleasePoolPop(v19);
-  v30 = *MEMORY[0x277D85DE8];
-}
-
-- (void)deleteInteractionsWithIdentifiers:(id)identifiers bundleID:(id)d protectionClass:(id)class options:(int64_t)options completionHandler:(id)handler
-{
-  v33 = *MEMORY[0x277D85DE8];
-  identifiersCopy = identifiers;
-  dCopy = d;
-  classCopy = class;
-  handlerCopy = handler;
-  v16 = objc_autoreleasePoolPush();
-  if (dCopy)
-  {
-    if (classCopy)
-    {
-      goto LABEL_3;
-    }
-  }
-
-  else
-  {
-    dCopy = [(MDSearchableIndexService *)self clientBundleID];
-    if (classCopy)
-    {
-      goto LABEL_3;
-    }
-  }
-
-  classCopy = [(MDSearchableIndexService *)self protectionClass];
-LABEL_3:
-  v17 = logForCSLogCategoryDefault();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 138412802;
-    v28 = dCopy;
-    v29 = 2112;
-    v30 = classCopy;
-    v31 = 2048;
-    v32 = [identifiersCopy count];
-    _os_log_impl(&dword_231A35000, v17, OS_LOG_TYPE_DEFAULT, "(%@) deleteInteractionsWithIdentifiers, protectionClass:%@, identifiers num:%lu", buf, 0x20u);
-  }
-
-  v18 = logForCSLogCategoryDefault();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
-  {
-    [MDSearchableIndexService deleteInteractionsWithIdentifiers:identifiersCopy bundleID:options protectionClass:? options:? completionHandler:?];
-  }
-
-  v19 = [(MDSearchableIndexService *)self _checkItems:0 identifiers:0 protectionClass:classCopy bundleID:dCopy];
-  if (v19)
-  {
-    if (handlerCopy)
-    {
-      handlerCopy[2](handlerCopy, v19);
-    }
-  }
-
-  else
-  {
-    if (!self->_isPrivate)
-    {
-      v20 = +[CSRecieverState sharedInstance];
-      v21 = [v20 checkBundleIdentifier:dCopy];
-
-      if (v21)
-      {
-        v23[0] = MEMORY[0x277D85DD0];
-        v23[1] = 3221225472;
-        v23[2] = __113__MDSearchableIndexService_deleteInteractionsWithIdentifiers_bundleID_protectionClass_options_completionHandler___block_invoke;
-        v23[3] = &unk_278937848;
-        v24 = identifiersCopy;
-        v25 = dCopy;
-        v26 = classCopy;
-        [SpotlightSender dispatchWithOptions:options block:v23];
-      }
-    }
-
-    if (handlerCopy)
-    {
-      handlerCopy[2](handlerCopy, 0);
-    }
-  }
-
-  objc_autoreleasePoolPop(v16);
-  v22 = *MEMORY[0x277D85DE8];
+  objc_autoreleasePoolPop(v17);
 }
 
 - (void)deleteInteractionsWithGroupIdentifiers:(id)identifiers bundleID:(id)d protectionClass:(id)class options:(int64_t)options completionHandler:(id)handler
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   dCopy = d;
   classCopy = class;
   handlerCopy = handler;
-  v16 = objc_autoreleasePoolPush();
+  clientBundleID = objc_autoreleasePoolPush();
+  v17 = clientBundleID;
   if (dCopy)
   {
     if (classCopy)
@@ -2763,39 +3043,41 @@ LABEL_3:
 
   else
   {
-    dCopy = [(MDSearchableIndexService *)self clientBundleID];
+    clientBundleID = [(MDSearchableIndexService *)self clientBundleID];
+    dCopy = clientBundleID;
     if (classCopy)
     {
       goto LABEL_3;
     }
   }
 
-  classCopy = [(MDSearchableIndexService *)self protectionClass];
+  clientBundleID = [(MDSearchableIndexService *)self protectionClass];
+  classCopy = clientBundleID;
 LABEL_3:
-  v17 = logForCSLogCategoryDefault();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  v18 = logForCSLogCategoryDefault(clientBundleID);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
-    v28 = dCopy;
-    v29 = 2112;
-    v30 = classCopy;
-    v31 = 2048;
-    v32 = [identifiersCopy count];
-    _os_log_impl(&dword_231A35000, v17, OS_LOG_TYPE_DEFAULT, "(%@) deleteInteractionsWithGroupIdentifiers, protectionClass:%@, identifiers num:%lu", buf, 0x20u);
+    v29 = dCopy;
+    v30 = 2112;
+    v31 = classCopy;
+    v32 = 2048;
+    v33 = [identifiersCopy count];
+    _os_log_impl(&dword_231A35000, v18, OS_LOG_TYPE_DEFAULT, "(%@) deleteInteractionsWithGroupIdentifiers, protectionClass:%@, identifiers num:%lu", buf, 0x20u);
   }
 
-  v18 = logForCSLogCategoryDefault();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+  v20 = logForCSLogCategoryDefault(v19);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
   {
     [MDSearchableIndexService deleteInteractionsWithIdentifiers:identifiersCopy bundleID:options protectionClass:? options:? completionHandler:?];
   }
 
-  v19 = [(MDSearchableIndexService *)self _checkItems:0 identifiers:0 protectionClass:classCopy bundleID:dCopy];
-  if (v19)
+  v21 = [(MDSearchableIndexService *)self _checkItems:0 identifiers:0 protectionClass:classCopy bundleID:dCopy];
+  if (v21)
   {
     if (handlerCopy)
     {
-      handlerCopy[2](handlerCopy, v19);
+      handlerCopy[2](handlerCopy, v21);
     }
   }
 
@@ -2803,19 +3085,19 @@ LABEL_3:
   {
     if (!self->_isPrivate)
     {
-      v20 = +[CSRecieverState sharedInstance];
-      v21 = [v20 checkBundleIdentifier:dCopy];
+      v22 = +[CSRecieverState sharedInstance];
+      v23 = [v22 checkBundleIdentifier:dCopy];
 
-      if (v21)
+      if (v23)
       {
-        v23[0] = MEMORY[0x277D85DD0];
-        v23[1] = 3221225472;
-        v23[2] = __118__MDSearchableIndexService_deleteInteractionsWithGroupIdentifiers_bundleID_protectionClass_options_completionHandler___block_invoke;
-        v23[3] = &unk_278937848;
-        v24 = identifiersCopy;
-        v25 = dCopy;
-        v26 = classCopy;
-        [SpotlightSender dispatchWithOptions:options block:v23];
+        v24[0] = MEMORY[0x277D85DD0];
+        v24[1] = 3221225472;
+        v24[2] = __118__MDSearchableIndexService_deleteInteractionsWithGroupIdentifiers_bundleID_protectionClass_options_completionHandler___block_invoke;
+        v24[3] = &unk_278937848;
+        v25 = identifiersCopy;
+        v26 = dCopy;
+        v27 = classCopy;
+        [SpotlightSender dispatchWithOptions:options block:v24];
       }
     }
 
@@ -2825,17 +3107,17 @@ LABEL_3:
     }
   }
 
-  objc_autoreleasePoolPop(v16);
-  v22 = *MEMORY[0x277D85DE8];
+  objc_autoreleasePoolPop(v17);
 }
 
 - (void)deleteAllInteractionsWithBundleID:(id)d protectionClass:(id)class options:(int64_t)options completionHandler:(id)handler
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   dCopy = d;
   classCopy = class;
   handlerCopy = handler;
-  v13 = objc_autoreleasePoolPush();
+  clientBundleID = objc_autoreleasePoolPush();
+  v14 = clientBundleID;
   if (dCopy)
   {
     if (classCopy)
@@ -2846,33 +3128,35 @@ LABEL_3:
 
   else
   {
-    dCopy = [(MDSearchableIndexService *)self clientBundleID];
+    clientBundleID = [(MDSearchableIndexService *)self clientBundleID];
+    dCopy = clientBundleID;
     if (classCopy)
     {
       goto LABEL_3;
     }
   }
 
-  classCopy = [(MDSearchableIndexService *)self protectionClass];
+  clientBundleID = [(MDSearchableIndexService *)self protectionClass];
+  classCopy = clientBundleID;
 LABEL_3:
-  v14 = logForCSLogCategoryDefault();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v15 = logForCSLogCategoryDefault(clientBundleID);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
-    v28 = dCopy;
-    v29 = 2112;
-    v30 = classCopy;
-    v31 = 2048;
+    v27 = dCopy;
+    v28 = 2112;
+    v29 = classCopy;
+    v30 = 2048;
     optionsCopy = options;
-    _os_log_impl(&dword_231A35000, v14, OS_LOG_TYPE_DEFAULT, "(%@) deleteAllInteractionsWithBundleID, protectionClass:%@, options:0x%lx", buf, 0x20u);
+    _os_log_impl(&dword_231A35000, v15, OS_LOG_TYPE_DEFAULT, "(%@) deleteAllInteractionsWithBundleID, protectionClass:%@, options:0x%lx", buf, 0x20u);
   }
 
-  v15 = [(MDSearchableIndexService *)self _checkItems:0 identifiers:0 protectionClass:classCopy bundleID:dCopy];
-  if (v15)
+  v16 = [(MDSearchableIndexService *)self _checkItems:0 identifiers:0 protectionClass:classCopy bundleID:dCopy];
+  if (v16)
   {
     if (handlerCopy)
     {
-      handlerCopy[2](handlerCopy, v15);
+      handlerCopy[2](handlerCopy, v16);
 LABEL_19:
     }
   }
@@ -2881,41 +3165,34 @@ LABEL_19:
   {
     if (!self->_isPrivate)
     {
-      v16 = +[CSRecieverState sharedInstance];
-      v17 = [v16 checkBundleIdentifier:dCopy];
+      v17 = +[CSRecieverState sharedInstance];
+      v18 = [v17 checkBundleIdentifier:dCopy];
 
-      if (v17)
+      if (v18)
       {
-        v24[0] = MEMORY[0x277D85DD0];
-        v24[1] = 3221225472;
-        v24[2] = __104__MDSearchableIndexService_deleteAllInteractionsWithBundleID_protectionClass_options_completionHandler___block_invoke;
-        v24[3] = &unk_278937758;
-        v25 = dCopy;
-        v26 = classCopy;
-        [SpotlightSender dispatchWithOptions:options block:v24];
+        v23[0] = MEMORY[0x277D85DD0];
+        v23[1] = 3221225472;
+        v23[2] = __104__MDSearchableIndexService_deleteAllInteractionsWithBundleID_protectionClass_options_completionHandler___block_invoke;
+        v23[3] = &unk_278937758;
+        v24 = dCopy;
+        v25 = classCopy;
+        [SpotlightSender dispatchWithOptions:options block:v23];
       }
     }
 
-    if ([dCopy length])
+    if ([dCopy length] && -[MDSearchableIndexService _jobForIndex:](self, "_jobForIndex:", options) && (objc_opt_respondsToSelector() & 1) != 0)
     {
-      if ([(MDSearchableIndexService *)self _jobForIndex:options])
-      {
-        indexer = self->_indexer;
-        if (objc_opt_respondsToSelector())
-        {
-          v19 = self->_indexer;
-          clientBundleID = [(MDSearchableIndexService *)self clientBundleID];
-          v22[0] = MEMORY[0x277D85DD0];
-          v22[1] = 3221225472;
-          v22[2] = __104__MDSearchableIndexService_deleteAllInteractionsWithBundleID_protectionClass_options_completionHandler___block_invoke_2;
-          v22[3] = &unk_278935048;
-          v23 = handlerCopy;
-          [(MDIndexer *)v19 deleteAllInteractionsWithBundleID:dCopy fromClient:clientBundleID completionHandler:v22];
+      indexer = self->_indexer;
+      clientBundleID2 = [(MDSearchableIndexService *)self clientBundleID];
+      v21[0] = MEMORY[0x277D85DD0];
+      v21[1] = 3221225472;
+      v21[2] = __104__MDSearchableIndexService_deleteAllInteractionsWithBundleID_protectionClass_options_completionHandler___block_invoke_2;
+      v21[3] = &unk_278935048;
+      v22 = handlerCopy;
+      [(MDIndexer *)indexer deleteAllInteractionsWithBundleID:dCopy fromClient:clientBundleID2 completionHandler:v21];
 
-          handlerCopy = v23;
-          goto LABEL_19;
-        }
-      }
+      handlerCopy = v22;
+      goto LABEL_19;
     }
 
     if (handlerCopy)
@@ -2925,8 +3202,7 @@ LABEL_19:
     }
   }
 
-  objc_autoreleasePoolPop(v13);
-  v21 = *MEMORY[0x277D85DE8];
+  objc_autoreleasePoolPop(v14);
 }
 
 uint64_t __104__MDSearchableIndexService_deleteAllInteractionsWithBundleID_protectionClass_options_completionHandler___block_invoke_2(uint64_t a1)
@@ -2945,24 +3221,26 @@ uint64_t __104__MDSearchableIndexService_deleteAllInteractionsWithBundleID_prote
   actionsCopy = actions;
   dCopy = d;
   handlerCopy = handler;
-  v13 = objc_autoreleasePoolPush();
+  clientBundleID = objc_autoreleasePoolPush();
+  v14 = clientBundleID;
   if (!dCopy)
   {
-    dCopy = [(MDSearchableIndexService *)self clientBundleID];
+    clientBundleID = [(MDSearchableIndexService *)self clientBundleID];
+    dCopy = clientBundleID;
   }
 
-  v14 = logForCSLogCategoryDefault();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+  v15 = logForCSLogCategoryDefault(clientBundleID);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
     [MDSearchableIndexService donateRelevantActions:bundleID:options:completionHandler:];
   }
 
-  v15 = [(MDSearchableIndexService *)self _checkItems:0 identifiers:0 protectionClass:0 bundleID:dCopy];
-  if (v15)
+  v16 = [(MDSearchableIndexService *)self _checkItems:0 identifiers:0 protectionClass:0 bundleID:dCopy];
+  if (v16)
   {
     if (handlerCopy)
     {
-      handlerCopy[2](handlerCopy, v15);
+      handlerCopy[2](handlerCopy, v16);
     }
   }
 
@@ -2970,18 +3248,18 @@ uint64_t __104__MDSearchableIndexService_deleteAllInteractionsWithBundleID_prote
   {
     if (!self->_isPrivate)
     {
-      v16 = +[CSRecieverState sharedInstance];
-      v17 = [v16 checkBundleIdentifier:dCopy];
+      v17 = +[CSRecieverState sharedInstance];
+      v18 = [v17 checkBundleIdentifier:dCopy];
 
-      if (v17)
+      if (v18)
       {
-        v18[0] = MEMORY[0x277D85DD0];
-        v18[1] = 3221225472;
-        v18[2] = __85__MDSearchableIndexService_donateRelevantActions_bundleID_options_completionHandler___block_invoke;
-        v18[3] = &unk_278937758;
-        v19 = actionsCopy;
-        v20 = dCopy;
-        [SpotlightSender dispatchWithOptions:options block:v18];
+        v19[0] = MEMORY[0x277D85DD0];
+        v19[1] = 3221225472;
+        v19[2] = __85__MDSearchableIndexService_donateRelevantActions_bundleID_options_completionHandler___block_invoke;
+        v19[3] = &unk_278937758;
+        v20 = actionsCopy;
+        v21 = dCopy;
+        [SpotlightSender dispatchWithOptions:options block:v19];
       }
     }
 
@@ -2991,12 +3269,12 @@ uint64_t __104__MDSearchableIndexService_deleteAllInteractionsWithBundleID_prote
     }
   }
 
-  objc_autoreleasePoolPop(v13);
+  objc_autoreleasePoolPop(v14);
 }
 
 - (BOOL)checkIn:(id)in
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   inCopy = in;
   v5 = xpc_dictionary_get_remote_connection(inCopy);
   reply = xpc_dictionary_create_reply(inCopy);
@@ -3007,9 +3285,9 @@ uint64_t __104__MDSearchableIndexService_deleteAllInteractionsWithBundleID_prote
     uint64 = xpc_dictionary_get_uint64(inCopy, "id");
     v9 = (*MEMORY[0x277D286C8])();
     v10 = *(v9 + 16);
-    v52 = *v9;
-    v53 = v10;
-    v54 = *(v9 + 32);
+    v41 = *v9;
+    v42 = v10;
+    v43 = *(v9 + 32);
     v11 = si_tracing_calc_traceid();
     spanid = si_tracing_calc_next_spanid();
     *v9 = v11;
@@ -3020,9 +3298,9 @@ uint64_t __104__MDSearchableIndexService_deleteAllInteractionsWithBundleID_prote
     *(v9 + 32) = "[MDSearchableIndexService checkIn:]";
     si_tracing_log_span_begin();
     v13 = *(v9 + 16);
-    v49 = *v9;
-    v50 = v13;
-    v51 = *(v9 + 32);
+    v38 = *v9;
+    v39 = v13;
+    v40 = *(v9 + 32);
     v14 = *v9;
     v15 = si_tracing_calc_next_spanid();
     v16 = *(v9 + 8);
@@ -3066,126 +3344,103 @@ uint64_t __104__MDSearchableIndexService_deleteAllInteractionsWithBundleID_prote
     *(v9 + 24) = v17;
     *(v9 + 28) = 102;
     *(v9 + 32) = v18;
-    si_tracing_log_span_begin();
+    v19 = si_tracing_log_span_begin();
     if (reply)
     {
-      v41[0] = MEMORY[0x277D85DD0];
-      v41[1] = 3221225472;
-      v19 = *(v9 + 16);
-      v45 = *v9;
-      v46 = v19;
-      v41[2] = __36__MDSearchableIndexService_checkIn___block_invoke;
-      v41[3] = &unk_2789379B0;
-      v47 = *(v9 + 32);
-      v42 = reply;
-      v48 = uint64;
-      v43 = v7;
-      v44 = v5;
-      v20 = selfCopy;
-      v21 = MEMORY[0x2383760E0](v41);
+      v30[0] = MEMORY[0x277D85DD0];
+      v30[1] = 3221225472;
+      v20 = *(v9 + 16);
+      v34 = *v9;
+      v35 = v20;
+      v30[2] = __36__MDSearchableIndexService_checkIn___block_invoke;
+      v30[3] = &unk_2789379B0;
+      v36 = *(v9 + 32);
+      v31 = reply;
+      v37 = uint64;
+      v32 = v7;
+      v33 = v5;
+      v21 = selfCopy;
+      v22 = MEMORY[0x2383760E0](v30);
     }
 
     else
     {
-      v21 = 0;
-      v20 = selfCopy;
+      v22 = 0;
+      v21 = selfCopy;
     }
 
-    if (v20->_isExtension)
+    if (v21->_isExtension)
     {
-      v22 = logForCSLogCategoryIndex();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+      v23 = logForCSLogCategoryIndex(v19);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
-        processDescription = [(MDSearchableIndexService *)v20 processDescription];
+        processDescription = [(MDSearchableIndexService *)v21 processDescription];
         *buf = 138412290;
-        v56 = processDescription;
-        _os_log_impl(&dword_231A35000, v22, OS_LOG_TYPE_DEFAULT, "*warn* indexDelegate not supported with Extensions process:%@", buf, 0xCu);
+        v45 = processDescription;
+        _os_log_impl(&dword_231A35000, v23, OS_LOG_TYPE_DEFAULT, "*warn* indexDelegate not supported with Extensions process:%@", buf, 0xCu);
       }
 
-      if (v21)
+      if (v22)
       {
-        v24 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CC22E8] code:-1 userInfo:0];
-        (v21)[2](v21, 0, v24);
+        v25 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CC22E8] code:-1 userInfo:0];
+        (v22)[2](v22, 0, v25);
       }
     }
 
     else
     {
-      [(MDSearchableIndexService *)v20 checkInWithProtectionClass:v7 completionHandler:v21];
+      [(MDSearchableIndexService *)v21 checkInWithProtectionClass:v7 completionHandler:v22];
     }
 
-    v25 = *v9;
-    v26 = *(v9 + 8);
-    v27 = *(v9 + 16);
-    v28 = *(v9 + 24);
-    v29 = *(v9 + 28);
-    v30 = *(v9 + 32);
     si_tracing_log_span_end();
-    v31 = v50;
-    *v9 = v49;
-    *(v9 + 16) = v31;
-    *(v9 + 32) = v51;
-    v32 = *v9;
-    v33 = *(v9 + 8);
-    v34 = *(v9 + 16);
-    v35 = *(v9 + 24);
-    v36 = *(v9 + 28);
+    v26 = v39;
+    *v9 = v38;
+    *(v9 + 16) = v26;
+    *(v9 + 32) = v40;
     si_tracing_log_span_end();
-    v37 = v53;
-    *v9 = v52;
-    *(v9 + 16) = v37;
-    *(v9 + 32) = v54;
+    v27 = v42;
+    *v9 = v41;
+    *(v9 + 16) = v27;
+    *(v9 + 32) = v43;
   }
 
-  v38 = *MEMORY[0x277D85DE8];
   return v5 != 0;
 }
 
 void __36__MDSearchableIndexService_checkIn___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v20 = a2;
+  v12 = a2;
   v5 = a3;
   v6 = (*MEMORY[0x277D286C8])();
-  v24 = *v6;
-  v25 = *(v6 + 16);
-  v26 = *(v6 + 32);
+  v13 = *v6;
+  v14 = *(v6 + 16);
+  v15 = *(v6 + 32);
   v7 = *(a1 + 72);
   *v6 = *(a1 + 56);
   *(v6 + 16) = v7;
   *(v6 + 32) = *(a1 + 88);
-  v21 = *(a1 + 56);
-  v22 = *(a1 + 72);
-  v23 = *(a1 + 88);
   v8 = *v6;
   spanid = si_tracing_calc_next_spanid();
   v10 = *(v6 + 8);
-  v11 = *(v6 + 24);
   *v6 = v8;
   *(v6 + 8) = spanid;
   *(v6 + 16) = v10;
   *(v6 + 28) = 102;
   *(v6 + 32) = "completion handler for checkIn";
   si_tracing_log_span_begin();
-  v12 = *(a1 + 32);
   csindex_xpc_dictionary_encode_status_with_error();
   xpc_dictionary_set_uint64(*(a1 + 32), "id", *(a1 + 96));
-  v13 = *(a1 + 40);
-  if (v13)
+  v11 = *(a1 + 40);
+  if (v11)
   {
-    xpc_dictionary_set_string(*(a1 + 32), "pc", [v13 UTF8String]);
+    xpc_dictionary_set_string(*(a1 + 32), "pc", [v11 UTF8String]);
   }
 
   xpc_connection_send_message(*(a1 + 48), *(a1 + 32));
-  v14 = *v6;
-  v15 = *(v6 + 8);
-  v16 = *(v6 + 16);
-  v17 = *(v6 + 24);
-  v18 = *(v6 + 28);
-  v19 = *(v6 + 32);
   si_tracing_log_span_end();
-  *v6 = v24;
-  *(v6 + 16) = v25;
-  *(v6 + 32) = v26;
+  *v6 = v13;
+  *(v6 + 16) = v14;
+  *(v6 + 32) = v15;
 }
 
 - (BOOL)processIndexData:(id)data
@@ -3210,7 +3465,7 @@ void __36__MDSearchableIndexService_checkIn___block_invoke(uint64_t a1, void *a2
       clientBundleID = [(MDSearchableIndexService *)self clientBundleID];
     }
 
-    v91 = clientBundleID;
+    v80 = clientBundleID;
 
     clientPersonaID = [(MDSearchableIndexService *)self clientPersonaID];
     v12 = [MEMORY[0x277CC3510] copyNSStringForKey:"pc" fromXPCDictionary:dataCopy];
@@ -3230,43 +3485,43 @@ void __36__MDSearchableIndexService_checkIn___block_invoke(uint64_t a1, void *a2
     uint64 = xpc_dictionary_get_uint64(dataCopy, "opt");
     v16 = [MEMORY[0x277CC3510] dataWrapperForKey:"items" sizeKey:"items-size" fromXPCDictionary:dataCopy];
     v17 = [MEMORY[0x277CC3510] dataWrapperForKey:"ids" sizeKey:"ids-size" fromXPCDictionary:dataCopy];
-    v90 = [MEMORY[0x277CC3510] dataWrapperForKey:"client-state-key" sizeKey:"client-state-size" fromXPCDictionary:dataCopy];
-    v84 = [MEMORY[0x277CC3510] dataWrapperForKey:"expected-client-state-key" sizeKey:"expected-client-state-size" fromXPCDictionary:dataCopy];
-    v89 = [MEMORY[0x277CC3510] copyNSStringForKey:"n" fromXPCDictionary:dataCopy];
+    v79 = [MEMORY[0x277CC3510] dataWrapperForKey:"client-state-key" sizeKey:"client-state-size" fromXPCDictionary:dataCopy];
+    v73 = [MEMORY[0x277CC3510] dataWrapperForKey:"expected-client-state-key" sizeKey:"expected-client-state-size" fromXPCDictionary:dataCopy];
+    v78 = [MEMORY[0x277CC3510] copyNSStringForKey:"n" fromXPCDictionary:dataCopy];
     if (v16)
     {
       v18 = objc_alloc(MEMORY[0x277CC33C8]);
       data = [v16 data];
-      v94 = [v18 initWithData:data];
+      v83 = [v18 initWithData:data];
     }
 
     else
     {
-      v94 = 0;
+      v83 = 0;
     }
 
     connection = v5;
-    v86 = v7;
+    v75 = v7;
     if (v17)
     {
       v20 = objc_alloc(MEMORY[0x277CC33C8]);
       data2 = [v17 data];
-      v92 = [v20 initWithData:data2];
+      v81 = [v20 initWithData:data2];
     }
 
     else
     {
-      v92 = 0;
+      v81 = 0;
     }
 
-    v88 = v17;
+    v77 = v17;
     v22 = v16;
-    v93 = v15;
+    v82 = v15;
     v23 = (*MEMORY[0x277D286C8])();
     v24 = *(v23 + 16);
-    v124 = *v23;
-    v125 = v24;
-    v126 = *(v23 + 32);
+    v113 = *v23;
+    v114 = v24;
+    v115 = *(v23 + 32);
     v25 = si_tracing_calc_traceid();
     spanid = si_tracing_calc_next_spanid();
     *v23 = v25;
@@ -3277,31 +3532,31 @@ void __36__MDSearchableIndexService_checkIn___block_invoke(uint64_t a1, void *a2
     *(v23 + 32) = "[MDSearchableIndexService processIndexData:]";
     si_tracing_log_span_begin();
     v27 = *(v23 + 16);
-    v121 = *v23;
-    v122 = v27;
-    v123 = *(v23 + 32);
+    v110 = *v23;
+    v111 = v27;
+    v112 = *(v23 + 32);
     v28 = *v23;
     v29 = si_tracing_calc_next_spanid();
     v30 = *(v23 + 8);
     v31 = *(v23 + 24);
-    if (v93)
+    if (v82)
     {
-      if (!strcmp([v93 UTF8String], "NSFileProtectionComplete"))
+      if (!strcmp([v82 UTF8String], "NSFileProtectionComplete"))
       {
         v32 = "Class A index";
       }
 
-      else if (!strcmp([v93 UTF8String], "NSFileProtectionCompleteUnlessOpen"))
+      else if (!strcmp([v82 UTF8String], "NSFileProtectionCompleteUnlessOpen"))
       {
         v32 = "Class B index";
       }
 
-      else if (!strcmp([v93 UTF8String], "NSFileProtectionCompleteWhenUserInactive"))
+      else if (!strcmp([v82 UTF8String], "NSFileProtectionCompleteWhenUserInactive"))
       {
         v32 = "Class Cx index";
       }
 
-      else if (!strcmp([v93 UTF8String], "NSFileProtectionCompleteUntilFirstUserAuthentication"))
+      else if (!strcmp([v82 UTF8String], "NSFileProtectionCompleteUntilFirstUserAuthentication"))
       {
         v32 = "Class C index";
       }
@@ -3324,20 +3579,20 @@ void __36__MDSearchableIndexService_checkIn___block_invoke(uint64_t a1, void *a2
     *(v23 + 28) = 102;
     *(v23 + 32) = v32;
     si_tracing_log_span_begin();
-    [v90 data];
-    v34 = v33 = v92;
-    v120 = 0;
-    v8 = [(MDSearchableIndexService *)self _canProcessIndexDataForBundle:v91 itemsDecoder:v94 deletesDecoder:v92 clientState:v34 clientStateName:v89 outError:&v120];
-    v81 = v120;
+    [v79 data];
+    v34 = v33 = v81;
+    v109 = 0;
+    v8 = [(MDSearchableIndexService *)self _canProcessIndexDataForBundle:v80 itemsDecoder:v83 deletesDecoder:v81 clientState:v34 clientStateName:v78 outError:&v109];
+    v70 = v109;
 
-    v7 = v86;
+    v7 = v75;
     v35 = v22;
     if (v8)
     {
-      v36 = v94;
-      if (v94 && ([v94 obj], PlistObjectType = _MDPlistGetPlistObjectType(), v36 = v94, PlistObjectType == 240) && (objc_msgSend(v94, "obj"), Count = _MDPlistArrayGetCount(), v36 = v94, Count))
+      v36 = v83;
+      if (v83 && (objc_msgSend_obj(v83), PlistObjectType = _MDPlistGetPlistObjectType(), v36 = v83, PlistObjectType == 240) && (objc_msgSend_obj(v83), Count = _MDPlistArrayGetCount(), v36 = v83, Count))
       {
-        v79 = [MEMORY[0x277CC3510] dataWrapperForKey:"textdata" sizeKey:"text-data-size" fromXPCDictionary:dataCopy];
+        v68 = [MEMORY[0x277CC3510] dataWrapperForKey:"textdata" sizeKey:"text-data-size" fromXPCDictionary:dataCopy];
         v39 = 1;
       }
 
@@ -3345,53 +3600,32 @@ void __36__MDSearchableIndexService_checkIn___block_invoke(uint64_t a1, void *a2
       {
 
         v39 = 0;
-        v94 = 0;
+        v83 = 0;
         v35 = 0;
-        v79 = 0;
+        v68 = 0;
       }
 
-      v40 = v92;
-      if (v92)
+      v40 = v81;
+      if (v81 && (objc_msgSend_obj(v81), v41 = _MDPlistGetPlistObjectType(), v40 = v81, v41 == 240) && (objc_msgSend_obj(v81), v42 = _MDPlistArrayGetCount(), v40 = v81, v42) || (v40, v77, v77 = 0, v81 = 0, v69 = 0, v39))
       {
-        [v92 obj];
-        v41 = _MDPlistGetPlistObjectType();
-        v40 = v92;
-        if (v41 == 240)
+        if ((uint64 & 0x1024F) == 4 || self->_isPrivate || (+[CSRecieverState sharedInstance](CSRecieverState, "sharedInstance"), v43 = objc_claimAutoreleasedReturnValue(), v44 = [v43 checkBundleIdentifier:v80], v43, !v44))
         {
-          [v92 obj];
-          v42 = _MDPlistArrayGetCount();
-          v40 = v92;
-          if (v42)
-          {
-            goto LABEL_57;
-          }
-        }
-      }
-
-      v88 = 0;
-      v92 = 0;
-      v80 = 0;
-      if (v39)
-      {
-LABEL_57:
-        if ((uint64 & 0x1024F) == 4 || self->_isPrivate || (+[CSRecieverState sharedInstance](CSRecieverState, "sharedInstance"), v43 = objc_claimAutoreleasedReturnValue(), v44 = [v43 checkBundleIdentifier:v91], v43, !v44))
-        {
-          v80 = 0;
+          v69 = 0;
         }
 
         else
         {
           if (v39)
           {
-            v80 = [MEMORY[0x277CC3510] dataWrapperForKey:"htmldata" sizeKey:"html-data-size" fromXPCDictionary:dataCopy];
-            v45 = v94;
-            if (v80)
+            v69 = [MEMORY[0x277CC3510] dataWrapperForKey:"htmldata" sizeKey:"html-data-size" fromXPCDictionary:dataCopy];
+            v45 = v83;
+            if (v69)
             {
               v46 = objc_alloc(MEMORY[0x277CC33C8]);
-              data3 = [v80 data];
+              data3 = [v69 data];
               v48 = [v46 initWithData:data3];
 
-              [v48 setBackingStore:v80];
+              [v48 setBackingStore:v69];
             }
 
             else
@@ -3399,142 +3633,131 @@ LABEL_57:
               v48 = 0;
             }
 
-            if (v79)
+            if (v68)
             {
-              v74 = objc_alloc(MEMORY[0x277CC33C8]);
-              data4 = [v79 data];
-              v73 = [v74 initWithData:data4];
+              v63 = objc_alloc(MEMORY[0x277CC33C8]);
+              data4 = [v68 data];
+              v62 = [v63 initWithData:data4];
 
-              [v73 setBackingStore:v79];
+              [v62 setBackingStore:v68];
             }
 
             else
             {
-              v73 = 0;
+              v62 = 0;
             }
           }
 
           else
           {
-            v80 = 0;
-            v73 = 0;
+            v69 = 0;
+            v62 = 0;
             v48 = 0;
-            v45 = v94;
+            v45 = v83;
           }
 
           [v45 setBackingStore:v35];
-          [v92 setBackingStore:v88];
-          [(MDSearchableIndexService *)self _dispatchToReceiversWithBundleID:v91 protectionClass:v93 options:uint64 items:v45 itemsText:v73 itemsHTML:v48 deletes:v92];
+          [v81 setBackingStore:v77];
+          [(MDSearchableIndexService *)self _dispatchToReceiversWithBundleID:v80 protectionClass:v82 options:uint64 items:v45 itemsText:v62 itemsHTML:v48 deletes:v81];
         }
       }
 
       if ([(MDSearchableIndexService *)self _jobForIndex:uint64])
       {
         v49 = *(v23 + 16);
-        v117 = *v23;
-        v118 = v49;
-        v119 = *(v23 + 32);
-        v115[0] = 0;
-        v115[1] = v115;
-        v115[2] = 0x3032000000;
-        v115[3] = __Block_byref_object_copy__2;
-        v115[4] = __Block_byref_object_dispose__2;
-        v76 = v35;
+        v106 = *v23;
+        v107 = v49;
+        v108 = *(v23 + 32);
+        v104[0] = 0;
+        v104[1] = v104;
+        v104[2] = 0x3032000000;
+        v104[3] = __Block_byref_object_copy__2;
+        v104[4] = __Block_byref_object_dispose__2;
+        v65 = v35;
         v50 = v35;
-        v116 = v50;
-        v113[0] = 0;
-        v113[1] = v113;
-        v113[2] = 0x3032000000;
-        v113[3] = __Block_byref_object_copy__2;
-        v113[4] = __Block_byref_object_dispose__2;
-        v51 = v79;
-        v114 = v51;
-        v111[0] = 0;
-        v111[1] = v111;
-        v111[2] = 0x3032000000;
-        v111[3] = __Block_byref_object_copy__2;
-        v111[4] = __Block_byref_object_dispose__2;
-        v52 = v80;
-        v112 = v52;
-        v109[0] = 0;
-        v109[1] = v109;
-        v109[2] = 0x3032000000;
-        v109[3] = __Block_byref_object_copy__2;
-        v109[4] = __Block_byref_object_dispose__2;
-        v53 = v88;
-        v110 = v53;
-        v107[0] = 0;
-        v107[1] = v107;
-        v107[2] = 0x3032000000;
-        v107[3] = __Block_byref_object_copy__2;
-        v107[4] = __Block_byref_object_dispose__2;
-        v54 = v90;
-        v108 = v54;
+        v105 = v50;
+        v102[0] = 0;
+        v102[1] = v102;
+        v102[2] = 0x3032000000;
+        v102[3] = __Block_byref_object_copy__2;
+        v102[4] = __Block_byref_object_dispose__2;
+        v51 = v68;
+        v103 = v51;
+        v100[0] = 0;
+        v100[1] = v100;
+        v100[2] = 0x3032000000;
+        v100[3] = __Block_byref_object_copy__2;
+        v100[4] = __Block_byref_object_dispose__2;
+        v52 = v69;
+        v101 = v52;
+        v98[0] = 0;
+        v98[1] = v98;
+        v98[2] = 0x3032000000;
+        v98[3] = __Block_byref_object_copy__2;
+        v98[4] = __Block_byref_object_dispose__2;
+        v53 = v77;
+        v99 = v53;
+        v96[0] = 0;
+        v96[1] = v96;
+        v96[2] = 0x3032000000;
+        v96[3] = __Block_byref_object_copy__2;
+        v96[4] = __Block_byref_object_dispose__2;
+        v54 = v79;
+        v97 = v54;
         data5 = [v50 data];
         data6 = [v51 data];
         data7 = [v52 data];
         data8 = [v54 data];
-        data9 = [v84 data];
+        data9 = [v73 data];
         data10 = [v53 data];
-        v95[0] = MEMORY[0x277D85DD0];
-        v95[1] = 3221225472;
-        v103 = v117;
-        v95[2] = __45__MDSearchableIndexService_processIndexData___block_invoke;
-        v95[3] = &unk_2789379D8;
-        v104 = v118;
-        v105 = v119;
-        v98 = v115;
-        v99 = v113;
-        v100 = v111;
-        v101 = v109;
-        v102 = v107;
-        v96 = v86;
-        v106 = value;
-        v97 = connection;
-        [(MDSearchableIndexService *)self _processIndexDataForBundle:v91 protectionClass:v93 personaID:clientPersonaID options:uint64 items:data5 itemsText:data6 itemsHTML:data7 clientState:data8 expectedClientState:data9 clientStateName:v89 deletes:data10 completionHandler:v95];
+        v84[0] = MEMORY[0x277D85DD0];
+        v84[1] = 3221225472;
+        v92 = v106;
+        v84[2] = __45__MDSearchableIndexService_processIndexData___block_invoke;
+        v84[3] = &unk_2789379D8;
+        v93 = v107;
+        v94 = v108;
+        v87 = v104;
+        v88 = v102;
+        v89 = v100;
+        v90 = v98;
+        v91 = v96;
+        v85 = v75;
+        v95 = value;
+        v86 = connection;
+        [(MDSearchableIndexService *)self _processIndexDataForBundle:v80 protectionClass:v82 personaID:clientPersonaID options:uint64 items:data5 itemsText:data6 itemsHTML:data7 clientState:data8 expectedClientState:data9 clientStateName:v78 deletes:data10 completionHandler:v84];
 
-        _Block_object_dispose(v107, 8);
-        _Block_object_dispose(v109, 8);
+        _Block_object_dispose(v96, 8);
+        _Block_object_dispose(v98, 8);
 
-        _Block_object_dispose(v111, 8);
-        _Block_object_dispose(v113, 8);
+        _Block_object_dispose(v100, 8);
+        _Block_object_dispose(v102, 8);
 
-        _Block_object_dispose(v115, 8);
-        v7 = v86;
-        v35 = v76;
+        _Block_object_dispose(v104, 8);
+        v7 = v75;
+        v35 = v65;
       }
 
       else
       {
         csindex_xpc_dictionary_encode_status_with_error();
-        xpc_dictionary_set_uint64(v86, "id", value);
-        xpc_connection_send_message(connection, v86);
+        xpc_dictionary_set_uint64(v75, "id", value);
+        xpc_connection_send_message(connection, v75);
       }
 
-      v33 = v92;
+      v33 = v81;
     }
 
-    v59 = *v23;
-    v60 = *(v23 + 8);
-    v61 = *(v23 + 16);
-    v62 = *(v23 + 24);
-    v63 = *(v23 + 28);
-    v64 = *(v23 + 32);
     si_tracing_log_span_end();
-    v65 = v122;
-    *v23 = v121;
-    *(v23 + 16) = v65;
-    *(v23 + 32) = v123;
-    v66 = *v23;
-    v67 = *(v23 + 8);
-    v68 = *(v23 + 16);
-    v69 = *(v23 + 24);
-    v70 = *(v23 + 28);
+    v59 = v111;
+    *v23 = v110;
+    *(v23 + 16) = v59;
+    *(v23 + 32) = v112;
     si_tracing_log_span_end();
-    v71 = v125;
-    *v23 = v124;
-    *(v23 + 16) = v71;
-    *(v23 + 32) = v126;
+    v60 = v114;
+    *v23 = v113;
+    *(v23 + 16) = v60;
+    *(v23 + 32) = v115;
 
     v5 = connection;
   }
@@ -3544,75 +3767,65 @@ LABEL_57:
 
 void __45__MDSearchableIndexService_processIndexData___block_invoke(uint64_t a1, void *a2, char a3)
 {
-  v28 = a2;
+  v20 = a2;
   v5 = (*MEMORY[0x277D286C8])();
-  v32 = *v5;
-  v33 = *(v5 + 16);
-  v34 = *(v5 + 32);
+  v21 = *v5;
+  v22 = *(v5 + 16);
+  v23 = *(v5 + 32);
   v6 = *(a1 + 104);
   *v5 = *(a1 + 88);
   *(v5 + 16) = v6;
   *(v5 + 32) = *(a1 + 120);
-  v29 = *(a1 + 88);
-  v30 = *(a1 + 104);
-  v31 = *(a1 + 120);
   v7 = *v5;
   spanid = si_tracing_calc_next_spanid();
   v9 = *(v5 + 8);
-  v10 = *(v5 + 24);
   *v5 = v7;
   *(v5 + 8) = spanid;
   *(v5 + 16) = v9;
   *(v5 + 28) = 102;
   *(v5 + 32) = "completion handler for processIndexData";
   si_tracing_log_span_begin();
-  v11 = *(*(a1 + 48) + 8);
-  v12 = *(v11 + 40);
-  *(v11 + 40) = 0;
+  v10 = *(*(a1 + 48) + 8);
+  v11 = *(v10 + 40);
+  *(v10 + 40) = 0;
 
-  v13 = *(*(a1 + 56) + 8);
-  v14 = *(v13 + 40);
-  *(v13 + 40) = 0;
+  v12 = *(*(a1 + 56) + 8);
+  v13 = *(v12 + 40);
+  *(v12 + 40) = 0;
 
-  v15 = *(*(a1 + 64) + 8);
-  v16 = *(v15 + 40);
-  *(v15 + 40) = 0;
+  v14 = *(*(a1 + 64) + 8);
+  v15 = *(v14 + 40);
+  *(v14 + 40) = 0;
 
-  v17 = *(*(a1 + 72) + 8);
-  v18 = *(v17 + 40);
-  *(v17 + 40) = 0;
+  v16 = *(*(a1 + 72) + 8);
+  v17 = *(v16 + 40);
+  *(v16 + 40) = 0;
 
-  v19 = *(*(a1 + 80) + 8);
-  v20 = *(v19 + 40);
-  *(v19 + 40) = 0;
+  v18 = *(*(a1 + 80) + 8);
+  v19 = *(v18 + 40);
+  *(v18 + 40) = 0;
 
   if ((a3 & 1) == 0)
   {
-    v21 = *(a1 + 32);
     csindex_xpc_dictionary_encode_status_with_error();
     xpc_dictionary_set_uint64(*(a1 + 32), "id", *(a1 + 128));
     xpc_connection_send_message(*(a1 + 40), *(a1 + 32));
   }
 
-  v22 = *v5;
-  v23 = *(v5 + 8);
-  v24 = *(v5 + 16);
-  v25 = *(v5 + 24);
-  v26 = *(v5 + 28);
-  v27 = *(v5 + 32);
   si_tracing_log_span_end();
-  *v5 = v32;
-  *(v5 + 16) = v33;
-  *(v5 + 32) = v34;
+  *v5 = v21;
+  *(v5 + 16) = v22;
+  *(v5 + 32) = v23;
 }
 
 - (BOOL)fetchBundleIDs:(id)ds
 {
   dsCopy = ds;
+  v5 = dsCopy;
   if (!self->_isInternal)
   {
-    v6 = logForCSLogCategoryIndex();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = logForCSLogCategoryIndex(dsCopy);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [MDSearchableIndexService provideDataForBundle:identifier:type:completionHandler:];
     }
@@ -3620,41 +3833,41 @@ void __45__MDSearchableIndexService_processIndexData___block_invoke(uint64_t a1,
     goto LABEL_16;
   }
 
-  indexer = self->_indexer;
-  if ((objc_opt_respondsToSelector() & 1) == 0)
+  v6 = objc_opt_respondsToSelector();
+  if ((v6 & 1) == 0)
   {
-    v6 = logForCSLogCategoryIndex();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = logForCSLogCategoryIndex(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [MDSearchableIndexService fetchBundleIDs:];
     }
 
 LABEL_16:
-    v10 = 0;
+    v11 = 0;
     goto LABEL_20;
   }
 
-  v6 = xpc_dictionary_get_remote_connection(dsCopy);
-  reply = xpc_dictionary_create_reply(dsCopy);
-  v8 = reply;
-  if (v6)
+  v7 = xpc_dictionary_get_remote_connection(v5);
+  reply = xpc_dictionary_create_reply(v5);
+  v9 = reply;
+  if (v7)
   {
-    v9 = reply == 0;
+    v10 = reply == 0;
   }
 
   else
   {
-    v9 = 1;
+    v10 = 1;
   }
 
-  v10 = !v9;
-  if (!v9)
+  v11 = !v10;
+  if (!v10)
   {
-    v11 = [MEMORY[0x277CC3510] copyNSStringForKey:"ipc" fromXPCDictionary:dsCopy];
-    v12 = v11;
-    if (v11)
+    v12 = [MEMORY[0x277CC3510] copyNSStringForKey:"ipc" fromXPCDictionary:v5];
+    v13 = v12;
+    if (v12)
     {
-      protectionClass = v11;
+      protectionClass = v12;
     }
 
     else
@@ -3662,26 +3875,25 @@ LABEL_16:
       protectionClass = [(MDSearchableIndexService *)self protectionClass];
     }
 
-    v14 = protectionClass;
+    v15 = protectionClass;
 
-    v15 = self->_indexer;
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __43__MDSearchableIndexService_fetchBundleIDs___block_invoke;
-    v17[3] = &unk_278937A00;
-    v18 = v8;
-    v19 = v6;
-    [(MDIndexer *)v15 fetchBundleIdsForProtectionClass:v14 completionHandler:v17];
+    indexer = self->_indexer;
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __43__MDSearchableIndexService_fetchBundleIDs___block_invoke;
+    v18[3] = &unk_278937A00;
+    v19 = v9;
+    v20 = v7;
+    [(MDIndexer *)indexer fetchBundleIdsForProtectionClass:v15 completionHandler:v18];
   }
 
 LABEL_20:
-  return v10;
+  return v11;
 }
 
-void __43__MDSearchableIndexService_fetchBundleIDs___block_invoke(uint64_t a1, void *a2)
+void __43__MDSearchableIndexService_fetchBundleIDs___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   v7 = a2;
-  v3 = *(a1 + 32);
   csindex_xpc_dictionary_encode_status_with_error();
   if ([v7 count])
   {
@@ -3707,14 +3919,14 @@ void __43__MDSearchableIndexService_fetchBundleIDs___block_invoke(uint64_t a1, v
   {
     selfCopy = self;
     v7 = [MEMORY[0x277CC3510] copyNSStringForKey:"pc" fromXPCDictionary:lockedCopy];
-    v37 = [MEMORY[0x277CC3510] copyNSStringForKey:"b" fromXPCDictionary:lockedCopy];
+    v26 = [MEMORY[0x277CC3510] copyNSStringForKey:"b" fromXPCDictionary:lockedCopy];
     v8 = xpc_dictionary_get_double(lockedCopy, "time");
     uint64 = xpc_dictionary_get_uint64(lockedCopy, "id");
     v10 = (*MEMORY[0x277D286C8])();
     v11 = *(v10 + 16);
-    v48 = *v10;
-    v49 = v11;
-    v50 = *(v10 + 32);
+    v37 = *v10;
+    v38 = v11;
+    v39 = *(v10 + 32);
     v12 = si_tracing_calc_traceid();
     spanid = si_tracing_calc_next_spanid();
     *v10 = v12;
@@ -3725,9 +3937,9 @@ void __43__MDSearchableIndexService_fetchBundleIDs___block_invoke(uint64_t a1, v
     *(v10 + 32) = "[MDSearchableIndexService prepareIndexingLocked:]";
     si_tracing_log_span_begin();
     v14 = *(v10 + 16);
-    v45 = *v10;
-    v46 = v14;
-    v47 = *(v10 + 32);
+    v34 = *v10;
+    v35 = v14;
+    v36 = *(v10 + 32);
     v15 = *v10;
     v16 = si_tracing_calc_next_spanid();
     v17 = *(v10 + 8);
@@ -3774,18 +3986,18 @@ void __43__MDSearchableIndexService_fetchBundleIDs___block_invoke(uint64_t a1, v
     si_tracing_log_span_begin();
     if (reply)
     {
-      v38[0] = MEMORY[0x277D85DD0];
-      v38[1] = 3221225472;
-      v38[2] = __50__MDSearchableIndexService_prepareIndexingLocked___block_invoke;
-      v38[3] = &unk_278937A28;
+      v27[0] = MEMORY[0x277D85DD0];
+      v27[1] = 3221225472;
+      v27[2] = __50__MDSearchableIndexService_prepareIndexingLocked___block_invoke;
+      v27[3] = &unk_278937A28;
       v20 = *(v10 + 16);
-      v41 = *v10;
-      v42 = v20;
-      v43 = *(v10 + 32);
-      v39 = reply;
-      v44 = uint64;
-      v40 = v5;
-      v21 = MEMORY[0x2383760E0](v38);
+      v30 = *v10;
+      v31 = v20;
+      v32 = *(v10 + 32);
+      v28 = reply;
+      v33 = uint64;
+      v29 = v5;
+      v21 = MEMORY[0x2383760E0](v27);
     }
 
     else
@@ -3793,29 +4005,18 @@ void __43__MDSearchableIndexService_fetchBundleIDs___block_invoke(uint64_t a1, v
       v21 = 0;
     }
 
-    [(MDSearchableIndexService *)selfCopy prepareIndexingWhileLocked:v37 protectionClass:v7 holdAssertionFor:v21 completionHandler:v8];
+    [(MDSearchableIndexService *)selfCopy prepareIndexingWhileLocked:v26 protectionClass:v7 holdAssertionFor:v21 completionHandler:v8];
 
-    v22 = *v10;
-    v23 = *(v10 + 8);
-    v24 = *(v10 + 16);
-    v25 = *(v10 + 24);
-    v26 = *(v10 + 28);
-    v27 = *(v10 + 32);
     si_tracing_log_span_end();
-    v28 = v46;
-    *v10 = v45;
-    *(v10 + 16) = v28;
-    *(v10 + 32) = v47;
-    v29 = *v10;
-    v30 = *(v10 + 8);
-    v31 = *(v10 + 16);
-    v32 = *(v10 + 24);
-    v33 = *(v10 + 28);
+    v22 = v35;
+    *v10 = v34;
+    *(v10 + 16) = v22;
+    *(v10 + 32) = v36;
     si_tracing_log_span_end();
-    v34 = v49;
-    *v10 = v48;
-    *(v10 + 16) = v34;
-    *(v10 + 32) = v50;
+    v23 = v38;
+    *v10 = v37;
+    *(v10 + 16) = v23;
+    *(v10 + 32) = v39;
   }
 
   return v5 != 0;
@@ -3823,42 +4024,31 @@ void __43__MDSearchableIndexService_fetchBundleIDs___block_invoke(uint64_t a1, v
 
 void __50__MDSearchableIndexService_prepareIndexingLocked___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = a2;
+  v8 = a2;
   v3 = (*MEMORY[0x277D286C8])();
-  v20 = *v3;
-  v21 = *(v3 + 16);
-  v22 = *(v3 + 32);
+  v9 = *v3;
+  v10 = *(v3 + 16);
+  v11 = *(v3 + 32);
   v4 = *(a1 + 64);
   *v3 = *(a1 + 48);
   *(v3 + 16) = v4;
   *(v3 + 32) = *(a1 + 80);
-  v17 = *(a1 + 48);
-  v18 = *(a1 + 64);
-  v19 = *(a1 + 80);
   v5 = *v3;
   spanid = si_tracing_calc_next_spanid();
   v7 = *(v3 + 8);
-  v8 = *(v3 + 24);
   *v3 = v5;
   *(v3 + 8) = spanid;
   *(v3 + 16) = v7;
   *(v3 + 28) = 102;
   *(v3 + 32) = "completion handler for checkIn";
   si_tracing_log_span_begin();
-  v9 = *(a1 + 32);
   csindex_xpc_dictionary_encode_status_with_error();
   xpc_dictionary_set_uint64(*(a1 + 32), "id", *(a1 + 88));
   xpc_connection_send_message(*(a1 + 40), *(a1 + 32));
-  v10 = *v3;
-  v11 = *(v3 + 8);
-  v12 = *(v3 + 16);
-  v13 = *(v3 + 24);
-  v14 = *(v3 + 28);
-  v15 = *(v3 + 32);
   si_tracing_log_span_end();
-  *v3 = v20;
-  *(v3 + 16) = v21;
-  *(v3 + 32) = v22;
+  *v3 = v9;
+  *(v3 + 16) = v10;
+  *(v3 + 32) = v11;
 }
 
 - (BOOL)finishIndexingLocked:(id)locked
@@ -3870,13 +4060,13 @@ void __50__MDSearchableIndexService_prepareIndexingLocked___block_invoke(uint64_
   {
     selfCopy = self;
     v7 = [MEMORY[0x277CC3510] copyNSStringForKey:"pc" fromXPCDictionary:lockedCopy];
-    v36 = [MEMORY[0x277CC3510] copyNSStringForKey:"b" fromXPCDictionary:lockedCopy];
+    v25 = [MEMORY[0x277CC3510] copyNSStringForKey:"b" fromXPCDictionary:lockedCopy];
     uint64 = xpc_dictionary_get_uint64(lockedCopy, "id");
     v9 = (*MEMORY[0x277D286C8])();
     v10 = *(v9 + 16);
-    v47 = *v9;
-    v48 = v10;
-    v49 = *(v9 + 32);
+    v36 = *v9;
+    v37 = v10;
+    v38 = *(v9 + 32);
     v11 = si_tracing_calc_traceid();
     spanid = si_tracing_calc_next_spanid();
     *v9 = v11;
@@ -3887,9 +4077,9 @@ void __50__MDSearchableIndexService_prepareIndexingLocked___block_invoke(uint64_
     *(v9 + 32) = "[MDSearchableIndexService finishIndexingLocked:]";
     si_tracing_log_span_begin();
     v13 = *(v9 + 16);
-    v44 = *v9;
-    v45 = v13;
-    v46 = *(v9 + 32);
+    v33 = *v9;
+    v34 = v13;
+    v35 = *(v9 + 32);
     v14 = *v9;
     v15 = si_tracing_calc_next_spanid();
     v16 = *(v9 + 8);
@@ -3936,18 +4126,18 @@ void __50__MDSearchableIndexService_prepareIndexingLocked___block_invoke(uint64_
     si_tracing_log_span_begin();
     if (reply)
     {
-      v37[0] = MEMORY[0x277D85DD0];
-      v37[1] = 3221225472;
-      v37[2] = __49__MDSearchableIndexService_finishIndexingLocked___block_invoke;
-      v37[3] = &unk_278937A28;
+      v26[0] = MEMORY[0x277D85DD0];
+      v26[1] = 3221225472;
+      v26[2] = __49__MDSearchableIndexService_finishIndexingLocked___block_invoke;
+      v26[3] = &unk_278937A28;
       v19 = *(v9 + 16);
-      v40 = *v9;
-      v41 = v19;
-      v42 = *(v9 + 32);
-      v38 = reply;
-      v43 = uint64;
-      v39 = v5;
-      v20 = MEMORY[0x2383760E0](v37);
+      v29 = *v9;
+      v30 = v19;
+      v31 = *(v9 + 32);
+      v27 = reply;
+      v32 = uint64;
+      v28 = v5;
+      v20 = MEMORY[0x2383760E0](v26);
     }
 
     else
@@ -3955,29 +4145,18 @@ void __50__MDSearchableIndexService_prepareIndexingLocked___block_invoke(uint64_
       v20 = 0;
     }
 
-    [(MDSearchableIndexService *)selfCopy finishIndexingWhileLocked:v36 protectionClass:v7 completionHandler:v20];
+    [(MDSearchableIndexService *)selfCopy finishIndexingWhileLocked:v25 protectionClass:v7 completionHandler:v20];
 
-    v21 = *v9;
-    v22 = *(v9 + 8);
-    v23 = *(v9 + 16);
-    v24 = *(v9 + 24);
-    v25 = *(v9 + 28);
-    v26 = *(v9 + 32);
     si_tracing_log_span_end();
-    v27 = v45;
-    *v9 = v44;
-    *(v9 + 16) = v27;
-    *(v9 + 32) = v46;
-    v28 = *v9;
-    v29 = *(v9 + 8);
-    v30 = *(v9 + 16);
-    v31 = *(v9 + 24);
-    v32 = *(v9 + 28);
+    v21 = v34;
+    *v9 = v33;
+    *(v9 + 16) = v21;
+    *(v9 + 32) = v35;
     si_tracing_log_span_end();
-    v33 = v48;
-    *v9 = v47;
-    *(v9 + 16) = v33;
-    *(v9 + 32) = v49;
+    v22 = v37;
+    *v9 = v36;
+    *(v9 + 16) = v22;
+    *(v9 + 32) = v38;
   }
 
   return v5 != 0;
@@ -3985,48 +4164,37 @@ void __50__MDSearchableIndexService_prepareIndexingLocked___block_invoke(uint64_
 
 void __49__MDSearchableIndexService_finishIndexingLocked___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = a2;
+  v8 = a2;
   v3 = (*MEMORY[0x277D286C8])();
-  v20 = *v3;
-  v21 = *(v3 + 16);
-  v22 = *(v3 + 32);
+  v9 = *v3;
+  v10 = *(v3 + 16);
+  v11 = *(v3 + 32);
   v4 = *(a1 + 64);
   *v3 = *(a1 + 48);
   *(v3 + 16) = v4;
   *(v3 + 32) = *(a1 + 80);
-  v17 = *(a1 + 48);
-  v18 = *(a1 + 64);
-  v19 = *(a1 + 80);
   v5 = *v3;
   spanid = si_tracing_calc_next_spanid();
   v7 = *(v3 + 8);
-  v8 = *(v3 + 24);
   *v3 = v5;
   *(v3 + 8) = spanid;
   *(v3 + 16) = v7;
   *(v3 + 28) = 102;
   *(v3 + 32) = "completion handler for checkIn";
   si_tracing_log_span_begin();
-  v9 = *(a1 + 32);
   csindex_xpc_dictionary_encode_status_with_error();
   xpc_dictionary_set_uint64(*(a1 + 32), "id", *(a1 + 88));
   xpc_connection_send_message(*(a1 + 40), *(a1 + 32));
-  v10 = *v3;
-  v11 = *(v3 + 8);
-  v12 = *(v3 + 16);
-  v13 = *(v3 + 24);
-  v14 = *(v3 + 28);
-  v15 = *(v3 + 32);
   si_tracing_log_span_end();
-  *v3 = v20;
-  *(v3 + 16) = v21;
-  *(v3 + 32) = v22;
+  *v3 = v9;
+  *(v3 + 16) = v10;
+  *(v3 + 32) = v11;
 }
 
 - (void)indexSearchableItems:(id)items deleteSearchableItemsWithIdentifiers:(id)identifiers clientState:(id)state clientStateName:(id)name protectionClass:(id)class forBundleID:(id)d options:(int64_t)options completionHandler:(id)self0
 {
   handlerCopy = handler;
-  v11 = logForCSLogCategoryDefault();
+  v11 = logForCSLogCategoryDefault(handlerCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
     [MDSearchableIndexService indexSearchableItems:deleteSearchableItemsWithIdentifiers:clientState:clientStateName:protectionClass:forBundleID:options:completionHandler:];
@@ -4042,7 +4210,7 @@ void __49__MDSearchableIndexService_finishIndexingLocked___block_invoke(uint64_t
 - (void)indexFromBundle:(id)bundle protectionClass:(id)class options:(int64_t)options items:(id)items itemsText:(id)text itemsHTML:(id)l clientState:(id)state expectedClientState:(id)self0 clientStateName:(id)self1 deletes:(id)self2 userActivities:(BOOL)self3 completionHandler:(id)self4
 {
   handlerCopy = handler;
-  v15 = logForCSLogCategoryDefault();
+  v15 = logForCSLogCategoryDefault(handlerCopy);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
   {
     [MDSearchableIndexService indexFromBundle:protectionClass:options:items:itemsText:itemsHTML:clientState:expectedClientState:clientStateName:deletes:userActivities:completionHandler:];
@@ -4075,24 +4243,24 @@ void __49__MDSearchableIndexService_finishIndexingLocked___block_invoke(uint64_t
   if (!v8)
   {
     selfCopy = self;
-    v43 = v9;
+    v32 = v9;
     uint64 = xpc_dictionary_get_uint64(modifyCopy, "id");
     v11 = [MEMORY[0x277CC3510] copyNSStringForKey:"pc" fromXPCDictionary:modifyCopy];
-    v48 = [MEMORY[0x277CC3510] copyNSStringForKey:"b" fromXPCDictionary:modifyCopy];
-    v45 = xpc_dictionary_get_uint64(modifyCopy, "opt");
+    v37 = [MEMORY[0x277CC3510] copyNSStringForKey:"b" fromXPCDictionary:modifyCopy];
+    v34 = xpc_dictionary_get_uint64(modifyCopy, "opt");
     v12 = [MEMORY[0x277CC3510] dataWrapperForKey:"ids" sizeKey:"ids-size" fromXPCDictionary:modifyCopy];
     v13 = objc_alloc(MEMORY[0x277CC33C8]);
-    v44 = v12;
+    v33 = v12;
     data = [v12 data];
     v15 = [v13 initWithData:data];
 
-    v42 = v15;
+    v31 = v15;
     decode = [v15 decode];
     v16 = (*MEMORY[0x277D286C8])();
     v17 = *(v16 + 16);
-    v60 = *v16;
-    v61 = v17;
-    v62 = *(v16 + 32);
+    v49 = *v16;
+    v50 = v17;
+    v51 = *(v16 + 32);
     v18 = si_tracing_calc_traceid();
     spanid = si_tracing_calc_next_spanid();
     *v16 = v18;
@@ -4103,9 +4271,9 @@ void __49__MDSearchableIndexService_finishIndexingLocked___block_invoke(uint64_t
     *(v16 + 32) = "[MDSearchableIndexService willModify:]";
     si_tracing_log_span_begin();
     v20 = *(v16 + 16);
-    v57 = *v16;
-    v58 = v20;
-    v59 = *(v16 + 32);
+    v46 = *v16;
+    v47 = v20;
+    v48 = *(v16 + 32);
     v21 = *v16;
     v22 = si_tracing_calc_next_spanid();
     v23 = *(v16 + 8);
@@ -4151,43 +4319,32 @@ void __49__MDSearchableIndexService_finishIndexingLocked___block_invoke(uint64_t
     *(v16 + 32) = v25;
     si_tracing_log_span_begin();
     v26 = *(v16 + 16);
-    v53 = *v16;
-    v54 = v26;
-    v55 = *(v16 + 32);
-    v49[0] = MEMORY[0x277D85DD0];
-    v49[1] = 3221225472;
-    v49[2] = __39__MDSearchableIndexService_willModify___block_invoke;
-    v49[3] = &unk_278937A50;
-    v27 = v44;
-    v50 = v27;
-    v51 = v7;
-    v56 = uint64;
-    v52 = v5;
-    [(MDSearchableIndexService *)selfCopy willModifySearchableItemsWithIdentifiers:decode protectionClass:v11 forBundleID:v48 options:v45 completionHandler:v49];
+    v42 = *v16;
+    v43 = v26;
+    v44 = *(v16 + 32);
+    v38[0] = MEMORY[0x277D85DD0];
+    v38[1] = 3221225472;
+    v38[2] = __39__MDSearchableIndexService_willModify___block_invoke;
+    v38[3] = &unk_278937A50;
+    v27 = v33;
+    v39 = v27;
+    v40 = v7;
+    v45 = uint64;
+    v41 = v5;
+    [(MDSearchableIndexService *)selfCopy willModifySearchableItemsWithIdentifiers:decode protectionClass:v11 forBundleID:v37 options:v34 completionHandler:v38];
 
-    v28 = *v16;
-    v29 = *(v16 + 8);
-    v30 = *(v16 + 16);
-    v31 = *(v16 + 24);
-    v32 = *(v16 + 28);
-    v33 = *(v16 + 32);
     si_tracing_log_span_end();
-    v34 = v58;
-    *v16 = v57;
-    *(v16 + 16) = v34;
-    *(v16 + 32) = v59;
-    v35 = *v16;
-    v36 = *(v16 + 8);
-    v37 = *(v16 + 16);
-    v38 = *(v16 + 24);
-    v39 = *(v16 + 28);
+    v28 = v47;
+    *v16 = v46;
+    *(v16 + 16) = v28;
+    *(v16 + 32) = v48;
     si_tracing_log_span_end();
-    v40 = v61;
-    *v16 = v60;
-    *(v16 + 16) = v40;
-    *(v16 + 32) = v62;
+    v29 = v50;
+    *v16 = v49;
+    *(v16 + 16) = v29;
+    *(v16 + 32) = v51;
 
-    v9 = v43;
+    v9 = v32;
   }
 
   return v9;
@@ -4195,44 +4352,32 @@ void __49__MDSearchableIndexService_finishIndexingLocked___block_invoke(uint64_t
 
 void __39__MDSearchableIndexService_willModify___block_invoke(uint64_t a1, void *a2)
 {
-  v18 = a2;
+  v9 = a2;
   v3 = (*MEMORY[0x277D286C8])();
-  v22 = *v3;
-  v23 = *(v3 + 16);
-  v24 = *(v3 + 32);
+  v10 = *v3;
+  v11 = *(v3 + 16);
+  v12 = *(v3 + 32);
   v4 = *(a1 + 72);
   *v3 = *(a1 + 56);
   *(v3 + 16) = v4;
   *(v3 + 32) = *(a1 + 88);
-  v19 = *(a1 + 56);
-  v20 = *(a1 + 72);
-  v21 = *(a1 + 88);
   v5 = *v3;
   spanid = si_tracing_calc_next_spanid();
   v7 = *(v3 + 8);
-  v8 = *(v3 + 24);
   *v3 = v5;
   *(v3 + 8) = spanid;
   *(v3 + 16) = v7;
   *(v3 + 28) = 102;
   *(v3 + 32) = "completion handler for willModify";
   si_tracing_log_span_begin();
-  v9 = *(a1 + 32);
-  v10 = objc_opt_self();
-  v11 = *(a1 + 40);
+  v8 = objc_opt_self();
   csindex_xpc_dictionary_encode_status_with_error();
   xpc_dictionary_set_uint64(*(a1 + 40), "id", *(a1 + 96));
   xpc_connection_send_message(*(a1 + 48), *(a1 + 40));
-  v12 = *v3;
-  v13 = *(v3 + 8);
-  v14 = *(v3 + 16);
-  v15 = *(v3 + 24);
-  v16 = *(v3 + 28);
-  v17 = *(v3 + 32);
   si_tracing_log_span_end();
-  *v3 = v22;
-  *(v3 + 16) = v23;
-  *(v3 + 32) = v24;
+  *v3 = v10;
+  *(v3 + 16) = v11;
+  *(v3 + 32) = v12;
 }
 
 - (BOOL)deleteDomains:(id)domains
@@ -4255,24 +4400,24 @@ void __39__MDSearchableIndexService_willModify___block_invoke(uint64_t a1, void 
   if (!v8)
   {
     selfCopy = self;
-    v44 = v9;
+    v33 = v9;
     uint64 = xpc_dictionary_get_uint64(domainsCopy, "id");
     v11 = [MEMORY[0x277CC3510] copyNSStringForKey:"pc" fromXPCDictionary:domainsCopy];
-    v48 = [MEMORY[0x277CC3510] copyNSStringForKey:"b" fromXPCDictionary:domainsCopy];
-    v46 = xpc_dictionary_get_uint64(domainsCopy, "opt");
+    v37 = [MEMORY[0x277CC3510] copyNSStringForKey:"b" fromXPCDictionary:domainsCopy];
+    v35 = xpc_dictionary_get_uint64(domainsCopy, "opt");
     v12 = [MEMORY[0x277CC3510] dataWrapperForKey:"ids" sizeKey:"ids-size" fromXPCDictionary:domainsCopy];
     v13 = objc_alloc(MEMORY[0x277CC33C8]);
-    v45 = v12;
+    v34 = v12;
     data = [v12 data];
     v15 = [v13 initWithData:data];
 
-    v43 = v15;
+    v32 = v15;
     decode = [v15 decode];
     v16 = (*MEMORY[0x277D286C8])();
     v17 = *(v16 + 16);
-    v64 = *v16;
-    v65 = v17;
-    v66 = *(v16 + 32);
+    v53 = *v16;
+    v54 = v17;
+    v55 = *(v16 + 32);
     v18 = si_tracing_calc_traceid();
     spanid = si_tracing_calc_next_spanid();
     *v16 = v18;
@@ -4283,9 +4428,9 @@ void __39__MDSearchableIndexService_willModify___block_invoke(uint64_t a1, void 
     *(v16 + 32) = "[MDSearchableIndexService deleteDomains:]";
     si_tracing_log_span_begin();
     v20 = *(v16 + 16);
-    v61 = *v16;
-    v62 = v20;
-    v63 = *(v16 + 32);
+    v50 = *v16;
+    v51 = v20;
+    v52 = *(v16 + 32);
     v21 = *v16;
     v22 = si_tracing_calc_next_spanid();
     v23 = *(v16 + 8);
@@ -4331,47 +4476,36 @@ void __39__MDSearchableIndexService_willModify___block_invoke(uint64_t a1, void 
     *(v16 + 32) = v25;
     si_tracing_log_span_begin();
     v26 = *(v16 + 16);
-    v58 = *v16;
-    v59 = v26;
-    v60 = *(v16 + 32);
+    v47 = *v16;
+    v48 = v26;
+    v49 = *(v16 + 32);
     clientBundleID = [(MDSearchableIndexService *)selfCopy clientBundleID];
-    v50[0] = MEMORY[0x277D85DD0];
-    v50[1] = 3221225472;
-    v54 = v58;
-    v55 = v59;
-    v50[2] = __42__MDSearchableIndexService_deleteDomains___block_invoke;
-    v50[3] = &unk_278937A50;
-    v56 = v60;
-    v28 = v45;
-    v51 = v28;
-    v52 = v7;
-    v57 = uint64;
-    v53 = v5;
-    [(MDSearchableIndexService *)selfCopy deleteSearchableItemsWithDomainIdentifiers:decode protectionClass:v11 forBundleID:v48 fromClient:clientBundleID options:v46 completionHandler:v50];
+    v39[0] = MEMORY[0x277D85DD0];
+    v39[1] = 3221225472;
+    v43 = v47;
+    v44 = v48;
+    v39[2] = __42__MDSearchableIndexService_deleteDomains___block_invoke;
+    v39[3] = &unk_278937A50;
+    v45 = v49;
+    v28 = v34;
+    v40 = v28;
+    v41 = v7;
+    v46 = uint64;
+    v42 = v5;
+    [(MDSearchableIndexService *)selfCopy deleteSearchableItemsWithDomainIdentifiers:decode protectionClass:v11 forBundleID:v37 fromClient:clientBundleID options:v35 completionHandler:v39];
 
-    v29 = *v16;
-    v30 = *(v16 + 8);
-    v31 = *(v16 + 16);
-    v32 = *(v16 + 24);
-    v33 = *(v16 + 28);
-    v34 = *(v16 + 32);
     si_tracing_log_span_end();
-    v35 = v62;
-    *v16 = v61;
-    *(v16 + 16) = v35;
-    *(v16 + 32) = v63;
-    v36 = *v16;
-    v37 = *(v16 + 8);
-    v38 = *(v16 + 16);
-    v39 = *(v16 + 24);
-    v40 = *(v16 + 28);
+    v29 = v51;
+    *v16 = v50;
+    *(v16 + 16) = v29;
+    *(v16 + 32) = v52;
     si_tracing_log_span_end();
-    v41 = v65;
-    *v16 = v64;
-    *(v16 + 16) = v41;
-    *(v16 + 32) = v66;
+    v30 = v54;
+    *v16 = v53;
+    *(v16 + 16) = v30;
+    *(v16 + 32) = v55;
 
-    v9 = v44;
+    v9 = v33;
   }
 
   return v9;
@@ -4379,44 +4513,32 @@ void __39__MDSearchableIndexService_willModify___block_invoke(uint64_t a1, void 
 
 void __42__MDSearchableIndexService_deleteDomains___block_invoke(uint64_t a1, void *a2)
 {
-  v18 = a2;
+  v9 = a2;
   v3 = (*MEMORY[0x277D286C8])();
-  v22 = *v3;
-  v23 = *(v3 + 16);
-  v24 = *(v3 + 32);
+  v10 = *v3;
+  v11 = *(v3 + 16);
+  v12 = *(v3 + 32);
   v4 = *(a1 + 72);
   *v3 = *(a1 + 56);
   *(v3 + 16) = v4;
   *(v3 + 32) = *(a1 + 88);
-  v19 = *(a1 + 56);
-  v20 = *(a1 + 72);
-  v21 = *(a1 + 88);
   v5 = *v3;
   spanid = si_tracing_calc_next_spanid();
   v7 = *(v3 + 8);
-  v8 = *(v3 + 24);
   *v3 = v5;
   *(v3 + 8) = spanid;
   *(v3 + 16) = v7;
   *(v3 + 28) = 102;
   *(v3 + 32) = "completion handler for deleteDomains";
   si_tracing_log_span_begin();
-  v9 = *(a1 + 32);
-  v10 = objc_opt_self();
-  v11 = *(a1 + 40);
+  v8 = objc_opt_self();
   csindex_xpc_dictionary_encode_status_with_error();
   xpc_dictionary_set_uint64(*(a1 + 40), "id", *(a1 + 96));
   xpc_connection_send_message(*(a1 + 48), *(a1 + 40));
-  v12 = *v3;
-  v13 = *(v3 + 8);
-  v14 = *(v3 + 16);
-  v15 = *(v3 + 24);
-  v16 = *(v3 + 28);
-  v17 = *(v3 + 32);
   si_tracing_log_span_end();
-  *v3 = v22;
-  *(v3 + 16) = v23;
-  *(v3 + 32) = v24;
+  *v3 = v10;
+  *(v3 + 16) = v11;
+  *(v3 + 32) = v12;
 }
 
 - (BOOL)deleteBundle:(id)bundle
@@ -4439,17 +4561,17 @@ void __42__MDSearchableIndexService_deleteDomains___block_invoke(uint64_t a1, vo
   if (!v8)
   {
     selfCopy = self;
-    v37 = v9;
+    v26 = v9;
     uint64 = xpc_dictionary_get_uint64(bundleCopy, "id");
     v11 = [MEMORY[0x277CC3510] copyNSStringForKey:"pc" fromXPCDictionary:bundleCopy];
-    v41 = [MEMORY[0x277CC3510] copyNSStringForKey:"b" fromXPCDictionary:bundleCopy];
-    v39 = xpc_dictionary_get_uint64(bundleCopy, "opt");
+    v30 = [MEMORY[0x277CC3510] copyNSStringForKey:"b" fromXPCDictionary:bundleCopy];
+    v28 = xpc_dictionary_get_uint64(bundleCopy, "opt");
     int64 = xpc_dictionary_get_int64(bundleCopy, "dar");
     v12 = (*MEMORY[0x277D286C8])();
     v13 = *(v12 + 16);
-    v52 = *v12;
-    v53 = v13;
-    v54 = *(v12 + 32);
+    v41 = *v12;
+    v42 = v13;
+    v43 = *(v12 + 32);
     v14 = si_tracing_calc_traceid();
     spanid = si_tracing_calc_next_spanid();
     *v12 = v14;
@@ -4460,9 +4582,9 @@ void __42__MDSearchableIndexService_deleteDomains___block_invoke(uint64_t a1, vo
     *(v12 + 32) = "[MDSearchableIndexService deleteBundle:]";
     si_tracing_log_span_begin();
     v16 = *(v12 + 16);
-    v49 = *v12;
-    v50 = v16;
-    v51 = *(v12 + 32);
+    v38 = *v12;
+    v39 = v16;
+    v40 = *(v12 + 32);
     v17 = *v12;
     v18 = si_tracing_calc_next_spanid();
     v19 = *(v12 + 8);
@@ -4508,41 +4630,30 @@ void __42__MDSearchableIndexService_deleteDomains___block_invoke(uint64_t a1, vo
     *(v12 + 32) = v21;
     si_tracing_log_span_begin();
     v22 = *(v12 + 16);
-    v45 = *v12;
-    v46 = v22;
-    v47 = *(v12 + 32);
-    v42[0] = MEMORY[0x277D85DD0];
-    v42[1] = 3221225472;
-    v42[2] = __41__MDSearchableIndexService_deleteBundle___block_invoke;
-    v42[3] = &unk_278937A28;
-    v43 = v7;
-    v48 = uint64;
-    v44 = v5;
-    [(MDSearchableIndexService *)selfCopy _deleteAllSearchableItemsWithBundleID:v41 protectionClass:v11 shouldGC:1 options:v39 deleteAllReason:int64 completionHandler:v42];
+    v34 = *v12;
+    v35 = v22;
+    v36 = *(v12 + 32);
+    v31[0] = MEMORY[0x277D85DD0];
+    v31[1] = 3221225472;
+    v31[2] = __41__MDSearchableIndexService_deleteBundle___block_invoke;
+    v31[3] = &unk_278937A28;
+    v32 = v7;
+    v37 = uint64;
+    v33 = v5;
+    [(MDSearchableIndexService *)selfCopy _deleteAllSearchableItemsWithBundleID:v30 protectionClass:v11 shouldGC:1 options:v28 deleteAllReason:int64 completionHandler:v31];
 
-    v23 = *v12;
-    v24 = *(v12 + 8);
-    v25 = *(v12 + 16);
-    v26 = *(v12 + 24);
-    v27 = *(v12 + 28);
-    v28 = *(v12 + 32);
     si_tracing_log_span_end();
-    v29 = v50;
-    *v12 = v49;
-    *(v12 + 16) = v29;
-    *(v12 + 32) = v51;
-    v30 = *v12;
-    v31 = *(v12 + 8);
-    v32 = *(v12 + 16);
-    v33 = *(v12 + 24);
-    v34 = *(v12 + 28);
+    v23 = v39;
+    *v12 = v38;
+    *(v12 + 16) = v23;
+    *(v12 + 32) = v40;
     si_tracing_log_span_end();
-    v35 = v53;
-    *v12 = v52;
-    *(v12 + 16) = v35;
-    *(v12 + 32) = v54;
+    v24 = v42;
+    *v12 = v41;
+    *(v12 + 16) = v24;
+    *(v12 + 32) = v43;
 
-    v9 = v37;
+    v9 = v26;
   }
 
   return v9;
@@ -4550,42 +4661,31 @@ void __42__MDSearchableIndexService_deleteDomains___block_invoke(uint64_t a1, vo
 
 void __41__MDSearchableIndexService_deleteBundle___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = a2;
+  v8 = a2;
   v3 = (*MEMORY[0x277D286C8])();
-  v20 = *v3;
-  v21 = *(v3 + 16);
-  v22 = *(v3 + 32);
+  v9 = *v3;
+  v10 = *(v3 + 16);
+  v11 = *(v3 + 32);
   v4 = *(a1 + 64);
   *v3 = *(a1 + 48);
   *(v3 + 16) = v4;
   *(v3 + 32) = *(a1 + 80);
-  v17 = *(a1 + 48);
-  v18 = *(a1 + 64);
-  v19 = *(a1 + 80);
   v5 = *v3;
   spanid = si_tracing_calc_next_spanid();
   v7 = *(v3 + 8);
-  v8 = *(v3 + 24);
   *v3 = v5;
   *(v3 + 8) = spanid;
   *(v3 + 16) = v7;
   *(v3 + 28) = 102;
   *(v3 + 32) = "completion handler for deleteBundle";
   si_tracing_log_span_begin();
-  v9 = *(a1 + 32);
   csindex_xpc_dictionary_encode_status_with_error();
   xpc_dictionary_set_uint64(*(a1 + 32), "id", *(a1 + 88));
   xpc_connection_send_message(*(a1 + 40), *(a1 + 32));
-  v10 = *v3;
-  v11 = *(v3 + 8);
-  v12 = *(v3 + 16);
-  v13 = *(v3 + 24);
-  v14 = *(v3 + 28);
-  v15 = *(v3 + 32);
   si_tracing_log_span_end();
-  *v3 = v20;
-  *(v3 + 16) = v21;
-  *(v3 + 32) = v22;
+  *v3 = v9;
+  *(v3 + 16) = v10;
+  *(v3 + 32) = v11;
 }
 
 - (BOOL)deleteSinceDate:(id)date
@@ -4608,17 +4708,17 @@ void __41__MDSearchableIndexService_deleteBundle___block_invoke(uint64_t a1, voi
   if (!v8)
   {
     selfCopy = self;
-    v39 = v9;
+    v28 = v9;
     uint64 = xpc_dictionary_get_uint64(dateCopy, "id");
     v11 = [MEMORY[0x277CC3510] copyNSStringForKey:"pc" fromXPCDictionary:dateCopy];
-    v42 = [MEMORY[0x277CC3510] copyNSStringForKey:"b" fromXPCDictionary:dateCopy];
-    v40 = xpc_dictionary_get_uint64(dateCopy, "opt");
+    v31 = [MEMORY[0x277CC3510] copyNSStringForKey:"b" fromXPCDictionary:dateCopy];
+    v29 = xpc_dictionary_get_uint64(dateCopy, "opt");
     v12 = xpc_dictionary_get_double(dateCopy, "time");
     v13 = (*MEMORY[0x277D286C8])();
     v14 = *(v13 + 16);
-    v56 = *v13;
-    v57 = v14;
-    v58 = *(v13 + 32);
+    v45 = *v13;
+    v46 = v14;
+    v47 = *(v13 + 32);
     v15 = si_tracing_calc_traceid();
     spanid = si_tracing_calc_next_spanid();
     *v13 = v15;
@@ -4629,9 +4729,9 @@ void __41__MDSearchableIndexService_deleteBundle___block_invoke(uint64_t a1, voi
     *(v13 + 32) = "[MDSearchableIndexService deleteSinceDate:]";
     si_tracing_log_span_begin();
     v17 = *(v13 + 16);
-    v53 = *v13;
-    v54 = v17;
-    v55 = *(v13 + 32);
+    v42 = *v13;
+    v43 = v17;
+    v44 = *(v13 + 32);
     v18 = *v13;
     v19 = si_tracing_calc_next_spanid();
     v20 = *(v13 + 8);
@@ -4677,45 +4777,34 @@ void __41__MDSearchableIndexService_deleteBundle___block_invoke(uint64_t a1, voi
     *(v13 + 32) = v22;
     si_tracing_log_span_begin();
     v23 = *(v13 + 16);
-    v50 = *v13;
-    v51 = v23;
-    v52 = *(v13 + 32);
+    v39 = *v13;
+    v40 = v23;
+    v41 = *(v13 + 32);
     v24 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:v12];
-    v43[0] = MEMORY[0x277D85DD0];
-    v43[1] = 3221225472;
-    v43[2] = __44__MDSearchableIndexService_deleteSinceDate___block_invoke;
-    v43[3] = &unk_278937A28;
-    v46 = v50;
-    v47 = v51;
-    v48 = v52;
-    v44 = v7;
-    v49 = uint64;
-    v45 = v5;
-    [(MDSearchableIndexService *)selfCopy deleteSearchableItemsSinceDate:v24 protectionClass:v11 forBundleID:v42 options:v40 completionHandler:v43];
+    v32[0] = MEMORY[0x277D85DD0];
+    v32[1] = 3221225472;
+    v32[2] = __44__MDSearchableIndexService_deleteSinceDate___block_invoke;
+    v32[3] = &unk_278937A28;
+    v35 = v39;
+    v36 = v40;
+    v37 = v41;
+    v33 = v7;
+    v38 = uint64;
+    v34 = v5;
+    [(MDSearchableIndexService *)selfCopy deleteSearchableItemsSinceDate:v24 protectionClass:v11 forBundleID:v31 options:v29 completionHandler:v32];
 
-    v25 = *v13;
-    v26 = *(v13 + 8);
-    v27 = *(v13 + 16);
-    v28 = *(v13 + 24);
-    v29 = *(v13 + 28);
-    v30 = *(v13 + 32);
     si_tracing_log_span_end();
-    v31 = v54;
-    *v13 = v53;
-    *(v13 + 16) = v31;
-    *(v13 + 32) = v55;
-    v32 = *v13;
-    v33 = *(v13 + 8);
-    v34 = *(v13 + 16);
-    v35 = *(v13 + 24);
-    v36 = *(v13 + 28);
+    v25 = v43;
+    *v13 = v42;
+    *(v13 + 16) = v25;
+    *(v13 + 32) = v44;
     si_tracing_log_span_end();
-    v37 = v57;
-    *v13 = v56;
-    *(v13 + 16) = v37;
-    *(v13 + 32) = v58;
+    v26 = v46;
+    *v13 = v45;
+    *(v13 + 16) = v26;
+    *(v13 + 32) = v47;
 
-    v9 = v39;
+    v9 = v28;
   }
 
   return v9;
@@ -4723,42 +4812,31 @@ void __41__MDSearchableIndexService_deleteBundle___block_invoke(uint64_t a1, voi
 
 void __44__MDSearchableIndexService_deleteSinceDate___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = a2;
+  v8 = a2;
   v3 = (*MEMORY[0x277D286C8])();
-  v20 = *v3;
-  v21 = *(v3 + 16);
-  v22 = *(v3 + 32);
+  v9 = *v3;
+  v10 = *(v3 + 16);
+  v11 = *(v3 + 32);
   v4 = *(a1 + 64);
   *v3 = *(a1 + 48);
   *(v3 + 16) = v4;
   *(v3 + 32) = *(a1 + 80);
-  v17 = *(a1 + 48);
-  v18 = *(a1 + 64);
-  v19 = *(a1 + 80);
   v5 = *v3;
   spanid = si_tracing_calc_next_spanid();
   v7 = *(v3 + 8);
-  v8 = *(v3 + 24);
   *v3 = v5;
   *(v3 + 8) = spanid;
   *(v3 + 16) = v7;
   *(v3 + 28) = 102;
   *(v3 + 32) = "completion handler for deleteSinceDate";
   si_tracing_log_span_begin();
-  v9 = *(a1 + 32);
   csindex_xpc_dictionary_encode_status_with_error();
   xpc_dictionary_set_uint64(*(a1 + 32), "id", *(a1 + 88));
   xpc_connection_send_message(*(a1 + 40), *(a1 + 32));
-  v10 = *v3;
-  v11 = *(v3 + 8);
-  v12 = *(v3 + 16);
-  v13 = *(v3 + 24);
-  v14 = *(v3 + 28);
-  v15 = *(v3 + 32);
   si_tracing_log_span_end();
-  *v3 = v20;
-  *(v3 + 16) = v21;
-  *(v3 + 32) = v22;
+  *v3 = v9;
+  *(v3 + 16) = v10;
+  *(v3 + 32) = v11;
 }
 
 - (void)_runLibraryDeletedCommand:(id)command
@@ -4776,49 +4854,45 @@ void __44__MDSearchableIndexService_deleteSinceDate___block_invoke(uint64_t a1, 
 
 void __54__MDSearchableIndexService__runLibraryDeletedCommand___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
-  v3 = logForCSLogCategoryIndex();
+  v3 = logForCSLogCategoryIndex(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_231A35000, v3, OS_LOG_TYPE_INFO, "Photoslibrary delete connection error:%@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_231A35000, v3, OS_LOG_TYPE_INFO, "Photoslibrary delete connection error:%@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __54__MDSearchableIndexService__runLibraryDeletedCommand___block_invoke_212(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = a2;
-  v3 = logForCSLogCategoryIndex();
+  v3 = logForCSLogCategoryIndex(v2);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_INFO);
   if (v2)
   {
     if (v4)
     {
-      v9 = 138412290;
-      v10 = v2;
+      v8 = 138412290;
+      v9 = v2;
       v5 = "Photoslibrary delete service error:%@";
       v6 = v3;
       v7 = 12;
 LABEL_6:
-      _os_log_impl(&dword_231A35000, v6, OS_LOG_TYPE_INFO, v5, &v9, v7);
+      _os_log_impl(&dword_231A35000, v6, OS_LOG_TYPE_INFO, v5, &v8, v7);
     }
   }
 
   else if (v4)
   {
-    LOWORD(v9) = 0;
+    LOWORD(v8) = 0;
     v5 = "Photoslibrary delete";
     v6 = v3;
     v7 = 2;
     goto LABEL_6;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)photosLibraryDeleted:(id)deleted
@@ -4843,9 +4917,9 @@ LABEL_6:
     uint64 = xpc_dictionary_get_uint64(deletedCopy, "id");
     v11 = [MEMORY[0x277CC3510] copyNSStringForKey:"path" fromXPCDictionary:deletedCopy];
     v12 = (*MEMORY[0x277D286C8])();
-    v23 = *v12;
-    v24 = *(v12 + 16);
-    v25 = *(v12 + 32);
+    v17 = *v12;
+    v18 = *(v12 + 16);
+    v19 = *(v12 + 32);
     v13 = si_tracing_calc_traceid();
     spanid = si_tracing_calc_next_spanid();
     *v12 = v13;
@@ -4864,16 +4938,10 @@ LABEL_6:
     csindex_xpc_dictionary_encode_status_with_error();
     xpc_dictionary_set_uint64(v7, "id", uint64);
     xpc_connection_send_message(v5, v7);
-    v16 = *v12;
-    v17 = *(v12 + 8);
-    v18 = *(v12 + 16);
-    v19 = *(v12 + 24);
-    v20 = *(v12 + 28);
-    v21 = *(v12 + 32);
     si_tracing_log_span_end();
-    *v12 = v23;
-    *(v12 + 16) = v24;
-    *(v12 + 32) = v25;
+    *v12 = v17;
+    *(v12 + 16) = v18;
+    *(v12 + 32) = v19;
   }
 
   return v9;
@@ -4888,18 +4956,19 @@ LABEL_6:
   v8 = 0;
   if (v5 && reply)
   {
-    if ([(MDSearchableIndexService *)self allowOpenJournalFile])
+    allowOpenJournalFile = [(MDSearchableIndexService *)self allowOpenJournalFile];
+    if (allowOpenJournalFile)
     {
       uint64 = xpc_dictionary_get_uint64(fileCopy, "id");
-      v10 = [MEMORY[0x277CC3510] copyNSStringForKey:"journal-name" fromXPCDictionary:fileCopy];
-      v11 = v10;
-      if (v10 && [v10 length])
+      v11 = [MEMORY[0x277CC3510] copyNSStringForKey:"journal-name" fromXPCDictionary:fileCopy];
+      v12 = v11;
+      if (v11 && [v11 length])
       {
-        v12 = open([v11 UTF8String], 0);
-        if (v12 < 0)
+        v13 = open([v12 UTF8String], 0);
+        if ((v13 & 0x80000000) != 0)
         {
-          v15 = logForCSLogCategoryIndex();
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+          v16 = logForCSLogCategoryIndex(v13);
+          if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
           {
             [MDSearchableIndexService openJournalFile:];
           }
@@ -4907,9 +4976,9 @@ LABEL_6:
 
         else
         {
-          v13 = v12;
-          xpc_dictionary_set_fd(v7, "journal-fd", v12);
-          close(v13);
+          v14 = v13;
+          xpc_dictionary_set_fd(v7, "journal-fd", v13);
+          close(v14);
         }
 
         xpc_dictionary_set_uint64(v7, "id", uint64);
@@ -4921,11 +4990,11 @@ LABEL_6:
 
     else
     {
-      v11 = logForCSLogCategoryIndex();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v12 = logForCSLogCategoryIndex(allowOpenJournalFile);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        *v16 = 0;
-        _os_log_impl(&dword_231A35000, v11, OS_LOG_TYPE_DEFAULT, "*warn* Connection not entitled to open journal file", v16, 2u);
+        *v17 = 0;
+        _os_log_impl(&dword_231A35000, v12, OS_LOG_TYPE_DEFAULT, "*warn* Connection not entitled to open journal file", v17, 2u);
       }
     }
 
@@ -4944,14 +5013,14 @@ LABEL_11:
   if (v5)
   {
     selfCopy = self;
-    v30 = reply;
+    v24 = reply;
     uint64 = xpc_dictionary_get_uint64(commandCopy, "id");
     v8 = [MEMORY[0x277CC3510] copyNSStringForKey:"request" fromXPCDictionary:commandCopy];
     v9 = (*MEMORY[0x277D286C8])();
     v10 = *(v9 + 16);
-    v55 = *v9;
-    v56 = v10;
-    v57 = *(v9 + 32);
+    v49 = *v9;
+    v50 = v10;
+    v51 = *(v9 + 32);
     v11 = si_tracing_calc_traceid();
     spanid = si_tracing_calc_next_spanid();
     *v9 = v11;
@@ -4962,9 +5031,9 @@ LABEL_11:
     *(v9 + 32) = "[MDSearchableIndexService issueCommand:]";
     si_tracing_log_span_begin();
     v13 = *(v9 + 16);
-    v52 = *v9;
-    v53 = v13;
-    v54 = *(v9 + 32);
+    v46 = *v9;
+    v47 = v13;
+    v48 = *(v9 + 32);
     v14 = v8 != 0;
     if (v8)
     {
@@ -4983,17 +5052,17 @@ LABEL_11:
           v18 = 0;
         }
 
-        v45[0] = MEMORY[0x277D85DD0];
-        v45[1] = 3221225472;
-        v45[2] = __41__MDSearchableIndexService_issueCommand___block_invoke;
-        v45[3] = &unk_278937A78;
-        v48 = v52;
-        v49 = v53;
-        v50 = v54;
-        v46 = v30;
-        v51 = uint64;
-        v47 = v5;
-        [(MDSearchableIndexService *)selfCopy _issueDiagnose:v16 bundleID:v18 logQuery:v15 completionHandler:v45];
+        v39[0] = MEMORY[0x277D85DD0];
+        v39[1] = 3221225472;
+        v39[2] = __41__MDSearchableIndexService_issueCommand___block_invoke;
+        v39[3] = &unk_278937A78;
+        v42 = v46;
+        v43 = v47;
+        v44 = v48;
+        v40 = v24;
+        v45 = uint64;
+        v41 = v5;
+        [(MDSearchableIndexService *)selfCopy _issueDiagnose:v16 bundleID:v18 logQuery:v15 completionHandler:v39];
       }
 
       else
@@ -5012,43 +5081,37 @@ LABEL_11:
           v20 = __buf;
         }
 
-        v42[0] = 0;
-        v42[1] = v42;
-        v42[2] = 0x2020000000;
-        v43 = 0;
-        v31[0] = MEMORY[0x277D85DD0];
-        v31[1] = 3221225472;
-        v37 = v52;
-        v38 = v53;
-        v31[2] = __41__MDSearchableIndexService_issueCommand___block_invoke_2;
-        v31[3] = &unk_278937AA0;
-        v41 = v19;
-        v35 = v42;
-        v36 = v20;
-        v39 = v54;
-        v32 = v30;
-        v40 = uint64;
-        v33 = v5;
-        v34 = v8;
-        [(MDSearchableIndexService *)selfCopy _issueCommand:v34 outFileDescriptor:v19 searchContext:0 completionHandler:v31];
+        v36[0] = 0;
+        v36[1] = v36;
+        v36[2] = 0x2020000000;
+        v37 = 0;
+        v25[0] = MEMORY[0x277D85DD0];
+        v25[1] = 3221225472;
+        v31 = v46;
+        v32 = v47;
+        v25[2] = __41__MDSearchableIndexService_issueCommand___block_invoke_2;
+        v25[3] = &unk_278937AA0;
+        v35 = v19;
+        v29 = v36;
+        v30 = v20;
+        v33 = v48;
+        v26 = v24;
+        v34 = uint64;
+        v27 = v5;
+        v28 = v8;
+        [(MDSearchableIndexService *)selfCopy _issueCommand:v28 outFileDescriptor:v19 searchContext:0 completionHandler:v25];
 
-        _Block_object_dispose(v42, 8);
+        _Block_object_dispose(v36, 8);
       }
     }
 
-    v21 = *v9;
-    v22 = *(v9 + 8);
-    v23 = *(v9 + 16);
-    v24 = *(v9 + 24);
-    v25 = *(v9 + 28);
-    v26 = *(v9 + 32);
     si_tracing_log_span_end();
-    v27 = v56;
-    *v9 = v55;
-    *(v9 + 16) = v27;
-    *(v9 + 32) = v57;
+    v21 = v50;
+    *v9 = v49;
+    *(v9 + 16) = v21;
+    *(v9 + 32) = v51;
 
-    reply = v30;
+    reply = v24;
   }
 
   else
@@ -5061,23 +5124,19 @@ LABEL_11:
 
 void __41__MDSearchableIndexService_issueCommand___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v18 = a2;
+  v11 = a2;
   v5 = a3;
   v6 = (*MEMORY[0x277D286C8])();
-  v22 = *v6;
-  v23 = *(v6 + 16);
-  v24 = *(v6 + 32);
+  v12 = *v6;
+  v13 = *(v6 + 16);
+  v14 = *(v6 + 32);
   v7 = *(a1 + 64);
   *v6 = *(a1 + 48);
   *(v6 + 16) = v7;
   *(v6 + 32) = *(a1 + 80);
-  v19 = *(a1 + 48);
-  v20 = *(a1 + 64);
-  v21 = *(a1 + 80);
   v8 = *v6;
   spanid = si_tracing_calc_next_spanid();
   v10 = *(v6 + 8);
-  v11 = *(v6 + 24);
   *v6 = v8;
   *(v6 + 8) = spanid;
   *(v6 + 16) = v10;
@@ -5087,69 +5146,63 @@ void __41__MDSearchableIndexService_issueCommand___block_invoke(uint64_t a1, voi
   if (*(a1 + 32))
   {
     csindex_xpc_dictionary_encode_status_with_error();
-    if (v18)
+    if (v11)
     {
-      xpc_dictionary_set_data(*(a1 + 32), "data", [v18 bytes], objc_msgSend(v18, "length"));
+      xpc_dictionary_set_data(*(a1 + 32), "data", [v11 bytes], objc_msgSend(v11, "length"));
     }
 
     xpc_dictionary_set_uint64(*(a1 + 32), "id", *(a1 + 88));
     xpc_connection_send_message(*(a1 + 40), *(a1 + 32));
   }
 
-  v12 = *v6;
-  v13 = *(v6 + 8);
-  v14 = *(v6 + 16);
-  v15 = *(v6 + 24);
-  v16 = *(v6 + 28);
-  v17 = *(v6 + 32);
   si_tracing_log_span_end();
-  *v6 = v22;
-  *(v6 + 16) = v23;
-  *(v6 + 32) = v24;
+  *v6 = v12;
+  *(v6 + 16) = v13;
+  *(v6 + 32) = v14;
 }
 
 void __41__MDSearchableIndexService_issueCommand___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
-  v7 = *(*(a1 + 56) + 8);
-  if (*(v7 + 24))
+  v7 = v6;
+  v8 = *(*(a1 + 56) + 8);
+  if (*(v8 + 24))
   {
-    v8 = logForCSLogCategoryIndex();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = logForCSLogCategoryIndex(v6);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __41__MDSearchableIndexService_issueCommand___block_invoke_2_cold_1(a1);
+      __41__MDSearchableIndexService_issueCommand___block_invoke_2_cold_1();
     }
   }
 
   else
   {
-    *(v7 + 24) = 1;
+    *(v8 + 24) = 1;
     if ((*(a1 + 120) & 0x80000000) == 0)
     {
       guarded_close_np();
     }
 
-    v9 = (*MEMORY[0x277D286C8])();
-    v24 = *v9;
-    v25 = *(v9 + 16);
-    v26 = *(v9 + 32);
-    v10 = *(a1 + 88);
-    *v9 = *(a1 + 72);
-    *(v9 + 16) = v10;
-    *(v9 + 32) = *(a1 + 104);
-    v21 = *(a1 + 72);
-    v22 = *(a1 + 88);
-    v23 = *(a1 + 104);
-    v11 = *v9;
+    v10 = (*MEMORY[0x277D286C8])();
+    v18 = *v10;
+    v19 = *(v10 + 16);
+    v20 = *(v10 + 32);
+    v11 = *(a1 + 88);
+    *v10 = *(a1 + 72);
+    *(v10 + 16) = v11;
+    *(v10 + 32) = *(a1 + 104);
+    v15 = *(a1 + 72);
+    v16 = *(a1 + 88);
+    v17 = *(a1 + 104);
+    v12 = *v10;
     spanid = si_tracing_calc_next_spanid();
-    v13 = *(v9 + 8);
-    v14 = *(v9 + 24);
-    *v9 = v11;
-    *(v9 + 8) = spanid;
-    *(v9 + 16) = v13;
-    *(v9 + 28) = 102;
-    *(v9 + 32) = "completion handler for issueCommand";
+    v14 = *(v10 + 8);
+    *v10 = v12;
+    *(v10 + 8) = spanid;
+    *(v10 + 16) = v14;
+    *(v10 + 28) = 102;
+    *(v10 + 32) = "completion handler for issueCommand";
     si_tracing_log_span_begin();
     if (*(a1 + 32))
     {
@@ -5163,16 +5216,10 @@ void __41__MDSearchableIndexService_issueCommand___block_invoke_2(uint64_t a1, v
       xpc_connection_send_message(*(a1 + 40), *(a1 + 32));
     }
 
-    v15 = *v9;
-    v16 = *(v9 + 8);
-    v17 = *(v9 + 16);
-    v18 = *(v9 + 24);
-    v19 = *(v9 + 28);
-    v20 = *(v9 + 32);
     si_tracing_log_span_end();
-    *v9 = v24;
-    *(v9 + 16) = v25;
-    *(v9 + 32) = v26;
+    *v10 = v18;
+    *(v10 + 16) = v19;
+    *(v10 + 32) = v20;
   }
 }
 
@@ -5196,17 +5243,17 @@ void __41__MDSearchableIndexService_issueCommand___block_invoke_2(uint64_t a1, v
   if (!v8)
   {
     selfCopy = self;
-    v37 = v9;
+    v26 = v9;
     uint64 = xpc_dictionary_get_uint64(stateCopy, "id");
     v11 = [MEMORY[0x277CC3510] copyNSStringForKey:"pc" fromXPCDictionary:stateCopy];
-    v41 = [MEMORY[0x277CC3510] copyNSStringForKey:"b" fromXPCDictionary:stateCopy];
-    v38 = xpc_dictionary_get_uint64(stateCopy, "opt");
-    v40 = [MEMORY[0x277CC3510] copyNSStringForKey:"client-state-name" fromXPCDictionary:stateCopy];
+    v30 = [MEMORY[0x277CC3510] copyNSStringForKey:"b" fromXPCDictionary:stateCopy];
+    v27 = xpc_dictionary_get_uint64(stateCopy, "opt");
+    v29 = [MEMORY[0x277CC3510] copyNSStringForKey:"client-state-name" fromXPCDictionary:stateCopy];
     v12 = (*MEMORY[0x277D286C8])();
     v13 = *(v12 + 16);
-    v52 = *v12;
-    v53 = v13;
-    v54 = *(v12 + 32);
+    v41 = *v12;
+    v42 = v13;
+    v43 = *(v12 + 32);
     v14 = si_tracing_calc_traceid();
     spanid = si_tracing_calc_next_spanid();
     *v12 = v14;
@@ -5217,9 +5264,9 @@ void __41__MDSearchableIndexService_issueCommand___block_invoke_2(uint64_t a1, v
     *(v12 + 32) = "[MDSearchableIndexService fetchClientState:]";
     si_tracing_log_span_begin();
     v16 = *(v12 + 16);
-    v49 = *v12;
-    v50 = v16;
-    v51 = *(v12 + 32);
+    v38 = *v12;
+    v39 = v16;
+    v40 = *(v12 + 32);
     v17 = *v12;
     v18 = si_tracing_calc_next_spanid();
     v19 = *(v12 + 8);
@@ -5265,41 +5312,30 @@ void __41__MDSearchableIndexService_issueCommand___block_invoke_2(uint64_t a1, v
     *(v12 + 32) = v21;
     si_tracing_log_span_begin();
     v22 = *(v12 + 16);
-    v45 = *v12;
-    v46 = v22;
-    v47 = *(v12 + 32);
-    v42[0] = MEMORY[0x277D85DD0];
-    v42[1] = 3221225472;
-    v42[2] = __45__MDSearchableIndexService_fetchClientState___block_invoke;
-    v42[3] = &unk_278937A78;
-    v43 = v7;
-    v48 = uint64;
-    v44 = v5;
-    [(MDSearchableIndexService *)selfCopy fetchLastClientStateWithProtectionClass:v11 forBundleID:v41 clientStateName:v40 options:v38 completionHandler:v42];
+    v34 = *v12;
+    v35 = v22;
+    v36 = *(v12 + 32);
+    v31[0] = MEMORY[0x277D85DD0];
+    v31[1] = 3221225472;
+    v31[2] = __45__MDSearchableIndexService_fetchClientState___block_invoke;
+    v31[3] = &unk_278937A78;
+    v32 = v7;
+    v37 = uint64;
+    v33 = v5;
+    [(MDSearchableIndexService *)selfCopy fetchLastClientStateWithProtectionClass:v11 forBundleID:v30 clientStateName:v29 options:v27 completionHandler:v31];
 
-    v23 = *v12;
-    v24 = *(v12 + 8);
-    v25 = *(v12 + 16);
-    v26 = *(v12 + 24);
-    v27 = *(v12 + 28);
-    v28 = *(v12 + 32);
     si_tracing_log_span_end();
-    v29 = v50;
-    *v12 = v49;
-    *(v12 + 16) = v29;
-    *(v12 + 32) = v51;
-    v30 = *v12;
-    v31 = *(v12 + 8);
-    v32 = *(v12 + 16);
-    v33 = *(v12 + 24);
-    v34 = *(v12 + 28);
+    v23 = v39;
+    *v12 = v38;
+    *(v12 + 16) = v23;
+    *(v12 + 32) = v40;
     si_tracing_log_span_end();
-    v35 = v53;
-    *v12 = v52;
-    *(v12 + 16) = v35;
-    *(v12 + 32) = v54;
+    v24 = v42;
+    *v12 = v41;
+    *(v12 + 16) = v24;
+    *(v12 + 32) = v43;
 
-    v9 = v37;
+    v9 = v26;
   }
 
   return v9;
@@ -5307,61 +5343,50 @@ void __41__MDSearchableIndexService_issueCommand___block_invoke_2(uint64_t a1, v
 
 void __45__MDSearchableIndexService_fetchClientState___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v23 = a2;
+  v15 = a2;
   v5 = a3;
   v6 = (*MEMORY[0x277D286C8])();
-  v27 = *v6;
-  v28 = *(v6 + 16);
-  v29 = *(v6 + 32);
+  v16 = *v6;
+  v17 = *(v6 + 16);
+  v18 = *(v6 + 32);
   v7 = *(a1 + 64);
   *v6 = *(a1 + 48);
   *(v6 + 16) = v7;
   *(v6 + 32) = *(a1 + 80);
-  v24 = *(a1 + 48);
-  v25 = *(a1 + 64);
-  v26 = *(a1 + 80);
   v8 = *v6;
   spanid = si_tracing_calc_next_spanid();
   v10 = *(v6 + 8);
-  v11 = *(v6 + 24);
   *v6 = v8;
   *(v6 + 8) = spanid;
   *(v6 + 16) = v10;
   *(v6 + 28) = 102;
   *(v6 + 32) = "completion handler for fetchClientState";
   si_tracing_log_span_begin();
-  v12 = *(a1 + 32);
   csindex_xpc_dictionary_encode_status_with_error();
   if (!v5)
   {
-    v13 = *(a1 + 32);
-    v14 = [v23 bytes];
-    v15 = [v23 length];
-    if (v14)
+    v11 = *(a1 + 32);
+    v12 = [v15 bytes];
+    v13 = [v15 length];
+    if (v12)
     {
-      v16 = v14;
+      v14 = v12;
     }
 
     else
     {
-      v16 = "";
+      v14 = "";
     }
 
-    xpc_dictionary_set_data(v13, "client-state-key", v16, v15);
+    xpc_dictionary_set_data(v11, "client-state-key", v14, v13);
   }
 
   xpc_dictionary_set_uint64(*(a1 + 32), "id", *(a1 + 88));
   xpc_connection_send_message(*(a1 + 40), *(a1 + 32));
-  v17 = *v6;
-  v18 = *(v6 + 8);
-  v19 = *(v6 + 16);
-  v20 = *(v6 + 24);
-  v21 = *(v6 + 28);
-  v22 = *(v6 + 32);
   si_tracing_log_span_end();
-  *v6 = v27;
-  *(v6 + 16) = v28;
-  *(v6 + 32) = v29;
+  *v6 = v16;
+  *(v6 + 16) = v17;
+  *(v6 + 32) = v18;
 }
 
 - (BOOL)fetchAttributes:(id)attributes
@@ -5393,7 +5418,7 @@ void __45__MDSearchableIndexService_fetchClientState___block_invoke(uint64_t a1,
 
       if (!self->_isInternal)
       {
-        v14 = logForCSLogCategoryIndex();
+        v14 = logForCSLogCategoryIndex(v27);
         if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
         {
           [MDSearchableIndexService provideDataForBundle:identifier:type:completionHandler:];
@@ -5418,22 +5443,22 @@ LABEL_30:
       v11 = data;
     }
 
-    v54 = v11;
+    v41 = v11;
     selfCopy = self;
     uint64 = xpc_dictionary_get_uint64(attributesCopy, "id");
     v14 = [MEMORY[0x277CC3510] copyNSStringForKey:"pc" fromXPCDictionary:attributesCopy];
-    v53 = [MEMORY[0x277CC3510] copyNSStringForKey:"b" fromXPCDictionary:attributesCopy];
+    v40 = [MEMORY[0x277CC3510] copyNSStringForKey:"b" fromXPCDictionary:attributesCopy];
     v15 = MEMORY[0x277CC3510];
     v16 = xpc_dictionary_get_value(attributesCopy, "fa");
-    v52 = [v15 copyNSStringArrayFromXPCArray:v16];
+    v39 = [v15 copyNSStringArrayFromXPCArray:v16];
 
-    v51 = xpc_dictionary_get_BOOL(attributesCopy, "fpa");
+    v38 = xpc_dictionary_get_BOOL(attributesCopy, "fpa");
     int64 = xpc_dictionary_get_int64(attributesCopy, "qos");
     v17 = (*MEMORY[0x277D286C8])();
     v18 = *(v17 + 16);
-    v70 = *v17;
-    v71 = v18;
-    v72 = *(v17 + 32);
+    v57 = *v17;
+    v58 = v18;
+    v59 = *(v17 + 32);
     v19 = si_tracing_calc_traceid();
     spanid = si_tracing_calc_next_spanid();
     *v17 = v19;
@@ -5443,11 +5468,11 @@ LABEL_30:
     *(v17 + 28) = 102;
     *(v17 + 32) = "[MDSearchableIndexService fetchAttributes:]";
     si_tracing_log_span_begin();
-    v49 = uint64;
+    v36 = uint64;
     v21 = *(v17 + 16);
-    v67 = *v17;
-    v68 = v21;
-    v69 = *(v17 + 32);
+    v54 = *v17;
+    v55 = v21;
+    v56 = *(v17 + 32);
     v22 = *v17;
     v23 = si_tracing_calc_next_spanid();
     v24 = *(v17 + 8);
@@ -5493,62 +5518,49 @@ LABEL_30:
     *(v17 + 32) = v26;
     si_tracing_log_span_begin();
     v30 = *(v17 + 16);
-    v64 = *v17;
-    v65 = v30;
-    v66 = *(v17 + 32);
+    v51 = *v17;
+    v52 = v30;
+    v53 = *(v17 + 32);
     if (selfCopy->_entitledAttributes)
     {
-      v31 = *MEMORY[0x277CBECE8];
-      v32 = SIUserCtxCreateWithLanguages();
-      if (v32)
+      v31 = SIUserCtxCreateWithLanguages();
+      if (v31)
       {
-        entitledAttributes = selfCopy->_entitledAttributes;
         SIUserCtxSetEntitlements();
       }
     }
 
     else
     {
-      v32 = 0;
+      v31 = 0;
     }
 
-    v56[0] = MEMORY[0x277D85DD0];
-    v56[1] = 3221225472;
-    v60 = v64;
-    v61 = v65;
-    v56[2] = __44__MDSearchableIndexService_fetchAttributes___block_invoke;
-    v56[3] = &unk_278937A50;
-    v62 = v66;
-    v57 = v7;
-    v63 = v49;
-    v58 = v5;
+    v43[0] = MEMORY[0x277D85DD0];
+    v43[1] = 3221225472;
+    v47 = v51;
+    v48 = v52;
+    v43[2] = __44__MDSearchableIndexService_fetchAttributes___block_invoke;
+    v43[3] = &unk_278937A50;
+    v49 = v53;
+    v44 = v7;
+    v50 = v36;
+    v45 = v5;
     v12 = v12;
-    v59 = v12;
-    LODWORD(v48) = int64;
-    v29 = v54;
-    [(MDSearchableIndexService *)selfCopy fetchAttributes:v52 protectionClass:v14 bundleID:v53 identifiers:v54 userCtx:v32 flags:v51 qos:v48 reply:v57 completionHandler:v56];
+    v46 = v12;
+    LODWORD(v35) = int64;
+    v29 = v41;
+    [(MDSearchableIndexService *)selfCopy fetchAttributes:v39 protectionClass:v14 bundleID:v40 identifiers:v41 userCtx:v31 flags:v38 qos:v35 reply:v44 completionHandler:v43];
 
-    v34 = *v17;
-    v35 = *(v17 + 8);
-    v36 = *(v17 + 16);
-    v37 = *(v17 + 24);
-    v38 = *(v17 + 28);
-    v39 = *(v17 + 32);
     si_tracing_log_span_end();
-    v40 = v68;
-    *v17 = v67;
-    *(v17 + 16) = v40;
-    *(v17 + 32) = v69;
-    v41 = *v17;
-    v42 = *(v17 + 8);
-    v43 = *(v17 + 16);
-    v44 = *(v17 + 24);
-    v45 = *(v17 + 28);
+    v32 = v55;
+    *v17 = v54;
+    *(v17 + 16) = v32;
+    *(v17 + 32) = v56;
     si_tracing_log_span_end();
-    v46 = v71;
-    *v17 = v70;
-    *(v17 + 16) = v46;
-    *(v17 + 32) = v72;
+    v33 = v58;
+    *v17 = v57;
+    *(v17 + 16) = v33;
+    *(v17 + 32) = v59;
 
     v8 = 1;
 LABEL_29:
@@ -5563,44 +5575,32 @@ LABEL_31:
 
 void __44__MDSearchableIndexService_fetchAttributes___block_invoke(uint64_t a1, void *a2)
 {
-  v18 = a2;
+  v9 = a2;
   v3 = (*MEMORY[0x277D286C8])();
-  v22 = *v3;
-  v23 = *(v3 + 16);
-  v24 = *(v3 + 32);
+  v10 = *v3;
+  v11 = *(v3 + 16);
+  v12 = *(v3 + 32);
   v4 = *(a1 + 72);
   *v3 = *(a1 + 56);
   *(v3 + 16) = v4;
   *(v3 + 32) = *(a1 + 88);
-  v19 = *(a1 + 56);
-  v20 = *(a1 + 72);
-  v21 = *(a1 + 88);
   v5 = *v3;
   spanid = si_tracing_calc_next_spanid();
   v7 = *(v3 + 8);
-  v8 = *(v3 + 24);
   *v3 = v5;
   *(v3 + 8) = spanid;
   *(v3 + 16) = v7;
   *(v3 + 28) = 102;
   *(v3 + 32) = "completion handler for fetchAttributes";
   si_tracing_log_span_begin();
-  v9 = *(a1 + 32);
   csindex_xpc_dictionary_encode_status_with_error();
   xpc_dictionary_set_uint64(*(a1 + 32), "id", *(a1 + 96));
   xpc_connection_send_message(*(a1 + 40), *(a1 + 32));
-  v10 = *(a1 + 48);
-  v11 = objc_opt_self();
-  v12 = *v3;
-  v13 = *(v3 + 8);
-  v14 = *(v3 + 16);
-  v15 = *(v3 + 24);
-  v16 = *(v3 + 28);
-  v17 = *(v3 + 32);
+  v8 = objc_opt_self();
   si_tracing_log_span_end();
-  *v3 = v22;
-  *(v3 + 16) = v23;
-  *(v3 + 32) = v24;
+  *v3 = v10;
+  *(v3 + 16) = v11;
+  *(v3 + 32) = v12;
 }
 
 - (BOOL)fetchCacheFileDescriptors:(id)descriptors
@@ -5621,14 +5621,14 @@ void __44__MDSearchableIndexService_fetchAttributes___block_invoke(uint64_t a1, 
     {
       selfCopy = self;
       uint64 = xpc_dictionary_get_uint64(descriptorsCopy, "id");
-      v45 = [MEMORY[0x277CC3510] copyNSStringForKey:"pc" fromXPCDictionary:descriptorsCopy];
-      v43 = [MEMORY[0x277CC3510] copyNSStringForKey:"b" fromXPCDictionary:descriptorsCopy];
+      v32 = [MEMORY[0x277CC3510] copyNSStringForKey:"pc" fromXPCDictionary:descriptorsCopy];
+      v30 = [MEMORY[0x277CC3510] copyNSStringForKey:"b" fromXPCDictionary:descriptorsCopy];
       int64 = xpc_dictionary_get_int64(descriptorsCopy, "qos");
       v13 = (*MEMORY[0x277D286C8])();
       v14 = *(v13 + 16);
-      v59 = *v13;
-      v60 = v14;
-      v61 = *(v13 + 32);
+      v46 = *v13;
+      v47 = v14;
+      v48 = *(v13 + 32);
       v15 = si_tracing_calc_traceid();
       spanid = si_tracing_calc_next_spanid();
       *v13 = v15;
@@ -5638,33 +5638,33 @@ void __44__MDSearchableIndexService_fetchAttributes___block_invoke(uint64_t a1, 
       *(v13 + 28) = 102;
       *(v13 + 32) = "[MDSearchableIndexService fetchCacheFileDescriptors:]";
       si_tracing_log_span_begin();
-      v41 = uint64;
+      v28 = uint64;
       v17 = *(v13 + 16);
-      v56 = *v13;
-      v57 = v17;
-      v58 = *(v13 + 32);
+      v43 = *v13;
+      v44 = v17;
+      v45 = *(v13 + 32);
       v18 = *v13;
       v19 = si_tracing_calc_next_spanid();
       v20 = *(v13 + 8);
       v21 = *(v13 + 24);
-      if (v45)
+      if (v32)
       {
-        if (!strcmp([v45 UTF8String], "NSFileProtectionComplete"))
+        if (!strcmp([v32 UTF8String], "NSFileProtectionComplete"))
         {
           v22 = "Class A index";
         }
 
-        else if (!strcmp([v45 UTF8String], "NSFileProtectionCompleteUnlessOpen"))
+        else if (!strcmp([v32 UTF8String], "NSFileProtectionCompleteUnlessOpen"))
         {
           v22 = "Class B index";
         }
 
-        else if (!strcmp([v45 UTF8String], "NSFileProtectionCompleteWhenUserInactive"))
+        else if (!strcmp([v32 UTF8String], "NSFileProtectionCompleteWhenUserInactive"))
         {
           v22 = "Class Cx index";
         }
 
-        else if (!strcmp([v45 UTF8String], "NSFileProtectionCompleteUntilFirstUserAuthentication"))
+        else if (!strcmp([v32 UTF8String], "NSFileProtectionCompleteUntilFirstUserAuthentication"))
         {
           v22 = "Class C index";
         }
@@ -5688,58 +5688,45 @@ void __44__MDSearchableIndexService_fetchAttributes___block_invoke(uint64_t a1, 
       *(v13 + 32) = v22;
       si_tracing_log_span_begin();
       v23 = *(v13 + 16);
-      v53 = *v13;
-      v54 = v23;
-      v55 = *(v13 + 32);
+      v40 = *v13;
+      v41 = v23;
+      v42 = *(v13 + 32);
       if (selfCopy->_entitledAttributes)
       {
-        v24 = *MEMORY[0x277CBECE8];
-        v25 = SIUserCtxCreateWithLanguages();
-        if (v25)
+        v24 = SIUserCtxCreateWithLanguages();
+        if (v24)
         {
-          entitledAttributes = selfCopy->_entitledAttributes;
           SIUserCtxSetEntitlements();
         }
       }
 
       else
       {
-        v25 = 0;
+        v24 = 0;
       }
 
-      v46[0] = MEMORY[0x277D85DD0];
-      v46[1] = 3221225472;
-      v46[2] = __54__MDSearchableIndexService_fetchCacheFileDescriptors___block_invoke;
-      v46[3] = &unk_278937A28;
-      v49 = v53;
-      v50 = v54;
-      v51 = v55;
-      v47 = v7;
-      v52 = v41;
-      v48 = v5;
-      [(MDSearchableIndexService *)selfCopy fetchCacheFileDescriptorsForProtectionClass:v45 bundleID:v43 identifiers:v11 userCtx:v25 flags:0 qos:int64 reply:v47 completionHandler:v46];
+      v33[0] = MEMORY[0x277D85DD0];
+      v33[1] = 3221225472;
+      v33[2] = __54__MDSearchableIndexService_fetchCacheFileDescriptors___block_invoke;
+      v33[3] = &unk_278937A28;
+      v36 = v40;
+      v37 = v41;
+      v38 = v42;
+      v34 = v7;
+      v39 = v28;
+      v35 = v5;
+      [(MDSearchableIndexService *)selfCopy fetchCacheFileDescriptorsForProtectionClass:v32 bundleID:v30 identifiers:v11 userCtx:v24 flags:0 qos:int64 reply:v34 completionHandler:v33];
 
-      v27 = *v13;
-      v28 = *(v13 + 8);
-      v29 = *(v13 + 16);
-      v30 = *(v13 + 24);
-      v31 = *(v13 + 28);
-      v32 = *(v13 + 32);
       si_tracing_log_span_end();
-      v33 = v57;
-      *v13 = v56;
-      *(v13 + 16) = v33;
-      *(v13 + 32) = v58;
-      v34 = *v13;
-      v35 = *(v13 + 8);
-      v36 = *(v13 + 16);
-      v37 = *(v13 + 24);
-      v38 = *(v13 + 28);
+      v25 = v44;
+      *v13 = v43;
+      *(v13 + 16) = v25;
+      *(v13 + 32) = v45;
       si_tracing_log_span_end();
-      v39 = v60;
-      *v13 = v59;
-      *(v13 + 16) = v39;
-      *(v13 + 32) = v61;
+      v26 = v47;
+      *v13 = v46;
+      *(v13 + 16) = v26;
+      *(v13 + 32) = v48;
     }
   }
 
@@ -5748,42 +5735,31 @@ void __44__MDSearchableIndexService_fetchAttributes___block_invoke(uint64_t a1, 
 
 void __54__MDSearchableIndexService_fetchCacheFileDescriptors___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = a2;
+  v8 = a2;
   v3 = (*MEMORY[0x277D286C8])();
-  v20 = *v3;
-  v21 = *(v3 + 16);
-  v22 = *(v3 + 32);
+  v9 = *v3;
+  v10 = *(v3 + 16);
+  v11 = *(v3 + 32);
   v4 = *(a1 + 64);
   *v3 = *(a1 + 48);
   *(v3 + 16) = v4;
   *(v3 + 32) = *(a1 + 80);
-  v17 = *(a1 + 48);
-  v18 = *(a1 + 64);
-  v19 = *(a1 + 80);
   v5 = *v3;
   spanid = si_tracing_calc_next_spanid();
   v7 = *(v3 + 8);
-  v8 = *(v3 + 24);
   *v3 = v5;
   *(v3 + 8) = spanid;
   *(v3 + 16) = v7;
   *(v3 + 28) = 102;
   *(v3 + 32) = "completion handler for fetchCacheFileDescriptors";
   si_tracing_log_span_begin();
-  v9 = *(a1 + 32);
   csindex_xpc_dictionary_encode_status_with_error();
   xpc_dictionary_set_uint64(*(a1 + 32), "id", *(a1 + 88));
   xpc_connection_send_message(*(a1 + 40), *(a1 + 32));
-  v10 = *v3;
-  v11 = *(v3 + 8);
-  v12 = *(v3 + 16);
-  v13 = *(v3 + 24);
-  v14 = *(v3 + 28);
-  v15 = *(v3 + 32);
   si_tracing_log_span_end();
-  *v3 = v20;
-  *(v3 + 16) = v21;
-  *(v3 + 32) = v22;
+  *v3 = v9;
+  *(v3 + 16) = v10;
+  *(v3 + 32) = v11;
 }
 
 - (BOOL)changeState:(id)state
@@ -5806,25 +5782,25 @@ void __54__MDSearchableIndexService_fetchCacheFileDescriptors___block_invoke(uin
   if (!v8)
   {
     selfCopy = self;
-    v38 = v9;
+    v27 = v9;
     uint64 = xpc_dictionary_get_uint64(stateCopy, "id");
     v11 = [MEMORY[0x277CC3510] copyNSStringForKey:"pc" fromXPCDictionary:stateCopy];
-    v44 = [MEMORY[0x277CC3510] copyNSStringForKey:"b" fromXPCDictionary:stateCopy];
-    v40 = xpc_dictionary_get_uint64(stateCopy, "opt");
+    v33 = [MEMORY[0x277CC3510] copyNSStringForKey:"b" fromXPCDictionary:stateCopy];
+    v29 = xpc_dictionary_get_uint64(stateCopy, "opt");
     v12 = [MEMORY[0x277CC3510] dataWrapperForKey:"ids" sizeKey:"ids-size" fromXPCDictionary:stateCopy];
     v13 = objc_alloc(MEMORY[0x277CC33C8]);
-    v37 = v12;
+    v26 = v12;
     data = [v12 data];
     v15 = [v13 initWithData:data];
 
-    v36 = v15;
+    v25 = v15;
     decode = [v15 decode];
-    v39 = xpc_dictionary_get_uint64(stateCopy, "modify-state");
-    v42 = [MEMORY[0x277CC3510] copyNSStringForKey:"ct" fromXPCDictionary:stateCopy];
+    v28 = xpc_dictionary_get_uint64(stateCopy, "modify-state");
+    v31 = [MEMORY[0x277CC3510] copyNSStringForKey:"ct" fromXPCDictionary:stateCopy];
     v16 = (*MEMORY[0x277D286C8])();
-    v48 = *v16;
-    v49 = *(v16 + 16);
-    v50 = *(v16 + 32);
+    v37 = *v16;
+    v38 = *(v16 + 16);
+    v39 = *(v16 + 32);
     v17 = si_tracing_calc_traceid();
     spanid = si_tracing_calc_next_spanid();
     *v16 = v17;
@@ -5834,9 +5810,9 @@ void __54__MDSearchableIndexService_fetchCacheFileDescriptors___block_invoke(uin
     *(v16 + 28) = 102;
     *(v16 + 32) = "[MDSearchableIndexService changeState:]";
     si_tracing_log_span_begin();
-    v45 = *v16;
-    v46 = *(v16 + 16);
-    v47 = *(v16 + 32);
+    v34 = *v16;
+    v35 = *(v16 + 16);
+    v36 = *(v16 + 32);
     v19 = *v16;
     v20 = si_tracing_calc_next_spanid();
     v21 = *(v16 + 8);
@@ -5881,31 +5857,20 @@ void __54__MDSearchableIndexService_fetchCacheFileDescriptors___block_invoke(uin
     *(v16 + 28) = 102;
     *(v16 + 32) = v23;
     si_tracing_log_span_begin();
-    [(MDSearchableIndexService *)selfCopy changeStateOfSearchableItemsWithUIDs:decode toState:v39 protectionClass:v11 forBundleID:v44 forUTIType:v42 options:v40];
+    [(MDSearchableIndexService *)selfCopy changeStateOfSearchableItemsWithUIDs:decode toState:v28 protectionClass:v11 forBundleID:v33 forUTIType:v31 options:v29];
     csindex_xpc_dictionary_encode_status_with_error();
     xpc_dictionary_set_uint64(v7, "id", uint64);
     xpc_connection_send_message(v5, v7);
-    v24 = *v16;
-    v25 = *(v16 + 8);
-    v26 = *(v16 + 16);
-    v27 = *(v16 + 24);
-    v28 = *(v16 + 28);
-    v29 = *(v16 + 32);
     si_tracing_log_span_end();
-    *v16 = v45;
-    *(v16 + 16) = v46;
-    *(v16 + 32) = v47;
-    v30 = *v16;
-    v31 = *(v16 + 8);
-    v32 = *(v16 + 16);
-    v33 = *(v16 + 24);
-    v34 = *(v16 + 28);
+    *v16 = v34;
+    *(v16 + 16) = v35;
+    *(v16 + 32) = v36;
     si_tracing_log_span_end();
-    *v16 = v48;
-    *(v16 + 16) = v49;
-    *(v16 + 32) = v50;
+    *v16 = v37;
+    *(v16 + 16) = v38;
+    *(v16 + 32) = v39;
 
-    v9 = v38;
+    v9 = v27;
   }
 
   return v9;
@@ -5934,9 +5899,9 @@ void __54__MDSearchableIndexService_fetchCacheFileDescriptors___block_invoke(uin
     v11 = [MEMORY[0x277CCABB0] numberWithDouble:{xpc_dictionary_get_double(migrationCopy, "timeout")}];
     v12 = (*MEMORY[0x277D286C8])();
     v13 = *(v12 + 16);
-    v32 = *v12;
-    v33 = v13;
-    v34 = *(v12 + 32);
+    v26 = *v12;
+    v27 = v13;
+    v28 = *(v12 + 32);
     v14 = si_tracing_calc_traceid();
     spanid = si_tracing_calc_next_spanid();
     *v12 = v14;
@@ -5947,29 +5912,23 @@ void __54__MDSearchableIndexService_fetchCacheFileDescriptors___block_invoke(uin
     *(v12 + 32) = "[MDSearchableIndexService dataMigration:]";
     si_tracing_log_span_begin();
     v16 = *(v12 + 16);
-    v28 = *v12;
-    v29 = v16;
-    v30 = *(v12 + 32);
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __42__MDSearchableIndexService_dataMigration___block_invoke;
-    v25[3] = &unk_278937A28;
-    v26 = v7;
-    v31 = uint64;
-    v27 = v5;
-    [(MDSearchableIndexService *)self performDataMigrationWithTimeout:v11 completionHandler:v25];
+    v22 = *v12;
+    v23 = v16;
+    v24 = *(v12 + 32);
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __42__MDSearchableIndexService_dataMigration___block_invoke;
+    v19[3] = &unk_278937A28;
+    v20 = v7;
+    v25 = uint64;
+    v21 = v5;
+    [(MDSearchableIndexService *)self performDataMigrationWithTimeout:v11 completionHandler:v19];
 
-    v17 = *v12;
-    v18 = *(v12 + 8);
-    v19 = *(v12 + 16);
-    v20 = *(v12 + 24);
-    v21 = *(v12 + 28);
-    v22 = *(v12 + 32);
     si_tracing_log_span_end();
-    v23 = v33;
-    *v12 = v32;
-    *(v12 + 16) = v23;
-    *(v12 + 32) = v34;
+    v17 = v27;
+    *v12 = v26;
+    *(v12 + 16) = v17;
+    *(v12 + 32) = v28;
   }
 
   return v9;
@@ -5977,22 +5936,18 @@ void __54__MDSearchableIndexService_fetchCacheFileDescriptors___block_invoke(uin
 
 void __42__MDSearchableIndexService_dataMigration___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = a2;
+  v8 = a2;
   v3 = (*MEMORY[0x277D286C8])();
-  v20 = *v3;
-  v21 = *(v3 + 16);
-  v22 = *(v3 + 32);
+  v9 = *v3;
+  v10 = *(v3 + 16);
+  v11 = *(v3 + 32);
   v4 = *(a1 + 64);
   *v3 = *(a1 + 48);
   *(v3 + 16) = v4;
   *(v3 + 32) = *(a1 + 80);
-  v17 = *(a1 + 48);
-  v18 = *(a1 + 64);
-  v19 = *(a1 + 80);
   v5 = *v3;
   spanid = si_tracing_calc_next_spanid();
   v7 = *(v3 + 8);
-  v8 = *(v3 + 24);
   *v3 = v5;
   *(v3 + 8) = spanid;
   *(v3 + 16) = v7;
@@ -6000,19 +5955,12 @@ void __42__MDSearchableIndexService_dataMigration___block_invoke(uint64_t a1, vo
   *(v3 + 32) = "completion handler for dataMigration";
   si_tracing_log_span_begin();
   xpc_dictionary_set_uint64(*(a1 + 32), "id", *(a1 + 88));
-  v9 = *(a1 + 32);
   csindex_xpc_dictionary_encode_status_with_error();
   xpc_connection_send_message(*(a1 + 40), *(a1 + 32));
-  v10 = *v3;
-  v11 = *(v3 + 8);
-  v12 = *(v3 + 16);
-  v13 = *(v3 + 24);
-  v14 = *(v3 + 28);
-  v15 = *(v3 + 32);
   si_tracing_log_span_end();
-  *v3 = v20;
-  *(v3 + 16) = v21;
-  *(v3 + 32) = v22;
+  *v3 = v9;
+  *(v3 + 16) = v10;
+  *(v3 + 32) = v11;
 }
 
 - (BOOL)transferDeleteJournals:(id)journals
@@ -6024,11 +5972,11 @@ void __42__MDSearchableIndexService_dataMigration___block_invoke(uint64_t a1, vo
   v8 = 0;
   if (v5 && reply)
   {
-    v37 = 0;
-    v38 = &v37;
-    v39 = 0x2020000000;
-    v40 = xpc_dictionary_dup_fd(journalsCopy, "fd");
-    v9 = *(v38 + 6);
+    v31 = 0;
+    v32 = &v31;
+    v33 = 0x2020000000;
+    v34 = xpc_dictionary_dup_fd(journalsCopy, "fd");
+    v9 = *(v32 + 6);
     v8 = v9 > 0;
     if (v9 >= 1)
     {
@@ -6036,9 +5984,9 @@ void __42__MDSearchableIndexService_dataMigration___block_invoke(uint64_t a1, vo
       string = xpc_dictionary_get_string(journalsCopy, "pc");
       v12 = (*MEMORY[0x277D286C8])();
       v13 = *(v12 + 16);
-      v34 = *v12;
-      v35 = v13;
-      v36 = *(v12 + 32);
+      v28 = *v12;
+      v29 = v13;
+      v30 = *(v12 + 32);
       v14 = si_tracing_calc_traceid();
       spanid = si_tracing_calc_next_spanid();
       *v12 = v14;
@@ -6048,35 +5996,29 @@ void __42__MDSearchableIndexService_dataMigration___block_invoke(uint64_t a1, vo
       *(v12 + 28) = 102;
       *(v12 + 32) = "[MDSearchableIndexService transferDeleteJournals:]";
       si_tracing_log_span_begin();
-      v16 = *(v38 + 6);
-      v26[0] = MEMORY[0x277D85DD0];
-      v26[1] = 3221225472;
+      v16 = *(v32 + 6);
+      v20[0] = MEMORY[0x277D85DD0];
+      v20[1] = 3221225472;
       v17 = *(v12 + 16);
-      v30 = *v12;
-      v31 = v17;
-      v26[2] = __51__MDSearchableIndexService_transferDeleteJournals___block_invoke;
-      v26[3] = &unk_278937AC8;
-      v32 = *(v12 + 32);
-      v27 = v7;
-      v33 = uint64;
-      v28 = v5;
-      v29 = &v37;
-      [(MDSearchableIndexService *)self transferDeleteJournalsForProtectionClass:string toDirectory:v16 withCompletionHandler:v26];
+      v24 = *v12;
+      v25 = v17;
+      v20[2] = __51__MDSearchableIndexService_transferDeleteJournals___block_invoke;
+      v20[3] = &unk_278937AC8;
+      v26 = *(v12 + 32);
+      v21 = v7;
+      v27 = uint64;
+      v22 = v5;
+      v23 = &v31;
+      [(MDSearchableIndexService *)self transferDeleteJournalsForProtectionClass:string toDirectory:v16 withCompletionHandler:v20];
 
-      v18 = *v12;
-      v19 = *(v12 + 8);
-      v20 = *(v12 + 16);
-      v21 = *(v12 + 24);
-      v22 = *(v12 + 28);
-      v23 = *(v12 + 32);
       si_tracing_log_span_end();
-      v24 = v35;
-      *v12 = v34;
-      *(v12 + 16) = v24;
-      *(v12 + 32) = v36;
+      v18 = v29;
+      *v12 = v28;
+      *(v12 + 16) = v18;
+      *(v12 + 32) = v30;
     }
 
-    _Block_object_dispose(&v37, 8);
+    _Block_object_dispose(&v31, 8);
   }
 
   return v8;
@@ -6084,22 +6026,18 @@ void __42__MDSearchableIndexService_dataMigration___block_invoke(uint64_t a1, vo
 
 void __51__MDSearchableIndexService_transferDeleteJournals___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = a2;
+  v8 = a2;
   v3 = (*MEMORY[0x277D286C8])();
-  v20 = *v3;
-  v21 = *(v3 + 16);
-  v22 = *(v3 + 32);
+  v9 = *v3;
+  v10 = *(v3 + 16);
+  v11 = *(v3 + 32);
   v4 = *(a1 + 72);
   *v3 = *(a1 + 56);
   *(v3 + 16) = v4;
   *(v3 + 32) = *(a1 + 88);
-  v17 = *(a1 + 56);
-  v18 = *(a1 + 72);
-  v19 = *(a1 + 88);
   v5 = *v3;
   spanid = si_tracing_calc_next_spanid();
   v7 = *(v3 + 8);
-  v8 = *(v3 + 24);
   *v3 = v5;
   *(v3 + 8) = spanid;
   *(v3 + 16) = v7;
@@ -6107,20 +6045,13 @@ void __51__MDSearchableIndexService_transferDeleteJournals___block_invoke(uint64
   *(v3 + 32) = "completion handler for transferDeleteJournals";
   si_tracing_log_span_begin();
   xpc_dictionary_set_uint64(*(a1 + 32), "id", *(a1 + 96));
-  v9 = *(a1 + 32);
   csindex_xpc_dictionary_encode_status_with_error();
   xpc_connection_send_message(*(a1 + 40), *(a1 + 32));
   close(*(*(*(a1 + 48) + 8) + 24));
-  v10 = *v3;
-  v11 = *(v3 + 8);
-  v12 = *(v3 + 16);
-  v13 = *(v3 + 24);
-  v14 = *(v3 + 28);
-  v15 = *(v3 + 32);
   si_tracing_log_span_end();
-  *v3 = v20;
-  *(v3 + 16) = v21;
-  *(v3 + 32) = v22;
+  *v3 = v9;
+  *(v3 + 16) = v10;
+  *(v3 + 32) = v11;
 }
 
 - (BOOL)deleteAllUserActivities:(id)activities
@@ -6147,9 +6078,9 @@ void __51__MDSearchableIndexService_transferDeleteJournals___block_invoke(uint64
     v12 = [MEMORY[0x277CC3510] copyNSStringForKey:"b" fromXPCDictionary:activitiesCopy];
     v13 = (*MEMORY[0x277D286C8])();
     v14 = *(v13 + 16);
-    v37 = *v13;
-    v38 = v14;
-    v39 = *(v13 + 32);
+    v31 = *v13;
+    v32 = v14;
+    v33 = *(v13 + 32);
     v15 = si_tracing_calc_traceid();
     spanid = si_tracing_calc_next_spanid();
     *v13 = v15;
@@ -6160,33 +6091,27 @@ void __51__MDSearchableIndexService_transferDeleteJournals___block_invoke(uint64
     *(v13 + 32) = "[MDSearchableIndexService deleteAllUserActivities:]";
     si_tracing_log_span_begin();
     v17 = *(v13 + 16);
-    v34 = *v13;
-    v35 = v17;
-    v36 = *(v13 + 32);
+    v28 = *v13;
+    v29 = v17;
+    v30 = *(v13 + 32);
     clientBundleID = [(MDSearchableIndexService *)self clientBundleID];
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __52__MDSearchableIndexService_deleteAllUserActivities___block_invoke;
-    v27[3] = &unk_278937A28;
-    v30 = v34;
-    v31 = v35;
-    v32 = v36;
-    v28 = v7;
-    v33 = uint64;
-    v29 = v5;
-    [(MDSearchableIndexService *)self deleteAllUserActivities:v12 fromClient:clientBundleID options:v11 completionHandler:v27];
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __52__MDSearchableIndexService_deleteAllUserActivities___block_invoke;
+    v21[3] = &unk_278937A28;
+    v24 = v28;
+    v25 = v29;
+    v26 = v30;
+    v22 = v7;
+    v27 = uint64;
+    v23 = v5;
+    [(MDSearchableIndexService *)self deleteAllUserActivities:v12 fromClient:clientBundleID options:v11 completionHandler:v21];
 
-    v19 = *v13;
-    v20 = *(v13 + 8);
-    v21 = *(v13 + 16);
-    v22 = *(v13 + 24);
-    v23 = *(v13 + 28);
-    v24 = *(v13 + 32);
     si_tracing_log_span_end();
-    v25 = v38;
-    *v13 = v37;
-    *(v13 + 16) = v25;
-    *(v13 + 32) = v39;
+    v19 = v32;
+    *v13 = v31;
+    *(v13 + 16) = v19;
+    *(v13 + 32) = v33;
   }
 
   return v9;
@@ -6194,22 +6119,18 @@ void __51__MDSearchableIndexService_transferDeleteJournals___block_invoke(uint64
 
 void __52__MDSearchableIndexService_deleteAllUserActivities___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = a2;
+  v8 = a2;
   v3 = (*MEMORY[0x277D286C8])();
-  v20 = *v3;
-  v21 = *(v3 + 16);
-  v22 = *(v3 + 32);
+  v9 = *v3;
+  v10 = *(v3 + 16);
+  v11 = *(v3 + 32);
   v4 = *(a1 + 64);
   *v3 = *(a1 + 48);
   *(v3 + 16) = v4;
   *(v3 + 32) = *(a1 + 80);
-  v17 = *(a1 + 48);
-  v18 = *(a1 + 64);
-  v19 = *(a1 + 80);
   v5 = *v3;
   spanid = si_tracing_calc_next_spanid();
   v7 = *(v3 + 8);
-  v8 = *(v3 + 24);
   *v3 = v5;
   *(v3 + 8) = spanid;
   *(v3 + 16) = v7;
@@ -6217,19 +6138,12 @@ void __52__MDSearchableIndexService_deleteAllUserActivities___block_invoke(uint6
   *(v3 + 32) = "completion handler for deleteAllUserActivities";
   si_tracing_log_span_begin();
   xpc_dictionary_set_uint64(*(a1 + 32), "id", *(a1 + 88));
-  v9 = *(a1 + 32);
   csindex_xpc_dictionary_encode_status_with_error();
   xpc_connection_send_message(*(a1 + 40), *(a1 + 32));
-  v10 = *v3;
-  v11 = *(v3 + 8);
-  v12 = *(v3 + 16);
-  v13 = *(v3 + 24);
-  v14 = *(v3 + 28);
-  v15 = *(v3 + 32);
   si_tracing_log_span_end();
-  *v3 = v20;
-  *(v3 + 16) = v21;
-  *(v3 + 32) = v22;
+  *v3 = v9;
+  *(v3 + 16) = v10;
+  *(v3 + 32) = v11;
 }
 
 - (BOOL)deleteUserActivitiesWithPersistentIdentifiers:(id)identifiers
@@ -6244,12 +6158,12 @@ void __52__MDSearchableIndexService_deleteAllUserActivities___block_invoke(uint6
     selfCopy = self;
     uint64 = xpc_dictionary_get_uint64(identifiersCopy, "id");
     v10 = xpc_dictionary_get_uint64(identifiersCopy, "opt");
-    v29 = [MEMORY[0x277CC3510] copyNSStringForKey:"b" fromXPCDictionary:identifiersCopy];
+    v23 = [MEMORY[0x277CC3510] copyNSStringForKey:"b" fromXPCDictionary:identifiersCopy];
     v11 = (*MEMORY[0x277D286C8])();
     v12 = *(v11 + 16);
-    v41 = *v11;
-    v42 = v12;
-    v43 = *(v11 + 32);
+    v35 = *v11;
+    v36 = v12;
+    v37 = *(v11 + 32);
     v13 = si_tracing_calc_traceid();
     spanid = si_tracing_calc_next_spanid();
     *v11 = v13;
@@ -6260,9 +6174,9 @@ void __52__MDSearchableIndexService_deleteAllUserActivities___block_invoke(uint6
     *(v11 + 32) = "[MDSearchableIndexService deleteUserActivitiesWithPersistentIdentifiers:]";
     si_tracing_log_span_begin();
     v15 = *(v11 + 16);
-    v38 = *v11;
-    v39 = v15;
-    v40 = *(v11 + 32);
+    v32 = *v11;
+    v33 = v15;
+    v34 = *(v11 + 32);
     v16 = [MEMORY[0x277CC3510] dataWrapperForKey:"ids" sizeKey:"ids-size" fromXPCDictionary:identifiersCopy];
     v8 = v16 != 0;
     if (v16)
@@ -6271,31 +6185,25 @@ void __52__MDSearchableIndexService_deleteAllUserActivities___block_invoke(uint6
       data = [v16 data];
       v19 = [v17 initWithData:data];
 
-      v30[0] = MEMORY[0x277D85DD0];
-      v30[1] = 3221225472;
-      v34 = v38;
-      v35 = v39;
-      v30[2] = __74__MDSearchableIndexService_deleteUserActivitiesWithPersistentIdentifiers___block_invoke;
-      v30[3] = &unk_278937A50;
-      v36 = v40;
-      v31 = v16;
-      v32 = v7;
-      v37 = uint64;
-      v33 = v5;
-      [(MDSearchableIndexService *)selfCopy deleteUserActivitiesWithPersistentIdentifiers:v19 bundleID:v29 options:v10 completionHandler:v30];
+      v24[0] = MEMORY[0x277D85DD0];
+      v24[1] = 3221225472;
+      v28 = v32;
+      v29 = v33;
+      v24[2] = __74__MDSearchableIndexService_deleteUserActivitiesWithPersistentIdentifiers___block_invoke;
+      v24[3] = &unk_278937A50;
+      v30 = v34;
+      v25 = v16;
+      v26 = v7;
+      v31 = uint64;
+      v27 = v5;
+      [(MDSearchableIndexService *)selfCopy deleteUserActivitiesWithPersistentIdentifiers:v19 bundleID:v23 options:v10 completionHandler:v24];
     }
 
-    v20 = *v11;
-    v21 = *(v11 + 8);
-    v22 = *(v11 + 16);
-    v23 = *(v11 + 24);
-    v24 = *(v11 + 28);
-    v25 = *(v11 + 32);
     si_tracing_log_span_end();
-    v26 = v42;
-    *v11 = v41;
-    *(v11 + 16) = v26;
-    *(v11 + 32) = v43;
+    v20 = v36;
+    *v11 = v35;
+    *(v11 + 16) = v20;
+    *(v11 + 32) = v37;
   }
 
   return v8;
@@ -6303,44 +6211,32 @@ void __52__MDSearchableIndexService_deleteAllUserActivities___block_invoke(uint6
 
 void __74__MDSearchableIndexService_deleteUserActivitiesWithPersistentIdentifiers___block_invoke(uint64_t a1, void *a2)
 {
-  v18 = a2;
+  v9 = a2;
   v3 = (*MEMORY[0x277D286C8])();
-  v22 = *v3;
-  v23 = *(v3 + 16);
-  v24 = *(v3 + 32);
+  v10 = *v3;
+  v11 = *(v3 + 16);
+  v12 = *(v3 + 32);
   v4 = *(a1 + 72);
   *v3 = *(a1 + 56);
   *(v3 + 16) = v4;
   *(v3 + 32) = *(a1 + 88);
-  v19 = *(a1 + 56);
-  v20 = *(a1 + 72);
-  v21 = *(a1 + 88);
   v5 = *v3;
   spanid = si_tracing_calc_next_spanid();
   v7 = *(v3 + 8);
-  v8 = *(v3 + 24);
   *v3 = v5;
   *(v3 + 8) = spanid;
   *(v3 + 16) = v7;
   *(v3 + 28) = 102;
   *(v3 + 32) = "completion handler for deleteUserActivitiesWithPersistentIdentifiers";
   si_tracing_log_span_begin();
-  v9 = *(a1 + 32);
-  v10 = objc_opt_self();
+  v8 = objc_opt_self();
   xpc_dictionary_set_uint64(*(a1 + 40), "id", *(a1 + 96));
-  v11 = *(a1 + 40);
   csindex_xpc_dictionary_encode_status_with_error();
   xpc_connection_send_message(*(a1 + 48), *(a1 + 40));
-  v12 = *v3;
-  v13 = *(v3 + 8);
-  v14 = *(v3 + 16);
-  v15 = *(v3 + 24);
-  v16 = *(v3 + 28);
-  v17 = *(v3 + 32);
   si_tracing_log_span_end();
-  *v3 = v22;
-  *(v3 + 16) = v23;
-  *(v3 + 32) = v24;
+  *v3 = v10;
+  *(v3 + 16) = v11;
+  *(v3 + 32) = v12;
 }
 
 - (BOOL)deleteActionsBeforeTime:(id)time
@@ -6367,9 +6263,9 @@ void __74__MDSearchableIndexService_deleteUserActivitiesWithPersistentIdentifier
     v12 = xpc_dictionary_get_double(timeCopy, "time");
     v13 = (*MEMORY[0x277D286C8])();
     v14 = *(v13 + 16);
-    v33 = *v13;
-    v34 = v14;
-    v35 = *(v13 + 32);
+    v27 = *v13;
+    v28 = v14;
+    v29 = *(v13 + 32);
     v15 = si_tracing_calc_traceid();
     spanid = si_tracing_calc_next_spanid();
     *v13 = v15;
@@ -6380,29 +6276,23 @@ void __74__MDSearchableIndexService_deleteUserActivitiesWithPersistentIdentifier
     *(v13 + 32) = "[MDSearchableIndexService deleteActionsBeforeTime:]";
     si_tracing_log_span_begin();
     v17 = *(v13 + 16);
-    v29 = *v13;
-    v30 = v17;
-    v31 = *(v13 + 32);
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __52__MDSearchableIndexService_deleteActionsBeforeTime___block_invoke;
-    v26[3] = &unk_278937A28;
-    v27 = v7;
-    v32 = uint64;
-    v28 = v5;
-    [(MDSearchableIndexService *)self deleteActionsBeforeTime:v11 options:v26 completionHandler:v12];
+    v23 = *v13;
+    v24 = v17;
+    v25 = *(v13 + 32);
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __52__MDSearchableIndexService_deleteActionsBeforeTime___block_invoke;
+    v20[3] = &unk_278937A28;
+    v21 = v7;
+    v26 = uint64;
+    v22 = v5;
+    [(MDSearchableIndexService *)self deleteActionsBeforeTime:v11 options:v20 completionHandler:v12];
 
-    v18 = *v13;
-    v19 = *(v13 + 8);
-    v20 = *(v13 + 16);
-    v21 = *(v13 + 24);
-    v22 = *(v13 + 28);
-    v23 = *(v13 + 32);
     si_tracing_log_span_end();
-    v24 = v34;
-    *v13 = v33;
-    *(v13 + 16) = v24;
-    *(v13 + 32) = v35;
+    v18 = v28;
+    *v13 = v27;
+    *(v13 + 16) = v18;
+    *(v13 + 32) = v29;
   }
 
   return v9;
@@ -6410,22 +6300,18 @@ void __74__MDSearchableIndexService_deleteUserActivitiesWithPersistentIdentifier
 
 void __52__MDSearchableIndexService_deleteActionsBeforeTime___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = a2;
+  v8 = a2;
   v3 = (*MEMORY[0x277D286C8])();
-  v20 = *v3;
-  v21 = *(v3 + 16);
-  v22 = *(v3 + 32);
+  v9 = *v3;
+  v10 = *(v3 + 16);
+  v11 = *(v3 + 32);
   v4 = *(a1 + 64);
   *v3 = *(a1 + 48);
   *(v3 + 16) = v4;
   *(v3 + 32) = *(a1 + 80);
-  v17 = *(a1 + 48);
-  v18 = *(a1 + 64);
-  v19 = *(a1 + 80);
   v5 = *v3;
   spanid = si_tracing_calc_next_spanid();
   v7 = *(v3 + 8);
-  v8 = *(v3 + 24);
   *v3 = v5;
   *(v3 + 8) = spanid;
   *(v3 + 16) = v7;
@@ -6433,19 +6319,12 @@ void __52__MDSearchableIndexService_deleteActionsBeforeTime___block_invoke(uint6
   *(v3 + 32) = "completion handler for deleteActionsBeforeTime";
   si_tracing_log_span_begin();
   xpc_dictionary_set_uint64(*(a1 + 32), "id", *(a1 + 88));
-  v9 = *(a1 + 32);
   csindex_xpc_dictionary_encode_status_with_error();
   xpc_connection_send_message(*(a1 + 40), *(a1 + 32));
-  v10 = *v3;
-  v11 = *(v3 + 8);
-  v12 = *(v3 + 16);
-  v13 = *(v3 + 24);
-  v14 = *(v3 + 28);
-  v15 = *(v3 + 32);
   si_tracing_log_span_end();
-  *v3 = v20;
-  *(v3 + 16) = v21;
-  *(v3 + 32) = v22;
+  *v3 = v9;
+  *(v3 + 16) = v10;
+  *(v3 + 32) = v11;
 }
 
 - (BOOL)deleteActionsWithIdentifiers:(id)identifiers
@@ -6475,9 +6354,9 @@ void __52__MDSearchableIndexService_deleteActionsBeforeTime___block_invoke(uint6
 
     v15 = (*MEMORY[0x277D286C8])();
     v16 = *(v15 + 16);
-    v35 = *v15;
-    v36 = v16;
-    v37 = *(v15 + 32);
+    v29 = *v15;
+    v30 = v16;
+    v31 = *(v15 + 32);
     v17 = si_tracing_calc_traceid();
     spanid = si_tracing_calc_next_spanid();
     *v15 = v17;
@@ -6488,29 +6367,23 @@ void __52__MDSearchableIndexService_deleteActionsBeforeTime___block_invoke(uint6
     *(v15 + 32) = "[MDSearchableIndexService deleteActionsWithIdentifiers:]";
     si_tracing_log_span_begin();
     v19 = *(v15 + 16);
-    v31 = *v15;
-    v32 = v19;
-    v33 = *(v15 + 32);
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = __57__MDSearchableIndexService_deleteActionsWithIdentifiers___block_invoke;
-    v28[3] = &unk_278937A28;
-    v29 = v7;
-    v34 = uint64;
-    v30 = v5;
-    [(MDSearchableIndexService *)self deleteActionsWithIdentifiers:v14 options:v11 completionHandler:v28];
+    v25 = *v15;
+    v26 = v19;
+    v27 = *(v15 + 32);
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __57__MDSearchableIndexService_deleteActionsWithIdentifiers___block_invoke;
+    v22[3] = &unk_278937A28;
+    v23 = v7;
+    v28 = uint64;
+    v24 = v5;
+    [(MDSearchableIndexService *)self deleteActionsWithIdentifiers:v14 options:v11 completionHandler:v22];
 
-    v20 = *v15;
-    v21 = *(v15 + 8);
-    v22 = *(v15 + 16);
-    v23 = *(v15 + 24);
-    v24 = *(v15 + 28);
-    v25 = *(v15 + 32);
     si_tracing_log_span_end();
-    v26 = v36;
-    *v15 = v35;
-    *(v15 + 16) = v26;
-    *(v15 + 32) = v37;
+    v20 = v30;
+    *v15 = v29;
+    *(v15 + 16) = v20;
+    *(v15 + 32) = v31;
   }
 
   return v9;
@@ -6518,22 +6391,18 @@ void __52__MDSearchableIndexService_deleteActionsBeforeTime___block_invoke(uint6
 
 void __57__MDSearchableIndexService_deleteActionsWithIdentifiers___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = a2;
+  v8 = a2;
   v3 = (*MEMORY[0x277D286C8])();
-  v20 = *v3;
-  v21 = *(v3 + 16);
-  v22 = *(v3 + 32);
+  v9 = *v3;
+  v10 = *(v3 + 16);
+  v11 = *(v3 + 32);
   v4 = *(a1 + 64);
   *v3 = *(a1 + 48);
   *(v3 + 16) = v4;
   *(v3 + 32) = *(a1 + 80);
-  v17 = *(a1 + 48);
-  v18 = *(a1 + 64);
-  v19 = *(a1 + 80);
   v5 = *v3;
   spanid = si_tracing_calc_next_spanid();
   v7 = *(v3 + 8);
-  v8 = *(v3 + 24);
   *v3 = v5;
   *(v3 + 8) = spanid;
   *(v3 + 16) = v7;
@@ -6541,24 +6410,17 @@ void __57__MDSearchableIndexService_deleteActionsWithIdentifiers___block_invoke(
   *(v3 + 32) = "completion handler for deleteActionsWithIdentifiers";
   si_tracing_log_span_begin();
   xpc_dictionary_set_uint64(*(a1 + 32), "id", *(a1 + 88));
-  v9 = *(a1 + 32);
   csindex_xpc_dictionary_encode_status_with_error();
   xpc_connection_send_message(*(a1 + 40), *(a1 + 32));
-  v10 = *v3;
-  v11 = *(v3 + 8);
-  v12 = *(v3 + 16);
-  v13 = *(v3 + 24);
-  v14 = *(v3 + 28);
-  v15 = *(v3 + 32);
   si_tracing_log_span_end();
-  *v3 = v20;
-  *(v3 + 16) = v21;
-  *(v3 + 32) = v22;
+  *v3 = v9;
+  *(v3 + 16) = v10;
+  *(v3 + 32) = v11;
 }
 
 - (BOOL)processActivities:(id)activities
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   original = activities;
   connection = xpc_dictionary_get_remote_connection(original);
   reply = xpc_dictionary_create_reply(original);
@@ -6573,61 +6435,61 @@ void __57__MDSearchableIndexService_deleteActionsWithIdentifiers___block_invoke(
   }
 
   v5 = !v4;
-  v39 = v5;
+  v32 = v5;
   if (!v4)
   {
     message = reply;
     v6 = (*MEMORY[0x277D286C8])();
     v7 = *(v6 + 16);
-    v48 = *v6;
-    v49 = v7;
-    v38 = v6;
-    v50 = *(v6 + 32);
+    v41 = *v6;
+    v42 = v7;
+    v31 = v6;
+    v43 = *(v6 + 32);
     v8 = si_tracing_calc_traceid();
     spanid = si_tracing_calc_next_spanid();
-    *v38 = v8;
-    *(v38 + 8) = spanid;
-    *(v38 + 16) = 0;
-    *(v38 + 24) = -1;
-    *(v38 + 28) = 102;
-    *(v38 + 32) = "[MDSearchableIndexService processActivities:]";
+    *v31 = v8;
+    *(v31 + 8) = spanid;
+    *(v31 + 16) = 0;
+    *(v31 + 24) = -1;
+    *(v31 + 28) = 102;
+    *(v31 + 32) = "[MDSearchableIndexService processActivities:]";
     si_tracing_log_span_begin();
-    v34 = [MEMORY[0x277CC3510] dataWrapperForKey:"data" sizeKey:"data-size" fromXPCDictionary:original];
-    data = [v34 data];
+    v27 = [MEMORY[0x277CC3510] dataWrapperForKey:"data" sizeKey:"data-size" fromXPCDictionary:original];
+    data = [v27 data];
     if ([data length])
     {
-      v33 = [objc_alloc(MEMORY[0x277CCAAC8]) initForReadingFromData:data error:0];
+      v26 = [objc_alloc(MEMORY[0x277CCAAC8]) initForReadingFromData:data error:0];
       v10 = MEMORY[0x277CBEB98];
       v11 = objc_opt_class();
       v12 = objc_opt_class();
       v13 = objc_opt_class();
       v14 = objc_opt_class();
       v15 = [v10 setWithObjects:{v11, v12, v13, v14, objc_opt_class(), 0}];
-      v35 = [v33 decodeObjectOfClasses:v15 forKey:*MEMORY[0x277CCA308]];
+      v28 = [v26 decodeObjectOfClasses:v15 forKey:*MEMORY[0x277CCA308]];
 
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v46 = 0u;
-        v47 = 0u;
-        v44 = 0u;
-        v45 = 0u;
-        v16 = v35;
-        v17 = [v16 countByEnumeratingWithState:&v44 objects:v51 count:16];
+        v39 = 0u;
+        v40 = 0u;
+        v37 = 0u;
+        v38 = 0u;
+        v16 = v28;
+        v17 = [v16 countByEnumeratingWithState:&v37 objects:v44 count:16];
         if (v17)
         {
-          v18 = *v45;
-          v42 = *MEMORY[0x277CCA190];
+          v18 = *v38;
+          v35 = *MEMORY[0x277CCA190];
           do
           {
             for (i = 0; i != v17; ++i)
             {
-              if (*v45 != v18)
+              if (*v38 != v18)
               {
                 objc_enumerationMutation(v16);
               }
 
-              v20 = *(*(&v44 + 1) + 8 * i);
+              v20 = *(*(&v37 + 1) + 8 * i);
               v21 = [v20 objectForKeyedSubscript:@"action"];
               objc_opt_class();
               if (objc_opt_isKindOfClass())
@@ -6636,13 +6498,13 @@ void __57__MDSearchableIndexService_deleteActionsWithIdentifiers___block_invoke(
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
-                  v23 = v42;
+                  v23 = v35;
                   [(MDSearchableIndexService *)self userPerformedAction:v21 withItem:v22 protectionClass:v23];
                 }
               }
             }
 
-            v17 = [v16 countByEnumeratingWithState:&v44 objects:v51 count:16];
+            v17 = [v16 countByEnumeratingWithState:&v37 objects:v44 count:16];
           }
 
           while (v17);
@@ -6658,22 +6520,15 @@ void __57__MDSearchableIndexService_deleteActionsWithIdentifiers___block_invoke(
     csindex_xpc_dictionary_encode_status_with_error();
     xpc_connection_send_message(connection, message);
 
-    v24 = *v38;
-    v25 = *(v38 + 8);
-    v26 = *(v38 + 16);
-    v27 = *(v38 + 24);
-    v28 = *(v38 + 28);
-    v29 = *(v38 + 32);
     si_tracing_log_span_end();
-    v30 = v49;
+    v24 = v42;
     reply = message;
-    *v38 = v48;
-    *(v38 + 16) = v30;
-    *(v38 + 32) = v50;
+    *v31 = v41;
+    *(v31 + 16) = v24;
+    *(v31 + 32) = v43;
   }
 
-  v31 = *MEMORY[0x277D85DE8];
-  return v39;
+  return v32;
 }
 
 - (BOOL)addInteraction:(id)interaction
@@ -6688,17 +6543,17 @@ void __57__MDSearchableIndexService_deleteActionsWithIdentifiers___block_invoke(
     selfCopy = self;
     uint64 = xpc_dictionary_get_uint64(interactionCopy, "id");
     v10 = [MEMORY[0x277CC3510] copyNSStringForKey:"pc" fromXPCDictionary:interactionCopy];
-    v39 = xpc_dictionary_get_uint64(interactionCopy, "opt");
-    v42 = [MEMORY[0x277CC3510] copyNSStringForKey:"b" fromXPCDictionary:interactionCopy];
-    v41 = [MEMORY[0x277CC3510] dataWrapperForKey:"data" sizeKey:"data-size" fromXPCDictionary:interactionCopy];
-    data = [v41 data];
-    v43 = [data copy];
+    v28 = xpc_dictionary_get_uint64(interactionCopy, "opt");
+    v31 = [MEMORY[0x277CC3510] copyNSStringForKey:"b" fromXPCDictionary:interactionCopy];
+    v30 = [MEMORY[0x277CC3510] dataWrapperForKey:"data" sizeKey:"data-size" fromXPCDictionary:interactionCopy];
+    data = [v30 data];
+    v32 = [data copy];
 
     v12 = (*MEMORY[0x277D286C8])();
     v13 = *(v12 + 16);
-    v57 = *v12;
-    v58 = v13;
-    v59 = *(v12 + 32);
+    v46 = *v12;
+    v47 = v13;
+    v48 = *(v12 + 32);
     v14 = si_tracing_calc_traceid();
     spanid = si_tracing_calc_next_spanid();
     *v12 = v14;
@@ -6709,9 +6564,9 @@ void __57__MDSearchableIndexService_deleteActionsWithIdentifiers___block_invoke(
     *(v12 + 32) = "[MDSearchableIndexService addInteraction:]";
     si_tracing_log_span_begin();
     v16 = *(v12 + 16);
-    v54 = *v12;
-    v55 = v16;
-    v56 = *(v12 + 32);
+    v43 = *v12;
+    v44 = v16;
+    v45 = *(v12 + 32);
     v17 = *v12;
     v18 = si_tracing_calc_next_spanid();
     v19 = *(v12 + 8);
@@ -6757,48 +6612,37 @@ void __57__MDSearchableIndexService_deleteActionsWithIdentifiers___block_invoke(
     *(v12 + 32) = v21;
     si_tracing_log_span_begin();
     v22 = *(v12 + 16);
-    v51 = *v12;
-    v52 = v22;
-    v53 = *(v12 + 32);
-    v23 = [v43 length];
+    v40 = *v12;
+    v41 = v22;
+    v42 = *(v12 + 32);
+    v23 = [v32 length];
     v8 = v23 != 0;
     if (v23)
     {
       v24 = [MEMORY[0x277CC3510] copyNSStringForKey:"icn" fromXPCDictionary:interactionCopy];
-      v44[0] = MEMORY[0x277D85DD0];
-      v44[1] = 3221225472;
-      v44[2] = __43__MDSearchableIndexService_addInteraction___block_invoke;
-      v44[3] = &unk_278937A28;
-      v47 = v51;
-      v48 = v52;
-      v49 = v53;
-      v45 = v7;
-      v50 = uint64;
-      v46 = v5;
-      [(MDSearchableIndexService *)selfCopy addInteraction:v43 intentClassName:v24 bundleID:v42 protectionClass:v10 options:v39 completionHandler:v44];
+      v33[0] = MEMORY[0x277D85DD0];
+      v33[1] = 3221225472;
+      v33[2] = __43__MDSearchableIndexService_addInteraction___block_invoke;
+      v33[3] = &unk_278937A28;
+      v36 = v40;
+      v37 = v41;
+      v38 = v42;
+      v34 = v7;
+      v39 = uint64;
+      v35 = v5;
+      [(MDSearchableIndexService *)selfCopy addInteraction:v32 intentClassName:v24 bundleID:v31 protectionClass:v10 options:v28 completionHandler:v33];
     }
 
-    v25 = *v12;
-    v26 = *(v12 + 8);
-    v27 = *(v12 + 16);
-    v28 = *(v12 + 24);
-    v29 = *(v12 + 28);
-    v30 = *(v12 + 32);
     si_tracing_log_span_end();
-    v31 = v55;
-    *v12 = v54;
-    *(v12 + 16) = v31;
-    *(v12 + 32) = v56;
-    v32 = *v12;
-    v33 = *(v12 + 8);
-    v34 = *(v12 + 16);
-    v35 = *(v12 + 24);
-    v36 = *(v12 + 28);
+    v25 = v44;
+    *v12 = v43;
+    *(v12 + 16) = v25;
+    *(v12 + 32) = v45;
     si_tracing_log_span_end();
-    v37 = v58;
-    *v12 = v57;
-    *(v12 + 16) = v37;
-    *(v12 + 32) = v59;
+    v26 = v47;
+    *v12 = v46;
+    *(v12 + 16) = v26;
+    *(v12 + 32) = v48;
   }
 
   return v8;
@@ -6806,22 +6650,18 @@ void __57__MDSearchableIndexService_deleteActionsWithIdentifiers___block_invoke(
 
 void __43__MDSearchableIndexService_addInteraction___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = a2;
+  v8 = a2;
   v3 = (*MEMORY[0x277D286C8])();
-  v20 = *v3;
-  v21 = *(v3 + 16);
-  v22 = *(v3 + 32);
+  v9 = *v3;
+  v10 = *(v3 + 16);
+  v11 = *(v3 + 32);
   v4 = *(a1 + 64);
   *v3 = *(a1 + 48);
   *(v3 + 16) = v4;
   *(v3 + 32) = *(a1 + 80);
-  v17 = *(a1 + 48);
-  v18 = *(a1 + 64);
-  v19 = *(a1 + 80);
   v5 = *v3;
   spanid = si_tracing_calc_next_spanid();
   v7 = *(v3 + 8);
-  v8 = *(v3 + 24);
   *v3 = v5;
   *(v3 + 8) = spanid;
   *(v3 + 16) = v7;
@@ -6829,19 +6669,12 @@ void __43__MDSearchableIndexService_addInteraction___block_invoke(uint64_t a1, v
   *(v3 + 32) = "completion handler for addInteraction";
   si_tracing_log_span_begin();
   xpc_dictionary_set_uint64(*(a1 + 32), "id", *(a1 + 88));
-  v9 = *(a1 + 32);
   csindex_xpc_dictionary_encode_status_with_error();
   xpc_connection_send_message(*(a1 + 40), *(a1 + 32));
-  v10 = *v3;
-  v11 = *(v3 + 8);
-  v12 = *(v3 + 16);
-  v13 = *(v3 + 24);
-  v14 = *(v3 + 28);
-  v15 = *(v3 + 32);
   si_tracing_log_span_end();
-  *v3 = v20;
-  *(v3 + 16) = v21;
-  *(v3 + 32) = v22;
+  *v3 = v9;
+  *(v3 + 16) = v10;
+  *(v3 + 32) = v11;
 }
 
 - (BOOL)_deleteInteractions:(id)interactions forGroup:(BOOL)group
@@ -6854,21 +6687,21 @@ void __43__MDSearchableIndexService_addInteraction___block_invoke(uint64_t a1, v
   v10 = 0;
   if (v7 && reply)
   {
-    v43 = groupCopy;
+    v32 = groupCopy;
     selfCopy = self;
     uint64 = xpc_dictionary_get_uint64(interactionsCopy, "id");
     v12 = [MEMORY[0x277CC3510] copyNSStringForKey:"pc" fromXPCDictionary:interactionsCopy];
-    v44 = xpc_dictionary_get_uint64(interactionsCopy, "opt");
-    v46 = [MEMORY[0x277CC3510] copyNSStringForKey:"b" fromXPCDictionary:interactionsCopy];
+    v33 = xpc_dictionary_get_uint64(interactionsCopy, "opt");
+    v35 = [MEMORY[0x277CC3510] copyNSStringForKey:"b" fromXPCDictionary:interactionsCopy];
     v13 = MEMORY[0x277CC3510];
     v14 = xpc_dictionary_get_value(interactionsCopy, "identifiers");
-    v47 = [v13 copyNSStringArrayFromXPCArray:v14];
+    v36 = [v13 copyNSStringArrayFromXPCArray:v14];
 
     v15 = (*MEMORY[0x277D286C8])();
     v16 = *(v15 + 16);
-    v64 = *v15;
-    v65 = v16;
-    v66 = *(v15 + 32);
+    v53 = *v15;
+    v54 = v16;
+    v55 = *(v15 + 32);
     v17 = si_tracing_calc_traceid();
     spanid = si_tracing_calc_next_spanid();
     *v15 = v17;
@@ -6879,9 +6712,9 @@ void __43__MDSearchableIndexService_addInteraction___block_invoke(uint64_t a1, v
     *(v15 + 32) = "[MDSearchableIndexService _deleteInteractions:forGroup:]";
     si_tracing_log_span_begin();
     v19 = *(v15 + 16);
-    v61 = *v15;
-    v62 = v19;
-    v63 = *(v15 + 32);
+    v50 = *v15;
+    v51 = v19;
+    v52 = *(v15 + 32);
     v20 = *v15;
     v21 = si_tracing_calc_next_spanid();
     v22 = *(v15 + 8);
@@ -6927,70 +6760,59 @@ void __43__MDSearchableIndexService_addInteraction___block_invoke(uint64_t a1, v
     *(v15 + 32) = v24;
     si_tracing_log_span_begin();
     v25 = *(v15 + 16);
-    v58 = *v15;
-    v59 = v25;
-    v60 = *(v15 + 32);
-    v26 = v47;
-    v27 = [v47 count];
+    v47 = *v15;
+    v48 = v25;
+    v49 = *(v15 + 32);
+    v26 = v36;
+    v27 = [v36 count];
     v10 = v27 != 0;
     if (v27)
     {
-      if (v43)
+      if (v32)
       {
-        v28 = v53;
-        v53[0] = MEMORY[0x277D85DD0];
-        v53[1] = 3221225472;
-        v53[2] = __57__MDSearchableIndexService__deleteInteractions_forGroup___block_invoke;
-        v53[3] = &unk_278937A28;
-        v54 = v58;
-        v55 = v59;
-        v56 = v60;
-        v53[4] = v9;
-        v57 = uint64;
-        v53[5] = v7;
-        [(MDSearchableIndexService *)selfCopy deleteInteractionsWithGroupIdentifiers:v47 bundleID:v46 protectionClass:v12 options:v44 completionHandler:v53];
+        v28 = v42;
+        v42[0] = MEMORY[0x277D85DD0];
+        v42[1] = 3221225472;
+        v42[2] = __57__MDSearchableIndexService__deleteInteractions_forGroup___block_invoke;
+        v42[3] = &unk_278937A28;
+        v43 = v47;
+        v44 = v48;
+        v45 = v49;
+        v42[4] = v9;
+        v46 = uint64;
+        v42[5] = v7;
+        [(MDSearchableIndexService *)selfCopy deleteInteractionsWithGroupIdentifiers:v36 bundleID:v35 protectionClass:v12 options:v33 completionHandler:v42];
       }
 
       else
       {
-        v28 = v48;
-        v48[0] = MEMORY[0x277D85DD0];
-        v48[1] = 3221225472;
-        v48[2] = __57__MDSearchableIndexService__deleteInteractions_forGroup___block_invoke_2;
-        v48[3] = &unk_278937A28;
-        v49 = v58;
-        v50 = v59;
-        v51 = v60;
-        v48[4] = v9;
-        v52 = uint64;
-        v48[5] = v7;
-        [(MDSearchableIndexService *)selfCopy deleteInteractionsWithIdentifiers:v47 bundleID:v46 protectionClass:v12 options:v44 completionHandler:v48];
+        v28 = v37;
+        v37[0] = MEMORY[0x277D85DD0];
+        v37[1] = 3221225472;
+        v37[2] = __57__MDSearchableIndexService__deleteInteractions_forGroup___block_invoke_2;
+        v37[3] = &unk_278937A28;
+        v38 = v47;
+        v39 = v48;
+        v40 = v49;
+        v37[4] = v9;
+        v41 = uint64;
+        v37[5] = v7;
+        [(MDSearchableIndexService *)selfCopy deleteInteractionsWithIdentifiers:v36 bundleID:v35 protectionClass:v12 options:v33 completionHandler:v37];
       }
 
-      v26 = v47;
+      v26 = v36;
     }
 
-    v29 = *v15;
-    v30 = *(v15 + 8);
-    v31 = *(v15 + 16);
-    v32 = *(v15 + 24);
-    v33 = *(v15 + 28);
-    v34 = *(v15 + 32);
     si_tracing_log_span_end();
-    v35 = v62;
-    *v15 = v61;
-    *(v15 + 16) = v35;
-    *(v15 + 32) = v63;
-    v36 = *v15;
-    v37 = *(v15 + 8);
-    v38 = *(v15 + 16);
-    v39 = *(v15 + 24);
-    v40 = *(v15 + 28);
+    v29 = v51;
+    *v15 = v50;
+    *(v15 + 16) = v29;
+    *(v15 + 32) = v52;
     si_tracing_log_span_end();
-    v41 = v65;
-    *v15 = v64;
-    *(v15 + 16) = v41;
-    *(v15 + 32) = v66;
+    v30 = v54;
+    *v15 = v53;
+    *(v15 + 16) = v30;
+    *(v15 + 32) = v55;
   }
 
   return v10;
@@ -6998,22 +6820,18 @@ void __43__MDSearchableIndexService_addInteraction___block_invoke(uint64_t a1, v
 
 void __57__MDSearchableIndexService__deleteInteractions_forGroup___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = a2;
+  v8 = a2;
   v3 = (*MEMORY[0x277D286C8])();
-  v20 = *v3;
-  v21 = *(v3 + 16);
-  v22 = *(v3 + 32);
+  v9 = *v3;
+  v10 = *(v3 + 16);
+  v11 = *(v3 + 32);
   v4 = *(a1 + 64);
   *v3 = *(a1 + 48);
   *(v3 + 16) = v4;
   *(v3 + 32) = *(a1 + 80);
-  v17 = *(a1 + 48);
-  v18 = *(a1 + 64);
-  v19 = *(a1 + 80);
   v5 = *v3;
   spanid = si_tracing_calc_next_spanid();
   v7 = *(v3 + 8);
-  v8 = *(v3 + 24);
   *v3 = v5;
   *(v3 + 8) = spanid;
   *(v3 + 16) = v7;
@@ -7021,39 +6839,28 @@ void __57__MDSearchableIndexService__deleteInteractions_forGroup___block_invoke(
   *(v3 + 32) = "completion handler for deleteInteractions";
   si_tracing_log_span_begin();
   xpc_dictionary_set_uint64(*(a1 + 32), "id", *(a1 + 88));
-  v9 = *(a1 + 32);
   csindex_xpc_dictionary_encode_status_with_error();
   xpc_connection_send_message(*(a1 + 40), *(a1 + 32));
-  v10 = *v3;
-  v11 = *(v3 + 8);
-  v12 = *(v3 + 16);
-  v13 = *(v3 + 24);
-  v14 = *(v3 + 28);
-  v15 = *(v3 + 32);
   si_tracing_log_span_end();
-  *v3 = v20;
-  *(v3 + 16) = v21;
-  *(v3 + 32) = v22;
+  *v3 = v9;
+  *(v3 + 16) = v10;
+  *(v3 + 32) = v11;
 }
 
 void __57__MDSearchableIndexService__deleteInteractions_forGroup___block_invoke_2(uint64_t a1, void *a2)
 {
-  v16 = a2;
+  v8 = a2;
   v3 = (*MEMORY[0x277D286C8])();
-  v20 = *v3;
-  v21 = *(v3 + 16);
-  v22 = *(v3 + 32);
+  v9 = *v3;
+  v10 = *(v3 + 16);
+  v11 = *(v3 + 32);
   v4 = *(a1 + 64);
   *v3 = *(a1 + 48);
   *(v3 + 16) = v4;
   *(v3 + 32) = *(a1 + 80);
-  v17 = *(a1 + 48);
-  v18 = *(a1 + 64);
-  v19 = *(a1 + 80);
   v5 = *v3;
   spanid = si_tracing_calc_next_spanid();
   v7 = *(v3 + 8);
-  v8 = *(v3 + 24);
   *v3 = v5;
   *(v3 + 8) = spanid;
   *(v3 + 16) = v7;
@@ -7061,19 +6868,12 @@ void __57__MDSearchableIndexService__deleteInteractions_forGroup___block_invoke_
   *(v3 + 32) = "completion handler for deleteInteractions";
   si_tracing_log_span_begin();
   xpc_dictionary_set_uint64(*(a1 + 32), "id", *(a1 + 88));
-  v9 = *(a1 + 32);
   csindex_xpc_dictionary_encode_status_with_error();
   xpc_connection_send_message(*(a1 + 40), *(a1 + 32));
-  v10 = *v3;
-  v11 = *(v3 + 8);
-  v12 = *(v3 + 16);
-  v13 = *(v3 + 24);
-  v14 = *(v3 + 28);
-  v15 = *(v3 + 32);
   si_tracing_log_span_end();
-  *v3 = v20;
-  *(v3 + 16) = v21;
-  *(v3 + 32) = v22;
+  *v3 = v9;
+  *(v3 + 16) = v10;
+  *(v3 + 32) = v11;
 }
 
 - (BOOL)deleteAllInteractions:(id)interactions
@@ -7096,16 +6896,16 @@ void __57__MDSearchableIndexService__deleteInteractions_forGroup___block_invoke_
   if (!v8)
   {
     selfCopy = self;
-    v37 = v9;
+    v26 = v9;
     uint64 = xpc_dictionary_get_uint64(interactionsCopy, "id");
     v11 = [MEMORY[0x277CC3510] copyNSStringForKey:"pc" fromXPCDictionary:interactionsCopy];
-    v38 = xpc_dictionary_get_uint64(interactionsCopy, "opt");
-    v40 = [MEMORY[0x277CC3510] copyNSStringForKey:"b" fromXPCDictionary:interactionsCopy];
+    v27 = xpc_dictionary_get_uint64(interactionsCopy, "opt");
+    v29 = [MEMORY[0x277CC3510] copyNSStringForKey:"b" fromXPCDictionary:interactionsCopy];
     v12 = (*MEMORY[0x277D286C8])();
     v13 = *(v12 + 16);
-    v51 = *v12;
-    v52 = v13;
-    v53 = *(v12 + 32);
+    v40 = *v12;
+    v41 = v13;
+    v42 = *(v12 + 32);
     v14 = si_tracing_calc_traceid();
     spanid = si_tracing_calc_next_spanid();
     *v12 = v14;
@@ -7116,9 +6916,9 @@ void __57__MDSearchableIndexService__deleteInteractions_forGroup___block_invoke_
     *(v12 + 32) = "[MDSearchableIndexService deleteAllInteractions:]";
     si_tracing_log_span_begin();
     v16 = *(v12 + 16);
-    v48 = *v12;
-    v49 = v16;
-    v50 = *(v12 + 32);
+    v37 = *v12;
+    v38 = v16;
+    v39 = *(v12 + 32);
     v17 = *v12;
     v18 = si_tracing_calc_next_spanid();
     v19 = *(v12 + 8);
@@ -7164,41 +6964,30 @@ void __57__MDSearchableIndexService__deleteInteractions_forGroup___block_invoke_
     *(v12 + 32) = v21;
     si_tracing_log_span_begin();
     v22 = *(v12 + 16);
-    v44 = *v12;
-    v45 = v22;
-    v46 = *(v12 + 32);
-    v41[0] = MEMORY[0x277D85DD0];
-    v41[1] = 3221225472;
-    v41[2] = __50__MDSearchableIndexService_deleteAllInteractions___block_invoke;
-    v41[3] = &unk_278937A28;
-    v42 = v7;
-    v47 = uint64;
-    v43 = v5;
-    [(MDSearchableIndexService *)selfCopy deleteAllInteractionsWithBundleID:v40 protectionClass:v11 options:v38 completionHandler:v41];
+    v33 = *v12;
+    v34 = v22;
+    v35 = *(v12 + 32);
+    v30[0] = MEMORY[0x277D85DD0];
+    v30[1] = 3221225472;
+    v30[2] = __50__MDSearchableIndexService_deleteAllInteractions___block_invoke;
+    v30[3] = &unk_278937A28;
+    v31 = v7;
+    v36 = uint64;
+    v32 = v5;
+    [(MDSearchableIndexService *)selfCopy deleteAllInteractionsWithBundleID:v29 protectionClass:v11 options:v27 completionHandler:v30];
 
-    v23 = *v12;
-    v24 = *(v12 + 8);
-    v25 = *(v12 + 16);
-    v26 = *(v12 + 24);
-    v27 = *(v12 + 28);
-    v28 = *(v12 + 32);
     si_tracing_log_span_end();
-    v29 = v49;
-    *v12 = v48;
-    *(v12 + 16) = v29;
-    *(v12 + 32) = v50;
-    v30 = *v12;
-    v31 = *(v12 + 8);
-    v32 = *(v12 + 16);
-    v33 = *(v12 + 24);
-    v34 = *(v12 + 28);
+    v23 = v38;
+    *v12 = v37;
+    *(v12 + 16) = v23;
+    *(v12 + 32) = v39;
     si_tracing_log_span_end();
-    v35 = v52;
-    *v12 = v51;
-    *(v12 + 16) = v35;
-    *(v12 + 32) = v53;
+    v24 = v41;
+    *v12 = v40;
+    *(v12 + 16) = v24;
+    *(v12 + 32) = v42;
 
-    v9 = v37;
+    v9 = v26;
   }
 
   return v9;
@@ -7206,22 +6995,18 @@ void __57__MDSearchableIndexService__deleteInteractions_forGroup___block_invoke_
 
 void __50__MDSearchableIndexService_deleteAllInteractions___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = a2;
+  v8 = a2;
   v3 = (*MEMORY[0x277D286C8])();
-  v20 = *v3;
-  v21 = *(v3 + 16);
-  v22 = *(v3 + 32);
+  v9 = *v3;
+  v10 = *(v3 + 16);
+  v11 = *(v3 + 32);
   v4 = *(a1 + 64);
   *v3 = *(a1 + 48);
   *(v3 + 16) = v4;
   *(v3 + 32) = *(a1 + 80);
-  v17 = *(a1 + 48);
-  v18 = *(a1 + 64);
-  v19 = *(a1 + 80);
   v5 = *v3;
   spanid = si_tracing_calc_next_spanid();
   v7 = *(v3 + 8);
-  v8 = *(v3 + 24);
   *v3 = v5;
   *(v3 + 8) = spanid;
   *(v3 + 16) = v7;
@@ -7229,19 +7014,12 @@ void __50__MDSearchableIndexService_deleteAllInteractions___block_invoke(uint64_
   *(v3 + 32) = "completion handler for deleteAllInteractions";
   si_tracing_log_span_begin();
   xpc_dictionary_set_uint64(*(a1 + 32), "id", *(a1 + 88));
-  v9 = *(a1 + 32);
   csindex_xpc_dictionary_encode_status_with_error();
   xpc_connection_send_message(*(a1 + 40), *(a1 + 32));
-  v10 = *v3;
-  v11 = *(v3 + 8);
-  v12 = *(v3 + 16);
-  v13 = *(v3 + 24);
-  v14 = *(v3 + 28);
-  v15 = *(v3 + 32);
   si_tracing_log_span_end();
-  *v3 = v20;
-  *(v3 + 16) = v21;
-  *(v3 + 32) = v22;
+  *v3 = v9;
+  *(v3 + 16) = v10;
+  *(v3 + 32) = v11;
 }
 
 - (BOOL)donateRelevantActions:(id)actions
@@ -7258,9 +7036,9 @@ void __50__MDSearchableIndexService_deleteAllInteractions___block_invoke(uint64_
     v11 = [MEMORY[0x277CC3510] copyNSStringForKey:"b" fromXPCDictionary:actionsCopy];
     v12 = (*MEMORY[0x277D286C8])();
     v13 = *(v12 + 16);
-    v36 = *v12;
-    v37 = v13;
-    v38 = *(v12 + 32);
+    v30 = *v12;
+    v31 = v13;
+    v32 = *(v12 + 32);
     v14 = si_tracing_calc_traceid();
     spanid = si_tracing_calc_next_spanid();
     *v12 = v14;
@@ -7271,37 +7049,31 @@ void __50__MDSearchableIndexService_deleteAllInteractions___block_invoke(uint64_
     *(v12 + 32) = "[MDSearchableIndexService donateRelevantActions:]";
     si_tracing_log_span_begin();
     v16 = *(v12 + 16);
-    v33 = *v12;
-    v34 = v16;
-    v35 = *(v12 + 32);
+    v27 = *v12;
+    v28 = v16;
+    v29 = *(v12 + 32);
     v17 = xpc_dictionary_get_value(actionsCopy, "data");
     v8 = v17 != 0;
     if (v17)
     {
-      v26[0] = MEMORY[0x277D85DD0];
-      v26[1] = 3221225472;
-      v26[2] = __50__MDSearchableIndexService_donateRelevantActions___block_invoke;
-      v26[3] = &unk_278937A28;
-      v29 = v33;
-      v30 = v34;
-      v31 = v35;
-      v27 = v7;
-      v32 = uint64;
-      v28 = v5;
-      [(MDSearchableIndexService *)self donateRelevantActions:v17 bundleID:v11 options:v10 completionHandler:v26];
+      v20[0] = MEMORY[0x277D85DD0];
+      v20[1] = 3221225472;
+      v20[2] = __50__MDSearchableIndexService_donateRelevantActions___block_invoke;
+      v20[3] = &unk_278937A28;
+      v23 = v27;
+      v24 = v28;
+      v25 = v29;
+      v21 = v7;
+      v26 = uint64;
+      v22 = v5;
+      [(MDSearchableIndexService *)self donateRelevantActions:v17 bundleID:v11 options:v10 completionHandler:v20];
     }
 
-    v18 = *v12;
-    v19 = *(v12 + 8);
-    v20 = *(v12 + 16);
-    v21 = *(v12 + 24);
-    v22 = *(v12 + 28);
-    v23 = *(v12 + 32);
     si_tracing_log_span_end();
-    v24 = v37;
-    *v12 = v36;
-    *(v12 + 16) = v24;
-    *(v12 + 32) = v38;
+    v18 = v31;
+    *v12 = v30;
+    *(v12 + 16) = v18;
+    *(v12 + 32) = v32;
   }
 
   return v8;
@@ -7309,22 +7081,18 @@ void __50__MDSearchableIndexService_deleteAllInteractions___block_invoke(uint64_
 
 void __50__MDSearchableIndexService_donateRelevantActions___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = a2;
+  v8 = a2;
   v3 = (*MEMORY[0x277D286C8])();
-  v20 = *v3;
-  v21 = *(v3 + 16);
-  v22 = *(v3 + 32);
+  v9 = *v3;
+  v10 = *(v3 + 16);
+  v11 = *(v3 + 32);
   v4 = *(a1 + 64);
   *v3 = *(a1 + 48);
   *(v3 + 16) = v4;
   *(v3 + 32) = *(a1 + 80);
-  v17 = *(a1 + 48);
-  v18 = *(a1 + 64);
-  v19 = *(a1 + 80);
   v5 = *v3;
   spanid = si_tracing_calc_next_spanid();
   v7 = *(v3 + 8);
-  v8 = *(v3 + 24);
   *v3 = v5;
   *(v3 + 8) = spanid;
   *(v3 + 16) = v7;
@@ -7332,19 +7100,12 @@ void __50__MDSearchableIndexService_donateRelevantActions___block_invoke(uint64_
   *(v3 + 32) = "completion handler for donateRelevantActions";
   si_tracing_log_span_begin();
   xpc_dictionary_set_uint64(*(a1 + 32), "id", *(a1 + 88));
-  v9 = *(a1 + 32);
   csindex_xpc_dictionary_encode_status_with_error();
   xpc_connection_send_message(*(a1 + 40), *(a1 + 32));
-  v10 = *v3;
-  v11 = *(v3 + 8);
-  v12 = *(v3 + 16);
-  v13 = *(v3 + 24);
-  v14 = *(v3 + 28);
-  v15 = *(v3 + 32);
   si_tracing_log_span_end();
-  *v3 = v20;
-  *(v3 + 16) = v21;
-  *(v3 + 32) = v22;
+  *v3 = v9;
+  *(v3 + 16) = v10;
+  *(v3 + 32) = v11;
 }
 
 - (BOOL)updateCorrections:(id)corrections
@@ -7367,17 +7128,17 @@ void __50__MDSearchableIndexService_donateRelevantActions___block_invoke(uint64_
   if (!v8)
   {
     selfCopy = self;
-    v38 = v9;
+    v27 = v9;
     uint64 = xpc_dictionary_get_uint64(correctionsCopy, "id");
     v11 = [MEMORY[0x277CC3510] copyNSStringForKey:"pc" fromXPCDictionary:correctionsCopy];
-    v37 = [MEMORY[0x277CC3510] copyNSStringForKey:"b" fromXPCDictionary:correctionsCopy];
-    v39 = xpc_dictionary_get_uint64(correctionsCopy, "opt");
-    v41 = [MEMORY[0x277CC3510] copyNSStringForKey:"filepath" fromXPCDictionary:correctionsCopy];
+    v26 = [MEMORY[0x277CC3510] copyNSStringForKey:"b" fromXPCDictionary:correctionsCopy];
+    v28 = xpc_dictionary_get_uint64(correctionsCopy, "opt");
+    v30 = [MEMORY[0x277CC3510] copyNSStringForKey:"filepath" fromXPCDictionary:correctionsCopy];
     v12 = (*MEMORY[0x277D286C8])();
     v13 = *(v12 + 16);
-    v52 = *v12;
-    v53 = v13;
-    v54 = *(v12 + 32);
+    v41 = *v12;
+    v42 = v13;
+    v43 = *(v12 + 32);
     v14 = si_tracing_calc_traceid();
     spanid = si_tracing_calc_next_spanid();
     *v12 = v14;
@@ -7388,9 +7149,9 @@ void __50__MDSearchableIndexService_donateRelevantActions___block_invoke(uint64_
     *(v12 + 32) = "[MDSearchableIndexService updateCorrections:]";
     si_tracing_log_span_begin();
     v16 = *(v12 + 16);
-    v49 = *v12;
-    v50 = v16;
-    v51 = *(v12 + 32);
+    v38 = *v12;
+    v39 = v16;
+    v40 = *(v12 + 32);
     v17 = *v12;
     v18 = si_tracing_calc_next_spanid();
     v19 = *(v12 + 8);
@@ -7436,41 +7197,30 @@ void __50__MDSearchableIndexService_donateRelevantActions___block_invoke(uint64_
     *(v12 + 32) = v21;
     si_tracing_log_span_begin();
     v22 = *(v12 + 16);
-    v45 = *v12;
-    v46 = v22;
-    v47 = *(v12 + 32);
-    v42[0] = MEMORY[0x277D85DD0];
-    v42[1] = 3221225472;
-    v42[2] = __46__MDSearchableIndexService_updateCorrections___block_invoke;
-    v42[3] = &unk_278937A78;
-    v43 = v7;
-    v48 = uint64;
-    v44 = v5;
-    [(MDSearchableIndexService *)selfCopy updateCorrectionsWithFilePath:v41 options:v39 completionHandler:v42];
+    v34 = *v12;
+    v35 = v22;
+    v36 = *(v12 + 32);
+    v31[0] = MEMORY[0x277D85DD0];
+    v31[1] = 3221225472;
+    v31[2] = __46__MDSearchableIndexService_updateCorrections___block_invoke;
+    v31[3] = &unk_278937A78;
+    v32 = v7;
+    v37 = uint64;
+    v33 = v5;
+    [(MDSearchableIndexService *)selfCopy updateCorrectionsWithFilePath:v30 options:v28 completionHandler:v31];
 
-    v23 = *v12;
-    v24 = *(v12 + 8);
-    v25 = *(v12 + 16);
-    v26 = *(v12 + 24);
-    v27 = *(v12 + 28);
-    v28 = *(v12 + 32);
     si_tracing_log_span_end();
-    v29 = v50;
-    *v12 = v49;
-    *(v12 + 16) = v29;
-    *(v12 + 32) = v51;
-    v30 = *v12;
-    v31 = *(v12 + 8);
-    v32 = *(v12 + 16);
-    v33 = *(v12 + 24);
-    v34 = *(v12 + 28);
+    v23 = v39;
+    *v12 = v38;
+    *(v12 + 16) = v23;
+    *(v12 + 32) = v40;
     si_tracing_log_span_end();
-    v35 = v53;
-    *v12 = v52;
-    *(v12 + 16) = v35;
-    *(v12 + 32) = v54;
+    v24 = v42;
+    *v12 = v41;
+    *(v12 + 16) = v24;
+    *(v12 + 32) = v43;
 
-    v9 = v38;
+    v9 = v27;
   }
 
   return v9;
@@ -7478,43 +7228,32 @@ void __50__MDSearchableIndexService_donateRelevantActions___block_invoke(uint64_
 
 void __46__MDSearchableIndexService_updateCorrections___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v19 = a2;
+  v11 = a2;
   v5 = a3;
   v6 = (*MEMORY[0x277D286C8])();
-  v23 = *v6;
-  v24 = *(v6 + 16);
-  v25 = *(v6 + 32);
+  v12 = *v6;
+  v13 = *(v6 + 16);
+  v14 = *(v6 + 32);
   v7 = *(a1 + 64);
   *v6 = *(a1 + 48);
   *(v6 + 16) = v7;
   *(v6 + 32) = *(a1 + 80);
-  v20 = *(a1 + 48);
-  v21 = *(a1 + 64);
-  v22 = *(a1 + 80);
   v8 = *v6;
   spanid = si_tracing_calc_next_spanid();
   v10 = *(v6 + 8);
-  v11 = *(v6 + 24);
   *v6 = v8;
   *(v6 + 8) = spanid;
   *(v6 + 16) = v10;
   *(v6 + 28) = 102;
   *(v6 + 32) = "completion handler for updateCorrections";
   si_tracing_log_span_begin();
-  v12 = *(a1 + 32);
   csindex_xpc_dictionary_encode_status_with_error();
   xpc_dictionary_set_uint64(*(a1 + 32), "id", *(a1 + 88));
   xpc_connection_send_message(*(a1 + 40), *(a1 + 32));
-  v13 = *v6;
-  v14 = *(v6 + 8);
-  v15 = *(v6 + 16);
-  v16 = *(v6 + 24);
-  v17 = *(v6 + 28);
-  v18 = *(v6 + 32);
   si_tracing_log_span_end();
-  *v6 = v23;
-  *(v6 + 16) = v24;
-  *(v6 + 32) = v25;
+  *v6 = v12;
+  *(v6 + 16) = v13;
+  *(v6 + 32) = v14;
 }
 
 - (BOOL)issueCacheCommand:(id)command
@@ -7528,9 +7267,9 @@ void __46__MDSearchableIndexService_updateCorrections___block_invoke(uint64_t a1
     v8 = [MEMORY[0x277CC3510] copyNSStringForKey:"cache-request" fromXPCDictionary:commandCopy];
     v9 = (*MEMORY[0x277D286C8])();
     v10 = *(v9 + 16);
-    v39 = *v9;
-    v40 = v10;
-    v41 = *(v9 + 32);
+    v32 = *v9;
+    v33 = v10;
+    v34 = *(v9 + 32);
     v11 = si_tracing_calc_traceid();
     spanid = si_tracing_calc_next_spanid();
     *v9 = v11;
@@ -7541,42 +7280,32 @@ void __46__MDSearchableIndexService_updateCorrections___block_invoke(uint64_t a1
     *(v9 + 32) = "[MDSearchableIndexService issueCacheCommand:]";
     si_tracing_log_span_begin();
     v13 = *(v9 + 16);
-    v36 = *v9;
-    v37 = v13;
-    v38 = *(v9 + 32);
+    v29 = *v9;
+    v30 = v13;
+    v31 = *(v9 + 32);
     v14 = v8 != 0;
-    if (v8)
+    if (v8 && (objc_opt_respondsToSelector() & 1) != 0)
     {
-      indexer = self->_indexer;
-      if (objc_opt_respondsToSelector())
-      {
-        v26 = MEMORY[0x277D85DD0];
-        v27 = 3221225472;
-        v28 = __46__MDSearchableIndexService_issueCacheCommand___block_invoke;
-        v29 = &unk_278937A78;
-        v32 = v36;
-        v33 = v37;
-        v34 = v38;
-        v16 = reply;
-        v30 = v16;
-        v35 = uint64;
-        v31 = v5;
-        v17 = MEMORY[0x2383760E0](&v26);
-        [(MDIndexer *)self->_indexer _issueCacheCommand:v8 xpc:v16 searchContext:0 completionHandler:v17, v26, v27, v28, v29];
-      }
+      v19 = MEMORY[0x277D85DD0];
+      v20 = 3221225472;
+      v21 = __46__MDSearchableIndexService_issueCacheCommand___block_invoke;
+      v22 = &unk_278937A78;
+      v25 = v29;
+      v26 = v30;
+      v27 = v31;
+      v15 = reply;
+      v23 = v15;
+      v28 = uint64;
+      v24 = v5;
+      v16 = MEMORY[0x2383760E0](&v19);
+      [(MDIndexer *)self->_indexer _issueCacheCommand:v8 xpc:v15 searchContext:0 completionHandler:v16, v19, v20, v21, v22];
     }
 
-    v18 = *v9;
-    v19 = *(v9 + 8);
-    v20 = *(v9 + 16);
-    v21 = *(v9 + 24);
-    v22 = *(v9 + 28);
-    v23 = *(v9 + 32);
     si_tracing_log_span_end();
-    v24 = v40;
-    *v9 = v39;
-    *(v9 + 16) = v24;
-    *(v9 + 32) = v41;
+    v17 = v33;
+    *v9 = v32;
+    *(v9 + 16) = v17;
+    *(v9 + 32) = v34;
   }
 
   else
@@ -7589,23 +7318,19 @@ void __46__MDSearchableIndexService_updateCorrections___block_invoke(uint64_t a1
 
 void __46__MDSearchableIndexService_issueCacheCommand___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v18 = a2;
+  v11 = a2;
   v5 = a3;
   v6 = (*MEMORY[0x277D286C8])();
-  v22 = *v6;
-  v23 = *(v6 + 16);
-  v24 = *(v6 + 32);
+  v12 = *v6;
+  v13 = *(v6 + 16);
+  v14 = *(v6 + 32);
   v7 = *(a1 + 64);
   *v6 = *(a1 + 48);
   *(v6 + 16) = v7;
   *(v6 + 32) = *(a1 + 80);
-  v19 = *(a1 + 48);
-  v20 = *(a1 + 64);
-  v21 = *(a1 + 80);
   v8 = *v6;
   spanid = si_tracing_calc_next_spanid();
   v10 = *(v6 + 8);
-  v11 = *(v6 + 24);
   *v6 = v8;
   *(v6 + 8) = spanid;
   *(v6 + 16) = v10;
@@ -7615,38 +7340,31 @@ void __46__MDSearchableIndexService_issueCacheCommand___block_invoke(uint64_t a1
   if (*(a1 + 32))
   {
     csindex_xpc_dictionary_encode_status_with_error();
-    if (v18)
+    if (v11)
     {
-      xpc_dictionary_set_data(*(a1 + 32), "cache-data-key", [v18 bytes], objc_msgSend(v18, "length"));
+      xpc_dictionary_set_data(*(a1 + 32), "cache-data-key", [v11 bytes], objc_msgSend(v11, "length"));
     }
 
     xpc_dictionary_set_uint64(*(a1 + 32), "id", *(a1 + 88));
     xpc_connection_send_message(*(a1 + 40), *(a1 + 32));
   }
 
-  v12 = *v6;
-  v13 = *(v6 + 8);
-  v14 = *(v6 + 16);
-  v15 = *(v6 + 24);
-  v16 = *(v6 + 28);
-  v17 = *(v6 + 32);
   si_tracing_log_span_end();
-  *v6 = v22;
-  *(v6 + 16) = v23;
-  *(v6 + 32) = v24;
+  *v6 = v12;
+  *(v6 + 16) = v13;
+  *(v6 + 32) = v14;
 }
 
 - (BOOL)_handleAssetsCommand:(id)command
 {
   commandCopy = command;
-  indexer = self->_indexer;
-  v6 = objc_opt_respondsToSelector();
-  if (v6)
+  v5 = objc_opt_respondsToSelector();
+  if (v5)
   {
     [(MDIndexer *)self->_indexer handleAssetsCommand:commandCopy];
   }
 
-  return v6 & 1;
+  return v5 & 1;
 }
 
 - (BOOL)handleCommand:(const char *)command info:(id)info
@@ -7670,8 +7388,8 @@ void __46__MDSearchableIndexService_issueCacheCommand___block_invoke(uint64_t a1
     }
 
 LABEL_6:
-    v10 = logForCSLogCategoryDefault();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = logForCSLogCategoryDefault(allowNotifications2);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [MDSearchableIndexService _issueCommand:? outFileDescriptor:? searchContext:? completionHandler:?];
     }
@@ -7679,7 +7397,8 @@ LABEL_6:
     goto LABEL_9;
   }
 
-  if (![(MDSearchableIndexService *)self allowNotifications])
+  allowNotifications2 = [(MDSearchableIndexService *)self allowNotifications];
+  if ((allowNotifications2 & 1) == 0)
   {
     goto LABEL_6;
   }
@@ -7687,325 +7406,287 @@ LABEL_6:
 LABEL_11:
   if (!strcmp(command, "delete-bundle"))
   {
-    v13 = [(MDSearchableIndexService *)self deleteBundle:infoCopy];
+    v15 = [(MDSearchableIndexService *)self deleteBundle:infoCopy];
 LABEL_68:
-    v11 = v13;
+    v12 = v15;
     goto LABEL_69;
   }
 
   if (!strcmp(command, "delete-from-date"))
   {
-    v13 = [(MDSearchableIndexService *)self deleteSinceDate:infoCopy];
+    v15 = [(MDSearchableIndexService *)self deleteSinceDate:infoCopy];
     goto LABEL_68;
   }
 
   if (!strcmp(command, "check-in"))
   {
-    v13 = [(MDSearchableIndexService *)self checkIn:infoCopy];
+    v15 = [(MDSearchableIndexService *)self checkIn:infoCopy];
     goto LABEL_68;
   }
 
   if (!strcmp(command, "process-index-data"))
   {
-    v13 = [(MDSearchableIndexService *)self processIndexData:infoCopy];
+    v15 = [(MDSearchableIndexService *)self processIndexData:infoCopy];
     goto LABEL_68;
   }
 
   if (!strcmp(command, "fbi"))
   {
-    v13 = [(MDSearchableIndexService *)self fetchBundleIDs:infoCopy];
+    v15 = [(MDSearchableIndexService *)self fetchBundleIDs:infoCopy];
     goto LABEL_68;
   }
 
   if (!strcmp(command, "will-modify"))
   {
-    v13 = [(MDSearchableIndexService *)self willModify:infoCopy];
+    v15 = [(MDSearchableIndexService *)self willModify:infoCopy];
     goto LABEL_68;
   }
 
   if (!strcmp(command, "delete-domains"))
   {
-    v13 = [(MDSearchableIndexService *)self deleteDomains:infoCopy];
+    v15 = [(MDSearchableIndexService *)self deleteDomains:infoCopy];
     goto LABEL_68;
   }
 
   if (!strcmp(command, "issue"))
   {
-    v13 = [(MDSearchableIndexService *)self issueCommand:infoCopy];
+    v15 = [(MDSearchableIndexService *)self issueCommand:infoCopy];
     goto LABEL_68;
   }
 
   if (!strcmp(command, "fetch-client-state"))
   {
-    v13 = [(MDSearchableIndexService *)self fetchClientState:infoCopy];
+    v15 = [(MDSearchableIndexService *)self fetchClientState:infoCopy];
     goto LABEL_68;
   }
 
   if (!strcmp(command, "change-state"))
   {
-    v13 = [(MDSearchableIndexService *)self changeState:infoCopy];
+    v15 = [(MDSearchableIndexService *)self changeState:infoCopy];
     goto LABEL_68;
   }
 
   if (!strcmp(command, "data-migration"))
   {
-    v13 = [(MDSearchableIndexService *)self dataMigration:infoCopy];
+    v15 = [(MDSearchableIndexService *)self dataMigration:infoCopy];
     goto LABEL_68;
   }
 
   if (!strcmp(command, "delete-journal-transfer"))
   {
-    v13 = [(MDSearchableIndexService *)self transferDeleteJournals:infoCopy];
+    v15 = [(MDSearchableIndexService *)self transferDeleteJournals:infoCopy];
     goto LABEL_68;
   }
 
   if (!strcmp(command, "fetch_attributes"))
   {
-    v13 = [(MDSearchableIndexService *)self fetchAttributes:infoCopy];
+    v15 = [(MDSearchableIndexService *)self fetchAttributes:infoCopy];
     goto LABEL_68;
   }
 
   if (!strcmp(command, "fetch_cache_file_descriptors"))
   {
-    v13 = [(MDSearchableIndexService *)self fetchCacheFileDescriptors:infoCopy];
+    v15 = [(MDSearchableIndexService *)self fetchCacheFileDescriptors:infoCopy];
     goto LABEL_68;
   }
 
   if (!strcmp(command, "delete_all_activities"))
   {
-    v13 = [(MDSearchableIndexService *)self deleteAllUserActivities:infoCopy];
+    v15 = [(MDSearchableIndexService *)self deleteAllUserActivities:infoCopy];
     goto LABEL_68;
   }
 
   if (!strcmp(command, "delete_activities"))
   {
-    v13 = [(MDSearchableIndexService *)self deleteUserActivitiesWithPersistentIdentifiers:infoCopy];
+    v15 = [(MDSearchableIndexService *)self deleteUserActivitiesWithPersistentIdentifiers:infoCopy];
     goto LABEL_68;
   }
 
   if (!strcmp(command, "delete-actions-before-time"))
   {
-    v13 = [(MDSearchableIndexService *)self deleteActionsBeforeTime:infoCopy];
+    v15 = [(MDSearchableIndexService *)self deleteActionsBeforeTime:infoCopy];
     goto LABEL_68;
   }
 
   if (!strcmp(command, "delete-actions-with-identifiers"))
   {
-    v13 = [(MDSearchableIndexService *)self deleteActionsWithIdentifiers:infoCopy];
+    v15 = [(MDSearchableIndexService *)self deleteActionsWithIdentifiers:infoCopy];
     goto LABEL_68;
   }
 
   if (!strcmp(command, "activities"))
   {
-    v13 = [(MDSearchableIndexService *)self processActivities:infoCopy];
+    v15 = [(MDSearchableIndexService *)self processActivities:infoCopy];
     goto LABEL_68;
   }
 
   if (!strcmp(command, "add_interaction"))
   {
-    v13 = [(MDSearchableIndexService *)self addInteraction:infoCopy];
+    v15 = [(MDSearchableIndexService *)self addInteraction:infoCopy];
     goto LABEL_68;
   }
 
   if (!strcmp(command, "delete_interactions"))
   {
     selfCopy2 = self;
-    v15 = infoCopy;
-    v16 = 0;
+    v17 = infoCopy;
+    v18 = 0;
 LABEL_67:
-    v13 = [(MDSearchableIndexService *)selfCopy2 _deleteInteractions:v15 forGroup:v16];
+    v15 = [(MDSearchableIndexService *)selfCopy2 _deleteInteractions:v17 forGroup:v18];
     goto LABEL_68;
   }
 
   if (!strcmp(command, "delete_group_interactions"))
   {
     selfCopy2 = self;
-    v15 = infoCopy;
-    v16 = 1;
+    v17 = infoCopy;
+    v18 = 1;
     goto LABEL_67;
   }
 
   if (!strcmp(command, "delete_all_interactions"))
   {
-    v13 = [(MDSearchableIndexService *)self deleteAllInteractions:infoCopy];
+    v15 = [(MDSearchableIndexService *)self deleteAllInteractions:infoCopy];
     goto LABEL_68;
   }
 
   if (!strcmp(command, "donate_relevant_actions"))
   {
-    v13 = [(MDSearchableIndexService *)self donateRelevantActions:infoCopy];
+    v15 = [(MDSearchableIndexService *)self donateRelevantActions:infoCopy];
     goto LABEL_68;
   }
 
   if (!strcmp(command, "photoslibrary-deleted"))
   {
-    v13 = [(MDSearchableIndexService *)self photosLibraryDeleted:infoCopy];
+    v15 = [(MDSearchableIndexService *)self photosLibraryDeleted:infoCopy];
     goto LABEL_68;
   }
 
   if (!strcmp(command, "prepare-indexing-locked"))
   {
-    v13 = [(MDSearchableIndexService *)self prepareIndexingLocked:infoCopy];
+    v15 = [(MDSearchableIndexService *)self prepareIndexingLocked:infoCopy];
     goto LABEL_68;
   }
 
   if (!strcmp(command, "finish-indexing-locked"))
   {
-    v13 = [(MDSearchableIndexService *)self finishIndexingLocked:infoCopy];
+    v15 = [(MDSearchableIndexService *)self finishIndexingLocked:infoCopy];
     goto LABEL_68;
   }
 
   if (!strcmp(command, "cache-command-issue"))
   {
-    v13 = [(MDSearchableIndexService *)self issueCacheCommand:infoCopy];
+    v15 = [(MDSearchableIndexService *)self issueCacheCommand:infoCopy];
     goto LABEL_68;
   }
 
   if (!strcmp(command, "update-corrections"))
   {
-    v13 = [(MDSearchableIndexService *)self updateCorrections:infoCopy];
+    v15 = [(MDSearchableIndexService *)self updateCorrections:infoCopy];
     goto LABEL_68;
   }
 
   if (!strcmp(command, "open-journal"))
   {
-    v13 = [(MDSearchableIndexService *)self openJournalFile:infoCopy];
+    v15 = [(MDSearchableIndexService *)self openJournalFile:infoCopy];
     goto LABEL_68;
   }
 
-  if (!strcmp(command, "assets"))
+  v13 = strcmp(command, "assets");
+  if (!v13)
   {
-    v13 = [(MDSearchableIndexService *)self _handleAssetsCommand:infoCopy];
+    v15 = [(MDSearchableIndexService *)self _handleAssetsCommand:infoCopy];
     goto LABEL_68;
   }
 
-  v12 = logForCSLogCategoryDefault();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+  v14 = logForCSLogCategoryDefault(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
     [MDSearchableIndexService handleCommand:info:];
   }
 
 LABEL_9:
-  v11 = 0;
+  v12 = 0;
 LABEL_69:
 
-  return v11;
+  return v12;
 }
 
 - (void)_checkNonEmptyBundle:(void *)a1 protectionClass:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 processDescription];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_4_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_checkItems:identifiers:protectionClass:bundleID:.cold.1()
 {
   OUTLINED_FUNCTION_8_0();
-  v10 = *MEMORY[0x277D85DE8];
   v2 = [v1 processDescription];
   v3 = [v0 clientBundleID];
   OUTLINED_FUNCTION_6_0();
   OUTLINED_FUNCTION_4_1();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x20u);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_checkItems:(void *)a1 identifiers:protectionClass:bundleID:.cold.2(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 processDescription];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_4_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_checkItems:(void *)a1 identifiers:protectionClass:bundleID:.cold.3(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 processDescription];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_6_0();
   OUTLINED_FUNCTION_4_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_checkItems:identifiers:protectionClass:bundleID:.cold.4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_checkItems:identifiers:protectionClass:bundleID:.cold.5()
 {
   OUTLINED_FUNCTION_8_0();
-  v10 = *MEMORY[0x277D85DE8];
   v2 = [v1 bundleID];
   v3 = [v0 clientBundleID];
   OUTLINED_FUNCTION_6_0();
   OUTLINED_FUNCTION_4_1();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x20u);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_checkItems:identifiers:protectionClass:bundleID:.cold.6()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_canProcessIndexDataForBundle:itemsDecoder:deletesDecoder:clientState:clientStateName:outError:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_dispatchToReceiversWithBundleID:protectionClass:options:items:itemsText:itemsHTML:deletes:.cold.1()
 {
   OUTLINED_FUNCTION_8_0();
-  v8 = *MEMORY[0x277D85DE8];
   [SpotlightSender jobForTest:v1];
   [SpotlightSender jobForDuet:v0];
   [SpotlightSender jobForSuggestions:v0];
   [SpotlightSender jobForTextUnderstanding:v0];
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x3Eu);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-- (void)deleteSearchableItemsWithDomainIdentifiers:protectionClass:forBundleID:fromClient:options:completionHandler:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_4(&dword_231A35000, v0, v1, "domainIdentifier:%@, options:0x%lx");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)updateCorrectionsWithFilePath:options:completionHandler:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_4(&dword_231A35000, v0, v1, "updateCorrectionsWithProtectionClass, filePath:%@, options:0x%lx");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (void)provideDataForBundle:identifier:type:completionHandler:.cold.1()
@@ -8017,120 +7698,74 @@ LABEL_69:
 
 - (void)_issueCommand:(void *)a1 outFileDescriptor:searchContext:completionHandler:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 clientBundleID];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_4_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_issueCommand:(void *)a1 outFileDescriptor:searchContext:completionHandler:.cold.2(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 clientBundleID];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_4_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)userPerformedAction:withItem:protectionClass:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_6_0();
   OUTLINED_FUNCTION_4(&dword_231A35000, v0, v1, "Ignoring action:%@, item:%@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (void)checkInWithProtectionClass:(void *)a1 completionHandler:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 processDescription];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_4_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-- (void)deleteAllUserActivities:fromClient:options:completionHandler:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_4(&dword_231A35000, v0, v1, "(%@) deleteAllActivities, options:0x%lx");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)deleteUserActivitiesWithPersistentIdentifiers:bundleID:options:completionHandler:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_4(&dword_231A35000, v0, v1, "(%@) deleteActivities, options:0x%lx");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 void __78__MDSearchableIndexService_performDataMigrationWithTimeout_completionHandler___block_invoke_cold_1(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = NSStringFromSelector(*(a1 + 56));
-  v3 = *(a1 + 32);
+  v1 = NSStringFromSelector(*(a1 + 56));
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
 void __78__MDSearchableIndexService_performDataMigrationWithTimeout_completionHandler___block_invoke_cold_4(os_log_t log, double a2, double a3)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v4 = 134217984;
-  v5 = (a2 - a3);
-  _os_log_debug_impl(&dword_231A35000, log, OS_LOG_TYPE_DEBUG, "Finished waiting for index to update, totalTime:%llds", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
+  v3 = 134217984;
+  v4 = (a2 - a3);
+  _os_log_debug_impl(&dword_231A35000, log, OS_LOG_TYPE_DEBUG, "Finished waiting for index to update, totalTime:%llds", &v3, 0xCu);
 }
 
 void __78__MDSearchableIndexService_performDataMigrationWithTimeout_completionHandler___block_invoke_2_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_6_0();
   OUTLINED_FUNCTION_4(&dword_231A35000, v0, v1, "Extension %@ completed migration, error:%@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (void)transferDeleteJournalsForProtectionClass:(const char *)a1 toDirectory:withCompletionHandler:.cold.1(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deleteInteractionsWithIdentifiers:(uint64_t)a1 bundleID:(uint64_t)a2 protectionClass:options:completionHandler:.cold.1(uint64_t a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  LODWORD(v6) = 134218242;
-  *(&v6 + 4) = a2;
+  v7 = *MEMORY[0x277D85DE8];
+  LODWORD(v5) = 134218242;
+  *(&v5 + 4) = a2;
   OUTLINED_FUNCTION_6_0();
-  *v7 = v2;
-  OUTLINED_FUNCTION_4(&dword_231A35000, v3, v4, "options:0x%lx, identifiers:%@", v6, DWORD2(v6), *&v7[2], v8);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)donateRelevantActions:bundleID:options:completionHandler:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_4(&dword_231A35000, v0, v1, "(%@) donateRelevantActions options:0x%lx");
-  v2 = *MEMORY[0x277D85DE8];
+  *v6 = v2;
+  OUTLINED_FUNCTION_4(&dword_231A35000, v3, v4, "options:0x%lx, identifiers:%@", v5, DWORD2(v5), *&v6[2], v7);
 }
 
 - (void)fetchBundleIDs:.cold.2()
@@ -8156,22 +7791,11 @@ void __78__MDSearchableIndexService_performDataMigrationWithTimeout_completionHa
 
 - (void)openJournalFile:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   v0 = __error();
   strerror(*v0);
-  v7 = *__error();
+  __error();
   OUTLINED_FUNCTION_4_1();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Cu);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __41__MDSearchableIndexService_issueCommand___block_invoke_2_cold_1(uint64_t a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *(a1 + 48);
-  OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processActivities:(os_log_t)log .cold.1(void *a1, uint8_t *buf, os_log_t log)
@@ -8183,11 +7807,9 @@ void __41__MDSearchableIndexService_issueCommand___block_invoke_2_cold_1(uint64_
 
 - (void)handleCommand:info:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

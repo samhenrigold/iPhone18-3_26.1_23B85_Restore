@@ -67,7 +67,7 @@
 
     if ((v8 & 1) == 0)
     {
-      v9 = [stringCopy copy];
+      v9 = objc_msgSend_copy(stringCopy);
       rawVersionString = v6->_rawVersionString;
       v6->_rawVersionString = v9;
     }
@@ -99,7 +99,7 @@
 
     if ((v8 & 1) == 0)
     {
-      v9 = [stringCopy copy];
+      v9 = objc_msgSend_copy(stringCopy);
       rawVersionString = v6->_rawVersionString;
       v6->_rawVersionString = v9;
     }

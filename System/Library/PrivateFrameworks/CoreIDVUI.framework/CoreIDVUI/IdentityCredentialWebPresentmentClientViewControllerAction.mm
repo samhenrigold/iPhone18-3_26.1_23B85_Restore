@@ -44,7 +44,7 @@
   v7[3] = controller;
   controllerCopy = controller;
   selfCopy = self;
-  sub_2458092C8(sub_2458EE0CC, v7);
+  sub_2458092C8(sub_2458EE0CC, v7, "CoreIDVUI/IdentityCredentialWebPresentmentClientViewControllerAction.swift", 74, 2u, 48);
 }
 
 - (_TtC9CoreIDVUI58IdentityCredentialWebPresentmentClientViewControllerAction)initWithInfo:(id)info responder:(id)responder

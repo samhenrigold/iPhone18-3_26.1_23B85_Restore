@@ -1,6 +1,7 @@
 @interface _UILabelStringContent
 - (BOOL)_isContentEqualToContent:(id)content;
 - (BOOL)isEqualToAttributedString:(id)string;
+- (BOOL)isEqualToString:(id)string;
 - (_UILabelStringContent)contentWithAttributedString:(id)string;
 - (_UILabelStringContent)contentWithString:(id)string;
 - (_UILabelStringContent)initWithString:(id)string defaultAttributes:(id)attributes;
@@ -82,9 +83,9 @@
 
   if (v6 && v5)
   {
-    v8 = [(NSString *)v5 isEqual:v6];
+    isEqual = objc_msgSend_isEqual_(v5);
 
-    if (!v8)
+    if (!isEqual)
     {
       goto LABEL_9;
     }
@@ -175,6 +176,20 @@ LABEL_11:
   return v17;
 }
 
+- (BOOL)isEqualToString:(id)string
+{
+  string = self->_string;
+  if (string == string)
+  {
+    return 1;
+  }
+
+  else
+  {
+    return objc_msgSend_isEqualToString_(string, a2);
+  }
+}
+
 - (BOOL)isEqualToAttributedString:(id)string
 {
   stringCopy = string;
@@ -195,7 +210,7 @@ LABEL_11:
 - (BOOL)_isContentEqualToContent:(id)content
 {
   contentCopy = content;
-  if ([contentCopy isEqualToString:self->_string])
+  if (objc_msgSend_isEqualToString_(contentCopy))
   {
     v7.receiver = self;
     v7.super_class = _UILabelStringContent;

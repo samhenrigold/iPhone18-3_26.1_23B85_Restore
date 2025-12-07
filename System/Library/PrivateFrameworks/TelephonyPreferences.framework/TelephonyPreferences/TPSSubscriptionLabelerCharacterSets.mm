@@ -19,11 +19,11 @@
   return pointerValue;
 }
 
-id __64__TPSSubscriptionLabelerCharacterSets__characterSetFromPattern___block_invoke()
+id __64__TPSSubscriptionLabelerCharacterSets__characterSetFromPattern___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v0 = [MEMORY[0x277CCAE60] valueWithPointer:uset_openPattern()];
+  v3 = [MEMORY[0x277CCAE60] valueWithPointer:uset_openPattern()];
 
-  return v0;
+  return v3;
 }
 
 - (TPSSubscriptionLabelerCharacterSets)init
@@ -41,11 +41,10 @@ id __64__TPSSubscriptionLabelerCharacterSets__characterSetFromPattern___block_in
 
 - (void)dealloc
 {
-  CJK = self->_CJK;
   uset_close();
-  v4.receiver = self;
-  v4.super_class = TPSSubscriptionLabelerCharacterSets;
-  [(TPSSubscriptionLabelerCharacterSets *)&v4 dealloc];
+  v3.receiver = self;
+  v3.super_class = TPSSubscriptionLabelerCharacterSets;
+  [(TPSSubscriptionLabelerCharacterSets *)&v3 dealloc];
 }
 
 @end

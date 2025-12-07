@@ -18,7 +18,6 @@
 - (void)writeTo:(id)to
 {
   v3 = *(&self->super.super.isa + OBJC_IVAR____TtC8Dendrite21BlockShimForPBCodable_block);
-  v4 = *&self->block[OBJC_IVAR____TtC8Dendrite21BlockShimForPBCodable_block];
   selfCopy = self;
   v3();
 }

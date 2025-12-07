@@ -178,7 +178,7 @@ LABEL_6:
     goto LABEL_6;
   }
 
-  v26 = VSErrorLogObject();
+  v26 = VSErrorLogObject(0);
   if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
   {
     [VSUserAccount initWithCoder:v26];

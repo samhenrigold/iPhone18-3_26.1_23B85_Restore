@@ -629,7 +629,7 @@ uint64_t sub_100AFFC04(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
 {
   LODWORD(STACK[0x1D0C]) = v11;
   STACK[0x1D10] = v10;
-  return (*(v12 + 8 * (((v8 == a8) * (v9 ^ 0xB7D0A528 ^ (((v9 - 1076656936) & 0xF7FCD7FF) + 89))) ^ v9)))();
+  return (*(v12 + 8 * (((v8 == a8) * (v9 ^ 0xB7D0A528 ^ (((v9 - 1076656936) & 0xF7FCD7FF) + 89))) ^ v9)))(a1, a2, a3, a4, a5, a6, a7);
 }
 
 uint64_t sub_100B00358(int a1, int a2, uint64_t a3, int a4, int a5, uint64_t a6, uint64_t a7, int a8)
@@ -1265,7 +1265,7 @@ uint64_t sub_100B0154C()
   return (*(v1 + 8 * *(v2 - 204)))(v6);
 }
 
-uint64_t sub_100B01620@<X0>(unint64_t a1@<X0>, unint64_t a2@<X1>, unint64_t a3@<X2>, unint64_t a4@<X3>, unint64_t a5@<X4>, unint64_t a6@<X5>, uint64_t a7@<X6>, unint64_t a8@<X7>, unint64_t a9@<X8>, uint64_t a10, int a11, int a12, int a13)
+uint64_t sub_100B01620@<X0>(unint64_t a1@<X0>, unint64_t a2@<X1>, unint64_t a3@<X2>, unint64_t a4@<X3>, unint64_t a5@<X4>, unint64_t a6@<X5>, unint64_t a7@<X6>, unint64_t a8@<X7>, unint64_t a9@<X8>, uint64_t a10, int a11, int a12, int a13)
 {
   STACK[0x3AA0] = v1579;
   STACK[0x3AE8] = v1572;
@@ -2596,7 +2596,7 @@ uint64_t sub_100B01620@<X0>(unint64_t a1@<X0>, unint64_t a2@<X1>, unint64_t a3@<
     }
 
     v1965 = v1964 + v1962;
-    if ((v1964 + v1962) >= 0xFFFFFFFFFFFFFFCBLL)
+    if (v1964 + v1962 >= 0xFFFFFFFFFFFFFFCBLL)
     {
       v1966 = v1580;
     }

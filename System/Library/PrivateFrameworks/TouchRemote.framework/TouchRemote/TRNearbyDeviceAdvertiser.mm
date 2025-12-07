@@ -55,14 +55,14 @@
 
   if (_TRLogEnabled == 1)
   {
-    v6 = TRLogHandle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = TRLogHandle(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
       v12 = "[TRNearbyDeviceAdvertiser startAdvertisingWithService:]";
       v13 = 2048;
       serviceCopy = service;
-      _os_log_impl(&dword_26F2A2000, v6, OS_LOG_TYPE_DEFAULT, "%s Start advertising with service: %lu.", buf, 0x16u);
+      _os_log_impl(&dword_26F2A2000, v7, OS_LOG_TYPE_DEFAULT, "%s Start advertising with service: %lu.", buf, 0x16u);
     }
   }
 
@@ -74,12 +74,11 @@
   v10[4] = self;
   v10[5] = service;
   dispatch_async(advertiserQ, v10);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __56__TRNearbyDeviceAdvertiser_startAdvertisingWithService___block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (v2[2] == 1)
   {
@@ -100,53 +99,53 @@ void __56__TRNearbyDeviceAdvertiser_startAdvertisingWithService___block_invoke(u
       [*(*(a1 + 32) + 24) setDeviceActionType:1];
     }
 
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __56__TRNearbyDeviceAdvertiser_startAdvertisingWithService___block_invoke_16;
-    v22[3] = &unk_279DCF1D8;
-    v22[4] = *(a1 + 32);
-    v7 = MEMORY[0x27438C490](v22);
-    [*(*(a1 + 32) + 24) setEventMessageHandler:v7];
     v21[0] = MEMORY[0x277D85DD0];
     v21[1] = 3221225472;
-    v21[2] = __56__TRNearbyDeviceAdvertiser_startAdvertisingWithService___block_invoke_2;
-    v21[3] = &unk_279DCF200;
+    v21[2] = __56__TRNearbyDeviceAdvertiser_startAdvertisingWithService___block_invoke_16;
+    v21[3] = &unk_279DCF1D8;
     v21[4] = *(a1 + 32);
-    v8 = MEMORY[0x27438C490](v21);
-    [*(*(a1 + 32) + 24) setRequestMessageHandler:v8];
+    v7 = MEMORY[0x27438C490](v21);
+    [*(*(a1 + 32) + 24) setEventMessageHandler:v7];
     v20[0] = MEMORY[0x277D85DD0];
     v20[1] = 3221225472;
-    v20[2] = __56__TRNearbyDeviceAdvertiser_startAdvertisingWithService___block_invoke_3;
-    v20[3] = &unk_279DCEBF8;
+    v20[2] = __56__TRNearbyDeviceAdvertiser_startAdvertisingWithService___block_invoke_2;
+    v20[3] = &unk_279DCF200;
     v20[4] = *(a1 + 32);
-    v9 = MEMORY[0x27438C490](v20);
-    [*(*(a1 + 32) + 24) setInvalidationHandler:v9];
+    v8 = MEMORY[0x27438C490](v20);
+    [*(*(a1 + 32) + 24) setRequestMessageHandler:v8];
     v19[0] = MEMORY[0x277D85DD0];
     v19[1] = 3221225472;
-    v19[2] = __56__TRNearbyDeviceAdvertiser_startAdvertisingWithService___block_invoke_4;
+    v19[2] = __56__TRNearbyDeviceAdvertiser_startAdvertisingWithService___block_invoke_3;
     v19[3] = &unk_279DCEBF8;
     v19[4] = *(a1 + 32);
-    v10 = MEMORY[0x27438C490](v19);
+    v9 = MEMORY[0x27438C490](v19);
+    [*(*(a1 + 32) + 24) setInvalidationHandler:v9];
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __56__TRNearbyDeviceAdvertiser_startAdvertisingWithService___block_invoke_4;
+    v18[3] = &unk_279DCEBF8;
+    v18[4] = *(a1 + 32);
+    v10 = MEMORY[0x27438C490](v18);
     [*(*(a1 + 32) + 24) setInterruptionHandler:v10];
     v11 = *(a1 + 32);
     v12 = *(v11 + 24);
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __56__TRNearbyDeviceAdvertiser_startAdvertisingWithService___block_invoke_5;
-    v18[3] = &unk_279DCF228;
-    v18[4] = v11;
-    [v12 activateWithCompletion:v18];
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __56__TRNearbyDeviceAdvertiser_startAdvertisingWithService___block_invoke_5;
+    v17[3] = &unk_279DCF228;
+    v17[4] = v11;
+    [v12 activateWithCompletion:v17];
 
     goto LABEL_11;
   }
 
   if (_TRLogEnabled == 1)
   {
-    v13 = TRLogHandle();
+    v13 = TRLogHandle(v2);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v26 = "[TRNearbyDeviceAdvertiser startAdvertisingWithService:]_block_invoke";
+      v25 = "[TRNearbyDeviceAdvertiser startAdvertisingWithService:]_block_invoke";
       _os_log_impl(&dword_26F2A2000, v13, OS_LOG_TYPE_DEFAULT, "%s Failed to start advertising. Advertiser is not stopped.", buf, 0xCu);
     }
 
@@ -159,18 +158,16 @@ void __56__TRNearbyDeviceAdvertiser_startAdvertisingWithService___block_invoke(u
   if (v15)
   {
     v16 = *MEMORY[0x277CCA470];
-    v23[0] = *MEMORY[0x277CCA450];
-    v23[1] = v16;
-    v24[0] = @"Failed to start advertising.";
-    v24[1] = @"Advertiser is not stopped.";
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:2];
+    v22[0] = *MEMORY[0x277CCA450];
+    v22[1] = v16;
+    v23[0] = @"Failed to start advertising.";
+    v23[1] = @"Advertiser is not stopped.";
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:2];
     v8 = [MEMORY[0x277CCA9B8] errorWithDomain:@"TRNearbyDeviceErrorDomain" code:-9300 userInfo:v7];
     v9 = [*(a1 + 32) delegate];
     [v9 nearbyDeviceAdvertiser:*(a1 + 32) didFailToStartAdvertisingWithError:v8];
 LABEL_11:
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pauseAdvertising
@@ -186,58 +183,59 @@ LABEL_11:
 
 void __44__TRNearbyDeviceAdvertiser_pauseAdvertising__block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = v2[2];
   if (v3 == 5)
   {
     if (_TRLogEnabled != 1)
     {
-      goto LABEL_18;
+      return;
     }
 
-    v5 = TRLogHandle();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v5 = TRLogHandle(v2);
+    if (!os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315138;
-      v9 = "[TRNearbyDeviceAdvertiser pauseAdvertising]_block_invoke";
-      v6 = "%s Advertiser already paused.";
-LABEL_16:
-      _os_log_impl(&dword_26F2A2000, v5, OS_LOG_TYPE_DEFAULT, v6, &v8, 0xCu);
+      goto LABEL_17;
     }
 
+    v7 = 136315138;
+    v8 = "[TRNearbyDeviceAdvertiser pauseAdvertising]_block_invoke";
+    v6 = "%s Advertiser already paused.";
+LABEL_16:
+    _os_log_impl(&dword_26F2A2000, v5, OS_LOG_TYPE_DEFAULT, v6, &v7, 0xCu);
 LABEL_17:
 
-    goto LABEL_18;
+    return;
   }
 
   if (v3 != 3)
   {
     if (_TRLogEnabled != 1)
     {
-      goto LABEL_18;
+      return;
     }
 
-    v5 = TRLogHandle();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v5 = TRLogHandle(v2);
+    if (!os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315138;
-      v9 = "[TRNearbyDeviceAdvertiser pauseAdvertising]_block_invoke";
-      v6 = "%s Failed to pause advertising. Advertiser is not started.";
-      goto LABEL_16;
+      goto LABEL_17;
     }
 
-    goto LABEL_17;
+    v7 = 136315138;
+    v8 = "[TRNearbyDeviceAdvertiser pauseAdvertising]_block_invoke";
+    v6 = "%s Failed to pause advertising. Advertiser is not started.";
+    goto LABEL_16;
   }
 
   if (_TRLogEnabled == 1)
   {
-    v4 = TRLogHandle();
+    v4 = TRLogHandle(v2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315138;
-      v9 = "[TRNearbyDeviceAdvertiser pauseAdvertising]_block_invoke";
-      _os_log_impl(&dword_26F2A2000, v4, OS_LOG_TYPE_DEFAULT, "%s Pausing advertiser.", &v8, 0xCu);
+      v7 = 136315138;
+      v8 = "[TRNearbyDeviceAdvertiser pauseAdvertising]_block_invoke";
+      _os_log_impl(&dword_26F2A2000, v4, OS_LOG_TYPE_DEFAULT, "%s Pausing advertiser.", &v7, 0xCu);
     }
 
     v2 = *(a1 + 32);
@@ -250,8 +248,6 @@ LABEL_17:
   }
 
   *(*(a1 + 32) + 16) = 5;
-LABEL_18:
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resumeAdvertising
@@ -267,67 +263,73 @@ LABEL_18:
 
 void __45__TRNearbyDeviceAdvertiser_resumeAdvertising__block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = v2[2];
-  if (v3 == 5)
+  if (v3 != 5)
   {
-    if (_TRLogEnabled == 1)
+    if (v3 == 3)
     {
-      v6 = TRLogHandle();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      if (_TRLogEnabled != 1)
       {
-        v8 = 136315138;
-        v9 = "[TRNearbyDeviceAdvertiser resumeAdvertising]_block_invoke";
-        _os_log_impl(&dword_26F2A2000, v6, OS_LOG_TYPE_DEFAULT, "%s Resuming advertiser.", &v8, 0xCu);
+        return;
       }
 
-      v2 = *(a1 + 32);
-    }
-
-    if ([v2 requestedService] == 1)
-    {
-      [*(*(a1 + 32) + 24) setDeviceActionType:1];
-      [*(*(a1 + 32) + 24) setNeedsSetup:1];
-    }
-
-    *(*(a1 + 32) + 16) = 3;
-  }
-
-  else if (v3 == 3)
-  {
-    if (_TRLogEnabled == 1)
-    {
-      v4 = TRLogHandle();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      v4 = TRLogHandle(v2);
+      if (!os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
-        v8 = 136315138;
-        v9 = "[TRNearbyDeviceAdvertiser resumeAdvertising]_block_invoke";
-        v5 = "%s Advertiser already running.";
-LABEL_16:
-        _os_log_impl(&dword_26F2A2000, v4, OS_LOG_TYPE_DEFAULT, v5, &v8, 0xCu);
         goto LABEL_17;
       }
 
-      goto LABEL_17;
+      v7 = 136315138;
+      v8 = "[TRNearbyDeviceAdvertiser resumeAdvertising]_block_invoke";
+      v5 = "%s Advertiser already running.";
     }
-  }
 
-  else if (_TRLogEnabled == 1)
-  {
-    v4 = TRLogHandle();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    else
     {
-      v8 = 136315138;
-      v9 = "[TRNearbyDeviceAdvertiser resumeAdvertising]_block_invoke";
+      if (_TRLogEnabled != 1)
+      {
+        return;
+      }
+
+      v4 = TRLogHandle(v2);
+      if (!os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      {
+        goto LABEL_17;
+      }
+
+      v7 = 136315138;
+      v8 = "[TRNearbyDeviceAdvertiser resumeAdvertising]_block_invoke";
       v5 = "%s Failed to resume advertising. Advertiser is not started.";
-      goto LABEL_16;
     }
 
+    _os_log_impl(&dword_26F2A2000, v4, OS_LOG_TYPE_DEFAULT, v5, &v7, 0xCu);
 LABEL_17:
+
+    return;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
+  if (_TRLogEnabled == 1)
+  {
+    v6 = TRLogHandle(v2);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    {
+      v7 = 136315138;
+      v8 = "[TRNearbyDeviceAdvertiser resumeAdvertising]_block_invoke";
+      _os_log_impl(&dword_26F2A2000, v6, OS_LOG_TYPE_DEFAULT, "%s Resuming advertiser.", &v7, 0xCu);
+    }
+
+    v2 = *(a1 + 32);
+  }
+
+  if ([v2 requestedService] == 1)
+  {
+    [*(*(a1 + 32) + 24) setDeviceActionType:1];
+    [*(*(a1 + 32) + 24) setNeedsSetup:1];
+  }
+
+  *(*(a1 + 32) + 16) = 3;
 }
 
 - (void)stopAdvertising
@@ -343,18 +345,18 @@ LABEL_17:
 
 void __43__TRNearbyDeviceAdvertiser_stopAdvertising__block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = v2[2];
   if (v3 == 5 || v3 == 3)
   {
     if (_TRLogEnabled == 1)
     {
-      v5 = TRLogHandle();
+      v5 = TRLogHandle(v2);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v20 = "[TRNearbyDeviceAdvertiser stopAdvertising]_block_invoke";
+        v19 = "[TRNearbyDeviceAdvertiser stopAdvertising]_block_invoke";
         _os_log_impl(&dword_26F2A2000, v5, OS_LOG_TYPE_DEFAULT, "%s Stopping advertiser.", buf, 0xCu);
       }
 
@@ -369,11 +371,11 @@ void __43__TRNearbyDeviceAdvertiser_stopAdvertising__block_invoke(uint64_t a1)
   {
     if (_TRLogEnabled == 1)
     {
-      v6 = TRLogHandle();
+      v6 = TRLogHandle(v2);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v20 = "[TRNearbyDeviceAdvertiser stopAdvertising]_block_invoke";
+        v19 = "[TRNearbyDeviceAdvertiser stopAdvertising]_block_invoke";
         _os_log_impl(&dword_26F2A2000, v6, OS_LOG_TYPE_DEFAULT, "%s Advertiser stopped.", buf, 0xCu);
       }
 
@@ -395,11 +397,11 @@ LABEL_24:
   {
     if (_TRLogEnabled == 1)
     {
-      v10 = TRLogHandle();
+      v10 = TRLogHandle(v2);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v20 = "[TRNearbyDeviceAdvertiser stopAdvertising]_block_invoke";
+        v19 = "[TRNearbyDeviceAdvertiser stopAdvertising]_block_invoke";
         _os_log_impl(&dword_26F2A2000, v10, OS_LOG_TYPE_DEFAULT, "%s Failed to stop advertising. Advertiser is not started.", buf, 0xCu);
       }
 
@@ -412,11 +414,11 @@ LABEL_24:
     if (v12)
     {
       v13 = *MEMORY[0x277CCA470];
-      v17[0] = *MEMORY[0x277CCA450];
-      v17[1] = v13;
-      v18[0] = @"Failed to stop advertising.";
-      v18[1] = @"Advertiser is not started.";
-      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
+      v16[0] = *MEMORY[0x277CCA450];
+      v16[1] = v13;
+      v17[0] = @"Failed to stop advertising.";
+      v17[1] = @"Advertiser is not started.";
+      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
       v14 = [MEMORY[0x277CCA9B8] errorWithDomain:@"TRNearbyDeviceErrorDomain" code:-9301 userInfo:v9];
       v15 = [*(a1 + 32) delegate];
       [v15 nearbyDeviceAdvertiser:*(a1 + 32) didFailToStopAdvertisingWithError:v14];
@@ -424,8 +426,6 @@ LABEL_24:
       goto LABEL_24;
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleActivationWithError:(id)error
@@ -444,21 +444,21 @@ LABEL_24:
 
 void __55__TRNearbyDeviceAdvertiser__handleActivationWithError___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (*(a1 + 32))
   {
     if (_TRLogEnabled == 1)
     {
-      v2 = TRLogHandle();
+      v2 = TRLogHandle(a1);
       if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
       {
         v3 = *(a1 + 32);
         v4 = *(*(a1 + 40) + 24);
-        v15 = 138412546;
-        v16 = v4;
-        v17 = 2112;
-        v18 = v3;
-        _os_log_impl(&dword_26F2A2000, v2, OS_LOG_TYPE_DEFAULT, "<%@> activation error %@", &v15, 0x16u);
+        v14 = 138412546;
+        v15 = v4;
+        v16 = 2112;
+        v17 = v3;
+        _os_log_impl(&dword_26F2A2000, v2, OS_LOG_TYPE_DEFAULT, "<%@> activation error %@", &v14, 0x16u);
       }
     }
 
@@ -482,13 +482,13 @@ LABEL_14:
   {
     if (_TRLogEnabled == 1)
     {
-      v10 = TRLogHandle();
+      v10 = TRLogHandle(a1);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         v11 = *(*(a1 + 40) + 24);
-        v15 = 138412290;
-        v16 = v11;
-        _os_log_impl(&dword_26F2A2000, v10, OS_LOG_TYPE_DEFAULT, "SFService activation completed <%@>", &v15, 0xCu);
+        v14 = 138412290;
+        v15 = v11;
+        _os_log_impl(&dword_26F2A2000, v10, OS_LOG_TYPE_DEFAULT, "SFService activation completed <%@>", &v14, 0xCu);
       }
     }
 
@@ -503,8 +503,6 @@ LABEL_14:
       goto LABEL_14;
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleInvalidation
@@ -520,14 +518,14 @@ LABEL_14:
 
 void __47__TRNearbyDeviceAdvertiser__handleInvalidation__block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (_TRLogEnabled == 1)
   {
-    v2 = TRLogHandle();
+    v2 = TRLogHandle(a1);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v13 = "[TRNearbyDeviceAdvertiser _handleInvalidation]_block_invoke";
+      v12 = "[TRNearbyDeviceAdvertiser _handleInvalidation]_block_invoke";
       _os_log_impl(&dword_26F2A2000, v2, OS_LOG_TYPE_DEFAULT, "%s SFService invalidated", buf, 0xCu);
     }
   }
@@ -553,34 +551,32 @@ void __47__TRNearbyDeviceAdvertiser__handleInvalidation__block_invoke(uint64_t a
     v9 = [*(a1 + 32) delegate];
     [v9 nearbyDeviceAdvertiserDidStopAdvertising:*(a1 + 32)];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __47__TRNearbyDeviceAdvertiser__handleInvalidation__block_invoke_33(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v2 = [*(a1 + 32) sessionsTable];
-  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v13;
+    v5 = *v12;
     do
     {
       v6 = 0;
       do
       {
-        if (*v13 != v5)
+        if (*v12 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v12 + 1) + 8 * v6);
+        v7 = *(*(&v11 + 1) + 8 * v6);
         v8 = [*(a1 + 32) sessionsTable];
         v9 = [v8 objectForKey:v7];
 
@@ -589,7 +585,7 @@ void __47__TRNearbyDeviceAdvertiser__handleInvalidation__block_invoke_33(uint64_
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v4);
@@ -597,26 +593,23 @@ void __47__TRNearbyDeviceAdvertiser__handleInvalidation__block_invoke_33(uint64_
 
   v10 = [*(a1 + 32) sessionsTable];
   [v10 removeAllObjects];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleInterruption
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   if (_TRLogEnabled == 1)
   {
-    v3 = TRLogHandle();
+    v3 = TRLogHandle(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = 136315138;
-      v6 = "[TRNearbyDeviceAdvertiser _handleInterruption]";
-      _os_log_impl(&dword_26F2A2000, v3, OS_LOG_TYPE_DEFAULT, "%s SFService interrupted", &v5, 0xCu);
+      v4 = 136315138;
+      v5 = "[TRNearbyDeviceAdvertiser _handleInterruption]";
+      _os_log_impl(&dword_26F2A2000, v3, OS_LOG_TYPE_DEFAULT, "%s SFService interrupted", &v4, 0xCu);
     }
   }
 
   [(TRNearbyDeviceAdvertiser *)self _handleInvalidation];
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleEventMessage:(id)message
@@ -636,27 +629,26 @@ void __48__TRNearbyDeviceAdvertiser__handleEventMessage___block_invoke(uint64_t 
   v15 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v5)
   {
-    v7 = [v5 connection];
-    v8 = [v7 eventMessageHandler];
-    v8[2](v8, *(a1 + 32));
+    v8 = [v5 connection];
+    v9 = [v8 eventMessageHandler];
+    v9[2](v9, *(a1 + 32));
   }
 
   else if (_TRLogEnabled == 1)
   {
-    v9 = TRLogHandle();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = TRLogHandle(v6);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       v11 = 136315394;
       v12 = "[TRNearbyDeviceAdvertiser _handleEventMessage:]_block_invoke";
       v13 = 2112;
-      v14 = v6;
-      _os_log_impl(&dword_26F2A2000, v9, OS_LOG_TYPE_DEFAULT, "%s Error fetching session: %@", &v11, 0x16u);
+      v14 = v7;
+      _os_log_impl(&dword_26F2A2000, v10, OS_LOG_TYPE_DEFAULT, "%s Error fetching session: %@", &v11, 0x16u);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleRequestMessage:(id)message
@@ -754,21 +746,22 @@ void __67__TRNearbyDeviceAdvertiser__requestSessionForMessage_withCallback___blo
   v22 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   handlerCopy = handler;
+  v8 = handlerCopy;
   if (_TRLogEnabled == 1)
   {
-    v8 = TRLogHandle();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = TRLogHandle(handlerCopy);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       identifier = [deviceCopy identifier];
       *buf = 136315394;
       v19 = "[TRNearbyDeviceAdvertiser _handleNewConnectionFromPeerDevice:withCompletionHandler:]";
       v20 = 2112;
       v21 = identifier;
-      _os_log_impl(&dword_26F2A2000, v8, OS_LOG_TYPE_DEFAULT, "%s New connection request from device: %@", buf, 0x16u);
+      _os_log_impl(&dword_26F2A2000, v9, OS_LOG_TYPE_DEFAULT, "%s New connection request from device: %@", buf, 0x16u);
     }
   }
 
-  v10 = [[TRNearbyDevice alloc] initWithRepresentedDevice:deviceCopy supportedService:[(TRNearbyDeviceAdvertiser *)self requestedService]];
+  v11 = [[TRNearbyDevice alloc] initWithRepresentedDevice:deviceCopy supportedService:[(TRNearbyDeviceAdvertiser *)self requestedService]];
   delegate = [(TRNearbyDeviceAdvertiser *)self delegate];
   v15[0] = MEMORY[0x277D85DD0];
   v15[1] = 3221225472;
@@ -776,12 +769,10 @@ void __67__TRNearbyDeviceAdvertiser__requestSessionForMessage_withCallback___blo
   v15[3] = &unk_279DCF2F0;
   v15[4] = self;
   v16 = deviceCopy;
-  v17 = handlerCopy;
-  v12 = handlerCopy;
-  v13 = deviceCopy;
-  [delegate nearbyDeviceAdvertiser:self didReceiveConnectionRequestFromDevice:v10 requestHandler:v15];
-
-  v14 = *MEMORY[0x277D85DE8];
+  v17 = v8;
+  v13 = v8;
+  v14 = deviceCopy;
+  [delegate nearbyDeviceAdvertiser:self didReceiveConnectionRequestFromDevice:v11 requestHandler:v15];
 }
 
 void __85__TRNearbyDeviceAdvertiser__handleNewConnectionFromPeerDevice_withCompletionHandler___block_invoke(uint64_t a1, int a2, void *a3)

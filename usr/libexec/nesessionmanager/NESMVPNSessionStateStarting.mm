@@ -2,7 +2,9 @@
 - (BOOL)handleSetConfiguration;
 - (NESMVPNSessionStateStarting)init;
 - (void)enterWithSession:(id)session;
+- (void)handlePlugin:(id)plugin didStartWithPID:(int)d error:(id)error;
 - (void)handlePluginStatusDidChangeToConnected:(id)connected;
+- (void)handleSetConfigurationResult:(BOOL)result;
 - (void)handleTimeout;
 @end
 
@@ -26,6 +28,28 @@
   }
 
   [Property setState:5];
+}
+
+- (void)handleSetConfigurationResult:(BOOL)result
+{
+  v8.receiver = self;
+  v8.super_class = NESMVPNSessionStateStarting;
+  [(NESMVPNSessionState *)&v8 handleSetConfigurationResult:result];
+  kdebug_trace();
+  if (self)
+  {
+    self->_tunnelConfigurationInstallState = 3;
+    v5 = [objc_getProperty(self v4];
+    if (v5)
+    {
+      v6 = v5[16];
+
+      if (v6 == 4)
+      {
+        [objc_getProperty(self v7];
+      }
+    }
+  }
 }
 
 - (BOOL)handleSetConfiguration
@@ -59,6 +83,145 @@
       [objc_getProperty(self v4];
     }
   }
+}
+
+- (void)handlePlugin:(id)plugin didStartWithPID:(int)d error:(id)error
+{
+  v6 = *&d;
+  pluginCopy = plugin;
+  errorCopy = error;
+  kdebug_trace();
+  v32.receiver = self;
+  v32.super_class = NESMVPNSessionStateStarting;
+  [(NESMVPNSessionState *)&v32 handlePlugin:pluginCopy didStartWithPID:v6 error:errorCopy];
+  if (v6 < 1)
+  {
+    if (errorCopy)
+    {
+      domain = [errorCopy domain];
+      if ([domain isEqualToString:@"NEAgentErrorDomain"])
+      {
+        code = [errorCopy code];
+
+        if (code == 2)
+        {
+          if (self)
+          {
+            Property = objc_getProperty(self, v10, 16, 1);
+          }
+
+          else
+          {
+            Property = 0;
+          }
+
+          v29 = 6;
+LABEL_27:
+          [Property setLastStopReason:v29];
+          if (self)
+          {
+            v31 = objc_getProperty(self, v30, 16, 1);
+          }
+
+          else
+          {
+            v31 = 0;
+          }
+
+          [v31 setState:5];
+          goto LABEL_30;
+        }
+      }
+
+      else
+      {
+      }
+    }
+
+    if (self)
+    {
+      Property = objc_getProperty(self, v10, 16, 1);
+    }
+
+    else
+    {
+      Property = 0;
+    }
+
+    v29 = 7;
+    goto LABEL_27;
+  }
+
+  if (self)
+  {
+    v11 = objc_getProperty(self, v10, 16, 1);
+  }
+
+  else
+  {
+    v11 = 0;
+  }
+
+  if ([v11 shouldSendIPCAttachForPlugin:pluginCopy])
+  {
+    v12 = ne_log_obj();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    {
+      if (self)
+      {
+        v14 = objc_getProperty(self, v13, 16, 1);
+      }
+
+      else
+      {
+        v14 = 0;
+      }
+
+      v15 = objc_opt_class();
+      v16 = NSStringFromClass(v15);
+      *buf = 138412546;
+      v34 = v14;
+      v35 = 2112;
+      v36 = v16;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%@ in state %@: attaching IPC", buf, 0x16u);
+    }
+
+    sub_10001A5E8(pluginCopy);
+  }
+
+  kdebug_trace();
+  if (self)
+  {
+    v18 = objc_getProperty(self, v17, 16, 1);
+  }
+
+  else
+  {
+    v18 = 0;
+  }
+
+  primaryTunnelPlugin = [v18 primaryTunnelPlugin];
+  if (self)
+  {
+    v21 = objc_getProperty(self, v19, 16, 1);
+  }
+
+  else
+  {
+    v21 = 0;
+  }
+
+  connectParameters = [v21 connectParameters];
+  v23 = connectParameters;
+  if (primaryTunnelPlugin)
+  {
+    primaryTunnelPlugin[16] = 1;
+    v24 = connectParameters;
+    remotePluginObject = [primaryTunnelPlugin remotePluginObject];
+    [remotePluginObject connectWithParameters:v24];
+  }
+
+LABEL_30:
 }
 
 - (void)enterWithSession:(id)session

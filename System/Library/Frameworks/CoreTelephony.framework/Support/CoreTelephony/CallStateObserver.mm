@@ -11,7 +11,7 @@
 
 - (BOOL)getCallIsActiveState
 {
-  [(CallStateObserver *)self getLogContext];
+  objc_msgSend_getLogContext(self, a2);
   v3 = v9;
   ctu::OsLogContext::~OsLogContext(v8);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
@@ -63,7 +63,7 @@
     v8 = +[NSNotificationCenter defaultCenter];
     [v8 addObserver:self selector:"handleCallStatusChangedNotification:" name:TUCallCenterVideoCallStatusChangedNotification object:0];
 
-    [(CallStateObserver *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v9 = v11;
     ctu::OsLogContext::~OsLogContext(v10);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
@@ -96,7 +96,7 @@
       }
 
       self->fPhoneCallIsActive = isActive;
-      [(CallStateObserver *)self getLogContext];
+      objc_msgSend_getLogContext(self);
       v12 = v19;
       ctu::OsLogContext::~OsLogContext(&v17);
       if (!os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
@@ -114,7 +114,7 @@
     {
       if (![name isEqualToString:TUCallCenterVideoCallStatusChangedNotification])
       {
-        [(CallStateObserver *)self getLogContext];
+        objc_msgSend_getLogContext(self);
         v12 = v19;
         ctu::OsLogContext::~OsLogContext(&v17);
         if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
@@ -140,7 +140,7 @@
       }
 
       self->fVideoCallIsActive = isActive2;
-      [(CallStateObserver *)self getLogContext];
+      objc_msgSend_getLogContext(self);
       v12 = v19;
       ctu::OsLogContext::~OsLogContext(&v17);
       if (!os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
@@ -163,7 +163,7 @@ LABEL_21:
     goto LABEL_20;
   }
 
-  [(CallStateObserver *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   name = v19;
   ctu::OsLogContext::~OsLogContext(&v17);
   if (os_log_type_enabled(name, OS_LOG_TYPE_ERROR))
@@ -187,7 +187,7 @@ LABEL_22:
 
 - (void)dumpState
 {
-  [(CallStateObserver *)self getLogContext];
+  objc_msgSend_getLogContext(self, a2);
   v3 = v9;
   ctu::OsLogContext::~OsLogContext(&v7);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
@@ -198,7 +198,7 @@ LABEL_22:
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Audio call state: %d", &v7, 8u);
   }
 
-  [(CallStateObserver *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v5 = v9;
   ctu::OsLogContext::~OsLogContext(&v7);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))

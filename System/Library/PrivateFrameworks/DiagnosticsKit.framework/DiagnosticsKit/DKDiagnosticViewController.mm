@@ -14,7 +14,9 @@
 - (void)setNeedsUpdateResponder;
 - (void)setProgress:(id)progress;
 - (void)shouldShowViewControllerInHostApp:(id)app;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation DKDiagnosticViewController
@@ -55,6 +57,43 @@
   block[3] = &unk_278F6C050;
   block[4] = self;
   dispatch_after(v3, MEMORY[0x277D85CD0], block);
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v8.receiver = self;
+  v8.super_class = DKDiagnosticViewController;
+  [(DKDiagnosticViewController *)&v8 viewWillAppear:appear];
+  context = [(DKDiagnosticViewController *)self context];
+  [context setIsPresentingView:1];
+
+  if (objc_opt_class() && [MEMORY[0x277CF97E8] isCheckerBoardActive])
+  {
+    prefersStatusBarHidden = [(DKDiagnosticViewController *)self prefersStatusBarHidden];
+    context2 = [(DKDiagnosticViewController *)self context];
+    context3 = context2;
+    if (prefersStatusBarHidden)
+    {
+      [context2 hideStatusBar];
+    }
+
+    else
+    {
+      [context2 showStatusBar];
+
+      context3 = [(DKDiagnosticViewController *)self context];
+      [context3 setStatusBarStyle:{-[DKDiagnosticViewController preferredStatusBarStyle](self, "preferredStatusBarStyle")}];
+    }
+  }
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = DKDiagnosticViewController;
+  [(DKDiagnosticViewController *)&v5 viewDidDisappear:disappear];
+  context = [(DKDiagnosticViewController *)self context];
+  [context setIsPresentingView:0];
 }
 
 - (void)beginRequestWithExtensionContext:(id)context
@@ -198,7 +237,7 @@ void __42__DKDiagnosticViewController_setFinished___block_invoke(uint64_t a1)
 
 - (void)displayPressHomeLabelFor:(double)for
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   v5 = DiagnosticsKitLogHandleForCategory(2);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
@@ -234,31 +273,31 @@ void __42__DKDiagnosticViewController_setFinished___block_invoke(uint64_t a1)
       layer = [pressHomeLabel5 layer];
       [layer setZPosition:999.0];
 
-      v47 = MEMORY[0x277CCAAD0];
+      v46 = MEMORY[0x277CCAAD0];
       pressHomeLabel6 = [(DKDiagnosticViewController *)self pressHomeLabel];
       bottomAnchor = [pressHomeLabel6 bottomAnchor];
       view2 = [(DKDiagnosticViewController *)self view];
       bottomAnchor2 = [view2 bottomAnchor];
-      v51 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2 constant:-38.0];
-      v58[0] = v51;
+      v50 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2 constant:-38.0];
+      v57[0] = v50;
       pressHomeLabel7 = [(DKDiagnosticViewController *)self pressHomeLabel];
       leadingAnchor = [pressHomeLabel7 leadingAnchor];
       view3 = [(DKDiagnosticViewController *)self view];
       leadingAnchor2 = [view3 leadingAnchor];
-      v45 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-      v58[1] = v45;
+      v44 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+      v57[1] = v44;
       pressHomeLabel8 = [(DKDiagnosticViewController *)self pressHomeLabel];
       trailingAnchor = [pressHomeLabel8 trailingAnchor];
       view4 = [(DKDiagnosticViewController *)self view];
       trailingAnchor2 = [view4 trailingAnchor];
       v21 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-      v58[2] = v21;
+      v57[2] = v21;
       pressHomeLabel9 = [(DKDiagnosticViewController *)self pressHomeLabel];
       heightAnchor = [pressHomeLabel9 heightAnchor];
       v24 = [heightAnchor constraintEqualToConstant:19.0];
-      v58[3] = v24;
-      v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v58 count:4];
-      [v47 activateConstraints:v25];
+      v57[3] = v24;
+      v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v57 count:4];
+      [v46 activateConstraints:v25];
     }
 
     pressHomeLabel10 = [(DKDiagnosticViewController *)self pressHomeLabel];
@@ -290,9 +329,9 @@ void __42__DKDiagnosticViewController_setFinished___block_invoke(uint64_t a1)
     [v33 setFillMode:v32];
     animation = [MEMORY[0x277CD9E00] animation];
     [animation setDuration:0.6];
-    v57[0] = v27;
-    v57[1] = v33;
-    v39 = [MEMORY[0x277CBEA60] arrayWithObjects:v57 count:2];
+    v56[0] = v27;
+    v56[1] = v33;
+    v39 = [MEMORY[0x277CBEA60] arrayWithObjects:v56 count:2];
     [animation setAnimations:v39];
 
     [animation setFillMode:v32];
@@ -310,8 +349,6 @@ void __42__DKDiagnosticViewController_setFinished___block_invoke(uint64_t a1)
     block[4] = self;
     dispatch_after(v42, MEMORY[0x277D85CD0], block);
   }
-
-  v43 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __55__DKDiagnosticViewController_displayPressHomeLabelFor___block_invoke(uint64_t a1)
@@ -347,16 +384,16 @@ void __55__DKDiagnosticViewController_displayPressHomeLabelFor___block_invoke_61
 
 - (void)createGradientLayer
 {
-  v26[2] = *MEMORY[0x277D85DE8];
+  v25[2] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CD9EB0]);
   [v3 setType:*MEMORY[0x277CDA6A0]];
   [v3 setStartPoint:{0.5, 0.5}];
   [v3 setEndPoint:{1.0, 1.0}];
   whiteColor = [MEMORY[0x277D75348] whiteColor];
-  v26[0] = [whiteColor CGColor];
+  v25[0] = [whiteColor CGColor];
   clearColor = [MEMORY[0x277D75348] clearColor];
-  v26[1] = [clearColor CGColor];
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
+  v25[1] = [clearColor CGColor];
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:2];
   [v3 setColors:v6];
 
   [(DKDiagnosticViewController *)self resetGradientAndLabelBefore:1];
@@ -382,18 +419,16 @@ void __55__DKDiagnosticViewController_displayPressHomeLabelFor___block_invoke_61
   v18 = fmax(v17 * 2.0 + 32.0, 364.0);
   pressHomeLabel4 = [(DKDiagnosticViewController *)self pressHomeLabel];
   [pressHomeLabel4 bounds];
-  MidX = CGRectGetMidX(v27);
+  MidX = CGRectGetMidX(v26);
   pressHomeLabel5 = [(DKDiagnosticViewController *)self pressHomeLabel];
   [pressHomeLabel5 bounds];
-  MidY = CGRectGetMidY(v28);
+  MidY = CGRectGetMidY(v27);
 
   gradientLayer = [(DKDiagnosticViewController *)self gradientLayer];
   [gradientLayer setBounds:{0.0, 0.0, v18, v18}];
 
   gradientLayer2 = [(DKDiagnosticViewController *)self gradientLayer];
   [gradientLayer2 setPosition:{MidX, MidY + 32.0}];
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resetGradientAndLabelBefore:(BOOL)before

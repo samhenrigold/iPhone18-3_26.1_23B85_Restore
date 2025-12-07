@@ -8,43 +8,43 @@
 
 - (uint64_t)sb_yPositionForLabelWithContainerBounds:()SpringBoard lineHeight:baselineOffset:font:
 {
-  v11 = a7;
-  v14.origin.x = self;
-  v14.origin.y = a2;
-  v14.size.width = a3;
-  v14.size.height = a4;
-  CGRectGetMinY(v14);
-  [v11 descender];
+  v13 = a9;
+  v16.origin.x = self;
+  v16.origin.y = a2;
+  v16.size.width = a3;
+  v16.size.height = a4;
+  CGRectGetMinY(v16);
+  [v13 descender];
 
   return SBFloatRoundForScale();
 }
 
 - (uint64_t)sb_yPositionForLabelWithContainerBounds:()SpringBoard baselineOffset:font:
 {
-  v11 = a7;
-  v14.origin.x = self;
-  v14.origin.y = a2;
-  v14.size.width = a3;
-  v14.size.height = a4;
-  CGRectGetMinY(v14);
-  [v11 ascender];
+  v12 = a8;
+  v15.origin.x = self;
+  v15.origin.y = a2;
+  v15.size.width = a3;
+  v15.size.height = a4;
+  CGRectGetMinY(v15);
+  [v12 ascender];
 
   return SBFloatRoundForScale();
 }
 
 - (double)sb_yPositionForLayoutAfterLabel:()SpringBoard baselineOffset:
 {
-  v4 = a3;
-  [v4 frame];
-  CGRectGetMaxY(v9);
-  [v4 _baselineOffsetFromBottom];
+  v5 = a4;
+  objc_msgSend_frame(v5);
+  CGRectGetMaxY(v10);
+  [v5 _baselineOffsetFromBottom];
 
   font = [self font];
   [font ascender];
   SBFloatRoundForScale();
-  v7 = v6;
+  v8 = v7;
 
-  return v7;
+  return v8;
 }
 
 @end

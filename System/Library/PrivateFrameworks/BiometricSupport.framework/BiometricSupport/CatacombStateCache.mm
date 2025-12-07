@@ -7,6 +7,7 @@
 - (int)addUserStatesFromBuffer:(id)buffer;
 - (unsigned)stateOfComponent:(id)component;
 - (unsigned)stateOfMasterComponent;
+- (unsigned)stateOfUserComponent:(unsigned int)component;
 - (void)removeUser:(unsigned int)user;
 - (void)reset;
 @end
@@ -89,58 +90,16 @@
 
 - (id)cachedUserComponents
 {
-  v17 = *MEMORY[0x277D85DE8];
-  array = [MEMORY[0x277CBEB18] array];
-  selfCopy = self;
-  objc_sync_enter(selfCopy);
-  v12 = 0u;
-  v13 = 0u;
-  v14 = 0u;
-  v15 = 0u;
-  v5 = selfCopy->_cachedStates;
-  v6 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
-  if (v6)
-  {
-    v7 = *v13;
-    do
-    {
-      for (i = 0; i != v6; ++i)
-      {
-        if (*v13 != v7)
-        {
-          objc_enumerationMutation(v5);
-        }
-
-        v9 = *(*(&v12 + 1) + 8 * i);
-        if ([v9 isUserComponent])
-        {
-          [array addObject:v9];
-        }
-      }
-
-      v6 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
-    }
-
-    while (v6);
-  }
-
-  objc_sync_exit(selfCopy);
-  v10 = *MEMORY[0x277D85DE8];
-
-  return array;
-}
-
-- (void)removeUser:(unsigned int)user
-{
   v16 = *MEMORY[0x277D85DE8];
+  array = [MEMORY[0x277CBEB18] array];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  allKeys = [(NSMutableDictionary *)selfCopy->_cachedStates allKeys];
-  v6 = [allKeys countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = selfCopy->_cachedStates;
+  v6 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = *v12;
@@ -150,24 +109,64 @@
       {
         if (*v12 != v7)
         {
-          objc_enumerationMutation(allKeys);
+          objc_enumerationMutation(v5);
         }
 
         v9 = *(*(&v11 + 1) + 8 * i);
-        if ([v9 userID] == user)
+        if ([v9 isUserComponent])
         {
-          [(NSMutableDictionary *)selfCopy->_cachedStates removeObjectForKey:v9];
+          [array addObject:v9];
         }
       }
 
-      v6 = [allKeys countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
 
   objc_sync_exit(selfCopy);
-  v10 = *MEMORY[0x277D85DE8];
+
+  return array;
+}
+
+- (void)removeUser:(unsigned int)user
+{
+  v15 = *MEMORY[0x277D85DE8];
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  v10 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  allKeys = [(NSMutableDictionary *)selfCopy->_cachedStates allKeys];
+  v6 = [allKeys countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v6)
+  {
+    v7 = *v11;
+    do
+    {
+      for (i = 0; i != v6; ++i)
+      {
+        if (*v11 != v7)
+        {
+          objc_enumerationMutation(allKeys);
+        }
+
+        v9 = *(*(&v10 + 1) + 8 * i);
+        if (objc_msgSend_userID(v9) == user)
+        {
+          [(NSMutableDictionary *)selfCopy->_cachedStates removeObjectForKey:v9];
+        }
+      }
+
+      v6 = [allKeys countByEnumeratingWithState:&v10 objects:v14 count:16];
+    }
+
+    while (v6);
+  }
+
+  objc_sync_exit(selfCopy);
 }
 
 - (unsigned)stateOfComponent:(id)component
@@ -190,6 +189,20 @@
   v4 = +[CatacombComponent masterComponent];
   v5 = [(NSMutableDictionary *)cachedStates objectForKeyedSubscript:v4];
   LODWORD(cachedStates) = [v5 unsignedIntValue];
+
+  objc_sync_exit(selfCopy);
+  return cachedStates;
+}
+
+- (unsigned)stateOfUserComponent:(unsigned int)component
+{
+  v3 = *&component;
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  cachedStates = selfCopy->_cachedStates;
+  v6 = [CatacombComponent componentForUserID:v3];
+  v7 = [(NSMutableDictionary *)cachedStates objectForKeyedSubscript:v6];
+  LODWORD(cachedStates) = [v7 unsignedIntValue];
 
   objc_sync_exit(selfCopy);
   return cachedStates;
@@ -239,38 +252,38 @@
 
 - (id)cachedGroupComponentsForUser:(unsigned int)user
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   if (user != -1)
   {
     selfCopy = self;
     objc_sync_enter(selfCopy);
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
     v7 = selfCopy->_cachedStates;
-    v8 = [(NSMutableDictionary *)v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v8 = [(NSMutableDictionary *)v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v8)
     {
-      v9 = *v15;
+      v9 = *v14;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v15 != v9)
+          if (*v14 != v9)
           {
             objc_enumerationMutation(v7);
           }
 
-          v11 = *(*(&v14 + 1) + 8 * i);
-          if ([v11 isGroupComponent] && objc_msgSend(v11, "userID") == user)
+          v11 = *(*(&v13 + 1) + 8 * i);
+          if ([v11 isGroupComponent] && objc_msgSend_userID(v11) == user)
           {
             [array addObject:v11];
           }
         }
 
-        v8 = [(NSMutableDictionary *)v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v8 = [(NSMutableDictionary *)v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v8);
@@ -279,14 +292,11 @@
     objc_sync_exit(selfCopy);
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return array;
 }
 
 - (void)addUserStatesFromBuffer:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
@@ -296,12 +306,10 @@
   }
 
   OUTLINED_FUNCTION_9(261);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addGroupStatesFromBuffer:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
@@ -311,7 +319,6 @@
   }
 
   OUTLINED_FUNCTION_9(261);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

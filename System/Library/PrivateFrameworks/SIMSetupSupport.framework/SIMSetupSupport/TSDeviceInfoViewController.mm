@@ -17,51 +17,49 @@
 
 - (id)extractPhoneInfoFromOptions:(id)options
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   v4 = objc_opt_new();
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v20[0] = @"EidKey";
-  v20[1] = @"ImeiKey";
-  v20[2] = @"Imei2Key";
-  v20[3] = @"MeidKey";
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:{4, 0}];
-  v6 = [v5 countByEnumeratingWithState:&v15 objects:v21 count:16];
+  v19[0] = @"EidKey";
+  v19[1] = @"ImeiKey";
+  v19[2] = @"Imei2Key";
+  v19[3] = @"MeidKey";
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:{4, 0}];
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v20 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         v11 = [optionsCopy valueForKey:v10];
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) != 0 && [v11 length])
         {
-          v19[0] = v10;
-          v19[1] = v11;
-          v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
+          v18[0] = v10;
+          v18[1] = v11;
+          v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
           [v4 addObject:v12];
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v15 objects:v21 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v14 objects:v20 count:16];
     }
 
     while (v7);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -77,48 +75,49 @@
     v46 = 0;
     v5 = [v3 getMobileEquipmentInfo:&v46];
     v6 = v46;
+    v7 = v6;
     if (!v5)
     {
-      v8 = _TSLogDomain();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = _TSLogDomain(v6);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        [(TSDeviceInfoViewController *)v6 getPhoneInfoFromCT];
+        [(TSDeviceInfoViewController *)v7 getPhoneInfoFromCT];
       }
 
-      v21 = 0;
+      v22 = 0;
       goto LABEL_32;
     }
 
     meInfoList = [v5 meInfoList];
-    v8 = meInfoList;
+    v9 = meInfoList;
     if (!meInfoList)
     {
-      v9 = _TSLogDomain();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v10 = _TSLogDomain(0);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        [(TSDeviceInfoViewController *)v9 getPhoneInfoFromCT:v24];
+        [(TSDeviceInfoViewController *)v10 getPhoneInfoFromCT:v25];
       }
 
-      v21 = 0;
+      v22 = 0;
       goto LABEL_31;
     }
 
-    v9 = [meInfoList objectAtIndexedSubscript:0];
-    v10 = 0;
-    if ([v8 count]>= 2)
+    v10 = [meInfoList objectAtIndexedSubscript:0];
+    v11 = 0;
+    if ([v9 count]>= 2)
     {
-      v10 = [v8 objectAtIndexedSubscript:1];
+      v11 = [v9 objectAtIndexedSubscript:1];
     }
 
-    if (v9 && (-[NSObject CSN](v9, "CSN"), v11 = objc_claimAutoreleasedReturnValue(), v12 = [v11 length], v11, v12))
+    if (v10 && (-[NSObject CSN](v10, "CSN"), v12 = objc_claimAutoreleasedReturnValue(), v13 = [v12 length], v12, v13))
     {
-      v13 = [v9 CSN];
+      v14 = [v10 CSN];
     }
 
-    else if (v10 && ([v10 CSN], v22 = objc_claimAutoreleasedReturnValue(), v23 = objc_msgSend(v22, "length"), v22, v23))
+    else if (v11 && ([v11 CSN], v23 = objc_claimAutoreleasedReturnValue(), v24 = objc_msgSend(v23, "length"), v23, v24))
     {
-      v13 = [v10 CSN];
-      if (!v9)
+      v14 = [v11 CSN];
+      if (!v10)
       {
         goto LABEL_25;
       }
@@ -126,30 +125,30 @@
 
     else
     {
-      v13 = &stru_28753DF48;
-      if (!v9)
+      v14 = &stru_28753DF48;
+      if (!v10)
       {
         goto LABEL_25;
       }
     }
 
-    iMEI = [v9 IMEI];
-    v32 = [iMEI length];
+    iMEI = [v10 IMEI];
+    v33 = [iMEI length];
 
-    if (v32)
+    if (v33)
     {
-      iMEI2 = [v9 IMEI];
+      iMEI2 = [v10 IMEI];
       goto LABEL_26;
     }
 
 LABEL_25:
     iMEI2 = &stru_28753DF48;
 LABEL_26:
-    v44 = v10;
-    v45 = v6;
-    if (v10 && ([v10 IMEI], v34 = objc_claimAutoreleasedReturnValue(), v35 = objc_msgSend(v34, "length"), v34, v35))
+    v44 = v11;
+    v45 = v7;
+    if (v11 && ([v11 IMEI], v35 = objc_claimAutoreleasedReturnValue(), v36 = objc_msgSend(v35, "length"), v35, v36))
     {
-      iMEI3 = [v10 IMEI];
+      iMEI3 = [v11 IMEI];
     }
 
     else
@@ -158,39 +157,37 @@ LABEL_26:
     }
 
     v49[0] = @"EidKey";
-    v49[1] = v13;
-    v37 = [MEMORY[0x277CBEA60] arrayWithObjects:v49 count:{2, v13}];
-    v50[0] = v37;
+    v49[1] = v14;
+    v38 = [MEMORY[0x277CBEA60] arrayWithObjects:v49 count:{2, v14}];
+    v50[0] = v38;
     v48[0] = @"ImeiKey";
     v48[1] = iMEI2;
     [MEMORY[0x277CBEA60] arrayWithObjects:v48 count:2];
-    v39 = v38 = iMEI2;
-    v50[1] = v39;
+    v40 = v39 = iMEI2;
+    v50[1] = v40;
     v47[0] = @"Imei2Key";
     v47[1] = iMEI3;
-    v40 = [MEMORY[0x277CBEA60] arrayWithObjects:v47 count:2];
-    v50[2] = v40;
-    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v50 count:3];
+    v41 = [MEMORY[0x277CBEA60] arrayWithObjects:v47 count:2];
+    v50[2] = v41;
+    v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v50 count:3];
 
-    v6 = v45;
+    v7 = v45;
 LABEL_31:
 
 LABEL_32:
     goto LABEL_33;
   }
 
-  v6 = _TSLogDomain();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  v7 = _TSLogDomain(0);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    [(TSDeviceInfoViewController *)v6 getPhoneInfoFromCT:v14];
+    [(TSDeviceInfoViewController *)v7 getPhoneInfoFromCT:v15];
   }
 
-  v21 = 0;
+  v22 = 0;
 LABEL_33:
 
-  v41 = *MEMORY[0x277D85DE8];
-
-  return v21;
+  return v22;
 }
 
 - (TSDeviceInfoViewController)initWithOptions:(id)options
@@ -209,7 +206,7 @@ LABEL_33:
 
     if (![v6 count])
     {
-      v11 = _TSLogDomain();
+      v11 = _TSLogDomain(0);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         [(TSDeviceInfoViewController *)v11 initWithOptions:v35, v36, v37, v38, v39, v40, v41];
@@ -275,7 +272,7 @@ LABEL_33:
   v13 = [v12 initWithQueue:MEMORY[0x277D85CD0]];
   if (!v13)
   {
-    v11 = _TSLogDomain();
+    v11 = _TSLogDomain(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [(TSDeviceInfoViewController *)v11 initWithOptions:v28, v29, v30, v31, v32, v33, v34];
@@ -564,46 +561,46 @@ LABEL_32:
     if (v19)
     {
       [v14 extent];
-      v21 = 70.0 / v20;
+      v22 = 70.0 / v21;
       imageBySamplingNearest = [v14 imageBySamplingNearest];
 
-      memset(&v50, 0, sizeof(v50));
-      CGAffineTransformMakeScale(&v50, v19, v21);
-      v49 = v50;
-      v23 = [imageBySamplingNearest imageByApplyingTransform:&v49];
-      v24 = *MEMORY[0x277CDA5B8];
+      memset(&v51, 0, sizeof(v51));
+      CGAffineTransformMakeScale(&v51, v19, v22);
+      v50 = v51;
+      v24 = [imageBySamplingNearest imageByApplyingTransform:&v50];
+      v25 = *MEMORY[0x277CDA5B8];
       imageView = [(TSDeviceInfoCell *)v6 imageView];
       layer = [imageView layer];
-      [layer setMagnificationFilter:v24];
+      [layer setMagnificationFilter:v25];
 
       imageView2 = [(TSDeviceInfoCell *)v6 imageView];
-      v28 = [MEMORY[0x277D755B8] imageWithCIImage:v23];
-      [imageView2 setImage:v28];
+      v29 = [MEMORY[0x277D755B8] imageWithCIImage:v24];
+      [imageView2 setImage:v29];
 
-      v29 = v6;
+      v30 = v6;
     }
 
     else
     {
-      v39 = _TSLogDomain();
-      if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+      v40 = _TSLogDomain(v20);
+      if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
       {
-        [(TSDeviceInfoViewController *)v39 tableView:v40 cellForRowAtIndexPath:v41, v42, v43, v44, v45, v46];
+        [(TSDeviceInfoViewController *)v40 tableView:v41 cellForRowAtIndexPath:v42, v43, v44, v45, v46, v47];
       }
 
-      v47 = v6;
+      v48 = v6;
     }
   }
 
   else
   {
-    v30 = _TSLogDomain();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    v31 = _TSLogDomain(0);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
     {
-      [(TSDeviceInfoViewController *)v30 tableView:v31 cellForRowAtIndexPath:v32, v33, v34, v35, v36, v37];
+      [(TSDeviceInfoViewController *)v31 tableView:v32 cellForRowAtIndexPath:v33, v34, v35, v36, v37, v38];
     }
 
-    v38 = v6;
+    v39 = v6;
   }
 
   return v6;
@@ -640,37 +637,37 @@ LABEL_32:
 
 - (void)getPhoneInfoFromCT
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_262AA8000, self, a3, "[E]Could not create CoreTelephonyClient! @%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[TSDeviceInfoViewController getPhoneInfoFromCT]";
+  OUTLINED_FUNCTION_0_0(&dword_262AA8000, self, a3, "[E]Could not create CoreTelephonyClient! @%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithOptions:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]Could not create CoreTelephonyClient! @%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[TSDeviceInfoViewController initWithOptions:]";
+  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]Could not create CoreTelephonyClient! @%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithOptions:(uint64_t)a3 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]Could not get any phoneInfo from input options or CoreTelephonyClient! @%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[TSDeviceInfoViewController initWithOptions:]";
+  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]Could not get any phoneInfo from input options or CoreTelephonyClient! @%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)tableView:(uint64_t)a3 cellForRowAtIndexPath:(uint64_t)a4 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]Barcode length > view width! @%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[TSDeviceInfoViewController tableView:cellForRowAtIndexPath:]";
+  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]Barcode length > view width! @%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)tableView:(uint64_t)a3 cellForRowAtIndexPath:(uint64_t)a4 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]Barcode generation failed. @%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[TSDeviceInfoViewController tableView:cellForRowAtIndexPath:]";
+  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]Barcode generation failed. @%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

@@ -126,7 +126,7 @@ uint64_t __211__BSServiceDomainSpecification__initWithIdentifier_machName_multip
 
 - (id)_domainWithAdditionalServices:(id *)services
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (services)
@@ -139,25 +139,25 @@ LABEL_14:
     }
 
     v5 = [services[1] mutableCopy];
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v6 = v4;
-    v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v7)
     {
-      v8 = *v18;
+      v8 = *v17;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v18 != v8)
+          if (*v17 != v8)
           {
             objc_enumerationMutation(v6);
           }
 
-          v10 = *(*(&v17 + 1) + 8 * i);
+          v10 = *(*(&v16 + 1) + 8 * i);
           identifier = [v10 identifier];
           v12 = [v5 objectForKey:identifier];
           v13 = v12 == 0;
@@ -169,7 +169,7 @@ LABEL_14:
           }
         }
 
-        v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v7);
@@ -185,8 +185,6 @@ LABEL_14:
   }
 
 LABEL_16:
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return services;
 }

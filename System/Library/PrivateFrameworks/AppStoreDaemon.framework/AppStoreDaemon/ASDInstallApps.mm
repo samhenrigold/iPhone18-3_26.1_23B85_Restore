@@ -6,6 +6,8 @@
 + (void)installApp:(id)app onPairedDevice:(id)device withCompletionHandler:(id)handler;
 + (void)installApp:(id)app withCompletionHandler:(id)handler;
 + (void)installApps:(id)apps onPairedDevice:(id)device withCompletionHandler:(id)handler;
++ (void)setInitialContentDownloadsEnabled:(BOOL)enabled;
++ (void)setShouldPostNotificationOnDefaultBrowserInstallation:(BOOL)installation;
 @end
 
 @implementation ASDInstallApps
@@ -68,124 +70,168 @@
 
 + (BOOL)initialContentDownloadsEnabled
 {
-  v26 = *MEMORY[0x1E69E9840];
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x3032000000;
-  v21 = __Block_byref_object_copy__11;
-  v22 = __Block_byref_object_dispose__11;
-  v23 = 0;
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x2020000000;
+  v25 = *MEMORY[0x1E69E9840];
   v17 = 0;
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = __Block_byref_object_copy__11;
+  v21 = __Block_byref_object_dispose__11;
+  v22 = 0;
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x2020000000;
+  v16 = 0;
   v2 = +[ASDServiceBroker defaultBroker];
-  v3 = (v19 + 5);
-  obj = v19[5];
+  v3 = (v18 + 5);
+  obj = v18[5];
   v4 = [v2 getInstallationServiceWithError:&obj];
   objc_storeStrong(v3, obj);
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __48__ASDInstallApps_initialContentDownloadsEnabled__block_invoke;
-  v12[3] = &unk_1E7CDBB80;
-  v12[4] = &v18;
-  v5 = [v4 synchronousRemoteObjectProxyWithErrorHandler:v12];
   v11[0] = MEMORY[0x1E69E9820];
   v11[1] = 3221225472;
-  v11[2] = __48__ASDInstallApps_initialContentDownloadsEnabled__block_invoke_2;
-  v11[3] = &unk_1E7CDC0A0;
-  v11[4] = &v14;
-  [v5 areInitialContentDownloadsEnabledWithReplyHandler:v11];
+  v11[2] = __48__ASDInstallApps_initialContentDownloadsEnabled__block_invoke;
+  v11[3] = &unk_1E7CDBB80;
+  v11[4] = &v17;
+  v5 = [v4 synchronousRemoteObjectProxyWithErrorHandler:v11];
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __48__ASDInstallApps_initialContentDownloadsEnabled__block_invoke_2;
+  v10[3] = &unk_1E7CDC0A0;
+  v10[4] = &v13;
+  [v5 areInitialContentDownloadsEnabledWithReplyHandler:v10];
 
-  if (v19[5])
+  if (v18[5])
   {
     v6 = ASDLogHandleForCategory(13);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v10 = v19[5];
+      v9 = v18[5];
       *buf = 138543362;
-      v25 = v10;
+      v24 = v9;
       _os_log_error_impl(&dword_1B8220000, v6, OS_LOG_TYPE_ERROR, "Error getting initial content download value: %{public}@", buf, 0xCu);
     }
   }
 
-  v7 = *(v15 + 24);
-  _Block_object_dispose(&v14, 8);
-  _Block_object_dispose(&v18, 8);
+  v7 = *(v14 + 24);
+  _Block_object_dispose(&v13, 8);
+  _Block_object_dispose(&v17, 8);
 
-  v8 = *MEMORY[0x1E69E9840];
   return v7 & 1;
+}
+
++ (void)setInitialContentDownloadsEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v13 = *MEMORY[0x1E69E9840];
+  v4 = +[ASDServiceBroker defaultBroker];
+  v8 = 0;
+  v5 = [v4 getInstallationServiceWithError:&v8];
+  v6 = v8;
+  [v5 setInitialContentDownloadsEnabled:enabledCopy];
+
+  if (v6)
+  {
+    v7 = ASDLogHandleForCategory(13);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 67109378;
+      v10 = enabledCopy;
+      v11 = 2114;
+      v12 = v6;
+      _os_log_error_impl(&dword_1B8220000, v7, OS_LOG_TYPE_ERROR, "Error setting initial content download to %{BOOL}d: %{public}@", buf, 0x12u);
+    }
+  }
 }
 
 + (BOOL)shouldPostNotificationOnDefaultBrowserInstallation
 {
-  v26 = *MEMORY[0x1E69E9840];
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x3032000000;
-  v21 = __Block_byref_object_copy__11;
-  v22 = __Block_byref_object_dispose__11;
-  v23 = 0;
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x2020000000;
+  v25 = *MEMORY[0x1E69E9840];
   v17 = 0;
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = __Block_byref_object_copy__11;
+  v21 = __Block_byref_object_dispose__11;
+  v22 = 0;
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x2020000000;
+  v16 = 0;
   v2 = +[ASDServiceBroker defaultBroker];
-  v3 = (v19 + 5);
-  obj = v19[5];
+  v3 = (v18 + 5);
+  obj = v18[5];
   v4 = [v2 getInstallationServiceWithError:&obj];
   objc_storeStrong(v3, obj);
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __68__ASDInstallApps_shouldPostNotificationOnDefaultBrowserInstallation__block_invoke;
-  v12[3] = &unk_1E7CDBB80;
-  v12[4] = &v18;
-  v5 = [v4 synchronousRemoteObjectProxyWithErrorHandler:v12];
   v11[0] = MEMORY[0x1E69E9820];
   v11[1] = 3221225472;
-  v11[2] = __68__ASDInstallApps_shouldPostNotificationOnDefaultBrowserInstallation__block_invoke_2;
-  v11[3] = &unk_1E7CDC0A0;
-  v11[4] = &v14;
-  [v5 shouldPostNotificationOnDefaultBrowserInstallationWithReplyHandler:v11];
+  v11[2] = __68__ASDInstallApps_shouldPostNotificationOnDefaultBrowserInstallation__block_invoke;
+  v11[3] = &unk_1E7CDBB80;
+  v11[4] = &v17;
+  v5 = [v4 synchronousRemoteObjectProxyWithErrorHandler:v11];
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __68__ASDInstallApps_shouldPostNotificationOnDefaultBrowserInstallation__block_invoke_2;
+  v10[3] = &unk_1E7CDC0A0;
+  v10[4] = &v13;
+  [v5 shouldPostNotificationOnDefaultBrowserInstallationWithReplyHandler:v10];
 
-  if (v19[5])
+  if (v18[5])
   {
     v6 = ASDLogHandleForCategory(13);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v10 = v19[5];
+      v9 = v18[5];
       *buf = 138543362;
-      v25 = v10;
+      v24 = v9;
       _os_log_error_impl(&dword_1B8220000, v6, OS_LOG_TYPE_ERROR, "Error getting should post notification on default browser installation value: %{public}@", buf, 0xCu);
     }
   }
 
-  v7 = *(v15 + 24);
-  _Block_object_dispose(&v14, 8);
-  _Block_object_dispose(&v18, 8);
+  v7 = *(v14 + 24);
+  _Block_object_dispose(&v13, 8);
+  _Block_object_dispose(&v17, 8);
 
-  v8 = *MEMORY[0x1E69E9840];
   return v7 & 1;
+}
+
++ (void)setShouldPostNotificationOnDefaultBrowserInstallation:(BOOL)installation
+{
+  installationCopy = installation;
+  v13 = *MEMORY[0x1E69E9840];
+  v4 = +[ASDServiceBroker defaultBroker];
+  v8 = 0;
+  v5 = [v4 getInstallationServiceWithError:&v8];
+  v6 = v8;
+  [v5 setShouldPostNotificationOnDefaultBrowserInstallation:installationCopy];
+
+  if (v6)
+  {
+    v7 = ASDLogHandleForCategory(13);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 67109378;
+      v10 = installationCopy;
+      v11 = 2114;
+      v12 = v6;
+      _os_log_error_impl(&dword_1B8220000, v7, OS_LOG_TYPE_ERROR, "Error setting should post notification on default browser installation to %{BOOL}d: %{public}@", buf, 0x12u);
+    }
+  }
 }
 
 + (void)installApp:(id)app onPairedDevice:(id)device withCompletionHandler:(id)handler
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
-  v17[0] = app;
+  v16[0] = app;
   v9 = MEMORY[0x1E695DEC8];
   deviceCopy = device;
   appCopy = app;
-  v12 = [v9 arrayWithObjects:v17 count:1];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __66__ASDInstallApps_installApp_onPairedDevice_withCompletionHandler___block_invoke;
-  v15[3] = &unk_1E7CDB7A8;
-  v16 = handlerCopy;
+  v12 = [v9 arrayWithObjects:v16 count:1];
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __66__ASDInstallApps_installApp_onPairedDevice_withCompletionHandler___block_invoke;
+  v14[3] = &unk_1E7CDB7A8;
+  v15 = handlerCopy;
   v13 = handlerCopy;
-  [self installApps:v12 onPairedDevice:deviceCopy withCompletionHandler:v15];
-
-  v14 = *MEMORY[0x1E69E9840];
+  [self installApps:v12 onPairedDevice:deviceCopy withCompletionHandler:v14];
 }
 
 void __66__ASDInstallApps_installApp_onPairedDevice_withCompletionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -198,21 +244,19 @@ void __66__ASDInstallApps_installApp_onPairedDevice_withCompletionHandler___bloc
 
 + (void)installApp:(id)app withCompletionHandler:(id)handler
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
-  v14[0] = app;
+  v13[0] = app;
   v7 = MEMORY[0x1E695DEC8];
   appCopy = app;
-  v9 = [v7 arrayWithObjects:v14 count:1];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __51__ASDInstallApps_installApp_withCompletionHandler___block_invoke;
-  v12[3] = &unk_1E7CDB7A8;
-  v13 = handlerCopy;
+  v9 = [v7 arrayWithObjects:v13 count:1];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __51__ASDInstallApps_installApp_withCompletionHandler___block_invoke;
+  v11[3] = &unk_1E7CDB7A8;
+  v12 = handlerCopy;
   v10 = handlerCopy;
-  [(ASDInstallApps *)self _installApps:v9 onPairedDevice:0 withCompletionHandler:v12];
-
-  v11 = *MEMORY[0x1E69E9840];
+  [(ASDInstallApps *)self _installApps:v9 onPairedDevice:0 withCompletionHandler:v11];
 }
 
 void __51__ASDInstallApps_installApp_withCompletionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -225,7 +269,7 @@ void __51__ASDInstallApps_installApp_withCompletionHandler___block_invoke(uint64
 
 + (void)_installApps:(void *)apps onPairedDevice:(void *)device withCompletionHandler:
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   v6 = a2;
   appsCopy = apps;
   deviceCopy = device;
@@ -240,26 +284,25 @@ void __51__ASDInstallApps_installApp_withCompletionHandler___block_invoke(uint64
   }
 
   v11 = _MergedGlobals_45;
+  v39 = 0u;
+  v40 = 0u;
   v41 = 0u;
   v42 = 0u;
-  v43 = 0u;
-  v44 = 0u;
   v12 = v6;
-  v13 = [v12 countByEnumeratingWithState:&v41 objects:v49 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v39 objects:v47 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v42;
+    v15 = *v40;
 LABEL_5:
     v16 = 0;
     while (1)
     {
-      if (*v42 != v15)
+      if (*v40 != v15)
       {
         objc_enumerationMutation(v12);
       }
 
-      v17 = *(*(&v41 + 1) + 8 * v16);
       if (([v11 containsObject:objc_opt_class()] & 1) == 0)
       {
         break;
@@ -267,29 +310,29 @@ LABEL_5:
 
       if (objc_opt_class() != v10)
       {
-        v26 = ASDLogHandleForCategory(13);
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
+        v25 = ASDLogHandleForCategory(13);
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
         {
-          v31 = objc_opt_class();
+          v29 = objc_opt_class();
           *buf = 138412546;
-          v46 = v31;
-          v47 = 2112;
-          v48 = v10;
-          v32 = v31;
+          v44 = v29;
+          v45 = 2112;
+          v46 = v10;
+          v30 = v29;
         }
-        v24 = ;
-        v25 = 507;
+        v23 = ;
+        v24 = 507;
 LABEL_19:
-        v27 = ASDErrorWithUnderlyingErrorAndDescription(0, @"ASDErrorDomain", v25, v24);
-        deviceCopy[2](deviceCopy, 0, v27);
+        v26 = ASDErrorWithUnderlyingErrorAndDescription(0, @"ASDErrorDomain", v24, v23);
+        deviceCopy[2](deviceCopy, 0, v26);
 
-        v22 = v12;
+        v21 = v12;
         goto LABEL_20;
       }
 
       if (v14 == ++v16)
       {
-        v14 = [v12 countByEnumeratingWithState:&v41 objects:v49 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v39 objects:v47 count:16];
         if (v14)
         {
           goto LABEL_5;
@@ -299,45 +342,43 @@ LABEL_19:
       }
     }
 
-    v23 = ASDLogHandleForCategory(13);
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
+    v22 = ASDLogHandleForCategory(13);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
     {
-      v29 = objc_opt_class();
+      v27 = objc_opt_class();
       *buf = 138412290;
-      v46 = v29;
-      v30 = v29;
+      v44 = v27;
+      v28 = v27;
     }
-    v24 = ;
-    v25 = 909;
+    v23 = ;
+    v24 = 909;
     goto LABEL_19;
   }
 
 LABEL_12:
 
-  v38[0] = MEMORY[0x1E69E9820];
-  v38[1] = 3221225472;
-  v38[2] = __68__ASDInstallApps__installApps_onPairedDevice_withCompletionHandler___block_invoke;
-  v38[3] = &unk_1E7CDB8E0;
-  v18 = v12;
-  v39 = v18;
-  v40 = deviceCopy;
-  v19 = MEMORY[0x1B8CBC4F0](v38);
-  v20 = +[ASDServiceBroker defaultBroker];
-  v33[0] = MEMORY[0x1E69E9820];
-  v33[1] = 3221225472;
-  v33[2] = __68__ASDInstallApps__installApps_onPairedDevice_withCompletionHandler___block_invoke_94;
-  v33[3] = &unk_1E7CDD210;
-  v36 = v19;
-  v37 = v10;
+  v36[0] = MEMORY[0x1E69E9820];
+  v36[1] = 3221225472;
+  v36[2] = __68__ASDInstallApps__installApps_onPairedDevice_withCompletionHandler___block_invoke;
+  v36[3] = &unk_1E7CDB8E0;
+  v17 = v12;
+  v37 = v17;
+  v38 = deviceCopy;
+  v18 = MEMORY[0x1B8CBC4F0](v36);
+  v19 = +[ASDServiceBroker defaultBroker];
+  v31[0] = MEMORY[0x1E69E9820];
+  v31[1] = 3221225472;
+  v31[2] = __68__ASDInstallApps__installApps_onPairedDevice_withCompletionHandler___block_invoke_94;
+  v31[3] = &unk_1E7CDD210;
   v34 = v18;
-  v35 = appsCopy;
-  v21 = v19;
-  [v20 getInstallationServiceWithCompletionHandler:v33];
+  v35 = v10;
+  v32 = v17;
+  v33 = appsCopy;
+  v20 = v18;
+  [v19 getInstallationServiceWithCompletionHandler:v31];
 
-  v22 = v39;
+  v21 = v37;
 LABEL_20:
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 + (void)installApps:(id)apps onPairedDevice:(id)device withCompletionHandler:(id)handler
@@ -364,14 +405,16 @@ uint64_t __43__ASDInstallApps__availableMetadataClasses__block_invoke()
   v2 = objc_opt_class();
   v3 = objc_opt_class();
   v4 = objc_opt_class();
-  _MergedGlobals_45 = [v0 setWithObjects:{v1, v2, v3, v4, objc_opt_class(), 0}];
+  v5 = [v0 setWithObjects:{v1, v2, v3, v4, objc_opt_class(), 0}];
+  v6 = _MergedGlobals_45;
+  _MergedGlobals_45 = v5;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v5, v6);
 }
 
 void __68__ASDInstallApps__installApps_onPairedDevice_withCompletionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = ASDLogHandleForCategory(13);
@@ -382,9 +425,9 @@ void __68__ASDInstallApps__installApps_onPairedDevice_withCompletionHandler___bl
     {
       v9 = [*(a1 + 32) count];
       *buf = 134218242;
-      v23 = v9;
-      v24 = 2114;
-      v25 = v6;
+      v22 = v9;
+      v23 = 2114;
+      v24 = v6;
       _os_log_error_impl(&dword_1B8220000, v8, OS_LOG_TYPE_ERROR, "Installation request for %lu app(s) failed with error: %{public}@", buf, 0x16u);
     }
   }
@@ -396,23 +439,23 @@ void __68__ASDInstallApps__installApps_onPairedDevice_withCompletionHandler___bl
     if (v10)
     {
       v11 = [objc_alloc(MEMORY[0x1E696AD60]) initWithString:@"["];
-      v16 = MEMORY[0x1E69E9820];
-      v17 = 3221225472;
-      v18 = __68__ASDInstallApps__installApps_onPairedDevice_withCompletionHandler___block_invoke_86;
-      v19 = &unk_1E7CDD1E8;
+      v15 = MEMORY[0x1E69E9820];
+      v16 = 3221225472;
+      v17 = __68__ASDInstallApps__installApps_onPairedDevice_withCompletionHandler___block_invoke_86;
+      v18 = &unk_1E7CDD1E8;
       v8 = v11;
-      v20 = v8;
-      v21 = *(a1 + 32);
-      [v5 enumerateObjectsUsingBlock:&v16];
-      [v8 appendString:@"\n]", v16, v17, v18, v19];
+      v19 = v8;
+      v20 = *(a1 + 32);
+      [v5 enumerateObjectsUsingBlock:&v15];
+      [v8 appendString:@"\n]", v15, v16, v17, v18];
       v12 = ASDLogHandleForCategory(13);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
-        v15 = [*(a1 + 32) count];
+        v14 = [*(a1 + 32) count];
         *buf = 134218242;
-        v23 = v15;
-        v24 = 2114;
-        v25 = v8;
+        v22 = v14;
+        v23 = 2114;
+        v24 = v8;
         _os_log_debug_impl(&dword_1B8220000, v12, OS_LOG_TYPE_DEBUG, "Installation request for %lu app(s) completed: %{public}@", buf, 0x16u);
       }
     }
@@ -424,16 +467,15 @@ void __68__ASDInstallApps__installApps_onPairedDevice_withCompletionHandler___bl
       {
         v13 = [*(a1 + 32) count];
         *buf = 134218242;
-        v23 = v13;
-        v24 = 2114;
-        v25 = v5;
+        v22 = v13;
+        v23 = 2114;
+        v24 = v5;
         _os_log_impl(&dword_1B8220000, v8, OS_LOG_TYPE_DEFAULT, "Installation request for %lu app(s) completed with identifiers: %{public}@", buf, 0x16u);
       }
     }
   }
 
   (*(*(a1 + 40) + 16))();
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __68__ASDInstallApps__installApps_onPairedDevice_withCompletionHandler___block_invoke_86(uint64_t a1, void *a2, uint64_t a3)
@@ -447,7 +489,7 @@ void __68__ASDInstallApps__installApps_onPairedDevice_withCompletionHandler___bl
 
 void __68__ASDInstallApps__installApps_onPairedDevice_withCompletionHandler___block_invoke_94(uint64_t a1, void *a2, void *a3)
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v5)
@@ -455,15 +497,15 @@ void __68__ASDInstallApps__installApps_onPairedDevice_withCompletionHandler___bl
     v7 = *(a1 + 56);
     if (v7 == objc_opt_class())
     {
-      v39[0] = MEMORY[0x1E69E9820];
-      v39[1] = 3221225472;
-      v39[2] = __68__ASDInstallApps__installApps_onPairedDevice_withCompletionHandler___block_invoke_2;
-      v39[3] = &unk_1E7CDB730;
-      v40 = *(a1 + 48);
-      v23 = [v5 remoteObjectProxyWithErrorHandler:v39];
+      v38[0] = MEMORY[0x1E69E9820];
+      v38[1] = 3221225472;
+      v38[2] = __68__ASDInstallApps__installApps_onPairedDevice_withCompletionHandler___block_invoke_2;
+      v38[3] = &unk_1E7CDB730;
+      v39 = *(a1 + 48);
+      v23 = [v5 remoteObjectProxyWithErrorHandler:v38];
       [v23 installEnterpriseApps:*(a1 + 32) onPairedDevice:*(a1 + 40) withReplyHandler:*(a1 + 48)];
 
-      v24 = v40;
+      v24 = v39;
     }
 
     else
@@ -471,15 +513,15 @@ void __68__ASDInstallApps__installApps_onPairedDevice_withCompletionHandler___bl
       v8 = *(a1 + 56);
       if (v8 == objc_opt_class())
       {
-        v37[0] = MEMORY[0x1E69E9820];
-        v37[1] = 3221225472;
-        v37[2] = __68__ASDInstallApps__installApps_onPairedDevice_withCompletionHandler___block_invoke_3;
-        v37[3] = &unk_1E7CDB730;
-        v38 = *(a1 + 48);
-        v25 = [v5 remoteObjectProxyWithErrorHandler:v37];
+        v36[0] = MEMORY[0x1E69E9820];
+        v36[1] = 3221225472;
+        v36[2] = __68__ASDInstallApps__installApps_onPairedDevice_withCompletionHandler___block_invoke_3;
+        v36[3] = &unk_1E7CDB730;
+        v37 = *(a1 + 48);
+        v25 = [v5 remoteObjectProxyWithErrorHandler:v36];
         [v25 installAppReviewApps:*(a1 + 32) withReplyHandler:*(a1 + 48)];
 
-        v24 = v38;
+        v24 = v37;
       }
 
       else
@@ -487,15 +529,15 @@ void __68__ASDInstallApps__installApps_onPairedDevice_withCompletionHandler___bl
         v9 = *(a1 + 56);
         if (v9 == objc_opt_class())
         {
-          v35[0] = MEMORY[0x1E69E9820];
-          v35[1] = 3221225472;
-          v35[2] = __68__ASDInstallApps__installApps_onPairedDevice_withCompletionHandler___block_invoke_4;
-          v35[3] = &unk_1E7CDB730;
-          v36 = *(a1 + 48);
-          v26 = [v5 remoteObjectProxyWithErrorHandler:v35];
+          v34[0] = MEMORY[0x1E69E9820];
+          v34[1] = 3221225472;
+          v34[2] = __68__ASDInstallApps__installApps_onPairedDevice_withCompletionHandler___block_invoke_4;
+          v34[3] = &unk_1E7CDB730;
+          v35 = *(a1 + 48);
+          v26 = [v5 remoteObjectProxyWithErrorHandler:v34];
           [v26 installSystemApps:*(a1 + 32) onPairedDevice:*(a1 + 40) withReplyHandler:*(a1 + 48)];
 
-          v24 = v36;
+          v24 = v35;
         }
 
         else
@@ -503,15 +545,15 @@ void __68__ASDInstallApps__installApps_onPairedDevice_withCompletionHandler___bl
           v10 = *(a1 + 56);
           if (v10 == objc_opt_class())
           {
-            v33[0] = MEMORY[0x1E69E9820];
-            v33[1] = 3221225472;
-            v33[2] = __68__ASDInstallApps__installApps_onPairedDevice_withCompletionHandler___block_invoke_5;
-            v33[3] = &unk_1E7CDB730;
-            v34 = *(a1 + 48);
-            v27 = [v5 remoteObjectProxyWithErrorHandler:v33];
+            v32[0] = MEMORY[0x1E69E9820];
+            v32[1] = 3221225472;
+            v32[2] = __68__ASDInstallApps__installApps_onPairedDevice_withCompletionHandler___block_invoke_5;
+            v32[3] = &unk_1E7CDB730;
+            v33 = *(a1 + 48);
+            v27 = [v5 remoteObjectProxyWithErrorHandler:v32];
             [v27 installTestFlightApps:*(a1 + 32) onPairedDevice:*(a1 + 40) withReplyHandler:*(a1 + 48)];
 
-            v24 = v34;
+            v24 = v33;
           }
 
           else
@@ -527,15 +569,15 @@ void __68__ASDInstallApps__installApps_onPairedDevice_withCompletionHandler___bl
               goto LABEL_17;
             }
 
-            v31[0] = MEMORY[0x1E69E9820];
-            v31[1] = 3221225472;
-            v31[2] = __68__ASDInstallApps__installApps_onPairedDevice_withCompletionHandler___block_invoke_6;
-            v31[3] = &unk_1E7CDB730;
-            v32 = *(a1 + 48);
-            v28 = [v5 remoteObjectProxyWithErrorHandler:v31];
+            v30[0] = MEMORY[0x1E69E9820];
+            v30[1] = 3221225472;
+            v30[2] = __68__ASDInstallApps__installApps_onPairedDevice_withCompletionHandler___block_invoke_6;
+            v30[3] = &unk_1E7CDB730;
+            v31 = *(a1 + 48);
+            v28 = [v5 remoteObjectProxyWithErrorHandler:v30];
             [v28 installWatchApps:*(a1 + 32) onPairedDevice:*(a1 + 40) withReplyHandler:*(a1 + 48)];
 
-            v24 = v32;
+            v24 = v31;
           }
         }
       }
@@ -547,11 +589,11 @@ void __68__ASDInstallApps__installApps_onPairedDevice_withCompletionHandler___bl
   v20 = ASDLogHandleForCategory(13);
   if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
   {
-    v30 = [*(a1 + 32) count];
+    v29 = [*(a1 + 32) count];
     *buf = 134218242;
-    v42 = v30;
-    v43 = 2114;
-    v44 = v6;
+    v41 = v29;
+    v42 = 2114;
+    v43 = v6;
     _os_log_error_impl(&dword_1B8220000, v20, OS_LOG_TYPE_ERROR, "Installation request for %lu app(s) failed with error: %{public}@", buf, 0x16u);
   }
 
@@ -560,7 +602,6 @@ void __68__ASDInstallApps__installApps_onPairedDevice_withCompletionHandler___bl
   (*(v21 + 16))(v21, 0, v22);
 
 LABEL_17:
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 void __68__ASDInstallApps__installApps_onPairedDevice_withCompletionHandler___block_invoke_2(uint64_t a1, void *a2)

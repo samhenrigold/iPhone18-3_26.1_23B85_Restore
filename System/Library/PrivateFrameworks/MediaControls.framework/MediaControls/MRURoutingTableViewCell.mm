@@ -152,9 +152,9 @@
 
 - (void)layoutSubviews
 {
-  v75.receiver = self;
-  v75.super_class = MRURoutingTableViewCell;
-  [(MRURoutingTableViewCell *)&v75 layoutSubviews];
+  v77.receiver = self;
+  v77.super_class = MRURoutingTableViewCell;
+  [(MRURoutingTableViewCell *)&v77 layoutSubviews];
   traitCollection = [(MRURoutingTableViewCell *)self traitCollection];
   [traitCollection displayScale];
   v5 = v4;
@@ -173,33 +173,33 @@
   v19 = v12 - (left + self->_contentEdgeInsets.right);
   v20 = v14 - (top + self->_contentEdgeInsets.bottom);
   v21 = 28.0 * [(MRURoutingTableViewCell *)self indentationLevel];
-  v73 = v5;
-  v76.origin.x = v17;
-  v76.origin.y = v18;
-  v76.size.width = v19;
-  v76.size.height = v20;
-  CGRectGetMinX(v76);
-  v74 = v21;
-  v77.origin.x = v17;
-  v77.origin.y = v18;
-  v77.size.width = v19;
-  v77.size.height = v20;
-  CGRectGetMaxY(v77);
+  v75 = v5;
   v78.origin.x = v17;
   v78.origin.y = v18;
   v78.size.width = v19;
   v78.size.height = v20;
-  CGRectGetWidth(v78);
+  CGRectGetMinX(v78);
+  v76 = v21;
+  v79.origin.x = v17;
+  v79.origin.y = v18;
+  v79.size.width = v19;
+  v79.size.height = v20;
+  CGRectGetMaxY(v79);
+  v80.origin.x = v17;
+  v80.origin.y = v18;
+  v80.size.width = v19;
+  v80.size.height = v20;
+  CGRectGetWidth(v80);
   UIRectInset();
   [(MRURoutingTableViewCell *)self bounds];
   MPRectByApplyingUserInterfaceLayoutDirectionInRect();
   [(UIView *)self->_separatorView setFrame:?];
   [(UIImageView *)self->_outlineImageView sizeThatFits:v19, v20];
-  v79.origin.x = v17;
-  v79.origin.y = v18;
-  v79.size.width = v19;
-  v79.size.height = v20;
-  CGRectGetMinX(v79);
+  v81.origin.x = v17;
+  v81.origin.y = v18;
+  v81.size.width = v19;
+  v81.size.height = v20;
+  CGRectGetMinX(v81);
   UIRectCenteredYInRect();
   [(MRURoutingTableViewCell *)self bounds];
   MPRectByApplyingUserInterfaceLayoutDirectionInRect();
@@ -209,11 +209,11 @@
     [(UIImageView *)self->_iconImageView sizeThatFits:v19, v20];
   }
 
-  v80.origin.x = v17;
-  v80.origin.y = v18;
-  v80.size.width = v19;
-  v80.size.height = v20;
-  CGRectGetMinX(v80);
+  v82.origin.x = v17;
+  v82.origin.y = v18;
+  v82.size.width = v19;
+  v82.size.height = v20;
+  CGRectGetMinX(v82);
   UIRectCenteredYInRect();
   v23 = v22;
   v25 = v24;
@@ -223,22 +223,22 @@
   [(MRURoutingTableViewCell *)self bounds];
   MPRectByApplyingUserInterfaceLayoutDirectionInRect();
   [(UIImageView *)self->_iconImageView setFrame:?];
-  v81.origin.x = v23;
-  v81.origin.y = v25;
-  v81.size.width = v27;
-  v81.size.height = v29;
-  CGRectGetWidth(v81);
+  v83.origin.x = v23;
+  v83.origin.y = v25;
+  v83.size.width = v27;
+  v83.size.height = v29;
+  CGRectGetWidth(v83);
   UIRectInset();
   v31 = v30;
   v33 = v32;
   v35 = v34;
   v37 = v36;
   [(MRURoutingAccessoryView *)self->_routingAccessoryView sizeThatFits:v34, v36];
-  v82.origin.x = v31;
-  v82.origin.y = v33;
-  v82.size.width = v35;
-  v82.size.height = v37;
-  CGRectGetMaxX(v82);
+  v84.origin.x = v31;
+  v84.origin.y = v33;
+  v84.size.width = v35;
+  v84.size.height = v37;
+  CGRectGetMaxX(v84);
   UIRectCenteredYInRect();
   v39 = v38;
   v41 = v40;
@@ -247,13 +247,13 @@
   [(MRURoutingTableViewCell *)self bounds];
   MPRectByApplyingUserInterfaceLayoutDirectionInRect();
   [(MRURoutingAccessoryView *)self->_routingAccessoryView setFrame:?];
-  if ([(MRURoutingAccessoryView *)self->_routingAccessoryView state]|| v74 > 0.0)
+  if (objc_msgSend_state(self->_routingAccessoryView) || v76 > 0.0)
   {
-    v83.origin.x = v39;
-    v83.origin.y = v41;
-    v83.size.width = v43;
-    v83.size.height = v45;
-    CGRectGetWidth(v83);
+    v85.origin.x = v39;
+    v85.origin.y = v41;
+    v85.size.width = v43;
+    v85.size.height = v45;
+    CGRectGetWidth(v85);
     UIRectInset();
     v31 = v46;
     v33 = v47;
@@ -262,14 +262,14 @@
   }
 
   [(UILabel *)self->_titleLabel sizeThatFits:v35, v37];
-  v50 = MRUSizeCeilToViewScale(self);
-  v52 = v51;
+  v52 = MRUSizeCeilToViewScale(self, v50, v51);
+  v54 = v53;
   [(MRURoutingSubtitleView *)self->_subtitleView sizeThatFits:v35, v37];
-  v84.origin.x = v31;
-  v84.origin.y = v33;
-  v84.size.width = v35;
-  v84.size.height = v37;
-  CGRectGetHeight(v84);
+  v86.origin.x = v31;
+  v86.origin.y = v33;
+  v86.size.width = v35;
+  v86.size.height = v37;
+  CGRectGetHeight(v86);
   if (![(MRURoutingSubtitleController *)self->_subtitleStateController hasText])
   {
     WeakRetained = objc_loadWeakRetained(&self->_volumeController);
@@ -277,64 +277,64 @@
   }
 
   UIRectInset();
-  v55 = v54;
   v57 = v56;
   v59 = v58;
-  UIFloorToScale();
   v61 = v60;
-  v85.origin.x = v55;
-  v85.origin.y = v61;
-  v85.size.width = v57;
-  v85.size.height = v59;
-  v62 = v74 + CGRectGetMinX(v85);
-  v86.origin.x = v55;
-  v86.origin.y = v61;
-  v86.size.width = v57;
-  v86.size.height = v59;
-  MinY = CGRectGetMinY(v86);
-  v87.origin.x = v55;
-  v87.origin.y = v61;
-  v87.size.width = v57;
-  v87.size.height = v59;
-  Width = CGRectGetWidth(v87);
-  if (v50 >= Width)
+  UIFloorToScale();
+  v63 = v62;
+  v87.origin.x = v57;
+  v87.origin.y = v63;
+  v87.size.width = v59;
+  v87.size.height = v61;
+  v64 = v76 + CGRectGetMinX(v87);
+  v88.origin.x = v57;
+  v88.origin.y = v63;
+  v88.size.width = v59;
+  v88.size.height = v61;
+  MinY = CGRectGetMinY(v88);
+  v89.origin.x = v57;
+  v89.origin.y = v63;
+  v89.size.width = v59;
+  v89.size.height = v61;
+  Width = CGRectGetWidth(v89);
+  if (v52 >= Width)
   {
-    v50 = Width;
+    v52 = Width;
   }
 
   [(MRURoutingTableViewCell *)self bounds];
   MPRectByApplyingUserInterfaceLayoutDirectionInRect();
   [(UILabel *)self->_titleLabel setFrame:?];
-  v88.origin.x = v62;
-  v88.origin.y = MinY;
-  v88.size.width = v50;
-  v88.size.height = v52;
-  CGRectGetHeight(v88);
+  v90.origin.x = v64;
+  v90.origin.y = MinY;
+  v90.size.width = v52;
+  v90.size.height = v54;
+  CGRectGetHeight(v90);
   UIRectInset();
-  x = v89.origin.x;
-  y = v89.origin.y;
-  v67 = v89.size.width;
-  height = v89.size.height;
-  CGRectGetMinX(v89);
-  v90.origin.x = x;
-  v90.origin.y = y;
-  v90.size.width = v67;
-  v90.size.height = height;
-  CGRectGetMinY(v90);
+  x = v91.origin.x;
+  y = v91.origin.y;
+  v69 = v91.size.width;
+  height = v91.size.height;
+  CGRectGetMinX(v91);
+  v92.origin.x = x;
+  v92.origin.y = y;
+  v92.size.width = v69;
+  v92.size.height = height;
+  CGRectGetMinY(v92);
   [(MRURoutingTableViewCell *)self bounds];
   MPRectByApplyingUserInterfaceLayoutDirectionInRect();
   [(MRURoutingSubtitleView *)self->_subtitleView setFrame:?];
   UIRectInset();
-  v69 = v91.origin.x;
-  v70 = v91.origin.y;
-  v71 = v91.size.width;
-  v72 = v91.size.height;
-  CGRectGetMinX(v91);
-  v92.origin.x = v69;
-  v92.origin.y = v70;
-  v92.size.width = v71;
-  v92.size.height = v72;
-  CGRectGetWidth(v92);
+  v71 = v93.origin.x;
+  v72 = v93.origin.y;
+  v73 = v93.size.width;
+  v74 = v93.size.height;
+  CGRectGetMinX(v93);
+  v94.origin.x = v71;
+  v94.origin.y = v72;
+  v94.size.width = v73;
+  v94.size.height = v74;
+  CGRectGetWidth(v94);
   UIRectCenteredYInRectScale();
   [(MRURoutingTableViewCell *)self bounds];
   MPRectByApplyingUserInterfaceLayoutDirectionInRect();
@@ -346,34 +346,34 @@
   height = fits.height;
   width = fits.width;
   [(UILabel *)self->_titleLabel sizeThatFits:?];
-  MRUSizeCeilToViewScale(self);
-  v7 = v6 + 0.0;
-  v8 = height - v6;
+  MRUSizeCeilToViewScale(self, v6, v7);
+  v9 = v8 + 0.0;
+  v10 = height - v8;
   WeakRetained = objc_loadWeakRetained(&self->_volumeController);
   isVolumeControlAvailable = [WeakRetained isVolumeControlAvailable];
 
   if (isVolumeControlAvailable)
   {
-    [(MRUSlider *)self->_volumeSlider sizeThatFits:width, v8];
-    v7 = v7 + v11;
+    [(MRUSlider *)self->_volumeSlider sizeThatFits:width, v10];
+    v9 = v9 + v13;
   }
 
   else if ([(MRURoutingSubtitleController *)self->_subtitleStateController hasText])
   {
-    [(MRURoutingSubtitleView *)self->_subtitleView sizeThatFits:width, v8];
-    v7 = v7 + v12 + 4.0;
+    [(MRURoutingSubtitleView *)self->_subtitleView sizeThatFits:width, v10];
+    v9 = v9 + v14 + 4.0;
   }
 
-  v13 = 28.0;
-  if (v7 >= 28.0)
+  v15 = 28.0;
+  if (v9 >= 28.0)
   {
-    v13 = v7;
+    v15 = v9;
   }
 
-  v14 = v13 + 11.0 * 2.0;
-  v15 = width;
-  result.height = v14;
-  result.width = v15;
+  v16 = v15 + 11.0 * 2.0;
+  v17 = width;
+  result.height = v16;
+  result.width = v17;
   return result;
 }
 

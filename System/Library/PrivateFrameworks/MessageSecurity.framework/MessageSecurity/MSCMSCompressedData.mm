@@ -77,19 +77,16 @@
 
 - (MSCMSMessage)embeddedContent
 {
-  v3 = OBJC_IVAR___MSCMSCompressedData_embeddedContent;
   swift_beginAccess();
-  v4 = *(self + v3);
-  v5 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v5;
+  return v2;
 }
 
 - (void)setEmbeddedContent:(id)content
 {
   v5 = OBJC_IVAR___MSCMSCompressedData_embeddedContent;
   swift_beginAccess();
-  v6 = *(self + v5);
   *(self + v5) = content;
   swift_unknownObjectRetain();
   swift_unknownObjectRelease();

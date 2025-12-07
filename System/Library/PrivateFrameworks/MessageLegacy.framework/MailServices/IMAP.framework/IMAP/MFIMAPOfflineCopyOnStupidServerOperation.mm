@@ -21,9 +21,9 @@
 
 - (id)_deserializeOpSpecificValuesFromData:(id)data cursor:(unint64_t *)cursor
 {
-  v21 = *MEMORY[0x277D85DE8];
-  v19.receiver = self;
-  v19.super_class = MFIMAPOfflineCopyOnStupidServerOperation;
+  v20 = *MEMORY[0x277D85DE8];
+  v18.receiver = self;
+  v18.super_class = MFIMAPOfflineCopyOnStupidServerOperation;
   v6 = [MFIMAPOperation _deserializeOpSpecificValuesFromData:sel__deserializeOpSpecificValuesFromData_cursor_ cursor:?];
   if (v6)
   {
@@ -32,30 +32,30 @@
     if (v8)
     {
       *(v6 + 6) = CFArrayCreateMutable(0, v8, MEMORY[0x277CBF128]);
-      v17 = 0u;
-      v18 = 0u;
-      v15 = 0u;
       v16 = 0u;
-      v9 = [(__CFArray *)StringArrayFromData countByEnumeratingWithState:&v15 objects:v20 count:16];
+      v17 = 0u;
+      v14 = 0u;
+      v15 = 0u;
+      v9 = [(__CFArray *)StringArrayFromData countByEnumeratingWithState:&v14 objects:v19 count:16];
       if (v9)
       {
         v10 = v9;
-        v11 = *v16;
+        v11 = *v15;
         do
         {
           v12 = 0;
           do
           {
-            if (*v16 != v11)
+            if (*v15 != v11)
             {
               objc_enumerationMutation(StringArrayFromData);
             }
 
-            CFArrayAppendValue(*(v6 + 6), *(*(&v15 + 1) + 8 * v12++));
+            CFArrayAppendValue(*(v6 + 6), *(*(&v14 + 1) + 8 * v12++));
           }
 
           while (v10 != v12);
-          v10 = [(__CFArray *)StringArrayFromData countByEnumeratingWithState:&v15 objects:v20 count:16];
+          v10 = [(__CFArray *)StringArrayFromData countByEnumeratingWithState:&v14 objects:v19 count:16];
         }
 
         while (v10);
@@ -65,7 +65,6 @@
     *(v6 + 7) = _createUidArrayFromData(data, cursor);
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

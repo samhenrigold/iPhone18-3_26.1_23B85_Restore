@@ -49,7 +49,7 @@
 
 - (void)_setViewControllers:(id)controllers animated:(BOOL)animated
 {
-  sub_2B860(0, &qword_1C89D0);
+  sub_2B860(0, &qword_1C89D0, UIViewController_ptr);
   v6 = sub_1449DC();
   selfCopy = self;
   BaseTabBarController._setViewControllers(_:animated:)(v6, animated);
@@ -60,7 +60,7 @@
   selfCopy = self;
   BaseTabBarController._viewControllersInTabBar()();
 
-  sub_2B860(0, &qword_1C89D0);
+  sub_2B860(0, &qword_1C89D0, UIViewController_ptr);
   v3.super.isa = sub_1449CC().super.isa;
 
   return v3.super.isa;

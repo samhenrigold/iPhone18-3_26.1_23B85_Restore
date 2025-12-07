@@ -11,39 +11,39 @@
 
 + (id)declarationManifestWithDeclarations:(id)declarations
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   declarationsCopy = declarations;
   v4 = objc_opt_new();
-  v25 = objc_opt_new();
-  v23 = objc_opt_new();
-  v21 = objc_opt_new();
+  v24 = objc_opt_new();
+  v22 = objc_opt_new();
+  v20 = objc_opt_new();
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   obj = declarationsCopy;
-  v5 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v5 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v28;
+    v7 = *v27;
     v8 = *MEMORY[0x277D46060];
-    v24 = *MEMORY[0x277D46070];
-    v22 = *MEMORY[0x277D46068];
-    v20 = *MEMORY[0x277D46078];
+    v23 = *MEMORY[0x277D46070];
+    v21 = *MEMORY[0x277D46068];
+    v19 = *MEMORY[0x277D46078];
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v28 != v7)
+        if (*v27 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v27 + 1) + 8 * i);
+        v10 = *(*(&v26 + 1) + 8 * i);
         declarationClassType = [v10 declarationClassType];
         v12 = v4;
-        if ([declarationClassType isEqualToString:v8] & 1) != 0 || (v12 = v25, (objc_msgSend(declarationClassType, "isEqualToString:", v24)) || (v12 = v23, (objc_msgSend(declarationClassType, "isEqualToString:", v22)) || (v12 = v21, objc_msgSend(declarationClassType, "isEqualToString:", v20)))
+        if ([declarationClassType isEqualToString:v8] & 1) != 0 || (v12 = v24, (objc_msgSend(declarationClassType, "isEqualToString:", v23)) || (v12 = v22, (objc_msgSend(declarationClassType, "isEqualToString:", v21)) || (v12 = v20, objc_msgSend(declarationClassType, "isEqualToString:", v19)))
         {
           v13 = [RMDeclarationManifestItem alloc];
           declarationIdentifier = [v10 declarationIdentifier];
@@ -53,14 +53,13 @@
         }
       }
 
-      v6 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v6 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
     }
 
     while (v6);
   }
 
-  v17 = [[RMDeclarationManifest alloc] initWithActivations:v4 configurations:v25 assets:v23 management:v21];
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = [[RMDeclarationManifest alloc] initWithActivations:v4 configurations:v24 assets:v22 management:v20];
 
   return v17;
 }

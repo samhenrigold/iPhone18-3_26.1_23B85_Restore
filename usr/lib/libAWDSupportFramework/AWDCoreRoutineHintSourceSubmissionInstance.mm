@@ -33,7 +33,6 @@
 {
   if (*&self->_has)
   {
-    hintSource = self->_hintSource;
     PBDataWriterWriteInt32Field();
   }
 }

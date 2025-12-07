@@ -41,8 +41,7 @@
   updateCopy = update;
   v8 = [[MRUCoordinatedUpdate alloc] initWithUpdate:updateCopy completion:completionCopy];
 
-  [(NSMutableArray *)self->_queue addObject:v8];
-  v9 = MCLogCategoryDefault();
+  v9 = MCLogCategoryDefault([(NSMutableArray *)self->_queue addObject:v8]);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v10 = objc_opt_class();
@@ -64,8 +63,7 @@
 {
   v20 = *MEMORY[0x1E69E9840];
   v3 = [(NSMutableArray *)self->_queue copy];
-  [(NSMutableArray *)self->_queue removeAllObjects];
-  v4 = MCLogCategoryDefault();
+  v4 = MCLogCategoryDefault([(NSMutableArray *)self->_queue removeAllObjects]);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = objc_opt_class();

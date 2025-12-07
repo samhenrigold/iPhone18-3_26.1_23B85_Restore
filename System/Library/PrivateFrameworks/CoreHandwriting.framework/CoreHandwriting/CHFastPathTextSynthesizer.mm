@@ -124,7 +124,7 @@
     goto LABEL_31;
   }
 
-  sub_183790530(&self->_inventory, 9633, 1, buf);
+  sub_183790530(&self->_inventory, 9633, buf, 1);
   v29 = *buf;
   if (*&buf[8] == *buf)
   {
@@ -149,7 +149,7 @@ LABEL_22:
       while (1)
       {
         v31 = v30;
-        v32 = *(v30 + 8);
+        v32 = *(v30 + 32);
         if (v32 < 0x25A2)
         {
           break;

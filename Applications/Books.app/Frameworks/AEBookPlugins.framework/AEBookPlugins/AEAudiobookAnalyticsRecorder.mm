@@ -46,7 +46,7 @@
 
 - (void)networkChanged:(id)changed
 {
-  sub_11BF80(0, &qword_22C5A8);
+  sub_11BF80(0, &qword_22C5A8, OS_dispatch_queue_ptr);
   *(swift_allocObject() + 16) = self;
   selfCopy = self;
   sub_139AE0();
@@ -54,7 +54,7 @@
 
 - (void)startRecordingAnalyticsWithSessionHost:(id)host
 {
-  sub_11BF80(0, &qword_22C5A8);
+  sub_11BF80(0, &qword_22C5A8, OS_dispatch_queue_ptr);
   v5 = swift_allocObject();
   *(v5 + 16) = self;
   *(v5 + 24) = host;
@@ -67,7 +67,7 @@
 
 - (void)forceEndPlaySession
 {
-  sub_11BF80(0, &qword_22C5A8);
+  sub_11BF80(0, &qword_22C5A8, OS_dispatch_queue_ptr);
   *(swift_allocObject() + 16) = self;
   selfCopy = self;
   sub_139AE0();
@@ -139,10 +139,11 @@ LABEL_5:
 - (void)player:(id)player playbackRateDidChange:(float)change
 {
   v4 = OBJC_IVAR___AEAudiobookAnalyticsRecorder_playSessionPlaybackRate;
-  if (*(self + OBJC_IVAR___AEAudiobookAnalyticsRecorder_playSessionPlaybackRate) != change)
+  v5 = *(self + OBJC_IVAR___AEAudiobookAnalyticsRecorder_playSessionPlaybackRate);
+  if (v5 != change)
   {
     selfCopy = self;
-    sub_111520();
+    sub_111520(change, v5);
     *(self + v4) = change;
   }
 }
@@ -176,7 +177,7 @@ LABEL_5:
 
 - (void)player:(id)player bitRateChangedFrom:(float)from to:(float)to
 {
-  sub_11BF80(0, &qword_22C5A8);
+  sub_11BF80(0, &qword_22C5A8, OS_dispatch_queue_ptr);
   v8 = swift_allocObject();
   *(v8 + 16) = self;
   *(v8 + 24) = to;

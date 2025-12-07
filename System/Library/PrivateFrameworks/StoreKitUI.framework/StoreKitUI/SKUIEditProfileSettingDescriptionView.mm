@@ -291,105 +291,105 @@ LABEL_6:
 
 - (void)layoutSubviews
 {
-  v56.receiver = self;
-  v56.super_class = SKUIEditProfileSettingDescriptionView;
-  [(SKUIEditProfileSettingDescriptionView *)&v56 layoutSubviews];
+  v68.receiver = self;
+  v68.super_class = SKUIEditProfileSettingDescriptionView;
+  [(SKUIEditProfileSettingDescriptionView *)&v68 layoutSubviews];
   [(SKUISettingDescriptionView *)self layoutMargins];
   v4 = v3;
-  v53 = v5;
-  [(SKUIEditProfileSettingDescriptionView *)self bounds];
-  v7 = v6;
-  v51 = v8;
-  v52 = v6;
-  v10 = v9;
-  v55 = v11;
-  ShouldReverseLayoutDirection = storeShouldReverseLayoutDirection();
+  v65 = v5;
+  bounds = [(SKUIEditProfileSettingDescriptionView *)self bounds];
+  v8 = v7;
+  v63 = v9;
+  v64 = v7;
+  v11 = v10;
+  v67 = v12;
+  ShouldReverseLayoutDirection = storeShouldReverseLayoutDirection(bounds, v13);
   titleLabel = [(UIButton *)self->_editButton titleLabel];
-  v14 = [MEMORY[0x277D74300] preferredFontForTextStyle:*MEMORY[0x277D769D0]];
-  [titleLabel setFont:v14];
-  [v14 _scaledValueForValue:16.0];
-  v16 = v15;
-  [(UIButton *)self->_editButton sizeThatFits:1.0, 1.0];
+  v16 = [MEMORY[0x277D74300] preferredFontForTextStyle:*MEMORY[0x277D769D0]];
+  [titleLabel setFont:v16];
+  [v16 _scaledValueForValue:16.0];
   v18 = v17;
+  [(UIButton *)self->_editButton sizeThatFits:1.0, 1.0];
   v20 = v19;
-  v57.origin.y = 8.0;
-  v57.origin.x = v4;
-  v57.size.width = 56.0;
-  v57.size.height = 56.0;
-  v21 = v16 + CGRectGetMaxY(v57);
+  v22 = v21;
+  v69.origin.y = 8.0;
+  v69.origin.x = v4;
+  v69.size.width = 56.0;
+  v69.size.height = 56.0;
+  v23 = v18 + CGRectGetMaxY(v69);
   [titleLabel _firstBaselineOffsetFromTop];
-  v23 = v21 - v22;
-  v58.origin.y = 8.0;
-  v58.origin.x = v4;
-  v58.size.width = 56.0;
-  v58.size.height = 56.0;
-  v24 = floor((CGRectGetWidth(v58) - v18) * 0.5);
-  v59.origin.y = 8.0;
-  v59.origin.x = v4;
-  v59.size.width = 56.0;
-  v59.size.height = 56.0;
-  v25 = CGRectGetMinX(v59) + v24;
+  v25 = v23 - v24;
+  v70.origin.y = 8.0;
+  v70.origin.x = v4;
+  v70.size.width = 56.0;
+  v70.size.height = 56.0;
+  v26 = floor((CGRectGetWidth(v70) - v20) * 0.5);
+  v71.origin.y = 8.0;
+  v71.origin.x = v4;
+  v71.size.width = 56.0;
+  v71.size.height = 56.0;
+  v27 = CGRectGetMinX(v71) + v26;
   editButton = self->_editButton;
-  v27 = v10;
-  SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v25, v23, v18, v20, v7, v10, v55, v51);
+  v29 = v11;
+  SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v27, v25, v20, v22, v8, v11, v67, v63, v30, v31);
   [(UIButton *)editButton setFrame:?];
-  v28 = *MEMORY[0x277D76918];
-  v29 = [MEMORY[0x277D74300] preferredFontForTextStyle:*MEMORY[0x277D76918]];
-  [(UITextField *)self->_nameField setFont:v29];
-  [(UITextField *)self->_handleField setFont:v29];
+  v32 = *MEMORY[0x277D76918];
+  v33 = [MEMORY[0x277D74300] preferredFontForTextStyle:*MEMORY[0x277D76918]];
+  [(UITextField *)self->_nameField setFont:v33];
+  [(UITextField *)self->_handleField setFont:v33];
   if (ShouldReverseLayoutDirection)
   {
-    v30 = 2;
+    v34 = 2;
   }
 
   else
   {
-    v30 = 0;
+    v34 = 0;
   }
 
-  [(UITextField *)self->_nameField setTextAlignment:v30];
-  [(UITextField *)self->_handleField setTextAlignment:v30];
-  v31 = [objc_opt_class() _baselineFontForTextStyle:v28];
-  [v31 _scaledValueForValue:30.0];
-  v33 = v32;
-  [v31 _scaledValueForValue:18.0];
-  v50 = v33 + v34;
+  [(UITextField *)self->_nameField setTextAlignment:v34];
+  [(UITextField *)self->_handleField setTextAlignment:v34];
+  v35 = [objc_opt_class() _baselineFontForTextStyle:v32];
+  [v35 _scaledValueForValue:30.0];
+  v37 = v36;
+  [v35 _scaledValueForValue:18.0];
+  v62 = v37 + v38;
   _placeholderLabel = [(UITextField *)self->_nameField _placeholderLabel];
-  v60.origin.y = 8.0;
-  v60.origin.x = v4;
-  v60.size.width = 56.0;
-  v60.size.height = 56.0;
-  v36 = CGRectGetMaxX(v60) + 16.0;
+  v72.origin.y = 8.0;
+  v72.origin.x = v4;
+  v72.size.width = 56.0;
+  v72.size.height = 56.0;
+  v40 = CGRectGetMaxX(v72) + 16.0;
   [_placeholderLabel _firstBaselineOffsetFromTop];
-  v38 = v33 - v37;
-  v49 = v33 - v37;
-  v61.origin.x = v52;
-  v61.origin.y = v10;
-  v61.size.width = v55;
-  v61.size.height = v51;
-  v39 = CGRectGetWidth(v61) - v36 - v53;
-  v62.origin.x = v52;
-  v62.origin.y = v10;
-  v62.size.width = v55;
-  v62.size.height = v51;
-  v48 = CGRectGetWidth(v62) - v36;
-  [(UITextField *)self->_nameField sizeThatFits:v39, 1.0];
-  v54 = v40;
+  v42 = v37 - v41;
+  v61 = v37 - v41;
+  v73.origin.x = v64;
+  v73.origin.y = v11;
+  v73.size.width = v67;
+  v73.size.height = v63;
+  v43 = CGRectGetWidth(v73) - v40 - v65;
+  v74.origin.x = v64;
+  v74.origin.y = v11;
+  v74.size.width = v67;
+  v74.size.height = v63;
+  v60 = CGRectGetWidth(v74) - v40;
+  v44 = [(UITextField *)self->_nameField sizeThatFits:v43, 1.0];
+  v66 = v45;
   nameField = self->_nameField;
-  SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v36, v38 + 0.0, v39, v40, v52, v10, v55, v51);
+  SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v40, v42 + 0.0, v43, v45, v64, v11, v67, v63, v44, v47);
   [(UITextField *)nameField setFrame:?];
   mainScreen = [MEMORY[0x277D759A0] mainScreen];
   [mainScreen scale];
-  v44 = 1.0 / v43;
+  v50 = 1.0 / v49;
 
   divider1 = self->_divider1;
-  SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v36, v50 + 0.0, v48, v44, v52, v27, v55, v51);
-  [(CALayer *)divider1 setFrame:?];
+  SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v40, v62 + 0.0, v60, v50, v64, v29, v67, v63, v52, v53);
+  v54 = [(CALayer *)divider1 setFrame:?];
   handleField = self->_handleField;
-  SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v36, v50 + 0.0 + v49, v39, v54, v52, v27, v55, v51);
-  [(UITextField *)handleField setFrame:?];
+  SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v40, v62 + 0.0 + v61, v43, v66, v64, v29, v67, v63, v54, v56);
+  v57 = [(UITextField *)handleField setFrame:?];
   imageView = self->_imageView;
-  SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v4, 8.0, 56.0, 56.0, v52, v27, v55, v51);
+  SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v4, 8.0, 56.0, 56.0, v64, v29, v67, v63, v57, v59);
   [(SKUIImageView *)imageView setFrame:?];
 }
 
@@ -442,6 +442,30 @@ LABEL_6:
   [v7 setAttributedPlaceholder:v13];
 
   return v7;
+}
+
++ (void)prefetchResourcesForSettingDescription:(uint64_t)a3 reason:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIEditProfileSettingDescriptionView prefetchResourcesForSettingDescription:reason:context:]";
+}
+
++ (void)preferredSizeForSettingDescription:(uint64_t)a3 context:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIEditProfileSettingDescriptionView preferredSizeForSettingDescription:context:]";
+}
+
++ (void)requestLayoutForSettingDescription:(uint64_t)a3 width:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIEditProfileSettingDescriptionView requestLayoutForSettingDescription:width:context:]";
+}
+
++ (void)sizeThatFitsWidth:(uint64_t)a3 settingDescription:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIEditProfileSettingDescriptionView sizeThatFitsWidth:settingDescription:context:]";
 }
 
 @end

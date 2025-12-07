@@ -140,40 +140,36 @@ void __44__SPDeviceConnection_sharedDeviceConnection__block_invoke(uint64_t a1)
 
 void __52__SPDeviceConnection_createXPCConnectionIfNecessary__block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = wk_default_log();
+  v8 = *MEMORY[0x277D85DE8];
+  v2 = wk_default_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136446466;
-    v6 = "[SPDeviceConnection createXPCConnectionIfNecessary]_block_invoke";
-    v7 = 1024;
-    v8 = 110;
-    _os_log_impl(&dword_23B338000, v2, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: SPDeviceConnection, createXPCConnection, interruptionHandler", &v5, 0x12u);
+    v4 = 136446466;
+    v5 = "[SPDeviceConnection createXPCConnectionIfNecessary]_block_invoke";
+    v6 = 1024;
+    v7 = 110;
+    _os_log_impl(&dword_23B338000, v2, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: SPDeviceConnection, createXPCConnection, interruptionHandler", &v4, 0x12u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained invalidateXPCConnection];
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __52__SPDeviceConnection_createXPCConnectionIfNecessary__block_invoke_80(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = wk_default_log();
+  v8 = *MEMORY[0x277D85DE8];
+  v2 = wk_default_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136446466;
-    v6 = "[SPDeviceConnection createXPCConnectionIfNecessary]_block_invoke";
-    v7 = 1024;
-    v8 = 115;
-    _os_log_impl(&dword_23B338000, v2, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: SPDeviceConnection, createXPCConnection, invalidationHandler", &v5, 0x12u);
+    v4 = 136446466;
+    v5 = "[SPDeviceConnection createXPCConnectionIfNecessary]_block_invoke";
+    v6 = 1024;
+    v7 = 115;
+    _os_log_impl(&dword_23B338000, v2, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: SPDeviceConnection, createXPCConnection, invalidationHandler", &v4, 0x12u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained invalidateXPCConnection];
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invalidateXPCConnection
@@ -246,10 +242,10 @@ void __45__SPDeviceConnection_connectionProxy_caller___block_invoke(uint64_t a1)
 void __45__SPDeviceConnection_connectionProxy_caller___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = wk_default_log();
+  v4 = wk_default_log(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __45__SPDeviceConnection_connectionProxy_caller___block_invoke_2_cold_1(a1);
+    __45__SPDeviceConnection_connectionProxy_caller___block_invoke_2_cold_1();
   }
 
   [*(a1 + 32) invalidateXPCConnection];
@@ -372,12 +368,13 @@ void __45__SPDeviceConnection_connectionProxy_caller___block_invoke_2(uint64_t a
 void __52__SPDeviceConnection_installApplication_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if (v5)
   {
-    v6 = wk_default_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = wk_default_log(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __52__SPDeviceConnection_installApplication_completion___block_invoke_cold_1(a1);
+      __52__SPDeviceConnection_installApplication_completion___block_invoke_cold_1();
     }
   }
 
@@ -509,7 +506,7 @@ uint64_t __68__SPDeviceConnection_removeApplication_fromPairedDevice_completion_
 
   else
   {
-    v7 = wk_default_log();
+    v7 = wk_default_log(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [SPDeviceConnection showUserNotification:bundleID:];
@@ -521,34 +518,35 @@ uint64_t __68__SPDeviceConnection_removeApplication_fromPairedDevice_completion_
 {
   nameCopy = name;
   dCopy = d;
+  v10 = dCopy;
   if (nameCopy)
   {
-    v10 = [(SPDeviceConnection *)self connectionProxy:&__block_literal_global_90 caller:"[SPDeviceConnection showUserNotification:applicationName:extensionBundleID:]"];
-    v11 = v10;
-    if (dCopy)
+    v11 = [(SPDeviceConnection *)self connectionProxy:&__block_literal_global_90 caller:"[SPDeviceConnection showUserNotification:applicationName:extensionBundleID:]"];
+    v12 = v11;
+    if (v10)
     {
-      v12[0] = MEMORY[0x277D85DD0];
-      v12[1] = 3221225472;
-      v12[2] = __77__SPDeviceConnection_showUserNotification_applicationName_extensionBundleID___block_invoke_2;
-      v12[3] = &unk_278B7F070;
-      v13 = dCopy;
-      v11 = v11;
-      v14 = v11;
+      v13[0] = MEMORY[0x277D85DD0];
+      v13[1] = 3221225472;
+      v13[2] = __77__SPDeviceConnection_showUserNotification_applicationName_extensionBundleID___block_invoke_2;
+      v13[3] = &unk_278B7F070;
+      v14 = v10;
+      v12 = v12;
+      v15 = v12;
       notificationCopy = notification;
-      v15 = nameCopy;
-      [v11 fetchInstalledApplicationsWithCompletion:v12];
+      v16 = nameCopy;
+      [v12 fetchInstalledApplicationsWithCompletion:v13];
     }
 
     else
     {
-      [v10 showUserNotification:notification applicationName:nameCopy];
+      [v11 showUserNotification:notification applicationName:nameCopy];
     }
   }
 
   else
   {
-    v11 = wk_default_log();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = wk_default_log(dCopy);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [SPDeviceConnection showUserNotification:applicationName:extensionBundleID:];
     }
@@ -557,28 +555,28 @@ uint64_t __68__SPDeviceConnection_removeApplication_fromPairedDevice_completion_
 
 void __77__SPDeviceConnection_showUserNotification_applicationName_extensionBundleID___block_invoke_2(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     do
     {
       v7 = 0;
       do
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = [v3 objectForKeyedSubscript:*(*(&v12 + 1) + 8 * v7)];
+        v8 = [v3 objectForKeyedSubscript:*(*(&v11 + 1) + 8 * v7)];
         v9 = [v8 objectForKeyedSubscript:@"SPPluginBundleIdKey"];
         v10 = [v9 isEqualToString:*(a1 + 32)];
 
@@ -591,13 +589,11 @@ void __77__SPDeviceConnection_showUserNotification_applicationName_extensionBund
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)hideUserNotification
@@ -698,42 +694,40 @@ void __77__SPDeviceConnection_showUserNotification_applicationName_extensionBund
 
 - (void)_enumerateObserversSafely:(id)safely
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   safelyCopy = safely;
   if (safelyCopy)
   {
-    v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
     v12 = 0u;
+    v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
     v5 = [(NSHashTable *)self->_observers copy];
-    v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v12;
+      v8 = *v11;
       do
       {
         v9 = 0;
         do
         {
-          if (*v12 != v8)
+          if (*v11 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          safelyCopy[2](safelyCopy, *(*(&v11 + 1) + 8 * v9++));
+          safelyCopy[2](safelyCopy, *(*(&v10 + 1) + 8 * v9++));
         }
 
         while (v7 != v9);
-        v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
       }
 
       while (v7);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)installApplication:(id)application withProvisioningProfiles:(id)profiles completion:(id)completion
@@ -758,12 +752,13 @@ void __77__SPDeviceConnection_showUserNotification_applicationName_extensionBund
 void __77__SPDeviceConnection_installApplication_withProvisioningProfiles_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if (v5)
   {
-    v6 = wk_default_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = wk_default_log(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __77__SPDeviceConnection_installApplication_withProvisioningProfiles_completion___block_invoke_cold_1(a1);
+      __77__SPDeviceConnection_installApplication_withProvisioningProfiles_completion___block_invoke_cold_1();
     }
   }
 
@@ -793,12 +788,13 @@ void __77__SPDeviceConnection_installApplication_withProvisioningProfiles_comple
 void __92__SPDeviceConnection_installApplication_withProvisioningProfiles_onPairedDevice_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if (v5)
   {
-    v6 = wk_default_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = wk_default_log(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __92__SPDeviceConnection_installApplication_withProvisioningProfiles_onPairedDevice_completion___block_invoke_cold_1(a1);
+      __92__SPDeviceConnection_installApplication_withProvisioningProfiles_onPairedDevice_completion___block_invoke_cold_1();
     }
   }
 
@@ -886,7 +882,7 @@ void __101__SPDeviceConnection_installApplication_withProvisioningProfiles_onPai
   stateCopy = state;
   if (state >= 0xF)
   {
-    v4 = wk_default_log();
+    v4 = wk_default_log(self);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       [SPDeviceConnection appInstallStateForAppConduitInstallState:];
@@ -905,49 +901,41 @@ void __101__SPDeviceConnection_installApplication_withProvisioningProfiles_onPai
   return WeakRetained;
 }
 
-void __45__SPDeviceConnection_connectionProxy_caller___block_invoke_2_cold_1(uint64_t a1)
+void __45__SPDeviceConnection_connectionProxy_caller___block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 48);
-  v5 = 136446978;
+  v2 = 136446978;
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4(&dword_23B338000, v2, v3, "%{public}s:%d: %{public}s - error: %{public}@", v5);
-  v4 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_23B338000, v0, v1, "%{public}s:%d: %{public}s - error: %{public}@", v2);
 }
 
-void __52__SPDeviceConnection_installApplication_completion___block_invoke_cold_1(uint64_t a1)
+void __52__SPDeviceConnection_installApplication_completion___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  v5 = 136446978;
+  v2 = 136446978;
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_4(&dword_23B338000, v2, v3, "%{public}s:%d: installApplication for %{public}@, failed with: %{public}@", v5);
-  v4 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_23B338000, v0, v1, "%{public}s:%d: installApplication for %{public}@, failed with: %{public}@", v2);
 }
 
 - (void)showUserNotification:bundleID:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
-  *v4 = 136446722;
+  v5 = *MEMORY[0x277D85DE8];
+  *v3 = 136446722;
   OUTLINED_FUNCTION_3();
-  *&v4[7] = 359;
-  v4[9] = v0;
-  v5 = v1;
-  _os_log_error_impl(&dword_23B338000, v2, OS_LOG_TYPE_ERROR, "%{public}s:%d: SPDeviceConnection, nil application name for notification %d", v4, 0x18u);
-  v3 = *MEMORY[0x277D85DE8];
+  *&v3[7] = 359;
+  v3[9] = v0;
+  v4 = v1;
+  _os_log_error_impl(&dword_23B338000, v2, OS_LOG_TYPE_ERROR, "%{public}s:%d: SPDeviceConnection, nil application name for notification %d", v3, 0x18u);
 }
 
 - (void)showUserNotification:applicationName:extensionBundleID:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
-  *v4 = 136446722;
+  v5 = *MEMORY[0x277D85DE8];
+  *v3 = 136446722;
   OUTLINED_FUNCTION_3();
-  *&v4[7] = 368;
-  v4[9] = v0;
-  v5 = v1;
-  _os_log_error_impl(&dword_23B338000, v2, OS_LOG_TYPE_ERROR, "%{public}s:%d: SPDeviceConnection, nil application name for notification %d", v4, 0x18u);
-  v3 = *MEMORY[0x277D85DE8];
+  *&v3[7] = 368;
+  v3[9] = v0;
+  v4 = v1;
+  _os_log_error_impl(&dword_23B338000, v2, OS_LOG_TYPE_ERROR, "%{public}s:%d: SPDeviceConnection, nil application name for notification %d", v3, 0x18u);
 }
 
 - (void)localeForUserNotification
@@ -959,38 +947,31 @@ void __52__SPDeviceConnection_installApplication_completion___block_invoke_cold_
   __break(1u);
 }
 
-void __77__SPDeviceConnection_installApplication_withProvisioningProfiles_completion___block_invoke_cold_1(uint64_t a1)
+void __77__SPDeviceConnection_installApplication_withProvisioningProfiles_completion___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  v5 = 136446978;
+  v2 = 136446978;
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_4(&dword_23B338000, v2, v3, "%{public}s:%d: installApplication for %{public}@, withProfiles, failed with: %{public}@", v5);
-  v4 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_23B338000, v0, v1, "%{public}s:%d: installApplication for %{public}@, withProfiles, failed with: %{public}@", v2);
 }
 
-void __92__SPDeviceConnection_installApplication_withProvisioningProfiles_onPairedDevice_completion___block_invoke_cold_1(uint64_t a1)
+void __92__SPDeviceConnection_installApplication_withProvisioningProfiles_onPairedDevice_completion___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  v5 = 136446978;
+  v2 = 136446978;
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_4(&dword_23B338000, v2, v3, "%{public}s:%d: installApplication for %{public}@, withProfiles, failed with: %{public}@", v5);
-  v4 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_23B338000, v0, v1, "%{public}s:%d: installApplication for %{public}@, withProfiles, failed with: %{public}@", v2);
 }
 
 - (void)appInstallStateForAppConduitInstallState:.cold.1()
 {
-  v5 = *MEMORY[0x277D85DE8];
-  *v3 = 136446722;
+  v4 = *MEMORY[0x277D85DE8];
+  *v2 = 136446722;
   OUTLINED_FUNCTION_3();
-  *&v3[7] = 554;
-  v3[9] = 2048;
-  v4 = v0;
-  _os_log_error_impl(&dword_23B338000, v1, OS_LOG_TYPE_ERROR, "%{public}s:%d: Failed to map ACXApplicationInstallState : %ld, returning SPApplicationInstallStateError", v3, 0x1Cu);
-  v2 = *MEMORY[0x277D85DE8];
+  *&v2[7] = 554;
+  v2[9] = 2048;
+  v3 = v0;
+  _os_log_error_impl(&dword_23B338000, v1, OS_LOG_TYPE_ERROR, "%{public}s:%d: Failed to map ACXApplicationInstallState : %ld, returning SPApplicationInstallStateError", v2, 0x1Cu);
 }
 
 @end

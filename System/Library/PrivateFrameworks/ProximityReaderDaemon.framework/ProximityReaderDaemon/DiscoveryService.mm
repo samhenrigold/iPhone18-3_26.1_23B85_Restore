@@ -18,8 +18,8 @@
 
 - (void)contentWithTopic:(NSString *)topic subtopic:(NSString *)subtopic completionHandler:(id)handler
 {
-  v9 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&unk_27FE9F580, &qword_2613A5480) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27FE9F580, &qword_2613A5480);
+  MEMORY[0x28223BE20](v9 - 8);
   v11 = &v20 - v10;
   v12 = _Block_copy(handler);
   v13 = swift_allocObject();
@@ -47,8 +47,8 @@
 
 - (void)contentListWithCompletionHandler:(id)handler
 {
-  v5 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&unk_27FE9F580, &qword_2613A5480) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27FE9F580, &qword_2613A5480);
+  MEMORY[0x28223BE20](v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);
   v9 = swift_allocObject();
@@ -72,8 +72,8 @@
 
 - (void)layoutBundleWithContentId:(NSString *)id completionHandler:(id)handler
 {
-  v7 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&unk_27FE9F580, &qword_2613A5480) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27FE9F580, &qword_2613A5480);
+  MEMORY[0x28223BE20](v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(handler);
   v11 = swift_allocObject();
@@ -99,8 +99,8 @@
 
 - (void)cancelRequestWithCompletionHandler:(id)handler
 {
-  v5 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&unk_27FE9F580, &qword_2613A5480) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27FE9F580, &qword_2613A5480);
+  MEMORY[0x28223BE20](v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);
   v9 = swift_allocObject();

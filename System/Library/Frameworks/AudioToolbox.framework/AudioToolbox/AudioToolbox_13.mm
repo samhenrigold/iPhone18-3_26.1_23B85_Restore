@@ -5626,7 +5626,7 @@ void std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_ty
   operator delete(__p);
 }
 
-void GetStringFromAudioChannelLayoutTag(uint64_t a1, int a2)
+void GetStringFromAudioChannelLayoutTag(void *a1, int a2)
 {
   v2 = a2;
   v4 = a2 & 0xFFFF0000;
@@ -6635,7 +6635,7 @@ LABEL_20:
 
   v18 = std::string::append(&v22, p_p, size);
   v19 = *&v18->__r_.__value_.__l.__data_;
-  *(a1 + 16) = *(&v18->__r_.__value_.__l + 2);
+  a1[2] = *(&v18->__r_.__value_.__l + 2);
   *a1 = v19;
   v18->__r_.__value_.__l.__size_ = 0;
   v18->__r_.__value_.__r.__words[2] = 0;
@@ -6962,7 +6962,7 @@ _BYTE *std::string::basic_string[abi:ne200100](_BYTE *__b, size_t __len, int __c
   return __b;
 }
 
-void GetChannelLayoutSphericalCoordinates(const AudioChannelLayout *a1, _DWORD *a2, int16x4_t a3)
+void GetChannelLayoutSphericalCoordinates(AudioChannelLayout *a1, _DWORD *a2, int16x4_t a3)
 {
   v37 = 0;
   v38 = 0;
@@ -7208,7 +7208,7 @@ void sub_1DDC6A8FC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *GetChannelLayoutChannelLabels(AudioChannelLayout *a1, _DWORD *a2)
+uint64_t *GetChannelLayoutChannelLabels(AudioChannelLayout *a1, _DWORD *a2)
 {
   if (*a2 == 0x10000)
   {
@@ -7698,7 +7698,7 @@ LABEL_40:
 
 void SpectralProfile::SetProfile(SpectralProfile *this, CFTypeRef cf)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   if (!cf)
   {
     exception = __cxa_allocate_exception(0x110uLL);
@@ -7735,8 +7735,8 @@ void SpectralProfile::SetProfile(SpectralProfile *this, CFTypeRef cf)
     *&buf[4] = "SpectralProfile.cpp";
     *&buf[12] = 1024;
     *&buf[14] = 66;
-    v22 = 1024;
-    v23 = valuePtr;
+    v23 = 1024;
+    v24 = valuePtr;
     v5 = MEMORY[0x1E69E9C10];
     v6 = "%25s:%-5d Successfully retrieved sample rate (%iHz).\n";
     v7 = OS_LOG_TYPE_INFO;
@@ -7753,8 +7753,8 @@ void SpectralProfile::SetProfile(SpectralProfile *this, CFTypeRef cf)
     *&buf[4] = "SpectralProfile.cpp";
     *&buf[12] = 1024;
     *&buf[14] = 68;
-    v22 = 1024;
-    v23 = valuePtr;
+    v23 = 1024;
+    v24 = valuePtr;
     v5 = MEMORY[0x1E69E9C10];
     v6 = "%25s:%-5d Sample rate retrieved ambiguously (%iHz).\n";
     v7 = OS_LOG_TYPE_DEFAULT;
@@ -7788,12 +7788,13 @@ LABEL_9:
     *&buf[4] = "SpectralProfile.cpp";
     *&buf[12] = 1024;
     *&buf[14] = 105;
-    v22 = 1024;
-    v23 = Length >> 2;
+    v23 = 1024;
+    v24 = Length >> 2;
     _os_log_impl(&dword_1DDB85000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "%25s:%-5d Successfully retrieved profile vector (length %i).\n", buf, 0x18u);
   }
 
-  std::vector<float>::vector[abi:ne200100](buf, v10);
+  v18 = 0;
+  std::vector<float>::vector[abi:ne200100](buf, v10, &v18);
   BytePtr = CFDataGetBytePtr(v8);
   if (Length >= 4)
   {
@@ -7890,7 +7891,7 @@ void SpectralProfile::GetProfile(SpectralProfile *this, double a2, uint64_t a3, 
 {
   v30 = a5;
   v11 = a4;
-  std::vector<float>::vector[abi:ne200100](__p, a4);
+  std::vector<float>::vector[abi:ne200100](__p, a4, &v30);
   v12 = *a3;
   v13 = *(a3 + 8);
   if (v13 == *a3)
@@ -7926,7 +7927,7 @@ LABEL_12:
         else
         {
           v26 = -(floorf(v22 * v23) - (v23 * v22));
-          v27 = ((1.0 - v26) * *(v12 + 4 * v24)) + (*(v12 + 4 * v25) * v26);
+          v27 = ((1.0 - v26) * v12[v24]) + (v12[v25] * v26);
         }
 
         v21[v17++] = v27;
@@ -9155,7 +9156,7 @@ void ecutils::fcn_vector_init<float>(uint64_t *a1, unsigned int a2, unsigned int
 {
   v7 = a4;
   v5 = a2;
-  std::vector<float>::vector[abi:ne200100](__p, a3);
+  std::vector<float>::vector[abi:ne200100](__p, a3, &v7);
   std::vector<std::vector<float>>::assign(a1, v5, __p);
   if (__p[0])
   {
@@ -9178,7 +9179,7 @@ void ecutils::fcn_vector_init<float>(uint64_t a1, unsigned int a2, unsigned int 
 {
   v23 = a5;
   v7 = a3;
-  std::vector<float>::vector[abi:ne200100](__p, a4);
+  std::vector<float>::vector[abi:ne200100](__p, a4, &v23);
   std::vector<std::vector<float>>::vector[abi:ne200100](&v21, v7);
   v8 = a2;
   v9 = *a1;
@@ -9284,7 +9285,7 @@ void ecutils::fcn_vector_init<float>(uint64_t a1, unsigned int a2, unsigned int 
 {
   v25 = a6;
   v9 = a4;
-  std::vector<float>::vector[abi:ne200100](__p, a5);
+  std::vector<float>::vector[abi:ne200100](__p, a5, &v25);
   std::vector<std::vector<float>>::vector[abi:ne200100](v22, v9);
   std::vector<std::vector<std::vector<float>>>::vector[abi:ne200100](&v23, a3);
   v10 = a2;
@@ -9627,7 +9628,7 @@ void std::vector<std::vector<std::vector<float>>>::__assign_with_size[abi:ne2001
   }
 }
 
-char ***std::__copy_impl::operator()[abi:ne200100]<std::vector<std::vector<float>> *,std::vector<std::vector<float>> *,std::vector<std::vector<float>> *>(char ***a1, char ***a2, uint64_t *a3)
+char ***std::__copy_impl::operator()[abi:ne200100]<std::vector<std::vector<float>> *,std::vector<std::vector<float>> *,std::vector<std::vector<float>> *>(char ***a1, char ***a2, uint64_t a3)
 {
   v4 = a1;
   if (a1 != a2)
@@ -9640,7 +9641,7 @@ char ***std::__copy_impl::operator()[abi:ne200100]<std::vector<std::vector<float
       }
 
       v4 += 3;
-      a3 += 3;
+      a3 += 24;
     }
 
     while (v4 != a2);
@@ -9678,21 +9679,21 @@ void std::vector<std::vector<std::vector<float>>>::__vdeallocate(void ***a1)
   }
 }
 
-void std::vector<std::vector<float>>::__assign_with_size[abi:ne200100]<std::vector<float>*,std::vector<float>*>(uint64_t *a1, char **a2, char **a3, unint64_t a4)
+void std::vector<std::vector<float>>::__assign_with_size[abi:ne200100]<std::vector<float>*,std::vector<float>*>(uint64_t a1, char **a2, char **a3, unint64_t a4)
 {
   v7 = *a1;
-  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 3) < a4)
+  if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *a1) >> 3) < a4)
   {
     std::vector<std::vector<float>>::__vdeallocate(a1);
     if (a4 <= 0xAAAAAAAAAAAAAAALL)
     {
-      v8 = 0x5555555555555556 * ((a1[2] - *a1) >> 3);
+      v8 = 0x5555555555555556 * ((*(a1 + 16) - *a1) >> 3);
       if (v8 <= a4)
       {
         v8 = a4;
       }
 
-      if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 3) >= 0x555555555555555)
+      if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *a1) >> 3) >= 0x555555555555555)
       {
         v9 = 0xAAAAAAAAAAAAAAALL;
       }
@@ -9708,15 +9709,15 @@ void std::vector<std::vector<float>>::__assign_with_size[abi:ne200100]<std::vect
     std::vector<std::complex<float>>::__throw_length_error[abi:ne200100]();
   }
 
-  v10 = a1[1] - v7;
+  v10 = *(a1 + 8) - v7;
   if (0xAAAAAAAAAAAAAAABLL * (v10 >> 3) >= a4)
   {
     std::__copy_impl::operator()[abi:ne200100]<std::vector<float> *,std::vector<float> *,std::vector<float> *>(a2, a3, v7);
     v13 = v12;
-    v14 = a1[1];
+    v14 = *(a1 + 8);
     if (v14 != v12)
     {
-      v15 = a1[1];
+      v15 = *(a1 + 8);
       do
       {
         v17 = *(v15 - 24);
@@ -9734,12 +9735,12 @@ void std::vector<std::vector<float>>::__assign_with_size[abi:ne200100]<std::vect
       while (v15 != v13);
     }
 
-    a1[1] = v13;
+    *(a1 + 8) = v13;
   }
 
   else
   {
     v11 = std::__copy_impl::operator()[abi:ne200100]<std::vector<float> *,std::vector<float> *,std::vector<float> *>(a2, (a2 + v10), v7);
-    a1[1] = std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<float>>,std::vector<float>*,std::vector<float>*,std::vector<float>*>(a1, v11, a3, a1[1]);
+    *(a1 + 8) = std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<float>>,std::vector<float>*,std::vector<float>*,std::vector<float>*>(a1, v11, a3, *(a1 + 8));
   }
 }

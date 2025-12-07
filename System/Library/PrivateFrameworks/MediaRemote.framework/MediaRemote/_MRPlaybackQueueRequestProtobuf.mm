@@ -590,12 +590,11 @@ LABEL_29:
 
 - (void)writeTo:(id)to
 {
-  v78 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   toCopy = to;
   has = self->_has;
   if ((has & 0x10) != 0)
   {
-    location = self->_location;
     PBDataWriterWriteInt32Field();
     has = self->_has;
     if ((has & 8) == 0)
@@ -615,7 +614,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  length = self->_length;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x400) == 0)
@@ -630,7 +628,6 @@ LABEL_4:
   }
 
 LABEL_67:
-  includeMetadata = self->_includeMetadata;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 2) == 0)
@@ -645,7 +642,6 @@ LABEL_5:
   }
 
 LABEL_68:
-  artworkWidth = self->_artworkWidth;
   PBDataWriterWriteDoubleField();
   has = self->_has;
   if ((has & 1) == 0)
@@ -660,7 +656,6 @@ LABEL_6:
   }
 
 LABEL_69:
-  artworkHeight = self->_artworkHeight;
   PBDataWriterWriteDoubleField();
   has = self->_has;
   if ((has & 0x200) == 0)
@@ -675,7 +670,6 @@ LABEL_7:
   }
 
 LABEL_70:
-  includeLyrics = self->_includeLyrics;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 0x1000) == 0)
@@ -690,7 +684,6 @@ LABEL_8:
   }
 
 LABEL_71:
-  includeSections = self->_includeSections;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 0x80) == 0)
@@ -705,12 +698,10 @@ LABEL_9:
   }
 
 LABEL_72:
-  includeInfo = self->_includeInfo;
   PBDataWriterWriteBOOLField();
   if ((*&self->_has & 0x100) != 0)
   {
 LABEL_10:
-    includeLanguageOptions = self->_includeLanguageOptions;
     PBDataWriterWriteBOOLField();
   }
 
@@ -725,38 +716,36 @@ LABEL_11:
     PBDataWriterWriteStringField();
   }
 
-  v71 = 0u;
-  v72 = 0u;
-  v69 = 0u;
-  v70 = 0u;
-  v7 = self->_contentItemIdentifiers;
-  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v69 objects:v77 count:16];
-  if (v8)
+  v50 = 0u;
+  v51 = 0u;
+  v48 = 0u;
+  v49 = 0u;
+  v6 = self->_contentItemIdentifiers;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v48 objects:v56 count:16];
+  if (v7)
   {
-    v9 = v8;
-    v10 = *v70;
+    v8 = v7;
+    v9 = *v49;
     do
     {
-      for (i = 0; i != v9; ++i)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v70 != v10)
+        if (*v49 != v9)
         {
-          objc_enumerationMutation(v7);
+          objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v69 + 1) + 8 * i);
         PBDataWriterWriteStringField();
       }
 
-      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v69 objects:v77 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v48 objects:v56 count:16];
     }
 
-    while (v9);
+    while (v8);
   }
 
   if ((*&self->_has & 0x4000) != 0)
   {
-    returnContentItemAssetsInUserCompletion = self->_returnContentItemAssetsInUserCompletion;
     PBDataWriterWriteBOOLField();
   }
 
@@ -767,7 +756,6 @@ LABEL_11:
 
   if ((*&self->_has & 4) != 0)
   {
-    cachingPolicy = self->_cachingPolicy;
     PBDataWriterWriteInt32Field();
   }
 
@@ -776,16 +764,15 @@ LABEL_11:
     PBDataWriterWriteStringField();
   }
 
-  v15 = self->_has;
-  if ((v15 & 0x2000) != 0)
+  v11 = self->_has;
+  if ((v11 & 0x2000) != 0)
   {
-    isLegacyNowPlayingInfoRequest = self->_isLegacyNowPlayingInfoRequest;
     PBDataWriterWriteBOOLField();
-    v15 = self->_has;
-    if ((v15 & 0x800) == 0)
+    v11 = self->_has;
+    if ((v11 & 0x800) == 0)
     {
 LABEL_32:
-      if ((v15 & 0x40) == 0)
+      if ((v11 & 0x40) == 0)
       {
         goto LABEL_34;
       }
@@ -799,139 +786,130 @@ LABEL_32:
     goto LABEL_32;
   }
 
-  includeParticipants = self->_includeParticipants;
   PBDataWriterWriteBOOLField();
   if ((*&self->_has & 0x40) != 0)
   {
 LABEL_33:
-    includeAvailableArtworkFormats = self->_includeAvailableArtworkFormats;
     PBDataWriterWriteBOOLField();
   }
 
 LABEL_34:
-  v67 = 0u;
-  v68 = 0u;
-  v65 = 0u;
-  v66 = 0u;
-  v17 = self->_requestedArtworkFormats;
-  v18 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v65 objects:v76 count:16];
+  v46 = 0u;
+  v47 = 0u;
+  v44 = 0u;
+  v45 = 0u;
+  v12 = self->_requestedArtworkFormats;
+  v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v44 objects:v55 count:16];
+  if (v13)
+  {
+    v14 = v13;
+    v15 = *v45;
+    do
+    {
+      for (j = 0; j != v14; ++j)
+      {
+        if (*v45 != v15)
+        {
+          objc_enumerationMutation(v12);
+        }
+
+        PBDataWriterWriteStringField();
+      }
+
+      v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v44 objects:v55 count:16];
+    }
+
+    while (v14);
+  }
+
+  v42 = 0u;
+  v43 = 0u;
+  v40 = 0u;
+  v41 = 0u;
+  v17 = self->_requestedRemoteArtworkFormats;
+  v18 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v40 objects:v54 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v66;
+    v20 = *v41;
     do
     {
-      for (j = 0; j != v19; ++j)
+      for (k = 0; k != v19; ++k)
       {
-        if (*v66 != v20)
+        if (*v41 != v20)
         {
           objc_enumerationMutation(v17);
         }
 
-        v22 = *(*(&v65 + 1) + 8 * j);
         PBDataWriterWriteStringField();
       }
 
-      v19 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v65 objects:v76 count:16];
+      v19 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v40 objects:v54 count:16];
     }
 
     while (v19);
   }
 
-  v63 = 0u;
-  v64 = 0u;
-  v61 = 0u;
-  v62 = 0u;
-  v23 = self->_requestedRemoteArtworkFormats;
-  v24 = [(NSMutableArray *)v23 countByEnumeratingWithState:&v61 objects:v75 count:16];
-  if (v24)
-  {
-    v25 = v24;
-    v26 = *v62;
-    do
-    {
-      for (k = 0; k != v25; ++k)
-      {
-        if (*v62 != v26)
-        {
-          objc_enumerationMutation(v23);
-        }
-
-        v28 = *(*(&v61 + 1) + 8 * k);
-        PBDataWriterWriteStringField();
-      }
-
-      v25 = [(NSMutableArray *)v23 countByEnumeratingWithState:&v61 objects:v75 count:16];
-    }
-
-    while (v25);
-  }
-
   if ((*&self->_has & 0x20) != 0)
   {
-    includeAlignments = self->_includeAlignments;
     PBDataWriterWriteBOOLField();
   }
 
-  v59 = 0u;
-  v60 = 0u;
-  v57 = 0u;
-  v58 = 0u;
-  v30 = self->_requestedAnimatedArtworkPreviewFrameFormats;
-  v31 = [(NSMutableArray *)v30 countByEnumeratingWithState:&v57 objects:v74 count:16];
-  if (v31)
+  v38 = 0u;
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
+  v22 = self->_requestedAnimatedArtworkPreviewFrameFormats;
+  v23 = [(NSMutableArray *)v22 countByEnumeratingWithState:&v36 objects:v53 count:16];
+  if (v23)
   {
-    v32 = v31;
-    v33 = *v58;
+    v24 = v23;
+    v25 = *v37;
     do
     {
-      for (m = 0; m != v32; ++m)
+      for (m = 0; m != v24; ++m)
       {
-        if (*v58 != v33)
+        if (*v37 != v25)
         {
-          objc_enumerationMutation(v30);
+          objc_enumerationMutation(v22);
         }
 
-        v35 = *(*(&v57 + 1) + 8 * m);
         PBDataWriterWriteStringField();
       }
 
-      v32 = [(NSMutableArray *)v30 countByEnumeratingWithState:&v57 objects:v74 count:16];
+      v24 = [(NSMutableArray *)v22 countByEnumeratingWithState:&v36 objects:v53 count:16];
     }
 
-    while (v32);
+    while (v24);
   }
 
-  v55 = 0u;
-  v56 = 0u;
-  v53 = 0u;
-  v54 = 0u;
-  v36 = self->_requestedAnimatedArtworkAssetURLFormats;
-  v37 = [(NSMutableArray *)v36 countByEnumeratingWithState:&v53 objects:v73 count:16];
-  if (v37)
+  v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
+  v27 = self->_requestedAnimatedArtworkAssetURLFormats;
+  v28 = [(NSMutableArray *)v27 countByEnumeratingWithState:&v32 objects:v52 count:16];
+  if (v28)
   {
-    v38 = v37;
-    v39 = *v54;
+    v29 = v28;
+    v30 = *v33;
     do
     {
-      for (n = 0; n != v38; ++n)
+      for (n = 0; n != v29; ++n)
       {
-        if (*v54 != v39)
+        if (*v33 != v30)
         {
-          objc_enumerationMutation(v36);
+          objc_enumerationMutation(v27);
         }
 
-        v41 = *(*(&v53 + 1) + 8 * n);
         PBDataWriterWriteStringField();
       }
 
-      v38 = [(NSMutableArray *)v36 countByEnumeratingWithState:&v53 objects:v73 count:16];
+      v29 = [(NSMutableArray *)v27 countByEnumeratingWithState:&v32 objects:v52 count:16];
     }
 
-    while (v38);
+    while (v29);
   }
-
-  v42 = *MEMORY[0x1E69E9840];
 }
 
 - (void)copyTo:(id)to
@@ -1216,7 +1194,7 @@ LABEL_31:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v74 = *MEMORY[0x1E69E9840];
+  v73 = *MEMORY[0x1E69E9840];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = v5;
   has = self->_has;
@@ -1350,30 +1328,30 @@ LABEL_11:
   v11 = *(v6 + 72);
   *(v6 + 72) = v10;
 
-  v67 = 0u;
-  v68 = 0u;
-  v65 = 0u;
   v66 = 0u;
+  v67 = 0u;
+  v64 = 0u;
+  v65 = 0u;
   v12 = self->_contentItemIdentifiers;
-  v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v65 objects:v73 count:16];
+  v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v64 objects:v72 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v66;
+    v15 = *v65;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v66 != v15)
+        if (*v65 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = [*(*(&v65 + 1) + 8 * i) copyWithZone:zone];
+        v17 = [*(*(&v64 + 1) + 8 * i) copyWithZone:zone];
         [v6 addContentItemIdentifiers:v17];
       }
 
-      v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v65 objects:v73 count:16];
+      v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v64 objects:v72 count:16];
     }
 
     while (v14);
@@ -1432,59 +1410,59 @@ LABEL_25:
   }
 
 LABEL_26:
-  v63 = 0u;
-  v64 = 0u;
-  v61 = 0u;
   v62 = 0u;
+  v63 = 0u;
+  v60 = 0u;
+  v61 = 0u;
   v23 = self->_requestedArtworkFormats;
-  v24 = [(NSMutableArray *)v23 countByEnumeratingWithState:&v61 objects:v72 count:16];
+  v24 = [(NSMutableArray *)v23 countByEnumeratingWithState:&v60 objects:v71 count:16];
   if (v24)
   {
     v25 = v24;
-    v26 = *v62;
+    v26 = *v61;
     do
     {
       for (j = 0; j != v25; ++j)
       {
-        if (*v62 != v26)
+        if (*v61 != v26)
         {
           objc_enumerationMutation(v23);
         }
 
-        v28 = [*(*(&v61 + 1) + 8 * j) copyWithZone:zone];
+        v28 = [*(*(&v60 + 1) + 8 * j) copyWithZone:zone];
         [v6 addRequestedArtworkFormats:v28];
       }
 
-      v25 = [(NSMutableArray *)v23 countByEnumeratingWithState:&v61 objects:v72 count:16];
+      v25 = [(NSMutableArray *)v23 countByEnumeratingWithState:&v60 objects:v71 count:16];
     }
 
     while (v25);
   }
 
-  v59 = 0u;
-  v60 = 0u;
-  v57 = 0u;
   v58 = 0u;
+  v59 = 0u;
+  v56 = 0u;
+  v57 = 0u;
   v29 = self->_requestedRemoteArtworkFormats;
-  v30 = [(NSMutableArray *)v29 countByEnumeratingWithState:&v57 objects:v71 count:16];
+  v30 = [(NSMutableArray *)v29 countByEnumeratingWithState:&v56 objects:v70 count:16];
   if (v30)
   {
     v31 = v30;
-    v32 = *v58;
+    v32 = *v57;
     do
     {
       for (k = 0; k != v31; ++k)
       {
-        if (*v58 != v32)
+        if (*v57 != v32)
         {
           objc_enumerationMutation(v29);
         }
 
-        v34 = [*(*(&v57 + 1) + 8 * k) copyWithZone:zone];
+        v34 = [*(*(&v56 + 1) + 8 * k) copyWithZone:zone];
         [v6 addRequestedRemoteArtworkFormats:v34];
       }
 
-      v31 = [(NSMutableArray *)v29 countByEnumeratingWithState:&v57 objects:v71 count:16];
+      v31 = [(NSMutableArray *)v29 countByEnumeratingWithState:&v56 objects:v70 count:16];
     }
 
     while (v31);
@@ -1496,65 +1474,64 @@ LABEL_26:
     *(v6 + 124) |= 0x20u;
   }
 
-  v55 = 0u;
-  v56 = 0u;
-  v53 = 0u;
   v54 = 0u;
+  v55 = 0u;
+  v52 = 0u;
+  v53 = 0u;
   v35 = self->_requestedAnimatedArtworkPreviewFrameFormats;
-  v36 = [(NSMutableArray *)v35 countByEnumeratingWithState:&v53 objects:v70 count:16];
+  v36 = [(NSMutableArray *)v35 countByEnumeratingWithState:&v52 objects:v69 count:16];
   if (v36)
   {
     v37 = v36;
-    v38 = *v54;
+    v38 = *v53;
     do
     {
       for (m = 0; m != v37; ++m)
       {
-        if (*v54 != v38)
+        if (*v53 != v38)
         {
           objc_enumerationMutation(v35);
         }
 
-        v40 = [*(*(&v53 + 1) + 8 * m) copyWithZone:zone];
+        v40 = [*(*(&v52 + 1) + 8 * m) copyWithZone:zone];
         [v6 addRequestedAnimatedArtworkPreviewFrameFormats:v40];
       }
 
-      v37 = [(NSMutableArray *)v35 countByEnumeratingWithState:&v53 objects:v70 count:16];
+      v37 = [(NSMutableArray *)v35 countByEnumeratingWithState:&v52 objects:v69 count:16];
     }
 
     while (v37);
   }
 
-  v51 = 0u;
-  v52 = 0u;
-  v49 = 0u;
   v50 = 0u;
+  v51 = 0u;
+  v48 = 0u;
+  v49 = 0u;
   v41 = self->_requestedAnimatedArtworkAssetURLFormats;
-  v42 = [(NSMutableArray *)v41 countByEnumeratingWithState:&v49 objects:v69 count:16];
+  v42 = [(NSMutableArray *)v41 countByEnumeratingWithState:&v48 objects:v68 count:16];
   if (v42)
   {
     v43 = v42;
-    v44 = *v50;
+    v44 = *v49;
     do
     {
       for (n = 0; n != v43; ++n)
       {
-        if (*v50 != v44)
+        if (*v49 != v44)
         {
           objc_enumerationMutation(v41);
         }
 
-        v46 = [*(*(&v49 + 1) + 8 * n) copyWithZone:{zone, v49}];
+        v46 = [*(*(&v48 + 1) + 8 * n) copyWithZone:{zone, v48}];
         [v6 addRequestedAnimatedArtworkAssetURLFormats:v46];
       }
 
-      v43 = [(NSMutableArray *)v41 countByEnumeratingWithState:&v49 objects:v69 count:16];
+      v43 = [(NSMutableArray *)v41 countByEnumeratingWithState:&v48 objects:v68 count:16];
     }
 
     while (v43);
   }
 
-  v47 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -1601,7 +1578,6 @@ LABEL_26:
       goto LABEL_122;
     }
 
-    v7 = *(equalCopy + 117);
     if (self->_includeMetadata)
     {
       if ((*(equalCopy + 117) & 1) == 0)
@@ -1654,7 +1630,6 @@ LABEL_26:
       goto LABEL_122;
     }
 
-    v15 = *(equalCopy + 116);
     if (self->_includeLyrics)
     {
       if ((*(equalCopy + 116) & 1) == 0)
@@ -1681,7 +1656,6 @@ LABEL_26:
       goto LABEL_122;
     }
 
-    v16 = *(equalCopy + 119);
     if (self->_includeSections)
     {
       if ((*(equalCopy + 119) & 1) == 0)
@@ -1708,7 +1682,6 @@ LABEL_26:
       goto LABEL_122;
     }
 
-    v17 = *(equalCopy + 114);
     if (self->_includeInfo)
     {
       if ((*(equalCopy + 114) & 1) == 0)
@@ -1735,7 +1708,6 @@ LABEL_26:
       goto LABEL_122;
     }
 
-    v18 = *(equalCopy + 115);
     if (self->_includeLanguageOptions)
     {
       if ((*(equalCopy + 115) & 1) == 0)
@@ -1779,16 +1751,14 @@ LABEL_26:
     }
   }
 
-  v11 = self->_has;
-  v12 = *(equalCopy + 62);
-  if ((v11 & 0x4000) != 0)
+  v10 = self->_has;
+  if ((v10 & 0x4000) != 0)
   {
     if ((*(equalCopy + 62) & 0x4000) == 0)
     {
       goto LABEL_122;
     }
 
-    v19 = *(equalCopy + 121);
     if (self->_returnContentItemAssetsInUserCompletion)
     {
       if ((*(equalCopy + 121) & 1) == 0)
@@ -1816,19 +1786,19 @@ LABEL_26:
       goto LABEL_122;
     }
 
-    v11 = self->_has;
+    v10 = self->_has;
   }
 
-  v14 = *(equalCopy + 62);
-  if ((v11 & 4) != 0)
+  v12 = *(equalCopy + 62);
+  if ((v10 & 4) != 0)
   {
-    if ((v14 & 4) == 0 || self->_cachingPolicy != *(equalCopy + 6))
+    if ((v12 & 4) == 0 || self->_cachingPolicy != *(equalCopy + 6))
     {
       goto LABEL_122;
     }
   }
 
-  else if ((v14 & 4) != 0)
+  else if ((v12 & 4) != 0)
   {
     goto LABEL_122;
   }
@@ -1841,18 +1811,17 @@ LABEL_26:
       goto LABEL_122;
     }
 
-    v11 = self->_has;
+    v10 = self->_has;
   }
 
-  v21 = *(equalCopy + 62);
-  if ((v11 & 0x2000) != 0)
+  v14 = *(equalCopy + 62);
+  if ((v10 & 0x2000) != 0)
   {
     if ((*(equalCopy + 62) & 0x2000) == 0)
     {
       goto LABEL_122;
     }
 
-    v28 = *(equalCopy + 120);
     if (self->_isLegacyNowPlayingInfoRequest)
     {
       if ((*(equalCopy + 120) & 1) == 0)
@@ -1872,14 +1841,13 @@ LABEL_26:
     goto LABEL_122;
   }
 
-  if ((v11 & 0x800) != 0)
+  if ((v10 & 0x800) != 0)
   {
     if ((*(equalCopy + 62) & 0x800) == 0)
     {
       goto LABEL_122;
     }
 
-    v29 = *(equalCopy + 118);
     if (self->_includeParticipants)
     {
       if ((*(equalCopy + 118) & 1) == 0)
@@ -1899,14 +1867,13 @@ LABEL_26:
     goto LABEL_122;
   }
 
-  if ((v11 & 0x40) != 0)
+  if ((v10 & 0x40) != 0)
   {
-    if ((v21 & 0x40) == 0)
+    if ((v14 & 0x40) == 0)
     {
       goto LABEL_122;
     }
 
-    v30 = *(equalCopy + 113);
     if (self->_includeAvailableArtworkFormats)
     {
       if ((*(equalCopy + 113) & 1) == 0)
@@ -1921,7 +1888,7 @@ LABEL_26:
     }
   }
 
-  else if ((v21 & 0x40) != 0)
+  else if ((v14 & 0x40) != 0)
   {
     goto LABEL_122;
   }
@@ -1941,25 +1908,24 @@ LABEL_26:
     }
   }
 
-  v24 = *(equalCopy + 62);
+  v17 = *(equalCopy + 62);
   if ((*&self->_has & 0x20) == 0)
   {
-    if ((v24 & 0x20) == 0)
+    if ((v17 & 0x20) == 0)
     {
       goto LABEL_97;
     }
 
 LABEL_122:
-    v27 = 0;
+    v20 = 0;
     goto LABEL_123;
   }
 
-  if ((v24 & 0x20) == 0)
+  if ((v17 & 0x20) == 0)
   {
     goto LABEL_122;
   }
 
-  v32 = *(equalCopy + 112);
   if (self->_includeAlignments)
   {
     if ((*(equalCopy + 112) & 1) == 0)
@@ -1983,17 +1949,17 @@ LABEL_97:
   requestedAnimatedArtworkAssetURLFormats = self->_requestedAnimatedArtworkAssetURLFormats;
   if (requestedAnimatedArtworkAssetURLFormats | *(equalCopy + 10))
   {
-    v27 = [(NSMutableArray *)requestedAnimatedArtworkAssetURLFormats isEqual:?];
+    v20 = [(NSMutableArray *)requestedAnimatedArtworkAssetURLFormats isEqual:?];
   }
 
   else
   {
-    v27 = 1;
+    v20 = 1;
   }
 
 LABEL_123:
 
-  return v27;
+  return v20;
 }
 
 - (unint64_t)hash
@@ -2236,7 +2202,7 @@ LABEL_46:
 
 - (void)mergeFrom:(id)from
 {
-  v63 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   fromCopy = from;
   v5 = fromCopy;
   v6 = *(fromCopy + 62);
@@ -2382,29 +2348,29 @@ LABEL_11:
     [(_MRPlaybackQueueRequestProtobuf *)self setRequestID:?];
   }
 
-  v56 = 0u;
-  v57 = 0u;
-  v54 = 0u;
   v55 = 0u;
+  v56 = 0u;
+  v53 = 0u;
+  v54 = 0u;
   v9 = *(v5 + 4);
-  v10 = [v9 countByEnumeratingWithState:&v54 objects:v62 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v53 objects:v61 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v55;
+    v12 = *v54;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v55 != v12)
+        if (*v54 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        [(_MRPlaybackQueueRequestProtobuf *)self addContentItemIdentifiers:*(*(&v54 + 1) + 8 * i)];
+        [(_MRPlaybackQueueRequestProtobuf *)self addContentItemIdentifiers:*(*(&v53 + 1) + 8 * i)];
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v54 objects:v62 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v53 objects:v61 count:16];
     }
 
     while (v11);
@@ -2475,57 +2441,57 @@ LABEL_48:
   }
 
 LABEL_49:
-  v52 = 0u;
-  v53 = 0u;
-  v50 = 0u;
   v51 = 0u;
+  v52 = 0u;
+  v49 = 0u;
+  v50 = 0u;
   v17 = *(v5 + 12);
-  v18 = [v17 countByEnumeratingWithState:&v50 objects:v61 count:16];
+  v18 = [v17 countByEnumeratingWithState:&v49 objects:v60 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v51;
+    v20 = *v50;
     do
     {
       for (j = 0; j != v19; ++j)
       {
-        if (*v51 != v20)
+        if (*v50 != v20)
         {
           objc_enumerationMutation(v17);
         }
 
-        [(_MRPlaybackQueueRequestProtobuf *)self addRequestedArtworkFormats:*(*(&v50 + 1) + 8 * j)];
+        [(_MRPlaybackQueueRequestProtobuf *)self addRequestedArtworkFormats:*(*(&v49 + 1) + 8 * j)];
       }
 
-      v19 = [v17 countByEnumeratingWithState:&v50 objects:v61 count:16];
+      v19 = [v17 countByEnumeratingWithState:&v49 objects:v60 count:16];
     }
 
     while (v19);
   }
 
-  v48 = 0u;
-  v49 = 0u;
-  v46 = 0u;
   v47 = 0u;
+  v48 = 0u;
+  v45 = 0u;
+  v46 = 0u;
   v22 = *(v5 + 13);
-  v23 = [v22 countByEnumeratingWithState:&v46 objects:v60 count:16];
+  v23 = [v22 countByEnumeratingWithState:&v45 objects:v59 count:16];
   if (v23)
   {
     v24 = v23;
-    v25 = *v47;
+    v25 = *v46;
     do
     {
       for (k = 0; k != v24; ++k)
       {
-        if (*v47 != v25)
+        if (*v46 != v25)
         {
           objc_enumerationMutation(v22);
         }
 
-        [(_MRPlaybackQueueRequestProtobuf *)self addRequestedRemoteArtworkFormats:*(*(&v46 + 1) + 8 * k)];
+        [(_MRPlaybackQueueRequestProtobuf *)self addRequestedRemoteArtworkFormats:*(*(&v45 + 1) + 8 * k)];
       }
 
-      v24 = [v22 countByEnumeratingWithState:&v46 objects:v60 count:16];
+      v24 = [v22 countByEnumeratingWithState:&v45 objects:v59 count:16];
     }
 
     while (v24);
@@ -2537,63 +2503,61 @@ LABEL_49:
     *&self->_has |= 0x20u;
   }
 
-  v44 = 0u;
-  v45 = 0u;
-  v42 = 0u;
   v43 = 0u;
+  v44 = 0u;
+  v41 = 0u;
+  v42 = 0u;
   v27 = *(v5 + 11);
-  v28 = [v27 countByEnumeratingWithState:&v42 objects:v59 count:16];
+  v28 = [v27 countByEnumeratingWithState:&v41 objects:v58 count:16];
   if (v28)
   {
     v29 = v28;
-    v30 = *v43;
+    v30 = *v42;
     do
     {
       for (m = 0; m != v29; ++m)
       {
-        if (*v43 != v30)
+        if (*v42 != v30)
         {
           objc_enumerationMutation(v27);
         }
 
-        [(_MRPlaybackQueueRequestProtobuf *)self addRequestedAnimatedArtworkPreviewFrameFormats:*(*(&v42 + 1) + 8 * m)];
+        [(_MRPlaybackQueueRequestProtobuf *)self addRequestedAnimatedArtworkPreviewFrameFormats:*(*(&v41 + 1) + 8 * m)];
       }
 
-      v29 = [v27 countByEnumeratingWithState:&v42 objects:v59 count:16];
+      v29 = [v27 countByEnumeratingWithState:&v41 objects:v58 count:16];
     }
 
     while (v29);
   }
 
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
   v39 = 0u;
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
   v32 = *(v5 + 10);
-  v33 = [v32 countByEnumeratingWithState:&v38 objects:v58 count:16];
+  v33 = [v32 countByEnumeratingWithState:&v37 objects:v57 count:16];
   if (v33)
   {
     v34 = v33;
-    v35 = *v39;
+    v35 = *v38;
     do
     {
       for (n = 0; n != v34; ++n)
       {
-        if (*v39 != v35)
+        if (*v38 != v35)
         {
           objc_enumerationMutation(v32);
         }
 
-        [(_MRPlaybackQueueRequestProtobuf *)self addRequestedAnimatedArtworkAssetURLFormats:*(*(&v38 + 1) + 8 * n), v38];
+        [(_MRPlaybackQueueRequestProtobuf *)self addRequestedAnimatedArtworkAssetURLFormats:*(*(&v37 + 1) + 8 * n), v37];
       }
 
-      v34 = [v32 countByEnumeratingWithState:&v38 objects:v58 count:16];
+      v34 = [v32 countByEnumeratingWithState:&v37 objects:v57 count:16];
     }
 
     while (v34);
   }
-
-  v37 = *MEMORY[0x1E69E9840];
 }
 
 @end

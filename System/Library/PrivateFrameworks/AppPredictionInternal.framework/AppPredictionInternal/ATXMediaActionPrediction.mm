@@ -30,7 +30,7 @@
 
 + (id)updatedPlayMediaAction:(id)action withUpcomingMedia:(id)media
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   actionCopy = action;
   mediaCopy = media;
   if (actionCopy)
@@ -41,8 +41,8 @@
     actionKey = [actionCopy actionKey];
     v11 = [(ATXActionPredictionContainer *)v8 initWithScoredAction:v7 slotSet:slotSet actionKey:actionKey];
 
-    v20[0] = v11;
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
+    v19[0] = v11;
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
     actionKey2 = [actionCopy actionKey];
     v14 = [ATXMediaActionPrediction updatePlayMediaActionPredictions:v12 withUpcomingMedia:mediaCopy forActionKey:actionKey2 appActionPredictionItem:0 appActionLogProbability:0 statistics:0.0];
 
@@ -64,125 +64,123 @@
     predictedItem = 0;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return predictedItem;
 }
 
 + (id)updatePlayMediaActionPredictions:(id)predictions withUpcomingMedia:(id)media forActionKey:(id)key appActionPredictionItem:(const ATXPredictionItem *)item appActionLogProbability:(double)probability statistics:(id)statistics
 {
-  v95 = *MEMORY[0x277D85DE8];
+  v97 = *MEMORY[0x277D85DE8];
   predictionsCopy = predictions;
   mediaCopy = media;
   keyCopy = key;
   statisticsCopy = statistics;
-  v74 = keyCopy;
-  v75 = objc_opt_new();
-  v82 = [_ATXActionUtils getBundleIdFromActionKey:keyCopy];
+  v76 = keyCopy;
+  v77 = objc_opt_new();
+  v84 = [_ATXActionUtils getBundleIdFromActionKey:keyCopy];
   if ([predictionsCopy count])
   {
+    v88 = 0u;
+    v89 = 0u;
     v86 = 0u;
     v87 = 0u;
-    v84 = 0u;
-    v85 = 0u;
     obj = predictionsCopy;
-    v14 = [obj countByEnumeratingWithState:&v84 objects:v94 count:16];
+    v14 = [obj countByEnumeratingWithState:&v86 objects:v96 count:16];
     if (!v14)
     {
       goto LABEL_39;
     }
 
-    v80 = *v85;
+    v82 = *v87;
     while (1)
     {
-      v81 = v14;
-      for (i = 0; i != v81; ++i)
+      v83 = v14;
+      for (i = 0; i != v83; ++i)
       {
-        if (*v85 != v80)
+        if (*v87 != v82)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v84 + 1) + 8 * i);
+        v16 = *(*(&v86 + 1) + 8 * i);
         scoredAction = [v16 scoredAction];
         predictedItem = [scoredAction predictedItem];
         bundleId = [predictedItem bundleId];
-        v20 = [v82 isEqualToString:bundleId];
+        v20 = [v84 isEqualToString:bundleId];
 
         if (v20)
         {
           scoredAction2 = [v16 scoredAction];
           predictedItem2 = [scoredAction2 predictedItem];
           intent = [predictedItem2 intent];
-          v24 = [self resolvePlayMediaIntent:intent withUpcomingMedia:mediaCopy];
+          v25 = [self resolvePlayMediaIntent:intent withUpcomingMedia:mediaCopy];
 
-          if (!v24)
+          if (!v25)
           {
             goto LABEL_30;
           }
 
-          first = [v24 first];
-          second = [v24 second];
+          first = [v25 first];
+          second = [v25 second];
           bOOLValue = [second BOOLValue];
 
           if (first)
           {
             if (bOOLValue)
             {
-              v28 = __atxlog_handle_default();
-              if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+              v30 = __atxlog_handle_default(v29);
+              if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
               {
                 *buf = 138412290;
-                v89 = v82;
-                _os_log_impl(&dword_2263AA000, v28, OS_LOG_TYPE_INFO, "Media prediction for bundle %@ did use upcoming media. Creating new prediction, and setting isFutureMedia flag.", buf, 0xCu);
+                v91 = v84;
+                _os_log_impl(&dword_2263AA000, v30, OS_LOG_TYPE_INFO, "Media prediction for bundle %@ did use upcoming media. Creating new prediction, and setting isFutureMedia flag.", buf, 0xCu);
               }
 
-              [first _setLaunchId:v82];
-              v29 = objc_alloc(MEMORY[0x277CEB2C8]);
+              [first _setLaunchId:v84];
+              v31 = objc_alloc(MEMORY[0x277CEB2C8]);
               uUID = [MEMORY[0x277CCAD78] UUID];
-              LOBYTE(v72) = 1;
-              v31 = [v29 initWithIntent:first actionUUID:uUID bundleId:v82 heuristic:0 heuristicMetadata:0 criteria:0 isFutureMedia:v72 title:0 subtitle:0];
+              LOBYTE(v74) = 1;
+              v33 = [v31 initWithIntent:first actionUUID:uUID bundleId:v84 heuristic:0 heuristicMetadata:0 criteria:0 isFutureMedia:v74 title:0 subtitle:0];
 
-              v32 = [ATXMinimalSlotResolutionParameters alloc];
+              v34 = [ATXMinimalSlotResolutionParameters alloc];
               scoredAction3 = [v16 scoredAction];
               predictedItem3 = [scoredAction3 predictedItem];
               slotSet = [v16 slotSet];
-              v36 = [(ATXMinimalSlotResolutionParameters *)v32 initWithAction:predictedItem3 slots:slotSet];
+              v38 = [(ATXMinimalSlotResolutionParameters *)v34 initWithAction:predictedItem3 slots:slotSet];
 
-              v37 = [ATXMinimalSlotResolutionParameters alloc];
+              v39 = [ATXMinimalSlotResolutionParameters alloc];
               slotSet2 = [v16 slotSet];
-              v39 = [(ATXMinimalSlotResolutionParameters *)v37 initWithAction:v31 slots:slotSet2];
+              v41 = [(ATXMinimalSlotResolutionParameters *)v39 initWithAction:v33 slots:slotSet2];
 
-              v40 = [(ATXMinimalSlotResolutionParameters *)v36 isEqual:v39];
+              v42 = [(ATXMinimalSlotResolutionParameters *)v38 isEqual:v41];
               if (statisticsCopy)
               {
-                v41 = v40;
+                v43 = v42;
               }
 
               else
               {
-                v41 = 1;
+                v43 = 1;
               }
 
-              if ((v41 & 1) == 0)
+              if ((v43 & 1) == 0)
               {
-                v42 = [statisticsCopy[2] objectForKeyedSubscript:v36];
-                [statisticsCopy[2] setObject:v42 forKeyedSubscript:v39];
+                v44 = [statisticsCopy[2] objectForKeyedSubscript:v38];
+                [statisticsCopy[2] setObject:v44 forKeyedSubscript:v41];
 
-                [statisticsCopy[2] removeObjectForKey:v36];
+                [statisticsCopy[2] removeObjectForKey:v38];
               }
 
-              v43 = objc_alloc(MEMORY[0x277CEB7F0]);
+              v45 = objc_alloc(MEMORY[0x277CEB7F0]);
               [v16 score];
-              v44 = [v43 initWithPredictedItem:v31 score:?];
-              v45 = [ATXActionPredictionContainer alloc];
+              v46 = [v45 initWithPredictedItem:v33 score:?];
+              v47 = [ATXActionPredictionContainer alloc];
               slotSet3 = [v16 slotSet];
-              v47 = [(ATXActionPredictionContainer *)v45 initWithScoredAction:v44 slotSet:slotSet3 actionKey:v74];
+              v49 = [(ATXActionPredictionContainer *)v47 initWithScoredAction:v46 slotSet:slotSet3 actionKey:v76];
 
               if (v16)
               {
-                [v16 predictionItem];
-                if (v47)
+                objc_msgSend_predictionItem(v16);
+                if (v49)
                 {
                   goto LABEL_20;
                 }
@@ -192,55 +190,55 @@ LABEL_27:
 
               else
               {
-                bzero(v83, 0xD08uLL);
-                if (!v47)
+                bzero(v85, 0xD08uLL);
+                if (!v49)
                 {
                   goto LABEL_27;
                 }
 
 LABEL_20:
-                [(ATXActionPredictionContainer *)v47 setPredictionItem:v83];
+                [(ATXActionPredictionContainer *)v49 setPredictionItem:v85];
               }
 
-              [v75 addObject:v47];
+              [v77 addObject:v49];
             }
 
             else
             {
-              v51 = __atxlog_handle_default();
-              if (os_log_type_enabled(v51, OS_LOG_TYPE_INFO))
+              v53 = __atxlog_handle_default(v29);
+              if (os_log_type_enabled(v53, OS_LOG_TYPE_INFO))
               {
                 *buf = 138412290;
-                v89 = v82;
-                _os_log_impl(&dword_2263AA000, v51, OS_LOG_TYPE_INFO, "Media prediction for bundle %@ did not need to use upcoming media. Returning original prediction.", buf, 0xCu);
+                v91 = v84;
+                _os_log_impl(&dword_2263AA000, v53, OS_LOG_TYPE_INFO, "Media prediction for bundle %@ did not need to use upcoming media. Returning original prediction.", buf, 0xCu);
               }
 
-              [v75 addObject:v16];
+              [v77 addObject:v16];
             }
           }
 
           goto LABEL_30;
         }
 
-        v24 = __atxlog_handle_default();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
+        v25 = __atxlog_handle_default(v21);
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
         {
           scoredAction4 = [v16 scoredAction];
           predictedItem4 = [scoredAction4 predictedItem];
           bundleId2 = [predictedItem4 bundleId];
           *buf = 138412802;
-          v89 = v82;
-          v90 = 2112;
-          v91 = v74;
+          v91 = v84;
           v92 = 2112;
-          v93 = bundleId2;
-          _os_log_fault_impl(&dword_2263AA000, v24, OS_LOG_TYPE_FAULT, "ERROR: bundleId extracted from actionKey (bundleId: %@, actionKey: %@) does not equal to bundleId in ATXActionPredictionContainer (bundleId in prediction: %@).", buf, 0x20u);
+          v93 = v76;
+          v94 = 2112;
+          v95 = bundleId2;
+          _os_log_fault_impl(&dword_2263AA000, v25, OS_LOG_TYPE_FAULT, "ERROR: bundleId extracted from actionKey (bundleId: %@, actionKey: %@) does not equal to bundleId in ATXActionPredictionContainer (bundleId in prediction: %@).", buf, 0x20u);
         }
 
 LABEL_30:
       }
 
-      v14 = [obj countByEnumeratingWithState:&v84 objects:v94 count:16];
+      v14 = [obj countByEnumeratingWithState:&v86 objects:v96 count:16];
       if (!v14)
       {
         goto LABEL_39;
@@ -248,67 +246,65 @@ LABEL_30:
     }
   }
 
-  v52 = [self resolvePlayMediaIntent:0 withUpcomingMedia:mediaCopy];
-  v53 = v52;
-  if (!v52)
+  v54 = [self resolvePlayMediaIntent:0 withUpcomingMedia:mediaCopy];
+  v55 = v54;
+  if (!v54)
   {
     goto LABEL_41;
   }
 
-  obj = v52;
-  first2 = [v52 first];
-  second2 = [v53 second];
+  obj = v54;
+  first2 = [v54 first];
+  second2 = [v55 second];
   bOOLValue2 = [second2 BOOLValue];
 
   if (first2)
   {
-    v57 = __atxlog_handle_default();
-    if (os_log_type_enabled(v57, OS_LOG_TYPE_INFO))
+    v60 = __atxlog_handle_default(v59);
+    if (os_log_type_enabled(v60, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v89 = v82;
-      _os_log_impl(&dword_2263AA000, v57, OS_LOG_TYPE_INFO, "There were originally no media predictions returned for bundle %@. Used upcoming media to generate a prediction.", buf, 0xCu);
+      v91 = v84;
+      _os_log_impl(&dword_2263AA000, v60, OS_LOG_TYPE_INFO, "There were originally no media predictions returned for bundle %@. Used upcoming media to generate a prediction.", buf, 0xCu);
     }
 
-    [first2 _setLaunchId:v82];
-    v58 = objc_alloc(MEMORY[0x277CEB2C8]);
+    [first2 _setLaunchId:v84];
+    v61 = objc_alloc(MEMORY[0x277CEB2C8]);
     uUID2 = [MEMORY[0x277CCAD78] UUID];
-    LOBYTE(v72) = bOOLValue2;
-    v60 = [v58 initWithIntent:first2 actionUUID:uUID2 bundleId:v82 heuristic:0 heuristicMetadata:0 criteria:0 isFutureMedia:v72 title:0 subtitle:0];
+    LOBYTE(v74) = bOOLValue2;
+    v63 = [v61 initWithIntent:first2 actionUUID:uUID2 bundleId:v84 heuristic:0 heuristicMetadata:0 criteria:0 isFutureMedia:v74 title:0 subtitle:0];
 
-    v61 = objc_alloc(MEMORY[0x277CEB7F0]);
-    LODWORD(v62) = 1.0;
-    v63 = [v61 initWithPredictedItem:v60 score:v62];
-    v64 = [ATXActionPredictionContainer alloc];
-    slotSet4 = [v60 slotSet];
-    v66 = [(ATXActionPredictionContainer *)v64 initWithScoredAction:v63 slotSet:slotSet4 actionKey:v74];
+    v64 = objc_alloc(MEMORY[0x277CEB7F0]);
+    LODWORD(v65) = 1.0;
+    v66 = [v64 initWithPredictedItem:v63 score:v65];
+    v67 = [ATXActionPredictionContainer alloc];
+    slotSet4 = [v63 slotSet];
+    v69 = [(ATXActionPredictionContainer *)v67 initWithScoredAction:v66 slotSet:slotSet4 actionKey:v76];
 
-    [ATXSlotResolution setSlotResolutionPredictionItemForTopUpcomingMediaActionContainer:v66 appActionPredictionItem:item appActionLogProbability:probability];
-    [v75 addObject:v66];
+    [ATXSlotResolution setSlotResolutionPredictionItemForTopUpcomingMediaActionContainer:v69 appActionPredictionItem:item appActionLogProbability:probability];
+    [v77 addObject:v69];
   }
 
 LABEL_39:
-  if ([v75 count])
+  if ([v77 count])
   {
-    v67 = +[_ATXAppIconState sharedInstance];
-    allInstalledAppsKnownToSpringBoard = [v67 allInstalledAppsKnownToSpringBoard];
-    v69 = [v75 atx_filterPlayMediaIntentsWithUnavailableAppDestinationGivenSBAppList:allInstalledAppsKnownToSpringBoard];
+    v70 = +[_ATXAppIconState sharedInstance];
+    allInstalledAppsKnownToSpringBoard = [v70 allInstalledAppsKnownToSpringBoard];
+    v72 = [v77 atx_filterPlayMediaIntentsWithUnavailableAppDestinationGivenSBAppList:allInstalledAppsKnownToSpringBoard];
   }
 
   else
   {
 LABEL_41:
-    v69 = v75;
+    v72 = v77;
   }
 
-  v70 = *MEMORY[0x277D85DE8];
-
-  return v69;
+  return v72;
 }
 
 + (BOOL)upcomingMediaPreferenceForINPlayMediaIntent:(id)intent withINUpcomingMediaManagerReturnValueForTests:(id)tests
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   intentCopy = intent;
   testsCopy = tests;
   if (intentCopy)
@@ -331,37 +327,37 @@ LABEL_41:
 
         if (!mediaContainer)
         {
-          v23 = __atxlog_handle_default();
-          if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+          v24 = __atxlog_handle_default(v16);
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
           {
-            [ATXMediaActionPrediction upcomingMediaPreferenceForINPlayMediaIntent:intentCopy withINUpcomingMediaManagerReturnValueForTests:v23];
+            [ATXMediaActionPrediction upcomingMediaPreferenceForINPlayMediaIntent:intentCopy withINUpcomingMediaManagerReturnValueForTests:v24];
           }
 
           launchId2 = [intentCopy launchId];
-          v25 = [&unk_283A58970 containsObject:launchId2];
+          v26 = [&unk_283A58970 containsObject:launchId2];
 
-          if (v25)
+          if (v26)
           {
-            v20 = __atxlog_handle_default();
+            v22 = __atxlog_handle_default(v27);
             LOBYTE(v14) = 1;
-            if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+            if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
             {
               launchId3 = [intentCopy launchId];
               *buf = 138412290;
-              v31 = launchId3;
-              _os_log_impl(&dword_2263AA000, v20, OS_LOG_TYPE_INFO, "Logged error when getting upcomingMediaPreference, but since app is %@, we will prefer upcoming media for predictions.", buf, 0xCu);
+              v33 = launchId3;
+              _os_log_impl(&dword_2263AA000, v22, OS_LOG_TYPE_INFO, "Logged error when getting upcomingMediaPreference, but since app is %@, we will prefer upcoming media for predictions.", buf, 0xCu);
             }
           }
 
           else
           {
-            v20 = __atxlog_handle_default();
-            if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+            v22 = __atxlog_handle_default(v27);
+            if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
             {
               launchId4 = [intentCopy launchId];
               *buf = 138412290;
-              v31 = launchId4;
-              _os_log_impl(&dword_2263AA000, v20, OS_LOG_TYPE_INFO, "Logged error when getting upcomingMediaPreference, and since app is %@ (not Podcasts or TV), we will not prefer upcoming media for predictions.", buf, 0xCu);
+              v33 = launchId4;
+              _os_log_impl(&dword_2263AA000, v22, OS_LOG_TYPE_INFO, "Logged error when getting upcomingMediaPreference, and since app is %@ (not Podcasts or TV), we will not prefer upcoming media for predictions.", buf, 0xCu);
             }
 
             LOBYTE(v14) = 0;
@@ -376,31 +372,32 @@ LABEL_41:
 
       if (testsCopy)
       {
-        v14 = [testsCopy isEqualToNumber:&unk_283A57008];
+        v17 = [testsCopy isEqualToNumber:&unk_283A57008];
+        v14 = v17;
       }
 
       else
       {
         mEMORY[0x277CD42A0] = [MEMORY[0x277CD42A0] sharedManager];
         launchId5 = [intentCopy launchId];
-        v29 = 0;
-        v18 = [mEMORY[0x277CD42A0] _predictionModeForBundleId:launchId5 type:type error:&v29];
-        v19 = v29;
+        v31 = 0;
+        v20 = [mEMORY[0x277CD42A0] _predictionModeForBundleId:launchId5 type:type error:&v31];
+        v21 = v31;
 
-        v14 = v18 == 1;
+        v14 = v20 == 1;
       }
 
-      v20 = __atxlog_handle_default();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+      v22 = __atxlog_handle_default(v17);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
       {
         launchId6 = [intentCopy launchId];
         *buf = 138412802;
-        v31 = launchId6;
-        v32 = 2048;
-        v33 = type;
-        v34 = 1024;
-        v35 = v14;
-        _os_log_debug_impl(&dword_2263AA000, v20, OS_LOG_TYPE_DEBUG, "Checked upcoming media preference for %@ for media type %ld. Should prefer upcoming media for predictions? %d", buf, 0x1Cu);
+        v33 = launchId6;
+        v34 = 2048;
+        v35 = type;
+        v36 = 1024;
+        v37 = v14;
+        _os_log_debug_impl(&dword_2263AA000, v22, OS_LOG_TYPE_DEBUG, "Checked upcoming media preference for %@ for media type %ld. Should prefer upcoming media for predictions? %d", buf, 0x1Cu);
       }
 
 LABEL_14:
@@ -412,7 +409,6 @@ LABEL_14:
   LOBYTE(v14) = 0;
 LABEL_15:
 
-  v21 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -432,14 +428,14 @@ LABEL_15:
   {
     if (([mediaCopy preferUpcomingMediaForPredictions] & 1) == 0)
     {
-      v12 = [objc_alloc(MEMORY[0x277D42648]) initWithFirst:intentCopy second:&unk_283A57020];
+      v13 = [objc_alloc(MEMORY[0x277D42648]) initWithFirst:intentCopy second:&unk_283A57020];
 LABEL_27:
-      v18 = v12;
+      v19 = v13;
       goto LABEL_28;
     }
 
 LABEL_20:
-    v18 = 0;
+    v19 = 0;
     goto LABEL_28;
   }
 
@@ -459,13 +455,13 @@ LABEL_20:
 
         if (!mediaItems)
         {
-          v25 = __atxlog_handle_default();
-          if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+          v29 = __atxlog_handle_default(v21);
+          if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
           {
             +[ATXMediaActionPrediction resolvePlayMediaIntent:withUpcomingMedia:];
           }
 
-          v12 = [self resolveBucketLevelPrediction:intentCopy withUpcomingMedia:mediaCopy];
+          v13 = [self resolveBucketLevelPrediction:intentCopy withUpcomingMedia:mediaCopy];
           goto LABEL_27;
         }
       }
@@ -478,13 +474,13 @@ LABEL_20:
 
       if (!mediaItems2)
       {
-        v24 = __atxlog_handle_default();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+        v28 = __atxlog_handle_default(v24);
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
         {
           +[ATXMediaActionPrediction resolvePlayMediaIntent:withUpcomingMedia:];
         }
 
-        v12 = [self resolveContainerLevelPrediction:intentCopy withUpcomingMedia:mediaCopy];
+        v13 = [self resolveContainerLevelPrediction:intentCopy withUpcomingMedia:mediaCopy];
         goto LABEL_27;
       }
     }
@@ -493,34 +489,34 @@ LABEL_20:
 
     if (mediaItems3)
     {
-      v23 = __atxlog_handle_default();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+      v27 = __atxlog_handle_default(v26);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
       {
         +[ATXMediaActionPrediction resolvePlayMediaIntent:withUpcomingMedia:];
       }
 
-      v12 = [self resolveItemLevelPrediction:intentCopy withUpcomingMedia:mediaCopy];
+      v13 = [self resolveItemLevelPrediction:intentCopy withUpcomingMedia:mediaCopy];
       goto LABEL_27;
     }
 
     goto LABEL_20;
   }
 
-  v13 = __atxlog_handle_default();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+  v14 = __atxlog_handle_default(v10);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
     +[ATXMediaActionPrediction resolvePlayMediaIntent:withUpcomingMedia:];
   }
 
-  v14 = objc_alloc(MEMORY[0x277D42648]);
+  v15 = objc_alloc(MEMORY[0x277D42648]);
   sortedUpcomingMedia2 = [mediaCopy sortedUpcomingMedia];
   firstObject = [sortedUpcomingMedia2 firstObject];
   first = [firstObject first];
-  v18 = [v14 initWithFirst:first second:&unk_283A57008];
+  v19 = [v15 initWithFirst:first second:&unk_283A57008];
 
 LABEL_28:
 
-  return v18;
+  return v19;
 }
 
 + (id)resolveBucketLevelPrediction:(id)prediction withUpcomingMedia:(id)media
@@ -701,28 +697,28 @@ LABEL_15:
 
 + (id)findTopRankedINPlayMediaIntentFromArray:(id)array
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   arrayCopy = array;
   v4 = 0;
-  v5 = [arrayCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v5 = [arrayCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v5)
   {
-    v6 = *v17;
+    v6 = *v16;
     longValue = 0x8000000000000000;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v17 != v6)
+        if (*v16 != v6)
         {
           objc_enumerationMutation(arrayCopy);
         }
 
-        v9 = *(*(&v16 + 1) + 8 * i);
+        v9 = *(*(&v15 + 1) + 8 * i);
         second = [v9 second];
         v11 = [second longValue] < longValue;
 
@@ -737,24 +733,21 @@ LABEL_15:
         }
       }
 
-      v5 = [arrayCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v5 = [arrayCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v5);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 + (void)upcomingMediaPreferenceForINPlayMediaIntent:(uint64_t)a1 withINUpcomingMediaManagerReturnValueForTests:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "Attempted to get upcoming media preference, but prediction did not contain mediaContainer or any mediaItems. Prediction was %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "Attempted to get upcoming media preference, but prediction did not contain mediaContainer or any mediaItems. Prediction was %@", &v2, 0xCu);
 }
 
 @end

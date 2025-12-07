@@ -38,6 +38,7 @@
 - (void)refreshSettingsExist;
 - (void)registerForSettingsCustomized;
 - (void)restoreElementMappingToDefault;
+- (void)saveBool:(BOOL)bool forKey:(id)key;
 - (void)saveObject:(id)object forKey:(id)key;
 - (void)setCustomizationsEnabled:(BOOL)enabled;
 - (void)setGameIntentMappings:(id)mappings;
@@ -115,46 +116,43 @@ void __67__GCControllerSettings_controllerSettingsCustomizedChangedHandlers__blo
 
 + (void)registerSettingsCustomizedHandler:(id)handler forKey:(id)key
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   keyCopy = key;
-  v7 = getGCSettingsLogger();
+  v7 = getGCSettingsLogger(keyCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = _Block_copy(handlerCopy);
-    v12 = 138412546;
-    v13 = keyCopy;
-    v14 = 2112;
-    v15 = v8;
-    _os_log_impl(&dword_1D2CD5000, v7, OS_LOG_TYPE_DEFAULT, "Register settings customized handler %@ -> %@", &v12, 0x16u);
+    v11 = 138412546;
+    v12 = keyCopy;
+    v13 = 2112;
+    v14 = v8;
+    _os_log_impl(&dword_1D2CD5000, v7, OS_LOG_TYPE_DEFAULT, "Register settings customized handler %@ -> %@", &v11, 0x16u);
   }
 
   v9 = +[GCControllerSettings settingsCustomizedChangedHandlers];
   v10 = _Block_copy(handlerCopy);
   [v9 setObject:v10 forKey:keyCopy];
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 + (void)unregisterSettingsCustomizedHandlerForKey:(id)key
 {
   v9 = *MEMORY[0x1E69E9840];
   keyCopy = key;
+  v4 = keyCopy;
   if (keyCopy)
   {
-    v4 = getGCSettingsLogger();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = getGCSettingsLogger(keyCopy);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v7 = 138412290;
-      v8 = keyCopy;
-      _os_log_impl(&dword_1D2CD5000, v4, OS_LOG_TYPE_DEFAULT, "Unregister settings customized handler %@", &v7, 0xCu);
+      v8 = v4;
+      _os_log_impl(&dword_1D2CD5000, v5, OS_LOG_TYPE_DEFAULT, "Unregister settings customized handler %@", &v7, 0xCu);
     }
 
-    v5 = +[GCControllerSettings settingsCustomizedChangedHandlers];
-    [v5 removeObjectForKey:keyCopy];
+    v6 = +[GCControllerSettings settingsCustomizedChangedHandlers];
+    [v6 removeObjectForKey:v4];
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 + (void)registerSettingsCustomizedHandler:(id)handler forController:(id)controller forKey:(id)key
@@ -178,20 +176,20 @@ void __67__GCControllerSettings_controllerSettingsCustomizedChangedHandlers__blo
 
 void __79__GCControllerSettings_registerSettingsCustomizedHandler_forController_forKey___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
-  v2 = getGCSettingsLogger();
+  v19 = *MEMORY[0x1E69E9840];
+  v2 = getGCSettingsLogger(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
     v5 = _Block_copy(*(a1 + 48));
-    v14 = 138412802;
-    v15 = v3;
-    v16 = 2112;
-    v17 = v4;
-    v18 = 2112;
-    v19 = v5;
-    _os_log_impl(&dword_1D2CD5000, v2, OS_LOG_TYPE_DEFAULT, "Register controller %@ settings customized handler %@ -> %@", &v14, 0x20u);
+    v13 = 138412802;
+    v14 = v3;
+    v15 = 2112;
+    v16 = v4;
+    v17 = 2112;
+    v18 = v5;
+    _os_log_impl(&dword_1D2CD5000, v2, OS_LOG_TYPE_DEFAULT, "Register controller %@ settings customized handler %@ -> %@", &v13, 0x20u);
   }
 
   if (*(a1 + 32) && *(a1 + 40))
@@ -212,8 +210,6 @@ void __79__GCControllerSettings_registerSettingsCustomizedHandler_forController_
     v12 = _Block_copy(*(a1 + 48));
     [v11 setObject:v12 forKey:*(a1 + 40)];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 + (void)unregisterSettingsCustomizedHandlerForController:(id)controller forKey:(id)key
@@ -234,17 +230,17 @@ void __79__GCControllerSettings_registerSettingsCustomizedHandler_forController_
 
 void __80__GCControllerSettings_unregisterSettingsCustomizedHandlerForController_forKey___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v2 = getGCSettingsLogger();
+  v12 = *MEMORY[0x1E69E9840];
+  v2 = getGCSettingsLogger(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
-    v9 = 138412546;
-    v10 = v3;
-    v11 = 2112;
-    v12 = v4;
-    _os_log_impl(&dword_1D2CD5000, v2, OS_LOG_TYPE_DEFAULT, "Unregister controller %@ settings customized handler %@", &v9, 0x16u);
+    v8 = 138412546;
+    v9 = v3;
+    v10 = 2112;
+    v11 = v4;
+    _os_log_impl(&dword_1D2CD5000, v2, OS_LOG_TYPE_DEFAULT, "Unregister controller %@ settings customized handler %@", &v8, 0x16u);
   }
 
   if (*(a1 + 32) && *(a1 + 40))
@@ -262,8 +258,6 @@ void __80__GCControllerSettings_unregisterSettingsCustomizedHandlerForController
       }
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 + (id)metaDefaults
@@ -333,7 +327,7 @@ void __36__GCControllerSettings_metaDefaults__block_invoke()
 + (void)setSettingsExist:(BOOL)exist forController:(id)controller forBundleIdentifier:(id)identifier
 {
   existCopy = exist;
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   controllerCopy = controller;
   identifierCopy = identifier;
   v9 = +[GCControllerSettings metaDefaults];
@@ -371,19 +365,16 @@ LABEL_11:
   }
 
 LABEL_12:
-  [v11 setObject:v14 forKey:controllerCopy];
-  v16 = getGCSettingsLogger();
+  v16 = getGCSettingsLogger([v11 setObject:v14 forKey:controllerCopy]);
   if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
   {
-    v19 = 138412290;
-    v20 = v11;
-    _os_log_impl(&dword_1D2CD5000, v16, OS_LOG_TYPE_INFO, "Saving controller settings exist dictionary: %@", &v19, 0xCu);
+    v18 = 138412290;
+    v19 = v11;
+    _os_log_impl(&dword_1D2CD5000, v16, OS_LOG_TYPE_INFO, "Saving controller settings exist dictionary: %@", &v18, 0xCu);
   }
 
   v17 = +[GCControllerSettings metaDefaults];
   [v17 setObject:v11 forKey:@"controllerSettingsExist"];
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)settingsCustomizedForController:(id)controller forBundleIdentifier:(id)identifier
@@ -435,44 +426,44 @@ LABEL_12:
 
 - (GCControllerSettings)initWithBundleIdentifier:(id)identifier forController:(id)controller
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   controllerCopy = controller;
   if ([controllerCopy isComponentBased])
   {
-    v41.receiver = self;
-    v41.super_class = GCControllerSettings;
-    v9 = [(GCControllerSettings *)&v41 init];
+    v40.receiver = self;
+    v40.super_class = GCControllerSettings;
+    v9 = [(GCControllerSettings *)&v40 init];
     v10 = v9;
     if (v9)
     {
-      v36 = identifierCopy;
+      v35 = identifierCopy;
       objc_storeWeak(&v9->_controller, controllerCopy);
       v10->_settingsAppOpenedAtLeastOnce = 1;
       dictionary = [MEMORY[0x1E695DF90] dictionary];
+      v36 = 0u;
       v37 = 0u;
       v38 = 0u;
       v39 = 0u;
-      v40 = 0u;
       WeakRetained = objc_loadWeakRetained(&v10->_controller);
       physicalInputProfile = [WeakRetained physicalInputProfile];
       allElements = [physicalInputProfile allElements];
 
-      v15 = [allElements countByEnumeratingWithState:&v37 objects:v42 count:16];
+      v15 = [allElements countByEnumeratingWithState:&v36 objects:v41 count:16];
       if (v15)
       {
         v16 = v15;
-        v17 = *v38;
+        v17 = *v37;
         do
         {
           for (i = 0; i != v16; ++i)
           {
-            if (*v38 != v17)
+            if (*v37 != v17)
             {
               objc_enumerationMutation(allElements);
             }
 
-            v19 = *(*(&v37 + 1) + 8 * i);
+            v19 = *(*(&v36 + 1) + 8 * i);
             if ([v19 remappable])
             {
               v20 = [(GCControllerSettings *)v10 mappingKeyForElement:v19];
@@ -480,7 +471,7 @@ LABEL_12:
             }
           }
 
-          v16 = [allElements countByEnumeratingWithState:&v37 objects:v42 count:16];
+          v16 = [allElements countByEnumeratingWithState:&v36 objects:v41 count:16];
         }
 
         while (v16);
@@ -496,8 +487,8 @@ LABEL_12:
       v10->_uniqueIdentifier = identifier;
 
       identifier2 = [controllerCopy identifier];
-      identifierCopy = v36;
-      v10->_customized = [GCControllerSettings settingsCustomizedForController:identifier2 forBundleIdentifier:v36];
+      identifierCopy = v35;
+      v10->_customized = [GCControllerSettings settingsCustomizedForController:identifier2 forBundleIdentifier:v35];
 
       dictionary2 = [MEMORY[0x1E695DF90] dictionary];
       elementSettings = v10->_elementSettings;
@@ -526,7 +517,6 @@ LABEL_12:
     selfCopy = 0;
   }
 
-  v34 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -560,7 +550,7 @@ LABEL_12:
 
 void __53__GCControllerSettings_registerForSettingsCustomized__block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = a4;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -568,46 +558,46 @@ void __53__GCControllerSettings_registerForSettingsCustomized__block_invoke(uint
   if (WeakRetained)
   {
     v10 = [v6 containsObject:WeakRetained[14]];
+    v11 = v10;
     if (v10)
     {
-      v11 = getGCSettingsLogger();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v12 = getGCSettingsLogger(v10);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = 138412290;
-        v15 = v9;
-        v12 = "%@ is now customized";
+        v15 = 138412290;
+        v16 = v9;
+        v13 = "%@ is now customized";
 LABEL_8:
-        _os_log_impl(&dword_1D2CD5000, v11, OS_LOG_TYPE_DEFAULT, v12, &v14, 0xCu);
+        _os_log_impl(&dword_1D2CD5000, v12, OS_LOG_TYPE_DEFAULT, v13, &v15, 0xCu);
         goto LABEL_9;
       }
 
       goto LABEL_9;
     }
 
-    if ([v7 containsObject:v9[14]])
+    v14 = [v7 containsObject:v9[14]];
+    if (v14)
     {
-      v11 = getGCSettingsLogger();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v12 = getGCSettingsLogger(v14);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = 138412290;
-        v15 = v9;
-        v12 = "%@ is no longer customized";
+        v15 = 138412290;
+        v16 = v9;
+        v13 = "%@ is no longer customized";
         goto LABEL_8;
       }
 
 LABEL_9:
 
-      [v9 setCustomized:v10];
+      [v9 setCustomized:v11];
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)observeDefaultsKeyPath:(id)path options:(unint64_t)options context:(void *)context
 {
   pathCopy = path;
-  v9 = getGCSettingsLogger();
+  v9 = getGCSettingsLogger(pathCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     [(GCControllerSettings *)pathCopy observeDefaultsKeyPath:v9 options:v10 context:v11, v12, v13, v14, v15];
@@ -619,8 +609,8 @@ LABEL_9:
 
 - (void)dealloc
 {
-  v21 = *MEMORY[0x1E69E9840];
-  v3 = getGCSettingsLogger();
+  v20 = *MEMORY[0x1E69E9840];
+  v3 = getGCSettingsLogger(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
@@ -629,28 +619,28 @@ LABEL_9:
   }
 
   [(GCControllerSettings *)self unregisterForSettingsCustomized];
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v4 = self->_observedKeyPaths;
-  v5 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       v8 = 0;
       do
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * v8);
-        v10 = getGCSettingsLogger();
+        v9 = *(*(&v13 + 1) + 8 * v8);
+        v10 = getGCSettingsLogger(v5);
         if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
         {
           observedKeyPaths = self->_observedKeyPaths;
@@ -659,51 +649,51 @@ LABEL_9:
           _os_log_debug_impl(&dword_1D2CD5000, v10, OS_LOG_TYPE_DEBUG, "Remove observer for key path: %@", buf, 0xCu);
         }
 
-        [(NSUserDefaults *)self->_defaults removeObserver:self forKeyPath:v9];
+        v5 = [(NSUserDefaults *)self->_defaults removeObserver:self forKeyPath:v9];
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v5 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = v5;
     }
 
-    while (v6);
+    while (v5);
   }
 
-  v13.receiver = self;
-  v13.super_class = GCControllerSettings;
-  [(GCControllerSettings *)&v13 dealloc];
-  v12 = *MEMORY[0x1E69E9840];
+  v12.receiver = self;
+  v12.super_class = GCControllerSettings;
+  [(GCControllerSettings *)&v12 dealloc];
 }
 
 - (void)_updateControllerReference:(id)reference
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   objc_storeWeak(&self->_controller, reference);
   dictionary = [MEMORY[0x1E695DF90] dictionary];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   WeakRetained = objc_loadWeakRetained(&self->_controller);
   physicalInputProfile = [WeakRetained physicalInputProfile];
   allElements = [physicalInputProfile allElements];
 
-  v8 = [allElements countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v8 = [allElements countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v17;
+    v10 = *v16;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v17 != v10)
+        if (*v16 != v10)
         {
           objc_enumerationMutation(allElements);
         }
 
-        v12 = *(*(&v16 + 1) + 8 * i);
+        v12 = *(*(&v15 + 1) + 8 * i);
         if ([v12 remappable])
         {
           v13 = [(GCControllerSettings *)self mappingKeyForElement:v12];
@@ -711,7 +701,7 @@ LABEL_9:
         }
       }
 
-      v9 = [allElements countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v9 = [allElements countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v9);
@@ -722,7 +712,6 @@ LABEL_9:
 
   [(GCControllerSettings *)self initializeElementMappings];
   [(GCControllerSettings *)self initializeReplayKitDefaultMappings];
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setHapticsEnabled:(BOOL)enabled
@@ -867,43 +856,42 @@ LABEL_9:
 
 - (id)staticDefaultValues
 {
-  v6[11] = *MEMORY[0x1E69E9840];
-  v5[0] = @"hapticsEnabled";
-  v5[1] = @"screenShotEnabled";
-  v6[0] = MEMORY[0x1E695E118];
-  v6[1] = MEMORY[0x1E695E118];
-  v5[2] = @"videoRecordingEnabled";
-  v5[3] = @"gameIntentKey";
-  v6[2] = MEMORY[0x1E695E118];
-  v6[3] = @"Button Home";
-  v5[4] = @"customizedElements";
-  v5[5] = @"settingsOpenedAtLeastOnce";
-  v6[4] = MEMORY[0x1E695E0F0];
-  v6[5] = MEMORY[0x1E695E110];
-  v5[6] = @"screenShotMappingKey";
-  v5[7] = @"screenShotGestureKey";
-  v6[6] = &stru_1F4E3B4E0;
-  v6[7] = &unk_1F4E8F170;
-  v5[8] = @"videoRecordingMappingKey";
-  v5[9] = @"videoRecordingGestureKey";
-  v6[8] = &stru_1F4E3B4E0;
-  v6[9] = &unk_1F4E8F170;
-  v5[10] = @"videoRecordingModeKey";
-  v6[10] = &unk_1F4E8F170;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:v5 count:11];
-  v3 = *MEMORY[0x1E69E9840];
+  v5[11] = *MEMORY[0x1E69E9840];
+  v4[0] = @"hapticsEnabled";
+  v4[1] = @"screenShotEnabled";
+  v5[0] = MEMORY[0x1E695E118];
+  v5[1] = MEMORY[0x1E695E118];
+  v4[2] = @"videoRecordingEnabled";
+  v4[3] = @"gameIntentKey";
+  v5[2] = MEMORY[0x1E695E118];
+  v5[3] = @"Button Home";
+  v4[4] = @"customizedElements";
+  v4[5] = @"settingsOpenedAtLeastOnce";
+  v5[4] = MEMORY[0x1E695E0F0];
+  v5[5] = MEMORY[0x1E695E110];
+  v4[6] = @"screenShotMappingKey";
+  v4[7] = @"screenShotGestureKey";
+  v5[6] = &stru_1F4E3B4E0;
+  v5[7] = &unk_1F4E8F170;
+  v4[8] = @"videoRecordingMappingKey";
+  v4[9] = @"videoRecordingGestureKey";
+  v5[8] = &stru_1F4E3B4E0;
+  v5[9] = &unk_1F4E8F170;
+  v4[10] = @"videoRecordingModeKey";
+  v5[10] = &unk_1F4E8F170;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:v4 count:11];
 
   return v2;
 }
 
 - (id)defaultValues
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   staticDefaultValues = [(GCControllerSettings *)self staticDefaultValues];
   [dictionary addEntriesFromDictionary:staticDefaultValues];
 
-  v10 = @"customizationsEnabled";
+  v9 = @"customizationsEnabled";
   v5 = [(NSString *)self->_bundleIdentifier isEqualToString:@"default"];
   v6 = MEMORY[0x1E695E110];
   if (v5)
@@ -911,24 +899,22 @@ LABEL_9:
     v6 = MEMORY[0x1E695E118];
   }
 
-  v11[0] = v6;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v10[0] = v6;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
   [dictionary addEntriesFromDictionary:v7];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
 
 - (void)initializeUserDefaults
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   v3 = [(GCControllerSettings *)self suiteNameForBundleIdentifier:self->_bundleIdentifier];
-  v4 = getGCSettingsLogger();
+  v4 = getGCSettingsLogger(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v54 = v3;
+    v57 = v3;
     _os_log_impl(&dword_1D2CD5000, v4, OS_LOG_TYPE_INFO, "Initializing user defaults with suite = %@", buf, 0xCu);
   }
 
@@ -941,21 +927,21 @@ LABEL_9:
   [(NSUserDefaults *)v7 registerDefaults:staticDefaultValues];
 
   [(GCControllerSettings *)self initializeElementMappings];
-  v52[0] = @"elementMapping";
-  v52[1] = @"hapticsEnabled";
-  v52[2] = @"screenShotEnabled";
-  v52[3] = @"videoRecordingEnabled";
-  v52[6] = @"videoRecordingMappingKey";
-  v52[7] = @"videoRecordingGestureKey";
-  v52[8] = @"videoRecordingModeKey";
-  v52[9] = @"replayKitSettingsMappingKey";
-  v52[4] = @"screenShotMappingKey";
-  v52[5] = @"screenShotGestureKey";
-  v52[10] = @"gameIntentKey";
-  v52[11] = @"customizationsEnabled";
-  v52[12] = @"customizedElements";
-  v52[13] = @"settingsOpenedAtLeastOnce";
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v52 count:14];
+  v55[0] = @"elementMapping";
+  v55[1] = @"hapticsEnabled";
+  v55[2] = @"screenShotEnabled";
+  v55[3] = @"videoRecordingEnabled";
+  v55[6] = @"videoRecordingMappingKey";
+  v55[7] = @"videoRecordingGestureKey";
+  v55[8] = @"videoRecordingModeKey";
+  v55[9] = @"replayKitSettingsMappingKey";
+  v55[4] = @"screenShotMappingKey";
+  v55[5] = @"screenShotGestureKey";
+  v55[10] = @"gameIntentKey";
+  v55[11] = @"customizationsEnabled";
+  v55[12] = @"customizedElements";
+  v55[13] = @"settingsOpenedAtLeastOnce";
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v55 count:14];
   [(GCControllerSettings *)self observeDefaultsKeyPaths:v9];
 
   self->_hapticsEnabled = [(NSUserDefaults *)self->_defaults BOOLForKey:@"hapticsEnabled"];
@@ -976,7 +962,7 @@ LABEL_9:
     }
   }
 
-  v51 = v12;
+  v54 = v12;
   v14 = [(NSUserDefaults *)self->_defaults objectForKey:@"videoRecordingMappingKey"];
   videoRecordingKey = self->_videoRecordingKey;
   self->_videoRecordingKey = v14;
@@ -1068,94 +1054,89 @@ LABEL_9:
   customizedElementSettings = self->_customizedElementSettings;
   self->_customizedElementSettings = v38;
 
-  [(GCControllerSettings *)self populateElementSettings];
-  v40 = getGCSettingsLogger();
+  v40 = getGCSettingsLogger([(GCControllerSettings *)self populateElementSettings]);
   if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
   {
     hapticsEnabled = self->_hapticsEnabled;
     *buf = 67109120;
-    LODWORD(v54) = hapticsEnabled;
+    LODWORD(v57) = hapticsEnabled;
     _os_log_impl(&dword_1D2CD5000, v40, OS_LOG_TYPE_INFO, "Initialized hapticsEnabled to %d", buf, 8u);
   }
 
-  v42 = getGCSettingsLogger();
-  if (os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
+  v43 = getGCSettingsLogger(v42);
+  if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
   {
     replayKitGestureSettings = self->_replayKitGestureSettings;
     *buf = 138412290;
-    v54 = replayKitGestureSettings;
-    _os_log_impl(&dword_1D2CD5000, v42, OS_LOG_TYPE_INFO, "Initialized replayKitGestureSettings to %@", buf, 0xCu);
+    v57 = replayKitGestureSettings;
+    _os_log_impl(&dword_1D2CD5000, v43, OS_LOG_TYPE_INFO, "Initialized replayKitGestureSettings to %@", buf, 0xCu);
   }
 
-  v44 = getGCSettingsLogger();
-  if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
-  {
-    v45 = self->_general_gameIntentMappings;
-    *buf = 138412290;
-    v54 = v45;
-    _os_log_impl(&dword_1D2CD5000, v44, OS_LOG_TYPE_INFO, "Initialized gameIntentMappings to %@", buf, 0xCu);
-  }
-
-  v46 = getGCSettingsLogger();
+  v46 = getGCSettingsLogger(v45);
   if (os_log_type_enabled(v46, OS_LOG_TYPE_INFO))
+  {
+    v47 = self->_general_gameIntentMappings;
+    *buf = 138412290;
+    v57 = v47;
+    _os_log_impl(&dword_1D2CD5000, v46, OS_LOG_TYPE_INFO, "Initialized gameIntentMappings to %@", buf, 0xCu);
+  }
+
+  v49 = getGCSettingsLogger(v48);
+  if (os_log_type_enabled(v49, OS_LOG_TYPE_INFO))
   {
     customizationsEnabled = self->_customizationsEnabled;
     *buf = 67109120;
-    LODWORD(v54) = customizationsEnabled;
-    _os_log_impl(&dword_1D2CD5000, v46, OS_LOG_TYPE_INFO, "Initialized customizationsEnabled to %d", buf, 8u);
+    LODWORD(v57) = customizationsEnabled;
+    _os_log_impl(&dword_1D2CD5000, v49, OS_LOG_TYPE_INFO, "Initialized customizationsEnabled to %d", buf, 8u);
   }
 
-  v48 = getGCSettingsLogger();
-  if (os_log_type_enabled(v48, OS_LOG_TYPE_INFO))
+  v52 = getGCSettingsLogger(v51);
+  if (os_log_type_enabled(v52, OS_LOG_TYPE_INFO))
   {
-    v49 = self->_customizedElementSettings;
+    v53 = self->_customizedElementSettings;
     *buf = 138412290;
-    v54 = v49;
-    _os_log_impl(&dword_1D2CD5000, v48, OS_LOG_TYPE_INFO, "Initialized customizedElementSettings to %@", buf, 0xCu);
+    v57 = v53;
+    _os_log_impl(&dword_1D2CD5000, v52, OS_LOG_TYPE_INFO, "Initialized customizedElementSettings to %@", buf, 0xCu);
   }
-
-  v50 = *MEMORY[0x1E69E9840];
 }
 
 - (void)observeDefaultsKeyPaths:(id)paths
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   pathsCopy = paths;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v5 = [pathsCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [pathsCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(pathsCopy);
         }
 
-        [(GCControllerSettings *)self observeDefaultsKeyPath:*(*(&v10 + 1) + 8 * v8++) options:3 context:kGCSettingsContext];
+        [(GCControllerSettings *)self observeDefaultsKeyPath:*(*(&v9 + 1) + 8 * v8++) options:3 context:kGCSettingsContext];
       }
 
       while (v6 != v8);
-      v6 = [pathsCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [pathsCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)initializeReplayKitDefaultMappings
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained(&self->_controller);
 
   if (WeakRetained)
@@ -1199,17 +1180,16 @@ LABEL_9:
       if (!replayKitGestureSettings || !self->_settingsAppOpenedAtLeastOnce)
       {
         objc_storeStrong(&self->_replayKitGestureSettings, v12);
-        [(GCReplayKitGestureSettings *)self->_replayKitGestureSettings setControllerElementMappingKey:v11];
-        v14 = getGCSettingsLogger();
+        v14 = getGCSettingsLogger([(GCReplayKitGestureSettings *)self->_replayKitGestureSettings setControllerElementMappingKey:v11]);
         if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
         {
           v15 = self->_replayKitGestureSettings;
           settingsAppOpenedAtLeastOnce = self->_settingsAppOpenedAtLeastOnce;
-          v18 = 138412546;
-          v19 = v15;
-          v20 = 1024;
-          v21 = settingsAppOpenedAtLeastOnce;
-          _os_log_impl(&dword_1D2CD5000, v14, OS_LOG_TYPE_INFO, "Default ReplayKit settings = {\n                              _replayKitGestureSettings = %@\n                              _settingsAppOpenedAtLeastOnce = %d\n", &v18, 0x12u);
+          v17 = 138412546;
+          v18 = v15;
+          v19 = 1024;
+          v20 = settingsAppOpenedAtLeastOnce;
+          _os_log_impl(&dword_1D2CD5000, v14, OS_LOG_TYPE_INFO, "Default ReplayKit settings = {\n                              _replayKitGestureSettings = %@\n                              _settingsAppOpenedAtLeastOnce = %d\n", &v17, 0x12u);
         }
       }
     }
@@ -1219,36 +1199,33 @@ LABEL_9:
       [(GCControllerSettings *)self setReplayKitGestureSettings:v12];
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)initializeElementMappings
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9 = HIDWORD(*self);
-  OUTLINED_FUNCTION_0_4(&dword_1D2CD5000, a2, a3, "Initialized remapped buttons dictionary to %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *self;
+  OUTLINED_FUNCTION_0_4(&dword_1D2CD5000, a2, a3, "Initialized remapped buttons dictionary to %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
 {
-  v67 = *MEMORY[0x1E69E9840];
+  v66 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   objectCopy = object;
   changeCopy = change;
-  v13 = getGCSettingsLogger();
+  v13 = getGCSettingsLogger(changeCopy);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138413314;
     selfCopy = self;
-    v59 = 2112;
-    v60 = pathCopy;
-    v61 = 2112;
-    v62 = objectCopy;
-    v63 = 2112;
-    v64 = changeCopy;
-    v65 = 2048;
+    v58 = 2112;
+    v59 = pathCopy;
+    v60 = 2112;
+    v61 = objectCopy;
+    v62 = 2112;
+    v63 = changeCopy;
+    v64 = 2048;
     contextCopy = context;
     _os_log_debug_impl(&dword_1D2CD5000, v13, OS_LOG_TYPE_DEBUG, "%@ observeValueForKeyPath: %@ ofObject:%@ change:%@ context:%p", buf, 0x34u);
   }
@@ -1286,9 +1263,9 @@ LABEL_9:
 
     else
     {
-      v56.receiver = self;
-      v56.super_class = GCControllerSettings;
-      [(GCControllerSettings *)&v56 observeValueForKeyPath:pathCopy ofObject:objectCopy change:changeCopy context:context];
+      v55.receiver = self;
+      v55.super_class = GCControllerSettings;
+      [(GCControllerSettings *)&v55 observeValueForKeyPath:pathCopy ofObject:objectCopy change:changeCopy context:context];
     }
 
     goto LABEL_44;
@@ -1403,16 +1380,16 @@ LABEL_38:
 
   if (pathCopy == @"videoRecordingGestureKey")
   {
-    v38 = *MEMORY[0x1E696A4F0];
-    v39 = [changeCopy objectForKeyedSubscript:*MEMORY[0x1E696A4F0]];
+    v37 = *MEMORY[0x1E696A4F0];
+    v38 = [changeCopy objectForKeyedSubscript:*MEMORY[0x1E696A4F0]];
     objc_opt_class();
-    v40 = objc_opt_isKindOfClass();
+    v39 = objc_opt_isKindOfClass();
 
-    if ((v40 & 1) == 0)
+    if ((v39 & 1) == 0)
     {
       v31 = @"videoRecordingGestureKey";
       [(GCControllerSettings *)self willChangeValueForKey:@"videoRecordingGestureKey"];
-      v32 = [changeCopy objectForKeyedSubscript:v38];
+      v32 = [changeCopy objectForKeyedSubscript:v37];
       self->_videoRecordingGesture = [v32 integerValue];
 LABEL_49:
 
@@ -1428,23 +1405,23 @@ LABEL_49:
     {
       if (pathCopy == @"replayKitSettingsMappingKey")
       {
-        v44 = *MEMORY[0x1E696A4F0];
-        v45 = [changeCopy objectForKeyedSubscript:*MEMORY[0x1E696A4F0]];
+        v43 = *MEMORY[0x1E696A4F0];
+        v44 = [changeCopy objectForKeyedSubscript:*MEMORY[0x1E696A4F0]];
         objc_opt_class();
-        v46 = objc_opt_isKindOfClass();
+        v45 = objc_opt_isKindOfClass();
 
-        if ((v46 & 1) == 0)
+        if ((v45 & 1) == 0)
         {
           [(GCControllerSettings *)self willChangeValueForKey:@"replayKitSettingsMappingKey"];
-          v47 = [changeCopy objectForKeyedSubscript:v44];
-          v48 = MEMORY[0x1E696ACD0];
-          v49 = MEMORY[0x1E695DFD8];
+          v46 = [changeCopy objectForKeyedSubscript:v43];
+          v47 = MEMORY[0x1E696ACD0];
+          v48 = MEMORY[0x1E695DFD8];
+          v49 = objc_opt_class();
           v50 = objc_opt_class();
-          v51 = objc_opt_class();
-          v52 = [v49 setWithObjects:{v50, v51, objc_opt_class(), 0}];
-          v53 = [v48 unarchivedObjectOfClasses:v52 fromData:v47 error:0];
+          v51 = [v48 setWithObjects:{v49, v50, objc_opt_class(), 0}];
+          v52 = [v47 unarchivedObjectOfClasses:v51 fromData:v46 error:0];
           replayKitGestureSettings = self->_replayKitGestureSettings;
-          self->_replayKitGestureSettings = v53;
+          self->_replayKitGestureSettings = v52;
 
           [(GCControllerSettings *)self didChangeValueForKey:@"replayKitSettingsMappingKey"];
         }
@@ -1469,22 +1446,22 @@ LABEL_49:
       v14 = @"gameIntentKey";
       [(GCControllerSettings *)self willChangeValueForKey:@"gameIntentKey"];
       v15 = [changeCopy objectForKeyedSubscript:*MEMORY[0x1E696A4F0]];
-      v55 = [v15 mutableCopy];
+      v54 = [v15 mutableCopy];
       screenShotKey = self->_general_gameIntentMappings;
-      self->_general_gameIntentMappings = v55;
+      self->_general_gameIntentMappings = v54;
       goto LABEL_38;
     }
 
-    v41 = *MEMORY[0x1E696A4F0];
-    v42 = [changeCopy objectForKeyedSubscript:*MEMORY[0x1E696A4F0]];
+    v40 = *MEMORY[0x1E696A4F0];
+    v41 = [changeCopy objectForKeyedSubscript:*MEMORY[0x1E696A4F0]];
     objc_opt_class();
-    v43 = objc_opt_isKindOfClass();
+    v42 = objc_opt_isKindOfClass();
 
-    if ((v43 & 1) == 0)
+    if ((v42 & 1) == 0)
     {
       v31 = @"videoRecordingModeKey";
       [(GCControllerSettings *)self willChangeValueForKey:@"videoRecordingModeKey"];
-      v32 = [changeCopy objectForKeyedSubscript:v41];
+      v32 = [changeCopy objectForKeyedSubscript:v40];
       self->_videoRecordingMode = [v32 integerValue];
       goto LABEL_49;
     }
@@ -1498,8 +1475,6 @@ LABEL_42:
   }
 
 LABEL_44:
-
-  v37 = *MEMORY[0x1E69E9840];
 }
 
 - (id)mappingForElement:(id)element
@@ -1573,7 +1548,7 @@ LABEL_44:
 
 - (void)encodeWithCoder:(id)coder
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   [coderCopy encodeObject:self->__elementMappingFromUserDefaults forKey:@"__elementMappingFromUserDefaults"];
   [coderCopy encodeBool:self->_hapticsEnabled forKey:@"_hapticsEnabled"];
@@ -1595,8 +1570,7 @@ LABEL_44:
   [coderCopy encodeObject:self->_elementSettings forKey:@"_elementSettings"];
   [coderCopy encodeObject:self->_uniqueIdentifier forKey:@"_uniqueIdentifier"];
   [coderCopy encodeObject:self->_bundleIdentifier forKey:@"_bundleIdentifier"];
-  [coderCopy encodeBool:self->_settingsAppOpenedAtLeastOnce forKey:@"_settingsAppOpenedAtLeastOnce"];
-  v5 = getGCSettingsLogger();
+  v5 = getGCSettingsLogger([coderCopy encodeBool:self->_settingsAppOpenedAtLeastOnce forKey:@"_settingsAppOpenedAtLeastOnce"]);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     hapticsEnabled = self->_hapticsEnabled;
@@ -1615,50 +1589,48 @@ LABEL_44:
     uniqueIdentifier = self->_uniqueIdentifier;
     bundleIdentifier = self->_bundleIdentifier;
     settingsAppOpenedAtLeastOnce = self->_settingsAppOpenedAtLeastOnce;
-    v23 = 138416130;
-    v24 = elementMappingFromUserDefaults;
-    v25 = 1024;
-    v26 = hapticsEnabled;
-    v27 = 1024;
-    v28 = screenShotEnabled;
-    v29 = 1024;
-    v30 = videoRecordingEnabled;
-    v31 = 2112;
-    v32 = screenShotKey;
-    v33 = 1024;
-    v34 = screenShotGesture;
-    v35 = 2112;
-    v36 = videoRecordingKey;
-    v37 = 1024;
-    v38 = videoRecordingGesture;
-    v39 = 1024;
-    v40 = videoRecordingMode;
-    v41 = 2112;
-    v42 = general_gameIntentMappings;
-    v43 = 1024;
-    v44 = customizationsEnabled;
-    v45 = 2112;
-    v46 = customizedElementSettings;
-    v47 = 2112;
-    v48 = elementSettings;
-    v49 = 2112;
-    v50 = uniqueIdentifier;
-    v51 = 2112;
-    v52 = bundleIdentifier;
-    v53 = 1024;
-    v54 = settingsAppOpenedAtLeastOnce;
-    _os_log_impl(&dword_1D2CD5000, v5, OS_LOG_TYPE_INFO, "Encoded settings = {\n                      __elementMappingFromUserDefaults = %@\n                      _hapticsEnabled = %d\n                      _screenShotEnabled = %d\n                      _videoRecordingEnabled = %d\n                      _screenShotKey = %@\n                      _screenShotGesture = %d\n                      _videoRecordingKey = %@\n                      _videoRecordingGesture = %d\n                      _videoRecordingMode = %d\n                      _general_gameIntentMappings = %@\n                      _customizationsEnabled = %d\n                      _customizedElementSettings = %@\n                      _elementSettings = %@\n                      _uniqueIdentifier = %@\n                      _bundleIdentifier = %@\n                      _settingsAppOpenedAtLeastOnce = %d\n", &v23, 0x82u);
+    v22 = 138416130;
+    v23 = elementMappingFromUserDefaults;
+    v24 = 1024;
+    v25 = hapticsEnabled;
+    v26 = 1024;
+    v27 = screenShotEnabled;
+    v28 = 1024;
+    v29 = videoRecordingEnabled;
+    v30 = 2112;
+    v31 = screenShotKey;
+    v32 = 1024;
+    v33 = screenShotGesture;
+    v34 = 2112;
+    v35 = videoRecordingKey;
+    v36 = 1024;
+    v37 = videoRecordingGesture;
+    v38 = 1024;
+    v39 = videoRecordingMode;
+    v40 = 2112;
+    v41 = general_gameIntentMappings;
+    v42 = 1024;
+    v43 = customizationsEnabled;
+    v44 = 2112;
+    v45 = customizedElementSettings;
+    v46 = 2112;
+    v47 = elementSettings;
+    v48 = 2112;
+    v49 = uniqueIdentifier;
+    v50 = 2112;
+    v51 = bundleIdentifier;
+    v52 = 1024;
+    v53 = settingsAppOpenedAtLeastOnce;
+    _os_log_impl(&dword_1D2CD5000, v5, OS_LOG_TYPE_INFO, "Encoded settings = {\n                      __elementMappingFromUserDefaults = %@\n                      _hapticsEnabled = %d\n                      _screenShotEnabled = %d\n                      _videoRecordingEnabled = %d\n                      _screenShotKey = %@\n                      _screenShotGesture = %d\n                      _videoRecordingKey = %@\n                      _videoRecordingGesture = %d\n                      _videoRecordingMode = %d\n                      _general_gameIntentMappings = %@\n                      _customizationsEnabled = %d\n                      _customizedElementSettings = %@\n                      _elementSettings = %@\n                      _uniqueIdentifier = %@\n                      _bundleIdentifier = %@\n                      _settingsAppOpenedAtLeastOnce = %d\n", &v22, 0x82u);
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (GCControllerSettings)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v48.receiver = self;
-  v48.super_class = GCControllerSettings;
-  v5 = [(GCControllerSettings *)&v48 init];
+  v49.receiver = self;
+  v49.super_class = GCControllerSettings;
+  v5 = [(GCControllerSettings *)&v49 init];
   v6 = v5;
   if (v5)
   {
@@ -1722,17 +1694,17 @@ LABEL_44:
     elementSettings = v6->_elementSettings;
     v6->_elementSettings = v39;
 
-    v41 = GCIPCObjectIdentifier_Classes();
-    v42 = [coderCopy decodeObjectOfClasses:v41 forKey:@"_uniqueIdentifier"];
+    v42 = GCIPCObjectIdentifier_Classes(v41);
+    v43 = [coderCopy decodeObjectOfClasses:v42 forKey:@"_uniqueIdentifier"];
     uniqueIdentifier = v6->_uniqueIdentifier;
-    v6->_uniqueIdentifier = v42;
+    v6->_uniqueIdentifier = v43;
 
-    v44 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_bundleIdentifier"];
+    v45 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_bundleIdentifier"];
     bundleIdentifier = v6->_bundleIdentifier;
-    v6->_bundleIdentifier = v44;
+    v6->_bundleIdentifier = v45;
 
-    v46 = gcControllerSettingsID++;
-    v6->_settingsID = v46;
+    v47 = gcControllerSettingsID++;
+    v6->_settingsID = v47;
   }
 
   return v6;
@@ -1751,30 +1723,30 @@ LABEL_44:
 
     if (v10 == toElementCopy)
     {
-      v18 = getGCSettingsLogger();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+      v19 = getGCSettingsLogger(v11);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
       {
         *buf = 138412546;
         v22 = elementCopy;
         v23 = 2112;
         v24 = toElementCopy;
-        _os_log_impl(&dword_1D2CD5000, v18, OS_LOG_TYPE_INFO, "%@ already maps to %@!", buf, 0x16u);
+        _os_log_impl(&dword_1D2CD5000, v19, OS_LOG_TYPE_INFO, "%@ already maps to %@!", buf, 0x16u);
       }
     }
 
     else
     {
       v20 = v9;
-      v11 = +[GCAnalytics instance];
+      v12 = +[GCAnalytics instance];
       bundleIdentifier = self->_bundleIdentifier;
       WeakRetained = objc_loadWeakRetained(&self->_controller);
       productCategory = [WeakRetained productCategory];
-      v15 = mappingKeyForElement(elementCopy);
-      [v11 sendSettingsButtonCustomizedEventForBundleID:bundleIdentifier productCategory:productCategory button:v15];
+      v16 = mappingKeyForElement(elementCopy);
+      [v12 sendSettingsButtonCustomizedEventForBundleID:bundleIdentifier productCategory:productCategory button:v16];
 
-      v16 = [MEMORY[0x1E695DF90] dictionaryWithDictionary:self->_elementMappings];
-      [v16 setObject:toElementCopy forKeyedSubscript:v8];
-      objc_storeStrong(&self->_elementMappings, v16);
+      v17 = [MEMORY[0x1E695DF90] dictionaryWithDictionary:self->_elementMappings];
+      [v17 setObject:toElementCopy forKeyedSubscript:v8];
+      objc_storeStrong(&self->_elementMappings, v17);
       elementMappingFromUserDefaults = self->__elementMappingFromUserDefaults;
       if (elementCopy == toElementCopy)
       {
@@ -1799,8 +1771,6 @@ LABEL_44:
       }
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (id)elementSettingForKey:(id)key
@@ -1908,128 +1878,6 @@ void __45__GCControllerSettings_elementSettingForKey___block_invoke(uint64_t a1,
 
 - (void)populateElementSettings
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v10 = 0u;
-  v11 = 0u;
-  v12 = 0u;
-  v13 = 0u;
-  v3 = self->_customizedElementSettings;
-  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
-  if (v4)
-  {
-    v5 = v4;
-    v6 = *v11;
-    do
-    {
-      v7 = 0;
-      do
-      {
-        if (*v11 != v6)
-        {
-          objc_enumerationMutation(v3);
-        }
-
-        v8 = [(GCControllerSettings *)self elementSettingForKey:*(*(&v10 + 1) + 8 * v7++), v10];
-      }
-
-      while (v5 != v7);
-      v5 = [(NSArray *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
-    }
-
-    while (v5);
-  }
-
-  v9 = *MEMORY[0x1E69E9840];
-}
-
-- (id)settingsForElement:(id)element
-{
-  v4 = [(GCControllerSettings *)self mappingKeyForElement:element];
-  v5 = [(GCControllerSettings *)self elementSettingForKey:v4];
-
-  return v5;
-}
-
-- (void)eraseAllSettings
-{
-  v27 = *MEMORY[0x1E69E9840];
-  v3 = getGCSettingsLogger();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 0;
-    _os_log_impl(&dword_1D2CD5000, v3, OS_LOG_TYPE_DEFAULT, "eraseAllSettings", buf, 2u);
-  }
-
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
-  v21 = 0u;
-  dictionaryRepresentation = [(NSUserDefaults *)self->_defaults dictionaryRepresentation];
-  v5 = [dictionaryRepresentation countByEnumeratingWithState:&v20 objects:v26 count:16];
-  if (v5)
-  {
-    v6 = v5;
-    v7 = *v21;
-    do
-    {
-      for (i = 0; i != v6; ++i)
-      {
-        if (*v21 != v7)
-        {
-          objc_enumerationMutation(dictionaryRepresentation);
-        }
-
-        v9 = *(*(&v20 + 1) + 8 * i);
-        v10 = getGCSettingsLogger();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
-        {
-          *buf = 138412290;
-          v25 = v9;
-          _os_log_impl(&dword_1D2CD5000, v10, OS_LOG_TYPE_DEFAULT, "Erasing %@...", buf, 0xCu);
-        }
-
-        defaultValues = [(GCControllerSettings *)self defaultValues];
-        v12 = [defaultValues objectForKey:v9];
-
-        defaults = self->_defaults;
-        if (v12)
-        {
-          [(NSUserDefaults *)defaults setObject:v12 forKey:v9];
-        }
-
-        else
-        {
-          [(NSUserDefaults *)defaults removeObjectForKey:v9];
-        }
-      }
-
-      v6 = [dictionaryRepresentation countByEnumeratingWithState:&v20 objects:v26 count:16];
-    }
-
-    while (v6);
-  }
-
-  v14 = getGCSettingsLogger();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 0;
-    _os_log_impl(&dword_1D2CD5000, v14, OS_LOG_TYPE_DEFAULT, "Initializing Replay Kit default mappings...", buf, 2u);
-  }
-
-  [(GCControllerSettings *)self initializeReplayKitDefaultMappings];
-  v15 = +[GCAnalytics instance];
-  bundleIdentifier = self->_bundleIdentifier;
-  WeakRetained = objc_loadWeakRetained(&self->_controller);
-  productCategory = [WeakRetained productCategory];
-  [v15 sendSettingsCustomizationsResetEventForBundleID:bundleIdentifier productCategory:productCategory];
-
-  [GCControllerSettings setSettingsExist:0 forBundleIdentifier:self->_bundleIdentifier];
-  [GCControllerSettings setSettingsExist:0 forController:self->_uniqueIdentifier forBundleIdentifier:self->_bundleIdentifier];
-  v19 = *MEMORY[0x1E69E9840];
-}
-
-- (void)restoreElementMappingToDefault
-{
   v14 = *MEMORY[0x1E69E9840];
   v9 = 0u;
   v10 = 0u;
@@ -2051,7 +1899,7 @@ void __45__GCControllerSettings_elementSettingForKey___block_invoke(uint64_t a1,
           objc_enumerationMutation(v3);
         }
 
-        [(GCControllerSettings *)self deleteObjectForKey:*(*(&v9 + 1) + 8 * v7++), v9];
+        v8 = [(GCControllerSettings *)self elementSettingForKey:*(*(&v9 + 1) + 8 * v7++), v9];
       }
 
       while (v5 != v7);
@@ -2060,10 +1908,133 @@ void __45__GCControllerSettings_elementSettingForKey___block_invoke(uint64_t a1,
 
     while (v5);
   }
+}
+
+- (id)settingsForElement:(id)element
+{
+  v4 = [(GCControllerSettings *)self mappingKeyForElement:element];
+  v5 = [(GCControllerSettings *)self elementSettingForKey:v4];
+
+  return v5;
+}
+
+- (void)eraseAllSettings
+{
+  v27 = *MEMORY[0x1E69E9840];
+  v3 = getGCSettingsLogger(self);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_1D2CD5000, v3, OS_LOG_TYPE_DEFAULT, "eraseAllSettings", buf, 2u);
+  }
+
+  v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  dictionaryRepresentation = [(NSUserDefaults *)self->_defaults dictionaryRepresentation];
+  v5 = [dictionaryRepresentation countByEnumeratingWithState:&v20 objects:v26 count:16];
+  if (v5)
+  {
+    v6 = v5;
+    v7 = *v21;
+    do
+    {
+      v8 = 0;
+      do
+      {
+        if (*v21 != v7)
+        {
+          objc_enumerationMutation(dictionaryRepresentation);
+        }
+
+        v9 = *(*(&v20 + 1) + 8 * v8);
+        v10 = getGCSettingsLogger(v5);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 138412290;
+          v25 = v9;
+          _os_log_impl(&dword_1D2CD5000, v10, OS_LOG_TYPE_DEFAULT, "Erasing %@...", buf, 0xCu);
+        }
+
+        defaultValues = [(GCControllerSettings *)self defaultValues];
+        v12 = [defaultValues objectForKey:v9];
+
+        defaults = self->_defaults;
+        if (v12)
+        {
+          [(NSUserDefaults *)defaults setObject:v12 forKey:v9];
+        }
+
+        else
+        {
+          [(NSUserDefaults *)defaults removeObjectForKey:v9];
+        }
+
+        ++v8;
+      }
+
+      while (v6 != v8);
+      v5 = [dictionaryRepresentation countByEnumeratingWithState:&v20 objects:v26 count:16];
+      v6 = v5;
+    }
+
+    while (v5);
+  }
+
+  v15 = getGCSettingsLogger(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_1D2CD5000, v15, OS_LOG_TYPE_DEFAULT, "Initializing Replay Kit default mappings...", buf, 2u);
+  }
+
+  [(GCControllerSettings *)self initializeReplayKitDefaultMappings];
+  v16 = +[GCAnalytics instance];
+  bundleIdentifier = self->_bundleIdentifier;
+  WeakRetained = objc_loadWeakRetained(&self->_controller);
+  productCategory = [WeakRetained productCategory];
+  [v16 sendSettingsCustomizationsResetEventForBundleID:bundleIdentifier productCategory:productCategory];
+
+  [GCControllerSettings setSettingsExist:0 forBundleIdentifier:self->_bundleIdentifier];
+  [GCControllerSettings setSettingsExist:0 forController:self->_uniqueIdentifier forBundleIdentifier:self->_bundleIdentifier];
+}
+
+- (void)restoreElementMappingToDefault
+{
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
+  v9 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  v3 = self->_customizedElementSettings;
+  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  if (v4)
+  {
+    v5 = v4;
+    v6 = *v9;
+    do
+    {
+      v7 = 0;
+      do
+      {
+        if (*v9 != v6)
+        {
+          objc_enumerationMutation(v3);
+        }
+
+        [(GCControllerSettings *)self deleteObjectForKey:*(*(&v8 + 1) + 8 * v7++), v8];
+      }
+
+      while (v5 != v7);
+      v5 = [(NSArray *)v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
+    }
+
+    while (v5);
+  }
 
   [(GCControllerSettings *)self deleteObjectForKey:@"customizedElements"];
   [(GCControllerSettings *)self deleteObjectForKey:@"elementMapping"];
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)deleteObjectForKey:(id)key
@@ -2077,20 +2048,20 @@ void __45__GCControllerSettings_elementSettingForKey___block_invoke(uint64_t a1,
     {
       v6 = [(NSUserDefaults *)defaults objectForKey:keyCopy];
 
-      v7 = getGCSettingsLogger();
-      v8 = v7;
+      v8 = getGCSettingsLogger(v7);
+      v9 = v8;
       if (v6)
       {
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
         {
-          v9 = [(NSUserDefaults *)self->_defaults objectForKey:keyCopy];
+          v10 = [(NSUserDefaults *)self->_defaults objectForKey:keyCopy];
           v11 = 138412802;
           selfCopy = self;
           v13 = 2112;
           v14 = keyCopy;
           v15 = 2112;
-          v16 = v9;
-          _os_log_impl(&dword_1D2CD5000, v8, OS_LOG_TYPE_DEFAULT, "%@ - deleting from disk %@ -> %@", &v11, 0x20u);
+          v16 = v10;
+          _os_log_impl(&dword_1D2CD5000, v9, OS_LOG_TYPE_DEFAULT, "%@ - deleting from disk %@ -> %@", &v11, 0x20u);
         }
 
         [(NSUserDefaults *)self->_defaults removeObjectForKey:keyCopy];
@@ -2098,15 +2069,13 @@ void __45__GCControllerSettings_elementSettingForKey___block_invoke(uint64_t a1,
 
       else
       {
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
         {
-          [(GCControllerSettings *)self deleteObjectForKey:keyCopy, v8];
+          [(GCControllerSettings *)self deleteObjectForKey:keyCopy, v9];
         }
       }
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)refreshSettingsExist
@@ -2126,25 +2095,49 @@ void __45__GCControllerSettings_elementSettingForKey___block_invoke(uint64_t a1,
   v16 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   keyCopy = key;
+  v8 = keyCopy;
   if (self->_defaults)
   {
-    v8 = getGCSettingsLogger();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = getGCSettingsLogger(keyCopy);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v10 = 138412802;
       selfCopy = self;
       v12 = 2112;
-      v13 = keyCopy;
+      v13 = v8;
       v14 = 2112;
       v15 = objectCopy;
-      _os_log_impl(&dword_1D2CD5000, v8, OS_LOG_TYPE_DEFAULT, "%@ - saving to disk %@ -> %@", &v10, 0x20u);
+      _os_log_impl(&dword_1D2CD5000, v9, OS_LOG_TYPE_DEFAULT, "%@ - saving to disk %@ -> %@", &v10, 0x20u);
     }
 
-    [(NSUserDefaults *)self->_defaults setObject:objectCopy forKey:keyCopy];
+    [(NSUserDefaults *)self->_defaults setObject:objectCopy forKey:v8];
     [(GCControllerSettings *)self refreshSettingsExist];
   }
+}
 
-  v9 = *MEMORY[0x1E69E9840];
+- (void)saveBool:(BOOL)bool forKey:(id)key
+{
+  boolCopy = bool;
+  v15 = *MEMORY[0x1E69E9840];
+  keyCopy = key;
+  v7 = keyCopy;
+  if (self->_defaults)
+  {
+    v8 = getGCSettingsLogger(keyCopy);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    {
+      v9 = 138412802;
+      selfCopy = self;
+      v11 = 2112;
+      v12 = v7;
+      v13 = 1024;
+      v14 = boolCopy;
+      _os_log_impl(&dword_1D2CD5000, v8, OS_LOG_TYPE_DEFAULT, "%@ - saving to disk %@ -> %d", &v9, 0x1Cu);
+    }
+
+    [(NSUserDefaults *)self->_defaults setBool:boolCopy forKey:v7];
+    [(GCControllerSettings *)self refreshSettingsExist];
+  }
 }
 
 - (id)description
@@ -2160,20 +2153,19 @@ void __45__GCControllerSettings_elementSettingForKey___block_invoke(uint64_t a1,
 
 - (void)observeDefaultsKeyPath:(uint64_t)a3 options:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_4(&dword_1D2CD5000, a2, a3, "Observe: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_4(&dword_1D2CD5000, a2, a3, "Observe: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)deleteObjectForKey:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_1D2CD5000, log, OS_LOG_TYPE_ERROR, "%@ - attempting to delete %@ from disk, but it doesn't exist!", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_1D2CD5000, log, OS_LOG_TYPE_ERROR, "%@ - attempting to delete %@ from disk, but it doesn't exist!", &v3, 0x16u);
 }
 
 @end

@@ -54,10 +54,10 @@
   {
     v5 = objc_opt_class();
     block = MEMORY[0x1E69E9820];
-    v13 = 3221225472;
-    v14 = __25__PLArchiveJob_setStage___block_invoke;
-    v15 = &__block_descriptor_40_e5_v8__0lu32l8;
-    v16 = v5;
+    v14 = 3221225472;
+    v15 = __25__PLArchiveJob_setStage___block_invoke;
+    v16 = &__block_descriptor_40_e5_v8__0lu32l8;
+    v17 = v5;
     if (setStage__defaultOnce != -1)
     {
       dispatch_once(&setStage__defaultOnce, &block);
@@ -65,14 +65,14 @@
 
     if (setStage__classDebugEnabled == 1)
     {
-      v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"PLArchiveJob::setStage: stage=%i", stage, block, v13, v14, v15, v16];
+      v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"PLArchiveJob::setStage: stage=%i", stage, block, v14, v15, v16, v17];
       v7 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Storage/PLArchiveJob.m"];
       lastPathComponent = [v7 lastPathComponent];
       v9 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLArchiveJob setStage:]"];
       [PLCoreStorage logMessage:v6 fromFile:lastPathComponent fromFunction:v9 fromLineNumber:45];
 
-      v10 = PLLogCommon();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      v11 = PLLogCommon(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
         [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
       }
@@ -104,10 +104,10 @@ BOOL __25__PLArchiveJob_setStage___block_invoke(uint64_t a1)
   {
     v5 = objc_opt_class();
     block = MEMORY[0x1E69E9820];
-    v15 = 3221225472;
-    v16 = __31__PLArchiveJob_setNumAttempts___block_invoke;
-    v17 = &__block_descriptor_40_e5_v8__0lu32l8;
-    v18 = v5;
+    v16 = 3221225472;
+    v17 = __31__PLArchiveJob_setNumAttempts___block_invoke;
+    v18 = &__block_descriptor_40_e5_v8__0lu32l8;
+    v19 = v5;
     if (setNumAttempts__defaultOnce != -1)
     {
       dispatch_once(&setNumAttempts__defaultOnce, &block);
@@ -115,14 +115,14 @@ BOOL __25__PLArchiveJob_setStage___block_invoke(uint64_t a1)
 
     if (setNumAttempts__classDebugEnabled == 1)
     {
-      v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"PLArchiveJob::setNumAttempts: numAttempts=%i", attempts, block, v15, v16, v17, v18];
+      v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"PLArchiveJob::setNumAttempts: numAttempts=%i", attempts, block, v16, v17, v18, v19];
       v7 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Storage/PLArchiveJob.m"];
       lastPathComponent = [v7 lastPathComponent];
       v9 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLArchiveJob setNumAttempts:]"];
       [PLCoreStorage logMessage:v6 fromFile:lastPathComponent fromFunction:v9 fromLineNumber:53];
 
-      v10 = PLLogCommon();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      v11 = PLLogCommon(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
         [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
       }
@@ -161,10 +161,10 @@ BOOL __31__PLArchiveJob_setNumAttempts___block_invoke(uint64_t a1)
   {
     v3 = objc_opt_class();
     block = MEMORY[0x1E69E9820];
-    v23 = 3221225472;
-    v24 = __19__PLArchiveJob_run__block_invoke;
-    v25 = &__block_descriptor_40_e5_v8__0lu32l8;
-    v26 = v3;
+    v24 = 3221225472;
+    v25 = __19__PLArchiveJob_run__block_invoke;
+    v26 = &__block_descriptor_40_e5_v8__0lu32l8;
+    v27 = v3;
     if (run_defaultOnce != -1)
     {
       dispatch_once(&run_defaultOnce, &block);
@@ -175,15 +175,15 @@ BOOL __31__PLArchiveJob_setNumAttempts___block_invoke(uint64_t a1)
       v4 = MEMORY[0x1E696AEC0];
       archiveEntry = [(PLArchiveJob *)self archiveEntry];
       name = [archiveEntry name];
-      v7 = [v4 stringWithFormat:@"PLArchiveJob::run: archive=%@", name, block, v23, v24, v25, v26];
+      v7 = [v4 stringWithFormat:@"PLArchiveJob::run: archive=%@", name, block, v24, v25, v26, v27];
 
       v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Storage/PLArchiveJob.m"];
       lastPathComponent = [v8 lastPathComponent];
       v10 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLArchiveJob run]"];
       [PLCoreStorage logMessage:v7 fromFile:lastPathComponent fromFunction:v10 fromLineNumber:67];
 
-      v11 = PLLogCommon();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+      v12 = PLLogCommon(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
         [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
       }
@@ -195,11 +195,11 @@ BOOL __31__PLArchiveJob_setNumAttempts___block_invoke(uint64_t a1)
     [(PLArchiveJob *)self setStage:0];
   }
 
-  v12 = +[PLUtilities containerPath];
-  v13 = [v12 stringByAppendingString:@"/Library/BatteryLife/CurrentPowerlog.PLSQL"];
-  v14 = [PLFileStats fileSizeAtPath:v13];
+  v13 = +[PLUtilities containerPath];
+  v14 = [v13 stringByAppendingString:@"/Library/BatteryLife/CurrentPowerlog.PLSQL"];
+  v15 = [PLFileStats fileSizeAtPath:v14];
   archiveEntry2 = [(PLArchiveJob *)self archiveEntry];
-  [archiveEntry2 setMainDBSizeAtStart:v14];
+  [archiveEntry2 setMainDBSizeAtStart:v15];
 
   [(PLArchiveJob *)self setNumAttempts:[(PLArchiveJob *)self numAttempts]+ 1];
   [(PLArchiveJob *)self startWatchdog];
@@ -215,15 +215,15 @@ BOOL __31__PLArchiveJob_setNumAttempts___block_invoke(uint64_t a1)
         break;
       }
 
-      v18 = objc_autoreleasePoolPush();
-      v19 = [PLArchiveJob runSelectorForStage:[(PLArchiveJob *)self stage]];
-      if (v19)
+      v19 = objc_autoreleasePoolPush();
+      v20 = [PLArchiveJob runSelectorForStage:[(PLArchiveJob *)self stage]];
+      if (v20)
       {
-        ([(PLArchiveJob *)self methodForSelector:v19])(self, v19);
+        ([(PLArchiveJob *)self methodForSelector:v20])(self, v20);
       }
 
       [(PLArchiveJob *)self setStage:[(PLArchiveJob *)self stage]+ 1];
-      objc_autoreleasePoolPop(v18);
+      objc_autoreleasePoolPop(v19);
     }
 
     while ([(PLArchiveJob *)self stage]< 5);
@@ -272,27 +272,25 @@ BOOL __19__PLArchiveJob_run__block_invoke(uint64_t a1)
 
 void __36__PLArchiveJob_runSelectorForStage___block_invoke()
 {
-  v9[5] = *MEMORY[0x1E69E9840];
-  v8[0] = &unk_1F5406090;
+  v8[5] = *MEMORY[0x1E69E9840];
+  v7[0] = &unk_1F5406090;
   v0 = NSStringFromSelector(sel_stageStart);
-  v9[0] = v0;
-  v8[1] = &unk_1F54060A8;
+  v8[0] = v0;
+  v7[1] = &unk_1F54060A8;
   v1 = NSStringFromSelector(sel_stageCopy);
-  v9[1] = v1;
-  v8[2] = &unk_1F54060C0;
+  v8[1] = v1;
+  v7[2] = &unk_1F54060C0;
   v2 = NSStringFromSelector(sel_stageTrim);
-  v9[2] = v2;
-  v8[3] = &unk_1F54060D8;
+  v8[2] = v2;
+  v7[3] = &unk_1F54060D8;
   v3 = NSStringFromSelector(sel_stageCompress);
-  v9[3] = v3;
-  v8[4] = &unk_1F54060F0;
+  v8[3] = v3;
+  v7[4] = &unk_1F54060F0;
   v4 = NSStringFromSelector(sel_stageRemove);
-  v9[4] = v4;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:5];
+  v8[4] = v4;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:5];
   v6 = runSelectorForStage___stageToFunction;
   runSelectorForStage___stageToFunction = v5;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stageCopy
@@ -395,10 +393,10 @@ void __27__PLArchiveJob_stageRemove__block_invoke(uint64_t a1)
     {
       v5 = objc_opt_class();
       block = MEMORY[0x1E69E9820];
-      v14 = 3221225472;
-      v15 = __23__PLArchiveJob_recover__block_invoke;
-      v16 = &__block_descriptor_40_e5_v8__0lu32l8;
-      v17 = v5;
+      v15 = 3221225472;
+      v16 = __23__PLArchiveJob_recover__block_invoke;
+      v17 = &__block_descriptor_40_e5_v8__0lu32l8;
+      v18 = v5;
       if (recover_defaultOnce != -1)
       {
         dispatch_once(&recover_defaultOnce, &block);
@@ -408,14 +406,14 @@ void __27__PLArchiveJob_stageRemove__block_invoke(uint64_t a1)
       {
         v6 = MEMORY[0x1E696AEC0];
         stage = [(PLArchiveJob *)self stage];
-        v8 = [v6 stringWithFormat:@"PLArchiveManager::recover for stage=%i", stage, block, v14, v15, v16, v17];
+        v8 = [v6 stringWithFormat:@"PLArchiveManager::recover for stage=%i", stage, block, v15, v16, v17, v18];
         v9 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Storage/PLArchiveJob.m"];
         lastPathComponent = [v9 lastPathComponent];
         v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLArchiveJob recover]"];
         [PLCoreStorage logMessage:v8 fromFile:lastPathComponent fromFunction:v11 fromLineNumber:177];
 
-        v12 = PLLogCommon();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+        v13 = PLLogCommon(v12);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
         {
           [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
         }
@@ -459,21 +457,19 @@ BOOL __23__PLArchiveJob_recover__block_invoke(uint64_t a1)
 
 void __40__PLArchiveJob_recoverSelectorForStage___block_invoke()
 {
-  v7[3] = *MEMORY[0x1E69E9840];
-  v6[0] = &unk_1F54060A8;
+  v6[3] = *MEMORY[0x1E69E9840];
+  v5[0] = &unk_1F54060A8;
   v0 = NSStringFromSelector(sel_recoverCopy);
-  v7[0] = v0;
-  v6[1] = &unk_1F54060C0;
+  v6[0] = v0;
+  v5[1] = &unk_1F54060C0;
   v1 = NSStringFromSelector(sel_recoverTrim);
-  v7[1] = v1;
-  v6[2] = &unk_1F54060D8;
+  v6[1] = v1;
+  v5[2] = &unk_1F54060D8;
   v2 = NSStringFromSelector(sel_recoverCompress);
-  v7[2] = v2;
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:v6 count:3];
+  v6[2] = v2;
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:v5 count:3];
   v4 = recoverSelectorForStage___stageToFunction;
   recoverSelectorForStage___stageToFunction = v3;
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)recoverCopy

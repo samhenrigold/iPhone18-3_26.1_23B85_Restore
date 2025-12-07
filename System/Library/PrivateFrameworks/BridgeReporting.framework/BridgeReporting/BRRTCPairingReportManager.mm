@@ -58,19 +58,18 @@
 
 - (void)_addEvent:(unint64_t)event withValue:(id)value withError:(id)error
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   valueCopy = value;
-  [(BRRTCPairingReportManager *)self setMetricBusy:1];
-  v8 = br_metriccollection_log();
+  v8 = br_metriccollection_log([(BRRTCPairingReportManager *)self setMetricBusy:1]);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = BRPairingTimeEventToString(event);
     *buf = 136315650;
-    v18 = "[BRRTCPairingReportManager _addEvent:withValue:withError:]";
-    v19 = 2112;
-    v20 = v9;
-    v21 = 2112;
-    v22 = valueCopy;
+    v17 = "[BRRTCPairingReportManager _addEvent:withValue:withError:]";
+    v18 = 2112;
+    v19 = v9;
+    v20 = 2112;
+    v21 = valueCopy;
     _os_log_impl(&dword_241ECA000, v8, OS_LOG_TYPE_DEFAULT, "%s adding event %@ with value %@", buf, 0x20u);
   }
 
@@ -83,25 +82,22 @@
     block[2] = __59__BRRTCPairingReportManager__addEvent_withValue_withError___block_invoke;
     block[3] = &unk_278D26D20;
     block[4] = self;
-    v15 = v10;
-    v16 = valueCopy;
+    v14 = v10;
+    v15 = valueCopy;
     v12 = v10;
     dispatch_async(queue, block);
   }
 
   else
   {
-    [(BRRTCPairingReportManager *)self _addEventToPendingQueue:event withValue:valueCopy];
-    v12 = br_metriccollection_log();
+    v12 = br_metriccollection_log([(BRRTCPairingReportManager *)self _addEventToPendingQueue:event withValue:valueCopy]);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v18 = "[BRRTCPairingReportManager _addEvent:withValue:withError:]";
+      v17 = "[BRRTCPairingReportManager _addEvent:withValue:withError:]";
       _os_log_impl(&dword_241ECA000, v12, OS_LOG_TYPE_DEFAULT, "%s pairing metric reporter not set up yet", buf, 0xCu);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)checkInWithOpenPairingTimeEvent:(unint64_t)event
@@ -144,7 +140,7 @@ void __61__BRRTCPairingReportManager_checkInWithOpenPairingTimeEvent___block_inv
 
 void __64__BRRTCPairingReportManager_checkInWithClosingPairingTimeEvent___block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) pairingMetricSetup])
   {
     v2 = [MEMORY[0x277CCABB0] numberWithDouble:CACurrentMediaTime()];
@@ -154,13 +150,13 @@ void __64__BRRTCPairingReportManager_checkInWithClosingPairingTimeEvent___block_
 
     if (!v5)
     {
-      v6 = *(a1 + 40) - 26;
-      if (v6 <= 0xC && ((0x14A5u >> v6) & 1) != 0)
+      v7 = *(a1 + 40) - 26;
+      if (v7 <= 0xC && ((0x14A5u >> v7) & 1) != 0)
       {
-        v7 = qword_241ED30C0[v6];
-        v8 = [*(a1 + 32) openPairingTimeEvents];
-        v9 = BRPairingTimeEventToString(v7);
-        v5 = [v8 objectForKey:v9];
+        v8 = qword_241ED30C0[v7];
+        v9 = [*(a1 + 32) openPairingTimeEvents];
+        v10 = BRPairingTimeEventToString(v8);
+        v5 = [v9 objectForKey:v10];
       }
 
       else
@@ -169,45 +165,43 @@ void __64__BRRTCPairingReportManager_checkInWithClosingPairingTimeEvent___block_
       }
     }
 
-    v10 = br_metriccollection_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = br_metriccollection_log(v6);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = 136315650;
-      v19 = "[BRRTCPairingReportManager checkInWithClosingPairingTimeEvent:]_block_invoke";
-      v20 = 2112;
-      v21 = v5;
-      v22 = 2112;
-      v23 = v2;
-      _os_log_impl(&dword_241ECA000, v10, OS_LOG_TYPE_DEFAULT, "%s Open start time: %@ closing end time: %@", &v18, 0x20u);
+      v19 = 136315650;
+      v20 = "[BRRTCPairingReportManager checkInWithClosingPairingTimeEvent:]_block_invoke";
+      v21 = 2112;
+      v22 = v5;
+      v23 = 2112;
+      v24 = v2;
+      _os_log_impl(&dword_241ECA000, v11, OS_LOG_TYPE_DEFAULT, "%s Open start time: %@ closing end time: %@", &v19, 0x20u);
     }
 
     if (v5)
     {
-      v11 = MEMORY[0x277CCABB0];
+      v13 = MEMORY[0x277CCABB0];
       [v2 doubleValue];
-      v13 = v12;
+      v15 = v14;
       [v5 doubleValue];
-      v15 = [v11 numberWithDouble:v13 - v14];
-      [*(a1 + 32) addPairingTimeEventToPairingReportPlist:*(a1 + 40) withValue:v15 withError:0];
-      v16 = [*(a1 + 32) openPairingTimeEvents];
-      [v16 removeObjectForKey:v3];
+      v17 = [v13 numberWithDouble:v15 - v16];
+      [*(a1 + 32) addPairingTimeEventToPairingReportPlist:*(a1 + 40) withValue:v17 withError:0];
+      v18 = [*(a1 + 32) openPairingTimeEvents];
+      [v18 removeObjectForKey:v3];
     }
 
     else
     {
-      v15 = br_metriccollection_log();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v17 = br_metriccollection_log(v12);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
-        v18 = 136315394;
-        v19 = "[BRRTCPairingReportManager checkInWithClosingPairingTimeEvent:]_block_invoke";
-        v20 = 2112;
-        v21 = v3;
-        _os_log_impl(&dword_241ECA000, v15, OS_LOG_TYPE_DEFAULT, "%s No matching opening timed event for event %@", &v18, 0x16u);
+        v19 = 136315394;
+        v20 = "[BRRTCPairingReportManager checkInWithClosingPairingTimeEvent:]_block_invoke";
+        v21 = 2112;
+        v22 = v3;
+        _os_log_impl(&dword_241ECA000, v17, OS_LOG_TYPE_DEFAULT, "%s No matching opening timed event for event %@", &v19, 0x16u);
       }
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)checkInWithController:(id)controller action:(unint64_t)action
@@ -218,7 +212,7 @@ void __64__BRRTCPairingReportManager_checkInWithClosingPairingTimeEvent___block_
 
 - (void)checkInWithRUIController:(id)controller
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   pageElement = [controllerCopy pageElement];
   title = [pageElement title];
@@ -234,19 +228,17 @@ void __64__BRRTCPairingReportManager_checkInWithClosingPairingTimeEvent___block_
     v12 = [host stringByReplacingOccurrencesOfString:@"." withString:@"_"];
     v13 = [path stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
     v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@%@", v12, v13];
-    v15 = br_metriccollection_log();
+    v15 = br_metriccollection_log(v14);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v19 = sourceURL;
+      v18 = sourceURL;
       _os_log_impl(&dword_241ECA000, v15, OS_LOG_TYPE_DEFAULT, "Checking in RUIController with url: %{public}@", buf, 0xCu);
     }
 
     v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"RUIPage_%@", v14];
     [(BRRTCPairingReportManager *)self recordSetupController:v16 action:0];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)recordSetupController:(id)controller action:(unint64_t)action
@@ -288,14 +280,15 @@ void __64__BRRTCPairingReportManager_checkInWithClosingPairingTimeEvent___block_
   }
 
   v12 = v11;
+  v13 = v12;
   if (holdControllerDetails)
   {
     timeStamp = [holdControllerDetails timeStamp];
-    v14 = [(BRRTCPairingReportManager *)self deltaForControllerAction:timeStamp];
+    v15 = [(BRRTCPairingReportManager *)self deltaForControllerAction:timeStamp];
 
-    v15 = MEMORY[0x277CCACA8];
+    v16 = MEMORY[0x277CCACA8];
     controllerName = [holdControllerDetails controllerName];
-    v17 = [v15 stringWithFormat:@"%@HoldBefore%@%@Delta", controllerName, actionsCopy, v12];
+    v18 = [v16 stringWithFormat:@"%@HoldBefore%@%@Delta", controllerName, actionsCopy, v13];
 
     if (!lastPushedSetupController)
     {
@@ -305,27 +298,28 @@ void __64__BRRTCPairingReportManager_checkInWithClosingPairingTimeEvent___block_
 
   else
   {
-    v14 = 0;
-    v17 = 0;
+    v15 = 0;
+    v18 = 0;
     if (!lastPushedSetupController)
     {
       goto LABEL_10;
     }
   }
 
-  if (!v14)
+  if (!v15)
   {
     timeStamp2 = [lastPushedSetupController timeStamp];
-    v14 = [(BRRTCPairingReportManager *)self deltaForControllerAction:timeStamp2];
+    v15 = [(BRRTCPairingReportManager *)self deltaForControllerAction:timeStamp2];
 
-    v19 = MEMORY[0x277CCACA8];
+    v20 = MEMORY[0x277CCACA8];
     controllerName2 = [lastPushedSetupController controllerName];
-    v21 = [v19 stringWithFormat:@"%@To%@%@Delta", controllerName2, actionsCopy, v12];
+    v22 = [v20 stringWithFormat:@"%@To%@%@Delta", controllerName2, actionsCopy, v13];
 
-    if (![(__CFString *)v21 isEqualToString:@"COSSetupFinishedToCOSWelcomeToAppleWatchPushDelta"])
+    v12 = [(__CFString *)v22 isEqualToString:@"COSSetupFinishedToCOSWelcomeToAppleWatchPushDelta"];
+    if (!v12)
     {
-      v17 = v21;
-      if (v14)
+      v18 = v22;
+      if (v15)
       {
         goto LABEL_11;
       }
@@ -333,11 +327,11 @@ void __64__BRRTCPairingReportManager_checkInWithClosingPairingTimeEvent___block_
       goto LABEL_13;
     }
 
-    v17 = @"InitialSyncTime";
+    v18 = @"InitialSyncTime";
   }
 
 LABEL_10:
-  if (v14)
+  if (v15)
   {
 LABEL_11:
     queue = [(BRRTCPairingReportManager *)self queue];
@@ -346,26 +340,25 @@ LABEL_11:
     block[2] = __73__BRRTCPairingReportManager_writeDeltasForSetupControllerActions_action___block_invoke;
     block[3] = &unk_278D26D20;
     block[4] = self;
-    v26 = v17;
-    v27 = v14;
+    v26 = v18;
+    v27 = v15;
     dispatch_async(queue, block);
 
     goto LABEL_16;
   }
 
 LABEL_13:
-  v23 = br_metriccollection_log();
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+  v24 = br_metriccollection_log(v12);
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
     v29 = actionsCopy;
     v30 = 2048;
     actionCopy = action;
-    _os_log_impl(&dword_241ECA000, v23, OS_LOG_TYPE_DEFAULT, "no previous controller details to create delta, will not record delta for controller: %@ action: %lu", buf, 0x16u);
+    _os_log_impl(&dword_241ECA000, v24, OS_LOG_TYPE_DEFAULT, "no previous controller details to create delta, will not record delta for controller: %@ action: %lu", buf, 0x16u);
   }
 
 LABEL_16:
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (id)deltaForControllerAction:(id)action
@@ -445,7 +438,7 @@ void __66__BRRTCPairingReportManager_writePushOrHoldToPairingPlist_action___bloc
 
 - (void)_writeToPairingPlist:(id)plist withValue:(id)value
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   plistCopy = plist;
   valueCopy = value;
   queue = [(BRRTCPairingReportManager *)self queue];
@@ -453,61 +446,60 @@ void __66__BRRTCPairingReportManager_writePushOrHoldToPairingPlist_action___bloc
 
   if (valueCopy)
   {
-    if ((BRIsInternalInstall() & 1) == 0)
+    v11 = BRIsInternalInstall(v9, v10);
+    if ((v11 & 1) == 0)
     {
-      v9 = br_metriccollection_log();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v12 = br_metriccollection_log(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_241ECA000, v9, OS_LOG_TYPE_DEFAULT, "external device, trimming precision", buf, 2u);
+        _os_log_impl(&dword_241ECA000, v12, OS_LOG_TYPE_DEFAULT, "external device, trimming precision", buf, 2u);
       }
 
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v10 = [(BRRTCPairingReportManager *)self _trimPrecision:valueCopy];
+        v13 = [(BRRTCPairingReportManager *)self _trimPrecision:valueCopy];
 
-        valueCopy = v10;
+        valueCopy = v13;
       }
     }
 
     currentPairingMetricBridgePlistPath = [(BRRTCPairingReportManager *)self currentPairingMetricBridgePlistPath];
-    v12 = [MEMORY[0x277CBEB38] dictionaryWithContentsOfURL:currentPairingMetricBridgePlistPath];
-    [v12 setObject:valueCopy forKey:plistCopy];
+    v15 = [MEMORY[0x277CBEB38] dictionaryWithContentsOfURL:currentPairingMetricBridgePlistPath];
+    [v15 setObject:valueCopy forKey:plistCopy];
     relativePath = [currentPairingMetricBridgePlistPath relativePath];
-    [v12 writeToFile:relativePath atomically:1];
+    [v15 writeToFile:relativePath atomically:1];
 
-    v14 = br_metriccollection_log();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v18 = br_metriccollection_log(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v22 = plistCopy;
-      _os_log_impl(&dword_241ECA000, v14, OS_LOG_TYPE_DEFAULT, "Posting notification that a metric has changed! %@", buf, 0xCu);
+      v25 = plistCopy;
+      _os_log_impl(&dword_241ECA000, v18, OS_LOG_TYPE_DEFAULT, "Posting notification that a metric has changed! %@", buf, 0xCu);
     }
 
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-    v19 = @"BRChangedMetricKey";
-    v20 = plistCopy;
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
-    [defaultCenter postNotificationName:@"BRPairingMetricChangedNotification" object:0 userInfo:v16];
+    v22 = @"BRChangedMetricKey";
+    v23 = plistCopy;
+    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
+    [defaultCenter postNotificationName:@"BRPairingMetricChangedNotification" object:0 userInfo:v20];
 
     [(BRRTCPairingReportManager *)self _cleanupAfterWrite];
   }
 
   else
   {
-    v17 = br_metriccollection_log();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR) && os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v21 = br_metriccollection_log(v9);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR) && os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v22 = plistCopy;
-      _os_log_impl(&dword_241ECA000, v17, OS_LOG_TYPE_DEFAULT, "No value for pairing metric event %@, skipping write", buf, 0xCu);
+      v25 = plistCopy;
+      _os_log_impl(&dword_241ECA000, v21, OS_LOG_TYPE_DEFAULT, "No value for pairing metric event %@, skipping write", buf, 0xCu);
     }
 
     [(BRRTCPairingReportManager *)self _cleanupAfterWrite];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_cleanupAfterWrite
@@ -544,7 +536,7 @@ void __66__BRRTCPairingReportManager_writePushOrHoldToPairingPlist_action___bloc
       v10 = BRPairingTimeEventToString(record);
       if ([v10 isEqualToString:@"WatchActivated"] && (objc_msgSend(v9, "objectForKey:", @"StartedActivation"), v11 = objc_claimAutoreleasedReturnValue(), v11, !v11))
       {
-        v7 = br_metriccollection_log();
+        v7 = br_metriccollection_log(v12);
         if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
         {
           v14 = 136315138;
@@ -567,7 +559,6 @@ void __66__BRRTCPairingReportManager_writePushOrHoldToPairingPlist_action___bloc
     LOBYTE(v7) = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -594,19 +585,17 @@ void __66__BRRTCPairingReportManager_writePushOrHoldToPairingPlist_action___bloc
 
 void __62__BRRTCPairingReportManager_completePairingMetricWithSuccess___block_invoke_2(uint64_t a1, int a2, void *a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v4 = a3;
-  v5 = br_metriccollection_log();
+  v5 = br_metriccollection_log(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7[0] = 67109378;
-    v7[1] = a2;
-    v8 = 2112;
-    v9 = v4;
-    _os_log_impl(&dword_241ECA000, v5, OS_LOG_TYPE_DEFAULT, "sent metric to NR for RTC submission with success: %{BOOL}d error: %@", v7, 0x12u);
+    v6[0] = 67109378;
+    v6[1] = a2;
+    v7 = 2112;
+    v8 = v4;
+    _os_log_impl(&dword_241ECA000, v5, OS_LOG_TYPE_DEFAULT, "sent metric to NR for RTC submission with success: %{BOOL}d error: %@", v6, 0x12u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)completeMetricForAppTermination
@@ -636,23 +625,22 @@ void __60__BRRTCPairingReportManager_completeMetricForAppTermination__block_invo
   v13 = v5;
   [v3 enumerateKeysAndObjectsUsingBlock:&v8];
 
-  if ([v4 count])
+  v6 = [v4 count];
+  if (v6)
   {
-    v6 = br_metriccollection_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = br_metriccollection_log(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       v15 = v4;
-      _os_log_impl(&dword_241ECA000, v6, OS_LOG_TYPE_DEFAULT, "Bridge terminated: writing orphaned timing metrics %@", buf, 0xCu);
+      _os_log_impl(&dword_241ECA000, v7, OS_LOG_TYPE_DEFAULT, "Bridge terminated: writing orphaned timing metrics %@", buf, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __60__BRRTCPairingReportManager_completeMetricForAppTermination__block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -670,16 +658,14 @@ void __60__BRRTCPairingReportManager_completeMetricForAppTermination__block_invo
 
   else
   {
-    v14 = br_metriccollection_log();
+    v14 = br_metriccollection_log(0);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v17 = v5;
+      v16 = v5;
       _os_log_impl(&dword_241ECA000, v14, OS_LOG_TYPE_DEFAULT, "No matching opening timed event for event %@", buf, 0xCu);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)submitAnyPendingMetrics
@@ -720,24 +706,24 @@ void __52__BRRTCPairingReportManager_submitAnyPendingMetrics__block_invoke(uint6
   queue = [(BRRTCPairingReportManager *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v6 = br_metriccollection_log();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = br_metriccollection_log(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
-    _os_log_impl(&dword_241ECA000, v6, OS_LOG_TYPE_DEFAULT, "Setting up pairing metric", buf, 2u);
+    _os_log_impl(&dword_241ECA000, v7, OS_LOG_TYPE_DEFAULT, "Setting up pairing metric", buf, 2u);
   }
 
   [(BRRTCPairingReportManager *)self setPairingMetricSetup:0];
   objc_initWeak(buf, self);
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __48__BRRTCPairingReportManager_setupPairingMetric___block_invoke;
-  v7[3] = &unk_278D26E30;
-  v7[4] = self;
-  objc_copyWeak(v8, buf);
-  v8[1] = metric;
-  [(BRRTCPairingReportManager *)self cleanUpMetricDirectoryWithCompletion:v7];
-  objc_destroyWeak(v8);
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __48__BRRTCPairingReportManager_setupPairingMetric___block_invoke;
+  v8[3] = &unk_278D26E30;
+  v8[4] = self;
+  objc_copyWeak(v9, buf);
+  v9[1] = metric;
+  [(BRRTCPairingReportManager *)self cleanUpMetricDirectoryWithCompletion:v8];
+  objc_destroyWeak(v9);
   objc_destroyWeak(buf);
 }
 
@@ -762,7 +748,7 @@ void __48__BRRTCPairingReportManager_setupPairingMetric___block_invoke(uint64_t 
 
 void __48__BRRTCPairingReportManager_setupPairingMetric___block_invoke_2(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -782,21 +768,19 @@ void __48__BRRTCPairingReportManager_setupPairingMetric___block_invoke_2(uint64_
 
     else
     {
-      v5 = br_metriccollection_log();
+      v5 = br_metriccollection_log(WeakRetained);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR) && os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
         v6 = *(a1 + 32);
-        v8 = 138412290;
-        v9 = v6;
-        _os_log_impl(&dword_241ECA000, v5, OS_LOG_TYPE_DEFAULT, "Failed to cleanup metric folder with error %@", &v8, 0xCu);
+        v7 = 138412290;
+        v8 = v6;
+        _os_log_impl(&dword_241ECA000, v5, OS_LOG_TYPE_DEFAULT, "Failed to cleanup metric folder with error %@", &v7, 0xCu);
       }
 
       [v3 setPairingMetricSetup:0];
       [v3 clearPendingEventQueue];
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initializeEndToEndMetric
@@ -808,7 +792,7 @@ void __48__BRRTCPairingReportManager_setupPairingMetric___block_invoke_2(uint64_
 
 - (void)flagForAutomation
 {
-  if (BRAutomation())
+  if (BRAutomation(self, a2))
   {
     v3 = MEMORY[0x277CBEC38];
 
@@ -914,62 +898,62 @@ void __40__BRRTCPairingReportManager_addMetaKeys__block_invoke_2(uint64_t a1)
 
 - (void)createPairingReportPlistWithPairingType:(unint64_t)type
 {
-  v45[2] = *MEMORY[0x277D85DE8];
+  v46[2] = *MEMORY[0x277D85DE8];
   queue = [(BRRTCPairingReportManager *)self queue];
   dispatch_assert_queue_V2(queue);
 
   v5 = objc_alloc_init(MEMORY[0x277CCA968]);
-  if (BRIsInternalInstall())
+  if (BRIsInternalInstall(v5, v6))
   {
-    v6 = @"yyyy.MM.dd_HH-mm-ss";
+    v7 = @"yyyy.MM.dd_HH-mm-ss";
   }
 
   else
   {
-    v6 = @"yyyy.MM.dd_HH-mm";
+    v7 = @"yyyy.MM.dd_HH-mm";
   }
 
-  [v5 setDateFormat:v6];
+  [v5 setDateFormat:v7];
   date = [MEMORY[0x277CBEAA8] date];
-  v37 = v5;
-  v8 = [v5 stringFromDate:date];
+  v38 = v5;
+  v9 = [v5 stringFromDate:date];
 
-  v36 = v8;
-  v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@_%@", @"pairing_metric", v8];
-  v10 = @"/var/mobile/Library/Caches/com.apple.Bridge/PairingMetric";
-  v11 = @"BridgePairingMetricDetails.plist";
-  v12 = MEMORY[0x277CBEBC0];
-  v13 = MEMORY[0x277CCACA8];
-  v45[0] = v10;
-  v45[1] = v9;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v45 count:2];
-  v15 = [v13 pathWithComponents:v14];
-  v16 = [v12 fileURLWithPath:v15];
+  v37 = v9;
+  v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@_%@", @"pairing_metric", v9];
+  v11 = @"/var/mobile/Library/Caches/com.apple.Bridge/PairingMetric";
+  v12 = @"BridgePairingMetricDetails.plist";
+  v13 = MEMORY[0x277CBEBC0];
+  v14 = MEMORY[0x277CCACA8];
+  v46[0] = v11;
+  v46[1] = v10;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v46 count:2];
+  v16 = [v14 pathWithComponents:v15];
+  v17 = [v13 fileURLWithPath:v16];
 
-  v17 = MEMORY[0x277CBEBC0];
-  v18 = v10;
-  v19 = MEMORY[0x277CCACA8];
-  v44[0] = v10;
-  v44[1] = v9;
-  v44[2] = v11;
-  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:3];
-  v21 = [v19 pathWithComponents:v20];
-  v22 = [v17 fileURLWithPath:v21];
+  v18 = MEMORY[0x277CBEBC0];
+  v19 = v11;
+  v20 = MEMORY[0x277CCACA8];
+  v45[0] = v11;
+  v45[1] = v10;
+  v45[2] = v12;
+  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v45 count:3];
+  v22 = [v20 pathWithComponents:v21];
+  v23 = [v18 fileURLWithPath:v22];
 
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  relativePath = [v16 relativePath];
-  v39 = 0;
-  [defaultManager createDirectoryAtPath:relativePath withIntermediateDirectories:1 attributes:0 error:&v39];
-  v25 = v39;
+  relativePath = [v17 relativePath];
+  v40 = 0;
+  [defaultManager createDirectoryAtPath:relativePath withIntermediateDirectories:1 attributes:0 error:&v40];
+  v26 = v40;
 
-  if (v25)
+  if (v26)
   {
-    v26 = v36;
-    v27 = br_metriccollection_log();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR) && os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+    v28 = v37;
+    v29 = br_metriccollection_log(v27);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR) && os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_241ECA000, v27, OS_LOG_TYPE_DEFAULT, "Failure to create pairing metric directory", buf, 2u);
+      _os_log_impl(&dword_241ECA000, v29, OS_LOG_TYPE_DEFAULT, "Failure to create pairing metric directory", buf, 2u);
     }
 
     [(BRRTCPairingReportManager *)self setPairingMetricSetup:0];
@@ -977,31 +961,29 @@ void __40__BRRTCPairingReportManager_addMetaKeys__block_invoke_2(uint64_t a1)
 
   else
   {
-    [(BRRTCPairingReportManager *)self setCurrentPairingMetricID:v9];
-    v34 = v10;
-    v42[0] = @"PairingBeginsType";
-    v28 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:type];
-    v42[1] = @"PairingBeginsTime";
-    v43[0] = v28;
-    v26 = v36;
-    v43[1] = v36;
-    v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v43 forKeys:v42 count:2];
+    [(BRRTCPairingReportManager *)self setCurrentPairingMetricID:v10];
+    v35 = v11;
+    v43[0] = @"PairingBeginsType";
+    v30 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:type];
+    v43[1] = @"PairingBeginsTime";
+    v44[0] = v30;
+    v28 = v37;
+    v44[1] = v37;
+    v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:v43 count:2];
 
-    relativePath2 = [v22 relativePath];
-    [v29 writeToFile:relativePath2 atomically:1];
+    relativePath2 = [v23 relativePath];
+    [v31 writeToFile:relativePath2 atomically:1];
 
     [(BRRTCPairingReportManager *)self setPairingMetricSetup:1];
-    [(BRRTCPairingReportManager *)self setCurrentPairingMetricBridgePlistPath:v22];
+    [(BRRTCPairingReportManager *)self setCurrentPairingMetricBridgePlistPath:v23];
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-    v40 = @"BRChangedMetricKey";
-    v41 = @"PairingBeginsType";
-    v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v41 forKeys:&v40 count:1];
-    [defaultCenter postNotificationName:@"BRPairingMetricChangedNotification" object:0 userInfo:v32];
+    v41 = @"BRChangedMetricKey";
+    v42 = @"PairingBeginsType";
+    v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
+    [defaultCenter postNotificationName:@"BRPairingMetricChangedNotification" object:0 userInfo:v34];
 
-    v18 = v34;
+    v19 = v35;
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cleanUpMetricDirectoryWithCompletion:(id)completion
@@ -1106,20 +1088,19 @@ void __66__BRRTCPairingReportManager_cleanUpMetricDirectoryWithCompletion___bloc
     block[1] = 3221225472;
     block[2] = __66__BRRTCPairingReportManager_cleanUpMetricDirectoryWithCompletion___block_invoke_2;
     block[3] = &unk_278D26EA8;
-    objc_copyWeak(&v9, a1 + 7);
-    v7 = a1[5];
-    v8 = a1[6];
+    objc_copyWeak(&v8, a1 + 7);
+    v6 = a1[5];
+    v7 = a1[6];
     dispatch_async(v3, block);
 
-    objc_destroyWeak(&v9);
+    objc_destroyWeak(&v8);
   }
 
   else
   {
-    v4 = a1[6];
-    v5 = *(a1[6] + 2);
+    v4 = *(a1[6] + 2);
 
-    v5();
+    v4();
   }
 }
 
@@ -1138,20 +1119,19 @@ void __66__BRRTCPairingReportManager_cleanUpMetricDirectoryWithCompletion___bloc
     block[1] = 3221225472;
     block[2] = __66__BRRTCPairingReportManager_cleanUpMetricDirectoryWithCompletion___block_invoke_4;
     block[3] = &unk_278D26EA8;
-    objc_copyWeak(&v9, a1 + 7);
-    v7 = a1[5];
-    v8 = a1[6];
+    objc_copyWeak(&v8, a1 + 7);
+    v6 = a1[5];
+    v7 = a1[6];
     dispatch_async(v3, block);
 
-    objc_destroyWeak(&v9);
+    objc_destroyWeak(&v8);
   }
 
   else
   {
-    v4 = a1[6];
-    v5 = *(a1[6] + 2);
+    v4 = *(a1[6] + 2);
 
-    v5();
+    v4();
   }
 }
 
@@ -1163,106 +1143,106 @@ void __66__BRRTCPairingReportManager_cleanUpMetricDirectoryWithCompletion___bloc
 
 - (void)archivePairingMetric:(id)metric withCompletion:(id)completion
 {
-  v48[2] = *MEMORY[0x277D85DE8];
+  v50[2] = *MEMORY[0x277D85DE8];
   metricCopy = metric;
   v6 = MEMORY[0x277CBEBC0];
   v7 = MEMORY[0x277CCACA8];
-  v48[0] = @"/var/mobile/Library/Caches/com.apple.Bridge/PairingMetric";
-  v48[1] = metricCopy;
+  v50[0] = @"/var/mobile/Library/Caches/com.apple.Bridge/PairingMetric";
+  v50[1] = metricCopy;
   v8 = MEMORY[0x277CBEA60];
   completionCopy = completion;
-  v10 = [v8 arrayWithObjects:v48 count:2];
+  v10 = [v8 arrayWithObjects:v50 count:2];
   v11 = [v7 pathWithComponents:v10];
   v12 = [v6 fileURLWithPath:v11];
 
   v13 = MEMORY[0x277CBEBC0];
   v14 = MEMORY[0x277CCACA8];
-  v47[0] = @"/var/mobile/Library/Caches/com.apple.Bridge/PairingMetric/Archived";
-  v47[1] = metricCopy;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v47 count:2];
+  v49[0] = @"/var/mobile/Library/Caches/com.apple.Bridge/PairingMetric/Archived";
+  v49[1] = metricCopy;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v49 count:2];
   v16 = [v14 pathWithComponents:v15];
   v17 = [v13 fileURLWithPath:v16];
 
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v41 = 0;
-  v38 = v12;
-  LOBYTE(v12) = [defaultManager moveItemAtURL:v12 toURL:v17 error:&v41];
-  v19 = v41;
+  v43 = 0;
+  v40 = v12;
+  LOBYTE(v12) = [defaultManager moveItemAtURL:v12 toURL:v17 error:&v43];
+  v19 = v43;
+  v20 = v19;
   if (v12)
   {
-    v36 = metricCopy;
+    v38 = metricCopy;
     metricCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"%@.plist", metricCopy];
     [(BRRTCPairingReportManager *)self combineMetricPlistsForArchive:v17];
-    v22 = v21 = defaultManager;
-    v23 = MEMORY[0x277CBEBC0];
-    v24 = MEMORY[0x277CCACA8];
-    v46[0] = @"/var/mobile/Library/Caches/com.apple.Bridge/PairingMetric/Archived";
-    v46[1] = metricCopy;
-    v25 = metricCopy;
-    v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v46 count:2];
-    v27 = [v24 pathWithComponents:v26];
-    v28 = [v23 fileURLWithPath:v27];
+    v23 = v22 = defaultManager;
+    v24 = MEMORY[0x277CBEBC0];
+    v25 = MEMORY[0x277CCACA8];
+    v48[0] = @"/var/mobile/Library/Caches/com.apple.Bridge/PairingMetric/Archived";
+    v48[1] = metricCopy;
+    v26 = metricCopy;
+    v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v48 count:2];
+    v28 = [v25 pathWithComponents:v27];
+    v29 = [v24 fileURLWithPath:v28];
 
-    v29 = v22;
-    defaultManager = v21;
-    v40 = v19;
-    [v29 writeToURL:v28 error:&v40];
-    v30 = v40;
+    v30 = v23;
+    defaultManager = v22;
+    v42 = v20;
+    [v30 writeToURL:v29 error:&v42];
+    v31 = v42;
 
-    if (v30)
+    if (v31)
     {
-      v31 = br_metriccollection_log();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+      v33 = br_metriccollection_log(v32);
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v43 = v30;
-        _os_log_impl(&dword_241ECA000, v31, OS_LOG_TYPE_DEFAULT, "Combined metric with error: %@", buf, 0xCu);
+        v45 = v31;
+        _os_log_impl(&dword_241ECA000, v33, OS_LOG_TYPE_DEFAULT, "Combined metric with error: %@", buf, 0xCu);
       }
     }
 
-    v39 = 0;
-    [v21 removeItemAtURL:v17 error:&v39];
-    v19 = v39;
-    metricCopy = v36;
-    if (v19)
+    v41 = 0;
+    [v22 removeItemAtURL:v17 error:&v41];
+    v34 = v41;
+    v20 = v34;
+    metricCopy = v38;
+    if (v34)
     {
-      v32 = br_metriccollection_log();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+      v35 = br_metriccollection_log(v34);
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v43 = v19;
-        _os_log_impl(&dword_241ECA000, v32, OS_LOG_TYPE_DEFAULT, "Removed archived metric with error: %@", buf, 0xCu);
+        v45 = v20;
+        _os_log_impl(&dword_241ECA000, v35, OS_LOG_TYPE_DEFAULT, "Removed archived metric with error: %@", buf, 0xCu);
       }
     }
 
-    v33 = br_metriccollection_log();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+    v36 = br_metriccollection_log(v34);
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v43 = v28;
-      v44 = 2112;
-      v45 = v19;
-      _os_log_impl(&dword_241ECA000, v33, OS_LOG_TYPE_DEFAULT, "Metric %@ archived with error %@", buf, 0x16u);
+      v45 = v29;
+      v46 = 2112;
+      v47 = v20;
+      _os_log_impl(&dword_241ECA000, v36, OS_LOG_TYPE_DEFAULT, "Metric %@ archived with error %@", buf, 0x16u);
     }
 
     completionCopy[2](completionCopy, 1, 0);
-    completionCopy = v25;
+    completionCopy = v26;
   }
 
   else
   {
-    v34 = br_metriccollection_log();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+    v37 = br_metriccollection_log(v19);
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v43 = v19;
-      _os_log_impl(&dword_241ECA000, v34, OS_LOG_TYPE_DEFAULT, "Failed to archive metric with error: %@", buf, 0xCu);
+      v45 = v20;
+      _os_log_impl(&dword_241ECA000, v37, OS_LOG_TYPE_DEFAULT, "Failed to archive metric with error: %@", buf, 0xCu);
     }
 
     completionCopy[2](completionCopy, 0, 0);
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (id)combineMetricPlistsForArchive:(id)archive
@@ -1285,21 +1265,22 @@ void __66__BRRTCPairingReportManager_cleanUpMetricDirectoryWithCompletion___bloc
   v17 = *MEMORY[0x277D85DE8];
   dCopy = d;
   successCopy = success;
-  v8 = br_metriccollection_log();
+  v8 = br_metriccollection_log(successCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
     _os_log_impl(&dword_241ECA000, v8, OS_LOG_TYPE_DEFAULT, "Sending request to complete pairing metric to NR", buf, 2u);
   }
 
-  if ([(BRRTCPairingReportManager *)self metricBusy])
+  metricBusy = [(BRRTCPairingReportManager *)self metricBusy];
+  if (metricBusy)
   {
-    v9 = br_metriccollection_log();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = br_metriccollection_log(metricBusy);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
       v16 = "[BRRTCPairingReportManager completeRTCPairingMetricForMetricID:withSuccess:]";
-      _os_log_impl(&dword_241ECA000, v9, OS_LOG_TYPE_DEFAULT, "%s Will not submit metric yet, metric is busy", buf, 0xCu);
+      _os_log_impl(&dword_241ECA000, v10, OS_LOG_TYPE_DEFAULT, "%s Will not submit metric yet, metric is busy", buf, 0xCu);
     }
 
     [(BRRTCPairingReportManager *)self setPendingMetricSubmission:successCopy];
@@ -1316,42 +1297,38 @@ void __66__BRRTCPairingReportManager_cleanUpMetricDirectoryWithCompletion___bloc
     v14 = successCopy;
     [mEMORY[0x277D2BCF8] completeRTCPairingMetricForMetricID:uUIDString withSuccess:v13];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_addEventToPendingQueue:(unint64_t)queue withValue:(id)value
 {
-  v21[2] = *MEMORY[0x277D85DE8];
+  v20[2] = *MEMORY[0x277D85DE8];
   valueCopy = value;
   v7 = [MEMORY[0x277CCABB0] numberWithInt:queue];
-  v20[0] = @"event";
-  v20[1] = @"value";
-  v21[0] = v7;
-  v21[1] = valueCopy;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:2];
-  v9 = br_metriccollection_log();
+  v19[0] = @"event";
+  v19[1] = @"value";
+  v20[0] = v7;
+  v20[1] = valueCopy;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
+  v9 = br_metriccollection_log(v8);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v10 = BRPairingTimeEventToString(queue);
     *buf = 138412546;
-    v17 = v10;
-    v18 = 2112;
-    v19 = valueCopy;
+    v16 = v10;
+    v17 = 2112;
+    v18 = valueCopy;
     _os_log_impl(&dword_241ECA000, v9, OS_LOG_TYPE_DEFAULT, "Caching an event: %@ with value: %@", buf, 0x16u);
   }
 
   queue = [(BRRTCPairingReportManager *)self queue];
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __63__BRRTCPairingReportManager__addEventToPendingQueue_withValue___block_invoke;
-  v14[3] = &unk_278D26F20;
-  v14[4] = self;
-  v15 = v8;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __63__BRRTCPairingReportManager__addEventToPendingQueue_withValue___block_invoke;
+  v13[3] = &unk_278D26F20;
+  v13[4] = self;
+  v14 = v8;
   v12 = v8;
-  dispatch_async(queue, v14);
-
-  v13 = *MEMORY[0x277D85DE8];
+  dispatch_async(queue, v13);
 }
 
 uint64_t __63__BRRTCPairingReportManager__addEventToPendingQueue_withValue___block_invoke(uint64_t a1)
@@ -1389,27 +1366,27 @@ uint64_t __63__BRRTCPairingReportManager__addEventToPendingQueue_withValue___blo
 
 void __52__BRRTCPairingReportManager_addPendingEventToMetric__block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v2 = [*(a1 + 32) pendingEvents];
-  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v13;
+    v5 = *v12;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v13 != v5)
+        if (*v12 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v12 + 1) + 8 * i);
+        v7 = *(*(&v11 + 1) + 8 * i);
         v8 = [v7 objectForKeyedSubscript:@"event"];
         v9 = [v8 intValue];
 
@@ -1417,13 +1394,11 @@ void __52__BRRTCPairingReportManager_addPendingEventToMetric__block_invoke(uint6
         [*(a1 + 32) addPairingTimeEventToPairingReportPlist:v9 withValue:v10 withError:0];
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v4);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_trimPrecision:(id)precision

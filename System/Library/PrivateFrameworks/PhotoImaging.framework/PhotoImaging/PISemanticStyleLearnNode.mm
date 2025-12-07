@@ -171,7 +171,7 @@ LABEL_46:
           v69 = 0;
           if (v10)
           {
-            [v10 time];
+            objc_msgSend_time(v10);
           }
 
           [MEMORY[0x1E69B3A48] invalidError:@"invalid frame time" object:v10];
@@ -223,13 +223,13 @@ LABEL_46:
   return v15;
 }
 
-double __76__PISemanticStyleLearnNode_nodeByReplayingAgainstCache_pipelineState_error___block_invoke(uint64_t a1, CMTime *a2)
+long double __76__PISemanticStyleLearnNode_nodeByReplayingAgainstCache_pipelineState_error___block_invoke(uint64_t a1, const char *a2)
 {
   memset(&v10, 0, sizeof(v10));
   v3 = *(a1 + 32);
   if (v3)
   {
-    [v3 time];
+    objc_msgSend_time(v3);
   }
 
   lhs = *a2;
@@ -259,7 +259,7 @@ void __76__PISemanticStyleLearnNode_nodeByReplayingAgainstCache_pipelineState_er
     v13 = *(a1 + 32);
     if (v13)
     {
-      [v13 time];
+      objc_msgSend_time(v13);
     }
 
     else
@@ -378,7 +378,7 @@ id __76__PISemanticStyleLearnNode_nodeByReplayingAgainstCache_pipelineState_erro
 
   evaluationMode = [stateCopy evaluationMode];
   v11 = MEMORY[0x1E69B3940];
-  if (evaluationMode == 3 || stateCopy && ([stateCopy time], (v68 & 1) != 0))
+  if (evaluationMode == 3 || stateCopy && (objc_msgSend_time(stateCopy), (v68 & 1) != 0))
   {
     v12 = MEMORY[0x1E69B3CD8];
     scale = [stateCopy scale];

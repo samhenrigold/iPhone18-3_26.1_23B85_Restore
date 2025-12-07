@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)keyclassAsString:(int)string;
 - (int)StringAsKeyclass:(id)keyclass;
 - (void)copyTo:(id)to;
 - (void)mergeFrom:(id)from;
@@ -10,6 +11,21 @@
 @end
 
 @implementation SecDbKeychainSerializedItemV7
+
+- (id)keyclassAsString:(int)string
+{
+  if ((string - 6) >= 7)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100063400 + (string - 6));
+  }
+
+  return v4;
+}
 
 - (int)StringAsKeyclass:(id)keyclass
 {
@@ -102,12 +118,9 @@
 
 - (void)writeTo:(id)to
 {
-  encryptedSecretData = self->_encryptedSecretData;
   toCopy = to;
   PBDataWriterWriteDataField();
-  encryptedMetadata = self->_encryptedMetadata;
   PBDataWriterWriteDataField();
-  keyclass = self->_keyclass;
   PBDataWriterWriteInt32Field();
 }
 

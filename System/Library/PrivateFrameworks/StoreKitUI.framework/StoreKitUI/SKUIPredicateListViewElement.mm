@@ -3,6 +3,8 @@
 - (NSPredicate)compoundEntityValuePredicate;
 - (id)applyUpdatesWithElement:(id)element;
 - (void)_enumeratePredicateViewElementsUsingBlock:(id)block;
+- (void)compoundEntityValuePredicate;
+- (void)predicateViewElements;
 @end
 
 @implementation SKUIPredicateListViewElement
@@ -169,6 +171,30 @@ void __74__SKUIPredicateListViewElement__enumeratePredicateViewElementsUsingBloc
   {
     (*(*(a1 + 32) + 16))();
   }
+}
+
+- (void)applyUpdatesWithElement:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIPredicateListViewElement applyUpdatesWithElement:]";
+}
+
+- (void)predicateViewElements
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIPredicateListViewElement predicateViewElements]";
+}
+
+- (void)compoundEntityValuePredicate
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIPredicateListViewElement compoundEntityValuePredicate]";
+}
+
+- (void)_enumeratePredicateViewElementsUsingBlock:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIPredicateListViewElement _enumeratePredicateViewElementsUsingBlock:]";
 }
 
 @end

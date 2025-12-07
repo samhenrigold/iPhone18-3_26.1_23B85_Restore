@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)fieldTypeAsString:(int)string;
 - (int)StringAsFieldType:(id)type;
 - (unint64_t)hash;
 - (void)copyTo:(id)to;
@@ -11,6 +12,56 @@
 @end
 
 @implementation NPKProtoStandalonePaymentSetupField
+
+- (id)fieldTypeAsString:(int)string
+{
+  if (string > 129)
+  {
+    switch(string)
+    {
+      case 130:
+        v4 = @"Label";
+
+        break;
+      case 140:
+        v4 = @"Footer";
+
+        break;
+      case 150:
+        v4 = @"Picker";
+
+        break;
+      default:
+LABEL_20:
+        v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+
+        return v4;
+    }
+  }
+
+  else
+  {
+    switch(string)
+    {
+      case 'd':
+        v4 = @"Unknown";
+
+        break;
+      case 'n':
+        v4 = @"Text";
+
+        break;
+      case 'x':
+        v4 = @"Date";
+
+        return v4;
+      default:
+        goto LABEL_20;
+    }
+  }
+
+  return v4;
+}
 
 - (int)StringAsFieldType:(id)type
 {
@@ -143,7 +194,6 @@ LABEL_17:
   }
 
   PBDataWriterWriteStringField();
-  fieldType = self->_fieldType;
   PBDataWriterWriteInt32Field();
   if (self->_currentValue)
   {

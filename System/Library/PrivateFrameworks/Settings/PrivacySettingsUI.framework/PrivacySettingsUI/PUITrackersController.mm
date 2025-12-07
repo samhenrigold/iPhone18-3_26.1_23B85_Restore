@@ -8,6 +8,8 @@
 - (void)provideNavigationDonations;
 - (void)setAllowAsk:(id)ask specifier:(id)specifier;
 - (void)specifiers;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation PUITrackersController
@@ -26,9 +28,17 @@
   return v2;
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = PUITrackersController;
+  [(PUITCCAccessController *)&v4 viewDidAppear:appear];
+  [(PUITrackersController *)self provideNavigationDonations];
+}
+
 - (void)provideNavigationDonations
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   bundleURL = [v3 bundleURL];
 
@@ -40,12 +50,10 @@
   currentLocale2 = [MEMORY[0x277CBEAF8] currentLocale];
   v10 = [v8 initWithKey:@"PRIVACY" table:@"Privacy" locale:currentLocale2 bundleURL:bundleURL];
 
-  v14[0] = v10;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
+  v13[0] = v10;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
   v12 = [MEMORY[0x277CBEBC0] URLWithString:@"settings-navigation://com.apple.Settings.PrivacyAndSecurity/USER_TRACKING"];
   [(PUITrackersController *)self pe_emitNavigationEventForSystemSettingsWithGraphicIconIdentifier:@"com.apple.graphic-icon.app-tracking-transparency" title:v7 localizedNavigationComponents:v11 deepLink:v12];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)specifiers
@@ -142,7 +150,7 @@ LABEL_18:
     }
 
     v14 = PUI_LocalizedStringForPrivacy(@"APP_TRACKING_DISABLED");
-    v28 = _PUILoggingFacility();
+    v28 = _PUILoggingFacility(v14);
     if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
       [(PUITrackersController *)crossAppTrackingAllowedSwitchDisabledReason specifiers];
@@ -155,6 +163,14 @@ LABEL_20:
   v26 = v5;
 
   return v5;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v3.receiver = self;
+  v3.super_class = PUITrackersController;
+  [(PUITCCAccessController *)&v3 viewWillAppear:appear];
+  [MEMORY[0x277D4D8F0] trackingViewVisited];
 }
 
 - (void)headerLinkWasTapped
@@ -182,48 +198,47 @@ LABEL_20:
 
   else
   {
-    v6 = *MEMORY[0x277D6C238];
-    v7 = TCCAccessCopyBundleIdentifiersForService();
-    v8 = [v7 count];
+    v6 = TCCAccessCopyBundleIdentifiersForService();
+    v7 = [v6 count];
 
-    if (v8)
+    if (v7)
     {
-      v9 = MEMORY[0x277D75110];
-      v10 = PUI_LocalizedStringForPrivacy(@"DISABLE_ALLOW_ASK_MESSAGE");
+      v8 = MEMORY[0x277D75110];
+      v9 = PUI_LocalizedStringForPrivacy(@"DISABLE_ALLOW_ASK_MESSAGE");
       currentDevice = [MEMORY[0x277D75418] currentDevice];
-      v12 = [v9 alertControllerWithTitle:0 message:v10 preferredStyle:{objc_msgSend(currentDevice, "sf_isiPad")}];
+      v11 = [v8 alertControllerWithTitle:0 message:v9 preferredStyle:{objc_msgSend(currentDevice, "sf_isiPad")}];
 
-      v13 = MEMORY[0x277D750F8];
-      v14 = PUI_LocalizedStringForPrivacy(@"DISABLE_ALLOW_ASK_CANCEL");
-      v26[0] = MEMORY[0x277D85DD0];
-      v26[1] = 3221225472;
-      v26[2] = __47__PUITrackersController_setAllowAsk_specifier___block_invoke;
-      v26[3] = &unk_279BA1B38;
-      v26[4] = self;
-      v15 = [v13 actionWithTitle:v14 style:1 handler:v26];
-      [v12 addAction:v15];
-
-      v16 = MEMORY[0x277D750F8];
-      v17 = PUI_LocalizedStringForPrivacy(@"DISABLE_ALLOW_ASK_LEAVE_APPS_ON");
+      v12 = MEMORY[0x277D750F8];
+      v13 = PUI_LocalizedStringForPrivacy(@"DISABLE_ALLOW_ASK_CANCEL");
       v25[0] = MEMORY[0x277D85DD0];
       v25[1] = 3221225472;
-      v25[2] = __47__PUITrackersController_setAllowAsk_specifier___block_invoke_2;
+      v25[2] = __47__PUITrackersController_setAllowAsk_specifier___block_invoke;
       v25[3] = &unk_279BA1B38;
       v25[4] = self;
-      v18 = [v16 actionWithTitle:v17 style:0 handler:v25];
-      [v12 addAction:v18];
+      v14 = [v12 actionWithTitle:v13 style:1 handler:v25];
+      [v11 addAction:v14];
 
-      v19 = MEMORY[0x277D750F8];
-      v20 = PUI_LocalizedStringForPrivacy(@"DISABLE_ALLOW_ASK_TURN_OFF_APPS");
+      v15 = MEMORY[0x277D750F8];
+      v16 = PUI_LocalizedStringForPrivacy(@"DISABLE_ALLOW_ASK_LEAVE_APPS_ON");
       v24[0] = MEMORY[0x277D85DD0];
       v24[1] = 3221225472;
-      v24[2] = __47__PUITrackersController_setAllowAsk_specifier___block_invoke_3;
+      v24[2] = __47__PUITrackersController_setAllowAsk_specifier___block_invoke_2;
       v24[3] = &unk_279BA1B38;
       v24[4] = self;
-      v21 = [v19 actionWithTitle:v20 style:0 handler:v24];
-      [v12 addAction:v21];
+      v17 = [v15 actionWithTitle:v16 style:0 handler:v24];
+      [v11 addAction:v17];
 
-      [(PUITrackersController *)self presentViewController:v12 animated:1 completion:0];
+      v18 = MEMORY[0x277D750F8];
+      v19 = PUI_LocalizedStringForPrivacy(@"DISABLE_ALLOW_ASK_TURN_OFF_APPS");
+      v23[0] = MEMORY[0x277D85DD0];
+      v23[1] = 3221225472;
+      v23[2] = __47__PUITrackersController_setAllowAsk_specifier___block_invoke_3;
+      v23[3] = &unk_279BA1B38;
+      v23[4] = self;
+      v20 = [v18 actionWithTitle:v19 style:0 handler:v23];
+      [v11 addAction:v20];
+
+      [(PUITrackersController *)self presentViewController:v11 animated:1 completion:0];
       return;
     }
 
@@ -262,48 +277,43 @@ void __47__PUITrackersController_setAllowAsk_specifier___block_invoke_3(uint64_t
 
 - (void)disableTCCForAllApps
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEB98];
-  v3 = MEMORY[0x277D6C238];
-  v4 = *MEMORY[0x277D6C238];
-  v5 = TCCAccessCopyBundleIdentifiersForService();
-  v6 = [v2 setWithArray:v5];
+  v3 = TCCAccessCopyBundleIdentifiersForService();
+  v4 = [v2 setWithArray:v3];
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  v7 = v6;
-  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
-  if (v8)
+  v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  v5 = v4;
+  v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v6)
   {
-    v9 = v8;
-    v10 = *v16;
+    v7 = v6;
+    v8 = *v11;
     do
     {
-      v11 = 0;
+      v9 = 0;
       do
       {
-        if (*v16 != v10)
+        if (*v11 != v8)
         {
-          objc_enumerationMutation(v7);
+          objc_enumerationMutation(v5);
         }
 
-        v12 = *(*(&v15 + 1) + 8 * v11);
-        v13 = *v3;
         TCCAccessSetForBundleId();
-        ++v11;
+        ++v9;
       }
 
-      while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      while (v7 != v9);
+      v7 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
-    while (v9);
+    while (v7);
   }
 
   PUIResetIDFAIfNeeded();
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)allowAsk:(id)ask
@@ -317,13 +327,12 @@ void __47__PUITrackersController_setAllowAsk_specifier___block_invoke_3(uint64_t
 
 - (void)specifiers
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 136315394;
-  v4 = "[PUITrackersController specifiers]";
-  v5 = 2048;
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 136315394;
+  v3 = "[PUITrackersController specifiers]";
+  v4 = 2048;
   selfCopy = self;
-  _os_log_error_impl(&dword_2657FE000, a2, OS_LOG_TYPE_ERROR, "%s: Unexpected crossAppTrackingAllowedSwitchDisabledReason code: %ld", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_2657FE000, a2, OS_LOG_TYPE_ERROR, "%s: Unexpected crossAppTrackingAllowedSwitchDisabledReason code: %ld", &v2, 0x16u);
 }
 
 @end

@@ -214,7 +214,7 @@ LABEL_6:
   selfCopy = self;
   TTRIRemindersListReminderCell_collectionView._accessibilityInternalTextLinks()();
 
-  sub_21D0D8CF0(0, &unk_27CE5F130);
+  sub_21D0D8CF0(0, &unk_27CE5F130, 0x277D74008);
   v3 = sub_21DBFA5DC();
 
   return v3;

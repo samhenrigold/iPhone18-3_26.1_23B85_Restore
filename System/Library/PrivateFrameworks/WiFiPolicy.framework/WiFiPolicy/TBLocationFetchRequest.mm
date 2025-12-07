@@ -1,5 +1,6 @@
 @interface TBLocationFetchRequest
 + (id)fetchRequestWithDescriptor:(id)descriptor sourcePolicy:(unint64_t)policy;
++ (id)fetchRequestWithDescriptor:(id)descriptor sourcePolicy:(unint64_t)policy cacheable:(BOOL)cacheable;
 - (TBLocationFetchRequest)initWithDescriptor:(id)descriptor sourcePolicy:(unint64_t)policy cacheable:(BOOL)cacheable;
 - (id)copyWithZone:(_NSZone *)zone;
 - (void)handlePreferLocalResponse:(id)response;
@@ -14,6 +15,15 @@
   v7 = [[self alloc] initWithDescriptor:descriptorCopy sourcePolicy:policy cacheable:0];
 
   return v7;
+}
+
++ (id)fetchRequestWithDescriptor:(id)descriptor sourcePolicy:(unint64_t)policy cacheable:(BOOL)cacheable
+{
+  cacheableCopy = cacheable;
+  descriptorCopy = descriptor;
+  v9 = [[self alloc] initWithDescriptor:descriptorCopy sourcePolicy:policy cacheable:cacheableCopy];
+
+  return v9;
 }
 
 - (TBLocationFetchRequest)initWithDescriptor:(id)descriptor sourcePolicy:(unint64_t)policy cacheable:(BOOL)cacheable

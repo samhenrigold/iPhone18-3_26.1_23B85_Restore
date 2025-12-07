@@ -1105,7 +1105,7 @@ LABEL_18:
 
   else
   {
-    v19 = NTKInterpolateBetweenColors();
+    v19 = NTKInterpolateBetweenColors(v16);
     [(NTKFaceView *)self setInterpolatedComplicationColor:v19];
     [(NTKFaceView *)self setComplicationColor:v19];
   }

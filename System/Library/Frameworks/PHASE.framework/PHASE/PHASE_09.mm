@@ -1,163 +1,3 @@
-uint64_t std::__function::__value_func<void ()(Phase::SpatialModeler::RoomSimulationDebugger::RoomSimulationDebugView *)>::~__value_func[abi:ne200100](uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  if (v2 == a1)
-  {
-    (*(*v2 + 32))(v2);
-  }
-
-  else if (v2)
-  {
-    (*(*v2 + 40))(v2);
-  }
-
-  return a1;
-}
-
-void std::__function::__func<Phase::Dispatch::GeometryClientDirectDispatcher::UpdateMaterial(Phase::Handle64,Phase::Dispatch::MaterialData const&)::$_0,std::allocator<Phase::Dispatch::GeometryClientDirectDispatcher::UpdateMaterial(Phase::Handle64,Phase::Dispatch::MaterialData const&)::$_0>,void ()(Phase::Geometry::System *)>::~__func(id *a1)
-{
-
-  JUMPOUT(0x23EE864A0);
-}
-
-id std::__function::__func<Phase::Dispatch::GeometryClientDirectDispatcher::UpdateMaterial(Phase::Handle64,Phase::Dispatch::MaterialData const&)::$_0,std::allocator<Phase::Dispatch::GeometryClientDirectDispatcher::UpdateMaterial(Phase::Handle64,Phase::Dispatch::MaterialData const&)::$_0>,void ()(Phase::Geometry::System *)>::__clone(uint64_t a1, void *a2)
-{
-  *a2 = &unk_284D327E0;
-  a2[1] = *(a1 + 8);
-  a2[2] = *(a1 + 16);
-  a2[3] = *(a1 + 24);
-  result = *(a1 + 32);
-  v5 = *(a1 + 40);
-  a2[4] = result;
-  a2[5] = v5;
-  return result;
-}
-
-void std::__function::__func<Phase::Dispatch::GeometryClientDirectDispatcher::UpdateMaterial(Phase::Handle64,Phase::Dispatch::MaterialData const&)::$_0,std::allocator<Phase::Dispatch::GeometryClientDirectDispatcher::UpdateMaterial(Phase::Handle64,Phase::Dispatch::MaterialData const&)::$_0>,void ()(Phase::Geometry::System *)>::destroy(uint64_t a1)
-{
-  v2 = *(a1 + 8);
-}
-
-void std::__function::__func<Phase::Dispatch::GeometryClientDirectDispatcher::UpdateMaterial(Phase::Handle64,Phase::Dispatch::MaterialData const&)::$_0,std::allocator<Phase::Dispatch::GeometryClientDirectDispatcher::UpdateMaterial(Phase::Handle64,Phase::Dispatch::MaterialData const&)::$_0>,void ()(Phase::Geometry::System *)>::destroy_deallocate(id *a1)
-{
-
-  operator delete(a1);
-}
-
-void std::__function::__func<Phase::Dispatch::GeometryClientDirectDispatcher::UpdateMaterial(Phase::Handle64,Phase::Dispatch::MaterialData const&)::$_0,std::allocator<Phase::Dispatch::GeometryClientDirectDispatcher::UpdateMaterial(Phase::Handle64,Phase::Dispatch::MaterialData const&)::$_0>,void ()(Phase::Geometry::System *)>::operator()(uint64_t a1, uint64_t *a2)
-{
-  v20 = *MEMORY[0x277D85DE8];
-  v3 = *a2;
-  UniqueSlot = Phase::details::SharedSlotMap<Phase::Geometry::Material,Phase::Handle64>::GetUniqueSlot(*a2 + 1176, *(a1 + 40));
-  if (!UniqueSlot)
-  {
-    goto LABEL_16;
-  }
-
-  v5 = UniqueSlot;
-  shared_owners = UniqueSlot->__shared_owners_;
-  if (shared_owners && *(shared_owners + 8) >= 1)
-  {
-    v7 = *(v3 + 1376);
-    if (!v7)
-    {
-      std::terminate();
-    }
-
-    v8 = v5->__vftable;
-    Phase::Geometry::MaterialFactory::Create(v7, v5->__vftable, 0, v19);
-    v9 = *v19;
-    if (*v19)
-    {
-      *(*v19 + 8) = *(v8 + 1);
-    }
-
-    v10 = *&v19[8];
-    *v19 = 0;
-    *&v19[8] = 0;
-    UniqueSlot = v5->__shared_owners_;
-    v5->__vftable = v9;
-    v5->__shared_owners_ = v10;
-    if (UniqueSlot)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](UniqueSlot);
-      UniqueSlot = *&v19[8];
-      if (*&v19[8])
-      {
-        std::__shared_weak_count::__release_shared[abi:ne200100](*&v19[8]);
-      }
-    }
-  }
-
-  v11 = v5->__vftable;
-  if (!v11)
-  {
-LABEL_16:
-    v17 = **(Phase::Logger::GetInstance(UniqueSlot) + 848);
-    if (!os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
-    {
-      return;
-    }
-
-    *v19 = 136315394;
-    *&v19[4] = "DispatcherGeometryClientDirect.mm";
-    *&v19[12] = 1024;
-    *&v19[14] = 564;
-    v18 = "%25s:%-5d Unable to find geo material to update.";
-    goto LABEL_18;
-  }
-
-  v12 = **(v11 + 5);
-  if (v12)
-  {
-    Phase::Dispatch::sCopyMaterialData((a1 + 8), v12);
-    v14 = qword_23A555248;
-    v15 = 40;
-    while (1)
-    {
-      v16 = *(*(v11 + 5) + v15);
-      if (!v16)
-      {
-        break;
-      }
-
-      Phase::Dispatch::sConvertMaterialData((a1 + 8), v16, *v14);
-      v15 += 40;
-      ++v14;
-      if (v15 == 160)
-      {
-        return;
-      }
-    }
-
-    v17 = **(Phase::Logger::GetInstance(v13) + 848);
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
-    {
-      *v19 = 136315394;
-      *&v19[4] = "DispatcherGeometryClientDirect.mm";
-      *&v19[12] = 1024;
-      *&v19[14] = 584;
-      v18 = "%25s:%-5d Unable to find internal geo material map to update.";
-      goto LABEL_18;
-    }
-  }
-
-  else
-  {
-    v17 = **(Phase::Logger::GetInstance(UniqueSlot) + 848);
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
-    {
-      *v19 = 136315394;
-      *&v19[4] = "DispatcherGeometryClientDirect.mm";
-      *&v19[12] = 1024;
-      *&v19[14] = 572;
-      v18 = "%25s:%-5d Unable to find user geo material map to update.";
-LABEL_18:
-      _os_log_impl(&dword_23A302000, v17, OS_LOG_TYPE_ERROR, v18, v19, 0x12u);
-    }
-  }
-}
-
 void sub_23A3A867C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, __int128 a9)
 {
   if (a2)
@@ -683,9 +523,9 @@ uint64_t std::__function::__func<Phase::Dispatch::GeometryClientDirectDispatcher
   return std::__function::__value_func<void ()(Phase::SpatialModeler::DirectPathTransmissionDebugger::RenderSourceView const*)>::~__value_func[abi:ne200100](v5);
 }
 
-void sub_23A3A9948(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A3A9948(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(Phase::SpatialModeler::DirectPathTransmissionDebugger::RenderSourceView const*)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -761,9 +601,9 @@ uint64_t std::__function::__func<Phase::Dispatch::GeometryClientDirectDispatcher
   return std::__function::__value_func<void ()(Phase::SpatialModeler::DirectPathTransmissionDebugger::AudibleTriangleView const*)>::~__value_func[abi:ne200100](v5);
 }
 
-void sub_23A3A9CA8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A3A9CA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(Phase::SpatialModeler::DirectPathTransmissionDebugger::AudibleTriangleView const*)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -945,9 +785,9 @@ void std::__function::__func<Phase::Dispatch::GeometryClientDirectDispatcher::Ge
   operator delete(a1);
 }
 
-void std::__function::__func<Phase::Dispatch::GeometryClientDirectDispatcher::GetVoxels(Phase::Handle64,unsigned long,unsigned long,std::function<void ()(unsigned long,Phase::Vector<unsigned short,3ul> *)>)::$_0,std::allocator<Phase::Dispatch::GeometryClientDirectDispatcher::GetVoxels(Phase::Handle64,unsigned long,unsigned long,std::function<void ()(unsigned long,Phase::Vector<unsigned short,3ul> *)>)::$_0>,void ()(Phase::Geometry::SystemDebugger *)>::operator()(void *a1, Phase::Logger ****a2)
+void std::__function::__func<Phase::Dispatch::GeometryClientDirectDispatcher::GetVoxels(Phase::Handle64,unsigned long,unsigned long,std::function<void ()(unsigned long,Phase::Vector<unsigned short,3ul> *)>)::$_0,std::allocator<Phase::Dispatch::GeometryClientDirectDispatcher::GetVoxels(Phase::Handle64,unsigned long,unsigned long,std::function<void ()(unsigned long,Phase::Vector<unsigned short,3ul> *)>)::$_0>,void ()(Phase::Geometry::SystemDebugger *)>::operator()(void *a1, uint64_t ****a2)
 {
-  Phase::Geometry::ShapeDebugger::GetVoxels(*a2, a1[1], a1[2], a1[3], &v4);
+  Phase::Geometry::ShapeDebugger::GetVoxels(*a2, a1[1], a1[2], a1[3], v4);
   v3 = a1[7];
   v7 = __p;
   v8 = 0xAAAAAAAAAAAAAAABLL * ((v6 - __p) >> 1);
@@ -1063,9 +903,9 @@ uint64_t std::__function::__func<Phase::Dispatch::GeometryClientDirectDispatcher
   return std::__function::__value_func<void ()(Phase::SpatialModeler::RoomSimulationDebugger::RoomSimulationDebugView *)>::~__value_func[abi:ne200100](v5);
 }
 
-void sub_23A3AA6CC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A3AA6CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(Phase::SpatialModeler::RoomSimulationDebugger::RoomSimulationDebugView *)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -1125,9 +965,9 @@ uint64_t std::__function::__func<Phase::Dispatch::GeometryClientDirectDispatcher
   return std::__function::__value_func<void ()(Phase::SpatialModeler::RoomSimulationDebugger::RoomSimulationDebugView *)>::~__value_func[abi:ne200100](v5);
 }
 
-void sub_23A3AAA2C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A3AAA2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(Phase::SpatialModeler::RoomSimulationDebugger::RoomSimulationDebugView *)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -1187,9 +1027,9 @@ uint64_t std::__function::__func<Phase::Dispatch::GeometryClientDirectDispatcher
   return std::__function::__value_func<void ()(Phase::SpatialModeler::RoomSimulationDebugger::RoomSimulationDebugView *)>::~__value_func[abi:ne200100](v5);
 }
 
-void sub_23A3AAD0C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A3AAD0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(Phase::SpatialModeler::RoomSimulationDebugger::RoomSimulationDebugView *)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -1249,9 +1089,9 @@ uint64_t std::__function::__func<Phase::Dispatch::GeometryClientDirectDispatcher
   return std::__function::__value_func<void ()(Phase::SpatialModeler::RoomSimulationDebugger::RoomSimulationDebugView *)>::~__value_func[abi:ne200100](v5);
 }
 
-void sub_23A3AAFEC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A3AAFEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(Phase::SpatialModeler::RoomSimulationDebugger::RoomSimulationDebugView *)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -1311,9 +1151,9 @@ uint64_t std::__function::__func<Phase::Dispatch::GeometryClientDirectDispatcher
   return std::__function::__value_func<void ()(Phase::SpatialModeler::RoomSimulationDebugger::RoomSimulationDebugView *)>::~__value_func[abi:ne200100](v5);
 }
 
-void sub_23A3AB2CC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A3AB2CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(Phase::SpatialModeler::RoomSimulationDebugger::RoomSimulationDebugView *)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -1373,9 +1213,9 @@ uint64_t std::__function::__func<Phase::Dispatch::GeometryClientDirectDispatcher
   return std::__function::__value_func<void ()(Phase::SpatialModeler::RoomSimulationDebugger::RoomSimulationDebugView *)>::~__value_func[abi:ne200100](v5);
 }
 
-void sub_23A3AB5AC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A3AB5AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(Phase::SpatialModeler::RoomSimulationDebugger::RoomSimulationDebugView *)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -1453,7 +1293,7 @@ void *Phase::Dispatch::MiscClientDirectDispatcher::MiscClientDirectDispatcher(vo
   return a1;
 }
 
-uint64_t Phase::Dispatch::MiscClientDirectDispatcher::GetGeometryPermutations@<X0>(Phase::Dispatch::MiscClientDirectDispatcher *this@<X0>, void *a2@<X8>)
+uint64_t *Phase::Dispatch::MiscClientDirectDispatcher::GetGeometryPermutations@<X0>(Phase::Dispatch::MiscClientDirectDispatcher *this@<X0>, uint64_t *a2@<X8>)
 {
   v2 = **(this + 1);
   a2[1] = 0;
@@ -1548,7 +1388,7 @@ uint64_t Phase::Dispatch::MiscClientDirectDispatcher::SetProfileOverride(Phase::
   v6 = **(v5 + 8);
   v14 = 0;
   v13 = 1;
-  v7 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v6, 32, &v14, &v13);
+  v7 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v6, 0x20uLL, &v14, &v13);
   if (!v7)
   {
     Instance = Phase::Logger::GetInstance(0);
@@ -1614,7 +1454,7 @@ uint64_t Phase::Dispatch::MiscClientDirectDispatcher::ClearProfileOverride(Phase
   v2 = **(v1 + 8);
   v10 = 0;
   v9 = 1;
-  v3 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v2, 16, &v10, &v9);
+  v3 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v2, 0x10uLL, &v10, &v9);
   if (!v3)
   {
     Instance = Phase::Logger::GetInstance(0);
@@ -2058,7 +1898,7 @@ LABEL_28:
   return result;
 }
 
-uint64_t Phase::Controller::DVM23::DspVoiceManager23::IsGraphEmpty(Phase::Controller::DVM23::VoiceGraph **this)
+uint64_t Phase::Controller::DVM23::DspVoiceManager23::IsGraphEmpty(Phase::Controller::DVM23::VoiceGraph **this, unint64_t a2)
 {
   Graph = Phase::Controller::DVM23::VoiceGraph::GetGraph(*this);
   if (!Graph)
@@ -2069,17 +1909,17 @@ uint64_t Phase::Controller::DVM23::DspVoiceManager23::IsGraphEmpty(Phase::Contro
   return Phase::Controller::DVM23::VoiceGraph::IsEmpty(Graph);
 }
 
-uint64_t Phase::Controller::DVM23::DspVoiceManager23::AddVoice(uint64_t a1, uint64_t *a2, unint64_t a3)
+uint64_t Phase::Controller::DVM23::DspVoiceManager23::AddVoice(uint64_t a1, unint64_t *a2, unint64_t a3, unint64_t a4)
 {
   if (!Phase::Controller::DVM23::VoiceGraph::GetGraph(*a1))
   {
     return 3;
   }
 
-  v6 = *(a1 + 176);
-  v9 = a3;
-  v7 = std::__hash_table<std::__hash_value_type<unsigned long long,Phase::Controller::Parameter<double>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::Controller::Parameter<double>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::Controller::Parameter<double>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::Controller::Parameter<double>>>>::find<unsigned long long>(v6, &v9);
-  if (!v7 || !v7[3])
+  v7 = *(a1 + 176);
+  v10 = a3;
+  v8 = std::__hash_table<std::__hash_value_type<unsigned long long,Phase::Controller::Parameter<double>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::Controller::Parameter<double>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::Controller::Parameter<double>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::Controller::Parameter<double>>>>::find<unsigned long long>(v7, &v10);
+  if (!v8 || !v8[3])
   {
     return 5;
   }
@@ -2138,35 +1978,35 @@ uint64_t Phase::Controller::DVM23::DspVoiceManager23::AddGraph(Phase::Controller
   return 4;
 }
 
-uint64_t Phase::Controller::DVM23::DspVoiceManager23::RemoveGraph(Phase::Controller::DVM23::VoiceGraph **this)
+uint64_t Phase::Controller::DVM23::DspVoiceManager23::RemoveGraph(Phase::Controller::DVM23::VoiceGraph **this, unint64_t a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   Graph = Phase::Controller::DVM23::VoiceGraph::GetGraph(*this);
   if (!Graph)
   {
     return 3;
   }
 
-  v3 = Graph;
-  v7 = &unk_284D33208;
-  v8 = this;
-  v10 = &v7;
-  v4 = (*(*Graph + 56))(Graph, &v7);
-  std::__function::__value_func<BOOL ()(Phase::Controller::DVM23::Voice *)>::~__value_func[abi:ne200100](&v7);
-  if (!v4)
+  v4 = Graph;
+  v8 = &unk_284D33208;
+  v9 = this;
+  v11 = &v8;
+  v5 = (*(*Graph + 56))(Graph, &v8);
+  std::__function::__value_func<BOOL ()(Phase::Controller::DVM23::Voice *)>::~__value_func[abi:ne200100](&v8);
+  if (!v5)
   {
     return 6;
   }
 
-  v5 = this[26];
-  v7 = &unk_284D33250;
-  v8 = v5;
-  v9 = this;
-  v10 = &v7;
-  ((*v3)[7])(v3, &v7);
-  std::__function::__value_func<BOOL ()(Phase::Controller::DVM23::Voice *)>::~__value_func[abi:ne200100](&v7);
-  Phase::Controller::DVM23::VoiceGraph::RemoveNode(v3[7], v3);
-  ((*v3)[1])(v3);
+  v6 = this[26];
+  v8 = &unk_284D33250;
+  v9 = v6;
+  v10 = this;
+  v11 = &v8;
+  ((*v4)[7])(v4, &v8);
+  std::__function::__value_func<BOOL ()(Phase::Controller::DVM23::Voice *)>::~__value_func[abi:ne200100](&v8);
+  Phase::Controller::DVM23::VoiceGraph::RemoveNode(v4[7], v4);
+  ((*v4)[1])(v4);
   return 0;
 }
 
@@ -2177,7 +2017,7 @@ uint64_t Phase::Controller::DVM23::DspVoiceManager23::AddConnection(int64x2_t *t
     return 12;
   }
 
-  v10 = (*(*this->i64[0] + 80))(this->i64[0]);
+  v10 = (*(*this->i64[0] + 80))(this->i64[0], a2);
   v11 = (*(*this->i64[0] + 80))(this->i64[0], a4);
   if (v10)
   {
@@ -2195,26 +2035,26 @@ uint64_t Phase::Controller::DVM23::DspVoiceManager23::AddConnection(int64x2_t *t
   }
 
   v13 = v11;
-  v14 = *(v10 + 7);
-  v15 = *(v13 + 7);
+  v14 = v10[7];
+  v15 = v13[7];
   if (v14 == v15)
   {
     if (v10 == v13)
     {
-      if ((*(*v10 + 16))(v10) == 0xFFFFFFFFFFFFFFCLL && Phase::Controller::DVM23::VoiceGraph::AddConnection(v10, *(*(v10 + 9) + 8 * a3), 0, *(*(v10 + 12) + 8 * a5), 0))
+      if ((*(*v10 + 16))(v10) == 0xFFFFFFFFFFFFFFCLL && Phase::Controller::DVM23::VoiceGraph::AddConnection(v10, *(v10[9] + 8 * a3), 0, *(v10[12] + 8 * a5), 0))
       {
-        Phase::Controller::DVM23::VoiceNode::InputVoiceConnections(v10, a3, v26);
-        v24 = v26[0];
-        Phase::Controller::DVM23::VoiceNode::OutputVoiceConnections(v13, a5, v26);
+        Phase::Controller::DVM23::VoiceNode::InputVoiceConnections(v26, v10, a3);
+        v24 = *v26;
+        Phase::Controller::DVM23::VoiceNode::OutputVoiceConnections(v26, v13, a5);
         goto LABEL_23;
       }
     }
 
     else if (Phase::Controller::DVM23::VoiceGraph::AddConnection(v14, v10, a3, v13, a5))
     {
-      Phase::Controller::DVM23::VoiceNode::TailVoiceConnections(v10, a3, v26);
-      v24 = v26[0];
-      Phase::Controller::DVM23::VoiceNode::HeadVoiceConnections(v13, a5, v26);
+      Phase::Controller::DVM23::VoiceNode::TailVoiceConnections(v26, v10, a3);
+      v24 = *v26;
+      Phase::Controller::DVM23::VoiceNode::HeadVoiceConnections(v26, v13, a5);
       goto LABEL_23;
     }
 
@@ -2225,9 +2065,9 @@ uint64_t Phase::Controller::DVM23::DspVoiceManager23::AddConnection(int64x2_t *t
   {
     if (Phase::Controller::DVM23::VoiceGraph::AddConnectionFromGraphInput(v10, a3, v13, a5))
     {
-      Phase::Controller::DVM23::VoiceNode::InputVoiceConnections(v10, a3, v26);
-      v24 = v26[0];
-      Phase::Controller::DVM23::VoiceNode::HeadVoiceConnections(v13, a5, v26);
+      Phase::Controller::DVM23::VoiceNode::InputVoiceConnections(v26, v10, a3);
+      v24 = *v26;
+      Phase::Controller::DVM23::VoiceNode::HeadVoiceConnections(v26, v13, a5);
       goto LABEL_23;
     }
 
@@ -2239,11 +2079,11 @@ uint64_t Phase::Controller::DVM23::DspVoiceManager23::AddConnection(int64x2_t *t
     return 9;
   }
 
-  Phase::Controller::DVM23::VoiceNode::TailVoiceConnections(v10, a3, v26);
-  v24 = v26[0];
-  Phase::Controller::DVM23::VoiceNode::OutputVoiceConnections(v13, a5, v26);
+  Phase::Controller::DVM23::VoiceNode::TailVoiceConnections(v26, v10, a3);
+  v24 = *v26;
+  Phase::Controller::DVM23::VoiceNode::OutputVoiceConnections(v26, v13, a5);
 LABEL_23:
-  v25 = v26[0];
+  v25 = *v26;
   if (v24 != *(&v24 + 1))
   {
     v16 = v24;
@@ -2304,7 +2144,7 @@ void sub_23A3AD3C4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-int64x2_t *Phase::Controller::DVM23::DspVoiceManager23::RegisterConnectionCommand(int64x2_t *this, Phase::Controller::DVM23::Voice *a2, int a3, Phase::Controller::DVM23::Voice *a4, int a5)
+void Phase::Controller::DVM23::DspVoiceManager23::RegisterConnectionCommand(int64x2_t *this, Phase::Controller::DVM23::Voice *a2, int a3, Phase::Controller::DVM23::Voice *a4, int a5)
 {
   v28 = a2;
   v27 = a3;
@@ -2342,7 +2182,8 @@ int64x2_t *Phase::Controller::DVM23::DspVoiceManager23::RegisterConnectionComman
     if (v13 == v10)
     {
       v24 = 1;
-      return std::deque<Phase::Controller::DVM23::DspVoiceManager23::VoiceDisConnectionCommand>::emplace_back<BOOL,Phase::Controller::DVM23::Voice *&,int &,Phase::Controller::DVM23::Voice *&,int &>(this[14].i64, &v24, &v28, &v27, &v26, &v25);
+      std::deque<Phase::Controller::DVM23::DspVoiceManager23::VoiceDisConnectionCommand>::emplace_back<BOOL,Phase::Controller::DVM23::Voice *&,int &,Phase::Controller::DVM23::Voice *&,int &>(&this[14], &v24, &v28, &v27, &v26, &v25);
+      return;
     }
 
     v14 = *v9;
@@ -2392,10 +2233,8 @@ LABEL_24:
 
     v23 = this + 14;
 
-    return std::deque<Phase::Controller::DVM23::DspVoiceManager23::VoiceDisConnectionCommand>::erase(v23, v20, v21);
+    std::deque<Phase::Controller::DVM23::DspVoiceManager23::VoiceDisConnectionCommand>::erase(v23, v20, v21);
   }
-
-  return this;
 }
 
 uint64_t Phase::Controller::DVM23::DspVoiceManager23::RemoveConnection(int64x2_t *this, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
@@ -2405,7 +2244,7 @@ uint64_t Phase::Controller::DVM23::DspVoiceManager23::RemoveConnection(int64x2_t
     return 12;
   }
 
-  v10 = (*(*this->i64[0] + 80))(this->i64[0]);
+  v10 = (*(*this->i64[0] + 80))(this->i64[0], a2);
   v11 = (*(*this->i64[0] + 80))(this->i64[0], a4);
   if (v10)
   {
@@ -2423,17 +2262,17 @@ uint64_t Phase::Controller::DVM23::DspVoiceManager23::RemoveConnection(int64x2_t
   }
 
   v13 = v11;
-  v14 = *(v10 + 7);
-  v15 = v13[7];
+  v14 = v10[7];
+  v15 = *(v13 + 56);
   if (v14 == v15)
   {
     if (v10 == v13)
     {
       if ((*(*v10 + 16))(v10) == 0xFFFFFFFFFFFFFFCLL && Phase::Controller::DVM23::VoiceGraph::RemovePassthroughConnection(v10, a3, a5))
       {
-        Phase::Controller::DVM23::VoiceNode::InputVoiceConnections(v10, a3, &v50);
-        *__p = v50;
-        Phase::Controller::DVM23::VoiceNode::OutputVoiceConnections(v13, a5, &v50);
+        Phase::Controller::DVM23::VoiceNode::InputVoiceConnections(v50, v10, a3);
+        *__p = *v50;
+        Phase::Controller::DVM23::VoiceNode::OutputVoiceConnections(v50, v13, a5);
         goto LABEL_26;
       }
     }
@@ -2454,9 +2293,9 @@ uint64_t Phase::Controller::DVM23::DspVoiceManager23::RemoveConnection(int64x2_t
 
       if (!v18)
       {
-        Phase::Controller::DVM23::VoiceNode::TailVoiceConnections(v10, a3, &v50);
-        *__p = v50;
-        Phase::Controller::DVM23::VoiceNode::HeadVoiceConnections(v13, a5, &v50);
+        Phase::Controller::DVM23::VoiceNode::TailVoiceConnections(v50, v10, a3);
+        *__p = *v50;
+        Phase::Controller::DVM23::VoiceNode::HeadVoiceConnections(v50, v13, a5);
         goto LABEL_26;
       }
     }
@@ -2466,11 +2305,11 @@ uint64_t Phase::Controller::DVM23::DspVoiceManager23::RemoveConnection(int64x2_t
 
   if (v10 == v15)
   {
-    if (Phase::Controller::DVM23::VoiceGraph::RemoveConnectionFromGraphInput(v13[7], a3, v13, a5))
+    if (Phase::Controller::DVM23::VoiceGraph::RemoveConnectionFromGraphInput(*(v13 + 56), a3, v13, a5))
     {
-      Phase::Controller::DVM23::VoiceNode::InputVoiceConnections(v10, a3, &v50);
-      *__p = v50;
-      Phase::Controller::DVM23::VoiceNode::HeadVoiceConnections(v13, a5, &v50);
+      Phase::Controller::DVM23::VoiceNode::InputVoiceConnections(v50, v10, a3);
+      *__p = *v50;
+      Phase::Controller::DVM23::VoiceNode::HeadVoiceConnections(v50, v13, a5);
       goto LABEL_26;
     }
 
@@ -2482,11 +2321,11 @@ uint64_t Phase::Controller::DVM23::DspVoiceManager23::RemoveConnection(int64x2_t
     return 9;
   }
 
-  Phase::Controller::DVM23::VoiceNode::TailVoiceConnections(v10, a3, &v50);
-  *__p = v50;
-  Phase::Controller::DVM23::VoiceNode::OutputVoiceConnections(v13, a5, &v50);
+  Phase::Controller::DVM23::VoiceNode::TailVoiceConnections(v50, v10, a3);
+  *__p = *v50;
+  Phase::Controller::DVM23::VoiceNode::OutputVoiceConnections(v50, v13, a5);
 LABEL_26:
-  v48 = v50;
+  v48 = *v50;
   if (__p[0] == __p[1])
   {
     goto LABEL_75;
@@ -2532,7 +2371,7 @@ LABEL_26:
 
       v30 = v19[2];
       v31 = v20[2];
-      *&v50 = *v19;
+      v50[0] = *v19;
       v54 = v30;
       v53 = v24;
       v52 = v31;
@@ -2568,7 +2407,7 @@ LABEL_26:
         if (v40 == v37)
         {
           v51 = 0;
-          std::deque<Phase::Controller::DVM23::DspVoiceManager23::VoiceDisConnectionCommand>::emplace_back<BOOL,Phase::Controller::DVM23::Voice *&,int &,Phase::Controller::DVM23::Voice *&,int &>(this[14].i64, &v51, &v50, &v54, &v53, &v52);
+          std::deque<Phase::Controller::DVM23::DspVoiceManager23::VoiceDisConnectionCommand>::emplace_back<BOOL,Phase::Controller::DVM23::Voice *&,int &,Phase::Controller::DVM23::Voice *&,int &>(&this[14], &v51, v50, &v54, &v53, &v52);
           goto LABEL_43;
         }
 
@@ -2649,8 +2488,9 @@ void sub_23A3ADADC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t Phase::Controller::DVM23::DspVoiceManager23::SetVoicePlaystate(void *a1, uint64_t a2, unsigned int a3, int a4)
+uint64_t Phase::Controller::DVM23::DspVoiceManager23::SetVoicePlaystate(void *a1, uint64_t a2, uint64_t a3, int a4)
 {
+  v5 = a3;
   v76 = *MEMORY[0x277D85DE8];
   v8 = *(a2 + 88);
   NextPlaystate = Phase::Controller::DVM23::GetNextPlaystate(v8, a3);
@@ -2674,14 +2514,14 @@ uint64_t Phase::Controller::DVM23::DspVoiceManager23::SetVoicePlaystate(void *a1
       v19 = Phase::DspLayer23::KernelTypeToString(v18);
       v20 = *(a2 + 64);
       v21 = Phase::Controller::DVM23::PlaystateToString(*(a2 + 88));
-      if (a3 > 3)
+      if (v5 > 3)
       {
         v22 = "Unknown PlaystateCommand";
       }
 
       else
       {
-        v22 = off_278B4F160[a3];
+        v22 = off_278B4F160[v5];
       }
 
       v62 = 136316674;
@@ -2757,7 +2597,7 @@ uint64_t Phase::Controller::DVM23::DspVoiceManager23::SetVoicePlaystate(void *a1
         v29 = v25;
         v30 = 16 * v25;
         *v30 = a2;
-        *(v30 + 8) = a3;
+        *(v30 + 8) = v5;
         *(v30 + 12) = a4;
         v16 = 16 * v25 + 16;
         v31 = (v30 - 16 * v29);
@@ -2775,7 +2615,7 @@ uint64_t Phase::Controller::DVM23::DspVoiceManager23::SetVoicePlaystate(void *a1
       {
         *v14 = a2;
         v16 = v14 + 16;
-        *(v14 + 8) = a3;
+        *(v14 + 8) = v5;
         *(v14 + 12) = a4;
       }
 
@@ -2979,7 +2819,7 @@ const char *Phase::DspLayer23::KernelTypeToString(unint64_t a1)
   }
 }
 
-uint64_t Phase::Controller::DVM23::DspVoiceManager23::SetVoicePlaystate(uint64_t a1, uint64_t a2, unsigned int a3, double a4)
+uint64_t Phase::Controller::DVM23::DspVoiceManager23::SetVoicePlaystate(uint64_t a1, uint64_t a2, uint64_t a3, double a4)
 {
   if (*(a1 + 216))
   {
@@ -2997,19 +2837,20 @@ uint64_t Phase::Controller::DVM23::DspVoiceManager23::SetVoicePlaystate(uint64_t
   return Phase::Controller::DVM23::DspVoiceManager23::SetVoicePlaystate(a1, Voice, a3, v9);
 }
 
-uint64_t Phase::Controller::DVM23::DspVoiceManager23::SetGraphPlaystate(uint64_t a1, uint64_t a2, int a3)
+uint64_t Phase::Controller::DVM23::DspVoiceManager23::SetGraphPlaystate(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, void *a5, double a6)
 {
   if (*(a1 + 216))
   {
     return 12;
   }
 
+  v7 = a3;
   if (!Phase::Controller::DVM23::VoiceGraph::GetGraph(*a1))
   {
     return 3;
   }
 
-  if (Phase::Controller::DVM23::DspVoiceManager23::IsGraphPlaystateCommandValid(a1, a2, a3))
+  if (Phase::Controller::DVM23::DspVoiceManager23::IsGraphPlaystateCommandValid(a1, a2, v7))
   {
     operator new();
   }
@@ -3017,15 +2858,15 @@ uint64_t Phase::Controller::DVM23::DspVoiceManager23::SetGraphPlaystate(uint64_t
   return 7;
 }
 
-void sub_23A3AE268(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_23A3AE268(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::__function::__value_func<void ()(unsigned long long)>::~__value_func[abi:ne200100](va);
-  std::__function::__value_func<void ()(unsigned long long,Phase::Controller::DVM23::Playstate)>::~__value_func[abi:ne200100](v6 + 8);
+  std::__function::__value_func<void ()(unsigned long long,Phase::Controller::DVM23::Playstate)>::~__value_func[abi:ne200100](v11 + 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t Phase::Controller::DVM23::DspVoiceManager23::IsGraphPlaystateCommandValid(Phase::Controller::DVM23::VoiceGraph **a1, uint64_t a2, int a3)
+uint64_t Phase::Controller::DVM23::DspVoiceManager23::IsGraphPlaystateCommandValid(Phase::Controller::DVM23::VoiceGraph **a1, unint64_t a2, int a3)
 {
   v10 = *MEMORY[0x277D85DE8];
   Graph = Phase::Controller::DVM23::VoiceGraph::GetGraph(*a1);
@@ -3042,9 +2883,9 @@ uint64_t Phase::Controller::DVM23::DspVoiceManager23::IsGraphPlaystateCommandVal
   return v5;
 }
 
-void sub_23A3AE36C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A3AE36C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<BOOL ()(Phase::Controller::DVM23::Voice *)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -3257,7 +3098,7 @@ void sub_23A3AEB3C(_Unwind_Exception *exception_object, int a2)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t Phase::Controller::DVM23::DspVoiceManager23::IsGraphPlaystateUniform(Phase::Controller::DVM23::VoiceGraph **a1, uint64_t a2, int a3)
+uint64_t Phase::Controller::DVM23::DspVoiceManager23::IsGraphPlaystateUniform(Phase::Controller::DVM23::VoiceGraph **a1, unint64_t a2, int a3)
 {
   v10 = *MEMORY[0x277D85DE8];
   Graph = Phase::Controller::DVM23::VoiceGraph::GetGraph(*a1);
@@ -3274,32 +3115,32 @@ uint64_t Phase::Controller::DVM23::DspVoiceManager23::IsGraphPlaystateUniform(Ph
   return v5;
 }
 
-void sub_23A3AEC30(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A3AEC30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<BOOL ()(Phase::Controller::DVM23::Voice *)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t Phase::Controller::DVM23::DspVoiceManager23::IsGraphPlaystateTransitional(Phase::Controller::DVM23::VoiceGraph **this)
+uint64_t Phase::Controller::DVM23::DspVoiceManager23::IsGraphPlaystateTransitional(Phase::Controller::DVM23::VoiceGraph **this, unint64_t a2)
 {
-  v4[4] = *MEMORY[0x277D85DE8];
+  v5[4] = *MEMORY[0x277D85DE8];
   Graph = Phase::Controller::DVM23::VoiceGraph::GetGraph(*this);
   if (!Graph)
   {
     return 0;
   }
 
-  v4[0] = &unk_284D333B8;
-  v4[3] = v4;
-  v2 = (*(*Graph + 56))(Graph, v4) ^ 1;
-  std::__function::__value_func<BOOL ()(Phase::Controller::DVM23::Voice *)>::~__value_func[abi:ne200100](v4);
-  return v2;
+  v5[0] = &unk_284D333B8;
+  v5[3] = v5;
+  v3 = (*(*Graph + 56))(Graph, v5) ^ 1;
+  std::__function::__value_func<BOOL ()(Phase::Controller::DVM23::Voice *)>::~__value_func[abi:ne200100](v5);
+  return v3;
 }
 
-void sub_23A3AED04(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A3AED04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<BOOL ()(Phase::Controller::DVM23::Voice *)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -3313,7 +3154,7 @@ uint64_t Phase::Controller::DVM23::DspVoiceManager23::SetVoiceParameter(Phase::C
   }
 
   v8 = Voice;
-  if (Voice[22] == 6)
+  if (*(Voice + 22) == 6)
   {
     return 0;
   }
@@ -3368,10 +3209,10 @@ LABEL_10:
 
   v29 = a3;
   v30 = &v29;
-  v16 = std::__hash_table<std::__hash_value_type<unsigned long long,double>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,double>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,double>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,double>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v8 + 13, &v29);
+  v16 = std::__hash_table<std::__hash_value_type<unsigned long long,double>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,double>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,double>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,double>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v8 + 26, &v29, &std::piecewise_construct, &v30);
   result = 0;
   v16[3] = a4;
-  v17 = v8[22];
+  v17 = *(v8 + 22);
   if (v17 && v17 != 7)
   {
     if (v17 == 6 && !*(v8 + 10))
@@ -3418,7 +3259,7 @@ LABEL_10:
       *(v27 + 8) = a3;
       *(v27 + 16) = a4;
       *(v27 + 24) = 0;
-      v20 = 32 * v23 + 32;
+      v20 = (32 * v23 + 32);
       memcpy(0, v21, v22);
       v28 = this[37];
       this[37] = 0;
@@ -3435,7 +3276,7 @@ LABEL_10:
       *v18 = v8;
       *(v18 + 1) = a3;
       *(v18 + 2) = a4;
-      v20 = v18 + 32;
+      v20 = (v18 + 32);
       *(v18 + 6) = 0;
     }
 
@@ -3446,7 +3287,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t Phase::Controller::DVM23::DspVoiceManager23::SetVoiceData(Phase::Controller::DVM23::VoiceGraph **this, uint64_t a2, unint64_t a3, void *a4, uint64_t a5)
+uint64_t Phase::Controller::DVM23::DspVoiceManager23::SetVoiceData(Phase::Controller::DVM23::VoiceGraph **this, uint64_t a2, uint64_t a3, void *a4, uint64_t a5)
 {
   Voice = Phase::Controller::DVM23::VoiceGraph::GetVoice(*this, a2);
   if (!Voice)
@@ -3460,9 +3301,9 @@ uint64_t Phase::Controller::DVM23::DspVoiceManager23::SetVoiceData(Phase::Contro
     return 0;
   }
 
-  v27[0] = a3;
-  v27[2] = v27;
-  v11 = std::__hash_table<std::__hash_value_type<unsigned long long,std::pair<void *,unsigned long long>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<void *,unsigned long long>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<void *,unsigned long long>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::pair<void *,unsigned long long>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>((Voice + 144), v27);
+  v27 = a3;
+  v28 = &v27;
+  v11 = std::__hash_table<std::__hash_value_type<unsigned long long,std::pair<void *,unsigned long long>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<void *,unsigned long long>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<void *,unsigned long long>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::pair<void *,unsigned long long>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>((Voice + 144), &v27, &std::piecewise_construct, &v28);
   v11[3] = a4;
   v11[4] = a5;
   v12 = *(v10 + 88);
@@ -3508,7 +3349,7 @@ uint64_t Phase::Controller::DVM23::DspVoiceManager23::SetVoiceData(Phase::Contro
     *(v24 + 16) = a4;
     *(v24 + 24) = a5;
     *(v24 + 32) = 0;
-    v17 = 40 * v21 + 40;
+    v17 = (40 * v21 + 40);
     v25 = (40 * v21 - v20);
     memcpy(v25, v19, v20);
     v26 = this[40];
@@ -3527,7 +3368,7 @@ uint64_t Phase::Controller::DVM23::DspVoiceManager23::SetVoiceData(Phase::Contro
     *(v15 + 1) = a3;
     *(v15 + 2) = a4;
     *(v15 + 3) = a5;
-    v17 = v15 + 40;
+    v17 = (v15 + 40);
     *(v15 + 8) = 0;
   }
 
@@ -3536,7 +3377,7 @@ uint64_t Phase::Controller::DVM23::DspVoiceManager23::SetVoiceData(Phase::Contro
   return result;
 }
 
-double Phase::Controller::DVM23::DspVoiceManager23::GetTailDelayMs(Phase::Controller::DVM23::VoiceGraph **this)
+double Phase::Controller::DVM23::DspVoiceManager23::GetTailDelayMs(Phase::Controller::DVM23::VoiceGraph **this, unint64_t a2)
 {
   Graph = Phase::Controller::DVM23::VoiceGraph::GetGraph(*this);
   if (Graph)
@@ -3550,7 +3391,7 @@ double Phase::Controller::DVM23::DspVoiceManager23::GetTailDelayMs(Phase::Contro
   }
 }
 
-void *std::deque<Phase::Controller::DVM23::DspVoiceManager23::VoiceDisConnectionCommand>::erase(int64x2_t *a1, void *a2, char *a3)
+void *std::deque<Phase::Controller::DVM23::DspVoiceManager23::VoiceDisConnectionCommand>::erase(int64x2_t *a1, char *a2, char *a3)
 {
   v3 = a1;
   v4 = a1[2].u64[0];
@@ -3564,7 +3405,7 @@ void *std::deque<Phase::Controller::DVM23::DspVoiceManager23::VoiceDisConnection
 
   else
   {
-    v8 = *v7 + 40 * (v4 % 0x66);
+    v8 = (*v7 + 40 * (v4 % 0x66));
   }
 
   if (a3 == v8)
@@ -3574,7 +3415,7 @@ void *std::deque<Phase::Controller::DVM23::DspVoiceManager23::VoiceDisConnection
 
   else
   {
-    v9 = 102 * (a2 - v7) - 0x3333333333333333 * (&a3[-*a2] >> 3) + 0x3333333333333333 * ((v8 - *v7) >> 3);
+    v9 = 102 * ((a2 - v7) >> 3) - 0x3333333333333333 * (&a3[-*a2] >> 3) + 0x3333333333333333 * (&v8[-*v7] >> 3);
   }
 
   v54 = (v5 + 8 * (v4 / 0x66));
@@ -3590,14 +3431,14 @@ void *std::deque<Phase::Controller::DVM23::DspVoiceManager23::VoiceDisConnection
     {
       v27 = 100 - v13;
       v20 = &v54[-(v27 / 0x66)];
-      v21 = *v20 + 40 * (102 * (v27 / 0x66) - v27) + 4040;
+      v21 = (*v20 + 40 * (102 * (v27 / 0x66) - v27) + 4040);
     }
 
     else
     {
       v19 = v13 + 1;
       v20 = &v54[v19 / 0x66];
-      v21 = *v20 + 40 * (v19 % 0x66);
+      v21 = (*v20 + 40 * (v19 % 0x66));
     }
 
     if (v54 == v7)
@@ -3649,7 +3490,7 @@ void *std::deque<Phase::Controller::DVM23::DspVoiceManager23::VoiceDisConnection
       v23 = (100 - v13) / 0x66;
       v16 = &v54[-v23];
       v17 = *v16;
-      v18 = *v16 + 40 * (102 * v23 - v22) + 4040;
+      v18 = (*v16 + 40 * (102 * v23 - v22) + 4040);
     }
 
     else
@@ -3658,7 +3499,7 @@ void *std::deque<Phase::Controller::DVM23::DspVoiceManager23::VoiceDisConnection
       v15 = (v13 + 1) / 0x66;
       v16 = &v54[v15];
       v17 = *v16;
-      v18 = *v16 + 40 * (v14 - 102 * v15);
+      v18 = (*v16 + 40 * (v14 - 102 * v15));
     }
 
     v24 = v11 + v4;
@@ -3670,7 +3511,7 @@ void *std::deque<Phase::Controller::DVM23::DspVoiceManager23::VoiceDisConnection
 
     else
     {
-      v26 = *v25 + 40 * (v24 % 0x66);
+      v26 = (*v25 + 40 * (v24 % 0x66));
     }
 
     if (v16 == v25)
@@ -3681,11 +3522,11 @@ void *std::deque<Phase::Controller::DVM23::DspVoiceManager23::VoiceDisConnection
 
     else
     {
-      std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<Phase::Controller::DVM23::DspVoiceManager23::VoiceDisConnectionCommand *,std::__deque_iterator<Phase::Controller::DVM23::DspVoiceManager23::VoiceDisConnectionCommand,Phase::Controller::DVM23::DspVoiceManager23::VoiceDisConnectionCommand *,Phase::Controller::DVM23::DspVoiceManager23::VoiceDisConnectionCommand&,Phase::Controller::DVM23::DspVoiceManager23::VoiceDisConnectionCommand **,long,102l>,0>(&v54, v18, v17 + 4080, v54, v55);
+      std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<Phase::Controller::DVM23::DspVoiceManager23::VoiceDisConnectionCommand *,std::__deque_iterator<Phase::Controller::DVM23::DspVoiceManager23::VoiceDisConnectionCommand,Phase::Controller::DVM23::DspVoiceManager23::VoiceDisConnectionCommand *,Phase::Controller::DVM23::DspVoiceManager23::VoiceDisConnectionCommand&,Phase::Controller::DVM23::DspVoiceManager23::VoiceDisConnectionCommand **,long,102l>,0>(&v54, v18, (v17 + 4080), v54, v55);
       v35 = v55;
       v36 = v56;
-      v37 = v16 + 1;
-      if (v16 + 1 != v25)
+      v37 = v16 + 8;
+      if (v16 + 8 != v25)
       {
         v51 = v26;
         v38 = *v55;
@@ -3705,7 +3546,7 @@ void *std::deque<Phase::Controller::DVM23::DspVoiceManager23::VoiceDisConnection
             v43 = 40 * v41;
             if (v41)
             {
-              memmove(v36, &v40[v39], v43 - 4);
+              memmove(v36, (v40 + v39), v43 - 4);
             }
 
             v39 += 8 * v42;
@@ -3732,7 +3573,7 @@ void *std::deque<Phase::Controller::DVM23::DspVoiceManager23::VoiceDisConnection
             --v35;
           }
 
-          ++v37;
+          v37 += 8;
         }
 
         while (v37 != v25);
@@ -3772,7 +3613,7 @@ void *std::deque<Phase::Controller::DVM23::DspVoiceManager23::VoiceDisConnection
 
   else
   {
-    v49 = *v48 + 40 * (v33 % 0x66);
+    v49 = (*v48 + 40 * (v33 % 0x66));
   }
 
   v54 = v48;
@@ -3780,11 +3621,10 @@ void *std::deque<Phase::Controller::DVM23::DspVoiceManager23::VoiceDisConnection
   return std::__deque_iterator<Phase::Controller::DVM23::DspVoiceManager23::VoiceDisConnectionCommand,Phase::Controller::DVM23::DspVoiceManager23::VoiceDisConnectionCommand*,Phase::Controller::DVM23::DspVoiceManager23::VoiceDisConnectionCommand&,Phase::Controller::DVM23::DspVoiceManager23::VoiceDisConnectionCommand**,long,102l>::operator+=[abi:ne200100](&v54, v9);
 }
 
-void *std::deque<Phase::Controller::DVM23::DspVoiceManager23::VoiceDisConnectionCommand>::emplace_back<BOOL,Phase::Controller::DVM23::Voice *&,int &,Phase::Controller::DVM23::Voice *&,int &>(void *result, _BYTE *a2, uint64_t *a3, int *a4, uint64_t *a5, int *a6)
+void std::deque<Phase::Controller::DVM23::DspVoiceManager23::VoiceDisConnectionCommand>::emplace_back<BOOL,Phase::Controller::DVM23::Voice *&,int &,Phase::Controller::DVM23::Voice *&,int &>(unint64_t *a1, _BYTE *a2, uint64_t *a3, int *a4, uint64_t *a5, int *a6)
 {
-  v11 = result;
-  v12 = result[1];
-  v13 = result[2];
+  v12 = a1[1];
+  v13 = a1[2];
   if (v13 == v12)
   {
     v14 = 0;
@@ -3795,22 +3635,22 @@ void *std::deque<Phase::Controller::DVM23::DspVoiceManager23::VoiceDisConnection
     v14 = 102 * ((v13 - v12) >> 3) - 1;
   }
 
-  v16 = result[4];
-  v15 = result[5];
+  v16 = a1[4];
+  v15 = a1[5];
   v17 = v15 + v16;
   if (v14 == v15 + v16)
   {
     if (v16 < 0x66)
     {
-      v18 = result[3];
-      v19 = v18 - *result;
+      v18 = a1[3];
+      v19 = v18 - *a1;
       if (v13 - v12 < v19)
       {
         operator new();
       }
 
       v20 = v19 >> 2;
-      if (v18 == *result)
+      if (v18 == *a1)
       {
         v21 = 1;
       }
@@ -3823,27 +3663,26 @@ void *std::deque<Phase::Controller::DVM23::DspVoiceManager23::VoiceDisConnection
       std::__allocate_at_least[abi:ne200100]<std::allocator<std::reference_wrapper<Phase::SpatialModeler::PriorityQueueEntry>>>(v21);
     }
 
-    result[4] = v16 - 102;
+    a1[4] = v16 - 102;
     v27 = *v12;
-    result[1] = v12 + 8;
-    result = std::__split_buffer<Phase::Controller::DVM23::DspVoiceManager23::VoiceDisConnectionCommand *>::emplace_back<Phase::Controller::DVM23::DspVoiceManager23::VoiceDisConnectionCommand *&>(result, &v27);
-    v15 = v11[5];
-    v12 = v11[1];
-    v17 = v11[4] + v15;
+    a1[1] = (v12 + 1);
+    std::__split_buffer<Phase::Controller::DVM23::DspVoiceManager23::VoiceDisConnectionCommand *>::emplace_back<Phase::Controller::DVM23::DspVoiceManager23::VoiceDisConnectionCommand *&>(a1, &v27);
+    v15 = a1[5];
+    v12 = a1[1];
+    v17 = a1[4] + v15;
   }
 
   v22 = *a3;
   v23 = *a4;
   v24 = *a5;
   v25 = *a6;
-  v26 = *&v12[8 * (v17 / 0x66)] + 40 * (v17 % 0x66);
+  v26 = v12[v17 / 0x66] + 40 * (v17 % 0x66);
   *v26 = *a2;
   *(v26 + 8) = v22;
   *(v26 + 16) = v23;
   *(v26 + 24) = v24;
   *(v26 + 32) = v25;
-  v11[5] = v15 + 1;
-  return result;
+  a1[5] = v15 + 1;
 }
 
 void sub_23A3AFAA8(_Unwind_Exception *a1)
@@ -3857,18 +3696,18 @@ void sub_23A3AFAA8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t Phase::Controller::DVM23::DspVoiceManager23::FindLatestParentPool(uint64_t result, void *a2, uint64_t a3)
+uint64_t Phase::Controller::DVM23::DspVoiceManager23::FindLatestParentPool(uint64_t result, void *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v3 = a2[2];
-  v4 = (v3 + 8 * (a2[5] >> 9));
-  if (a2[3] == v3)
+  v5 = a2[2];
+  v6 = (v5 + 8 * (a2[5] >> 9));
+  if (a2[3] == v5)
   {
-    v5 = 0;
+    v7 = 0;
   }
 
   else
   {
-    v5 = *v4 + 8 * (a2[5] & 0x1FFLL);
+    v7 = *v6 + 8 * (a2[5] & 0x1FFLL);
   }
 
   if ((-858993459 * ((*(a3 + 16) - *(a3 + 8)) >> 3)) >= 1)
@@ -3876,25 +3715,25 @@ uint64_t Phase::Controller::DVM23::DspVoiceManager23::FindLatestParentPool(uint6
     operator new();
   }
 
-  *result = v4;
-  *(result + 8) = v5;
+  *result = v6;
+  *(result + 8) = v7;
   *(result + 16) = 0;
   return result;
 }
 
-uint64_t Phase::Controller::DVM23::DspVoiceManager23::FindEarliestChildPool(uint64_t result, void *a2, uint64_t a3)
+uint64_t Phase::Controller::DVM23::DspVoiceManager23::FindEarliestChildPool(uint64_t result, void *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v3 = a2[5] + a2[6];
-  v4 = a2[2];
-  v5 = (v4 + 8 * (v3 >> 9));
-  if (a2[3] == v4)
+  v5 = a2[5] + a2[6];
+  v6 = a2[2];
+  v7 = (v6 + 8 * (v5 >> 9));
+  if (a2[3] == v6)
   {
-    v6 = 0;
+    v8 = 0;
   }
 
   else
   {
-    v6 = *v5 + 8 * (v3 & 0x1FF);
+    v8 = *v7 + 8 * (v5 & 0x1FF);
   }
 
   if ((-858993459 * ((*(a3 + 40) - *(a3 + 32)) >> 3)) >= 1)
@@ -3902,8 +3741,8 @@ uint64_t Phase::Controller::DVM23::DspVoiceManager23::FindEarliestChildPool(uint
     operator new();
   }
 
-  *result = v5;
-  *(result + 8) = v6;
+  *result = v7;
+  *(result + 8) = v8;
   *(result + 16) = 0;
   return result;
 }
@@ -4048,11 +3887,11 @@ uint64_t Phase::Controller::DVM23::DspVoiceManager23::FindPoolForVoice(void *a1,
   return 0;
 }
 
-void Phase::Controller::DVM23::DspVoiceManager23::CreateAndPositionNewPoolForVoice(uint64_t a1, uint64_t a2)
+void Phase::Controller::DVM23::DspVoiceManager23::CreateAndPositionNewPoolForVoice(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v3 = *(a1 + 176);
-  v4 = (*(*a2 + 16))(a2);
-  Phase::Controller::VoicePoolRegistry::CreateVoicePoolInstance(v3, v4, *(a1 + 184), *(a1 + 192));
+  v5 = *(a1 + 176);
+  v6 = (*(*a2 + 16))(a2);
+  Phase::Controller::VoicePoolRegistry::CreateVoicePoolInstance(v5, v6, *(a1 + 184), *(a1 + 192));
   operator new();
 }
 
@@ -4088,225 +3927,274 @@ void *std::__deque_iterator<Phase::Controller::DVM23::DvmVoicePool *,Phase::Cont
 
 uint64_t *Phase::Controller::DVM23::DspVoiceManager23::OrderVoice(Phase::Controller::DVM23::DspVoiceManager23 *this, Phase::Controller::DVM23::Voice *a2)
 {
-  v35 = *MEMORY[0x277D85DE8];
-  v31 = *(a2 + 10);
-  if (!v31)
+  v48 = *MEMORY[0x277D85DE8];
+  v44 = *(a2 + 10);
+  if (!v44)
   {
     if ((-858993459 * ((*(a2 + 2) - *(a2 + 1)) >> 3)) >= 1)
     {
-      v4 = 0;
+      v8 = 0;
       do
       {
-        v32 = &unk_284D33490;
-        v33 = this;
-        v34 = &v32;
-        Phase::Controller::DVM23::VoiceNode::PerInputVoiceConnection(a2, v4, &v32);
-        std::__function::__value_func<void ()(Phase::Controller::DVM23::Voice *,int)>::~__value_func[abi:ne200100](&v32);
-        ++v4;
+        v45 = &unk_284D33490;
+        v46 = this;
+        v47 = &v45;
+        Phase::Controller::DVM23::VoiceNode::PerInputVoiceConnection(a2, v8, &v45);
+        std::__function::__value_func<void ()(Phase::Controller::DVM23::Voice *,int)>::~__value_func[abi:ne200100](&v45);
+        ++v8;
       }
 
-      while (v4 < (-858993459 * ((*(a2 + 2) - *(a2 + 1)) >> 3)));
+      while (v8 < (-858993459 * ((*(a2 + 2) - *(a2 + 1)) >> 3)));
     }
 
-    Phase::Controller::DVM23::DspVoiceManager23::FindLatestParentPool(&v32, this, a2);
-    Phase::Controller::DVM23::DspVoiceManager23::FindEarliestChildPool(&v28, this, a2);
-    PoolForVoice = Phase::Controller::DVM23::DspVoiceManager23::FindPoolForVoice(this, a2, &v32, &v28);
-    v18 = PoolForVoice;
-    v31 = PoolForVoice;
+    v9 = *(this + 5) + *(this + 6);
+    v10 = *(this + 2);
+    v11 = (v10 + 8 * (v9 >> 9));
+    if (*(this + 3) == v10)
+    {
+      v12 = 0;
+    }
+
+    else
+    {
+      v12 = *v11 + 8 * (v9 & 0x1FF);
+    }
+
+    Phase::Controller::DVM23::DspVoiceManager23::FindLatestParentPool(&v45, this, a2, v11, v12);
+    v28 = *(this + 2);
+    v29 = (v28 + 8 * (*(this + 5) >> 9));
+    if (*(this + 3) == v28)
+    {
+      v30 = 0;
+    }
+
+    else
+    {
+      v30 = *v29 + 8 * (*(this + 5) & 0x1FFLL);
+    }
+
+    Phase::Controller::DVM23::DspVoiceManager23::FindEarliestChildPool(&v41, this, a2, v29, v30);
+    PoolForVoice = Phase::Controller::DVM23::DspVoiceManager23::FindPoolForVoice(this, a2, &v45, &v41);
+    v44 = PoolForVoice;
     if (!PoolForVoice)
     {
-      Phase::Controller::DVM23::DspVoiceManager23::CreateAndPositionNewPoolForVoice(this, a2);
+      Phase::Controller::DVM23::DspVoiceManager23::CreateAndPositionNewPoolForVoice(this, a2, &v45, &v41);
     }
 
-    v25 = a2;
-    result = std::__hash_table<Phase::Controller::DVM23::Voice *,std::hash<Phase::Controller::DVM23::Voice *>,std::equal_to<Phase::Controller::DVM23::Voice *>,std::allocator<Phase::Controller::DVM23::Voice *>>::__emplace_unique_key_args<Phase::Controller::DVM23::Voice *,Phase::Controller::DVM23::Voice * const&>(PoolForVoice, &v25);
-    *(v25 + 10) = v18;
+    v38 = a2;
+    result = std::__hash_table<Phase::Controller::DVM23::Voice *,std::hash<Phase::Controller::DVM23::Voice *>,std::equal_to<Phase::Controller::DVM23::Voice *>,std::allocator<Phase::Controller::DVM23::Voice *>>::__emplace_unique_key_args<Phase::Controller::DVM23::Voice *,Phase::Controller::DVM23::Voice * const&>(PoolForVoice, &v38, &v38);
+    *(v38 + 10) = PoolForVoice;
     return result;
   }
 
-  Phase::Controller::DVM23::DspVoiceManager23::FindLatestParentPool(&v28, this, a2);
-  Phase::Controller::DVM23::DspVoiceManager23::FindEarliestChildPool(&v25, this, a2);
-  v5 = *(this + 5);
-  v6 = *(this + 2);
-  v7 = *(this + 3);
-  v8 = (v6 + 8 * (v5 >> 9));
-  if (v7 == v6)
+  v4 = *(this + 5) + *(this + 6);
+  v5 = *(this + 2);
+  v6 = (v5 + 8 * (v4 >> 9));
+  if (*(this + 3) == v5)
   {
-    v9 = 0;
-    v12 = 0;
-    v10 = *(this + 6);
-    v11 = (v6 + 8 * ((v10 + v5) >> 9));
+    v7 = 0;
   }
 
   else
   {
-    v9 = (*v8 + 8 * (*(this + 5) & 0x1FFLL));
-    v10 = *(this + 6);
-    v11 = (v6 + 8 * ((v10 + v5) >> 9));
-    v12 = (*v11 + 8 * ((v10 + v5) & 0x1FF));
+    v7 = *v6 + 8 * (v4 & 0x1FF);
   }
 
-  result = std::__find_segment_if[abi:ne200100]<std::__deque_iterator<Phase::Controller::DVM23::DvmVoicePool *,Phase::Controller::DVM23::DvmVoicePool * const*,Phase::Controller::DVM23::DvmVoicePool * const&,Phase::Controller::DVM23::DvmVoicePool * const* const*,long,512l>,std::__find_segment<Phase::Controller::DVM23::DvmVoicePool *>,std::__identity>(v8, v9, v11, v12, &v31);
-  if (v30 == 1)
+  Phase::Controller::DVM23::DspVoiceManager23::FindLatestParentPool(&v41, this, a2, v6, v7);
+  v13 = *(this + 2);
+  v14 = (v13 + 8 * (*(this + 5) >> 9));
+  if (*(this + 3) == v13)
   {
-    if (v28 >= result)
+    v15 = 0;
+  }
+
+  else
+  {
+    v15 = *v14 + 8 * (*(this + 5) & 0x1FFLL);
+  }
+
+  Phase::Controller::DVM23::DspVoiceManager23::FindEarliestChildPool(&v38, this, a2, v14, v15);
+  v16 = *(this + 5);
+  v17 = *(this + 2);
+  v18 = *(this + 3);
+  v19 = (v17 + 8 * (v16 >> 9));
+  if (v18 == v17)
+  {
+    v20 = 0;
+    v23 = 0;
+    v21 = *(this + 6);
+    v22 = (v17 + 8 * ((v21 + v16) >> 9));
+  }
+
+  else
+  {
+    v20 = (*v19 + 8 * (*(this + 5) & 0x1FFLL));
+    v21 = *(this + 6);
+    v22 = (v17 + 8 * ((v21 + v16) >> 9));
+    v23 = (*v22 + 8 * ((v21 + v16) & 0x1FF));
+  }
+
+  result = std::__find_segment_if[abi:ne200100]<std::__deque_iterator<Phase::Controller::DVM23::DvmVoicePool *,Phase::Controller::DVM23::DvmVoicePool * const*,Phase::Controller::DVM23::DvmVoicePool * const&,Phase::Controller::DVM23::DvmVoicePool * const* const*,long,512l>,std::__find_segment<Phase::Controller::DVM23::DvmVoicePool *>,std::__identity>(v19, v20, v22, v23, &v44);
+  if (v43 == 1)
+  {
+    if (v41 >= result)
     {
-      v15 = v28 == result && v29 < v14;
+      v26 = v41 == result && v42 < v25;
     }
 
     else
     {
-      v15 = 1;
+      v26 = 1;
     }
 
-    if ((v27 & 1) == 0)
+    if ((v40 & 1) == 0)
     {
-      LOBYTE(v16) = 1;
-      goto LABEL_31;
+      LOBYTE(v27) = 1;
+      goto LABEL_41;
     }
   }
 
   else
   {
-    v15 = 1;
-    LOBYTE(v16) = 1;
-    if (v27 != 1)
+    v26 = 1;
+    LOBYTE(v27) = 1;
+    if (v40 != 1)
     {
-      goto LABEL_31;
+      goto LABEL_41;
     }
   }
 
-  if (v25 <= result)
+  if (v38 <= result)
   {
-    if (v25 == result)
+    if (v38 == result)
     {
-      v16 = v26 > v14;
-      if (!v30)
+      v27 = v39 > v25;
+      if (!v43)
       {
-        goto LABEL_31;
+        goto LABEL_41;
       }
     }
 
     else
     {
-      v16 = 0;
-      if (!v30)
+      v27 = 0;
+      if (!v43)
       {
-        goto LABEL_31;
+        goto LABEL_41;
       }
     }
   }
 
   else
   {
-    v16 = 1;
-    if (!v30)
+    v27 = 1;
+    if (!v43)
     {
-      goto LABEL_31;
+      goto LABEL_41;
     }
   }
 
-  if (v28 < v25 || v28 == v25 && v29 < v26)
+  if (v41 < v38 || v41 == v38 && v42 < v39)
   {
-LABEL_31:
-    if (!v15 || !v16)
+LABEL_41:
+    if (!v26 || !v27)
     {
-      v19 = Phase::Controller::DVM23::DspVoiceManager23::FindPoolForVoice(this, a2, &v28, &v25);
-      if (!v19)
+      v32 = Phase::Controller::DVM23::DspVoiceManager23::FindPoolForVoice(this, a2, &v41, &v38);
+      if (!v32)
       {
-        Phase::Controller::DVM23::DspVoiceManager23::CreateAndPositionNewPoolForVoice(this, a2);
+        Phase::Controller::DVM23::DspVoiceManager23::CreateAndPositionNewPoolForVoice(this, a2, &v41, &v38);
       }
 
-      v32 = a2;
-      std::__hash_table<Phase::Controller::DVM23::Voice *,std::hash<Phase::Controller::DVM23::Voice *>,std::equal_to<Phase::Controller::DVM23::Voice *>,std::allocator<Phase::Controller::DVM23::Voice *>>::__erase_unique<Phase::Controller::DVM23::Voice *>(v31, &v32);
-      *(v32 + 10) = 0;
-      v32 = a2;
-      std::__hash_table<Phase::Controller::DVM23::Voice *,std::hash<Phase::Controller::DVM23::Voice *>,std::equal_to<Phase::Controller::DVM23::Voice *>,std::allocator<Phase::Controller::DVM23::Voice *>>::__emplace_unique_key_args<Phase::Controller::DVM23::Voice *,Phase::Controller::DVM23::Voice * const&>(v19, &v32);
-      *(v32 + 10) = v19;
-      return Phase::PhaseOSCBundle::WriteNextMessage<Phase::Controller::DVM_RT::DVMRTOSCCommand,int,Phase::DspLayer23::VoicePool *,Phase::DspLayer23::VoicePool *,unsigned long long>(this + 7, v31[5], v19[5], *(a2 + 8));
+      v45 = a2;
+      std::__hash_table<Phase::Controller::DVM23::Voice *,std::hash<Phase::Controller::DVM23::Voice *>,std::equal_to<Phase::Controller::DVM23::Voice *>,std::allocator<Phase::Controller::DVM23::Voice *>>::__erase_unique<Phase::Controller::DVM23::Voice *>(v44, &v45);
+      *(v45 + 10) = 0;
+      v45 = a2;
+      std::__hash_table<Phase::Controller::DVM23::Voice *,std::hash<Phase::Controller::DVM23::Voice *>,std::equal_to<Phase::Controller::DVM23::Voice *>,std::allocator<Phase::Controller::DVM23::Voice *>>::__emplace_unique_key_args<Phase::Controller::DVM23::Voice *,Phase::Controller::DVM23::Voice * const&>(v32, &v45, &v45);
+      *(v45 + 10) = v32;
+      return Phase::PhaseOSCBundle::WriteNextMessage<Phase::Controller::DVM_RT::DVMRTOSCCommand,int,Phase::DspLayer23::VoicePool *,Phase::DspLayer23::VoicePool *,unsigned long long>(this + 7, v44[5], *(v32 + 40), *(a2 + 8));
     }
 
     return result;
   }
 
-  if (!v15 && !v16)
+  if (!v26 && !v27)
   {
     __assert_rtn("OrderVoice", "DspVoiceManager23.cpp", 1226, "false");
   }
 
-  if (!v15)
+  if (!v26)
   {
-    if (v7 == v6)
+    if (v18 == v17)
     {
-      v21 = 0;
+      v34 = 0;
     }
 
     else
     {
-      v21 = *(v6 + 8 * ((v10 + v5) >> 9)) + 8 * ((v10 + v5) & 0x1FF);
+      v34 = *(v17 + 8 * ((v21 + v16) >> 9)) + 8 * ((v21 + v16) & 0x1FF);
     }
 
-    v23[0] = v6 + 8 * ((v10 + v5) >> 9);
-    v23[1] = v21;
-    v24 = 0;
-    v19 = Phase::Controller::DVM23::DspVoiceManager23::FindPoolForVoice(this, a2, &v28, v23);
-    if (!v19)
+    v36[0] = v17 + 8 * ((v21 + v16) >> 9);
+    v36[1] = v34;
+    v37 = 0;
+    v32 = Phase::Controller::DVM23::DspVoiceManager23::FindPoolForVoice(this, a2, &v41, v36);
+    if (!v32)
     {
-      Phase::Controller::DVM23::DspVoiceManager23::CreateAndPositionNewPoolForVoice(this, a2);
+      Phase::Controller::DVM23::DspVoiceManager23::CreateAndPositionNewPoolForVoice(this, a2, &v41, v36);
     }
 
-    v32 = a2;
-    std::__hash_table<Phase::Controller::DVM23::Voice *,std::hash<Phase::Controller::DVM23::Voice *>,std::equal_to<Phase::Controller::DVM23::Voice *>,std::allocator<Phase::Controller::DVM23::Voice *>>::__erase_unique<Phase::Controller::DVM23::Voice *>(v31, &v32);
-    *(v32 + 10) = 0;
-    v32 = a2;
-    std::__hash_table<Phase::Controller::DVM23::Voice *,std::hash<Phase::Controller::DVM23::Voice *>,std::equal_to<Phase::Controller::DVM23::Voice *>,std::allocator<Phase::Controller::DVM23::Voice *>>::__emplace_unique_key_args<Phase::Controller::DVM23::Voice *,Phase::Controller::DVM23::Voice * const&>(v19, &v32);
-    *(v32 + 10) = v19;
+    v45 = a2;
+    std::__hash_table<Phase::Controller::DVM23::Voice *,std::hash<Phase::Controller::DVM23::Voice *>,std::equal_to<Phase::Controller::DVM23::Voice *>,std::allocator<Phase::Controller::DVM23::Voice *>>::__erase_unique<Phase::Controller::DVM23::Voice *>(v44, &v45);
+    *(v45 + 10) = 0;
+    v45 = a2;
+    std::__hash_table<Phase::Controller::DVM23::Voice *,std::hash<Phase::Controller::DVM23::Voice *>,std::equal_to<Phase::Controller::DVM23::Voice *>,std::allocator<Phase::Controller::DVM23::Voice *>>::__emplace_unique_key_args<Phase::Controller::DVM23::Voice *,Phase::Controller::DVM23::Voice * const&>(v32, &v45, &v45);
+    *(v45 + 10) = v32;
     if ((-858993459 * ((*(a2 + 5) - *(a2 + 4)) >> 3)) >= 1)
     {
-      v22 = 0;
+      v35 = 0;
       do
       {
-        v32 = &unk_284D334D8;
-        v33 = this;
-        v34 = &v32;
-        Phase::Controller::DVM23::VoiceNode::PerOutputVoiceConnection(a2, v22, &v32);
-        std::__function::__value_func<void ()(Phase::Controller::DVM23::Voice *,int)>::~__value_func[abi:ne200100](&v32);
-        ++v22;
+        v45 = &unk_284D334D8;
+        v46 = this;
+        v47 = &v45;
+        Phase::Controller::DVM23::VoiceNode::PerOutputVoiceConnection(a2, v35, &v45);
+        std::__function::__value_func<void ()(Phase::Controller::DVM23::Voice *,int)>::~__value_func[abi:ne200100](&v45);
+        ++v35;
       }
 
-      while (v22 < (-858993459 * ((*(a2 + 5) - *(a2 + 4)) >> 3)));
+      while (v35 < (-858993459 * ((*(a2 + 5) - *(a2 + 4)) >> 3)));
     }
 
-    return Phase::PhaseOSCBundle::WriteNextMessage<Phase::Controller::DVM_RT::DVMRTOSCCommand,int,Phase::DspLayer23::VoicePool *,Phase::DspLayer23::VoicePool *,unsigned long long>(this + 7, v31[5], v19[5], *(a2 + 8));
+    return Phase::PhaseOSCBundle::WriteNextMessage<Phase::Controller::DVM_RT::DVMRTOSCCommand,int,Phase::DspLayer23::VoicePool *,Phase::DspLayer23::VoicePool *,unsigned long long>(this + 7, v44[5], *(v32 + 40), *(a2 + 8));
   }
 
-  if (v16)
+  if (v27)
   {
     __assert_rtn("OrderVoice", "DspVoiceManager23.cpp", 1292, "false");
   }
 
   if ((-858993459 * ((*(a2 + 5) - *(a2 + 4)) >> 3)) >= 1)
   {
-    v20 = 0;
+    v33 = 0;
     do
     {
-      v32 = &unk_284D33520;
-      v33 = this;
-      v34 = &v32;
-      Phase::Controller::DVM23::VoiceNode::PerOutputVoiceConnection(a2, v20, &v32);
-      result = std::__function::__value_func<void ()(Phase::Controller::DVM23::Voice *,int)>::~__value_func[abi:ne200100](&v32);
-      ++v20;
+      v45 = &unk_284D33520;
+      v46 = this;
+      v47 = &v45;
+      Phase::Controller::DVM23::VoiceNode::PerOutputVoiceConnection(a2, v33, &v45);
+      result = std::__function::__value_func<void ()(Phase::Controller::DVM23::Voice *,int)>::~__value_func[abi:ne200100](&v45);
+      ++v33;
     }
 
-    while (v20 < (-858993459 * ((*(a2 + 5) - *(a2 + 4)) >> 3)));
+    while (v33 < (-858993459 * ((*(a2 + 5) - *(a2 + 4)) >> 3)));
   }
 
   return result;
 }
 
-void sub_23A3B136C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_23A3B136C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   std::__function::__value_func<void ()(Phase::Controller::DVM23::Voice *,int)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -4434,28 +4322,28 @@ double Phase::Controller::DVM23::DspVoiceManager23::SendAndClearRtBundle(Phase::
   return result;
 }
 
-uint64_t Phase::Controller::DVM23::DspVoiceManager23::EndChanges(Phase::Controller::DVM23::DspVoiceManager23 *this)
+uint64_t Phase::Controller::DVM23::DspVoiceManager23::EndChanges(Phase::StringBuffer **this)
 {
-  v91 = *MEMORY[0x277D85DE8];
+  v90[4] = *MEMORY[0x277D85DE8];
   v86.__d_.__rep_ = std::chrono::steady_clock::now().__d_.__rep_;
   Phase::Controller::DVM23::DspVoiceManager23::SendAndClearRtBundle(this);
-  if (*(*(this + 7) + 16) == 20)
+  if (*(this[7] + 4) == 20)
   {
-    v2 = *(this + 34);
-    v3 = *(this + 35);
+    v2 = this[34];
+    v3 = this[35];
     if (v2 != v3)
     {
       do
       {
-        v4 = v2[2];
+        v4 = *(v2 + 2);
         if (v4 != 2)
         {
           if (v4 == 1)
           {
-            v7 = v2[3];
+            v7 = *(v2 + 3);
             v8 = *(*(*v2 + 80) + 40);
             v9 = *(*v2 + 64);
-            v10 = (this + 56);
+            v10 = (this + 7);
             v11 = 3;
           }
 
@@ -4474,25 +4362,25 @@ uint64_t Phase::Controller::DVM23::DspVoiceManager23::EndChanges(Phase::Controll
               v6 = *(v5 + 80);
             }
 
-            v7 = v2[3];
+            v7 = *(v2 + 3);
             v8 = *(v6 + 40);
             v9 = *(v5 + 64);
-            v10 = (this + 56);
+            v10 = (this + 7);
             v11 = 2;
           }
 
           Phase::PhaseOSCBundle::WriteNextMessage<Phase::Controller::DVM_RT::DVMRTOSCCommand,unsigned int,Phase::DspLayer23::VoicePool *,unsigned long long>(v10, v11, v7, v8, v9);
         }
 
-        v2 += 4;
+        v2 = (v2 + 16);
       }
 
       while (v2 != v3);
-      v2 = *(this + 34);
-      v3 = *(this + 35);
+      v2 = this[34];
+      v3 = this[35];
     }
 
-    for (; v2 != v3; v2 += 4)
+    for (; v2 != v3; v2 = (v2 + 16))
     {
       v12 = *v2;
       if (*(*v2 + 88) == 1)
@@ -4511,16 +4399,16 @@ uint64_t Phase::Controller::DVM23::DspVoiceManager23::EndChanges(Phase::Controll
       }
     }
 
-    v13 = *(this + 29);
-    v14 = *(this + 30);
+    v13 = this[29];
+    v14 = this[30];
     if (v14 != v13)
     {
-      v15 = *(this + 32);
+      v15 = this[32];
       v16 = v15 / 0x66;
       v17 = (v13 + 8 * (v15 / 0x66));
       v18 = *v17;
       v19 = *v17 + 40 * (v15 % 0x66);
-      v20 = *(v13 + 8 * ((*(this + 33) + v15) / 0x66)) + 40 * ((*(this + 33) + v15) % 0x66);
+      v20 = *(v13 + (this[33] + v15) / 0x66) + 40 * ((this[33] + v15) % 0x66);
       if (v19 != v20)
       {
         do
@@ -4542,9 +4430,9 @@ uint64_t Phase::Controller::DVM23::DspVoiceManager23::EndChanges(Phase::Controll
         }
 
         while (v19 != v20);
-        v15 = *(this + 32);
-        v13 = *(this + 29);
-        v14 = *(this + 30);
+        v15 = this[32];
+        v13 = this[29];
+        v14 = this[30];
         v16 = v15 / 0x66;
       }
 
@@ -4552,7 +4440,7 @@ uint64_t Phase::Controller::DVM23::DspVoiceManager23::EndChanges(Phase::Controll
       {
         v22 = (v13 + 8 * v16);
         v23 = *v22 + 40 * (v15 % 0x66);
-        v24 = *(v13 + 8 * ((*(this + 33) + v15) / 0x66)) + 40 * ((*(this + 33) + v15) % 0x66);
+        v24 = *(v13 + (this[33] + v15) / 0x66) + 40 * ((this[33] + v15) % 0x66);
         while (v23 != v24)
         {
           if (*v23 == 1)
@@ -4583,12 +4471,12 @@ uint64_t Phase::Controller::DVM23::DspVoiceManager23::EndChanges(Phase::Controll
     *&buf[8] = 0;
     *&buf[16] = 0;
     *buf = &buf[8];
-    v27 = *(this + 40);
-    if (v27 != *(this + 41))
+    v27 = this[40];
+    if (v27 != this[41])
     {
       v28 = (v27 + 32);
-      v29 = *(this + 9);
-      if ((*(this + 8) - v29 - 4) >= 0x3C)
+      v29 = this[9];
+      if ((this[8] - v29 - 4) >= 0x3C)
       {
         v31 = *(v28 - 2);
         v30 = *(v28 - 1);
@@ -4597,31 +4485,31 @@ uint64_t Phase::Controller::DVM23::DspVoiceManager23::EndChanges(Phase::Controll
         v34 = *(v33 + 64);
         v35 = *(*(v33 + 80) + 40);
         v36 = *v28;
-        v37 = *(this + 7) + v29;
+        v37 = v29 + this[7];
         *(v37 + 4) = 8;
-        *(v37 + 20) = v36;
-        *(v37 + 24) = v35;
-        *(v37 + 32) = v34;
-        strcpy((v37 + 12), "iphhph");
-        *(v37 + 40) = v32;
-        *(v37 + 48) = v31;
-        *(v37 + 56) = v30;
-        v38 = *(this + 7);
-        v39 = *(this + 9);
-        *(v38 + v39) = 60;
-        *(v38 + 16) += 64;
-        *(this + 9) = v39 + 64;
+        *(v37 + 5) = v36;
+        *(v37 + 3) = v35;
+        *(v37 + 4) = v34;
+        strcpy(v37 + 12, "iphhph");
+        *(v37 + 5) = v32;
+        *(v37 + 6) = v31;
+        *(v37 + 7) = v30;
+        v38 = this[7];
+        v39 = this[9];
+        *(v39 + v38) = 60;
+        *(v38 + 4) += 64;
+        this[9] = (v39 + 64);
       }
 
-      std::__tree<std::pair<Phase::Controller::DVM23::Voice *,unsigned int>>::__emplace_unique_impl<Phase::Controller::DVM23::Voice * const&,unsigned int const&>();
+      std::__tree<std::pair<Phase::Controller::DVM23::Voice *,unsigned int>>::__emplace_unique_impl<Phase::Controller::DVM23::Voice * const&,unsigned int const&>(buf, v28 - 4, v28);
     }
 
-    v40 = *(this + 37);
-    if (v40 != *(this + 38))
+    v40 = this[37];
+    if (v40 != this[38])
     {
       v41 = (v40 + 24);
-      v42 = *(this + 9);
-      if ((*(this + 8) - v42 - 4) >= 0x34)
+      v42 = this[9];
+      if ((this[8] - v42 - 4) >= 0x34)
       {
         v43 = *(v41 - 1);
         v45 = *(v41 - 3);
@@ -4629,22 +4517,22 @@ uint64_t Phase::Controller::DVM23::DspVoiceManager23::EndChanges(Phase::Controll
         v46 = *(v45 + 64);
         v47 = *(*(v45 + 80) + 40);
         v48 = *v41;
-        v49 = *(this + 7) + v42;
+        v49 = v42 + this[7];
         *(v49 + 4) = 7;
-        *(v49 + 20) = v48;
-        *(v49 + 24) = v47;
-        *(v49 + 32) = v46;
-        strcpy((v49 + 12), "iphhd");
-        *(v49 + 40) = v44;
-        *(v49 + 48) = v43;
-        v50 = *(this + 7);
-        v51 = *(this + 9);
-        *(v50 + v51) = 52;
-        *(v50 + 16) += 56;
-        *(this + 9) = v51 + 56;
+        *(v49 + 5) = v48;
+        *(v49 + 3) = v47;
+        *(v49 + 4) = v46;
+        strcpy(v49 + 12, "iphhd");
+        *(v49 + 5) = v44;
+        *(v49 + 6) = v43;
+        v50 = this[7];
+        v51 = this[9];
+        *(v51 + v50) = 52;
+        *(v50 + 4) += 56;
+        this[9] = (v51 + 56);
       }
 
-      std::__tree<std::pair<Phase::Controller::DVM23::Voice *,unsigned int>>::__emplace_unique_impl<Phase::Controller::DVM23::Voice * const&,unsigned int const&>();
+      std::__tree<std::pair<Phase::Controller::DVM23::Voice *,unsigned int>>::__emplace_unique_impl<Phase::Controller::DVM23::Voice * const&,unsigned int const&>(buf, v41 - 3, v41);
     }
 
     v52 = *buf;
@@ -4684,14 +4572,14 @@ uint64_t Phase::Controller::DVM23::DspVoiceManager23::EndChanges(Phase::Controll
     }
 
     std::__tree<std::pair<Phase::Controller::DVM23::Voice *,unsigned int>>::destroy(*&buf[8]);
-    v57 = *(this + 34);
-    for (i = *(this + 35); v57 != i; v57 += 4)
+    v57 = this[34];
+    for (i = this[35]; v57 != i; v57 = (v57 + 16))
     {
-      if (v57[2] == 2)
+      if (*(v57 + 2) == 2)
       {
         v59 = *v57;
         v60 = *(*v57 + 80);
-        v61 = v57[3];
+        v61 = *(v57 + 3);
         if (v60)
         {
           Phase::PhaseOSCBundle::WriteNextMessage<Phase::Controller::DVM_RT::DVMRTOSCCommand,unsigned int,Phase::DspLayer23::VoicePool *,unsigned long long>(this + 7, 4u, v61, *(v60 + 40), *(v59 + 64));
@@ -4707,7 +4595,7 @@ uint64_t Phase::Controller::DVM23::DspVoiceManager23::EndChanges(Phase::Controll
               v63 = (*(*v59 + 16))(v59);
               v64 = Phase::DspLayer23::KernelTypeToString(v63);
               v65 = *(v59 + 64);
-              v66 = v57[3];
+              v66 = *(v57 + 3);
               *buf = 136316162;
               *&buf[4] = "DspVoiceManager23.cpp";
               *&buf[12] = 1024;
@@ -4728,7 +4616,7 @@ uint64_t Phase::Controller::DVM23::DspVoiceManager23::EndChanges(Phase::Controll
           v67 = v56;
           if (v56)
           {
-            std::function<void ()(unsigned long long,unsigned long long,Phase::Controller::DVM23::Playstate,Phase::DspLayer23::DspLayerError)>::operator()(v56[6], *(this + 26), *(v59 + 64), 7);
+            std::function<void ()(unsigned long long,unsigned long long,Phase::Controller::DVM23::Playstate,Phase::DspLayer23::DspLayerError)>::operator()(v56[6], this[26], *(v59 + 64), 7);
             std::__hash_table<std::__hash_value_type<Phase::UniqueObjectId,std::pair<std::unique_ptr<Phase::Controller::SpatialQueryInstance>,std::vector<Phase::Controller::SpatialModelerInstance::SubmixHandleInfo>>>,std::__unordered_map_hasher<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::pair<std::unique_ptr<Phase::Controller::SpatialQueryInstance>,std::vector<Phase::Controller::SpatialModelerInstance::SubmixHandleInfo>>>,std::hash<Phase::UniqueObjectId>,std::equal_to<Phase::UniqueObjectId>,true>,std::__unordered_map_equal<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::pair<std::unique_ptr<Phase::Controller::SpatialQueryInstance>,std::vector<Phase::Controller::SpatialModelerInstance::SubmixHandleInfo>>>,std::equal_to<Phase::UniqueObjectId>,std::hash<Phase::UniqueObjectId>,true>,std::allocator<std::__hash_value_type<Phase::UniqueObjectId,std::pair<std::unique_ptr<Phase::Controller::SpatialQueryInstance>,std::vector<Phase::Controller::SpatialModelerInstance::SubmixHandleInfo>>>>>::remove(buf, this + 58, v67);
             v56 = std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned long long,std::function<void ()(unsigned long long,unsigned long long,Phase::Controller::DVM23::Playstate,Phase::DspLayer23::DspLayerError)>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned long long,std::function<void ()(unsigned long long,unsigned long long,Phase::Controller::DVM23::Playstate,Phase::DspLayer23::DspLayerError)>>,void *>>>>::~unique_ptr[abi:ne200100](buf);
           }
@@ -4736,14 +4624,14 @@ uint64_t Phase::Controller::DVM23::DspVoiceManager23::EndChanges(Phase::Controll
       }
     }
 
-    v68 = *(this + 43);
-    v69 = *(this + 44);
+    v68 = this[43];
+    v69 = this[44];
     if (v68 != v69)
     {
-      v70 = *(this + 9);
+      v70 = this[9];
       do
       {
-        if ((*(this + 8) - v70 - 4) >= 0x18)
+        if ((this[8] - v70 - 4) >= 0x18)
         {
           v71 = *v68;
           v72 = *(v68 + 2);
@@ -4757,37 +4645,37 @@ uint64_t Phase::Controller::DVM23::DspVoiceManager23::EndChanges(Phase::Controll
             v73 = 10;
           }
 
-          v74 = *(this + 7) + v70;
+          v74 = v70 + this[7];
           *(v74 + 4) = v73;
-          strcpy((v74 + 12), "ih");
-          *(v74 + 16) = v72;
+          strcpy(v74 + 12, "ih");
+          *(v74 + 4) = v72;
           *(v74 + 20) = v71;
-          v75 = *(this + 7);
-          v76 = *(this + 9);
-          *(v75 + v76) = 24;
-          *(v75 + 16) += 28;
-          v70 = v76 + 28;
-          *(this + 9) = v76 + 28;
+          v75 = this[7];
+          v76 = this[9];
+          *(v76 + v75) = 24;
+          *(v75 + 4) += 28;
+          v70 = (v76 + 28);
+          this[9] = (v76 + 28);
         }
 
-        v68 += 2;
+        v68 = (v68 + 16);
       }
 
       while (v68 != v69);
     }
 
-    v77 = *(this + 29);
-    v78 = *(this + 30);
-    *(this + 33) = 0;
+    v77 = this[29];
+    v78 = this[30];
+    this[33] = 0;
     v79 = (v78 - v77) >> 3;
     if (v79 >= 3)
     {
       do
       {
         operator delete(*v77);
-        v80 = *(this + 30);
-        v77 = (*(this + 29) + 8);
-        *(this + 29) = v77;
+        v80 = this[30];
+        v77 = (this[29] + 8);
+        this[29] = v77;
         v79 = (v80 - v77) >> 3;
       }
 
@@ -4804,17 +4692,17 @@ uint64_t Phase::Controller::DVM23::DspVoiceManager23::EndChanges(Phase::Controll
       if (v79 != 2)
       {
 LABEL_77:
-        *(this + 35) = *(this + 34);
-        *(this + 38) = *(this + 37);
-        *(this + 41) = *(this + 40);
-        *(this + 44) = *(this + 43);
+        this[35] = this[34];
+        this[38] = this[37];
+        this[41] = this[40];
+        this[44] = this[43];
         goto LABEL_78;
       }
 
       v81 = 102;
     }
 
-    *(this + 32) = v81;
+    this[32] = v81;
     goto LABEL_77;
   }
 
@@ -4822,29 +4710,29 @@ LABEL_78:
   Phase::Controller::DVM23::DspVoiceManager23::SendAndClearRtBundle(this);
   v83 = v82;
   v84.__d_.__rep_ = std::chrono::steady_clock::now().__d_.__rep_;
-  *(this + 70) = (v84.__d_.__rep_ - v86.__d_.__rep_) / 1000;
+  this[70] = ((v84.__d_.__rep_ - v86.__d_.__rep_) / 1000);
   if (*(Phase::Logger::GetInstance(v84.__d_.__rep_) + 1641) == 1)
   {
-    *(*(this + 63) + 8) = 0;
+    *(this[63] + 1) = 0;
     memset(buf, 0, 32);
     *&buf[32] = 1065353216;
     operator new();
   }
 
-  if (*(this + 26) - *(this + 71) >= *(*(this + 23) + 80))
+  if (this[26] - this[71] >= *(this[23] + 10))
   {
-    *(*(this + 63) + 8) = 0;
-    *v90 = 0;
+    *(this[63] + 1) = 0;
+    v90[0] = 0;
     operator new();
   }
 
-  ++*(this + 25);
+  this[25] = (this[25] + 1);
   return v83;
 }
 
-void sub_23A3B264C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_23A3B264C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   std::__hash_table<std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::__unordered_map_hasher<Phase::SpatialCategory,std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::hash<Phase::SpatialCategory>,std::equal_to<Phase::SpatialCategory>,true>,std::__unordered_map_equal<Phase::SpatialCategory,std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::equal_to<Phase::SpatialCategory>,std::hash<Phase::SpatialCategory>,true>,std::allocator<std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
@@ -4929,7 +4817,7 @@ BOOL Phase::PhaseOSCBundle::GetNextMessage(void *a1, void *a2)
   return v2 < v4;
 }
 
-void Phase::Controller::DVM23::DspVoiceManager23::ProcessMessageFromRT(Phase::Controller::DVM23::DspVoiceManager23 *this, uint64_t a2, Phase::PhaseOSCMessage *a3, double a4, double a5, double a6)
+void Phase::Controller::DVM23::DspVoiceManager23::ProcessMessageFromRT(Phase::Controller::DVM23::VoiceGraph **this, const char *a2, Phase::PhaseOSCMessage *a3, double a4, double a5, double a6)
 {
   v208 = *MEMORY[0x277D85DE8];
   v8 = *a3;
@@ -4957,15 +4845,15 @@ void Phase::Controller::DVM23::DspVoiceManager23::ProcessMessageFromRT(Phase::Co
           Voice = Phase::Controller::DVM23::VoiceGraph::GetVoice(*this, v67);
           if (Voice)
           {
-            v163 = *(this + 2);
-            if (*(this + 3) != v163)
+            v163 = this[2];
+            if (this[3] != v163)
             {
               v172 = Voice;
-              v173 = *(this + 5);
+              v173 = this[5];
               v174 = (v163 + 8 * (v173 >> 9));
               v175 = *v174;
               v176 = *v174 + 8 * (v173 & 0x1FF);
-              v177 = *(v163 + (((*(this + 6) + v173) >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * ((*(this + 6) + v173) & 0x1FF);
+              v177 = *(v163 + (((this[6] + v173) >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * ((this[6] + v173) & 0x1FF);
               if (v176 == v177)
               {
                 v178 = *v174 + 8 * (v173 & 0x1FF);
@@ -5029,7 +4917,7 @@ LABEL_158:
                 std::__hash_table<Phase::Controller::DVM23::Voice *,std::hash<Phase::Controller::DVM23::Voice *>,std::equal_to<Phase::Controller::DVM23::Voice *>,std::allocator<Phase::Controller::DVM23::Voice *>>::__erase_unique<Phase::Controller::DVM23::Voice *>(v184, buf);
                 *(*buf + 80) = 0;
                 *buf = v172;
-                Voice = std::__hash_table<Phase::Controller::DVM23::Voice *,std::hash<Phase::Controller::DVM23::Voice *>,std::equal_to<Phase::Controller::DVM23::Voice *>,std::allocator<Phase::Controller::DVM23::Voice *>>::__emplace_unique_key_args<Phase::Controller::DVM23::Voice *,Phase::Controller::DVM23::Voice * const&>(v183, buf);
+                Voice = std::__hash_table<Phase::Controller::DVM23::Voice *,std::hash<Phase::Controller::DVM23::Voice *>,std::equal_to<Phase::Controller::DVM23::Voice *>,std::allocator<Phase::Controller::DVM23::Voice *>>::__emplace_unique_key_args<Phase::Controller::DVM23::Voice *,Phase::Controller::DVM23::Voice * const&>(v183, buf, buf);
                 *(*buf + 80) = v183;
               }
             }
@@ -5067,17 +4955,17 @@ LABEL_158:
           __assert_rtn("ProcessMessageFromRT", "DspVoiceManager23.cpp", 1886, "false");
         }
 
-        v69 = *(this + 2);
-        if (*(this + 3) == v69)
+        v69 = this[2];
+        if (this[3] == v69)
         {
           goto LABEL_64;
         }
 
-        v70 = *(this + 5);
-        v71 = (v69 + 8 * (v70 >> 9));
+        v70 = this[5];
+        v71 = v69 + 8 * (v70 >> 9);
         v72 = *v71;
         v73 = *v71 + 8 * (v70 & 0x1FF);
-        v74 = *(v69 + (((*(this + 6) + v70) >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * ((*(this + 6) + v70) & 0x1FF);
+        v74 = *(v69 + (((this[6] + v70) >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * ((this[6] + v70) & 0x1FF);
         if (v73 != v74)
         {
           while (*(*v73 + 40) != v65)
@@ -5085,8 +4973,8 @@ LABEL_158:
             v73 += 8;
             if (v73 - v72 == 4096)
             {
-              v75 = v71[1];
-              ++v71;
+              v75 = *(v71 + 1);
+              v71 += 8;
               v72 = v75;
               v73 = v75;
             }
@@ -5129,9 +5017,9 @@ LABEL_64:
           v109 = *v73;
           if (!*(*v73 + 24))
           {
-            std::deque<Phase::Controller::DVM23::DvmVoicePool *>::erase(this + 8, v71, v73);
+            std::deque<Phase::Controller::DVM23::DvmVoicePool *>::erase((this + 1), v71, v73);
             *buf = &v190;
-            std::__hash_table<std::__hash_value_type<Phase::DspLayer23::VoicePool *,Phase::Controller::DVM23::DvmVoicePool *>,std::__unordered_map_hasher<Phase::DspLayer23::VoicePool *,std::__hash_value_type<Phase::DspLayer23::VoicePool *,Phase::Controller::DVM23::DvmVoicePool *>,std::hash<Phase::DspLayer23::VoicePool *>,std::equal_to<Phase::DspLayer23::VoicePool *>,true>,std::__unordered_map_equal<Phase::DspLayer23::VoicePool *,std::__hash_value_type<Phase::DspLayer23::VoicePool *,Phase::Controller::DVM23::DvmVoicePool *>,std::equal_to<Phase::DspLayer23::VoicePool *>,std::hash<Phase::DspLayer23::VoicePool *>,true>,std::allocator<std::__hash_value_type<Phase::DspLayer23::VoicePool *,Phase::Controller::DVM23::DvmVoicePool *>>>::__emplace_unique_key_args<Phase::DspLayer23::VoicePool *,std::piecewise_construct_t const&,std::tuple<Phase::DspLayer23::VoicePool * const&>,std::tuple<>>(this + 46, v65)[3] = v109;
+            std::__hash_table<std::__hash_value_type<Phase::DspLayer23::VoicePool *,Phase::Controller::DVM23::DvmVoicePool *>,std::__unordered_map_hasher<Phase::DspLayer23::VoicePool *,std::__hash_value_type<Phase::DspLayer23::VoicePool *,Phase::Controller::DVM23::DvmVoicePool *>,std::hash<Phase::DspLayer23::VoicePool *>,std::equal_to<Phase::DspLayer23::VoicePool *>,true>,std::__unordered_map_equal<Phase::DspLayer23::VoicePool *,std::__hash_value_type<Phase::DspLayer23::VoicePool *,Phase::Controller::DVM23::DvmVoicePool *>,std::equal_to<Phase::DspLayer23::VoicePool *>,std::hash<Phase::DspLayer23::VoicePool *>,true>,std::allocator<std::__hash_value_type<Phase::DspLayer23::VoicePool *,Phase::Controller::DVM23::DvmVoicePool *>>>::__emplace_unique_key_args<Phase::DspLayer23::VoicePool *,std::piecewise_construct_t const&,std::tuple<Phase::DspLayer23::VoicePool * const&>,std::tuple<>>(this + 92, v65, buf)[3] = v109;
             Phase::PhaseOSCBundle::WriteNextMessage<Phase::Controller::DVM_RT::DVMRTOSCCommand,int,Phase::DspLayer23::VoicePool *>(this + 7, v190);
           }
         }
@@ -5165,7 +5053,7 @@ LABEL_64:
           goto LABEL_96;
         }
 
-        *(this + 57) = v190;
+        this[57] = v190;
         v29 = v28[6];
         *buf = a2;
         if (!v29)
@@ -5286,16 +5174,16 @@ LABEL_83:
     }
 
     v113 = v112;
-    v114 = v112[3];
+    v114 = *(v112 + 3);
     if (v114)
     {
       Phase::Controller::DVM23::DvmVoicePool::~DvmVoicePool(v114);
       MEMORY[0x23EE864A0]();
     }
 
-    v115 = *(this + 376);
+    v115 = this[47];
     v116 = *v113;
-    v117 = v113[1];
+    v117 = *(v113 + 1);
     v118 = vcnt_s8(v115);
     v118.i16[0] = vaddlv_u8(v118);
     if (v118.u32[0] > 1uLL)
@@ -5311,8 +5199,8 @@ LABEL_83:
       v117 &= *&v115 - 1;
     }
 
-    v148 = *(this + 46);
-    v149 = *(v148 + 8 * v117);
+    v148 = this[46];
+    v149 = *(v148 + v117);
     do
     {
       v150 = v149;
@@ -5320,7 +5208,7 @@ LABEL_83:
     }
 
     while (v149 != v113);
-    if (v150 == (this + 384))
+    if (v150 == this + 48)
     {
       goto LABEL_119;
     }
@@ -5344,10 +5232,10 @@ LABEL_83:
 LABEL_119:
       if (v116)
       {
-        v152 = *(v116 + 8);
+        v152 = *(v116 + 1);
         if (v118.u32[0] > 1uLL)
         {
-          v153 = *(v116 + 8);
+          v153 = *(v116 + 1);
           if (v152 >= *&v115)
           {
             v153 = v152 % *&v115;
@@ -5365,7 +5253,7 @@ LABEL_119:
         }
       }
 
-      *(v148 + 8 * v117) = 0;
+      *(v148 + v117) = 0;
       v116 = *v113;
     }
 
@@ -5374,13 +5262,13 @@ LABEL_119:
 LABEL_129:
       *v150 = v116;
       *v113 = 0;
-      --*(this + 49);
+      this[49] = (this[49] - 1);
 
       operator delete(v113);
       return;
     }
 
-    v152 = *(v116 + 8);
+    v152 = *(v116 + 1);
 LABEL_123:
     if (v118.u32[0] > 1uLL)
     {
@@ -5397,7 +5285,7 @@ LABEL_123:
 
     if (v152 != v117)
     {
-      *(*(this + 46) + 8 * v152) = v150;
+      *(this[46] + v152) = v150;
       v116 = *v113;
     }
 
@@ -5433,18 +5321,18 @@ LABEL_123:
       if (v78)
       {
         v85 = 0;
-        v86 = *(this + 2);
-        v87 = *(this + 3);
+        v86 = this[2];
+        v87 = this[3];
         do
         {
           if (v87 != v86)
           {
             v88 = &v81[8 * v85];
-            v89 = *(this + 5);
+            v89 = this[5];
             v90 = (v86 + 8 * (v89 >> 9));
             v91 = *v90;
             v92 = *v90 + 8 * (v89 & 0x1FF);
-            v93 = *(v86 + (((*(this + 6) + v89) >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * ((*(this + 6) + v89) & 0x1FF);
+            v93 = *(v86 + (((this[6] + v89) >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * ((this[6] + v89) & 0x1FF);
             if (v92 != v93)
             {
               while (*(*v92 + 40) != *v88)
@@ -5466,7 +5354,7 @@ LABEL_123:
               }
             }
 
-            v95 = *(this + 6) + *(this + 5);
+            v95 = this[5] + this[6];
             if (v92 != *(v86 + ((v95 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v95 & 0x1FF))
             {
               LODWORD(v84) = v88[2];
@@ -5561,29 +5449,29 @@ LABEL_123:
         *(*buf + 80) = 0;
         if (!v39[3])
         {
-          v40 = *(this + 5);
-          v41 = *(this + 2);
+          v40 = this[5];
+          v41 = this[2];
           v42 = (v41 + 8 * (v40 >> 9));
-          if (*(this + 3) == v41)
+          if (this[3] == v41)
           {
             v43 = 0;
             v46 = 0;
-            v45 = (v41 + 8 * ((*(this + 6) + v40) >> 9));
+            v45 = (v41 + 8 * ((this[6] + v40) >> 9));
           }
 
           else
           {
-            v43 = (*v42 + 8 * (*(this + 5) & 0x1FFLL));
-            v44 = *(this + 6) + v40;
+            v43 = (*v42 + 8 * (this[5] & 0x1FF));
+            v44 = this[6] + v40;
             v45 = (v41 + 8 * (v44 >> 9));
             v46 = (*v45 + 8 * (v44 & 0x1FF));
           }
 
           v154 = std::__find_segment_if[abi:ne200100]<std::__deque_iterator<Phase::Controller::DVM23::DvmVoicePool *,Phase::Controller::DVM23::DvmVoicePool * const*,Phase::Controller::DVM23::DvmVoicePool * const&,Phase::Controller::DVM23::DvmVoicePool * const* const*,long,512l>,std::__find_segment<Phase::Controller::DVM23::DvmVoicePool *>,std::__identity>(v42, v43, v45, v46, &v188);
-          std::deque<Phase::Controller::DVM23::DvmVoicePool *>::erase(this + 8, v154, v155);
+          std::deque<Phase::Controller::DVM23::DvmVoicePool *>::erase((this + 1), v154, v155);
           v156 = v188;
           *buf = &v190;
-          std::__hash_table<std::__hash_value_type<Phase::DspLayer23::VoicePool *,Phase::Controller::DVM23::DvmVoicePool *>,std::__unordered_map_hasher<Phase::DspLayer23::VoicePool *,std::__hash_value_type<Phase::DspLayer23::VoicePool *,Phase::Controller::DVM23::DvmVoicePool *>,std::hash<Phase::DspLayer23::VoicePool *>,std::equal_to<Phase::DspLayer23::VoicePool *>,true>,std::__unordered_map_equal<Phase::DspLayer23::VoicePool *,std::__hash_value_type<Phase::DspLayer23::VoicePool *,Phase::Controller::DVM23::DvmVoicePool *>,std::equal_to<Phase::DspLayer23::VoicePool *>,std::hash<Phase::DspLayer23::VoicePool *>,true>,std::allocator<std::__hash_value_type<Phase::DspLayer23::VoicePool *,Phase::Controller::DVM23::DvmVoicePool *>>>::__emplace_unique_key_args<Phase::DspLayer23::VoicePool *,std::piecewise_construct_t const&,std::tuple<Phase::DspLayer23::VoicePool * const&>,std::tuple<>>(this + 46, v33)[3] = v156;
+          std::__hash_table<std::__hash_value_type<Phase::DspLayer23::VoicePool *,Phase::Controller::DVM23::DvmVoicePool *>,std::__unordered_map_hasher<Phase::DspLayer23::VoicePool *,std::__hash_value_type<Phase::DspLayer23::VoicePool *,Phase::Controller::DVM23::DvmVoicePool *>,std::hash<Phase::DspLayer23::VoicePool *>,std::equal_to<Phase::DspLayer23::VoicePool *>,true>,std::__unordered_map_equal<Phase::DspLayer23::VoicePool *,std::__hash_value_type<Phase::DspLayer23::VoicePool *,Phase::Controller::DVM23::DvmVoicePool *>,std::equal_to<Phase::DspLayer23::VoicePool *>,std::hash<Phase::DspLayer23::VoicePool *>,true>,std::allocator<std::__hash_value_type<Phase::DspLayer23::VoicePool *,Phase::Controller::DVM23::DvmVoicePool *>>>::__emplace_unique_key_args<Phase::DspLayer23::VoicePool *,std::piecewise_construct_t const&,std::tuple<Phase::DspLayer23::VoicePool * const&>,std::tuple<>>(this + 92, v33, buf)[3] = v156;
           Phase::PhaseOSCBundle::WriteNextMessage<Phase::Controller::DVM_RT::DVMRTOSCCommand,int,Phase::DspLayer23::VoicePool *>(this + 7, v190);
         }
       }
@@ -5917,7 +5805,7 @@ LABEL_54:
     v54 = *v52;
     v53 = v52[1];
     *(a3 + 1) = vaddq_s64(*(a3 + 1), xmmword_23A5552C0);
-    v55 = Phase::Controller::DVM23::DspVoiceManager23::SetVoicePlaystate(this, v53, 2u, 0.0);
+    v55 = Phase::Controller::DVM23::DspVoiceManager23::SetVoicePlaystate(this, v53, 2, 0.0);
     if ((v55 & 7) != 0)
     {
       v56 = v55;
@@ -5987,14 +5875,14 @@ void std::deque<Phase::Controller::DVM23::DvmVoicePool *>::erase(uint64_t a1, ch
     {
       v26 = 510 - v15;
       v19 = &v10[-(v26 >> 9)];
-      v20 = &(*v19)[8 * (~v26 & 0x1FF)];
+      v20 = (*v19 + 8 * (~v26 & 0x1FF));
     }
 
     else
     {
       v18 = v15 + 1;
       v19 = &v10[v18 >> 9];
-      v20 = &(*v19)[8 * (v18 & 0x1FF)];
+      v20 = (*v19 + 8 * (v18 & 0x1FF));
     }
 
     if (v10 == v7)
@@ -6005,7 +5893,7 @@ void std::deque<Phase::Controller::DVM23::DvmVoicePool *>::erase(uint64_t a1, ch
 
     else
     {
-      std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<Phase::Controller::DVM23::DvmVoicePool **,std::__deque_iterator<Phase::Controller::DVM23::DvmVoicePool *,Phase::Controller::DVM23::DvmVoicePool **,Phase::Controller::DVM23::DvmVoicePool *&,Phase::Controller::DVM23::DvmVoicePool ***,long,512l>,0>(&v60, *v10, v11, v19, v20);
+      std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<Phase::Controller::DVM23::DvmVoicePool **,std::__deque_iterator<Phase::Controller::DVM23::DvmVoicePool *,Phase::Controller::DVM23::DvmVoicePool **,Phase::Controller::DVM23::DvmVoicePool *&,Phase::Controller::DVM23::DvmVoicePool ***,long,512l>,0>(v60, *v10, v11, v19, v20);
       v29 = v61;
       v30 = v62;
       v31 = (v12 - 1);
@@ -6041,16 +5929,17 @@ void std::deque<Phase::Controller::DVM23::DvmVoicePool *>::erase(uint64_t a1, ch
               break;
             }
 
-            v37 = *--v29;
+            v37 = *(v29 - 1);
+            v29 -= 8;
             v32 = v37;
             v30 = v37 + 4096;
           }
 
           v32 = *v29;
-          if (*v29 + 4096 == v30)
+          if ((*v29 + 4096) == v30)
           {
-            v38 = v29[1];
-            ++v29;
+            v38 = *(v29 + 1);
+            v29 += 8;
             v32 = v38;
             v30 = v38;
           }
@@ -6067,7 +5956,7 @@ void std::deque<Phase::Controller::DVM23::DvmVoicePool *>::erase(uint64_t a1, ch
       v20 = v30;
     }
 
-    std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<Phase::Controller::DVM23::DvmVoicePool **,std::__deque_iterator<Phase::Controller::DVM23::DvmVoicePool *,Phase::Controller::DVM23::DvmVoicePool **,Phase::Controller::DVM23::DvmVoicePool *&,Phase::Controller::DVM23::DvmVoicePool ***,long,512l>,0>(&v60, v27, v28, v19, v20);
+    std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<Phase::Controller::DVM23::DvmVoicePool **,std::__deque_iterator<Phase::Controller::DVM23::DvmVoicePool *,Phase::Controller::DVM23::DvmVoicePool **,Phase::Controller::DVM23::DvmVoicePool *&,Phase::Controller::DVM23::DvmVoicePool ***,long,512l>,0>(v60, v27, v28, v19, v20);
     v39 = vaddq_s64(*(a1 + 32), xmmword_23A5552A0);
     *(a1 + 32) = v39;
     if (v39.i64[0] >= 0x400uLL)
@@ -6115,7 +6004,7 @@ void std::deque<Phase::Controller::DVM23::DvmVoicePool *>::erase(uint64_t a1, ch
 
     else
     {
-      std::__copy_move_unwrap_iters[abi:ne200100]<std::__move_impl<std::_ClassicAlgPolicy>,Phase::Controller::DVM23::DvmVoicePool **,Phase::Controller::DVM23::DvmVoicePool **,std::__deque_iterator<Phase::Controller::DVM23::DvmVoicePool *,Phase::Controller::DVM23::DvmVoicePool **,Phase::Controller::DVM23::DvmVoicePool *&,Phase::Controller::DVM23::DvmVoicePool ***,long,512l>,0>(&v60, v22, *v17 + 4096, v10, v13);
+      std::__copy_move_unwrap_iters[abi:ne200100]<std::__move_impl<std::_ClassicAlgPolicy>,Phase::Controller::DVM23::DvmVoicePool **,Phase::Controller::DVM23::DvmVoicePool **,std::__deque_iterator<Phase::Controller::DVM23::DvmVoicePool *,Phase::Controller::DVM23::DvmVoicePool **,Phase::Controller::DVM23::DvmVoicePool *&,Phase::Controller::DVM23::DvmVoicePool ***,long,512l>,0>(v60, v22, *v17 + 4096, v10, v13);
       v40 = v61;
       v41 = v62;
       v42 = v17 + 1;
@@ -6182,7 +6071,7 @@ void std::deque<Phase::Controller::DVM23::DvmVoicePool *>::erase(uint64_t a1, ch
       v51 = v41;
     }
 
-    std::__copy_move_unwrap_iters[abi:ne200100]<std::__move_impl<std::_ClassicAlgPolicy>,Phase::Controller::DVM23::DvmVoicePool **,Phase::Controller::DVM23::DvmVoicePool **,std::__deque_iterator<Phase::Controller::DVM23::DvmVoicePool *,Phase::Controller::DVM23::DvmVoicePool **,Phase::Controller::DVM23::DvmVoicePool *&,Phase::Controller::DVM23::DvmVoicePool ***,long,512l>,0>(&v60, v22, v49, v50, v51);
+    std::__copy_move_unwrap_iters[abi:ne200100]<std::__move_impl<std::_ClassicAlgPolicy>,Phase::Controller::DVM23::DvmVoicePool **,Phase::Controller::DVM23::DvmVoicePool **,std::__deque_iterator<Phase::Controller::DVM23::DvmVoicePool *,Phase::Controller::DVM23::DvmVoicePool **,Phase::Controller::DVM23::DvmVoicePool *&,Phase::Controller::DVM23::DvmVoicePool ***,long,512l>,0>(v60, v22, v49, v50, v51);
     v53 = *(a1 + 8);
     v52 = *(a1 + 16);
     v54 = v52 - v53;
@@ -6323,12 +6212,12 @@ uint64_t Phase::Controller::DVM23::DspVoiceManager23::CancelCallback(Phase::Cont
 
 BOOL Phase::Controller::DVM23::DspVoiceManager23::RegisterVoicePlaystateChangeCallback(uint64_t a1, unint64_t a2, uint64_t a3)
 {
-  v8[0] = a2;
-  v5 = std::__hash_table<std::__hash_value_type<unsigned long long,int>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,int>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,int>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,int>>>::find<unsigned long long>((a1 + 464), v8);
+  v8 = a2;
+  v5 = std::__hash_table<std::__hash_value_type<unsigned long long,int>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,int>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,int>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,int>>>::find<unsigned long long>((a1 + 464), &v8);
   if (!v5)
   {
-    v8[2] = v8;
-    v6 = std::__hash_table<std::__hash_value_type<unsigned long long,std::function<void ()(unsigned long long,unsigned long long,Phase::Controller::DVM23::Playstate,Phase::DspLayer23::DspLayerError)>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::function<void ()(unsigned long long,unsigned long long,Phase::Controller::DVM23::Playstate,Phase::DspLayer23::DspLayerError)>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::function<void ()(unsigned long long,unsigned long long,Phase::Controller::DVM23::Playstate,Phase::DspLayer23::DspLayerError)>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::function<void ()(unsigned long long,unsigned long long,Phase::Controller::DVM23::Playstate,Phase::DspLayer23::DspLayerError)>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>((a1 + 464), v8);
+    v9 = &v8;
+    v6 = std::__hash_table<std::__hash_value_type<unsigned long long,std::function<void ()(unsigned long long,unsigned long long,Phase::Controller::DVM23::Playstate,Phase::DspLayer23::DspLayerError)>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::function<void ()(unsigned long long,unsigned long long,Phase::Controller::DVM23::Playstate,Phase::DspLayer23::DspLayerError)>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::function<void ()(unsigned long long,unsigned long long,Phase::Controller::DVM23::Playstate,Phase::DspLayer23::DspLayerError)>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::function<void ()(unsigned long long,unsigned long long,Phase::Controller::DVM23::Playstate,Phase::DspLayer23::DspLayerError)>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>((a1 + 464), &v8, &std::piecewise_construct, &v9);
     std::function<void ()(unsigned long long,unsigned long long,Phase::Controller::DVM23::Playstate,Phase::DspLayer23::DspLayerError)>::operator=(v6 + 3, a3);
   }
 
@@ -6437,7 +6326,7 @@ void *std::__find_segment_if[abi:ne200100]<std::__deque_iterator<Phase::Controll
 
   else
   {
-    v5 = *a1 + 4096;
+    v5 = (*a1 + 4096);
     if (v5 == a2)
     {
       goto LABEL_20;
@@ -6860,7 +6749,7 @@ uint64_t std::__function::__func<Phase::Controller::DVM23::DspVoiceManager23::Is
   return result;
 }
 
-void *std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<Phase::Controller::DVM23::DspVoiceManager23::VoiceDisConnectionCommand *,std::__deque_iterator<Phase::Controller::DVM23::DspVoiceManager23::VoiceDisConnectionCommand,Phase::Controller::DVM23::DspVoiceManager23::VoiceDisConnectionCommand *,Phase::Controller::DVM23::DspVoiceManager23::VoiceDisConnectionCommand&,Phase::Controller::DVM23::DspVoiceManager23::VoiceDisConnectionCommand **,long,102l>,0>(void *result, char *a2, char *a3, void *a4, char *a5)
+char **std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<Phase::Controller::DVM23::DspVoiceManager23::VoiceDisConnectionCommand *,std::__deque_iterator<Phase::Controller::DVM23::DspVoiceManager23::VoiceDisConnectionCommand,Phase::Controller::DVM23::DspVoiceManager23::VoiceDisConnectionCommand *,Phase::Controller::DVM23::DspVoiceManager23::VoiceDisConnectionCommand&,Phase::Controller::DVM23::DspVoiceManager23::VoiceDisConnectionCommand **,long,102l>,0>(char **result, char *a2, char *a3, char *a4, char *a5)
 {
   v6 = a4;
   v8 = result;
@@ -6894,15 +6783,16 @@ void *std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100
         break;
       }
 
-      v13 = *--v6;
+      v13 = *(v6 - 1);
+      v6 -= 8;
       v10 = v13;
       a5 = (v13 + 4080);
     }
 
     if ((*v6 + 4080) == a5)
     {
-      v14 = v6[1];
-      ++v6;
+      v14 = *(v6 + 1);
+      v6 += 8;
       a5 = v14;
     }
   }
@@ -6966,24 +6856,23 @@ void *std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<Phase::
   return result;
 }
 
-void *std::__split_buffer<Phase::Controller::DVM23::DspVoiceManager23::VoiceDisConnectionCommand *>::emplace_back<Phase::Controller::DVM23::DspVoiceManager23::VoiceDisConnectionCommand *&>(void *result, void *a2)
+void std::__split_buffer<Phase::Controller::DVM23::DspVoiceManager23::VoiceDisConnectionCommand *>::emplace_back<Phase::Controller::DVM23::DspVoiceManager23::VoiceDisConnectionCommand *&>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
       std::__allocate_at_least[abi:ne200100]<std::allocator<std::reference_wrapper<Phase::SpatialModeler::PriorityQueueEntry>>>(v11);
@@ -6995,18 +6884,17 @@ void *std::__split_buffer<Phase::Controller::DVM23::DspVoiceManager23::VoiceDisC
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
 __n128 std::__function::__func<Phase::Controller::DVM23::DspVoiceManager23::FindLatestParentPool(Phase::Controller::DVM23::Voice *,std::__deque_iterator<Phase::Controller::DVM23::DvmVoicePool *,Phase::Controller::DVM23::DvmVoicePool * const*,Phase::Controller::DVM23::DvmVoicePool * const&,Phase::Controller::DVM23::DvmVoicePool * const* const*,long,512l>)::$_0,std::allocator<Phase::Controller::DVM23::DspVoiceManager23::FindLatestParentPool(Phase::Controller::DVM23::Voice *,std::__deque_iterator<Phase::Controller::DVM23::DvmVoicePool *,Phase::Controller::DVM23::DvmVoicePool * const*,Phase::Controller::DVM23::DvmVoicePool * const&,Phase::Controller::DVM23::DvmVoicePool * const* const*,long,512l>)::$_0>,void ()(Phase::Controller::DVM23::Voice *,int)>::__clone(uint64_t a1, uint64_t a2)
@@ -7097,14 +6985,13 @@ void *std::prev[abi:ne200100]<std::__deque_iterator<Phase::Controller::DVM23::Dv
   }
 }
 
-const void **std::__split_buffer<Phase::Controller::DVM23::DvmVoicePool **>::emplace_front<Phase::Controller::DVM23::DvmVoicePool **&>(const void **result, void *a2)
+void std::__split_buffer<Phase::Controller::DVM23::DvmVoicePool **>::emplace_front<Phase::Controller::DVM23::DvmVoicePool **&>(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -7124,22 +7011,21 @@ const void **std::__split_buffer<Phase::Controller::DVM23::DvmVoicePool **>::emp
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = &v6[8 * v8];
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
   *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  a1[1] = a1[1] - 8;
 }
 
 void *std::__copy_move_unwrap_iters[abi:ne200100]<std::__move_impl<std::_ClassicAlgPolicy>,Phase::Controller::DVM23::DvmVoicePool **,Phase::Controller::DVM23::DvmVoicePool **,std::__deque_iterator<Phase::Controller::DVM23::DvmVoicePool *,Phase::Controller::DVM23::DvmVoicePool **,Phase::Controller::DVM23::DvmVoicePool *&,Phase::Controller::DVM23::DvmVoicePool ***,long,512l>,0>(void *result, _BYTE *__src, _BYTE *a3, void **a4, char *__dst)
@@ -7189,7 +7075,7 @@ void *std::__copy_move_unwrap_iters[abi:ne200100]<std::__move_impl<std::_Classic
   return result;
 }
 
-void *std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<Phase::Controller::DVM23::DvmVoicePool **,std::__deque_iterator<Phase::Controller::DVM23::DvmVoicePool *,Phase::Controller::DVM23::DvmVoicePool **,Phase::Controller::DVM23::DvmVoicePool *&,Phase::Controller::DVM23::DvmVoicePool ***,long,512l>,0>(void *result, char *a2, char *a3, void *a4, char *a5)
+char **std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<Phase::Controller::DVM23::DvmVoicePool **,std::__deque_iterator<Phase::Controller::DVM23::DvmVoicePool *,Phase::Controller::DVM23::DvmVoicePool **,Phase::Controller::DVM23::DvmVoicePool *&,Phase::Controller::DVM23::DvmVoicePool ***,long,512l>,0>(char **result, char *a2, char *a3, char *a4, char *a5)
 {
   v6 = a4;
   v8 = result;
@@ -7228,15 +7114,16 @@ void *std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100
         break;
       }
 
-      v14 = *--v6;
+      v14 = *(v6 - 1);
+      v6 -= 8;
       v10 = v14;
       a5 = (v14 + 4096);
     }
 
     if ((*v6 + 4096) == a5)
     {
-      v15 = v6[1];
-      ++v6;
+      v15 = *(v6 + 1);
+      v6 += 8;
       a5 = v15;
     }
   }
@@ -7336,7 +7223,7 @@ __n128 std::__function::__func<Phase::Controller::DVM23::DspVoiceManager23::EndC
   return result;
 }
 
-int64x2_t *std::__function::__func<Phase::Controller::DVM23::DspVoiceManager23::EndChanges(void)::$_0,std::allocator<Phase::Controller::DVM23::DspVoiceManager23::EndChanges(void)::$_0>,void ()(Phase::Controller::DVM23::Voice *,int)>::operator()(int64x2_t *result, uint64_t *a2, int *a3)
+void std::__function::__func<Phase::Controller::DVM23::DspVoiceManager23::EndChanges(void)::$_0,std::allocator<Phase::Controller::DVM23::DspVoiceManager23::EndChanges(void)::$_0>,void ()(Phase::Controller::DVM23::Voice *,int)>::operator()(void *result, uint64_t *a2, int *a3)
 {
   v3 = *a2;
   v4 = *(v3 + 88);
@@ -7355,11 +7242,9 @@ int64x2_t *std::__function::__func<Phase::Controller::DVM23::DspVoiceManager23::
     v6 = *a3;
     if (v4 != 6 || *(v3 + 80))
     {
-      return Phase::Controller::DVM23::DspVoiceManager23::RegisterConnectionCommand(result[1].i64[0], v3, v6, result[1].i64[1], result[2].i32[0]);
+      Phase::Controller::DVM23::DspVoiceManager23::RegisterConnectionCommand(result[2], v3, v6, result[3], *(result + 8));
     }
   }
-
-  return result;
 }
 
 __n128 std::__function::__func<Phase::Controller::DVM23::DspVoiceManager23::EndChanges(void)::$_1,std::allocator<Phase::Controller::DVM23::DspVoiceManager23::EndChanges(void)::$_1>,void ()(Phase::Controller::DVM23::Voice *,int)>::__clone(uint64_t a1, uint64_t a2)
@@ -7372,7 +7257,7 @@ __n128 std::__function::__func<Phase::Controller::DVM23::DspVoiceManager23::EndC
   return result;
 }
 
-int64x2_t *std::__function::__func<Phase::Controller::DVM23::DspVoiceManager23::EndChanges(void)::$_1,std::allocator<Phase::Controller::DVM23::DspVoiceManager23::EndChanges(void)::$_1>,void ()(Phase::Controller::DVM23::Voice *,int)>::operator()(int64x2_t *result, Phase::Controller::DVM23::Voice **a2, int *a3)
+void std::__function::__func<Phase::Controller::DVM23::DspVoiceManager23::EndChanges(void)::$_1,std::allocator<Phase::Controller::DVM23::DspVoiceManager23::EndChanges(void)::$_1>,void ()(Phase::Controller::DVM23::Voice *,int)>::operator()(void *result, Phase::Controller::DVM23::Voice **a2, int *a3)
 {
   v3 = *a2;
   v4 = *(*a2 + 22);
@@ -7388,10 +7273,8 @@ int64x2_t *std::__function::__func<Phase::Controller::DVM23::DspVoiceManager23::
 
   if (!v5 && (v4 != 6 || *(v3 + 10)))
   {
-    return Phase::Controller::DVM23::DspVoiceManager23::RegisterConnectionCommand(result[1].i64[0], result[1].i64[1], result[2].i32[0], v3, *a3);
+    Phase::Controller::DVM23::DspVoiceManager23::RegisterConnectionCommand(result[2], result[3], *(result + 8), v3, *a3);
   }
-
-  return result;
 }
 
 void std::__tree<std::pair<Phase::Controller::DVM23::Voice *,unsigned int>>::destroy(void *a1)
@@ -7405,12 +7288,172 @@ void std::__tree<std::pair<Phase::Controller::DVM23::Voice *,unsigned int>>::des
   }
 }
 
-void *std::__hash_table<std::__hash_value_type<Phase::DspLayer23::VoicePool *,Phase::Controller::DVM23::DvmVoicePool *>,std::__unordered_map_hasher<Phase::DspLayer23::VoicePool *,std::__hash_value_type<Phase::DspLayer23::VoicePool *,Phase::Controller::DVM23::DvmVoicePool *>,std::hash<Phase::DspLayer23::VoicePool *>,std::equal_to<Phase::DspLayer23::VoicePool *>,true>,std::__unordered_map_equal<Phase::DspLayer23::VoicePool *,std::__hash_value_type<Phase::DspLayer23::VoicePool *,Phase::Controller::DVM23::DvmVoicePool *>,std::equal_to<Phase::DspLayer23::VoicePool *>,std::hash<Phase::DspLayer23::VoicePool *>,true>,std::allocator<std::__hash_value_type<Phase::DspLayer23::VoicePool *,Phase::Controller::DVM23::DvmVoicePool *>>>::__emplace_unique_key_args<Phase::DspLayer23::VoicePool *,std::piecewise_construct_t const&,std::tuple<Phase::DspLayer23::VoicePool * const&>,std::tuple<>>(void *a1, unint64_t a2)
+void *std::__hash_table<std::__hash_value_type<Phase::DspLayer23::VoicePool *,Phase::Controller::DVM23::DvmVoicePool *>,std::__unordered_map_hasher<Phase::DspLayer23::VoicePool *,std::__hash_value_type<Phase::DspLayer23::VoicePool *,Phase::Controller::DVM23::DvmVoicePool *>,std::hash<Phase::DspLayer23::VoicePool *>,std::equal_to<Phase::DspLayer23::VoicePool *>,true>,std::__unordered_map_equal<Phase::DspLayer23::VoicePool *,std::__hash_value_type<Phase::DspLayer23::VoicePool *,Phase::Controller::DVM23::DvmVoicePool *>,std::equal_to<Phase::DspLayer23::VoicePool *>,std::hash<Phase::DspLayer23::VoicePool *>,true>,std::allocator<std::__hash_value_type<Phase::DspLayer23::VoicePool *,Phase::Controller::DVM23::DvmVoicePool *>>>::__emplace_unique_key_args<Phase::DspLayer23::VoicePool *,std::piecewise_construct_t const&,std::tuple<Phase::DspLayer23::VoicePool * const&>,std::tuple<>>(float *a1, unint64_t a2, void **a3)
 {
-  v2 = 0x9DDFEA08EB382D69 * ((8 * (a2 & 0x1FFFFFFF) + 8) ^ HIDWORD(a2));
-  v3 = 0x9DDFEA08EB382D69 * (HIDWORD(a2) ^ (v2 >> 47) ^ v2);
-  v4 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-  v5 = a1[1];
+  v3 = 0x9DDFEA08EB382D69 * ((8 * (a2 & 0x1FFFFFFF) + 8) ^ HIDWORD(a2));
+  v4 = 0x9DDFEA08EB382D69 * (HIDWORD(a2) ^ (v3 >> 47) ^ v3);
+  v5 = 0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47));
+  v6 = *(a1 + 2);
+  if (!*&v6)
+  {
+    goto LABEL_18;
+  }
+
+  v7 = vcnt_s8(v6);
+  v7.i16[0] = vaddlv_u8(v7);
+  if (v7.u32[0] > 1uLL)
+  {
+    v8 = 0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47));
+    if (v5 >= *&v6)
+    {
+      v8 = v5 % *&v6;
+    }
+  }
+
+  else
+  {
+    v8 = (*&v6 - 1) & v5;
+  }
+
+  v9 = *(*a1 + 8 * v8);
+  if (!v9 || (v10 = *v9) == 0)
+  {
+LABEL_18:
+    operator new();
+  }
+
+  while (1)
+  {
+    v11 = v10[1];
+    if (v11 == v5)
+    {
+      break;
+    }
+
+    if (v7.u32[0] > 1uLL)
+    {
+      if (v11 >= *&v6)
+      {
+        v11 %= *&v6;
+      }
+    }
+
+    else
+    {
+      v11 &= *&v6 - 1;
+    }
+
+    if (v11 != v8)
+    {
+      goto LABEL_18;
+    }
+
+LABEL_17:
+    v10 = *v10;
+    if (!v10)
+    {
+      goto LABEL_18;
+    }
+  }
+
+  if (v10[2] != a2)
+  {
+    goto LABEL_17;
+  }
+
+  return v10;
+}
+
+void *std::__hash_table<std::__hash_value_type<Phase::DspLayer23::VoicePool *,Phase::Controller::DVM23::DvmVoicePool *>,std::__unordered_map_hasher<Phase::DspLayer23::VoicePool *,std::__hash_value_type<Phase::DspLayer23::VoicePool *,Phase::Controller::DVM23::DvmVoicePool *>,std::hash<Phase::DspLayer23::VoicePool *>,std::equal_to<Phase::DspLayer23::VoicePool *>,true>,std::__unordered_map_equal<Phase::DspLayer23::VoicePool *,std::__hash_value_type<Phase::DspLayer23::VoicePool *,Phase::Controller::DVM23::DvmVoicePool *>,std::equal_to<Phase::DspLayer23::VoicePool *>,std::hash<Phase::DspLayer23::VoicePool *>,true>,std::allocator<std::__hash_value_type<Phase::DspLayer23::VoicePool *,Phase::Controller::DVM23::DvmVoicePool *>>>::find<Phase::DspLayer23::VoicePool *>(void *a1, unint64_t a2)
+{
+  v2 = a1[1];
+  if (!*&v2)
+  {
+    return 0;
+  }
+
+  v3 = 0x9DDFEA08EB382D69 * ((8 * (a2 & 0x1FFFFFFF) + 8) ^ HIDWORD(a2));
+  v4 = 0x9DDFEA08EB382D69 * (HIDWORD(a2) ^ (v3 >> 47) ^ v3);
+  v5 = 0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47));
+  v6 = vcnt_s8(v2);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
+  {
+    v7 = v5;
+    if (v5 >= *&v2)
+    {
+      v7 = v5 % *&v2;
+    }
+  }
+
+  else
+  {
+    v7 = (*&v2 - 1) & v5;
+  }
+
+  v8 = *(*a1 + 8 * v7);
+  if (!v8)
+  {
+    return 0;
+  }
+
+  for (result = *v8; result; result = *result)
+  {
+    v10 = result[1];
+    if (v10 == v5)
+    {
+      if (result[2] == a2)
+      {
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v6.u32[0] > 1uLL)
+      {
+        if (v10 >= *&v2)
+        {
+          v10 %= *&v2;
+        }
+      }
+
+      else
+      {
+        v10 &= *&v2 - 1;
+      }
+
+      if (v10 != v7)
+      {
+        return 0;
+      }
+    }
+  }
+
+  return result;
+}
+
+uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned long long,std::function<void ()(unsigned long long)>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned long long,std::function<void ()(unsigned long long)>>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
+{
+  v2 = *a1;
+  *a1 = 0;
+  if (v2)
+  {
+    if (*(a1 + 16) == 1)
+    {
+      std::__function::__value_func<void ()(unsigned long long)>::~__value_func[abi:ne200100](v2 + 24);
+    }
+
+    operator delete(v2);
+  }
+
+  return a1;
+}
+
+void *std::__hash_table<std::__hash_value_type<unsigned long long,std::function<void ()(unsigned long long,unsigned long long,Phase::Controller::DVM23::Playstate,Phase::DspLayer23::DspLayerError)>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::function<void ()(unsigned long long,unsigned long long,Phase::Controller::DVM23::Playstate,Phase::DspLayer23::DspLayerError)>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::function<void ()(unsigned long long,unsigned long long,Phase::Controller::DVM23::Playstate,Phase::DspLayer23::DspLayerError)>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::function<void ()(unsigned long long,unsigned long long,Phase::Controller::DVM23::Playstate,Phase::DspLayer23::DspLayerError)>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(float *a1, unint64_t *a2, uint64_t a3, void **a4)
+{
+  v4 = *a2;
+  v5 = *(a1 + 2);
   if (!*&v5)
   {
     goto LABEL_18;
@@ -7420,7 +7463,7 @@ void *std::__hash_table<std::__hash_value_type<Phase::DspLayer23::VoicePool *,Ph
   v6.i16[0] = vaddlv_u8(v6);
   if (v6.u32[0] > 1uLL)
   {
-    v7 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
+    v7 = *a2;
     if (v4 >= *&v5)
     {
       v7 = v4 % *&v5;
@@ -7473,7 +7516,7 @@ LABEL_17:
     }
   }
 
-  if (v9[2] != a2)
+  if (v9[2] != v4)
   {
     goto LABEL_17;
   }
@@ -7481,177 +7524,9 @@ LABEL_17:
   return v9;
 }
 
-void *std::__hash_table<std::__hash_value_type<Phase::DspLayer23::VoicePool *,Phase::Controller::DVM23::DvmVoicePool *>,std::__unordered_map_hasher<Phase::DspLayer23::VoicePool *,std::__hash_value_type<Phase::DspLayer23::VoicePool *,Phase::Controller::DVM23::DvmVoicePool *>,std::hash<Phase::DspLayer23::VoicePool *>,std::equal_to<Phase::DspLayer23::VoicePool *>,true>,std::__unordered_map_equal<Phase::DspLayer23::VoicePool *,std::__hash_value_type<Phase::DspLayer23::VoicePool *,Phase::Controller::DVM23::DvmVoicePool *>,std::equal_to<Phase::DspLayer23::VoicePool *>,std::hash<Phase::DspLayer23::VoicePool *>,true>,std::allocator<std::__hash_value_type<Phase::DspLayer23::VoicePool *,Phase::Controller::DVM23::DvmVoicePool *>>>::find<Phase::DspLayer23::VoicePool *>(void *a1, unint64_t a2)
+void sub_23A3B6E24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  v2 = a1[1];
-  if (!*&v2)
-  {
-    return 0;
-  }
-
-  v3 = 0x9DDFEA08EB382D69 * ((8 * (a2 & 0x1FFFFFFF) + 8) ^ HIDWORD(a2));
-  v4 = 0x9DDFEA08EB382D69 * (HIDWORD(a2) ^ (v3 >> 47) ^ v3);
-  v5 = 0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47));
-  v6 = vcnt_s8(v2);
-  v6.i16[0] = vaddlv_u8(v6);
-  if (v6.u32[0] > 1uLL)
-  {
-    v7 = v5;
-    if (v5 >= *&v2)
-    {
-      v7 = v5 % *&v2;
-    }
-  }
-
-  else
-  {
-    v7 = (*&v2 - 1) & v5;
-  }
-
-  v8 = *(*a1 + 8 * v7);
-  if (!v8)
-  {
-    return 0;
-  }
-
-  result = *v8;
-  if (*v8)
-  {
-    do
-    {
-      v10 = result[1];
-      if (v10 == v5)
-      {
-        if (result[2] == a2)
-        {
-          return result;
-        }
-      }
-
-      else
-      {
-        if (v6.u32[0] > 1uLL)
-        {
-          if (v10 >= *&v2)
-          {
-            v10 %= *&v2;
-          }
-        }
-
-        else
-        {
-          v10 &= *&v2 - 1;
-        }
-
-        if (v10 != v7)
-        {
-          return 0;
-        }
-      }
-
-      result = *result;
-    }
-
-    while (result);
-  }
-
-  return result;
-}
-
-uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned long long,std::function<void ()(unsigned long long)>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned long long,std::function<void ()(unsigned long long)>>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
-{
-  v2 = *a1;
-  *a1 = 0;
-  if (v2)
-  {
-    if (*(a1 + 16) == 1)
-    {
-      std::__function::__value_func<void ()(unsigned long long)>::~__value_func[abi:ne200100](v2 + 24);
-    }
-
-    operator delete(v2);
-  }
-
-  return a1;
-}
-
-void *std::__hash_table<std::__hash_value_type<unsigned long long,std::function<void ()(unsigned long long,unsigned long long,Phase::Controller::DVM23::Playstate,Phase::DspLayer23::DspLayerError)>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::function<void ()(unsigned long long,unsigned long long,Phase::Controller::DVM23::Playstate,Phase::DspLayer23::DspLayerError)>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::function<void ()(unsigned long long,unsigned long long,Phase::Controller::DVM23::Playstate,Phase::DspLayer23::DspLayerError)>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::function<void ()(unsigned long long,unsigned long long,Phase::Controller::DVM23::Playstate,Phase::DspLayer23::DspLayerError)>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(void *a1, unint64_t *a2)
-{
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
-  {
-    goto LABEL_18;
-  }
-
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
-  {
-    v5 = *a2;
-    if (v2 >= *&v3)
-    {
-      v5 = v2 % *&v3;
-    }
-  }
-
-  else
-  {
-    v5 = (*&v3 - 1) & v2;
-  }
-
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
-  {
-LABEL_18:
-    operator new();
-  }
-
-  while (1)
-  {
-    v8 = v7[1];
-    if (v8 == v2)
-    {
-      break;
-    }
-
-    if (v4.u32[0] > 1uLL)
-    {
-      if (v8 >= *&v3)
-      {
-        v8 %= *&v3;
-      }
-    }
-
-    else
-    {
-      v8 &= *&v3 - 1;
-    }
-
-    if (v8 != v5)
-    {
-      goto LABEL_18;
-    }
-
-LABEL_17:
-    v7 = *v7;
-    if (!v7)
-    {
-      goto LABEL_18;
-    }
-  }
-
-  if (v7[2] != v2)
-  {
-    goto LABEL_17;
-  }
-
-  return v7;
-}
-
-void sub_23A3B6E24(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned long long,std::function<void ()(unsigned long long,unsigned long long,Phase::Controller::DVM23::Playstate,Phase::DspLayer23::DspLayerError)>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned long long,std::function<void ()(unsigned long long,unsigned long long,Phase::Controller::DVM23::Playstate,Phase::DspLayer23::DspLayerError)>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -7900,70 +7775,70 @@ Phase::Controller::DVM_RT *Phase::Controller::DVM_RT::DVM_RT(Phase::Controller::
   return this;
 }
 
-void Phase::Controller::DVM_RT::Update(Phase::Controller::DVM_RT *this)
+void Phase::Controller::DVM_RT::Update(Phase::LockFreeQueueSPSC **this)
 {
-  v72 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
   rep = std::chrono::steady_clock::now().__d_.__rep_;
-  v70[0] = 0;
-  v2 = Phase::LockFreeQueueSPSC::GetWriteBuffer(*(this + 1), 0x2000, v70);
+  v71[0] = 0;
+  v2 = Phase::LockFreeQueueSPSC::GetWriteBuffer(this[1], 0x2000, v71);
   if (v2)
   {
-    v3 = SLODWORD(v70[0]);
-    v4 = *(this + 2);
-    v5 = *(v4 + 96);
-    *(this + 3) = v2;
-    *(this + 4) = v3;
-    *(this + 5) = 20;
+    v3 = SLODWORD(v71[0]);
+    v4 = this[2];
+    v5 = *(v4 + 12);
+    this[3] = v2;
+    this[4] = v3;
+    this[5] = 20;
     *v2 = 0x656C646E756223;
     *(v2 + 1) = v5;
-    v2[4] = 20;
-    if (*(this + 18) && (v6 = *(this + 15), *v6 <= *(v4 + 96)))
+    *(v2 + 4) = 20;
+    if (this[18] && (v6 = this[15], *v6 <= *(v4 + 12)))
     {
-      v69 = 0;
+      v70 = 0;
       do
       {
-        v50 = *v6;
-        if (*v6 > *(*(this + 2) + 96))
+        v51 = *v6;
+        if (*v6 > *(this[2] + 12))
         {
           break;
         }
 
-        v51 = v6[1];
-        buf[0].i64[0] = (v6 + 2);
-        buf[0].i64[1] = v51;
+        v52 = *(v6 + 1);
+        buf[0].i64[0] = v6 + 16;
+        buf[0].i64[1] = v52;
         buf[1] = (((strlen(v6 + 24) >> 2 << 34) + 0xC00000000) >> 32);
-        v52 = strlen(v6 + 24);
-        if (v52 && *(v6 + 24) == 105)
+        v53 = strlen(v6 + 24);
+        if (v53 && *(v6 + 24) == 105)
         {
-          *(v6 + (v52 & 0xFFFFFFFFFFFFFFFCLL) + 28) = 0;
+          *(v6 + (v53 & 0xFFFFFFFFFFFFFFFCLL) + 28) = 0;
         }
 
-        Phase::Controller::DVM_RT::ProcessMessageFromNRT(this, buf, v53);
-        v6 = v6[17];
-        v54 = *(this + 15);
-        if (v54)
+        Phase::Controller::DVM_RT::ProcessMessageFromNRT(this, buf, v54);
+        v6 = *(v6 + 17);
+        v55 = this[15];
+        if (v55)
         {
-          v55 = *v54;
-          if (*v54 >= v50)
+          v56 = *v55;
+          if (*v55 >= v51)
           {
-            v56 = 0;
+            v57 = 0;
 LABEL_45:
-            if (v55 == v50)
+            if (v56 == v51)
             {
-              if (v56)
+              if (v57)
               {
-                v57 = v56 + 17;
+                v58 = (v57 + 136);
               }
 
               else
               {
-                v57 = (this + 120);
+                v58 = this + 15;
               }
 
-              *v57 = v54[17];
-              v54[17] = *(this + 16);
-              *(this + 16) = v54;
-              --*(this + 18);
+              *v58 = *(v55 + 17);
+              *(v55 + 17) = this[16];
+              this[16] = v55;
+              this[18] = (this[18] - 1);
             }
           }
 
@@ -7971,15 +7846,15 @@ LABEL_45:
           {
             while (1)
             {
-              v56 = v54;
-              v54 = v54[17];
-              if (!v54)
+              v57 = v55;
+              v55 = *(v55 + 17);
+              if (!v55)
               {
                 break;
               }
 
-              v55 = *v54;
-              if (*v54 >= v50)
+              v56 = *v55;
+              if (*v55 >= v51)
               {
                 goto LABEL_45;
               }
@@ -7987,7 +7862,7 @@ LABEL_45:
           }
         }
 
-        ++v69;
+        ++v70;
       }
 
       while (v6);
@@ -7995,7 +7870,7 @@ LABEL_45:
 
     else
     {
-      v69 = 0;
+      v70 = 0;
     }
 
     if (Phase::LockFreeQueueSPSC::HasData(*this))
@@ -8004,14 +7879,14 @@ LABEL_45:
       v8 = 0;
       do
       {
-        v9 = (*(*this + 16) + *(*this + 4));
+        v9 = (*(*this + 2) + *(*this + 1));
         v10 = *v9;
         if (*(v9 + 2) == 0x656C646E756223)
         {
           memset(buf, 0, 32);
-          v70[0] = (v9 + 16);
-          v70[1] = v10;
-          for (v70[2] = 20; Phase::PhaseOSCBundle::GetNextMessage(v70, buf); ++v7)
+          v71[0] = (v9 + 16);
+          v71[1] = v10;
+          for (v71[2] = 20; Phase::PhaseOSCBundle::GetNextMessage(v71, buf); ++v7)
           {
             Phase::Controller::DVM_RT::ProcessMessageFromNRT(this, buf, v11);
           }
@@ -8029,7 +7904,7 @@ LABEL_45:
 
         v13 = *this;
         v8 += v10;
-        *(v13 + 1) = *(*this + 4) + ((*(*(*this + 16) + *(*this + 4)) + 15) & 0xFFFFFFF0) + 16;
+        *(v13 + 1) = *(*this + 1) + ((*(*(*this + 2) + *(*this + 1)) + 15) & 0xFFFFFFF0) + 16;
       }
 
       while (Phase::LockFreeQueueSPSC::HasData(v13));
@@ -8041,109 +7916,110 @@ LABEL_45:
       v7 = 0;
     }
 
-    v65 = v8;
-    v64 = std::chrono::steady_clock::now().__d_.__rep_;
-    Phase::DspLayer23::VoiceEngine::Process(*(this + 2));
+    v66 = v8;
+    v65 = std::chrono::steady_clock::now().__d_.__rep_;
+    Phase::DspLayer23::VoiceEngine::Process(this[2]);
     if (*(Phase::Logger::GetInstance(v20) + 1641))
     {
-      v21 = *(this + 2);
+      v21 = this[2];
       v23 = *v21;
-      v22 = v21[1];
-      v60 = *(this + 9);
-      v68 = v21;
+      v22 = *(v21 + 1);
+      v61 = *(this + 9);
+      v69 = v21;
       ReservedMixChannelCount = Phase::DspLayer23::VoiceEngine::GetReservedMixChannelCount(v21);
-      v24 = v22 - v23;
-      MEMORY[0x28223BE20]();
-      v62 = v25;
-      v63 = &v58 - v25;
-      bzero(&v58 - v25, v25);
-      v59 = v24 >> 3;
-      if ((v24 >> 3))
+      v62 = ReservedMixChannelCount;
+      v25 = v22 - v23;
+      MEMORY[0x28223BE20](ReservedMixChannelCount);
+      v63 = v26;
+      v64 = &v59 - v26;
+      bzero(&v59 - v26, v26);
+      v60 = v25 >> 3;
+      if ((v25 >> 3))
       {
-        v26 = 0;
-        v67 = v24 & 0x7FFFFFFF8;
-        v27 = v63 + 12;
+        v27 = 0;
+        v68 = v25 & 0x7FFFFFFF8;
+        v28 = v64 + 12;
         do
         {
-          v28 = *(*v68 + v26);
-          v29 = v28[146];
-          v30 = (*(*v28 + 88))(v28);
-          v31 = (*(*v28 + 96))(v28);
-          v32 = (*(*v28 + 112))(v28);
-          v33 = (*(*v28 + 184))(v28);
-          *(v27 - 12) = v28;
-          *(v27 - 1) = v29;
-          *v27 = v30;
-          v26 += 8;
-          *(v27 + 1) = v31;
-          *(v27 + 2) = v32;
-          *(v27 + 12) = v33;
-          v27 += 32;
+          v29 = *(*v69 + v27);
+          v30 = v29[146];
+          v31 = (*(*v29 + 88))(v29);
+          v32 = (*(*v29 + 96))(v29);
+          v33 = (*(*v29 + 112))(v29);
+          v34 = (*(*v29 + 184))(v29);
+          *(v28 - 12) = v29;
+          *(v28 - 1) = v30;
+          *v28 = v31;
+          v27 += 8;
+          *(v28 + 1) = v32;
+          *(v28 + 2) = v33;
+          *(v28 + 12) = v34;
+          v28 += 32;
         }
 
-        while (v67 != v26);
+        while (v68 != v27);
       }
 
-      v34 = std::chrono::steady_clock::now().__d_.__rep_;
-      v35 = *(this + 5);
-      v36 = *(this + 3);
-      v37 = v62;
-      v38 = (v62 << 32) + 0x2C00000000;
-      v39 = v38 >> 32;
-      if ((v38 >> 32) + 20 <= (*(this + 4) - v35 - 4))
+      v35 = std::chrono::steady_clock::now().__d_.__rep_;
+      v36 = this[5];
+      v37 = this[3];
+      v38 = v63;
+      v39 = (v63 << 32) + 0x2C00000000;
+      v40 = v39 >> 32;
+      if ((v39 >> 32) + 20 <= (this[4] - v36 - 4))
       {
-        v40 = v36 + v35;
-        *(v40 + 4) = 2;
-        v41 = vmovn_s64(v60);
-        v42 = rep;
-        v43 = v63;
-        *(v40 + 24) = v64 - rep;
-        *(v40 + 28) = v34 - v42;
-        *(v40 + 32) = v59;
-        *(v40 + 36) = v7;
-        v44 = v69;
-        *(v40 + 40) = v65;
-        *(v40 + 44) = v44;
-        strcpy((v40 + 12), "iiiiiiiiib");
-        *(v40 + 48) = v41;
-        *(v40 + 56) = ReservedMixChannelCount;
-        *(v40 + 60) = v37;
-        memcpy((v40 + 68), v43, v37);
-        v36 = *(this + 3);
-        if (v39 >= -20)
+        v41 = v36 + v37;
+        *(v41 + 4) = 2;
+        v42 = vmovn_s64(v61);
+        v43 = rep;
+        v44 = v64;
+        *(v41 + 6) = v65 - rep;
+        *(v41 + 7) = v35 - v43;
+        *(v41 + 8) = v60;
+        *(v41 + 9) = v7;
+        v45 = v70;
+        *(v41 + 10) = v66;
+        *(v41 + 11) = v45;
+        strcpy(v41 + 12, "iiiiiiiiib");
+        *(v41 + 6) = v42;
+        *(v41 + 14) = v62;
+        *(v41 + 60) = v38;
+        memcpy(v41 + 68, v44, v38);
+        v37 = this[3];
+        if (v40 >= -20)
         {
-          v45 = *(this + 5);
-          *(v36 + v45) = HIDWORD(v38) + 20;
-          *(v36 + 16) += HIDWORD(v38) + 24;
-          *(this + 5) = v39 + v45 + 24;
+          v46 = this[5];
+          *(v46 + v37) = HIDWORD(v39) + 20;
+          *(v37 + 4) += HIDWORD(v39) + 24;
+          this[5] = (v46 + v40 + 24);
         }
       }
     }
 
     else
     {
-      v36 = *(this + 3);
+      v37 = this[3];
     }
 
-    v46 = *(v36 + 16);
-    if (v46 != 20)
+    v47 = *(v37 + 4);
+    if (v47 != 20)
     {
-      v47 = Phase::LockFreeQueueSPSC::CommitBytes(*(this + 1), v46);
-      if ((v47 & 1) == 0)
+      v48 = Phase::LockFreeQueueSPSC::CommitBytes(this[1], v47);
+      if ((v48 & 1) == 0)
       {
-        v17 = **(Phase::Logger::GetInstance(v47) + 1184);
+        v17 = **(Phase::Logger::GetInstance(v48) + 1184);
         if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
-          v48 = *(*(this + 3) + 16);
-          v49 = *(*(this + 2) + 96);
+          v49 = *(this[3] + 4);
+          v50 = *(this[2] + 12);
           buf[0].i32[0] = 136315906;
           *(buf[0].i64 + 4) = "DVM_RT.cpp";
           buf[0].i16[6] = 1024;
           *(&buf[0].i32[3] + 2) = 462;
           buf[1].i16[1] = 1024;
-          buf[1].i32[1] = v48;
+          buf[1].i32[1] = v49;
           buf[1].i16[4] = 2048;
-          *(&buf[1].i64[1] + 2) = v49;
+          *(&buf[1].i64[1] + 2) = v50;
           v19 = "%25s:%-5d DVM_RT unable to write %iB into message pipe to DVM_NRT at Frame %llu. Pipe is full!";
           goto LABEL_32;
         }
@@ -8153,14 +8029,14 @@ LABEL_45:
 
   else
   {
-    v14 = *(*(this + 2) + 24);
+    v14 = *(this[2] + 6);
     if (v14 >= 1)
     {
       v15 = 0;
       v16 = 8 * v14;
       do
       {
-        bzero(*(*(*(this + 2) + 40) + v15), 4 * *(*(this + 2) + 72));
+        bzero(*(*(this[2] + 5) + v15), 4 * *(this[2] + 18));
         v15 += 8;
       }
 
@@ -8170,7 +8046,7 @@ LABEL_45:
     v17 = **(Phase::Logger::GetInstance(v2) + 1184);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      v18 = *(*(this + 2) + 96);
+      v18 = *(this[2] + 12);
       buf[0].i32[0] = 136315906;
       *(buf[0].i64 + 4) = "DVM_RT.cpp";
       buf[0].i16[6] = 1024;
@@ -8523,9 +8399,9 @@ LABEL_83:
   }
 }
 
-void sub_23A3B8808(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A3B8808(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<BOOL ()(unsigned long long,Phase::Controller::DVM_RT::OSCData &)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -8816,7 +8692,7 @@ unint64_t Phase::PhaseOSCBundle::WriteNextMessage<Phase::Controller::DVM_RT::DVM
   return result;
 }
 
-_BYTE *Phase::Controller::DVM_RT::DVMRTOSCCommand_ToString(Phase::Controller::DVM_RT *this, int64x2_t *a2)
+void *Phase::Controller::DVM_RT::DVMRTOSCCommand_ToString(Phase::Controller::DVM_RT *this, int64x2_t *a2)
 {
   v77 = *MEMORY[0x277D85DE8];
   v4 = a2->i64[0];
@@ -9444,8 +9320,9 @@ void Phase::Controller::DVM23::DvmAdapter::Reset(Phase::Controller::DVM23::DvmAd
   }
 }
 
-uint64_t Phase::Controller::DVM23::DvmAdapter::AddGenerator(Phase::Logger *a1, uint64_t a2, unint64_t a3, unint64_t a4, int a5)
+uint64_t Phase::Controller::DVM23::DvmAdapter::AddGenerator(Phase::Logger *a1, uint64_t a2, unint64_t a3, unint64_t a4, uint64_t a5)
 {
+  v5 = a5;
   v18 = *MEMORY[0x277D85DE8];
   __val[0] = a3;
   __val[1] = a4;
@@ -9459,7 +9336,7 @@ uint64_t Phase::Controller::DVM23::DvmAdapter::AddGenerator(Phase::Logger *a1, u
     v14 = 2048;
     v15 = a3;
     v16 = 1024;
-    LODWORD(v17) = a5;
+    LODWORD(v17) = v5;
     _os_log_impl(&dword_23A302000, v8, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Adding generatorId %llu, with %d channels!", buf, 0x22u);
   }
 
@@ -9512,49 +9389,49 @@ uint64_t Phase::Controller::DVM23::DvmAdapter::RemoveGenerator(Phase::Logger *a1
 
 uint64_t Phase::Controller::DVM23::DvmAdapter::SetPlayState(uint64_t a1, unint64_t a2, int a3)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v6 = *a1;
-  (*(*a2 + 80))(a2);
-  IsGraphPlaystateTransitional = Phase::Controller::DVM23::DspVoiceManager23::IsGraphPlaystateTransitional(v6);
+  v7 = (*(*a2 + 80))(a2);
+  IsGraphPlaystateTransitional = Phase::Controller::DVM23::DspVoiceManager23::IsGraphPlaystateTransitional(v6, v7);
   if (!IsGraphPlaystateTransitional)
   {
-    v9 = 7;
-    v10 = 3;
+    v10 = 7;
+    v11 = 3;
     if (a3 > 1)
     {
       if (a3 == 2)
       {
-        v21 = *a1;
-        *v29 = &unk_284D33760;
-        *&v29[8] = a1;
-        *&v29[16] = a2;
-        *&v29[24] = v29;
-        v9 = (*(*a2 + 56))(a2, v21, 1, v29);
-        IsGraphPlaystateTransitional = std::__function::__value_func<void ()(unsigned long long,Phase::UniqueObjectId,Phase::Controller::DVM23::Playstate,Phase::DspLayer23::DspLayerError)>::~__value_func[abi:ne200100](v29);
-        v10 = 1;
-        if (!v9)
+        v22 = *a1;
+        *v30 = &unk_284D33760;
+        *&v30[8] = a1;
+        *&v30[16] = a2;
+        *&v30[24] = v30;
+        v10 = (*(*a2 + 56))(a2, v22, 1, v30);
+        IsGraphPlaystateTransitional = std::__function::__value_func<void ()(unsigned long long,Phase::UniqueObjectId,Phase::Controller::DVM23::Playstate,Phase::DspLayer23::DspLayerError)>::~__value_func[abi:ne200100](v30);
+        v11 = 1;
+        if (!v10)
         {
-          return Phase::Controller::DVM23::TranslateDvmError(v9);
+          return Phase::Controller::DVM23::TranslateDvmError(v10);
         }
 
 LABEL_20:
-        v22 = **(Phase::Logger::GetInstance(IsGraphPlaystateTransitional) + 80);
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+        v23 = **(Phase::Logger::GetInstance(IsGraphPlaystateTransitional) + 80);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
         {
-          v23 = off_278B4F498[v10];
-          v24 = *(a2 + 8);
-          *v29 = 136315906;
-          *&v29[4] = "DvmAdapter.mm";
-          *&v29[12] = 1024;
-          *&v29[14] = 1376;
-          *&v29[18] = 2080;
-          *&v29[20] = v23;
-          *&v29[28] = 2048;
-          *&v29[30] = v24;
-          _os_log_impl(&dword_23A302000, v22, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to set playstate to %s on controllerId %llu", v29, 0x26u);
+          v24 = off_278B4F498[v11];
+          v25 = *(a2 + 8);
+          *v30 = 136315906;
+          *&v30[4] = "DvmAdapter.mm";
+          *&v30[12] = 1024;
+          *&v30[14] = 1376;
+          *&v30[18] = 2080;
+          *&v30[20] = v24;
+          *&v30[28] = 2048;
+          *&v30[30] = v25;
+          _os_log_impl(&dword_23A302000, v23, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to set playstate to %s on controllerId %llu", v30, 0x26u);
         }
 
-        return Phase::Controller::DVM23::TranslateDvmError(v9);
+        return Phase::Controller::DVM23::TranslateDvmError(v10);
       }
 
       if (a3 != 3)
@@ -9567,16 +9444,16 @@ LABEL_20:
     {
       if (!a3)
       {
-        v20 = *a1;
-        *v29 = &unk_284D337A8;
-        *&v29[8] = a1;
-        *&v29[24] = v29;
-        v9 = (*(*a2 + 56))(a2, v20, 2, v29);
-        IsGraphPlaystateTransitional = std::__function::__value_func<void ()(unsigned long long,Phase::UniqueObjectId,Phase::Controller::DVM23::Playstate,Phase::DspLayer23::DspLayerError)>::~__value_func[abi:ne200100](v29);
-        v10 = 2;
-        if (!v9)
+        v21 = *a1;
+        *v30 = &unk_284D337A8;
+        *&v30[8] = a1;
+        *&v30[24] = v30;
+        v10 = (*(*a2 + 56))(a2, v21, 2, v30);
+        IsGraphPlaystateTransitional = std::__function::__value_func<void ()(unsigned long long,Phase::UniqueObjectId,Phase::Controller::DVM23::Playstate,Phase::DspLayer23::DspLayerError)>::~__value_func[abi:ne200100](v30);
+        v11 = 2;
+        if (!v10)
         {
-          return Phase::Controller::DVM23::TranslateDvmError(v9);
+          return Phase::Controller::DVM23::TranslateDvmError(v10);
         }
 
         goto LABEL_20;
@@ -9588,17 +9465,17 @@ LABEL_20:
       }
     }
 
-    v19 = *a1;
-    *v29 = &unk_284D33718;
-    *&v29[8] = a1;
-    *&v29[16] = a2;
-    *&v29[24] = v29;
-    v9 = (*(*a2 + 56))(a2, v19, 0, v29);
-    IsGraphPlaystateTransitional = std::__function::__value_func<void ()(unsigned long long,Phase::UniqueObjectId,Phase::Controller::DVM23::Playstate,Phase::DspLayer23::DspLayerError)>::~__value_func[abi:ne200100](v29);
-    v10 = 0;
-    if (!v9)
+    v20 = *a1;
+    *v30 = &unk_284D33718;
+    *&v30[8] = a1;
+    *&v30[16] = a2;
+    *&v30[24] = v30;
+    v10 = (*(*a2 + 56))(a2, v20, 0, v30);
+    IsGraphPlaystateTransitional = std::__function::__value_func<void ()(unsigned long long,Phase::UniqueObjectId,Phase::Controller::DVM23::Playstate,Phase::DspLayer23::DspLayerError)>::~__value_func[abi:ne200100](v30);
+    v11 = 0;
+    if (!v10)
     {
-      return Phase::Controller::DVM23::TranslateDvmError(v9);
+      return Phase::Controller::DVM23::TranslateDvmError(v10);
     }
 
     goto LABEL_20;
@@ -9606,52 +9483,52 @@ LABEL_20:
 
   if (a3 > 3)
   {
-    v8 = 8;
+    v9 = 8;
   }
 
   else
   {
-    v8 = dword_23A555450[a3];
+    v9 = dword_23A555450[a3];
   }
 
-  v11 = *a1;
-  v12 = (*(*a2 + 80))(a2);
-  if ((Phase::Controller::DVM23::DspVoiceManager23::IsGraphPlaystateUniform(v11, v12, v8) & 1) == 0)
+  v12 = *a1;
+  v13 = (*(*a2 + 80))(a2);
+  if ((Phase::Controller::DVM23::DspVoiceManager23::IsGraphPlaystateUniform(v12, v13, v9) & 1) == 0)
   {
-    v13 = 0x9DDFEA08EB382D69 * ((8 * (a2 & 0x1FFFFFFF) + 8) ^ HIDWORD(a2));
-    v14 = 0x9DDFEA08EB382D69 * (HIDWORD(a2) ^ (v13 >> 47) ^ v13);
-    v15 = 0x9DDFEA08EB382D69 * (v14 ^ (v14 >> 47));
-    v16 = *(a1 + 88);
-    if (v16)
+    v14 = 0x9DDFEA08EB382D69 * ((8 * (a2 & 0x1FFFFFFF) + 8) ^ HIDWORD(a2));
+    v15 = 0x9DDFEA08EB382D69 * (HIDWORD(a2) ^ (v14 >> 47) ^ v14);
+    v16 = 0x9DDFEA08EB382D69 * (v15 ^ (v15 >> 47));
+    v17 = *(a1 + 88);
+    if (v17)
     {
-      v17 = vcnt_s8(v16);
-      v17.i16[0] = vaddlv_u8(v17);
-      if (v17.u32[0] > 1uLL)
+      v18 = vcnt_s8(v17);
+      v18.i16[0] = vaddlv_u8(v18);
+      if (v18.u32[0] > 1uLL)
       {
-        v18 = 0x9DDFEA08EB382D69 * (v14 ^ (v14 >> 47));
-        if (v15 >= *&v16)
+        v19 = 0x9DDFEA08EB382D69 * (v15 ^ (v15 >> 47));
+        if (v16 >= *&v17)
         {
-          v18 = v15 % *&v16;
+          v19 = v16 % *&v17;
         }
       }
 
       else
       {
-        v18 = (*&v16 - 1) & v15;
+        v19 = (*&v17 - 1) & v16;
       }
 
-      v26 = *(*(a1 + 80) + 8 * v18);
-      if (v26)
+      v27 = *(*(a1 + 80) + 8 * v19);
+      if (v27)
       {
-        v27 = *v26;
-        if (*v26)
+        v28 = *v27;
+        if (*v27)
         {
           do
           {
-            v28 = v27[1];
-            if (v28 == v15)
+            v29 = v28[1];
+            if (v29 == v16)
             {
-              if (v27[2] == a2)
+              if (v28[2] == a2)
               {
                 operator new();
               }
@@ -9659,29 +9536,29 @@ LABEL_20:
 
             else
             {
-              if (v17.u32[0] > 1uLL)
+              if (v18.u32[0] > 1uLL)
               {
-                if (v28 >= *&v16)
+                if (v29 >= *&v17)
                 {
-                  v28 %= *&v16;
+                  v29 %= *&v17;
                 }
               }
 
               else
               {
-                v28 &= *&v16 - 1;
+                v29 &= *&v17 - 1;
               }
 
-              if (v28 != v18)
+              if (v29 != v19)
               {
                 break;
               }
             }
 
-            v27 = *v27;
+            v28 = *v28;
           }
 
-          while (v27);
+          while (v28);
         }
       }
     }
@@ -9692,92 +9569,92 @@ LABEL_20:
   return 0;
 }
 
-uint64_t Phase::Controller::DVM23::DvmAdapter::AddSubmix(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t Phase::Controller::DVM23::DvmAdapter::AddSubmix(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v22[2] = *MEMORY[0x277D85DE8];
-  v20[0] = a2;
-  v20[1] = a3;
-  if (std::__hash_table<std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>,std::__unordered_map_hasher<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>,std::hash<Phase::UniqueObjectId>,std::equal_to<Phase::UniqueObjectId>,true>,std::__unordered_map_equal<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>,std::equal_to<Phase::UniqueObjectId>,std::hash<Phase::UniqueObjectId>,true>,std::allocator<std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>>>::find<Phase::UniqueObjectId>((a1 + 8), v20))
+  v23[2] = *MEMORY[0x277D85DE8];
+  v21[0] = a2;
+  v21[1] = a3;
+  if (std::__hash_table<std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>,std::__unordered_map_hasher<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>,std::hash<Phase::UniqueObjectId>,std::equal_to<Phase::UniqueObjectId>,true>,std::__unordered_map_equal<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>,std::equal_to<Phase::UniqueObjectId>,std::hash<Phase::UniqueObjectId>,true>,std::allocator<std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>>>::find<Phase::UniqueObjectId>((a1 + 8), v21))
   {
     return 0;
   }
 
   __p = 0;
-  v19 = 0uLL;
+  v20 = 0uLL;
   switch(a4)
   {
     case 3:
-      std::to_string(v21, a2);
-      v13 = std::string::insert(v21, 0, "Channel SubmixId", 0x10uLL);
-      v14 = v13->__r_.__value_.__r.__words[0];
-      v22[0] = v13->__r_.__value_.__l.__size_;
-      *(v22 + 7) = *(&v13->__r_.__value_.__r.__words[1] + 7);
-      v15 = HIBYTE(v13->__r_.__value_.__r.__words[2]);
-      v13->__r_.__value_.__l.__size_ = 0;
-      v13->__r_.__value_.__r.__words[2] = 0;
-      v13->__r_.__value_.__r.__words[0] = 0;
-      *(&v19 + 7) = *(v22 + 7);
-      __p = v14;
-      *&v19 = v22[0];
-      HIBYTE(v19) = v15;
-      if ((v21[23] & 0x80000000) != 0)
+      std::to_string(v22, a2);
+      v14 = std::string::insert(v22, 0, "Channel SubmixId", 0x10uLL);
+      v15 = v14->__r_.__value_.__r.__words[0];
+      v23[0] = v14->__r_.__value_.__l.__size_;
+      *(v23 + 7) = *(&v14->__r_.__value_.__r.__words[1] + 7);
+      v16 = HIBYTE(v14->__r_.__value_.__r.__words[2]);
+      v14->__r_.__value_.__l.__size_ = 0;
+      v14->__r_.__value_.__r.__words[2] = 0;
+      v14->__r_.__value_.__r.__words[0] = 0;
+      *(&v20 + 7) = *(v23 + 7);
+      __p = v15;
+      *&v20 = v23[0];
+      HIBYTE(v20) = v16;
+      if ((v22[23] & 0x80000000) != 0)
       {
-        operator delete(*v21);
+        operator delete(*v22);
       }
 
       operator new();
     case 2:
-      std::to_string(v21, a2);
-      v10 = std::string::insert(v21, 0, "Ambient SubmixId", 0x10uLL);
-      v11 = v10->__r_.__value_.__r.__words[0];
-      v22[0] = v10->__r_.__value_.__l.__size_;
-      *(v22 + 7) = *(&v10->__r_.__value_.__r.__words[1] + 7);
-      v12 = HIBYTE(v10->__r_.__value_.__r.__words[2]);
-      v10->__r_.__value_.__l.__size_ = 0;
-      v10->__r_.__value_.__r.__words[2] = 0;
-      v10->__r_.__value_.__r.__words[0] = 0;
-      *(&v19 + 7) = *(v22 + 7);
-      __p = v11;
-      *&v19 = v22[0];
-      HIBYTE(v19) = v12;
-      if ((v21[23] & 0x80000000) != 0)
+      std::to_string(v22, a2);
+      v11 = std::string::insert(v22, 0, "Ambient SubmixId", 0x10uLL);
+      v12 = v11->__r_.__value_.__r.__words[0];
+      v23[0] = v11->__r_.__value_.__l.__size_;
+      *(v23 + 7) = *(&v11->__r_.__value_.__r.__words[1] + 7);
+      v13 = HIBYTE(v11->__r_.__value_.__r.__words[2]);
+      v11->__r_.__value_.__l.__size_ = 0;
+      v11->__r_.__value_.__r.__words[2] = 0;
+      v11->__r_.__value_.__r.__words[0] = 0;
+      *(&v20 + 7) = *(v23 + 7);
+      __p = v12;
+      *&v20 = v23[0];
+      HIBYTE(v20) = v13;
+      if ((v22[23] & 0x80000000) != 0)
       {
-        operator delete(*v21);
+        operator delete(*v22);
       }
 
       operator new();
     case 1:
-      std::to_string(v21, a2);
-      v7 = std::string::insert(v21, 0, "Spatial SubmixId", 0x10uLL);
-      v8 = v7->__r_.__value_.__r.__words[0];
-      v22[0] = v7->__r_.__value_.__l.__size_;
-      *(v22 + 7) = *(&v7->__r_.__value_.__r.__words[1] + 7);
-      v9 = HIBYTE(v7->__r_.__value_.__r.__words[2]);
-      v7->__r_.__value_.__l.__size_ = 0;
-      v7->__r_.__value_.__r.__words[2] = 0;
-      v7->__r_.__value_.__r.__words[0] = 0;
-      *(&v19 + 7) = *(v22 + 7);
-      __p = v8;
-      *&v19 = v22[0];
-      HIBYTE(v19) = v9;
-      if ((v21[23] & 0x80000000) != 0)
+      std::to_string(v22, a2);
+      v8 = std::string::insert(v22, 0, "Spatial SubmixId", 0x10uLL);
+      v9 = v8->__r_.__value_.__r.__words[0];
+      v23[0] = v8->__r_.__value_.__l.__size_;
+      *(v23 + 7) = *(&v8->__r_.__value_.__r.__words[1] + 7);
+      v10 = HIBYTE(v8->__r_.__value_.__r.__words[2]);
+      v8->__r_.__value_.__l.__size_ = 0;
+      v8->__r_.__value_.__r.__words[2] = 0;
+      v8->__r_.__value_.__r.__words[0] = 0;
+      *(&v20 + 7) = *(v23 + 7);
+      __p = v9;
+      *&v20 = v23[0];
+      HIBYTE(v20) = v10;
+      if ((v22[23] & 0x80000000) != 0)
       {
-        operator delete(*v21);
+        operator delete(*v22);
       }
 
       operator new();
   }
 
-  v16 = **(Phase::Logger::GetInstance(0) + 80);
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+  v17 = **(Phase::Logger::GetInstance(0) + 80);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
   {
-    *v21 = 136315650;
-    *&v21[4] = "DvmAdapter.mm";
-    *&v21[12] = 1024;
-    *&v21[14] = 242;
-    *&v21[18] = 2048;
-    *&v21[20] = a2;
-    _os_log_impl(&dword_23A302000, v16, OS_LOG_TYPE_ERROR, "%25s:%-5d Fail adding SubmixId %llu of unknown type!", v21, 0x1Cu);
+    *v22 = 136315650;
+    *&v22[4] = "DvmAdapter.mm";
+    *&v22[12] = 1024;
+    *&v22[14] = 242;
+    *&v22[18] = 2048;
+    *&v22[20] = a2;
+    _os_log_impl(&dword_23A302000, v17, OS_LOG_TYPE_ERROR, "%25s:%-5d Fail adding SubmixId %llu of unknown type!", v22, 0x1Cu);
   }
 
   return 9;
@@ -9791,4 +9668,171 @@ void sub_23A3BB420(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   }
 
   _Unwind_Resume(exception_object);
+}
+
+uint64_t Phase::Controller::DVM23::DvmAdapter::RemoveSubmix(Phase::Logger *a1, uint64_t a2, uint64_t a3)
+{
+  v15 = *MEMORY[0x277D85DE8];
+  v8[0] = a2;
+  v8[1] = a3;
+  v6 = **(Phase::Logger::GetInstance(a1) + 80);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136315650;
+    v10 = "DvmAdapter.mm";
+    v11 = 1024;
+    v12 = 259;
+    v13 = 2048;
+    v14 = a2;
+    _os_log_impl(&dword_23A302000, v6, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Removing SubmixId %llu!", buf, 0x1Cu);
+  }
+
+  if (std::__hash_table<std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>,std::__unordered_map_hasher<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>,std::hash<Phase::UniqueObjectId>,std::equal_to<Phase::UniqueObjectId>,true>,std::__unordered_map_equal<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>,std::equal_to<Phase::UniqueObjectId>,std::hash<Phase::UniqueObjectId>,true>,std::allocator<std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>>>::find<Phase::UniqueObjectId>(a1 + 1, v8))
+  {
+    return Phase::Controller::DVM23::DvmAdapter::SetSubmixPlayState(a1, a2, a3, 0);
+  }
+
+  else
+  {
+    return 1;
+  }
+}
+
+uint64_t Phase::Controller::DVM23::DvmAdapter::SetSubmixPlayState(Phase::Logger *a1, uint64_t a2, uint64_t a3, unsigned int a4)
+{
+  v21 = *MEMORY[0x277D85DE8];
+  v12[0] = a2;
+  v12[1] = a3;
+  v7 = **(Phase::Logger::GetInstance(a1) + 80);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    if (a4 > 3)
+    {
+      v8 = "Unknown (CVM) PlayState";
+    }
+
+    else
+    {
+      v8 = off_278B4F4B8[a4];
+    }
+
+    *buf = 136315906;
+    v14 = "DvmAdapter.mm";
+    v15 = 1024;
+    v16 = 345;
+    v17 = 2048;
+    v18 = a2;
+    v19 = 2080;
+    v20 = v8;
+    _os_log_impl(&dword_23A302000, v7, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Setting SubmixId %llu playstate to %s!", buf, 0x26u);
+  }
+
+  v9 = std::__hash_table<std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>,std::__unordered_map_hasher<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>,std::hash<Phase::UniqueObjectId>,std::equal_to<Phase::UniqueObjectId>,true>,std::__unordered_map_equal<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>,std::equal_to<Phase::UniqueObjectId>,std::hash<Phase::UniqueObjectId>,true>,std::allocator<std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>>>::find<Phase::UniqueObjectId>(a1 + 1, v12);
+  if (v9)
+  {
+    return Phase::Controller::DVM23::DvmAdapter::SetPlayState(a1, v9[4], a4);
+  }
+
+  v11 = **(Phase::Logger::GetInstance(0) + 80);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 136315650;
+    v14 = "DvmAdapter.mm";
+    v15 = 1024;
+    v16 = 350;
+    v17 = 2048;
+    v18 = a2;
+    _os_log_impl(&dword_23A302000, v11, OS_LOG_TYPE_ERROR, "%25s:%-5d SetPlayState: unknown SubmixId %llu", buf, 0x1Cu);
+  }
+
+  return 4;
+}
+
+uint64_t Phase::Controller::DVM23::DvmAdapter::ConfigureSubmix(Phase::Logger *a1, uint64_t a2, uint64_t a3, unsigned int a4, uint64_t a5)
+{
+  v30 = *MEMORY[0x277D85DE8];
+  v21[0] = a2;
+  v21[1] = a3;
+  v10 = **(Phase::Logger::GetInstance(a1) + 80);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136315650;
+    v23 = "DvmAdapter.mm";
+    v24 = 1024;
+    v25 = 273;
+    v26 = 2048;
+    v27 = a2;
+    _os_log_impl(&dword_23A302000, v10, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Configuring SubmixId %llu!", buf, 0x1Cu);
+  }
+
+  v11 = std::__hash_table<std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>,std::__unordered_map_hasher<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>,std::hash<Phase::UniqueObjectId>,std::equal_to<Phase::UniqueObjectId>,true>,std::__unordered_map_equal<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>,std::equal_to<Phase::UniqueObjectId>,std::hash<Phase::UniqueObjectId>,true>,std::allocator<std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>>>::find<Phase::UniqueObjectId>(a1 + 1, v21);
+  if (v11)
+  {
+    v12 = (*(*v11[4] + 40))(v11[4], *a1, a5);
+    v13 = v12;
+    if (v12)
+    {
+      v14 = **(Phase::Logger::GetInstance(v12) + 80);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 136315650;
+        v23 = "DvmAdapter.mm";
+        v24 = 1024;
+        v25 = 286;
+        v26 = 2048;
+        v27 = a2;
+        _os_log_impl(&dword_23A302000, v14, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to configure SubmixId %llu", buf, 0x1Cu);
+      }
+
+      return Phase::Controller::DVM23::TranslateDvmError(v13);
+    }
+
+    else
+    {
+      if (a4 != 2)
+      {
+        v17 = Phase::Controller::DVM23::DvmAdapter::SetSubmixPlayState(a1, a2, a3, a4);
+        v18 = v17;
+        if (v17)
+        {
+          v19 = **(Phase::Logger::GetInstance(v17) + 80);
+          result = os_log_type_enabled(v19, OS_LOG_TYPE_ERROR);
+          if (!result)
+          {
+            return result;
+          }
+
+          v20 = Phase::Controller::DVM23::DvmAdapterErrorCodeToString(v18);
+          *buf = 136315906;
+          v23 = "DvmAdapter.mm";
+          v24 = 1024;
+          v25 = 300;
+          v26 = 2048;
+          v27 = a2;
+          v28 = 2080;
+          v29 = v20;
+          _os_log_impl(&dword_23A302000, v19, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to configure SubmixId %llu with error %s", buf, 0x26u);
+        }
+      }
+
+      return 0;
+    }
+  }
+
+  else
+  {
+    v16 = **(Phase::Logger::GetInstance(0) + 80);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136315650;
+      v23 = "DvmAdapter.mm";
+      v24 = 1024;
+      v25 = 277;
+      v26 = 2048;
+      v27 = a2;
+      _os_log_impl(&dword_23A302000, v16, OS_LOG_TYPE_ERROR, "%25s:%-5d Fail to configure: unknown SubmixId %llu", buf, 0x1Cu);
+    }
+
+    return 4;
+  }
 }

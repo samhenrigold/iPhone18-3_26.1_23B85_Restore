@@ -13,7 +13,6 @@
 + (void)_removeKeychainPasswordForRestrictions;
 + (void)_setKeychainPasswordForRestrictions:(id)restrictions;
 + (void)migrateRestrictionsPasscode;
-+ (void)pinFromHashAndSaltLegacyPassword;
 + (void)removePasswordForHashAndSaltLegacyRestrictions;
 + (void)setPIN:(id)n;
 + (void)validateKeychainWithScreenTime;
@@ -142,22 +141,20 @@ intptr_t __66__SFRestrictionsPasscodeController_validateKeychainWithScreenTime__
 
 id __66__SFRestrictionsPasscodeController_validateKeychainWithScreenTime__block_invoke_23()
 {
-  v4[1] = *MEMORY[0x277D85DE8];
-  v3 = @"KeychainMigration";
-  v4[0] = &unk_28774C948;
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:&v3 count:1];
-  v1 = *MEMORY[0x277D85DE8];
+  v3[1] = *MEMORY[0x277D85DE8];
+  v2 = @"KeychainMigration";
+  v3[0] = &unk_28774C948;
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:&v2 count:1];
 
   return v0;
 }
 
 id __66__SFRestrictionsPasscodeController_validateKeychainWithScreenTime__block_invoke_29()
 {
-  v4[1] = *MEMORY[0x277D85DE8];
-  v3 = @"KeychainMigration";
-  v4[0] = &unk_28774C960;
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:&v3 count:1];
-  v1 = *MEMORY[0x277D85DE8];
+  v3[1] = *MEMORY[0x277D85DE8];
+  v2 = @"KeychainMigration";
+  v3[0] = &unk_28774C960;
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:&v2 count:1];
 
   return v0;
 }
@@ -321,11 +318,9 @@ intptr_t __48__SFRestrictionsPasscodeController_validatePIN___block_invoke(void 
 
 + (void)_removeKeychainPasswordForRestrictions
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_keychainPasswordForRestrictions
@@ -526,28 +521,16 @@ void __43__SFRestrictionsPasscodeController_setPIN___block_invoke_cold_1()
 
 + (void)_setKeychainPasswordForRestrictions:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_setKeychainPasswordForRestrictions:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)pinFromHashAndSaltLegacyPassword
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -54,42 +54,37 @@
 - (void)sessionStateDidChangeTo:(int64_t)to isAttending:(BOOL)attending
 {
   attendingCopy = attending;
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v7 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
     v8 = v7;
     v9 = SRUIFSiriSessionStateGetDescription(to);
-    v11 = 136315650;
-    v12 = "[SRUIFAudioPowerLevelUpdater sessionStateDidChangeTo:isAttending:]";
-    v13 = 2112;
-    v14 = v9;
-    v15 = 1024;
-    v16 = attendingCopy;
-    _os_log_impl(&dword_26951F000, v8, OS_LOG_TYPE_DEFAULT, "%s #IntuitiveConversation state=%@ attending=%d", &v11, 0x1Cu);
+    v10 = 136315650;
+    v11 = "[SRUIFAudioPowerLevelUpdater sessionStateDidChangeTo:isAttending:]";
+    v12 = 2112;
+    v13 = v9;
+    v14 = 1024;
+    v15 = attendingCopy;
+    _os_log_impl(&dword_26951F000, v8, OS_LOG_TYPE_DEFAULT, "%s #IntuitiveConversation state=%@ attending=%d", &v10, 0x1Cu);
   }
 
-  if (to != 3)
+  if (to == 3)
   {
-    if (to != 1 && (to || !attendingCopy))
+    if (!attendingCopy)
     {
-      goto LABEL_7;
-    }
-
-LABEL_9:
-    [(SRUIFAudioPowerLevelUpdater *)self startObservingUpdates];
-    goto LABEL_10;
-  }
-
-  if (attendingCopy)
-  {
-    goto LABEL_9;
-  }
-
 LABEL_7:
-  [(SRUIFAudioPowerLevelUpdater *)self stopObservingUpdates];
-LABEL_10:
-  v10 = *MEMORY[0x277D85DE8];
+      [(SRUIFAudioPowerLevelUpdater *)self stopObservingUpdates];
+      return;
+    }
+  }
+
+  else if (to != 1 && (to || !attendingCopy))
+  {
+    goto LABEL_7;
+  }
+
+  [(SRUIFAudioPowerLevelUpdater *)self startObservingUpdates];
 }
 
 - (void)audioPowerDidUpdateWithType:(unint64_t)type averagePower:(float)power peakPower:(float)peakPower

@@ -21,6 +21,7 @@
 - (void)_refreshTraitCollection;
 - (void)_updateContentStyle;
 - (void)_updateFrameRateLimit;
+- (void)_updateSceneTraitsAndPushTraitsToScreen:(BOOL)screen;
 - (void)_windowUpdatedVisibility:(id)visibility;
 @end
 
@@ -78,12 +79,12 @@
 
 - (CPTemplateApplicationScene)initWithSession:(id)session connectionOptions:(id)options
 {
-  v62[2] = *MEMORY[0x277D85DE8];
+  v61[2] = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   optionsCopy = options;
-  v60.receiver = self;
-  v60.super_class = CPTemplateApplicationScene;
-  v8 = [(CPTemplateApplicationScene *)&v60 initWithSession:sessionCopy connectionOptions:optionsCopy];
+  v59.receiver = self;
+  v59.super_class = CPTemplateApplicationScene;
+  v8 = [(CPTemplateApplicationScene *)&v59 initWithSession:sessionCopy connectionOptions:optionsCopy];
   if (v8)
   {
     _specification = [optionsCopy _specification];
@@ -101,26 +102,26 @@
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
     mainQueue = [MEMORY[0x277CCABD8] mainQueue];
     v19 = *MEMORY[0x277D76668];
-    v58[0] = MEMORY[0x277D85DD0];
-    v58[1] = 3221225472;
-    v58[2] = __64__CPTemplateApplicationScene_initWithSession_connectionOptions___block_invoke;
-    v58[3] = &unk_278A10508;
+    v57[0] = MEMORY[0x277D85DD0];
+    v57[1] = 3221225472;
+    v57[2] = __64__CPTemplateApplicationScene_initWithSession_connectionOptions___block_invoke;
+    v57[3] = &unk_278A10508;
     v20 = v8;
-    v59 = v20;
-    v21 = [defaultCenter addObserverForName:v19 object:0 queue:mainQueue usingBlock:v58];
+    v58 = v20;
+    v21 = [defaultCenter addObserverForName:v19 object:0 queue:mainQueue usingBlock:v57];
     didFinishLaunchingObserver = v20->_didFinishLaunchingObserver;
     v20->_didFinishLaunchingObserver = v21;
 
     defaultCenter2 = [MEMORY[0x277CCAB98] defaultCenter];
     mainQueue2 = [MEMORY[0x277CCABD8] mainQueue];
     v25 = *MEMORY[0x277D76E70];
-    v56[0] = MEMORY[0x277D85DD0];
-    v56[1] = 3221225472;
-    v56[2] = __64__CPTemplateApplicationScene_initWithSession_connectionOptions___block_invoke_4;
-    v56[3] = &unk_278A10508;
+    v55[0] = MEMORY[0x277D85DD0];
+    v55[1] = 3221225472;
+    v55[2] = __64__CPTemplateApplicationScene_initWithSession_connectionOptions___block_invoke_4;
+    v55[3] = &unk_278A10508;
     v26 = v20;
-    v57 = v26;
-    v27 = [defaultCenter2 addObserverForName:v25 object:v26 queue:mainQueue2 usingBlock:v56];
+    v56 = v26;
+    v27 = [defaultCenter2 addObserverForName:v25 object:v26 queue:mainQueue2 usingBlock:v55];
     sceneWillConnectObserver = v26->_sceneWillConnectObserver;
     v26->_sceneWillConnectObserver = v27;
 
@@ -130,48 +131,48 @@
 
     objc_initWeak(&location, v26);
     v31 = v26->_sceneSettingsInterfaceStyleDiffInspector;
-    v53[0] = MEMORY[0x277D85DD0];
-    v53[1] = 3221225472;
-    v53[2] = __64__CPTemplateApplicationScene_initWithSession_connectionOptions___block_invoke_6;
-    v53[3] = &unk_278A10530;
-    objc_copyWeak(&v54, &location);
-    [(UIApplicationSceneSettingsDiffInspector *)v31 observeUserInterfaceStyleWithBlock:v53];
+    v52[0] = MEMORY[0x277D85DD0];
+    v52[1] = 3221225472;
+    v52[2] = __64__CPTemplateApplicationScene_initWithSession_connectionOptions___block_invoke_6;
+    v52[3] = &unk_278A10530;
+    objc_copyWeak(&v53, &location);
+    [(UIApplicationSceneSettingsDiffInspector *)v31 observeUserInterfaceStyleWithBlock:v52];
     v32 = [MEMORY[0x277CBEB18] arrayWithObject:v26->_sceneSettingsInterfaceStyleDiffInspector];
     v33 = objc_alloc_init(CPUIContentStyleDiffInspector);
     mapStyleInspector = v26->_mapStyleInspector;
     v26->_mapStyleInspector = v33;
 
     v35 = v26->_mapStyleInspector;
-    v51[0] = MEMORY[0x277D85DD0];
-    v51[1] = 3221225472;
-    v51[2] = __64__CPTemplateApplicationScene_initWithSession_connectionOptions___block_invoke_2;
-    v51[3] = &unk_278A10530;
-    objc_copyWeak(&v52, &location);
-    [(CPUIContentStyleDiffInspector *)v35 observeMapStyleWithBlock:v51];
+    v50[0] = MEMORY[0x277D85DD0];
+    v50[1] = 3221225472;
+    v50[2] = __64__CPTemplateApplicationScene_initWithSession_connectionOptions___block_invoke_2;
+    v50[3] = &unk_278A10530;
+    objc_copyWeak(&v51, &location);
+    [(CPUIContentStyleDiffInspector *)v35 observeMapStyleWithBlock:v50];
     [(CPTemplateApplicationScene *)v26 _updateContentStyle];
     v36 = objc_alloc_init(CPUIFrameRateLimitDiffInspector);
     frameRateLimitInspector = v26->_frameRateLimitInspector;
     v26->_frameRateLimitInspector = v36;
 
     v38 = v26->_frameRateLimitInspector;
-    v49[0] = MEMORY[0x277D85DD0];
-    v49[1] = 3221225472;
-    v49[2] = __64__CPTemplateApplicationScene_initWithSession_connectionOptions___block_invoke_3;
-    v49[3] = &unk_278A10530;
-    objc_copyWeak(&v50, &location);
-    [(CPUIFrameRateLimitDiffInspector *)v38 observeFrameRateLimitWithBlock:v49];
+    v48[0] = MEMORY[0x277D85DD0];
+    v48[1] = 3221225472;
+    v48[2] = __64__CPTemplateApplicationScene_initWithSession_connectionOptions___block_invoke_3;
+    v48[3] = &unk_278A10530;
+    objc_copyWeak(&v49, &location);
+    [(CPUIFrameRateLimitDiffInspector *)v38 observeFrameRateLimitWithBlock:v48];
     [(CPTemplateApplicationScene *)v26 _updateFrameRateLimit];
-    v62[0] = v26->_mapStyleInspector;
-    v62[1] = v26->_frameRateLimitInspector;
-    v39 = [MEMORY[0x277CBEA60] arrayWithObjects:v62 count:2];
+    v61[0] = v26->_mapStyleInspector;
+    v61[1] = v26->_frameRateLimitInspector;
+    v39 = [MEMORY[0x277CBEA60] arrayWithObjects:v61 count:2];
     [v32 addObjectsFromArray:v39];
 
     v40 = [[CPTemplateUISceneSettingsDiffAction alloc] initWithInspectors:v32];
     [(CPTemplateApplicationScene *)v26 setSceneSettingsDiffAction:v40];
 
     sceneSettingsDiffAction = [(CPTemplateApplicationScene *)v26 sceneSettingsDiffAction];
-    v61 = sceneSettingsDiffAction;
-    v42 = [MEMORY[0x277CBEA60] arrayWithObjects:&v61 count:1];
+    v60 = sceneSettingsDiffAction;
+    v42 = [MEMORY[0x277CBEA60] arrayWithObjects:&v60 count:1];
     [(CPTemplateApplicationScene *)v26 _registerSettingsDiffActionArray:v42 forKey:@"settingsObserver"];
 
     v43 = v26;
@@ -187,20 +188,19 @@
 
     [v44 insertObject:v43 atIndex:0];
 
-    objc_destroyWeak(&v50);
-    objc_destroyWeak(&v52);
+    objc_destroyWeak(&v49);
+    objc_destroyWeak(&v51);
 
-    objc_destroyWeak(&v54);
+    objc_destroyWeak(&v53);
     objc_destroyWeak(&location);
   }
 
-  v47 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 uint64_t __64__CPTemplateApplicationScene_initWithSession_connectionOptions___block_invoke(uint64_t a1)
 {
-  v2 = CarPlayFrameworkGeneralLogging();
+  v2 = CarPlayFrameworkGeneralLogging(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -213,7 +213,7 @@ uint64_t __64__CPTemplateApplicationScene_initWithSession_connectionOptions___bl
 uint64_t __64__CPTemplateApplicationScene_initWithSession_connectionOptions___block_invoke_4(uint64_t a1)
 {
   *(*(a1 + 32) + 264) = 1;
-  v2 = CarPlayFrameworkGeneralLogging();
+  v2 = CarPlayFrameworkGeneralLogging(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -243,36 +243,37 @@ void __64__CPTemplateApplicationScene_initWithSession_connectionOptions___block_
 
 - (void)_updateContentStyle
 {
-  v13 = *MEMORY[0x277D85DE8];
-  self->_contentStyle = [(CPTemplateApplicationScene *)self _mapStyle];
-  v3 = CarPlayFrameworkGeneralLogging();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v14 = *MEMORY[0x277D85DE8];
+  _mapStyle = [(CPTemplateApplicationScene *)self _mapStyle];
+  self->_contentStyle = _mapStyle;
+  v4 = CarPlayFrameworkGeneralLogging(_mapStyle);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     if (self->_contentStyle == 2)
     {
-      v4 = @"dark";
+      v5 = @"dark";
     }
 
     else
     {
-      v4 = @"light";
+      v5 = @"light";
     }
 
-    v11 = 138543362;
-    v12 = v4;
-    _os_log_impl(&dword_236ED4000, v3, OS_LOG_TYPE_DEFAULT, "Template scene content style updated to %{public}@", &v11, 0xCu);
+    v12 = 138543362;
+    v13 = v5;
+    _os_log_impl(&dword_236ED4000, v4, OS_LOG_TYPE_DEFAULT, "Template scene content style updated to %{public}@", &v12, 0xCu);
   }
 
   delegate = [(CPTemplateApplicationScene *)self delegate];
-  v6 = objc_opt_respondsToSelector();
+  v7 = objc_opt_respondsToSelector();
 
-  if (v6)
+  if (v7)
   {
-    v7 = CarPlayFrameworkGeneralLogging();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v9 = CarPlayFrameworkGeneralLogging(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v11) = 0;
-      _os_log_impl(&dword_236ED4000, v7, OS_LOG_TYPE_DEFAULT, "Informing delegate of style update", &v11, 2u);
+      LOWORD(v12) = 0;
+      _os_log_impl(&dword_236ED4000, v9, OS_LOG_TYPE_DEFAULT, "Informing delegate of style update", &v12, 2u);
     }
 
     delegate2 = [(CPTemplateApplicationScene *)self delegate];
@@ -281,8 +282,6 @@ void __64__CPTemplateApplicationScene_initWithSession_connectionOptions___block_
 
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter postNotificationName:@"CPTemplateApplicationSceneContentStyleUpdated" object:self];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)_mapStyle
@@ -304,46 +303,44 @@ void __64__CPTemplateApplicationScene_initWithSession_connectionOptions___block_
   frameRateLimit = self->_frameRateLimit;
   if (frameRateLimit)
   {
-    [(NSNumber *)frameRateLimit doubleValue];
-    if (v7 <= 0.0)
+    doubleValue = [(NSNumber *)frameRateLimit doubleValue];
+    if (v8 <= 0.0)
     {
-      v8 = 30.0;
+      v9 = 30.0;
     }
 
     else
     {
-      v8 = v7;
+      v9 = v8;
     }
 
-    v9 = CarPlayFrameworkGeneralLogging();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = CarPlayFrameworkGeneralLogging(doubleValue);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134349056;
-      v18 = v8;
-      _os_log_impl(&dword_236ED4000, v9, OS_LOG_TYPE_DEFAULT, "Template app scene frameRateLimit updated to %{public}f fps", buf, 0xCu);
+      v18 = v9;
+      _os_log_impl(&dword_236ED4000, v10, OS_LOG_TYPE_DEFAULT, "Template app scene frameRateLimit updated to %{public}f fps", buf, 0xCu);
     }
 
-    v10 = 1.0 / v8;
+    v11 = 1.0 / v9;
   }
 
   else
   {
-    v11 = CarPlayFrameworkGeneralLogging();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = CarPlayFrameworkGeneralLogging(0);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_236ED4000, v11, OS_LOG_TYPE_DEFAULT, "Template app scene updated to unrestricted frame rate", buf, 2u);
+      _os_log_impl(&dword_236ED4000, v12, OS_LOG_TYPE_DEFAULT, "Template app scene updated to unrestricted frame rate", buf, 2u);
     }
 
-    v10 = 0.0333333333;
+    v11 = 0.0333333333;
   }
 
-  v12 = [MEMORY[0x277CCABB0] numberWithDouble:{v10, *MEMORY[0x277CDA1A8]}];
-  v16 = v12;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
-  [cADisplay overrideDisplayTimings:v13];
-
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = [MEMORY[0x277CCABB0] numberWithDouble:{v11, *MEMORY[0x277CDA1A8]}];
+  v16 = v13;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
+  [cADisplay overrideDisplayTimings:v14];
 }
 
 - (id)_frameRateLimit
@@ -375,6 +372,15 @@ void __64__CPTemplateApplicationScene_initWithSession_connectionOptions___block_
   return settings2;
 }
 
+- (void)_updateSceneTraitsAndPushTraitsToScreen:(BOOL)screen
+{
+  screenCopy = screen;
+  [(CPTemplateApplicationScene *)self _refreshTraitCollection];
+  v5.receiver = self;
+  v5.super_class = CPTemplateApplicationScene;
+  [(CPTemplateApplicationScene *)&v5 _updateSceneTraitsAndPushTraitsToScreen:screenCopy];
+}
+
 - (int64_t)_interfaceOrientation
 {
   _FBSScene = [(CPTemplateApplicationScene *)self _FBSScene];
@@ -397,7 +403,7 @@ void __64__CPTemplateApplicationScene_initWithSession_connectionOptions___block_
 
 - (void)_refreshTraitCollection
 {
-  v19[3] = *MEMORY[0x277D85DE8];
+  v18[3] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277D75C80] traitCollectionWithUserInterfaceIdiom:3];
   v4 = MEMORY[0x277D75C80];
   _screen = [(CPTemplateApplicationScene *)self _screen];
@@ -431,15 +437,13 @@ void __64__CPTemplateApplicationScene_initWithSession_connectionOptions___block_
 
   v13 = [v11 traitCollectionWithUserInterfaceStyle:userInterfaceStyle];
   v14 = MEMORY[0x277D75C80];
-  v19[0] = v3;
-  v19[1] = v13;
-  v19[2] = v7;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:3];
+  v18[0] = v3;
+  v18[1] = v13;
+  v18[2] = v7;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:3];
   v16 = [v14 traitCollectionWithTraitsFromCollections:v15];
   traitCollection = self->_traitCollection;
   self->_traitCollection = v16;
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_attachWindow:(id)window
@@ -515,33 +519,33 @@ void __64__CPTemplateApplicationScene_initWithSession_connectionOptions___block_
 
 - (id)_fbsSceneLayerForWindow:(id)window
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   windowCopy = window;
   substrate = [(_UIContextBinder *)self->_contextBinder substrate];
   scene = [substrate scene];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   clientSettings = [scene clientSettings];
   layers = [clientSettings layers];
 
-  v9 = [layers countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v9 = [layers countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v9)
   {
     v10 = v9;
-    v19 = substrate;
-    v11 = *v21;
+    v18 = substrate;
+    v11 = *v20;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v21 != v11)
+        if (*v20 != v11)
         {
           objc_enumerationMutation(layers);
         }
 
-        v13 = *(*(&v20 + 1) + 8 * i);
+        v13 = *(*(&v19 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -556,21 +560,19 @@ void __64__CPTemplateApplicationScene_initWithSession_connectionOptions___block_
         }
       }
 
-      v10 = [layers countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v10 = [layers countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v10);
     v14 = 0;
 LABEL_12:
-    substrate = v19;
+    substrate = v18;
   }
 
   else
   {
     v14 = 0;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -710,7 +712,7 @@ LABEL_12:
   return _shouldCreateCarWindow___shouldCreateWindow;
 }
 
-uint64_t __52__CPTemplateApplicationScene__shouldCreateCarWindow__block_invoke()
+void *__52__CPTemplateApplicationScene__shouldCreateCarWindow__block_invoke()
 {
   result = CPCurrentProcessHasMapsEntitlement();
   _shouldCreateCarWindow___shouldCreateWindow = result;
@@ -737,30 +739,31 @@ uint64_t __52__CPTemplateApplicationScene__shouldCreateCarWindow__block_invoke()
 
 - (void)_deliverInterfaceControllerToDelegate
 {
-  v3 = CarPlayFrameworkGeneralLogging();
+  v3 = CarPlayFrameworkGeneralLogging(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
     _os_log_impl(&dword_236ED4000, v3, OS_LOG_TYPE_DEFAULT, "Attempting to deliver interface controller...", buf, 2u);
   }
 
-  if ([*MEMORY[0x277D76620] _hasApplicationCalledLaunchDelegate] && self->_sceneWillConnect)
+  _hasApplicationCalledLaunchDelegate = [*MEMORY[0x277D76620] _hasApplicationCalledLaunchDelegate];
+  if (_hasApplicationCalledLaunchDelegate && self->_sceneWillConnect)
   {
-    v4 = CarPlayFrameworkGeneralLogging();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = CarPlayFrameworkGeneralLogging(_hasApplicationCalledLaunchDelegate);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_236ED4000, v4, OS_LOG_TYPE_DEFAULT, "App ready to receive interface controller", buf, 2u);
+      _os_log_impl(&dword_236ED4000, v5, OS_LOG_TYPE_DEFAULT, "App ready to receive interface controller", buf, 2u);
     }
 
     delegate = [(CPTemplateApplicationScene *)self delegate];
-    if ([(CPTemplateApplicationScene *)self _shouldCreateCarWindow]&& (objc_opt_respondsToSelector() & 1) != 0)
+    if ([(CPTemplateApplicationScene *)self _shouldCreateCarWindow]&& (v7 = objc_opt_respondsToSelector(), (v7 & 1) != 0))
     {
-      v6 = CarPlayFrameworkGeneralLogging();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v8 = CarPlayFrameworkGeneralLogging(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_236ED4000, v6, OS_LOG_TYPE_DEFAULT, "App supports CPTemplateApplicationScene method with window", buf, 2u);
+        _os_log_impl(&dword_236ED4000, v8, OS_LOG_TYPE_DEFAULT, "App supports CPTemplateApplicationScene method with window", buf, 2u);
       }
 
       interfaceController = [(CPTemplateApplicationScene *)self interfaceController];
@@ -770,34 +773,36 @@ uint64_t __52__CPTemplateApplicationScene__shouldCreateCarWindow__block_invoke()
 
     else
     {
-      if ((objc_opt_respondsToSelector() & 1) == 0)
+      v11 = objc_opt_respondsToSelector();
+      if ((v11 & 1) == 0)
       {
-        if ([(CPTemplateApplicationScene *)self _shouldCallAppDelegate])
+        _shouldCallAppDelegate = [(CPTemplateApplicationScene *)self _shouldCallAppDelegate];
+        if (_shouldCallAppDelegate)
         {
-          v12[0] = MEMORY[0x277D85DD0];
-          v12[1] = 3221225472;
-          v12[2] = __67__CPTemplateApplicationScene__deliverInterfaceControllerToDelegate__block_invoke;
-          v12[3] = &unk_278A105A0;
-          v12[4] = self;
-          v10 = MEMORY[0x2383C2A40](v12);
+          v16[0] = MEMORY[0x277D85DD0];
+          v16[1] = 3221225472;
+          v16[2] = __67__CPTemplateApplicationScene__deliverInterfaceControllerToDelegate__block_invoke;
+          v16[3] = &unk_278A105A0;
+          v16[4] = self;
+          v14 = MEMORY[0x2383C2A40](v16);
           if (dyld_program_sdk_at_least())
           {
-            v10[2](v10);
+            v14[2](v14);
           }
 
           else
           {
-            dispatch_async(MEMORY[0x277D85CD0], v10);
+            dispatch_async(MEMORY[0x277D85CD0], v14);
           }
         }
 
         else
         {
-          v11 = CarPlayFrameworkGeneralLogging();
-          if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+          v15 = CarPlayFrameworkGeneralLogging(_shouldCallAppDelegate);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_236ED4000, v11, OS_LOG_TYPE_DEFAULT, "App does not support any CarPlay template connection", buf, 2u);
+            _os_log_impl(&dword_236ED4000, v15, OS_LOG_TYPE_DEFAULT, "App does not support any CarPlay template connection", buf, 2u);
           }
 
           [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE648] format:@"Application does not implement CarPlay template application lifecycle methods in its scene delegate."];
@@ -806,11 +811,11 @@ uint64_t __52__CPTemplateApplicationScene__shouldCreateCarWindow__block_invoke()
         goto LABEL_25;
       }
 
-      v9 = CarPlayFrameworkGeneralLogging();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v12 = CarPlayFrameworkGeneralLogging(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_236ED4000, v9, OS_LOG_TYPE_DEFAULT, "App supports CPTemplateApplicationScene method without window", buf, 2u);
+        _os_log_impl(&dword_236ED4000, v12, OS_LOG_TYPE_DEFAULT, "App supports CPTemplateApplicationScene method without window", buf, 2u);
       }
 
       interfaceController = [(CPTemplateApplicationScene *)self interfaceController];
@@ -823,7 +828,7 @@ LABEL_25:
 
 void __67__CPTemplateApplicationScene__deliverInterfaceControllerToDelegate__block_invoke(uint64_t a1)
 {
-  v2 = CarPlayFrameworkGeneralLogging();
+  v2 = CarPlayFrameworkGeneralLogging(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v8 = 0;

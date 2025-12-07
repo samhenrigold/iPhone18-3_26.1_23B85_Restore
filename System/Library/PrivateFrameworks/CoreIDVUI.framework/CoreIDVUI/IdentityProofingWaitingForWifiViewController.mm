@@ -16,7 +16,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_2458B2D54();
+  sub_2458B2D54(selfCopy);
 }
 
 - (void)viewWillAppear:(BOOL)appear

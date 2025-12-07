@@ -1,12 +1,12 @@
 @interface UIViewController(PKPaymentSetupProtocols)
-- (uint64_t)pk_paymentSetupSetHideSetupLaterButton:()PKPaymentSetupProtocols;
 - (void)_pk_presentViewController:()PKPaymentSetupProtocols animated:transition:popToViewControllerAfterPresentation:completion:;
 - (void)pk_paymentSetupPreflight:()PKPaymentSetupProtocols;
+- (void)pk_paymentSetupSetHideSetupLaterButton:()PKPaymentSetupProtocols;
 @end
 
 @implementation UIViewController(PKPaymentSetupProtocols)
 
-- (uint64_t)pk_paymentSetupSetHideSetupLaterButton:()PKPaymentSetupProtocols
+- (void)pk_paymentSetupSetHideSetupLaterButton:()PKPaymentSetupProtocols
 {
   result = [self conformsToProtocol:&unk_1F3D16350];
   if (result)

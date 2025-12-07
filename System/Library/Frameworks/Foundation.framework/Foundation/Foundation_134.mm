@@ -9,101 +9,101 @@ uint64_t closure #8 in AttributedString.inflected(locale:userTermOfAddress:repla
 {
   v6 = *a3;
 
-  _sSn10FoundationAA16AttributedStringV5IndexVRszrlE_2inSnyAEGSgSo8_NSRangeV_qd__tcAA0bC8ProtocolRd__lufCAC_Tt2B5(a1, a2, v6, &v117);
-  v7 = v119;
-  if (v119 == 2)
+  _sSn10FoundationAA16AttributedStringV5IndexVRszrlE_2inSnyAEGSgSo8_NSRangeV_qd__tcAA0bC8ProtocolRd__lufCAC_Tt2B5(a1, a2, v6, &v114);
+  v7 = v116;
+  if (v116 == 2)
   {
     return 0;
   }
 
-  v74 = v118;
-  v72 = v117;
+  v74 = v115;
+  v72 = v114;
   v8 = *a3;
   v9 = *(v8 + 40);
-  v144 = *(v8 + 24);
-  v145 = v9;
-  v146 = *(v8 + 56);
-  v110[0] = v8;
-  v110[1] = BigString.startIndex.getter();
-  v110[2] = v10;
-  v110[3] = v11;
-  v110[4] = v12;
-  v110[5] = BigString.endIndex.getter();
-  v110[6] = v13;
-  v110[7] = v14;
-  v110[8] = v15;
-  v110[9] = 0;
-  swift_retain_n();
-  outlined destroy of AttributedString.CharacterView(v110);
-  v136[3] = v72;
-  v137 = v74;
-  v138 = v7;
-  v139 = v120;
-  v140 = v121;
-  v16 = *(v8 + 40);
   v141 = *(v8 + 24);
-  v142 = v16;
+  v142 = v9;
   v143 = *(v8 + 56);
+  v107[0] = v8;
+  v107[1] = BigString.startIndex.getter();
+  v107[2] = v10;
+  v107[3] = v11;
+  v107[4] = v12;
+  v107[5] = BigString.endIndex.getter();
+  v107[6] = v13;
+  v107[7] = v14;
+  v107[8] = v15;
+  v107[9] = 0;
+  swift_retain_n();
+  outlined destroy of AttributedString.CharacterView(v107);
+  v133[3] = v72;
+  v134 = v74;
+  v135 = v7;
+  v136 = v117;
+  v137 = v118;
+  v16 = *(v8 + 40);
+  v138 = *(v8 + 24);
+  v139 = v16;
+  v140 = *(v8 + 56);
   swift_unknownObjectRetain();
 
   BigString.UnicodeScalarView.subscript.getter();
   swift_unknownObjectRelease();
 
-  outlined destroy of BigSubstring.UnicodeScalarView(v122);
-  v106 = v123;
-  v107 = v124;
-  v108 = v125;
-  v109 = v126;
-  v113 = v124;
-  v114 = v125;
-  v115 = v126;
+  outlined destroy of BigSubstring.UnicodeScalarView(v119);
+  v106[0] = v120;
+  v106[1] = v121;
+  v106[2] = v122;
+  v106[3] = v123;
+  v110 = v121;
+  v111 = v122;
   v112 = v123;
-  v111 = v8;
-  v116 = 0;
+  v109 = v120;
+  v108 = v8;
+  v113 = 0;
   v17 = *(v8 + 24);
   v18 = *(v8 + 56);
-  v136[1] = *(v8 + 40);
-  v136[2] = v18;
-  v136[0] = v17;
-  outlined init with copy of AttributedSubstring(&v111, &v76);
-  outlined init with copy of BigString(v136, &v76);
+  v133[1] = *(v8 + 40);
+  v133[2] = v18;
+  v133[0] = v17;
+  outlined init with copy of AttributedSubstring(&v108, &v76);
+  outlined init with copy of BigString(v133, &v76);
   BigString.subscript.getter();
-  outlined destroy of BigString(v136);
-  outlined destroy of BigSubstring(v127);
-  v102 = *v128;
-  v103 = *&v128[16];
-  v104 = v129;
-  v105 = v130;
-  *&v135[8] = *v128;
-  *&v135[24] = *&v128[16];
-  *&v135[40] = v129;
-  *&v135[56] = v130;
-  *v135 = v8;
-  *&v135[72] = 0;
-  v20 = *&v128[8];
-  v19 = *v128;
-  v21 = *&v128[24];
-  v22 = *&v128[16];
-  v23 = v129;
-  v63 = v130;
-  v101 = *&v128[24];
-  v99 = *(&v130 + 1);
-  v100 = *&v128[8];
-  v98 = *&v135[48];
+  outlined destroy of BigString(v133);
+  outlined destroy of BigSubstring(v124);
+  v102 = *v125;
+  v103 = *&v125[16];
+  v104 = v126;
+  v105 = v127;
+  *&v132[8] = *v125;
+  *&v132[24] = *&v125[16];
+  *&v132[40] = v126;
+  *&v132[56] = v127;
+  *v132 = v8;
+  *&v132[72] = 0;
+  v20 = *&v125[8];
+  v19 = *v125;
+  v21 = *&v125[24];
+  v22 = *&v125[16];
+  v23 = v126;
+  v63 = v127;
+  v101 = *&v125[24];
+  v99 = *(&v127 + 1);
+  v100 = *&v125[8];
+  v98 = *&v132[48];
   v24 = *(v8 + 16);
   v25 = swift_allocObject();
-  v26 = *&v135[48];
-  v25[3] = *&v135[32];
+  v26 = *&v132[48];
+  v25[3] = *&v132[32];
   v25[4] = v26;
-  v25[5] = *&v135[64];
-  v27 = *&v135[16];
-  v25[1] = *v135;
+  v25[5] = *&v132[64];
+  v27 = *&v132[16];
+  v25[1] = *v132;
   v25[2] = v27;
   v64 = v25;
   v28 = v23 >> 10;
-  outlined init with copy of AttributedString.CharacterView(v135, &v76);
-  outlined init with copy of AttributedString.CharacterView(v135, &v76);
-  result = outlined init with copy of AttributedString.CharacterView(v135, &v76);
+  outlined init with copy of AttributedString.CharacterView(v132, &v76);
+  outlined init with copy of AttributedString.CharacterView(v132, &v76);
+  result = outlined init with copy of AttributedString.CharacterView(v132, &v76);
   v65 = v20;
   v66 = v19;
   v30 = v20;
@@ -115,9 +115,9 @@ uint64_t closure #8 in AttributedString.inflected(locale:userTermOfAddress:repla
   if (v19 >> 10 == v23 >> 10)
   {
 LABEL_3:
-    outlined destroy of AttributedString.CharacterView(v135);
-    outlined destroy of AttributedSubstring(&v111);
-    outlined destroy of AttributedString.CharacterView(v135);
+    outlined destroy of AttributedString.CharacterView(v132);
+    outlined destroy of AttributedSubstring(&v108);
+    outlined destroy of AttributedString.CharacterView(v132);
     v76 = v8;
     v77 = v66;
     v78 = v100;
@@ -140,7 +140,7 @@ LABEL_3:
     v95 = v69;
     v96 = partial apply for closure #1 in closure #8 in AttributedString.inflected(locale:userTermOfAddress:replacements:concepts:preflight:);
     v97 = v64;
-    outlined destroy of TermOfAddress?(&v76, &_ss18LazyFilterSequenceV8IteratorVySIy10Foundation16AttributedStringV13CharacterViewVG_GMd);
+    outlined destroy of TermOfAddress?(&v76, &_ss18LazyFilterSequenceV8IteratorVySIy10Foundation16AttributedStringV13CharacterViewVG_GMd, &_ss18LazyFilterSequenceV8IteratorVySIy10Foundation16AttributedStringV13CharacterViewVG_GMR);
     return 0;
   }
 
@@ -149,20 +149,20 @@ LABEL_3:
   {
     v34 = *(v8 + 24);
     v35 = *(v8 + 56);
-    v134[1] = *(v8 + 40);
-    v134[2] = v35;
-    v134[0] = v34;
+    v131[1] = *(v8 + 40);
+    v131[2] = v35;
+    v131[0] = v34;
     v36 = *(v8 + 24);
     v37 = *(v8 + 40);
-    v148 = *(v8 + 56);
-    v147[0] = v36;
-    v147[1] = v37;
-    outlined init with copy of Rope<BigString._Chunk>._Node?(v147, &v76);
+    v145 = *(v8 + 56);
+    v144[0] = v36;
+    v144[1] = v37;
+    outlined init with copy of Rope<BigString._Chunk>._Node?(v144, &v76);
     v19 = BigString.index(after:)();
     v73 = v38;
     v75 = v39;
     v41 = v40;
-    result = outlined destroy of BigString(v134);
+    result = outlined destroy of BigString(v131);
     if (v32 >= v28)
     {
       goto LABEL_26;
@@ -178,18 +178,18 @@ LABEL_3:
     v69 = *(v8 + 16);
     v42 = *(v8 + 24);
     v43 = *(v8 + 56);
-    v133[1] = *(v8 + 40);
-    v133[2] = v43;
-    v133[0] = v42;
+    v130[1] = *(v8 + 40);
+    v130[2] = v43;
+    v130[0] = v42;
     v44 = *(v8 + 24);
     v45 = *(v8 + 40);
-    v150 = *(v8 + 56);
-    v149[0] = v44;
-    v149[1] = v45;
-    outlined init with copy of Rope<BigString._Chunk>._Node?(v149, &v76);
+    v147 = *(v8 + 56);
+    v146[0] = v44;
+    v146[1] = v45;
+    outlined init with copy of Rope<BigString._Chunk>._Node?(v146, &v76);
     v46 = BigString.subscript.getter();
     v48 = v47;
-    outlined destroy of BigString(v133);
+    outlined destroy of BigString(v130);
     if (v46 == 37 && v48 == 0xE100000000000000)
     {
     }
@@ -206,17 +206,17 @@ LABEL_3:
 
     v50 = *(v8 + 24);
     v51 = *(v8 + 56);
-    v132[1] = *(v8 + 40);
-    v132[2] = v51;
-    v132[0] = v50;
+    v129[1] = *(v8 + 40);
+    v129[2] = v51;
+    v129[0] = v50;
     v52 = *(v8 + 24);
     v53 = *(v8 + 40);
-    v152 = *(v8 + 56);
-    v151[0] = v52;
-    v151[1] = v53;
-    outlined init with copy of Rope<BigString._Chunk>._Node?(v151, &v76);
+    v149 = *(v8 + 56);
+    v148[0] = v52;
+    v148[1] = v53;
+    outlined init with copy of Rope<BigString._Chunk>._Node?(v148, &v76);
     v54 = BigString.index(after:)();
-    result = outlined destroy of BigString(v132);
+    result = outlined destroy of BigString(v129);
     v55 = v54 >> 10;
     if (v28 < v54 >> 10)
     {
@@ -232,18 +232,18 @@ LABEL_3:
 
       v56 = *(v8 + 24);
       v57 = *(v8 + 56);
-      v131[1] = *(v8 + 40);
-      v131[2] = v57;
-      v131[0] = v56;
+      v128[1] = *(v8 + 40);
+      v128[2] = v57;
+      v128[0] = v56;
       v58 = *(v8 + 24);
       v59 = *(v8 + 40);
-      v154 = *(v8 + 56);
-      v153[0] = v58;
-      v153[1] = v59;
-      outlined init with copy of Rope<BigString._Chunk>._Node?(v153, &v76);
+      v151 = *(v8 + 56);
+      v150[0] = v58;
+      v150[1] = v59;
+      outlined init with copy of Rope<BigString._Chunk>._Node?(v150, &v76);
       v60 = BigString.subscript.getter();
       v62 = v61;
-      outlined destroy of BigString(v131);
+      outlined destroy of BigString(v128);
       if (v60 == 37 && v62 == 0xE100000000000000)
       {
       }
@@ -254,7 +254,7 @@ LABEL_3:
 
         if ((v33 & 1) == 0)
         {
-          outlined destroy of AttributedString.CharacterView(v135);
+          outlined destroy of AttributedString.CharacterView(v132);
           v76 = v8;
           v77 = v66;
           v78 = v100;
@@ -277,9 +277,9 @@ LABEL_3:
           v95 = v69;
           v96 = partial apply for closure #1 in closure #8 in AttributedString.inflected(locale:userTermOfAddress:replacements:concepts:preflight:);
           v97 = v64;
-          outlined destroy of TermOfAddress?(&v76, &_ss18LazyFilterSequenceV8IteratorVySIy10Foundation16AttributedStringV13CharacterViewVG_GMd);
-          outlined destroy of AttributedString.CharacterView(v135);
-          outlined destroy of AttributedSubstring(&v111);
+          outlined destroy of TermOfAddress?(&v76, &_ss18LazyFilterSequenceV8IteratorVySIy10Foundation16AttributedStringV13CharacterViewVG_GMd, &_ss18LazyFilterSequenceV8IteratorVySIy10Foundation16AttributedStringV13CharacterViewVG_GMR);
+          outlined destroy of AttributedString.CharacterView(v132);
+          outlined destroy of AttributedSubstring(&v108);
           return 1;
         }
       }
@@ -305,7 +305,7 @@ LABEL_28:
   return result;
 }
 
-void *closure #1 in closure #8 in AttributedString.inflected(locale:userTermOfAddress:replacements:concepts:preflight:)(void *result, void *a2)
+unint64_t *closure #1 in closure #8 in AttributedString.inflected(locale:userTermOfAddress:replacements:concepts:preflight:)(unint64_t *result, void *a2)
 {
   v2 = *result >> 10;
   if (v2 < a2[1] >> 10 || v2 >= a2[5] >> 10)
@@ -351,37 +351,37 @@ id closure #9 in AttributedString.inflected(locale:userTermOfAddress:replacement
 {
   *&v563 = a1;
   v605 = *MEMORY[0x1E69E9840];
-  v523 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation16AttributedStringV4RunsV16AttributesSlice1V8IteratorVy__AA15AttributeScopesO0aE0V025AssumedFallbackInflectionH0O_GMd);
+  v523 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation16AttributedStringV4RunsV16AttributesSlice1V8IteratorVy__AA15AttributeScopesO0aE0V025AssumedFallbackInflectionH0O_GMd, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1V8IteratorVy__AA15AttributeScopesO0aE0V025AssumedFallbackInflectionH0O_GMR);
   MEMORY[0x1EEE9AC00](v523);
   v556 = &v508 - v9;
-  v527 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V025AssumedFallbackInflectionG0OGMd);
+  v527 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V025AssumedFallbackInflectionG0OGMd, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V025AssumedFallbackInflectionG0OGMR);
   MEMORY[0x1EEE9AC00](v527);
   v522 = &v508 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v11);
   v521 = &v508 - v12;
   MEMORY[0x1EEE9AC00](v13);
   v529 = &v508 - v14;
-  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation16AttributedStringV4RunsV16AttributesSlice1V8IteratorVy__AA15AttributeScopesO0aE0V010MorphologyH0O_GMd);
+  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation16AttributedStringV4RunsV16AttributesSlice1V8IteratorVy__AA15AttributeScopesO0aE0V010MorphologyH0O_GMd, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1V8IteratorVy__AA15AttributeScopesO0aE0V010MorphologyH0O_GMR);
   MEMORY[0x1EEE9AC00](v15);
   v17 = (&v508 - v16);
-  v534 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V010MorphologyG0OGMd);
+  v534 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V010MorphologyG0OGMd, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V010MorphologyG0OGMR);
   MEMORY[0x1EEE9AC00](v534);
   v19 = &v508 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v20);
   v530 = &v508 - v21;
   MEMORY[0x1EEE9AC00](v22);
   v24 = &v508 - v23;
-  v538 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation16AttributedStringV4RunsV16AttributesSlice1V8IteratorVy__AA15AttributeScopesO0aE0V018LanguageIdentifierH0O_GMd);
+  v538 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation16AttributedStringV4RunsV16AttributesSlice1V8IteratorVy__AA15AttributeScopesO0aE0V018LanguageIdentifierH0O_GMd, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1V8IteratorVy__AA15AttributeScopesO0aE0V018LanguageIdentifierH0O_GMR);
   MEMORY[0x1EEE9AC00](v538);
   v544 = &v508 - v25;
-  v547 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V018LanguageIdentifierG0OGMd);
+  v547 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V018LanguageIdentifierG0OGMd, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V018LanguageIdentifierG0OGMR);
   MEMORY[0x1EEE9AC00](v547);
   v539 = &v508 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v27);
   v549 = &v508 - v28;
   MEMORY[0x1EEE9AC00](v29);
   v551 = &v508 - v30;
-  v560 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd);
+  v560 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMR);
   v553 = *(v560 - 8);
   MEMORY[0x1EEE9AC00](v560);
   v528 = &v508 - ((v31 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -393,12 +393,12 @@ id closure #9 in AttributedString.inflected(locale:userTermOfAddress:replacement
   v540 = &v508 - v37;
   MEMORY[0x1EEE9AC00](v38);
   v550 = &v508 - v39;
-  v561 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd);
+  v561 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMR);
   MEMORY[0x1EEE9AC00](v561);
   v558 = &v508 - ((v40 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v41);
   v559 = &v508 - v42;
-  v555 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMd);
+  v555 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMd, &_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMR);
   v543 = *(v555 - 8);
   MEMORY[0x1EEE9AC00](v555);
   v524 = &v508 - ((v43 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -410,7 +410,7 @@ id closure #9 in AttributedString.inflected(locale:userTermOfAddress:replacement
   v554 = &v508 - v49;
   MEMORY[0x1EEE9AC00](v50);
   v548 = &v508 - v51;
-  v542 = type metadata accessor for AttributedString.Runs();
+  v542 = type metadata accessor for AttributedString.Runs(0);
   MEMORY[0x1EEE9AC00](v542);
   v526 = &v508 - ((v52 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v53);
@@ -875,7 +875,7 @@ LABEL_80:
     v132 = v560;
     (*(v553 + 16))(v559, v130, v560);
     v134 = *(v561 + 36);
-    v135 = lazy protocol witness table accessor for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges);
+    v135 = lazy protocol witness table accessor for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges, MEMORY[0x1E69E7BC8]);
     dispatch thunk of Collection.startIndex.getter();
     v136 = *(v131 + 8);
     v137 = v133;
@@ -941,7 +941,7 @@ LABEL_80:
       while (*(v137 + v556) != v569);
     }
 
-    outlined destroy of TermOfAddress?(v137, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd);
+    outlined destroy of TermOfAddress?(v137, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMR);
     v140 = v542;
     v139 = v543;
     v141 = v132;
@@ -983,7 +983,7 @@ LABEL_80:
       if ((v175 & 1) == 0)
       {
         dispatch thunk of Collection.endIndex.getter();
-        lazy protocol witness table accessor for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges);
+        lazy protocol witness table accessor for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges, MEMORY[0x1E69E7BB0]);
         dispatch thunk of BidirectionalCollection.index(before:)();
         v231 = dispatch thunk of Collection.subscript.read();
         v233 = v232[4];
@@ -1222,7 +1222,7 @@ LABEL_101:
     v225 = v551;
     outlined init with copy of AttributedString.Runs(v224, v551);
     *(v225 + *(v547 + 36)) = &outlined read-only object #0 of closure #9 in AttributedString.inflected(locale:userTermOfAddress:replacements:concepts:preflight:);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCy10Foundation16AttributedStringV22AttributeRunBoundariesOSgGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCy10Foundation16AttributedStringV22AttributeRunBoundariesOSgGMd, &_ss11_SetStorageCy10Foundation16AttributedStringV22AttributeRunBoundariesOSgGMR);
     v226 = static _SetStorage.allocate(capacity:)();
     v227 = v226 + 56;
     v228 = qword_1EEED47A8;
@@ -1304,15 +1304,15 @@ LABEL_159:
               outlined consume of AttributedString.AttributeRunBoundaries?(v267, v268);
               v148 = v544;
 LABEL_160:
-              outlined destroy of TermOfAddress?(&qword_1EEED47A8, &_s10Foundation16AttributedStringV22AttributeRunBoundariesOSgMd);
+              outlined destroy of TermOfAddress?(&qword_1EEED47A8, &_s10Foundation16AttributedStringV22AttributeRunBoundariesOSgMd, &_s10Foundation16AttributedStringV22AttributeRunBoundariesOSgMR);
               outlined destroy of AttributedString.Runs(v546);
               outlined destroy of AttributedString.Runs(v545);
               v277 = v551;
               *(v551 + *(v547 + 40)) = v226;
-              outlined init with copy of FloatingPointRoundingRule?(v277, v230, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V018LanguageIdentifierG0OGMd);
+              outlined init with copy of FloatingPointRoundingRule?(v277, v230, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V018LanguageIdentifierG0OGMd, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V018LanguageIdentifierG0OGMR);
               v278 = v539;
-              outlined init with copy of FloatingPointRoundingRule?(v230, v539, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V018LanguageIdentifierG0OGMd);
-              result = outlined init with copy of FloatingPointRoundingRule?(v278, v148, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V018LanguageIdentifierG0OGMd);
+              outlined init with copy of FloatingPointRoundingRule?(v230, v539, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V018LanguageIdentifierG0OGMd, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V018LanguageIdentifierG0OGMR);
+              result = outlined init with copy of FloatingPointRoundingRule?(v278, v148, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V018LanguageIdentifierG0OGMd, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V018LanguageIdentifierG0OGMR);
               v279 = *(v278 + 96);
               if (v279 == 2)
               {
@@ -1322,9 +1322,9 @@ LABEL_160:
 
               v280 = *(v278 + 88);
               v563 = *(v278 + 72);
-              outlined destroy of TermOfAddress?(v230, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V018LanguageIdentifierG0OGMd);
+              outlined destroy of TermOfAddress?(v230, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V018LanguageIdentifierG0OGMd, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V018LanguageIdentifierG0OGMR);
               v281 = *(*v278 + 16);
-              outlined destroy of TermOfAddress?(v278, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V018LanguageIdentifierG0OGMd);
+              outlined destroy of TermOfAddress?(v278, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V018LanguageIdentifierG0OGMd, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V018LanguageIdentifierG0OGMR);
               v282 = v148 + *(v538 + 36);
               *v282 = v563;
               *(v282 + 16) = v280;
@@ -1352,7 +1352,7 @@ LABEL_160:
                     break;
                   }
 
-                  outlined destroy of TermOfAddress?(&v564, &_sSSSg_Sny10Foundation16AttributedStringV5IndexVGtSgMd);
+                  outlined destroy of TermOfAddress?(&v564, &_sSSSg_Sny10Foundation16AttributedStringV5IndexVGtSgMd, &_sSSSg_Sny10Foundation16AttributedStringV5IndexVGtSgMR);
                   specialized AttributedString.Runs.AttributesSlice1.Iterator.next()(&v569);
                   v283 = v569;
                   v572[2] = v570[2];
@@ -1366,8 +1366,8 @@ LABEL_160:
                   }
                 }
 
-                outlined destroy of TermOfAddress?(v148, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1V8IteratorVy__AA15AttributeScopesO0aE0V018LanguageIdentifierH0O_GMd);
-                result = outlined destroy of TermOfAddress?(v551, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V018LanguageIdentifierG0OGMd);
+                outlined destroy of TermOfAddress?(v148, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1V8IteratorVy__AA15AttributeScopesO0aE0V018LanguageIdentifierH0O_GMd, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1V8IteratorVy__AA15AttributeScopesO0aE0V018LanguageIdentifierH0O_GMR);
+                result = outlined destroy of TermOfAddress?(v551, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V018LanguageIdentifierG0OGMd, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V018LanguageIdentifierG0OGMR);
                 v285 = *(&v564 + 1);
                 v283 = v564;
                 v575 = v567;
@@ -1394,7 +1394,7 @@ LABEL_165:
                   v568[1] = v577;
                   v565 = v573;
                   v566 = v574;
-                  result = outlined destroy of TermOfAddress?(&v564, &_sSSSg_Sny10Foundation16AttributedStringV5IndexVGtSgMd);
+                  result = outlined destroy of TermOfAddress?(&v564, &_sSSSg_Sny10Foundation16AttributedStringV5IndexVGtSgMd, &_sSSSg_Sny10Foundation16AttributedStringV5IndexVGtSgMR);
                 }
 
                 *v284 = 0u;
@@ -1404,8 +1404,8 @@ LABEL_165:
 
 LABEL_164:
 
-              outlined destroy of TermOfAddress?(v148, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1V8IteratorVy__AA15AttributeScopesO0aE0V018LanguageIdentifierH0O_GMd);
-              outlined destroy of TermOfAddress?(v551, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V018LanguageIdentifierG0OGMd);
+              outlined destroy of TermOfAddress?(v148, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1V8IteratorVy__AA15AttributeScopesO0aE0V018LanguageIdentifierH0O_GMd, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1V8IteratorVy__AA15AttributeScopesO0aE0V018LanguageIdentifierH0O_GMR);
+              outlined destroy of TermOfAddress?(v551, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V018LanguageIdentifierG0OGMd, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V018LanguageIdentifierG0OGMR);
               v575 = v572[2];
               v576 = v572[3];
               v577 = v572[4];
@@ -1870,7 +1870,7 @@ LABEL_218:
       outlined init with copy of AttributedString.Runs(v459, v526);
       v226 = v529;
       outlined init with copy of AttributedString.Runs(v460, v529);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd, &_ss23_ContiguousArrayStorageCySSGMR);
       v427 = swift_allocObject();
       *(v427 + 16) = xmmword_181218E20;
       if (one-time initialization token for name == -1)
@@ -1909,7 +1909,7 @@ LABEL_218:
   v322 = v560;
   (*(v553 + 16))(v558, v319, v560);
   v323 = *(v561 + 36);
-  v324 = lazy protocol witness table accessor for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges);
+  v324 = lazy protocol witness table accessor for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges, MEMORY[0x1E69E7BC8]);
   dispatch thunk of Collection.startIndex.getter();
   v325 = *(v320 + 8);
   v326 = v321;
@@ -1975,7 +1975,7 @@ LABEL_218:
     while (*&v554[v326] != v578);
   }
 
-  outlined destroy of TermOfAddress?(v326, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd);
+  outlined destroy of TermOfAddress?(v326, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMR);
   v328 = v542;
   v329 = v543;
   v330 = *(v542 + 24);
@@ -2071,7 +2071,7 @@ LABEL_218:
   {
     v531 = v330;
     dispatch thunk of Collection.endIndex.getter();
-    lazy protocol witness table accessor for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges);
+    lazy protocol witness table accessor for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges, MEMORY[0x1E69E7BB0]);
     dispatch thunk of BidirectionalCollection.index(before:)();
     v412 = dispatch thunk of Collection.subscript.read();
     v398 = v413[4];
@@ -2240,7 +2240,7 @@ LABEL_218:
   outlined init with copy of AttributedString.Runs(v405, v533);
   v226 = v513;
   outlined init with copy of AttributedString.Runs(v406, v513);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd, &_ss23_ContiguousArrayStorageCySSGMR);
   v249 = swift_allocObject();
   *(v249 + 16) = xmmword_181218E20;
   if (one-time initialization token for name != -1)
@@ -2253,7 +2253,7 @@ LABEL_240:
   *(v249 + 32) = static AttributeScopes.FoundationAttributes.MorphologyAttribute.name;
   *(v249 + 40) = v407;
   *(v226 + *(v534 + 36)) = v249;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCy10Foundation16AttributedStringV22AttributeRunBoundariesOSgGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCy10Foundation16AttributedStringV22AttributeRunBoundariesOSgGMd, &_ss11_SetStorageCy10Foundation16AttributedStringV22AttributeRunBoundariesOSgGMR);
   v408 = static _SetStorage.allocate(capacity:)();
   v409 = v408 + 56;
 
@@ -2356,23 +2356,23 @@ LABEL_321:
 LABEL_275:
         v443 = v541;
         v444 = v513;
-        outlined destroy of TermOfAddress?(&qword_1EEED47D8, &_s10Foundation16AttributedStringV22AttributeRunBoundariesOSgMd);
+        outlined destroy of TermOfAddress?(&qword_1EEED47D8, &_s10Foundation16AttributedStringV22AttributeRunBoundariesOSgMd, &_s10Foundation16AttributedStringV22AttributeRunBoundariesOSgMR);
         outlined destroy of AttributedString.Runs(v533);
         outlined destroy of AttributedString.Runs(v532);
         *(v444 + *(v534 + 40)) = v408;
         v445 = v530;
-        outlined init with copy of FloatingPointRoundingRule?(v444, v530, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V010MorphologyG0OGMd);
+        outlined init with copy of FloatingPointRoundingRule?(v444, v530, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V010MorphologyG0OGMd, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V010MorphologyG0OGMR);
         v446 = v510;
-        outlined init with copy of FloatingPointRoundingRule?(v445, v510, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V010MorphologyG0OGMd);
-        result = outlined init with copy of FloatingPointRoundingRule?(v446, v443, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V010MorphologyG0OGMd);
+        outlined init with copy of FloatingPointRoundingRule?(v445, v510, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V010MorphologyG0OGMd, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V010MorphologyG0OGMR);
+        result = outlined init with copy of FloatingPointRoundingRule?(v446, v443, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V010MorphologyG0OGMd, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V010MorphologyG0OGMR);
         v447 = *(v446 + 96);
         if (v447 != 2)
         {
           v448 = *(v446 + 88);
           v563 = *(v446 + 72);
-          outlined destroy of TermOfAddress?(v445, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V010MorphologyG0OGMd);
+          outlined destroy of TermOfAddress?(v445, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V010MorphologyG0OGMd, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V010MorphologyG0OGMR);
           v449 = *(*v446 + 16);
-          outlined destroy of TermOfAddress?(v446, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V010MorphologyG0OGMd);
+          outlined destroy of TermOfAddress?(v446, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V010MorphologyG0OGMd, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V010MorphologyG0OGMR);
           v450 = v443 + *(v509 + 36);
           *v450 = v563;
           *(v450 + 2) = v448;
@@ -2392,8 +2392,8 @@ LABEL_275:
             v453 = v520;
 LABEL_281:
 
-            outlined destroy of TermOfAddress?(v443, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1V8IteratorVy__AA15AttributeScopesO0aE0V010MorphologyH0O_GMd);
-            outlined destroy of TermOfAddress?(v444, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V010MorphologyG0OGMd);
+            outlined destroy of TermOfAddress?(v443, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1V8IteratorVy__AA15AttributeScopesO0aE0V010MorphologyH0O_GMd, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1V8IteratorVy__AA15AttributeScopesO0aE0V010MorphologyH0O_GMR);
+            outlined destroy of TermOfAddress?(v444, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V010MorphologyG0OGMd, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V010MorphologyG0OGMR);
             v567 = *&v571[48];
             v568[0] = *&v571[64];
             *(v568 + 15) = *&v571[79];
@@ -2417,7 +2417,7 @@ LABEL_281:
               break;
             }
 
-            outlined destroy of TermOfAddress?(&v569, &_s10Foundation10MorphologyVSg_SnyAA16AttributedStringV5IndexVGtSgMd);
+            outlined destroy of TermOfAddress?(&v569, &_s10Foundation10MorphologyVSg_SnyAA16AttributedStringV5IndexVGtSgMd, &_s10Foundation10MorphologyVSg_SnyAA16AttributedStringV5IndexVGtSgMR);
             specialized AttributedString.Runs.AttributesSlice1.Iterator.next()(&_s10Foundation16AttributedStringV4RunsV16AttributesSlice1V8IteratorVy__AA15AttributeScopesO0aE0V010MorphologyH0O_GMd, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1V8IteratorVy__AA15AttributeScopesO0aE0V010MorphologyH0O_GMR, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V010MorphologyG0OGMd, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V010MorphologyG0OGMR, &one-time initialization token for name, algn_1EA7B2688, &static AttributeScopes.FoundationAttributes.MorphologyAttribute.name, one-time initialization function for name, &v578);
             v451 = v578;
             *&v571[32] = *(&v579[2] + 5);
@@ -2436,8 +2436,8 @@ LABEL_281:
             }
           }
 
-          outlined destroy of TermOfAddress?(v541, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1V8IteratorVy__AA15AttributeScopesO0aE0V010MorphologyH0O_GMd);
-          result = outlined destroy of TermOfAddress?(v513, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V010MorphologyG0OGMd);
+          outlined destroy of TermOfAddress?(v541, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1V8IteratorVy__AA15AttributeScopesO0aE0V010MorphologyH0O_GMd, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1V8IteratorVy__AA15AttributeScopesO0aE0V010MorphologyH0O_GMR);
+          result = outlined destroy of TermOfAddress?(v513, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V010MorphologyG0OGMd, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V010MorphologyG0OGMR);
           v454 = *(&v569 + 1);
           v451 = v569;
           v567 = *(&v570[3] + 5);
@@ -2471,7 +2471,7 @@ LABEL_282:
             BYTE4(v570[0]) = BYTE4(v452);
             DWORD1(v570[5]) = *(v568 + 15);
             *(&v570[1] + 5) = v565;
-            result = outlined destroy of TermOfAddress?(&v569, &_s10Foundation10MorphologyVSg_SnyAA16AttributedStringV5IndexVGtSgMd);
+            result = outlined destroy of TermOfAddress?(&v569, &_s10Foundation10MorphologyVSg_SnyAA16AttributedStringV5IndexVGtSgMd, &_s10Foundation10MorphologyVSg_SnyAA16AttributedStringV5IndexVGtSgMR);
           }
 
           *v453 = 0u;
@@ -2553,7 +2553,7 @@ LABEL_289:
   *(v427 + 32) = static AttributeScopes.FoundationAttributes.AssumedFallbackInflectionAttribute.name;
   *(v427 + 40) = v461;
   *(v226 + *(v527 + 36)) = v427;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCy10Foundation16AttributedStringV22AttributeRunBoundariesOSgGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCy10Foundation16AttributedStringV22AttributeRunBoundariesOSgGMd, &_ss11_SetStorageCy10Foundation16AttributedStringV22AttributeRunBoundariesOSgGMR);
   v462 = static _SetStorage.allocate(capacity:)();
   v463 = v462 + 56;
 
@@ -2712,15 +2712,15 @@ LABEL_327:
   v489 = v556;
   v226 = v529;
 LABEL_328:
-  outlined destroy of TermOfAddress?(&qword_1EEED4808, &_s10Foundation16AttributedStringV22AttributeRunBoundariesOSgMd);
+  outlined destroy of TermOfAddress?(&qword_1EEED4808, &_s10Foundation16AttributedStringV22AttributeRunBoundariesOSgMd, &_s10Foundation16AttributedStringV22AttributeRunBoundariesOSgMR);
   outlined destroy of AttributedString.Runs(v526);
   outlined destroy of AttributedString.Runs(v525);
   *(v226 + *(v527 + 40)) = v462;
   v492 = v521;
-  outlined init with copy of FloatingPointRoundingRule?(v226, v521, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V025AssumedFallbackInflectionG0OGMd);
+  outlined init with copy of FloatingPointRoundingRule?(v226, v521, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V025AssumedFallbackInflectionG0OGMd, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V025AssumedFallbackInflectionG0OGMR);
   v493 = v522;
-  outlined init with copy of FloatingPointRoundingRule?(v492, v522, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V025AssumedFallbackInflectionG0OGMd);
-  result = outlined init with copy of FloatingPointRoundingRule?(v493, v489, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V025AssumedFallbackInflectionG0OGMd);
+  outlined init with copy of FloatingPointRoundingRule?(v492, v522, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V025AssumedFallbackInflectionG0OGMd, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V025AssumedFallbackInflectionG0OGMR);
+  result = outlined init with copy of FloatingPointRoundingRule?(v493, v489, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V025AssumedFallbackInflectionG0OGMd, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V025AssumedFallbackInflectionG0OGMR);
   v494 = *(v493 + 96);
   if (v494 == 2)
   {
@@ -2729,9 +2729,9 @@ LABEL_328:
 
   v495 = *(v493 + 88);
   v562 = *(v493 + 72);
-  outlined destroy of TermOfAddress?(v492, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V025AssumedFallbackInflectionG0OGMd);
+  outlined destroy of TermOfAddress?(v492, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V025AssumedFallbackInflectionG0OGMd, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V025AssumedFallbackInflectionG0OGMR);
   v496 = *(*v493 + 16);
-  outlined destroy of TermOfAddress?(v493, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V025AssumedFallbackInflectionG0OGMd);
+  outlined destroy of TermOfAddress?(v493, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V025AssumedFallbackInflectionG0OGMd, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V025AssumedFallbackInflectionG0OGMR);
   v497 = v489 + *(v523 + 36);
   *v497 = v562;
   *(v497 + 16) = v495;
@@ -2751,8 +2751,8 @@ LABEL_328:
     v500 = v520;
 LABEL_334:
 
-    outlined destroy of TermOfAddress?(v489, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1V8IteratorVy__AA15AttributeScopesO0aE0V025AssumedFallbackInflectionH0O_GMd);
-    outlined destroy of TermOfAddress?(v529, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V025AssumedFallbackInflectionG0OGMd);
+    outlined destroy of TermOfAddress?(v489, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1V8IteratorVy__AA15AttributeScopesO0aE0V025AssumedFallbackInflectionH0O_GMd, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1V8IteratorVy__AA15AttributeScopesO0aE0V025AssumedFallbackInflectionH0O_GMR);
+    outlined destroy of TermOfAddress?(v529, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V025AssumedFallbackInflectionG0OGMd, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V025AssumedFallbackInflectionG0OGMR);
     v501 = *&v571[32];
     v502 = *&v571[64];
     *(v227 + 48) = *&v571[48];
@@ -2774,7 +2774,7 @@ LABEL_335:
     BYTE4(v570[0]) = BYTE4(v499);
     DWORD1(v570[5]) = *(v227 + 79);
     *(v227 + 197) = v504;
-    result = outlined destroy of TermOfAddress?(&v569, &_s10Foundation10MorphologyVSg_SnyAA16AttributedStringV5IndexVGtSgMd);
+    result = outlined destroy of TermOfAddress?(&v569, &_s10Foundation10MorphologyVSg_SnyAA16AttributedStringV5IndexVGtSgMd, &_s10Foundation10MorphologyVSg_SnyAA16AttributedStringV5IndexVGtSgMR);
 LABEL_336:
     *v500 = 0u;
     *(v500 + 16) = 0u;
@@ -2796,7 +2796,7 @@ LABEL_336:
         break;
       }
 
-      outlined destroy of TermOfAddress?(&v569, &_s10Foundation10MorphologyVSg_SnyAA16AttributedStringV5IndexVGtSgMd);
+      outlined destroy of TermOfAddress?(&v569, &_s10Foundation10MorphologyVSg_SnyAA16AttributedStringV5IndexVGtSgMd, &_s10Foundation10MorphologyVSg_SnyAA16AttributedStringV5IndexVGtSgMR);
       specialized AttributedString.Runs.AttributesSlice1.Iterator.next()(&_s10Foundation16AttributedStringV4RunsV16AttributesSlice1V8IteratorVy__AA15AttributeScopesO0aE0V025AssumedFallbackInflectionH0O_GMd, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1V8IteratorVy__AA15AttributeScopesO0aE0V025AssumedFallbackInflectionH0O_GMR, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V025AssumedFallbackInflectionG0OGMd, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V025AssumedFallbackInflectionG0OGMR, &one-time initialization token for name, algn_1EA7B2598, &static AttributeScopes.FoundationAttributes.AssumedFallbackInflectionAttribute.name, one-time initialization function for name, &v578);
       v498 = v578;
       *&v571[32] = *(&v579[2] + 5);
@@ -2815,8 +2815,8 @@ LABEL_336:
       }
     }
 
-    outlined destroy of TermOfAddress?(v556, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1V8IteratorVy__AA15AttributeScopesO0aE0V025AssumedFallbackInflectionH0O_GMd);
-    result = outlined destroy of TermOfAddress?(v529, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V025AssumedFallbackInflectionG0OGMd);
+    outlined destroy of TermOfAddress?(v556, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1V8IteratorVy__AA15AttributeScopesO0aE0V025AssumedFallbackInflectionH0O_GMd, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1V8IteratorVy__AA15AttributeScopesO0aE0V025AssumedFallbackInflectionH0O_GMR);
+    result = outlined destroy of TermOfAddress?(v529, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V025AssumedFallbackInflectionG0OGMd, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V025AssumedFallbackInflectionG0OGMR);
     v505 = *(&v569 + 1);
     v498 = v569;
     v227 = &v564;
@@ -2935,7 +2935,7 @@ uint64_t thunk for @escaping @callee_guaranteed (@unowned _NSRange, @guaranteed 
   v9(a2, a3, a6, v11);
 }
 
-void thunk for @escaping @callee_unowned @convention(block) (@unowned NSString?, @unowned _NSRange, @unowned UnsafeMutablePointer<ObjCBool>) -> ()(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+void thunk for @escaping @callee_unowned @convention(block) (@unowned NSString?, @unowned _NSRange, @unowned UnsafeMutablePointer<ObjCBool>) -> ()(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   if (a2)
   {
@@ -3005,18 +3005,18 @@ uint64_t closure #12 in AttributedString.inflected(locale:userTermOfAddress:repl
       }
 
       v27 = static AttributeScopes.FoundationAttributes.InflectionAlternativeAttribute.name;
-      v21 = unk_1EA7B25D8;
+      v21 = qword_1EA7B25D8[0];
       v163 = 0;
       v19 = v152;
       v161 = 0u;
       v162 = 0u;
       v159 = 0u;
       v160 = 0u;
-      outlined init with copy of FloatingPointRoundingRule?(&v159, v152, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+      outlined init with copy of FloatingPointRoundingRule?(&v159, v152, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
       if (!*&v152[24])
       {
 
-        outlined destroy of TermOfAddress?(v152, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+        outlined destroy of TermOfAddress?(v152, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
         v59 = specialized __RawDictionaryStorage.find<A>(_:)(v27, v21);
         v22 = a4;
         if (v60)
@@ -3043,10 +3043,10 @@ LABEL_61:
         while (1)
         {
           AttributedString._AttributeStorage._attributeModified(_:old:new:)(v27, v21, &v154, &v159);
-          outlined destroy of TermOfAddress?(&v159, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
-          outlined destroy of TermOfAddress?(&v154, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+          outlined destroy of TermOfAddress?(&v159, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
+          outlined destroy of TermOfAddress?(&v154, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
 
-          specialized AttributedString.replaceSubrange<A, B>(_:with:)(v166, v62);
+          specialized AttributedString.replaceSubrange<A, B>(_:with:)();
           a3 = *v22;
           v96 = *(v62 + 40);
           v177 = *(v62 + 24);
@@ -3114,7 +3114,7 @@ LABEL_61:
 
           __break(1u);
 LABEL_66:
-          __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMd);
+          __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMd, &_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMR);
           v113 = static _DictionaryStorage.copy(original:)();
           v63 = v113;
           if (*(v61 + 16))
@@ -3301,7 +3301,7 @@ LABEL_59:
         goto LABEL_60;
       }
 
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMd, &_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMR);
       v76 = static _DictionaryStorage.copy(original:)();
       v56 = v76;
       if (!*(v28 + 16))
@@ -3605,23 +3605,23 @@ uint64_t thunk for @escaping @callee_guaranteed (@unowned _NSRange, @guaranteed 
   return __swift_destroy_boxed_opaque_existential_1(v12);
 }
 
-double closure #14 in AttributedString.inflected(locale:userTermOfAddress:replacements:concepts:preflight:)@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+double closure #14 in AttributedString.inflected(locale:userTermOfAddress:replacements:concepts:preflight:)@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a4@<X8>)
 {
-  outlined init with copy of Any(a1, v8);
+  outlined init with copy of Any(a1, v9);
   if (swift_dynamicCast())
   {
-    v6 = v7;
-    v7 = a2;
-    *(a3 + 24) = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation16AttributedStringVSgMd);
+    v7 = v8;
+    v8 = a2;
+    *(a4 + 24) = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation16AttributedStringVSgMd, &_s10Foundation16AttributedStringVSgMR);
 
-    AttributedString.formatInflectionAlternative(_:replacements:)(&v6);
+    AttributedString.formatInflectionAlternative(_:replacements:)(&v7);
   }
 
   else
   {
     result = 0.0;
-    *a3 = 0u;
-    *(a3 + 16) = 0u;
+    *a4 = 0u;
+    *(a4 + 16) = 0u;
   }
 
   return result;
@@ -3631,278 +3631,282 @@ void AttributedString.formatInflectionAlternative(_:replacements:)(uint64_t a1)
 {
   MEMORY[0x1EEE9AC00](a1);
   v3 = v2;
-  v454 = v4;
+  v470 = v4;
   v6 = *v5;
-  v450 = *v1;
+  v466 = *v1;
   v7 = *(*v5 + 24);
   v8 = *(*v5 + 40);
-  v650 = *(*v5 + 56);
-  v649 = v8;
-  v648 = v7;
+  v666 = *(*v5 + 56);
+  v665 = v8;
+  v664 = v7;
   v9 = BigString.startIndex.getter();
   v11 = v10;
   v13 = v12;
   v15 = v14;
   v16 = *(v6 + 16);
-  v452 = v3 & 0xFFFFFFFFFFFFFF8;
-  v453 = v3;
-  v451 = v3 & 0xC000000000000001;
-  v449 = v3 + 32;
+  v468 = v3 & 0xFFFFFFFFFFFFFF8;
+  v469 = v3;
+  v467 = v3 & 0xC000000000000001;
+  v465 = v3 + 32;
 
   while (1)
   {
     while (1)
     {
-      v647[0] = v9;
-      v647[1] = v11;
-      v647[2] = v13;
-      v647[3] = v15;
-      v647[4] = v16;
-      specialized AttributedString.subscript.getter(v647, v6, v512);
-      v550[4] = *&v512[64];
-      v550[3] = *&v512[48];
-      v550[2] = *&v512[32];
-      v550[0] = *v512;
-      v550[1] = *&v512[16];
-      v17 = *v512;
-      v645[3] = *&v512[8];
-      v645[4] = *&v512[24];
-      v645[5] = *&v512[40];
-      v645[6] = *&v512[56];
-      v18 = *(*v512 + 24);
-      v19 = *(*v512 + 40);
-      v646[2] = *(*v512 + 56);
-      v646[1] = v19;
-      v646[0] = v18;
-      outlined init with copy of AttributedSubstring(v550, v537);
-      outlined init with copy of BigString(v646, v537);
+      v663[0] = v9;
+      v663[1] = v11;
+      v663[2] = v13;
+      v663[3] = v15;
+      v663[4] = v16;
+      specialized AttributedString.subscript.getter(v663, v6, v528);
+      v566[4] = *&v528[64];
+      v566[3] = *&v528[48];
+      v566[2] = *&v528[32];
+      v566[0] = *v528;
+      v566[1] = *&v528[16];
+      v17 = *v528;
+      v661[3] = *&v528[8];
+      v661[4] = *&v528[24];
+      v661[5] = *&v528[40];
+      v661[6] = *&v528[56];
+      v18 = *(*v528 + 24);
+      v19 = *(*v528 + 40);
+      v662[2] = *(*v528 + 56);
+      v662[1] = v19;
+      v662[0] = v18;
+      outlined init with copy of AttributedSubstring(v566, v553);
+      outlined init with copy of BigString(v662, v553);
       BigString.subscript.getter();
-      outlined destroy of BigString(v646);
-      outlined destroy of BigSubstring(v551);
-      v522 = v552;
-      v523 = v553;
-      v524 = v554;
-      v525 = v555;
-      *&v537[8] = v552;
-      *&v537[24] = v553;
-      *&v537[40] = v554;
-      *&v537[56] = v555;
-      *v537 = v17;
-      *&v537[72] = 0;
+      outlined destroy of BigString(v662);
+      outlined destroy of BigSubstring(v567);
+      v538 = v568;
+      v539 = v569;
+      v540 = v570;
+      v541 = v571;
+      *&v553[8] = v568;
+      *&v553[24] = v569;
+      *&v553[40] = v570;
+      *&v553[56] = v571;
+      *v553 = v17;
+      *&v553[72] = 0;
       lazy protocol witness table accessor for type AttributedString.CharacterView and conformance AttributedString.CharacterView();
       v20 = Substring.init<A>(_:)();
       v22 = v21;
-      *v537 = 123;
-      *&v537[8] = 0xE100000000000000;
-      v23 = Substring.init<A>(_:)();
-      v473 = v6;
-      if ((v20 ^ v22) < 0x4000 || (v23 ^ v24) < 0x4000)
+      v24 = v23;
+      v26 = v25;
+      *v553 = 123;
+      *&v553[8] = 0xE100000000000000;
+      v27 = Substring.init<A>(_:)();
+      v489 = v6;
+      if ((v20 ^ v22) < 0x4000 || (v27 ^ v28) < 0x4000)
       {
 
 LABEL_110:
 
-        outlined destroy of AttributedSubstring(v550);
-        v311 = *(v6 + 40);
-        v492 = *(v6 + 24);
-        v493 = v311;
-        v494 = *(v6 + 56);
-        v312 = BigString.startIndex.getter();
-        v314 = v313;
-        v315 = v6;
-        v317 = v316;
-        v319 = v318;
-        v320 = *(v315 + 16);
+        outlined destroy of AttributedSubstring(v566);
+        v319 = *(v6 + 40);
+        v508 = *(v6 + 24);
+        v509 = v319;
+        v510 = *(v6 + 56);
+        v320 = BigString.startIndex.getter();
+        v322 = v321;
+        v323 = v6;
+        v325 = v324;
+        v327 = v326;
+        v328 = *(v323 + 16);
         while (1)
         {
-          v577[0] = v312;
-          v577[1] = v314;
-          v577[2] = v317;
-          v577[3] = v319;
-          v577[4] = v320;
-          specialized AttributedString.subscript.getter(v577, v473, v549);
-          v505 = *&v549[48];
-          v506 = *&v549[64];
-          v502 = *v549;
-          v503 = *&v549[16];
-          v504 = *&v549[32];
-          v321 = *v549;
-          v532 = *&v549[8];
-          v533 = *&v549[24];
-          v534 = *&v549[40];
-          v535 = *&v549[56];
-          v322 = *(*v549 + 24);
-          v323 = *(*v549 + 56);
-          v488 = *(*v549 + 40);
-          v489 = v323;
-          v487 = v322;
-          outlined init with copy of AttributedSubstring(&v502, v512);
-          outlined init with copy of BigString(&v487, v512);
+          v593[0] = v320;
+          v593[1] = v322;
+          v593[2] = v325;
+          v593[3] = v327;
+          v593[4] = v328;
+          specialized AttributedString.subscript.getter(v593, v489, v565);
+          v521 = *&v565[48];
+          v522 = *&v565[64];
+          v518 = *v565;
+          v519 = *&v565[16];
+          v520 = *&v565[32];
+          v329 = *v565;
+          v548 = *&v565[8];
+          v549 = *&v565[24];
+          v550 = *&v565[40];
+          v551 = *&v565[56];
+          v330 = *(*v565 + 24);
+          v331 = *(*v565 + 56);
+          v504 = *(*v565 + 40);
+          v505 = v331;
+          v503 = v330;
+          outlined init with copy of AttributedSubstring(&v518, v528);
+          outlined init with copy of BigString(&v503, v528);
           BigString.subscript.getter();
-          outlined destroy of BigString(&v487);
-          outlined destroy of BigSubstring(v537);
-          *&v548[16] = *&v537[64];
-          *v548 = *&v537[48];
-          *&v548[32] = v538;
-          *&v548[48] = v539;
-          *&v512[8] = *&v537[48];
-          *&v512[24] = *&v537[64];
-          *&v512[40] = v538;
-          *&v512[56] = v539;
-          *v512 = v321;
-          *&v512[72] = 0;
-          v324 = Substring.init<A>(_:)();
-          v326 = v325;
-          *v512 = 32125;
-          *&v512[8] = 0xE200000000000000;
-          v327 = Substring.init<A>(_:)();
-          if ((v324 ^ v326) < 0x4000 || (v327 ^ v328) < 0x4000)
+          outlined destroy of BigString(&v503);
+          outlined destroy of BigSubstring(v553);
+          *&v564[16] = *&v553[64];
+          *v564 = *&v553[48];
+          *&v564[32] = v554;
+          *&v564[48] = v555;
+          *&v528[8] = *&v553[48];
+          *&v528[24] = *&v553[64];
+          *&v528[40] = v554;
+          *&v528[56] = v555;
+          *v528 = v329;
+          *&v528[72] = 0;
+          v332 = Substring.init<A>(_:)();
+          v334 = v333;
+          v336 = v335;
+          v338 = v337;
+          *v528 = 32125;
+          *&v528[8] = 0xE200000000000000;
+          v339 = Substring.init<A>(_:)();
+          if ((v332 ^ v334) < 0x4000 || (v339 ^ v340) < 0x4000)
           {
             break;
           }
 
-          specialized _StringCompareOptionsIterable._range<A>(of:toHalfWidth:diacriticsInsensitive:caseFold:anchored:backwards:)(v327, v328, v329, v330, 0, 0, 0, 0, 0, v324, v326);
-          v332 = v331;
+          specialized _StringCompareOptionsIterable._range<A>(of:toHalfWidth:diacriticsInsensitive:caseFold:anchored:backwards:)(v339, v340, v341, v342, 0, 0, 0, 0, 0, v332, v334, v336, v338);
+          v344 = v343;
 
-          if (v332)
+          if (v344)
           {
             goto LABEL_141;
           }
 
-          v333 = Substring.UTF8View.distance(from:to:)();
+          v345 = Substring.UTF8View.distance(from:to:)();
 
-          v334 = Substring.UTF8View.distance(from:to:)();
+          v346 = Substring.UTF8View.distance(from:to:)();
 
-          v335 = *(&v502 + 1) >> 11;
-          if (__OFADD__(*(&v502 + 1) >> 11, v333))
+          v347 = *(&v518 + 1) >> 11;
+          if (__OFADD__(*(&v518 + 1) >> 11, v345))
           {
             goto LABEL_165;
           }
 
-          v336 = *(v321 + 24);
-          v337 = *(v321 + 56);
-          v483 = *(v321 + 40);
-          v484 = v337;
-          v482 = v336;
-          v338 = *(v321 + 40);
-          v475 = *(v321 + 24);
-          v476 = v338;
-          v477 = *(v321 + 56);
+          v348 = *(v329 + 24);
+          v349 = *(v329 + 56);
+          v499 = *(v329 + 40);
+          v500 = v349;
+          v498 = v348;
+          v350 = *(v329 + 40);
+          v491 = *(v329 + 24);
+          v492 = v350;
+          v493 = *(v329 + 56);
           BigString.startIndex.getter();
-          outlined init with copy of AttributedSubstring(&v502, v512);
-          outlined init with copy of BigString(&v482, v512);
-          v339 = BigString.UTF8View.index(_:offsetBy:)();
-          v341 = v340;
-          v343 = v342;
-          v345 = v344;
-          outlined destroy of BigString(&v482);
-          outlined destroy of AttributedSubstring(&v502);
-          if (__OFADD__(v335, v334))
+          outlined init with copy of AttributedSubstring(&v518, v528);
+          outlined init with copy of BigString(&v498, v528);
+          v351 = BigString.UTF8View.index(_:offsetBy:)();
+          v353 = v352;
+          v355 = v354;
+          v357 = v356;
+          outlined destroy of BigString(&v498);
+          outlined destroy of AttributedSubstring(&v518);
+          if (__OFADD__(v347, v346))
           {
             goto LABEL_166;
           }
 
-          v470 = *(v321 + 16);
-          v472 = v345;
-          v346 = *(v321 + 24);
-          v347 = *(v321 + 40);
-          v590 = *(v321 + 56);
-          v589 = v347;
-          v588 = v346;
-          v348 = *(v321 + 40);
-          v585 = *(v321 + 24);
-          v586 = v348;
-          v587 = *(v321 + 56);
+          v486 = *(v329 + 16);
+          v488 = v357;
+          v358 = *(v329 + 24);
+          v359 = *(v329 + 40);
+          v606 = *(v329 + 56);
+          v605 = v359;
+          v604 = v358;
+          v360 = *(v329 + 40);
+          v601 = *(v329 + 24);
+          v602 = v360;
+          v603 = *(v329 + 56);
           BigString.startIndex.getter();
-          outlined init with copy of AttributedSubstring(&v502, v512);
-          outlined init with copy of BigString(&v588, v512);
-          v349 = BigString.UTF8View.index(_:offsetBy:)();
-          v351 = v350;
-          v353 = v352;
-          v355 = v354;
-          outlined destroy of BigString(&v588);
-          outlined destroy of AttributedSubstring(&v502);
-          v356 = *(v321 + 16);
-          outlined destroy of AttributedSubstring(&v502);
-          if (v349 >> 10 < v339 >> 10)
+          outlined init with copy of AttributedSubstring(&v518, v528);
+          outlined init with copy of BigString(&v604, v528);
+          v361 = BigString.UTF8View.index(_:offsetBy:)();
+          v363 = v362;
+          v365 = v364;
+          v367 = v366;
+          outlined destroy of BigString(&v604);
+          outlined destroy of AttributedSubstring(&v518);
+          v368 = *(v329 + 16);
+          outlined destroy of AttributedSubstring(&v518);
+          if (v361 >> 10 < v351 >> 10)
           {
             goto LABEL_167;
           }
 
-          *&v522 = v339;
-          *(&v522 + 1) = v341;
-          *&v523 = v343;
-          *(&v523 + 1) = v472;
-          *&v524 = v470;
-          *(&v524 + 1) = v349;
-          *&v525 = v351;
-          *(&v525 + 1) = v353;
-          *&v526 = v355;
-          *(&v526 + 1) = v356;
-          v357 = v473;
-          v358 = *(v473 + 24);
-          v359 = *(v473 + 40);
-          v584 = *(v473 + 56);
-          v583 = v359;
-          v582 = v358;
-          v360 = BigString.startIndex.getter();
-          v362 = v361;
-          v364 = v363;
-          v366 = v365;
-          v367 = BigString.endIndex.getter();
-          *v548 = v473;
-          *&v548[8] = v360;
-          *&v548[16] = v362;
-          *&v548[24] = v364;
-          *&v548[32] = v366;
-          *&v548[40] = v367;
-          *&v548[48] = v368;
-          *&v548[56] = v369;
-          *&v548[64] = v370;
-          v371 = *(v473 + 16);
-          *v543 = v360;
-          *&v543[8] = v362;
-          *&v543[16] = v364;
-          *&v543[24] = v366;
-          *&v543[32] = v371;
-          v497 = v522;
-          v498 = v523;
-          *&v499 = v524;
+          *&v538 = v351;
+          *(&v538 + 1) = v353;
+          *&v539 = v355;
+          *(&v539 + 1) = v488;
+          *&v540 = v486;
+          *(&v540 + 1) = v361;
+          *&v541 = v363;
+          *(&v541 + 1) = v365;
+          *&v542 = v367;
+          *(&v542 + 1) = v368;
+          v369 = v489;
+          v370 = *(v489 + 24);
+          v371 = *(v489 + 40);
+          v600 = *(v489 + 56);
+          v599 = v371;
+          v598 = v370;
+          v372 = BigString.startIndex.getter();
+          v374 = v373;
+          v376 = v375;
+          v378 = v377;
+          v379 = BigString.endIndex.getter();
+          *v564 = v489;
+          *&v564[8] = v372;
+          *&v564[16] = v374;
+          *&v564[24] = v376;
+          *&v564[32] = v378;
+          *&v564[40] = v379;
+          *&v564[48] = v380;
+          *&v564[56] = v381;
+          *&v564[64] = v382;
+          v383 = *(v489 + 16);
+          *v559 = v372;
+          *&v559[8] = v374;
+          *&v559[16] = v376;
+          *&v559[24] = v378;
+          *&v559[32] = v383;
+          v513 = v538;
+          v514 = v539;
+          *&v515 = v540;
 
-          v372 = AttributedString.CharacterView._distance(from:to:)(v543, &v497);
-          *&v512[32] = *&v548[32];
-          *&v512[48] = *&v548[48];
-          *&v512[64] = *&v548[64];
-          *v512 = *v548;
-          *&v512[16] = *&v548[16];
-          outlined destroy of AttributedString.CharacterView(v512);
+          v384 = AttributedString.CharacterView._distance(from:to:)(v559, &v513);
+          *&v528[32] = *&v564[32];
+          *&v528[48] = *&v564[48];
+          *&v528[64] = *&v564[64];
+          *v528 = *v564;
+          *&v528[16] = *&v564[16];
+          outlined destroy of AttributedString.CharacterView(v528);
           if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
           {
-            v373 = *(v473 + 40);
-            v579 = *(v473 + 24);
-            v580 = v373;
-            v581 = *(v473 + 56);
-            v374 = *(v473 + 72);
-            v375 = *(v473 + 80);
-            v377 = *(v473 + 88);
-            v376 = *(v473 + 96);
+            v385 = *(v489 + 40);
+            v595 = *(v489 + 24);
+            v596 = v385;
+            v597 = *(v489 + 56);
+            v386 = *(v489 + 72);
+            v387 = *(v489 + 80);
+            v389 = *(v489 + 88);
+            v388 = *(v489 + 96);
             type metadata accessor for AttributedString.Guts();
-            v357 = swift_allocObject();
-            v378 = BigString.isEmpty.getter() & 1;
-            outlined init with copy of BigString(&v579, v548);
-            v379 = swift_unknownObjectRetain();
-            specialized Rope._endPath.getter(v379);
-            if (v374)
+            v369 = swift_allocObject();
+            v390 = BigString.isEmpty.getter() & 1;
+            outlined init with copy of BigString(&v595, v564);
+            v391 = swift_unknownObjectRetain();
+            specialized Rope._endPath.getter(v391);
+            if (v386)
             {
-              v380 = v377 == 0;
+              v392 = v389 == 0;
             }
 
             else
             {
-              v380 = 1;
+              v392 = 1;
             }
 
-            v381 = v380;
-            if (v381 != v378)
+            v393 = v392;
+            if (v393 != v390)
             {
               goto LABEL_178;
             }
@@ -3912,16 +3916,16 @@ LABEL_110:
               swift_once();
             }
 
-            *(v357 + 16) = atomic_fetch_add_explicit(&static AttributedString.Guts._nextVersion, 1uLL, memory_order_relaxed);
-            v382 = v580;
-            *(v357 + 24) = v579;
-            *(v357 + 40) = v382;
-            *(v357 + 56) = v581;
-            *(v357 + 72) = v374;
-            *(v357 + 80) = v375;
-            *(v357 + 88) = v377;
-            *(v357 + 96) = v376;
-            *(v357 + 104) = MEMORY[0x1E69E7CC0];
+            *(v369 + 16) = atomic_fetch_add_explicit(&static AttributedString.Guts._nextVersion, 1uLL, memory_order_relaxed);
+            v394 = v596;
+            *(v369 + 24) = v595;
+            *(v369 + 40) = v394;
+            *(v369 + 56) = v597;
+            *(v369 + 72) = v386;
+            *(v369 + 80) = v387;
+            *(v369 + 88) = v389;
+            *(v369 + 96) = v388;
+            *(v369 + 104) = MEMORY[0x1E69E7CC0];
           }
 
           if (one-time initialization token for _nextVersion != -1)
@@ -3929,120 +3933,120 @@ LABEL_110:
             swift_once();
           }
 
-          *(v357 + 16) = atomic_fetch_add_explicit(&static AttributedString.Guts._nextVersion, 1uLL, memory_order_relaxed);
-          *v548 = v357;
-          v383 = *(v357 + 24);
-          v384 = *(v357 + 40);
-          v578[8] = *(v357 + 56);
-          v578[7] = v384;
-          v578[6] = v383;
-          v385 = BigString.startIndex.getter();
-          v387 = v386;
-          v389 = v388;
-          v391 = v390;
-          v392 = BigString.endIndex.getter();
-          *&v548[8] = v385;
-          *&v548[16] = v387;
-          *&v548[24] = v389;
-          *&v548[32] = v391;
-          *&v548[40] = v392;
-          *&v548[48] = v393;
-          *&v548[56] = v394;
-          *&v548[64] = v395;
-          v396 = one-time initialization token for currentIdentity;
+          *(v369 + 16) = atomic_fetch_add_explicit(&static AttributedString.Guts._nextVersion, 1uLL, memory_order_relaxed);
+          *v564 = v369;
+          v395 = *(v369 + 24);
+          v396 = *(v369 + 40);
+          v594[8] = *(v369 + 56);
+          v594[7] = v396;
+          v594[6] = v395;
+          v397 = BigString.startIndex.getter();
+          v399 = v398;
+          v401 = v400;
+          v403 = v402;
+          v404 = BigString.endIndex.getter();
+          *&v564[8] = v397;
+          *&v564[16] = v399;
+          *&v564[24] = v401;
+          *&v564[32] = v403;
+          *&v564[40] = v404;
+          *&v564[48] = v405;
+          *&v564[56] = v406;
+          *&v564[64] = v407;
+          v408 = one-time initialization token for currentIdentity;
 
-          if (v396 != -1)
+          if (v408 != -1)
           {
             swift_once();
           }
 
-          v397 = static AttributedString.currentIdentity;
+          v409 = static AttributedString.currentIdentity;
           os_unfair_lock_lock((static AttributedString.currentIdentity + 24));
-          v398 = *(v397 + 16);
-          v399 = v398 + 1;
-          if (__OFADD__(v398, 1))
+          v410 = *(v409 + 16);
+          v411 = v410 + 1;
+          if (__OFADD__(v410, 1))
           {
             goto LABEL_168;
           }
 
-          *(v397 + 16) = v399;
-          os_unfair_lock_unlock((v397 + 24));
-          *&v548[72] = v399;
+          *(v409 + 16) = v411;
+          os_unfair_lock_unlock((v409 + 24));
+          *&v564[72] = v411;
           BigString.init()();
-          *v543 = 0;
-          MEMORY[0x1865D26B0](v543, 8);
-          v400 = *v543;
+          *v559 = 0;
+          MEMORY[0x1865D26B0](v559, 8);
+          v412 = *v559;
           type metadata accessor for AttributedString.Guts();
-          v401 = swift_allocObject();
+          v413 = swift_allocObject();
           if ((BigString.isEmpty.getter() & 1) == 0)
           {
             goto LABEL_169;
           }
 
-          *(v401 + 16) = atomic_fetch_add_explicit(&static AttributedString.Guts._nextVersion, 1uLL, memory_order_relaxed);
-          v402 = v569;
-          *(v401 + 24) = v568;
-          *(v401 + 40) = v402;
-          *(v401 + 56) = v570;
-          *(v401 + 72) = 0;
-          *(v401 + 80) = 0;
-          *(v401 + 88) = 0;
-          *(v401 + 96) = v400;
-          *(v401 + 104) = MEMORY[0x1E69E7CC0];
+          *(v413 + 16) = atomic_fetch_add_explicit(&static AttributedString.Guts._nextVersion, 1uLL, memory_order_relaxed);
+          v414 = v585;
+          *(v413 + 24) = v584;
+          *(v413 + 40) = v414;
+          *(v413 + 56) = v586;
+          *(v413 + 72) = 0;
+          *(v413 + 80) = 0;
+          *(v413 + 88) = 0;
+          *(v413 + 96) = v412;
+          *(v413 + 104) = MEMORY[0x1E69E7CC0];
 
-          specialized AttributedString.CharacterView.replaceSubrange<A>(_:with:)(&v522, 125, 0xE100000000000000);
-          if (*&v548[72] != v399)
+          specialized AttributedString.CharacterView.replaceSubrange<A>(_:with:)(&v538, 125, 0xE100000000000000);
+          if (*&v564[72] != v411)
           {
             goto LABEL_195;
           }
 
-          v403 = *v548;
+          v415 = *v564;
 
-          v404 = *(v403 + 40);
-          v578[3] = *(v403 + 24);
-          v578[4] = v404;
-          v578[5] = *(v403 + 56);
-          v405 = BigString.startIndex.getter();
-          v407 = v406;
-          v409 = v408;
-          v411 = v410;
-          v412 = BigString.endIndex.getter();
-          *v543 = v403;
-          *&v543[8] = v405;
-          *&v543[16] = v407;
-          *&v543[24] = v409;
-          *&v543[32] = v411;
-          *&v543[40] = v412;
-          *&v543[48] = v413;
-          *&v543[56] = v414;
-          *&v543[64] = v415;
-          if (__OFADD__(v372, 1))
+          v416 = *(v415 + 40);
+          v594[3] = *(v415 + 24);
+          v594[4] = v416;
+          v594[5] = *(v415 + 56);
+          v417 = BigString.startIndex.getter();
+          v419 = v418;
+          v421 = v420;
+          v423 = v422;
+          v424 = BigString.endIndex.getter();
+          *v559 = v415;
+          *&v559[8] = v417;
+          *&v559[16] = v419;
+          *&v559[24] = v421;
+          *&v559[32] = v423;
+          *&v559[40] = v424;
+          *&v559[48] = v425;
+          *&v559[56] = v426;
+          *&v559[64] = v427;
+          if (__OFADD__(v384, 1))
           {
             goto LABEL_170;
           }
 
-          v416 = v405 >> 10;
-          v417 = v412 >> 10;
-          if (v412 >> 10 < v405 >> 10)
+          v428 = v417 >> 10;
+          v429 = v424 >> 10;
+          if (v424 >> 10 < v417 >> 10)
           {
             goto LABEL_171;
           }
 
-          v418 = *(v403 + 40);
-          v578[0] = *(v403 + 24);
-          v578[1] = v418;
-          v578[2] = *(v403 + 56);
+          v430 = *(v415 + 40);
+          v594[0] = *(v415 + 24);
+          v594[1] = v430;
+          v594[2] = *(v415 + 56);
 
-          outlined init with copy of BigString(v578, &v497);
-          v312 = BigString.index(_:offsetBy:)();
-          v314 = v419;
-          v317 = v420;
-          v319 = v421;
-          outlined destroy of BigString(v578);
-          v473 = v403;
-          v320 = *(v403 + 16);
-          outlined destroy of AttributedString.CharacterView(v543);
-          if (v312 >> 10 < v416 || v417 < v312 >> 10)
+          outlined init with copy of BigString(v594, &v513);
+          v320 = BigString.index(_:offsetBy:)();
+          v322 = v431;
+          v325 = v432;
+          v327 = v433;
+          outlined destroy of BigString(v594);
+          v489 = v415;
+          v328 = *(v415 + 16);
+          outlined destroy of AttributedString.CharacterView(v559);
+          if (v320 >> 10 < v428 || v429 < v320 >> 10)
           {
             goto LABEL_172;
           }
@@ -4050,76 +4054,78 @@ LABEL_110:
 
 LABEL_141:
 
-        outlined destroy of AttributedSubstring(&v502);
-        specialized AttributedString.subscript.getter(v577, v473, v548);
-        v422 = *v548;
-        v497 = *&v548[8];
-        v498 = *&v548[24];
-        v499 = *&v548[40];
-        v500 = *&v548[56];
-        v423 = *(*v548 + 24);
-        v424 = *(*v548 + 40);
-        v576[2] = *(*v548 + 56);
-        v576[1] = v424;
-        v576[0] = v423;
-        outlined init with copy of AttributedSubstring(v548, v512);
-        outlined init with copy of BigString(v576, v512);
+        outlined destroy of AttributedSubstring(&v518);
+        specialized AttributedString.subscript.getter(v593, v489, v564);
+        v434 = *v564;
+        v513 = *&v564[8];
+        v514 = *&v564[24];
+        v515 = *&v564[40];
+        v516 = *&v564[56];
+        v435 = *(*v564 + 24);
+        v436 = *(*v564 + 40);
+        v592[2] = *(*v564 + 56);
+        v592[1] = v436;
+        v592[0] = v435;
+        outlined init with copy of AttributedSubstring(v564, v528);
+        outlined init with copy of BigString(v592, v528);
         BigString.subscript.getter();
-        outlined destroy of BigString(v576);
-        outlined destroy of BigSubstring(v512);
-        v545 = *&v512[64];
-        v544 = *&v512[48];
-        v547 = v514;
-        v546 = v513;
-        *&v543[8] = *&v512[48];
-        *&v543[24] = *&v512[64];
-        *&v543[40] = v513;
-        *&v543[56] = v514;
-        *v543 = v422;
-        *&v543[72] = 0;
-        v425 = Substring.init<A>(_:)();
-        v427 = v426;
-        *v543 = 125;
-        *&v543[8] = 0xE100000000000000;
-        v428 = Substring.init<A>(_:)();
-        if ((v425 ^ v427) < 0x4000 || (v428 ^ v429) < 0x4000)
+        outlined destroy of BigString(v592);
+        outlined destroy of BigSubstring(v528);
+        v561 = *&v528[64];
+        v560 = *&v528[48];
+        v563 = v530;
+        v562 = v529;
+        *&v559[8] = *&v528[48];
+        *&v559[24] = *&v528[64];
+        *&v559[40] = v529;
+        *&v559[56] = v530;
+        *v559 = v434;
+        *&v559[72] = 0;
+        v437 = Substring.init<A>(_:)();
+        v439 = v438;
+        v441 = v440;
+        v443 = v442;
+        *v559 = 125;
+        *&v559[8] = 0xE100000000000000;
+        v444 = Substring.init<A>(_:)();
+        if ((v437 ^ v439) < 0x4000 || (v444 ^ v445) < 0x4000)
         {
         }
 
         else
         {
-          specialized _StringCompareOptionsIterable._range<A>(of:toHalfWidth:diacriticsInsensitive:caseFold:anchored:backwards:)(v428, v429, v430, v431, 0, 0, 0, 0, 0, v425, v427);
-          v433 = v432;
+          specialized _StringCompareOptionsIterable._range<A>(of:toHalfWidth:diacriticsInsensitive:caseFold:anchored:backwards:)(v444, v445, v446, v447, 0, 0, 0, 0, 0, v437, v439, v441, v443);
+          v449 = v448;
 
-          if ((v433 & 1) == 0)
+          if ((v449 & 1) == 0)
           {
 
-            v434 = Substring.UTF8View.distance(from:to:)();
+            v450 = Substring.UTF8View.distance(from:to:)();
 
-            v435 = Substring.UTF8View.distance(from:to:)();
+            v451 = Substring.UTF8View.distance(from:to:)();
 
-            v436 = *&v548[8] >> 11;
-            if (__OFADD__(*&v548[8] >> 11, v434))
+            v452 = *&v564[8] >> 11;
+            if (__OFADD__(*&v564[8] >> 11, v450))
             {
               goto LABEL_192;
             }
 
-            v437 = *(v422 + 24);
-            v438 = *(v422 + 40);
-            v575[2] = *(v422 + 56);
-            v575[1] = v438;
-            v575[0] = v437;
-            v439 = *(v422 + 40);
-            v574[3] = *(v422 + 24);
-            v574[4] = v439;
-            v574[5] = *(v422 + 56);
+            v453 = *(v434 + 24);
+            v454 = *(v434 + 40);
+            v591[2] = *(v434 + 56);
+            v591[1] = v454;
+            v591[0] = v453;
+            v455 = *(v434 + 40);
+            v590[3] = *(v434 + 24);
+            v590[4] = v455;
+            v590[5] = *(v434 + 56);
             BigString.startIndex.getter();
-            outlined init with copy of AttributedSubstring(v548, v543);
-            outlined init with copy of BigString(v575, v543);
-            v440 = BigString.UTF8View.index(_:offsetBy:)();
-            outlined destroy of BigString(v575);
-            outlined destroy of AttributedSubstring(v548);
-            if (__OFADD__(v436, v435))
+            outlined init with copy of AttributedSubstring(v564, v559);
+            outlined init with copy of BigString(v591, v559);
+            v456 = BigString.UTF8View.index(_:offsetBy:)();
+            outlined destroy of BigString(v591);
+            outlined destroy of AttributedSubstring(v564);
+            if (__OFADD__(v452, v451))
             {
 LABEL_193:
               __break(1u);
@@ -4127,23 +4133,23 @@ LABEL_193:
 
             else
             {
-              v441 = *(v422 + 24);
-              v442 = *(v422 + 40);
-              v574[2] = *(v422 + 56);
-              v574[1] = v442;
-              v574[0] = v441;
-              v443 = *(v422 + 40);
-              v571 = *(v422 + 24);
-              v572 = v443;
-              v573 = *(v422 + 56);
+              v457 = *(v434 + 24);
+              v458 = *(v434 + 40);
+              v590[2] = *(v434 + 56);
+              v590[1] = v458;
+              v590[0] = v457;
+              v459 = *(v434 + 40);
+              v587 = *(v434 + 24);
+              v588 = v459;
+              v589 = *(v434 + 56);
               BigString.startIndex.getter();
-              outlined init with copy of AttributedSubstring(v548, v543);
-              outlined init with copy of BigString(v574, v543);
-              v444 = BigString.UTF8View.index(_:offsetBy:)();
-              outlined destroy of BigString(v574);
-              outlined destroy of AttributedSubstring(v548);
-              outlined destroy of AttributedSubstring(v548);
-              if (v444 >> 10 >= v440 >> 10)
+              outlined init with copy of AttributedSubstring(v564, v559);
+              outlined init with copy of BigString(v590, v559);
+              v460 = BigString.UTF8View.index(_:offsetBy:)();
+              outlined destroy of BigString(v590);
+              outlined destroy of AttributedSubstring(v564);
+              outlined destroy of AttributedSubstring(v564);
+              if (v460 >> 10 >= v456 >> 10)
               {
                 goto LABEL_152;
               }
@@ -4157,216 +4163,216 @@ LABEL_195:
           }
         }
 
-        outlined destroy of AttributedSubstring(v548);
-        *v454 = v473;
+        outlined destroy of AttributedSubstring(v564);
+        *v470 = v489;
         return;
       }
 
-      specialized _StringCompareOptionsIterable._range<A>(of:toHalfWidth:diacriticsInsensitive:caseFold:anchored:backwards:)(v23, v24, v25, v26, 0, 0, 0, 0, 0, v20, v22);
-      v28 = v27;
+      specialized _StringCompareOptionsIterable._range<A>(of:toHalfWidth:diacriticsInsensitive:caseFold:anchored:backwards:)(v27, v28, v29, v30, 0, 0, 0, 0, 0, v20, v22, v24, v26);
+      v32 = v31;
 
-      if (v28)
+      if (v32)
       {
         goto LABEL_110;
       }
 
-      v29 = Substring.UTF8View.distance(from:to:)();
+      v33 = Substring.UTF8View.distance(from:to:)();
 
-      v30 = Substring.UTF8View.distance(from:to:)();
+      v34 = Substring.UTF8View.distance(from:to:)();
 
-      v31 = *(&v550[0] + 1) >> 11;
-      if (__OFADD__(*(&v550[0] + 1) >> 11, v29))
+      v35 = *(&v566[0] + 1) >> 11;
+      if (__OFADD__(*(&v566[0] + 1) >> 11, v33))
       {
         goto LABEL_161;
       }
 
-      v32 = *(v17 + 24);
-      v33 = *(v17 + 40);
-      v645[2] = *(v17 + 56);
-      v645[1] = v33;
-      v645[0] = v32;
-      v34 = *(v17 + 40);
-      v644[3] = *(v17 + 24);
-      v644[4] = v34;
-      v644[5] = *(v17 + 56);
+      v36 = *(v17 + 24);
+      v37 = *(v17 + 40);
+      v661[2] = *(v17 + 56);
+      v661[1] = v37;
+      v661[0] = v36;
+      v38 = *(v17 + 40);
+      v660[3] = *(v17 + 24);
+      v660[4] = v38;
+      v660[5] = *(v17 + 56);
       BigString.startIndex.getter();
-      outlined init with copy of AttributedSubstring(v550, v537);
-      outlined init with copy of BigString(v645, v537);
-      v35 = BigString.UTF8View.index(_:offsetBy:)();
-      v459 = v36;
-      v38 = v37;
-      v40 = v39;
-      outlined destroy of BigString(v645);
-      outlined destroy of AttributedSubstring(v550);
-      if (__OFADD__(v31, v30))
+      outlined init with copy of AttributedSubstring(v566, v553);
+      outlined init with copy of BigString(v661, v553);
+      v39 = BigString.UTF8View.index(_:offsetBy:)();
+      v475 = v40;
+      v42 = v41;
+      v44 = v43;
+      outlined destroy of BigString(v661);
+      outlined destroy of AttributedSubstring(v566);
+      if (__OFADD__(v35, v34))
       {
         goto LABEL_162;
       }
 
-      *&v458 = v38;
-      *(&v458 + 1) = v40;
-      v457 = *(v17 + 16);
-      v41 = *(v17 + 24);
-      v42 = *(v17 + 40);
-      v644[2] = *(v17 + 56);
-      v644[1] = v42;
-      v644[0] = v41;
-      v43 = *(v17 + 40);
-      v643[3] = *(v17 + 24);
-      v643[4] = v43;
-      v643[5] = *(v17 + 56);
+      *&v474 = v42;
+      *(&v474 + 1) = v44;
+      v473 = *(v17 + 16);
+      v45 = *(v17 + 24);
+      v46 = *(v17 + 40);
+      v660[2] = *(v17 + 56);
+      v660[1] = v46;
+      v660[0] = v45;
+      v47 = *(v17 + 40);
+      v659[3] = *(v17 + 24);
+      v659[4] = v47;
+      v659[5] = *(v17 + 56);
       BigString.startIndex.getter();
-      outlined init with copy of AttributedSubstring(v550, v537);
-      outlined init with copy of BigString(v644, v537);
-      v44 = BigString.UTF8View.index(_:offsetBy:)();
-      *(&v466 + 1) = v45;
-      *&v469 = v46;
-      *(&v469 + 1) = v47;
-      outlined destroy of BigString(v644);
-      outlined destroy of AttributedSubstring(v550);
-      v462 = *(v17 + 16);
-      outlined destroy of AttributedSubstring(v550);
-      *&v466 = v44;
-      v48 = v44 >> 10;
-      if (v48 < v35 >> 10)
+      outlined init with copy of AttributedSubstring(v566, v553);
+      outlined init with copy of BigString(v660, v553);
+      v48 = BigString.UTF8View.index(_:offsetBy:)();
+      *(&v482 + 1) = v49;
+      *&v485 = v50;
+      *(&v485 + 1) = v51;
+      outlined destroy of BigString(v660);
+      outlined destroy of AttributedSubstring(v566);
+      v478 = *(v17 + 16);
+      outlined destroy of AttributedSubstring(v566);
+      *&v482 = v48;
+      v52 = v48 >> 10;
+      if (v52 < v39 >> 10)
       {
         goto LABEL_163;
       }
 
-      v463 = v35;
-      v49 = *(v6 + 40);
-      v643[0] = *(v6 + 24);
-      v643[1] = v49;
-      v643[2] = *(v6 + 56);
-      v50 = BigString.endIndex.getter();
-      v54 = v50 >> 10;
-      if (v48 == v50 >> 10)
+      v479 = v39;
+      v53 = *(v6 + 40);
+      v659[0] = *(v6 + 24);
+      v659[1] = v53;
+      v659[2] = *(v6 + 56);
+      v54 = BigString.endIndex.getter();
+      v58 = v54 >> 10;
+      if (v52 == v54 >> 10)
       {
         goto LABEL_152;
       }
 
-      v55 = v50;
-      v56 = v52;
-      v57 = v51;
-      v460 = v53;
-      v58 = BigString.startIndex.getter();
-      if (v48 >= v54)
+      v59 = v54;
+      v60 = v56;
+      v61 = v55;
+      v476 = v57;
+      v62 = BigString.startIndex.getter();
+      if (v52 >= v58)
       {
         goto LABEL_164;
       }
 
-      v62 = v58;
-      if (v48 < v58 >> 10)
+      v66 = v62;
+      if (v52 < v62 >> 10)
       {
         goto LABEL_164;
       }
 
-      v63 = v59;
-      v64 = v60;
-      v65 = v61;
-      v455 = v48;
+      v67 = v63;
+      v68 = v64;
+      v69 = v65;
+      v471 = v52;
 
-      outlined init with copy of BigString(v643, v512);
-      v66 = BigString.subscript.getter();
-      v68 = v67;
-      outlined destroy of BigString(v643);
-      *v549 = v473;
-      *&v549[8] = v62;
-      *&v549[16] = v63;
-      *&v549[24] = v64;
-      *&v549[32] = v65;
-      *&v549[40] = v55;
-      *&v549[48] = v57;
-      *&v549[56] = v56;
-      *&v549[64] = v460;
-      outlined destroy of AttributedString.CharacterView(v549);
-      if (v66 == 123 && v68 == 0xE100000000000000)
+      outlined init with copy of BigString(v659, v528);
+      v70 = BigString.subscript.getter();
+      v72 = v71;
+      outlined destroy of BigString(v659);
+      *v565 = v489;
+      *&v565[8] = v66;
+      *&v565[16] = v67;
+      *&v565[24] = v68;
+      *&v565[32] = v69;
+      *&v565[40] = v59;
+      *&v565[48] = v61;
+      *&v565[56] = v60;
+      *&v565[64] = v476;
+      outlined destroy of AttributedString.CharacterView(v565);
+      if (v70 == 123 && v72 == 0xE100000000000000)
       {
 
-        v69 = v463;
+        v73 = v479;
         goto LABEL_15;
       }
 
-      v70 = _stringCompareWithSmolCheck(_:_:expecting:)();
+      v74 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-      v69 = v463;
-      if ((v70 & 1) == 0)
+      v73 = v479;
+      if ((v74 & 1) == 0)
       {
         break;
       }
 
 LABEL_15:
-      *&v592 = v69;
-      *(&v592 + 1) = v459;
-      v593 = v458;
-      v594 = v457;
-      v595 = v466;
-      v596 = v469;
-      v597 = v462;
-      v71 = v473;
-      v72 = *(v473 + 40);
-      v604 = *(v473 + 24);
-      v605 = v72;
-      v606 = *(v473 + 56);
-      v73 = BigString.startIndex.getter();
-      v75 = v74;
-      v77 = v76;
+      *&v608 = v73;
+      *(&v608 + 1) = v475;
+      v609 = v474;
+      v610 = v473;
+      v611 = v482;
+      v612 = v485;
+      v613 = v478;
+      v75 = v489;
+      v76 = *(v489 + 40);
+      v620 = *(v489 + 24);
+      v621 = v76;
+      v622 = *(v489 + 56);
+      v77 = BigString.startIndex.getter();
       v79 = v78;
-      v80 = BigString.endIndex.getter();
-      *v537 = v473;
-      *&v537[8] = v73;
-      *&v537[16] = v75;
-      *&v537[24] = v77;
-      *&v537[32] = v79;
-      *&v537[40] = v80;
-      *&v537[48] = v81;
-      *&v537[56] = v82;
-      *&v537[64] = v83;
-      v84 = *(v473 + 16);
-      *&v522 = v73;
-      *(&v522 + 1) = v75;
-      *&v523 = v77;
-      *(&v523 + 1) = v79;
-      *&v524 = v84;
-      v502 = v592;
-      v503 = v593;
-      *&v504 = v594;
+      v81 = v80;
+      v83 = v82;
+      v84 = BigString.endIndex.getter();
+      *v553 = v489;
+      *&v553[8] = v77;
+      *&v553[16] = v79;
+      *&v553[24] = v81;
+      *&v553[32] = v83;
+      *&v553[40] = v84;
+      *&v553[48] = v85;
+      *&v553[56] = v86;
+      *&v553[64] = v87;
+      v88 = *(v489 + 16);
+      *&v538 = v77;
+      *(&v538 + 1) = v79;
+      *&v539 = v81;
+      *(&v539 + 1) = v83;
+      *&v540 = v88;
+      v518 = v608;
+      v519 = v609;
+      *&v520 = v610;
 
-      v85 = AttributedString.CharacterView._distance(from:to:)(&v522, &v502);
-      *&v512[32] = *&v537[32];
-      *&v512[48] = *&v537[48];
-      *&v512[64] = *&v537[64];
-      *v512 = *v537;
-      *&v512[16] = *&v537[16];
-      outlined destroy of AttributedString.CharacterView(v512);
+      v89 = AttributedString.CharacterView._distance(from:to:)(&v538, &v518);
+      *&v528[32] = *&v553[32];
+      *&v528[48] = *&v553[48];
+      *&v528[64] = *&v553[64];
+      *v528 = *v553;
+      *&v528[16] = *&v553[16];
+      outlined destroy of AttributedString.CharacterView(v528);
       if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
       {
-        v86 = *(v473 + 40);
-        v601 = *(v473 + 24);
-        v602 = v86;
-        v603 = *(v473 + 56);
-        v87 = *(v473 + 72);
-        v88 = *(v473 + 80);
-        v89 = *(v473 + 88);
-        v90 = *(v473 + 96);
+        v90 = *(v489 + 40);
+        v617 = *(v489 + 24);
+        v618 = v90;
+        v619 = *(v489 + 56);
+        v91 = *(v489 + 72);
+        v92 = *(v489 + 80);
+        v93 = *(v489 + 88);
+        v94 = *(v489 + 96);
         type metadata accessor for AttributedString.Guts();
-        v91 = swift_allocObject();
-        v92 = BigString.isEmpty.getter() & 1;
-        outlined init with copy of BigString(&v601, v537);
-        v93 = swift_unknownObjectRetain();
-        specialized Rope._endPath.getter(v93);
-        if (v87)
+        v95 = swift_allocObject();
+        v96 = BigString.isEmpty.getter() & 1;
+        outlined init with copy of BigString(&v617, v553);
+        v97 = swift_unknownObjectRetain();
+        specialized Rope._endPath.getter(v97);
+        if (v91)
         {
-          v94 = v89 == 0;
+          v98 = v93 == 0;
         }
 
         else
         {
-          v94 = 1;
+          v98 = 1;
         }
 
-        v95 = v94;
-        if (v95 != v92)
+        v99 = v98;
+        if (v99 != v96)
         {
           goto LABEL_179;
         }
@@ -4376,18 +4382,18 @@ LABEL_15:
           swift_once();
         }
 
-        *(v91 + 16) = atomic_fetch_add_explicit(&static AttributedString.Guts._nextVersion, 1uLL, memory_order_relaxed);
-        v96 = v602;
-        *(v91 + 24) = v601;
-        *(v91 + 40) = v96;
-        *(v91 + 56) = v603;
-        *(v91 + 72) = v87;
-        *(v91 + 80) = v88;
-        *(v91 + 88) = v89;
-        *(v91 + 96) = v90;
-        *(v91 + 104) = MEMORY[0x1E69E7CC0];
+        *(v95 + 16) = atomic_fetch_add_explicit(&static AttributedString.Guts._nextVersion, 1uLL, memory_order_relaxed);
+        v100 = v618;
+        *(v95 + 24) = v617;
+        *(v95 + 40) = v100;
+        *(v95 + 56) = v619;
+        *(v95 + 72) = v91;
+        *(v95 + 80) = v92;
+        *(v95 + 88) = v93;
+        *(v95 + 96) = v94;
+        *(v95 + 104) = MEMORY[0x1E69E7CC0];
 
-        v71 = v91;
+        v75 = v95;
       }
 
       if (one-time initialization token for _nextVersion != -1)
@@ -4395,397 +4401,400 @@ LABEL_15:
         swift_once();
       }
 
-      *(v71 + 16) = atomic_fetch_add_explicit(&static AttributedString.Guts._nextVersion, 1uLL, memory_order_relaxed);
-      *v537 = v71;
-      v97 = *(v71 + 24);
-      v98 = *(v71 + 40);
-      v600 = *(v71 + 56);
-      v599 = v98;
-      v598 = v97;
-      v99 = BigString.startIndex.getter();
-      v101 = v100;
-      v103 = v102;
+      *(v75 + 16) = atomic_fetch_add_explicit(&static AttributedString.Guts._nextVersion, 1uLL, memory_order_relaxed);
+      *v553 = v75;
+      v101 = *(v75 + 24);
+      v102 = *(v75 + 40);
+      v616 = *(v75 + 56);
+      v615 = v102;
+      v614 = v101;
+      v103 = BigString.startIndex.getter();
       v105 = v104;
-      v106 = BigString.endIndex.getter();
-      *&v537[8] = v99;
-      *&v537[16] = v101;
-      *&v537[24] = v103;
-      *&v537[32] = v105;
-      *&v537[40] = v106;
-      *&v537[48] = v107;
-      *&v537[56] = v108;
-      *&v537[64] = v109;
-      v110 = one-time initialization token for currentIdentity;
+      v107 = v106;
+      v109 = v108;
+      v110 = BigString.endIndex.getter();
+      *&v553[8] = v103;
+      *&v553[16] = v105;
+      *&v553[24] = v107;
+      *&v553[32] = v109;
+      *&v553[40] = v110;
+      *&v553[48] = v111;
+      *&v553[56] = v112;
+      *&v553[64] = v113;
+      v114 = one-time initialization token for currentIdentity;
 
-      if (v110 != -1)
+      if (v114 != -1)
       {
         swift_once();
       }
 
-      v111 = static AttributedString.currentIdentity;
+      v115 = static AttributedString.currentIdentity;
       os_unfair_lock_lock((static AttributedString.currentIdentity + 24));
-      v112 = *(v111 + 16);
-      v113 = v112 + 1;
-      if (__OFADD__(v112, 1))
+      v116 = *(v115 + 16);
+      v117 = v116 + 1;
+      if (__OFADD__(v116, 1))
       {
         goto LABEL_173;
       }
 
-      *(v111 + 16) = v113;
-      os_unfair_lock_unlock((v111 + 24));
-      *&v537[72] = v113;
+      *(v115 + 16) = v117;
+      os_unfair_lock_unlock((v115 + 24));
+      *&v553[72] = v117;
       BigString.init()();
-      *&v522 = 0;
-      MEMORY[0x1865D26B0](&v522, 8);
-      v114 = v522;
+      *&v538 = 0;
+      MEMORY[0x1865D26B0](&v538, 8);
+      v118 = v538;
       type metadata accessor for AttributedString.Guts();
-      v115 = swift_allocObject();
+      v119 = swift_allocObject();
       if ((BigString.isEmpty.getter() & 1) == 0)
       {
         goto LABEL_174;
       }
 
-      *(v115 + 16) = atomic_fetch_add_explicit(&static AttributedString.Guts._nextVersion, 1uLL, memory_order_relaxed);
-      v116 = v557;
-      *(v115 + 24) = v556;
-      *(v115 + 40) = v116;
-      *(v115 + 56) = v558;
-      *(v115 + 72) = 0;
-      *(v115 + 80) = 0;
-      *(v115 + 88) = 0;
-      *(v115 + 96) = v114;
-      *(v115 + 104) = MEMORY[0x1E69E7CC0];
+      *(v119 + 16) = atomic_fetch_add_explicit(&static AttributedString.Guts._nextVersion, 1uLL, memory_order_relaxed);
+      v120 = v573;
+      *(v119 + 24) = v572;
+      *(v119 + 40) = v120;
+      *(v119 + 56) = v574;
+      *(v119 + 72) = 0;
+      *(v119 + 80) = 0;
+      *(v119 + 88) = 0;
+      *(v119 + 96) = v118;
+      *(v119 + 104) = MEMORY[0x1E69E7CC0];
 
-      specialized RangeReplaceableCollection.replaceSubrange<A, B>(_:with:)(&v592, 123, 0xE100000000000000);
-      if (*&v537[72] != v113)
+      specialized RangeReplaceableCollection.replaceSubrange<A, B>(_:with:)(&v608, 123, 0xE100000000000000);
+      if (*&v553[72] != v117)
       {
         goto LABEL_195;
       }
 
-      v6 = *v537;
+      v6 = *v553;
 
-      v117 = *(v6 + 40);
-      v591[3] = *(v6 + 24);
-      v591[4] = v117;
-      v591[5] = *(v6 + 56);
-      v118 = BigString.startIndex.getter();
-      v120 = v119;
-      v122 = v121;
+      v121 = *(v6 + 40);
+      v607[3] = *(v6 + 24);
+      v607[4] = v121;
+      v607[5] = *(v6 + 56);
+      v122 = BigString.startIndex.getter();
       v124 = v123;
-      v125 = BigString.endIndex.getter();
-      *&v522 = v6;
-      *(&v522 + 1) = v118;
-      *&v523 = v120;
-      *(&v523 + 1) = v122;
-      *&v524 = v124;
-      *(&v524 + 1) = v125;
-      *&v525 = v126;
-      *(&v525 + 1) = v127;
-      v526 = v128;
-      if (__OFADD__(v85, 1))
+      v126 = v125;
+      v128 = v127;
+      v129 = BigString.endIndex.getter();
+      *&v538 = v6;
+      *(&v538 + 1) = v122;
+      *&v539 = v124;
+      *(&v539 + 1) = v126;
+      *&v540 = v128;
+      *(&v540 + 1) = v129;
+      *&v541 = v130;
+      *(&v541 + 1) = v131;
+      v542 = v132;
+      if (__OFADD__(v89, 1))
       {
         goto LABEL_175;
       }
 
-      v129 = v118 >> 10;
-      v130 = v125 >> 10;
-      if (v125 >> 10 < v118 >> 10)
+      v133 = v122 >> 10;
+      v134 = v129 >> 10;
+      if (v129 >> 10 < v122 >> 10)
       {
         goto LABEL_176;
       }
 
-      v131 = *(v6 + 40);
-      v591[0] = *(v6 + 24);
-      v591[1] = v131;
-      v591[2] = *(v6 + 56);
+      v135 = *(v6 + 40);
+      v607[0] = *(v6 + 24);
+      v607[1] = v135;
+      v607[2] = *(v6 + 56);
 
-      outlined init with copy of BigString(v591, &v502);
+      outlined init with copy of BigString(v607, &v518);
       v9 = BigString.index(_:offsetBy:)();
-      v11 = v132;
-      v13 = v133;
-      v15 = v134;
-      outlined destroy of BigString(v591);
+      v11 = v136;
+      v13 = v137;
+      v15 = v138;
+      outlined destroy of BigString(v607);
       v16 = *(v6 + 16);
-      outlined destroy of AttributedString.CharacterView(&v522);
-      if (v9 >> 10 < v129 || v130 < v9 >> 10)
+      outlined destroy of AttributedString.CharacterView(&v538);
+      if (v9 >> 10 < v133 || v134 < v9 >> 10)
       {
         goto LABEL_177;
       }
     }
 
-    v641[0] = v466;
-    v641[1] = v469;
-    v642 = v462;
-    specialized AttributedString.subscript.getter(v641, v473, v543);
-    *&v548[64] = *&v543[64];
-    *&v548[48] = *&v543[48];
-    *&v548[32] = *&v543[32];
-    *v548 = *v543;
-    *&v548[16] = *&v543[16];
-    v135 = *v543;
-    v639[3] = *&v543[8];
-    v639[4] = *&v543[24];
-    v639[5] = *&v543[40];
-    v639[6] = *&v543[56];
-    v136 = *(*v543 + 24);
-    v137 = *(*v543 + 40);
-    v640[2] = *(*v543 + 56);
-    v640[1] = v137;
-    v640[0] = v136;
-    outlined init with copy of AttributedSubstring(v548, v512);
-    outlined init with copy of BigString(v640, v512);
+    v657[0] = v482;
+    v657[1] = v485;
+    v658 = v478;
+    specialized AttributedString.subscript.getter(v657, v489, v559);
+    *&v564[64] = *&v559[64];
+    *&v564[48] = *&v559[48];
+    *&v564[32] = *&v559[32];
+    *v564 = *v559;
+    *&v564[16] = *&v559[16];
+    v139 = *v559;
+    v655[3] = *&v559[8];
+    v655[4] = *&v559[24];
+    v655[5] = *&v559[40];
+    v655[6] = *&v559[56];
+    v140 = *(*v559 + 24);
+    v141 = *(*v559 + 40);
+    v656[2] = *(*v559 + 56);
+    v656[1] = v141;
+    v656[0] = v140;
+    outlined init with copy of AttributedSubstring(v564, v528);
+    outlined init with copy of BigString(v656, v528);
     BigString.subscript.getter();
-    outlined destroy of BigString(v640);
-    outlined destroy of BigSubstring(v559);
-    *&v537[16] = v561;
-    *v537 = v560;
-    *&v537[32] = v562;
-    *&v537[48] = v563;
-    *&v512[8] = v560;
-    *&v512[24] = v561;
-    *&v512[40] = v562;
-    *&v512[56] = v563;
-    *v512 = v135;
-    *&v512[72] = 0;
-    v138 = Substring.init<A>(_:)();
-    v140 = v139;
-    *v512 = 125;
-    *&v512[8] = 0xE100000000000000;
-    v141 = Substring.init<A>(_:)();
-    if ((v138 ^ v140) < 0x4000 || (v141 ^ v142) < 0x4000)
+    outlined destroy of BigString(v656);
+    outlined destroy of BigSubstring(v575);
+    *&v553[16] = v577;
+    *v553 = v576;
+    *&v553[32] = v578;
+    *&v553[48] = v579;
+    *&v528[8] = v576;
+    *&v528[24] = v577;
+    *&v528[40] = v578;
+    *&v528[56] = v579;
+    *v528 = v139;
+    *&v528[72] = 0;
+    v142 = Substring.init<A>(_:)();
+    v144 = v143;
+    v146 = v145;
+    v148 = v147;
+    *v528 = 125;
+    *&v528[8] = 0xE100000000000000;
+    v149 = Substring.init<A>(_:)();
+    if ((v142 ^ v144) < 0x4000 || (v149 ^ v150) < 0x4000)
     {
 
 LABEL_151:
 
-      outlined destroy of AttributedSubstring(v548);
+      outlined destroy of AttributedSubstring(v564);
       goto LABEL_152;
     }
 
-    specialized _StringCompareOptionsIterable._range<A>(of:toHalfWidth:diacriticsInsensitive:caseFold:anchored:backwards:)(v141, v142, v143, v144, 0, 0, 0, 0, 0, v138, v140);
-    v146 = v145;
+    specialized _StringCompareOptionsIterable._range<A>(of:toHalfWidth:diacriticsInsensitive:caseFold:anchored:backwards:)(v149, v150, v151, v152, 0, 0, 0, 0, 0, v142, v144, v146, v148);
+    v154 = v153;
 
-    if (v146)
+    if (v154)
     {
       goto LABEL_151;
     }
 
-    v147 = Substring.UTF8View.distance(from:to:)();
+    v155 = Substring.UTF8View.distance(from:to:)();
 
-    v148 = Substring.UTF8View.distance(from:to:)();
+    v156 = Substring.UTF8View.distance(from:to:)();
 
-    v149 = *&v548[8] >> 11;
-    if (__OFADD__(*&v548[8] >> 11, v147))
+    v157 = *&v564[8] >> 11;
+    if (__OFADD__(*&v564[8] >> 11, v155))
     {
       goto LABEL_180;
     }
 
-    v150 = *(v135 + 24);
-    v151 = *(v135 + 40);
-    v639[2] = *(v135 + 56);
-    v639[1] = v151;
-    v639[0] = v150;
-    v152 = *(v135 + 40);
-    v638[3] = *(v135 + 24);
-    v638[4] = v152;
-    v638[5] = *(v135 + 56);
+    v158 = *(v139 + 24);
+    v159 = *(v139 + 40);
+    v655[2] = *(v139 + 56);
+    v655[1] = v159;
+    v655[0] = v158;
+    v160 = *(v139 + 40);
+    v654[3] = *(v139 + 24);
+    v654[4] = v160;
+    v654[5] = *(v139 + 56);
     BigString.startIndex.getter();
-    outlined init with copy of AttributedSubstring(v548, v512);
-    outlined init with copy of BigString(v639, v512);
-    v153 = BigString.UTF8View.index(_:offsetBy:)();
-    v155 = v154;
-    v157 = v156;
-    v159 = v158;
-    outlined destroy of BigString(v639);
-    outlined destroy of AttributedSubstring(v548);
-    if (__OFADD__(v149, v148))
+    outlined init with copy of AttributedSubstring(v564, v528);
+    outlined init with copy of BigString(v655, v528);
+    v161 = BigString.UTF8View.index(_:offsetBy:)();
+    v163 = v162;
+    v165 = v164;
+    v167 = v166;
+    outlined destroy of BigString(v655);
+    outlined destroy of AttributedSubstring(v564);
+    if (__OFADD__(v157, v156))
     {
       goto LABEL_181;
     }
 
-    v464 = v159;
-    v461 = *(v135 + 16);
-    v160 = *(v135 + 24);
-    v161 = *(v135 + 40);
-    v638[2] = *(v135 + 56);
-    v638[1] = v161;
-    v638[0] = v160;
-    v162 = *(v135 + 40);
-    v637[6] = *(v135 + 24);
-    v637[7] = v162;
-    v637[8] = *(v135 + 56);
+    v480 = v167;
+    v477 = *(v139 + 16);
+    v168 = *(v139 + 24);
+    v169 = *(v139 + 40);
+    v654[2] = *(v139 + 56);
+    v654[1] = v169;
+    v654[0] = v168;
+    v170 = *(v139 + 40);
+    v653[6] = *(v139 + 24);
+    v653[7] = v170;
+    v653[8] = *(v139 + 56);
     BigString.startIndex.getter();
-    outlined init with copy of AttributedSubstring(v548, v512);
-    outlined init with copy of BigString(v638, v512);
-    v163 = BigString.UTF8View.index(_:offsetBy:)();
-    v165 = v164;
-    v167 = v166;
-    v169 = v168;
-    outlined destroy of BigString(v638);
-    outlined destroy of AttributedSubstring(v548);
-    v170 = *(v135 + 16);
-    outlined destroy of AttributedSubstring(v548);
-    if (v153 >> 10 > v163 >> 10)
+    outlined init with copy of AttributedSubstring(v564, v528);
+    outlined init with copy of BigString(v654, v528);
+    v171 = BigString.UTF8View.index(_:offsetBy:)();
+    v173 = v172;
+    v175 = v174;
+    v177 = v176;
+    outlined destroy of BigString(v654);
+    outlined destroy of AttributedSubstring(v564);
+    v178 = *(v139 + 16);
+    outlined destroy of AttributedSubstring(v564);
+    if (v161 >> 10 > v171 >> 10)
     {
       goto LABEL_182;
     }
 
-    if (v153 >> 10 < v455)
+    if (v161 >> 10 < v471)
     {
       goto LABEL_183;
     }
 
-    v445 = v170;
-    v446 = v169;
-    v447 = v167;
-    v448 = v165;
-    v456 = v163;
-    *(&v526 + 1) = 0;
-    *&v522 = v473;
-    v171 = *(v473 + 40);
-    v637[3] = *(v473 + 24);
-    v637[4] = v171;
-    v637[5] = *(v473 + 56);
-    v172 = BigString.startIndex.getter();
-    v174 = v173;
-    v176 = v175;
-    v178 = v177;
-    v179 = BigString.endIndex.getter();
-    *(&v522 + 1) = v172;
-    *&v523 = v174;
-    *(&v523 + 1) = v176;
-    *&v524 = v178;
-    *(&v524 + 1) = v179;
-    *&v525 = v180;
-    *(&v525 + 1) = v181;
-    *&v526 = v182;
-    v502 = v466;
-    v503 = v469;
-    *&v504 = v462;
-    *(&v504 + 1) = v153;
-    *&v505 = v155;
-    *(&v505 + 1) = v157;
-    *&v506 = v464;
-    *(&v506 + 1) = v461;
+    v461 = v178;
+    v462 = v177;
+    v463 = v175;
+    v464 = v173;
+    v472 = v171;
+    *(&v542 + 1) = 0;
+    *&v538 = v489;
+    v179 = *(v489 + 40);
+    v653[3] = *(v489 + 24);
+    v653[4] = v179;
+    v653[5] = *(v489 + 56);
+    v180 = BigString.startIndex.getter();
+    v182 = v181;
+    v184 = v183;
+    v186 = v185;
+    v187 = BigString.endIndex.getter();
+    *(&v538 + 1) = v180;
+    *&v539 = v182;
+    *(&v539 + 1) = v184;
+    *&v540 = v186;
+    *(&v540 + 1) = v187;
+    *&v541 = v188;
+    *(&v541 + 1) = v189;
+    *&v542 = v190;
+    v518 = v482;
+    v519 = v485;
+    *&v520 = v478;
+    *(&v520 + 1) = v161;
+    *&v521 = v163;
+    *(&v521 + 1) = v165;
+    *&v522 = v480;
+    *(&v522 + 1) = v477;
 
-    AttributedString.CharacterView.subscript.getter(&v502, v512);
-    v534 = v524;
-    v535 = v525;
-    v536 = v526;
-    v533 = v523;
-    v532 = v522;
-    outlined destroy of AttributedString.CharacterView(&v532);
-    v539 = v514;
-    v540 = v515;
-    v541 = v516;
-    v542 = v517;
-    *&v537[32] = *&v512[32];
-    *&v537[48] = *&v512[48];
-    *&v537[64] = *&v512[64];
-    v538 = v513;
-    *v537 = *v512;
-    *&v537[16] = *&v512[16];
-    v183 = *(&v515 + 1);
-    v184 = *(&v513 + 1);
-    v185 = v513;
-    v186 = *v512;
-    v468 = *&v512[16];
-    v471 = *&v512[8];
-    v187 = *&v512[32];
-    v528 = v514;
-    v529 = v515;
-    v530 = v516;
-    v531 = v517;
-    v524 = *&v512[32];
-    v525 = *&v512[48];
-    v526 = *&v512[64];
-    v527 = v513;
-    v188 = *&v512[40] >> 10;
-    v522 = *v512;
-    v523 = *&v512[16];
-    outlined init with copy of FloatingPointRoundingRule?(v537, v512, &_ss5SliceVy10Foundation16AttributedStringV13CharacterViewVGMd);
-    v189 = v186 >> 10;
-    if (v186 >> 10 != v188)
+    AttributedString.CharacterView.subscript.getter(&v518, v528);
+    v550 = v540;
+    v551 = v541;
+    v552 = v542;
+    v549 = v539;
+    v548 = v538;
+    outlined destroy of AttributedString.CharacterView(&v548);
+    v555 = v530;
+    v556 = v531;
+    v557 = v532;
+    v558 = v533;
+    *&v553[32] = *&v528[32];
+    *&v553[48] = *&v528[48];
+    *&v553[64] = *&v528[64];
+    v554 = v529;
+    *v553 = *v528;
+    *&v553[16] = *&v528[16];
+    v191 = *(&v531 + 1);
+    v192 = *(&v529 + 1);
+    v193 = v529;
+    v194 = *v528;
+    v484 = *&v528[16];
+    v487 = *&v528[8];
+    v195 = *&v528[32];
+    v544 = v530;
+    v545 = v531;
+    v546 = v532;
+    v547 = v533;
+    v540 = *&v528[32];
+    v541 = *&v528[48];
+    v542 = *&v528[64];
+    v543 = v529;
+    v196 = *&v528[40] >> 10;
+    v538 = *v528;
+    v539 = *&v528[16];
+    outlined init with copy of FloatingPointRoundingRule?(v553, v528, &_ss5SliceVy10Foundation16AttributedStringV13CharacterViewVGMd, &_ss5SliceVy10Foundation16AttributedStringV13CharacterViewVGMR);
+    v197 = v194 >> 10;
+    if (v194 >> 10 != v196)
     {
-      v465 = v186 >> 10;
-      v467 = v184 >> 10;
-      v190 = v183 >> 10;
-      v191 = v186 >> 10;
-      while (v191 >= v189 && v191 < v188)
+      v481 = v194 >> 10;
+      v483 = v192 >> 10;
+      v198 = v191 >> 10;
+      v199 = v194 >> 10;
+      while (v199 >= v197 && v199 < v196)
       {
-        if (v191 < v467)
+        if (v199 < v483)
         {
           goto LABEL_158;
         }
 
-        if (v191 >= v190)
+        if (v199 >= v198)
         {
           goto LABEL_159;
         }
 
-        v192 = *(v185 + 24);
-        v193 = *(v185 + 40);
-        v637[2] = *(v185 + 56);
-        v637[1] = v193;
-        v637[0] = v192;
-        v194 = *(v185 + 24);
-        v195 = *(v185 + 40);
-        v652 = *(v185 + 56);
-        v651[0] = v194;
-        v651[1] = v195;
-        outlined init with copy of Rope<BigString._Chunk>._Node?(v651, v512);
+        v200 = *(v193 + 24);
+        v201 = *(v193 + 40);
+        v653[2] = *(v193 + 56);
+        v653[1] = v201;
+        v653[0] = v200;
+        v202 = *(v193 + 24);
+        v203 = *(v193 + 40);
+        v668 = *(v193 + 56);
+        v667[0] = v202;
+        v667[1] = v203;
+        outlined init with copy of Rope<BigString._Chunk>._Node?(v667, v528);
         BigString.subscript.getter();
-        outlined destroy of BigString(v637);
-        v196 = *(v185 + 24);
-        v197 = *(v185 + 40);
-        v636[2] = *(v185 + 56);
-        v636[1] = v197;
-        v636[0] = v196;
-        v198 = *(v185 + 24);
-        v654 = *(v185 + 56);
-        v199 = *(v185 + 40);
-        v653[0] = v198;
-        v653[1] = v199;
-        outlined init with copy of Rope<BigString._Chunk>._Node?(v653, v512);
-        v186 = BigString.index(after:)();
-        v471 = v200;
-        v202 = v201;
-        v204 = v203;
-        outlined destroy of BigString(v636);
-        v191 = v186 >> 10;
-        if (v190 < v186 >> 10)
+        outlined destroy of BigString(v653);
+        v204 = *(v193 + 24);
+        v205 = *(v193 + 40);
+        v652[2] = *(v193 + 56);
+        v652[1] = v205;
+        v652[0] = v204;
+        v206 = *(v193 + 24);
+        v670 = *(v193 + 56);
+        v207 = *(v193 + 40);
+        v669[0] = v206;
+        v669[1] = v207;
+        outlined init with copy of Rope<BigString._Chunk>._Node?(v669, v528);
+        v194 = BigString.index(after:)();
+        v487 = v208;
+        v210 = v209;
+        v212 = v211;
+        outlined destroy of BigString(v652);
+        v199 = v194 >> 10;
+        if (v198 < v194 >> 10)
         {
           goto LABEL_160;
         }
 
-        *&v468 = v202;
-        *(&v468 + 1) = v204;
-        v187 = *(v185 + 16);
-        v205 = Character.isNumber.getter();
+        *&v484 = v210;
+        *(&v484 + 1) = v212;
+        v195 = *(v193 + 16);
+        v213 = Character.isNumber.getter();
 
-        if ((v205 & 1) == 0)
+        if ((v213 & 1) == 0)
         {
-          outlined destroy of TermOfAddress?(v537, &_ss5SliceVy10Foundation16AttributedStringV13CharacterViewVGMd);
-          v514 = v528;
-          v515 = v529;
-          v516 = v530;
-          v517 = v531;
-          *&v512[32] = v524;
-          *&v512[48] = v525;
-          *&v512[64] = v526;
-          v513 = v527;
-          *v512 = v522;
-          *&v512[16] = v523;
-          v518 = v186;
-          v519 = v471;
-          v520 = v468;
-          v521 = v187;
-          v309 = &_ss16IndexingIteratorVys5SliceVy10Foundation16AttributedStringV13CharacterViewVGGMd;
-          v310 = v512;
+          outlined destroy of TermOfAddress?(v553, &_ss5SliceVy10Foundation16AttributedStringV13CharacterViewVGMd, &_ss5SliceVy10Foundation16AttributedStringV13CharacterViewVGMR);
+          v530 = v544;
+          v531 = v545;
+          v532 = v546;
+          v533 = v547;
+          *&v528[32] = v540;
+          *&v528[48] = v541;
+          *&v528[64] = v542;
+          v529 = v543;
+          *v528 = v538;
+          *&v528[16] = v539;
+          v534 = v194;
+          v535 = v487;
+          v536 = v484;
+          v537 = v195;
+          v316 = &_ss16IndexingIteratorVys5SliceVy10Foundation16AttributedStringV13CharacterViewVGGMd;
+          v317 = &_ss16IndexingIteratorVys5SliceVy10Foundation16AttributedStringV13CharacterViewVGGMR;
+          v318 = v528;
           goto LABEL_108;
         }
 
-        v189 = v465;
-        if (v191 == v188)
+        v197 = v481;
+        if (v199 == v196)
         {
           goto LABEL_54;
         }
@@ -4867,240 +4876,241 @@ LABEL_192:
     }
 
 LABEL_54:
-    v514 = v528;
-    v515 = v529;
-    v516 = v530;
-    v517 = v531;
-    *&v512[32] = v524;
-    *&v512[48] = v525;
-    *&v512[64] = v526;
-    v513 = v527;
-    *v512 = v522;
-    *&v512[16] = v523;
-    v518 = v186;
-    v519 = v471;
-    v520 = v468;
-    v521 = v187;
-    outlined destroy of TermOfAddress?(v512, &_ss16IndexingIteratorVys5SliceVy10Foundation16AttributedStringV13CharacterViewVGGMd);
-    v508 = v539;
-    v509 = v540;
-    v510 = v541;
-    v511 = v542;
-    v504 = *&v537[32];
-    v505 = *&v537[48];
-    v506 = *&v537[64];
-    v507 = v538;
-    v502 = *v537;
-    v503 = *&v537[16];
-    v206 = Slice<>._characters.getter(v564);
-    v207 = MEMORY[0x1865CAF70](v564, v206);
-    v208 = _ss17FixedWidthIntegerPsEyxSgSScfCs5Int64V_Tt1g5(v207);
-    if (v209)
+    v530 = v544;
+    v531 = v545;
+    v532 = v546;
+    v533 = v547;
+    *&v528[32] = v540;
+    *&v528[48] = v541;
+    *&v528[64] = v542;
+    v529 = v543;
+    *v528 = v538;
+    *&v528[16] = v539;
+    v534 = v194;
+    v535 = v487;
+    v536 = v484;
+    v537 = v195;
+    outlined destroy of TermOfAddress?(v528, &_ss16IndexingIteratorVys5SliceVy10Foundation16AttributedStringV13CharacterViewVGGMd, &_ss16IndexingIteratorVys5SliceVy10Foundation16AttributedStringV13CharacterViewVGGMR);
+    v524 = v555;
+    v525 = v556;
+    v526 = v557;
+    v527 = v558;
+    v520 = *&v553[32];
+    v521 = *&v553[48];
+    v522 = *&v553[64];
+    v523 = v554;
+    v518 = *v553;
+    v519 = *&v553[16];
+    v214 = Slice<>._characters.getter(v580);
+    MEMORY[0x1865CAF70](v580, v214);
+    v215 = _ss17FixedWidthIntegerPsEyxSgSScfCs5Int64V_Tt1g5();
+    if (v216)
     {
-      v309 = &_ss5SliceVy10Foundation16AttributedStringV13CharacterViewVGMd;
-      v310 = v537;
+      v316 = &_ss5SliceVy10Foundation16AttributedStringV13CharacterViewVGMd;
+      v317 = &_ss5SliceVy10Foundation16AttributedStringV13CharacterViewVGMR;
+      v318 = v553;
 LABEL_108:
-      outlined destroy of TermOfAddress?(v310, v309);
+      outlined destroy of TermOfAddress?(v318, v316, v317);
       goto LABEL_152;
     }
 
-    v210 = v208;
-    v211 = v208 - 1;
-    v212 = v473;
-    if (v208 < 1)
+    v217 = v215;
+    v218 = v215 - 1;
+    v219 = v489;
+    if (v215 < 1)
     {
       goto LABEL_106;
     }
 
-    if (v453 >> 62)
+    if (v469 >> 62)
     {
-      v308 = __CocoaSet.count.getter();
-      if (v308 < 0)
+      v315 = __CocoaSet.count.getter();
+      if (v315 < 0)
       {
         goto LABEL_184;
       }
 
-      v214 = v308;
-      v213 = v452;
+      v221 = v315;
+      v220 = v468;
     }
 
     else
     {
-      v213 = v452;
-      v214 = *(v452 + 16);
+      v220 = v468;
+      v221 = *(v468 + 16);
     }
 
-    v215 = v463;
-    if (v210 > v214)
+    v222 = v479;
+    if (v217 > v221)
     {
       break;
     }
 
-    if (v451)
+    if (v467)
     {
-      v216 = MEMORY[0x1865CC0E0](v211, v453);
+      v223 = MEMORY[0x1865CC0E0](v218, v469);
     }
 
     else
     {
-      if (v210 > *(v213 + 16))
+      if (v217 > *(v220 + 16))
       {
         goto LABEL_190;
       }
 
-      v216 = *(v449 + 8 * v211);
+      v223 = *(v465 + 8 * v218);
     }
 
-    v217 = v216;
-    v218 = [v216 index];
+    v224 = v223;
+    v225 = [v223 index];
 
-    v215 = v463;
-    if (v218 != v210)
+    v222 = v479;
+    if (v225 != v217)
     {
       goto LABEL_67;
     }
 
-    v219 = v450;
-    if (v451)
+    v226 = v466;
+    if (v467)
     {
-      v220 = MEMORY[0x1865CC0E0](v211, v453);
+      v227 = MEMORY[0x1865CC0E0](v218, v469);
     }
 
     else
     {
-      v220 = *(v449 + 8 * v211);
+      v227 = *(v465 + 8 * v218);
     }
 
-    v223 = v220;
+    v230 = v227;
 LABEL_78:
-    v224 = v223;
-    v225 = [v224 replacementRangeInResult];
-    v227 = v226;
+    v231 = v230;
+    v232 = [v231 replacementRangeInResult];
+    v234 = v233;
 
-    _sSn10FoundationAA16AttributedStringV5IndexVRszrlE_2inSnyAEGSgSo8_NSRangeV_qd__tcAA0bC8ProtocolRd__lufCAC_Tt2B5(v225, v227, v219, &v497);
-    v228 = *(&v498 + 1);
-    if (*(&v498 + 1) == 2)
+    _sSn10FoundationAA16AttributedStringV5IndexVRszrlE_2inSnyAEGSgSo8_NSRangeV_qd__tcAA0bC8ProtocolRd__lufCAC_Tt2B5(v232, v234, v226, &v513);
+    v235 = *(&v514 + 1);
+    if (*(&v514 + 1) == 2)
     {
 
-      outlined destroy of TermOfAddress?(v537, &_ss5SliceVy10Foundation16AttributedStringV13CharacterViewVGMd);
+      outlined destroy of TermOfAddress?(v553, &_ss5SliceVy10Foundation16AttributedStringV13CharacterViewVGMd, &_ss5SliceVy10Foundation16AttributedStringV13CharacterViewVGMR);
 
       goto LABEL_153;
     }
 
-    v229 = *(v219 + 40);
-    v633 = *(v219 + 24);
-    v634 = v229;
-    v635 = *(v219 + 56);
-    v230 = BigString.startIndex.getter();
-    v232 = v231;
-    v234 = v233;
-    v236 = v235;
-    v237 = BigString.endIndex.getter();
-    *&v487 = v219;
-    *(&v487 + 1) = v230;
-    *&v488 = v232;
-    *(&v488 + 1) = v234;
-    *&v489 = v236;
-    *(&v489 + 1) = v237;
-    *&v490 = v238;
-    *(&v490 + 1) = v239;
-    v491 = v240;
-    v494 = v489;
-    v495 = v490;
-    v496 = v240;
-    v492 = v487;
-    v493 = v488;
-    v482 = v497;
-    *&v483 = v498;
-    *(&v483 + 1) = v228;
-    v484 = v499;
-    v485 = v500;
-    v486 = v501;
+    v236 = *(v226 + 40);
+    v649 = *(v226 + 24);
+    v650 = v236;
+    v651 = *(v226 + 56);
+    v237 = BigString.startIndex.getter();
+    v239 = v238;
+    v241 = v240;
+    v243 = v242;
+    v244 = BigString.endIndex.getter();
+    *&v503 = v226;
+    *(&v503 + 1) = v237;
+    *&v504 = v239;
+    *(&v504 + 1) = v241;
+    *&v505 = v243;
+    *(&v505 + 1) = v244;
+    *&v506 = v245;
+    *(&v506 + 1) = v246;
+    v507 = v247;
+    v510 = v505;
+    v511 = v506;
+    v512 = v247;
+    v508 = v503;
+    v509 = v504;
+    v498 = v513;
+    *&v499 = v514;
+    *(&v499 + 1) = v235;
+    v500 = v515;
+    v501 = v516;
+    v502 = v517;
 
-    AttributedString.CharacterView.subscript.getter(&v482, &v502);
-    outlined destroy of AttributedString.CharacterView(&v487);
-    v620 = v508;
-    v621 = v509;
-    v622 = v510;
-    v623 = v511;
-    *v618 = v504;
-    *&v618[16] = v505;
-    *&v618[32] = v506;
-    v619 = v507;
-    v616 = v502;
-    v617 = v503;
-    *&v608 = v215;
-    *(&v608 + 1) = v459;
-    v609 = v458;
-    v610 = v457;
-    v611 = v456;
-    v612 = v448;
-    v613 = v447;
-    v614 = v446;
-    v615 = v445;
-    v241 = *(v473 + 40);
-    v630 = *(v473 + 24);
-    v631 = v241;
-    v632 = *(v473 + 56);
-    v242 = BigString.startIndex.getter();
-    v244 = v243;
-    v246 = v245;
-    v248 = v247;
-    v249 = BigString.endIndex.getter();
-    *&v502 = v473;
-    *(&v502 + 1) = v242;
-    *&v503 = v244;
-    *(&v503 + 1) = v246;
-    *&v504 = v248;
-    *(&v504 + 1) = v249;
-    *&v505 = v250;
-    *(&v505 + 1) = v251;
-    v506 = v252;
-    v253 = *(v473 + 16);
-    *&v482 = v242;
-    *(&v482 + 1) = v244;
-    *&v483 = v246;
-    *(&v483 + 1) = v248;
-    *&v484 = v253;
-    v475 = v608;
-    v476 = v609;
-    *&v477 = v610;
+    AttributedString.CharacterView.subscript.getter(&v498, &v518);
+    outlined destroy of AttributedString.CharacterView(&v503);
+    v636 = v524;
+    v637 = v525;
+    v638 = v526;
+    v639 = v527;
+    *v634 = v520;
+    *&v634[16] = v521;
+    *&v634[32] = v522;
+    v635 = v523;
+    v632 = v518;
+    v633 = v519;
+    *&v624 = v222;
+    *(&v624 + 1) = v475;
+    v625 = v474;
+    v626 = v473;
+    v627 = v472;
+    v628 = v464;
+    v629 = v463;
+    v630 = v462;
+    v631 = v461;
+    v248 = *(v489 + 40);
+    v646 = *(v489 + 24);
+    v647 = v248;
+    v648 = *(v489 + 56);
+    v249 = BigString.startIndex.getter();
+    v251 = v250;
+    v253 = v252;
+    v255 = v254;
+    v256 = BigString.endIndex.getter();
+    *&v518 = v489;
+    *(&v518 + 1) = v249;
+    *&v519 = v251;
+    *(&v519 + 1) = v253;
+    *&v520 = v255;
+    *(&v520 + 1) = v256;
+    *&v521 = v257;
+    *(&v521 + 1) = v258;
+    v522 = v259;
+    v260 = *(v489 + 16);
+    *&v498 = v249;
+    *(&v498 + 1) = v251;
+    *&v499 = v253;
+    *(&v499 + 1) = v255;
+    *&v500 = v260;
+    v491 = v624;
+    v492 = v625;
+    *&v493 = v626;
 
-    v254 = AttributedString.CharacterView._distance(from:to:)(&v482, &v475);
-    v494 = v504;
-    v495 = v505;
-    v496 = v506;
-    v492 = v502;
-    v493 = v503;
-    outlined destroy of AttributedString.CharacterView(&v492);
+    v261 = AttributedString.CharacterView._distance(from:to:)(&v498, &v491);
+    v510 = v520;
+    v511 = v521;
+    v512 = v522;
+    v508 = v518;
+    v509 = v519;
+    outlined destroy of AttributedString.CharacterView(&v508);
     if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
     {
-      v255 = *(v473 + 40);
-      v627 = *(v473 + 24);
-      v628 = v255;
-      v629 = *(v473 + 56);
-      v256 = *(v473 + 72);
-      v257 = *(v473 + 80);
-      v258 = *(v473 + 88);
-      v259 = *(v473 + 96);
+      v262 = *(v489 + 40);
+      v643 = *(v489 + 24);
+      v644 = v262;
+      v645 = *(v489 + 56);
+      v263 = *(v489 + 72);
+      v264 = *(v489 + 80);
+      v265 = *(v489 + 88);
+      v266 = *(v489 + 96);
       type metadata accessor for AttributedString.Guts();
-      v260 = swift_allocObject();
-      v261 = BigString.isEmpty.getter() & 1;
-      outlined init with copy of BigString(&v627, &v502);
-      v262 = swift_unknownObjectRetain();
-      specialized Rope._endPath.getter(v262);
-      if (v256)
+      v267 = swift_allocObject();
+      v268 = BigString.isEmpty.getter() & 1;
+      outlined init with copy of BigString(&v643, &v518);
+      v269 = swift_unknownObjectRetain();
+      specialized Rope._endPath.getter(v269);
+      if (v263)
       {
-        v263 = v258 == 0;
+        v270 = v265 == 0;
       }
 
       else
       {
-        v263 = 1;
+        v270 = 1;
       }
 
-      v264 = v263;
-      if (v264 != v261)
+      v271 = v270;
+      if (v271 != v268)
       {
         goto LABEL_191;
       }
@@ -5110,18 +5120,18 @@ LABEL_78:
         swift_once();
       }
 
-      *(v260 + 16) = atomic_fetch_add_explicit(&static AttributedString.Guts._nextVersion, 1uLL, memory_order_relaxed);
-      v265 = v628;
-      *(v260 + 24) = v627;
-      *(v260 + 40) = v265;
-      *(v260 + 56) = v629;
-      *(v260 + 72) = v256;
-      *(v260 + 80) = v257;
-      *(v260 + 88) = v258;
-      *(v260 + 96) = v259;
-      *(v260 + 104) = MEMORY[0x1E69E7CC0];
+      *(v267 + 16) = atomic_fetch_add_explicit(&static AttributedString.Guts._nextVersion, 1uLL, memory_order_relaxed);
+      v272 = v644;
+      *(v267 + 24) = v643;
+      *(v267 + 40) = v272;
+      *(v267 + 56) = v645;
+      *(v267 + 72) = v263;
+      *(v267 + 80) = v264;
+      *(v267 + 88) = v265;
+      *(v267 + 96) = v266;
+      *(v267 + 104) = MEMORY[0x1E69E7CC0];
 
-      v212 = v260;
+      v219 = v267;
     }
 
     if (one-time initialization token for _nextVersion != -1)
@@ -5129,193 +5139,193 @@ LABEL_78:
       swift_once();
     }
 
-    *(v212 + 16) = atomic_fetch_add_explicit(&static AttributedString.Guts._nextVersion, 1uLL, memory_order_relaxed);
-    *&v482 = v212;
-    v266 = *(v212 + 24);
-    v267 = *(v212 + 40);
-    v626 = *(v212 + 56);
-    v625 = v267;
-    v624 = v266;
-    v268 = BigString.startIndex.getter();
-    v270 = v269;
-    v272 = v271;
-    v274 = v273;
-    v275 = BigString.endIndex.getter();
-    *(&v482 + 1) = v268;
-    *&v483 = v270;
-    *(&v483 + 1) = v272;
-    *&v484 = v274;
-    *(&v484 + 1) = v275;
-    *&v485 = v276;
-    *(&v485 + 1) = v277;
-    *&v486 = v278;
-    v279 = one-time initialization token for currentIdentity;
+    *(v219 + 16) = atomic_fetch_add_explicit(&static AttributedString.Guts._nextVersion, 1uLL, memory_order_relaxed);
+    *&v498 = v219;
+    v273 = *(v219 + 24);
+    v274 = *(v219 + 40);
+    v642 = *(v219 + 56);
+    v641 = v274;
+    v640 = v273;
+    v275 = BigString.startIndex.getter();
+    v277 = v276;
+    v279 = v278;
+    v281 = v280;
+    v282 = BigString.endIndex.getter();
+    *(&v498 + 1) = v275;
+    *&v499 = v277;
+    *(&v499 + 1) = v279;
+    *&v500 = v281;
+    *(&v500 + 1) = v282;
+    *&v501 = v283;
+    *(&v501 + 1) = v284;
+    *&v502 = v285;
+    v286 = one-time initialization token for currentIdentity;
 
-    if (v279 != -1)
+    if (v286 != -1)
     {
       swift_once();
     }
 
-    v280 = static AttributedString.currentIdentity;
+    v287 = static AttributedString.currentIdentity;
     os_unfair_lock_lock((static AttributedString.currentIdentity + 24));
-    v281 = *(v280 + 16);
-    v282 = v281 + 1;
-    if (__OFADD__(v281, 1))
+    v288 = *(v287 + 16);
+    v289 = v288 + 1;
+    if (__OFADD__(v288, 1))
     {
       goto LABEL_185;
     }
 
-    *(v280 + 16) = v282;
-    os_unfair_lock_unlock((v280 + 24));
-    *(&v486 + 1) = v282;
+    *(v287 + 16) = v289;
+    os_unfair_lock_unlock((v287 + 24));
+    *(&v502 + 1) = v289;
     BigString.init()();
-    *&v502 = 0;
-    MEMORY[0x1865D26B0](&v502, 8);
-    v283 = v502;
+    *&v518 = 0;
+    MEMORY[0x1865D26B0](&v518, 8);
+    v290 = v518;
     type metadata accessor for AttributedString.Guts();
-    v284 = swift_allocObject();
+    v291 = swift_allocObject();
     if ((BigString.isEmpty.getter() & 1) == 0)
     {
       goto LABEL_186;
     }
 
-    v474 = v224;
-    *(v284 + 16) = atomic_fetch_add_explicit(&static AttributedString.Guts._nextVersion, 1uLL, memory_order_relaxed);
-    v285 = v566;
-    *(v284 + 24) = v565;
-    *(v284 + 40) = v285;
-    *(v284 + 56) = v567;
-    *(v284 + 72) = 0;
-    *(v284 + 80) = 0;
-    *(v284 + 88) = 0;
-    *(v284 + 96) = v283;
-    *(v284 + 104) = MEMORY[0x1E69E7CC0];
+    v490 = v231;
+    *(v291 + 16) = atomic_fetch_add_explicit(&static AttributedString.Guts._nextVersion, 1uLL, memory_order_relaxed);
+    v292 = v582;
+    *(v291 + 24) = v581;
+    *(v291 + 40) = v292;
+    *(v291 + 56) = v583;
+    *(v291 + 72) = 0;
+    *(v291 + 80) = 0;
+    *(v291 + 88) = 0;
+    *(v291 + 96) = v290;
+    *(v291 + 104) = MEMORY[0x1E69E7CC0];
 
-    specialized AttributedString.CharacterView.replaceSubrange<A>(_:with:)(&v608, &v616);
-    if (*(&v486 + 1) != v282)
+    specialized AttributedString.CharacterView.replaceSubrange<A>(_:with:)(&v624, &v632);
+    if (*(&v502 + 1) != v289)
     {
       goto LABEL_195;
     }
 
-    v6 = v482;
+    v6 = v498;
 
-    v286 = *(v6 + 40);
-    v607[3] = *(v6 + 24);
-    v607[4] = v286;
-    v607[5] = *(v6 + 56);
-    v287 = BigString.startIndex.getter();
-    v289 = v288;
-    v291 = v290;
-    v293 = v292;
-    v294 = BigString.endIndex.getter();
-    v588 = v616;
-    v589 = v617;
-    v585 = *&v618[8];
-    v586 = *&v618[24];
-    v508 = v620;
-    v509 = v621;
-    v510 = v622;
-    v511 = v623;
-    v504 = *v618;
-    v505 = *&v618[16];
-    v506 = *&v618[32];
-    v507 = v619;
-    *&v475 = v6;
-    *(&v475 + 1) = v287;
-    *&v476 = v289;
-    *(&v476 + 1) = v291;
-    *&v477 = v293;
-    *(&v477 + 1) = v294;
-    v478 = v295;
-    v479 = v296;
-    v480 = v297;
-    v481 = 0;
-    *&v590 = *v618;
-    *&v587 = *&v618[40];
-    v502 = v616;
-    v503 = v617;
+    v293 = *(v6 + 40);
+    v623[3] = *(v6 + 24);
+    v623[4] = v293;
+    v623[5] = *(v6 + 56);
+    v294 = BigString.startIndex.getter();
+    v296 = v295;
+    v298 = v297;
+    v300 = v299;
+    v301 = BigString.endIndex.getter();
+    v604 = v632;
+    v605 = v633;
+    v601 = *&v634[8];
+    v602 = *&v634[24];
+    v524 = v636;
+    v525 = v637;
+    v526 = v638;
+    v527 = v639;
+    v520 = *v634;
+    v521 = *&v634[16];
+    v522 = *&v634[32];
+    v523 = v635;
+    *&v491 = v6;
+    *(&v491 + 1) = v294;
+    *&v492 = v296;
+    *(&v492 + 1) = v298;
+    *&v493 = v300;
+    *(&v493 + 1) = v301;
+    v494 = v302;
+    v495 = v303;
+    v496 = v304;
+    v497 = 0;
+    *&v606 = *v634;
+    *&v603 = *&v634[40];
+    v518 = v632;
+    v519 = v633;
 
-    if (__OFADD__(v254, AttributedString.CharacterView._distance(from:to:)(&v588, &v585)))
+    if (__OFADD__(v261, AttributedString.CharacterView._distance(from:to:)(&v604, &v601)))
     {
       goto LABEL_187;
     }
 
-    v298 = *(&v475 + 1) >> 10;
-    if (v287 >> 10 < *(&v475 + 1) >> 10)
+    v305 = *(&v491 + 1) >> 10;
+    if (v294 >> 10 < *(&v491 + 1) >> 10)
     {
       goto LABEL_188;
     }
 
-    v299 = *(&v477 + 1) >> 10;
-    if (*(&v477 + 1) >> 10 < v287 >> 10)
+    v306 = *(&v493 + 1) >> 10;
+    if (*(&v493 + 1) >> 10 < v294 >> 10)
     {
       goto LABEL_188;
     }
 
-    v300 = v475;
-    v301 = *(v475 + 24);
-    v302 = *(v475 + 40);
-    v607[2] = *(v475 + 56);
-    v607[1] = v302;
-    v607[0] = v301;
-    v303 = *(v475 + 24);
-    v656 = *(v475 + 56);
-    v304 = *(v475 + 40);
-    v655[0] = v303;
-    v655[1] = v304;
-    outlined init with copy of Rope<BigString._Chunk>._Node?(v655, &v502);
+    v307 = v491;
+    v308 = *(v491 + 24);
+    v309 = *(v491 + 40);
+    v623[2] = *(v491 + 56);
+    v623[1] = v309;
+    v623[0] = v308;
+    v310 = *(v491 + 24);
+    v672 = *(v491 + 56);
+    v311 = *(v491 + 40);
+    v671[0] = v310;
+    v671[1] = v311;
+    outlined init with copy of Rope<BigString._Chunk>._Node?(v671, &v518);
     v9 = BigString.index(_:offsetBy:)();
-    v11 = v305;
-    v13 = v306;
-    v15 = v307;
-    outlined destroy of BigString(v607);
-    v16 = *(v300 + 16);
+    v11 = v312;
+    v13 = v313;
+    v15 = v314;
+    outlined destroy of BigString(v623);
+    v16 = *(v307 + 16);
 
-    outlined destroy of TermOfAddress?(&v616, &_ss5SliceVy10Foundation16AttributedStringV13CharacterViewVGMd);
-    outlined destroy of TermOfAddress?(v537, &_ss5SliceVy10Foundation16AttributedStringV13CharacterViewVGMd);
-    outlined destroy of AttributedString.CharacterView(&v475);
-    if (v9 >> 10 < v298 || v299 < v9 >> 10)
+    outlined destroy of TermOfAddress?(&v632, &_ss5SliceVy10Foundation16AttributedStringV13CharacterViewVGMd, &_ss5SliceVy10Foundation16AttributedStringV13CharacterViewVGMR);
+    outlined destroy of TermOfAddress?(v553, &_ss5SliceVy10Foundation16AttributedStringV13CharacterViewVGMd, &_ss5SliceVy10Foundation16AttributedStringV13CharacterViewVGMR);
+    outlined destroy of AttributedString.CharacterView(&v491);
+    if (v9 >> 10 < v305 || v306 < v9 >> 10)
     {
       goto LABEL_189;
     }
   }
 
-  if (v214)
+  if (v221)
   {
 LABEL_67:
-    for (i = 0; v214 != i; ++i)
+    for (i = 0; v221 != i; ++i)
     {
-      if (v451)
+      if (v467)
       {
-        v222 = MEMORY[0x1865CC0E0](i, v453);
+        v229 = MEMORY[0x1865CC0E0](i, v469);
       }
 
       else
       {
-        if (i >= *(v213 + 16))
+        if (i >= *(v220 + 16))
         {
           __break(1u);
           goto LABEL_157;
         }
 
-        v222 = *(v453 + 8 * i + 32);
+        v229 = *(v469 + 8 * i + 32);
       }
 
-      v223 = v222;
-      if ([v222 index] == v210)
+      v230 = v229;
+      if ([v229 index] == v217)
       {
-        v219 = v450;
+        v226 = v466;
         goto LABEL_78;
       }
     }
   }
 
 LABEL_106:
-  outlined destroy of TermOfAddress?(v537, &_ss5SliceVy10Foundation16AttributedStringV13CharacterViewVGMd);
+  outlined destroy of TermOfAddress?(v553, &_ss5SliceVy10Foundation16AttributedStringV13CharacterViewVGMd, &_ss5SliceVy10Foundation16AttributedStringV13CharacterViewVGMR);
 LABEL_152:
 
 LABEL_153:
-  *v454 = 0;
+  *v470 = 0;
 }
 
 id thunk for @escaping @callee_guaranteed (@in_guaranteed Any) -> (@out Any?)(uint64_t a1, uint64_t a2)
@@ -5363,7 +5373,7 @@ uint64_t _s10Foundation16AttributedStringV17_AttributeStorageVy5ValueQzSgxmcAA0b
 
   outlined init with copy of AttributedString._AttributeValue(*(a1 + 56) + 72 * v2, v7);
   outlined init with copy of Hashable & Sendable(v7, v6);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSH_s8SendablepMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSH_s8SendablepMd, &_sSH_s8SendablepMR);
   result = swift_dynamicCast();
   if (result)
   {
@@ -5394,7 +5404,7 @@ uint64_t _s10Foundation16AttributedStringV17_AttributeStorageVy5ValueQzSgxmcAA0b
 
   outlined init with copy of AttributedString._AttributeValue(*(a1 + 56) + 72 * v2, v7);
   outlined init with copy of Hashable & Sendable(v7, v6);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSH_s8SendablepMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSH_s8SendablepMd, &_sSH_s8SendablepMR);
   result = swift_dynamicCast();
   if (result)
   {
@@ -5429,7 +5439,7 @@ uint64_t _s10Foundation16AttributedStringV17_AttributeStorageVy5ValueQzSgxmcAA0b
     }
   }
 
-  v2 = specialized __RawDictionaryStorage.find<A>(_:)(static AttributeScopes.FoundationAttributes.InlinePresentationIntentAttribute.name, unk_1EA7B26A0);
+  v2 = specialized __RawDictionaryStorage.find<A>(_:)(static AttributeScopes.FoundationAttributes.InlinePresentationIntentAttribute.name, qword_1EA7B26A0);
   if ((v3 & 1) == 0)
   {
     return 0;
@@ -5437,7 +5447,7 @@ uint64_t _s10Foundation16AttributedStringV17_AttributeStorageVy5ValueQzSgxmcAA0b
 
   outlined init with copy of AttributedString._AttributeValue(*(a1 + 56) + 72 * v2, v7);
   outlined init with copy of Hashable & Sendable(v7, v6);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSH_s8SendablepMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSH_s8SendablepMd, &_sSH_s8SendablepMR);
   type metadata accessor for NSInlinePresentationIntent(0);
   result = swift_dynamicCast();
   if (result)
@@ -5454,7 +5464,7 @@ uint64_t _s10Foundation16AttributedStringV17_AttributeStorageVy5ValueQzSgxmcAA0b
   return result;
 }
 
-uint64_t *specialized RangeReplaceableCollection.replaceSubrange<A, B>(_:with:)(uint64_t *result, uint64_t a2, uint64_t a3)
+unint64_t *specialized RangeReplaceableCollection.replaceSubrange<A, B>(_:with:)(unint64_t *result, uint64_t a2, uint64_t a3)
 {
   v4 = result[5] >> 10;
   v5 = v3[5] >> 10;
@@ -5509,16 +5519,16 @@ uint64_t specialized AttributedString.enumerateFormattableRanges(in:editor:)(__i
   v294 = a4;
   v295 = a5;
   v293 = a3;
-  v385 = *MEMORY[0x1E69E9840];
-  v300 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18ReversedCollectionV8IteratorVy10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AE15AttributeScopesO0dH0V021LocalizedNumberFormatJ0OG_GMd);
+  v386 = *MEMORY[0x1E69E9840];
+  v300 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18ReversedCollectionV8IteratorVy10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AE15AttributeScopesO0dH0V021LocalizedNumberFormatJ0OG_GMd, &_ss18ReversedCollectionV8IteratorVy10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AE15AttributeScopesO0dH0V021LocalizedNumberFormatJ0OG_GMR);
   MEMORY[0x1EEE9AC00](v300);
   v298 = &v278 - v7;
-  v305 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V021LocalizedNumberFormatG0OGMd);
+  v305 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V021LocalizedNumberFormatG0OGMd, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V021LocalizedNumberFormatG0OGMR);
   MEMORY[0x1EEE9AC00](v305);
   v302 = &v278 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v9);
   v310 = &v278 - v10;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMR);
   v322 = *(v11 - 8);
   MEMORY[0x1EEE9AC00](v11);
   v299 = &v278 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -5526,42 +5536,42 @@ uint64_t specialized AttributedString.enumerateFormattableRanges(in:editor:)(__i
   v303 = &v278 - v14;
   MEMORY[0x1EEE9AC00](v15);
   v17 = &v278 - v16;
-  v324 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd) - 8;
+  v324 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMR) - 8;
   MEMORY[0x1EEE9AC00](v324);
   v315 = &v278 - v18;
-  v323 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMd);
+  v323 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMd, &_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMR);
   v311 = *(v323 - 8);
   MEMORY[0x1EEE9AC00](v323);
   v20 = &v278 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v21);
   v23 = &v278 - v22;
-  v307 = type metadata accessor for AttributedString.Runs();
+  v307 = type metadata accessor for AttributedString.Runs(0);
   MEMORY[0x1EEE9AC00](v307);
   v309 = &v278 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v25);
   v27 = (&v278 - v26);
   MEMORY[0x1EEE9AC00](v28);
   v308 = &v278 - v29;
-  v30 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18ReversedCollectionVy10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AC15AttributeScopesO0cG0V021LocalizedNumberFormatI0OGGMd);
+  v30 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18ReversedCollectionVy10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AC15AttributeScopesO0cG0V021LocalizedNumberFormatI0OGGMd, &_ss18ReversedCollectionVy10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AC15AttributeScopesO0cG0V021LocalizedNumberFormatI0OGGMR);
   MEMORY[0x1EEE9AC00](v30 - 8);
   v301 = &v278 - ((v31 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v32);
   v296 = &v278 - v33;
   v34 = *a2;
-  v370 = *(*a2 + 24);
-  v371 = *(v34 + 40);
-  v372 = *(v34 + 56);
+  v371 = *(*a2 + 24);
+  v372 = *(v34 + 40);
+  v373 = *(v34 + 56);
   BigString.startIndex.getter();
   BigString.endIndex.getter();
   v35 = *a1;
-  v364 = a1[1];
-  v363 = v35;
+  v365 = a1[1];
+  v364 = v35;
   v36 = *(a1 + 40);
-  v366 = *(a1 + 56);
-  v365 = v36;
-  v367 = *(v34 + 24);
-  v368 = *(v34 + 40);
-  v369 = *(v34 + 56);
+  v367 = *(a1 + 56);
+  v366 = v36;
+  v368 = *(v34 + 24);
+  v369 = *(v34 + 40);
+  v370 = *(v34 + 56);
   swift_unknownObjectRetain();
   swift_retain_n();
   BigString.UnicodeScalarView.subscript.getter();
@@ -5572,17 +5582,17 @@ uint64_t specialized AttributedString.enumerateFormattableRanges(in:editor:)(__i
   v333 = v338;
   v334 = v339;
   v335 = v340;
-  v380 = v337;
-  v381 = v338;
-  v382 = v339;
-  v383 = v340;
-  v379 = v34;
-  v384 = 0;
+  v381 = v337;
+  v382 = v338;
+  v383 = v339;
+  v384 = v340;
+  v380 = v34;
+  v385 = 0;
   v326 = v337;
   v327 = v338;
   v328 = v339;
   v329 = v340;
-  outlined init with copy of AttributedSubstring(&v379, v331);
+  outlined init with copy of AttributedSubstring(&v380, v331);
   lazy protocol witness table accessor for type BigString.Index and conformance BigString.Index();
   RangeSet.init(_:)();
   v306 = v27;
@@ -5596,7 +5606,7 @@ uint64_t specialized AttributedString.enumerateFormattableRanges(in:editor:)(__i
   v38 = v322;
   (*(v322 + 16))(v37, v17, v11);
   v39 = *(v324 + 44);
-  v40 = lazy protocol witness table accessor for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges);
+  v40 = lazy protocol witness table accessor for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges, MEMORY[0x1E69E7BC8]);
   dispatch thunk of Collection.startIndex.getter();
   v41 = *(v38 + 8);
   v321 = v17;
@@ -5620,18 +5630,18 @@ uint64_t specialized AttributedString.enumerateFormattableRanges(in:editor:)(__i
       v52(v331, 0);
       dispatch thunk of Collection.formIndex(after:)();
       v55 = v316;
-      v360 = *(v316 + 24);
-      v361 = *(v316 + 40);
-      v362 = *(v316 + 56);
+      v361 = *(v316 + 24);
+      v362 = *(v316 + 40);
+      v363 = *(v316 + 56);
       swift_unknownObjectRetain();
       v56 = BigString.UnicodeScalarView.index(roundingDown:)();
       v58 = v57;
       v60 = v59;
       v62 = v61;
       swift_unknownObjectRelease();
-      v357 = *(v55 + 24);
-      v358 = *(v55 + 40);
-      v359 = *(v55 + 56);
+      v358 = *(v55 + 24);
+      v359 = *(v55 + 40);
+      v360 = *(v55 + 56);
       swift_unknownObjectRetain();
       v63 = BigString.UnicodeScalarView.index(roundingDown:)();
       v65 = v64;
@@ -5661,7 +5671,7 @@ uint64_t specialized AttributedString.enumerateFormattableRanges(in:editor:)(__i
     while (*(v313 + v37) != *v331);
   }
 
-  outlined destroy of TermOfAddress?(v37, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd);
+  outlined destroy of TermOfAddress?(v37, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMR);
   v43 = v306;
   v44 = v307;
   v45 = *(v307 + 24);
@@ -5704,7 +5714,7 @@ uint64_t specialized AttributedString.enumerateFormattableRanges(in:editor:)(__i
     {
       v131 = v75;
       dispatch thunk of Collection.endIndex.getter();
-      lazy protocol witness table accessor for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges);
+      lazy protocol witness table accessor for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges, MEMORY[0x1E69E7BB0]);
       dispatch thunk of BidirectionalCollection.index(before:)();
       v132 = dispatch thunk of Collection.subscript.read();
       v112 = v133[4];
@@ -5723,9 +5733,9 @@ uint64_t specialized AttributedString.enumerateFormattableRanges(in:editor:)(__i
       v314 = *&v331[56];
       v317 = *&v331[64];
       v136 = *(v51 + 40);
-      v354 = *(v51 + 24);
-      v355 = v136;
-      v356 = *(v51 + 56);
+      v355 = *(v51 + 24);
+      v356 = v136;
+      v357 = *(v51 + 56);
       v137 = BigString.endIndex.getter();
       v286 = v135;
       v287 = v134;
@@ -5855,9 +5865,9 @@ uint64_t specialized AttributedString.enumerateFormattableRanges(in:editor:)(__i
 
   v318 = *(v51 + 96);
   v78 = *(v51 + 40);
-  v354 = *(v51 + 24);
-  v355 = v78;
-  v356 = *(v51 + 56);
+  v355 = *(v51 + 24);
+  v356 = v78;
+  v357 = *(v51 + 56);
   v79 = BigString.startIndex.getter();
   v82 = v79;
   v83 = v80;
@@ -5894,9 +5904,9 @@ uint64_t specialized AttributedString.enumerateFormattableRanges(in:editor:)(__i
 
   v94 = v310;
   v95 = *(v51 + 40);
-  v353[3] = *(v51 + 24);
-  v353[4] = v95;
-  v353[5] = *(v51 + 56);
+  v354[3] = *(v51 + 24);
+  v354[4] = v95;
+  v354[5] = *(v51 + 56);
   v96 = BigString.startIndex.getter();
   v100 = 0;
   v101 = 0;
@@ -5951,12 +5961,12 @@ LABEL_17:
   *(v43 + 225) = v102;
   v120 = v308;
   outlined init with take of AttributedString.Runs(v43, v308);
-  outlined destroy of AttributedSubstring(&v379);
+  outlined destroy of AttributedSubstring(&v380);
   v121 = v120;
   v122 = v309;
   outlined init with copy of AttributedString.Runs(v121, v309);
   outlined init with copy of AttributedString.Runs(v122, v94);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd, &_ss23_ContiguousArrayStorageCySSGMR);
   isUniquelyReferenced_nonNull_native = swift_allocObject();
   *(isUniquelyReferenced_nonNull_native + 16) = xmmword_181218E20;
   if (one-time initialization token for name != -1)
@@ -5966,12 +5976,12 @@ LABEL_17:
 
   while (2)
   {
-    v124 = unk_1EA7B24E0;
+    v124 = qword_1EA7B24E0;
     *(isUniquelyReferenced_nonNull_native + 32) = static AttributeScopes.FoundationAttributes.LocalizedNumberFormatAttribute.name;
     *(isUniquelyReferenced_nonNull_native + 40) = v124;
     v125 = v305;
     *(v94 + *(v305 + 36)) = isUniquelyReferenced_nonNull_native;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCy10Foundation16AttributedStringV22AttributeRunBoundariesOSgGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCy10Foundation16AttributedStringV22AttributeRunBoundariesOSgGMd, &_ss11_SetStorageCy10Foundation16AttributedStringV22AttributeRunBoundariesOSgGMR);
     v126 = static _SetStorage.allocate(capacity:)();
     v127 = v126 + 56;
 
@@ -6135,16 +6145,16 @@ LABEL_58:
 LABEL_59:
     v173 = v301;
     v172 = v302;
-    outlined destroy of TermOfAddress?(&qword_1EEED4748, &_s10Foundation16AttributedStringV22AttributeRunBoundariesOSgMd);
+    outlined destroy of TermOfAddress?(&qword_1EEED4748, &_s10Foundation16AttributedStringV22AttributeRunBoundariesOSgMd, &_s10Foundation16AttributedStringV22AttributeRunBoundariesOSgMR);
     outlined destroy of AttributedString.Runs(v309);
     outlined destroy of AttributedString.Runs(v308);
     v174 = v310;
     *&v310[*(v125 + 40)] = v126;
     v175 = v296;
-    outlined init with take of IntegerFormatStyle<Int>.Percent(v174, v296, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V021LocalizedNumberFormatG0OGMd);
-    outlined init with copy of FloatingPointRoundingRule?(v175, v173, &_ss18ReversedCollectionVy10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AC15AttributeScopesO0cG0V021LocalizedNumberFormatI0OGGMd);
-    outlined init with take of IntegerFormatStyle<Int>.Percent(v173, v172, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V021LocalizedNumberFormatG0OGMd);
-    outlined init with copy of FloatingPointRoundingRule?(v172, v130, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V021LocalizedNumberFormatG0OGMd);
+    outlined init with take of IntegerFormatStyle<Int>.Percent(v174, v296, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V021LocalizedNumberFormatG0OGMd, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V021LocalizedNumberFormatG0OGMR);
+    outlined init with copy of FloatingPointRoundingRule?(v175, v173, &_ss18ReversedCollectionVy10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AC15AttributeScopesO0cG0V021LocalizedNumberFormatI0OGGMd, &_ss18ReversedCollectionVy10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AC15AttributeScopesO0cG0V021LocalizedNumberFormatI0OGGMR);
+    outlined init with take of IntegerFormatStyle<Int>.Percent(v173, v172, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V021LocalizedNumberFormatG0OGMd, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V021LocalizedNumberFormatG0OGMR);
+    outlined init with copy of FloatingPointRoundingRule?(v172, v130, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V021LocalizedNumberFormatG0OGMd, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V021LocalizedNumberFormatG0OGMR);
     v176 = v172[26];
     if (v176 == 2)
     {
@@ -6162,7 +6172,7 @@ LABEL_59:
     *(v180 + 24) = v176;
     v319 = v176;
     *(v180 + 32) = v181;
-    isUniquelyReferenced_nonNull_native = outlined destroy of TermOfAddress?(v172, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V021LocalizedNumberFormatG0OGMd);
+    isUniquelyReferenced_nonNull_native = outlined destroy of TermOfAddress?(v172, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V021LocalizedNumberFormatG0OGMd, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V021LocalizedNumberFormatG0OGMR);
     if (*(v130 + 96) == 2)
     {
       goto LABEL_162;
@@ -6315,30 +6325,30 @@ LABEL_82:
         v222 = *v130;
         v223 = *(*v130 + 24);
         v224 = *(*v130 + 56);
-        v353[1] = *(*v130 + 40);
-        v353[2] = v224;
-        v353[0] = v223;
+        v354[1] = *(*v130 + 40);
+        v354[2] = v224;
+        v354[0] = v223;
         if (v94 >> 10 < v182 >> 10)
         {
           goto LABEL_157;
         }
 
-        v352[0] = v182;
-        v352[1] = v310;
-        v352[2] = v309;
-        v352[3] = v311;
-        v352[4] = v94;
-        v352[5] = v178;
-        v352[6] = v195;
-        v352[7] = v194;
+        v353[0] = v182;
+        v353[1] = v310;
+        v353[2] = v309;
+        v353[3] = v311;
+        v353[4] = v94;
+        v353[5] = v178;
+        v353[6] = v195;
+        v353[7] = v194;
         v225 = *(v222 + 24);
-        v374 = *(v222 + 56);
+        v375 = *(v222 + 56);
         v313 = v222;
-        v373[1] = *(v222 + 40);
-        v373[0] = v225;
-        outlined init with copy of Rope<BigString._Chunk>._Node?(v373, v331);
-        v226 = v353;
-        v227 = v352;
+        v374[1] = *(v222 + 40);
+        v374[0] = v225;
+        outlined init with copy of Rope<BigString._Chunk>._Node?(v374, v331);
+        v226 = v354;
+        v227 = v353;
       }
 
       else
@@ -6346,9 +6356,9 @@ LABEL_82:
         v198 = *v130;
         v199 = (v198 + 24);
         v200 = *(v198 + 40);
-        v349 = *(v198 + 24);
-        v350 = v200;
-        v351 = *(v198 + 56);
+        v350 = *(v198 + 24);
+        v351 = v200;
+        v352 = *(v198 + 56);
         swift_unknownObjectRetain();
         v318 = v94;
         v180 = BigString.UTF8View.index(before:)();
@@ -6513,7 +6523,7 @@ LABEL_111:
           v208 = v228;
 LABEL_119:
           swift_unknownObjectRelease();
-          v219 = v210 & 0xFFFFFFFFFFFFF0FFLL | (v208 << 8);
+          v219 = (v210 & 0xFFFFFFFFFFFFF0FFLL | (v208 << 8));
           v220 = v315;
 LABEL_105:
           v221 = specialized Rope._Node.distanceFromStart<A>(to:in:)(v218, v219, v180, v130, v304);
@@ -6543,18 +6553,18 @@ LABEL_105:
           goto LABEL_153;
         }
 
-        v348[0] = v218;
-        v348[1] = v219;
-        v348[2] = v180;
-        v348[3] = v221;
-        v348[4] = v316 - v94;
-        isUniquelyReferenced_nonNull_native = AttributedString.Runs._firstOfMatchingRuns(with:comparing:)(v348, v308, v341);
-        if (v341[4] >= (v182 >> 11))
+        v349[0] = v218;
+        v349[1] = v219;
+        v349[2] = v180;
+        v349[3] = v221;
+        v349[4] = (v316 - v94);
+        isUniquelyReferenced_nonNull_native = AttributedString.Runs._firstOfMatchingRuns(with:comparing:)(v349, v308, v341);
+        if (v342 >= (v182 >> 11))
         {
           v234 = *(v313 + 5);
-          v347[3] = *(v313 + 3);
-          v347[4] = v234;
-          v347[5] = *(v313 + 7);
+          v348[3] = *(v313 + 3);
+          v348[4] = v234;
+          v348[5] = *(v313 + 7);
           swift_unknownObjectRetain();
           v94 = BigString.UTF8View.index(_:offsetBy:)();
           v236 = v235;
@@ -6562,59 +6572,59 @@ LABEL_105:
           v240 = v239;
           isUniquelyReferenced_nonNull_native = swift_unknownObjectRelease();
           v241 = v199[1];
-          v347[0] = *v199;
-          v347[1] = v241;
-          v347[2] = v199[2];
+          v348[0] = *v199;
+          v348[1] = v241;
+          v348[2] = v199[2];
           if (v318 >> 10 < v94 >> 10)
           {
             goto LABEL_155;
           }
 
-          v346[0] = v94;
-          v346[1] = v236;
-          v346[2] = v238;
-          v346[3] = v240;
-          v346[4] = v318;
-          v346[5] = v314;
-          v346[6] = v220;
-          v346[7] = v319;
+          v347[0] = v94;
+          v347[1] = v236;
+          v347[2] = v238;
+          v347[3] = v240;
+          v347[4] = v318;
+          v347[5] = v314;
+          v347[6] = v220;
+          v347[7] = v319;
           v242 = *v199;
           v243 = v199[1];
-          v376 = *(v199 + 4);
-          v375[1] = v243;
-          v375[0] = v242;
-          outlined init with copy of Rope<BigString._Chunk>._Node?(v375, v331);
-          v226 = v347;
-          v227 = v346;
+          v377 = *(v199 + 4);
+          v376[1] = v243;
+          v376[0] = v242;
+          outlined init with copy of Rope<BigString._Chunk>._Node?(v376, v331);
+          v226 = v348;
+          v227 = v347;
         }
 
         else
         {
           v231 = v199[1];
-          v345[0] = *v199;
-          v345[1] = v231;
-          v345[2] = v199[2];
+          v346[0] = *v199;
+          v346[1] = v231;
+          v346[2] = v199[2];
           if (v318 >> 10 < v182 >> 10)
           {
             goto LABEL_156;
           }
 
-          v344[0] = v182;
-          v344[1] = v310;
-          v344[2] = v309;
-          v344[3] = v311;
-          v344[4] = v318;
-          v344[5] = v314;
-          v344[6] = v220;
-          v344[7] = v319;
+          v345[0] = v182;
+          v345[1] = v310;
+          v345[2] = v309;
+          v345[3] = v311;
+          v345[4] = v318;
+          v345[5] = v314;
+          v345[6] = v220;
+          v345[7] = v319;
           v232 = *v199;
           v233 = v199[1];
-          v378 = *(v199 + 4);
-          v377[1] = v233;
-          v377[0] = v232;
-          outlined init with copy of Rope<BigString._Chunk>._Node?(v377, v331);
-          v226 = v345;
-          v227 = v344;
+          v379 = *(v199 + 4);
+          v378[1] = v233;
+          v378[0] = v232;
+          outlined init with copy of Rope<BigString._Chunk>._Node?(v378, v331);
+          v226 = v346;
+          v227 = v345;
         }
       }
 
@@ -6624,12 +6634,12 @@ LABEL_105:
       v247 = v246;
       outlined destroy of BigString(v226);
       v248 = v313[2];
-      v343[0] = v179;
-      v343[1] = v178;
-      v343[2] = v177;
-      v343[3] = v247;
-      v343[4] = v248;
-      isUniquelyReferenced_nonNull_native = specialized AttributedString.Runs.AttributesSlice1.subscript.getter(v331, &v331[8], v343);
+      v344[0] = v179;
+      v344[1] = v178;
+      v344[2] = v177;
+      v344[3] = v247;
+      v344[4] = v248;
+      isUniquelyReferenced_nonNull_native = specialized AttributedString.Runs.AttributesSlice1.subscript.getter(v331, &v331[8], v344);
       v328 = *&v331[40];
       v329 = *&v331[56];
       v330 = *&v331[72];
@@ -6701,8 +6711,8 @@ LABEL_143:
   v258[2] = v177;
   v258[3] = v259;
   v258[4] = v248;
-  outlined destroy of TermOfAddress?(v296, &_ss18ReversedCollectionVy10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AC15AttributeScopesO0cG0V021LocalizedNumberFormatI0OGGMd);
-  outlined destroy of TermOfAddress?(v130, &_ss18ReversedCollectionV8IteratorVy10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AE15AttributeScopesO0dH0V021LocalizedNumberFormatJ0OG_GMd);
+  outlined destroy of TermOfAddress?(v296, &_ss18ReversedCollectionVy10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AC15AttributeScopesO0cG0V021LocalizedNumberFormatI0OGGMd, &_ss18ReversedCollectionVy10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AC15AttributeScopesO0cG0V021LocalizedNumberFormatI0OGGMR);
+  outlined destroy of TermOfAddress?(v130, &_ss18ReversedCollectionV8IteratorVy10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AE15AttributeScopesO0dH0V021LocalizedNumberFormatJ0OG_GMd, &_ss18ReversedCollectionV8IteratorVy10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AE15AttributeScopesO0dH0V021LocalizedNumberFormatJ0OG_GMR);
   v260 = v297;
   v261 = v297[2];
   if (v261)
@@ -6724,11 +6734,11 @@ LABEL_143:
       v273 = *&v260[i + 8];
       v275 = *&v260[i + 2];
       v274 = *&v260[i + 4];
-      v342[3] = *&v260[i + 6];
-      v342[4] = v273;
-      v342[1] = v275;
-      v342[2] = v274;
-      v342[0] = *&v260[i];
+      v343[3] = *&v260[i + 6];
+      v343[4] = v273;
+      v343[1] = v275;
+      v343[2] = v274;
+      v343[0] = *&v260[i];
       if (v262)
       {
         if (!v263)
@@ -6743,12 +6753,12 @@ LABEL_143:
         v265 = *&v331[80];
         v325 = 0;
         v266 = *v295;
-        outlined init with copy of FloatingPointRoundingRule?(v331, &v326, &_sSny10Foundation16AttributedStringV5IndexVG_So27NSLocalizedNumberFormatRuleCtMd);
+        outlined init with copy of FloatingPointRoundingRule?(v331, &v326, &_sSny10Foundation16AttributedStringV5IndexVG_So27NSLocalizedNumberFormatRuleCtMd, &_sSny10Foundation16AttributedStringV5IndexVG_So27NSLocalizedNumberFormatRuleCtMR);
 
-        v267 = _sSo8_NSRangeV10FoundationE_2inABx_q_tcSXRzAC24AttributedStringProtocolR_AC0dE0V5IndexV5BoundRtzr0_lufCSnyAIG_AGTt1B5(v342, v266);
+        v267 = _sSo8_NSRangeV10FoundationE_2inABx_q_tcSXRzAC24AttributedStringProtocolR_AC0dE0V5IndexV5BoundRtzr0_lufCSnyAIG_AGTt1B5(v343, v266);
         v293(v265, v267, v268, &v325);
         v262 = v325;
-        outlined destroy of TermOfAddress?(v331, &_sSny10Foundation16AttributedStringV5IndexVG_So27NSLocalizedNumberFormatRuleCtMd);
+        outlined destroy of TermOfAddress?(v331, &_sSny10Foundation16AttributedStringV5IndexVG_So27NSLocalizedNumberFormatRuleCtMd, &_sSny10Foundation16AttributedStringV5IndexVG_So27NSLocalizedNumberFormatRuleCtMR);
         if (!v263)
         {
         }
@@ -6762,7 +6772,7 @@ LABEL_143:
 void specialized AttributedString._addAttributesNotPresentMergingInlinePresentationIntents(_:to:)(uint64_t a1, uint64_t a2)
 {
   v580 = a2;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMR);
   v584 = *(v4 - 8);
   MEMORY[0x1EEE9AC00](v4);
   v6 = &v534 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -6770,10 +6780,10 @@ void specialized AttributedString._addAttributesNotPresentMergingInlinePresentat
   v567 = &v534 - v8;
   MEMORY[0x1EEE9AC00](v9);
   v585 = &v534 - v10;
-  v583 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd);
+  v583 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMR);
   MEMORY[0x1EEE9AC00](v583);
   v12 = &v534 - v11;
-  v586 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMd);
+  v586 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMd, &_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMR);
   v13 = *(v586 - 8);
   MEMORY[0x1EEE9AC00](v586);
   v579 = &v534 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -6781,12 +6791,12 @@ void specialized AttributedString._addAttributesNotPresentMergingInlinePresentat
   v571 = &v534 - v16;
   MEMORY[0x1EEE9AC00](v17);
   v19 = &v534 - v18;
-  v576 = type metadata accessor for AttributedString.Runs();
+  v576 = type metadata accessor for AttributedString.Runs(0);
   MEMORY[0x1EEE9AC00](v576);
   v21 = &v534 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v22);
   v24 = &v534 - v23;
-  v25 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVy10Foundation16AttributedStringV4RunsVGMd);
+  v25 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVy10Foundation16AttributedStringV4RunsVGMd, &_ss16IndexingIteratorVy10Foundation16AttributedStringV4RunsVGMR);
   MEMORY[0x1EEE9AC00](v25);
   v581 = &v534 - v27;
   if (*(a1 + 16))
@@ -6862,7 +6872,7 @@ void specialized AttributedString._addAttributesNotPresentMergingInlinePresentat
     v47 = v584;
     (*(v584 + 16))(v12, v46, v39);
     v48 = *(v583 + 36);
-    v49 = lazy protocol witness table accessor for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges);
+    v49 = lazy protocol witness table accessor for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges, MEMORY[0x1E69E7BC8]);
     dispatch thunk of Collection.startIndex.getter();
     v583 = *(v47 + 8);
     v584 = v47 + 8;
@@ -6927,7 +6937,7 @@ void specialized AttributedString._addAttributesNotPresentMergingInlinePresentat
       while (*(v50 + v572) != v687);
     }
 
-    outlined destroy of TermOfAddress?(v50, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd);
+    outlined destroy of TermOfAddress?(v50, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMR);
     v51 = v576;
     v52 = v569;
     v53 = v569 + *(v576 + 24);
@@ -6968,7 +6978,7 @@ void specialized AttributedString._addAttributesNotPresentMergingInlinePresentat
       if ((dispatch thunk of Collection.isEmpty.getter() & 1) == 0)
       {
         dispatch thunk of Collection.endIndex.getter();
-        lazy protocol witness table accessor for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges);
+        lazy protocol witness table accessor for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges, MEMORY[0x1E69E7BB0]);
         dispatch thunk of BidirectionalCollection.index(before:)();
         v511 = dispatch thunk of Collection.subscript.read();
         v513 = v512[4];
@@ -7189,7 +7199,7 @@ LABEL_22:
             if (v143 == 2)
             {
 LABEL_340:
-              outlined destroy of TermOfAddress?(v91, &_ss16IndexingIteratorVy10Foundation16AttributedStringV4RunsVGMd);
+              outlined destroy of TermOfAddress?(v91, &_ss16IndexingIteratorVy10Foundation16AttributedStringV4RunsVGMd, &_ss16IndexingIteratorVy10Foundation16AttributedStringV4RunsVGMR);
               return;
             }
           }
@@ -7243,7 +7253,7 @@ LABEL_340:
         v159 = v691;
         v160 = *(&v692 + 1);
         v161 = specialized Range.contains(_:)(&v681);
-        if (v147 < v158 || (v161 & 1) == 0)
+        if (v147 < v158 || !v161)
         {
           goto LABEL_349;
         }
@@ -8261,7 +8271,7 @@ LABEL_357:
                     }
 
                     v316 = v580 + 1;
-                    if ((v580 + 1) >= v315)
+                    if (v580 + 1 >= v315)
                     {
                       goto LABEL_337;
                     }
@@ -8460,8 +8470,8 @@ LABEL_375:
             v604 = v644;
             v605 = v645;
             LOBYTE(v590) = 1;
-            outlined init with copy of FloatingPointRoundingRule?(&v726, &v596, &_sSDySS10Foundation16AttributedStringV15_AttributeValueVGMd);
-            outlined init with copy of FloatingPointRoundingRule?(&v725, &v596, &_sShySSGMd);
+            outlined init with copy of FloatingPointRoundingRule?(&v726, &v596, &_sSDySS10Foundation16AttributedStringV15_AttributeValueVGMd, &_sSDySS10Foundation16AttributedStringV15_AttributeValueVGMR);
+            outlined init with copy of FloatingPointRoundingRule?(&v725, &v596, &_sShySSGMd, &_sShySSGMR);
             specialized AttributedString._AttributeStorage.mergeIn(_:mergePolicy:)(v366, &v590);
             if (one-time initialization token for name != -1)
             {
@@ -8469,7 +8479,7 @@ LABEL_375:
             }
 
             v372 = static AttributeScopes.FoundationAttributes.InlinePresentationIntentAttribute.name;
-            v371 = unk_1EA7B26A0;
+            v371 = qword_1EA7B26A0;
             if (v369 & v541)
             {
               memset(v598, 0, 32);
@@ -8488,11 +8498,11 @@ LABEL_375:
             }
 
             *&v598[32] = 0;
-            outlined init with copy of FloatingPointRoundingRule?(&v596, &v590, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+            outlined init with copy of FloatingPointRoundingRule?(&v596, &v590, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
             if (!*(&v591 + 1))
             {
 
-              outlined destroy of TermOfAddress?(&v590, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+              outlined destroy of TermOfAddress?(&v590, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
               v393 = v604;
               v394 = specialized __RawDictionaryStorage.find<A>(_:)(v372, v371);
               if ((v395 & 1) == 0)
@@ -8513,7 +8523,7 @@ LABEL_375:
 
               else
               {
-                __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMd);
+                __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMd, &_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMR);
                 v487 = static _DictionaryStorage.copy(original:)();
                 v383 = v487;
                 if (*(v393 + 16))
@@ -8619,8 +8629,8 @@ LABEL_263:
               v604 = v383;
 LABEL_264:
               AttributedString._AttributeStorage._attributeModified(_:old:new:)(v372, v371, &v590, &v596);
-              outlined destroy of TermOfAddress?(&v596, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
-              outlined destroy of TermOfAddress?(&v590, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+              outlined destroy of TermOfAddress?(&v596, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
+              outlined destroy of TermOfAddress?(&v590, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
 
               v729 = v646;
               v730 = v647;
@@ -8965,7 +8975,7 @@ LABEL_255:
               else
               {
                 v575 = v376;
-                __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMd);
+                __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMd, &_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMR);
                 v463 = static _DictionaryStorage.copy(original:)();
                 v383 = v463;
                 if (*(v374 + 16))
@@ -9700,34 +9710,34 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
   return MEMORY[0x1EEE6BB78](a1, v2);
 }
 
-uint64_t PersonNameComponents.FormatStyle.encode(to:)(void *a1, uint64_t *a2, uint64_t a3, void (*a4)(void))
+uint64_t PersonNameComponents.FormatStyle.encode(to:)(void *a1, uint64_t *a2, uint64_t *a3, void (*a4)(void), uint64_t a5)
 {
-  v14 = a4;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(a2);
-  v7 = *(v6 - 8);
-  MEMORY[0x1EEE9AC00](v6);
-  v9 = &v13 - v8;
-  v10 = *v4;
-  v13 = *(v4 + 8);
+  v15 = a4;
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(a2, a3);
+  v8 = *(v7 - 8);
+  MEMORY[0x1EEE9AC00](v7);
+  v10 = &v14 - v9;
+  v11 = *v5;
+  v14 = *(v5 + 8);
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
-  v14();
+  v15();
   dispatch thunk of Encoder.container<A>(keyedBy:)();
-  LOBYTE(v16) = v10;
-  v17 = 0;
+  LOBYTE(v17) = v11;
+  v18 = 0;
   lazy protocol witness table accessor for type PersonNameComponents.FormatStyle.Style and conformance PersonNameComponents.FormatStyle.Style();
-  v11 = v15;
+  v12 = v16;
   KeyedEncodingContainer.encode<A>(_:forKey:)();
-  if (!v11)
+  if (!v12)
   {
-    v16 = v13;
-    v17 = 1;
+    v17 = v14;
+    v18 = 1;
     lazy protocol witness table accessor for type Locale and conformance Locale();
     swift_unknownObjectRetain();
     KeyedEncodingContainer.encode<A>(_:forKey:)();
     swift_unknownObjectRelease();
   }
 
-  return (*(v7 + 8))(v9, v6);
+  return (*(v8 + 8))(v10, v7);
 }
 
 void PersonNameComponents.FormatStyle.hash(into:)(Swift::Int a1)
@@ -9875,7 +9885,7 @@ LABEL_25:
     v32 = v17;
     Hasher._combine(_:)(1u);
     type metadata accessor for CFDictionaryRef(0);
-    _sSo15CFDictionaryRefaAB14CoreFoundation9_CFObjectSCWlTm_2(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
+    _sSo15CFDictionaryRefaAB14CoreFoundation9_CFObjectSCWlTm_2(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
     _CFObject.hash(into:)();
     if (*(&v39 + 1))
     {
@@ -9903,7 +9913,7 @@ LABEL_30:
 LABEL_27:
   Hasher._combine(_:)(1u);
   type metadata accessor for CFDictionaryRef(0);
-  _sSo15CFDictionaryRefaAB14CoreFoundation9_CFObjectSCWlTm_2(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
+  _sSo15CFDictionaryRefaAB14CoreFoundation9_CFObjectSCWlTm_2(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
   _CFObject.hash(into:)();
   v33 = v32;
   if (v18)
@@ -9911,7 +9921,7 @@ LABEL_27:
 LABEL_28:
     Hasher._combine(_:)(1u);
     type metadata accessor for CFDictionaryRef(0);
-    _sSo15CFDictionaryRefaAB14CoreFoundation9_CFObjectSCWlTm_2(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
+    _sSo15CFDictionaryRefaAB14CoreFoundation9_CFObjectSCWlTm_2(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
     _CFObject.hash(into:)();
     goto LABEL_32;
   }
@@ -9923,7 +9933,7 @@ LABEL_32:
   {
     Hasher._combine(_:)(1u);
     type metadata accessor for CFDictionaryRef(0);
-    _sSo15CFDictionaryRefaAB14CoreFoundation9_CFObjectSCWlTm_2(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
+    _sSo15CFDictionaryRefaAB14CoreFoundation9_CFObjectSCWlTm_2(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
     _CFObject.hash(into:)();
     v34 = *(&v41 + 1);
     if (v41)
@@ -9941,7 +9951,7 @@ LABEL_32:
 LABEL_34:
       Hasher._combine(_:)(1u);
       type metadata accessor for CFDictionaryRef(0);
-      _sSo15CFDictionaryRefaAB14CoreFoundation9_CFObjectSCWlTm_2(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
+      _sSo15CFDictionaryRefaAB14CoreFoundation9_CFObjectSCWlTm_2(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
       _CFObject.hash(into:)();
       if (v34)
       {

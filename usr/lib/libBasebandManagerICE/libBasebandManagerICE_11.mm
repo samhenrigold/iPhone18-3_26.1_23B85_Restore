@@ -1,101 +1,3 @@
-void sub_297504CDC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, std::__shared_weak_count *a15, xpc_object_t object, xpc_object_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, std::__shared_weak_count *a24, xpc_object_t a25, xpc_object_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, std::__shared_weak_count *a33, xpc_object_t a34)
-{
-  dispatch::callback<void({block_pointer})(BOOL,xpc::object)>::~callback(v36 - 128);
-  xpc_release(object);
-  if (a15)
-  {
-    std::__shared_weak_count::__release_weak(a15);
-  }
-
-  xpc_release(a17);
-  std::__shared_weak_count::__release_weak(v34);
-  xpc_release(v35);
-  _Unwind_Resume(a1);
-}
-
-void ___ZN9SARModule27setupTxIndicationWorkaroundEv_block_invoke(void *a1, char a2)
-{
-  v23 = *MEMORY[0x29EDCA608];
-  v3 = a1[6];
-  if (v3)
-  {
-    v5 = a1[4];
-    v6 = std::__shared_weak_count::lock(v3);
-    if (v6)
-    {
-      v7 = a1[5];
-      if (atomic_fetch_add(&v6->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-      {
-        if (!v7)
-        {
-          goto LABEL_12;
-        }
-      }
-
-      else
-      {
-        v8 = v6;
-        (v6->__on_zero_shared)();
-        std::__shared_weak_count::__release_weak(v8);
-        if (!v7)
-        {
-          goto LABEL_12;
-        }
-      }
-
-      if (a2)
-      {
-        v9 = *(v5 + 104);
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
-        {
-          *buf = 0;
-          _os_log_impl(&dword_297476000, v9, OS_LOG_TYPE_DEFAULT, "#I Succeeded in enabling Tx Capping Enable", buf, 2u);
-        }
-      }
-
-      else
-      {
-        v11 = a1[7];
-        v10 = a1 + 7;
-        v12 = *MEMORY[0x29EDC8FA8];
-        if (xpc_dictionary_get_value(v11, *MEMORY[0x29EDC8FA8]))
-        {
-          v13 = *(v5 + 104);
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
-          {
-            v17[0] = v10;
-            v17[1] = v12;
-            xpc::dict::object_proxy::operator xpc::object(v17, &object);
-            xpc::dyn_cast_or_default(buf, &object, "None", v15);
-            if (v20 >= 0)
-            {
-              v16 = buf;
-            }
-
-            else
-            {
-              v16 = *buf;
-            }
-
-            *v21 = 136315138;
-            v22 = v16;
-            _os_log_error_impl(&dword_297476000, v13, OS_LOG_TYPE_ERROR, "Failed to run command driver: %s", v21, 0xCu);
-            if (v20 < 0)
-            {
-              operator delete(*buf);
-            }
-
-            xpc_release(object);
-          }
-        }
-      }
-    }
-  }
-
-LABEL_12:
-  v14 = *MEMORY[0x29EDCA608];
-}
-
 void sub_2975050AC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, xpc_object_t object)
 {
   if (a2)
@@ -142,7 +44,7 @@ void __destroy_helper_block_e8_40c33_ZTSNSt3__18weak_ptrI9SARModuleEE56c15_ZTSN3
 
 void ___ZN9SARModule27setupTxIndicationWorkaroundEv_block_invoke_57(void *a1, char a2)
 {
-  v23 = *MEMORY[0x29EDCA608];
+  v22 = *MEMORY[0x29EDCA608];
   v3 = a1[6];
   if (v3)
   {
@@ -155,7 +57,7 @@ void ___ZN9SARModule27setupTxIndicationWorkaroundEv_block_invoke_57(void *a1, ch
       {
         if (!v7)
         {
-          goto LABEL_12;
+          return;
         }
       }
 
@@ -166,7 +68,7 @@ void ___ZN9SARModule27setupTxIndicationWorkaroundEv_block_invoke_57(void *a1, ch
         std::__shared_weak_count::__release_weak(v8);
         if (!v7)
         {
-          goto LABEL_12;
+          return;
         }
       }
 
@@ -190,24 +92,24 @@ void ___ZN9SARModule27setupTxIndicationWorkaroundEv_block_invoke_57(void *a1, ch
           v13 = *(v5 + 104);
           if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
           {
-            v17[0] = v10;
-            v17[1] = v12;
-            xpc::dict::object_proxy::operator xpc::object(v17, &object);
-            xpc::dyn_cast_or_default(buf, &object, "None", v15);
-            if (v20 >= 0)
+            v16[0] = v10;
+            v16[1] = v12;
+            xpc::dict::object_proxy::operator xpc::object(v16, &object);
+            xpc::dyn_cast_or_default(buf, &object, "None", v14);
+            if (v19 >= 0)
             {
-              v16 = buf;
+              v15 = buf;
             }
 
             else
             {
-              v16 = *buf;
+              v15 = *buf;
             }
 
-            *v21 = 136315138;
-            v22 = v16;
-            _os_log_error_impl(&dword_297476000, v13, OS_LOG_TYPE_ERROR, "Failed to run command driver: %s", v21, 0xCu);
-            if (v20 < 0)
+            *v20 = 136315138;
+            v21 = v15;
+            _os_log_error_impl(&dword_297476000, v13, OS_LOG_TYPE_ERROR, "Failed to run command driver: %s", v20, 0xCu);
+            if (v19 < 0)
             {
               operator delete(*buf);
             }
@@ -218,9 +120,6 @@ void ___ZN9SARModule27setupTxIndicationWorkaroundEv_block_invoke_57(void *a1, ch
       }
     }
   }
-
-LABEL_12:
-  v14 = *MEMORY[0x29EDCA608];
 }
 
 void sub_297505358(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, xpc_object_t object)
@@ -235,7 +134,7 @@ void sub_297505358(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void ___ZN9SARModule27setupTxIndicationWorkaroundEv_block_invoke_58(void *a1, char a2)
 {
-  v23 = *MEMORY[0x29EDCA608];
+  v22 = *MEMORY[0x29EDCA608];
   v3 = a1[6];
   if (v3)
   {
@@ -248,7 +147,7 @@ void ___ZN9SARModule27setupTxIndicationWorkaroundEv_block_invoke_58(void *a1, ch
       {
         if (!v7)
         {
-          goto LABEL_12;
+          return;
         }
       }
 
@@ -259,7 +158,7 @@ void ___ZN9SARModule27setupTxIndicationWorkaroundEv_block_invoke_58(void *a1, ch
         std::__shared_weak_count::__release_weak(v8);
         if (!v7)
         {
-          goto LABEL_12;
+          return;
         }
       }
 
@@ -283,24 +182,24 @@ void ___ZN9SARModule27setupTxIndicationWorkaroundEv_block_invoke_58(void *a1, ch
           v13 = *(v5 + 104);
           if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
           {
-            v17[0] = v10;
-            v17[1] = v12;
-            xpc::dict::object_proxy::operator xpc::object(v17, &object);
-            xpc::dyn_cast_or_default(buf, &object, "None", v15);
-            if (v20 >= 0)
+            v16[0] = v10;
+            v16[1] = v12;
+            xpc::dict::object_proxy::operator xpc::object(v16, &object);
+            xpc::dyn_cast_or_default(buf, &object, "None", v14);
+            if (v19 >= 0)
             {
-              v16 = buf;
+              v15 = buf;
             }
 
             else
             {
-              v16 = *buf;
+              v15 = *buf;
             }
 
-            *v21 = 136315138;
-            v22 = v16;
-            _os_log_error_impl(&dword_297476000, v13, OS_LOG_TYPE_ERROR, "Failed to run command driver: %s", v21, 0xCu);
-            if (v20 < 0)
+            *v20 = 136315138;
+            v21 = v15;
+            _os_log_error_impl(&dword_297476000, v13, OS_LOG_TYPE_ERROR, "Failed to run command driver: %s", v20, 0xCu);
+            if (v19 < 0)
             {
               operator delete(*buf);
             }
@@ -311,9 +210,6 @@ void ___ZN9SARModule27setupTxIndicationWorkaroundEv_block_invoke_58(void *a1, ch
       }
     }
   }
-
-LABEL_12:
-  v14 = *MEMORY[0x29EDCA608];
 }
 
 void sub_297505550(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, xpc_object_t object)
@@ -354,7 +250,7 @@ void SARModule::transmitStateHandler(void *a1, int a2, int a3)
   }
 }
 
-void SARModule::createTransmitStateDict_sync(capabilities::radio *a1@<X0>, int a2@<W1>, int a3@<W2>, xpc_object_t *a4@<X8>)
+void SARModule::createTransmitStateDict_sync(NSObject **a1@<X0>, int a2@<W1>, int a3@<W2>, xpc_object_t *a4@<X8>)
 {
   if (capabilities::radio::maverick(a1))
   {
@@ -479,7 +375,7 @@ LABEL_35:
     goto LABEL_39;
   }
 
-  v10 = *(a1 + 13);
+  v10 = a1[13];
   if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
     *v17 = 0;
@@ -1095,22 +991,16 @@ LABEL_10:
 
 uint64_t AppleSARHelper::dataAction<sar::SARFusion_WristState>(AppleSARHelper *a1, void *a2)
 {
-  v6[1] = *MEMORY[0x29EDCA608];
-  if (*(a1 + 1))
+  v5[1] = *MEMORY[0x29EDCA608];
+  if (!*(a1 + 1))
   {
-    v6[0] = 0;
-    v5 = 0;
-    v4 = 1;
-    result = AppleSARHelper::callUserClientMethod(a1, 11, v6, 1, a2, 1, &v5, &v4, a2, 1uLL);
+    return 0;
   }
 
-  else
-  {
-    result = 0;
-  }
-
-  v3 = *MEMORY[0x29EDCA608];
-  return result;
+  v5[0] = 0;
+  v4 = 0;
+  v3 = 1;
+  return AppleSARHelper::callUserClientMethod(a1, 11, v5, 1, a2, 1, &v4, &v3, a2, 1uLL);
 }
 
 uint64_t dispatch::callback<void({block_pointer})(sar::AppleSARMessageType,void *)>::~callback(uint64_t a1)
@@ -1318,9 +1208,10 @@ void sub_297506E00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_297506E1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, void *a10, char a11)
+void sub_297506E1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, void *a10, ...)
 {
-  std::shared_ptr<Registry>::~shared_ptr[abi:ne200100](&a11);
+  va_start(va, a10);
+  std::shared_ptr<Registry>::~shared_ptr[abi:ne200100](va);
   std::unique_ptr<TransportModule::bootstrap(BootstrapStage,dispatch::group_session)::$_0,std::default_delete<TransportModule::bootstrap(BootstrapStage,dispatch::group_session)::$_0>>::~unique_ptr[abi:ne200100](&a10);
   _ZNSt3__110unique_ptrIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb_E3__1EEvOT_EUlvE_NS_14default_deleteISB_EEED1B8ne200100Ev(&a9);
   _Unwind_Resume(a1);
@@ -1587,7 +1478,7 @@ void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableI9SARModuleE15execute_wrap
   operator delete(a1);
 }
 
-void sub_29750755C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, xpc_object_t object, xpc_object_t a13)
+void sub_29750755C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, xpc_object_t object, xpc_object_t a15)
 {
   xpc_release(object);
   _ZNSt3__110unique_ptrIZZN9SARModule28registerCommandHandlers_syncEvEUb_E3__4NS_14default_deleteIS2_EEED1B8ne200100Ev(&a11);
@@ -1616,9 +1507,9 @@ uint64_t *_ZNSt3__110unique_ptrIZZN9SARModule28registerCommandHandlers_syncEvEUb
 
 void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableI9SARModuleE15execute_wrappedIZZNS3_28registerCommandHandlers_syncEvEUb0_E3__5EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS7_NSC_14default_deleteIS7_EEEEENUlPvE_8__invokeESH_(std::__shared_weak_count **a1)
 {
-  v34 = *MEMORY[0x29EDCA608];
+  v33 = *MEMORY[0x29EDCA608];
   v1 = *a1;
-  v30 = *a1;
+  v29 = *a1;
   v2 = (*a1)->__vftable;
   v3 = MEMORY[0x29C272BA0]((*a1)->__shared_owners_);
   get_deleter = v2[2].__get_deleter;
@@ -1683,9 +1574,9 @@ LABEL_14:
       v11 = *buf;
     }
 
-    *v33 = 136315138;
-    *&v33[4] = v11;
-    _os_log_impl(&dword_297476000, get_deleter, OS_LOG_TYPE_DEFAULT, "#I Motion parameter is given: %s", v33, 0xCu);
+    *v32 = 136315138;
+    *&v32[4] = v11;
+    _os_log_impl(&dword_297476000, get_deleter, OS_LOG_TYPE_DEFAULT, "#I Motion parameter is given: %s", v32, 0xCu);
     if (buf[23] < 0)
     {
       operator delete(*buf);
@@ -1702,14 +1593,14 @@ LABEL_14:
       _os_log_impl(&dword_297476000, get_deleter, OS_LOG_TYPE_DEFAULT, "#I Set CoreMotion On Body Handler's motion parameter!", buf, 2u);
     }
 
-    ctu::xpc_to_cf(v33, v1->__shared_owners_, v12);
-    v13 = *v33;
-    if (*v33 && (v14 = CFGetTypeID(*v33), v14 == CFDictionaryGetTypeID()))
+    ctu::xpc_to_cf(v32, v1->__shared_owners_, v12);
+    v13 = *v32;
+    if (*v32 && (v14 = CFGetTypeID(*v32), v14 == CFDictionaryGetTypeID()))
     {
       *buf = v13;
       CFRetain(v13);
-      v15 = *v33;
-      if (!*v33)
+      v15 = *v32;
+      if (!*v32)
       {
 LABEL_28:
         CMOnBodyDelegate::setThresholds(v2[2].__on_zero_shared_weak, v13);
@@ -1768,8 +1659,8 @@ LABEL_38:
     {
       v13 = 0;
       *buf = 0;
-      v15 = *v33;
-      if (!*v33)
+      v15 = *v32;
+      if (!*v32)
       {
         goto LABEL_28;
       }
@@ -1803,7 +1694,7 @@ LABEL_32:
   }
 
   shared_owners = v1->__shared_owners_;
-  *v33 = shared_owners;
+  *v32 = shared_owners;
   if (shared_owners)
   {
     xpc_retain(shared_owners);
@@ -1812,12 +1703,12 @@ LABEL_32:
   else
   {
     shared_owners = xpc_null_create();
-    *v33 = shared_owners;
+    *v32 = shared_owners;
   }
 
-  OBDManager::setMotionParameter(v16, v33);
+  OBDManager::setMotionParameter(v16, v32);
   xpc_release(shared_owners);
-  *v33 = 0;
+  *v32 = 0;
   on_zero_shared = v2[5].__on_zero_shared;
   v21 = v2[2].__get_deleter;
   v22 = v21;
@@ -1835,7 +1726,7 @@ LABEL_44:
   }
 
   v23 = v1->__shared_owners_;
-  v31 = v23;
+  v30 = v23;
   if (v23)
   {
     xpc_retain(v23);
@@ -1844,45 +1735,46 @@ LABEL_44:
   else
   {
     v23 = xpc_null_create();
-    v31 = v23;
+    v30 = v23;
   }
 
-  HandDetectionManager::setMotionParameter(on_zero_shared, &v31);
+  HandDetectionManager::setMotionParameter(on_zero_shared, &v30);
   xpc_release(v23);
   v5 = 0;
-  v31 = 0;
+  v30 = 0;
 LABEL_50:
   shared_weak_owners = v1->__shared_weak_owners_;
   *buf = xpc_null_create();
   (*(shared_weak_owners + 16))(shared_weak_owners, v5, buf);
   xpc_release(*buf);
-  if (v30)
+  if (v29)
   {
-    v25 = v30->__shared_weak_owners_;
+    v25 = v29->__shared_weak_owners_;
     if (v25)
     {
       _Block_release(v25);
     }
 
-    xpc_release(v30->__shared_owners_);
-    operator delete(v30);
+    xpc_release(v29->__shared_owners_);
+    operator delete(v29);
   }
 
   v26 = a1;
   if (a1)
   {
     v27 = a1[2];
-    if (v27 && !atomic_fetch_add(&v27->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    if (v27)
     {
-      (v27->__on_zero_shared)(v27);
-      std::__shared_weak_count::__release_weak(v27);
-      v26 = a1;
+      if (!atomic_fetch_add(&v27->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+      {
+        (v27->__on_zero_shared)(v27);
+        std::__shared_weak_count::__release_weak(v27);
+        v26 = a1;
+      }
     }
 
     operator delete(v26);
   }
-
-  v28 = *MEMORY[0x29EDCA608];
 }
 
 void sub_297507B28(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, xpc_object_t object, uint64_t a17, uint64_t a18, uint64_t a19, char a20)
@@ -1917,8 +1809,7 @@ uint64_t *_ZNSt3__110unique_ptrIZZN9SARModule28registerCommandHandlers_syncEvEUb
 void std::shared_ptr<AppleSARHelper>::operator=[abi:ne200100](__int128 *a1)
 {
   v1 = *a1;
-  *a1 = 0;
-  *(a1 + 1) = 0;
+  *a1 = 0uLL;
   v2 = *(&off_2A139A120 + 1);
   off_2A139A120 = v1;
   if (v2 && !atomic_fetch_add(&v2->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
@@ -1931,9 +1822,9 @@ void std::shared_ptr<AppleSARHelper>::operator=[abi:ne200100](__int128 *a1)
 
 void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableI9SARModuleE15execute_wrappedIZZNS3_28registerCommandHandlers_syncEvEUb1_E3__6EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS7_NSC_14default_deleteIS7_EEEEENUlPvE_8__invokeESH_(uint64_t a1)
 {
-  v46[1] = *MEMORY[0x29EDCA608];
+  v45[1] = *MEMORY[0x29EDCA608];
   v1 = *a1;
-  v39 = *a1;
+  v38 = *a1;
   v2 = **a1;
   value = xpc_dictionary_get_value(*(*a1 + 8), *MEMORY[0x29EDBE770]);
   v4 = value;
@@ -1979,8 +1870,8 @@ LABEL_8:
   bytes_ptr = xpc_data_get_bytes_ptr(v4);
   length = xpc_data_get_length(v4);
   object = 0;
+  v40 = 0;
   v41 = 0;
-  v42 = 0;
   if (length >= 0xC)
   {
     v11 = 12 * (length / 0xC);
@@ -1997,8 +1888,8 @@ LABEL_8:
 
     while (v11 != v13);
     object = v12;
+    v40 = &v12[v11];
     v41 = &v12[v11];
-    v42 = &v12[v11];
   }
 
   v16 = SARModule::convertUSBCAccessoryBitMask(v2, &object);
@@ -2045,13 +1936,13 @@ LABEL_8:
   }
 
   pthread_mutex_unlock(&ctu::Singleton<AppleSARHelper,AppleSARHelper,ctu::PthreadMutexGuardPolicy<AppleSARHelper>>::sInstance);
-  v43 = *(v2 + 128);
+  v42 = *(v2 + 128);
   if (*(v20 + 1))
   {
     *buf = 0;
-    v46[0] = 0;
-    v44 = 1;
-    v25 = AppleSARHelper::callUserClientMethod(v20, 3, buf, 1, &v43, 4, v46, &v44, &v43, 4uLL);
+    v45[0] = 0;
+    v43 = 1;
+    v25 = AppleSARHelper::callUserClientMethod(v20, 3, buf, 1, &v42, 4, v45, &v43, &v42, 4uLL);
     if (!v24)
     {
 LABEL_29:
@@ -2129,33 +2020,34 @@ LABEL_36:
   }
 
   xpc_release(v4);
-  if (v39)
+  if (v38)
   {
-    v34 = v39[2];
+    v34 = v38[2];
     if (v34)
     {
       _Block_release(v34);
     }
 
-    xpc_release(v39[1]);
-    operator delete(v39);
+    xpc_release(v38[1]);
+    operator delete(v38);
   }
 
   v35 = a1;
   if (a1)
   {
     v36 = *(a1 + 16);
-    if (v36 && !atomic_fetch_add(&v36->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    if (v36)
     {
-      (v36->__on_zero_shared)(v36);
-      std::__shared_weak_count::__release_weak(v36);
-      v35 = a1;
+      if (!atomic_fetch_add(&v36->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+      {
+        (v36->__on_zero_shared)(v36);
+        std::__shared_weak_count::__release_weak(v36);
+        v35 = a1;
+      }
     }
 
     operator delete(v35);
   }
-
-  v37 = *MEMORY[0x29EDCA608];
 }
 
 void sub_2975081E0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, int a12, __int16 a13, char a14, char a15, int a16, __int16 a17, char a18, char a19, uint64_t a20, xpc_object_t object, uint64_t a22, uint64_t a23, uint64_t a24, xpc_object_t a25)
@@ -2189,7 +2081,7 @@ uint64_t *_ZNSt3__110unique_ptrIZZN9SARModule28registerCommandHandlers_syncEvEUb
 
 void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableI9SARModuleE15execute_wrappedIZZNS3_28registerCommandHandlers_syncEvEUb2_E3__7EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS7_NSC_14default_deleteIS7_EEEEENUlPvE_8__invokeESH_(std::__shared_weak_count **a1)
 {
-  v24[1] = *MEMORY[0x29EDCA608];
+  v23[1] = *MEMORY[0x29EDCA608];
   v1 = *a1;
   __p = *a1;
   v2 = (*a1)->__vftable;
@@ -2233,13 +2125,13 @@ void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableI9SARModuleE15execute_wrap
   }
 
   pthread_mutex_unlock(&ctu::Singleton<AppleSARHelper,AppleSARHelper,ctu::PthreadMutexGuardPolicy<AppleSARHelper>>::sInstance);
-  v21 = v2[6].__get_deleter;
+  v20 = v2[6].__get_deleter;
   if (*(v5 + 1))
   {
     *buf = 0;
-    v24[0] = 0;
-    v22 = 1;
-    v10 = AppleSARHelper::callUserClientMethod(v5, 31, buf, 1, &v21, 1, v24, &v22, &v21, 1uLL);
+    v23[0] = 0;
+    v21 = 1;
+    v10 = AppleSARHelper::callUserClientMethod(v5, 31, buf, 1, &v20, 1, v23, &v21, &v20, 1uLL);
     if (!v9)
     {
 LABEL_18:
@@ -2324,17 +2216,18 @@ LABEL_25:
   if (a1)
   {
     v17 = a1[2];
-    if (v17 && !atomic_fetch_add(&v17->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    if (v17)
     {
-      (v17->__on_zero_shared)(v17);
-      std::__shared_weak_count::__release_weak(v17);
-      v16 = a1;
+      if (!atomic_fetch_add(&v17->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+      {
+        (v17->__on_zero_shared)(v17);
+        std::__shared_weak_count::__release_weak(v17);
+        v16 = a1;
+      }
     }
 
     operator delete(v16);
   }
-
-  v18 = *MEMORY[0x29EDCA608];
 }
 
 void sub_2975086CC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, int a13, __int16 a14, char a15, char a16, int a17, __int16 a18, char a19, char a20, uint64_t a21, uint64_t a22, xpc_object_t object)
@@ -2369,7 +2262,7 @@ void **_ZNSt3__110unique_ptrIZZN9SARModule28registerCommandHandlers_syncEvEUb2_E
 
 void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableI9SARModuleE15execute_wrappedIZZNS3_28registerCommandHandlers_syncEvEUb3_E3__8EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS7_NSC_14default_deleteIS7_EEEEENUlPvE_8__invokeESH_(std::__shared_weak_count **a1)
 {
-  v24[1] = *MEMORY[0x29EDCA608];
+  v23[1] = *MEMORY[0x29EDCA608];
   v1 = *a1;
   __p = *a1;
   v2 = (*a1)->__vftable;
@@ -2413,13 +2306,13 @@ void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableI9SARModuleE15execute_wrap
   }
 
   pthread_mutex_unlock(&ctu::Singleton<AppleSARHelper,AppleSARHelper,ctu::PthreadMutexGuardPolicy<AppleSARHelper>>::sInstance);
-  v21 = v2[6].__get_deleter;
+  v20 = v2[6].__get_deleter;
   if (*(v5 + 1))
   {
     *buf = 0;
-    v24[0] = 0;
-    v22 = 1;
-    v10 = AppleSARHelper::callUserClientMethod(v5, 31, buf, 1, &v21, 1, v24, &v22, &v21, 1uLL);
+    v23[0] = 0;
+    v21 = 1;
+    v10 = AppleSARHelper::callUserClientMethod(v5, 31, buf, 1, &v20, 1, v23, &v21, &v20, 1uLL);
     if (!v9)
     {
 LABEL_18:
@@ -2504,17 +2397,18 @@ LABEL_25:
   if (a1)
   {
     v17 = a1[2];
-    if (v17 && !atomic_fetch_add(&v17->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    if (v17)
     {
-      (v17->__on_zero_shared)(v17);
-      std::__shared_weak_count::__release_weak(v17);
-      v16 = a1;
+      if (!atomic_fetch_add(&v17->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+      {
+        (v17->__on_zero_shared)(v17);
+        std::__shared_weak_count::__release_weak(v17);
+        v16 = a1;
+      }
     }
 
     operator delete(v16);
   }
-
-  v18 = *MEMORY[0x29EDCA608];
 }
 
 void sub_297508B08(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, int a13, __int16 a14, char a15, char a16, int a17, __int16 a18, char a19, char a20, uint64_t a21, uint64_t a22, xpc_object_t object)
@@ -2551,7 +2445,7 @@ void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableI9SARModuleE15execute_wrap
 {
   object[3] = *MEMORY[0x29EDCA608];
   v1 = *a1;
-  v33 = *a1;
+  v32 = *a1;
   v2 = (*a1)->__vftable;
   v3 = xpc_dictionary_create(0, 0, 0);
   v4 = v3;
@@ -2747,7 +2641,7 @@ LABEL_40:
     }
 
     *buf = 136315138;
-    v37 = v27;
+    v36 = v27;
     _os_log_impl(&dword_297476000, v26, OS_LOG_TYPE_DEFAULT, "#I cellular transmit state: %s", buf, 0xCu);
   }
 
@@ -2765,33 +2659,34 @@ LABEL_51:
   }
 
   xpc_release(xdict);
-  if (v33)
+  if (v32)
   {
-    shared_weak_owners = v33->__shared_weak_owners_;
+    shared_weak_owners = v32->__shared_weak_owners_;
     if (shared_weak_owners)
     {
       _Block_release(shared_weak_owners);
     }
 
-    xpc_release(v33->__shared_owners_);
-    operator delete(v33);
+    xpc_release(v32->__shared_owners_);
+    operator delete(v32);
   }
 
   v29 = a1;
   if (a1)
   {
     v30 = a1[2];
-    if (v30 && !atomic_fetch_add(&v30->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    if (v30)
     {
-      (v30->__on_zero_shared)(v30);
-      std::__shared_weak_count::__release_weak(v30);
-      v29 = a1;
+      if (!atomic_fetch_add(&v30->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+      {
+        (v30->__on_zero_shared)(v30);
+        std::__shared_weak_count::__release_weak(v30);
+        v29 = a1;
+      }
     }
 
     operator delete(v29);
   }
-
-  v31 = *MEMORY[0x29EDCA608];
 }
 
 void sub_297508FFC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, xpc_object_t object, uint64_t a18, uint64_t a19, xpc_object_t a20)
@@ -3038,7 +2933,7 @@ uint64_t std::__function::__func<SARModule::registerEventHandlers_sync(void)::$_
 void dispatch::async<void ctu::SharedSynchronizable<SARModule>::execute_wrapped<SARModule::registerEventHandlers_sync(void)::$_0::operator() const(dispatch::group_session,xpc::dict)::{lambda(void)#1}>(SARModule::registerEventHandlers_sync(void)::$_0::operator() const(dispatch::group_session,xpc::dict)::{lambda(void)#1} &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<SARModule::registerEventHandlers_sync(void)::$_0::operator() const(dispatch::group_session,xpc::dict)::{lambda(void)#1},dispatch_queue_s *::default_delete<SARModule::registerEventHandlers_sync(void)::$_0::operator() const(dispatch::group_session,xpc::dict)::{lambda(void)#1}>>)::{lambda(void *)#1}::__invoke(std::__shared_weak_count **a1)
 {
   v1 = *a1;
-  v34 = &v1->__vftable;
+  v34 = v1;
   v2 = (*a1)->__vftable;
   v40 = 0xAAAAAAAAAAAAAAAALL;
   shared_weak_owners = v1->__shared_weak_owners_;
@@ -3236,13 +3131,13 @@ LABEL_43:
 LABEL_44:
   if (v34)
   {
-    xpc_release(v34[2]);
-    v34[2] = 0;
-    v29 = v34[1];
+    xpc_release(v34->__shared_weak_owners_);
+    v34->__shared_weak_owners_ = 0;
+    v29 = v34->__shared_owners_;
     if (v29)
     {
       dispatch_group_leave(v29);
-      v30 = v34[1];
+      v30 = v34->__shared_owners_;
       if (v30)
       {
         dispatch_release(v30);
@@ -3414,30 +3309,31 @@ void sub_297509CFC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_297509D38(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_297509D38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void *);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void *);
   std::unique_ptr<TransportModule::bootstrap(BootstrapStage,dispatch::group_session)::$_0,std::default_delete<TransportModule::bootstrap(BootstrapStage,dispatch::group_session)::$_0>>::~unique_ptr[abi:ne200100](va1);
   _ZNSt3__110unique_ptrIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb_E3__1EEvOT_EUlvE_NS_14default_deleteISB_EEED1B8ne200100Ev(va);
   _Unwind_Resume(a1);
 }
 
-void ___ZZZZN9SARModule26registerEventHandlers_syncEvENK3__0clEN8dispatch13group_sessionEN3xpc4dictEENKUlvE_clEvENKUlvE_clEv_block_invoke(void *a1, char a2, int a3)
+void ___ZZZZN9SARModule26registerEventHandlers_syncEvENK3__0clEN8dispatch13group_sessionEN3xpc4dictEENKUlvE_clEvENKUlvE_clEv_block_invoke(void *a1, char a2, uint64_t a3)
 {
-  v31[1] = *MEMORY[0x29EDCA608];
+  v29[1] = *MEMORY[0x29EDCA608];
   v4 = a1[6];
   if (!v4)
   {
-    goto LABEL_35;
+    return;
   }
 
+  v5 = a3;
   v7 = a1[4];
   v8 = std::__shared_weak_count::lock(v4);
   if (!v8)
   {
-    goto LABEL_35;
+    return;
   }
 
   v9 = a1[5];
@@ -3445,7 +3341,7 @@ void ___ZZZZN9SARModule26registerEventHandlers_syncEvENK3__0clEN8dispatch13group
   {
     if (!v9)
     {
-      goto LABEL_35;
+      return;
     }
   }
 
@@ -3456,8 +3352,6 @@ void ___ZZZZN9SARModule26registerEventHandlers_syncEvENK3__0clEN8dispatch13group
     std::__shared_weak_count::__release_weak(v10);
     if (!v9)
     {
-LABEL_35:
-      v23 = *MEMORY[0x29EDCA608];
       return;
     }
   }
@@ -3483,7 +3377,7 @@ LABEL_35:
   }
 
   antenna::CommandDriver::toString();
-  if (v27 >= 0)
+  if (v25 >= 0)
   {
     v13 = __p;
   }
@@ -3496,15 +3390,15 @@ LABEL_35:
   LODWORD(buf) = 136315138;
   *(&buf + 4) = v13;
   _os_log_impl(&dword_297476000, v12, OS_LOG_TYPE_DEFAULT, "#I %s nv item is detected", &buf, 0xCu);
-  if (v27 < 0)
+  if (v25 < 0)
   {
     operator delete(__p[0]);
   }
 
 LABEL_15:
-  if (a3 != 4 && a3 != 1)
+  if (v5 != 4 && v5 != 1)
   {
-    goto LABEL_35;
+    return;
   }
 
   *(v7 + 329) = 0;
@@ -3544,51 +3438,46 @@ LABEL_15:
 
   pthread_mutex_unlock(&ctu::Singleton<AppleSARHelper,AppleSARHelper,ctu::PthreadMutexGuardPolicy<AppleSARHelper>>::sInstance);
   *__p = *(v7 + 329);
-  v26 = *(v7 + 345);
-  if (*(v15 + 1))
-  {
-    v31[0] = 0;
-    v30 = 0;
-    v28 = 1;
-    v20 = AppleSARHelper::callUserClientMethod(v15, 25, v31, 1, __p, 20, &v30, &v28, __p, 0x14uLL);
-    if (!v19)
-    {
-      goto LABEL_33;
-    }
-  }
-
-  else
+  v24 = *(v7 + 345);
+  if (!*(v15 + 1))
   {
     v20 = 0;
     if (!v19)
     {
       goto LABEL_33;
     }
+
+LABEL_31:
+    if (!atomic_fetch_add(&v19->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    {
+      v21 = v20;
+      (v19->__on_zero_shared)(v19);
+      std::__shared_weak_count::__release_weak(v19);
+      v20 = v21;
+    }
+
+    goto LABEL_33;
   }
 
-  if (!atomic_fetch_add(&v19->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v29[0] = 0;
+  v28 = 0;
+  v26 = 1;
+  v20 = AppleSARHelper::callUserClientMethod(v15, 25, v29, 1, __p, 20, &v28, &v26, __p, 0x14uLL);
+  if (v19)
   {
-    v21 = v20;
-    (v19->__on_zero_shared)(v19);
-    std::__shared_weak_count::__release_weak(v19);
-    v20 = v21;
+    goto LABEL_31;
   }
 
 LABEL_33:
-  if (v20)
+  if ((v20 & 1) == 0)
   {
-    goto LABEL_35;
+    v22 = *(v7 + 104);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    {
+      LOWORD(__p[0]) = 0;
+      _os_log_error_impl(&dword_297476000, v22, OS_LOG_TYPE_ERROR, "Failed to set HSAR configuration!", __p, 2u);
+    }
   }
-
-  v22 = *(v7 + 104);
-  if (!os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
-  {
-    goto LABEL_35;
-  }
-
-  LOWORD(__p[0]) = 0;
-  _os_log_error_impl(&dword_297476000, v22, OS_LOG_TYPE_ERROR, "Failed to set HSAR configuration!", __p, 2u);
-  v24 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t dispatch::callback<void({block_pointer})(BOOL,antenna::NVItems)>::~callback(uint64_t a1)
@@ -4055,12 +3944,12 @@ uint64_t std::__function::__func<SARModule::registerEventHandlers_sync(void)::$_
 
 void dispatch::async<void ctu::SharedSynchronizable<SARModule>::execute_wrapped<SARModule::registerEventHandlers_sync(void)::$_2::operator() const(dispatch::group_session,xpc::dict)::{lambda(void)#1}>(SARModule::registerEventHandlers_sync(void)::$_2::operator() const(dispatch::group_session,xpc::dict)::{lambda(void)#1} &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<SARModule::registerEventHandlers_sync(void)::$_2::operator() const(dispatch::group_session,xpc::dict)::{lambda(void)#1},dispatch_queue_s *::default_delete<SARModule::registerEventHandlers_sync(void)::$_2::operator() const(dispatch::group_session,xpc::dict)::{lambda(void)#1}>>)::{lambda(void *)#1}::__invoke(SARModule ***a1)
 {
-  v24 = *MEMORY[0x29EDCA608];
+  v23 = *MEMORY[0x29EDCA608];
   v2 = *a1;
   v3 = **a1;
   v4 = (*a1)[2];
   object = v4;
-  v22 = 0xAAAAAAAAAAAAAAAALL;
+  v21 = 0xAAAAAAAAAAAAAAAALL;
   if (v4)
   {
     xpc_retain(v4);
@@ -4076,7 +3965,7 @@ void dispatch::async<void ctu::SharedSynchronizable<SARModule>::execute_wrapped<
   if (!*cf || (v7 = CFGetTypeID(*cf), v7 != CFDictionaryGetTypeID()))
   {
     v6 = 0;
-    v22 = 0;
+    v21 = 0;
     v8 = *cf;
     if (!*cf)
     {
@@ -4086,7 +3975,7 @@ void dispatch::async<void ctu::SharedSynchronizable<SARModule>::execute_wrapped<
     goto LABEL_9;
   }
 
-  v22 = v6;
+  v21 = v6;
   CFRetain(v6);
   v8 = *cf;
   if (*cf)
@@ -4192,7 +4081,6 @@ LABEL_10:
   }
 
   operator delete(a1);
-  v20 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29750AE84(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, xpc_object_t a11, char a12, xpc_object_t object)
@@ -4256,14 +4144,14 @@ uint64_t ctu::PthreadMutexGuardPolicy<ctu::Gestalt>::~PthreadMutexGuardPolicy(ui
   return a1;
 }
 
-void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableI9SARModuleE15execute_wrappedIZZNS3_18initializeOBD_syncEvEUb5_E4__13EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS7_NSC_14default_deleteIS7_EEEEENUlPvE_8__invokeESH_(void *a1)
+void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableI9SARModuleE15execute_wrappedIZZNS3_18initializeOBD_syncEvEUb5_E4__13EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS7_NSC_14default_deleteIS7_EEEEENUlPvE_8__invokeESH_(uint64_t **a1)
 {
   v2 = *a1;
   v3 = **a1;
   SARModule::submitCASARFusion(v3, 1);
   *(v3 + 133) = *(v3 + 132);
   operator delete(v2);
-  v4 = *(a1 + 2);
+  v4 = a1[2];
   if (v4 && !atomic_fetch_add(&v4->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v4->__on_zero_shared)(v4);
@@ -4280,14 +4168,14 @@ void sub_29750B12C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableI9SARModuleE15execute_wrappedIZZNS3_28initializeHandDetection_syncEvEUb6_E4__14EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS7_NSC_14default_deleteIS7_EEEEENUlPvE_8__invokeESH_(void *a1)
+void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableI9SARModuleE15execute_wrappedIZZNS3_28initializeHandDetection_syncEvEUb6_E4__14EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS7_NSC_14default_deleteIS7_EEEEENUlPvE_8__invokeESH_(uint64_t **a1)
 {
   v2 = *a1;
   v3 = **a1;
   SARModule::submitCASARFusion(v3, 1);
   *(v3 + 137) = *(v3 + 136);
   operator delete(v2);
-  v4 = *(a1 + 2);
+  v4 = a1[2];
   if (v4 && !atomic_fetch_add(&v4->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v4->__on_zero_shared)(v4);
@@ -4328,14 +4216,6 @@ void std::__function::__func<void({block_pointer})(BOOL,BOOL,char const*),std::a
   *(a1 + 8) = 0;
 }
 
-uint64_t std::__function::__func<void({block_pointer})(BOOL,BOOL,char const*),std::allocator<void({block_pointer})(BOOL,BOOL,char const*)>,void ()(BOOL,BOOL,char const*)>::operator()(uint64_t a1, unsigned __int8 *a2, unsigned __int8 *a3, uint64_t *a4)
-{
-  v4 = *a2;
-  v5 = *a3;
-  v6 = *a4;
-  return (*(*(a1 + 8) + 16))();
-}
-
 uint64_t std::__function::__func<void({block_pointer})(BOOL,BOOL,char const*),std::allocator<void({block_pointer})(BOOL,BOOL,char const*)>,void ()(BOOL,BOOL,char const*)>::target(uint64_t a1, uint64_t a2)
 {
   v2 = *(a2 + 8);
@@ -4360,14 +4240,14 @@ uint64_t std::__function::__func<void({block_pointer})(BOOL,BOOL,char const*),st
   return 0;
 }
 
-void dispatch::async<void ctu::SharedSynchronizable<SARModule>::execute_wrapped<SARModule::processTxOff_sync(void)::$_0>(SARModule::processTxOff_sync(void)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<SARModule::processTxOff_sync(void)::$_0,dispatch_queue_s *::default_delete<SARModule::processTxOff_sync(void)::$_0>>)::{lambda(void *)#1}::__invoke(void *a1)
+void dispatch::async<void ctu::SharedSynchronizable<SARModule>::execute_wrapped<SARModule::processTxOff_sync(void)::$_0>(SARModule::processTxOff_sync(void)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<SARModule::processTxOff_sync(void)::$_0,dispatch_queue_s *::default_delete<SARModule::processTxOff_sync(void)::$_0>>)::{lambda(void *)#1}::__invoke(uint64_t **a1)
 {
   v2 = *a1;
   v3 = **a1;
   SARModule::submitCASARFusion(v3, 1);
   *(v3 + 137) = *(v3 + 136);
   operator delete(v2);
-  v4 = *(a1 + 2);
+  v4 = a1[2];
   if (v4 && !atomic_fetch_add(&v4->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v4->__on_zero_shared)(v4);
@@ -4387,17 +4267,17 @@ void sub_29750B40C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 void dispatch::async<void ctu::SharedSynchronizable<SARModule>::execute_wrapped<SARModule::transmitStateHandler(antenna::BBTransmitState,antenna::BBTransmitTrigger)::$_0>(SARModule::transmitStateHandler(antenna::BBTransmitState,antenna::BBTransmitTrigger)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<SARModule::transmitStateHandler(antenna::BBTransmitState,antenna::BBTransmitTrigger)::$_0,dispatch_queue_s *::default_delete<SARModule::transmitStateHandler(antenna::BBTransmitState,antenna::BBTransmitTrigger)::$_0>>)::{lambda(void *)#1}::__invoke(capabilities::radio *a1)
 {
   v1 = a1;
-  v55 = *MEMORY[0x29EDCA608];
+  v54 = *MEMORY[0x29EDCA608];
   v2 = *a1;
   v3 = **a1;
   if (capabilities::radio::maverick(a1))
   {
-    v43 = 0xAAAAAAAAAAAAAAAALL;
-    SARModule::createTransmitStateDict_sync(v3, v2[2], v2[3], &v43);
-    v4 = v43;
-    if (MEMORY[0x29C272BA0](v43) != MEMORY[0x29EDCAA00])
+    v42 = 0xAAAAAAAAAAAAAAAALL;
+    SARModule::createTransmitStateDict_sync(v3, v2[2], v2[3], &v42);
+    v4 = v42;
+    if (MEMORY[0x29C272BA0](v42) != MEMORY[0x29EDCAA00])
     {
-      v5 = *(v3 + 13);
+      v5 = v3[13];
       if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
         v6 = v2[2];
@@ -4415,7 +4295,7 @@ LABEL_74:
       operator delete(v2);
       if (!a1)
       {
-        goto LABEL_79;
+        return;
       }
 
       goto LABEL_75;
@@ -4436,7 +4316,7 @@ LABEL_74:
 
     xpc::dyn_cast_or_default(__s1, buf, "", v10);
     xpc_release(*buf);
-    memset(v41, 170, sizeof(v41));
+    memset(v40, 170, sizeof(v40));
     v11 = xpc_dictionary_get_value(v4, *MEMORY[0x29EDBF488]);
     *buf = v11;
     if (v11)
@@ -4449,27 +4329,27 @@ LABEL_74:
       *buf = xpc_null_create();
     }
 
-    xpc::dyn_cast_or_default(v41, buf, "", v12);
+    xpc::dyn_cast_or_default(v40, buf, "", v12);
     xpc_release(*buf);
-    v54 = 0xAAAAAAAAAAAAAAAALL;
+    v53 = 0xAAAAAAAAAAAAAAAALL;
     *&v13 = 0xAAAAAAAAAAAAAAAALL;
     *(&v13 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v53[7] = v13;
-    v53[8] = v13;
-    v53[5] = v13;
-    v53[6] = v13;
-    v53[3] = v13;
-    v53[4] = v13;
-    v53[1] = v13;
-    v53[2] = v13;
-    v52 = v13;
-    v53[0] = v13;
-    v50 = v13;
+    v52[7] = v13;
+    v52[8] = v13;
+    v52[5] = v13;
+    v52[6] = v13;
+    v52[3] = v13;
+    v52[4] = v13;
+    v52[1] = v13;
+    v52[2] = v13;
     v51 = v13;
-    v48 = v13;
+    v52[0] = v13;
     v49 = v13;
-    *buf = v13;
+    v50 = v13;
     v47 = v13;
+    v48 = v13;
+    *buf = v13;
+    v46 = v13;
     std::ostringstream::basic_ostringstream[abi:ne200100](buf);
     v14 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(buf, "Transmit State: ", 16);
     if (__s1[2] >= 0)
@@ -4493,40 +4373,40 @@ LABEL_74:
     }
 
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v14, v15, v16);
-    v17 = HIBYTE(v41[2]);
-    if (SHIBYTE(v41[2]) < 0)
+    v17 = HIBYTE(v40[2]);
+    if (SHIBYTE(v40[2]) < 0)
     {
-      v17 = v41[1];
+      v17 = v40[1];
     }
 
     if (v17)
     {
       v18 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(buf, " (", 2);
-      if (SHIBYTE(v41[2]) >= 0)
+      if (SHIBYTE(v40[2]) >= 0)
       {
-        v19 = v41;
+        v19 = v40;
       }
 
       else
       {
-        v19 = v41[0];
+        v19 = v40[0];
       }
 
-      if (SHIBYTE(v41[2]) >= 0)
+      if (SHIBYTE(v40[2]) >= 0)
       {
-        v20 = HIBYTE(v41[2]);
+        v20 = HIBYTE(v40[2]);
       }
 
       else
       {
-        v20 = v41[1];
+        v20 = v40[1];
       }
 
       v21 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v18, v19, v20);
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v21, ")", 1);
     }
 
-    v22 = *(v3 + 13);
+    v22 = v3[13];
     if (!os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
 LABEL_49:
@@ -4552,7 +4432,7 @@ LABEL_49:
       else if (v30 == SHIBYTE(__s1[2]) && !memcmp(__s1, v29, v30))
       {
 LABEL_66:
-        v35 = *(v3 + 13);
+        v35 = v3[13];
         if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
         {
           LOWORD(__dst[0]) = 0;
@@ -4583,18 +4463,18 @@ LABEL_69:
           *buf = *MEMORY[0x29EDC9538];
           *&buf[*(*buf - 24)] = *(MEMORY[0x29EDC9538] + 24);
           *&buf[8] = MEMORY[0x29EDC9570] + 16;
-          if (SHIBYTE(v51) < 0)
+          if (SHIBYTE(v50) < 0)
           {
-            operator delete(*(&v50 + 1));
+            operator delete(*(&v49 + 1));
           }
 
           *&buf[8] = MEMORY[0x29EDC9568] + 16;
-          std::locale::~locale(&v47);
+          std::locale::~locale(&v46);
           std::ostream::~ostream();
-          MEMORY[0x29C271DA0](v53);
-          if (SHIBYTE(v41[2]) < 0)
+          MEMORY[0x29C271DA0](v52);
+          if (SHIBYTE(v40[2]) < 0)
           {
-            operator delete(v41[0]);
+            operator delete(v40[0]);
             if ((SHIBYTE(__s1[2]) & 0x80000000) == 0)
             {
               goto LABEL_73;
@@ -4604,7 +4484,7 @@ LABEL_69:
           else if ((SHIBYTE(__s1[2]) & 0x80000000) == 0)
           {
 LABEL_73:
-            v4 = v43;
+            v4 = v42;
             goto LABEL_74;
           }
 
@@ -4618,7 +4498,7 @@ LABEL_73:
         goto LABEL_69;
       }
 
-      v34 = *(v3 + 13);
+      v34 = v3[13];
       if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
       {
         LOWORD(__dst[0]) = 0;
@@ -4629,18 +4509,18 @@ LABEL_73:
       goto LABEL_69;
     }
 
-    if ((BYTE8(v52) & 0x10) != 0)
+    if ((BYTE8(v51) & 0x10) != 0)
     {
-      v25 = v52;
-      if (v52 < *(&v49 + 1))
+      v25 = v51;
+      if (v51 < *(&v48 + 1))
       {
-        *&v52 = *(&v49 + 1);
-        v25 = *(&v49 + 1);
+        *&v51 = *(&v48 + 1);
+        v25 = *(&v48 + 1);
       }
 
-      v26 = v49;
-      v23 = v25 - v49;
-      if ((v25 - v49) >= 0x7FFFFFFFFFFFFFF8)
+      v26 = v48;
+      v23 = v25 - v48;
+      if ((v25 - v48) >= 0x7FFFFFFFFFFFFFF8)
       {
         goto LABEL_83;
       }
@@ -4648,17 +4528,17 @@ LABEL_73:
 
     else
     {
-      if ((BYTE8(v52) & 8) == 0)
+      if ((BYTE8(v51) & 8) == 0)
       {
         v23 = 0;
-        HIBYTE(v40) = 0;
+        HIBYTE(v39) = 0;
         v24 = __dst;
         goto LABEL_45;
       }
 
-      v26 = *(&v47 + 1);
-      v23 = *(&v48 + 1) - *(&v47 + 1);
-      if (*(&v48 + 1) - *(&v47 + 1) >= 0x7FFFFFFFFFFFFFF8uLL)
+      v26 = *(&v46 + 1);
+      v23 = *(&v47 + 1) - *(&v46 + 1);
+      if (*(&v47 + 1) - *(&v46 + 1) >= 0x7FFFFFFFFFFFFFF8uLL)
       {
 LABEL_83:
         std::string::__throw_length_error[abi:ne200100]();
@@ -4679,13 +4559,13 @@ LABEL_83:
 
       v24 = operator new(v27);
       __dst[1] = v23;
-      v40 = v27 | 0x8000000000000000;
+      v39 = v27 | 0x8000000000000000;
       __dst[0] = v24;
     }
 
     else
     {
-      HIBYTE(v40) = v23;
+      HIBYTE(v39) = v23;
       v24 = __dst;
       if (!v23)
       {
@@ -4697,15 +4577,15 @@ LABEL_83:
 LABEL_45:
     *(v24 + v23) = 0;
     v28 = __dst;
-    if (v40 < 0)
+    if (v39 < 0)
     {
       v28 = __dst[0];
     }
 
-    *v44 = 136315138;
-    v45 = v28;
-    _os_log_impl(&dword_297476000, v22, OS_LOG_TYPE_DEFAULT, "#I %s", v44, 0xCu);
-    if (SHIBYTE(v40) < 0)
+    *v43 = 136315138;
+    v44 = v28;
+    _os_log_impl(&dword_297476000, v22, OS_LOG_TYPE_DEFAULT, "#I %s", v43, 0xCu);
+    if (SHIBYTE(v39) < 0)
     {
       operator delete(__dst[0]);
     }
@@ -4713,7 +4593,7 @@ LABEL_45:
     goto LABEL_49;
   }
 
-  v8 = *(v3 + 13);
+  v8 = v3[13];
   if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     *buf = 0;
@@ -4723,15 +4603,16 @@ LABEL_45:
   operator delete(v2);
 LABEL_75:
   v36 = *(v1 + 2);
-  if (v36 && !atomic_fetch_add(&v36->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  if (v36)
   {
-    (v36->__on_zero_shared)(v36);
-    std::__shared_weak_count::__release_weak(v36);
+    if (!atomic_fetch_add(&v36->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    {
+      (v36->__on_zero_shared)(v36);
+      std::__shared_weak_count::__release_weak(v36);
+    }
   }
 
   operator delete(v1);
-LABEL_79:
-  v37 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29750BB18(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19, void *a20, uint64_t a21, int a22, __int16 a23, char a24, char a25, xpc_object_t object, uint64_t a27, uint64_t a28, xpc_object_t a29)
@@ -4746,7 +4627,7 @@ void sub_29750BB18(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void dispatch::async<void ctu::SharedSynchronizable<SARModule>::execute_wrapped<SARModule::processCallStatus(BOOL)::$_0>(SARModule::processCallStatus(BOOL)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<SARModule::processCallStatus(BOOL)::$_0,dispatch_queue_s *::default_delete<SARModule::processCallStatus(BOOL)::$_0>>)::{lambda(void *)#1}::__invoke(unsigned __int8 **a1)
 {
-  v38[1] = *MEMORY[0x29EDCA608];
+  v37[1] = *MEMORY[0x29EDCA608];
   v1 = *a1;
   v2 = **a1;
   v3 = *(v2 + 104);
@@ -4792,9 +4673,9 @@ void dispatch::async<void ctu::SharedSynchronizable<SARModule>::execute_wrapped<
   if (*(v5 + 1))
   {
     *buf = 3;
-    v38[0] = 0;
-    v36 = 1;
-    v11 = AppleSARHelper::callUserClientMethod(v5, 35, buf, 1, (v2 + 280), 1, v38, &v36, (v2 + 280), 1uLL);
+    v37[0] = 0;
+    v35 = 1;
+    v11 = AppleSARHelper::callUserClientMethod(v5, 35, buf, 1, (v2 + 280), 1, v37, &v35, (v2 + 280), 1uLL);
     if (!v9)
     {
 LABEL_18:
@@ -4835,7 +4716,7 @@ LABEL_54:
           v29 = a1;
           if (!a1)
           {
-            goto LABEL_63;
+            return;
           }
 
           goto LABEL_59;
@@ -4846,7 +4727,7 @@ LABEL_58:
         v29 = a1;
         if (!a1)
         {
-          goto LABEL_63;
+          return;
         }
 
         goto LABEL_59;
@@ -4945,13 +4826,13 @@ LABEL_33:
   }
 
   pthread_mutex_unlock(&ctu::Singleton<AppleSARHelper,AppleSARHelper,ctu::PthreadMutexGuardPolicy<AppleSARHelper>>::sInstance);
-  v35 = *v10;
+  v34 = *v10;
   if (*(v21 + 1))
   {
     *buf = 0;
-    v38[0] = 0;
-    v36 = 1;
-    v26 = AppleSARHelper::callUserClientMethod(v21, 35, buf, 1, &v35, 1, v38, &v36, &v35, 1uLL);
+    v37[0] = 0;
+    v35 = 1;
+    v26 = AppleSARHelper::callUserClientMethod(v21, 35, buf, 1, &v34, 1, v37, &v35, &v34, 1uLL);
     if (!v25)
     {
 LABEL_48:
@@ -5020,36 +4901,37 @@ LABEL_57:
   v29 = a1;
   if (!a1)
   {
-    goto LABEL_63;
+    return;
   }
 
 LABEL_59:
   v31 = v29[2];
-  if (v31 && !atomic_fetch_add(&v31->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  if (v31)
   {
-    v32 = v29;
-    (v31->__on_zero_shared)(v31);
-    std::__shared_weak_count::__release_weak(v31);
-    v29 = v32;
+    if (!atomic_fetch_add(&v31->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    {
+      v32 = v29;
+      (v31->__on_zero_shared)(v31);
+      std::__shared_weak_count::__release_weak(v31);
+      v29 = v32;
+    }
   }
 
   operator delete(v29);
-LABEL_63:
-  v33 = *MEMORY[0x29EDCA608];
 }
 
-void sub_29750C228(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_29750C228(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   pthread_mutex_unlock(&ctu::Singleton<AppleSARHelper,AppleSARHelper,ctu::PthreadMutexGuardPolicy<AppleSARHelper>>::sInstance);
-  operator delete(v3);
+  operator delete(v5);
   _ZNSt3__110unique_ptrIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb_E3__1EEvOT_EUlvE_NS_14default_deleteISB_EEED1B8ne200100Ev(va);
   _Unwind_Resume(a1);
 }
 
 void dispatch::async<void ctu::SharedSynchronizable<SARModule>::execute_wrapped<SARModule::processCallStatusSARFusion(BOOL)::$_0>(SARModule::processCallStatusSARFusion(BOOL)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<SARModule::processCallStatusSARFusion(BOOL)::$_0,dispatch_queue_s *::default_delete<SARModule::processCallStatusSARFusion(BOOL)::$_0>>)::{lambda(void *)#1}::__invoke(unsigned __int8 **a1)
 {
-  v39[1] = *MEMORY[0x29EDCA608];
+  v38[1] = *MEMORY[0x29EDCA608];
   v1 = *a1;
   v2 = **a1;
   v3 = pthread_mutex_lock(&ctu::Singleton<AppleSARHelper,AppleSARHelper,ctu::PthreadMutexGuardPolicy<AppleSARHelper>>::sInstance);
@@ -5088,9 +4970,9 @@ void dispatch::async<void ctu::SharedSynchronizable<SARModule>::execute_wrapped<
   if (*(v4 + 1))
   {
     *buf = 3;
-    v39[0] = 0;
-    v37 = 1;
-    v10 = AppleSARHelper::callUserClientMethod(v4, 6, buf, 1, (v2 + 134), 1, v39, &v37, (v2 + 134), 1uLL);
+    v38[0] = 0;
+    v36 = 1;
+    v10 = AppleSARHelper::callUserClientMethod(v4, 6, buf, 1, (v2 + 134), 1, v38, &v36, (v2 + 134), 1uLL);
     if (!v8)
     {
 LABEL_16:
@@ -5131,7 +5013,7 @@ LABEL_56:
           v30 = a1;
           if (!a1)
           {
-            goto LABEL_65;
+            return;
           }
 
           goto LABEL_61;
@@ -5142,7 +5024,7 @@ LABEL_60:
         v30 = a1;
         if (!a1)
         {
-          goto LABEL_65;
+          return;
         }
 
         goto LABEL_61;
@@ -5255,13 +5137,13 @@ LABEL_31:
   }
 
   pthread_mutex_unlock(&ctu::Singleton<AppleSARHelper,AppleSARHelper,ctu::PthreadMutexGuardPolicy<AppleSARHelper>>::sInstance);
-  v36 = *v9;
+  v35 = *v9;
   if (*(v22 + 1))
   {
     *buf = 0;
-    v39[0] = 0;
-    v37 = 1;
-    v27 = AppleSARHelper::callUserClientMethod(v22, 6, buf, 1, &v36, 1, v39, &v37, &v36, 1uLL);
+    v38[0] = 0;
+    v36 = 1;
+    v27 = AppleSARHelper::callUserClientMethod(v22, 6, buf, 1, &v35, 1, v38, &v36, &v35, 1uLL);
     if (!v26)
     {
 LABEL_50:
@@ -5330,29 +5212,30 @@ LABEL_59:
   v30 = a1;
   if (!a1)
   {
-    goto LABEL_65;
+    return;
   }
 
 LABEL_61:
   v32 = v30[2];
-  if (v32 && !atomic_fetch_add(&v32->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  if (v32)
   {
-    v33 = v30;
-    (v32->__on_zero_shared)(v32);
-    std::__shared_weak_count::__release_weak(v32);
-    v30 = v33;
+    if (!atomic_fetch_add(&v32->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    {
+      v33 = v30;
+      (v32->__on_zero_shared)(v32);
+      std::__shared_weak_count::__release_weak(v32);
+      v30 = v33;
+    }
   }
 
   operator delete(v30);
-LABEL_65:
-  v34 = *MEMORY[0x29EDCA608];
 }
 
-void sub_29750C8EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_29750C8EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   pthread_mutex_unlock(&ctu::Singleton<AppleSARHelper,AppleSARHelper,ctu::PthreadMutexGuardPolicy<AppleSARHelper>>::sInstance);
-  operator delete(v3);
+  operator delete(v5);
   _ZNSt3__110unique_ptrIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb_E3__1EEvOT_EUlvE_NS_14default_deleteISB_EEED1B8ne200100Ev(va);
   _Unwind_Resume(a1);
 }
@@ -5393,9 +5276,9 @@ uint64_t __cxx_global_var_init_77()
   return result;
 }
 
-BOOL MobileAssetSupport::lockAsset(uint64_t a1, uint64_t a2, unsigned int a3, uint64_t a4)
+BOOL MobileAssetSupport::lockAsset(uint64_t *a1, uint64_t *a2, unsigned int a3, uint64_t a4)
 {
-  v102 = *MEMORY[0x29EDCA608];
+  v101 = *MEMORY[0x29EDCA608];
   v8 = MobileAssetSupport::getMAAutoAssetSet(a1, a2);
   if (v8)
   {
@@ -5449,11 +5332,11 @@ BOOL MobileAssetSupport::lockAsset(uint64_t a1, uint64_t a2, unsigned int a3, ui
     [v13 setAllowCheckDownloadOverExpensive:1];
     [v13 setAllowCheckDownloadOverCellular:1];
     [v13 setUserInitiated:1];
+    v94 = 0;
     v95 = 0;
-    v96 = 0;
-    v89 = [v8 lockAtomicSync:@"AppleBasebandServicesAccess" forAtomicInstance:0 withNeedPolicy:v13 withTimeout:a3 lockedAtomicEntries:&v96 error:&v95];
-    v90 = v96;
-    v14 = v95;
+    v88 = [v8 lockAtomicSync:@"AppleBasebandServicesAccess" forAtomicInstance:0 withNeedPolicy:v13 withTimeout:a3 lockedAtomicEntries:&v95 error:&v94];
+    v89 = v95;
+    v14 = v94;
 
     if (v14)
     {
@@ -5495,7 +5378,7 @@ LABEL_143:
       goto LABEL_17;
     }
 
-    if (![v90 count])
+    if (![v89 count])
     {
       if ((atomic_load_explicit(&qword_2A18CB198, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_2A18CB198))
       {
@@ -5522,12 +5405,12 @@ LABEL_143:
       goto LABEL_143;
     }
 
-    v17 = [v90 objectAtIndex:0];
-    v88 = [v17 localContentURL];
+    v17 = [v89 objectAtIndex:0];
+    v87 = [v17 localContentURL];
 
-    v18 = v88;
-    v16 = v88 != 0;
-    if (!v88)
+    v18 = v87;
+    v16 = v87 != 0;
+    if (!v87)
     {
       v14 = 0;
 LABEL_142:
@@ -5535,8 +5418,8 @@ LABEL_142:
       goto LABEL_143;
     }
 
-    v87 = v11;
-    v19 = [v88 path];
+    v86 = v11;
+    v19 = [v87 path];
     v20 = v19;
     v21 = [v19 UTF8String];
     v22 = 0x7FFFFFFFFFFFFFF7;
@@ -5582,7 +5465,7 @@ LABEL_37:
         *(a4 + 16) = *&buf[16];
 
         memset(__dst, 170, sizeof(__dst));
-        v28 = [v88 path];
+        v28 = [v87 path];
         v29 = v28;
         v30 = [v28 UTF8String];
         v31 = strlen(v30);
@@ -5619,7 +5502,7 @@ LABEL_37:
 LABEL_48:
             *(v32 + v33) = 0;
 
-            v86 = MEMORY[0x29EDB8E70];
+            v85 = MEMORY[0x29EDB8E70];
             v35 = MEMORY[0x29EDBA0F8];
             if (SHIBYTE(__dst[2]) >= 0)
             {
@@ -5710,27 +5593,27 @@ LABEL_64:
 
               v46 = operator new(v47);
               __p[1] = v45;
-              v93 = v47 | 0x8000000000000000;
+              v92 = v47 | 0x8000000000000000;
               __p[0] = v46;
             }
 
             else
             {
-              HIBYTE(v93) = v45;
+              HIBYTE(v92) = v45;
               v46 = __p;
               if (!v45)
               {
 LABEL_79:
                 *(v46 + v45) = 0;
-                v48 = SHIBYTE(v93);
-                if ((SHIBYTE(v93) & 0x8000000000000000) != 0)
+                v48 = SHIBYTE(v92);
+                if ((SHIBYTE(v92) & 0x8000000000000000) != 0)
                 {
                   v48 = __p[1];
-                  v51 = (v93 & 0x7FFFFFFFFFFFFFFFLL) - 1;
+                  v51 = (v92 & 0x7FFFFFFFFFFFFFFFLL) - 1;
                   if (v51 - __p[1] < 0xA)
                   {
                     v49 = __p[1] + 10;
-                    if ((0x7FFFFFFFFFFFFFF7 - (v93 & 0x7FFFFFFFFFFFFFFFLL)) < __p[1] - v51 + 10)
+                    if ((0x7FFFFFFFFFFFFFF7 - (v92 & 0x7FFFFFFFFFFFFFFFLL)) < __p[1] - v51 + 10)
                     {
                       std::string::__throw_length_error[abi:ne200100]();
                     }
@@ -5756,15 +5639,15 @@ LABEL_94:
                       }
 
                       __p[1] = v49;
-                      v93 = v22 | 0x8000000000000000;
+                      v92 = v22 | 0x8000000000000000;
                       __p[0] = v56;
                       v58 = &v49[v56];
 LABEL_105:
                       *v58 = 0;
-                      *&buf[16] = v93;
+                      *&buf[16] = v92;
                       *buf = *__p;
                       __p[1] = 0;
-                      v93 = 0;
+                      v92 = 0;
                       __p[0] = 0;
                       if (buf[23] >= 0)
                       {
@@ -5777,22 +5660,22 @@ LABEL_105:
                       }
 
                       v63 = [v35 stringWithUTF8String:v62];
-                      v64 = [v86 fileURLWithPath:v63];
+                      v64 = [v85 fileURLWithPath:v63];
 
                       if ((buf[23] & 0x80000000) != 0)
                       {
                         operator delete(*buf);
                       }
 
-                      if (SHIBYTE(v93) < 0)
+                      if (SHIBYTE(v92) < 0)
                       {
                         operator delete(__p[0]);
                       }
 
                       v65 = objc_alloc(MEMORY[0x29EDB8DC0]);
-                      v91 = 0;
-                      v66 = [v65 initWithContentsOfURL:v64 error:&v91];
-                      v14 = v91;
+                      v90 = 0;
+                      v66 = [v65 initWithContentsOfURL:v64 error:&v90];
+                      v14 = v90;
                       if (!v14 && v66)
                       {
                         v67 = [v66 objectForKey:@"ManagerProperties"];
@@ -5835,7 +5718,7 @@ LABEL_126:
                             dispatch_once(&_MergedGlobals_2, &__block_literal_global_43);
                           }
 
-                          v11 = v87;
+                          v11 = v86;
                           v78 = qword_2A18CB1A8;
                           if (os_log_type_enabled(qword_2A18CB1A8, OS_LOG_TYPE_INFO))
                           {
@@ -5871,15 +5754,15 @@ LABEL_126:
                             }
 
                             *buf = 138413314;
-                            *&buf[4] = v87;
+                            *&buf[4] = v86;
                             *&buf[12] = 1024;
                             *&buf[14] = v79;
                             *&buf[18] = 2080;
                             *&buf[20] = v80;
-                            v98 = 2080;
-                            v99 = v81;
-                            v100 = 2080;
-                            v101 = v82;
+                            v97 = 2080;
+                            v98 = v81;
+                            v99 = 2080;
+                            v100 = v82;
                             _os_log_impl(&dword_297476000, v78, OS_LOG_TYPE_INFO, "Locked assetSetId %@: enableNotification=%d, actionURL=%s, assetVersion=%s, path=%s", buf, 0x30u);
                           }
 
@@ -5888,7 +5771,7 @@ LABEL_126:
                             operator delete(__dst[0]);
                           }
 
-                          v18 = v88;
+                          v18 = v87;
                           goto LABEL_142;
                         }
 
@@ -5929,16 +5812,16 @@ LABEL_152:
                         }
                       }
 
-                      v85 = ", plist dictionary is null";
+                      v84 = ", plist dictionary is null";
                       if (v66)
                       {
-                        v85 = "";
+                        v84 = "";
                       }
 
                       *buf = 138412546;
                       *&buf[4] = v14;
                       *&buf[12] = 2080;
-                      *&buf[14] = v85;
+                      *&buf[14] = v84;
                       _os_log_error_impl(&dword_297476000, v77, OS_LOG_TYPE_ERROR, "Failed to read Info file: error=%@ %s", buf, 0x16u);
                       if (atomic_load_explicit(&qword_2A18CB198, memory_order_acquire))
                       {
@@ -5984,9 +5867,9 @@ LABEL_85:
 
                 else
                 {
-                  if ((SHIBYTE(v93) - 13) < 0xA)
+                  if ((SHIBYTE(v92) - 13) < 0xA)
                   {
-                    v49 = (SHIBYTE(v93) + 10);
+                    v49 = (SHIBYTE(v92) + 10);
                     v50 = __p;
                     v51 = 22;
                     goto LABEL_85;
@@ -5999,14 +5882,14 @@ LABEL_85:
                 *v60 = *"Info.plist";
                 *(v60 + 4) = 29811;
                 v61 = v48 + 10;
-                if (SHIBYTE(v93) < 0)
+                if (SHIBYTE(v92) < 0)
                 {
                   __p[1] = (v48 + 10);
                 }
 
                 else
                 {
-                  HIBYTE(v93) = v61 & 0x7F;
+                  HIBYTE(v92) = v61 & 0x7F;
                 }
 
                 v58 = v59 + v61;
@@ -6031,7 +5914,6 @@ LABEL_85:
   v16 = 0;
 LABEL_144:
 
-  v83 = *MEMORY[0x29EDCA608];
   return v16;
 }
 
@@ -6047,7 +5929,7 @@ void sub_29750D618(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 BOOL MobileAssetSupport::unlockAsset(uint64_t *a1, uint64_t *a2)
 {
-  v19 = *MEMORY[0x29EDCA608];
+  v18 = *MEMORY[0x29EDCA608];
   if (*(a1 + 23) >= 0)
   {
     v2 = a1;
@@ -6093,7 +5975,7 @@ BOOL MobileAssetSupport::unlockAsset(uint64_t *a1, uint64_t *a2)
   {
 LABEL_10:
     *buf = 138412290;
-    v16 = v4;
+    v15 = v4;
     _os_log_impl(&dword_297476000, v5, OS_LOG_TYPE_INFO, "Trying to unlock assetSetId %@", buf, 0xCu);
   }
 
@@ -6129,7 +6011,7 @@ LABEL_11:
     }
 
     *buf = 138412290;
-    v16 = v4;
+    v15 = v4;
     v9 = "Unlocked assetSetId %@";
     v10 = v12;
     v11 = 12;
@@ -6160,9 +6042,9 @@ LABEL_11:
   {
 LABEL_15:
     *buf = 138412546;
-    v16 = v4;
-    v17 = 2112;
-    v18 = v6;
+    v15 = v4;
+    v16 = 2112;
+    v17 = v6;
     v9 = "Failed to unlock assetSetId %@: %@";
     v10 = v8;
     v11 = 22;
@@ -6172,13 +6054,12 @@ LABEL_20:
 
 LABEL_21:
 
-  v13 = *MEMORY[0x29EDCA608];
   return v6 == 0;
 }
 
 uint64_t support::mobileasset::registerForUpdates(std::string::size_type a1, std::string::size_type a2, NSObject *a3, void *a4)
 {
-  v19 = *MEMORY[0x29EDCA608];
+  v18 = *MEMORY[0x29EDCA608];
   v7 = a4;
   if ((atomic_load_explicit(&qword_2A18CB198, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_2A18CB198))
   {
@@ -6233,10 +6114,10 @@ uint64_t support::mobileasset::registerForUpdates(std::string::size_type a1, std
   _os_log_impl(&dword_297476000, v8, OS_LOG_TYPE_INFO, "Registering for assetType %s, directory %s", &buf, 0x16u);
 LABEL_11:
   v11 = MobileAssetSupport::registerDownloadedHandler(a1, a2, a3, v7);
-  v14[0] = MEMORY[0x29EDCA5F8];
-  v14[1] = 3321888768;
-  v14[2] = ___ZN7support11mobileasset18registerForUpdatesERKNSt3__112basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEES9_P16dispatch_queue_sU13block_pointerFviE_block_invoke;
-  v14[3] = &__block_descriptor_80_ea8_32c162_ZTSKZN7support11mobileasset18registerForUpdatesERKNSt3__112basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEES9_P16dispatch_queue_sU13block_pointerFviEE3__0_e5_v8__0l;
+  v13[0] = MEMORY[0x29EDCA5F8];
+  v13[1] = 3321888768;
+  v13[2] = ___ZN7support11mobileasset18registerForUpdatesERKNSt3__112basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEES9_P16dispatch_queue_sU13block_pointerFviE_block_invoke;
+  v13[3] = &__block_descriptor_80_ea8_32c162_ZTSKZN7support11mobileasset18registerForUpdatesERKNSt3__112basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEES9_P16dispatch_queue_sU13block_pointerFviEE3__0_e5_v8__0l;
   if (*(a1 + 23) < 0)
   {
     std::string::__init_copy_ctor_external(&buf, *a1, *(a1 + 8));
@@ -6259,45 +6140,45 @@ LABEL_11:
 
   if (SHIBYTE(buf.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v15, buf.__r_.__value_.__l.__data_, buf.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v14, buf.__r_.__value_.__l.__data_, buf.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v15 = buf;
+    v14 = buf;
   }
 
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v16, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v15, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v16 = __p;
+    v15 = __p;
   }
 
-  dispatch_async(a3, v14);
+  dispatch_async(a3, v13);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
     if ((SHIBYTE(buf.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
 LABEL_25:
-      if ((SHIBYTE(v16.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+      if ((SHIBYTE(v15.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
       {
         goto LABEL_26;
       }
 
 LABEL_30:
-      operator delete(v16.__r_.__value_.__l.__data_);
-      if ((SHIBYTE(v15.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+      operator delete(v15.__r_.__value_.__l.__data_);
+      if ((SHIBYTE(v14.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
       {
         goto LABEL_27;
       }
 
 LABEL_31:
-      operator delete(v15.__r_.__value_.__l.__data_);
+      operator delete(v14.__r_.__value_.__l.__data_);
       goto LABEL_27;
     }
   }
@@ -6308,20 +6189,19 @@ LABEL_31:
   }
 
   operator delete(buf.__r_.__value_.__l.__data_);
-  if (SHIBYTE(v16.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v15.__r_.__value_.__r.__words[2]) < 0)
   {
     goto LABEL_30;
   }
 
 LABEL_26:
-  if (SHIBYTE(v15.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v14.__r_.__value_.__r.__words[2]) < 0)
   {
     goto LABEL_31;
   }
 
 LABEL_27:
 
-  v12 = *MEMORY[0x29EDCA608];
   return v11;
 }
 
@@ -6531,7 +6411,7 @@ void MobileAssetSupport::indicateNeedForAsset(uint64_t *a1, uint64_t *a2)
 
 id MobileAssetSupport::getMAAutoAssetSet(uint64_t *a1, uint64_t *a2)
 {
-  v29 = *MEMORY[0x29EDCA608];
+  v28 = *MEMORY[0x29EDCA608];
   v4 = objc_opt_new();
   v5 = objc_alloc(MEMORY[0x29EDC5D10]);
   if (*(a1 + 23) >= 0)
@@ -6581,9 +6461,9 @@ id MobileAssetSupport::getMAAutoAssetSet(uint64_t *a1, uint64_t *a2)
   }
 
   v14 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"%@.%s.%s", @"AppleBasebandServices", v12, v13];
-  v22 = 0;
-  v15 = [v11 initUsingClientDomain:@"com.apple.AppleBasebandServices" forClientName:@"com.apple.AppleBasebandServices" forAssetSetIdentifier:v14 comprisedOfEntries:v4 error:&v22];
-  v16 = v22;
+  v21 = 0;
+  v15 = [v11 initUsingClientDomain:@"com.apple.AppleBasebandServices" forClientName:@"com.apple.AppleBasebandServices" forAssetSetIdentifier:v14 comprisedOfEntries:v4 error:&v21];
+  v16 = v21;
 
   if (v16 || !v15)
   {
@@ -6605,30 +6485,30 @@ id MobileAssetSupport::getMAAutoAssetSet(uint64_t *a1, uint64_t *a2)
 LABEL_22:
       if (*(a1 + 23) >= 0)
       {
-        v20 = a1;
+        v19 = a1;
       }
 
       else
       {
-        v20 = *a1;
+        v19 = *a1;
       }
 
       if (*(a2 + 23) >= 0)
       {
-        v21 = a2;
+        v20 = a2;
       }
 
       else
       {
-        v21 = *a2;
+        v20 = *a2;
       }
 
       *buf = 136315650;
-      v24 = v20;
-      v25 = 2080;
-      v26 = v21;
-      v27 = 2112;
-      v28 = v16;
+      v23 = v19;
+      v24 = 2080;
+      v25 = v20;
+      v26 = 2112;
+      v27 = v16;
       _os_log_error_impl(&dword_297476000, v17, OS_LOG_TYPE_ERROR, "Failed to create assetSet for %s-%s: %@", buf, 0x20u);
       goto LABEL_18;
     }
@@ -6642,8 +6522,6 @@ LABEL_22:
   }
 
 LABEL_18:
-
-  v18 = *MEMORY[0x29EDCA608];
 
   return v15;
 }
@@ -6662,7 +6540,7 @@ id MobileAssetSupport::getMAAssetSetPolicy(MobileAssetSupport *this)
 
 void ___ZN18MobileAssetSupport20indicateNeedForAssetENSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEES6__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x29EDCA608];
+  v13 = *MEMORY[0x29EDCA608];
   v4 = a2;
   v5 = a3;
   explicit = atomic_load_explicit(&qword_2A18CB198, memory_order_acquire);
@@ -6694,9 +6572,9 @@ void ___ZN18MobileAssetSupport20indicateNeedForAssetENSt3__112basic_stringIcNS0_
       }
     }
 
-    v10 = 138412290;
-    v11 = v4;
-    _os_log_impl(&dword_297476000, v8, OS_LOG_TYPE_INFO, "Indicated need for assetSetId %@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = v4;
+    _os_log_impl(&dword_297476000, v8, OS_LOG_TYPE_INFO, "Indicated need for assetSetId %@", &v9, 0xCu);
     goto LABEL_10;
   }
 
@@ -6723,16 +6601,14 @@ void ___ZN18MobileAssetSupport20indicateNeedForAssetENSt3__112basic_stringIcNS0_
   if (os_log_type_enabled(qword_2A18CB1A8, OS_LOG_TYPE_ERROR))
   {
 LABEL_5:
-    v10 = 138412546;
-    v11 = v4;
-    v12 = 2112;
-    v13 = v5;
-    _os_log_error_impl(&dword_297476000, v7, OS_LOG_TYPE_ERROR, "Failed to indicate need for assetSetId %@: %@", &v10, 0x16u);
+    v9 = 138412546;
+    v10 = v4;
+    v11 = 2112;
+    v12 = v5;
+    _os_log_error_impl(&dword_297476000, v7, OS_LOG_TYPE_ERROR, "Failed to indicate need for assetSetId %@: %@", &v9, 0x16u);
   }
 
 LABEL_10:
-
-  v9 = *MEMORY[0x29EDCA608];
 }
 
 void ___ZN12_GLOBAL__N_116sGetOsLogContextEv_block_invoke()
@@ -7052,7 +6928,7 @@ LABEL_69:
 
         else
         {
-          v37 = *v36 + 32 * (*(a1 + 56) & 0x7FLL);
+          v37 = &(*v36)[32 * (*(a1 + 56) & 0x7FLL)];
           v38 = v21;
           if (!v26)
           {
@@ -7213,7 +7089,7 @@ uint64_t lcdm::CrashEntry::serialize(lcdm::CrashEntry *a1, uint64_t a2, unint64_
   v16 = v5;
   v17 = v5;
   v15 = v5;
-  lcdm::CrashEntry::convertToSubTLVs(a1, &v15);
+  lcdm::CrashEntry::convertToSubTLVs(&v15, a1);
   if (v15 == 1 && (v6 = (v16 + 8 * (*(&v17 + 1) >> 7)), v7 = *v6 + 32 * (BYTE8(v17) & 0x7F), *(v7 + 4) == 4) && a3 >= **(v7 + 8))
   {
     if (*(&v16 + 1) == v16 || (v10 = *(v16 + (((v18 + *(&v17 + 1)) >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * ((v18 + *(&v17 + 1)) & 0x7F), v7 == v10))
@@ -7261,7 +7137,7 @@ LABEL_5:
   return v8;
 }
 
-void lcdm::CrashEntry::convertToSubTLVs(lcdm::CrashEntry *this@<X0>, uint64_t a2@<X8>)
+void lcdm::CrashEntry::convertToSubTLVs(uint64_t *__return_ptr a1@<X8>, lcdm::CrashEntry *this@<X0>)
 {
   memset(v27, 0, sizeof(v27));
   v26 = 4;
@@ -7285,11 +7161,11 @@ LABEL_9:
     v23 = 0u;
     v24 = 0u;
     v22 = 0u;
-    *a2 = 0;
-    *(a2 + 8) = 0u;
-    *(a2 + 24) = 0u;
-    *(a2 + 40) = 0u;
-    std::deque<lcdm::SubTLV>::__append_with_size[abi:ne200100]<std::__deque_iterator<lcdm::SubTLV,lcdm::SubTLV const*,lcdm::SubTLV const&,lcdm::SubTLV const* const*,long,128l>>((a2 + 8), 0, 0, 0);
+    *a1 = 0;
+    *(a1 + 1) = 0u;
+    *(a1 + 3) = 0u;
+    *(a1 + 5) = 0u;
+    std::deque<lcdm::SubTLV>::__append_with_size[abi:ne200100]<std::__deque_iterator<lcdm::SubTLV,lcdm::SubTLV const*,lcdm::SubTLV const&,lcdm::SubTLV const* const*,long,128l>>(a1 + 1, 0, 0, 0);
     std::deque<lcdm::SubTLV>::~deque[abi:ne200100](&v22);
     goto LABEL_22;
   }
@@ -7323,11 +7199,11 @@ LABEL_11:
     v23 = v6;
     v24 = v6;
     v22 = v6;
-    *a2 = 0;
-    *(a2 + 8) = v6;
-    *(a2 + 24) = v6;
-    *(a2 + 40) = v6;
-    std::deque<lcdm::SubTLV>::__append_with_size[abi:ne200100]<std::__deque_iterator<lcdm::SubTLV,lcdm::SubTLV const*,lcdm::SubTLV const&,lcdm::SubTLV const* const*,long,128l>>((a2 + 8), 0, 0, 0);
+    *a1 = 0;
+    *(a1 + 1) = v6;
+    *(a1 + 3) = v6;
+    *(a1 + 5) = v6;
+    std::deque<lcdm::SubTLV>::__append_with_size[abi:ne200100]<std::__deque_iterator<lcdm::SubTLV,lcdm::SubTLV const*,lcdm::SubTLV const&,lcdm::SubTLV const* const*,long,128l>>(a1 + 1, 0, 0, 0);
     goto LABEL_20;
   }
 
@@ -7368,10 +7244,10 @@ LABEL_14:
   std::deque<lcdm::SubTLV>::__append_with_size[abi:ne200100]<std::__deque_iterator<lcdm::SubTLV,lcdm::SubTLV const*,lcdm::SubTLV const&,lcdm::SubTLV const* const*,long,128l>>(&v22, (v9 + v8), v10, v14);
   std::deque<lcdm::SubTLV>::push_front(&v22, &v28);
   std::deque<lcdm::SubTLV>::push_front(&v22, v27);
-  *a2 = 1;
-  *(a2 + 8) = 0u;
-  *(a2 + 24) = 0u;
-  *(a2 + 40) = 0u;
+  *a1 = 1;
+  *(a1 + 1) = 0u;
+  *(a1 + 3) = 0u;
+  *(a1 + 5) = 0u;
   v15 = (v24 >> 4) & 0xFFFFFFFFFFFFFF8;
   if (v23 == *(&v22 + 1))
   {
@@ -7391,7 +7267,7 @@ LABEL_18:
 
   v19 = v18 - (v24 & 0x7F) + 16 * (v17 - v15);
 LABEL_19:
-  std::deque<lcdm::SubTLV>::__append_with_size[abi:ne200100]<std::__deque_iterator<lcdm::SubTLV,lcdm::SubTLV const*,lcdm::SubTLV const&,lcdm::SubTLV const* const*,long,128l>>((a2 + 8), (*(&v22 + 1) + v15), v16, v19);
+  std::deque<lcdm::SubTLV>::__append_with_size[abi:ne200100]<std::__deque_iterator<lcdm::SubTLV,lcdm::SubTLV const*,lcdm::SubTLV const&,lcdm::SubTLV const* const*,long,128l>>(a1 + 1, (*(&v22 + 1) + v15), v16, v19);
 LABEL_20:
   std::deque<lcdm::SubTLV>::~deque[abi:ne200100](&v22);
   if (v20)
@@ -7425,40 +7301,40 @@ void sub_29750F3AC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void lcdm::CrashEntry::toDebugString(lcdm::CrashEntry *this@<X0>, void *a2@<X8>)
 {
-  v19 = *MEMORY[0x29EDCA608];
-  v12[0] = *this;
-  v12[1] = 0;
+  v18 = *MEMORY[0x29EDCA608];
+  v11[0] = *this;
+  v11[1] = 0;
   v3 = *(this + 1);
-  v12[3] = 0;
-  v12[4] = 230;
-  v12[2] = v3;
+  v11[3] = 0;
+  v11[4] = 230;
+  v11[2] = v3;
   *&v4 = 0xAAAAAAAAAAAAAAAALL;
   *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v17[14] = v4;
-  v17[15] = v4;
-  v17[13] = v4;
-  v17[12] = v4;
-  v17[11] = v4;
-  v17[10] = v4;
-  v17[9] = v4;
-  v17[8] = v4;
-  v17[7] = v4;
-  v17[6] = v4;
-  v17[5] = v4;
-  v17[4] = v4;
-  v17[3] = v4;
-  v17[2] = v4;
-  v17[1] = v4;
-  v17[0] = v4;
-  v13 = v17;
+  v16[14] = v4;
+  v16[15] = v4;
+  v16[13] = v4;
+  v16[12] = v4;
+  v16[11] = v4;
+  v16[10] = v4;
+  v16[9] = v4;
+  v16[8] = v4;
+  v16[7] = v4;
+  v16[6] = v4;
+  v16[5] = v4;
+  v16[4] = v4;
+  v16[3] = v4;
+  v16[2] = v4;
+  v16[1] = v4;
+  v16[0] = v4;
+  v12 = v16;
   *__len = xmmword_29769E5C0;
-  v15 = std::__format::__allocating_buffer<char>::__prepare_write[abi:ne200100];
-  v16 = 0;
-  __p = v17;
-  v11[0] = 2;
-  v11[1] = v12;
-  v11[2] = 230;
-  std::__vformat_to[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(&v13, "fLength = {}, fTimestamp = {}", 29, v11);
+  v14 = std::__format::__allocating_buffer<char>::__prepare_write[abi:ne200100];
+  v15 = 0;
+  __p = v16;
+  v10[0] = 2;
+  v10[1] = v11;
+  v10[2] = 230;
+  std::__vformat_to[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(&v12, "fLength = {}, fTimestamp = {}", 29, v10);
   v5 = __len[1];
   if (__len[1] >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -7470,47 +7346,45 @@ void lcdm::CrashEntry::toDebugString(lcdm::CrashEntry *this@<X0>, void *a2@<X8>)
   {
     if ((__len[1] | 7) == 0x17)
     {
-      v9 = 25;
+      v8 = 25;
     }
 
     else
     {
-      v9 = (__len[1] | 7) + 1;
+      v8 = (__len[1] | 7) + 1;
     }
 
-    v10 = operator new(v9);
+    v9 = operator new(v8);
     a2[1] = v5;
-    a2[2] = v9 | 0x8000000000000000;
-    *a2 = v10;
-    a2 = v10;
-LABEL_11:
-    memmove(a2, v6, v5);
-    *(a2 + v5) = 0;
-    v7 = __p;
-    if (__p == v17)
-    {
-      goto LABEL_6;
-    }
-
-    goto LABEL_5;
+    a2[2] = v8 | 0x8000000000000000;
+    *a2 = v9;
+    a2 = v9;
   }
 
-  *(a2 + 23) = __len[1];
-  if (v5)
+  else
   {
-    goto LABEL_11;
+    *(a2 + 23) = __len[1];
+    if (!v5)
+    {
+      *a2 = 0;
+      v7 = __p;
+      if (__p == v16)
+      {
+        return;
+      }
+
+      goto LABEL_5;
+    }
   }
 
-  *a2 = 0;
+  memmove(a2, v6, v5);
+  *(a2 + v5) = 0;
   v7 = __p;
-  if (__p != v17)
+  if (__p != v16)
   {
 LABEL_5:
     operator delete(v7);
   }
-
-LABEL_6:
-  v8 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29750F640(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, void *__p)
@@ -7837,11 +7711,11 @@ uint64_t std::__split_buffer<lcdm::SubTLV *>::~__split_buffer(uint64_t result)
   return result;
 }
 
-void std::deque<lcdm::SubTLV>::__append_with_size[abi:ne200100]<std::__deque_iterator<lcdm::SubTLV,lcdm::SubTLV const*,lcdm::SubTLV const&,lcdm::SubTLV const* const*,long,128l>>(void *a1, void *a2, void *a3, unint64_t a4)
+void std::deque<lcdm::SubTLV>::__append_with_size[abi:ne200100]<std::__deque_iterator<lcdm::SubTLV,lcdm::SubTLV const*,lcdm::SubTLV const&,lcdm::SubTLV const* const*,long,128l>>(void *result, void *a2, void *a3, unint64_t a4)
 {
-  v7 = a1;
-  v8 = a1[1];
-  v9 = a1[2];
+  v7 = result;
+  v8 = result[1];
+  v9 = result[2];
   if (v9 == v8)
   {
     v10 = 0;
@@ -7852,12 +7726,12 @@ void std::deque<lcdm::SubTLV>::__append_with_size[abi:ne200100]<std::__deque_ite
     v10 = 16 * (v9 - v8) - 1;
   }
 
-  v11 = a1[5];
-  v12 = v11 + a1[4];
+  v11 = result[5];
+  v12 = v11 + result[4];
   v13 = v10 - v12;
   if (a4 > v13)
   {
-    std::deque<lcdm::SubTLV>::__add_back_capacity(a1, a4 - v13);
+    std::deque<lcdm::SubTLV>::__add_back_capacity(result, a4 - v13);
     v11 = v7[5];
     v8 = v7[1];
     v9 = v7[2];
@@ -8010,12 +7884,12 @@ void sub_29750FCE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-double std::__for_each_segment[abi:ne200100]<std::__deque_iterator<lcdm::SubTLV,lcdm::SubTLV const*,lcdm::SubTLV const&,lcdm::SubTLV const* const*,long,128l>,std::__copy_impl::_CopySegment<std::__deque_iterator<lcdm::SubTLV,lcdm::SubTLV const*,lcdm::SubTLV const&,lcdm::SubTLV const* const*,long,128l>,std::__deque_iterator<lcdm::SubTLV,lcdm::SubTLV*,lcdm::SubTLV&,lcdm::SubTLV**,long,128l>>>(uint64_t *a1, uint64_t a2, uint64_t *a3, uint64_t a4, uint64_t a5)
+double std::__for_each_segment[abi:ne200100]<std::__deque_iterator<lcdm::SubTLV,lcdm::SubTLV const*,lcdm::SubTLV const&,lcdm::SubTLV const* const*,long,128l>,std::__copy_impl::_CopySegment<std::__deque_iterator<lcdm::SubTLV,lcdm::SubTLV const*,lcdm::SubTLV const&,lcdm::SubTLV const* const*,long,128l>,std::__deque_iterator<lcdm::SubTLV,lcdm::SubTLV*,lcdm::SubTLV&,lcdm::SubTLV**,long,128l>>>(uint64_t *a1, uint64_t a2, uint64_t *a3, uint64_t a4, char ***a5)
 {
   if (a1 == a3)
   {
     v7 = *a5;
-    v8 = *(a5 + 8);
+    v8 = a5[1];
     memset(v16, 170, sizeof(v16));
   }
 
@@ -8024,13 +7898,13 @@ double std::__for_each_segment[abi:ne200100]<std::__deque_iterator<lcdm::SubTLV,
     v11 = a1 + 1;
     v10 = *a1;
     v12 = *a5;
-    v13 = *(a5 + 8);
+    v13 = a5[1];
     memset(v16, 170, sizeof(v16));
     std::__copy_impl::operator()[abi:ne200100]<lcdm::SubTLV const*,std::__deque_iterator<lcdm::SubTLV,lcdm::SubTLV*,lcdm::SubTLV&,lcdm::SubTLV**,long,128l>,0>(v16, a2, v10 + 4096, v12, v13);
     v8 = v16[2];
     v7 = v16[1];
     *a5 = v16[1];
-    for (*(a5 + 8) = v8; v11 != a3; *(a5 + 8) = v8)
+    for (a5[1] = v8; v11 != a3; a5[1] = v8)
     {
       v14 = *v11++;
       memset(v16, 170, sizeof(v16));
@@ -8050,7 +7924,7 @@ double std::__for_each_segment[abi:ne200100]<std::__deque_iterator<lcdm::SubTLV,
   return result;
 }
 
-void *std::__copy_impl::operator()[abi:ne200100]<lcdm::SubTLV const*,std::__deque_iterator<lcdm::SubTLV,lcdm::SubTLV*,lcdm::SubTLV&,lcdm::SubTLV**,long,128l>,0>(void *result, uint64_t a2, uint64_t a3, char **a4, char *a5)
+uint64_t *std::__copy_impl::operator()[abi:ne200100]<lcdm::SubTLV const*,std::__deque_iterator<lcdm::SubTLV,lcdm::SubTLV*,lcdm::SubTLV&,lcdm::SubTLV**,long,128l>,0>(uint64_t *result, uint64_t a2, uint64_t a3, char **a4, char *a5)
 {
   v6 = a2;
   if (a2 == a3)
@@ -8750,7 +8624,7 @@ void std::__format::__allocating_buffer<char>::__prepare_write[abi:ne200100](uin
   }
 }
 
-uint64_t *std::__vformat_to[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(uint64_t *a1, unsigned __int8 *a2, uint64_t a3, uint64_t *a4)
+unsigned __int8 *std::__vformat_to[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(unsigned __int8 *a1, unsigned __int8 *a2, uint64_t a3, uint64_t *a4)
 {
   v4 = *a4;
   v14[0] = a2;
@@ -8790,7 +8664,7 @@ void sub_2975107C8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t *std::__format::__vformat_to[abi:ne200100]<std::basic_format_parse_context<char>,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unsigned __int8 **a1, uint64_t **a2)
+unsigned __int8 *std::__format::__vformat_to[abi:ne200100]<std::basic_format_parse_context<char>,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unsigned __int8 **a1, unsigned __int8 **a2)
 {
   v3 = *a1;
   v4 = a1[1];
@@ -8818,17 +8692,17 @@ uint64_t *std::__format::__vformat_to[abi:ne200100]<std::basic_format_parse_cont
       if (*v3 == 123)
       {
 LABEL_12:
-        v8 = v5[4];
+        v8 = *(v5 + 4);
         if (!v8 || (v10 = *v8, v9 = v8[1], v8[1] = v9 + 1, v9 < v10))
         {
           v11 = *v5;
-          v12 = v5[2];
-          v5[2] = v12 + 1;
+          v12 = *(v5 + 2);
+          *(v5 + 2) = v12 + 1;
           *(v11 + v12) = v7;
-          if (v5[2] == v5[1])
+          if (*(v5 + 2) == *(v5 + 1))
           {
             v13 = v3;
-            (v5[3])(v5, 2);
+            (*(v5 + 3))(v5, 2);
             v3 = v13;
           }
         }
@@ -8868,9 +8742,9 @@ void std::__throw_format_error[abi:ne200100](const char *a1)
   std::format_error::format_error[abi:ne200100](exception, a1);
 }
 
-unsigned __int8 *std::__format::__handle_replacement_field[abi:ne200100]<char const*,std::basic_format_parse_context<char>,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unsigned __int8 *a1, unsigned __int8 *a2, unsigned __int8 **a3, void *a4)
+unsigned __int8 *std::__format::__handle_replacement_field[abi:ne200100]<char const*,std::basic_format_parse_context<char>,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unsigned __int8 *a1, unsigned __int8 *a2, unsigned __int8 **a3, unsigned __int8 **a4)
 {
-  v24 = *MEMORY[0x29EDCA608];
+  v23 = *MEMORY[0x29EDCA608];
   v7 = std::__format::__parse_arg_id[abi:ne200100]<char const*,std::basic_format_parse_context<char>>(a1, a2, a3);
   if (v7 == a2)
   {
@@ -8878,7 +8752,7 @@ unsigned __int8 *std::__format::__handle_replacement_field[abi:ne200100]<char co
   }
 
   v9 = *v7;
-  v21 = v9 == 58;
+  v20 = v9 == 58;
   if (v9 == 125)
   {
     goto LABEL_5;
@@ -8893,42 +8767,41 @@ LABEL_14:
   ++v7;
 LABEL_5:
   *a3 = v7;
-  v20[0] = a3;
-  v20[1] = a4;
-  v20[2] = &v21;
+  v19[0] = a3;
+  v19[1] = a4;
+  v19[2] = &v20;
   v10 = a4[1];
   if (v10 <= v8)
   {
-    LOBYTE(v23) = 0;
+    LOBYTE(v22) = 0;
   }
 
   else if (v10 > 0xC)
   {
-    v15 = (a4[2] + 32 * v8);
-    v16 = v15[1];
-    v22 = *v15;
-    v23 = v16;
+    v15 = &a4[2][32 * v8];
+    v16 = *(v15 + 1);
+    v21 = *v15;
+    v22 = v16;
   }
 
   else
   {
-    v11 = (a4[2] + 16 * v8);
+    v11 = &a4[2][16 * v8];
     v13 = *v11;
-    v12 = v11[1];
-    v14 = (a4[3] >> (5 * v8)) & 0x1FLL;
-    *&v22 = v13;
-    *(&v22 + 1) = v12;
-    LOBYTE(v23) = v14;
+    v12 = *(v11 + 1);
+    v14 = (a4[3] >> (5 * v8)) & 0x1F;
+    *&v21 = v13;
+    *(&v21 + 1) = v12;
+    LOBYTE(v22) = v14;
   }
 
-  std::__visit_format_arg[abi:ne200100]<char const* std::__format::__handle_replacement_field[abi:ne200100]<char const*,std::basic_format_parse_context<char>,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(char const*,char const*,std::basic_format_parse_context<char> &,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char> &)::{lambda(char const*)#1},std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(v20, &v22);
+  std::__visit_format_arg[abi:ne200100]<char const* std::__format::__handle_replacement_field[abi:ne200100]<char const*,std::basic_format_parse_context<char>,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(char const*,char const*,std::basic_format_parse_context<char> &,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char> &)::{lambda(char const*)#1},std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(v19, &v21);
   v17 = *a3;
   if (*a3 == a2 || *v17 != 125)
   {
     std::__throw_format_error[abi:ne200100]("The replacement field misses a terminating '}'");
   }
 
-  v18 = *MEMORY[0x29EDCA608];
   return v17 + 1;
 }
 
@@ -9084,7 +8957,7 @@ LABEL_37:
   return result;
 }
 
-uint64_t std::__visit_format_arg[abi:ne200100]<char const* std::__format::__handle_replacement_field[abi:ne200100]<char const*,std::basic_format_parse_context<char>,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(char const*,char const*,std::basic_format_parse_context<char> &,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char> &)::{lambda(char const*)#1},std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(uint64_t a1, unsigned __int8 *a2)
+unsigned __int8 *std::__visit_format_arg[abi:ne200100]<char const* std::__format::__handle_replacement_field[abi:ne200100]<char const*,std::basic_format_parse_context<char>,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(char const*,char const*,std::basic_format_parse_context<char> &,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char> &)::{lambda(char const*)#1},std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unsigned __int8 ***a1, unsigned __int8 *a2)
 {
   switch(a2[16])
   {
@@ -9124,22 +8997,22 @@ uint64_t std::__visit_format_arg[abi:ne200100]<char const* std::__format::__hand
       return std::__format::__handle_replacement_field[abi:ne200100]<char const*,std::basic_format_parse_context<char>,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(char const*,char const*,std::basic_format_parse_context<char> &,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char> &)::{lambda(char const*)#1}::operator()<unsigned __int128>(a1, v15, v16);
     case 9u:
       v11 = *a2;
-      *v50 = 0;
-      *&v50[8] = -1;
-      v51 = 32;
-      v52 = 0;
+      *v51 = 0;
+      *&v51[8] = -1;
+      v52 = 32;
       v53 = 0;
-      if (**(a1 + 16) != 1)
+      v54 = 0;
+      if (*a1[2] != 1)
       {
         goto LABEL_60;
       }
 
       v12 = a1;
       v13 = *a1;
-      v14 = std::__format_spec::__parser<char>::__parse[abi:ne200100]<std::basic_format_parse_context<char>>(v50, *a1, 319);
-      if (v50[1] - 13 >= 6)
+      v14 = std::__format_spec::__parser<char>::__parse[abi:ne200100]<std::basic_format_parse_context<char>>(v51, *a1, 319);
+      if (v51[1] - 13 >= 6)
       {
-        if (v50[1] <= 0xCu && ((1 << v50[1]) & 0x1801) != 0)
+        if (v51[1] <= 0xCu && ((1 << v51[1]) & 0x1801) != 0)
         {
           goto LABEL_59;
         }
@@ -9148,107 +9021,108 @@ LABEL_72:
         std::__format_spec::__throw_invalid_type_format_error[abi:ne200100]("a floating-point");
       }
 
-      if ((*&v50[2] & 0x80000000) == 0 && *&v50[8] == -1)
+      if ((*&v51[2] & 0x80000000) == 0 && *&v51[8] == -1)
       {
-        *&v50[8] = 6;
+        *&v51[8] = 6;
       }
 
 LABEL_59:
       *v13 = v14;
       a1 = v12;
 LABEL_60:
-      v43 = *(a1 + 8);
-      v44 = std::__format_spec::__parser<char>::__get_parsed_std_specifications[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(v50, v43);
-      result = std::__formatter::__format_floating_point[abi:ne200100]<float,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(v43, v44, v45, v11);
+      v43 = a1[1];
+      v44 = std::__format_spec::__parser<char>::__get_parsed_std_specifications[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(v51, v43);
+      v45.n128_u32[0] = v11;
+      result = std::__formatter::__format_floating_point[abi:ne200100]<float,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(v43, v44, v46, v45);
 LABEL_69:
       *v43 = result;
       return result;
     case 0xAu:
       v29 = *a2;
-      *v50 = 0;
-      *&v50[8] = -1;
-      v51 = 32;
-      v52 = 0;
+      *v51 = 0;
+      *&v51[8] = -1;
+      v52 = 32;
       v53 = 0;
-      if (**(a1 + 16) != 1)
+      v54 = 0;
+      if (*a1[2] != 1)
       {
         goto LABEL_68;
       }
 
       v30 = a1;
       v31 = *a1;
-      v32 = std::__format_spec::__parser<char>::__parse[abi:ne200100]<std::basic_format_parse_context<char>>(v50, *a1, 319);
-      if (v50[1] - 13 >= 6)
+      v32 = std::__format_spec::__parser<char>::__parse[abi:ne200100]<std::basic_format_parse_context<char>>(v51, *a1, 319);
+      if (v51[1] - 13 >= 6)
       {
-        if (v50[1] > 0xCu || ((1 << v50[1]) & 0x1801) == 0)
+        if (v51[1] > 0xCu || ((1 << v51[1]) & 0x1801) == 0)
         {
           goto LABEL_72;
         }
       }
 
-      else if ((*&v50[2] & 0x80000000) == 0 && *&v50[8] == -1)
+      else if ((*&v51[2] & 0x80000000) == 0 && *&v51[8] == -1)
       {
-        *&v50[8] = 6;
+        *&v51[8] = 6;
       }
 
       *v31 = v32;
       a1 = v30;
 LABEL_68:
-      v43 = *(a1 + 8);
-      v48 = std::__format_spec::__parser<char>::__get_parsed_std_specifications[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(v50, v43);
-      result = std::__formatter::__format_floating_point[abi:ne200100]<double,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(v43, v48, v49, v29);
+      v43 = a1[1];
+      v49 = std::__format_spec::__parser<char>::__get_parsed_std_specifications[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(v51, v43);
+      result = std::__formatter::__format_floating_point[abi:ne200100]<double,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(v43, v49, v50, v29);
       goto LABEL_69;
     case 0xBu:
       v24 = *a2;
-      *v50 = 0;
-      *&v50[8] = -1;
-      v51 = 32;
-      v52 = 0;
+      *v51 = 0;
+      *&v51[8] = -1;
+      v52 = 32;
       v53 = 0;
-      if (**(a1 + 16) != 1)
+      v54 = 0;
+      if (*a1[2] != 1)
       {
         goto LABEL_64;
       }
 
       v25 = a1;
       v26 = *a1;
-      v27 = std::__format_spec::__parser<char>::__parse[abi:ne200100]<std::basic_format_parse_context<char>>(v50, *a1, 319);
-      if (v50[1] - 13 >= 6)
+      v27 = std::__format_spec::__parser<char>::__parse[abi:ne200100]<std::basic_format_parse_context<char>>(v51, *a1, 319);
+      if (v51[1] - 13 >= 6)
       {
-        if (v50[1] > 0xCu || ((1 << v50[1]) & 0x1801) == 0)
+        if (v51[1] > 0xCu || ((1 << v51[1]) & 0x1801) == 0)
         {
           goto LABEL_72;
         }
       }
 
-      else if ((*&v50[2] & 0x80000000) == 0 && *&v50[8] == -1)
+      else if ((*&v51[2] & 0x80000000) == 0 && *&v51[8] == -1)
       {
-        *&v50[8] = 6;
+        *&v51[8] = 6;
       }
 
       *v26 = v27;
       a1 = v25;
 LABEL_64:
-      v43 = *(a1 + 8);
-      v46 = std::__format_spec::__parser<char>::__get_parsed_std_specifications[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(v50, v43);
-      result = std::__formatter::__format_floating_point[abi:ne200100]<long double,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(v43, v46, v47, v24);
+      v43 = a1[1];
+      v47 = std::__format_spec::__parser<char>::__get_parsed_std_specifications[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(v51, v43);
+      result = std::__formatter::__format_floating_point[abi:ne200100]<long double,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(v43, v47, v48, v24);
       goto LABEL_69;
     case 0xCu:
       v33 = *a2;
-      *v50 = 1;
-      *&v50[4] = 0xFFFFFFFF00000000;
-      v51 = 32;
-      v52 = 0;
+      *v51 = 1;
+      *&v51[4] = 0xFFFFFFFF00000000;
+      v52 = 32;
       v53 = 0;
-      if (**(a1 + 16) != 1)
+      v54 = 0;
+      if (*a1[2] != 1)
       {
         goto LABEL_53;
       }
 
       v34 = a1;
       v35 = *a1;
-      v36 = std::__format_spec::__parser<char>::__parse[abi:ne200100]<std::basic_format_parse_context<char>>(v50, *a1, 296);
-      if (v50[1] >= 2u && v50[1] != 19)
+      v36 = std::__format_spec::__parser<char>::__parse[abi:ne200100]<std::basic_format_parse_context<char>>(v51, *a1, 296);
+      if (v51[1] >= 2u && v51[1] != 19)
       {
         goto LABEL_71;
       }
@@ -9256,28 +9130,28 @@ LABEL_64:
       *v35 = v36;
       a1 = v34;
 LABEL_53:
-      v37 = *(a1 + 8);
+      v37 = a1[1];
       v38 = strlen(v33);
-      result = std::__formatter_string<char>::format[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(v50, v33, v38, v37);
+      result = std::__formatter_string<char>::format[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(v51, v33, v38, v37);
       *v37 = result;
       return result;
     case 0xDu:
       v4 = *a2;
       v5 = *(a2 + 1);
-      *v50 = 1;
-      *&v50[4] = 0xFFFFFFFF00000000;
-      v51 = 32;
-      v52 = 0;
+      *v51 = 1;
+      *&v51[4] = 0xFFFFFFFF00000000;
+      v52 = 32;
       v53 = 0;
-      if (**(a1 + 16) != 1)
+      v54 = 0;
+      if (*a1[2] != 1)
       {
         goto LABEL_12;
       }
 
       v6 = a1;
       v7 = *a1;
-      v8 = std::__format_spec::__parser<char>::__parse[abi:ne200100]<std::basic_format_parse_context<char>>(v50, *a1, 296);
-      if (v50[1] >= 2u && v50[1] != 19)
+      v8 = std::__format_spec::__parser<char>::__parse[abi:ne200100]<std::basic_format_parse_context<char>>(v51, *a1, 296);
+      if (v51[1] >= 2u && v51[1] != 19)
       {
 LABEL_71:
         std::__throw_format_error[abi:ne200100]("The type option contains an invalid value for a string formatting argument");
@@ -9286,15 +9160,15 @@ LABEL_71:
       *v7 = v8;
       a1 = v6;
 LABEL_12:
-      v9 = *(a1 + 8);
-      result = std::__formatter_string<char>::format[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(v50, v4, v5, v9);
+      v9 = a1[1];
+      result = std::__formatter_string<char>::format[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(v51, v4, v5, v9);
       *v9 = result;
       return result;
     case 0xEu:
 
       return std::invoke[abi:ne200100]<char const* std::__format::__handle_replacement_field[abi:ne200100]<char const*,std::basic_format_parse_context<char>,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(char const*,char const*,std::basic_format_parse_context<char> &,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char> &)::{lambda(char const*)#1},void const*&>(a1, a2);
     case 0xFu:
-      v39 = *(a1 + 8);
+      v39 = a1[1];
       v40 = *a2;
       v41 = *(a2 + 1);
       v42 = *a1;
@@ -9305,7 +9179,7 @@ LABEL_12:
   }
 }
 
-uint64_t std::invoke[abi:ne200100]<char const* std::__format::__handle_replacement_field[abi:ne200100]<char const*,std::basic_format_parse_context<char>,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(char const*,char const*,std::basic_format_parse_context<char> &,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char> &)::{lambda(char const*)#1},void const*&>(uint64_t a1, unint64_t *a2)
+uint64_t std::invoke[abi:ne200100]<char const* std::__format::__handle_replacement_field[abi:ne200100]<char const*,std::basic_format_parse_context<char>,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(char const*,char const*,std::basic_format_parse_context<char> &,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char> &)::{lambda(char const*)#1},void const*&>(unsigned __int8 ***a1, unint64_t *a2)
 {
   v3 = *a2;
   v12 = 0;
@@ -9313,7 +9187,7 @@ uint64_t std::invoke[abi:ne200100]<char const* std::__format::__handle_replaceme
   v14 = 32;
   v15 = 0;
   v16 = 0;
-  if (**(a1 + 16) == 1)
+  if (*a1[2] == 1)
   {
     v4 = *a1;
     v5 = std::__format_spec::__parser<char>::__parse[abi:ne200100]<std::basic_format_parse_context<char>>(&v12, *a1, 292);
@@ -9325,7 +9199,7 @@ uint64_t std::invoke[abi:ne200100]<char const* std::__format::__handle_replaceme
     *v4 = v5;
   }
 
-  v7 = *(a1 + 8);
+  v7 = a1[1];
   v8 = std::__format_spec::__parser<char>::__get_parsed_std_specifications[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(&v12, v7);
   v10 = 1536;
   if ((v8 & 0xFF00) == 0x900)
@@ -9338,21 +9212,21 @@ uint64_t std::invoke[abi:ne200100]<char const* std::__format::__handle_replaceme
   return result;
 }
 
-uint64_t std::__format::__handle_replacement_field[abi:ne200100]<char const*,std::basic_format_parse_context<char>,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(char const*,char const*,std::basic_format_parse_context<char> &,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char> &)::{lambda(char const*)#1}::operator()<BOOL>(uint64_t a1, unsigned int a2)
+uint64_t std::__format::__handle_replacement_field[abi:ne200100]<char const*,std::basic_format_parse_context<char>,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(char const*,char const*,std::basic_format_parse_context<char> &,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char> &)::{lambda(char const*)#1}::operator()<BOOL>(unsigned __int8 ***a1, uint64_t a2)
 {
   v15 = 0;
   v16 = -1;
   v17 = 32;
   v18 = 0;
   v19 = 0;
-  if (**(a1 + 16))
+  if (*a1[2])
   {
     v4 = *a1;
     v5 = std::__format_spec::__parser<char>::__parse[abi:ne200100]<std::basic_format_parse_context<char>>(&v15, *a1, 311);
     if (BYTE1(v15) - 2 < 6)
     {
       *v4 = v5;
-      v6 = *(a1 + 8);
+      v6 = a1[1];
 LABEL_4:
       v7 = std::__format_spec::__parser<char>::__get_parsed_std_specifications[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(&v15, v6);
       result = std::__formatter::__format_integer[abi:ne200100]<unsigned int,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a2, v6, v7, v8, 0);
@@ -9371,7 +9245,7 @@ LABEL_4:
     {
       v13 = BYTE1(v15);
       *v4 = v12;
-      v6 = *(a1 + 8);
+      v6 = a1[1];
       if (v13 > 1)
       {
         goto LABEL_4;
@@ -9383,7 +9257,7 @@ LABEL_4:
       LOBYTE(v15) = v15 | 1;
       v14 = BYTE1(v15);
       *v4 = v12;
-      v6 = *(a1 + 8);
+      v6 = a1[1];
       if (v14 > 1)
       {
         goto LABEL_4;
@@ -9393,7 +9267,7 @@ LABEL_4:
 
   else
   {
-    v6 = *(a1 + 8);
+    v6 = a1[1];
   }
 
   v10 = std::__format_spec::__parser<char>::__get_parsed_std_specifications[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(&v15, v6);
@@ -9803,4 +9677,73 @@ LABEL_17:
   }
 
   return v5 == 46;
+}
+
+uint64_t std::__format_spec::__parser<char>::__parse_type[abi:ne200100]<char const*>(uint64_t result, void *a2)
+{
+  v2 = *a2;
+  v3 = 12;
+  switch(**a2)
+  {
+    case 'A':
+      goto LABEL_19;
+    case 'B':
+      v3 = 3;
+      goto LABEL_19;
+    case 'E':
+      v3 = 14;
+      goto LABEL_19;
+    case 'F':
+      v3 = 16;
+      goto LABEL_19;
+    case 'G':
+      v3 = 18;
+      goto LABEL_19;
+    case 'P':
+      v3 = 9;
+      goto LABEL_19;
+    case 'X':
+      v3 = 7;
+      goto LABEL_19;
+    case 'a':
+      v3 = 11;
+      goto LABEL_19;
+    case 'b':
+      v3 = 2;
+      goto LABEL_19;
+    case 'c':
+      v3 = 10;
+      goto LABEL_19;
+    case 'd':
+      v3 = 5;
+      goto LABEL_19;
+    case 'e':
+      v3 = 13;
+      goto LABEL_19;
+    case 'f':
+      v3 = 15;
+      goto LABEL_19;
+    case 'g':
+      v3 = 17;
+      goto LABEL_19;
+    case 'o':
+      v3 = 4;
+      goto LABEL_19;
+    case 'p':
+      v3 = 8;
+      goto LABEL_19;
+    case 's':
+      v3 = 1;
+      goto LABEL_19;
+    case 'x':
+      v3 = 6;
+LABEL_19:
+      *(result + 1) = v3;
+      *a2 = v2 + 1;
+      break;
+    default:
+      return result;
+  }
+
+  return result;
 }

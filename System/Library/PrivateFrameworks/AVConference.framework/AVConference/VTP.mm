@@ -43,7 +43,7 @@ void *__VTP_DuplicateVFD_block_invoke(uint64_t a1, uint64_t a2, void *__src)
 
 void __VTP_ScheduleReceiveForNWMultiLink_block_invoke(uint64_t a1, NSObject *a2, NSObject *a3, int a4, nw_error_t error)
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   if (error)
   {
     error_code = nw_error_get_error_code(error);
@@ -83,12 +83,12 @@ LABEL_7:
       v14 = *MEMORY[0x1E6986650];
       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
       {
-        v31 = @"NWMultiLink";
-        v32 = *(a1 + 40);
-        v33 = *(a1 + 48);
+        v34 = @"NWMultiLink";
+        v35 = *(a1 + 40);
+        v36 = *(a1 + 48);
         if (!*(a1 + 32))
         {
-          v31 = @"NWConnection";
+          v34 = @"NWConnection";
         }
 
         *buf = 136316674;
@@ -98,13 +98,13 @@ LABEL_7:
         *&buf[22] = 1024;
         *&buf[24] = 5747;
         *&buf[28] = 2112;
-        *&buf[30] = v31;
+        *&buf[30] = v34;
         *&buf[38] = 1024;
         *&buf[40] = error_code;
         *&buf[44] = 2112;
-        *&buf[46] = v32;
+        *&buf[46] = v35;
         *&buf[54] = 1024;
-        *&buf[56] = v33;
+        *&buf[56] = v36;
         _os_log_error_impl(&dword_1DB56E000, v14, OS_LOG_TYPE_ERROR, " [%s] %s:%d %@ failed to receive data with error=%d connection=%@ shouldIgnoreConnectionRefusedError=%d", buf, 0x3Cu);
       }
     }
@@ -133,33 +133,34 @@ LABEL_13:
     {
       v20 = *(a1 + 32);
       v19 = *(a1 + 40);
-      v44 = 1;
-      v40 = 0;
-      v41 = &v40;
-      v42 = 0x2020000000;
+      v47 = 1;
       v43 = 0;
+      v44 = &v43;
+      v45 = 0x2020000000;
+      v46 = 0;
       applier[0] = MEMORY[0x1E69E9820];
       applier[1] = 3221225472;
       applier[2] = ___VTP_HandleReceiveForNWConnection_block_invoke;
       applier[3] = &unk_1E85F7758;
-      applier[4] = &v40;
+      applier[4] = &v43;
       applier[5] = v17;
-      dispatch_data_apply(a2, applier);
-      v21 = v41[3];
-      if (v21)
+      v21 = dispatch_data_apply(a2, applier);
+      v23 = v44[3];
+      if (v23)
       {
-        *(v21 + 579) = 1;
-        *(v41[3] + 184) = micro();
-        v49 = 0xAAAAAAAAAAAAAAAALL;
-        *&v22 = 0xAAAAAAAAAAAAAAAALL;
-        *(&v22 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        v47 = v22;
-        v48 = v22;
-        *&buf[48] = v22;
-        v46 = v22;
-        *&buf[16] = v22;
-        *&buf[32] = v22;
-        *buf = v22;
+        *(v23 + 579) = 1;
+        v24 = micro(v21, v22);
+        *(v44[3] + 184) = v24;
+        v52 = 0xAAAAAAAAAAAAAAAALL;
+        *&v25 = 0xAAAAAAAAAAAAAAAALL;
+        *(&v25 + 1) = 0xAAAAAAAAAAAAAAAALL;
+        v50 = v25;
+        v51 = v25;
+        *&buf[48] = v25;
+        v49 = v25;
+        *&buf[16] = v25;
+        *&buf[32] = v25;
+        *buf = v25;
         if (v20)
         {
           VCSDInfoConstructWithDatagramChannelMultiLink(v20, buf);
@@ -170,61 +171,61 @@ LABEL_13:
           VCSDInfoConstructWithNWConnection(v19, buf);
         }
 
-        VTP_SetConnectionFlagsForPacket(v18, 0, v41[3], buf);
-        if ((VTP_ProcessPacketType(v18, 0, -1, v41[3]) & 0x80000000) != 0)
+        VTP_SetConnectionFlagsForPacket(v18, 0, v44[3], buf);
+        if ((VTP_ProcessPacketType(v18, 0, -1, v44[3]) & 0x80000000) != 0)
         {
-          _VTP_ReleaseVPKTPacket(v18, v41 + 3, 8, 0);
+          _VTP_ReleaseVPKTPacket(v18, v44 + 3, 8, 0);
         }
 
         else
         {
-          v23 = &v35;
-          v35 = 0;
-          v36 = &v35;
-          v37 = 0x2020000000;
+          v26 = &v38;
           v38 = 0;
+          v39 = &v38;
+          v40 = 0x2020000000;
+          v41 = 0;
           if (a3)
           {
-            v34[0] = MEMORY[0x1E69E9820];
-            v34[1] = 3221225472;
-            v34[2] = ___VTP_HandleReceiveForNWConnection_block_invoke_74;
-            v34[3] = &unk_1E85F7780;
-            v34[4] = &v35;
-            nw_content_context_foreach_protocol_metadata(a3, v34);
-            v23 = v36;
+            v37[0] = MEMORY[0x1E69E9820];
+            v37[1] = 3221225472;
+            v37[2] = ___VTP_HandleReceiveForNWConnection_block_invoke_74;
+            v37[3] = &unk_1E85F7780;
+            v37[4] = &v38;
+            nw_content_context_foreach_protocol_metadata(a3, v37);
+            v26 = v39;
           }
 
-          v24 = v41;
-          v25 = v41[3];
-          *(v25 + 344) = v49;
-          v26 = *&buf[16];
-          *(v25 + 232) = *buf;
-          *(v25 + 248) = v26;
-          v27 = v47;
-          *(v25 + 296) = v46;
-          *(v25 + 312) = v27;
-          *(v25 + 328) = v48;
-          v28 = *&buf[48];
-          *(v25 + 264) = *&buf[32];
-          *(v25 + 280) = v28;
-          v29 = v24[3];
-          *(v29 + 516) = a4;
-          *(v29 + 352) = *(v23 + 24);
-          v30 = *(v29 + 224);
-          VTP_UpdateReceivedBytes(*(v29 + 216), *(v29 + 560), (*v29 & 0xF0) != 0, *(v29 + 223), buf, *(v29 + 413), *(v29 + 408), *(v29 + 412) != 0);
-          if (v30 != -1)
+          v27 = v44;
+          v28 = v44[3];
+          *(v28 + 344) = v52;
+          v29 = *&buf[16];
+          *(v28 + 232) = *buf;
+          *(v28 + 248) = v29;
+          v30 = v50;
+          *(v28 + 296) = v49;
+          *(v28 + 312) = v30;
+          *(v28 + 328) = v51;
+          v31 = *&buf[48];
+          *(v28 + 264) = *&buf[32];
+          *(v28 + 280) = v31;
+          v32 = v27[3];
+          *(v32 + 516) = a4;
+          *(v32 + 352) = *(v26 + 24);
+          v33 = *(v32 + 224);
+          VTP_UpdateReceivedBytes(*(v32 + 216), *(v32 + 560), (*v32 & 0xF0) != 0, *(v32 + 223), buf, *(v32 + 413), *(v32 + 408), *(v32 + 412) != 0);
+          if (v33 != -1)
           {
-            _VTP_HealthPrint(v18, *(v41[3] + 560), v30, 0, 0);
+            _VTP_HealthPrint(v18, *(v44[3] + 560), v33, 0, 0);
           }
 
           pthread_rwlock_rdlock((v18 + 5376));
-          VTP_DemuxPacketsToVFDList(v18, v41[3], &v44);
+          VTP_DemuxPacketsToVFDList(v18, v44[3], &v47);
           pthread_rwlock_unlock((v18 + 5376));
-          _Block_object_dispose(&v35, 8);
+          _Block_object_dispose(&v38, 8);
         }
       }
 
-      _Block_object_dispose(&v40, 8);
+      _Block_object_dispose(&v43, 8);
     }
 
     CheckOutHandleDebug();
@@ -262,7 +263,7 @@ void ___VTP_SendOnePacketWithNWConnection_block_invoke(uint64_t a1, NSObject *a2
   nw_connection_send(v7, a2, a3, 1, completion);
 }
 
-uint64_t ___VTP_SendDataToOneNWConnection_block_invoke(uint64_t result, void *a2)
+void *___VTP_SendDataToOneNWConnection_block_invoke(void *result, void *a2)
 {
   v27 = *MEMORY[0x1E69E9840];
   if (a2)
@@ -392,7 +393,7 @@ BOOL ___VTP_HandleReceiveForNWConnection_block_invoke(uint64_t a1, dispatch_obje
 
 uint64_t ___VTP_HandleReceiveForNWConnection_block_invoke_74(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  result = MEMORY[0x1E128C640](a3);
+  result = MEMORY[0x1E128C640](a3, a2);
   if (result)
   {
     result = nw_ip_metadata_get_hop_limit();
@@ -402,9 +403,9 @@ uint64_t ___VTP_HandleReceiveForNWConnection_block_invoke_74(uint64_t a1, uint64
   return result;
 }
 
-void __VTP_SetIDSReadHandler_block_invoke(uint64_t a1, void *a2, void *a3, uint64_t a4, uint64_t a5, __int16 a6, unsigned __int8 *a7, void *a8)
+void __VTP_SetIDSReadHandler_block_invoke(uint64_t a1, void *a2, void *a3, uint64_t a4, uint64_t a5, __int16 a6, double *a7, void *a8)
 {
-  v79 = *MEMORY[0x1E69E9840];
+  v81 = *MEMORY[0x1E69E9840];
   if (a8)
   {
     if (VRTraceGetErrorLogLevelForModule() >= 3)
@@ -467,10 +468,11 @@ LABEL_13:
   if (v18)
   {
     v19 = v18;
-    v62 = 0;
-    v63 = 0;
+    v64 = 0;
+    v65 = 0;
     v20 = a4;
-    if ((_VTP_AllocatePacketWithBufferFreeCallback(v18, a3, a4, 0, 0, &v62) & 0x80000000) != 0)
+    PacketWithBufferFreeCallback = _VTP_AllocatePacketWithBufferFreeCallback(v18, a3, a4, 0, 0, &v64);
+    if ((PacketWithBufferFreeCallback & 0x80000000) != 0)
     {
       if (VRTraceGetErrorLogLevelForModule() >= 3)
       {
@@ -484,89 +486,89 @@ LABEL_13:
       goto LABEL_82;
     }
 
-    v21 = v62;
-    v62[579] = 3;
-    v22 = micro();
-    *(v21 + 23) = v22;
+    v23 = v64;
+    *(v64 + 579) = 3;
+    v24 = micro(PacketWithBufferFreeCallback, v22);
+    *(v23 + 23) = v24;
     if ((a5 & 0xFF00000000) != 0)
     {
-      v21[519] = BYTE4(a5);
+      *(v23 + 519) = BYTE4(a5);
     }
 
-    v70 = 0xAAAAAAAAAAAAAAAALL;
-    *&v23 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v23 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v68 = v23;
-    v69 = v23;
-    v66 = v23;
-    v67 = v23;
-    *&buf[16] = v23;
-    *&buf[32] = v23;
-    *buf = v23;
+    v72 = 0xAAAAAAAAAAAAAAAALL;
+    *&v25 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v25 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    v70 = v25;
+    v71 = v25;
+    v68 = v25;
+    v69 = v25;
+    *&buf[16] = v25;
+    *&buf[32] = v25;
+    *buf = v25;
     VCSDInfoConstructWithDatagramChannel(a2, a5, a6, 0, buf);
-    VTP_SetConnectionFlagsForPacket(v19, 0, v62, buf);
-    v24 = v62;
-    v64 = 0;
+    VTP_SetConnectionFlagsForPacket(v19, 0, v64, buf);
+    v26 = v64;
+    v66 = 0;
     if (!a7)
     {
       goto LABEL_77;
     }
 
-    v25 = (v19 + 21864);
-    v26 = *a7;
+    v27 = (v19 + 21864);
+    v28 = *a7;
     if (!*a7)
     {
 LABEL_66:
       if (*(v19 + 5897) == 1)
       {
-        if (v24[408])
+        if (*(v26 + 408))
         {
           if (VRTraceGetErrorLogLevelForModule() >= 7)
           {
-            v46 = VRTraceErrorLogLevelToCSTR();
-            v47 = *MEMORY[0x1E6986650];
+            v48 = VRTraceErrorLogLevelToCSTR();
+            v49 = *MEMORY[0x1E6986650];
             if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
             {
-              v48 = v24[408];
-              v49 = *(v24 + 192);
-              *v71 = 136316162;
-              v72 = v46;
-              v73 = 2080;
-              v74 = "_VTP_ProcessDatagramOptions";
-              v75 = 1024;
-              v76 = 6576;
+              v50 = *(v26 + 408);
+              v51 = *(v26 + 192);
+              *v73 = 136316162;
+              v74 = v48;
+              v75 = 2080;
+              v76 = "_VTP_ProcessDatagramOptions";
               v77 = 1024;
-              *v78 = v48;
-              *&v78[4] = 1024;
-              *&v78[6] = v49;
-              _os_log_impl(&dword_1DB56E000, v47, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d datagram readHandler received packet with numOfStreamIDs=%d and streamID[0]=%u", v71, 0x28u);
+              v78 = 6576;
+              v79 = 1024;
+              *v80 = v50;
+              *&v80[4] = 1024;
+              *&v80[6] = v51;
+              _os_log_impl(&dword_1DB56E000, v49, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d datagram readHandler received packet with numOfStreamIDs=%d and streamID[0]=%u", v73, 0x28u);
             }
           }
         }
       }
 
-      v50 = *(a7 + 8);
-      if (v50 > 0.0)
+      v52 = a7[8];
+      if (v52 > 0.0)
       {
-        v51 = v22 - v50;
-        if (*(v19 + 21872) > v51)
+        v53 = v24 - v52;
+        if (*(v19 + 21872) > v53)
         {
-          v51 = *(v19 + 21872);
+          v53 = *(v19 + 21872);
         }
 
-        *(v19 + 21872) = v51;
-        v52 = *(v19 + 21868);
-        if (v52 <= *v25 + 1)
+        *(v19 + 21872) = v53;
+        v54 = *(v19 + 21868);
+        if (v54 <= *v27 + 1)
         {
-          v52 = *v25 + 1;
+          v54 = *v27 + 1;
         }
 
-        *(v19 + 21868) = v52;
+        *(v19 + 21868) = v54;
       }
 
 LABEL_77:
-      _VTP_ReleaseVPKTPacket(v19, &v64, 11, 0);
-      if ((VTP_ProcessPacketType(v19, 0, -2, v62) & 0x80000000) != 0)
+      _VTP_ReleaseVPKTPacket(v19, &v66, 11, 0);
+      if ((VTP_ProcessPacketType(v19, 0, -2, v64) & 0x80000000) != 0)
       {
         if (VRTraceGetErrorLogLevelForModule() >= 3)
         {
@@ -577,147 +579,148 @@ LABEL_77:
           }
         }
 
-        _VTP_ReleaseVPKTPacket(v19, &v62, 17, 0);
-        _VTP_ReleaseVPKTPacket(v19, &v63, 16, 0);
+        _VTP_ReleaseVPKTPacket(v19, &v64, 17, 0);
+        _VTP_ReleaseVPKTPacket(v19, &v65, 16, 0);
 LABEL_82:
         CheckOutHandleDebug();
         return;
       }
 
-      v53 = v62;
-      v54 = *v62;
-      if (*v62 == 0x10000)
+      v55 = v64;
+      v56 = *v64;
+      if (*v64 == 0x10000)
       {
         goto LABEL_87;
       }
 
-      if (v54 == 48)
+      if (v56 == 48)
       {
 LABEL_88:
         atomic_fetch_add_explicit((v19 + 21960), 1uLL, memory_order_relaxed);
         goto LABEL_89;
       }
 
-      if (v54 == 2)
+      if (v56 == 2)
       {
 LABEL_87:
-        *(v62 + 43) = v70;
-        v55 = *&buf[16];
-        *(v53 + 232) = *buf;
-        *(v53 + 248) = v55;
-        v56 = v68;
-        *(v53 + 296) = v67;
-        *(v53 + 312) = v56;
-        *(v53 + 328) = v69;
-        v57 = v66;
-        *(v53 + 264) = *&buf[32];
-        *(v53 + 280) = v57;
-        if (v54 == 48)
+        *(v64 + 43) = v72;
+        v57 = *&buf[16];
+        *(v55 + 58) = *buf;
+        *(v55 + 62) = v57;
+        v58 = v70;
+        *(v55 + 74) = v69;
+        *(v55 + 78) = v58;
+        *(v55 + 82) = v71;
+        v59 = v68;
+        *(v55 + 66) = *&buf[32];
+        *(v55 + 70) = v59;
+        if (v56 == 48)
         {
           goto LABEL_88;
         }
       }
 
 LABEL_89:
-      v58 = *(v53 + 54);
+      v60 = v55[54];
       pthread_rwlock_rdlock((v19 + 21648));
-      _VTP_ReportIDSOnTheWireBytesLocked(v19, v58, a4, a7, 0);
+      _VTP_ReportIDSOnTheWireBytesLocked(v19, v60, a4, a7, 0);
       pthread_rwlock_unlock((v19 + 21648));
-      v59 = *(v62 + 56);
-      VTP_UpdateReceivedBytes(*(v62 + 54), a4, (*v62 & 0xF0) != 0, v62[223], buf, v62[413], v62[408], v62[412] != 0);
-      v60 = [a2 dataPath];
-      if (v60)
+      v61 = v64[56];
+      VTP_UpdateReceivedBytes(v64[54], a4, (*v64 & 0xF0) != 0, *(v64 + 223), buf, *(v64 + 413), *(v64 + 408), *(v64 + 412) != 0);
+      v62 = [a2 dataPath];
+      if (v62)
       {
-        if (v60 == 1)
+        if (v62 == 1)
         {
-          _VTP_ProcessPacketForDirectIDSDataPath(v19, v62, v63);
+          _VTP_ProcessPacketForDirectIDSDataPath(v19, v64, v65);
         }
 
         else if (VRTraceGetErrorLogLevelForModule() >= 3)
         {
-          v61 = VRTraceErrorLogLevelToCSTR();
+          v63 = VRTraceErrorLogLevelToCSTR();
           if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
           {
-            __VTP_SetIDSReadHandler_block_invoke_cold_6(v61, a2);
+            __VTP_SetIDSReadHandler_block_invoke_cold_6(v63, a2);
           }
         }
       }
 
       else
       {
-        _VTP_ProcessPacketForSharedIDSDataPath(v19, v62, v63);
+        _VTP_ProcessPacketForSharedIDSDataPath(v19, v64, v65);
       }
 
-      _VTP_HealthPrint(v19, v20, v59, 0, 0);
+      _VTP_HealthPrint(v19, v20, v61, 0, 0);
       goto LABEL_82;
     }
 
-    v62[376] = 1;
-    if (v26)
+    *(v64 + 376) = 1;
+    if (v28)
     {
-      v24[414] = 1;
-      *(v24 + 52) = *(a7 + 1);
+      *(v26 + 414) = 1;
+      *(v26 + 52) = a7[1];
       if (VRTraceGetErrorLogLevelForModule() >= 8)
       {
-        v27 = VRTraceErrorLogLevelToCSTR();
-        v28 = *MEMORY[0x1E6986650];
-        v29 = *MEMORY[0x1E6986650];
+        v29 = VRTraceErrorLogLevelToCSTR();
+        v30 = *MEMORY[0x1E6986650];
+        v31 = *MEMORY[0x1E6986650];
         if (*MEMORY[0x1E6986640] == 1)
         {
-          if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+          if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
           {
-            v30 = *(a7 + 1);
-            *v71 = 136315906;
-            v72 = v27;
-            v73 = 2080;
-            v74 = "_VTP_ProcessDatagramOptions";
-            v75 = 1024;
-            v76 = 6510;
-            v77 = 2048;
-            *v78 = v30;
-            _os_log_impl(&dword_1DB56E000, v28, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d datagram readHandler received packet from participantID=%llu", v71, 0x26u);
+            v32 = *(a7 + 1);
+            *v73 = 136315906;
+            v74 = v29;
+            v75 = 2080;
+            v76 = "_VTP_ProcessDatagramOptions";
+            v77 = 1024;
+            v78 = 6510;
+            v79 = 2048;
+            *v80 = v32;
+            _os_log_impl(&dword_1DB56E000, v30, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d datagram readHandler received packet from participantID=%llu", v73, 0x26u);
           }
         }
 
-        else if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+        else if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
         {
           __VTP_SetIDSReadHandler_block_invoke_cold_2();
         }
       }
     }
 
-    v31 = *a7;
+    v33 = *a7;
     if ((*a7 & 0x10) != 0)
     {
-      *(v24 + 205) = *(a7 + 8);
+      *(v26 + 205) = *(a7 + 8);
     }
 
-    if ((v31 & 2) != 0)
+    if ((v33 & 2) != 0)
     {
-      v32 = a7[19];
-      v24[408] = v32;
-      if (v32 >= 1)
+      v34 = *(a7 + 19);
+      *(v26 + 408) = v34;
+      if (v34 >= 1)
       {
-        v33 = v24 + 384;
-        v34 = (a7 + 20);
+        v35 = v26 + 96;
+        v36 = a7 + 20;
         do
         {
-          v35 = *v34++;
-          *v33++ = v35;
-          --v32;
+          v37 = *v36;
+          v36 += 2;
+          *v35++ = v37;
+          --v34;
         }
 
-        while (v32);
+        while (v34);
       }
     }
 
-    if ((v31 & 8) != 0)
+    if ((v33 & 8) != 0)
     {
-      v24[412] = a7[18];
-      if ((v31 & 4) == 0)
+      *(v26 + 412) = *(a7 + 18);
+      if ((v33 & 4) == 0)
       {
 LABEL_41:
-        if ((v31 & 0x20) == 0)
+        if ((v33 & 0x20) == 0)
         {
           goto LABEL_55;
         }
@@ -726,25 +729,25 @@ LABEL_41:
       }
     }
 
-    else if ((v31 & 4) == 0)
+    else if ((v33 & 4) == 0)
     {
       goto LABEL_41;
     }
 
-    v24[413] = 1;
-    if ((v31 & 0x20) == 0)
+    *(v26 + 413) = 1;
+    if ((v33 & 0x20) == 0)
     {
 LABEL_55:
-      v41 = *a7;
+      v43 = *a7;
       if ((*a7 & 0x10000) != 0)
       {
-        v24[460] = a7[112];
+        *(v26 + 460) = *(a7 + 112);
       }
 
-      if ((v41 & 0x40) != 0 || (v42 = *(v19 + 22008), v42 > 0.0) && v22 - v42 > 0.2)
+      if ((v43 & 0x40) != 0 || (v44 = *(v19 + 22008), v44 > 0.0) && v24 - v44 > 0.2)
       {
-        *(v19 + 22008) = v22;
-        if ((_VTP_AllocatePacketWithBufferFreeCallback(v19, 0, 0, 0, 0, &v64) & 0x80000000) != 0)
+        *(v19 + 22008) = v24;
+        if ((_VTP_AllocatePacketWithBufferFreeCallback(v19, 0, 0, 0, 0, &v66) & 0x80000000) != 0)
         {
           if (VRTraceGetErrorLogLevelForModule() >= 3)
           {
@@ -755,7 +758,7 @@ LABEL_55:
             }
           }
 
-          _VTP_ReleaseVPKTPacket(v19, &v64, 11, 0);
+          _VTP_ReleaseVPKTPacket(v19, &v66, 11, 0);
           if (VRTraceGetErrorLogLevelForModule() >= 3)
           {
             VRTraceErrorLogLevelToCSTR();
@@ -765,58 +768,58 @@ LABEL_55:
             }
           }
 
-          _VTP_ReleaseVPKTPacket(v19, &v62, 15, 0);
-          _VTP_ReleaseVPKTPacket(v19, &v63, 14, 0);
+          _VTP_ReleaseVPKTPacket(v19, &v64, 15, 0);
+          _VTP_ReleaseVPKTPacket(v19, &v65, 14, 0);
           goto LABEL_82;
         }
 
-        v43 = v64;
-        *(v64 + 57) = *(v24 + 57);
-        *(v43 + 54) = *(v24 + 54);
-        v44 = *(v24 + 1);
-        *v43 = 0x20000;
-        *(v43 + 1) = v44;
-        *(v43 + 23) = *(v24 + 23);
+        v45 = v66;
+        *(v66 + 228) = v26[57];
+        *(v45 + 216) = v26[54];
+        v46 = v26[1];
+        *v45 = 0x20000;
+        *(v45 + 4) = v46;
+        *(v45 + 184) = *(v26 + 23);
         if ((*a7 & 0x40) != 0)
         {
           ++*(v19 + 22016);
-          v43[426] = 1;
-          *(v43 + 214) = *(a7 + 23);
-          v45 = *(a7 + 6);
-          *(v43 + 219) = *(a7 + 28);
-          *(v43 + 430) = v45;
+          *(v45 + 426) = 1;
+          *(v45 + 428) = *(a7 + 23);
+          v47 = *(a7 + 6);
+          *(v45 + 438) = *(a7 + 28);
+          *(v45 + 430) = v47;
         }
 
         else
         {
-          v43[426] = 0;
+          *(v45 + 426) = 0;
         }
 
-        v63 = v43;
-        v64 = 0;
+        v65 = v45;
+        v66 = 0;
       }
 
-      v24[441] = a7[80];
+      *(v26 + 441) = *(a7 + 80);
       goto LABEL_66;
     }
 
 LABEL_45:
-    v24[424] = 1;
-    v36 = *(v24 + 54);
-    v37 = a7[44];
-    v38 = CheckInHandleDebug();
-    if (v38)
+    *(v26 + 424) = 1;
+    v38 = v26[54];
+    v39 = *(a7 + 44);
+    v40 = CheckInHandleDebug();
+    if (v40)
     {
-      v39 = v38;
-      if (*(v38 + 21644) != v37)
+      v41 = v40;
+      if (*(v40 + 21644) != v39)
       {
-        *(v38 + 21644) = v37;
-        if (v36)
+        *(v40 + 21644) = v39;
+        if (v38)
         {
-          pthread_rwlock_rdlock((v38 + 21648));
-          v40 = VTP_getConnectionManagerForCallID(v39, v36);
-          VCConnectionManager_SynchronizeParticipantGenerationCounter(v40);
-          pthread_rwlock_unlock((v39 + 21648));
+          pthread_rwlock_rdlock((v40 + 21648));
+          v42 = VTP_getConnectionManagerForCallID(v41, v38);
+          VCConnectionManager_SynchronizeParticipantGenerationCounter(v42);
+          pthread_rwlock_unlock((v41 + 21648));
         }
       }
 

@@ -122,12 +122,12 @@ LABEL_4:
 
 - (CKOperationCallbackProxyEndpoint)initWithCoder:(id)coder
 {
-  v37[2] = *MEMORY[0x1E69E9840];
+  v36[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = MEMORY[0x1E695DFD8];
-  v37[0] = objc_opt_class();
-  v37[1] = objc_opt_class();
-  v7 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v6, v37, 2);
+  v36[0] = objc_opt_class();
+  v36[1] = objc_opt_class();
+  v7 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v6, v36, 2);
   v9 = objc_msgSend_setWithArray_(v5, v8, v7);
   v11 = objc_msgSend_decodeObjectOfClasses_forKey_(coderCopy, v10, v9, @"CK.classNames");
 
@@ -143,10 +143,10 @@ LABEL_4:
     v17 = ck_log_facility_ck;
     if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_FAULT))
     {
-      v31 = v17;
-      v34 = objc_msgSend_lastObject(v11, v32, v33);
-      v35 = 138412290;
-      v36 = v34;
+      v30 = v17;
+      v33 = objc_msgSend_lastObject(v11, v31, v32);
+      v34 = 138412290;
+      v35 = v33;
     }
   }
 
@@ -163,8 +163,8 @@ LABEL_4:
     v22 = ck_log_facility_ck;
     if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_FAULT))
     {
-      v35 = 138412290;
-      v36 = v20;
+      v34 = 138412290;
+      v35 = v20;
     }
   }
 
@@ -187,7 +187,6 @@ LABEL_4:
 
   v28 = v27;
 
-  v29 = *MEMORY[0x1E69E9840];
   return v28;
 }
 

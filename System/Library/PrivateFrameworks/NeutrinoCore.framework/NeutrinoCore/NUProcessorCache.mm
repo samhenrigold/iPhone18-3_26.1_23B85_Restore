@@ -11,7 +11,7 @@
 {
   _renderCopy = _render;
   inputImage = [(NUProcessorCache *)self inputImage];
-  [inputImage extent];
+  objc_msgSend_extent(inputImage);
   v29.i64[0] = v6;
   v29.i64[1] = v7;
   *v30 = v8;
@@ -38,7 +38,7 @@
   v15 = device;
   dispatch_sync(textureCacheQueue, block);
   [v13 encodeWaitForEvent:self->_textureCachedEvent value:1];
-  [v14 region];
+  objc_msgSend_region(v14);
   v29.i64[0] = v16;
   v29.i64[1] = v17;
   *v30 = v18;
@@ -193,7 +193,7 @@ void __28__NUProcessorCache__render___block_invoke(uint64_t a1)
     emptyImage = v12;
   }
 
-  [inputImage extent];
+  objc_msgSend_extent(inputImage);
   v14 = v13;
   v16 = v15;
   v18 = v17;

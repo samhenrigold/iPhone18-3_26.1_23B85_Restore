@@ -146,13 +146,12 @@ LABEL_13:
 
 void __23__PKDPlugIn_nullPlugIn__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = objc_opt_new();
-  v3 = nullPlugIn_nullPlugIn;
-  nullPlugIn_nullPlugIn = v2;
+  v1 = objc_opt_new();
+  v2 = nullPlugIn_nullPlugIn;
+  nullPlugIn_nullPlugIn = v1;
 
-  v4 = [[NSUUID alloc] initWithUUIDBytes:&UUID_NULL];
-  [nullPlugIn_nullPlugIn setUuid:v4];
+  v3 = [[NSUUID alloc] initWithUUIDBytes:&UUID_NULL];
+  [nullPlugIn_nullPlugIn setUuid:v3];
 }
 
 - (PKDPlugIn)initWithLSData:(id)data personaCache:(id)cache discoveryInstanceUUID:(id)d extensionPointCache:(id)pointCache externalProviders:(id)providers
@@ -570,7 +569,7 @@ LABEL_29:
     {
       if (hostCopy)
       {
-        [hostCopy auditToken];
+        objc_msgSend_auditToken(hostCopy);
       }
 
       else
@@ -590,7 +589,7 @@ LABEL_29:
       v14 = [(PKDPlugIn *)self infoKey:@"CFBundleIdentifier"];
       if (hostCopy)
       {
-        [hostCopy auditToken];
+        objc_msgSend_auditToken(hostCopy);
       }
 
       else
@@ -619,108 +618,103 @@ LABEL_29:
 - (id)issueResourceExtensions:(id)extensions auditToken:(id *)token
 {
   extensionsCopy = extensions;
-  v7 = &MGGetBoolAnswer_ptr;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v39 = extensionsCopy;
-    v8 = [NSArray arrayWithObjects:&v39 count:1];
+    v37 = extensionsCopy;
+    v7 = [NSArray arrayWithObjects:&v37 count:1];
 
-    extensionsCopy = v8;
+    extensionsCopy = v7;
   }
 
-  v26 = +[NSMutableDictionary dictionaryWithCapacity:](NSMutableDictionary, "dictionaryWithCapacity:", [extensionsCopy count]);
+  v24 = +[NSMutableDictionary dictionaryWithCapacity:](NSMutableDictionary, "dictionaryWithCapacity:", [extensionsCopy count]);
+  v25 = 0u;
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
-  v30 = 0u;
-  v9 = extensionsCopy;
-  v10 = [v9 countByEnumeratingWithState:&v27 objects:v38 count:16];
-  if (v10)
+  v8 = extensionsCopy;
+  v9 = [v8 countByEnumeratingWithState:&v25 objects:v36 count:16];
+  if (v9)
   {
-    v11 = *v28;
+    v10 = *v26;
     do
     {
-      v12 = 0;
-      if (v10 <= 1)
+      v11 = 0;
+      if (v9 <= 1)
       {
-        v13 = 1;
+        v12 = 1;
       }
 
       else
       {
-        v13 = v10;
+        v12 = v9;
       }
 
       do
       {
-        if (*v28 != v11)
+        if (*v26 != v10)
         {
-          objc_enumerationMutation(v9);
+          objc_enumerationMutation(v8);
         }
 
-        v14 = *(*(&v27 + 1) + 8 * v12);
-        v15 = v7[292];
+        v13 = *(*(&v25 + 1) + 8 * v11);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v16 = [(PKDPlugIn *)self url];
-          if (([v14 isEqualToString:@"."] & 1) == 0)
+          v14 = [(PKDPlugIn *)self url];
+          if (([v13 isEqualToString:@"."] & 1) == 0)
           {
-            v17 = [v16 URLByAppendingPathComponent:v14];
+            v15 = [v14 URLByAppendingPathComponent:v13];
 
-            v16 = v17;
-            v7 = &MGGetBoolAnswer_ptr;
+            v14 = v15;
           }
 
-          v18 = *&token->var0[4];
+          v16 = *&token->var0[4];
           *buf = *token->var0;
-          *&buf[16] = v18;
-          v19 = pkIssueSandboxExtensionForURL();
-          if (v19)
+          *&buf[16] = v16;
+          v17 = pkIssueSandboxExtensionForURL();
+          if (v17)
           {
-            [v26 setObject:v19 forKeyedSubscript:v14];
+            [v24 setObject:v17 forKeyedSubscript:v13];
           }
 
           else
           {
-            v20 = pklog_handle_for_category();
-            if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+            v18 = pklog_handle_for_category();
+            if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
             {
               uuid = [(PKDPlugIn *)self uuid];
               identifier = [(PKDPlugIn *)self identifier];
               version = [(PKDPlugIn *)self version];
-              v21 = *__error();
+              v19 = *__error();
               *buf = 138544642;
               *&buf[4] = uuid;
               *&buf[12] = 2112;
               *&buf[14] = identifier;
               *&buf[22] = 2112;
               *&buf[24] = version;
+              v30 = 2112;
+              v31 = v14;
               v32 = 2112;
-              v33 = v16;
-              v34 = 2112;
-              v35 = v14;
-              v36 = 1024;
-              v37 = v21;
-              _os_log_error_impl(&dword_0, v20, OS_LOG_TYPE_ERROR, "[u %{public}@] [%@(%@)] failed to make file extension for [%@] identified as [%@]: %{darwin.errno}d", buf, 0x3Au);
+              v33 = v13;
+              v34 = 1024;
+              v35 = v19;
+              _os_log_error_impl(&dword_0, v18, OS_LOG_TYPE_ERROR, "[u %{public}@] [%@(%@)] failed to make file extension for [%@] identified as [%@]: %{darwin.errno}d", buf, 0x3Au);
             }
-
-            v7 = &MGGetBoolAnswer_ptr;
           }
         }
 
-        ++v12;
+        ++v11;
       }
 
-      while (v13 != v12);
-      v10 = [v9 countByEnumeratingWithState:&v27 objects:v38 count:16];
+      while (v12 != v11);
+      v9 = [v8 countByEnumeratingWithState:&v25 objects:v36 count:16];
     }
 
-    while (v10);
+    while (v9);
   }
 
-  return v26;
+  return v24;
 }
 
 - (id)diagnose
@@ -1536,7 +1530,7 @@ LABEL_16:
   dCopy = d;
   personaCopy = persona;
   sandboxCopy = sandbox;
-  v180 = objc_opt_class();
+  v179 = objc_opt_class();
   v18 = +[NSMutableDictionary dictionary];
   v19 = +[NSMutableDictionary dictionary];
   sandboxProfile = sandboxCopy;
@@ -1578,8 +1572,8 @@ LABEL_16:
   }
   v25 = ;
 
-  v196 = v25;
-  v183 = v24;
+  v195 = v25;
+  v182 = v24;
   if (v25)
   {
     path = [v25 path];
@@ -1603,32 +1597,32 @@ LABEL_16:
       uuid = [(PKDPlugIn *)self uuid];
       identifier = [(PKDPlugIn *)self identifier];
       version = [(PKDPlugIn *)self version];
-      [v196 path];
-      v177 = v21;
+      [v195 path];
+      v176 = v21;
       v34 = v19;
       v35 = v18;
       v36 = sandboxCopy;
       v38 = v37 = personaCopy;
       *buf = 138544130;
-      v202 = uuid;
-      v203 = 2112;
-      v204 = identifier;
-      v205 = 2112;
-      v206 = version;
-      v207 = 2112;
-      *v208 = v38;
+      v201 = uuid;
+      v202 = 2112;
+      v203 = identifier;
+      v204 = 2112;
+      v205 = version;
+      v206 = 2112;
+      *v207 = v38;
       _os_log_impl(&dword_0, v30, OS_LOG_TYPE_DEFAULT, "[u %{public}@] [%@(%@)] setting sandbox container to %@", buf, 0x2Au);
 
       personaCopy = v37;
       sandboxCopy = v36;
       v18 = v35;
       v19 = v34;
-      v21 = v177;
+      v21 = v176;
 
       v22 = environmentCopy;
     }
 
-    path4 = [v196 path];
+    path4 = [v195 path];
     [v19 setObject:path4 forKeyedSubscript:@"_SandboxContainer"];
   }
 
@@ -1651,7 +1645,7 @@ LABEL_21:
   }
 
   v43 = [(PKDPlugIn *)self infoKey:@"XPCService"];
-  v193 = v43;
+  v192 = v43;
   if (v43 && (v44 = v43, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
     [v19 addEntriesFromDictionary:v44];
@@ -1666,13 +1660,13 @@ LABEL_21:
       identifier2 = [(PKDPlugIn *)self identifier];
       version2 = [(PKDPlugIn *)self version];
       *buf = 138544130;
-      v202 = uuid2;
-      v203 = 2112;
-      v204 = identifier2;
-      v205 = 2112;
-      v206 = version2;
-      v207 = 2112;
-      *v208 = v193;
+      v201 = uuid2;
+      v202 = 2112;
+      v203 = identifier2;
+      v204 = 2112;
+      v205 = version2;
+      v206 = 2112;
+      *v207 = v192;
       _os_log_impl(&dword_0, v45, OS_LOG_TYPE_INFO, "[u %{public}@] [%@(%@)] no XPCService for plug-in; database returned %@", buf, 0x2Au);
 
       v41 = &MGGetBoolAnswer_ptr;
@@ -1687,7 +1681,7 @@ LABEL_21:
   }
 
   [v19 setObject:v18 forKeyedSubscript:@"EnvironmentVariables"];
-  v189 = v49;
+  v188 = v49;
   if (v21)
   {
     [v19 setObject:v21 forKeyedSubscript:@"_SandboxProfile"];
@@ -1699,13 +1693,13 @@ LABEL_21:
       identifier3 = [(PKDPlugIn *)self identifier];
       version3 = [(PKDPlugIn *)self version];
       *buf = 138544130;
-      v202 = uuid3;
-      v203 = 2112;
-      v204 = identifier3;
-      v205 = 2112;
-      v206 = version3;
-      v207 = 2112;
-      *v208 = v21;
+      v201 = uuid3;
+      v202 = 2112;
+      v203 = identifier3;
+      v204 = 2112;
+      v205 = version3;
+      v206 = 2112;
+      *v207 = v21;
       _os_log_impl(&dword_0, v50, OS_LOG_TYPE_INFO, "[u %{public}@] [%@(%@)] assigning plug-in to [%@] sandbox", buf, 0x2Au);
 
       v41 = &MGGetBoolAnswer_ptr;
@@ -1714,17 +1708,17 @@ LABEL_21:
   }
 
   v54 = [(PKDPlugIn *)self _personaIDForClient:clientCopy requestedPersona:personaCopy];
-  v188 = v54;
+  v187 = v54;
   if (!v54)
   {
 LABEL_38:
-    v179 = v18;
+    v178 = v18;
     v56 = sandboxCopy;
-    v190 = personaCopy;
+    v189 = personaCopy;
     v57 = [NSNumber numberWithUnsignedInt:[(PKDPlugIn *)self platform]];
     [v19 setObject:v57 forKeyedSubscript:@"Platform"];
 
-    v182 = v19;
+    v181 = v19;
     v58 = [v19 objectForKeyedSubscript:@"_MultipleInstances"];
     if (v58)
     {
@@ -1741,7 +1735,7 @@ LABEL_38:
       v59 = "is not";
     }
 
-    v187 = v58;
+    v186 = v58;
     v60 = pklog_handle_for_category();
     if (os_log_type_enabled(v60, OS_LOG_TYPE_INFO))
     {
@@ -1749,76 +1743,75 @@ LABEL_38:
       identifier4 = [(PKDPlugIn *)self identifier];
       version4 = [(PKDPlugIn *)self version];
       *buf = 138544130;
-      v202 = uuid4;
-      v203 = 2112;
-      v204 = identifier4;
-      v205 = 2112;
-      v206 = version4;
-      v207 = 2080;
-      *v208 = v59;
+      v201 = uuid4;
+      v202 = 2112;
+      v203 = identifier4;
+      v204 = 2112;
+      v205 = version4;
+      v206 = 2080;
+      *v207 = v59;
       _os_log_impl(&dword_0, v60, OS_LOG_TYPE_INFO, "[u %{public}@] [%@(%@)] %s multi-instance", buf, 0x2Au);
 
       v41 = &MGGetBoolAnswer_ptr;
     }
 
-    v19 = v182;
-    v64 = [v182 objectForKeyedSubscript:@"ServiceType"];
+    v19 = v181;
+    v64 = [v181 objectForKeyedSubscript:@"ServiceType"];
     uuid15 = v64;
     if (v64)
     {
       v65 = v64;
-      v66 = v41[292];
       objc_opt_class();
       v22 = environmentCopy;
       if (objc_opt_isKindOfClass())
       {
-        v194 = [v65 isEqualToString:@"System"];
+        v193 = [v65 isEqualToString:@"System"];
       }
 
       else
       {
-        v194 = 0;
+        v193 = 0;
       }
     }
 
     else
     {
-      v194 = 0;
+      v193 = 0;
       v22 = environmentCopy;
     }
 
-    v67 = pklog_handle_for_category();
-    if (os_log_type_enabled(v67, OS_LOG_TYPE_INFO))
+    v66 = pklog_handle_for_category();
+    if (os_log_type_enabled(v66, OS_LOG_TYPE_INFO))
     {
       uuid5 = [(PKDPlugIn *)self uuid];
       [(PKDPlugIn *)self identifier];
-      v70 = v69 = v22;
+      v69 = v68 = v22;
       version5 = [(PKDPlugIn *)self version];
-      v72 = version5;
+      v71 = version5;
       *buf = 138544130;
-      v202 = uuid5;
-      v73 = "is";
-      if (!v194)
+      v201 = uuid5;
+      v72 = "is";
+      if (!v193)
       {
-        v73 = "is not";
+        v72 = "is not";
       }
 
-      v203 = 2112;
-      v204 = v70;
-      v205 = 2112;
-      v206 = version5;
-      v207 = 2080;
-      *v208 = v73;
-      _os_log_impl(&dword_0, v67, OS_LOG_TYPE_INFO, "[u %{public}@] [%@(%@)] %s a system service", buf, 0x2Au);
+      v202 = 2112;
+      v203 = v69;
+      v204 = 2112;
+      v205 = version5;
+      v206 = 2080;
+      *v207 = v72;
+      _os_log_impl(&dword_0, v66, OS_LOG_TYPE_INFO, "[u %{public}@] [%@(%@)] %s a system service", buf, 0x2Au);
 
       v41 = &MGGetBoolAnswer_ptr;
-      v22 = v69;
+      v22 = v68;
     }
 
-    if ((v183 & v194) == 1)
+    if ((v182 & v193) == 1)
     {
-      v74 = pklog_handle_for_category();
-      if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
+      v73 = pklog_handle_for_category();
+      if (os_log_type_enabled(v73, OS_LOG_TYPE_ERROR))
       {
         [PKDPlugIn enableForClient:environment:languages:oneShotUUID:persona:sandbox:pid:error:];
       }
@@ -1826,33 +1819,33 @@ LABEL_38:
       sandboxCopy = v56;
       if (!error)
       {
-        v80 = 0;
-        v18 = v179;
-        v81 = v193;
+        v79 = 0;
+        v18 = v178;
+        v80 = v192;
 LABEL_141:
 
         goto LABEL_142;
       }
 
-      v75 = v56;
-      v76 = v21;
+      v74 = v56;
+      v75 = v21;
       identifier5 = [(PKDPlugIn *)self identifier];
       uuid6 = [(PKDPlugIn *)self uuid];
       uUIDString = [uuid6 UUIDString];
-      v184 = identifier5;
+      v183 = identifier5;
       pkErrorf();
-      *error = v80 = 0;
-      v18 = v179;
-      v81 = v193;
+      *error = v79 = 0;
+      v18 = v178;
+      v80 = v192;
       goto LABEL_139;
     }
 
-    v178 = v21;
-    v82 = v56;
-    v18 = v179;
-    if (v180)
+    v177 = v21;
+    v81 = v56;
+    v18 = v178;
+    if (v179)
     {
-      viewServiceIdentifier = [v182 objectForKeyedSubscript:@"_AdditionalSubServices"];
+      viewServiceIdentifier = [v181 objectForKeyedSubscript:@"_AdditionalSubServices"];
       if (!viewServiceIdentifier)
       {
         goto LABEL_85;
@@ -1864,8 +1857,8 @@ LABEL_141:
         goto LABEL_85;
       }
 
-      v84 = [viewServiceIdentifier objectForKey:@"viewservice"];
-      if (!v84)
+      v83 = [viewServiceIdentifier objectForKey:@"viewservice"];
+      if (!v83)
       {
 LABEL_84:
 
@@ -1877,7 +1870,7 @@ LABEL_85:
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        isKindOfClass = [v84 BOOLValue];
+        isKindOfClass = [v83 BOOLValue];
       }
 
       else
@@ -1886,137 +1879,137 @@ LABEL_85:
         isKindOfClass = objc_opt_isKindOfClass();
       }
 
-      v88 = isKindOfClass;
+      v87 = isKindOfClass;
 
       v41 = &MGGetBoolAnswer_ptr;
-      if (v88)
+      if (v87)
       {
-        v89 = pklog_handle_for_category();
-        if (os_log_type_enabled(v89, OS_LOG_TYPE_DEFAULT))
+        v88 = pklog_handle_for_category();
+        if (os_log_type_enabled(v88, OS_LOG_TYPE_DEFAULT))
         {
           uuid7 = [(PKDPlugIn *)self uuid];
           identifier6 = [(PKDPlugIn *)self identifier];
           version6 = [(PKDPlugIn *)self version];
           *buf = 138543874;
-          v202 = uuid7;
-          v203 = 2112;
-          v204 = identifier6;
-          v205 = 2112;
-          v206 = version6;
-          _os_log_impl(&dword_0, v89, OS_LOG_TYPE_DEFAULT, "[u %{public}@] [%@(%@)] adding LaunchRequestEndpointIdentifiers and _ManagedBy_Services for viewservice subservice", buf, 0x20u);
+          v201 = uuid7;
+          v202 = 2112;
+          v203 = identifier6;
+          v204 = 2112;
+          v205 = version6;
+          _os_log_impl(&dword_0, v88, OS_LOG_TYPE_DEFAULT, "[u %{public}@] [%@(%@)] adding LaunchRequestEndpointIdentifiers and _ManagedBy_Services for viewservice subservice", buf, 0x20u);
         }
 
         viewServiceIdentifier = [(PKDPlugIn *)self viewServiceIdentifier];
-        v93 = [NSArray arrayWithObject:viewServiceIdentifier];
-        [v182 setObject:v93 forKeyedSubscript:@"_ManagedBy_Services"];
+        v92 = [NSArray arrayWithObject:viewServiceIdentifier];
+        [v181 setObject:v92 forKeyedSubscript:@"_ManagedBy_Services"];
 
-        v94 = [v182 objectForKeyedSubscript:@"_AdditionalProperties"];
+        v93 = [v181 objectForKeyedSubscript:@"_AdditionalProperties"];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v95 = [v94 mutableCopy];
+          v94 = [v93 mutableCopy];
         }
 
         else
         {
-          v95 = +[NSMutableDictionary dictionary];
+          v94 = +[NSMutableDictionary dictionary];
         }
 
-        v175 = v95;
-        v96 = [v95 objectForKeyedSubscript:@"RunningBoard"];
+        v174 = v94;
+        v95 = [v94 objectForKeyedSubscript:@"RunningBoard"];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v97 = [v96 mutableCopy];
+          v96 = [v95 mutableCopy];
         }
 
         else
         {
-          v97 = +[NSMutableDictionary dictionary];
+          v96 = +[NSMutableDictionary dictionary];
         }
 
-        v98 = v97;
-        v173 = v96;
-        v185 = v94;
-        v99 = [v97 objectForKeyedSubscript:@"LaunchRequestEndpointIdentifiers"];
+        v97 = v96;
+        v172 = v95;
+        v184 = v93;
+        v98 = [v96 objectForKeyedSubscript:@"LaunchRequestEndpointIdentifiers"];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v100 = [v99 mutableCopy];
+          v99 = [v98 mutableCopy];
         }
 
         else
         {
-          v100 = +[NSMutableDictionary dictionary];
+          v99 = +[NSMutableDictionary dictionary];
         }
 
-        v101 = v100;
-        [v100 setObject:viewServiceIdentifier forKey:viewServiceIdentifier];
-        [v101 setObject:viewServiceIdentifier forKey:@"com.apple.frontboard.workspace-service"];
-        v102 = [v101 copy];
-        [v98 setObject:v102 forKeyedSubscript:@"LaunchRequestEndpointIdentifiers"];
+        v100 = v99;
+        [v99 setObject:viewServiceIdentifier forKey:viewServiceIdentifier];
+        [v100 setObject:viewServiceIdentifier forKey:@"com.apple.frontboard.workspace-service"];
+        v101 = [v100 copy];
+        [v97 setObject:v101 forKeyedSubscript:@"LaunchRequestEndpointIdentifiers"];
 
-        v103 = [v98 copy];
-        [v175 setObject:v103 forKeyedSubscript:@"RunningBoard"];
+        v102 = [v97 copy];
+        [v174 setObject:v102 forKeyedSubscript:@"RunningBoard"];
 
-        v104 = [v175 copy];
-        [v182 setObject:v104 forKeyedSubscript:@"_AdditionalProperties"];
+        v103 = [v174 copy];
+        [v181 setObject:v103 forKeyedSubscript:@"_AdditionalProperties"];
 
-        personaCopy = v190;
+        personaCopy = v189;
         v22 = environmentCopy;
-        v84 = v185;
+        v83 = v184;
         goto LABEL_84;
       }
     }
 
 LABEL_86:
-    v105 = objc_opt_new();
-    [v105 setObject:v182 forKeyedSubscript:@"XPCService"];
-    v184 = v105;
-    [v105 setObject:@"XPC!" forKeyedSubscript:@"CFBundlePackageType"];
+    v104 = objc_opt_new();
+    [v104 setObject:v181 forKeyedSubscript:@"XPCService"];
+    v183 = v104;
+    [v104 setObject:@"XPC!" forKeyedSubscript:@"CFBundlePackageType"];
     if ([(PKDPlugIn *)self isRBManaged])
     {
-      [v105 setObject:&off_2A288 forKeyedSubscript:@"RunningBoard"];
+      [v104 setObject:&off_2A288 forKeyedSubscript:@"RunningBoard"];
     }
 
-    v106 = pklog_handle_for_category();
-    if (os_log_type_enabled(v106, OS_LOG_TYPE_DEFAULT))
+    v105 = pklog_handle_for_category();
+    if (os_log_type_enabled(v105, OS_LOG_TYPE_DEFAULT))
     {
       uuid8 = [(PKDPlugIn *)self uuid];
       [(PKDPlugIn *)self identifier];
-      v109 = v108 = v22;
+      v108 = v107 = v22;
       version7 = [(PKDPlugIn *)self version];
       isRBManaged = [(PKDPlugIn *)self isRBManaged];
-      v112 = "not be";
+      v111 = "not be";
       *buf = 138544130;
-      v202 = uuid8;
-      v203 = 2112;
-      v204 = v109;
+      v201 = uuid8;
+      v202 = 2112;
+      v203 = v108;
       if (isRBManaged)
       {
-        v112 = "be";
+        v111 = "be";
       }
 
-      v205 = 2112;
-      v206 = version7;
-      v207 = 2080;
-      *v208 = v112;
-      _os_log_impl(&dword_0, v106, OS_LOG_TYPE_DEFAULT, "[u %{public}@] [%@(%@)] will %s managed by runningboard", buf, 0x2Au);
+      v204 = 2112;
+      v205 = version7;
+      v206 = 2080;
+      *v207 = v111;
+      _os_log_impl(&dword_0, v105, OS_LOG_TYPE_DEFAULT, "[u %{public}@] [%@(%@)] will %s managed by runningboard", buf, 0x2Au);
 
-      personaCopy = v190;
-      v22 = v108;
+      personaCopy = v189;
+      v22 = v107;
       v41 = &MGGetBoolAnswer_ptr;
     }
 
-    v174 = [(PKDPlugIn *)self url];
-    v172 = [[PKBundle alloc] initWithURL:v174];
-    executablePath = [v172 executablePath];
+    v173 = [(PKDPlugIn *)self url];
+    v171 = [[PKBundle alloc] initWithURL:v173];
+    executablePath = [v171 executablePath];
     if (!executablePath)
     {
-      v75 = v82;
-      v128 = pklog_handle_for_category();
-      v76 = v21;
-      if (os_log_type_enabled(v128, OS_LOG_TYPE_ERROR))
+      v74 = v81;
+      v127 = pklog_handle_for_category();
+      v75 = v21;
+      if (os_log_type_enabled(v127, OS_LOG_TYPE_ERROR))
       {
         [PKDPlugIn enableForClient:environment:languages:oneShotUUID:persona:sandbox:pid:error:];
       }
@@ -2029,126 +2022,126 @@ LABEL_86:
         *error = pkErrorf();
       }
 
-      v80 = 0;
-      v81 = v193;
+      v79 = 0;
+      v80 = v192;
       goto LABEL_138;
     }
 
-    if ((v194 & 1) == 0 && [languagesCopy count])
+    if ((v193 & 1) == 0 && [languagesCopy count])
     {
-      v113 = objc_opt_new();
-      v114 = objc_alloc(v41[292]);
-      v115 = [languagesCopy componentsJoinedByString:{@", "}];
-      v115 = [v114 initWithFormat:@"(\"%@\"", v115];
+      v112 = objc_opt_new();
+      v113 = objc_alloc(v41[292]);
+      v114 = [languagesCopy componentsJoinedByString:{@", "}];
+      v114 = [v113 initWithFormat:@"(%@", v114];
 
-      [v113 setObject:executablePath atIndexedSubscript:0];
-      [v113 setObject:@"-AppleLanguages" atIndexedSubscript:1];
-      [v113 setObject:v115 atIndexedSubscript:2];
-      [v182 setObject:v113 forKeyedSubscript:@"ProgramArguments"];
+      [v112 setObject:executablePath atIndexedSubscript:0];
+      [v112 setObject:@"-AppleLanguages" atIndexedSubscript:1];
+      [v112 setObject:v114 atIndexedSubscript:2];
+      [v181 setObject:v112 forKeyedSubscript:@"ProgramArguments"];
     }
 
-    v117 = pklog_handle_for_category();
-    if (os_log_type_enabled(v117, OS_LOG_TYPE_DEFAULT))
+    v116 = pklog_handle_for_category();
+    if (os_log_type_enabled(v116, OS_LOG_TYPE_DEFAULT))
     {
       uuid10 = [(PKDPlugIn *)self uuid];
       identifier8 = [(PKDPlugIn *)self identifier];
       version8 = [(PKDPlugIn *)self version];
-      v121 = [clientCopy pid];
+      v120 = [clientCopy pid];
       path5 = [(PKDPlugIn *)self path];
       *buf = 138544386;
-      v202 = uuid10;
-      v203 = 2112;
-      v204 = identifier8;
-      v205 = 2112;
-      v206 = version8;
-      v207 = 1024;
-      *v208 = v121;
-      v21 = v178;
-      *&v208[4] = 2112;
-      *&v208[6] = path5;
-      _os_log_impl(&dword_0, v117, OS_LOG_TYPE_DEFAULT, "[u %{public}@] [%@(%@)] Allowing host pid %d to use plugin [%@]", buf, 0x30u);
+      v201 = uuid10;
+      v202 = 2112;
+      v203 = identifier8;
+      v204 = 2112;
+      v205 = version8;
+      v206 = 1024;
+      *v207 = v120;
+      v21 = v177;
+      *&v207[4] = 2112;
+      *&v207[6] = path5;
+      _os_log_impl(&dword_0, v116, OS_LOG_TYPE_DEFAULT, "[u %{public}@] [%@(%@)] Allowing host pid %d to use plugin [%@]", buf, 0x30u);
 
-      personaCopy = v190;
+      personaCopy = v189;
     }
 
-    v123 = pklog_handle_for_category();
-    if (os_log_type_enabled(v123, OS_LOG_TYPE_INFO))
+    v122 = pklog_handle_for_category();
+    if (os_log_type_enabled(v122, OS_LOG_TYPE_INFO))
     {
       uuid11 = [(PKDPlugIn *)self uuid];
       identifier9 = [(PKDPlugIn *)self identifier];
       version9 = [(PKDPlugIn *)self version];
       *buf = 138544130;
-      v202 = uuid11;
-      v203 = 2112;
-      v204 = identifier9;
-      v205 = 2112;
-      v206 = version9;
-      v207 = 2112;
-      *v208 = v184;
-      _os_log_impl(&dword_0, v123, OS_LOG_TYPE_INFO, "[u %{public}@] [%@(%@)] Overlay: %@", buf, 0x2Au);
+      v201 = uuid11;
+      v202 = 2112;
+      v203 = identifier9;
+      v204 = 2112;
+      v205 = version9;
+      v206 = 2112;
+      *v207 = v183;
+      _os_log_impl(&dword_0, v122, OS_LOG_TYPE_INFO, "[u %{public}@] [%@(%@)] Overlay: %@", buf, 0x2Au);
 
-      personaCopy = v190;
+      personaCopy = v189;
     }
 
-    if (v180)
+    if (v179)
     {
-      if (v194)
+      if (v193)
       {
-        v127 = 0;
+        v126 = 0;
       }
 
       else
       {
-        v127 = +[RBSProcessIdentifier identifierWithPid:](RBSProcessIdentifier, "identifierWithPid:", [clientCopy pid]);
+        v126 = +[RBSProcessIdentifier identifierWithPid:](RBSProcessIdentifier, "identifierWithPid:", [clientCopy pid]);
       }
 
-      v137 = v127;
-      if ((v194 & 1) == 0)
+      v136 = v126;
+      if ((v193 & 1) == 0)
       {
       }
 
-      v181 = v82;
-      v138 = _os_feature_enabled_impl();
+      v180 = v81;
+      v137 = _os_feature_enabled_impl();
       identifier10 = [(PKDPlugIn *)self identifier];
-      v171 = v137;
-      if (v138)
+      v170 = v136;
+      if (v137)
       {
         containingUrl = [(PKDPlugIn *)self containingUrl];
-        v141 = [RBSProcessIdentity extensionIdentityForPlugInKitIdentifier:identifier10 bundledURL:containingUrl hostIdentifier:v137 UUID:dCopy];
+        v140 = [RBSProcessIdentity extensionIdentityForPlugInKitIdentifier:identifier10 bundledURL:containingUrl hostIdentifier:v136 UUID:dCopy];
       }
 
       else
       {
-        v141 = [RBSProcessIdentity extensionIdentityForPlugInKitIdentifier:identifier10 hostIdentifier:v137 UUID:dCopy];
+        v140 = [RBSProcessIdentity extensionIdentityForPlugInKitIdentifier:identifier10 hostIdentifier:v136 UUID:dCopy];
       }
 
-      v170 = v141;
-      v142 = [RBSLaunchContext contextWithIdentity:v141];
-      [v142 setHostPid:{objc_msgSend(clientCopy, "pid")}];
-      [v142 setExtensionOverlay:v184];
-      [v142 _setOverrideExecutablePath:executablePath];
-      v143 = objc_alloc(v41[292]);
+      v169 = v140;
+      v141 = [RBSLaunchContext contextWithIdentity:v140];
+      [v141 setHostPid:{objc_msgSend(clientCopy, "pid")}];
+      [v141 setExtensionOverlay:v183];
+      [v141 _setOverrideExecutablePath:executablePath];
+      v142 = objc_alloc(v41[292]);
       identifier11 = [(PKDPlugIn *)self identifier];
       uuid12 = [(PKDPlugIn *)self uuid];
-      v146 = [v143 initWithFormat:@"Launching extension %@(%@) for host %d", identifier11, uuid12, objc_msgSend(clientCopy, "pid")];
-      [v142 setExplanation:v146];
+      v145 = [v142 initWithFormat:@"Launching extension %@(%@) for host %d", identifier11, uuid12, objc_msgSend(clientCopy, "pid")];
+      [v141 setExplanation:v145];
 
-      v147 = [[RBSLaunchRequest alloc] initWithContext:v142];
-      v148 = [v184 copy];
+      v146 = [[RBSLaunchRequest alloc] initWithContext:v141];
+      v147 = [v183 copy];
       rb_launchOverlay = self->_rb_launchOverlay;
-      self->_rb_launchOverlay = v148;
+      self->_rb_launchOverlay = v147;
 
+      v198 = 0;
       v199 = 0;
-      v200 = 0;
-      v150 = v147;
-      v151 = [v147 execute:&v200 error:&v199];
-      v152 = v200;
-      v195 = v199;
-      if (v151)
+      v149 = v146;
+      v150 = [v146 execute:&v199 error:&v198];
+      v151 = v199;
+      v194 = v198;
+      if (v150)
       {
         if (pid)
         {
-          *pid = [v152 pid];
+          *pid = [v151 pid];
         }
 
         identifier13 = pklog_handle_for_category();
@@ -2158,23 +2151,23 @@ LABEL_86:
           identifier12 = [(PKDPlugIn *)self identifier];
           version10 = [(PKDPlugIn *)self version];
           *buf = 138544130;
-          v202 = uuid13;
-          v203 = 2112;
-          v204 = identifier12;
-          v205 = 2112;
-          v206 = version10;
-          v207 = 2112;
-          *v208 = v152;
+          v201 = uuid13;
+          v202 = 2112;
+          v203 = identifier12;
+          v204 = 2112;
+          v205 = version10;
+          v206 = 2112;
+          *v207 = v151;
           _os_log_impl(&dword_0, identifier13, OS_LOG_TYPE_INFO, "[u %{public}@] [%@(%@)] launched request for plug-in, process handle: %@", buf, 0x2Au);
 
-          v21 = v178;
+          v21 = v177;
         }
       }
 
       else
       {
-        v157 = pklog_handle_for_category();
-        if (os_log_type_enabled(v157, OS_LOG_TYPE_ERROR))
+        v156 = pklog_handle_for_category();
+        if (os_log_type_enabled(v156, OS_LOG_TYPE_ERROR))
         {
           [PKDPlugIn enableForClient:environment:languages:oneShotUUID:persona:sandbox:pid:error:];
         }
@@ -2182,33 +2175,33 @@ LABEL_86:
         if (!error)
         {
 LABEL_129:
-          v75 = v181;
+          v74 = v180;
 
-          personaCopy = v190;
-          if (v151)
+          personaCopy = v189;
+          if (v150)
           {
 LABEL_130:
-            v76 = v21;
-            v80 = 1;
+            v75 = v21;
+            v79 = 1;
 LABEL_137:
             v22 = environmentCopy;
-            v19 = v182;
-            v81 = v193;
+            v19 = v181;
+            v80 = v192;
 LABEL_138:
-            uuid6 = v174;
+            uuid6 = v173;
 
-            uUIDString = v172;
+            uUIDString = v171;
 LABEL_139:
 
-            v21 = v76;
-            sandboxCopy = v75;
-            uUIDString4 = v184;
+            v21 = v75;
+            sandboxCopy = v74;
+            uUIDString4 = v183;
             goto LABEL_140;
           }
 
 LABEL_136:
-          v76 = v21;
-          v80 = 0;
+          v75 = v21;
+          v79 = 0;
           goto LABEL_137;
         }
 
@@ -2220,43 +2213,43 @@ LABEL_136:
       goto LABEL_129;
     }
 
-    v131 = _CFXPCCreateXPCObjectFromCFObject();
+    v130 = _CFXPCCreateXPCObjectFromCFObject();
     [clientCopy pid];
     [executablePath UTF8String];
-    v132 = launch_add_external_service();
-    v133 = pklog_handle_for_category();
-    identifier15 = v133;
-    if (v132)
+    v131 = launch_add_external_service();
+    v132 = pklog_handle_for_category();
+    identifier15 = v132;
+    if (v131)
     {
-      if (os_log_type_enabled(v133, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v132, OS_LOG_TYPE_ERROR))
       {
         [(PKDPlugIn *)self uuid];
-        v163 = v162 = v131;
+        v162 = v161 = v130;
         identifier14 = [(PKDPlugIn *)self identifier];
         version11 = [(PKDPlugIn *)self version];
-        v166 = [clientCopy pid];
+        v165 = [clientCopy pid];
         *buf = 138544386;
-        v202 = v163;
-        v203 = 2112;
-        v204 = identifier14;
-        v205 = 2112;
-        v206 = version11;
-        v207 = 1024;
-        *v208 = v132;
-        *&v208[4] = 1024;
-        *&v208[6] = v166;
+        v201 = v162;
+        v202 = 2112;
+        v203 = identifier14;
+        v204 = 2112;
+        v205 = version11;
+        v206 = 1024;
+        *v207 = v131;
+        *&v207[4] = 1024;
+        *&v207[6] = v165;
         _os_log_error_impl(&dword_0, identifier15, OS_LOG_TYPE_ERROR, "[u %{public}@] [%@(%@)] launchd error %d trying to allow host pid %d to use plugin", buf, 0x2Cu);
 
-        personaCopy = v190;
-        v131 = v162;
+        personaCopy = v189;
+        v130 = v161;
       }
 
       if (!error)
       {
 LABEL_135:
-        v75 = v82;
+        v74 = v81;
 
-        if (!v132)
+        if (!v131)
         {
           goto LABEL_130;
         }
@@ -2266,14 +2259,14 @@ LABEL_135:
 
       identifier15 = [(PKDPlugIn *)self identifier];
       [(PKDPlugIn *)self uuid];
-      v136 = v135 = v131;
-      uUIDString3 = [v136 UUIDString];
+      v135 = v134 = v130;
+      uUIDString3 = [v135 UUIDString];
       *error = pkErrorf();
     }
 
     else
     {
-      if (!os_log_type_enabled(v133, OS_LOG_TYPE_INFO))
+      if (!os_log_type_enabled(v132, OS_LOG_TYPE_INFO))
       {
 LABEL_134:
 
@@ -2281,22 +2274,22 @@ LABEL_134:
       }
 
       [(PKDPlugIn *)self uuid];
-      v136 = v135 = v131;
+      v135 = v134 = v130;
       identifier16 = [(PKDPlugIn *)self identifier];
       version12 = [(PKDPlugIn *)self version];
-      v160 = [clientCopy pid];
+      v159 = [clientCopy pid];
       *buf = 138544130;
-      v202 = v136;
-      v203 = 2112;
-      v204 = identifier16;
-      v205 = 2112;
-      v206 = version12;
-      v207 = 1024;
-      *v208 = v160;
+      v201 = v135;
+      v202 = 2112;
+      v203 = identifier16;
+      v204 = 2112;
+      v205 = version12;
+      v206 = 1024;
+      *v207 = v159;
       _os_log_impl(&dword_0, identifier15, OS_LOG_TYPE_INFO, "[u %{public}@] [%@(%@)] launch_add_external_service() for host %d succeeded", buf, 0x26u);
     }
 
-    v131 = v135;
+    v130 = v134;
     goto LABEL_134;
   }
 
@@ -2312,20 +2305,20 @@ LABEL_134:
     identifier17 = [(PKDPlugIn *)self identifier];
     uuid15 = [(PKDPlugIn *)self uuid];
     uUIDString4 = [uuid15 UUIDString];
-    v187 = identifier17;
+    v186 = identifier17;
     pkErrorf();
-    *error = v80 = 0;
-    v81 = v193;
+    *error = v79 = 0;
+    v80 = v192;
 LABEL_140:
 
     goto LABEL_141;
   }
 
-  v80 = 0;
-  v81 = v193;
+  v79 = 0;
+  v80 = v192;
 LABEL_142:
 
-  return v80;
+  return v79;
 }
 
 - (id)_personaIDForClient:(id)client requestedPersona:(id)persona
@@ -2359,7 +2352,7 @@ LABEL_142:
             *&buf[12] = 2112;
             *&buf[14] = identifier;
             *&buf[22] = 2112;
-            v66 = version;
+            v72 = version;
             _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "[u %{public}@] [%@(%@)] will launch with system-defined policy by entitlement", buf, 0x20u);
           }
 
@@ -2383,9 +2376,9 @@ LABEL_142:
             *&buf[12] = 2112;
             *&buf[14] = identifier2;
             *&buf[22] = 2112;
-            v66 = version2;
-            LOWORD(v67) = 2112;
-            *(&v67 + 2) = systemPersonaID;
+            v72 = version2;
+            LOWORD(v73) = 2112;
+            *(&v73 + 2) = systemPersonaID;
             v26 = "[u %{public}@] [%@(%@)] assigning to system persona ID %@ by entitlement";
 LABEL_35:
             _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, v26, buf, 0x2Au);
@@ -2412,9 +2405,9 @@ LABEL_35:
             *&buf[12] = 2112;
             *&buf[14] = identifier2;
             *&buf[22] = 2112;
-            v66 = version2;
-            LOWORD(v67) = 2112;
-            *(&v67 + 2) = systemPersonaID;
+            v72 = version2;
+            LOWORD(v73) = 2112;
+            *(&v73 + 2) = systemPersonaID;
             v26 = "[u %{public}@] [%@(%@)] assigning to personal persona ID %@ by entitlement";
             goto LABEL_35;
           }
@@ -2439,9 +2432,9 @@ LABEL_54:
             *&buf[12] = 2112;
             *&buf[14] = identifier3;
             *&buf[22] = 2112;
-            v66 = version3;
-            LOWORD(v67) = 2112;
-            *(&v67 + 2) = systemPersonaID;
+            v72 = version3;
+            LOWORD(v73) = 2112;
+            *(&v73 + 2) = systemPersonaID;
             _os_log_impl(&dword_0, v28, OS_LOG_TYPE_DEFAULT, "[u %{public}@] [%@(%@)] assigning to host persona ID %@ by entitlement", buf, 0x2Au);
           }
 
@@ -2482,27 +2475,27 @@ LABEL_54:
         *&buf[12] = 2112;
         *&buf[14] = identifier4;
         *&buf[22] = 2112;
-        v66 = version4;
-        LOWORD(v67) = 2112;
-        *(&v67 + 2) = systemPersonaID;
+        v72 = version4;
+        LOWORD(v73) = 2112;
+        *(&v73 + 2) = systemPersonaID;
         _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "[u %{public}@] [%@(%@)] assigning to persona ID %@ since it has no containing bundle", buf, 0x2Au);
       }
 
       goto LABEL_54;
     }
 
-    v64 = 0;
+    v70 = 0;
     personaCache5 = [(PKDPlugIn *)self personaCache];
     containingBundleIdentifier2 = [(PKDPlugIn *)self containingBundleIdentifier];
-    v38 = [personaCache5 personasForBundleIdentifier:containingBundleIdentifier2 error:&v64];
+    v38 = [personaCache5 personasForBundleIdentifier:containingBundleIdentifier2 error:&v70];
 
-    v39 = v64;
-    if (v64)
+    v39 = v70;
+    if (v70)
     {
       anyObject = pklog_handle_for_category();
       if (os_log_type_enabled(anyObject, OS_LOG_TYPE_FAULT))
       {
-        [(PKDPlugIn *)self _personaIDForClient:anyObject requestedPersona:v41, v42, v43, v44, v45, v60, log, v64, *buf, *&buf[16], v66, v67, *(&v67 + 1), v68, v69, v70, v71, v72, v73];
+        [(PKDPlugIn *)self _personaIDForClient:anyObject requestedPersona:v41, v42, v43, v44, v45, v66, log, v70, *buf, *&buf[16], v72, v73, *(&v73 + 1), v74, v75, v76, v77, v78, v79];
       }
     }
 
@@ -2515,32 +2508,32 @@ LABEL_54:
           v51 = pklog_handle_for_category();
           if (os_log_type_enabled(v51, OS_LOG_TYPE_FAULT))
           {
-            [PKDPlugIn _personaIDForClient:v51 requestedPersona:?];
+            [(PKDPlugIn *)self _personaIDForClient:v51 requestedPersona:v52, v53, v54, v55, v56, v57, v66, log, SWORD2(log), SHIWORD(log), v70, *buf, *&buf[16], v72, v73, *(&v73 + 1), v74, v75, v76, v77, v78, v79];
           }
         }
 
         anyObject = [v38 anyObject];
         systemPersonaID = [anyObject personaID];
-        v52 = pklog_handle_for_category();
-        if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
+        v58 = pklog_handle_for_category();
+        if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
         {
           uuid5 = [(PKDPlugIn *)self uuid];
           [(PKDPlugIn *)self identifier];
-          v53 = loga = v52;
+          v59 = loga = v58;
           version5 = [(PKDPlugIn *)self version];
           personaID = [anyObject personaID];
           *buf = 138544130;
           *&buf[4] = uuid5;
           *&buf[12] = 2112;
-          *&buf[14] = v53;
+          *&buf[14] = v59;
           *&buf[22] = 2112;
-          v66 = version5;
-          LOWORD(v67) = 2112;
-          *(&v67 + 2) = personaID;
-          v56 = personaID;
+          v72 = version5;
+          LOWORD(v73) = 2112;
+          *(&v73 + 2) = personaID;
+          v62 = personaID;
           _os_log_impl(&dword_0, loga, OS_LOG_TYPE_DEFAULT, "[u %{public}@] [%@(%@)] assigning to persona ID %@", buf, 0x2Au);
 
-          v52 = loga;
+          v58 = loga;
         }
 
 LABEL_50:
@@ -2569,7 +2562,7 @@ LABEL_55:
         *&buf[12] = 2112;
         *&buf[14] = identifier5;
         *&buf[22] = 2112;
-        v66 = version6;
+        v72 = version6;
         _os_log_impl(&dword_0, anyObject, OS_LOG_TYPE_DEFAULT, "[u %{public}@] [%@(%@)] assigning to no specific persona", buf, 0x20u);
       }
     }
@@ -2759,13 +2752,12 @@ LABEL_22:
 
 - (id)debugDescription
 {
-  v7.receiver = self;
-  v7.super_class = PKDPlugIn;
-  v3 = [(PKDPlugIn *)&v7 description];
-  fileID = self->_fileID;
-  v5 = [NSString stringWithFormat:@"<PKDPlugIn: %p core = %@, fileID = %@, launchFileID = %@>", self, v3, fileID, self->_launchFileID];;
+  v6.receiver = self;
+  v6.super_class = PKDPlugIn;
+  v3 = [(PKDPlugIn *)&v6 description];
+  v4 = [NSString stringWithFormat:@"<PKDPlugIn: %p core = %@, fileID = %@, launchFileID = %@>", self, v3, self->_fileID, self->_launchFileID];;
 
-  return v5;
+  return v4;
 }
 
 - (id)launchdIdentifier
@@ -2822,10 +2814,10 @@ LABEL_22:
   objc_claimAutoreleasedReturnValue();
   v3 = [OUTLINED_FUNCTION_9() identifier];
   v4 = [v1 version];
-  v5 = *__error();
+  __error();
   OUTLINED_FUNCTION_15();
   OUTLINED_FUNCTION_4();
-  _os_log_error_impl(v6, v7, v8, v9, v10, 0x30u);
+  _os_log_error_impl(v5, v6, v7, v8, v9, 0x30u);
 
   OUTLINED_FUNCTION_14();
 }
@@ -2987,22 +2979,48 @@ LABEL_22:
 - (void)_personaIDForClient:(uint64_t)a3 requestedPersona:(uint64_t)a4 .cold.4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, __int128 a9, uint64_t a10, uint64_t a11, __int128 a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22)
 {
   OUTLINED_FUNCTION_16();
-  a21 = v26;
-  a22 = v27;
+  a21 = v25;
+  a22 = v26;
   OUTLINED_FUNCTION_6();
-  [v28 uuid];
+  [v27 uuid];
   objc_claimAutoreleasedReturnValue();
   [OUTLINED_FUNCTION_7() identifier];
   objc_claimAutoreleasedReturnValue();
-  v29 = [OUTLINED_FUNCTION_10() version];
-  v30 = *v23;
+  v28 = [OUTLINED_FUNCTION_10() version];
   LODWORD(a9) = 138544130;
-  *(&a9 + 4) = v24;
+  *(&a9 + 4) = v23;
   OUTLINED_FUNCTION_15();
-  a11 = v31;
-  LOWORD(a12) = v32;
-  *(&a12 + 2) = v33;
+  a11 = v29;
+  LOWORD(a12) = v30;
+  *(&a12 + 2) = v31;
   _os_log_fault_impl(&dword_0, v22, OS_LOG_TYPE_FAULT, "[u %{public}@] [%@(%@)] failed for get personas for bundle identifier: %@", &a9, 0x2Au);
+
+  OUTLINED_FUNCTION_14();
+}
+
+- (void)_personaIDForClient:(uint64_t)a3 requestedPersona:(uint64_t)a4 .cold.5(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, __int128 a9, int a10, __int16 a11, __int16 a12, void *a13, __int128 a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24)
+{
+  OUTLINED_FUNCTION_16();
+  a23 = v26;
+  a24 = v27;
+  v29 = v28;
+  v31 = v30;
+  v32 = [v30 uuid];
+  [v31 identifier];
+  objc_claimAutoreleasedReturnValue();
+  [OUTLINED_FUNCTION_7() version];
+  objc_claimAutoreleasedReturnValue();
+  [OUTLINED_FUNCTION_10() containingBundleIdentifier];
+  objc_claimAutoreleasedReturnValue();
+  OUTLINED_FUNCTION_1_1();
+  *(&a9 + 4) = v32;
+  WORD6(a9) = 2112;
+  *(&a9 + 14) = v24;
+  a12 = 2112;
+  a13 = v25;
+  LOWORD(a14) = 2112;
+  *(&a14 + 2) = v33;
+  _os_log_fault_impl(&dword_0, v29, OS_LOG_TYPE_FAULT, "[u %{public}@] [%@(%@)] Containing bundle [%@] is associated with more than one persona. Choosing one at random.", &a9, 0x2Au);
 
   OUTLINED_FUNCTION_14();
 }

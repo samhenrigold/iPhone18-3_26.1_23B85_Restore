@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)redirCauseAsString:(int)string;
 - (int)StringAsRedirCause:(id)cause;
 - (int)redirCause;
 - (unint64_t)hash;
@@ -38,6 +39,21 @@
   {
     return 0;
   }
+}
+
+- (id)redirCauseAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_100319000[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsRedirCause:(id)cause
@@ -184,14 +200,12 @@
   has = self->_has;
   if (has)
   {
-    redirCause = self->_redirCause;
     PBDataWriterWriteInt32Field();
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    total = self->_total;
     PBDataWriterWriteUint32Field();
   }
 
@@ -200,15 +214,14 @@
     PBDataWriterPlaceMark();
     if (self->_endStatusCounts.count)
     {
-      v8 = 0;
+      v6 = 0;
       do
       {
-        v9 = self->_endStatusCounts.list[v8];
         PBDataWriterWriteUint32Field();
-        ++v8;
+        ++v6;
       }
 
-      while (v8 < self->_endStatusCounts.count);
+      while (v6 < self->_endStatusCounts.count);
     }
 
     PBDataWriterRecallMark();
@@ -216,7 +229,6 @@
 
   if ((*&self->_has & 4) != 0)
   {
-    totalAp = self->_totalAp;
     PBDataWriterWriteUint32Field();
   }
 
@@ -226,15 +238,14 @@
     PBDataWriterPlaceMark();
     if (p_endStatusCountAps->count)
     {
-      v12 = 0;
+      v8 = 0;
       do
       {
-        v13 = p_endStatusCountAps->list[v12];
         PBDataWriterWriteUint32Field();
-        ++v12;
+        ++v8;
       }
 
-      while (v12 < p_endStatusCountAps->count);
+      while (v8 < p_endStatusCountAps->count);
     }
 
     PBDataWriterRecallMark();
@@ -331,7 +342,6 @@
     goto LABEL_19;
   }
 
-  v5 = *(equalCopy + 68);
   if (*&self->_has)
   {
     if ((*(equalCopy + 68) & 1) == 0 || self->_redirCause != *(equalCopy + 14))
@@ -365,7 +375,6 @@ LABEL_19:
     goto LABEL_20;
   }
 
-  v6 = *(equalCopy + 68);
   if ((*&self->_has & 4) != 0)
   {
     if ((*(equalCopy + 68) & 4) == 0 || self->_totalAp != *(equalCopy + 16))

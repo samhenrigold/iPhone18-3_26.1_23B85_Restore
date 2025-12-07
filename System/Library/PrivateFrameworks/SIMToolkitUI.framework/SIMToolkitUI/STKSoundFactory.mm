@@ -2,6 +2,7 @@
 + (id)class0SMSSound;
 + (id)soundForOptions:(id)options;
 + (id)soundForRingToneWithDuration:(double)duration;
++ (id)soundForSystemSoundID:(unsigned int)d duration:(double)duration;
 @end
 
 @implementation STKSoundFactory
@@ -122,6 +123,13 @@ LABEL_29:
   v2 = [[STKToneAlertSound alloc] initWithType:2 duration:0.0];
 
   return v2;
+}
+
++ (id)soundForSystemSoundID:(unsigned int)d duration:(double)duration
+{
+  v4 = [[STKSystemSound alloc] initForSystemSoundID:*&d duration:duration];
+
+  return v4;
 }
 
 @end

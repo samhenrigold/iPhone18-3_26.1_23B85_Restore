@@ -24,9 +24,11 @@
 
 uint64_t __40__CUIKORFontUtils__primaryTextFontCache__block_invoke()
 {
-  _primaryTextFontCache_cache = objc_alloc_init(MEMORY[0x1E695DEE0]);
+  v0 = objc_alloc_init(MEMORY[0x1E695DEE0]);
+  v1 = _primaryTextFontCache_cache;
+  _primaryTextFontCache_cache = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (UIFont)defaultOccurrenceSecondaryTextFont

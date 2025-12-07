@@ -6,6 +6,7 @@
 - (int64_t)lookupTermWithOrgApacheLuceneUtilBytesRef:(id)ref;
 - (int64_t)nextOrd;
 - (void)dealloc;
+- (void)setDocumentWithInt:(int)int;
 @end
 
 @implementation OrgApacheLuceneIndexSingletonSortedSetDocValues
@@ -22,6 +23,19 @@
   currentOrd = self->currentOrd_;
   self->currentOrd_ = -1;
   return currentOrd;
+}
+
+- (void)setDocumentWithInt:(int)int
+{
+  in = self->in_;
+  if (!in)
+  {
+    JreThrowNullPointerException();
+  }
+
+  v5 = [(OrgApacheLuceneIndexSortedDocValues *)in getOrdWithInt:*&int];
+  self->ord_ = v5;
+  self->currentOrd_ = v5;
 }
 
 - (id)lookupOrdWithLong:(int64_t)long

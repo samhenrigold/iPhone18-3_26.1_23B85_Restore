@@ -52,7 +52,7 @@
     v22 = 0;
     if (player)
     {
-      [player currentTime];
+      objc_msgSend_currentTime(player);
     }
 
     memset(v20, 0, sizeof(v20));

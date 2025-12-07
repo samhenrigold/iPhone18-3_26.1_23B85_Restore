@@ -84,28 +84,28 @@ LABEL_6:
       [navigationItem setTitle:v10];
 
       libraryFilterState = [(PXStoryMemoryFeedChromeController *)self libraryFilterState];
-      hasPreview = [sharedLibraryStatusProvider hasPreview];
-      v21[0] = MEMORY[0x1E69E9820];
-      v21[1] = 3221225472;
-      v21[2] = __50__PXStoryMemoryFeedChromeController__updateChrome__block_invoke_3;
-      v21[3] = &unk_1E773BDE0;
-      v22 = wantsFavoritesOnly;
-      v21[4] = v7;
-      v21[5] = v8;
-      v13 = v8;
-      v14 = v7;
-      PXSharedLibraryCreateSwitchLibraryButtonItem(libraryFilterState, hasPreview, v21);
+      LOBYTE(v10) = [sharedLibraryStatusProvider hasPreview];
+      v20[0] = MEMORY[0x1E69E9820];
+      v20[1] = 3221225472;
+      v20[2] = __50__PXStoryMemoryFeedChromeController__updateChrome__block_invoke_3;
+      v20[3] = &unk_1E773BDE0;
+      v21 = wantsFavoritesOnly;
+      v20[4] = v7;
+      v20[5] = v8;
+      v12 = v8;
+      v13 = v7;
+      PXSharedLibraryCreateSwitchLibraryButtonItem(libraryFilterState, v10, v20);
     }
 
-    v15 = PXLocalizedStringFromTable(@"PXMemoriesFeedTitle", @"PhotosUICore");
-    [navigationItem setTitle:v15];
+    v14 = PXLocalizedStringFromTable(@"PXMemoriesFeedTitle", @"PhotosUICore");
+    [navigationItem setTitle:v14];
 
     dataSourceManager2 = [(PXStoryMemoryFeedChromeController *)self dataSourceManager];
-    if ([dataSourceManager2 hasAnyFavorites] && (!objc_msgSend(dataSourceManager2, "wantsFavoritesOnly") ? (v17 = @"PXMemoriesFeedButtonFavoritesTitle") : (v17 = @"PXMemoriesFeedSeeAllButtonTitle"), PXLocalizedStringFromTable(v17, @"PhotosUICore"), (v18 = objc_claimAutoreleasedReturnValue()) != 0))
+    if ([dataSourceManager2 hasAnyFavorites] && (!objc_msgSend(dataSourceManager2, "wantsFavoritesOnly") ? (v16 = @"PXMemoriesFeedButtonFavoritesTitle") : (v16 = @"PXMemoriesFeedSeeAllButtonTitle"), PXLocalizedStringFromTable(v16, @"PhotosUICore"), (v17 = objc_claimAutoreleasedReturnValue()) != 0))
     {
-      v19 = v18;
-      v20 = [objc_alloc(MEMORY[0x1E69DC708]) initWithTitle:v18 style:0 target:self action:sel__handleFavoritesToggleButton_];
-      [navigationItem setRightBarButtonItem:v20];
+      v18 = v17;
+      v19 = [objc_alloc(MEMORY[0x1E69DC708]) initWithTitle:v17 style:0 target:self action:sel__handleFavoritesToggleButton_];
+      [navigationItem setRightBarButtonItem:v19];
     }
 
     else

@@ -149,7 +149,6 @@ LABEL_6:
   has = self->_has;
   if ((has & 4) != 0)
   {
-    minimumSchemaVersion = self->_minimumSchemaVersion;
     PBDataWriterWriteInt32Field();
     has = self->_has;
     if ((has & 8) == 0)
@@ -169,7 +168,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  mmcsVersion = self->_mmcsVersion;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -184,12 +182,10 @@ LABEL_4:
   }
 
 LABEL_11:
-  encryptedFieldContextType = self->_encryptedFieldContextType;
   PBDataWriterWriteInt32Field();
   if (*&self->_has)
   {
 LABEL_5:
-    assetKeyEncryptionType = self->_assetKeyEncryptionType;
     PBDataWriterWriteInt32Field();
   }
 

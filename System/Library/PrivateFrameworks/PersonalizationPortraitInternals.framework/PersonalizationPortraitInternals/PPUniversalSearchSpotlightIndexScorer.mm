@@ -10,79 +10,78 @@
 
 - (double)computeSpotlightIndexTopicScoreComponentFromDocumentTopicVector:(id)vector
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   vectorCopy = vector;
   v5 = objc_alloc(MEMORY[0x277CBEB98]);
   allKeys = [vectorCopy allKeys];
   v7 = [v5 initWithArray:allKeys];
 
-  v39 = 0;
-  v40 = &v39;
-  v41 = 0x2020000000;
-  v42 = 0;
-  v37[0] = 0;
-  v37[1] = v37;
-  v37[2] = 0x3032000000;
-  v37[3] = __Block_byref_object_copy__19394;
-  v37[4] = __Block_byref_object_dispose__19395;
-  v38 = objc_opt_new();
+  v38 = 0;
+  v39 = &v38;
+  v40 = 0x2020000000;
+  v41 = 0;
+  v36[0] = 0;
+  v36[1] = v36;
+  v36[2] = 0x3032000000;
+  v36[3] = __Block_byref_object_copy__19394;
+  v36[4] = __Block_byref_object_dispose__19395;
+  v37 = objc_opt_new();
   result = [(_PASLazyPurgeableResult *)self->_cachedPortraitTopicScores result];
-  v33[0] = MEMORY[0x277D85DD0];
-  v33[1] = 3221225472;
-  v33[2] = __105__PPUniversalSearchSpotlightIndexScorer_computeSpotlightIndexTopicScoreComponentFromDocumentTopicVector___block_invoke;
-  v33[3] = &unk_278976DB8;
-  v35 = &v39;
+  v32[0] = MEMORY[0x277D85DD0];
+  v32[1] = 3221225472;
+  v32[2] = __105__PPUniversalSearchSpotlightIndexScorer_computeSpotlightIndexTopicScoreComponentFromDocumentTopicVector___block_invoke;
+  v32[3] = &unk_278976DB8;
+  v34 = &v38;
   v9 = v7;
-  v34 = v9;
-  v36 = v37;
-  [result enumerateKeysAndObjectsUsingBlock:v33];
+  v33 = v9;
+  v35 = v36;
+  [result enumerateKeysAndObjectsUsingBlock:v32];
 
-  v10 = v40[3];
+  v10 = v39[3];
   topicAlgorithmWeights = [(PPUniversalSearchSpotlightIndexScorer *)self topicAlgorithmWeights];
-  v29 = 0;
-  v30 = &v29;
-  v31 = 0x2020000000;
-  v32 = 0;
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x2020000000;
   v28 = 0;
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __105__PPUniversalSearchSpotlightIndexScorer_computeSpotlightIndexTopicScoreComponentFromDocumentTopicVector___block_invoke_2;
-  v20[3] = &unk_278976DE0;
-  v22 = v37;
+  v29 = &v28;
+  v30 = 0x2020000000;
+  v31 = 0;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x2020000000;
+  v27 = 0;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __105__PPUniversalSearchSpotlightIndexScorer_computeSpotlightIndexTopicScoreComponentFromDocumentTopicVector___block_invoke_2;
+  v19[3] = &unk_278976DE0;
+  v21 = v36;
   v12 = topicAlgorithmWeights;
-  v21 = v12;
-  v23 = &v25;
-  v24 = &v29;
-  [vectorCopy enumerateKeysAndObjectsUsingBlock:v20];
-  v13 = v26[3];
+  v20 = v12;
+  v22 = &v24;
+  v23 = &v28;
+  [vectorCopy enumerateKeysAndObjectsUsingBlock:v19];
+  v13 = v25[3];
   v14 = 0.0;
   if (v13 != 0.0)
   {
     v15 = sqrt(v10);
     if (v15 != 0.0)
     {
-      v16 = v30[3];
+      v16 = v29[3];
       v17 = pp_universal_search_log_handle();
       v14 = v16 / sqrt(v13) / v15;
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
       {
         *buf = 134217984;
-        v44 = v14;
+        v43 = v14;
         _os_log_debug_impl(&dword_23224A000, v17, OS_LOG_TYPE_DEBUG, "PPSpotlightScoring: spotlightQueryScore of %f", buf, 0xCu);
       }
     }
   }
 
-  _Block_object_dispose(&v25, 8);
-  _Block_object_dispose(&v29, 8);
+  _Block_object_dispose(&v24, 8);
+  _Block_object_dispose(&v28, 8);
 
-  _Block_object_dispose(v37, 8);
-  _Block_object_dispose(&v39, 8);
+  _Block_object_dispose(v36, 8);
+  _Block_object_dispose(&v38, 8);
 
-  v18 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -123,50 +122,50 @@ void __105__PPUniversalSearchSpotlightIndexScorer_computeSpotlightIndexTopicScor
 
 - (double)computeSpotlightIndexTopicSubscoreFromPortraitExtractions:(id)extractions
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   extractionsCopy = extractions;
   v4 = objc_opt_new();
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
   obj = extractionsCopy;
-  v29 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
-  if (v29)
+  v28 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
+  if (v28)
   {
-    v28 = *v36;
+    v27 = *v35;
     do
     {
       v5 = 0;
       do
       {
-        if (*v36 != v28)
+        if (*v35 != v27)
         {
           objc_enumerationMutation(obj);
         }
 
-        v30 = v5;
-        v6 = *(*(&v35 + 1) + 8 * v5);
+        v29 = v5;
+        v6 = *(*(&v34 + 1) + 8 * v5);
+        v30 = 0u;
         v31 = 0u;
         v32 = 0u;
         v33 = 0u;
-        v34 = 0u;
         topics = [v6 topics];
-        v8 = [topics countByEnumeratingWithState:&v31 objects:v39 count:16];
+        v8 = [topics countByEnumeratingWithState:&v30 objects:v38 count:16];
         if (v8)
         {
           v9 = v8;
-          v10 = *v32;
+          v10 = *v31;
           do
           {
             for (i = 0; i != v9; ++i)
             {
-              if (*v32 != v10)
+              if (*v31 != v10)
               {
                 objc_enumerationMutation(topics);
               }
 
-              v12 = *(*(&v31 + 1) + 8 * i);
+              v12 = *(*(&v30 + 1) + 8 * i);
               item = [v12 item];
               topicIdentifier = [item topicIdentifier];
               v15 = [topicIdentifier hasPrefix:@"Q"];
@@ -191,26 +190,25 @@ void __105__PPUniversalSearchSpotlightIndexScorer_computeSpotlightIndexTopicScor
               }
             }
 
-            v9 = [topics countByEnumeratingWithState:&v31 objects:v39 count:16];
+            v9 = [topics countByEnumeratingWithState:&v30 objects:v38 count:16];
           }
 
           while (v9);
         }
 
-        v5 = v30 + 1;
+        v5 = v29 + 1;
       }
 
-      while (v30 + 1 != v29);
-      v29 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
+      while (v29 + 1 != v28);
+      v28 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
     }
 
-    while (v29);
+    while (v28);
   }
 
   [(PPUniversalSearchSpotlightIndexScorer *)self computeSpotlightIndexTopicScoreComponentFromDocumentTopicVector:v4];
   v23 = v22;
 
-  v24 = *MEMORY[0x277D85DE8];
   return v23;
 }
 
@@ -260,7 +258,7 @@ void __105__PPUniversalSearchSpotlightIndexScorer_computeSpotlightIndexTopicScor
 
 id __65__PPUniversalSearchSpotlightIndexScorer_initWithLocalTopicStore___block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -283,24 +281,24 @@ id __65__PPUniversalSearchSpotlightIndexScorer_initWithLocalTopicStore___block_i
       {
         v9 = NSStringFromSelector(*(a1 + 40));
         *buf = 138412290;
-        v21 = v9;
+        v20 = v9;
         _os_log_impl(&dword_23224A000, v8, OS_LOG_TYPE_DEFAULT, "Failed to read topic cache in %@.  Forcing regeneration", buf, 0xCu);
       }
 
       v10 = v3[1];
-      v19 = 0;
-      v11 = [v10 computeAndCacheTopicScores:&v19];
-      v12 = v19;
+      v18 = 0;
+      v11 = [v10 computeAndCacheTopicScores:&v18];
+      v12 = v18;
       if ((v11 & 1) == 0)
       {
         v13 = pp_universal_search_log_handle();
         if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
-          v17 = NSStringFromSelector(*(a1 + 40));
+          v16 = NSStringFromSelector(*(a1 + 40));
           *buf = 138412546;
-          v21 = v17;
-          v22 = 2112;
-          v23 = v12;
+          v20 = v16;
+          v21 = 2112;
+          v22 = v12;
           _os_log_error_impl(&dword_23224A000, v13, OS_LOG_TYPE_ERROR, "Forced topic cache recreation failed in %@ with %@", buf, 0x16u);
         }
       }
@@ -311,9 +309,9 @@ id __65__PPUniversalSearchSpotlightIndexScorer_initWithLocalTopicStore___block_i
         v14 = pp_universal_search_log_handle();
         if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
         {
-          v18 = NSStringFromSelector(*(a1 + 40));
+          v17 = NSStringFromSelector(*(a1 + 40));
           *buf = 138412290;
-          v21 = v18;
+          v20 = v17;
           _os_log_error_impl(&dword_23224A000, v14, OS_LOG_TYPE_ERROR, "Topic cache still empty after successful regeneration in %@", buf, 0xCu);
         }
       }
@@ -324,8 +322,6 @@ id __65__PPUniversalSearchSpotlightIndexScorer_initWithLocalTopicStore___block_i
   {
     v7 = MEMORY[0x277CBEC10];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

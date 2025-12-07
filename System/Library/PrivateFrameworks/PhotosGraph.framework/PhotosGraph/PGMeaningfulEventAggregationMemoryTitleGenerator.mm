@@ -29,7 +29,7 @@
 
 - (void)_generateTitleAndSubtitleWithResult:(id)result
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   resultCopy = result;
   _meaningLabelForTitle = [(PGMeaningfulEventAggregationMemoryTitleGenerator *)self _meaningLabelForTitle];
   v6 = [PGSpecBasedTitleGenerator alloc];
@@ -47,12 +47,12 @@
 
     if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
     {
-      v16 = self->_features;
-      v17 = 138412546;
-      v18 = _meaningLabelForTitle;
-      v19 = 2112;
-      v20 = v16;
-      _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "Title for meaningful aggregation nil (meaning: %@, features: %@. Please press Provide Feedback from Memory Detail View.", &v17, 0x16u);
+      v15 = self->_features;
+      v16 = 138412546;
+      v17 = _meaningLabelForTitle;
+      v18 = 2112;
+      v19 = v15;
+      _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "Title for meaningful aggregation nil (meaning: %@, features: %@. Please press Provide Feedback from Memory Detail View.", &v16, 0x16u);
     }
   }
 
@@ -60,8 +60,6 @@
   {
     resultCopy[2](resultCopy, title, _subtitle);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (PGMeaningfulEventAggregationMemoryTitleGenerator)initWithMeaning:(unint64_t)meaning features:(id)features meaningfulEvents:(id)events titleGenerationContext:(id)context
@@ -87,41 +85,39 @@
 
 + (id)_momentNodesFromMeaningfulEvents:(id)events
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
   v4 = [MEMORY[0x277CBEB58] set];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v5 = eventsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        eventCollection = [*(*(&v15 + 1) + 8 * i) eventCollection];
+        eventCollection = [*(*(&v14 + 1) + 8 * i) eventCollection];
         eventMomentNodes = [eventCollection eventMomentNodes];
         temporarySet = [eventMomentNodes temporarySet];
         [v4 unionSet:temporarySet];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

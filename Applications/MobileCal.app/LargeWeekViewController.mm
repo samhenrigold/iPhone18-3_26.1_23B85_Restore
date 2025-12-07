@@ -190,7 +190,7 @@
       self->_hasAlreadyAdjustedVisibleRects = 0;
       if (coordinatorCopy)
       {
-        [coordinatorCopy targetTransform];
+        objc_msgSend_targetTransform(coordinatorCopy);
       }
 
       else
@@ -529,7 +529,7 @@ LABEL_8:
   if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()))
   {
     view = [(LargeWeekViewController *)self view];
-    self->_isPresentingPageSheet = EKUICurrentWindowInterfaceParadigm_SupportsPopoversForEventEditing() ^ 1;
+    self->_isPresentingPageSheet = EKUICurrentWindowInterfaceParadigm_SupportsPopoversForEventEditing(view) ^ 1;
     goto LABEL_8;
   }
 
@@ -1367,7 +1367,7 @@ LABEL_7:
   controllerCopy = controller;
   viewControllerCopy = viewController;
   view = [(LargeWeekViewController *)self view];
-  v11 = EKUICurrentWindowInterfaceParadigm_SupportsPopoversForEventEditing();
+  v11 = EKUICurrentWindowInterfaceParadigm_SupportsPopoversForEventEditing(view);
 
   if (v11)
   {
@@ -2636,7 +2636,7 @@ LABEL_17:
       [popoverPresentationController setPassthroughViews:v23];
 
       view = [(LargeWeekViewController *)self view];
-      self->_shouldRePresentPopoverAfterDrag = EKUICurrentWindowInterfaceParadigm_SupportsPopoversForEventEditing();
+      self->_shouldRePresentPopoverAfterDrag = EKUICurrentWindowInterfaceParadigm_SupportsPopoversForEventEditing(view);
 LABEL_20:
 
       goto LABEL_21;
@@ -2938,7 +2938,7 @@ LABEL_21:
   [popoverPresentationController setPassthroughViews:v18];
 
   view = [(LargeWeekViewController *)self view];
-  self->_shouldRePresentPopoverAfterDrag = EKUICurrentWindowInterfaceParadigm_SupportsPopoversForEventEditing();
+  self->_shouldRePresentPopoverAfterDrag = EKUICurrentWindowInterfaceParadigm_SupportsPopoversForEventEditing(view);
 }
 
 - (void)_setupPointerDoubleClickGestureRecognizer

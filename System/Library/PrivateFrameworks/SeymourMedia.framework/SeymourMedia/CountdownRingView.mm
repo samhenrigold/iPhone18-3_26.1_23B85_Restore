@@ -15,16 +15,17 @@
 
 - (void)countdownAnimatorDidFinishAnimating:(id)animating
 {
-  v4 = (self + OBJC_IVAR____TtC12SeymourMedia17CountdownRingView_onCountdownCompleted);
+  v4 = self + OBJC_IVAR____TtC12SeymourMedia17CountdownRingView_onCountdownCompleted;
   swift_beginAccess();
   v5 = *v4;
   if (*v4)
   {
+    v6 = *(v4 + 1);
     selfCopy = self;
-    v7 = sub_20C487984(v5);
-    v5(v7);
+    v8 = sub_20C487984(v5, v6);
+    v5(v8);
 
-    sub_20C47E6BC(v5);
+    sub_20C47E6BC(v5, v6);
   }
 }
 

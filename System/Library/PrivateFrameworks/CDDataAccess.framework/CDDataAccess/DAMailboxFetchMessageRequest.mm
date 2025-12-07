@@ -1,10 +1,33 @@
 @interface DAMailboxFetchMessageRequest
 - (BOOL)isEqual:(id)equal;
 - (id)description;
+- (id)initRequestForBodyFormat:(int)format withMessageID:(id)d withBodySizeLimit:(int)limit;
 - (unint64_t)hash;
 @end
 
 @implementation DAMailboxFetchMessageRequest
+
+- (id)initRequestForBodyFormat:(int)format withMessageID:(id)d withBodySizeLimit:(int)limit
+{
+  v5 = *&limit;
+  v6 = *&format;
+  dCopy = d;
+  v13.receiver = self;
+  v13.super_class = DAMailboxFetchMessageRequest;
+  v9 = [(DAMailboxRequest *)&v13 init];
+  v10 = v9;
+  if (v9)
+  {
+    [(DAMailboxRequest *)v9 setRequestType:3];
+    v11 = [dCopy copy];
+    [(DAMailboxRequest *)v10 setMessageID:v11];
+
+    [(DAMailboxRequest *)v10 setBodyFormat:v6];
+    [(DAMailboxFetchMessageRequest *)v10 setMaxSize:v5];
+  }
+
+  return v10;
+}
 
 - (unint64_t)hash
 {

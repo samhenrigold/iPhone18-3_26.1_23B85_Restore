@@ -12,7 +12,7 @@
   ObjectType = swift_getObjectType();
   v9 = sub_1D2EE4A68();
   v11 = v10;
-  type metadata accessor for SmartActionMenuItem();
+  type metadata accessor for SmartActionMenuItem(0);
   v12 = sub_1D2EE4BE8();
   v13 = (self + OBJC_IVAR____TtC16CallIntelligence19SmartActionDataItem_textRange);
   *v13 = location;

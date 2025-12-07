@@ -20,8 +20,6 @@
     swift_once();
   }
 
-  v3 = *(qword_1EDEBFC50 + OBJC_IVAR____TtC16CallsAppServices15RequestsHandler_acceptedContactsDidChange);
-
   sub_1D33DE4C4();
 }
 

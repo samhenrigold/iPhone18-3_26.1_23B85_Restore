@@ -264,29 +264,8 @@ LABEL_9:
     }
 
     v22 = [(HDHealthEntity *)HDAuthorizationEntity transactionContextForWriting:readTypes baseContext:v21];
-    if (![database performTransactionWithContext:v22 error:statuses block:v17 inaccessibilityHandler:0])
+    if ([database performTransactionWithContext:v22 error:statuses block:v17 inaccessibilityHandler:0] && (!objc_msgSend(v16, "count") || (+[HDHealthEntity transactionContextForWriting:baseContext:](HDSampleEntity, "transactionContextForWriting:baseContext:", 0, v20), v23 = objc_claimAutoreleasedReturnValue(), v29[0] = MEMORY[0x277D85DD0], v29[1] = 3221225472, v29[2] = __134__HDAuthorizationManager__authorizationRequestStatusForClientBundleIdentifier_writeTypes_readTypes_updateAuthorizationStatuses_error___block_invoke_401, v29[3] = &unk_278615F88, v30 = v16, v31 = self, v32 = &v45, v24 = objc_msgSend(database, "performTransactionWithContext:error:block:inaccessibilityHandler:", v23, statuses, v29, 0), v30, v23, v24)))
     {
-      goto LABEL_11;
-    }
-
-    if (![v16 count])
-    {
-      goto LABEL_17;
-    }
-
-    v23 = [(HDHealthEntity *)HDSampleEntity transactionContextForWriting:0 baseContext:v20];
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = __134__HDAuthorizationManager__authorizationRequestStatusForClientBundleIdentifier_writeTypes_readTypes_updateAuthorizationStatuses_error___block_invoke_401;
-    v29[3] = &unk_278615F88;
-    v30 = v16;
-    selfCopy2 = self;
-    v32 = &v45;
-    v24 = [database performTransactionWithContext:v23 error:statuses block:v29 inaccessibilityHandler:0];
-
-    if (v24)
-    {
-LABEL_17:
       if (*(v46 + 24))
       {
         v25 = 1;
@@ -300,7 +279,6 @@ LABEL_17:
 
     else
     {
-LABEL_11:
       v25 = 0;
     }
 
@@ -318,28 +296,28 @@ LABEL_11:
 
 - (BOOL)_hasRequiredAuthorizationStatusesForBundleIdentifier:(id)identifier requiredReadTypes:(id)types error:(id *)error
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   typesCopy = types;
-  v10 = [typesCopy countByEnumeratingWithState:&v30 objects:v35 count:16];
+  v10 = [typesCopy countByEnumeratingWithState:&v29 objects:v34 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v31;
+    v12 = *v30;
     while (2)
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v31 != v12)
+        if (*v30 != v12)
         {
           objc_enumerationMutation(typesCopy);
         }
 
-        if (([*(*(&v30 + 1) + 8 * i) isClinicalType] & 1) == 0)
+        if (([*(*(&v29 + 1) + 8 * i) isClinicalType] & 1) == 0)
         {
           [MEMORY[0x277CCA9B8] hk_assignError:error code:3 format:@"Required authorization check only permitted for clinical types"];
           v23 = 0;
@@ -348,7 +326,7 @@ LABEL_11:
         }
       }
 
-      v11 = [typesCopy countByEnumeratingWithState:&v30 objects:v35 count:16];
+      v11 = [typesCopy countByEnumeratingWithState:&v29 objects:v34 count:16];
       if (v11)
       {
         continue;
@@ -363,27 +341,27 @@ LABEL_11:
 
   if (v15)
   {
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
     v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
     v16 = typesCopy;
-    v17 = [v16 countByEnumeratingWithState:&v26 objects:v34 count:16];
+    v17 = [v16 countByEnumeratingWithState:&v25 objects:v33 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v27;
+      v19 = *v26;
       while (2)
       {
         for (j = 0; j != v18; ++j)
         {
-          if (*v27 != v19)
+          if (*v26 != v19)
           {
             objc_enumerationMutation(v16);
           }
 
-          v21 = *(*(&v26 + 1) + 8 * j);
-          v22 = [v15 objectForKeyedSubscript:{v21, v26}];
+          v21 = *(*(&v25 + 1) + 8 * j);
+          v22 = [v15 objectForKeyedSubscript:{v21, v25}];
           if (!v22 || [v16 containsObject:v21] && (objc_msgSend(v22, "readingEnabled") & 1) == 0)
           {
             [MEMORY[0x277CCA9B8] hk_assignError:error code:10 format:@"Required authorization not granted"];
@@ -393,7 +371,7 @@ LABEL_11:
           }
         }
 
-        v18 = [v16 countByEnumeratingWithState:&v26 objects:v34 count:16];
+        v18 = [v16 countByEnumeratingWithState:&v25 objects:v33 count:16];
         if (v18)
         {
           continue;
@@ -414,7 +392,6 @@ LABEL_23:
 
 LABEL_25:
 
-  v24 = *MEMORY[0x277D85DE8];
   return v23;
 }
 
@@ -453,7 +430,7 @@ LABEL_25:
 
 void __132__HDAuthorizationManager_enqueueAuthorizationRequestForBundleIdentifier_writeTypes_readTypes_authorizationNeededHandler_completion___block_invoke(void *a1)
 {
-  v75 = *MEMORY[0x277D85DE8];
+  v74 = *MEMORY[0x277D85DE8];
   v2 = a1[4];
   v1 = a1[5];
   v3 = a1[6];
@@ -463,26 +440,26 @@ void __132__HDAuthorizationManager_enqueueAuthorizationRequestForBundleIdentifie
   v7 = a1[10];
   v8 = v1;
   v9 = v3;
-  v70 = v4;
+  v69 = v4;
   v10 = v5;
   v11 = v6;
   v12 = v7;
   v13 = v12;
   if (v2)
   {
-    v68 = v11;
-    v69 = v12;
+    v67 = v11;
+    v68 = v12;
     if (!v9)
     {
-      v61 = [MEMORY[0x277CCA890] currentHandler];
-      [v61 handleFailureInMethod:sel__queue_enqueueAuthorizationRequestWithIdentifier_bundleIdentifier_writeTypes_readTypes_authorizationNeededHandler_completion_ object:v2 file:@"HDAuthorizationManager.m" lineNumber:716 description:{@"Invalid parameter not satisfying: %@", @"bundleIdentifier != nil"}];
+      v60 = [MEMORY[0x277CCA890] currentHandler];
+      [v60 handleFailureInMethod:sel__queue_enqueueAuthorizationRequestWithIdentifier_bundleIdentifier_writeTypes_readTypes_authorizationNeededHandler_completion_ object:v2 file:@"HDAuthorizationManager.m" lineNumber:716 description:{@"Invalid parameter not satisfying: %@", @"bundleIdentifier != nil"}];
     }
 
     WeakRetained = objc_loadWeakRetained((v2 + 48));
     v15 = [WeakRetained sourceManager];
-    v71 = 0;
-    v16 = [v15 clientSourceForBundleIdentifier:v9 error:&v71];
-    v17 = v71;
+    v70 = 0;
+    v16 = [v15 clientSourceForBundleIdentifier:v9 error:&v70];
+    v17 = v70;
 
     if (!v16)
     {
@@ -492,48 +469,48 @@ void __132__HDAuthorizationManager_enqueueAuthorizationRequestForBundleIdentifie
         v33 = [MEMORY[0x277CCA9B8] hk_errorForInvalidArgument:@"@" class:objc_opt_class() selector:sel__queue_enqueueAuthorizationRequestWithIdentifier_bundleIdentifier_writeTypes_readTypes_authorizationNeededHandler_completion_ format:{@"Failed to look up source with bundle identifier %@", v9}];
       }
 
-      v13 = v69;
-      if (v69)
+      v13 = v68;
+      if (v68)
       {
-        (v69)[2](v69, v8, 0, v33);
+        (v68)[2](v68, v8, 0, v33);
       }
 
       goto LABEL_37;
     }
 
-    v64 = v17;
+    v63 = v17;
     v18 = [_HDAuthorizationRequest alloc];
-    v67 = v8;
+    v66 = v8;
     v19 = v8;
-    v20 = v70;
-    v65 = v10;
+    v20 = v69;
+    v64 = v10;
     v21 = v10;
-    v22 = v69;
-    v66 = v19;
+    v22 = v68;
+    v65 = v19;
     if (v18)
     {
       if (!v19)
       {
-        v63 = [MEMORY[0x277CCA890] currentHandler];
-        [v63 handleFailureInMethod:sel_initWithIdentifier_typesToWrite_typesToRead_completionHandler_ object:v18 file:@"HDAuthorizationManager.m" lineNumber:2277 description:{@"Invalid parameter not satisfying: %@", @"identifier != nil"}];
+        v62 = [MEMORY[0x277CCA890] currentHandler];
+        [v62 handleFailureInMethod:sel_initWithIdentifier_typesToWrite_typesToRead_completionHandler_ object:v18 file:@"HDAuthorizationManager.m" lineNumber:2277 description:{@"Invalid parameter not satisfying: %@", @"identifier != nil"}];
       }
 
-      *v72 = v18;
-      *&v72[8] = _HDAuthorizationRequest;
-      v23 = objc_msgSendSuper2(v72, sel_init);
+      *v71 = v18;
+      *&v71[8] = _HDAuthorizationRequest;
+      v23 = objc_msgSendSuper2(v71, sel_init);
       v18 = v23;
       if (v23)
       {
         objc_storeStrong(&v23->_identifier, v1);
-        v24 = [v20 copy];
+        v24 = objc_msgSend_copy(v20);
         typesToWrite = v18->_typesToWrite;
         v18->_typesToWrite = v24;
 
-        v26 = [v21 copy];
+        v26 = objc_msgSend_copy(v21);
         typesToRead = v18->_typesToRead;
         v18->_typesToRead = v26;
 
-        v28 = [v22 copy];
+        v28 = objc_msgSend_copy(v22);
         completionHandler = v18->_completionHandler;
         v18->_completionHandler = v28;
       }
@@ -544,22 +521,22 @@ void __132__HDAuthorizationManager_enqueueAuthorizationRequestForBundleIdentifie
     {
       v31 = v30;
       v32 = v18;
-      v8 = v67;
+      v8 = v66;
     }
 
     else
     {
       v31 = [_HDAuthorizationRequestGroup alloc];
       v34 = v16;
-      v8 = v67;
+      v8 = v66;
       if (v31)
       {
-        *v72 = v31;
-        *&v72[8] = _HDAuthorizationRequestGroup;
-        v31 = objc_msgSendSuper2(v72, sel_init);
+        *v71 = v31;
+        *&v71[8] = _HDAuthorizationRequestGroup;
+        v31 = objc_msgSendSuper2(v71, sel_init);
         if (v31)
         {
-          v35 = [v34 copy];
+          v35 = objc_msgSend_copy(v34);
           source = v31->_source;
           v31->_source = v35;
 
@@ -614,19 +591,19 @@ LABEL_26:
             v53 = [(NSMutableArray *)v31->_requests count];
           }
 
-          *v72 = 138543874;
-          *&v72[4] = v51;
-          *&v72[12] = 2114;
-          *&v72[14] = v52;
-          v73 = 2048;
-          v74 = v53;
-          _os_log_impl(&dword_228986000, v49, OS_LOG_TYPE_DEFAULT, "Added authorization request %{public}@ to group for %{public}@. Request count: %ld", v72, 0x20u);
+          *v71 = 138543874;
+          *&v71[4] = v51;
+          *&v71[12] = 2114;
+          *&v71[14] = v52;
+          v72 = 2048;
+          v73 = v53;
+          _os_log_impl(&dword_228986000, v49, OS_LOG_TYPE_DEFAULT, "Added authorization request %{public}@ to group for %{public}@. Request count: %ld", v71, 0x20u);
 
-          v8 = v67;
+          v8 = v66;
         }
 
-        v11 = v68;
-        if (v68)
+        v11 = v67;
+        if (v67)
         {
           v54 = [(_HDAuthorizationRequestGroup *)&v31->super.isa bundleIdentifier];
           if (v48)
@@ -641,20 +618,20 @@ LABEL_26:
             v56 = v31->_typesToRead;
           }
 
-          *v72 = 0;
+          *v71 = 0;
           v57 = v56;
-          v58 = [(HDAuthorizationManager *)v2 _authorizationRequestStatusForClientBundleIdentifier:v54 writeTypes:v55 readTypes:v57 updateAuthorizationStatuses:0 error:v72];
-          v59 = *v72;
+          v58 = [(HDAuthorizationManager *)v2 _authorizationRequestStatusForClientBundleIdentifier:v54 writeTypes:v55 readTypes:v57 updateAuthorizationStatuses:0 error:v71];
+          v59 = *v71;
 
-          v11 = v68;
-          v68[2](v68, v66, v58 == 1, v59);
+          v11 = v67;
+          v67[2](v67, v65, v58 == 1, v59);
 
-          v8 = v67;
+          v8 = v66;
         }
 
-        v33 = v64;
-        v10 = v65;
-        v13 = v69;
+        v33 = v63;
+        v10 = v64;
+        v13 = v68;
 LABEL_37:
 
         goto LABEL_38;
@@ -669,8 +646,8 @@ LABEL_37:
 
     else
     {
-      v62 = [MEMORY[0x277CCA890] currentHandler];
-      [v62 handleFailureInMethod:sel_addRequest_ object:v31 file:@"HDAuthorizationManager.m" lineNumber:2343 description:{@"Invalid parameter not satisfying: %@", @"request != nil"}];
+      v61 = [MEMORY[0x277CCA890] currentHandler];
+      [v61 handleFailureInMethod:sel_addRequest_ object:v31 file:@"HDAuthorizationManager.m" lineNumber:2343 description:{@"Invalid parameter not satisfying: %@", @"request != nil"}];
 
       [(NSMutableArray *)v31->_requests addObject:0];
       v46 = 0;
@@ -693,8 +670,6 @@ LABEL_37:
   }
 
 LABEL_38:
-
-  v60 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleAuthorizationRequestsForBundleIdentifier:(id)identifier promptHandler:(id)handler completion:(id)completion
@@ -724,7 +699,7 @@ LABEL_38:
   }
 }
 
-uint64_t __98__HDAuthorizationManager_handleAuthorizationRequestsForBundleIdentifier_promptHandler_completion___block_invoke(uint64_t *a1)
+uint64_t __98__HDAuthorizationManager_handleAuthorizationRequestsForBundleIdentifier_promptHandler_completion___block_invoke(void *a1)
 {
   v2 = [*(a1[4] + 72) objectForKeyedSubscript:a1[5]];
   v3 = v2;
@@ -760,18 +735,23 @@ uint64_t __98__HDAuthorizationManager_handleAuthorizationRequestsForBundleIdenti
   else
   {
     v9 = a1[7];
-    if (v9)
+    if (!v9)
     {
-      (*(v9 + 16))(v9, 1, 0);
+      goto LABEL_12;
     }
+
+    v9 = (*(v9 + 16))(v9, 1, 0);
   }
 
-  return MEMORY[0x2821F96F8]();
+  v3 = v11;
+LABEL_12:
+
+  return MEMORY[0x2821F96F8](v9, v3);
 }
 
 - (void)_queue_handleNextAuthorizationRequestGroup
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   if (self)
   {
     v2 = (self + 88);
@@ -783,7 +763,7 @@ uint64_t __98__HDAuthorizationManager_handleAuthorizationRequestsForBundleIdenti
       {
 LABEL_19:
 
-        goto LABEL_20;
+        return;
       }
 
       [*(self + 80) removeObjectAtIndex:0];
@@ -797,16 +777,16 @@ LABEL_19:
         v7 = HKLogAuthorization();
         if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
         {
-          v27 = firstObject[1];
-          allObjects = [v27 allObjects];
-          v29 = firstObject[2];
-          allObjects2 = [v29 allObjects];
+          v26 = firstObject[1];
+          allObjects = [v26 allObjects];
+          v28 = firstObject[2];
+          allObjects2 = [v28 allObjects];
           *buf = 138412802;
-          v36 = firstObject;
-          v37 = 2112;
-          v38 = allObjects;
-          v39 = 2112;
-          v40 = allObjects2;
+          v35 = firstObject;
+          v36 = 2112;
+          v37 = allObjects;
+          v38 = 2112;
+          v39 = allObjects2;
           _os_log_debug_impl(&dword_228986000, v7, OS_LOG_TYPE_DEBUG, "activating request group %@ (write: %@, read: %@)", buf, 0x20u);
         }
       }
@@ -814,41 +794,41 @@ LABEL_19:
       bundleIdentifier2 = [firstObject[7] bundleIdentifier];
       v10 = firstObject[1];
       v9 = firstObject[2];
-      v34 = 0;
+      v33 = 0;
       v11 = v9;
       v12 = v10;
-      v13 = [(HDAuthorizationManager *)self _authorizationRequestStatusForClientBundleIdentifier:bundleIdentifier2 writeTypes:v12 readTypes:v11 updateAuthorizationStatuses:1 error:&v34];
-      v14 = v34;
+      v13 = [(HDAuthorizationManager *)self _authorizationRequestStatusForClientBundleIdentifier:bundleIdentifier2 writeTypes:v12 readTypes:v11 updateAuthorizationStatuses:1 error:&v33];
+      v14 = v33;
 
       if (v13)
       {
         if (v13 == 1 && (v15 = firstObject[9]) != 0 && (v16 = *(self + 44), v15, (v16 & 1) == 0))
         {
           _HKInitializeLogging();
-          v22 = HKLogAuthorization();
-          v23 = os_log_type_enabled(v22, OS_LOG_TYPE_INFO);
+          v21 = HKLogAuthorization();
+          v22 = os_log_type_enabled(v21, OS_LOG_TYPE_INFO);
 
-          if (v23)
+          if (v22)
           {
-            v24 = HKLogAuthorization();
-            if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+            v23 = HKLogAuthorization();
+            if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
             {
               bundleIdentifier3 = [firstObject[7] bundleIdentifier];
               *buf = 138412290;
-              v36 = bundleIdentifier3;
-              _os_log_impl(&dword_228986000, v24, OS_LOG_TYPE_INFO, "prompting for authorization for %@", buf, 0xCu);
+              v35 = bundleIdentifier3;
+              _os_log_impl(&dword_228986000, v23, OS_LOG_TYPE_INFO, "prompting for authorization for %@", buf, 0xCu);
             }
           }
 
-          v26 = *(self + 136);
-          v31[0] = MEMORY[0x277D85DD0];
-          v31[1] = 3221225472;
-          v31[2] = __68__HDAuthorizationManager__queue_handleNextAuthorizationRequestGroup__block_invoke;
-          v31[3] = &unk_278613630;
-          v31[4] = self;
-          v32 = firstObject;
-          v33 = bundleIdentifier;
-          if ([(_HDAuthorizationRequestGroup *)v32 promptIfNecessaryWithTimeout:v31 completion:v26])
+          v25 = *(self + 136);
+          v30[0] = MEMORY[0x277D85DD0];
+          v30[1] = 3221225472;
+          v30[2] = __68__HDAuthorizationManager__queue_handleNextAuthorizationRequestGroup__block_invoke;
+          v30[3] = &unk_278613630;
+          v30[4] = self;
+          v31 = firstObject;
+          v32 = bundleIdentifier;
+          if ([(_HDAuthorizationRequestGroup *)v31 promptIfNecessaryWithTimeout:v30 completion:v25])
           {
             objc_storeStrong(v2, firstObject);
 
@@ -869,7 +849,7 @@ LABEL_19:
             {
               bundleIdentifier4 = [(_HDAuthorizationRequestGroup *)firstObject bundleIdentifier];
               *buf = 138412290;
-              v36 = bundleIdentifier4;
+              v35 = bundleIdentifier4;
               _os_log_debug_impl(&dword_228986000, v19, OS_LOG_TYPE_DEBUG, "NOT prompting for authorization for %@", buf, 0xCu);
 LABEL_29:
 
@@ -893,9 +873,9 @@ LABEL_18:
       {
         bundleIdentifier4 = [(_HDAuthorizationRequestGroup *)firstObject bundleIdentifier];
         *buf = 138543618;
-        v36 = bundleIdentifier4;
-        v37 = 2114;
-        v38 = v14;
+        v35 = bundleIdentifier4;
+        v36 = 2114;
+        v37 = v14;
         _os_log_error_impl(&dword_228986000, v19, OS_LOG_TYPE_ERROR, "failed to determine authorization request status for %{public}@: %{public}@", buf, 0x16u);
         goto LABEL_29;
       }
@@ -905,9 +885,6 @@ LABEL_16:
       goto LABEL_17;
     }
   }
-
-LABEL_20:
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelAuthorizationRequestsWithIdentifiers:(id)identifiers
@@ -926,7 +903,7 @@ LABEL_20:
 
 - (void)_queue_cancelAuthorizationRequestsWithIdentifiers:(uint64_t)identifiers
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3;
   if (identifiers)
@@ -937,58 +914,58 @@ LABEL_20:
       [currentHandler handleFailureInMethod:sel__queue_cancelAuthorizationRequestsWithIdentifiers_ object:identifiers file:@"HDAuthorizationManager.m" lineNumber:758 description:{@"Invalid parameter not satisfying: %@", @"identifiers != nil"}];
     }
 
-    v23 = v4;
+    v22 = v4;
     v5 = [MEMORY[0x277CBEB98] setWithArray:v4];
     v6 = [MEMORY[0x277CCA9B8] hk_error:100 description:@"Authorization request canceled"];
     [(_HDAuthorizationRequestGroup *)*(identifiers + 88) cancelRequestsWithIdentifiers:v5 error:v6];
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
     v29 = 0u;
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
     allValues = [*(identifiers + 72) allValues];
-    v8 = [allValues countByEnumeratingWithState:&v28 objects:v33 count:16];
+    v8 = [allValues countByEnumeratingWithState:&v27 objects:v32 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v29;
+      v10 = *v28;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v29 != v10)
+          if (*v28 != v10)
           {
             objc_enumerationMutation(allValues);
           }
 
-          [(_HDAuthorizationRequestGroup *)*(*(&v28 + 1) + 8 * i) cancelRequestsWithIdentifiers:v5 error:v6];
+          [(_HDAuthorizationRequestGroup *)*(*(&v27 + 1) + 8 * i) cancelRequestsWithIdentifiers:v5 error:v6];
         }
 
-        v9 = [allValues countByEnumeratingWithState:&v28 objects:v33 count:16];
+        v9 = [allValues countByEnumeratingWithState:&v27 objects:v32 count:16];
       }
 
       while (v9);
     }
 
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     allKeys = [*(identifiers + 128) allKeys];
-    v13 = [allKeys countByEnumeratingWithState:&v24 objects:v32 count:16];
+    v13 = [allKeys countByEnumeratingWithState:&v23 objects:v31 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v25;
+      v15 = *v24;
       do
       {
         for (j = 0; j != v14; ++j)
         {
-          if (*v25 != v15)
+          if (*v24 != v15)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v17 = *(*(&v24 + 1) + 8 * j);
+          v17 = *(*(&v23 + 1) + 8 * j);
           v18 = [*(identifiers + 128) objectForKeyedSubscript:v17];
           v19 = v18;
           if (v18)
@@ -1004,16 +981,14 @@ LABEL_20:
           }
         }
 
-        v14 = [allKeys countByEnumeratingWithState:&v24 objects:v32 count:16];
+        v14 = [allKeys countByEnumeratingWithState:&v23 objects:v31 count:16];
       }
 
       while (v14);
     }
 
-    v4 = v23;
+    v4 = v22;
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)beginAuthorizationDelegateTransactionWithSessionIdentifier:(id)identifier completion:(id)completion
@@ -1035,7 +1010,7 @@ LABEL_20:
 
 void __96__HDAuthorizationManager_beginAuthorizationDelegateTransactionWithSessionIdentifier_completion___block_invoke(uint64_t a1)
 {
-  v42[2] = *MEMORY[0x277D85DE8];
+  v41[2] = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   v2 = *(a1 + 48);
   v3 = *(a1 + 40);
@@ -1067,9 +1042,9 @@ void __96__HDAuthorizationManager_beginAuthorizationDelegateTransactionWithSessi
         *buf = MEMORY[0x277D85DD0];
         *&buf[8] = 3221225472;
         *&buf[16] = __76___HDObjectAuthorizationPromptSession_beginPromptTransactionWithCompletion___block_invoke;
-        v40 = &unk_278613658;
-        v11 = &v41;
-        v41 = v9;
+        v39 = &unk_278613658;
+        v11 = &v40;
+        v40 = v9;
       }
 
       else
@@ -1078,11 +1053,11 @@ void __96__HDAuthorizationManager_beginAuthorizationDelegateTransactionWithSessi
         *buf = MEMORY[0x277D85DD0];
         *&buf[8] = 3221225472;
         *&buf[16] = __76___HDObjectAuthorizationPromptSession_beginPromptTransactionWithCompletion___block_invoke_2;
-        v40 = &unk_278614008;
-        v11 = v42;
+        v39 = &unk_278614008;
+        v11 = v41;
         v18 = v9;
-        v41 = v5;
-        v42[0] = v18;
+        v40 = v5;
+        v41[0] = v18;
       }
 
       HKDispatchAsyncOnGlobalConcurrentQueue();
@@ -1118,9 +1093,9 @@ LABEL_36:
         *buf = MEMORY[0x277D85DD0];
         *&buf[8] = 3221225472;
         *&buf[16] = __83___HDHealthConceptAuthorizationPromptSession_beginPromptTransactionWithCompletion___block_invoke;
-        v40 = &unk_278613658;
-        v17 = &v41;
-        v41 = v15;
+        v39 = &unk_278613658;
+        v17 = &v40;
+        v40 = v15;
       }
 
       else
@@ -1129,11 +1104,11 @@ LABEL_36:
         *buf = MEMORY[0x277D85DD0];
         *&buf[8] = 3221225472;
         *&buf[16] = __83___HDHealthConceptAuthorizationPromptSession_beginPromptTransactionWithCompletion___block_invoke_2;
-        v40 = &unk_278614008;
-        v17 = v42;
+        v39 = &unk_278614008;
+        v17 = v41;
         v26 = v15;
-        v41 = v10;
-        v42[0] = v26;
+        v40 = v10;
+        v41[0] = v26;
       }
 
       HKDispatchAsyncOnGlobalConcurrentQueue();
@@ -1156,32 +1131,32 @@ LABEL_36:
             v29 = [*(v20 + 56) bundleIdentifier];
             if (!*(v20 + 64))
             {
-              v34 = [MEMORY[0x277CCA890] currentHandler];
-              [v34 handleFailureInMethod:sel_beginTransaction object:v20 file:@"HDAuthorizationManager.m" lineNumber:2425 description:{@"Invalid parameter not satisfying: %@", @"_promptSessionIdentifier != nil"}];
+              v33 = [MEMORY[0x277CCA890] currentHandler];
+              [v33 handleFailureInMethod:sel_beginTransaction object:v20 file:@"HDAuthorizationManager.m" lineNumber:2425 description:{@"Invalid parameter not satisfying: %@", @"_promptSessionIdentifier != nil"}];
             }
 
             if (*(v20 + 24) == 1)
             {
-              v35 = [MEMORY[0x277CCA890] currentHandler];
-              [v35 handleFailureInMethod:sel_beginTransaction object:v20 file:@"HDAuthorizationManager.m" lineNumber:2426 description:{@"Invalid parameter not satisfying: %@", @"!_inTransaction"}];
+              v34 = [MEMORY[0x277CCA890] currentHandler];
+              [v34 handleFailureInMethod:sel_beginTransaction object:v20 file:@"HDAuthorizationManager.m" lineNumber:2426 description:{@"Invalid parameter not satisfying: %@", @"!_inTransaction"}];
             }
 
             *(v20 + 24) = 1;
             [(_HDAuthorizationRequestGroup *)v20 _cancelTimeoutSource];
             _HKInitializeLogging();
-            v31 = HKLogAuthorization();
-            v32 = os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG);
+            v30 = HKLogAuthorization();
+            v31 = os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG);
 
-            if (v32)
+            if (v31)
             {
-              v33 = HKLogAuthorization();
-              if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
+              v32 = HKLogAuthorization();
+              if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138412546;
                 *&buf[4] = v29;
                 *&buf[12] = 2112;
                 *&buf[14] = v3;
-                _os_log_debug_impl(&dword_228986000, v33, OS_LOG_TYPE_DEBUG, "beginning authorization transaction for %@ (%@)", buf, 0x16u);
+                _os_log_debug_impl(&dword_228986000, v32, OS_LOG_TYPE_DEBUG, "beginning authorization transaction for %@ (%@)", buf, 0x16u);
               }
             }
 
@@ -1232,10 +1207,10 @@ LABEL_33:
 
     else
     {
-      v36 = MEMORY[0x277CCA9B8];
-      v37 = objc_opt_class();
-      v38 = [v3 UUIDString];
-      v27 = [v36 hk_errorForInvalidArgument:@"@" class:v37 selector:sel__queue_beginAuthorizationDelegateTransactionWithSessionIdentifier_completion_ format:{@"Failed to find authorization session with identifier %@", v38}];
+      v35 = MEMORY[0x277CCA9B8];
+      v36 = objc_opt_class();
+      v37 = [v3 UUIDString];
+      v27 = [v35 hk_errorForInvalidArgument:@"@" class:v36 selector:sel__queue_beginAuthorizationDelegateTransactionWithSessionIdentifier_completion_ format:{@"Failed to find authorization session with identifier %@", v37}];
     }
 
     v22 = 0;
@@ -1243,8 +1218,6 @@ LABEL_33:
   }
 
 LABEL_37:
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)endAuthorizationDelegateTransactionWithSessionIdentifier:(id)identifier error:(id)error
@@ -1272,7 +1245,7 @@ LABEL_37:
 
 void __89__HDAuthorizationManager_endAuthorizationDelegateTransactionWithSessionIdentifier_error___block_invoke(uint64_t a1)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   v2 = *(a1 + 48);
   v3 = *(a1 + 40);
@@ -1291,9 +1264,9 @@ void __89__HDAuthorizationManager_endAuthorizationDelegateTransactionWithSession
         v8 = HKLogAuthorization();
         if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
         {
-          v25 = 138412290;
-          v26 = v3;
-          _os_log_impl(&dword_228986000, v8, OS_LOG_TYPE_INFO, "Ending prompt session: %@", &v25, 0xCu);
+          v24 = 138412290;
+          v25 = v3;
+          _os_log_impl(&dword_228986000, v8, OS_LOG_TYPE_INFO, "Ending prompt session: %@", &v24, 0xCu);
         }
       }
 
@@ -1316,9 +1289,9 @@ void __89__HDAuthorizationManager_endAuthorizationDelegateTransactionWithSession
           v12 = HKLogAuthorization();
           if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
           {
-            v25 = 138412290;
-            v26 = v3;
-            _os_log_impl(&dword_228986000, v12, OS_LOG_TYPE_INFO, "Ending prompt session: %@", &v25, 0xCu);
+            v24 = 138412290;
+            v25 = v3;
+            _os_log_impl(&dword_228986000, v12, OS_LOG_TYPE_INFO, "Ending prompt session: %@", &v24, 0xCu);
           }
         }
 
@@ -1356,13 +1329,13 @@ void __89__HDAuthorizationManager_endAuthorizationDelegateTransactionWithSession
             v19 = HKLogAuthorization();
             if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
             {
-              v23 = [(_HDAuthorizationRequestGroup *)v14 bundleIdentifier];
-              v24 = [v3 UUIDString];
-              v25 = 138412546;
-              v26 = v23;
-              v27 = 2112;
-              v28 = v24;
-              _os_log_debug_impl(&dword_228986000, v19, OS_LOG_TYPE_DEBUG, "ending authorization transaction for %@ (%@)", &v25, 0x16u);
+              v22 = [(_HDAuthorizationRequestGroup *)v14 bundleIdentifier];
+              v23 = [v3 UUIDString];
+              v24 = 138412546;
+              v25 = v22;
+              v26 = 2112;
+              v27 = v23;
+              _os_log_debug_impl(&dword_228986000, v19, OS_LOG_TYPE_DEBUG, "ending authorization transaction for %@ (%@)", &v24, 0x16u);
             }
           }
 
@@ -1375,17 +1348,15 @@ void __89__HDAuthorizationManager_endAuthorizationDelegateTransactionWithSession
           v20 = HKLogAuthorization();
           if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
           {
-            v22 = [v3 UUIDString];
-            v25 = 138412290;
-            v26 = v22;
-            _os_log_error_impl(&dword_228986000, v20, OS_LOG_TYPE_ERROR, "cannot end transaction %@", &v25, 0xCu);
+            v21 = [v3 UUIDString];
+            v24 = 138412290;
+            v25 = v21;
+            _os_log_error_impl(&dword_228986000, v20, OS_LOG_TYPE_ERROR, "cannot end transaction %@", &v24, 0xCu);
           }
         }
       }
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resetAllAuthorizationRecordsWithCompletion:(id)completion
@@ -1451,7 +1422,7 @@ void __69__HDAuthorizationManager_resetAllAuthorizationRecordsWithCompletion___b
 
 void __69__HDAuthorizationManager_resetAllAuthorizationRecordsWithCompletion___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if ((a2 & 1) == 0)
   {
@@ -1459,9 +1430,9 @@ void __69__HDAuthorizationManager_resetAllAuthorizationRecordsWithCompletion___b
     v6 = HKLogAuthorization();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v9 = 138543362;
-      v10 = v5;
-      _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "Failed to reset all authorization settings: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v5;
+      _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "Failed to reset all authorization settings: %{public}@", &v8, 0xCu);
     }
   }
 
@@ -1472,8 +1443,6 @@ void __69__HDAuthorizationManager_resetAllAuthorizationRecordsWithCompletion___b
   }
 
   [*(a1 + 32) invalidate];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)openAppForAuthorization:(id)authorization sessionIdentifier:(id)identifier completion:(id)completion
@@ -1528,7 +1497,7 @@ void __79__HDAuthorizationManager_openAppForAuthorization_sessionIdentifier_comp
   v8 = *(a1 + 64);
   if (v8)
   {
-    v9 = [v8 copy];
+    v9 = objc_msgSend_copy(v8);
     v10 = _Block_copy(v9);
     [v7 addObject:v10];
   }
@@ -1613,49 +1582,45 @@ void __79__HDAuthorizationManager_openAppForAuthorization_sessionIdentifier_comp
 
 uint64_t __79__HDAuthorizationManager_openAppForAuthorization_sessionIdentifier_completion___block_invoke_3(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   [*(*(a1 + 32) + 16) removeObjectForKey:*(a1 + 40)];
-  v13 = 0u;
-  v14 = 0u;
+  v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
+  v8 = 0u;
+  v9 = 0u;
   v2 = *(a1 + 48);
-  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v12;
+    v5 = *v9;
     do
     {
       v6 = 0;
       do
       {
-        if (*v12 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(a1 + 64);
-        v8 = *(a1 + 56);
-        (*(*(*(&v11 + 1) + 8 * v6) + 16))(*(*(&v11 + 1) + 8 * v6));
+        (*(*(*(&v8 + 1) + 8 * v6) + 16))(*(*(&v8 + 1) + 8 * v6));
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
   }
 
-  result = [*(a1 + 48) removeAllObjects];
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 48) removeAllObjects];
 }
 
 void __79__HDAuthorizationManager_openAppForAuthorization_sessionIdentifier_completion___block_invoke_4(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v32[1] = *MEMORY[0x277D85DE8];
+  v31[1] = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a4;
   if (a3)
@@ -1665,52 +1630,50 @@ void __79__HDAuthorizationManager_openAppForAuthorization_sessionIdentifier_comp
 
   else
   {
-    v26 = 0;
-    v27 = &v26;
-    v28 = 0x2050000000;
+    v25 = 0;
+    v26 = &v25;
+    v27 = 0x2050000000;
     v9 = _MergedGlobals_203;
-    v29 = _MergedGlobals_203;
+    v28 = _MergedGlobals_203;
     if (!_MergedGlobals_203)
     {
-      v25[0] = MEMORY[0x277D85DD0];
-      v25[1] = 3221225472;
-      v25[2] = __getUIHealthAuthorizationActionClass_block_invoke;
-      v25[3] = &unk_278616E90;
-      v25[4] = &v26;
-      __getUIHealthAuthorizationActionClass_block_invoke(v25);
-      v9 = v27[3];
+      v24[0] = MEMORY[0x277D85DD0];
+      v24[1] = 3221225472;
+      v24[2] = __getUIHealthAuthorizationActionClass_block_invoke;
+      v24[3] = &unk_278616E90;
+      v24[4] = &v25;
+      __getUIHealthAuthorizationActionClass_block_invoke(v24);
+      v9 = v26[3];
     }
 
     v10 = v9;
-    _Block_object_dispose(&v26, 8);
+    _Block_object_dispose(&v25, 8);
     if (v9)
     {
       v11 = objc_alloc_init(v9);
       v12 = *MEMORY[0x277D0ABD0];
-      v30 = v11;
-      v31 = v12;
-      v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v30 count:1];
-      v32[0] = v13;
-      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:&v31 count:1];
+      v29 = v11;
+      v30 = v12;
+      v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v29 count:1];
+      v31[0] = v13;
+      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:&v30 count:1];
     }
 
     v14 = *(*(a1 + 32) + 56);
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __79__HDAuthorizationManager_openAppForAuthorization_sessionIdentifier_completion___block_invoke_5;
-    v19[3] = &unk_278621AA0;
-    v20 = *(a1 + 40);
-    v21 = v9;
-    v24 = *(a1 + 56);
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __79__HDAuthorizationManager_openAppForAuthorization_sessionIdentifier_completion___block_invoke_5;
+    v18[3] = &unk_278621AA0;
+    v19 = *(a1 + 40);
+    v20 = v9;
+    v23 = *(a1 + 56);
     v15 = *(a1 + 48);
     v16 = *(a1 + 32);
-    v22 = v15;
-    v23 = v16;
+    v21 = v15;
+    v22 = v16;
     v17 = v9;
-    dispatch_async(v14, v19);
+    dispatch_async(v14, v18);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __79__HDAuthorizationManager_openAppForAuthorization_sessionIdentifier_completion___block_invoke_5(uint64_t a1)
@@ -1753,18 +1716,16 @@ void __79__HDAuthorizationManager_openAppForAuthorization_sessionIdentifier_comp
 
 void __79__HDAuthorizationManager_openAppForAuthorization_sessionIdentifier_completion___block_invoke_7(void *a1)
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v2 = a1[4];
-  v8[0] = a1[5];
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+  v7[0] = a1[5];
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
   [(HDAuthorizationManager *)v2 _queue_cancelAuthorizationRequestsWithIdentifiers:v3];
 
   v4 = [MEMORY[0x277CCA9B8] hk_error:100 description:@"Application failed to prompt for authorization in a timely fashion."];
   v5 = [*(a1[4] + 72) objectForKeyedSubscript:a1[6]];
   v6 = [MEMORY[0x277CBEB98] setWithObject:a1[5]];
   [(_HDAuthorizationRequestGroup *)v5 cancelRequestsWithIdentifiers:v6 error:v4];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)applicationsUninstalledNotification:(id)notification
@@ -1788,35 +1749,35 @@ void __79__HDAuthorizationManager_openAppForAuthorization_sessionIdentifier_comp
 
 uint64_t __62__HDAuthorizationManager_applicationsUninstalledNotification___block_invoke(uint64_t a1)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   obj = *(a1 + 32);
-  v2 = [obj countByEnumeratingWithState:&v26 objects:v34 count:16];
+  v2 = [obj countByEnumeratingWithState:&v25 objects:v33 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v27;
+    v4 = *v26;
     do
     {
       v5 = 0;
       do
       {
-        if (*v27 != v4)
+        if (*v26 != v4)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v26 + 1) + 8 * v5);
+        v6 = *(*(&v25 + 1) + 8 * v5);
         v7 = *(a1 + 40);
-        v25 = 0;
+        v24 = 0;
         if (v7)
         {
           v8 = v6;
           WeakRetained = objc_loadWeakRetained((v7 + 48));
-          v10 = [HDAuthorizationEntity resetAuthorizationStatusesForBundleIdentifier:v8 profile:WeakRetained error:&v25];
+          v10 = [HDAuthorizationEntity resetAuthorizationStatusesForBundleIdentifier:v8 profile:WeakRetained error:&v24];
 
           v11 = @"Authorization reset";
           v12 = objc_loadWeakRetained((v7 + 48));
@@ -1829,7 +1790,7 @@ uint64_t __62__HDAuthorizationManager_applicationsUninstalledNotification___bloc
           v17 = [v16 xpcEventManager];
           [v17 authorizationChangedForBundleIdentifier:v14];
 
-          v18 = v25;
+          v18 = v24;
           v19 = v18;
           if (v10)
           {
@@ -1838,7 +1799,7 @@ uint64_t __62__HDAuthorizationManager_applicationsUninstalledNotification___bloc
             if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v31 = v14;
+              v30 = v14;
               _os_log_impl(&dword_228986000, v20, OS_LOG_TYPE_DEFAULT, "Reset authorization records for uninstalled application %@", buf, 0xCu);
             }
 
@@ -1854,9 +1815,9 @@ LABEL_14:
             if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412546;
-              v31 = v14;
-              v32 = 2114;
-              v33 = v19;
+              v30 = v14;
+              v31 = 2114;
+              v32 = v19;
               _os_log_error_impl(&dword_228986000, v20, OS_LOG_TYPE_ERROR, "Error resetting authorization records for uninstalled application %@: %{public}@", buf, 0x16u);
             }
 
@@ -1875,21 +1836,19 @@ LABEL_15:
       }
 
       while (v3 != v5);
-      v21 = [obj countByEnumeratingWithState:&v26 objects:v34 count:16];
+      v21 = [obj countByEnumeratingWithState:&v25 objects:v33 count:16];
       v3 = v21;
     }
 
     while (v21);
   }
 
-  result = [*(a1 + 48) invalidate];
-  v23 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 48) invalidate];
 }
 
 - (void)daemonReady:(id)ready
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_observationQueue);
   _builtInSchemas = [(HDAuthorizationManager *)self _builtInSchemas];
   v5 = [objc_alloc(MEMORY[0x277CBEB38]) initWithDictionary:_builtInSchemas];
@@ -1903,45 +1862,43 @@ LABEL_15:
   v10 = [pluginManager pluginsConformingToProtocol:&unk_283D713D8];
   allValues = [v10 allValues];
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v12 = allValues;
-  v13 = [v12 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v20;
+    v15 = *v19;
     do
     {
       v16 = 0;
       do
       {
-        if (*v20 != v15)
+        if (*v19 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        schemaProviderMap = [*(*(&v19 + 1) + 8 * v16) schemaProviderMap];
+        schemaProviderMap = [*(*(&v18 + 1) + 8 * v16) schemaProviderMap];
         [(NSMutableDictionary *)self->_schemaProviderMap hk_addEntriesFromNonNilDictionary:schemaProviderMap];
 
         ++v16;
       }
 
       while (v14 != v16);
-      v14 = [v12 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v14);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __134__HDAuthorizationManager__authorizationRequestStatusForClientBundleIdentifier_writeTypes_readTypes_updateAuthorizationStatuses_error___block_invoke(uint64_t *a1, uint64_t a2, uint64_t a3)
 {
-  v75 = *MEMORY[0x277D85DE8];
+  v74 = *MEMORY[0x277D85DE8];
   v4 = a1[4];
   v5 = a1[5];
   WeakRetained = objc_loadWeakRetained((a1[6] + 48));
@@ -1969,29 +1926,29 @@ uint64_t __134__HDAuthorizationManager__authorizationRequestStatusForClientBundl
     }
   }
 
-  v52 = a3;
-  v57 = [MEMORY[0x277CBEB38] dictionary];
+  v51 = a3;
   v56 = [MEMORY[0x277CBEB38] dictionary];
+  v55 = [MEMORY[0x277CBEB38] dictionary];
+  v61 = 0u;
   v62 = 0u;
   v63 = 0u;
   v64 = 0u;
-  v65 = 0u;
   obj = a1[5];
-  v59 = [obj countByEnumeratingWithState:&v62 objects:v74 count:16];
-  if (v59)
+  v58 = [obj countByEnumeratingWithState:&v61 objects:v73 count:16];
+  if (v58)
   {
-    v58 = *v63;
-    v54 = v7;
+    v57 = *v62;
+    v53 = v7;
     do
     {
-      for (i = 0; i != v59; ++i)
+      for (i = 0; i != v58; ++i)
       {
-        if (*v63 != v58)
+        if (*v62 != v57)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v62 + 1) + 8 * i);
+        v11 = *(*(&v61 + 1) + 8 * i);
         v12 = [v7 objectForKeyedSubscript:v11];
         v13 = [v12 authorizationRecord];
         v14 = [v8[7] containsObject:v11];
@@ -2012,9 +1969,9 @@ uint64_t __134__HDAuthorizationManager__authorizationRequestStatusForClientBundl
         v18 = [v11 parentType];
         v19 = [v7 objectForKeyedSubscript:v18];
 
-        v61 = v12;
+        v60 = v12;
         v20 = [v12 authorizationRecord];
-        v60 = v19;
+        v59 = v19;
         v21 = [v19 authorizationRecord];
         v22 = v20;
         v23 = [v22 readingEnabled];
@@ -2115,21 +2072,21 @@ LABEL_42:
         if (*(*(a1[11] + 8) + 24) == 1)
         {
           v34 = [MEMORY[0x277CCABB0] numberWithInteger:v30];
-          [v57 setObject:v34 forKeyedSubscript:v11];
+          [v56 setObject:v34 forKeyedSubscript:v11];
 
           v35 = [MEMORY[0x277CCABB0] numberWithInteger:v33];
-          [v56 setObject:v35 forKeyedSubscript:v11];
+          [v55 setObject:v35 forKeyedSubscript:v11];
 
-          v7 = v54;
-          v36 = v60;
-          v12 = v61;
+          v7 = v53;
+          v36 = v59;
+          v12 = v60;
 LABEL_58:
 
           goto LABEL_59;
         }
 
-        v7 = v54;
-        v12 = v61;
+        v7 = v53;
+        v12 = v60;
 LABEL_45:
         v37 = [v13 requestedSharing];
         v38 = [v13 requestedReading];
@@ -2148,9 +2105,9 @@ LABEL_45:
           }
 
           v41 = v14 ? v39 : v40;
-          [v57 setObject:&unk_283CB2520 forKeyedSubscript:v11];
+          [v56 setObject:&unk_283CB2520 forKeyedSubscript:v11];
           v42 = [MEMORY[0x277CCABB0] numberWithInteger:v41];
-          [v56 setObject:v42 forKeyedSubscript:v11];
+          [v55 setObject:v42 forKeyedSubscript:v11];
 
           *(*(v8[10] + 8) + 24) = 1;
           if ([MEMORY[0x277CCDD30] isAppleInternalInstall])
@@ -2161,13 +2118,13 @@ LABEL_45:
             {
               v43 = [v12 isAuthorizationDetermined];
               *buf = 138413058;
-              v67 = v11;
-              v68 = 1024;
-              v69 = v14;
-              v70 = 1024;
-              v71 = v15;
-              v72 = 1024;
-              v73 = v43;
+              v66 = v11;
+              v67 = 1024;
+              v68 = v14;
+              v69 = 1024;
+              v70 = v15;
+              v71 = 1024;
+              v72 = v43;
               _os_log_impl(&dword_228986000, v36, OS_LOG_TYPE_DEFAULT, "Authorization required. Type: %@, ReqWrite: %i, ReqRead: %i, AuthNotDetermined: %i", buf, 0x1Eu);
             }
 
@@ -2178,10 +2135,10 @@ LABEL_45:
 LABEL_59:
       }
 
-      v59 = [obj countByEnumeratingWithState:&v62 objects:v74 count:16];
+      v58 = [obj countByEnumeratingWithState:&v61 objects:v73 count:16];
     }
 
-    while (v59);
+    while (v58);
   }
 
   if ((*(*(v8[10] + 8) + 24) & 1) == 0 && *(*(v8[11] + 8) + 24) != 1 || *(v8 + 96) != 1)
@@ -2194,12 +2151,12 @@ LABEL_66:
   v44 = v8;
   v45 = objc_loadWeakRetained((v8[6] + 48));
   v46 = [v45 sourceManager];
-  v47 = [v46 localSourceForBundleIdentifier:v44[4] copyIfNecessary:1 error:v52];
+  v47 = [v46 localSourceForBundleIdentifier:v44[4] copyIfNecessary:1 error:v51];
 
   if (v47)
   {
     v48 = objc_loadWeakRetained((v44[6] + 48));
-    v49 = [HDAuthorizationEntity setAuthorizationStatuses:v57 authorizationRequests:v56 authorizationModes:MEMORY[0x277CBEC10] sourceEntity:v47 options:0 profile:v48 error:v52];
+    v49 = [HDAuthorizationEntity setAuthorizationStatuses:v56 authorizationRequests:v55 authorizationModes:MEMORY[0x277CBEC10] sourceEntity:v47 options:0 profile:v48 error:v51];
 
     if (!v49)
     {
@@ -2213,33 +2170,32 @@ LABEL_66:
 LABEL_67:
 
 LABEL_69:
-  v50 = *MEMORY[0x277D85DE8];
   return v47;
 }
 
 BOOL __134__HDAuthorizationManager__authorizationRequestStatusForClientBundleIdentifier_writeTypes_readTypes_updateAuthorizationStatuses_error___block_invoke_401(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   obj = *(a1 + 32);
-  v5 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v5 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v22;
+    v7 = *v21;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v22 != v7)
+        if (*v21 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v21 + 1) + 8 * i);
+        v9 = *(*(&v20 + 1) + 8 * i);
         WeakRetained = objc_loadWeakRetained((*(a1 + 40) + 48));
         v11 = [HDSampleEntity maxAnchorForSamplesWithType:v9 profile:WeakRetained error:a3];
 
@@ -2273,7 +2229,7 @@ LABEL_16:
         }
       }
 
-      v6 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v6 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
       v12 = 1;
       if (v6)
       {
@@ -2291,7 +2247,6 @@ LABEL_16:
 
 LABEL_17:
 
-  v17 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -2325,7 +2280,7 @@ void __68__HDAuthorizationManager__queue_handleNextAuthorizationRequestGroup__bl
 
 - (void)_queue_requestGroupDidFinishPrompting:(void *)prompting error:
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   v5 = a2;
   promptingCopy = prompting;
   v7 = promptingCopy;
@@ -2357,7 +2312,7 @@ LABEL_23:
       if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v52 = v7;
+        v51 = v7;
         _os_log_error_impl(&dword_228986000, v21, OS_LOG_TYPE_ERROR, "authorization request failed with error: %{public}@", buf, 0xCu);
       }
 
@@ -2368,9 +2323,9 @@ LABEL_23:
   }
 
   v9 = v8;
-  v50[0] = 0;
-  v10 = [v9 _fetchBundleWithError:v50];
-  v11 = v50[0];
+  v49[0] = 0;
+  v10 = [v9 _fetchBundleWithError:v49];
+  v11 = v49[0];
   if (!v10)
   {
     _HKInitializeLogging();
@@ -2379,9 +2334,9 @@ LABEL_23:
     {
       bundleIdentifier = [v9 bundleIdentifier];
       *buf = 138543618;
-      v52 = bundleIdentifier;
-      v53 = 2114;
-      v54 = v11;
+      v51 = bundleIdentifier;
+      v52 = 2114;
+      v53 = v11;
       _os_log_error_impl(&dword_228986000, v13, OS_LOG_TYPE_ERROR, "Failed to look up bundle for %{public}@: %{public}@", buf, 0x16u);
     }
 
@@ -2397,9 +2352,9 @@ LABEL_13:
     goto LABEL_22;
   }
 
-  *&v46 = v11;
-  v14 = [MEMORY[0x277CCD720] _objectTypesFromIdentifierArray:v13 error:&v46];
-  v15 = v46;
+  *&v45 = v11;
+  v14 = [MEMORY[0x277CCD720] _objectTypesFromIdentifierArray:v13 error:&v45];
+  v15 = v45;
 
   if (v14)
   {
@@ -2413,11 +2368,11 @@ LABEL_13:
     if (v16 >= *MEMORY[0x277CCC568])
     {
       bundleIdentifier2 = [(_HDAuthorizationRequestGroup *)v5 bundleIdentifier];
-      *&v42 = v15;
-      v40 = [self _hasRequiredAuthorizationStatusesForBundleIdentifier:bundleIdentifier2 requiredReadTypes:v14 error:&v42];
-      v19 = v42;
+      *&v41 = v15;
+      v39 = [self _hasRequiredAuthorizationStatusesForBundleIdentifier:bundleIdentifier2 requiredReadTypes:v14 error:&v41];
+      v19 = v41;
 
-      if (v40)
+      if (v39)
       {
         v20 = 0;
       }
@@ -2453,10 +2408,10 @@ LABEL_22:
   }
 
   _HKInitializeLogging();
-  v36 = HKLogAuthorization();
-  v37 = os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG);
+  v35 = HKLogAuthorization();
+  v36 = os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG);
 
-  if (!v37)
+  if (!v36)
   {
     v7 = 0;
     goto LABEL_26;
@@ -2482,57 +2437,57 @@ LABEL_26:
       *(v5 + 24) = 0;
     }
 
-    v48 = 0u;
-    v49 = 0u;
-    v46 = 0u;
     v47 = 0u;
+    v48 = 0u;
+    v45 = 0u;
+    v46 = 0u;
     v22 = v5[4];
-    v23 = [v22 countByEnumeratingWithState:&v46 objects:buf count:16];
+    v23 = [v22 countByEnumeratingWithState:&v45 objects:buf count:16];
     if (v23)
     {
       v24 = v23;
-      v25 = *v47;
+      v25 = *v46;
       do
       {
         for (i = 0; i != v24; ++i)
         {
-          if (*v47 != v25)
+          if (*v46 != v25)
           {
             objc_enumerationMutation(v22);
           }
 
-          [(_HDAuthorizationRequest *)*(*(&v46 + 1) + 8 * i) invokeCompletionHandlerWithSuccess:v7 error:?];
+          [(_HDAuthorizationRequest *)*(*(&v45 + 1) + 8 * i) invokeCompletionHandlerWithSuccess:v7 error:?];
         }
 
-        v24 = [v22 countByEnumeratingWithState:&v46 objects:buf count:16];
+        v24 = [v22 countByEnumeratingWithState:&v45 objects:buf count:16];
       }
 
       while (v24);
     }
 
-    v44 = 0u;
-    v45 = 0u;
-    v42 = 0u;
     v43 = 0u;
+    v44 = 0u;
+    v41 = 0u;
+    v42 = 0u;
     v27 = v5[5];
-    v28 = [v27 countByEnumeratingWithState:&v42 objects:v50 count:16];
+    v28 = [v27 countByEnumeratingWithState:&v41 objects:v49 count:16];
     if (v28)
     {
       v29 = v28;
-      v30 = *v43;
+      v30 = *v42;
       do
       {
         for (j = 0; j != v29; ++j)
         {
-          if (*v43 != v30)
+          if (*v42 != v30)
           {
             objc_enumerationMutation(v27);
           }
 
-          (*(*(*(&v42 + 1) + 8 * j) + 16))();
+          (*(*(*(&v41 + 1) + 8 * j) + 16))();
         }
 
-        v29 = [v27 countByEnumeratingWithState:&v42 objects:v50 count:16];
+        v29 = [v27 countByEnumeratingWithState:&v41 objects:v49 count:16];
       }
 
       while (v29);
@@ -2556,13 +2511,11 @@ LABEL_26:
   block[4] = self;
   dispatch_async(v34, block);
 LABEL_47:
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setObjectAuthorizationStatusContext:(id)context forObjectType:(id)type bundleIdentifier:(id)identifier completion:(id)completion
 {
-  v75 = *MEMORY[0x277D85DE8];
+  v74 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   typeCopy = type;
   identifierCopy = identifier;
@@ -2580,9 +2533,9 @@ LABEL_47:
       WeakRetained = 0;
     }
 
-    v73 = 0;
-    v16 = [v14 setObjectAuthorizationStatusContext:contextCopy forObjectType:typeCopy bundleIdentifier:identifierCopy profile:WeakRetained error:&v73];
-    v17 = v73;
+    v72 = 0;
+    v16 = [v14 setObjectAuthorizationStatusContext:contextCopy forObjectType:typeCopy bundleIdentifier:identifierCopy profile:WeakRetained error:&v72];
+    v17 = v72;
 
     completionCopy[2](completionCopy, v16, v17);
   }
@@ -2600,13 +2553,13 @@ LABEL_47:
     }
 
     sourceManager = [v18 sourceManager];
-    v72 = 0;
-    v20 = [sourceManager localSourceForBundleIdentifier:identifierCopy error:&v72];
-    v17 = v72;
+    v71 = 0;
+    v20 = [sourceManager localSourceForBundleIdentifier:identifierCopy error:&v71];
+    v17 = v71;
 
     if (v20)
     {
-      v59 = completionCopy;
+      v58 = completionCopy;
       if (self)
       {
         v21 = objc_loadWeakRetained(&self->_profile);
@@ -2617,41 +2570,41 @@ LABEL_47:
         v21 = 0;
       }
 
-      v71 = v17;
-      v22 = [v20 sourceUUIDWithProfile:v21 error:&v71];
-      v23 = v71;
+      v70 = v17;
+      v22 = [v20 sourceUUIDWithProfile:v21 error:&v70];
+      v23 = v70;
 
-      v64 = v22;
-      v58 = v20;
+      v63 = v22;
+      v57 = v20;
       if (v22)
       {
         selfCopy = self;
-        v61 = typeCopy;
-        v56 = v14;
-        v57 = identifierCopy;
-        v63 = objc_alloc_init(MEMORY[0x277CBEB18]);
+        v60 = typeCopy;
+        v55 = v14;
+        v56 = identifierCopy;
+        v62 = objc_alloc_init(MEMORY[0x277CBEB18]);
         objectAuthorizationStatuses = [contextCopy objectAuthorizationStatuses];
+        v66 = 0u;
         v67 = 0u;
         v68 = 0u;
         v69 = 0u;
-        v70 = 0u;
-        v65 = [objectAuthorizationStatuses countByEnumeratingWithState:&v67 objects:v74 count:16];
-        if (v65)
+        v64 = [objectAuthorizationStatuses countByEnumeratingWithState:&v66 objects:v73 count:16];
+        if (v64)
         {
           v25 = @"HKHealthConceptDomainHealthKit";
-          v26 = *v68;
+          v26 = *v67;
           v27 = v23;
-          v62 = *v68;
+          v61 = *v67;
           do
           {
-            for (i = 0; i != v65; ++i)
+            for (i = 0; i != v64; ++i)
             {
-              if (*v68 != v26)
+              if (*v67 != v26)
               {
                 objc_enumerationMutation(objectAuthorizationStatuses);
               }
 
-              v29 = *(*(&v67 + 1) + 8 * i);
+              v29 = *(*(&v66 + 1) + 8 * i);
               domain = [v29 domain];
               v31 = [domain isEqualToString:v25];
 
@@ -2679,22 +2632,22 @@ LABEL_47:
                 v27 = v40;
                 objectAuthorizationStatuses = v39;
                 v25 = v38;
-                v26 = v62;
-                v49 = [v44 initWithObjectUUID:v46 sourceUUID:v64 sessionUUID:sessionIdentifier status:v48 modificationDate:Current];
+                v26 = v61;
+                v49 = [v44 initWithObjectUUID:v46 sourceUUID:v63 sessionUUID:sessionIdentifier status:v48 modificationDate:Current];
 
-                [v63 addObject:v49];
+                [v62 addObject:v49];
               }
 
               else if (!v27)
               {
-                v27 = [MEMORY[0x277CCA9B8] hk_error:2000 format:{@"%@: Domain of the concept identifier does not match the right domain for the following object type %@:", objc_opt_class(), v61}];
+                v27 = [MEMORY[0x277CCA9B8] hk_error:2000 format:{@"%@: Domain of the concept identifier does not match the right domain for the following object type %@:", objc_opt_class(), v60}];
               }
             }
 
-            v65 = [objectAuthorizationStatuses countByEnumeratingWithState:&v67 objects:v74 count:16];
+            v64 = [objectAuthorizationStatuses countByEnumeratingWithState:&v66 objects:v73 count:16];
           }
 
-          while (v65);
+          while (v64);
         }
 
         else
@@ -2702,10 +2655,10 @@ LABEL_47:
           v27 = v23;
         }
 
-        completionCopy = v59;
-        if (!v63 && v27)
+        completionCopy = v58;
+        if (!v62 && v27)
         {
-          v59[2](v59, 0, v27);
+          v58[2](v58, 0, v27);
         }
 
         v50 = v27;
@@ -2723,24 +2676,24 @@ LABEL_47:
           v53 = 0;
         }
 
-        v66 = v27;
-        v54 = [HDObjectAuthorizationEntity setObjectAuthorizationRecords:v63 syncProvenance:0 syncIdentity:currentSyncIdentityPersistentID profile:v53 error:&v66];
-        v17 = v66;
+        v65 = v27;
+        v54 = [HDObjectAuthorizationEntity setObjectAuthorizationRecords:v62 syncProvenance:0 syncIdentity:currentSyncIdentityPersistentID profile:v53 error:&v65];
+        v17 = v65;
 
-        v59[2](v59, v54, v17);
-        typeCopy = v61;
-        v14 = v56;
-        identifierCopy = v57;
+        v58[2](v58, v54, v17);
+        typeCopy = v60;
+        v14 = v55;
+        identifierCopy = v56;
       }
 
       else
       {
-        v59[2](v59, 0, v23);
+        v58[2](v58, 0, v23);
         v17 = v23;
-        completionCopy = v59;
+        completionCopy = v58;
       }
 
-      v20 = v58;
+      v20 = v57;
     }
 
     else
@@ -2748,14 +2701,12 @@ LABEL_47:
       completionCopy[2](completionCopy, 0, v17);
     }
   }
-
-  v55 = *MEMORY[0x277D85DE8];
 }
 
 - (id)enqueueObjectAuthorizationRequestForBundleIdentifier:(id)identifier context:(id)context promptIfNeeded:(BOOL)needed authorizationNeededHandler:(id)handler completion:(id)completion
 {
   neededCopy = needed;
-  v126 = *MEMORY[0x277D85DE8];
+  v125 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   contextCopy = context;
   handlerCopy = handler;
@@ -2768,20 +2719,20 @@ LABEL_47:
   v21 = completionCopy;
   if (v16)
   {
-    v122.receiver = v16;
-    v122.super_class = _HDObjectAuthorizationRequest;
-    v16 = [(HDAuthorizationManager *)&v122 init];
+    v121.receiver = v16;
+    v121.super_class = _HDObjectAuthorizationRequest;
+    v16 = [(HDAuthorizationManager *)&v121 init];
     if (v16)
     {
       uUID = [MEMORY[0x277CCAD78] UUID];
       identifier = v16->_identifier;
       v16->_identifier = uUID;
 
-      v24 = [v19 copy];
+      v24 = objc_msgSend_copy(v19);
       samples = v16->_samples;
       v16->_samples = v24;
 
-      v26 = [v20 copy];
+      v26 = objc_msgSend_copy(v20);
       metadata = v16->_metadata;
       v16->_metadata = v26;
 
@@ -2803,37 +2754,37 @@ LABEL_47:
     [currentHandler handleFailureInMethod:a2 object:self file:@"HDAuthorizationManager.m" lineNumber:1326 description:{@"Invalid parameter not satisfying: %@", @"bundleIdentifier != nil"}];
 
     completionQueue = self->_completionQueue;
-    v119[0] = MEMORY[0x277D85DD0];
-    v119[1] = 3221225472;
-    v119[2] = __140__HDAuthorizationManager_enqueueObjectAuthorizationRequestForBundleIdentifier_context_promptIfNeeded_authorizationNeededHandler_completion___block_invoke;
-    v119[3] = &unk_278614008;
-    v121 = v21;
-    v79 = v16;
-    v120 = v79;
-    dispatch_async(completionQueue, v119);
+    v118[0] = MEMORY[0x277D85DD0];
+    v118[1] = 3221225472;
+    v118[2] = __140__HDAuthorizationManager_enqueueObjectAuthorizationRequestForBundleIdentifier_context_promptIfNeeded_authorizationNeededHandler_completion___block_invoke;
+    v118[3] = &unk_278614008;
+    v120 = v21;
+    v78 = v16;
+    v119 = v78;
+    dispatch_async(completionQueue, v118);
     if (v16)
     {
-      v80 = v79->_identifier;
+      v79 = v78->_identifier;
     }
 
     else
     {
-      v80 = 0;
+      v79 = 0;
     }
 
-    v47 = v80;
+    v47 = v79;
 
-    v45 = v121;
+    v45 = v120;
     goto LABEL_55;
   }
 
-  v90 = handlerCopy;
+  v89 = handlerCopy;
   WeakRetained = objc_loadWeakRetained(&self->_profile);
   sourceManager = [WeakRetained sourceManager];
-  v118 = 0;
-  v91 = identifierCopy;
-  v33 = [sourceManager localSourceForBundleIdentifier:identifierCopy error:&v118];
-  v34 = v118;
+  v117 = 0;
+  v90 = identifierCopy;
+  v33 = [sourceManager localSourceForBundleIdentifier:identifierCopy error:&v117];
+  v34 = v117;
 
   if (!v33)
   {
@@ -2842,11 +2793,11 @@ LABEL_47:
     block[1] = 3221225472;
     block[2] = __140__HDAuthorizationManager_enqueueObjectAuthorizationRequestForBundleIdentifier_context_promptIfNeeded_authorizationNeededHandler_completion___block_invoke_2;
     block[3] = &unk_278616488;
-    v117 = v21;
+    v116 = v21;
     v44 = v16;
-    v115 = v44;
+    v114 = v44;
     v45 = v34;
-    v116 = v45;
+    v115 = v45;
     dispatch_async(v43, block);
     if (v16)
     {
@@ -2858,17 +2809,17 @@ LABEL_47:
       v46 = 0;
     }
 
-    handlerCopy = v90;
+    handlerCopy = v89;
     v47 = v46;
 
-    v48 = v117;
+    v48 = v116;
     goto LABEL_54;
   }
 
   selfCopy = self;
-  v86 = v21;
+  v85 = v21;
   uUID2 = [MEMORY[0x277CCAD78] UUID];
-  v85 = uUID2;
+  v84 = uUID2;
   if ([contextCopy persistSession])
   {
     v36 = uUID2;
@@ -2887,37 +2838,37 @@ LABEL_47:
 
   samples2 = [contextCopy samples];
   v40 = objc_loadWeakRetained(&selfCopy->_profile);
-  v113 = v34;
-  v83 = v38;
-  v41 = [HDObjectAuthorizationEntity authorizationRecordsForSamples:samples2 sourceEntity:v33 sessionIdentifier:v38 profile:v40 error:&v113];
-  v84 = v113;
+  v112 = v34;
+  v82 = v38;
+  v41 = [HDObjectAuthorizationEntity authorizationRecordsForSamples:samples2 sourceEntity:v33 sessionIdentifier:v38 profile:v40 error:&v112];
+  v83 = v112;
 
   promptWithNoSamples = [contextCopy promptWithNoSamples];
-  v88 = v41;
+  v87 = v41;
   if (![contextCopy promptWithAllSamples])
   {
-    v111 = 0u;
-    v112 = 0u;
-    v109 = 0u;
     v110 = 0u;
+    v111 = 0u;
+    v108 = 0u;
+    v109 = 0u;
     v49 = v41;
-    v50 = [v49 countByEnumeratingWithState:&v109 objects:v125 count:16];
-    handlerCopy = v90;
+    v50 = [v49 countByEnumeratingWithState:&v108 objects:v124 count:16];
+    handlerCopy = v89;
     if (v50)
     {
       v51 = v50;
-      v81 = v33;
-      v52 = *v110;
+      v80 = v33;
+      v52 = *v109;
       while (2)
       {
         for (i = 0; i != v51; ++i)
         {
-          if (*v110 != v52)
+          if (*v109 != v52)
           {
             objc_enumerationMutation(v49);
           }
 
-          if (![*(*(&v109 + 1) + 8 * i) status])
+          if (![*(*(&v108 + 1) + 8 * i) status])
           {
             [(HDSmoothingTask *)v16 setTransaction:v49];
             promptWithNoSamples = 1;
@@ -2925,7 +2876,7 @@ LABEL_47:
           }
         }
 
-        v51 = [v49 countByEnumeratingWithState:&v109 objects:v125 count:16];
+        v51 = [v49 countByEnumeratingWithState:&v108 objects:v124 count:16];
         if (v51)
         {
           continue;
@@ -2935,11 +2886,11 @@ LABEL_47:
       }
 
 LABEL_29:
-      handlerCopy = v90;
-      v33 = v81;
+      handlerCopy = v89;
+      v33 = v80;
     }
 
-    v21 = v86;
+    v21 = v85;
     if (!promptWithNoSamples || !neededCopy)
     {
       goto LABEL_33;
@@ -2947,102 +2898,102 @@ LABEL_29:
 
 LABEL_32:
     queue = selfCopy->_queue;
-    v104[0] = MEMORY[0x277D85DD0];
-    v104[1] = 3221225472;
-    v104[2] = __140__HDAuthorizationManager_enqueueObjectAuthorizationRequestForBundleIdentifier_context_promptIfNeeded_authorizationNeededHandler_completion___block_invoke_3;
-    v104[3] = &unk_27861F9C0;
-    v104[4] = selfCopy;
-    v105 = identifierCopy;
-    v48 = v85;
-    v106 = v85;
-    v107 = v16;
-    v108 = handlerCopy;
-    dispatch_async(queue, v104);
+    v103[0] = MEMORY[0x277D85DD0];
+    v103[1] = 3221225472;
+    v103[2] = __140__HDAuthorizationManager_enqueueObjectAuthorizationRequestForBundleIdentifier_context_promptIfNeeded_authorizationNeededHandler_completion___block_invoke_3;
+    v103[3] = &unk_27861F9C0;
+    v103[4] = selfCopy;
+    v104 = identifierCopy;
+    v48 = v84;
+    v105 = v84;
+    v106 = v16;
+    v107 = handlerCopy;
+    dispatch_async(queue, v103);
 
     goto LABEL_51;
   }
 
   [(HDSmoothingTask *)v16 setTransaction:v41];
-  v21 = v86;
-  handlerCopy = v90;
+  v21 = v85;
+  handlerCopy = v89;
   if (neededCopy)
   {
     goto LABEL_32;
   }
 
 LABEL_33:
-  if (!v88)
+  if (!v87)
   {
-    v45 = v84;
+    v45 = v83;
     if (v16)
     {
-      (*(v21 + 2))(v21, v16->_identifier, 0, v84);
+      (*(v21 + 2))(v21, v16->_identifier, 0, v83);
       v74 = v16->_identifier;
     }
 
     else
     {
-      (*(v21 + 2))(v21, 0, 0, v84);
+      (*(v21 + 2))(v21, 0, 0, v83);
       v74 = 0;
     }
 
-    v48 = v85;
+    v48 = v84;
     goto LABEL_53;
   }
 
-  v82 = v33;
+  v81 = v33;
   v55 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v56 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v99 = 0u;
   v100 = 0u;
   v101 = 0u;
   v102 = 0u;
-  v103 = 0u;
   samples3 = [contextCopy samples];
-  v58 = [samples3 countByEnumeratingWithState:&v100 objects:v124 count:16];
+  v58 = [samples3 countByEnumeratingWithState:&v99 objects:v123 count:16];
   if (v58)
   {
     v59 = v58;
-    v60 = *v101;
+    v60 = *v100;
     do
     {
       for (j = 0; j != v59; ++j)
       {
-        if (*v101 != v60)
+        if (*v100 != v60)
         {
           objc_enumerationMutation(samples3);
         }
 
-        v62 = *(*(&v100 + 1) + 8 * j);
+        v62 = *(*(&v99 + 1) + 8 * j);
         uUID3 = [v62 UUID];
         [v56 setObject:v62 forKeyedSubscript:uUID3];
       }
 
-      v59 = [samples3 countByEnumeratingWithState:&v100 objects:v124 count:16];
+      v59 = [samples3 countByEnumeratingWithState:&v99 objects:v123 count:16];
     }
 
     while (v59);
   }
 
-  v98 = 0u;
-  v99 = 0u;
-  v96 = 0u;
   v97 = 0u;
-  v64 = v88;
-  v65 = [v64 countByEnumeratingWithState:&v96 objects:v123 count:16];
+  v98 = 0u;
+  v95 = 0u;
+  v96 = 0u;
+  v64 = v87;
+  v65 = [v64 countByEnumeratingWithState:&v95 objects:v122 count:16];
   if (v65)
   {
     v66 = v65;
-    v67 = *v97;
+    v67 = *v96;
     do
     {
       for (k = 0; k != v66; ++k)
       {
-        if (*v97 != v67)
+        if (*v96 != v67)
         {
           objc_enumerationMutation(v64);
         }
 
-        v69 = *(*(&v96 + 1) + 8 * k);
+        v69 = *(*(&v95 + 1) + 8 * k);
         if ([v69 status] == 2)
         {
           objectUUID = [v69 objectUUID];
@@ -3051,30 +3002,30 @@ LABEL_33:
         }
       }
 
-      v66 = [v64 countByEnumeratingWithState:&v96 objects:v123 count:16];
+      v66 = [v64 countByEnumeratingWithState:&v95 objects:v122 count:16];
     }
 
     while (v66);
   }
 
   v72 = selfCopy->_queue;
-  v92[0] = MEMORY[0x277D85DD0];
-  v92[1] = 3221225472;
-  v92[2] = __140__HDAuthorizationManager_enqueueObjectAuthorizationRequestForBundleIdentifier_context_promptIfNeeded_authorizationNeededHandler_completion___block_invoke_5;
-  v92[3] = &unk_278616488;
-  v21 = v86;
-  v95 = v86;
-  v93 = v16;
-  v94 = v55;
+  v91[0] = MEMORY[0x277D85DD0];
+  v91[1] = 3221225472;
+  v91[2] = __140__HDAuthorizationManager_enqueueObjectAuthorizationRequestForBundleIdentifier_context_promptIfNeeded_authorizationNeededHandler_completion___block_invoke_5;
+  v91[3] = &unk_278616488;
+  v21 = v85;
+  v94 = v85;
+  v92 = v16;
+  v93 = v55;
   v73 = v55;
-  dispatch_async(v72, v92);
+  dispatch_async(v72, v91);
 
-  handlerCopy = v90;
-  identifierCopy = v91;
-  v33 = v82;
-  v48 = v85;
+  handlerCopy = v89;
+  identifierCopy = v90;
+  v33 = v81;
+  v48 = v84;
 LABEL_51:
-  v45 = v84;
+  v45 = v83;
   if (v16)
   {
     v74 = v16->_identifier;
@@ -3090,8 +3041,6 @@ LABEL_53:
 
 LABEL_54:
 LABEL_55:
-
-  v75 = *MEMORY[0x277D85DE8];
 
   return v47;
 }
@@ -3152,7 +3101,7 @@ void __140__HDAuthorizationManager_enqueueObjectAuthorizationRequestForBundleIde
     if (v9)
     {
       objc_storeWeak(&v9->_profile, v8);
-      v10 = [v7 copy];
+      v10 = objc_msgSend_copy(v7);
       sessionIdentifier = v2->_sessionIdentifier;
       v2->_sessionIdentifier = v10;
 
@@ -3243,7 +3192,7 @@ uint64_t __140__HDAuthorizationManager_enqueueObjectAuthorizationRequestForBundl
 
 void __115__HDAuthorizationManager_handleObjectAuthorizationRequestsForBundleIdentifier_objectType_promptHandler_completion___block_invoke(uint64_t a1)
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   v2 = [*(*(a1 + 32) + 96) objectForKeyedSubscript:*(a1 + 40)];
   v3 = *(a1 + 32);
   v4 = *(a1 + 40);
@@ -3251,26 +3200,26 @@ void __115__HDAuthorizationManager_handleObjectAuthorizationRequestsForBundleIde
   if (v3)
   {
     dispatch_assert_queue_V2(*(v3 + 56));
-    v41 = 0u;
-    v42 = 0u;
-    v39 = 0u;
     v40 = 0u;
+    v41 = 0u;
+    v38 = 0u;
+    v39 = 0u;
     v6 = *(v3 + 104);
-    v7 = [v6 countByEnumeratingWithState:&v39 objects:buf count:16];
+    v7 = [v6 countByEnumeratingWithState:&v38 objects:buf count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v40;
+      v9 = *v39;
 LABEL_4:
       v10 = 0;
       while (1)
       {
-        if (*v40 != v9)
+        if (*v39 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [*(v3 + 104) objectForKeyedSubscript:*(*(&v39 + 1) + 8 * v10)];
+        v11 = [*(v3 + 104) objectForKeyedSubscript:*(*(&v38 + 1) + 8 * v10)];
         v12 = v11;
         if (v11)
         {
@@ -3284,7 +3233,7 @@ LABEL_4:
 
         if (v8 == ++v10)
         {
-          v8 = [v6 countByEnumeratingWithState:&v39 objects:buf count:16];
+          v8 = [v6 countByEnumeratingWithState:&v38 objects:buf count:16];
           if (v8)
           {
             goto LABEL_4;
@@ -3348,14 +3297,14 @@ LABEL_12:
       }
     }
 
-    v37[0] = MEMORY[0x277D85DD0];
-    v37[1] = 3221225472;
-    v37[2] = __115__HDAuthorizationManager_handleObjectAuthorizationRequestsForBundleIdentifier_objectType_promptHandler_completion___block_invoke_445;
-    v37[3] = &unk_278616020;
-    v37[4] = *(a1 + 32);
+    v36[0] = MEMORY[0x277D85DD0];
+    v36[1] = 3221225472;
+    v36[2] = __115__HDAuthorizationManager_handleObjectAuthorizationRequestsForBundleIdentifier_objectType_promptHandler_completion___block_invoke_445;
+    v36[3] = &unk_278616020;
+    v36[4] = *(a1 + 32);
     v20 = v2;
-    v38 = v20;
-    v21 = [v37 copy];
+    v37 = v20;
+    v21 = objc_msgSend_copy(v36);
     v22 = v20[5];
     v20[5] = v21;
 
@@ -3364,41 +3313,39 @@ LABEL_12:
     block[1] = 3221225472;
     block[2] = __115__HDAuthorizationManager_handleObjectAuthorizationRequestsForBundleIdentifier_objectType_promptHandler_completion___block_invoke_3;
     block[3] = &unk_278616488;
-    v36 = *(a1 + 64);
+    v35 = *(a1 + 64);
     v24 = v20;
-    v34 = v24;
-    v35 = *(a1 + 48);
+    v33 = v24;
+    v34 = *(a1 + 48);
     dispatch_async(v23, block);
     objc_initWeak(buf, v24);
     v25 = dispatch_time(0, (*(*(a1 + 32) + 136) * 1000000000.0));
-    v31[0] = MEMORY[0x277D85DD0];
-    v31[1] = 3221225472;
-    v31[2] = __115__HDAuthorizationManager_handleObjectAuthorizationRequestsForBundleIdentifier_objectType_promptHandler_completion___block_invoke_5;
-    v31[3] = &unk_278616F38;
-    objc_copyWeak(&v32, buf);
-    dispatch_after(v25, MEMORY[0x277D85CD0], v31);
-    objc_destroyWeak(&v32);
+    v30[0] = MEMORY[0x277D85DD0];
+    v30[1] = 3221225472;
+    v30[2] = __115__HDAuthorizationManager_handleObjectAuthorizationRequestsForBundleIdentifier_objectType_promptHandler_completion___block_invoke_5;
+    v30[3] = &unk_278616F38;
+    objc_copyWeak(&v31, buf);
+    dispatch_after(v25, MEMORY[0x277D85CD0], v30);
+    objc_destroyWeak(&v31);
     objc_destroyWeak(buf);
 
-    v26 = v38;
+    v26 = v37;
   }
 
   else
   {
     v27 = *(*(a1 + 32) + 64);
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = __115__HDAuthorizationManager_handleObjectAuthorizationRequestsForBundleIdentifier_objectType_promptHandler_completion___block_invoke_6;
-    v29[3] = &unk_278613658;
-    v30 = *(a1 + 56);
-    dispatch_async(v27, v29);
-    v26 = v30;
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __115__HDAuthorizationManager_handleObjectAuthorizationRequestsForBundleIdentifier_objectType_promptHandler_completion___block_invoke_6;
+    v28[3] = &unk_278613658;
+    v29 = *(a1 + 56);
+    dispatch_async(v27, v28);
+    v26 = v29;
   }
 
   v12 = 0;
 LABEL_29:
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __115__HDAuthorizationManager_handleObjectAuthorizationRequestsForBundleIdentifier_objectType_promptHandler_completion___block_invoke_445(uint64_t a1)
@@ -3490,39 +3437,39 @@ void __115__HDAuthorizationManager_handleObjectAuthorizationRequestsForBundleIde
 
 - (id)fetchAuthorizationContextForPromptSession:(id)session error:(id *)error
 {
-  v92 = *MEMORY[0x277D85DE8];
+  v91 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   activeObjectPromptSessionsBySessionIdentifier = self->_activeObjectPromptSessionsBySessionIdentifier;
-  v66 = sessionCopy;
+  v65 = sessionCopy;
   sessionIdentifier = [sessionCopy sessionIdentifier];
   v9 = [(NSMutableDictionary *)activeObjectPromptSessionsBySessionIdentifier objectForKeyedSubscript:sessionIdentifier];
 
-  v67 = v9;
+  v66 = v9;
   if (!v9)
   {
     goto LABEL_58;
   }
 
   v10 = *(v9 + 48);
-  bundleIdentifier = [v66 bundleIdentifier];
+  bundleIdentifier = [v65 bundleIdentifier];
   v12 = bundleIdentifier;
   if (v10 == bundleIdentifier)
   {
 
 LABEL_7:
-    v70 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    v79 = 0u;
-    v80 = 0u;
-    v77 = 0u;
+    v69 = objc_alloc_init(MEMORY[0x277CBEB38]);
     v78 = 0u;
+    v79 = 0u;
+    v76 = 0u;
+    v77 = 0u;
     obj = *(v9 + 16);
-    v71 = [obj countByEnumeratingWithState:&v77 objects:v89 count:16];
-    if (!v71)
+    v70 = [obj countByEnumeratingWithState:&v76 objects:v88 count:16];
+    if (!v70)
     {
 LABEL_54:
 
       v57 = objc_alloc(MEMORY[0x277CCD700]);
-      firstObject = [v67[2] firstObject];
+      firstObject = [v66[2] firstObject];
       v59 = firstObject;
       if (firstObject)
       {
@@ -3534,51 +3481,51 @@ LABEL_54:
         v60 = 0;
       }
 
-      v61 = [v57 initWithSamplesRequiringAuthorization:v70 metadata:v60];
+      v61 = [v57 initWithSamplesRequiringAuthorization:v69 metadata:v60];
 
       goto LABEL_63;
     }
 
-    v69 = *v78;
+    v68 = *v77;
 LABEL_9:
     v18 = 0;
     while (1)
     {
-      if (*v78 != v69)
+      if (*v77 != v68)
       {
         objc_enumerationMutation(obj);
       }
 
-      v19 = *(*(&v77 + 1) + 8 * v18);
+      v19 = *(*(&v76 + 1) + 8 * v18);
       if (!v19)
       {
         v33 = 0;
         goto LABEL_50;
       }
 
-      v72 = v18;
+      v71 = v18;
       v20 = objc_alloc_init(MEMORY[0x277CBEB38]);
+      v84 = 0u;
       v85 = 0u;
       v86 = 0u;
       v87 = 0u;
-      v88 = 0u;
-      v73 = v19;
-      v75 = *(v19 + 48);
-      v21 = [v75 countByEnumeratingWithState:&v85 objects:v91 count:16];
+      v72 = v19;
+      v74 = *(v19 + 48);
+      v21 = [v74 countByEnumeratingWithState:&v84 objects:v90 count:16];
       if (v21)
       {
         v22 = v21;
-        v23 = *v86;
+        v23 = *v85;
         do
         {
           for (i = 0; i != v22; ++i)
           {
-            if (*v86 != v23)
+            if (*v85 != v23)
             {
-              objc_enumerationMutation(v75);
+              objc_enumerationMutation(v74);
             }
 
-            v25 = *(*(&v85 + 1) + 8 * i);
+            v25 = *(*(&v84 + 1) + 8 * i);
             v26 = objc_alloc(MEMORY[0x277CCD710]);
             objectUUID = [v25 objectUUID];
             sourceUUID = [v25 sourceUUID];
@@ -3591,39 +3538,39 @@ LABEL_9:
             [v20 setObject:v31 forKeyedSubscript:objectUUID2];
           }
 
-          v22 = [v75 countByEnumeratingWithState:&v85 objects:v91 count:16];
+          v22 = [v74 countByEnumeratingWithState:&v84 objects:v90 count:16];
         }
 
         while (v22);
       }
 
       v33 = objc_alloc_init(MEMORY[0x277CBEB38]);
-      if (*(v73 + 8) != 1)
+      if (*(v72 + 8) != 1)
       {
         break;
       }
 
-      v83 = 0uLL;
-      v84 = 0uLL;
-      v81 = 0uLL;
       v82 = 0uLL;
-      v76 = *(v73 + 32);
-      v34 = [v76 countByEnumeratingWithState:&v81 objects:v90 count:16];
+      v83 = 0uLL;
+      v80 = 0uLL;
+      v81 = 0uLL;
+      v75 = *(v72 + 32);
+      v34 = [v75 countByEnumeratingWithState:&v80 objects:v89 count:16];
       if (v34)
       {
         v35 = v34;
-        v36 = *v82;
-        v18 = v72;
+        v36 = *v81;
+        v18 = v71;
         do
         {
           for (j = 0; j != v35; ++j)
           {
-            if (*v82 != v36)
+            if (*v81 != v36)
             {
-              objc_enumerationMutation(v76);
+              objc_enumerationMutation(v75);
             }
 
-            v38 = *(*(&v81 + 1) + 8 * j);
+            v38 = *(*(&v80 + 1) + 8 * j);
             uUID = [v38 UUID];
             v40 = [v20 objectForKeyedSubscript:uUID];
             if (v40)
@@ -3638,7 +3585,7 @@ LABEL_9:
             }
           }
 
-          v35 = [v76 countByEnumeratingWithState:&v81 objects:v90 count:16];
+          v35 = [v75 countByEnumeratingWithState:&v80 objects:v89 count:16];
         }
 
         while (v35);
@@ -3646,16 +3593,16 @@ LABEL_9:
       }
 
 LABEL_48:
-      v18 = v72;
+      v18 = v71;
 LABEL_49:
 
 LABEL_50:
-      [v70 addEntriesFromDictionary:v33];
+      [v69 addEntriesFromDictionary:v33];
 
-      if (++v18 == v71)
+      if (++v18 == v70)
       {
-        v56 = [obj countByEnumeratingWithState:&v77 objects:v89 count:16];
-        v71 = v56;
+        v56 = [obj countByEnumeratingWithState:&v76 objects:v88 count:16];
+        v70 = v56;
         if (!v56)
         {
           goto LABEL_54;
@@ -3665,30 +3612,30 @@ LABEL_50:
       }
     }
 
-    v83 = 0uLL;
-    v84 = 0uLL;
-    v81 = 0uLL;
     v82 = 0uLL;
-    v76 = *(v73 + 32);
-    v42 = [v76 countByEnumeratingWithState:&v81 objects:v90 count:16];
+    v83 = 0uLL;
+    v80 = 0uLL;
+    v81 = 0uLL;
+    v75 = *(v72 + 32);
+    v42 = [v75 countByEnumeratingWithState:&v80 objects:v89 count:16];
     if (!v42)
     {
       goto LABEL_48;
     }
 
     v43 = v42;
-    v74 = v33;
-    v44 = *v82;
+    v73 = v33;
+    v44 = *v81;
 LABEL_34:
     v45 = 0;
     while (1)
     {
-      if (*v82 != v44)
+      if (*v81 != v44)
       {
-        objc_enumerationMutation(v76);
+        objc_enumerationMutation(v75);
       }
 
-      v46 = *(*(&v81 + 1) + 8 * v45);
+      v46 = *(*(&v80 + 1) + 8 * v45);
       uUID2 = [v46 UUID];
       v48 = [v20 objectForKeyedSubscript:uUID2];
       if (!v48)
@@ -3709,11 +3656,11 @@ LABEL_34:
 LABEL_45:
       if (v43 == ++v45)
       {
-        v43 = [v76 countByEnumeratingWithState:&v81 objects:v90 count:16];
+        v43 = [v75 countByEnumeratingWithState:&v80 objects:v89 count:16];
         if (!v43)
         {
-          v18 = v72;
-          v33 = v74;
+          v18 = v71;
+          v33 = v73;
           goto LABEL_49;
         }
 
@@ -3726,27 +3673,27 @@ LABEL_41:
     v54 = [v20 objectForKeyedSubscript:uUID4];
     if (v54)
     {
-      [v74 setObject:v54 forKeyedSubscript:v46];
+      [v73 setObject:v54 forKeyedSubscript:v46];
     }
 
     else
     {
       v55 = objc_alloc_init(MEMORY[0x277CCD710]);
-      [v74 setObject:v55 forKeyedSubscript:v46];
+      [v73 setObject:v55 forKeyedSubscript:v46];
     }
 
     goto LABEL_45;
   }
 
-  bundleIdentifier2 = [v66 bundleIdentifier];
+  bundleIdentifier2 = [v65 bundleIdentifier];
   if (bundleIdentifier2)
   {
     v14 = bundleIdentifier2;
-    v15 = v67[6];
-    bundleIdentifier3 = [v66 bundleIdentifier];
+    v15 = v66[6];
+    bundleIdentifier3 = [v65 bundleIdentifier];
     v17 = [v15 isEqualToString:bundleIdentifier3];
 
-    v9 = v67;
+    v9 = v66;
     if ((v17 & 1) == 0)
     {
       goto LABEL_58;
@@ -3773,8 +3720,6 @@ LABEL_58:
 
   v61 = 0;
 LABEL_63:
-
-  v64 = *MEMORY[0x277D85DE8];
 
   return v61;
 }
@@ -3847,7 +3792,7 @@ LABEL_12:
 BOOL __98__HDAuthorizationManager_objectAuthorizationRecordForSource_objectUUID_resolveAssociations_error___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v4 = a1;
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v5 = [MEMORY[0x277CBEB58] setWithObject:*(a1 + 32)];
   if (*(v4 + 64) == 1)
   {
@@ -3867,28 +3812,28 @@ BOOL __98__HDAuthorizationManager_objectAuthorizationRecordForSource_objectUUID_
 
   if (v11)
   {
-    v36 = 0u;
-    v37 = 0u;
-    v34 = 0u;
     v35 = 0u;
-    v32 = v5;
+    v36 = 0u;
+    v33 = 0u;
+    v34 = 0u;
+    v31 = v5;
     v12 = v5;
-    v33 = [v12 countByEnumeratingWithState:&v34 objects:v38 count:16];
-    if (v33)
+    v32 = [v12 countByEnumeratingWithState:&v33 objects:v37 count:16];
+    if (v32)
     {
-      v13 = *v35;
+      v13 = *v34;
       v14 = off_27860F000;
       do
       {
         v15 = 0;
         do
         {
-          if (*v35 != v13)
+          if (*v34 != v13)
           {
             objc_enumerationMutation(v12);
           }
 
-          v16 = *(*(&v34 + 1) + 8 * v15);
+          v16 = *(*(&v33 + 1) + 8 * v15);
           v17 = v14[9];
           v18 = objc_loadWeakRetained((*(v4 + 40) + 48));
           v19 = [(__objc2_class *)v17 authorizationRecordsBySourceForSampleWithUUID:v16 profile:v18 error:a3];
@@ -3924,74 +3869,73 @@ BOOL __98__HDAuthorizationManager_objectAuthorizationRecordForSource_objectUUID_
           ++v15;
         }
 
-        while (v33 != v15);
-        v33 = [v12 countByEnumeratingWithState:&v34 objects:v38 count:16];
+        while (v32 != v15);
+        v32 = [v12 countByEnumeratingWithState:&v33 objects:v37 count:16];
       }
 
-      while (v33);
+      while (v32);
     }
 
-    v5 = v32;
+    v5 = v31;
   }
 
-  v30 = *MEMORY[0x277D85DE8];
   return v11 != 0;
 }
 
 - (void)performObjectAuthorizationForSource:(id)source samples:(id)samples associatedWithSamplesOfType:(id)type completion:(id)completion
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   sourceCopy = source;
   samplesCopy = samples;
   typeCopy = type;
   completionCopy = completion;
   selfCopy = self;
   WeakRetained = objc_loadWeakRetained(&self->_profile);
-  v47 = 0;
-  v15 = [HDObjectAuthorizationEntity authorizationStatusForSamplesOfType:typeCopy sourceEntity:sourceCopy profile:WeakRetained error:&v47];
-  v16 = v47;
+  v46 = 0;
+  v15 = [HDObjectAuthorizationEntity authorizationStatusForSamplesOfType:typeCopy sourceEntity:sourceCopy profile:WeakRetained error:&v46];
+  v16 = v46;
 
   if (v15)
   {
-    v34 = completionCopy;
-    v35 = typeCopy;
-    v36 = samplesCopy;
-    v37 = sourceCopy;
-    v38 = objc_alloc_init(MEMORY[0x277CBEB58]);
+    v33 = completionCopy;
+    v34 = typeCopy;
+    v35 = samplesCopy;
+    v36 = sourceCopy;
+    v37 = objc_alloc_init(MEMORY[0x277CBEB58]);
+    v42 = 0u;
     v43 = 0u;
     v44 = 0u;
     v45 = 0u;
-    v46 = 0u;
-    v33 = v15;
+    v32 = v15;
     v17 = v15;
-    v18 = [v17 countByEnumeratingWithState:&v43 objects:v52 count:16];
+    v18 = [v17 countByEnumeratingWithState:&v42 objects:v51 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v44;
+      v20 = *v43;
       do
       {
         v21 = 0;
         v22 = v16;
         do
         {
-          if (*v44 != v20)
+          if (*v43 != v20)
           {
             objc_enumerationMutation(v17);
           }
 
-          v23 = *(*(&v43 + 1) + 8 * v21);
+          v23 = *(*(&v42 + 1) + 8 * v21);
           if ([v23 status] == 2)
           {
             objectUUID = [v23 objectUUID];
             v25 = objc_loadWeakRetained(&selfCopy->_profile);
-            v42 = v22;
-            v26 = [HDAssociationEntity objectUUIDsAssociatedWithObjectUUID:objectUUID subObjectReference:0 excludeDeleted:1 profile:v25 error:&v42];
-            v16 = v42;
+            v41 = v22;
+            v26 = [HDAssociationEntity objectUUIDsAssociatedWithObjectUUID:objectUUID subObjectReference:0 excludeDeleted:1 profile:v25 error:&v41];
+            v16 = v41;
 
             if (v26)
             {
-              [v38 addObjectsFromArray:v26];
+              [v37 addObjectsFromArray:v26];
             }
 
             else
@@ -4006,9 +3950,9 @@ BOOL __98__HDAuthorizationManager_objectAuthorizationRecordForSource_objectUUID_
                 if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
                 {
                   *buf = 138412546;
-                  v49 = objectUUID;
-                  v50 = 2112;
-                  v51 = v16;
+                  v48 = objectUUID;
+                  v49 = 2112;
+                  v50 = v16;
                   _os_log_impl(&dword_228986000, v29, OS_LOG_TYPE_INFO, "[database] Error looking up samples associated with %@: %@", buf, 0x16u);
                 }
               }
@@ -4026,34 +3970,32 @@ BOOL __98__HDAuthorizationManager_objectAuthorizationRecordForSource_objectUUID_
         }
 
         while (v19 != v21);
-        v19 = [v17 countByEnumeratingWithState:&v43 objects:v52 count:16];
+        v19 = [v17 countByEnumeratingWithState:&v42 objects:v51 count:16];
       }
 
       while (v19);
     }
 
-    v40[0] = MEMORY[0x277D85DD0];
-    v40[1] = 3221225472;
-    v40[2] = __109__HDAuthorizationManager_performObjectAuthorizationForSource_samples_associatedWithSamplesOfType_completion___block_invoke;
-    v40[3] = &unk_278617BF0;
-    v41 = v38;
-    v30 = v38;
-    samplesCopy = v36;
-    v31 = [v36 hk_filter:v40];
-    completionCopy = v34;
-    (v34)[2](v34, v31, 0);
+    v39[0] = MEMORY[0x277D85DD0];
+    v39[1] = 3221225472;
+    v39[2] = __109__HDAuthorizationManager_performObjectAuthorizationForSource_samples_associatedWithSamplesOfType_completion___block_invoke;
+    v39[3] = &unk_278617BF0;
+    v40 = v37;
+    v30 = v37;
+    samplesCopy = v35;
+    v31 = [v35 hk_filter:v39];
+    completionCopy = v33;
+    (v33)[2](v33, v31, 0);
 
-    sourceCopy = v37;
-    typeCopy = v35;
-    v15 = v33;
+    sourceCopy = v36;
+    typeCopy = v34;
+    v15 = v32;
   }
 
   else
   {
     completionCopy[2](completionCopy, 0, v16);
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __109__HDAuthorizationManager_performObjectAuthorizationForSource_samples_associatedWithSamplesOfType_completion___block_invoke(uint64_t a1, void *a2)
@@ -4098,7 +4040,7 @@ uint64_t __109__HDAuthorizationManager_performObjectAuthorizationForSource_sampl
 
 void __154__HDAuthorizationManager_enqueueConceptAuthorizationRequestForBundleIdentifier_forObjectType_promptIfNeeded_authorizationNeededHandler_completionHandler___block_invoke(uint64_t a1)
 {
-  v80 = *MEMORY[0x277D85DE8];
+  v79 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   v2 = *(a1 + 40);
   v4 = *(a1 + 48);
@@ -4116,65 +4058,65 @@ void __154__HDAuthorizationManager_enqueueConceptAuthorizationRequestForBundleId
   {
     if (v9)
     {
-      v67 = v5;
+      v66 = v5;
       obj = v4;
-      v71 = v11;
-      v72 = v10;
-      v73 = v8;
-      v70 = objc_alloc_init(MEMORY[0x277CBEB58]);
+      v70 = v11;
+      v71 = v10;
+      v72 = v8;
+      v69 = objc_alloc_init(MEMORY[0x277CBEB58]);
       WeakRetained = objc_loadWeakRetained((v1 + 48));
       v15 = *MEMORY[0x277D10C08];
-      v78 = 0;
-      v16 = [HDUserDomainConceptAPIObjectManager allUserAnnotatedMedicationsFromUserDomainConceptsWithProfile:WeakRetained predicate:0 limit:v15 error:&v78];
-      v17 = v78;
+      v77 = 0;
+      v16 = [HDUserDomainConceptAPIObjectManager allUserAnnotatedMedicationsFromUserDomainConceptsWithProfile:WeakRetained predicate:0 limit:v15 error:&v77];
+      v17 = v77;
 
       v18 = objc_loadWeakRetained((v1 + 48));
       v19 = [v18 sourceManager];
-      v77 = v17;
-      v20 = [v19 localSourceForBundleIdentifier:v9 error:&v77];
-      v21 = v77;
+      v76 = v17;
+      v20 = [v19 localSourceForBundleIdentifier:v9 error:&v76];
+      v21 = v76;
 
-      v69 = v16;
+      v68 = v16;
       if (v20)
       {
         v22 = [v16 hk_map:&__block_literal_global_109];
         v23 = objc_loadWeakRetained((v1 + 48));
-        v76 = v21;
-        v65 = v22;
+        v75 = v21;
+        v64 = v22;
         v24 = v22;
         v25 = v20;
-        v26 = [HDConceptAuthorizationEntity authorizationRecordsForHealthConceptIdentifiers:v24 sourceEntity:v20 profile:v23 error:&v76];
-        v66 = v76;
+        v26 = [HDConceptAuthorizationEntity authorizationRecordsForHealthConceptIdentifiers:v24 sourceEntity:v20 profile:v23 error:&v75];
+        v65 = v75;
 
-        v64 = v26;
+        v63 = v26;
         if ([v26 count])
         {
-          v74[0] = MEMORY[0x277D85DD0];
-          v74[1] = 3221225472;
-          v74[2] = __170__HDAuthorizationManager__queue_enqueueConceptAuthorizationRequestWithIdentifier_bundleIdentifier_objectType_promptIfNeeded_authorizationNeededHandler_completionHandler___block_invoke_2;
-          v74[3] = &unk_278621BD8;
-          v75 = v26;
-          v27 = [v16 hk_filter:v74];
-          v28 = v70;
-          [v70 addObjectsFromArray:v27];
+          v73[0] = MEMORY[0x277D85DD0];
+          v73[1] = 3221225472;
+          v73[2] = __170__HDAuthorizationManager__queue_enqueueConceptAuthorizationRequestWithIdentifier_bundleIdentifier_objectType_promptIfNeeded_authorizationNeededHandler_completionHandler___block_invoke_2;
+          v73[3] = &unk_278621BD8;
+          v74 = v26;
+          v27 = [v16 hk_filter:v73];
+          v28 = v69;
+          [v69 addObjectsFromArray:v27];
         }
 
         else
         {
-          v28 = v70;
-          [v70 addObjectsFromArray:v16];
+          v28 = v69;
+          [v69 addObjectsFromArray:v16];
         }
 
-        v11 = v71;
-        v10 = v72;
-        v8 = v73;
-        if ([v28 count] || !objc_msgSend(v16, "count")) && (v67)
+        v11 = v70;
+        v10 = v71;
+        v8 = v72;
+        if ([v28 count] || !objc_msgSend(v16, "count")) && (v66)
         {
           v31 = [_HDHealthConceptAuthorizationRequest alloc];
           v32 = v28;
           v33 = v31;
           v34 = [v32 allObjects];
-          v35 = v73;
+          v35 = v72;
           v36 = v34;
           v37 = v13;
           v38 = &selRef_includesContext_;
@@ -4182,30 +4124,30 @@ void __154__HDAuthorizationManager_enqueueConceptAuthorizationRequestForBundleId
           {
             if (!v35)
             {
-              v61 = [MEMORY[0x277CCA890] currentHandler];
-              [v61 handleFailureInMethod:sel_initWithIdentifier_userAnnotatedMedications_completionHandler_ object:v33 file:@"HDAuthorizationManager.m" lineNumber:2698 description:{@"Invalid parameter not satisfying: %@", @"identifier != nil"}];
+              v60 = [MEMORY[0x277CCA890] currentHandler];
+              [v60 handleFailureInMethod:sel_initWithIdentifier_userAnnotatedMedications_completionHandler_ object:v33 file:@"HDAuthorizationManager.m" lineNumber:2698 description:{@"Invalid parameter not satisfying: %@", @"identifier != nil"}];
 
               v38 = &selRef_includesContext_;
             }
 
-            v79.receiver = v33;
-            v79.super_class = _HDHealthConceptAuthorizationRequest;
-            v39 = objc_msgSendSuper2(&v79, v38[28]);
+            v78.receiver = v33;
+            v78.super_class = _HDHealthConceptAuthorizationRequest;
+            v39 = objc_msgSendSuper2(&v78, v38[28]);
             v33 = v39;
             if (v39)
             {
               objc_storeStrong(&v39->_identifier, v2);
-              v40 = [v36 copy];
+              v40 = objc_msgSend_copy(v36);
               userAnnotatedMedications = v33->_userAnnotatedMedications;
               v33->_userAnnotatedMedications = v40;
 
-              v42 = [v37 copy];
+              v42 = objc_msgSend_copy(v37);
               completionHandler = v33->_completionHandler;
               v33->_completionHandler = v42;
             }
           }
 
-          v68 = v35;
+          v67 = v35;
           os_unfair_lock_lock((v1 + 40));
           v44 = [*(v1 + 112) objectForKeyedSubscript:v9];
           if (v44)
@@ -4216,19 +4158,19 @@ void __154__HDAuthorizationManager_enqueueConceptAuthorizationRequestForBundleId
           v45 = v38;
           v44 = [_HDHealthConceptAuthorizationPromptSession alloc];
           v46 = objc_loadWeakRetained((v1 + 48));
-          v62 = v9;
-          v47 = v68;
+          v61 = v9;
+          v47 = v67;
           v48 = v46;
           if (v44)
           {
-            v79.receiver = v44;
-            v79.super_class = _HDHealthConceptAuthorizationPromptSession;
-            v49 = objc_msgSendSuper2(&v79, v45 + 2936);
+            v78.receiver = v44;
+            v78.super_class = _HDHealthConceptAuthorizationPromptSession;
+            v49 = objc_msgSendSuper2(&v78, v45 + 2936);
             v44 = v49;
             if (v49)
             {
               objc_storeWeak(&v49->_profile, v48);
-              v50 = [v47 copy];
+              v50 = objc_msgSend_copy(v47);
               sessionIdentifier = v44->_sessionIdentifier;
               v44->_sessionIdentifier = v50;
 
@@ -4245,7 +4187,7 @@ void __154__HDAuthorizationManager_enqueueConceptAuthorizationRequestForBundleId
             }
           }
 
-          [*(v1 + 112) setObject:v44 forKeyedSubscript:v62];
+          [*(v1 + 112) setObject:v44 forKeyedSubscript:v61];
           if (v44)
           {
 LABEL_24:
@@ -4259,10 +4201,10 @@ LABEL_24:
           os_unfair_lock_unlock((v1 + 40));
           _HKInitializeLogging();
           v57 = HKLogAuthorization();
-          v10 = v72;
-          v8 = v73;
-          v11 = v71;
-          v58 = v65;
+          v10 = v71;
+          v8 = v72;
+          v11 = v70;
+          v58 = v64;
           if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
           {
             if (v33)
@@ -4275,26 +4217,26 @@ LABEL_24:
               identifier = 0;
             }
 
-            LODWORD(v79.receiver) = 138543362;
-            *(&v79.receiver + 4) = identifier;
-            _os_log_impl(&dword_228986000, v57, OS_LOG_TYPE_DEFAULT, "Added authorization request %{public}@", &v79, 0xCu);
+            LODWORD(v78.receiver) = 138543362;
+            *(&v78.receiver + 4) = identifier;
+            _os_log_impl(&dword_228986000, v57, OS_LOG_TYPE_DEFAULT, "Added authorization request %{public}@", &v78, 0xCu);
           }
 
-          if (v71)
+          if (v70)
           {
-            v71[2](v71, v68, 1, v66);
+            v70[2](v70, v67, 1, v65);
           }
 
-          v28 = v70;
+          v28 = v69;
         }
 
         else
         {
-          (v13)[2](v13, v73, 1, 0);
-          v58 = v65;
+          (v13)[2](v13, v72, 1, 0);
+          v58 = v64;
         }
 
-        v30 = v66;
+        v30 = v65;
       }
 
       else
@@ -4302,20 +4244,20 @@ LABEL_24:
         v25 = 0;
         if (v13)
         {
-          v8 = v73;
-          (v13)[2](v13, v73, 0, v21);
+          v8 = v72;
+          (v13)[2](v13, v72, 0, v21);
           v30 = v21;
         }
 
         else
         {
           v30 = v21;
-          v8 = v73;
+          v8 = v72;
         }
 
-        v11 = v71;
-        v10 = v72;
-        v28 = v70;
+        v11 = v70;
+        v10 = v71;
+        v28 = v69;
       }
     }
 
@@ -4325,8 +4267,6 @@ LABEL_24:
       (v13)[2](v13, v8, 0, v29);
     }
   }
-
-  v60 = *MEMORY[0x277D85DE8];
 }
 
 id __170__HDAuthorizationManager__queue_enqueueConceptAuthorizationRequestWithIdentifier_bundleIdentifier_objectType_promptIfNeeded_authorizationNeededHandler_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -4417,7 +4357,7 @@ BOOL __170__HDAuthorizationManager__queue_enqueueConceptAuthorizationRequestWith
 
 void __122__HDAuthorizationManager_handleHealthConceptAuthorizationRequestsForBundleIdentifier_objectType_promptHandler_completion___block_invoke(uint64_t a1)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock((*(a1 + 32) + 40));
   v2 = [*(*(a1 + 32) + 112) objectForKeyedSubscript:*(a1 + 40)];
   os_unfair_lock_unlock((*(a1 + 32) + 40));
@@ -4458,16 +4398,16 @@ LABEL_17:
         }
       }
 
-      v34[0] = MEMORY[0x277D85DD0];
-      v34[1] = 3221225472;
-      v34[2] = __122__HDAuthorizationManager_handleHealthConceptAuthorizationRequestsForBundleIdentifier_objectType_promptHandler_completion___block_invoke_468;
-      v34[3] = &unk_278616020;
-      v34[4] = *(a1 + 32);
+      v33[0] = MEMORY[0x277D85DD0];
+      v33[1] = 3221225472;
+      v33[2] = __122__HDAuthorizationManager_handleHealthConceptAuthorizationRequestsForBundleIdentifier_objectType_promptHandler_completion___block_invoke_468;
+      v33[3] = &unk_278616020;
+      v33[4] = *(a1 + 32);
       v17 = v2;
-      v35 = v17;
+      v34 = v17;
       if (v2)
       {
-        v18 = [v34 copy];
+        v18 = objc_msgSend_copy(v33);
         v19 = v17[5];
         v17[5] = v18;
       }
@@ -4478,36 +4418,36 @@ LABEL_17:
       block[1] = 3221225472;
       block[2] = __122__HDAuthorizationManager_handleHealthConceptAuthorizationRequestsForBundleIdentifier_objectType_promptHandler_completion___block_invoke_3;
       block[3] = &unk_278616488;
-      v33 = *(a1 + 64);
+      v32 = *(a1 + 64);
       v21 = v17;
-      v31 = v21;
-      v32 = *(a1 + 48);
+      v30 = v21;
+      v31 = *(a1 + 48);
       dispatch_async(v20, block);
       objc_initWeak(buf, v21);
       v22 = dispatch_time(0, (*(*(a1 + 32) + 136) * 1000000000.0));
-      v28[0] = MEMORY[0x277D85DD0];
-      v28[1] = 3221225472;
-      v28[2] = __122__HDAuthorizationManager_handleHealthConceptAuthorizationRequestsForBundleIdentifier_objectType_promptHandler_completion___block_invoke_5;
-      v28[3] = &unk_278616F38;
-      objc_copyWeak(&v29, buf);
-      dispatch_after(v22, MEMORY[0x277D85CD0], v28);
-      objc_destroyWeak(&v29);
+      v27[0] = MEMORY[0x277D85DD0];
+      v27[1] = 3221225472;
+      v27[2] = __122__HDAuthorizationManager_handleHealthConceptAuthorizationRequestsForBundleIdentifier_objectType_promptHandler_completion___block_invoke_5;
+      v27[3] = &unk_278616F38;
+      objc_copyWeak(&v28, buf);
+      dispatch_after(v22, MEMORY[0x277D85CD0], v27);
+      objc_destroyWeak(&v28);
       objc_destroyWeak(buf);
 
-      v23 = v35;
+      v23 = v34;
     }
 
     else
     {
       os_unfair_lock_unlock((*(a1 + 32) + 40));
       v24 = *(*(a1 + 32) + 64);
-      v26[0] = MEMORY[0x277D85DD0];
-      v26[1] = 3221225472;
-      v26[2] = __122__HDAuthorizationManager_handleHealthConceptAuthorizationRequestsForBundleIdentifier_objectType_promptHandler_completion___block_invoke_6;
-      v26[3] = &unk_278613658;
-      v27 = *(a1 + 56);
-      dispatch_async(v24, v26);
-      v23 = v27;
+      v25[0] = MEMORY[0x277D85DD0];
+      v25[1] = 3221225472;
+      v25[2] = __122__HDAuthorizationManager_handleHealthConceptAuthorizationRequestsForBundleIdentifier_objectType_promptHandler_completion___block_invoke_6;
+      v25[3] = &unk_278613658;
+      v26 = *(a1 + 56);
+      dispatch_async(v24, v25);
+      v23 = v26;
     }
 
     v11 = 0;
@@ -4516,12 +4456,12 @@ LABEL_17:
 
   dispatch_assert_queue_V2(*(v3 + 56));
   os_unfair_lock_lock((v3 + 40));
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
   v37 = 0u;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
   v5 = *(v3 + 120);
-  v6 = [v5 countByEnumeratingWithState:&v36 objects:buf count:16];
+  v6 = [v5 countByEnumeratingWithState:&v35 objects:buf count:16];
   if (!v6)
   {
 LABEL_12:
@@ -4531,17 +4471,17 @@ LABEL_12:
   }
 
   v7 = v6;
-  v8 = *v37;
+  v8 = *v36;
 LABEL_4:
   v9 = 0;
   while (1)
   {
-    if (*v37 != v8)
+    if (*v36 != v8)
     {
       objc_enumerationMutation(v5);
     }
 
-    v10 = [*(v3 + 120) objectForKeyedSubscript:*(*(&v36 + 1) + 8 * v9)];
+    v10 = [*(v3 + 120) objectForKeyedSubscript:*(*(&v35 + 1) + 8 * v9)];
     v11 = v10;
     if (v10)
     {
@@ -4555,7 +4495,7 @@ LABEL_4:
 
     if (v7 == ++v9)
     {
-      v7 = [v5 countByEnumeratingWithState:&v36 objects:buf count:16];
+      v7 = [v5 countByEnumeratingWithState:&v35 objects:buf count:16];
       if (v7)
       {
         goto LABEL_4;
@@ -4584,8 +4524,6 @@ LABEL_4:
 
   [(_HDHealthConceptAuthorizationPromptSession *)v12 addCompletion:?];
 LABEL_31:
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __122__HDAuthorizationManager_handleHealthConceptAuthorizationRequestsForBundleIdentifier_objectType_promptHandler_completion___block_invoke_468(uint64_t a1)
@@ -4740,7 +4678,7 @@ void __90__HDAuthorizationManager_fetchAuthorizationStatusesForHealthConceptIden
 
 - (id)fetchConceptAuthorizationContextForPromptSession:(id)session error:(id *)error
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   activeHealthConceptPromptSessionsBySessionIdentifier = self->_activeHealthConceptPromptSessionsBySessionIdentifier;
   sessionIdentifier = [sessionCopy sessionIdentifier];
@@ -4796,27 +4734,27 @@ LABEL_20:
   }
 
   v18 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
   v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   v19 = v9[2];
-  v20 = [v19 countByEnumeratingWithState:&v32 objects:v36 count:16];
+  v20 = [v19 countByEnumeratingWithState:&v31 objects:v35 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v33;
+    v22 = *v32;
     do
     {
       v23 = 0;
       do
       {
-        if (*v33 != v22)
+        if (*v32 != v22)
         {
           objc_enumerationMutation(v19);
         }
 
-        v24 = *(*(&v32 + 1) + 8 * v23);
+        v24 = *(*(&v31 + 1) + 8 * v23);
         if (v24)
         {
           v25 = *(v24 + 24);
@@ -4827,12 +4765,12 @@ LABEL_20:
           v25 = 0;
         }
 
-        [v18 addObjectsFromArray:{v25, v32}];
+        [v18 addObjectsFromArray:{v25, v31}];
         ++v23;
       }
 
       while (v21 != v23);
-      v26 = [v19 countByEnumeratingWithState:&v32 objects:v36 count:16];
+      v26 = [v19 countByEnumeratingWithState:&v31 objects:v35 count:16];
       v21 = v26;
     }
 
@@ -4841,8 +4779,6 @@ LABEL_20:
 
   v27 = [objc_alloc(MEMORY[0x277CCD1C0]) initWithConceptsRequiringAuthorization:v18];
 LABEL_25:
-
-  v30 = *MEMORY[0x277D85DE8];
 
   return v27;
 }
@@ -5072,7 +5008,7 @@ LABEL_7:
 
 - (id)diagnosticDescription
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   string = [MEMORY[0x277CCAB68] string];
   v4 = self->_promptingRequestGroup;
   if (v4)
@@ -5081,31 +5017,31 @@ LABEL_7:
     [string appendFormat:@"\n%@\n\n", v4];
   }
 
-  v5 = [(NSMutableArray *)self->_pendingRequestGroups copy];
+  v5 = objc_msgSend_copy(self->_pendingRequestGroups);
   if ([v5 count])
   {
     [string appendFormat:@"Pending request groups:"];
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v6 = v5;
-    v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v18;
+      v9 = *v17;
       do
       {
         v10 = 0;
         do
         {
-          if (*v18 != v9)
+          if (*v17 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v17 + 1) + 8 * v10);
+          v11 = *(*(&v16 + 1) + 8 * v10);
           bundleIdentifier = [(_HDAuthorizationRequestGroup *)v11 bundleIdentifier];
           if (v11)
           {
@@ -5117,13 +5053,13 @@ LABEL_7:
             v13 = 0;
           }
 
-          [string appendFormat:@"\n%@ (%lu requests)", bundleIdentifier, v13, v17];
+          [string appendFormat:@"\n%@ (%lu requests)", bundleIdentifier, v13, v16];
 
           ++v10;
         }
 
         while (v8 != v10);
-        v14 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v14 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
         v8 = v14;
       }
 
@@ -5132,8 +5068,6 @@ LABEL_7:
 
     [string appendFormat:@"\n\n"];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return string;
 }
@@ -5157,7 +5091,7 @@ LABEL_7:
 - (id)unitTest_schemaProviderMap
 {
   os_unfair_lock_lock(&self->_lock);
-  v3 = [(NSMutableDictionary *)self->_schemaProviderMap copy];
+  v3 = objc_msgSend_copy(self->_schemaProviderMap);
   os_unfair_lock_unlock(&self->_lock);
 
   return v3;
@@ -5366,7 +5300,7 @@ void __110__HDAuthorizationManager_filteredAuthorizedObjectsForClient_anchor_bun
 
 void __110__HDAuthorizationManager_filteredAuthorizedObjectsForClient_anchor_bundleIdentifier_clientEntitlements_error___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (objc_opt_respondsToSelector())
@@ -5399,35 +5333,31 @@ void __110__HDAuthorizationManager_filteredAuthorizedObjectsForClient_anchor_bun
 
     else
     {
-      v17 = *(a1 + 56);
-      v18 = [MEMORY[0x277CCA9B8] hk_error:2000 format:{@"%@: Provider %@: does not respond to the selector for the following object set %@:", objc_opt_class(), v5, v6}];
-      v19 = *(*(a1 + 72) + 8);
-      v16 = *(v19 + 40);
-      *(v19 + 40) = v18;
+      v17 = [MEMORY[0x277CCA9B8] hk_error:2000 format:{@"%@: Provider %@: does not respond to the selector for the following object set %@:", objc_opt_class(), v5, v6}];
+      v18 = *(*(a1 + 72) + 8);
+      v16 = *(v18 + 40);
+      *(v18 + 40) = v17;
     }
 
     _HKInitializeLogging();
     v12 = HKLogAuthorization();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v21 = *(a1 + 56);
       *buf = 138412802;
-      v25 = objc_opt_class();
-      v26 = 2112;
-      v27 = v5;
-      v28 = 2112;
-      v29 = v6;
-      v22 = v25;
+      v22 = objc_opt_class();
+      v23 = 2112;
+      v24 = v5;
+      v25 = 2112;
+      v26 = v6;
+      v19 = v22;
       _os_log_error_impl(&dword_228986000, v12, OS_LOG_TYPE_ERROR, "%@: Provider %@: does not respond to the selector for the following object set %@:", buf, 0x20u);
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (id)filterForClientUserAnnotatedMedications:(id)medications bundleIdentifier:(id)identifier clientEntitlements:(id)entitlements error:(id *)error
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   medicationsCopy = medications;
   identifierCopy = identifier;
   entitlementsCopy = entitlements;
@@ -5454,12 +5384,12 @@ void __110__HDAuthorizationManager_filteredAuthorizedObjectsForClient_anchor_bun
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412802;
-      v26 = objc_opt_class();
-      v27 = 2112;
-      v28 = v15;
-      v29 = 2112;
-      v30 = medicationsCopy;
-      v21 = v26;
+      v25 = objc_opt_class();
+      v26 = 2112;
+      v27 = v15;
+      v28 = 2112;
+      v29 = medicationsCopy;
+      v20 = v25;
       _os_log_error_impl(&dword_228986000, v18, OS_LOG_TYPE_ERROR, "%@: Provider %@: does not respond to the selector for the following objects %@:", buf, 0x20u);
     }
 
@@ -5468,45 +5398,43 @@ void __110__HDAuthorizationManager_filteredAuthorizedObjectsForClient_anchor_bun
 
   else
   {
-    [MEMORY[0x277CCA9B8] hk_assignError:error code:2000 format:{@"Unable to determine the authorization provider for the objects %@, returning nil", medicationsCopy, v23, v24}];
+    [MEMORY[0x277CCA9B8] hk_assignError:error code:2000 format:{@"Unable to determine the authorization provider for the objects %@, returning nil", medicationsCopy, v22, v23}];
   }
 
   v17 = 0;
 LABEL_11:
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
 
 - (void)fetchConceptAuthorizationRecordsForSource:(id)source completion:(id)completion
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   sourceCopy = source;
   completionCopy = completion;
   if (sourceCopy)
   {
     WeakRetained = objc_loadWeakRetained(&self->_profile);
     v10 = *MEMORY[0x277D10C08];
-    v33 = 0;
-    v11 = [HDUserDomainConceptAPIObjectManager allUserAnnotatedMedicationsFromUserDomainConceptsWithProfile:WeakRetained predicate:0 limit:v10 error:&v33];
-    v12 = v33;
+    v32 = 0;
+    v11 = [HDUserDomainConceptAPIObjectManager allUserAnnotatedMedicationsFromUserDomainConceptsWithProfile:WeakRetained predicate:0 limit:v10 error:&v32];
+    v12 = v32;
 
     if ([v11 count])
     {
       v13 = objc_loadWeakRetained(&self->_profile);
       sourceManager = [v13 sourceManager];
       bundleIdentifier = [sourceCopy bundleIdentifier];
-      v32 = v12;
-      v16 = [sourceManager localSourceForBundleIdentifier:bundleIdentifier copyIfNecessary:1 error:&v32];
-      v17 = v32;
+      v31 = v12;
+      v16 = [sourceManager localSourceForBundleIdentifier:bundleIdentifier copyIfNecessary:1 error:&v31];
+      v17 = v31;
 
       if (v16)
       {
         v18 = objc_loadWeakRetained(&self->_profile);
-        v31 = v17;
-        v19 = [HDConceptAuthorizationEntity authorizationRecordsForMedications:v11 sourceEntity:v16 profile:v18 error:&v31];
-        v12 = v31;
+        v30 = v17;
+        v19 = [HDConceptAuthorizationEntity authorizationRecordsForMedications:v11 sourceEntity:v16 profile:v18 error:&v30];
+        v12 = v30;
 
         _HKInitializeLogging();
         v20 = HKLogAuthorization();
@@ -5535,7 +5463,7 @@ LABEL_11:
             if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
             {
               *buf = 138543362;
-              v35 = v12;
+              v34 = v12;
               _os_log_impl(&dword_228986000, v27, OS_LOG_TYPE_INFO, "Failed to retrieve concept authorization records for medications with error: %{public}@", buf, 0xCu);
             }
           }
@@ -5567,10 +5495,10 @@ LABEL_11:
         v26 = HKLogAuthorization();
         if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
         {
-          v29 = objc_opt_class();
+          v28 = objc_opt_class();
           *buf = 138412290;
-          v35 = v29;
-          v30 = v29;
+          v34 = v28;
+          v29 = v28;
           _os_log_debug_impl(&dword_228986000, v26, OS_LOG_TYPE_DEBUG, "%@: The following client does not have any medications saved.", buf, 0xCu);
         }
       }
@@ -5584,24 +5512,20 @@ LABEL_11:
     v23 = [MEMORY[0x277CCA9B8] hk_errorForInvalidArgument:@"@" class:objc_opt_class() selector:a2 format:@"Source may not be nil"];
     (completionCopy)[2](completionCopy, 0, v23);
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_builtInSchemas
 {
-  v8[3] = *MEMORY[0x277D85DE8];
+  v7[3] = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(HDVisionPrescriptionAuthorizationSchemaProvider);
   v3 = objc_alloc_init(HDConceptAuthorizationSchemaProvider);
-  v7[0] = &unk_283CB3C78;
-  v7[1] = &unk_283CB3C90;
-  v8[0] = v2;
-  v8[1] = v3;
-  v7[2] = &unk_283CB3CA8;
-  v8[2] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v6[0] = &unk_283CB3C78;
+  v6[1] = &unk_283CB3C90;
+  v7[0] = v2;
+  v7[1] = v3;
+  v6[2] = &unk_283CB3CA8;
+  v7[2] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:3];
 
   return v4;
 }

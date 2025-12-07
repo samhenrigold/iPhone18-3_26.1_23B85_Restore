@@ -110,13 +110,13 @@ uint64_t __107__SBApplicationMultiwindowService_applicationServer_client_request
 
 void __107__SBApplicationMultiwindowService_applicationServer_client_requestShelfPresentationForSceneWithIdentifier___block_invoke_3(uint64_t a1, void *a2)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) switcherController];
   v5 = [v4 windowManagementContext];
 
   LOBYTE(v4) = [v5 isChamoisOrFlexibleWindowing];
-  v31 = a1;
+  v32 = a1;
   v6 = [*(a1 + 40) processHandle];
   v7 = [v6 bundleIdentifier];
 
@@ -131,32 +131,32 @@ void __107__SBApplicationMultiwindowService_applicationServer_client_requestShel
     goto LABEL_26;
   }
 
-  v27 = v5;
+  v28 = v5;
   v8 = [v3 previousLayoutState];
-  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
+  v37 = 0u;
   v9 = [v8 elements];
-  v32 = [v9 countByEnumeratingWithState:&v33 objects:v37 count:16];
-  if (v32)
+  v33 = [v9 countByEnumeratingWithState:&v34 objects:v38 count:16];
+  if (v33)
   {
-    v25 = v8;
-    v26 = v3;
-    v10 = *v34;
-    v28 = 0;
-    v29 = *v34;
-    v30 = v9;
+    v26 = v8;
+    v27 = v3;
+    v10 = *v35;
+    v29 = 0;
+    v30 = *v35;
+    v31 = v9;
 LABEL_6:
     v11 = 0;
     while (1)
     {
-      if (*v34 != v10)
+      if (*v35 != v10)
       {
         objc_enumerationMutation(v9);
       }
 
-      v12 = *(*(&v33 + 1) + 8 * v11);
+      v12 = *(*(&v34 + 1) + 8 * v11);
       v13 = [v12 workspaceEntity];
       v14 = [v13 applicationSceneEntity];
       v15 = [v14 application];
@@ -166,11 +166,11 @@ LABEL_6:
       {
         v18 = v7;
         v19 = [v16 sceneIdentifier];
-        v20 = [v19 isEqualToString:*(v31 + 48)];
+        v20 = [v19 isEqualToString:*(v32 + 48)];
 
         if (v20)
         {
-          v28 = [v12 layoutRole];
+          v29 = [v12 layoutRole];
           v21 = 1;
         }
 
@@ -180,8 +180,8 @@ LABEL_6:
         }
 
         v7 = v18;
-        v10 = v29;
-        v9 = v30;
+        v10 = v30;
+        v9 = v31;
       }
 
       else
@@ -195,10 +195,10 @@ LABEL_6:
         break;
       }
 
-      if (v32 == ++v11)
+      if (v33 == ++v11)
       {
-        v32 = [v9 countByEnumeratingWithState:&v33 objects:v37 count:16];
-        if (v32)
+        v33 = [v9 countByEnumeratingWithState:&v34 objects:v38 count:16];
+        if (v33)
         {
           goto LABEL_6;
         }
@@ -207,28 +207,28 @@ LABEL_6:
       }
     }
 
-    v3 = v26;
-    if (v28)
+    v3 = v27;
+    if (v29)
     {
-      v5 = v27;
-      if (v28 == 1)
+      v5 = v28;
+      if (v29 == 1)
       {
-        v22 = [v26 previousLayoutState];
-        v23 = [v22 elementWithRole:2];
-        if (v23)
+        v23 = [v27 previousLayoutState];
+        v24 = [v23 elementWithRole:2];
+        if (v24)
         {
-          [v26 setRequestedWindowPickerRole:1];
+          [v27 setRequestedWindowPickerRole:1];
         }
 
         else
         {
-          [v26 setRequestedAppExposeBundleID:v7];
+          [v27 setRequestedAppExposeBundleID:v7];
         }
       }
 
       else
       {
-        [v26 setRequestedWindowPickerRole:?];
+        [v27 setRequestedWindowPickerRole:?];
       }
 
       goto LABEL_26;
@@ -239,11 +239,11 @@ LABEL_6:
   {
   }
 
-  v24 = SBLogAppSwitcher();
-  v5 = v27;
-  if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
+  v25 = SBLogAppSwitcher(v22);
+  v5 = v28;
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
   {
-    __107__SBApplicationMultiwindowService_applicationServer_client_requestShelfPresentationForSceneWithIdentifier___block_invoke_3_cold_1(v7, v31, v24);
+    __107__SBApplicationMultiwindowService_applicationServer_client_requestShelfPresentationForSceneWithIdentifier___block_invoke_3_cold_1(v7, v32, v25);
   }
 
   [v3 setRequestedAppExposeBundleID:v7];

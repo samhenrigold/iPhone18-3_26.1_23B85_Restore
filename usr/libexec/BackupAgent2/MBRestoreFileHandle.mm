@@ -65,13 +65,13 @@ LABEL_7:
     v10 = MBGetDefaultLog();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
-      absolutePath = [(MBFile *)self->_file absolutePath];
+      v13 = objc_msgSend_absolutePath(self->_file);
       *buf = 138412290;
-      v40 = absolutePath;
+      v35 = v13;
       _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEBUG, "Not digested: %@", buf, 0xCu);
 
-      absolutePath2 = [(MBFile *)self->_file absolutePath];
-      v32 = absolutePath2;
+      v12 = objc_msgSend_absolutePath(self->_file);
+      _MBLog(@"Db", "Not digested: %@", v12);
       goto LABEL_8;
     }
 
@@ -93,15 +93,14 @@ LABEL_9:
     {
       if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
-        absolutePath3 = [(MBFile *)self->_file absolutePath];
+        v11 = objc_msgSend_absolutePath(self->_file);
         *buf = 138412290;
-        v40 = absolutePath3;
+        v35 = v11;
         _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "Digest matches: %@", buf, 0xCu);
 
-        absolutePath2 = [(MBFile *)self->_file absolutePath];
-        v32 = absolutePath2;
+        v12 = objc_msgSend_absolutePath(self->_file);
+        _MBLog(@"I ", "Digest matches: %@", v12);
 LABEL_8:
-        _MBLog();
 
         goto LABEL_9;
       }
@@ -112,25 +111,22 @@ LABEL_8:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       digest3 = [(MBFile *)self->_file digest];
-      absolutePath4 = [(MBFile *)self->_file absolutePath];
+      v19 = objc_msgSend_absolutePath(self->_file);
       fileID = [(MBFile *)self->_file fileID];
       *buf = 138413058;
-      v40 = final;
-      v41 = 2112;
-      v42 = digest3;
-      v43 = 2112;
-      v44 = absolutePath4;
-      v45 = 2112;
-      v46 = fileID;
+      v35 = final;
+      v36 = 2112;
+      v37 = digest3;
+      v38 = 2112;
+      v39 = v19;
+      v40 = 2112;
+      v41 = fileID;
       _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "File digest does not match manifest (%@ vs %@): %@ (%@)", buf, 0x2Au);
 
       digest4 = [(MBFile *)self->_file digest];
-      absolutePath5 = [(MBFile *)self->_file absolutePath];
-      [(MBFile *)self->_file fileID];
-      v38 = v36 = absolutePath5;
-      v32 = final;
-      v34 = digest4;
-      _MBLog();
+      fileID4 = objc_msgSend_absolutePath(self->_file);
+      fileID2 = [(MBFile *)self->_file fileID];
+      _MBLog(@"E ", "File digest does not match manifest (%@ vs %@): %@ (%@)", final, digest4, fileID4, fileID2);
 
       goto LABEL_14;
     }
@@ -141,57 +137,53 @@ LABEL_8:
     v10 = MBGetDefaultLog();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      absolutePath6 = [(MBFile *)self->_file absolutePath];
-      fileID2 = [(MBFile *)self->_file fileID];
+      v14 = objc_msgSend_absolutePath(self->_file);
+      fileID3 = [(MBFile *)self->_file fileID];
       *buf = 138412546;
-      v40 = absolutePath6;
-      v41 = 2112;
-      v42 = fileID2;
+      v35 = v14;
+      v36 = 2112;
+      v37 = fileID3;
       _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "Digest missing from file: %@ (%@)", buf, 0x16u);
 
-      digest4 = [(MBFile *)self->_file absolutePath];
-      absolutePath5 = [(MBFile *)self->_file fileID];
-      v32 = digest4;
-      v34 = absolutePath5;
-      _MBLog();
+      digest4 = objc_msgSend_absolutePath(self->_file);
+      fileID4 = [(MBFile *)self->_file fileID];
+      _MBLog(@"E ", "Digest missing from file: %@ (%@)", digest4, fileID4);
 LABEL_14:
     }
   }
 
   [(MBDriveRestoreEngine *)self->_engine digestDidNotMatchForFile:self->_file];
 LABEL_16:
-  [NSDate timeIntervalSinceReferenceDate:v32];
-  v22 = v21;
+  +[NSDate timeIntervalSinceReferenceDate];
+  v23 = v22;
   startTime = self->_startTime;
-  v24 = [(MBFile *)self->_file size];
-  absolutePath7 = [(MBFile *)self->_file absolutePath];
+  v25 = [(MBFile *)self->_file size];
+  v26 = objc_msgSend_absolutePath(self->_file);
 
-  if (absolutePath7)
+  if (v26)
   {
-    v26 = MBGetDefaultLog();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+    v27 = MBGetDefaultLog();
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
     {
-      v27 = v22 - startTime;
-      absolutePath8 = [(MBFile *)self->_file absolutePath];
+      v28 = v23 - startTime;
+      v29 = objc_msgSend_absolutePath(self->_file);
       *buf = 138412802;
-      v40 = absolutePath8;
-      v41 = 2048;
-      v42 = v24;
-      v43 = 2048;
-      v44 = (v24 / v27);
-      _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_INFO, "Downloaded: %@ (%{bytes}llu at %{bytes}llu/s)", buf, 0x20u);
+      v35 = v29;
+      v36 = 2048;
+      v37 = v25;
+      v38 = 2048;
+      v39 = (v25 / v28);
+      _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_INFO, "Downloaded: %@ (%{bytes}llu at %{bytes}llu/s)", buf, 0x20u);
 
-      [(MBFile *)self->_file absolutePath];
-      v35 = v24;
-      v33 = v37 = (v24 / v27);
-      _MBLog();
+      v30 = objc_msgSend_absolutePath(self->_file);
+      _MBLog(@"I ", "Downloaded: %@ (%{bytes}llu at %{bytes}llu/s)", v30, v25, (v25 / v28));
     }
   }
 
-  v29 = [(MBFileHandleProxy *)self fileHandle:v33];
-  v30 = [v29 closeWithError:error];
+  fileHandle = [(MBFileHandleProxy *)self fileHandle];
+  v32 = [fileHandle closeWithError:error];
 
-  return v30;
+  return v32;
 }
 
 @end

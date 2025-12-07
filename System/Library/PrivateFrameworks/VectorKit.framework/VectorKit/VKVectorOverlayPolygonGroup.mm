@@ -282,9 +282,9 @@
 - (VKVectorOverlayPolygonGroup)initWithPolygons:(id)polygons
 {
   polygonsCopy = polygons;
-  v9.receiver = self;
-  v9.super_class = VKVectorOverlayPolygonGroup;
-  v5 = [(VKVectorOverlayData *)&v9 init];
+  v10.receiver = self;
+  v10.super_class = VKVectorOverlayPolygonGroup;
+  v5 = [(VKVectorOverlayData *)&v10 init];
   if (v5)
   {
     v6 = [polygonsCopy copy];
@@ -292,7 +292,7 @@
     v5->_polygons = v6;
 
     v5->_miterLimit = 10.0;
-    _ZNSt3__115allocate_sharedB8nn200100IN2md24PolygonOverlayRenderable5StyleENS_9allocatorIS3_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_();
+    _ZNSt3__115allocate_sharedB8nn200100IN2md24PolygonOverlayRenderable5StyleENS_9allocatorIS3_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_(&v9);
   }
 
   return 0;

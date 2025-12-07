@@ -434,7 +434,7 @@ LABEL_14:
 
 - (void)setGimbalLockVector:(SCNVector3)vector
 {
-  v3 = scn_default_log();
+  v3 = scn_default_log(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     [SCNCameraNavigationController setGimbalLockVector:v3];
@@ -524,10 +524,10 @@ LABEL_14:
   sceneRef = [(objc_class *)self[1].super.isa sceneRef];
   if (sceneRef)
   {
-    v4 = sceneRef;
-    C3DSceneLock(sceneRef);
+    v5 = sceneRef;
+    C3DSceneLock(sceneRef, v4);
     C3DRemoveSceneRef([(objc_class *)self[1].super.isa nodeRef], [(objc_class *)self[1].super.isa sceneRef]);
-    C3DSceneUnlock(v4);
+    C3DSceneUnlock(v5, v6);
   }
 
   [(objc_class *)self[1].super.isa removeFromParentNode];
@@ -573,17 +573,17 @@ LABEL_14:
 
   if (v4 == isa)
   {
-    memset(&v22, 0, sizeof(v22));
+    memset(&v26, 0, sizeof(v26));
 LABEL_22:
     presentationNode2 = [(objc_class *)v4 presentationNode];
     if (presentationNode2)
     {
-      [presentationNode2 worldTransform];
+      objc_msgSend_worldTransform(presentationNode2);
     }
 
     else
     {
-      memset(&v22, 0, sizeof(v22));
+      memset(&v26, 0, sizeof(v26));
     }
 
     goto LABEL_25;
@@ -635,33 +635,33 @@ LABEL_16:
   [(objc_class *)self[1].super.isa removeAllActions];
   [(objc_class *)self[1].super.isa setConstraints:0];
   [SCNTransaction setImmediateMode:v12];
-  memset(&v22, 0, sizeof(v22));
+  memset(&v26, 0, sizeof(v26));
   if (v4)
   {
     goto LABEL_22;
   }
 
-  v22 = SCNMatrix4Identity;
+  v26 = SCNMatrix4Identity;
 LABEL_25:
-  C3DMatrix4x4FromSCNMatrix4(v21, &v22);
-  if (fabs(C3DMatrix4x4Determinant3x3(v21) + -1.0) > 0.00001)
+  C3DMatrix4x4FromSCNMatrix4(v25, &v26);
+  if (fabs(C3DMatrix4x4Determinant3x3(v25) + -1.0) > 0.00001)
   {
-    v18[0].i32[2] = 0;
-    v18[0].i64[0] = 0;
-    v20.i32[2] = 0;
-    v20.i64[0] = 0;
-    v19 = 0uLL;
-    C3DMatrix4x4GetAffineTransforms(v21, v18, &v19, &v20);
-    C3DQuaternionNormalize(&v19);
-    C3DMatrix4x4MakeAffine(v21, v18, &v19, &v20);
-    C3DMatrix4x4ToSCNMatrix4(v21, &v22);
+    v22[0].i32[2] = 0;
+    v22[0].i64[0] = 0;
+    v24.i32[2] = 0;
+    v24.i64[0] = 0;
+    v23 = 0uLL;
+    C3DMatrix4x4GetAffineTransforms(v25, v22, &v23, &v24);
+    C3DQuaternionNormalize(&v23);
+    C3DMatrix4x4MakeAffine(v25, v22, &v23, &v24);
+    C3DMatrix4x4ToSCNMatrix4(v25, &v26);
   }
 
-  v18[0] = *&v22.m11;
-  v18[1] = *&v22.m21;
-  v18[2] = *&v22.m31;
-  v18[3] = *&v22.m41;
-  [(objc_class *)self[1].super.isa setTransform:v18];
+  v22[0] = *&v26.m11;
+  v22[1] = *&v26.m21;
+  v22[2] = *&v26.m31;
+  v22[3] = *&v26.m41;
+  [(objc_class *)self[1].super.isa setTransform:v22];
   [(objc_class *)self[1].super.isa setName:@"kSCNFreeViewCameraName"];
   [-[objc_class camera](self[1].super.isa "camera")];
   if ([(SCNView *)[(SCNCameraNavigationController *)self view] _showsAuthoringEnvironment])
@@ -675,11 +675,12 @@ LABEL_25:
   if (sceneRef)
   {
     v17 = sceneRef;
-    if (!C3DGetSceneRef([(objc_class *)self[1].super.isa nodeRef]))
+    nodeRef = [(objc_class *)self[1].super.isa nodeRef];
+    if (!C3DGetSceneRef(nodeRef, v19))
     {
-      C3DSceneLock(v17);
+      C3DSceneLock(v17, v20);
       C3DAddSceneRef([(objc_class *)self[1].super.isa nodeRef], v17);
-      C3DSceneUnlock(v17);
+      C3DSceneUnlock(v17, v21);
     }
   }
 }
@@ -1007,10 +1008,10 @@ LABEL_25:
     sceneRef = [(SCNScene *)[(SCNView *)[(SCNCameraNavigationController *)self view] scene] sceneRef];
     if (sceneRef)
     {
-      v7 = sceneRef;
-      C3DSceneLock(sceneRef);
+      v8 = sceneRef;
+      C3DSceneLock(sceneRef, v7);
       [(SCNCameraController *)[(SCNCameraNavigationController *)self cameraController] updateInertiaAtTime:time];
-      C3DSceneUnlock(v7);
+      C3DSceneUnlock(v8, v9);
     }
 
     else
@@ -1540,23 +1541,23 @@ LABEL_12:
   return *(sphere + 3) >= 0.0;
 }
 
-uint64_t __84__SCNCameraNavigationController__computeBoundingSphereOmittingFloorsForNode_sphere___block_invoke(uint64_t a1, float32x4_t *a2)
+uint64_t __84__SCNCameraNavigationController__computeBoundingSphereOmittingFloorsForNode_sphere___block_invoke(uint64_t a1, uint64_t a2)
 {
-  if (C3DNodeIsHidden(a2))
+  if (C3DNodeIsHidden(a2, a2))
   {
     return 1;
   }
 
-  if (!C3DNodeGetFloor(a2))
+  if (!C3DNodeGetFloor(a2, v4))
   {
-    Geometry = C3DNodeGetGeometry(a2);
+    Geometry = C3DNodeGetGeometry(a2, v6);
     if (Geometry)
     {
-      if (C3DGetBoundingSphere(Geometry, 0, &v11))
+      if (C3DGetBoundingSphere(Geometry, 0, &v14))
       {
-        WorldMatrix = C3DNodeGetWorldMatrix(a2);
-        *&v7 = C3DSphereXFormMatrix4x4(&v11, WorldMatrix, &v11);
-        C3DSphereMakeByMergingSpheres(*(a1 + 32), *(a1 + 32), &v11, v7, v8, v9, v10);
+        WorldMatrix = C3DNodeGetWorldMatrix(a2, v8);
+        *&v10 = C3DSphereXFormMatrix4x4(&v14, WorldMatrix, &v14);
+        C3DSphereMakeByMergingSpheres(*(a1 + 32), *(a1 + 32), &v14, v10, v11, v12, v13);
       }
     }
   }
@@ -1638,7 +1639,7 @@ LABEL_10:
   {
     type = [(SCNLight *)light type];
 
-    LOBYTE(light) = [(NSString *)type isEqualToString:@"directional"];
+    LOBYTE(light) = objc_msgSend_isEqualToString_(type);
   }
 
   return light;
@@ -1653,60 +1654,60 @@ LABEL_10:
   v4.f64[1] = y;
   v5 = vcvt_f32_f64(v4);
   v7.f64[1] = v6;
-  v32 = vcvt_hight_f32_f64(0, v7);
+  v35 = vcvt_hight_f32_f64(0, v7);
   pointOfView = [(SCNCameraNavigationController *)self pointOfView];
   *self->_translationOrigin = [(SCNCameraNavigationController *)self _sceneBoundingSphere];
   *&self->_translationOrigin[8] = v9;
   sceneRef = [(SCNScene *)[(SCNView *)[(SCNCameraNavigationController *)self view] scene] sceneRef];
-  v11 = sceneRef;
+  v12 = sceneRef;
   if (sceneRef)
   {
-    C3DSceneLock(sceneRef);
+    C3DSceneLock(sceneRef, v11);
   }
 
   nodeRef = [pointOfView nodeRef];
-  v13.n128_u64[0] = v5;
-  v14 = _C3DHitTestComputeHitSegment(nodeRef, v11, &v34, &v35, v32, v13);
+  v14.n128_u64[0] = v5;
+  v17 = _C3DHitTestComputeHitSegment(nodeRef, v12, &v37, &v38, v35, v14);
   if (v15)
   {
     [(SCNCameraNavigationController *)self worldFront];
-    v16 = vmulq_f32(*self->_translationOrigin, v17);
-    v17.f32[3] = -(v16.f32[2] + vaddv_f32(*v16.f32));
-    v18 = vsubq_f32(v35, v34);
-    v19 = vmulq_f32(v18, v18);
-    v19.f32[0] = sqrtf(v19.f32[2] + vaddv_f32(*v19.f32));
-    v20 = vdivq_f32(v18, vdupq_lane_s32(*v19.f32, 0));
-    v20.i32[3] = 0;
-    v21 = vmulq_f32(v17, v20);
-    v22 = vaddv_f32(vadd_f32(*v21.i8, *&vextq_s8(v21, v21, 8uLL)));
-    if (v22 != 0.0 && ((v23 = v34, v23.i32[3] = 1.0, v24 = vmulq_f32(v23, v17), v25 = -vaddv_f32(vadd_f32(*v24.i8, *&vextq_s8(v24, v24, 8uLL))) / v22, v25 >= 0.0) ? (v26 = v25 <= v19.f32[0]) : (v26 = 0), v26))
+    v19 = vmulq_f32(*self->_translationOrigin, v20);
+    v20.f32[3] = -(v19.f32[2] + vaddv_f32(*v19.f32));
+    v21 = vsubq_f32(v38, v37);
+    v22 = vmulq_f32(v21, v21);
+    v22.f32[0] = sqrtf(v22.f32[2] + vaddv_f32(*v22.f32));
+    v23 = vdivq_f32(v21, vdupq_lane_s32(*v22.f32, 0));
+    v23.i32[3] = 0;
+    v24 = vmulq_f32(v20, v23);
+    v25 = vaddv_f32(vadd_f32(*v24.i8, *&vextq_s8(v24, v24, 8uLL)));
+    if (v25 != 0.0 && ((v26 = v37, v26.i32[3] = 1.0, v27 = vmulq_f32(v26, v20), v28 = -vaddv_f32(vadd_f32(*v27.i8, *&vextq_s8(v27, v27, 8uLL))) / v25, v28 >= 0.0) ? (v29 = v28 <= v22.f32[0]) : (v29 = 0), v29))
     {
-      v28 = vmlaq_n_f32(v23, v20, v25);
+      v31 = vmlaq_n_f32(v26, v23, v28);
     }
 
     else
     {
-      v27.i64[0] = 0x3F0000003F000000;
-      v27.i64[1] = 0x3F0000003F000000;
-      v28 = vmulq_f32(vaddq_f32(v34, v35), v27);
+      v30.i64[0] = 0x3F0000003F000000;
+      v30.i64[1] = 0x3F0000003F000000;
+      v31 = vmulq_f32(vaddq_f32(v37, v38), v30);
     }
 
-    *self->_translationOrigin = v28;
+    *self->_translationOrigin = v31;
   }
 
   else
   {
-    v29 = scn_default_log();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+    v32 = scn_default_log(v15, v16);
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_21BEF7000, v29, OS_LOG_TYPE_DEFAULT, "Warning: _computeTranslationOrigin3DFromPoint: invalid zRange", buf, 2u);
+      _os_log_impl(&dword_21BEF7000, v32, OS_LOG_TYPE_DEFAULT, "Warning: _computeTranslationOrigin3DFromPoint: invalid zRange", buf, 2u);
     }
   }
 
-  if (v11)
+  if (v12)
   {
-    C3DSceneUnlock(v11);
+    C3DSceneUnlock(v12, v18);
   }
 }
 
@@ -1716,65 +1717,65 @@ LABEL_10:
   y = point.y;
   [(SCNView *)[(SCNCameraNavigationController *)self view] bounds];
   v5.f64[1] = v4;
-  v35 = vcvt_hight_f32_f64(0, v5);
+  v39 = vcvt_hight_f32_f64(0, v5);
   v6.f64[0] = x;
   v6.f64[1] = y;
   v7 = vcvt_f32_f64(v6);
   pointOfView = [(SCNCameraNavigationController *)self pointOfView];
   sceneRef = [(SCNScene *)[(SCNView *)[(SCNCameraNavigationController *)self view] scene] sceneRef];
-  v10 = sceneRef;
+  v11 = sceneRef;
   if (sceneRef)
   {
-    C3DSceneLock(sceneRef);
+    C3DSceneLock(sceneRef, v10);
   }
 
   nodeRef = [pointOfView nodeRef];
-  v12.n128_u64[0] = v7;
-  _C3DHitTestComputeHitSegment(nodeRef, v10, &v40, &v41, v35, v12);
-  v14 = v13;
-  if (v10)
+  v13.n128_u64[0] = v7;
+  _C3DHitTestComputeHitSegment(nodeRef, v11, &v44, &v45, v39, v13);
+  v16 = v15;
+  if (v11)
   {
-    C3DSceneUnlock(v10);
+    C3DSceneUnlock(v11, v14);
   }
 
-  if (v14)
+  if (v16)
   {
-    v34 = v40;
-    v15 = vsubq_f32(v41, v40);
-    v16 = vmulq_f32(v15, v15);
-    v16.f32[0] = sqrtf(v16.f32[2] + vaddv_f32(*v16.f32));
-    v32 = v16.f32[0];
-    v17 = vdivq_f32(v15, vdupq_lane_s32(*v16.f32, 0));
-    v17.i32[3] = 0;
-    v36 = v17;
-    [(SCNCameraNavigationController *)self worldFront];
-    v18 = *self->_translationOrigin;
-    v19 = vmulq_f32(v18, v20);
-    v20.f32[3] = -(v19.f32[2] + vaddv_f32(*v19.f32));
-    v21 = vmulq_f32(v20, v36);
-    v22 = vaddv_f32(vadd_f32(*v21.i8, *&vextq_s8(v21, v21, 8uLL)));
-    if (v22 != 0.0 && ((v23 = v34, v23.i32[3] = 1.0, v24 = vmulq_f32(v23, v20), v25 = -vaddv_f32(vadd_f32(*v24.i8, *&vextq_s8(v24, v24, 8uLL))) / v22, v25 >= 0.0) ? (v26 = v25 <= v32) : (v26 = 0), v26))
+    v38 = v44;
+    v17 = vsubq_f32(v45, v44);
+    v18 = vmulq_f32(v17, v17);
+    v18.f32[0] = sqrtf(v18.f32[2] + vaddv_f32(*v18.f32));
+    v36 = v18.f32[0];
+    v19 = vdivq_f32(v17, vdupq_lane_s32(*v18.f32, 0));
+    v19.i32[3] = 0;
+    v40 = v19;
+    worldFront = [(SCNCameraNavigationController *)self worldFront];
+    v22 = *self->_translationOrigin;
+    v23 = vmulq_f32(v22, v24);
+    v24.f32[3] = -(v23.f32[2] + vaddv_f32(*v23.f32));
+    v25 = vmulq_f32(v24, v40);
+    v26 = vaddv_f32(vadd_f32(*v25.i8, *&vextq_s8(v25, v25, 8uLL)));
+    if (v26 != 0.0 && ((v27 = v38, v27.i32[3] = 1.0, v28 = vmulq_f32(v27, v24), v29 = -vaddv_f32(vadd_f32(*v28.i8, *&vextq_s8(v28, v28, 8uLL))) / v26, v29 >= 0.0) ? (v30 = v29 <= v36) : (v30 = 0), v30))
     {
-      v37 = vsubq_f32(v18, vmlaq_n_f32(v23, v36, v25));
+      v41 = vsubq_f32(v22, vmlaq_n_f32(v27, v40, v29));
       [pointOfView simdWorldTransform];
-      v43 = __invert_f4(v42);
-      v38 = vmlaq_laneq_f32(vmlaq_n_f32(vmulq_lane_f32(v43.columns[1], *v37.f32, 1), v43.columns[0], v37.f32[0]), v43.columns[2], v37, 2);
+      v47 = __invert_f4(v46);
+      v42 = vmlaq_laneq_f32(vmlaq_n_f32(vmulq_lane_f32(v47.columns[1], *v41.f32, 1), v47.columns[0], v41.f32[0]), v47.columns[2], v41, 2);
       +[SCNTransaction begin];
       [SCNTransaction setDisableActions:1];
       cameraController = [(SCNCameraNavigationController *)self cameraController];
-      LODWORD(v30) = v38.i32[2];
-      LODWORD(v29) = v38.i32[1];
-      [(SCNCameraController *)cameraController translateInCameraSpaceByX:*v38.i64 Y:v29 Z:v30];
+      LODWORD(v34) = v42.i32[2];
+      LODWORD(v33) = v42.i32[1];
+      [(SCNCameraController *)cameraController translateInCameraSpaceByX:*v42.i64 Y:v33 Z:v34];
       +[SCNTransaction commit];
     }
 
     else
     {
-      v27 = scn_default_log();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+      v31 = scn_default_log(worldFront, v21);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_21BEF7000, v27, OS_LOG_TYPE_DEFAULT, "Warning: Warning: no C3DIntersectionRay3Plane", buf, 2u);
+        _os_log_impl(&dword_21BEF7000, v31, OS_LOG_TYPE_DEFAULT, "Warning: Warning: no C3DIntersectionRay3Plane", buf, 2u);
       }
     }
   }

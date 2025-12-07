@@ -105,9 +105,9 @@ uint64_t __37__SBThermalController_sharedInstance__block_invoke()
 
 - (void)startListeningForThermalEvents
 {
-  currentHandler = [MEMORY[0x277CCA890] currentHandler];
-  v0 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[SBThermalController startListeningForThermalEvents]"];
-  [currentHandler handleFailureInFunction:v0 file:@"SBThermalController.m" lineNumber:139 description:@"this call must be made on the main thread"];
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = self;
+  OUTLINED_FUNCTION_0_6(&dword_21ED4E000, a2, a3, "notify_register(sun) failed : status=%i", a5, a6, a7, a8, v8);
 }
 
 uint64_t __53__SBThermalController_startListeningForThermalEvents__block_invoke(uint64_t a1)
@@ -118,7 +118,7 @@ uint64_t __53__SBThermalController_startListeningForThermalEvents__block_invoke(
   result = notify_get_state(*(v2 + 16), (v2 + 24));
   if (v3 != *(*(a1 + 32) + 24))
   {
-    v5 = SBLogThermal();
+    v5 = SBLogThermal(result);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = *(*(a1 + 32) + 24);
@@ -150,7 +150,7 @@ uint64_t __53__SBThermalController_startListeningForThermalEvents__block_invoke_
   result = notify_get_state(*(v2 + 32), (v2 + 40));
   if (v3 != *(*(a1 + 32) + 40))
   {
-    v5 = SBLogThermal();
+    v5 = SBLogThermal(result);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = *(*(a1 + 32) + 40);
@@ -175,7 +175,7 @@ uint64_t __53__SBThermalController_startListeningForThermalEvents__block_invoke_
   result = notify_get_state(*(v2 + 48), (v2 + 56));
   if (v3 != *(*(a1 + 32) + 56))
   {
-    v5 = SBLogThermal();
+    v5 = SBLogThermal(result);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       v6 = *(*(a1 + 32) + 56);
@@ -297,35 +297,35 @@ id __59__SBThermalController__updateThermalJetsamCPUSamplingState__block_invoke(
 void __59__SBThermalController__updateThermalJetsamCPUSamplingState__block_invoke_2(uint64_t a1)
 {
   v1 = a1;
-  v64 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) isEqual:*(*(a1 + 40) + 8)])
   {
     v2 = (*(*(v1 + 56) + 16))();
     BSContinuousMachTimeNow();
     v4 = v3;
     v5 = *(v1 + 64);
-    v38 = [MEMORY[0x277CCAB00] strongToStrongObjectsMapTable];
-    v50 = 0u;
+    v39 = [MEMORY[0x277CCAB00] strongToStrongObjectsMapTable];
     v51 = 0u;
     v52 = 0u;
     v53 = 0u;
+    v54 = 0u;
     v6 = v2;
-    v7 = [v6 countByEnumeratingWithState:&v50 objects:v63 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v51 objects:v64 count:16];
     if (v7)
     {
       v8 = v7;
       v9 = v4 - v5;
-      v10 = *v51;
+      v10 = *v52;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v51 != v10)
+          if (*v52 != v10)
           {
             objc_enumerationMutation(v6);
           }
 
-          v12 = *(*(&v50 + 1) + 8 * i);
+          v12 = *(*(&v51 + 1) + 8 * i);
           v13 = [v6 objectForKey:v12];
           [v13 doubleValue];
           v15 = v14;
@@ -334,210 +334,221 @@ void __59__SBThermalController__updateThermalJetsamCPUSamplingState__block_invok
           v18 = v15 - v17;
 
           v20 = v18 / v9 * 100.0;
-          if (v20 > 30.0 && __59__SBThermalController__updateThermalJetsamCPUSamplingState__block_invoke_3(v19, v12))
+          if (v20 > 30.0)
           {
-            v21 = SBLogThermal();
-            if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+            v21 = __59__SBThermalController__updateThermalJetsamCPUSamplingState__block_invoke_3(v19, v12);
+            if (v21)
             {
-              v22 = [v12 bundleIdentifier];
-              v23 = [v12 pid];
-              *buf = 138544130;
-              v56 = v22;
-              v57 = 1026;
-              v58 = v23;
-              v59 = 2048;
-              v60 = v20;
-              v61 = 2048;
-              v62 = v9;
-              _os_log_impl(&dword_21ED4E000, v21, OS_LOG_TYPE_DEFAULT, "Thermal: Killing %{public}@(%{public}i), which used %.2f%% CPU over the past %.1f seconds.", buf, 0x26u);
-            }
+              v22 = SBLogThermal(v21);
+              if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+              {
+                v23 = [v12 bundleIdentifier];
+                v24 = [v12 pid];
+                *buf = 138544130;
+                v57 = v23;
+                v58 = 1026;
+                v59 = v24;
+                v60 = 2048;
+                v61 = v20;
+                v62 = 2048;
+                v63 = v9;
+                _os_log_impl(&dword_21ED4E000, v22, OS_LOG_TYPE_DEFAULT, "Thermal: Killing %{public}@(%{public}i), which used %.2f%% CPU over the past %.1f seconds.", buf, 0x26u);
+              }
 
-            v24 = [MEMORY[0x277CCACA8] stringWithFormat:@"%%CPU:                %.2f%% (sampled for %.1f s)", *&v20, *&v9];
-            [v38 setObject:v24 forKey:v12];
+              v25 = [MEMORY[0x277CCACA8] stringWithFormat:@"%%CPU:                %.2f%% (sampled for %.1f s)", *&v20, *&v9];
+              [v39 setObject:v25 forKey:v12];
+            }
           }
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v50 objects:v63 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v51 objects:v64 count:16];
       }
 
       while (v8);
     }
 
-    v25 = v38;
-    if (![v38 count])
+    v26 = v39;
+    if (![v39 count])
     {
-      v26 = +[SBSceneManagerCoordinator sharedInstance];
-      v47[0] = MEMORY[0x277D85DD0];
-      v47[1] = 3221225472;
-      v47[2] = __59__SBThermalController__updateThermalJetsamCPUSamplingState__block_invoke_82;
-      v47[3] = &unk_2783BFD38;
-      v48 = v38;
-      v49 = &__block_literal_global_77_1;
-      [v26 enumerateSceneManagersWithBlock:v47];
+      v27 = +[SBSceneManagerCoordinator sharedInstance];
+      v48[0] = MEMORY[0x277D85DD0];
+      v48[1] = 3221225472;
+      v48[2] = __59__SBThermalController__updateThermalJetsamCPUSamplingState__block_invoke_82;
+      v48[3] = &unk_2783BFD38;
+      v49 = v39;
+      v50 = &__block_literal_global_77_1;
+      [v27 enumerateSceneManagersWithBlock:v48];
     }
 
-    if ([v38 count])
+    if ([v39 count])
     {
-      v37 = v1;
+      v38 = v1;
+      v47 = 0u;
+      v45 = 0u;
       v46 = 0u;
       v44 = 0u;
-      v45 = 0u;
-      v43 = 0u;
-      v27 = v38;
-      v28 = [v27 countByEnumeratingWithState:&v43 objects:v54 count:16];
-      if (v28)
+      v28 = v39;
+      v29 = [v28 countByEnumeratingWithState:&v44 objects:v55 count:16];
+      if (v29)
       {
-        v29 = v28;
-        v30 = *v44;
+        v30 = v29;
+        v31 = *v45;
         do
         {
-          for (j = 0; j != v29; ++j)
+          for (j = 0; j != v30; ++j)
           {
-            if (*v44 != v30)
+            if (*v45 != v31)
             {
-              objc_enumerationMutation(v27);
+              objc_enumerationMutation(v28);
             }
 
-            v32 = *(*(&v43 + 1) + 8 * j);
-            v33 = [v27 objectForKey:v32];
-            v42[0] = MEMORY[0x277D85DD0];
-            v42[1] = 3221225472;
-            v42[2] = __59__SBThermalController__updateThermalJetsamCPUSamplingState__block_invoke_87;
-            v42[3] = &unk_2783A9398;
-            v42[4] = v32;
-            [v32 killForReason:4 andReport:1 withDescription:v33 completion:v42];
+            v33 = *(*(&v44 + 1) + 8 * j);
+            v34 = [v28 objectForKey:v33];
+            v43[0] = MEMORY[0x277D85DD0];
+            v43[1] = 3221225472;
+            v43[2] = __59__SBThermalController__updateThermalJetsamCPUSamplingState__block_invoke_87;
+            v43[3] = &unk_2783A9398;
+            v43[4] = v33;
+            [v33 killForReason:4 andReport:1 withDescription:v34 completion:v43];
           }
 
-          v29 = [v27 countByEnumeratingWithState:&v43 objects:v54 count:16];
+          v30 = [v28 countByEnumeratingWithState:&v44 objects:v55 count:16];
         }
 
-        while (v29);
+        while (v30);
       }
 
-      v1 = v37;
-      v25 = v38;
+      v1 = v38;
+      v26 = v39;
     }
 
-    v34 = dispatch_time(0, 30000000000);
+    v35 = dispatch_time(0, 30000000000);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __59__SBThermalController__updateThermalJetsamCPUSamplingState__block_invoke_89;
     block[3] = &unk_2783A92D8;
-    v35 = *(v1 + 32);
-    v36 = *(v1 + 40);
-    v40 = v35;
+    v36 = *(v1 + 32);
+    v37 = *(v1 + 40);
     v41 = v36;
-    dispatch_after(v34, MEMORY[0x277D85CD0], block);
+    v42 = v37;
+    dispatch_after(v35, MEMORY[0x277D85CD0], block);
   }
 }
 
 uint64_t __59__SBThermalController__updateThermalJetsamCPUSamplingState__block_invoke_3(uint64_t a1, void *a2)
 {
   v2 = a2;
-  if ([v2 isCurrentProcess])
+  v3 = [v2 isCurrentProcess];
+  if (v3)
   {
-    v3 = SBLogThermal();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = SBLogThermal(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_21ED4E000, v3, OS_LOG_TYPE_DEFAULT, "Keeping ourselves alive since we can't reasonably exit", buf, 2u);
+      _os_log_impl(&dword_21ED4E000, v4, OS_LOG_TYPE_DEFAULT, "Keeping ourselves alive since we can't reasonably exit", buf, 2u);
     }
 
     goto LABEL_12;
   }
 
-  v3 = [v2 bundleIdentifier];
-  if (![v3 isEqualToString:@"com.apple.mobilephone"])
+  v4 = [v2 bundleIdentifier];
+  v5 = [v4 isEqualToString:@"com.apple.mobilephone"];
+  if (!v5)
   {
-    if (![v3 isEqualToString:@"com.apple.LoginUI"])
+    v9 = [v4 isEqualToString:@"com.apple.LoginUI"];
+    if (!v9)
     {
-      v7 = 1;
+      v10 = 1;
       goto LABEL_13;
     }
 
-    v4 = SBLogThermal();
-    if (!os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v6 = SBLogThermal(v9);
+    if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_11;
     }
 
-    v9 = 0;
-    v5 = "Keeping login window app alive since we can't reasonably exit it";
-    v6 = &v9;
+    v12 = 0;
+    v7 = "Keeping login window app alive since we can't reasonably exit it";
+    v8 = &v12;
     goto LABEL_10;
   }
 
-  v4 = SBLogThermal();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v6 = SBLogThermal(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 0;
-    v5 = "Keeping phone alive since we need them for emergency calls";
-    v6 = &v10;
+    v13 = 0;
+    v7 = "Keeping phone alive since we need them for emergency calls";
+    v8 = &v13;
 LABEL_10:
-    _os_log_impl(&dword_21ED4E000, v4, OS_LOG_TYPE_DEFAULT, v5, v6, 2u);
+    _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, v7, v8, 2u);
   }
 
 LABEL_11:
 
 LABEL_12:
-  v7 = 0;
+  v10 = 0;
 LABEL_13:
 
-  return v7;
+  return v10;
 }
 
 void __59__SBThermalController__updateThermalJetsamCPUSamplingState__block_invoke_82(uint64_t a1, void *a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
-  v16 = 0u;
+  v26 = *MEMORY[0x277D85DE8];
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
   v3 = [a2 externalForegroundApplicationSceneHandles];
-  v4 = [v3 countByEnumeratingWithState:&v16 objects:v24 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v17 objects:v25 count:16];
   if (v4)
   {
     v6 = v4;
-    v7 = *v17;
+    v7 = *v18;
     *&v5 = 138543618;
-    v15 = v5;
+    v16 = v5;
     do
     {
       v8 = 0;
       do
       {
-        if (*v17 != v7)
+        if (*v18 != v7)
         {
           objc_enumerationMutation(v3);
         }
 
-        v9 = [*(*(&v16 + 1) + 8 * v8) scene];
+        v9 = [*(*(&v17 + 1) + 8 * v8) scene];
         v10 = [v9 clientProcess];
 
         v11 = [*(a1 + 32) objectForKey:v10];
 
-        if (!v11 && (*(*(a1 + 40) + 16))())
+        if (!v11)
         {
-          v12 = SBLogThermal();
-          if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+          v12 = (*(*(a1 + 40) + 16))();
+          if (v12)
           {
-            v13 = [v10 bundleIdentifier];
-            v14 = [v10 pid];
-            *buf = v15;
-            v21 = v13;
-            v22 = 1026;
-            v23 = v14;
-            _os_log_impl(&dword_21ED4E000, v12, OS_LOG_TYPE_DEFAULT, "Thermal: Killing %{public}@(%{public}i), which was topmost.", buf, 0x12u);
-          }
+            v13 = SBLogThermal(v12);
+            if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+            {
+              v14 = [v10 bundleIdentifier];
+              v15 = [v10 pid];
+              *buf = v16;
+              v22 = v14;
+              v23 = 1026;
+              v24 = v15;
+              _os_log_impl(&dword_21ED4E000, v13, OS_LOG_TYPE_DEFAULT, "Thermal: Killing %{public}@(%{public}i), which was topmost.", buf, 0x12u);
+            }
 
-          [*(a1 + 32) setObject:@"Topmost application" forKey:v10];
+            [*(a1 + 32) setObject:@"Topmost application" forKey:v10];
+          }
         }
 
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [v3 countByEnumeratingWithState:&v16 objects:v24 count:16];
+      v6 = [v3 countByEnumeratingWithState:&v17 objects:v25 count:16];
     }
 
     while (v6);
@@ -549,7 +560,7 @@ void __59__SBThermalController__updateThermalJetsamCPUSamplingState__block_invok
   v10 = *MEMORY[0x277D85DE8];
   if ((a2 & 1) == 0)
   {
-    v3 = SBLogThermal();
+    v3 = SBLogThermal(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v4 = [*(a1 + 32) bundleIdentifier];
@@ -563,7 +574,7 @@ void __59__SBThermalController__updateThermalJetsamCPUSamplingState__block_invok
   }
 }
 
-uint64_t __59__SBThermalController__updateThermalJetsamCPUSamplingState__block_invoke_89(uint64_t a1)
+void *__59__SBThermalController__updateThermalJetsamCPUSamplingState__block_invoke_89(uint64_t a1)
 {
   result = [*(a1 + 32) isEqual:*(*(a1 + 40) + 8)];
   if (result)
@@ -583,80 +594,81 @@ uint64_t __59__SBThermalController__updateThermalJetsamCPUSamplingState__block_i
 - (void)_setBlocked:(BOOL)blocked
 {
   blockedCopy = blocked;
-  v33 = *MEMORY[0x277D85DE8];
-  if ([(SBThermalController *)self _isBlocked]!= blocked)
+  v34 = *MEMORY[0x277D85DE8];
+  _isBlocked = [(SBThermalController *)self _isBlocked];
+  if (_isBlocked != blockedCopy)
   {
-    v5 = SBLogThermal();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = SBLogThermal(_isBlocked);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = NSStringFromBOOL();
+      v7 = NSStringFromBOOL();
       *buf = 138543362;
-      v32 = v6;
-      _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_DEFAULT, "Will toggle bricked state to: %{public}@", buf, 0xCu);
+      v33 = v7;
+      _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "Will toggle bricked state to: %{public}@", buf, 0xCu);
     }
 
-    v7 = SBLogStatusBarish();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v8 = SBLogStatusBarish();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v8 = NSStringFromBOOL();
+      v9 = NSStringFromBOOL();
       *buf = 138543362;
-      v32 = v8;
-      _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_INFO, "Will toggle bricked state to: %{public}@", buf, 0xCu);
+      v33 = v9;
+      _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_INFO, "Will toggle bricked state to: %{public}@", buf, 0xCu);
     }
 
     if (blockedCopy)
     {
-      v9 = @"ThermalUIAlertEnter";
+      v10 = @"ThermalUIAlertEnter";
     }
 
     else
     {
-      v9 = @"ThermalUIAlertExit";
+      v10 = @"ThermalUIAlertExit";
     }
 
-    [SBThermalController logThermalEvent:v9];
-    v10 = +[SBTelephonyManager sharedTelephonyManager];
-    if ([v10 _serverConnection])
+    [SBThermalController logThermalEvent:v10];
+    v11 = +[SBTelephonyManager sharedTelephonyManager];
+    if ([v11 _serverConnection])
     {
       if (blockedCopy)
       {
-        v11 = _CTServerConnectionDisableRegistration();
+        v12 = _CTServerConnectionDisableRegistration();
       }
 
       else
       {
-        v11 = _CTServerConnectionEnableRegistration();
+        v12 = _CTServerConnectionEnableRegistration();
       }
 
-      v14 = v11;
-      if (HIDWORD(v11))
+      v15 = v12;
+      if (HIDWORD(v12))
       {
-        [v10 _serverConnectionDidError:v11];
+        [v11 _serverConnectionDidError:v12];
       }
     }
 
     else
     {
-      v12 = SBLogThermal();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v13 = SBLogThermal(0);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        [SBThermalController _setBlocked:v12];
+        [SBThermalController _setBlocked:v13];
       }
 
-      v13 = SBLogStatusBarish();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+      v14 = SBLogStatusBarish();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_21ED4E000, v13, OS_LOG_TYPE_INFO, "Unable to change CT registration status. _CTServerConnectionCreate() failed.", buf, 2u);
+        _os_log_impl(&dword_21ED4E000, v14, OS_LOG_TYPE_INFO, "Unable to change CT registration status. _CTServerConnectionCreate() failed.", buf, 2u);
       }
     }
 
     if (blockedCopy)
     {
-      v15 = +[SBWiFiManager sharedInstance];
-      if ([v15 wiFiEnabled])
+      v16 = +[SBWiFiManager sharedInstance];
+      if ([v16 wiFiEnabled])
       {
-        [v15 setWiFiEnabled:0];
+        [v16 setWiFiEnabled:0];
         [(SBThermalDefaults *)self->_thermalDefaults setWasConnectedToWiFiWhenBrickedForThermalConditions:1];
       }
 
@@ -665,59 +677,58 @@ uint64_t __59__SBThermalController__updateThermalJetsamCPUSamplingState__block_i
 
     else if ([(SBThermalDefaults *)self->_thermalDefaults wasConnectedToWiFiWhenBrickedForThermalConditions])
     {
-      v16 = +[SBWiFiManager sharedInstance];
-      [v16 setWiFiEnabled:1];
+      v17 = +[SBWiFiManager sharedInstance];
+      [v17 setWiFiEnabled:1];
 
       [(SBExternalWifiDefaults *)self->_networkDefaults setWifiEnabled:1];
       [(SBThermalDefaults *)self->_thermalDefaults setWasConnectedToWiFiWhenBrickedForThermalConditions:0];
     }
 
     [(SBSecurityDefaults *)self->_securityDefaults setBlockedForThermal:blockedCopy];
-    [(SBSecurityDefaults *)self->_securityDefaults synchronizeDefaults];
-    v17 = SBLogThermal();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v18 = SBLogThermal([(SBSecurityDefaults *)self->_securityDefaults synchronizeDefaults]);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = NSStringFromBOOL();
+      v19 = NSStringFromBOOL();
       *buf = 138543362;
-      v32 = v18;
-      _os_log_impl(&dword_21ED4E000, v17, OS_LOG_TYPE_DEFAULT, "Did toggle bricked state to: %{public}@", buf, 0xCu);
+      v33 = v19;
+      _os_log_impl(&dword_21ED4E000, v18, OS_LOG_TYPE_DEFAULT, "Did toggle bricked state to: %{public}@", buf, 0xCu);
     }
 
-    v19 = SBLogStatusBarish();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+    v20 = SBLogStatusBarish();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
     {
-      v20 = NSStringFromBOOL();
+      v21 = NSStringFromBOOL();
       *buf = 138543362;
-      v32 = v20;
-      _os_log_impl(&dword_21ED4E000, v19, OS_LOG_TYPE_INFO, "Did toggle bricked state to: %{public}@", buf, 0xCu);
+      v33 = v21;
+      _os_log_impl(&dword_21ED4E000, v20, OS_LOG_TYPE_INFO, "Did toggle bricked state to: %{public}@", buf, 0xCu);
     }
 
-    v28 = 0u;
     v29 = 0u;
-    v26 = 0u;
+    v30 = 0u;
     v27 = 0u;
-    v21 = self->_observers;
-    v22 = [(NSHashTable *)v21 countByEnumeratingWithState:&v26 objects:v30 count:16];
-    if (v22)
+    v28 = 0u;
+    v22 = self->_observers;
+    v23 = [(NSHashTable *)v22 countByEnumeratingWithState:&v27 objects:v31 count:16];
+    if (v23)
     {
-      v23 = v22;
-      v24 = *v27;
+      v24 = v23;
+      v25 = *v28;
       do
       {
-        for (i = 0; i != v23; ++i)
+        for (i = 0; i != v24; ++i)
         {
-          if (*v27 != v24)
+          if (*v28 != v25)
           {
-            objc_enumerationMutation(v21);
+            objc_enumerationMutation(v22);
           }
 
-          [*(*(&v26 + 1) + 8 * i) thermalBlockStatusChanged:{self, v26}];
+          [*(*(&v27 + 1) + 8 * i) thermalBlockStatusChanged:{self, v27}];
         }
 
-        v23 = [(NSHashTable *)v21 countByEnumeratingWithState:&v26 objects:v30 count:16];
+        v24 = [(NSHashTable *)v22 countByEnumeratingWithState:&v27 objects:v31 count:16];
       }
 
-      while (v23);
+      while (v24);
     }
   }
 }

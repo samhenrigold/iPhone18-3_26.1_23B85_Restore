@@ -44,7 +44,7 @@
 
 + (int64_t)eks_storeCount
 {
-  v2 = sub_10006ABB4();
+  v2 = sub_10006ABB4(self);
   os_unfair_lock_lock(&unk_1000D1878);
   keyEnumerator = [v2 keyEnumerator];
   allObjects = [keyEnumerator allObjects];

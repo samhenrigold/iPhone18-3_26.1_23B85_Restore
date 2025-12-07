@@ -11,7 +11,7 @@ void _ZL38_nw_endpoint_alternative_unknown_block_block_invoke()
   v0 = gLogObj;
   *buf = 136446210;
   v13 = "_ZL38_nw_endpoint_alternative_unknown_block_block_invoke";
-  v1 = _os_log_send_and_compose_impl();
+  v1 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v0, 16, "%{public}s _nw_endpoint_alternative_unknown_block invoked directly", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v10 = 0;

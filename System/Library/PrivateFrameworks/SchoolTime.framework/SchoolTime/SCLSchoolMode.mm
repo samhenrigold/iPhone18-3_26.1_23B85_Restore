@@ -106,18 +106,16 @@
   v11.opaque[0] = 0;
   v11.opaque[1] = 0;
   os_activity_scope_enter(v8, &v11);
-  v9 = scl_framework_log();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = scl_framework_log(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
     v13 = settingsCopy;
-    _os_log_impl(&dword_264829000, v9, OS_LOG_TYPE_DEFAULT, "Apply schedule settings: %{public}@", buf, 0xCu);
+    _os_log_impl(&dword_264829000, v10, OS_LOG_TYPE_DEFAULT, "Apply schedule settings: %{public}@", buf, 0xCu);
   }
 
   [(SCLSchoolModeXPCClient *)self->_xpcClient applyScheduleSettings:settingsCopy completion:completionCopy];
   os_activity_scope_leave(&v11);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_assertQueueIfReady
@@ -217,18 +215,16 @@
   v6.opaque[0] = 0;
   v6.opaque[1] = 0;
   os_activity_scope_enter(v3, &v6);
-  v4 = scl_framework_log();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = scl_framework_log(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
     selfCopy = self;
-    _os_log_impl(&dword_264829000, v4, OS_LOG_TYPE_DEFAULT, "NoteSignificantUserInteraction for %@", buf, 0xCu);
+    _os_log_impl(&dword_264829000, v5, OS_LOG_TYPE_DEFAULT, "NoteSignificantUserInteraction for %@", buf, 0xCu);
   }
 
   [(SCLSchoolModeXPCClient *)self->_xpcClient noteSignificantUserInteraction];
   os_activity_scope_leave(&v6);
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

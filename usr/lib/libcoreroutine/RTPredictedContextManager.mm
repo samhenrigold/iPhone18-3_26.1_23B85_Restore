@@ -2255,7 +2255,7 @@ LABEL_9:
   return clients;
 }
 
-uint64_t __58__RTPredictedContextManager__requiresPeriodicTriggerTimer__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__58__RTPredictedContextManager__requiresPeriodicTriggerTimer__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 singleShot];
   if ((result & 1) == 0)

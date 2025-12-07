@@ -6,7 +6,7 @@
 
 - (id)hap_validatedAndNormalizedUUIDString
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v2 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:self];
   if (v2)
   {
@@ -62,45 +62,43 @@ LABEL_10:
       goto LABEL_12;
     }
 
-    memset(v31, 0, sizeof(v31));
+    memset(v30, 0, sizeof(v30));
     [self UTF8String];
-    v12 = NormalizeUUIDString();
-    if (v12)
+    v11 = NormalizeUUIDString();
+    if (v11)
     {
-      v13 = v12;
-      v30 = 0;
-      v28 = 0u;
-      v29 = 0u;
-      v26 = 0u;
+      v12 = v11;
+      v29 = 0;
       v27 = 0u;
+      v28 = 0u;
+      v25 = 0u;
+      v26 = 0u;
       memset(buf, 0, sizeof(buf));
       DebugGetErrorString();
       v5 = objc_autoreleasePoolPush();
-      v14 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v13 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        v15 = HMFGetLogIdentifier();
-        v17 = 138544130;
-        v18 = v15;
-        v19 = 1024;
-        v20 = v13;
-        v21 = 2080;
-        v22 = buf;
-        v23 = 2112;
+        v14 = HMFGetLogIdentifier();
+        v16 = 138544130;
+        v17 = v14;
+        v18 = 1024;
+        v19 = v12;
+        v20 = 2080;
+        v21 = buf;
+        v22 = 2112;
         selfCopy = self;
-        _os_log_impl(&dword_22AADC000, v14, OS_LOG_TYPE_ERROR, "%{public}@### Error: %d(%s) creating UUID string from type: %@.", &v17, 0x26u);
+        _os_log_impl(&dword_22AADC000, v13, OS_LOG_TYPE_ERROR, "%{public}@### Error: %d(%s) creating UUID string from type: %@.", &v16, 0x26u);
       }
 
       goto LABEL_10;
     }
 
-    v16 = [MEMORY[0x277CCACA8] stringWithUTF8String:v31];
-    uUIDString = [v16 uppercaseString];
+    v15 = [MEMORY[0x277CCACA8] stringWithUTF8String:v30];
+    uUIDString = [v15 uppercaseString];
   }
 
 LABEL_12:
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return uUIDString;
 }

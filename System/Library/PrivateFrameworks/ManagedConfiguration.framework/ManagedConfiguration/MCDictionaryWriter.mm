@@ -17,7 +17,7 @@
 
 - (void)logStartOfWrite
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = qword_1ED4ADE38;
   if (os_log_type_enabled(qword_1ED4ADE38, OS_LOG_TYPE_DEFAULT))
   {
@@ -25,14 +25,12 @@
     dictionary = [(MCDictionaryWriter *)self dictionary];
     v6 = [dictionary count];
     path = [(MCDictionaryWriter *)self path];
-    v9 = 134218242;
-    v10 = v6;
-    v11 = 2114;
-    v12 = path;
-    _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_DEFAULT, "Attempting to write dictionary with %lu entries to path %{public}@...", &v9, 0x16u);
+    v8 = 134218242;
+    v9 = v6;
+    v10 = 2114;
+    v11 = path;
+    _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_DEFAULT, "Attempting to write dictionary with %lu entries to path %{public}@...", &v8, 0x16u);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)serializeDataAndWriteToStorage
@@ -184,71 +182,49 @@
 
 - (void)logResultOfWrite
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   serializeError = [(MCDictionaryWriter *)self serializeError];
 
-  if (!serializeError)
+  if (serializeError)
   {
-    beforeWriteRepairError = [(MCDictionaryWriter *)self beforeWriteRepairError];
-
-    writeError = [(MCDictionaryWriter *)self writeError];
-
-    if (beforeWriteRepairError)
+    v4 = qword_1ED4ADE38;
+    if (!os_log_type_enabled(qword_1ED4ADE38, OS_LOG_TYPE_ERROR))
     {
-      v12 = qword_1ED4ADE38;
-      v13 = os_log_type_enabled(qword_1ED4ADE38, OS_LOG_TYPE_ERROR);
-      if (writeError)
-      {
-        if (!v13)
-        {
-          goto LABEL_7;
-        }
-
-        v5 = v12;
-        path = [(MCDictionaryWriter *)self path];
-        beforeWriteRepairError2 = [(MCDictionaryWriter *)self beforeWriteRepairError];
-        writeError2 = [(MCDictionaryWriter *)self writeError];
-        v20 = 138543874;
-        v21 = path;
-        v22 = 2114;
-        v23 = beforeWriteRepairError2;
-        v24 = 2114;
-        v25 = writeError2;
-        _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "Dictionary could not be written to %{public}@, file could not be repaired before writing: %{public}@ and could not write data: %{public}@", &v20, 0x20u);
-
-        goto LABEL_5;
-      }
-
-      if (!v13)
-      {
-        goto LABEL_7;
-      }
-
-      v5 = v12;
-      path = [(MCDictionaryWriter *)self path];
-      beforeWriteRepairError3 = [(MCDictionaryWriter *)self beforeWriteRepairError];
-      v20 = 138543618;
-      v21 = path;
-      v22 = 2114;
-      v23 = beforeWriteRepairError3;
-      v8 = "Dictionary successfully written to %{public}@, but there was a problem repairing the file before writing: %{public}@";
+      return;
     }
 
-    else if (writeError)
+    v5 = v4;
+    path = [(MCDictionaryWriter *)self path];
+    serializeError2 = [(MCDictionaryWriter *)self serializeError];
+    v19 = 138543618;
+    v20 = path;
+    v21 = 2114;
+    v22 = serializeError2;
+    v8 = "Dictionary could not be written to %{public}@, could not serialize data: %{public}@";
+    goto LABEL_4;
+  }
+
+  beforeWriteRepairError = [(MCDictionaryWriter *)self beforeWriteRepairError];
+
+  writeError = [(MCDictionaryWriter *)self writeError];
+
+  if (!beforeWriteRepairError)
+  {
+    if (writeError)
     {
-      v16 = qword_1ED4ADE38;
+      v15 = qword_1ED4ADE38;
       if (!os_log_type_enabled(qword_1ED4ADE38, OS_LOG_TYPE_ERROR))
       {
-        goto LABEL_7;
+        return;
       }
 
-      v5 = v16;
+      v5 = v15;
       path = [(MCDictionaryWriter *)self path];
-      beforeWriteRepairError3 = [(MCDictionaryWriter *)self writeError];
-      v20 = 138543618;
-      v21 = path;
-      v22 = 2114;
-      v23 = beforeWriteRepairError3;
+      serializeError2 = [(MCDictionaryWriter *)self writeError];
+      v19 = 138543618;
+      v20 = path;
+      v21 = 2114;
+      v22 = serializeError2;
       v8 = "Dictionary could not be written to %{public}@, could not write data: %{public}@";
     }
 
@@ -256,63 +232,83 @@
     {
       afterWriteRepairError = [(MCDictionaryWriter *)self afterWriteRepairError];
 
-      v18 = qword_1ED4ADE38;
+      v17 = qword_1ED4ADE38;
       if (!afterWriteRepairError)
       {
-        if (!os_log_type_enabled(qword_1ED4ADE38, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(qword_1ED4ADE38, OS_LOG_TYPE_DEFAULT))
         {
-          goto LABEL_7;
+          v5 = v17;
+          path2 = [(MCDictionaryWriter *)self path];
+          v19 = 138543362;
+          v20 = path2;
+          _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_DEFAULT, "Dictionary successfully written to %{public}@", &v19, 0xCu);
+
+          goto LABEL_6;
         }
 
-        v5 = v18;
-        path2 = [(MCDictionaryWriter *)self path];
-        v20 = 138543362;
-        v21 = path2;
-        _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_DEFAULT, "Dictionary successfully written to %{public}@", &v20, 0xCu);
-
-        goto LABEL_6;
+        return;
       }
 
       if (!os_log_type_enabled(qword_1ED4ADE38, OS_LOG_TYPE_ERROR))
       {
-        goto LABEL_7;
+        return;
       }
 
-      v5 = v18;
+      v5 = v17;
       path = [(MCDictionaryWriter *)self path];
-      beforeWriteRepairError3 = [(MCDictionaryWriter *)self afterWriteRepairError];
-      v20 = 138543618;
-      v21 = path;
-      v22 = 2114;
-      v23 = beforeWriteRepairError3;
+      serializeError2 = [(MCDictionaryWriter *)self afterWriteRepairError];
+      v19 = 138543618;
+      v20 = path;
+      v21 = 2114;
+      v22 = serializeError2;
       v8 = "Dictionary successfully written to %{public}@, could not make file readable after write: %{public}@";
     }
 
 LABEL_4:
-    _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, v8, &v20, 0x16u);
+    _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, v8, &v19, 0x16u);
 
 LABEL_5:
 LABEL_6:
 
-    goto LABEL_7;
+    return;
   }
 
-  v4 = qword_1ED4ADE38;
-  if (os_log_type_enabled(qword_1ED4ADE38, OS_LOG_TYPE_ERROR))
+  v11 = qword_1ED4ADE38;
+  v12 = os_log_type_enabled(qword_1ED4ADE38, OS_LOG_TYPE_ERROR);
+  if (!writeError)
   {
-    v5 = v4;
+    if (!v12)
+    {
+      return;
+    }
+
+    v5 = v11;
     path = [(MCDictionaryWriter *)self path];
-    beforeWriteRepairError3 = [(MCDictionaryWriter *)self serializeError];
-    v20 = 138543618;
-    v21 = path;
-    v22 = 2114;
-    v23 = beforeWriteRepairError3;
-    v8 = "Dictionary could not be written to %{public}@, could not serialize data: %{public}@";
+    serializeError2 = [(MCDictionaryWriter *)self beforeWriteRepairError];
+    v19 = 138543618;
+    v20 = path;
+    v21 = 2114;
+    v22 = serializeError2;
+    v8 = "Dictionary successfully written to %{public}@, but there was a problem repairing the file before writing: %{public}@";
     goto LABEL_4;
   }
 
-LABEL_7:
-  v9 = *MEMORY[0x1E69E9840];
+  if (v12)
+  {
+    v5 = v11;
+    path = [(MCDictionaryWriter *)self path];
+    beforeWriteRepairError2 = [(MCDictionaryWriter *)self beforeWriteRepairError];
+    writeError2 = [(MCDictionaryWriter *)self writeError];
+    v19 = 138543874;
+    v20 = path;
+    v21 = 2114;
+    v22 = beforeWriteRepairError2;
+    v23 = 2114;
+    v24 = writeError2;
+    _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "Dictionary could not be written to %{public}@, file could not be repaired before writing: %{public}@ and could not write data: %{public}@", &v19, 0x20u);
+
+    goto LABEL_5;
+  }
 }
 
 - (BOOL)writeData:(id)data error:(id *)error

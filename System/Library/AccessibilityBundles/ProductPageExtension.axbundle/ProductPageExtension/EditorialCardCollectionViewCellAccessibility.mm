@@ -49,10 +49,10 @@
 
 - (id)accessibilityCustomActions
 {
-  v12[1] = *MEMORY[0x29EDCA608];
-  v11.receiver = self;
-  v11.super_class = EditorialCardCollectionViewCellAccessibility;
-  accessibilityCustomActions = [(EditorialCardCollectionViewCellAccessibility *)&v11 accessibilityCustomActions];
+  v11[1] = *MEMORY[0x29EDCA608];
+  v10.receiver = self;
+  v10.super_class = EditorialCardCollectionViewCellAccessibility;
+  accessibilityCustomActions = [(EditorialCardCollectionViewCellAccessibility *)&v10 accessibilityCustomActions];
   v4 = [(EditorialCardCollectionViewCellAccessibility *)self safeUIViewForKey:@"accessibilityLockupView"];
   if ([v4 _accessibilityViewIsVisible])
   {
@@ -71,12 +71,10 @@
 
     else
     {
-      v12[0] = v7;
-      accessibilityCustomActions = [MEMORY[0x29EDB8D80] arrayWithObjects:v12 count:1];
+      v11[0] = v7;
+      accessibilityCustomActions = [MEMORY[0x29EDB8D80] arrayWithObjects:v11 count:1];
     }
   }
-
-  v9 = *MEMORY[0x29EDCA608];
 
   return accessibilityCustomActions;
 }

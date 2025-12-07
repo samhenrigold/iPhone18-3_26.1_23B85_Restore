@@ -96,23 +96,24 @@
     v7 = *v20;
     do
     {
-      for (i = 0; i != v6; ++i)
+      v8 = 0;
+      do
       {
         if (*v20 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v19 + 1) + 8 * i);
-        v10 = [(AVCaptureSynchronizedDataCollection *)self objectForKeyedSubscript:v9];
+        v9 = *(*(&v19 + 1) + 8 * v8);
+        v10 = objc_msgSend_objectForKeyedSubscript_(self);
         [v4 appendFormat:@"%@", +[AVCaptureSynchronizedDataCollection _shortStringForDataOutput:syncedData:](AVCaptureSynchronizedDataCollection, "_shortStringForDataOutput:syncedData:", v9, v10)];
         if (v10)
         {
-          [(AVCaptureSynchronizedData *)v10 timestamp];
-          [v4 appendFormat:@" %*lld, ", 15, v17];
+          objc_msgSend_timestamp(v10);
+          [v4 appendFormat:@" %*lld, ", 15, v17[0]];
           if ((flags & 1) == 0)
           {
-            [(AVCaptureSynchronizedData *)v10 timestamp];
+            objc_msgSend_timestamp(v10);
             value = time.value;
             flags = time.flags;
             timescale = time.timescale;
@@ -124,8 +125,11 @@
         {
           [v4 appendString:{@", "}];
         }
+
+        ++v8;
       }
 
+      while (v6 != v8);
       v6 = [(NSArray *)obj countByEnumeratingWithState:&v19 objects:v18 count:16];
     }
 
@@ -195,7 +199,7 @@ LABEL_5:
     if (count >= internal->maxCount)
     {
       v9 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-      if (AVCaptureShouldThrowForAPIViolations())
+      if (AVCaptureShouldThrowForAPIViolations(v9, v10))
       {
         objc_exception_throw(v9);
       }

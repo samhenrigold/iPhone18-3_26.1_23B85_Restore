@@ -41,7 +41,7 @@
 
 - (void)handleMediaDestinationUpdatedNotification:(id)notification
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -49,9 +49,9 @@
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v32 = 138543362;
-    v33 = v8;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Handling media destination updated notification", &v32, 0xCu);
+    v31 = 138543362;
+    v32 = v8;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Handling media destination updated notification", &v31, 0xCu);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -97,11 +97,11 @@
         if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
         {
           v30 = HMFGetLogIdentifier();
-          v32 = 138543618;
-          v33 = v30;
-          v34 = 2112;
-          v35 = notificationCopy;
-          _os_log_impl(&dword_2531F8000, v29, OS_LOG_TYPE_ERROR, "%{public}@Failed to get destination from media destination updated notification: %@", &v32, 0x16u);
+          v31 = 138543618;
+          v32 = v30;
+          v33 = 2112;
+          v34 = notificationCopy;
+          _os_log_impl(&dword_2531F8000, v29, OS_LOG_TYPE_ERROR, "%{public}@Failed to get destination from media destination updated notification: %@", &v31, 0x16u);
         }
 
         objc_autoreleasePoolPop(v27);
@@ -116,11 +116,11 @@
       if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
         v26 = HMFGetLogIdentifier();
-        v32 = 138543618;
-        v33 = v26;
-        v34 = 2112;
-        v35 = notificationCopy;
-        _os_log_impl(&dword_2531F8000, v25, OS_LOG_TYPE_ERROR, "%{public}@Failed to get notification object from media destination updated notification: %@", &v32, 0x16u);
+        v31 = 138543618;
+        v32 = v26;
+        v33 = 2112;
+        v34 = notificationCopy;
+        _os_log_impl(&dword_2531F8000, v25, OS_LOG_TYPE_ERROR, "%{public}@Failed to get notification object from media destination updated notification: %@", &v31, 0x16u);
       }
 
       objc_autoreleasePoolPop(v23);
@@ -136,20 +136,18 @@
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       v22 = HMFGetLogIdentifier();
-      v32 = 138543362;
-      v33 = v22;
-      _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_ERROR, "%{public}@Failed to handle destination updated notification due to no delegate", &v32, 0xCu);
+      v31 = 138543362;
+      v32 = v22;
+      _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_ERROR, "%{public}@Failed to handle destination updated notification due to no delegate", &v31, 0xCu);
     }
 
     objc_autoreleasePoolPop(v19);
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDMediaDestinationsMessageHandler)initWithDestination:(id)destination messageDispatcher:(id)dispatcher notificationCenter:(id)center dataSource:(id)source delegate:(id)delegate
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   destinationCopy = destination;
   dispatcherCopy = dispatcher;
   centerCopy = center;
@@ -175,13 +173,12 @@ LABEL_7:
   }
 
   v17 = delegateCopy;
-  v23[0] = *MEMORY[0x277CD0880];
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
-  v22.receiver = self;
-  v22.super_class = HMDMediaDestinationsMessageHandler;
-  v19 = [(HMDMediaDestinationMessageHandler *)&v22 initWithDestination:destinationCopy messageDispatcher:dispatcherCopy notificationCenter:centerCopy notifications:v18 dataSource:sourceCopy delegate:v17];
+  v22[0] = *MEMORY[0x277CD0880];
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
+  v21.receiver = self;
+  v21.super_class = HMDMediaDestinationsMessageHandler;
+  v19 = [(HMDMediaDestinationMessageHandler *)&v21 initWithDestination:destinationCopy messageDispatcher:dispatcherCopy notificationCenter:centerCopy notifications:v18 dataSource:sourceCopy delegate:v17];
 
-  v20 = *MEMORY[0x277D85DE8];
   return v19;
 }
 

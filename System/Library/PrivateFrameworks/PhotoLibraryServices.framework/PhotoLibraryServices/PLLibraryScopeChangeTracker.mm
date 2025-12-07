@@ -206,7 +206,7 @@ void __71__PLLibraryScopeChangeTracker_fetchResultsSincePersistentHistoryToken__
           v9 = [v5 updatedProperties];
           v10 = *(a1 + 32);
           v11 = [v5 changedObjectID];
-          v12 = [v11 entity];
+          v12 = objc_msgSend_entity(v11);
           v13 = [v12 name];
           v14 = [v10 _allowedPropertyDescriptionsForEntityName:v13];
 
@@ -263,18 +263,18 @@ LABEL_19:
         v8 = 0;
 LABEL_21:
         v20 = [v5 changedObjectID];
-        v21 = [v20 entity];
+        v21 = objc_msgSend_entity(v20);
         v22 = [v21 name];
         v23 = +[PLManagedAsset entityName];
-        v24 = [v22 isEqualToString:v23];
+        isEqualToString = objc_msgSend_isEqualToString_(v22);
 
-        if (!v24)
+        if (!isEqualToString)
         {
           v26 = [v5 changedObjectID];
-          v27 = [v26 entity];
+          v27 = objc_msgSend_entity(v26);
           v28 = [v27 name];
           v29 = +[PLDetectedFace entityName];
-          v30 = [v28 isEqualToString:v29];
+          v30 = objc_msgSend_isEqualToString_(v28);
 
           v25 = (a1 + 48);
           if ((v7 & v30) != 1)

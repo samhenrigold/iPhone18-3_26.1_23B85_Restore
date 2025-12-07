@@ -17,7 +17,7 @@
 
 - (void)setDelegate:(id)delegate
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if (dword_1ED6F6B68)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -26,12 +26,11 @@
   }
 
   objc_storeWeak(&self->_delegate, delegate);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)communicationChannelImpl:(id)impl didReceiveData:(id)data
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   Weak = objc_loadWeak(&self->_delegate);
   if (objc_opt_respondsToSelector())
   {
@@ -42,7 +41,7 @@
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    [Weak communicationChannel:self didReceiveData:{data, v10, v11}];
+    [Weak communicationChannel:self didReceiveData:data];
   }
 
   else if (dword_1ED6F6B68)
@@ -51,13 +50,11 @@
     os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)communicationChannelImplDidClose:(id)close
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   Weak = objc_loadWeak(&self->_delegate);
   if (objc_opt_respondsToSelector())
   {
@@ -68,7 +65,7 @@
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    [Weak communicationChannelDidClose:{self, v8, v9}];
+    [Weak communicationChannelDidClose:self];
   }
 
   else if (dword_1ED6F6B68)
@@ -77,8 +74,6 @@
     os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (AVOutputDeviceCommunicationChannel)initWithOutputDeviceCommunicationChannelImpl:(id)impl

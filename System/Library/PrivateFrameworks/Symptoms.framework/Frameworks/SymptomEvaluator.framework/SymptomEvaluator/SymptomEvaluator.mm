@@ -1,23 +1,21 @@
 id pid_to_uuid(int a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v6 = 0;
-  memset(v5, 0, sizeof(v5));
-  v1 = proc_pidinfo(a1, 17, 1uLL, v5, 56);
+  v6 = *MEMORY[0x277D85DE8];
+  v5 = 0;
+  memset(v4, 0, sizeof(v4));
+  v1 = proc_pidinfo(a1, 17, 1uLL, v4, 56);
   v2 = 0;
   if (v1 == 56)
   {
-    v2 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:v5];
+    v2 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:v4];
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
 
-void sub_23255EAB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23255EAB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -70,15 +68,15 @@ void *prefs_add_client(void *result, const char *a2, const void *a3)
         {
           v6[3] = result;
           v6[2] = _Block_copy(a3);
-          pthread_mutex_lock((v3 + 8));
-          v6[6] = *(v3 + 128);
-          *(v3 + 128) = v6;
-          if (*(v3 + 80) || *(v3 + 88))
+          pthread_mutex_lock((v3 + 1));
+          v6[6] = v3[16];
+          v3[16] = v6;
+          if (v3[10] || v3[11])
           {
             update_client(v6, v3);
           }
 
-          return pthread_mutex_unlock((v3 + 8));
+          return pthread_mutex_unlock((v3 + 1));
         }
 
         else
@@ -94,7 +92,7 @@ void *prefs_add_client(void *result, const char *a2, const void *a3)
 
 uint64_t receive_disk_writes_violation(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, unint64_t a7, uint64_t a8, unint64_t a9, uint64_t a10)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v17 = debuggabilityLogHandle;
   if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_DEFAULT))
   {
@@ -105,47 +103,44 @@ uint64_t receive_disk_writes_violation(uint64_t a1, uint64_t a2, uint64_t a3, ui
     }
 
     *buf = 136316930;
-    v24 = v18;
-    v27 = 1024;
-    v25 = 2080;
-    v26 = a2;
-    v28 = a3;
-    v29 = 2080;
-    v30 = a4;
-    v31 = 2048;
-    v32 = a6;
-    v33 = 2048;
-    v34 = a7 / 0x3B9ACA00;
-    v35 = 2048;
-    v36 = a8;
-    v37 = 2048;
-    v38 = a9 / 0x3B9ACA00;
+    v23 = v18;
+    v26 = 1024;
+    v24 = 2080;
+    v25 = a2;
+    v27 = a3;
+    v28 = 2080;
+    v29 = a4;
+    v30 = 2048;
+    v31 = a6;
+    v32 = 2048;
+    v33 = a7 / 0x3B9ACA00;
+    v34 = 2048;
+    v35 = a8;
+    v36 = 2048;
+    v37 = a9 / 0x3B9ACA00;
     _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_DEFAULT, "Received %slocal storage writes trigger:\n  %s[%d] (%s) dirtied %lld bytes over %lld sec, violating a disk writes limit of %lld bytes over %lld seconds.", buf, 0x4Eu);
   }
 
   v19 = +[ResourceNotifyHandler sharedInstance];
-  LOBYTE(v22) = BYTE4(a10) & 1;
-  [v19 resourceNotifyEvent:kResourceNotifyEventIOLocalWritesTrigger triggeredBy:a2 pid:a3 path:a4 endTime:a5 observedValue:a6 observationWindow:a7 limitValue:a8 limitWindow:a9 fatal:v22 fatalPort:?];
+  LOBYTE(v21) = BYTE4(a10) & 1;
+  [v19 resourceNotifyEvent:kResourceNotifyEventIOLocalWritesTrigger triggeredBy:a2 pid:a3 path:a4 endTime:a5 observedValue:a6 observationWindow:a7 limitValue:a8 limitWindow:a9 fatal:v21 fatalPort:?];
 
-  v20 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 id pid_to_uuid_string(int a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = 0;
+  v7 = *MEMORY[0x277D85DE8];
+  v6 = 0;
   memset(buffer, 0, sizeof(buffer));
   v1 = proc_pidinfo(a1, 17, 1uLL, buffer, 56);
   v2 = 0;
   if (v1 == 56)
   {
-    memset(v5, 0, 37);
-    uuid_unparse_upper(buffer, v5);
-    v2 = [MEMORY[0x277CCACA8] stringWithUTF8String:v5];
+    memset(v4, 0, 37);
+    uuid_unparse_upper(buffer, v4);
+    v2 = [MEMORY[0x277CCACA8] stringWithUTF8String:v4];
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
@@ -196,101 +191,100 @@ uint64_t _Xdisk_writes_violation(uint64_t result, uint64_t a2)
 
 void setApparentTime(double a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = *&_currentTime;
   if (*&_currentTime >= a1)
   {
-    v10 = apparentTimeLogHandle;
+    v5 = apparentTimeLogHandle;
     if (*&_currentTime - a1 >= 0.1)
     {
       if (!os_log_type_enabled(apparentTimeLogHandle, OS_LOG_TYPE_ERROR))
       {
-        goto LABEL_15;
+        return;
       }
 
-      v11 = v10;
-      v12 = dateStringMillisecondsFromTimeInterval(v2 + 978307200.0);
-      v13 = dateStringMillisecondsFromTimeInterval(a1 + 978307200.0);
+      v6 = v5;
+      v7 = dateStringMillisecondsFromTimeInterval(v2 + 978307200.0);
+      v8 = dateStringMillisecondsFromTimeInterval(a1 + 978307200.0);
       *buf = 134219010;
-      v18 = v2;
-      v19 = 2112;
-      v20 = v12;
-      v21 = 2048;
-      v22 = a1;
-      v23 = 2112;
-      v24 = v13;
-      v25 = 2048;
-      v26 = v2 - a1;
-      v14 = v11;
-      v15 = OS_LOG_TYPE_ERROR;
+      v12 = v2;
+      v13 = 2112;
+      v14 = v7;
+      v15 = 2048;
+      v16 = a1;
+      v17 = 2112;
+      v18 = v8;
+      v19 = 2048;
+      v20 = v2 - a1;
+      v9 = v6;
+      v10 = OS_LOG_TYPE_ERROR;
     }
 
     else
     {
       if (!os_log_type_enabled(apparentTimeLogHandle, OS_LOG_TYPE_DEBUG))
       {
-        goto LABEL_15;
+        return;
       }
 
-      v11 = v10;
-      v12 = dateStringMillisecondsFromTimeInterval(v2 + 978307200.0);
-      v13 = dateStringMillisecondsFromTimeInterval(a1 + 978307200.0);
+      v6 = v5;
+      v7 = dateStringMillisecondsFromTimeInterval(v2 + 978307200.0);
+      v8 = dateStringMillisecondsFromTimeInterval(a1 + 978307200.0);
       *buf = 134219010;
-      v18 = v2;
-      v19 = 2112;
-      v20 = v12;
-      v21 = 2048;
-      v22 = a1;
-      v23 = 2112;
-      v24 = v13;
-      v25 = 2048;
-      v26 = v2 - a1;
-      v14 = v11;
-      v15 = OS_LOG_TYPE_DEBUG;
+      v12 = v2;
+      v13 = 2112;
+      v14 = v7;
+      v15 = 2048;
+      v16 = a1;
+      v17 = 2112;
+      v18 = v8;
+      v19 = 2048;
+      v20 = v2 - a1;
+      v9 = v6;
+      v10 = OS_LOG_TYPE_DEBUG;
     }
 
-    _os_log_impl(&dword_23255B000, v14, v15, "setThroguhputAdviserCurrentTime: Attempt to replace current %.6f %@ with %.6f %@ delta %.6f", buf, 0x34u);
-
-    goto LABEL_15;
+    _os_log_impl(&dword_23255B000, v9, v10, "setThroguhputAdviserCurrentTime: Attempt to replace current %.6f %@ with %.6f %@ delta %.6f", buf, 0x34u);
   }
 
-  os_unfair_lock_lock(&_currentTimeLock);
-  v3 = *&_currentTime;
-  if (*&_currentTime < a1)
+  else
   {
-    _currentTime = *&a1;
-  }
+    os_unfair_lock_lock(&_currentTimeLock);
+    v3 = *&_currentTime;
+    if (*&_currentTime < a1)
+    {
+      _currentTime = *&a1;
+    }
 
-  os_unfair_lock_unlock(&_currentTimeLock);
-  if (v3 < a1 && activeTraceTargets != 0)
-  {
-    traceEntry(1, "setApparentTime", "%t", v4, v5, v6, v7, v8, *&a1);
+    os_unfair_lock_unlock(&_currentTimeLock);
+    if (v3 < a1 && activeTraceTargets != 0)
+    {
+      traceEntry(1, "setApparentTime", "%t", *&a1);
+    }
   }
-
-LABEL_15:
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 id timeStringMillisecondsFromTimeInterval(long double a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  memset(__src, 0, 15);
+  v14 = *MEMORY[0x277D85DE8];
+  *&__src[7] = 0;
+  *__src = 0;
   __y = 0.0;
-  v11 = a1;
+  v10 = a1;
   v1 = modf(a1, &__y);
-  v2 = localtime(&v11);
+  v2 = localtime(&v10);
   if (strftime(__src, 0xFuLL, "%H:%M:%S %z", v2))
   {
-    v9 = 0;
+    v8 = 0;
     *__str = 0;
     if (snprintf(__str, 6uLL, "%.3f", v1))
     {
       *__dst = 0;
-      memset(v13, 0, 11);
+      memset(v12, 0, 11);
       v3 = stpncpy(__dst, __src, 8uLL);
       v4 = stpncpy(v3, &__str[1], 4uLL);
       stpncpy(v4, &__src[8], 6uLL);
-      BYTE2(v13[1]) = 0;
+      BYTE2(v12[1]) = 0;
       v5 = [objc_alloc(MEMORY[0x277CCACA8]) initWithCString:__dst encoding:1];
       goto LABEL_4;
     }
@@ -305,14 +299,13 @@ id timeStringMillisecondsFromTimeInterval(long double a1)
 
   v5 = *__dst;
 LABEL_4:
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
-void sub_232560BF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_232560BF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -343,7 +336,7 @@ const char *flowPropertyScaleString(unsigned int a1)
 
 void __33__wifiFlowObserver__noteNewUsage__block_invoke(uint64_t a1)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   if (*(v1 + 764) == *(a1 + 40) && *(v1 + 776) == 1)
   {
@@ -352,12 +345,12 @@ void __33__wifiFlowObserver__noteNewUsage__block_invoke(uint64_t a1)
       v3 = flowLogHandle;
       if (os_log_type_enabled(flowLogHandle, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v18[0]) = 0;
+        LOWORD(v17[0]) = 0;
         v4 = "WiFi Observer: After dampening, nothing to do";
         v5 = v3;
         v6 = 2;
 LABEL_11:
-        _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_INFO, v4, v18, v6);
+        _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_INFO, v4, v17, v6);
       }
     }
 
@@ -376,22 +369,22 @@ LABEL_11:
         v14 = *(v8 + 352);
         v15 = *(v8 + 516);
         v16 = *(v8 + 720);
-        v18[0] = 67110912;
-        v18[1] = v9;
-        v19 = 2048;
-        v20 = v13;
-        v21 = 1024;
-        v22 = v10;
-        v23 = 2048;
-        v24 = v11;
-        v25 = 1024;
-        v26 = v12;
-        v27 = 2048;
-        v28 = v14;
-        v29 = 1024;
-        v30 = v15;
-        v31 = 2048;
-        v32 = v16;
+        v17[0] = 67110912;
+        v17[1] = v9;
+        v18 = 2048;
+        v19 = v13;
+        v20 = 1024;
+        v21 = v10;
+        v22 = 2048;
+        v23 = v11;
+        v24 = 1024;
+        v25 = v12;
+        v26 = 2048;
+        v27 = v14;
+        v28 = 1024;
+        v29 = v15;
+        v30 = 2048;
+        v31 = v16;
         v4 = "WiFi Observer: Sent notification after dampening when new flags fg 0x%x 0x%llx bg 0x%x 0x%llx  initial values 0x%x 0x%llx 0x%x 0x%llx";
         v5 = v7;
         v6 = 66;
@@ -401,27 +394,23 @@ LABEL_11:
 
     *(*(a1 + 32) + 760) = 0;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void dispatch_with_apparent_delay(void *a1, void *a2, double a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = a2;
   v7 = apparentTimeLogHandle;
   if (os_log_type_enabled(apparentTimeLogHandle, OS_LOG_TYPE_DEBUG))
   {
-    v10 = 134217984;
-    v11 = a3;
-    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEBUG, "dispatch_with_apparent_delay with delay %.3f", &v10, 0xCu);
+    v9 = 134217984;
+    v10 = a3;
+    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEBUG, "dispatch_with_apparent_delay with delay %.3f", &v9, 0xCu);
   }
 
   v8 = +[ApparentTimeHandler sharedInstance];
   [v8 dispatchAfterDelay:v5 queue:v6 block:a3];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void *cellThroughputAdviceCauseFlagsToString(uint64_t a1)
@@ -1028,7 +1017,7 @@ double mbpsThroughput(unint64_t a1, double a2)
   return v2;
 }
 
-uint64_t boottime_secs()
+uint64_t boottime_secs(uint64_t a1, uint64_t a2)
 {
   if (boottime_secs_pred != -1)
   {
@@ -1040,12 +1029,12 @@ uint64_t boottime_secs()
 
 id dateStringMillisecondsFromTimeInterval(long double a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   *__src = 0;
-  v17 = 0;
-  v19 = 0;
+  v16 = 0;
   v18 = 0;
-  v12 = a1;
+  v17 = 0;
+  v11 = a1;
   if (a1 <= 0)
   {
     v1 = otherLogHandle;
@@ -1055,26 +1044,26 @@ id dateStringMillisecondsFromTimeInterval(long double a1)
       _os_log_impl(&dword_23255B000, v1, OS_LOG_TYPE_INFO, "INFO: dateStringMillisecondsFromTimeInterval does not support reporting millisecond accuracy for the current time", buf, 2u);
     }
 
-    time(&v12);
+    time(&v11);
     a1 = 0.0;
   }
 
   __y = 0.0;
   v2 = modf(a1, &__y);
-  v3 = localtime(&v12);
+  v3 = localtime(&v11);
   if (strftime(__src, 0x1AuLL, "%Y-%m-%d %H:%M:%S %z", v3))
   {
-    v10 = 0;
+    v9 = 0;
     *__str = 0;
     if (snprintf(__str, 6uLL, "%.3f", v2))
     {
       *buf = 0;
-      v14 = 0;
-      memset(v15, 0, sizeof(v15));
+      v13 = 0;
+      memset(v14, 0, sizeof(v14));
       v4 = stpncpy(buf, __src, 0x13uLL);
       v5 = stpncpy(v4, &__str[1], 4uLL);
-      stpncpy(v5, &v18 + 3, 6uLL);
-      HIBYTE(v15[6]) = 0;
+      stpncpy(v5, &v17 + 3, 6uLL);
+      HIBYTE(v14[6]) = 0;
       v6 = [objc_alloc(MEMORY[0x277CCACA8]) initWithCString:buf encoding:1];
       goto LABEL_8;
     }
@@ -1089,27 +1078,26 @@ id dateStringMillisecondsFromTimeInterval(long double a1)
 
   v6 = *buf;
 LABEL_8:
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 void config_callback(const __SCDynamicStore *a1, void *a2)
 {
-  v118 = *MEMORY[0x277D85DE8];
-  v79 = [MEMORY[0x277CBEB38] dictionary];
+  v115 = *MEMORY[0x277D85DE8];
+  v76 = [MEMORY[0x277CBEB38] dictionary];
   v3 = _SCDynamicStoreCaller;
+  v104 = 0u;
+  v105 = 0u;
+  v106 = 0u;
   v107 = 0u;
-  v108 = 0u;
-  v109 = 0u;
-  v110 = 0u;
   obj = a2;
-  v4 = [obj countByEnumeratingWithState:&v107 objects:v117 count:16];
+  v4 = [obj countByEnumeratingWithState:&v104 objects:v114 count:16];
   v6 = MEMORY[0x277CE16B0];
   v7 = "atchItemsCommand";
   v8 = "atchItemsCommand";
-  v86 = v4;
-  v88 = v3;
+  v83 = v4;
+  v85 = v3;
   v9 = 0;
   if (!v4)
   {
@@ -1118,124 +1106,123 @@ void config_callback(const __SCDynamicStore *a1, void *a2)
 
   v10 = 0;
   v11 = 0;
-  entity = *v108;
-  v83 = *MEMORY[0x277CE1678];
+  entity = *v105;
+  v80 = *MEMORY[0x277CE1678];
   allocator = *MEMORY[0x277CE1688];
-  v12 = *MEMORY[0x277CE16B0];
-  v75 = *MEMORY[0x277CE16B0];
-  v76 = *MEMORY[0x277CE1690];
+  v72 = *MEMORY[0x277CE16B0];
+  v73 = *MEMORY[0x277CE1690];
   *&v5 = 138412546;
-  v73 = v5;
+  v70 = v5;
   do
   {
-    v13 = 0;
+    v12 = 0;
     do
     {
-      if (*v108 != entity)
+      if (*v105 != entity)
       {
         objc_enumerationMutation(obj);
       }
 
-      v14 = *(*(&v107 + 1) + 8 * v13);
-      v15 = netepochsLogHandle;
+      v13 = *(*(&v104 + 1) + 8 * v12);
+      v14 = netepochsLogHandle;
       if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v113 = v14;
-        _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_DEFAULT, "SCDynamicStore config_callback: k: %@", buf, 0xCu);
+        v110 = v13;
+        _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_DEFAULT, "SCDynamicStore config_callback: k: %@", buf, 0xCu);
       }
 
-      v16 = [(__CFString *)v14 rangeOfString:v83, v73]!= 0x7FFFFFFFFFFFFFFFLL;
-      v17 = [(__CFString *)v14 isEqualToString:@"com.apple.MobileInternetSharing"];
-      if ([(__CFString *)v14 rangeOfString:allocator]!= 0x7FFFFFFFFFFFFFFFLL || [(__CFString *)v14 rangeOfString:v76]!= 0x7FFFFFFFFFFFFFFFLL)
+      v15 = [(__CFString *)v13 rangeOfString:v80, v70]!= 0x7FFFFFFFFFFFFFFFLL;
+      v16 = [(__CFString *)v13 isEqualToString:@"com.apple.MobileInternetSharing"];
+      if ([(__CFString *)v13 rangeOfString:allocator]!= 0x7FFFFFFFFFFFFFFFLL || [(__CFString *)v13 rangeOfString:v73]!= 0x7FFFFFFFFFFFFFFFLL)
       {
         if (v3)
         {
-          v18 = [v3 queue];
+          v17 = [v3 queue];
           block[0] = MEMORY[0x277D85DD0];
           block[1] = 3221225472;
           block[2] = __config_callback_block_invoke;
           block[3] = &unk_27898AFE0;
-          block[4] = v14;
+          block[4] = v13;
           block[5] = a1;
-          dispatch_async(v18, block);
+          dispatch_async(v17, block);
         }
 
         else
         {
-          v19 = netepochsLogHandle;
+          v18 = netepochsLogHandle;
           if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v113 = v14;
-            _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_ERROR, "NAE is nil, not processing IP configuration callback for key %@", buf, 0xCu);
+            v110 = v13;
+            _os_log_impl(&dword_23255B000, v18, OS_LOG_TYPE_ERROR, "NAE is nil, not processing IP configuration callback for key %@", buf, 0xCu);
           }
         }
       }
 
-      v20 = [(__CFString *)v14 componentsSeparatedByString:@"/"];
-      if ([v20 count] != 5)
+      v19 = [(__CFString *)v13 componentsSeparatedByString:@"/"];
+      if ([v19 count] != 5)
       {
         goto LABEL_19;
       }
 
-      v21 = [v20 objectAtIndex:4];
-      v22 = [v21 isEqualToString:v75];
+      v20 = [v19 objectAtIndex:4];
+      v21 = [v20 isEqualToString:v72];
 
-      if (!v22)
+      if (!v21)
       {
         goto LABEL_18;
       }
 
-      v23 = [v20 objectAtIndex:3];
+      v22 = [v19 objectAtIndex:3];
 
-      if (v23)
+      if (v22)
       {
-        v24 = [objc_alloc(MEMORY[0x277CD91D8]) initWithInterfaceName:v23];
-        v25 = [MEMORY[0x277D6B3E0] nwFunctionalInterfaceTypeForNWInterface:v24];
-        v26 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:v25];
-        [v79 setObject:v26 forKeyedSubscript:v23];
+        v23 = [objc_alloc(MEMORY[0x277CD91D8]) initWithInterfaceName:v22];
+        v24 = [MEMORY[0x277D6B3E0] nwFunctionalInterfaceTypeForNWInterface:v23];
+        v25 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:v24];
+        [v76 setObject:v25 forKeyedSubscript:v22];
 
-        v9 = v23;
+        v9 = v22;
 LABEL_18:
-        v3 = v88;
+        v3 = v85;
 LABEL_19:
-        v27 = netepochsLogHandle;
+        v26 = netepochsLogHandle;
         if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
         {
-          *buf = v73;
-          v113 = v14;
-          v114 = 2112;
-          *v115 = v79;
-          _os_log_impl(&dword_23255B000, v27, OS_LOG_TYPE_DEFAULT, "SCDynamicStore key: %@, interfaces: %@", buf, 0x16u);
+          *buf = v70;
+          v110 = v13;
+          v111 = 2112;
+          *v112 = v76;
+          _os_log_impl(&dword_23255B000, v26, OS_LOG_TYPE_DEFAULT, "SCDynamicStore key: %@, interfaces: %@", buf, 0x16u);
         }
 
         goto LABEL_21;
       }
 
-      v28 = netepochsLogHandle;
+      v27 = netepochsLogHandle;
       if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v113 = v14;
-        _os_log_impl(&dword_23255B000, v28, OS_LOG_TYPE_ERROR, "SCDynamicStore key (%@) is corrupted", buf, 0xCu);
+        v110 = v13;
+        _os_log_impl(&dword_23255B000, v27, OS_LOG_TYPE_ERROR, "SCDynamicStore key (%@) is corrupted", buf, 0xCu);
       }
 
       v9 = 0;
-      v3 = v88;
+      v3 = v85;
 LABEL_21:
-      v10 |= v16;
-      v11 |= v17;
+      v10 |= v15;
+      v11 |= v16;
 
-      ++v13;
+      ++v12;
     }
 
-    while (v86 != v13);
-    v29 = [obj countByEnumeratingWithState:&v107 objects:v117 count:16];
-    v86 = v29;
+    while (v83 != v12);
+    v28 = [obj countByEnumeratingWithState:&v104 objects:v114 count:16];
+    v83 = v28;
   }
 
-  while (v29);
+  while (v28);
   if (v11)
   {
     resync_tether_state(a1);
@@ -1245,14 +1232,14 @@ LABEL_21:
   v7 = "ListWatchItemsCommand" + 5;
   if ((v10 & 1) != 0 && !config_callback_pendingConfigChange++)
   {
-    v31 = dispatch_time(0, 20000000000);
-    v32 = dispatch_get_global_queue(0, 0);
-    v104[0] = MEMORY[0x277D85DD0];
-    v104[1] = 3221225472;
-    v104[2] = __config_callback_block_invoke_205;
-    v104[3] = &unk_27898A0C8;
-    v105 = v3;
-    dispatch_after(v31, v32, v104);
+    v30 = dispatch_time(0, 20000000000);
+    v31 = dispatch_get_global_queue(0, 0);
+    v101[0] = MEMORY[0x277D85DD0];
+    v101[1] = 3221225472;
+    v101[2] = __config_callback_block_invoke_205;
+    v101[3] = &unk_27898A0C8;
+    v102 = v3;
+    dispatch_after(v30, v31, v101);
 
     v7 = "atchItemsCommand";
     v8 = "atchItemsCommand";
@@ -1262,169 +1249,168 @@ LABEL_21:
 LABEL_33:
   if (v3)
   {
-    v33 = v6;
-    v102 = 0u;
-    v103 = 0u;
-    v101 = 0u;
+    v32 = v6;
+    v99 = 0u;
     v100 = 0u;
-    v34 = v79;
-    v35 = [v34 countByEnumeratingWithState:&v100 objects:v116 count:16];
-    if (!v35)
+    v98 = 0u;
+    v97 = 0u;
+    v33 = v76;
+    v34 = [v33 countByEnumeratingWithState:&v97 objects:v113 count:16];
+    if (!v34)
     {
       goto LABEL_79;
     }
 
-    v36 = v35;
+    v35 = v34;
     allocatora = *MEMORY[0x277CBECE8];
     domain = *MEMORY[0x277CE1648];
-    v37 = *v33;
-    entitya = *v33;
-    v87 = *v101;
-    v38 = *(v7 + 242);
-    v77 = *(v8 + 252);
+    entitya = *v32;
+    v84 = *v98;
+    v36 = *(v7 + 242);
+    v74 = *(v8 + 252);
     while (1)
     {
-      for (i = 0; i != v36; ++i)
+      for (i = 0; i != v35; ++i)
       {
-        v40 = v9;
-        if (*v101 != v87)
+        v38 = v9;
+        if (*v98 != v84)
         {
-          objc_enumerationMutation(v34);
+          objc_enumerationMutation(v33);
         }
 
-        v9 = *(*(&v100 + 1) + 8 * i);
+        v9 = *(*(&v97 + 1) + 8 * i);
 
-        v41 = [v34 objectForKeyedSubscript:v9];
-        v42 = [v41 integerValue];
+        v39 = [v33 objectForKeyedSubscript:v9];
+        v40 = [v39 integerValue];
 
-        if (v42 == 5 && [v88 _getCellSPIType] == 3)
+        if (v40 == 5 && [v85 _getCellSPIType] == 3)
         {
-          v43 = netepochsLogHandle;
+          v41 = netepochsLogHandle;
           if (!os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEBUG))
           {
             continue;
           }
 
           *buf = 138412802;
-          v113 = v9;
-          v114 = 2048;
-          *v115 = v42;
-          *&v115[8] = 2048;
-          *&v115[10] = 3;
-          v44 = v43;
-          v45 = "Ignored SCDynamicStore notification on %@, interface type = %ld, cell SPI type = %lu";
-          v46 = 32;
+          v110 = v9;
+          v111 = 2048;
+          *v112 = v40;
+          *&v112[8] = 2048;
+          *&v112[10] = 3;
+          v42 = v41;
+          v43 = "Ignored SCDynamicStore notification on %@, interface type = %ld, cell SPI type = %lu";
+          v44 = 32;
           goto LABEL_76;
         }
 
         valuePtr = -1;
         if (!v9)
         {
-          v55 = netepochsLogHandle;
+          v53 = netepochsLogHandle;
           if (!os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_58;
           }
 
           *buf = 0;
-          v56 = v55;
-          v57 = OS_LOG_TYPE_ERROR;
-          v58 = "retrieve_lqm_for_interface is called with nil ifName";
-          v59 = 2;
+          v54 = v53;
+          v55 = OS_LOG_TYPE_ERROR;
+          v56 = "retrieve_lqm_for_interface is called with nil ifName";
+          v57 = 2;
 LABEL_57:
-          _os_log_impl(&dword_23255B000, v56, v57, v58, buf, v59);
+          _os_log_impl(&dword_23255B000, v54, v55, v56, buf, v57);
           goto LABEL_58;
         }
 
         NetworkInterfaceEntity = SCDynamicStoreKeyCreateNetworkInterfaceEntity(allocatora, domain, v9, entitya);
         if (!NetworkInterfaceEntity)
         {
-          v60 = netepochsLogHandle;
+          v58 = netepochsLogHandle;
           if (!os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
           {
             goto LABEL_58;
           }
 
-          *buf = v77;
-          v113 = v9;
-          v114 = 2112;
-          *v115 = entitya;
-          v56 = v60;
-          v57 = OS_LOG_TYPE_DEFAULT;
-          v58 = "SCDynamicStore failed to create a key on interface: %@ for entity: %@";
-          v59 = 22;
+          *buf = v74;
+          v110 = v9;
+          v111 = 2112;
+          *v112 = entitya;
+          v54 = v58;
+          v55 = OS_LOG_TYPE_DEFAULT;
+          v56 = "SCDynamicStore failed to create a key on interface: %@ for entity: %@";
+          v57 = 22;
           goto LABEL_57;
         }
 
-        v48 = NetworkInterfaceEntity;
-        v49 = SCDynamicStoreCopyValue(_SCDynamicStore, NetworkInterfaceEntity);
-        v50 = netepochsLogHandle;
+        v46 = NetworkInterfaceEntity;
+        v47 = SCDynamicStoreCopyValue(_SCDynamicStore, NetworkInterfaceEntity);
+        v48 = netepochsLogHandle;
         if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
         {
-          *buf = v77;
-          v113 = v49;
-          v114 = 2112;
-          *v115 = v48;
-          _os_log_impl(&dword_23255B000, v50, OS_LOG_TYPE_DEFAULT, "SCDynamicStore retrieved value: %@ for key: %@", buf, 0x16u);
+          *buf = v74;
+          v110 = v47;
+          v111 = 2112;
+          *v112 = v46;
+          _os_log_impl(&dword_23255B000, v48, OS_LOG_TYPE_DEFAULT, "SCDynamicStore retrieved value: %@ for key: %@", buf, 0x16u);
         }
 
-        CFRelease(v48);
-        if (v49)
+        CFRelease(v46);
+        if (v47)
         {
-          v51 = CFGetTypeID(v49);
-          if (v51 == CFDictionaryGetTypeID())
+          v49 = CFGetTypeID(v47);
+          if (v49 == CFDictionaryGetTypeID())
           {
-            Value = CFDictionaryGetValue(v49, entitya);
+            Value = CFDictionaryGetValue(v47, entitya);
             if (Value)
             {
-              v53 = Value;
-              v54 = CFGetTypeID(Value);
-              if (v54 == CFNumberGetTypeID())
+              v51 = Value;
+              v52 = CFGetTypeID(Value);
+              if (v52 == CFNumberGetTypeID())
               {
-                CFNumberGetValue(v53, kCFNumberIntType, &valuePtr);
+                CFNumberGetValue(v51, kCFNumberIntType, &valuePtr);
               }
             }
           }
 
-          CFRelease(v49);
+          CFRelease(v47);
         }
 
 LABEL_58:
-        v61 = valuePtr;
-        v62 = netepochsLogHandle;
+        v59 = valuePtr;
+        v60 = netepochsLogHandle;
         if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412802;
-          v113 = v9;
-          v114 = 1024;
-          *v115 = v61;
-          *&v115[4] = 2048;
-          *&v115[6] = v42;
-          _os_log_impl(&dword_23255B000, v62, OS_LOG_TYPE_DEFAULT, "Received SCDynamicStore notification for LQM key, %@ has LQM = %d type = %ld", buf, 0x1Cu);
+          v110 = v9;
+          v111 = 1024;
+          *v112 = v59;
+          *&v112[4] = 2048;
+          *&v112[6] = v40;
+          _os_log_impl(&dword_23255B000, v60, OS_LOG_TYPE_DEFAULT, "Received SCDynamicStore notification for LQM key, %@ has LQM = %d type = %ld", buf, 0x1Cu);
         }
 
-        if ((v42 & 0xFE) == 2 || v42 == 5)
+        if ((v40 & 0xFE) == 2 || v40 == 5)
         {
-          v64 = (&realTimeLqm + 4 * v42);
-          v65 = *v64;
-          *v64 = v61;
-          [v88 _trackRealTimeLqmLastUpdatedOnInterfaceType:v42];
-          if (v42 == 5 || v42 == 3)
+          v62 = &realTimeLqm[v40];
+          v63 = *v62;
+          *v62 = v59;
+          [v85 _trackRealTimeLqmLastUpdatedOnInterfaceType:v40];
+          if (v40 == 5 || v40 == 3)
           {
-            v67 = [v88 queue];
-            v94[0] = MEMORY[0x277D85DD0];
-            v94[1] = v38;
-            v94[2] = __config_callback_block_invoke_207;
-            v94[3] = &unk_27898D8F0;
-            v68 = v88;
-            v99 = v42;
-            v97 = v65;
-            v98 = v61;
-            v95 = v68;
-            v96 = &realTimeLqm + 4 * v42;
-            dispatch_async(v67, v94);
+            v65 = [v85 queue];
+            v91[0] = MEMORY[0x277D85DD0];
+            v91[1] = v36;
+            v91[2] = __config_callback_block_invoke_207;
+            v91[3] = &unk_27898D8F0;
+            v66 = v85;
+            v96 = v40;
+            v94 = v63;
+            v95 = v59;
+            v92 = v66;
+            v93 = &realTimeLqm[v40];
+            dispatch_async(v65, v91);
 
-            v69 = v95;
+            v67 = v92;
 LABEL_73:
 
             continue;
@@ -1433,58 +1419,56 @@ LABEL_73:
 
         else
         {
-          if (v42 == 7)
+          if (v40 == 7)
           {
-            v70 = [v88 queue];
-            v89[0] = MEMORY[0x277D85DD0];
-            v89[1] = v38;
-            v89[2] = __config_callback_block_invoke_208;
-            v89[3] = &unk_27898D918;
-            v93 = v42;
-            v90 = v9;
-            v92 = v61;
-            v91 = v88;
-            dispatch_async(v70, v89);
+            v68 = [v85 queue];
+            v86[0] = MEMORY[0x277D85DD0];
+            v86[1] = v36;
+            v86[2] = __config_callback_block_invoke_208;
+            v86[3] = &unk_27898D918;
+            v90 = v40;
+            v87 = v9;
+            v89 = v59;
+            v88 = v85;
+            dispatch_async(v68, v86);
 
-            v69 = v90;
+            v67 = v87;
             goto LABEL_73;
           }
 
-          v71 = netepochsLogHandle;
+          v69 = netepochsLogHandle;
           if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEBUG))
           {
-            *buf = v77;
-            v113 = v9;
-            v114 = 2048;
-            *v115 = v42;
-            v44 = v71;
-            v45 = "Ignored SCDynamicStore notification on %@, interface type = %ld";
-            v46 = 22;
+            *buf = v74;
+            v110 = v9;
+            v111 = 2048;
+            *v112 = v40;
+            v42 = v69;
+            v43 = "Ignored SCDynamicStore notification on %@, interface type = %ld";
+            v44 = 22;
 LABEL_76:
-            _os_log_impl(&dword_23255B000, v44, OS_LOG_TYPE_DEBUG, v45, buf, v46);
+            _os_log_impl(&dword_23255B000, v42, OS_LOG_TYPE_DEBUG, v43, buf, v44);
             continue;
           }
         }
       }
 
-      v36 = [v34 countByEnumeratingWithState:&v100 objects:v116 count:16];
-      if (!v36)
+      v35 = [v33 countByEnumeratingWithState:&v97 objects:v113 count:16];
+      if (!v35)
       {
 LABEL_79:
 
         v9 = 0;
-        v3 = v88;
+        v3 = v85;
         break;
       }
     }
   }
-
-  v72 = *MEMORY[0x277D85DE8];
 }
 
 void __my_client_handle_new_block_invoke(uint64_t a1, void *a2)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   if (*(*(*(a1 + 32) + 8) + 24))
   {
     v4 = MEMORY[0x238389170](a2);
@@ -1505,110 +1489,104 @@ void __my_client_handle_new_block_invoke(uint64_t a1, void *a2)
     }
 
     while (!v7);
-    if (v6 == v5)
+    if (v6 != v5)
     {
-      if (v4 == MEMORY[0x277D86468])
+      v8 = transportLogHandle;
+      if (!os_log_type_enabled(transportLogHandle, OS_LOG_TYPE_ERROR))
       {
-        length = 0;
-        ++v5[10];
-        data = xpc_dictionary_get_data(a2, "payload", &length);
-        v14 = transportLogHandle;
-        if (data)
-        {
-          v15 = data;
-          if (os_log_type_enabled(transportLogHandle, OS_LOG_TYPE_DEBUG))
-          {
-            v16 = *(*(*(a1 + 32) + 8) + 24);
-            v17 = v16[17];
-            v18 = v16[18];
-            LODWORD(v16) = v16[19];
-            *buf = 67109632;
-            *v26 = v17;
-            *&v26[4] = 1024;
-            *&v26[6] = v18;
-            v27 = 1024;
-            v28 = v16;
-            _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_DEBUG, "message from pid:%d euid:%d egid:%d", buf, 0x14u);
-          }
-
-          v19 = *(*(*(a1 + 32) + 8) + 24);
-          symptomConnectionIncomingData(*(v19 + 136), *(v19 + 120), v15, length);
-        }
-
-        else if (os_log_type_enabled(transportLogHandle, OS_LOG_TYPE_ERROR))
-        {
-          *buf = 0;
-          _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_ERROR, "message with no payload", buf, 2u);
-        }
-
-        my_client_release(*(*(*(a1 + 32) + 8) + 24));
+        return;
       }
 
-      else
+      *buf = 134217984;
+      *v25 = v5;
+      v9 = "Invalid client: %p";
+      v10 = v8;
+      v11 = 12;
+      goto LABEL_11;
+    }
+
+    if (v4 == MEMORY[0x277D86468])
+    {
+      length = 0;
+      ++v5[10];
+      data = xpc_dictionary_get_data(a2, "payload", &length);
+      v14 = transportLogHandle;
+      if (data)
       {
-        if (v4 != MEMORY[0x277D86480])
+        v15 = data;
+        if (os_log_type_enabled(transportLogHandle, OS_LOG_TYPE_DEBUG))
         {
-          v12 = transportLogHandle;
-          if (!os_log_type_enabled(transportLogHandle, OS_LOG_TYPE_ERROR))
-          {
-            goto LABEL_30;
-          }
-
-          *buf = 0;
-          v9 = "unknown message type";
-          v10 = v12;
-          v11 = 2;
-          goto LABEL_11;
+          v16 = *(*(*(a1 + 32) + 8) + 24);
+          v17 = v16[17];
+          v18 = v16[18];
+          LODWORD(v16) = v16[19];
+          *buf = 67109632;
+          *v25 = v17;
+          *&v25[4] = 1024;
+          *&v25[6] = v18;
+          v26 = 1024;
+          v27 = v16;
+          _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_DEBUG, "message from pid:%d euid:%d egid:%d", buf, 0x14u);
         }
 
-        v20 = v5[13];
-        if (v20)
-        {
-          dispatch_source_cancel(v20);
-          v5[13] = 0;
-        }
-
-        v21 = v5[1];
-        if (v21)
-        {
-          xpc_connection_cancel(v21);
-          v22 = v5[1];
-          if (v22)
-          {
-            xpc_release(v22);
-          }
-
-          v5[1] = 0;
-        }
-
-        my_client_release(*(*(*(a1 + 32) + 8) + 24));
-        *(*(*(a1 + 32) + 8) + 24) = 0;
+        v19 = *(*(*(a1 + 32) + 8) + 24);
+        symptomConnectionIncomingData(*(v19 + 136), *(v19 + 120), v15, length);
       }
+
+      else if (os_log_type_enabled(transportLogHandle, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_ERROR, "message with no payload", buf, 2u);
+      }
+
+      my_client_release(*(*(*(a1 + 32) + 8) + 24));
+    }
+
+    else if (v4 == MEMORY[0x277D86480])
+    {
+      v20 = v5[13];
+      if (v20)
+      {
+        dispatch_source_cancel(v20);
+        v5[13] = 0;
+      }
+
+      v21 = v5[1];
+      if (v21)
+      {
+        xpc_connection_cancel(v21);
+        v22 = v5[1];
+        if (v22)
+        {
+          xpc_release(v22);
+        }
+
+        v5[1] = 0;
+      }
+
+      my_client_release(*(*(*(a1 + 32) + 8) + 24));
+      *(*(*(a1 + 32) + 8) + 24) = 0;
     }
 
     else
     {
-      v8 = transportLogHandle;
+      v12 = transportLogHandle;
       if (os_log_type_enabled(transportLogHandle, OS_LOG_TYPE_ERROR))
       {
-        *buf = 134217984;
-        *v26 = v5;
-        v9 = "Invalid client: %p";
-        v10 = v8;
-        v11 = 12;
+        *buf = 0;
+        v9 = "unknown message type";
+        v10 = v12;
+        v11 = 2;
 LABEL_11:
         _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_ERROR, v9, buf, v11);
       }
     }
   }
-
-LABEL_30:
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 BOOL symptomConnectionIncomingData(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"%llu", a2];
   v8 = [transportDictionary objectForKey:v7];
   v9 = v8;
@@ -1619,11 +1597,11 @@ BOOL symptomConnectionIncomingData(uint64_t a1, uint64_t a2, uint64_t a3, uint64
     if (os_log_type_enabled(transportLogHandle, OS_LOG_TYPE_DEBUG))
     {
       *buf = 134218496;
-      v16 = a2;
-      v17 = 2048;
-      v18 = a3;
-      v19 = 2048;
-      v20 = a4;
+      v15 = a2;
+      v16 = 2048;
+      v17 = a3;
+      v18 = 2048;
+      v19 = a4;
       _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEBUG, "symptomConnectionIncomingData for connId %llu at %p len %lu", buf, 0x20u);
     }
 
@@ -1636,48 +1614,42 @@ BOOL symptomConnectionIncomingData(uint64_t a1, uint64_t a2, uint64_t a3, uint64
     if (os_log_type_enabled(transportLogHandle, OS_LOG_TYPE_ERROR))
     {
       *buf = 134217984;
-      v16 = a2;
+      v15 = a2;
       _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_ERROR, "No entry for key %llu on read", buf, 0xCu);
     }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v9 != 0;
 }
 
 void systemPowerNotificationHandler(uint64_t a1, uint64_t a2, int a3, intptr_t a4)
 {
-  v19 = *MEMORY[0x277D85DE8];
-  if (a3 == -536870288)
+  v18 = *MEMORY[0x277D85DE8];
+  if (a3 != -536870288)
   {
-LABEL_6:
-    v9 = +[IOKitHandler sharedInstance];
-    v10 = v9[4];
-
-    if (v10)
+    if (a3 == -536870112)
     {
+      v12 = +[IOKitHandler sharedInstance];
+      [v12 updateMostRecentAPWakeTime];
+
+      v13 = noiLogHandle;
+      if (!os_log_type_enabled(noiLogHandle, OS_LOG_TYPE_INFO))
+      {
+        return;
+      }
+
+      v14 = v13;
       v11 = +[IOKitHandler sharedInstance];
-      IOAllowPowerChange(v11[4], a4);
-LABEL_10:
+      v16 = 134217984;
+      v17 = [(io_connect_t *)v11 mostRecentAPWakeMachTime];
+      _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_INFO, "Received kIOMessageSystemWillPowerOn notification. (mach time: %llu)", &v16, 0xCu);
 
-      goto LABEL_11;
+      goto LABEL_10;
     }
 
-    v16 = noiLogHandle;
-    if (os_log_type_enabled(noiLogHandle, OS_LOG_TYPE_ERROR))
-    {
-      LOWORD(v17) = 0;
-      _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_ERROR, "No kernel power port available!", &v17, 2u);
-    }
-
-    goto LABEL_11;
-  }
-
-  if (a3 != -536870112)
-  {
     if (a3 != -536870272)
     {
-      goto LABEL_11;
+      return;
     }
 
     v5 = +[IOKitHandler sharedInstance];
@@ -1688,36 +1660,35 @@ LABEL_10:
     {
       v7 = v6;
       v8 = +[IOKitHandler sharedInstance];
-      v17 = 134217984;
-      v18 = [v8 mostRecentAPSleepMachTime];
-      _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_INFO, "Received kIOMessageSystemWillSleep notification. (mach time: %llu)", &v17, 0xCu);
+      v16 = 134217984;
+      v17 = [v8 mostRecentAPSleepMachTime];
+      _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_INFO, "Received kIOMessageSystemWillSleep notification. (mach time: %llu)", &v16, 0xCu);
     }
-
-    goto LABEL_6;
   }
 
-  v12 = +[IOKitHandler sharedInstance];
-  [v12 updateMostRecentAPWakeTime];
+  v9 = +[IOKitHandler sharedInstance];
+  v10 = v9[4];
 
-  v13 = noiLogHandle;
-  if (os_log_type_enabled(noiLogHandle, OS_LOG_TYPE_INFO))
+  if (v10)
   {
-    v14 = v13;
     v11 = +[IOKitHandler sharedInstance];
-    v17 = 134217984;
-    v18 = [(io_connect_t *)v11 mostRecentAPWakeMachTime];
-    _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_INFO, "Received kIOMessageSystemWillPowerOn notification. (mach time: %llu)", &v17, 0xCu);
+    IOAllowPowerChange(v11[4], a4);
+LABEL_10:
 
-    goto LABEL_10;
+    return;
   }
 
-LABEL_11:
-  v15 = *MEMORY[0x277D85DE8];
+  v15 = noiLogHandle;
+  if (os_log_type_enabled(noiLogHandle, OS_LOG_TYPE_ERROR))
+  {
+    LOWORD(v16) = 0;
+    _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_ERROR, "No kernel power port available!", &v16, 2u);
+  }
 }
 
 void my_client_release(uint64_t *a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v1 = a1[10] - 1;
   a1[10] = v1;
   if (!v1)
@@ -1762,11 +1733,11 @@ void my_client_release(uint64_t *a1)
             v11 = __strerrbuf;
           }
 
-          v16[0] = 67109378;
-          v16[1] = v8;
-          v17 = 2080;
-          v18 = v11;
-          _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_ERROR, "mach_port_deallocate failed: %d - %s", v16, 0x12u);
+          v15[0] = 67109378;
+          v15[1] = v8;
+          v16 = 2080;
+          v17 = v11;
+          _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_ERROR, "mach_port_deallocate failed: %d - %s", v15, 0x12u);
         }
       }
 
@@ -1796,23 +1767,21 @@ void my_client_release(uint64_t *a1)
     symptomConnectionDestroy(a1[17], a1[15]);
     free(a1);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void client_write(uint64_t *a1, uint64_t *a2, uint64_t *a3, size_t a4)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v8 = transportLogHandle;
   if (os_log_type_enabled(transportLogHandle, OS_LOG_TYPE_DEBUG))
   {
-    v14 = 134218496;
-    v15 = a2;
-    v16 = 2048;
-    v17 = a3;
-    v18 = 2048;
-    v19 = a4;
-    _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEBUG, "client_write called, id %llu data %p len %lu", &v14, 0x20u);
+    v13 = 134218496;
+    v14 = a2;
+    v15 = 2048;
+    v16 = a3;
+    v17 = 2048;
+    v18 = a4;
+    _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEBUG, "client_write called, id %llu data %p len %lu", &v13, 0x20u);
   }
 
   v9 = &clients;
@@ -1832,14 +1801,14 @@ LABEL_7:
     v10 = transportLogHandle;
     if (os_log_type_enabled(transportLogHandle, OS_LOG_TYPE_ERROR))
     {
-      v14 = 134218240;
-      v15 = a1;
-      v16 = 2048;
-      v17 = a2;
-      _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_ERROR, "Client validation failure supplied %p with id %lld", &v14, 0x16u);
+      v13 = 134218240;
+      v14 = a1;
+      v15 = 2048;
+      v16 = a2;
+      _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_ERROR, "Client validation failure supplied %p with id %lld", &v13, 0x16u);
     }
 
-    goto LABEL_11;
+    return;
   }
 
   v11 = xpc_dictionary_create(0, 0, 0);
@@ -1850,23 +1819,20 @@ LABEL_7:
     xpc_connection_send_message(v9[1], v12);
     xpc_release(v12);
   }
-
-LABEL_11:
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 id pid_to_process_name(int a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v8 = 0u;
-  v9 = 0u;
-  buffer = 0u;
+  v9 = *MEMORY[0x277D85DE8];
   v7 = 0u;
+  v8 = 0u;
+  buffer = 0u;
+  v6 = 0u;
   if (proc_pidinfo(a1, 13, 1uLL, &buffer, 64) == 64)
   {
-    v4 = v7;
-    v5 = 0;
-    v1 = [MEMORY[0x277CCACA8] stringWithUTF8String:&v4];
+    v3 = v6;
+    v4 = 0;
+    v1 = [MEMORY[0x277CCACA8] stringWithUTF8String:&v3];
   }
 
   else
@@ -1874,14 +1840,12 @@ id pid_to_process_name(int a1)
     v1 = 0;
   }
 
-  v2 = *MEMORY[0x277D85DE8];
-
   return v1;
 }
 
-void sub_232569720(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_232569720(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1901,46 +1865,42 @@ unint64_t type metadata accessor for NDFCoreShim()
 
 uint64_t sub_232569BB4(uint64_t a1)
 {
-  v5 = *(v1 + 16);
-  v4 = *(v1 + 24);
-  v6 = swift_task_alloc();
-  *(v2 + 16) = v6;
-  *v6 = v2;
-  v6[1] = sub_232569D64;
+  v4 = *(v1 + 16);
+  v5 = swift_task_alloc();
+  *(v2 + 16) = v5;
+  *v5 = v2;
+  v5[1] = sub_232569D64;
 
-  return sub_232569C6C(a1, v5);
+  return sub_232569C6C(a1, v4);
 }
 
 uint64_t sub_232569C6C(uint64_t a1, int *a2)
 {
-  v7 = (a2 + *a2);
-  v4 = a2[1];
-  v5 = swift_task_alloc();
-  *(v2 + 16) = v5;
-  *v5 = v2;
-  v5[1] = sub_232569E5C;
+  v6 = (a2 + *a2);
+  v4 = swift_task_alloc();
+  *(v2 + 16) = v4;
+  *v4 = v2;
+  v4[1] = sub_232569E5C;
 
-  return v7(a1);
+  return v6(a1);
 }
 
 uint64_t sub_232569D68()
 {
-  v1 = *(*v0 + 16);
-  v4 = *v0;
+  v3 = *v0;
 
-  v2 = *(v4 + 8);
+  v1 = *(v3 + 8);
 
-  return v2();
+  return v1();
 }
 
 uint64_t sub_232569E5C()
 {
-  v1 = *(*v0 + 16);
-  v4 = *v0;
+  v3 = *v0;
 
-  v2 = *(v4 + 8);
+  v1 = *(v3 + 8);
 
-  return v2();
+  return v1();
 }
 
 uint64_t sub_232569F54(uint64_t a1)
@@ -1952,7 +1912,7 @@ uint64_t sub_232569F54(uint64_t a1)
 
 uint64_t libnetcoreSymptomTrampoline(void *a1, void *a2, char a3, char a4, void *a5, void *a6)
 {
-  v93 = *MEMORY[0x277D85DE8];
+  v92 = *MEMORY[0x277D85DE8];
   v11 = a1;
   v12 = a2;
   v13 = a5;
@@ -1967,7 +1927,7 @@ uint64_t libnetcoreSymptomTrampoline(void *a1, void *a2, char a3, char a4, void 
     }
 
     *buf = 138412290;
-    v90 = v11;
+    v89 = v11;
     v19 = "libnetcore symptom is corrupted: %@";
     goto LABEL_10;
   }
@@ -1982,7 +1942,7 @@ uint64_t libnetcoreSymptomTrampoline(void *a1, void *a2, char a3, char a4, void 
     }
 
     *buf = 138412290;
-    v90 = v11;
+    v89 = v11;
     v19 = "libnetcore symptom, unable to parse: %@";
     goto LABEL_10;
   }
@@ -2019,8 +1979,8 @@ LABEL_16:
     goto LABEL_17;
   }
 
-  v26 = *(v15 + 24);
-  if (!v26)
+  v25 = *(v15 + 24);
+  if (!v25)
   {
     if (a4)
     {
@@ -2034,7 +1994,7 @@ LABEL_16:
     }
 
     *buf = 138412290;
-    v90 = v11;
+    v89 = v11;
     v19 = "libnetcore symptom has nil interface index, symptom: %@";
 LABEL_10:
     v21 = v20;
@@ -2044,22 +2004,22 @@ LABEL_15:
     goto LABEL_16;
   }
 
-  v27 = [objc_alloc(MEMORY[0x277CD91D8]) initWithInterfaceIndex:v26];
-  v28 = v27;
+  v26 = [objc_alloc(MEMORY[0x277CD91D8]) initWithInterfaceIndex:v25];
+  v27 = v26;
   if (v12)
   {
-    v29 = [v27 type];
-    if (v29 != [v12 integerValue])
+    v28 = [v26 type];
+    if (v28 != [v12 integerValue])
     {
-      v34 = rnfLogHandle;
+      v33 = rnfLogHandle;
       if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_INFO))
       {
-        v35 = v34;
+        v34 = v33;
         *buf = 134218242;
-        v90 = [v28 type];
-        v91 = 2112;
-        v92 = v12;
-        _os_log_impl(&dword_23255B000, v35, OS_LOG_TYPE_INFO, "libnetcore symptom interface index %ld doesn't match request: %@", buf, 0x16u);
+        v89 = [v27 type];
+        v90 = 2112;
+        v91 = v12;
+        _os_log_impl(&dword_23255B000, v34, OS_LOG_TYPE_INFO, "libnetcore symptom interface index %ld doesn't match request: %@", buf, 0x16u);
       }
 
       goto LABEL_16;
@@ -2067,107 +2027,107 @@ LABEL_15:
   }
 
 LABEL_23:
-  v59 = *(v16 + 32);
-  v30 = pid_to_process_name(v59);
-  v57 = v26;
-  if (v30)
+  v58 = *(v16 + 32);
+  v29 = pid_to_process_name(v58);
+  v56 = v25;
+  if (v29)
   {
-    v62 = v30;
-    v31 = rnfLogHandle;
+    v61 = v29;
+    v30 = rnfLogHandle;
     if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v90 = v62;
-      v32 = "libnetcore symptom uses effective process name: %@";
+      v89 = v61;
+      v31 = "libnetcore symptom uses effective process name: %@";
 LABEL_29:
-      _os_log_impl(&dword_23255B000, v31, OS_LOG_TYPE_INFO, v32, buf, 0xCu);
+      _os_log_impl(&dword_23255B000, v30, OS_LOG_TYPE_INFO, v31, buf, 0xCu);
     }
   }
 
   else
   {
-    v33 = [v11 eventQualifierStringForKey:@"3"];
-    if (!v33)
+    v32 = [v11 eventQualifierStringForKey:@"3"];
+    if (!v32)
     {
-      v62 = 0;
+      v61 = 0;
       goto LABEL_36;
     }
 
-    v62 = v33;
-    v31 = rnfLogHandle;
+    v61 = v32;
+    v30 = rnfLogHandle;
     if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v90 = v62;
-      v32 = "libnetcore symptom falls back to using process name: %@";
+      v89 = v61;
+      v31 = "libnetcore symptom falls back to using process name: %@";
       goto LABEL_29;
     }
   }
 
 LABEL_36:
-  v60 = [v11 eventQualifierStringForKey:@"4"];
-  v61 = [v11 eventQualifierStringForKey:@"6"];
-  v36 = *(v16 + 64);
-  v37 = [v11 eventQualifierStringForKey:@"7"];
-  v58 = [v37 intValue];
+  v59 = [v11 eventQualifierStringForKey:@"4"];
+  v60 = [v11 eventQualifierStringForKey:@"6"];
+  v35 = *(v16 + 64);
+  v36 = [v11 eventQualifierStringForKey:@"7"];
+  v57 = [v36 intValue];
 
-  v38 = [v11 eventQualifierStringForKey:@"10"];
-  v56 = [v38 intValue];
+  v37 = [v11 eventQualifierStringForKey:@"10"];
+  v55 = [v37 intValue];
 
-  v39 = [v11 eventQualifierStringForKey:@"11"];
-  v40 = [v39 intValue];
+  v38 = [v11 eventQualifierStringForKey:@"11"];
+  v39 = [v38 intValue];
 
-  v41 = [v11 eventQualifierStringForKey:@"12"];
-  v42 = [v11 eventKey];
-  v43 = [SymptomStore nameFromSymptomKey:v42];
+  v40 = [v11 eventQualifierStringForKey:@"12"];
+  v41 = [v11 eventKey];
+  v42 = [SymptomStore nameFromSymptomKey:v41];
 
   if (a3)
   {
-    v54 = v36;
-    v55 = v41;
-    v44 = v60;
-    v45 = [v11 eventQualifiers];
-    v46 = [v45 objectForKeyedSubscript:@"2"];
+    v53 = v35;
+    v54 = v40;
+    v43 = v59;
+    v44 = [v11 eventQualifiers];
+    v45 = [v44 objectForKeyedSubscript:@"2"];
 
-    if ([v46 length])
+    if ([v45 length])
     {
-      v47 = v40;
-      v48 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:{objc_msgSend(v46, "bytes")}];
-      v76[0] = MEMORY[0x277D85DD0];
-      v76[1] = 3221225472;
-      v76[2] = __libnetcoreSymptomTrampoline_block_invoke;
-      v76[3] = &unk_27898D720;
-      v82 = v14;
-      v77 = v43;
-      v78 = v62;
-      v84 = v59;
-      v85 = v57;
+      v46 = v39;
+      v47 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:{objc_msgSend(v45, "bytes")}];
+      v75[0] = MEMORY[0x277D85DD0];
+      v75[1] = 3221225472;
+      v75[2] = __libnetcoreSymptomTrampoline_block_invoke;
+      v75[3] = &unk_27898D720;
+      v81 = v14;
+      v76 = v42;
+      v77 = v61;
+      v83 = v58;
+      v84 = v56;
+      v78 = v59;
+      v48 = v60;
       v79 = v60;
-      v49 = v61;
-      v80 = v61;
-      v83 = v54;
-      v86 = v58;
-      v87 = v56;
-      v88 = v47;
-      v50 = v55;
-      v81 = v55;
-      [FlowAnalyticsEngine checkForegroundStateForProcessWithUUID:v48 replyQueue:v13 reply:v76];
+      v82 = v53;
+      v85 = v57;
+      v86 = v55;
+      v87 = v46;
+      v49 = v54;
+      v80 = v54;
+      [FlowAnalyticsEngine checkForegroundStateForProcessWithUUID:v47 replyQueue:v13 reply:v75];
 
       v23 = 1;
     }
 
     else
     {
-      v53 = rnfLogHandle;
+      v52 = rnfLogHandle;
       if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_23255B000, v53, OS_LOG_TYPE_INFO, "libnetcore symptom with invalid uuid, failing because foreground requested", buf, 2u);
+        _os_log_impl(&dword_23255B000, v52, OS_LOG_TYPE_INFO, "libnetcore symptom with invalid uuid, failing because foreground requested", buf, 2u);
       }
 
       v23 = 0;
-      v49 = v61;
-      v50 = v55;
+      v48 = v60;
+      v49 = v54;
     }
   }
 
@@ -2177,37 +2137,36 @@ LABEL_36:
     block[1] = 3221225472;
     block[2] = __libnetcoreSymptomTrampoline_block_invoke_27;
     block[3] = &unk_27898D748;
-    v69 = v14;
-    v64 = v43;
-    v65 = v62;
-    v71 = v59;
-    v72 = v57;
-    v51 = v41;
-    v44 = v60;
+    v68 = v14;
+    v63 = v42;
+    v64 = v61;
+    v70 = v58;
+    v71 = v56;
+    v50 = v40;
+    v43 = v59;
+    v65 = v59;
+    v51 = v35;
+    v48 = v60;
     v66 = v60;
-    v52 = v36;
-    v49 = v61;
-    v67 = v61;
-    v70 = v52;
-    v73 = v58;
-    v74 = v56;
-    v75 = v40;
-    v50 = v51;
-    v68 = v51;
+    v69 = v51;
+    v72 = v57;
+    v73 = v55;
+    v74 = v39;
+    v49 = v50;
+    v67 = v50;
     dispatch_async(v13, block);
 
     v23 = 1;
-    v46 = v69;
+    v45 = v68;
   }
 
 LABEL_17:
-  v24 = *MEMORY[0x277D85DE8];
   return v23;
 }
 
 void __config_callback_block_invoke(uint64_t a1)
 {
-  v75[2] = *MEMORY[0x277D85DE8];
+  v74[2] = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 40);
   v2 = *(a1 + 32);
   v3 = +[SystemSettingsRelay defaultRelay];
@@ -2241,7 +2200,7 @@ LABEL_45:
     }
 
     *buf = 138412290;
-    v72 = v2;
+    v71 = v2;
     v45 = "Not querying IP configuration; key %@ is invalid";
     v46 = v49;
     v47 = OS_LOG_TYPE_ERROR;
@@ -2256,7 +2215,7 @@ LABEL_45:
     if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v72 = v5;
+      v71 = v5;
       _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "Querying IP configuration for interface %@", buf, 0xCu);
     }
 
@@ -2271,66 +2230,66 @@ LABEL_45:
       if (v11)
       {
         *buf = 138412290;
-        v72 = v7;
+        v71 = v7;
         _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_INFO, "Received configd callback for IP configuration change on interface %@", buf, 0xCu);
       }
 
       v12 = *MEMORY[0x277CBECE8];
       v13 = *MEMORY[0x277CE1648];
       NetworkInterfaceEntity = SCDynamicStoreKeyCreateNetworkInterfaceEntity(*MEMORY[0x277CBECE8], *MEMORY[0x277CE1648], v7, entity);
-      v62 = *MEMORY[0x277CE1690];
+      v61 = *MEMORY[0x277CE1690];
       v15 = SCDynamicStoreKeyCreateNetworkInterfaceEntity(v12, v13, v7, *MEMORY[0x277CE1690]);
       v16 = v15;
       if (NetworkInterfaceEntity && v15)
       {
-        v75[0] = NetworkInterfaceEntity;
-        v75[1] = v15;
-        v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v75 count:2];
+        v74[0] = NetworkInterfaceEntity;
+        v74[1] = v15;
+        v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v74 count:2];
 
         if ([(__CFArray *)v17 count])
         {
           v18 = SCDynamicStoreCopyMultiple(v1, 0, v17);
           if ([(__CFDictionary *)v18 count])
           {
-            v57 = v7;
-            v65 = 0u;
-            v66 = 0u;
-            v63 = 0u;
+            v56 = v7;
             v64 = 0u;
+            v65 = 0u;
+            v62 = 0u;
+            v63 = 0u;
             v19 = v18;
-            v20 = [(__CFDictionary *)v19 countByEnumeratingWithState:&v63 objects:buf count:16];
+            v20 = [(__CFDictionary *)v19 countByEnumeratingWithState:&v62 objects:buf count:16];
             if (!v20)
             {
               goto LABEL_60;
             }
 
             v21 = v20;
-            v54 = v18;
-            v55 = v17;
-            v56 = v2;
-            v22 = *v64;
-            v59 = *MEMORY[0x277CE1728];
-            v58 = *MEMORY[0x277CE1758];
+            v53 = v18;
+            v54 = v17;
+            v55 = v2;
+            v22 = *v63;
+            v58 = *MEMORY[0x277CE1728];
+            v57 = *MEMORY[0x277CE1758];
             v23 = entity;
             while (1)
             {
               v24 = 0;
-              v61 = v21;
+              v60 = v21;
               do
               {
-                if (*v64 != v22)
+                if (*v63 != v22)
                 {
                   objc_enumerationMutation(v19);
                 }
 
-                v25 = *(*(&v63 + 1) + 8 * v24);
+                v25 = *(*(&v62 + 1) + 8 * v24);
                 v26 = [(__CFDictionary *)v19 objectForKeyedSubscript:v25];
 
                 if (v26)
                 {
                   v27 = [(__CFDictionary *)v19 objectForKeyedSubscript:v25];
                   v28 = [v25 containsString:v23];
-                  v29 = [v25 containsString:v62];
+                  v29 = [v25 containsString:v61];
                   if ((v28 & 1) != 0 || v29)
                   {
                     v34 = v22;
@@ -2343,9 +2302,9 @@ LABEL_45:
                         v37 = netepochsLogHandle;
                         if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
                         {
-                          *v67 = 138412290;
-                          v68 = v36;
-                          _os_log_impl(&dword_23255B000, v37, OS_LOG_TYPE_DEFAULT, "Interface %@ is a DirectLink interface, ignoring its IP configuration", v67, 0xCu);
+                          *v66 = 138412290;
+                          v67 = v36;
+                          _os_log_impl(&dword_23255B000, v37, OS_LOG_TYPE_DEFAULT, "Interface %@ is a DirectLink interface, ignoring its IP configuration", v66, 0xCu);
                         }
                       }
 
@@ -2354,10 +2313,10 @@ LABEL_45:
                         v39 = +[NDFCoreShim sharedInstance];
                         [v39 noteInterfaceOfInterest:v36 isRemoved:0];
 
-                        v40 = v59;
+                        v40 = v58;
                         if (!v28)
                         {
-                          v40 = v58;
+                          v40 = v57;
                         }
 
                         v41 = v40;
@@ -2365,32 +2324,32 @@ LABEL_45:
                         v43 = netepochsLogHandle;
                         if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_INFO))
                         {
-                          *v67 = 138412547;
-                          v68 = v36;
-                          v69 = 2113;
-                          v70 = v42;
-                          _os_log_impl(&dword_23255B000, v43, OS_LOG_TYPE_INFO, "IP configuration for %@ = %{private}@", v67, 0x16u);
+                          *v66 = 138412547;
+                          v67 = v36;
+                          v68 = 2113;
+                          v69 = v42;
+                          _os_log_impl(&dword_23255B000, v43, OS_LOG_TYPE_INFO, "IP configuration for %@ = %{private}@", v66, 0x16u);
                         }
 
                         v23 = entity;
                       }
 
                       v22 = v34;
-                      v21 = v61;
+                      v21 = v60;
                     }
 
                     else
                     {
                       v38 = netepochsLogHandle;
-                      v21 = v61;
+                      v21 = v60;
                       if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_ERROR))
                       {
-                        *v67 = 138412290;
-                        v68 = v25;
+                        *v66 = 138412290;
+                        v67 = v25;
                         v31 = v38;
                         v32 = "Extracted interfaceName from key %@ is nil";
 LABEL_32:
-                        _os_log_impl(&dword_23255B000, v31, OS_LOG_TYPE_ERROR, v32, v67, 0xCu);
+                        _os_log_impl(&dword_23255B000, v31, OS_LOG_TYPE_ERROR, v32, v66, 0xCu);
                       }
                     }
                   }
@@ -2400,8 +2359,8 @@ LABEL_32:
                     v30 = netepochsLogHandle;
                     if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_ERROR))
                     {
-                      *v67 = 138412290;
-                      v68 = v25;
+                      *v66 = 138412290;
+                      v67 = v25;
                       v31 = v30;
                       v32 = "Received callback for unexpected key %@, expecting IPv4 or IPv6";
                       goto LABEL_32;
@@ -2414,9 +2373,9 @@ LABEL_32:
                 v33 = netepochsLogHandle;
                 if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_ERROR))
                 {
-                  *v67 = 138412290;
-                  v68 = v25;
-                  _os_log_impl(&dword_23255B000, v33, OS_LOG_TYPE_ERROR, "No IP configuration obtained for key %@", v67, 0xCu);
+                  *v66 = 138412290;
+                  v67 = v25;
+                  _os_log_impl(&dword_23255B000, v33, OS_LOG_TYPE_ERROR, "No IP configuration obtained for key %@", v66, 0xCu);
                 }
 
 LABEL_40:
@@ -2424,13 +2383,13 @@ LABEL_40:
               }
 
               while (v21 != v24);
-              v21 = [(__CFDictionary *)v19 countByEnumeratingWithState:&v63 objects:buf count:16];
+              v21 = [(__CFDictionary *)v19 countByEnumeratingWithState:&v62 objects:buf count:16];
               if (!v21)
               {
-                v2 = v56;
-                v7 = v57;
-                v18 = v54;
-                v17 = v55;
+                v2 = v55;
+                v7 = v56;
+                v18 = v53;
+                v17 = v54;
                 goto LABEL_60;
               }
             }
@@ -2440,7 +2399,7 @@ LABEL_40:
           if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v72 = v7;
+            v71 = v7;
             _os_log_impl(&dword_23255B000, v52, OS_LOG_TYPE_DEFAULT, "Interface %@ has gone down", buf, 0xCu);
           }
 
@@ -2466,9 +2425,9 @@ LABEL_60:
         if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412546;
-          v72 = NetworkInterfaceEntity;
-          v73 = 2112;
-          v74 = v16;
+          v71 = NetworkInterfaceEntity;
+          v72 = 2112;
+          v73 = v16;
           _os_log_impl(&dword_23255B000, v50, OS_LOG_TYPE_ERROR, "Found IPv4/IPv6 SCDynamicStore keys (%@/%@) to be nil", buf, 0x16u);
         }
 
@@ -2490,21 +2449,19 @@ LABEL_60:
   }
 
 LABEL_64:
-  v53 = *MEMORY[0x277D85DE8];
 }
 
 void sf_synchronize_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_FAULT))
   {
-    OUTLINED_FUNCTION_0_4(&dword_23255B000, v0, v1, "Invalid parameter %s", v2, v3, v4, v5, 2u);
+    LODWORD(v6) = 136315138;
+    *(&v6 + 4) = "block";
+    OUTLINED_FUNCTION_0_4(&dword_23255B000, v0, v1, "Invalid parameter %s", v2, v3, v4, v5, v6, DWORD2(v6));
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t EnvFacts(char *a1, FILE *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+uint64_t EnvFacts(uint64_t *a1, FILE *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   CurrentModule = EnvGetCurrentModule(a1);
   if (a3)
@@ -2524,20 +2481,20 @@ uint64_t EnvFacts(char *a1, FILE *a2, uint64_t a3, uint64_t a4, uint64_t a5, uin
   {
     while (GetHaltExecution(a1) != 1)
     {
-      v21 = *(v15 + 48);
-      if ((v21 <= a5 || a5 == -1) && a6 != 0)
+      v16 = *(v15 + 48);
+      if ((v16 <= a5 || a5 == -1) && a6 != 0)
       {
-        if (v21 >= a4)
+        if (v16 >= a4)
         {
-          PrintFactWithIdentifier(a1, a2, v15, v16, v17, v18, v19, v20);
+          PrintFactWithIdentifier(a1, a2, v15);
           EnvPrintRouter(a1, a2, "\n");
           ++v14;
           a6 -= a6 > 0;
         }
 
-        v24 = a3 ? GetNextFactInScope(a1, v15) : EnvGetNextFact(a1, v15);
-        v15 = v24;
-        if (v24)
+        v19 = a3 ? GetNextFactInScope(a1, v15) : EnvGetNextFact(a1, v15);
+        v15 = v19;
+        if (v19)
         {
           continue;
         }
@@ -2573,14 +2530,12 @@ uint64_t EnvGetNextFact(uint64_t a1, uint64_t a2)
   return 0;
 }
 
-uint64_t PrintFactWithIdentifier(char *a1, FILE *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t PrintFactWithIdentifier(uint64_t *a1, FILE *a2, uint64_t a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  gensprintf(v13, "f-%-5lld ", a3, a4, a5, a6, a7, a8, *(a3 + 48));
-  EnvPrintRouter(a1, a2, v13);
-  result = PrintFact(a1, a2, a3, 0, 0);
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  v8 = *MEMORY[0x277D85DE8];
+  gensprintf(v7, "f-%-5lld ", *(a3 + 48));
+  EnvPrintRouter(a1, a2, v7);
+  return PrintFact(a1, a2, a3, 0, 0);
 }
 
 uint64_t EnvPrintRouter(uint64_t a1, FILE *__s2, char *a3)
@@ -2667,9 +2622,9 @@ BOOL _routerQueryImpl(uint64_t a1, const char *a2)
   memset(&v10, 0, sizeof(v10));
   if (v3)
   {
-    [v3 consoleNameRegex];
+    objc_msgSend_consoleNameRegex(v3);
     memset(&v9, 0, sizeof(v9));
-    [v4 dumpStringRegex];
+    objc_msgSend_dumpStringRegex(v4);
   }
 
   else
@@ -2693,7 +2648,7 @@ BOOL _routerQueryImpl(uint64_t a1, const char *a2)
   return v6;
 }
 
-uint64_t PrintFact(char *a1, FILE *__s2, uint64_t a3, int a4, int a5)
+uint64_t PrintFact(uint64_t *a1, FILE *__s2, uint64_t a3, int a4, int a5)
 {
   if (*(*(a3 + 32) + 56))
   {
@@ -2703,7 +2658,7 @@ uint64_t PrintFact(char *a1, FILE *__s2, uint64_t a3, int a4, int a5)
     if (*(v9 + 8))
     {
       EnvPrintRouter(a1, __s2, " ");
-      PrintMultifield(a1, __s2, v9, 0, *(v9 + 8) - 1, 0, v10, v11, v12);
+      PrintMultifield(a1, __s2, v9, 0, *(v9 + 8) - 1, 0);
     }
 
     return EnvPrintRouter(a1, __s2, ")");
@@ -2716,10 +2671,9 @@ uint64_t PrintFact(char *a1, FILE *__s2, uint64_t a3, int a4, int a5)
   }
 }
 
-uint64_t PrintMultifield(uint64_t result, FILE *__s2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, __n128 a9)
+uint64_t PrintMultifield(uint64_t result, FILE *__s2, uint64_t a3, uint64_t a4, uint64_t a5, int a6)
 {
-  v9 = a6;
-  v14 = result;
+  v11 = result;
   if (a6)
   {
     result = EnvPrintRouter(result, __s2, "(");
@@ -2727,26 +2681,26 @@ uint64_t PrintMultifield(uint64_t result, FILE *__s2, uint64_t a3, uint64_t a4, 
 
   if (a4 <= a5)
   {
-    v15 = (a3 + 16 * a4 + 32);
+    v12 = (a3 + 16 * a4 + 32);
     do
     {
-      result = PrintAtom(v14, __s2, *(v15 - 4), *v15, a5, a6, a7, a8, a9);
+      result = PrintAtom(v11, __s2, *(v12 - 4), *v12);
       if (a4 < a5)
       {
-        result = EnvPrintRouter(v14, __s2, " ");
+        result = EnvPrintRouter(v11, __s2, " ");
       }
 
       ++a4;
-      v15 += 2;
+      v12 += 2;
     }
 
     while (a5 + 1 != a4);
   }
 
-  if (v9)
+  if (a6)
   {
 
-    return EnvPrintRouter(v14, __s2, ")");
+    return EnvPrintRouter(v11, __s2, ")");
   }
 
   return result;
@@ -2754,29 +2708,28 @@ uint64_t PrintMultifield(uint64_t result, FILE *__s2, uint64_t a3, uint64_t a4, 
 
 uint64_t PrintTally(uint64_t result, FILE *a2, uint64_t a3, char *a4, char *a5)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (a3)
   {
     v9 = result;
     EnvPrintRouter(result, a2, "For a total of ");
-    gensprintf(v18, "%lld", v10, v11, v12, v13, v14, v15, a3);
-    EnvPrintRouter(v9, a2, v18);
+    gensprintf(v11, "%lld", a3);
+    EnvPrintRouter(v9, a2, v11);
     EnvPrintRouter(v9, a2, " ");
     if (a3 == 1)
     {
-      v16 = a4;
+      v10 = a4;
     }
 
     else
     {
-      v16 = a5;
+      v10 = a5;
     }
 
-    EnvPrintRouter(v9, a2, v16);
-    result = EnvPrintRouter(v9, a2, ".\n");
+    EnvPrintRouter(v9, a2, v10);
+    return EnvPrintRouter(v9, a2, ".\n");
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -2789,25 +2742,25 @@ uint64_t SetEnvironmentRouterContext(uint64_t a1, uint64_t a2)
 
 uint64_t _routerPrintImpl(uint64_t a1, const char *a2, uint64_t a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = GetEnvironmentContext(a1);
   v6 = v5;
-  memset(&v16, 0, sizeof(v16));
+  memset(&v15, 0, sizeof(v15));
   if (v5)
   {
-    [v5 consoleNameRegex];
-    memset(&v15, 0, sizeof(v15));
-    [v6 dumpStringRegex];
+    objc_msgSend_consoleNameRegex(v5);
+    memset(&v14, 0, sizeof(v14));
+    objc_msgSend_dumpStringRegex(v6);
   }
 
   else
   {
-    memset(&v15, 0, sizeof(v15));
+    memset(&v14, 0, sizeof(v14));
   }
 
-  if (regexec(&v16, a2, 0, 0, 0))
+  if (regexec(&v15, a2, 0, 0, 0))
   {
-    if (!regexec(&v15, a2, 0, 0, 0))
+    if (!regexec(&v14, a2, 0, 0, 0))
     {
       v7 = [v6 dumpedString];
       [v7 appendFormat:@"%s", a3];
@@ -2845,9 +2798,9 @@ LABEL_21:
             if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_ERROR))
             {
               *buf = 136315394;
-              v18 = a2;
-              v19 = 2112;
-              v20 = v10;
+              v17 = a2;
+              v18 = 2112;
+              v19 = v10;
               _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_ERROR, "<%s> %@", buf, 0x16u);
             }
           }
@@ -2858,7 +2811,6 @@ LABEL_21:
     }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -2881,66 +2833,61 @@ uint64_t EnvSetCurrentModule(uint64_t a1, uint64_t a2)
   return v4;
 }
 
-unint64_t EnvRun(void *a1, uint64_t a2)
+uint64_t EnvRun(void *a1, uint64_t a2)
 {
-  v117 = *MEMORY[0x277D85DE8];
+  v79 = *MEMORY[0x277D85DE8];
   v2 = a1[6];
   v3 = *(v2 + 144);
   if (*(v3 + 136))
   {
-    v4 = 0;
+    return 0;
+  }
+
+  memset(v77, 0, sizeof(v77));
+  v75 = 0;
+  memset(v76, 0, sizeof(v76));
+  *(v3 + 136) = 1;
+  v7 = *(v2 + 440);
+  v8 = *(v7 + 112);
+  v71[0] = 0;
+  v72 = 0u;
+  v73 = 0u;
+  v74 = 0u;
+  v71[1] = v8;
+  *(v7 + 112) = v71;
+  if (*(*(v2 + 144) + 76))
+  {
+    NumberOfFacts = GetNumberOfFacts(a1);
+    NumberOfActivations = GetNumberOfActivations(a1);
+    v11 = gentime();
+    v2 = a1[6];
   }
 
   else
   {
-    memset(v115, 0, sizeof(v115));
-    v113 = 0;
-    memset(v114, 0, sizeof(v114));
-    *(v3 + 136) = 1;
-    v7 = *(v2 + 440);
-    v8 = *(v7 + 112);
-    v109[0] = 0;
-    v110 = 0u;
-    v111 = 0u;
-    v112 = 0u;
-    v109[1] = v8;
-    *(v7 + 112) = v109;
-    if (*(*(v2 + 144) + 76))
-    {
-      NumberOfFacts = GetNumberOfFacts(a1);
-      NumberOfActivations = GetNumberOfActivations(a1);
-      v11 = gentime();
-      v2 = a1[6];
-    }
+    NumberOfActivations = 0;
+    NumberOfFacts = 0;
+    v11 = 0.0;
+  }
 
-    else
-    {
-      NumberOfActivations = 0;
-      NumberOfFacts = 0;
-      v11 = 0.0;
-    }
+  if (*(*(*(v2 + 440) + 112) + 2))
+  {
+    SetHaltExecution(a1, 0);
+    v2 = a1[6];
+  }
 
-    if (*(*(*(v2 + 440) + 112) + 2))
-    {
-      SetHaltExecution(a1, 0);
-      v2 = a1[6];
-    }
-
-    *(*(v2 + 144) + 8) = 0;
-    ActivationToFire = NextActivationToFire(a1);
-    v104 = v8;
-    v107 = NumberOfFacts;
-    v108 = NumberOfActivations;
-    if (!ActivationToFire || !a2)
-    {
-      goto LABEL_67;
-    }
-
+  *(*(v2 + 144) + 8) = 0;
+  ActivationToFire = NextActivationToFire(a1);
+  v66 = v8;
+  v69 = NumberOfFacts;
+  v70 = NumberOfActivations;
+  if (ActivationToFire && a2)
+  {
     v13 = ActivationToFire;
     v14 = NumberOfFacts;
     v4 = 0;
-    v105 = v14;
-    v106 = NumberOfActivations;
+    v67 = v14;
+    v68 = NumberOfActivations;
     while (1)
     {
       v15 = a1[6];
@@ -2975,13 +2922,13 @@ unint64_t EnvRun(void *a1, uint64_t a2)
       ActivationName = EnvGetActivationName(a1, v13);
       ActivationBasis = EnvGetActivationBasis(a1, v13);
       ActivationRule = EnvGetActivationRule(a1, v13);
-      v29 = a1[6];
-      **(v29 + 144) = ActivationRule;
+      v23 = a1[6];
+      **(v23 + 144) = ActivationRule;
       ++v4;
-      if ((*(**(v29 + 144) + 57) & 0x20) != 0)
+      if ((*(**(v23 + 144) + 57) & 0x20) != 0)
       {
-        gensprintf(v116, "FIRE %4lld ", v23, v24, v25, v26, v27, v28, v4);
-        EnvPrintRouter(a1, "wtrace", v116);
+        gensprintf(v78, "FIRE %4lld ", v4);
+        EnvPrintRouter(a1, "wtrace", v78);
         EnvPrintRouter(a1, "wtrace", ActivationName);
         EnvPrintRouter(a1, "wtrace", ": ");
         PrintPartialMatch(a1, "wtrace", ActivationBasis);
@@ -2990,73 +2937,73 @@ unint64_t EnvRun(void *a1, uint64_t a2)
 
       *(ActivationBasis + 24) = 0;
       *ActivationBasis |= 2u;
-      v30 = a1[6];
-      *(*(v30 + 144) + 96) = ActivationBasis;
-      *(*(v30 + 144) + 104) = 0;
-      v31 = *(ActivationBasis + 2);
-      if (v31)
+      v24 = a1[6];
+      *(*(v24 + 144) + 96) = ActivationBasis;
+      *(*(v24 + 144) + 104) = 0;
+      v25 = *(ActivationBasis + 2);
+      if (v25)
       {
-        for (j = 0; j < v31; ++j)
+        for (j = 0; j < v25; ++j)
         {
-          v33 = *(ActivationBasis + 136 + 8 * j);
-          if (v33 && *v33)
+          v27 = *(ActivationBasis + 136 + 8 * j);
+          if (v27 && *v27)
           {
-            (*(**v33 + 120))(a1);
-            v31 = *(ActivationBasis + 2);
+            (*(**v27 + 120))(a1);
+            v25 = *(ActivationBasis + 2);
           }
         }
 
-        v30 = a1[6];
+        v24 = a1[6];
       }
 
-      *(*(v30 + 144) + 16) = *(**(v30 + 144) + 80);
-      v34 = *(v30 + 144);
-      v35 = v34[2];
-      if (v35)
+      *(*(v24 + 144) + 16) = *(**(v24 + 144) + 80);
+      v28 = *(v24 + 144);
+      v29 = v28[2];
+      if (v29)
       {
-        LogicalBind = FindLogicalBind(v35, v34[12]);
-        v37 = a1[6];
-        *(*(v37 + 144) + 24) = LogicalBind;
-        **(*(v37 + 144) + 24) |= 2u;
-        v30 = a1[6];
+        LogicalBind = FindLogicalBind(v29, v28[12]);
+        v31 = a1[6];
+        *(*(v31 + 144) + 24) = LogicalBind;
+        **(*(v31 + 144) + 24) |= 2u;
+        v24 = a1[6];
       }
 
       else
       {
-        v34[3] = 0;
+        v28[3] = 0;
       }
 
-      ++*(*(v30 + 352) + 16);
+      ++*(*(v24 + 352) + 16);
       SetEvaluationError(a1, 0);
-      v38 = **(a1[6] + 144);
-      *(v38 + 56) |= 0x8000u;
-      v39 = a1[6];
-      v40 = *(*(v39 + 336) + 20);
-      StartProfile(a1, v114, (**(v39 + 144) + 40), *(*(v39 + 120) + 72));
-      v41 = **(a1[6] + 144);
-      EvaluateProcActions(a1, **(v41 + 16), *(v41 + 72), *(v41 + 52), v115, 0);
-      EndProfile(a1, v114);
-      v42 = **(a1[6] + 144);
-      *(v42 + 56) &= ~0x8000u;
+      v32 = **(a1[6] + 144);
+      *(v32 + 56) |= 0x8000u;
+      v33 = a1[6];
+      v34 = *(*(v33 + 336) + 20);
+      StartProfile(a1, v76, (**(v33 + 144) + 40), *(*(v33 + 120) + 72));
+      v35 = **(a1[6] + 144);
+      EvaluateProcActions(a1, **(v35 + 16), *(v35 + 72), *(v35 + 52), v77, 0);
+      EndProfile(a1, v76);
+      v36 = **(a1[6] + 144);
+      *(v36 + 56) &= ~0x8000u;
       SetEvaluationError(a1, 0);
-      v43 = a1[6];
-      v44 = *(v43 + 352);
-      --*(v44 + 16);
-      if (!**(v43 + 320) && !*v44)
+      v37 = a1[6];
+      v38 = *(v37 + 352);
+      --*(v38 + 16);
+      if (!**(v37 + 320) && !*v38)
       {
-        *(*(v43 + 336) + 20) = v40;
+        *(*(v37 + 336) + 20) = v34;
       }
 
-      *(*(v43 + 144) + 16) = 0;
-      v45 = *(*(v43 + 144) + 24);
-      if (v45)
+      *(*(v37 + 144) + 16) = 0;
+      v39 = *(*(v37 + 144) + 24);
+      if (v39)
       {
-        *v45 &= ~2u;
-        v43 = a1[6];
-        *(*(v43 + 144) + 24) = 0;
+        *v39 &= ~2u;
+        v37 = a1[6];
+        *(*(v37 + 144) + 24) = 0;
       }
 
-      if (*(*(v43 + 352) + 12) || (v60 = *(v43 + 144), v60[2]) && (*(*v60 + 56) & 0x2000) != 0)
+      if (*(*(v37 + 352) + 12) || (v54 = *(v37 + 144), v54[2]) && (*(*v54 + 56) & 0x2000) != 0)
       {
         PrintErrorID(a1, "PRCCODE", 4, 0);
         EnvPrintRouter(a1, "werror", "Execution halted during the actions of defrule ");
@@ -3065,16 +3012,16 @@ unint64_t EnvRun(void *a1, uint64_t a2)
       }
 
       *ActivationBasis &= ~2u;
-      v46 = *(ActivationBasis + 2);
-      if (v46)
+      v40 = *(ActivationBasis + 2);
+      if (v40)
       {
-        for (k = 0; k < v46; ++k)
+        for (k = 0; k < v40; ++k)
         {
-          v48 = *(ActivationBasis + 136 + 8 * k);
-          if (v48 && *v48)
+          v42 = *(ActivationBasis + 136 + 8 * k);
+          if (v42 && *v42)
           {
-            (*(**v48 + 112))(a1);
-            v46 = *(ActivationBasis + 2);
+            (*(**v42 + 112))(a1);
+            v40 = *(ActivationBasis + 2);
           }
         }
       }
@@ -3086,24 +3033,24 @@ unint64_t EnvRun(void *a1, uint64_t a2)
       CallPeriodicTasks(a1);
       if (*(*(a1[6] + 144) + 76))
       {
-        v49 = GetNumberOfFacts(a1);
-        v50 = v105;
-        if (v49 > v105)
+        v43 = GetNumberOfFacts(a1);
+        v44 = v67;
+        if (v43 > v67)
         {
-          v50 = v49;
+          v44 = v43;
         }
 
-        v105 = v50;
-        v107 += v49;
-        v51 = GetNumberOfActivations(a1);
-        v52 = v106;
-        if (v51 > v106)
+        v67 = v44;
+        v69 += v43;
+        v45 = GetNumberOfActivations(a1);
+        v46 = v68;
+        if (v45 > v68)
         {
-          v52 = v51;
+          v46 = v45;
         }
 
-        v106 = v52;
-        v108 += v51;
+        v68 = v46;
+        v70 += v45;
       }
 
       if (EnvGetSalienceEvaluation(a1) == 2)
@@ -3111,50 +3058,50 @@ unint64_t EnvRun(void *a1, uint64_t a2)
         EnvRefreshAgenda(a1, 0);
       }
 
-      v53 = a1[6];
-      v54 = *(*(v53 + 144) + 48);
-      if (v54)
+      v47 = a1[6];
+      v48 = *(*(v47 + 144) + 48);
+      if (v48)
       {
         do
         {
-          v55 = SetEnvironmentCallbackContext(a1, *(v54 + 40));
-          v56 = *(v54 + 8);
-          if (*(v54 + 32))
+          v49 = SetEnvironmentCallbackContext(a1, *(v48 + 40));
+          v50 = *(v48 + 8);
+          if (*(v48 + 32))
           {
-            v56(a1);
+            v50(a1);
           }
 
           else
           {
-            v56(v55);
+            v50(v49);
           }
 
-          v54 = *(v54 + 24);
+          v48 = *(v48 + 24);
         }
 
-        while (v54);
-        v53 = a1[6];
+        while (v48);
+        v47 = a1[6];
       }
 
-      v57 = *(v53 + 104);
-      if (*v57 == 1)
+      v51 = *(v47 + 104);
+      if (*v51 == 1)
       {
-        RemoveFocus(a1, **(**(v53 + 144) + 16));
-        v57 = *(a1[6] + 104);
+        RemoveFocus(a1, **(**(v47 + 144) + 16));
+        v51 = *(a1[6] + 104);
       }
 
       a2 -= a2 > 0;
-      *v57 = 0;
-      v58 = NextActivationToFire(a1);
-      if (v58)
+      *v51 = 0;
+      v52 = NextActivationToFire(a1);
+      if (v52)
       {
-        v13 = v58;
-        if ((*(EnvGetActivationRule(a1, v58) + 56) & 0x800) != 0)
+        v13 = v52;
+        if ((*(EnvGetActivationRule(a1, v52) + 56) & 0x800) != 0)
         {
           *(*(a1[6] + 144) + 8) = 1;
           EnvPrintRouter(a1, "wdialog", "Breaking on rule ");
-          v59 = EnvGetActivationName(a1, v13);
-          EnvPrintRouter(a1, "wdialog", v59);
+          v53 = EnvGetActivationName(a1, v13);
+          EnvPrintRouter(a1, "wdialog", v53);
           EnvPrintRouter(a1, "wdialog", ".\n");
         }
 
@@ -3164,86 +3111,88 @@ unint64_t EnvRun(void *a1, uint64_t a2)
         }
       }
 
-      goto LABEL_74;
+      goto LABEL_75;
     }
 
-    if (!v4)
+    if (v4)
     {
-LABEL_67:
-      for (m = *(*(a1[6] + 144) + 48); m; m = *(m + 24))
-      {
-        v62 = *(m + 8);
-        if (*(m + 32))
-        {
-          (v62)(a1);
-        }
-
-        else
-        {
-          v62();
-        }
-      }
-
-      v4 = 0;
+      goto LABEL_75;
     }
-
-LABEL_74:
-    if (a2 == v4)
-    {
-      EnvPrintRouter(a1, "wdialog", "rule firing limit reached\n");
-    }
-
-    v63 = a1[6];
-    **(v63 + 144) = 0;
-    v64 = *(v63 + 144);
-    *(v64 + 8) = 0;
-    if (*(v64 + 76))
-    {
-      v65 = gentime();
-      PrintLongInteger(a1, "wdialog", v4, v66, v67, v68, v69, v70);
-      EnvPrintRouter(a1, "wdialog", " rules fired");
-      if (v11 == v65)
-      {
-        v86 = "\n";
-      }
-
-      else
-      {
-        EnvPrintRouter(a1, "wdialog", "        Run time is ");
-        v71 = v65 - v11;
-        v72.n128_f64[0] = v71;
-        PrintFloat(a1, "wdialog", v73, v74, v75, v76, v77, v78, v72);
-        EnvPrintRouter(a1, "wdialog", " seconds.\n");
-        v79.n128_f64[0] = v4 / v71;
-        PrintFloat(a1, "wdialog", v80, v81, v82, v83, v84, v85, v79);
-        v86 = " rules per second.\n";
-      }
-
-      EnvPrintRouter(a1, "wdialog", v86);
-      v87 = (v4 + 1);
-      gensprintf(v116, "%ld mean number of facts (%ld maximum).\n", v88, v89, v90, v91, v92, v93, (v107 / v87 + 0.5));
-      EnvPrintRouter(a1, "wdialog", v116);
-      gensprintf(v116, "%ld mean number of activations (%ld maximum).\n", v94, v95, v96, v97, v98, v99, (v108 / v87 + 0.5));
-      EnvPrintRouter(a1, "wdialog", v116);
-      v64 = *(a1[6] + 144);
-    }
-
-    v100 = *(v64 + 64);
-    if (v100)
-    {
-      v101 = *v100;
-      if (v101 != EnvGetCurrentModule(a1))
-      {
-        EnvSetCurrentModule(a1, **(*(a1[6] + 144) + 64));
-      }
-    }
-
-    RestorePriorGarbageFrame(a1, v109, v104, 0);
-    CallPeriodicTasks(a1);
-    *(*(a1[6] + 144) + 136) = 0;
   }
 
-  v102 = *MEMORY[0x277D85DE8];
+  else
+  {
+    v67 = NumberOfFacts;
+    v68 = NumberOfActivations;
+  }
+
+  for (m = *(*(a1[6] + 144) + 48); m; m = *(m + 24))
+  {
+    v56 = *(m + 8);
+    if (*(m + 32))
+    {
+      (v56)(a1);
+    }
+
+    else
+    {
+      v56();
+    }
+  }
+
+  v4 = 0;
+LABEL_75:
+  if (a2 == v4)
+  {
+    EnvPrintRouter(a1, "wdialog", "rule firing limit reached\n");
+  }
+
+  v57 = a1[6];
+  **(v57 + 144) = 0;
+  v58 = *(v57 + 144);
+  *(v58 + 8) = 0;
+  if (*(v58 + 76))
+  {
+    v59 = gentime();
+    PrintLongInteger(a1, "wdialog", v4);
+    EnvPrintRouter(a1, "wdialog", " rules fired");
+    if (v11 == v59)
+    {
+      v61 = "\n";
+    }
+
+    else
+    {
+      EnvPrintRouter(a1, "wdialog", "        Run time is ");
+      v60 = v59 - v11;
+      PrintFloat(a1, "wdialog", v60);
+      EnvPrintRouter(a1, "wdialog", " seconds.\n");
+      PrintFloat(a1, "wdialog", v4 / v60);
+      v61 = " rules per second.\n";
+    }
+
+    EnvPrintRouter(a1, "wdialog", v61);
+    v62 = (v4 + 1);
+    gensprintf(v78, "%ld mean number of facts (%ld maximum).\n", (v69 / v62 + 0.5), v67);
+    EnvPrintRouter(a1, "wdialog", v78);
+    gensprintf(v78, "%ld mean number of activations (%ld maximum).\n", (v70 / v62 + 0.5), v68);
+    EnvPrintRouter(a1, "wdialog", v78);
+    v58 = *(a1[6] + 144);
+  }
+
+  v63 = *(v58 + 64);
+  if (v63)
+  {
+    v64 = *v63;
+    if (v64 != EnvGetCurrentModule(a1))
+    {
+      EnvSetCurrentModule(a1, **(*(a1[6] + 144) + 64));
+    }
+  }
+
+  RestorePriorGarbageFrame(a1, v71, v66, 0);
+  CallPeriodicTasks(a1);
+  *(*(a1[6] + 144) + 136) = 0;
   return v4;
 }
 
@@ -3445,11 +3394,11 @@ LABEL_16:
   }
 }
 
-uint64_t PrintTemplateFact(char *a1, FILE *a2, uint64_t a3, int a4, int a5)
+uint64_t PrintTemplateFact(uint64_t *a1, FILE *a2, uint64_t a3, int a4, int a5)
 {
-  v33 = 0u;
-  v34 = 0u;
-  v32 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+  v24 = 0u;
   v9 = *(a3 + 32);
   EnvPrintRouter(a1, a2, "(");
   EnvPrintRouter(a1, a2, *(*v9 + 24));
@@ -3457,12 +3406,12 @@ uint64_t PrintTemplateFact(char *a1, FILE *a2, uint64_t a3, int a4, int a5)
   if (v10)
   {
     v11 = 0;
-    v28 = a3 + 128;
-    v30 = a3 + 136;
+    v20 = a3 + 128;
+    v22 = a3 + 136;
     for (i = 1; ; i = 0)
     {
       v12 = v11 << 32;
-      v13 = (v30 + 16 * v11);
+      v13 = (v22 + 16 * v11);
       v11 = v11 + 1;
       v14 = v10;
       while (a5)
@@ -3472,16 +3421,16 @@ uint64_t PrintTemplateFact(char *a1, FILE *a2, uint64_t a3, int a4, int a5)
           goto LABEL_13;
         }
 
-        DeftemplateSlotDefault(a1, v9, v14, &v32, 1);
+        DeftemplateSlotDefault(a1, v9, v14, &v24, 1);
         if (*(v14 + 8))
         {
-          if (!MultifieldsEqual(v33, *v13))
+          if (!MultifieldsEqual(v25, *v13))
           {
             goto LABEL_13;
           }
         }
 
-        else if (WORD4(v32) != *(v13 - 4) || v33 != *v13)
+        else if (WORD4(v24) != *(v13 - 4) || v25 != *v13)
         {
 LABEL_13:
           v10 = v14;
@@ -3512,21 +3461,21 @@ LABEL_13:
       EnvPrintRouter(a1, a2, *(*v10 + 24));
       if (*(v10 + 8))
       {
-        v20 = v28 + (v12 >> 28);
-        v23 = *(v20 + 8);
-        v21 = (v20 + 8);
-        v22 = v23;
-        if (*(v23 + 8) >= 1)
+        v15 = v20 + (v12 >> 28);
+        v18 = *(v15 + 8);
+        v16 = (v15 + 8);
+        v17 = v18;
+        if (*(v18 + 8) >= 1)
         {
           EnvPrintRouter(a1, a2, " ");
-          PrintMultifield(a1, a2, *v21, 0, *(v22 + 8) - 1, 0, v24, v25, v26);
+          PrintMultifield(a1, a2, *v16, 0, *(v17 + 8) - 1, 0);
         }
       }
 
       else
       {
         EnvPrintRouter(a1, a2, " ");
-        PrintAtom(a1, a2, *(v28 + (v12 >> 28)), *(v28 + (v12 >> 28) + 8), v15, v16, v17, v18, v19);
+        PrintAtom(a1, a2, *(v20 + (v12 >> 28)), *(v20 + (v12 >> 28) + 8));
       }
 
       EnvPrintRouter(a1, a2, ")");
@@ -3543,10 +3492,10 @@ LABEL_13:
   return EnvPrintRouter(a1, a2, ")");
 }
 
-uint64_t PrintAtom(uint64_t result, FILE *__s2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, __n128 a9)
+uint64_t PrintAtom(uint64_t result, FILE *__s2, int a3, uint64_t a4)
 {
-  v11 = result;
-  v47 = *MEMORY[0x277D85DE8];
+  v6 = result;
+  v18 = *MEMORY[0x277D85DE8];
   if (a3 > 2)
   {
     if (a3 > 39)
@@ -3558,14 +3507,14 @@ uint64_t PrintAtom(uint64_t result, FILE *__s2, uint64_t a3, uint64_t a4, uint64
           EnvPrintRouter(result, __s2, "");
         }
 
-        EnvPrintRouter(v11, __s2, "<Pointer-");
-        gensprintf(v46, "%p", v24, v25, v26, v27, v28, v29, a4);
+        EnvPrintRouter(v6, __s2, "<Pointer-");
+        gensprintf(v17, "%p", a4);
         goto LABEL_34;
       }
 
       if (a3 == 175)
       {
-        goto LABEL_38;
+        return result;
       }
 
       goto LABEL_16;
@@ -3575,41 +3524,39 @@ uint64_t PrintAtom(uint64_t result, FILE *__s2, uint64_t a3, uint64_t a4, uint64
     {
       if (a3 == 5)
       {
-        v12 = *(result + 48);
-        if (*(*(v12 + 424) + 4))
+        v7 = *(result + 48);
+        if (*(*(v7 + 424) + 4))
         {
           EnvPrintRouter(result, __s2, "");
-          v12 = *(v11 + 48);
+          v7 = *(v6 + 48);
         }
 
-        v13 = *(*(v12 + 352) + 8 * *(a4 + 32) + 1224);
-        if (v13)
+        v8 = *(*(v7 + 352) + 8 * *(a4 + 32) + 1224);
+        if (v8)
         {
-          v14 = *(v13 + 16);
-          if (v14)
+          v9 = *(v8 + 16);
+          if (v9)
           {
-            result = v14(v11, __s2, a4);
-            goto LABEL_35;
+            result = v9(v6, __s2, a4);
+LABEL_35:
+            if (!*(*(*(v6 + 48) + 424) + 4))
+            {
+              return result;
+            }
+
+            v16 = "";
+            return EnvPrintRouter(v6, __s2, v16);
           }
         }
 
-        EnvPrintRouter(v11, __s2, "<Pointer-");
-        gensprintf(v46, "%d-", v31, v32, v33, v34, v35, v36, *(a4 + 32));
-        EnvPrintRouter(v11, __s2, v46);
-        gensprintf(v46, "%p", v37, v38, v39, v40, v41, v42, *(a4 + 24));
+        EnvPrintRouter(v6, __s2, "<Pointer-");
+        gensprintf(v17, "%d-", *(a4 + 32));
+        EnvPrintRouter(v6, __s2, v17);
+        gensprintf(v17, "%p", *(a4 + 24));
 LABEL_34:
-        EnvPrintRouter(v11, __s2, v46);
-        result = EnvPrintRouter(v11, __s2, ">");
-LABEL_35:
-        if (*(*(*(v11 + 48) + 424) + 4))
-        {
-          v30 = "";
-          goto LABEL_37;
-        }
-
-LABEL_38:
-        v43 = *MEMORY[0x277D85DE8];
-        return result;
+        EnvPrintRouter(v6, __s2, v17);
+        result = EnvPrintRouter(v6, __s2, ">");
+        goto LABEL_35;
       }
 
       goto LABEL_16;
@@ -3618,67 +3565,59 @@ LABEL_38:
     if (!**(*(result + 48) + 424))
     {
       EnvPrintRouter(result, __s2, "");
-      EnvPrintRouter(v11, __s2, *(a4 + 24));
-      v44 = *MEMORY[0x277D85DE8];
-      v22 = v11;
-      v23 = __s2;
-      v15 = "";
+      EnvPrintRouter(v6, __s2, *(a4 + 24));
+      v14 = v6;
+      v15 = __s2;
+      v10 = "";
       goto LABEL_26;
     }
 
-    v20 = StringPrintForm(result, *(a4 + 24));
+    v13 = StringPrintForm(result, *(a4 + 24));
     goto LABEL_24;
   }
 
   if (!a3)
   {
-    a9.n128_u64[0] = *(a4 + 24);
-    v20 = FloatToString(result, a9, __s2, a3, a4, a5, a6, a7, a8);
+    v13 = FloatToString(result, *(a4 + 24));
 LABEL_24:
-    v21 = *MEMORY[0x277D85DE8];
-    v15 = v20;
+    v10 = v13;
     goto LABEL_25;
   }
 
   if (a3 == 1)
   {
-    gensprintf(v46, "%lld", a3, a4, a5, a6, a7, a8, *(a4 + 24));
-    v30 = v46;
-LABEL_37:
-    result = EnvPrintRouter(v11, __s2, v30);
-    goto LABEL_38;
+    gensprintf(v17, "%lld", *(a4 + 24));
+    v16 = v17;
+    return EnvPrintRouter(v6, __s2, v16);
   }
 
   if (a3 != 2)
   {
 LABEL_16:
-    v17 = *(*(*(result + 48) + 352) + 8 * a3 + 24);
-    if (!v17)
+    v11 = *(*(*(result + 48) + 352) + 8 * a3 + 24);
+    if (!v11)
     {
-      goto LABEL_38;
+      return result;
     }
 
-    v18 = *(v17 + 24);
-    if (v18)
+    v12 = *(v11 + 24);
+    if (v12)
     {
-      v19 = *MEMORY[0x277D85DE8];
 
-      return v18();
+      return v12();
     }
 
-    v45 = *MEMORY[0x277D85DE8];
-    v15 = "<unknown atom type>";
+    v10 = "<unknown atom type>";
     goto LABEL_25;
   }
 
-  v15 = *(a4 + 24);
-  v16 = *MEMORY[0x277D85DE8];
+  v10 = *(a4 + 24);
 LABEL_25:
-  v22 = v11;
-  v23 = __s2;
+  v14 = v6;
+  v15 = __s2;
 LABEL_26:
 
-  return EnvPrintRouter(v22, v23, v15);
+  return EnvPrintRouter(v14, v15, v10);
 }
 
 double gentime()
@@ -3831,46 +3770,42 @@ uint64_t GetConstructModuleItemByIndex(uint64_t a1, uint64_t CurrentModule, int 
   return GetModuleItem(a1, CurrentModule, a3);
 }
 
-uint64_t PrintLongInteger(uint64_t a1, FILE *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t PrintLongInteger(uint64_t a1, FILE *a2, uint64_t a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  gensprintf(v12, "%lld", a3, a4, a5, a6, a7, a8, a3);
-  result = EnvPrintRouter(a1, a2, v12);
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  v7 = *MEMORY[0x277D85DE8];
+  gensprintf(v6, "%lld", a3);
+  return EnvPrintRouter(a1, a2, v6);
 }
 
-uint64_t FloatToString(uint64_t a1, __n128 a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+uint64_t FloatToString(uint64_t a1, double a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v10 = __s1;
-  gensprintf(__s1, "%.15g", a4, a5, a6, a7, a8, a9, a2.n128_i8[0]);
+  v8 = *MEMORY[0x277D85DE8];
+  v3 = __s1;
+  gensprintf(__s1, "%.15g", a2);
   while (1)
   {
-    v12 = *v10++;
-    v11 = v12;
-    if (v12 == 101 || v11 == 46)
+    v5 = *v3++;
+    v4 = v5;
+    if (v5 == 101 || v4 == 46)
     {
       break;
     }
 
-    if (!v11)
+    if (!v4)
     {
       genstrcat(__s1, ".0");
-      break;
+      return EnvAddSymbol(a1, __s1)[3];
     }
   }
 
-  result = EnvAddSymbol(a1, __s1)[3];
-  v14 = *MEMORY[0x277D85DE8];
-  return result;
+  return EnvAddSymbol(a1, __s1)[3];
 }
 
-uint64_t PrintFloat(uint64_t a1, FILE *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, __n128 a9)
+uint64_t PrintFloat(uint64_t a1, FILE *a2, double a3)
 {
-  v11 = FloatToString(a1, a9, a2, a3, a4, a5, a6, a7, a8);
+  v5 = FloatToString(a1, a3);
 
-  return EnvPrintRouter(a1, a2, v11);
+  return EnvPrintRouter(a1, a2, v5);
 }
 
 void *gm2(uint64_t a1, size_t a2)
@@ -4332,9 +4267,9 @@ void EnvironmentZoneStatistics(size_t *a1, size_t *a2, size_t *a3)
   }
 }
 
-void sub_23256F2DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_23256F2DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4352,31 +4287,31 @@ __CFString *outrankHandlerEventToString(unint64_t a1)
   }
 }
 
-void sub_232570520(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_232570520(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_232570670(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_232570670(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void __symtrans_main_block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x238389170](a2);
   if (v3 == MEMORY[0x277D86450])
   {
     v8 = transportLogHandle;
     if (os_log_type_enabled(transportLogHandle, OS_LOG_TYPE_DEBUG))
     {
-      LOWORD(v11) = 0;
-      _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEBUG, "symtrans_main called, new connection\n", &v11, 2u);
+      LOWORD(v10) = 0;
+      _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEBUG, "symtrans_main called, new connection\n", &v10, 2u);
     }
 
     my_client_handle_new(a2);
@@ -4393,9 +4328,9 @@ void __symtrans_main_block_invoke(uint64_t a1, void *a2)
       if (v7)
       {
         string = xpc_dictionary_get_string(a2, *MEMORY[0x277D86400]);
-        v11 = 136315138;
-        v12 = string;
-        _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_ERROR, "Recieved XPC error: %s", &v11, 0xCu);
+        v10 = 136315138;
+        v11 = string;
+        _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_ERROR, "Recieved XPC error: %s", &v10, 0xCu);
       }
 
       exit(71);
@@ -4403,36 +4338,34 @@ void __symtrans_main_block_invoke(uint64_t a1, void *a2)
 
     if (v7)
     {
-      LOWORD(v11) = 0;
-      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_ERROR, "unknown message type", &v11, 2u);
+      LOWORD(v10) = 0;
+      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_ERROR, "unknown message type", &v10, 2u);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void my_client_handle_new(void *a1)
 {
-  v39 = *MEMORY[0x277D85DE8];
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x2000000000;
-  v36 = 0;
+  v38 = *MEMORY[0x277D85DE8];
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x2000000000;
+  v35 = 0;
   v2 = malloc_type_calloc(1uLL, 0x90uLL, 0xECFC7994uLL);
   if (!v2)
   {
     my_client_handle_new_cold_1(&buffer);
   }
 
-  v34[3] = v2;
+  v33[3] = v2;
   v2[1] = a1;
   xpc_retain(a1);
-  *v34[3] = clients;
+  *v33[3] = clients;
   ++connection_seqno;
-  v3 = v34[3];
+  v3 = v33[3];
   *(v3 + 120) = connection_seqno;
   xpc_connection_get_audit_token();
-  v4 = v34[3];
+  v4 = v33[3];
   v5 = *(v3 + 52);
   *(v4 + 36) = *(v3 + 36);
   *(v4 + 52) = v5;
@@ -4441,39 +4374,39 @@ void my_client_handle_new(void *a1)
   {
     v7 = v6;
     value = xpc_BOOL_get_value(v6);
-    *(v34[3] + 128) = value;
+    *(v33[3] + 128) = value;
     xpc_release(v7);
-    v9 = v34[3];
+    v9 = v33[3];
   }
 
   else
   {
-    v9 = v34[3];
+    v9 = v33[3];
     *(v9 + 128) = 0;
   }
 
   euid = xpc_connection_get_euid(*(v9 + 8));
-  v11 = v34[3];
+  v11 = v33[3];
   *(v11 + 72) = euid;
   egid = xpc_connection_get_egid(*(v11 + 8));
-  v13 = v34[3];
+  v13 = v33[3];
   *(v13 + 76) = egid;
   pid = xpc_connection_get_pid(*(v13 + 8));
-  v15 = v34[3];
+  v15 = v33[3];
   *(v15 + 68) = pid;
   asid = xpc_connection_get_asid(*(v15 + 8));
-  audit_session_port(asid, (v34[3] + 88));
+  audit_session_port(asid, (v33[3] + 88));
   buffer = 0u;
-  memset(v38, 0, 48);
-  v17 = proc_pidinfo(*(v34[3] + 68), 13, 1uLL, &buffer, 64);
-  v18 = v34[3];
+  memset(v37, 0, 48);
+  v17 = proc_pidinfo(*(v33[3] + 68), 13, 1uLL, &buffer, 64);
+  v18 = v33[3];
   if (v17 == 64)
   {
     v19 = 0;
     v20 = v18 + 16;
     while (1)
     {
-      v21 = v38[v19];
+      v21 = v37[v19];
       *(v20 + v19) = v21;
       if (!v21)
       {
@@ -4502,32 +4435,31 @@ void my_client_handle_new(void *a1)
     while (v22 != 10);
   }
 
-  v24 = v34[3];
+  v24 = v33[3];
   clients = v24;
   ++*(v24 + 80);
   v25 = *(v24 + 120);
   v26 = *(v24 + 68);
   v27 = *(v24 + 128);
   v28 = *(v24 + 52);
-  v32[0] = *(v24 + 36);
-  v32[1] = v28;
-  v29 = symptomConnectionCreate(v24, v25, client_write, v32, v26, v24 + 16, v27);
-  *(v34[3] + 136) = v29;
+  v31[0] = *(v24 + 36);
+  v31[1] = v28;
+  v29 = symptomConnectionCreate(v24, v25, client_write, v31, v26, v24 + 16, v27);
+  *(v33[3] + 136) = v29;
   xpc_connection_set_target_queue(a1, MEMORY[0x277D85CD0]);
   handler[0] = MEMORY[0x277D85DD0];
   handler[1] = 0x40000000;
   handler[2] = __my_client_handle_new_block_invoke;
   handler[3] = &unk_27898F880;
-  handler[4] = &v33;
+  handler[4] = &v32;
   xpc_connection_set_event_handler(a1, handler);
   xpc_connection_resume(a1);
-  _Block_object_dispose(&v33, 8);
-  v30 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v32, 8);
 }
 
 TransportHandler *symptomConnectionCreate(uint64_t a1, uint64_t a2, uint64_t a3, _OWORD *a4, uint64_t a5, uint64_t a6, char a7)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   if (symptomConnectionCreate_pred != -1)
   {
     symptomConnectionCreate_cold_1();
@@ -4558,8 +4490,8 @@ TransportHandler *symptomConnectionCreate(uint64_t a1, uint64_t a2, uint64_t a3,
       v19 = a4[1];
       *buf = *a4;
       *&buf[16] = v19;
-      LOBYTE(v28) = a7;
-      [(TransportHandler *)v18 connect:a1 connId:a2 writefn:a3 auditToken:buf pid:a5 name:a6 verifiedDelegateSymptom:v28];
+      LOBYTE(v27) = a7;
+      [(TransportHandler *)v18 connect:a1 connId:a2 writefn:a3 auditToken:buf pid:a5 name:a6 verifiedDelegateSymptom:v27];
       [transportDictionary setObject:v17 forKey:v14];
       v20 = transportLogHandle;
       if (os_log_type_enabled(transportLogHandle, OS_LOG_TYPE_DEBUG))
@@ -4574,8 +4506,8 @@ TransportHandler *symptomConnectionCreate(uint64_t a1, uint64_t a2, uint64_t a3,
         *&buf[14] = a5;
         *&buf[22] = 2080;
         *&buf[24] = a6;
-        v30 = 2080;
-        v31 = v24;
+        v29 = 2080;
+        v30 = v24;
         _os_log_impl(&dword_23255B000, v22, OS_LOG_TYPE_DEBUG, "symptomConnectionCreate for %llu, pid %llu  name %s dictionary %s", buf, 0x2Au);
       }
     }
@@ -4592,7 +4524,6 @@ TransportHandler *symptomConnectionCreate(uint64_t a1, uint64_t a2, uint64_t a3,
     }
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
@@ -4612,7 +4543,6 @@ uint64_t sub_232573968()
 
 uint64_t sub_2325739A4()
 {
-  v1 = *(v0 + 24);
 
   return MEMORY[0x2821FE8E8](v0, 32, 7);
 }
@@ -6163,29 +6093,31 @@ LABEL_149:
   return [a2 hasError] ^ 1;
 }
 
-id measureLaunchXPCHandle()
+id measureLaunchXPCHandle(uint64_t a1)
 {
   if (measureLaunchXPCHandle_launchXPCToken != -1)
   {
     measureLaunchXPCHandle_cold_1();
   }
 
-  v1 = measureLaunchXPCHandle_launchXPCHandle;
+  v2 = measureLaunchXPCHandle_launchXPCHandle;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __measureLaunchXPCHandle_block_invoke()
 {
-  measureLaunchXPCHandle_launchXPCHandle = os_log_create("com.apple.symptomsd", "measure.launch_xpc");
+  v0 = os_log_create("com.apple.symptomsd", "measure.launch_xpc");
+  v1 = measureLaunchXPCHandle_launchXPCHandle;
+  measureLaunchXPCHandle_launchXPCHandle = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
-void initializeActivityMeasurements()
+void initializeActivityMeasurements(uint64_t a1)
 {
-  v0 = measureLaunchXPCHandle();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+  v1 = measureLaunchXPCHandle(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
   {
     initializeActivityMeasurements_cold_1();
   }
@@ -6205,22 +6137,23 @@ void __initializeActivityMeasurements_block_invoke()
   _launchSequenceActivityMeasurements = 0;
 }
 
-void allocateMeasurementType(int a1)
+void allocateMeasurementType(uint64_t a1)
 {
-  v2 = measureLaunchXPCHandle();
+  v1 = a1;
+  v2 = measureLaunchXPCHandle(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     allocateMeasurementType_cold_1();
   }
 
-  if (a1 == 2)
+  if (v1 == 2)
   {
-    v6 = _launchSequenceActivityMeasurements;
-    v7 = measureLaunchXPCHandle();
-    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG);
-    if (v6)
+    v7 = _launchSequenceActivityMeasurements;
+    v8 = measureLaunchXPCHandle(v3);
+    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG);
+    if (v7)
     {
-      if (v8)
+      if (v9)
       {
         allocateMeasurementType_cold_2();
       }
@@ -6228,27 +6161,27 @@ void allocateMeasurementType(int a1)
 
     else
     {
-      if (v8)
+      if (v9)
       {
         allocateMeasurementType_cold_3();
       }
 
-      v11 = malloc_type_calloc(1uLL, 0x78uLL, 0xF1B66A0uLL);
-      if (!v11)
+      v13 = malloc_type_calloc(1uLL, 0x78uLL, 0xF1B66A0uLL);
+      if (!v13)
       {
         goto LABEL_27;
       }
 
-      _launchSequenceActivityMeasurements = v11;
-      v7 = measureLaunchXPCHandle();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+      _launchSequenceActivityMeasurements = v13;
+      v8 = measureLaunchXPCHandle(v13);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
         allocateMeasurementType_cold_4();
       }
     }
 
-    v10 = measureLaunchXPCHandle();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v12 = measureLaunchXPCHandle(v14);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
       allocateMeasurementType_cold_5();
     }
@@ -6256,27 +6189,27 @@ void allocateMeasurementType(int a1)
     goto LABEL_25;
   }
 
-  if (a1 != 1)
+  if (v1 != 1)
   {
     return;
   }
 
-  v3 = _prelaunchActivityMeasurements;
-  v4 = measureLaunchXPCHandle();
-  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
-  if (!v3)
+  v4 = _prelaunchActivityMeasurements;
+  v5 = measureLaunchXPCHandle(v3);
+  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG);
+  if (!v4)
   {
-    if (v5)
+    if (v6)
     {
       allocateMeasurementType_cold_7();
     }
 
-    v9 = malloc_type_calloc(1uLL, 0x28uLL, 0xB6390474uLL);
-    if (v9)
+    v10 = malloc_type_calloc(1uLL, 0x28uLL, 0xB6390474uLL);
+    if (v10)
     {
-      _prelaunchActivityMeasurements = v9;
-      v4 = measureLaunchXPCHandle();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+      _prelaunchActivityMeasurements = v10;
+      v5 = measureLaunchXPCHandle(v10);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
       {
         allocateMeasurementType_cold_8();
       }
@@ -6289,15 +6222,15 @@ LABEL_27:
     return;
   }
 
-  if (v5)
+  if (v6)
   {
     allocateMeasurementType_cold_6();
   }
 
 LABEL_16:
 
-  v10 = measureLaunchXPCHandle();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  v12 = measureLaunchXPCHandle(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     allocateMeasurementType_cold_9();
   }
@@ -6305,15 +6238,16 @@ LABEL_16:
 LABEL_25:
 }
 
-void destroyMeasurementType(int a1)
+void destroyMeasurementType(uint64_t a1)
 {
-  v2 = measureLaunchXPCHandle();
+  v1 = a1;
+  v2 = measureLaunchXPCHandle(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     destroyMeasurementType_cold_1();
   }
 
-  if (a1 == 2)
+  if (v1 == 2)
   {
     v3 = &launchseq_lock;
     v4 = &__block_literal_global_58;
@@ -6321,7 +6255,7 @@ void destroyMeasurementType(int a1)
 
   else
   {
-    if (a1 != 1)
+    if (v1 != 1)
     {
       return;
     }
@@ -6333,12 +6267,12 @@ void destroyMeasurementType(int a1)
   sf_synchronize(v3, v4);
 }
 
-void __destroyMeasurementType_block_invoke()
+void __destroyMeasurementType_block_invoke(uint64_t a1)
 {
   if (_prelaunchActivityMeasurements)
   {
-    v0 = measureLaunchXPCHandle();
-    if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+    v1 = measureLaunchXPCHandle(a1);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
     {
       __destroyMeasurementType_block_invoke_cold_1();
     }
@@ -6352,12 +6286,12 @@ void __destroyMeasurementType_block_invoke()
   }
 }
 
-void __destroyMeasurementType_block_invoke_56()
+void __destroyMeasurementType_block_invoke_56(uint64_t a1)
 {
   if (_launchSequenceActivityMeasurements)
   {
-    v0 = measureLaunchXPCHandle();
-    if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+    v1 = measureLaunchXPCHandle(a1);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
     {
       __destroyMeasurementType_block_invoke_56_cold_1();
     }
@@ -6378,19 +6312,20 @@ void destroyAllMeasurementTypes()
   destroyMeasurementType(2);
 }
 
-uint64_t getMeasurement(int a1, unsigned __int8 a2)
+uint64_t getMeasurement(uint64_t a1, unsigned __int8 a2)
 {
-  v4 = measureLaunchXPCHandle();
+  v3 = a1;
+  v4 = measureLaunchXPCHandle(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    getMeasurement_cold_1(a1, a2, v4);
+    getMeasurement_cold_1(v3, a2, v4);
   }
 
   v12 = 0;
   v13 = &v12;
   v14 = 0x2020000000;
   v15 = 0;
-  if (a1 == 2)
+  if (v3 == 2)
   {
     v5 = v10;
     v10[0] = MEMORY[0x277D85DD0];
@@ -6400,7 +6335,7 @@ uint64_t getMeasurement(int a1, unsigned __int8 a2)
     goto LABEL_7;
   }
 
-  if (a1 == 1)
+  if (v3 == 1)
   {
     v5 = v11;
     v11[0] = MEMORY[0x277D85DD0];
@@ -6463,7 +6398,7 @@ LABEL_17:
   {
     v7 = v1;
     v8 = v2;
-    v5 = measureLaunchXPCHandle();
+    v5 = measureLaunchXPCHandle(a1);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *v6 = 0;
@@ -6537,7 +6472,7 @@ LABEL_23:
   {
     v6 = v1;
     v7 = v2;
-    v4 = measureLaunchXPCHandle();
+    v4 = measureLaunchXPCHandle(a1);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *v5 = 0;
@@ -6546,49 +6481,52 @@ LABEL_23:
   }
 }
 
-void setMeasurement(int a1, int a2, uint64_t a3)
+void setMeasurement(uint64_t a1, int a2, uint64_t a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v6 = measureLaunchXPCHandle();
+  v5 = a1;
+  v19 = *MEMORY[0x277D85DE8];
+  v6 = measureLaunchXPCHandle(a1);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     *buf = 67109632;
-    v15 = a1;
-    v16 = 1024;
-    v17 = a2;
-    v18 = 2048;
-    v19 = a3;
+    v14 = v5;
+    v15 = 1024;
+    v16 = a2;
+    v17 = 2048;
+    v18 = a3;
     _os_log_debug_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEBUG, "setMeasurement : type:%d event:%d value:%llu", buf, 0x18u);
   }
 
-  if (a1 == 2)
+  if (v5 == 2)
   {
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __setMeasurement_block_invoke_60;
-    v10[3] = &__block_descriptor_41_e5_v8__0l;
-    v11 = a2;
-    v10[4] = a3;
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __setMeasurement_block_invoke_60;
+    v9[3] = &__block_descriptor_41_e5_v8__0l;
+    v10 = a2;
+    v9[4] = a3;
     v7 = &launchseq_lock;
-    v8 = v10;
-    goto LABEL_7;
+    v8 = v9;
   }
 
-  if (a1 == 1)
+  else
   {
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __setMeasurement_block_invoke;
-    v12[3] = &__block_descriptor_41_e5_v8__0l;
-    v13 = a2;
-    v12[4] = a3;
+    if (v5 != 1)
+    {
+      return;
+    }
+
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __setMeasurement_block_invoke;
+    v11[3] = &__block_descriptor_41_e5_v8__0l;
+    v12 = a2;
+    v11[4] = a3;
     v7 = &prelaunch_lock;
-    v8 = v12;
-LABEL_7:
-    sf_synchronize(v7, v8);
+    v8 = v11;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
+  sf_synchronize(v7, v8);
 }
 
 void __setMeasurement_block_invoke(uint64_t a1)
@@ -6596,15 +6534,15 @@ void __setMeasurement_block_invoke(uint64_t a1)
   v2 = _prelaunchActivityMeasurements;
   if (_prelaunchActivityMeasurements || (allocateMeasurementType(1), (v2 = _prelaunchActivityMeasurements) != 0))
   {
-    v3 = *(a1 + 40);
-    if (v3 <= 2)
+    v4 = *(a1 + 40);
+    if (v4 <= 2)
     {
-      if (v3 == 1)
+      if (v4 == 1)
       {
         *(v2 + 8) = *(a1 + 32);
       }
 
-      else if (v3 == 2)
+      else if (v4 == 2)
       {
         *(v2 + 16) = *(a1 + 32);
       }
@@ -6612,7 +6550,7 @@ void __setMeasurement_block_invoke(uint64_t a1)
 
     else
     {
-      switch(v3)
+      switch(v4)
       {
         case 3u:
           *(v2 + 24) = *(a1 + 32);
@@ -6629,10 +6567,10 @@ void __setMeasurement_block_invoke(uint64_t a1)
 
   else
   {
-    v4 = measureLaunchXPCHandle();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = measureLaunchXPCHandle(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __setMeasurement_block_invoke_cold_1(v4);
+      __setMeasurement_block_invoke_cold_1(v5);
     }
   }
 }
@@ -6698,168 +6636,168 @@ void __setMeasurement_block_invoke_60(uint64_t a1)
 
   else
   {
-    v3 = measureLaunchXPCHandle();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = measureLaunchXPCHandle(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __setMeasurement_block_invoke_60_cold_1(v3);
+      __setMeasurement_block_invoke_60_cold_1(v4);
     }
   }
 }
 
-void markMeasurement(int a1, int a2)
+void markMeasurement(uint64_t a1, int a2)
 {
   v4 = clock_gettime_nsec_np(_CLOCK_UPTIME_RAW);
 
   setMeasurement(a1, a2, v4);
 }
 
-void logLaunchSequenceEventTimeline()
+void logLaunchSequenceEventTimeline(unint64_t a1)
 {
-  v117 = *MEMORY[0x277D85DE8];
+  v116 = *MEMORY[0x277D85DE8];
   if (_prelaunchActivityMeasurements)
   {
-    v0 = *(_prelaunchActivityMeasurements + 8);
-    if (v0)
+    v1 = *(_prelaunchActivityMeasurements + 8);
+    if (v1)
     {
-      v1 = measureLaunchXPCHandle();
-      if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
+      v2 = measureLaunchXPCHandle(a1);
+      if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
       {
-        v2 = "";
+        v3 = "";
         if (*_launchSequenceActivityMeasurements)
         {
-          v3 = " - [first unlock]";
+          v4 = " - [first unlock]";
         }
 
         else
         {
-          v3 = "";
+          v4 = "";
         }
 
         if (*_prelaunchActivityMeasurements)
         {
-          v2 = " (helper)";
+          v3 = " (helper)";
         }
 
-        v113 = 136315394;
-        v114 = v3;
-        v115 = 2080;
-        v116 = v2;
-        _os_log_impl(&dword_23255B000, v1, OS_LOG_TYPE_DEFAULT, "== Prelaunch Event Timeline%s%s ==", &v113, 0x16u);
+        v112 = 136315394;
+        v113 = v4;
+        v114 = 2080;
+        v115 = v3;
+        _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_DEFAULT, "== Prelaunch Event Timeline%s%s ==", &v112, 0x16u);
       }
 
-      v4 = _prelaunchActivityMeasurements;
-      v5 = *(_prelaunchActivityMeasurements + 16);
-      if (v5)
+      v5 = _prelaunchActivityMeasurements;
+      v6 = *(_prelaunchActivityMeasurements + 16);
+      if (v6)
       {
-        v6 = millisecondsFromBaselineNanosecondTime(v5, v0);
-        v7 = measureLaunchXPCHandle();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+        v7 = millisecondsFromBaselineNanosecondTime(v6, v1);
+        v8 = measureLaunchXPCHandle(v7);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
         {
-          v113 = 134217984;
-          v114 = v6;
-          _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEFAULT, "  Launchpad initialization: %lldms", &v113, 0xCu);
+          v112 = 134217984;
+          v113 = v7;
+          _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, "  Launchpad initialization: %lldms", &v112, 0xCu);
         }
 
-        v4 = _prelaunchActivityMeasurements;
-        v8 = *(_prelaunchActivityMeasurements + 16);
-        if (v8)
+        v5 = _prelaunchActivityMeasurements;
+        v9 = *(_prelaunchActivityMeasurements + 16);
+        if (v9)
         {
-          v9 = *(_prelaunchActivityMeasurements + 8);
-          if (v9)
+          v10 = *(_prelaunchActivityMeasurements + 8);
+          if (v10)
           {
-            v10 = millisecondsFromBaselineNanosecondTime(v8, v9);
-            v11 = measureLaunchXPCHandle();
-            if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+            v11 = millisecondsFromBaselineNanosecondTime(v9, v10);
+            v12 = measureLaunchXPCHandle(v11);
+            if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
             {
-              v113 = 134217984;
-              v114 = v10;
-              _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEFAULT, "+ Launchpad initialization interval: %lldms", &v113, 0xCu);
+              v112 = 134217984;
+              v113 = v11;
+              _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEFAULT, "+ Launchpad initialization interval: %lldms", &v112, 0xCu);
             }
 
-            v4 = _prelaunchActivityMeasurements;
+            v5 = _prelaunchActivityMeasurements;
           }
         }
       }
 
-      v12 = *(v4 + 24);
-      if (v12)
+      v13 = *(v5 + 24);
+      if (v13)
       {
-        v13 = millisecondsFromBaselineNanosecondTime(v12, v0);
-        v14 = measureLaunchXPCHandle();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+        v14 = millisecondsFromBaselineNanosecondTime(v13, v1);
+        v15 = measureLaunchXPCHandle(v14);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
         {
-          v113 = 134217984;
-          v114 = v13;
-          _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_DEFAULT, "  XPCListener initialization: %lldms", &v113, 0xCu);
+          v112 = 134217984;
+          v113 = v14;
+          _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_DEFAULT, "  XPCListener initialization: %lldms", &v112, 0xCu);
         }
 
-        v4 = _prelaunchActivityMeasurements;
-        v15 = *(_prelaunchActivityMeasurements + 24);
-        if (v15)
+        v5 = _prelaunchActivityMeasurements;
+        v16 = *(_prelaunchActivityMeasurements + 24);
+        if (v16)
         {
-          v16 = *(_prelaunchActivityMeasurements + 16);
-          if (v16)
+          v17 = *(_prelaunchActivityMeasurements + 16);
+          if (v17)
           {
-            v17 = millisecondsFromBaselineNanosecondTime(v15, v16);
-            v18 = measureLaunchXPCHandle();
-            if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+            v18 = millisecondsFromBaselineNanosecondTime(v16, v17);
+            v19 = measureLaunchXPCHandle(v18);
+            if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
             {
-              v113 = 134217984;
-              v114 = v17;
-              _os_log_impl(&dword_23255B000, v18, OS_LOG_TYPE_DEFAULT, "+ XPCListener initialization interval: %lldms", &v113, 0xCu);
+              v112 = 134217984;
+              v113 = v18;
+              _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_DEFAULT, "+ XPCListener initialization interval: %lldms", &v112, 0xCu);
             }
 
-            v4 = _prelaunchActivityMeasurements;
+            v5 = _prelaunchActivityMeasurements;
           }
         }
       }
 
-      v19 = *(v4 + 32);
-      if (v19)
+      a1 = *(v5 + 32);
+      if (a1)
       {
-        v20 = millisecondsFromBaselineNanosecondTime(v19, v0);
-        v21 = measureLaunchXPCHandle();
+        v20 = millisecondsFromBaselineNanosecondTime(a1, v1);
+        v21 = measureLaunchXPCHandle(v20);
         if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
         {
-          v113 = 134217984;
-          v114 = v20;
-          _os_log_impl(&dword_23255B000, v21, OS_LOG_TYPE_DEFAULT, "  First-unlock check: %lldms", &v113, 0xCu);
+          v112 = 134217984;
+          v113 = v20;
+          _os_log_impl(&dword_23255B000, v21, OS_LOG_TYPE_DEFAULT, "  First-unlock check: %lldms", &v112, 0xCu);
         }
 
         v22 = _prelaunchActivityMeasurements;
-        v23 = *(_prelaunchActivityMeasurements + 32);
-        if (v23)
+        a1 = *(_prelaunchActivityMeasurements + 32);
+        if (a1)
         {
-          v24 = *(_prelaunchActivityMeasurements + 24);
-          if (!v24)
+          v23 = *(_prelaunchActivityMeasurements + 24);
+          if (!v23)
           {
             goto LABEL_34;
           }
 
-          v25 = millisecondsFromBaselineNanosecondTime(v23, v24);
-          v26 = measureLaunchXPCHandle();
-          if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+          v24 = millisecondsFromBaselineNanosecondTime(a1, v23);
+          v25 = measureLaunchXPCHandle(v24);
+          if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
           {
-            v113 = 134217984;
-            v114 = v25;
-            _os_log_impl(&dword_23255B000, v26, OS_LOG_TYPE_DEFAULT, "+ First-unlock check interval: %lldms", &v113, 0xCu);
+            v112 = 134217984;
+            v113 = v24;
+            _os_log_impl(&dword_23255B000, v25, OS_LOG_TYPE_DEFAULT, "+ First-unlock check interval: %lldms", &v112, 0xCu);
           }
 
           v22 = _prelaunchActivityMeasurements;
-          v23 = *(_prelaunchActivityMeasurements + 32);
-          if (v23)
+          a1 = *(_prelaunchActivityMeasurements + 32);
+          if (a1)
           {
 LABEL_34:
-            v27 = *(v22 + 8);
-            if (v27)
+            v26 = *(v22 + 8);
+            if (v26)
             {
-              v28 = millisecondsFromBaselineNanosecondTime(v23, v27);
-              v29 = measureLaunchXPCHandle();
-              if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+              v27 = millisecondsFromBaselineNanosecondTime(a1, v26);
+              v28 = measureLaunchXPCHandle(v27);
+              if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
               {
-                v113 = 134217984;
-                v114 = v28;
-                _os_log_impl(&dword_23255B000, v29, OS_LOG_TYPE_DEFAULT, "+ Total Prelaunch sequence interval: %lldms", &v113, 0xCu);
+                v112 = 134217984;
+                v113 = v27;
+                _os_log_impl(&dword_23255B000, v28, OS_LOG_TYPE_DEFAULT, "+ Total Prelaunch sequence interval: %lldms", &v112, 0xCu);
               }
             }
           }
@@ -6868,51 +6806,51 @@ LABEL_34:
     }
   }
 
-  v30 = 16;
+  v29 = 16;
   if (*_launchSequenceActivityMeasurements)
   {
-    v30 = 8;
+    v29 = 8;
   }
 
-  v31 = *(_launchSequenceActivityMeasurements + v30);
-  if (v31)
+  v30 = *(_launchSequenceActivityMeasurements + v29);
+  if (v30)
   {
-    v32 = measureLaunchXPCHandle();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+    v31 = measureLaunchXPCHandle(a1);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
     {
-      v33 = "";
+      v32 = "";
       if (*_launchSequenceActivityMeasurements)
       {
-        v34 = " - [first unlock]";
+        v33 = " - [first unlock]";
       }
 
       else
       {
-        v34 = "";
+        v33 = "";
       }
 
       if (*_prelaunchActivityMeasurements)
       {
-        v33 = " (helper)";
+        v32 = " (helper)";
       }
 
-      v113 = 136315394;
-      v114 = v34;
-      v115 = 2080;
-      v116 = v33;
-      _os_log_impl(&dword_23255B000, v32, OS_LOG_TYPE_DEFAULT, "== LaunchSequence Event Timeline%s%s ==", &v113, 0x16u);
+      v112 = 136315394;
+      v113 = v33;
+      v114 = 2080;
+      v115 = v32;
+      _os_log_impl(&dword_23255B000, v31, OS_LOG_TYPE_DEFAULT, "== LaunchSequence Event Timeline%s%s ==", &v112, 0x16u);
     }
 
     v35 = _launchSequenceActivityMeasurements;
     if (*_launchSequenceActivityMeasurements == 1)
     {
-      v36 = measureLaunchXPCHandle();
+      v36 = measureLaunchXPCHandle(v34);
       if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
       {
         v37 = *_launchSequenceActivityMeasurements;
-        v113 = 67109120;
-        LODWORD(v114) = v37;
-        _os_log_impl(&dword_23255B000, v36, OS_LOG_TYPE_DEFAULT, "  IsFirstUnlock: %{BOOL}d", &v113, 8u);
+        v112 = 67109120;
+        LODWORD(v113) = v37;
+        _os_log_impl(&dword_23255B000, v36, OS_LOG_TYPE_DEFAULT, "  IsFirstUnlock: %{BOOL}d", &v112, 8u);
       }
 
       v35 = _launchSequenceActivityMeasurements;
@@ -6921,13 +6859,13 @@ LABEL_34:
     v38 = *(v35 + 96);
     if (v38)
     {
-      v39 = millisecondsFromBaselineNanosecondTime(v38, v31);
-      v40 = measureLaunchXPCHandle();
+      v39 = millisecondsFromBaselineNanosecondTime(v38, v30);
+      v40 = measureLaunchXPCHandle(v39);
       if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
       {
-        v113 = 134217984;
-        v114 = v39;
-        _os_log_impl(&dword_23255B000, v40, OS_LOG_TYPE_DEFAULT, "  NOI Engine allocate: %lldms", &v113, 0xCu);
+        v112 = 134217984;
+        v113 = v39;
+        _os_log_impl(&dword_23255B000, v40, OS_LOG_TYPE_DEFAULT, "  NOI Engine allocate: %lldms", &v112, 0xCu);
       }
 
       v35 = _launchSequenceActivityMeasurements;
@@ -6936,13 +6874,13 @@ LABEL_34:
     v41 = *(v35 + 104);
     if (v41)
     {
-      v42 = millisecondsFromBaselineNanosecondTime(v41, v31);
-      v43 = measureLaunchXPCHandle();
+      v42 = millisecondsFromBaselineNanosecondTime(v41, v30);
+      v43 = measureLaunchXPCHandle(v42);
       if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
       {
-        v113 = 134217984;
-        v114 = v42;
-        _os_log_impl(&dword_23255B000, v43, OS_LOG_TYPE_DEFAULT, "  NOI Engine initialized: %lldms", &v113, 0xCu);
+        v112 = 134217984;
+        v113 = v42;
+        _os_log_impl(&dword_23255B000, v43, OS_LOG_TYPE_DEFAULT, "  NOI Engine initialized: %lldms", &v112, 0xCu);
       }
 
       v35 = _launchSequenceActivityMeasurements;
@@ -6953,12 +6891,12 @@ LABEL_34:
         if (v45)
         {
           v46 = millisecondsFromBaselineNanosecondTime(v44, v45);
-          v47 = measureLaunchXPCHandle();
+          v47 = measureLaunchXPCHandle(v46);
           if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
           {
-            v113 = 134217984;
-            v114 = v46;
-            _os_log_impl(&dword_23255B000, v47, OS_LOG_TYPE_DEFAULT, "+ NOIEngine initialization interval: %lldms", &v113, 0xCu);
+            v112 = 134217984;
+            v113 = v46;
+            _os_log_impl(&dword_23255B000, v47, OS_LOG_TYPE_DEFAULT, "+ NOIEngine initialization interval: %lldms", &v112, 0xCu);
           }
 
           v35 = _launchSequenceActivityMeasurements;
@@ -6971,13 +6909,13 @@ LABEL_34:
       v48 = *(v35 + 16);
       if (v48)
       {
-        v49 = millisecondsFromBaselineNanosecondTime(v48, v31);
-        v50 = measureLaunchXPCHandle();
+        v49 = millisecondsFromBaselineNanosecondTime(v48, v30);
+        v50 = measureLaunchXPCHandle(v49);
         if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
         {
-          v113 = 134217984;
-          v114 = v49;
-          _os_log_impl(&dword_23255B000, v50, OS_LOG_TYPE_DEFAULT, "  Handled unlock checkpoint: %lldms", &v113, 0xCu);
+          v112 = 134217984;
+          v113 = v49;
+          _os_log_impl(&dword_23255B000, v50, OS_LOG_TYPE_DEFAULT, "  Handled unlock checkpoint: %lldms", &v112, 0xCu);
         }
 
         v35 = _launchSequenceActivityMeasurements;
@@ -6988,12 +6926,12 @@ LABEL_34:
           if (v52)
           {
             v53 = millisecondsFromBaselineNanosecondTime(v51, v52);
-            v54 = measureLaunchXPCHandle();
+            v54 = measureLaunchXPCHandle(v53);
             if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
             {
-              v113 = 134217984;
-              v114 = v53;
-              _os_log_impl(&dword_23255B000, v54, OS_LOG_TYPE_DEFAULT, "+ First unlock processing interval: %lldms", &v113, 0xCu);
+              v112 = 134217984;
+              v113 = v53;
+              _os_log_impl(&dword_23255B000, v54, OS_LOG_TYPE_DEFAULT, "+ First unlock processing interval: %lldms", &v112, 0xCu);
             }
 
             v35 = _launchSequenceActivityMeasurements;
@@ -7012,12 +6950,12 @@ LABEL_34:
       }
 
       v57 = millisecondsFromBaselineNanosecondTime(v55, v56);
-      v58 = measureLaunchXPCHandle();
+      v58 = measureLaunchXPCHandle(v57);
       if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
       {
-        v113 = 134217984;
-        v114 = v57;
-        _os_log_impl(&dword_23255B000, v58, OS_LOG_TYPE_DEFAULT, "+ Launch sequence dispatch interval: %lldms", &v113, 0xCu);
+        v112 = 134217984;
+        v113 = v57;
+        _os_log_impl(&dword_23255B000, v58, OS_LOG_TYPE_DEFAULT, "+ Launch sequence dispatch interval: %lldms", &v112, 0xCu);
       }
 
       v35 = _launchSequenceActivityMeasurements;
@@ -7025,13 +6963,13 @@ LABEL_34:
       if (v55)
       {
 LABEL_78:
-        v59 = millisecondsFromBaselineNanosecondTime(v55, v31);
-        v60 = measureLaunchXPCHandle();
+        v59 = millisecondsFromBaselineNanosecondTime(v55, v30);
+        v60 = measureLaunchXPCHandle(v59);
         if (os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
         {
-          v113 = 134217984;
-          v114 = v59;
-          _os_log_impl(&dword_23255B000, v60, OS_LOG_TYPE_DEFAULT, "  Begin workspace initialization: %lldms", &v113, 0xCu);
+          v112 = 134217984;
+          v113 = v59;
+          _os_log_impl(&dword_23255B000, v60, OS_LOG_TYPE_DEFAULT, "  Begin workspace initialization: %lldms", &v112, 0xCu);
         }
 
         v35 = _launchSequenceActivityMeasurements;
@@ -7041,13 +6979,13 @@ LABEL_78:
     v61 = *(v35 + 40);
     if (v61)
     {
-      v62 = millisecondsFromBaselineNanosecondTime(v61, v31);
-      v63 = measureLaunchXPCHandle();
+      v62 = millisecondsFromBaselineNanosecondTime(v61, v30);
+      v63 = measureLaunchXPCHandle(v62);
       if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
       {
-        v113 = 134217984;
-        v114 = v62;
-        _os_log_impl(&dword_23255B000, v63, OS_LOG_TYPE_DEFAULT, "  End workspace initialization: %lldms", &v113, 0xCu);
+        v112 = 134217984;
+        v113 = v62;
+        _os_log_impl(&dword_23255B000, v63, OS_LOG_TYPE_DEFAULT, "  End workspace initialization: %lldms", &v112, 0xCu);
       }
 
       v35 = _launchSequenceActivityMeasurements;
@@ -7058,12 +6996,12 @@ LABEL_78:
         if (v65)
         {
           v66 = millisecondsFromBaselineNanosecondTime(v64, v65);
-          v67 = measureLaunchXPCHandle();
+          v67 = measureLaunchXPCHandle(v66);
           if (os_log_type_enabled(v67, OS_LOG_TYPE_DEFAULT))
           {
-            v113 = 134217984;
-            v114 = v66;
-            _os_log_impl(&dword_23255B000, v67, OS_LOG_TYPE_DEFAULT, "+ Workspace initialization interval: %lldms", &v113, 0xCu);
+            v112 = 134217984;
+            v113 = v66;
+            _os_log_impl(&dword_23255B000, v67, OS_LOG_TYPE_DEFAULT, "+ Workspace initialization interval: %lldms", &v112, 0xCu);
           }
 
           v35 = _launchSequenceActivityMeasurements;
@@ -7074,13 +7012,13 @@ LABEL_78:
     v68 = *(v35 + 48);
     if (v68)
     {
-      v69 = millisecondsFromBaselineNanosecondTime(v68, v31);
-      v70 = measureLaunchXPCHandle();
+      v69 = millisecondsFromBaselineNanosecondTime(v68, v30);
+      v70 = measureLaunchXPCHandle(v69);
       if (os_log_type_enabled(v70, OS_LOG_TYPE_DEFAULT))
       {
-        v113 = 134217984;
-        v114 = v69;
-        _os_log_impl(&dword_23255B000, v70, OS_LOG_TYPE_DEFAULT, "  Begin persistence initialization: %lldms", &v113, 0xCu);
+        v112 = 134217984;
+        v113 = v69;
+        _os_log_impl(&dword_23255B000, v70, OS_LOG_TYPE_DEFAULT, "  Begin persistence initialization: %lldms", &v112, 0xCu);
       }
 
       v35 = _launchSequenceActivityMeasurements;
@@ -7089,13 +7027,13 @@ LABEL_78:
     v71 = *(v35 + 56);
     if (v71)
     {
-      v72 = millisecondsFromBaselineNanosecondTime(v71, v31);
-      v73 = measureLaunchXPCHandle();
+      v72 = millisecondsFromBaselineNanosecondTime(v71, v30);
+      v73 = measureLaunchXPCHandle(v72);
       if (os_log_type_enabled(v73, OS_LOG_TYPE_DEFAULT))
       {
-        v113 = 134217984;
-        v114 = v72;
-        _os_log_impl(&dword_23255B000, v73, OS_LOG_TYPE_DEFAULT, "  End persistence initialization: %lldms", &v113, 0xCu);
+        v112 = 134217984;
+        v113 = v72;
+        _os_log_impl(&dword_23255B000, v73, OS_LOG_TYPE_DEFAULT, "  End persistence initialization: %lldms", &v112, 0xCu);
       }
 
       v35 = _launchSequenceActivityMeasurements;
@@ -7106,12 +7044,12 @@ LABEL_78:
         if (v75)
         {
           v76 = millisecondsFromBaselineNanosecondTime(v74, v75);
-          v77 = measureLaunchXPCHandle();
+          v77 = measureLaunchXPCHandle(v76);
           if (os_log_type_enabled(v77, OS_LOG_TYPE_DEFAULT))
           {
-            v113 = 134217984;
-            v114 = v76;
-            _os_log_impl(&dword_23255B000, v77, OS_LOG_TYPE_DEFAULT, "+ Persistence initialization interval: %lldms", &v113, 0xCu);
+            v112 = 134217984;
+            v113 = v76;
+            _os_log_impl(&dword_23255B000, v77, OS_LOG_TYPE_DEFAULT, "+ Persistence initialization interval: %lldms", &v112, 0xCu);
           }
 
           v35 = _launchSequenceActivityMeasurements;
@@ -7122,13 +7060,13 @@ LABEL_78:
     v78 = *(v35 + 64);
     if (v78)
     {
-      v79 = millisecondsFromBaselineNanosecondTime(v78, v31);
-      v80 = measureLaunchXPCHandle();
+      v79 = millisecondsFromBaselineNanosecondTime(v78, v30);
+      v80 = measureLaunchXPCHandle(v79);
       if (os_log_type_enabled(v80, OS_LOG_TYPE_DEFAULT))
       {
-        v113 = 134217984;
-        v114 = v79;
-        _os_log_impl(&dword_23255B000, v80, OS_LOG_TYPE_DEFAULT, "  Flow Engine allocate: %lldms", &v113, 0xCu);
+        v112 = 134217984;
+        v113 = v79;
+        _os_log_impl(&dword_23255B000, v80, OS_LOG_TYPE_DEFAULT, "  Flow Engine allocate: %lldms", &v112, 0xCu);
       }
 
       v35 = _launchSequenceActivityMeasurements;
@@ -7137,13 +7075,13 @@ LABEL_78:
     v81 = *(v35 + 72);
     if (v81)
     {
-      v82 = millisecondsFromBaselineNanosecondTime(v81, v31);
-      v83 = measureLaunchXPCHandle();
+      v82 = millisecondsFromBaselineNanosecondTime(v81, v30);
+      v83 = measureLaunchXPCHandle(v82);
       if (os_log_type_enabled(v83, OS_LOG_TYPE_DEFAULT))
       {
-        v113 = 134217984;
-        v114 = v82;
-        _os_log_impl(&dword_23255B000, v83, OS_LOG_TYPE_DEFAULT, "  Flow Engine initialized: %lldms", &v113, 0xCu);
+        v112 = 134217984;
+        v113 = v82;
+        _os_log_impl(&dword_23255B000, v83, OS_LOG_TYPE_DEFAULT, "  Flow Engine initialized: %lldms", &v112, 0xCu);
       }
 
       v35 = _launchSequenceActivityMeasurements;
@@ -7154,12 +7092,12 @@ LABEL_78:
         if (v85)
         {
           v86 = millisecondsFromBaselineNanosecondTime(v84, v85);
-          v87 = measureLaunchXPCHandle();
+          v87 = measureLaunchXPCHandle(v86);
           if (os_log_type_enabled(v87, OS_LOG_TYPE_DEFAULT))
           {
-            v113 = 134217984;
-            v114 = v86;
-            _os_log_impl(&dword_23255B000, v87, OS_LOG_TYPE_DEFAULT, "+ Flow Engine initialization interval: %lldms", &v113, 0xCu);
+            v112 = 134217984;
+            v113 = v86;
+            _os_log_impl(&dword_23255B000, v87, OS_LOG_TYPE_DEFAULT, "+ Flow Engine initialization interval: %lldms", &v112, 0xCu);
           }
 
           v35 = _launchSequenceActivityMeasurements;
@@ -7170,13 +7108,13 @@ LABEL_78:
     v88 = *(v35 + 80);
     if (v88)
     {
-      v89 = millisecondsFromBaselineNanosecondTime(v88, v31);
-      v90 = measureLaunchXPCHandle();
+      v89 = millisecondsFromBaselineNanosecondTime(v88, v30);
+      v90 = measureLaunchXPCHandle(v89);
       if (os_log_type_enabled(v90, OS_LOG_TYPE_DEFAULT))
       {
-        v113 = 134217984;
-        v114 = v89;
-        _os_log_impl(&dword_23255B000, v90, OS_LOG_TYPE_DEFAULT, "  Network Engine allocate: %lldms", &v113, 0xCu);
+        v112 = 134217984;
+        v113 = v89;
+        _os_log_impl(&dword_23255B000, v90, OS_LOG_TYPE_DEFAULT, "  Network Engine allocate: %lldms", &v112, 0xCu);
       }
 
       v35 = _launchSequenceActivityMeasurements;
@@ -7185,13 +7123,13 @@ LABEL_78:
     v91 = *(v35 + 88);
     if (v91)
     {
-      v92 = millisecondsFromBaselineNanosecondTime(v91, v31);
-      v93 = measureLaunchXPCHandle();
+      v92 = millisecondsFromBaselineNanosecondTime(v91, v30);
+      v93 = measureLaunchXPCHandle(v92);
       if (os_log_type_enabled(v93, OS_LOG_TYPE_DEFAULT))
       {
-        v113 = 134217984;
-        v114 = v92;
-        _os_log_impl(&dword_23255B000, v93, OS_LOG_TYPE_DEFAULT, "  Network Engine initialized: %lldms", &v113, 0xCu);
+        v112 = 134217984;
+        v113 = v92;
+        _os_log_impl(&dword_23255B000, v93, OS_LOG_TYPE_DEFAULT, "  Network Engine initialized: %lldms", &v112, 0xCu);
       }
 
       v35 = _launchSequenceActivityMeasurements;
@@ -7202,12 +7140,12 @@ LABEL_78:
         if (v95)
         {
           v96 = millisecondsFromBaselineNanosecondTime(v94, v95);
-          v97 = measureLaunchXPCHandle();
+          v97 = measureLaunchXPCHandle(v96);
           if (os_log_type_enabled(v97, OS_LOG_TYPE_DEFAULT))
           {
-            v113 = 134217984;
-            v114 = v96;
-            _os_log_impl(&dword_23255B000, v97, OS_LOG_TYPE_DEFAULT, "+ Network Engine initialization interval: %lldms", &v113, 0xCu);
+            v112 = 134217984;
+            v113 = v96;
+            _os_log_impl(&dword_23255B000, v97, OS_LOG_TYPE_DEFAULT, "+ Network Engine initialization interval: %lldms", &v112, 0xCu);
           }
 
           v35 = _launchSequenceActivityMeasurements;
@@ -7218,13 +7156,13 @@ LABEL_78:
     v98 = *(v35 + 112);
     if (v98)
     {
-      v99 = millisecondsFromBaselineNanosecondTime(v98, v31);
-      v100 = measureLaunchXPCHandle();
+      v99 = millisecondsFromBaselineNanosecondTime(v98, v30);
+      v100 = measureLaunchXPCHandle(v99);
       if (os_log_type_enabled(v100, OS_LOG_TYPE_DEFAULT))
       {
-        v113 = 134217984;
-        v114 = v99;
-        _os_log_impl(&dword_23255B000, v100, OS_LOG_TYPE_DEFAULT, "  XPC checkpoint ready: %lldms", &v113, 0xCu);
+        v112 = 134217984;
+        v113 = v99;
+        _os_log_impl(&dword_23255B000, v100, OS_LOG_TYPE_DEFAULT, "  XPC checkpoint ready: %lldms", &v112, 0xCu);
       }
 
       v35 = _launchSequenceActivityMeasurements;
@@ -7235,12 +7173,12 @@ LABEL_78:
         if (v102)
         {
           v103 = millisecondsFromBaselineNanosecondTime(v101, v102);
-          v104 = measureLaunchXPCHandle();
+          v104 = measureLaunchXPCHandle(v103);
           if (os_log_type_enabled(v104, OS_LOG_TYPE_DEFAULT))
           {
-            v113 = 134217984;
-            v114 = v103;
-            _os_log_impl(&dword_23255B000, v104, OS_LOG_TYPE_DEFAULT, "+ XPC checkpoint dispatch interval: %lldms", &v113, 0xCu);
+            v112 = 134217984;
+            v113 = v103;
+            _os_log_impl(&dword_23255B000, v104, OS_LOG_TYPE_DEFAULT, "+ XPC checkpoint dispatch interval: %lldms", &v112, 0xCu);
           }
 
           v35 = _launchSequenceActivityMeasurements;
@@ -7257,14 +7195,14 @@ LABEL_78:
         if (v106)
         {
           v107 = millisecondsFromBaselineNanosecondTime(v105, v106);
-          v108 = measureLaunchXPCHandle();
+          v108 = measureLaunchXPCHandle(v107);
           if (os_log_type_enabled(v108, OS_LOG_TYPE_DEFAULT))
           {
-            v113 = 134217984;
-            v114 = v107;
+            v112 = 134217984;
+            v113 = v107;
             v109 = "+ Total Launch sequence (first unlock) interval: %lldms";
 LABEL_142:
-            _os_log_impl(&dword_23255B000, v108, OS_LOG_TYPE_DEFAULT, v109, &v113, 0xCu);
+            _os_log_impl(&dword_23255B000, v108, OS_LOG_TYPE_DEFAULT, v109, &v112, 0xCu);
             goto LABEL_143;
           }
 
@@ -7279,11 +7217,11 @@ LABEL_142:
       if (v110)
       {
         v111 = millisecondsFromBaselineNanosecondTime(v105, v110);
-        v108 = measureLaunchXPCHandle();
+        v108 = measureLaunchXPCHandle(v111);
         if (os_log_type_enabled(v108, OS_LOG_TYPE_DEFAULT))
         {
-          v113 = 134217984;
-          v114 = v111;
+          v112 = 134217984;
+          v113 = v111;
           v109 = "+ Total Launch sequence (unlocked) interval: %lldms";
           goto LABEL_142;
         }
@@ -7292,139 +7230,137 @@ LABEL_143:
       }
     }
   }
-
-  v112 = *MEMORY[0x277D85DE8];
 }
 
-id analyticsDictionaryForPrelaunchSequence()
+id analyticsDictionaryForPrelaunchSequence(uint64_t a1)
 {
-  v40 = *MEMORY[0x277D85DE8];
-  v0 = *(_prelaunchActivityMeasurements + 8);
-  v1 = measureLaunchXPCHandle();
-  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
+  v48 = *MEMORY[0x277D85DE8];
+  v1 = *(_prelaunchActivityMeasurements + 8);
+  v2 = measureLaunchXPCHandle(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     analyticsDictionaryForPrelaunchSequence_cold_1();
   }
 
-  if (v0)
+  if (v1)
   {
-    v2 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    v3 = measureLaunchXPCHandle();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
-    {
-      LOWORD(v38) = 0;
-      _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_INFO, "Populating CoreAnalytics metrics for PrelaunchSequence measurements", &v38, 2u);
-    }
-
-    v4 = [MEMORY[0x277CCABB0] numberWithBool:*_launchSequenceActivityMeasurements];
-    [v2 setObject:v4 forKeyedSubscript:CAPreLaunchEvent_IsFirstUnlock];
-
-    v5 = measureLaunchXPCHandle();
+    v4 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v5 = measureLaunchXPCHandle(v4);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v6 = *_launchSequenceActivityMeasurements;
-      v38 = 67109120;
-      LODWORD(v39) = v6;
-      _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_INFO, "IsFirstUnlock: %{BOOL}d", &v38, 8u);
+      LOWORD(v46) = 0;
+      _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_INFO, "Populating CoreAnalytics metrics for PrelaunchSequence measurements", &v46, 2u);
     }
 
-    v7 = [MEMORY[0x277CCABB0] numberWithBool:*_prelaunchActivityMeasurements];
-    [v2 setObject:v7 forKeyedSubscript:CAPreLaunchEvent_IsHelper];
+    v6 = [MEMORY[0x277CCABB0] numberWithBool:*_launchSequenceActivityMeasurements];
+    [v4 setObject:v6 forKeyedSubscript:CAPreLaunchEvent_IsFirstUnlock];
 
-    v8 = measureLaunchXPCHandle();
+    v8 = measureLaunchXPCHandle(v7);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v9 = *_prelaunchActivityMeasurements;
-      v38 = 67109120;
-      LODWORD(v39) = v9;
-      _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_INFO, "IsHelper: %{BOOL}d", &v38, 8u);
+      v9 = *_launchSequenceActivityMeasurements;
+      v46 = 67109120;
+      LODWORD(v47) = v9;
+      _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_INFO, "IsFirstUnlock: %{BOOL}d", &v46, 8u);
     }
 
-    v10 = _prelaunchActivityMeasurements;
-    v11 = *(_prelaunchActivityMeasurements + 16);
-    if (v11)
+    v10 = [MEMORY[0x277CCABB0] numberWithBool:*_prelaunchActivityMeasurements];
+    [v4 setObject:v10 forKeyedSubscript:CAPreLaunchEvent_IsHelper];
+
+    v12 = measureLaunchXPCHandle(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      v12 = *(_prelaunchActivityMeasurements + 8);
-      if (v12)
-      {
-        v13 = millisecondsFromBaselineNanosecondTime(v11, v12);
-        v14 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v13];
-        [v2 setObject:v14 forKeyedSubscript:CAPrelaunchInterval_LaunchpadInitialization];
-
-        v15 = measureLaunchXPCHandle();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
-        {
-          v38 = 134217984;
-          v39 = v13;
-          _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_INFO, "Launchpad initialization: %llums", &v38, 0xCu);
-        }
-
-        v10 = _prelaunchActivityMeasurements;
-      }
+      v13 = *_prelaunchActivityMeasurements;
+      v46 = 67109120;
+      LODWORD(v47) = v13;
+      _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_INFO, "IsHelper: %{BOOL}d", &v46, 8u);
     }
 
-    v16 = v10[3];
-    if (v16)
+    v14 = _prelaunchActivityMeasurements;
+    v15 = *(_prelaunchActivityMeasurements + 16);
+    if (v15)
     {
-      v17 = v10[2];
-      if (v17)
+      v16 = *(_prelaunchActivityMeasurements + 8);
+      if (v16)
       {
-        v18 = millisecondsFromBaselineNanosecondTime(v16, v17);
-        v19 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v18];
-        [v2 setObject:v19 forKeyedSubscript:CAPrelaunchInterval_XPCListenerInitialization];
+        v17 = millisecondsFromBaselineNanosecondTime(v15, v16);
+        v18 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v17];
+        [v4 setObject:v18 forKeyedSubscript:CAPrelaunchInterval_LaunchpadInitialization];
 
-        v20 = measureLaunchXPCHandle();
+        v20 = measureLaunchXPCHandle(v19);
         if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
         {
-          v38 = 134217984;
-          v39 = v18;
-          _os_log_impl(&dword_23255B000, v20, OS_LOG_TYPE_INFO, "XPCListener initialization: %llums", &v38, 0xCu);
+          v46 = 134217984;
+          v47 = v17;
+          _os_log_impl(&dword_23255B000, v20, OS_LOG_TYPE_INFO, "Launchpad initialization: %llums", &v46, 0xCu);
         }
 
-        v10 = _prelaunchActivityMeasurements;
+        v14 = _prelaunchActivityMeasurements;
       }
     }
 
-    v21 = v10[4];
+    v21 = v14[3];
     if (v21)
     {
-      v22 = v10[3];
+      v22 = v14[2];
       if (v22)
       {
         v23 = millisecondsFromBaselineNanosecondTime(v21, v22);
         v24 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v23];
-        [v2 setObject:v24 forKeyedSubscript:CAPrelaunchInterval_FirstUnlockCheck];
+        [v4 setObject:v24 forKeyedSubscript:CAPrelaunchInterval_XPCListenerInitialization];
 
-        v25 = measureLaunchXPCHandle();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+        v26 = measureLaunchXPCHandle(v25);
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
         {
-          v38 = 134217984;
-          v39 = v23;
-          _os_log_impl(&dword_23255B000, v25, OS_LOG_TYPE_INFO, "First-unlock check: %llums", &v38, 0xCu);
+          v46 = 134217984;
+          v47 = v23;
+          _os_log_impl(&dword_23255B000, v26, OS_LOG_TYPE_INFO, "XPCListener initialization: %llums", &v46, 0xCu);
+        }
+
+        v14 = _prelaunchActivityMeasurements;
+      }
+    }
+
+    v27 = v14[4];
+    if (v27)
+    {
+      v28 = v14[3];
+      if (v28)
+      {
+        v29 = millisecondsFromBaselineNanosecondTime(v27, v28);
+        v30 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v29];
+        [v4 setObject:v30 forKeyedSubscript:CAPrelaunchInterval_FirstUnlockCheck];
+
+        v32 = measureLaunchXPCHandle(v31);
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
+        {
+          v46 = 134217984;
+          v47 = v29;
+          _os_log_impl(&dword_23255B000, v32, OS_LOG_TYPE_INFO, "First-unlock check: %llums", &v46, 0xCu);
         }
       }
     }
 
-    v26 = *(_prelaunchActivityMeasurements + 32);
+    v33 = *(_prelaunchActivityMeasurements + 32);
     if (*_launchSequenceActivityMeasurements == 1)
     {
-      if (v26)
+      if (v33)
       {
-        v27 = *(_prelaunchActivityMeasurements + 8);
-        if (v27)
+        v34 = *(_prelaunchActivityMeasurements + 8);
+        if (v34)
         {
-          v28 = millisecondsFromBaselineNanosecondTime(v26, v27);
-          v29 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v28];
-          [v2 setObject:v29 forKeyedSubscript:CAPrelaunchInterval_TotalPrelaunchToUnlockCheck];
+          v35 = millisecondsFromBaselineNanosecondTime(v33, v34);
+          v36 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v35];
+          [v4 setObject:v36 forKeyedSubscript:CAPrelaunchInterval_TotalPrelaunchToUnlockCheck];
 
-          v30 = measureLaunchXPCHandle();
-          if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+          v38 = measureLaunchXPCHandle(v37);
+          if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
           {
-            v38 = 134217984;
-            v39 = v28;
-            v31 = "Total prelaunch sequence (first unlock) interval: %llums";
+            v46 = 134217984;
+            v47 = v35;
+            v39 = "Total prelaunch sequence (first unlock) interval: %llums";
 LABEL_37:
-            _os_log_impl(&dword_23255B000, v30, OS_LOG_TYPE_INFO, v31, &v38, 0xCu);
+            _os_log_impl(&dword_23255B000, v38, OS_LOG_TYPE_INFO, v39, &v46, 0xCu);
             goto LABEL_38;
           }
 
@@ -7433,21 +7369,21 @@ LABEL_37:
       }
     }
 
-    else if (v26)
+    else if (v33)
     {
-      v33 = *(_prelaunchActivityMeasurements + 8);
-      if (v33)
+      v41 = *(_prelaunchActivityMeasurements + 8);
+      if (v41)
       {
-        v34 = millisecondsFromBaselineNanosecondTime(v26, v33);
-        v35 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v34];
-        [v2 setObject:v35 forKeyedSubscript:CAPrelaunchInterval_TotalPrelaunchToUnlockCheck];
+        v42 = millisecondsFromBaselineNanosecondTime(v33, v41);
+        v43 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v42];
+        [v4 setObject:v43 forKeyedSubscript:CAPrelaunchInterval_TotalPrelaunchToUnlockCheck];
 
-        v30 = measureLaunchXPCHandle();
-        if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+        v38 = measureLaunchXPCHandle(v44);
+        if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
         {
-          v38 = 134217984;
-          v39 = v34;
-          v31 = "Total prelaunch sequence (unlocked) interval: %llums";
+          v46 = 134217984;
+          v47 = v42;
+          v39 = "Total prelaunch sequence (unlocked) interval: %llums";
           goto LABEL_37;
         }
 
@@ -7455,8 +7391,8 @@ LABEL_38:
       }
     }
 
-    v32 = measureLaunchXPCHandle();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
+    v40 = measureLaunchXPCHandle(v33);
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
     {
       analyticsDictionaryForPrelaunchSequence_cold_2();
     }
@@ -7464,272 +7400,270 @@ LABEL_38:
     goto LABEL_41;
   }
 
-  v32 = measureLaunchXPCHandle();
-  if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
+  v40 = measureLaunchXPCHandle(v3);
+  if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
   {
-    v38 = 134217984;
-    v39 = 0;
-    _os_log_impl(&dword_23255B000, v32, OS_LOG_TYPE_INFO, "baseline is zero: %llu", &v38, 0xCu);
+    v46 = 134217984;
+    v47 = 0;
+    _os_log_impl(&dword_23255B000, v40, OS_LOG_TYPE_INFO, "baseline is zero: %llu", &v46, 0xCu);
   }
 
-  v2 = 0;
+  v4 = 0;
 LABEL_41:
 
-  v36 = *MEMORY[0x277D85DE8];
-
-  return v2;
+  return v4;
 }
 
-id analyticsDictionaryForLaunchSequence()
+id analyticsDictionaryForLaunchSequence(uint64_t a1)
 {
-  v66 = *MEMORY[0x277D85DE8];
-  v0 = 16;
+  v79 = *MEMORY[0x277D85DE8];
+  v1 = 16;
   if (*_launchSequenceActivityMeasurements)
   {
-    v0 = 8;
+    v1 = 8;
   }
 
-  v1 = *(_launchSequenceActivityMeasurements + v0);
-  v2 = measureLaunchXPCHandle();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v2 = *(_launchSequenceActivityMeasurements + v1);
+  v3 = measureLaunchXPCHandle(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     analyticsDictionaryForLaunchSequence_cold_1();
   }
 
-  if (v1)
+  if (v2)
   {
-    v3 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    v4 = measureLaunchXPCHandle();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
-    {
-      LOWORD(v64) = 0;
-      _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_INFO, "Populating CoreAnalytics metrics for LaunchSequence measurements", &v64, 2u);
-    }
-
-    v5 = [MEMORY[0x277CCABB0] numberWithBool:*_launchSequenceActivityMeasurements];
-    [v3 setObject:v5 forKeyedSubscript:CALaunchSequenceEvent_IsFirstUnlock];
-
-    v6 = measureLaunchXPCHandle();
+    v5 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v6 = measureLaunchXPCHandle(v5);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      v7 = *_launchSequenceActivityMeasurements;
-      v64 = 67109120;
-      LODWORD(v65) = v7;
-      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_INFO, "IsFirstUnlock: %{BOOL}d", &v64, 8u);
+      LOWORD(v77) = 0;
+      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_INFO, "Populating CoreAnalytics metrics for LaunchSequence measurements", &v77, 2u);
     }
 
-    v8 = [MEMORY[0x277CCABB0] numberWithBool:*_prelaunchActivityMeasurements];
-    [v3 setObject:v8 forKeyedSubscript:CALaunchSequenceEvent_IsHelper];
+    v7 = [MEMORY[0x277CCABB0] numberWithBool:*_launchSequenceActivityMeasurements];
+    [v5 setObject:v7 forKeyedSubscript:CALaunchSequenceEvent_IsFirstUnlock];
 
-    v9 = measureLaunchXPCHandle();
+    v9 = measureLaunchXPCHandle(v8);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v10 = *_prelaunchActivityMeasurements;
-      v64 = 67109120;
-      LODWORD(v65) = v10;
-      _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_INFO, "IsHelper: %{BOOL}d", &v64, 8u);
+      v10 = *_launchSequenceActivityMeasurements;
+      v77 = 67109120;
+      LODWORD(v78) = v10;
+      _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_INFO, "IsFirstUnlock: %{BOOL}d", &v77, 8u);
     }
 
-    v11 = _launchSequenceActivityMeasurements;
+    v11 = [MEMORY[0x277CCABB0] numberWithBool:*_prelaunchActivityMeasurements];
+    [v5 setObject:v11 forKeyedSubscript:CALaunchSequenceEvent_IsHelper];
+
+    v13 = measureLaunchXPCHandle(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    {
+      v14 = *_prelaunchActivityMeasurements;
+      v77 = 67109120;
+      LODWORD(v78) = v14;
+      _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_INFO, "IsHelper: %{BOOL}d", &v77, 8u);
+    }
+
+    v15 = _launchSequenceActivityMeasurements;
     if (*_launchSequenceActivityMeasurements == 1)
     {
-      v12 = *(_launchSequenceActivityMeasurements + 16);
-      if (v12)
+      v16 = *(_launchSequenceActivityMeasurements + 16);
+      if (v16)
       {
-        v13 = *(_launchSequenceActivityMeasurements + 8);
-        if (v13)
+        v17 = *(_launchSequenceActivityMeasurements + 8);
+        if (v17)
         {
-          v14 = millisecondsFromBaselineNanosecondTime(v12, v13);
-          v15 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v14];
-          [v3 setObject:v15 forKeyedSubscript:CALaunchSequenceInterval_ProcessedFirstUnlock];
+          v18 = millisecondsFromBaselineNanosecondTime(v16, v17);
+          v19 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v18];
+          [v5 setObject:v19 forKeyedSubscript:CALaunchSequenceInterval_ProcessedFirstUnlock];
 
-          v16 = measureLaunchXPCHandle();
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+          v21 = measureLaunchXPCHandle(v20);
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
           {
-            v64 = 134217984;
-            v65 = v14;
-            _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_INFO, "First unlock processing interval: %llums", &v64, 0xCu);
+            v77 = 134217984;
+            v78 = v18;
+            _os_log_impl(&dword_23255B000, v21, OS_LOG_TYPE_INFO, "First unlock processing interval: %llums", &v77, 0xCu);
           }
 
-          v11 = _launchSequenceActivityMeasurements;
+          v15 = _launchSequenceActivityMeasurements;
         }
       }
     }
 
-    v17 = *(v11 + 32);
-    if (v17)
-    {
-      v18 = *(v11 + 16);
-      if (v18)
-      {
-        v19 = millisecondsFromBaselineNanosecondTime(v17, v18);
-        v20 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v19];
-        [v3 setObject:v20 forKeyedSubscript:CALaunchSequenceInterval_DispatchLaunchSequence];
-
-        v21 = measureLaunchXPCHandle();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
-        {
-          v64 = 134217984;
-          v65 = v19;
-          _os_log_impl(&dword_23255B000, v21, OS_LOG_TYPE_INFO, "Launch sequence dispatch interval: %llums", &v64, 0xCu);
-        }
-
-        v11 = _launchSequenceActivityMeasurements;
-      }
-    }
-
-    v22 = *(v11 + 40);
+    v22 = *(v15 + 32);
     if (v22)
     {
-      v23 = *(v11 + 32);
+      v23 = *(v15 + 16);
       if (v23)
       {
         v24 = millisecondsFromBaselineNanosecondTime(v22, v23);
         v25 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v24];
-        [v3 setObject:v25 forKeyedSubscript:CALaunchSequenceInterval_InitializeWorkspace];
+        [v5 setObject:v25 forKeyedSubscript:CALaunchSequenceInterval_DispatchLaunchSequence];
 
-        v26 = measureLaunchXPCHandle();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+        v27 = measureLaunchXPCHandle(v26);
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
         {
-          v64 = 134217984;
-          v65 = v24;
-          _os_log_impl(&dword_23255B000, v26, OS_LOG_TYPE_INFO, "Workspace initialization interval: %llums", &v64, 0xCu);
+          v77 = 134217984;
+          v78 = v24;
+          _os_log_impl(&dword_23255B000, v27, OS_LOG_TYPE_INFO, "Launch sequence dispatch interval: %llums", &v77, 0xCu);
         }
 
-        v11 = _launchSequenceActivityMeasurements;
+        v15 = _launchSequenceActivityMeasurements;
       }
     }
 
-    v27 = *(v11 + 56);
-    if (v27)
+    v28 = *(v15 + 40);
+    if (v28)
     {
-      v28 = *(v11 + 48);
-      if (v28)
+      v29 = *(v15 + 32);
+      if (v29)
       {
-        v29 = millisecondsFromBaselineNanosecondTime(v27, v28);
-        v30 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v29];
-        [v3 setObject:v30 forKeyedSubscript:CALaunchSequenceInterval_InitializePersistence];
+        v30 = millisecondsFromBaselineNanosecondTime(v28, v29);
+        v31 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v30];
+        [v5 setObject:v31 forKeyedSubscript:CALaunchSequenceInterval_InitializeWorkspace];
 
-        v31 = measureLaunchXPCHandle();
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
+        v33 = measureLaunchXPCHandle(v32);
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
         {
-          v64 = 134217984;
-          v65 = v29;
-          _os_log_impl(&dword_23255B000, v31, OS_LOG_TYPE_INFO, "Persistence initialization interval: %llums", &v64, 0xCu);
+          v77 = 134217984;
+          v78 = v30;
+          _os_log_impl(&dword_23255B000, v33, OS_LOG_TYPE_INFO, "Workspace initialization interval: %llums", &v77, 0xCu);
         }
 
-        v11 = _launchSequenceActivityMeasurements;
+        v15 = _launchSequenceActivityMeasurements;
       }
     }
 
-    v32 = *(v11 + 72);
-    if (v32)
+    v34 = *(v15 + 56);
+    if (v34)
     {
-      v33 = *(v11 + 64);
-      if (v33)
+      v35 = *(v15 + 48);
+      if (v35)
       {
-        v34 = millisecondsFromBaselineNanosecondTime(v32, v33);
-        v35 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v34];
-        [v3 setObject:v35 forKeyedSubscript:CALaunchSequenceInterval_InitializeFlowEngine];
+        v36 = millisecondsFromBaselineNanosecondTime(v34, v35);
+        v37 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v36];
+        [v5 setObject:v37 forKeyedSubscript:CALaunchSequenceInterval_InitializePersistence];
 
-        v36 = measureLaunchXPCHandle();
-        if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
+        v39 = measureLaunchXPCHandle(v38);
+        if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
         {
-          v64 = 134217984;
-          v65 = v34;
-          _os_log_impl(&dword_23255B000, v36, OS_LOG_TYPE_INFO, "Flow Engine initialization interval: %llums", &v64, 0xCu);
+          v77 = 134217984;
+          v78 = v36;
+          _os_log_impl(&dword_23255B000, v39, OS_LOG_TYPE_INFO, "Persistence initialization interval: %llums", &v77, 0xCu);
         }
 
-        v11 = _launchSequenceActivityMeasurements;
+        v15 = _launchSequenceActivityMeasurements;
       }
     }
 
-    v37 = *(v11 + 88);
-    if (v37)
+    v40 = *(v15 + 72);
+    if (v40)
     {
-      v38 = *(v11 + 80);
-      if (v38)
+      v41 = *(v15 + 64);
+      if (v41)
       {
-        v39 = millisecondsFromBaselineNanosecondTime(v37, v38);
-        v40 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v39];
-        [v3 setObject:v40 forKeyedSubscript:CALaunchSequenceInterval_InitializeNetworkEngine];
+        v42 = millisecondsFromBaselineNanosecondTime(v40, v41);
+        v43 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v42];
+        [v5 setObject:v43 forKeyedSubscript:CALaunchSequenceInterval_InitializeFlowEngine];
 
-        v41 = measureLaunchXPCHandle();
-        if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
+        v45 = measureLaunchXPCHandle(v44);
+        if (os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
         {
-          v64 = 134217984;
-          v65 = v39;
-          _os_log_impl(&dword_23255B000, v41, OS_LOG_TYPE_INFO, "Network Engine initialization interval: %llums", &v64, 0xCu);
+          v77 = 134217984;
+          v78 = v42;
+          _os_log_impl(&dword_23255B000, v45, OS_LOG_TYPE_INFO, "Flow Engine initialization interval: %llums", &v77, 0xCu);
         }
 
-        v11 = _launchSequenceActivityMeasurements;
+        v15 = _launchSequenceActivityMeasurements;
       }
     }
 
-    v42 = *(v11 + 104);
-    if (v42)
+    v46 = *(v15 + 88);
+    if (v46)
     {
-      v43 = *(v11 + 96);
-      if (v43)
+      v47 = *(v15 + 80);
+      if (v47)
       {
-        v44 = millisecondsFromBaselineNanosecondTime(v42, v43);
-        v45 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v44];
-        [v3 setObject:v45 forKeyedSubscript:CALaunchSequenceInterval_InitializeNOIEngine];
+        v48 = millisecondsFromBaselineNanosecondTime(v46, v47);
+        v49 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v48];
+        [v5 setObject:v49 forKeyedSubscript:CALaunchSequenceInterval_InitializeNetworkEngine];
 
-        v46 = measureLaunchXPCHandle();
-        if (os_log_type_enabled(v46, OS_LOG_TYPE_INFO))
-        {
-          v64 = 134217984;
-          v65 = v44;
-          _os_log_impl(&dword_23255B000, v46, OS_LOG_TYPE_INFO, "NOIEngine initialization interval: %llums", &v64, 0xCu);
-        }
-
-        v11 = _launchSequenceActivityMeasurements;
-      }
-    }
-
-    v47 = *(v11 + 112);
-    if (v47)
-    {
-      v48 = *(v11 + 104);
-      if (v48)
-      {
-        v49 = millisecondsFromBaselineNanosecondTime(v47, v48);
-        v50 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v49];
-        [v3 setObject:v50 forKeyedSubscript:CALaunchSequenceInterval_DispatchXPCCheckpoint];
-
-        v51 = measureLaunchXPCHandle();
+        v51 = measureLaunchXPCHandle(v50);
         if (os_log_type_enabled(v51, OS_LOG_TYPE_INFO))
         {
-          v64 = 134217984;
-          v65 = v49;
-          _os_log_impl(&dword_23255B000, v51, OS_LOG_TYPE_INFO, "XPC checkpoint dispatch interval: %llums", &v64, 0xCu);
+          v77 = 134217984;
+          v78 = v48;
+          _os_log_impl(&dword_23255B000, v51, OS_LOG_TYPE_INFO, "Network Engine initialization interval: %llums", &v77, 0xCu);
         }
 
-        v11 = _launchSequenceActivityMeasurements;
+        v15 = _launchSequenceActivityMeasurements;
       }
     }
 
-    v52 = *(v11 + 112);
-    if (*v11 == 1)
+    v52 = *(v15 + 104);
+    if (v52)
     {
-      if (v52)
+      v53 = *(v15 + 96);
+      if (v53)
       {
-        v53 = *(v11 + 8);
-        if (v53)
-        {
-          v54 = millisecondsFromBaselineNanosecondTime(v52, v53);
-          v55 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v54];
-          [v3 setObject:v55 forKeyedSubscript:CALaunchSequenceInterval_TotalLaunchToXPC];
+        v54 = millisecondsFromBaselineNanosecondTime(v52, v53);
+        v55 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v54];
+        [v5 setObject:v55 forKeyedSubscript:CALaunchSequenceInterval_InitializeNOIEngine];
 
-          v56 = measureLaunchXPCHandle();
-          if (os_log_type_enabled(v56, OS_LOG_TYPE_INFO))
+        v57 = measureLaunchXPCHandle(v56);
+        if (os_log_type_enabled(v57, OS_LOG_TYPE_INFO))
+        {
+          v77 = 134217984;
+          v78 = v54;
+          _os_log_impl(&dword_23255B000, v57, OS_LOG_TYPE_INFO, "NOIEngine initialization interval: %llums", &v77, 0xCu);
+        }
+
+        v15 = _launchSequenceActivityMeasurements;
+      }
+    }
+
+    v58 = *(v15 + 112);
+    if (v58)
+    {
+      v59 = *(v15 + 104);
+      if (v59)
+      {
+        v60 = millisecondsFromBaselineNanosecondTime(v58, v59);
+        v61 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v60];
+        [v5 setObject:v61 forKeyedSubscript:CALaunchSequenceInterval_DispatchXPCCheckpoint];
+
+        v63 = measureLaunchXPCHandle(v62);
+        if (os_log_type_enabled(v63, OS_LOG_TYPE_INFO))
+        {
+          v77 = 134217984;
+          v78 = v60;
+          _os_log_impl(&dword_23255B000, v63, OS_LOG_TYPE_INFO, "XPC checkpoint dispatch interval: %llums", &v77, 0xCu);
+        }
+
+        v15 = _launchSequenceActivityMeasurements;
+      }
+    }
+
+    v64 = *(v15 + 112);
+    if (*v15 == 1)
+    {
+      if (v64)
+      {
+        v65 = *(v15 + 8);
+        if (v65)
+        {
+          v66 = millisecondsFromBaselineNanosecondTime(v64, v65);
+          v67 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v66];
+          [v5 setObject:v67 forKeyedSubscript:CALaunchSequenceInterval_TotalLaunchToXPC];
+
+          v69 = measureLaunchXPCHandle(v68);
+          if (os_log_type_enabled(v69, OS_LOG_TYPE_INFO))
           {
-            v64 = 134217984;
-            v65 = v54;
-            v57 = "Total launch sequence (first unlock) interval: %llums";
+            v77 = 134217984;
+            v78 = v66;
+            v70 = "Total launch sequence (first unlock) interval: %llums";
 LABEL_65:
-            _os_log_impl(&dword_23255B000, v56, OS_LOG_TYPE_INFO, v57, &v64, 0xCu);
+            _os_log_impl(&dword_23255B000, v69, OS_LOG_TYPE_INFO, v70, &v77, 0xCu);
             goto LABEL_66;
           }
 
@@ -7738,21 +7672,21 @@ LABEL_65:
       }
     }
 
-    else if (v52)
+    else if (v64)
     {
-      v59 = *(v11 + 16);
-      if (v59)
+      v72 = *(v15 + 16);
+      if (v72)
       {
-        v60 = millisecondsFromBaselineNanosecondTime(v52, v59);
-        v61 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v60];
-        [v3 setObject:v61 forKeyedSubscript:CALaunchSequenceInterval_TotalLaunchToXPC];
+        v73 = millisecondsFromBaselineNanosecondTime(v64, v72);
+        v74 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v73];
+        [v5 setObject:v74 forKeyedSubscript:CALaunchSequenceInterval_TotalLaunchToXPC];
 
-        v56 = measureLaunchXPCHandle();
-        if (os_log_type_enabled(v56, OS_LOG_TYPE_INFO))
+        v69 = measureLaunchXPCHandle(v75);
+        if (os_log_type_enabled(v69, OS_LOG_TYPE_INFO))
         {
-          v64 = 134217984;
-          v65 = v60;
-          v57 = "Total launch sequence (unlocked) interval: %llums";
+          v77 = 134217984;
+          v78 = v73;
+          v70 = "Total launch sequence (unlocked) interval: %llums";
           goto LABEL_65;
         }
 
@@ -7760,8 +7694,8 @@ LABEL_66:
       }
     }
 
-    v58 = measureLaunchXPCHandle();
-    if (os_log_type_enabled(v58, OS_LOG_TYPE_DEBUG))
+    v71 = measureLaunchXPCHandle(v64);
+    if (os_log_type_enabled(v71, OS_LOG_TYPE_DEBUG))
     {
       analyticsDictionaryForLaunchSequence_cold_2();
     }
@@ -7769,20 +7703,18 @@ LABEL_66:
     goto LABEL_69;
   }
 
-  v58 = measureLaunchXPCHandle();
-  if (os_log_type_enabled(v58, OS_LOG_TYPE_INFO))
+  v71 = measureLaunchXPCHandle(v4);
+  if (os_log_type_enabled(v71, OS_LOG_TYPE_INFO))
   {
-    v64 = 134217984;
-    v65 = 0;
-    _os_log_impl(&dword_23255B000, v58, OS_LOG_TYPE_INFO, "baseline is zero: %llu", &v64, 0xCu);
+    v77 = 134217984;
+    v78 = 0;
+    _os_log_impl(&dword_23255B000, v71, OS_LOG_TYPE_INFO, "baseline is zero: %llu", &v77, 0xCu);
   }
 
-  v3 = 0;
+  v5 = 0;
 LABEL_69:
 
-  v62 = *MEMORY[0x277D85DE8];
-
-  return v3;
+  return v5;
 }
 
 void submitMeasurementsToCA(int a1)
@@ -7798,17 +7730,17 @@ void submitMeasurementsToCA(int a1)
   }
 }
 
-void __submitMeasurementsToCA_block_invoke()
+void __submitMeasurementsToCA_block_invoke(uint64_t a1)
 {
-  v0 = _prelaunchActivityMeasurements;
-  v1 = measureLaunchXPCHandle();
-  v2 = os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT);
-  if (v0)
+  v1 = _prelaunchActivityMeasurements;
+  v2 = measureLaunchXPCHandle(a1);
+  v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
+  if (v1)
   {
-    if (v2)
+    if (v3)
     {
       *buf = 0;
-      _os_log_impl(&dword_23255B000, v1, OS_LOG_TYPE_DEFAULT, "Ready to submit CoreAnalytics metrics for PrelaunchSequence measurements", buf, 2u);
+      _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_DEFAULT, "Ready to submit CoreAnalytics metrics for PrelaunchSequence measurements", buf, 2u);
     }
 
     AnalyticsSendEventLazy();
@@ -7816,25 +7748,25 @@ void __submitMeasurementsToCA_block_invoke()
 
   else
   {
-    if (v2)
+    if (v3)
     {
-      *v3 = 0;
-      _os_log_impl(&dword_23255B000, v1, OS_LOG_TYPE_DEFAULT, "No PrelaunchSequence measurements available to submit to CoreAnalytics", v3, 2u);
+      *v4 = 0;
+      _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_DEFAULT, "No PrelaunchSequence measurements available to submit to CoreAnalytics", v4, 2u);
     }
   }
 }
 
-void __submitMeasurementsToCA_block_invoke_71()
+void __submitMeasurementsToCA_block_invoke_71(uint64_t a1)
 {
-  v0 = _launchSequenceActivityMeasurements;
-  v1 = measureLaunchXPCHandle();
-  v2 = os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT);
-  if (v0)
+  v1 = _launchSequenceActivityMeasurements;
+  v2 = measureLaunchXPCHandle(a1);
+  v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
+  if (v1)
   {
-    if (v2)
+    if (v3)
     {
       *buf = 0;
-      _os_log_impl(&dword_23255B000, v1, OS_LOG_TYPE_DEFAULT, "Ready to submit CoreAnalytics metrics for LaunchSequence measurements", buf, 2u);
+      _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_DEFAULT, "Ready to submit CoreAnalytics metrics for LaunchSequence measurements", buf, 2u);
     }
 
     AnalyticsSendEventLazy();
@@ -7842,69 +7774,66 @@ void __submitMeasurementsToCA_block_invoke_71()
 
   else
   {
-    if (v2)
+    if (v3)
     {
-      *v3 = 0;
-      _os_log_impl(&dword_23255B000, v1, OS_LOG_TYPE_DEFAULT, "No LaunchSequence measurements available to submit to CoreAnalytics", v3, 2u);
+      *v4 = 0;
+      _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_DEFAULT, "No LaunchSequence measurements available to submit to CoreAnalytics", v4, 2u);
     }
   }
 }
 
-void __submitAllMeasurementsToCA_block_invoke()
+void __submitAllMeasurementsToCA_block_invoke(uint64_t a1)
 {
   v14 = *MEMORY[0x277D85DE8];
   if (_launchSequenceActivityMeasurements)
   {
-    v0 = _prelaunchActivityMeasurements == 0;
+    v1 = _prelaunchActivityMeasurements == 0;
   }
 
   else
   {
-    v0 = 1;
+    v1 = 1;
   }
 
-  if (v0)
+  if (v1)
   {
-LABEL_18:
-    v7 = *MEMORY[0x277D85DE8];
     return;
   }
 
-  v1 = *(_launchSequenceActivityMeasurements + 112);
+  v2 = *(_launchSequenceActivityMeasurements + 112);
   if (*_prelaunchActivityMeasurements == 1)
   {
-    if (!v1 || !*(_launchSequenceActivityMeasurements + 72))
+    if (!v2 || !*(_launchSequenceActivityMeasurements + 72))
     {
       goto LABEL_15;
     }
   }
 
-  else if (!v1 || !*(_launchSequenceActivityMeasurements + 72) || !*(_launchSequenceActivityMeasurements + 88))
+  else if (!v2 || !*(_launchSequenceActivityMeasurements + 72) || !*(_launchSequenceActivityMeasurements + 88))
   {
 LABEL_15:
-    v3 = measureLaunchXPCHandle();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+    v4 = measureLaunchXPCHandle(a1);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      v4 = *(_launchSequenceActivityMeasurements + 112);
-      v5 = *(_launchSequenceActivityMeasurements + 72);
-      v6 = *(_launchSequenceActivityMeasurements + 88);
+      v5 = *(_launchSequenceActivityMeasurements + 112);
+      v6 = *(_launchSequenceActivityMeasurements + 72);
+      v7 = *(_launchSequenceActivityMeasurements + 88);
       v8 = 134218496;
-      v9 = v4;
+      v9 = v5;
       v10 = 2048;
-      v11 = v5;
+      v11 = v6;
       v12 = 2048;
-      v13 = v6;
-      _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_INFO, "Waiting on full set of launch events before submitting LaunchSequence measurements to CoreAnalytics: xpc_checkpoint_ready %llu, fae_initialized %llu, nae_initialized %llu", &v8, 0x20u);
+      v13 = v7;
+      _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_INFO, "Waiting on full set of launch events before submitting LaunchSequence measurements to CoreAnalytics: xpc_checkpoint_ready %llu, fae_initialized %llu, nae_initialized %llu", &v8, 0x20u);
     }
 
-    goto LABEL_18;
+    return;
   }
 
   sf_synchronize(&prelaunch_lock, &__block_literal_global_66);
   sf_synchronize(&launchseq_lock, &__block_literal_global_73);
-  logLaunchSequenceEventTimeline();
+  logLaunchSequenceEventTimeline(v3);
   destroyMeasurementType(1);
-  v2 = *MEMORY[0x277D85DE8];
 
   destroyMeasurementType(2);
 }
@@ -8086,10 +8015,10 @@ unint64_t AddHashFunction(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t UndefineFunction(uint64_t a1, char *a2)
+uint64_t UndefineFunction(void *a1, char *a2)
 {
   SymbolHN = FindSymbolHN(a1, a2);
-  v4 = **(*(a1 + 48) + 400);
+  v4 = **(a1[6] + 400);
   if (!v4)
   {
     return 0;
@@ -8119,7 +8048,7 @@ uint64_t UndefineFunction(uint64_t a1, char *a2)
 LABEL_8:
   DecrementSymbolCount(a1, v5);
   v8 = HashSymbol(*(*v4 + 24), 0x205uLL);
-  v9 = *(a1 + 48);
+  v9 = a1[6];
   v10 = *(*(v9 + 400) + 8);
   v11 = *(v10 + 8 * v8);
   if (v11)
@@ -8127,7 +8056,7 @@ LABEL_8:
     if (*v11 == v4)
     {
       *(v10 + 8 * v8) = v11[1];
-      v9 = *(a1 + 48);
+      v9 = a1[6];
 LABEL_14:
       *(*(v9 + 472) + 32) = v11;
       **(*(v9 + 472) + 32) = *(*(*(v9 + 472) + 40) + 128);
@@ -8161,12 +8090,12 @@ LABEL_14:
 
   else
   {
-    v13 = *(*(a1 + 48) + 400);
+    v13 = *(a1[6] + 400);
   }
 
   *v13 = *(v4 + 56);
   ClearUserDataList(a1, *(v4 + 64));
-  v14 = *(a1 + 48);
+  v14 = a1[6];
   *(*(v14 + 472) + 32) = v4;
   **(*(v14 + 472) + 32) = *(*(*(v14 + 472) + 40) + 640);
   *(*(*(v14 + 472) + 40) + 640) = *(*(v14 + 472) + 32);
@@ -8380,10 +8309,11 @@ __CFString *NSStringForNSExpressionType(unint64_t a1)
   return v1;
 }
 
-void OUTLINED_FUNCTION_0_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_DEFAULT, a4, &a9, 2u);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_DEFAULT, a4, va, 2u);
 }
 
 uint64_t DefglobalBasicCommands(uint64_t a1)
@@ -8413,7 +8343,7 @@ uint64_t ResetDefglobals(uint64_t a1)
   return result;
 }
 
-uint64_t ResetDefglobalAction(uint64_t a1, uint64_t a2)
+uint64_t ResetDefglobalAction(void *a1, uint64_t a2)
 {
   v6 = 0u;
   v7 = 0u;
@@ -8661,7 +8591,7 @@ uint64_t BsaveBinaryItem(uint64_t a1, FILE *__stream)
   return RestoreBloadCount(a1, (*(*(a1 + 48) + 488) + 24));
 }
 
-size_t BloadStorage(uint64_t a1)
+uint64_t BloadStorage(uint64_t a1)
 {
   __ptr = 0;
   GenReadBinary(a1, &__ptr, 8uLL);
@@ -8724,9 +8654,9 @@ uint64_t BloadBinaryItem(uint64_t a1)
   return BloadandRefresh(a1, *(*(*(a1 + 48) + 488) + 16), 48, UpdateDeftemplateSlot);
 }
 
-void *ClearBload(uint64_t a1)
+void *ClearBload(void *a1)
 {
-  v2 = *(a1 + 48);
+  v2 = a1[6];
   v3 = *(v2 + 488);
   if (*(v3 + 8) >= 1)
   {
@@ -8736,7 +8666,7 @@ void *ClearBload(uint64_t a1)
     {
       UnmarkConstructHeader(a1, (*v3 + v4));
       ++v5;
-      v2 = *(a1 + 48);
+      v2 = a1[6];
       v3 = *(v2 + 488);
       v4 += 96;
     }
@@ -8752,7 +8682,7 @@ void *ClearBload(uint64_t a1)
     {
       DecrementSymbolCount(a1, *(*(v3 + 32) + v6));
       ++v7;
-      v2 = *(a1 + 48);
+      v2 = a1[6];
       v3 = *(v2 + 488);
       v6 += 48;
     }
@@ -8764,7 +8694,7 @@ void *ClearBload(uint64_t a1)
   if (v8)
   {
     genfree(a1, *(v3 + 40), v8);
-    v2 = *(a1 + 48);
+    v2 = a1[6];
   }
 
   v9 = *(v2 + 488);
@@ -8773,7 +8703,7 @@ void *ClearBload(uint64_t a1)
   if (v10)
   {
     genfree(a1, *v9, v10);
-    v9 = *(*(a1 + 48) + 488);
+    v9 = *(a1[6] + 488);
   }
 
   *(v9 + 8) = 0;
@@ -8781,7 +8711,7 @@ void *ClearBload(uint64_t a1)
   if (v11)
   {
     genfree(a1, *(v9 + 32), v11);
-    v9 = *(*(a1 + 48) + 488);
+    v9 = *(a1[6] + 488);
   }
 
   *(v9 + 16) = 0;
@@ -8934,7 +8864,7 @@ char *RefreshCommand(uint64_t a1)
 uint64_t RefreshAgendaCommand(uint64_t a1)
 {
   v3 = 0;
-  result = EnvArgCountCheck(a1, "refresh-agenda", 2u, 1);
+  result = EnvArgCountCheck(a1, "refresh-agenda", 2, 1);
   if (result != -1)
   {
     if (result == 1)
@@ -8992,7 +8922,7 @@ uint64_t *SetSalienceEvaluationCommand(uint64_t a1)
 
   if (EnvArgCountCheck(a1, "set-salience-evaluation", 0, 1) != -1)
   {
-    if (EnvArgTypeCheck(a1, "set-salience-evaluation", 1, 2, &v7))
+    if (EnvArgTypeCheck(a1, "set-salience-evaluation", 1, 2u, &v7))
     {
       v4 = *(v8 + 24);
       if (!strcmp(v4, "when-defined"))
@@ -9028,7 +8958,7 @@ uint64_t *SetSalienceEvaluationCommand(uint64_t a1)
 uint64_t AgendaCommand(uint64_t a1)
 {
   v3 = 0;
-  result = EnvArgCountCheck(a1, "agenda", 2u, 1);
+  result = EnvArgCountCheck(a1, "agenda", 2, 1);
   if (result != -1)
   {
     if (result == 1)
@@ -9090,14 +9020,14 @@ uint64_t AddActivation(uint64_t a1, uint64_t a2, uint64_t a3)
   if ((*(*v10 + 57) & 0x10) != 0)
   {
     EnvPrintRouter(a1, "wtrace", "==> Activation ");
-    PrintActivation(a1, "wtrace", v10, v13, v14, v15, v16, v17);
+    PrintActivation(a1, "wtrace", v10);
     EnvPrintRouter(a1, "wtrace", "\n");
   }
 
-  v18 = *(a2 + 16);
-  SalienceGroup = ReuseOrCreateSalienceGroup(a1, v18, *(v10 + 4));
+  v13 = *(a2 + 16);
+  SalienceGroup = ReuseOrCreateSalienceGroup(a1, v13, *(v10 + 4));
 
-  return PlaceActivation(a1, (v18 + 32), v10, SalienceGroup);
+  return PlaceActivation(a1, (v13 + 32), v10, SalienceGroup);
 }
 
 uint64_t EvaluateSalience(uint64_t a1, uint64_t a2)
@@ -9128,7 +9058,7 @@ uint64_t EvaluateSalience(uint64_t a1, uint64_t a2)
       return result;
     }
 
-    SalienceRangeError(a1, 240, 16);
+    SalienceRangeError(a1, -10000, 10000);
     SetEvaluationError(a1, 1);
   }
 
@@ -9136,19 +9066,17 @@ uint64_t EvaluateSalience(uint64_t a1, uint64_t a2)
   return *(a2 + 48);
 }
 
-uint64_t PrintActivation(uint64_t a1, FILE *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t PrintActivation(uint64_t a1, FILE *a2, uint64_t *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  gensprintf(v13, "%-6d ", a3, a4, a5, a6, a7, a8, *(a3 + 16));
-  EnvPrintRouter(a1, a2, v13);
+  v8 = *MEMORY[0x277D85DE8];
+  gensprintf(v7, "%-6d ", *(a3 + 4));
+  EnvPrintRouter(a1, a2, v7);
   EnvPrintRouter(a1, a2, *(**a3 + 24));
   EnvPrintRouter(a1, a2, ": ");
-  result = PrintPartialMatch(a1, a2, *(a3 + 8));
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  return PrintPartialMatch(a1, a2, a3[1]);
 }
 
-void *ReuseOrCreateSalienceGroup(uint64_t a1, uint64_t a2, int a3)
+int *ReuseOrCreateSalienceGroup(uint64_t a1, uint64_t a2, int a3)
 {
   v5 = *(a2 + 24);
   if (v5)
@@ -9202,15 +9130,15 @@ LABEL_8:
     }
 
     *result = a3;
-    result[1] = 0;
-    result[2] = 0;
+    *(result + 1) = 0;
+    *(result + 2) = 0;
     v14 = v6;
-    result[3] = v7;
-    result[4] = v6;
+    *(result + 3) = v7;
+    *(result + 4) = v6;
     if (!v9)
     {
       *(v7 + 4) = result;
-      v14 = result[4];
+      v14 = *(result + 4);
     }
 
     if (v14)
@@ -9266,7 +9194,7 @@ LABEL_3:
   return result;
 }
 
-uint64_t RemoveActivation(uint64_t result, void *a2, int a3, int a4)
+uint64_t RemoveActivation(uint64_t result, uint64_t *a2, int a3, int a4)
 {
   v6 = result;
   if (a3 != 1)
@@ -9302,7 +9230,7 @@ LABEL_8:
   if ((*(*a2 + 56) & 0x1000) != 0)
   {
     EnvPrintRouter(v6, "wtrace", "<== Activation ");
-    PrintActivation(v6, "wtrace", a2, v10, v11, v12, v13, v14);
+    PrintActivation(v6, "wtrace", a2);
     result = EnvPrintRouter(v6, "wtrace", "\n");
   }
 
@@ -9310,18 +9238,18 @@ LABEL_8:
 LABEL_11:
   if (a4 == 1)
   {
-    v15 = a2[1];
-    if (v15)
+    v10 = a2[1];
+    if (v10)
     {
-      *(v15 + 24) = 0;
+      *(v10 + 24) = 0;
     }
   }
 
-  v16 = *(v6 + 48);
-  --*(*(v16 + 136) + 8);
-  *(*(v16 + 472) + 32) = a2;
-  **(*(v16 + 472) + 32) = *(*(*(v16 + 472) + 40) + 448);
-  *(*(*(v16 + 472) + 40) + 448) = *(*(v16 + 472) + 32);
+  v11 = *(v6 + 48);
+  --*(*(v11 + 136) + 8);
+  *(*(v11 + 472) + 32) = a2;
+  **(*(v11 + 472) + 32) = *(*(*(v11 + 472) + 40) + 448);
+  *(*(*(v11 + 472) + 40) + 448) = *(*(v11 + 472) + 32);
   return result;
 }
 
@@ -9353,10 +9281,10 @@ uint64_t EnvSetActivationSalience(uint64_t a1, uint64_t a2, int a3)
   return result;
 }
 
-uint64_t EnvGetActivationPPForm(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t EnvGetActivationPPForm(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   OpenStringDestination(a1, "ActPPForm", a2, a3);
-  PrintActivation(a1, "ActPPForm", a4, v6, v7, v8, v9, v10);
+  PrintActivation(a1, "ActPPForm", a4);
 
   return CloseStringDestination(a1, "ActPPForm");
 }
@@ -9396,7 +9324,7 @@ uint64_t MoveActivationToTop(uint64_t a1, void *a2)
   return result;
 }
 
-uint64_t EnvDeleteActivation(uint64_t a1, void *a2)
+uint64_t EnvDeleteActivation(uint64_t a1, uint64_t *a2)
 {
   if (a2)
   {
@@ -9608,4 +9536,51 @@ LABEL_3:
   }
 
   return result;
+}
+
+uint64_t EnvRefresh(uint64_t a1, uint64_t a2)
+{
+  if (a2)
+  {
+    v2 = a2;
+    do
+    {
+      v4 = *(v2 + 88);
+      v5 = *(v4 + 56);
+      if (*v5)
+      {
+        v6 = 0;
+        do
+        {
+          v7 = *(v5[2] + 8 * v6);
+          if (v7)
+          {
+            do
+            {
+              if (*(v7[2] + 136) && !v7[3])
+              {
+                AddActivation(a1, v2, v7);
+              }
+
+              v7 = v7[5];
+            }
+
+            while (v7);
+            v4 = *(v2 + 88);
+          }
+
+          ++v6;
+          v5 = *(v4 + 56);
+        }
+
+        while (v6 < *v5);
+      }
+
+      v2 = *(v2 + 96);
+    }
+
+    while (v2);
+  }
+
+  return 1;
 }

@@ -14,110 +14,110 @@
 {
   height = size.height;
   width = size.width;
-  v166[3] = *MEMORY[0x1E69E9840];
-  v164.receiver = self;
-  v164.super_class = VFXMovieExportOperation;
-  v11 = [(VFXMovieExportOperation *)&v164 init];
-  v14 = v11;
+  v122[3] = *MEMORY[0x1E69E9840];
+  v120.receiver = self;
+  v120.super_class = VFXMovieExportOperation;
+  v11 = [(VFXMovieExportOperation *)&v120 init];
+  v13 = v11;
   if (v11)
   {
-    objc_msgSend_setAntialiasingMode_(v11, v12, 2, v13);
-    v20 = objc_msgSend_mutableCopy(attributes, v15, v16, v17);
-    if (!v20)
+    objc_msgSend_setAntialiasingMode_(v11, v12, 2);
+    v17 = objc_msgSend_mutableCopy(attributes, v14, v15);
+    if (!v17)
     {
-      v20 = objc_alloc_init(MEMORY[0x1E695DF90]);
+      v17 = objc_alloc_init(MEMORY[0x1E695DF90]);
     }
 
-    objc_msgSend_removeObjectForKey_(v20, v18, @"kExportPointOfViewAttribute", v19);
-    v23 = objc_msgSend_valueForKey_(v20, v21, @"rate", v22);
-    objc_msgSend_floatValue(v23, v24, v25, v26);
-    v14->_rate = v27;
-    objc_msgSend_removeObjectForKey_(v20, v28, @"rate", v29);
-    if (v14->_rate == 0.0)
+    objc_msgSend_removeObjectForKey_(v17, v16, @"kExportPointOfViewAttribute");
+    v19 = objc_msgSend_valueForKey_(v17, v18, @"rate");
+    objc_msgSend_floatValue(v19, v20, v21);
+    v13->_rate = v22;
+    objc_msgSend_removeObjectForKey_(v17, v23, @"rate");
+    if (v13->_rate == 0.0)
     {
-      v14->_rate = 0.033333;
+      v13->_rate = 0.033333;
     }
 
-    v32 = objc_msgSend_valueForKey_(v20, v30, @"VFXExportMovieFrameRate", v31);
-    v36 = objc_msgSend_intValue(v32, v33, v34, v35);
-    objc_msgSend_removeObjectForKey_(v20, v37, @"VFXExportMovieFrameRate", v38);
-    if (v36)
+    v25 = objc_msgSend_valueForKey_(v17, v24, @"VFXExportMovieFrameRate");
+    v28 = objc_msgSend_intValue(v25, v26, v27);
+    objc_msgSend_removeObjectForKey_(v17, v29, @"VFXExportMovieFrameRate");
+    if (v28)
     {
-      v14->_rate = 1.0 / v36;
+      v13->_rate = 1.0 / v28;
     }
 
-    v41 = objc_msgSend_valueForKey_(v20, v39, @"VFXExportMovieMirrored", v40);
-    v14->_mirrored = objc_msgSend_BOOLValue(v41, v42, v43, v44);
-    objc_msgSend_removeObjectForKey_(v20, v45, @"VFXExportMovieMirrored", v46);
-    v49 = objc_msgSend_valueForKey_(v20, v47, @"VFXExportMovieSupersamplingFactor", v48);
-    objc_msgSend_floatValue(v49, v50, v51, v52);
-    v14->_supersampling = v53;
-    objc_msgSend_removeObjectForKey_(v20, v54, @"VFXExportMovieSupersamplingFactor", v55);
-    if (v14->_supersampling == 0.0)
+    v31 = objc_msgSend_valueForKey_(v17, v30, @"VFXExportMovieMirrored");
+    v13->_mirrored = objc_msgSend_BOOLValue(v31, v32, v33);
+    objc_msgSend_removeObjectForKey_(v17, v34, @"VFXExportMovieMirrored");
+    v36 = objc_msgSend_valueForKey_(v17, v35, @"VFXExportMovieSupersamplingFactor");
+    objc_msgSend_floatValue(v36, v37, v38);
+    v13->_supersampling = v39;
+    objc_msgSend_removeObjectForKey_(v17, v40, @"VFXExportMovieSupersamplingFactor");
+    if (v13->_supersampling == 0.0)
     {
-      v14->_supersampling = 1.0;
+      v13->_supersampling = 1.0;
     }
 
-    objc_msgSend_removeObjectForKey_(v20, v56, @"QTAddImageCodecType", v57);
-    objc_msgSend_removeObjectForKey_(v20, v58, @"QTMovieRateAttribute", v59);
-    v60 = *MEMORY[0x1E6987CB0];
-    v63 = objc_msgSend_objectForKey_(v20, v61, *MEMORY[0x1E6987CB0], v62);
-    v66 = *MEMORY[0x1E6987CA0];
-    if (!v63)
+    objc_msgSend_removeObjectForKey_(v17, v41, @"QTAddImageCodecType");
+    objc_msgSend_removeObjectForKey_(v17, v42, @"QTMovieRateAttribute");
+    v43 = *MEMORY[0x1E6987CB0];
+    v45 = objc_msgSend_objectForKey_(v17, v44, *MEMORY[0x1E6987CB0]);
+    v47 = *MEMORY[0x1E6987CA0];
+    if (!v45)
     {
-      objc_msgSend_setValue_forKey_(v20, v64, *MEMORY[0x1E6987CA0], v60);
+      objc_msgSend_setValue_forKey_(v17, v46, *MEMORY[0x1E6987CA0], v43);
     }
 
-    if (objc_msgSend_valueForKey_(v20, v64, v60, v65) == v66)
+    if (objc_msgSend_valueForKey_(v17, v46, v43) == v47)
     {
-      v69 = *MEMORY[0x1E6987DB8];
-      v165[0] = *MEMORY[0x1E6987C60];
-      v165[1] = v69;
-      v70 = *MEMORY[0x1E6987DB0];
-      v166[0] = &unk_1F25D44E0;
-      v166[1] = v70;
-      v165[2] = *MEMORY[0x1E6987D80];
-      v166[2] = &unk_1F25D44F8;
-      v71 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v67, v166, v165, 3);
-      objc_msgSend_setValue_forKey_(v20, v72, v71, *MEMORY[0x1E6987D30]);
+      v49 = *MEMORY[0x1E6987DB8];
+      v121[0] = *MEMORY[0x1E6987C60];
+      v121[1] = v49;
+      v50 = *MEMORY[0x1E6987DB0];
+      v122[0] = &unk_1F25D44E0;
+      v122[1] = v50;
+      v121[2] = *MEMORY[0x1E6987D80];
+      v122[2] = &unk_1F25D44F8;
+      v51 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v48, v122, v121, 3);
+      objc_msgSend_setValue_forKey_(v17, v52, v51, *MEMORY[0x1E6987D30]);
     }
 
-    v73 = objc_msgSend_numberWithInt_(MEMORY[0x1E696AD98], v67, width, v68);
-    objc_msgSend_setValue_forKey_(v20, v74, v73, *MEMORY[0x1E6987E08]);
-    v77 = objc_msgSend_numberWithInt_(MEMORY[0x1E696AD98], v75, height, v76);
-    objc_msgSend_setValue_forKey_(v20, v78, v77, *MEMORY[0x1E6987D70]);
-    v79 = objc_alloc(MEMORY[0x1E6987EE0]);
-    v14->_assetWriterInput = objc_msgSend_initWithMediaType_outputSettings_(v79, v80, *MEMORY[0x1E6987608], v20);
-    v84 = objc_msgSend_dictionary(MEMORY[0x1E695DF90], v81, v82, v83);
-    objc_msgSend_setExpectsMediaDataInRealTime_(v14->_assetWriterInput, v85, 0, v86);
-    v89 = objc_msgSend_numberWithInt_(MEMORY[0x1E696AD98], v87, 1111970369, v88);
-    objc_msgSend_setObject_forKey_(v84, v90, v89, *MEMORY[0x1E6966130]);
-    v93 = objc_msgSend_numberWithInt_(MEMORY[0x1E696AD98], v91, width, v92);
-    objc_msgSend_setObject_forKey_(v84, v94, v93, *MEMORY[0x1E6966208]);
-    v97 = objc_msgSend_numberWithInt_(MEMORY[0x1E696AD98], v95, height, v96);
-    objc_msgSend_setObject_forKey_(v84, v98, v97, *MEMORY[0x1E69660B8]);
-    v102 = objc_msgSend_device(renderer, v99, v100, v101);
-    v104 = MEMORY[0x1E6966030];
-    if (v102)
+    v53 = objc_msgSend_numberWithInt_(MEMORY[0x1E696AD98], v48, width);
+    objc_msgSend_setValue_forKey_(v17, v54, v53, *MEMORY[0x1E6987E08]);
+    v56 = objc_msgSend_numberWithInt_(MEMORY[0x1E696AD98], v55, height);
+    objc_msgSend_setValue_forKey_(v17, v57, v56, *MEMORY[0x1E6987D70]);
+    v58 = objc_alloc(MEMORY[0x1E6987EE0]);
+    v13->_assetWriterInput = objc_msgSend_initWithMediaType_outputSettings_(v58, v59, *MEMORY[0x1E6987608], v17);
+    v62 = objc_msgSend_dictionary(MEMORY[0x1E695DF90], v60, v61);
+    objc_msgSend_setExpectsMediaDataInRealTime_(v13->_assetWriterInput, v63, 0);
+    v65 = objc_msgSend_numberWithInt_(MEMORY[0x1E696AD98], v64, 1111970369);
+    objc_msgSend_setObject_forKey_(v62, v66, v65, *MEMORY[0x1E6966130]);
+    v68 = objc_msgSend_numberWithInt_(MEMORY[0x1E696AD98], v67, width);
+    objc_msgSend_setObject_forKey_(v62, v69, v68, *MEMORY[0x1E6966208]);
+    v71 = objc_msgSend_numberWithInt_(MEMORY[0x1E696AD98], v70, height);
+    objc_msgSend_setObject_forKey_(v62, v72, v71, *MEMORY[0x1E69660B8]);
+    v75 = objc_msgSend_device(renderer, v73, v74);
+    v77 = MEMORY[0x1E6966030];
+    if (v75)
     {
-      v104 = MEMORY[0x1E6966100];
+      v77 = MEMORY[0x1E6966100];
     }
 
-    objc_msgSend_setObject_forKey_(v84, v103, MEMORY[0x1E695E118], *v104);
-    v105 = objc_alloc(MEMORY[0x1E6987F08]);
-    v14->_avAdaptor = objc_msgSend_initWithAssetWriterInput_sourcePixelBufferAttributes_(v105, v106, v14->_assetWriterInput, v84);
-    v163 = 0;
-    v110 = objc_msgSend_defaultManager(MEMORY[0x1E696AC08], v107, v108, v109);
-    objc_msgSend_removeItemAtURL_error_(v110, v111, l, 0);
-    v112 = objc_alloc(MEMORY[0x1E6987ED8]);
-    v114 = objc_msgSend_initWithURL_fileType_error_(v112, v113, l, *MEMORY[0x1E69874C0], &v163);
-    v14->_assetWriter = v114;
-    if (objc_msgSend_status(v114, v115, v116, v117) == 3)
+    objc_msgSend_setObject_forKey_(v62, v76, MEMORY[0x1E695E118], *v77);
+    v78 = objc_alloc(MEMORY[0x1E6987F08]);
+    v13->_avAdaptor = objc_msgSend_initWithAssetWriterInput_sourcePixelBufferAttributes_(v78, v79, v13->_assetWriterInput, v62);
+    v119 = 0;
+    v82 = objc_msgSend_defaultManager(MEMORY[0x1E696AC08], v80, v81);
+    objc_msgSend_removeItemAtURL_error_(v82, v83, l, 0);
+    v84 = objc_alloc(MEMORY[0x1E6987ED8]);
+    v86 = objc_msgSend_initWithURL_fileType_error_(v84, v85, l, *MEMORY[0x1E69874C0], &v119);
+    v13->_assetWriter = v86;
+    if (objc_msgSend_status(v86, v87, v88) == 3)
     {
-      v120 = sub_1AF0D5194();
-      if (os_log_type_enabled(v120, OS_LOG_TYPE_ERROR))
+      v90 = sub_1AF0D5194(3, v89);
+      if (os_log_type_enabled(v90, OS_LOG_TYPE_ERROR))
       {
-        sub_1AFDFACB0(l, &v163, v120);
+        sub_1AFDFACB0(l, &v119, v90);
       }
 
       return 0;
@@ -125,29 +125,29 @@
 
     else
     {
-      objc_msgSend_addInput_(v14->_assetWriter, v118, v14->_assetWriterInput, v119);
-      objc_msgSend_startWriting(v14->_assetWriter, v121, v122, v123);
-      assetWriter = v14->_assetWriter;
-      v162[0] = 0;
-      v162[1] = 0x100000001;
-      v162[2] = 0;
-      objc_msgSend_startSessionAtSourceTime_(assetWriter, v125, v162, v126);
-      objc_msgSend_setRenderer_(v14, v127, renderer, v128);
-      objc_msgSend_setSize_(v14, v129, v130, v131, width, height);
-      objc_msgSend_setAttributes_(v14, v132, v20, v133);
-      v137 = objc_msgSend_world(renderer, v134, v135, v136);
-      objc_msgSend_startTime(v137, v138, v139, v140);
-      objc_msgSend_setStartTime_(v14, v141, v142, v143);
-      v147 = objc_msgSend_world(renderer, v144, v145, v146);
-      objc_msgSend_endTime(v147, v148, v149, v150);
-      objc_msgSend_setEndTime_(v14, v151, v152, v153);
-      objc_msgSend_setOutputURL_(v14, v154, l, v155);
-      v158 = objc_msgSend_objectForKey_(attributes, v156, @"kExportPointOfViewAttribute", v157);
-      objc_msgSend_setPointOfView_(v14, v159, v158, v160);
+      objc_msgSend_addInput_(v13->_assetWriter, v89, v13->_assetWriterInput);
+      objc_msgSend_startWriting(v13->_assetWriter, v91, v92);
+      assetWriter = v13->_assetWriter;
+      v118[0] = 0;
+      v118[1] = 0x100000001;
+      v118[2] = 0;
+      objc_msgSend_startSessionAtSourceTime_(assetWriter, v94, v118);
+      objc_msgSend_setRenderer_(v13, v95, renderer);
+      objc_msgSend_setSize_(v13, v96, v97, width, height);
+      objc_msgSend_setAttributes_(v13, v98, v17);
+      v101 = objc_msgSend_world(renderer, v99, v100);
+      objc_msgSend_startTime(v101, v102, v103);
+      objc_msgSend_setStartTime_(v13, v104, v105);
+      v108 = objc_msgSend_world(renderer, v106, v107);
+      objc_msgSend_endTime(v108, v109, v110);
+      objc_msgSend_setEndTime_(v13, v111, v112);
+      objc_msgSend_setOutputURL_(v13, v113, l);
+      v115 = objc_msgSend_objectForKey_(attributes, v114, @"kExportPointOfViewAttribute");
+      objc_msgSend_setPointOfView_(v13, v116, v115);
     }
   }
 
-  return v14;
+  return v13;
 }
 
 - (void)dealloc
@@ -161,56 +161,56 @@
 {
   height = snapshot.height;
   width = snapshot.width;
-  v11 = objc_msgSend_renderer(self, a2, v3, v4);
+  v9 = objc_msgSend_renderer(self, a2, v3);
   systemTime = self->super._systemTime;
   if (systemTime == 0.0)
   {
-    v13 = CACurrentMediaTime();
+    v11 = CACurrentMediaTime();
   }
 
   else
   {
-    v13 = systemTime + self->_rate;
+    v11 = systemTime + self->_rate;
   }
 
-  self->super._systemTime = v13;
-  objc_msgSend_updateAtTime_(v11, v8, v9, v10);
-  v17 = objc_msgSend_snapshotWithSize_(v11, v14, v15, v16, width, height);
-  v21 = objc_msgSend_CGImage(v17, v18, v19, v20);
+  self->super._systemTime = v11;
+  objc_msgSend_updateAtTime_(v9, v7, v8);
+  v14 = objc_msgSend_snapshotWithSize_(v9, v12, v13, width, height);
+  v17 = objc_msgSend_CGImage(v14, v15, v16);
 
-  return CGImageRetain(v21);
+  return CGImageRetain(v17);
 }
 
 - (void)_finishedExport
 {
-  if (!objc_msgSend_error(self, a2, v2, v3))
+  if (!objc_msgSend_error(self, a2, v2))
   {
-    objc_msgSend_setSucceded_(self, v5, 1, v7);
+    objc_msgSend_setSucceded_(self, v4, 1);
   }
 
-  v8 = objc_msgSend_delegate(self, v5, v6, v7);
-  objc_msgSend_didEndSelector(self, v9, v10, v11);
+  v6 = objc_msgSend_delegate(self, v4, v5);
+  objc_msgSend_didEndSelector(self, v7, v8);
   if (objc_opt_respondsToSelector())
   {
-    v15 = objc_msgSend_didEndSelector(self, v12, v13, v14);
-    v19 = objc_msgSend_userInfo(self, v16, v17, v18);
+    v11 = objc_msgSend_didEndSelector(self, v9, v10);
+    v14 = objc_msgSend_userInfo(self, v12, v13);
 
-    [v8 v15];
+    [v6 v11];
   }
 }
 
 - (void)appendImage:(CGImage *)image withPresentationTime:(id *)time usingAdaptor:(id)adaptor
 {
   pixelBufferOut = 0;
-  v10 = objc_msgSend_pixelBufferPool(adaptor, a2, image, time);
+  v10 = objc_msgSend_pixelBufferPool(adaptor, a2, image);
   if (v10)
   {
-    v11 = v10;
+    v12 = v10;
     Width = CGImageGetWidth(image);
     Height = CGImageGetHeight(image);
-    if (CVPixelBufferPoolCreatePixelBuffer(*MEMORY[0x1E695E480], v11, &pixelBufferOut))
+    if (CVPixelBufferPoolCreatePixelBuffer(*MEMORY[0x1E695E480], v12, &pixelBufferOut))
     {
-      sub_1AFDFAD3C(a2, self, v14, v15);
+      sub_1AFDFAD3C(a2, self, v15);
     }
 
     ColorSpace = CGImageGetColorSpace(image);
@@ -218,25 +218,26 @@
     BaseAddress = CVPixelBufferGetBaseAddress(pixelBufferOut);
     BytesPerRow = CVPixelBufferGetBytesPerRow(pixelBufferOut);
     v19 = CGBitmapContextCreate(BaseAddress, Width, Height, 8uLL, BytesPerRow, ColorSpace, 0x2006u);
-    v26.origin.x = 0.0;
-    v26.origin.y = 0.0;
-    v26.size.width = Width;
-    v26.size.height = Height;
-    CGContextClearRect(v19, v26);
-    v27.origin.x = 0.0;
-    v27.origin.y = 0.0;
-    v27.size.width = Width;
-    v27.size.height = Height;
-    CGContextDrawImage(v19, v27, image);
+    v28.origin.x = 0.0;
+    v28.origin.y = 0.0;
+    v28.size.width = Width;
+    v28.size.height = Height;
+    CGContextClearRect(v19, v28);
+    v29.origin.x = 0.0;
+    v29.origin.y = 0.0;
+    v29.size.width = Width;
+    v29.size.height = Height;
+    CGContextDrawImage(v19, v29, image);
     CGContextFlush(v19);
     CFRelease(v19);
     CVPixelBufferUnlockBaseAddress(pixelBufferOut, 0);
-    v23 = *&time->var0;
+    v25 = *&time->var0;
     var3 = time->var3;
-    if ((objc_msgSend_appendPixelBuffer_withPresentationTime_(adaptor, v20, pixelBufferOut, &v23) & 1) == 0)
+    appended = objc_msgSend_appendPixelBuffer_withPresentationTime_(adaptor, v20, pixelBufferOut, &v25);
+    if ((appended & 1) == 0)
     {
-      v21 = sub_1AF0D5194();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      v23 = sub_1AF0D5194(appended, v22);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
         sub_1AFDFAD8C();
       }
@@ -247,8 +248,8 @@
 
   else
   {
-    v22 = sub_1AF0D5194();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v24 = sub_1AF0D5194(0, v11);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDFADC0();
     }
@@ -258,141 +259,140 @@
 - (void)renderAndAppendWithPresentationTime:(id *)time usingAdaptor:(id)adaptor metalTextureCache:(__CVMetalTextureCache *)cache cvQueue:(id)queue completionBlock:(id)block
 {
   pixelBufferOut = 0;
-  v14 = objc_msgSend_pixelBufferPool(adaptor, a2, time, adaptor);
+  v14 = objc_msgSend_pixelBufferPool(adaptor, a2, time);
   if (v14)
   {
     blockCopy = block;
-    v15 = *MEMORY[0x1E695E480];
+    v16 = *MEMORY[0x1E695E480];
     if (CVPixelBufferPoolCreatePixelBuffer(*MEMORY[0x1E695E480], v14, &pixelBufferOut))
     {
-      sub_1AFDFADF4(a2, self, v16, v17);
+      sub_1AFDFADF4(a2, self, v17);
     }
 
     textureOut = 0;
     WidthOfPlane = CVPixelBufferGetWidthOfPlane(pixelBufferOut, 0);
     HeightOfPlane = CVPixelBufferGetHeightOfPlane(pixelBufferOut, 0);
-    CVMetalTextureCacheCreateTextureFromImage(v15, cache, pixelBufferOut, 0, MTLPixelFormatBGRA8Unorm_sRGB, WidthOfPlane, HeightOfPlane, 0, &textureOut);
-    v23 = objc_msgSend_renderPassDescriptor(MEMORY[0x1E6974128], v20, v21, v22);
-    v27 = objc_msgSend_colorAttachments(v23, v24, v25, v26);
-    v30 = objc_msgSend_objectAtIndexedSubscript_(v27, v28, 0, v29);
-    objc_msgSend_setLoadAction_(v30, v31, 2, v32);
-    v36 = objc_msgSend_renderer(self, v33, v34, v35);
-    v40 = objc_msgSend_world(v36, v37, v38, v39);
-    v44 = objc_msgSend_background(v40, v41, v42, v43);
-    v48 = objc_msgSend_contents(v44, v45, v46, v47);
+    CVMetalTextureCacheCreateTextureFromImage(v16, cache, pixelBufferOut, 0, MTLPixelFormatBGRA8Unorm_sRGB, WidthOfPlane, HeightOfPlane, 0, &textureOut);
+    v22 = objc_msgSend_renderPassDescriptor(MEMORY[0x1E6974128], v20, v21);
+    v25 = objc_msgSend_colorAttachments(v22, v23, v24);
+    v27 = objc_msgSend_objectAtIndexedSubscript_(v25, v26, 0);
+    objc_msgSend_setLoadAction_(v27, v28, 2);
+    v31 = objc_msgSend_renderer(self, v29, v30);
+    v34 = objc_msgSend_world(v31, v32, v33);
+    v37 = objc_msgSend_background(v34, v35, v36);
+    v40 = objc_msgSend_contents(v37, v38, v39);
     objc_opt_class();
-    v52 = 1.0;
-    v53 = 1.0;
-    v54 = 1.0;
-    v55 = 1.0;
+    v43 = 1.0;
+    v44 = 1.0;
+    v45 = 1.0;
+    v46 = 1.0;
     if (objc_opt_isKindOfClass())
     {
-      v210 = 0.0;
-      v211 = 0.0;
-      v208 = 0.0;
-      v209 = 0.0;
-      objc_msgSend_getRed_green_blue_alpha_(v48, v49, &v211, &v210, &v209, &v208);
-      v53 = v210;
-      v52 = v211;
-      v55 = v208;
-      v54 = v209;
+      v155 = 0.0;
+      v156 = 0.0;
+      v153 = 0.0;
+      v154 = 0.0;
+      objc_msgSend_getRed_green_blue_alpha_(v40, v41, &v156, &v155, &v154, &v153);
+      v44 = v155;
+      v43 = v156;
+      v46 = v153;
+      v45 = v154;
     }
 
-    v56 = objc_msgSend_colorAttachments(v23, v49, v50, v51);
-    v59 = objc_msgSend_objectAtIndexedSubscript_(v56, v57, 0, v58);
-    objc_msgSend_setClearColor_(v59, v60, v61, v62, v52, v53, v54, v55);
-    v64 = objc_msgSend_texture2DDescriptorWithPixelFormat_width_height_mipmapped_(MEMORY[0x1E69741C0], v63, 81, WidthOfPlane, HeightOfPlane, 0);
-    v68 = objc_msgSend_renderer(self, v65, v66, v67);
-    v72 = objc_msgSend_device(v68, v69, v70, v71);
-    if (j__objc_msgSend_supportsMemorylessRenderTargets(v72, v73, v74, v75))
+    v47 = objc_msgSend_colorAttachments(v22, v41, v42);
+    v49 = objc_msgSend_objectAtIndexedSubscript_(v47, v48, 0);
+    objc_msgSend_setClearColor_(v49, v50, v51, v43, v44, v45, v46);
+    v53 = objc_msgSend_texture2DDescriptorWithPixelFormat_width_height_mipmapped_(MEMORY[0x1E69741C0], v52, 81, WidthOfPlane, HeightOfPlane, 0);
+    v56 = objc_msgSend_renderer(self, v54, v55);
+    if ([objc_msgSend_device(v56 v57])
     {
-      objc_msgSend_setStorageMode_(v64, v76, 3, v77);
+      objc_msgSend_setStorageMode_(v53, v59, 3);
     }
 
     else
     {
-      objc_msgSend_setStorageMode_(v64, v76, 2, v77);
+      objc_msgSend_setStorageMode_(v53, v59, 2);
     }
 
-    objc_msgSend_setUsage_(v64, v78, 5, v79);
-    if (objc_msgSend_antialiasingMode(self, v80, v81, v82))
+    objc_msgSend_setUsage_(v53, v60, 5);
+    if (objc_msgSend_antialiasingMode(self, v61, v62))
     {
-      v86 = objc_msgSend_antialiasingMode(self, v83, v84, v85);
-      objc_msgSend_setSampleCount_(v64, v87, 1 << v86, v88);
-      objc_msgSend_setTextureType_(v64, v89, 4, v90);
-      v94 = objc_msgSend_renderer(self, v91, v92, v93);
-      v98 = objc_msgSend_device(v94, v95, v96, v97);
-      v101 = objc_msgSend_newTextureWithDescriptor_(v98, v99, v64, v100);
-      v105 = objc_msgSend_colorAttachments(v23, v102, v103, v104);
-      v108 = objc_msgSend_objectAtIndexedSubscript_(v105, v106, 0, v107);
-      objc_msgSend_setTexture_(v108, v109, v101, v110);
+      v65 = objc_msgSend_antialiasingMode(self, v63, v64);
+      objc_msgSend_setSampleCount_(v53, v66, 1 << v65);
+      objc_msgSend_setTextureType_(v53, v67, 4);
+      v70 = objc_msgSend_renderer(self, v68, v69);
+      v73 = objc_msgSend_device(v70, v71, v72);
+      v75 = objc_msgSend_newTextureWithDescriptor_(v73, v74, v53);
+      v78 = objc_msgSend_colorAttachments(v22, v76, v77);
+      v80 = objc_msgSend_objectAtIndexedSubscript_(v78, v79, 0);
+      objc_msgSend_setTexture_(v80, v81, v75);
       Texture = CVMetalTextureGetTexture(textureOut);
-      v115 = objc_msgSend_colorAttachments(v23, v112, v113, v114);
-      v118 = objc_msgSend_objectAtIndexedSubscript_(v115, v116, 0, v117);
-      objc_msgSend_setResolveTexture_(v118, v119, Texture, v120);
-      v124 = objc_msgSend_colorAttachments(v23, v121, v122, v123);
-      v127 = objc_msgSend_objectAtIndexedSubscript_(v124, v125, 0, v126);
-      objc_msgSend_setStoreAction_(v127, v128, 2, v129);
+      v85 = objc_msgSend_colorAttachments(v22, v83, v84);
+      v87 = objc_msgSend_objectAtIndexedSubscript_(v85, v86, 0);
+      objc_msgSend_setResolveTexture_(v87, v88, Texture);
+      v91 = objc_msgSend_colorAttachments(v22, v89, v90);
+      v93 = objc_msgSend_objectAtIndexedSubscript_(v91, v92, 0);
+      objc_msgSend_setStoreAction_(v93, v94, 2);
     }
 
     else
     {
-      v134 = CVMetalTextureGetTexture(textureOut);
-      v138 = objc_msgSend_colorAttachments(v23, v135, v136, v137);
-      v141 = objc_msgSend_objectAtIndexedSubscript_(v138, v139, 0, v140);
-      objc_msgSend_setTexture_(v141, v142, v134, v143);
+      v98 = CVMetalTextureGetTexture(textureOut);
+      v101 = objc_msgSend_colorAttachments(v22, v99, v100);
+      v103 = objc_msgSend_objectAtIndexedSubscript_(v101, v102, 0);
+      objc_msgSend_setTexture_(v103, v104, v98);
     }
 
-    v144 = objc_msgSend_renderer(self, v130, v131, v132);
-    v148 = objc_msgSend_commandQueue(v144, v145, v146, v147);
-    v152 = objc_msgSend_commandBuffer(v148, v149, v150, v151);
-    objc_msgSend_lock(VFXTransaction, v153, v154, v155);
-    v159 = objc_msgSend_renderer(self, v156, v157, v158);
-    v163 = objc_msgSend_world(v159, v160, v161, v162);
-    objc_msgSend_lock(v163, v164, v165, v166);
+    v105 = objc_msgSend_renderer(self, v95, v96);
+    v108 = objc_msgSend_commandQueue(v105, v106, v107);
+    v111 = objc_msgSend_commandBuffer(v108, v109, v110);
+    objc_msgSend_lock(VFXTransaction, v112, v113);
+    v116 = objc_msgSend_renderer(self, v114, v115);
+    v119 = objc_msgSend_world(v116, v117, v118);
+    objc_msgSend_lock(v119, v120, v121);
     systemTime = self->super._systemTime;
     if (systemTime == 0.0)
     {
-      v171 = CACurrentMediaTime();
+      v125 = CACurrentMediaTime();
     }
 
     else
     {
-      v171 = systemTime + self->_rate;
+      v125 = systemTime + self->_rate;
     }
 
-    self->super._systemTime = v171;
-    objc_msgSend_startTime(v163, v167, v168, v169);
-    v173 = v172 + (time->var0 / time->var1);
-    v177 = objc_msgSend_clock(v163, v174, v175, v176);
-    objc_msgSend_setTime_(v177, v178, v179, v180, v173);
-    v184 = objc_msgSend_renderer(self, v181, v182, v183);
-    objc_msgSend_updateAtTime_(v184, v185, v186, v187, self->super._systemTime);
-    v191 = objc_msgSend_renderer(self, v188, v189, v190);
-    objc_msgSend_renderWithViewport_commandBuffer_passDescriptor_(v191, v192, v152, v23, 0.0, 0.0, WidthOfPlane, HeightOfPlane);
-    objc_msgSend_unlock(v163, v193, v194, v195);
-    objc_msgSend_unlock(VFXTransaction, v196, v197, v198);
-    v205[0] = MEMORY[0x1E69E9820];
-    v205[1] = 3221225472;
-    v205[2] = sub_1AF36F308;
-    v205[3] = &unk_1E7A7F940;
-    v205[4] = queue;
-    v205[5] = self;
-    v206 = *&time->var0;
+    self->super._systemTime = v125;
+    objc_msgSend_startTime(v119, v122, v123);
+    v127 = v126 + (time->var0 / time->var1);
+    v130 = objc_msgSend_clock(v119, v128, v129);
+    objc_msgSend_setTime_(v130, v131, v132, v127);
+    v135 = objc_msgSend_renderer(self, v133, v134);
+    objc_msgSend_updateAtTime_(v135, v136, v137, self->super._systemTime);
+    v140 = objc_msgSend_renderer(self, v138, v139);
+    objc_msgSend_renderWithViewport_commandBuffer_passDescriptor_(v140, v141, v111, v22, 0.0, 0.0, WidthOfPlane, HeightOfPlane);
+    objc_msgSend_unlock(v119, v142, v143);
+    objc_msgSend_unlock(VFXTransaction, v144, v145);
+    v150[0] = MEMORY[0x1E69E9820];
+    v150[1] = 3221225472;
+    v150[2] = sub_1AF36F308;
+    v150[3] = &unk_1E7A7F940;
+    v150[4] = queue;
+    v150[5] = self;
+    v151 = *&time->var0;
     var3 = time->var3;
-    v205[8] = pixelBufferOut;
-    v205[9] = textureOut;
-    v205[10] = cache;
-    v205[6] = adaptor;
-    v205[7] = blockCopy;
-    objc_msgSend_addCompletedHandler_(v152, v199, v205, v200);
-    objc_msgSend_commit(v152, v201, v202, v203);
+    v150[8] = pixelBufferOut;
+    v150[9] = textureOut;
+    v150[10] = cache;
+    v150[6] = adaptor;
+    v150[7] = blockCopy;
+    objc_msgSend_addCompletedHandler_(v111, v146, v150);
+    objc_msgSend_commit(v111, v147, v148);
   }
 
   else
   {
-    v133 = sub_1AF0D5194();
-    if (os_log_type_enabled(v133, OS_LOG_TYPE_ERROR))
+    v97 = sub_1AF0D5194(0, v15);
+    if (os_log_type_enabled(v97, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDFADC0();
     }
@@ -401,113 +401,113 @@
 
 - (void)main
 {
-  v84 = *MEMORY[0x1E69E9840];
+  v71 = *MEMORY[0x1E69E9840];
   v3 = objc_autoreleasePoolPush();
-  if (!objc_msgSend_renderer(self, v4, v5, v6))
+  if (!objc_msgSend_renderer(self, v4, v5))
   {
-    v10 = sub_1AF0D5194();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+    v8 = sub_1AF0D5194(0, v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
-      sub_1AFDFAE44(v10);
+      sub_1AFDFAE44(v8);
     }
   }
 
-  objc_msgSend_startTime(self, v7, v8, v9);
-  v12 = v11;
-  objc_msgSend_endTime(self, v13, v14, v15);
-  v17 = v16;
-  v18 = v12;
+  objc_msgSend_startTime(self, v6, v7);
+  v10 = v9;
+  objc_msgSend_endTime(self, v11, v12);
+  v14 = v13;
+  v15 = v10;
   rate = self->_rate;
-  v20 = dispatch_queue_create("serial assetwriter input queue", 0);
-  v21 = dispatch_semaphore_create(0);
-  v22 = dispatch_semaphore_create(0);
-  v81[0] = 0;
-  v81[1] = v81;
-  v81[2] = 0x2020000000;
-  v82 = v18;
-  v80[0] = 0;
-  v80[1] = v80;
-  v80[2] = 0x2020000000;
-  v80[3] = 0;
-  v78[0] = 0;
-  v78[1] = v78;
-  v78[2] = 0x2020000000;
-  v79 = 0;
-  v26 = objc_msgSend_renderer(self, v23, v24, v25);
-  v30 = objc_msgSend_device(v26, v27, v28, v29);
-  v34 = v30 != 0;
+  v17 = dispatch_queue_create("serial assetwriter input queue", 0);
+  v18 = dispatch_semaphore_create(0);
+  v19 = dispatch_semaphore_create(0);
+  v68[0] = 0;
+  v68[1] = v68;
+  v68[2] = 0x2020000000;
+  v69 = v15;
+  v67[0] = 0;
+  v67[1] = v67;
+  v67[2] = 0x2020000000;
+  v67[3] = 0;
+  v65[0] = 0;
+  v65[1] = v65;
+  v65[2] = 0x2020000000;
+  v66 = 0;
+  v22 = objc_msgSend_renderer(self, v20, v21);
+  v25 = objc_msgSend_device(v22, v23, v24);
+  v28 = v25 != 0;
   cacheOut = 0;
-  if (v30)
+  if (v25)
   {
-    v35 = objc_msgSend_renderer(self, v31, v32, v33);
-    v39 = objc_msgSend_device(v35, v36, v37, v38);
-    CVMetalTextureCacheCreate(*MEMORY[0x1E695E480], 0, v39, 0, &cacheOut);
-    v43 = objc_msgSend__copySnapshot_(self, v40, v41, v42, 1.0, 1.0);
-    CFRelease(v43);
+    v29 = objc_msgSend_renderer(self, v26, v27);
+    v32 = objc_msgSend_device(v29, v30, v31);
+    CVMetalTextureCacheCreate(*MEMORY[0x1E695E480], 0, v32, 0, &cacheOut);
+    v35 = objc_msgSend__copySnapshot_(self, v33, v34, 1.0, 1.0);
+    CFRelease(v35);
   }
 
-  v44 = objc_msgSend_currentProgress(MEMORY[0x1E696AE38], v31, v32, v33);
-  if (v44)
+  v36 = objc_msgSend_currentProgress(MEMORY[0x1E696AE38], v26, v27);
+  if (v36)
   {
-    v47 = v17;
-    v44 = objc_msgSend_progressWithTotalUnitCount_(MEMORY[0x1E696AE38], v45, vcvtps_s32_f32((v47 - v18) / rate), v46);
+    v38 = v14;
+    v36 = objc_msgSend_progressWithTotalUnitCount_(MEMORY[0x1E696AE38], v37, vcvtps_s32_f32((v38 - v15) / rate));
   }
 
   assetWriterInput = self->_assetWriterInput;
-  v72[0] = MEMORY[0x1E69E9820];
-  v72[1] = 3221225472;
-  v72[2] = sub_1AF36F81C;
-  v72[3] = &unk_1E7A7F990;
-  v72[4] = v44;
-  v72[5] = self;
-  v73 = rate;
-  v74 = v17;
-  v76 = v34;
-  v72[8] = v81;
-  v72[9] = v78;
-  v72[10] = v80;
-  v72[11] = cacheOut;
-  v75 = v18;
-  v72[6] = v20;
-  v72[7] = v21;
-  objc_msgSend_requestMediaDataWhenReadyOnQueue_usingBlock_(assetWriterInput, v45, v20, v72);
-  dispatch_semaphore_wait(v21, 0xFFFFFFFFFFFFFFFFLL);
+  v59[0] = MEMORY[0x1E69E9820];
+  v59[1] = 3221225472;
+  v59[2] = sub_1AF36F81C;
+  v59[3] = &unk_1E7A7F990;
+  v59[4] = v36;
+  v59[5] = self;
+  v60 = rate;
+  v61 = v14;
+  v63 = v28;
+  v59[8] = v68;
+  v59[9] = v65;
+  v59[10] = v67;
+  v59[11] = cacheOut;
+  v62 = v15;
+  v59[6] = v17;
+  v59[7] = v18;
+  objc_msgSend_requestMediaDataWhenReadyOnQueue_usingBlock_(assetWriterInput, v37, v17, v59);
+  dispatch_semaphore_wait(v18, 0xFFFFFFFFFFFFFFFFLL);
   assetWriter = self->_assetWriter;
-  v71[0] = MEMORY[0x1E69E9820];
-  v71[1] = 3221225472;
-  v71[2] = sub_1AF36FB50;
-  v71[3] = &unk_1E7A7A770;
-  v71[4] = v22;
-  objc_msgSend_finishWritingWithCompletionHandler_(assetWriter, v50, v71, v51);
-  dispatch_semaphore_wait(v22, 0xFFFFFFFFFFFFFFFFLL);
-  dispatch_release(v21);
-  dispatch_release(v22);
-  dispatch_release(v20);
+  v58[0] = MEMORY[0x1E69E9820];
+  v58[1] = 3221225472;
+  v58[2] = sub_1AF36FB50;
+  v58[3] = &unk_1E7A7A770;
+  v58[4] = v19;
+  objc_msgSend_finishWritingWithCompletionHandler_(assetWriter, v41, v58);
+  dispatch_semaphore_wait(v19, 0xFFFFFFFFFFFFFFFFLL);
+  dispatch_release(v18);
+  dispatch_release(v19);
+  dispatch_release(v17);
   if (cacheOut)
   {
     CFRelease(cacheOut);
   }
 
-  if (objc_msgSend_error(self->_assetWriter, v52, v53, v54))
+  if (objc_msgSend_error(self->_assetWriter, v42, v43))
   {
-    v59 = objc_msgSend_error(self->_assetWriter, v55, v56, v57);
-    objc_msgSend_setError_(self, v60, v59, v61);
-    v62 = sub_1AF0D5194();
-    if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
+    v47 = objc_msgSend_error(self->_assetWriter, v44, v45);
+    v49 = objc_msgSend_setError_(self, v48, v47);
+    v51 = sub_1AF0D5194(v49, v50);
+    if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
     {
-      v63 = objc_msgSend_error(self->_assetWriter, v55, v56, v57);
-      v67 = objc_msgSend_localizedDescription(v63, v64, v65, v66);
-      sub_1AFDFAEC8(v67, buf, v62);
+      v52 = objc_msgSend_error(self->_assetWriter, v44, v45);
+      v55 = objc_msgSend_localizedDescription(v52, v53, v54);
+      sub_1AFDFAEC8(v55, buf, v51);
     }
   }
 
-  LODWORD(v58) = 1.0;
-  objc_msgSend_setProgress_(self, v55, v56, v57, v58);
-  _Block_object_dispose(v78, 8);
-  _Block_object_dispose(v80, 8);
-  _Block_object_dispose(v81, 8);
+  LODWORD(v46) = 1.0;
+  objc_msgSend_setProgress_(self, v44, v45, v46);
+  _Block_object_dispose(v65, 8);
+  _Block_object_dispose(v67, 8);
+  _Block_object_dispose(v68, 8);
   objc_autoreleasePoolPop(v3);
-  objc_msgSend__finishedExport(self, v68, v69, v70);
+  objc_msgSend__finishedExport(self, v56, v57);
 }
 
 @end

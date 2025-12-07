@@ -154,15 +154,20 @@
 
 - (void)transitionToForeground:(BOOL)foreground animated:(BOOL)animated
 {
+  animatedCopy = animated;
+  foregroundCopy = foreground;
   selfCopy = self;
   OUTLINED_FUNCTION_178_0();
-  sub_1E3C4CD30();
+  sub_1E3C4CD30(foregroundCopy, animatedCopy);
 }
 
 - (void)transitionToForeground:(BOOL)foreground withPlaybackControls:(BOOL)controls animated:(BOOL)animated
 {
+  animatedCopy = animated;
+  controlsCopy = controls;
+  foregroundCopy = foreground;
   selfCopy = self;
-  j__OUTLINED_FUNCTION_45_40();
+  j__OUTLINED_FUNCTION_45_40(foregroundCopy, controlsCopy, animatedCopy);
 }
 
 - (void)setControlsVisible:(BOOL)visible
@@ -230,7 +235,7 @@
 
   if (v3)
   {
-    sub_1E3280A90(0, &qword_1EE23B350);
+    sub_1E3280A90(0, &qword_1EE23B350, off_1E8728420);
     OUTLINED_FUNCTION_19_3();
     sub_1E42062A4();
     OUTLINED_FUNCTION_50();
@@ -249,7 +254,7 @@
   infosCopy = infos;
   if (infos)
   {
-    sub_1E3280A90(0, &qword_1EE23B350);
+    sub_1E3280A90(0, &qword_1EE23B350, off_1E8728420);
     OUTLINED_FUNCTION_20_2();
     infosCopy = sub_1E42062B4();
   }
@@ -293,8 +298,8 @@
 - (void)setPlaybackEnabled:(BOOL)enabled
 {
   selfCopy = self;
-  OUTLINED_FUNCTION_10_0();
-  sub_1E3C51644();
+  v4 = OUTLINED_FUNCTION_10_0();
+  sub_1E3C51644(v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v15);
 }
 
 - (BOOL)forceAutoPlay
@@ -763,7 +768,7 @@
 
 - (void)appendMediaInfos:(id)infos
 {
-  sub_1E3280A90(0, &qword_1EE23B350);
+  sub_1E3280A90(0, &qword_1EE23B350, off_1E8728420);
   OUTLINED_FUNCTION_19_3();
   sub_1E42062B4();
   selfCopy = self;
@@ -780,12 +785,12 @@
 
 - (void)setMediaInfos:(id)infos animated:(BOOL)animated
 {
-  sub_1E3280A90(0, &qword_1EE23B350);
+  sub_1E3280A90(0, &qword_1EE23B350, off_1E8728420);
   OUTLINED_FUNCTION_20_2();
   sub_1E42062B4();
   selfCopy = self;
-  OUTLINED_FUNCTION_31_4();
-  sub_1E3C53938();
+  v7 = OUTLINED_FUNCTION_31_4();
+  sub_1E3C53938(v7);
 }
 
 - (void)setMediaInfo:(id)info atIndex:(unint64_t)index animated:(BOOL)animated

@@ -8,8 +8,9 @@
 
 - (void)viewDidDisappear:(BOOL)disappear
 {
+  disappearCopy = disappear;
   selfCopy = self;
-  sub_216650150(disappear);
+  sub_216650150(disappearCopy);
 }
 
 - (_TtCCC17_MusicKit_SwiftUI10MusicAngel6Client14ViewController)initWithNibName:(id)name bundle:(id)bundle

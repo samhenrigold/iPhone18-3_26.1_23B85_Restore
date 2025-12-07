@@ -27,7 +27,7 @@
 
 - (ISSoftwareMap)init
 {
-  __ISRecordSPIClassUsage(self);
+  __ISRecordSPIClassUsage(self, "/Library/Caches/com.apple.xbs/Sources/iTunesStore/src/ISSoftwareMap.m", 55, a2);
   [objc_opt_class() startObservingNotifications];
   v5.receiver = self;
   v5.super_class = ISSoftwareMap;
@@ -51,11 +51,11 @@
 
 + (BOOL)haveApplicationsOfType:(id)type
 {
-  v27 = *MEMORY[0x277D85DE8];
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x2020000000;
-  v24 = 0;
+  v26 = *MEMORY[0x277D85DE8];
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x2020000000;
+  v23 = 0;
   if (SSIsDaemon())
   {
     if ([type isEqualToString:*MEMORY[0x277CC1E30]])
@@ -74,12 +74,12 @@
     }
 
     defaultWorkspace = [MEMORY[0x277CC1E80] defaultWorkspace];
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __40__ISSoftwareMap_haveApplicationsOfType___block_invoke;
-    v20[3] = &unk_27A6711F8;
-    v20[4] = &v21;
-    [defaultWorkspace enumerateApplicationsOfType:v4 block:v20];
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __40__ISSoftwareMap_haveApplicationsOfType___block_invoke;
+    v19[3] = &unk_27A6711F8;
+    v19[4] = &v20;
+    [defaultWorkspace enumerateApplicationsOfType:v4 block:v19];
   }
 
   else
@@ -95,6 +95,7 @@
       shouldLog = [mEMORY[0x277D69B38] shouldLog];
       shouldLogToDisk = [mEMORY[0x277D69B38] shouldLogToDisk];
       oSLogObject = [mEMORY[0x277D69B38] OSLogObject];
+      v9 = oSLogObject;
       if (shouldLogToDisk)
       {
         shouldLog |= 2u;
@@ -102,49 +103,46 @@
 
       if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_FAULT))
       {
-        v9 = shouldLog;
+        v10 = shouldLog;
       }
 
       else
       {
-        v9 = shouldLog & 2;
+        v10 = shouldLog & 2;
       }
 
-      if (v9)
+      if (v10)
       {
-        v25 = 136446210;
-        v26 = "+[ISSoftwareMap haveApplicationsOfType:]";
-        LODWORD(v18) = 12;
-        v10 = _os_log_send_and_compose_impl();
-        if (v10)
+        v24 = 136446210;
+        v25 = "+[ISSoftwareMap haveApplicationsOfType:]";
+        if (v11)
         {
-          v11 = v10;
-          [MEMORY[0x277CCACA8] stringWithCString:v10 encoding:{4, &v25, v18}];
-          free(v11);
+          v12 = v11;
+          [MEMORY[0x277CCACA8] stringWithCString:v11 encoding:4];
+          free(v12);
           SSFileLog();
         }
       }
     }
 
-    v12 = SSXPCCreateMessageDictionary();
+    v13 = SSXPCCreateMessageDictionary();
     SSXPCDictionarySetCFObject();
-    v13 = dispatch_semaphore_create(0);
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __40__ISSoftwareMap_haveApplicationsOfType___block_invoke_21;
-    v19[3] = &unk_27A671220;
-    v19[4] = v13;
-    v19[5] = &v21;
-    __ISSoftwareMapXPC(v12, v19);
-    dispatch_semaphore_wait(v13, 0xFFFFFFFFFFFFFFFFLL);
-    dispatch_release(v13);
-    xpc_release(v12);
+    v14 = dispatch_semaphore_create(0);
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __40__ISSoftwareMap_haveApplicationsOfType___block_invoke_21;
+    v18[3] = &unk_27A671220;
+    v18[4] = v14;
+    v18[5] = &v20;
+    __ISSoftwareMapXPC(v13, v18);
+    dispatch_semaphore_wait(v14, 0xFFFFFFFFFFFFFFFFLL);
+    dispatch_release(v14);
+    xpc_release(v13);
   }
 
-  v15 = *(v22 + 24);
-  _Block_object_dispose(&v21, 8);
-  v16 = *MEMORY[0x277D85DE8];
-  return v15;
+  v16 = *(v21 + 24);
+  _Block_object_dispose(&v20, 8);
+  return v16;
 }
 
 uint64_t __40__ISSoftwareMap_haveApplicationsOfType___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
@@ -232,20 +230,20 @@ intptr_t __40__ISSoftwareMap_haveApplicationsOfType___block_invoke_21(uint64_t a
 
 + (id)applicationForBundleIdentifier:(id)identifier applicationType:(id)type
 {
-  v32 = *MEMORY[0x277D85DE8];
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x3052000000;
-  v27 = __Block_byref_object_copy__9;
-  v28 = __Block_byref_object_dispose__9;
-  v29 = 0;
+  v31 = *MEMORY[0x277D85DE8];
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x3052000000;
+  v26 = __Block_byref_object_copy__9;
+  v27 = __Block_byref_object_dispose__9;
+  v28 = 0;
   [objc_opt_class() startObservingNotifications];
   currentMap = [self currentMap];
   if (currentMap && [self currentMapIsValid] && objc_msgSend(type, "isEqualToString:", *MEMORY[0x277CC1E40]))
   {
     v8 = [currentMap applicationForBundleIdentifier:identifier];
 LABEL_8:
-    v25[5] = v8;
+    v24[5] = v8;
     goto LABEL_22;
   }
 
@@ -272,6 +270,7 @@ LABEL_8:
       shouldLog = [mEMORY[0x277D69B38] shouldLog];
       shouldLogToDisk = [mEMORY[0x277D69B38] shouldLogToDisk];
       oSLogObject = [mEMORY[0x277D69B38] OSLogObject];
+      v14 = oSLogObject;
       if (shouldLogToDisk)
       {
         shouldLog |= 2u;
@@ -279,51 +278,48 @@ LABEL_8:
 
       if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_FAULT))
       {
-        v14 = shouldLog;
+        v15 = shouldLog;
       }
 
       else
       {
-        v14 = shouldLog & 2;
+        v15 = shouldLog & 2;
       }
 
-      if (v14)
+      if (v15)
       {
-        v30 = 136446210;
-        v31 = "+[ISSoftwareMap applicationForBundleIdentifier:applicationType:]";
-        LODWORD(v22) = 12;
-        v15 = _os_log_send_and_compose_impl();
-        if (v15)
+        v29 = 136446210;
+        v30 = "+[ISSoftwareMap applicationForBundleIdentifier:applicationType:]";
+        if (v16)
         {
-          v16 = v15;
-          [MEMORY[0x277CCACA8] stringWithCString:v15 encoding:{4, &v30, v22}];
-          free(v16);
+          v17 = v16;
+          [MEMORY[0x277CCACA8] stringWithCString:v16 encoding:4];
+          free(v17);
           SSFileLog();
         }
       }
     }
 
-    v17 = SSXPCCreateMessageDictionary();
+    v18 = SSXPCCreateMessageDictionary();
     SSXPCDictionarySetCFObject();
     SSXPCDictionarySetCFObject();
-    v18 = dispatch_semaphore_create(0);
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __64__ISSoftwareMap_applicationForBundleIdentifier_applicationType___block_invoke;
-    v23[3] = &unk_27A671220;
-    v23[4] = v18;
-    v23[5] = &v24;
-    __ISSoftwareMapXPC(v17, v23);
-    dispatch_semaphore_wait(v18, 0xFFFFFFFFFFFFFFFFLL);
-    dispatch_release(v18);
-    xpc_release(v17);
+    v19 = dispatch_semaphore_create(0);
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __64__ISSoftwareMap_applicationForBundleIdentifier_applicationType___block_invoke;
+    v22[3] = &unk_27A671220;
+    v22[4] = v19;
+    v22[5] = &v23;
+    __ISSoftwareMapXPC(v18, v22);
+    dispatch_semaphore_wait(v19, 0xFFFFFFFFFFFFFFFFLL);
+    dispatch_release(v19);
+    xpc_release(v18);
   }
 
 LABEL_22:
-  v19 = v25[5];
-  _Block_object_dispose(&v24, 8);
-  v20 = *MEMORY[0x277D85DE8];
-  return v19;
+  v20 = v24[5];
+  _Block_object_dispose(&v23, 8);
+  return v20;
 }
 
 intptr_t __64__ISSoftwareMap_applicationForBundleIdentifier_applicationType___block_invoke(uint64_t a1, void *a2)
@@ -355,39 +351,38 @@ intptr_t __64__ISSoftwareMap_applicationForBundleIdentifier_applicationType___bl
 
 - (id)applicationForBundleIdentifier:(id)identifier
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   applications = self->_applications;
-  result = [(NSArray *)applications countByEnumeratingWithState:&v11 objects:v15 count:16];
+  result = [(NSArray *)applications countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (result)
   {
     v6 = result;
-    v7 = *v12;
+    v7 = *v11;
     while (2)
     {
       v8 = 0;
       do
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(applications);
         }
 
-        v9 = *(*(&v11 + 1) + 8 * v8);
+        v9 = *(*(&v10 + 1) + 8 * v8);
         if ([objc_msgSend(v9 "bundleIdentifier")])
         {
-          result = v9;
-          goto LABEL_11;
+          return v9;
         }
 
         v8 = v8 + 1;
       }
 
       while (v6 != v8);
-      result = [(NSArray *)applications countByEnumeratingWithState:&v11 objects:v15 count:16];
+      result = [(NSArray *)applications countByEnumeratingWithState:&v10 objects:v14 count:16];
       v6 = result;
       if (result)
       {
@@ -398,46 +393,43 @@ intptr_t __64__ISSoftwareMap_applicationForBundleIdentifier_applicationType___bl
     }
   }
 
-LABEL_11:
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (id)applicationForItemIdentifier:(id)identifier
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   applications = self->_applications;
-  result = [(NSArray *)applications countByEnumeratingWithState:&v11 objects:v15 count:16];
+  result = [(NSArray *)applications countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (result)
   {
     v6 = result;
-    v7 = *v12;
+    v7 = *v11;
     while (2)
     {
       v8 = 0;
       do
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(applications);
         }
 
-        v9 = *(*(&v11 + 1) + 8 * v8);
+        v9 = *(*(&v10 + 1) + 8 * v8);
         if ([objc_msgSend(v9 "itemIdentifier")])
         {
-          result = v9;
-          goto LABEL_11;
+          return v9;
         }
 
         v8 = v8 + 1;
       }
 
       while (v6 != v8);
-      result = [(NSArray *)applications countByEnumeratingWithState:&v11 objects:v15 count:16];
+      result = [(NSArray *)applications countByEnumeratingWithState:&v10 objects:v14 count:16];
       v6 = result;
       if (result)
       {
@@ -448,8 +440,6 @@ LABEL_11:
     }
   }
 
-LABEL_11:
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -487,11 +477,10 @@ LABEL_11:
 
 + (id)copySoftwareUpdatesPropertyListWithApplications:(id)applications updatesContext:(id)context
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   if (![applications count])
   {
-    v12 = 0;
-    goto LABEL_35;
+    return 0;
   }
 
   v7 = [applications mutableCopy];
@@ -564,25 +553,25 @@ LABEL_12:
 
 LABEL_20:
   v17 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
-  v18 = [v7 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v18 = [v7 countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v27;
+    v20 = *v26;
     do
     {
       for (i = 0; i != v19; ++i)
       {
-        if (*v27 != v20)
+        if (*v26 != v20)
         {
           objc_enumerationMutation(v7);
         }
 
-        v22 = *(*(&v26 + 1) + 8 * i);
+        v22 = *(*(&v25 + 1) + 8 * i);
         if (([v22 isPlaceholder] & 1) == 0)
         {
           v23 = [self _newSoftwareUpdateDictionaryForApplication:v22];
@@ -593,7 +582,7 @@ LABEL_20:
         }
       }
 
-      v19 = [v7 countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v19 = [v7 countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v19);
@@ -610,23 +599,21 @@ LABEL_20:
     v12 = 0;
   }
 
-LABEL_35:
-  v24 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 + (void)enumerateApplicationsForProxies:(id)proxies usingBlock:(id)block
 {
-  v24[4] = *MEMORY[0x277D85DE8];
+  v23[4] = *MEMORY[0x277D85DE8];
   v5 = CPSharedResourcesDirectory();
   if (v5)
   {
     v6 = [MEMORY[0x277CBEBC0] fileURLWithPath:v5];
-    v24[0] = v5;
-    v24[1] = @"Library";
-    v24[2] = @"com.apple.itunesstored";
-    v24[3] = @"iTunesMetadata";
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:4];
+    v23[0] = v5;
+    v23[1] = @"Library";
+    v23[2] = @"com.apple.itunesstored";
+    v23[3] = @"iTunesMetadata";
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:4];
     v5 = [MEMORY[0x277CCACA8] pathWithComponents:v7];
   }
 
@@ -635,25 +622,25 @@ LABEL_35:
     v6 = 0;
   }
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
-  v8 = [proxies countByEnumeratingWithState:&v19 objects:v23 count:{16, proxies}];
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  v8 = [proxies countByEnumeratingWithState:&v18 objects:v22 count:{16, proxies}];
   if (v8)
   {
     v9 = v8;
-    v10 = *v20;
+    v10 = *v19;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v20 != v10)
+        if (*v19 != v10)
         {
           objc_enumerationMutation(obja);
         }
 
-        v12 = *(*(&v19 + 1) + 8 * i);
+        v12 = *(*(&v18 + 1) + 8 * i);
         v13 = objc_autoreleasePoolPush();
         v14 = -[ISSoftwareApplication initWithLaunchServicesApplication:containerPath:]([ISSoftwareApplication alloc], "initWithLaunchServicesApplication:containerPath:", v12, [self containerPathForApp:v12 homeDirectory:v6 systemMetadataDirectory:v5]);
         if ([(ISSoftwareApplication *)v14 bundleIdentifier])
@@ -664,27 +651,25 @@ LABEL_35:
         objc_autoreleasePoolPop(v13);
       }
 
-      v9 = [obja countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v9 = [obja countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v9);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 + (void)enumerateApplicationsOfType:(unint64_t)type usingBlock:(id)block
 {
-  v13[4] = *MEMORY[0x277D85DE8];
+  v12[4] = *MEMORY[0x277D85DE8];
   v7 = CPSharedResourcesDirectory();
   if (v7)
   {
     v8 = [MEMORY[0x277CBEBC0] fileURLWithPath:v7];
-    v13[0] = v7;
-    v13[1] = @"Library";
-    v13[2] = @"com.apple.itunesstored";
-    v13[3] = @"iTunesMetadata";
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:4];
+    v12[0] = v7;
+    v12[1] = @"Library";
+    v12[2] = @"com.apple.itunesstored";
+    v12[3] = @"iTunesMetadata";
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:4];
     v7 = [MEMORY[0x277CCACA8] pathWithComponents:v9];
   }
 
@@ -694,16 +679,15 @@ LABEL_35:
   }
 
   defaultWorkspace = [MEMORY[0x277CC1E80] defaultWorkspace];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __56__ISSoftwareMap_enumerateApplicationsOfType_usingBlock___block_invoke;
-  v12[3] = &unk_27A671248;
-  v12[4] = self;
-  v12[5] = v8;
-  v12[6] = v7;
-  v12[7] = block;
-  [defaultWorkspace enumerateApplicationsOfType:type block:v12];
-  v11 = *MEMORY[0x277D85DE8];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __56__ISSoftwareMap_enumerateApplicationsOfType_usingBlock___block_invoke;
+  v11[3] = &unk_27A671248;
+  v11[4] = self;
+  v11[5] = v8;
+  v11[6] = v7;
+  v11[7] = block;
+  [defaultWorkspace enumerateApplicationsOfType:type block:v11];
 }
 
 void __56__ISSoftwareMap_enumerateApplicationsOfType_usingBlock___block_invoke(uint64_t a1, uint64_t a2)
@@ -802,26 +786,26 @@ void __64__ISSoftwareMap_removableSystemApplicationsWithCompletionBlock___block_
 
 - (void)_loadFromMobileInstallation
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (SSIsDaemon())
   {
     v3 = objc_alloc_init(RemovableSoftwareLookupTable);
     v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
     v5 = objc_opt_class();
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __44__ISSoftwareMap__loadFromMobileInstallation__block_invoke;
-    v19[3] = &unk_27A671298;
-    v19[4] = v4;
-    [v5 enumerateApplicationsOfType:0 usingBlock:v19];
-    v6 = objc_opt_class();
     v18[0] = MEMORY[0x277D85DD0];
     v18[1] = 3221225472;
-    v18[2] = __44__ISSoftwareMap__loadFromMobileInstallation__block_invoke_2;
-    v18[3] = &unk_27A6712C0;
-    v18[4] = v3;
-    v18[5] = v4;
-    [v6 enumerateApplicationsOfType:1 usingBlock:v18];
+    v18[2] = __44__ISSoftwareMap__loadFromMobileInstallation__block_invoke;
+    v18[3] = &unk_27A671298;
+    v18[4] = v4;
+    [v5 enumerateApplicationsOfType:0 usingBlock:v18];
+    v6 = objc_opt_class();
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __44__ISSoftwareMap__loadFromMobileInstallation__block_invoke_2;
+    v17[3] = &unk_27A6712C0;
+    v17[4] = v3;
+    v17[5] = v4;
+    [v6 enumerateApplicationsOfType:1 usingBlock:v17];
 
     self->_applications = v4;
   }
@@ -847,50 +831,47 @@ void __64__ISSoftwareMap_removableSystemApplicationsWithCompletionBlock___block_
         v9 = shouldLog;
       }
 
-      if (os_log_type_enabled([mEMORY[0x277D69B38] OSLogObject], OS_LOG_TYPE_FAULT))
+      oSLogObject = [mEMORY[0x277D69B38] OSLogObject];
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_FAULT))
       {
-        v10 = v9;
+        v11 = v9;
       }
 
       else
       {
-        v10 = v9 & 2;
+        v11 = v9 & 2;
       }
 
-      if (v10)
+      if (v11)
       {
-        v20 = 136446210;
-        v21 = "[ISSoftwareMap _loadFromMobileInstallation]";
-        LODWORD(v16) = 12;
-        v11 = _os_log_send_and_compose_impl();
-        if (v11)
+        v19 = 136446210;
+        v20 = "[ISSoftwareMap _loadFromMobileInstallation]";
+        if (v12)
         {
-          v12 = v11;
-          [MEMORY[0x277CCACA8] stringWithCString:v11 encoding:{4, &v20, v16}];
-          free(v12);
+          v13 = v12;
+          [MEMORY[0x277CCACA8] stringWithCString:v12 encoding:4];
+          free(v13);
           SSFileLog();
         }
       }
     }
 
-    v13 = SSXPCCreateMessageDictionary();
-    v14 = dispatch_semaphore_create(0);
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __44__ISSoftwareMap__loadFromMobileInstallation__block_invoke_61;
-    v17[3] = &unk_27A6712E8;
-    v17[4] = self;
-    v17[5] = v14;
-    __ISSoftwareMapXPC(v13, v17);
-    dispatch_semaphore_wait(v14, 0xFFFFFFFFFFFFFFFFLL);
-    dispatch_release(v14);
-    xpc_release(v13);
+    v14 = SSXPCCreateMessageDictionary();
+    v15 = dispatch_semaphore_create(0);
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __44__ISSoftwareMap__loadFromMobileInstallation__block_invoke_61;
+    v16[3] = &unk_27A6712E8;
+    v16[4] = self;
+    v16[5] = v15;
+    __ISSoftwareMapXPC(v14, v16);
+    dispatch_semaphore_wait(v15, 0xFFFFFFFFFFFFFFFFLL);
+    dispatch_release(v15);
+    xpc_release(v14);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __44__ISSoftwareMap__loadFromMobileInstallation__block_invoke_2(uint64_t a1, void *a2)
+void *__44__ISSoftwareMap__loadFromMobileInstallation__block_invoke_2(uint64_t a1, void *a2)
 {
   if (![a2 itemIdentifier])
   {

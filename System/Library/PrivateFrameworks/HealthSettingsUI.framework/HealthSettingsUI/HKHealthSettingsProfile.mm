@@ -88,7 +88,7 @@ void __56__HKHealthSettingsProfile_getProfilesOfType_completion___block_invoke(u
     _HKInitializeLogging();
     if (os_log_type_enabled(*MEMORY[0x277CCC308], OS_LOG_TYPE_ERROR))
     {
-      __56__HKHealthSettingsProfile_getProfilesOfType_completion___block_invoke_cold_1(a1);
+      __56__HKHealthSettingsProfile_getProfilesOfType_completion___block_invoke_cold_1();
     }
 
     (*(*(a1 + 40) + 16))();
@@ -134,7 +134,7 @@ void __44__HKHealthSettingsProfile_getNameComponents__block_invoke(uint64_t a1, 
     _HKInitializeLogging();
     if (os_log_type_enabled(*MEMORY[0x277CCC308], OS_LOG_TYPE_ERROR))
     {
-      __44__HKHealthSettingsProfile_getNameComponents__block_invoke_cold_1(a1);
+      __44__HKHealthSettingsProfile_getNameComponents__block_invoke_cold_1();
     }
   }
 
@@ -191,24 +191,6 @@ void __58__HKHealthSettingsProfile_fetchMedicalIDDataSynchronously__block_invoke
   objc_storeStrong((*(*(a1 + 40) + 8) + 40), a2);
   v4 = a2;
   dispatch_semaphore_signal(*(a1 + 32));
-}
-
-void __56__HKHealthSettingsProfile_getProfilesOfType_completion___block_invoke_cold_1(uint64_t a1)
-{
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_251E77000, v2, v3, "%{public}@ Failed to fetch profiles from HKProfileStore, Error: %{public}@");
-  v4 = *MEMORY[0x277D85DE8];
-}
-
-void __44__HKHealthSettingsProfile_getNameComponents__block_invoke_cold_1(uint64_t a1)
-{
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_251E77000, v2, v3, "%{public}@ Failed to fetch name for profile, Error: %{public}@");
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 @end

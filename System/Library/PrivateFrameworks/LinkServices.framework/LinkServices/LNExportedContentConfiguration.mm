@@ -103,7 +103,7 @@ LABEL_17:
 
   if (v7)
   {
-    [v7 if_auditToken];
+    objc_msgSend_if_auditToken(v7);
   }
 
   else
@@ -127,7 +127,7 @@ LABEL_17:
 
   [coderCopy encodeInteger:-[LNExportedContentConfiguration preferredExtractionType](self forKey:{"preferredExtractionType"), @"preferredExtractionType"}];
   v6 = MEMORY[0x1E695DEF0];
-  [(LNExportedContentConfiguration *)self auditToken];
+  objc_msgSend_auditToken(self);
   v7 = [v6 if_dataWithAuditToken:&v8];
   [coderCopy encodeObject:v7 forKey:@"auditToken"];
 }

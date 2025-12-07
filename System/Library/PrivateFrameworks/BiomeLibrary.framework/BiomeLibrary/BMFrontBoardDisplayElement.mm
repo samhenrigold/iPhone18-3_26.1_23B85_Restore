@@ -26,7 +26,7 @@
 
 + (id)columns
 {
-  v15[10] = *MEMORY[0x1E69E9840];
+  v14[10] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"absoluteTimestamp" dataType:3 requestOnly:0 fieldNumber:1 protoDataType:0 convertedType:2];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"identifier" dataType:2 requestOnly:0 fieldNumber:2 protoDataType:13 convertedType:0];
   v4 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"bundleIdentifier" dataType:2 requestOnly:0 fieldNumber:3 protoDataType:13 convertedType:0];
@@ -37,21 +37,19 @@
   v9 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"isUIApplicationElement" dataType:0 requestOnly:0 fieldNumber:8 protoDataType:12 convertedType:0];
   v10 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"display_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_268];
   v11 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"changeType" dataType:0 requestOnly:0 fieldNumber:10 protoDataType:4 convertedType:0];
-  v15[0] = v2;
-  v15[1] = v3;
-  v15[2] = v4;
-  v15[3] = v5;
-  v15[4] = v6;
-  v15[5] = v7;
-  v15[6] = v8;
-  v15[7] = v9;
-  v15[8] = v10;
-  v15[9] = v11;
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:10];
+  v14[0] = v2;
+  v14[1] = v3;
+  v14[2] = v4;
+  v14[3] = v5;
+  v14[4] = v6;
+  v14[5] = v7;
+  v14[6] = v8;
+  v14[7] = v9;
+  v14[8] = v10;
+  v14[9] = v11;
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:10];
 
-  v12 = *MEMORY[0x1E69E9840];
-
-  return v14;
+  return v13;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -253,7 +251,7 @@ LABEL_40:
 
 - (id)jsonDictionary
 {
-  v42[10] = *MEMORY[0x1E69E9840];
+  v41[10] = *MEMORY[0x1E69E9840];
   absoluteTimestamp = [(BMFrontBoardDisplayElement *)self absoluteTimestamp];
   if (absoluteTimestamp)
   {
@@ -293,17 +291,7 @@ LABEL_40:
 
   if ([(BMFrontBoardDisplayElement *)self hasHasKeyboardFocus])
   {
-    v40 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMFrontBoardDisplayElement hasKeyboardFocus](self, "hasKeyboardFocus")}];
-  }
-
-  else
-  {
-    v40 = 0;
-  }
-
-  if ([(BMFrontBoardDisplayElement *)self hasIsUIApplicationElement])
-  {
-    v39 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMFrontBoardDisplayElement isUIApplicationElement](self, "isUIApplicationElement")}];
+    v39 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMFrontBoardDisplayElement hasKeyboardFocus](self, "hasKeyboardFocus")}];
   }
 
   else
@@ -311,102 +299,112 @@ LABEL_40:
     v39 = 0;
   }
 
+  if ([(BMFrontBoardDisplayElement *)self hasIsUIApplicationElement])
+  {
+    v38 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMFrontBoardDisplayElement isUIApplicationElement](self, "isUIApplicationElement")}];
+  }
+
+  else
+  {
+    v38 = 0;
+  }
+
   display = [(BMFrontBoardDisplayElement *)self display];
   jsonDictionary = [display jsonDictionary];
 
   v14 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMFrontBoardDisplayElement changeType](self, "changeType")}];
-  v41[0] = @"absoluteTimestamp";
+  v40[0] = @"absoluteTimestamp";
   null = v6;
   if (!v6)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v34 = null;
-  v42[0] = null;
-  v41[1] = @"identifier";
+  v33 = null;
+  v41[0] = null;
+  v40[1] = @"identifier";
   null2 = identifier;
   if (!identifier)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v33 = null2;
-  v42[1] = null2;
-  v41[2] = @"bundleIdentifier";
+  v32 = null2;
+  v41[1] = null2;
+  v40[2] = @"bundleIdentifier";
   null3 = bundleIdentifier;
   if (!bundleIdentifier)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v32 = null3;
-  v42[2] = null3;
-  v41[3] = @"elementType";
+  v31 = null3;
+  v41[2] = null3;
+  v40[3] = @"elementType";
   null4 = v9;
   if (!v9)
   {
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v38 = v6;
-  v31 = null4;
-  v42[3] = null4;
-  v41[4] = @"layoutRole";
+  v37 = v6;
+  v30 = null4;
+  v41[3] = null4;
+  v40[4] = @"layoutRole";
   null5 = v10;
   if (!v10)
   {
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v37 = identifier;
-  v30 = null5;
-  v42[4] = null5;
-  v41[5] = @"level";
+  v36 = identifier;
+  v29 = null5;
+  v41[4] = null5;
+  v40[5] = @"level";
   null6 = v11;
   if (!v11)
   {
     null6 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v36 = bundleIdentifier;
-  v42[5] = null6;
-  v41[6] = @"hasKeyboardFocus";
-  null7 = v40;
-  if (!v40)
+  v35 = bundleIdentifier;
+  v41[5] = null6;
+  v40[6] = @"hasKeyboardFocus";
+  null7 = v39;
+  if (!v39)
   {
     null7 = [MEMORY[0x1E695DFB0] null];
   }
 
   v22 = v11;
   v23 = v9;
-  v42[6] = null7;
-  v41[7] = @"isUIApplicationElement";
-  null8 = v39;
-  if (!v39)
+  v41[6] = null7;
+  v40[7] = @"isUIApplicationElement";
+  null8 = v38;
+  if (!v38)
   {
     null8 = [MEMORY[0x1E695DFB0] null];
   }
 
   v25 = v10;
-  v42[7] = null8;
-  v41[8] = @"display";
+  v41[7] = null8;
+  v40[8] = @"display";
   null9 = jsonDictionary;
   if (!jsonDictionary)
   {
     null9 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v42[8] = null9;
-  v41[9] = @"changeType";
+  v41[8] = null9;
+  v40[9] = @"changeType";
   null10 = v14;
   if (!v14)
   {
     null10 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v42[9] = null10;
-  v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v42 forKeys:v41 count:10];
+  v41[9] = null10;
+  v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v41 forKeys:v40 count:10];
   if (v14)
   {
     if (jsonDictionary)
@@ -425,11 +423,11 @@ LABEL_40:
   }
 
 LABEL_38:
-  if (!v39)
+  if (!v38)
   {
   }
 
-  if (!v40)
+  if (!v39)
   {
   }
 
@@ -443,7 +441,7 @@ LABEL_38:
 
   if (v23)
   {
-    if (v36)
+    if (v35)
     {
       goto LABEL_48;
     }
@@ -452,17 +450,17 @@ LABEL_38:
   else
   {
 
-    if (v36)
+    if (v35)
     {
 LABEL_48:
-      if (v37)
+      if (v36)
       {
         goto LABEL_49;
       }
 
 LABEL_57:
 
-      if (v38)
+      if (v37)
       {
         goto LABEL_50;
       }
@@ -471,13 +469,13 @@ LABEL_57:
     }
   }
 
-  if (!v37)
+  if (!v36)
   {
     goto LABEL_57;
   }
 
 LABEL_49:
-  if (v38)
+  if (v37)
   {
     goto LABEL_50;
   }
@@ -485,14 +483,13 @@ LABEL_49:
 LABEL_58:
 
 LABEL_50:
-  v28 = *MEMORY[0x1E69E9840];
 
-  return v35;
+  return v34;
 }
 
 - (BMFrontBoardDisplayElement)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v123[1] = *MEMORY[0x1E69E9840];
+  v122[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v6 = [dictionaryCopy objectForKeyedSubscript:@"absoluteTimestamp"];
   if (!v6 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
@@ -532,10 +529,10 @@ LABEL_6:
 
       v72 = objc_alloc(MEMORY[0x1E696ABC0]);
       v73 = *MEMORY[0x1E698F240];
-      v122 = *MEMORY[0x1E696A578];
+      v121 = *MEMORY[0x1E696A578];
       v74 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (as time internal since 1970), NSString (ISO8601 format), or NSDate", objc_opt_class(), @"absoluteTimestamp"];
-      v123[0] = v74;
-      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v123 forKeys:&v122 count:1];
+      v122[0] = v74;
+      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v122 forKeys:&v121 count:1];
       v75 = v73;
       v16 = v74;
       v7 = 0;
@@ -567,12 +564,12 @@ LABEL_12:
     v17 = [dictionaryCopy objectForKeyedSubscript:@"bundleIdentifier"];
     if (!v17 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
     {
-      v98 = 0;
+      v97 = 0;
 LABEL_15:
       v18 = [dictionaryCopy objectForKeyedSubscript:@"elementType"];
-      v95 = v15;
-      v96 = v16;
-      v99 = v6;
+      v94 = v15;
+      v95 = v16;
+      v98 = v6;
       if (v18 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
       {
         objc_opt_class();
@@ -589,27 +586,27 @@ LABEL_15:
           {
             if (!error)
             {
-              v100 = 0;
+              v99 = 0;
               v28 = 0;
-              v24 = v98;
+              v24 = v97;
               selfCopy11 = self;
               goto LABEL_96;
             }
 
-            v101 = objc_alloc(MEMORY[0x1E696ABC0]);
+            v100 = objc_alloc(MEMORY[0x1E696ABC0]);
             v67 = *MEMORY[0x1E698F240];
-            v116 = *MEMORY[0x1E696A578];
-            v97 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"elementType"];
-            v117 = v97;
-            v68 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v117 forKeys:&v116 count:1];
+            v115 = *MEMORY[0x1E696A578];
+            v96 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"elementType"];
+            v116 = v96;
+            v68 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v116 forKeys:&v115 count:1];
             v69 = v67;
-            v16 = v96;
-            v93 = v68;
-            v70 = [v101 initWithDomain:v69 code:2 userInfo:?];
-            v100 = 0;
+            v16 = v95;
+            v92 = v68;
+            v70 = [v100 initWithDomain:v69 code:2 userInfo:?];
+            v99 = 0;
             v28 = 0;
             *error = v70;
-            v24 = v98;
+            v24 = v97;
             selfCopy11 = self;
             goto LABEL_95;
           }
@@ -618,7 +615,7 @@ LABEL_15:
           v21 = [MEMORY[0x1E696AD98] numberWithInt:BMFrontBoardDisplayElementTypeFromString(v18)];
         }
 
-        v100 = v21;
+        v99 = v21;
         errorCopy2 = error;
       }
 
@@ -626,11 +623,11 @@ LABEL_15:
       {
         v19 = v7;
         errorCopy2 = error;
-        v100 = 0;
+        v99 = 0;
       }
 
       v34 = [dictionaryCopy objectForKeyedSubscript:@"layoutRole"];
-      v93 = v34;
+      v92 = v34;
       if (v34 && (v35 = v34, objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
       {
         objc_opt_class();
@@ -638,12 +635,12 @@ LABEL_15:
         {
           if (!errorCopy2)
           {
-            v97 = 0;
+            v96 = 0;
             v28 = 0;
             selfCopy11 = self;
             v7 = v19;
-            v24 = v98;
-            v6 = v99;
+            v24 = v97;
+            v6 = v98;
             goto LABEL_95;
           }
 
@@ -652,46 +649,46 @@ LABEL_15:
           v48 = objc_alloc(MEMORY[0x1E696ABC0]);
           v49 = v18;
           v50 = *MEMORY[0x1E698F240];
-          v114 = *MEMORY[0x1E696A578];
-          v94 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"layoutRole"];
-          v115 = v94;
-          v36 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v115 forKeys:&v114 count:1];
+          v113 = *MEMORY[0x1E696A578];
+          v93 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"layoutRole"];
+          v114 = v93;
+          v36 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v114 forKeys:&v113 count:1];
           v51 = v48;
           v17 = v47;
           v52 = v50;
           v18 = v49;
-          v15 = v95;
-          v97 = 0;
+          v15 = v94;
+          v96 = 0;
           v28 = 0;
           *v46 = [v51 initWithDomain:v52 code:2 userInfo:v36];
           selfCopy11 = self;
           v7 = v19;
-          v24 = v98;
-          v6 = v99;
+          v24 = v97;
+          v6 = v98;
 LABEL_94:
 
-          v16 = v96;
+          v16 = v95;
 LABEL_95:
 
           goto LABEL_96;
         }
 
-        v97 = v35;
+        v96 = v35;
       }
 
       else
       {
-        v97 = 0;
+        v96 = 0;
       }
 
       v36 = [dictionaryCopy objectForKeyedSubscript:@"level"];
-      v92 = v19;
+      v91 = v19;
       if (v36)
       {
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v94 = 0;
+          v93 = 0;
         }
 
         else
@@ -700,12 +697,12 @@ LABEL_95:
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
             v7 = v19;
-            v6 = v99;
+            v6 = v98;
             if (!errorCopy2)
             {
-              v94 = 0;
+              v93 = 0;
               v28 = 0;
-              v24 = v98;
+              v24 = v97;
               selfCopy11 = self;
               goto LABEL_94;
             }
@@ -714,49 +711,49 @@ LABEL_95:
             v54 = objc_alloc(MEMORY[0x1E696ABC0]);
             v55 = v18;
             v56 = *MEMORY[0x1E698F240];
-            v112 = *MEMORY[0x1E696A578];
-            v91 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"level"];
-            v113 = v91;
-            v37 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v113 forKeys:&v112 count:1];
+            v111 = *MEMORY[0x1E696A578];
+            v90 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"level"];
+            v112 = v90;
+            v37 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v112 forKeys:&v111 count:1];
             v57 = v54;
             v17 = v53;
             v58 = v56;
             v18 = v55;
-            v15 = v95;
-            v94 = 0;
+            v15 = v94;
+            v93 = 0;
             v28 = 0;
             *errorCopy2 = [v57 initWithDomain:v58 code:2 userInfo:v37];
             goto LABEL_103;
           }
 
-          v94 = v36;
+          v93 = v36;
         }
       }
 
       else
       {
-        v94 = 0;
+        v93 = 0;
       }
 
-      v6 = v99;
+      v6 = v98;
       v37 = [dictionaryCopy objectForKeyedSubscript:@"hasKeyboardFocus"];
-      v90 = v18;
+      v89 = v18;
       if (!v37 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
       {
-        v91 = 0;
+        v90 = 0;
         goto LABEL_45;
       }
 
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v91 = v37;
+        v90 = v37;
 LABEL_45:
         v38 = [dictionaryCopy objectForKeyedSubscript:@"isUIApplicationElement"];
-        v86 = v17;
+        v85 = v17;
         if (!v38 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
         {
-          v88 = errorCopy2;
+          v87 = errorCopy2;
           v39 = 0;
           goto LABEL_48;
         }
@@ -764,7 +761,7 @@ LABEL_45:
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v88 = errorCopy2;
+          v87 = errorCopy2;
           v39 = v38;
 LABEL_48:
           v40 = [dictionaryCopy objectForKeyedSubscript:@"display"];
@@ -778,15 +775,15 @@ LABEL_48:
           if (objc_opt_isKindOfClass())
           {
             v44 = v40;
-            v103 = 0;
-            v41 = [[BMFrontBoardDisplayElementDisplay alloc] initWithJSONDictionary:v44 error:&v103];
-            v45 = v103;
+            v102 = 0;
+            v41 = [[BMFrontBoardDisplayElementDisplay alloc] initWithJSONDictionary:v44 error:&v102];
+            v45 = v102;
             if (v45)
             {
-              if (v88)
+              if (v87)
               {
                 v45 = v45;
-                *v88 = v45;
+                *v87 = v45;
               }
 
               v28 = 0;
@@ -809,15 +806,15 @@ LABEL_51:
                 objc_opt_class();
                 if ((objc_opt_isKindOfClass() & 1) == 0)
                 {
-                  if (v88)
+                  if (v87)
                   {
-                    v85 = objc_alloc(MEMORY[0x1E696ABC0]);
-                    v83 = *MEMORY[0x1E698F240];
-                    v104 = *MEMORY[0x1E696A578];
-                    v79 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"changeType"];
-                    v105 = v79;
-                    v80 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v105 forKeys:&v104 count:1];
-                    *v88 = [v85 initWithDomain:v83 code:2 userInfo:v80];
+                    v84 = objc_alloc(MEMORY[0x1E696ABC0]);
+                    v82 = *MEMORY[0x1E698F240];
+                    v103 = *MEMORY[0x1E696A578];
+                    v78 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"changeType"];
+                    v104 = v78;
+                    v79 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v104 forKeys:&v103 count:1];
+                    *v87 = [v84 initWithDomain:v82 code:2 userInfo:v79];
                   }
 
                   v43 = 0;
@@ -836,47 +833,47 @@ LABEL_51:
               v43 = 0;
             }
 
-            intValue = [v100 intValue];
-            LODWORD(v81) = [v43 intValue];
-            v28 = [(BMFrontBoardDisplayElement *)self initWithAbsoluteTimestamp:v92 identifier:v96 bundleIdentifier:v98 elementType:intValue layoutRole:v97 level:v94 hasKeyboardFocus:v91 isUIApplicationElement:v39 display:v41 changeType:v81];
+            intValue = [v99 intValue];
+            LODWORD(v80) = [v43 intValue];
+            v28 = [(BMFrontBoardDisplayElement *)self initWithAbsoluteTimestamp:v91 identifier:v95 bundleIdentifier:v97 elementType:intValue layoutRole:v96 level:v93 hasKeyboardFocus:v90 isUIApplicationElement:v39 display:v41 changeType:v80];
             self = v28;
 LABEL_89:
 
             goto LABEL_90;
           }
 
-          if (!v88)
+          if (!v87)
           {
             v28 = 0;
-            v24 = v98;
-            v6 = v99;
+            v24 = v97;
+            v6 = v98;
             goto LABEL_91;
           }
 
-          v84 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v82 = *MEMORY[0x1E698F240];
-          v106 = *MEMORY[0x1E696A578];
+          v83 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v81 = *MEMORY[0x1E698F240];
+          v105 = *MEMORY[0x1E696A578];
           v41 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"display"];
-          v107 = v41;
-          v71 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v107 forKeys:&v106 count:1];
-          *v88 = [v84 initWithDomain:v82 code:2 userInfo:v71];
+          v106 = v41;
+          v71 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v106 forKeys:&v105 count:1];
+          *v87 = [v83 initWithDomain:v81 code:2 userInfo:v71];
 
           v28 = 0;
 LABEL_90:
-          v24 = v98;
+          v24 = v97;
 
-          v6 = v99;
-          v17 = v86;
+          v6 = v98;
+          v17 = v85;
 LABEL_91:
 
 LABEL_92:
           selfCopy11 = self;
 
-          v18 = v90;
-          v15 = v95;
+          v18 = v89;
+          v15 = v94;
 LABEL_93:
 
-          v7 = v92;
+          v7 = v91;
           goto LABEL_94;
         }
 
@@ -884,10 +881,10 @@ LABEL_93:
         {
           v64 = objc_alloc(MEMORY[0x1E696ABC0]);
           v65 = *MEMORY[0x1E698F240];
-          v108 = *MEMORY[0x1E696A578];
+          v107 = *MEMORY[0x1E696A578];
           v40 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"isUIApplicationElement"];
-          v109 = v40;
-          v41 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v109 forKeys:&v108 count:1];
+          v108 = v40;
+          v41 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v108 forKeys:&v107 count:1];
           v66 = [v64 initWithDomain:v65 code:2 userInfo:v41];
           v39 = 0;
           v28 = 0;
@@ -898,32 +895,32 @@ LABEL_93:
         v39 = 0;
         v28 = 0;
 LABEL_105:
-        v24 = v98;
+        v24 = v97;
         goto LABEL_92;
       }
 
       if (errorCopy2)
       {
-        v89 = errorCopy2;
+        v88 = errorCopy2;
         v60 = v17;
         v61 = objc_alloc(MEMORY[0x1E696ABC0]);
         v62 = *MEMORY[0x1E698F240];
-        v110 = *MEMORY[0x1E696A578];
+        v109 = *MEMORY[0x1E696A578];
         v39 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"hasKeyboardFocus"];
-        v111 = v39;
-        v38 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v111 forKeys:&v110 count:1];
+        v110 = v39;
+        v38 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v110 forKeys:&v109 count:1];
         v63 = v61;
         v17 = v60;
-        v91 = 0;
+        v90 = 0;
         v28 = 0;
-        *v89 = [v63 initWithDomain:v62 code:2 userInfo:v38];
+        *v88 = [v63 initWithDomain:v62 code:2 userInfo:v38];
         goto LABEL_105;
       }
 
-      v91 = 0;
+      v90 = 0;
       v28 = 0;
 LABEL_103:
-      v24 = v98;
+      v24 = v97;
       selfCopy11 = self;
       goto LABEL_93;
     }
@@ -931,7 +928,7 @@ LABEL_103:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v98 = v17;
+      v97 = v17;
       goto LABEL_15;
     }
 
@@ -941,10 +938,10 @@ LABEL_103:
       v29 = objc_alloc(MEMORY[0x1E696ABC0]);
       v30 = v16;
       v31 = *MEMORY[0x1E698F240];
-      v118 = *MEMORY[0x1E696A578];
-      v100 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"bundleIdentifier"];
-      v119 = v100;
-      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v119 forKeys:&v118 count:1];
+      v117 = *MEMORY[0x1E696A578];
+      v99 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"bundleIdentifier"];
+      v118 = v99;
+      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v118 forKeys:&v117 count:1];
       v32 = v31;
       v16 = v30;
       v24 = 0;
@@ -969,10 +966,10 @@ LABEL_97:
   {
     v22 = objc_alloc(MEMORY[0x1E696ABC0]);
     v23 = *MEMORY[0x1E698F240];
-    v120 = *MEMORY[0x1E696A578];
+    v119 = *MEMORY[0x1E696A578];
     v24 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"identifier"];
-    v121 = v24;
-    v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v121 forKeys:&v120 count:1];
+    v120 = v24;
+    v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v120 forKeys:&v119 count:1];
     v26 = v22;
     v17 = v25;
     v27 = [v26 initWithDomain:v23 code:2 userInfo:v25];
@@ -989,7 +986,6 @@ LABEL_84:
 LABEL_98:
 
 LABEL_99:
-  v77 = *MEMORY[0x1E69E9840];
   return v28;
 }
 
@@ -998,7 +994,6 @@ LABEL_99:
   toCopy = to;
   if (self->_hasRaw_absoluteTimestamp)
   {
-    raw_absoluteTimestamp = self->_raw_absoluteTimestamp;
     PBDataWriterWriteDoubleField();
   }
 
@@ -1012,29 +1007,24 @@ LABEL_99:
     PBDataWriterWriteStringField();
   }
 
-  elementType = self->_elementType;
   PBDataWriterWriteUint32Field();
   if (self->_hasLayoutRole)
   {
-    layoutRole = self->_layoutRole;
     PBDataWriterWriteInt64Field();
   }
 
   if (self->_hasLevel)
   {
-    level = self->_level;
     PBDataWriterWriteInt64Field();
   }
 
   if (self->_hasHasKeyboardFocus)
   {
-    hasKeyboardFocus = self->_hasKeyboardFocus;
     PBDataWriterWriteBOOLField();
   }
 
   if (self->_hasIsUIApplicationElement)
   {
-    isUIApplicationElement = self->_isUIApplicationElement;
     PBDataWriterWriteBOOLField();
   }
 
@@ -1045,7 +1035,6 @@ LABEL_99:
     PBDataWriterRecallMark();
   }
 
-  changeType = self->_changeType;
   PBDataWriterWriteUint32Field();
 }
 
@@ -1623,42 +1612,40 @@ LABEL_124:
 
 + (id)protoFields
 {
-  v15[10] = *MEMORY[0x1E69E9840];
-  v14 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"absoluteTimestamp" number:1 type:0 subMessageClass:0];
-  v15[0] = v14;
+  v14[10] = *MEMORY[0x1E69E9840];
+  v13 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"absoluteTimestamp" number:1 type:0 subMessageClass:0];
+  v14[0] = v13;
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"identifier" number:2 type:13 subMessageClass:0];
-  v15[1] = v2;
+  v14[1] = v2;
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"bundleIdentifier" number:3 type:13 subMessageClass:0];
-  v15[2] = v3;
+  v14[2] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"elementType" number:4 type:4 subMessageClass:0];
-  v15[3] = v4;
+  v14[3] = v4;
   v5 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"layoutRole" number:5 type:3 subMessageClass:0];
-  v15[4] = v5;
+  v14[4] = v5;
   v6 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"level" number:6 type:3 subMessageClass:0];
-  v15[5] = v6;
+  v14[5] = v6;
   v7 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"hasKeyboardFocus" number:7 type:12 subMessageClass:0];
-  v15[6] = v7;
+  v14[6] = v7;
   v8 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"isUIApplicationElement" number:8 type:12 subMessageClass:0];
-  v15[7] = v8;
+  v14[7] = v8;
   v9 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"display" number:9 type:14 subMessageClass:objc_opt_class()];
-  v15[8] = v9;
+  v14[8] = v9;
   v10 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"changeType" number:10 type:4 subMessageClass:0];
-  v15[9] = v10;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:10];
-
-  v12 = *MEMORY[0x1E69E9840];
+  v14[9] = v10;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:10];
 
   return v11;
 }
 
-id __37__BMFrontBoardDisplayElement_columns__block_invoke(uint64_t a1, void *a2)
+id __37__BMFrontBoardDisplayElement_columns__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 display];
-  v4 = [v3 jsonDictionary];
-  v5 = BMConvertObjectToJSONString();
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 display];
+  v5 = [v4 jsonDictionary];
+  v6 = BMConvertObjectToJSONString();
 
-  return v5;
+  return v6;
 }
 
 + (id)eventWithData:(id)data dataVersion:(unsigned int)version

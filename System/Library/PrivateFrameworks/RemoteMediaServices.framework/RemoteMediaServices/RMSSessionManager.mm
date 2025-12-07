@@ -144,35 +144,35 @@ void __85__RMSSessionManager_beginSession_timeout_shouldTakePowerAssertion_compl
 
 void __64__RMSSessionManager_endSessionWithIdentifier_completionHandler___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 32) + 8);
   v3 = [MEMORY[0x277CCABB0] numberWithInt:*(a1 + 48)];
   v4 = [v2 objectForKeyedSubscript:v3];
 
   if (v4)
   {
-    v5 = RMSLogger();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = RMSLogger(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = [v4 session];
-      v12 = 138412290;
-      v13 = objc_opt_class();
-      v7 = v13;
-      _os_log_impl(&dword_261E98000, v5, OS_LOG_TYPE_DEFAULT, "Ending session: %@", &v12, 0xCu);
+      v7 = [v4 session];
+      v13 = 138412290;
+      v14 = objc_opt_class();
+      v8 = v14;
+      _os_log_impl(&dword_261E98000, v6, OS_LOG_TYPE_DEFAULT, "Ending session: %@", &v13, 0xCu);
     }
 
-    v8 = *(*(a1 + 32) + 8);
-    v9 = [MEMORY[0x277CCABB0] numberWithInt:*(a1 + 48)];
-    [v8 removeObjectForKey:v9];
+    v9 = *(*(a1 + 32) + 8);
+    v10 = [MEMORY[0x277CCABB0] numberWithInt:*(a1 + 48)];
+    [v9 removeObjectForKey:v10];
 
     [*(a1 + 32) _updatePersistedSessionIdentifiers];
   }
 
-  v10 = *(a1 + 40);
-  if (v10)
+  v11 = *(a1 + 40);
+  if (v11)
   {
-    v11 = [v4 session];
-    (*(v10 + 16))(v10, v11);
+    v12 = [v4 session];
+    (*(v11 + 16))(v11, v12);
   }
 }
 
@@ -190,25 +190,25 @@ void __64__RMSSessionManager_endSessionWithIdentifier_completionHandler___block_
 
 void __50__RMSSessionManager_refreshSessionWithIdentifier___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 32) + 8);
   v3 = [MEMORY[0x277CCABB0] numberWithInt:*(a1 + 40)];
   v4 = [v2 objectForKeyedSubscript:v3];
 
-  v5 = RMSLogger();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = RMSLogger(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = [v4 session];
-    v7 = objc_opt_class();
-    v8 = NSStringFromClass(v7);
-    v10 = 138412290;
-    v11 = v8;
-    _os_log_impl(&dword_261E98000, v5, OS_LOG_TYPE_DEFAULT, "Refreshing session: %@", &v10, 0xCu);
+    v7 = [v4 session];
+    v8 = objc_opt_class();
+    v9 = NSStringFromClass(v8);
+    v11 = 138412290;
+    v12 = v9;
+    _os_log_impl(&dword_261E98000, v6, OS_LOG_TYPE_DEFAULT, "Refreshing session: %@", &v11, 0xCu);
   }
 
   [v4 setRefreshCount:{objc_msgSend(v4, "refreshCount") + 1}];
-  v9 = [v4 powerAssertion];
-  [v9 refresh];
+  v10 = [v4 powerAssertion];
+  [v10 refresh];
   [*(a1 + 32) _scheduleSessionExpirationWithIdentifier:*(a1 + 40) timeout:{objc_msgSend(v4, "timeout")}];
 }
 
@@ -239,7 +239,7 @@ void __50__RMSSessionManager_refreshSessionWithIdentifier___block_invoke(uint64_
 
 void __70__RMSSessionManager__scheduleSessionExpirationWithIdentifier_timeout___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -250,37 +250,38 @@ void __70__RMSSessionManager__scheduleSessionExpirationWithIdentifier_timeout___
 
     if (v6)
     {
-      if ([v6 refreshCount])
+      v7 = [v6 refreshCount];
+      if (v7)
       {
         [v6 setRefreshCount:{objc_msgSend(v6, "refreshCount") - 1}];
       }
 
       else
       {
-        v7 = RMSLogger();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+        v8 = RMSLogger(v7);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
         {
-          v8 = [v6 session];
-          v9 = objc_opt_class();
-          v10 = NSStringFromClass(v9);
+          v9 = [v6 session];
+          v10 = objc_opt_class();
+          v11 = NSStringFromClass(v10);
           *buf = 138412290;
-          v18 = v10;
-          _os_log_impl(&dword_261E98000, v7, OS_LOG_TYPE_DEFAULT, "Session expired: %@", buf, 0xCu);
+          v19 = v11;
+          _os_log_impl(&dword_261E98000, v8, OS_LOG_TYPE_DEFAULT, "Session expired: %@", buf, 0xCu);
         }
 
-        v11 = v3[1];
-        v12 = [MEMORY[0x277CCABB0] numberWithInt:*(a1 + 48)];
-        [v11 removeObjectForKey:v12];
+        v12 = v3[1];
+        v13 = [MEMORY[0x277CCABB0] numberWithInt:*(a1 + 48)];
+        [v12 removeObjectForKey:v13];
 
-        v13 = *(*(a1 + 32) + 16);
+        v14 = *(*(a1 + 32) + 16);
         block[0] = MEMORY[0x277D85DD0];
         block[1] = 3221225472;
         block[2] = __70__RMSSessionManager__scheduleSessionExpirationWithIdentifier_timeout___block_invoke_50;
         block[3] = &unk_279B094C0;
         block[4] = v3;
-        v15 = v6;
-        v16 = *(a1 + 48);
-        dispatch_async(v13, block);
+        v16 = v6;
+        v17 = *(a1 + 48);
+        dispatch_async(v14, block);
         [v3 _updatePersistedSessionIdentifiers];
       }
     }

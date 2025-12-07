@@ -7,18 +7,16 @@
 
 + (id)sublibraries
 {
-  v10[4] = *MEMORY[0x1E69E9840];
+  v9[4] = *MEMORY[0x1E69E9840];
   dataCorrelations = [self DataCorrelations];
-  v10[0] = dataCorrelations;
+  v9[0] = dataCorrelations;
   insights = [self Insights];
-  v10[1] = insights;
+  v9[1] = insights;
   labeledData = [self LabeledData];
-  v10[2] = labeledData;
+  v9[2] = labeledData;
   rawEvent = [self RawEvent];
-  v10[3] = rawEvent;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:4];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v9[3] = rawEvent;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:4];
 
   return v7;
 }

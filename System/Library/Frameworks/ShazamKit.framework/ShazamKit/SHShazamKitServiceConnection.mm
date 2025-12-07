@@ -108,40 +108,36 @@
   objc_destroyWeak(&location);
 }
 
-void __63__SHShazamKitServiceConnection_attachDefaultConnectionHandlers__block_invoke(uint64_t a1)
+void __63__SHShazamKitServiceConnection_attachDefaultConnectionHandlers__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v2 = sh_log_object();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v9 = *MEMORY[0x277D85DE8];
+  v4 = sh_log_object(a1);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     WeakRetained = objc_loadWeakRetained((a1 + 32));
-    v6 = 138412290;
-    v7 = WeakRetained;
-    _os_log_impl(&dword_230F52000, v2, OS_LOG_TYPE_ERROR, "Fired XPC service interruption handler %@", &v6, 0xCu);
+    v7 = 138412290;
+    v8 = WeakRetained;
+    _os_log_impl(&dword_230F52000, v4, OS_LOG_TYPE_ERROR, "Fired XPC service interruption handler %@", &v7, 0xCu);
   }
 
-  v4 = objc_loadWeakRetained((a1 + 32));
-  [v4 tearDownConnection];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v6 = objc_loadWeakRetained((a1 + 32));
+  [v6 tearDownConnection];
 }
 
-void __63__SHShazamKitServiceConnection_attachDefaultConnectionHandlers__block_invoke_3(uint64_t a1)
+void __63__SHShazamKitServiceConnection_attachDefaultConnectionHandlers__block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v2 = sh_log_object();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v9 = *MEMORY[0x277D85DE8];
+  v4 = sh_log_object(a1);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     WeakRetained = objc_loadWeakRetained((a1 + 32));
-    v6 = 138412290;
-    v7 = WeakRetained;
-    _os_log_impl(&dword_230F52000, v2, OS_LOG_TYPE_ERROR, "Fired XPC service invalidation handler %@", &v6, 0xCu);
+    v7 = 138412290;
+    v8 = WeakRetained;
+    _os_log_impl(&dword_230F52000, v4, OS_LOG_TYPE_ERROR, "Fired XPC service invalidation handler %@", &v7, 0xCu);
   }
 
-  v4 = objc_loadWeakRetained((a1 + 32));
-  [v4 tearDownConnection];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v6 = objc_loadWeakRetained((a1 + 32));
+  [v6 tearDownConnection];
 }
 
 - (void)tearDownConnection
@@ -224,13 +220,13 @@ void __72__SHShazamKitServiceConnection_matcherDelegateErrorHandlerForSignature_
   [v11 prepareMatcherForRequestID:dCopy completionHandler:v13];
 }
 
-uint64_t __77__SHShazamKitServiceConnection_prepareMatcherForRequestID_completionHandler___block_invoke(uint64_t a1)
+uint64_t __77__SHShazamKitServiceConnection_prepareMatcherForRequestID_completionHandler___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = sh_log_object();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v4 = sh_log_object(a1);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_230F52000, v2, OS_LOG_TYPE_DEBUG, "Prepare recognition request completion handler called", v4, 2u);
+    *v6 = 0;
+    _os_log_impl(&dword_230F52000, v4, OS_LOG_TYPE_DEBUG, "Prepare recognition request completion handler called", v6, 2u);
   }
 
   return (*(*(a1 + 32) + 16))();
@@ -256,13 +252,13 @@ uint64_t __77__SHShazamKitServiceConnection_prepareMatcherForRequestID_completio
   }
 }
 
-void __59__SHShazamKitServiceConnection_startRecognitionForRequest___block_invoke()
+void __59__SHShazamKitServiceConnection_startRecognitionForRequest___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v0 = sh_log_object();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+  v3 = sh_log_object(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_230F52000, v0, OS_LOG_TYPE_DEBUG, "Recognition request completion handler called", v1, 2u);
+    *v4 = 0;
+    _os_log_impl(&dword_230F52000, v3, OS_LOG_TYPE_DEBUG, "Recognition request completion handler called", v4, 2u);
   }
 }
 
@@ -315,7 +311,7 @@ void __59__SHShazamKitServiceConnection_startRecognitionForRequest___block_invok
 
 void __68__SHShazamKitServiceConnection__synchronizeSnapshot_startCondition___block_invoke(uint64_t a1, void *a2)
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v5 = [WeakRetained delegate];
@@ -325,9 +321,9 @@ void __68__SHShazamKitServiceConnection__synchronizeSnapshot_startCondition___bl
   {
     v7 = [WeakRetained delegate];
     v8 = MEMORY[0x277CCA9B8];
-    v13 = *MEMORY[0x277CCA7E8];
-    v14[0] = v3;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+    v12 = *MEMORY[0x277CCA7E8];
+    v13[0] = v3;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
     v10 = [v8 errorWithDomain:@"com.apple.ShazamKit.ShazamLibrary" code:301 userInfo:v9];
 
     v11 = [*(a1 + 32) allItemIdentifiers];
@@ -335,17 +331,15 @@ void __68__SHShazamKitServiceConnection__synchronizeSnapshot_startCondition___bl
 
     [v7 _libraryDidCompleteSync:WeakRetained];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
-void __68__SHShazamKitServiceConnection__synchronizeSnapshot_startCondition___block_invoke_2()
+void __68__SHShazamKitServiceConnection__synchronizeSnapshot_startCondition___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v0 = sh_log_object();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v3 = sh_log_object(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_230F52000, v0, OS_LOG_TYPE_DEFAULT, "Synchronize difference completion handler called", v1, 2u);
+    *v4 = 0;
+    _os_log_impl(&dword_230F52000, v3, OS_LOG_TYPE_DEFAULT, "Synchronize difference completion handler called", v4, 2u);
   }
 }
 
@@ -432,18 +426,17 @@ void __73__SHShazamKitServiceConnection_mediaItemsForShazamIDs_completionHandler
 
 void __110__SHShazamKitServiceConnection_synchronouslyFetchRawSongResponseDataForMediaItemIdentifier_completionHandler___block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277D54E10] errorWithCode:100 underlyingError:0];
-  v3 = sh_log_object();
+  v3 = sh_log_object(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_230F52000, v3, OS_LOG_TYPE_ERROR, "Error fetching raw response data: %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_230F52000, v3, OS_LOG_TYPE_ERROR, "Error fetching raw response data: %@", &v4, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)hapticsForMediaItems:(id)items completionHandler:(id)handler

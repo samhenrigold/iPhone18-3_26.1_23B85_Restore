@@ -91,7 +91,7 @@
 - (void)setRepairAssetsCompletionBlock:(id)block
 {
   blockCopy = block;
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], v4, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -122,7 +122,7 @@ LABEL_9:
 
 - (id)repairAssetsCompletionBlock
 {
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], a2, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -409,7 +409,7 @@ LABEL_7:
 
 - (void)handleAssetRepairCompletionForRecordID:(id)d error:(id)error
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   dCopy = d;
   v9 = objc_msgSend_CKClientSuitableError(error, v7, v8);
   if (ck_log_initialization_predicate != -1)
@@ -420,15 +420,15 @@ LABEL_7:
   v10 = ck_log_facility_data_repair;
   if (os_log_type_enabled(ck_log_facility_data_repair, OS_LOG_TYPE_DEBUG))
   {
-    v16 = v10;
-    v19 = objc_msgSend_operationID(self, v17, v18);
-    v20 = 138543874;
-    v21 = v19;
-    v22 = 2112;
-    v23 = dCopy;
-    v24 = 2112;
-    v25 = v9;
-    _os_log_debug_impl(&dword_1883EA000, v16, OS_LOG_TYPE_DEBUG, "Operation %{public}@ received progress callback for recordID %@ error %@", &v20, 0x20u);
+    v15 = v10;
+    v18 = objc_msgSend_operationID(self, v16, v17);
+    v19 = 138543874;
+    v20 = v18;
+    v21 = 2112;
+    v22 = dCopy;
+    v23 = 2112;
+    v24 = v9;
+    _os_log_debug_impl(&dword_1883EA000, v15, OS_LOG_TYPE_DEBUG, "Operation %{public}@ received progress callback for recordID %@ error %@", &v19, 0x20u);
 
     if (!v9)
     {
@@ -446,13 +446,11 @@ LABEL_5:
   }
 
 LABEL_6:
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_finishOnCallbackQueueWithError:(id)error
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   if (self)
   {
@@ -533,19 +531,19 @@ LABEL_6:
     v30 = ck_log_facility_ck;
     if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
     {
-      v39 = v30;
-      v40 = objc_opt_class();
-      v41 = NSStringFromClass(v40);
-      v44 = objc_msgSend_ckShortDescription(self, v42, v43);
+      v38 = v30;
+      v39 = objc_opt_class();
+      v40 = NSStringFromClass(v39);
+      v43 = objc_msgSend_ckShortDescription(self, v41, v42);
       *buf = 138544130;
-      v47 = v41;
-      v48 = 2048;
+      v46 = v40;
+      v47 = 2048;
       selfCopy = self;
-      v50 = 2114;
-      v51 = v44;
-      v52 = 2112;
-      v53 = errorCopy;
-      _os_log_debug_impl(&dword_1883EA000, v39, OS_LOG_TYPE_DEBUG, "Calling repairAssetsCompletionBlock for operation <%{public}@: %p; %{public}@> with error %@", buf, 0x2Au);
+      v49 = 2114;
+      v50 = v43;
+      v51 = 2112;
+      v52 = errorCopy;
+      _os_log_debug_impl(&dword_1883EA000, v38, OS_LOG_TYPE_DEBUG, "Calling repairAssetsCompletionBlock for operation <%{public}@: %p; %{public}@> with error %@", buf, 0x2Au);
     }
 
     v33 = objc_msgSend_repairAssetsCompletionBlock(self, v31, v32);
@@ -555,11 +553,9 @@ LABEL_6:
     objc_msgSend_setRepairAssetsCompletionBlock_(self, v37, 0);
   }
 
-  v45.receiver = self;
-  v45.super_class = CKRepairAssetsOperation;
-  [(CKOperation *)&v45 _finishOnCallbackQueueWithError:errorCopy];
-
-  v38 = *MEMORY[0x1E69E9840];
+  v44.receiver = self;
+  v44.super_class = CKRepairAssetsOperation;
+  [(CKOperation *)&v44 _finishOnCallbackQueueWithError:errorCopy];
 }
 
 - (id)includedMetadata
@@ -579,7 +575,7 @@ LABEL_6:
 
 - (void)ckSignpostBegin
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   if (self)
   {
     signpost = self->super.super._signpost;
@@ -632,28 +628,26 @@ LABEL_6:
       v36 = CKStringForDiscretionaryNetworkBehavior(v35);
       v39 = objc_msgSend_qualityOfService(self, v37, v38);
       v41 = CKStringForQOS(v39, v40);
-      v43 = 138413570;
-      v44 = v17;
-      v45 = 2112;
-      v46 = v20;
-      v47 = 2112;
-      v48 = v26;
-      v49 = 2114;
-      v50 = v29;
-      v51 = 2114;
-      v52 = v36;
-      v53 = 2114;
-      v54 = v41;
-      _os_signpost_emit_with_name_impl(&dword_1883EA000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v14, "CKRepairAssetsOperation", "ID=%{signpost.description:attribute}@ Container=%{signpost.description:attribute}@ GroupID=%{signpost.description:attribute}@ GroupName=%{signpost.description:attribute,public}@ Behavior=%{signpost.description:attribute,public}@ QoS=%{signpost.description:attribute,public}@ ", &v43, 0x3Eu);
+      v42 = 138413570;
+      v43 = v17;
+      v44 = 2112;
+      v45 = v20;
+      v46 = 2112;
+      v47 = v26;
+      v48 = 2114;
+      v49 = v29;
+      v50 = 2114;
+      v51 = v36;
+      v52 = 2114;
+      v53 = v41;
+      _os_signpost_emit_with_name_impl(&dword_1883EA000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v14, "CKRepairAssetsOperation", "ID=%{signpost.description:attribute}@ Container=%{signpost.description:attribute}@ GroupID=%{signpost.description:attribute}@ GroupName=%{signpost.description:attribute,public}@ Behavior=%{signpost.description:attribute,public}@ QoS=%{signpost.description:attribute,public}@ ", &v42, 0x3Eu);
     }
   }
-
-  v42 = *MEMORY[0x1E69E9840];
 }
 
 - (void)ckSignpostEndWithError:(id)error
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   if (self)
   {
@@ -697,13 +691,11 @@ LABEL_6:
 
     if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
     {
-      v18 = 138412290;
-      v19 = errorCopy;
-      _os_signpost_emit_with_name_impl(&dword_1883EA000, v11, OS_SIGNPOST_INTERVAL_END, v16, "CKRepairAssetsOperation", "Error=%{signpost.description:attribute}@ ", &v18, 0xCu);
+      v17 = 138412290;
+      v18 = errorCopy;
+      _os_signpost_emit_with_name_impl(&dword_1883EA000, v11, OS_SIGNPOST_INTERVAL_END, v16, "CKRepairAssetsOperation", "Error=%{signpost.description:attribute}@ ", &v17, 0xCu);
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (id)activityCreate

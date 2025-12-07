@@ -289,22 +289,20 @@ void __38__MTBaseProcessor_createQueryObserver__block_invoke_2(uint64_t a1)
 
 - (void)updatePredicate
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = _MTLogCategoryDefault();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = objc_opt_class();
     v5 = NSStringFromClass(v4);
-    v9 = 138543362;
-    v10 = v5;
-    _os_log_impl(&dword_25E9F0000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ updated predicate", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v5;
+    _os_log_impl(&dword_25E9F0000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ updated predicate", &v8, 0xCu);
   }
 
   queryObserver = [(MTBaseProcessor *)self queryObserver];
   predicate = [(MTBaseProcessor *)self predicate];
   [queryObserver setPredicate:predicate];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)entityName

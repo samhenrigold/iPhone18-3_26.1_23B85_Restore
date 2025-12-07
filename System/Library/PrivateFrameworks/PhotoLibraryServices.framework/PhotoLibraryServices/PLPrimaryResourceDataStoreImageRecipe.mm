@@ -291,7 +291,7 @@ LABEL_52:
         }
 
 LABEL_53:
-        if ([dictionary count])
+        if (objc_msgSend_count(dictionary))
         {
           v37 = dictionary;
         }

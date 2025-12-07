@@ -339,40 +339,41 @@ LABEL_45:
 
 - (int)run
 {
-  v86[1] = *MEMORY[0x1E69E9840];
+  v92[1] = *MEMORY[0x1E69E9840];
   cf = 0;
   mach_timebase_info(&info);
   v5 = mach_absolute_time();
   v6 = mach_absolute_time();
-  v7 = VCPSignPostLog();
+  v7 = VCPSignPostLog(v6);
   v8 = os_signpost_id_generate(v7);
 
-  v9 = VCPSignPostLog();
-  v10 = v9;
-  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
+  v10 = VCPSignPostLog(v9);
+  v11 = v10;
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
   {
     LOWORD(buf.data) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v10, OS_SIGNPOST_INTERVAL_BEGIN, v8, "VCPMADMLEnhancementModelCreation", "", &buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v8, "VCPMADMLEnhancementModelCreation", "", &buf, 2u);
   }
 
   createModel = [(VCPMADMLEnhancementTask *)self createModel];
+  v13 = createModel;
   if (!createModel)
   {
-    v12 = VCPSignPostLog();
-    v13 = v12;
-    if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
+    v14 = VCPSignPostLog(createModel);
+    v15 = v14;
+    if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
     {
       LOWORD(buf.data) = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v13, OS_SIGNPOST_INTERVAL_END, v8, "VCPMADMLEnhancementModelCreation", "", &buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v15, OS_SIGNPOST_INTERVAL_END, v8, "VCPMADMLEnhancementModelCreation", "", &buf, 2u);
     }
 
     if (v6)
     {
-      mach_absolute_time();
-      VCPPerformance_LogMeasurement();
+      v16 = mach_absolute_time();
+      VCPPerformance_LogMeasurement("VCPMADMLEnhancementModelCreation", v16 - v6);
     }
 
-    v14 = mach_absolute_time();
+    v17 = mach_absolute_time();
     numer = info.numer;
     LODWORD(v2) = info.denom;
     if ([(MADMLEnhancementRequest *)self->_request modelPreparationOnly])
@@ -384,13 +385,13 @@ LABEL_45:
       }
 
 LABEL_19:
-      createModel = 0;
+      v13 = 0;
       goto LABEL_20;
     }
 
     pixelBuffer = 0;
-    v68 = 0;
-    if ([(VCPMADServiceImageAsset *)self->_imageAsset loadPixelBuffer:&pixelBuffer orientation:&v68])
+    v74 = 0;
+    if ([(VCPMADServiceImageAsset *)self->_imageAsset loadPixelBuffer:&pixelBuffer orientation:&v74])
     {
       if (MediaAnalysisLogLevel() >= 4 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
       {
@@ -399,13 +400,13 @@ LABEL_19:
       }
 
       request = self->_request;
-      v17 = MEMORY[0x1E696ABC0];
-      v85 = *MEMORY[0x1E696A578];
-      v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Image loading failed"];
-      v86[0] = v18;
-      v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v86 forKeys:&v85 count:1];
-      v20 = [v17 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v19];
-      [(MADMLEnhancementRequest *)request setError:v20];
+      v20 = MEMORY[0x1E696ABC0];
+      v91 = *MEMORY[0x1E696A578];
+      v21 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Image loading failed"];
+      v92[0] = v21;
+      v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v92 forKeys:&v91 count:1];
+      v23 = [v20 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v22];
+      [(MADMLEnhancementRequest *)request setError:v23];
 
       goto LABEL_19;
     }
@@ -421,36 +422,36 @@ LABEL_19:
       goto LABEL_24;
     }
 
-    v38 = *MEMORY[0x1E6966208];
-    v83[0] = *MEMORY[0x1E6966130];
-    v83[1] = v38;
-    v84[0] = &unk_1F49BDDF8;
-    v84[1] = &unk_1F49BDE10;
-    v39 = *MEMORY[0x1E69660D8];
-    v83[2] = *MEMORY[0x1E69660B8];
-    v83[3] = v39;
-    v84[2] = &unk_1F49BDE28;
-    v84[3] = MEMORY[0x1E695E0F8];
-    v40 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v84 forKeys:v83 count:4];
+    v43 = *MEMORY[0x1E6966208];
+    v89[0] = *MEMORY[0x1E6966130];
+    v89[1] = v43;
+    v90[0] = &unk_1F49BDDF8;
+    v90[1] = &unk_1F49BDE10;
+    v44 = *MEMORY[0x1E69660D8];
+    v89[2] = *MEMORY[0x1E69660B8];
+    v89[3] = v44;
+    v90[2] = &unk_1F49BDE28;
+    v90[3] = MEMORY[0x1E695E0F8];
+    v45 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v90 forKeys:v89 count:4];
     if (p_outputPixelBufferPool->value_)
     {
       CFRelease(p_outputPixelBufferPool->value_);
       p_outputPixelBufferPool->value_ = 0;
     }
 
-    createModel = CVPixelBufferPoolCreate(0, 0, v40, &self->_outputPixelBufferPool.value_);
+    v13 = CVPixelBufferPoolCreate(0, 0, v45, &self->_outputPixelBufferPool.value_);
 
-    if (!createModel)
+    if (!v13)
     {
 LABEL_24:
-      v58 = mach_absolute_time();
-      v59 = mach_absolute_time();
-      v23 = VCPSignPostLog();
-      spid = os_signpost_id_generate(v23);
+      v64 = mach_absolute_time();
+      v65 = mach_absolute_time();
+      v26 = VCPSignPostLog(v65);
+      spid = os_signpost_id_generate(v26);
 
-      v24 = VCPSignPostLog();
-      v25 = v24;
-      if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v24))
+      v28 = VCPSignPostLog(v27);
+      v29 = v28;
+      if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v28))
       {
         modelName = self->_modelName;
         modelVersion = self->_modelVersion;
@@ -461,42 +462,42 @@ LABEL_24:
         *(&buf.height + 6) = modelVersion;
         HIWORD(buf.width) = 2112;
         buf.rowBytes = uuid;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v25, OS_SIGNPOST_INTERVAL_BEGIN, spid, "VCPMADMLEnhancementModelExecution", "%@-%@ (%@)", &buf, 0x20u);
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v29, OS_SIGNPOST_INTERVAL_BEGIN, spid, "VCPMADMLEnhancementModelExecution", "%@-%@ (%@)", &buf, 0x20u);
       }
 
       if (CVPixelBufferGetWidth(pixelBuffer) == 3840 && CVPixelBufferGetHeight(pixelBuffer) == 2160)
       {
-        v29 = 0;
+        v33 = 0;
         goto LABEL_30;
       }
 
-      v65 = 0;
-      v66 = pixelBuffer;
+      v71 = 0;
+      v72 = pixelBuffer;
       unlockFlags = 1;
       if (pixelBuffer)
       {
-        createModel = CVPixelBufferLockBaseAddress(pixelBuffer, 1uLL);
-        v65 = createModel;
-        if (!createModel || os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR) && (LODWORD(buf.data) = 134218240, *(&buf.data + 4) = v66, WORD2(buf.height) = 1024, *(&buf.height + 6) = createModel, _os_log_error_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to lock CVPixelBuffer (%p, %d)", &buf, 0x12u), (createModel = v65) == 0))
+        v13 = CVPixelBufferLockBaseAddress(pixelBuffer, 1uLL);
+        v71 = v13;
+        if (!v13 || os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR) && (LODWORD(buf.data) = 134218240, *(&buf.data + 4) = v72, WORD2(buf.height) = 1024, *(&buf.height + 6) = v13, _os_log_error_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to lock CVPixelBuffer (%p, %d)", &buf, 0x12u), (v13 = v71) == 0))
         {
           buf.data = CVPixelBufferGetBaseAddress(pixelBuffer);
           buf.height = CVPixelBufferGetHeight(pixelBuffer);
           buf.width = CVPixelBufferGetWidth(pixelBuffer);
           buf.rowBytes = CVPixelBufferGetBytesPerRow(pixelBuffer);
           pixelBufferOut = 0;
-          v31 = CVPixelBufferPoolCreatePixelBuffer(0, p_outputPixelBufferPool->value_, &pixelBufferOut);
-          if (v31)
+          v36 = CVPixelBufferPoolCreatePixelBuffer(0, p_outputPixelBufferPool->value_, &pixelBufferOut);
+          if (v36)
           {
-            createModel = 0;
-            v37 = 16;
+            v13 = 0;
+            v42 = 16;
             goto LABEL_57;
           }
 
-          CVPixelBufferLock::CVPixelBufferLock(v63, pixelBufferOut, 0);
-          createModel = v63[0];
-          if (v63[0])
+          CVPixelBufferLock::CVPixelBufferLock(v69, pixelBufferOut, 0);
+          v13 = v69[0];
+          if (v69[0])
           {
-            v31 = 0;
+            v36 = 0;
           }
 
           else
@@ -505,41 +506,53 @@ LABEL_24:
             dest.height = CVPixelBufferGetHeight(pixelBufferOut);
             dest.width = CVPixelBufferGetWidth(pixelBufferOut);
             dest.rowBytes = CVPixelBufferGetBytesPerRow(pixelBufferOut);
-            v31 = vImageScale_ARGB8888(&buf, &dest, 0, 0x20u);
-            if (v31)
+            v36 = vImageScale_ARGB8888(&buf, &dest, 0, 0x20u);
+            if (v36)
             {
-              createModel = 0;
-              v37 = 16;
+              v13 = 0;
+              v42 = 16;
               goto LABEL_56;
             }
 
-            createModel = CVPixelBufferLock::Unlock(v63);
-            if (!createModel)
+            v13 = CVPixelBufferLock::Unlock(v69);
+            if (!v13)
             {
-              createModel = CVPixelBufferLock::Unlock(&v65);
-              if (!createModel)
+              v13 = CVPixelBufferLock::Unlock(&v71);
+              if (!v13)
               {
                 CVPixelBufferRelease(pixelBuffer);
-                v37 = 0;
-                createModel = 0;
+                v42 = 0;
+                v13 = 0;
                 pixelBuffer = pixelBufferOut;
                 goto LABEL_56;
               }
             }
           }
 
-          v37 = 1;
+          v42 = 1;
 LABEL_56:
-          CVPixelBufferLock::~CVPixelBufferLock(v63);
+          CVPixelBufferLock::~CVPixelBufferLock(v69);
 LABEL_57:
-          if (v66 && !v65 && CVPixelBufferUnlockBaseAddress(v66, unlockFlags) && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+          v35 = v72;
+          if (v72)
           {
-            [VCPVideoCNNAnalyzer copyImage:withChannels:settling:];
+            if (!v71)
+            {
+              v35 = CVPixelBufferUnlockBaseAddress(v72, unlockFlags);
+              if (v35)
+              {
+                v35 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+                if (v35)
+                {
+                  [VCPVideoCNNAnalyzer copyImage:withChannels:settling:];
+                }
+              }
+            }
           }
 
-          if (v37)
+          if (v42)
           {
-            if (v37 != 16)
+            if (v42 != 16)
             {
               goto LABEL_20;
             }
@@ -547,7 +560,7 @@ LABEL_57:
             goto LABEL_64;
           }
 
-          v29 = v31;
+          v33 = v36;
 LABEL_30:
           value = p_outputPixelBufferPool->value_;
           if (cf)
@@ -556,58 +569,59 @@ LABEL_30:
             cf = 0;
           }
 
-          v31 = CVPixelBufferPoolCreatePixelBuffer(0, value, &cf);
-          if (!v31)
+          v35 = CVPixelBufferPoolCreatePixelBuffer(0, value, &cf);
+          v36 = v35;
+          if (!v35)
           {
             [(CNNMLEnhancerEspresso *)self->_enhancer inferenceWithPixelBuffer:pixelBuffer toDestinationPixelBuffer:cf];
-            v32 = CVPixelBufferGetIOSurface(cf);
-            if (!v32 && MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+            v37 = CVPixelBufferGetIOSurface(cf);
+            if (!v37 && MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
             {
               LOWORD(buf.data) = 0;
               _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "VCPMADMLEnhancementTask failed creating output IOSurface", &buf, 2u);
             }
 
-            v33 = self->_request;
-            v34 = [objc_alloc(MEMORY[0x1E69AE350]) initWithSurface:v32];
-            v81 = v34;
-            v35 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v81 count:1];
-            [(MADMLEnhancementRequest *)v33 setResults:v35];
+            v38 = self->_request;
+            v39 = [objc_alloc(MEMORY[0x1E69AE350]) initWithSurface:v37];
+            v87 = v39;
+            v40 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v87 count:1];
+            [(MADMLEnhancementRequest *)v38 setResults:v40];
 
-            v36 = v32;
-            v31 = v29;
+            v41 = v37;
+            v36 = v33;
             goto LABEL_65;
           }
 
 LABEL_64:
-          v36 = 0;
+          v41 = 0;
 LABEL_65:
-          v41 = VCPSignPostLog();
-          v42 = v41;
-          if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v41))
+          v46 = VCPSignPostLog(v35);
+          v47 = v46;
+          if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v46))
           {
             LOWORD(buf.data) = 0;
-            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v42, OS_SIGNPOST_INTERVAL_END, spid, "VCPMADMLEnhancementModelExecution", "", &buf, 2u);
+            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v47, OS_SIGNPOST_INTERVAL_END, spid, "VCPMADMLEnhancementModelExecution", "", &buf, 2u);
           }
 
-          if (v59)
+          if (v65)
           {
-            mach_absolute_time();
-            VCPPerformance_LogMeasurement();
+            v48 = mach_absolute_time();
+            VCPPerformance_LogMeasurement("VCPMADMLEnhancementModelExecution", v48 - v65);
           }
 
-          v43 = mach_absolute_time();
-          v44 = info.numer;
+          v49 = mach_absolute_time();
+          v50 = info.numer;
           LODWORD(v3) = info.denom;
-          v74[0] = @"QoS";
-          v45 = qos_class_self();
-          spida = VCPMAQoSDescription(v45);
-          v75[0] = spida;
-          v75[1] = @"AerialWallpaperEnhancement";
-          v74[1] = @"RequestType";
-          v74[2] = @"AssetType";
-          v76 = vbslq_s8(vceqzq_s64(*&self->_modelName), vdupq_n_s64(@"Unknown"), *&self->_modelName);
-          v74[3] = @"AssetSubtype";
-          v74[4] = @"Client";
+          v80[0] = @"QoS";
+          v51 = qos_class_self();
+          spida = VCPMAQoSDescription(v51);
+          v81[0] = spida;
+          v81[1] = @"AerialWallpaperEnhancement";
+          v80[1] = @"RequestType";
+          v80[2] = @"AssetType";
+          v82 = vbslq_s8(vceqzq_s64(*&self->_modelName), vdupq_n_s64(@"Unknown"), *&self->_modelName);
+          v80[3] = @"AssetSubtype";
+          v80[4] = @"Client";
           uuid2 = [(MADMLEnhancementRequest *)self->_request uuid];
           if (uuid2)
           {
@@ -619,35 +633,35 @@ LABEL_65:
             uuid3 = @"Unknown";
           }
 
-          v77 = uuid3;
-          v74[5] = @"QueuedTime";
-          v48 = [MEMORY[0x1E696AD98] numberWithDouble:((v14 - v5) * numer) / v2 / 1000000.0];
-          v78 = v48;
-          v74[6] = @"ProcessingTime";
-          v49 = [MEMORY[0x1E696AD98] numberWithDouble:((v43 - v58) * v44) / v3 / 1000000.0];
-          v79 = v49;
-          v74[7] = @"Error";
-          v50 = [MEMORY[0x1E696AD98] numberWithInt:-v31];
-          v80 = v50;
-          v51 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v75 forKeys:v74 count:8];
+          v83 = uuid3;
+          v80[5] = @"QueuedTime";
+          v54 = [MEMORY[0x1E696AD98] numberWithDouble:((v17 - v5) * numer) / v2 / 1000000.0];
+          v84 = v54;
+          v80[6] = @"ProcessingTime";
+          v55 = [MEMORY[0x1E696AD98] numberWithDouble:((v49 - v64) * v50) / v3 / 1000000.0];
+          v85 = v55;
+          v80[7] = @"Error";
+          v56 = [MEMORY[0x1E696AD98] numberWithInt:-v36];
+          v86 = v56;
+          v57 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v81 forKeys:v80 count:8];
 
           if (uuid2)
           {
           }
 
-          v52 = +[VCPMADCoreAnalyticsManager sharedManager];
-          [v52 sendEvent:@"com.apple.mediaanalysisd.service.request" withAnalytics:v51];
+          v58 = +[VCPMADCoreAnalyticsManager sharedManager];
+          [v58 sendEvent:@"com.apple.mediaanalysisd.service.request" withAnalytics:v57];
 
-          if (v31)
+          if (v36)
           {
-            v53 = self->_request;
-            v54 = MEMORY[0x1E696ABC0];
-            v72 = *MEMORY[0x1E696A578];
-            v55 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Image pre-processing failed"];
-            v73 = v55;
-            v56 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v73 forKeys:&v72 count:1];
-            v57 = [v54 errorWithDomain:*MEMORY[0x1E696A768] code:v31 userInfo:v56];
-            [(MADMLEnhancementRequest *)v53 setError:v57];
+            v59 = self->_request;
+            v60 = MEMORY[0x1E696ABC0];
+            v78 = *MEMORY[0x1E696A578];
+            v61 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Image pre-processing failed"];
+            v79 = v61;
+            v62 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v79 forKeys:&v78 count:1];
+            v63 = [v60 errorWithDomain:*MEMORY[0x1E696A768] code:v36 userInfo:v62];
+            [(MADMLEnhancementRequest *)v59 setError:v63];
           }
 
           else if (pixelBuffer)
@@ -666,14 +680,14 @@ LABEL_65:
           [VCPVideoCNNAnalyzer copyImage:withChannels:settling:];
         }
 
-        createModel = -50;
+        v13 = -50;
       }
     }
   }
 
 LABEL_20:
   CF<__CVBuffer *>::~CF(&cf);
-  return createModel;
+  return v13;
 }
 
 - (id).cxx_construct

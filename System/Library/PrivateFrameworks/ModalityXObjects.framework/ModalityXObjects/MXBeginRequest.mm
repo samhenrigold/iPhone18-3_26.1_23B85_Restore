@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)inputOriginAsString:(int)string;
 - (int)StringAsInputOrigin:(id)origin;
 - (int)inputOrigin;
 - (unint64_t)hash;
@@ -29,6 +30,21 @@
   {
     return 0;
   }
+}
+
+- (id)inputOriginAsString:(int)string
+{
+  if (string >= 0x13)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27991B990[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsInputOrigin:(id)origin
@@ -318,7 +334,7 @@ LABEL_14:
 
 - (void)writeTo:(id)to
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   toCopy = to;
   if (self->_requestId)
   {
@@ -327,7 +343,6 @@ LABEL_14:
 
   if (*&self->_has)
   {
-    inputOrigin = self->_inputOrigin;
     PBDataWriterWriteInt32Field();
   }
 
@@ -339,7 +354,6 @@ LABEL_14:
   has = self->_has;
   if ((has & 2) != 0)
   {
-    enablePartialResults = self->_enablePartialResults;
     PBDataWriterWriteBOOLField();
     has = self->_has;
     if ((has & 0x10) == 0)
@@ -359,12 +373,10 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  isPromptedDictation = self->_isPromptedDictation;
   PBDataWriterWriteBOOLField();
   if ((*&self->_has & 8) != 0)
   {
 LABEL_10:
-    isPromptedConfirmation = self->_isPromptedConfirmation;
     PBDataWriterWriteBOOLField();
   }
 
@@ -376,40 +388,36 @@ LABEL_11:
 
   if ((*&self->_has & 4) != 0)
   {
-    isAutoPunctuationEnabled = self->_isAutoPunctuationEnabled;
     PBDataWriterWriteBOOLField();
   }
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
-  v19 = 0u;
-  v9 = self->_inlineLmeItems;
-  v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
-  if (v10)
+  v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v6 = self->_inlineLmeItems;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v7)
   {
-    v11 = v10;
-    v12 = *v19;
+    v8 = v7;
+    v9 = *v12;
     do
     {
-      for (i = 0; i != v11; ++i)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v19 != v12)
+        if (*v12 != v9)
         {
-          objc_enumerationMutation(v9);
+          objc_enumerationMutation(v6);
         }
 
-        v14 = *(*(&v18 + 1) + 8 * i);
         PBDataWriterWriteStringField();
       }
 
-      v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
-    while (v11);
+    while (v8);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyTo:(id)to
@@ -497,7 +505,7 @@ LABEL_11:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = [(NSString *)self->_requestId copyWithZone:zone];
   v7 = *(v5 + 40);
@@ -556,36 +564,35 @@ LABEL_7:
     *(v5 + 52) |= 4u;
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v13 = self->_inlineLmeItems;
-  v14 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v14 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v22;
+    v16 = *v21;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v22 != v16)
+        if (*v21 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = [*(*(&v21 + 1) + 8 * i) copyWithZone:{zone, v21}];
+        v18 = [*(*(&v20 + 1) + 8 * i) copyWithZone:{zone, v20}];
         [v5 addInlineLmeItems:v18];
       }
 
-      v15 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v15 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v15);
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -607,7 +614,6 @@ LABEL_7:
   }
 
   has = self->_has;
-  v7 = *(equalCopy + 52);
   if (has)
   {
     if ((*(equalCopy + 52) & 1) == 0 || self->_inputOrigin != *(equalCopy + 8))
@@ -632,7 +638,6 @@ LABEL_7:
     has = self->_has;
   }
 
-  v9 = *(equalCopy + 52);
   if ((has & 2) != 0)
   {
     if ((*(equalCopy + 52) & 2) == 0)
@@ -640,7 +645,6 @@ LABEL_7:
       goto LABEL_49;
     }
 
-    v14 = *(equalCopy + 48);
     if (self->_enablePartialResults)
     {
       if ((*(equalCopy + 48) & 1) == 0)
@@ -667,7 +671,6 @@ LABEL_7:
       goto LABEL_49;
     }
 
-    v15 = *(equalCopy + 51);
     if (self->_isPromptedDictation)
     {
       if ((*(equalCopy + 51) & 1) == 0)
@@ -694,7 +697,6 @@ LABEL_7:
       goto LABEL_49;
     }
 
-    v16 = *(equalCopy + 50);
     if (self->_isPromptedConfirmation)
     {
       if ((*(equalCopy + 50) & 1) == 0)
@@ -725,7 +727,6 @@ LABEL_7:
     has = self->_has;
   }
 
-  v11 = *(equalCopy + 52);
   if ((has & 4) == 0)
   {
     if ((*(equalCopy + 52) & 4) == 0)
@@ -734,7 +735,7 @@ LABEL_7:
     }
 
 LABEL_49:
-    v13 = 0;
+    v10 = 0;
     goto LABEL_50;
   }
 
@@ -743,7 +744,6 @@ LABEL_49:
     goto LABEL_49;
   }
 
-  v17 = *(equalCopy + 49);
   if (self->_isAutoPunctuationEnabled)
   {
     if ((*(equalCopy + 49) & 1) == 0)
@@ -761,17 +761,17 @@ LABEL_23:
   inlineLmeItems = self->_inlineLmeItems;
   if (inlineLmeItems | *(equalCopy + 3))
   {
-    v13 = [(NSMutableArray *)inlineLmeItems isEqual:?];
+    v10 = [(NSMutableArray *)inlineLmeItems isEqual:?];
   }
 
   else
   {
-    v13 = 1;
+    v10 = 1;
   }
 
 LABEL_50:
 
-  return v13;
+  return v10;
 }
 
 - (unint64_t)hash
@@ -840,7 +840,7 @@ LABEL_11:
 
 - (void)mergeFrom:(id)from
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   if (*(fromCopy + 5))
   {
@@ -912,35 +912,33 @@ LABEL_14:
     *&self->_has |= 4u;
   }
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v8 = *(fromCopy + 3);
-  v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v15;
+    v11 = *v14;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v15 != v11)
+        if (*v14 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        [(MXBeginRequest *)self addInlineLmeItems:*(*(&v14 + 1) + 8 * i), v14];
+        [(MXBeginRequest *)self addInlineLmeItems:*(*(&v13 + 1) + 8 * i), v13];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v10);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 @end

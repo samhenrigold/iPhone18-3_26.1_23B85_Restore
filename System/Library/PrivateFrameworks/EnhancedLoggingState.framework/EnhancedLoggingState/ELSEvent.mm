@@ -7,7 +7,7 @@
 
 + (void)createLoggingEventWith:(id)with postfix:(id)postfix
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   withCopy = with;
   postfixCopy = postfix;
   if (createLoggingEventWith_postfix__onceToken != -1)
@@ -47,8 +47,8 @@
     [v16 setObject:date forKeyedSubscript:@"capturedAt"];
 
     v20 = objc_alloc(MEMORY[0x277CBC4A0]);
-    v24[0] = v16;
-    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
+    v23[0] = v16;
+    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
     v22 = [v20 initWithRecordsToSave:v21 recordIDsToDelete:0];
 
     [v22 setPerRecordSaveBlock:&__block_literal_global_16];
@@ -63,8 +63,6 @@
       [ELSEvent createLoggingEventWith:cloudKitContainerIdentifier postfix:?];
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __43__ELSEvent_createLoggingEventWith_postfix___block_invoke_13(uint64_t a1, uint64_t a2, void *a3, void *a4)
@@ -135,20 +133,18 @@ void __43__ELSEvent_createLoggingEventWith_postfix___block_invoke_13(uint64_t a1
 
 void __43__ELSEvent_createLoggingEventWith_postfix___block_invoke_13_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_24A07C000, a2, OS_LOG_TYPE_ERROR, "Error saving enhancedLoggingEventRecord: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_24A07C000, a2, OS_LOG_TYPE_ERROR, "Error saving enhancedLoggingEventRecord: %{public}@", &v2, 0xCu);
 }
 
 void __43__ELSEvent_createLoggingEventWith_postfix___block_invoke_13_cold_2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_debug_impl(&dword_24A07C000, a2, OS_LOG_TYPE_DEBUG, "Saved enhancedLoggingEventRecord: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_debug_impl(&dword_24A07C000, a2, OS_LOG_TYPE_DEBUG, "Saved enhancedLoggingEventRecord: %{public}@", &v2, 0xCu);
 }
 
 @end

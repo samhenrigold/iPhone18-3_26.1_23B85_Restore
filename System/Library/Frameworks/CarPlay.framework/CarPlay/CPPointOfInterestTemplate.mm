@@ -235,26 +235,25 @@ void __42__CPPointOfInterestTemplate_performUpdate__block_invoke(uint64_t a1, vo
   v14 = &v15;
   [pointsOfInterest enumerateObjectsUsingBlock:v12];
 
-  v7 = v16[5];
-  if (!v7)
+  v8 = v16[5];
+  if (!v8)
   {
-    v8 = CarPlayFrameworkGeneralLogging();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v9 = CarPlayFrameworkGeneralLogging(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
       v22 = v6;
-      _os_log_impl(&dword_236ED4000, v8, OS_LOG_TYPE_INFO, "Failed to identify a local point of interest for %@", buf, 0xCu);
+      _os_log_impl(&dword_236ED4000, v9, OS_LOG_TYPE_INFO, "Failed to identify a local point of interest for %@", buf, 0xCu);
     }
 
-    v7 = v16[5];
+    v8 = v16[5];
   }
 
-  v9 = v7;
+  v10 = v8;
 
   _Block_object_dispose(&v15, 8);
-  v10 = *MEMORY[0x277D85DE8];
 
-  return v9;
+  return v10;
 }
 
 void __60__CPPointOfInterestTemplate__pointOfInterestWithIdentifier___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
@@ -285,24 +284,24 @@ void __60__CPPointOfInterestTemplate__pointOfInterestWithIdentifier___block_invo
 
 void __62__CPPointOfInterestTemplate_handleActionForControlIdentifier___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) entity];
   v3 = [v2 objectForIdentifier:*(a1 + 40)];
 
   if (v3)
   {
     v4 = v3;
-    v5 = CarPlayFrameworkGeneralLogging();
+    v5 = CarPlayFrameworkGeneralLogging(v4);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       v6 = *(a1 + 32);
       v7 = *(a1 + 40);
       *buf = 138412802;
-      v12 = v6;
-      v13 = 2112;
-      v14 = v4;
-      v15 = 2112;
-      v16 = v7;
+      v11 = v6;
+      v12 = 2112;
+      v13 = v4;
+      v14 = 2112;
+      v15 = v7;
       _os_log_impl(&dword_236ED4000, v5, OS_LOG_TYPE_INFO, "%@: Activated button: %@ for control identifier: %@", buf, 0x20u);
     }
 
@@ -312,12 +311,10 @@ void __62__CPPointOfInterestTemplate_handleActionForControlIdentifier___block_in
   else
   {
     v8 = *(a1 + 40);
-    v10.receiver = *(a1 + 32);
-    v10.super_class = CPPointOfInterestTemplate;
-    objc_msgSendSuper2(&v10, sel_handleActionForControlIdentifier_, v8);
+    v9.receiver = *(a1 + 32);
+    v9.super_class = CPPointOfInterestTemplate;
+    objc_msgSendSuper2(&v9, sel_handleActionForControlIdentifier_, v8);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)pointOfInterestDelegate

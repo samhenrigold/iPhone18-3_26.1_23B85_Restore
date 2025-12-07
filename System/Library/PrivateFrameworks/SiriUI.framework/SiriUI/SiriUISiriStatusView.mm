@@ -603,19 +603,19 @@ void __42__SiriUISiriStatusView__setupOrbIfNeeded___block_invoke(uint64_t a1)
   }
 }
 
-void __42__SiriUISiriStatusView__setupOrbIfNeeded___block_invoke_2(uint64_t a1)
+void __42__SiriUISiriStatusView__setupOrbIfNeeded___block_invoke_2(uint64_t result)
 {
-  if (!*(*(a1 + 32) + 464))
+  if (!*(*(result + 32) + 464))
   {
     v2 = objc_alloc_init(MEMORY[0x277CE65F8]);
-    v3 = *(a1 + 32);
+    v3 = *(result + 32);
     v4 = *(v3 + 464);
     *(v3 + 464) = v2;
 
-    [*(*(a1 + 32) + 464) setPreventsDisplaySleepDuringVideoPlayback:0];
-    [*(*(a1 + 32) + 464) setAllowsExternalPlayback:0];
-    [*(*(a1 + 32) + 464) pause];
-    v5 = *(a1 + 32);
+    [*(*(result + 32) + 464) setPreventsDisplaySleepDuringVideoPlayback:0];
+    [*(*(result + 32) + 464) setAllowsExternalPlayback:0];
+    [*(*(result + 32) + 464) pause];
+    v5 = *(result + 32);
     if (*(v5 + 480))
     {
       v6 = *(v5 + 464);
@@ -634,29 +634,29 @@ void __42__SiriUISiriStatusView__setupOrbIfNeeded___block_invoke_2(uint64_t a1)
   }
 }
 
-uint64_t __42__SiriUISiriStatusView__setupOrbIfNeeded___block_invoke_21(uint64_t result)
+void *__42__SiriUISiriStatusView__setupOrbIfNeeded___block_invoke_21(void *result)
 {
-  v1 = *(result + 32);
+  v1 = result[4];
   if (!*(v1 + 448))
   {
     v2 = result;
     v3 = [MEMORY[0x277CE65D8] playerLayerWithPlayer:*(v1 + 464)];
-    v4 = *(v2 + 32);
+    v4 = v2[4];
     v5 = *(v4 + 448);
     *(v4 + 448) = v3;
 
-    v6 = *(*(v2 + 32) + 448);
+    v6 = *(v2[4] + 448);
     v7 = [MEMORY[0x277CD9EA0] filterWithType:*MEMORY[0x277CDA5E8]];
     [v6 setCompositingFilter:v7];
 
-    v8 = *(v2 + 32);
+    v8 = v2[4];
     v9 = *(v8 + 448);
     [*(v8 + 440) bounds];
     [v9 setFrame:?];
-    v10 = [*(*(v2 + 32) + 440) layer];
-    [v10 addSublayer:*(*(v2 + 32) + 448)];
+    v10 = [*(v2[4] + 440) layer];
+    [v10 addSublayer:*(v2[4] + 448)];
 
-    v11 = *(v2 + 32);
+    v11 = v2[4];
 
     return [v11 setNeedsLayout];
   }
@@ -844,7 +844,7 @@ LABEL_7:
   }
 }
 
-uint64_t __48__SiriUISiriStatusView__animateSiriGlyphHidden___block_invoke(uint64_t a1)
+void *__48__SiriUISiriStatusView__animateSiriGlyphHidden___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   v3 = 0.0;
@@ -1162,6 +1162,20 @@ void __42__SiriUISiriStatusView__setupOrbIfNeeded___block_invoke_2_cold_1(os_log
   v1 = 136315138;
   v2 = "[SiriUISiriStatusView _setupOrbIfNeeded:]_block_invoke_2";
   _os_log_error_impl(&dword_26948D000, log, OS_LOG_TYPE_ERROR, "%s Using default audio session for glyphQueuePlayer", &v1, 0xCu);
+}
+
+void __42__SiriUISiriStatusView__setupOrbIfNeeded___block_invoke_33_cold_1()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_0();
+  OUTLINED_FUNCTION_1(&dword_26948D000, v0, v1, "%s Error setting ambient audio session for blob view: %@", v2, v3, v4, v5, v6);
+}
+
+void __42__SiriUISiriStatusView__setupOrbIfNeeded___block_invoke_33_cold_2()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_0();
+  OUTLINED_FUNCTION_1(&dword_26948D000, v0, v1, "%s Error setting playback audio session for blob view: %@", v2, v3, v4, v5, v6);
 }
 
 @end

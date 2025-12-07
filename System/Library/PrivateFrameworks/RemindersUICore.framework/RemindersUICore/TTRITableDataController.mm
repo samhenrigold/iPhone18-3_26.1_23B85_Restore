@@ -104,17 +104,18 @@
   v6 = sub_21DBF5D5C();
   v7 = *(v6 - 8);
   MEMORY[0x28223BE20](v6);
-  v9 = &v21 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v22 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_21DBF5CAC();
   viewCopy = view;
   selfCopy = self;
-  if (sub_21DBD5884(v9))
+  sub_21DBD5884(v9);
+  if (v15)
   {
-    v15 = v12;
-    v16 = v13;
-    v17 = v14;
+    v16 = v12;
+    v17 = v13;
+    v18 = v14;
     ObjectType = swift_getObjectType();
-    v19 = (*(v15 + 48))(v16, v17, viewCopy, ObjectType, v15);
+    v20 = (*(v16 + 48))(v17, v18, viewCopy, ObjectType, v16);
 
     swift_unknownObjectRelease();
     swift_unknownObjectRelease();
@@ -123,11 +124,11 @@
   else
   {
 
-    v19 = 0;
+    v20 = 0;
   }
 
   (*(v7 + 8))(v9, v6);
-  return v19 & 1;
+  return v20 & 1;
 }
 
 - (BOOL)tableView:(id)view canMoveRowAtIndexPath:(id)path
@@ -135,17 +136,18 @@
   v6 = sub_21DBF5D5C();
   v7 = *(v6 - 8);
   MEMORY[0x28223BE20](v6);
-  v9 = &v21 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v22 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_21DBF5CAC();
   viewCopy = view;
   selfCopy = self;
-  if (sub_21DBD5884(v9))
+  sub_21DBD5884(v9);
+  if (v15)
   {
-    v15 = v12;
-    v16 = v13;
-    v17 = v14;
+    v16 = v12;
+    v17 = v13;
+    v18 = v14;
     ObjectType = swift_getObjectType();
-    v19 = (*(v15 + 64))(v16, v17, viewCopy, ObjectType, v15);
+    v20 = (*(v16 + 64))(v17, v18, viewCopy, ObjectType, v16);
 
     swift_unknownObjectRelease();
     swift_unknownObjectRelease();
@@ -154,11 +156,11 @@
   else
   {
 
-    v19 = 0;
+    v20 = 0;
   }
 
   (*(v7 + 8))(v9, v6);
-  return v19 & 1;
+  return v20 & 1;
 }
 
 - (BOOL)tableView:(id)view shouldHighlightRowAtIndexPath:(id)path
@@ -166,14 +168,15 @@
   v5 = sub_21DBF5D5C();
   v6 = *(v5 - 8);
   MEMORY[0x28223BE20](v5);
-  v8 = &v15 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = &v16 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_21DBF5CAC();
   selfCopy = self;
-  if (sub_21DBD5210(v8))
+  sub_21DBD5210(v8);
+  if (v11)
   {
-    v11 = v10;
+    v12 = v10;
     ObjectType = swift_getObjectType();
-    v13 = (*(v11 + 88))(ObjectType, v11);
+    v14 = (*(v12 + 88))(ObjectType, v12);
 
     swift_unknownObjectRelease();
   }
@@ -181,11 +184,11 @@
   else
   {
 
-    v13 = 0;
+    v14 = 0;
   }
 
   (*(v6 + 8))(v8, v5);
-  return v13 & 1;
+  return v14 & 1;
 }
 
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path
@@ -193,15 +196,16 @@
   v6 = sub_21DBF5D5C();
   v7 = *(v6 - 8);
   MEMORY[0x28223BE20](v6);
-  v9 = &v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v16 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_21DBF5CAC();
   viewCopy = view;
   selfCopy = self;
-  if (sub_21DBD5210(v9))
+  sub_21DBD5210(v9);
+  if (v13)
   {
-    v13 = v12;
+    v14 = v12;
     ObjectType = swift_getObjectType();
-    (*(v13 + 96))(v9, viewCopy, ObjectType, v13);
+    (*(v14 + 96))(v9, viewCopy, ObjectType, v14);
 
     swift_unknownObjectRelease();
   }
@@ -218,17 +222,18 @@
   v8 = sub_21DBF5D5C();
   v9 = *(v8 - 8);
   MEMORY[0x28223BE20](v8);
-  v11 = &v21 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = &v22 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_21DBF5CAC();
   viewCopy = view;
   selfCopy = self;
-  if (sub_21DBD5884(v11))
+  sub_21DBD5884(v11);
+  if (v17)
   {
-    v17 = v14;
-    v18 = v15;
-    v19 = v16;
+    v18 = v14;
+    v19 = v15;
+    v20 = v16;
     ObjectType = swift_getObjectType();
-    (*(v17 + 72))(style, v18, v19, viewCopy, ObjectType, v17);
+    (*(v18 + 72))(style, v19, v20, viewCopy, ObjectType, v18);
 
     swift_unknownObjectRelease();
     swift_unknownObjectRelease();

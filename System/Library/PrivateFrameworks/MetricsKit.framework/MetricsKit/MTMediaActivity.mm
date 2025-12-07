@@ -37,24 +37,24 @@
   playlistItem = [(MTMediaActivity *)self playlistItem];
   v6 = [MTMediaActivity startOverallPositionForItem:playlistItem];
 
-  v7 = position - v6;
+  v8 = position - v6;
   if (position < v6)
   {
-    v8 = MTMetricsKitOSLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = MTMetricsKitOSLog(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       v15 = 134218240;
       positionCopy = position;
       v17 = 2048;
       v18 = v6;
-      _os_log_impl(&dword_258F4B000, v8, OS_LOG_TYPE_ERROR, "MetricsKit: Media Activity is recorded with incorrect overallPosition: %ld playlist item startOverallPosition: %ld", &v15, 0x16u);
+      _os_log_impl(&dword_258F4B000, v9, OS_LOG_TYPE_ERROR, "MetricsKit: Media Activity is recorded with incorrect overallPosition: %ld playlist item startOverallPosition: %ld", &v15, 0x16u);
     }
   }
 
   playlistItem2 = [(MTMediaActivity *)self playlistItem];
-  v10 = objc_opt_respondsToSelector();
+  v11 = objc_opt_respondsToSelector();
 
-  if (v10)
+  if (v11)
   {
     playlistItem3 = [(MTMediaActivity *)self playlistItem];
     startPosition = [playlistItem3 startPosition];
@@ -65,8 +65,7 @@
     startPosition = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-  return v7 + startPosition;
+  return v8 + startPosition;
 }
 
 - (void)startedAtOverallPosition:(unint64_t)position type:(id)type reason:(id)reason eventData:(id)data

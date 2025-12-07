@@ -462,32 +462,32 @@ void __56__SBFloorDodgingLayerModifier_modelForInvalidatedModel___block_invoke(u
   return v37;
 }
 
-void __87__SBFloorDodgingLayerModifier__modelsByTranslatingOverlappingIdentifiers_allowedEdges___block_invoke(uint64_t a1, void *a2)
+void __87__SBFloorDodgingLayerModifier__modelsByTranslatingOverlappingIdentifiers_allowedEdges___block_invoke(double *a1, void *a2)
 {
   v3 = a2;
   UIRectGetCenter();
-  [v3 setCenter:*(a1 + 32) forIdentifier:?];
+  [v3 setCenter:*(a1 + 4) forIdentifier:?];
 }
 
-void __87__SBFloorDodgingLayerModifier__modelsByTranslatingOverlappingIdentifiers_allowedEdges___block_invoke_2(uint64_t a1, void *a2)
+void __87__SBFloorDodgingLayerModifier__modelsByTranslatingOverlappingIdentifiers_allowedEdges___block_invoke_2(double *a1, void *a2)
 {
   v3 = a2;
   UIRectGetCenter();
-  [v3 setCenter:*(a1 + 32) forIdentifier:?];
+  [v3 setCenter:*(a1 + 4) forIdentifier:?];
 }
 
-void __87__SBFloorDodgingLayerModifier__modelsByTranslatingOverlappingIdentifiers_allowedEdges___block_invoke_3(uint64_t a1, void *a2)
+void __87__SBFloorDodgingLayerModifier__modelsByTranslatingOverlappingIdentifiers_allowedEdges___block_invoke_3(double *a1, void *a2)
 {
   v3 = a2;
   UIRectGetCenter();
-  [v3 setCenter:*(a1 + 32) forIdentifier:?];
+  [v3 setCenter:*(a1 + 4) forIdentifier:?];
 }
 
-void __87__SBFloorDodgingLayerModifier__modelsByTranslatingOverlappingIdentifiers_allowedEdges___block_invoke_4(uint64_t a1, void *a2)
+void __87__SBFloorDodgingLayerModifier__modelsByTranslatingOverlappingIdentifiers_allowedEdges___block_invoke_4(double *a1, void *a2)
 {
   v3 = a2;
   UIRectGetCenter();
-  [v3 setCenter:*(a1 + 32) forIdentifier:?];
+  [v3 setCenter:*(a1 + 4) forIdentifier:?];
 }
 
 - (id)_modelByClampingOverhangingIdentifiers:(id)identifiers
@@ -864,7 +864,7 @@ LABEL_12:
 
         v18 = *(*(&v66 + 1) + 8 * i);
         allKeys = [identifiersCopy allKeys];
-        v20 = [allKeys containsObject:v18];
+        v20 = objc_msgSend_containsObject_(allKeys);
 
         if (v20)
         {
@@ -912,7 +912,7 @@ LABEL_12:
               v42 = [(SBFloorDodgingLayerModifier *)self preferenceForIdentifier:v18];
               excludedDodgingIdentifiers = [v42 excludedDodgingIdentifiers];
 
-              if (([excludedDodgingIdentifiers containsObject:v41] & 1) == 0)
+              if ((objc_msgSend_containsObject_(excludedDodgingIdentifiers) & 1) == 0)
               {
                 v75.origin.y = y;
                 v75.origin.x = x;

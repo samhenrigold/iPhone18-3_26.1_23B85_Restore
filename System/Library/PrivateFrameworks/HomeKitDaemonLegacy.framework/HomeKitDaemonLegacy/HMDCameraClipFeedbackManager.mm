@@ -34,7 +34,7 @@
 
 - (void)_handleSubmitClipsMessage:(id)message
 {
-  v79 = *MEMORY[0x277D85DE8];
+  v78 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   workQueue = [(HMDCameraClipFeedbackManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -47,9 +47,9 @@
     v9 = HMFGetLogIdentifier();
     messagePayload = [messageCopy messagePayload];
     *buf = 138543618;
-    v73 = v9;
-    v74 = 2112;
-    v75 = messagePayload;
+    v72 = v9;
+    v73 = 2112;
+    v74 = messagePayload;
     _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Handling submit clips message payload: %@", buf, 0x16u);
   }
 
@@ -65,9 +65,9 @@
       v54 = HMFGetLogIdentifier();
       messagePayload2 = [messageCopy messagePayload];
       *buf = 138543618;
-      v73 = v54;
-      v74 = 2112;
-      v75 = messagePayload2;
+      v72 = v54;
+      v73 = 2112;
+      v74 = messagePayload2;
       _os_log_impl(&dword_2531F8000, v53, OS_LOG_TYPE_ERROR, "%{public}@Could not find clip UUIDs in message payload: %@", buf, 0x16u);
     }
 
@@ -77,37 +77,37 @@
     goto LABEL_41;
   }
 
-  v58 = messageCopy;
+  v57 = messageCopy;
   v12 = [MEMORY[0x277CBEB58] set];
+  v66 = 0u;
   v67 = 0u;
   v68 = 0u;
   v69 = 0u;
-  v70 = 0u;
-  v57 = v11;
+  v56 = v11;
   obj = v11;
-  v13 = [obj countByEnumeratingWithState:&v67 objects:v78 count:16];
+  v13 = [obj countByEnumeratingWithState:&v66 objects:v77 count:16];
   if (!v13)
   {
     goto LABEL_12;
   }
 
   v14 = v13;
-  v15 = *v68;
+  v15 = *v67;
 LABEL_6:
   v16 = 0;
   while (1)
   {
-    if (*v68 != v15)
+    if (*v67 != v15)
     {
       objc_enumerationMutation(obj);
     }
 
-    v17 = *(*(&v67 + 1) + 8 * v16);
+    v17 = *(*(&v66 + 1) + 8 * v16);
     localZone = [(HMDCameraClipFeedbackManager *)selfCopy localZone];
     v19 = objc_opt_class();
-    v66 = 0;
-    v20 = [localZone fetchModelWithModelID:v17 ofType:v19 error:&v66];
-    v21 = v66;
+    v65 = 0;
+    v20 = [localZone fetchModelWithModelID:v17 ofType:v19 error:&v65];
+    v21 = v65;
 
     if (!v20)
     {
@@ -118,35 +118,35 @@ LABEL_6:
 
     if (v14 == ++v16)
     {
-      v14 = [obj countByEnumeratingWithState:&v67 objects:v78 count:16];
+      v14 = [obj countByEnumeratingWithState:&v66 objects:v77 count:16];
       if (!v14)
       {
 LABEL_12:
 
-        v59 = [MEMORY[0x277CBEB58] set];
+        v58 = [MEMORY[0x277CBEB58] set];
+        v61 = 0u;
         v62 = 0u;
         v63 = 0u;
         v64 = 0u;
-        v65 = 0u;
         v12 = v12;
-        v22 = [v12 countByEnumeratingWithState:&v62 objects:v71 count:16];
+        v22 = [v12 countByEnumeratingWithState:&v61 objects:v70 count:16];
         if (!v22)
         {
           goto LABEL_31;
         }
 
         v23 = v22;
-        v24 = *v63;
+        v24 = *v62;
         while (1)
         {
           for (i = 0; i != v23; ++i)
           {
-            if (*v63 != v24)
+            if (*v62 != v24)
             {
               objc_enumerationMutation(v12);
             }
 
-            v26 = *(*(&v62 + 1) + 8 * i);
+            v26 = *(*(&v61 + 1) + 8 * i);
             feedbackStatus = [v26 feedbackStatus];
             switch(feedbackStatus)
             {
@@ -158,9 +158,9 @@ LABEL_12:
                 {
                   v39 = HMFGetLogIdentifier();
                   *buf = 138543618;
-                  v73 = v39;
-                  v74 = 2112;
-                  v75 = v26;
+                  v72 = v39;
+                  v73 = 2112;
+                  v74 = v26;
                   v40 = v38;
                   v41 = "%{public}@Clip is already uploaded: %@";
 LABEL_27:
@@ -179,9 +179,9 @@ LABEL_28:
                 {
                   v39 = HMFGetLogIdentifier();
                   *buf = 138543618;
-                  v73 = v39;
-                  v74 = 2112;
-                  v75 = v26;
+                  v72 = v39;
+                  v73 = 2112;
+                  v74 = v26;
                   v40 = v38;
                   v41 = "%{public}@Clip is already marked for upload: %@";
                   goto LABEL_27;
@@ -196,9 +196,9 @@ LABEL_28:
                 {
                   v31 = HMFGetLogIdentifier();
                   *buf = 138543618;
-                  v73 = v31;
-                  v74 = 2112;
-                  v75 = v26;
+                  v72 = v31;
+                  v73 = 2112;
+                  v74 = v26;
                   _os_log_impl(&dword_2531F8000, v30, OS_LOG_TYPE_INFO, "%{public}@Marking clip for upload: %@", buf, 0x16u);
                 }
 
@@ -209,33 +209,33 @@ LABEL_28:
                 v35 = [(HMBModel *)v32 initWithModelID:hmbModelID parentModelID:hmbParentModelID];
 
                 [(HMDCameraClipModel *)v35 setFeedbackStatus:1];
-                [v59 addObject:v35];
+                [v58 addObject:v35];
 
                 break;
             }
           }
 
-          v23 = [v12 countByEnumeratingWithState:&v62 objects:v71 count:16];
+          v23 = [v12 countByEnumeratingWithState:&v61 objects:v70 count:16];
           if (!v23)
           {
 LABEL_31:
 
-            if ([v59 count])
+            if ([v58 count])
             {
               localZone2 = [(HMDCameraClipFeedbackManager *)selfCopy localZone];
               v43 = [MEMORY[0x277D17108] optionsWithLabel:@"Marking clips for upload"];
-              v44 = [localZone2 updateModels:v59 options:v43];
+              v44 = [localZone2 updateModels:v58 options:v43];
 
-              v61[0] = MEMORY[0x277D85DD0];
-              v61[1] = 3221225472;
-              v61[2] = __58__HMDCameraClipFeedbackManager__handleSubmitClipsMessage___block_invoke;
-              v61[3] = &unk_2797330C8;
-              v61[4] = selfCopy;
-              v45 = [v44 addSuccessBlock:v61];
+              v60[0] = MEMORY[0x277D85DD0];
+              v60[1] = 3221225472;
+              v60[2] = __58__HMDCameraClipFeedbackManager__handleSubmitClipsMessage___block_invoke;
+              v60[3] = &unk_2797330C8;
+              v60[4] = selfCopy;
+              v45 = [v44 addSuccessBlock:v60];
             }
 
-            messageCopy = v58;
-            [v58 respondWithSuccess];
+            messageCopy = v57;
+            [v57 respondWithSuccess];
 
             goto LABEL_37;
           }
@@ -253,24 +253,22 @@ LABEL_31:
   {
     v49 = HMFGetLogIdentifier();
     *buf = 138543874;
-    v73 = v49;
-    v74 = 2112;
-    v75 = v17;
-    v76 = 2112;
-    v77 = v21;
+    v72 = v49;
+    v73 = 2112;
+    v74 = v17;
+    v75 = 2112;
+    v76 = v21;
     _os_log_impl(&dword_2531F8000, v48, OS_LOG_TYPE_ERROR, "%{public}@Failing request to submit because no clip model could be found for UUID %@: %@", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v46);
   v50 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:2];
-  messageCopy = v58;
-  [v58 respondWithError:v50];
+  messageCopy = v57;
+  [v57 respondWithError:v50];
 
 LABEL_37:
-  v11 = v57;
+  v11 = v56;
 LABEL_41:
-
-  v56 = *MEMORY[0x277D85DE8];
 }
 
 void __58__HMDCameraClipFeedbackManager__handleSubmitClipsMessage___block_invoke(uint64_t a1, void *a2)
@@ -290,7 +288,7 @@ void __58__HMDCameraClipFeedbackManager__handleSubmitClipsMessage___block_invoke
 
 - (void)_handleFindAndUploadSubmittedClipsMessage:(id)message
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   workQueue = [(HMDCameraClipFeedbackManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -302,18 +300,16 @@ void __58__HMDCameraClipFeedbackManager__handleSubmitClipsMessage___block_invoke
   {
     v9 = HMFGetLogIdentifier();
     shortDescription = [messageCopy shortDescription];
-    v12 = 138543618;
-    v13 = v9;
-    v14 = 2112;
-    v15 = shortDescription;
-    _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Handling find and upload submitted clips message: %@", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = v9;
+    v13 = 2112;
+    v14 = shortDescription;
+    _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Handling find and upload submitted clips message: %@", &v11, 0x16u);
   }
 
   objc_autoreleasePoolPop(v6);
   [(HMDCameraClipFeedbackManager *)selfCopy _findAndUploadSubmittedClips];
   [messageCopy respondWithSuccess];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handlePrimaryResidentUpdateNotification:(id)notification
@@ -329,7 +325,7 @@ void __58__HMDCameraClipFeedbackManager__handleSubmitClipsMessage___block_invoke
 
 void __72__HMDCameraClipFeedbackManager_handlePrimaryResidentUpdateNotification___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) isCurrentDeviceConfirmedPrimaryResident];
   v3 = objc_autoreleasePoolPush();
   v4 = *(a1 + 32);
@@ -340,9 +336,9 @@ void __72__HMDCameraClipFeedbackManager_handlePrimaryResidentUpdateNotification_
     if (v6)
     {
       v7 = HMFGetLogIdentifier();
-      v10 = 138543362;
-      v11 = v7;
-      _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@The current device is the confirmed primary resident", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v7;
+      _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@The current device is the confirmed primary resident", &v9, 0xCu);
     }
 
     objc_autoreleasePoolPop(v3);
@@ -354,26 +350,23 @@ void __72__HMDCameraClipFeedbackManager_handlePrimaryResidentUpdateNotification_
     if (v6)
     {
       v8 = HMFGetLogIdentifier();
-      v10 = 138543362;
-      v11 = v8;
-      _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@The current device is not the confirmed primary resident", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v8;
+      _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@The current device is not the confirmed primary resident", &v9, 0xCu);
     }
 
     objc_autoreleasePoolPop(v3);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_notifyPrimaryResidentThatClipsWereSubmitted
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDCameraClipFeedbackManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
   if ([(HMDCameraClipFeedbackManager *)self isCurrentDeviceConfirmedPrimaryResident])
   {
-    v4 = *MEMORY[0x277D85DE8];
 
     [(HMDCameraClipFeedbackManager *)self _findAndUploadSubmittedClips];
   }
@@ -385,56 +378,54 @@ void __72__HMDCameraClipFeedbackManager_handlePrimaryResidentUpdateNotification_
 
     if (primaryResident)
     {
-      v7 = [HMDRemoteDeviceMessageDestination alloc];
+      v6 = [HMDRemoteDeviceMessageDestination alloc];
       messageTargetUUID = [(HMDCameraClipFeedbackManager *)self messageTargetUUID];
       device = [primaryResident device];
-      v10 = [(HMDRemoteDeviceMessageDestination *)v7 initWithTarget:messageTargetUUID device:device];
+      v9 = [(HMDRemoteDeviceMessageDestination *)v6 initWithTarget:messageTargetUUID device:device];
 
-      v11 = [[HMDRemoteMessage alloc] initWithName:@"HMDCameraClipFeedbackFindAndUploadSubmittedClipsMessage" destination:v10 payload:0 type:3 timeout:1 secure:0.0];
-      v12 = objc_autoreleasePoolPush();
+      v10 = [[HMDRemoteMessage alloc] initWithName:@"HMDCameraClipFeedbackFindAndUploadSubmittedClipsMessage" destination:v9 payload:0 type:3 timeout:1 secure:0.0];
+      v11 = objc_autoreleasePoolPush();
       selfCopy = self;
-      v14 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+      v13 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
-        v15 = HMFGetLogIdentifier();
-        shortDescription = [(HMFObject *)v11 shortDescription];
-        v23 = 138543874;
-        v24 = v15;
+        v14 = HMFGetLogIdentifier();
+        shortDescription = [(HMFObject *)v10 shortDescription];
+        v21 = 138543874;
+        v22 = v14;
+        v23 = 2112;
+        v24 = shortDescription;
         v25 = 2112;
-        v26 = shortDescription;
-        v27 = 2112;
-        v28 = primaryResident;
-        _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_INFO, "%{public}@Sending message %@ that clips were submitted to %@", &v23, 0x20u);
+        v26 = primaryResident;
+        _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Sending message %@ that clips were submitted to %@", &v21, 0x20u);
       }
 
-      objc_autoreleasePoolPop(v12);
+      objc_autoreleasePoolPop(v11);
       messageDispatcher = [(HMDCameraClipFeedbackManager *)selfCopy messageDispatcher];
-      [messageDispatcher sendMessage:v11];
+      [messageDispatcher sendMessage:v10];
     }
 
     else
     {
-      v18 = objc_autoreleasePoolPush();
+      v17 = objc_autoreleasePoolPush();
       selfCopy2 = self;
-      v20 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v19 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
-        v21 = HMFGetLogIdentifier();
-        v23 = 138543362;
-        v24 = v21;
-        _os_log_impl(&dword_2531F8000, v20, OS_LOG_TYPE_ERROR, "%{public}@Could not find primary resident to send notifications to", &v23, 0xCu);
+        v20 = HMFGetLogIdentifier();
+        v21 = 138543362;
+        v22 = v20;
+        _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_ERROR, "%{public}@Could not find primary resident to send notifications to", &v21, 0xCu);
       }
 
-      objc_autoreleasePoolPop(v18);
+      objc_autoreleasePoolPop(v17);
     }
-
-    v22 = *MEMORY[0x277D85DE8];
   }
 }
 
 - (void)_uploadNextClipFromQueryResult:(id)result
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   resultCopy = result;
   workQueue = [(HMDCameraClipFeedbackManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -449,7 +440,7 @@ void __72__HMDCameraClipFeedbackManager_handlePrimaryResidentUpdateNotification_
     {
       v18 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v33 = v18;
+      v32 = v18;
       v19 = "%{public}@No more clips left to upload";
       v20 = v17;
       v21 = OS_LOG_TYPE_INFO;
@@ -473,9 +464,9 @@ LABEL_12:
     {
       v18 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v33 = v18;
-      v34 = 2112;
-      v35 = nextObject;
+      v32 = v18;
+      v33 = 2112;
+      v34 = nextObject;
       v19 = "%{public}@Current device is not a confirmed primary resident, will not upload clip %@";
       v20 = v17;
       v21 = OS_LOG_TYPE_DEFAULT;
@@ -497,9 +488,9 @@ LABEL_12:
     {
       v12 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v33 = v12;
-      v34 = 2112;
-      v35 = nextObject;
+      v32 = v12;
+      v33 = 2112;
+      v34 = nextObject;
       _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Clip %@ was already uploaded", buf, 0x16u);
     }
 
@@ -510,10 +501,10 @@ LABEL_12:
     block[2] = __63__HMDCameraClipFeedbackManager__uploadNextClipFromQueryResult___block_invoke;
     block[3] = &unk_2797359B0;
     block[4] = selfCopy3;
-    v31 = resultCopy;
+    v30 = resultCopy;
     dispatch_async(workQueue2, block);
 
-    v14 = v31;
+    v14 = v30;
   }
 
   else
@@ -522,34 +513,33 @@ LABEL_12:
     {
       v23 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v33 = v23;
-      v34 = 2112;
-      v35 = nextObject;
+      v32 = v23;
+      v33 = 2112;
+      v34 = nextObject;
       _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Uploading clip %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
     feedbackUploader = [(HMDCameraClipFeedbackManager *)selfCopy3 feedbackUploader];
     cameraProfileUUID = [(HMDCameraClipFeedbackManager *)selfCopy3 cameraProfileUUID];
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __63__HMDCameraClipFeedbackManager__uploadNextClipFromQueryResult___block_invoke_90;
-    v27[3] = &unk_279734D88;
-    v27[4] = selfCopy3;
-    v28 = nextObject;
-    v29 = resultCopy;
-    [feedbackUploader uploadFeedbackWithCameraProfileUUID:cameraProfileUUID clipModel:v28 completionHandler:v27];
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __63__HMDCameraClipFeedbackManager__uploadNextClipFromQueryResult___block_invoke_90;
+    v26[3] = &unk_279734D88;
+    v26[4] = selfCopy3;
+    v27 = nextObject;
+    v28 = resultCopy;
+    [feedbackUploader uploadFeedbackWithCameraProfileUUID:cameraProfileUUID clipModel:v27 completionHandler:v26];
 
-    v14 = v28;
+    v14 = v27;
   }
 
 LABEL_17:
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __63__HMDCameraClipFeedbackManager__uploadNextClipFromQueryResult___block_invoke_90(id *a1, void *a2)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = a1[4];
@@ -562,11 +552,11 @@ void __63__HMDCameraClipFeedbackManager__uploadNextClipFromQueryResult___block_i
       v8 = HMFGetLogIdentifier();
       v9 = a1[5];
       *buf = 138543874;
-      v25 = v8;
-      v26 = 2112;
-      v27 = v9;
-      v28 = 2112;
-      v29 = v3;
+      v24 = v8;
+      v25 = 2112;
+      v26 = v9;
+      v27 = 2112;
+      v28 = v3;
       _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_ERROR, "%{public}@Failed to upload clip %@: %@", buf, 0x20u);
     }
 
@@ -580,9 +570,9 @@ void __63__HMDCameraClipFeedbackManager__uploadNextClipFromQueryResult___block_i
       v10 = HMFGetLogIdentifier();
       v11 = a1[5];
       *buf = 138543618;
-      v25 = v10;
-      v26 = 2112;
-      v27 = v11;
+      v24 = v10;
+      v25 = 2112;
+      v26 = v11;
       _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Marking clip as uploaded: %@", buf, 0x16u);
     }
 
@@ -600,32 +590,30 @@ void __63__HMDCameraClipFeedbackManager__uploadNextClipFromQueryResult___block_i
   }
 
   v20 = [a1[4] workQueue];
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __63__HMDCameraClipFeedbackManager__uploadNextClipFromQueryResult___block_invoke_95;
-  v22[3] = &unk_2797359B0;
-  v22[4] = a1[4];
-  v23 = a1[6];
-  dispatch_async(v20, v22);
-
-  v21 = *MEMORY[0x277D85DE8];
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __63__HMDCameraClipFeedbackManager__uploadNextClipFromQueryResult___block_invoke_95;
+  v21[3] = &unk_2797359B0;
+  v21[4] = a1[4];
+  v22 = a1[6];
+  dispatch_async(v20, v21);
 }
 
 - (void)_findAndUploadSubmittedClips
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDCameraClipFeedbackManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
   if ([(HMDCameraClipFeedbackManager *)self isCurrentDeviceConfirmedPrimaryResident])
   {
     _performCloudPull = [(HMDCameraClipFeedbackManager *)self _performCloudPull];
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __60__HMDCameraClipFeedbackManager__findAndUploadSubmittedClips__block_invoke;
-    v11[3] = &unk_279733BC0;
-    v11[4] = self;
-    v5 = [_performCloudPull addCompletionBlock:v11];
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __60__HMDCameraClipFeedbackManager__findAndUploadSubmittedClips__block_invoke;
+    v10[3] = &unk_279733BC0;
+    v10[4] = self;
+    v5 = [_performCloudPull addCompletionBlock:v10];
   }
 
   else
@@ -637,14 +625,12 @@ void __63__HMDCameraClipFeedbackManager__uploadNextClipFromQueryResult___block_i
     {
       v9 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v13 = v9;
+      v12 = v9;
       _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Current device is not a confirmed primary resident, will not upload clips", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __60__HMDCameraClipFeedbackManager__findAndUploadSubmittedClips__block_invoke(uint64_t a1)
@@ -658,7 +644,7 @@ void __60__HMDCameraClipFeedbackManager__findAndUploadSubmittedClips__block_invo
 
 - (id)_performCloudPull
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDCameraClipFeedbackManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -669,7 +655,7 @@ void __60__HMDCameraClipFeedbackManager__findAndUploadSubmittedClips__block_invo
   {
     v7 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v20 = v7;
+    v19 = v7;
     _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Performing cloud pull", buf, 0xCu);
   }
 
@@ -682,21 +668,19 @@ void __60__HMDCameraClipFeedbackManager__findAndUploadSubmittedClips__block_invo
   v13 = [v11 schedulerWithDispatchQueue:workQueue2];
   v14 = [v10 reschedule:v13];
 
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __49__HMDCameraClipFeedbackManager__performCloudPull__block_invoke;
-  v18[3] = &unk_2797359D8;
-  v18[4] = selfCopy;
-  v15 = [v14 addFailureBlock:v18];
-
-  v16 = *MEMORY[0x277D85DE8];
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __49__HMDCameraClipFeedbackManager__performCloudPull__block_invoke;
+  v17[3] = &unk_2797359D8;
+  v17[4] = selfCopy;
+  v15 = [v14 addFailureBlock:v17];
 
   return v15;
 }
 
 void __49__HMDCameraClipFeedbackManager__performCloudPull__block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -704,15 +688,14 @@ void __49__HMDCameraClipFeedbackManager__performCloudPull__block_invoke(uint64_t
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543618;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to perform cloud pull: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v7;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to perform cloud pull: %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isCurrentDeviceConfirmedPrimaryResident
@@ -728,7 +711,7 @@ void __49__HMDCameraClipFeedbackManager__performCloudPull__block_invoke(uint64_t
 
 - (void)configureWithIsCurrentDeviceResidentCapable:(BOOL)capable
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDCameraClipFeedbackManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -739,7 +722,7 @@ void __49__HMDCameraClipFeedbackManager__performCloudPull__block_invoke(uint64_t
   {
     v9 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v33 = v9;
+    v32 = v9;
     _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Configuring clip feedback manager", buf, 0xCu);
   }
 
@@ -751,9 +734,9 @@ void __49__HMDCameraClipFeedbackManager__performCloudPull__block_invoke(uint64_t
     v12 = [HMDUserMessagePolicy userMessagePolicyWithHome:home userPrivilege:0 remoteAccessRequired:0];
     messageDispatcher = [(HMDCameraClipFeedbackManager *)selfCopy messageDispatcher];
     v14 = *MEMORY[0x277CCF4B8];
-    v31[0] = v11;
-    v31[1] = v12;
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:2];
+    v30[0] = v11;
+    v30[1] = v12;
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:2];
     [messageDispatcher registerForMessage:v14 receiver:selfCopy policies:v15 selector:sel__handleSubmitClipsMessage_];
 
     if (capable)
@@ -764,8 +747,8 @@ void __49__HMDCameraClipFeedbackManager__performCloudPull__block_invoke(uint64_t
 
       v18 = +[HMDRemoteMessagePolicy defaultSecurePolicy];
       messageDispatcher2 = [(HMDCameraClipFeedbackManager *)selfCopy messageDispatcher];
-      v30 = v18;
-      v20 = [MEMORY[0x277CBEA60] arrayWithObjects:&v30 count:1];
+      v29 = v18;
+      v20 = [MEMORY[0x277CBEA60] arrayWithObjects:&v29 count:1];
       [messageDispatcher2 registerForMessage:@"HMDCameraClipFeedbackFindAndUploadSubmittedClipsMessage" receiver:selfCopy policies:v20 selector:sel__handleFindAndUploadSubmittedClipsMessage_];
 
       [(HMDCameraClipFeedbackManager *)selfCopy _findAndUploadSubmittedClips];
@@ -780,7 +763,7 @@ void __49__HMDCameraClipFeedbackManager__performCloudPull__block_invoke(uint64_t
       {
         v28 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v33 = v28;
+        v32 = v28;
         _os_log_impl(&dword_2531F8000, v27, OS_LOG_TYPE_INFO, "%{public}@Current device is not resident capable, clip uploading is not available", buf, 0xCu);
       }
 
@@ -797,14 +780,12 @@ void __49__HMDCameraClipFeedbackManager__performCloudPull__block_invoke(uint64_t
     {
       v24 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v33 = v24;
+      v32 = v24;
       _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_DEFAULT, "%{public}@Cannot configure clip feedback manager because home reference is nil", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v21);
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDCameraClipFeedbackManager)initWithLocalZone:(id)zone cloudZone:(id)cloudZone home:(id)home messageDispatcher:(id)dispatcher cameraProfileUUID:(id)d messageTargetUUID:(id)iD workQueue:(id)queue feedbackUploader:(id)self0
@@ -883,7 +864,7 @@ LABEL_19:
   if (v24)
   {
     objc_storeWeak(&v24->_home, homeCopy);
-    v26 = [dCopy copy];
+    v26 = objc_msgSend_copy(dCopy);
     cameraProfileUUID = v25->_cameraProfileUUID;
     v25->_cameraProfileUUID = v26;
 
@@ -976,12 +957,11 @@ LABEL_15:
 
 uint64_t __43__HMDCameraClipFeedbackManager_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v24_177236;
-  logCategory__hmf_once_v24_177236 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v24_177236;
+  logCategory__hmf_once_v24_177236 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

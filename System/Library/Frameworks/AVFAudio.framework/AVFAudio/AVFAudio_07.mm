@@ -7,8 +7,8 @@ void sub_1BA66BD50(_Unwind_Exception *a1)
 
 void ControllerImpl::deleteRecordingEngines(ControllerImpl *this)
 {
-  v7[4] = *MEMORY[0x1E69E9840];
-  std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v5, *(this + 1), *(this + 2));
+  v6[4] = *MEMORY[0x1E69E9840];
+  std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v4, *(this + 1), *(this + 2));
   v2 = *(this + 72);
   v3 = *(this + 73);
   if (v3)
@@ -27,10 +27,10 @@ void ControllerImpl::deleteRecordingEngines(ControllerImpl *this)
     goto LABEL_10;
   }
 
-  v7[0] = &unk_1F3847D30;
-  v7[3] = v7;
-  AVVCRecordingEngineMap::for_each_engine(v2, v7, "deleteRecordingEngines");
-  std::__function::__value_func<void ()(std::shared_ptr<AVVCRecordingEngine>)>::~__value_func[abi:ne200100](v7);
+  v6[0] = &unk_1F3847D30;
+  v6[3] = v6;
+  AVVCRecordingEngineMap::for_each_engine(v2, v6, "deleteRecordingEngines");
+  std::__function::__value_func<void ()(std::shared_ptr<AVVCRecordingEngine>)>::~__value_func[abi:ne200100](v6);
   if (IsSerializationEnabled(void)::onceToken != -1)
   {
     dispatch_once(&IsSerializationEnabled(void)::onceToken, &__block_literal_global_197);
@@ -65,12 +65,10 @@ LABEL_9:
 LABEL_10:
   *(this + 59) = 0;
 LABEL_11:
-  if (v6)
+  if (v5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v6);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1BA66BEE8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11, char a12)
@@ -90,7 +88,7 @@ void sub_1BA66BEE8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void std::__function::__func<ControllerImpl::deleteRecordingEngines(void)::$_0,std::allocator<ControllerImpl::deleteRecordingEngines(void)::$_0>,void ()(std::shared_ptr<AVVCRecordingEngine>)>::operator()(uint64_t a1, uint64_t *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = *a2;
   v2 = a2[1];
   *a2 = 0;
@@ -114,36 +112,30 @@ void std::__function::__func<ControllerImpl::deleteRecordingEngines(void)::$_0,s
 
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315650;
-    v9 = "AVVCRecordingEngine.mm";
+    v6 = 136315650;
+    v7 = "AVVCRecordingEngine.mm";
+    v8 = 1024;
+    v9 = 1093;
     v10 = 1024;
-    v11 = 1093;
-    v12 = 1024;
-    v13 = 1;
-    _os_log_impl(&dword_1BA5AC000, v4, OS_LOG_TYPE_DEFAULT, "%25s:%-5d AVVCRecordingEngine::setAVVCTeardownCompleted(%d)", &v8, 0x18u);
+    v11 = 1;
+    _os_log_impl(&dword_1BA5AC000, v4, OS_LOG_TYPE_DEFAULT, "%25s:%-5d AVVCRecordingEngine::setAVVCTeardownCompleted(%d)", &v6, 0x18u);
   }
 
 LABEL_8:
   if (v2)
   {
-    v6 = *MEMORY[0x1E69E9840];
 
     std::__shared_weak_count::__release_shared[abi:ne200100](v2);
-  }
-
-  else
-  {
-    v7 = *MEMORY[0x1E69E9840];
   }
 }
 
 void ControllerImpl::setEndpointerDelegate(uint64_t a1, void *a2, void *a3, unint64_t a4)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
-  std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v27, *(a1 + 8), *(a1 + 16));
-  WeakRetained = objc_loadWeakRetained(v27 + 52);
+  std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v26, *(a1 + 8), *(a1 + 16));
+  WeakRetained = objc_loadWeakRetained(v26 + 52);
   LOBYTE(a1) = WeakRetained == v8;
 
   if (a1)
@@ -151,47 +143,47 @@ void ControllerImpl::setEndpointerDelegate(uint64_t a1, void *a2, void *a3, unin
     goto LABEL_25;
   }
 
-  ControllerImpl::waitForAllStopRecordCompletion(v27, v7);
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3321888768;
-  v23[2] = ___ZN14ControllerImpl21setEndpointerDelegateEP17AVVoiceControllerPU21objcproto10Endpointer11objc_objectm_block_invoke;
-  v23[3] = &unk_1F3848DF0;
-  v10 = v27;
+  ControllerImpl::waitForAllStopRecordCompletion(v26, v7);
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3321888768;
+  v22[2] = ___ZN14ControllerImpl21setEndpointerDelegateEP17AVVoiceControllerPU21objcproto10Endpointer11objc_objectm_block_invoke;
+  v22[3] = &unk_1F3848DF0;
+  v10 = v26;
+  v24 = v26;
   v25 = v27;
-  v26 = v28;
-  if (v28)
+  if (v27)
   {
-    atomic_fetch_add_explicit(&v28->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v27->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v24 = v8;
-  ControllerImpl::safeNotifySync(v10, "set endpointer delegate", v23);
-  v11 = objc_loadWeakRetained(v27 + 52);
+  v23 = v8;
+  ControllerImpl::safeNotifySync(v10, "set endpointer delegate", v22);
+  v11 = objc_loadWeakRetained(v26 + 52);
   v12 = v11 == 0;
 
   if (!v12)
   {
-    v13 = v27;
-    v14 = v28;
-    if (v28)
+    v13 = v26;
+    v14 = v27;
+    if (v27)
     {
-      atomic_fetch_add_explicit(&v28->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v27->__shared_weak_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3321888768;
-    v21[2] = ___ZN14ControllerImpl21setEndpointerDelegateEP17AVVoiceControllerPU21objcproto10Endpointer11objc_objectm_block_invoke_148;
-    v21[3] = &__block_descriptor_48_ea8_32c39_ZTSNSt3__18weak_ptrI14ControllerImplEE_e5_v8__0l;
-    v21[4] = v13;
-    v22 = v14;
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3321888768;
+    v20[2] = ___ZN14ControllerImpl21setEndpointerDelegateEP17AVVoiceControllerPU21objcproto10Endpointer11objc_objectm_block_invoke_148;
+    v20[3] = &__block_descriptor_48_ea8_32c39_ZTSNSt3__18weak_ptrI14ControllerImplEE_e5_v8__0l;
+    v20[4] = v13;
+    v21 = v14;
     if (v14)
     {
       atomic_fetch_add_explicit(&v14->__shared_weak_owners_, 1uLL, memory_order_relaxed);
     }
 
-    ControllerImpl::safeNotify(v13, "endpointer reset", v21);
-    v15 = objc_loadWeakRetained(v27 + 52);
-    *(v27 + 424) = objc_opt_respondsToSelector() & 1;
+    ControllerImpl::safeNotify(v13, "endpointer reset", v20);
+    v15 = objc_loadWeakRetained(v26 + 52);
+    *(v26 + 424) = objc_opt_respondsToSelector() & 1;
 
     if (kAVVCScope)
     {
@@ -199,10 +191,10 @@ void ControllerImpl::setEndpointerDelegate(uint64_t a1, void *a2, void *a3, unin
       if (!v16)
       {
 LABEL_19:
-        ControllerImpl::setupEndpointer(v27, a4);
-        if (v22)
+        ControllerImpl::setupEndpointer(v26, a4);
+        if (v21)
         {
-          std::__shared_weak_count::__release_weak(v22);
+          std::__shared_weak_count::__release_weak(v21);
         }
 
         if (v14)
@@ -222,9 +214,9 @@ LABEL_19:
 
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
-      v18 = *(v27 + 424) == 0;
+      v18 = *(v26 + 424) == 0;
       *buf = 136315650;
-      v30 = "ControllerImpl.mm";
+      v29 = "ControllerImpl.mm";
       if (v18)
       {
         v19 = "external";
@@ -235,10 +227,10 @@ LABEL_19:
         v19 = "internal Speex";
       }
 
-      v31 = 1024;
-      v32 = 966;
-      v33 = 2080;
-      v34 = v19;
+      v30 = 1024;
+      v31 = 966;
+      v32 = 2080;
+      v33 = v19;
       _os_log_impl(&dword_1BA5AC000, v16, OS_LOG_TYPE_DEBUG, "%25s:%-5d #### setEndpointerDelegate: using %s endpointer ####", buf, 0x1Cu);
     }
 
@@ -247,18 +239,16 @@ LABEL_19:
 
 LABEL_23:
 
-  if (v26)
+  if (v25)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v26);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v25);
   }
 
 LABEL_25:
-  if (v28)
+  if (v27)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v28);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v27);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1BA66C400(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, std::__shared_weak_count *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20, uint64_t a21, std::__shared_weak_count *a22, uint64_t a23, std::__shared_weak_count *a24)
@@ -288,7 +278,7 @@ void sub_1BA66C400(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void ControllerImpl::waitForAllStopRecordCompletion(ControllerImpl *this, AVVoiceController *a2)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(this + 72);
   v5 = *(this + 73);
@@ -341,27 +331,27 @@ void ControllerImpl::waitForAllStopRecordCompletion(ControllerImpl *this, AVVoic
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v23 = "ControllerImpl.mm";
-      v24 = 1024;
-      v25 = 1424;
+      v22 = "ControllerImpl.mm";
+      v23 = 1024;
+      v24 = 1424;
       _os_log_impl(&dword_1BA5AC000, v7, OS_LOG_TYPE_DEFAULT, "%25s:%-5d waitForAllStopRecordCompletion: wait for all didStops to be delivered to the client", buf, 0x12u);
     }
 
 LABEL_17:
-    std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v19, *(this + 1), *(this + 2));
-    v10 = v19;
-    v9 = v20;
-    if (v20)
+    std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v18, *(this + 1), *(this + 2));
+    v10 = v18;
+    v9 = v19;
+    if (v19)
     {
-      atomic_fetch_add_explicit(&v20->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v19->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v21[0] = &unk_1F384DF28;
-    v21[1] = v10;
-    v21[2] = v9;
-    v21[3] = v21;
-    AVVCRecordingEngineMap::for_each_engine(v4, v21, "waitForAllStopRecordCompletion");
-    std::__function::__value_func<void ()(std::shared_ptr<AVVCRecordingEngine>)>::~__value_func[abi:ne200100](v21);
+    v20[0] = &unk_1F384DF28;
+    v20[1] = v10;
+    v20[2] = v9;
+    v20[3] = v20;
+    AVVCRecordingEngineMap::for_each_engine(v4, v20, "waitForAllStopRecordCompletion");
+    std::__function::__value_func<void ()(std::shared_ptr<AVVCRecordingEngine>)>::~__value_func[abi:ne200100](v20);
     v11 = *(this + 22);
     if (!v11)
     {
@@ -376,9 +366,9 @@ LABEL_31:
       *(this + 22) = 0;
 
 LABEL_32:
-      if (v20)
+      if (v19)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v20);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v19);
       }
 
       goto LABEL_34;
@@ -395,7 +385,7 @@ LABEL_28:
         if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
         {
           *buf = 134217984;
-          v23 = 0x4008000000000000;
+          v22 = 0x4008000000000000;
           _os_log_fault_impl(&dword_1BA5AC000, v15, OS_LOG_TYPE_FAULT, "DelegateDispatchGroup timed out after %f seconds", buf, 0xCu);
         }
 
@@ -412,11 +402,11 @@ LABEL_28:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v23 = "ControllerImpl.mm";
-      v24 = 1024;
-      v25 = 4412;
-      v26 = 2048;
-      v27 = 0x4008000000000000;
+      v22 = "ControllerImpl.mm";
+      v23 = 1024;
+      v24 = 4412;
+      v25 = 2048;
+      v26 = 0x4008000000000000;
       _os_log_impl(&dword_1BA5AC000, v13, OS_LOG_TYPE_ERROR, "%25s:%-5d DelegateDispatchGroup timed out after %f seconds", buf, 0x1Cu);
     }
 
@@ -428,8 +418,6 @@ LABEL_34:
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v5);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1BA66C79C(_Unwind_Exception *a1)
@@ -444,7 +432,7 @@ void sub_1BA66C79C(_Unwind_Exception *a1)
 
 void ControllerImpl::safeNotifySync(uint64_t a1, uint64_t a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (v5)
   {
@@ -480,21 +468,19 @@ LABEL_13:
 
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      v9 = 136315650;
-      v10 = "ControllerImpl.mm";
-      v11 = 1024;
-      v12 = 4552;
-      v13 = 2080;
-      v14 = a2;
-      _os_log_impl(&dword_1BA5AC000, v6, OS_LOG_TYPE_DEBUG, "%25s:%-5d calling %s synchronously", &v9, 0x1Cu);
+      v8 = 136315650;
+      v9 = "ControllerImpl.mm";
+      v10 = 1024;
+      v11 = 4552;
+      v12 = 2080;
+      v13 = a2;
+      _os_log_impl(&dword_1BA5AC000, v6, OS_LOG_TYPE_DEBUG, "%25s:%-5d calling %s synchronously", &v8, 0x1Cu);
     }
 
     goto LABEL_13;
   }
 
 LABEL_14:
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1BA66C960(_Unwind_Exception *a1)
@@ -506,65 +492,58 @@ void sub_1BA66C960(_Unwind_Exception *a1)
 
 void ___ZN14ControllerImpl21setEndpointerDelegateEP17AVVoiceControllerPU21objcproto10Endpointer11objc_objectm_block_invoke_148(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 40);
-  if (v2)
-  {
-    v3 = std::__shared_weak_count::lock(v2);
-    if (v3)
-    {
-      v4 = *(a1 + 32);
-      if (v4)
-      {
-        WeakRetained = objc_loadWeakRetained((v4 + 416));
-        [WeakRetained reset];
-
-LABEL_14:
-        std::__shared_weak_count::__release_shared[abi:ne200100](v3);
-        goto LABEL_15;
-      }
-    }
-  }
-
-  else
+  if (!v2)
   {
     v3 = 0;
+    goto LABEL_6;
   }
 
-  if (kAVVCScope)
+  v3 = std::__shared_weak_count::lock(v2);
+  if (!v3 || (v4 = *(a1 + 32)) == 0)
   {
-    v6 = *kAVVCScope;
-    if (!v6)
+LABEL_6:
+    if (kAVVCScope)
     {
-      goto LABEL_13;
+      v6 = *kAVVCScope;
+      if (!v6)
+      {
+        goto LABEL_13;
+      }
     }
-  }
 
-  else
-  {
-    v6 = MEMORY[0x1E69E9C10];
-    v7 = MEMORY[0x1E69E9C10];
-  }
+    else
+    {
+      v6 = MEMORY[0x1E69E9C10];
+      v7 = MEMORY[0x1E69E9C10];
+    }
 
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
-  {
-    v9 = 136315650;
-    v10 = "ControllerImpl.mm";
-    v11 = 1024;
-    v12 = 961;
-    v13 = 2048;
-    v14 = 0;
-    _os_log_impl(&dword_1BA5AC000, v6, OS_LOG_TYPE_ERROR, "%25s:%-5d nil object encountered (impl: %p). Bailing", &v9, 0x1Cu);
-  }
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    {
+      v8 = 136315650;
+      v9 = "ControllerImpl.mm";
+      v10 = 1024;
+      v11 = 961;
+      v12 = 2048;
+      v13 = 0;
+      _os_log_impl(&dword_1BA5AC000, v6, OS_LOG_TYPE_ERROR, "%25s:%-5d nil object encountered (impl: %p). Bailing", &v8, 0x1Cu);
+    }
 
 LABEL_13:
-  if (v3)
-  {
+    if (!v3)
+    {
+      return;
+    }
+
     goto LABEL_14;
   }
 
-LABEL_15:
-  v8 = *MEMORY[0x1E69E9840];
+  WeakRetained = objc_loadWeakRetained((v4 + 416));
+  [WeakRetained reset];
+
+LABEL_14:
+  std::__shared_weak_count::__release_shared[abi:ne200100](v3);
 }
 
 void sub_1BA66CABC(_Unwind_Exception *a1)
@@ -715,19 +694,20 @@ void ___ZN14ControllerImpl15setupEndpointerEm_block_invoke(uint64_t a1)
   _Block_object_dispose(v15, 8);
 }
 
-void sub_1BA66CDEC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, std::__shared_weak_count *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20)
+void sub_1BA66CDEC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, std::__shared_weak_count *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
+  va_start(va, a19);
   if (a15)
   {
     std::__shared_weak_count::__release_weak(a15);
   }
 
-  if (v20)
+  if (v19)
   {
-    std::__shared_weak_count::__release_weak(v20);
+    std::__shared_weak_count::__release_weak(v19);
   }
 
-  _Block_object_dispose(&a20, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -780,120 +760,125 @@ __n128 __Block_byref_object_copy__153(uint64_t a1, uint64_t a2)
 
 void ___ZN14ControllerImpl15setupEndpointerEm_block_invoke_156(uint64_t a1)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 48);
-  if (!v2)
+  if (v2)
   {
-    v3 = 0;
-    goto LABEL_8;
-  }
-
-  v3 = std::__shared_weak_count::lock(v2);
-  if (!v3 || (v4 = *(a1 + 40)) == 0)
-  {
-LABEL_8:
-    if (kAVVCScope)
+    v3 = std::__shared_weak_count::lock(v2);
+    if (v3)
     {
-      v6 = *kAVVCScope;
-      if (!v6)
+      v4 = *(a1 + 40);
+      if (v4)
       {
-        goto LABEL_15;
+        if (kAVVCScope)
+        {
+          v5 = *kAVVCScope;
+          if (!v5)
+          {
+LABEL_21:
+            if (*(a1 + 80))
+            {
+              WeakRetained = objc_loadWeakRetained((v4 + 416));
+              v10 = objc_opt_respondsToSelector();
+
+              v11 = objc_loadWeakRetained((v4 + 416));
+              v12 = v11;
+              v13 = *(*(a1 + 32) + 8);
+              if (v10)
+              {
+                [v11 configureWithASBD:v13 + 48 andFrameRate:*(a1 + 80)];
+              }
+
+              else
+              {
+                [v11 configureWithSampleRate:*(a1 + 80) andFrameRate:*(v13 + 48)];
+              }
+            }
+
+            v14 = objc_loadWeakRetained((v4 + 416));
+            v15 = v14;
+            if (*(a1 + 84) == 1)
+            {
+              v16 = 1;
+            }
+
+            else
+            {
+              v16 = 2;
+            }
+
+            [v14 setEndpointMode:v16];
+
+            v17 = objc_loadWeakRetained((v4 + 416));
+            [v17 setStartWaitTime:*(a1 + 56)];
+
+            v18 = objc_loadWeakRetained((v4 + 416));
+            [v18 setInterspeechWaitTime:*(a1 + 64)];
+
+            v19 = objc_loadWeakRetained((v4 + 416));
+            [v19 setEndWaitTime:*(a1 + 72)];
+
+            goto LABEL_30;
+          }
+        }
+
+        else
+        {
+          v5 = MEMORY[0x1E69E9C10];
+          v8 = MEMORY[0x1E69E9C10];
+        }
+
+        if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+        {
+          v20 = 136315394;
+          v21 = "ControllerImpl.mm";
+          v22 = 1024;
+          v23 = 991;
+          _os_log_impl(&dword_1BA5AC000, v5, OS_LOG_TYPE_DEBUG, "%25s:%-5d setupEndpointer: configuring SR and wait times", &v20, 0x12u);
+        }
+
+        goto LABEL_21;
       }
     }
-
-    else
-    {
-      v6 = MEMORY[0x1E69E9C10];
-      v7 = MEMORY[0x1E69E9C10];
-    }
-
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
-    {
-      v21 = 136315650;
-      v22 = "ControllerImpl.mm";
-      v23 = 1024;
-      v24 = 990;
-      v25 = 2048;
-      v26 = 0;
-      _os_log_impl(&dword_1BA5AC000, v6, OS_LOG_TYPE_ERROR, "%25s:%-5d nil object encountered (impl: %p). Bailing", &v21, 0x1Cu);
-    }
-
-LABEL_15:
-    if (!v3)
-    {
-      goto LABEL_31;
-    }
-
-    goto LABEL_30;
-  }
-
-  if (!kAVVCScope)
-  {
-    v5 = MEMORY[0x1E69E9C10];
-    v8 = MEMORY[0x1E69E9C10];
-    goto LABEL_18;
-  }
-
-  v5 = *kAVVCScope;
-  if (v5)
-  {
-LABEL_18:
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
-    {
-      v21 = 136315394;
-      v22 = "ControllerImpl.mm";
-      v23 = 1024;
-      v24 = 991;
-      _os_log_impl(&dword_1BA5AC000, v5, OS_LOG_TYPE_DEBUG, "%25s:%-5d setupEndpointer: configuring SR and wait times", &v21, 0x12u);
-    }
-  }
-
-  if (*(a1 + 80))
-  {
-    WeakRetained = objc_loadWeakRetained((v4 + 416));
-    v10 = objc_opt_respondsToSelector();
-
-    v11 = objc_loadWeakRetained((v4 + 416));
-    v12 = v11;
-    v13 = *(*(a1 + 32) + 8);
-    if (v10)
-    {
-      [v11 configureWithASBD:v13 + 48 andFrameRate:*(a1 + 80)];
-    }
-
-    else
-    {
-      [v11 configureWithSampleRate:*(a1 + 80) andFrameRate:*(v13 + 48)];
-    }
-  }
-
-  v14 = objc_loadWeakRetained((v4 + 416));
-  v15 = v14;
-  if (*(a1 + 84) == 1)
-  {
-    v16 = 1;
   }
 
   else
   {
-    v16 = 2;
+    v3 = 0;
   }
 
-  [v14 setEndpointMode:v16];
+  if (kAVVCScope)
+  {
+    v6 = *kAVVCScope;
+    if (!v6)
+    {
+      goto LABEL_15;
+    }
+  }
 
-  v17 = objc_loadWeakRetained((v4 + 416));
-  [v17 setStartWaitTime:*(a1 + 56)];
+  else
+  {
+    v6 = MEMORY[0x1E69E9C10];
+    v7 = MEMORY[0x1E69E9C10];
+  }
 
-  v18 = objc_loadWeakRetained((v4 + 416));
-  [v18 setInterspeechWaitTime:*(a1 + 64)];
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  {
+    v20 = 136315650;
+    v21 = "ControllerImpl.mm";
+    v22 = 1024;
+    v23 = 990;
+    v24 = 2048;
+    v25 = 0;
+    _os_log_impl(&dword_1BA5AC000, v6, OS_LOG_TYPE_ERROR, "%25s:%-5d nil object encountered (impl: %p). Bailing", &v20, 0x1Cu);
+  }
 
-  v19 = objc_loadWeakRetained((v4 + 416));
-  [v19 setEndWaitTime:*(a1 + 72)];
-
+LABEL_15:
+  if (v3)
+  {
 LABEL_30:
-  std::__shared_weak_count::__release_shared[abi:ne200100](v3);
-LABEL_31:
-  v20 = *MEMORY[0x1E69E9840];
+    std::__shared_weak_count::__release_shared[abi:ne200100](v3);
+  }
 }
 
 void __destroy_helper_block_ea8_32c39_ZTSNSt3__18weak_ptrI14ControllerImplEE(uint64_t a1)
@@ -920,7 +905,7 @@ uint64_t __copy_helper_block_ea8_32c39_ZTSNSt3__18weak_ptrI14ControllerImplEE(ui
 
 void std::__function::__func<ControllerImpl::waitForAllStopRecordCompletion(AVVoiceController *)::$_0,std::allocator<ControllerImpl::waitForAllStopRecordCompletion(AVVoiceController *)::$_0>,void ()(std::shared_ptr<AVVCRecordingEngine>)>::operator()(uint64_t a1, uint64_t *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = *a2;
   v2 = a2[1];
   *a2 = 0;
@@ -936,17 +921,17 @@ void std::__function::__func<ControllerImpl::waitForAllStopRecordCompletion(AVVo
   *&buf[16] = ___ZN14ControllerImpl30configureDelegateDispatchGroupENSt3__110shared_ptrI19AVVCRecordingEngineEE_block_invoke;
   *&buf[24] = &__block_descriptor_56_ea8_40c47_ZTSNSt3__110shared_ptrI19AVVCRecordingEngineEE_e5_v8__0l;
   *&buf[32] = v4;
-  v17 = v3;
-  v18 = v2;
+  v16 = v3;
+  v17 = v2;
   if (v2)
   {
     atomic_fetch_add_explicit(&v2->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
   v5 = AVVCRecordingEngine::if_running_then(v3, buf);
-  if (v18)
+  if (v17)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v18);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v17);
   }
 
   if (v2)
@@ -1030,8 +1015,6 @@ LABEL_27:
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v2);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1BA66D3F8(_Unwind_Exception *a1)
@@ -1142,10 +1125,10 @@ void *std::__function::__func<ControllerImpl::waitForAllStopRecordCompletion(AVV
 
 void ControllerImpl::configureAlertModeFromModeAndEngine(uint64_t a1, uint64_t a2, uint64_t *a3, void *a4)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v7 = a4;
-  TraceMethod::TraceMethod(v24, "configureAlertModeFromModeAndEngine");
-  std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v22, *(a1 + 8), *(a1 + 16));
+  TraceMethod::TraceMethod(v23, "configureAlertModeFromModeAndEngine");
+  std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v21, *(a1 + 8), *(a1 + 16));
   if (*a3)
   {
     goto LABEL_11;
@@ -1165,9 +1148,9 @@ LABEL_6:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v26 = "ControllerImpl.mm";
-      v27 = 1024;
-      v28 = 1041;
+      v25 = "ControllerImpl.mm";
+      v26 = 1024;
+      v27 = 1041;
       _os_log_impl(&dword_1BA5AC000, v8, OS_LOG_TYPE_ERROR, "%25s:%-5d configureAlertModeFromModeAndEngine: Nil recording engine. Abandon ship!", buf, 0x12u);
     }
   }
@@ -1179,49 +1162,47 @@ LABEL_6:
 
 LABEL_11:
   v10 = *a3;
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3321888768;
-  v14[2] = ___ZN14ControllerImpl35configureAlertModeFromModeAndEngineElNSt3__110shared_ptrI19AVVCRecordingEngineEEU13block_pointerFviE_block_invoke;
-  v14[3] = &unk_1F38480F0;
-  v16 = a1;
-  v17 = v10;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3321888768;
+  v13[2] = ___ZN14ControllerImpl35configureAlertModeFromModeAndEngineElNSt3__110shared_ptrI19AVVCRecordingEngineEEU13block_pointerFviE_block_invoke;
+  v13[3] = &unk_1F38480F0;
+  v15 = a1;
+  v16 = v10;
   v11 = a3[1];
-  v18 = v11;
+  v17 = v11;
   if (v11)
   {
     atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
+  v18 = v21;
   v19 = v22;
-  v20 = v23;
-  if (v23)
+  if (v22)
   {
-    atomic_fetch_add_explicit(&v23->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v22->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v21 = a2;
+  v20 = a2;
   v12 = v7;
-  v15 = v12;
-  (*(*v10 + 328))(v10, v14, "configureAlertModeFromModeAndEngine");
+  v14 = v12;
+  (*(*v10 + 328))(v10, v13, "configureAlertModeFromModeAndEngine");
 
-  if (v20)
+  if (v19)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v20);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v19);
   }
 
-  if (v18)
+  if (v17)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v18);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v17);
   }
 
-  if (v23)
+  if (v22)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v23);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v22);
   }
 
-  TraceMethod::~TraceMethod(v24);
-
-  v13 = *MEMORY[0x1E69E9840];
+  TraceMethod::~TraceMethod(v23);
 }
 
 void sub_1BA66D8FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, std::__shared_weak_count *a21)
@@ -1238,7 +1219,7 @@ void sub_1BA66D8FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void ___ZN14ControllerImpl35configureAlertModeFromModeAndEngineElNSt3__110shared_ptrI19AVVCRecordingEngineEEU13block_pointerFviE_block_invoke(uint64_t a1)
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 40);
   if (!AVVCRouteManager::isOutputWiredHeadset(*(*(a1 + 48) + 368)))
   {
@@ -1266,9 +1247,9 @@ void ___ZN14ControllerImpl35configureAlertModeFromModeAndEngineElNSt3__110shared
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315394;
-      v31 = "ControllerImpl.mm";
-      v32 = 1024;
-      v33 = 1055;
+      v30 = "ControllerImpl.mm";
+      v31 = 1024;
+      v32 = 1055;
       _os_log_impl(&dword_1BA5AC000, v5, OS_LOG_TYPE_DEBUG, "%25s:%-5d configureAlertModeFromModeAndEngine: record start time was set -- check for ZLL", buf, 0x12u);
     }
 
@@ -1302,11 +1283,11 @@ LABEL_42:
       }
 
       *buf = 136315650;
-      v31 = "ControllerImpl.mm";
-      v32 = 1024;
-      v33 = 1069;
-      v34 = 1024;
-      LODWORD(v35) = v12;
+      v30 = "ControllerImpl.mm";
+      v31 = 1024;
+      v32 = 1069;
+      v33 = 1024;
+      LODWORD(v34) = v12;
       v15 = "%25s:%-5d configureAlertModeFromModeAndEngine: ZLL query - back frames: %u";
       v16 = v13;
       v17 = 24;
@@ -1345,11 +1326,11 @@ LABEL_43:
 
       v19 = *(*(a1 + 48) + 232);
       *buf = 136315650;
-      v31 = "ControllerImpl.mm";
-      v32 = 1024;
-      v33 = 1075;
-      v34 = 2048;
-      v35 = v19;
+      v30 = "ControllerImpl.mm";
+      v31 = 1024;
+      v32 = 1075;
+      v33 = 2048;
+      v34 = v19;
       v15 = "%25s:%-5d configureAlertModeFromModeAndEngine: CarPlay supports ZLL. recordStartTime : %llu";
       v16 = v13;
       v17 = 28;
@@ -1373,9 +1354,9 @@ LABEL_10:
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v31 = "ControllerImpl.mm";
-      v32 = 1024;
-      v33 = 1050;
+      v30 = "ControllerImpl.mm";
+      v31 = 1024;
+      v32 = 1050;
       _os_log_impl(&dword_1BA5AC000, v3, OS_LOG_TYPE_DEFAULT, "%25s:%-5d configureAlertModeFromModeAndEngine: Wired headset output - disable ZLL", buf, 0x12u);
     }
   }
@@ -1391,9 +1372,9 @@ LABEL_18:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315394;
-      v31 = "ControllerImpl.mm";
-      v32 = 1024;
-      v33 = 1087;
+      v30 = "ControllerImpl.mm";
+      v31 = 1024;
+      v32 = 1087;
       _os_log_impl(&dword_1BA5AC000, v7, OS_LOG_TYPE_DEBUG, "%25s:%-5d configureAlertModeFromModeAndEngine: record start time not set", buf, 0x12u);
     }
 
@@ -1410,24 +1391,22 @@ LABEL_18:
 LABEL_44:
   isOutputHandsFree = AVVCRouteManager::isOutputHandsFree(*(*(a1 + 48) + 368));
   v21 = *(a1 + 64);
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = ___ZN14ControllerImpl35configureAlertModeFromModeAndEngineElNSt3__110shared_ptrI19AVVCRecordingEngineEEU13block_pointerFviE_block_invoke_163;
-  v24[3] = &unk_1E7EF5B08;
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = ___ZN14ControllerImpl35configureAlertModeFromModeAndEngineElNSt3__110shared_ptrI19AVVCRecordingEngineEEU13block_pointerFviE_block_invoke_163;
+  v23[3] = &unk_1E7EF5B08;
   v22 = *(a1 + 80);
-  v26 = v2;
-  v27 = v22;
-  v28 = isOutputHandsFree;
-  v29 = v8;
-  v25 = *(a1 + 32);
-  ControllerImpl::safeWork(v21, v24, "configureAlertModeFromModeAndEngine_block_invoke");
-
-  v23 = *MEMORY[0x1E69E9840];
+  v25 = v2;
+  v26 = v22;
+  v27 = isOutputHandsFree;
+  v28 = v8;
+  v24 = *(a1 + 32);
+  ControllerImpl::safeWork(v21, v23, "configureAlertModeFromModeAndEngine_block_invoke");
 }
 
 uint64_t ___ZN14ControllerImpl35configureAlertModeFromModeAndEngineElNSt3__110shared_ptrI19AVVCRecordingEngineEEU13block_pointerFviE_block_invoke_163(uint64_t a1)
 {
-  v65 = *MEMORY[0x1E69E9840];
+  v64 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 40);
   v2 = *(a1 + 48);
   if (v2 <= 1768764004)
@@ -1461,8 +1440,8 @@ LABEL_41:
         if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
         {
           v20 = *(a1 + 48);
-          v50 = "ControllerImpl.mm";
-          v49 = 136315650;
+          v49 = "ControllerImpl.mm";
+          v48 = 136315650;
           if (v20 == 1635087471)
           {
             v21 = "Auto";
@@ -1473,11 +1452,11 @@ LABEL_41:
             v21 = "Post-Voice";
           }
 
-          v51 = 1024;
-          v52 = 1302;
-          v53 = 2080;
-          v54 = v21;
-          _os_log_impl(&dword_1BA5AC000, v10, OS_LOG_TYPE_DEBUG, "%25s:%-5d configureAlertModeFromModeAndEngine: %s", &v49, 0x1Cu);
+          v50 = 1024;
+          v51 = 1302;
+          v52 = 2080;
+          v53 = v21;
+          _os_log_impl(&dword_1BA5AC000, v10, OS_LOG_TYPE_DEBUG, "%25s:%-5d configureAlertModeFromModeAndEngine: %s", &v48, 0x1Cu);
         }
 
         goto LABEL_77;
@@ -1559,16 +1538,16 @@ LABEL_155:
       else
       {
         v9 = MEMORY[0x1E69E9C10];
-        v46 = MEMORY[0x1E69E9C10];
+        v45 = MEMORY[0x1E69E9C10];
       }
 
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
-        v49 = 136315394;
-        v50 = "ControllerImpl.mm";
-        v51 = 1024;
-        v52 = 1322;
-        _os_log_impl(&dword_1BA5AC000, v9, OS_LOG_TYPE_DEBUG, "%25s:%-5d configureAlertModeFromModeAndEngine: VoiceTriggerTraining", &v49, 0x12u);
+        v48 = 136315394;
+        v49 = "ControllerImpl.mm";
+        v50 = 1024;
+        v51 = 1322;
+        _os_log_impl(&dword_1BA5AC000, v9, OS_LOG_TYPE_DEBUG, "%25s:%-5d configureAlertModeFromModeAndEngine: VoiceTriggerTraining", &v48, 0x12u);
       }
 
       goto LABEL_155;
@@ -1587,27 +1566,27 @@ LABEL_44:
     else
     {
       v12 = MEMORY[0x1E69E9C10];
-      v38 = MEMORY[0x1E69E9C10];
+      v37 = MEMORY[0x1E69E9C10];
     }
 
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
-      v49 = 136315394;
-      v50 = "ControllerImpl.mm";
-      v51 = 1024;
-      v52 = 1276;
-      _os_log_impl(&dword_1BA5AC000, v12, OS_LOG_TYPE_DEBUG, "%25s:%-5d configureAlertModeFromModeAndEngine: HomeButtonPress/UIButtonPress", &v49, 0x12u);
+      v48 = 136315394;
+      v49 = "ControllerImpl.mm";
+      v50 = 1024;
+      v51 = 1276;
+      _os_log_impl(&dword_1BA5AC000, v12, OS_LOG_TYPE_DEBUG, "%25s:%-5d configureAlertModeFromModeAndEngine: HomeButtonPress/UIButtonPress", &v48, 0x12u);
     }
 
 LABEL_119:
-    v39 = MGGetBoolAnswer();
+    v38 = MGGetBoolAnswer();
     if (kAVVCScope)
     {
-      v40 = *kAVVCScope;
-      if (!v40)
+      v39 = *kAVVCScope;
+      if (!v39)
       {
 LABEL_128:
-        if ((v39 & 1) == 0 && (*(a1 + 57) & 1) == 0)
+        if ((v38 & 1) == 0 && (*(a1 + 57) & 1) == 0)
         {
           if (kAVVCScope)
           {
@@ -1621,16 +1600,16 @@ LABEL_128:
           else
           {
             v10 = MEMORY[0x1E69E9C10];
-            v48 = MEMORY[0x1E69E9C10];
+            v47 = MEMORY[0x1E69E9C10];
           }
 
           if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
           {
-            v49 = 136315394;
-            v50 = "ControllerImpl.mm";
-            v51 = 1024;
-            v52 = 1283;
-            _os_log_impl(&dword_1BA5AC000, v10, OS_LOG_TYPE_DEBUG, "%25s:%-5d configureAlertModeFromModeAndEngine: no vibrator support and no ZLL", &v49, 0x12u);
+            v48 = 136315394;
+            v49 = "ControllerImpl.mm";
+            v50 = 1024;
+            v51 = 1283;
+            _os_log_impl(&dword_1BA5AC000, v10, OS_LOG_TYPE_DEBUG, "%25s:%-5d configureAlertModeFromModeAndEngine: no vibrator support and no ZLL", &v48, 0x12u);
           }
 
           goto LABEL_77;
@@ -1639,15 +1618,15 @@ LABEL_128:
         v8 = *(v3 + 336);
         if (v8 == -1)
         {
-          v44 = *(a1 + 57);
-          if (*(a1 + 56) == 1 && (v44 & 1) == 0)
+          v43 = *(a1 + 57);
+          if (*(a1 + 56) == 1 && (v43 & 1) == 0)
           {
             LODWORD(v8) = 2;
           }
 
           else
           {
-            LODWORD(v8) = v44 ^ 1;
+            LODWORD(v8) = v43 ^ 1;
           }
         }
 
@@ -1685,26 +1664,26 @@ LABEL_128:
 
     else
     {
+      v39 = MEMORY[0x1E69E9C10];
       v40 = MEMORY[0x1E69E9C10];
-      v41 = MEMORY[0x1E69E9C10];
     }
 
-    if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
     {
-      v42 = "built-in speaker";
-      v43 = *(a1 + 56);
-      v50 = "ControllerImpl.mm";
-      v49 = 136315650;
-      if (v43)
+      v41 = "built-in speaker";
+      v42 = *(a1 + 56);
+      v49 = "ControllerImpl.mm";
+      v48 = 136315650;
+      if (v42)
       {
-        v42 = "handsFree";
+        v41 = "handsFree";
       }
 
-      v51 = 1024;
-      v52 = 1281;
-      v53 = 2080;
-      v54 = v42;
-      _os_log_impl(&dword_1BA5AC000, v40, OS_LOG_TYPE_DEBUG, "%25s:%-5d configureAlertModeFromModeAndEngine: %s", &v49, 0x1Cu);
+      v50 = 1024;
+      v51 = 1281;
+      v52 = 2080;
+      v53 = v41;
+      _os_log_impl(&dword_1BA5AC000, v39, OS_LOG_TYPE_DEBUG, "%25s:%-5d configureAlertModeFromModeAndEngine: %s", &v48, 0x1Cu);
     }
 
     goto LABEL_128;
@@ -1750,18 +1729,18 @@ LABEL_35:
           v14 = "Dictation";
         }
 
-        v50 = "ControllerImpl.mm";
-        v49 = 136315650;
+        v49 = "ControllerImpl.mm";
+        v48 = 136315650;
         if (v15 == 1768764005)
         {
           v14 = "iMessageGestureToHead";
         }
 
-        v51 = 1024;
-        v52 = 1346;
-        v53 = 2080;
-        v54 = v14;
-        _os_log_impl(&dword_1BA5AC000, v10, OS_LOG_TYPE_DEBUG, "%25s:%-5d configureAlertModeFromModeAndEngine: %s", &v49, 0x1Cu);
+        v50 = 1024;
+        v51 = 1346;
+        v52 = 2080;
+        v53 = v14;
+        _os_log_impl(&dword_1BA5AC000, v10, OS_LOG_TYPE_DEBUG, "%25s:%-5d configureAlertModeFromModeAndEngine: %s", &v48, 0x1Cu);
       }
 
 LABEL_77:
@@ -1821,16 +1800,16 @@ LABEL_141:
     else
     {
       v6 = MEMORY[0x1E69E9C10];
-      v45 = MEMORY[0x1E69E9C10];
+      v44 = MEMORY[0x1E69E9C10];
     }
 
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      v49 = 136315394;
-      v50 = "ControllerImpl.mm";
-      v51 = 1024;
-      v52 = 1336;
-      _os_log_impl(&dword_1BA5AC000, v6, OS_LOG_TYPE_DEBUG, "%25s:%-5d configureAlertModeFromModeAndEngine: iMessage", &v49, 0x12u);
+      v48 = 136315394;
+      v49 = "ControllerImpl.mm";
+      v50 = 1024;
+      v51 = 1336;
+      _os_log_impl(&dword_1BA5AC000, v6, OS_LOG_TYPE_DEBUG, "%25s:%-5d configureAlertModeFromModeAndEngine: iMessage", &v48, 0x12u);
     }
 
     goto LABEL_141;
@@ -1864,16 +1843,16 @@ LABEL_168:
       else
       {
         v18 = MEMORY[0x1E69E9C10];
-        v47 = MEMORY[0x1E69E9C10];
+        v46 = MEMORY[0x1E69E9C10];
       }
 
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
       {
-        v49 = 136315394;
-        v50 = "ControllerImpl.mm";
-        v51 = 1024;
-        v52 = 1354;
-        _os_log_impl(&dword_1BA5AC000, v18, OS_LOG_TYPE_DEBUG, "%25s:%-5d configureAlertModeFromModeAndEngine: default", &v49, 0x12u);
+        v48 = 136315394;
+        v49 = "ControllerImpl.mm";
+        v50 = 1024;
+        v51 = 1354;
+        _os_log_impl(&dword_1BA5AC000, v18, OS_LOG_TYPE_DEBUG, "%25s:%-5d configureAlertModeFromModeAndEngine: default", &v48, 0x12u);
       }
 
       goto LABEL_168;
@@ -1928,11 +1907,11 @@ LABEL_59:
 
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      v49 = 136315394;
-      v50 = "ControllerImpl.mm";
-      v51 = 1024;
-      v52 = 1316;
-      _os_log_impl(&dword_1BA5AC000, v11, OS_LOG_TYPE_DEBUG, "%25s:%-5d configureAlertModeFromModeAndEngine: Built-In/BT/CarPlay Voice Activation", &v49, 0x12u);
+      v48 = 136315394;
+      v49 = "ControllerImpl.mm";
+      v50 = 1024;
+      v51 = 1316;
+      _os_log_impl(&dword_1BA5AC000, v11, OS_LOG_TYPE_DEBUG, "%25s:%-5d configureAlertModeFromModeAndEngine: Built-In/BT/CarPlay Voice Activation", &v48, 0x12u);
     }
 
     goto LABEL_59;
@@ -2069,33 +2048,32 @@ LABEL_87:
       v35 = off_1E7EF6228[v34];
     }
 
-    v49 = 136316930;
-    v50 = "ControllerImpl.mm";
-    v51 = 1024;
-    v52 = 1364;
-    v53 = 2080;
-    v54 = v25;
-    v55 = 2080;
-    v56 = v27;
-    v57 = 2080;
-    v58 = v29;
-    v59 = 2080;
-    v60 = v31;
-    v61 = 2080;
-    v62 = v33;
-    v63 = 2080;
-    v64 = v35;
-    _os_log_impl(&dword_1BA5AC000, v22, OS_LOG_TYPE_DEFAULT, "%25s:%-5d configureAlertModeFromModeAndEngine: [final alert modes, overrides] : Start[%s, %s], Stop[%s, %s], StopWError[%s, %s])", &v49, 0x4Eu);
+    v48 = 136316930;
+    v49 = "ControllerImpl.mm";
+    v50 = 1024;
+    v51 = 1364;
+    v52 = 2080;
+    v53 = v25;
+    v54 = 2080;
+    v55 = v27;
+    v56 = 2080;
+    v57 = v29;
+    v58 = 2080;
+    v59 = v31;
+    v60 = 2080;
+    v61 = v33;
+    v62 = 2080;
+    v63 = v35;
+    _os_log_impl(&dword_1BA5AC000, v22, OS_LOG_TYPE_DEFAULT, "%25s:%-5d configureAlertModeFromModeAndEngine: [final alert modes, overrides] : Start[%s, %s], Stop[%s, %s], StopWError[%s, %s])", &v48, 0x4Eu);
   }
 
 LABEL_112:
   result = *(a1 + 32);
   if (result)
   {
-    result = (*(result + 16))(result, 0);
+    return (*(result + 16))(result, 0);
   }
 
-  v37 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -2150,7 +2128,7 @@ NSObject *___ZN14ControllerImpl35configureAlertModeFromModeAndEngineElNSt3__110s
 
 void ControllerImpl::stopRunningEngines(ControllerImpl *this, AVVoiceController *a2, int a3, unsigned int a4)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = *(this + 72);
   v9 = *(this + 73);
@@ -2161,23 +2139,23 @@ void ControllerImpl::stopRunningEngines(ControllerImpl *this, AVVoiceController 
 
   if (v8)
   {
-    std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v12, *(this + 1), *(this + 2));
+    std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v11, *(this + 1), *(this + 2));
     v10 = 0x100000000;
     if (!a3)
     {
       v10 = 0;
     }
 
-    v14 = &unk_1F384DEE0;
-    v15 = v10 | a4;
-    *(&v15 + 5) = 0;
-    HIBYTE(v15) = 0;
-    v16 = &v14;
-    AVVCRecordingEngineMap::for_each_engine(v8, &v14, "stopRunningEngines");
-    std::__function::__value_func<void ()(std::shared_ptr<AVVCRecordingEngine>)>::~__value_func[abi:ne200100](&v14);
-    if (v13)
+    v13 = &unk_1F384DEE0;
+    v14 = v10 | a4;
+    *(&v14 + 5) = 0;
+    HIBYTE(v14) = 0;
+    v15 = &v13;
+    AVVCRecordingEngineMap::for_each_engine(v8, &v13, "stopRunningEngines");
+    std::__function::__value_func<void ()(std::shared_ptr<AVVCRecordingEngine>)>::~__value_func[abi:ne200100](&v13);
+    if (v12)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v13);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v12);
     }
   }
 
@@ -2185,22 +2163,20 @@ void ControllerImpl::stopRunningEngines(ControllerImpl *this, AVVoiceController 
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v9);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
-void sub_1BA66EA10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, std::__shared_weak_count *a4, ...)
+void sub_1BA66EA10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, std::__shared_weak_count *a4, uint64_t a5, uint64_t a6, std::__shared_weak_count *a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__function::__value_func<void ()(std::shared_ptr<AVVCRecordingEngine>)>::~__value_func[abi:ne200100](va);
-  if (a4)
+  if (a7)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a4);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a7);
   }
 
-  if (v5)
+  if (v8)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v8);
   }
 
   _Unwind_Resume(a1);
@@ -2208,32 +2184,27 @@ void sub_1BA66EA10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, std::__share
 
 void std::__function::__func<ControllerImpl::stopRunningEngines(AVVoiceController *,BOOL,int)::$_0,std::allocator<ControllerImpl::stopRunningEngines(AVVoiceController *,BOOL,int)::$_0>,void ()(std::shared_ptr<AVVCRecordingEngine>)>::operator()(uint64_t a1, uint64_t *a2)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = *a2;
   v2 = a2[1];
   *a2 = 0;
   a2[1] = 0;
-  if (*(v3 + 216) >= 4)
+  if (*(v3 + 216) < 4)
   {
-    if (kAVVCScope)
-    {
-      v5 = *kAVVCScope;
-      if (!v5)
-      {
-LABEL_14:
-        AVVCRecordingEngine::setRecordErrorStatus(v3, *(a1 + 8), "operator()");
-        v13 = *(a1 + 12);
-        AVVCRecordingEngine::stopRecordWithRecordLock(*(v3 + 152));
-        goto LABEL_15;
-      }
-    }
+    goto LABEL_15;
+  }
 
-    else
-    {
-      v5 = MEMORY[0x1E69E9C10];
-      v6 = MEMORY[0x1E69E9C10];
-    }
+  if (!kAVVCScope)
+  {
+    v5 = MEMORY[0x1E69E9C10];
+    v6 = MEMORY[0x1E69E9C10];
+    goto LABEL_6;
+  }
 
+  v5 = *kAVVCScope;
+  if (v5)
+  {
+LABEL_6:
     v7 = v5;
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
@@ -2255,13 +2226,13 @@ LABEL_14:
       v11 = [v8 stringWithFormat:@"(%p) streamID: %d, use_count:%ld", v3, v9, v10];
       v12 = *(v3 + 264);
       *buf = 136315906;
-      v16 = "ControllerImpl.mm";
-      v17 = 1024;
-      v18 = 1393;
-      v19 = 2112;
-      v20 = v11;
-      v21 = 2048;
-      v22 = v12;
+      v14 = "ControllerImpl.mm";
+      v15 = 1024;
+      v16 = 1393;
+      v17 = 2112;
+      v18 = v11;
+      v19 = 2048;
+      v20 = v12;
       _os_log_impl(&dword_1BA5AC000, v7, OS_LOG_TYPE_DEBUG, "%25s:%-5d Interrupting recording on engine[%@] with streamID(%llu)", buf, 0x26u);
 
       if (v2)
@@ -2269,17 +2240,15 @@ LABEL_14:
         std::__shared_weak_count::__release_shared[abi:ne200100](v2);
       }
     }
-
-    goto LABEL_14;
   }
 
+  AVVCRecordingEngine::setRecordErrorStatus(v3, *(a1 + 8), "operator()");
+  AVVCRecordingEngine::stopRecordWithRecordLock(*(v3 + 152));
 LABEL_15:
   if (v2)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v2);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1BA66EC18(_Unwind_Exception *a1)
@@ -2321,14 +2290,14 @@ NSObject *___ZN14ControllerImpl11setAlertURLEP17AVVoiceController16AVVoiceAlertT
 void ControllerImpl::VibeAlertCompletionProc(ControllerImpl *this, void *a2, AVVoiceController *a3)
 {
   v4 = this;
-  v89[3] = *MEMORY[0x1E69E9840];
+  v88[3] = *MEMORY[0x1E69E9840];
   v5 = a2;
-  v67 = 4129;
-  v68 = 0;
+  v66 = 4129;
+  v67 = 0;
+  v68 = 0u;
   v69 = 0u;
-  v70 = 0u;
   kdebug_trace();
-  TraceMethod::TraceMethod(v66, "VibeAlertCompletionProc");
+  TraceMethod::TraceMethod(v65, "VibeAlertCompletionProc");
   if (kAVVCScope)
   {
     if (*(kAVVCScope + 8))
@@ -2353,11 +2322,11 @@ void ControllerImpl::VibeAlertCompletionProc(ControllerImpl *this, void *a2, AVV
 
   if (v5)
   {
-    [(AVVoiceController *)v5 impl];
-    if (v64 && ObjectExists(v5))
+    objc_msgSend_impl(v5);
+    if (v63 && ObjectExists(v5))
     {
       ProfileMetrics(&cfstr_AvvcProfilePro_11.isa);
-      ControllerImpl::setAlertState(v64, 0);
+      ControllerImpl::setAlertState(v63, 0);
       if (v4 > 1403)
       {
         if ((v4 - 1405) >= 2)
@@ -2371,9 +2340,9 @@ LABEL_13:
               if (!v8)
               {
 LABEL_134:
-                v52 = v64;
-                *(v64 + 51) = 0;
-                *(v52 + 26) = 0;
+                v52 = v63;
+                *(v63 + 51) = 0;
+                v52[26] = 0;
                 goto LABEL_135;
               }
             }
@@ -2400,33 +2369,33 @@ LABEL_134:
 
 LABEL_29:
           v12 = v5;
-          LODWORD(v71) = 4131;
-          BYTE4(v71) = 0;
+          LODWORD(v70) = 4131;
+          BYTE4(v70) = 0;
+          v71 = 0u;
           v72 = 0u;
-          v73 = 0u;
           kdebug_trace();
-          TraceMethod::TraceMethod(&v82, "vibeStartAlertFinished");
-          ControllerImpl::_getCurrentRecordingEngine(&v84, v64, a3, 0, "vibeStartAlertFinished");
-          v13 = v84;
-          if (v84)
+          TraceMethod::TraceMethod(&v81, "vibeStartAlertFinished");
+          ControllerImpl::_getCurrentRecordingEngine(&v83, v63, a3, 0, "vibeStartAlertFinished");
+          v13 = v83;
+          if (v83)
           {
             *buf = MEMORY[0x1E69E9820];
             *&buf[8] = 3321888768;
             *&buf[16] = ___ZN14ControllerImpl22vibeStartAlertFinishedEP17AVVoiceControllerm_block_invoke;
             *&buf[24] = &__block_descriptor_56_ea8_40c47_ZTSNSt3__110shared_ptrI19AVVCRecordingEngineEE_e5_v8__0l;
-            *&buf[32] = v64;
-            v88 = v84;
-            v14 = v85;
-            v89[0] = v85;
-            if (v85)
+            *&buf[32] = v63;
+            v87 = v83;
+            v14 = v84;
+            v88[0] = v84;
+            if (v84)
             {
-              atomic_fetch_add_explicit(&v85->__shared_owners_, 1uLL, memory_order_relaxed);
+              atomic_fetch_add_explicit(&v84->__shared_owners_, 1uLL, memory_order_relaxed);
             }
 
             (*(*v13 + 328))(v13, buf, "vibeStartAlertFinished");
-            if (v89[0])
+            if (v88[0])
             {
-              std::__shared_weak_count::__release_shared[abi:ne200100](v89[0]);
+              std::__shared_weak_count::__release_shared[abi:ne200100](v88[0]);
             }
 
             goto LABEL_112;
@@ -2438,33 +2407,33 @@ LABEL_29:
             if (!v19)
             {
 LABEL_111:
-              v14 = v85;
+              v14 = v84;
 LABEL_112:
               if (v14)
               {
                 std::__shared_weak_count::__release_shared[abi:ne200100](v14);
               }
 
-              TraceMethod::~TraceMethod(&v82);
-              TraceWrapper::~TraceWrapper(&v71);
+              TraceMethod::~TraceMethod(&v81);
+              TraceWrapper::~TraceWrapper(&v70);
 
-              v41 = *(v64 + 51);
+              v41 = *(v63 + 51);
               if (v41)
               {
-                v42 = *(v64 + 26);
-                v43 = *(v64 + 49);
+                v42 = v63[26];
+                v43 = v63[49];
                 objc_initWeak(buf, v12);
-                v44 = v64;
-                v61[0] = MEMORY[0x1E69E9820];
-                v61[1] = 3221225472;
-                v61[2] = ___ZN14ControllerImpl23VibeAlertCompletionProcEjP17AVVoiceControllerm_block_invoke;
-                v61[3] = &unk_1E7EF5BA8;
-                objc_copyWeak(v62, buf);
-                v63 = v41;
-                v62[1] = v42;
-                v62[2] = v43;
-                ControllerImpl::safeNotify(v44, "haptic alertPlaybackFinishedWithSettings", v61);
-                objc_destroyWeak(v62);
+                v44 = v63;
+                v60[0] = MEMORY[0x1E69E9820];
+                v60[1] = 3221225472;
+                v60[2] = ___ZN14ControllerImpl23VibeAlertCompletionProcEjP17AVVoiceControllerm_block_invoke;
+                v60[3] = &unk_1E7EF5BA8;
+                objc_copyWeak(v61, buf);
+                v62 = v41;
+                v61[1] = v42;
+                v61[2] = v43;
+                ControllerImpl::safeNotify(v44, "haptic alertPlaybackFinishedWithSettings", v60);
+                objc_destroyWeak(v61);
                 objc_destroyWeak(buf);
               }
 
@@ -2504,23 +2473,23 @@ LABEL_112:
       }
 
       val = v5;
-      TraceMethod::TraceMethod(v86, "vibeStopAlertFinished");
+      TraceMethod::TraceMethod(v85, "vibeStopAlertFinished");
       if (kAVVCScope)
       {
         v11 = *kAVVCScope;
         if (!v11)
         {
 LABEL_87:
-          if (ControllerImpl::getSessionState(v64, a3) != 4)
+          if (ControllerImpl::getSessionState(v63, a3) != 4)
           {
             goto LABEL_132;
           }
 
-          std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v80, *(v64 + 1), *(v64 + 2));
-          SessionLock::SessionLock(&v71, v80, v81);
-          if (v81)
+          std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v79, v63[1], v63[2]);
+          SessionLock::SessionLock(&v70, v79, v80);
+          if (v80)
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v81);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v80);
           }
 
           if (kAVVCScope)
@@ -2548,17 +2517,17 @@ LABEL_87:
           }
 
 LABEL_97:
-          SessionState = ControllerImpl::getSessionState(v64, a3);
-          v32 = ControllerImpl::sessionManagerForStreamID(v64, 0, 0);
+          SessionState = ControllerImpl::getSessionState(v63, a3);
+          v32 = ControllerImpl::sessionManagerForStreamID(v63, 0, 0);
           v33 = [v32 getSessionActivationOptions];
-          v76 = 0;
-          v34 = [v32 setActive:0 withOptions:v33 error:&v76];
-          v35 = v76;
+          v75 = 0;
+          v34 = [v32 setActive:0 withOptions:v33 error:&v75];
+          v35 = v75;
           v36 = v35;
           if (v34)
           {
-            ControllerImpl::setSessionState(v64, 1, a3);
-            std::__hash_table<unsigned long,std::hash<unsigned long>,std::equal_to<unsigned long>,std::allocator<unsigned long>>::clear(v64 + 60);
+            ControllerImpl::setSessionState(v63, 1, a3);
+            std::__hash_table<unsigned long,std::hash<unsigned long>,std::equal_to<unsigned long>,std::allocator<unsigned long>>::clear(v63 + 60);
 LABEL_131:
             objc_initWeak(&location, val);
             *buf = MEMORY[0x1E69E9820];
@@ -2566,31 +2535,31 @@ LABEL_131:
             *&buf[16] = ___ZN14ControllerImpl21vibeStopAlertFinishedEP17AVVoiceControllerm_block_invoke;
             *&buf[24] = &unk_1E7EF6678;
             objc_copyWeak(&buf[32], &location);
-            ControllerImpl::safeNotify(v64, "endAudioSessionActivate", buf);
+            ControllerImpl::safeNotify(v63, "endAudioSessionActivate", buf);
             objc_destroyWeak(&buf[32]);
             objc_destroyWeak(&location);
 
-            VCLocker::~VCLocker(&v71);
+            VCLocker::~VCLocker(&v70);
 LABEL_132:
-            TraceMethod::~TraceMethod(v86);
+            TraceMethod::~TraceMethod(v85);
 
-            v48 = *(v64 + 51);
+            v48 = *(v63 + 51);
             if (v48)
             {
-              v49 = *(v64 + 26);
-              v50 = *(v64 + 49);
+              v49 = v63[26];
+              v50 = v63[49];
               objc_initWeak(buf, val);
-              v51 = v64;
-              v58[0] = MEMORY[0x1E69E9820];
-              v58[1] = 3221225472;
-              v58[2] = ___ZN14ControllerImpl23VibeAlertCompletionProcEjP17AVVoiceControllerm_block_invoke_252;
-              v58[3] = &unk_1E7EF5BA8;
-              objc_copyWeak(v59, buf);
-              v60 = v48;
-              v59[1] = v49;
-              v59[2] = v50;
-              ControllerImpl::safeNotify(v51, "haptic alertPlaybackFinishedWithSettings", v58);
-              objc_destroyWeak(v59);
+              v51 = v63;
+              v57[0] = MEMORY[0x1E69E9820];
+              v57[1] = 3221225472;
+              v57[2] = ___ZN14ControllerImpl23VibeAlertCompletionProcEjP17AVVoiceControllerm_block_invoke_252;
+              v57[3] = &unk_1E7EF5BA8;
+              objc_copyWeak(v58, buf);
+              v59 = v48;
+              v58[1] = v49;
+              v58[2] = v50;
+              ControllerImpl::safeNotify(v51, "haptic alertPlaybackFinishedWithSettings", v57);
+              objc_destroyWeak(v58);
               objc_destroyWeak(buf);
             }
 
@@ -2668,7 +2637,7 @@ LABEL_128:
 LABEL_129:
           if (v38 != 560030580)
           {
-            ControllerImpl::setSessionState(v64, SessionState, a3);
+            ControllerImpl::setSessionState(v63, SessionState, a3);
           }
 
           goto LABEL_131;
@@ -2689,13 +2658,13 @@ LABEL_86:
         goto LABEL_87;
       }
 
-      ControllerImpl::_getCurrentRecordingEngine(&v71, v64, a3, 0, "vibeStopAlertFinished");
-      v56 = v71;
-      if (v71)
+      ControllerImpl::_getCurrentRecordingEngine(&v70, v63, a3, 0, "vibeStopAlertFinished");
+      v55 = v70;
+      if (v70)
       {
-        ControllerImpl::_getCurrentRecordingEngine(&v84, v64, a3, 0, "vibeStopAlertFinished");
-        v54 = (*(*v84 + 64))(v84, 0);
-        v17 = [v54 sessionState];
+        ControllerImpl::_getCurrentRecordingEngine(&v83, v63, a3, 0, "vibeStopAlertFinished");
+        v53 = (*(*v83 + 64))(v83, 0);
+        v17 = [v53 sessionState];
         v18 = "ILLEGAL";
         if (v17 > 3)
         {
@@ -2753,12 +2722,12 @@ LABEL_86:
 
       v18 = "NotConfigured";
 LABEL_46:
-      ControllerImpl::_getCurrentRecordingEngine(&v82, v64, a3, 0, "vibeStopAlertFinished");
-      if (v82)
+      ControllerImpl::_getCurrentRecordingEngine(&v81, v63, a3, 0, "vibeStopAlertFinished");
+      if (v81)
       {
-        if (v83)
+        if (v82)
         {
-          v20 = v83->__shared_owners_ + 1;
+          v20 = v82->__shared_owners_ + 1;
         }
 
         else
@@ -2766,7 +2735,7 @@ LABEL_46:
           v20 = 0;
         }
 
-        v21 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(%p) streamID: %d, use_count:%ld", v82, *(v82 + 264), v20];
+        v21 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(%p) streamID: %d, use_count:%ld", v81, *(v81 + 264), v20];
       }
 
       else
@@ -2774,14 +2743,14 @@ LABEL_46:
         v21 = @"(0x0) use_count:0";
       }
 
-      v55 = v21;
-      ControllerImpl::_getCurrentRecordingEngine(&v80, v64, a3, 0, "vibeStopAlertFinished");
-      v23 = v80;
+      v54 = v21;
+      ControllerImpl::_getCurrentRecordingEngine(&v79, v63, a3, 0, "vibeStopAlertFinished");
+      v23 = v79;
       v24 = "unconfigured";
-      if (v80)
+      if (v79)
       {
-        ControllerImpl::_getCurrentRecordingEngine(&v78, v64, a3, 0, "vibeStopAlertFinished");
-        v25 = (*(*v78 + 296))(v78);
+        ControllerImpl::_getCurrentRecordingEngine(&v77, v63, a3, 0, "vibeStopAlertFinished");
+        v25 = (*(*v77 + 296))(v77);
         if (v25 > 4)
         {
           v24 = "ILLEGAL";
@@ -2793,10 +2762,10 @@ LABEL_46:
         }
       }
 
-      ControllerImpl::_getCurrentRecordingEngine(&v76, v64, a3, 0, "vibeStopAlertFinished");
-      if (v76)
+      ControllerImpl::_getCurrentRecordingEngine(&v75, v63, a3, 0, "vibeStopAlertFinished");
+      if (v75)
       {
-        ControllerImpl::_getCurrentRecordingEngine(&location, v64, a3, 0, "vibeStopAlertFinished");
+        ControllerImpl::_getCurrentRecordingEngine(&location, v63, a3, 0, "vibeStopAlertFinished");
         v26 = *(location + 27);
         if (v26 > 6)
         {
@@ -2815,16 +2784,16 @@ LABEL_46:
         *&buf[18] = 2080;
         *&buf[20] = v18;
         *&buf[28] = 2112;
-        v28 = v55;
-        *&buf[30] = v55;
+        v28 = v54;
+        *&buf[30] = v54;
         *&buf[38] = 2080;
-        v88 = v24;
-        LOWORD(v89[0]) = 2080;
-        *(v89 + 2) = v27;
+        v87 = v24;
+        LOWORD(v88[0]) = 2080;
+        *(v88 + 2) = v27;
         _os_log_impl(&dword_1BA5AC000, v16, OS_LOG_TYPE_DEBUG, "%25s:%-5d session state (%s), rec-engine [%@], rec-engine type (%s), stream state (%s)", buf, 0x3Au);
-        if (v75)
+        if (v74)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v75);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v74);
         }
       }
 
@@ -2837,47 +2806,47 @@ LABEL_46:
         *&buf[18] = 2080;
         *&buf[20] = v18;
         *&buf[28] = 2112;
-        v28 = v55;
-        *&buf[30] = v55;
+        v28 = v54;
+        *&buf[30] = v54;
         *&buf[38] = 2080;
-        v88 = v24;
-        LOWORD(v89[0]) = 2080;
-        *(v89 + 2) = "unconfigured";
+        v87 = v24;
+        LOWORD(v88[0]) = 2080;
+        *(v88 + 2) = "unconfigured";
         _os_log_impl(&dword_1BA5AC000, v16, OS_LOG_TYPE_DEBUG, "%25s:%-5d session state (%s), rec-engine [%@], rec-engine type (%s), stream state (%s)", buf, 0x3Au);
       }
 
-      if (v77)
+      if (v76)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v77);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v76);
       }
 
-      if (v23 && v79)
+      if (v23 && v78)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v79);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v78);
       }
 
-      if (v81)
+      if (v80)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v81);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v80);
       }
 
-      if (v83)
+      if (v82)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v83);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v82);
       }
 
-      if (v56)
+      if (v55)
       {
 
-        if (v85)
+        if (v84)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v85);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v84);
         }
       }
 
-      if (v72)
+      if (v71)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v72);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v71);
       }
 
       goto LABEL_86;
@@ -2886,8 +2855,8 @@ LABEL_46:
 
   else
   {
+    v63 = 0;
     v64 = 0;
-    v65 = 0;
   }
 
   if (kAVVCScope)
@@ -2915,18 +2884,16 @@ LABEL_46:
   }
 
 LABEL_135:
-  if (v65)
+  if (v64)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v65);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v64);
   }
 
-  TraceMethod::~TraceMethod(v66);
-  TraceWrapper::~TraceWrapper(&v67);
-
-  v53 = *MEMORY[0x1E69E9840];
+  TraceMethod::~TraceMethod(v65);
+  TraceWrapper::~TraceWrapper(&v66);
 }
 
-void sub_1BA66FB74(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, void *a14, uint64_t a15, void *a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, std::__shared_weak_count *a34, char a35, int a36, __int16 a37, char a38, char a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, char a44, std::__shared_weak_count *a45, uint64_t a46, uint64_t a47, uint64_t a48, id location, uint64_t a50, uint64_t a51, std::__shared_weak_count *a52)
+void sub_1BA66FB74(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, void *a14, uint64_t a15, void *a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, std::__shared_weak_count *a34, int a35, int a36, __int16 a37, char a38, char a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, char a44, std::__shared_weak_count *a45, uint64_t a46, uint64_t a47, uint64_t a48, id location, uint64_t a50, uint64_t a51, std::__shared_weak_count *a52)
 {
   if (a52)
   {
@@ -2982,7 +2949,7 @@ void sub_1BA66FB74(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void ___ZN14ControllerImpl23VibeAlertCompletionProcEjP17AVVoiceControllerm_block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
@@ -3009,19 +2976,17 @@ void ___ZN14ControllerImpl23VibeAlertCompletionProcEjP17AVVoiceControllerm_block
 
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v7 = 136315650;
-      v8 = "ControllerImpl.mm";
-      v9 = 1024;
-      v10 = 2835;
-      v11 = 2048;
-      v12 = 0;
-      _os_log_impl(&dword_1BA5AC000, v4, OS_LOG_TYPE_ERROR, "%25s:%-5d nil object encountered (avvc: %p). Bailing", &v7, 0x1Cu);
+      v6 = 136315650;
+      v7 = "ControllerImpl.mm";
+      v8 = 1024;
+      v9 = 2835;
+      v10 = 2048;
+      v11 = 0;
+      _os_log_impl(&dword_1BA5AC000, v4, OS_LOG_TYPE_ERROR, "%25s:%-5d nil object encountered (avvc: %p). Bailing", &v6, 0x1Cu);
     }
   }
 
 LABEL_10:
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1BA66FE98(_Unwind_Exception *a1)
@@ -3033,7 +2998,7 @@ void sub_1BA66FE98(_Unwind_Exception *a1)
 
 void ___ZN14ControllerImpl23VibeAlertCompletionProcEjP17AVVoiceControllerm_block_invoke_252(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
@@ -3060,19 +3025,17 @@ void ___ZN14ControllerImpl23VibeAlertCompletionProcEjP17AVVoiceControllerm_block
 
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v7 = 136315650;
-      v8 = "ControllerImpl.mm";
-      v9 = 1024;
-      v10 = 2860;
-      v11 = 2048;
-      v12 = 0;
-      _os_log_impl(&dword_1BA5AC000, v4, OS_LOG_TYPE_ERROR, "%25s:%-5d nil object encountered (avvc: %p). Bailing", &v7, 0x1Cu);
+      v6 = 136315650;
+      v7 = "ControllerImpl.mm";
+      v8 = 1024;
+      v9 = 2860;
+      v10 = 2048;
+      v11 = 0;
+      _os_log_impl(&dword_1BA5AC000, v4, OS_LOG_TYPE_ERROR, "%25s:%-5d nil object encountered (avvc: %p). Bailing", &v6, 0x1Cu);
     }
   }
 
 LABEL_10:
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1BA66FFF0(_Unwind_Exception *a1)
@@ -3084,7 +3047,7 @@ void sub_1BA66FFF0(_Unwind_Exception *a1)
 
 void ___ZN14ControllerImpl21vibeStopAlertFinishedEP17AVVoiceControllerm_block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = WeakRetained;
   if (WeakRetained)
@@ -3111,24 +3074,22 @@ void ___ZN14ControllerImpl21vibeStopAlertFinishedEP17AVVoiceControllerm_block_in
 
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v6 = 136315650;
-      v7 = "ControllerImpl.mm";
-      v8 = 1024;
-      v9 = 2796;
-      v10 = 2048;
-      v11 = 0;
-      _os_log_impl(&dword_1BA5AC000, v3, OS_LOG_TYPE_ERROR, "%25s:%-5d nil object encountered (avvc: %p). Bailing", &v6, 0x1Cu);
+      v5 = 136315650;
+      v6 = "ControllerImpl.mm";
+      v7 = 1024;
+      v8 = 2796;
+      v9 = 2048;
+      v10 = 0;
+      _os_log_impl(&dword_1BA5AC000, v3, OS_LOG_TYPE_ERROR, "%25s:%-5d nil object encountered (avvc: %p). Bailing", &v5, 0x1Cu);
     }
   }
 
 LABEL_10:
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void ___ZN14ControllerImpl22vibeStartAlertFinishedEP17AVVoiceControllerm_block_invoke(uint64_t a1)
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
   if (!kAVVCScope)
   {
@@ -3277,17 +3238,17 @@ LABEL_29:
             }
 
             *buf = 136316418;
-            v33 = "ControllerImpl.mm";
-            v34 = 1024;
-            v35 = 2752;
-            v36 = 2080;
-            v37 = v11;
-            v38 = 2112;
-            v39 = v18;
-            v40 = 2080;
-            v41 = v21;
-            v42 = 2080;
-            v43 = v22;
+            v32 = "ControllerImpl.mm";
+            v33 = 1024;
+            v34 = 2752;
+            v35 = 2080;
+            v36 = v11;
+            v37 = 2112;
+            v38 = v18;
+            v39 = 2080;
+            v40 = v21;
+            v41 = 2080;
+            v42 = v22;
             _os_log_impl(&dword_1BA5AC000, v6, OS_LOG_TYPE_DEBUG, "%25s:%-5d session state (%s), rec-engine [%@], rec-engine type (%s), stream state (%s)", buf, 0x3Au);
 
             if (v13)
@@ -3349,11 +3310,11 @@ LABEL_29:
 LABEL_46:
   if (*(*(a1 + 40) + 216) == 4)
   {
-    std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v30, *(v3 + 8), *(v3 + 16));
-    RecordLock::RecordLock(buf, v30, v31);
-    if (v31)
+    std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v29, *(v3 + 8), *(v3 + 16));
+    RecordLock::RecordLock(buf, v29, v30);
+    if (v30)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v31);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v30);
     }
 
     v25 = *(a1 + 40);
@@ -3380,7 +3341,7 @@ LABEL_46:
       v27 = *kAVVCScope;
       if (!v27)
       {
-        goto LABEL_60;
+        return;
       }
     }
 
@@ -3393,15 +3354,12 @@ LABEL_46:
     if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315394;
-      v33 = "ControllerImpl.mm";
-      v34 = 1024;
-      v35 = 2765;
+      v32 = "ControllerImpl.mm";
+      v33 = 1024;
+      v34 = 2765;
       _os_log_impl(&dword_1BA5AC000, v27, OS_LOG_TYPE_DEBUG, "%25s:%-5d vibeStartAlertFinished: record state != kRecordStarting -- noop", buf, 0x12u);
     }
   }
-
-LABEL_60:
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1BA670618(_Unwind_Exception *a1)
@@ -3420,7 +3378,7 @@ void sub_1BA670618(_Unwind_Exception *a1)
 
 void ___ZN14ControllerImpl29playHapticAlertWithCompletionEP17AVVoiceController16AVVoiceAlertTypemU13block_pointerFviE_block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v3 = *(a1 + 48);
   if (!v3)
@@ -3441,23 +3399,23 @@ LABEL_8:
   v6 = *(a1 + 40);
   if (WeakRetained && v6)
   {
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3321888768;
-    v12[2] = ___ZN14ControllerImpl29playHapticAlertWithCompletionEP17AVVoiceController16AVVoiceAlertTypemU13block_pointerFviE_block_invoke_189;
-    v12[3] = &unk_1F3848860;
-    v14 = v6;
-    v15 = v4;
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3321888768;
+    v11[2] = ___ZN14ControllerImpl29playHapticAlertWithCompletionEP17AVVoiceController16AVVoiceAlertTypemU13block_pointerFviE_block_invoke_189;
+    v11[3] = &unk_1F3848860;
+    v13 = v6;
+    v14 = v4;
     atomic_fetch_add_explicit(&v4->__shared_owners_, 1uLL, memory_order_relaxed);
-    v17 = *(a1 + 64);
+    v16 = *(a1 + 64);
     v7 = WeakRetained;
     v8 = *(a1 + 56);
-    v13 = v7;
-    v16 = v8;
-    ControllerImpl::dispatchAndSafeWork(v6, v12, "playHapticAlertWithCompletion_block_invoke");
+    v12 = v7;
+    v15 = v8;
+    ControllerImpl::dispatchAndSafeWork(v6, v11, "playHapticAlertWithCompletion_block_invoke");
 
-    if (v15)
+    if (v14)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v15);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v14);
     }
 
     goto LABEL_17;
@@ -3482,13 +3440,13 @@ LABEL_9:
   if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315906;
-    v19 = "ControllerImpl.mm";
-    v20 = 1024;
-    v21 = 1750;
-    v22 = 2048;
-    v23 = WeakRetained;
-    v24 = 2048;
-    v25 = v6;
+    v18 = "ControllerImpl.mm";
+    v19 = 1024;
+    v20 = 1750;
+    v21 = 2048;
+    v22 = WeakRetained;
+    v23 = 2048;
+    v24 = v6;
     _os_log_impl(&dword_1BA5AC000, v9, OS_LOG_TYPE_ERROR, "%25s:%-5d nil object encountered (avvc: %p, impl: %p). Bailing", buf, 0x26u);
   }
 
@@ -3498,8 +3456,6 @@ LABEL_16:
 LABEL_17:
     std::__shared_weak_count::__release_shared[abi:ne200100](v5);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1BA670870(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, std::__shared_weak_count *a16)
@@ -3528,7 +3484,7 @@ void CACFDictionary::~CACFDictionary(CACFDictionary *this)
 
 void ___ZN14ControllerImpl37playHapticWithBeepAlertWithCompletionEP17AVVoiceController16AVVoiceAlertTypemU13block_pointerFviE_block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v3 = *(a1 + 48);
   if (!v3)
@@ -3549,23 +3505,23 @@ LABEL_8:
   v6 = *(a1 + 40);
   if (WeakRetained && v6)
   {
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3321888768;
-    v12[2] = ___ZN14ControllerImpl37playHapticWithBeepAlertWithCompletionEP17AVVoiceController16AVVoiceAlertTypemU13block_pointerFviE_block_invoke_214;
-    v12[3] = &unk_1F3848860;
-    v14 = v6;
-    v15 = v4;
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3321888768;
+    v11[2] = ___ZN14ControllerImpl37playHapticWithBeepAlertWithCompletionEP17AVVoiceController16AVVoiceAlertTypemU13block_pointerFviE_block_invoke_214;
+    v11[3] = &unk_1F3848860;
+    v13 = v6;
+    v14 = v4;
     atomic_fetch_add_explicit(&v4->__shared_owners_, 1uLL, memory_order_relaxed);
-    v17 = *(a1 + 64);
+    v16 = *(a1 + 64);
     v7 = WeakRetained;
     v8 = *(a1 + 56);
-    v13 = v7;
-    v16 = v8;
-    ControllerImpl::dispatchAndSafeWork(v6, v12, "playHapticWithBeepAlertWithCompletion_block_invoke");
+    v12 = v7;
+    v15 = v8;
+    ControllerImpl::dispatchAndSafeWork(v6, v11, "playHapticWithBeepAlertWithCompletion_block_invoke");
 
-    if (v15)
+    if (v14)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v15);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v14);
     }
 
     goto LABEL_17;
@@ -3590,13 +3546,13 @@ LABEL_9:
   if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315906;
-    v19 = "ControllerImpl.mm";
-    v20 = 1024;
-    v21 = 1861;
-    v22 = 2048;
-    v23 = WeakRetained;
-    v24 = 2048;
-    v25 = v6;
+    v18 = "ControllerImpl.mm";
+    v19 = 1024;
+    v20 = 1861;
+    v21 = 2048;
+    v22 = WeakRetained;
+    v23 = 2048;
+    v24 = v6;
     _os_log_impl(&dword_1BA5AC000, v9, OS_LOG_TYPE_ERROR, "%25s:%-5d nil object encountered (avvc: %p, impl: %p). Bailing", buf, 0x26u);
   }
 
@@ -3606,8 +3562,6 @@ LABEL_16:
 LABEL_17:
     std::__shared_weak_count::__release_shared[abi:ne200100](v5);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1BA670ADC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, std::__shared_weak_count *a16)
@@ -3625,9 +3579,9 @@ void sub_1BA670ADC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 NSObject *ControllerImpl::primeAlertQueue(uint64_t a1, int a2)
 {
   v2 = a2;
-  v64 = *MEMORY[0x1E69E9840];
-  v51 = a2;
-  TraceMethod::TraceMethod(v50, "primeAlertQueue");
+  v63 = *MEMORY[0x1E69E9840];
+  v50 = a2;
+  TraceMethod::TraceMethod(v49, "primeAlertQueue");
   if (kAVVCScope)
   {
     if (*(kAVVCScope + 8))
@@ -3641,12 +3595,12 @@ NSObject *ControllerImpl::primeAlertQueue(uint64_t a1, int a2)
           v6 = *(a1 + 204);
           *buf = 136315906;
           *&buf[4] = "ControllerImpl.mm";
-          v59 = 1024;
-          v60 = 2097;
-          v61 = 1024;
-          *v62 = v2;
-          *&v62[4] = 1024;
-          *&v62[6] = v6;
+          v58 = 1024;
+          v59 = 2097;
+          v60 = 1024;
+          *v61 = v2;
+          *&v61[4] = 1024;
+          *&v61[6] = v6;
           _os_log_impl(&dword_1BA5AC000, v5, OS_LOG_TYPE_DEBUG, "%25s:%-5d primeAlertQueue: type %d (current is %d)", buf, 0x1Eu);
         }
       }
@@ -3679,8 +3633,8 @@ LABEL_133:
       {
         *buf = 136315394;
         *&buf[4] = "ControllerImpl.mm";
-        v59 = 1024;
-        v60 = 2106;
+        v58 = 1024;
+        v59 = 2106;
         _os_log_impl(&dword_1BA5AC000, v22, OS_LOG_TYPE_DEFAULT, "%25s:%-5d primeAlertQueue: queue is NULL -- returning", buf, 0x12u);
       }
 
@@ -3702,8 +3656,8 @@ LABEL_126:
       {
         *buf = 136315394;
         *&buf[4] = "ControllerImpl.mm";
-        v59 = 1024;
-        v60 = 2155;
+        v58 = 1024;
+        v59 = 2155;
         _os_log_impl(&dword_1BA5AC000, v12, OS_LOG_TYPE_DEBUG, "%25s:%-5d primeAlertQueue: no-op", buf, 0x12u);
       }
 
@@ -3727,12 +3681,12 @@ LABEL_125:
             v15 = *(a1 + 204);
             *buf = 136315906;
             *&buf[4] = "ControllerImpl.mm";
-            v59 = 1024;
-            v60 = 2112;
-            v61 = 1024;
-            *v62 = v2;
-            *&v62[4] = 1024;
-            *&v62[6] = v15;
+            v58 = 1024;
+            v59 = 2112;
+            v60 = 1024;
+            *v61 = v2;
+            *&v61[4] = 1024;
+            *&v61[6] = v15;
             _os_log_impl(&dword_1BA5AC000, v14, OS_LOG_TYPE_DEBUG, "%25s:%-5d primeAlertQueue: type %d (current is %d)", buf, 0x1Eu);
           }
         }
@@ -3754,8 +3708,8 @@ LABEL_125:
             {
               *buf = 136315394;
               *&buf[4] = "ControllerImpl.mm";
-              v59 = 1024;
-              v60 = 2117;
+              v58 = 1024;
+              v59 = 2117;
               _os_log_impl(&dword_1BA5AC000, v18, OS_LOG_TYPE_DEBUG, "%25s:%-5d primeAlertQueue: sync-stopping active alert queue", buf, 0x12u);
             }
           }
@@ -3785,17 +3739,17 @@ LABEL_125:
         v29 = " but failed";
         *buf = 136315906;
         *&buf[4] = "ControllerImpl.mm";
-        v60 = 2121;
-        v61 = 2080;
-        v59 = 1024;
+        v59 = 2121;
+        v60 = 2080;
+        v58 = 1024;
         if (!v20)
         {
           v29 = "";
         }
 
-        *v62 = v29;
-        *&v62[8] = 1024;
-        v63 = v20;
+        *v61 = v29;
+        *&v61[8] = 1024;
+        v62 = v20;
         _os_log_impl(&dword_1BA5AC000, v21, OS_LOG_TYPE_DEFAULT, "%25s:%-5d AVVC stopped alert queue%s (%d)", buf, 0x22u);
       }
 
@@ -3823,10 +3777,10 @@ LABEL_62:
           {
             *buf = 136315650;
             *&buf[4] = "ControllerImpl.mm";
-            v59 = 1024;
-            v60 = 2123;
-            v61 = 1024;
-            *v62 = v20;
+            v58 = 1024;
+            v59 = 2123;
+            v60 = 1024;
+            *v61 = v20;
             _os_log_impl(&dword_1BA5AC000, v30, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: primeAlertQueue: ignoring AudioQueueStop err %{audio:4CC}d", buf, 0x18u);
           }
         }
@@ -3852,10 +3806,10 @@ LABEL_62:
           {
             *buf = 136315650;
             *&buf[4] = "ControllerImpl.mm";
-            v59 = 1024;
-            v60 = 2123;
-            v61 = 1024;
-            *v62 = v20;
+            v58 = 1024;
+            v59 = 2123;
+            v60 = 1024;
+            *v61 = v20;
             _os_log_impl(&dword_1BA5AC000, v30, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: primeAlertQueue: ignoring AudioQueueStop err %d", buf, 0x18u);
           }
         }
@@ -3876,8 +3830,8 @@ LABEL_94:
               {
                 *buf = 136315394;
                 *&buf[4] = "ControllerImpl.mm";
-                v59 = 1024;
-                v60 = 2137;
+                v58 = 1024;
+                v59 = 2137;
                 _os_log_impl(&dword_1BA5AC000, v41, OS_LOG_TYPE_DEBUG, "%25s:%-5d primeAlertQueue: silent/haptic alert: not queueing a buffer", buf, 0x12u);
               }
             }
@@ -3888,8 +3842,8 @@ LABEL_94:
       else
       {
         v36 = ControllerImpl::getAlertQueueFromImplQueue(a1);
-        *buf = &v51;
-        v37 = std::__tree<std::__value_type<AVVoiceAlertType,AudioQueueBuffer *>,std::__map_value_compare<AVVoiceAlertType,std::__value_type<AVVoiceAlertType,AudioQueueBuffer *>,std::less<AVVoiceAlertType>,true>,std::allocator<std::__value_type<AVVoiceAlertType,AudioQueueBuffer *>>>::__emplace_unique_key_args<AVVoiceAlertType,std::piecewise_construct_t const&,std::tuple<AVVoiceAlertType&&>,std::tuple<>>(a1 + 296, v2);
+        *buf = &v50;
+        v37 = std::__tree<std::__value_type<AVVoiceAlertType,AudioQueueBuffer *>,std::__map_value_compare<AVVoiceAlertType,std::__value_type<AVVoiceAlertType,AudioQueueBuffer *>,std::less<AVVoiceAlertType>,true>,std::allocator<std::__value_type<AVVoiceAlertType,AudioQueueBuffer *>>>::__emplace_unique_key_args<AVVoiceAlertType,std::piecewise_construct_t const&,std::tuple<AVVoiceAlertType&&>,std::tuple<>>(a1 + 296, v2, buf);
         v38 = AudioQueueEnqueueBuffer(v36, v37[5], 0, 0);
         v8 = v38;
         if (v38)
@@ -3918,10 +3872,10 @@ LABEL_94:
 
             *buf = 136315650;
             *&buf[4] = "ControllerImpl.mm";
-            v59 = 1024;
-            v60 = 2143;
-            v61 = 1024;
-            *v62 = v8;
+            v58 = 1024;
+            v59 = 2143;
+            v60 = 1024;
+            *v61 = v8;
             v44 = "%25s:%-5d ERROR: primeAlertQueue: AudioQueueEnqueueBuffer err %{audio:4CC}d";
           }
 
@@ -3972,10 +3926,10 @@ LABEL_120:
                 v47 = *(a1 + 204);
                 *buf = 136315650;
                 *&buf[4] = "ControllerImpl.mm";
-                v59 = 1024;
-                v60 = 2152;
-                v61 = 1024;
-                *v62 = v47;
+                v58 = 1024;
+                v59 = 2152;
+                v60 = 1024;
+                *v61 = v47;
                 _os_log_impl(&dword_1BA5AC000, v12, OS_LOG_TYPE_DEBUG, "%25s:%-5d primeAlertQueue: done. current is now %d", buf, 0x18u);
               }
 
@@ -3984,10 +3938,10 @@ LABEL_120:
 
             *buf = 136315650;
             *&buf[4] = "ControllerImpl.mm";
-            v59 = 1024;
-            v60 = 2143;
-            v61 = 1024;
-            *v62 = v8;
+            v58 = 1024;
+            v59 = 2143;
+            v60 = 1024;
+            *v61 = v8;
             v44 = "%25s:%-5d ERROR: primeAlertQueue: AudioQueueEnqueueBuffer err %d";
           }
 
@@ -3998,7 +3952,7 @@ LABEL_120:
 
       ControllerImpl::setAlertQueueState(a1, 201);
       v8 = 0;
-      v42 = v51;
+      v42 = v50;
       goto LABEL_120;
     }
 
@@ -4036,12 +3990,12 @@ LABEL_93:
         goto LABEL_92;
       }
 
-      *v52 = 136315650;
-      v53 = "ControllerImpl.mm";
-      v54 = 1024;
-      v55 = 2131;
-      v56 = 1024;
-      v57 = v25;
+      *v51 = 136315650;
+      v52 = "ControllerImpl.mm";
+      v53 = 1024;
+      v54 = 2131;
+      v55 = 1024;
+      v56 = v25;
       v34 = "%25s:%-5d ERROR: primeAlertQueue: ignoring AudioQueueReset err %{audio:4CC}d";
     }
 
@@ -4067,25 +4021,25 @@ LABEL_93:
         goto LABEL_92;
       }
 
-      *v52 = 136315650;
-      v53 = "ControllerImpl.mm";
-      v54 = 1024;
-      v55 = 2131;
-      v56 = 1024;
-      v57 = v25;
+      *v51 = 136315650;
+      v52 = "ControllerImpl.mm";
+      v53 = 1024;
+      v54 = 2131;
+      v55 = 1024;
+      v56 = v25;
       v34 = "%25s:%-5d ERROR: primeAlertQueue: ignoring AudioQueueReset err %d";
     }
 
-    _os_log_impl(&dword_1BA5AC000, v26, OS_LOG_TYPE_ERROR, v34, v52, 0x18u);
+    _os_log_impl(&dword_1BA5AC000, v26, OS_LOG_TYPE_ERROR, v34, v51, 0x18u);
 LABEL_92:
 
-    v2 = v51;
+    v2 = v50;
     goto LABEL_93;
   }
 
   if (*(a1 + 204) != v2)
   {
-    CAVerboseAbort();
+    CAVerboseAbort("ASSERTION FAILED: re-entrant request for different alert type");
   }
 
   if (!kAVVCScope || (*(kAVVCScope + 8) & 1) == 0)
@@ -4137,10 +4091,10 @@ LABEL_92:
 
       *buf = 136315650;
       *&buf[4] = "ControllerImpl.mm";
-      v59 = 1024;
-      v60 = 2101;
-      v61 = 2080;
-      *v62 = v10;
+      v58 = 1024;
+      v59 = 2101;
+      v60 = 2080;
+      *v61 = v10;
       _os_log_impl(&dword_1BA5AC000, v8, OS_LOG_TYPE_DEBUG, "%25s:%-5d primeAlertQueue: alert queue state '%s'.  reentrant or multi-threaded call -- returning", buf, 0x1Cu);
     }
 
@@ -4148,8 +4102,7 @@ LABEL_92:
   }
 
 LABEL_134:
-  TraceMethod::~TraceMethod(v50);
-  v48 = *MEMORY[0x1E69E9840];
+  TraceMethod::~TraceMethod(v49);
   return v8;
 }
 
@@ -4192,25 +4145,20 @@ void sub_1BA6716E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void ___ZN14ControllerImpl15startAlertQueueEU13block_pointerFviE_block_invoke(uint64_t a1)
 {
-  v37 = *MEMORY[0x1E69E9840];
-  if (kAVVCScope)
-  {
-    v3 = *kAVVCScope;
-    if (!v3)
-    {
-      goto LABEL_46;
-    }
-  }
-
-  else
+  v36 = *MEMORY[0x1E69E9840];
+  if (!kAVVCScope)
   {
     v3 = MEMORY[0x1E69E9C10];
     v4 = MEMORY[0x1E69E9C10];
-  }
+LABEL_5:
+    v5 = v3;
+    if (!os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    {
+LABEL_45:
 
-  v5 = v3;
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
-  {
+      return;
+    }
+
     v6 = *(a1 + 32);
     if (v6)
     {
@@ -4345,17 +4293,17 @@ LABEL_29:
             }
 
             *buf = 136316418;
-            v26 = "ControllerImpl.mm";
-            v27 = 1024;
-            v28 = 2294;
-            v29 = 2080;
-            v30 = v10;
-            v31 = 2112;
-            v32 = v17;
-            v33 = 2080;
-            v34 = v20;
-            v35 = 2080;
-            v36 = v21;
+            v25 = "ControllerImpl.mm";
+            v26 = 1024;
+            v27 = 2294;
+            v28 = 2080;
+            v29 = v10;
+            v30 = 2112;
+            v31 = v17;
+            v32 = 2080;
+            v33 = v20;
+            v34 = 2080;
+            v35 = v21;
             _os_log_impl(&dword_1BA5AC000, v5, OS_LOG_TYPE_DEBUG, "%25s:%-5d session state (%s), rec-engine [%@], rec-engine type (%s), stream state (%s)", buf, 0x3Au);
 
             if (v12)
@@ -4408,10 +4356,11 @@ LABEL_29:
     goto LABEL_22;
   }
 
-LABEL_45:
-
-LABEL_46:
-  v24 = *MEMORY[0x1E69E9840];
+  v3 = *kAVVCScope;
+  if (v3)
+  {
+    goto LABEL_5;
+  }
 }
 
 void sub_1BA671AC8(_Unwind_Exception *a1)
@@ -4452,7 +4401,7 @@ uint64_t __copy_helper_block_ea8_48c47_ZTSNSt3__110shared_ptrI19AVVCRecordingEng
 
 uint64_t ___ZN14ControllerImpl29playAQBeepAlertWithCompletionEP17AVVoiceController16AVVoiceAlertTypemU13block_pointerFviEb_block_invoke_2(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   *(*(*(a1 + 40) + 8) + 24) = *(a1 + 64);
   if (*(*(*(a1 + 40) + 8) + 24))
   {
@@ -4464,8 +4413,7 @@ uint64_t ___ZN14ControllerImpl29playAQBeepAlertWithCompletionEP17AVVoiceControll
 LABEL_10:
         ControllerImpl::primeAlertQueue(*(a1 + 48), 1);
         ControllerImpl::setAlertState(*(a1 + 48), 0);
-        v4 = *(*(*(a1 + 40) + 8) + 24);
-        goto LABEL_11;
+        return (*(*(a1 + 32) + 16))();
       }
     }
 
@@ -4477,42 +4425,39 @@ LABEL_10:
 
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
     {
-      v7 = 136315394;
-      v8 = "ControllerImpl.mm";
-      v9 = 1024;
-      v10 = 1911;
-      _os_log_impl(&dword_1BA5AC000, v2, OS_LOG_TYPE_DEBUG, "%25s:%-5d playAlert: alert playback failed -- attempting to re-prime", &v7, 0x12u);
+      v5 = 136315394;
+      v6 = "ControllerImpl.mm";
+      v7 = 1024;
+      v8 = 1911;
+      _os_log_impl(&dword_1BA5AC000, v2, OS_LOG_TYPE_DEBUG, "%25s:%-5d playAlert: alert playback failed -- attempting to re-prime", &v5, 0x12u);
     }
 
     goto LABEL_10;
   }
 
-LABEL_11:
-  result = (*(*(a1 + 32) + 16))();
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 32) + 16))();
 }
 
 void ControllerImpl::playAlert(uint64_t a1, void *a2, int a3, AVVoiceController *a4, void *a5)
 {
-  v180 = *MEMORY[0x1E69E9840];
-  v141 = a2;
-  v142 = a5;
-  v147 = 4107;
-  v148 = 0;
-  v149 = 0u;
-  v150 = 0u;
+  v177 = *MEMORY[0x1E69E9840];
+  v138 = a2;
+  v139 = a5;
+  v144 = 4107;
+  v145 = 0;
+  v146 = 0u;
+  v147 = 0u;
   kdebug_trace();
-  TraceMethod::TraceMethod(v146, "playAlert");
-  std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v144, *(a1 + 8), *(a1 + 16));
-  v8 = v144;
-  v9 = v145;
-  if (v145)
+  TraceMethod::TraceMethod(v143, "playAlert");
+  std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v141, *(a1 + 8), *(a1 + 16));
+  v8 = v141;
+  v9 = v142;
+  if (v142)
   {
-    atomic_fetch_add_explicit(&v145->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v142->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  AlertLock::AlertLock(v143, v8, v9);
+  AlertLock::AlertLock(v140, v8, v9);
   if (v9)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v9);
@@ -4541,7 +4486,7 @@ void ControllerImpl::playAlert(uint64_t a1, void *a2, int a3, AVVoiceController 
   }
 
   ProfileMetrics(&cfstr_AvvcProfilePro_10.isa);
-  std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(buf, *(v144 + 8), *(v144 + 16));
+  std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(buf, *(v141 + 8), *(v141 + 16));
   switch(a3)
   {
     case 3:
@@ -4569,20 +4514,20 @@ void ControllerImpl::playAlert(uint64_t a1, void *a2, int a3, AVVoiceController 
     {
       if (v12 != 1)
       {
-        goto LABEL_333;
+        goto LABEL_332;
       }
 
-      v16 = v144;
-      v17 = v141;
-      v18 = v142;
-      std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v151, *(v16 + 8), *(v16 + 16));
+      v16 = v141;
+      v17 = v138;
+      v18 = v139;
+      std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v148, *(v16 + 8), *(v16 + 16));
       v19 = *(v16 + 204);
       if (!v19 || v19 == a3)
       {
 LABEL_153:
-        ControllerImpl::setAlertState(v151, 2);
-        v62 = v151;
-        *(v151 + 204) = a3;
+        ControllerImpl::setAlertState(v148, 2);
+        v62 = v148;
+        *(v148 + 204) = a3;
         *(v62 + 208) = 1;
         switch(a3)
         {
@@ -4683,12 +4628,12 @@ LABEL_179:
           {
 LABEL_186:
             theDict = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-            LOWORD(v168) = 257;
+            LOWORD(v165) = 257;
             CACFDictionary::AddUInt32(&theDict, *MEMORY[0x1E695A8B0], 0);
             CACFDictionary::AddUInt32(&theDict, *MEMORY[0x1E695A8B8], 1);
             LODWORD(location[0]) = 1;
             *buf = location;
-            v70 = [std::__tree<std::__value_type<AVVoiceAlertType NSURL * {:std::__map_value_compare<AVVoiceAlertType :{std::__value_type<AVVoiceAlertType, NSURL * {__strong}>, std::less<AVVoiceAlertType>, true>, std::allocator<std::__value_type<AVVoiceAlertType, NSURL * {__strong}>>>::__emplace_unique_key_args<AVVoiceAlertType, std::piecewise_construct_t const&, std::tuple<AVVoiceAlertType&&>, std::tuple<>>(v151 + 272, 1)[5], "absoluteString"}strong}>];
+            v70 = [std::__tree<std::__value_type<AVVoiceAlertType NSURL * {:std::__map_value_compare<AVVoiceAlertType :{std::__value_type<AVVoiceAlertType, NSURL * {__strong}>, std::less<AVVoiceAlertType>, true>, std::allocator<std::__value_type<AVVoiceAlertType, NSURL * {__strong}>>>::__emplace_unique_key_args<AVVoiceAlertType, std::piecewise_construct_t const&, std::tuple<AVVoiceAlertType&&>, std::tuple<>>((v148 + 272), 1, buf)[5], "absoluteString"}strong}>];
             v71 = [v70 isEqualToString:@"/System/Library/PrivateFrameworks/AssistantServices.framework/jbl_begin_sae.caf"];
 
             if (v71)
@@ -4698,7 +4643,7 @@ LABEL_186:
 
               v74 = [objc_alloc(MEMORY[0x1E695DF90]) initWithContentsOfFile:v73];
               v75 = v74;
-              if (BYTE1(v168) == 1 && v74 && theDict)
+              if (BYTE1(v165) == 1 && v74 && theDict)
               {
                 CFDictionarySetValue(theDict, *MEMORY[0x1E695A8E0], v74);
               }
@@ -4713,11 +4658,11 @@ LABEL_186:
             else
             {
               objc_initWeak(location, v17);
-              v76 = v151;
-              v77 = v152;
-              if (v152)
+              v76 = v148;
+              v77 = v149;
+              if (v149)
               {
-                atomic_fetch_add_explicit((v152 + 16), 1uLL, memory_order_relaxed);
+                atomic_fetch_add_explicit((v149 + 16), 1uLL, memory_order_relaxed);
               }
 
               *buf = MEMORY[0x1E69E9820];
@@ -4725,19 +4670,19 @@ LABEL_186:
               *&buf[16] = ___ZN14ControllerImpl29playHapticAlertWithCompletionEP17AVVoiceController16AVVoiceAlertTypemU13block_pointerFviE_block_invoke;
               *&buf[24] = &unk_1F3847BA0;
               objc_copyWeak(&buf[32], location);
-              v177 = *&v76;
-              *&v178 = v77;
+              v174 = *&v76;
+              *&v175 = v77;
               if (v77)
               {
                 atomic_fetch_add_explicit(&v77->__shared_weak_owners_, 1uLL, memory_order_relaxed);
               }
 
-              v179 = v64;
-              *(&v178 + 1) = a4;
+              v176 = v64;
+              *(&v175 + 1) = a4;
               AudioServicesPlaySystemSoundWithOptions();
-              if (v178)
+              if (v175)
               {
-                std::__shared_weak_count::__release_weak(v178);
+                std::__shared_weak_count::__release_weak(v175);
               }
 
               objc_destroyWeak(&buf[32]);
@@ -4751,14 +4696,14 @@ LABEL_186:
 
             v18[2](v18, 0);
             CACFDictionary::~CACFDictionary(&theDict);
-            if (v152)
+            if (v149)
             {
-              std::__shared_weak_count::__release_shared[abi:ne200100](v152);
+              std::__shared_weak_count::__release_shared[abi:ne200100](v149);
             }
 
 LABEL_123:
 
-            goto LABEL_333;
+            goto LABEL_332;
           }
         }
 
@@ -4854,13 +4799,13 @@ LABEL_152:
       goto LABEL_153;
     }
 
-    v28 = v144;
-    v17 = v141;
-    v18 = v142;
-    std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v151, *(v28 + 8), *(v28 + 16));
-    ControllerImpl::setAlertState(v151, 2);
-    v29 = v151;
-    *(v151 + 204) = a3;
+    v28 = v141;
+    v17 = v138;
+    v18 = v139;
+    std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v148, *(v28 + 8), *(v28 + 16));
+    ControllerImpl::setAlertState(v148, 2);
+    v29 = v148;
+    *(v148 + 204) = a3;
     *(v29 + 208) = 0;
     switch(a3)
     {
@@ -4956,9 +4901,9 @@ LABEL_152:
 LABEL_121:
     ControllerImpl::VibeAlertCompletionProc(v31, v17, a4);
     v18[2](v18, 0);
-    if (v152)
+    if (v149)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v152);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v149);
     }
 
     goto LABEL_123;
@@ -4970,12 +4915,12 @@ LABEL_121:
     {
       if (v12 != 4)
       {
-        goto LABEL_333;
+        goto LABEL_332;
       }
 
-      v13 = v144;
-      v14 = v142;
-      std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v151, *(v13 + 8), *(v13 + 16));
+      v13 = v141;
+      v14 = v139;
+      std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v148, *(v13 + 8), *(v13 + 16));
       if (kAVVCScope)
       {
         v15 = *kAVVCScope;
@@ -4983,12 +4928,12 @@ LABEL_121:
         {
 LABEL_66:
           v14[2](v14, 4294955516);
-          if (v152)
+          if (v149)
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v152);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v149);
           }
 
-          goto LABEL_333;
+          goto LABEL_332;
         }
       }
 
@@ -5010,26 +4955,26 @@ LABEL_66:
       goto LABEL_66;
     }
 
-    v25 = v144;
-    val = v141;
-    v138 = v142;
+    v25 = v141;
+    val = v138;
+    v135 = v139;
     if (!_os_feature_enabled_impl())
     {
       v32 = 4294955516;
-LABEL_301:
-      v138[2](v138, v32);
+LABEL_300:
+      v135[2](v135, v32);
 
-      goto LABEL_333;
+      goto LABEL_332;
     }
 
-    std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v151, *(v25 + 8), *(v25 + 16));
+    std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v148, *(v25 + 8), *(v25 + 16));
     v26 = *(v25 + 204);
     if (!v26 || v26 == a3)
     {
 LABEL_229:
-      ControllerImpl::setAlertState(v151, 2);
-      v85 = v151;
-      *(v151 + 204) = a3;
+      ControllerImpl::setAlertState(v148, 2);
+      v85 = v148;
+      *(v148 + 204) = a3;
       *(v85 + 208) = 3;
       switch(a3)
       {
@@ -5097,7 +5042,7 @@ LABEL_229:
             {
               v87 = 1110;
 LABEL_241:
-              v137 = v87;
+              v134 = v87;
               goto LABEL_256;
             }
           }
@@ -5120,16 +5065,16 @@ LABEL_241:
           v89 = 1110;
           break;
         default:
-          v137 = 0;
+          v134 = 0;
           goto LABEL_256;
       }
 
-      v137 = v89;
+      v134 = v89;
 
 LABEL_256:
       LODWORD(theDict) = 1;
       *buf = &theDict;
-      v92 = [std::__tree<std::__value_type<AVVoiceAlertType NSURL * {:std::__map_value_compare<AVVoiceAlertType :{std::__value_type<AVVoiceAlertType, NSURL * {__strong}>, std::less<AVVoiceAlertType>, true>, std::allocator<std::__value_type<AVVoiceAlertType, NSURL * {__strong}>>>::__emplace_unique_key_args<AVVoiceAlertType, std::piecewise_construct_t const&, std::tuple<AVVoiceAlertType&&>, std::tuple<>>(v151 + 272, 1)[5], "absoluteString"}strong}>];
+      v92 = [std::__tree<std::__value_type<AVVoiceAlertType NSURL * {:std::__map_value_compare<AVVoiceAlertType :{std::__value_type<AVVoiceAlertType, NSURL * {__strong}>, std::less<AVVoiceAlertType>, true>, std::allocator<std::__value_type<AVVoiceAlertType, NSURL * {__strong}>>>::__emplace_unique_key_args<AVVoiceAlertType, std::piecewise_construct_t const&, std::tuple<AVVoiceAlertType&&>, std::tuple<>>((v148 + 272), 1, buf)[5], "absoluteString"}strong}>];
       if ([v92 isEqualToString:@"/System/Library/PrivateFrameworks/AssistantServices.framework/jbl_begin_sae.caf"])
       {
         v93 = *(v25 + 384) != 0;
@@ -5141,7 +5086,7 @@ LABEL_256:
       }
 
       theDict = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-      LOWORD(v168) = 257;
+      LOWORD(v165) = 257;
       v94 = *MEMORY[0x1E695A8B0];
       if (v93)
       {
@@ -5153,89 +5098,53 @@ LABEL_256:
             v95 = *kAVVCScope;
             if (!v95)
             {
-LABEL_292:
-              v126 = *(v25 + 384);
-LABEL_297:
-              AudioServicesPlaySystemSoundWithOptions();
-              ControllerImpl::VibeAlertCompletionProc(v137, val, a4);
-LABEL_298:
-              CACFDictionary::~CACFDictionary(&theDict);
-              if (v152)
-              {
-                std::__shared_weak_count::__release_shared[abi:ne200100](v152);
-              }
-
-              v32 = 0;
-              goto LABEL_301;
+              goto LABEL_296;
             }
           }
 
           else
           {
             v95 = MEMORY[0x1E69E9C10];
-            v124 = MEMORY[0x1E69E9C10];
+            v123 = MEMORY[0x1E69E9C10];
           }
 
           if (os_log_type_enabled(v95, OS_LOG_TYPE_DEBUG))
           {
-            v125 = *(v25 + 384);
+            v124 = *(v25 + 384);
             *buf = 136315650;
             *&buf[4] = "ControllerImpl.mm";
             *&buf[12] = 1024;
             *&buf[14] = 1849;
             *&buf[18] = 1024;
-            *&buf[20] = v125;
+            *&buf[20] = v124;
             _os_log_impl(&dword_1BA5AC000, v95, OS_LOG_TYPE_DEBUG, "%25s:%-5d playAlert: calling AudioServicesPlaySystemSoundWithOptions for SAE with sound ID %u", buf, 0x18u);
           }
 
-          goto LABEL_292;
+LABEL_295:
+
+LABEL_296:
+          AudioServicesPlaySystemSoundWithOptions();
+          ControllerImpl::VibeAlertCompletionProc(v134, val, a4);
+LABEL_297:
+          CACFDictionary::~CACFDictionary(&theDict);
+          if (v149)
+          {
+            std::__shared_weak_count::__release_shared[abi:ne200100](v149);
+          }
+
+          v32 = 0;
+          goto LABEL_300;
         }
 
-LABEL_279:
-        objc_initWeak(location, val);
-        v122 = v151;
-        v123 = v152;
-        if (v152)
-        {
-          atomic_fetch_add_explicit((v152 + 16), 1uLL, memory_order_relaxed);
-        }
-
-        *buf = MEMORY[0x1E69E9820];
-        *&buf[8] = 3321888768;
-        *&buf[16] = ___ZN14ControllerImpl37playHapticWithBeepAlertWithCompletionEP17AVVoiceController16AVVoiceAlertTypemU13block_pointerFviE_block_invoke;
-        *&buf[24] = &unk_1F3847BA0;
-        objc_copyWeak(&buf[32], location);
-        v177 = *&v122;
-        *&v178 = v123;
-        if (v123)
-        {
-          atomic_fetch_add_explicit(&v123->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-        }
-
-        v179 = v137;
-        *(&v178 + 1) = a4;
-        AudioServicesPlaySystemSoundWithOptions();
-        if (v178)
-        {
-          std::__shared_weak_count::__release_weak(v178);
-        }
-
-        objc_destroyWeak(&buf[32]);
-        if (v123)
-        {
-          std::__shared_weak_count::__release_weak(v123);
-        }
-
-        objc_destroyWeak(location);
-        goto LABEL_298;
+        goto LABEL_279;
       }
 
       CACFDictionary::AddUInt32(&theDict, v94, 0);
       CACFDictionary::AddUInt32(&theDict, *MEMORY[0x1E695A8B8], 0);
-      v135 = ControllerImpl::sessionManagerForStreamID(v25, a4, 0);
-      [v135 deviceGain];
+      v132 = ControllerImpl::sessionManagerForStreamID(v25, a4, 0);
+      [v132 deviceGain];
       *(v25 + 404) = v96;
-      [v135 outputVolume];
+      [v132 outputVolume];
       v98 = v97;
       v99 = (*(v25 + 400) * *(v25 + 404)) * v98;
       if (kAVVCScope)
@@ -5266,9 +5175,9 @@ LABEL_279:
         *&buf[28] = 2048;
         *&buf[30] = v103;
         *&buf[38] = 2048;
-        v177 = v98;
-        LOWORD(v178) = 2048;
-        *(&v178 + 2) = v99;
+        v174 = v98;
+        LOWORD(v175) = 2048;
+        *(&v175 + 2) = v99;
         _os_log_impl(&dword_1BA5AC000, v100, OS_LOG_TYPE_DEFAULT, "%25s:%-5d playAlert: volume is %f %f %f, %f", buf, 0x3Au);
       }
 
@@ -5277,7 +5186,7 @@ LABEL_271:
       v104 = MEMORY[0x1E695DF20];
       v105 = [MEMORY[0x1E696AD98] numberWithFloat:0.0];
       v106 = [MEMORY[0x1E696AD98] numberWithFloat:0.0];
-      v136 = [v104 dictionaryWithObjectsAndKeys:{v105, @"StartTime", @"Tap", @"Type", v106, @"Amplitude", 0}];
+      v133 = [v104 dictionaryWithObjectsAndKeys:{v105, @"StartTime", @"Tap", @"Type", v106, @"Amplitude", 0}];
 
       v107 = MEMORY[0x1E695DF20];
       LODWORD(v108) = 1036831949;
@@ -5292,10 +5201,10 @@ LABEL_271:
       v116 = [MEMORY[0x1E696AD98] numberWithFloat:0.0];
       v117 = [v113 dictionaryWithObjectsAndKeys:{v115, @"StartTime", @"Tap", @"Type", v116, @"Amplitude", 0}];
 
-      v118 = [MEMORY[0x1E695DEC8] arrayWithObjects:{v136, v112, v117, 0}];
+      v118 = [MEMORY[0x1E695DEC8] arrayWithObjects:{v133, v112, v117, 0}];
       v119 = [MEMORY[0x1E695DF20] dictionaryWithObjectsAndKeys:{v118, @"Atoms", 0}];
       v120 = v119;
-      if (BYTE1(v168) == 1 && v119 && theDict)
+      if (BYTE1(v165) == 1 && v119 && theDict)
       {
         CFDictionarySetValue(theDict, *MEMORY[0x1E695A8E0], v119);
       }
@@ -5304,36 +5213,72 @@ LABEL_271:
       {
         if (kAVVCScope)
         {
-          v121 = *kAVVCScope;
-          if (!v121)
+          v95 = *kAVVCScope;
+          if (!v95)
           {
-            goto LABEL_297;
+            goto LABEL_296;
           }
         }
 
         else
         {
-          v121 = MEMORY[0x1E69E9C10];
-          v127 = MEMORY[0x1E69E9C10];
+          v95 = MEMORY[0x1E69E9C10];
+          v125 = MEMORY[0x1E69E9C10];
         }
 
-        if (os_log_type_enabled(v121, OS_LOG_TYPE_DEBUG))
+        if (os_log_type_enabled(v95, OS_LOG_TYPE_DEBUG))
         {
           *buf = 136315906;
           *&buf[4] = "ControllerImpl.mm";
           *&buf[12] = 1024;
           *&buf[14] = 1853;
           *&buf[18] = 1024;
-          *&buf[20] = v137;
+          *&buf[20] = v134;
           *&buf[24] = 1024;
           *&buf[26] = 0;
-          _os_log_impl(&dword_1BA5AC000, v121, OS_LOG_TYPE_DEBUG, "%25s:%-5d playAlert: calling AudioServicesPlaySystemSoundWithOptions with sound ID %u and flags %x", buf, 0x1Eu);
+          _os_log_impl(&dword_1BA5AC000, v95, OS_LOG_TYPE_DEBUG, "%25s:%-5d playAlert: calling AudioServicesPlaySystemSoundWithOptions with sound ID %u and flags %x", buf, 0x1Eu);
         }
 
-        goto LABEL_297;
+        goto LABEL_295;
       }
 
-      goto LABEL_279;
+LABEL_279:
+      objc_initWeak(location, val);
+      v121 = v148;
+      v122 = v149;
+      if (v149)
+      {
+        atomic_fetch_add_explicit((v149 + 16), 1uLL, memory_order_relaxed);
+      }
+
+      *buf = MEMORY[0x1E69E9820];
+      *&buf[8] = 3321888768;
+      *&buf[16] = ___ZN14ControllerImpl37playHapticWithBeepAlertWithCompletionEP17AVVoiceController16AVVoiceAlertTypemU13block_pointerFviE_block_invoke;
+      *&buf[24] = &unk_1F3847BA0;
+      objc_copyWeak(&buf[32], location);
+      v174 = *&v121;
+      *&v175 = v122;
+      if (v122)
+      {
+        atomic_fetch_add_explicit(&v122->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+      }
+
+      v176 = v134;
+      *(&v175 + 1) = a4;
+      AudioServicesPlaySystemSoundWithOptions();
+      if (v175)
+      {
+        std::__shared_weak_count::__release_weak(v175);
+      }
+
+      objc_destroyWeak(&buf[32]);
+      if (v122)
+      {
+        std::__shared_weak_count::__release_weak(v122);
+      }
+
+      objc_destroyWeak(location);
+      goto LABEL_297;
     }
 
     if (v26 == 2)
@@ -5406,15 +5351,15 @@ LABEL_228:
     goto LABEL_229;
   }
 
-  v21 = v144;
-  v22 = v141;
-  v23 = v142;
+  v21 = v141;
+  v22 = v138;
+  v23 = v139;
+  v158 = 0;
+  v159 = &v158;
+  v160 = 0x2020000000;
   v161 = 0;
-  v162 = &v161;
-  v163 = 0x2020000000;
-  v164 = 0;
-  std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v159, *(v21 + 8), *(v21 + 16));
-  *(v159 + 208) = 2;
+  std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v156, *(v21 + 8), *(v21 + 16));
+  *(v156 + 208) = 2;
   if (kAVVCScope)
   {
     v24 = *kAVVCScope;
@@ -5440,46 +5385,46 @@ LABEL_228:
   }
 
 LABEL_58:
-  ControllerImpl::setAlertState(v159, 1);
-  v34 = ControllerImpl::primeAlertQueue(v159, a3);
-  *(v162 + 6) = v34;
+  ControllerImpl::setAlertState(v156, 1);
+  v34 = ControllerImpl::primeAlertQueue(v156, a3);
+  *(v159 + 6) = v34;
   if (!v34)
   {
-    v151 = MEMORY[0x1E69E9820];
-    v152 = 3321888768;
-    v153 = ___ZN14ControllerImpl29playAQBeepAlertWithCompletionEP17AVVoiceController16AVVoiceAlertTypemU13block_pointerFviEb_block_invoke;
-    v154 = &unk_1F3848B30;
-    v37 = v159;
-    v157 = v159;
-    v158 = v160;
-    if (v160)
+    v148 = MEMORY[0x1E69E9820];
+    v149 = 3321888768;
+    v150 = ___ZN14ControllerImpl29playAQBeepAlertWithCompletionEP17AVVoiceController16AVVoiceAlertTypemU13block_pointerFviEb_block_invoke;
+    v151 = &unk_1F3848B30;
+    v37 = v156;
+    v154 = v156;
+    v155 = v157;
+    if (v157)
     {
-      atomic_fetch_add_explicit(&v160->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v157->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v156 = &v161;
-    v155 = v23;
-    v38 = &v151;
-    TraceMethod::TraceMethod(v175, "startAlertQueue");
-    ControllerImpl::_getCurrentRecordingEngine(&v173, v37, *(v37 + 472), 0, "startAlertQueue");
-    v39 = v173;
-    if (v173)
+    v153 = &v158;
+    v152 = v23;
+    v38 = &v148;
+    TraceMethod::TraceMethod(v172, "startAlertQueue");
+    ControllerImpl::_getCurrentRecordingEngine(&v170, v37, *(v37 + 472), 0, "startAlertQueue");
+    v39 = v170;
+    if (v170)
     {
       theDict = MEMORY[0x1E69E9820];
-      v168 = 3321888768;
-      v169 = ___ZN14ControllerImpl15startAlertQueueEU13block_pointerFviE_block_invoke;
-      v170 = &__block_descriptor_48_ea8_32c47_ZTSNSt3__110shared_ptrI19AVVCRecordingEngineEE_e5_v8__0l;
-      v171 = v173;
-      v172 = v174;
-      if (v174)
+      v165 = 3321888768;
+      v166 = ___ZN14ControllerImpl15startAlertQueueEU13block_pointerFviE_block_invoke;
+      v167 = &__block_descriptor_48_ea8_32c47_ZTSNSt3__110shared_ptrI19AVVCRecordingEngineEE_e5_v8__0l;
+      v168 = v170;
+      v169 = v171;
+      if (v171)
       {
-        atomic_fetch_add_explicit(&v174->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v171->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
       (*(*v39 + 328))(v39, &theDict, "startAlertQueue");
-      if (v172)
+      if (v169)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v172);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v169);
       }
     }
 
@@ -5487,7 +5432,7 @@ LABEL_58:
     {
       if (!*(v37 + 204) || *(v37 + 360) != 201)
       {
-        CAVerboseAbort();
+        CAVerboseAbort("ASSERTION FAILED: no alert buffer is enqueued!");
       }
 
       v40 = ControllerImpl::sessionManagerForStreamID(v37, 0, 0);
@@ -5565,38 +5510,7 @@ LABEL_130:
             v55 = *kAVVCScope;
             if (!v55)
             {
-              goto LABEL_325;
-            }
-          }
-
-          else
-          {
-            v55 = MEMORY[0x1E69E9C10];
-            v130 = MEMORY[0x1E69E9C10];
-          }
-
-          if (!os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
-          {
-            goto LABEL_324;
-          }
-
-          *buf = 136315650;
-          *&buf[4] = "ControllerImpl.mm";
-          *&buf[12] = 1024;
-          *&buf[14] = 2344;
-          *&buf[18] = 1024;
-          *&buf[20] = v46;
-          v129 = "%25s:%-5d ERROR: startAlertQueue: AudioQueueStart err %{audio:4CC}d";
-        }
-
-        else
-        {
-          if (kAVVCScope)
-          {
-            v55 = *kAVVCScope;
-            if (!v55)
-            {
-              goto LABEL_325;
+              goto LABEL_324;
             }
           }
 
@@ -5608,7 +5522,7 @@ LABEL_130:
 
           if (!os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
           {
-            goto LABEL_324;
+            goto LABEL_323;
           }
 
           *buf = 136315650;
@@ -5617,10 +5531,41 @@ LABEL_130:
           *&buf[14] = 2344;
           *&buf[18] = 1024;
           *&buf[20] = v46;
-          v129 = "%25s:%-5d ERROR: startAlertQueue: AudioQueueStart err %d";
+          v127 = "%25s:%-5d ERROR: startAlertQueue: AudioQueueStart err %{audio:4CC}d";
         }
 
-        goto LABEL_323;
+        else
+        {
+          if (kAVVCScope)
+          {
+            v55 = *kAVVCScope;
+            if (!v55)
+            {
+              goto LABEL_324;
+            }
+          }
+
+          else
+          {
+            v55 = MEMORY[0x1E69E9C10];
+            v126 = MEMORY[0x1E69E9C10];
+          }
+
+          if (!os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
+          {
+            goto LABEL_323;
+          }
+
+          *buf = 136315650;
+          *&buf[4] = "ControllerImpl.mm";
+          *&buf[12] = 1024;
+          *&buf[14] = 2344;
+          *&buf[18] = 1024;
+          *&buf[20] = v46;
+          v127 = "%25s:%-5d ERROR: startAlertQueue: AudioQueueStart err %d";
+        }
+
+        goto LABEL_322;
       }
 
       ElapsedTime::ElapsedTime(buf, "startAlertQueue", "mAlertQueue : AudioQueueStop", 0);
@@ -5664,9 +5609,9 @@ LABEL_130:
 LABEL_215:
       if (!v46)
       {
-LABEL_325:
-        v153(v38, v46);
-        goto LABEL_326;
+LABEL_324:
+        v150(v38, v46);
+        goto LABEL_325;
       }
 
       if ((v46 + 199999) >= 0x61A7F)
@@ -5676,19 +5621,19 @@ LABEL_325:
           v55 = *kAVVCScope;
           if (!v55)
           {
-            goto LABEL_325;
+            goto LABEL_324;
           }
         }
 
         else
         {
           v55 = MEMORY[0x1E69E9C10];
-          v133 = MEMORY[0x1E69E9C10];
+          v131 = MEMORY[0x1E69E9C10];
         }
 
         if (!os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
         {
-          goto LABEL_324;
+          goto LABEL_323;
         }
 
         *buf = 136315650;
@@ -5697,7 +5642,7 @@ LABEL_325:
         *&buf[14] = 2358;
         *&buf[18] = 1024;
         *&buf[20] = v46;
-        v129 = "%25s:%-5d ERROR: startAlertQueue: AudioQueueStop(async) err %{audio:4CC}d";
+        v127 = "%25s:%-5d ERROR: startAlertQueue: AudioQueueStop(async) err %{audio:4CC}d";
       }
 
       else
@@ -5707,19 +5652,19 @@ LABEL_325:
           v55 = *kAVVCScope;
           if (!v55)
           {
-            goto LABEL_325;
+            goto LABEL_324;
           }
         }
 
         else
         {
           v55 = MEMORY[0x1E69E9C10];
-          v132 = MEMORY[0x1E69E9C10];
+          v130 = MEMORY[0x1E69E9C10];
         }
 
         if (!os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
         {
-          goto LABEL_324;
+          goto LABEL_323;
         }
 
         *buf = 136315650;
@@ -5728,43 +5673,43 @@ LABEL_325:
         *&buf[14] = 2358;
         *&buf[18] = 1024;
         *&buf[20] = v46;
-        v129 = "%25s:%-5d ERROR: startAlertQueue: AudioQueueStop(async) err %d";
+        v127 = "%25s:%-5d ERROR: startAlertQueue: AudioQueueStop(async) err %d";
       }
 
+LABEL_322:
+      _os_log_impl(&dword_1BA5AC000, v55, OS_LOG_TYPE_ERROR, v127, buf, 0x18u);
 LABEL_323:
-      _os_log_impl(&dword_1BA5AC000, v55, OS_LOG_TYPE_ERROR, v129, buf, 0x18u);
-LABEL_324:
 
-      goto LABEL_325;
+      goto LABEL_324;
     }
 
     location[0] = 0;
     location[1] = location;
     location[2] = 0x2020000000;
-    v166 = 0;
+    v163 = 0;
     if (v39)
     {
       *buf = MEMORY[0x1E69E9820];
       *&buf[8] = 3321888768;
       *&buf[16] = ___ZN14ControllerImpl15startAlertQueueEU13block_pointerFviE_block_invoke_232;
       *&buf[24] = &unk_1F3848AF8;
-      v177 = COERCE_DOUBLE(location);
-      *&v178 = v39;
-      *(&v178 + 1) = v174;
-      if (v174)
+      v174 = COERCE_DOUBLE(location);
+      *&v175 = v39;
+      *(&v175 + 1) = v171;
+      if (v171)
       {
-        atomic_fetch_add_explicit(&v174->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v171->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
       *&buf[32] = v38;
       (*(*v39 + 328))(v39, buf, "startAlertQueue");
 
-      if (*(&v178 + 1))
+      if (*(&v175 + 1))
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](*(&v178 + 1));
+        std::__shared_weak_count::__release_shared[abi:ne200100](*(&v175 + 1));
       }
 
-      goto LABEL_316;
+      goto LABEL_315;
     }
 
     if (kAVVCScope)
@@ -5772,31 +5717,31 @@ LABEL_324:
       v78 = *kAVVCScope;
       if (!v78)
       {
+LABEL_314:
+        v150(v38, -6789);
 LABEL_315:
-        v153(v38, -6789);
-LABEL_316:
         _Block_object_dispose(location, 8);
-LABEL_326:
-        if (v174)
+LABEL_325:
+        if (v171)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v174);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v171);
         }
 
-        TraceMethod::~TraceMethod(v175);
+        TraceMethod::~TraceMethod(v172);
 
-        if (v158)
+        if (v155)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v158);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v155);
         }
 
-        goto LABEL_330;
+        goto LABEL_329;
       }
     }
 
     else
     {
       v78 = MEMORY[0x1E69E9C10];
-      v131 = MEMORY[0x1E69E9C10];
+      v129 = MEMORY[0x1E69E9C10];
     }
 
     if (os_log_type_enabled(v78, OS_LOG_TYPE_ERROR))
@@ -5808,7 +5753,7 @@ LABEL_326:
       _os_log_impl(&dword_1BA5AC000, v78, OS_LOG_TYPE_ERROR, "%25s:%-5d getRecordErrorStatus: Current recording engine is nil!", buf, 0x12u);
     }
 
-    goto LABEL_315;
+    goto LABEL_314;
   }
 
   if (!kAVVCScope)
@@ -5824,7 +5769,7 @@ LABEL_326:
 LABEL_96:
     if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
     {
-      v49 = *(v162 + 6);
+      v49 = *(v159 + 6);
       *buf = 136315650;
       *&buf[4] = "ControllerImpl.mm";
       *&buf[12] = 1024;
@@ -5835,29 +5780,27 @@ LABEL_96:
     }
   }
 
-  (*(v23 + 2))(v23, *(v162 + 6));
-LABEL_330:
-  if (v160)
+  (*(v23 + 2))(v23, *(v159 + 6));
+LABEL_329:
+  if (v157)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v160);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v157);
   }
 
-  _Block_object_dispose(&v161, 8);
+  _Block_object_dispose(&v158, 8);
 
-LABEL_333:
-  VCLocker::~VCLocker(v143);
-  if (v145)
+LABEL_332:
+  VCLocker::~VCLocker(v140);
+  if (v142)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v145);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v142);
   }
 
-  TraceMethod::~TraceMethod(v146);
-  TraceWrapper::~TraceWrapper(&v147);
-
-  v134 = *MEMORY[0x1E69E9840];
+  TraceMethod::~TraceMethod(v143);
+  TraceWrapper::~TraceWrapper(&v144);
 }
 
-void sub_1BA673CAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, _Unwind_Exception *exception_objecta, uint64_t a19, uint64_t a20, uint64_t a21, void *a22, void *a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28, int a29, __int16 a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, char a45, uint64_t a46, uint64_t a47, uint64_t a48, id location, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, char a61)
+void sub_1BA673CAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, _Unwind_Exception *exception_objecta, uint64_t a19, uint64_t a20, uint64_t a21, void *a22, void *a23, uint64_t a24, uint64_t a25, uint64_t a26, std::__shared_weak_count *a27, int a28, int a29, __int16 a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, void *a39, uint64_t a40, uint64_t a41, std::__shared_weak_count *a42, uint64_t a43, std::__shared_weak_count *a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, id location, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, std::__shared_weak_count *a60, uint64_t a61)
 {
   _Block_object_dispose(&location, 8);
   if (a60)
@@ -5923,7 +5866,7 @@ NSObject *___ZN14ControllerImpl9playAlertEP17AVVoiceController16AVVoiceAlertType
 
 void ___ZN14ControllerImpl16checkForEndpointEP17AVVoiceControllerP16AudioQueueBufferPfjd_block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
@@ -5946,11 +5889,11 @@ LABEL_12:
 
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
     {
-      v7 = 136315394;
-      v8 = "ControllerImpl.mm";
-      v9 = 1024;
-      v10 = 2895;
-      _os_log_impl(&dword_1BA5AC000, v2, OS_LOG_TYPE_DEBUG, "%25s:%-5d calling startpointDetected synchronously", &v7, 0x12u);
+      v6 = 136315394;
+      v7 = "ControllerImpl.mm";
+      v8 = 1024;
+      v9 = 2895;
+      _os_log_impl(&dword_1BA5AC000, v2, OS_LOG_TYPE_DEBUG, "%25s:%-5d calling startpointDetected synchronously", &v6, 0x12u);
     }
 
     goto LABEL_12;
@@ -5973,22 +5916,21 @@ LABEL_12:
 
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v7 = 136315650;
-    v8 = "ControllerImpl.mm";
-    v9 = 1024;
-    v10 = 2894;
-    v11 = 2048;
-    v12 = 0;
-    _os_log_impl(&dword_1BA5AC000, v3, OS_LOG_TYPE_ERROR, "%25s:%-5d nil object encountered (avvc: %p). Bailing", &v7, 0x1Cu);
+    v6 = 136315650;
+    v7 = "ControllerImpl.mm";
+    v8 = 1024;
+    v9 = 2894;
+    v10 = 2048;
+    v11 = 0;
+    _os_log_impl(&dword_1BA5AC000, v3, OS_LOG_TYPE_ERROR, "%25s:%-5d nil object encountered (avvc: %p). Bailing", &v6, 0x1Cu);
   }
 
 LABEL_17:
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void ___ZN14ControllerImpl16checkForEndpointEP17AVVoiceControllerP16AudioQueueBufferPfjd_block_invoke_255(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
@@ -6011,11 +5953,11 @@ LABEL_12:
 
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
-      v8 = 136315394;
-      v9 = "ControllerImpl.mm";
-      v10 = 1024;
-      v11 = 2905;
-      _os_log_impl(&dword_1BA5AC000, v3, OS_LOG_TYPE_DEBUG, "%25s:%-5d calling interspeechPointDetected synchronously ", &v8, 0x12u);
+      v7 = 136315394;
+      v8 = "ControllerImpl.mm";
+      v9 = 1024;
+      v10 = 2905;
+      _os_log_impl(&dword_1BA5AC000, v3, OS_LOG_TYPE_DEBUG, "%25s:%-5d calling interspeechPointDetected synchronously ", &v7, 0x12u);
     }
 
     goto LABEL_12;
@@ -6038,22 +5980,21 @@ LABEL_12:
 
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v8 = 136315650;
-    v9 = "ControllerImpl.mm";
-    v10 = 1024;
-    v11 = 2904;
-    v12 = 2048;
-    v13 = 0;
-    _os_log_impl(&dword_1BA5AC000, v4, OS_LOG_TYPE_ERROR, "%25s:%-5d nil object encountered (avvc: %p). Bailing", &v8, 0x1Cu);
+    v7 = 136315650;
+    v8 = "ControllerImpl.mm";
+    v9 = 1024;
+    v10 = 2904;
+    v11 = 2048;
+    v12 = 0;
+    _os_log_impl(&dword_1BA5AC000, v4, OS_LOG_TYPE_ERROR, "%25s:%-5d nil object encountered (avvc: %p). Bailing", &v7, 0x1Cu);
   }
 
 LABEL_17:
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void ___ZN14ControllerImpl16checkForEndpointEP17AVVoiceControllerP16AudioQueueBufferPfjd_block_invoke_257(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
@@ -6076,11 +6017,11 @@ LABEL_12:
 
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
-      v8 = 136315394;
-      v9 = "ControllerImpl.mm";
-      v10 = 1024;
-      v11 = 2923;
-      _os_log_impl(&dword_1BA5AC000, v3, OS_LOG_TYPE_DEBUG, "%25s:%-5d calling endpointDetected synchronously", &v8, 0x12u);
+      v7 = 136315394;
+      v8 = "ControllerImpl.mm";
+      v9 = 1024;
+      v10 = 2923;
+      _os_log_impl(&dword_1BA5AC000, v3, OS_LOG_TYPE_DEBUG, "%25s:%-5d calling endpointDetected synchronously", &v7, 0x12u);
     }
 
     goto LABEL_12;
@@ -6103,26 +6044,25 @@ LABEL_12:
 
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v8 = 136315650;
-    v9 = "ControllerImpl.mm";
-    v10 = 1024;
-    v11 = 2922;
-    v12 = 2048;
-    v13 = 0;
-    _os_log_impl(&dword_1BA5AC000, v4, OS_LOG_TYPE_ERROR, "%25s:%-5d nil object encountered (avvc: %p). Bailing", &v8, 0x1Cu);
+    v7 = 136315650;
+    v8 = "ControllerImpl.mm";
+    v9 = 1024;
+    v10 = 2922;
+    v11 = 2048;
+    v12 = 0;
+    _os_log_impl(&dword_1BA5AC000, v4, OS_LOG_TYPE_ERROR, "%25s:%-5d nil object encountered (avvc: %p). Bailing", &v7, 0x1Cu);
   }
 
 LABEL_17:
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void ControllerImpl::handleInterruptStart(ControllerImpl *this, AVVoiceController *a2, AVAudioSession *a3, NSDictionary *a4)
 {
-  v69 = *MEMORY[0x1E69E9840];
+  v68 = *MEMORY[0x1E69E9840];
   val = a2;
   v7 = a3;
   v8 = a4;
-  std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v62, *(this + 1), *(this + 2));
+  std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v61, *(this + 1), *(this + 2));
   v9 = ControllerImpl::audioSessionForStreamID(this, 0, 0);
 
   if (kAVVCScope)
@@ -6146,18 +6086,18 @@ void ControllerImpl::handleInterruptStart(ControllerImpl *this, AVVoiceControlle
     *&buf[12] = 1024;
     v12 = "aux";
     *&buf[14] = 2975;
-    v65 = 2080;
+    v64 = 2080;
     *buf = 136316162;
     if (v9 == v7)
     {
       v12 = "primary";
     }
 
-    *v66 = v12;
-    *&v66[8] = 2048;
-    *&v66[10] = v7;
-    v67 = 2112;
-    v68 = v8;
+    *v65 = v12;
+    *&v65[8] = 2048;
+    *&v65[10] = v7;
+    v66 = 2112;
+    v67 = v8;
     _os_log_impl(&dword_1BA5AC000, v10, OS_LOG_TYPE_DEFAULT, "%25s:%-5d AVVoiceController -> Interruption beginning for %s session (%p) info: %@", buf, 0x30u);
   }
 
@@ -6195,22 +6135,22 @@ LABEL_10:
       *&buf[4] = "ControllerImpl.mm";
       *&buf[12] = 1024;
       *&buf[14] = 2997;
-      v65 = 1024;
-      *v66 = v16;
+      v64 = 1024;
+      *v65 = v16;
       _os_log_impl(&dword_1BA5AC000, v17, OS_LOG_TYPE_DEFAULT, "%25s:%-5d   We think our session was not active.  Make sure it isn't. deactivating session with options : %d", buf, 0x18u);
     }
 
 LABEL_25:
-    std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v59, *(this + 1), *(this + 2));
-    SessionLock::SessionLock(v61, v59, v60);
-    if (v60)
+    std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v58, *(this + 1), *(this + 2));
+    SessionLock::SessionLock(v60, v58, v59);
+    if (v59)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v60);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v59);
     }
 
-    v58 = 0;
-    v20 = [v13 setActive:0 withOptions:v16 error:&v58];
-    v21 = v58;
+    v57 = 0;
+    v20 = [v13 setActive:0 withOptions:v16 error:&v57];
+    v21 = v57;
     if (v21)
     {
       v22 = v20;
@@ -6237,7 +6177,7 @@ LABEL_38:
           ControllerImpl::setSessionState(this, 2, 0);
         }
 
-        VCLocker::~VCLocker(v61);
+        VCLocker::~VCLocker(v60);
 LABEL_41:
         v27 = objc_autoreleasePoolPush();
         v28 = [(NSDictionary *)v8 objectForKey:*MEMORY[0x1E698D5A0]];
@@ -6260,7 +6200,7 @@ LABEL_51:
 
               objc_autoreleasePoolPop(v27);
               ControllerImpl::stopKeepAliveQueue(*(this + 1), *(this + 2));
-              v61[0] = 0;
+              v60[0] = 0;
               v32 = *(this + 72);
               v33 = *(this + 73);
               if (v33)
@@ -6271,13 +6211,13 @@ LABEL_51:
               if (v32)
               {
                 *buf = &unk_1F384E080;
-                *&buf[8] = v61;
-                *&v66[4] = buf;
+                *&buf[8] = v60;
+                *&v65[4] = buf;
                 AVVCRecordingEngineMap::for_each_engine(v32, buf, "isAnyEngineActive");
                 std::__function::__value_func<void ()(std::shared_ptr<AVVCRecordingEngine>)>::~__value_func[abi:ne200100](buf);
               }
 
-              v34 = v61[0];
+              v34 = v60[0];
               if (v33)
               {
                 std::__shared_weak_count::__release_shared[abi:ne200100](v33);
@@ -6291,25 +6231,25 @@ LABEL_51:
                   if (!v35)
                   {
 LABEL_68:
-                    std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v56, *(this + 1), *(this + 2));
-                    SessionLock::SessionLock(buf, v56, v57);
-                    if (v57)
+                    std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v55, *(this + 1), *(this + 2));
+                    SessionLock::SessionLock(buf, v55, v56);
+                    if (v56)
                     {
-                      std::__shared_weak_count::__release_shared[abi:ne200100](v57);
+                      std::__shared_weak_count::__release_shared[abi:ne200100](v56);
                     }
 
                     ControllerImpl::setSessionState(this, 2, 0);
                     VCLocker::~VCLocker(buf);
                     objc_initWeak(v38, val);
-                    v39 = v62;
-                    v53[0] = MEMORY[0x1E69E9820];
-                    v53[1] = 3221225472;
-                    v53[2] = ___ZN14ControllerImpl20handleInterruptStartEP17AVVoiceControllerP14AVAudioSessionP12NSDictionary_block_invoke;
-                    v53[3] = &unk_1E7EF5BF8;
-                    objc_copyWeak(&v55, buf);
+                    v39 = v61;
+                    v52[0] = MEMORY[0x1E69E9820];
+                    v52[1] = 3221225472;
+                    v52[2] = ___ZN14ControllerImpl20handleInterruptStartEP17AVVoiceControllerP14AVAudioSessionP12NSDictionary_block_invoke;
+                    v52[3] = &unk_1E7EF5BF8;
+                    objc_copyWeak(&v54, buf);
                     v40 = v8;
-                    v54 = v40;
-                    ControllerImpl::safeNotify(v39, "beginRecordInterruptionWithContext", v53);
+                    v53 = v40;
+                    ControllerImpl::safeNotify(v39, "beginRecordInterruptionWithContext", v52);
                     v41 = [(NSDictionary *)v40 objectForKey:*MEMORY[0x1E698D578]];
                     LODWORD(v40) = [v41 unsignedIntValue];
 
@@ -6325,27 +6265,27 @@ LABEL_68:
 
                     ControllerImpl::stopRunningEngines(this, val, 0, v42);
 
-                    objc_destroyWeak(&v55);
+                    objc_destroyWeak(&v54);
                     objc_destroyWeak(buf);
 LABEL_81:
-                    v47[0] = MEMORY[0x1E69E9820];
-                    v47[1] = 3321888768;
-                    v47[2] = ___ZN14ControllerImpl20handleInterruptStartEP17AVVoiceControllerP14AVAudioSessionP12NSDictionary_block_invoke_261;
-                    v47[3] = &unk_1F3848DF0;
-                    v44 = v62;
+                    v46[0] = MEMORY[0x1E69E9820];
+                    v46[1] = 3321888768;
+                    v46[2] = ___ZN14ControllerImpl20handleInterruptStartEP17AVVoiceControllerP14AVAudioSessionP12NSDictionary_block_invoke_261;
+                    v46[3] = &unk_1F3848DF0;
+                    v44 = v61;
+                    v48 = v61;
                     v49 = v62;
-                    v50 = v63;
-                    if (v63)
+                    if (v62)
                     {
-                      atomic_fetch_add_explicit(&v63->__shared_owners_, 1uLL, memory_order_relaxed);
+                      atomic_fetch_add_explicit(&v62->__shared_owners_, 1uLL, memory_order_relaxed);
                     }
 
-                    v48 = val;
-                    ControllerImpl::safeWork(v44, v47, "handleInterruptStart");
+                    v47 = val;
+                    ControllerImpl::safeWork(v44, v46, "handleInterruptStart");
 
-                    if (v50)
+                    if (v49)
                     {
-                      std::__shared_weak_count::__release_shared[abi:ne200100](v50);
+                      std::__shared_weak_count::__release_shared[abi:ne200100](v49);
                     }
 
                     goto LABEL_85;
@@ -6376,11 +6316,11 @@ LABEL_81:
                 if (!v36)
                 {
 LABEL_78:
-                  std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v51, *(this + 1), *(this + 2));
-                  SessionLock::SessionLock(buf, v51, v52);
-                  if (v52)
+                  std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v50, *(this + 1), *(this + 2));
+                  SessionLock::SessionLock(buf, v50, v51);
+                  if (v51)
                   {
-                    std::__shared_weak_count::__release_shared[abi:ne200100](v52);
+                    std::__shared_weak_count::__release_shared[abi:ne200100](v51);
                   }
 
                   ControllerImpl::setSessionState(this, 1, 0);
@@ -6443,10 +6383,10 @@ LABEL_78:
       *&buf[4] = "ControllerImpl.mm";
       *&buf[12] = 1024;
       *&buf[14] = 3005;
-      v65 = 1024;
-      *v66 = 0;
-      *&v66[4] = 2112;
-      *&v66[6] = v26;
+      v64 = 1024;
+      *v65 = 0;
+      *&v65[4] = 2112;
+      *&v65[6] = v26;
       _os_log_impl(&dword_1BA5AC000, v25, OS_LOG_TYPE_ERROR, "%25s:%-5d deactivating session returned  : %d - error - %@", buf, 0x22u);
     }
 
@@ -6479,22 +6419,21 @@ LABEL_85:
   }
 
 LABEL_86:
-  if (v63)
+  if (v62)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v63);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v62);
   }
-
-  v45 = *MEMORY[0x1E69E9840];
 }
 
-void sub_1BA674F94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
+void sub_1BA674F94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
-  VCLocker::~VCLocker(&a31);
+  va_start(va, a30);
 
-  v38 = *(v36 - 168);
-  if (v38)
+  VCLocker::~VCLocker(va);
+  v37 = *(v35 - 168);
+  if (v37)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v38);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v37);
   }
 
   _Unwind_Resume(a1);
@@ -6502,7 +6441,7 @@ void sub_1BA674F94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void ___ZN14ControllerImpl20handleInterruptStartEP17AVVoiceControllerP14AVAudioSessionP12NSDictionary_block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -6529,19 +6468,17 @@ void ___ZN14ControllerImpl20handleInterruptStartEP17AVVoiceControllerP14AVAudioS
 
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v7 = 136315650;
-      v8 = "ControllerImpl.mm";
-      v9 = 1024;
-      v10 = 3044;
-      v11 = 2048;
-      v12 = 0;
-      _os_log_impl(&dword_1BA5AC000, v4, OS_LOG_TYPE_ERROR, "%25s:%-5d nil object encountered (avvc: %p). Bailing", &v7, 0x1Cu);
+      v6 = 136315650;
+      v7 = "ControllerImpl.mm";
+      v8 = 1024;
+      v9 = 3044;
+      v10 = 2048;
+      v11 = 0;
+      _os_log_impl(&dword_1BA5AC000, v4, OS_LOG_TYPE_ERROR, "%25s:%-5d nil object encountered (avvc: %p). Bailing", &v6, 0x1Cu);
     }
   }
 
 LABEL_10:
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void std::__function::__func<ControllerImpl::isAnyEngineActive(void)::$_0,std::allocator<ControllerImpl::isAnyEngineActive(void)::$_0>,void ()(std::shared_ptr<AVVCRecordingEngine>)>::operator()(uint64_t a1, uint64_t *a2)
@@ -6571,11 +6508,11 @@ uint64_t std::__function::__func<ControllerImpl::isAnyEngineActive(void)::$_0,st
 
 void ControllerImpl::handleInterruptStop(ControllerImpl *this, AVVoiceController *a2, AVAudioSession *a3, NSDictionary *a4)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = a4;
-  std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v20, *(this + 1), *(this + 2));
+  std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v19, *(this + 1), *(this + 2));
   v10 = ControllerImpl::audioSessionForStreamID(this, 0, 0);
 
   if (kAVVCScope)
@@ -6595,22 +6532,22 @@ void ControllerImpl::handleInterruptStop(ControllerImpl *this, AVVoiceController
 
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v23 = "ControllerImpl.mm";
-    v24 = 1024;
+    v22 = "ControllerImpl.mm";
+    v23 = 1024;
     v13 = "aux";
-    v25 = 3083;
-    v26 = 2080;
+    v24 = 3083;
+    v25 = 2080;
     *buf = 136316162;
     if (v10 == v8)
     {
       v13 = "primary";
     }
 
-    v27 = v13;
-    v28 = 2048;
-    v29 = v8;
-    v30 = 2112;
-    v31 = v9;
+    v26 = v13;
+    v27 = 2048;
+    v28 = v8;
+    v29 = 2112;
+    v30 = v9;
     _os_log_impl(&dword_1BA5AC000, v11, OS_LOG_TYPE_DEFAULT, "%25s:%-5d AVVoiceController -> Interruption ending for %s session (%p) info: %@", buf, 0x30u);
   }
 
@@ -6618,14 +6555,14 @@ LABEL_10:
   if (v10 == v8)
   {
     objc_initWeak(buf, v7);
-    v15 = v20;
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = ___ZN14ControllerImpl19handleInterruptStopEP17AVVoiceControllerP14AVAudioSessionP12NSDictionary_block_invoke;
-    v18[3] = &unk_1E7EF6678;
-    objc_copyWeak(&v19, buf);
-    ControllerImpl::safeNotify(v15, "endRecordInterruption", v18);
-    objc_destroyWeak(&v19);
+    v15 = v19;
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = ___ZN14ControllerImpl19handleInterruptStopEP17AVVoiceControllerP14AVAudioSessionP12NSDictionary_block_invoke;
+    v17[3] = &unk_1E7EF6678;
+    objc_copyWeak(&v18, buf);
+    ControllerImpl::safeNotify(v15, "endRecordInterruption", v17);
+    objc_destroyWeak(&v18);
     objc_destroyWeak(buf);
     goto LABEL_19;
   }
@@ -6648,19 +6585,17 @@ LABEL_10:
   if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
-    v23 = "ControllerImpl.mm";
-    v24 = 1024;
-    v25 = 3089;
+    v22 = "ControllerImpl.mm";
+    v23 = 1024;
+    v24 = 3089;
     _os_log_impl(&dword_1BA5AC000, v14, OS_LOG_TYPE_ERROR, "%25s:%-5d   Interrupt for aux session unexpected", buf, 0x12u);
   }
 
 LABEL_19:
-  if (v21)
+  if (v20)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v21);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v20);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1BA675594(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, std::__shared_weak_count *a16, id location)
@@ -6677,7 +6612,7 @@ void sub_1BA675594(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void ___ZN14ControllerImpl19handleInterruptStopEP17AVVoiceControllerP14AVAudioSessionP12NSDictionary_block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = WeakRetained;
   if (WeakRetained)
@@ -6704,24 +6639,22 @@ void ___ZN14ControllerImpl19handleInterruptStopEP17AVVoiceControllerP14AVAudioSe
 
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v6 = 136315650;
-      v7 = "ControllerImpl.mm";
-      v8 = 1024;
-      v9 = 3096;
-      v10 = 2048;
-      v11 = 0;
-      _os_log_impl(&dword_1BA5AC000, v3, OS_LOG_TYPE_ERROR, "%25s:%-5d nil object encountered (avvc: %p). Bailing", &v6, 0x1Cu);
+      v5 = 136315650;
+      v6 = "ControllerImpl.mm";
+      v7 = 1024;
+      v8 = 3096;
+      v9 = 2048;
+      v10 = 0;
+      _os_log_impl(&dword_1BA5AC000, v3, OS_LOG_TYPE_ERROR, "%25s:%-5d nil object encountered (avvc: %p). Bailing", &v5, 0x1Cu);
     }
   }
 
 LABEL_10:
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void ___ZN14ControllerImpl17handleRouteChangeEP17AVVoiceControllerP14AVAudioSessionPK12NSDictionary_block_invoke(uint64_t a1)
 {
-  *&v39[5] = *MEMORY[0x1E69E9840];
+  *&v38[5] = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   SessionProperties = AVVCRecordingEngine::getSessionProperties(*(a1 + 40));
   v4 = 2;
@@ -6748,9 +6681,9 @@ LABEL_10:
 
 LABEL_11:
   v6 = *(a1 + 40);
-  TraceMethod::TraceMethod(v33, "getSessionProperties_HWConfig");
-  std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v31, *(v6 + 8), *(v6 + 16));
-  v7 = (*(*v31 + 72))(v31);
+  TraceMethod::TraceMethod(v32, "getSessionProperties_HWConfig");
+  std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v30, *(v6 + 8), *(v6 + 16));
+  v7 = (*(*v30 + 72))(v30);
   if (v7)
   {
     goto LABEL_82;
@@ -6758,13 +6691,13 @@ LABEL_11:
 
   if (caulk::product::get_device_class(v7) == 4 && (MGGetBoolAnswer() & 1) == 0)
   {
-    v11 = v31;
-    v12 = (*(*v31 + 48))(v31) > 8000.0;
+    v11 = v30;
+    v12 = (*(*v30 + 48))(v30) > 8000.0;
     (*(*v11 + 40))(v11, *&qword_1BA6CF360[v12]);
     goto LABEL_82;
   }
 
-  v8 = v31[46];
+  v8 = v30[46];
   if (IsSerializationEnabled(void)::onceToken != -1)
   {
     dispatch_once(&IsSerializationEnabled(void)::onceToken, &__block_literal_global_197);
@@ -6810,9 +6743,9 @@ LABEL_11:
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315394;
-        v35 = "AVVCRouteManager.mm";
-        v36 = 1024;
-        v37 = 212;
+        v34 = "AVVCRouteManager.mm";
+        v35 = 1024;
+        v36 = 212;
         _os_log_impl(&dword_1BA5AC000, v13, OS_LOG_TYPE_DEBUG, "%25s:%-5d getSessionProperties_HWConfig: car audio route", buf, 0x12u);
       }
     }
@@ -6844,9 +6777,9 @@ LABEL_43:
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v35 = "AVVCRouteManager.mm";
-        v36 = 1024;
-        v37 = 217;
+        v34 = "AVVCRouteManager.mm";
+        v35 = 1024;
+        v36 = 217;
         _os_log_impl(&dword_1BA5AC000, v13, OS_LOG_TYPE_ERROR, "%25s:%-5d getSessionProperties_HWConfig: unhandled audio route", buf, 0x12u);
       }
     }
@@ -6890,11 +6823,11 @@ LABEL_44:
           }
 
           *buf = 136315650;
-          v35 = "AVVCRouteManager.mm";
-          v36 = 1024;
-          v37 = 225;
-          v38 = 2080;
-          *v39 = v18;
+          v34 = "AVVCRouteManager.mm";
+          v35 = 1024;
+          v36 = 225;
+          v37 = 2080;
+          *v38 = v18;
           _os_log_impl(&dword_1BA5AC000, v17, OS_LOG_TYPE_DEBUG, "%25s:%-5d Hardware config: %s", buf, 0x1Cu);
         }
       }
@@ -6920,13 +6853,13 @@ LABEL_44:
   {
     v21 = *(v8 + 24);
     *buf = 136315906;
-    v35 = "AVVCRouteManager.mm";
-    v36 = 1024;
-    v37 = 227;
-    v38 = 1024;
-    v39[0] = v21;
-    LOWORD(v39[1]) = 1024;
-    *(&v39[1] + 2) = v10;
+    v34 = "AVVCRouteManager.mm";
+    v35 = 1024;
+    v36 = 227;
+    v37 = 1024;
+    v38[0] = v21;
+    LOWORD(v38[1]) = 1024;
+    *(&v38[1] + 2) = v10;
     _os_log_impl(&dword_1BA5AC000, v19, OS_LOG_TYPE_DEFAULT, "%25s:%-5d old config: %d newConfig: %d", buf, 0x1Eu);
   }
 
@@ -6981,17 +6914,17 @@ LABEL_61:
     {
       if (*(kAVVCScope + 8))
       {
-        v29 = *kAVVCScope;
-        if (v29)
+        v28 = *kAVVCScope;
+        if (v28)
         {
-          v30 = v29;
-          if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+          v29 = v28;
+          if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
           {
             *buf = 136315394;
-            v35 = "AVVCRouteManager.mm";
-            v36 = 1024;
-            v37 = 239;
-            _os_log_impl(&dword_1BA5AC000, v30, OS_LOG_TYPE_DEBUG, "%25s:%-5d GetDeviceGainForHWConfig: using wired headset - reducing alert volume by 3dB", buf, 0x12u);
+            v34 = "AVVCRouteManager.mm";
+            v35 = 1024;
+            v36 = 239;
+            _os_log_impl(&dword_1BA5AC000, v29, OS_LOG_TYPE_DEBUG, "%25s:%-5d GetDeviceGainForHWConfig: using wired headset - reducing alert volume by 3dB", buf, 0x12u);
           }
         }
       }
@@ -7022,26 +6955,25 @@ LABEL_74:
     std::mutex::unlock((v8 + 56));
   }
 
-  v26 = (*(*v31 + 64))(v31, 0);
+  v26 = (*(*v30 + 64))(v30, 0);
   LODWORD(v27) = v25;
   [v26 setDeviceGain:v27];
 
 LABEL_82:
-  if (v32)
+  if (v31)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v32);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v31);
   }
 
-  TraceMethod::~TraceMethod(v33);
-  v28 = *MEMORY[0x1E69E9840];
+  TraceMethod::~TraceMethod(v32);
 }
 
-void sub_1BA675DF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, std::__shared_weak_count *a4, ...)
+void sub_1BA675DF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, std::__shared_weak_count *a4, uint64_t a5, uint64_t a6, std::__shared_weak_count *a7, ...)
 {
-  va_start(va, a4);
-  if (a4)
+  va_start(va, a7);
+  if (a7)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a4);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a7);
   }
 
   TraceMethod::~TraceMethod(va);
@@ -7128,77 +7060,70 @@ __n128 std::__function::__func<ControllerImpl::_invalidateStreamWhenDeviceUnavai
 
 void ___ZN14ControllerImpl38_invalidateStreamWhenDeviceUnavailableEP17AVVoiceControllerP30AVAudioSessionRouteDescription_block_invoke_2(uint64_t a1)
 {
-  v18[4] = *MEMORY[0x1E69E9840];
+  v16[4] = *MEMORY[0x1E69E9840];
   v2 = (a1 + 40);
-  if (areDeviceUIDsSame(*(a1 + 32), *(a1 + 40)) || ![*(a1 + 32) length] || (*(a1 + 80) & 1) != 0 || *(a1 + 56) != 1)
+  if (!areDeviceUIDsSame(*(a1 + 32), *(a1 + 40)) && [*(a1 + 32) length] && (*(a1 + 80) & 1) == 0 && *(a1 + 56) == 1)
   {
-    if (![*v2 length] || *(a1 + 80) != 1)
-    {
-LABEL_23:
-      v12 = *MEMORY[0x1E69E9840];
-      return;
-    }
+    v3 = *(a1 + 64);
+    v4 = *(a1 + 48);
+    v5 = *(a1 + 32);
 
-    v7 = *(a1 + 64);
-    v8 = *(v7 + 576);
-    v9 = *(v7 + 584);
-    if (v9)
-    {
-      atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
+    ControllerImpl::_removeEngineFromMap(v3, v4, 0, v5, &__block_literal_global_352);
+    return;
+  }
 
-    v13 = 0;
-    if (v8)
-    {
-      v18[0] = &unk_1F3847CE8;
-      v18[1] = v2;
-      v18[2] = &v13;
-      v18[3] = v18;
-      AVVCRecordingEngineMap::for_each_engine(v8, v18, "_invalidateStreamWhenDeviceUnavailable_block_invoke");
-      std::__function::__value_func<void ()(std::shared_ptr<AVVCRecordingEngine>)>::~__value_func[abi:ne200100](v18);
-      ControllerImpl::_removeEngineFromMap(*(a1 + 64), *(a1 + 48), v13, 0, &__block_literal_global_355);
-      goto LABEL_21;
-    }
+  if (![*v2 length] || *(a1 + 80) != 1)
+  {
+    return;
+  }
 
-    if (kAVVCScope)
-    {
-      v10 = *kAVVCScope;
-      if (!v10)
-      {
-LABEL_21:
-        if (v9)
-        {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v9);
-        }
+  v6 = *(a1 + 64);
+  v7 = *(v6 + 576);
+  v8 = *(v6 + 584);
+  if (v8)
+  {
+    atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
 
-        goto LABEL_23;
-      }
-    }
-
-    else
-    {
-      v10 = MEMORY[0x1E69E9C10];
-      v11 = MEMORY[0x1E69E9C10];
-    }
-
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136315394;
-      v15 = "ControllerImpl.mm";
-      v16 = 1024;
-      v17 = 4258;
-      _os_log_impl(&dword_1BA5AC000, v10, OS_LOG_TYPE_ERROR, "%25s:%-5d Engine Map does not exist", buf, 0x12u);
-    }
-
+  v11 = 0;
+  if (v7)
+  {
+    v16[0] = &unk_1F3847CE8;
+    v16[1] = v2;
+    v16[2] = &v11;
+    v16[3] = v16;
+    AVVCRecordingEngineMap::for_each_engine(v7, v16, "_invalidateStreamWhenDeviceUnavailable_block_invoke");
+    std::__function::__value_func<void ()(std::shared_ptr<AVVCRecordingEngine>)>::~__value_func[abi:ne200100](v16);
+    ControllerImpl::_removeEngineFromMap(*(a1 + 64), *(a1 + 48), v11, 0, &__block_literal_global_355);
     goto LABEL_21;
   }
 
-  v3 = *(a1 + 64);
-  v4 = *(a1 + 48);
-  v5 = *(a1 + 32);
-  v6 = *MEMORY[0x1E69E9840];
+  if (!kAVVCScope)
+  {
+    v9 = MEMORY[0x1E69E9C10];
+    v10 = MEMORY[0x1E69E9C10];
+    goto LABEL_18;
+  }
 
-  ControllerImpl::_removeEngineFromMap(v3, v4, 0, v5, &__block_literal_global_352);
+  v9 = *kAVVCScope;
+  if (v9)
+  {
+LABEL_18:
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136315394;
+      v13 = "ControllerImpl.mm";
+      v14 = 1024;
+      v15 = 4258;
+      _os_log_impl(&dword_1BA5AC000, v9, OS_LOG_TYPE_ERROR, "%25s:%-5d Engine Map does not exist", buf, 0x12u);
+    }
+  }
+
+LABEL_21:
+  if (v8)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v8);
+  }
 }
 
 void _ZNSt3__110__function6__funcIZZZN14ControllerImpl38_invalidateStreamWhenDeviceUnavailableEP17AVVoiceControllerP30AVAudioSessionRouteDescriptionEUb_EUb0_E3__6NS_9allocatorIS7_EEFvNS_10shared_ptrI19AVVCRecordingEngineEEEEclEOSC_(uint64_t a1, uint64_t *a2)
@@ -7245,9 +7170,9 @@ __n128 _ZNKSt3__110__function6__funcIZZZN14ControllerImpl38_invalidateStreamWhen
 
 void ControllerImpl::handleServerDeath(ControllerImpl *this, AVVoiceController *a2)
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v35, *(this + 1), *(this + 2));
+  std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v34, *(this + 1), *(this + 2));
   if (kAVVCScope)
   {
     v4 = *kAVVCScope;
@@ -7266,9 +7191,9 @@ void ControllerImpl::handleServerDeath(ControllerImpl *this, AVVoiceController *
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v39 = "ControllerImpl.mm";
-    v40 = 1024;
-    v41 = 3284;
+    v38 = "ControllerImpl.mm";
+    v39 = 1024;
+    v40 = 3284;
     _os_log_impl(&dword_1BA5AC000, v4, OS_LOG_TYPE_DEFAULT, "%25s:%-5d AVVoiceController -> Server died!", buf, 0x12u);
   }
 
@@ -7297,9 +7222,9 @@ LABEL_8:
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v39 = "ControllerImpl.mm";
-    v40 = 1024;
-    v41 = 3292;
+    v38 = "ControllerImpl.mm";
+    v39 = 1024;
+    v40 = 3292;
     _os_log_impl(&dword_1BA5AC000, v6, OS_LOG_TYPE_DEFAULT, "%25s:%-5d ControllerImpl::handleServerDeath: session is not configured", buf, 0x12u);
   }
 
@@ -7322,18 +7247,18 @@ LABEL_16:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v39 = "ControllerImpl.mm";
-    v40 = 1024;
-    v41 = 3297;
+    v38 = "ControllerImpl.mm";
+    v39 = 1024;
+    v40 = 3297;
     _os_log_impl(&dword_1BA5AC000, v8, OS_LOG_TYPE_DEBUG, "%25s:%-5d ControllerImpl::handleServerDeath: Destroying internal state for later rebuild", buf, 0x12u);
   }
 
 LABEL_23:
-  std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v32, *(this + 1), *(this + 2));
-  SessionLock::SessionLock(v34, v32, v33);
-  if (v33)
+  std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v31, *(this + 1), *(this + 2));
+  SessionLock::SessionLock(v33, v31, v32);
+  if (v32)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v33);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v32);
   }
 
   v10 = ControllerImpl::sessionManagerForStreamID(this, 0, 0);
@@ -7343,40 +7268,40 @@ LABEL_23:
   v11 = +[AVVCSessionFactory sharedInstance];
   v12 = [v11 auxSessionManagers];
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   v13 = v12;
-  v14 = [v13 countByEnumeratingWithState:&v28 objects:v37 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v27 objects:v36 count:16];
   if (v14)
   {
-    v15 = *v29;
+    v15 = *v28;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v29 != v15)
+        if (*v28 != v15)
         {
           objc_enumerationMutation(v13);
         }
 
-        v17 = *(*(&v28 + 1) + 8 * i);
+        v17 = *(*(&v27 + 1) + 8 * i);
         [v17 setForceGetSessionProperties:{objc_msgSend(v17, "sessionState") != 7}];
         [v17 setSessionState:0];
       }
 
-      v14 = [v13 countByEnumeratingWithState:&v28 objects:v37 count:16];
+      v14 = [v13 countByEnumeratingWithState:&v27 objects:v36 count:16];
     }
 
     while (v14);
   }
 
-  std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v26, *(this + 1), *(this + 2));
-  SessionUnlocker::SessionUnlocker(buf, v26, v27);
-  if (v27)
+  std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v25, *(this + 1), *(this + 2));
+  SessionUnlocker::SessionUnlocker(buf, v25, v26);
+  if (v26)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v27);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v26);
   }
 
   ControllerImpl::stopRunningEngines(this, v3, 0, 0xFFFFD1F7);
@@ -7421,9 +7346,9 @@ LABEL_46:
       if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
-        v39 = "ControllerImpl.mm";
-        v40 = 1024;
-        v41 = 184;
+        v38 = "ControllerImpl.mm";
+        v39 = 1024;
+        v40 = 184;
         _os_log_impl(&dword_1BA5AC000, v23, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Resetting miniducking", buf, 0x12u);
       }
 
@@ -7433,16 +7358,14 @@ LABEL_46:
 
 LABEL_47:
 
-  VCLocker::~VCLocker(v34);
-  if (v36)
+  VCLocker::~VCLocker(v33);
+  if (v35)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v36);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v35);
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
-void sub_1BA67695C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, std::__shared_weak_count *a24)
+void sub_1BA67695C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, std::__shared_weak_count *a24)
 {
   VCLocker::~VCLocker(&a21);
   if (a24)
@@ -7455,8 +7378,8 @@ void sub_1BA67695C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void ControllerImpl::handleServerReset(ControllerImpl *this, AVVoiceController *a2)
 {
-  v31 = *MEMORY[0x1E69E9840];
-  std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v24, *(this + 1), *(this + 2));
+  v30 = *MEMORY[0x1E69E9840];
+  std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v23, *(this + 1), *(this + 2));
   if (kAVVCScope)
   {
     v3 = *kAVVCScope;
@@ -7475,9 +7398,9 @@ void ControllerImpl::handleServerReset(ControllerImpl *this, AVVoiceController *
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v28 = "ControllerImpl.mm";
-    v29 = 1024;
-    v30 = 3333;
+    v27 = "ControllerImpl.mm";
+    v28 = 1024;
+    v29 = 3333;
     _os_log_impl(&dword_1BA5AC000, v3, OS_LOG_TYPE_DEFAULT, "%25s:%-5d AVVoiceController -> Server reset after death", buf, 0x12u);
   }
 
@@ -7501,18 +7424,18 @@ LABEL_8:
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v28 = "ControllerImpl.mm";
-    v29 = 1024;
-    v30 = 3337;
+    v27 = "ControllerImpl.mm";
+    v28 = 1024;
+    v29 = 3337;
     _os_log_impl(&dword_1BA5AC000, v5, OS_LOG_TYPE_DEBUG, "%25s:%-5d ControllerImpl::handleServerReset: restoring activation context and resetting session properties", buf, 0x12u);
   }
 
 LABEL_15:
-  std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v22, *(this + 1), *(this + 2));
-  SessionLock::SessionLock(buf, v22, v23);
-  if (v23)
+  std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v21, *(this + 1), *(this + 2));
+  SessionLock::SessionLock(buf, v21, v22);
+  if (v22)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v23);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v22);
   }
 
   *(this + 66) = 0;
@@ -7521,28 +7444,28 @@ LABEL_15:
   v8 = +[AVVCSessionFactory sharedInstance];
   v9 = [v8 auxSessionManagers];
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v10 = v9;
-  v11 = [v10 countByEnumeratingWithState:&v18 objects:v26 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v17 objects:v25 count:16];
   if (v11)
   {
-    v12 = *v19;
+    v12 = *v18;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v19 != v12)
+        if (*v18 != v12)
         {
           objc_enumerationMutation(v10);
         }
 
-        [*(*(&v18 + 1) + 8 * i) setupOneTimeSessionSettingsForClient:{*(this + 23), v18}];
+        [*(*(&v17 + 1) + 8 * i) setupOneTimeSessionSettingsForClient:{*(this + 23), v17}];
       }
 
-      v11 = [v10 countByEnumeratingWithState:&v18 objects:v26 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v17 objects:v25 count:16];
     }
 
     while (v11);
@@ -7555,12 +7478,10 @@ LABEL_15:
 
   objc_autoreleasePoolPop(v14);
   VCLocker::~VCLocker(buf);
-  if (v25)
+  if (v24)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v25);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v24);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1BA676D1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, std::__shared_weak_count *a20)
@@ -7683,60 +7604,60 @@ void *__copy_helper_block_ea8_56c47_ZTSNSt3__110shared_ptrI19AVVCRecordingEngine
 
 void ___ZN14ControllerImpl36_createRecordingEngineWithParametersENSt3__110shared_ptrIS_EEP17AVVoiceControllerN19AVVCRecordingEngine10EngineTypeEP8NSStringlU13block_pointerFvNS1_IS5_EEE_block_invoke(uint64_t a1)
 {
-  v56 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   AVVCRecordingEngine::setRecordDeviceUID(*(*(a1 + 64) + 368), *(a1 + 32));
   v2 = *(a1 + 64);
   *(v2 + 272) = *(a1 + 80);
   if (*(a1 + 108))
   {
     *(v2 + 264) = *(*(*(a1 + 56) + 8) + 24);
-    v29[0] = MEMORY[0x1E69E9820];
-    v29[1] = 3321888768;
-    v29[2] = ___ZN14ControllerImpl36_createRecordingEngineWithParametersENSt3__110shared_ptrIS_EEP17AVVoiceControllerN19AVVCRecordingEngine10EngineTypeEP8NSStringlU13block_pointerFvNS1_IS5_EEE_block_invoke_293;
-    v29[3] = &unk_1F38490E0;
+    v28[0] = MEMORY[0x1E69E9820];
+    v28[1] = 3321888768;
+    v28[2] = ___ZN14ControllerImpl36_createRecordingEngineWithParametersENSt3__110shared_ptrIS_EEP17AVVoiceControllerN19AVVCRecordingEngine10EngineTypeEP8NSStringlU13block_pointerFvNS1_IS5_EEE_block_invoke_293;
+    v28[3] = &unk_1F38490E0;
     v4 = *(a1 + 88);
     v3 = *(a1 + 96);
-    v34 = v4;
-    v35 = v3;
+    v33 = v4;
+    v34 = v3;
     if (v3)
     {
       atomic_fetch_add_explicit(&v3->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v32 = *(a1 + 48);
+    v31 = *(a1 + 48);
     v5 = *(a1 + 40);
     v7 = *(a1 + 64);
     v6 = *(a1 + 72);
-    v30 = v5;
-    v36 = v7;
-    v37 = v6;
+    v29 = v5;
+    v35 = v7;
+    v36 = v6;
     if (v6)
     {
       atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
     v8 = *(a1 + 56);
-    v39 = *(a1 + 104);
+    v38 = *(a1 + 104);
     v9 = *(a1 + 80);
-    v33 = v8;
-    v38 = v9;
-    v31 = *(a1 + 32);
-    ControllerImpl::safeWork(v4, v29, "_createRecordingEngineWithParameters_block_invoke");
+    v32 = v8;
+    v37 = v9;
+    v30 = *(a1 + 32);
+    ControllerImpl::safeWork(v4, v28, "_createRecordingEngineWithParameters_block_invoke");
 
-    if (v37)
+    if (v36)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v37);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v36);
     }
 
-    v10 = v35;
-    if (!v35)
+    v10 = v34;
+    if (!v34)
     {
-      goto LABEL_34;
+      return;
     }
 
 LABEL_33:
     std::__shared_weak_count::__release_shared[abi:ne200100](v10);
-    goto LABEL_34;
+    return;
   }
 
   *(*(*(a1 + 56) + 8) + 24) = *(v2 + 264);
@@ -7787,19 +7708,19 @@ LABEL_25:
         v24 = *(a1 + 32);
         v25 = *(*(*(a1 + 56) + 8) + 24);
         *buf = 136316674;
-        v43 = "ControllerImpl.mm";
-        v44 = 1024;
-        v45 = 3907;
-        v46 = 2080;
-        v47 = v15;
-        v48 = 2112;
-        v49 = v22;
-        v50 = 2112;
-        v51 = v23;
-        v52 = 2112;
-        v53 = v24;
-        v54 = 2048;
-        v55 = v25;
+        v42 = "ControllerImpl.mm";
+        v43 = 1024;
+        v44 = 3907;
+        v45 = 2080;
+        v46 = v15;
+        v47 = 2112;
+        v48 = v22;
+        v49 = 2112;
+        v50 = v23;
+        v51 = 2112;
+        v52 = v24;
+        v53 = 2048;
+        v54 = v25;
         _os_log_impl(&dword_1BA5AC000, v13, OS_LOG_TYPE_DEFAULT, "%25s:%-5d setContext: Reusing (%s) engine[%@] for activation mode(%@) and deviceUID(%@) with streamHandle(%lu)", buf, 0x44u);
 
         if (v17)
@@ -7830,23 +7751,20 @@ LABEL_29:
   if (v26)
   {
     v27 = *(a1 + 72);
-    v40 = *(a1 + 64);
-    v41 = v27;
+    v39 = *(a1 + 64);
+    v40 = v27;
     if (v27)
     {
       atomic_fetch_add_explicit(&v27->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    (*(v26 + 16))(v26, &v40);
-    v10 = v41;
-    if (v41)
+    (*(v26 + 16))(v26, &v39);
+    v10 = v40;
+    if (v40)
     {
       goto LABEL_33;
     }
   }
-
-LABEL_34:
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1BA6774D4(_Unwind_Exception *a1)
@@ -7898,28 +7816,28 @@ void *__copy_helper_block_ea8_64c47_ZTSNSt3__110shared_ptrI19AVVCRecordingEngine
 
 void ___ZN14ControllerImpl36_createRecordingEngineWithParametersENSt3__110shared_ptrIS_EEP17AVVoiceControllerN19AVVCRecordingEngine10EngineTypeEP8NSStringlU13block_pointerFvNS1_IS5_EEE_block_invoke_293(uint64_t a1)
 {
-  v104 = *MEMORY[0x1E69E9840];
+  v103 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 64);
   if (*(v2 + 520) == 1)
   {
     v3 = *(a1 + 48);
     if (!v3)
     {
-      goto LABEL_113;
+      return;
     }
 
+    v38 = 0;
     v39 = 0;
-    v40 = 0;
-    (*(v3 + 16))(v3, &v39);
-    v4 = v40;
-    if (!v40)
+    (*(v3 + 16))(v3, &v38);
+    v4 = v39;
+    if (!v39)
     {
-      goto LABEL_113;
+      return;
     }
 
 LABEL_112:
     std::__shared_weak_count::__release_shared[abi:ne200100](v4);
-    goto LABEL_113;
+    return;
   }
 
   v5 = *(a1 + 32);
@@ -7930,14 +7848,14 @@ LABEL_112:
     atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v25 = v5;
-  objc_initWeak(&location, v25);
-  std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v86, *(v2 + 8), *(v2 + 16));
-  v8 = v86;
-  v9 = v87;
-  if (v87)
+  v24 = v5;
+  objc_initWeak(&location, v24);
+  std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v85, *(v2 + 8), *(v2 + 16));
+  v8 = v85;
+  v9 = v86;
+  if (v86)
   {
-    atomic_fetch_add_explicit((v87 + 16), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v86 + 16), 1uLL, memory_order_relaxed);
     std::__shared_weak_count::__release_shared[abi:ne200100](v9);
   }
 
@@ -7945,89 +7863,89 @@ LABEL_112:
   aBlock[1] = 3321888768;
   aBlock[2] = ___ZN14ControllerImpl32_configureEngineCompletionBlocksEP17AVVoiceControllerNSt3__110shared_ptrI19AVVCRecordingEngineEE_block_invoke;
   aBlock[3] = &unk_1F3848D80;
-  objc_copyWeak(v95, &location);
-  v95[1] = v8;
-  v96 = v9;
+  objc_copyWeak(v94, &location);
+  v94[1] = v8;
+  v95 = v9;
   if (v9)
   {
     atomic_fetch_add_explicit(&v9->__shared_weak_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v26 = _Block_copy(aBlock);
-  v86 = MEMORY[0x1E69E9820];
-  v87 = 3321888768;
-  v88 = ___ZN14ControllerImpl32_configureEngineCompletionBlocksEP17AVVoiceControllerNSt3__110shared_ptrI19AVVCRecordingEngineEE_block_invoke_305;
-  v89 = &unk_1F38485F8;
-  objc_copyWeak(v90, &location);
-  v90[1] = v8;
-  v91 = v9;
+  v25 = _Block_copy(aBlock);
+  v85 = MEMORY[0x1E69E9820];
+  v86 = 3321888768;
+  v87 = ___ZN14ControllerImpl32_configureEngineCompletionBlocksEP17AVVoiceControllerNSt3__110shared_ptrI19AVVCRecordingEngineEE_block_invoke_305;
+  v88 = &unk_1F38485F8;
+  objc_copyWeak(v89, &location);
+  v89[1] = v8;
+  v90 = v9;
   if (v9)
   {
     atomic_fetch_add_explicit(&v9->__shared_weak_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v92 = v7;
-  v93 = v6;
+  v91 = v7;
+  v92 = v6;
   if (v6)
   {
     atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v27 = _Block_copy(&v86);
-  v81[0] = MEMORY[0x1E69E9820];
-  v81[1] = 3321888768;
-  v81[2] = ___ZN14ControllerImpl32_configureEngineCompletionBlocksEP17AVVoiceControllerNSt3__110shared_ptrI19AVVCRecordingEngineEE_block_invoke_309;
-  v81[3] = &unk_1F38485F8;
-  objc_copyWeak(v82, &location);
-  v82[1] = v8;
-  v83 = v9;
+  v26 = _Block_copy(&v85);
+  v80[0] = MEMORY[0x1E69E9820];
+  v80[1] = 3321888768;
+  v80[2] = ___ZN14ControllerImpl32_configureEngineCompletionBlocksEP17AVVoiceControllerNSt3__110shared_ptrI19AVVCRecordingEngineEE_block_invoke_309;
+  v80[3] = &unk_1F38485F8;
+  objc_copyWeak(v81, &location);
+  v81[1] = v8;
+  v82 = v9;
   if (v9)
   {
     atomic_fetch_add_explicit(&v9->__shared_weak_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v84 = v7;
-  v85 = v6;
+  v83 = v7;
+  v84 = v6;
   if (v6)
   {
     atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v28 = _Block_copy(v81);
-  AVVCRecordingEngine::setStartRecordCompletionAndAudioCallbackBlocks(v7, v27, v26);
-  AVVCRecordingEngine::setStopRecordCompletionBlock(v7, v28);
+  v27 = _Block_copy(v80);
+  AVVCRecordingEngine::setStartRecordCompletionAndAudioCallbackBlocks(v7, v26, v25);
+  AVVCRecordingEngine::setStopRecordCompletionBlock(v7, v27);
   if ((*(*v7 + 296))(v7) == 2)
   {
-    v78[0] = MEMORY[0x1E69E9820];
-    v78[1] = 3321888768;
-    v78[2] = ___ZN14ControllerImpl32_configureEngineCompletionBlocksEP17AVVoiceControllerNSt3__110shared_ptrI19AVVCRecordingEngineEE_block_invoke_312;
-    v78[3] = &unk_1F3848D10;
-    objc_copyWeak(v79, &location);
-    v79[1] = v8;
-    v80 = v9;
+    v77[0] = MEMORY[0x1E69E9820];
+    v77[1] = 3321888768;
+    v77[2] = ___ZN14ControllerImpl32_configureEngineCompletionBlocksEP17AVVoiceControllerNSt3__110shared_ptrI19AVVCRecordingEngineEE_block_invoke_312;
+    v77[3] = &unk_1F3848D10;
+    objc_copyWeak(v78, &location);
+    v78[1] = v8;
+    v79 = v9;
     if (v9)
     {
       atomic_fetch_add_explicit(&v9->__shared_weak_owners_, 1uLL, memory_order_relaxed);
     }
 
-    AVVCRecordingEngine::setEncoderErrorBlock(v7, v78);
-    if (v80)
+    AVVCRecordingEngine::setEncoderErrorBlock(v7, v77);
+    if (v79)
     {
-      std::__shared_weak_count::__release_weak(v80);
+      std::__shared_weak_count::__release_weak(v79);
     }
 
-    objc_destroyWeak(v79);
+    objc_destroyWeak(v78);
   }
 
   if ((*(*v7 + 296))(v7) == 2)
   {
-    v71 = MEMORY[0x1E69E9820];
-    v72 = 3321888768;
-    v73 = ___ZN14ControllerImpl32_configureEngineCompletionBlocksEP17AVVoiceControllerNSt3__110shared_ptrI19AVVCRecordingEngineEE_block_invoke_317;
-    v74 = &unk_1F3848DB8;
-    objc_copyWeak(&v75, &location);
-    v76 = v8;
-    v77 = v9;
+    v70 = MEMORY[0x1E69E9820];
+    v71 = 3321888768;
+    v72 = ___ZN14ControllerImpl32_configureEngineCompletionBlocksEP17AVVoiceControllerNSt3__110shared_ptrI19AVVCRecordingEngineEE_block_invoke_317;
+    v73 = &unk_1F3848DB8;
+    objc_copyWeak(&v74, &location);
+    v75 = v8;
+    v76 = v9;
     if (v9)
     {
       atomic_fetch_add_explicit(&v9->__shared_weak_owners_, 1uLL, memory_order_relaxed);
@@ -8041,152 +7959,152 @@ LABEL_112:
       goto LABEL_35;
     }
 
-    v71 = MEMORY[0x1E69E9820];
-    v72 = 3321888768;
-    v73 = ___ZN14ControllerImpl32_configureEngineCompletionBlocksEP17AVVoiceControllerNSt3__110shared_ptrI19AVVCRecordingEngineEE_block_invoke_322;
-    v74 = &unk_1F3848DB8;
-    objc_copyWeak(&v75, &location);
-    v76 = v8;
-    v77 = v9;
+    v70 = MEMORY[0x1E69E9820];
+    v71 = 3321888768;
+    v72 = ___ZN14ControllerImpl32_configureEngineCompletionBlocksEP17AVVoiceControllerNSt3__110shared_ptrI19AVVCRecordingEngineEE_block_invoke_322;
+    v73 = &unk_1F3848DB8;
+    objc_copyWeak(&v74, &location);
+    v75 = v8;
+    v76 = v9;
     if (v9)
     {
       atomic_fetch_add_explicit(&v9->__shared_weak_owners_, 1uLL, memory_order_relaxed);
     }
   }
 
-  AVVCRecordingEngine::setSetupEndpointerBlock(v7, &v71);
-  if (v77)
+  AVVCRecordingEngine::setSetupEndpointerBlock(v7, &v70);
+  if (v76)
   {
-    std::__shared_weak_count::__release_weak(v77);
+    std::__shared_weak_count::__release_weak(v76);
   }
 
-  objc_destroyWeak(&v75);
+  objc_destroyWeak(&v74);
 LABEL_35:
-  v68[0] = MEMORY[0x1E69E9820];
-  v68[1] = 3321888768;
-  v68[2] = ___ZN14ControllerImpl32_configureEngineCompletionBlocksEP17AVVoiceControllerNSt3__110shared_ptrI19AVVCRecordingEngineEE_block_invoke_323;
-  v68[3] = &unk_1F3847C48;
-  objc_copyWeak(v69, &location);
-  v69[1] = v8;
-  v70 = v9;
+  v67[0] = MEMORY[0x1E69E9820];
+  v67[1] = 3321888768;
+  v67[2] = ___ZN14ControllerImpl32_configureEngineCompletionBlocksEP17AVVoiceControllerNSt3__110shared_ptrI19AVVCRecordingEngineEE_block_invoke_323;
+  v67[3] = &unk_1F3847C48;
+  objc_copyWeak(v68, &location);
+  v68[1] = v8;
+  v69 = v9;
   if (v9)
   {
     atomic_fetch_add_explicit(&v9->__shared_weak_owners_, 1uLL, memory_order_relaxed);
   }
 
-  AVVCRecordingEngine::setCheckForEndpointBlock(v7, v68);
-  v63[0] = MEMORY[0x1E69E9820];
-  v63[1] = 3321888768;
-  v63[2] = ___ZN14ControllerImpl32_configureEngineCompletionBlocksEP17AVVoiceControllerNSt3__110shared_ptrI19AVVCRecordingEngineEE_block_invoke_327;
-  v63[3] = &unk_1F38485C0;
-  objc_copyWeak(v64, &location);
-  v64[1] = v8;
-  v65 = v9;
+  AVVCRecordingEngine::setCheckForEndpointBlock(v7, v67);
+  v62[0] = MEMORY[0x1E69E9820];
+  v62[1] = 3321888768;
+  v62[2] = ___ZN14ControllerImpl32_configureEngineCompletionBlocksEP17AVVoiceControllerNSt3__110shared_ptrI19AVVCRecordingEngineEE_block_invoke_327;
+  v62[3] = &unk_1F38485C0;
+  objc_copyWeak(v63, &location);
+  v63[1] = v8;
+  v64 = v9;
   if (v9)
   {
     atomic_fetch_add_explicit(&v9->__shared_weak_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v66 = v7;
-  v67 = v6;
+  v65 = v7;
+  v66 = v6;
   if (v6)
   {
     atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  AVVCRecordingEngine::setStopRecordWithRecordLockBlock(v7, v63);
-  v58[0] = MEMORY[0x1E69E9820];
-  v58[1] = 3321888768;
-  v58[2] = ___ZN14ControllerImpl32_configureEngineCompletionBlocksEP17AVVoiceControllerNSt3__110shared_ptrI19AVVCRecordingEngineEE_block_invoke_331;
-  v58[3] = &unk_1F38485C0;
-  objc_copyWeak(v59, &location);
-  v59[1] = v8;
-  v60 = v9;
+  AVVCRecordingEngine::setStopRecordWithRecordLockBlock(v7, v62);
+  v57[0] = MEMORY[0x1E69E9820];
+  v57[1] = 3321888768;
+  v57[2] = ___ZN14ControllerImpl32_configureEngineCompletionBlocksEP17AVVoiceControllerNSt3__110shared_ptrI19AVVCRecordingEngineEE_block_invoke_331;
+  v57[3] = &unk_1F38485C0;
+  objc_copyWeak(v58, &location);
+  v58[1] = v8;
+  v59 = v9;
   if (v9)
   {
     atomic_fetch_add_explicit(&v9->__shared_weak_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v61 = v7;
-  v62 = v6;
+  v60 = v7;
+  v61 = v6;
   if (v6)
   {
     atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  AVVCRecordingEngine::setDestroyRecordEngineWithRecordLockBlock(v7, v58);
-  v53[0] = MEMORY[0x1E69E9820];
-  v53[1] = 3321888768;
-  v53[2] = ___ZN14ControllerImpl32_configureEngineCompletionBlocksEP17AVVoiceControllerNSt3__110shared_ptrI19AVVCRecordingEngineEE_block_invoke_332;
-  v53[3] = &unk_1F38485C0;
-  objc_copyWeak(v54, &location);
-  v54[1] = v8;
-  v55 = v9;
+  AVVCRecordingEngine::setDestroyRecordEngineWithRecordLockBlock(v7, v57);
+  v52[0] = MEMORY[0x1E69E9820];
+  v52[1] = 3321888768;
+  v52[2] = ___ZN14ControllerImpl32_configureEngineCompletionBlocksEP17AVVoiceControllerNSt3__110shared_ptrI19AVVCRecordingEngineEE_block_invoke_332;
+  v52[3] = &unk_1F38485C0;
+  objc_copyWeak(v53, &location);
+  v53[1] = v8;
+  v54 = v9;
   if (v9)
   {
     atomic_fetch_add_explicit(&v9->__shared_weak_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v56 = v7;
-  v57 = v6;
+  v55 = v7;
+  v56 = v6;
   if (v6)
   {
     atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  AVVCRecordingEngine::setReconfigureWithRecordLockBlock(v7, v53);
-  v50[0] = MEMORY[0x1E69E9820];
-  v50[1] = 3321888768;
-  v50[2] = ___ZN14ControllerImpl32_configureEngineCompletionBlocksEP17AVVoiceControllerNSt3__110shared_ptrI19AVVCRecordingEngineEE_block_invoke_333;
-  v50[3] = &unk_1F3848CD8;
-  objc_copyWeak(v51, &location);
-  v51[1] = v8;
-  v52 = v9;
+  AVVCRecordingEngine::setReconfigureWithRecordLockBlock(v7, v52);
+  v49[0] = MEMORY[0x1E69E9820];
+  v49[1] = 3321888768;
+  v49[2] = ___ZN14ControllerImpl32_configureEngineCompletionBlocksEP17AVVoiceControllerNSt3__110shared_ptrI19AVVCRecordingEngineEE_block_invoke_333;
+  v49[3] = &unk_1F3848CD8;
+  objc_copyWeak(v50, &location);
+  v50[1] = v8;
+  v51 = v9;
   if (v9)
   {
     atomic_fetch_add_explicit(&v9->__shared_weak_owners_, 1uLL, memory_order_relaxed);
   }
 
-  AVVCRecordingEngine::setStreamInvalidatedBlock(v7, v50);
-  v47[0] = MEMORY[0x1E69E9820];
-  v47[1] = 3321888768;
-  v47[2] = ___ZN14ControllerImpl32_configureEngineCompletionBlocksEP17AVVoiceControllerNSt3__110shared_ptrI19AVVCRecordingEngineEE_block_invoke_339;
-  v47[3] = &unk_1F3848D10;
-  objc_copyWeak(v48, &location);
-  v48[1] = v8;
-  v49 = v9;
+  AVVCRecordingEngine::setStreamInvalidatedBlock(v7, v49);
+  v46[0] = MEMORY[0x1E69E9820];
+  v46[1] = 3321888768;
+  v46[2] = ___ZN14ControllerImpl32_configureEngineCompletionBlocksEP17AVVoiceControllerNSt3__110shared_ptrI19AVVCRecordingEngineEE_block_invoke_339;
+  v46[3] = &unk_1F3848D10;
+  objc_copyWeak(v47, &location);
+  v47[1] = v8;
+  v48 = v9;
   if (v9)
   {
     atomic_fetch_add_explicit(&v9->__shared_weak_owners_, 1uLL, memory_order_relaxed);
   }
 
-  AVVCRecordingEngine::setHardwareConfigChangedBlock(v7, v47);
-  v44[0] = MEMORY[0x1E69E9820];
-  v44[1] = 3321888768;
-  v44[2] = ___ZN14ControllerImpl32_configureEngineCompletionBlocksEP17AVVoiceControllerNSt3__110shared_ptrI19AVVCRecordingEngineEE_block_invoke_342;
-  v44[3] = &unk_1F3848D48;
-  objc_copyWeak(v45, &location);
-  v45[1] = v8;
-  v46 = v9;
+  AVVCRecordingEngine::setHardwareConfigChangedBlock(v7, v46);
+  v43[0] = MEMORY[0x1E69E9820];
+  v43[1] = 3321888768;
+  v43[2] = ___ZN14ControllerImpl32_configureEngineCompletionBlocksEP17AVVoiceControllerNSt3__110shared_ptrI19AVVCRecordingEngineEE_block_invoke_342;
+  v43[3] = &unk_1F3848D48;
+  objc_copyWeak(v44, &location);
+  v44[1] = v8;
+  v45 = v9;
   if (v9)
   {
     atomic_fetch_add_explicit(&v9->__shared_weak_owners_, 1uLL, memory_order_relaxed);
   }
 
-  AVVCRecordingEngine::setBeginSessionActivateBlock(v7, v44);
-  v41[0] = MEMORY[0x1E69E9820];
-  v41[1] = 3321888768;
-  v41[2] = ___ZN14ControllerImpl32_configureEngineCompletionBlocksEP17AVVoiceControllerNSt3__110shared_ptrI19AVVCRecordingEngineEE_block_invoke_347;
-  v41[3] = &unk_1F3848D48;
-  objc_copyWeak(v42, &location);
-  v42[1] = v8;
-  v43 = v9;
+  AVVCRecordingEngine::setBeginSessionActivateBlock(v7, v43);
+  v40[0] = MEMORY[0x1E69E9820];
+  v40[1] = 3321888768;
+  v40[2] = ___ZN14ControllerImpl32_configureEngineCompletionBlocksEP17AVVoiceControllerNSt3__110shared_ptrI19AVVCRecordingEngineEE_block_invoke_347;
+  v40[3] = &unk_1F3848D48;
+  objc_copyWeak(v41, &location);
+  v41[1] = v8;
+  v42 = v9;
   if (v9)
   {
     atomic_fetch_add_explicit(&v9->__shared_weak_owners_, 1uLL, memory_order_relaxed);
   }
 
-  AVVCRecordingEngine::setEndSessionActivateBlock(v7, v41);
+  AVVCRecordingEngine::setEndSessionActivateBlock(v7, v40);
   if (kAVVCScope)
   {
     v10 = *kAVVCScope;
@@ -8220,13 +8138,13 @@ LABEL_35:
       v14 = v7[33];
     }
 
-    v16 = [v13 stringWithFormat:@"(%p) streamID: %d, use_count:%ld", v7, v14, v15, v25];
+    v16 = [v13 stringWithFormat:@"(%p) streamID: %d, use_count:%ld", v7, v14, v15, v24];
     *buf = 136315650;
-    v99 = "ControllerImpl.mm";
-    v100 = 1024;
-    v101 = 4100;
-    v102 = 2112;
-    v103 = v16;
+    v98 = "ControllerImpl.mm";
+    v99 = 1024;
+    v100 = 4100;
+    v101 = 2112;
+    v102 = v16;
     _os_log_impl(&dword_1BA5AC000, v12, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Configured completion blocks for engine[%@]", buf, 0x1Cu);
 
     if (v6)
@@ -8236,100 +8154,100 @@ LABEL_35:
   }
 
 LABEL_69:
-  if (v43)
+  if (v42)
   {
-    std::__shared_weak_count::__release_weak(v43);
+    std::__shared_weak_count::__release_weak(v42);
   }
 
-  objc_destroyWeak(v42);
-  if (v46)
+  objc_destroyWeak(v41);
+  if (v45)
   {
-    std::__shared_weak_count::__release_weak(v46);
+    std::__shared_weak_count::__release_weak(v45);
   }
 
-  objc_destroyWeak(v45);
-  if (v49)
+  objc_destroyWeak(v44);
+  if (v48)
   {
-    std::__shared_weak_count::__release_weak(v49);
+    std::__shared_weak_count::__release_weak(v48);
   }
 
-  objc_destroyWeak(v48);
-  if (v52)
+  objc_destroyWeak(v47);
+  if (v51)
   {
-    std::__shared_weak_count::__release_weak(v52);
+    std::__shared_weak_count::__release_weak(v51);
   }
 
-  objc_destroyWeak(v51);
-  if (v57)
+  objc_destroyWeak(v50);
+  if (v56)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v57);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v56);
   }
 
-  if (v55)
+  if (v54)
   {
-    std::__shared_weak_count::__release_weak(v55);
+    std::__shared_weak_count::__release_weak(v54);
   }
 
-  objc_destroyWeak(v54);
-  if (v62)
+  objc_destroyWeak(v53);
+  if (v61)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v62);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v61);
   }
 
-  if (v60)
+  if (v59)
   {
-    std::__shared_weak_count::__release_weak(v60);
+    std::__shared_weak_count::__release_weak(v59);
   }
 
-  objc_destroyWeak(v59);
-  if (v67)
+  objc_destroyWeak(v58);
+  if (v66)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v67);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v66);
   }
 
-  if (v65)
+  if (v64)
   {
-    std::__shared_weak_count::__release_weak(v65);
+    std::__shared_weak_count::__release_weak(v64);
   }
 
-  objc_destroyWeak(v64);
-  if (v70)
+  objc_destroyWeak(v63);
+  if (v69)
   {
-    std::__shared_weak_count::__release_weak(v70);
+    std::__shared_weak_count::__release_weak(v69);
   }
 
-  objc_destroyWeak(v69);
+  objc_destroyWeak(v68);
 
-  if (v85)
+  if (v84)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v85);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v84);
   }
 
-  if (v83)
+  if (v82)
   {
-    std::__shared_weak_count::__release_weak(v83);
+    std::__shared_weak_count::__release_weak(v82);
   }
 
-  objc_destroyWeak(v82);
+  objc_destroyWeak(v81);
 
-  if (v93)
+  if (v92)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v93);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v92);
   }
 
-  if (v91)
+  if (v90)
   {
-    std::__shared_weak_count::__release_weak(v91);
+    std::__shared_weak_count::__release_weak(v90);
   }
 
-  objc_destroyWeak(v90);
+  objc_destroyWeak(v89);
 
-  if (v96)
+  if (v95)
   {
-    std::__shared_weak_count::__release_weak(v96);
+    std::__shared_weak_count::__release_weak(v95);
   }
 
-  objc_destroyWeak(v95);
+  objc_destroyWeak(v94);
   if (v9)
   {
     std::__shared_weak_count::__release_weak(v9);
@@ -8346,13 +8264,13 @@ LABEL_69:
   v18 = *(a1 + 56);
   v19 = *(a1 + 64);
   v20 = *(*(v18 + 8) + 24);
-  v29[0] = MEMORY[0x1E69E9820];
-  v29[1] = 3321888768;
-  v29[2] = ___ZN14ControllerImpl36_createRecordingEngineWithParametersENSt3__110shared_ptrIS_EEP17AVVoiceControllerN19AVVCRecordingEngine10EngineTypeEP8NSStringlU13block_pointerFvNS1_IS5_EEE_block_invoke_2;
-  v29[3] = &unk_1F38491C0;
+  v28[0] = MEMORY[0x1E69E9820];
+  v28[1] = 3321888768;
+  v28[2] = ___ZN14ControllerImpl36_createRecordingEngineWithParametersENSt3__110shared_ptrIS_EEP17AVVoiceControllerN19AVVCRecordingEngine10EngineTypeEP8NSStringlU13block_pointerFvNS1_IS5_EEE_block_invoke_2;
+  v28[3] = &unk_1F38491C0;
   v21 = *(a1 + 72);
-  v33 = v19;
-  v34 = v21;
+  v32 = v19;
+  v33 = v21;
   if (v21)
   {
     atomic_fetch_add_explicit(&v21->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -8361,33 +8279,30 @@ LABEL_69:
 
   v23 = *(a1 + 80);
   v22 = *(a1 + 88);
-  v32 = v18;
-  v35 = v23;
-  v36 = v22;
+  v31 = v18;
+  v34 = v23;
+  v35 = v22;
   if (v22)
   {
     atomic_fetch_add_explicit(&v22->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v38 = *(a1 + 104);
-  v37 = *(a1 + 96);
-  v30 = *(a1 + 40);
-  v31 = *(a1 + 48);
-  ControllerImpl::_removeEngineFromMap(v19, v17, v20, 0, v29);
+  v37 = *(a1 + 104);
+  v36 = *(a1 + 96);
+  v29 = *(a1 + 40);
+  v30 = *(a1 + 48);
+  ControllerImpl::_removeEngineFromMap(v19, v17, v20, 0, v28);
 
-  if (v36)
+  if (v35)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v36);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v35);
   }
 
-  v4 = v34;
-  if (v34)
+  v4 = v33;
+  if (v33)
   {
     goto LABEL_112;
   }
-
-LABEL_113:
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1BA678210(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, void *a13, void *a14, void *a15)
@@ -8578,7 +8493,7 @@ void *__copy_helper_block_ea8_56c42_ZTSNSt3__110shared_ptrI14ControllerImplEE72c
 
 void ___ZN14ControllerImpl36_createRecordingEngineWithParametersENSt3__110shared_ptrIS_EEP17AVVoiceControllerN19AVVCRecordingEngine10EngineTypeEP8NSStringlU13block_pointerFvNS1_IS5_EEE_block_invoke_3(uint64_t a1)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 56);
   v2 = *(a1 + 64);
   if (v2)
@@ -8602,24 +8517,24 @@ void ___ZN14ControllerImpl36_createRecordingEngineWithParametersENSt3__110shared
     v8 = *(a1 + 72);
   }
 
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3321888768;
-  v18 = ___ZN14ControllerImpl36_createRecordingEngineWithParametersENSt3__110shared_ptrIS_EEP17AVVoiceControllerN19AVVCRecordingEngine10EngineTypeEP8NSStringlU13block_pointerFvNS1_IS5_EEE_block_invoke_4;
-  v19 = &unk_1F3848198;
-  v25 = *(a1 + 96);
-  v22 = v8;
-  v23 = v7;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3321888768;
+  v17 = ___ZN14ControllerImpl36_createRecordingEngineWithParametersENSt3__110shared_ptrIS_EEP17AVVoiceControllerN19AVVCRecordingEngine10EngineTypeEP8NSStringlU13block_pointerFvNS1_IS5_EEE_block_invoke_4;
+  v18 = &unk_1F3848198;
+  v24 = *(a1 + 96);
+  v21 = v8;
+  v22 = v7;
   if (v7)
   {
     atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v24 = *(a1 + 88);
-  v20 = *(a1 + 32);
-  v16 = *(a1 + 40);
-  v9 = v16;
-  v21 = v16;
-  v10 = v17;
+  v23 = *(a1 + 88);
+  v19 = *(a1 + 32);
+  v15 = *(a1 + 40);
+  v9 = v15;
+  v20 = v15;
+  v10 = v16;
   v11 = *(v3 + 576);
   v12 = *(v3 + 584);
   if (v12)
@@ -8671,7 +8586,7 @@ void ___ZN14ControllerImpl36_createRecordingEngineWithParametersENSt3__110shared
   }
 
 LABEL_22:
-  v18(v10);
+  v17(v10);
   if (v12)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v12);
@@ -8687,12 +8602,10 @@ LABEL_22:
     std::__shared_weak_count::__release_shared[abi:ne200100](v2);
   }
 
-  if (v23)
+  if (v22)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v23);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v22);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1BA678974(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *a16, void *a17, uint64_t a18, uint64_t a19, std::__shared_weak_count *a20)
@@ -8741,7 +8654,7 @@ LABEL_11:
 
 void ___ZN14ControllerImpl36_createRecordingEngineWithParametersENSt3__110shared_ptrIS_EEP17AVVoiceControllerN19AVVCRecordingEngine10EngineTypeEP8NSStringlU13block_pointerFvNS1_IS5_EEE_block_invoke_4(uint64_t a1)
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   if (!kAVVCScope)
   {
     v2 = MEMORY[0x1E69E9C10];
@@ -8784,19 +8697,19 @@ LABEL_16:
         v15 = *(a1 + 32);
         v16 = *(*(*(a1 + 48) + 8) + 24);
         *buf = 136316674;
-        v23 = "ControllerImpl.mm";
-        v24 = 1024;
-        v25 = 3927;
-        v26 = 2080;
-        v27 = v6;
-        v28 = 2112;
-        v29 = v13;
-        v30 = 2112;
-        v31 = v14;
-        v32 = 2112;
-        v33 = v15;
-        v34 = 2048;
-        v35 = v16;
+        v22 = "ControllerImpl.mm";
+        v23 = 1024;
+        v24 = 3927;
+        v25 = 2080;
+        v26 = v6;
+        v27 = 2112;
+        v28 = v13;
+        v29 = 2112;
+        v30 = v14;
+        v31 = 2112;
+        v32 = v15;
+        v33 = 2048;
+        v34 = v16;
         _os_log_impl(&dword_1BA5AC000, v4, OS_LOG_TYPE_DEFAULT, "%25s:%-5d setContext: Created new (%s) engine[%@] for activation mode(%@) and deviceUID(%@) with streamHandle(%lu)", buf, 0x44u);
 
         if (v8)
@@ -8831,21 +8744,19 @@ LABEL_20:
   if (v17)
   {
     v18 = *(a1 + 64);
-    v20 = *(a1 + 56);
-    v21 = v18;
+    v19 = *(a1 + 56);
+    v20 = v18;
     if (v18)
     {
       atomic_fetch_add_explicit(&v18->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    (*(v17 + 16))(v17, &v20);
-    if (v21)
+    (*(v17 + 16))(v17, &v19);
+    if (v20)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v21);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v20);
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1BA678C30(_Unwind_Exception *a1)
@@ -8860,7 +8771,7 @@ void sub_1BA678C30(_Unwind_Exception *a1)
 
 void ___ZN14ControllerImpl32_configureEngineCompletionBlocksEP17AVVoiceControllerNSt3__110shared_ptrI19AVVCRecordingEngineEE_block_invoke_312(uint64_t a1, int a2)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = *(a1 + 48);
   if (!v5)
@@ -8880,13 +8791,13 @@ LABEL_7:
   v7 = *(a1 + 40);
   if (WeakRetained && v7)
   {
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = ___ZN14ControllerImpl32_configureEngineCompletionBlocksEP17AVVoiceControllerNSt3__110shared_ptrI19AVVCRecordingEngineEE_block_invoke_314;
-    v11[3] = &unk_1E7EF5CC0;
-    v12 = WeakRetained;
-    v13 = a2;
-    ControllerImpl::safeNotify(v7, "encodeError", v11);
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = ___ZN14ControllerImpl32_configureEngineCompletionBlocksEP17AVVoiceControllerNSt3__110shared_ptrI19AVVCRecordingEngineEE_block_invoke_314;
+    v10[3] = &unk_1E7EF5CC0;
+    v11 = WeakRetained;
+    v12 = a2;
+    ControllerImpl::safeNotify(v7, "encodeError", v10);
 
 LABEL_16:
     std::__shared_weak_count::__release_shared[abi:ne200100](v6);
@@ -8912,13 +8823,13 @@ LABEL_8:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315906;
-    v15 = "ControllerImpl.mm";
-    v16 = 1024;
-    v17 = 4017;
-    v18 = 2048;
-    v19 = WeakRetained;
-    v20 = 2048;
-    v21 = v7;
+    v14 = "ControllerImpl.mm";
+    v15 = 1024;
+    v16 = 4017;
+    v17 = 2048;
+    v18 = WeakRetained;
+    v19 = 2048;
+    v20 = v7;
     _os_log_impl(&dword_1BA5AC000, v8, OS_LOG_TYPE_ERROR, "%25s:%-5d nil object encountered (avvc: %p, impl: %p). Bailing", buf, 0x26u);
   }
 
@@ -8929,8 +8840,6 @@ LABEL_15:
   }
 
 LABEL_17:
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1BA678E3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13)
@@ -8942,7 +8851,7 @@ void sub_1BA678E3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void ___ZN14ControllerImpl32_configureEngineCompletionBlocksEP17AVVoiceControllerNSt3__110shared_ptrI19AVVCRecordingEngineEE_block_invoke_317(uint64_t a1, unint64_t a2, int a3)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v7 = *(a1 + 48);
   if (!v7)
@@ -8991,15 +8900,15 @@ LABEL_10:
 
   if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
-    v15 = 136315906;
-    v16 = "ControllerImpl.mm";
-    v17 = 1024;
-    v18 = 4027;
-    v19 = 2048;
-    v20 = WeakRetained;
-    v21 = 2048;
-    v22 = v9;
-    _os_log_impl(&dword_1BA5AC000, v12, OS_LOG_TYPE_ERROR, "%25s:%-5d nil object encountered (avvc: %p, impl: %p). Bailing", &v15, 0x26u);
+    v14 = 136315906;
+    v15 = "ControllerImpl.mm";
+    v16 = 1024;
+    v17 = 4027;
+    v18 = 2048;
+    v19 = WeakRetained;
+    v20 = 2048;
+    v21 = v9;
+    _os_log_impl(&dword_1BA5AC000, v12, OS_LOG_TYPE_ERROR, "%25s:%-5d nil object encountered (avvc: %p, impl: %p). Bailing", &v14, 0x26u);
   }
 
 LABEL_17:
@@ -9008,8 +8917,6 @@ LABEL_17:
 LABEL_18:
     std::__shared_weak_count::__release_shared[abi:ne200100](v8);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1BA679004(_Unwind_Exception *a1)
@@ -9021,7 +8928,7 @@ void sub_1BA679004(_Unwind_Exception *a1)
 
 void ___ZN14ControllerImpl32_configureEngineCompletionBlocksEP17AVVoiceControllerNSt3__110shared_ptrI19AVVCRecordingEngineEE_block_invoke_322(uint64_t a1, unint64_t a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = *(a1 + 48);
   if (!v5)
@@ -9065,15 +8972,15 @@ LABEL_8:
 
   if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
-    v11 = 136315906;
-    v12 = "ControllerImpl.mm";
-    v13 = 1024;
-    v14 = 4035;
-    v15 = 2048;
-    v16 = WeakRetained;
-    v17 = 2048;
-    v18 = v7;
-    _os_log_impl(&dword_1BA5AC000, v8, OS_LOG_TYPE_ERROR, "%25s:%-5d nil object encountered (avvc: %p, impl: %p). Bailing", &v11, 0x26u);
+    v10 = 136315906;
+    v11 = "ControllerImpl.mm";
+    v12 = 1024;
+    v13 = 4035;
+    v14 = 2048;
+    v15 = WeakRetained;
+    v16 = 2048;
+    v17 = v7;
+    _os_log_impl(&dword_1BA5AC000, v8, OS_LOG_TYPE_ERROR, "%25s:%-5d nil object encountered (avvc: %p, impl: %p). Bailing", &v10, 0x26u);
   }
 
 LABEL_15:
@@ -9083,8 +8990,6 @@ LABEL_15:
   }
 
 LABEL_17:
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1BA679184(_Unwind_Exception *a1)
@@ -9094,9 +8999,9 @@ void sub_1BA679184(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t ___ZN14ControllerImpl32_configureEngineCompletionBlocksEP17AVVoiceControllerNSt3__110shared_ptrI19AVVCRecordingEngineEE_block_invoke_327(uint64_t a1, char a2)
+NSObject *___ZN14ControllerImpl32_configureEngineCompletionBlocksEP17AVVoiceControllerNSt3__110shared_ptrI19AVVCRecordingEngineEE_block_invoke_327(uint64_t a1, char a2)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = *(a1 + 48);
   if (!v5)
@@ -9118,10 +9023,10 @@ LABEL_7:
   if (WeakRetained && v8)
   {
     atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
-    RecordLock::RecordLock(&v15, v8, v6);
+    RecordLock::RecordLock(&v14, v8, v6);
     std::__shared_weak_count::__release_shared[abi:ne200100](v7);
     v9 = AVVCRecordingEngine::stopRecord(*(a1 + 56), a2);
-    VCLocker::~VCLocker(&v15);
+    VCLocker::~VCLocker(&v14);
 LABEL_16:
     std::__shared_weak_count::__release_shared[abi:ne200100](v7);
     v12 = v9;
@@ -9146,15 +9051,15 @@ LABEL_8:
 
   if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
-    v15 = 136315906;
-    v16 = "ControllerImpl.mm";
-    v17 = 1024;
-    v18 = 4046;
-    v19 = 2048;
-    v20 = WeakRetained;
-    v21 = 2048;
-    v22 = v8;
-    _os_log_impl(&dword_1BA5AC000, v10, OS_LOG_TYPE_ERROR, "%25s:%-5d nil object encountered (avvc: %p, impl: %p). Bailing", &v15, 0x26u);
+    v14 = 136315906;
+    v15 = "ControllerImpl.mm";
+    v16 = 1024;
+    v17 = 4046;
+    v18 = 2048;
+    v19 = WeakRetained;
+    v20 = 2048;
+    v21 = v8;
+    _os_log_impl(&dword_1BA5AC000, v10, OS_LOG_TYPE_ERROR, "%25s:%-5d nil object encountered (avvc: %p, impl: %p). Bailing", &v14, 0x26u);
   }
 
 LABEL_15:
@@ -9167,7 +9072,6 @@ LABEL_15:
 
 LABEL_17:
 
-  v13 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -9181,7 +9085,7 @@ void sub_1BA679340(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 uint64_t ___ZN14ControllerImpl32_configureEngineCompletionBlocksEP17AVVoiceControllerNSt3__110shared_ptrI19AVVCRecordingEngineEE_block_invoke_331(uint64_t a1, uint64_t a2)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = *(a1 + 48);
   if (!v5)
@@ -9203,10 +9107,10 @@ LABEL_7:
   if (WeakRetained && v8)
   {
     atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
-    RecordLock::RecordLock(&v15, v8, v6);
+    RecordLock::RecordLock(&v14, v8, v6);
     std::__shared_weak_count::__release_shared[abi:ne200100](v7);
     v9 = (*(**(a1 + 56) + 112))(*(a1 + 56), a2);
-    VCLocker::~VCLocker(&v15);
+    VCLocker::~VCLocker(&v14);
 LABEL_16:
     std::__shared_weak_count::__release_shared[abi:ne200100](v7);
     v12 = v9;
@@ -9231,15 +9135,15 @@ LABEL_8:
 
   if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
-    v15 = 136315906;
-    v16 = "ControllerImpl.mm";
-    v17 = 1024;
-    v18 = 4053;
-    v19 = 2048;
-    v20 = WeakRetained;
-    v21 = 2048;
-    v22 = v8;
-    _os_log_impl(&dword_1BA5AC000, v10, OS_LOG_TYPE_ERROR, "%25s:%-5d nil object encountered (avvc: %p, impl: %p). Bailing", &v15, 0x26u);
+    v14 = 136315906;
+    v15 = "ControllerImpl.mm";
+    v16 = 1024;
+    v17 = 4053;
+    v18 = 2048;
+    v19 = WeakRetained;
+    v20 = 2048;
+    v21 = v8;
+    _os_log_impl(&dword_1BA5AC000, v10, OS_LOG_TYPE_ERROR, "%25s:%-5d nil object encountered (avvc: %p, impl: %p). Bailing", &v14, 0x26u);
   }
 
 LABEL_15:
@@ -9252,7 +9156,6 @@ LABEL_15:
 
 LABEL_17:
 
-  v13 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -9266,7 +9169,7 @@ void sub_1BA679534(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 uint64_t ___ZN14ControllerImpl32_configureEngineCompletionBlocksEP17AVVoiceControllerNSt3__110shared_ptrI19AVVCRecordingEngineEE_block_invoke_332(uint64_t a1)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v3 = *(a1 + 48);
   if (!v3)
@@ -9288,10 +9191,10 @@ LABEL_7:
   if (WeakRetained && v6)
   {
     atomic_fetch_add_explicit(&v4->__shared_owners_, 1uLL, memory_order_relaxed);
-    RecordLock::RecordLock(&v13, v6, v4);
+    RecordLock::RecordLock(&v12, v6, v4);
     std::__shared_weak_count::__release_shared[abi:ne200100](v5);
     v7 = (*(**(a1 + 56) + 80))(*(a1 + 56));
-    VCLocker::~VCLocker(&v13);
+    VCLocker::~VCLocker(&v12);
 LABEL_16:
     std::__shared_weak_count::__release_shared[abi:ne200100](v5);
     v10 = v7;
@@ -9316,15 +9219,15 @@ LABEL_8:
 
   if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
-    v13 = 136315906;
-    v14 = "ControllerImpl.mm";
-    v15 = 1024;
-    v16 = 4060;
-    v17 = 2048;
-    v18 = WeakRetained;
-    v19 = 2048;
-    v20 = v6;
-    _os_log_impl(&dword_1BA5AC000, v8, OS_LOG_TYPE_ERROR, "%25s:%-5d nil object encountered (avvc: %p, impl: %p). Bailing", &v13, 0x26u);
+    v12 = 136315906;
+    v13 = "ControllerImpl.mm";
+    v14 = 1024;
+    v15 = 4060;
+    v16 = 2048;
+    v17 = WeakRetained;
+    v18 = 2048;
+    v19 = v6;
+    _os_log_impl(&dword_1BA5AC000, v8, OS_LOG_TYPE_ERROR, "%25s:%-5d nil object encountered (avvc: %p, impl: %p). Bailing", &v12, 0x26u);
   }
 
 LABEL_15:
@@ -9337,7 +9240,6 @@ LABEL_15:
 
 LABEL_17:
 
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -9350,6 +9252,87 @@ void sub_1BA679718(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 }
 
 void ___ZN14ControllerImpl32_configureEngineCompletionBlocksEP17AVVoiceControllerNSt3__110shared_ptrI19AVVCRecordingEngineEE_block_invoke_333(uint64_t a1, void *a2)
+{
+  v20 = *MEMORY[0x1E69E9840];
+  WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v5 = *(a1 + 48);
+  if (!v5)
+  {
+    v6 = 0;
+    goto LABEL_7;
+  }
+
+  v6 = std::__shared_weak_count::lock(v5);
+  if (!v6)
+  {
+LABEL_7:
+    v7 = 0;
+    goto LABEL_8;
+  }
+
+  v7 = *(a1 + 40);
+  if (WeakRetained && v7)
+  {
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = ___ZN14ControllerImpl32_configureEngineCompletionBlocksEP17AVVoiceControllerNSt3__110shared_ptrI19AVVCRecordingEngineEE_block_invoke_335;
+    v10[3] = &unk_1E7EF5BD0;
+    objc_copyWeak(v11, (a1 + 32));
+    v11[1] = a2;
+    ControllerImpl::safeNotify(v7, "streamInvalidated", v10);
+    objc_destroyWeak(v11);
+LABEL_16:
+    std::__shared_weak_count::__release_shared[abi:ne200100](v6);
+    goto LABEL_17;
+  }
+
+LABEL_8:
+  if (kAVVCScope)
+  {
+    v8 = *kAVVCScope;
+    if (!v8)
+    {
+      goto LABEL_15;
+    }
+  }
+
+  else
+  {
+    v8 = MEMORY[0x1E69E9C10];
+    v9 = MEMORY[0x1E69E9C10];
+  }
+
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 136315906;
+    v13 = "ControllerImpl.mm";
+    v14 = 1024;
+    v15 = 4067;
+    v16 = 2048;
+    v17 = WeakRetained;
+    v18 = 2048;
+    v19 = v7;
+    _os_log_impl(&dword_1BA5AC000, v8, OS_LOG_TYPE_ERROR, "%25s:%-5d nil object encountered (avvc: %p, impl: %p). Bailing", buf, 0x26u);
+  }
+
+LABEL_15:
+  if (v6)
+  {
+    goto LABEL_16;
+  }
+
+LABEL_17:
+}
+
+void sub_1BA679910(_Unwind_Exception *a1)
+{
+  objc_destroyWeak((v3 + 32));
+  std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+
+  _Unwind_Resume(a1);
+}
+
+void ___ZN14ControllerImpl32_configureEngineCompletionBlocksEP17AVVoiceControllerNSt3__110shared_ptrI19AVVCRecordingEngineEE_block_invoke_339(uint64_t a1, int a2)
 {
   v21 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -9371,14 +9354,14 @@ LABEL_7:
   v7 = *(a1 + 40);
   if (WeakRetained && v7)
   {
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = ___ZN14ControllerImpl32_configureEngineCompletionBlocksEP17AVVoiceControllerNSt3__110shared_ptrI19AVVCRecordingEngineEE_block_invoke_335;
-    v11[3] = &unk_1E7EF5BD0;
-    objc_copyWeak(v12, (a1 + 32));
-    v12[1] = a2;
-    ControllerImpl::safeNotify(v7, "streamInvalidated", v11);
-    objc_destroyWeak(v12);
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = ___ZN14ControllerImpl32_configureEngineCompletionBlocksEP17AVVoiceControllerNSt3__110shared_ptrI19AVVCRecordingEngineEE_block_invoke_341;
+    v10[3] = &unk_1E7EF5CE8;
+    objc_copyWeak(&v11, (a1 + 32));
+    v12 = a2;
+    ControllerImpl::safeNotify(v7, "hardwareConfigChanged", v10);
+    objc_destroyWeak(&v11);
 LABEL_16:
     std::__shared_weak_count::__release_shared[abi:ne200100](v6);
     goto LABEL_17;
@@ -9405,7 +9388,7 @@ LABEL_8:
     *buf = 136315906;
     v14 = "ControllerImpl.mm";
     v15 = 1024;
-    v16 = 4067;
+    v16 = 4076;
     v17 = 2048;
     v18 = WeakRetained;
     v19 = 2048;
@@ -9420,91 +9403,6 @@ LABEL_15:
   }
 
 LABEL_17:
-
-  v10 = *MEMORY[0x1E69E9840];
-}
-
-void sub_1BA679910(_Unwind_Exception *a1)
-{
-  objc_destroyWeak((v3 + 32));
-  std::__shared_weak_count::__release_shared[abi:ne200100](v2);
-
-  _Unwind_Resume(a1);
-}
-
-void ___ZN14ControllerImpl32_configureEngineCompletionBlocksEP17AVVoiceControllerNSt3__110shared_ptrI19AVVCRecordingEngineEE_block_invoke_339(uint64_t a1, int a2)
-{
-  v22 = *MEMORY[0x1E69E9840];
-  WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v5 = *(a1 + 48);
-  if (!v5)
-  {
-    v6 = 0;
-    goto LABEL_7;
-  }
-
-  v6 = std::__shared_weak_count::lock(v5);
-  if (!v6)
-  {
-LABEL_7:
-    v7 = 0;
-    goto LABEL_8;
-  }
-
-  v7 = *(a1 + 40);
-  if (WeakRetained && v7)
-  {
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = ___ZN14ControllerImpl32_configureEngineCompletionBlocksEP17AVVoiceControllerNSt3__110shared_ptrI19AVVCRecordingEngineEE_block_invoke_341;
-    v11[3] = &unk_1E7EF5CE8;
-    objc_copyWeak(&v12, (a1 + 32));
-    v13 = a2;
-    ControllerImpl::safeNotify(v7, "hardwareConfigChanged", v11);
-    objc_destroyWeak(&v12);
-LABEL_16:
-    std::__shared_weak_count::__release_shared[abi:ne200100](v6);
-    goto LABEL_17;
-  }
-
-LABEL_8:
-  if (kAVVCScope)
-  {
-    v8 = *kAVVCScope;
-    if (!v8)
-    {
-      goto LABEL_15;
-    }
-  }
-
-  else
-  {
-    v8 = MEMORY[0x1E69E9C10];
-    v9 = MEMORY[0x1E69E9C10];
-  }
-
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
-  {
-    *buf = 136315906;
-    v15 = "ControllerImpl.mm";
-    v16 = 1024;
-    v17 = 4076;
-    v18 = 2048;
-    v19 = WeakRetained;
-    v20 = 2048;
-    v21 = v7;
-    _os_log_impl(&dword_1BA5AC000, v8, OS_LOG_TYPE_ERROR, "%25s:%-5d nil object encountered (avvc: %p, impl: %p). Bailing", buf, 0x26u);
-  }
-
-LABEL_15:
-  if (v6)
-  {
-    goto LABEL_16;
-  }
-
-LABEL_17:
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1BA679AF8(_Unwind_Exception *a1)
@@ -9517,7 +9415,7 @@ void sub_1BA679AF8(_Unwind_Exception *a1)
 
 void ___ZN14ControllerImpl32_configureEngineCompletionBlocksEP17AVVoiceControllerNSt3__110shared_ptrI19AVVCRecordingEngineEE_block_invoke_341(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -9544,24 +9442,22 @@ void ___ZN14ControllerImpl32_configureEngineCompletionBlocksEP17AVVoiceControlle
 
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v7 = 136315650;
-      v8 = "ControllerImpl.mm";
-      v9 = 1024;
-      v10 = 4078;
-      v11 = 2048;
-      v12 = 0;
-      _os_log_impl(&dword_1BA5AC000, v4, OS_LOG_TYPE_ERROR, "%25s:%-5d nil object encountered (avvc: %p). Bailing", &v7, 0x1Cu);
+      v6 = 136315650;
+      v7 = "ControllerImpl.mm";
+      v8 = 1024;
+      v9 = 4078;
+      v10 = 2048;
+      v11 = 0;
+      _os_log_impl(&dword_1BA5AC000, v4, OS_LOG_TYPE_ERROR, "%25s:%-5d nil object encountered (avvc: %p). Bailing", &v6, 0x1Cu);
     }
   }
 
 LABEL_10:
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void ___ZN14ControllerImpl32_configureEngineCompletionBlocksEP17AVVoiceControllerNSt3__110shared_ptrI19AVVCRecordingEngineEE_block_invoke_335(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -9588,19 +9484,17 @@ void ___ZN14ControllerImpl32_configureEngineCompletionBlocksEP17AVVoiceControlle
 
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v7 = 136315650;
-      v8 = "ControllerImpl.mm";
-      v9 = 1024;
-      v10 = 4069;
-      v11 = 2048;
-      v12 = 0;
-      _os_log_impl(&dword_1BA5AC000, v4, OS_LOG_TYPE_ERROR, "%25s:%-5d nil object encountered (avvc: %p). Bailing", &v7, 0x1Cu);
+      v6 = 136315650;
+      v7 = "ControllerImpl.mm";
+      v8 = 1024;
+      v9 = 4069;
+      v10 = 2048;
+      v11 = 0;
+      _os_log_impl(&dword_1BA5AC000, v4, OS_LOG_TYPE_ERROR, "%25s:%-5d nil object encountered (avvc: %p). Bailing", &v6, 0x1Cu);
     }
   }
 
 LABEL_10:
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __destroy_helper_block_ea8_40c39_ZTSNSt3__18weak_ptrI14ControllerImplEE56c47_ZTSNSt3__110shared_ptrI19AVVCRecordingEngineEE(uint64_t a1)
@@ -9703,4 +9597,193 @@ void ___ZN14ControllerImpl10setContextEP17AVVoiceControllerP19AVVCContextSetting
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v9);
   }
+}
+
+void sub_1BA67A1D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, std::__shared_weak_count *a16)
+{
+  if (a16)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](a16);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void ___ZN14ControllerImpl10setContextEP17AVVoiceControllerP19AVVCContextSettingsU13block_pointerFvm14AVVCStreamTypeP7NSErrorE_block_invoke_4(void *a1)
+{
+  v2 = a1[4];
+  v4 = a1[5];
+  v3 = a1[6];
+  v5 = v4;
+  v6 = v3;
+  if (v3)
+  {
+    atomic_fetch_add_explicit(&v3->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  (*(v2 + 16))(v2, &v5);
+  if (v6)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v6);
+  }
+}
+
+void sub_1BA67A250(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
+{
+  if (a10)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](a10);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void ControllerImpl::safeAllQueuesBarrier(ControllerImpl *this)
+{
+  v26 = *MEMORY[0x1E69E9840];
+  if (kAVVCScope)
+  {
+    v2 = *kAVVCScope;
+    if (!v2)
+    {
+      goto LABEL_8;
+    }
+  }
+
+  else
+  {
+    v2 = MEMORY[0x1E69E9C10];
+    v3 = MEMORY[0x1E69E9C10];
+  }
+
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136315394;
+    v23 = "ControllerImpl.mm";
+    v24 = 1024;
+    v25 = 4592;
+    _os_log_impl(&dword_1BA5AC000, v2, OS_LOG_TYPE_DEFAULT, "%25s:%-5d before barrier", buf, 0x12u);
+  }
+
+LABEL_8:
+  v4 = dispatch_group_create();
+  v5 = v4;
+  v6 = *(this + 4);
+  if (v6)
+  {
+    block[0] = MEMORY[0x1E69E9820];
+    block[1] = 3221225472;
+    block[2] = ___ZN14ControllerImpl20safeAllQueuesBarrierEv_block_invoke;
+    block[3] = &__block_descriptor_40_e5_v8__0l;
+    block[4] = this;
+    dispatch_group_async(v4, v6, block);
+  }
+
+  v7 = *(this + 3);
+  if (v7)
+  {
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = ___ZN14ControllerImpl20safeAllQueuesBarrierEv_block_invoke_368;
+    v20[3] = &__block_descriptor_40_e5_v8__0l;
+    v20[4] = this;
+    dispatch_group_async(v5, v7, v20);
+  }
+
+  v8 = +[AVVCKeepAliveManager sharedManager];
+  v9 = [v8 getDispatchQueue];
+
+  if (v9)
+  {
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = ___ZN14ControllerImpl20safeAllQueuesBarrierEv_block_invoke_369;
+    v18[3] = &unk_1E7EF6628;
+    v19 = v9;
+    dispatch_group_async(v5, v19, v18);
+  }
+
+  if (dispatch_group_wait(v5, 0xFFFFFFFFFFFFFFFFLL))
+  {
+    v16 = CALog::LogObjIfEnabled(1, kAVVCScope);
+    v17 = v16;
+    if (v16 && os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136315394;
+      v23 = "ControllerImpl.mm";
+      v24 = 1024;
+      v25 = 4620;
+      _os_log_impl(&dword_1BA5AC000, v17, OS_LOG_TYPE_ERROR, "%25s:%-5d AVVC_TIMEOUT occurred : safeAllQueuesBarrier timed out!", buf, 0x12u);
+    }
+
+    CAVerboseAbort("ASSERTION FAILURE: AVVC_TIMEOUT occurred : safeAllQueuesBarrier timed out!");
+  }
+
+  if (kAVVCScope)
+  {
+    v10 = *kAVVCScope;
+    if (!v10)
+    {
+      goto LABEL_22;
+    }
+  }
+
+  else
+  {
+    v10 = MEMORY[0x1E69E9C10];
+    v11 = MEMORY[0x1E69E9C10];
+  }
+
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136315394;
+    v23 = "ControllerImpl.mm";
+    v24 = 1024;
+    v25 = 4624;
+    _os_log_impl(&dword_1BA5AC000, v10, OS_LOG_TYPE_DEFAULT, "%25s:%-5d after barrier", buf, 0x12u);
+  }
+
+LABEL_22:
+  v12 = *(this + 4);
+  if (v12)
+  {
+    dispatch_resume(v12);
+  }
+
+  v13 = *(this + 3);
+  if (v13)
+  {
+    dispatch_resume(v13);
+  }
+
+  if (v9)
+  {
+    dispatch_resume(v9);
+  }
+
+  if (kAVVCScope)
+  {
+    v14 = *kAVVCScope;
+    if (!v14)
+    {
+      goto LABEL_35;
+    }
+  }
+
+  else
+  {
+    v14 = MEMORY[0x1E69E9C10];
+    v15 = MEMORY[0x1E69E9C10];
+  }
+
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136315394;
+    v23 = "ControllerImpl.mm";
+    v24 = 1024;
+    v25 = 4640;
+    _os_log_impl(&dword_1BA5AC000, v14, OS_LOG_TYPE_DEFAULT, "%25s:%-5d after resume", buf, 0x12u);
+  }
+
+LABEL_35:
 }

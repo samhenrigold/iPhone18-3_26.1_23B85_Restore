@@ -4,6 +4,8 @@
 - (void)close;
 - (void)dealloc;
 - (void)writeWithByteArray:(id)array;
+- (void)writeWithByteArray:(id)array withInt:(int)int withInt:(int)withInt;
+- (void)writeWithInt:(int)int;
 @end
 
 @implementation JavaNioSocketChannelImpl_BlockingCheckOutputStream
@@ -13,6 +15,20 @@
   JavaIoFilterOutputStream_initWithJavaIoOutputStream_(self, stream);
   JreStrongAssign(&self->channel_, channel);
   return self;
+}
+
+- (void)writeWithByteArray:(id)array withInt:(int)int withInt:(int)withInt
+{
+  v5 = *&withInt;
+  v6 = *&int;
+  [JavaNioSocketChannelImpl_BlockingCheckOutputStream checkBlocking]_0(self);
+  out = self->super.out_;
+  if (!out)
+  {
+    JreThrowNullPointerException();
+  }
+
+  [(JavaIoOutputStream *)out writeWithByteArray:array withInt:v6 withInt:v5];
 }
 
 - (id)checkBlocking
@@ -31,6 +47,19 @@
   }
 
   return result;
+}
+
+- (void)writeWithInt:(int)int
+{
+  v3 = *&int;
+  [JavaNioSocketChannelImpl_BlockingCheckOutputStream checkBlocking]_0(self);
+  out = self->super.out_;
+  if (!out)
+  {
+    JreThrowNullPointerException();
+  }
+
+  [(JavaIoOutputStream *)out writeWithInt:v3];
 }
 
 - (void)writeWithByteArray:(id)array

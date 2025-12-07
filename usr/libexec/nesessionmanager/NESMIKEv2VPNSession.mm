@@ -3,6 +3,7 @@
 - (BOOL)prepareConfigurationForStart;
 - (int)getVirtualInterfaceMTU:(id)u;
 - (void)createConnectParametersWithStartMessage:(id)message;
+- (void)setStatus:(int)status;
 @end
 
 @implementation NESMIKEv2VPNSession
@@ -31,6 +32,135 @@
   }
 
   return intValue;
+}
+
+- (void)setStatus:(int)status
+{
+  v3 = *&status;
+  status = [(NESMSession *)self status];
+  v36.receiver = self;
+  v36.super_class = NESMIKEv2VPNSession;
+  [(NESMVPNSession *)&v36 setStatus:v3];
+  if (self && v3 == 3)
+  {
+    self->_sessionDidConnect = 1;
+  }
+
+  if (![(NESMSession *)self isOnDemand]&& [(NESMVPNSession *)self tunnelKind]== 1 && [(NESMVPNSession *)self sessionType]!= 3)
+  {
+    configuration = [(NESMSession *)self configuration];
+    applicationIdentifier = [configuration applicationIdentifier];
+    if (applicationIdentifier)
+    {
+    }
+
+    else
+    {
+      if (self)
+      {
+        v25 = !self->_sessionDidConnect;
+      }
+
+      else
+      {
+        v25 = 1;
+      }
+
+      if (v3 == 1 && v25 && status != 1)
+      {
+        lastDisconnectError = [(NESMSession *)self lastDisconnectError];
+        userInfo = [lastDisconnectError userInfo];
+        v28 = [userInfo objectForKeyedSubscript:@"LocalizedHeader"];
+
+        lastDisconnectError2 = [(NESMSession *)self lastDisconnectError];
+        userInfo2 = [lastDisconnectError2 userInfo];
+        v31 = [userInfo2 objectForKeyedSubscript:NSLocalizedDescriptionKey];
+
+        if (v28 && v31)
+        {
+          notification = [(NESMVPNSession *)self notification];
+          [notification cancel];
+
+          v33 = [NEUserNotification alloc];
+          queue = [(NESMSession *)self queue];
+          v35 = [v33 initAndShowAlertWithHeader:v28 message:v31 alternateMessage:0 defaultMessage:0 noBoldDefault:0 usePrivacyIcon:0 extensionItem:0 callbackQueue:queue callbackHandler:&stru_1000EA6E0];
+          [(NESMVPNSession *)self setNotification:v35];
+        }
+
+        if (self)
+        {
+          goto LABEL_12;
+        }
+
+        return;
+      }
+    }
+  }
+
+  if (v3 == 5)
+  {
+    if (self)
+    {
+      if (qword_1000FD560 != -1)
+      {
+        dispatch_once(&qword_1000FD560, &stru_1000EA700);
+      }
+
+      if ([(NESMSession *)self connectTime])
+      {
+        v8 = (*&qword_1000FD568 * mach_absolute_time());
+        connectTime = [(NESMSession *)self connectTime];
+        v10 = v8 - connectTime;
+        if (v8 != connectTime)
+        {
+          copyStatistics = [(NESMVPNSession *)self copyStatistics];
+          v12 = copyStatistics;
+          if (copyStatistics)
+          {
+            v13 = [copyStatistics objectForKeyedSubscript:@"VPN"];
+            v14 = v13;
+            if (v13)
+            {
+              v15 = [v13 objectForKeyedSubscript:@"BytesIn"];
+              unsignedLongLongValue = [v15 unsignedLongLongValue];
+
+              v17 = [v14 objectForKeyedSubscript:@"BytesOut"];
+              unsignedLongLongValue2 = [v17 unsignedLongLongValue];
+
+              tunnelKind = [(NESMVPNSession *)self tunnelKind];
+              v20 = @"Fallback Tunnel";
+              if (tunnelKind == 1)
+              {
+                v20 = @"Primary Tunnel";
+              }
+
+              v21 = v20;
+              isOnDemand = [(NESMSession *)self isOnDemand];
+              v23 = sub_10008AA94(self);
+              v37 = _NSConcreteStackBlock;
+              v38 = 3221225472;
+              v39 = sub_10007EBC4;
+              v40 = &unk_1000EA728;
+              v45 = v23;
+              v46 = isOnDemand;
+              v41 = v21;
+              v42 = v10;
+              v43 = unsignedLongLongValue;
+              v44 = unsignedLongLongValue2;
+              v24 = v21;
+              AnalyticsSendEventLazy();
+            }
+          }
+        }
+      }
+    }
+  }
+
+  else if (v3 == 1 && self)
+  {
+LABEL_12:
+    self->_sessionDidConnect = 0;
+  }
 }
 
 - (BOOL)prepareConfigurationForStart

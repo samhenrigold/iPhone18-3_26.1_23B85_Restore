@@ -1,6 +1,5 @@
 @interface CBATTRequest
 - (CBATTRequest)initWithCentral:(id)central characteristic:(id)characteristic offset:(unint64_t)offset transactionID:(id)d;
-- (id)description;
 - (void)appendValueData:(id)data;
 @end
 
@@ -49,14 +48,6 @@
     v4 = self->_value;
     self->_value = v8;
   }
-}
-
-- (id)description
-{
-  v3 = MEMORY[0x1E696AEC0];
-  v4 = objc_opt_class();
-  offset = self->_offset;
-  return [v3 stringWithFormat:@"<%@: %p Central = %@, Characteristic = %@, Offset = %lu, Value = %@>", v4, self, self->_central, self->_characteristic, offset, self->_value];
 }
 
 @end

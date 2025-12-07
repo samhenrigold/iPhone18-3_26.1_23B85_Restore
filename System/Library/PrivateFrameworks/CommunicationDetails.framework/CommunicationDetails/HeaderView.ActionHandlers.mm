@@ -6,10 +6,10 @@
 
 - (_TtCV20CommunicationDetails10HeaderView14ActionHandlers)init
 {
-  v2 = (&self->super.isa + OBJC_IVAR____TtCV20CommunicationDetails10HeaderView14ActionHandlers_initiateGroupAudioCall);
+  v2 = (self + OBJC_IVAR____TtCV20CommunicationDetails10HeaderView14ActionHandlers_initiateGroupAudioCall);
   *v2 = closure #1 in variable initialization expression of HeaderView.ActionHandlers.initiateGroupAudioCall;
   v2[1] = 0;
-  v3 = (&self->super.isa + OBJC_IVAR____TtCV20CommunicationDetails10HeaderView14ActionHandlers_initiateGroupVideoCall);
+  v3 = (self + OBJC_IVAR____TtCV20CommunicationDetails10HeaderView14ActionHandlers_initiateGroupVideoCall);
   *v3 = closure #1 in variable initialization expression of HeaderView.ActionHandlers.initiateGroupVideoCall;
   v3[1] = 0;
   v5.receiver = self;

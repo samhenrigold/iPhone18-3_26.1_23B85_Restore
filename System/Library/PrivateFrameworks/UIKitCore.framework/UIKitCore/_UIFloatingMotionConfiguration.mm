@@ -147,7 +147,7 @@
   else
   {
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) != 0 && (([(_UIFloatingMotionConfiguration *)equalCopy translation], self->_translation.x == v6) ? (v7 = self->_translation.y == v5) : (v7 = 0), v7))
+    if ((objc_opt_isKindOfClass() & 1) != 0 && ((objc_msgSend_translation(equalCopy), self->_translation.x == v6) ? (v7 = self->_translation.y == v5) : (v7 = 0), v7))
     {
       [(_UIFloatingMotionConfiguration *)equalCopy rotation];
       v8 = self->_rotation.y == v10 && self->_rotation.x == v9;

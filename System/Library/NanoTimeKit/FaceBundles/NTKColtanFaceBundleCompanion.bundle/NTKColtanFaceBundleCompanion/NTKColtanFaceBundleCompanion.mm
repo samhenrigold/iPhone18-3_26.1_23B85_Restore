@@ -1,13 +1,13 @@
-id sub_1200()
+id sub_1200(uint64_t a1)
 {
   if (qword_16B28 != -1)
   {
     sub_6AD0();
   }
 
-  v1 = qword_16B20;
+  v2 = qword_16B20;
 
-  return v1;
+  return v2;
 }
 
 void sub_1D00(id a1)

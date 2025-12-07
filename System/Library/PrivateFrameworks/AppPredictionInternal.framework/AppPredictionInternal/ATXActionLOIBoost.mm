@@ -21,34 +21,34 @@
 
 void __35__ATXActionLOIBoost_sharedInstance__block_invoke()
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v0 = [objc_alloc(MEMORY[0x277CEB3C8]) initWithAssetsForResource:@"ATXActionLOIBoost" ofType:@"plist"];
   v1 = [v0 abGroupContents];
 
   v2 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(v1, "count")}];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v3 = v1;
-  v4 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v16;
+    v6 = *v15;
     do
     {
       v7 = 0;
       do
       {
-        if (*v16 != v6)
+        if (*v15 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v15 + 1) + 8 * v7);
+        v8 = *(*(&v14 + 1) + 8 * v7);
         v9 = [ATXBoostObject alloc];
-        v10 = [v3 objectForKeyedSubscript:{v8, v15}];
+        v10 = [v3 objectForKeyedSubscript:{v8, v14}];
         v11 = [(ATXBoostObject *)v9 initWithDictionary:v10];
         [v2 setObject:v11 forKeyedSubscript:v8];
 
@@ -56,7 +56,7 @@ void __35__ATXActionLOIBoost_sharedInstance__block_invoke()
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v5);
@@ -65,8 +65,6 @@ void __35__ATXActionLOIBoost_sharedInstance__block_invoke()
   v12 = [[ATXActionLOIBoost alloc] initWithBoostDictionary:v2];
   v13 = sharedInstance_instance_2;
   sharedInstance_instance_2 = v12;
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 + (double)decayRateWithScale:(double)scale distance:(double)distance

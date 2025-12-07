@@ -243,63 +243,64 @@ LABEL_12:
 - (BOOL)shouldInvalidateLayoutForLocation:(id)location
 {
   locationCopy = location;
+  v5 = locationCopy;
   if (self->_layoutRequestLocation)
   {
     [(NSDate *)self->_layoutRequestTime timeIntervalSinceNow];
-    v6 = v5;
-    latLng = [locationCopy latLng];
+    v7 = v6;
+    latLng = [v5 latLng];
     [latLng coordinate];
     latLng2 = [(GEOLocation *)self->_layoutRequestLocation latLng];
     [latLng2 coordinate];
     GEOCalculateDistance();
-    v10 = v9;
+    v11 = v10;
 
-    if (v10 >= self->_layoutFreshnessRadius)
+    if (v11 >= self->_layoutFreshnessRadius)
     {
-      v12 = 1;
+      v14 = 1;
     }
 
     else
     {
-      v11 = -v6;
-      if (v6 >= 0.0)
+      v13 = -v7;
+      if (v7 >= 0.0)
       {
-        v11 = v6;
+        v13 = v7;
       }
 
-      v12 = v11 > self->_layoutTimeToLive;
+      v14 = v13 > self->_layoutTimeToLive;
     }
 
-    v13 = MAPSGetIncidentsReportingLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    v15 = MAPSGetIncidentsReportingLog(v12);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
-      v18[0] = 67109378;
-      v18[1] = v12;
-      v19 = 2112;
+      v20[0] = 67109378;
+      v20[1] = v14;
+      v21 = 2112;
       selfCopy = self;
-      v14 = "TrafficIncidentLayout: shouldInvalidateLayout %d for %@";
-      v15 = v13;
-      v16 = 18;
+      v16 = "TrafficIncidentLayout: shouldInvalidateLayout %d for %@";
+      v17 = v15;
+      v18 = 18;
       goto LABEL_11;
     }
   }
 
   else
   {
-    v13 = MAPSGetIncidentsReportingLog();
-    LOBYTE(v12) = 1;
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    v15 = MAPSGetIncidentsReportingLog(locationCopy);
+    LOBYTE(v14) = 1;
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v18[0]) = 0;
-      v14 = "TrafficIncidentLayout: Initial fetching";
-      v15 = v13;
-      v16 = 2;
+      LOWORD(v20[0]) = 0;
+      v16 = "TrafficIncidentLayout: Initial fetching";
+      v17 = v15;
+      v18 = 2;
 LABEL_11:
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, v14, v18, v16);
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, v16, v20, v18);
     }
   }
 
-  return v12;
+  return v14;
 }
 
 @end

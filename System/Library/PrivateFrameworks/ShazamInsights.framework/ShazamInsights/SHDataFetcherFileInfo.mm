@@ -12,17 +12,10 @@
 
 + (id)dataFetcherForSourceURL:(id)l
 {
-  isFileURL = [l isFileURL];
-  v4 = off_279BBEDC0;
-  if (!isFileURL)
-  {
-    v4 = off_279BBEDB8;
-  }
+  [l isFileURL];
+  v3 = objc_opt_new();
 
-  v5 = *v4;
-  v6 = objc_opt_new();
-
-  return v6;
+  return v3;
 }
 
 - (SHDataFetcherFileInfo)initWithData:(id)data suggestedFileName:(id)name

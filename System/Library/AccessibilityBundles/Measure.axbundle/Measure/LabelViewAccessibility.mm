@@ -119,33 +119,33 @@ void __66__LabelViewAccessibility__accessibilityLastSavedMeasurementString__bloc
 
 - (id)_accessibilityLabelElementsWithAccessibilityContainer:(id)container
 {
-  v28 = *MEMORY[0x29EDCA608];
+  v27 = *MEMORY[0x29EDCA608];
   containerCopy = container;
   array = [MEMORY[0x29EDB8DE8] array];
-  v21 = AXMeasureAccessibilityStateObserver();
-  [v21 axOrderedWorldLineIDs];
+  v20 = AXMeasureAccessibilityStateObserver();
+  [v20 axOrderedWorldLineIDs];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
-  obj = v26 = 0u;
-  v5 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+  obj = v25 = 0u;
+  v5 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v5)
   {
     v6 = v5;
     firstObject = 0;
-    v8 = *v24;
+    v8 = *v23;
     do
     {
       for (i = 0; i != v6; ++i)
       {
         v10 = firstObject;
-        if (*v24 != v8)
+        if (*v23 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v23 + 1) + 8 * i);
-        axWorldLines = [v21 axWorldLines];
+        v11 = *(*(&v22 + 1) + 8 * i);
+        axWorldLines = [v20 axWorldLines];
         v13 = [axWorldLines objectForKeyedSubscript:v11];
 
         v14 = [v13 safeArrayForKey:@"identifiersOfObjectsComposedInto"];
@@ -163,7 +163,7 @@ void __66__LabelViewAccessibility__accessibilityLastSavedMeasurementString__bloc
         [array axSafelyAddObject:v16];
       }
 
-      v6 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v6 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v6);
@@ -174,8 +174,6 @@ void __66__LabelViewAccessibility__accessibilityLastSavedMeasurementString__bloc
       [array axSafelyAddObject:v17];
     }
   }
-
-  v18 = *MEMORY[0x29EDCA608];
 
   return array;
 }

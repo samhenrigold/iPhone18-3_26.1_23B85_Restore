@@ -7,6 +7,7 @@
 - (int64_t)backoffTimeout;
 - (int64_t)failedPasscodeAttempts;
 - (void)_reportPasscodeChangedTo:(id)to;
+- (void)changePasscode:(id)passcode to:(id)to enableRecovery:(BOOL)recovery completion:(id)completion;
 - (void)verifyPasscode:(id)passcode completion:(id)completion;
 @end
 
@@ -134,6 +135,70 @@
   return v5;
 }
 
+- (void)changePasscode:(id)passcode to:(id)to enableRecovery:(BOOL)recovery completion:(id)completion
+{
+  recoveryCopy = recovery;
+  v28[3] = *MEMORY[0x277D85DE8];
+  toCopy = to;
+  completionCopy = completion;
+  passcodeCopy = passcode;
+  persistence = [(LAPSCurrentPasscodeService *)self persistence];
+  v26 = 0;
+  v14 = [persistence changePasscode:passcodeCopy to:toCopy enableRecovery:recoveryCopy error:&v26];
+
+  v15 = v26;
+  if (v14)
+  {
+    persistence2 = [(LAPSCurrentPasscodeService *)self persistence];
+    v17 = [persistence2 setPasscodeRecoveryEnabled:recoveryCopy];
+
+    if (v17)
+    {
+      v18 = [MEMORY[0x277CCACA8] stringWithFormat:@"Passcode recovery intent storage failed (error: %@)", v17];
+      v19 = LACLogPasscodeService();
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      {
+        [LAPSCurrentPasscodeService changePasscode:v18 to:v19 enableRecovery:? completion:?];
+      }
+    }
+
+    if ([(LAPSCurrentPasscodeServiceOptions *)self->_options skipSuccessNotification])
+    {
+      v20 = LACLogPasscodeService();
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_238BCD000, v20, OS_LOG_TYPE_DEFAULT, "Skipping success notification as requested", buf, 2u);
+      }
+    }
+
+    else
+    {
+      [(LAPSCurrentPasscodeService *)self _reportPasscodeChangedTo:toCopy];
+    }
+
+    completionCopy[2](completionCopy, 0);
+  }
+
+  else
+  {
+    v27[0] = *MEMORY[0x277CCA450];
+    v21 = +[LALocalizedString passcodeChangeFailedTitle];
+    v28[0] = v21;
+    v27[1] = *MEMORY[0x277CCA068];
+    v22 = [MEMORY[0x277CCACA8] stringWithFormat:@"Passcode change failed (error: %@)", v15];
+    v27[2] = @"LAPSInteractiveErrorKey";
+    v28[1] = v22;
+    v28[2] = MEMORY[0x277CBEC38];
+    v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:3];
+    v24 = [LAPSErrorBuilder errorWithCode:9 userInfo:v23];
+    (completionCopy)[2](completionCopy, v24);
+
+    completionCopy = v21;
+    v17 = v15;
+  }
+}
+
 - (void)_reportPasscodeChangedTo:(id)to
 {
   toCopy = to;
@@ -150,26 +215,23 @@
 
 void __55__LAPSCurrentPasscodeService__reportPasscodeChangedTo___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = LACLogPasscodeService();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_238BCD000, v3, OS_LOG_TYPE_DEFAULT, "CDP update did finish (error: %@)", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_238BCD000, v3, OS_LOG_TYPE_DEFAULT, "CDP update did finish (error: %@)", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)changePasscode:(uint64_t)a1 to:(NSObject *)a2 enableRecovery:completion:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_238BCD000, a2, OS_LOG_TYPE_ERROR, "%@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_238BCD000, a2, OS_LOG_TYPE_ERROR, "%@", &v2, 0xCu);
 }
 
 @end

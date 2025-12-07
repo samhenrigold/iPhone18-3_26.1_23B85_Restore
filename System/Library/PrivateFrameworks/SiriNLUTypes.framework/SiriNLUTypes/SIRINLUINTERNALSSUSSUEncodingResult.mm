@@ -127,23 +127,23 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v8 = toCopy;
+  v7 = toCopy;
   if (self->_requestId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v7;
   }
 
   if (self->_ssuEncoderVersion)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v7;
   }
 
   if (self->_utterance)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v7;
   }
 
   p_encodings = &self->_encodings;
@@ -152,9 +152,8 @@
     v6 = 0;
     do
     {
-      v7 = p_encodings->list[v6];
       PBDataWriterWriteFloatField();
-      toCopy = v8;
+      toCopy = v7;
       ++v6;
     }
 

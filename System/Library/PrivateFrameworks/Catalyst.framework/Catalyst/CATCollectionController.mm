@@ -153,38 +153,38 @@
 
 - (CATCollectionController)initWithObjects:(id)objects
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   objectsCopy = objects;
   v6 = [(CATCollectionController *)self init];
   v7 = v6;
   if (v6)
   {
     objc_storeStrong(&v6->mOriginalObjects, objects);
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     v8 = objectsCopy;
-    v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v17;
+      v11 = *v16;
       do
       {
         v12 = 0;
         do
         {
-          if (*v17 != v11)
+          if (*v16 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          [(CATCollectionController *)v7 addObject:*(*(&v16 + 1) + 8 * v12++), v16];
+          [(CATCollectionController *)v7 addObject:*(*(&v15 + 1) + 8 * v12++), v15];
         }
 
         while (v10 != v12);
-        v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v10);
@@ -194,7 +194,6 @@
     v7->mChangingSelection = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -262,7 +261,7 @@ void __65__CATCollectionController_resolveArrangedObjectsAtIndexes_reply___block
 
 - (void)unbindContent
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   mTarget = self->mTarget;
   if (mTarget)
   {
@@ -275,31 +274,31 @@ void __65__CATCollectionController_resolveArrangedObjectsAtIndexes_reply___block
     self->mTransformer = 0;
 
     v6 = [(NSMutableSet *)self->mContent copy];
+    v12 = 0u;
     v13 = 0u;
     v14 = 0u;
     v15 = 0u;
-    v16 = 0u;
     v7 = v6;
-    v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v14;
+      v10 = *v13;
       do
       {
         v11 = 0;
         do
         {
-          if (*v14 != v10)
+          if (*v13 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          [(CATCollectionController *)self removeObserversFromObject:*(*(&v13 + 1) + 8 * v11++) forKeyPaths:self->mKeysAffectingArrangement, v13];
+          [(CATCollectionController *)self removeObserversFromObject:*(*(&v12 + 1) + 8 * v11++) forKeyPaths:self->mKeysAffectingArrangement, v12];
         }
 
         while (v9 != v11);
-        v9 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v9);
@@ -308,8 +307,6 @@ void __65__CATCollectionController_resolveArrangedObjectsAtIndexes_reply___block
     [(CATCollectionController *)self setArrangedObjects:MEMORY[0x277CBEBF8]];
     [(NSMutableSet *)self->mContent removeAllObjects];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
@@ -412,76 +409,72 @@ uint64_t __74__CATCollectionController_observeValueForKeyPath_ofObject_change_co
 
 - (void)addObserversToObject:(id)object forKeyPaths:(id)paths
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   pathsCopy = paths;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v8 = [pathsCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v8 = [pathsCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v14;
+    v10 = *v13;
     do
     {
       v11 = 0;
       do
       {
-        if (*v14 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(pathsCopy);
         }
 
-        [objectCopy addObserver:self forKeyPath:*(*(&v13 + 1) + 8 * v11++) options:3 context:"_CATCollectionControllerArrangementKeyObservationContext"];
+        [objectCopy addObserver:self forKeyPath:*(*(&v12 + 1) + 8 * v11++) options:3 context:"_CATCollectionControllerArrangementKeyObservationContext"];
       }
 
       while (v9 != v11);
-      v9 = [pathsCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v9 = [pathsCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v9);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeObserversFromObject:(id)object forKeyPaths:(id)paths
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   pathsCopy = paths;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v8 = [pathsCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v8 = [pathsCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v14;
+    v10 = *v13;
     do
     {
       v11 = 0;
       do
       {
-        if (*v14 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(pathsCopy);
         }
 
-        [objectCopy removeObserver:self forKeyPath:*(*(&v13 + 1) + 8 * v11++)];
+        [objectCopy removeObserver:self forKeyPath:*(*(&v12 + 1) + 8 * v11++)];
       }
 
       while (v9 != v11);
-      v9 = [pathsCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v9 = [pathsCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v9);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addObject:(id)object
@@ -633,7 +626,7 @@ LABEL_2:
 
 uint64_t __63__CATCollectionController_newIndexForObject_inArrangedObjects___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [*(a1 + 32) sortDescriptors];
@@ -641,27 +634,27 @@ uint64_t __63__CATCollectionController_newIndexForObject_inArrangedObjects___blo
 
   if (v8)
   {
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     v9 = [*(a1 + 32) sortDescriptors];
-    v10 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v22;
+      v12 = *v21;
       while (2)
       {
         v13 = 0;
         do
         {
-          if (*v22 != v12)
+          if (*v21 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = [*(*(&v21 + 1) + 8 * v13) compareObject:v5 toObject:v6];
+          v14 = [*(*(&v20 + 1) + 8 * v13) compareObject:v5 toObject:v6];
           if (v14)
           {
             v15 = v14;
@@ -672,7 +665,7 @@ uint64_t __63__CATCollectionController_newIndexForObject_inArrangedObjects___blo
         }
 
         while (v11 != v13);
-        v11 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
         if (v11)
         {
           continue;
@@ -720,7 +713,6 @@ LABEL_12:
     }
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -743,38 +735,36 @@ LABEL_12:
 
 void __49__CATCollectionController_rearrangeTimerDidFire___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = *(*(a1 + 32) + 80);
-  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(a1 + 32) arrangeObject:{*(*(&v8 + 1) + 8 * v6++), v8}];
+        [*(a1 + 32) arrangeObject:{*(*(&v7 + 1) + 8 * v6++), v7}];
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)scheduleRearrangeTimerIfNeed
@@ -834,7 +824,7 @@ void __49__CATCollectionController_rearrangeTimerDidFire___block_invoke(uint64_t
 
 void __87__CATCollectionController_updateKeysAffectingArrangementForceUpdate_includeAllContent___block_invoke(id *a1)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   if (([*(a1[4] + 9) isEqualToSet:a1[5]] & 1) == 0)
   {
     v2 = [MEMORY[0x277CBEB58] setWithSet:*(a1[4] + 9)];
@@ -843,33 +833,33 @@ void __87__CATCollectionController_updateKeysAffectingArrangementForceUpdate_inc
     [v3 minusSet:*(a1[4] + 9)];
     if ([v2 count] || objc_msgSend(v3, "count"))
     {
-      v25 = 0u;
-      v26 = 0u;
-      v23 = 0u;
       v24 = 0u;
+      v25 = 0u;
+      v22 = 0u;
+      v23 = 0u;
       v4 = *(a1[4] + 4);
-      v5 = [v4 countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v22 objects:v27 count:16];
       if (v5)
       {
         v6 = v5;
-        v7 = *v24;
+        v7 = *v23;
         do
         {
           for (i = 0; i != v6; ++i)
           {
-            if (*v24 != v7)
+            if (*v23 != v7)
             {
               objc_enumerationMutation(v4);
             }
 
-            v9 = *(*(&v23 + 1) + 8 * i);
+            v9 = *(*(&v22 + 1) + 8 * i);
             [a1[4] removeObserversFromObject:v9 forKeyPaths:v2];
             [a1[4] addObserversToObject:v9 forKeyPaths:v3];
             [a1[4] arrangeObject:v9];
             [a1[6] removeObject:v9];
           }
 
-          v6 = [v4 countByEnumeratingWithState:&v23 objects:v28 count:16];
+          v6 = [v4 countByEnumeratingWithState:&v22 objects:v27 count:16];
         }
 
         while (v6);
@@ -882,35 +872,33 @@ void __87__CATCollectionController_updateKeysAffectingArrangementForceUpdate_inc
     v11[9] = v10;
   }
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v13 = a1[6];
-  v14 = [v13 countByEnumeratingWithState:&v19 objects:v27 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v18 objects:v26 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v20;
+    v16 = *v19;
     do
     {
       for (j = 0; j != v15; ++j)
       {
-        if (*v20 != v16)
+        if (*v19 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        [a1[4] arrangeObject:{*(*(&v19 + 1) + 8 * j), v19}];
+        [a1[4] arrangeObject:{*(*(&v18 + 1) + 8 * j), v18}];
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v19 objects:v27 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v18 objects:v26 count:16];
     }
 
     while (v15);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)changeContent:(id)content
@@ -985,7 +973,7 @@ void __87__CATCollectionController_updateKeysAffectingArrangementForceUpdate_inc
 
 - (void)notifyArrangedObjectsWillChange
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   if (self->mChangingSelection)
   {
     if (([(NSMutableArray *)self->mPendingInsertedObjects count]|| [(NSMutableArray *)self->mPendingDeletedObjects count]) && !self->mDelegateKnowsContentIsChanging)
@@ -1009,26 +997,26 @@ void __87__CATCollectionController_updateKeysAffectingArrangementForceUpdate_inc
 
       if (v7)
       {
-        v39 = 0u;
-        v40 = 0u;
-        v37 = 0u;
         v38 = 0u;
+        v39 = 0u;
+        v36 = 0u;
+        v37 = 0u;
         v8 = self->mPendingDeletedObjects;
-        v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v37 objects:v42 count:16];
+        v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v36 objects:v41 count:16];
         if (v9)
         {
           v10 = v9;
-          v11 = *v38;
+          v11 = *v37;
           do
           {
             for (i = 0; i != v10; ++i)
             {
-              if (*v38 != v11)
+              if (*v37 != v11)
               {
                 objc_enumerationMutation(v8);
               }
 
-              v13 = *(*(&v37 + 1) + 8 * i);
+              v13 = *(*(&v36 + 1) + 8 * i);
               v14 = [(NSMutableArray *)self->mPendingInsertedObjects containsObject:v13];
               v15 = [(NSArray *)self->_arrangedObjects indexOfObject:v13];
               if (v14)
@@ -1057,33 +1045,33 @@ void __87__CATCollectionController_updateKeysAffectingArrangementForceUpdate_inc
               [delegate4 controller:selfCopy2 willChangeObject:v20 atIndex:v21 forChangeType:v22 newIndex:v23];
             }
 
-            v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v37 objects:v42 count:16];
+            v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v36 objects:v41 count:16];
           }
 
           while (v10);
         }
 
-        v35 = 0u;
-        v36 = 0u;
-        v33 = 0u;
         v34 = 0u;
+        v35 = 0u;
+        v32 = 0u;
+        v33 = 0u;
         v24 = self->mPendingInsertedObjects;
-        v25 = [(NSMutableArray *)v24 countByEnumeratingWithState:&v33 objects:v41 count:16];
+        v25 = [(NSMutableArray *)v24 countByEnumeratingWithState:&v32 objects:v40 count:16];
         if (v25)
         {
           v26 = v25;
-          v27 = *v34;
+          v27 = *v33;
           do
           {
             for (j = 0; j != v26; ++j)
             {
-              if (*v34 != v27)
+              if (*v33 != v27)
               {
                 objc_enumerationMutation(v24);
               }
 
-              v29 = *(*(&v33 + 1) + 8 * j);
-              if (([(NSMutableArray *)self->mPendingDeletedObjects containsObject:v29, v33]& 1) == 0)
+              v29 = *(*(&v32 + 1) + 8 * j);
+              if (([(NSMutableArray *)self->mPendingDeletedObjects containsObject:v29, v32]& 1) == 0)
               {
                 v30 = [(NSMutableArray *)self->mPendingArrangedObjects indexOfObject:v29];
                 delegate5 = [(CATCollectionController *)self delegate];
@@ -1091,7 +1079,7 @@ void __87__CATCollectionController_updateKeysAffectingArrangementForceUpdate_inc
               }
             }
 
-            v26 = [(NSMutableArray *)v24 countByEnumeratingWithState:&v33 objects:v41 count:16];
+            v26 = [(NSMutableArray *)v24 countByEnumeratingWithState:&v32 objects:v40 count:16];
           }
 
           while (v26);
@@ -1099,13 +1087,11 @@ void __87__CATCollectionController_updateKeysAffectingArrangementForceUpdate_inc
       }
     }
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (void)notifyArrangedObjectsDidChangeWithPreviousArrangedObjects:(id)objects
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   objectsCopy = objects;
   if (self->mDelegateKnowsContentIsChanging)
   {
@@ -1125,26 +1111,26 @@ void __87__CATCollectionController_updateKeysAffectingArrangementForceUpdate_inc
 
   if (v9)
   {
-    v41 = 0u;
-    v42 = 0u;
-    v39 = 0u;
     v40 = 0u;
+    v41 = 0u;
+    v38 = 0u;
+    v39 = 0u;
     v10 = self->mPendingDeletedObjects;
-    v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v39 objects:v44 count:16];
+    v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v38 objects:v43 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v40;
+      v13 = *v39;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v40 != v13)
+          if (*v39 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v39 + 1) + 8 * i);
+          v15 = *(*(&v38 + 1) + 8 * i);
           v16 = [(NSMutableArray *)self->mPendingInsertedObjects containsObject:v15];
           v17 = [objectsCopy indexOfObject:v15];
           if (v16)
@@ -1173,33 +1159,33 @@ void __87__CATCollectionController_updateKeysAffectingArrangementForceUpdate_inc
           [delegate4 controller:selfCopy2 didChangeObject:v22 atIndex:v23 forChangeType:v24 newIndex:v25];
         }
 
-        v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v39 objects:v44 count:16];
+        v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v38 objects:v43 count:16];
       }
 
       while (v12);
     }
 
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
     v36 = 0u;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
     v26 = self->mPendingInsertedObjects;
-    v27 = [(NSMutableArray *)v26 countByEnumeratingWithState:&v35 objects:v43 count:16];
+    v27 = [(NSMutableArray *)v26 countByEnumeratingWithState:&v34 objects:v42 count:16];
     if (v27)
     {
       v28 = v27;
-      v29 = *v36;
+      v29 = *v35;
       do
       {
         for (j = 0; j != v28; ++j)
         {
-          if (*v36 != v29)
+          if (*v35 != v29)
           {
             objc_enumerationMutation(v26);
           }
 
-          v31 = *(*(&v35 + 1) + 8 * j);
-          if (([(NSMutableArray *)self->mPendingDeletedObjects containsObject:v31, v35]& 1) == 0)
+          v31 = *(*(&v34 + 1) + 8 * j);
+          if (([(NSMutableArray *)self->mPendingDeletedObjects containsObject:v31, v34]& 1) == 0)
           {
             v32 = [(NSMutableArray *)self->mPendingArrangedObjects indexOfObject:v31];
             delegate5 = [(CATCollectionController *)self delegate];
@@ -1207,14 +1193,12 @@ void __87__CATCollectionController_updateKeysAffectingArrangementForceUpdate_inc
           }
         }
 
-        v28 = [(NSMutableArray *)v26 countByEnumeratingWithState:&v35 objects:v43 count:16];
+        v28 = [(NSMutableArray *)v26 countByEnumeratingWithState:&v34 objects:v42 count:16];
       }
 
       while (v28);
     }
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 - (void)changeObject:(id)object atIndex:(unint64_t)index forChangeType:(unint64_t)type newIndex:(unint64_t)newIndex

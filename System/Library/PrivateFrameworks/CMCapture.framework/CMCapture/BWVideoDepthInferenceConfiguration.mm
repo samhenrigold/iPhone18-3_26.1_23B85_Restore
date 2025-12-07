@@ -241,13 +241,13 @@ LABEL_33:
 {
   if (layout >= 3)
   {
-    +[BWVideoDepthInferenceConfiguration pceDisparityColorInferenceDescriptorForVideoDepthLayout:inputSource:];
+    [BWVideoDepthInferenceConfiguration pceDisparityColorInferenceDescriptorForVideoDepthLayout:self inputSource:a2];
     return 0;
   }
 
   if (source >= 4)
   {
-    +[BWVideoDepthInferenceConfiguration pceDisparityColorInferenceDescriptorForVideoDepthLayout:inputSource:];
+    [BWVideoDepthInferenceConfiguration pceDisparityColorInferenceDescriptorForVideoDepthLayout:self inputSource:a2];
     return 0;
   }
 
@@ -267,7 +267,7 @@ LABEL_33:
   return v4;
 }
 
-uint64_t __106__BWVideoDepthInferenceConfiguration_pceDisparityColorInferenceDescriptorForVideoDepthLayout_inputSource___block_invoke(uint64_t a1)
+void *__106__BWVideoDepthInferenceConfiguration_pceDisparityColorInferenceDescriptorForVideoDepthLayout_inputSource___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 48);
   v3 = 254;
@@ -472,27 +472,6 @@ uint64_t __106__BWVideoDepthInferenceConfiguration_pceDisparityColorInferenceDes
   }
 
   return self->_monocularDepthScaleFactor;
-}
-
-- (uint64_t)initWithConcurrencyWidth:videoDepthLayout:captureDevice:requiresCroppingOfDepthBuffer:requiresVerticalFlipOfDepthBuffer:backpressureEvent:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-+ (uint64_t)pceDisparityColorInferenceDescriptorForVideoDepthLayout:inputSource:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-+ (uint64_t)pceDisparityColorInferenceDescriptorForVideoDepthLayout:inputSource:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
 }
 
 @end

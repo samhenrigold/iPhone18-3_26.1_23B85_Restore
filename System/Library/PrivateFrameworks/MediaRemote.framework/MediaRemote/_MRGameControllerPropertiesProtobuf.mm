@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)profileAsString:(int)string;
 - (int)StringAsProfile:(id)profile;
 - (int)profile;
 - (unint64_t)hash;
@@ -59,20 +60,35 @@
   *&self->_has = *&self->_has & 0xFB | v3;
 }
 
+- (id)profileAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E76A4DE8[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsProfile:(id)profile
 {
   profileCopy = profile;
-  if ([profileCopy isEqualToString:@"None"])
+  if (objc_msgSend_isEqualToString_(profileCopy))
   {
     v4 = 0;
   }
 
-  else if ([profileCopy isEqualToString:@"B239"])
+  else if (objc_msgSend_isEqualToString_(profileCopy))
   {
     v4 = 1;
   }
 
-  else if ([profileCopy isEqualToString:@"Extended"])
+  else if (objc_msgSend_isEqualToString_(profileCopy))
   {
     v4 = 2;
   }
@@ -183,7 +199,6 @@ LABEL_9:
   toCopy = to;
   if ((*&self->_has & 2) != 0)
   {
-    playerIndex = self->_playerIndex;
     PBDataWriterWriteUint32Field();
   }
 
@@ -195,7 +210,6 @@ LABEL_9:
   has = self->_has;
   if (has)
   {
-    buttonAUpDelay = self->_buttonAUpDelay;
     PBDataWriterWriteInt32Field();
     has = self->_has;
     if ((has & 4) == 0)
@@ -215,12 +229,10 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  profile = self->_profile;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 8) != 0)
   {
 LABEL_8:
-    supportsExtendedMotion = self->_supportsExtendedMotion;
     PBDataWriterWriteBOOLField();
   }
 
@@ -339,7 +351,6 @@ LABEL_6:
   }
 
   has = self->_has;
-  v6 = *(equalCopy + 36);
   if ((has & 2) != 0)
   {
     if ((*(equalCopy + 36) & 2) == 0 || self->_playerIndex != *(equalCopy + 3))
@@ -390,7 +401,7 @@ LABEL_6:
     goto LABEL_22;
   }
 
-  v8 = (*(equalCopy + 36) & 8) == 0;
+  v7 = (*(equalCopy + 36) & 8) == 0;
   if ((has & 8) != 0)
   {
     if ((*(equalCopy + 36) & 8) != 0)
@@ -408,17 +419,17 @@ LABEL_6:
         goto LABEL_22;
       }
 
-      v8 = 1;
+      v7 = 1;
       goto LABEL_23;
     }
 
 LABEL_22:
-    v8 = 0;
+    v7 = 0;
   }
 
 LABEL_23:
 
-  return v8;
+  return v7;
 }
 
 - (unint64_t)hash

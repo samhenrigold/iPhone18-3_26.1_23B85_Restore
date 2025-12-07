@@ -35,7 +35,7 @@
 
 - (__NSPlaceholderFileSecurity)initWithCoder:(id)coder
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   if (![coder allowsKeyedCoding])
   {
 
@@ -61,20 +61,19 @@ LABEL_6:
 
     v10 = CFErrorCreate(&__kCFAllocatorSystemDefault, v5, v9, v8);
     [coder failWithError:CFAutorelease(v10)];
-    obj_p = 0;
-    goto LABEL_7;
+    return 0;
   }
 
-  v14 = v6;
+  v13 = v6;
   if (size < 0x449)
   {
-    v16 = v22;
+    v15 = v21;
   }
 
   else
   {
-    v15 = malloc_type_malloc(size, 0x100004077774924uLL);
-    if (!v15)
+    v14 = malloc_type_malloc(size, 0x100004077774924uLL);
+    if (!v14)
     {
       v5 = @"NSPOSIXErrorDomain";
       v9 = *__error();
@@ -82,14 +81,14 @@ LABEL_6:
       goto LABEL_6;
     }
 
-    v16 = v15;
+    v15 = v14;
     v7 = size;
   }
 
-  memcpy(v16, v14, v7);
-  v17 = filesec_init();
-  v18 = v17;
-  if (!v17)
+  memcpy(v15, v13, v7);
+  v16 = filesec_init();
+  v17 = v16;
+  if (!v16)
   {
     v5 = @"NSPOSIXErrorDomain";
     obj_p = 0;
@@ -98,11 +97,11 @@ LABEL_6:
     goto LABEL_45;
   }
 
-  v19 = *v16;
-  if (*v16)
+  v18 = *v15;
+  if (*v15)
   {
-    LODWORD(obj_p) = v16[1];
-    if (filesec_set_property(v17, FILESEC_OWNER, &obj_p))
+    LODWORD(obj_p) = v15[1];
+    if (filesec_set_property(v16, FILESEC_OWNER, &obj_p))
     {
       v5 = @"NSPOSIXErrorDomain";
       obj_p = 0;
@@ -111,13 +110,13 @@ LABEL_6:
       goto LABEL_45;
     }
 
-    v19 = *v16;
+    v18 = *v15;
   }
 
-  if ((v19 & 2) != 0)
+  if ((v18 & 2) != 0)
   {
-    LODWORD(obj_p) = v16[2];
-    if (filesec_set_property(v18, FILESEC_GROUP, &obj_p))
+    LODWORD(obj_p) = v15[2];
+    if (filesec_set_property(v17, FILESEC_GROUP, &obj_p))
     {
       v5 = @"NSPOSIXErrorDomain";
       obj_p = 0;
@@ -126,13 +125,13 @@ LABEL_6:
       goto LABEL_45;
     }
 
-    v19 = *v16;
+    v18 = *v15;
   }
 
-  if ((v19 & 0x10) != 0)
+  if ((v18 & 0x10) != 0)
   {
-    LOWORD(obj_p) = v16[3];
-    if (filesec_set_property(v18, FILESEC_MODE, &obj_p))
+    LOWORD(obj_p) = v15[3];
+    if (filesec_set_property(v17, FILESEC_MODE, &obj_p))
     {
       v5 = @"NSPOSIXErrorDomain";
       obj_p = 0;
@@ -141,12 +140,12 @@ LABEL_6:
       goto LABEL_45;
     }
 
-    v19 = *v16;
+    v18 = *v15;
   }
 
-  if ((v19 & 4) != 0)
+  if ((v18 & 4) != 0)
   {
-    if (filesec_set_property(v18, FILESEC_UUID, v16 + 4))
+    if (filesec_set_property(v17, FILESEC_UUID, v15 + 4))
     {
       v5 = @"NSPOSIXErrorDomain";
       obj_p = 0;
@@ -155,12 +154,12 @@ LABEL_6:
       goto LABEL_45;
     }
 
-    v19 = *v16;
+    v18 = *v15;
   }
 
-  if ((v19 & 8) != 0)
+  if ((v18 & 8) != 0)
   {
-    if (filesec_set_property(v18, FILESEC_GRPUUID, v16 + 6))
+    if (filesec_set_property(v17, FILESEC_GRPUUID, v15 + 6))
     {
       v5 = @"NSPOSIXErrorDomain";
       obj_p = 0;
@@ -169,16 +168,16 @@ LABEL_6:
       goto LABEL_45;
     }
 
-    v19 = *v16;
+    v18 = *v15;
   }
 
-  if ((v19 & 0x20) == 0)
+  if ((v18 & 0x20) == 0)
   {
     goto LABEL_36;
   }
 
   obj_p = 0;
-  if (!memchr(v16 + 8, 0, size - 64))
+  if (!memchr(v15 + 8, 0, size - 64))
   {
     v8 = &off_1EF1B9D98;
 LABEL_43:
@@ -186,18 +185,18 @@ LABEL_43:
     goto LABEL_44;
   }
 
-  obj_p = acl_from_text(v16 + 64);
+  obj_p = acl_from_text(v15 + 64);
   if (!obj_p)
   {
     v8 = &off_1EF1B9DC0;
     goto LABEL_43;
   }
 
-  if (!filesec_set_property(v18, FILESEC_ACL, &obj_p))
+  if (!filesec_set_property(v17, FILESEC_ACL, &obj_p))
   {
     acl_free(obj_p);
 LABEL_36:
-    obj_p = [(__NSPlaceholderFileSecurity *)self initWithFileSec:v18, obj_p];
+    obj_p = [(__NSPlaceholderFileSecurity *)self initWithFileSec:v17, obj_p];
     v8 = &off_1EF1B9C08;
     v9 = 4864;
     goto LABEL_45;
@@ -209,23 +208,21 @@ LABEL_36:
 LABEL_44:
   obj_p = 0;
 LABEL_45:
-  if (v16 != v22)
+  if (v15 != v21)
   {
-    free(v16);
+    free(v15);
   }
 
   if (!obj_p)
   {
-    if (v18)
+    if (v17)
     {
-      filesec_free(v18);
+      filesec_free(v17);
     }
 
     goto LABEL_6;
   }
 
-LABEL_7:
-  v12 = *MEMORY[0x1E69E9840];
   return obj_p;
 }
 

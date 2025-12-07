@@ -28,40 +28,37 @@
 
 - (id)allBundleIdentifiersForCategories
 {
-  v2 = *(&self->super.isa + OBJC_IVAR____TtC21UserNotificationsCore31NotificationSystemServiceClient_queue);
   selfCopy = self;
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECBD6790, &qword_1DA9594C0);
   sub_1DA940FE4();
 
-  v4 = sub_1DA940BD4();
+  v3 = sub_1DA940BD4();
 
-  return v4;
+  return v3;
 }
 
 - (id)categoryForIdentifier:(id)identifier bundleIdentifier:(id)bundleIdentifier
 {
   sub_1DA940A14();
   sub_1DA940A14();
-  v5 = *(&self->super.isa + OBJC_IVAR____TtC21UserNotificationsCore31NotificationSystemServiceClient_queue);
   selfCopy = self;
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECBD67B0, &qword_1DA960070);
   sub_1DA940FE4();
 
-  return v8;
+  return v7;
 }
 
 - (id)categoriesForBundleIdentifier:(id)identifier
 {
   sub_1DA940A14();
-  v4 = *(&self->super.isa + OBJC_IVAR____TtC21UserNotificationsCore31NotificationSystemServiceClient_queue);
   selfCopy = self;
   __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ECBD7900, qword_1DA960078);
   sub_1DA940FE4();
 
   sub_1DA7AF3EC(0, &qword_1EE114D80, off_1E85D5C60);
-  v6 = sub_1DA940BD4();
+  v4 = sub_1DA940BD4();
 
-  return v6;
+  return v4;
 }
 
 - (void)setCategories:(id)categories forBundleIdentifier:(id)identifier

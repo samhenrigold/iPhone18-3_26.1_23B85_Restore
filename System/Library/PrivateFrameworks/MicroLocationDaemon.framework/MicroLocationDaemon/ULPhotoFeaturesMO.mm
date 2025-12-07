@@ -26,7 +26,7 @@
   v4 = MEMORY[0x277CBEA60];
   features = [(ULPhotoFeaturesMO *)self features];
   v6 = [features toNSArrayWithElementType:objc_opt_class()];
-  [v4 toFloatVector:v6];
+  objc_msgSend_toFloatVector_(v4);
   [(ULPhotoFeaturesMO *)self timestamp];
   v11 = v7;
   ULPhotoFeaturesDO::ULPhotoFeaturesDO(&v13, __p, &v11);

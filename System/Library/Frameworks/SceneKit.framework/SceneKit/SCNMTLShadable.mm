@@ -72,7 +72,7 @@
 
   else if (type)
   {
-    v22 = scn_default_log();
+    v22 = scn_default_log(self, a2);
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       [SCNMTLShadable setResource:ofType:atIndices:];
@@ -111,7 +111,7 @@
     return self->_fragmentBuffers[indices.var1];
   }
 
-  v3 = scn_default_log();
+  v3 = scn_default_log(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     [SCNMTLShadable bufferAtIndices:];
@@ -132,7 +132,7 @@
     return self->_fragmentTextures[indices.var1];
   }
 
-  v3 = scn_default_log();
+  v3 = scn_default_log(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     [SCNMTLShadable bufferAtIndices:];
@@ -153,7 +153,7 @@
     return self->_fragmentSamplers[indices.var1];
   }
 
-  v3 = scn_default_log();
+  v3 = scn_default_log(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     [SCNMTLShadable bufferAtIndices:];

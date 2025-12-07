@@ -100,7 +100,7 @@ LABEL_15:
 
 + (id)_errorWithCode:(void *)code errorObject:
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   codeCopy = code;
   objc_opt_self();
   if ((a2 - 1) > 5)
@@ -114,12 +114,10 @@ LABEL_15:
   }
 
   v6 = MEMORY[0x277CCA9B8];
-  v11 = *MEMORY[0x277CCA450];
-  v12[0] = codeCopy;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+  v10 = *MEMORY[0x277CCA450];
+  v11[0] = codeCopy;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
   v8 = [v6 errorWithDomain:@"BAAppStoreClientErrorDomain" code:a2 userInfo:v7];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

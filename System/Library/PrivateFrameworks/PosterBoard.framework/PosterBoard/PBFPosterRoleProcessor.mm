@@ -60,16 +60,16 @@
   }
 
   v13 = objc_opt_new();
-  v31[0] = MEMORY[0x277D85DD0];
-  v31[1] = 3221225472;
-  v31[2] = __63__PBFPosterRoleProcessor_initWithDataStorage_roleCoordinators___block_invoke;
-  v31[3] = &unk_2782C96F8;
+  v32[0] = MEMORY[0x277D85DD0];
+  v32[1] = 3221225472;
+  v32[2] = __63__PBFPosterRoleProcessor_initWithDataStorage_roleCoordinators___block_invoke;
+  v32[3] = &unk_2782C96F8;
   v14 = v13;
-  v32 = v14;
-  [v12 enumerateObjectsUsingBlock:v31];
-  v30.receiver = self;
-  v30.super_class = PBFPosterRoleProcessor;
-  v15 = [(PBFPosterRoleProcessor *)&v30 init];
+  v33 = v14;
+  [v12 enumerateObjectsUsingBlock:v32];
+  v31.receiver = self;
+  v31.super_class = PBFPosterRoleProcessor;
+  v15 = [(PBFPosterRoleProcessor *)&v31 init];
   if (v15)
   {
     v16 = [v12 sortedArrayUsingComparator:&__block_literal_global_37];
@@ -95,8 +95,8 @@
     invalidationFlag = v15->_invalidationFlag;
     v15->_invalidationFlag = v26;
 
-    v28 = PBFLogDataStore();
-    [(PBFPosterRoleProcessor *)v15 setLog:v28];
+    v29 = PBFLogDataStore(v28);
+    [(PBFPosterRoleProcessor *)v15 setLog:v29];
   }
 
   return v15;
@@ -146,7 +146,7 @@ uint64_t __63__PBFPosterRoleProcessor_initWithDataStorage_roleCoordinators___blo
 
 - (id)processChanges:(id)changes context:(id)context reason:(id)reason userInfo:(id)info error:(id *)error
 {
-  v93 = *MEMORY[0x277D85DE8];
+  v92 = *MEMORY[0x277D85DE8];
   changesCopy = changes;
   contextCopy = context;
   reasonCopy = reason;
@@ -163,7 +163,7 @@ uint64_t __63__PBFPosterRoleProcessor_initWithDataStorage_roleCoordinators___blo
     [PBFPosterRoleProcessor processChanges:a2 context:? reason:? userInfo:? error:?];
   }
 
-  v66 = v15;
+  v65 = v15;
   if ([(BSAtomicFlag *)self->_invalidationFlag getFlag])
   {
     if (error)
@@ -198,20 +198,20 @@ uint64_t __63__PBFPosterRoleProcessor_initWithDataStorage_roleCoordinators___blo
         *&buf[12] = 2114;
         *&buf[14] = v53;
         *&buf[22] = 2048;
-        v89 = selfCopy;
-        LOWORD(v90) = 2114;
-        *(&v90 + 2) = @"PBFPosterRoleProcessor.m";
-        WORD5(v90) = 1024;
-        HIDWORD(v90) = 125;
-        v91 = 2114;
-        v92 = v48;
+        v88 = selfCopy;
+        LOWORD(v89) = 2114;
+        *(&v89 + 2) = @"PBFPosterRoleProcessor.m";
+        WORD5(v89) = 1024;
+        HIDWORD(v89) = 125;
+        v90 = 2114;
+        v91 = v48;
         _os_log_error_impl(&dword_21B526000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
       v54 = v48;
       [v48 UTF8String];
-      v55 = _bs_set_crash_log_message();
-      [PBFPosterRoleProcessor processChanges:v55 context:? reason:? userInfo:? error:?];
+      _bs_set_crash_log_message();
+      [PBFPosterRoleProcessor processChanges:context:reason:userInfo:error:];
     }
 
     errorCopy = error;
@@ -225,13 +225,13 @@ uint64_t __63__PBFPosterRoleProcessor_initWithDataStorage_roleCoordinators___blo
     v21 = [(PBFPosterRoleProcessor *)obj log];
     pbf_transitionContextIdentifier = [v15 pbf_transitionContextIdentifier];
     uUIDString = [pbf_transitionContextIdentifier UUIDString];
-    v67 = [uUIDString substringToIndex:7];
+    v66 = [uUIDString substringToIndex:7];
 
-    v60 = obj->_roleToRoleCoordinator;
+    v59 = obj->_roleToRoleCoordinator;
     v24 = os_signpost_id_generate(v21);
     v25 = v21;
     v26 = v25;
-    v59 = v24 - 1;
+    v58 = v24 - 1;
     if (v24 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v25))
     {
       *buf = 0;
@@ -242,12 +242,12 @@ uint64_t __63__PBFPosterRoleProcessor_initWithDataStorage_roleCoordinators___blo
 
     state.opaque[0] = 0;
     state.opaque[1] = 0;
-    v58 = _os_activity_create(&dword_21B526000, "processRoleCoordinatorChange", MEMORY[0x277D86218], OS_ACTIVITY_FLAG_DEFAULT);
-    os_activity_scope_enter(v58, &state);
+    v57 = _os_activity_create(&dword_21B526000, "processRoleCoordinatorChange", MEMORY[0x277D86218], OS_ACTIVITY_FLAG_DEFAULT);
+    os_activity_scope_enter(v57, &state);
     if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
-      *&buf[4] = v67;
+      *&buf[4] = v66;
       *&buf[12] = 2114;
       *&buf[14] = v15;
       _os_log_impl(&dword_21B526000, v26, OS_LOG_TYPE_DEFAULT, "(%{public}@} Preparing to process data store update w/ context: %{public}@", buf, 0x16u);
@@ -256,44 +256,44 @@ uint64_t __63__PBFPosterRoleProcessor_initWithDataStorage_roleCoordinators___blo
     if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      *&buf[4] = v67;
+      *&buf[4] = v66;
       _os_log_impl(&dword_21B526000, v26, OS_LOG_TYPE_DEFAULT, "(%{public}@} Changes:", buf, 0xCu);
     }
 
-    v80 = 0u;
-    v81 = 0u;
-    v78 = 0u;
     v79 = 0u;
+    v80 = 0u;
+    v77 = 0u;
+    v78 = 0u;
     v27 = changesCopy;
-    v28 = [v27 countByEnumeratingWithState:&v78 objects:v87 count:16];
+    v28 = [v27 countByEnumeratingWithState:&v77 objects:v86 count:16];
     if (v28)
     {
       v29 = 0;
-      v30 = *v79;
+      v30 = *v78;
       do
       {
         for (i = 0; i != v28; ++i)
         {
-          if (*v79 != v30)
+          if (*v78 != v30)
           {
             objc_enumerationMutation(v27);
           }
 
           if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
           {
-            v32 = *(*(&v78 + 1) + 8 * i);
+            v32 = *(*(&v77 + 1) + 8 * i);
             *buf = 138543874;
-            *&buf[4] = v67;
+            *&buf[4] = v66;
             *&buf[12] = 2048;
             *&buf[14] = v29;
             *&buf[22] = 2114;
-            v89 = v32;
+            v88 = v32;
             _os_log_impl(&dword_21B526000, v26, OS_LOG_TYPE_DEFAULT, "(%{public}@}\tChange %lu: %{public}@", buf, 0x20u);
             ++v29;
           }
         }
 
-        v28 = [v27 countByEnumeratingWithState:&v78 objects:v87 count:{16, spid, v58}];
+        v28 = [v27 countByEnumeratingWithState:&v77 objects:v86 count:{16, spid, v57}];
       }
 
       while (v28);
@@ -302,30 +302,30 @@ uint64_t __63__PBFPosterRoleProcessor_initWithDataStorage_roleCoordinators___blo
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v89 = __Block_byref_object_copy__11;
-    *&v90 = __Block_byref_object_dispose__11;
-    *(&v90 + 1) = 0;
+    v88 = __Block_byref_object_copy__11;
+    *&v89 = __Block_byref_object_dispose__11;
+    *(&v89 + 1) = 0;
     v33 = [PBFPosterRoleCoordinatorChange distillArrayOfChangesIntoChangesOrderedByPosterRoleEntropy:v27];
-    v69[0] = MEMORY[0x277D85DD0];
-    v69[1] = 3221225472;
-    v69[2] = __71__PBFPosterRoleProcessor_processChanges_context_reason_userInfo_error___block_invoke;
-    v69[3] = &unk_2782C9760;
+    v68[0] = MEMORY[0x277D85DD0];
+    v68[1] = 3221225472;
+    v68[2] = __71__PBFPosterRoleProcessor_processChanges_context_reason_userInfo_error___block_invoke;
+    v68[3] = &unk_2782C9760;
     v34 = v26;
-    v70 = v34;
-    v35 = v67;
-    v71 = v35;
+    v69 = v34;
+    v35 = v66;
+    v70 = v35;
     v36 = v33;
-    v72 = v36;
-    v73 = v27;
-    v37 = v60;
-    v77 = buf;
-    v74 = v37;
-    v75 = obj;
+    v71 = v36;
+    v72 = v27;
+    v37 = v59;
+    v76 = buf;
+    v73 = v37;
+    v74 = obj;
     v38 = v20;
-    v76 = v38;
-    v68 = 0;
-    v39 = [(PBFPosterRoleProcessor *)obj _executeTransaction:v38 block:v69 error:&v68];
-    v40 = v68;
+    v75 = v38;
+    v67 = 0;
+    v39 = [(PBFPosterRoleProcessor *)obj _executeTransaction:v38 block:v68 error:&v67];
+    v40 = v67;
     v41 = obj;
     objc_sync_enter(v41);
     activeTransaction = obj->_activeTransaction;
@@ -335,10 +335,10 @@ uint64_t __63__PBFPosterRoleProcessor_initWithDataStorage_roleCoordinators___blo
     os_activity_scope_leave(&state);
     v43 = v34;
     v44 = v43;
-    if (v59 < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v43))
+    if (v58 < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v43))
     {
-      *v83 = 0;
-      _os_signpost_emit_with_name_impl(&dword_21B526000, v44, OS_SIGNPOST_INTERVAL_END, spid, "processRoleCoordinatorChanges:context:reason:userInfo:error:", "", v83, 2u);
+      *v82 = 0;
+      _os_signpost_emit_with_name_impl(&dword_21B526000, v44, OS_SIGNPOST_INTERVAL_END, spid, "processRoleCoordinatorChanges:context:reason:userInfo:error:", "", v82, 2u);
     }
 
     if (v40)
@@ -375,17 +375,17 @@ uint64_t __63__PBFPosterRoleProcessor_initWithDataStorage_roleCoordinators___blo
 
       if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
       {
-        v56 = *(*&buf[8] + 40);
-        if (!v56)
+        v55 = *(*&buf[8] + 40);
+        if (!v55)
         {
-          v56 = v40;
+          v55 = v40;
         }
 
-        *v83 = 138543618;
-        v84 = v35;
-        v85 = 2114;
-        v86 = v56;
-        _os_log_error_impl(&dword_21B526000, v44, OS_LOG_TYPE_ERROR, "(%{public}@} Failed to commit changes: %{public}@", v83, 0x16u);
+        *v82 = 138543618;
+        v83 = v35;
+        v84 = 2114;
+        v85 = v55;
+        _os_log_error_impl(&dword_21B526000, v44, OS_LOG_TYPE_ERROR, "(%{public}@} Failed to commit changes: %{public}@", v82, 0x16u);
       }
 
       results = 0;
@@ -621,7 +621,7 @@ LABEL_40:
 
 - (id)processEvents:(id)events context:(id)context reason:(id)reason userInfo:(id)info error:(id *)error
 {
-  v88 = *MEMORY[0x277D85DE8];
+  v87 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
   contextCopy = context;
   reasonCopy = reason;
@@ -638,8 +638,8 @@ LABEL_40:
     [PBFPosterRoleProcessor processEvents:a2 context:? reason:? userInfo:? error:?];
   }
 
-  v60 = reasonCopy;
-  v63 = v16;
+  v59 = reasonCopy;
+  v62 = v16;
   if ([(BSAtomicFlag *)self->_invalidationFlag getFlag])
   {
     if (error)
@@ -674,39 +674,39 @@ LABEL_40:
         *&buf[12] = 2114;
         *&buf[14] = v50;
         *&buf[22] = 2048;
-        v84 = selfCopy;
-        LOWORD(v85) = 2114;
-        *(&v85 + 2) = @"PBFPosterRoleProcessor.m";
-        WORD5(v85) = 1024;
-        HIDWORD(v85) = 225;
-        v86 = 2114;
-        v87 = v45;
+        v83 = selfCopy;
+        LOWORD(v84) = 2114;
+        *(&v84 + 2) = @"PBFPosterRoleProcessor.m";
+        WORD5(v84) = 1024;
+        HIDWORD(v84) = 225;
+        v85 = 2114;
+        v86 = v45;
         _os_log_error_impl(&dword_21B526000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
       v51 = v45;
       [v45 UTF8String];
-      v52 = _bs_set_crash_log_message();
-      [PBFPosterRoleProcessor processChanges:v52 context:? reason:? userInfo:? error:?];
+      _bs_set_crash_log_message();
+      [PBFPosterRoleProcessor processChanges:context:reason:userInfo:error:];
     }
 
     errorCopy = error;
     allObjects = [(NSHashTable *)selfCopy->_observers allObjects];
     v20 = [_PBFPosterRoleProcessorTransaction transactionWithReason:reasonCopy context:v16 userInfo:infoCopy observers:allObjects processor:selfCopy];
 
-    v57 = v20;
+    v56 = v20;
     objc_storeStrong(&selfCopy->_activeTransaction, v20);
     objc_sync_exit(selfCopy);
 
     v21 = [(PBFPosterRoleProcessor *)selfCopy log];
     pbf_transitionContextIdentifier = [v16 pbf_transitionContextIdentifier];
     uUIDString = [pbf_transitionContextIdentifier UUIDString];
-    v64 = [uUIDString substringToIndex:7];
+    v63 = [uUIDString substringToIndex:7];
 
     v24 = os_signpost_id_generate(v21);
     v25 = v21;
     v26 = v25;
-    v56 = v24 - 1;
+    v55 = v24 - 1;
     if (v24 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v25))
     {
       *buf = 0;
@@ -717,12 +717,12 @@ LABEL_40:
 
     state.opaque[0] = 0;
     state.opaque[1] = 0;
-    v55 = _os_activity_create(&dword_21B526000, "processEvents", MEMORY[0x277D86218], OS_ACTIVITY_FLAG_DEFAULT);
-    os_activity_scope_enter(v55, &state);
+    v54 = _os_activity_create(&dword_21B526000, "processEvents", MEMORY[0x277D86218], OS_ACTIVITY_FLAG_DEFAULT);
+    os_activity_scope_enter(v54, &state);
     if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
-      *&buf[4] = v64;
+      *&buf[4] = v63;
       *&buf[12] = 2114;
       *&buf[14] = v16;
       _os_log_impl(&dword_21B526000, v26, OS_LOG_TYPE_DEFAULT, "(%{public}@} Preparing to process data store events w/ context: %{public}@", buf, 0x16u);
@@ -731,44 +731,44 @@ LABEL_40:
     if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      *&buf[4] = v64;
+      *&buf[4] = v63;
       _os_log_impl(&dword_21B526000, v26, OS_LOG_TYPE_DEFAULT, "(%{public}@} Events:", buf, 0xCu);
     }
 
-    v76 = 0u;
-    v74 = 0u;
     v75 = 0u;
     v73 = 0u;
+    v74 = 0u;
+    v72 = 0u;
     v27 = eventsCopy;
-    v28 = [v27 countByEnumeratingWithState:&v73 objects:v82 count:16];
+    v28 = [v27 countByEnumeratingWithState:&v72 objects:v81 count:16];
     if (v28)
     {
       v29 = 0;
-      v30 = *v74;
+      v30 = *v73;
       do
       {
         for (i = 0; i != v28; ++i)
         {
-          if (*v74 != v30)
+          if (*v73 != v30)
           {
             objc_enumerationMutation(v27);
           }
 
           if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
           {
-            v32 = *(*(&v73 + 1) + 8 * i);
+            v32 = *(*(&v72 + 1) + 8 * i);
             *buf = 138543874;
-            *&buf[4] = v64;
+            *&buf[4] = v63;
             *&buf[12] = 2048;
             *&buf[14] = v29;
             *&buf[22] = 2114;
-            v84 = v32;
+            v83 = v32;
             _os_log_impl(&dword_21B526000, v26, OS_LOG_TYPE_DEFAULT, "(%{public}@}\tEvent %lu: %{public}@", buf, 0x20u);
             ++v29;
           }
         }
 
-        v28 = [v27 countByEnumeratingWithState:&v73 objects:v82 count:{16, spid, v55}];
+        v28 = [v27 countByEnumeratingWithState:&v72 objects:v81 count:{16, spid, v54}];
       }
 
       while (v28);
@@ -777,25 +777,25 @@ LABEL_40:
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v84 = __Block_byref_object_copy__11;
-    *&v85 = __Block_byref_object_dispose__11;
-    *(&v85 + 1) = 0;
-    v66[0] = MEMORY[0x277D85DD0];
-    v66[1] = 3221225472;
-    v66[2] = __70__PBFPosterRoleProcessor_processEvents_context_reason_userInfo_error___block_invoke;
-    v66[3] = &unk_2782C9788;
+    v83 = __Block_byref_object_copy__11;
+    *&v84 = __Block_byref_object_dispose__11;
+    *(&v84 + 1) = 0;
+    v65[0] = MEMORY[0x277D85DD0];
+    v65[1] = 3221225472;
+    v65[2] = __70__PBFPosterRoleProcessor_processEvents_context_reason_userInfo_error___block_invoke;
+    v65[3] = &unk_2782C9788;
     v33 = v26;
-    v67 = v33;
-    v34 = v64;
-    v68 = v34;
-    v69 = v27;
-    v70 = selfCopy;
-    v35 = v57;
-    v71 = v35;
-    v72 = buf;
-    v65 = 0;
-    v36 = [(PBFPosterRoleProcessor *)selfCopy _executeTransaction:v35 block:v66 error:&v65];
-    v37 = v65;
+    v66 = v33;
+    v34 = v63;
+    v67 = v34;
+    v68 = v27;
+    v69 = selfCopy;
+    v35 = v56;
+    v70 = v35;
+    v71 = buf;
+    v64 = 0;
+    v36 = [(PBFPosterRoleProcessor *)selfCopy _executeTransaction:v35 block:v65 error:&v64];
+    v37 = v64;
     v38 = obj;
     objc_sync_enter(v38);
     activeTransaction = obj->_activeTransaction;
@@ -805,10 +805,10 @@ LABEL_40:
     os_activity_scope_leave(&state);
     v40 = v33;
     v41 = v40;
-    if (v56 < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v40))
+    if (v55 < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v40))
     {
-      *v78 = 0;
-      _os_signpost_emit_with_name_impl(&dword_21B526000, v41, OS_SIGNPOST_INTERVAL_END, spid, "processRoleCoordinatorChanges:context:reason:userInfo:error:", "", v78, 2u);
+      *v77 = 0;
+      _os_signpost_emit_with_name_impl(&dword_21B526000, v41, OS_SIGNPOST_INTERVAL_END, spid, "processRoleCoordinatorChanges:context:reason:userInfo:error:", "", v77, 2u);
     }
 
     if (v37)
@@ -845,17 +845,17 @@ LABEL_40:
 
       if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
       {
-        v53 = *(*&buf[8] + 40);
-        if (!v53)
+        v52 = *(*&buf[8] + 40);
+        if (!v52)
         {
-          v53 = v37;
+          v52 = v37;
         }
 
-        *v78 = 138543618;
-        v79 = v34;
-        v80 = 2114;
-        v81 = v53;
-        _os_log_error_impl(&dword_21B526000, v41, OS_LOG_TYPE_ERROR, "(%{public}@} Failed to commit changes: %{public}@", v78, 0x16u);
+        *v77 = 138543618;
+        v78 = v34;
+        v79 = 2114;
+        v80 = v52;
+        _os_log_error_impl(&dword_21B526000, v41, OS_LOG_TYPE_ERROR, "(%{public}@} Failed to commit changes: %{public}@", v77, 0x16u);
       }
 
       results = 0;
@@ -1030,81 +1030,81 @@ LABEL_21:
 
 - (BOOL)_executeTransaction:(id)transaction block:(id)block error:(id *)error
 {
-  v101 = *MEMORY[0x277D85DE8];
+  v103 = *MEMORY[0x277D85DE8];
   transactionCopy = transaction;
   blockCopy = block;
-  v49 = transactionCopy;
+  v51 = transactionCopy;
   shortIdentifier = [transactionCopy shortIdentifier];
   context = [transactionCopy context];
   v7 = [(PBFPosterRoleProcessor *)self log];
-  v57 = self->_roleToRoleCoordinator;
-  BSAbsoluteMachTimeNow();
-  v9 = v8;
-  v10 = PBFLogDataStore();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v59 = self->_roleToRoleCoordinator;
+  v8 = BSAbsoluteMachTimeNow();
+  v10 = v9;
+  v11 = PBFLogDataStore(v8);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
     *&buf[4] = shortIdentifier;
-    _os_log_impl(&dword_21B526000, v10, OS_LOG_TYPE_DEFAULT, "(%{public}@} Starting transaction", buf, 0xCu);
+    _os_log_impl(&dword_21B526000, v11, OS_LOG_TYPE_DEFAULT, "(%{public}@} Starting transaction", buf, 0xCu);
   }
 
+  v90 = 0u;
+  v91 = 0u;
   v88 = 0u;
   v89 = 0u;
-  v86 = 0u;
-  v87 = 0u;
-  v11 = self->_roleOrderedSet;
-  v12 = [(NSOrderedSet *)v11 countByEnumeratingWithState:&v86 objects:v100 count:16];
-  if (v12)
+  v12 = self->_roleOrderedSet;
+  v13 = [(NSOrderedSet *)v12 countByEnumeratingWithState:&v88 objects:v102 count:16];
+  if (v13)
   {
-    v13 = *v87;
+    v14 = *v89;
     do
     {
-      for (i = 0; i != v12; ++i)
+      for (i = 0; i != v13; ++i)
       {
-        if (*v87 != v13)
+        if (*v89 != v14)
         {
-          objc_enumerationMutation(v11);
+          objc_enumerationMutation(v12);
         }
 
-        v15 = [(NSDictionary *)v57 objectForKeyedSubscript:*(*(&v86 + 1) + 8 * i)];
-        [v15 incrementTransactionCount];
+        v16 = [(NSDictionary *)v59 objectForKeyedSubscript:*(*(&v88 + 1) + 8 * i)];
+        [v16 incrementTransactionCount];
       }
 
-      v12 = [(NSOrderedSet *)v11 countByEnumeratingWithState:&v86 objects:v100 count:16];
+      v13 = [(NSOrderedSet *)v12 countByEnumeratingWithState:&v88 objects:v102 count:16];
     }
 
-    while (v12);
+    while (v13);
   }
 
-  [(PBFPosterRoleProcessor *)self _fireWillBeginTransaction:v49];
-  v54 = objc_opt_new();
-  v55 = objc_opt_new();
+  [(PBFPosterRoleProcessor *)self _fireWillBeginTransaction:v51];
+  v56 = objc_opt_new();
+  v57 = objc_opt_new();
+  v86 = 0u;
+  v87 = 0u;
   v84 = 0u;
   v85 = 0u;
-  v82 = 0u;
-  v83 = 0u;
-  v16 = self->_roleOrderedSet;
-  v17 = [(NSOrderedSet *)v16 countByEnumeratingWithState:&v82 objects:v99 count:16];
-  if (v17)
+  v17 = self->_roleOrderedSet;
+  v18 = [(NSOrderedSet *)v17 countByEnumeratingWithState:&v84 objects:v101 count:16];
+  if (v18)
   {
-    v18 = *v83;
+    v19 = *v85;
     do
     {
-      for (j = 0; j != v17; ++j)
+      for (j = 0; j != v18; ++j)
       {
-        if (*v83 != v18)
+        if (*v85 != v19)
         {
-          objc_enumerationMutation(v16);
+          objc_enumerationMutation(v17);
         }
 
-        v20 = *(*(&v82 + 1) + 8 * j);
-        v21 = [(NSDictionary *)v57 objectForKeyedSubscript:v20];
-        v22 = [context pbf_currentActivePosterForRole:v20];
-        [v55 setObject:v22 forKeyedSubscript:v20];
-        posterCollection = [v21 posterCollection];
+        v21 = *(*(&v84 + 1) + 8 * j);
+        v22 = [(NSDictionary *)v59 objectForKeyedSubscript:v21];
+        v23 = [context pbf_currentActivePosterForRole:v21];
+        [v57 setObject:v23 forKeyedSubscript:v21];
+        posterCollection = [v22 posterCollection];
         if (posterCollection)
         {
-          [v54 setObject:posterCollection forKeyedSubscript:v20];
+          [v56 setObject:posterCollection forKeyedSubscript:v21];
         }
 
         if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
@@ -1112,17 +1112,17 @@ LABEL_21:
           *buf = 138543874;
           *&buf[4] = shortIdentifier;
           *&buf[12] = 2114;
-          *&buf[14] = v20;
+          *&buf[14] = v21;
           *&buf[22] = 2114;
-          v96 = posterCollection;
+          v98 = posterCollection;
           _os_log_impl(&dword_21B526000, v7, OS_LOG_TYPE_DEFAULT, "(%{public}@} Stashing collection for role %{public}@: %{public}@", buf, 0x20u);
         }
       }
 
-      v17 = [(NSOrderedSet *)v16 countByEnumeratingWithState:&v82 objects:v99 count:16];
+      v18 = [(NSOrderedSet *)v17 countByEnumeratingWithState:&v84 objects:v101 count:16];
     }
 
-    while (v17);
+    while (v18);
   }
 
   pbf_extensionStoreCoordinatorForProvider = [context pbf_extensionStoreCoordinatorForProvider];
@@ -1133,140 +1133,140 @@ LABEL_21:
   aBlock[1] = 3221225472;
   aBlock[2] = __58__PBFPosterRoleProcessor__executeTransaction_block_error___block_invoke;
   aBlock[3] = &unk_2782C6428;
-  v27 = allObjects;
-  v79 = v27;
-  v28 = v7;
-  v80 = v28;
-  v29 = shortIdentifier;
-  v81 = v29;
-  v46 = _Block_copy(aBlock);
+  v28 = allObjects;
+  v81 = v28;
+  v29 = v7;
+  v82 = v29;
+  v30 = shortIdentifier;
+  v83 = v30;
+  v48 = _Block_copy(aBlock);
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v96 = __Block_byref_object_copy__11;
-  v97 = __Block_byref_object_dispose__11;
-  v98 = 0;
-  v47 = objc_opt_new();
-  v51 = objc_opt_new();
+  v98 = __Block_byref_object_copy__11;
+  v99 = __Block_byref_object_dispose__11;
+  v100 = 0;
+  v49 = objc_opt_new();
   v53 = objc_opt_new();
+  v55 = objc_opt_new();
   if (blockCopy)
   {
     dataStorage = self->_dataStorage;
-    v63[0] = MEMORY[0x277D85DD0];
-    v63[1] = 3221225472;
-    v63[2] = __58__PBFPosterRoleProcessor__executeTransaction_block_error___block_invoke_149;
-    v63[3] = &unk_2782C97B0;
-    v63[4] = self;
-    v64 = v49;
-    v65 = v28;
-    v66 = v29;
-    v75 = blockCopy;
-    v76 = v46;
-    v77 = buf;
-    v67 = v57;
-    v68 = v27;
-    v69 = v53;
-    v70 = v54;
-    v71 = v51;
-    v72 = v55;
-    v73 = context;
-    v74 = v47;
-    v62 = 0;
-    v31 = [(PBFPosterExtensionDataStorage *)dataStorage performChanges:v63 error:&v62];
-    v32 = v62;
+    v65[0] = MEMORY[0x277D85DD0];
+    v65[1] = 3221225472;
+    v65[2] = __58__PBFPosterRoleProcessor__executeTransaction_block_error___block_invoke_149;
+    v65[3] = &unk_2782C97B0;
+    v65[4] = self;
+    v66 = v51;
+    v67 = v29;
+    v68 = v30;
+    v77 = blockCopy;
+    v78 = v48;
+    v79 = buf;
+    v69 = v59;
+    v70 = v28;
+    v71 = v55;
+    v72 = v56;
+    v73 = v53;
+    v74 = v57;
+    v75 = context;
+    v76 = v49;
+    v64 = 0;
+    v32 = [(PBFPosterExtensionDataStorage *)dataStorage performChanges:v65 error:&v64];
+    v33 = v64;
   }
 
   else
   {
-    [(PBFPosterRoleProcessor *)self _fireDidBeginTransaction:v49];
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+    [(PBFPosterRoleProcessor *)self _fireDidBeginTransaction:v51];
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
     {
-      *v90 = 138543362;
-      v91 = v29;
-      _os_log_impl(&dword_21B526000, v28, OS_LOG_TYPE_DEFAULT, "(%{public}@} completed null transaction", v90, 0xCu);
+      *v92 = 138543362;
+      v93 = v30;
+      _os_log_impl(&dword_21B526000, v29, OS_LOG_TYPE_DEFAULT, "(%{public}@} completed null transaction", v92, 0xCu);
     }
 
-    [(PBFPosterRoleProcessor *)self _fireWillCommitTransaction:v49];
-    v32 = 0;
-    v31 = 1;
+    [(PBFPosterRoleProcessor *)self _fireWillCommitTransaction:v51];
+    v33 = 0;
+    v32 = 1;
   }
 
+  v62 = 0u;
+  v63 = 0u;
   v60 = 0u;
   v61 = 0u;
-  v58 = 0u;
-  v59 = 0u;
-  v33 = self->_roleOrderedSet;
-  v34 = [(NSOrderedSet *)v33 countByEnumeratingWithState:&v58 objects:v94 count:16];
-  if (v34)
+  v34 = self->_roleOrderedSet;
+  v35 = [(NSOrderedSet *)v34 countByEnumeratingWithState:&v60 objects:v96 count:16];
+  if (v35)
   {
-    v35 = *v59;
+    v36 = *v61;
     do
     {
-      for (k = 0; k != v34; ++k)
+      for (k = 0; k != v35; ++k)
       {
-        if (*v59 != v35)
+        if (*v61 != v36)
         {
-          objc_enumerationMutation(v33);
+          objc_enumerationMutation(v34);
         }
 
-        v37 = [(NSDictionary *)v57 objectForKeyedSubscript:*(*(&v58 + 1) + 8 * k)];
-        [v37 decrementTransactionCount];
+        v38 = [(NSDictionary *)v59 objectForKeyedSubscript:*(*(&v60 + 1) + 8 * k)];
+        [v38 decrementTransactionCount];
       }
 
-      v34 = [(NSOrderedSet *)v33 countByEnumeratingWithState:&v58 objects:v94 count:16];
+      v35 = [(NSOrderedSet *)v34 countByEnumeratingWithState:&v60 objects:v96 count:16];
     }
 
-    while (v34);
+    while (v35);
   }
 
-  v38 = *(*&buf[8] + 40);
-  if (v31 && !(v38 | v32))
+  v39 = *(*&buf[8] + 40);
+  if (v32 && !(v39 | v33))
   {
-    [(PBFPosterRoleProcessor *)self _fireDidCommitTransaction:v49];
-    v39 = objc_alloc_init(_PBFPosterRoleProcessorTransactionResult);
-    [(_PBFPosterRoleProcessorTransactionResult *)v39 setAffectedRoles:v53];
-    [(_PBFPosterRoleProcessorTransactionResult *)v39 setCollectionDiffsPerRole:v51];
-    [(_PBFPosterRoleProcessorTransactionResult *)v39 setPreCommitActivePosterConfigurationForRole:v55];
-    [(_PBFPosterRoleProcessorTransactionResult *)v39 setPostCommitActivePosterConfigurationForRole:v47];
-    emittedEvents = [v49 emittedEvents];
-    [(_PBFPosterRoleProcessorTransactionResult *)v39 setEmittedEvents:emittedEvents];
+    [(PBFPosterRoleProcessor *)self _fireDidCommitTransaction:v51];
+    v40 = objc_alloc_init(_PBFPosterRoleProcessorTransactionResult);
+    [(_PBFPosterRoleProcessorTransactionResult *)v40 setAffectedRoles:v55];
+    [(_PBFPosterRoleProcessorTransactionResult *)v40 setCollectionDiffsPerRole:v53];
+    [(_PBFPosterRoleProcessorTransactionResult *)v40 setPreCommitActivePosterConfigurationForRole:v57];
+    [(_PBFPosterRoleProcessorTransactionResult *)v40 setPostCommitActivePosterConfigurationForRole:v49];
+    emittedEvents = [v51 emittedEvents];
+    [(_PBFPosterRoleProcessorTransactionResult *)v40 setEmittedEvents:emittedEvents];
 
-    [v49 setResults:v39];
-    [(PBFPosterRoleProcessor *)self _fireTransactionFinished:v49 result:v39 error:0];
-    BSAbsoluteMachTimeNow();
-    v43 = v42;
-    v44 = PBFLogDataStore();
-    if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+    [v51 setResults:v40];
+    [(PBFPosterRoleProcessor *)self _fireTransactionFinished:v51 result:v40 error:0];
+    v43 = BSAbsoluteMachTimeNow();
+    v45 = v44;
+    v46 = PBFLogDataStore(v43);
+    if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
     {
-      *v90 = 138543618;
-      v91 = v29;
-      v92 = 2048;
-      v93 = v43 - v9;
-      _os_log_impl(&dword_21B526000, v44, OS_LOG_TYPE_DEFAULT, "(%{public}@} Fin; finished transaction successfully in %f", v90, 0x16u);
+      *v92 = 138543618;
+      v93 = v30;
+      v94 = 2048;
+      v95 = v45 - v10;
+      _os_log_impl(&dword_21B526000, v46, OS_LOG_TYPE_DEFAULT, "(%{public}@} Fin; finished transaction successfully in %f", v92, 0x16u);
     }
 
-    v40 = 1;
+    v41 = 1;
   }
 
   else
   {
-    if (!v38)
+    if (!v39)
     {
-      v38 = v32;
+      v39 = v33;
     }
 
-    v39 = v38;
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    v40 = v39;
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
-      [PBFPosterRoleProcessor _executeTransaction:v29 block:v39 error:v28];
+      [PBFPosterRoleProcessor _executeTransaction:v30 block:v40 error:v29];
     }
 
-    [(PBFPosterRoleProcessor *)self _fireTransactionFinished:v49 result:0 error:v39];
-    v40 = 0;
+    [(PBFPosterRoleProcessor *)self _fireTransactionFinished:v51 result:0 error:v40];
+    v41 = 0;
   }
 
   _Block_object_dispose(buf, 8);
-  return v40;
+  return v41;
 }
 
 void __58__PBFPosterRoleProcessor__executeTransaction_block_error___block_invoke(uint64_t a1)
@@ -2908,7 +2908,7 @@ uint64_t __87__PBFPosterRoleProcessor__processEvent_changeHandler_recursiveDepth
 
 - (void)initWithDataStorage:(char *)a1 roleCoordinators:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object conformsToProtocol:@protocol(PBFPosterExtensionDataStorage)]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2916,7 +2916,7 @@ uint64_t __87__PBFPosterRoleProcessor__processEvent_changeHandler_recursiveDepth
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object conformsToProtocol:@protocol(PBFPosterExtensionDataStorage)]", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2926,7 +2926,7 @@ uint64_t __87__PBFPosterRoleProcessor__processEvent_changeHandler_recursiveDepth
 
 - (void)initWithDataStorage:(char *)a1 roleCoordinators:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSArrayClass]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2934,7 +2934,7 @@ uint64_t __87__PBFPosterRoleProcessor__processEvent_changeHandler_recursiveDepth
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSArrayClass]", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2944,7 +2944,7 @@ uint64_t __87__PBFPosterRoleProcessor__processEvent_changeHandler_recursiveDepth
 
 - (void)initWithDataStorage:(char *)a1 roleCoordinators:.cold.3(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[roleCoordinators count] > 0"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2952,7 +2952,7 @@ uint64_t __87__PBFPosterRoleProcessor__processEvent_changeHandler_recursiveDepth
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[roleCoordinators count] > 0", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2962,7 +2962,7 @@ uint64_t __87__PBFPosterRoleProcessor__processEvent_changeHandler_recursiveDepth
 
 - (void)initWithDataStorage:(char *)a1 roleCoordinators:.cold.4(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2970,7 +2970,7 @@ uint64_t __87__PBFPosterRoleProcessor__processEvent_changeHandler_recursiveDepth
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2980,7 +2980,7 @@ uint64_t __87__PBFPosterRoleProcessor__processEvent_changeHandler_recursiveDepth
 
 - (void)initWithDataStorage:(char *)a1 roleCoordinators:.cold.5(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2988,7 +2988,7 @@ uint64_t __87__PBFPosterRoleProcessor__processEvent_changeHandler_recursiveDepth
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2998,7 +2998,7 @@ uint64_t __87__PBFPosterRoleProcessor__processEvent_changeHandler_recursiveDepth
 
 - (void)processChanges:(char *)a1 context:reason:userInfo:error:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object conformsToProtocol:@protocol(PBFPosterRoleCoordinatorTransitionContext)]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -3006,7 +3006,7 @@ uint64_t __87__PBFPosterRoleProcessor__processEvent_changeHandler_recursiveDepth
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object conformsToProtocol:@protocol(PBFPosterRoleCoordinatorTransitionContext)]", v11, v12);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v11, v12);
   }
 
   v10 = v2;
@@ -3017,7 +3017,7 @@ uint64_t __87__PBFPosterRoleProcessor__processEvent_changeHandler_recursiveDepth
 
 - (void)processChanges:(char *)a1 context:reason:userInfo:error:.cold.3(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -3025,7 +3025,7 @@ uint64_t __87__PBFPosterRoleProcessor__processEvent_changeHandler_recursiveDepth
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v11, v12);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v11, v12);
   }
 
   v10 = v2;
@@ -3043,7 +3043,7 @@ void __71__PBFPosterRoleProcessor_processChanges_context_reason_userInfo_error__
 
 - (void)processEvents:(char *)a1 context:reason:userInfo:error:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object conformsToProtocol:@protocol(PBFPosterRoleCoordinatorTransitionContext)]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -3051,7 +3051,7 @@ void __71__PBFPosterRoleProcessor_processChanges_context_reason_userInfo_error__
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object conformsToProtocol:@protocol(PBFPosterRoleCoordinatorTransitionContext)]", v11, v12);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v11, v12);
   }
 
   v10 = v2;
@@ -3062,7 +3062,7 @@ void __71__PBFPosterRoleProcessor_processChanges_context_reason_userInfo_error__
 
 - (void)processEvents:(char *)a1 context:reason:userInfo:error:.cold.3(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -3070,7 +3070,7 @@ void __71__PBFPosterRoleProcessor_processChanges_context_reason_userInfo_error__
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v11, v12);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v11, v12);
   }
 
   v10 = v2;

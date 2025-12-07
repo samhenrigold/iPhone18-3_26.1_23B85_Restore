@@ -335,9 +335,9 @@ LABEL_6:
   [v17 setAppearanceStyle:appearanceStyle];
 
   v20 = [v17 _generateLayoutGroup:v16];
-  v73.receiver = self;
-  v73.super_class = _UICollectionViewListLayoutSection;
-  v21 = [(NSCollectionLayoutSection *)&v73 initWithLayoutGroup:v20];
+  v70.receiver = self;
+  v70.super_class = _UICollectionViewListLayoutSection;
+  v21 = [(NSCollectionLayoutSection *)&v70 initWithLayoutGroup:v20];
   v22 = v21;
   if (v21)
   {
@@ -356,123 +356,123 @@ LABEL_6:
     }
 
     _sectionPosition = [v17 _sectionPosition];
-    _hasHeaderOrFirstItemStyledAsHeader = [v17 _hasHeaderOrFirstItemStyledAsHeader];
-    _hasFooter = [v17 _hasFooter];
-    v71 = 0u;
-    v72 = 0u;
-    v69 = 0u;
-    v70 = 0u;
-    v67 = 0u;
+    [v17 _hasHeaderOrFirstItemStyledAsHeader];
+    [v17 _hasFooter];
     v68 = 0u;
-    v65 = 0u;
+    v69 = 0u;
     v66 = 0u;
+    v67 = 0u;
     v64 = 0u;
+    v65 = 0u;
+    v62 = 0u;
+    v63 = 0u;
+    v61 = 0u;
     if (v17)
     {
-      [v17 _listGeometry];
+      objc_msgSend__listGeometry(v17);
     }
 
-    _sectionSpacingStyle = [v17 _sectionSpacingStyle];
-    v28 = +[_UIListMetrics sharedMetrics];
-    [v28 behaviorsForListWithStyle:v25 traitCollection:_traitCollection];
-    v30 = v29;
+    [v17 _sectionSpacingStyle];
+    v26 = +[_UIListMetrics sharedMetrics];
+    [v26 behaviorsForListWithStyle:v25 traitCollection:_traitCollection];
+    v28 = v27;
 
-    memset(v63, 0, 72);
-    v61 = 0u;
-    v62 = 0u;
-    v60 = 0u;
-    v31 = +[_UIListMetrics sharedMetrics];
-    v32 = v31;
-    if (v31)
+    memset(v60, 0, 72);
+    v58 = 0u;
+    v59 = 0u;
+    v57 = 0u;
+    v29 = +[_UIListMetrics sharedMetrics];
+    v30 = v29;
+    if (v29)
     {
-      v57 = v70;
-      v58 = v71;
-      v59 = v72;
-      v53 = v66;
       v54 = v67;
       v55 = v68;
       v56 = v69;
+      v50 = v63;
       v51 = v64;
       v52 = v65;
-      [v31 metricsForSectionWithPosition:_sectionPosition hasHeader:_hasHeaderOrFirstItemStyledAsHeader hasFooter:_hasFooter listGeometry:&v51 listStyle:v25 spacingStyle:_sectionSpacingStyle traitCollection:_traitCollection];
+      v53 = v66;
+      v48 = v61;
+      v49 = v62;
+      objc_msgSend_metricsForSectionWithPosition_hasHeader_hasFooter_listGeometry_listStyle_spacingStyle_traitCollection_(v29, _traitCollection);
     }
 
     else
     {
-      memset(v63, 0, 72);
-      v61 = 0u;
-      v62 = 0u;
-      v60 = 0u;
+      memset(v60, 0, 72);
+      v58 = 0u;
+      v59 = 0u;
+      v57 = 0u;
     }
 
-    if ((v30 - 1) <= 1)
+    if ((v28 - 1) <= 1)
     {
       [v17 headerTopPadding];
-      if (v33 == 0.0)
+      if (v31 == 0.0)
       {
-        v30 = 3;
+        v28 = 3;
       }
     }
 
-    v22->_headerFooterPinningBehavior = v30;
-    v55 = v63[1];
-    v56 = v63[2];
-    v57 = v63[3];
-    *&v58 = *&v63[4];
-    v51 = v60;
-    v52 = v61;
-    v53 = v62;
-    v54 = v63[0];
-    [(_UICollectionViewListLayoutSection *)v22 _defaultSectionContentInsetsForSectionMetrics:&v51];
-    v22->_defaultSectionContentInsets.top = v34;
-    v22->_defaultSectionContentInsets.leading = v35;
-    v22->_defaultSectionContentInsets.bottom = v36;
-    v22->_defaultSectionContentInsets.trailing = v37;
-    v38 = *(&v63[1] + 8);
-    *&v22->_defaultDirectionalLayoutMargins.top = *(v63 + 8);
-    *&v22->_defaultDirectionalLayoutMargins.bottom = v38;
-    v39 = *(&v63[3] + 8);
-    *&v22->_defaultSeparatorInsets.top = *(&v63[2] + 8);
-    *&v22->_defaultSeparatorInsets.bottom = v39;
-    v40 = *(&v60 + 1);
-    if (*(&v60 + 1) >= 4uLL)
+    v22->_headerFooterPinningBehavior = v28;
+    v52 = v60[1];
+    v53 = v60[2];
+    v54 = v60[3];
+    *&v55 = *&v60[4];
+    v48 = v57;
+    v49 = v58;
+    v50 = v59;
+    v51 = v60[0];
+    [(_UICollectionViewListLayoutSection *)v22 _defaultSectionContentInsetsForSectionMetrics:&v48];
+    v22->_defaultSectionContentInsets.top = v32;
+    v22->_defaultSectionContentInsets.leading = v33;
+    v22->_defaultSectionContentInsets.bottom = v34;
+    v22->_defaultSectionContentInsets.trailing = v35;
+    v36 = *(&v60[1] + 8);
+    *&v22->_defaultDirectionalLayoutMargins.top = *(v60 + 8);
+    *&v22->_defaultDirectionalLayoutMargins.bottom = v36;
+    v37 = *(&v60[3] + 8);
+    *&v22->_defaultSeparatorInsets.top = *(&v60[2] + 8);
+    *&v22->_defaultSeparatorInsets.bottom = v37;
+    v38 = *(&v57 + 1);
+    if (*(&v57 + 1) >= 4uLL)
     {
       currentHandler3 = [MEMORY[0x1E696AAA8] currentHandler];
-      v43 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"UIContentInsetsReference _UIContentInsetReferenceForListContentInsetsReference(_UIListContentInsetsReference)"];
-      [currentHandler3 handleFailureInFunction:v43 file:@"_UICollectionViewListLayoutSection_Internal.h" lineNumber:61 description:{@"UIKit internal inconsistency: unknown content insets reference (%ld)", v40}];
+      v41 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"UIContentInsetsReference _UIContentInsetReferenceForListContentInsetsReference(_UIListContentInsetsReference)"];
+      [currentHandler3 handleFailureInFunction:v41 file:@"_UICollectionViewListLayoutSection_Internal.h" lineNumber:61 description:{@"UIKit internal inconsistency: unknown content insets reference (%ld)", v38}];
 
-      v41 = 1;
+      v39 = 1;
     }
 
     else
     {
-      v41 = qword_18A683300[*(&v60 + 1)];
+      v39 = qword_18A683300[*(&v57 + 1)];
     }
 
-    [(NSCollectionLayoutSection *)v22 setContentInsetsReference:v41];
-    [(NSCollectionLayoutSection *)v22 setInterGroupSpacing:*v63];
-    v44 = 0.0;
+    [(NSCollectionLayoutSection *)v22 setContentInsetsReference:v39];
+    [(NSCollectionLayoutSection *)v22 setInterGroupSpacing:*v60];
+    v42 = 0.0;
     if ([v17 _hasSupplementaryAsHeader])
     {
       [v17 headerTopPadding];
-      if (v45 == 1.79769313e308)
+      if (v43 == 1.79769313e308)
       {
         if (![v16 _wantsCollapsedTopSpacing] || (_sectionPosition & 2) == 0)
         {
-          v44 = *&v61;
+          v42 = *&v58;
         }
       }
 
       else
       {
         [v17 headerTopPadding];
-        v44 = v46;
+        v42 = v44;
       }
     }
 
-    v22->_paddingToBoundarySupplementaries = v44;
-    [v17 _setDefaultBackgroundColor:v60];
-    [v17 _addSupplementaryItemsToLayout:v22 headerFooterPinningBehavior:v30];
+    v22->_paddingToBoundarySupplementaries = v42;
+    [v17 _setDefaultBackgroundColor:v57];
+    [v17 _addSupplementaryItemsToLayout:v22 headerFooterPinningBehavior:v28];
   }
 
   return v22;
@@ -599,9 +599,9 @@ LABEL_6:
   v12 = v11;
   _content = [(_UILabelConfiguration *)attributes _content];
   _headerElementKind = [(_UICollectionViewListLayoutSectionConfiguration *)self->_configuration _headerElementKind];
-  v15 = [_content isEqualToString:_headerElementKind];
+  isEqualToString = objc_msgSend_isEqualToString_(_content);
 
-  if (v15)
+  if (isEqualToString)
   {
     _layoutEnvironment = [(_UICollectionViewListLayoutSectionConfiguration *)self->_configuration _layoutEnvironment];
     traitCollection = [_layoutEnvironment traitCollection];
@@ -794,7 +794,7 @@ LABEL_40:
 
     _content2 = [(_UILabelConfiguration *)attributes _content];
     _headerElementKind2 = [(_UICollectionViewListLayoutSectionConfiguration *)self->_configuration _headerElementKind];
-    v51 = [_content2 isEqualToString:_headerElementKind2];
+    v51 = objc_msgSend_isEqualToString_(_content2);
 
     v52 = ([(_UICollectionViewListLayoutSectionConfiguration *)self->_configuration _sectionPosition]>> 1) & 1;
     _constants = [(_UICollectionViewListLayoutSection *)self _constants];
@@ -1407,9 +1407,9 @@ LABEL_7:
   }
 
   _content = [(_UILabelConfiguration *)attributes _content];
-  v23 = [_content isEqualToString:@"UICollectionViewListLayoutElementKindBottomSeparator"];
+  isEqualToString = objc_msgSend_isEqualToString_(_content);
 
-  if (v23)
+  if (isEqualToString)
   {
     if (v10)
     {
@@ -1432,7 +1432,7 @@ LABEL_43:
   }
 
   _content2 = [(_UILabelConfiguration *)attributes _content];
-  v45 = [_content2 isEqualToString:@"UICollectionViewListLayoutElementKindTopSeparator"];
+  v45 = objc_msgSend_isEqualToString_(_content2);
 
   if (v45)
   {
@@ -1454,7 +1454,7 @@ LABEL_43:
   }
 
   _content3 = [(_UILabelConfiguration *)attributes _content];
-  v52 = [_content3 isEqualToString:0x1EFB7AFF0];
+  v52 = objc_msgSend_isEqualToString_(_content3);
 
   if (v52)
   {
@@ -1483,7 +1483,7 @@ LABEL_43:
   else
   {
     _content4 = [(_UILabelConfiguration *)attributes _content];
-    v54 = [_content4 isEqualToString:@"_UICollectionViewListLayoutSectionBackgroundColorDecorationElementKind"];
+    v54 = objc_msgSend_isEqualToString_(_content4);
 
     if (v54)
     {
@@ -2192,9 +2192,9 @@ LABEL_20:
 {
   _content = [(_UILabelConfiguration *)view _content];
   _headerElementKind = [(_UICollectionViewListLayoutSectionConfiguration *)self->_configuration _headerElementKind];
-  v7 = [_content isEqualToString:_headerElementKind];
+  isEqualToString = objc_msgSend_isEqualToString_(_content);
 
-  if (v7)
+  if (isEqualToString)
   {
     if ([(_UICollectionViewListLayoutSection *)self _headerFooterPinningBehavior]== 2)
     {

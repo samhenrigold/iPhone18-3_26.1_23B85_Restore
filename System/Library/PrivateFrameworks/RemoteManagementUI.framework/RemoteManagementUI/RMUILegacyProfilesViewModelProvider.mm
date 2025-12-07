@@ -25,32 +25,32 @@
 
 - (void)_updateViewModelsWithDeclarations:(id)declarations
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   declarationsCopy = declarations;
   profileViewModels = [(RMUILegacyProfilesViewModelProvider *)self profileViewModels];
   [profileViewModels removeAllObjects];
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v6 = declarationsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v23;
+    v9 = *v22;
     do
     {
       v10 = 0;
       do
       {
-        if (*v23 != v9)
+        if (*v22 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v22 + 1) + 8 * v10);
+        v11 = *(*(&v21 + 1) + 8 * v10);
         v12 = objc_opt_new();
         label = [v11 label];
         [v12 setTitle:label];
@@ -81,13 +81,11 @@
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v8);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)loadProfilesFromConfigurationsWithCompletionHandler:(id)handler
@@ -165,48 +163,48 @@ uint64_t __91__RMUILegacyProfilesViewModelProvider_loadProfilesFromConfiguration
 
 void __91__RMUILegacyProfilesViewModelProvider_loadProfilesFromConfigurationsWithCompletionHandler___block_invoke_8(uint64_t a1, void *a2, void *a3)
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = +[RMUILog profilesViewModelProvider];
   v8 = v7;
   if (v5)
   {
-    v34 = v6;
+    v33 = v6;
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       __91__RMUILegacyProfilesViewModelProvider_loadProfilesFromConfigurationsWithCompletionHandler___block_invoke_8_cold_1(v5, v8);
     }
 
-    v38 = [MEMORY[0x277D460C0] newProfileControllerWithPrefix:*MEMORY[0x277D46080] scope:{objc_msgSend(*(a1 + 32), "scope")}];
-    v37 = [v38 installedProfileIdentifiers];
+    v37 = [MEMORY[0x277D460C0] newProfileControllerWithPrefix:*MEMORY[0x277D46080] scope:{objc_msgSend(*(a1 + 32), "scope")}];
+    v36 = [v37 installedProfileIdentifiers];
     v9 = [MEMORY[0x277D460C0] newProfileControllerWithPrefix:*MEMORY[0x277D46088] scope:{objc_msgSend(*(a1 + 32), "scope")}];
-    v36 = [v9 installedProfileIdentifiers];
-    v39 = objc_opt_new();
+    v35 = [v9 installedProfileIdentifiers];
+    v38 = objc_opt_new();
+    v40 = 0u;
     v41 = 0u;
     v42 = 0u;
     v43 = 0u;
-    v44 = 0u;
-    v35 = v5;
+    v34 = v5;
     v10 = v5;
     v11 = v9;
     obj = v10;
-    v12 = [v10 countByEnumeratingWithState:&v41 objects:v47 count:16];
+    v12 = [v10 countByEnumeratingWithState:&v40 objects:v46 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v42;
+      v14 = *v41;
       do
       {
         for (i = 0; i != v13; ++i)
         {
           v16 = v11;
-          if (*v42 != v14)
+          if (*v41 != v14)
           {
             objc_enumerationMutation(obj);
           }
 
-          v17 = *(*(&v41 + 1) + 8 * i);
+          v17 = *(*(&v40 + 1) + 8 * i);
           v18 = [v17 declarationIdentifier];
           v19 = [*(a1 + 32) filterDeclarationIdentifiers];
           if (v19)
@@ -221,7 +219,7 @@ void __91__RMUILegacyProfilesViewModelProvider_loadProfilesFromConfigurationsWit
               if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138412290;
-                v46 = v18;
+                v45 = v18;
                 _os_log_debug_impl(&dword_261E8A000, v23, OS_LOG_TYPE_DEBUG, "Ignoring configuration: %@", buf, 0xCu);
               }
 
@@ -241,7 +239,7 @@ void __91__RMUILegacyProfilesViewModelProvider_loadProfilesFromConfigurationsWit
               if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138543362;
-                v46 = v23;
+                v45 = v23;
                 _os_log_error_impl(&dword_261E8A000, v25, OS_LOG_TYPE_ERROR, "Error fetching name from legacy profile %{public}@", buf, 0xCu);
               }
 
@@ -249,7 +247,7 @@ void __91__RMUILegacyProfilesViewModelProvider_loadProfilesFromConfigurationsWit
             }
 
             v25 = v24;
-            v26 = [v36 containsObject:v23];
+            v26 = [v35 containsObject:v23];
             v27 = [RMUIDeclarationInfo alloc];
             v28 = v17;
             v29 = v25;
@@ -266,9 +264,9 @@ void __91__RMUILegacyProfilesViewModelProvider_loadProfilesFromConfigurationsWit
               goto LABEL_25;
             }
 
-            v23 = [v38 profileIdentifierForDeclaration:v17 store:*(a1 + 40)];
+            v23 = [v37 profileIdentifierForDeclaration:v17 store:*(a1 + 40)];
             v25 = [v17 payloadVisibleName];
-            v26 = [v37 containsObject:v23];
+            v26 = [v36 containsObject:v23];
             v27 = [RMUIDeclarationInfo alloc];
             v28 = v17;
             v29 = v25;
@@ -277,7 +275,7 @@ void __91__RMUILegacyProfilesViewModelProvider_loadProfilesFromConfigurationsWit
           }
 
           v32 = [(RMUIDeclarationInfo *)v27 initWithProfileDeclaration:v28 label:v29 profileIdentifier:v30 isRequired:v31 isActive:v26];
-          [v39 addObject:v32];
+          [v38 addObject:v32];
 
           v11 = v16;
 LABEL_23:
@@ -286,15 +284,15 @@ LABEL_24:
 LABEL_25:
         }
 
-        v13 = [obj countByEnumeratingWithState:&v41 objects:v47 count:16];
+        v13 = [obj countByEnumeratingWithState:&v40 objects:v46 count:16];
       }
 
       while (v13);
     }
 
     (*(*(a1 + 48) + 16))();
-    v6 = v34;
-    v5 = v35;
+    v6 = v33;
+    v5 = v34;
   }
 
   else
@@ -306,26 +304,22 @@ LABEL_25:
 
     (*(*(a1 + 48) + 16))();
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 void __91__RMUILegacyProfilesViewModelProvider_loadProfilesFromConfigurationsWithCompletionHandler___block_invoke_8_cold_1(void *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v4 = 134217984;
-  v5 = [a1 count];
-  _os_log_debug_impl(&dword_261E8A000, a2, OS_LOG_TYPE_DEBUG, "Found RMConfigurationTypeLegacyProfiles & RMConfigurationTypeLegacyInteractiveProfiles configurations: %lu", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
+  v3 = 134217984;
+  v4 = [a1 count];
+  _os_log_debug_impl(&dword_261E8A000, a2, OS_LOG_TYPE_DEBUG, "Found RMConfigurationTypeLegacyProfiles & RMConfigurationTypeLegacyInteractiveProfiles configurations: %lu", &v3, 0xCu);
 }
 
 void __91__RMUILegacyProfilesViewModelProvider_loadProfilesFromConfigurationsWithCompletionHandler___block_invoke_8_cold_2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_261E8A000, a2, OS_LOG_TYPE_ERROR, "Failed to find RMConfigurationTypeLegacyProfiles & RMConfigurationTypeLegacyInteractiveProfiles configurations: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_261E8A000, a2, OS_LOG_TYPE_ERROR, "Failed to find RMConfigurationTypeLegacyProfiles & RMConfigurationTypeLegacyInteractiveProfiles configurations: %{public}@", &v2, 0xCu);
 }
 
 @end

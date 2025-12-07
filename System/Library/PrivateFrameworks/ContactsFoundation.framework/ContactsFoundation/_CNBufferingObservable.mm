@@ -29,19 +29,18 @@
 
 - (_CNBufferingObservable)initWithLength:(unint64_t)length timeInterval:(double)interval scheduler:(id)scheduler observable:(id)observable
 {
-  v19[2] = *MEMORY[0x1E69E9840];
+  v18[2] = *MEMORY[0x1E69E9840];
   observableCopy = observable;
   schedulerCopy = scheduler;
   v12 = [_CNBufferingStrategy strategyWithCapacity:length];
   v13 = [_CNBufferingStrategy strategyWithTimeInterval:schedulerCopy scheduler:interval];
 
-  v19[0] = v12;
-  v19[1] = v13;
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:2];
+  v18[0] = v12;
+  v18[1] = v13;
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:2];
   v15 = [_CNBufferingStrategy combine:v14];
 
   v16 = [(_CNBufferingObservable *)self initWithBufferingStrategy:v15 observable:observableCopy];
-  v17 = *MEMORY[0x1E69E9840];
   return v16;
 }
 

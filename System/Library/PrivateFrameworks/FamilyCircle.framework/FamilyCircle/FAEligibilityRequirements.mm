@@ -8,32 +8,32 @@
 
 - (FAEligibilityRequirements)initWithDictionaryRepresentation:(id)representation
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   representationCopy = representation;
   v5 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v6 = representationCopy;
-  v7 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v20;
+    v9 = *v19;
     do
     {
       v10 = 0;
       do
       {
-        if (*v20 != v9)
+        if (*v19 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v19 + 1) + 8 * v10);
+        v11 = *(*(&v18 + 1) + 8 * v10);
         v12 = [FAPropertyEligibilityRequirements alloc];
-        v13 = [v6 objectForKeyedSubscript:{v11, v19}];
+        v13 = [v6 objectForKeyedSubscript:{v11, v18}];
         v14 = [(FAPropertyEligibilityRequirements *)v12 initWithPropertyName:v11 dictionaryRepresentation:v13];
         [v5 setObject:v14 forKeyedSubscript:v11];
 
@@ -41,7 +41,7 @@
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v8);
@@ -50,7 +50,6 @@
   v15 = [v5 copy];
   v16 = [(FAEligibilityRequirements *)self initWithPropertyRequirements:v15];
 
-  v17 = *MEMORY[0x1E69E9840];
   return v16;
 }
 

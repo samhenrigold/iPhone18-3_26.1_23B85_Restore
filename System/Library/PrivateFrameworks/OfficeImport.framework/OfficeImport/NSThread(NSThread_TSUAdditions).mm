@@ -6,7 +6,7 @@
 
 + (__CFString)tsu_currentThreadName
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32[5] = *MEMORY[0x277D85DE8];
   isMainThread = [MEMORY[0x277CCACC8] isMainThread];
   v1 = isMainThread;
   v2 = @"MT";

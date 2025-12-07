@@ -17,7 +17,7 @@
 {
   if (MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSNNReduce.mm", 0x7EB, @"Cannot directly initialize MPSNNReduceBinary. Use one of the sub-classes of MPSNNReduce.\n", v3, v4, v5, v6);
   }
 
   return 0;
@@ -53,9 +53,9 @@
 
 - (MPSNNReduceBinary)initWithCoder:(id)coder device:(id)device
 {
-  v87.receiver = self;
-  v87.super_class = MPSNNReduceBinary;
-  v5 = [(MPSCNNBinaryKernel *)&v87 initWithCoder:coder device:device];
+  v91.receiver = self;
+  v91.super_class = MPSNNReduceBinary;
+  v5 = [(MPSCNNBinaryKernel *)&v91 initWithCoder:coder device:device];
   v12 = v5;
   if (!v5)
   {
@@ -87,7 +87,7 @@
   {
     v86 = objc_opt_class();
     NSStringFromClass(v86);
-    MTLReportFailure();
+    MTLReportFailure(1, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSNNReduce.mm", 0x80D, @"[%@ initWithCoder:device:] Failed: unsupported file version.", v87, v88, v89, v90);
   }
 
   return 0;

@@ -29,9 +29,9 @@
 - (GCAdaptiveTriggersXPCProxyClientEndpointDescription)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v15.receiver = self;
-  v15.super_class = GCAdaptiveTriggersXPCProxyClientEndpointDescription;
-  v5 = [(GCAdaptiveTriggersXPCProxyClientEndpointDescription *)&v15 init];
+  v16.receiver = self;
+  v16.super_class = GCAdaptiveTriggersXPCProxyClientEndpointDescription;
+  v5 = [(GCAdaptiveTriggersXPCProxyClientEndpointDescription *)&v16 init];
   if (v5)
   {
     v6 = MEMORY[0x1E695DFD8];
@@ -41,10 +41,10 @@
     initialStatuses = v5->_initialStatuses;
     v5->_initialStatuses = v9;
 
-    v11 = GCIPCObjectIdentifier_Classes();
-    v12 = [coderCopy decodeObjectOfClasses:v11 forKey:@"identifier"];
+    v12 = GCIPCObjectIdentifier_Classes(v11);
+    v13 = [coderCopy decodeObjectOfClasses:v12 forKey:@"identifier"];
     identifier = v5->_identifier;
-    v5->_identifier = v12;
+    v5->_identifier = v13;
   }
 
   return v5;
@@ -74,43 +74,43 @@
   if (v8)
   {
     adaptiveTriggersXPCProxyServiceRemoteServer = [v8 adaptiveTriggersXPCProxyServiceRemoteServer];
-    v10 = [[GCAdaptiveTriggersXPCProxyClientEndpoint alloc] initWithIdentifier:self->_identifier initialStatuses:self->_initialStatuses];
+    v12 = [[GCAdaptiveTriggersXPCProxyClientEndpoint alloc] initWithIdentifier:self->_identifier initialStatuses:self->_initialStatuses];
     iPCObjectRegistry = [v5 IPCObjectRegistry];
-    [iPCObjectRegistry registerIPCObject:v10];
+    [iPCObjectRegistry registerIPCObject:v12];
 
-    v12 = dispatch_semaphore_create(0);
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __78__GCAdaptiveTriggersXPCProxyClientEndpointDescription_materializeWithContext___block_invoke;
-    v21[3] = &unk_1E841AE08;
-    v13 = v10;
-    v22 = v13;
-    v23 = v8;
-    v24 = v12;
-    v14 = v12;
-    v15 = v8;
-    [adaptiveTriggersXPCProxyServiceRemoteServer adaptiveTriggersXPCProxyServiceClientEndpointConnect:v13 reply:v21];
-    v16 = dispatch_time(0, 1000000000);
-    dispatch_semaphore_wait(v14, v16);
-    v17 = self->_materializedObject;
-    self->_materializedObject = v13;
-    v18 = v13;
+    v14 = dispatch_semaphore_create(0);
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = __78__GCAdaptiveTriggersXPCProxyClientEndpointDescription_materializeWithContext___block_invoke;
+    v23[3] = &unk_1E841AE08;
+    v15 = v12;
+    v24 = v15;
+    v25 = v8;
+    v26 = v14;
+    v16 = v14;
+    v17 = v8;
+    [adaptiveTriggersXPCProxyServiceRemoteServer adaptiveTriggersXPCProxyServiceClientEndpointConnect:v15 reply:v23];
+    v18 = dispatch_time(0, 1000000000);
+    dispatch_semaphore_wait(v16, v18);
+    v19 = self->_materializedObject;
+    self->_materializedObject = v15;
+    v20 = v15;
 
     materializedObject = self->_materializedObject;
 LABEL_4:
-    v19 = materializedObject;
+    v21 = materializedObject;
     goto LABEL_5;
   }
 
-  if (gc_isInternalBuild())
+  if (gc_isInternalBuild(v9, v10))
   {
-    [GCBatteryXPCProxyClientEndpointDescription materializeWithContext:];
+    [GCBatteryXPCProxyClientEndpointDescription materializeWithContext:?];
   }
 
-  v19 = 0;
+  v21 = 0;
 LABEL_5:
 
-  return v19;
+  return v21;
 }
 
 intptr_t __78__GCAdaptiveTriggersXPCProxyClientEndpointDescription_materializeWithContext___block_invoke(void *a1, void *a2)

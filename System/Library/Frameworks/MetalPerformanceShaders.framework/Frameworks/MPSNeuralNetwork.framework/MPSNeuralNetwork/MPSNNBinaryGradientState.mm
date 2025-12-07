@@ -7,9 +7,9 @@
 
 - (id)destinationImageDescriptorForSourceImages:(id)images sourceStates:(id)states forKernel:(id)kernel suggestedDescriptor:(id)descriptor
 {
-  v170.receiver = self;
-  v170.super_class = MPSNNBinaryGradientState;
-  v9 = [(MPSState *)&v170 destinationImageDescriptorForSourceImages:images sourceStates:states forKernel:kernel suggestedDescriptor:descriptor];
+  v182.receiver = self;
+  v182.super_class = MPSNNBinaryGradientState;
+  v9 = [(MPSState *)&v182 destinationImageDescriptorForSourceImages:images sourceStates:states forKernel:kernel suggestedDescriptor:descriptor];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -18,13 +18,13 @@
       objc_msgSend_count(images, v10, v11, v12, v13, v14, v15, v16);
       if (objc_msgSend_count(images, v17, v18, v19, v20, v21, v22, v23) <= 1 && MTLReportFailureTypeEnabled())
       {
-        v160 = objc_opt_class();
-        v161 = NSStringFromClass(v160);
-        MTLReportFailure();
+        v168 = objc_opt_class();
+        v173 = NSStringFromClass(v168);
+        MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MetalPerformanceShaders/MPSNNGradientState.mm", 0x11E, @"[%@ destinationImageDescriptorForSourceImages:sourceStates:forKernel:suggestedDescriptor:]\n\tError: at least two source Images are expected for a MPSCNNBinaryGradientKernel.\n", v169, v170, v171, v172);
       }
 
       primaryKernelWidth = self->_primaryKernelWidth;
-      if (primaryKernelWidth == objc_msgSend_primaryKernelWidth(kernel, v24, v25, v26, v27, v28, v29, v30, v161))
+      if (primaryKernelWidth == objc_msgSend_primaryKernelWidth(kernel, v24, v25, v26, v27, v28, v29, v30, v173))
       {
         objc_msgSend_primaryKernelHeight(kernel, v32, v33, v34, v35, v36, v37, v38);
       }
@@ -38,17 +38,17 @@
           v125 = NSStringFromClass(v124);
           v133 = objc_msgSend_primaryKernelWidth(kernel, v126, v127, v128, v129, v130, v131, v132);
           v141 = objc_msgSend_primaryKernelHeight(kernel, v134, v135, v136, v137, v138, v139, v140);
-          v165 = self->_primaryKernelWidth;
+          v177 = self->_primaryKernelWidth;
           primaryKernelHeight = self->_primaryKernelHeight;
-          v163 = v133;
-          v164 = v141;
-          v162 = v125;
-          MTLReportFailure();
+          v175 = v133;
+          v176 = v141;
+          v174 = v125;
+          MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MetalPerformanceShaders/MPSNNGradientState.mm", 0x123, @"[%@ destinationImageDescriptorForSourceImages:sourceStates:forKernel:suggestedDescriptor:]\n\t Error: primary kernelSize mismatch, filter kernelSize is %lu x %lu state has kernelSize %lu x %lu", v142, v143, v144, v145);
         }
       }
 
       secondaryKernelWidth = self->_secondaryKernelWidth;
-      if (secondaryKernelWidth == objc_msgSend_secondaryKernelWidth(kernel, v48, v49, v50, v51, v52, v53, v54, v162, v163, v164, v165, primaryKernelHeight))
+      if (secondaryKernelWidth == objc_msgSend_secondaryKernelWidth(kernel, v48, v49, v50, v51, v52, v53, v54, v174, v175, v176, v177, primaryKernelHeight))
       {
         objc_msgSend_secondaryKernelHeight(kernel, v56, v57, v58, v59, v60, v61, v62);
       }
@@ -58,29 +58,29 @@
       {
         if (MTLReportFailureTypeEnabled())
         {
-          v142 = objc_opt_class();
-          v143 = NSStringFromClass(v142);
-          v151 = objc_msgSend_secondaryKernelWidth(kernel, v144, v145, v146, v147, v148, v149, v150);
-          v159 = objc_msgSend_secondaryKernelHeight(kernel, v152, v153, v154, v155, v156, v157, v158);
-          v165 = self->_secondaryKernelWidth;
+          v146 = objc_opt_class();
+          v147 = NSStringFromClass(v146);
+          v155 = objc_msgSend_secondaryKernelWidth(kernel, v148, v149, v150, v151, v152, v153, v154);
+          v163 = objc_msgSend_secondaryKernelHeight(kernel, v156, v157, v158, v159, v160, v161, v162);
+          v177 = self->_secondaryKernelWidth;
           primaryKernelHeight = self->_secondaryKernelHeight;
-          v163 = v151;
-          v164 = v159;
-          v161 = v143;
-          MTLReportFailure();
+          v175 = v155;
+          v176 = v163;
+          v173 = v147;
+          MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MetalPerformanceShaders/MPSNNGradientState.mm", 0x128, @"[%@ destinationImageDescriptorForSourceImages:sourceStates:forKernel:suggestedDescriptor:]\n\t Error: secondary kernelSize mismatch, filter kernelSize is %lu x %lu state has kernelSize %lu x %lu", v164, v165, v166, v167);
         }
       }
     }
 
-    isSecondarySourceFilter = objc_msgSend_isSecondarySourceFilter(kernel, v10, v11, v12, v13, v14, v15, v16, v161, v163, v164, v165, primaryKernelHeight);
-    v167 = 0;
-    v168 = 0;
-    v169 = 0;
-    objc_msgSend_setPrimaryOffset_(kernel, v73, &v167, v74, v75, v76, v77, v78);
-    v167 = 0;
-    v168 = 0;
-    v169 = 0;
-    objc_msgSend_setSecondaryOffset_(kernel, v79, &v167, v80, v81, v82, v83, v84);
+    isSecondarySourceFilter = objc_msgSend_isSecondarySourceFilter(kernel, v10, v11, v12, v13, v14, v15, v16, v173, v175, v176, v177, primaryKernelHeight);
+    v179 = 0;
+    v180 = 0;
+    v181 = 0;
+    objc_msgSend_setPrimaryOffset_(kernel, v73, &v179, v74, v75, v76, v77, v78);
+    v179 = 0;
+    v180 = 0;
+    v181 = 0;
+    objc_msgSend_setSecondaryOffset_(kernel, v79, &v179, v80, v81, v82, v83, v84);
     v91 = &OBJC_IVAR___MPSNNBinaryGradientState__primarySrcSize;
     v92 = isSecondarySourceFilter == 0;
     if (isSecondarySourceFilter)

@@ -3,6 +3,7 @@
 - (BOOL)verifyWithError:(id *)error;
 - (DIVerifyParams)initWithURL:(id)l error:(id *)error;
 - (DIVerifyParams)initWithURL:(id)l shadowURLs:(id)ls error:(id *)error;
+- (void)setShouldValidateShadows:(BOOL)shadows;
 @end
 
 @implementation DIVerifyParams
@@ -44,72 +45,89 @@
   return shouldValidate;
 }
 
+- (void)setShouldValidateShadows:(BOOL)shadows
+{
+  shadowsCopy = shadows;
+  shadowChain = [(DIBaseParams *)self shadowChain];
+  [shadowChain setShouldValidate:shadowsCopy];
+}
+
 - (BOOL)verifyWithError:(id *)error
 {
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x3032000000;
-  v16 = sub_1000AAFC4;
-  v17 = sub_1000AAFD4;
-  v18 = objc_alloc_init(DIClient2Controller_XPCHandler);
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = sub_1000AAFC4;
+  v21 = sub_1000AAFD4;
+  v22 = objc_alloc_init(DIClient2Controller_XPCHandler);
   v5 = *__error();
-  if (sub_1000E95F0())
+  v6 = sub_1000E95F0();
+  if (v6)
   {
-    v12[5] = 0;
-    v6 = sub_1000E957C();
-    os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
-    *buf = 68158210;
-    v20 = 34;
-    v21 = 2080;
-    v22 = "[DIVerifyParams verifyWithError:]";
-    v23 = 2114;
-    selfCopy2 = self;
-    v7 = _os_log_send_and_compose_impl();
-
-    if (v7)
+    v16 = 0;
+    v8 = sub_1000E957C(v6, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      fprintf(__stderrp, "%s\n", v7);
-      free(v7);
+      v9 = 3;
+    }
+
+    else
+    {
+      v9 = 2;
+    }
+
+    *buf = 68158210;
+    v24 = 34;
+    v25 = 2080;
+    v26 = "[DIVerifyParams verifyWithError:]";
+    v27 = 2114;
+    selfCopy2 = self;
+    v10 = _os_log_send_and_compose_impl(v9, &v16, 0, 0, &_mh_execute_header, v8, 0, "%.*s: entry: %{public}@", buf, 28);
+
+    if (v10)
+    {
+      fprintf(__stderrp, "%s\n", v10);
+      free(v10);
     }
   }
 
   else
   {
-    v8 = sub_1000E957C();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v11 = sub_1000E957C(v6, v7);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 68158210;
-      v20 = 34;
-      v21 = 2080;
-      v22 = "[DIVerifyParams verifyWithError:]";
-      v23 = 2114;
+      v24 = 34;
+      v25 = 2080;
+      v26 = "[DIVerifyParams verifyWithError:]";
+      v27 = 2114;
       selfCopy2 = self;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%.*s: entry: %{public}@", buf, 0x1Cu);
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%.*s: entry: %{public}@", buf, 0x1Cu);
     }
   }
 
   *__error() = v5;
-  if (([v14[5] connectWithError:error] & 1) != 0 && -[DIBaseParams prepareImageWithXpcHandler:fileMode:error:](self, "prepareImageWithXpcHandler:fileMode:error:", v14[5], 2, error))
+  if (([v18[5] connectWithError:error] & 1) != 0 && -[DIBaseParams prepareImageWithXpcHandler:fileMode:error:](self, "prepareImageWithXpcHandler:fileMode:error:", v18[5], 2, error))
   {
-    remoteProxy = [v14[5] remoteProxy];
-    v12[0] = _NSConcreteStackBlock;
-    v12[1] = 3221225472;
-    v12[2] = sub_1000AAFDC;
-    v12[3] = &unk_100208AE8;
-    v12[4] = &v13;
-    [remoteProxy verifyWithParams:self reply:v12];
+    remoteProxy = [v18[5] remoteProxy];
+    v15[0] = _NSConcreteStackBlock;
+    v15[1] = 3221225472;
+    v15[2] = sub_1000AAFDC;
+    v15[3] = &unk_100208AE8;
+    v15[4] = &v17;
+    [remoteProxy verifyWithParams:self reply:v15];
 
-    v10 = [v14[5] completeCommandWithError:error];
+    v13 = [v18[5] completeCommandWithError:error];
   }
 
   else
   {
-    v10 = 0;
+    v13 = 0;
   }
 
-  _Block_object_dispose(&v13, 8);
+  _Block_object_dispose(&v17, 8);
 
-  return v10;
+  return v13;
 }
 
 @end

@@ -339,7 +339,7 @@ LABEL_24:
     v17 = 0;
   }
 
-  currentAuditToken = [getLNClientConnectionClass[0]() currentAuditToken];
+  currentAuditToken = [(objc_class *)getLNClientConnectionClass() currentAuditToken];
   v19 = currentAuditToken != 0;
   v20 = PKLogFacilityTypeGetObject(8uLL);
   if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))

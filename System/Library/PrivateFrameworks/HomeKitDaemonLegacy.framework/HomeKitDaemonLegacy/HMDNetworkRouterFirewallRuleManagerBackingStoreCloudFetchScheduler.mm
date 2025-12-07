@@ -56,7 +56,7 @@
 
 - (void)__transitionActivity:(id)activity state:(int64_t)state
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   activityCopy = activity;
   v7 = xpc_activity_set_state(activityCopy, state);
   v8 = objc_autoreleasePoolPush();
@@ -69,17 +69,17 @@
     {
       v12 = HMFGetLogIdentifier();
       identifier = [(HMDNetworkRouterFirewallRuleManagerBackingStoreCloudFetchScheduler *)selfCopy identifier];
-      v18 = 138543874;
-      v19 = v12;
-      v20 = 2112;
-      v21 = identifier;
-      v22 = 2048;
+      v17 = 138543874;
+      v18 = v12;
+      v19 = 2112;
+      v20 = identifier;
+      v21 = 2048;
       stateCopy2 = state;
       v14 = "%{public}@Activity '%@' transitioned to state %ld";
       v15 = v11;
       v16 = OS_LOG_TYPE_DEBUG;
 LABEL_6:
-      _os_log_impl(&dword_2531F8000, v15, v16, v14, &v18, 0x20u);
+      _os_log_impl(&dword_2531F8000, v15, v16, v14, &v17, 0x20u);
     }
   }
 
@@ -87,11 +87,11 @@ LABEL_6:
   {
     v12 = HMFGetLogIdentifier();
     identifier = [(HMDNetworkRouterFirewallRuleManagerBackingStoreCloudFetchScheduler *)selfCopy identifier];
-    v18 = 138543874;
-    v19 = v12;
-    v20 = 2112;
-    v21 = identifier;
-    v22 = 2048;
+    v17 = 138543874;
+    v18 = v12;
+    v19 = 2112;
+    v20 = identifier;
+    v21 = 2048;
     stateCopy2 = state;
     v14 = "%{public}@Activity '%@' failed to transition to state %ld";
     v15 = v11;
@@ -100,12 +100,11 @@ LABEL_6:
   }
 
   objc_autoreleasePoolPop(v8);
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)__unregisterActivity
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -113,21 +112,20 @@ LABEL_6:
   {
     v6 = HMFGetLogIdentifier();
     identifier = [(HMDNetworkRouterFirewallRuleManagerBackingStoreCloudFetchScheduler *)selfCopy identifier];
-    v9 = 138543618;
-    v10 = v6;
-    v11 = 2112;
-    v12 = identifier;
-    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Unregistering activity '%@'", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v6;
+    v10 = 2112;
+    v11 = identifier;
+    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Unregistering activity '%@'", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v3);
   [objc_opt_class() __unregisterActivity:selfCopy->_identifier];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)__runActivity:(id)activity
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   activityCopy = activity;
   identifier = [(HMDNetworkRouterFirewallRuleManagerBackingStoreCloudFetchScheduler *)self identifier];
   if (xpc_activity_should_defer(activityCopy))
@@ -139,9 +137,9 @@ LABEL_6:
     {
       v9 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v25 = v9;
-      v26 = 2112;
-      v27 = identifier;
+      v24 = v9;
+      v25 = 2112;
+      v26 = identifier;
       _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Activity '%@' was ready to run but it should be deferred", buf, 0x16u);
     }
 
@@ -162,25 +160,25 @@ LABEL_6:
       {
         v14 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v25 = v14;
-        v26 = 2112;
-        v27 = identifier;
+        v24 = v14;
+        v25 = 2112;
+        v26 = identifier;
         _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@Activity '%@' running", buf, 0x16u);
       }
 
       objc_autoreleasePoolPop(v11);
       [(HMDNetworkRouterFirewallRuleManagerBackingStoreCloudFetchScheduler *)selfCopy2 setRunningActivity:activityCopy];
       objc_initWeak(buf, selfCopy2);
-      v20[0] = MEMORY[0x277D85DD0];
-      v20[1] = 3221225472;
-      v20[2] = __84__HMDNetworkRouterFirewallRuleManagerBackingStoreCloudFetchScheduler___runActivity___block_invoke;
-      v20[3] = &unk_279731988;
-      objc_copyWeak(&v23, buf);
-      v21 = identifier;
-      v22 = activityCopy;
-      [delegate cloudFetchSchedulerFired:selfCopy2 completion:v20];
+      v19[0] = MEMORY[0x277D85DD0];
+      v19[1] = 3221225472;
+      v19[2] = __84__HMDNetworkRouterFirewallRuleManagerBackingStoreCloudFetchScheduler___runActivity___block_invoke;
+      v19[3] = &unk_279731988;
+      objc_copyWeak(&v22, buf);
+      v20 = identifier;
+      v21 = activityCopy;
+      [delegate cloudFetchSchedulerFired:selfCopy2 completion:v19];
 
-      objc_destroyWeak(&v23);
+      objc_destroyWeak(&v22);
       objc_destroyWeak(buf);
     }
 
@@ -193,9 +191,9 @@ LABEL_6:
       {
         v18 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v25 = v18;
-        v26 = 2112;
-        v27 = identifier;
+        v24 = v18;
+        v25 = 2112;
+        v26 = identifier;
         _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_ERROR, "%{public}@Activity '%@' was ready to run but delegate has died", buf, 0x16u);
       }
 
@@ -203,13 +201,11 @@ LABEL_6:
       [(HMDNetworkRouterFirewallRuleManagerBackingStoreCloudFetchScheduler *)selfCopy3 __transitionActivity:activityCopy state:5];
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __84__HMDNetworkRouterFirewallRuleManagerBackingStoreCloudFetchScheduler___runActivity___block_invoke(uint64_t a1, void *a2)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v5 = objc_autoreleasePoolPush();
@@ -221,13 +217,13 @@ void __84__HMDNetworkRouterFirewallRuleManagerBackingStoreCloudFetchScheduler___
     {
       v8 = HMFGetLogIdentifier();
       v9 = *(a1 + 32);
-      v23 = 138543874;
-      v24 = v8;
-      v25 = 2112;
-      v26 = v9;
-      v27 = 2112;
-      v28 = v3;
-      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Activity '%@' completion handler called with error: %@", &v23, 0x20u);
+      v22 = 138543874;
+      v23 = v8;
+      v24 = 2112;
+      v25 = v9;
+      v26 = 2112;
+      v27 = v3;
+      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Activity '%@' completion handler called with error: %@", &v22, 0x20u);
     }
 
     objc_autoreleasePoolPop(v5);
@@ -263,13 +259,13 @@ void __84__HMDNetworkRouterFirewallRuleManagerBackingStoreCloudFetchScheduler___
     {
       v15 = HMFGetLogIdentifier();
       v16 = *(a1 + 32);
-      v23 = 138543874;
-      v24 = v15;
-      v25 = 2112;
-      v26 = v16;
-      v27 = 2112;
-      v28 = v3;
-      _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_ERROR, "%{public}@Activity '%@' completion handler called after scheduler has died with error: %@", &v23, 0x20u);
+      v22 = 138543874;
+      v23 = v15;
+      v24 = 2112;
+      v25 = v16;
+      v26 = 2112;
+      v27 = v3;
+      _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_ERROR, "%{public}@Activity '%@' completion handler called after scheduler has died with error: %@", &v22, 0x20u);
     }
 
     objc_autoreleasePoolPop(v5);
@@ -281,25 +277,23 @@ void __84__HMDNetworkRouterFirewallRuleManagerBackingStoreCloudFetchScheduler___
       {
         v19 = HMFGetLogIdentifier();
         v20 = *(a1 + 32);
-        v23 = 138543874;
-        v24 = v19;
-        v25 = 2112;
-        v26 = v20;
-        v27 = 2048;
-        v28 = 5;
-        _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_ERROR, "%{public}@Activity '%@' failed to transition to state %ld", &v23, 0x20u);
+        v22 = 138543874;
+        v23 = v19;
+        v24 = 2112;
+        v25 = v20;
+        v26 = 2048;
+        v27 = 5;
+        _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_ERROR, "%{public}@Activity '%@' failed to transition to state %ld", &v22, 0x20u);
       }
 
       objc_autoreleasePoolPop(v17);
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)__checkInActivity:(id)activity
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   activityCopy = activity;
   v5 = xpc_activity_copy_criteria(activityCopy);
   if (v5)
@@ -313,11 +307,11 @@ void __84__HMDNetworkRouterFirewallRuleManagerBackingStoreCloudFetchScheduler___
       v10 = HMFGetLogIdentifier();
       identifier = [(HMDNetworkRouterFirewallRuleManagerBackingStoreCloudFetchScheduler *)selfCopy identifier];
       *buf = 138543874;
-      v29 = v10;
-      v30 = 2112;
-      v31 = identifier;
-      v32 = 2112;
-      v33 = __initialCriteria;
+      v28 = v10;
+      v29 = 2112;
+      v30 = identifier;
+      v31 = 2112;
+      v32 = __initialCriteria;
       _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Activity '%@' resurrected with criteria: %@", buf, 0x20u);
     }
 
@@ -340,11 +334,11 @@ void __84__HMDNetworkRouterFirewallRuleManagerBackingStoreCloudFetchScheduler___
         identifier2 = [(HMDNetworkRouterFirewallRuleManagerBackingStoreCloudFetchScheduler *)selfCopy2 identifier];
         overrideCriteria2 = [(HMDNetworkRouterFirewallRuleManagerBackingStoreCloudFetchScheduler *)selfCopy2 overrideCriteria];
         *buf = 138543874;
-        v29 = v16;
-        v30 = 2112;
-        v31 = identifier2;
-        v32 = 2112;
-        v33 = overrideCriteria2;
+        v28 = v16;
+        v29 = 2112;
+        v30 = identifier2;
+        v31 = 2112;
+        v32 = overrideCriteria2;
         _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_INFO, "%{public}@Activity '%@' applying override criteria: %@", buf, 0x20u);
       }
 
@@ -354,7 +348,7 @@ void __84__HMDNetworkRouterFirewallRuleManagerBackingStoreCloudFetchScheduler___
       applier[1] = 3221225472;
       applier[2] = __88__HMDNetworkRouterFirewallRuleManagerBackingStoreCloudFetchScheduler___checkInActivity___block_invoke;
       applier[3] = &unk_27972B9B8;
-      v27 = __initialCriteria;
+      v26 = __initialCriteria;
       xpc_dictionary_apply(overrideCriteria3, applier);
     }
 
@@ -366,11 +360,11 @@ void __84__HMDNetworkRouterFirewallRuleManagerBackingStoreCloudFetchScheduler___
       v23 = HMFGetLogIdentifier();
       identifier3 = [(HMDNetworkRouterFirewallRuleManagerBackingStoreCloudFetchScheduler *)selfCopy3 identifier];
       *buf = 138543874;
-      v29 = v23;
-      v30 = 2112;
-      v31 = identifier3;
-      v32 = 2112;
-      v33 = __initialCriteria;
+      v28 = v23;
+      v29 = 2112;
+      v30 = identifier3;
+      v31 = 2112;
+      v32 = __initialCriteria;
       _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_INFO, "%{public}@Activity '%@' created for the first time with criteria: %@", buf, 0x20u);
     }
 
@@ -379,13 +373,11 @@ void __84__HMDNetworkRouterFirewallRuleManagerBackingStoreCloudFetchScheduler___
   }
 
   self->_currentInterval = xpc_dictionary_get_int64(__initialCriteria, *MEMORY[0x277D86288]);
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)__registerActivity
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   identifier = [(HMDNetworkRouterFirewallRuleManagerBackingStoreCloudFetchScheduler *)self identifier];
   v4 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -394,9 +386,9 @@ void __84__HMDNetworkRouterFirewallRuleManagerBackingStoreCloudFetchScheduler___
   {
     v7 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v17 = v7;
-    v18 = 2112;
-    v19 = identifier;
+    v16 = v7;
+    v17 = 2112;
+    v18 = identifier;
     _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Registering activity '%@'", buf, 0x16u);
   }
 
@@ -404,25 +396,23 @@ void __84__HMDNetworkRouterFirewallRuleManagerBackingStoreCloudFetchScheduler___
   objc_initWeak(buf, selfCopy);
   v8 = identifier;
   uTF8String = [identifier UTF8String];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __88__HMDNetworkRouterFirewallRuleManagerBackingStoreCloudFetchScheduler___registerActivity__block_invoke;
-  v13[3] = &unk_27972B990;
-  objc_copyWeak(&v15, buf);
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __88__HMDNetworkRouterFirewallRuleManagerBackingStoreCloudFetchScheduler___registerActivity__block_invoke;
+  v12[3] = &unk_27972B990;
+  objc_copyWeak(&v14, buf);
   v10 = *MEMORY[0x277D86238];
   v11 = identifier;
-  v14 = v11;
-  xpc_activity_register(uTF8String, v10, v13);
+  v13 = v11;
+  xpc_activity_register(uTF8String, v10, v12);
 
-  objc_destroyWeak(&v15);
+  objc_destroyWeak(&v14);
   objc_destroyWeak(buf);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __88__HMDNetworkRouterFirewallRuleManagerBackingStoreCloudFetchScheduler___registerActivity__block_invoke(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (!WeakRetained)
@@ -433,11 +423,11 @@ void __88__HMDNetworkRouterFirewallRuleManagerBackingStoreCloudFetchScheduler___
     {
       v9 = HMFGetLogIdentifier();
       v10 = *(a1 + 32);
-      v15 = 138543618;
-      v16 = v9;
-      v17 = 2112;
-      v18 = v10;
-      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_ERROR, "%{public}@Activity '%@' handler ran after scheduler has died", &v15, 0x16u);
+      v14 = 138543618;
+      v15 = v9;
+      v16 = 2112;
+      v17 = v10;
+      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_ERROR, "%{public}@Activity '%@' handler ran after scheduler has died", &v14, 0x16u);
     }
 
     goto LABEL_11;
@@ -460,13 +450,13 @@ void __88__HMDNetworkRouterFirewallRuleManagerBackingStoreCloudFetchScheduler___
     {
       v12 = HMFGetLogIdentifier();
       v13 = *(a1 + 32);
-      v15 = 138543874;
-      v16 = v12;
-      v17 = 2112;
-      v18 = v13;
-      v19 = 2048;
-      v20 = v6;
-      _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_ERROR, "%{public}@Activity %@ callback with unhandled state: %ld", &v15, 0x20u);
+      v14 = 138543874;
+      v15 = v12;
+      v16 = 2112;
+      v17 = v13;
+      v18 = 2048;
+      v19 = v6;
+      _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_ERROR, "%{public}@Activity %@ callback with unhandled state: %ld", &v14, 0x20u);
     }
 
 LABEL_11:
@@ -476,8 +466,6 @@ LABEL_11:
 
   [WeakRetained __checkInActivity:v3];
 LABEL_12:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)__initialCriteria
@@ -515,7 +503,7 @@ LABEL_12:
 
 - (void)dealloc
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (self->_running)
   {
     v3 = objc_autoreleasePoolPush();
@@ -526,9 +514,9 @@ LABEL_12:
       v6 = HMFGetLogIdentifier();
       identifier = selfCopy->_identifier;
       *buf = 138543618;
-      v11 = v6;
-      v12 = 2112;
-      v13 = identifier;
+      v10 = v6;
+      v11 = 2112;
+      v12 = identifier;
       _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_ERROR, "%{public}@Scheduler dying while activity '%@' was still active", buf, 0x16u);
     }
 
@@ -536,10 +524,9 @@ LABEL_12:
     [objc_opt_class() __unregisterActivity:selfCopy->_identifier];
   }
 
-  v9.receiver = self;
-  v9.super_class = HMDNetworkRouterFirewallRuleManagerBackingStoreCloudFetchScheduler;
-  [(HMDNetworkRouterFirewallRuleManagerBackingStoreCloudFetchScheduler *)&v9 dealloc];
-  v8 = *MEMORY[0x277D85DE8];
+  v8.receiver = self;
+  v8.super_class = HMDNetworkRouterFirewallRuleManagerBackingStoreCloudFetchScheduler;
+  [(HMDNetworkRouterFirewallRuleManagerBackingStoreCloudFetchScheduler *)&v8 dealloc];
 }
 
 - (HMDNetworkRouterFirewallRuleManagerBackingStoreCloudFetchScheduler)initWithIdentifier:(id)identifier interval:(double)interval retryInterval:(double)retryInterval delegate:(id)delegate
@@ -584,12 +571,11 @@ LABEL_12:
 
 uint64_t __81__HMDNetworkRouterFirewallRuleManagerBackingStoreCloudFetchScheduler_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v1_116513;
-  logCategory__hmf_once_v1_116513 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v1_116513;
+  logCategory__hmf_once_v1_116513 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

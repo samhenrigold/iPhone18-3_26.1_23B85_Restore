@@ -1,4 +1,5 @@
 @interface RPNearFieldPassiveClient
+- (void)receivedAlwaysOnEventWithSuggestedRole:(unsigned int)role;
 - (void)startDiscoveryWithApplicationLabels:(id)labels completion:(id)completion;
 @end
 
@@ -33,7 +34,7 @@ void __75__RPNearFieldPassiveClient_startDiscoveryWithApplicationLabels_completi
   v5 = a2;
   if (gLogCategory_RPNearFieldClient <= 90 && (gLogCategory_RPNearFieldClient != -1 || _LogCategory_Initialize()))
   {
-    __75__RPNearFieldPassiveClient_startDiscoveryWithApplicationLabels_completion___block_invoke_cold_1();
+    __75__RPNearFieldPassiveClient_startDiscoveryWithApplicationLabels_completion___block_invoke_cold_1(v5);
   }
 
   v3 = _Block_copy(*(a1 + 32));
@@ -46,13 +47,12 @@ void __75__RPNearFieldPassiveClient_startDiscoveryWithApplicationLabels_completi
 
 void __75__RPNearFieldPassiveClient_startDiscoveryWithApplicationLabels_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v6 = a2;
-  if (v6)
+  v5 = a2;
+  if (v5)
   {
     if (gLogCategory_RPNearFieldClient <= 90 && (gLogCategory_RPNearFieldClient != -1 || _LogCategory_Initialize()))
     {
-      v5 = *(a1 + 32);
-      LogPrintF();
+      LogPrintF(&gLogCategory_RPNearFieldClient, "[RPNearFieldPassiveClient startDiscoveryWithApplicationLabels:completion:]_block_invoke_2", 90, "### Start Passive Discovery with application labels: %@ failed: %{error}\n", *(a1 + 32), v5);
     }
   }
 
@@ -65,7 +65,19 @@ void __75__RPNearFieldPassiveClient_startDiscoveryWithApplicationLabels_completi
   v4 = v3;
   if (v3)
   {
-    (*(v3 + 2))(v3, v6);
+    (*(v3 + 2))(v3, v5);
+  }
+}
+
+- (void)receivedAlwaysOnEventWithSuggestedRole:(unsigned int)role
+{
+  v3 = *&role;
+  v4 = _Block_copy(self->_alwaysOnHandler);
+  if (v4)
+  {
+    v5 = v4;
+    (*(v4 + 2))(v4, v3);
+    v4 = v5;
   }
 }
 

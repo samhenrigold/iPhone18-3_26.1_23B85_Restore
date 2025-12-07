@@ -26,7 +26,7 @@ void ___AAURLSessionSharedCache_block_invoke(uint64_t a1)
   if (v6)
   {
     v7 = v6;
-    v8 = _AALogSystem();
+    v8 = _AALogSystem(v6);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       ___AAURLSessionSharedCache_block_invoke_cold_1();
@@ -34,14 +34,6 @@ void ___AAURLSessionSharedCache_block_invoke(uint64_t a1)
 
     CFRelease(v7);
   }
-}
-
-void ___AAURLSessionSharedCache_block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_4_0(&dword_1B6F6A000, v0, v1, "Using shared cache at path: %{private}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -9,10 +9,10 @@
 
 - (MFHideMyEmailBannerView)initWithFrame:(CGRect)frame
 {
-  v26[1] = *MEMORY[0x277D85DE8];
-  v25.receiver = self;
-  v25.super_class = MFHideMyEmailBannerView;
-  v3 = [(MFSuggestionBannerView *)&v25 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+  v25[1] = *MEMORY[0x277D85DE8];
+  v24.receiver = self;
+  v24.super_class = MFHideMyEmailBannerView;
+  v3 = [(MFSuggestionBannerView *)&v24 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
   if (v3)
   {
     v4 = objc_alloc_init(MEMORY[0x277D025D0]);
@@ -32,37 +32,36 @@
     [v4 setActionButtonType:0];
     mailInteractiveColor = [MEMORY[0x277D75348] mailInteractiveColor];
     v12 = [MFSuggestionBannerView bannerIconViewForSymbol:*MEMORY[0x277D259C0] tintColor:mailInteractiveColor];
-    v26[0] = v12;
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:1];
+    v25[0] = v12;
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
     [v4 setImageSGViews:v13];
 
     objc_initWeak(&location, v3);
     v14 = MEMORY[0x277D025D8];
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __41__MFHideMyEmailBannerView_initWithFrame___block_invoke;
-    v22[3] = &unk_2781819F8;
-    objc_copyWeak(&v23, &location);
-    v15 = [v14 actionWithTitle:&stru_2826D1AD8 handler:v22];
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __41__MFHideMyEmailBannerView_initWithFrame___block_invoke;
+    v21[3] = &unk_2781819F8;
+    objc_copyWeak(&v22, &location);
+    v15 = [v14 actionWithTitle:&stru_2826D1AD8 handler:v21];
     [v4 setPrimaryAction:v15];
 
     v16 = MEMORY[0x277D025D8];
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __41__MFHideMyEmailBannerView_initWithFrame___block_invoke_2;
-    v20[3] = &unk_2781819F8;
-    objc_copyWeak(&v21, &location);
-    v17 = [v16 actionWithTitle:&stru_2826D1AD8 handler:v20];
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __41__MFHideMyEmailBannerView_initWithFrame___block_invoke_2;
+    v19[3] = &unk_2781819F8;
+    objc_copyWeak(&v20, &location);
+    v17 = [v16 actionWithTitle:&stru_2826D1AD8 handler:v19];
     [v4 setDismissAction:v17];
 
     [(MFSuggestionBannerView *)v3 setBanner:v4];
     [v4 reload];
-    objc_destroyWeak(&v21);
-    objc_destroyWeak(&v23);
+    objc_destroyWeak(&v20);
+    objc_destroyWeak(&v22);
     objc_destroyWeak(&location);
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v3;
 }
 

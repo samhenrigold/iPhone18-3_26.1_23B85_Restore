@@ -173,11 +173,11 @@ LABEL_22:
 
 - (SFContactImage)initWithProtobuf:(id)protobuf
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   protobufCopy = protobuf;
-  v22.receiver = self;
-  v22.super_class = SFContactImage;
-  v5 = [(SFContactImage *)&v22 init];
+  v21.receiver = self;
+  v21.super_class = SFContactImage;
+  v5 = [(SFContactImage *)&v21 init];
   if (v5)
   {
     contactIdentifiers = [protobufCopy contactIdentifiers];
@@ -191,32 +191,32 @@ LABEL_22:
       v7 = 0;
     }
 
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     contactIdentifiers2 = [protobufCopy contactIdentifiers];
-    v9 = [contactIdentifiers2 countByEnumeratingWithState:&v18 objects:v23 count:16];
+    v9 = [contactIdentifiers2 countByEnumeratingWithState:&v17 objects:v22 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v19;
+      v11 = *v18;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v19 != v11)
+          if (*v18 != v11)
           {
             objc_enumerationMutation(contactIdentifiers2);
           }
 
-          if (*(*(&v18 + 1) + 8 * i))
+          if (*(*(&v17 + 1) + 8 * i))
           {
             [v7 addObject:?];
           }
         }
 
-        v10 = [contactIdentifiers2 countByEnumeratingWithState:&v18 objects:v23 count:16];
+        v10 = [contactIdentifiers2 countByEnumeratingWithState:&v17 objects:v22 count:16];
       }
 
       while (v10);
@@ -239,7 +239,6 @@ LABEL_22:
     v15 = v5;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

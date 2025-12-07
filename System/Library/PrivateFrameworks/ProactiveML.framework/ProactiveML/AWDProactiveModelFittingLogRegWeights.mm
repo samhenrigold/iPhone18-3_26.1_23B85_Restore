@@ -282,7 +282,6 @@ LABEL_33:
     goto LABEL_29;
   }
 
-  v5 = *(equalCopy + 72);
   if (*&self->_has)
   {
     if ((*(equalCopy + 72) & 1) == 0 || self->_timestamp != *(equalCopy + 1))
@@ -294,7 +293,7 @@ LABEL_33:
   else if (*(equalCopy + 72))
   {
 LABEL_29:
-    v13 = 0;
+    v11 = 0;
     goto LABEL_30;
   }
 
@@ -340,7 +339,6 @@ LABEL_29:
     }
   }
 
-  v11 = *(equalCopy + 72);
   if ((*&self->_has & 4) != 0)
   {
     if ((*(equalCopy + 72) & 4) == 0 || self->_weightsScaleFactor != *(equalCopy + 17))
@@ -370,17 +368,17 @@ LABEL_29:
   denseQuantizedWeights = self->_denseQuantizedWeights;
   if (denseQuantizedWeights | *(equalCopy + 2))
   {
-    v13 = [(AWDProactiveModelFittingQuantizedDenseVector *)denseQuantizedWeights isEqual:?];
+    v11 = [(AWDProactiveModelFittingQuantizedDenseVector *)denseQuantizedWeights isEqual:?];
   }
 
   else
   {
-    v13 = 1;
+    v11 = 1;
   }
 
 LABEL_30:
 
-  return v13;
+  return v11;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -498,64 +496,61 @@ LABEL_30:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v9 = toCopy;
+  v6 = toCopy;
   if (*&self->_has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_modelInfo)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_sparseFloatWeights)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_minibatchStats)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_evaluationMetrics)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_sparseQuantizedWeights)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 4) != 0)
   {
-    weightsScaleFactor = self->_weightsScaleFactor;
     PBDataWriterWriteFloatField();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    weightsL2norm = self->_weightsL2norm;
     PBDataWriterWriteFloatField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_denseQuantizedWeights)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 }
 

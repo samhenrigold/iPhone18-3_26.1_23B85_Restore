@@ -67,7 +67,7 @@ void __20__CISampler_dealloc__block_invoke_2(uint64_t a1)
 
 - (CISampler)init
 {
-  v3 = ci_logger_api();
+  v3 = ci_logger_api(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     [(CISampler *)v3 init];
@@ -78,47 +78,48 @@ void __20__CISampler_dealloc__block_invoke_2(uint64_t a1)
 
 - (id)_initWithImage:(id)image key0:(id)key0 vargs:(char *)vargs
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   vargsCopy = vargs;
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   if (key0)
   {
     *&v9 = 138543362;
-    v20 = v9;
+    v24 = v9;
     do
     {
       objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) == 0)
+      isKindOfClass = objc_opt_isKindOfClass();
+      if ((isKindOfClass & 1) == 0)
       {
-        v13 = ci_logger_api();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+        v17 = ci_logger_api(isKindOfClass, v11);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
-          [CISampler _initWithImage:v22 key0:v13 vargs:?];
+          [CISampler _initWithImage:v26 key0:v17 vargs:?];
         }
 
         goto LABEL_13;
       }
 
-      v10 = vargsCopy;
+      v12 = vargsCopy;
       vargsCopy += 8;
-      v11 = *v10;
-      if (*v10)
+      v13 = *v12;
+      if (*v12)
       {
         objc_opt_class();
-        if ((objc_opt_isKindOfClass() & 1) != 0 || (v12 = CFGetTypeID(v11), v12 == CGColorSpaceGetTypeID()))
+        if ((objc_opt_isKindOfClass() & 1) != 0 || (v14 = CFGetTypeID(v13), TypeID = CGColorSpaceGetTypeID(), v14 == TypeID))
         {
-          [dictionary setValue:v11 forKey:{key0, v20}];
+          [dictionary setValue:v13 forKey:{key0, v24}];
         }
 
         else
         {
-          v17 = ci_logger_api();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+          v21 = ci_logger_api(TypeID, v16);
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
           {
-            *buf = v20;
+            *buf = v24;
             key0Copy2 = key0;
-            v15 = v17;
-            v16 = "CISampler value for key '%{public}@' must be a NSObject or a CGColorSpaceRef. Skipping.";
+            v19 = v21;
+            v20 = "CISampler value for key '%{public}@' must be a NSObject or a CGColorSpaceRef. Skipping.";
             goto LABEL_16;
           }
         }
@@ -126,33 +127,33 @@ void __20__CISampler_dealloc__block_invoke_2(uint64_t a1)
 
       else
       {
-        v14 = ci_logger_api();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+        v18 = ci_logger_api(isKindOfClass, v11);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
-          *buf = v20;
+          *buf = v24;
           key0Copy2 = key0;
-          v15 = v14;
-          v16 = "CISampler value for key '%{public}@' is nil. Skipping.";
+          v19 = v18;
+          v20 = "CISampler value for key '%{public}@' is nil. Skipping.";
 LABEL_16:
-          _os_log_error_impl(&dword_19CC36000, v15, OS_LOG_TYPE_ERROR, v16, buf, 0xCu);
+          _os_log_error_impl(&dword_19CC36000, v19, OS_LOG_TYPE_ERROR, v20, buf, 0xCu);
         }
       }
 
 LABEL_13:
-      v18 = vargsCopy;
+      v22 = vargsCopy;
       vargsCopy += 8;
-      key0 = *v18;
+      key0 = *v22;
     }
 
-    while (*v18);
+    while (*v22);
   }
 
-  return [(CISampler *)self initWithImage:image options:dictionary, v20];
+  return [(CISampler *)self initWithImage:image options:dictionary, v24];
 }
 
 - (CISampler)initWithImage:(CIImage *)im options:(NSDictionary *)dict
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   if (!im)
   {
 LABEL_44:
@@ -165,54 +166,56 @@ LABEL_44:
   v8 = fmax(v7, 0.0);
   if (v8 > 0.0)
   {
-    if ([(NSDictionary *)dict valueForKey:@"blur_format"])
+    v9 = [(NSDictionary *)dict valueForKey:@"blur_format"];
+    if (v9)
     {
-      v9 = ci_logger_api();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+      v11 = ci_logger_api(v9, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
         *buf = 136446210;
         *&buf[4] = "[CISampler initWithImage:options:]";
-        _os_log_impl(&dword_19CC36000, v9, OS_LOG_TYPE_INFO, "%{public}s ignoring kCISamplerBlurFormat because it is not supported.", buf, 0xCu);
+        _os_log_impl(&dword_19CC36000, v11, OS_LOG_TYPE_INFO, "%{public}s ignoring kCISamplerBlurFormat because it is not supported.", buf, 0xCu);
       }
     }
 
     imageByClampingToExtent = [(CIImage *)imageByClampingToExtent imageByApplyingGaussianBlurWithSigma:v8];
   }
 
-  v10 = [(NSDictionary *)dict valueForKey:@"wrap_mode"];
-  if (v10)
+  v12 = [(NSDictionary *)dict valueForKey:@"wrap_mode"];
+  if (v12)
   {
-    v11 = v10;
-    if ([v10 isEqual:@"clamp"])
+    v13 = v12;
+    if ([v12 isEqual:@"clamp"])
     {
       [(CIImage *)imageByClampingToExtent extent];
-      if (!CGRectIsInfinite(v41))
+      if (!CGRectIsInfinite(v49))
       {
         imageByClampingToExtent = [(CIImage *)imageByClampingToExtent imageByClampingToExtent];
       }
     }
 
-    if ([v11 isEqual:@"periodic"])
+    if ([v13 isEqual:@"periodic"])
     {
       [(CIImage *)imageByClampingToExtent extent];
-      if (!CGRectIsInfinite(v42))
+      IsInfinite = CGRectIsInfinite(v50);
+      if (!IsInfinite)
       {
-        v12 = ci_logger_api();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+        v16 = ci_logger_api(IsInfinite, v15);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
         {
           *buf = 136446210;
           *&buf[4] = "[CISampler initWithImage:options:]";
-          _os_log_impl(&dword_19CC36000, v12, OS_LOG_TYPE_INFO, "%{public}s ignoring kCISamplerWrapPeriodic because it is not supported.", buf, 0xCu);
+          _os_log_impl(&dword_19CC36000, v16, OS_LOG_TYPE_INFO, "%{public}s ignoring kCISamplerWrapPeriodic because it is not supported.", buf, 0xCu);
         }
       }
     }
   }
 
-  v13 = [(NSDictionary *)dict valueForKey:@"filter_mode"];
-  if (v13)
+  v17 = [(NSDictionary *)dict valueForKey:@"filter_mode"];
+  if (v17)
   {
-    v14 = v13;
-    if ([v13 isEqual:@"nearest"])
+    v18 = v17;
+    if ([v17 isEqual:@"nearest"])
     {
       imageBySamplingNearest = [(CIImage *)imageByClampingToExtent imageBySamplingNearest];
 LABEL_18:
@@ -220,7 +223,7 @@ LABEL_18:
       goto LABEL_22;
     }
 
-    if (([v14 isEqual:@"point"] & 1) == 0 && objc_msgSend(v14, "isEqual:", @"linear"))
+    if (([v18 isEqual:@"point"] & 1) == 0 && objc_msgSend(v18, "isEqual:", @"linear"))
     {
       imageBySamplingNearest = [(CIImage *)imageByClampingToExtent imageBySamplingLinear];
       goto LABEL_18;
@@ -228,29 +231,29 @@ LABEL_18:
   }
 
 LABEL_22:
-  v16 = [(NSDictionary *)dict valueForKey:@"affine_matrix"];
-  if (!v16)
+  v20 = [(NSDictionary *)dict valueForKey:@"affine_matrix"];
+  if (!v20)
   {
     goto LABEL_35;
   }
 
-  v17 = v16;
-  v18 = *(MEMORY[0x1E695EFD0] + 16);
-  v35 = *MEMORY[0x1E695EFD0];
-  v36 = v18;
-  v37 = *(MEMORY[0x1E695EFD0] + 32);
+  v21 = v20;
+  v22 = *(MEMORY[0x1E695EFD0] + 16);
+  v43 = *MEMORY[0x1E695EFD0];
+  v44 = v22;
+  v45 = *(MEMORY[0x1E695EFD0] + 32);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    objCType = [v17 objCType];
-    if (!strcmp(objCType, "{CGAffineTransform=dddddd}") || !strcmp(objCType, "{?=dddddd}"))
+    objCType = [v21 objCType];
+    if (!strcmp(objCType, "{CGAffineTransform=dddddd}") || (isKindOfClass = strcmp(objCType, "{?=dddddd}"), !isKindOfClass))
     {
-      [v17 getValue:&v35 size:48];
+      [v21 getValue:&v43 size:48];
 LABEL_29:
-      *buf = v35;
-      *&buf[16] = v36;
-      v39 = v37;
-      imageByClampingToExtent = [(CIImage *)imageByClampingToExtent imageByApplyingTransform:buf, v35];
+      *buf = v43;
+      *&buf[16] = v44;
+      v47 = v45;
+      imageByClampingToExtent = [(CIImage *)imageByClampingToExtent imageByApplyingTransform:buf, v43];
       goto LABEL_35;
     }
   }
@@ -260,63 +263,69 @@ LABEL_29:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v39 = 0u;
+      v47 = 0u;
       memset(buf, 0, sizeof(buf));
-      [v17 transformStruct];
-      v35 = *buf;
-      v36 = *&buf[16];
-      v37 = v39;
+      objc_msgSend_transformStruct(v21);
+      v43 = *buf;
+      v44 = *&buf[16];
+      v45 = v47;
       goto LABEL_29;
     }
 
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) != 0 && [v17 count] == 6)
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      [objc_msgSend(v17 objectAtIndex:{0), "doubleValue"}];
-      *&v35 = v20;
-      [objc_msgSend(v17 objectAtIndex:{1), "doubleValue"}];
-      *(&v35 + 1) = v21;
-      [objc_msgSend(v17 objectAtIndex:{2), "doubleValue"}];
-      *&v36 = v22;
-      [objc_msgSend(v17 objectAtIndex:{3), "doubleValue"}];
-      *(&v36 + 1) = v23;
-      [objc_msgSend(v17 objectAtIndex:{4), "doubleValue"}];
-      *&v37 = v24;
-      [objc_msgSend(v17 objectAtIndex:{5), "doubleValue"}];
-      *(&v37 + 1) = v25;
-      goto LABEL_29;
+      isKindOfClass = [v21 count];
+      if (isKindOfClass == 6)
+      {
+        [objc_msgSend(v21 objectAtIndex:{0), "doubleValue"}];
+        *&v43 = v26;
+        [objc_msgSend(v21 objectAtIndex:{1), "doubleValue"}];
+        *(&v43 + 1) = v27;
+        [objc_msgSend(v21 objectAtIndex:{2), "doubleValue"}];
+        *&v44 = v28;
+        [objc_msgSend(v21 objectAtIndex:{3), "doubleValue"}];
+        *(&v44 + 1) = v29;
+        [objc_msgSend(v21 objectAtIndex:{4), "doubleValue"}];
+        *&v45 = v30;
+        [objc_msgSend(v21 objectAtIndex:{5), "doubleValue"}];
+        *(&v45 + 1) = v31;
+        goto LABEL_29;
+      }
     }
   }
 
-  v26 = ci_logger_api();
-  if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+  v32 = ci_logger_api(isKindOfClass, v25);
+  if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
   {
-    v27 = [v17 description];
+    v33 = [v21 description];
     *buf = 136446466;
     *&buf[4] = "[CISampler initWithImage:options:]";
     *&buf[12] = 2114;
-    *&buf[14] = v27;
-    _os_log_impl(&dword_19CC36000, v26, OS_LOG_TYPE_INFO, "%{public}s ignoring kCISamplerAffineMatrix value because it is not a valid object '%{public}@'.", buf, 0x16u);
+    *&buf[14] = v33;
+    _os_log_impl(&dword_19CC36000, v32, OS_LOG_TYPE_INFO, "%{public}s ignoring kCISamplerAffineMatrix value because it is not a valid object '%{public}@'.", buf, 0x16u);
   }
 
 LABEL_35:
-  v28 = [(NSDictionary *)dict valueForKey:@"color_space", v35];
-  if (v28)
+  v34 = [(NSDictionary *)dict valueForKey:@"color_space", v43];
+  if (v34)
   {
-    v30 = v28;
-    if (CI::ColorSpace_is_RGB_and_supports_output(v28, v29))
+    v36 = v34;
+    is_RGB_and_supports_output = CI::ColorSpace_is_RGB_and_supports_output(v34, v35);
+    if (is_RGB_and_supports_output)
     {
-      imageByClampingToExtent = [(CIImage *)imageByClampingToExtent imageByColorMatchingWorkingSpaceToColorSpace:v30];
+      imageByClampingToExtent = [(CIImage *)imageByClampingToExtent imageByColorMatchingWorkingSpaceToColorSpace:v36];
     }
 
     else
     {
-      v31 = ci_logger_api();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
+      v39 = ci_logger_api(is_RGB_and_supports_output, v38);
+      if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
       {
         *buf = 136446210;
         *&buf[4] = "[CISampler initWithImage:options:]";
-        _os_log_impl(&dword_19CC36000, v31, OS_LOG_TYPE_INFO, "%{public}s ignoring kCISamplerColorSpace value because it is not an RGB CGColorSpaceRef that supports output.", buf, 0xCu);
+        _os_log_impl(&dword_19CC36000, v39, OS_LOG_TYPE_INFO, "%{public}s ignoring kCISamplerColorSpace value because it is not an RGB CGColorSpaceRef that supports output.", buf, 0xCu);
       }
     }
   }
@@ -327,13 +336,13 @@ LABEL_35:
   }
 
   _internalRepresentation = [(CIImage *)imageByClampingToExtent _internalRepresentation];
-  v33 = _internalRepresentation;
+  v41 = _internalRepresentation;
   if (_internalRepresentation)
   {
     CI::Object::ref(_internalRepresentation);
   }
 
-  self->_priv = v33;
+  self->_priv = v41;
   return self;
 }
 

@@ -9,7 +9,7 @@
 
 @implementation AMSSQLiteSchema
 
-uint64_t __37__AMSSQLiteSchema_currentUserVersion__block_invoke(uint64_t a1, void *a2)
+void *__37__AMSSQLiteSchema_currentUserVersion__block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 firstInt64Value];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -86,7 +86,7 @@ void __40__AMSSQLiteSchema_column_existsInTable___block_invoke(uint64_t a1, void
   [a2 enumerateRowsUsingBlock:v5];
 }
 
-void __40__AMSSQLiteSchema_column_existsInTable___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void __40__AMSSQLiteSchema_column_existsInTable___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, unsigned __int8 *a4)
 {
   v7 = [a2 stringForColumnName:@"name"];
   v6 = [v7 isEqualToString:*(a1 + 32)];

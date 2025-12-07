@@ -227,12 +227,11 @@ LABEL_12:
 {
   toCopy = to;
   has = self->_has;
-  v14 = toCopy;
+  v7 = toCopy;
   if ((has & 8) != 0)
   {
-    type = self->_type;
     PBDataWriterWriteInt64Field();
-    toCopy = v14;
+    toCopy = v7;
     has = self->_has;
     if ((has & 0x20) == 0)
     {
@@ -251,9 +250,8 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  version = self->_version;
   PBDataWriterWriteInt64Field();
-  toCopy = v14;
+  toCopy = v7;
   has = self->_has;
   if ((has & 4) == 0)
   {
@@ -267,35 +265,32 @@ LABEL_4:
   }
 
 LABEL_19:
-  timestamp = self->_timestamp;
   PBDataWriterWriteDoubleField();
-  toCopy = v14;
+  toCopy = v7;
   if ((*&self->_has & 0x10) != 0)
   {
 LABEL_5:
-    valueType = self->_valueType;
     PBDataWriterWriteInt64Field();
-    toCopy = v14;
+    toCopy = v7;
   }
 
 LABEL_6:
   if (self->_stringValue)
   {
     PBDataWriterWriteStringField();
-    toCopy = v14;
+    toCopy = v7;
   }
 
-  v7 = self->_has;
-  if (v7)
+  v6 = self->_has;
+  if (v6)
   {
-    doubleValue = self->_doubleValue;
     PBDataWriterWriteDoubleField();
-    toCopy = v14;
-    v7 = self->_has;
-    if ((v7 & 2) == 0)
+    toCopy = v7;
+    v6 = self->_has;
+    if ((v6 & 2) == 0)
     {
 LABEL_10:
-      if ((v7 & 0x40) == 0)
+      if ((v6 & 0x40) == 0)
       {
         goto LABEL_12;
       }
@@ -309,22 +304,20 @@ LABEL_10:
     goto LABEL_10;
   }
 
-  integerValue = self->_integerValue;
   PBDataWriterWriteInt64Field();
-  toCopy = v14;
+  toCopy = v7;
   if ((*&self->_has & 0x40) != 0)
   {
 LABEL_11:
-    BOOLValue = self->_BOOLValue;
     PBDataWriterWriteBOOLField();
-    toCopy = v14;
+    toCopy = v7;
   }
 
 LABEL_12:
   if (self->_dataValue)
   {
     PBDataWriterWriteDataField();
-    toCopy = v14;
+    toCopy = v7;
   }
 }
 
@@ -642,7 +635,6 @@ LABEL_40:
     goto LABEL_40;
   }
 
-  v11 = *(equalCopy + 72);
   if (self->_BOOLValue)
   {
     if ((*(equalCopy + 72) & 1) == 0)

@@ -318,28 +318,29 @@ void __57__REUIDonatedElementProperties_loadForAction_completion___block_invoke_
 {
   v5 = a2;
   v6 = a3;
-  if (RelevanceEngineLibraryCore())
+  if (RelevanceEngineLibraryCore(0))
   {
     v7 = v6;
-    v14 = 0;
-    v15 = &v14;
-    v16 = 0x2020000000;
+    v15 = 0;
+    v16 = &v15;
+    v17 = 0x2020000000;
     v8 = getREIntentBySimplifyingParametersForIntentSymbolLoc_ptr;
-    v17 = getREIntentBySimplifyingParametersForIntentSymbolLoc_ptr;
+    v18 = getREIntentBySimplifyingParametersForIntentSymbolLoc_ptr;
     if (!getREIntentBySimplifyingParametersForIntentSymbolLoc_ptr)
     {
       v9 = RelevanceEngineLibrary();
-      v15[3] = dlsym(v9, "REIntentBySimplifyingParametersForIntent");
-      getREIntentBySimplifyingParametersForIntentSymbolLoc_ptr = v15[3];
-      v8 = v15[3];
+      v16[3] = dlsym(v9, "REIntentBySimplifyingParametersForIntent");
+      getREIntentBySimplifyingParametersForIntentSymbolLoc_ptr = v16[3];
+      v8 = v16[3];
     }
 
-    _Block_object_dispose(&v14, 8);
+    _Block_object_dispose(&v15, 8);
     if (!v8)
     {
-      v13 = softRESampleRelevanceProviderForPosition_cold_1();
-      _Block_object_dispose(&v14, 8);
-      _Unwind_Resume(v13);
+      softRESampleRelevanceProviderForPosition_cold_1();
+      v14 = v13;
+      _Block_object_dispose(&v15, 8);
+      _Unwind_Resume(v14);
     }
 
     v10 = v8(v7);
@@ -590,18 +591,16 @@ void __57__REUIDonatedElementProperties_loadForAction_completion___block_invoke_
 
 void __65__REUIDonatedElementProperties__placeholderImageNameForBundleID___block_invoke()
 {
-  v4[3] = *MEMORY[0x277D85DE8];
-  v3[0] = @"com.apple.Music";
-  v3[1] = @"com.apple.podcasts";
-  v4[0] = @"Med Music";
-  v4[1] = @"Med Podcasts";
-  v3[2] = @"com.apple.NanoRadio";
-  v4[2] = @"Med Radio";
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:3];
+  v3[3] = *MEMORY[0x277D85DE8];
+  v2[0] = @"com.apple.Music";
+  v2[1] = @"com.apple.podcasts";
+  v3[0] = @"Med Music";
+  v3[1] = @"Med Podcasts";
+  v2[2] = @"com.apple.NanoRadio";
+  v3[2] = @"Med Radio";
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:v2 count:3];
   v1 = _placeholderImageNameForBundleID__bundleIDToImageName;
   _placeholderImageNameForBundleID__bundleIDToImageName = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (UIImage)bodyImage
@@ -971,7 +970,7 @@ LABEL_9:
   if (v32)
   {
     localBundleIdentifier = [(REUIDonatedElementProperties *)self localBundleIdentifier];
-    if (RelevanceEngineLibraryCore())
+    if (RelevanceEngineLibraryCore(0))
     {
       v60 = 0;
       v61 = &v60;
@@ -1012,7 +1011,7 @@ LABEL_9:
 
     else
     {
-      if (RelevanceEngineLibraryCore())
+      if (RelevanceEngineLibraryCore(0))
       {
         v60 = 0;
         v61 = &v60;
@@ -1155,8 +1154,7 @@ uint64_t __72__REUIDonatedElementProperties__loadAppContentPropertiesWithComplet
 
 void __72__REUIDonatedElementProperties__loadAppContentPropertiesWithCompletion___block_invoke_5(uint64_t a1, void *a2)
 {
-  v4 = [a2 image];
-  v3 = *(a1 + 32);
+  v3 = [a2 image];
   (*(*(a1 + 40) + 16))();
 }
 

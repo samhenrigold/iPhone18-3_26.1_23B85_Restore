@@ -2,7 +2,11 @@
 - (BOOL)isEqual:(id)equal;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
+- (id)deviceSubTypeAsString:(int)string;
+- (id)deviceTypeAsString:(int)string;
 - (id)dictionaryRepresentation;
+- (id)hostDeviceClassAsString:(int)string;
+- (id)transportTypeAsString:(int)string;
 - (int)StringAsDeviceSubType:(id)type;
 - (int)StringAsDeviceType:(id)type;
 - (int)StringAsHostDeviceClass:(id)class;
@@ -119,7 +123,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v146 = *MEMORY[0x1E69E9840];
+  v145 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   v5 = dictionary;
   name = self->_name;
@@ -582,30 +586,30 @@ LABEL_67:
   if ([(NSMutableArray *)self->_clusterCompositions count])
   {
     v41 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSMutableArray count](self->_clusterCompositions, "count")}];
+    v138 = 0u;
     v139 = 0u;
     v140 = 0u;
     v141 = 0u;
-    v142 = 0u;
     v42 = self->_clusterCompositions;
-    v43 = [(NSMutableArray *)v42 countByEnumeratingWithState:&v139 objects:v145 count:16];
+    v43 = [(NSMutableArray *)v42 countByEnumeratingWithState:&v138 objects:v144 count:16];
     if (v43)
     {
       v44 = v43;
-      v45 = *v140;
+      v45 = *v139;
       do
       {
         for (i = 0; i != v44; ++i)
         {
-          if (*v140 != v45)
+          if (*v139 != v45)
           {
             objc_enumerationMutation(v42);
           }
 
-          dictionaryRepresentation2 = [*(*(&v139 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation2 = [*(*(&v138 + 1) + 8 * i) dictionaryRepresentation];
           [v41 addObject:dictionaryRepresentation2];
         }
 
-        v44 = [(NSMutableArray *)v42 countByEnumeratingWithState:&v139 objects:v145 count:16];
+        v44 = [(NSMutableArray *)v42 countByEnumeratingWithState:&v138 objects:v144 count:16];
       }
 
       while (v44);
@@ -745,30 +749,30 @@ LABEL_129:
   if ([(NSMutableArray *)self->_activatedClusterMembers count])
   {
     v78 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSMutableArray count](self->_activatedClusterMembers, "count")}];
+    v134 = 0u;
     v135 = 0u;
     v136 = 0u;
     v137 = 0u;
-    v138 = 0u;
     v79 = self->_activatedClusterMembers;
-    v80 = [(NSMutableArray *)v79 countByEnumeratingWithState:&v135 objects:v144 count:16];
+    v80 = [(NSMutableArray *)v79 countByEnumeratingWithState:&v134 objects:v143 count:16];
     if (v80)
     {
       v81 = v80;
-      v82 = *v136;
+      v82 = *v135;
       do
       {
         for (j = 0; j != v81; ++j)
         {
-          if (*v136 != v82)
+          if (*v135 != v82)
           {
             objc_enumerationMutation(v79);
           }
 
-          dictionaryRepresentation3 = [*(*(&v135 + 1) + 8 * j) dictionaryRepresentation];
+          dictionaryRepresentation3 = [*(*(&v134 + 1) + 8 * j) dictionaryRepresentation];
           [v78 addObject:dictionaryRepresentation3];
         }
 
-        v81 = [(NSMutableArray *)v79 countByEnumeratingWithState:&v135 objects:v144 count:16];
+        v81 = [(NSMutableArray *)v79 countByEnumeratingWithState:&v134 objects:v143 count:16];
       }
 
       while (v81);
@@ -844,30 +848,30 @@ LABEL_129:
   if ([(NSMutableArray *)self->_allClusterMembers count])
   {
     v98 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSMutableArray count](self->_allClusterMembers, "count")}];
+    v130 = 0u;
     v131 = 0u;
     v132 = 0u;
     v133 = 0u;
-    v134 = 0u;
     v99 = self->_allClusterMembers;
-    v100 = [(NSMutableArray *)v99 countByEnumeratingWithState:&v131 objects:v143 count:16];
+    v100 = [(NSMutableArray *)v99 countByEnumeratingWithState:&v130 objects:v142 count:16];
     if (v100)
     {
       v101 = v100;
-      v102 = *v132;
+      v102 = *v131;
       do
       {
         for (k = 0; k != v101; ++k)
         {
-          if (*v132 != v102)
+          if (*v131 != v102)
           {
             objc_enumerationMutation(v99);
           }
 
-          dictionaryRepresentation4 = [*(*(&v131 + 1) + 8 * k) dictionaryRepresentation];
+          dictionaryRepresentation4 = [*(*(&v130 + 1) + 8 * k) dictionaryRepresentation];
           [v98 addObject:dictionaryRepresentation4];
         }
 
-        v101 = [(NSMutableArray *)v99 countByEnumeratingWithState:&v131 objects:v143 count:16];
+        v101 = [(NSMutableArray *)v99 countByEnumeratingWithState:&v130 objects:v142 count:16];
       }
 
       while (v101);
@@ -879,8 +883,8 @@ LABEL_129:
   v105 = self->_has;
   if ((*&v105 & 0x100000000000) != 0)
   {
-    v122 = [MEMORY[0x1E696AD98] numberWithBool:self->_supportsConversationDetection];
-    [v5 setObject:v122 forKey:@"supportsConversationDetection"];
+    v121 = [MEMORY[0x1E696AD98] numberWithBool:self->_supportsConversationDetection];
+    [v5 setObject:v121 forKey:@"supportsConversationDetection"];
 
     v105 = self->_has;
     if ((*&v105 & 0x20000) == 0)
@@ -900,8 +904,8 @@ LABEL_171:
     goto LABEL_171;
   }
 
-  v123 = [MEMORY[0x1E696AD98] numberWithBool:self->_conversationDetectionEnabled];
-  [v5 setObject:v123 forKey:@"conversationDetectionEnabled"];
+  v122 = [MEMORY[0x1E696AD98] numberWithBool:self->_conversationDetectionEnabled];
+  [v5 setObject:v122 forKey:@"conversationDetectionEnabled"];
 
   v105 = self->_has;
   if ((*&v105 & 0x100000) == 0)
@@ -916,8 +920,8 @@ LABEL_172:
   }
 
 LABEL_201:
-  v124 = [MEMORY[0x1E696AD98] numberWithBool:self->_engageOnClusterActivate];
-  [v5 setObject:v124 forKey:@"engageOnClusterActivate"];
+  v123 = [MEMORY[0x1E696AD98] numberWithBool:self->_engageOnClusterActivate];
+  [v5 setObject:v123 forKey:@"engageOnClusterActivate"];
 
   if ((*&self->_has & 0x20000000000000) != 0)
   {
@@ -955,8 +959,8 @@ LABEL_174:
   v112 = self->_has;
   if ((*&v112 & 0x2000000000000) != 0)
   {
-    v125 = [MEMORY[0x1E696AD98] numberWithBool:self->_supportsRapport];
-    [v5 setObject:v125 forKey:@"supportsRapport"];
+    v124 = [MEMORY[0x1E696AD98] numberWithBool:self->_supportsRapport];
+    [v5 setObject:v124 forKey:@"supportsRapport"];
 
     v112 = self->_has;
     if ((*&v112 & 0x80000000) == 0)
@@ -976,8 +980,8 @@ LABEL_184:
     goto LABEL_184;
   }
 
-  v126 = [MEMORY[0x1E696AD98] numberWithBool:self->_isPickedOnPairedDevice];
-  [v5 setObject:v126 forKey:@"isPickedOnPairedDevice"];
+  v125 = [MEMORY[0x1E696AD98] numberWithBool:self->_isPickedOnPairedDevice];
+  [v5 setObject:v125 forKey:@"isPickedOnPairedDevice"];
 
   v112 = self->_has;
   if ((*&v112 & 0x800000000000) == 0)
@@ -992,8 +996,8 @@ LABEL_185:
   }
 
 LABEL_205:
-  v127 = [MEMORY[0x1E696AD98] numberWithBool:self->_supportsHeadTrackedSpatialAudio];
-  [v5 setObject:v127 forKey:@"supportsHeadTrackedSpatialAudio"];
+  v126 = [MEMORY[0x1E696AD98] numberWithBool:self->_supportsHeadTrackedSpatialAudio];
+  [v5 setObject:v126 forKey:@"supportsHeadTrackedSpatialAudio"];
 
   v112 = self->_has;
   if ((*&v112 & 0x400) == 0)
@@ -1008,8 +1012,8 @@ LABEL_186:
   }
 
 LABEL_206:
-  v128 = [MEMORY[0x1E696AD98] numberWithBool:self->_allowsHeadTrackedSpatialAudio];
-  [v5 setObject:v128 forKey:@"allowsHeadTrackedSpatialAudio"];
+  v127 = [MEMORY[0x1E696AD98] numberWithBool:self->_allowsHeadTrackedSpatialAudio];
+  [v5 setObject:v127 forKey:@"allowsHeadTrackedSpatialAudio"];
 
   if ((*&self->_has & 0x20000000) != 0)
   {
@@ -1046,8 +1050,8 @@ LABEL_188:
     }
 
 LABEL_209:
-    v130 = [MEMORY[0x1E696AD98] numberWithBool:self->_wasDiscoveredInCache];
-    [v5 setObject:v130 forKey:@"wasDiscoveredInCache"];
+    v129 = [MEMORY[0x1E696AD98] numberWithBool:self->_wasDiscoveredInCache];
+    [v5 setObject:v129 forKey:@"wasDiscoveredInCache"];
 
     if ((*&self->_has & 0x8000000000) == 0)
     {
@@ -1057,8 +1061,8 @@ LABEL_209:
     goto LABEL_197;
   }
 
-  v129 = [MEMORY[0x1E696AD98] numberWithBool:self->_deviceIsPlaying];
-  [v5 setObject:v129 forKey:@"deviceIsPlaying"];
+  v128 = [MEMORY[0x1E696AD98] numberWithBool:self->_deviceIsPlaying];
+  [v5 setObject:v128 forKey:@"deviceIsPlaying"];
 
   v117 = self->_has;
   if ((*&v117 & 0x40000000000000) != 0)
@@ -1077,7 +1081,6 @@ LABEL_197:
 LABEL_198:
   v119 = v5;
 
-  v120 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -1161,35 +1164,50 @@ LABEL_198:
   self->_has = (*&self->_has & 0xFFFFFFFFFFFFFFEFLL | v3);
 }
 
+- (id)deviceTypeAsString:(int)string
+{
+  if (string >= 6)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E76A4530[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsDeviceType:(id)type
 {
   typeCopy = type;
-  if ([typeCopy isEqualToString:@"Unknown"])
+  if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 0;
   }
 
-  else if ([typeCopy isEqualToString:@"AirPlay"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 1;
   }
 
-  else if ([typeCopy isEqualToString:@"Bluetooth"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 2;
   }
 
-  else if ([typeCopy isEqualToString:@"CarPlay"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 3;
   }
 
-  else if ([typeCopy isEqualToString:@"BuiltIn"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 4;
   }
 
-  else if ([typeCopy isEqualToString:@"Wired"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 5;
   }
@@ -1213,115 +1231,130 @@ LABEL_198:
   self->_has = (*&self->_has & 0xFFFFFFFFFFFFFFF7 | v3);
 }
 
+- (id)deviceSubTypeAsString:(int)string
+{
+  if (string >= 0x16)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E76A4560[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsDeviceSubType:(id)type
 {
   typeCopy = type;
-  if ([typeCopy isEqualToString:@"Default"])
+  if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 0;
   }
 
-  else if ([typeCopy isEqualToString:@"Speaker"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 1;
   }
 
-  else if ([typeCopy isEqualToString:@"Headphones"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 2;
   }
 
-  else if ([typeCopy isEqualToString:@"Headset"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 3;
   }
 
-  else if ([typeCopy isEqualToString:@"Receiver"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 4;
   }
 
-  else if ([typeCopy isEqualToString:@"LineOut"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 5;
   }
 
-  else if ([typeCopy isEqualToString:@"USB"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 6;
   }
 
-  else if ([typeCopy isEqualToString:@"DisplayPort"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 7;
   }
 
-  else if ([typeCopy isEqualToString:@"HDMI"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 8;
   }
 
-  else if ([typeCopy isEqualToString:@"LowEnergy"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 9;
   }
 
-  else if ([typeCopy isEqualToString:@"SPDIF"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 10;
   }
 
-  else if ([typeCopy isEqualToString:@"TV"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 11;
   }
 
-  else if ([typeCopy isEqualToString:@"HomePod"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 12;
   }
 
-  else if ([typeCopy isEqualToString:@"AppleTV"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 13;
   }
 
-  else if ([typeCopy isEqualToString:@"Vehicle"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 14;
   }
 
-  else if ([typeCopy isEqualToString:@"Cluster"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 15;
   }
 
-  else if ([typeCopy isEqualToString:@"SetTopBox"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 16;
   }
 
-  else if ([typeCopy isEqualToString:@"TVStick"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 17;
   }
 
-  else if ([typeCopy isEqualToString:@"Mac"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 18;
   }
 
-  else if ([typeCopy isEqualToString:@"iOS"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 19;
   }
 
-  else if ([typeCopy isEqualToString:@"Watch"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 20;
   }
 
-  else if ([typeCopy isEqualToString:@"Vision"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 21;
   }
@@ -1678,75 +1711,91 @@ LABEL_198:
   self->_has = (*&self->_has & 0xFFFFFFFFFFFFFFBFLL | v3);
 }
 
+- (id)hostDeviceClassAsString:(int)string
+{
+  v4 = string + 1;
+  if (string + 1) < 0xF && ((0x7FFDu >> v4))
+  {
+    v5 = off_1E76A4610[v4];
+  }
+
+  else
+  {
+    v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v5;
+}
+
 - (int)StringAsHostDeviceClass:(id)class
 {
   classCopy = class;
-  if ([classCopy isEqualToString:@"Invalid"])
+  if (objc_msgSend_isEqualToString_(classCopy))
   {
     v4 = -1;
   }
 
-  else if ([classCopy isEqualToString:@"iPhone"])
+  else if (objc_msgSend_isEqualToString_(classCopy))
   {
     v4 = 1;
   }
 
-  else if ([classCopy isEqualToString:@"iPod"])
+  else if (objc_msgSend_isEqualToString_(classCopy))
   {
     v4 = 2;
   }
 
-  else if ([classCopy isEqualToString:@"iPad"])
+  else if (objc_msgSend_isEqualToString_(classCopy))
   {
     v4 = 3;
   }
 
-  else if ([classCopy isEqualToString:@"AppleTV"])
+  else if (objc_msgSend_isEqualToString_(classCopy))
   {
     v4 = 4;
   }
 
-  else if ([classCopy isEqualToString:@"iFPGA"])
+  else if (objc_msgSend_isEqualToString_(classCopy))
   {
     v4 = 5;
   }
 
-  else if ([classCopy isEqualToString:@"Watch"])
+  else if (objc_msgSend_isEqualToString_(classCopy))
   {
     v4 = 6;
   }
 
-  else if ([classCopy isEqualToString:@"Accessory"])
+  else if (objc_msgSend_isEqualToString_(classCopy))
   {
     v4 = 7;
   }
 
-  else if ([classCopy isEqualToString:@"Bridge"])
+  else if (objc_msgSend_isEqualToString_(classCopy))
   {
     v4 = 8;
   }
 
-  else if ([classCopy isEqualToString:@"Mac"])
+  else if (objc_msgSend_isEqualToString_(classCopy))
   {
     v4 = 9;
   }
 
-  else if ([classCopy isEqualToString:@"Android"])
+  else if (objc_msgSend_isEqualToString_(classCopy))
   {
     v4 = 10;
   }
 
-  else if ([classCopy isEqualToString:@"Web"])
+  else if (objc_msgSend_isEqualToString_(classCopy))
   {
     v4 = 11;
   }
 
-  else if ([classCopy isEqualToString:@"AppleDisplay"])
+  else if (objc_msgSend_isEqualToString_(classCopy))
   {
     v4 = 12;
   }
 
-  else if ([classCopy isEqualToString:@"RealityDevice"])
+  else if (objc_msgSend_isEqualToString_(classCopy))
   {
     v4 = 13;
   }
@@ -1832,50 +1881,65 @@ LABEL_198:
   self->_has = (*&self->_has & 0xFFFFFFFFFFFFFF7FLL | v3);
 }
 
+- (id)transportTypeAsString:(int)string
+{
+  if (string >= 9)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E76A4688[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsTransportType:(id)type
 {
   typeCopy = type;
-  if ([typeCopy isEqualToString:@"None"])
+  if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 0;
   }
 
-  else if ([typeCopy isEqualToString:@"AirPlay"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 1;
   }
 
-  else if ([typeCopy isEqualToString:@"Rapport"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 2;
   }
 
-  else if ([typeCopy isEqualToString:@"Companion"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 3;
   }
 
-  else if ([typeCopy isEqualToString:@"IDS"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 4;
   }
 
-  else if ([typeCopy isEqualToString:@"OutputContext"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 5;
   }
 
-  else if ([typeCopy isEqualToString:@"GroupSession"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 6;
   }
 
-  else if ([typeCopy isEqualToString:@"SystemGroupSession"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 7;
   }
 
-  else if ([typeCopy isEqualToString:@"MRRelay"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 8;
   }
@@ -2091,7 +2155,7 @@ LABEL_198:
 
 - (void)writeTo:(id)to
 {
-  v130 = *MEMORY[0x1E69E9840];
+  v69 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if (self->_name)
   {
@@ -2121,7 +2185,6 @@ LABEL_198:
   has = self->_has;
   if ((*&has & 0x1000) != 0)
   {
-    canAccessRemoteAssets = self->_canAccessRemoteAssets;
     PBDataWriterWriteBOOLField();
     has = self->_has;
     if ((*&has & 0x200000000) == 0)
@@ -2141,7 +2204,6 @@ LABEL_13:
     goto LABEL_13;
   }
 
-  isRemoteControllable = self->_isRemoteControllable;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x8000000) == 0)
@@ -2156,7 +2218,6 @@ LABEL_14:
   }
 
 LABEL_162:
-  isGroupLeader = self->_isGroupLeader;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x10000000) == 0)
@@ -2171,7 +2232,6 @@ LABEL_15:
   }
 
 LABEL_163:
-  isGroupable = self->_isGroupable;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x10) == 0)
@@ -2186,12 +2246,10 @@ LABEL_16:
   }
 
 LABEL_164:
-  deviceType = self->_deviceType;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 8) != 0)
   {
 LABEL_17:
-    deviceSubType = self->_deviceSubType;
     PBDataWriterWriteInt32Field();
   }
 
@@ -2201,16 +2259,15 @@ LABEL_18:
     PBDataWriterWriteDataField();
   }
 
-  v7 = self->_has;
-  if (*&v7)
+  v6 = self->_has;
+  if (*&v6)
   {
-    batteryLevel = self->_batteryLevel;
     PBDataWriterWriteFloatField();
-    v7 = self->_has;
-    if ((*&v7 & 0x40000000) == 0)
+    v6 = self->_has;
+    if ((*&v6 & 0x40000000) == 0)
     {
 LABEL_22:
-      if ((*&v7 & 0x200000000000) == 0)
+      if ((*&v6 & 0x200000000000) == 0)
       {
         goto LABEL_23;
       }
@@ -2219,18 +2276,17 @@ LABEL_22:
     }
   }
 
-  else if ((*&v7 & 0x40000000) == 0)
+  else if ((*&v6 & 0x40000000) == 0)
   {
     goto LABEL_22;
   }
 
-  isLocalDevice = self->_isLocalDevice;
   PBDataWriterWriteBOOLField();
-  v7 = self->_has;
-  if ((*&v7 & 0x200000000000) == 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x200000000000) == 0)
   {
 LABEL_23:
-    if ((*&v7 & 0x10000000000) == 0)
+    if ((*&v6 & 0x10000000000) == 0)
     {
       goto LABEL_24;
     }
@@ -2239,13 +2295,12 @@ LABEL_23:
   }
 
 LABEL_168:
-  supportsExternalScreen = self->_supportsExternalScreen;
   PBDataWriterWriteBOOLField();
-  v7 = self->_has;
-  if ((*&v7 & 0x10000000000) == 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x10000000000) == 0)
   {
 LABEL_24:
-    if ((*&v7 & 0x20000000000) == 0)
+    if ((*&v6 & 0x20000000000) == 0)
     {
       goto LABEL_26;
     }
@@ -2254,12 +2309,10 @@ LABEL_24:
   }
 
 LABEL_169:
-  requiresAuthorization = self->_requiresAuthorization;
   PBDataWriterWriteBOOLField();
   if ((*&self->_has & 0x20000000000) != 0)
   {
 LABEL_25:
-    shouldForceRemoteControlabillity = self->_shouldForceRemoteControlabillity;
     PBDataWriterWriteBOOLField();
   }
 
@@ -2269,17 +2322,15 @@ LABEL_26:
     PBDataWriterWriteSubmessage();
   }
 
-  v9 = self->_has;
-  if ((*&v9 & 0x4000000) != 0)
+  v7 = self->_has;
+  if ((*&v7 & 0x4000000) != 0)
   {
-    isDeviceGroupable = self->_isDeviceGroupable;
     PBDataWriterWriteBOOLField();
-    v9 = self->_has;
+    v7 = self->_has;
   }
 
-  if ((*&v9 & 0x10000) != 0)
+  if ((*&v7 & 0x10000) != 0)
   {
-    canRelayCommunicationChannel = self->_canRelayCommunicationChannel;
     PBDataWriterWriteBOOLField();
   }
 
@@ -2290,7 +2341,6 @@ LABEL_26:
 
   if (*(&self->_has + 4))
   {
-    isProxyGroupPlayer = self->_isProxyGroupPlayer;
     PBDataWriterWriteBOOLField();
   }
 
@@ -2299,16 +2349,15 @@ LABEL_26:
     PBDataWriterWriteStringField();
   }
 
-  v13 = self->_has;
-  if ((*&v13 & 0x100) != 0)
+  v8 = self->_has;
+  if ((*&v8 & 0x100) != 0)
   {
-    volume = self->_volume;
     PBDataWriterWriteFloatField();
-    v13 = self->_has;
-    if ((*&v13 & 0x400000000) == 0)
+    v8 = self->_has;
+    if ((*&v8 & 0x400000000) == 0)
     {
 LABEL_40:
-      if ((*&v13 & 0x800) == 0)
+      if ((*&v8 & 0x800) == 0)
       {
         goto LABEL_41;
       }
@@ -2317,18 +2366,17 @@ LABEL_40:
     }
   }
 
-  else if ((*&v13 & 0x400000000) == 0)
+  else if ((*&v8 & 0x400000000) == 0)
   {
     goto LABEL_40;
   }
 
-  isVolumeControlAvailable = self->_isVolumeControlAvailable;
   PBDataWriterWriteBOOLField();
-  v13 = self->_has;
-  if ((*&v13 & 0x800) == 0)
+  v8 = self->_has;
+  if ((*&v8 & 0x800) == 0)
   {
 LABEL_41:
-    if ((*&v13 & 0x2000) == 0)
+    if ((*&v8 & 0x2000) == 0)
     {
       goto LABEL_42;
     }
@@ -2337,13 +2385,12 @@ LABEL_41:
   }
 
 LABEL_173:
-  canAccessAppleMusic = self->_canAccessAppleMusic;
   PBDataWriterWriteBOOLField();
-  v13 = self->_has;
-  if ((*&v13 & 0x2000) == 0)
+  v8 = self->_has;
+  if ((*&v8 & 0x2000) == 0)
   {
 LABEL_42:
-    if ((*&v13 & 0x200000) == 0)
+    if ((*&v8 & 0x200000) == 0)
     {
       goto LABEL_43;
     }
@@ -2352,13 +2399,12 @@ LABEL_42:
   }
 
 LABEL_174:
-  canAccessiCloudMusicLibrary = self->_canAccessiCloudMusicLibrary;
   PBDataWriterWriteBOOLField();
-  v13 = self->_has;
-  if ((*&v13 & 0x200000) == 0)
+  v8 = self->_has;
+  if ((*&v8 & 0x200000) == 0)
   {
 LABEL_43:
-    if ((*&v13 & 0x80000000000) == 0)
+    if ((*&v8 & 0x80000000000) == 0)
     {
       goto LABEL_44;
     }
@@ -2367,13 +2413,12 @@ LABEL_43:
   }
 
 LABEL_175:
-  groupContainsGroupLeader = self->_groupContainsGroupLeader;
   PBDataWriterWriteBOOLField();
-  v13 = self->_has;
-  if ((*&v13 & 0x80000000000) == 0)
+  v8 = self->_has;
+  if ((*&v8 & 0x80000000000) == 0)
   {
 LABEL_44:
-    if ((*&v13 & 0x8000) == 0)
+    if ((*&v8 & 0x8000) == 0)
     {
       goto LABEL_45;
     }
@@ -2382,13 +2427,12 @@ LABEL_44:
   }
 
 LABEL_176:
-  supportsBufferedAirPlay = self->_supportsBufferedAirPlay;
   PBDataWriterWriteBOOLField();
-  v13 = self->_has;
-  if ((*&v13 & 0x8000) == 0)
+  v8 = self->_has;
+  if ((*&v8 & 0x8000) == 0)
   {
 LABEL_45:
-    if ((*&v13 & 0x4000) == 0)
+    if ((*&v8 & 0x4000) == 0)
     {
       goto LABEL_46;
     }
@@ -2397,13 +2441,12 @@ LABEL_45:
   }
 
 LABEL_177:
-  canPlayEncryptedProgressiveDownloadAssets = self->_canPlayEncryptedProgressiveDownloadAssets;
   PBDataWriterWriteBOOLField();
-  v13 = self->_has;
-  if ((*&v13 & 0x4000) == 0)
+  v8 = self->_has;
+  if ((*&v8 & 0x4000) == 0)
   {
 LABEL_46:
-    if ((*&v13 & 0x2000000000) == 0)
+    if ((*&v8 & 0x2000000000) == 0)
     {
       goto LABEL_47;
     }
@@ -2412,13 +2455,12 @@ LABEL_46:
   }
 
 LABEL_178:
-  canFetchMediaDataFromSender = self->_canFetchMediaDataFromSender;
   PBDataWriterWriteBOOLField();
-  v13 = self->_has;
-  if ((*&v13 & 0x2000000000) == 0)
+  v8 = self->_has;
+  if ((*&v8 & 0x2000000000) == 0)
   {
 LABEL_47:
-    if ((*&v13 & 0x800000) == 0)
+    if ((*&v8 & 0x800000) == 0)
     {
       goto LABEL_49;
     }
@@ -2427,12 +2469,10 @@ LABEL_47:
   }
 
 LABEL_179:
-  presentsOptimizedUserInterfaceWhenPlayingFetchedAudioOnlyAssets = self->_presentsOptimizedUserInterfaceWhenPlayingFetchedAudioOnlyAssets;
   PBDataWriterWriteBOOLField();
   if ((*&self->_has & 0x800000) != 0)
   {
 LABEL_48:
-    isAirPlayReceiverSessionActive = self->_isAirPlayReceiverSessionActive;
     PBDataWriterWriteBOOLField();
   }
 
@@ -2442,16 +2482,15 @@ LABEL_49:
     PBDataWriterWriteStringField();
   }
 
-  v15 = self->_has;
-  if ((*&v15 & 0x800000000) != 0)
+  v9 = self->_has;
+  if ((*&v9 & 0x800000000) != 0)
   {
-    parentGroupContainsDiscoverableLeader = self->_parentGroupContainsDiscoverableLeader;
     PBDataWriterWriteBOOLField();
-    v15 = self->_has;
-    if ((*&v15 & 0x400000) == 0)
+    v9 = self->_has;
+    if ((*&v9 & 0x400000) == 0)
     {
 LABEL_53:
-      if ((*&v15 & 0x200) == 0)
+      if ((*&v9 & 0x200) == 0)
       {
         goto LABEL_55;
       }
@@ -2460,17 +2499,15 @@ LABEL_53:
     }
   }
 
-  else if ((*&v15 & 0x400000) == 0)
+  else if ((*&v9 & 0x400000) == 0)
   {
     goto LABEL_53;
   }
 
-  isAddedToHomeKit = self->_isAddedToHomeKit;
   PBDataWriterWriteBOOLField();
   if ((*&self->_has & 0x200) != 0)
   {
 LABEL_54:
-    volumeCapabilities = self->_volumeCapabilities;
     PBDataWriterWriteInt32Field();
   }
 
@@ -2480,55 +2517,51 @@ LABEL_55:
     PBDataWriterWriteStringField();
   }
 
-  v17 = self->_has;
-  if ((*&v17 & 0x400000000000) != 0)
+  v10 = self->_has;
+  if ((*&v10 & 0x400000000000) != 0)
   {
-    supportsHAP = self->_supportsHAP;
     PBDataWriterWriteBOOLField();
-    v17 = self->_has;
+    v10 = self->_has;
   }
 
-  if ((*&v17 & 0x10000000000000) != 0)
+  if ((*&v10 & 0x10000000000000) != 0)
   {
-    usingJSONProtocol = self->_usingJSONProtocol;
     PBDataWriterWriteBOOLField();
   }
 
-  v123 = 0u;
-  v124 = 0u;
-  v121 = 0u;
-  v122 = 0u;
-  v20 = self->_clusterCompositions;
-  v21 = [(NSMutableArray *)v20 countByEnumeratingWithState:&v121 objects:v129 count:16];
-  if (v21)
+  v62 = 0u;
+  v63 = 0u;
+  v60 = 0u;
+  v61 = 0u;
+  v11 = self->_clusterCompositions;
+  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v60 objects:v68 count:16];
+  if (v12)
   {
-    v22 = v21;
-    v23 = *v122;
+    v13 = v12;
+    v14 = *v61;
     do
     {
-      v24 = 0;
+      v15 = 0;
       do
       {
-        if (*v122 != v23)
+        if (*v61 != v14)
         {
-          objc_enumerationMutation(v20);
+          objc_enumerationMutation(v11);
         }
 
-        v25 = *(*(&v121 + 1) + 8 * v24);
         PBDataWriterWriteSubmessage();
-        ++v24;
+        ++v15;
       }
 
-      while (v22 != v24);
-      v22 = [(NSMutableArray *)v20 countByEnumeratingWithState:&v121 objects:v129 count:16];
+      while (v13 != v15);
+      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v60 objects:v68 count:16];
     }
 
-    while (v22);
+    while (v13);
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    clusterType = self->_clusterType;
     PBDataWriterWriteUint32Field();
   }
 
@@ -2537,17 +2570,15 @@ LABEL_55:
     PBDataWriterWriteStringField();
   }
 
-  v27 = self->_has;
-  if ((*&v27 & 4) != 0)
+  v16 = self->_has;
+  if ((*&v16 & 4) != 0)
   {
-    configuredClusterSize = self->_configuredClusterSize;
     PBDataWriterWriteUint32Field();
-    v27 = self->_has;
+    v16 = self->_has;
   }
 
-  if ((*&v27 & 0x4000000000000) != 0)
+  if ((*&v16 & 0x4000000000000) != 0)
   {
-    supportsRapportRemoteControlTransport = self->_supportsRapportRemoteControlTransport;
     PBDataWriterWriteBOOLField();
   }
 
@@ -2556,48 +2587,46 @@ LABEL_55:
     PBDataWriterWriteStringField();
   }
 
-  v119 = 0u;
-  v120 = 0u;
-  v117 = 0u;
-  v118 = 0u;
-  v30 = self->_availableBluetoothListeningModes;
-  v31 = [(NSMutableArray *)v30 countByEnumeratingWithState:&v117 objects:v128 count:16];
-  if (v31)
+  v58 = 0u;
+  v59 = 0u;
+  v56 = 0u;
+  v57 = 0u;
+  v17 = self->_availableBluetoothListeningModes;
+  v18 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v56 objects:v67 count:16];
+  if (v18)
   {
-    v32 = v31;
-    v33 = *v118;
+    v19 = v18;
+    v20 = *v57;
     do
     {
-      v34 = 0;
+      v21 = 0;
       do
       {
-        if (*v118 != v33)
+        if (*v57 != v20)
         {
-          objc_enumerationMutation(v30);
+          objc_enumerationMutation(v17);
         }
 
-        v35 = *(*(&v117 + 1) + 8 * v34);
         PBDataWriterWriteStringField();
-        ++v34;
+        ++v21;
       }
 
-      while (v32 != v34);
-      v32 = [(NSMutableArray *)v30 countByEnumeratingWithState:&v117 objects:v128 count:16];
+      while (v19 != v21);
+      v19 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v56 objects:v67 count:16];
     }
 
-    while (v32);
+    while (v19);
   }
 
-  v36 = self->_has;
-  if ((*&v36 & 0x1000000000000) != 0)
+  v22 = self->_has;
+  if ((*&v22 & 0x1000000000000) != 0)
   {
-    supportsMultiplayer = self->_supportsMultiplayer;
     PBDataWriterWriteBOOLField();
-    v36 = self->_has;
-    if ((*&v36 & 0x4000000000) == 0)
+    v22 = self->_has;
+    if ((*&v22 & 0x4000000000) == 0)
     {
 LABEL_87:
-      if ((*&v36 & 0x40) == 0)
+      if ((*&v22 & 0x40) == 0)
       {
         goto LABEL_89;
       }
@@ -2606,17 +2635,15 @@ LABEL_87:
     }
   }
 
-  else if ((*&v36 & 0x4000000000) == 0)
+  else if ((*&v22 & 0x4000000000) == 0)
   {
     goto LABEL_87;
   }
 
-  producesLowFidelityAudio = self->_producesLowFidelityAudio;
   PBDataWriterWriteBOOLField();
   if ((*&self->_has & 0x40) != 0)
   {
 LABEL_88:
-    hostDeviceClass = self->_hostDeviceClass;
     PBDataWriterWriteInt32Field();
   }
 
@@ -2626,16 +2653,15 @@ LABEL_89:
     PBDataWriterWriteStringField();
   }
 
-  v38 = self->_has;
-  if ((*&v38 & 0x8000000000000) != 0)
+  v23 = self->_has;
+  if ((*&v23 & 0x8000000000000) != 0)
   {
-    supportsSharePlayHandoff = self->_supportsSharePlayHandoff;
     PBDataWriterWriteBOOLField();
-    v38 = self->_has;
-    if ((*&v38 & 0x20) == 0)
+    v23 = self->_has;
+    if ((*&v23 & 0x20) == 0)
     {
 LABEL_93:
-      if ((*&v38 & 0x80000) == 0)
+      if ((*&v23 & 0x80000) == 0)
       {
         goto LABEL_95;
       }
@@ -2644,64 +2670,59 @@ LABEL_93:
     }
   }
 
-  else if ((*&v38 & 0x20) == 0)
+  else if ((*&v23 & 0x20) == 0)
   {
     goto LABEL_93;
   }
 
-  distance = self->_distance;
   PBDataWriterWriteFloatField();
   if ((*&self->_has & 0x80000) != 0)
   {
 LABEL_94:
-    discoveredOnSameInfra = self->_discoveredOnSameInfra;
     PBDataWriterWriteBOOLField();
   }
 
 LABEL_95:
-  v115 = 0u;
-  v116 = 0u;
-  v113 = 0u;
-  v114 = 0u;
-  v40 = self->_activatedClusterMembers;
-  v41 = [(NSMutableArray *)v40 countByEnumeratingWithState:&v113 objects:v127 count:16];
-  if (v41)
+  v54 = 0u;
+  v55 = 0u;
+  v52 = 0u;
+  v53 = 0u;
+  v24 = self->_activatedClusterMembers;
+  v25 = [(NSMutableArray *)v24 countByEnumeratingWithState:&v52 objects:v66 count:16];
+  if (v25)
   {
-    v42 = v41;
-    v43 = *v114;
+    v26 = v25;
+    v27 = *v53;
     do
     {
-      v44 = 0;
+      v28 = 0;
       do
       {
-        if (*v114 != v43)
+        if (*v53 != v27)
         {
-          objc_enumerationMutation(v40);
+          objc_enumerationMutation(v24);
         }
 
-        v45 = *(*(&v113 + 1) + 8 * v44);
         PBDataWriterWriteSubmessage();
-        ++v44;
+        ++v28;
       }
 
-      while (v42 != v44);
-      v42 = [(NSMutableArray *)v40 countByEnumeratingWithState:&v113 objects:v127 count:16];
+      while (v26 != v28);
+      v26 = [(NSMutableArray *)v24 countByEnumeratingWithState:&v52 objects:v66 count:16];
     }
 
-    while (v42);
+    while (v26);
   }
 
-  v46 = self->_has;
-  if ((*&v46 & 0x1000000000) != 0)
+  v29 = self->_has;
+  if ((*&v29 & 0x1000000000) != 0)
   {
-    pickable = self->_pickable;
     PBDataWriterWriteBOOLField();
-    v46 = self->_has;
+    v29 = self->_has;
   }
 
-  if ((*&v46 & 0x80) != 0)
+  if ((*&v29 & 0x80) != 0)
   {
-    transportType = self->_transportType;
     PBDataWriterWriteInt32Field();
   }
 
@@ -2710,17 +2731,15 @@ LABEL_95:
     PBDataWriterWriteStringField();
   }
 
-  v49 = self->_has;
-  if ((*&v49 & 0x2000000) != 0)
+  v30 = self->_has;
+  if ((*&v30 & 0x2000000) != 0)
   {
-    isClusterLeader = self->_isClusterLeader;
     PBDataWriterWriteBOOLField();
-    v49 = self->_has;
+    v30 = self->_has;
   }
 
-  if ((*&v49 & 0x1000000) != 0)
+  if ((*&v30 & 0x1000000) != 0)
   {
-    isAppleAccessory = self->_isAppleAccessory;
     PBDataWriterWriteBOOLField();
   }
 
@@ -2739,48 +2758,46 @@ LABEL_95:
     PBDataWriterWriteStringField();
   }
 
-  v111 = 0u;
-  v112 = 0u;
-  v109 = 0u;
-  v110 = 0u;
-  v52 = self->_allClusterMembers;
-  v53 = [(NSMutableArray *)v52 countByEnumeratingWithState:&v109 objects:v126 count:16];
-  if (v53)
+  v50 = 0u;
+  v51 = 0u;
+  v48 = 0u;
+  v49 = 0u;
+  v31 = self->_allClusterMembers;
+  v32 = [(NSMutableArray *)v31 countByEnumeratingWithState:&v48 objects:v65 count:16];
+  if (v32)
   {
-    v54 = v53;
-    v55 = *v110;
+    v33 = v32;
+    v34 = *v49;
     do
     {
-      v56 = 0;
+      v35 = 0;
       do
       {
-        if (*v110 != v55)
+        if (*v49 != v34)
         {
-          objc_enumerationMutation(v52);
+          objc_enumerationMutation(v31);
         }
 
-        v57 = *(*(&v109 + 1) + 8 * v56);
         PBDataWriterWriteSubmessage();
-        ++v56;
+        ++v35;
       }
 
-      while (v54 != v56);
-      v54 = [(NSMutableArray *)v52 countByEnumeratingWithState:&v109 objects:v126 count:16];
+      while (v33 != v35);
+      v33 = [(NSMutableArray *)v31 countByEnumeratingWithState:&v48 objects:v65 count:16];
     }
 
-    while (v54);
+    while (v33);
   }
 
-  v58 = self->_has;
-  if ((*&v58 & 0x100000000000) != 0)
+  v36 = self->_has;
+  if ((*&v36 & 0x100000000000) != 0)
   {
-    supportsConversationDetection = self->_supportsConversationDetection;
     PBDataWriterWriteBOOLField();
-    v58 = self->_has;
-    if ((*&v58 & 0x20000) == 0)
+    v36 = self->_has;
+    if ((*&v36 & 0x20000) == 0)
     {
 LABEL_127:
-      if ((*&v58 & 0x100000) == 0)
+      if ((*&v36 & 0x100000) == 0)
       {
         goto LABEL_128;
       }
@@ -2789,18 +2806,17 @@ LABEL_127:
     }
   }
 
-  else if ((*&v58 & 0x20000) == 0)
+  else if ((*&v36 & 0x20000) == 0)
   {
     goto LABEL_127;
   }
 
-  conversationDetectionEnabled = self->_conversationDetectionEnabled;
   PBDataWriterWriteBOOLField();
-  v58 = self->_has;
-  if ((*&v58 & 0x100000) == 0)
+  v36 = self->_has;
+  if ((*&v36 & 0x100000) == 0)
   {
 LABEL_128:
-    if ((*&v58 & 0x20000000000000) == 0)
+    if ((*&v36 & 0x20000000000000) == 0)
     {
       goto LABEL_130;
     }
@@ -2809,12 +2825,10 @@ LABEL_128:
   }
 
 LABEL_192:
-  engageOnClusterActivate = self->_engageOnClusterActivate;
   PBDataWriterWriteBOOLField();
   if ((*&self->_has & 0x20000000000000) != 0)
   {
 LABEL_129:
-    volumeMuted = self->_volumeMuted;
     PBDataWriterWriteBOOLField();
   }
 
@@ -2826,7 +2840,6 @@ LABEL_130:
 
   if ((*(&self->_has + 5) & 4) != 0)
   {
-    supportsBluetoothSharing = self->_supportsBluetoothSharing;
     PBDataWriterWriteBOOLField();
   }
 
@@ -2840,16 +2853,15 @@ LABEL_130:
     PBDataWriterWriteStringField();
   }
 
-  v61 = self->_has;
-  if ((*&v61 & 0x2000000000000) != 0)
+  v37 = self->_has;
+  if ((*&v37 & 0x2000000000000) != 0)
   {
-    supportsRapport = self->_supportsRapport;
     PBDataWriterWriteBOOLField();
-    v61 = self->_has;
-    if ((*&v61 & 0x80000000) == 0)
+    v37 = self->_has;
+    if ((*&v37 & 0x80000000) == 0)
     {
 LABEL_140:
-      if ((*&v61 & 0x800000000000) == 0)
+      if ((*&v37 & 0x800000000000) == 0)
       {
         goto LABEL_141;
       }
@@ -2858,18 +2870,17 @@ LABEL_140:
     }
   }
 
-  else if ((*&v61 & 0x80000000) == 0)
+  else if ((*&v37 & 0x80000000) == 0)
   {
     goto LABEL_140;
   }
 
-  isPickedOnPairedDevice = self->_isPickedOnPairedDevice;
   PBDataWriterWriteBOOLField();
-  v61 = self->_has;
-  if ((*&v61 & 0x800000000000) == 0)
+  v37 = self->_has;
+  if ((*&v37 & 0x800000000000) == 0)
   {
 LABEL_141:
-    if ((*&v61 & 0x400) == 0)
+    if ((*&v37 & 0x400) == 0)
     {
       goto LABEL_142;
     }
@@ -2878,13 +2889,12 @@ LABEL_141:
   }
 
 LABEL_196:
-  supportsHeadTrackedSpatialAudio = self->_supportsHeadTrackedSpatialAudio;
   PBDataWriterWriteBOOLField();
-  v61 = self->_has;
-  if ((*&v61 & 0x400) == 0)
+  v37 = self->_has;
+  if ((*&v37 & 0x400) == 0)
   {
 LABEL_142:
-    if ((*&v61 & 0x20000000) == 0)
+    if ((*&v37 & 0x20000000) == 0)
     {
       goto LABEL_144;
     }
@@ -2893,12 +2903,10 @@ LABEL_142:
   }
 
 LABEL_197:
-  allowsHeadTrackedSpatialAudio = self->_allowsHeadTrackedSpatialAudio;
   PBDataWriterWriteBOOLField();
   if ((*&self->_has & 0x20000000) != 0)
   {
 LABEL_143:
-    isHeadTrackedSpatialAudioActive = self->_isHeadTrackedSpatialAudioActive;
     PBDataWriterWriteBOOLField();
   }
 
@@ -2908,36 +2916,35 @@ LABEL_144:
     PBDataWriterWriteStringField();
   }
 
-  v107 = 0u;
-  v108 = 0u;
-  v105 = 0u;
-  v106 = 0u;
-  v63 = self->_dnsNames;
-  v64 = [(NSMutableArray *)v63 countByEnumeratingWithState:&v105 objects:v125 count:16];
-  if (v64)
+  v46 = 0u;
+  v47 = 0u;
+  v44 = 0u;
+  v45 = 0u;
+  v38 = self->_dnsNames;
+  v39 = [(NSMutableArray *)v38 countByEnumeratingWithState:&v44 objects:v64 count:16];
+  if (v39)
   {
-    v65 = v64;
-    v66 = *v106;
+    v40 = v39;
+    v41 = *v45;
     do
     {
-      v67 = 0;
+      v42 = 0;
       do
       {
-        if (*v106 != v66)
+        if (*v45 != v41)
         {
-          objc_enumerationMutation(v63);
+          objc_enumerationMutation(v38);
         }
 
-        v68 = *(*(&v105 + 1) + 8 * v67);
         PBDataWriterWriteStringField();
-        ++v67;
+        ++v42;
       }
 
-      while (v65 != v67);
-      v65 = [(NSMutableArray *)v63 countByEnumeratingWithState:&v105 objects:v125 count:16];
+      while (v40 != v42);
+      v40 = [(NSMutableArray *)v38 countByEnumeratingWithState:&v44 objects:v64 count:16];
     }
 
-    while (v65);
+    while (v40);
   }
 
   if (self->_alternateTransportType)
@@ -2945,16 +2952,15 @@ LABEL_144:
     PBDataWriterWriteStringField();
   }
 
-  v69 = self->_has;
-  if ((*&v69 & 0x40000) == 0)
+  v43 = self->_has;
+  if ((*&v43 & 0x40000) == 0)
   {
-    if ((*&v69 & 0x40000000000000) == 0)
+    if ((*&v43 & 0x40000000000000) == 0)
     {
       goto LABEL_157;
     }
 
 LABEL_200:
-    wasDiscoveredInCache = self->_wasDiscoveredInCache;
     PBDataWriterWriteBOOLField();
     if ((*&self->_has & 0x8000000000) == 0)
     {
@@ -2964,25 +2970,21 @@ LABEL_200:
     goto LABEL_158;
   }
 
-  deviceIsPlaying = self->_deviceIsPlaying;
   PBDataWriterWriteBOOLField();
-  v69 = self->_has;
-  if ((*&v69 & 0x40000000000000) != 0)
+  v43 = self->_has;
+  if ((*&v43 & 0x40000000000000) != 0)
   {
     goto LABEL_200;
   }
 
 LABEL_157:
-  if ((*&v69 & 0x8000000000) != 0)
+  if ((*&v43 & 0x8000000000) != 0)
   {
 LABEL_158:
-    representsUGLSender = self->_representsUGLSender;
     PBDataWriterWriteBOOLField();
   }
 
 LABEL_159:
-
-  v71 = *MEMORY[0x1E69E9840];
 }
 
 - (void)copyTo:(id)to
@@ -3817,7 +3819,7 @@ LABEL_144:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v124 = *MEMORY[0x1E69E9840];
+  v123 = *MEMORY[0x1E69E9840];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = [(NSString *)self->_name copyWithZone:zone];
   v7 = *(v5 + 200);
@@ -4209,34 +4211,34 @@ LABEL_35:
     *(v5 + 336) |= 0x10000000000000uLL;
   }
 
-  v117 = 0u;
-  v118 = 0u;
-  v115 = 0u;
   v116 = 0u;
+  v117 = 0u;
+  v114 = 0u;
+  v115 = 0u;
   v34 = self->_clusterCompositions;
-  v35 = [(NSMutableArray *)v34 countByEnumeratingWithState:&v115 objects:v123 count:16];
+  v35 = [(NSMutableArray *)v34 countByEnumeratingWithState:&v114 objects:v122 count:16];
   if (v35)
   {
     v36 = v35;
-    v37 = *v116;
+    v37 = *v115;
     do
     {
       v38 = 0;
       do
       {
-        if (*v116 != v37)
+        if (*v115 != v37)
         {
           objc_enumerationMutation(v34);
         }
 
-        v39 = [*(*(&v115 + 1) + 8 * v38) copyWithZone:zone];
+        v39 = [*(*(&v114 + 1) + 8 * v38) copyWithZone:zone];
         [v5 addClusterComposition:v39];
 
         ++v38;
       }
 
       while (v36 != v38);
-      v36 = [(NSMutableArray *)v34 countByEnumeratingWithState:&v115 objects:v123 count:16];
+      v36 = [(NSMutableArray *)v34 countByEnumeratingWithState:&v114 objects:v122 count:16];
     }
 
     while (v36);
@@ -4270,34 +4272,34 @@ LABEL_35:
   v44 = *(v5 + 88);
   *(v5 + 88) = v43;
 
-  v113 = 0u;
-  v114 = 0u;
-  v111 = 0u;
   v112 = 0u;
+  v113 = 0u;
+  v110 = 0u;
+  v111 = 0u;
   v45 = self->_availableBluetoothListeningModes;
-  v46 = [(NSMutableArray *)v45 countByEnumeratingWithState:&v111 objects:v122 count:16];
+  v46 = [(NSMutableArray *)v45 countByEnumeratingWithState:&v110 objects:v121 count:16];
   if (v46)
   {
     v47 = v46;
-    v48 = *v112;
+    v48 = *v111;
     do
     {
       v49 = 0;
       do
       {
-        if (*v112 != v48)
+        if (*v111 != v48)
         {
           objc_enumerationMutation(v45);
         }
 
-        v50 = [*(*(&v111 + 1) + 8 * v49) copyWithZone:zone];
+        v50 = [*(*(&v110 + 1) + 8 * v49) copyWithZone:zone];
         [v5 addAvailableBluetoothListeningModes:v50];
 
         ++v49;
       }
 
       while (v47 != v49);
-      v47 = [(NSMutableArray *)v45 countByEnumeratingWithState:&v111 objects:v122 count:16];
+      v47 = [(NSMutableArray *)v45 countByEnumeratingWithState:&v110 objects:v121 count:16];
     }
 
     while (v47);
@@ -4373,34 +4375,34 @@ LABEL_66:
   }
 
 LABEL_67:
-  v109 = 0u;
-  v110 = 0u;
-  v107 = 0u;
   v108 = 0u;
+  v109 = 0u;
+  v106 = 0u;
+  v107 = 0u;
   v55 = self->_activatedClusterMembers;
-  v56 = [(NSMutableArray *)v55 countByEnumeratingWithState:&v107 objects:v121 count:16];
+  v56 = [(NSMutableArray *)v55 countByEnumeratingWithState:&v106 objects:v120 count:16];
   if (v56)
   {
     v57 = v56;
-    v58 = *v108;
+    v58 = *v107;
     do
     {
       v59 = 0;
       do
       {
-        if (*v108 != v58)
+        if (*v107 != v58)
         {
           objc_enumerationMutation(v55);
         }
 
-        v60 = [*(*(&v107 + 1) + 8 * v59) copyWithZone:zone];
+        v60 = [*(*(&v106 + 1) + 8 * v59) copyWithZone:zone];
         [v5 addActivatedClusterMembers:v60];
 
         ++v59;
       }
 
       while (v57 != v59);
-      v57 = [(NSMutableArray *)v55 countByEnumeratingWithState:&v107 objects:v121 count:16];
+      v57 = [(NSMutableArray *)v55 countByEnumeratingWithState:&v106 objects:v120 count:16];
     }
 
     while (v57);
@@ -4450,34 +4452,34 @@ LABEL_67:
   v70 = *(v5 + 248);
   *(v5 + 248) = v69;
 
-  v105 = 0u;
-  v106 = 0u;
-  v103 = 0u;
   v104 = 0u;
+  v105 = 0u;
+  v102 = 0u;
+  v103 = 0u;
   v71 = self->_allClusterMembers;
-  v72 = [(NSMutableArray *)v71 countByEnumeratingWithState:&v103 objects:v120 count:16];
+  v72 = [(NSMutableArray *)v71 countByEnumeratingWithState:&v102 objects:v119 count:16];
   if (v72)
   {
     v73 = v72;
-    v74 = *v104;
+    v74 = *v103;
     do
     {
       v75 = 0;
       do
       {
-        if (*v104 != v74)
+        if (*v103 != v74)
         {
           objc_enumerationMutation(v71);
         }
 
-        v76 = [*(*(&v103 + 1) + 8 * v75) copyWithZone:zone];
+        v76 = [*(*(&v102 + 1) + 8 * v75) copyWithZone:zone];
         [v5 addAllClusterMembers:v76];
 
         ++v75;
       }
 
       while (v73 != v75);
-      v73 = [(NSMutableArray *)v71 countByEnumeratingWithState:&v103 objects:v120 count:16];
+      v73 = [(NSMutableArray *)v71 countByEnumeratingWithState:&v102 objects:v119 count:16];
     }
 
     while (v73);
@@ -4616,34 +4618,34 @@ LABEL_102:
   v86 = *(v5 + 152);
   *(v5 + 152) = v85;
 
-  v101 = 0u;
-  v102 = 0u;
-  v99 = 0u;
   v100 = 0u;
+  v101 = 0u;
+  v98 = 0u;
+  v99 = 0u;
   v87 = self->_dnsNames;
-  v88 = [(NSMutableArray *)v87 countByEnumeratingWithState:&v99 objects:v119 count:16];
+  v88 = [(NSMutableArray *)v87 countByEnumeratingWithState:&v98 objects:v118 count:16];
   if (v88)
   {
     v89 = v88;
-    v90 = *v100;
+    v90 = *v99;
     do
     {
       v91 = 0;
       do
       {
-        if (*v100 != v90)
+        if (*v99 != v90)
         {
           objc_enumerationMutation(v87);
         }
 
-        v92 = [*(*(&v99 + 1) + 8 * v91) copyWithZone:{zone, v99}];
+        v92 = [*(*(&v98 + 1) + 8 * v91) copyWithZone:{zone, v98}];
         [v5 addDnsNames:v92];
 
         ++v91;
       }
 
       while (v89 != v91);
-      v89 = [(NSMutableArray *)v87 countByEnumeratingWithState:&v99 objects:v119 count:16];
+      v89 = [(NSMutableArray *)v87 countByEnumeratingWithState:&v98 objects:v118 count:16];
     }
 
     while (v89);
@@ -4691,7 +4693,6 @@ LABEL_112:
 LABEL_113:
   v96 = v5;
 
-  v97 = *MEMORY[0x1E69E9840];
   return v96;
 }
 
@@ -4757,7 +4758,6 @@ LABEL_113:
       goto LABEL_477;
     }
 
-    v12 = *(equalCopy + 290);
     if (self->_canAccessRemoteAssets)
     {
       if ((*(equalCopy + 290) & 1) == 0)
@@ -4784,7 +4784,6 @@ LABEL_113:
       goto LABEL_477;
     }
 
-    v13 = *(equalCopy + 311);
     if (self->_isRemoteControllable)
     {
       if ((*(equalCopy + 311) & 1) == 0)
@@ -4811,7 +4810,6 @@ LABEL_113:
       goto LABEL_477;
     }
 
-    v14 = *(equalCopy + 305);
     if (self->_isGroupLeader)
     {
       if ((*(equalCopy + 305) & 1) == 0)
@@ -4838,7 +4836,6 @@ LABEL_113:
       goto LABEL_477;
     }
 
-    v15 = *(equalCopy + 306);
     if (self->_isGroupable)
     {
       if ((*(equalCopy + 306) & 1) == 0)
@@ -4895,28 +4892,27 @@ LABEL_113:
     has = self->_has;
   }
 
-  v17 = *(equalCopy + 42);
+  v13 = *(equalCopy + 42);
   if (*&has)
   {
-    if ((v17 & 1) == 0 || self->_batteryLevel != *(equalCopy + 12))
+    if ((v13 & 1) == 0 || self->_batteryLevel != *(equalCopy + 12))
     {
       goto LABEL_477;
     }
   }
 
-  else if (v17)
+  else if (v13)
   {
     goto LABEL_477;
   }
 
   if ((*&has & 0x40000000) != 0)
   {
-    if ((v17 & 0x40000000) == 0)
+    if ((v13 & 0x40000000) == 0)
     {
       goto LABEL_477;
     }
 
-    v24 = *(equalCopy + 308);
     if (self->_isLocalDevice)
     {
       if ((*(equalCopy + 308) & 1) == 0)
@@ -4931,19 +4927,18 @@ LABEL_113:
     }
   }
 
-  else if ((v17 & 0x40000000) != 0)
+  else if ((v13 & 0x40000000) != 0)
   {
     goto LABEL_477;
   }
 
   if ((*&has & 0x200000000000) != 0)
   {
-    if ((v17 & 0x200000000000) == 0)
+    if ((v13 & 0x200000000000) == 0)
     {
       goto LABEL_477;
     }
 
-    v25 = *(equalCopy + 323);
     if (self->_supportsExternalScreen)
     {
       if ((*(equalCopy + 323) & 1) == 0)
@@ -4958,19 +4953,18 @@ LABEL_113:
     }
   }
 
-  else if ((v17 & 0x200000000000) != 0)
+  else if ((v13 & 0x200000000000) != 0)
   {
     goto LABEL_477;
   }
 
   if ((*&has & 0x10000000000) != 0)
   {
-    if ((v17 & 0x10000000000) == 0)
+    if ((v13 & 0x10000000000) == 0)
     {
       goto LABEL_477;
     }
 
-    v26 = *(equalCopy + 318);
     if (self->_requiresAuthorization)
     {
       if ((*(equalCopy + 318) & 1) == 0)
@@ -4985,19 +4979,18 @@ LABEL_113:
     }
   }
 
-  else if ((v17 & 0x10000000000) != 0)
+  else if ((v13 & 0x10000000000) != 0)
   {
     goto LABEL_477;
   }
 
   if ((*&has & 0x20000000000) != 0)
   {
-    if ((v17 & 0x20000000000) == 0)
+    if ((v13 & 0x20000000000) == 0)
     {
       goto LABEL_477;
     }
 
-    v27 = *(equalCopy + 319);
     if (self->_shouldForceRemoteControlabillity)
     {
       if ((*(equalCopy + 319) & 1) == 0)
@@ -5012,7 +5005,7 @@ LABEL_113:
     }
   }
 
-  else if ((v17 & 0x20000000000) != 0)
+  else if ((v13 & 0x20000000000) != 0)
   {
     goto LABEL_477;
   }
@@ -5028,15 +5021,14 @@ LABEL_113:
     has = self->_has;
   }
 
-  v19 = *(equalCopy + 42);
+  v15 = *(equalCopy + 42);
   if ((*&has & 0x4000000) != 0)
   {
-    if ((v19 & 0x4000000) == 0)
+    if ((v15 & 0x4000000) == 0)
     {
       goto LABEL_477;
     }
 
-    v28 = *(equalCopy + 304);
     if (self->_isDeviceGroupable)
     {
       if ((*(equalCopy + 304) & 1) == 0)
@@ -5051,19 +5043,18 @@ LABEL_113:
     }
   }
 
-  else if ((v19 & 0x4000000) != 0)
+  else if ((v15 & 0x4000000) != 0)
   {
     goto LABEL_477;
   }
 
   if ((*&has & 0x10000) != 0)
   {
-    if ((v19 & 0x10000) == 0)
+    if ((v15 & 0x10000) == 0)
     {
       goto LABEL_477;
     }
 
-    v29 = *(equalCopy + 294);
     if (self->_canRelayCommunicationChannel)
     {
       if ((*(equalCopy + 294) & 1) == 0)
@@ -5078,7 +5069,7 @@ LABEL_113:
     }
   }
 
-  else if ((v19 & 0x10000) != 0)
+  else if ((v15 & 0x10000) != 0)
   {
     goto LABEL_477;
   }
@@ -5094,15 +5085,14 @@ LABEL_113:
     has = self->_has;
   }
 
-  v21 = *(equalCopy + 42);
+  v17 = *(equalCopy + 42);
   if ((*&has & 0x100000000) != 0)
   {
-    if ((v21 & 0x100000000) == 0)
+    if ((v17 & 0x100000000) == 0)
     {
       goto LABEL_477;
     }
 
-    v30 = *(equalCopy + 310);
     if (self->_isProxyGroupPlayer)
     {
       if ((*(equalCopy + 310) & 1) == 0)
@@ -5117,7 +5107,7 @@ LABEL_113:
     }
   }
 
-  else if ((v21 & 0x100000000) != 0)
+  else if ((v17 & 0x100000000) != 0)
   {
     goto LABEL_477;
   }
@@ -5133,28 +5123,27 @@ LABEL_113:
     has = self->_has;
   }
 
-  v23 = *(equalCopy + 42);
+  v19 = *(equalCopy + 42);
   if ((*&has & 0x100) != 0)
   {
-    if ((v23 & 0x100) == 0 || self->_volume != *(equalCopy + 70))
+    if ((v19 & 0x100) == 0 || self->_volume != *(equalCopy + 70))
     {
       goto LABEL_477;
     }
   }
 
-  else if ((v23 & 0x100) != 0)
+  else if ((v19 & 0x100) != 0)
   {
     goto LABEL_477;
   }
 
   if ((*&has & 0x400000000) != 0)
   {
-    if ((v23 & 0x400000000) == 0)
+    if ((v19 & 0x400000000) == 0)
     {
       goto LABEL_477;
     }
 
-    v31 = *(equalCopy + 312);
     if (self->_isVolumeControlAvailable)
     {
       if ((*(equalCopy + 312) & 1) == 0)
@@ -5169,19 +5158,18 @@ LABEL_113:
     }
   }
 
-  else if ((v23 & 0x400000000) != 0)
+  else if ((v19 & 0x400000000) != 0)
   {
     goto LABEL_477;
   }
 
   if ((*&has & 0x800) != 0)
   {
-    if ((v23 & 0x800) == 0)
+    if ((v19 & 0x800) == 0)
     {
       goto LABEL_477;
     }
 
-    v32 = *(equalCopy + 289);
     if (self->_canAccessAppleMusic)
     {
       if ((*(equalCopy + 289) & 1) == 0)
@@ -5196,19 +5184,18 @@ LABEL_113:
     }
   }
 
-  else if ((v23 & 0x800) != 0)
+  else if ((v19 & 0x800) != 0)
   {
     goto LABEL_477;
   }
 
   if ((*&has & 0x2000) != 0)
   {
-    if ((v23 & 0x2000) == 0)
+    if ((v19 & 0x2000) == 0)
     {
       goto LABEL_477;
     }
 
-    v33 = *(equalCopy + 291);
     if (self->_canAccessiCloudMusicLibrary)
     {
       if ((*(equalCopy + 291) & 1) == 0)
@@ -5223,19 +5210,18 @@ LABEL_113:
     }
   }
 
-  else if ((v23 & 0x2000) != 0)
+  else if ((v19 & 0x2000) != 0)
   {
     goto LABEL_477;
   }
 
   if ((*&has & 0x200000) != 0)
   {
-    if ((v23 & 0x200000) == 0)
+    if ((v19 & 0x200000) == 0)
     {
       goto LABEL_477;
     }
 
-    v34 = *(equalCopy + 299);
     if (self->_groupContainsGroupLeader)
     {
       if ((*(equalCopy + 299) & 1) == 0)
@@ -5250,19 +5236,18 @@ LABEL_113:
     }
   }
 
-  else if ((v23 & 0x200000) != 0)
+  else if ((v19 & 0x200000) != 0)
   {
     goto LABEL_477;
   }
 
   if ((*&has & 0x80000000000) != 0)
   {
-    if ((v23 & 0x80000000000) == 0)
+    if ((v19 & 0x80000000000) == 0)
     {
       goto LABEL_477;
     }
 
-    v35 = *(equalCopy + 321);
     if (self->_supportsBufferedAirPlay)
     {
       if ((*(equalCopy + 321) & 1) == 0)
@@ -5277,19 +5262,18 @@ LABEL_113:
     }
   }
 
-  else if ((v23 & 0x80000000000) != 0)
+  else if ((v19 & 0x80000000000) != 0)
   {
     goto LABEL_477;
   }
 
   if ((*&has & 0x8000) != 0)
   {
-    if ((v23 & 0x8000) == 0)
+    if ((v19 & 0x8000) == 0)
     {
       goto LABEL_477;
     }
 
-    v36 = *(equalCopy + 293);
     if (self->_canPlayEncryptedProgressiveDownloadAssets)
     {
       if ((*(equalCopy + 293) & 1) == 0)
@@ -5304,19 +5288,18 @@ LABEL_113:
     }
   }
 
-  else if ((v23 & 0x8000) != 0)
+  else if ((v19 & 0x8000) != 0)
   {
     goto LABEL_477;
   }
 
   if ((*&has & 0x4000) != 0)
   {
-    if ((v23 & 0x4000) == 0)
+    if ((v19 & 0x4000) == 0)
     {
       goto LABEL_477;
     }
 
-    v39 = *(equalCopy + 292);
     if (self->_canFetchMediaDataFromSender)
     {
       if ((*(equalCopy + 292) & 1) == 0)
@@ -5331,19 +5314,18 @@ LABEL_113:
     }
   }
 
-  else if ((v23 & 0x4000) != 0)
+  else if ((v19 & 0x4000) != 0)
   {
     goto LABEL_477;
   }
 
   if ((*&has & 0x2000000000) != 0)
   {
-    if ((v23 & 0x2000000000) == 0)
+    if ((v19 & 0x2000000000) == 0)
     {
       goto LABEL_477;
     }
 
-    v40 = *(equalCopy + 315);
     if (self->_presentsOptimizedUserInterfaceWhenPlayingFetchedAudioOnlyAssets)
     {
       if ((*(equalCopy + 315) & 1) == 0)
@@ -5358,19 +5340,18 @@ LABEL_113:
     }
   }
 
-  else if ((v23 & 0x2000000000) != 0)
+  else if ((v19 & 0x2000000000) != 0)
   {
     goto LABEL_477;
   }
 
   if ((*&has & 0x800000) != 0)
   {
-    if ((v23 & 0x800000) == 0)
+    if ((v19 & 0x800000) == 0)
     {
       goto LABEL_477;
     }
 
-    v41 = *(equalCopy + 301);
     if (self->_isAirPlayReceiverSessionActive)
     {
       if ((*(equalCopy + 301) & 1) == 0)
@@ -5385,7 +5366,7 @@ LABEL_113:
     }
   }
 
-  else if ((v23 & 0x800000) != 0)
+  else if ((v19 & 0x800000) != 0)
   {
     goto LABEL_477;
   }
@@ -5401,15 +5382,14 @@ LABEL_113:
     has = self->_has;
   }
 
-  v38 = *(equalCopy + 42);
+  v21 = *(equalCopy + 42);
   if ((*&has & 0x800000000) != 0)
   {
-    if ((v38 & 0x800000000) == 0)
+    if ((v21 & 0x800000000) == 0)
     {
       goto LABEL_477;
     }
 
-    v42 = *(equalCopy + 313);
     if (self->_parentGroupContainsDiscoverableLeader)
     {
       if ((*(equalCopy + 313) & 1) == 0)
@@ -5424,19 +5404,18 @@ LABEL_113:
     }
   }
 
-  else if ((v38 & 0x800000000) != 0)
+  else if ((v21 & 0x800000000) != 0)
   {
     goto LABEL_477;
   }
 
   if ((*&has & 0x400000) != 0)
   {
-    if ((v38 & 0x400000) == 0)
+    if ((v21 & 0x400000) == 0)
     {
       goto LABEL_477;
     }
 
-    v43 = *(equalCopy + 300);
     if (self->_isAddedToHomeKit)
     {
       if ((*(equalCopy + 300) & 1) == 0)
@@ -5451,20 +5430,20 @@ LABEL_113:
     }
   }
 
-  else if ((v38 & 0x400000) != 0)
+  else if ((v21 & 0x400000) != 0)
   {
     goto LABEL_477;
   }
 
   if ((*&has & 0x200) != 0)
   {
-    if ((v38 & 0x200) == 0 || self->_volumeCapabilities != *(equalCopy + 71))
+    if ((v21 & 0x200) == 0 || self->_volumeCapabilities != *(equalCopy + 71))
     {
       goto LABEL_477;
     }
   }
 
-  else if ((v38 & 0x200) != 0)
+  else if ((v21 & 0x200) != 0)
   {
     goto LABEL_477;
   }
@@ -5480,15 +5459,14 @@ LABEL_113:
     has = self->_has;
   }
 
-  v45 = *(equalCopy + 42);
+  v23 = *(equalCopy + 42);
   if ((*&has & 0x400000000000) != 0)
   {
-    if ((v45 & 0x400000000000) == 0)
+    if ((v23 & 0x400000000000) == 0)
     {
       goto LABEL_477;
     }
 
-    v46 = *(equalCopy + 324);
     if (self->_supportsHAP)
     {
       if ((*(equalCopy + 324) & 1) == 0)
@@ -5503,19 +5481,18 @@ LABEL_113:
     }
   }
 
-  else if ((v45 & 0x400000000000) != 0)
+  else if ((v23 & 0x400000000000) != 0)
   {
     goto LABEL_477;
   }
 
   if ((*&has & 0x10000000000000) != 0)
   {
-    if ((v45 & 0x10000000000000) == 0)
+    if ((v23 & 0x10000000000000) == 0)
     {
       goto LABEL_477;
     }
 
-    v47 = *(equalCopy + 330);
     if (self->_usingJSONProtocol)
     {
       if ((*(equalCopy + 330) & 1) == 0)
@@ -5530,7 +5507,7 @@ LABEL_113:
     }
   }
 
-  else if ((v45 & 0x10000000000000) != 0)
+  else if ((v23 & 0x10000000000000) != 0)
   {
     goto LABEL_477;
   }
@@ -5546,16 +5523,16 @@ LABEL_113:
     has = self->_has;
   }
 
-  v49 = *(equalCopy + 42);
+  v25 = *(equalCopy + 42);
   if ((*&has & 2) != 0)
   {
-    if ((v49 & 2) == 0 || self->_clusterType != *(equalCopy + 20))
+    if ((v25 & 2) == 0 || self->_clusterType != *(equalCopy + 20))
     {
       goto LABEL_477;
     }
   }
 
-  else if ((v49 & 2) != 0)
+  else if ((v25 & 2) != 0)
   {
     goto LABEL_477;
   }
@@ -5571,28 +5548,27 @@ LABEL_113:
     has = self->_has;
   }
 
-  v51 = *(equalCopy + 42);
+  v27 = *(equalCopy + 42);
   if ((*&has & 4) != 0)
   {
-    if ((v51 & 4) == 0 || self->_configuredClusterSize != *(equalCopy + 21))
+    if ((v27 & 4) == 0 || self->_configuredClusterSize != *(equalCopy + 21))
     {
       goto LABEL_477;
     }
   }
 
-  else if ((v51 & 4) != 0)
+  else if ((v27 & 4) != 0)
   {
     goto LABEL_477;
   }
 
   if ((*&has & 0x4000000000000) != 0)
   {
-    if ((v51 & 0x4000000000000) == 0)
+    if ((v27 & 0x4000000000000) == 0)
     {
       goto LABEL_477;
     }
 
-    v52 = *(equalCopy + 328);
     if (self->_supportsRapportRemoteControlTransport)
     {
       if ((*(equalCopy + 328) & 1) == 0)
@@ -5607,7 +5583,7 @@ LABEL_113:
     }
   }
 
-  else if ((v51 & 0x4000000000000) != 0)
+  else if ((v27 & 0x4000000000000) != 0)
   {
     goto LABEL_477;
   }
@@ -5627,16 +5603,15 @@ LABEL_113:
     }
   }
 
-  v55 = self->_has;
-  v56 = *(equalCopy + 42);
-  if ((*&v55 & 0x1000000000000) != 0)
+  v30 = self->_has;
+  v31 = *(equalCopy + 42);
+  if ((*&v30 & 0x1000000000000) != 0)
   {
-    if ((v56 & 0x1000000000000) == 0)
+    if ((v31 & 0x1000000000000) == 0)
     {
       goto LABEL_477;
     }
 
-    v57 = *(equalCopy + 326);
     if (self->_supportsMultiplayer)
     {
       if ((*(equalCopy + 326) & 1) == 0)
@@ -5651,19 +5626,18 @@ LABEL_113:
     }
   }
 
-  else if ((v56 & 0x1000000000000) != 0)
+  else if ((v31 & 0x1000000000000) != 0)
   {
     goto LABEL_477;
   }
 
-  if ((*&v55 & 0x4000000000) != 0)
+  if ((*&v30 & 0x4000000000) != 0)
   {
-    if ((v56 & 0x4000000000) == 0)
+    if ((v31 & 0x4000000000) == 0)
     {
       goto LABEL_477;
     }
 
-    v58 = *(equalCopy + 316);
     if (self->_producesLowFidelityAudio)
     {
       if ((*(equalCopy + 316) & 1) == 0)
@@ -5678,20 +5652,20 @@ LABEL_113:
     }
   }
 
-  else if ((v56 & 0x4000000000) != 0)
+  else if ((v31 & 0x4000000000) != 0)
   {
     goto LABEL_477;
   }
 
-  if ((*&v55 & 0x40) != 0)
+  if ((*&v30 & 0x40) != 0)
   {
-    if ((v56 & 0x40) == 0 || self->_hostDeviceClass != *(equalCopy + 40))
+    if ((v31 & 0x40) == 0 || self->_hostDeviceClass != *(equalCopy + 40))
     {
       goto LABEL_477;
     }
   }
 
-  else if ((v56 & 0x40) != 0)
+  else if ((v31 & 0x40) != 0)
   {
     goto LABEL_477;
   }
@@ -5704,18 +5678,17 @@ LABEL_113:
       goto LABEL_477;
     }
 
-    v55 = self->_has;
+    v30 = self->_has;
   }
 
-  v60 = *(equalCopy + 42);
-  if ((*&v55 & 0x8000000000000) != 0)
+  v33 = *(equalCopy + 42);
+  if ((*&v30 & 0x8000000000000) != 0)
   {
-    if ((v60 & 0x8000000000000) == 0)
+    if ((v33 & 0x8000000000000) == 0)
     {
       goto LABEL_477;
     }
 
-    v61 = *(equalCopy + 329);
     if (self->_supportsSharePlayHandoff)
     {
       if ((*(equalCopy + 329) & 1) == 0)
@@ -5730,32 +5703,31 @@ LABEL_113:
     }
   }
 
-  else if ((v60 & 0x8000000000000) != 0)
+  else if ((v33 & 0x8000000000000) != 0)
   {
     goto LABEL_477;
   }
 
-  if ((*&v55 & 0x20) != 0)
+  if ((*&v30 & 0x20) != 0)
   {
-    if ((v60 & 0x20) == 0 || self->_distance != *(equalCopy + 28))
+    if ((v33 & 0x20) == 0 || self->_distance != *(equalCopy + 28))
     {
       goto LABEL_477;
     }
   }
 
-  else if ((v60 & 0x20) != 0)
+  else if ((v33 & 0x20) != 0)
   {
     goto LABEL_477;
   }
 
-  if ((*&v55 & 0x80000) != 0)
+  if ((*&v30 & 0x80000) != 0)
   {
-    if ((v60 & 0x80000) == 0)
+    if ((v33 & 0x80000) == 0)
     {
       goto LABEL_477;
     }
 
-    v62 = *(equalCopy + 297);
     if (self->_discoveredOnSameInfra)
     {
       if ((*(equalCopy + 297) & 1) == 0)
@@ -5770,7 +5742,7 @@ LABEL_113:
     }
   }
 
-  else if ((v60 & 0x80000) != 0)
+  else if ((v33 & 0x80000) != 0)
   {
     goto LABEL_477;
   }
@@ -5783,18 +5755,17 @@ LABEL_113:
       goto LABEL_477;
     }
 
-    v55 = self->_has;
+    v30 = self->_has;
   }
 
-  v64 = *(equalCopy + 42);
-  if ((*&v55 & 0x1000000000) != 0)
+  v35 = *(equalCopy + 42);
+  if ((*&v30 & 0x1000000000) != 0)
   {
-    if ((v64 & 0x1000000000) == 0)
+    if ((v35 & 0x1000000000) == 0)
     {
       goto LABEL_477;
     }
 
-    v65 = *(equalCopy + 314);
     if (self->_pickable)
     {
       if ((*(equalCopy + 314) & 1) == 0)
@@ -5809,20 +5780,20 @@ LABEL_113:
     }
   }
 
-  else if ((v64 & 0x1000000000) != 0)
+  else if ((v35 & 0x1000000000) != 0)
   {
     goto LABEL_477;
   }
 
-  if ((*&v55 & 0x80) != 0)
+  if ((*&v30 & 0x80) != 0)
   {
-    if ((v64 & 0x80) == 0 || self->_transportType != *(equalCopy + 66))
+    if ((v35 & 0x80) == 0 || self->_transportType != *(equalCopy + 66))
     {
       goto LABEL_477;
     }
   }
 
-  else if ((v64 & 0x80) != 0)
+  else if ((v35 & 0x80) != 0)
   {
     goto LABEL_477;
   }
@@ -5835,18 +5806,17 @@ LABEL_113:
       goto LABEL_477;
     }
 
-    v55 = self->_has;
+    v30 = self->_has;
   }
 
-  v67 = *(equalCopy + 42);
-  if ((*&v55 & 0x2000000) != 0)
+  v37 = *(equalCopy + 42);
+  if ((*&v30 & 0x2000000) != 0)
   {
-    if ((v67 & 0x2000000) == 0)
+    if ((v37 & 0x2000000) == 0)
     {
       goto LABEL_477;
     }
 
-    v68 = *(equalCopy + 303);
     if (self->_isClusterLeader)
     {
       if ((*(equalCopy + 303) & 1) == 0)
@@ -5861,19 +5831,18 @@ LABEL_113:
     }
   }
 
-  else if ((v67 & 0x2000000) != 0)
+  else if ((v37 & 0x2000000) != 0)
   {
     goto LABEL_477;
   }
 
-  if ((*&v55 & 0x1000000) != 0)
+  if ((*&v30 & 0x1000000) != 0)
   {
-    if ((v67 & 0x1000000) == 0)
+    if ((v37 & 0x1000000) == 0)
     {
       goto LABEL_477;
     }
 
-    v69 = *(equalCopy + 302);
     if (self->_isAppleAccessory)
     {
       if ((*(equalCopy + 302) & 1) == 0)
@@ -5888,7 +5857,7 @@ LABEL_113:
     }
   }
 
-  else if ((v67 & 0x1000000) != 0)
+  else if ((v37 & 0x1000000) != 0)
   {
     goto LABEL_477;
   }
@@ -5926,16 +5895,15 @@ LABEL_113:
     }
   }
 
-  v74 = self->_has;
-  v75 = *(equalCopy + 42);
-  if ((*&v74 & 0x100000000000) != 0)
+  v42 = self->_has;
+  v43 = *(equalCopy + 42);
+  if ((*&v42 & 0x100000000000) != 0)
   {
-    if ((v75 & 0x100000000000) == 0)
+    if ((v43 & 0x100000000000) == 0)
     {
       goto LABEL_477;
     }
 
-    v76 = *(equalCopy + 322);
     if (self->_supportsConversationDetection)
     {
       if ((*(equalCopy + 322) & 1) == 0)
@@ -5950,19 +5918,18 @@ LABEL_113:
     }
   }
 
-  else if ((v75 & 0x100000000000) != 0)
+  else if ((v43 & 0x100000000000) != 0)
   {
     goto LABEL_477;
   }
 
-  if ((*&v74 & 0x20000) != 0)
+  if ((*&v42 & 0x20000) != 0)
   {
-    if ((v75 & 0x20000) == 0)
+    if ((v43 & 0x20000) == 0)
     {
       goto LABEL_477;
     }
 
-    v77 = *(equalCopy + 295);
     if (self->_conversationDetectionEnabled)
     {
       if ((*(equalCopy + 295) & 1) == 0)
@@ -5977,19 +5944,18 @@ LABEL_113:
     }
   }
 
-  else if ((v75 & 0x20000) != 0)
+  else if ((v43 & 0x20000) != 0)
   {
     goto LABEL_477;
   }
 
-  if ((*&v74 & 0x100000) != 0)
+  if ((*&v42 & 0x100000) != 0)
   {
-    if ((v75 & 0x100000) == 0)
+    if ((v43 & 0x100000) == 0)
     {
       goto LABEL_477;
     }
 
-    v78 = *(equalCopy + 298);
     if (self->_engageOnClusterActivate)
     {
       if ((*(equalCopy + 298) & 1) == 0)
@@ -6004,19 +5970,18 @@ LABEL_113:
     }
   }
 
-  else if ((v75 & 0x100000) != 0)
+  else if ((v43 & 0x100000) != 0)
   {
     goto LABEL_477;
   }
 
-  if ((*&v74 & 0x20000000000000) != 0)
+  if ((*&v42 & 0x20000000000000) != 0)
   {
-    if ((v75 & 0x20000000000000) == 0)
+    if ((v43 & 0x20000000000000) == 0)
     {
       goto LABEL_477;
     }
 
-    v79 = *(equalCopy + 331);
     if (self->_volumeMuted)
     {
       if ((*(equalCopy + 331) & 1) == 0)
@@ -6031,7 +5996,7 @@ LABEL_113:
     }
   }
 
-  else if ((v75 & 0x20000000000000) != 0)
+  else if ((v43 & 0x20000000000000) != 0)
   {
     goto LABEL_477;
   }
@@ -6044,18 +6009,17 @@ LABEL_113:
       goto LABEL_477;
     }
 
-    v74 = self->_has;
+    v42 = self->_has;
   }
 
-  v81 = *(equalCopy + 42);
-  if ((*&v74 & 0x40000000000) != 0)
+  v45 = *(equalCopy + 42);
+  if ((*&v42 & 0x40000000000) != 0)
   {
-    if ((v81 & 0x40000000000) == 0)
+    if ((v45 & 0x40000000000) == 0)
     {
       goto LABEL_477;
     }
 
-    v82 = *(equalCopy + 320);
     if (self->_supportsBluetoothSharing)
     {
       if ((*(equalCopy + 320) & 1) == 0)
@@ -6070,7 +6034,7 @@ LABEL_113:
     }
   }
 
-  else if ((v81 & 0x40000000000) != 0)
+  else if ((v45 & 0x40000000000) != 0)
   {
     goto LABEL_477;
   }
@@ -6090,16 +6054,15 @@ LABEL_113:
     }
   }
 
-  v85 = self->_has;
-  v86 = *(equalCopy + 42);
-  if ((*&v85 & 0x2000000000000) != 0)
+  v48 = self->_has;
+  v49 = *(equalCopy + 42);
+  if ((*&v48 & 0x2000000000000) != 0)
   {
-    if ((v86 & 0x2000000000000) == 0)
+    if ((v49 & 0x2000000000000) == 0)
     {
       goto LABEL_477;
     }
 
-    v87 = *(equalCopy + 327);
     if (self->_supportsRapport)
     {
       if ((*(equalCopy + 327) & 1) == 0)
@@ -6114,19 +6077,18 @@ LABEL_113:
     }
   }
 
-  else if ((v86 & 0x2000000000000) != 0)
+  else if ((v49 & 0x2000000000000) != 0)
   {
     goto LABEL_477;
   }
 
-  if ((*&v85 & 0x80000000) != 0)
+  if ((*&v48 & 0x80000000) != 0)
   {
-    if ((v86 & 0x80000000) == 0)
+    if ((v49 & 0x80000000) == 0)
     {
       goto LABEL_477;
     }
 
-    v88 = *(equalCopy + 309);
     if (self->_isPickedOnPairedDevice)
     {
       if ((*(equalCopy + 309) & 1) == 0)
@@ -6141,19 +6103,18 @@ LABEL_113:
     }
   }
 
-  else if ((v86 & 0x80000000) != 0)
+  else if ((v49 & 0x80000000) != 0)
   {
     goto LABEL_477;
   }
 
-  if ((*&v85 & 0x800000000000) != 0)
+  if ((*&v48 & 0x800000000000) != 0)
   {
-    if ((v86 & 0x800000000000) == 0)
+    if ((v49 & 0x800000000000) == 0)
     {
       goto LABEL_477;
     }
 
-    v89 = *(equalCopy + 325);
     if (self->_supportsHeadTrackedSpatialAudio)
     {
       if ((*(equalCopy + 325) & 1) == 0)
@@ -6168,19 +6129,18 @@ LABEL_113:
     }
   }
 
-  else if ((v86 & 0x800000000000) != 0)
+  else if ((v49 & 0x800000000000) != 0)
   {
     goto LABEL_477;
   }
 
-  if ((*&v85 & 0x400) != 0)
+  if ((*&v48 & 0x400) != 0)
   {
-    if ((v86 & 0x400) == 0)
+    if ((v49 & 0x400) == 0)
     {
       goto LABEL_477;
     }
 
-    v90 = *(equalCopy + 288);
     if (self->_allowsHeadTrackedSpatialAudio)
     {
       if ((*(equalCopy + 288) & 1) == 0)
@@ -6195,19 +6155,18 @@ LABEL_113:
     }
   }
 
-  else if ((v86 & 0x400) != 0)
+  else if ((v49 & 0x400) != 0)
   {
     goto LABEL_477;
   }
 
-  if ((*&v85 & 0x20000000) != 0)
+  if ((*&v48 & 0x20000000) != 0)
   {
-    if ((v86 & 0x20000000) == 0)
+    if ((v49 & 0x20000000) == 0)
     {
       goto LABEL_477;
     }
 
-    v91 = *(equalCopy + 307);
     if (self->_isHeadTrackedSpatialAudioActive)
     {
       if ((*(equalCopy + 307) & 1) == 0)
@@ -6222,7 +6181,7 @@ LABEL_113:
     }
   }
 
-  else if ((v86 & 0x20000000) != 0)
+  else if ((v49 & 0x20000000) != 0)
   {
     goto LABEL_477;
   }
@@ -6251,16 +6210,15 @@ LABEL_113:
     }
   }
 
-  v95 = self->_has;
-  v96 = *(equalCopy + 42);
-  if ((*&v95 & 0x40000) != 0)
+  v53 = self->_has;
+  v54 = *(equalCopy + 42);
+  if ((*&v53 & 0x40000) != 0)
   {
-    if ((v96 & 0x40000) == 0)
+    if ((v54 & 0x40000) == 0)
     {
       goto LABEL_477;
     }
 
-    v97 = *(equalCopy + 296);
     if (self->_deviceIsPlaying)
     {
       if ((*(equalCopy + 296) & 1) == 0)
@@ -6275,19 +6233,18 @@ LABEL_113:
     }
   }
 
-  else if ((v96 & 0x40000) != 0)
+  else if ((v54 & 0x40000) != 0)
   {
     goto LABEL_477;
   }
 
-  if ((*&v95 & 0x40000000000000) != 0)
+  if ((*&v53 & 0x40000000000000) != 0)
   {
-    if ((v96 & 0x40000000000000) == 0)
+    if ((v54 & 0x40000000000000) == 0)
     {
       goto LABEL_477;
     }
 
-    v98 = *(equalCopy + 332);
     if (self->_wasDiscoveredInCache)
     {
       if ((*(equalCopy + 332) & 1) == 0)
@@ -6302,14 +6259,14 @@ LABEL_113:
     }
   }
 
-  else if ((v96 & 0x40000000000000) != 0)
+  else if ((v54 & 0x40000000000000) != 0)
   {
     goto LABEL_477;
   }
 
-  if ((*&v95 & 0x8000000000) != 0)
+  if ((*&v53 & 0x8000000000) != 0)
   {
-    if ((v96 & 0x8000000000) != 0)
+    if ((v54 & 0x8000000000) != 0)
     {
       if (self->_representsUGLSender)
       {
@@ -6324,19 +6281,19 @@ LABEL_113:
         goto LABEL_477;
       }
 
-      v99 = 1;
+      v55 = 1;
       goto LABEL_478;
     }
 
 LABEL_477:
-    v99 = 0;
+    v55 = 0;
     goto LABEL_478;
   }
 
-  v99 = (v96 & 0x8000000000) == 0;
+  v55 = (v54 & 0x8000000000) == 0;
 LABEL_478:
 
-  return v99;
+  return v55;
 }
 
 - (unint64_t)hash
@@ -7114,7 +7071,7 @@ LABEL_142:
 
 - (void)mergeFrom:(id)from
 {
-  v74 = *MEMORY[0x1E69E9840];
+  v73 = *MEMORY[0x1E69E9840];
   fromCopy = from;
   if (*(fromCopy + 25))
   {
@@ -7527,29 +7484,29 @@ LABEL_69:
     *&self->_has |= 0x10000000000000uLL;
   }
 
-  v67 = 0u;
-  v68 = 0u;
-  v65 = 0u;
   v66 = 0u;
+  v67 = 0u;
+  v64 = 0u;
+  v65 = 0u;
   v13 = *(fromCopy + 8);
-  v14 = [v13 countByEnumeratingWithState:&v65 objects:v73 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v64 objects:v72 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v66;
+    v16 = *v65;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v66 != v16)
+        if (*v65 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        [(_MRAVOutputDeviceDescriptorProtobuf *)self addClusterComposition:*(*(&v65 + 1) + 8 * i)];
+        [(_MRAVOutputDeviceDescriptorProtobuf *)self addClusterComposition:*(*(&v64 + 1) + 8 * i)];
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v65 objects:v73 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v64 objects:v72 count:16];
     }
 
     while (v15);
@@ -7585,29 +7542,29 @@ LABEL_69:
     [(_MRAVOutputDeviceDescriptorProtobuf *)self setCurrentBluetoothListeningMode:?];
   }
 
-  v63 = 0u;
-  v64 = 0u;
-  v61 = 0u;
   v62 = 0u;
+  v63 = 0u;
+  v60 = 0u;
+  v61 = 0u;
   v19 = *(fromCopy + 5);
-  v20 = [v19 countByEnumeratingWithState:&v61 objects:v72 count:16];
+  v20 = [v19 countByEnumeratingWithState:&v60 objects:v71 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v62;
+    v22 = *v61;
     do
     {
       for (j = 0; j != v21; ++j)
       {
-        if (*v62 != v22)
+        if (*v61 != v22)
         {
           objc_enumerationMutation(v19);
         }
 
-        [(_MRAVOutputDeviceDescriptorProtobuf *)self addAvailableBluetoothListeningModes:*(*(&v61 + 1) + 8 * j)];
+        [(_MRAVOutputDeviceDescriptorProtobuf *)self addAvailableBluetoothListeningModes:*(*(&v60 + 1) + 8 * j)];
       }
 
-      v21 = [v19 countByEnumeratingWithState:&v61 objects:v72 count:16];
+      v21 = [v19 countByEnumeratingWithState:&v60 objects:v71 count:16];
     }
 
     while (v21);
@@ -7684,29 +7641,29 @@ LABEL_108:
   }
 
 LABEL_109:
-  v59 = 0u;
-  v60 = 0u;
-  v57 = 0u;
   v58 = 0u;
+  v59 = 0u;
+  v56 = 0u;
+  v57 = 0u;
   v26 = *(fromCopy + 1);
-  v27 = [v26 countByEnumeratingWithState:&v57 objects:v71 count:16];
+  v27 = [v26 countByEnumeratingWithState:&v56 objects:v70 count:16];
   if (v27)
   {
     v28 = v27;
-    v29 = *v58;
+    v29 = *v57;
     do
     {
       for (k = 0; k != v28; ++k)
       {
-        if (*v58 != v29)
+        if (*v57 != v29)
         {
           objc_enumerationMutation(v26);
         }
 
-        [(_MRAVOutputDeviceDescriptorProtobuf *)self addActivatedClusterMembers:*(*(&v57 + 1) + 8 * k)];
+        [(_MRAVOutputDeviceDescriptorProtobuf *)self addActivatedClusterMembers:*(*(&v56 + 1) + 8 * k)];
       }
 
-      v28 = [v26 countByEnumeratingWithState:&v57 objects:v71 count:16];
+      v28 = [v26 countByEnumeratingWithState:&v56 objects:v70 count:16];
     }
 
     while (v28);
@@ -7760,29 +7717,29 @@ LABEL_109:
     [(_MRAVOutputDeviceDescriptorProtobuf *)self setRoomName:?];
   }
 
-  v55 = 0u;
-  v56 = 0u;
-  v53 = 0u;
   v54 = 0u;
+  v55 = 0u;
+  v52 = 0u;
+  v53 = 0u;
   v33 = *(fromCopy + 3);
-  v34 = [v33 countByEnumeratingWithState:&v53 objects:v70 count:16];
+  v34 = [v33 countByEnumeratingWithState:&v52 objects:v69 count:16];
   if (v34)
   {
     v35 = v34;
-    v36 = *v54;
+    v36 = *v53;
     do
     {
       for (m = 0; m != v35; ++m)
       {
-        if (*v54 != v36)
+        if (*v53 != v36)
         {
           objc_enumerationMutation(v33);
         }
 
-        [(_MRAVOutputDeviceDescriptorProtobuf *)self addAllClusterMembers:*(*(&v53 + 1) + 8 * m)];
+        [(_MRAVOutputDeviceDescriptorProtobuf *)self addAllClusterMembers:*(*(&v52 + 1) + 8 * m)];
       }
 
-      v35 = [v33 countByEnumeratingWithState:&v53 objects:v70 count:16];
+      v35 = [v33 countByEnumeratingWithState:&v52 objects:v69 count:16];
     }
 
     while (v35);
@@ -7935,29 +7892,29 @@ LABEL_184:
     [(_MRAVOutputDeviceDescriptorProtobuf *)self setHeadTrackedSpatialAudioMode:?];
   }
 
-  v51 = 0u;
-  v52 = 0u;
-  v49 = 0u;
   v50 = 0u;
+  v51 = 0u;
+  v48 = 0u;
+  v49 = 0u;
   v42 = *(fromCopy + 15);
-  v43 = [v42 countByEnumeratingWithState:&v49 objects:v69 count:16];
+  v43 = [v42 countByEnumeratingWithState:&v48 objects:v68 count:16];
   if (v43)
   {
     v44 = v43;
-    v45 = *v50;
+    v45 = *v49;
     do
     {
       for (n = 0; n != v44; ++n)
       {
-        if (*v50 != v45)
+        if (*v49 != v45)
         {
           objc_enumerationMutation(v42);
         }
 
-        [(_MRAVOutputDeviceDescriptorProtobuf *)self addDnsNames:*(*(&v49 + 1) + 8 * n), v49];
+        [(_MRAVOutputDeviceDescriptorProtobuf *)self addDnsNames:*(*(&v48 + 1) + 8 * n), v48];
       }
 
-      v44 = [v42 countByEnumeratingWithState:&v49 objects:v69 count:16];
+      v44 = [v42 countByEnumeratingWithState:&v48 objects:v68 count:16];
     }
 
     while (v44);
@@ -8004,8 +7961,6 @@ LABEL_198:
   }
 
 LABEL_199:
-
-  v48 = *MEMORY[0x1E69E9840];
 }
 
 @end

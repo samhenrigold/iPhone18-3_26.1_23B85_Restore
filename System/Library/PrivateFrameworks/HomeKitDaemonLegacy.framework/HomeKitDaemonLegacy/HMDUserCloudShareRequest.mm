@@ -27,7 +27,7 @@
     v12->_identifier = uUID;
 
     objc_storeStrong(&v12->_startDate, date);
-    v15 = [dCopy copy];
+    v15 = objc_msgSend_copy(dCopy);
     containerID = v12->_containerID;
     v12->_containerID = v15;
 

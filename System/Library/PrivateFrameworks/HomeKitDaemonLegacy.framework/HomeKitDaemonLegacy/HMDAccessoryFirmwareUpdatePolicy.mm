@@ -5,6 +5,7 @@
 - (HMDHAPAccessory)accessory;
 - (id)logIdentifier;
 - (void)evaluateAndNotify;
+- (void)notify:(BOOL)notify;
 @end
 
 @implementation HMDAccessoryFirmwareUpdatePolicy
@@ -16,22 +17,47 @@
   return WeakRetained;
 }
 
+- (void)notify:(BOOL)notify
+{
+  notifyCopy = notify;
+  v19 = *MEMORY[0x277D85DE8];
+  v5 = objc_autoreleasePoolPush();
+  selfCopy = self;
+  v7 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  {
+    v8 = HMFGetLogIdentifier();
+    v9 = HMFBooleanToString();
+    *buf = 138543618;
+    v16 = v8;
+    v17 = 2112;
+    v18 = v9;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Sending notification with policy status %@", buf, 0x16u);
+  }
+
+  objc_autoreleasePoolPop(v5);
+  defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
+  v11 = [MEMORY[0x277CCABB0] numberWithBool:{notifyCopy, @"HMDAccessoryFirmwareUpdatePolicyStatusChangedKey"}];
+  v14 = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
+  [defaultCenter postNotificationName:@"HMDAccessoryFirmwareUpdatePolicyStatusChangedNotification" object:selfCopy userInfo:v12];
+}
+
 - (BOOL)evaluate
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = HMFGetLogIdentifier();
-    v9 = 138543362;
-    v10 = v6;
-    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Policy status evaluated to YES", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v6;
+    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Policy status evaluated to YES", &v8, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
-  v7 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -85,12 +111,11 @@
 
 uint64_t __47__HMDAccessoryFirmwareUpdatePolicy_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v1_103565;
-  logCategory__hmf_once_v1_103565 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v1_103565;
+  logCategory__hmf_once_v1_103565 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

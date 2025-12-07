@@ -344,11 +344,11 @@ void __47__PLPhotosStateLog__logAssets_forAlbum_indent___block_invoke(uint64_t a
 
   v39 = v4;
   v5 = [v41 legacyFaces];
-  if ([v5 count])
+  if (objc_msgSend_count(v5))
   {
     v6 = MEMORY[0x1E696AEC0];
     v7 = [v41 legacyFaces];
-    v38 = [v6 stringWithFormat:@" %lu legacyFaces", objc_msgSend(v7, "count")];
+    v38 = [v6 stringWithFormat:@" %lu legacyFaces", objc_msgSend_count(v7)];
   }
 
   else
@@ -703,7 +703,7 @@ void __47__PLPhotosStateLog__logAssets_forAlbum_indent___block_invoke(uint64_t a
   [v46 setPredicate:v52];
 
   v53 = [managedObjectContext executeFetchRequest:v46 error:0];
-  if ([v53 count])
+  if (objc_msgSend_count(v53))
   {
     ++verificationFailures;
     logString(@"VERIFICATION FAILURE **************************************** Orphaned Assets ****************************************", v54, v55, v56, v57, v58, v59, v60, @"moment");

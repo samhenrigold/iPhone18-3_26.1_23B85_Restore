@@ -36,21 +36,19 @@
 
 void __61__EKInviteReplyNotification_knownRelationshipSingleValueKeys__block_invoke(uint64_t a1)
 {
-  v10[1] = *MEMORY[0x1E69E9840];
-  v10[0] = *MEMORY[0x1E6992AC0];
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
+  v9[1] = *MEMORY[0x1E69E9840];
+  v9[0] = *MEMORY[0x1E6992AC0];
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
   v3 = knownRelationshipSingleValueKeys_keys_0;
   knownRelationshipSingleValueKeys_keys_0 = v2;
 
   v4 = knownRelationshipSingleValueKeys_keys_0;
-  v9.receiver = *(a1 + 32);
-  v9.super_class = &OBJC_METACLASS___EKInviteReplyNotification;
-  v5 = objc_msgSendSuper2(&v9, sel_knownRelationshipSingleValueKeys);
+  v8.receiver = *(a1 + 32);
+  v8.super_class = &OBJC_METACLASS___EKInviteReplyNotification;
+  v5 = objc_msgSendSuper2(&v8, sel_knownRelationshipSingleValueKeys);
   v6 = [v4 arrayByAddingObjectsFromArray:v5];
   v7 = knownRelationshipSingleValueKeys_keys_0;
   knownRelationshipSingleValueKeys_keys_0 = v6;
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 + (id)sourceForInviteReplyNotification:(id)notification

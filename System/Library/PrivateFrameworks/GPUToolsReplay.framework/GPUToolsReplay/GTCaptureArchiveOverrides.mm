@@ -11,165 +11,165 @@
 
 - (id)jsonDictionary
 {
-  v115 = *MEMORY[0x277D85DE8];
-  v55 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v114 = *MEMORY[0x277D85DE8];
+  v54 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v98 = 0u;
   v99 = 0u;
   v100 = 0u;
   v101 = 0u;
-  v102 = 0u;
   selfCopy = self;
   obj = [(GTCaptureArchiveOverrides *)self filenameOverrides];
-  v73 = [obj countByEnumeratingWithState:&v99 objects:v114 count:16];
-  if (v73)
+  v72 = [obj countByEnumeratingWithState:&v98 objects:v113 count:16];
+  if (v72)
   {
-    v71 = *v100;
+    v70 = *v99;
     do
     {
       v3 = 0;
       do
       {
-        if (*v100 != v71)
+        if (*v99 != v70)
         {
           objc_enumerationMutation(obj);
         }
 
-        v75 = v3;
-        v4 = *(*(&v99 + 1) + 8 * v3);
+        v74 = v3;
+        v4 = *(*(&v98 + 1) + 8 * v3);
         filenameOverrides = [(GTCaptureArchiveOverrides *)selfCopy filenameOverrides];
-        v77 = v4;
+        v76 = v4;
         v6 = [filenameOverrides objectForKeyedSubscript:v4];
 
         v7 = objc_alloc_init(MEMORY[0x277CBEB38]);
+        v94 = 0u;
         v95 = 0u;
         v96 = 0u;
         v97 = 0u;
-        v98 = 0u;
         v8 = v6;
-        v9 = [v8 countByEnumeratingWithState:&v95 objects:v113 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v94 objects:v112 count:16];
         if (v9)
         {
           v10 = v9;
-          v11 = *v96;
+          v11 = *v95;
           do
           {
             for (i = 0; i != v10; ++i)
             {
-              if (*v96 != v11)
+              if (*v95 != v11)
               {
                 objc_enumerationMutation(v8);
               }
 
-              v13 = [v8 objectForKeyedSubscript:*(*(&v95 + 1) + 8 * i)];
-              v111[0] = @"originalFilename";
+              v13 = [v8 objectForKeyedSubscript:*(*(&v94 + 1) + 8 * i)];
+              v110[0] = @"originalFilename";
               originalFilename = [v13 originalFilename];
-              v112[0] = originalFilename;
-              v111[1] = @"overrideFilename";
+              v111[0] = originalFilename;
+              v110[1] = @"overrideFilename";
               overrideFilename = [v13 overrideFilename];
-              v112[1] = overrideFilename;
-              v111[2] = @"exportToolVersion";
+              v111[1] = overrideFilename;
+              v110[2] = @"exportToolVersion";
               v16 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v13, "exportToolVersion")}];
-              v112[2] = v16;
-              v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v112 forKeys:v111 count:3];
-              [v7 setObject:v17 forKeyedSubscript:v77];
+              v111[2] = v16;
+              v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v111 forKeys:v110 count:3];
+              [v7 setObject:v17 forKeyedSubscript:v76];
             }
 
-            v10 = [v8 countByEnumeratingWithState:&v95 objects:v113 count:16];
+            v10 = [v8 countByEnumeratingWithState:&v94 objects:v112 count:16];
           }
 
           while (v10);
         }
 
-        [v55 setObject:v7 forKeyedSubscript:v77];
-        v3 = v75 + 1;
+        [v54 setObject:v7 forKeyedSubscript:v76];
+        v3 = v74 + 1;
       }
 
-      while (v75 + 1 != v73);
-      v73 = [obj countByEnumeratingWithState:&v99 objects:v114 count:16];
+      while (v74 + 1 != v72);
+      v72 = [obj countByEnumeratingWithState:&v98 objects:v113 count:16];
     }
 
-    while (v73);
+    while (v72);
   }
 
-  v54 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v53 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v90 = 0u;
   v91 = 0u;
   v92 = 0u;
   v93 = 0u;
-  v94 = 0u;
   heapTextureRestoreOverrides = [(GTCaptureArchiveOverrides *)selfCopy heapTextureRestoreOverrides];
-  v56 = [heapTextureRestoreOverrides countByEnumeratingWithState:&v91 objects:v110 count:16];
-  if (v56)
+  v55 = [heapTextureRestoreOverrides countByEnumeratingWithState:&v90 objects:v109 count:16];
+  if (v55)
   {
-    v53 = *v92;
+    v52 = *v91;
     do
     {
       v18 = 0;
       do
       {
-        if (*v92 != v53)
+        if (*v91 != v52)
         {
           objc_enumerationMutation(heapTextureRestoreOverrides);
         }
 
-        v58 = v18;
-        v19 = *(*(&v91 + 1) + 8 * v18);
+        v57 = v18;
+        v19 = *(*(&v90 + 1) + 8 * v18);
         heapTextureRestoreOverrides2 = [(GTCaptureArchiveOverrides *)selfCopy heapTextureRestoreOverrides];
-        v57 = v19;
+        v56 = v19;
         v21 = [heapTextureRestoreOverrides2 objectForKeyedSubscript:v19];
 
-        v61 = objc_alloc_init(MEMORY[0x277CBEB38]);
+        v60 = objc_alloc_init(MEMORY[0x277CBEB38]);
+        v86 = 0u;
         v87 = 0u;
         v88 = 0u;
         v89 = 0u;
-        v90 = 0u;
-        v63 = v21;
-        v62 = [v63 countByEnumeratingWithState:&v87 objects:v109 count:16];
-        if (v62)
+        v62 = v21;
+        v61 = [v62 countByEnumeratingWithState:&v86 objects:v108 count:16];
+        if (v61)
         {
-          v60 = *v88;
+          v59 = *v87;
           do
           {
             v22 = 0;
             do
             {
-              if (*v88 != v60)
+              if (*v87 != v59)
               {
-                objc_enumerationMutation(v63);
+                objc_enumerationMutation(v62);
               }
 
-              v64 = *(*(&v87 + 1) + 8 * v22);
-              v65 = v22;
-              v23 = [v63 objectForKeyedSubscript:?];
-              v67 = objc_alloc_init(MEMORY[0x277CBEB18]);
+              v63 = *(*(&v86 + 1) + 8 * v22);
+              v64 = v22;
+              v23 = [v62 objectForKeyedSubscript:?];
+              v66 = objc_alloc_init(MEMORY[0x277CBEB18]);
+              v82 = 0u;
               v83 = 0u;
               v84 = 0u;
               v85 = 0u;
-              v86 = 0u;
               obja = v23;
-              v68 = [obja countByEnumeratingWithState:&v83 objects:v108 count:16];
-              if (v68)
+              v67 = [obja countByEnumeratingWithState:&v82 objects:v107 count:16];
+              if (v67)
               {
-                v66 = *v84;
+                v65 = *v83;
                 do
                 {
-                  for (j = 0; j != v68; ++j)
+                  for (j = 0; j != v67; ++j)
                   {
-                    if (*v84 != v66)
+                    if (*v83 != v65)
                     {
                       objc_enumerationMutation(obja);
                     }
 
-                    v25 = *(*(&v83 + 1) + 8 * j);
+                    v25 = *(*(&v82 + 1) + 8 * j);
                     v26 = [obja objectForKeyedSubscript:v25];
-                    v106[0] = @"slice";
-                    v78 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v25, "slice")}];
-                    v107[0] = v78;
-                    v106[1] = @"mipLevel";
-                    v76 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v25, "mipLevel")}];
-                    v107[1] = v76;
-                    v106[2] = @"depthPlane";
-                    v74 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v25, "depthPlane")}];
-                    v107[2] = v74;
-                    v106[3] = @"plane";
+                    v105[0] = @"slice";
+                    v77 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:objc_msgSend_slice(v25)];
+                    v106[0] = v77;
+                    v105[1] = @"mipLevel";
+                    v75 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v25, "mipLevel")}];
+                    v106[1] = v75;
+                    v105[2] = @"depthPlane";
+                    v73 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v25, "depthPlane")}];
+                    v106[2] = v73;
+                    v105[3] = @"plane";
                     plane = [v25 plane];
                     if (plane)
                     {
@@ -181,108 +181,106 @@
                       [MEMORY[0x277CBEB68] null];
                     }
                     v27 = ;
-                    v107[3] = v27;
-                    v106[4] = @"filename";
+                    v106[3] = v27;
+                    v105[4] = @"filename";
                     filename = [v26 filename];
-                    v107[4] = filename;
-                    v106[5] = @"fileSize";
+                    v106[4] = filename;
+                    v105[5] = @"fileSize";
                     v29 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v26, "fileSize")}];
-                    v107[5] = v29;
-                    v106[6] = @"width";
+                    v106[5] = v29;
+                    v105[6] = @"width";
                     v30 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v26, "width")}];
-                    v107[6] = v30;
-                    v106[7] = @"height";
+                    v106[6] = v30;
+                    v105[7] = @"height";
                     v31 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v26, "height")}];
-                    v107[7] = v31;
-                    v106[8] = @"bytesPerRow";
+                    v106[7] = v31;
+                    v105[8] = @"bytesPerRow";
                     v32 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v26, "bytesPerRow")}];
-                    v107[8] = v32;
-                    v106[9] = @"bytesPerImage";
+                    v106[8] = v32;
+                    v105[9] = @"bytesPerImage";
                     v33 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v26, "bytesPerImage")}];
-                    v107[9] = v33;
-                    v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v107 forKeys:v106 count:10];
-                    [v67 addObject:v34];
+                    v106[9] = v33;
+                    v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v106 forKeys:v105 count:10];
+                    [v66 addObject:v34];
                   }
 
-                  v68 = [obja countByEnumeratingWithState:&v83 objects:v108 count:16];
+                  v67 = [obja countByEnumeratingWithState:&v82 objects:v107 count:16];
                 }
 
-                while (v68);
+                while (v67);
               }
 
-              v35 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@", v64];
-              [v61 setObject:v67 forKeyedSubscript:v35];
+              v35 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@", v63];
+              [v60 setObject:v66 forKeyedSubscript:v35];
 
-              v22 = v65 + 1;
+              v22 = v64 + 1;
             }
 
-            while (v65 + 1 != v62);
-            v62 = [v63 countByEnumeratingWithState:&v87 objects:v109 count:16];
+            while (v64 + 1 != v61);
+            v61 = [v62 countByEnumeratingWithState:&v86 objects:v108 count:16];
           }
 
-          while (v62);
+          while (v61);
         }
 
-        [v54 setObject:v61 forKeyedSubscript:v57];
-        v18 = v58 + 1;
+        [v53 setObject:v60 forKeyedSubscript:v56];
+        v18 = v57 + 1;
       }
 
-      while (v58 + 1 != v56);
-      v56 = [heapTextureRestoreOverrides countByEnumeratingWithState:&v91 objects:v110 count:16];
+      while (v57 + 1 != v55);
+      v55 = [heapTextureRestoreOverrides countByEnumeratingWithState:&v90 objects:v109 count:16];
     }
 
-    while (v56);
+    while (v55);
   }
 
   v36 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v78 = 0u;
   v79 = 0u;
   v80 = 0u;
   v81 = 0u;
-  v82 = 0u;
   reverseAliasMap = [(GTCaptureArchiveOverrides *)selfCopy reverseAliasMap];
-  v38 = [reverseAliasMap countByEnumeratingWithState:&v79 objects:v105 count:16];
+  v38 = [reverseAliasMap countByEnumeratingWithState:&v78 objects:v104 count:16];
   if (v38)
   {
     v39 = v38;
-    v40 = *v80;
+    v40 = *v79;
     do
     {
       for (k = 0; k != v39; ++k)
       {
-        if (*v80 != v40)
+        if (*v79 != v40)
         {
           objc_enumerationMutation(reverseAliasMap);
         }
 
-        v42 = *(*(&v79 + 1) + 8 * k);
+        v42 = *(*(&v78 + 1) + 8 * k);
         reverseAliasMap2 = [(GTCaptureArchiveOverrides *)selfCopy reverseAliasMap];
         v44 = [reverseAliasMap2 objectForKeyedSubscript:v42];
         v45 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@", v42];
         [v36 setObject:v44 forKeyedSubscript:v45];
       }
 
-      v39 = [reverseAliasMap countByEnumeratingWithState:&v79 objects:v105 count:16];
+      v39 = [reverseAliasMap countByEnumeratingWithState:&v78 objects:v104 count:16];
     }
 
     while (v39);
   }
 
-  v103[0] = @"filenameOverrides";
-  v103[1] = @"heapTextureRestoreOverrides";
-  v104[0] = v55;
-  v104[1] = v54;
-  v103[2] = @"heapExtractedTextures";
+  v102[0] = @"filenameOverrides";
+  v102[1] = @"heapTextureRestoreOverrides";
+  v103[0] = v54;
+  v103[1] = v53;
+  v102[2] = @"heapExtractedTextures";
   v46 = [(NSArray *)selfCopy->_heapExtractedTextures copy];
-  v104[2] = v46;
-  v103[3] = @"reverseAliasMap";
+  v103[2] = v46;
+  v102[3] = @"reverseAliasMap";
   v47 = [v36 copy];
-  v104[3] = v47;
-  v103[4] = @"heapAccelerationStructures";
+  v103[3] = v47;
+  v102[4] = @"heapAccelerationStructures";
   v48 = [(NSDictionary *)selfCopy->_heapAccelerationStructures copy];
-  v104[4] = v48;
-  v49 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v104 forKeys:v103 count:5];
-
-  v50 = *MEMORY[0x277D85DE8];
+  v103[4] = v48;
+  v49 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v103 forKeys:v102 count:5];
 
   return v49;
 }

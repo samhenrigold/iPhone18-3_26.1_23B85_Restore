@@ -33,52 +33,51 @@
 
 - (void)setState:(unint64_t)state
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (self->_state != state)
   {
     v5 = WFLogForCategory(5uLL);
     v6 = OSLogForWFLogLevel(1uLL);
-    if (WFCurrentLogLevel() && v5)
+    v7 = v6;
+    if (WFCurrentLogLevel(v6, v8) && v5)
     {
-      v7 = v5;
-      if (os_log_type_enabled(v7, v6))
+      v9 = v5;
+      if (os_log_type_enabled(v9, v7))
       {
         state = self->_state;
         if (state > 2)
         {
-          v9 = 0;
+          v11 = 0;
         }
 
         else
         {
-          v9 = off_279EBE090[state];
+          v11 = off_279EBE090[state];
         }
 
         if (state > 2)
         {
-          v10 = 0;
+          v12 = 0;
         }
 
         else
         {
-          v10 = off_279EBE090[state];
+          v12 = off_279EBE090[state];
         }
 
         networkName = [(WFAssociationContext *)self networkName];
-        v13 = 138412802;
-        v14 = v9;
-        v15 = 2112;
-        v16 = v10;
-        v17 = 2112;
-        v18 = networkName;
-        _os_log_impl(&dword_273ECD000, v7, v6, "association state changed: <%@> to <%@> for %@", &v13, 0x20u);
+        v14 = 138412802;
+        v15 = v11;
+        v16 = 2112;
+        v17 = v12;
+        v18 = 2112;
+        v19 = networkName;
+        _os_log_impl(&dword_273ECD000, v9, v7, "association state changed: <%@> to <%@> for %@", &v14, 0x20u);
       }
     }
 
     self->_state = state;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (NSString)originatorDescription

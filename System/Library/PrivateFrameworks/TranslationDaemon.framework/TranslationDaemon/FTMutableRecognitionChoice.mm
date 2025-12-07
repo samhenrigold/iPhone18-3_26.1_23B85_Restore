@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (int)confidence;
 - (void)setAlternative_index:(id)alternative_index;
+- (void)setConfidence:(int)confidence;
 @end
 
 @implementation FTMutableRecognitionChoice
@@ -44,6 +45,12 @@
   intValue = [v2 intValue];
 
   return intValue;
+}
+
+- (void)setConfidence:(int)confidence
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInt:*&confidence];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
 @end

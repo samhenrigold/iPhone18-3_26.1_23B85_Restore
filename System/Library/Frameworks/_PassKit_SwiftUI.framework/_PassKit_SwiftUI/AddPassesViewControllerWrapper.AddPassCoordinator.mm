@@ -33,10 +33,10 @@
     v7 = objc_opt_self();
     finishCopy = finish;
     selfCopy = self;
-    sub_23B7ED858(v4);
+    sub_23B7ED858(v4, v6);
     v4([v7 didAddPasses_]);
 
-    sub_23B7E3200(v4);
+    sub_23B7E3200(v4, v6);
     v10 = *v3;
   }
 
@@ -49,7 +49,7 @@
   v12 = v3[1];
   *v3 = 0;
   v3[1] = 0;
-  sub_23B7E3200(v10);
+  sub_23B7E3200(v10, v12);
 }
 
 - (_TtCV16_PassKit_SwiftUIP33_CEF41C66ABDFF5E01A9463BEC59EB36F30AddPassesViewControllerWrapper18AddPassCoordinator)init

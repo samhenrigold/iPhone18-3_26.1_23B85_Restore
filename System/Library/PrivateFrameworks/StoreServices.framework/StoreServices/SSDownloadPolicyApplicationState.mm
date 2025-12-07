@@ -157,26 +157,26 @@
 {
   if (encoding && MEMORY[0x1DA6E0380](encoding, a2) == MEMORY[0x1E69E9E80])
   {
-    v9.receiver = self;
-    v9.super_class = SSDownloadPolicyApplicationState;
-    v5 = [(SSDownloadPolicyApplicationState *)&v9 init];
+    v11.receiver = self;
+    v11.super_class = SSDownloadPolicyApplicationState;
+    v5 = [(SSDownloadPolicyApplicationState *)&v11 init];
     if (v5)
     {
-      objc_opt_class();
-      v7 = SSXPCDictionaryCopyCFObjectWithClass(encoding, "1");
-      objc_opt_class();
-      v5->_applicationIdentifier = SSXPCDictionaryCopyCFObjectWithClass(encoding, "0");
-      if (v7)
+      v7 = objc_opt_class();
+      v8 = SSXPCDictionaryCopyCFObjectWithClass(encoding, "1", v7);
+      v9 = objc_opt_class();
+      v5->_applicationIdentifier = SSXPCDictionaryCopyCFObjectWithClass(encoding, "0", v9);
+      if (v8)
       {
-        v8 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithArray:v7];
+        v10 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithArray:v8];
       }
 
       else
       {
-        v8 = 0;
+        v10 = 0;
       }
 
-      v5->_applicationStates = v8;
+      v5->_applicationStates = v10;
     }
   }
 

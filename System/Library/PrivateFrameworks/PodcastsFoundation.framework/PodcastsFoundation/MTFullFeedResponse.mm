@@ -10,16 +10,14 @@
 
 - (id)itemsFor:(int64_t)for
 {
-  v4 = OBJC_IVAR____TtC18PodcastsFoundation16BaseFeedResponse_parsedCache;
   swift_beginAccess();
-  v5 = *(&self->super.super.isa + v4);
   selfCopy = self;
 
-  sub_1D8F61420(v7);
+  sub_1D8F61420(v5);
 
-  v8 = sub_1D91785DC();
+  v6 = sub_1D91785DC();
 
-  return v8;
+  return v6;
 }
 
 - (id)itemInSection:(int64_t)section row:(int64_t)row

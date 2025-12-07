@@ -27,47 +27,47 @@
   [(ULConfigurationMO_deprecated *)v5 setLoiId:uUIDString];
 
   [(ULConfigurationMO_deprecated *)v5 setConfigurationType:*(o + 12)];
-  CLMicroLocationProto::Configuration::ByteSize((o + 56));
+  CLMicroLocationProto::Configuration::ByteSize((o + 56), v10);
   operator new[]();
 }
 
 - (optional<ULConfigurationDO>)convertToDO
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   loiType = [(ULConfigurationMO_deprecated *)self loiType];
   v7 = loiType;
   if (loiType)
   {
-    [loiType stdString];
+    objc_msgSend_stdString(loiType);
   }
 
   else
   {
-    *v20 = 0u;
-    v21 = 0u;
+    *v19 = 0u;
+    v20 = 0u;
   }
 
-  if (BYTE8(v21))
+  if (BYTE8(v20))
   {
     loiId = [(ULConfigurationMO_deprecated *)self loiId];
     v9 = loiId;
     if (loiId)
     {
-      [loiId boostUUID];
+      objc_msgSend_boostUUID(loiId);
     }
 
     else
     {
+      v27 = 0;
       v28 = 0;
       v29 = 0;
-      v30 = 0;
     }
 
-    if ((v30 & 1) == 0)
+    if ((v29 & 1) == 0)
     {
+      v27 = 0;
       v28 = 0;
-      v29 = 0;
-      v30 = 1;
+      v29 = 1;
     }
 
     configuration = [(ULConfigurationMO_deprecated *)self configuration];
@@ -75,51 +75,51 @@
     bytes = [configuration bytes];
     configuration2 = [(ULConfigurationMO_deprecated *)self configuration];
     [configuration2 length];
-    LOBYTE(bytes) = wireless_diagnostics::google::protobuf::MessageLite::ParseFromArray(v19, bytes);
+    LOBYTE(bytes) = wireless_diagnostics::google::protobuf::MessageLite::ParseFromArray(v18, bytes);
 
     if (bytes)
     {
-      if ((BYTE8(v21) & 1) == 0)
+      if ((BYTE8(v20) & 1) == 0)
       {
         std::__throw_bad_optional_access[abi:ne200100]();
       }
 
-      if (SBYTE7(v21) < 0)
+      if (SBYTE7(v20) < 0)
       {
-        std::string::__init_copy_ctor_external(&__p, v20[0], v20[1]);
+        std::string::__init_copy_ctor_external(&__p, v19[0], v19[1]);
       }
 
       else
       {
-        *&__p.__r_.__value_.__l.__data_ = *v20;
-        __p.__r_.__value_.__r.__words[2] = v21;
+        *&__p.__r_.__value_.__l.__data_ = *v19;
+        __p.__r_.__value_.__r.__words[2] = v20;
       }
 
-      if ((v30 & 1) == 0)
+      if ((v29 & 1) == 0)
       {
         std::__throw_bad_optional_access[abi:ne200100]();
       }
 
-      ULConfigurationDO::ULConfigurationDO(buf, &__p, v19, v28, v29);
+      ULConfigurationDO::ULConfigurationDO(buf, &__p, v18, v27, v28);
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__p.__r_.__value_.__l.__data_);
       }
 
       retstr->var0.var2.var0.var1.var0 = *buf;
-      *&retstr->var0.var2.var0.var1.var1 = *v23;
-      retstr[1].var0.var2.var0.var1.var0 = v24;
-      v23[0] = 0;
-      v23[1] = 0;
-      v24 = 0;
-      *&retstr[1].var0.var2.var0.var1.var1 = v25;
-      *&retstr[2].var0.var0 = v26;
-      CLMicroLocationProto::Configuration::Configuration(&retstr[2].var0.var2.var0.var1.var1, v27);
+      *&retstr->var0.var2.var0.var1.var1 = *v22;
+      retstr[1].var0.var2.var0.var1.var0 = v23;
+      v22[0] = 0;
+      v22[1] = 0;
+      v23 = 0;
+      *&retstr[1].var0.var2.var0.var1.var1 = v24;
+      *&retstr[2].var0.var0 = v25;
+      CLMicroLocationProto::Configuration::Configuration(&retstr[2].var0.var2.var0.var1.var1, v26);
       retstr[4].var0.var2.var0.var0.var0[16] = 1;
-      CLMicroLocationProto::Configuration::~Configuration(v27);
-      if (SHIBYTE(v24) < 0)
+      CLMicroLocationProto::Configuration::~Configuration(v26);
+      if (SHIBYTE(v23) < 0)
       {
-        operator delete(v23[0]);
+        operator delete(v22[0]);
       }
     }
 
@@ -141,7 +141,7 @@
       retstr[4].var0.var2.var0.var0.var0[16] = 0;
     }
 
-    CLMicroLocationProto::Configuration::~Configuration(v19);
+    CLMicroLocationProto::Configuration::~Configuration(v18);
   }
 
   else
@@ -163,12 +163,11 @@
     retstr[4].var0.var2.var0.var0.var0[16] = 0;
   }
 
-  if (BYTE8(v21) == 1 && SBYTE7(v21) < 0)
+  if (BYTE8(v20) == 1 && SBYTE7(v20) < 0)
   {
-    operator delete(v20[0]);
+    operator delete(v19[0]);
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return result;
 }
 

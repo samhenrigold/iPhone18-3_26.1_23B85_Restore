@@ -49,7 +49,7 @@ void __captureDeferredPhotoProcessor_CancelAllPrewarming_block_invoke_205(uint64
       {
         OUTLINED_FUNCTION_0();
         OUTLINED_FUNCTION_2_5();
-        FigDebugAssert3();
+        FigDebugAssert3(v7);
       }
 
       v4 = MEMORY[0x1E695FF58];

@@ -21,8 +21,8 @@
 
 - (int)mapMemoryAt:(unint64_t *)at ofSize:(unint64_t *)size options:(unsigned int)options
 {
-  v33 = *MEMORY[0x1E69E9840];
-  v8 = _gc_log_iokit();
+  v35 = *MEMORY[0x1E69E9840];
+  v8 = _gc_log_iokit(self);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [IOGCFastPathProxyQueue mapMemoryAt:ofSize:options:];
@@ -38,11 +38,12 @@
   if (v12 == MEMORY[0x1E69E9E80])
   {
     v17 = xpc_dictionary_get_value(v11, "status");
-    if (MEMORY[0x1D38AB9A0]() == MEMORY[0x1E69E9F18])
+    v18 = MEMORY[0x1D38AB9A0]();
+    if (v18 == MEMORY[0x1E69E9F18])
     {
       value = xpc_uint64_get_value(v17);
-      v19 = _gc_log_iokit();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+      v20 = _gc_log_iokit(value);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
       {
         [IOGCFastPathProxyQueue mapMemoryAt:ofSize:options:];
       }
@@ -53,20 +54,22 @@
       }
 
       v23 = xpc_dictionary_copy_mach_send();
+      v24 = v23;
       if (v23)
       {
         uint64 = xpc_dictionary_get_uint64(v11, "memory_size");
         if (uint64)
         {
-          value = mach_vm_map(*MEMORY[0x1E69E9A60], at, uint64, 0, 1, v23, 0, 0, 1, 1, 2u);
-          if (value)
+          v26 = mach_vm_map(*MEMORY[0x1E69E9A60], at, uint64, 0, 1, v24, 0, 0, 1, 1, 2u);
+          LODWORD(value) = v26;
+          if (v26)
           {
-            v25 = _gc_log_iokit();
-            if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+            v27 = _gc_log_iokit(v26);
+            if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 67109120;
               LODWORD(selfCopy4) = value;
-              _os_log_impl(&dword_1D2C3B000, v25, OS_LOG_TYPE_DEFAULT, "vm_map returns %{mach.errno}d", buf, 8u);
+              _os_log_impl(&dword_1D2C3B000, v27, OS_LOG_TYPE_DEFAULT, "vm_map returns %{mach.errno}d", buf, 8u);
             }
           }
 
@@ -74,23 +77,23 @@
           goto LABEL_19;
         }
 
-        v26 = _gc_log_iokit();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+        v28 = _gc_log_iokit(0);
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
           selfCopy4 = self;
-          _os_log_impl(&dword_1D2C3B000, v26, OS_LOG_TYPE_DEFAULT, "mapMemory reply for %@ missing 'memory_size' argument", buf, 0xCu);
+          _os_log_impl(&dword_1D2C3B000, v28, OS_LOG_TYPE_DEFAULT, "mapMemory reply for %@ missing 'memory_size' argument", buf, 0xCu);
         }
       }
 
       else
       {
-        v26 = _gc_log_iokit();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+        v28 = _gc_log_iokit(v23);
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
           selfCopy4 = self;
-          _os_log_impl(&dword_1D2C3B000, v26, OS_LOG_TYPE_DEFAULT, "mapMemory reply for %@ missing 'memory' argument", buf, 0xCu);
+          _os_log_impl(&dword_1D2C3B000, v28, OS_LOG_TYPE_DEFAULT, "mapMemory reply for %@ missing 'memory' argument", buf, 0xCu);
         }
       }
 
@@ -99,22 +102,22 @@
 
     else
     {
-      v18 = _gc_log_iokit();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+      v19 = _gc_log_iokit(v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
       {
         [IOGCFastPathProxyQueue mapMemoryAt:ofSize:options:];
       }
     }
 
-    value = -536870209;
+    LODWORD(value) = -536870209;
 LABEL_19:
 
     goto LABEL_20;
   }
 
   v13 = v12 == MEMORY[0x1E69E9E98];
-  v14 = _gc_log_iokit();
-  value = -536870209;
+  v14 = _gc_log_iokit(v12);
+  LODWORD(value) = -536870209;
   v16 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
   if (v13)
   {
@@ -122,8 +125,8 @@ LABEL_19:
     {
       *buf = 138412546;
       selfCopy4 = self;
-      v29 = 2112;
-      v30 = v11;
+      v31 = 2112;
+      v32 = v11;
       _os_log_impl(&dword_1D2C3B000, v14, OS_LOG_TYPE_DEFAULT, "mapMemory for %@ failed: %@", buf, 0x16u);
     }
   }
@@ -132,8 +135,8 @@ LABEL_19:
   {
     *buf = 138412546;
     selfCopy4 = self;
-    v29 = 2112;
-    v30 = v11;
+    v31 = 2112;
+    v32 = v11;
     _os_log_impl(&dword_1D2C3B000, v14, OS_LOG_TYPE_DEFAULT, "mapMemory for %@ unknown response: %@", buf, 0x16u);
   }
 
@@ -144,51 +147,50 @@ LABEL_20:
   {
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return value;
 }
 
 - (int)getProperties:(id)properties dictionary:(id *)dictionary
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   propertiesCopy = properties;
-  v7 = _gc_log_iokit();
+  v7 = _gc_log_iokit(propertiesCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     [IOGCFastPathProxyQueue getProperties:dictionary:];
   }
 
   empty = xpc_array_create_empty();
-  v38 = 0u;
   v39 = 0u;
-  v36 = 0u;
+  v40 = 0u;
   v37 = 0u;
+  v38 = 0u;
   v9 = propertiesCopy;
-  v10 = [v9 countByEnumeratingWithState:&v36 objects:v47 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v37 objects:v48 count:16];
   if (v10)
   {
-    v11 = *v37;
+    v11 = *v38;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v37 != v11)
+        if (*v38 != v11)
         {
           objc_enumerationMutation(v9);
         }
 
-        v13 = xpc_string_create([*(*(&v36 + 1) + 8 * i) UTF8String]);
+        v13 = xpc_string_create([*(*(&v37 + 1) + 8 * i) UTF8String]);
         xpc_array_append_value(empty, v13);
       }
 
-      v10 = [v9 countByEnumeratingWithState:&v36 objects:v47 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v37 objects:v48 count:16];
     }
 
     while (v10);
   }
 
   *keys = xmmword_1E8415490;
-  v46 = "keys";
+  v47 = "keys";
   Name = sel_getName(sel_getQueue_properties_);
   values[0] = xpc_string_create(Name);
   values[1] = xpc_uint64_create(self->_queue);
@@ -201,11 +203,12 @@ LABEL_20:
   if (v18 == MEMORY[0x1E69E9E80])
   {
     v24 = xpc_dictionary_get_value(v17, "status");
-    if (MEMORY[0x1D38AB9A0]() == MEMORY[0x1E69E9F18])
+    v25 = MEMORY[0x1D38AB9A0]();
+    if (v25 == MEMORY[0x1E69E9F18])
     {
       value = xpc_uint64_get_value(v24);
-      v26 = _gc_log_iokit();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+      v27 = _gc_log_iokit(value);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
       {
         [IOGCFastPathProxyQueue getProperties:dictionary:];
       }
@@ -215,29 +218,30 @@ LABEL_20:
         goto LABEL_30;
       }
 
-      v25 = xpc_dictionary_get_value(v17, "properties");
-      if (MEMORY[0x1D38AB9A0]() == v19)
+      v26 = xpc_dictionary_get_value(v17, "properties");
+      v28 = MEMORY[0x1D38AB9A0]();
+      if (v28 == v19)
       {
-        v28 = objc_opt_new();
+        v30 = objc_opt_new();
         applier[0] = MEMORY[0x1E69E9820];
         applier[1] = 3221225472;
         applier[2] = __51__IOGCFastPathProxyQueue_getProperties_dictionary___block_invoke;
         applier[3] = &unk_1E84154B0;
-        v29 = v28;
-        v35 = v29;
-        xpc_dictionary_apply(v25, applier);
-        v30 = *dictionary;
-        *dictionary = v29;
-        v27 = v29;
+        v31 = v30;
+        v36 = v31;
+        xpc_dictionary_apply(v26, applier);
+        v32 = *dictionary;
+        *dictionary = v31;
+        v29 = v31;
 
-        value = 0;
+        LODWORD(value) = 0;
       }
 
       else
       {
-        v27 = _gc_log_iokit();
-        value = -536870209;
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+        v29 = _gc_log_iokit(v28);
+        LODWORD(value) = -536870209;
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
         {
           [IOGCFastPathProxyQueue getProperties:dictionary:];
         }
@@ -246,9 +250,9 @@ LABEL_20:
 
     else
     {
-      v25 = _gc_log_iokit();
-      value = -536870209;
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+      v26 = _gc_log_iokit(v25);
+      LODWORD(value) = -536870209;
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
       {
         [IOGCFastPathProxyQueue getProperties:dictionary:];
       }
@@ -259,8 +263,8 @@ LABEL_30:
   }
 
   v20 = v18 == MEMORY[0x1E69E9E98];
-  v21 = _gc_log_iokit();
-  value = -536870209;
+  v21 = _gc_log_iokit(v18);
+  LODWORD(value) = -536870209;
   v23 = os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT);
   if (v20)
   {
@@ -268,8 +272,8 @@ LABEL_30:
     {
       *buf = 138412546;
       selfCopy2 = self;
-      v42 = 2112;
-      v43 = v17;
+      v43 = 2112;
+      v44 = v17;
       _os_log_impl(&dword_1D2C3B000, v21, OS_LOG_TYPE_DEFAULT, "getProperties for %@ failed: %@", buf, 0x16u);
     }
   }
@@ -278,8 +282,8 @@ LABEL_30:
   {
     *buf = 138412546;
     selfCopy2 = self;
-    v42 = 2112;
-    v43 = v17;
+    v43 = 2112;
+    v44 = v17;
     _os_log_impl(&dword_1D2C3B000, v21, OS_LOG_TYPE_DEFAULT, "getProperties for %@ unknown response: %@", buf, 0x16u);
   }
 
@@ -290,7 +294,6 @@ LABEL_31:
   {
   }
 
-  v32 = *MEMORY[0x1E69E9840];
   return value;
 }
 
@@ -316,58 +319,34 @@ uint64_t __51__IOGCFastPathProxyQueue_getProperties_dictionary___block_invoke(ui
   return 1;
 }
 
-- (void)mapMemoryAt:ofSize:options:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_6_3(&dword_1D2C3B000, v0, v1, "%@::mapMemoryAt", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 - (void)mapMemoryAt:ofSize:options:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_17();
   OUTLINED_FUNCTION_2_10();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)mapMemoryAt:ofSize:options:.cold.3()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_4_5();
   OUTLINED_FUNCTION_2_10();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)getProperties:dictionary:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_6_3(&dword_1D2C3B000, v0, v1, "%@::getProperties", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getProperties:dictionary:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_17();
   OUTLINED_FUNCTION_2_10();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getProperties:dictionary:.cold.3()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_4_5();
   OUTLINED_FUNCTION_2_10();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

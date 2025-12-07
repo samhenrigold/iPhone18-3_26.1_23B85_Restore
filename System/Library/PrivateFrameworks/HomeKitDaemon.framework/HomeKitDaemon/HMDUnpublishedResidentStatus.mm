@@ -23,13 +23,13 @@
 
 - (NSDictionary)channelRecordPayload
 {
-  v39[1] = *MEMORY[0x277D85DE8];
+  v38[1] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBEB38];
-  v38 = @"residentStatusSwVersionKey";
+  v37 = @"residentStatusSwVersionKey";
   swVersion = [(HMDUnpublishedResidentStatus *)self swVersion];
   versionString = [swVersion versionString];
-  v39[0] = versionString;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:&v38 count:1];
+  v38[0] = versionString;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:&v37 count:1];
   v7 = [v3 dictionaryWithDictionary:v6];
 
   generationID = [(HMDUnpublishedResidentStatus *)self generationID];
@@ -49,13 +49,13 @@
     residentIDSIdentifiers = [preferredResidentsList2 residentIDSIdentifiers];
     v14 = [residentIDSIdentifiers na_map:&__block_literal_global_107174];
 
-    v36[0] = @"PRL.ck.rii";
-    v36[1] = @"PRL.ck.mt";
-    v37[0] = v14;
+    v35[0] = @"PRL.ck.rii";
+    v35[1] = @"PRL.ck.mt";
+    v36[0] = v14;
     preferredResidentsList3 = [(HMDUnpublishedResidentStatus *)self preferredResidentsList];
     modifiedTimestamp = [preferredResidentsList3 modifiedTimestamp];
-    v37[1] = modifiedTimestamp;
-    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:v36 count:2];
+    v36[1] = modifiedTimestamp;
+    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:v35 count:2];
     [v7 setObject:v17 forKeyedSubscript:@"RS.ck.prl"];
   }
 
@@ -94,8 +94,7 @@
   v32 = [MEMORY[0x277CCABB0] numberWithBool:{-[HMDUnpublishedResidentStatus hasReachableAccessories](self, "hasReachableAccessories")}];
   [v7 setObject:v32 forKeyedSubscript:@"RS.ck.acc"];
 
-  v33 = [v7 copy];
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = objc_msgSend_copy(v7);
 
   return v33;
 }

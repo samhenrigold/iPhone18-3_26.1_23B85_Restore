@@ -414,9 +414,9 @@ LABEL_30:
 
 - (void)uploadData:(uint64_t)a3 usingTransferOptions:(uint64_t)a4 error:(uint64_t)a5 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_24DBC9000, a2, a3, "uploadData Failed handle:%llu", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_0(&dword_24DBC9000, a2, a3, "uploadData Failed handle:%llu", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

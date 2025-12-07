@@ -15,13 +15,12 @@
 
 + (id)keysRequestedForCloudKitFetch
 {
-  v5[4] = *MEMORY[0x277D85DE8];
-  v5[0] = @"buckets";
-  v5[1] = @"shards";
-  v5[2] = @"ttl";
-  v5[3] = @"itemTtl";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:4];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[4] = *MEMORY[0x277D85DE8];
+  v4[0] = @"buckets";
+  v4[1] = @"shards";
+  v4[2] = @"ttl";
+  v4[3] = @"itemTtl";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:4];
 
   return v2;
 }
@@ -100,7 +99,7 @@
 
 - (BCSConfigItem)initWithRecord:(id)record
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   v5 = [recordCopy objectForKeyedSubscript:@"buckets"];
   v6 = [recordCopy objectForKeyedSubscript:@"shards"];
@@ -115,20 +114,20 @@
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v20 = "[BCSConfigItem(Conversion) initWithRecord:]";
+        v19 = "[BCSConfigItem(Conversion) initWithRecord:]";
         _os_log_impl(&dword_242072000, v9, OS_LOG_TYPE_DEFAULT, "%s - No Chat Suggest Filter Megashard to download", buf, 0xCu);
       }
     }
 
     date = [MEMORY[0x277CBEAA8] date];
     [v7 doubleValue];
-    v18 = [date dateByAddingTimeInterval:?];
+    v17 = [date dateByAddingTimeInterval:?];
 
     longLongValue = [v5 longLongValue];
     longLongValue2 = [v6 longLongValue];
     fileURL = [v8 fileURL];
     v14 = [(BCSConfigItem *)self _extractItemTTLFromConfigRecord:recordCopy];
-    self = [(BCSConfigItem *)self initWithBuckets:longLongValue shards:longLongValue2 expirationDate:v18 filterMegaShardURL:fileURL itemTTL:v14];
+    self = [(BCSConfigItem *)self initWithBuckets:longLongValue shards:longLongValue2 expirationDate:v17 filterMegaShardURL:fileURL itemTTL:v14];
 
     selfCopy = self;
   }
@@ -145,7 +144,6 @@
     selfCopy = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

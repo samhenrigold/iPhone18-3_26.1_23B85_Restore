@@ -195,7 +195,7 @@
 
   v30 = MEMORY[0x1E6994D48];
   rejectedPersonIdentifiers = [v48 rejectedPersonIdentifiers];
-  v32 = [MEMORY[0x1E695DFA8] setWithCapacity:{objc_msgSend(rejectedPersonIdentifiers, "count")}];
+  v32 = [MEMORY[0x1E695DFA8] setWithCapacity:objc_msgSend_count(rejectedPersonIdentifiers)];
   v49 = 0u;
   v50 = 0u;
   v51 = 0u;
@@ -270,9 +270,9 @@
   toPersonCopy = toPerson;
   personUUID = [personCopy personUUID];
   personUUID2 = [toPersonCopy personUUID];
-  v10 = [personUUID isEqualToString:personUUID2];
+  isEqualToString = objc_msgSend_isEqualToString_(personUUID);
 
-  if ((v10 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     if ([toPersonCopy graphVerified])
     {
@@ -700,7 +700,7 @@ LABEL_66:
   v5 = facesAdjustmentsFingerprint;
   if (facesAdjustmentsFingerprint)
   {
-    v6 = [facesAdjustmentsFingerprint isEqualToString:*MEMORY[0x1E6994948]];
+    isEqualToString = objc_msgSend_isEqualToString_(facesAdjustmentsFingerprint);
     syncContext = self->_syncContext;
     cloudIdentifier = [(PLSyncableAsset *)self->_currentAsset cloudIdentifier];
     v9 = [(PLSyncContext *)syncContext assetAdjustmentStateForCloudIdentifier:cloudIdentifier];
@@ -709,7 +709,7 @@ LABEL_66:
     bOOLValue = [v10 BOOLValue];
 
     v12 = [v9 objectForKey:@"PLCPLAssetAdjustmentFingerprintKey"];
-    if (v6)
+    if (isEqualToString)
     {
       v13 = bOOLValue == 0;
     }
@@ -719,7 +719,7 @@ LABEL_66:
       v13 = 0;
     }
 
-    v14 = !v13 && (v6 == bOOLValue || ([v5 isEqualToString:v12] & 1) == 0);
+    v14 = !v13 && (isEqualToString == bOOLValue || (objc_msgSend_isEqualToString_(v5) & 1) == 0);
   }
 
   else
@@ -747,9 +747,9 @@ LABEL_66:
 
     faces = [changeCopy faces];
     v11Faces = [faces faces];
-    v13 = [v11Faces count];
+    v13 = objc_msgSend_count(v11Faces);
 
-    v14 = [v10 count];
+    v14 = objc_msgSend_count(v10);
     v15 = v14;
     v16 = MEMORY[0x1E6994D48];
     if ((v13 || v14 && v5 == 1) && (*MEMORY[0x1E6994D48] & 1) == 0)
@@ -782,12 +782,12 @@ LABEL_66:
     [v20 unionSet:v8];
     v21 = [(PLCPLFacePullSupport *)self _applyAssetChange:changeCopy toExistingFaces:v10 withPolicy:v5];
     [v20 unionSet:v21];
-    if ([v21 count] && (*v16 & 1) == 0)
+    if (objc_msgSend_count(v21) && (*v16 & 1) == 0)
     {
       v22 = __CPLAssetsdOSLogDomain();
       if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
-        v23 = [v21 count];
+        v23 = objc_msgSend_count(v21);
         *buf = 134217984;
         v32 = v23;
         _os_log_impl(&dword_19BF1F000, v22, OS_LOG_TYPE_DEFAULT, "Keeping %ld faces after sync", buf, 0xCu);
@@ -800,14 +800,14 @@ LABEL_66:
     v27 = [detectedFaces2 mutableCopy];
 
     [v27 minusSet:v20];
-    if ([v27 count])
+    if (objc_msgSend_count(v27))
     {
       if ((*v25 & 1) == 0)
       {
         v28 = __CPLAssetsdOSLogDomain();
         if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
         {
-          v29 = [v27 count];
+          v29 = objc_msgSend_count(v27);
           *buf = 134217984;
           v32 = v29;
           _os_log_impl(&dword_19BF1F000, v28, OS_LOG_TYPE_DEFAULT, "Deleting %lu faces", buf, 0xCu);

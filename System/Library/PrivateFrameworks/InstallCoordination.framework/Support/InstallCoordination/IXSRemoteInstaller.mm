@@ -70,32 +70,15 @@
   v25 = 0;
   v8 = [objc_opt_class() _coordinatorWithIdentity:v7 forUpdate:v6 != 0 created:&v26 error:&v25];
   v9 = v25;
-  if (!v8)
+  if (!v8 || (v26 & 1) == 0 && -[NSObject creatorIdentifier](v8, "creatorIdentifier") == 20 && (sub_100006524("+[IXSRemoteInstaller _coordinatorForEmbeddedAppWithRemoteInstallConfiguration:error:]", 144, @"IXRemoteErrorDomain", 5, 0, 0, @"Cancel orphaned coordinator", v10, v22), v11 = objc_claimAutoreleasedReturnValue(), -[NSObject cancelForReason:client:error:](v8, "cancelForReason:client:error:", v11, 20, 0), v24 = v9, [objc_opt_class() _coordinatorWithIdentity:v7 forUpdate:v6 != 0 created:&v26 error:&v24], v12 = objc_claimAutoreleasedReturnValue(), v13 = v24, v9, v8, v11, v9 = v13, (v8 = v12) == 0))
   {
-    goto LABEL_9;
-  }
-
-  if ((v26 & 1) == 0 && [v8 creatorIdentifier]== 20)
-  {
-    v11 = sub_100006524("+[IXSRemoteInstaller _coordinatorForEmbeddedAppWithRemoteInstallConfiguration:error:]", 144, @"IXRemoteErrorDomain", 5, 0, 0, @"Cancel orphaned coordinator", v10, v22);
-    [v8 cancelForReason:v11 client:20 error:0];
-    v24 = v9;
-    v12 = [objc_opt_class() _coordinatorWithIdentity:v7 forUpdate:v6 != 0 created:&v26 error:&v24];
-    v13 = v24;
-
-    v9 = v13;
-    v8 = v12;
-    if (!v12)
+    v8 = sub_10000C504(off_100026A70);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-LABEL_9:
-      v8 = sub_10000C504(off_100026A70);
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
-      {
-        sub_100012540();
-      }
-
-      goto LABEL_14;
+      sub_100012540();
     }
+
+    goto LABEL_14;
   }
 
   if ((v26 & 1) == 0)

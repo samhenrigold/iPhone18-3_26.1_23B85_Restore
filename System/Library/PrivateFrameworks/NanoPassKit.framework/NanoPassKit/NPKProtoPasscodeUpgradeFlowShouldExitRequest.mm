@@ -66,25 +66,23 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v7 = toCopy;
+  v5 = toCopy;
   if (*&self->_has)
   {
-    passcodeChanged = self->_passcodeChanged;
     PBDataWriterWriteBOOLField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_errorData)
   {
     PBDataWriterWriteDataField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    pending = self->_pending;
     PBDataWriterWriteBOOLField();
-    toCopy = v7;
+    toCopy = v5;
   }
 }
 

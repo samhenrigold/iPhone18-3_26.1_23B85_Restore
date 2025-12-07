@@ -51,39 +51,39 @@
 
 - (AWDigitizerButtonKeyboardAttentionEvent)initWithCoder:(id)coder
 {
-  v20 = *MEMORY[0x1E69E9840];
-  v18 = 0;
+  v19 = *MEMORY[0x1E69E9840];
+  v17 = 0;
   coderCopy = coder;
-  v5 = decodeDouble(coderCopy, &v18, @"timestamp");
-  v6 = decodeUInt64(coderCopy, &v18, @"senderID");
-  v7 = decodeString(coderCopy, &v18, @"displayUUID");
-  v8 = decodeUInt64(coderCopy, &v18, @"tagIndex");
-  v9 = decodeUInt64(coderCopy, &v18, @"eventMask");
+  v5 = decodeDouble(coderCopy, &v17, @"timestamp");
+  v6 = decodeUInt64(coderCopy, &v17, @"senderID");
+  v7 = decodeString(coderCopy, &v17, @"displayUUID");
+  v8 = decodeUInt64(coderCopy, &v17, @"tagIndex");
+  v9 = decodeUInt64(coderCopy, &v17, @"eventMask");
 
-  if (v18 == 1)
+  if (v17 == 1)
   {
     if (currentLogLevel >= 3)
     {
       v10 = _AALog();
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        v14 = absTimeNS();
-        if (v14 == -1)
+        v13 = absTimeNS();
+        if (v13 == -1)
         {
-          v15 = INFINITY;
+          v14 = INFINITY;
         }
 
         else
         {
-          v15 = v14 / 1000000000.0;
+          v14 = v13 / 1000000000.0;
         }
 
-        v16 = objc_opt_class();
-        v17 = NSStringFromClass(v16);
+        v15 = objc_opt_class();
+        v16 = NSStringFromClass(v15);
         *buf = 134218242;
-        *&buf[4] = v15;
+        *&buf[4] = v14;
         *&buf[12] = 2112;
-        *&buf[14] = v17;
+        *&buf[14] = v16;
         _os_log_error_impl(&dword_1BB2EF000, v10, OS_LOG_TYPE_ERROR, "%13.5f: failed to decode %@", buf, 0x16u);
       }
     }
@@ -98,7 +98,6 @@
     v11 = [[AWDigitizerButtonKeyboardAttentionEvent alloc] initWithTimestamp:v8 tagIndex:v9 eventMask:buf digitizerButtonKeyboardMetadata:v5];
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 

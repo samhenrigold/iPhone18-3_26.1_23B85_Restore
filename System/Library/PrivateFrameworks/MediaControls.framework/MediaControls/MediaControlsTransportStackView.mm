@@ -403,7 +403,7 @@ LABEL_9:
 
     v87 = stop;
     v85 = play;
-    if (stop && v15 && ([v15 duration], (v88 & 1) != 0))
+    if (stop && v15 && (objc_msgSend_duration(v15), (v88 & 1) != 0))
     {
       middleButton3 = [(MediaControlsTransportStackView *)self middleButton];
       v21 = +[MediaControlsTheme stopImage];

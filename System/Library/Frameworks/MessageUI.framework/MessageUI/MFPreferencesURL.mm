@@ -114,7 +114,7 @@
   selfCopy = self;
   accountCopy = account;
   swift_getObjCClassMetadata();
-  v12 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBDB60D0) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v12 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBDB60D0, &qword_1BE985CC0) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
   v6 = MEMORY[0x1EEE9AC00](accountCopy, v3, v4, v5);
   v15 = &v9 - v12;
   MEMORY[0x1E69E5928](v6);
@@ -146,7 +146,7 @@
   selfCopy = self;
   accountCopy = account;
   swift_getObjCClassMetadata();
-  v12 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBDB60D0) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v12 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBDB60D0, &qword_1BE985CC0) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
   v6 = MEMORY[0x1EEE9AC00](accountCopy, v3, v4, v5);
   v15 = &v9 - v12;
   MEMORY[0x1E69E5928](v6);
@@ -178,7 +178,7 @@
   selfCopy = self;
   accountCopy = account;
   swift_getObjCClassMetadata();
-  v12 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBDB60D0) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v12 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBDB60D0, &qword_1BE985CC0) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
   v6 = MEMORY[0x1EEE9AC00](accountCopy, v3, v4, v5);
   v15 = &v9 - v12;
   MEMORY[0x1E69E5928](v6);

@@ -157,7 +157,7 @@
   lastObject = [*p_epoch lastObject];
   if (firstObject)
   {
-    [firstObject PVTransformAnimationInfoValue];
+    objc_msgSend_PVTransformAnimationInfoValue(firstObject);
   }
 
   else
@@ -210,7 +210,7 @@
       v17 = *(*(&v26 + 1) + 8 * i);
       if (v17)
       {
-        [*(*(&v26 + 1) + 8 * i) PVTransformAnimationInfoValue];
+        objc_msgSend_PVTransformAnimationInfoValue(*(*(&v26 + 1) + 8 * i));
       }
 
       else
@@ -259,6 +259,7 @@ LABEL_44:
         {
           v20 = *MEMORY[0x277CC08F0];
           *&time1[16] = *(MEMORY[0x277CC08F0] + 16);
+          *&time1[24] = 0;
           retstr->translation.y = 0.0;
           v21 = *&time1[16];
           *&retstr->time.value = v20;
@@ -274,7 +275,7 @@ LABEL_44:
       v14 = v19;
       if (v19)
       {
-        [v19 PVTransformAnimationInfoValue];
+        objc_msgSend_PVTransformAnimationInfoValue(v19);
       }
 
       else
@@ -371,7 +372,7 @@ LABEL_45:
           v14 = *(*(&v24 + 1) + 8 * i);
           if (v14)
           {
-            [*(*(&v24 + 1) + 8 * i) PVTransformAnimationInfoValue];
+            objc_msgSend_PVTransformAnimationInfoValue(*(*(&v24 + 1) + 8 * i));
           }
 
           else
@@ -414,6 +415,7 @@ LABEL_45:
 
             v18 = *MEMORY[0x277CC08F0];
             *&time1[16] = *(MEMORY[0x277CC08F0] + 16);
+            *&time1[24] = 0;
             retstr->translation.y = 0.0;
             v19 = *&time1[16];
             *&retstr->time.value = v18;
@@ -446,23 +448,21 @@ LABEL_20:
 {
   animationCopy = animation;
   v8 = animationCopy;
-  v23 = *MEMORY[0x277CC08F0];
-  v24 = *(MEMORY[0x277CC08F0] + 16);
+  v21 = *MEMORY[0x277CC08F0];
+  v22 = *(MEMORY[0x277CC08F0] + 16);
   if (animationCopy)
   {
-    v15 = *&time->var0;
-    var3 = time->var3;
-    [animationCopy transformInfoAtTime:&v15];
-    v23 = v17;
-    v24 = v18;
-    v10 = v19;
-    v9 = v20;
-    v11 = v21;
-    v12 = v22;
+    objc_msgSend_transformInfoAtTime_(animationCopy, time->var0, *&time->var1, time->var3);
+    v21 = v15;
+    v22 = v16;
+    v10 = v17;
+    v9 = v18;
+    v11 = v19;
+    v12 = v20;
     v13 = 1;
-    if (fabs(v19) < 0.0000001 && fabs(v20) < 0.0000001 && fabs(v21 + -1.0) < 0.0001)
+    if (fabs(v17) < 0.0000001 && fabs(v18) < 0.0000001 && fabs(v19 + -1.0) < 0.0001)
     {
-      v13 = fabs(v22) >= 0.0000001;
+      v13 = fabs(v20) >= 0.0000001;
     }
   }
 
@@ -477,8 +477,8 @@ LABEL_20:
 
   if (info)
   {
-    *&info->time.value = v23;
-    info->time.epoch = v24;
+    *&info->time.value = v21;
+    info->time.epoch = v22;
     info->translation.x = v10;
     info->translation.y = v9;
     info->scale = v11;
@@ -492,23 +492,21 @@ LABEL_20:
 {
   animationCopy = animation;
   v8 = animationCopy;
-  v23 = *MEMORY[0x277CC08F0];
-  v24 = *(MEMORY[0x277CC08F0] + 16);
+  v21 = *MEMORY[0x277CC08F0];
+  v22 = *(MEMORY[0x277CC08F0] + 16);
   if (animationCopy)
   {
-    v15 = *&time->var0;
-    var3 = time->var3;
-    [animationCopy transformInfoAtLocalTime:&v15];
-    v23 = v17;
-    v24 = v18;
-    v10 = v19;
-    v9 = v20;
-    v11 = v21;
-    v12 = v22;
+    objc_msgSend_transformInfoAtLocalTime_(animationCopy, time->var0, *&time->var1, time->var3);
+    v21 = v15;
+    v22 = v16;
+    v10 = v17;
+    v9 = v18;
+    v11 = v19;
+    v12 = v20;
     v13 = 1;
-    if (fabs(v19) < 0.0000001 && fabs(v20) < 0.0000001 && fabs(v21 + -1.0) < 0.0001)
+    if (fabs(v17) < 0.0000001 && fabs(v18) < 0.0000001 && fabs(v19 + -1.0) < 0.0001)
     {
-      v13 = fabs(v22) >= 0.0000001;
+      v13 = fabs(v20) >= 0.0000001;
     }
   }
 
@@ -523,8 +521,8 @@ LABEL_20:
 
   if (info)
   {
-    *&info->time.value = v23;
-    info->time.epoch = v24;
+    *&info->time.value = v21;
+    info->time.epoch = v22;
     info->translation.x = v10;
     info->translation.y = v9;
     info->scale = v11;
@@ -711,7 +709,7 @@ void __38__PVTransformAnimation_initWithCoder___block_invoke()
           v24 = 0u;
           if (v16)
           {
-            [v16 PVTransformAnimationInfo];
+            objc_msgSend_PVTransformAnimationInfo(v16);
           }
 
           v22[0] = v24;
@@ -771,7 +769,7 @@ void __38__PVTransformAnimation_initWithCoder___block_invoke()
           v18 = 0u;
           if (v9)
           {
-            [v9 PVTransformAnimationInfoValue];
+            objc_msgSend_PVTransformAnimationInfoValue(v9);
           }
 
           v16[0] = v18;
@@ -953,7 +951,7 @@ void __37__PVTransformAnimation_copyWithZone___block_invoke(uint64_t a1, void *a
     v6 = v5;
     aspectRatio = self->_aspectRatio;
     [(PVTransformAnimation *)v6 aspectRatio];
-    if (vabdd_f64(aspectRatio, v8) < 0.0001 && (v9 = *&self->_presentationTimeRange.start.epoch, *&range1.start.value = *&self->_presentationTimeRange.start.value, *&range1.start.epoch = v9, *&range1.duration.timescale = *&self->_presentationTimeRange.duration.timescale, [(PVTransformAnimation *)v6 presentationTimeRange], CMTimeRangeEqual(&range1, &v14)))
+    if (vabdd_f64(aspectRatio, v8) < 0.0001 && (v9 = *&self->_presentationTimeRange.start.epoch, *&range1.start.value = *&self->_presentationTimeRange.start.value, *&range1.start.epoch = v9, *&range1.duration.timescale = *&self->_presentationTimeRange.duration.timescale, objc_msgSend_presentationTimeRange(v6), CMTimeRangeEqual(&range1, &v14)))
     {
       animationData = self->_animationData;
       animationData = [(PVTransformAnimation *)v6 animationData];
@@ -1072,7 +1070,7 @@ void __35__PVTransformAnimation_description__block_invoke(uint64_t a1, void *a2)
   v9 = 0u;
   if (v3)
   {
-    [v3 PVTransformAnimationInfoValue];
+    objc_msgSend_PVTransformAnimationInfoValue(v3);
   }
 
   v5 = *(a1 + 32);

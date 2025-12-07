@@ -12,8 +12,8 @@
   v22 = MEMORY[0x1E696AEC0];
   v3 = objc_opt_class();
   v21 = NSStringFromClass(v3);
-  indexPath = [(PUTileLayoutInfo *)self indexPath];
-  pu_shortDescription = [indexPath pu_shortDescription];
+  v24 = objc_msgSend_indexPath(self);
+  pu_shortDescription = [v24 pu_shortDescription];
   tileKind = [(PUTileLayoutInfo *)self tileKind];
   dataSourceIdentifier = [(PUTileLayoutInfo *)self dataSourceIdentifier];
   [(PUTileLayoutInfo *)self center];
@@ -28,7 +28,7 @@
   v12 = v11;
   cornerCurve = [(PUTileLayoutInfo *)self cornerCurve];
   cornerMask = [(PUTileLayoutInfo *)self cornerMask];
-  [(PUTileLayoutInfo *)self transform];
+  objc_msgSend_transform(self);
   v15 = NSStringFromCGAffineTransform(&transform);
   [(PUTileLayoutInfo *)self zPosition];
   v17 = v16;

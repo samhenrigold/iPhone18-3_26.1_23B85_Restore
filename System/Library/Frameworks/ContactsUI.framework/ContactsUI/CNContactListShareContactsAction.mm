@@ -82,8 +82,8 @@
   groupName = [context groupName];
   v8 = [(CNShareContactActivityItem *)v5 initWithContacts:contactsCopy inGroupNamed:groupName];
 
-  contacts = [(CNContactListShareContactsAction *)self contacts];
-  if ([CNContactCardFieldPickerDataSource canSharePronounsForContacts:contacts])
+  v9 = objc_msgSend_contacts(self);
+  if ([CNContactCardFieldPickerDataSource canSharePronounsForContacts:v9])
   {
     v10 = [CNContactShareActionHelper contactsHaveShareableAddressingGrammarValue:contactsCopy];
   }
@@ -95,8 +95,8 @@
 
   [(CNShareContactActivityItem *)v8 setCanSharePronouns:v10];
 
-  contacts2 = [(CNContactListShareContactsAction *)self contacts];
-  [(CNShareContactActivityItem *)v8 setCanShareMeCardOnlySharingProperties:[CNContactCardFieldPickerDataSource isSharingMeContactForContacts:contacts2]];
+  v11 = objc_msgSend_contacts(self);
+  [(CNShareContactActivityItem *)v8 setCanShareMeCardOnlySharingProperties:[CNContactCardFieldPickerDataSource isSharingMeContactForContacts:v11]];
 
   return v8;
 }
@@ -108,15 +108,15 @@
   v4 = filteredContacts;
   if (filteredContacts)
   {
-    contacts = filteredContacts;
+    v5 = filteredContacts;
   }
 
   else
   {
-    contacts = [(CNContactListShareContactsAction *)self contacts];
+    v5 = objc_msgSend_contacts(self);
   }
 
-  v6 = contacts;
+  v6 = v5;
 
   v7 = [(CNContactListShareContactsAction *)self activityItemForContacts:v6];
   v8 = objc_alloc(MEMORY[0x1E69CD9F8]);
@@ -153,8 +153,8 @@
     popoverPresentationController2 = [v10 popoverPresentationController];
     [popoverPresentationController2 setSourceRect:{v18, v20, v22, v24}];
 
-    contacts2 = [(CNContactListShareContactsAction *)self contacts];
-    LODWORD(popoverPresentationController2) = [contacts2 count] > 1;
+    v26 = objc_msgSend_contacts(self);
+    LODWORD(popoverPresentationController2) = [v26 count] > 1;
 
     if (popoverPresentationController2)
     {
@@ -203,8 +203,8 @@ void __53__CNContactListShareContactsAction_presentShareSheet__block_invoke(uint
 {
   [(CNContactListShareContactsAction *)self setFilteredContacts:0];
   v3 = [CNContactCardFieldPicker alloc];
-  contacts = [(CNContactListShareContactsAction *)self contacts];
-  v5 = [(CNContactCardFieldPicker *)v3 initWithContacts:contacts];
+  v4 = objc_msgSend_contacts(self);
+  v5 = [(CNContactCardFieldPicker *)v3 initWithContacts:v4];
   [(CNContactListShareContactsAction *)self setFieldPicker:v5];
 
   fieldPicker = [(CNContactListShareContactsAction *)self fieldPicker];
@@ -217,8 +217,8 @@ void __53__CNContactListShareContactsAction_presentShareSheet__block_invoke(uint
   activityViewController = self->_activityViewController;
   self->_activityViewController = 0;
 
-  contacts = [(CNContactListShareContactsAction *)self contacts];
-  v5 = [CNContactShareActionHelper contactsHavePrivateProperties:contacts];
+  v4 = objc_msgSend_contacts(self);
+  v5 = [CNContactShareActionHelper contactsHavePrivateProperties:v4];
 
   if (v5)
   {

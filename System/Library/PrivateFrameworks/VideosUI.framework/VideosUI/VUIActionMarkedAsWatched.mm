@@ -37,10 +37,10 @@
 
   if (!self->_itemID || !self->_itemType)
   {
-    v7 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = VUIDefaultLogObject(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [(VUIActionMarkedAsWatched *)&self->_itemID performWithTargetResponder:v7 completionHandler:?];
+      [(VUIActionMarkedAsWatched *)&self->_itemID performWithTargetResponder:v8 completionHandler:?];
     }
   }
 

@@ -46,9 +46,9 @@
     if (v10)
     {
       domain = [v10 domain];
-      v13 = [domain isEqualToString:*MEMORY[0x1E695B778]];
+      isEqualToString = objc_msgSend_isEqualToString_(domain);
 
-      if (v13)
+      if (isEqualToString)
       {
         domain2 = [v11 domain];
 
@@ -557,9 +557,9 @@ LABEL_16:
   else
   {
     domain = [(PKCloudStoreError *)self domain];
-    v10 = [domain isEqualToString:*MEMORY[0x1E695B778]];
+    isEqualToString = objc_msgSend_isEqualToString_(domain);
 
-    if (v10)
+    if (isEqualToString)
     {
       code = [(PKCloudStoreError *)self code];
       if ((code - 5000) <= 0xA)
@@ -593,7 +593,7 @@ LABEL_16:
   v4 = [userInfo objectForKey:*MEMORY[0x1E696AA08]];
 
   domain = [v4 domain];
-  if ([domain isEqualToString:@"PKPassKitErrorDomain"])
+  if (objc_msgSend_isEqualToString_(domain))
   {
     v6 = [v4 code] == -4007;
   }
@@ -670,19 +670,19 @@ LABEL_13:
   v8 = v7;
   if (v6 == v7)
   {
-    v9 = 1;
+    isEqualToString = 1;
   }
 
   else
   {
-    v9 = 0;
+    isEqualToString = 0;
     if (v6 && v7)
     {
-      v9 = [v6 isEqualToString:v7];
+      isEqualToString = objc_msgSend_isEqualToString_(v6);
     }
   }
 
-  if (v9 && _code == 2004)
+  if (isEqualToString && _code == 2004)
   {
     return 1;
   }
@@ -768,10 +768,10 @@ void __58__PKCloudStoreError__objectsOfClassTypeFromPartialErrors___block_invoke
 {
   code = [(PKCloudStoreError *)self code];
   domain = [(PKCloudStoreError *)self domain];
-  v5 = [domain isEqualToString:*MEMORY[0x1E695B778]];
+  isEqualToString = objc_msgSend_isEqualToString_(domain);
 
   result = code;
-  if (v5)
+  if (isEqualToString)
   {
 
     JUMPOUT(0x1B26F7FE0);
@@ -799,17 +799,17 @@ void __58__PKCloudStoreError__objectsOfClassTypeFromPartialErrors___block_invoke
 + (BOOL)_isCloudKitErrorDomain:(id)domain
 {
   domainCopy = domain;
-  if ([domainCopy isEqualToString:*MEMORY[0x1E695B740]])
+  if (objc_msgSend_isEqualToString_(domainCopy))
   {
-    v4 = 1;
+    isEqualToString = 1;
   }
 
   else
   {
-    v4 = [domainCopy isEqualToString:*MEMORY[0x1E695B778]];
+    isEqualToString = objc_msgSend_isEqualToString_(domainCopy);
   }
 
-  return v4;
+  return isEqualToString;
 }
 
 @end

@@ -306,7 +306,7 @@ LABEL_30:
   {
     memset(buf, 0, sizeof(buf));
     v15 = 0;
-    [self lastShownStartupWelcomeScreenVersion];
+    objc_msgSend_lastShownStartupWelcomeScreenVersion(self);
     v5 = +[UIApplication sharedApplication];
     ic_hasConnectedHostedWindowScene = [v5 ic_hasConnectedHostedWindowScene];
 
@@ -394,7 +394,7 @@ LABEL_30:
   v4 = v3;
   if (v3)
   {
-    [v3 operatingSystemVersion];
+    objc_msgSend_operatingSystemVersion(v3);
   }
 
   v5 = [NSNumber numberWithInteger:0];

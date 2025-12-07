@@ -17,21 +17,21 @@
   if (tuple < self->_cellValues.var0 - begin)
   {
     v12 = begin[tuple];
-    v17 = objc_msgSend_groupValueTupleByReplacingValue_atLevel_(levelCopy, v13, v12, v6, v14);
-    v18 = self->_uidCoords.__begin_[tuple];
-    if (v18)
+    v15 = objc_msgSend_groupValueTupleByReplacingValue_atLevel_(levelCopy, v13, v12, v6);
+    v16 = self->_uidCoords.__begin_[tuple];
+    if (v16)
     {
-      objc_msgSend_uuidCoordForGroupTuple_runningLevel_(v18, v15, v17, v6, v16);
+      objc_msgSend_uuidCoordForGroupTuple_runningLevel_(v16, v14, v15, v6);
     }
 
     else
     {
-      v20 = 0;
-      v21 = 0;
+      v18 = 0;
+      v19 = 0;
     }
 
-    retstr->_column = v20;
-    retstr->_row = v21;
+    retstr->_column = v18;
+    retstr->_row = v19;
   }
 
   return result;
@@ -41,123 +41,123 @@
 {
   uidCoordCopy = uidCoord;
   v14 = a8;
-  v19 = objc_msgSend_numberOfLevels(uidCoordCopy, v15, v16, v17, v18);
-  v75 = 0;
+  v18 = objc_msgSend_numberOfLevels(uidCoordCopy, v15, v16, v17);
+  v66 = 0;
   retstr->_column = 0u;
   retstr->_row = 0u;
   TSKMakeInvalidUIDStructCoord();
-  v24 = objc_msgSend_groupBySet(v14, v20, v21, v22, v23);
-  v28 = objc_msgSend_groupByForUuidCoord_(v24, v25, found, v26, v27);
+  v22 = objc_msgSend_groupBySet(v14, v19, v20, v21);
+  v25 = objc_msgSend_groupByForUuidCoord_(v22, v23, found, v24);
 
-  if (v28)
+  if (v25)
   {
-    objc_msgSend_groupingColumnLevelsForColumn_(v28, v29, coord, v30, v31);
-    if (*(&v74[0] + 1) - *&v74[0] == 1)
+    objc_msgSend_groupingColumnLevelsForColumn_(v25, v26, coord, v27);
+    if (*(&v65[0] + 1) - *&v65[0] == 1)
     {
-      v32 = **&v74[0];
+      v28 = **&v65[0];
     }
 
     else
     {
-      if (!*&v74[0])
+      if (!*&v65[0])
       {
 LABEL_28:
 
         goto LABEL_29;
       }
 
-      v32 = 255;
+      v28 = 255;
     }
 
-    *(&v74[0] + 1) = *&v74[0];
-    operator delete(*&v74[0]);
+    *(&v65[0] + 1) = *&v65[0];
+    operator delete(*&v65[0]);
 
-    if (v32 != 255 && v32 <= v19)
+    if (v28 != 255 && v28 <= v18)
     {
-      v39 = objc_msgSend_groupValueAtLevel_(uidCoordCopy, v33, v32, v34, v35);
-      v75 = v39;
-      if (v39)
+      v33 = objc_msgSend_groupValueAtLevel_(uidCoordCopy, v29, v28, v30);
+      v66 = v33;
+      if (v33)
       {
         contextCopy = context;
         foundCopy = found;
         begin = self->_cellValues.__begin_;
         var0 = self->_cellValues.var0;
-        v42 = var0 - begin;
+        v36 = var0 - begin;
         if (var0 == begin)
         {
-          v50 = self->_cellValues.var0;
-          v51 = contextCopy;
+          v43 = self->_cellValues.var0;
+          v44 = contextCopy;
         }
 
         else
         {
-          v69 = v32;
-          v70 = v14;
-          v43 = 0;
-          v44 = 0;
+          v60 = v28;
+          v61 = v14;
+          v37 = 0;
+          v38 = 0;
           while (1)
           {
-            v45 = begin[v44];
-            isEqualToCellValue = objc_msgSend_isEqualToCellValue_(v39, v46, v45, v47, v48);
+            v39 = begin[v38];
+            isEqualToCellValue = objc_msgSend_isEqualToCellValue_(v33, v40, v39, v41);
 
             if (isEqualToCellValue)
             {
               break;
             }
 
-            ++v44;
-            if (&begin[++v43] == var0)
+            ++v38;
+            if (&begin[++v37] == var0)
             {
-              v42 = var0 - begin;
+              v36 = var0 - begin;
               goto LABEL_16;
             }
           }
 
-          v42 = v44;
+          v36 = v38;
 LABEL_16:
           var0 = self->_cellValues.__begin_;
-          v50 = self->_cellValues.var0;
-          v14 = v70;
-          v51 = contextCopy;
-          v32 = v69;
+          v43 = self->_cellValues.var0;
+          v14 = v61;
+          v44 = contextCopy;
+          v28 = v60;
         }
 
-        if (v42 == v50 - var0)
+        if (v36 == v43 - var0)
         {
-          sub_2213000E8(&self->_cellValues.__begin_, &v75);
-          *&v74[0] = objc_opt_new();
-          sub_2213001DC(&self->_uidCoords.__begin_, v74);
+          sub_2213000E8(&self->_cellValues.__begin_, &v66);
+          *&v65[0] = objc_opt_new();
+          sub_2213001DC(&self->_uidCoords.__begin_, v65);
         }
 
-        v52 = self->_uidCoords.__begin_;
-        if (v42 >= self->_uidCoords.var0 - v52)
+        v45 = self->_uidCoords.__begin_;
+        if (v36 >= self->_uidCoords.var0 - v45)
         {
-          v53 = MEMORY[0x277D81150];
-          v54 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v36, "[TSTUidCoordsPerRunningCellValue getUidCoordforRunningAggregate:tupleForCoord:newUidCoord:addNewUidCoordEvenIfNotFound:inContext:]", v37, v38);
-          v55 = v42;
-          v59 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v56, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTRunningTotalContext.mm", v57, v58);
-          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v53, v60, v54, v59, 255, 0, "Got a too-large insertIndex: %lu", v55);
+          v46 = MEMORY[0x277D81150];
+          v47 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v31, "[TSTUidCoordsPerRunningCellValue getUidCoordforRunningAggregate:tupleForCoord:newUidCoord:addNewUidCoordEvenIfNotFound:inContext:]", v32);
+          v48 = v36;
+          v51 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v49, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTRunningTotalContext.mm", v50);
+          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v46, v52, v47, v51, 255, 0, "Got a too-large insertIndex: %lu", v48);
 
-          objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v61, v62, v63, v64);
-          v42 = v55;
-          v52 = self->_uidCoords.__begin_;
+          objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v53, v54, v55);
+          v36 = v48;
+          v45 = self->_uidCoords.__begin_;
         }
 
-        v66 = v52[v42];
-        if (v42)
+        v57 = v45[v36];
+        if (v36)
         {
-          objc_msgSend_uuidCoordAtIndex_templateTuple_runningLevel_(self, v65, v42 - 1, uidCoordCopy, v32);
-          v67 = v74[1];
-          retstr->_column = v74[0];
-          retstr->_row = v67;
+          objc_msgSend_uuidCoordAtIndex_templateTuple_runningLevel_(self, v56, v36 - 1, uidCoordCopy, v28);
+          v58 = v65[1];
+          retstr->_column = v65[0];
+          retstr->_row = v58;
         }
 
-        if (v51 || *&retstr->_column != 0 && *&retstr->_row != 0)
+        if (v44 || *&retstr->_column != 0 && *&retstr->_row != 0)
         {
-          objc_msgSend_addUidCoord_tupleForCoord_atRunningLevel_(v66, v65, foundCopy, uidCoordCopy, v32);
+          objc_msgSend_addUidCoord_tupleForCoord_atRunningLevel_(v57, v56, foundCopy, uidCoordCopy, v28);
         }
 
-        v28 = v75;
+        v25 = v66;
         goto LABEL_28;
       }
     }

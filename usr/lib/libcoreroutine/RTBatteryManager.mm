@@ -202,12 +202,12 @@ void __55__RTBatteryManager_startMonitoringBatteryStatusChanges__block_invoke(ui
   }
 }
 
-uint64_t __55__RTBatteryManager_startMonitoringBatteryStatusChanges__block_invoke_2(uint64_t a1)
+uint64_t __55__RTBatteryManager_startMonitoringBatteryStatusChanges__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = [objc_opt_class() currentExternalConnectionState];
-  v3 = *(a1 + 32);
+  v3 = [objc_opt_class() currentExternalConnectionState];
+  v4 = *(a1 + 32);
 
-  return [v3 updateBatteryStatus:v2];
+  return [v4 updateBatteryStatus:v3];
 }
 
 - (void)stopMonitoringBatteryStatusChanges

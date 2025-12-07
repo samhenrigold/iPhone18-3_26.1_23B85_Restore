@@ -3,10 +3,10 @@
 
 @implementation UIView
 
-void __81__UIView_SafariServicesExtras___sf_viewAncestrySummaryWithMinDepth_paddingLevel___block_invoke(uint64_t a1, void *a2, unint64_t a3)
+void __81__UIView_SafariServicesExtras___sf_viewAncestrySummaryWithMinDepth_paddingLevel___block_invoke(uint64_t a1, void *a2, char *a3)
 {
   v6 = a2;
-  if (*(a1 + 48) + a3)
+  if (&a3[*(a1 + 48)])
   {
     v5 = 0;
     do
@@ -15,7 +15,7 @@ void __81__UIView_SafariServicesExtras___sf_viewAncestrySummaryWithMinDepth_padd
       ++v5;
     }
 
-    while (v5 < *(a1 + 48) + a3);
+    while (v5 < &a3[*(a1 + 48)]);
   }
 
   [*(a1 + 32) appendString:v6];

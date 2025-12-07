@@ -28,22 +28,7 @@
     }
 
     v6 = v5;
-    if (!v6)
-    {
-      goto LABEL_9;
-    }
-
-    wakePort = [(HAPAccessoryWakeTuple *)self wakePort];
-    if (wakePort != [(HAPAccessoryWakeTuple *)v6 wakePort])
-    {
-      goto LABEL_9;
-    }
-
-    wakeAddress = [(HAPAccessoryWakeTuple *)self wakeAddress];
-    wakeAddress2 = [(HAPAccessoryWakeTuple *)v6 wakeAddress];
-    v10 = HMFEqualObjects();
-
-    if (v10)
+    if (v6 && (v7 = [(HAPAccessoryWakeTuple *)self wakePort], v7 == [(HAPAccessoryWakeTuple *)v6 wakePort]) && ([(HAPAccessoryWakeTuple *)self wakeAddress], v8 = objc_claimAutoreleasedReturnValue(), [(HAPAccessoryWakeTuple *)v6 wakeAddress], v9 = objc_claimAutoreleasedReturnValue(), v10 = HMFEqualObjects(), v9, v8, v10))
     {
       wakePattern = [(HAPAccessoryWakeTuple *)self wakePattern];
       wakePattern2 = [(HAPAccessoryWakeTuple *)v6 wakePattern];
@@ -52,7 +37,6 @@
 
     else
     {
-LABEL_9:
       v13 = 0;
     }
   }

@@ -6,66 +6,64 @@
 
 - (void)performWithCompletion:(id)completion
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v85 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  date = [MEMORY[0x277CBEAA8] date];
-  if (![(NSString *)self->_requestAceHash length])
+  v9 = objc_msgSend_date(MEMORY[0x277CBEAA8], v5, v6, v7, v8);
+  if (!objc_msgSend_length(self->_requestAceHash, v10, v11, v12, v13))
   {
-    aceId = [(MPAssistantSetPlaybackSpeed *)self aceId];
-    v7 = sub_233505670(@"Seek To Playback Speed", aceId);
+    v18 = objc_msgSend_aceId(self, v14, v15, v16, v17);
+    v19 = sub_233505670(@"Seek To Playback Speed", v18);
     requestAceHash = self->_requestAceHash;
-    self->_requestAceHash = v7;
+    self->_requestAceHash = v19;
   }
 
-  v9 = _MPLogCategoryAssistant();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v21 = _MPLogCategoryAssistant();
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = self->_requestAceHash;
-    hashedRouteUIDs = [(MPAssistantSetPlaybackSpeed *)self hashedRouteUIDs];
-    v12 = [hashedRouteUIDs count];
-    [(MPAssistantSetPlaybackSpeed *)self scalingFactor];
+    v26 = self->_requestAceHash;
+    v27 = objc_msgSend_hashedRouteUIDs(self, v22, v23, v24, v25);
+    v32 = objc_msgSend_count(v27, v28, v29, v30, v31);
+    objc_msgSend_scalingFactor(self, v33, v34, v35, v36);
     *buf = 138543874;
-    v37 = v10;
-    v38 = 2048;
-    v39 = v12;
-    v40 = 2048;
-    v41 = v13;
-    _os_log_impl(&dword_2334D9000, v9, OS_LOG_TYPE_DEFAULT, "Seek To Playback Speed (invoke) <%{public}@>: %lu UIDs, %f speed", buf, 0x20u);
+    v80 = v26;
+    v81 = 2048;
+    v82 = v32;
+    v83 = 2048;
+    v84 = v37;
+    _os_log_impl(&dword_2334D9000, v21, OS_LOG_TYPE_DEFAULT, "Seek To Playback Speed (invoke) <%{public}@>: %lu UIDs, %f speed", buf, 0x20u);
   }
 
-  v14 = self->_requestAceHash;
-  hashedRouteUIDs2 = [(MPAssistantSetPlaybackSpeed *)self hashedRouteUIDs];
-  sub_2335057BC(@"Seek To Playback Speed", v14, hashedRouteUIDs2);
+  v38 = self->_requestAceHash;
+  v43 = objc_msgSend_hashedRouteUIDs(self, v39, v40, v41, v42);
+  sub_2335057BC(@"Seek To Playback Speed", v38, v43);
 
-  v34[0] = *MEMORY[0x277D27D60];
-  v16 = MEMORY[0x277CCABB0];
-  [(MPAssistantSetPlaybackSpeed *)self scalingFactor];
-  v17 = [v16 numberWithDouble:?];
-  v34[1] = *MEMORY[0x277D27DC0];
-  v35[0] = v17;
-  v35[1] = @"com.apple.MediaAssistant.siri";
-  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:v34 count:2];
+  v77[0] = *MEMORY[0x277D27D60];
+  v44 = MEMORY[0x277CCABB0];
+  objc_msgSend_scalingFactor(self, v45, v46, v47, v48);
+  v53 = objc_msgSend_numberWithDouble_(v44, v49, v50, v51, v52);
+  v77[1] = *MEMORY[0x277D27DC0];
+  v78[0] = v53;
+  v78[1] = @"com.apple.MediaAssistant.siri";
+  v55 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v54, v78, v77, 2);
 
-  v19 = objc_alloc_init(MEMORY[0x277D27828]);
-  nowPlayingApplicationDestination = [MEMORY[0x277D27850] nowPlayingApplicationDestination];
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = sub_2334F6DD8;
-  v27[3] = &unk_2789DBAF8;
-  v28 = nowPlayingApplicationDestination;
+  v56 = objc_alloc_init(MEMORY[0x277D27828]);
+  v61 = objc_msgSend_nowPlayingApplicationDestination(MEMORY[0x277D27850], v57, v58, v59, v60);
+  v70[0] = MEMORY[0x277D85DD0];
+  v70[1] = 3221225472;
+  v70[2] = sub_2334F6DD8;
+  v70[3] = &unk_2789DBAF8;
+  v71 = v61;
   selfCopy = self;
-  v30 = v19;
-  v31 = v18;
-  v32 = date;
-  v33 = completionCopy;
-  v21 = completionCopy;
-  v22 = date;
-  v23 = v18;
-  v24 = v19;
-  v25 = nowPlayingApplicationDestination;
-  sub_2334F6DD8(v27, 0);
-
-  v26 = *MEMORY[0x277D85DE8];
+  v73 = v56;
+  v74 = v55;
+  v75 = v9;
+  v76 = completionCopy;
+  v62 = completionCopy;
+  v63 = v9;
+  v64 = v55;
+  v65 = v56;
+  v66 = v61;
+  sub_2334F6DD8(v70, 0, v67, v68, v69);
 }
 
 @end

@@ -37,40 +37,40 @@ uint64_t __31__SYQueueDumper_registerQueue___block_invoke()
 
 _DWORD *__31__SYQueueDumper_registerQueue___block_invoke_2()
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v0 = objc_autoreleasePoolPush();
   [queues compact];
   v1 = [queues allObjects];
   v2 = objc_alloc(MEMORY[0x1E695DF70]);
   v3 = [v2 initWithCapacity:{objc_msgSend(queues, "count")}];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v4 = v1;
-  v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       v8 = 0;
       do
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = [*(*(&v14 + 1) + 8 * v8) debugDescription];
+        v9 = [*(*(&v13 + 1) + 8 * v8) debugDescription];
         [v3 addObject:v9];
 
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
@@ -84,11 +84,10 @@ _DWORD *__31__SYQueueDumper_registerQueue___block_invoke_2()
   [v10 getBytes:v11 + 50 range:{0, objc_msgSend(v10, "length")}];
 
   objc_autoreleasePoolPop(v0);
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
-uint64_t __31__SYQueueDumper_registerQueue___block_invoke_3(uint64_t a1)
+char *__31__SYQueueDumper_registerQueue___block_invoke_3(uint64_t a1)
 {
   for (i = 0; i < [queues count]; ++i)
   {

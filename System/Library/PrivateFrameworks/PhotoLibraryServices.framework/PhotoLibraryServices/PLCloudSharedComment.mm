@@ -396,9 +396,9 @@ void __40__PLCloudSharedComment_isSyncableChange__block_invoke()
   }
 
   commentText2 = [(PLCloudSharedComment *)self commentText];
-  v10 = [commentText2 isEqualToString:textCopy];
+  isEqualToString = objc_msgSend_isEqualToString_(commentText2);
 
-  if ((v10 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
 LABEL_8:
     commentText3 = [(PLCloudSharedComment *)self commentText];
@@ -925,7 +925,7 @@ void __95__PLCloudSharedComment_commentsMatchingPredicate_sortDescriptors_limit_
   v9 = [v7 arrayWithObjects:v18 count:1];
   v10 = [self cloudSharedCommentsWithGUIDs:v9 inLibrary:libraryCopy];
 
-  if ([v10 count] >= 2)
+  if (objc_msgSend_count(v10) >= 2)
   {
     v11 = PLPhotoSharingGetLog();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))

@@ -32,7 +32,7 @@
 
 - (id)specifiers
 {
-  v33[1] = *MEMORY[0x277D85DE8];
+  v32[1] = *MEMORY[0x277D85DE8];
   userInfo = [*(&self->super.super.super.super.super.isa + *MEMORY[0x277D3FD20]) userInfo];
   v4 = [userInfo objectForKeyedSubscript:@"bt-address"];
   address = self->_address;
@@ -44,26 +44,26 @@
   self->_device = v7;
 
   v9 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v31 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:@"Hearing Aid Enrollment" target:self set:0 get:0 detail:0 cell:0 edit:0];
-  [v9 addObject:v31];
-  v30 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:@"Hearing Aid Enrolled" target:self set:sel_setHearingAidEnrolled_ get:sel_hearingAidEnrolled detail:0 cell:6 edit:0];
+  v30 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:@"Hearing Aid Enrollment" target:self set:0 get:0 detail:0 cell:0 edit:0];
   [v9 addObject:v30];
-  v29 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:@"Enroll with Device" target:self set:0 get:0 detail:0 cell:13 edit:0];
-  [v29 setButtonAction:sel_pushEnrollmentViewControllerWithDevice];
+  v29 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:@"Hearing Aid Enrolled" target:self set:sel_setHearingAidEnrolled_ get:sel_hearingAidEnrolled detail:0 cell:6 edit:0];
   [v9 addObject:v29];
-  v28 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:@"Enroll with Device & Audiogram Sample" target:self set:0 get:0 detail:0 cell:13 edit:0];
-  [v28 setButtonAction:sel_pushEnrollmentViewControllerWithDeviceAndAudiogramSample];
+  v28 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:@"Enroll with Device" target:self set:0 get:0 detail:0 cell:13 edit:0];
+  [v28 setButtonAction:sel_pushEnrollmentViewControllerWithDevice];
   [v9 addObject:v28];
-  v27 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:@"Enroll Media Assist with Device & Audiogram Sample" target:self set:0 get:0 detail:0 cell:13 edit:0];
-  [v27 setButtonAction:sel_pushMediaAssistEnrollmentViewControllerWithDeviceAndAudiogramSample];
+  v27 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:@"Enroll with Device & Audiogram Sample" target:self set:0 get:0 detail:0 cell:13 edit:0];
+  [v27 setButtonAction:sel_pushEnrollmentViewControllerWithDeviceAndAudiogramSample];
   [v9 addObject:v27];
-  v26 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:@"Fit Noise Check" target:self set:0 get:0 detail:0 cell:0 edit:0];
+  v26 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:@"Enroll Media Assist with Device & Audiogram Sample" target:self set:0 get:0 detail:0 cell:13 edit:0];
+  [v26 setButtonAction:sel_pushMediaAssistEnrollmentViewControllerWithDeviceAndAudiogramSample];
   [v9 addObject:v26];
+  v25 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:@"Fit Noise Check" target:self set:0 get:0 detail:0 cell:0 edit:0];
+  [v9 addObject:v25];
   v10 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:@"Fit Noise Check" target:self set:0 get:0 detail:0 cell:13 edit:0];
   [v10 setButtonAction:sel_pushFitNoiseCheckViewController];
   [v9 addObject:v10];
-  v25 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:@"Fault Check" target:self set:0 get:0 detail:0 cell:0 edit:0];
-  [v9 addObject:v25];
+  v24 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:@"Fault Check" target:self set:0 get:0 detail:0 cell:0 edit:0];
+  [v9 addObject:v24];
   v11 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:@"Fault Check" target:self set:0 get:0 detail:0 cell:13 edit:0];
   [v11 setButtonAction:sel_pushFaultCheckViewController];
   [v9 addObject:v11];
@@ -74,9 +74,9 @@
   [v9 addObject:v13];
   v14 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:@"Occlusion Test" target:self set:0 get:0 detail:objc_opt_class() cell:2 edit:0];
   v15 = self->_address;
-  v32 = @"bt-address";
-  v33[0] = v15;
-  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:&v32 count:1];
+  v31 = @"bt-address";
+  v32[0] = v15;
+  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:&v31 count:1];
   [v14 setUserInfo:v16];
 
   [v9 addObject:v14];
@@ -91,7 +91,6 @@
   v21 = *(&self->super.super.super.super.super.isa + v18);
   v22 = v21;
 
-  v23 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
@@ -141,7 +140,7 @@
 
 void __94__HMHearingAidInternalViewController_pushEnrollmentViewControllerWithDeviceAndAudiogramSample__block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = v6;
   if (a4)
@@ -151,33 +150,33 @@ void __94__HMHearingAidInternalViewController_pushEnrollmentViewControllerWithDe
 
   else
   {
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
-    v8 = [v6 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
+    v8 = [v6 countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v24;
+      v10 = *v23;
       do
       {
         v11 = 0;
         do
         {
-          if (*v24 != v10)
+          if (*v23 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = [*(*(&v23 + 1) + 8 * v11) description];
+          v12 = [*(*(&v22 + 1) + 8 * v11) description];
           NSLog(&cfstr_HearingAidVali_0.isa, v12);
 
           ++v11;
         }
 
         while (v9 != v11);
-        v9 = [v7 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
       }
 
       while (v9);
@@ -199,7 +198,7 @@ void __94__HMHearingAidInternalViewController_pushEnrollmentViewControllerWithDe
       block[2] = __94__HMHearingAidInternalViewController_pushEnrollmentViewControllerWithDeviceAndAudiogramSample__block_invoke_2;
       block[3] = &unk_2796F1D70;
       block[4] = WeakRetained;
-      v22 = v18;
+      v21 = v18;
       v19 = v18;
       dispatch_async(MEMORY[0x277D85CD0], block);
     }
@@ -209,8 +208,6 @@ void __94__HMHearingAidInternalViewController_pushEnrollmentViewControllerWithDe
       NSLog(&cfstr_HearingAidNoVa.isa);
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __94__HMHearingAidInternalViewController_pushEnrollmentViewControllerWithDeviceAndAudiogramSample__block_invoke_2(uint64_t a1)
@@ -239,7 +236,7 @@ void __94__HMHearingAidInternalViewController_pushEnrollmentViewControllerWithDe
 
 void __105__HMHearingAidInternalViewController_pushMediaAssistEnrollmentViewControllerWithDeviceAndAudiogramSample__block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = v6;
   if (a4)
@@ -249,33 +246,33 @@ void __105__HMHearingAidInternalViewController_pushMediaAssistEnrollmentViewCont
 
   else
   {
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
-    v8 = [v6 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
+    v8 = [v6 countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v24;
+      v10 = *v23;
       do
       {
         v11 = 0;
         do
         {
-          if (*v24 != v10)
+          if (*v23 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = [*(*(&v23 + 1) + 8 * v11) description];
+          v12 = [*(*(&v22 + 1) + 8 * v11) description];
           NSLog(&cfstr_MediaAssistVal.isa, v12);
 
           ++v11;
         }
 
         while (v9 != v11);
-        v9 = [v7 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
       }
 
       while (v9);
@@ -298,7 +295,7 @@ void __105__HMHearingAidInternalViewController_pushMediaAssistEnrollmentViewCont
         block[2] = __105__HMHearingAidInternalViewController_pushMediaAssistEnrollmentViewControllerWithDeviceAndAudiogramSample__block_invoke_2;
         block[3] = &unk_2796F1D70;
         block[4] = WeakRetained;
-        v22 = v18;
+        v21 = v18;
         v19 = v18;
         dispatch_async(MEMORY[0x277D85CD0], block);
       }
@@ -314,8 +311,6 @@ void __105__HMHearingAidInternalViewController_pushMediaAssistEnrollmentViewCont
       NSLog(&cfstr_MediaAssistNoV.isa);
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __105__HMHearingAidInternalViewController_pushMediaAssistEnrollmentViewControllerWithDeviceAndAudiogramSample__block_invoke_2(uint64_t a1)

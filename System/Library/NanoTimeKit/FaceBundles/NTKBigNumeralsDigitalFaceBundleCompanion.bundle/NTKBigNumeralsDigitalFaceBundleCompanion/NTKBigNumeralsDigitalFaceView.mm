@@ -11,6 +11,7 @@
 - (void)_cleanupAfterTransitionToOption:(id)option forCustomEditMode:(int64_t)mode slot:(id)slot;
 - (void)_createTimeView;
 - (void)_loadSnapshotContentViews;
+- (void)_prepareForStatusChange:(BOOL)change;
 - (void)_removeTimeView;
 - (void)_unloadSnapshotContentViews;
 - (void)layoutSubviews;
@@ -96,6 +97,13 @@
   timeView = [(NTKBigNumeralsDigitalFaceView *)self timeView];
   [(NTKBigNumeralsDigitalFaceView *)self bounds];
   [timeView ntk_setBoundsAndPositionFromFrame:?];
+}
+
+- (void)_prepareForStatusChange:(BOOL)change
+{
+  changeCopy = change;
+  timeView = [(NTKBigNumeralsDigitalFaceView *)self timeView];
+  [timeView setShowingStatus:changeCopy];
 }
 
 - (void)_applyOption:(id)option forCustomEditMode:(int64_t)mode slot:(id)slot

@@ -836,7 +836,7 @@ LABEL_48:
         memset(&v64, 0, sizeof(v64));
         if (v8)
         {
-          [v8 preferredTransform];
+          objc_msgSend_preferredTransform(v8);
         }
 
         t1 = v64;
@@ -847,7 +847,7 @@ LABEL_48:
         if (!CGAffineTransformEqualToTransform(&t1, &t2))
         {
           t1 = v64;
-          [v13 setObject:NSArrayFromCGAffineTransform() forKey:@"preferredTransform"];
+          [v13 setObject:NSArrayFromCGAffineTransform(&t1) forKey:@"preferredTransform"];
         }
 
         [v8 preferredVolume];

@@ -1,9 +1,45 @@
 @interface PGSingleMomentMemoryGenerator
 - (id)generatePotentialMemoriesForProcessingWindow:(id)window graph:(id)graph progressBlock:(id)block;
+- (id)relevantFeederForTriggeredMemory:(id)memory inGraph:(id)graph allowGuestAsset:(BOOL)asset progressReporter:(id)reporter;
 - (id)titleGeneratorForTriggeredMemory:(id)memory withKeyAsset:(id)asset curatedAssets:(id)assets extendedCuratedAssets:(id)curatedAssets titleGenerationContext:(id)context inGraph:(id)graph;
 @end
 
 @implementation PGSingleMomentMemoryGenerator
+
+- (id)relevantFeederForTriggeredMemory:(id)memory inGraph:(id)graph allowGuestAsset:(BOOL)asset progressReporter:(id)reporter
+{
+  assetCopy = asset;
+  graphCopy = graph;
+  v27.receiver = self;
+  v27.super_class = PGSingleMomentMemoryGenerator;
+  v11 = [(PGMemoryGenerator *)&v27 relevantFeederForTriggeredMemory:memory inGraph:graphCopy allowGuestAsset:assetCopy progressReporter:reporter];
+  assetFetchResult = [v11 assetFetchResult];
+  v13 = MEMORY[0x277CD97A8];
+  memoryCurationSession = [(PGMemoryGenerator *)self memoryCurationSession];
+  curationContext = [memoryCurationSession curationContext];
+  v16 = [v13 clsAllAssetsFromFetchResult:assetFetchResult prefetchOptions:22 curationContext:curationContext];
+
+  if ([v16 count] > 0xC)
+  {
+    v26 = [PGMemoryGeneratorUtils filterImportedAssetsWithoutLocationAndWithoutSceneOrPersonOverlapFromAllAssets:v16 withGraph:graphCopy];
+    v18 = objc_alloc(MEMORY[0x277CD98D0]);
+    allObjects = [v26 allObjects];
+    photoLibrary = [assetFetchResult photoLibrary];
+    fetchType = [assetFetchResult fetchType];
+    fetchPropertySets = [assetFetchResult fetchPropertySets];
+    v23 = [v18 initWithObjects:allObjects photoLibrary:photoLibrary fetchType:fetchType fetchPropertySets:fetchPropertySets identifier:0 registerIfNeeded:0];
+
+    memoryCurationSession2 = [(PGMemoryGenerator *)self memoryCurationSession];
+    v17 = [PGMemoryGenerationHelper feederForMemoriesWithAssetFetchResult:v23 memoryCurationSession:memoryCurationSession2 graph:graphCopy];
+  }
+
+  else
+  {
+    v17 = v11;
+  }
+
+  return v17;
+}
 
 - (id)titleGeneratorForTriggeredMemory:(id)memory withKeyAsset:(id)asset curatedAssets:(id)assets extendedCuratedAssets:(id)curatedAssets titleGenerationContext:(id)context inGraph:(id)graph
 {
@@ -61,7 +97,7 @@ LABEL_7:
 
 - (id)generatePotentialMemoriesForProcessingWindow:(id)window graph:(id)graph progressBlock:(id)block
 {
-  v35[2] = *MEMORY[0x277D85DE8];
+  v34[2] = *MEMORY[0x277D85DE8];
   graphCopy = graph;
   v8 = MEMORY[0x277CBEB18];
   windowCopy = window;
@@ -91,20 +127,20 @@ LABEL_7:
 
     v23 = MEMORY[0x277D22C90];
     v24 = +[PGGraphMomentNode dateOfMoment];
-    v35[0] = v24;
+    v34[0] = v24;
     v25 = +[PGGraphDateNode monthDayOfDate];
-    v35[1] = v25;
-    v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:2];
+    v34[1] = v25;
+    v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:2];
     v27 = [v23 chain:v26];
 
     v28 = [MEMORY[0x277D22BF8] adjacencyWithSources:v14 relation:v27 targetsClass:objc_opt_class()];
-    v33[0] = MEMORY[0x277D85DD0];
-    v33[1] = 3221225472;
-    v33[2] = __98__PGSingleMomentMemoryGenerator_generatePotentialMemoriesForProcessingWindow_graph_progressBlock___block_invoke;
-    v33[3] = &unk_2788820D8;
+    v32[0] = MEMORY[0x277D85DD0];
+    v32[1] = 3221225472;
+    v32[2] = __98__PGSingleMomentMemoryGenerator_generatePotentialMemoriesForProcessingWindow_graph_progressBlock___block_invoke;
+    v32[3] = &unk_2788820D8;
     v29 = v10;
-    v34 = v29;
-    [v28 enumerateTargetsBySourceWithBlock:v33];
+    v33 = v29;
+    [v28 enumerateTargetsBySourceWithBlock:v32];
     v30 = v29;
   }
 
@@ -112,8 +148,6 @@ LABEL_7:
   {
     v30 = MEMORY[0x277CBEBF8];
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 
   return v30;
 }

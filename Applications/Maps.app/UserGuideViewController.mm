@@ -88,14 +88,15 @@
 
   v8 = (self + OBJC_IVAR____TtC4Maps23UserGuideViewController_updateContentInjection);
   v9 = *(self + OBJC_IVAR____TtC4Maps23UserGuideViewController_updateContentInjection);
+  v10 = *(self + OBJC_IVAR____TtC4Maps23UserGuideViewController_updateContentInjection + 8);
   *v8 = v7;
   v8[1] = v6;
   selfCopy = self;
-  sub_1000CD9D4(v7);
-  sub_1000588AC(v9);
+  sub_1000CD9D4(v7, v6);
+  sub_1000588AC(v9, v10);
   sub_100235F58();
 
-  sub_1000588AC(v7);
+  sub_1000588AC(v7, v6);
 }
 
 - (_TtC4Maps23UserGuideViewController)initWithCollectionHandler:(id)handler
@@ -148,7 +149,7 @@
 - (void)imagePickerController:(id)controller didFinishPickingMediaWithInfo:(id)info
 {
   type metadata accessor for InfoKey(0);
-  sub_10023AD4C(&qword_101908700, type metadata accessor for InfoKey);
+  sub_10023AD4C(&qword_101908700, type metadata accessor for InfoKey, &unk_1011E40BC);
   v6 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   controllerCopy = controller;
   selfCopy = self;

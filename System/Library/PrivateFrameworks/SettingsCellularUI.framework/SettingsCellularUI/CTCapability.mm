@@ -4,9 +4,12 @@
 - (BOOL)getEnabledForSlotID:(int64_t)d;
 - (CTCapability)initWithCapabilityName:(id)name;
 - (id)getCapabilityInfoObject:(id)object forSlotID:(int64_t)d;
+- (void)acceptCapabilityforSlotID:(int64_t)d status:(BOOL)status canSet:(BOOL)set info:(id)info;
 - (void)reset;
 - (void)setCapabilityInfo:(id)info forSlotID:(int64_t)d;
 - (void)setCapabilityInfoObject:(id)object forKey:(id)key forSlotID:(int64_t)d;
+- (void)setCapable:(BOOL)capable forSlotID:(int64_t)d;
+- (void)setEnabled:(BOOL)enabled forSlotID:(int64_t)d;
 @end
 
 @implementation CTCapability
@@ -32,6 +35,39 @@
   }
 
   return v7;
+}
+
+- (void)acceptCapabilityforSlotID:(int64_t)d status:(BOOL)status canSet:(BOOL)set info:(id)info
+{
+  setCopy = set;
+  statusCopy = status;
+  infoCopy = info;
+  v19 = [(CTCapability *)self slotNum:d];
+  v11 = [MEMORY[0x277CCABB0] numberWithBool:setCopy];
+  capability = [(CTCapability *)self capability];
+  [capability setObject:v11 forKeyedSubscript:v19];
+
+  v13 = [MEMORY[0x277CCABB0] numberWithBool:statusCopy];
+  enabledDict = [(CTCapability *)self enabledDict];
+  [enabledDict setObject:v13 forKeyedSubscript:v19];
+
+  capabilityInfo = [(CTCapability *)self capabilityInfo];
+  [capabilityInfo setObject:infoCopy forKeyedSubscript:v19];
+
+  capabilityFetched = [(CTCapability *)self capabilityFetched];
+  v17 = MEMORY[0x277CBEC38];
+  [capabilityFetched setObject:MEMORY[0x277CBEC38] forKeyedSubscript:v19];
+
+  enabledFetched = [(CTCapability *)self enabledFetched];
+  [enabledFetched setObject:v17 forKeyedSubscript:v19];
+}
+
+- (void)setCapable:(BOOL)capable forSlotID:(int64_t)d
+{
+  v8 = [MEMORY[0x277CCABB0] numberWithBool:capable];
+  capability = [(CTCapability *)self capability];
+  v7 = [(CTCapability *)self slotNum:d];
+  [capability setObject:v8 forKeyedSubscript:v7];
 }
 
 - (BOOL)getCapabilityForSlotID:(int64_t)d
@@ -73,7 +109,7 @@
 
 - (void)setCapabilityInfoObject:(id)object forKey:(id)key forSlotID:(int64_t)d
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   keyCopy = key;
   v10 = [(CTCapability *)self slotNum:d];
@@ -94,12 +130,18 @@
 
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v19 = 136315138;
-    v20 = "[CTCapability setCapabilityInfoObject:forKey:forSlotID:]";
-    _os_log_error_impl(&dword_2658DE000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s: DONOTHING, not fetched", &v19, 0xCu);
+    v18 = 136315138;
+    v19 = "[CTCapability setCapabilityInfoObject:forKey:forSlotID:]";
+    _os_log_error_impl(&dword_2658DE000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s: DONOTHING, not fetched", &v18, 0xCu);
   }
+}
 
-  v18 = *MEMORY[0x277D85DE8];
+- (void)setEnabled:(BOOL)enabled forSlotID:(int64_t)d
+{
+  v8 = [MEMORY[0x277CCABB0] numberWithBool:enabled];
+  enabledDict = [(CTCapability *)self enabledDict];
+  v7 = [(CTCapability *)self slotNum:d];
+  [enabledDict setObject:v8 forKeyedSubscript:v7];
 }
 
 - (BOOL)getEnabledForSlotID:(int64_t)d

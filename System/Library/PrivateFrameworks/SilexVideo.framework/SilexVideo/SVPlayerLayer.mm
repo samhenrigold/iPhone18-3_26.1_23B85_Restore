@@ -253,19 +253,17 @@ void __46__SVPlayerLayer_playWithPlaybackKind_looping___block_invoke(uint64_t a1
 
 - (void)setPlayer:.cold.1()
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Tried to re-set an already created AVPlayer!"];
-  v2 = 136315906;
-  v3 = "[SVPlayerLayer setPlayer:]";
-  v4 = 2080;
-  v5 = "SVPlayerLayer.m";
-  v6 = 1024;
-  v7 = 92;
-  v8 = 2114;
-  v9 = v0;
-  _os_log_error_impl(&dword_266095000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v2, 0x26u);
-
-  v1 = *MEMORY[0x277D85DE8];
+  v1 = 136315906;
+  v2 = "[SVPlayerLayer setPlayer:]";
+  v3 = 2080;
+  v4 = "SVPlayerLayer.m";
+  v5 = 1024;
+  v6 = 92;
+  v7 = 2114;
+  v8 = v0;
+  _os_log_error_impl(&dword_266095000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v1, 0x26u);
 }
 
 @end

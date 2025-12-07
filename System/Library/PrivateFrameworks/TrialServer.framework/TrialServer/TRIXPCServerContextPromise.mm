@@ -62,21 +62,19 @@
 
 void __72__TRIXPCServerContextPromise_addBlockToExecuteAfterPromiseFullfillment___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = TRILogCategory_Server();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v7[0] = 67109120;
-    v7[1] = qos_class_self();
-    _os_log_impl(&dword_26F567000, v2, OS_LOG_TYPE_DEFAULT, "Running server context block with qos: %u", v7, 8u);
+    v6[0] = 67109120;
+    v6[1] = qos_class_self();
+    _os_log_impl(&dword_26F567000, v2, OS_LOG_TYPE_DEFAULT, "Running server context block with qos: %u", v6, 8u);
   }
 
   v3 = *(a1 + 40);
   v4 = [*(a1 + 32) serverContext];
   v5 = [*(a1 + 32) taskQueue];
   (*(v3 + 16))(v3, v4, v5);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

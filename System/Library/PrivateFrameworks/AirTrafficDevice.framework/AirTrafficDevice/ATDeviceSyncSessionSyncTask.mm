@@ -1578,16 +1578,16 @@ LABEL_9:
 LABEL_15:
 }
 
-uint64_t __126__ATDeviceSyncSessionSyncTask__sendSyncRequestWithChangesAfterRevision_toRevision_withNewRevision_withSyncType_onMessageLink___block_invoke(uint64_t result, uint64_t a2)
+void *__126__ATDeviceSyncSessionSyncTask__sendSyncRequestWithChangesAfterRevision_toRevision_withNewRevision_withSyncType_onMessageLink___block_invoke(void *result, uint64_t a2)
 {
   if (!a2)
   {
     v3 = result;
-    WeakRetained = objc_loadWeakRetained((*(result + 32) + 176));
+    WeakRetained = objc_loadWeakRetained((result[4] + 176));
     v5 = [WeakRetained currentRevision];
 
-    v6 = *(v3 + 32);
-    v7 = *(v3 + 40);
+    v6 = v3[4];
+    v7 = v3[5];
 
     return [v6 _sendSyncRequestWithChangesAfterRevision:0 toRevision:v5 withNewRevision:v5 withSyncType:2 onMessageLink:v7];
   }

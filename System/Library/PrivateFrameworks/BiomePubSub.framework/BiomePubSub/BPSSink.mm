@@ -192,7 +192,7 @@ void __72__BPSSink_BMBookmark__initWithReceiveBookmarkedCompletion_receiveInput_
   v6 = __biome_log_for_category();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    [BPSSink receiveCompletion:];
+    [BPSSink receiveCompletion:selfCopy];
   }
 
   receivedCompletion = [(BPSSink *)selfCopy receivedCompletion];
@@ -217,10 +217,9 @@ void __72__BPSSink_BMBookmark__initWithReceiveBookmarkedCompletion_receiveInput_
 
 - (void)cancel
 {
-  v7 = *MEMORY[0x1E69E9840];
-  objc_opt_class();
-  OUTLINED_FUNCTION_0_6(&dword_1C871B000, v0, v1, "%@ - cancel", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  LODWORD(v7) = 138412290;
+  *(&v7 + 4) = objc_opt_class();
+  OUTLINED_FUNCTION_0_6(&dword_1C871B000, v1, v2, "%@ - cancel", v3, v4, v5, v6, v7, DWORD2(v7));
 }
 
 - (void)subscribeTo:(id)to
@@ -321,52 +320,49 @@ void __72__BPSSink_BMBookmark__initWithReceiveBookmarkedCompletion_receiveInput_
 
 - (void)_cancelPublisher:(id)publisher
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   publisherCopy = publisher;
   if (objc_opt_respondsToSelector())
   {
     [publisherCopy performSelector:sel_cancel];
   }
 
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   upstreamPublishers = [publisherCopy upstreamPublishers];
-  v6 = [upstreamPublishers countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [upstreamPublishers countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(upstreamPublishers);
         }
 
-        [(BPSSink *)self _cancelPublisher:*(*(&v11 + 1) + 8 * v9++)];
+        [(BPSSink *)self _cancelPublisher:*(*(&v10 + 1) + 8 * v9++)];
       }
 
       while (v7 != v9);
-      v7 = [upstreamPublishers countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [upstreamPublishers countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
-- (void)receiveCompletion:.cold.1()
+- (void)receiveCompletion:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  objc_opt_class();
-  OUTLINED_FUNCTION_0_6(&dword_1C871B000, v0, v1, "%@ - completion", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  LODWORD(v7) = 138412290;
+  *(&v7 + 4) = objc_opt_class();
+  OUTLINED_FUNCTION_0_6(&dword_1C871B000, v1, v2, "%@ - completion", v3, v4, v5, v6, v7, DWORD2(v7));
 }
 
 @end

@@ -48,7 +48,7 @@
 - (void)showInfrastructureDisconnectOnRetroModeNotificationForService:(id)service localization:(id)localization phoneDisconnected:(BOOL)disconnected uuid:(id)uuid completionHandler:(id)handler
 {
   disconnectedCopy = disconnected;
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   localizationCopy = localization;
   uuidCopy = uuid;
@@ -174,12 +174,10 @@ LABEL_17:
 
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v44 = 138543362;
-    v45 = serviceCopy;
-    _os_log_error_impl(&dword_22DFDF000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Skipping WiFi disconnect notification for %{public}@", &v44, 0xCu);
+    v43 = 138543362;
+    v44 = serviceCopy;
+    _os_log_error_impl(&dword_22DFDF000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Skipping WiFi disconnect notification for %{public}@", &v43, 0xCu);
   }
-
-  v43 = *MEMORY[0x277D85DE8];
 }
 
 @end

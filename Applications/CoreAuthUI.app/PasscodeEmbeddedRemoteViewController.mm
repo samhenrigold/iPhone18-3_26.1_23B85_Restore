@@ -8,6 +8,7 @@
 - (void)handleAction:(id)action completion:(id)completion;
 - (void)setContext:(id)context;
 - (void)startEditing;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation PasscodeEmbeddedRemoteViewController
@@ -97,6 +98,20 @@ LABEL_9:
   }
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v6.receiver = self;
+  v6.super_class = PasscodeEmbeddedRemoteViewController;
+  [(PasscodeEmbeddedRemoteViewController *)&v6 viewWillAppear:appear];
+  [(PasscodeEmbeddedRemoteViewController *)self _backoffTimeout];
+  if (v4 > 0.0)
+  {
+    v5 = v4;
+    [(PasscodeEmbeddedRemoteViewController *)self _dispatchBackoffTimer];
+    [(PasscodeEmbeddedViewController *)self setBackoffTimeout:v5];
+  }
+}
+
 - (BOOL)verifyPasscode:(id)passcode
 {
   passcodeCopy = passcode;
@@ -117,7 +132,7 @@ LABEL_9:
     v14 = auditToken;
     if (auditToken)
     {
-      [auditToken realToken];
+      objc_msgSend_realToken(auditToken);
     }
 
     else
@@ -132,7 +147,7 @@ LABEL_9:
 
   else
   {
-    [(PasscodeEmbeddedRemoteViewController *)self _hostAuditToken];
+    objc_msgSend__hostAuditToken(self);
   }
 
   v15 = +[LACPasscodeHelper sharedInstance];

@@ -1,9 +1,21 @@
 @interface MSParsecSearchSessionInstantAnswer
++ (id)instantAnswerWithIdentifier:(id)identifier date:(id)date inlineCard:(id)card isInstantAnswerUpdated:(BOOL)updated;
 - (MSParsecSearchSessionInstantAnswer)initWithIdentifier:(id)identifier date:(id)date inlineCard:(id)card isInstantAnswerUpdated:(BOOL)updated;
 - (id)feedbackResult;
 @end
 
 @implementation MSParsecSearchSessionInstantAnswer
+
++ (id)instantAnswerWithIdentifier:(id)identifier date:(id)date inlineCard:(id)card isInstantAnswerUpdated:(BOOL)updated
+{
+  updatedCopy = updated;
+  identifierCopy = identifier;
+  dateCopy = date;
+  cardCopy = card;
+  v13 = [[self alloc] initWithIdentifier:identifierCopy date:dateCopy inlineCard:cardCopy isInstantAnswerUpdated:updatedCopy];
+
+  return v13;
+}
 
 - (MSParsecSearchSessionInstantAnswer)initWithIdentifier:(id)identifier date:(id)date inlineCard:(id)card isInstantAnswerUpdated:(BOOL)updated
 {

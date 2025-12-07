@@ -11,6 +11,8 @@
 - (void)screenTwo_acceptButtonPressed;
 - (void)screenTwo_messageButtonPressed;
 - (void)screenTwo_notNowButtonPressed;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 @end
 
 @implementation SCUIInterventionScreenViewController
@@ -67,27 +69,27 @@
 
 - (void)addBulletsFromModel:(id)model
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   bullets = [model bullets];
-  v5 = [bullets countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [bullets countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v16;
+    v7 = *v15;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(bullets);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * i);
+        v9 = *(*(&v14 + 1) + 8 * i);
         text = [v9 text];
         v11 = MEMORY[0x1E69DCAB8];
         imageName = [v9 imageName];
@@ -95,44 +97,42 @@
         [(SCUIInterventionScreenViewController *)self addBulletedListItemWithTitle:&stru_1F3B30210 description:text image:v13];
       }
 
-      v6 = [bullets countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [bullets countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v6);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addButtonsFromModel:(id)model
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   modelCopy = model;
   v5 = [objc_alloc(MEMORY[0x1E69DC708]) initWithBarButtonSystemItem:1 target:self action:?];
   navigationItem = [(OBBaseWelcomeController *)self navigationItem];
   [navigationItem setRightBarButtonItem:v5];
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
-  v20 = modelCopy;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v19 = modelCopy;
   actions = [modelCopy actions];
-  v8 = [actions countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v8 = [actions countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v22;
+    v10 = *v21;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v22 != v10)
+        if (*v21 != v10)
         {
           objc_enumerationMutation(actions);
         }
 
-        v12 = *(*(&v21 + 1) + 8 * i);
+        v12 = *(*(&v20 + 1) + 8 * i);
         if ([v12 primary])
         {
           [MEMORY[0x1E69B7D00] boldButton];
@@ -205,13 +205,62 @@ LABEL_21:
 LABEL_22:
       }
 
-      v9 = [actions countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v9 = [actions countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v9);
   }
+}
 
-  v19 = *MEMORY[0x1E69E9840];
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = SCUIInterventionScreenViewController;
+  [(OBBaseWelcomeController *)&v4 viewDidAppear:appear];
+  [(SCUIInterventionScreenViewController *)self setDismissedBySwipe:1];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v10.receiver = self;
+  v10.super_class = SCUIInterventionScreenViewController;
+  [(OBBaseWelcomeController *)&v10 viewDidDisappear:disappear];
+  if ([(SCUIInterventionScreenViewController *)self dismissedBySwipe])
+  {
+    model = [(SCUIInterventionScreenViewController *)self model];
+    screen = [model screen];
+
+    model2 = [(SCUIInterventionScreenViewController *)self model];
+    v7 = model2;
+    if (screen)
+    {
+      if ([model2 screen] != 1)
+      {
+LABEL_8:
+
+        return;
+      }
+
+      isMovingFromParentViewController = [(SCUIInterventionScreenViewController *)self isMovingFromParentViewController];
+
+      if (isMovingFromParentViewController)
+      {
+        return;
+      }
+
+      model2 = [(SCUIInterventionScreenViewController *)self model];
+      v7 = model2;
+      v9 = 4;
+    }
+
+    else
+    {
+      v9 = 3;
+    }
+
+    [model2 collectInterventionInteractionEventWith:v9];
+    goto LABEL_8;
+  }
 }
 
 - (void)screenOne_notNowButtonPressed
@@ -360,16 +409,16 @@ void __69__SCUIInterventionScreenViewController_screenTwo_acceptButtonPressed__b
 
 void __69__SCUIInterventionScreenViewController_screenTwo_acceptButtonPressed__block_invoke_2(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (*(a1 + 32))
   {
     v2 = [MEMORY[0x1E697B660] clientUI];
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       v3 = *(a1 + 32);
-      v13 = 138412290;
-      v14 = v3;
-      _os_log_impl(&dword_1BC630000, v2, OS_LOG_TYPE_DEFAULT, "Failed to check ScreenTime passcode error: %@", &v13, 0xCu);
+      v12 = 138412290;
+      v13 = v3;
+      _os_log_impl(&dword_1BC630000, v2, OS_LOG_TYPE_DEFAULT, "Failed to check ScreenTime passcode error: %@", &v12, 0xCu);
     }
   }
 
@@ -395,8 +444,6 @@ void __69__SCUIInterventionScreenViewController_screenTwo_acceptButtonPressed__b
 
   v11 = [*(a1 + 48) navigationItem];
   [v11 setHidesBackButton:0];
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)screenTwo_notNowButtonPressed

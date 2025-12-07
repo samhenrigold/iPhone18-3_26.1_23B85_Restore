@@ -49,13 +49,13 @@
 - (CGPoint)pointForDate:(double)date
 {
   selfCopy = self;
-  sub_1E47F3EA0();
-  v5 = v4;
+  sub_1E47F3EA0(date);
+  v6 = v5;
 
-  v6 = 0.0;
-  v7 = v5;
-  result.y = v7;
-  result.x = v6;
+  v7 = 0.0;
+  v8 = v6;
+  result.y = v8;
+  result.x = v7;
   return result;
 }
 

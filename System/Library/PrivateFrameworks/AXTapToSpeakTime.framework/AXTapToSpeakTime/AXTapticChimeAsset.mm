@@ -251,28 +251,28 @@ LABEL_18:
 
 - (unsigned)createSystemSoundIDForStartTime:(double)time
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   hapticAtomEntries = [(AXTapticChimeAsset *)self hapticAtomEntries];
-  v7 = [hapticAtomEntries countByEnumeratingWithState:&v22 objects:v32 count:16];
+  v7 = [hapticAtomEntries countByEnumeratingWithState:&v21 objects:v31 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v23;
+    v9 = *v22;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v23 != v9)
+        if (*v22 != v9)
         {
           objc_enumerationMutation(hapticAtomEntries);
         }
 
-        v11 = [MEMORY[0x277CBEB38] dictionaryWithDictionary:*(*(&v22 + 1) + 8 * i)];
+        v11 = [MEMORY[0x277CBEB38] dictionaryWithDictionary:*(*(&v21 + 1) + 8 * i)];
         v12 = [v11 objectForKeyedSubscript:@"StartTime"];
         v13 = MEMORY[0x277CCABB0];
         [v12 doubleValue];
@@ -282,7 +282,7 @@ LABEL_18:
         [array addObject:v11];
       }
 
-      v8 = [hapticAtomEntries countByEnumeratingWithState:&v22 objects:v32 count:16];
+      v8 = [hapticAtomEntries countByEnumeratingWithState:&v21 objects:v31 count:16];
     }
 
     while (v8);
@@ -293,21 +293,20 @@ LABEL_18:
   v18 = [v16 dictionaryWithDictionary:hapticDictionary];
 
   [v18 setObject:array forKeyedSubscript:@"Atoms"];
-  v30 = *MEMORY[0x277CBA630];
-  v31 = v18;
-  [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
+  v29 = *MEMORY[0x277CBA630];
+  v30 = v18;
+  [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
   AudioServicesCreateSystemSoundIDWithOptions();
   v19 = AXLogTapticTime();
   if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
   {
     *buf = 67109378;
-    v27 = 0;
-    v28 = 2112;
-    v29 = v18;
+    v26 = 0;
+    v27 = 2112;
+    v28 = v18;
     _os_log_impl(&dword_23D6AA000, v19, OS_LOG_TYPE_INFO, "created system sound id: %u, with haptic dictionary: %@", buf, 0x12u);
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -329,31 +328,28 @@ LABEL_18:
 
 + (void)hourAssetForType:(os_log_t)log hour:.cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 134218240;
-  v5 = a1;
-  v6 = 2048;
-  v7 = a2;
-  _os_log_fault_impl(&dword_23D6AA000, log, OS_LOG_TYPE_FAULT, "failed to find asset for sound type: %li, hour: %lu", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 134218240;
+  v4 = a1;
+  v5 = 2048;
+  v6 = a2;
+  _os_log_fault_impl(&dword_23D6AA000, log, OS_LOG_TYPE_FAULT, "failed to find asset for sound type: %li, hour: %lu", &v3, 0x16u);
 }
 
 + (void)quarterHourAssetForType:(uint64_t)a1 minute:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_fault_impl(&dword_23D6AA000, a2, OS_LOG_TYPE_FAULT, "failed to find quarter hour asset for sound type: %li", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_fault_impl(&dword_23D6AA000, a2, OS_LOG_TYPE_FAULT, "failed to find quarter hour asset for sound type: %li", &v2, 0xCu);
 }
 
 - (void)_initWithChimeSoundType:(uint64_t)a1 audioFilePath:(NSObject *)a2 hapticsFilePath:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_fault_impl(&dword_23D6AA000, a2, OS_LOG_TYPE_FAULT, "empty haptic dictionary at path: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_fault_impl(&dword_23D6AA000, a2, OS_LOG_TYPE_FAULT, "empty haptic dictionary at path: %@", &v2, 0xCu);
 }
 
 @end

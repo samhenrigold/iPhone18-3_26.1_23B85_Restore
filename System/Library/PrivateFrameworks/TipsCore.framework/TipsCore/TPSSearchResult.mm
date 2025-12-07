@@ -16,14 +16,12 @@
 
 - (NSArray)items
 {
-  v3 = OBJC_IVAR___TPSSearchResult_items;
   swift_beginAccess();
-  v4 = *(self + v3);
   type metadata accessor for SearchResult.Item();
 
-  v5 = sub_1C014C3B0();
+  v2 = sub_1C014C3B0();
 
-  return v5;
+  return v2;
 }
 
 - (void)setItems:(id)items
@@ -32,19 +30,16 @@
   v4 = sub_1C014C3C0();
   v5 = OBJC_IVAR___TPSSearchResult_items;
   swift_beginAccess();
-  v6 = *(self + v5);
   *(self + v5) = v4;
 }
 
 - (NSArray)suggestions
 {
-  v3 = OBJC_IVAR___TPSSearchResult_suggestions;
   swift_beginAccess();
-  v4 = *(self + v3);
 
-  v5 = sub_1C014C3B0();
+  v2 = sub_1C014C3B0();
 
-  return v5;
+  return v2;
 }
 
 - (void)setSuggestions:(id)suggestions
@@ -52,7 +47,6 @@
   v4 = sub_1C014C3C0();
   v5 = OBJC_IVAR___TPSSearchResult_suggestions;
   swift_beginAccess();
-  v6 = *(self + v5);
   *(self + v5) = v4;
 }
 
@@ -81,7 +75,6 @@
     v6 = *(with + v4);
     v7 = OBJC_IVAR___TPSSearchResult_items;
     swift_beginAccess();
-    v8 = *(self + v7);
     *(self + v7) = v6;
     selfCopy = self;
   }

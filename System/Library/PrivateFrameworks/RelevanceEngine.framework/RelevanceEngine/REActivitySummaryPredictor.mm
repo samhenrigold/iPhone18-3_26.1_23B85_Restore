@@ -40,17 +40,15 @@
 
 + (id)supportedFeatures
 {
-  v10[3] = *MEMORY[0x277D85DE8];
+  v9[3] = *MEMORY[0x277D85DE8];
   v2 = [REFeatureSet alloc];
   v3 = +[REFeature activeEnergyCompletionFeature];
   v4 = +[REFeature exerciseTimeCompletionFeature];
-  v10[1] = v4;
+  v9[1] = v4;
   v5 = +[REFeature standHourCompletionFeature];
-  v10[2] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:3];
+  v9[2] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:3];
   v7 = [(REFeatureSet *)v2 initWithFeatures:v6];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -98,7 +96,7 @@
     }
   }
 
-  else if (HealthKitLibraryCore())
+  else if (HealthKitLibraryCore(0))
   {
     objc_initWeak(&location, self);
     v23 = 0;
@@ -240,33 +238,33 @@ void __41__REActivitySummaryPredictor__stopQuery___block_invoke(uint64_t a1, voi
 
 void __42__REActivitySummaryPredictor__stopQueries__block_invoke(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v4 = *(*(a1 + 32) + 64);
-  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       v8 = 0;
       do
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        [v3 stopQuery:{*(*(&v13 + 1) + 8 * v8++), v13}];
+        [v3 stopQuery:{*(*(&v12 + 1) + 8 * v8++), v12}];
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
@@ -276,8 +274,6 @@ void __42__REActivitySummaryPredictor__stopQueries__block_invoke(uint64_t a1, vo
   v10 = *(a1 + 32);
   v11 = *(v10 + 64);
   *(v10 + 64) = v9;
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateWithActivitySummary:(id)summary completion:(id)completion
@@ -299,7 +295,7 @@ void __42__REActivitySummaryPredictor__stopQueries__block_invoke(uint64_t a1, vo
 
 uint64_t __68__REActivitySummaryPredictor__updateWithActivitySummary_completion___block_invoke(uint64_t a1)
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   v2 = [getHKUnitClass() largeCalorieUnit];
 
   if (!v2)
@@ -307,14 +303,14 @@ uint64_t __68__REActivitySummaryPredictor__updateWithActivitySummary_completion_
     v11 = RELogForDomain(8);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v41) = 0;
+      LOWORD(v40) = 0;
       v12 = "Unable to find largeCalorieUnit. Skipping update";
       goto LABEL_7;
     }
 
 LABEL_8:
 
-    goto LABEL_15;
+    return (*(*(a1 + 48) + 16))();
   }
 
   v3 = [*(a1 + 32) activeEnergyBurned];
@@ -332,10 +328,10 @@ LABEL_8:
     v11 = RELogForDomain(8);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v41) = 0;
+      LOWORD(v40) = 0;
       v12 = "Activity is not configured. Skipping update";
 LABEL_7:
-      _os_log_impl(&dword_22859F000, v11, OS_LOG_TYPE_DEFAULT, v12, &v41, 2u);
+      _os_log_impl(&dword_22859F000, v11, OS_LOG_TYPE_DEFAULT, v12, &v40, 2u);
       goto LABEL_8;
     }
 
@@ -381,31 +377,27 @@ LABEL_7:
     v38 = RELogForDomain(8);
     if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
     {
-      v41 = 134218496;
-      v42 = v29;
-      v43 = 2048;
-      v44 = v30;
-      v45 = 2048;
-      v46 = v31;
-      _os_log_impl(&dword_22859F000, v38, OS_LOG_TYPE_INFO, "Updating active summary with new data activeEnergyPercentComplete=%f exerciseTimePercentComplete=%f standHourPercentComplete=%f", &v41, 0x20u);
+      v40 = 134218496;
+      v41 = v29;
+      v42 = 2048;
+      v43 = v30;
+      v44 = 2048;
+      v45 = v31;
+      _os_log_impl(&dword_22859F000, v38, OS_LOG_TYPE_INFO, "Updating active summary with new data activeEnergyPercentComplete=%f exerciseTimePercentComplete=%f standHourPercentComplete=%f", &v40, 0x20u);
     }
 
     [*(a1 + 40) updateObservers];
   }
 
-LABEL_15:
-  result = (*(*(a1 + 48) + 16))();
-  v40 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 48) + 16))();
 }
 
 void __68__REActivitySummaryPredictor__startActivitySummaryQueryWithRetries___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_22859F000, a2, OS_LOG_TYPE_ERROR, "Encountered error while fetching activity summary %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_22859F000, a2, OS_LOG_TYPE_ERROR, "Encountered error while fetching activity summary %@", &v2, 0xCu);
 }
 
 @end

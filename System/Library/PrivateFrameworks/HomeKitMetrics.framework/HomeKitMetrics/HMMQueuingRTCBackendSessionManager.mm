@@ -3,9 +3,11 @@
 + (id)sharedSessionManager;
 - (BOOL)_isTimeValid;
 - (HMMQueuingRTCBackendSessionManager)initWithRTCFactory:(id)factory timeSourceBlock:(id)block;
+- (id)logBackendSessionWithServiceName:(id)name sessionUUID:(id)d isRealtime:(BOOL)realtime;
 - (void)addBarrierBlock:(id)block;
 - (void)checkForStaleSessions;
 - (void)sendMetaEventWithName:(id)name forServiceName:(id)serviceName;
+- (void)submitMessages:(id)messages serviceName:(id)name sessionUUID:(id)d isRealtime:(BOOL)realtime;
 @end
 
 @implementation HMMQueuingRTCBackendSessionManager
@@ -19,7 +21,7 @@
 
 - (void)checkForStaleSessions
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock_with_options();
   v3 = (*(self->_timeSourceBlock + 2))();
   if (v3 >= self->_nextStaleCheckTime)
@@ -31,14 +33,14 @@
     {
       v7 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v26 = v7;
+      v25 = v7;
       _os_log_impl(&dword_22B074000, v6, OS_LOG_TYPE_INFO, "%{public}@Checking for stale backend sessions", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
     v8 = 0;
     *&v9 = 138543618;
-    v22 = v9;
+    v21 = v9;
     while (v8 < [(NSPointerArray *)selfCopy->_activeSessions count])
     {
       v10 = [(NSPointerArray *)selfCopy->_activeSessions pointerAtIndex:v8];
@@ -52,23 +54,23 @@
         {
           v16 = HMFGetLogIdentifier();
           serviceName = [v11 serviceName];
-          *buf = v22;
-          v26 = v16;
-          v27 = 2112;
-          v28 = serviceName;
+          *buf = v21;
+          v25 = v16;
+          v26 = 2112;
+          v27 = serviceName;
           _os_log_impl(&dword_22B074000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@Found stale session for service %@", buf, 0x16u);
         }
 
         objc_autoreleasePoolPop(v13);
-        v23[0] = @"HMFSessionIdentifier";
+        v22[0] = @"HMFSessionIdentifier";
         sessionUUID = [v11 sessionUUID];
-        v24[0] = sessionUUID;
-        v24[1] = @"HMFLogging.StaleSession";
-        v23[1] = @"HMFEventName";
-        v23[2] = @"HMFTimestamp";
+        v23[0] = sessionUUID;
+        v23[1] = @"HMFLogging.StaleSession";
+        v22[1] = @"HMFEventName";
+        v22[2] = @"HMFTimestamp";
         v19 = [MEMORY[0x277CCABB0] numberWithDouble:v3];
-        v24[2] = v19;
-        v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:3];
+        v23[2] = v19;
+        v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:3];
         [v11 sendMessage:v20];
 
         [v11 close];
@@ -85,29 +87,111 @@
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v21 = *MEMORY[0x277D85DE8];
+}
+
+- (void)submitMessages:(id)messages serviceName:(id)name sessionUUID:(id)d isRealtime:(BOOL)realtime
+{
+  realtimeCopy = realtime;
+  v28 = *MEMORY[0x277D85DE8];
+  messagesCopy = messages;
+  nameCopy = name;
+  dCopy = d;
+  v13 = objc_autoreleasePoolPush();
+  selfCopy = self;
+  v15 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+  {
+    v16 = HMFGetLogIdentifier();
+    *buf = 138543874;
+    v23 = v16;
+    v24 = 2112;
+    v25 = dCopy;
+    v26 = 2048;
+    v27 = [messagesCopy count];
+    _os_log_impl(&dword_22B074000, v15, OS_LOG_TYPE_DEBUG, "%{public}@[%@] Queuing session containing %lu messages for submission", buf, 0x20u);
+  }
+
+  objc_autoreleasePoolPop(v13);
+  queue = [(HMMQueuingRTCBackendSessionManager *)selfCopy queue];
+  v18 = [HMMQueuingRTCBackendOperation alloc];
+  rtcFactory = [(HMMQueuingRTCBackendSessionManager *)selfCopy rtcFactory];
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __88__HMMQueuingRTCBackendSessionManager_submitMessages_serviceName_sessionUUID_isRealtime___block_invoke;
+  v21[3] = &unk_2786F8F68;
+  v21[4] = selfCopy;
+  v20 = [(HMMQueuingRTCBackendOperation *)v18 initWithMessages:messagesCopy serviceName:nameCopy sessionUUID:dCopy isRealtime:realtimeCopy rtcFactory:rtcFactory staleSessionBlock:v21];
+  [queue addOperation:v20];
 }
 
 - (void)sendMetaEventWithName:(id)name forServiceName:(id)serviceName
 {
-  v17[1] = *MEMORY[0x277D85DE8];
-  v16[0] = name;
+  v16[1] = *MEMORY[0x277D85DE8];
+  v15[0] = name;
   v6 = MEMORY[0x277CCABB0];
   serviceNameCopy = serviceName;
   nameCopy = name;
   v9 = [(HMMQueuingRTCBackendSessionManager *)self timeSourceBlock:@"HMFMetaEventName"];
   v9[2]();
   v10 = [v6 numberWithDouble:?];
-  v15[2] = @"HMFCorrespondingServiceName";
-  v16[1] = v10;
-  v16[2] = serviceNameCopy;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:3];
-  v17[0] = v11;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
+  v14[2] = @"HMFCorrespondingServiceName";
+  v15[1] = v10;
+  v15[2] = serviceNameCopy;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:3];
+  v16[0] = v11;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
   uUID = [MEMORY[0x277CCAD78] UUID];
 
   [(HMMQueuingRTCBackendSessionManager *)self submitMessages:v12 serviceName:@"HMFMeta" sessionUUID:uUID isRealtime:0];
-  v14 = *MEMORY[0x277D85DE8];
+}
+
+- (id)logBackendSessionWithServiceName:(id)name sessionUUID:(id)d isRealtime:(BOOL)realtime
+{
+  realtimeCopy = realtime;
+  v23 = *MEMORY[0x277D85DE8];
+  nameCopy = name;
+  dCopy = d;
+  os_unfair_lock_lock_with_options();
+  if (![(HMMQueuingRTCBackendSessionManager *)self _isTimeValid])
+  {
+    v10 = 0;
+    goto LABEL_5;
+  }
+
+  [(NSPointerArray *)self->_activeSessions addPointer:0];
+  [(NSPointerArray *)self->_activeSessions compact];
+  if ([(NSPointerArray *)self->_activeSessions count]<= 0x3E7)
+  {
+    v10 = [[HMMQueuingRTCBackendSession alloc] initWithServiceName:nameCopy sessionUUID:dCopy isRealtime:realtimeCopy submitter:self timeSourceBlock:self->_timeSourceBlock];
+    [(NSPointerArray *)self->_activeSessions hmf_addObject:v10];
+LABEL_5:
+    os_unfair_lock_unlock(&self->_lock);
+    goto LABEL_9;
+  }
+
+  os_unfair_lock_unlock(&self->_lock);
+  v11 = objc_autoreleasePoolPush();
+  selfCopy = self;
+  v13 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+  {
+    v14 = HMFGetLogIdentifier();
+    v15 = [(NSPointerArray *)self->_activeSessions count];
+    v17 = 138543874;
+    v18 = v14;
+    v19 = 2048;
+    v20 = v15;
+    v21 = 2112;
+    v22 = nameCopy;
+    _os_log_impl(&dword_22B074000, v13, OS_LOG_TYPE_ERROR, "%{public}@%lu sessions already queued; creating a nil session for service %@", &v17, 0x20u);
+  }
+
+  objc_autoreleasePoolPop(v11);
+  [(HMMQueuingRTCBackendSessionManager *)selfCopy sendMetaEventWithName:@"ExceededSessionMax" forServiceName:nameCopy];
+  v10 = 0;
+LABEL_9:
+
+  return v10;
 }
 
 - (BOOL)_isTimeValid
@@ -189,7 +273,6 @@ void __50__HMMQueuingRTCBackendSessionManager__isTimeValid__block_invoke()
 
 uint64_t __49__HMMQueuingRTCBackendSessionManager_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1C0];
   logCategory__hmf_once_v20 = HMFCreateOSLogHandle();
 
   return MEMORY[0x2821F96F8]();

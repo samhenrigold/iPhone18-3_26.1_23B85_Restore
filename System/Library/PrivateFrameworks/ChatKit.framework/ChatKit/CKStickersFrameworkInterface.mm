@@ -9,13 +9,13 @@
 
 + (BOOL)updateSavedStickerWithIdentifier:(id)identifier stickerEffectEnum:(int64_t)enum error:(id *)error
 {
-  v5 = sub_190D518A0();
-  v6 = *(v5 - 8);
-  MEMORY[0x1EEE9AC00](v5);
-  v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = sub_190D518A0();
+  v7 = *(v6 - 8);
+  MEMORY[0x1EEE9AC00](v6);
+  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_190D51880();
-  sub_190B038C0();
-  (*(v6 + 8))(v8, v5);
+  v10 = sub_190B038C0(v9, enum);
+  (*(v7 + 8))(v9, v6, v10);
   return 1;
 }
 
@@ -26,7 +26,7 @@
   MEMORY[0x1EEE9AC00](v3);
   v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_190D51880();
-  v7 = sub_190B03B30();
+  v7 = sub_190B03B30(v6);
   (*(v4 + 8))(v6, v3);
 
   return v7;
@@ -35,9 +35,10 @@
 + (id)uiStickerForSTKSticker:(id)sticker
 {
   stickerCopy = sticker;
-  v4 = sub_190B01FC4();
+  sub_190B01FC4();
+  v5 = v4;
 
-  return v4;
+  return v5;
 }
 
 - (CKStickersFrameworkInterface)init

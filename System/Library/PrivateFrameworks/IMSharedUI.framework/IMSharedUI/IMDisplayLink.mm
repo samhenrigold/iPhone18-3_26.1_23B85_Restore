@@ -39,10 +39,10 @@
 
 - (void)dealloc
 {
-  objc_msgSend_invalidate(self, a2, v2);
-  v4.receiver = self;
-  v4.super_class = IMDisplayLink;
-  [(IMDisplayLink *)&v4 dealloc];
+  objc_msgSend_invalidate(self, a2, v2, v4, v3);
+  v6.receiver = self;
+  v6.super_class = IMDisplayLink;
+  [(IMDisplayLink *)&v6 dealloc];
 }
 
 - (void)_displayLinkCallback
@@ -53,36 +53,35 @@
     p_selector = &self->_selector;
     if (self->_selector)
     {
-      selector = self->_selector;
 
-      v8 = objc_loadWeakRetained(&self->_target);
+      v9 = objc_loadWeakRetained(&self->_target);
       if (*p_selector)
       {
-        v10 = *p_selector;
+        v12 = *p_selector;
       }
 
       else
       {
-        v10 = 0;
+        v12 = 0;
       }
 
-      v11 = v8;
-      objc_msgSend_performSelector_withObject_(v8, v9, v10, self);
+      v13 = v9;
+      objc_msgSend_performSelector_withObject_(v9, v10, v12, v11, self);
 
       return;
     }
   }
 
-  objc_msgSend_invalidate(self, v4, v5);
+  objc_msgSend_invalidate(self, v4, v5, v7, v6);
 }
 
 + (id)displayLinkWithTarget:(id)target selector:(SEL)selector
 {
   targetCopy = target;
-  v9 = objc_alloc(objc_msgSend__displayLinkClass(self, v7, v8));
-  v11 = objc_msgSend_initWithTarget_selector_(v9, v10, targetCopy, selector);
+  v11 = objc_alloc(objc_msgSend__displayLinkClass(self, v7, v8, v10, v9));
+  v14 = objc_msgSend_initWithTarget_selector_(v11, v12, targetCopy, v13, selector);
 
-  return v11;
+  return v14;
 }
 
 - (id)target

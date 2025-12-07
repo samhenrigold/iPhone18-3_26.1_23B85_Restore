@@ -40,15 +40,15 @@
   {
     tokenConfigurations = [v10 tokenConfigurations];
     instanceID = [(TKTokenID *)v7 instanceID];
-    v13 = [tokenConfigurations objectForKeyedSubscript:instanceID];
+    v14 = [tokenConfigurations objectForKeyedSubscript:instanceID];
 
-    if (!v13)
+    if (!v14)
     {
       instanceID2 = [(TKTokenID *)v7 instanceID];
-      v13 = [v10 addTokenConfigurationForTokenInstanceID:instanceID2];
+      v14 = [v10 addTokenConfigurationForTokenInstanceID:instanceID2];
     }
 
-    self = [(TKTokenKeychainContents *)self initWithConfiguration:v13];
+    self = [(TKTokenKeychainContents *)self initWithConfiguration:v14];
 
     selfCopy = self;
   }
@@ -57,13 +57,14 @@
   {
     if (error)
     {
-      *error = [MEMORY[0x1E696ABC0] errorWithDomain:@"CryptoTokenKit" code:-7 userInfo:MEMORY[0x1E695E0F8]];
+      v11 = [MEMORY[0x1E696ABC0] errorWithDomain:@"CryptoTokenKit" code:-7 userInfo:MEMORY[0x1E695E0F8]];
+      *error = v11;
     }
 
-    v16 = TK_LOG_token_2();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v17 = TK_LOG_token_2(v11);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      [TKTokenKeychainContents initWithTokenID:v7 error:v16];
+      [TKTokenKeychainContents initWithTokenID:v7 error:v17];
     }
 
     selfCopy = 0;
@@ -100,28 +101,28 @@
 
 - (NSDictionary)certificates
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E695E0F8] mutableCopy];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   items = [(TKTokenKeychainContents *)self items];
-  v5 = [items countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [items countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(items);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -130,42 +131,41 @@
         }
       }
 
-      v6 = [items countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [items countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
   }
 
   v11 = [v3 copy];
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
 
 - (NSDictionary)keys
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E695E0F8] mutableCopy];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   items = [(TKTokenKeychainContents *)self items];
-  v5 = [items countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [items countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(items);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -174,14 +174,13 @@
         }
       }
 
-      v6 = [items countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [items countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
   }
 
   v11 = [v3 copy];
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -194,13 +193,13 @@
 
   if (v8)
   {
-    v9 = v8;
+    v10 = v8;
   }
 
   else
   {
-    v10 = TK_LOG_token_2();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = TK_LOG_token_2(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [TKTokenKeychainContents certificateForObjectID:v6 error:self];
     }
@@ -222,13 +221,13 @@
 
   if (v8)
   {
-    v9 = v8;
+    v10 = v8;
   }
 
   else
   {
-    v10 = TK_LOG_token_2();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = TK_LOG_token_2(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [TKTokenKeychainContents keyForObjectID:v6 error:self];
     }
@@ -244,27 +243,27 @@
 
 - (id)certificateForKey:(id)key
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   keyCopy = key;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   items = [(TKTokenKeychainContents *)self items];
-  v6 = [items countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [items countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
-    v7 = *v16;
+    v7 = *v15;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(items);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * i);
+        v9 = *(*(&v14 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -280,7 +279,7 @@
         }
       }
 
-      v6 = [items countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [items countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v6)
       {
         continue;
@@ -292,40 +291,31 @@
 
 LABEL_12:
 
-  v13 = *MEMORY[0x1E69E9840];
-
   return v6;
 }
 
 - (void)initWithTokenID:(uint64_t)a1 error:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1DF413000, a2, OS_LOG_TYPE_ERROR, "Failed to get driver configuration for %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1DF413000, a2, OS_LOG_TYPE_ERROR, "Failed to get driver configuration for %@", &v2, 0xCu);
 }
 
 - (void)certificateForObjectID:(uint64_t)a1 error:(void *)a2 .cold.1(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v2 = [a2 tokenID];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2_0();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)keyForObjectID:(uint64_t)a1 error:(void *)a2 .cold.1(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v2 = [a2 tokenID];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2_0();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 @end

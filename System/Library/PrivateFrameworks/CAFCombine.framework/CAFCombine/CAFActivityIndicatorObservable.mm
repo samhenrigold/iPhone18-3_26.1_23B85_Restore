@@ -1,5 +1,7 @@
 @interface CAFActivityIndicatorObservable
 - (NSString)description;
+- (void)activityIndicatorService:(id)service didUpdateCameraActive:(BOOL)active;
+- (void)activityIndicatorService:(id)service didUpdateMicrophoneActive:(BOOL)active;
 - (void)serviceDidFinishGroupUpdate:(id)update;
 - (void)serviceDidUpdate:(id)update characteristic:(id)characteristic fromGroupUpdate:(BOOL)groupUpdate;
 - (void)serviceDidUpdate:(id)update receivedAllValues:(BOOL)values;
@@ -16,6 +18,22 @@
   v6 = MEMORY[0x245D0A4C0](v3, v5);
 
   return v6;
+}
+
+- (void)activityIndicatorService:(id)service didUpdateCameraActive:(BOOL)active
+{
+  activeCopy = active;
+  serviceCopy = service;
+  selfCopy = self;
+  CAFActivityIndicatorObservable.activityIndicatorService(_:didUpdateCameraActive:)(selfCopy, activeCopy);
+}
+
+- (void)activityIndicatorService:(id)service didUpdateMicrophoneActive:(BOOL)active
+{
+  activeCopy = active;
+  serviceCopy = service;
+  selfCopy = self;
+  CAFActivityIndicatorObservable.activityIndicatorService(_:didUpdateMicrophoneActive:)(selfCopy, activeCopy);
 }
 
 - (void)serviceDidUpdate:(id)update characteristic:(id)characteristic fromGroupUpdate:(BOOL)groupUpdate

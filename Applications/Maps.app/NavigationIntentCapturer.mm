@@ -63,8 +63,8 @@
   if (action == 9016 || action == 3001)
   {
     navigationSession = [(NavigationIntentCapturer *)self navigationSession];
-    configuration = [navigationSession configuration];
-    startNavigationDetails = [configuration startNavigationDetails];
+    v6 = objc_msgSend_configuration(navigationSession);
+    startNavigationDetails = [v6 startNavigationDetails];
     selectedRouteIndex = [startNavigationDetails selectedRouteIndex];
   }
 
@@ -135,8 +135,8 @@ LABEL_10:
       }
 
       location = [(NavigationIntentCapturer *)self navigationSession];
-      configuration = [location configuration];
-      if ([configuration isETAOnlyMode])
+      v14 = objc_msgSend_configuration(location);
+      if ([v14 isETAOnlyMode])
       {
         v15 = 9016;
       }

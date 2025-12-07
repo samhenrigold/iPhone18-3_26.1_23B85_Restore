@@ -31,18 +31,18 @@ uint64_t __51__CLKComplicationClientManager_sharedClientManager__block_invoke()
   v1 = sharedClientManager___sharedClientManager;
   sharedClientManager___sharedClientManager = v0;
 
-  result = CLKIsClockFaceApp();
+  result = CLKIsClockFaceApp(v2, v3);
   if (result)
   {
-    v3 = [objc_alloc(MEMORY[0x277CCAE98]) initWithMachServiceName:@"com.apple.ClockKit.complicationserver"];
-    v4 = sharedClientManager___listener;
-    sharedClientManager___listener = v3;
+    v5 = [objc_alloc(MEMORY[0x277CCAE98]) initWithMachServiceName:@"com.apple.ClockKit.complicationserver"];
+    v6 = sharedClientManager___listener;
+    sharedClientManager___listener = v5;
 
     [sharedClientManager___listener setDelegate:sharedClientManager___sharedClientManager];
     [sharedClientManager___listener resume];
-    v5 = [@"com.apple.ClockKit.complicationservicedidstart" UTF8String];
+    v7 = [@"com.apple.ClockKit.complicationservicedidstart" UTF8String];
 
-    return notify_post(v5);
+    return notify_post(v7);
   }
 
   return result;

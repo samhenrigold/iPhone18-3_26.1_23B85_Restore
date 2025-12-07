@@ -78,22 +78,20 @@ LABEL_3:
 
 - (id)jsonDict
 {
-  v11[4] = *MEMORY[0x1E69E9840];
-  v11[0] = self->_name;
-  v10[0] = @"name";
-  v10[1] = @"category";
+  v10[4] = *MEMORY[0x1E69E9840];
+  v10[0] = self->_name;
+  v9[0] = @"name";
+  v9[1] = @"category";
   v3 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->_category];
-  v11[1] = v3;
-  v10[2] = @"probabilityScore";
+  v10[1] = v3;
+  v9[2] = @"probabilityScore";
   *&v4 = self->_probabilityScore;
   v5 = [MEMORY[0x1E696AD98] numberWithFloat:v4];
-  v11[2] = v5;
-  v10[3] = @"topics";
+  v10[2] = v5;
+  v9[3] = @"topics";
   v6 = [(NSArray *)self->_topics _pas_mappedArrayWithTransform:&__block_literal_global_4];
-  v11[3] = v6;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:4];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v10[3] = v6;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:4];
 
   return v7;
 }
@@ -281,35 +279,35 @@ BMParsecSearchTopic *__38__BMParsecSearchEntity_initWithProto___block_invoke(uin
 
 - (BOOL)isCompleteWithContext:(id)context error:(id *)error
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   contextCopy = context;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v7 = self->_topics;
-  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v16;
+    v10 = *v15;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v16 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        if (![*(*(&v15 + 1) + 8 * i) isCompleteWithContext:contextCopy error:{error, v15}])
+        if (![*(*(&v14 + 1) + 8 * i) isCompleteWithContext:contextCopy error:{error, v14}])
         {
 
           goto LABEL_12;
         }
       }
 
-      v9 = [(NSArray *)v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v9 = [(NSArray *)v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v9)
       {
         continue;
@@ -336,7 +334,6 @@ LABEL_12:
     v12 = 0;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v12;
 }
 

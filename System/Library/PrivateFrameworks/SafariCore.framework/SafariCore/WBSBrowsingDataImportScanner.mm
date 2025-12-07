@@ -33,20 +33,20 @@ void __71___WBSBrowsingDataImportScanner__scanImportedURL_isInUnarchivedFolder__
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-void __71___WBSBrowsingDataImportScanner__scanImportedURL_isInUnarchivedFolder___block_invoke_2(uint64_t a1)
+void __71___WBSBrowsingDataImportScanner__scanImportedURL_isInUnarchivedFolder___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
-  if (v2)
+  v3 = *(a1 + 32);
+  if (v3)
   {
-    [*(a1 + 40) _scanImportedURL:v2 isInUnarchivedFolder:1];
+    [*(a1 + 40) _scanImportedURL:v3 isInUnarchivedFolder:1];
   }
 
   else
   {
-    v3 = WBS_LOG_CHANNEL_PREFIXImport();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = WBS_LOG_CHANNEL_PREFIXImport(a1, a2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __71___WBSBrowsingDataImportScanner__scanImportedURL_isInUnarchivedFolder___block_invoke_2_cold_1(a1, v3);
+      __71___WBSBrowsingDataImportScanner__scanImportedURL_isInUnarchivedFolder___block_invoke_2_cold_1(a1, v4);
     }
   }
 
@@ -124,23 +124,18 @@ uint64_t __91___WBSBrowsingDataImportScanner__processFileForURL_isInUnarchivedFo
     [*(a1 + 32) setObject:@"passwords" forKeyedSubscript:@"data_type"];
   }
 
-  v3 = *(a1 + 32);
-  v4 = *(*(a1 + 40) + 16);
+  v3 = *(*(a1 + 40) + 16);
 
-  return v4();
+  return v3();
 }
 
 void __71___WBSBrowsingDataImportScanner__scanImportedURL_isInUnarchivedFolder___block_invoke_2_cold_1(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v3 = *(a1 + 48);
-  v4 = a2;
-  v5 = [OUTLINED_FUNCTION_2_0() safari_privacyPreservingDescription];
+  v3 = a2;
+  v4 = [OUTLINED_FUNCTION_2_0() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_7();
-  _os_log_error_impl(v6, v7, v8, v9, v10, 0xCu);
-
-  v11 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
 }
 
 @end

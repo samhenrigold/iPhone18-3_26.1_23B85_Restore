@@ -121,9 +121,9 @@ LABEL_22:
     goto LABEL_23;
   }
 
-  v7 = [@"iPhone" isEqualToString:deviceClass];
+  isEqualToString = objc_msgSend_isEqualToString_(@"iPhone");
 
-  if (v7)
+  if (isEqualToString)
   {
 LABEL_4:
     iphone = [(PKHardwareVersionRange *)self iphone];
@@ -132,7 +132,7 @@ LABEL_4:
   else
   {
     v11 = v6;
-    if (v11 == @"Watch" || (v12 = v11, v13 = [@"Watch" isEqualToString:v11], v12, v13))
+    if (v11 == @"Watch" || (v12 = v11, v13 = objc_msgSend_isEqualToString_(@"Watch"), v12, v13))
     {
       iphone = [(PKHardwareVersionRange *)self watch];
     }
@@ -140,7 +140,7 @@ LABEL_4:
     else
     {
       v14 = v12;
-      if (v14 == @"iPad" || (v15 = v14, v16 = [@"iPad" isEqualToString:v14], v15, v16))
+      if (v14 == @"iPad" || (v15 = v14, v16 = objc_msgSend_isEqualToString_(@"iPad"), v15, v16))
       {
         iphone = [(PKHardwareVersionRange *)self ipad];
       }
@@ -148,7 +148,7 @@ LABEL_4:
       else
       {
         v17 = v15;
-        if (v17 == @"iPod" || (v18 = v17, v19 = [@"iPod" isEqualToString:v17], v18, v19))
+        if (v17 == @"iPod" || (v18 = v17, v19 = objc_msgSend_isEqualToString_(@"iPod"), v18, v19))
         {
           iphone = [(PKHardwareVersionRange *)self ipod];
         }
@@ -156,7 +156,7 @@ LABEL_4:
         else
         {
           v20 = v18;
-          if (v20 == @"AppleTV" || (v21 = v20, v22 = [@"AppleTV" isEqualToString:v20], v21, v22))
+          if (v20 == @"AppleTV" || (v21 = v20, v22 = objc_msgSend_isEqualToString_(@"AppleTV"), v21, v22))
           {
             iphone = [(PKHardwareVersionRange *)self appletv];
           }
@@ -167,7 +167,7 @@ LABEL_4:
             if (v23 != @"RealityDevice")
             {
               v24 = v23;
-              v25 = [@"RealityDevice" isEqualToString:v23];
+              v25 = objc_msgSend_isEqualToString_(@"RealityDevice");
 
               if (!v25)
               {

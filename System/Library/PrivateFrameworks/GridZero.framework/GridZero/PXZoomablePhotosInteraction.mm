@@ -65,7 +65,7 @@
   v51 = 0u;
   v52 = 0u;
   v50 = 0u;
-  [(PXZoomablePhotosViewModel *)v12 pinchState];
+  objc_msgSend_pinchState(v12);
   v14 = 0;
   v13 = 0;
   v15 = 0;

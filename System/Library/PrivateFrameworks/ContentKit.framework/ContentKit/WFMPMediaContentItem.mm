@@ -274,7 +274,7 @@ LABEL_20:
       v30 = *(v16 + 16);
       if (v8)
       {
-        [v8 duration];
+        objc_msgSend_duration(v8);
       }
 
       else

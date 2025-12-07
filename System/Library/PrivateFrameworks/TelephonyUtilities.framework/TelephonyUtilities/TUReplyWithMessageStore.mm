@@ -1,5 +1,6 @@
 @interface TUReplyWithMessageStore
 - (TUReplyWithMessageStore)init;
+- (id)_cannedRepliesForSending:(BOOL)sending;
 - (id)_defaultRepliesForSending:(BOOL)sending;
 - (id)cannedReplyActionSheetOptions;
 - (id)customReplies;
@@ -104,6 +105,57 @@ LABEL_7:
   v9 = [MEMORY[0x1E695DEC8] arrayWithArray:array];
 
   return v9;
+}
+
+- (id)_cannedRepliesForSending:(BOOL)sending
+{
+  v21 = *MEMORY[0x1E69E9840];
+  v4 = MEMORY[0x1E695DF70];
+  v5 = [(TUReplyWithMessageStore *)self _defaultRepliesForSending:sending];
+  v6 = [v4 arrayWithArray:v5];
+
+  customReplies = [(TUReplyWithMessageStore *)self customReplies];
+  v16 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  v8 = [customReplies countByEnumeratingWithState:&v16 objects:v20 count:16];
+  if (v8)
+  {
+    v9 = v8;
+    LODWORD(v10) = 0;
+    v11 = *v17;
+    do
+    {
+      v12 = 0;
+      v10 = v10;
+      do
+      {
+        if (*v17 != v11)
+        {
+          objc_enumerationMutation(customReplies);
+        }
+
+        v13 = *(*(&v16 + 1) + 8 * v12);
+        if (([v13 isEqualToString:&stru_1F098C218] & 1) == 0)
+        {
+          [v6 replaceObjectAtIndex:v10 withObject:v13];
+        }
+
+        ++v10;
+        ++v12;
+      }
+
+      while (v9 != v12);
+      v9 = [customReplies countByEnumeratingWithState:&v16 objects:v20 count:16];
+    }
+
+    while (v9);
+  }
+
+  v14 = [MEMORY[0x1E695DEC8] arrayWithArray:v6];
+
+  return v14;
 }
 
 - (id)cannedReplyActionSheetOptions

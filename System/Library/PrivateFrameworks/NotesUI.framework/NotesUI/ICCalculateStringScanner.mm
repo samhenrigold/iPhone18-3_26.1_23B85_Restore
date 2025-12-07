@@ -120,7 +120,7 @@
 void __73__ICCalculateStringScanner_scanStringforRange_previewedExpressionString___block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
   v7 = a2;
-  v8 = [v7 objectForKeyedSubscript:*MEMORY[0x1E69DB5F8]];
+  v8 = objc_msgSend_objectForKeyedSubscript_(v7);
   objc_opt_class();
   v9 = ICDynamicCast();
   v10 = v9;
@@ -132,13 +132,13 @@ void __73__ICCalculateStringScanner_scanStringforRange_previewedExpressionString
     {
       v14 = [*(a1 + 32) offsetsForInlineAttachment:v12];
       [*(*(*(a1 + 48) + 8) + 40) replaceCharactersInRange:a3 - *(a1 + 64) + *(*(*(a1 + 40) + 8) + 24) withString:{a4, v13}];
-      v35[0] = MEMORY[0x1E69E9820];
-      v35[1] = 3221225472;
-      v35[2] = __73__ICCalculateStringScanner_scanStringforRange_previewedExpressionString___block_invoke_2;
-      v35[3] = &unk_1E846B9B0;
-      v35[4] = *(a1 + 40);
-      v36 = *(a1 + 64);
-      v15 = [v14 ic_map:v35];
+      v34[0] = MEMORY[0x1E69E9820];
+      v34[1] = 3221225472;
+      v34[2] = __73__ICCalculateStringScanner_scanStringforRange_previewedExpressionString___block_invoke_2;
+      v34[3] = &unk_1E846B9B0;
+      v34[4] = *(a1 + 40);
+      v35 = *(a1 + 64);
+      v15 = [v14 ic_map:v34];
       [*(*(*(a1 + 56) + 8) + 40) addObjectsFromArray:v15];
       v16 = *(*(*(a1 + 40) + 8) + 24);
       *(*(*(a1 + 40) + 8) + 24) = v16 - a4 + [v13 length];
@@ -147,45 +147,44 @@ void __73__ICCalculateStringScanner_scanStringforRange_previewedExpressionString
 
   else
   {
-    v17 = MEMORY[0x1E69B7610];
-    v18 = [v7 objectForKeyedSubscript:*MEMORY[0x1E69B7610]];
-    if (v18 && (v19 = v18, [v7 objectForKeyedSubscript:*v17], v20 = objc_claimAutoreleasedReturnValue(), v21 = objc_msgSend(v20, "integerValue"), v20, v19, v21 >= 1))
+    v17 = objc_msgSend_objectForKeyedSubscript_(v7);
+    if (v17 && (v18 = v17, objc_msgSend_objectForKeyedSubscript_(v7), v19 = objc_claimAutoreleasedReturnValue(), v20 = [v19 integerValue], v19, v18, v20 >= 1))
     {
-      v33 = a3 - *(a1 + 64);
-      v32 = *(*(*(a1 + 40) + 8) + 24);
-      v22 = [*(a1 + 32) textStorage];
-      v23 = [v22 string];
-      v24 = [v23 substringWithRange:{a3, a4}];
+      v32 = a3 - *(a1 + 64);
+      v31 = *(*(*(a1 + 40) + 8) + 24);
+      v21 = [*(a1 + 32) textStorage];
+      v22 = [v21 string];
+      v23 = [v22 substringWithRange:{a3, a4}];
 
-      v34 = v24;
-      v25 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"^(%@)", v24];
-      v26 = objc_alloc_init(MEMORY[0x1E695DF70]);
-      if ([v25 length])
+      v33 = v23;
+      v24 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"^(%@)", v23];
+      v25 = objc_alloc_init(MEMORY[0x1E695DF70]);
+      if ([v24 length])
       {
-        v27 = 0;
+        v26 = 0;
         do
         {
-          v28 = [MEMORY[0x1E696AD98] numberWithInteger:*(*(*(a1 + 40) + 8) + 24) - *(a1 + 64)];
-          [v26 addObject:v28];
+          v27 = [MEMORY[0x1E696AD98] numberWithInteger:*(*(*(a1 + 40) + 8) + 24) - *(a1 + 64)];
+          [v25 addObject:v27];
 
-          ++v27;
+          ++v26;
         }
 
-        while ([v25 length] > v27);
+        while ([v24 length] > v26);
       }
 
-      [*(*(*(a1 + 56) + 8) + 40) addObjectsFromArray:v26];
-      [*(*(*(a1 + 48) + 8) + 40) replaceCharactersInRange:v33 + v32 withString:{a4, v25}];
-      v29 = *(*(*(a1 + 40) + 8) + 24);
-      *(*(*(a1 + 40) + 8) + 24) = v29 - a4 + [v25 length];
+      [*(*(*(a1 + 56) + 8) + 40) addObjectsFromArray:v25];
+      [*(*(*(a1 + 48) + 8) + 40) replaceCharactersInRange:v32 + v31 withString:{a4, v24}];
+      v28 = *(*(*(a1 + 40) + 8) + 24);
+      *(*(*(a1 + 40) + 8) + 24) = v28 - a4 + [v24 length];
     }
 
     else
     {
       for (i = objc_alloc_init(MEMORY[0x1E695DF70]); a4; --a4)
       {
-        v31 = [MEMORY[0x1E696AD98] numberWithInteger:*(*(*(a1 + 40) + 8) + 24) - *(a1 + 64)];
-        [i addObject:v31];
+        v30 = [MEMORY[0x1E696AD98] numberWithInteger:*(*(*(a1 + 40) + 8) + 24) - *(a1 + 64)];
+        [i addObject:v30];
       }
 
       [*(*(*(a1 + 56) + 8) + 40) addObjectsFromArray:i];

@@ -7,16 +7,14 @@
 
 - (id)uidForUUID:(id)d
 {
-  v7 = *MEMORY[0x1E69E9840];
-  memset(v6, 0, sizeof(v6));
-  [d getUUIDBytes:v6];
-  v3 = getpwuuid(v6);
+  v6 = *MEMORY[0x1E69E9840];
+  memset(v5, 0, sizeof(v5));
+  [d getUUIDBytes:v5];
+  v3 = getpwuuid(v5);
   if (v3)
   {
     v3 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v3[4]];
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 
   return v3;
 }

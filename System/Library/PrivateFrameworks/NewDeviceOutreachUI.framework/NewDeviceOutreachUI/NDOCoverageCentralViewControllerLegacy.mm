@@ -3,6 +3,7 @@
 - (BOOL)shouldShowDeviceListUI;
 - (NDOACController)acController;
 - (NDOCoverageCentralViewControllerLegacy)init;
+- (NDOCoverageCentralViewControllerLegacy)initWithIsSignedIn:(BOOL)in deviceManager:(id)manager;
 - (id)_errorStateConfig;
 - (id)_getParamsDictFromPath:(id)path;
 - (id)_localizedResourceWithString:(id)string;
@@ -18,6 +19,7 @@
 - (void)fetchAllDeviceInfoUsingPolicy:(unint64_t)policy sessionID:(id)d params:(id)params isSales:(BOOL)sales withReply:(id)reply;
 - (void)fetchAllLocalDevices;
 - (void)getAllDeviceInfoUsingPolicy:(unint64_t)policy sessionID:(id)d params:(id)params isSales:(BOOL)sales andForcePostFollowup:(BOOL)followup withReply:(id)reply;
+- (void)getDeviceInfoForSerialNumber:(id)number usingPolicy:(unint64_t)policy sessionID:(id)d params:(id)params andForcePostFollowup:(BOOL)followup withReply:(id)reply;
 - (void)handlePurchaseCompleted;
 - (void)handleURL:(id)l withCompletion:(id)completion;
 - (void)init;
@@ -29,6 +31,8 @@
 - (void)specifiers;
 - (void)updateCells;
 - (void)updateDefaultDeviceWithDeviceInfo:(id)info;
+- (void)updateDeviceInfoForDevice:(id)device usingPolicy:(unint64_t)policy params:(id)params forceUpdateFollowup:(BOOL)followup withReply:(id)reply;
+- (void)viewIsAppearing:(BOOL)appearing;
 @end
 
 @implementation NDOCoverageCentralViewControllerLegacy
@@ -48,16 +52,73 @@
   return v13;
 }
 
+- (NDOCoverageCentralViewControllerLegacy)initWithIsSignedIn:(BOOL)in deviceManager:(id)manager
+{
+  inCopy = in;
+  managerCopy = manager;
+  v30.receiver = self;
+  v30.super_class = NDOCoverageCentralViewControllerLegacy;
+  v7 = [(NDOCoverageCentralViewControllerLegacy *)&v30 init];
+  v8 = v7;
+  if (v7)
+  {
+    [(NDOCoverageCentralViewControllerLegacy *)v7 setIsSignedIn:inCopy];
+    if ([(NDOCoverageCentralViewControllerLegacy *)v8 isSignedIn])
+    {
+      [(NDOCoverageCentralViewControllerLegacy *)v8 setNdoManager:managerCopy];
+      ndoManager = [(NDOCoverageCentralViewControllerLegacy *)v8 ndoManager];
+      defaultDevice = [ndoManager defaultDevice];
+      [(NDOCoverageCentralViewControllerLegacy *)v8 setDefaultDevice:defaultDevice];
+
+      v11 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      [(NDOCoverageCentralViewControllerLegacy *)v8 setPairedDevices:v11];
+
+      v12 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      [(NDOCoverageCentralViewControllerLegacy *)v8 setAllLocalDevices:v12];
+
+      v13 = objc_alloc_init(MEMORY[0x277CBEB38]);
+      [(NDOCoverageCentralViewControllerLegacy *)v8 setDeviceInfoDict:v13];
+
+      v14 = objc_alloc_init(MEMORY[0x277CBEB38]);
+      [(NDOCoverageCentralViewControllerLegacy *)v8 setDeviceSequenceDict:v14];
+
+      v15 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+      v16 = dispatch_queue_create("com.apple.newdeviceoutreach.ndoccvc.policyqueue", v15);
+      policyLookupQueue = v8->_policyLookupQueue;
+      v8->_policyLookupQueue = v16;
+
+      v18 = dispatch_group_create();
+      group = v8->_group;
+      v8->_group = v18;
+
+      uUID = [MEMORY[0x277CCAD78] UUID];
+      uUIDString = [uUID UUIDString];
+      [(NDOCoverageCentralViewControllerLegacy *)v8 setSessionID:uUIDString];
+    }
+
+    else
+    {
+      uUID = _NDOLogSystem();
+      if (os_log_type_enabled(uUID, OS_LOG_TYPE_ERROR))
+      {
+        [(NDOCoverageCentralViewControllerLegacy *)uUID initWithIsSignedIn:v22 deviceManager:v23, v24, v25, v26, v27, v28];
+      }
+    }
+  }
+
+  return v8;
+}
+
 - (void)loadView
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_2(&dword_25BD8D000, self, a3, "%{public}s: Not signed in to icloud. Leaving...", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[NDOCoverageCentralViewControllerLegacy loadView]";
+  OUTLINED_FUNCTION_0_2(&dword_25BD8D000, self, a3, "%{public}s: Not signed in to icloud. Leaving...", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __50__NDOCoverageCentralViewControllerLegacy_loadView__block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = WeakRetained;
   if (WeakRetained)
@@ -82,11 +143,11 @@ void __50__NDOCoverageCentralViewControllerLegacy_loadView__block_invoke(uint64_
         if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
         {
           v8 = [v5 warranty];
-          v10 = 136446466;
-          v11 = "[NDOCoverageCentralViewControllerLegacy loadView]_block_invoke";
-          v12 = 2112;
-          v13 = v8;
-          _os_log_impl(&dword_25BD8D000, v7, OS_LOG_TYPE_DEFAULT, "%{public}s: Updating default device info with warranty:%@: ", &v10, 0x16u);
+          v9 = 136446466;
+          v10 = "[NDOCoverageCentralViewControllerLegacy loadView]_block_invoke";
+          v11 = 2112;
+          v12 = v8;
+          _os_log_impl(&dword_25BD8D000, v7, OS_LOG_TYPE_DEFAULT, "%{public}s: Updating default device info with warranty:%@: ", &v9, 0x16u);
         }
 
         [v2 updateDefaultDeviceWithDeviceInfo:v5];
@@ -95,8 +156,6 @@ void __50__NDOCoverageCentralViewControllerLegacy_loadView__block_invoke(uint64_
       [v2 fetchAllDeviceInfoUsingPolicy:0 sessionID:v2[189] params:0 isSales:0 withReply:0];
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_localizedResourceWithString:(id)string
@@ -110,6 +169,20 @@ void __50__NDOCoverageCentralViewControllerLegacy_loadView__block_invoke(uint64_
   v9 = [v5 initWithKey:stringCopy table:0 locale:currentLocale bundleURL:bundleURL];
 
   return v9;
+}
+
+- (void)viewIsAppearing:(BOOL)appearing
+{
+  v6.receiver = self;
+  v6.super_class = NDOCoverageCentralViewControllerLegacy;
+  [(NDOCoverageCentralViewControllerLegacy *)&v6 viewIsAppearing:appearing];
+  onViewIsAppearing = [(NDOCoverageCentralViewControllerLegacy *)self onViewIsAppearing];
+
+  if (onViewIsAppearing)
+  {
+    onViewIsAppearing2 = [(NDOCoverageCentralViewControllerLegacy *)self onViewIsAppearing];
+    onViewIsAppearing2[2]();
+  }
 }
 
 - (id)specifiers
@@ -146,8 +219,8 @@ void __50__NDOCoverageCentralViewControllerLegacy_loadView__block_invoke(uint64_
 
 - (id)updateCells
 {
-  v170 = *MEMORY[0x277D85DE8];
-  v144 = objc_opt_new();
+  v169 = *MEMORY[0x277D85DE8];
+  v143 = objc_opt_new();
   shouldShowDeviceListUI = [(NDOCoverageCentralViewControllerLegacy *)self shouldShowDeviceListUI];
   v4 = _NDOLogSystem();
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
@@ -191,14 +264,14 @@ void __50__NDOCoverageCentralViewControllerLegacy_loadView__block_invoke(uint64_
         v69 = [v68 localizedStringForKey:@"CC_DEFAULT_TITLE" value:&stru_286D71538 table:@"Localizable"];
         v70 = [v67 preferenceSpecifierNamed:v69 target:self set:0 get:0 detail:0 cell:0 edit:0];
 
-        v135 = v70;
-        [v144 addObject:v70];
-        v164[0] = *MEMORY[0x277D3FE58];
-        v165[0] = objc_opt_class();
-        v164[1] = *v50;
+        v134 = v70;
+        [v143 addObject:v70];
+        v163[0] = *MEMORY[0x277D3FE58];
+        v164[0] = objc_opt_class();
+        v163[1] = *v50;
         v71 = [MEMORY[0x277CCABB0] numberWithDouble:*v51];
-        v165[1] = v71;
-        v72 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v165 forKeys:v164 count:2];
+        v164[1] = v71;
+        v72 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v164 forKeys:v163 count:2];
 
         v73 = MEMORY[0x277D3FAD8];
         device = [v64 device];
@@ -211,7 +284,7 @@ void __50__NDOCoverageCentralViewControllerLegacy_loadView__block_invoke(uint64_
         if (os_log_type_enabled(v77, OS_LOG_TYPE_DEBUG))
         {
           [(NDOCoverageCentralViewControllerLegacy *)self updateCells];
-          v78 = v160;
+          v78 = v159;
         }
 
         else
@@ -250,52 +323,52 @@ void __50__NDOCoverageCentralViewControllerLegacy_loadView__block_invoke(uint64_
           [v76 setProperty:deeplinkParams2 forKey:@"NDODeeplinkParams"];
         }
 
-        [v144 addObject:v76];
+        [v143 addObject:v76];
       }
 
       else
       {
-        v135 = 0;
+        v134 = 0;
       }
     }
 
     else
     {
-      v135 = 0;
+      v134 = 0;
     }
 
     pairedDevices = [(NDOCoverageCentralViewControllerLegacy *)self pairedDevices];
     v91 = MEMORY[0x277D3FAD8];
     v92 = [MEMORY[0x277CCA8D8] bundleWithPath:@"/System/Library/PrivateFrameworks/NewDeviceOutreachUI.framework"];
     v93 = [v92 localizedStringForKey:@"CC_OTHER_TITLE" value:&stru_286D71538 table:@"Localizable"];
-    v133 = [v91 preferenceSpecifierNamed:v93 target:self set:0 get:0 detail:0 cell:0 edit:0];
+    v132 = [v91 preferenceSpecifierNamed:v93 target:self set:0 get:0 detail:0 cell:0 edit:0];
 
-    v147 = 0u;
-    v148 = 0u;
-    v145 = 0u;
     v146 = 0u;
+    v147 = 0u;
+    v144 = 0u;
+    v145 = 0u;
     v94 = pairedDevices;
-    v95 = [v94 countByEnumeratingWithState:&v145 objects:v163 count:16];
+    v95 = [v94 countByEnumeratingWithState:&v144 objects:v162 count:16];
     if (v95)
     {
       v96 = v95;
       v97 = 0;
-      v98 = *v146;
-      v141 = *v50;
-      v143 = *MEMORY[0x277D3FE58];
+      v98 = *v145;
+      v140 = *v50;
+      v142 = *MEMORY[0x277D3FE58];
       v99 = *v51;
-      v139 = *v52;
-      v137 = v94;
+      v138 = *v52;
+      v136 = v94;
       do
       {
         for (i = 0; i != v96; ++i)
         {
-          if (*v146 != v98)
+          if (*v145 != v98)
           {
-            objc_enumerationMutation(v137);
+            objc_enumerationMutation(v136);
           }
 
-          v101 = *(*(&v145 + 1) + 8 * i);
+          v101 = *(*(&v144 + 1) + 8 * i);
           deviceInfoDict2 = [(NDOCoverageCentralViewControllerLegacy *)self deviceInfoDict];
           serialNumber2 = [v101 serialNumber];
           v104 = [deviceInfoDict2 objectForKeyedSubscript:serialNumber2];
@@ -306,16 +379,16 @@ void __50__NDOCoverageCentralViewControllerLegacy_loadView__block_invoke(uint64_
           {
             if ((v97 & 1) == 0)
             {
-              [v144 addObject:v133];
+              [v143 addObject:v132];
             }
 
-            v161[0] = v143;
+            v160[0] = v142;
             v106 = objc_opt_class();
-            v161[1] = v141;
-            v162[0] = v106;
+            v160[1] = v140;
+            v161[0] = v106;
             v107 = [MEMORY[0x277CCABB0] numberWithDouble:v99];
-            v162[1] = v107;
-            v108 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v162 forKeys:v161 count:2];
+            v161[1] = v107;
+            v108 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v161 forKeys:v160 count:2];
 
             v109 = MEMORY[0x277D3FAD8];
             device3 = [v104 device];
@@ -335,7 +408,7 @@ void __50__NDOCoverageCentralViewControllerLegacy_loadView__block_invoke(uint64_
               v115 = @"COVERAGE_ITEM1";
             }
 
-            [v112 setProperty:v115 forKey:v139];
+            [v112 setProperty:v115 forKey:v138];
 
             [v112 setProperty:self forKey:@"NDOHostingController"];
             v116 = MEMORY[0x277CBEC38];
@@ -368,22 +441,22 @@ void __50__NDOCoverageCentralViewControllerLegacy_loadView__block_invoke(uint64_
               [v112 setProperty:deeplinkParams4 forKey:@"NDODeeplinkParams"];
             }
 
-            [v144 addObject:v112];
+            [v143 addObject:v112];
 
             v97 = 1;
           }
         }
 
-        v94 = v137;
-        v96 = [v137 countByEnumeratingWithState:&v145 objects:v163 count:16];
+        v94 = v136;
+        v96 = [v136 countByEnumeratingWithState:&v144 objects:v162 count:16];
       }
 
       while (v96);
 
       if (v97)
       {
-        [(NDOCoverageCentralViewControllerLegacy *)self addFooterLabelToSpecifier:v133];
-        v13 = v135;
+        [(NDOCoverageCentralViewControllerLegacy *)self addFooterLabelToSpecifier:v132];
+        v13 = v134;
 LABEL_64:
 
         goto LABEL_65;
@@ -394,10 +467,10 @@ LABEL_64:
     {
     }
 
-    v13 = v135;
-    if (v135)
+    v13 = v134;
+    if (v134)
     {
-      [(NDOCoverageCentralViewControllerLegacy *)self addFooterLabelToSpecifier:v135];
+      [(NDOCoverageCentralViewControllerLegacy *)self addFooterLabelToSpecifier:v134];
     }
 
     goto LABEL_64;
@@ -408,20 +481,20 @@ LABEL_64:
     [(NDOCoverageCentralViewControllerLegacy *)v4 updateCells:v6];
   }
 
-  v158 = 0u;
-  v159 = 0u;
-  v156 = 0u;
   v157 = 0u;
+  v158 = 0u;
+  v155 = 0u;
+  v156 = 0u;
   obj = [(NDOCoverageCentralViewControllerLegacy *)self deviceListAPISections];
-  v131 = [obj countByEnumeratingWithState:&v156 objects:v169 count:16];
+  v130 = [obj countByEnumeratingWithState:&v155 objects:v168 count:16];
   v13 = 0;
-  if (v131)
+  if (v130)
   {
-    v130 = *v157;
-    v142 = *MEMORY[0x277D3FE58];
-    v140 = *MEMORY[0x277D40140];
+    v129 = *v156;
+    v141 = *MEMORY[0x277D3FE58];
+    v139 = *MEMORY[0x277D40140];
     v14 = *MEMORY[0x277D76F30];
-    v138 = *MEMORY[0x277D3FFB8];
+    v137 = *MEMORY[0x277D3FFB8];
     v15 = MEMORY[0x277CBEC38];
     do
     {
@@ -429,51 +502,51 @@ LABEL_64:
       v17 = v13;
       do
       {
-        if (*v157 != v130)
+        if (*v156 != v129)
         {
           objc_enumerationMutation(obj);
         }
 
-        v132 = v16;
-        v18 = *(*(&v156 + 1) + 8 * v16);
+        v131 = v16;
+        v18 = *(*(&v155 + 1) + 8 * v16);
         v19 = MEMORY[0x277D3FAD8];
         identifier = [v18 identifier];
         label = [v18 label];
         v22 = [v19 groupSpecifierWithID:identifier name:label];
 
         v23 = v22;
-        v134 = v23;
-        [v144 addObject:v23];
-        v154 = 0u;
-        v155 = 0u;
-        v152 = 0u;
+        v133 = v23;
+        [v143 addObject:v23];
         v153 = 0u;
+        v154 = 0u;
+        v151 = 0u;
+        v152 = 0u;
         deviceList = [v18 deviceList];
-        v24 = [deviceList countByEnumeratingWithState:&v152 objects:v168 count:16];
+        v24 = [deviceList countByEnumeratingWithState:&v151 objects:v167 count:16];
         if (v24)
         {
           v25 = v24;
-          v26 = *v153;
+          v26 = *v152;
           do
           {
             for (j = 0; j != v25; ++j)
             {
-              if (*v153 != v26)
+              if (*v152 != v26)
               {
                 objc_enumerationMutation(deviceList);
               }
 
-              v28 = *(*(&v152 + 1) + 8 * j);
+              v28 = *(*(&v151 + 1) + 8 * j);
               deviceInfoDict3 = [(NDOCoverageCentralViewControllerLegacy *)self deviceInfoDict];
               serialNumber3 = [v28 serialNumber];
               v31 = [deviceInfoDict3 objectForKeyedSubscript:serialNumber3];
 
-              v166[0] = v142;
-              v167[0] = objc_opt_class();
-              v166[1] = v140;
+              v165[0] = v141;
+              v166[0] = objc_opt_class();
+              v165[1] = v139;
               v32 = [MEMORY[0x277CCABB0] numberWithDouble:v14];
-              v167[1] = v32;
-              v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v167 forKeys:v166 count:2];
+              v166[1] = v32;
+              v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v166 forKeys:v165 count:2];
 
               v34 = MEMORY[0x277D3FAD8];
               name4 = [v28 name];
@@ -492,7 +565,7 @@ LABEL_64:
                 v39 = @"COVERAGE_ITEM";
               }
 
-              [v36 setProperty:v39 forKey:v138];
+              [v36 setProperty:v39 forKey:v137];
 
               [v36 setProperty:self forKey:@"NDOHostingController"];
               [v36 setProperty:v15 forKey:@"isCoverageCentralContainer"];
@@ -520,16 +593,16 @@ LABEL_64:
 
               [v36 setObject:v28 forKeyedSubscript:@"NDODevice"];
               allLocalDevices = [(NDOCoverageCentralViewControllerLegacy *)self allLocalDevices];
-              v149[0] = MEMORY[0x277D85DD0];
-              v149[1] = 3221225472;
-              v149[2] = __53__NDOCoverageCentralViewControllerLegacy_updateCells__block_invoke;
-              v149[3] = &unk_2799785F0;
-              v149[4] = v28;
+              v148[0] = MEMORY[0x277D85DD0];
+              v148[1] = 3221225472;
+              v148[2] = __53__NDOCoverageCentralViewControllerLegacy_updateCells__block_invoke;
+              v148[3] = &unk_2799785F0;
+              v148[4] = v28;
               v45 = v36;
-              v150 = v45;
-              v151 = v31;
+              v149 = v45;
+              v150 = v31;
               v46 = v31;
-              [allLocalDevices enumerateObjectsUsingBlock:v149];
+              [allLocalDevices enumerateObjectsUsingBlock:v148];
 
               deeplinkParams5 = [(NDOCoverageCentralViewControllerLegacy *)self deeplinkParams];
 
@@ -539,33 +612,31 @@ LABEL_64:
                 [v45 setProperty:deeplinkParams6 forKey:@"NDODeeplinkParams"];
               }
 
-              [v144 addObject:v45];
+              [v143 addObject:v45];
             }
 
-            v25 = [deviceList countByEnumeratingWithState:&v152 objects:v168 count:16];
+            v25 = [deviceList countByEnumeratingWithState:&v151 objects:v167 count:16];
           }
 
           while (v25);
         }
 
-        v13 = v134;
-        v16 = v132 + 1;
-        v17 = v134;
+        v13 = v133;
+        v16 = v131 + 1;
+        v17 = v133;
       }
 
-      while (v132 + 1 != v131);
-      v131 = [obj countByEnumeratingWithState:&v156 objects:v169 count:16];
+      while (v131 + 1 != v130);
+      v130 = [obj countByEnumeratingWithState:&v155 objects:v168 count:16];
     }
 
-    while (v131);
+    while (v130);
   }
 
   [(NDOCoverageCentralViewControllerLegacy *)self addFooterLabelToSpecifier:v13];
 LABEL_65:
 
-  v127 = *MEMORY[0x277D85DE8];
-
-  return v144;
+  return v143;
 }
 
 void __53__NDOCoverageCentralViewControllerLegacy_updateCells__block_invoke(uint64_t a1, void *a2)
@@ -611,13 +682,10 @@ void __53__NDOCoverageCentralViewControllerLegacy_updateCells__block_invoke(uint
 
 - (void)fetchAllLocalDevices
 {
-  v8 = *MEMORY[0x277D85DE8];
   allLocalDevices = [self allLocalDevices];
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_1_2();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchAllDeviceInfoUsingPolicy:(unint64_t)policy sessionID:(id)d params:(id)params isSales:(BOOL)sales withReply:(id)reply
@@ -709,7 +777,7 @@ void __107__NDOCoverageCentralViewControllerLegacy_fetchAllDeviceInfoUsingPolicy
 
 void __107__NDOCoverageCentralViewControllerLegacy_fetchAllDeviceInfoUsingPolicy_sessionID_params_isSales_withReply___block_invoke_2(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = objc_opt_new();
   if ([*(a1 + 32) count])
   {
@@ -725,15 +793,14 @@ void __107__NDOCoverageCentralViewControllerLegacy_fetchAllDeviceInfoUsingPolicy
   v4 = _NDOLogSystem();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136446466;
-    v7 = "[NDOCoverageCentralViewControllerLegacy fetchAllDeviceInfoUsingPolicy:sessionID:params:isSales:withReply:]_block_invoke_2";
-    v8 = 2112;
-    v9 = v2;
-    _os_log_impl(&dword_25BD8D000, v4, OS_LOG_TYPE_DEFAULT, "%{public}s: amsui payload: %@", &v6, 0x16u);
+    v5 = 136446466;
+    v6 = "[NDOCoverageCentralViewControllerLegacy fetchAllDeviceInfoUsingPolicy:sessionID:params:isSales:withReply:]_block_invoke_2";
+    v7 = 2112;
+    v8 = v2;
+    _os_log_impl(&dword_25BD8D000, v4, OS_LOG_TYPE_DEFAULT, "%{public}s: amsui payload: %@", &v5, 0x16u);
   }
 
   [*(a1 + 48) openAMSUIWithURL:*(a1 + 56) httpBody:v2];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __107__NDOCoverageCentralViewControllerLegacy_fetchAllDeviceInfoUsingPolicy_sessionID_params_isSales_withReply___block_invoke_68(uint64_t a1, void *a2)
@@ -752,12 +819,12 @@ void __107__NDOCoverageCentralViewControllerLegacy_fetchAllDeviceInfoUsingPolicy
   dispatch_async(MEMORY[0x277D85CD0], block);
 }
 
-uint64_t __107__NDOCoverageCentralViewControllerLegacy_fetchAllDeviceInfoUsingPolicy_sessionID_params_isSales_withReply___block_invoke_2_69(uint64_t a1)
+uint64_t __107__NDOCoverageCentralViewControllerLegacy_fetchAllDeviceInfoUsingPolicy_sessionID_params_isSales_withReply___block_invoke_2_69(uint64_t a1, uint64_t a2)
 {
-  v2 = _NDOLogSystem();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = _NDOLogSystem();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __107__NDOCoverageCentralViewControllerLegacy_fetchAllDeviceInfoUsingPolicy_sessionID_params_isSales_withReply___block_invoke_2_69_cold_1(a1, v2, v3);
+    __107__NDOCoverageCentralViewControllerLegacy_fetchAllDeviceInfoUsingPolicy_sessionID_params_isSales_withReply___block_invoke_2_69_cold_1(a1, v3, v4);
   }
 
   if ([*(a1 + 32) count])
@@ -778,7 +845,7 @@ uint64_t __107__NDOCoverageCentralViewControllerLegacy_fetchAllDeviceInfoUsingPo
 
 - (void)getAllDeviceInfoUsingPolicy:(unint64_t)policy sessionID:(id)d params:(id)params isSales:(BOOL)sales andForcePostFollowup:(BOOL)followup withReply:(id)reply
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   dCopy = d;
   paramsCopy = params;
   replyCopy = reply;
@@ -792,48 +859,46 @@ uint64_t __107__NDOCoverageCentralViewControllerLegacy_fetchAllDeviceInfoUsingPo
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v38 = 0x3032000000;
-  v39 = __Block_byref_object_copy__1;
-  v40 = __Block_byref_object_dispose__1;
+  v37 = 0x3032000000;
+  v38 = __Block_byref_object_copy__1;
+  v39 = __Block_byref_object_dispose__1;
   array = [MEMORY[0x277CBEB18] array];
-  v35[0] = 0;
-  v35[1] = v35;
-  v35[2] = 0x3032000000;
-  v35[3] = __Block_byref_object_copy__1;
-  v35[4] = __Block_byref_object_dispose__1;
-  v36 = 0;
+  v34[0] = 0;
+  v34[1] = v34;
+  v34[2] = 0x3032000000;
+  v34[3] = __Block_byref_object_copy__1;
+  v34[4] = __Block_byref_object_dispose__1;
+  v35 = 0;
   allLocalDevices = [(NDOCoverageCentralViewControllerLegacy *)self allLocalDevices];
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __126__NDOCoverageCentralViewControllerLegacy_getAllDeviceInfoUsingPolicy_sessionID_params_isSales_andForcePostFollowup_withReply___block_invoke;
-  v28[3] = &unk_279978700;
-  v28[4] = self;
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __126__NDOCoverageCentralViewControllerLegacy_getAllDeviceInfoUsingPolicy_sessionID_params_isSales_andForcePostFollowup_withReply___block_invoke;
+  v27[3] = &unk_279978700;
+  v27[4] = self;
   policyCopy = policy;
   v18 = dCopy;
-  v29 = v18;
+  v28 = v18;
   v19 = paramsCopy;
   followupCopy = followup;
-  v30 = v19;
-  v31 = v35;
+  v29 = v19;
+  v30 = v34;
   p_buf = &buf;
-  [allLocalDevices enumerateObjectsUsingBlock:v28];
+  [allLocalDevices enumerateObjectsUsingBlock:v27];
   group = self->_group;
   policyLookupQueue = self->_policyLookupQueue;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __126__NDOCoverageCentralViewControllerLegacy_getAllDeviceInfoUsingPolicy_sessionID_params_isSales_andForcePostFollowup_withReply___block_invoke_74;
   block[3] = &unk_279978750;
-  v26 = &buf;
-  v27 = v35;
+  v25 = &buf;
+  v26 = v34;
   block[4] = self;
-  v25 = replyCopy;
+  v24 = replyCopy;
   v22 = replyCopy;
   dispatch_group_notify(group, policyLookupQueue, block);
 
-  _Block_object_dispose(v35, 8);
+  _Block_object_dispose(v34, 8);
   _Block_object_dispose(&buf, 8);
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __126__NDOCoverageCentralViewControllerLegacy_getAllDeviceInfoUsingPolicy_sessionID_params_isSales_andForcePostFollowup_withReply___block_invoke(uint64_t a1, void *a2)
@@ -972,18 +1037,18 @@ LABEL_20:
   dispatch_group_leave(*(*(a1 + 40) + 1464));
 }
 
-void __126__NDOCoverageCentralViewControllerLegacy_getAllDeviceInfoUsingPolicy_sessionID_params_isSales_andForcePostFollowup_withReply___block_invoke_74(uint64_t a1)
+void __126__NDOCoverageCentralViewControllerLegacy_getAllDeviceInfoUsingPolicy_sessionID_params_isSales_andForcePostFollowup_withReply___block_invoke_74(uint64_t a1, uint64_t a2)
 {
   v16 = *MEMORY[0x277D85DE8];
-  v2 = _NDOLogSystem();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = _NDOLogSystem();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(*(*(a1 + 48) + 8) + 40);
+    v4 = *(*(*(a1 + 48) + 8) + 40);
     *buf = 136446466;
     v13 = "[NDOCoverageCentralViewControllerLegacy getAllDeviceInfoUsingPolicy:sessionID:params:isSales:andForcePostFollowup:withReply:]_block_invoke";
     v14 = 2112;
-    v15 = v3;
-    _os_log_impl(&dword_25BD8D000, v2, OS_LOG_TYPE_DEFAULT, "%{public}s: finishing with device infos: %@", buf, 0x16u);
+    v15 = v4;
+    _os_log_impl(&dword_25BD8D000, v3, OS_LOG_TYPE_DEFAULT, "%{public}s: finishing with device infos: %@", buf, 0x16u);
   }
 
   block[0] = MEMORY[0x277D85DD0];
@@ -992,33 +1057,59 @@ void __126__NDOCoverageCentralViewControllerLegacy_getAllDeviceInfoUsingPolicy_s
   block[3] = &unk_279978728;
   v8 = *(a1 + 32);
   v7 = *(a1 + 56);
-  v4 = *(&v8 + 1);
-  *&v5 = v7;
-  *(&v5 + 1) = *(a1 + 48);
+  v5 = *(&v8 + 1);
+  *&v6 = v7;
+  *(&v6 + 1) = *(a1 + 48);
   v10 = v8;
-  v11 = v5;
+  v11 = v6;
   dispatch_async(MEMORY[0x277D85CD0], block);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __126__NDOCoverageCentralViewControllerLegacy_getAllDeviceInfoUsingPolicy_sessionID_params_isSales_andForcePostFollowup_withReply___block_invoke_75(uint64_t a1)
+uint64_t __126__NDOCoverageCentralViewControllerLegacy_getAllDeviceInfoUsingPolicy_sessionID_params_isSales_andForcePostFollowup_withReply___block_invoke_75(uint64_t a1, uint64_t a2)
 {
-  v2 = _NDOLogSystem();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = _NDOLogSystem();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __126__NDOCoverageCentralViewControllerLegacy_getAllDeviceInfoUsingPolicy_sessionID_params_isSales_andForcePostFollowup_withReply___block_invoke_75_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+    __126__NDOCoverageCentralViewControllerLegacy_getAllDeviceInfoUsingPolicy_sessionID_params_isSales_andForcePostFollowup_withReply___block_invoke_75_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
   }
 
   [*(a1 + 32) setUlSalesURL:*(*(*(a1 + 48) + 8) + 40)];
-  v10 = *(a1 + 40);
-  if (v10)
+  v11 = *(a1 + 40);
+  if (v11)
   {
-    (*(v10 + 16))(v10, *(*(*(a1 + 56) + 8) + 40));
+    (*(v11 + 16))(v11, *(*(*(a1 + 56) + 8) + 40));
   }
 
   [*(a1 + 32) setDeviceLoadCompleted:1];
   return [*(a1 + 32) showUI];
+}
+
+- (void)getDeviceInfoForSerialNumber:(id)number usingPolicy:(unint64_t)policy sessionID:(id)d params:(id)params andForcePostFollowup:(BOOL)followup withReply:(id)reply
+{
+  followupCopy = followup;
+  numberCopy = number;
+  dCopy = d;
+  paramsCopy = params;
+  replyCopy = reply;
+  if ([(NDOCoverageCentralViewControllerLegacy *)self isSignedIn])
+  {
+    ndoManager = [(NDOCoverageCentralViewControllerLegacy *)self ndoManager];
+    [ndoManager getDeviceInfoForSerialNumber:numberCopy usingPolicy:policy sessionID:dCopy params:paramsCopy andForcePostFollowup:followupCopy withReply:replyCopy];
+  }
+
+  else
+  {
+    v19 = _NDOLogSystem();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+    {
+      [(NDOCoverageCentralViewControllerLegacy *)v19 getDeviceInfoForSerialNumber:v20 usingPolicy:v21 sessionID:v22 params:v23 andForcePostFollowup:v24 withReply:v25, v26];
+    }
+
+    if (replyCopy)
+    {
+      replyCopy[2](replyCopy, 0);
+    }
+  }
 }
 
 - (void)updateDefaultDeviceWithDeviceInfo:(id)info
@@ -1031,6 +1122,39 @@ uint64_t __126__NDOCoverageCentralViewControllerLegacy_getAllDeviceInfoUsingPoli
     serialNumber = [defaultDevice serialNumber];
     [deviceInfoDict setObject:infoCopy forKeyedSubscript:serialNumber];
   }
+}
+
+- (void)updateDeviceInfoForDevice:(id)device usingPolicy:(unint64_t)policy params:(id)params forceUpdateFollowup:(BOOL)followup withReply:(id)reply
+{
+  followupCopy = followup;
+  deviceCopy = device;
+  replyCopy = reply;
+  paramsCopy = params;
+  v15 = _NDOLogSystem();
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+  {
+    [NDOCoverageCentralViewControllerLegacy updateDeviceInfoForDevice:usingPolicy:params:forceUpdateFollowup:withReply:];
+  }
+
+  aBlock[0] = MEMORY[0x277D85DD0];
+  aBlock[1] = 3221225472;
+  aBlock[2] = __117__NDOCoverageCentralViewControllerLegacy_updateDeviceInfoForDevice_usingPolicy_params_forceUpdateFollowup_withReply___block_invoke;
+  aBlock[3] = &unk_2799787A0;
+  aBlock[4] = self;
+  v25 = deviceCopy;
+  v26 = replyCopy;
+  v16 = replyCopy;
+  v17 = deviceCopy;
+  v18 = _Block_copy(aBlock);
+  serialNumber = [v17 serialNumber];
+  sessionID = [(NDOCoverageCentralViewControllerLegacy *)self sessionID];
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __117__NDOCoverageCentralViewControllerLegacy_updateDeviceInfoForDevice_usingPolicy_params_forceUpdateFollowup_withReply___block_invoke_76;
+  v22[3] = &unk_279978440;
+  v23 = v18;
+  v21 = v18;
+  [(NDOCoverageCentralViewControllerLegacy *)self getDeviceInfoForSerialNumber:serialNumber usingPolicy:policy sessionID:sessionID params:paramsCopy andForcePostFollowup:followupCopy withReply:v22];
 }
 
 void __117__NDOCoverageCentralViewControllerLegacy_updateDeviceInfoForDevice_usingPolicy_params_forceUpdateFollowup_withReply___block_invoke(uint64_t a1, void *a2)
@@ -1053,7 +1177,7 @@ void __117__NDOCoverageCentralViewControllerLegacy_updateDeviceInfoForDevice_usi
 uint64_t __117__NDOCoverageCentralViewControllerLegacy_updateDeviceInfoForDevice_usingPolicy_params_forceUpdateFollowup_withReply___block_invoke_2(uint64_t a1)
 {
   v1 = a1;
-  v37 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) warranty];
 
   if (v2)
@@ -1071,37 +1195,37 @@ uint64_t __117__NDOCoverageCentralViewControllerLegacy_updateDeviceInfoForDevice
       v9 = [v8 device];
       v10 = [v9 serialNumber];
       *buf = 136446722;
-      v32 = "[NDOCoverageCentralViewControllerLegacy updateDeviceInfoForDevice:usingPolicy:params:forceUpdateFollowup:withReply:]_block_invoke_2";
+      v30 = "[NDOCoverageCentralViewControllerLegacy updateDeviceInfoForDevice:usingPolicy:params:forceUpdateFollowup:withReply:]_block_invoke_2";
+      v31 = 2112;
+      v32 = v8;
       v33 = 2112;
-      v34 = v8;
-      v35 = 2112;
-      v36 = v10;
+      v34 = v10;
       _os_log_impl(&dword_25BD8D000, v7, OS_LOG_TYPE_DEFAULT, "%{public}s: updating deviceInfo: %@ for sn: %@", buf, 0x20u);
     }
   }
 
   if ([*(v1 + 40) shouldShowDeviceListUI])
   {
-    v28 = 0u;
-    v29 = 0u;
     v26 = 0u;
     v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     obj = [*(v1 + 40) specifiers];
-    v11 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+    v11 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v11)
     {
       v12 = v11;
-      v25 = *v27;
+      v23 = *v25;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v27 != v25)
+          if (*v25 != v23)
           {
             objc_enumerationMutation(obj);
           }
 
-          v14 = *(*(&v26 + 1) + 8 * i);
+          v14 = *(*(&v24 + 1) + 8 * i);
           v15 = [v14 objectForKeyedSubscript:@"NDODevice"];
           v16 = [v15 serialNumber];
           [*(v1 + 32) device];
@@ -1117,7 +1241,7 @@ uint64_t __117__NDOCoverageCentralViewControllerLegacy_updateDeviceInfoForDevice
           }
         }
 
-        v12 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+        v12 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
       }
 
       while (v12);
@@ -1125,10 +1249,7 @@ uint64_t __117__NDOCoverageCentralViewControllerLegacy_updateDeviceInfoForDevice
   }
 
   [*(v1 + 40) reloadSpecifiers];
-  v21 = *(v1 + 32);
-  result = (*(*(v1 + 56) + 16))();
-  v23 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(v1 + 56) + 16))();
 }
 
 void __117__NDOCoverageCentralViewControllerLegacy_updateDeviceInfoForDevice_usingPolicy_params_forceUpdateFollowup_withReply___block_invoke_76(uint64_t a1, void *a2)
@@ -1144,30 +1265,29 @@ void __117__NDOCoverageCentralViewControllerLegacy_updateDeviceInfoForDevice_usi
   dispatch_async(MEMORY[0x277D85CD0], v5);
 }
 
-uint64_t __117__NDOCoverageCentralViewControllerLegacy_updateDeviceInfoForDevice_usingPolicy_params_forceUpdateFollowup_withReply___block_invoke_2_77(uint64_t a1)
+uint64_t __117__NDOCoverageCentralViewControllerLegacy_updateDeviceInfoForDevice_usingPolicy_params_forceUpdateFollowup_withReply___block_invoke_2_77(uint64_t a1, uint64_t a2)
 {
-  v2 = _NDOLogSystem();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = _NDOLogSystem();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     __117__NDOCoverageCentralViewControllerLegacy_updateDeviceInfoForDevice_usingPolicy_params_forceUpdateFollowup_withReply___block_invoke_2_77_cold_1(a1);
   }
 
-  v3 = *(a1 + 32);
   return (*(*(a1 + 40) + 16))();
 }
 
 - (void)handleURL:(id)l withCompletion:(id)completion
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   lCopy = l;
   completionCopy = completion;
   v8 = _NDOLogSystem();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v22 = "[NDOCoverageCentralViewControllerLegacy handleURL:withCompletion:]";
-    v23 = 2112;
-    v24 = lCopy;
+    v21 = "[NDOCoverageCentralViewControllerLegacy handleURL:withCompletion:]";
+    v22 = 2112;
+    v23 = lCopy;
     _os_log_impl(&dword_25BD8D000, v8, OS_LOG_TYPE_DEFAULT, "%{public}s: Handle url with dict: %@", buf, 0x16u);
   }
 
@@ -1192,24 +1312,24 @@ uint64_t __117__NDOCoverageCentralViewControllerLegacy_updateDeviceInfoForDevice
       else
       {
         objc_initWeak(buf, self);
-        v16[0] = MEMORY[0x277D85DD0];
-        v16[1] = 3221225472;
-        v16[2] = __67__NDOCoverageCentralViewControllerLegacy_handleURL_withCompletion___block_invoke;
-        v16[3] = &unk_2799787F0;
-        objc_copyWeak(&v18, buf);
-        v17 = completionCopy;
-        [(NDOCoverageCentralViewControllerLegacy *)self _getUpdatedParamsFromPath:v9 withCompletion:v16];
+        v15[0] = MEMORY[0x277D85DD0];
+        v15[1] = 3221225472;
+        v15[2] = __67__NDOCoverageCentralViewControllerLegacy_handleURL_withCompletion___block_invoke;
+        v15[3] = &unk_2799787F0;
+        objc_copyWeak(&v17, buf);
+        v16 = completionCopy;
+        [(NDOCoverageCentralViewControllerLegacy *)self _getUpdatedParamsFromPath:v9 withCompletion:v15];
 
-        objc_destroyWeak(&v18);
+        objc_destroyWeak(&v17);
         objc_destroyWeak(buf);
       }
     }
 
     else
     {
-      v19.receiver = self;
-      v19.super_class = NDOCoverageCentralViewControllerLegacy;
-      [(NDOCoverageCentralViewControllerLegacy *)&v19 handleURL:lCopy withCompletion:completionCopy];
+      v18.receiver = self;
+      v18.super_class = NDOCoverageCentralViewControllerLegacy;
+      [(NDOCoverageCentralViewControllerLegacy *)&v18 handleURL:lCopy withCompletion:completionCopy];
     }
   }
 
@@ -1219,21 +1339,19 @@ uint64_t __117__NDOCoverageCentralViewControllerLegacy_updateDeviceInfoForDevice
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446210;
-      v22 = "[NDOCoverageCentralViewControllerLegacy handleURL:withCompletion:]";
+      v21 = "[NDOCoverageCentralViewControllerLegacy handleURL:withCompletion:]";
       _os_log_impl(&dword_25BD8D000, v14, OS_LOG_TYPE_DEFAULT, "%{public}s: Ignoring handle as the user is not signed in to icloud.", buf, 0xCu);
     }
 
-    v20.receiver = self;
-    v20.super_class = NDOCoverageCentralViewControllerLegacy;
-    [(NDOCoverageCentralViewControllerLegacy *)&v20 handleURL:lCopy withCompletion:completionCopy];
+    v19.receiver = self;
+    v19.super_class = NDOCoverageCentralViewControllerLegacy;
+    [(NDOCoverageCentralViewControllerLegacy *)&v19 handleURL:lCopy withCompletion:completionCopy];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __67__NDOCoverageCentralViewControllerLegacy_handleURL_withCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   [WeakRetained setDeeplinkParams:v3];
@@ -1242,9 +1360,9 @@ void __67__NDOCoverageCentralViewControllerLegacy_handleURL_withCompletion___blo
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v16 = "[NDOCoverageCentralViewControllerLegacy handleURL:withCompletion:]_block_invoke";
-    v17 = 2112;
-    v18 = v5;
+    v15 = "[NDOCoverageCentralViewControllerLegacy handleURL:withCompletion:]_block_invoke";
+    v16 = 2112;
+    v17 = v5;
     _os_log_impl(&dword_25BD8D000, v6, OS_LOG_TYPE_DEFAULT, "%{public}s: fetching devices with params dict: %@", buf, 0x16u);
   }
 
@@ -1262,39 +1380,36 @@ void __67__NDOCoverageCentralViewControllerLegacy_handleURL_withCompletion___blo
   }
 
   v11 = [WeakRetained sessionID];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __67__NDOCoverageCentralViewControllerLegacy_handleURL_withCompletion___block_invoke_90;
-  v13[3] = &unk_2799787C8;
-  v14 = *(a1 + 32);
-  [WeakRetained fetchAllDeviceInfoUsingPolicy:2 sessionID:v11 params:v3 isSales:v10 withReply:v13];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __67__NDOCoverageCentralViewControllerLegacy_handleURL_withCompletion___block_invoke_90;
+  v12[3] = &unk_2799787C8;
+  v13 = *(a1 + 32);
+  [WeakRetained fetchAllDeviceInfoUsingPolicy:2 sessionID:v11 params:v3 isSales:v10 withReply:v12];
 }
 
 - (BOOL)shouldDeferPushForSpecifierID:(id)d
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   dCopy = d;
   v4 = _NDOLogSystem();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136446466;
-    v8 = "[NDOCoverageCentralViewControllerLegacy shouldDeferPushForSpecifierID:]";
-    v9 = 2112;
-    v10 = dCopy;
-    _os_log_impl(&dword_25BD8D000, v4, OS_LOG_TYPE_DEFAULT, "%{public}s specifierId:%@", &v7, 0x16u);
+    v6 = 136446466;
+    v7 = "[NDOCoverageCentralViewControllerLegacy shouldDeferPushForSpecifierID:]";
+    v8 = 2112;
+    v9 = dCopy;
+    _os_log_impl(&dword_25BD8D000, v4, OS_LOG_TYPE_DEFAULT, "%{public}s specifierId:%@", &v6, 0x16u);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (void)handlePurchaseCompleted
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2(&dword_25BD8D000, self, a3, "%{public}s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[NDOCoverageCentralViewControllerLegacy handlePurchaseCompleted]";
+  OUTLINED_FUNCTION_2(&dword_25BD8D000, self, a3, "%{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_refreshAndForcePostFollowUp:(BOOL)up refreshControlToStop:(id)stop
@@ -1378,9 +1493,9 @@ void __92__NDOCoverageCentralViewControllerLegacy__refreshAndForcePostFollowUp_r
 
 - (void)showUI
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_2(&dword_25BD8D000, self, a3, "%{public}s: No warranties found", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[NDOCoverageCentralViewControllerLegacy showUI]";
+  OUTLINED_FUNCTION_0_2(&dword_25BD8D000, self, a3, "%{public}s: No warranties found", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_getUpdatedParamsFromPath:(id)path withCompletion:(id)completion
@@ -1445,30 +1560,30 @@ void __83__NDOCoverageCentralViewControllerLegacy__getUpdatedParamsFromPath_with
 
 - (id)_getParamsDictFromPath:(id)path
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
-  v17 = pathCopy;
+  v16 = pathCopy;
   v5 = [pathCopy componentsSeparatedByString:@"&"];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v19;
+    v8 = *v18;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v19 != v8)
+        if (*v18 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = [*(*(&v18 + 1) + 8 * i) componentsSeparatedByString:@"="];
+        v10 = [*(*(&v17 + 1) + 8 * i) componentsSeparatedByString:@"="];
         if ([v10 count] == 2)
         {
           firstObject = [v10 firstObject];
@@ -1481,20 +1596,18 @@ void __83__NDOCoverageCentralViewControllerLegacy__getUpdatedParamsFromPath_with
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v7);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }
 
 - (void)openAMSUIWithURL:(id)l httpBody:(id)body
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   lCopy = l;
   bodyCopy = body;
   v8 = _NDOLogSystem();
@@ -1503,12 +1616,12 @@ void __83__NDOCoverageCentralViewControllerLegacy__getUpdatedParamsFromPath_with
     deeplinkParams = [(NDOCoverageCentralViewControllerLegacy *)self deeplinkParams];
     *location = 136446978;
     *&location[4] = "[NDOCoverageCentralViewControllerLegacy openAMSUIWithURL:httpBody:]";
-    v42 = 2112;
-    v43 = lCopy;
-    v44 = 2112;
-    v45 = bodyCopy;
-    v46 = 2112;
-    v47 = deeplinkParams;
+    v41 = 2112;
+    v42 = lCopy;
+    v43 = 2112;
+    v44 = bodyCopy;
+    v45 = 2112;
+    v46 = deeplinkParams;
     _os_log_debug_impl(&dword_25BD8D000, v8, OS_LOG_TYPE_DEBUG, "%{public}s: url: %@, httpBody: %@, deeplinkParams: %@", location, 0x2Au);
   }
 
@@ -1519,19 +1632,19 @@ void __83__NDOCoverageCentralViewControllerLegacy__getUpdatedParamsFromPath_with
 
   objc_initWeak(location, self);
   v13 = [NDOAMSUILoadingViewController alloc];
-  v33 = MEMORY[0x277D85DD0];
-  v34 = 3221225472;
-  v35 = __68__NDOCoverageCentralViewControllerLegacy_openAMSUIWithURL_httpBody___block_invoke;
-  v36 = &unk_279978890;
-  objc_copyWeak(&v40, location);
+  v32 = MEMORY[0x277D85DD0];
+  v33 = 3221225472;
+  v34 = __68__NDOCoverageCentralViewControllerLegacy_openAMSUIWithURL_httpBody___block_invoke;
+  v35 = &unk_279978890;
+  objc_copyWeak(&v39, location);
   v14 = v12;
-  v37 = v14;
+  v36 = v14;
   v15 = lCopy;
-  v38 = v15;
+  v37 = v15;
   v16 = bodyCopy;
-  v39 = v16;
-  v17 = [(NDOAMSUILoadingViewController *)v13 initWithCreateAMSViewController:&v33];
-  [(NDOCoverageCentralViewControllerLegacy *)self setAmsLoadingViewController:v17, v33, v34, v35, v36];
+  v38 = v16;
+  v17 = [(NDOAMSUILoadingViewController *)v13 initWithCreateAMSViewController:&v32];
+  [(NDOCoverageCentralViewControllerLegacy *)self setAmsLoadingViewController:v17, v32, v33, v34, v35];
 
   WeakRetained = objc_loadWeakRetained(location);
   amsLoadingViewController = [(NDOCoverageCentralViewControllerLegacy *)self amsLoadingViewController];
@@ -1587,10 +1700,8 @@ LABEL_12:
   [v27 setModalInPresentation:1];
   [(NDOCoverageCentralViewControllerLegacy *)self presentViewController:v27 animated:1 completion:0];
 
-  objc_destroyWeak(&v40);
+  objc_destroyWeak(&v39);
   objc_destroyWeak(location);
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 void __68__NDOCoverageCentralViewControllerLegacy_openAMSUIWithURL_httpBody___block_invoke(uint64_t a1, void *a2)
@@ -1684,36 +1795,35 @@ void __68__NDOCoverageCentralViewControllerLegacy_openAMSUIWithURL_httpBody___bl
 
 void __54__NDOCoverageCentralViewControllerLegacy_dismissAMSUI__block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = _NDOLogSystem();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136446210;
-    v6 = "[NDOCoverageCentralViewControllerLegacy dismissAMSUI]_block_invoke";
-    _os_log_impl(&dword_25BD8D000, v2, OS_LOG_TYPE_DEFAULT, "%{public}s", &v5, 0xCu);
+    v4 = 136446210;
+    v5 = "[NDOCoverageCentralViewControllerLegacy dismissAMSUI]_block_invoke";
+    _os_log_impl(&dword_25BD8D000, v2, OS_LOG_TYPE_DEFAULT, "%{public}s", &v4, 0xCu);
   }
 
   v3 = [WeakRetained amsLoadingViewController];
   [v3 dismissViewControllerAnimated:1 completion:0];
 
   [WeakRetained setAmsLoadingViewController:0];
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)completeWithStatus:(unint64_t)status params:(id)params
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   paramsCopy = params;
   v7 = _NDOLogSystem();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446722;
-    v28 = "[NDOCoverageCentralViewControllerLegacy completeWithStatus:params:]";
-    v29 = 2048;
+    v27 = "[NDOCoverageCentralViewControllerLegacy completeWithStatus:params:]";
+    v28 = 2048;
     statusCopy = status;
-    v31 = 2112;
-    v32 = paramsCopy;
+    v30 = 2112;
+    v31 = paramsCopy;
     _os_log_impl(&dword_25BD8D000, v7, OS_LOG_TYPE_DEFAULT, "%{public}s: status: %lu, params: %@", buf, 0x20u);
   }
 
@@ -1724,7 +1834,7 @@ void __54__NDOCoverageCentralViewControllerLegacy_dismissAMSUI__block_invoke(uin
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v28 = "[NDOCoverageCentralViewControllerLegacy completeWithStatus:params:]";
+      v27 = "[NDOCoverageCentralViewControllerLegacy completeWithStatus:params:]";
       _os_log_impl(&dword_25BD8D000, v9, OS_LOG_TYPE_DEFAULT, "%s: refreshing summary api", buf, 0xCu);
     }
 
@@ -1747,24 +1857,24 @@ void __54__NDOCoverageCentralViewControllerLegacy_dismissAMSUI__block_invoke(uin
 
           ndoManager = self->_ndoManager;
           serialNumber = [v15 serialNumber];
-          v25[0] = MEMORY[0x277D85DD0];
-          v25[1] = 3221225472;
-          v25[2] = __68__NDOCoverageCentralViewControllerLegacy_completeWithStatus_params___block_invoke;
-          v25[3] = &unk_279978278;
+          v24[0] = MEMORY[0x277D85DD0];
+          v24[1] = 3221225472;
+          v24[2] = __68__NDOCoverageCentralViewControllerLegacy_completeWithStatus_params___block_invoke;
+          v24[3] = &unk_279978278;
           v18 = v15;
-          v26 = v18;
-          [(NDOCoverageCentralVCManager *)ndoManager dismissFollowUpForSerialNumber:serialNumber completion:v25];
+          v25 = v18;
+          [(NDOCoverageCentralVCManager *)ndoManager dismissFollowUpForSerialNumber:serialNumber completion:v24];
 
           objc_initWeak(buf, self);
           deeplinkParams = [(NDOCoverageCentralViewControllerLegacy *)self deeplinkParams];
-          v23[0] = MEMORY[0x277D85DD0];
-          v23[1] = 3221225472;
-          v23[2] = __68__NDOCoverageCentralViewControllerLegacy_completeWithStatus_params___block_invoke_162;
-          v23[3] = &unk_2799788B8;
-          objc_copyWeak(&v24, buf);
-          [(NDOCoverageCentralViewControllerLegacy *)self updateDeviceInfoForDevice:v18 usingPolicy:2 params:deeplinkParams forceUpdateFollowup:1 withReply:v23];
+          v22[0] = MEMORY[0x277D85DD0];
+          v22[1] = 3221225472;
+          v22[2] = __68__NDOCoverageCentralViewControllerLegacy_completeWithStatus_params___block_invoke_162;
+          v22[3] = &unk_2799788B8;
+          objc_copyWeak(&v23, buf);
+          [(NDOCoverageCentralViewControllerLegacy *)self updateDeviceInfoForDevice:v18 usingPolicy:2 params:deeplinkParams forceUpdateFollowup:1 withReply:v22];
 
-          objc_destroyWeak(&v24);
+          objc_destroyWeak(&v23);
           objc_destroyWeak(buf);
 
           v8 = 0;
@@ -1779,7 +1889,7 @@ void __54__NDOCoverageCentralViewControllerLegacy_dismissAMSUI__block_invoke(uin
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v28 = "[NDOCoverageCentralViewControllerLegacy completeWithStatus:params:]";
+      v27 = "[NDOCoverageCentralViewControllerLegacy completeWithStatus:params:]";
       _os_log_impl(&dword_25BD8D000, v20, OS_LOG_TYPE_DEFAULT, "%s: refreshing device list", buf, 0xCu);
     }
 
@@ -1793,21 +1903,20 @@ void __54__NDOCoverageCentralViewControllerLegacy_dismissAMSUI__block_invoke(uin
     if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v28 = "[NDOCoverageCentralViewControllerLegacy completeWithStatus:params:]";
+      v27 = "[NDOCoverageCentralViewControllerLegacy completeWithStatus:params:]";
       _os_log_impl(&dword_25BD8D000, v21, OS_LOG_TYPE_DEFAULT, "%s: dismissing amsui", buf, 0xCu);
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
-void __68__NDOCoverageCentralViewControllerLegacy_completeWithStatus_params___block_invoke(uint64_t a1, int a2)
+void __68__NDOCoverageCentralViewControllerLegacy_completeWithStatus_params___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v2 = a2;
+  v11 = *MEMORY[0x277D85DE8];
   v4 = _NDOLogSystem();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    if (a2)
+    if (v2)
     {
       v5 = @"Dismissed";
     }
@@ -1818,14 +1927,12 @@ void __68__NDOCoverageCentralViewControllerLegacy_completeWithStatus_params___bl
     }
 
     v6 = [*(a1 + 32) serialNumber];
-    v8 = 138543618;
-    v9 = v5;
-    v10 = 2112;
-    v11 = v6;
-    _os_log_impl(&dword_25BD8D000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ followup up for %@", &v8, 0x16u);
+    v7 = 138543618;
+    v8 = v5;
+    v9 = 2112;
+    v10 = v6;
+    _os_log_impl(&dword_25BD8D000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ followup up for %@", &v7, 0x16u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __68__NDOCoverageCentralViewControllerLegacy_completeWithStatus_params___block_invoke_162(uint64_t a1)
@@ -1843,178 +1950,155 @@ void __68__NDOCoverageCentralViewControllerLegacy_completeWithStatus_params___bl
 
 - (void)init
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2(&dword_25BD8D000, self, a3, "%{public}s:", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[NDOCoverageCentralViewControllerLegacy init]";
+  OUTLINED_FUNCTION_2(&dword_25BD8D000, self, a3, "%{public}s:", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithIsSignedIn:(uint64_t)a3 deviceManager:(uint64_t)a4 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_2(&dword_25BD8D000, a1, a3, "%{public}s: Not signed in to icloud. Leaving...", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[NDOCoverageCentralViewControllerLegacy initWithIsSignedIn:deviceManager:]";
+  OUTLINED_FUNCTION_0_2(&dword_25BD8D000, a1, a3, "%{public}s: Not signed in to icloud. Leaving...", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __50__NDOCoverageCentralViewControllerLegacy_loadView__block_invoke_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(a1, "launchedWithUrl")}];
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_1_2();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)specifiers
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2(&dword_25BD8D000, self, a3, "%{public}s:", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[NDOCoverageCentralViewControllerLegacy specifiers]";
+  OUTLINED_FUNCTION_2(&dword_25BD8D000, self, a3, "%{public}s:", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)updateCells
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2(&dword_25BD8D000, self, a3, "%{public}s: generating specifiers from device list api response", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[NDOCoverageCentralViewControllerLegacy updateCells]";
+  OUTLINED_FUNCTION_2(&dword_25BD8D000, self, a3, "%{public}s: generating specifiers from device list api response", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)openURL:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v4[0] = 136446466;
+  v5 = *MEMORY[0x277D85DE8];
+  v3[0] = 136446466;
   OUTLINED_FUNCTION_0_3();
-  v5 = v0;
-  OUTLINED_FUNCTION_4(&dword_25BD8D000, v1, v2, "%{public}s: Opening url: %@", v4);
-  v3 = *MEMORY[0x277D85DE8];
+  v4 = v0;
+  OUTLINED_FUNCTION_4(&dword_25BD8D000, v1, v2, "%{public}s: Opening url: %@", v3);
 }
 
 - (void)fetchAllDeviceInfoUsingPolicy:(void *)a1 sessionID:params:isSales:withReply:.cold.1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 UTF8String];
   OUTLINED_FUNCTION_1_2();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0x1Cu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchAllDeviceInfoUsingPolicy:(uint64_t)a3 sessionID:(uint64_t)a4 params:(uint64_t)a5 isSales:(uint64_t)a6 withReply:(uint64_t)a7 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2(&dword_25BD8D000, a1, a3, "%{public}s: skipping fetch: not logged in", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[NDOCoverageCentralViewControllerLegacy fetchAllDeviceInfoUsingPolicy:sessionID:params:isSales:withReply:]";
+  OUTLINED_FUNCTION_2(&dword_25BD8D000, a1, a3, "%{public}s: skipping fetch: not logged in", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)fetchAllDeviceInfoUsingPolicy:(uint64_t)a3 sessionID:(uint64_t)a4 params:(uint64_t)a5 isSales:(uint64_t)a6 withReply:(uint64_t)a7 .cold.3(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2(&dword_25BD8D000, a1, a3, "%{public}s: starting fetch", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[NDOCoverageCentralViewControllerLegacy fetchAllDeviceInfoUsingPolicy:sessionID:params:isSales:withReply:]";
+  OUTLINED_FUNCTION_2(&dword_25BD8D000, a1, a3, "%{public}s: starting fetch", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __107__NDOCoverageCentralViewControllerLegacy_fetchAllDeviceInfoUsingPolicy_sessionID_params_isSales_withReply___block_invoke_2_69_cold_1(uint64_t a1, NSObject *a2, uint64_t a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
-  v5 = 136446466;
-  v6 = "[NDOCoverageCentralViewControllerLegacy fetchAllDeviceInfoUsingPolicy:sessionID:params:isSales:withReply:]_block_invoke_2";
-  v7 = 2112;
-  v8 = v3;
-  OUTLINED_FUNCTION_4(&dword_25BD8D000, a2, a3, "%{public}s: getDeviceListForLocalDevices reply: %@", &v5);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 136446466;
+  v5 = "[NDOCoverageCentralViewControllerLegacy fetchAllDeviceInfoUsingPolicy:sessionID:params:isSales:withReply:]_block_invoke_2";
+  v6 = 2112;
+  v7 = v3;
+  OUTLINED_FUNCTION_4(&dword_25BD8D000, a2, a3, "%{public}s: getDeviceListForLocalDevices reply: %@", &v4);
 }
 
 void __126__NDOCoverageCentralViewControllerLegacy_getAllDeviceInfoUsingPolicy_sessionID_params_isSales_andForcePostFollowup_withReply___block_invoke_2_cold_1(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v2 = [*(a2 + 32) serialNumber];
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_2();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0x20u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __126__NDOCoverageCentralViewControllerLegacy_getAllDeviceInfoUsingPolicy_sessionID_params_isSales_andForcePostFollowup_withReply___block_invoke_2_cold_2(void *a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v3 = [a1 serialNumber];
   v4 = [a2 warranty];
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_1_2();
   _os_log_debug_impl(v5, v6, v7, v8, v9, 0x20u);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __126__NDOCoverageCentralViewControllerLegacy_getAllDeviceInfoUsingPolicy_sessionID_params_isSales_andForcePostFollowup_withReply___block_invoke_2_cold_3(void *a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v3 = [a2 serialNumber];
   v4 = [a1 warranty];
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_1_2();
   _os_log_debug_impl(v5, v6, v7, v8, v9, 0x2Au);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __126__NDOCoverageCentralViewControllerLegacy_getAllDeviceInfoUsingPolicy_sessionID_params_isSales_andForcePostFollowup_withReply___block_invoke_2_cold_4(void *a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v3 = [a1 serialNumber];
   v4 = [a2 warranty];
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_1_2();
   _os_log_debug_impl(v5, v6, v7, v8, v9, 0x20u);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __126__NDOCoverageCentralViewControllerLegacy_getAllDeviceInfoUsingPolicy_sessionID_params_isSales_andForcePostFollowup_withReply___block_invoke_75_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2(&dword_25BD8D000, a1, a3, "%{public}s: refreshing", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[NDOCoverageCentralViewControllerLegacy getAllDeviceInfoUsingPolicy:sessionID:params:isSales:andForcePostFollowup:withReply:]_block_invoke";
+  OUTLINED_FUNCTION_2(&dword_25BD8D000, a1, a3, "%{public}s: refreshing", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)getDeviceInfoForSerialNumber:(uint64_t)a3 usingPolicy:(uint64_t)a4 sessionID:(uint64_t)a5 params:(uint64_t)a6 andForcePostFollowup:(uint64_t)a7 withReply:(uint64_t)a8 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2(&dword_25BD8D000, a1, a3, "%{public}s: skipping fetch: not logged in", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[NDOCoverageCentralViewControllerLegacy getDeviceInfoForSerialNumber:usingPolicy:sessionID:params:andForcePostFollowup:withReply:]";
+  OUTLINED_FUNCTION_2(&dword_25BD8D000, a1, a3, "%{public}s: skipping fetch: not logged in", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)updateDeviceInfoForDevice:usingPolicy:params:forceUpdateFollowup:withReply:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v4[0] = 136446466;
+  v5 = *MEMORY[0x277D85DE8];
+  v3[0] = 136446466;
   OUTLINED_FUNCTION_0_3();
-  v5 = v0;
-  OUTLINED_FUNCTION_4(&dword_25BD8D000, v1, v2, "%{public}s: for device: %@", v4);
-  v3 = *MEMORY[0x277D85DE8];
+  v4 = v0;
+  OUTLINED_FUNCTION_4(&dword_25BD8D000, v1, v2, "%{public}s: for device: %@", v3);
 }
 
 void __117__NDOCoverageCentralViewControllerLegacy_updateDeviceInfoForDevice_usingPolicy_params_forceUpdateFollowup_withReply___block_invoke_2_77_cold_1(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [*(a1 + 32) device];
   v2 = [v1 serialNumber];
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_2();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0x20u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_refreshAndForcePostFollowUp:(uint64_t)a3 refreshControlToStop:(uint64_t)a4 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2(&dword_25BD8D000, a1, a3, "%{public}s:", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[NDOCoverageCentralViewControllerLegacy _refreshAndForcePostFollowUp:refreshControlToStop:]";
+  OUTLINED_FUNCTION_2(&dword_25BD8D000, a1, a3, "%{public}s:", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

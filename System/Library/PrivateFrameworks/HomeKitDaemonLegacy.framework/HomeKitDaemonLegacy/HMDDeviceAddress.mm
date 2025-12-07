@@ -150,7 +150,7 @@ LABEL_7:
 
 + (id)localDeviceIDSIdentifier
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock_with_options();
   if (localDeviceIDSIdentifier_localDeviceID)
   {
@@ -186,18 +186,16 @@ LABEL_7:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       v9 = HMFGetLogIdentifier();
-      v12 = 138543618;
-      v13 = v9;
-      v14 = 2112;
-      v15 = localDeviceIDSIdentifier_localDeviceID;
-      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@localDeviceID: %@", &v12, 0x16u);
+      v11 = 138543618;
+      v12 = v9;
+      v13 = 2112;
+      v14 = localDeviceIDSIdentifier_localDeviceID;
+      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@localDeviceID: %@", &v11, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
     v2 = localDeviceIDSIdentifier_localDeviceID;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v2;
 }

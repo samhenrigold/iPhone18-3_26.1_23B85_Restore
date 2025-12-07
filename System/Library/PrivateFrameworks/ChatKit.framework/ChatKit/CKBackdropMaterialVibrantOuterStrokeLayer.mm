@@ -28,7 +28,7 @@
   swift_unknownObjectRetain();
   sub_190D58140();
   swift_unknownObjectRelease();
-  return sub_190A3FF20(&v4);
+  return sub_190A3FF20(v4);
 }
 
 - (_TtC7ChatKit41CKBackdropMaterialVibrantOuterStrokeLayer)initWithCoder:(id)coder

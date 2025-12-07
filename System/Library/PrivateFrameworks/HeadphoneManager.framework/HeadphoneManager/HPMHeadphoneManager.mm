@@ -41,7 +41,7 @@
 {
   swift_unknownObjectRetain();
   MEMORY[0x1E69E5928](self);
-  Headphone_Manager.topLevelUIHandler.setter();
+  Headphone_Manager.topLevelUIHandler.setter(handler);
   MEMORY[0x1E69E5920](self);
 }
 
@@ -70,8 +70,8 @@
   MEMORY[0x1E69E5928](records);
   MEMORY[0x1E69E5928](self);
   type metadata accessor for HMDeviceRecord();
-  static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
-  Headphone_Manager.connectedRecords.setter();
+  v4 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
+  Headphone_Manager.connectedRecords.setter(v4);
   MEMORY[0x1E69E5920](records);
   MEMORY[0x1E69E5920](self);
 }
@@ -89,7 +89,7 @@
 {
   swift_unknownObjectRetain();
   MEMORY[0x1E69E5928](self);
-  Headphone_Manager.deviceConnectionListener.setter();
+  Headphone_Manager.deviceConnectionListener.setter(listener);
   MEMORY[0x1E69E5920](self);
 }
 
@@ -98,7 +98,7 @@
   MEMORY[0x1E69E5928](self);
   Headphone_Manager.connectedHeadphones.getter();
   MEMORY[0x1E69E5920](self);
-  type metadata accessor for HeadphoneDevice();
+  type metadata accessor for HeadphoneDevice(0);
   isa = Dictionary._bridgeToObjectiveC()().super.isa;
 
   return isa;
@@ -108,9 +108,9 @@
 {
   MEMORY[0x1E69E5928](headphones);
   MEMORY[0x1E69E5928](self);
-  type metadata accessor for HeadphoneDevice();
-  static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
-  Headphone_Manager.connectedHeadphones.setter();
+  type metadata accessor for HeadphoneDevice(0);
+  v4 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
+  Headphone_Manager.connectedHeadphones.setter(v4);
   MEMORY[0x1E69E5920](headphones);
   MEMORY[0x1E69E5920](self);
 }
@@ -120,7 +120,7 @@
   MEMORY[0x1E69E5928](self);
   Headphone_Manager.pairedHeadphones.getter();
   MEMORY[0x1E69E5920](self);
-  type metadata accessor for HeadphoneDevice();
+  type metadata accessor for HeadphoneDevice(0);
   isa = Dictionary._bridgeToObjectiveC()().super.isa;
 
   return isa;
@@ -130,9 +130,9 @@
 {
   MEMORY[0x1E69E5928](headphones);
   MEMORY[0x1E69E5928](self);
-  type metadata accessor for HeadphoneDevice();
-  static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
-  Headphone_Manager.pairedHeadphones.setter();
+  type metadata accessor for HeadphoneDevice(0);
+  v4 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
+  Headphone_Manager.pairedHeadphones.setter(v4);
   MEMORY[0x1E69E5920](headphones);
   MEMORY[0x1E69E5920](self);
 }
@@ -142,7 +142,7 @@
   MEMORY[0x1E69E5928](self);
   Headphone_Manager.pendingConnectedHeadphones.getter();
   MEMORY[0x1E69E5920](self);
-  type metadata accessor for HeadphoneDevice();
+  type metadata accessor for HeadphoneDevice(0);
   isa = Dictionary._bridgeToObjectiveC()().super.isa;
 
   return isa;
@@ -152,7 +152,7 @@
 {
   MEMORY[0x1E69E5928](headphones);
   MEMORY[0x1E69E5928](self);
-  type metadata accessor for HeadphoneDevice();
+  type metadata accessor for HeadphoneDevice(0);
   v4 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   Headphone_Manager.pendingConnectedHeadphones.setter(v4);
   MEMORY[0x1E69E5920](headphones);
@@ -227,7 +227,7 @@
   swift_getObjCClassMetadata();
   swift_getObjCClassMetadata();
   static Headphone_Manager.pairedHeadphones()();
-  type metadata accessor for HeadphoneDevice();
+  type metadata accessor for HeadphoneDevice(0);
   isa = Array._bridgeToObjectiveC()().super.isa;
 
   return isa;

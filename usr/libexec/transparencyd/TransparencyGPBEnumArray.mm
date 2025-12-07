@@ -18,10 +18,12 @@
 - (void)enumerateValuesWithOptions:(unint64_t)options usingBlock:(id)block;
 - (void)exchangeValueAtIndex:(unint64_t)index withValueAtIndex:(unint64_t)atIndex;
 - (void)insertRawValue:(int)value atIndex:(unint64_t)index;
+- (void)insertValue:(int)value atIndex:(unint64_t)index;
 - (void)internalResizeToCapacity:(unint64_t)capacity;
 - (void)removeAll;
 - (void)removeValueAtIndex:(unint64_t)index;
 - (void)replaceValueAtIndex:(unint64_t)index withRawValue:(int)value;
+- (void)replaceValueAtIndex:(unint64_t)index withValue:(int)value;
 @end
 
 @implementation TransparencyGPBEnumArray
@@ -486,6 +488,59 @@
       sub_100192C7C(autocreator, self);
     }
   }
+}
+
+- (void)insertValue:(int)value atIndex:(unint64_t)index
+{
+  v5 = *&value;
+  v7 = self->_count + 1;
+  if (v7 <= index)
+  {
+    [NSException raise:NSRangeException format:@"Index (%lu) beyond bounds (%lu)", index, v7];
+  }
+
+  if (((self->_validationFunc)(v5) & 1) == 0)
+  {
+    [NSException raise:NSInvalidArgumentException format:@"%@: Attempt to set an unknown enum value (%d)", objc_opt_class(), v5];
+  }
+
+  count = self->_count;
+  v9 = count + 1;
+  if (count + 1 > self->_capacity)
+  {
+    [(TransparencyGPBEnumArray *)self internalResizeToCapacity:(v9 & 0xFFFFFFFFFFFFFFF0) + 16];
+  }
+
+  self->_count = v9;
+  if (count != index)
+  {
+    memmove(&self->_values[index + 1], &self->_values[index], 4 * (count - index));
+  }
+
+  self->_values[index] = v5;
+  autocreator = self->_autocreator;
+  if (autocreator)
+  {
+
+    sub_100192C7C(autocreator, self);
+  }
+}
+
+- (void)replaceValueAtIndex:(unint64_t)index withValue:(int)value
+{
+  v4 = *&value;
+  count = self->_count;
+  if (count <= index)
+  {
+    [NSException raise:NSRangeException format:@"Index (%lu) beyond bounds (%lu)", index, count];
+  }
+
+  if (((self->_validationFunc)(v4) & 1) == 0)
+  {
+    [NSException raise:NSInvalidArgumentException format:@"%@: Attempt to set an unknown enum value (%d)", objc_opt_class(), v4];
+  }
+
+  self->_values[index] = v4;
 }
 
 @end

@@ -10,16 +10,16 @@
 
 @implementation TPSSize
 
-id __22__TPSSize_na_identity__block_invoke()
+id __22__TPSSize_na_identity__block_invoke(uint64_t a1)
 {
   if (TPSSizeHeightKey_block_invoke_na_once_token_0 != -1)
   {
     __22__TPSSize_na_identity__block_invoke_cold_1();
   }
 
-  v1 = TPSSizeHeightKey_block_invoke_na_once_object_0;
+  v2 = TPSSizeHeightKey_block_invoke_na_once_object_0;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __22__TPSSize_na_identity__block_invoke_2()
@@ -47,27 +47,13 @@ id __22__TPSSize_na_identity__block_invoke_3()
   v12.receiver = self;
   v12.super_class = TPSSize;
   v5 = [(TPSSerializableObject *)&v12 initWithDictionary:dictionaryCopy];
-  if (!v5)
-  {
-    goto LABEL_4;
-  }
-
-  v6 = [dictionaryCopy TPSSafeNumberForKey:@"width"];
-  width = v5->_width;
-  v5->_width = v6;
-
-  v8 = [dictionaryCopy TPSSafeNumberForKey:@"height"];
-  height = v5->_height;
-  v5->_height = v8;
-
-  if ([(NSNumber *)v5->_width intValue]< 1 || [(NSNumber *)v5->_height intValue]< 1)
+  if (v5 && (([dictionaryCopy TPSSafeNumberForKey:@"width"], v6 = objc_claimAutoreleasedReturnValue(), width = v5->_width, v5->_width = v6, width, objc_msgSend(dictionaryCopy, "TPSSafeNumberForKey:", @"height"), v8 = objc_claimAutoreleasedReturnValue(), height = v5->_height, v5->_height = v8, height, -[NSNumber intValue](v5->_width, "intValue") < 1) || -[NSNumber intValue](v5->_height, "intValue") < 1))
   {
     v10 = 0;
   }
 
   else
   {
-LABEL_4:
     v10 = v5;
   }
 

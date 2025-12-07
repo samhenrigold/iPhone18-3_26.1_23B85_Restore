@@ -13,7 +13,7 @@
 
 - (BLSHEnvironmentTransitionStateTarget)initWithSequenceID:(unint64_t)d backlightState:(int64_t)state triggerEvent:(id)event backlightRampBlock:(id)block forIdentifier:(id)identifier previousTarget:(id)target
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   blockCopy = block;
   identifierCopy = identifier;
@@ -44,17 +44,17 @@
       if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
       {
         v21 = NSStringFromBLSBacklightState();
-        v27 = 134219010;
+        v26 = 134219010;
         selfCopy2 = self;
-        v29 = 2114;
-        v30 = identifierCopy;
-        v31 = 2114;
-        v32 = v21;
-        v33 = 2114;
-        v34 = targetCopy;
-        v35 = 2114;
-        v36 = eventCopy;
-        _os_log_impl(&dword_21FD11000, v20, OS_LOG_TYPE_INFO, "ETS:%p:%{public}@ update to state:%{public}@ – inheriting old backlight ramp existingInProgress:%{public}@ – event:%{public}@", &v27, 0x34u);
+        v28 = 2114;
+        v29 = identifierCopy;
+        v30 = 2114;
+        v31 = v21;
+        v32 = 2114;
+        v33 = targetCopy;
+        v34 = 2114;
+        v35 = eventCopy;
+        _os_log_impl(&dword_21FD11000, v20, OS_LOG_TYPE_INFO, "ETS:%p:%{public}@ update to state:%{public}@ – inheriting old backlight ramp existingInProgress:%{public}@ – event:%{public}@", &v26, 0x34u);
       }
     }
   }
@@ -68,17 +68,17 @@
       if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
       {
         v23 = NSStringFromBLSBacklightState();
-        v27 = 134219010;
+        v26 = 134219010;
         selfCopy2 = self;
-        v29 = 2114;
-        v30 = identifierCopy;
-        v31 = 2114;
-        v32 = v23;
-        v33 = 2114;
-        v34 = targetCopy;
-        v35 = 2114;
-        v36 = eventCopy;
-        _os_log_impl(&dword_21FD11000, v22, OS_LOG_TYPE_INFO, "ETS:%p:%{public}@ update to state:%{public}@ – inheriting old triggerEvent existingInProgress:%{public}@ – event:%{public}@", &v27, 0x34u);
+        v28 = 2114;
+        v29 = identifierCopy;
+        v30 = 2114;
+        v31 = v23;
+        v32 = 2114;
+        v33 = targetCopy;
+        v34 = 2114;
+        v35 = eventCopy;
+        _os_log_impl(&dword_21FD11000, v22, OS_LOG_TYPE_INFO, "ETS:%p:%{public}@ update to state:%{public}@ – inheriting old triggerEvent existingInProgress:%{public}@ – event:%{public}@", &v26, 0x34u);
       }
     }
   }
@@ -91,7 +91,6 @@ LABEL_15:
 
   v24 = [(BLSHEnvironmentTransitionStateTarget *)self initWithSequenceID:d backlightState:state visualState:0 presentationDate:0 triggerEvent:eventCopy pendingBacklightRamp:pendingBacklightRamp];
 
-  v25 = *MEMORY[0x277D85DE8];
   return v24;
 }
 
@@ -255,19 +254,17 @@ id __51__BLSHEnvironmentTransitionStateTarget_description__block_invoke(uint64_t
 - (BOOL)isEqualToVisualState:(id)state presentationDate:(id)date
 {
   dateCopy = date;
-  visualState = self->_visualState;
   if (BSEqualObjects())
   {
-    presentationDate = self->_presentationDate;
-    v8 = BSEqualObjects();
+    v5 = BSEqualObjects();
   }
 
   else
   {
-    v8 = 0;
+    v5 = 0;
   }
 
-  return v8;
+  return v5;
 }
 
 @end

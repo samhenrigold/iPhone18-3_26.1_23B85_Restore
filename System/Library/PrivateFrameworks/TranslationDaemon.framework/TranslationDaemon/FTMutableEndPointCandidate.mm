@@ -4,6 +4,9 @@
 - (int)end_point_likelihood;
 - (int)processed_audio_duration_ms;
 - (int)return_code;
+- (void)setEnd_point_likelihood:(int)end_point_likelihood;
+- (void)setProcessed_audio_duration_ms:(int)processed_audio_duration_ms;
+- (void)setReturn_code:(int)return_code;
 - (void)setReturn_str:(id)return_str;
 - (void)setSession_id:(id)session_id;
 - (void)setSpeech_id:(id)speech_id;
@@ -56,6 +59,12 @@
   return intValue;
 }
 
+- (void)setReturn_code:(int)return_code
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInt:*&return_code];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
+}
+
 - (void)setReturn_str:(id)return_str
 {
   v4 = [return_str copy];
@@ -70,12 +79,24 @@
   return intValue;
 }
 
+- (void)setEnd_point_likelihood:(int)end_point_likelihood
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInt:*&end_point_likelihood];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
+}
+
 - (int)processed_audio_duration_ms
 {
   v2 = [(NSMutableDictionary *)self->super._storage objectForKeyedSubscript:@"processed_audio_duration_ms"];
   intValue = [v2 intValue];
 
   return intValue;
+}
+
+- (void)setProcessed_audio_duration_ms:(int)processed_audio_duration_ms
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInt:*&processed_audio_duration_ms];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
 @end

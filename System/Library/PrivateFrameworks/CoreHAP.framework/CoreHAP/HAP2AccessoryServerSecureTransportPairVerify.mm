@@ -84,7 +84,7 @@ void __64__HAP2AccessoryServerSecureTransportPairVerify__closeWithError___block_
 
 void __64__HAP2AccessoryServerSecureTransportPairVerify__closeWithError___block_invoke_2(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (hap2LogInitialize_onceToken != -1)
   {
@@ -97,16 +97,16 @@ void __64__HAP2AccessoryServerSecureTransportPairVerify__closeWithError___block_
     if (os_log_type_enabled(hap2Log_accessory, OS_LOG_TYPE_ERROR))
     {
       v4 = *(a1 + 32);
-      v7 = 138412290;
-      v8 = v4;
-      _os_log_error_impl(&dword_22AADC000, v3, OS_LOG_TYPE_ERROR, "Secure Transport: Failed to close transport: %@", &v7, 0xCu);
+      v6 = 138412290;
+      v7 = v4;
+      _os_log_error_impl(&dword_22AADC000, v3, OS_LOG_TYPE_ERROR, "Secure Transport: Failed to close transport: %@", &v6, 0xCu);
     }
   }
 
   else if (os_log_type_enabled(hap2Log_accessory, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v7) = 0;
-    _os_log_impl(&dword_22AADC000, v3, OS_LOG_TYPE_INFO, "Secure Transport: Closed transport", &v7, 2u);
+    LOWORD(v6) = 0;
+    _os_log_impl(&dword_22AADC000, v3, OS_LOG_TYPE_INFO, "Secure Transport: Closed transport", &v6, 2u);
   }
 
   v5 = [*(a1 + 40) stateChangeCompletion];
@@ -115,8 +115,6 @@ void __64__HAP2AccessoryServerSecureTransportPairVerify__closeWithError___block_
   {
     v5[2](v5, 0, *(a1 + 48), *(a1 + 32));
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sendSetupExchangeData:(id)data
@@ -223,7 +221,7 @@ void __62__HAP2AccessoryServerSecureTransportPairVerify__openTransport__block_in
 
 void __62__HAP2AccessoryServerSecureTransportPairVerify__openTransport__block_invoke_2(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (*(a1 + 32))
   {
     if (hap2LogInitialize_onceToken != -1)
@@ -234,10 +232,10 @@ void __62__HAP2AccessoryServerSecureTransportPairVerify__openTransport__block_in
     v2 = hap2Log_accessory;
     if (os_log_type_enabled(hap2Log_accessory, OS_LOG_TYPE_ERROR))
     {
-      v14 = *(a1 + 32);
-      v15 = 138412290;
-      v16 = v14;
-      _os_log_error_impl(&dword_22AADC000, v2, OS_LOG_TYPE_ERROR, "Secure Transport: Failed to open transport: %@", &v15, 0xCu);
+      v12 = *(a1 + 32);
+      v13 = 138412290;
+      v14 = v12;
+      _os_log_error_impl(&dword_22AADC000, v2, OS_LOG_TYPE_ERROR, "Secure Transport: Failed to open transport: %@", &v13, 0xCu);
     }
 
     v3 = [*(a1 + 40) stateChangeCompletion];
@@ -246,28 +244,25 @@ void __62__HAP2AccessoryServerSecureTransportPairVerify__openTransport__block_in
     {
       v3[2](v3, *(a1 + 56), *(a1 + 48), *(a1 + 32));
     }
-
-    v4 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
     if (*(a1 + 48))
     {
-      v5 = [HAP2AccessorySessionInfo alloc];
-      v6 = [*(a1 + 48) numIPAddresses];
-      v7 = [*(a1 + 48) numIPAddressesTried];
-      v8 = [*(a1 + 48) numBonjourNames];
-      v9 = [*(a1 + 48) ipAddress];
-      v10 = [*(a1 + 48) serviceName];
-      v11 = -[HAP2AccessorySessionInfo initWithNumIPs:numIPsTried:numBonjourNames:ipAddress:serviceName:resolveAttempted:](v5, "initWithNumIPs:numIPsTried:numBonjourNames:ipAddress:serviceName:resolveAttempted:", v6, v7, v8, v9, v10, [*(a1 + 48) resolveAttempted]);
-      [*(a1 + 40) setSessionInfo:v11];
+      v4 = [HAP2AccessorySessionInfo alloc];
+      v5 = [*(a1 + 48) numIPAddresses];
+      v6 = [*(a1 + 48) numIPAddressesTried];
+      v7 = [*(a1 + 48) numBonjourNames];
+      v8 = [*(a1 + 48) ipAddress];
+      v9 = [*(a1 + 48) serviceName];
+      v10 = -[HAP2AccessorySessionInfo initWithNumIPs:numIPsTried:numBonjourNames:ipAddress:serviceName:resolveAttempted:](v4, "initWithNumIPs:numIPsTried:numBonjourNames:ipAddress:serviceName:resolveAttempted:", v5, v6, v7, v8, v9, [*(a1 + 48) resolveAttempted]);
+      [*(a1 + 40) setSessionInfo:v10];
     }
 
-    v12 = *(a1 + 40);
-    v13 = *MEMORY[0x277D85DE8];
+    v11 = *(a1 + 40);
 
-    [v12 _secureTransport];
+    [v11 _secureTransport];
   }
 }
 
@@ -291,7 +286,7 @@ void __62__HAP2AccessoryServerSecureTransportPairVerify__openTransport__block_in
 
 void __82__HAP2AccessoryServerSecureTransportPairVerify_securitySession_didCloseWithError___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = [*(a1 + 40) securitySession];
   LODWORD(v2) = [v2 isEqual:v3];
@@ -311,7 +306,7 @@ void __82__HAP2AccessoryServerSecureTransportPairVerify_securitySession_didClose
       {
         v6 = *(a1 + 48);
         *buf = 138412290;
-        v19 = v6;
+        v18 = v6;
         _os_log_error_impl(&dword_22AADC000, v5, OS_LOG_TYPE_ERROR, "Secure Transport: Security session closed with error: %@", buf, 0xCu);
       }
     }
@@ -349,20 +344,20 @@ void __82__HAP2AccessoryServerSecureTransportPairVerify_securitySession_didClose
       if (os_log_type_enabled(hap2Log_accessory, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v19 = v10;
+        v18 = v10;
         _os_log_error_impl(&dword_22AADC000, v11, OS_LOG_TYPE_ERROR, "Secure Transport: Failed to open security session: %@", buf, 0xCu);
       }
 
       v12 = [*(a1 + 40) transport];
-      v15[0] = MEMORY[0x277D85DD0];
-      v15[1] = 3221225472;
-      v15[2] = __82__HAP2AccessoryServerSecureTransportPairVerify_securitySession_didCloseWithError___block_invoke_6;
-      v15[3] = &unk_2786D3918;
-      v15[4] = *(a1 + 40);
-      v16 = v10;
-      v17 = v7;
+      v14[0] = MEMORY[0x277D85DD0];
+      v14[1] = 3221225472;
+      v14[2] = __82__HAP2AccessoryServerSecureTransportPairVerify_securitySession_didCloseWithError___block_invoke_6;
+      v14[3] = &unk_2786D3918;
+      v14[4] = *(a1 + 40);
+      v15 = v10;
+      v16 = v7;
       v13 = v10;
-      [v12 closeWithError:v13 completion:v15];
+      [v12 closeWithError:v13 completion:v14];
     }
 
     else
@@ -370,8 +365,6 @@ void __82__HAP2AccessoryServerSecureTransportPairVerify_securitySession_didClose
       [*(a1 + 40) closeWithError:*(a1 + 48) completion:&__block_literal_global_5463];
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __82__HAP2AccessoryServerSecureTransportPairVerify_securitySession_didCloseWithError___block_invoke_6(id *a1, char a2, void *a3)

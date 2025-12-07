@@ -7,6 +7,7 @@
 - (float)gain;
 - (void)dealloc;
 - (void)setBandwidth:(float)bandwidth;
+- (void)setBypass:(BOOL)bypass;
 - (void)setFilterType:(AVAudioUnitEQFilterType)filterType;
 - (void)setFrequency:(float)frequency;
 - (void)setGain:(float)gain;
@@ -29,6 +30,24 @@
   }
 
   return v3;
+}
+
+- (void)setBypass:(BOOL)bypass
+{
+  v3 = bypass;
+  AVAudioNodeImplBase::GetAttachAndEngineLock(&v6, *(self->_impl + 1));
+  (*(*self->_impl + 48))(self->_impl, v3);
+  if (v9 == 1)
+  {
+    std::recursive_mutex::unlock(v8);
+  }
+
+  if (v7 == 1)
+  {
+    v5 = v6;
+
+    std::recursive_mutex::unlock(v5);
+  }
 }
 
 - (float)gain

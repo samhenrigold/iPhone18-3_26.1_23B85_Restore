@@ -37,7 +37,7 @@ uint64_t __92__MusicApplicationUIScrollViewAccessibility__accessibilityDrawsFocu
 
 - (id)_accessibilityScrollStatus
 {
-  v32 = *MEMORY[0x29EDCA608];
+  v31 = *MEMORY[0x29EDCA608];
   accessibilityIdentifier = [(MusicApplicationUIScrollViewAccessibility *)self accessibilityIdentifier];
   v4 = [accessibilityIdentifier isEqualToString:@"AXSyncedLyricsScrollView"];
 
@@ -48,33 +48,33 @@ uint64_t __92__MusicApplicationUIScrollViewAccessibility__accessibilityDrawsFocu
 
     if (_accessibilityViewController)
     {
-      v30 = 0;
+      v29 = 0;
       objc_opt_class();
       v7 = [_accessibilityViewController safeSwiftValueForKey:@"scrollView"];
       v8 = __UIAccessibilityCastAsClass();
 
       v9 = [_accessibilityViewController safeSwiftArrayForKey:@"lineViews"];
+      v25 = 0u;
       v26 = 0u;
       v27 = 0u;
       v28 = 0u;
-      v29 = 0u;
-      v10 = [v9 countByEnumeratingWithState:&v26 objects:v31 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v25 objects:v30 count:16];
       if (v10)
       {
         v11 = v10;
         v12 = 0;
-        v13 = *v27;
+        v13 = *v26;
         v14 = INFINITY;
         do
         {
           for (i = 0; i != v11; ++i)
           {
-            if (*v27 != v13)
+            if (*v26 != v13)
             {
               objc_enumerationMutation(v9);
             }
 
-            v16 = *(*(&v26 + 1) + 8 * i);
+            v16 = *(*(&v25 + 1) + 8 * i);
             [v8 contentOffset];
             v18 = v17;
             [v16 frame];
@@ -88,7 +88,7 @@ uint64_t __92__MusicApplicationUIScrollViewAccessibility__accessibilityDrawsFocu
             }
           }
 
-          v11 = [v9 countByEnumeratingWithState:&v26 objects:v31 count:16];
+          v11 = [v9 countByEnumeratingWithState:&v25 objects:v30 count:16];
         }
 
         while (v11);
@@ -102,11 +102,10 @@ uint64_t __92__MusicApplicationUIScrollViewAccessibility__accessibilityDrawsFocu
     }
   }
 
-  v25.receiver = self;
-  v25.super_class = MusicApplicationUIScrollViewAccessibility;
-  accessibilityLabel = [(MusicApplicationUIScrollViewAccessibility *)&v25 _accessibilityScrollStatus];
+  v24.receiver = self;
+  v24.super_class = MusicApplicationUIScrollViewAccessibility;
+  accessibilityLabel = [(MusicApplicationUIScrollViewAccessibility *)&v24 _accessibilityScrollStatus];
 LABEL_17:
-  v23 = *MEMORY[0x29EDCA608];
 
   return accessibilityLabel;
 }

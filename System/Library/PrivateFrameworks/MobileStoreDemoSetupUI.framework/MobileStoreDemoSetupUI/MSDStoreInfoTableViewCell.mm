@@ -7,10 +7,10 @@
 
 - (id)initSpinnerCellWithReuseIdentifier:(id)identifier
 {
-  v22[4] = *MEMORY[0x277D85DE8];
-  v21.receiver = self;
-  v21.super_class = MSDStoreInfoTableViewCell;
-  v3 = [(MSDStoreInfoTableViewCell *)&v21 initWithStyle:0 reuseIdentifier:identifier];
+  v21[4] = *MEMORY[0x277D85DE8];
+  v20.receiver = self;
+  v20.super_class = MSDStoreInfoTableViewCell;
+  v3 = [(MSDStoreInfoTableViewCell *)&v20 initWithStyle:0 reuseIdentifier:identifier];
   v4 = v3;
   if (v3)
   {
@@ -20,27 +20,26 @@
     [(MSDStoreInfoTableViewCell *)v4 addSubview:v5];
     centerXAnchor = [v5 centerXAnchor];
     centerXAnchor2 = [(MSDStoreInfoTableViewCell *)v4 centerXAnchor];
-    v18 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-    v22[0] = v18;
+    v17 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
+    v21[0] = v17;
     centerYAnchor = [v5 centerYAnchor];
     centerYAnchor2 = [(MSDStoreInfoTableViewCell *)v4 centerYAnchor];
     v6 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
-    v22[1] = v6;
+    v21[1] = v6;
     heightAnchor = [v5 heightAnchor];
     heightAnchor2 = [(MSDStoreInfoTableViewCell *)v4 heightAnchor];
     v9 = [heightAnchor constraintEqualToAnchor:heightAnchor2 multiplier:0.5];
-    v22[2] = v9;
+    v21[2] = v9;
     widthAnchor = [v5 widthAnchor];
     heightAnchor3 = [v5 heightAnchor];
     v12 = [widthAnchor constraintEqualToAnchor:heightAnchor3];
-    v22[3] = v12;
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:4];
+    v21[3] = v12;
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:4];
 
     [MEMORY[0x277CCAAD0] activateConstraints:v13];
     [v5 startAnimating];
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v4;
 }
 

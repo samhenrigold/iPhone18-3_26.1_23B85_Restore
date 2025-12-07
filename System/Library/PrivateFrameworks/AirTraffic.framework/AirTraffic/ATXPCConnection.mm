@@ -38,7 +38,7 @@
   return v4;
 }
 
-uint64_t __39__ATXPCConnection__outstandingMessages__block_invoke(uint64_t a1)
+void *__39__ATXPCConnection__outstandingMessages__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 48) count];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -150,8 +150,6 @@ void __48__ATXPCConnection__setEventHandlerOnConnection___block_invoke(uint64_t 
       }
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleLockdownMessage:(void *)message
@@ -176,7 +174,7 @@ void __48__ATXPCConnection__setEventHandlerOnConnection___block_invoke(uint64_t 
 
 - (void)shutdown
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = os_log_create("com.apple.amp.AirTraffic", "XPC");
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -195,13 +193,11 @@ void __48__ATXPCConnection__setEventHandlerOnConnection___block_invoke(uint64_t 
     barrier[4] = self;
     xpc_connection_send_barrier(conn, barrier);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleXPCError:(id)error
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   if (errorCopy == MEMORY[0x277D863F0])
   {
@@ -211,7 +207,7 @@ void __48__ATXPCConnection__setEventHandlerOnConnection___block_invoke(uint64_t 
       goto LABEL_12;
     }
 
-    v14 = 138543362;
+    v13 = 138543362;
     selfCopy2 = self;
     v10 = "XPC Connection interrupted %{public}@";
     goto LABEL_11;
@@ -231,9 +227,9 @@ void __48__ATXPCConnection__setEventHandlerOnConnection___block_invoke(uint64_t 
         v9 = string;
       }
 
-      v14 = 136315138;
+      v13 = 136315138;
       selfCopy2 = v9;
-      _os_log_impl(&dword_23EC61000, v6, OS_LOG_TYPE_ERROR, "Error: %s", &v14, 0xCu);
+      _os_log_impl(&dword_23EC61000, v6, OS_LOG_TYPE_ERROR, "Error: %s", &v13, 0xCu);
     }
 
     goto LABEL_14;
@@ -241,11 +237,11 @@ void __48__ATXPCConnection__setEventHandlerOnConnection___block_invoke(uint64_t 
 
   if (v7)
   {
-    v14 = 138543362;
+    v13 = 138543362;
     selfCopy2 = self;
     v10 = "XPC Connection invalid %{public}@";
 LABEL_11:
-    _os_log_impl(&dword_23EC61000, v6, OS_LOG_TYPE_ERROR, v10, &v14, 0xCu);
+    _os_log_impl(&dword_23EC61000, v6, OS_LOG_TYPE_ERROR, v10, &v13, 0xCu);
   }
 
 LABEL_12:
@@ -258,8 +254,6 @@ LABEL_12:
     self->_disconnectHandler = 0;
 LABEL_14:
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendMessage:(id)message withReply:(id)reply
@@ -301,7 +295,7 @@ LABEL_14:
 
 void __41__ATXPCConnection_sendMessage_withReply___block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = MEMORY[0x23EF202B0]();
   if (v4 == MEMORY[0x277D86480])
@@ -316,9 +310,9 @@ void __41__ATXPCConnection_sendMessage_withReply___block_invoke(uint64_t a1, voi
         v9 = string;
       }
 
-      v12 = 136315138;
-      v13 = v9;
-      _os_log_impl(&dword_23EC61000, v7, OS_LOG_TYPE_ERROR, "Reply Error: %s", &v12, 0xCu);
+      v11 = 136315138;
+      v12 = v9;
+      _os_log_impl(&dword_23EC61000, v7, OS_LOG_TYPE_ERROR, "Reply Error: %s", &v11, 0xCu);
     }
 
     (*(*(a1 + 40) + 16))();
@@ -338,19 +332,17 @@ void __41__ATXPCConnection_sendMessage_withReply___block_invoke(uint64_t a1, voi
       v6 = os_log_create("com.apple.amp.AirTraffic", "XPC");
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = 136315138;
-        v13 = _StringForXPCType(v5);
-        _os_log_impl(&dword_23EC61000, v6, OS_LOG_TYPE_DEFAULT, "Ignoring unexpected event of type %s", &v12, 0xCu);
+        v11 = 136315138;
+        v12 = _StringForXPCType(v5);
+        _os_log_impl(&dword_23EC61000, v6, OS_LOG_TYPE_DEFAULT, "Ignoring unexpected event of type %s", &v11, 0xCu);
       }
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sendMessage:(id)message handler:(id)handler
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   handlerCopy = handler;
   name = [messageCopy name];
@@ -385,13 +377,11 @@ void __41__ATXPCConnection_sendMessage_withReply___block_invoke(uint64_t a1, voi
     v13 = os_log_create("com.apple.amp.AirTraffic", "XPC");
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v16 = 138543362;
-      v17 = messageCopy;
-      _os_log_impl(&dword_23EC61000, v13, OS_LOG_TYPE_ERROR, "Sending message without a connection: %{public}@", &v16, 0xCu);
+      v15 = 138543362;
+      v16 = messageCopy;
+      _os_log_impl(&dword_23EC61000, v13, OS_LOG_TYPE_ERROR, "Sending message without a connection: %{public}@", &v15, 0xCu);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)eventQueue

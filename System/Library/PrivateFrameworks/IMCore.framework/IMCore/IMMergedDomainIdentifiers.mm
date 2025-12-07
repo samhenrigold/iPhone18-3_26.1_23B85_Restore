@@ -72,13 +72,12 @@
           v11 = v8;
           swift_beginAccess();
           selfCopy = self;
-          v13 = *(&self->super.isa + v10);
           isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-          v15 = *(&self->super.isa + v10);
+          v14 = *(&self->super.isa + v10);
           *(&self->super.isa + v10) = 0x8000000000000000;
           sub_1A848E25C(v6, v9, v11, isUniquelyReferenced_nonNull_native);
 
-          *(&self->super.isa + v10) = v15;
+          *(&self->super.isa + v10) = v14;
           swift_endAccess();
 
           return;
@@ -199,14 +198,12 @@ LABEL_6:
 
 - (NSArray)allChatGUIDs
 {
-  v3 = OBJC_IVAR___IMMergedDomainIdentifiers_mergedDomainIdentifiers;
   swift_beginAccess();
-  v4 = *(&self->super.isa + v3);
 
-  sub_1A84D6B24(v5);
-  v6 = sub_1A84E5FEC();
+  sub_1A84D6B24(v2);
+  v3 = sub_1A84E5FEC();
 
-  return v6;
+  return v3;
 }
 
 - (BOOL)isEmpty
@@ -218,17 +215,15 @@ LABEL_6:
 
 - (NSString)description
 {
-  v3 = OBJC_IVAR___IMMergedDomainIdentifiers_mergedDomainIdentifiers;
   swift_beginAccess();
-  v4 = *(&self->super.isa + v3);
   selfCopy = self;
 
   sub_1A83EA2FC(&qword_1EB2E88E8, &qword_1A8509AD8);
   sub_1A84E5D4C();
 
-  v6 = sub_1A84E5D8C();
+  v4 = sub_1A84E5D8C();
 
-  return v6;
+  return v4;
 }
 
 - (IMMergedDomainIdentifiers)mergedDomainIdentifiersWithLatestChatGUID:(id)d
@@ -256,16 +251,14 @@ LABEL_6:
 
 - (id)dictionaryRepresentation
 {
-  v3 = OBJC_IVAR___IMMergedDomainIdentifiers_mergedDomainIdentifiers;
   swift_beginAccess();
-  v4 = *(&self->super.isa + v3);
   selfCopy = self;
 
-  sub_1A84A5B50(v6);
+  sub_1A84A5B50(v4);
 
-  v7 = sub_1A84E5D2C();
+  v5 = sub_1A84E5D2C();
 
-  return v7;
+  return v5;
 }
 
 - (NSArray)allIdentifiers

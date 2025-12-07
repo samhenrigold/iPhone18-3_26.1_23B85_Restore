@@ -186,35 +186,35 @@
 
 + (id)constructFetchRequestPredicateForEventStreams:(id)streams predicate:(id)predicate deviceIDs:(id)ds
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   streamsCopy = streams;
   predicateCopy = predicate;
   dsCopy = ds;
   v10 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(streamsCopy, "count")}];
+  v35 = 0u;
   v36 = 0u;
   v37 = 0u;
   v38 = 0u;
-  v39 = 0u;
   v11 = streamsCopy;
-  v12 = [v11 countByEnumeratingWithState:&v36 objects:v42 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v35 objects:v41 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v37;
+    v14 = *v36;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v37 != v14)
+        if (*v36 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        name = [*(*(&v36 + 1) + 8 * i) name];
+        name = [*(*(&v35 + 1) + 8 * i) name];
         [v10 addObject:name];
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v36 objects:v42 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v35 objects:v41 count:16];
     }
 
     while (v13);
@@ -262,9 +262,9 @@ LABEL_16:
       if (predicateCopy)
       {
         v27 = MEMORY[0x1E696AB28];
-        v41[0] = predicateCopy;
-        v41[1] = v26;
-        v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:v41 count:2];
+        v40[0] = predicateCopy;
+        v40[1] = v26;
+        v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:v40 count:2];
         v29 = [v27 andPredicateWithSubpredicates:v28];
 
         predicateCopy = v29;
@@ -288,15 +288,13 @@ LABEL_19:
   {
     v30 = MEMORY[0x1E696AB28];
     v31 = [_DKQuery predicateForEventsWithStreamNames:v10];
-    v40[0] = v31;
-    v40[1] = predicateCopy;
-    v32 = [MEMORY[0x1E695DEC8] arrayWithObjects:v40 count:2];
+    v39[0] = v31;
+    v39[1] = predicateCopy;
+    v32 = [MEMORY[0x1E695DEC8] arrayWithObjects:v39 count:2];
     v33 = [v30 andPredicateWithSubpredicates:v32];
 
     predicateCopy = v33;
   }
-
-  v34 = *MEMORY[0x1E69E9840];
 
   return predicateCopy;
 }
@@ -556,16 +554,14 @@ LABEL_46:
 
 + (id)expressionForEventDuration
 {
-  v9[2] = *MEMORY[0x1E69E9840];
+  v8[2] = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E696ABC8] expressionForKeyPath:@"startDate.timeIntervalSinceReferenceDate"];
   v3 = [MEMORY[0x1E696ABC8] expressionForKeyPath:@"endDate.timeIntervalSinceReferenceDate"];
   v4 = MEMORY[0x1E696ABC8];
-  v9[0] = v3;
-  v9[1] = v2;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:2];
+  v8[0] = v3;
+  v8[1] = v2;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:2];
   v6 = [v4 expressionForFunction:@"from:subtract:" arguments:v5];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -596,11 +592,11 @@ LABEL_46:
 
 - (_DKEventQuery)initWithCoder:(id)coder
 {
-  v33[2] = *MEMORY[0x1E69E9840];
+  v32[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v31.receiver = self;
-  v31.super_class = _DKEventQuery;
-  v5 = [(_DKQuery *)&v31 initWithCoder:coderCopy];
+  v30.receiver = self;
+  v30.super_class = _DKEventQuery;
+  v5 = [(_DKQuery *)&v30 initWithCoder:coderCopy];
   if (v5)
   {
     v6 = MEMORY[0x1E695DFD8];
@@ -617,9 +613,9 @@ LABEL_46:
     v5->_offset = [coderCopy decodeInt64ForKey:@"offset"];
     v5->_limit = [coderCopy decodeInt64ForKey:@"limit"];
     v13 = MEMORY[0x1E695DFD8];
-    v33[0] = objc_opt_class();
-    v33[1] = objc_opt_class();
-    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:2];
+    v32[0] = objc_opt_class();
+    v32[1] = objc_opt_class();
+    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:2];
     v15 = [v13 setWithArray:v14];
 
     v16 = [coderCopy decodeObjectOfClasses:v15 forKey:@"sortDescriptors"];
@@ -627,9 +623,9 @@ LABEL_46:
     v5->_sortDescriptors = v16;
 
     v18 = MEMORY[0x1E695DFD8];
-    v32[0] = objc_opt_class();
-    v32[1] = objc_opt_class();
-    v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:2];
+    v31[0] = objc_opt_class();
+    v31[1] = objc_opt_class();
+    v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:2];
     v20 = [v18 setWithArray:v19];
 
     v21 = [coderCopy decodeObjectOfClasses:v20 forKey:@"groupByProperties"];
@@ -650,7 +646,6 @@ LABEL_46:
     v28 = v5;
   }
 
-  v29 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -693,53 +688,41 @@ LABEL_46:
 
 - (void)executeUsingCoreDataStorage:(uint64_t)a1 error:(void *)a2 .cold.1(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v2 = [a2 constructFetchRequestPredicate];
   OUTLINED_FUNCTION_2_20();
   OUTLINED_FUNCTION_0_33();
   _os_log_fault_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)executeUsingCoreDataStorage:(void *)a1 error:.cold.2(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(a1, "resultType")}];
   v3 = [a1 constructFetchRequestPredicate];
   OUTLINED_FUNCTION_2_20();
   OUTLINED_FUNCTION_0_33();
   _os_log_fault_impl(v4, v5, v6, v7, v8, 0x20u);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)executeUsingCoreDataStorage:error:.cold.5()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_191750000, v0, OS_LOG_TYPE_ERROR, "_DKBiomeQuery failure, error: %@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_191750000, v0, OS_LOG_TYPE_ERROR, "_DKBiomeQuery failure, error: %@", v1, 0xCu);
 }
 
 - (void)executeUsingCoreDataStorage:(void *)a1 error:.cold.6(void *a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
   [a1 count];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_11(&dword_191750000, v1, v2, "_DKBiomeQuery success, result count: %ld", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_11(&dword_191750000, v1, v2, "_DKBiomeQuery success, result count: %ld", v3, v4, v5, v6);
 }
 
 - (void)executeUsingCoreDataStorage:(void *)a1 error:.cold.7(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [a1 firstObject];
   [v1 unsignedIntegerValue];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_11(&dword_191750000, v2, v3, "_DKBiomeQuery success, count: %ld", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_11(&dword_191750000, v2, v3, "_DKBiomeQuery success, count: %ld", v4, v5, v6, v7);
 }
 
 @end

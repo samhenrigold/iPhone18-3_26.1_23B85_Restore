@@ -447,9 +447,9 @@ LABEL_9:
 - (void)wasAddedToCollection:(id)collection
 {
   collectionCopy = collection;
-  v16.receiver = self;
-  v16.super_class = FavoriteItem_Mailbox;
-  [(FavoriteItem *)&v16 wasAddedToCollection:collectionCopy];
+  v17.receiver = self;
+  v17.super_class = FavoriteItem_Mailbox;
+  [(FavoriteItem *)&v17 wasAddedToCollection:collectionCopy];
   if ([collectionCopy isMailboxesCollection])
   {
     representingMailbox = [(FavoriteItem_Mailbox *)self representingMailbox];
@@ -459,30 +459,30 @@ LABEL_9:
       pushedMailboxUids = [account pushedMailboxUids];
       v8 = [pushedMailboxUids containsObject:representingMailbox];
 
-      [(FavoriteItem_Mailbox *)self setOriginalPushState:v8];
+      v9 = [(FavoriteItem_Mailbox *)self setOriginalPushState:v8];
       if ((v8 & 1) == 0)
       {
-        v9 = sub_1000AA000();
-        v10 = _NSConcreteStackBlock;
-        v11 = 3221225472;
-        v12 = sub_1000AA044;
-        v13 = &unk_10064C660;
+        v10 = sub_1000AA000(v9);
+        v11 = _NSConcreteStackBlock;
+        v12 = 3221225472;
+        v13 = sub_1000AA044;
+        v14 = &unk_10064C660;
         selfCopy = self;
-        v15 = representingMailbox;
-        dispatch_async(v9, &v10);
+        v16 = representingMailbox;
+        dispatch_async(v10, &v11);
       }
     }
 
-    [(FavoriteItem_Mailbox *)self _postNotification:v10];
+    [(FavoriteItem_Mailbox *)self _postNotification:v11];
   }
 }
 
 - (void)wasRemovedFromCollecion:(id)collecion
 {
   collecionCopy = collecion;
-  v16.receiver = self;
-  v16.super_class = FavoriteItem_Mailbox;
-  [(FavoriteItem *)&v16 wasRemovedFromCollecion:collecionCopy];
+  v17.receiver = self;
+  v17.super_class = FavoriteItem_Mailbox;
+  [(FavoriteItem *)&v17 wasRemovedFromCollecion:collecionCopy];
   if ([collecionCopy isMailboxesCollection])
   {
     representingMailbox = [(FavoriteItem_Mailbox *)self representingMailbox];
@@ -494,21 +494,22 @@ LABEL_9:
 
       if (v8)
       {
-        if (![(FavoriteItem_Mailbox *)self originalPushState])
+        originalPushState = [(FavoriteItem_Mailbox *)self originalPushState];
+        if ((originalPushState & 1) == 0)
         {
-          v9 = sub_1000AA000();
-          v10 = _NSConcreteStackBlock;
-          v11 = 3221225472;
-          v12 = sub_1000AA25C;
-          v13 = &unk_10064C660;
+          v10 = sub_1000AA000(originalPushState);
+          v11 = _NSConcreteStackBlock;
+          v12 = 3221225472;
+          v13 = sub_1000AA25C;
+          v14 = &unk_10064C660;
           selfCopy = self;
-          v15 = representingMailbox;
-          dispatch_async(v9, &v10);
+          v16 = representingMailbox;
+          dispatch_async(v10, &v11);
         }
       }
     }
 
-    [(FavoriteItem_Mailbox *)self _postNotification:v10];
+    [(FavoriteItem_Mailbox *)self _postNotification:v11];
   }
 }
 

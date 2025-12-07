@@ -60,33 +60,33 @@
 
 - (id)tokenize:(id)tokenize
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   tokenizeCopy = tokenize;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     v5 = [tokenizeCopy componentsSeparatedByString:@" "];
     array = [MEMORY[0x277CBEB18] array];
+    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
     v7 = v5;
-    v8 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v23;
+      v10 = *v22;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v23 != v10)
+          if (*v22 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v22 + 1) + 8 * i);
+          v12 = *(*(&v21 + 1) + 8 * i);
           if ([v12 length])
           {
             knownListDB = [(FedStatsCategoricalTypeSampleTokenizer *)self knownListDB];
@@ -99,7 +99,7 @@
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
       while (v9);
@@ -120,7 +120,7 @@
         v18 = 0;
         do
         {
-          v19 = [v15 substringWithRange:{v18, 1, v22}];
+          v19 = [v15 substringWithRange:{v18, 1, v21}];
           [v17 addObject:v19];
 
           ++v18;
@@ -140,8 +140,6 @@
   {
     v17 = 0;
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
@@ -170,11 +168,10 @@
 
 - (void)tokenize:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_24AAFE000, a2, OS_LOG_TYPE_DEBUG, "Sample random word: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_24AAFE000, a2, OS_LOG_TYPE_DEBUG, "Sample random word: %@", &v2, 0xCu);
 }
 
 @end

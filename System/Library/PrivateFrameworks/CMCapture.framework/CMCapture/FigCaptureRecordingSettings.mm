@@ -49,7 +49,7 @@
   [coder encodeObject:-[FigCaptureRecordingSettings outputFileType](self forKey:{"outputFileType"), @"outputFileType"}];
   if (self)
   {
-    [(FigCaptureRecordingSettings *)self maxDuration];
+    objc_msgSend_maxDuration(self);
   }
 
   else

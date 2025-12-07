@@ -123,24 +123,22 @@
 
 + (void)mpsNeurontypeFrom:(int)a1 .cold.1(int a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 136315394;
-  v4 = "+[_MLCGPUNeuron mpsNeurontypeFrom:]";
-  v5 = 1024;
-  v6 = a1;
-  _os_log_error_impl(&dword_238C1D000, a2, OS_LOG_TYPE_ERROR, "%s: Unknown neuron type %d", &v3, 0x12u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 136315394;
+  v3 = "+[_MLCGPUNeuron mpsNeurontypeFrom:]";
+  v4 = 1024;
+  v5 = a1;
+  _os_log_error_impl(&dword_238C1D000, a2, OS_LOG_TYPE_ERROR, "%s: Unknown neuron type %d", &v2, 0x12u);
 }
 
 + (void)createMPSNeuronDescriptorWith:(os_log_t)log .cold.1(os_log_t log)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = 136315394;
-  v3 = "+[_MLCGPUNeuron createMPSNeuronDescriptorWith:]";
-  v4 = 1024;
-  v5 = 16;
-  _os_log_error_impl(&dword_238C1D000, log, OS_LOG_TYPE_ERROR, "%s: Unknown MPS neuron type %d", &v2, 0x12u);
-  v1 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
+  v1 = 136315394;
+  v2 = "+[_MLCGPUNeuron createMPSNeuronDescriptorWith:]";
+  v3 = 1024;
+  v4 = 16;
+  _os_log_error_impl(&dword_238C1D000, log, OS_LOG_TYPE_ERROR, "%s: Unknown MPS neuron type %d", &v1, 0x12u);
 }
 
 @end

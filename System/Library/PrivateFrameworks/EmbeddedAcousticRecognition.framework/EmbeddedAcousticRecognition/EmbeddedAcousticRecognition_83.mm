@@ -8,23 +8,23 @@ void sub_1B562F8C4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-int32x2_t *kaldi::SimpleWaveformReader::SimpleWaveformReader(int32x2_t *result, uint64_t a2, float32x2_t *a3, __int8 a4)
+int32x2_t *kaldi::SimpleWaveformReader::SimpleWaveformReader(int32x2_t *a1, uint64_t a2, float32x2_t *a3, __int8 a4)
 {
-  *result = &unk_1F2D214A8;
-  result[1] = a2;
+  *a1 = &unk_1F2D214A8;
+  a1[1] = a2;
   v4 = *a3;
-  result[2] = vcvt_s32_f32(*a3);
+  a1[2] = vcvt_s32_f32(*a3);
   if (vmvn_s8(vceq_f32(v4, vdup_lane_s32(v4, 1))).u32[0])
   {
     operator new();
   }
 
-  result[3] = 0;
-  result[4].i8[0] = a4;
-  return result;
+  a1[3] = 0;
+  a1[4].i8[0] = a4;
+  return a1;
 }
 
-uint64_t kaldi::SimpleWaveformReader::Compute(uint64_t a1, uint64_t *a2)
+uint64_t kaldi::SimpleWaveformReader::Compute(uint64_t a1, char ***a2)
 {
   v3 = *a2;
   v4 = kaldi::MatrixBase<float>::NumRows(*a2);
@@ -43,7 +43,7 @@ uint64_t kaldi::SimpleWaveformReader::Compute(uint64_t a1, uint64_t *a2)
 
   else
   {
-    v21 = 0;
+    v21.__locale_ = 0;
     v22 = 0;
     v23 = 0;
     kaldi::Vector<float>::Resize(&v21, v5, 1);
@@ -67,10 +67,10 @@ uint64_t kaldi::SimpleWaveformReader::Compute(uint64_t a1, uint64_t *a2)
     v12 = (*(*a1 + 8))(a1);
     v13 = (*(*a1 + 8))(a1);
     kaldi::Vector<float>::Resize(v10, ((v9 + v11 - 1) / v12 * v13), 2);
-    v14 = *(v10 + 2);
+    locale = v10[1].__locale_;
     v15 = (*(*a1 + 8))(a1);
     v16 = (*(*a1 + 8))(a1);
-    kaldi::Matrix<float>::Resize(v3, (v14 / v15), v16, 0, 0);
+    kaldi::Matrix<float>::Resize(v3, (locale / v15), v16, 0, 0);
     kaldi::MatrixBase<float>::CopyRowsFromVec(v3, v10);
     if (*(a1 + 32) == 1)
     {
@@ -84,9 +84,9 @@ uint64_t kaldi::SimpleWaveformReader::Compute(uint64_t a1, uint64_t *a2)
   return v6;
 }
 
-void sub_1B562FC78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1B562FC78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   kaldi::KaldiWarnMessage::~KaldiWarnMessage(va);
   _Unwind_Resume(a1);
 }
@@ -174,7 +174,7 @@ void kaldi::OnlineCmnInput::~OnlineCmnInput(kaldi::OnlineCmnInput *this)
   JUMPOUT(0x1B8C85350);
 }
 
-uint64_t kaldi::OnlineCmvnInput::Compute(void *a1, uint64_t *a2)
+uint64_t kaldi::OnlineCmvnInput::Compute(void *a1, char ***a2)
 {
   v3 = *a2;
   v4 = kaldi::MatrixBase<float>::NumRows(*a2);
@@ -307,9 +307,9 @@ LABEL_9:
   return v5;
 }
 
-void sub_1B5630398(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_1B5630398(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   kaldi::Matrix<float>::~Matrix(va);
   _Unwind_Resume(a1);
 }
@@ -562,9 +562,9 @@ uint64_t kaldi::OnlineSubsampleFe::Compute(uint64_t a1, __int128 *a2)
   return v13;
 }
 
-void sub_1B56309A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_1B56309A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   kaldi::Matrix<float>::~Matrix(va);
   _Unwind_Resume(a1);
 }
@@ -595,7 +595,7 @@ uint64_t kaldi::OnlineLdaInput::OnlineLdaInput(uint64_t a1, uint64_t a2, uint64_
   v9 = a4 + a5 + 1;
   if (kaldi::MatrixBase<float>::NumCols(a3) == *(a1 + 16) * v9)
   {
-    kaldi::Matrix<float>::operator=((a1 + 32), a3);
+    kaldi::Matrix<float>::operator=(a1 + 32, a3);
   }
 
   else
@@ -609,7 +609,7 @@ uint64_t kaldi::OnlineLdaInput::OnlineLdaInput(uint64_t a1, uint64_t a2, uint64_
 
     v10 = kaldi::MatrixBase<float>::NumRows(a3);
     v11 = kaldi::MatrixBase<float>::NumCols(a3);
-    kaldi::Matrix<float>::Resize(a1 + 32, v10, (v11 - 1), 0, 0);
+    kaldi::Matrix<float>::Resize((a1 + 32), v10, (v11 - 1), 0, 0);
     LODWORD(v10) = kaldi::MatrixBase<float>::NumRows(a3);
     v12 = kaldi::MatrixBase<float>::NumCols(a3);
     kaldi::SubMatrix<float>::SubMatrix(v16, a3, 0, v10, 0, v12 - 1);
@@ -632,7 +632,7 @@ void sub_1B5630C1C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void kaldi::OnlineLdaInput::SpliceFrames(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4, uint64_t a5)
+void kaldi::OnlineLdaInput::SpliceFrames(uint64_t *a1, uint64_t *a2, uint64_t a3, unsigned int a4, uint64_t a5)
 {
   v10 = kaldi::MatrixBase<float>::NumRows(a1);
   v11 = kaldi::MatrixBase<float>::NumRows(a2) + v10;
@@ -693,7 +693,7 @@ void kaldi::OnlineLdaInput::SpliceFrames(uint64_t a1, uint64_t a2, uint64_t a3, 
         kaldi::MatrixBase<float>::NumCols(a5);
         v49 = 0;
         v50 = 0;
-        v47 = v23 + v18 * v24 + v21;
+        v47 = &v23[v18 * v24 + v21];
         v48 = v42;
         if (v20 >= v41)
         {
@@ -710,7 +710,7 @@ void kaldi::OnlineLdaInput::SpliceFrames(uint64_t a1, uint64_t a2, uint64_t a3, 
           else
           {
             v28 = *a2;
-            v29 = *(a2 + 16);
+            v29 = *(a2 + 4);
             v30 = kaldi::MatrixBase<float>::NumCols(a2);
             v45 = 0;
             v46 = 0;
@@ -724,7 +724,7 @@ void kaldi::OnlineLdaInput::SpliceFrames(uint64_t a1, uint64_t a2, uint64_t a3, 
         else
         {
           v25 = *a1;
-          v26 = *(a1 + 16);
+          v26 = *(a1 + 4);
           v27 = kaldi::MatrixBase<float>::NumCols(a1);
           v45 = 0;
           v46 = 0;
@@ -747,7 +747,7 @@ void kaldi::OnlineLdaInput::SpliceFrames(uint64_t a1, uint64_t a2, uint64_t a3, 
   }
 }
 
-void kaldi::OnlineLdaInput::TransformToOutput(uint64_t a1, uint64_t a2, uint64_t *a3)
+void kaldi::OnlineLdaInput::TransformToOutput(uint64_t a1, uint64_t a2, char **a3)
 {
   if (kaldi::MatrixBase<float>::NumRows(a2))
   {
@@ -799,7 +799,7 @@ uint64_t kaldi::OnlineLdaInput::Compute(uint64_t a1, __int128 *a2)
         v22 = *(a1 + 20);
         if (v22)
         {
-          kaldi::Matrix<float>::Resize(a1 + 96, v22, *(a1 + 16), 0, 0);
+          kaldi::Matrix<float>::Resize((a1 + 96), v22, *(a1 + 16), 0, 0);
           if (*(a1 + 20) >= 1)
           {
             v23 = 0;
@@ -871,7 +871,7 @@ uint64_t kaldi::OnlineLdaInput::Compute(uint64_t a1, __int128 *a2)
 
             v35 = 0;
             v36 = 0;
-            v33 = (v15 + 4 * v16 * (v14 - 1));
+            v33 = v15 + 4 * v16 * (v14 - 1);
             v34 = v17;
             kaldi::VectorBase<float>::CopyFromVec(&v29, &v33);
             ++v10;
@@ -883,7 +883,7 @@ uint64_t kaldi::OnlineLdaInput::Compute(uint64_t a1, __int128 *a2)
     }
 
     kaldi::Matrix<float>::Matrix(&v29);
-    kaldi::OnlineLdaInput::SpliceFrames(a1 + 96, v40, &v37, *(a1 + 20) + *(a1 + 24) + 1, &v29);
+    kaldi::OnlineLdaInput::SpliceFrames((a1 + 96), v40, &v37, *(a1 + 20) + *(a1 + 24) + 1, &v29);
     kaldi::OnlineLdaInput::TransformToOutput(a1, &v29, v4);
     kaldi::OnlineLdaInput::ComputeNextRemainder(a1, v40);
     kaldi::Matrix<float>::~Matrix(&v29);
@@ -900,26 +900,26 @@ uint64_t kaldi::OnlineLdaInput::Compute(uint64_t a1, __int128 *a2)
   return v8;
 }
 
-void sub_1B563138C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B563138C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
   v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
   kaldi::Matrix<float>::~Matrix(va);
   kaldi::Matrix<float>::~Matrix(va1);
   _Unwind_Resume(a1);
 }
 
-void kaldi::OnlineLdaInput::ComputeNextRemainder(_DWORD *a1, uint64_t a2)
+void kaldi::OnlineLdaInput::ComputeNextRemainder(uint64_t a1, uint64_t *a2)
 {
-  v4 = a1[6] + a1[5];
-  v5 = kaldi::MatrixBase<float>::NumRows((a1 + 24));
+  v4 = *(a1 + 24) + *(a1 + 20);
+  v5 = kaldi::MatrixBase<float>::NumRows(a1 + 96);
   v6 = kaldi::MatrixBase<float>::NumRows(a2) + v5;
   if (v6 >= v4)
   {
@@ -933,8 +933,8 @@ void kaldi::OnlineLdaInput::ComputeNextRemainder(_DWORD *a1, uint64_t a2)
 
   if (v7)
   {
-    kaldi::Matrix<float>::Matrix(v25, v7, a1[4], 0, 0);
-    v17 = kaldi::MatrixBase<float>::NumRows((a1 + 24));
+    kaldi::Matrix<float>::Matrix(v25, v7, *(a1 + 16), 0, 0);
+    v17 = kaldi::MatrixBase<float>::NumRows(a1 + 96);
     v8 = kaldi::MatrixBase<float>::NumRows(a2);
     if (v7 >= 1)
     {
@@ -950,7 +950,7 @@ void kaldi::OnlineLdaInput::ComputeNextRemainder(_DWORD *a1, uint64_t a2)
         if (v10 >= v17)
         {
           v15 = *a2;
-          v16 = *(a2 + 16);
+          v16 = *(a2 + 4);
           v14 = kaldi::MatrixBase<float>::NumCols(a2);
           v20 = 0;
           v21 = 0;
@@ -959,9 +959,9 @@ void kaldi::OnlineLdaInput::ComputeNextRemainder(_DWORD *a1, uint64_t a2)
 
         else
         {
-          v12 = *(a1 + 12);
-          v13 = a1[28];
-          v14 = kaldi::MatrixBase<float>::NumCols((a1 + 24));
+          v12 = *(a1 + 96);
+          v13 = *(a1 + 112);
+          v14 = kaldi::MatrixBase<float>::NumCols(a1 + 96);
           v20 = 0;
           v21 = 0;
           v18 = (v12 + 4 * v13 * v10);
@@ -978,20 +978,20 @@ void kaldi::OnlineLdaInput::ComputeNextRemainder(_DWORD *a1, uint64_t a2)
       while (v7);
     }
 
-    kaldi::Matrix<float>::operator=(a1 + 24, v25);
+    kaldi::Matrix<float>::operator=(a1 + 96, v25);
     kaldi::Matrix<float>::~Matrix(v25);
   }
 
   else
   {
 
-    kaldi::Matrix<float>::Resize((a1 + 24), 0, 0, 0, 0);
+    kaldi::Matrix<float>::Resize((a1 + 96), 0, 0, 0, 0);
   }
 }
 
-void sub_1B56315B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_1B56315B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   kaldi::Matrix<float>::~Matrix(va);
   _Unwind_Resume(a1);
 }
@@ -1001,7 +1001,7 @@ uint64_t kaldi::OnlineLdaInput::NextSegment(uint64_t a1)
   v2 = (*(**(a1 + 8) + 40))(*(a1 + 8));
   if (v2)
   {
-    kaldi::Matrix<float>::Resize(a1 + 96, 0, 0, 0, 0);
+    kaldi::Matrix<float>::Resize((a1 + 96), 0, 0, 0, 0);
   }
 
   return v2;
@@ -1018,7 +1018,7 @@ uint64_t kaldi::OnlineTransformInput::OnlineTransformInput(uint64_t a1, uint64_t
   *(a1 + 80) = 0;
   if (kaldi::MatrixBase<float>::NumCols(a3) == *(a1 + 16))
   {
-    kaldi::Matrix<float>::operator=((a1 + 24), a3);
+    kaldi::Matrix<float>::operator=(a1 + 24, a3);
     kaldi::Vector<float>::Resize((a1 + 64), 0, 0);
   }
 
@@ -1032,7 +1032,7 @@ uint64_t kaldi::OnlineTransformInput::OnlineTransformInput(uint64_t a1, uint64_t
     }
 
     v5 = kaldi::MatrixBase<float>::NumRows(a3);
-    kaldi::Matrix<float>::Resize(a1 + 24, v5, *(a1 + 16), 0, 0);
+    kaldi::Matrix<float>::Resize((a1 + 24), v5, *(a1 + 16), 0, 0);
     v6 = kaldi::MatrixBase<float>::NumRows(a3);
     kaldi::SubMatrix<float>::SubMatrix(v9, a3, 0, v6, 0, *(a1 + 16));
     kaldi::MatrixBase<float>::CopyFromMat<float>((a1 + 24), v9, 111);
@@ -1092,9 +1092,9 @@ uint64_t kaldi::OnlineTransformInput::Compute(uint64_t a1, uint64_t a2)
   return v13;
 }
 
-void sub_1B56319F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_1B56319F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   kaldi::Matrix<float>::~Matrix(va);
   _Unwind_Resume(a1);
 }
@@ -1123,7 +1123,7 @@ uint64_t kaldi::OnlineBufferingInput::NextSegment(uint64_t a1, uint64_t a2)
   v5 = (*(**(a1 + 8) + 40))(*(a1 + 8), a2);
   if (v5)
   {
-    kaldi::Matrix<float>::Resize(a1 + 16, 0, 0, 0, 0);
+    kaldi::Matrix<float>::Resize((a1 + 16), 0, 0, 0, 0);
     *(a1 + 56) = 0;
     *(a1 + 60) = 1;
   }
@@ -1200,7 +1200,7 @@ uint64_t kaldi::OnlineSpliceInput::NextSegment(uint64_t a1)
   v2 = (*(**(a1 + 8) + 40))(*(a1 + 8));
   if (v2)
   {
-    kaldi::Matrix<float>::Resize(a1 + 32, 0, 0, 0, 0);
+    kaldi::Matrix<float>::Resize((a1 + 32), 0, 0, 0, 0);
   }
 
   return v2;
@@ -1211,13 +1211,13 @@ uint64_t kaldi::OnlineSpliceBatchInput::NextSegment(uint64_t a1)
   v2 = (*(**(a1 + 24) + 40))(*(a1 + 24));
   if (v2)
   {
-    kaldi::Matrix<float>::Resize(a1 + 48, 0, 0, 0, 0);
+    kaldi::Matrix<float>::Resize((a1 + 48), 0, 0, 0, 0);
   }
 
   return v2;
 }
 
-BOOL kaldi::OnlineRecordedInput::Compute(_DWORD *a1, int **a2)
+BOOL kaldi::OnlineRecordedInput::Compute(_DWORD *a1, char ***a2)
 {
   v3 = *a2;
   v4 = a1[2];
@@ -1300,7 +1300,7 @@ void sub_1B5632204(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void kaldi::OnlineCacheInput::GetCachedData(uint64_t a1, uint64_t a2, uint64_t a3)
+void kaldi::OnlineCacheInput::GetCachedData(uint64_t a1, char **a2, char **a3)
 {
   std::mutex::lock((a1 + 40));
   if (*(a1 + 128) == 1)
@@ -1456,7 +1456,7 @@ uint64_t kaldi::OnlineDeltaInput::OnlineDeltaInput(uint64_t a1, void *a2, uint64
   return a1;
 }
 
-void kaldi::OnlineDeltaInput::AppendFrames(int *a1, int *a2, int *a3, uint64_t a4)
+void kaldi::OnlineDeltaInput::AppendFrames(int *a1, int *a2, int *a3, char **a4)
 {
   v8 = kaldi::MatrixBase<float>::NumRows(a1);
   v9 = kaldi::MatrixBase<float>::NumRows(a2);
@@ -1518,27 +1518,27 @@ void kaldi::OnlineDeltaInput::AppendFrames(int *a1, int *a2, int *a3, uint64_t a
   }
 }
 
-void sub_1B56327D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1B56327D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   quasar::Bitmap::~Bitmap(va);
   _Unwind_Resume(a1);
 }
 
-void kaldi::OnlineDeltaInput::DeltaComputation(_DWORD *a1, uint64_t a2, uint64_t a3, int *a4)
+void kaldi::OnlineDeltaInput::DeltaComputation(unsigned int *a1, uint64_t a2, uint64_t a3, char **a4)
 {
   v8 = kaldi::MatrixBase<float>::NumRows(a2);
   v9 = v8;
   v10 = a1[6];
   v11 = a1[4] * a1[5];
-  if (2 * v11 >= v8)
+  if ((2 * v11) >= v8)
   {
     v12 = v8;
   }
 
   else
   {
-    v12 = (2 * v11);
+    v12 = 2 * v11;
   }
 
   v13 = (*(*a1 + 8))(a1);
@@ -1555,7 +1555,7 @@ void kaldi::OnlineDeltaInput::DeltaComputation(_DWORD *a1, uint64_t a2, uint64_t
     quasar::Bitmap::~Bitmap(&v21);
   }
 
-  v14 = (v9 - 2 * v11);
+  v14 = v9 - 2 * v11;
   if (v14 < 1)
   {
     kaldi::Matrix<float>::Resize(a3, 0, 0, 0, 0);
@@ -1584,23 +1584,23 @@ void kaldi::OnlineDeltaInput::DeltaComputation(_DWORD *a1, uint64_t a2, uint64_t
   }
 }
 
-void sub_1B56329B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1B56329B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   quasar::Bitmap::~Bitmap(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t kaldi::OnlineDeltaInput::Compute(uint64_t (****a1)(void), __int128 *a2)
+uint64_t kaldi::OnlineDeltaInput::Compute(uint64_t a1, __int128 *a2)
 {
   v4 = *a2;
   kaldi::MatrixBase<float>::NumRows(*a2);
   kaldi::MatrixBase<float>::NumCols(v4);
-  ((*a1)[1])(a1);
+  (*(*a1 + 8))(a1);
   v5 = kaldi::MatrixBase<float>::NumRows(v4);
-  kaldi::Matrix<float>::Matrix(v40, v5, *(a1 + 6), 0, 0);
+  kaldi::Matrix<float>::Matrix(v40, v5, *(a1 + 24), 0, 0);
   *a2 = v40;
-  v6 = a1[1];
+  v6 = *(a1 + 8);
   v7 = a2[1];
   v37 = *a2;
   v38 = v7;
@@ -1612,24 +1612,24 @@ uint64_t kaldi::OnlineDeltaInput::Compute(uint64_t (****a1)(void), __int128 *a2)
     v8 = 1;
   }
 
-  else if ((kaldi::MatrixBase<float>::NumRows(v40) != 0) | v8 & 1 || kaldi::MatrixBase<float>::NumRows((a1 + 4)))
+  else if ((kaldi::MatrixBase<float>::NumRows(v40) != 0) | v8 & 1 || kaldi::MatrixBase<float>::NumRows(a1 + 32))
   {
-    if (!kaldi::MatrixBase<float>::NumRows((a1 + 4)))
+    if (!kaldi::MatrixBase<float>::NumRows(a1 + 32))
     {
       if (kaldi::MatrixBase<float>::NumRows(v40))
       {
-        v22 = (*(a1 + 5) * *(a1 + 4));
+        v22 = (*(a1 + 20) * *(a1 + 16));
         if (v22)
         {
-          kaldi::Matrix<float>::Resize((a1 + 4), v22, *(a1 + 6), 0, 0);
-          if (*(a1 + 5) * *(a1 + 4) >= 1)
+          kaldi::Matrix<float>::Resize((a1 + 32), v22, *(a1 + 24), 0, 0);
+          if (*(a1 + 20) * *(a1 + 16) >= 1)
           {
             v23 = 0;
             do
             {
-              v24 = a1[4];
-              v25 = *(a1 + 12);
-              v26 = kaldi::MatrixBase<float>::NumCols((a1 + 4));
+              v24 = *(a1 + 32);
+              v25 = *(a1 + 48);
+              v26 = kaldi::MatrixBase<float>::NumCols(a1 + 32);
               *&v38 = 0;
               *&v37 = v24 + 4 * v25 * v23;
               *(&v37 + 1) = v26;
@@ -1643,7 +1643,7 @@ uint64_t kaldi::OnlineDeltaInput::Compute(uint64_t (****a1)(void), __int128 *a2)
               ++v23;
             }
 
-            while (v23 < *(a1 + 5) * *(a1 + 4));
+            while (v23 < *(a1 + 20) * *(a1 + 16));
           }
         }
       }
@@ -1652,11 +1652,11 @@ uint64_t kaldi::OnlineDeltaInput::Compute(uint64_t (****a1)(void), __int128 *a2)
     kaldi::Matrix<float>::Matrix(&v37);
     if ((v8 & 1) == 0)
     {
-      v9 = (*(a1 + 5) * *(a1 + 4));
+      v9 = (*(a1 + 20) * *(a1 + 16));
       if (v9 >= 1)
       {
-        kaldi::Matrix<float>::Resize(&v37, v9, *(a1 + 6), 0, 0);
-        if (*(a1 + 5) * *(a1 + 4) >= 1)
+        kaldi::Matrix<float>::Resize(&v37, v9, *(a1 + 24), 0, 0);
+        if (*(a1 + 20) * *(a1 + 16) >= 1)
         {
           v10 = 0;
           do
@@ -1670,10 +1670,10 @@ uint64_t kaldi::OnlineDeltaInput::Compute(uint64_t (****a1)(void), __int128 *a2)
               v32 = 0;
               v29 = (v18 + 4 * v19 * v10);
               v30 = v20;
-              v14 = kaldi::MatrixBase<float>::NumRows((a1 + 4));
-              v15 = a1[4];
-              v16 = *(a1 + 12);
-              v17 = kaldi::MatrixBase<float>::NumCols((a1 + 4));
+              v14 = kaldi::MatrixBase<float>::NumRows(a1 + 32);
+              v15 = *(a1 + 32);
+              v16 = *(a1 + 48);
+              v17 = kaldi::MatrixBase<float>::NumCols(a1 + 32);
             }
 
             else
@@ -1693,20 +1693,20 @@ uint64_t kaldi::OnlineDeltaInput::Compute(uint64_t (****a1)(void), __int128 *a2)
 
             v35 = 0;
             v36 = 0;
-            v33 = v15 + 4 * v16 * (v14 - 1);
+            v33 = (v15 + 4 * v16 * (v14 - 1));
             v34 = v17;
             kaldi::VectorBase<float>::CopyFromVec(&v29, &v33);
             ++v10;
           }
 
-          while (v10 < *(a1 + 5) * *(a1 + 4));
+          while (v10 < *(a1 + 20) * *(a1 + 16));
         }
       }
     }
 
     kaldi::Matrix<float>::Matrix(&v29);
-    kaldi::OnlineDeltaInput::AppendFrames(a1 + 8, v40, &v37, &v29);
-    kaldi::OnlineDeltaInput::DeltaComputation(a1, &v29, v4, a1 + 8);
+    kaldi::OnlineDeltaInput::AppendFrames((a1 + 32), v40, &v37, &v29);
+    kaldi::OnlineDeltaInput::DeltaComputation(a1, &v29, v4, (a1 + 32));
     kaldi::Matrix<float>::~Matrix(&v29);
     kaldi::Matrix<float>::~Matrix(&v37);
   }
@@ -1721,17 +1721,17 @@ uint64_t kaldi::OnlineDeltaInput::Compute(uint64_t (****a1)(void), __int128 *a2)
   return v8;
 }
 
-void sub_1B5632DAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B5632DAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
   v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
   kaldi::Matrix<float>::~Matrix(va);
   kaldi::Matrix<float>::~Matrix(va1);
   _Unwind_Resume(a1);
@@ -1742,7 +1742,7 @@ uint64_t kaldi::OnlineDeltaInput::NextSegment(uint64_t a1)
   v2 = (*(**(a1 + 8) + 40))(*(a1 + 8));
   if (v2)
   {
-    kaldi::Matrix<float>::Resize(a1 + 32, 0, 0, 0, 0);
+    kaldi::Matrix<float>::Resize((a1 + 32), 0, 0, 0, 0);
   }
 
   return v2;
@@ -1769,9 +1769,9 @@ void kaldi::OnlineNnetForwardInput::ResetForStreaming(kaldi::OnlineNnetForwardIn
   }
 }
 
-void sub_1B5632F4C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B5632F4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   kaldi::KaldiVlogMessage::~KaldiVlogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -1797,7 +1797,7 @@ uint64_t kaldi::OnlineNnetForwardInput::NextSegment(void **a1, _DWORD *a2)
   return v4;
 }
 
-void kaldi::GasrEncoderBase::GasrEncoderBase(uint64_t a1, uint64_t a2, int a3, char a4, uint64_t a5, void *a6, uint64_t a7, char a8)
+void kaldi::GasrEncoderBase::GasrEncoderBase(uint64_t a1, uint64_t a2, int a3, char a4, uint64_t a5, void *a6, uint64_t *a7, char a8)
 {
   v17 = *MEMORY[0x1E69E9840];
   *a1 = &unk_1F2D21828;
@@ -1944,24 +1944,24 @@ uint64_t kaldi::GasrEncoderBase::NextSegment(uint64_t a1)
 
 void kaldi::GasrEncoderBase::Compute(uint64_t a1, __int128 *a2)
 {
-  v6 = 0;
+  v4 = 0;
   v2 = a2[1];
-  v3 = *a2;
-  v4 = v2;
-  v5 = a2[2];
-  kaldi::GasrEncoderBase::PrepareFeature(a1);
+  v3[0] = *a2;
+  v3[1] = v2;
+  v3[2] = a2[2];
+  kaldi::GasrEncoderBase::PrepareFeature(a1, v3, &v4);
 }
 
-void kaldi::SpeechActivityDetector::SpeechActivityDetector(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, uint64_t a6, char a7, char a8, char a9)
+void kaldi::SpeechActivityDetector::SpeechActivityDetector(uint64_t a1, uint64_t a2, int a3, char a4, void *a5, void *a6, char a7, char a8, char a9, char a10)
 {
   *a1 = &unk_1F2D218A0;
   *(a1 + 8) = a2;
-  v9 = a5[1];
+  v10 = a5[1];
   *(a1 + 16) = *a5;
-  *(a1 + 24) = v9;
-  if (v9)
+  *(a1 + 24) = v10;
+  if (v10)
   {
-    atomic_fetch_add_explicit((v9 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v10 + 8), 1uLL, memory_order_relaxed);
   }
 
   *(a1 + 32) = a7;
@@ -1973,7 +1973,7 @@ void kaldi::SpeechActivityDetector::SpeechActivityDetector(uint64_t a1, uint64_t
 }
 
 {
-  kaldi::SpeechActivityDetector::SpeechActivityDetector(a1, a2, a3, a4, a5, a6, a7, a8, a9);
+  kaldi::SpeechActivityDetector::SpeechActivityDetector(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10);
 }
 
 void sub_1B5633F18(_Unwind_Exception *a1)
@@ -2010,8 +2010,8 @@ uint64_t kaldi::SpeechActivityDetector::Compute(uint64_t a1, __int128 *a2)
   {
     if (kaldi::MatrixBase<float>::NumCols(v7) >= 2)
     {
-      kaldi::SubMatrix<float>::SubMatrix(v30, v7, 0, v7[3], 1, 1);
-      kaldi::CuMatrix<float>::CuMatrix<float>(&v31, v30, 111, 0);
+      kaldi::SubMatrix<float>::SubMatrix(v30, v7, 0, *(v7 + 12), 1, 1);
+      kaldi::CuMatrix<float>::CuMatrix<float>();
       quasar::Bitmap::~Bitmap(v30);
       v10 = kaldi::MatrixBase<float>::NumRows(v7);
       kaldi::Matrix<float>::Resize(v7, v10, 1, 1, 0);
@@ -2107,9 +2107,9 @@ uint64_t kaldi::SpeechActivityDetector::Compute(uint64_t a1, __int128 *a2)
   return v9;
 }
 
-void sub_1B563440C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1B563440C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   kaldi::Matrix<float>::~Matrix(va);
   _Unwind_Resume(a1);
 }
@@ -2125,37 +2125,37 @@ uint64_t kaldi::SpeechActivityDetector::NextSegment(uint64_t a1)
   return result;
 }
 
-uint64_t kaldi::VoiceActivityGating::VoiceActivityGating(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, uint64_t a6, char a7, uint64_t a8, char a9, char a10, uint64_t a11, int a12, char a13)
+uint64_t kaldi::VoiceActivityGating::VoiceActivityGating(uint64_t a1, uint64_t a2, int a3, char a4, void *a5, void *a6, char a7, char a8, float a9, char a10, char a11, int a12, int a13, int a14, int a15, char a16, char a17)
 {
-  *result = &unk_1F2D21910;
-  *(result + 8) = a2;
-  *(result + 16) = *a5;
-  v13 = a5[1];
-  *(result + 24) = v13;
-  if (v13)
+  *a1 = &unk_1F2D21910;
+  *(a1 + 8) = a2;
+  *(a1 + 16) = *a5;
+  v17 = a5[1];
+  *(a1 + 24) = v17;
+  if (v17)
   {
-    atomic_fetch_add_explicit((v13 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v17 + 8), 1uLL, memory_order_relaxed);
   }
 
-  *(result + 64) = 0;
-  *(result + 32) = a7;
-  *(result + 40) = 0;
-  *(result + 48) = 0;
-  *(result + 52) = a9;
-  *(result + 53) = a10;
-  *(result + 56) = 0;
-  *(result + 72) = 0;
-  *(result + 76) = a13;
-  if ((a9 & 1) != 0 || a10)
+  *(a1 + 64) = 0;
+  *(a1 + 32) = a7;
+  *(a1 + 40) = 0;
+  *(a1 + 48) = 0;
+  *(a1 + 52) = a10;
+  *(a1 + 53) = a11;
+  *(a1 + 56) = 0;
+  *(a1 + 72) = 0;
+  *(a1 + 76) = a16;
+  if ((a10 & 1) != 0 || a11)
   {
     operator new();
   }
 
-  return result;
+  return a1;
 }
 
 {
-  return kaldi::VoiceActivityGating::VoiceActivityGating(result, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13);
+  return kaldi::VoiceActivityGating::VoiceActivityGating(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17);
 }
 
 void sub_1B5634980(void *a1, int a2)
@@ -2183,9 +2183,9 @@ uint64_t kaldi::VoiceActivityGating::ComputeVadScores(uint64_t a1, uint64_t a2, 
   return v8;
 }
 
-void sub_1B5634A8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_1B5634A8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   kaldi::Matrix<float>::~Matrix(va);
   _Unwind_Resume(a1);
 }
@@ -2262,14 +2262,14 @@ uint64_t kaldi::AmFusionEncoderInput::DecideFrameOverlap(kaldi::quasar::CEFusedA
   return kaldi::quasar::CEFusedAcousticEncoder::FrameOverlap(v4);
 }
 
-void kaldi::AmFusionEncoderInput::AmFusionEncoderInput(uint64_t a1, uint64_t a2, int a3, char a4, uint64_t a5, uint64_t a6, void *a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11)
+void kaldi::AmFusionEncoderInput::AmFusionEncoderInput(uint64_t a1, uint64_t a2, int a3, char a4, kaldi::quasar::CEFusedAcousticEncoder **a5, uint64_t *a6, void *a7, int a8, float a9, uint64_t a10, uint64_t *a11, char a12)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  kaldi::GasrEncoderBase::GasrEncoderBase(a1, a2, a3, a4, a5, a7, a10, a11);
+  v12 = *MEMORY[0x1E69E9840];
+  kaldi::GasrEncoderBase::GasrEncoderBase(a1, a2, a3, a4, a5, a7, a11, a12);
 }
 
 {
-  kaldi::AmFusionEncoderInput::AmFusionEncoderInput(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11);
+  kaldi::AmFusionEncoderInput::AmFusionEncoderInput(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12);
 }
 
 void sub_1B563508C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17)
@@ -2436,105 +2436,105 @@ uint64_t kaldi::OnlineAcousticEncoderInput::Compute(uint64_t a1, uint64_t a2)
 
   v8 = kaldi::MatrixBase<float>::NumRows(v4);
   v9 = (*(**(a1 + 8) + 8))(*(a1 + 8));
-  kaldi::Matrix<float>::Matrix(v50, v8, v9, 1, 0);
-  *a2 = v50;
+  kaldi::Matrix<float>::Matrix(v51, v8, v9, 1, 0);
+  *a2 = v51;
   v10 = *(a1 + 8);
   v11 = *(a2 + 16);
-  v39[0] = *a2;
-  v39[1] = v11;
-  v39[2] = *(a2 + 32);
+  v40[0] = *a2;
+  v40[1] = v11;
+  v40[2] = *(a2 + 32);
   v12 = (**v10)();
-  if (!kaldi::MatrixBase<float>::NumRows(v50))
+  if (!kaldi::MatrixBase<float>::NumRows(v51))
   {
     kaldi::Matrix<float>::Resize(v4, 0, 0, 0, 0);
     goto LABEL_42;
   }
 
+  v49 = 0u;
   v48 = 0u;
-  v47 = 0u;
-  v13 = &v46;
-  v46 = &unk_1F2D0EE38;
-  v49 = 0;
+  v13 = &v47;
+  v47 = &unk_1F2D0EE38;
+  v50 = 0;
+  v45 = 0u;
   v44 = 0u;
-  v43 = 0u;
-  v42 = &unk_1F2D0EE38;
-  v45 = 0;
-  kaldi::CuMatrix<float>::operator=(&v46, v50);
+  v43 = &unk_1F2D0EE38;
+  v46 = 0;
+  kaldi::CuMatrix<float>::operator=(&v47, v51);
   v14 = *(a1 + 16);
   if (v14)
   {
-    v13 = &v42;
-    kaldi::nnet1::Nnet::Feedforward(*(a1 + 16), &v46, &v42, 0xFFFFFFFF, 0);
+    v13 = &v43;
+    kaldi::nnet1::Nnet::Feedforward(*(a1 + 16), &v47, &v43, 0xFFFFFFFF, 0);
   }
 
-  kaldi::Matrix<float>::Matrix(v40);
-  v16 = &v42;
+  kaldi::Matrix<float>::Matrix(v41);
+  v16 = &v43;
   if (!v14)
   {
-    v16 = &v46;
+    v16 = &v47;
   }
 
   kaldi::Matrix<float>::Resize(v15, v16[2].u32[1], v16[2].u32[0], 1, 0);
-  kaldi::CuMatrixBase<float>::CopyToMat<float>(v13, v40, 111);
+  kaldi::CuMatrixBase<float>::CopyToMat<float>(v13, v41, 111);
   if (*(a1 + 84) >= 1)
   {
-    v17 = kaldi::MatrixBase<float>::NumRows(v40);
+    v17 = kaldi::MatrixBase<float>::NumRows(v41);
     v18 = *(a1 + 84);
     if (v17 > v18)
     {
-      kaldi::KaldiWarnMessage::KaldiWarnMessage(v39);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v39, "feats_mat.NumRows() <= model_interface_size_", 44);
-      kaldi::KaldiErrorMessage::~KaldiErrorMessage(v39);
+      kaldi::KaldiWarnMessage::KaldiWarnMessage(v40);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v40, "feats_mat.NumRows() <= model_interface_size_", 44);
+      kaldi::KaldiErrorMessage::~KaldiErrorMessage(v40);
     }
 
-    v19 = kaldi::MatrixBase<float>::NumRows(v40);
-    kaldi::handleStrictBatchOps(v40, v18 - v19, *(a1 + 96), *(a1 + 97));
+    v19 = kaldi::MatrixBase<float>::NumRows(v41);
+    kaldi::handleStrictBatchOps(v41, (v18 - v19), *(a1 + 96), *(a1 + 97));
   }
 
-  for (i = 0; i < kaldi::MatrixBase<float>::NumRows(v40); ++i)
+  for (i = 0; i < kaldi::MatrixBase<float>::NumRows(v41); ++i)
   {
-    for (j = 0; j < kaldi::MatrixBase<float>::NumCols(v40); ++j)
+    for (j = 0; j < kaldi::MatrixBase<float>::NumCols(v41); ++j)
     {
-      v22 = *(*v40 + 4 * i * v41 + 4 * j) & 0x7FFFFFFF;
+      v22 = *(*v41 + 4 * i * v42 + 4 * j) & 0x7FFFFFFF;
       if (v22 >= 2139095040)
       {
-        kaldi::KaldiWarnMessage::KaldiWarnMessage(v39);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v39, "NaN or inf in features", 22);
-        kaldi::KaldiErrorMessage::~KaldiErrorMessage(v39);
+        kaldi::KaldiWarnMessage::KaldiWarnMessage(v40);
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v40, "NaN or inf in features", 22);
+        kaldi::KaldiErrorMessage::~KaldiErrorMessage(v40);
       }
     }
   }
 
   if (kaldi::g_kaldi_verbose_level > 2)
   {
-    kaldi::KaldiVlogMessage::KaldiVlogMessage(v39, 3);
-    v23 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v39, "Batch ", 6);
-    v24 = kaldi::MatrixBase<float>::NumRows(v40);
+    kaldi::KaldiVlogMessage::KaldiVlogMessage(v40, 3);
+    v23 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v40, "Batch ", 6);
+    v24 = kaldi::MatrixBase<float>::NumRows(v41);
     MEMORY[0x1B8C84C00](v23, v24);
-    kaldi::KaldiVlogMessage::~KaldiVlogMessage(v39);
+    kaldi::KaldiVlogMessage::~KaldiVlogMessage(v40);
   }
 
+  v38 = 0u;
   v37 = 0u;
-  v36 = 0u;
-  v35 = &unk_1F2D0EE38;
-  v38 = 0;
-  kaldi::CuMatrix<float>::operator=(&v35, v40);
+  v36 = &unk_1F2D0EE38;
+  v39 = 0;
+  kaldi::CuMatrix<float>::operator=(&v36, v41);
+  v34 = 0u;
   v33 = 0u;
-  v32 = 0u;
-  v31 = &unk_1F2D0EE38;
-  v34 = 0;
-  kaldi::quasar::CEAcousticEncoderNet::Encode(*(a1 + 24), (a1 + 112), &v35, v12 ^ 1, a1 + 112, &v31);
+  v32 = &unk_1F2D0EE38;
+  v35 = 0;
+  kaldi::quasar::CEAcousticEncoderNet::Encode(*(a1 + 24), (a1 + 112), &v36, v12 ^ 1, a1 + 112, &v32);
   if (*(a1 + 97) == 1)
   {
-    v25 = *(v32 + 4 * v33 * (HIDWORD(v32) - 1));
-    v26 = (*(*a1 + 8))(a1);
-    kaldi::CuMatrix<float>::Resize(&v31, v25, v26, 2, 0);
+    v26 = *(v33 + 4 * v34 * (HIDWORD(v33) - 1));
+    v27 = (*(*a1 + 8))(a1);
+    kaldi::CuMatrix<float>::Resize(&v32, v26, v27, 2, 0);
   }
 
   ++*(a1 + 100);
   if (*(a1 + 80) == 1)
   {
-    kaldi::CuMatrixBase<float>::ApplyLog(&v31);
+    kaldi::CuMatrixBase<float>::ApplyLog(&v32);
   }
 
   if (*(a1 + 63) < 0)
@@ -2547,7 +2547,7 @@ uint64_t kaldi::OnlineAcousticEncoderInput::Compute(uint64_t a1, uint64_t a2)
 LABEL_31:
     if ((*(a1 + 81) & 1) != 0 || *(a1 + 80) == 1)
     {
-      kaldi::nnet1::PdfPrior::SubtractOnLogpost(*(a1 + 72), &v31);
+      kaldi::nnet1::PdfPrior::SubtractOnLogpost(*(a1 + 72), &v32, v25);
     }
 
     goto LABEL_34;
@@ -2559,36 +2559,37 @@ LABEL_31:
   }
 
 LABEL_34:
-  kaldi::Matrix<float>::Resize(v4, HIDWORD(v32), DWORD2(v32), 1, 0);
-  kaldi::CuMatrixBase<float>::CopyToMat<float>(&v31, v4, 111);
+  kaldi::Matrix<float>::Resize(v4, HIDWORD(v33), DWORD2(v33), 1, 0);
+  kaldi::CuMatrixBase<float>::CopyToMat<float>(&v32, v4, 111);
   for (k = 0; k < kaldi::MatrixBase<float>::NumRows(v4); ++k)
   {
     for (m = 0; m < kaldi::MatrixBase<float>::NumCols(v4); ++m)
     {
-      v29 = *(*v4 + 4 * k * v4[4] + 4 * m) & 0x7FFFFFFF;
-      if (v29 >= 2139095040)
+      v30 = *(*v4 + 4 * k * *(v4 + 16) + 4 * m) & 0x7FFFFFFF;
+      if (v30 >= 2139095040)
       {
-        kaldi::KaldiWarnMessage::KaldiWarnMessage(v39);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v39, "NaN or inf in NNet output", 25);
-        kaldi::KaldiErrorMessage::~KaldiErrorMessage(v39);
+        kaldi::KaldiWarnMessage::KaldiWarnMessage(v40);
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v40, "NaN or inf in NNet output", 25);
+        kaldi::KaldiErrorMessage::~KaldiErrorMessage(v40);
       }
     }
   }
 
-  kaldi::CuMatrix<float>::~CuMatrix(&v31);
-  kaldi::CuMatrix<float>::~CuMatrix(&v35);
-  kaldi::Matrix<float>::~Matrix(v40);
-  kaldi::CuMatrix<float>::~CuMatrix(&v42);
-  kaldi::CuMatrix<float>::~CuMatrix(&v46);
+  kaldi::CuMatrix<float>::~CuMatrix(&v32);
+  kaldi::CuMatrix<float>::~CuMatrix(&v36);
+  kaldi::Matrix<float>::~Matrix(v41);
+  kaldi::CuMatrix<float>::~CuMatrix(&v43);
+  kaldi::CuMatrix<float>::~CuMatrix(&v47);
 LABEL_42:
-  kaldi::Matrix<float>::~Matrix(v50);
+  kaldi::Matrix<float>::~Matrix(v51);
   return v12;
 }
 
-void sub_1B5635A90(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15)
+void sub_1B5635A90(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
 {
+  va_start(va, a14);
   kaldi::CuMatrix<float>::~CuMatrix(&a9);
-  kaldi::CuMatrix<float>::~CuMatrix(&a15);
+  kaldi::CuMatrix<float>::~CuMatrix(va);
   JUMPOUT(0x1B5635AACLL);
 }
 
@@ -2617,9 +2618,9 @@ uint64_t kaldi::OnlineAcousticEncoderInput::NextSegment(uint64_t a1)
 
 uint64_t kaldi::OnlineNnetForwardSkippedInput::Compute(uint64_t a1, uint64_t a2)
 {
-  v123 = *MEMORY[0x1E69E9840];
+  v125 = *MEMORY[0x1E69E9840];
   v4 = *a2;
-  v99 = *(a2 + 8);
+  v101 = *(a2 + 8);
   if (*(a1 + 88))
   {
     v5 = *(a2 + 8) == 0;
@@ -2643,29 +2644,29 @@ uint64_t kaldi::OnlineNnetForwardSkippedInput::Compute(uint64_t a1, uint64_t a2)
 
   v9 = kaldi::MatrixBase<float>::NumRows(v4);
   v10 = (*(**(a1 + 8) + 8))(*(a1 + 8));
-  kaldi::Matrix<float>::Matrix(&v115, v9, v10, 0, 0);
-  *a2 = &v115;
+  kaldi::Matrix<float>::Matrix(&v117, v9, v10, 0, 0);
+  *a2 = &v117;
   v11 = *(a1 + 8);
   v12 = *(a2 + 16);
   *__p = *a2;
-  v104 = v12;
-  v105 = *(a2 + 32);
+  v106 = v12;
+  v107 = *(a2 + 32);
   v13 = (**v11)();
-  if (!kaldi::MatrixBase<float>::NumRows(&v115))
+  if (!kaldi::MatrixBase<float>::NumRows(&v117))
   {
     kaldi::Matrix<float>::Resize(v4, 0, 0, 0, 0);
     goto LABEL_111;
   }
 
-  v96 = kaldi::MatrixBase<float>::NumRows(&v115);
+  v98 = kaldi::MatrixBase<float>::NumRows(&v117);
   if (*(a1 + 160) < 1)
   {
-    v98 = 0;
+    v100 = 0;
   }
 
   else
   {
-    v14 = kaldi::MatrixBase<float>::NumRows(&v115);
+    v14 = kaldi::MatrixBase<float>::NumRows(&v117);
     v15 = *(a1 + 160);
     if (v14 > v15)
     {
@@ -2674,15 +2675,15 @@ uint64_t kaldi::OnlineNnetForwardSkippedInput::Compute(uint64_t a1, uint64_t a2)
       kaldi::KaldiErrorMessage::~KaldiErrorMessage(__p);
     }
 
-    v98 = v15 - kaldi::MatrixBase<float>::NumRows(&v115);
-    kaldi::handleStrictBatchOps(&v115, v98, *(a1 + 164), *(a1 + 368));
+    v100 = v15 - kaldi::MatrixBase<float>::NumRows(&v117);
+    kaldi::handleStrictBatchOps(&v117, v100, *(a1 + 164), *(a1 + 368));
   }
 
-  for (i = 0; i < kaldi::MatrixBase<float>::NumRows(&v115); ++i)
+  for (i = 0; i < kaldi::MatrixBase<float>::NumRows(&v117); ++i)
   {
-    for (j = 0; j < kaldi::MatrixBase<float>::NumCols(&v115); ++j)
+    for (j = 0; j < kaldi::MatrixBase<float>::NumCols(&v117); ++j)
     {
-      v18 = *(v115 + 4 * i * v117 + 4 * j);
+      v18 = *(v117 + 4 * i * v119 + 4 * j);
       if (v18 == INFINITY)
       {
         kaldi::KaldiWarnMessage::KaldiWarnMessage(__p);
@@ -2692,77 +2693,77 @@ uint64_t kaldi::OnlineNnetForwardSkippedInput::Compute(uint64_t a1, uint64_t a2)
     }
   }
 
-  *(a1 + 96) += kaldi::MatrixBase<float>::NumRows(&v115);
-  v19 = kaldi::MatrixBase<float>::NumRows(&v115);
+  *(a1 + 96) += kaldi::MatrixBase<float>::NumRows(&v117);
+  v19 = kaldi::MatrixBase<float>::NumRows(&v117);
   v20 = *(a1 + 104);
-  v97 = v13;
+  v99 = v13;
   if (v19 > v20)
   {
-    v21 = kaldi::MatrixBase<float>::NumRows(&v115);
-    kaldi::SubMatrix<float>::SubMatrix(__p, &v115, v20, v21 - *(a1 + 104), 0, v116);
-    kaldi::CuMatrix<float>::CuMatrix<float>(&v110, __p, 111, 0);
+    v21 = kaldi::MatrixBase<float>::NumRows(&v117);
+    kaldi::SubMatrix<float>::SubMatrix(__p, &v117, v20, v21 - *(a1 + 104), 0, v118);
+    kaldi::CuMatrix<float>::CuMatrix<float>();
     quasar::Bitmap::~Bitmap(__p);
-    kaldi::CuMatrixBase<float>::SetStride(&v110, *(a1 + 80) * v114);
-    v108 = 0u;
-    v107 = 0u;
-    v22 = &v106;
-    v106 = &unk_1F2D0EE38;
-    v109 = 0;
+    kaldi::CuMatrixBase<float>::SetStride(&v112, *(a1 + 80) * v116);
+    v110 = 0u;
+    v109 = 0u;
+    v22 = &v108;
+    v108 = &unk_1F2D0EE38;
+    v111 = 0;
     v23 = *(a1 + 16);
     if (!v23)
     {
-      v22 = &v110;
+      v22 = &v112;
     }
 
-    v95 = v22;
+    v97 = v22;
     if (v23)
     {
-      kaldi::nnet1::Nnet::Feedforward(v23, &v110, &v106, 0xFFFFFFFF, 0);
+      kaldi::nnet1::Nnet::Feedforward(v23, &v112, &v108, 0xFFFFFFFF, 0);
     }
 
     v24 = *(a1 + 376);
     if (v24)
     {
       v25 = *(v24 + 40);
-      v26 = v23 ? &v106 : &v110;
+      v26 = v23 ? &v108 : &v112;
       v27 = v26[2].i32[1];
       if (v25 + v27 <= *(a1 + 392) && v27 >= 1)
       {
         v28 = 0;
         if (v23)
         {
-          v29 = &v106;
+          v29 = &v108;
         }
 
         else
         {
-          v29 = &v110;
+          v29 = &v112;
         }
 
         do
         {
           kaldi::CuMatrix<float>::CuMatrix(__p, 1, v29[2].u32[0], 0, 0, 0);
-          v30 = &v111;
+          v30 = &v113;
           if (v23)
           {
-            v30 = &v107;
+            v30 = &v109;
           }
 
           v31 = *v30;
-          v32 = &v114;
+          v32 = &v116;
           if (v23)
           {
-            v32 = &v108;
+            v32 = &v110;
           }
 
-          v33 = (v31 + 4 * *v32 * v28);
+          v33 = v31 + 4 * *v32 * v28;
           v34 = v29[2].u32[0];
           v35 = v29[4];
-          v120 = v33;
-          v119 = &unk_1F2CFCA48;
-          v121 = v34;
-          v122 = v35;
-          kaldi::CuMatrixBase<float>::CopyRowsFromVec(__p, &v119);
+          v122 = v33;
+          v121 = &unk_1F2CFCA48;
+          v123 = v34;
+          v124 = v35;
+          kaldi::CuMatrixBase<float>::CopyRowsFromVec(__p, &v121);
           std::deque<kaldi::CuMatrix<float>>::push_back(*(a1 + 376), __p);
           kaldi::CuMatrix<float>::~CuMatrix(__p);
           ++v28;
@@ -2776,10 +2777,10 @@ uint64_t kaldi::OnlineNnetForwardSkippedInput::Compute(uint64_t a1, uint64_t a2)
     {
       kaldi::KaldiVlogMessage::KaldiVlogMessage(__p, 3);
       v36 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(__p, "Batch ", 6);
-      v37 = &v106;
+      v37 = &v108;
       if (!v23)
       {
-        v37 = &v110;
+        v37 = &v112;
       }
 
       MEMORY[0x1B8C84C00](v36, v37[2].u32[1]);
@@ -2802,7 +2803,7 @@ uint64_t kaldi::OnlineNnetForwardSkippedInput::Compute(uint64_t a1, uint64_t a2)
         atomic_fetch_add_explicit(&v41->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      (*(*v39 + 96))(v39, v95, a1 + 176, 1);
+      (*(*v39 + 96))(v39, v97, a1 + 176, 1);
       (*(*v40 + 144))(v40, a1 + 176, a1 + 224);
       (*(**(a1 + 88) + 16))(*(a1 + 88), a1 + 176, a1 + 272);
       if (v41)
@@ -2814,35 +2815,35 @@ uint64_t kaldi::OnlineNnetForwardSkippedInput::Compute(uint64_t a1, uint64_t a2)
       goto LABEL_71;
     }
 
-    v42 = *(a1 + 340);
-    if (v42 || *(a1 + 336))
+    v43 = *(a1 + 340);
+    if (v43 || *(a1 + 336))
     {
       if (kaldi::g_kaldi_verbose_level >= 3)
       {
         kaldi::KaldiVlogMessage::KaldiVlogMessage(__p, 3);
-        v43 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(__p, "There is extra input, rows=", 27);
-        v44 = MEMORY[0x1B8C84C00](v43, *(a1 + 340));
-        v45 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v44, ", cols=", 7);
-        MEMORY[0x1B8C84C00](v45, *(a1 + 336));
+        v44 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(__p, "There is extra input, rows=", 27);
+        v45 = MEMORY[0x1B8C84C00](v44, *(a1 + 340));
+        v46 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v45, ", cols=", 7);
+        MEMORY[0x1B8C84C00](v46, *(a1 + 336));
         kaldi::KaldiVlogMessage::~KaldiVlogMessage(__p);
-        v42 = *(a1 + 340);
+        v43 = *(a1 + 340);
       }
 
-      if (v42 != 1 || (v23 ? (v46 = &v106) : (v46 = &v110), v47 = v46[2].u32[1], v47 <= 0))
+      if (v43 != 1 || (v23 ? (v47 = &v108) : (v47 = &v112), v48 = v47[2].u32[1], v48 <= 0))
       {
         kaldi::KaldiWarnMessage::KaldiWarnMessage(__p);
         std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(__p, "extra_input_.NumRows() == 1 && feats.NumRows() >= 1", 51);
         kaldi::KaldiErrorMessage::~KaldiErrorMessage(__p);
       }
 
-      if (v47 == 1)
+      if (v48 == 1)
       {
-        v119 = (a1 + 320);
+        v121 = (a1 + 320);
         __p[1] = 0;
-        *&v104 = 0;
+        *&v106 = 0;
         __p[0] = 0;
-        std::vector<kaldi::CuMatrixBase<float> const*,std::allocator<kaldi::CuMatrixBase<float> const*>>::__init_with_size[abi:ne200100]<kaldi::CuMatrixBase<float> const* const*,kaldi::CuMatrixBase<float> const* const*>(__p, &v119, &v120, 1uLL);
-        (*(**(a1 + 24) + 32))(*(a1 + 24), v95, __p, a1 + 224);
+        std::vector<kaldi::CuMatrixBase<float> const*,std::allocator<kaldi::CuMatrixBase<float> const*>>::__init_with_size[abi:ne200100]<kaldi::CuMatrixBase<float> const* const*,kaldi::CuMatrixBase<float> const* const*>(__p, &v121, &v122, 1uLL);
+        (*(**(a1 + 24) + 32))(*(a1 + 24), v97, __p, a1 + 224);
         if (__p[0])
         {
           __p[1] = __p[0];
@@ -2852,25 +2853,27 @@ uint64_t kaldi::OnlineNnetForwardSkippedInput::Compute(uint64_t a1, uint64_t a2)
 
       else
       {
-        kaldi::CuMatrix<float>::CuMatrix(__p, v47, *(a1 + 336), 0, 0, 0);
-        std::vector<int>::vector[abi:ne200100](&v119, v46[2].i32[1]);
-        kaldi::CuMatrixBase<float>::CopyRows(__p, a1 + 320, &v119);
-        v118 = __p;
-        v101 = 0;
+        kaldi::CuMatrix<float>::CuMatrix(__p, v48, *(a1 + 336), 0, 0, 0);
+        v49 = v47[2].i32[1];
+        LODWORD(v102) = 0;
+        std::vector<int>::vector[abi:ne200100](&v121, v49, &v102);
+        kaldi::CuMatrixBase<float>::CopyRows(__p, a1 + 320, &v121);
+        v120 = __p;
+        v103 = 0;
+        v104 = 0;
         v102 = 0;
-        v100 = 0;
-        std::vector<kaldi::CuMatrixBase<float> const*,std::allocator<kaldi::CuMatrixBase<float> const*>>::__init_with_size[abi:ne200100]<kaldi::CuMatrixBase<float> const* const*,kaldi::CuMatrixBase<float> const* const*>(&v100, &v118, &v119, 1uLL);
-        (*(**(a1 + 24) + 32))(*(a1 + 24), v95, &v100, a1 + 224);
-        if (v100)
+        std::vector<kaldi::CuMatrixBase<float> const*,std::allocator<kaldi::CuMatrixBase<float> const*>>::__init_with_size[abi:ne200100]<kaldi::CuMatrixBase<float> const* const*,kaldi::CuMatrixBase<float> const* const*>(&v102, &v120, &v121, 1uLL);
+        (*(**(a1 + 24) + 32))(*(a1 + 24), v97, &v102, a1 + 224);
+        if (v102)
         {
-          v101 = v100;
-          operator delete(v100);
+          v103 = v102;
+          operator delete(v102);
         }
 
-        if (v119)
+        if (v121)
         {
-          v120 = v119;
-          operator delete(v119);
+          v122 = v121;
+          operator delete(v121);
         }
 
         kaldi::CuMatrix<float>::~CuMatrix(__p);
@@ -2880,30 +2883,30 @@ uint64_t kaldi::OnlineNnetForwardSkippedInput::Compute(uint64_t a1, uint64_t a2)
       goto LABEL_71;
     }
 
-    v91 = *(a1 + 24);
+    v93 = *(a1 + 24);
     {
-      v93 = v92;
-      v94 = *(a1 + 32);
-      if (v94)
+      v95 = v94;
+      v96 = *(a1 + 32);
+      if (v96)
       {
-        atomic_fetch_add_explicit(&v94->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v96->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      if ((*(*v92 + 184))(v92))
+      if ((*(*v94 + 184))(v94))
       {
-        v119 = (a1 + 272);
+        v121 = (a1 + 272);
         __p[1] = 0;
-        *&v104 = 0;
+        *&v106 = 0;
         __p[0] = 0;
-        std::vector<kaldi::CuMatrix<float> *,std::allocator<kaldi::CuMatrix<float> *>>::__init_with_size[abi:ne200100]<kaldi::CuMatrix<float> * const*,kaldi::CuMatrix<float> * const*>(__p, &v119, &v120, 1uLL);
-        v119 = 0;
-        v120 = 0;
+        std::vector<kaldi::CuMatrix<float> *,std::allocator<kaldi::CuMatrix<float> *>>::__init_with_size[abi:ne200100]<kaldi::CuMatrix<float> * const*,kaldi::CuMatrix<float> * const*>(__p, &v121, &v122, 1uLL);
         v121 = 0;
-        (*(*v93 + 120))(v93, v95, &v119, a1 + 224, __p, 0);
-        if (v119)
+        v122 = 0;
+        v123 = 0;
+        (*(*v95 + 120))(v95, v97, &v121, a1 + 224, __p, 0);
+        if (v121)
         {
-          v120 = v119;
-          operator delete(v119);
+          v122 = v121;
+          operator delete(v121);
         }
 
         v6 = *(a1 + 280) != 0;
@@ -2916,20 +2919,20 @@ uint64_t kaldi::OnlineNnetForwardSkippedInput::Compute(uint64_t a1, uint64_t a2)
         goto LABEL_124;
       }
 
-      v91 = *(a1 + 24);
+      v93 = *(a1 + 24);
     }
 
     else
     {
-      v94 = 0;
+      v96 = 0;
     }
 
-    (*(*v91 + 16))(v91, v95, a1 + 224);
+    (*(*v93 + 16))(v93, v97, a1 + 224);
     v6 = 0;
 LABEL_124:
-    if (v94)
+    if (v96)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v94);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v96);
     }
 
 LABEL_71:
@@ -2943,8 +2946,8 @@ LABEL_71:
       if (!*(a1 + 48))
       {
 LABEL_80:
-        kaldi::CuMatrix<float>::~CuMatrix(&v106);
-        kaldi::CuMatrix<float>::~CuMatrix(&v110);
+        kaldi::CuMatrix<float>::~CuMatrix(&v108);
+        kaldi::CuMatrix<float>::~CuMatrix(&v112);
         goto LABEL_81;
       }
     }
@@ -2956,92 +2959,92 @@ LABEL_80:
 
     if ((*(a1 + 85) & 1) != 0 || *(a1 + 84) == 1)
     {
-      kaldi::nnet1::PdfPrior::SubtractOnLogpost(*(a1 + 72), a1 + 224);
+      kaldi::nnet1::PdfPrior::SubtractOnLogpost(*(a1 + 72), a1 + 224, v42);
     }
 
     goto LABEL_80;
   }
 
 LABEL_81:
-  v48 = kaldi::MatrixBase<float>::NumRows(&v115);
-  kaldi::Matrix<float>::Resize(v4, v48, *(a1 + 240), 0, 0);
+  v50 = kaldi::MatrixBase<float>::NumRows(&v117);
+  kaldi::Matrix<float>::Resize(v4, v50, *(a1 + 240), 0, 0);
   if (v6)
   {
-    v49 = kaldi::MatrixBase<float>::NumRows(&v115);
-    kaldi::Matrix<float>::Resize(v99, v49, *(a1 + 288), 1, 0);
+    v51 = kaldi::MatrixBase<float>::NumRows(&v117);
+    kaldi::Matrix<float>::Resize(v101, v51, *(a1 + 288), 1, 0);
   }
 
   for (k = 0; k < kaldi::MatrixBase<float>::NumRows(v4); ++k)
   {
-    v51 = *(a1 + 104);
-    v52 = k - v51;
-    if (k >= v51)
+    v53 = *(a1 + 104);
+    v54 = k - v53;
+    if (k >= v53)
     {
-      v59 = *(a1 + 80);
-      v60 = *v4;
-      v61 = *(v4 + 16);
-      v62 = kaldi::MatrixBase<float>::NumCols(v4);
-      v63 = v52 / v59;
-      v112 = 0;
-      v113 = 0;
-      v110 = v60 + 4 * v61 * k;
-      v111 = v62;
-      v64 = *(a1 + 240);
-      v65 = *(a1 + 256);
-      __p[1] = (*(a1 + 232) + 4 * *(a1 + 248) * v63);
+      v61 = *(a1 + 80);
+      v62 = *v4;
+      v63 = *(v4 + 16);
+      v64 = kaldi::MatrixBase<float>::NumCols(v4);
+      v65 = v54 / v61;
+      v114 = 0;
+      v115 = 0;
+      v112 = &v62[4 * v63 * k];
+      v113 = v64;
+      v66 = *(a1 + 240);
+      v67 = *(a1 + 256);
+      __p[1] = (*(a1 + 232) + 4 * *(a1 + 248) * v65);
       __p[0] = &unk_1F2CFCA48;
-      *&v104 = v64;
-      *(&v104 + 1) = v65;
-      kaldi::CuVectorBase<float>::CopyToVec<float>(__p, &v110);
+      *&v106 = v66;
+      *(&v106 + 1) = v67;
+      kaldi::CuVectorBase<float>::CopyToVec<float>(__p, &v112);
       if (v6)
       {
-        v66 = *v99;
-        v67 = *(v99 + 16);
-        v68 = kaldi::MatrixBase<float>::NumCols(v99);
-        v112 = 0;
-        v113 = 0;
-        v110 = v66 + 4 * v67 * k;
-        v111 = v68;
-        v69 = *(a1 + 288);
-        v70 = *(a1 + 304);
-        __p[1] = (*(a1 + 280) + 4 * *(a1 + 296) * v63);
+        v68 = *v101;
+        v69 = *(v101 + 16);
+        v70 = kaldi::MatrixBase<float>::NumCols(v101);
+        v114 = 0;
+        v115 = 0;
+        v112 = &v68[4 * v69 * k];
+        v113 = v70;
+        v71 = *(a1 + 288);
+        v72 = *(a1 + 304);
+        __p[1] = (*(a1 + 280) + 4 * *(a1 + 296) * v65);
         __p[0] = &unk_1F2CFCA48;
-        *&v104 = v69;
-        *(&v104 + 1) = v70;
-        kaldi::CuVectorBase<float>::CopyToVec<float>(__p, &v110);
+        *&v106 = v71;
+        *(&v106 + 1) = v72;
+        kaldi::CuVectorBase<float>::CopyToVec<float>(__p, &v112);
       }
     }
 
     else
     {
-      v53 = *v4;
-      v54 = *(v4 + 16);
-      v55 = kaldi::MatrixBase<float>::NumCols(v4);
-      *&v104 = 0;
-      __p[0] = (v53 + 4 * v54 * k);
-      __p[1] = v55;
+      v55 = *v4;
+      v56 = *(v4 + 16);
+      v57 = kaldi::MatrixBase<float>::NumCols(v4);
+      *&v106 = 0;
+      __p[0] = &v55[4 * v56 * k];
+      __p[1] = v57;
       kaldi::VectorBase<float>::CopyFromVec(__p, (a1 + 112));
       if (v6)
       {
-        v56 = *v99;
-        v57 = *(v99 + 16);
-        v58 = kaldi::MatrixBase<float>::NumCols(v99);
-        *&v104 = 0;
-        __p[0] = (v56 + 4 * v57 * k);
-        __p[1] = v58;
+        v58 = *v101;
+        v59 = *(v101 + 16);
+        v60 = kaldi::MatrixBase<float>::NumCols(v101);
+        *&v106 = 0;
+        __p[0] = &v58[4 * v59 * k];
+        __p[1] = v60;
         kaldi::VectorBase<float>::CopyFromVec(__p, (a1 + 136));
       }
     }
   }
 
-  v71 = 0;
-  v13 = v97;
-  while (v71 < kaldi::MatrixBase<float>::NumRows(v4))
+  v73 = 0;
+  v13 = v99;
+  while (v73 < kaldi::MatrixBase<float>::NumRows(v4))
   {
     for (m = 0; m < kaldi::MatrixBase<float>::NumCols(v4); ++m)
     {
-      v73 = *(*v4 + 4 * v71 * *(v4 + 16) + 4 * m);
-      if (v73 == INFINITY)
+      v75 = *(*v4 + 4 * v73 * *(v4 + 16) + 4 * m);
+      if (v75 == INFINITY)
       {
         kaldi::KaldiWarnMessage::KaldiWarnMessage(__p);
         std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(__p, "inf in NNet output", 18);
@@ -3049,43 +3052,43 @@ LABEL_81:
       }
     }
 
-    ++v71;
+    ++v73;
   }
 
   if (*(a1 + 100))
   {
-    v74 = *(a1 + 104);
-    if (v74 >= kaldi::MatrixBase<float>::NumRows(&v115))
+    v76 = *(a1 + 104);
+    if (v76 >= kaldi::MatrixBase<float>::NumRows(&v117))
     {
-      *(a1 + 104) -= kaldi::MatrixBase<float>::NumRows(&v115);
+      *(a1 + 104) -= kaldi::MatrixBase<float>::NumRows(&v117);
     }
 
     else
     {
-      v75 = *(a1 + 96);
-      v76 = *(a1 + 80);
-      if (v75 % v76)
+      v77 = *(a1 + 96);
+      v78 = *(a1 + 80);
+      if (v77 % v78)
       {
-        *(a1 + 104) = v76 - v75 % v76;
-        v77 = kaldi::MatrixBase<float>::NumRows(&v115);
-        v78 = *v4;
-        v79 = *(v4 + 16);
-        v80 = kaldi::MatrixBase<float>::NumCols(v4);
-        v81 = v77 - v75 + (v75 - 1) / v76 * v76;
-        *&v104 = 0;
-        __p[0] = (v78 + 4 * v79 * v81);
-        __p[1] = v80;
-        kaldi::Vector<float>::Resize((a1 + 112), v80, 1);
+        *(a1 + 104) = v78 - v77 % v78;
+        v79 = kaldi::MatrixBase<float>::NumRows(&v117);
+        v80 = *v4;
+        v81 = *(v4 + 16);
+        v82 = kaldi::MatrixBase<float>::NumCols(v4);
+        v83 = v79 - v77 + (v77 - 1) / v78 * v78;
+        *&v106 = 0;
+        __p[0] = &v80[4 * v81 * v83];
+        __p[1] = v82;
+        kaldi::Vector<float>::Resize((a1 + 112), v82, 1);
         kaldi::VectorBase<float>::CopyFromVec(a1 + 112, __p);
         if (v6)
         {
-          v82 = *v99;
-          v83 = *(v99 + 16);
-          v84 = kaldi::MatrixBase<float>::NumCols(v99);
-          *&v104 = 0;
-          __p[0] = (v82 + 4 * v83 * v81);
-          __p[1] = v84;
-          kaldi::Vector<float>::Resize((a1 + 136), v84, 1);
+          v84 = *v101;
+          v85 = *(v101 + 16);
+          v86 = kaldi::MatrixBase<float>::NumCols(v101);
+          *&v106 = 0;
+          __p[0] = &v84[4 * v85 * v83];
+          __p[1] = v86;
+          kaldi::Vector<float>::Resize((a1 + 136), v86, 1);
           kaldi::VectorBase<float>::CopyFromVec(a1 + 136, __p);
         }
       }
@@ -3097,9 +3100,9 @@ LABEL_81:
     }
   }
 
-  if (v98 >= 1)
+  if (v100 >= 1)
   {
-    if (v98 + v96 != kaldi::MatrixBase<float>::NumRows(v4))
+    if (v100 + v98 != kaldi::MatrixBase<float>::NumRows(v4))
     {
       kaldi::KaldiWarnMessage::KaldiWarnMessage(__p);
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(__p, "orig_input_size + frames_padded == output->NumRows()", 52);
@@ -3108,8 +3111,8 @@ LABEL_81:
 
     if (v6)
     {
-      v85 = kaldi::MatrixBase<float>::NumRows(v4);
-      if (v85 != kaldi::MatrixBase<float>::NumRows(v99))
+      v87 = kaldi::MatrixBase<float>::NumRows(v4);
+      if (v87 != kaldi::MatrixBase<float>::NumRows(v101))
       {
         kaldi::KaldiWarnMessage::KaldiWarnMessage(__p);
         std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(__p, "output->NumRows() == sil_post->NumRows()", 40);
@@ -3117,19 +3120,19 @@ LABEL_81:
       }
     }
 
-    v86 = kaldi::MatrixBase<float>::NumRows(v4);
-    v87 = kaldi::MatrixBase<float>::NumCols(v4);
-    kaldi::Matrix<float>::Resize(v4, (v86 - v98), v87, 2, 0);
+    v88 = kaldi::MatrixBase<float>::NumRows(v4);
+    v89 = kaldi::MatrixBase<float>::NumCols(v4);
+    kaldi::Matrix<float>::Resize(v4, (v88 - v100), v89, 2, 0);
     if (v6)
     {
-      v88 = kaldi::MatrixBase<float>::NumRows(v99);
-      v89 = kaldi::MatrixBase<float>::NumCols(v99);
-      kaldi::Matrix<float>::Resize(v99, (v88 - v98), v89, 2, 0);
+      v90 = kaldi::MatrixBase<float>::NumRows(v101);
+      v91 = kaldi::MatrixBase<float>::NumCols(v101);
+      kaldi::Matrix<float>::Resize(v101, (v90 - v100), v91, 2, 0);
     }
   }
 
 LABEL_111:
-  kaldi::Matrix<float>::~Matrix(&v115);
+  kaldi::Matrix<float>::~Matrix(&v117);
   return v13;
 }
 
@@ -3191,7 +3194,7 @@ uint64_t kaldi::OnlineAppendInput::Compute(uint64_t a1, uint64_t a2)
   return v13;
 }
 
-uint64_t std::deque<kaldi::quasar::SparseMatrix<float>>::push_back(void *a1, uint64_t a2)
+uint64_t std::deque<kaldi::quasar::SparseMatrix<float>>::push_back(unint64_t *a1, uint64_t a2)
 {
   v4 = a1[1];
   v5 = a1[2];
@@ -3251,9 +3254,9 @@ uint64_t kaldi::quasar::ConvertDenseMatrixToSparseMatrixByMinimumValue<float>@<X
       if (v12 > a3)
       {
         kaldi::quasar::SparseMatrix<float>::CheckBounds(a2, v8, v10);
-        v13[0] = v11;
-        v13[2] = v13;
-        *(std::__tree<std::__value_type<std::pair<int,int>,float>,std::__map_value_compare<std::pair<int,int>,std::__value_type<std::pair<int,int>,float>,std::less<std::pair<int,int>>,true>,std::allocator<std::__value_type<std::pair<int,int>,float>>>::__emplace_unique_key_args<std::pair<int,int>,std::piecewise_construct_t const&,std::tuple<std::pair<int,int>&&>,std::tuple<>>(a2 + 16, v13) + 36) = v12;
+        v13 = v11;
+        v14 = &v13;
+        *(std::__tree<std::__value_type<std::pair<int,int>,float>,std::__map_value_compare<std::pair<int,int>,std::__value_type<std::pair<int,int>,float>,std::less<std::pair<int,int>>,true>,std::allocator<std::__value_type<std::pair<int,int>,float>>>::__emplace_unique_key_args<std::pair<int,int>,std::piecewise_construct_t const&,std::tuple<std::pair<int,int>&&>,std::tuple<>>((a2 + 16), &v13, &std::piecewise_construct, &v14) + 36) = v12;
       }
 
       ++v10;
@@ -3266,17 +3269,17 @@ uint64_t kaldi::quasar::ConvertDenseMatrixToSparseMatrixByMinimumValue<float>@<X
   return result;
 }
 
-uint64_t kaldi::OnlineFeatureMatrix::GetFrame@<X0>(kaldi::OnlineFeatureMatrix *this@<X0>, signed int a2@<W1>, uint64_t *a3@<X8>)
+uint64_t *kaldi::OnlineFeatureMatrix::GetFrame@<X0>(uint64_t *__return_ptr a1@<X8>, kaldi::OnlineFeatureMatrix *this@<X0>, signed int a3@<W1>)
 {
   v3 = *(this + 38);
-  if (v3 > a2)
+  if (v3 > a3)
   {
     kaldi::KaldiWarnMessage::KaldiWarnMessage(v9);
     std::operator<<[abi:ne200100]<std::char_traits<char>>(v9, "Attempting to get a discarded frame.");
     goto LABEL_6;
   }
 
-  if ((kaldi::MatrixBase<float>::NumRows(this + 32) + v3) <= a2)
+  if ((kaldi::MatrixBase<float>::NumRows(this + 32) + v3) <= a3)
   {
     kaldi::KaldiWarnMessage::KaldiWarnMessage(v9);
     std::operator<<[abi:ne200100]<std::char_traits<char>>(v9, "Attempt get frame without check its validity.");
@@ -3284,18 +3287,18 @@ LABEL_6:
     kaldi::KaldiErrorMessage::~KaldiErrorMessage(v9);
   }
 
-  v7 = *(this + 4) + 4 * *(this + 12) * (a2 - *(this + 38));
+  v7 = *(this + 4) + 4 * *(this + 12) * (a3 - *(this + 38));
   result = kaldi::MatrixBase<float>::NumCols(this + 32);
-  a3[1] = 0;
-  a3[2] = 0;
-  *a3 = v7;
-  *(a3 + 2) = result;
+  a1[1] = 0;
+  a1[2] = 0;
+  *a1 = v7;
+  *(a1 + 2) = result;
   return result;
 }
 
-uint64_t kaldi::OnlineFeatureMatrix::GetAedFrame@<X0>(kaldi::OnlineFeatureMatrix *this@<X0>, int a2@<W1>, uint64_t *a3@<X8>)
+uint64_t *kaldi::OnlineFeatureMatrix::GetAedFrame@<X0>(uint64_t *__return_ptr a1@<X8>, kaldi::OnlineFeatureMatrix *this@<X0>, int a3@<W1>)
 {
-  LODWORD(v3) = a2;
+  LODWORD(v3) = a3;
   if (!(*(**(this + 2) + 16))(*(this + 2)))
   {
     kaldi::KaldiWarnMessage::KaldiWarnMessage(v20);
@@ -3344,10 +3347,10 @@ LABEL_10:
 LABEL_8:
   v11 = *v6 + 4 * *v7 * v3;
   result = kaldi::MatrixBase<float>::NumCols(v6);
-  a3[1] = 0;
-  a3[2] = 0;
-  *a3 = v11;
-  *(a3 + 2) = result;
+  a1[1] = 0;
+  a1[2] = 0;
+  *a1 = v11;
+  *(a1 + 2) = result;
   return result;
 }
 
@@ -3414,7 +3417,7 @@ float kaldi::OnlineFeatureMatrix::GetSilencePosterior(kaldi::OnlineFeatureMatrix
   return result;
 }
 
-void kaldi::OnlineFeatureMatrix::GetCurrentBatch(uint64_t a1, int *a2)
+void kaldi::OnlineFeatureMatrix::GetCurrentBatch(uint64_t a1, char **a2)
 {
   v4 = kaldi::MatrixBase<float>::NumRows(a1 + 32) - *(a1 + 157);
   kaldi::Matrix<float>::Resize(a2, v4, *(a1 + 24), 1, 0);
@@ -3661,9 +3664,9 @@ void kaldi::MergeMatricesAndRemoveRows(int64x2_t *a1, uint64_t a2, int *a3)
   }
 }
 
-void sub_1B5637BB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1B5637BB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   kaldi::Matrix<float>::~Matrix(va);
   _Unwind_Resume(a1);
 }
@@ -4516,11 +4519,11 @@ uint64_t kaldi::quasar::SparseMatrix<float>::Merge(uint64_t result, uint64_t a2,
     {
       v7 = *(v3 + 8);
       v8 = (*(v3 + 7) + a3);
-      v13[0] = v8 | (v7 << 32);
+      v13 = v8 | (v7 << 32);
       kaldi::quasar::SparseMatrix<float>::CheckBounds(v6, v8, v7);
       v9 = *(v3 + 9);
-      v13[2] = v13;
-      result = std::__tree<std::__value_type<std::pair<int,int>,float>,std::__map_value_compare<std::pair<int,int>,std::__value_type<std::pair<int,int>,float>,std::less<std::pair<int,int>>,true>,std::allocator<std::__value_type<std::pair<int,int>,float>>>::__emplace_unique_key_args<std::pair<int,int>,std::piecewise_construct_t const&,std::tuple<std::pair<int,int>&&>,std::tuple<>>((v6 + 4), v13);
+      v14 = &v13;
+      result = std::__tree<std::__value_type<std::pair<int,int>,float>,std::__map_value_compare<std::pair<int,int>,std::__value_type<std::pair<int,int>,float>,std::less<std::pair<int,int>>,true>,std::allocator<std::__value_type<std::pair<int,int>,float>>>::__emplace_unique_key_args<std::pair<int,int>,std::piecewise_construct_t const&,std::tuple<std::pair<int,int>&&>,std::tuple<>>((v6 + 16), &v13, &std::piecewise_construct, &v14);
       *(result + 36) = v9;
       v10 = v3[1];
       if (v10)
@@ -4595,8 +4598,8 @@ void kaldi::quasar::SparseMatrix<float>::RemoveFirstNRows(uint64_t a1, int a2)
         {
           v8 = *(v4 + 9);
           v14 = v7 & 0xFFFFFFFF00000000 | (v7 - a2);
-          v16[3] = &v14;
-          *(std::__tree<std::__value_type<std::pair<int,int>,float>,std::__map_value_compare<std::pair<int,int>,std::__value_type<std::pair<int,int>,float>,std::less<std::pair<int,int>>,true>,std::allocator<std::__value_type<std::pair<int,int>,float>>>::__emplace_unique_key_args<std::pair<int,int>,std::piecewise_construct_t const&,std::tuple<std::pair<int,int>&&>,std::tuple<>>(&v15, &v14) + 36) = v8;
+          v17 = &v14;
+          *(std::__tree<std::__value_type<std::pair<int,int>,float>,std::__map_value_compare<std::pair<int,int>,std::__value_type<std::pair<int,int>,float>,std::less<std::pair<int,int>>,true>,std::allocator<std::__value_type<std::pair<int,int>,float>>>::__emplace_unique_key_args<std::pair<int,int>,std::piecewise_construct_t const&,std::tuple<std::pair<int,int>&&>,std::tuple<>>(&v15, &v14, &std::piecewise_construct, &v17) + 36) = v8;
         }
 
         v9 = v4[1];
@@ -4663,14 +4666,14 @@ uint64_t std::deque<kaldi::quasar::SparseMatrix<float>>::__maybe_remove_front_sp
   return v4 ^ 1u;
 }
 
-uint64_t *std::__tree<std::__value_type<std::pair<int,int>,float>,std::__map_value_compare<std::pair<int,int>,std::__value_type<std::pair<int,int>,float>,std::less<std::pair<int,int>>,true>,std::allocator<std::__value_type<std::pair<int,int>,float>>>::swap(uint64_t *result, uint64_t a2)
+uint64_t **std::__tree<std::__value_type<std::pair<int,int>,float>,std::__map_value_compare<std::pair<int,int>,std::__value_type<std::pair<int,int>,float>,std::less<std::pair<int,int>>,true>,std::allocator<std::__value_type<std::pair<int,int>,float>>>::swap(uint64_t **result, uint64_t a2)
 {
   v2 = *result;
   *result = *a2;
   *a2 = v2;
   v5 = result[1];
   v4 = result[2];
-  v3 = result + 1;
+  v3 = (result + 1);
   *(result + 1) = *(a2 + 8);
   *(a2 + 8) = v5;
   *(a2 + 16) = v4;
@@ -4855,7 +4858,7 @@ LABEL_16:
   return std::__split_buffer<fst::DfsState<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>> **,std::allocator<fst::DfsState<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>> **>>::~__split_buffer(a1);
 }
 
-uint64_t std::vector<kaldi::CuMatrix<float> *,std::allocator<kaldi::CuMatrix<float> *>>::__init_with_size[abi:ne200100]<kaldi::CuMatrix<float> * const*,kaldi::CuMatrix<float> * const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<kaldi::CuMatrix<float> *,std::allocator<kaldi::CuMatrix<float> *>>::__init_with_size[abi:ne200100]<kaldi::CuMatrix<float> * const*,kaldi::CuMatrix<float> * const*>(uint64_t *result, uint64_t *a2, uint64_t *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -5013,19 +5016,19 @@ uint64_t std::__function::__value_func<BOOL ()(kaldi::Matrix<float> &,kaldi::Mat
   return a1;
 }
 
-void *std::deque<kaldi::quasar::SparseMatrix<float>>::__add_back_capacity(void *a1)
+void std::deque<kaldi::quasar::SparseMatrix<float>>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x66;
   v3 = v1 - 102;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -5033,25 +5036,25 @@ void *std::deque<kaldi::quasar::SparseMatrix<float>>::__add_back_capacity(void *
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    std::__allocate_at_least[abi:ne200100]<std::allocator<kaldi::CuWorkspace *>>(a1, v9);
+    v10 = a1;
+    std::__allocate_at_least[abi:ne200100]<std::allocator<kaldi::CuWorkspace *>>(a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<std::vector<std::unique_ptr<kaldi::quasar::ComputeEngineBufferItf>> *,std::allocator<std::vector<std::unique_ptr<kaldi::quasar::ComputeEngineBufferItf>> *>>::emplace_back<std::vector<std::unique_ptr<kaldi::quasar::ComputeEngineBufferItf>> *&>(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<std::vector<std::unique_ptr<kaldi::quasar::ComputeEngineBufferItf>> *,std::allocator<std::vector<std::unique_ptr<kaldi::quasar::ComputeEngineBufferItf>> *>>::emplace_back<std::vector<std::unique_ptr<kaldi::quasar::ComputeEngineBufferItf>> *&>(a1, &v9);
 }
 
 void sub_1B563AA10(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -5227,7 +5230,7 @@ void quasar::OnlineKeywordSpottingDecoder::~OnlineKeywordSpottingDecoder(void **
   JUMPOUT(0x1B8C85350);
 }
 
-void quasar::OnlineKeywordSpottingDecoder::registerParams(quasar::OnlineKeywordSpottingDecoder *this, const void **a2)
+void quasar::OnlineKeywordSpottingDecoder::registerParams(quasar::OnlineKeywordSpottingDecoder *this, quasar::SystemConfig *a2)
 {
   std::string::basic_string[abi:ne200100]<0>(__p, "keyword-spotting");
   quasar::SystemConfig::enforceMinVersion(a2, 42, 0, __p);
@@ -5386,7 +5389,7 @@ void quasar::OnlineKeywordSpottingDecoder::finishInit(quasar::OnlineKeywordSpott
 {
   v5 = *MEMORY[0x1E69E9840];
   fst::SymbolTableTextOptions::SymbolTableTextOptions(&v4);
-  Text = fst::SymbolTable::ReadText(this + 456);
+  Text = fst::SymbolTable::ReadText(this + 456, &v4);
   std::shared_ptr<fst::SymbolTable>::shared_ptr[abi:ne200100]<fst::SymbolTable,0>(v3, Text);
 }
 
@@ -5448,11 +5451,11 @@ void sub_1B563BF98(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<std::tuple<std::string,long long,long long,float>>::push_back[abi:ne200100](uint64_t result, __int128 *a2)
+const void **std::vector<std::tuple<std::string,long long,long long,float>>::push_back[abi:ne200100](const void **result, __int128 *a2)
 {
   v3 = result;
-  v4 = *(result + 8);
-  v5 = *(result + 16);
+  v4 = result[1];
+  v5 = result[2];
   if (v4 >= v5)
   {
     v8 = 0xAAAAAAAAAAAAAAABLL * ((v4 - *result) >> 4);
@@ -5495,8 +5498,8 @@ uint64_t std::vector<std::tuple<std::string,long long,long long,float>>::push_ba
     *(v12 + 32) = *(a2 + 4);
     *(v12 + 40) = *(a2 + 10);
     v7 = 48 * v8 + 48;
-    v14 = *(result + 8) - *result;
-    v15 = v12 - v14;
+    v14 = result[1] - *result;
+    v15 = (v12 - v14);
     memcpy((v12 - v14), *result, v14);
     v16 = *v3;
     *v3 = v15;
@@ -5513,15 +5516,13 @@ uint64_t std::vector<std::tuple<std::string,long long,long long,float>>::push_ba
   else
   {
     v6 = *a2;
-    *(v4 + 16) = *(a2 + 2);
+    *(v4 + 2) = *(a2 + 2);
     *v4 = v6;
-    *(a2 + 1) = 0;
-    *(a2 + 2) = 0;
+    *(a2 + 8) = 0uLL;
     *a2 = 0;
-    *(v4 + 24) = *(a2 + 3);
-    *(v4 + 32) = *(a2 + 4);
-    *(v4 + 40) = *(a2 + 10);
-    v7 = v4 + 48;
+    *(v4 + 24) = *(a2 + 24);
+    *(v4 + 10) = *(a2 + 10);
+    v7 = (v4 + 48);
   }
 
   v3[1] = v7;
@@ -5643,14 +5644,14 @@ void quasar::OnlineKeywordSpottingDecoder::updateBestScores(uint64_t a1, uint64_
 
 void quasar::OnlineKeywordSpottingDecoder::writePerBatchResults(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4)
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
+  v33 = 0;
+  v34 = 0;
   v35 = 0;
-  v36 = 0;
-  v37 = 0;
-  std::vector<std::tuple<std::string,long long,long long,float>>::__init_with_size[abi:ne200100]<std::tuple<std::string,long long,long long,float>*,std::tuple<std::string,long long,long long,float>*>(&v35, *(a1 + 568), *(a1 + 576), 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 576) - *(a1 + 568)) >> 4));
-  v9 = 126 - 2 * __clz(0xAAAAAAAAAAAAAAABLL * (v36 - v35));
-  v34[0] = quasar::tupleCompare;
-  if (v36 == v35)
+  std::vector<std::tuple<std::string,long long,long long,float>>::__init_with_size[abi:ne200100]<std::tuple<std::string,long long,long long,float>*,std::tuple<std::string,long long,long long,float>*>(&v33, *(a1 + 568), *(a1 + 576), 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 576) - *(a1 + 568)) >> 4));
+  v9 = 126 - 2 * __clz(0xAAAAAAAAAAAAAAABLL * (v34 - v33));
+  v32[0] = quasar::tupleCompare;
+  if (v34 == v33)
   {
     v10 = 0;
   }
@@ -5660,15 +5661,15 @@ void quasar::OnlineKeywordSpottingDecoder::writePerBatchResults(uint64_t a1, uin
     v10 = v9;
   }
 
-  std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(std::tuple<std::string,long long,long long,float> const&,std::tuple<std::string,long long,long long,float> const&),std::tuple<std::string,long long,long long,float>*,false>(v35, v36, v34, v10, 1, v8);
+  std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(std::tuple<std::string,long long,long long,float> const&,std::tuple<std::string,long long,long long,float> const&),std::tuple<std::string,long long,long long,float>*,false>(v33, v34, v32, v10, 1, v8);
   v22 = a4;
-  memset(v34, 0, sizeof(v34));
-  std::vector<std::vector<quasar::Token>>::reserve(v34, 0xAAAAAAAAAAAAAAABLL * (v36 - v35));
+  memset(v32, 0, sizeof(v32));
+  std::vector<std::vector<quasar::Token>>::reserve(v32, 0xAAAAAAAAAAAAAAABLL * (v34 - v33));
   v21 = a3;
-  v11 = v36;
-  if (v35 != v36)
+  v11 = v34;
+  if (v33 != v34)
   {
-    v12 = v35 + 3;
+    v12 = v33 + 3;
     do
     {
       if (*(v12 - 25) < 0)
@@ -5690,15 +5691,13 @@ void quasar::OnlineKeywordSpottingDecoder::writePerBatchResults(uint64_t a1, uin
       std::string::basic_string[abi:ne200100]<0>(&v26, "");
       memset(v25, 0, sizeof(v25));
       std::string::basic_string[abi:ne200100]<0>(__p, "");
-      quasar::Token::Token(v39, &v30, v14, v15, v15, 0, 0, &v28, v16, &v26, v25, 0, __p, 0, 0, 0);
-      v31 = 0;
-      v32 = 0;
-      v33 = 0;
-      std::vector<quasar::Token>::__init_with_size[abi:ne200100]<quasar::Token const*,quasar::Token const*>(&v31, v39, &v42, 1uLL);
-      std::vector<std::vector<quasar::Token>>::push_back[abi:ne200100](v34, &v31);
-      v38 = &v31;
-      std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](&v38);
-      quasar::Token::~Token(v39);
+      quasar::Token::Token(v37, &v30, v14, v15, v15, 0, 0, &v28, v16, &v26, v25, 0, __p, 0, 0, 0);
+      memset(&v31, 0, sizeof(v31));
+      std::vector<quasar::Token>::__init_with_size[abi:ne200100]<quasar::Token const*,quasar::Token const*>(&v31, v37, &v40, 1uLL);
+      std::vector<std::vector<quasar::Token>>::push_back[abi:ne200100](v32, &v31);
+      v36 = &v31;
+      std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](&v36);
+      quasar::Token::~Token(v37);
       if (v24 < 0)
       {
         operator delete(__p[0]);
@@ -5734,36 +5733,34 @@ void quasar::OnlineKeywordSpottingDecoder::writePerBatchResults(uint64_t a1, uin
   }
 
   v18 = *(*a2 + 576);
-  v32 = 0;
-  v33 = 0;
-  v31 = 0;
+  memset(&v31, 0, sizeof(v31));
   v19 = *(*v21 + 12);
   v28 = 0uLL;
   v29 = 0;
   v26 = 0uLL;
   v27 = 0;
-  v41 = 0;
-  *v39 = 0u;
-  v40 = 0u;
-  std::string::basic_string[abi:ne200100]<0>(&v39[1], "▁");
-  LOBYTE(v41) = 0;
+  v39 = 0;
+  *v37 = 0u;
+  v38 = 0u;
+  std::string::basic_string[abi:ne200100]<0>(&v37[1], "▁");
+  LOBYTE(v39) = 0;
   LOWORD(v20) = 0;
-  (*(*v18 + 24))(v18, &v31, v19, 1, v22, 0, v34, &v28, &v26, v20, v39);
-  if (SHIBYTE(v40) < 0)
+  (*(*v18 + 24))(v18, &v31, v19, 1, v22, 0, v32, &v28, &v26, v20, v37);
+  if (SHIBYTE(v38) < 0)
   {
-    operator delete(v39[1]);
+    operator delete(v37[1]);
   }
 
-  v39[0] = &v26;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v39);
-  v39[0] = &v28;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v39);
-  v39[0] = &v31;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v39);
-  v39[0] = v34;
-  std::vector<std::vector<quasar::Token>>::__destroy_vector::operator()[abi:ne200100](v39);
-  v39[0] = &v35;
-  std::vector<quasar::KeywordFinder::KeywordLocationLoggingStats>::__destroy_vector::operator()[abi:ne200100](v39);
+  v37[0] = &v26;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v37);
+  v37[0] = &v28;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v37);
+  v37[0] = &v31;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v37);
+  v37[0] = v32;
+  std::vector<std::vector<quasar::Token>>::__destroy_vector::operator()[abi:ne200100](v37);
+  v37[0] = &v33;
+  std::vector<quasar::KeywordFinder::KeywordLocationLoggingStats>::__destroy_vector::operator()[abi:ne200100](v37);
 }
 
 void sub_1B563C714(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, char a23, uint64_t a24, uint64_t a25, void *a26, uint64_t a27, int a28, __int16 a29, char a30, char a31, void *a32, uint64_t a33, int a34, __int16 a35, char a36, char a37, void *a38, uint64_t a39, int a40, __int16 a41, char a42, char a43, uint64_t a44, char a45, uint64_t a46, uint64_t a47, char a48, uint64_t a49, uint64_t a50, char a51, uint64_t a52, uint64_t a53, uint64_t a54, char *a55, void *__p, uint64_t a57, int a58, __int16 a59, char a60, char a61)
@@ -5790,7 +5787,7 @@ uint64_t quasar::OnlineKeywordSpottingDecoder::runImpl(uint64_t a1, kaldi::Onlin
 {
   v6 = a1;
   v7 = 0;
-  v134 = (a1 + 628);
+  v135 = (a1 + 628);
   *(a1 + 628) = 0;
   *(a1 + 636) = 0;
   v8 = *(a1 + 568);
@@ -5802,50 +5799,50 @@ uint64_t quasar::OnlineKeywordSpottingDecoder::runImpl(uint64_t a1, kaldi::Onlin
   }
 
   v10 = a2[1];
-  v135 = *a2;
+  v136 = *a2;
   if (v10)
   {
     atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v131 = v10;
-  if (!v135)
+  v132 = v10;
+  if (!v136)
   {
     if (quasar::gLogLevel >= 1)
     {
-      v174 = 0u;
       v175 = 0u;
-      v172 = 0u;
+      v176 = 0u;
       v173 = 0u;
-      *v170 = 0u;
-      v171 = 0u;
-      *v168 = 0u;
-      v169 = 0u;
-      v166 = 0u;
+      v174 = 0u;
+      *v171 = 0u;
+      v172 = 0u;
+      *v169 = 0u;
+      v170 = 0u;
       v167 = 0u;
+      v168 = 0u;
+      v165 = 0u;
+      *v166 = 0u;
+      *v163 = 0u;
       v164 = 0u;
-      *v165 = 0u;
-      *v162 = 0u;
-      v163 = 0u;
-      v161 = 0u;
-      memset(v160, 0, sizeof(v160));
-      kaldi::KaldiWarnMessage::KaldiWarnMessage(v160);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v160, "Error: no utterance features were provided", 42);
-      quasar::QuasarErrorMessage::~QuasarErrorMessage(v160);
+      v162 = 0u;
+      memset(v161, 0, sizeof(v161));
+      kaldi::KaldiWarnMessage::KaldiWarnMessage(v161);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v161, "Error: no utterance features were provided", 42);
+      quasar::QuasarErrorMessage::~QuasarErrorMessage(v161);
     }
 
-    v87 = 2;
+    v88 = 2;
     if (v10)
     {
       goto LABEL_163;
     }
 
-    return v87;
+    return v88;
   }
 
-  v192 = 0;
   v193 = 0;
   v194 = 0;
+  v195 = 0;
   if (*(a1 + 672))
   {
     v11 = *(a1 + 648);
@@ -5867,40 +5864,40 @@ uint64_t quasar::OnlineKeywordSpottingDecoder::runImpl(uint64_t a1, kaldi::Onlin
     *(v6 + 620) = (*(**(*a2 + 2) + 24))(*(*a2 + 2));
     if (quasar::gLogLevel >= 5)
     {
-      v174 = 0u;
       v175 = 0u;
-      v172 = 0u;
+      v176 = 0u;
       v173 = 0u;
-      *v170 = 0u;
-      v171 = 0u;
-      *v168 = 0u;
-      v169 = 0u;
-      v166 = 0u;
+      v174 = 0u;
+      *v171 = 0u;
+      v172 = 0u;
+      *v169 = 0u;
+      v170 = 0u;
       v167 = 0u;
+      v168 = 0u;
+      v165 = 0u;
+      *v166 = 0u;
+      *v163 = 0u;
       v164 = 0u;
-      *v165 = 0u;
-      *v162 = 0u;
-      v163 = 0u;
-      v161 = 0u;
-      memset(v160, 0, sizeof(v160));
-      kaldi::KaldiWarnMessage::KaldiWarnMessage(v160);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v160, "Start of batches", 16);
-      quasar::QuasarDebugMessage::~QuasarDebugMessage(v160);
+      v162 = 0u;
+      memset(v161, 0, sizeof(v161));
+      kaldi::KaldiWarnMessage::KaldiWarnMessage(v161);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v161, "Start of batches", 16);
+      quasar::QuasarDebugMessage::~QuasarDebugMessage(v161);
     }
 
-    v130 = a3;
+    v131 = a3;
     v15 = 0;
-    while (kaldi::OnlineFeatureMatrix::IsValidFrame(v135, v134->i32[0] + 1, 1))
+    while (kaldi::OnlineFeatureMatrix::IsValidFrame(v136, v135->i32[0] + 1, 1))
     {
-      v17 = v192;
-      v16 = v193;
-      if (v193 != v192)
+      v17 = v193;
+      v16 = v194;
+      if (v194 != v193)
       {
-        v18 = v193;
+        v18 = v194;
         do
         {
           v20 = *(v18 - 3);
-          v18 -= 24;
+          v18 -= 3;
           v19 = v20;
           if (v20)
           {
@@ -5915,20 +5912,20 @@ uint64_t quasar::OnlineKeywordSpottingDecoder::runImpl(uint64_t a1, kaldi::Onlin
       }
 
       v21 = 0;
-      v193 = v17;
-      for (j = v134->i32[0]; kaldi::OnlineFeatureMatrix::IsValidFrame(v135, j, 1) && v21 < *(v6 + 640); j = v36.i32[0])
+      v194 = v17;
+      for (j = v135->i32[0]; kaldi::OnlineFeatureMatrix::IsValidFrame(v136, j, 1) && v21 < *(v6 + 640); j = v36.i32[0])
       {
-        kaldi::OnlineFeatureMatrix::GetFrame(v135, v134->i32[0], v160);
+        kaldi::OnlineFeatureMatrix::GetFrame(v161, v136, v135->i32[0]);
         __src[0] = 0;
         __src[1] = 0;
-        *&v142 = 0;
-        if (*&v160[8] >= 1)
+        *&v143 = 0;
+        if (*&v161[8] >= 1)
         {
           v23 = 0;
           v24 = 0;
           do
           {
-            if (v23 >= v142)
+            if (v23 >= v143)
             {
               v25 = __src[0];
               v26 = v23 - __src[0];
@@ -5939,8 +5936,8 @@ uint64_t quasar::OnlineKeywordSpottingDecoder::runImpl(uint64_t a1, kaldi::Onlin
                 std::vector<int>::__throw_length_error[abi:ne200100]();
               }
 
-              v29 = v142 - __src[0];
-              if ((v142 - __src[0]) >> 1 > v28)
+              v29 = v143 - __src[0];
+              if ((v143 - __src[0]) >> 1 > v28)
               {
                 v28 = v29 >> 1;
               }
@@ -5960,13 +5957,13 @@ uint64_t quasar::OnlineKeywordSpottingDecoder::runImpl(uint64_t a1, kaldi::Onlin
               v32 = v27;
               v33 = (4 * v27);
               v34 = &v33[-v32];
-              *v33 = *(*v160 + 4 * v24);
+              *v33 = *(*v161 + 4 * v24);
               v23 = (v33 + 1);
               memcpy(v34, v25, v26);
               v35 = __src[0];
               __src[0] = v34;
               __src[1] = v23;
-              *&v142 = 0;
+              *&v143 = 0;
               if (v35)
               {
                 operator delete(v35);
@@ -5975,7 +5972,7 @@ uint64_t quasar::OnlineKeywordSpottingDecoder::runImpl(uint64_t a1, kaldi::Onlin
 
             else
             {
-              *v23 = *(*v160 + 4 * v24);
+              *v23 = *(*v161 + 4 * v24);
               v23 += 4;
             }
 
@@ -5983,74 +5980,74 @@ uint64_t quasar::OnlineKeywordSpottingDecoder::runImpl(uint64_t a1, kaldi::Onlin
             ++v24;
           }
 
-          while (v24 < *&v160[8]);
+          while (v24 < *&v161[8]);
         }
 
-        std::vector<std::vector<float>>::push_back[abi:ne200100](&v192, __src);
+        std::vector<std::vector<float>>::push_back[abi:ne200100](&v193, __src);
         if (__src[0])
         {
           __src[1] = __src[0];
           operator delete(__src[0]);
         }
 
-        v36 = vadd_s32(*v134, 0x100000001);
-        *v134 = v36;
+        v36 = vadd_s32(*v135, 0x100000001);
+        *v135 = v36;
         ++v21;
       }
 
       ++*(v6 + 636);
-      v37 = v193 - v192;
-      if (v193 == v192)
+      v37 = v194 - v193;
+      if (v194 == v193)
       {
         if (quasar::gLogLevel >= 1)
         {
-          v174 = 0u;
           v175 = 0u;
-          v172 = 0u;
+          v176 = 0u;
           v173 = 0u;
-          *v170 = 0u;
-          v171 = 0u;
-          *v168 = 0u;
-          v169 = 0u;
-          v166 = 0u;
+          v174 = 0u;
+          *v171 = 0u;
+          v172 = 0u;
+          *v169 = 0u;
+          v170 = 0u;
           v167 = 0u;
+          v168 = 0u;
+          v165 = 0u;
+          *v166 = 0u;
+          *v163 = 0u;
           v164 = 0u;
-          *v165 = 0u;
-          *v162 = 0u;
-          v163 = 0u;
-          v161 = 0u;
-          memset(v160, 0, sizeof(v160));
-          kaldi::KaldiWarnMessage::KaldiWarnMessage(v160);
-          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v160, "empty posterior matrix", 22);
-          quasar::QuasarErrorMessage::~QuasarErrorMessage(v160);
+          v162 = 0u;
+          memset(v161, 0, sizeof(v161));
+          kaldi::KaldiWarnMessage::KaldiWarnMessage(v161);
+          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v161, "empty posterior matrix", 22);
+          quasar::QuasarErrorMessage::~QuasarErrorMessage(v161);
         }
 
         goto LABEL_154;
       }
 
-      if (*(v6 + 680) != (*(v192 + 1) - *v192) >> 2)
+      if (*(v6 + 680) != (v193[1] - *v193) >> 2)
       {
         if (quasar::gLogLevel >= 1)
         {
-          v174 = 0u;
           v175 = 0u;
-          v172 = 0u;
+          v176 = 0u;
           v173 = 0u;
-          *v170 = 0u;
-          v171 = 0u;
-          *v168 = 0u;
-          v169 = 0u;
-          v166 = 0u;
+          v174 = 0u;
+          *v171 = 0u;
+          v172 = 0u;
+          *v169 = 0u;
+          v170 = 0u;
           v167 = 0u;
+          v168 = 0u;
+          v165 = 0u;
+          *v166 = 0u;
+          *v163 = 0u;
           v164 = 0u;
-          *v165 = 0u;
-          *v162 = 0u;
-          v163 = 0u;
-          v161 = 0u;
-          memset(v160, 0, sizeof(v160));
-          kaldi::KaldiWarnMessage::KaldiWarnMessage(v160);
-          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v160, "unmatched  posterior matrix dimension and number of symbols", 59);
-          quasar::QuasarErrorMessage::~QuasarErrorMessage(v160);
+          v162 = 0u;
+          memset(v161, 0, sizeof(v161));
+          kaldi::KaldiWarnMessage::KaldiWarnMessage(v161);
+          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v161, "unmatched  posterior matrix dimension and number of symbols", 59);
+          quasar::QuasarErrorMessage::~QuasarErrorMessage(v161);
         }
 
         goto LABEL_154;
@@ -6061,27 +6058,27 @@ uint64_t quasar::OnlineKeywordSpottingDecoder::runImpl(uint64_t a1, kaldi::Onlin
       v40 = *(v6 + 620);
       if (quasar::gLogLevel >= 5)
       {
-        v174 = 0u;
         v175 = 0u;
-        v172 = 0u;
+        v176 = 0u;
         v173 = 0u;
-        *v170 = 0u;
-        v171 = 0u;
-        *v168 = 0u;
-        v169 = 0u;
-        v166 = 0u;
+        v174 = 0u;
+        *v171 = 0u;
+        v172 = 0u;
+        *v169 = 0u;
+        v170 = 0u;
         v167 = 0u;
+        v168 = 0u;
+        v165 = 0u;
+        *v166 = 0u;
+        *v163 = 0u;
         v164 = 0u;
-        *v165 = 0u;
-        *v162 = 0u;
-        v163 = 0u;
-        v161 = 0u;
-        memset(v160, 0, sizeof(v160));
-        kaldi::KaldiWarnMessage::KaldiWarnMessage(v160);
-        v41 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v160, "About to process ", 17);
+        v162 = 0u;
+        memset(v161, 0, sizeof(v161));
+        kaldi::KaldiWarnMessage::KaldiWarnMessage(v161);
+        v41 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v161, "About to process ", 17);
         v42 = MEMORY[0x1B8C84C60](v41, 0xAAAAAAAAAAAAAAABLL * (v37 >> 3));
         std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v42, " frames in batch", 16);
-        quasar::QuasarDebugMessage::~QuasarDebugMessage(v160);
+        quasar::QuasarDebugMessage::~QuasarDebugMessage(v161);
       }
 
       if (v37 >= 1)
@@ -6097,26 +6094,26 @@ uint64_t quasar::OnlineKeywordSpottingDecoder::runImpl(uint64_t a1, kaldi::Onlin
           v44 = 0xAAAAAAAAAAAAAAABLL * (v37 >> 3);
         }
 
-        v133 = v44;
+        v134 = v44;
         do
         {
-          v45 = &v192[24 * v43];
+          v45 = &v193[3 * v43];
           __src[0] = 0;
           __src[1] = 0;
-          *&v142 = 0;
+          *&v143 = 0;
           if (*(v6 + 696) == 1)
           {
             if (*(v6 + 528) != *(v6 + 520))
             {
-              v132 = v15;
+              v133 = v15;
               v46 = 0;
               v47 = 0;
               v48 = 0;
               v49 = 0;
-              v137 = &v192[24 * v43];
+              v138 = &v193[3 * v43];
               do
               {
-                v140 = v48;
+                v141 = v48;
                 v50 = *(*a4 + 8);
                 v51 = *(v6 + 632);
                 v52 = *(v6 + 700);
@@ -6124,467 +6121,468 @@ uint64_t quasar::OnlineKeywordSpottingDecoder::runImpl(uint64_t a1, kaldi::Onlin
                 quasar::MovingAverage::add((v53 + v46), *(*v45 + 4 * v49));
                 v54 = v46;
                 v55 = v43;
-                v138 = v54;
-                v139 = v47;
+                v139 = v54;
+                v140 = v47;
                 v56 = *(*(v6 + 520) + v47);
                 v57 = *(v6 + 620);
                 v58 = *(v6 + 624);
                 v59 = *(v6 + 640);
                 v60 = v6;
                 v61 = *(v6 + 636);
-                Average = quasar::MovingAverage::getAverage((v53 + v54));
+                quasar::MovingAverage::getAverage((v53 + v54));
+                v63 = v62;
                 if (*(v56 + 23) < 0)
                 {
-                  std::string::__init_copy_ctor_external(v160, *v56, *(v56 + 1));
+                  std::string::__init_copy_ctor_external(v161, *v56, *(v56 + 1));
                 }
 
                 else
                 {
-                  v63 = *v56;
-                  *&v160[16] = *(v56 + 2);
-                  *v160 = v63;
+                  v64 = *v56;
+                  *&v161[16] = *(v56 + 2);
+                  *v161 = v64;
                 }
 
                 v43 = v55;
-                *&v160[24] = v58 + ((v51 + v50 - v52) * v57);
-                *&v160[28] = v58 + (v57 * (v55 + (v61 - 1) * v59));
-                *&v161 = Average;
+                *&v161[24] = v58 + ((v51 + v50 - v52) * v57);
+                *&v161[28] = v58 + (v57 * (v55 + (v61 - 1) * v59));
+                LODWORD(v162) = v63;
                 v6 = v60;
-                v64 = *(v60 + 568) + v140;
-                if (*(v64 + 23) < 0)
+                v65 = *(v60 + 568) + v141;
+                if (*(v65 + 23) < 0)
                 {
-                  operator delete(*v64);
+                  operator delete(*v65);
                 }
 
-                v65 = *v160;
-                *(v64 + 16) = *&v160[16];
-                *v64 = v65;
-                v160[23] = 0;
-                v160[0] = 0;
-                *(v64 + 24) = vcvtq_s64_f64(vcvtq_f64_f32(*&v160[24]));
-                *(v64 + 40) = v161;
-                v45 = v137;
-                if ((v160[23] & 0x80000000) != 0)
+                v66 = *v161;
+                *(v65 + 16) = *&v161[16];
+                *v65 = v66;
+                v161[23] = 0;
+                v161[0] = 0;
+                *(v65 + 24) = vcvtq_s64_f64(vcvtq_f64_f32(*&v161[24]));
+                *(v65 + 40) = v162;
+                v45 = v138;
+                if ((v161[23] & 0x80000000) != 0)
                 {
-                  operator delete(*v160);
+                  operator delete(*v161);
                 }
 
                 ++v49;
-                v48 = v140 + 48;
-                v47 = v139 + 24;
-                v46 = v138 + 64;
+                v48 = v141 + 48;
+                v47 = v140 + 24;
+                v46 = v139 + 64;
               }
 
               while (0xAAAAAAAAAAAAAAABLL * ((*(v6 + 528) - *(v6 + 520)) >> 3) > v49);
-              v10 = v131;
-              v15 = v132;
+              v10 = v132;
+              v15 = v133;
             }
           }
 
           else
           {
-            v66 = *(v6 + 648);
-            v67 = *(v6 + 656);
-            while (v66 != v67)
+            v67 = *(v6 + 648);
+            v68 = *(v6 + 656);
+            while (v67 != v68)
             {
-              quasar::AMKeywordDetection::propagate(v66, v45, *(v6 + 688));
-              Score = quasar::AMKeywordDetection::getScore(v66);
-              BestStartFrame = quasar::AMKeywordDetection::getBestStartFrame(v66);
-              kaldi::quasar::Vocab::OOvWord(v66, &v191);
-              v70 = BestStartFrame;
+              quasar::AMKeywordDetection::propagate(v67, v45, *(v6 + 688));
+              Score = quasar::AMKeywordDetection::getScore(v67);
+              BestStartFrame = quasar::AMKeywordDetection::getBestStartFrame(v67);
+              kaldi::quasar::Vocab::OOvWord(v67, &v192);
+              v71 = BestStartFrame;
               if (BestStartFrame == -1)
               {
-                v70 = 0;
+                v71 = 0;
               }
 
-              v71 = *(v6 + 620);
-              v72 = *(v6 + 624);
-              v73 = v72 + (v70 * v71);
-              v74 = v72 + (v71 * (v43 + (*(v6 + 636) - 1) * *(v6 + 640)));
-              *&v160[8] = v191.__r_.__value_.__l.__size_;
-              v75 = v191.__r_.__value_.__r.__words[0];
-              *&v160[15] = *(&v191.__r_.__value_.__r.__words[1] + 7);
-              v76 = HIBYTE(v191.__r_.__value_.__r.__words[2]);
-              memset(&v191, 0, sizeof(v191));
-              *v160 = v75;
-              v160[23] = v76;
-              *&v160[24] = v73;
-              *&v161 = v74;
-              *(&v161 + 2) = Score;
-              std::vector<std::tuple<std::string,long long,long long,float>>::push_back[abi:ne200100](__src, v160);
-              if ((v160[23] & 0x80000000) != 0)
+              v72 = *(v6 + 620);
+              v73 = *(v6 + 624);
+              v74 = v73 + (v71 * v72);
+              v75 = v73 + (v72 * (v43 + (*(v6 + 636) - 1) * *(v6 + 640)));
+              *&v161[8] = v192.__r_.__value_.__l.__size_;
+              v76 = v192.__r_.__value_.__r.__words[0];
+              *&v161[15] = *(&v192.__r_.__value_.__r.__words[1] + 7);
+              v77 = HIBYTE(v192.__r_.__value_.__r.__words[2]);
+              memset(&v192, 0, sizeof(v192));
+              *v161 = v76;
+              v161[23] = v77;
+              *&v161[24] = v74;
+              *&v162 = v75;
+              *(&v162 + 2) = Score;
+              std::vector<std::tuple<std::string,long long,long long,float>>::push_back[abi:ne200100](__src, v161);
+              if ((v161[23] & 0x80000000) != 0)
               {
-                operator delete(*v160);
+                operator delete(*v161);
               }
 
-              if (SHIBYTE(v191.__r_.__value_.__r.__words[2]) < 0)
+              if (SHIBYTE(v192.__r_.__value_.__r.__words[2]) < 0)
               {
-                operator delete(v191.__r_.__value_.__l.__data_);
+                operator delete(v192.__r_.__value_.__l.__data_);
               }
 
               if (Score > *(v6 + 616))
               {
                 if (quasar::gLogLevel >= 4)
                 {
-                  v174 = 0u;
                   v175 = 0u;
-                  v172 = 0u;
+                  v176 = 0u;
                   v173 = 0u;
-                  *v170 = 0u;
-                  v171 = 0u;
-                  *v168 = 0u;
-                  v169 = 0u;
-                  v166 = 0u;
+                  v174 = 0u;
+                  *v171 = 0u;
+                  v172 = 0u;
+                  *v169 = 0u;
+                  v170 = 0u;
                   v167 = 0u;
+                  v168 = 0u;
+                  v165 = 0u;
+                  *v166 = 0u;
+                  *v163 = 0u;
                   v164 = 0u;
-                  *v165 = 0u;
-                  *v162 = 0u;
-                  v163 = 0u;
-                  v161 = 0u;
-                  memset(v160, 0, sizeof(v160));
-                  kaldi::KaldiWarnMessage::KaldiWarnMessage(v160);
-                  v77 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v160, "KWD ", 4);
-                  kaldi::quasar::Vocab::OOvWord(v66, &v191);
-                  if ((v191.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+                  v162 = 0u;
+                  memset(v161, 0, sizeof(v161));
+                  kaldi::KaldiWarnMessage::KaldiWarnMessage(v161);
+                  v78 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v161, "KWD ", 4);
+                  kaldi::quasar::Vocab::OOvWord(v67, &v192);
+                  if ((v192.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
                   {
-                    v78 = &v191;
+                    v79 = &v192;
                   }
 
                   else
                   {
-                    v78 = v191.__r_.__value_.__r.__words[0];
+                    v79 = v192.__r_.__value_.__r.__words[0];
                   }
 
-                  if ((v191.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+                  if ((v192.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
                   {
-                    size = HIBYTE(v191.__r_.__value_.__r.__words[2]);
+                    size = HIBYTE(v192.__r_.__value_.__r.__words[2]);
                   }
 
                   else
                   {
-                    size = v191.__r_.__value_.__l.__size_;
+                    size = v192.__r_.__value_.__l.__size_;
                   }
 
-                  v80 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v77, v78, size);
-                  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v80, " ", 1);
-                  v81 = std::ostream::operator<<();
+                  v81 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v78, v79, size);
                   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v81, " ", 1);
                   v82 = std::ostream::operator<<();
                   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v82, " ", 1);
                   v83 = std::ostream::operator<<();
-                  std::ios_base::getloc((v83 + *(*v83 - 24)));
-                  v84 = std::locale::use_facet(&v188, MEMORY[0x1E69E5318]);
-                  (v84->__vftable[2].~facet_0)(v84, 10);
-                  std::locale::~locale(&v188);
+                  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v83, " ", 1);
+                  v84 = std::ostream::operator<<();
+                  std::ios_base::getloc((v84 + *(*v84 - 24)));
+                  v85 = std::locale::use_facet(&v189, MEMORY[0x1E69E5318]);
+                  (v85->__vftable[2].~facet_0)(v85, 10);
+                  std::locale::~locale(&v189);
                   std::ostream::put();
                   std::ostream::flush();
-                  if (SHIBYTE(v191.__r_.__value_.__r.__words[2]) < 0)
+                  if (SHIBYTE(v192.__r_.__value_.__r.__words[2]) < 0)
                   {
-                    operator delete(v191.__r_.__value_.__l.__data_);
+                    operator delete(v192.__r_.__value_.__l.__data_);
                   }
 
-                  quasar::QuasarInfoMessage::~QuasarInfoMessage(v160);
+                  quasar::QuasarInfoMessage::~QuasarInfoMessage(v161);
                 }
 
                 ++v15;
               }
 
               quasar::OnlineKeywordSpottingDecoder::updateBestScores(v6, __src);
-              v66 = (v66 + 216);
+              v67 = (v67 + 216);
             }
           }
 
-          *v160 = __src;
-          std::vector<quasar::KeywordFinder::KeywordLocationLoggingStats>::__destroy_vector::operator()[abi:ne200100](v160);
+          *v161 = __src;
+          std::vector<quasar::KeywordFinder::KeywordLocationLoggingStats>::__destroy_vector::operator()[abi:ne200100](v161);
           ++v43;
         }
 
-        while (v43 != v133);
+        while (v43 != v134);
       }
 
       if (quasar::gLogLevel > 4)
       {
-        v174 = 0u;
         v175 = 0u;
-        v172 = 0u;
+        v176 = 0u;
         v173 = 0u;
-        *v170 = 0u;
-        v171 = 0u;
-        *v168 = 0u;
-        v169 = 0u;
-        v166 = 0u;
+        v174 = 0u;
+        *v171 = 0u;
+        v172 = 0u;
+        *v169 = 0u;
+        v170 = 0u;
         v167 = 0u;
+        v168 = 0u;
+        v165 = 0u;
+        *v166 = 0u;
+        *v163 = 0u;
         v164 = 0u;
-        *v165 = 0u;
-        *v162 = 0u;
-        v163 = 0u;
-        v161 = 0u;
-        memset(v160, 0, sizeof(v160));
-        kaldi::KaldiWarnMessage::KaldiWarnMessage(v160);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v160, "End of batch", 12);
-        quasar::QuasarDebugMessage::~QuasarDebugMessage(v160);
+        v162 = 0u;
+        memset(v161, 0, sizeof(v161));
+        kaldi::KaldiWarnMessage::KaldiWarnMessage(v161);
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v161, "End of batch", 12);
+        quasar::QuasarDebugMessage::~QuasarDebugMessage(v161);
       }
 
-      quasar::OnlineKeywordSpottingDecoder::writePerBatchResults(v6, v130, a4, (v38 + (v39 * v40)));
+      quasar::OnlineKeywordSpottingDecoder::writePerBatchResults(v6, v131, a4, (v38 + (v39 * v40)));
       if (*(v6 + 645) == 1)
       {
-        v85 = *(v6 + 568);
-        v86 = *(v6 + 576);
-        while (v85 != v86)
+        v86 = *(v6 + 568);
+        v87 = *(v6 + 576);
+        while (v86 != v87)
         {
-          *(v85 + 24) = 0;
-          *(v85 + 32) = 0;
-          *(v85 + 40) = -8388609;
-          v85 += 48;
+          *(v86 + 24) = 0;
+          *(v86 + 32) = 0;
+          *(v86 + 40) = -8388609;
+          v86 += 48;
         }
       }
     }
 
     if (quasar::gLogLevel >= 5)
     {
-      v174 = 0u;
       v175 = 0u;
-      v172 = 0u;
+      v176 = 0u;
       v173 = 0u;
-      *v170 = 0u;
-      v171 = 0u;
-      *v168 = 0u;
-      v169 = 0u;
-      v166 = 0u;
+      v174 = 0u;
+      *v171 = 0u;
+      v172 = 0u;
+      *v169 = 0u;
+      v170 = 0u;
       v167 = 0u;
+      v168 = 0u;
+      v165 = 0u;
+      *v166 = 0u;
+      *v163 = 0u;
       v164 = 0u;
-      *v165 = 0u;
-      *v162 = 0u;
-      v163 = 0u;
-      v161 = 0u;
-      memset(v160, 0, sizeof(v160));
-      kaldi::KaldiWarnMessage::KaldiWarnMessage(v160);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v160, "End of batches", 14);
-      quasar::QuasarDebugMessage::~QuasarDebugMessage(v160);
+      v162 = 0u;
+      memset(v161, 0, sizeof(v161));
+      kaldi::KaldiWarnMessage::KaldiWarnMessage(v161);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v161, "End of batches", 14);
+      quasar::QuasarDebugMessage::~QuasarDebugMessage(v161);
     }
 
-    memset(&v191, 0, sizeof(v191));
-    v188.__locale_ = 0;
-    v189 = 0;
+    memset(&v192, 0, sizeof(v192));
+    v189.__locale_ = 0;
     v190 = 0;
-    v185 = 0;
+    v191 = 0;
     v186 = 0;
     v187 = 0;
-    v183 = 0;
-    v182 = 0;
+    v188 = 0;
     v184 = 0;
-    std::vector<std::tuple<std::string,long long,long long,float>>::__init_with_size[abi:ne200100]<std::tuple<std::string,long long,long long,float>*,std::tuple<std::string,long long,long long,float>*>(&v182, *(v6 + 568), *(v6 + 576), 0xAAAAAAAAAAAAAAABLL * ((*(v6 + 576) - *(v6 + 568)) >> 4));
-    v89 = 126 - 2 * __clz(0xAAAAAAAAAAAAAAABLL * (v183 - v182));
+    v183 = 0;
+    v185 = 0;
+    std::vector<std::tuple<std::string,long long,long long,float>>::__init_with_size[abi:ne200100]<std::tuple<std::string,long long,long long,float>*,std::tuple<std::string,long long,long long,float>*>(&v183, *(v6 + 568), *(v6 + 576), 0xAAAAAAAAAAAAAAABLL * ((*(v6 + 576) - *(v6 + 568)) >> 4));
+    v90 = 126 - 2 * __clz(0xAAAAAAAAAAAAAAABLL * (v184 - v183));
     __src[0] = quasar::tupleCompare;
-    if (v183 == v182)
+    if (v184 == v183)
     {
-      v90 = 0;
+      v91 = 0;
     }
 
     else
     {
-      v90 = v89;
+      v91 = v90;
     }
 
-    std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(std::tuple<std::string,long long,long long,float> const&,std::tuple<std::string,long long,long long,float> const&),std::tuple<std::string,long long,long long,float>*,false>(v182, v183, __src, v90, 1, v88);
-    v91 = v182;
-    for (k = v183; v91 != k; v91 += 3)
+    std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(std::tuple<std::string,long long,long long,float> const&,std::tuple<std::string,long long,long long,float> const&),std::tuple<std::string,long long,long long,float>*,false>(v183, v184, __src, v91, 1, v89);
+    v92 = v183;
+    for (k = v184; v92 != k; v92 += 3)
     {
-      locale = v188.__locale_;
+      locale = v189.__locale_;
         ;
       }
 
-      v189 = locale;
-      if (*(v91 + 23) < 0)
+      v190 = locale;
+      if (*(v92 + 23) < 0)
       {
-        std::string::__init_copy_ctor_external(&v181, *v91, *(v91 + 1));
+        std::string::__init_copy_ctor_external(&v182, *v92, *(v92 + 1));
       }
 
       else
       {
-        v95 = *v91;
-        v181.__r_.__value_.__r.__words[2] = *(v91 + 2);
-        *&v181.__r_.__value_.__l.__data_ = v95;
+        v96 = *v92;
+        v182.__r_.__value_.__r.__words[2] = *(v92 + 2);
+        *&v182.__r_.__value_.__l.__data_ = v96;
       }
 
-      v96 = *(v91 + 6);
-      v97 = *(v91 + 8);
-      v98 = *(v91 + 10);
+      v97 = *(v92 + 6);
+      v98 = *(v92 + 8);
+      v99 = *(v92 + 10);
       std::string::basic_string[abi:ne200100]<0>(__src, "");
-      std::string::basic_string[abi:ne200100]<0>(v179, "");
-      memset(v178, 0, sizeof(v178));
+      std::string::basic_string[abi:ne200100]<0>(v180, "");
+      memset(v179, 0, sizeof(v179));
       std::string::basic_string[abi:ne200100]<0>(__p, "");
-      quasar::Token::Token(v160, &v181, v96, v97, v97, 0, 0, __src, v98, v179, v178, 0, __p, 0, 0, 0);
-      if (v177 < 0)
+      quasar::Token::Token(v161, &v182, v97, v98, v98, 0, 0, __src, v99, v180, v179, 0, __p, 0, 0, 0);
+      if (v178 < 0)
       {
         operator delete(__p[0]);
       }
 
-      __p[0] = v178;
+      __p[0] = v179;
       std::vector<quasar::TextTokenizer::Token>::__destroy_vector::operator()[abi:ne200100](__p);
-      if (v180 < 0)
+      if (v181 < 0)
       {
-        operator delete(v179[0].__locale_);
+        operator delete(v180[0].__locale_);
       }
 
-      if (SBYTE7(v142) < 0)
+      if (SBYTE7(v143) < 0)
       {
         operator delete(__src[0]);
       }
 
-      if (SHIBYTE(v181.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v182.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v181.__r_.__value_.__l.__data_);
+        operator delete(v182.__r_.__value_.__l.__data_);
       }
 
-      v99 = v189;
-      if (v189 >= v190)
+      v100 = v190;
+      if (v190 >= v191)
       {
-        v100 = std::vector<quasar::Token>::__emplace_back_slow_path<quasar::Token const&>(&v188, v160);
+        v101 = std::vector<quasar::Token>::__emplace_back_slow_path<quasar::Token const&>(&v189, v161);
       }
 
       else
       {
-        quasar::Token::Token(v189, v160);
-        v100 = (v99 + 224);
+        quasar::Token::Token(v190, v161);
+        v101 = (v100 + 224);
       }
 
-      v189 = v100;
-      v101 = *(v91 + 10);
-      v102 = v186;
-      if (v186 >= v187)
+      v190 = v101;
+      v102 = *(v92 + 10);
+      v103 = v187;
+      if (v187 >= v188)
       {
-        v104 = v185;
-        v105 = v186 - v185;
-        v106 = (v186 - v185) >> 3;
-        v107 = v106 + 1;
-        if ((v106 + 1) >> 61)
+        v105 = v186;
+        v106 = v187 - v186;
+        v107 = (v187 - v186) >> 3;
+        v108 = v107 + 1;
+        if ((v107 + 1) >> 61)
         {
           std::vector<int>::__throw_length_error[abi:ne200100]();
         }
 
-        v108 = v187 - v185;
-        if ((v187 - v185) >> 2 > v107)
+        v109 = v188 - v186;
+        if ((v188 - v186) >> 2 > v108)
         {
-          v107 = v108 >> 2;
+          v108 = v109 >> 2;
         }
 
-        v30 = v108 >= 0x7FFFFFFFFFFFFFF8;
-        v109 = 0x1FFFFFFFFFFFFFFFLL;
+        v30 = v109 >= 0x7FFFFFFFFFFFFFF8;
+        v110 = 0x1FFFFFFFFFFFFFFFLL;
         if (!v30)
         {
-          v109 = v107;
+          v110 = v108;
         }
 
-        if (v109)
-        {
-          std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned long>>(&v185, v109);
-        }
-
-        *(8 * v106) = v101;
-        v103 = 8 * v106 + 8;
-        memcpy(0, v104, v105);
-        v110 = v185;
-        v185 = 0;
-        v186 = v103;
-        v187 = 0;
         if (v110)
         {
-          operator delete(v110);
+          std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned long>>(&v186, v110);
+        }
+
+        *(8 * v107) = v102;
+        v104 = 8 * v107 + 8;
+        memcpy(0, v105, v106);
+        v111 = v186;
+        v186 = 0;
+        v187 = v104;
+        v188 = 0;
+        if (v111)
+        {
+          operator delete(v111);
         }
       }
 
       else
       {
-        *v186 = v101;
-        v103 = (v102 + 1);
+        *v187 = v102;
+        v104 = (v103 + 1);
       }
 
-      v186 = v103;
-      std::vector<std::vector<quasar::Token>>::push_back[abi:ne200100](&v191, &v188);
-      if (SBYTE7(v171) < 0)
+      v187 = v104;
+      std::vector<std::vector<quasar::Token>>::push_back[abi:ne200100](&v192, &v189.__locale_);
+      if (SBYTE7(v172) < 0)
       {
-        operator delete(v170[0]);
+        operator delete(v171[0]);
       }
 
-      if (SBYTE7(v169) < 0)
+      if (SBYTE7(v170) < 0)
       {
-        operator delete(v168[0]);
+        operator delete(v169[0]);
       }
 
-      __src[0] = &v166 + 8;
+      __src[0] = &v167 + 8;
       std::vector<quasar::TextTokenizer::Token>::__destroy_vector::operator()[abi:ne200100](__src);
-      if (SBYTE7(v166) < 0)
+      if (SBYTE7(v167) < 0)
       {
-        operator delete(v165[0]);
+        operator delete(v166[0]);
       }
 
-      __src[0] = &v163 + 8;
+      __src[0] = &v164 + 8;
       std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](__src);
-      if (SBYTE7(v163) < 0)
+      if (SBYTE7(v164) < 0)
       {
-        operator delete(v162[0]);
+        operator delete(v163[0]);
       }
 
-      if ((v160[23] & 0x80000000) != 0)
+      if ((v161[23] & 0x80000000) != 0)
       {
-        operator delete(*v160);
+        operator delete(*v161);
       }
     }
 
-    v111 = *(*a4 + 12);
-    v112 = *(v6 + 632);
-    v113 = *(v6 + 620);
-    quasar::RecogResult::RecogResult(v160);
-    v114 = *(*a4 + 32);
-    v158 = *(*a4 + 24);
-    v159 = v114;
-    if (v114)
+    v112 = *(*a4 + 12);
+    v113 = *(v6 + 632);
+    v114 = *(v6 + 620);
+    quasar::RecogResult::RecogResult(v161);
+    v115 = *(*a4 + 32);
+    v159 = *(*a4 + 24);
+    v160 = v115;
+    if (v115)
     {
-      atomic_fetch_add_explicit(&v114->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v115->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v115 = quasar::RecogResult::setParams(v160, &v158);
-    v116 = quasar::Token::resetSpacing(&v191);
-    v117 = quasar::RecogResult::setResultChoices(v115, v116);
-    v118 = quasar::RecogResult::setResultCosts(v117, &v185);
-    v119 = quasar::RecogResult::setLmeStatus(v118, (*v130 + 600));
-    started = quasar::RecogResult::setUtteranceStartMillis(v119, (*(v6 + 620) * *(*a4 + 8)));
-    quasar::RecogResult::setUtteranceDurationMillis(started, (v111 + (v112 * v113)));
-    if (v159)
+    v116 = quasar::RecogResult::setParams(v161, &v159);
+    v117 = quasar::Token::resetSpacing(&v192);
+    v118 = quasar::RecogResult::setResultChoices(v116, v117);
+    v119 = quasar::RecogResult::setResultCosts(v118, &v186);
+    v120 = quasar::RecogResult::setLmeStatus(v119, (*v131 + 600));
+    started = quasar::RecogResult::setUtteranceStartMillis(v120, (*(v6 + 620) * *(*a4 + 8)));
+    quasar::RecogResult::setUtteranceDurationMillis(started, (v112 + (v113 * v114)));
+    if (v160)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v159);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v160);
     }
 
-    (*(**(*v130 + 576) + 40))(*(*v130 + 576), v160, 1);
-    *(*v130 + 592) = *(v6 + 632);
+    (*(**(*v131 + 576) + 40))(*(*v131 + 576), v161, 1);
+    *(*v131 + 592) = *(v6 + 632);
     if (v15)
     {
       if (quasar::gLogLevel >= 4)
       {
-        v156 = 0u;
         v157 = 0u;
-        v154 = 0u;
+        v158 = 0u;
         v155 = 0u;
-        v152 = 0u;
+        v156 = 0u;
         v153 = 0u;
-        v150 = 0u;
+        v154 = 0u;
         v151 = 0u;
-        v148 = 0u;
+        v152 = 0u;
         v149 = 0u;
-        v146 = 0u;
+        v150 = 0u;
         v147 = 0u;
-        v144 = 0u;
+        v148 = 0u;
         v145 = 0u;
-        v142 = 0u;
+        v146 = 0u;
         v143 = 0u;
+        v144 = 0u;
         *__src = 0u;
         kaldi::KaldiWarnMessage::KaldiWarnMessage(__src);
-        v121 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(__src, "keyword detected", 16);
-        std::ios_base::getloc((v121 + *(*v121 - 24)));
-        v122 = std::locale::use_facet(v179, MEMORY[0x1E69E5318]);
-        (v122->__vftable[2].~facet_0)(v122, 10);
-        std::locale::~locale(v179);
+        v122 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(__src, "keyword detected", 16);
+        std::ios_base::getloc((v122 + *(*v122 - 24)));
+        v123 = std::locale::use_facet(v180, MEMORY[0x1E69E5318]);
+        (v123->__vftable[2].~facet_0)(v123, 10);
+        std::locale::~locale(v180);
         std::ostream::put();
         std::ostream::flush();
         goto LABEL_157;
@@ -6593,121 +6591,121 @@ uint64_t quasar::OnlineKeywordSpottingDecoder::runImpl(uint64_t a1, kaldi::Onlin
 
     else if (quasar::gLogLevel >= 4)
     {
-      v156 = 0u;
       v157 = 0u;
-      v154 = 0u;
+      v158 = 0u;
       v155 = 0u;
-      v152 = 0u;
+      v156 = 0u;
       v153 = 0u;
-      v150 = 0u;
+      v154 = 0u;
       v151 = 0u;
-      v148 = 0u;
+      v152 = 0u;
       v149 = 0u;
-      v146 = 0u;
+      v150 = 0u;
       v147 = 0u;
-      v144 = 0u;
+      v148 = 0u;
       v145 = 0u;
-      v142 = 0u;
+      v146 = 0u;
       v143 = 0u;
+      v144 = 0u;
       *__src = 0u;
       kaldi::KaldiWarnMessage::KaldiWarnMessage(__src);
-      v123 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(__src, "no keywords detected", 20);
-      std::ios_base::getloc((v123 + *(*v123 - 24)));
-      v124 = std::locale::use_facet(v179, MEMORY[0x1E69E5318]);
-      (v124->__vftable[2].~facet_0)(v124, 10);
-      std::locale::~locale(v179);
+      v124 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(__src, "no keywords detected", 20);
+      std::ios_base::getloc((v124 + *(*v124 - 24)));
+      v125 = std::locale::use_facet(v180, MEMORY[0x1E69E5318]);
+      (v125->__vftable[2].~facet_0)(v125, 10);
+      std::locale::~locale(v180);
       std::ostream::put();
       std::ostream::flush();
 LABEL_157:
       quasar::QuasarInfoMessage::~QuasarInfoMessage(__src);
       if (quasar::gLogLevel >= 4)
       {
-        v156 = 0u;
         v157 = 0u;
-        v154 = 0u;
+        v158 = 0u;
         v155 = 0u;
-        v152 = 0u;
+        v156 = 0u;
         v153 = 0u;
-        v150 = 0u;
+        v154 = 0u;
         v151 = 0u;
-        v148 = 0u;
+        v152 = 0u;
         v149 = 0u;
-        v146 = 0u;
+        v150 = 0u;
         v147 = 0u;
-        v144 = 0u;
+        v148 = 0u;
         v145 = 0u;
-        v142 = 0u;
+        v146 = 0u;
         v143 = 0u;
+        v144 = 0u;
         *__src = 0u;
         kaldi::KaldiWarnMessage::KaldiWarnMessage(__src);
-        v125 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(__src, "keyword search finished with ", 29);
-        v126 = MEMORY[0x1B8C84C00](v125, v15);
-        v127 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v126, " detected hypothesis.", 21);
-        std::ios_base::getloc((v127 + *(*v127 - 24)));
-        v128 = std::locale::use_facet(v179, MEMORY[0x1E69E5318]);
-        (v128->__vftable[2].~facet_0)(v128, 10);
-        std::locale::~locale(v179);
+        v126 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(__src, "keyword search finished with ", 29);
+        v127 = MEMORY[0x1B8C84C00](v126, v15);
+        v128 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v127, " detected hypothesis.", 21);
+        std::ios_base::getloc((v128 + *(*v128 - 24)));
+        v129 = std::locale::use_facet(v180, MEMORY[0x1E69E5318]);
+        (v129->__vftable[2].~facet_0)(v129, 10);
+        std::locale::~locale(v180);
         std::ostream::put();
         std::ostream::flush();
         quasar::QuasarInfoMessage::~QuasarInfoMessage(__src);
       }
     }
 
-    quasar::RecogResult::~RecogResult(v160);
-    *v160 = &v182;
-    std::vector<quasar::KeywordFinder::KeywordLocationLoggingStats>::__destroy_vector::operator()[abi:ne200100](v160);
-    if (v185)
+    quasar::RecogResult::~RecogResult(v161);
+    *v161 = &v183;
+    std::vector<quasar::KeywordFinder::KeywordLocationLoggingStats>::__destroy_vector::operator()[abi:ne200100](v161);
+    if (v186)
     {
-      v186 = v185;
-      operator delete(v185);
+      v187 = v186;
+      operator delete(v186);
     }
 
-    *v160 = &v188;
-    std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](v160);
-    *v160 = &v191;
-    std::vector<std::vector<quasar::Token>>::__destroy_vector::operator()[abi:ne200100](v160);
-    v87 = 0;
+    *v161 = &v189;
+    std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](v161);
+    *v161 = &v192;
+    std::vector<std::vector<quasar::Token>>::__destroy_vector::operator()[abi:ne200100](v161);
+    v88 = 0;
     goto LABEL_162;
   }
 
   if (quasar::gLogLevel >= 2)
   {
-    v174 = 0u;
     v175 = 0u;
-    v172 = 0u;
+    v176 = 0u;
     v173 = 0u;
-    *v170 = 0u;
-    v171 = 0u;
-    *v168 = 0u;
-    v169 = 0u;
-    v166 = 0u;
+    v174 = 0u;
+    *v171 = 0u;
+    v172 = 0u;
+    *v169 = 0u;
+    v170 = 0u;
     v167 = 0u;
+    v168 = 0u;
+    v165 = 0u;
+    *v166 = 0u;
+    *v163 = 0u;
     v164 = 0u;
-    *v165 = 0u;
-    *v162 = 0u;
-    v163 = 0u;
-    v161 = 0u;
-    memset(v160, 0, sizeof(v160));
-    kaldi::KaldiWarnMessage::KaldiWarnMessage(v160);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v160, "No keywords found.", 18);
-    quasar::QuasarWarnMessage::~QuasarWarnMessage(v160);
+    v162 = 0u;
+    memset(v161, 0, sizeof(v161));
+    kaldi::KaldiWarnMessage::KaldiWarnMessage(v161);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v161, "No keywords found.", 18);
+    quasar::QuasarWarnMessage::~QuasarWarnMessage(v161);
   }
 
 LABEL_154:
-  v87 = 2;
+  v88 = 2;
 LABEL_162:
-  *v160 = &v192;
-  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](v160);
+  *v161 = &v193;
+  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](v161);
   if (v10)
   {
 LABEL_163:
     std::__shared_weak_count::__release_shared[abi:ne200100](v10);
   }
 
-  return v87;
+  return v88;
 }
 
-void sub_1B563DAF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, std::__shared_weak_count *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *__p, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, void *a61)
+void sub_1B563DAF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, std::__shared_weak_count *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *__p, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, unint64_t *a61)
 {
   quasar::RecogResult::~RecogResult(&a61);
   a61 = &STACK[0x490];
@@ -6799,15 +6797,15 @@ void std::vector<quasar::AMKeywordDetection>::__destroy_vector::operator()[abi:n
     v5 = **a1;
     if (v4 != v2)
     {
-      v6 = v4 - 216;
-      v7 = v4 - 216;
-      v8 = v4 - 216;
+      v6 = v4 - 27;
+      v7 = v4 - 27;
+      v8 = v4 - 27;
       do
       {
         v9 = *v8;
-        v8 -= 216;
+        v8 -= 27;
         (*v9)(v7);
-        v6 -= 216;
+        v6 -= 27;
         v10 = v7 == v2;
         v7 = v8;
       }
@@ -6834,7 +6832,7 @@ void std::vector<quasar::MovingAverage>::__destroy_vector::operator()[abi:ne2001
     {
       do
       {
-        v6 = v4 - 64;
+        v6 = v4 - 8;
         std::deque<int>::~deque[abi:ne200100](v4 - 6);
         v4 = v6;
       }
@@ -6899,9 +6897,9 @@ uint64_t std::vector<quasar::AMKeywordDetection>::__emplace_back_slow_path<quasa
   return v12;
 }
 
-void sub_1B563E504(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1B563E504(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<quasar::AMKeywordDetection>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -6926,31 +6924,31 @@ quasar::AMKeywordDetection *quasar::AMKeywordDetection::AMKeywordDetection(quasa
   *(this + 4) = v5;
   *(this + 6) = 0;
   *(this + 7) = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(this + 40, *(a2 + 5), *(a2 + 6), (*(a2 + 6) - *(a2 + 5)) >> 3);
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(this + 5, *(a2 + 5), *(a2 + 6), (*(a2 + 6) - *(a2 + 5)) >> 3);
   *(this + 8) = 0;
   *(this + 9) = 0;
   *(this + 10) = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(this + 64, *(a2 + 8), *(a2 + 9), (*(a2 + 9) - *(a2 + 8)) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(this + 8, *(a2 + 8), *(a2 + 9), (*(a2 + 9) - *(a2 + 8)) >> 2);
   *(this + 11) = 0;
   *(this + 12) = 0;
   *(this + 13) = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(this + 88, *(a2 + 11), *(a2 + 12), (*(a2 + 12) - *(a2 + 11)) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(this + 11, *(a2 + 11), *(a2 + 12), (*(a2 + 12) - *(a2 + 11)) >> 2);
   *(this + 14) = 0;
   *(this + 15) = 0;
   *(this + 16) = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(this + 112, *(a2 + 14), *(a2 + 15), (*(a2 + 15) - *(a2 + 14)) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(this + 14, *(a2 + 14), *(a2 + 15), (*(a2 + 15) - *(a2 + 14)) >> 2);
   *(this + 17) = 0;
   *(this + 18) = 0;
   *(this + 19) = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(this + 136, *(a2 + 17), *(a2 + 18), (*(a2 + 18) - *(a2 + 17)) >> 3);
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(this + 17, *(a2 + 17), *(a2 + 18), (*(a2 + 18) - *(a2 + 17)) >> 3);
   *(this + 20) = 0;
   *(this + 21) = 0;
   *(this + 22) = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(this + 160, *(a2 + 20), *(a2 + 21), (*(a2 + 21) - *(a2 + 20)) >> 3);
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(this + 20, *(a2 + 20), *(a2 + 21), (*(a2 + 21) - *(a2 + 20)) >> 3);
   *(this + 23) = 0;
   *(this + 24) = 0;
   *(this + 25) = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(this + 184, *(a2 + 23), *(a2 + 24), (*(a2 + 24) - *(a2 + 23)) >> 3);
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(this + 23, *(a2 + 23), *(a2 + 24), (*(a2 + 24) - *(a2 + 23)) >> 3);
   *(this + 208) = *(a2 + 208);
   return this;
 }
@@ -7123,16 +7121,16 @@ void std::__split_buffer<std::tuple<std::string,long long,long long,float>>::__d
   }
 }
 
-uint64_t std::vector<quasar::MovingAverage>::__emplace_back_slow_path<quasar::MovingAverage>(uint64_t a1, uint64_t *a2)
+uint64_t std::vector<quasar::MovingAverage>::__emplace_back_slow_path<quasar::MovingAverage>(uint64_t *a1, uint64_t *a2)
 {
-  v2 = (*(a1 + 8) - *a1) >> 6;
+  v2 = (a1[1] - *a1) >> 6;
   v3 = v2 + 1;
   if ((v2 + 1) >> 58)
   {
     std::vector<int>::__throw_length_error[abi:ne200100]();
   }
 
-  v6 = *(a1 + 16) - *a1;
+  v6 = a1[2] - *a1;
   if (v6 >> 5 > v3)
   {
     v3 = v6 >> 5;
@@ -7173,14 +7171,14 @@ uint64_t std::vector<quasar::MovingAverage>::__emplace_back_slow_path<quasar::Mo
   a2[6] = 0;
   a2[7] = 0;
   *&v19 = (v2 << 6) + 64;
-  v11 = *(a1 + 8);
+  v11 = a1[1];
   v12 = (v2 << 6) + *a1 - v11;
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<quasar::MovingAverage>,quasar::MovingAverage*>(a1, *a1, v11, v12);
   v13 = *a1;
   *a1 = v12;
-  v14 = *(a1 + 16);
+  v14 = a1[2];
   v16 = v19;
-  *(a1 + 8) = v19;
+  *(a1 + 1) = v19;
   *&v19 = v13;
   *(&v19 + 1) = v14;
   v17 = v13;
@@ -7189,9 +7187,9 @@ uint64_t std::vector<quasar::MovingAverage>::__emplace_back_slow_path<quasar::Mo
   return v16;
 }
 
-void sub_1B563EAF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1B563EAF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<quasar::MovingAverage>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -7260,7 +7258,7 @@ uint64_t std::__split_buffer<quasar::MovingAverage>::~__split_buffer(uint64_t a1
   return a1;
 }
 
-uint64_t std::vector<std::tuple<std::string,long long,long long,float>>::__init_with_size[abi:ne200100]<std::tuple<std::string,long long,long long,float>*,std::tuple<std::string,long long,long long,float>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::tuple<std::string,long long,long long,float>>::__init_with_size[abi:ne200100]<std::tuple<std::string,long long,long long,float>*,std::tuple<std::string,long long,long long,float>*>(uint64_t *result, int a2, int a3, unint64_t a4)
 {
   if (a4)
   {
@@ -7277,7 +7275,7 @@ void sub_1B563ECAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::vector<std::tuple<std::string,long long,long long,float>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::tuple<std::string,long long,long long,float>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x555555555555556)
   {
@@ -7360,19 +7358,19 @@ void std::_AllocatorDestroyRangeReverse<std::allocator<std::tuple<std::string,lo
   }
 }
 
-void std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(std::tuple<std::string,long long,long long,float> const&,std::tuple<std::string,long long,long long,float> const&),std::tuple<std::string,long long,long long,float>*,false>(uint64_t a1, __int128 *a2, uint64_t (**a3)(__int128 *, __int128 *), uint64_t a4, char a5, __n128 a6)
+void std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(std::tuple<std::string,long long,long long,float> const&,std::tuple<std::string,long long,long long,float> const&),std::tuple<std::string,long long,long long,float>*,false>(__int128 *result, __int128 *a2, uint64_t (**a3)(__int128 *, __int128 *), uint64_t a4, char a5, __n128 a6)
 {
 LABEL_1:
   v10 = a2 - 3;
-  v11 = a1;
+  v11 = result;
 LABEL_2:
   v12 = 1 - a4;
   while (1)
   {
-    a1 = v11;
+    result = v11;
     v13 = v12;
     v14 = a2 - v11;
-    v15 = 0xAAAAAAAAAAAAAAABLL * ((a2 - v11) >> 4);
+    v15 = 0xAAAAAAAAAAAAAAABLL * (a2 - v11);
     if (v15 <= 2)
     {
       if (v15 < 2)
@@ -7384,21 +7382,21 @@ LABEL_2:
       {
         if ((*a3)(a2 - 3, v11))
         {
-          v43 = *(v11 + 16);
+          v43 = *(v11 + 2);
           v40 = *v11;
           v26 = *v10;
-          *(v11 + 16) = *(a2 - 4);
+          *(v11 + 2) = *(a2 - 4);
           *v11 = v26;
           *v10 = v40;
           *(a2 - 4) = v43;
-          v27 = *(v11 + 24);
-          *(v11 + 24) = *(a2 - 3);
+          v27 = *(v11 + 3);
+          *(v11 + 3) = *(a2 - 3);
           *(a2 - 3) = v27;
-          v28 = *(v11 + 32);
-          *(v11 + 32) = *(a2 - 2);
+          v28 = *(v11 + 4);
+          *(v11 + 4) = *(a2 - 2);
           *(a2 - 2) = v28;
-          LODWORD(v26) = *(v11 + 40);
-          *(v11 + 40) = *(a2 - 2);
+          LODWORD(v26) = *(v11 + 10);
+          *(v11 + 10) = *(a2 - 2);
           *(a2 - 2) = v26;
         }
 
@@ -7415,53 +7413,53 @@ LABEL_2:
 
     if (v15 == 4)
     {
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::tuple<std::string,long long,long long,float> const&,std::tuple<std::string,long long,long long,float> const&),std::tuple<std::string,long long,long long,float>*,0>(v11, (v11 + 48), (v11 + 96), a3);
-      if ((*a3)(a2 - 3, (v11 + 96)))
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::tuple<std::string,long long,long long,float> const&,std::tuple<std::string,long long,long long,float> const&),std::tuple<std::string,long long,long long,float>*,0>(v11, v11 + 3, v11 + 6, a3);
+      if ((*a3)(a2 - 3, v11 + 6))
       {
-        v29 = *(v11 + 112);
-        v30 = *(v11 + 96);
+        v29 = *(v11 + 14);
+        v30 = v11[6];
         v31 = *(a2 - 4);
-        *(v11 + 96) = *v10;
-        *(v11 + 112) = v31;
+        v11[6] = *v10;
+        *(v11 + 14) = v31;
         *v10 = v30;
         *(a2 - 4) = v29;
-        v32 = *(v11 + 120);
-        *(v11 + 120) = *(a2 - 3);
+        v32 = *(v11 + 15);
+        *(v11 + 15) = *(a2 - 3);
         *(a2 - 3) = v32;
-        v33 = *(v11 + 128);
-        *(v11 + 128) = *(a2 - 2);
+        v33 = *(v11 + 16);
+        *(v11 + 16) = *(a2 - 2);
         *(a2 - 2) = v33;
-        LODWORD(v30) = *(v11 + 136);
-        *(v11 + 136) = *(a2 - 2);
+        LODWORD(v30) = *(v11 + 34);
+        *(v11 + 34) = *(a2 - 2);
         *(a2 - 2) = v30;
-        if ((*a3)((v11 + 96), (v11 + 48)))
+        if ((*a3)(v11 + 6, v11 + 3))
         {
-          v34 = *(v11 + 64);
-          v35 = *(v11 + 48);
-          *(v11 + 48) = *(v11 + 96);
-          *(v11 + 64) = *(v11 + 112);
-          *(v11 + 96) = v35;
-          *(v11 + 112) = v34;
+          v34 = *(v11 + 8);
+          v35 = v11[3];
+          v11[3] = v11[6];
+          *(v11 + 8) = *(v11 + 14);
+          v11[6] = v35;
+          *(v11 + 14) = v34;
           v36 = *(v11 + 72);
           *(v11 + 72) = *(v11 + 120);
           *(v11 + 120) = v36;
-          LODWORD(v35) = *(v11 + 88);
-          *(v11 + 88) = *(v11 + 136);
-          *(v11 + 136) = v35;
-          if ((*a3)((v11 + 48), v11))
+          LODWORD(v35) = *(v11 + 22);
+          *(v11 + 22) = *(v11 + 34);
+          *(v11 + 34) = v35;
+          if ((*a3)(v11 + 3, v11))
           {
-            v44 = *(v11 + 16);
+            v44 = *(v11 + 2);
             v41 = *v11;
-            *v11 = *(v11 + 48);
-            *(v11 + 16) = *(v11 + 64);
-            *(v11 + 48) = v41;
-            *(v11 + 64) = v44;
+            *v11 = v11[3];
+            *(v11 + 2) = *(v11 + 8);
+            v11[3] = v41;
+            *(v11 + 8) = v44;
             v37 = *(v11 + 24);
             *(v11 + 24) = *(v11 + 72);
             *(v11 + 72) = v37;
-            v38 = *(v11 + 40);
-            *(v11 + 40) = *(v11 + 88);
-            *(v11 + 88) = v38;
+            v38 = *(v11 + 10);
+            *(v11 + 10) = *(v11 + 22);
+            *(v11 + 22) = v38;
           }
         }
       }
@@ -7472,7 +7470,7 @@ LABEL_2:
     if (v15 == 5)
     {
 
-      std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::tuple<std::string,long long,long long,float> const&,std::tuple<std::string,long long,long long,float> const&),std::tuple<std::string,long long,long long,float>*,0>(v11, v11 + 48, v11 + 96, v11 + 144, (a2 - 3), a3);
+      std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::tuple<std::string,long long,long long,float> const&,std::tuple<std::string,long long,long long,float> const&),std::tuple<std::string,long long,long long,float>*,0>(v11, (v11 + 3), (v11 + 6), (v11 + 9), (a2 - 3), a3);
       return;
     }
 
@@ -7506,7 +7504,7 @@ LABEL_10:
     }
 
     v16 = v15 >> 1;
-    v17 = v11 + 48 * (v15 >> 1);
+    v17 = &v11[3 * (v15 >> 1)];
     if (v14 < 0x1801)
     {
       std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::tuple<std::string,long long,long long,float> const&,std::tuple<std::string,long long,long long,float> const&),std::tuple<std::string,long long,long long,float>*,0>(v17, v11, a2 - 3, a3);
@@ -7520,46 +7518,46 @@ LABEL_10:
     {
       std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::tuple<std::string,long long,long long,float> const&,std::tuple<std::string,long long,long long,float> const&),std::tuple<std::string,long long,long long,float>*,0>(v11, v17, a2 - 3, a3);
       v18 = 3 * v16;
-      v19 = (v11 + 48 * v16 - 48);
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::tuple<std::string,long long,long long,float> const&,std::tuple<std::string,long long,long long,float> const&),std::tuple<std::string,long long,long long,float>*,0>((v11 + 48), v19, a2 - 6, a3);
-      v20 = (v11 + 48 + 16 * v18);
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::tuple<std::string,long long,long long,float> const&,std::tuple<std::string,long long,long long,float> const&),std::tuple<std::string,long long,long long,float>*,0>((a1 + 96), v20, a2 - 9, a3);
+      v19 = &v11[3 * v16 - 3];
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::tuple<std::string,long long,long long,float> const&,std::tuple<std::string,long long,long long,float> const&),std::tuple<std::string,long long,long long,float>*,0>(v11 + 3, v19, a2 - 6, a3);
+      v20 = &v11[v18 + 3];
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::tuple<std::string,long long,long long,float> const&,std::tuple<std::string,long long,long long,float> const&),std::tuple<std::string,long long,long long,float>*,0>(result + 6, v20, a2 - 9, a3);
       std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::tuple<std::string,long long,long long,float> const&,std::tuple<std::string,long long,long long,float> const&),std::tuple<std::string,long long,long long,float>*,0>(v19, v17, v20, a3);
-      v42 = *(a1 + 16);
-      v39 = *a1;
+      v42 = *(result + 2);
+      v39 = *result;
       v21 = *v17;
-      *(a1 + 16) = *(v17 + 16);
-      *a1 = v21;
-      *(v17 + 16) = v42;
+      *(result + 2) = *(v17 + 2);
+      *result = v21;
+      *(v17 + 2) = v42;
       *v17 = v39;
-      v22 = *(a1 + 24);
-      *(a1 + 24) = *(v17 + 24);
+      v22 = *(result + 24);
+      *(result + 24) = *(v17 + 24);
       *(v17 + 24) = v22;
-      LODWORD(v22) = *(a1 + 40);
-      *(a1 + 40) = *(v17 + 40);
-      *(v17 + 40) = v22;
+      LODWORD(v22) = *(result + 10);
+      *(result + 10) = *(v17 + 10);
+      *(v17 + 10) = v22;
       if (a5)
       {
         goto LABEL_17;
       }
     }
 
-    if (((*a3)((a1 - 48), a1) & 1) == 0)
+    if (((*a3)(result - 3, result) & 1) == 0)
     {
-      v11 = std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,std::tuple<std::string,long long,long long,float> *,BOOL (*&)(std::tuple<std::string,long long,long long,float> const&,std::tuple<std::string,long long,long long,float> const&)>(a1, a2, a3);
+      v11 = std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,std::tuple<std::string,long long,long long,float> *,BOOL (*&)(std::tuple<std::string,long long,long long,float> const&,std::tuple<std::string,long long,long long,float> const&)>(result, a2, a3);
       goto LABEL_22;
     }
 
 LABEL_17:
-    v23 = std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,std::tuple<std::string,long long,long long,float> *,BOOL (*&)(std::tuple<std::string,long long,long long,float> const&,std::tuple<std::string,long long,long long,float> const&)>(a1, a2, a3);
+    v23 = std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,std::tuple<std::string,long long,long long,float> *,BOOL (*&)(std::tuple<std::string,long long,long long,float> const&,std::tuple<std::string,long long,long long,float> const&)>(result, a2, a3);
     if ((v24 & 1) == 0)
     {
       goto LABEL_20;
     }
 
-    v25 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::tuple<std::string,long long,long long,float> const&,std::tuple<std::string,long long,long long,float> const&),std::tuple<std::string,long long,long long,float>*>(a1, v23, a3);
-    v11 = v23 + 48;
-    if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::tuple<std::string,long long,long long,float> const&,std::tuple<std::string,long long,long long,float> const&),std::tuple<std::string,long long,long long,float>*>(v23 + 48, a2, a3))
+    v25 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::tuple<std::string,long long,long long,float> const&,std::tuple<std::string,long long,long long,float> const&),std::tuple<std::string,long long,long long,float>*>(result, v23, a3);
+    v11 = v23 + 3;
+    if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::tuple<std::string,long long,long long,float> const&,std::tuple<std::string,long long,long long,float> const&),std::tuple<std::string,long long,long long,float>*>((v23 + 3), a2, a3))
     {
       a4 = -v13;
       a2 = v23;
@@ -7575,8 +7573,8 @@ LABEL_17:
     if (!v25)
     {
 LABEL_20:
-      std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(std::tuple<std::string,long long,long long,float> const&,std::tuple<std::string,long long,long long,float> const&),std::tuple<std::string,long long,long long,float>*,false>(a1, v23, a3, -v13, a5 & 1);
-      v11 = v23 + 48;
+      std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(std::tuple<std::string,long long,long long,float> const&,std::tuple<std::string,long long,long long,float> const&),std::tuple<std::string,long long,long long,float>*,false>(result, v23, a3, -v13, a5 & 1);
+      v11 = v23 + 3;
 LABEL_22:
       a5 = 0;
       a4 = -v13;
@@ -7584,7 +7582,7 @@ LABEL_22:
     }
   }
 
-  std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::tuple<std::string,long long,long long,float> const&,std::tuple<std::string,long long,long long,float> const&),std::tuple<std::string,long long,long long,float>*,0>(v11, (v11 + 48), a2 - 3, a3);
+  std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::tuple<std::string,long long,long long,float> const&,std::tuple<std::string,long long,long long,float> const&),std::tuple<std::string,long long,long long,float>*,0>(v11, v11 + 3, a2 - 3, a3);
 }
 
 uint64_t std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::tuple<std::string,long long,long long,float> const&,std::tuple<std::string,long long,long long,float> const&),std::tuple<std::string,long long,long long,float>*,0>(__int128 *a1, __int128 *a2, __int128 *a3, uint64_t (**a4)(__int128 *, __int128 *))
@@ -7595,7 +7593,7 @@ uint64_t std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::tuple<
   {
     if (result)
     {
-      v10 = a1 + 10;
+      v10 = a1 + 40;
       v11 = *(a1 + 2);
       v12 = *a1;
       v13 = *(a3 + 2);
@@ -7610,7 +7608,7 @@ uint64_t std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::tuple<
       *(a1 + 4) = *(a3 + 4);
 LABEL_9:
       *(a3 + 4) = v15;
-      v21 = a3 + 10;
+      v21 = a3 + 40;
       goto LABEL_10;
     }
 
@@ -7627,7 +7625,7 @@ LABEL_9:
     v31 = *(a1 + 4);
     *(a1 + 4) = *(a2 + 4);
     *(a2 + 4) = v31;
-    v10 = a2 + 10;
+    v10 = a2 + 40;
     v32 = *(a1 + 10);
     *(a1 + 10) = *(a2 + 10);
     *(a2 + 10) = v32;
@@ -7669,7 +7667,7 @@ LABEL_9:
     v20 = *(a2 + 4);
     *(a2 + 4) = *(a3 + 4);
     *(a3 + 4) = v20;
-    v21 = a2 + 10;
+    v21 = a2 + 40;
     LODWORD(v17) = *(a2 + 10);
     *(a2 + 10) = *(a3 + 10);
     *(a3 + 10) = v17;
@@ -7688,7 +7686,7 @@ LABEL_9:
       v26 = *(a1 + 4);
       *(a1 + 4) = *(a2 + 4);
       *(a2 + 4) = v26;
-      v10 = a1 + 10;
+      v10 = a1 + 40;
 LABEL_10:
       v37 = *v10;
       *v10 = *v21;
@@ -7840,12 +7838,12 @@ float std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::tuple<std
   return result;
 }
 
-void std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::tuple<std::string,long long,long long,float> const&,std::tuple<std::string,long long,long long,float> const&),std::tuple<std::string,long long,long long,float>*>(uint64_t a1, __int128 *a2, uint64_t (**a3)(__int128 *, uint64_t, float))
+void std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::tuple<std::string,long long,long long,float> const&,std::tuple<std::string,long long,long long,float> const&),std::tuple<std::string,long long,long long,float>*>(__int128 *a1, __int128 *a2, uint64_t (**a3)(__int128 *, char *, float))
 {
   if (a1 != a2)
   {
-    v5 = a1 + 48;
-    if ((a1 + 48) != a2)
+    v5 = a1 + 3;
+    if (a1 + 3 != a2)
     {
       v7 = 0;
       v8 = a1;
@@ -7874,7 +7872,7 @@ void std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::t
             v10 -= 48;
             if ((v12 & 1) == 0)
             {
-              v13 = a1 + v10 + 48;
+              v13 = (a1 + v10 + 48);
               goto LABEL_10;
             }
           }
@@ -7888,12 +7886,12 @@ LABEL_10:
 
           v14 = *v16;
           *v13 = v15;
-          *(v13 + 16) = v14;
-          *(v13 + 32) = *&v16[16];
-          *(v13 + 40) = v17;
+          v13[1] = v14;
+          *(v13 + 4) = *&v16[16];
+          *(v13 + 10) = v17;
         }
 
-        v5 = (v9 + 3);
+        v5 = v9 + 3;
         v7 += 48;
         v8 = v9;
       }
@@ -7913,13 +7911,13 @@ void sub_1B563FA60(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::tuple<std::string,long long,long long,float> const&,std::tuple<std::string,long long,long long,float> const&),std::tuple<std::string,long long,long long,float>*>(uint64_t a1, uint64_t a2, uint64_t (**a3)(__int128 *, uint64_t, float))
+void std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::tuple<std::string,long long,long long,float> const&,std::tuple<std::string,long long,long long,float> const&),std::tuple<std::string,long long,long long,float>*>(__int128 *a1, __int128 *a2, uint64_t (**a3)(__int128 *, uint64_t, float))
 {
   if (a1 != a2)
   {
     v4 = a1;
-    v5 = a1 + 48;
-    if (a1 + 48 != a2)
+    v5 = a1 + 3;
+    if (a1 + 3 != a2)
     {
       do
       {
@@ -7927,9 +7925,9 @@ void std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (
         if ((*a3)(v5, v4))
         {
           v12 = *v7;
-          *v13 = *(v7 + 16);
-          *(v7 + 8) = 0;
-          *(v7 + 16) = 0;
+          *v13 = *(v7 + 2);
+          *(v7 + 1) = 0;
+          *(v7 + 2) = 0;
           *v7 = 0;
           *&v13[8] = *(v4 + 72);
           v14 = *(v4 + 88);
@@ -7954,11 +7952,11 @@ void std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (
           *(v8 + 40) = v14;
         }
 
-        v5 = v7 + 48;
+        v5 = v7 + 3;
         v4 = v7;
       }
 
-      while (v7 + 48 != a2);
+      while (v7 + 3 != a2);
     }
   }
 }
@@ -7973,22 +7971,21 @@ void sub_1B563FB74(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-unint64_t std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,std::tuple<std::string,long long,long long,float> *,BOOL (*&)(std::tuple<std::string,long long,long long,float> const&,std::tuple<std::string,long long,long long,float> const&)>(uint64_t a1, unint64_t a2, uint64_t (**a3)(void **, unint64_t))
+__int128 *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,std::tuple<std::string,long long,long long,float> *,BOOL (*&)(std::tuple<std::string,long long,long long,float> const&,std::tuple<std::string,long long,long long,float> const&)>(__int128 *a1, __int128 *a2, uint64_t (**a3)(void **, uint64_t))
 {
   v4 = a2;
   *__p = *a1;
-  v18 = *(a1 + 16);
-  *(a1 + 8) = 0;
-  *(a1 + 16) = 0;
+  v18 = *(a1 + 2);
+  *(a1 + 8) = 0uLL;
   *a1 = 0;
   v19 = *(a1 + 24);
-  v20 = *(a1 + 40);
-  if ((*a3)(__p, a2 - 48))
+  v20 = *(a1 + 10);
+  if ((*a3)(__p, (a2 - 3)))
   {
     v6 = a1;
     do
     {
-      v6 += 48;
+      v6 += 3;
     }
 
     while (((*a3)(__p, v6) & 1) == 0);
@@ -7996,7 +7993,7 @@ unint64_t std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPol
 
   else
   {
-    v7 = a1 + 48;
+    v7 = a1 + 3;
     do
     {
       v6 = v7;
@@ -8006,7 +8003,7 @@ unint64_t std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPol
       }
 
       v8 = (*a3)(__p, v7);
-      v7 = v6 + 48;
+      v7 = v6 + 3;
     }
 
     while (!v8);
@@ -8016,7 +8013,7 @@ unint64_t std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPol
   {
     do
     {
-      v4 -= 48;
+      v4 -= 3;
     }
 
     while (((*a3)(__p, v4) & 1) != 0);
@@ -8025,41 +8022,41 @@ unint64_t std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPol
   while (v6 < v4)
   {
     v9 = *v6;
-    v22 = *(v6 + 16);
+    v22 = *(v6 + 2);
     v21 = v9;
     v10 = *v4;
-    *(v6 + 16) = *(v4 + 16);
+    *(v6 + 2) = *(v4 + 2);
     *v6 = v10;
     v11 = v21;
-    *(v4 + 16) = v22;
+    *(v4 + 2) = v22;
     *v4 = v11;
-    v12 = *(v6 + 24);
-    *(v6 + 24) = *(v4 + 24);
-    *(v4 + 24) = v12;
-    v13 = *(v6 + 32);
-    *(v6 + 32) = *(v4 + 32);
-    *(v4 + 32) = v13;
-    LODWORD(v11) = *(v6 + 40);
-    *(v6 + 40) = *(v4 + 40);
-    *(v4 + 40) = v11;
+    v12 = *(v6 + 3);
+    *(v6 + 3) = *(v4 + 3);
+    *(v4 + 3) = v12;
+    v13 = *(v6 + 4);
+    *(v6 + 4) = *(v4 + 4);
+    *(v4 + 4) = v13;
+    LODWORD(v11) = *(v6 + 10);
+    *(v6 + 10) = *(v4 + 10);
+    *(v4 + 10) = v11;
     do
     {
-      v6 += 48;
+      v6 += 3;
     }
 
     while (!(*a3)(__p, v6));
     do
     {
-      v4 -= 48;
+      v4 -= 3;
     }
 
     while (((*a3)(__p, v4) & 1) != 0);
   }
 
-  v14 = (v6 - 48);
-  if (v6 - 48 != a1)
+  v14 = (v6 - 3);
+  if (v6 - 3 != a1)
   {
-    std::__memberwise_forward_assign[abi:ne200100]<std::tuple<std::string,long long,long long,float>,std::tuple<std::string,long long,long long,float>,std::string,long long,long long,float,0ul,1ul,2ul,3ul>(a1, (v6 - 48));
+    std::__memberwise_forward_assign[abi:ne200100]<std::tuple<std::string,long long,long long,float>,std::tuple<std::string,long long,long long,float>,std::string,long long,long long,float,0ul,1ul,2ul,3ul>(a1, v6 - 3);
   }
 
   if (*(v6 - 25) < 0)
@@ -8068,12 +8065,12 @@ unint64_t std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPol
   }
 
   v15 = *__p;
-  *(v6 - 32) = v18;
+  *(v6 - 4) = v18;
   *v14 = v15;
   HIBYTE(v18) = 0;
   LOBYTE(__p[0]) = 0;
   *(v6 - 24) = v19;
-  *(v6 - 8) = v20;
+  *(v6 - 2) = v20;
   if (SHIBYTE(v18) < 0)
   {
     operator delete(__p[0]);
@@ -8418,7 +8415,7 @@ float std::__memberwise_forward_assign[abi:ne200100]<std::tuple<std::string,long
   return result;
 }
 
-uint64_t std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::tuple<std::string,long long,long long,float> const&,std::tuple<std::string,long long,long long,float> const&),std::tuple<std::string,long long,long long,float>*,std::tuple<std::string,long long,long long,float>*>(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int (**a4)(uint64_t, uint64_t, float), __n128 a5)
+__int128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::tuple<std::string,long long,long long,float> const&,std::tuple<std::string,long long,long long,float> const&),std::tuple<std::string,long long,long long,float>*,std::tuple<std::string,long long,long long,float>*>(char *a1, char *a2, __int128 *a3, unsigned int (**a4)(__int128 *, __int128 *), __n128 a5)
 {
   if (a1 != a2)
   {
@@ -8429,11 +8426,11 @@ uint64_t std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)
     {
       v11 = (v10 - 2) >> 1;
       v12 = v11 + 1;
-      v13 = a1 + 48 * v11;
+      v13 = &a1[48 * v11];
       do
       {
         a5.n128_f32[0] = std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::tuple<std::string,long long,long long,float> const&,std::tuple<std::string,long long,long long,float> const&),std::tuple<std::string,long long,long long,float>*>(a1, a4, v10, v13, a5.n128_f32[0]);
-        v13 -= 48;
+        v13 -= 3;
         --v12;
       }
 
@@ -8448,26 +8445,26 @@ uint64_t std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)
       {
         if ((*a4)(v14, a1, a5))
         {
-          v15 = *(v14 + 16);
+          v15 = *(v14 + 2);
           v16 = *v14;
-          v17 = *(a1 + 16);
+          v17 = *(a1 + 2);
           *v14 = *a1;
-          *(v14 + 16) = v17;
+          *(v14 + 2) = v17;
           *a1 = v16;
-          *(a1 + 16) = v15;
-          v18 = *(v14 + 24);
-          *(v14 + 24) = *(a1 + 24);
-          *(a1 + 24) = v18;
-          v19 = *(v14 + 32);
-          *(v14 + 32) = *(a1 + 32);
-          *(a1 + 32) = v19;
-          LODWORD(v16) = *(v14 + 40);
-          *(v14 + 40) = *(a1 + 40);
-          *(a1 + 40) = v16;
+          *(a1 + 2) = v15;
+          v18 = *(v14 + 3);
+          *(v14 + 3) = *(a1 + 3);
+          *(a1 + 3) = v18;
+          v19 = *(v14 + 4);
+          *(v14 + 4) = *(a1 + 4);
+          *(a1 + 4) = v19;
+          LODWORD(v16) = *(v14 + 10);
+          *(v14 + 10) = *(a1 + 10);
+          *(a1 + 10) = v16;
           a5.n128_f32[0] = std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::tuple<std::string,long long,long long,float> const&,std::tuple<std::string,long long,long long,float> const&),std::tuple<std::string,long long,long long,float>*>(a1, a4, v10, a1, *&v16);
         }
 
-        v14 += 48;
+        v14 += 3;
       }
 
       while (v14 != a3);
@@ -8479,7 +8476,7 @@ uint64_t std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)
       do
       {
         std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*)(std::tuple<std::string,long long,long long,float> const&,std::tuple<std::string,long long,long long,float> const&),std::tuple<std::string,long long,long long,float>*>(a1, v7, a4, v20);
-        v7 -= 48;
+        v7 -= 3;
       }
 
       while (v20-- > 2);
@@ -8491,7 +8488,7 @@ uint64_t std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)
   return a3;
 }
 
-float std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::tuple<std::string,long long,long long,float> const&,std::tuple<std::string,long long,long long,float> const&),std::tuple<std::string,long long,long long,float>*>(uint64_t a1, unsigned int (**a2)(uint64_t, uint64_t, float), uint64_t a3, uint64_t a4, float result)
+float std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::tuple<std::string,long long,long long,float> const&,std::tuple<std::string,long long,long long,float> const&),std::tuple<std::string,long long,long long,float>*>(uint64_t a1, unsigned int (**a2)(__int128 *, __int128 *), uint64_t a3, uint64_t a4, float result)
 {
   v5 = a3 - 2;
   if (a3 >= 2)
@@ -8503,7 +8500,7 @@ float std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::tuple
       v11 = (0x5555555555555556 * ((a4 - a1) >> 4)) | 1;
       v12 = (a1 + 48 * v11);
       v13 = 0x5555555555555556 * ((a4 - a1) >> 4) + 2;
-      if (v13 < a3 && (*a2)(a1 + 48 * v11, v12 + 3))
+      if (v13 < a3 && (*a2)(a1 + 48 * v11, v12 + 3, result))
       {
         v12 += 3;
         v11 = v13;
@@ -8535,7 +8532,7 @@ float std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::tuple
             v11 = v16;
           }
 
-          else if ((*a2)(a1 + 48 * v16, (v12 + 3), v15))
+          else if ((*a2)(a1 + 48 * v16, v12 + 3, v15))
           {
             v12 += 3;
           }
@@ -8577,20 +8574,20 @@ void sub_1B56406D4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*)(std::tuple<std::string,long long,long long,float> const&,std::tuple<std::string,long long,long long,float> const&),std::tuple<std::string,long long,long long,float>*>(uint64_t a1, uint64_t a2, unsigned int (**a3)(uint64_t, uint64_t), uint64_t a4)
+void std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*)(std::tuple<std::string,long long,long long,float> const&,std::tuple<std::string,long long,long long,float> const&),std::tuple<std::string,long long,long long,float>*>(uint64_t *a1, uint64_t a2, unsigned int (**a3)(uint64_t, uint64_t), uint64_t a4)
 {
   if (a4 >= 2)
   {
     v7 = *a1;
-    *v16 = *(a1 + 8);
+    *v16 = a1[1];
     *&v16[7] = *(a1 + 15);
     v8 = *(a1 + 23);
-    *(a1 + 8) = 0;
-    *(a1 + 16) = 0;
+    a1[1] = 0;
+    a1[2] = 0;
     *a1 = 0;
-    v10 = *(a1 + 24);
-    v9 = *(a1 + 32);
-    v11 = *(a1 + 40);
+    v10 = a1[3];
+    v9 = a1[4];
+    v11 = *(a1 + 10);
     v12 = std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::tuple<std::string,long long,long long,float> const&,std::tuple<std::string,long long,long long,float> const&),std::tuple<std::string,long long,long long,float>*>(a1, a3, a4);
     v13 = v12;
     if (v12 == (a2 - 48))
@@ -8640,20 +8637,20 @@ void sub_1B564084C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-__int128 *std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::tuple<std::string,long long,long long,float> const&,std::tuple<std::string,long long,long long,float> const&),std::tuple<std::string,long long,long long,float>*>(uint64_t a1, unsigned int (**a2)(uint64_t, uint64_t), uint64_t a3)
+__int128 *std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::tuple<std::string,long long,long long,float> const&,std::tuple<std::string,long long,long long,float> const&),std::tuple<std::string,long long,long long,float>*>(__int128 *a1, unsigned int (**a2)(uint64_t, uint64_t), uint64_t a3)
 {
   v6 = 0;
   v7 = (a3 - 2) / 2;
   do
   {
-    v8 = a1 + 48 * v6;
-    v9 = (v8 + 48);
+    v8 = &a1[3 * v6];
+    v9 = v8 + 3;
     v10 = (2 * v6) | 1;
     v11 = 2 * v6 + 2;
     if (v11 < a3)
     {
-      v12 = (v8 + 96);
-      if ((*a2)(v8 + 48, v8 + 96))
+      v12 = v8 + 6;
+      if ((*a2)((v8 + 3), (v8 + 6)))
       {
         v9 = v12;
         v10 = v11;
@@ -8669,7 +8666,7 @@ __int128 *std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(
   return v9;
 }
 
-float std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::tuple<std::string,long long,long long,float> const&,std::tuple<std::string,long long,long long,float> const&),std::tuple<std::string,long long,long long,float>*>(uint64_t a1, uint64_t a2, unsigned int (**a3)(__int128 *, uint64_t), uint64_t a4, float result)
+float std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::tuple<std::string,long long,long long,float> const&,std::tuple<std::string,long long,long long,float> const&),std::tuple<std::string,long long,long long,float>*>(uint64_t a1, uint64_t a2, uint64_t (**a3)(__int128 *, __int128 *, float), uint64_t a4, float result)
 {
   v5 = a4 - 2;
   if (a4 >= 2)
@@ -8677,7 +8674,7 @@ float std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::tuple<s
     v9 = v5 >> 1;
     v10 = (a1 + 48 * (v5 >> 1));
     v11 = a2 - 48;
-    if ((*a3)(v10, a2 - 48))
+    if ((*a3)(v10, (a2 - 48), result))
     {
       v14 = *v11;
       v15 = *(v11 + 16);
@@ -8790,24 +8787,25 @@ float StopNgram::contextBOW(StopNgram *this, const unsigned int *a2, unsigned in
   return Ngram::contextBOW(this, v6, a3);
 }
 
-void StopNgram::~StopNgram(StopNgram *this)
+void StopNgram::~StopNgram(unsigned int **this)
 {
   *this = &unk_1F2D0A578;
-  Trie<unsigned int,BOnode>::~Trie(this + 152);
+  Trie<unsigned int,BOnode>::~Trie(this + 19);
 
   LM::~LM(this);
 }
 
 {
   *this = &unk_1F2D0A578;
-  Trie<unsigned int,BOnode>::~Trie(this + 152);
+  Trie<unsigned int,BOnode>::~Trie(this + 19);
   LM::~LM(this);
 
   JUMPOUT(0x1B8C85350);
 }
 
-void quasar::AudioAnalyticsProcessor::computeAnalytics(float **a1@<X0>, uint64_t *a2@<X1>, int a3@<W2>, unsigned int a4@<W3>, int a5@<W4>, char a6@<W5>, uint64_t a7@<X8>)
+void quasar::AudioAnalyticsProcessor::computeAnalytics(float **a1@<X0>, uint64_t *a2@<X1>, int a3@<W2>, unsigned int a4@<W3>, uint64_t a5@<X4>, char a6@<W5>, uint64_t a7@<X8>)
 {
+  v8 = a5;
   v81 = 0u;
   v82 = 0u;
   v79 = 0u;
@@ -8847,8 +8845,8 @@ void quasar::AudioAnalyticsProcessor::computeAnalytics(float **a1@<X0>, uint64_t
       v29 = 0;
       do
       {
-        quasar::calculateRelativeJitter(v74, a5, v29, (v74[1] - v74[0]) >> 3);
-        quasar::calculateAbsoluteShimmer(v76, a5, v29++, (v76[1] - v76[0]) >> 3);
+        quasar::calculateRelativeJitter(v74, v8, v29, (v74[1] - v74[0]) >> 3);
+        quasar::calculateAbsoluteShimmer(v76, v8, v29++, (v76[1] - v76[0]) >> 3);
       }
 
       while (v29 < (v76[1] - v76[0]) >> 3);
@@ -9080,8 +9078,8 @@ LABEL_50:
                   v59 = v58[1];
                   if (v56 < v59)
                   {
-                    quasar::calculateRelativeJitter(v74, a5, v56, v59);
-                    quasar::calculateAbsoluteShimmer(v76, a5, v56, v71[2 * v57 + 1]);
+                    quasar::calculateRelativeJitter(v74, v8, v56, v59);
+                    quasar::calculateAbsoluteShimmer(v76, v8, v56, v71[2 * v57 + 1]);
                     v48 = v71;
                     v55 = v74[0];
                     v54 = v74[1];
@@ -9254,7 +9252,7 @@ LABEL_81:
   }
 }
 
-void sub_1B56415B8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
+void sub_1B56415B8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
 {
   if (__p)
   {
@@ -9398,36 +9396,36 @@ double quasar::computeStdDev(double **a1, double a2)
   return sqrt(v10 / (v4 - v5));
 }
 
-void fst::Determinize<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>(uint64_t a1, __n128 a2, uint64_t a3, int *a4)
+void fst::Determinize<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>(uint64_t a1, uint64_t a2, int *a3, __n128 a4)
 {
   v14[4] = *MEMORY[0x1E69E9840];
-  v7 = FLAGS_fst_default_cache_gc;
+  v7[0] = FLAGS_fst_default_cache_gc;
   v12 = 0;
   v13 = 0;
-  v5 = *(a4 + 1);
-  v9 = *a4;
-  a2.n128_u64[0] = *(a4 + 3);
-  v10 = a2.n128_u64[0];
-  v11 = *(a4 + 20);
+  v5 = *(a3 + 1);
+  v9 = *a3;
+  a4.n128_u64[0] = *(a3 + 3);
+  v10 = a4.n128_u64[0];
+  v11 = *(a3 + 20);
   v8 = 0;
   *v14 = v5;
   LODWORD(v6[0]) = 2139095040;
-  a2.n128_f32[0] = v5;
-  if (v5 == INFINITY && a4[2] == -1)
+  a4.n128_f32[0] = v5;
+  if (v5 == INFINITY && a3[2] == -1)
   {
-    fst::DeterminizeFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>::DeterminizeFst<fst::DefaultCommonDivisor<fst::TropicalWeightTpl<float>>,fst::DefaultDeterminizeFilter<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::DefaultDeterminizeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>>>(v14, a1);
+    fst::DeterminizeFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>::DeterminizeFst<fst::DefaultCommonDivisor<fst::TropicalWeightTpl<float>>,fst::DefaultDeterminizeFilter<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::DefaultDeterminizeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>>>(v14, a1, v7);
   }
 
-  if ((*(*a1 + 64))(a1, 0x10000, 0, a2))
+  if ((*(*a1 + 64))(a1, 0x10000, 0, a4))
   {
     memset(v6, 0, sizeof(v6));
-    fst::ShortestDistance<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>(a1, v6, 1);
+    fst::ShortestDistance<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>(a1, v6, 1, 0.00097656);
   }
 
-  fst::DeterminizeFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>::DeterminizeFst<fst::DefaultCommonDivisor<fst::TropicalWeightTpl<float>>,fst::DefaultDeterminizeFilter<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::DefaultDeterminizeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>>>(v14, a1);
+  fst::DeterminizeFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>::DeterminizeFst<fst::DefaultCommonDivisor<fst::TropicalWeightTpl<float>>,fst::DefaultDeterminizeFilter<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::DefaultDeterminizeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>>>(v14, a1, v7);
 }
 
-void quasar::RealignAmFusionDecoder::registerParams(quasar::QsrTextSymbolTable **this, const void **a2)
+void quasar::RealignAmFusionDecoder::registerParams(quasar::QsrTextSymbolTable **this, quasar::SystemConfig *a2)
 {
   quasar::ForceAlignDecoderBase::registerParams(this, a2);
   std::string::basic_string[abi:ne200100]<0>(v6, "am-file");
@@ -9602,13 +9600,11 @@ void sub_1B5642064(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void quasar::RealignAmFusionDecoder::runImpl()
+void quasar::RealignAmFusionDecoder::runImpl(uint64_t a1, uint64_t a2, uint64_t *a3, quasar::SpeechRequestData **a4)
 {
-  v3 = *MEMORY[0x1E69E9840];
-  v0 = 0;
-  v1 = 0;
-  v2 = 0;
-  fst::NbestAsFsts<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>();
+  v4[124] = *MEMORY[0x1E69E9840];
+  memset(v4, 0, 24);
+  fst::NbestAsFsts<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>(*(*a3 + 168), *(a1 + 952), v4);
 }
 
 void fst::ConvertLatticeSkinny<fst::LatticeWeightTpl<float>,fst::TropicalWeightTpl<float>,int>(uint64_t a1, uint64_t a2)
@@ -9728,159 +9724,160 @@ void sub_1B5644D58(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void quasar::RealignAmFusionDecoder::redecodeLattice(uint64_t a1, uint64_t a2, int a3)
+void quasar::RealignAmFusionDecoder::redecodeLattice(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, kaldi::LatticeScoreCache *a5, uint64_t a6, uint64_t *a7, quasar::SymbolTableList *a8, int a9)
 {
-  v6 = (*(**a2 + 64))();
-  v7 = (*(**a2 + 32))();
-  v8 = (*(**a2 + 40))();
-  quasar::RealignAmFusionDecoder::redecodeLattice(a1, v6, v7, v8, a3);
+  v12 = a3;
+  v15 = (*(**a2 + 64))();
+  v16 = (*(**a2 + 32))();
+  v17 = (*(**a2 + 40))();
+  quasar::RealignAmFusionDecoder::redecodeLattice(a1, v15, v16, v17, v12, a4, a5, a6, a7, a8, a9);
 }
 
-void quasar::RealignAmFusionDecoder::updateResultLatticeWithRescoreLatticeNew(uint64_t a1, void *a2, uint64_t a3, float a4, float a5, uint64_t a6, int a7)
+void quasar::RealignAmFusionDecoder::updateResultLatticeWithRescoreLatticeNew(uint64_t a1, void *a2, uint64_t a3, void *a4, int a5, float a7, float a8)
 {
-  v51 = a7;
+  v60 = a5;
   (*(*a2 + 64))(a2, 0x40000, 1);
   (*(*a3 + 64))(a3, 0x40000, 1);
-  std::vector<std::vector<double>>::vector[abi:ne200100](v33, 2uLL);
-  v34[0] = 0;
-  std::vector<double>::resize(v33[0], 2uLL, v34);
-  v34[0] = 0;
-  std::vector<double>::resize(v33[0] + 3, 2uLL, v34);
-  v12 = v33[0];
-  **v33[0] = a5;
-  *(v12[3] + 8) = a5;
-  fst::ScaleLattice<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,double>(v33, a2);
-  v34[0] = v33;
-  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](v34);
-  std::vector<std::vector<double>>::vector[abi:ne200100](v33, 2uLL);
-  v34[0] = 0;
-  std::vector<double>::resize(v33[0], 2uLL, v34);
-  v34[0] = 0;
-  std::vector<double>::resize(v33[0] + 3, 2uLL, v34);
-  v13 = v33[0];
-  **v33[0] = a4;
-  *(v13[3] + 8) = a4;
-  fst::ScaleLattice<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,double>(v33, a3);
-  v34[0] = v33;
-  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](v34);
-  fst::ArcSort<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>,fst::ILabelCompare<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>>(a3);
-  v50[0] = &unk_1F2D228D0;
-  v50[1] = a3;
+  std::vector<std::vector<double>>::vector[abi:ne200100](v42, 2uLL);
+  v43[0] = 0;
+  std::vector<double>::resize(v42[0], 2uLL, v43);
+  v43[0] = 0;
+  std::vector<double>::resize(v42[0] + 3, 2uLL, v43);
+  v13 = v42[0];
+  **v42[0] = a8;
+  *(v13[3] + 8) = a8;
+  fst::ScaleLattice<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,double>(v42, a2);
+  v43[0] = v42;
+  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](v43);
+  std::vector<std::vector<double>>::vector[abi:ne200100](v42, 2uLL);
+  v43[0] = 0;
+  std::vector<double>::resize(v42[0], 2uLL, v43);
+  v43[0] = 0;
+  std::vector<double>::resize(v42[0] + 3, 2uLL, v43);
+  v14 = v42[0];
+  **v42[0] = a7;
+  *(v14[3] + 8) = a7;
+  fst::ScaleLattice<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,double>(v42, a3);
+  v43[0] = v42;
+  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](v43);
+  fst::ArcSort<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>,fst::ILabelCompare<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>>(a3, v15, v16, v17, v18, v19, v20, v21);
+  v59[0] = &unk_1F2D228D0;
+  v59[1] = a3;
   (*(*a3 + 64))(a3, 268697600, 1);
-  v48 = 0;
-  v49 = 0;
-  kaldi::RescoreCompactLatticeWithDeterministicOnDemandCompactLattice(v50, v51, a2, &v48, 0);
-  if (v49)
+  v57 = 0;
+  v58 = 0;
+  kaldi::RescoreCompactLatticeWithDeterministicOnDemandCompactLattice(v59, v60, a2, &v57, 0);
+  if (v58)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v49);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v58);
   }
 
-  v45 = 0u;
-  v46 = 0u;
-  v47 = 1065353216;
-  v44[0] = 0;
-  v44[1] = 0;
-  v43 = v44;
-  v14 = v51;
-  v33[0] = &v51;
-  v15 = std::__hash_table<std::__hash_value_type<int,std::pair<int,kaldi::quasar::ClassLmSymbolType>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::pair<int,kaldi::quasar::ClassLmSymbolType>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::pair<int,kaldi::quasar::ClassLmSymbolType>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::pair<int,kaldi::quasar::ClassLmSymbolType>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&v45, &v51);
-  *(v15 + 5) = v14;
-  *(v15 + 6) = -1;
-  v16 = *(a2[1] + 72) - *(a2[1] + 64);
-  if ((v16 >> 3) >= 1)
+  v54 = 0u;
+  v55 = 0u;
+  v56 = 1065353216;
+  v53[0] = 0;
+  v53[1] = 0;
+  v52 = v53;
+  v22 = v60;
+  v42[0] = &v60;
+  v23 = std::__hash_table<std::__hash_value_type<int,std::pair<int,kaldi::quasar::ClassLmSymbolType>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::pair<int,kaldi::quasar::ClassLmSymbolType>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::pair<int,kaldi::quasar::ClassLmSymbolType>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::pair<int,kaldi::quasar::ClassLmSymbolType>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&v54, &v60, &std::piecewise_construct, v42);
+  *(v23 + 5) = v22;
+  *(v23 + 6) = -1;
+  v24 = *(a2[1] + 72) - *(a2[1] + 64);
+  if ((v24 >> 3) >= 1)
   {
-    v17 = 0;
-    v32 = (v16 >> 3) & 0x7FFFFFFF;
+    v25 = 0;
+    v41 = (v24 >> 3) & 0x7FFFFFFF;
     do
     {
-      v39 = &unk_1F2CFC4E0;
-      v42 = 0;
+      v48 = &unk_1F2CFC4E0;
+      v51 = 0;
       fst::ImplToMutableFst<fst::VectorFstImpl<fst::VectorState<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>,std::allocator<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>>>,fst::MutableFst<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>>::MutateCheck(a2);
-      v18 = a2[1];
-      v19 = *(*(v18 + 64) + 8 * v17);
-      v40 = v19;
-      v41 = v18 + 8;
-      for (i = v42; ; i = ++v42)
+      v26 = a2[1];
+      v27 = *(*(v26 + 64) + 8 * v25);
+      v49 = v27;
+      v50 = v26 + 8;
+      for (i = v51; ; i = ++v51)
       {
-        v22 = v19 + 48;
-        v21 = *(v19 + 48);
-        if (i >= 0xAAAAAAAAAAAAAAABLL * ((*(v22 + 8) - v21) >> 4))
+        v30 = v27 + 48;
+        v29 = *(v27 + 48);
+        if (i >= 0xAAAAAAAAAAAAAAABLL * ((*(v30 + 8) - v29) >> 4))
         {
           break;
         }
 
-        v23 = v21 + 48 * i;
-        v34[0] = *v23;
-        v34[1] = *(v23 + 8);
-        v36 = 0;
-        v37 = 0;
+        v31 = v29 + 48 * i;
+        v43[0] = *v31;
+        v43[1] = *(v31 + 8);
+        v45 = 0;
+        v46 = 0;
         __p = 0;
-        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&__p, *(v23 + 16), *(v23 + 24), (*(v23 + 24) - *(v23 + 16)) >> 2);
-        v38 = *(v23 + 40);
-        v24 = v34[0];
-        if (LODWORD(v34[0]) == v51)
+        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&__p, *(v31 + 16), *(v31 + 24), (*(v31 + 24) - *(v31 + 16)) >> 2);
+        v47 = *(v31 + 40);
+        v33 = v43[0];
+        if (LODWORD(v43[0]) == v60)
         {
-          v52[0] = v34[0];
+          v61[0] = v43[0];
         }
 
         else
         {
-          v52[0] = DWORD2(v46);
-          v25 = HIDWORD(v34[0]);
-          v33[0] = v52;
-          v26 = std::__hash_table<std::__hash_value_type<int,std::pair<int,kaldi::quasar::ClassLmSymbolType>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::pair<int,kaldi::quasar::ClassLmSymbolType>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::pair<int,kaldi::quasar::ClassLmSymbolType>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::pair<int,kaldi::quasar::ClassLmSymbolType>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&v45, v52);
-          *(v26 + 5) = v24;
-          *(v26 + 6) = v25;
+          v61[0] = DWORD2(v55);
+          v34 = HIDWORD(v43[0]);
+          v42[0] = v61;
+          v35 = std::__hash_table<std::__hash_value_type<int,std::pair<int,kaldi::quasar::ClassLmSymbolType>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::pair<int,kaldi::quasar::ClassLmSymbolType>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::pair<int,kaldi::quasar::ClassLmSymbolType>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::pair<int,kaldi::quasar::ClassLmSymbolType>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&v54, v61, &std::piecewise_construct, v42);
+          *(v35 + 5) = v33;
+          *(v35 + 6) = v34;
         }
 
-        v27 = *(a1 + 712);
-        v30 = *(v27 + 40);
-        v28 = v27 + 40;
-        v29 = v30;
-        if (v30)
+        v36 = *(a1 + 712);
+        v39 = *(v36 + 40);
+        v37 = v36 + 40;
+        v38 = v39;
+        if (v39)
         {
-          v31 = v28;
+          v40 = v37;
           do
           {
-            if (*(v29 + 28) >= SLODWORD(v34[0]))
+            if (*(v38 + 28) >= SLODWORD(v43[0]))
             {
-              v31 = v29;
+              v40 = v38;
             }
 
-            v29 = *(v29 + 8 * (*(v29 + 28) < SLODWORD(v34[0])));
+            v38 = *(v38 + 8 * (*(v38 + 28) < SLODWORD(v43[0])));
           }
 
-          while (v29);
-          if (v31 != v28 && SLODWORD(v34[0]) >= *(v31 + 28))
+          while (v38);
+          if (v40 != v37 && SLODWORD(v43[0]) >= *(v40 + 28))
           {
-            std::__tree<int>::__emplace_unique_key_args<int,int const&>(&v43, v52);
+            std::__tree<int>::__emplace_unique_key_args<int,int const&>(&v52, v61, v61);
           }
         }
 
-        if (v52[0] <= 0)
+        if (v61[0] <= 0)
         {
-          kaldi::KaldiWarnMessage::KaldiWarnMessage(v33);
-          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v33, "acceptorLabel > 0", 17);
-          kaldi::KaldiErrorMessage::~KaldiErrorMessage(v33);
+          kaldi::KaldiWarnMessage::KaldiWarnMessage(v42);
+          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v42, "acceptorLabel > 0", 17);
+          kaldi::KaldiErrorMessage::~KaldiErrorMessage(v42);
         }
 
-        LODWORD(v34[0]) = v52[0];
-        HIDWORD(v34[0]) = v52[0];
-        fst::MutableArcIterator<fst::VectorFst<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>,fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>>>>>::SetValue(&v39, v34);
+        LODWORD(v43[0]) = v61[0];
+        HIDWORD(v43[0]) = v61[0];
+        fst::MutableArcIterator<fst::VectorFst<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>,fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>>>>>::SetValue(&v48, v43, v32);
         if (__p)
         {
-          v36 = __p;
+          v45 = __p;
           operator delete(__p);
         }
 
-        v19 = v40;
+        v27 = v49;
       }
 
-      ++v17;
+      ++v25;
     }
 
-    while (v17 != v32);
+    while (v25 != v41);
   }
 
-  fst::VectorFst<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>,fst::VectorState<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>,std::allocator<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>>>::VectorFst();
+  fst::VectorFst<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>,fst::VectorState<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>,std::allocator<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>>>::VectorFst(v43);
 }

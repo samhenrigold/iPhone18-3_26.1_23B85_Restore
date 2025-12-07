@@ -476,7 +476,7 @@ void __67__JFXOverlayEffectDebugView_updatePointsLayers_points_colors_size___blo
   }
 }
 
-void __86__JFXOverlayEffectDebugView_updateAdditionalRects_transformedLayer_effectScale_rects___block_invoke_3(uint64_t x0_0, void *a2)
+void __86__JFXOverlayEffectDebugView_updateAdditionalRects_transformedLayer_effectScale_rects___block_invoke_3(uint64_t a1, void *a2)
 {
   v20 = a2;
   v3 = [v20 ignoreTransform];
@@ -484,7 +484,7 @@ void __86__JFXOverlayEffectDebugView_updateAdditionalRects_transformedLayer_effe
   v5 = v4;
   if ((v3 & 1) == 0)
   {
-    v5 = v4 / *(x0_0 + 48);
+    v5 = v4 / *(a1 + 48);
   }
 
   v6 = [MEMORY[0x277CD9F90] layer];
@@ -517,7 +517,7 @@ void __86__JFXOverlayEffectDebugView_updateAdditionalRects_transformedLayer_effe
     v19 = 32;
   }
 
-  [*(x0_0 + v19) addSublayer:v14];
+  [*(a1 + v19) addSublayer:v14];
 }
 
 - (void)updateWithEffectFrame:(id)frame
@@ -553,7 +553,7 @@ void __86__JFXOverlayEffectDebugView_updateAdditionalRects_transformedLayer_effe
   v273 = 0u;
   v274 = 0u;
   v272 = 0u;
-  [(JFXOverlayEffectDebugView *)self transform];
+  objc_msgSend_transform(self);
   v14 = *(MEMORY[0x277CBF2C0] + 16);
   v264 = *MEMORY[0x277CBF2C0];
   v15 = *(MEMORY[0x277CBF2C0] + 32);
@@ -602,9 +602,9 @@ void __86__JFXOverlayEffectDebugView_updateAdditionalRects_transformedLayer_effe
   v267 = 0u;
   v265 = 0u;
   v264 = 0u;
-  [v5 transformInfo];
+  objc_msgSend_transformInfo(v5);
   v28 = fmax(fabs(*&v268), 0.001);
-  [v5 transform];
+  objc_msgSend_transform(v5);
   d = v283.d;
   b = v283.b;
   c = v283.c;
@@ -1016,7 +1016,7 @@ LABEL_42:
     [(JFXOverlayEffectDebugView *)self updatePolygonLayer:hitAreaBoundingBoxLayer2 points:hitAreaPoints borderWidth:hitAreaBoundingBoxColor borderColor:3.0];
 
     hitAreaMinimumSizeBoundingBoxLayer2 = [(JFXOverlayEffectDebugView *)self hitAreaMinimumSizeBoundingBoxLayer];
-    ensureNSublayers(hitAreaMinimumSizeBoundingBoxLayer2, 1uLL);
+    ensureNSublayers(hitAreaMinimumSizeBoundingBoxLayer2, 1);
 
     hitAreaMinimumSizeBoundingBoxLayer3 = [(JFXOverlayEffectDebugView *)self hitAreaMinimumSizeBoundingBoxLayer];
     sublayers = [hitAreaMinimumSizeBoundingBoxLayer3 sublayers];
@@ -1052,12 +1052,12 @@ LABEL_42:
   if ((v176 & 1) == 0)
   {
     cornerPointsLayer4 = [(JFXOverlayEffectDebugView *)self cornerPointsLayer];
-    ensureNSublayers(cornerPointsLayer4, 4uLL);
+    ensureNSublayers(cornerPointsLayer4, 4);
 
     cornerPointsLayer5 = [(JFXOverlayEffectDebugView *)self cornerPointsLayer];
     sublayers2 = [cornerPointsLayer5 sublayers];
 
-    [v5 cornerPoints];
+    objc_msgSend_cornerPoints(v5);
     v181 = PVCGPointQuad_to_NSArray(&v283);
     options13 = [(JFXOverlayEffectDebugView *)self options];
     cornerPointColors = [options13 cornerPointColors];
@@ -1114,7 +1114,7 @@ LABEL_42:
     {
       textCornerPointsContainerLayer4 = [(JFXOverlayEffectDebugView *)self textCornerPointsContainerLayer];
       textFrames5 = [v5 textFrames];
-      ensureNSublayers(textCornerPointsContainerLayer4, 4 * [textFrames5 count]);
+      ensureNSublayers(textCornerPointsContainerLayer4, (4 * [textFrames5 count]));
 
       textCornerPointsContainerLayer5 = [(JFXOverlayEffectDebugView *)self textCornerPointsContainerLayer];
       sublayers3 = [textCornerPointsContainerLayer5 sublayers];
@@ -1194,7 +1194,7 @@ void __51__JFXOverlayEffectDebugView_updateWithEffectFrame___block_invoke(uint64
   v7 = [v6 sublayers];
   v8 = [v7 objectAtIndexedSubscript:a3];
 
-  ensureNSublayers(v8, 1uLL);
+  ensureNSublayers(v8, 1);
   v9 = *(MEMORY[0x277CD9DE8] + 80);
   v48 = *(MEMORY[0x277CD9DE8] + 64);
   v49 = v9;
@@ -1215,7 +1215,7 @@ void __51__JFXOverlayEffectDebugView_updateWithEffectFrame___block_invoke(uint64
   [v8 setAnchorPoint:{v13, v14}];
   if (v5)
   {
-    [v5 transform];
+    objc_msgSend_transform(v5);
     v16 = v44;
     v15 = v45;
     v18 = v46;
@@ -1257,7 +1257,7 @@ void __51__JFXOverlayEffectDebugView_updateWithEffectFrame___block_invoke(uint64
   v45 = 0u;
   if (v5)
   {
-    [v5 transformInfo];
+    objc_msgSend_transformInfo(v5);
     v23 = *&v48;
   }
 
@@ -1294,7 +1294,7 @@ void __51__JFXOverlayEffectDebugView_updateWithEffectFrame___block_invoke_2(uint
   v2 = *(a1 + 32);
   if (a2)
   {
-    [a2 cornerPoints];
+    objc_msgSend_cornerPoints(a2);
   }
 
   else

@@ -374,12 +374,12 @@ LABEL_21:
 
     if (a2 <= 8)
     {
-      if ((a2 - 3) < 4)
+      if (a2 - 3 < 4)
       {
         goto LABEL_15;
       }
 
-      if (a2 < 3 || (a2 - 7) < 2)
+      if (a2 < 3 || a2 - 7 < 2)
       {
         goto LABEL_17;
       }
@@ -389,9 +389,9 @@ LABEL_21:
     {
       if (a2 <= 13)
       {
-        if ((a2 - 10) >= 2)
+        if (a2 - 10 >= 2)
         {
-          if ((a2 - 12) >= 2)
+          if (a2 - 12 >= 2)
           {
             if (a2 == 9)
             {
@@ -410,12 +410,12 @@ LABEL_17:
         goto LABEL_18;
       }
 
-      if ((a2 - 15) < 2)
+      if (a2 - 15 < 2)
       {
         goto LABEL_17;
       }
 
-      if ((a2 - 17) < 2)
+      if (a2 - 17 < 2)
       {
 LABEL_15:
         *(style + 13) = 0;
@@ -912,110 +912,110 @@ LABEL_13:
 
 + (void)_applySidebarCellStylingToConfiguration:(void *)configuration forState:(void *)state traitCollection:(uint64_t)collection cellStyle:(uint64_t)style sidebarStyle:
 {
-  v10 = a2;
+  v9 = a2;
   configurationCopy = configuration;
   stateCopy = state;
   objc_opt_self();
-  v13 = _UITableConstantsForTraitCollection(stateCopy);
-  v14 = v13;
-  v42 = 0;
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
+  v12 = _UITableConstantsForTraitCollection(stateCopy);
+  v13 = v12;
+  v41 = 0;
   v39 = 0u;
-  v36 = 0u;
+  v40 = 0u;
   v37 = 0u;
-  if (v13)
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
+  if (v12)
   {
-    [v13 contentPropertiesForSidebarElementWithTraitCollection:stateCopy state:configurationCopy isHeader:0 cellStyle:collection sidebarStyle:style];
+    objc_msgSend_contentPropertiesForSidebarElementWithTraitCollection_state_isHeader_cellStyle_sidebarStyle_(v12);
   }
 
-  [v14 defaultImageToTextPaddingForSidebar:{1, v36}];
-  if (v10)
+  [v13 defaultImageToTextPaddingForSidebar:{1, v35}];
+  if (v9)
   {
-    v10[3] = v15;
+    v9[3] = v14;
   }
 
-  v16 = _UICellContentViewDefaultDirectionalLayoutMargins(v14, stateCopy, collection, 1, 0);
-  if (v10)
+  v15 = _UICellContentViewDefaultDirectionalLayoutMargins(v13, stateCopy, collection, 1, 0);
+  if (v9)
   {
-    *(v10 + 12) = v16;
-    v10[13] = v17;
-    v10[14] = v18;
-    v10[15] = v19;
+    *(v9 + 12) = v15;
+    v9[13] = v16;
+    v9[14] = v17;
+    v9[15] = v18;
   }
 
-  textProperties = [v10 textProperties];
-  [(UIListContentTextProperties *)textProperties _configureWithConstants:v14 traitCollection:stateCopy forSidebar:1];
+  textProperties = [v9 textProperties];
+  [(UIListContentTextProperties *)textProperties _configureWithConstants:v13 traitCollection:stateCopy forSidebar:1];
 
-  secondaryTextProperties = [v10 secondaryTextProperties];
-  [(UIListContentTextProperties *)secondaryTextProperties _configureWithConstants:v14 traitCollection:stateCopy forSidebar:1];
+  secondaryTextProperties = [v9 secondaryTextProperties];
+  [(UIListContentTextProperties *)secondaryTextProperties _configureWithConstants:v13 traitCollection:stateCopy forSidebar:1];
 
-  textProperties2 = [v10 textProperties];
-  [(UIContentUnavailableImageProperties *)textProperties2 _setTintColor:v36];
+  textProperties2 = [v9 textProperties];
+  [(UIContentUnavailableImageProperties *)textProperties2 _setTintColor:v35];
 
-  textProperties3 = [v10 textProperties];
-  [(UIBackgroundConfiguration *)textProperties3 _setBackgroundColor:v37];
+  textProperties3 = [v9 textProperties];
+  [(UIBackgroundConfiguration *)textProperties3 _setBackgroundColor:v36];
 
-  textProperties4 = [v10 textProperties];
+  textProperties4 = [v9 textProperties];
   [(UIListContentTextProperties *)textProperties4 _setColorTransformerIdentifier:?];
 
-  textProperties5 = [v10 textProperties];
+  textProperties5 = [v9 textProperties];
   if (textProperties5)
   {
-    textProperties5[13] = v41;
+    textProperties5[13] = v40;
   }
 
-  secondaryTextProperties2 = [v10 secondaryTextProperties];
+  secondaryTextProperties2 = [v9 secondaryTextProperties];
   [(UIContentUnavailableImageProperties *)secondaryTextProperties2 _setTintColor:?];
 
-  secondaryTextProperties3 = [v10 secondaryTextProperties];
+  secondaryTextProperties3 = [v9 secondaryTextProperties];
   [(UIBackgroundConfiguration *)secondaryTextProperties3 _setBackgroundColor:?];
 
-  secondaryTextProperties4 = [v10 secondaryTextProperties];
-  [(UIListContentTextProperties *)secondaryTextProperties4 _setColorTransformerIdentifier:v40];
+  secondaryTextProperties4 = [v9 secondaryTextProperties];
+  [(UIListContentTextProperties *)secondaryTextProperties4 _setColorTransformerIdentifier:v39];
 
-  secondaryTextProperties5 = [v10 secondaryTextProperties];
+  secondaryTextProperties5 = [v9 secondaryTextProperties];
   if (secondaryTextProperties5)
   {
-    secondaryTextProperties5[13] = *(&v41 + 1);
+    secondaryTextProperties5[13] = *(&v40 + 1);
   }
 
-  imageProperties = [v10 imageProperties];
-  [(UIContentUnavailableImageProperties *)imageProperties _setTintColor:v38];
+  imageProperties = [v9 imageProperties];
+  [(UIContentUnavailableImageProperties *)imageProperties _setTintColor:v37];
 
-  imageProperties2 = [v10 imageProperties];
-  v33 = imageProperties2;
+  imageProperties2 = [v9 imageProperties];
+  v32 = imageProperties2;
   if (imageProperties2)
   {
-    objc_setProperty_nonatomic_copy(imageProperties2, v32, *(&v38 + 1), 24);
+    objc_setProperty_nonatomic_copy(imageProperties2, v31, *(&v37 + 1), 24);
   }
 
-  imageProperties3 = [v10 imageProperties];
+  imageProperties3 = [v9 imageProperties];
   [(UIListContentImageProperties *)imageProperties3 _setTintColorTransformerIdentifier:?];
 
-  imageProperties4 = [v10 imageProperties];
+  imageProperties4 = [v9 imageProperties];
   if (imageProperties4)
   {
-    imageProperties4[12] = v42;
+    imageProperties4[12] = v41;
   }
 
-  if (v10)
+  if (v9)
   {
-    v10[6] = v39;
+    v9[6] = v38;
   }
 
-  __destructor_8_sb0_sb8_sb16_sb24_sb32_sb40(&v36);
+  __destructor_8_sb0_sb8_sb16_sb24_sb32_sb40(&v35);
 }
 
 + (id)_sidebarPlainCellConfiguration
 {
-  v0 = objc_opt_self();
-  v1 = [UICellConfigurationState _readonlyCellState:?];
-  v2 = +[UITraitCollection _fallbackTraitCollection];
-  v3 = [(UIListContentConfiguration *)v0 _defaultSidebarCellConfigurationForState:v1 traitCollection:v2 style:3];
+  v1 = objc_opt_self();
+  v2 = [UICellConfigurationState _readonlyCellState:?];
+  v3 = +[UITraitCollection _fallbackTraitCollection];
+  v4 = [(UIListContentConfiguration *)v1 _defaultSidebarCellConfigurationForState:v2 traitCollection:v3 style:3];
 
-  return v3;
+  return v4;
 }
 
 + (id)_defaultSidebarHeaderConfigurationForState:(void *)state traitCollection:
@@ -1024,40 +1024,17 @@ LABEL_13:
   stateCopy = state;
   v6 = objc_opt_self();
   v7 = _UITableConstantsForTraitCollection(stateCopy);
-  _splitViewControllerContext = [stateCopy _splitViewControllerContext];
-  v9 = _UICollectionViewListStyleFromListEnvironment([stateCopy listEnvironment]);
-  if (v9 == 4)
-  {
-    v10 = 3;
-  }
-
-  else if (v9 == 3)
-  {
-    if (_splitViewControllerContext == 2)
-    {
-      v10 = 2;
-    }
-
-    else
-    {
-      v10 = 1;
-    }
-  }
-
-  else
-  {
-    v10 = 0;
-  }
-
-  v11 = [(UIListContentConfiguration *)v6 _defaultCellConfigurationForState:v4 traitCollection:stateCopy];
+  [stateCopy _splitViewControllerContext];
+  _UICollectionViewListStyleFromListEnvironment([stateCopy listEnvironment]);
+  v8 = [(UIListContentConfiguration *)v6 _defaultCellConfigurationForState:v4 traitCollection:stateCopy];
   [v7 defaultImageToTextPaddingForSidebar:1];
-  if (v11)
+  if (v8)
   {
-    *(v11 + 24) = v12;
-    *(v11 + 96) = _UICellContentViewDefaultDirectionalLayoutMargins(v7, stateCopy, 0, 1, 0);
-    *(v11 + 104) = v13;
-    *(v11 + 112) = v14;
-    *(v11 + 120) = v15;
+    *(v8 + 24) = v9;
+    *(v8 + 96) = _UICellContentViewDefaultDirectionalLayoutMargins(v7, stateCopy, 0, 1, 0);
+    *(v8 + 104) = v10;
+    *(v8 + 112) = v11;
+    *(v8 + 120) = v12;
   }
 
   else
@@ -1065,95 +1042,95 @@ LABEL_13:
     _UICellContentViewDefaultDirectionalLayoutMargins(v7, stateCopy, 0, 1, 0);
   }
 
-  textProperties = [v11 textProperties];
+  textProperties = [v8 textProperties];
   [(UIListContentTextProperties *)textProperties _configureWithConstants:v7 traitCollection:stateCopy forSidebar:1];
 
-  secondaryTextProperties = [v11 secondaryTextProperties];
+  secondaryTextProperties = [v8 secondaryTextProperties];
   [(UIListContentTextProperties *)secondaryTextProperties _configureWithConstants:v7 traitCollection:stateCopy forSidebar:1];
 
-  v41 = 0;
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
+  v38 = 0;
   v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   if (v7)
   {
-    [v7 contentPropertiesForSidebarElementWithTraitCollection:stateCopy state:v4 isHeader:1 cellStyle:0 sidebarStyle:v10];
-    v18 = v35;
+    objc_msgSend_contentPropertiesForSidebarElementWithTraitCollection_state_isHeader_cellStyle_sidebarStyle_(v7);
+    v15 = v32;
   }
 
   else
   {
-    v18 = 0;
+    v15 = 0;
   }
 
-  textProperties2 = [v11 textProperties];
-  [(UIContentUnavailableImageProperties *)textProperties2 _setTintColor:v18];
+  textProperties2 = [v8 textProperties];
+  [(UIContentUnavailableImageProperties *)textProperties2 _setTintColor:v15];
 
-  textProperties3 = [v11 textProperties];
-  [(UIBackgroundConfiguration *)textProperties3 _setBackgroundColor:v36];
+  textProperties3 = [v8 textProperties];
+  [(UIBackgroundConfiguration *)textProperties3 _setBackgroundColor:v33];
 
-  textProperties4 = [v11 textProperties];
+  textProperties4 = [v8 textProperties];
   [(UIListContentTextProperties *)textProperties4 _setColorTransformerIdentifier:?];
 
-  textProperties5 = [v11 textProperties];
+  textProperties5 = [v8 textProperties];
   if (textProperties5)
   {
-    textProperties5[13] = v40;
+    textProperties5[13] = v37;
   }
 
-  secondaryTextProperties2 = [v11 secondaryTextProperties];
+  secondaryTextProperties2 = [v8 secondaryTextProperties];
   [(UIContentUnavailableImageProperties *)secondaryTextProperties2 _setTintColor:?];
 
-  secondaryTextProperties3 = [v11 secondaryTextProperties];
+  secondaryTextProperties3 = [v8 secondaryTextProperties];
   [(UIBackgroundConfiguration *)secondaryTextProperties3 _setBackgroundColor:?];
 
-  secondaryTextProperties4 = [v11 secondaryTextProperties];
-  [(UIListContentTextProperties *)secondaryTextProperties4 _setColorTransformerIdentifier:v39];
+  secondaryTextProperties4 = [v8 secondaryTextProperties];
+  [(UIListContentTextProperties *)secondaryTextProperties4 _setColorTransformerIdentifier:v36];
 
-  secondaryTextProperties5 = [v11 secondaryTextProperties];
+  secondaryTextProperties5 = [v8 secondaryTextProperties];
   if (secondaryTextProperties5)
   {
-    secondaryTextProperties5[13] = *(&v40 + 1);
+    secondaryTextProperties5[13] = *(&v37 + 1);
   }
 
-  imageProperties = [v11 imageProperties];
-  [(UIContentUnavailableImageProperties *)imageProperties _setTintColor:v37];
+  imageProperties = [v8 imageProperties];
+  [(UIContentUnavailableImageProperties *)imageProperties _setTintColor:v34];
 
-  imageProperties2 = [v11 imageProperties];
-  v30 = imageProperties2;
+  imageProperties2 = [v8 imageProperties];
+  v27 = imageProperties2;
   if (imageProperties2)
   {
-    objc_setProperty_nonatomic_copy(imageProperties2, v29, *(&v37 + 1), 24);
+    objc_setProperty_nonatomic_copy(imageProperties2, v26, *(&v34 + 1), 24);
   }
 
-  imageProperties3 = [v11 imageProperties];
+  imageProperties3 = [v8 imageProperties];
   [(UIListContentImageProperties *)imageProperties3 _setTintColorTransformerIdentifier:?];
 
-  imageProperties4 = [v11 imageProperties];
+  imageProperties4 = [v8 imageProperties];
   if (imageProperties4)
   {
-    imageProperties4[12] = v41;
+    imageProperties4[12] = v38;
   }
 
-  if (v11)
+  if (v8)
   {
-    *(v11 + 48) = v38;
-    *(v11 + 64) = 9;
-    v33 = *(v11 + 8);
-    if ((v33 & 0x40) == 0)
+    *(v8 + 48) = v35;
+    *(v8 + 64) = 9;
+    v30 = *(v8 + 8);
+    if ((v30 & 0x40) == 0)
     {
-      *(v11 + 13) = 1;
+      *(v8 + 13) = 1;
     }
 
-    *(v11 + 8) = v33 | 0x100;
+    *(v8 + 8) = v30 | 0x100;
   }
 
-  __destructor_8_sb0_sb8_sb16_sb24_sb32_sb40(&v35);
+  __destructor_8_sb0_sb8_sb16_sb24_sb32_sb40(&v32);
 
-  return v11;
+  return v8;
 }
 
 + (UIListContentConfiguration)sidebarCellConfiguration

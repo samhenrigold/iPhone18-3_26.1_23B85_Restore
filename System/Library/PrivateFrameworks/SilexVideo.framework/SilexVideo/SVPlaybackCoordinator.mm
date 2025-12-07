@@ -23,9 +23,11 @@
 - (void)loadedTimeRangesChanged;
 - (void)muteStateChanged;
 - (void)pause;
+- (void)playWithButtonTapped:(BOOL)tapped;
 - (void)playbackBufferFullStateChanged;
 - (void)playbackFailedWithError:(id)error;
 - (void)playbackFinished;
+- (void)playbackInitiatedWithButtonTapped:(BOOL)tapped;
 - (void)playbackLikelyToKeepUpStateChanged;
 - (void)playbackPaused;
 - (void)playbackReadyToStart;
@@ -35,6 +37,7 @@
 - (void)removePlaybackObserver:(id)observer;
 - (void)seekToTime:(double)time withCompletionBlock:(id)block;
 - (void)setHost:(id)host;
+- (void)setMuted:(BOOL)muted;
 - (void)setState:(unint64_t)state;
 - (void)setupPlayerWithURL:(id)l;
 - (void)startedLoadingVideo;
@@ -66,6 +69,14 @@
   }
 
   return v10;
+}
+
+- (void)playWithButtonTapped:(BOOL)tapped
+{
+  [(SVPlaybackCoordinator *)self playbackInitiatedWithButtonTapped:tapped];
+  [(SVPlaybackCoordinator *)self loadVideoIfNeeded];
+  player = [(SVPlaybackCoordinator *)self player];
+  [player play];
 }
 
 - (void)pause
@@ -111,7 +122,7 @@
   v17 = v7;
   v8 = MEMORY[0x2667795A0](v16);
   [(SVPlaybackCoordinator *)self pause];
-  [(SVPlaybackCoordinator *)self duration];
+  objc_msgSend_duration(self);
   [(SVPlaybackCoordinator *)self timeElapsed:time duration:v9];
   if (time >= 0.0)
   {
@@ -177,7 +188,7 @@ uint64_t __56__SVPlaybackCoordinator_seekToTime_withCompletionBlock___block_invo
 - (double)duration
 {
   player = [(SVPlaybackCoordinator *)self player];
-  [player duration];
+  objc_msgSend_duration(player);
   v4 = v3;
 
   return v4;
@@ -230,7 +241,7 @@ uint64_t __56__SVPlaybackCoordinator_seekToTime_withCompletionBlock___block_invo
     v6 = firstObject;
     if (firstObject)
     {
-      [firstObject CMTimeRangeValue];
+      objc_msgSend_CMTimeRangeValue(firstObject);
     }
 
     else
@@ -241,7 +252,7 @@ uint64_t __56__SVPlaybackCoordinator_seekToTime_withCompletionBlock___block_invo
     v11 = v13;
     CMTimeRangeGetEnd(&time, &v11);
     Seconds = CMTimeGetSeconds(&time);
-    [(SVPlaybackCoordinator *)self duration];
+    objc_msgSend_duration(self);
     v7 = Seconds / v9;
   }
 
@@ -255,33 +266,33 @@ uint64_t __56__SVPlaybackCoordinator_seekToTime_withCompletionBlock___block_invo
 
 - (CGSize)naturalSize
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277CBF3A8];
   v3 = *(MEMORY[0x277CBF3A8] + 8);
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   player = [(SVPlaybackCoordinator *)self player];
   currentItem = [player currentItem];
   tracks = [currentItem tracks];
 
-  v7 = [tracks countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v7 = [tracks countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v21;
+    v9 = *v20;
     do
     {
       v10 = 0;
       do
       {
-        if (*v21 != v9)
+        if (*v20 != v9)
         {
           objc_enumerationMutation(tracks);
         }
 
-        assetTrack = [*(*(&v20 + 1) + 8 * v10) assetTrack];
+        assetTrack = [*(*(&v19 + 1) + 8 * v10) assetTrack];
         if ([assetTrack statusOfValueForKey:@"naturalSize" error:0] == 2)
         {
           [assetTrack naturalSize];
@@ -299,7 +310,7 @@ uint64_t __56__SVPlaybackCoordinator_seekToTime_withCompletionBlock___block_invo
       }
 
       while (v8 != v10);
-      v8 = [tracks countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v8 = [tracks countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v8);
@@ -307,11 +318,10 @@ uint64_t __56__SVPlaybackCoordinator_seekToTime_withCompletionBlock___block_invo
 
 LABEL_14:
 
-  v17 = *MEMORY[0x277D85DE8];
-  v18 = v2;
-  v19 = v3;
-  result.height = v19;
-  result.width = v18;
+  v17 = v2;
+  v18 = v3;
+  result.height = v18;
+  result.width = v17;
   return result;
 }
 
@@ -516,7 +526,7 @@ void __44__SVPlaybackCoordinator_setupPlayerWithURL___block_invoke_4(uint64_t a1
 
 - (void)startedLoadingVideo
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   [(SVPlaybackCoordinator *)self setState:1];
   video = [(SVPlaybackCoordinator *)self video];
   v4 = objc_opt_respondsToSelector();
@@ -527,29 +537,29 @@ void __44__SVPlaybackCoordinator_setupPlayerWithURL___block_invoke_4(uint64_t a1
     [video2 startedLoadingVideo];
   }
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   observers = [(SVPlaybackCoordinator *)self observers];
   v7 = [observers copy];
 
-  v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v15;
+    v10 = *v14;
     do
     {
       v11 = 0;
       do
       {
-        if (*v15 != v10)
+        if (*v14 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v14 + 1) + 8 * v11);
+        v12 = *(*(&v13 + 1) + 8 * v11);
         if (objc_opt_respondsToSelector())
         {
           [v12 playbackCoordinatorStartedLoadingVideo:self];
@@ -559,18 +569,16 @@ void __44__SVPlaybackCoordinator_setupPlayerWithURL___block_invoke_4(uint64_t a1
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v9);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)finishedLoadingVideoURL:(id)l
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   lCopy = l;
   video = [(SVPlaybackCoordinator *)self video];
   v6 = objc_opt_respondsToSelector();
@@ -581,29 +589,29 @@ void __44__SVPlaybackCoordinator_setupPlayerWithURL___block_invoke_4(uint64_t a1
     [video2 finishedLoadingVideoWithURL:lCopy];
   }
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   observers = [(SVPlaybackCoordinator *)self observers];
   v9 = [observers copy];
 
-  v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v17;
+    v12 = *v16;
     do
     {
       v13 = 0;
       do
       {
-        if (*v17 != v12)
+        if (*v16 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v16 + 1) + 8 * v13);
+        v14 = *(*(&v15 + 1) + 8 * v13);
         if (objc_opt_respondsToSelector())
         {
           [v14 playbackCoordinatorFinishedLoadingVideoURL:self];
@@ -613,13 +621,31 @@ void __44__SVPlaybackCoordinator_setupPlayerWithURL___block_invoke_4(uint64_t a1
       }
 
       while (v11 != v13);
-      v11 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v11);
   }
+}
 
-  v15 = *MEMORY[0x277D85DE8];
+- (void)playbackInitiatedWithButtonTapped:(BOOL)tapped
+{
+  tappedCopy = tapped;
+  if (![(SVPlaybackCoordinator *)self initiatedPlayback])
+  {
+    video = [(SVPlaybackCoordinator *)self video];
+    v6 = objc_opt_respondsToSelector();
+
+    if (v6)
+    {
+      video2 = [(SVPlaybackCoordinator *)self video];
+      [video2 playbackInitiatedWithButtonTapped:tappedCopy];
+    }
+  }
+
+  [(SVPlaybackCoordinator *)self setPlaybackRequested:1];
+
+  [(SVPlaybackCoordinator *)self setInitiatedPlayback:1];
 }
 
 - (void)playbackReadyToStart
@@ -637,32 +663,32 @@ void __44__SVPlaybackCoordinator_setupPlayerWithURL___block_invoke_4(uint64_t a1
 
 - (void)playbackStarted
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   [(SVPlaybackCoordinator *)self configureTimeline];
   [(SVPlaybackCoordinator *)self setState:3];
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   observers = [(SVPlaybackCoordinator *)self observers];
   v4 = [observers copy];
 
-  v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       v8 = 0;
       do
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * v8);
+        v9 = *(*(&v13 + 1) + 8 * v8);
         if (objc_opt_respondsToSelector())
         {
           [v9 playbackCoordinatorStartedPlayback:self];
@@ -672,7 +698,7 @@ void __44__SVPlaybackCoordinator_setupPlayerWithURL___block_invoke_4(uint64_t a1
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
@@ -686,13 +712,11 @@ void __44__SVPlaybackCoordinator_setupPlayerWithURL___block_invoke_4(uint64_t a1
     video2 = [(SVPlaybackCoordinator *)self video];
     [video2 playbackStarted];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)playbackPaused
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   [(SVPlaybackCoordinator *)self time];
   [(SVPlaybackCoordinator *)self playbackPausedAtTime:?];
   [(SVPlaybackCoordinator *)self setState:4];
@@ -705,29 +729,29 @@ void __44__SVPlaybackCoordinator_setupPlayerWithURL___block_invoke_4(uint64_t a1
     [video2 playbackPaused];
   }
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   observers = [(SVPlaybackCoordinator *)self observers];
   v7 = [observers copy];
 
-  v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v15;
+    v10 = *v14;
     do
     {
       v11 = 0;
       do
       {
-        if (*v15 != v10)
+        if (*v14 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v14 + 1) + 8 * v11);
+        v12 = *(*(&v13 + 1) + 8 * v11);
         if (objc_opt_respondsToSelector())
         {
           [v12 playbackCoordinatorPausedPlayback:self];
@@ -737,44 +761,42 @@ void __44__SVPlaybackCoordinator_setupPlayerWithURL___block_invoke_4(uint64_t a1
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v9);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)playbackResumed
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   [(SVPlaybackCoordinator *)self time];
   [(SVPlaybackCoordinator *)self playbackResumedAtTime:?];
   [(SVPlaybackCoordinator *)self setState:3];
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   observers = [(SVPlaybackCoordinator *)self observers];
   v4 = [observers copy];
 
-  v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       v8 = 0;
       do
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * v8);
+        v9 = *(*(&v13 + 1) + 8 * v8);
         if (objc_opt_respondsToSelector())
         {
           [v9 playbackCoordinatorResumedPlayback:self];
@@ -784,7 +806,7 @@ void __44__SVPlaybackCoordinator_setupPlayerWithURL___block_invoke_4(uint64_t a1
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
@@ -798,13 +820,11 @@ void __44__SVPlaybackCoordinator_setupPlayerWithURL___block_invoke_4(uint64_t a1
     video2 = [(SVPlaybackCoordinator *)self video];
     [video2 playbackResumed];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)playbackFinished
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   [(SVPlaybackCoordinator *)self setState:4];
   video = [(SVPlaybackCoordinator *)self video];
   v4 = objc_opt_respondsToSelector();
@@ -815,29 +835,29 @@ void __44__SVPlaybackCoordinator_setupPlayerWithURL___block_invoke_4(uint64_t a1
     [video2 playbackFinished];
   }
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   observers = [(SVPlaybackCoordinator *)self observers];
   v7 = [observers copy];
 
-  v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v15;
+    v10 = *v14;
     do
     {
       v11 = 0;
       do
       {
-        if (*v15 != v10)
+        if (*v14 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v14 + 1) + 8 * v11);
+        v12 = *(*(&v13 + 1) + 8 * v11);
         if (objc_opt_respondsToSelector())
         {
           [v12 playbackCoordinatorFinishedPlayback:self];
@@ -847,18 +867,16 @@ void __44__SVPlaybackCoordinator_setupPlayerWithURL___block_invoke_4(uint64_t a1
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v9);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)playbackFailedWithError:(id)error
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   [(SVPlaybackCoordinator *)self setState:5];
   [(SVPlaybackCoordinator *)self setError:errorCopy];
@@ -871,29 +889,29 @@ void __44__SVPlaybackCoordinator_setupPlayerWithURL___block_invoke_4(uint64_t a1
     [video2 playbackFailedWithError:errorCopy];
   }
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   observers = [(SVPlaybackCoordinator *)self observers];
   v9 = [observers copy];
 
-  v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v17;
+    v12 = *v16;
     do
     {
       v13 = 0;
       do
       {
-        if (*v17 != v12)
+        if (*v16 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v16 + 1) + 8 * v13);
+        v14 = *(*(&v15 + 1) + 8 * v13);
         if (objc_opt_respondsToSelector())
         {
           [v14 playbackCoordinator:self playbackFailedWithError:errorCopy];
@@ -903,18 +921,16 @@ void __44__SVPlaybackCoordinator_setupPlayerWithURL___block_invoke_4(uint64_t a1
       }
 
       while (v11 != v13);
-      v11 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v11);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)timeElapsed:(double)elapsed duration:(double)duration
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   timeline = [(SVPlaybackCoordinator *)self timeline];
   [(SVTimeline *)timeline setTime:elapsed];
 
@@ -927,29 +943,29 @@ void __44__SVPlaybackCoordinator_setupPlayerWithURL___block_invoke_4(uint64_t a1
     [video2 timeElapsed:elapsed duration:duration];
   }
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   observers = [(SVPlaybackCoordinator *)self observers];
   v12 = [observers copy];
 
-  v13 = [v12 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v20;
+    v15 = *v19;
     do
     {
       v16 = 0;
       do
       {
-        if (*v20 != v15)
+        if (*v19 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = *(*(&v19 + 1) + 8 * v16);
+        v17 = *(*(&v18 + 1) + 8 * v16);
         if (objc_opt_respondsToSelector())
         {
           [v17 playbackCoordinator:self timeElapsed:elapsed duration:duration];
@@ -959,45 +975,43 @@ void __44__SVPlaybackCoordinator_setupPlayerWithURL___block_invoke_4(uint64_t a1
       }
 
       while (v14 != v16);
-      v14 = [v12 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v14);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)loadedTimeRangesChanged
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   [(SVPlaybackCoordinator *)self loadingProgress];
   if (v3 != 0.0)
   {
     v4 = v3;
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     observers = [(SVPlaybackCoordinator *)self observers];
     v6 = [observers copy];
 
-    v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v14;
+      v9 = *v13;
       do
       {
         v10 = 0;
         do
         {
-          if (*v14 != v9)
+          if (*v13 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v13 + 1) + 8 * v10);
+          v11 = *(*(&v12 + 1) + 8 * v10);
           if (objc_opt_respondsToSelector())
           {
             [v11 playbackCoordinator:self loadingProgressed:v4];
@@ -1007,42 +1021,40 @@ void __44__SVPlaybackCoordinator_setupPlayerWithURL___block_invoke_4(uint64_t a1
         }
 
         while (v8 != v10);
-        v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v8);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stateChanged
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   observers = [(SVPlaybackCoordinator *)self observers];
   v4 = [observers copy];
 
-  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       v8 = 0;
       do
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v11 + 1) + 8 * v8);
+        v9 = *(*(&v10 + 1) + 8 * v8);
         if (objc_opt_respondsToSelector())
         {
           [v9 playbackCoordinatorStateChanged:self];
@@ -1052,13 +1064,11 @@ void __44__SVPlaybackCoordinator_setupPlayerWithURL___block_invoke_4(uint64_t a1
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addPlaybackBufferObserver
@@ -1091,30 +1101,30 @@ void __50__SVPlaybackCoordinator_addPlaybackBufferObserver__block_invoke(uint64_
 
 - (void)playbackBufferFullStateChanged
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   observers = [(SVPlaybackCoordinator *)self observers];
   v4 = [observers copy];
 
-  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       v8 = 0;
       do
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v11 + 1) + 8 * v8);
+        v9 = *(*(&v10 + 1) + 8 * v8);
         if (objc_opt_respondsToSelector())
         {
           [v9 playbackCoordinatorPlaybackBufferFullStateChanged:self];
@@ -1124,13 +1134,11 @@ void __50__SVPlaybackCoordinator_addPlaybackBufferObserver__block_invoke(uint64_
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addPlaybackLikelyToKeepUpObserver
@@ -1163,30 +1171,30 @@ void __58__SVPlaybackCoordinator_addPlaybackLikelyToKeepUpObserver__block_invoke
 
 - (void)playbackLikelyToKeepUpStateChanged
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   observers = [(SVPlaybackCoordinator *)self observers];
   v4 = [observers copy];
 
-  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       v8 = 0;
       do
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v11 + 1) + 8 * v8);
+        v9 = *(*(&v10 + 1) + 8 * v8);
         if (objc_opt_respondsToSelector())
         {
           [v9 playbackCoordinatorPlaybackLikelyToKeepUpStateChanged:self];
@@ -1196,13 +1204,11 @@ void __58__SVPlaybackCoordinator_addPlaybackLikelyToKeepUpObserver__block_invoke
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addMuteStateObserver
@@ -1233,30 +1239,30 @@ void __45__SVPlaybackCoordinator_addMuteStateObserver__block_invoke(uint64_t a1)
 
 - (void)muteStateChanged
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   observers = [(SVPlaybackCoordinator *)self observers];
   v4 = [observers copy];
 
-  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       v8 = 0;
       do
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v11 + 1) + 8 * v8);
+        v9 = *(*(&v10 + 1) + 8 * v8);
         if (objc_opt_respondsToSelector())
         {
           [v9 playbackCoordinatorMuteStateChanged:self];
@@ -1266,13 +1272,11 @@ void __45__SVPlaybackCoordinator_addMuteStateObserver__block_invoke(uint64_t a1)
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addPlayerItemPresentationSizeObserver
@@ -1311,7 +1315,7 @@ void __62__SVPlaybackCoordinator_addPlayerItemPresentationSizeObserver__block_in
   [(SVTimeline *)timeline2 resetTime];
 
   timeline3 = [(SVPlaybackCoordinator *)self timeline];
-  [(SVPlaybackCoordinator *)self duration];
+  objc_msgSend_duration(self);
   [(SVTimeline *)timeline3 setDuration:v6];
 
   if ([(SVPlaybackCoordinator *)self supportImpressionTracking])
@@ -1333,11 +1337,11 @@ void __62__SVPlaybackCoordinator_addPlayerItemPresentationSizeObserver__block_in
 
   if ([(SVPlaybackCoordinator *)self supportsQuartileTracking])
   {
-    [(SVPlaybackCoordinator *)self duration];
+    objc_msgSend_duration(self);
     v12 = v11;
-    [(SVPlaybackCoordinator *)self duration];
+    objc_msgSend_duration(self);
     v14 = v13;
-    [(SVPlaybackCoordinator *)self duration];
+    objc_msgSend_duration(self);
     v16 = v15;
     objc_initWeak(&location, self);
     v33[0] = MEMORY[0x277D85DD0];
@@ -1443,8 +1447,8 @@ void __42__SVPlaybackCoordinator_configureTimeline__block_invoke_2(uint64_t a1, 
 
 - (BOOL)supportsQuartileTracking
 {
-  [(SVPlaybackCoordinator *)self duration];
-  [(SVPlaybackCoordinator *)self duration];
+  objc_msgSend_duration(self, a2);
+  objc_msgSend_duration(self);
   return v3 > 0.0;
 }
 
@@ -1454,6 +1458,17 @@ void __42__SVPlaybackCoordinator_configureTimeline__block_invoke_2(uint64_t a1, 
   {
     self->_state = state;
     [(SVPlaybackCoordinator *)self stateChanged];
+  }
+}
+
+- (void)setMuted:(BOOL)muted
+{
+  if (self->_muted != muted)
+  {
+    mutedCopy = muted;
+    self->_muted = muted;
+    player = [(SVPlaybackCoordinator *)self player];
+    [player setMuted:mutedCopy];
   }
 }
 

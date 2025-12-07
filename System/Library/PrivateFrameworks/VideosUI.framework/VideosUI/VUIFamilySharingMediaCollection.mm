@@ -26,20 +26,20 @@
   identifier = [entityCopy identifier];
   v14 = [(VUIFamilySharingMediaEntityIdentifier *)v12 initWithEntityIdentifier:identifier mediaEntityType:typeCopy];
 
-  v15 = VUIFamilySharingMediaCollectionKind();
-  v20.receiver = self;
-  v20.super_class = VUIFamilySharingMediaCollection;
-  v16 = [(VUIMediaEntity *)&v20 initWithMediaLibrary:0 identifier:v14 requestedProperties:propertiesCopy kind:v15];
+  v16 = VUIFamilySharingMediaCollectionKind(v15);
+  v21.receiver = self;
+  v21.super_class = VUIFamilySharingMediaCollection;
+  v17 = [(VUIMediaEntity *)&v21 initWithMediaLibrary:0 identifier:v14 requestedProperties:propertiesCopy kind:v16];
 
-  if (v16)
+  if (v17)
   {
-    objc_storeStrong(&v16->_entity, entity);
-    v17 = objc_alloc_init(MEMORY[0x1E695DEC8]);
-    seasonNumbers = v16->_seasonNumbers;
-    v16->_seasonNumbers = v17;
+    objc_storeStrong(&v17->_entity, entity);
+    v18 = objc_alloc_init(MEMORY[0x1E695DEC8]);
+    seasonNumbers = v17->_seasonNumbers;
+    v17->_seasonNumbers = v18;
   }
 
-  return v16;
+  return v17;
 }
 
 - (id)title

@@ -1,4 +1,5 @@
 @interface _MLCGPUScatter
++ (id)layerWithDevice:(id)device dimension:(unint64_t)dimension reduceType:(int)type;
 - (_MLCGPUScatter)initWithDevice:(id)device dimension:(unint64_t)dimension reduceType:(int)type;
 @end
 
@@ -59,6 +60,15 @@
   }
 
   return v8;
+}
+
++ (id)layerWithDevice:(id)device dimension:(unint64_t)dimension reduceType:(int)type
+{
+  v5 = *&type;
+  deviceCopy = device;
+  v9 = [[self alloc] initWithDevice:deviceCopy dimension:dimension reduceType:v5];
+
+  return v9;
 }
 
 @end

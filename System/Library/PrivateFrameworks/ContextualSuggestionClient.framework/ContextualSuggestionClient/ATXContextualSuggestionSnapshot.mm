@@ -7,13 +7,12 @@
 
 - (void)encodeWithCoder:(id)coder
 {
-  v5 = *(&self->super.isa + OBJC_IVAR___ATXContextualSuggestionSnapshot_contexts);
   type metadata accessor for ContextualSuggestionContext();
   coderCopy = coder;
   selfCopy = self;
-  v7 = sub_2441D8CFC();
-  v8 = sub_2441D8C4C();
-  [coderCopy encodeObject:v7 forKey:v8];
+  v6 = sub_2441D8CFC();
+  v7 = sub_2441D8C4C();
+  [coderCopy encodeObject:v6 forKey:v7];
 }
 
 - (ATXContextualSuggestionSnapshot)init

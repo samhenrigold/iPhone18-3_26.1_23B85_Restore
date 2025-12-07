@@ -329,7 +329,7 @@ void __28__BTLEScanner__checkCanScan__block_invoke_3(uint64_t a1)
 uint64_t __28__BTLEScanner__checkCanScan__block_invoke_11(uint64_t a1, void *a2, void *a3)
 {
   v4 = a2;
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a3;
   v8 = objc_autoreleasePoolPush();
@@ -338,22 +338,22 @@ uint64_t __28__BTLEScanner__checkCanScan__block_invoke_11(uint64_t a1, void *a2,
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     HMFGetLogIdentifier();
-    v11 = v26 = v4;
+    v11 = v25 = v4;
     [v6 connectivityInfo];
-    v12 = v25 = v7;
+    v12 = v24 = v7;
     v13 = [v12 woBLEInfo];
     v14 = [v13 bleIdentifier];
     v15 = [*(a1 + 40) lgBTAddress];
     *buf = 138543874;
-    v28 = v11;
-    v29 = 2112;
-    v30 = v14;
-    v31 = 2112;
-    v32 = v15;
+    v27 = v11;
+    v28 = 2112;
+    v29 = v14;
+    v30 = 2112;
+    v31 = v15;
     _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Scan result -- looking for %@ found %@", buf, 0x20u);
 
-    v7 = v25;
-    v4 = v26;
+    v7 = v24;
+    v4 = v25;
   }
 
   objc_autoreleasePoolPop(v8);
@@ -376,7 +376,6 @@ uint64_t __28__BTLEScanner__checkCanScan__block_invoke_11(uint64_t a1, void *a2,
     objc_storeStrong((*(*(a1 + 56) + 8) + 40), v4);
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return IsReversed;
 }
 
@@ -476,13 +475,13 @@ LABEL_5:
   dispatch_async(workQueue, v4);
 }
 
-uint64_t __34__BTLEScanner_didUpdateBTLEState___block_invoke(uint64_t result)
+id *__34__BTLEScanner_didUpdateBTLEState___block_invoke(id *result)
 {
-  if (*(result + 40) != 5)
+  if (result[5] != 5)
   {
     v2 = result;
-    [*(result + 32) _stopScan];
-    v3 = *(v2 + 32);
+    [result[4] _stopScan];
+    v3 = v2[4];
 
     return [v3 _flushQueue];
   }
@@ -492,20 +491,20 @@ uint64_t __34__BTLEScanner_didUpdateBTLEState___block_invoke(uint64_t result)
 
 + (id)sharedBTLEScanner
 {
-  v0 = objc_opt_self();
+  v1 = objc_opt_self();
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __32__BTLEScanner_sharedBTLEScanner__block_invoke;
   block[3] = &__block_descriptor_40_e5_v8__0l;
-  block[4] = v0;
+  block[4] = v1;
   if (sharedBTLEScanner_onceToken != -1)
   {
     dispatch_once(&sharedBTLEScanner_onceToken, block);
   }
 
-  v1 = sharedBTLEScanner_sharedScanner;
+  v2 = sharedBTLEScanner_sharedScanner;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __32__BTLEScanner_sharedBTLEScanner__block_invoke(uint64_t a1)

@@ -5,6 +5,7 @@
 - (CloudBookmarkDatabaseLockArbiter)initWithDatabaseAccessor:(id)accessor;
 - (CloudBookmarkDatabaseLockArbiterDelegate)delegate;
 - (int64_t)localMigrationState;
+- (void)closeDatabaseAndSave:(BOOL)save;
 - (void)databaseRef;
 - (void)dealloc;
 - (void)setLocalMigrationState:(int64_t)state;
@@ -38,15 +39,16 @@
 
 - (BOOL)isDatabaseOpen
 {
-  if (+[NSThread isMainThread])
+  v3 = +[NSThread isMainThread];
+  if (v3)
   {
     return self->_databaseOpen;
   }
 
   else
   {
-    v4 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_10008D90C();
     }
@@ -57,13 +59,14 @@
 
 - (void)databaseRef
 {
-  if (+[NSThread isMainThread])
+  v3 = +[NSThread isMainThread];
+  if (v3)
   {
     return self->_databaseRef;
   }
 
-  v4 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v6 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v3, v4);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     sub_10008D940();
   }
@@ -75,11 +78,12 @@
 {
   clientCopy = client;
   v5 = +[NSThread isMainThread];
-  v6 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-  v7 = v6;
-  if ((v5 & 1) == 0)
+  v6 = v5;
+  v8 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v5, v7);
+  v9 = v8;
+  if ((v6 & 1) == 0)
   {
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_10008D974();
     }
@@ -87,22 +91,23 @@
     goto LABEL_9;
   }
 
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  v10 = os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG);
+  if (v10)
   {
-    sub_10008D9A8(clientCopy, v7);
+    sub_10008D9A8(clientCopy, v9);
   }
 
   databaseLockCount = self->_databaseLockCount;
   self->_databaseLockCount = databaseLockCount + 1;
   if (databaseLockCount)
   {
-    v9 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-    v10 = 1;
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v13 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v10, v11);
+    v14 = 1;
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
-      v18 = 138543362;
-      v19 = clientCopy;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "%{public}@ backing store was already locked", &v18, 0xCu);
+      v23 = 138543362;
+      v24 = clientCopy;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "%{public}@ backing store was already locked", &v23, 0xCu);
     }
 
     goto LABEL_10;
@@ -113,60 +118,61 @@
   if (!createDatabase)
   {
     self->_databaseLockCount = 0;
-    v17 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v22 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(0, v17);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       sub_10008DA20();
     }
 
 LABEL_9:
-    v10 = 0;
+    v14 = 0;
     goto LABEL_10;
   }
 
-  v13 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+  v18 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(createDatabase, v17);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
   {
-    v18 = 138543362;
-    v19 = clientCopy;
-    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "%{public}@ successfully locked backing store", &v18, 0xCu);
+    v23 = 138543362;
+    v24 = clientCopy;
+    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_INFO, "%{public}@ successfully locked backing store", &v23, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
-  v15 = objc_opt_respondsToSelector();
+  v20 = objc_opt_respondsToSelector();
 
-  if (v15)
+  if (v20)
   {
-    v16 = objc_loadWeakRetained(&self->_delegate);
-    [v16 databaseLockArbiterDidAcquireDatabaseLock:self];
+    v21 = objc_loadWeakRetained(&self->_delegate);
+    [v21 databaseLockArbiterDidAcquireDatabaseLock:self];
   }
 
-  v10 = 1;
+  v14 = 1;
 LABEL_10:
 
-  return v10;
+  return v14;
 }
 
 - (void)unlockForClient:(id)client
 {
   clientCopy = client;
-  if (+[NSThread isMainThread])
+  v5 = +[NSThread isMainThread];
+  if (v5)
   {
     databaseLockCount = self->_databaseLockCount;
     if (databaseLockCount)
     {
-      v6 = databaseLockCount - 1;
-      self->_databaseLockCount = v6;
-      if (v6)
+      v8 = databaseLockCount - 1;
+      self->_databaseLockCount = v8;
+      if (v8)
       {
-        v7 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+        v9 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v5, v6);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
         {
-          v12 = 138543362;
-          v13 = clientCopy;
-          v8 = "%{public}@ did not unlock backing store due to outstanding lock requests";
+          v16 = 138543362;
+          v17 = clientCopy;
+          v10 = "%{public}@ did not unlock backing store due to outstanding lock requests";
 LABEL_15:
-          _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, v8, &v12, 0xCu);
+          _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, v10, &v16, 0xCu);
         }
       }
 
@@ -174,8 +180,8 @@ LABEL_15:
       {
         if (self->_databaseOpen)
         {
-          v11 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-          if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+          v13 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v5, v6);
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
           {
             sub_10008DAC8();
           }
@@ -183,12 +189,12 @@ LABEL_15:
 
         CFRelease(self->_databaseRef);
         self->_databaseRef = 0;
-        v7 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+        v9 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v14, v15);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
         {
-          v12 = 138543362;
-          v13 = clientCopy;
-          v8 = "%{public}@ unlocked backing store";
+          v16 = 138543362;
+          v17 = clientCopy;
+          v10 = "%{public}@ unlocked backing store";
           goto LABEL_15;
         }
       }
@@ -196,8 +202,8 @@ LABEL_15:
 
     else
     {
-      v10 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v12 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v5, v6);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         sub_10008DB3C();
       }
@@ -206,8 +212,8 @@ LABEL_15:
 
   else
   {
-    v9 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v5, v6);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_10008DA94();
     }
@@ -217,11 +223,12 @@ LABEL_15:
 - (int64_t)localMigrationState
 {
   v3 = +[NSThread isMainThread];
-  v4 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-  v5 = v4;
-  if ((v3 & 1) == 0)
+  v4 = v3;
+  v6 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v3, v5);
+  v7 = v6;
+  if ((v4 & 1) == 0)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_10008DB70();
     }
@@ -229,15 +236,15 @@ LABEL_15:
     return -1;
   }
 
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v6 = self->_databaseLockCount != 0;
+    v8 = self->_databaseLockCount != 0;
     databaseOpen = self->_databaseOpen;
-    v11 = 67109376;
-    LODWORD(v12[0]) = v6;
-    WORD2(v12[0]) = 1024;
-    *(v12 + 6) = databaseOpen;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "Fetching local migration state from database (isDatabaseLocked: %d, isDatabaseOpen: %d)", &v11, 0xEu);
+    v15 = 67109376;
+    LODWORD(v16[0]) = v8;
+    WORD2(v16[0]) = 1024;
+    *(v16 + 6) = databaseOpen;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "Fetching local migration state from database (isDatabaseLocked: %d, isDatabaseOpen: %d)", &v15, 0xEu);
   }
 
   if (![(CloudBookmarkDatabaseLockArbiter *)self lockForClient:@"Migration state lock arbiter property"])
@@ -250,42 +257,43 @@ LABEL_15:
     [(WBSBookmarkDBAccess *)self->_databaseAccessor openDatabase:self->_databaseRef];
   }
 
-  v8 = [(WBSBookmarkDBAccess *)self->_databaseAccessor localCloudKitMigrationState:self->_databaseRef];
+  v10 = [(WBSBookmarkDBAccess *)self->_databaseAccessor localCloudKitMigrationState:self->_databaseRef];
   if (!self->_databaseOpen)
   {
     [(WBSBookmarkDBAccess *)self->_databaseAccessor closeDatabase:self->_databaseRef shouldSave:0];
   }
 
-  [(CloudBookmarkDatabaseLockArbiter *)self unlockForClient:@"Migration state lock arbiter property"];
-  v9 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  v11 = [(CloudBookmarkDatabaseLockArbiter *)self unlockForClient:@"Migration state lock arbiter property"];
+  v13 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v11, v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
-    v11 = 134217984;
-    v12[0] = v8;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "Fetched local migration state %ld from database", &v11, 0xCu);
+    v15 = 134217984;
+    v16[0] = v10;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "Fetched local migration state %ld from database", &v15, 0xCu);
   }
 
-  return v8;
+  return v10;
 }
 
 - (void)setLocalMigrationState:(int64_t)state
 {
   v5 = +[NSThread isMainThread];
-  v6 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-  v7 = v6;
-  if (v5)
+  v6 = v5;
+  v8 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v5, v7);
+  v9 = v8;
+  if (v6)
   {
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v8 = self->_databaseLockCount != 0;
+      v10 = self->_databaseLockCount != 0;
       databaseOpen = self->_databaseOpen;
-      v10 = 134218496;
+      v12 = 134218496;
       stateCopy = state;
-      v12 = 1024;
-      v13 = v8;
       v14 = 1024;
-      v15 = databaseOpen;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "Setting local migration state in database to %ld (isDatabaseLocked: %d, isDatabaseOpen: %d)", &v10, 0x18u);
+      v15 = v10;
+      v16 = 1024;
+      v17 = databaseOpen;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "Setting local migration state in database to %ld (isDatabaseLocked: %d, isDatabaseOpen: %d)", &v12, 0x18u);
     }
 
     if (self->_databaseOpen)
@@ -302,7 +310,7 @@ LABEL_15:
     }
   }
 
-  else if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     sub_10008DBA4();
   }
@@ -310,10 +318,11 @@ LABEL_15:
 
 - (BOOL)openDatabase
 {
-  if (!+[NSThread isMainThread])
+  v3 = +[NSThread isMainThread];
+  if ((v3 & 1) == 0)
   {
-    v6 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v3, v4);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_10008DBD8();
     }
@@ -323,8 +332,8 @@ LABEL_15:
 
   if (!self->_databaseLockCount)
   {
-    v7 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v3, v4);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_10008DC40();
     }
@@ -333,11 +342,11 @@ LABEL_15:
   }
 
   databaseOpen = self->_databaseOpen;
-  v4 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-  v5 = v4;
+  v6 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v3, v4);
+  v7 = v6;
   if (databaseOpen)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_10008DC0C();
     }
@@ -345,16 +354,67 @@ LABEL_15:
     return 0;
   }
 
-  v8 = 1;
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v10 = 1;
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    *v10 = 0;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "Will open the database", v10, 2u);
+    *v12 = 0;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "Will open the database", v12, 2u);
   }
 
   self->_databaseOpen = 1;
   [(WBSBookmarkDBAccess *)self->_databaseAccessor openDatabase:self->_databaseRef];
-  return v8;
+  return v10;
+}
+
+- (void)closeDatabaseAndSave:(BOOL)save
+{
+  saveCopy = save;
+  v5 = +[NSThread isMainThread];
+  if (v5)
+  {
+    if (self->_databaseLockCount)
+    {
+      if (self->_databaseOpen)
+      {
+        v7 = [(WBSBookmarkDBAccess *)self->_databaseAccessor closeDatabase:self->_databaseRef shouldSave:saveCopy];
+        self->_databaseOpen = 0;
+        v9 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v7, v8);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+        {
+          v13[0] = 67109120;
+          v13[1] = saveCopy;
+          _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "Did close database, did save %d", v13, 8u);
+        }
+      }
+
+      else
+      {
+        v12 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v5, v6);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+        {
+          sub_10008DCA8();
+        }
+      }
+    }
+
+    else
+    {
+      v11 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v5, v6);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      {
+        sub_10008DD20();
+      }
+    }
+  }
+
+  else
+  {
+    v10 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v5, v6);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    {
+      sub_10008DC74();
+    }
+  }
 }
 
 - (CloudBookmarkDatabaseLockArbiterDelegate)delegate

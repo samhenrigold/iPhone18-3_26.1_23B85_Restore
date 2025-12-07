@@ -38,9 +38,9 @@
     +[CSSearchableItemAttributeSet(IC) ic_customAttributeKeyDictionary];
   }
 
-  v1 = ic_customAttributeKeyDictionary_sCustomAttributeKeyDictionary;
+  v2 = ic_customAttributeKeyDictionary_sCustomAttributeKeyDictionary;
 
-  return v1;
+  return v2;
 }
 
 + (id)ic_customAttributeKeyWithName:()IC searchable:searchableByDefault:unique:multiValued:
@@ -81,9 +81,9 @@
     +[CSSearchableItemAttributeSet(IC) ic_dataSourceIdentifierCustomKey];
   }
 
-  v1 = ic_dataSourceIdentifierCustomKey_sDataSourceIdentifierCustomKey;
+  v2 = ic_dataSourceIdentifierCustomKey_sDataSourceIdentifierCustomKey;
 
-  return v1;
+  return v2;
 }
 
 - (void)setIc_dataSourceIdentifier:()IC

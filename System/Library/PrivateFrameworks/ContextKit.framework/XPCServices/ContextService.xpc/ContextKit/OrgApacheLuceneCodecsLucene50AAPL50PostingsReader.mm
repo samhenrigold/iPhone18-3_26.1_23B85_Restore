@@ -1,6 +1,5 @@
 @interface OrgApacheLuceneCodecsLucene50AAPL50PostingsReader
 + (void)initialize;
-- (id)description;
 - (id)newTermState;
 - (id)postingsWithOrgApacheLuceneIndexFieldInfo:(id)info withOrgApacheLuceneCodecsBlockTermState:(id)state withOrgApacheLuceneIndexPostingsEnum:(id)enum withInt:(int)int;
 - (void)checkIntegrity;
@@ -40,7 +39,7 @@
   v4[0] = self->docIn_;
   v4[1] = posIn;
   v4[2] = self->payIn_;
-  v3 = [IOSObjectArray arrayWithObjects:v4 count:3 type:JavaIoCloseable_class_()];
+  v3 = [IOSObjectArray arrayWithObjects:v4 count:3 type:JavaIoCloseable_class_(self, a2)];
   OrgApacheLuceneUtilIOUtils_closeWithJavaIoCloseableArray_(v3);
 }
 
@@ -367,14 +366,6 @@ LABEL_44:
 
     OrgApacheLuceneCodecsCodecUtil_checksumEntireFileWithOrgApacheLuceneStoreIndexInput_(payIn);
   }
-}
-
-- (id)description
-{
-  v3 = [-[OrgApacheLuceneCodecsLucene50AAPL50PostingsReader getClass](self "getClass")];
-  v13 = self->payIn_ != 0;
-  v12 = self->posIn_ != 0;
-  return JreStrcat("$$Z$ZC", v4, v5, v6, v7, v8, v9, v10, v3);
 }
 
 - (void)dealloc

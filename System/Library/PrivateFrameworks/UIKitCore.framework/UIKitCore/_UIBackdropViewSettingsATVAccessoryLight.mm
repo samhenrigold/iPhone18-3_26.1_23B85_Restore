@@ -30,7 +30,7 @@
     [(_UIBackdropViewSettings *)self setSaturationDeltaFactor:1.0];
     [(_UIBackdropViewSettings *)self setFilterMaskAlpha:1.0];
     [(_UIBackdropViewSettings *)self setFilterMaskImage:0];
-    v7 = +[UIColor blackColor];
+    v7 = objc_msgSend_blackColor(UIColor);
     [(_UIBackdropViewSettings *)self setLegibleColor:v7];
 
     if (v3)
@@ -61,7 +61,7 @@
     [(_UIBackdropViewSettings *)self setSaturationDeltaFactor:1.8];
     [(_UIBackdropViewSettings *)self setFilterMaskAlpha:1.0];
     [(_UIBackdropViewSettings *)self setFilterMaskImage:0];
-    v5 = +[UIColor blackColor];
+    v5 = objc_msgSend_blackColor(UIColor);
     [(_UIBackdropViewSettings *)self setLegibleColor:v5];
   }
 }

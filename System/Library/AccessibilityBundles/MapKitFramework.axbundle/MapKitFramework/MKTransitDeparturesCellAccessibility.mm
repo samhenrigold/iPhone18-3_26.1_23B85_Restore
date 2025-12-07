@@ -21,7 +21,7 @@
 
 - (id)tableTextAccessibleLabel:(id)label
 {
-  v23[2] = *MEMORY[0x29EDCA608];
+  v22[2] = *MEMORY[0x29EDCA608];
   labelCopy = label;
   v5 = [(MKTransitDeparturesCellAccessibility *)self safeValueForKey:@"_lineImageView"];
   accessibilityLabel = [v5 accessibilityLabel];
@@ -52,9 +52,9 @@
 
     if ([accessibilityLabel4 length] && objc_msgSend(accessibilityLabel5, "length"))
     {
-      v23[0] = accessibilityLabel4;
-      v23[1] = accessibilityLabel5;
-      v17 = [MEMORY[0x29EDB8D80] arrayWithObjects:v23 count:2];
+      v22[0] = accessibilityLabel4;
+      v22[1] = accessibilityLabel5;
+      v17 = [MEMORY[0x29EDB8D80] arrayWithObjects:v22 count:2];
       v18 = [v17 componentsJoinedByString:@" "];
     }
 
@@ -78,13 +78,11 @@
 
   else
   {
-    v22.receiver = self;
-    v22.super_class = MKTransitDeparturesCellAccessibility;
-    accessibilityLabel2 = [(MKTransitDeparturesCellAccessibility *)&v22 tableTextAccessibleLabel:labelCopy];
+    v21.receiver = self;
+    v21.super_class = MKTransitDeparturesCellAccessibility;
+    accessibilityLabel2 = [(MKTransitDeparturesCellAccessibility *)&v21 tableTextAccessibleLabel:labelCopy];
     v12 = __UIAXStringForVariables();
   }
-
-  v20 = *MEMORY[0x29EDCA608];
 
   return v12;
 }

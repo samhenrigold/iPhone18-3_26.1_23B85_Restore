@@ -56,28 +56,20 @@
 
 - (void)layoutSubviews
 {
-  if (os_variant_has_internal_content())
-  {
-    if (_os_feature_enabled_impl())
-    {
-      v3 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-      if (v3)
-      {
-        [(SKUIDownloadsView *)v3 layoutSubviews:v4];
-      }
-    }
-  }
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIDownloadsView layoutSubviews]";
+}
 
-  v19.receiver = self;
-  v19.super_class = SKUIDownloadsView;
-  [(SKUIDownloadsView *)&v19 layoutSubviews];
-  [(SKUIDownloadsView *)self bounds];
-  v12 = v11;
-  v14 = v13;
-  v16 = v15;
-  v18 = v17;
-  [(UIView *)self->_contentView setFrame:?];
-  [(UIView *)self->_overlayView setFrame:v12, v14, v16, v18];
+- (void)setContentView:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIDownloadsView setContentView:]";
+}
+
+- (void)setOverlayView:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIDownloadsView setOverlayView:]";
 }
 
 @end

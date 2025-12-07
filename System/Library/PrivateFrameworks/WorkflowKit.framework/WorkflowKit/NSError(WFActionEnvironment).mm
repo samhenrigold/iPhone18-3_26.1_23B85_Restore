@@ -8,7 +8,7 @@
 - (BOOL)wf_isUnsupportedEnvironmentError
 {
   domain = [self domain];
-  if ([domain isEqualToString:@"WFActionErrorDomain"])
+  if (objc_msgSend_isEqualToString_(domain))
   {
     v3 = [self code] == 2;
   }
@@ -23,15 +23,13 @@
 
 + (id)wfUnsupportedEnvironmentError
 {
-  v6[1] = *MEMORY[0x1E69E9840];
-  v5 = *MEMORY[0x1E696A578];
+  v5[1] = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E696A578];
   v0 = WFLocalizedString(@"This action cannot be run in the current environment.");
-  v6[0] = v0;
-  v1 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
+  v5[0] = v0;
+  v1 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   v2 = [MEMORY[0x1E696ABC0] errorWithDomain:@"WFActionErrorDomain" code:2 userInfo:v1];
-
-  v3 = *MEMORY[0x1E69E9840];
 
   return v2;
 }

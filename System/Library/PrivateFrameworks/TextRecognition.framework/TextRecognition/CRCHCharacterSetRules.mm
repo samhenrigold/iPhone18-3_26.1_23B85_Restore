@@ -49,7 +49,7 @@ CRCHCharacterSetRules *__48__CRCHCharacterSetRules_sharedCharacterSetRules__bloc
   return v6;
 }
 
-uint64_t __39__CRCHCharacterSetRules_characterType___block_invoke(uint64_t a1)
+void *__39__CRCHCharacterSetRules_characterType___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _characterType:*(a1 + 48)];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -138,12 +138,12 @@ LABEL_9:
     }
 
     v17 = &typeCopy2;
-    *(std::__tree<std::__value_type<unsigned int,int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,int>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(p_signatureUniChar, typeCopy) + 8) = v14;
+    *(std::__tree<std::__value_type<unsigned int,int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,int>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(p_signatureUniChar, typeCopy, &v17) + 8) = v14;
     typeCopy = typeCopy2;
   }
 
   v17 = &typeCopy2;
-  return *(std::__tree<std::__value_type<unsigned int,int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,int>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(p_signatureUniChar, typeCopy) + 8);
+  return *(std::__tree<std::__value_type<unsigned int,int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,int>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(p_signatureUniChar, typeCopy, &v17) + 8);
 }
 
 - (map<unsigned)signatureUniChar

@@ -1,6 +1,6 @@
-void sub_2625570F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_2625570F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   __destructor_8_s8_s16_s24(va);
   _Unwind_Resume(a1);
 }
@@ -118,10 +118,11 @@ void OUTLINED_FUNCTION_1(void *a1, uint64_t a2, os_log_t log, const char *a4, ..
   _os_log_error_impl(a1, log, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
-void OUTLINED_FUNCTION_3(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_3(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void OUTLINED_FUNCTION_5(void *a1, uint64_t a2, uint64_t a3, const char *a4)
@@ -130,16 +131,16 @@ void OUTLINED_FUNCTION_5(void *a1, uint64_t a2, uint64_t a3, const char *a4)
   _os_log_error_impl(a1, v4, OS_LOG_TYPE_ERROR, a4, v5, 0xCu);
 }
 
-id SCLogger()
+id SCLogger(uint64_t a1)
 {
   if (SCLogger_onceToken != -1)
   {
     SCLogger_cold_1();
   }
 
-  v1 = SCLogger_log;
+  v2 = SCLogger_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __SCLogger_block_invoke()
@@ -159,8 +160,8 @@ double configWithGlobalDefaults@<D0>(_OWORD *a1@<X8>)
 
 uint64_t sharingRemindersStatusToString(uint64_t a1)
 {
-  v26[16] = *MEMORY[0x277D85DE8];
-  v26[0] = @"Feature flags:";
+  v25[16] = *MEMORY[0x277D85DE8];
+  v25[0] = @"Feature flags:";
   v2 = MEMORY[0x277CCACA8];
   if (_os_feature_enabled_impl())
   {
@@ -172,8 +173,8 @@ uint64_t sharingRemindersStatusToString(uint64_t a1)
     v3 = "No";
   }
 
-  v25 = [v2 stringWithFormat:@"  %-42s %s", "WiFi Sync Feature Flag:", v3];
-  v26[1] = v25;
+  v24 = [v2 stringWithFormat:@"  %-42s %s", "WiFi Sync Feature Flag:", v3];
+  v25[1] = v24;
   v4 = MEMORY[0x277CCACA8];
   if (_os_feature_enabled_impl())
   {
@@ -185,47 +186,46 @@ uint64_t sharingRemindersStatusToString(uint64_t a1)
     v5 = "No";
   }
 
-  v24 = [v4 stringWithFormat:@"  %-42s %s", "General Reminder Feature Flag:", v5];
-  v26[2] = v24;
-  v26[3] = @"\n";
-  v26[4] = @"Sharing Reminders Status:";
-  v23 = [MEMORY[0x277CCACA8] stringWithFormat:@"  %-42s %hhu", "Consecutive notification count:", *(a1 + 32)];
-  v26[5] = v23;
-  v22 = [MEMORY[0x277CCACA8] stringWithFormat:@"  %-42s %llu", "Maximum notification count before opt out:", *a1];
-  v26[6] = v22;
+  v23 = [v4 stringWithFormat:@"  %-42s %s", "General Reminder Feature Flag:", v5];
+  v25[2] = v23;
+  v25[3] = @"\n";
+  v25[4] = @"Sharing Reminders Status:";
+  v22 = [MEMORY[0x277CCACA8] stringWithFormat:@"  %-42s %hhu", "Consecutive notification count:", *(a1 + 32)];
+  v25[5] = v22;
+  v21 = [MEMORY[0x277CCACA8] stringWithFormat:@"  %-42s %llu", "Maximum notification count before opt out:", *a1];
+  v25[6] = v21;
   v6 = MEMORY[0x277CCACA8];
-  v21 = [MEMORY[0x277CCA968] localizedStringFromDate:*(a1 + 40) dateStyle:1 timeStyle:1];
-  v7 = [v6 stringWithFormat:@"  %-42s %@", "Last fired date:", v21];
-  v26[7] = v7;
+  v20 = [MEMORY[0x277CCA968] localizedStringFromDate:*(a1 + 40) dateStyle:1 timeStyle:1];
+  v7 = [v6 stringWithFormat:@"  %-42s %@", "Last fired date:", v20];
+  v25[7] = v7;
   v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"  %-42s %@", "Scheduled sharing reminders:", *(a1 + 48)];
-  v26[8] = v8;
+  v25[8] = v8;
   v9 = MEMORY[0x277CCACA8];
   v10 = [*(a1 + 56) valueForKey:@"com.apple.safetycheckd.wifi"];
   v11 = [v9 stringWithFormat:@"  %-42s %@", "Non-actionable identifiers (Wifi Sync):", v10];
-  v26[9] = v11;
-  v26[10] = @"\n";
-  v26[11] = @"Delays:";
+  v25[9] = v11;
+  v25[10] = @"\n";
+  v25[11] = @"Delays:";
   v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"  %-42s %llu", "Time interval (backstop):", *(a1 + 8)];
-  v26[12] = v12;
+  v25[12] = v12;
   v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"  %-42s %llu", "Time interval (general):", *(a1 + 16)];
-  v26[13] = v13;
+  v25[13] = v13;
   v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"  %-42s %llu", "Time interval (short):", *(a1 + 24)];
-  v26[14] = v14;
-  v26[15] = @"\n";
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:16];
+  v25[14] = v14;
+  v25[15] = @"\n";
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:16];
   v16 = [v15 componentsJoinedByString:@"\n"];
 
   v17 = v16;
   v18 = [v16 UTF8String];
 
   __destructor_8_s8_s16_s24(a1 + 32);
-  v19 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
-void sub_26255E274(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26255E274(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -237,16 +237,16 @@ void sub_26255E770(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-id SCUIBundle()
+id SCUIBundle(uint64_t a1)
 {
   if (SCUIBundle_onceToken != -1)
   {
     SCUIBundle_cold_1();
   }
 
-  v1 = SCUIBundle__Bundle;
+  v2 = SCUIBundle__Bundle;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __SCUIBundle_block_invoke()
@@ -259,7 +259,7 @@ uint64_t __SCUIBundle_block_invoke()
 id SCUILocStringForKey(void *a1)
 {
   v1 = a1;
-  v2 = SCUIBundle();
+  v2 = SCUIBundle(v1);
   v3 = [v2 localizedStringForKey:v1 value:v1 table:@"Localizable"];
 
   return v3;
@@ -272,7 +272,7 @@ __CFString *storeKeyToString(unint64_t a1)
     return off_279B39988[a1];
   }
 
-  v3 = SCLogger();
+  v3 = SCLogger(a1);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     storeKeyToString_cold_1(a1, v3);
@@ -281,18 +281,17 @@ __CFString *storeKeyToString(unint64_t a1)
   return 0;
 }
 
-void sub_26256009C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_26256009C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void storeKeyToString_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_error_impl(&dword_262556000, a2, OS_LOG_TYPE_ERROR, "Cannot cast to string, unsupported key value: %ld", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_error_impl(&dword_262556000, a2, OS_LOG_TYPE_ERROR, "Cannot cast to string, unsupported key value: %ld", &v2, 0xCu);
 }

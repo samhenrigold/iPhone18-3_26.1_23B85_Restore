@@ -1835,36 +1835,36 @@ void __56__PKAddBankAccountInformationViewController__footerView__block_invoke(u
 
 - (void)_showHowToFindAccountInformationViewController:(id)controller
 {
-  v12 = [[PKExplanationViewController alloc] initWithContext:0];
-  explanationView = [(PKExplanationViewController *)v12 explanationView];
+  v13 = [[PKExplanationViewController alloc] initWithContext:0];
+  explanationView = [(PKExplanationViewController *)v13 explanationView];
   v5 = PKLocalizedPeerPaymentString(&cfstr_PeerPaymentBan_21.isa);
   [explanationView setTitleText:v5];
 
   v6 = PKLocalizedPeerPaymentString(&cfstr_PeerPaymentBan_22.isa);
   [explanationView setBodyText:v6];
 
-  v7 = PKOBKHeaderTitleFont();
-  [explanationView setTitleFont:v7];
+  v8 = PKOBKHeaderTitleFont(v7);
+  [explanationView setTitleFont:v8];
 
   [explanationView setBodyTextAlignment:PKOBKTextAlignment()];
-  [(PKExplanationViewController *)v12 setShowDoneButton:1];
-  [(PKExplanationViewController *)v12 setShowCancelButton:0];
+  [(PKExplanationViewController *)v13 setShowDoneButton:1];
+  [(PKExplanationViewController *)v13 setShowCancelButton:0];
   [explanationView setShowPrivacyView:0];
   dockView = [explanationView dockView];
   [dockView setPrimaryButton:0];
 
-  v9 = PKUIImageNamed(@"CheckInfo");
-  [explanationView setImage:v9];
+  v10 = PKUIImageNamed(@"CheckInfo");
+  [explanationView setImage:v10];
 
-  v10 = [[PKNavigationController alloc] initWithRootViewController:v12];
-  [(PKNavigationController *)v10 setSupportedInterfaceOrientations:2];
+  v11 = [[PKNavigationController alloc] initWithRootViewController:v13];
+  [(PKNavigationController *)v11 setSupportedInterfaceOrientations:2];
   if ([(UIViewController *)self pkui_userInterfaceIdiomSupportsLargeLayouts])
   {
-    [(PKNavigationController *)v10 setModalPresentationStyle:2];
+    [(PKNavigationController *)v11 setModalPresentationStyle:2];
   }
 
   navigationController = [(PKAddBankAccountInformationViewController *)self navigationController];
-  [navigationController presentViewController:v10 animated:1 completion:0];
+  [navigationController presentViewController:v11 animated:1 completion:0];
 }
 
 - (unint64_t)_minTextLengthForRow:(unint64_t)row

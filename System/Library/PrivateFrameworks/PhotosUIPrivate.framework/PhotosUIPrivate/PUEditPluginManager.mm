@@ -341,7 +341,7 @@ void __49__PUEditPluginManager_rediscoverAvailablePlugins__block_invoke_3(uint64
   [*(a1 + 48) _discoveredAvailableExtensions:*(a1 + 40)];
 }
 
-uint64_t __49__PUEditPluginManager_rediscoverAvailablePlugins__block_invoke_4(uint64_t a1, uint64_t a2, _BYTE *a3)
+void *__49__PUEditPluginManager_rediscoverAvailablePlugins__block_invoke_4(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
   result = [*(a1 + 32) pu_supportsMediaType:a2];
   if (result)

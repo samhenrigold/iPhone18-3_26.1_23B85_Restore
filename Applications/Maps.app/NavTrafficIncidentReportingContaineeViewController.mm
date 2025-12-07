@@ -20,10 +20,10 @@
 - (_TtC4Maps50NavTrafficIncidentReportingContaineeViewController)initWithIncidentReportingDelegate:(id)delegate
 {
   swift_unknownObjectRetain();
-  sub_100381D9C();
-  v4 = v3;
+  sub_100381D9C(delegate);
+  v5 = v4;
   swift_unknownObjectRelease();
-  return v4;
+  return v5;
 }
 
 - (void)viewDidLoad

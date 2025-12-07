@@ -19,53 +19,53 @@
   objc_sync_enter(@"__hourBucketOffsetSync__");
   if (self->_hourBucketOffset == 3.40282347e38)
   {
-    v10 = objc_opt_class();
+    v11 = objc_opt_class();
     entryDefinitionKey = [(PLTimeReference *)self entryDefinitionKey];
-    v12 = [v10 hourBucketOffsetKeyFromEntryDefinitionKey:entryDefinitionKey];
-    v13 = [PLDefaults objectForKey:v12];
+    v13 = [v11 hourBucketOffsetKeyFromEntryDefinitionKey:entryDefinitionKey];
+    v14 = [PLDefaults objectForKey:v13];
 
-    if (v13 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+    if (v14 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
     {
       if (+[PLDefaults debugEnabled])
       {
-        v14 = objc_opt_class();
-        v25[0] = MEMORY[0x1E69E9820];
-        v25[1] = 3221225472;
-        v25[2] = __38__PLTimeReference_getHourBucketOffset__block_invoke_23;
-        v25[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-        v25[4] = v14;
+        v15 = objc_opt_class();
+        v27[0] = MEMORY[0x1E69E9820];
+        v27[1] = 3221225472;
+        v27[2] = __38__PLTimeReference_getHourBucketOffset__block_invoke_23;
+        v27[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+        v27[4] = v15;
         if (getHourBucketOffset_defaultOnce_21 != -1)
         {
-          dispatch_once(&getHourBucketOffset_defaultOnce_21, v25);
+          dispatch_once(&getHourBucketOffset_defaultOnce_21, v27);
         }
 
         if (getHourBucketOffset_classDebugEnabled_22 == 1)
         {
-          v15 = MEMORY[0x1E696AEC0];
-          [v13 doubleValue];
-          v17 = [v15 stringWithFormat:@"HourBucketOffset: Offset value from defaults :%f", v16];
-          v18 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Storage/PLTimeReference.m"];
-          lastPathComponent = [v18 lastPathComponent];
-          v20 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLTimeReference getHourBucketOffset]"];
-          [PLCoreStorage logMessage:v17 fromFile:lastPathComponent fromFunction:v20 fromLineNumber:86];
+          v16 = MEMORY[0x1E696AEC0];
+          [v14 doubleValue];
+          v18 = [v16 stringWithFormat:@"HourBucketOffset: Offset value from defaults :%f", v17];
+          v19 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Storage/PLTimeReference.m"];
+          lastPathComponent = [v19 lastPathComponent];
+          v21 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLTimeReference getHourBucketOffset]"];
+          [PLCoreStorage logMessage:v18 fromFile:lastPathComponent fromFunction:v21 fromLineNumber:86];
 
-          v21 = PLLogCommon();
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+          v23 = PLLogCommon(v22);
+          if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
           {
             [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
           }
         }
       }
 
-      [v13 doubleValue];
-      hourBucketOffset = v22;
-      self->_hourBucketOffset = v22;
+      [v14 doubleValue];
+      hourBucketOffset = v24;
+      self->_hourBucketOffset = v24;
     }
 
     else
     {
       [(PLTimeReference *)self computeHourBucketOffset];
-      hourBucketOffset = v23;
+      hourBucketOffset = v25;
     }
   }
 
@@ -92,8 +92,8 @@
         v7 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLTimeReference getHourBucketOffset]"];
         [PLCoreStorage logMessage:v4 fromFile:lastPathComponent2 fromFunction:v7 fromLineNumber:79];
 
-        v8 = PLLogCommon();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+        v9 = PLLogCommon(v8);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
         {
           [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
         }
@@ -184,10 +184,10 @@ LABEL_9:
   {
     v3 = objc_opt_class();
     block = MEMORY[0x1E69E9820];
-    v19 = 3221225472;
-    v20 = __42__PLTimeReference_computeHourBucketOffset__block_invoke;
-    v21 = &__block_descriptor_40_e5_v8__0lu32l8;
-    v22 = v3;
+    v20 = 3221225472;
+    v21 = __42__PLTimeReference_computeHourBucketOffset__block_invoke;
+    v22 = &__block_descriptor_40_e5_v8__0lu32l8;
+    v23 = v3;
     if (computeHourBucketOffset_defaultOnce != -1)
     {
       dispatch_once(&computeHourBucketOffset_defaultOnce, &block);
@@ -195,14 +195,14 @@ LABEL_9:
 
     if (computeHourBucketOffset_classDebugEnabled == 1)
     {
-      v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"HourBucketOffset: Computing new offset for timeReference:%ld", self->_timeReferenceType, block, v19, v20, v21, v22];
+      v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"HourBucketOffset: Computing new offset for timeReference:%ld", self->_timeReferenceType, block, v20, v21, v22, v23];
       v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Storage/PLTimeReference.m"];
       lastPathComponent = [v5 lastPathComponent];
       v7 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLTimeReference computeHourBucketOffset]"];
       [PLCoreStorage logMessage:v4 fromFile:lastPathComponent fromFunction:v7 fromLineNumber:65];
 
-      v8 = PLLogCommon();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+      v9 = PLLogCommon(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
         [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
       }
@@ -212,15 +212,15 @@ LABEL_9:
   objc_sync_enter(@"__hourBucketOffsetSync__");
   timeManager = [(PLTimeReference *)self timeManager];
   [timeManager hourBucketBaseSnapOffsetWithMonotonicTimeNow:self->_timeReferenceType];
-  self->_hourBucketOffset = v10;
+  self->_hourBucketOffset = v11;
 
-  v11 = MEMORY[0x1E696AD98];
+  v12 = MEMORY[0x1E696AD98];
   [(PLTimeReference *)self hourBucketOffset];
-  v12 = [v11 numberWithDouble:?];
-  v13 = objc_opt_class();
+  v13 = [v12 numberWithDouble:?];
+  v14 = objc_opt_class();
   entryDefinitionKey = [(PLTimeReference *)self entryDefinitionKey];
-  v15 = [v13 hourBucketOffsetKeyFromEntryDefinitionKey:entryDefinitionKey];
-  [PLDefaults setObject:v12 forKey:v15 saveToDisk:1];
+  v16 = [v14 hourBucketOffsetKeyFromEntryDefinitionKey:entryDefinitionKey];
+  [PLDefaults setObject:v13 forKey:v16 saveToDisk:1];
 
   hourBucketOffset = self->_hourBucketOffset;
   objc_sync_exit(@"__hourBucketOffsetSync__");
@@ -271,8 +271,8 @@ BOOL __38__PLTimeReference_getHourBucketOffset__block_invoke_23(uint64_t a1)
       v6 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLTimeReference currentTime]"];
       [PLCoreStorage logMessage:v3 fromFile:lastPathComponent fromFunction:v6 fromLineNumber:98];
 
-      v7 = PLLogCommon();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+      v8 = PLLogCommon(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
         [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
       }
@@ -372,8 +372,8 @@ BOOL __30__PLTimeReference_currentTime__block_invoke(uint64_t a1)
       v6 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLTimeReference registerForDayChangedNotification]"];
       [PLCoreStorage logMessage:v3 fromFile:lastPathComponent fromFunction:v6 fromLineNumber:135];
 
-      v7 = PLLogCommon();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+      v8 = PLLogCommon(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
         [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
       }
@@ -411,8 +411,8 @@ BOOL __52__PLTimeReference_registerForDayChangedNotification__block_invoke(uint6
       v6 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLTimeReference registerForTimeZoneChangedNotification]"];
       [PLCoreStorage logMessage:v3 fromFile:lastPathComponent fromFunction:v6 fromLineNumber:138];
 
-      v7 = PLLogCommon();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+      v8 = PLLogCommon(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
         [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
       }

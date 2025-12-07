@@ -21,7 +21,7 @@
 
 - (id)_accessibilitySpeakTextSelectionViews
 {
-  v14[1] = *MEMORY[0x29EDCA608];
+  v13[1] = *MEMORY[0x29EDCA608];
   v2 = [(PDFView_QSExtras *)self safeValueForKey:@"_private"];
   v3 = [v2 safeValueForKey:@"scrollView"];
 
@@ -55,8 +55,8 @@
       }
     }
 
-    v14[0] = v9;
-    v11 = [MEMORY[0x29EDB8D80] arrayWithObjects:v14 count:1];
+    v13[0] = v9;
+    v11 = [MEMORY[0x29EDB8D80] arrayWithObjects:v13 count:1];
   }
 
   else
@@ -65,8 +65,6 @@ LABEL_4:
     v11 = 0;
   }
 
-  v12 = *MEMORY[0x29EDCA608];
-
   return v11;
 }
 
@@ -74,30 +72,30 @@ LABEL_4:
 {
   length = range.length;
   location = range.location;
-  v23 = *MEMORY[0x29EDCA608];
+  v22 = *MEMORY[0x29EDCA608];
   rectsCopy = rects;
   pageCopy = page;
   v11 = [pageCopy selectionForRange:{location, length}];
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   selectionsByLine = [v11 selectionsByLine];
-  v13 = [selectionsByLine countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v13 = [selectionsByLine countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v13)
   {
-    v14 = *v19;
+    v14 = *v18;
     do
     {
       v15 = 0;
       do
       {
-        if (*v19 != v14)
+        if (*v18 != v14)
         {
           objc_enumerationMutation(selectionsByLine);
         }
 
-        [*(*(&v18 + 1) + 8 * v15) boundsForPage:pageCopy];
+        [*(*(&v17 + 1) + 8 * v15) boundsForPage:pageCopy];
         [(PDFView_QSExtras *)self convertRect:pageCopy fromPage:?];
         v16 = [MEMORY[0x29EDBA168] valueWithRect:?];
         [rectsCopy addObject:v16];
@@ -106,20 +104,18 @@ LABEL_4:
       }
 
       while (v13 != v15);
-      v13 = [selectionsByLine countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v13 = [selectionsByLine countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v13);
   }
-
-  v17 = *MEMORY[0x29EDCA608];
 }
 
 - (void)_accessibilityQuickSpeakTextRectsWithRange:(_NSRange)range string:(id)string highlightRects:(id)rects sentenceRects:(id)sentenceRects singleTextRect:(CGRect *)rect
 {
   length = range.length;
   location = range.location;
-  v54 = *MEMORY[0x29EDCA608];
+  v53 = *MEMORY[0x29EDCA608];
   stringCopy = string;
   rectsCopy = rects;
   sentenceRectsCopy = sentenceRects;
@@ -136,13 +132,13 @@ LABEL_4:
     {
       v20 = stringCopy;
       v21 = AXColorizeFormatLog();
-      v47 = location;
-      v49 = length;
+      v46 = location;
+      v48 = length;
       v22 = _AXStringForArgs();
       if (os_log_type_enabled(v18, v19))
       {
         *buf = 138543362;
-        v53 = v22;
+        v52 = v22;
         _os_log_impl(&dword_29C1E5000, v18, v19, "%{public}@", buf, 0xCu);
       }
 
@@ -151,7 +147,7 @@ LABEL_4:
   }
 
   buf[0] = 0;
-  v23 = [(PDFView_QSExtras *)self safeValueForKey:@"currentSelection", v47, v49];
+  v23 = [(PDFView_QSExtras *)self safeValueForKey:@"currentSelection", v46, v48];
   v24 = __UIAccessibilitySafeClass();
 
   if (buf[0] == 1)
@@ -168,7 +164,7 @@ LABEL_4:
     v28 = length;
     v29 = rectsCopy;
     [(PDFView_QSExtras *)self _axConvertRange:v27 + location toRects:v28 operatingPage:?];
-    v51 = stringCopy;
+    v50 = stringCopy;
     v30 = [stringCopy ax_sentenceFromPosition:location inDirection:v27 + location != 0];
     [(PDFView_QSExtras *)self _axConvertRange:v30 + v27 toRects:v31 operatingPage:sentenceRectsCopy, firstObject];
     mEMORY[0x29EDBD6C8]2 = [MEMORY[0x29EDBD6C8] sharedInstance];
@@ -183,12 +179,12 @@ LABEL_4:
       if (os_log_type_enabled(v35, v36))
       {
         v37 = AXColorizeFormatLog();
-        v48 = v29;
+        v47 = v29;
         v38 = _AXStringForArgs();
         if (os_log_type_enabled(v35, v36))
         {
           *buf = 138543362;
-          v53 = v38;
+          v52 = v38;
           _os_log_impl(&dword_29C1E5000, v35, v36, "%{public}@", buf, 0xCu);
         }
       }
@@ -211,16 +207,14 @@ LABEL_4:
         if (os_log_type_enabled(v42, v43))
         {
           *buf = 138543362;
-          v53 = v45;
+          v52 = v45;
           _os_log_impl(&dword_29C1E5000, v42, v43, "%{public}@", buf, 0xCu);
         }
       }
     }
 
-    stringCopy = v51;
+    stringCopy = v50;
   }
-
-  v46 = *MEMORY[0x29EDCA608];
 }
 
 - (id)_accessibilityQuickSpeakContent

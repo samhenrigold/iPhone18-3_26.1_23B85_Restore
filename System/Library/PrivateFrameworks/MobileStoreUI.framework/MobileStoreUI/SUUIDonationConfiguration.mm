@@ -72,9 +72,9 @@
 
         v9 = *(*(&v13 + 1) + 8 * i);
         identifier = [v9 identifier];
-        v11 = [identifier isEqualToString:identifierCopy];
+        isEqualToString = objc_msgSend_isEqualToString_(identifier);
 
-        if (v11)
+        if (isEqualToString)
         {
           v6 = v9;
           goto LABEL_11;

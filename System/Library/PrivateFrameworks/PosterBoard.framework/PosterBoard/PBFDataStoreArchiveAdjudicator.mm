@@ -138,7 +138,7 @@ uint64_t __49__PBFDataStoreArchiveAdjudicator_archiveForName___block_invoke(uint
     v22 = 0;
     v17 = [(PBFDataStoreArchiver *)v16 archiveToFileAtURL:lCopy error:&v22];
     v18 = v22;
-    v19 = PBFLogMigration();
+    v19 = PBFLogMigration(v18);
     v20 = v19;
     if (v17)
     {
@@ -371,8 +371,7 @@ LABEL_25:
         v11 = v22;
         if (v11)
         {
-          [v4 addObject:v11];
-          v12 = PBFLogMigration();
+          v12 = PBFLogMigration([v4 addObject:v11]);
           if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
           {
             *buf = 138543618;
@@ -385,7 +384,7 @@ LABEL_25:
 
         else
         {
-          v12 = PBFLogMigration();
+          v12 = PBFLogMigration(0);
           if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
@@ -422,78 +421,77 @@ LABEL_25:
 
 - (BOOL)removeArchives:(id *)archives
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v4 = objc_opt_new();
-  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
   archives = [(PBFDataStoreArchiveAdjudicator *)self archives];
-  v6 = [archives countByEnumeratingWithState:&v23 objects:v33 count:16];
+  v6 = [archives countByEnumeratingWithState:&v24 objects:v34 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v24;
+    v8 = *v25;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v24 != v8)
+        if (*v25 != v8)
         {
           objc_enumerationMutation(archives);
         }
 
-        archiveURL = [*(*(&v23 + 1) + 8 * i) archiveURL];
+        archiveURL = [*(*(&v24 + 1) + 8 * i) archiveURL];
         defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-        v22 = 0;
-        [defaultManager removeItemAtURL:archiveURL error:&v22];
-        v12 = v22;
+        v23 = 0;
+        [defaultManager removeItemAtURL:archiveURL error:&v23];
+        v12 = v23;
 
         if (v12)
         {
-          [v4 addObject:v12];
-          v13 = PBFLogMigration();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+          v14 = PBFLogMigration([v4 addObject:v12]);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
           {
             *buf = 138543618;
-            v30 = archiveURL;
-            v31 = 2114;
-            v32 = v12;
-            _os_log_error_impl(&dword_21B526000, v13, OS_LOG_TYPE_ERROR, "*FAILED* to remove archived data store @ %{public}@: %{public}@", buf, 0x16u);
+            v31 = archiveURL;
+            v32 = 2114;
+            v33 = v12;
+            _os_log_error_impl(&dword_21B526000, v14, OS_LOG_TYPE_ERROR, "*FAILED* to remove archived data store @ %{public}@: %{public}@", buf, 0x16u);
           }
         }
 
         else
         {
-          v13 = PBFLogMigration();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+          v14 = PBFLogMigration(v13);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
-            v30 = archiveURL;
-            _os_log_impl(&dword_21B526000, v13, OS_LOG_TYPE_DEFAULT, "Deleted archived data store @ %{public}@ ", buf, 0xCu);
+            v31 = archiveURL;
+            _os_log_impl(&dword_21B526000, v14, OS_LOG_TYPE_DEFAULT, "Deleted archived data store @ %{public}@ ", buf, 0xCu);
           }
         }
       }
 
-      v7 = [archives countByEnumeratingWithState:&v23 objects:v33 count:16];
+      v7 = [archives countByEnumeratingWithState:&v24 objects:v34 count:16];
     }
 
     while (v7);
   }
 
-  v14 = [v4 count];
-  if (archives && v14)
+  v15 = [v4 count];
+  if (archives && v15)
   {
-    v15 = MEMORY[0x277CCA9B8];
-    v16 = *MEMORY[0x277CCA470];
-    v28[0] = @"unknown error removing archived data data stores";
-    v17 = *MEMORY[0x277CCA578];
-    v27[0] = v16;
-    v27[1] = v17;
-    v18 = [v4 copy];
+    v16 = MEMORY[0x277CCA9B8];
+    v17 = *MEMORY[0x277CCA470];
+    v29[0] = @"unknown error removing archived data data stores";
+    v18 = *MEMORY[0x277CCA578];
+    v28[0] = v17;
     v28[1] = v18;
-    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:2];
-    *archives = [v15 pbf_generalErrorWithCode:1 userInfo:v19];
+    v19 = [v4 copy];
+    v29[1] = v19;
+    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:2];
+    *archives = [v16 pbf_generalErrorWithCode:1 userInfo:v20];
   }
 
   return 1;

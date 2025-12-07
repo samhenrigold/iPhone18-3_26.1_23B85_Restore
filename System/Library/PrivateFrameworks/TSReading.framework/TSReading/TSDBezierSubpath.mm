@@ -601,7 +601,7 @@ LABEL_23:
 
 - (double)distanceToPoint:(CGPoint)point elementIndex:(unint64_t *)index tValue:(double *)value threshold:(double)threshold
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   v10 = [(NSMutableArray *)self->mNodes count];
   if (!v10)
   {
@@ -614,7 +614,7 @@ LABEL_23:
   v14 = v13;
   v16 = v15;
   v17 = v11 + self->mClosed;
-  v44 = threshold * threshold;
+  v43 = threshold * threshold;
   if (v17 >= 2 && threshold * threshold < 1.79769313e308)
   {
     v19 = 0;
@@ -623,9 +623,9 @@ LABEL_23:
     v23 = 2;
     do
     {
-      v46 = v21;
-      v47 = v20;
-      v24 = [(NSMutableArray *)self->mNodes objectAtIndexedSubscript:(v23 - 1) % v11, *&v44];
+      v45 = v21;
+      v46 = v20;
+      v24 = [(NSMutableArray *)self->mNodes objectAtIndexedSubscript:(v23 - 1) % v11, *&v43];
       [v24 nodePoint];
       v26 = v25;
       v28 = v27;
@@ -637,41 +637,40 @@ LABEL_23:
       v36 = v35;
       if (TSDNearlyEqualPoints(v14, v16, v30, v32) && TSDNearlyEqualPoints(v34, v36, v26, v28))
       {
-        v48.f64[0] = v14;
-        v48.f64[1] = v16;
-        v49 = v26;
-        v50 = v28;
+        v47.f64[0] = v14;
+        v47.f64[1] = v16;
+        v48 = v26;
+        v49 = v28;
         x = point.x;
         y = point.y;
-        TSDNearestPointOnLineToPoint(v48.f64, point.x, point.y);
-        v40 = v39;
-        v41 = TSDMixPoints(v48.f64[0], v48.f64[1], v49, v50, v39);
+        v39 = TSDNearestPointOnLineToPoint(v47.f64, point.x, point.y);
+        v40 = TSDMixPoints(v47.f64[0], v47.f64[1], v48, v49, v39);
       }
 
       else
       {
-        v48.f64[0] = v14;
-        v48.f64[1] = v16;
-        v49 = v30;
-        v50 = v32;
-        v51 = v34;
-        v52 = v36;
-        v53 = v26;
-        v54 = v28;
+        v47.f64[0] = v14;
+        v47.f64[1] = v16;
+        v48 = v30;
+        v49 = v32;
+        v50 = v34;
+        v51 = v36;
+        v52 = v26;
+        v53 = v28;
         x = point.x;
         y = point.y;
-        v40 = TSDNearestPointOnCurveToPoint(&v48, point.x, point.y, 1.0);
-        v41 = TSDPointOnCurve(&v48, v40);
+        v39 = TSDNearestPointOnCurveToPoint(&v47, point.x, point.y, 1.0);
+        v40 = TSDPointOnCurve(&v47, v39);
       }
 
-      v43 = TSDDistanceSquared(v41, v42, x, y);
-      v21 = v46;
-      v20 = v47;
-      if (v43 < v46)
+      v42 = TSDDistanceSquared(v40, v41, x, y);
+      v21 = v45;
+      v20 = v46;
+      if (v42 < v45)
       {
-        v20 = v40;
+        v20 = v39;
         v19 = v23 - 2;
-        v21 = v43;
+        v21 = v42;
       }
 
       if (v23 >= v17)
@@ -685,7 +684,7 @@ LABEL_23:
       v16 = v28;
     }
 
-    while (v21 > v44);
+    while (v21 > v43);
   }
 
   else
@@ -1155,8 +1154,8 @@ LABEL_23:
   [(TSDBezierNode *)v26 setReflectedState:2];
   [(TSDBezierNode *)v26 setType:3];
   [(NSMutableArray *)self->mNodes insertObject:v26 atIndex:v6];
-  TSDCurveBetween(&v38, v33, 0.0, 0.5);
-  TSDCurveBetween(&v38, v28, 0.5, 1.0);
+  TSDCurveBetween(0.0, 0.5, &v38, v33);
+  TSDCurveBetween(0.5, 1.0, &v38, v28);
   [v5 setOutControlPoint:{v34, v35}];
   [(TSDBezierNode *)v26 setInControlPoint:v36, v37];
   [(TSDBezierNode *)v26 setOutControlPoint:v29, v30];

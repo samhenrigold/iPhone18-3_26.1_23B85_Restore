@@ -69,7 +69,7 @@
   {
     if (!handleType)
     {
-      v8 = PHDefaultLog();
+      v8 = PHDefaultLog(0);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         [(CHRecentCall(PhoneKit) *)v8 handle];
@@ -286,7 +286,7 @@ LABEL_16:
   type metadata accessor for CarrierVoiceSpamReportHelper();
   swift_allocObject();
   CarrierVoiceSpamReportHelper.init(voiceSpamReportTelephonyManager:)();
-  v7[3] = type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for CHRecentCall);
+  v7[3] = type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for CHRecentCall, CHRecentCall_ptr);
   v7[4] = &protocol witness table for CHRecentCall;
   v7[0] = selfCopy;
   v4 = selfCopy;

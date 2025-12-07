@@ -38,8 +38,10 @@
 - (void)setBackTranslateByCell:(BOOL)cell;
 - (void)setBrailleStringDirty:(BOOL)dirty;
 - (void)setBrailleUIActive:(BOOL)active;
+- (void)setClearAtNextDotPress:(BOOL)press;
 - (void)setDelegate:(id)delegate;
 - (void)setEditable:(BOOL)editable;
+- (void)setHandleReturnInternally:(BOOL)internally;
 - (void)setIsShowingSecureToken:(BOOL)token;
 - (void)setIsSingleKeyQuickNav:(BOOL)nav;
 - (void)setIsWordDescriptionActive:(BOOL)active;
@@ -62,6 +64,9 @@
 - (void)uiReplaceLastLineWith:(id)with;
 - (void)uiSelectAll;
 - (void)uiSelectBoundary;
+- (void)uiSelectCharacterWithIsForward:(BOOL)forward;
+- (void)uiSelectLineWithIsForward:(BOOL)forward;
+- (void)uiSelectWordWithIsForward:(BOOL)forward;
 - (void)uiUndo;
 @end
 
@@ -69,19 +74,16 @@
 
 - (BRLTBrailleModelDelegate)delegate
 {
-  v3 = OBJC_IVAR___BRLTBrailleModelInternal_delegate;
   swift_beginAccess();
-  v4 = *(&self->super.isa + v3);
-  v5 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v5;
+  return v2;
 }
 
 - (void)setDelegate:(id)delegate
 {
   v5 = OBJC_IVAR___BRLTBrailleModelInternal_delegate;
   swift_beginAccess();
-  v6 = *(&self->super.isa + v5);
   *(&self->super.isa + v5) = delegate;
   swift_unknownObjectRetain();
   swift_unknownObjectRelease();
@@ -185,10 +187,8 @@
   if (v11)
   {
 LABEL_6:
-    v17 = sub_241E35714();
+    sub_241E35714();
 
-    v14 = v17;
-    v15 = 0;
     goto LABEL_7;
   }
 
@@ -198,11 +198,9 @@ LABEL_6:
     goto __BRLTBrailleModelInternal_nsUISelection_;
   }
 
-  v14 = v7;
-  v15 = v9 - v7;
 LABEL_7:
 
-  v12 = NSMakeRange(v14, v15);
+  NSMakeRange();
 - (BOOL)handleReturnInternally
 {
   v2 = *(&self->super.isa + OBJC_IVAR___BRLTBrailleModelInternal_brailleUIModel);
@@ -222,6 +220,19 @@ LABEL_7:
   return v6 & 1;
 }
 
+- (void)setHandleReturnInternally:(BOOL)internally
+{
+  v3 = *(&self->super.isa + OBJC_IVAR___BRLTBrailleModelInternal_brailleUIModel);
+  if (v3)
+  {
+    internallyCopy = internally;
+    v5 = *(*v3 + 280);
+    selfCopy = self;
+
+    v5(internallyCopy);
+  }
+}
+
 - (BOOL)clearAtNextDotPress
 {
   v2 = *(&self->super.isa + OBJC_IVAR___BRLTBrailleModelInternal_brailleUIModel);
@@ -239,6 +250,19 @@ LABEL_7:
   }
 
   return v6 & 1;
+}
+
+- (void)setClearAtNextDotPress:(BOOL)press
+{
+  v3 = *(&self->super.isa + OBJC_IVAR___BRLTBrailleModelInternal_brailleUIModel);
+  if (v3)
+  {
+    pressCopy = press;
+    v5 = *(*v3 + 304);
+    selfCopy = self;
+
+    v5(pressCopy);
+  }
 }
 
 - (void)uiUndo
@@ -343,29 +367,22 @@ LABEL_7:
     v3 = *(*v2 + 232);
     selfCopy = self;
 
-    v6 = (v3)(v5);
-    v7 = v3();
-    v9 = v8 - v7;
-    if (__OFSUB__(v8, v7))
+    (v3)(v5);
+    v6 = v3();
+    if (__OFSUB__(v7, v6))
     {
       __break(1u);
       goto __BRLTBrailleModelInternal_uiDisplayRange_;
     }
-
-    v10 = v6;
-    v11 = v9;
   }
 
   else
   {
     selfCopy2 = self;
-    v13 = sub_241E35714();
-
-    v10 = v13;
-    v11 = 0;
+    sub_241E35714();
   }
 
-  v7 = NSMakeRange(v10, v11);
+  NSMakeRange();
 - (void)uiReplaceLastLineWith:(id)with
 {
   v4 = sub_241E357F4();
@@ -575,12 +592,11 @@ LABEL_7:
   if ((v7() & 1) != 0 && (v8 = *(&selfCopy->super.isa + OBJC_IVAR___BRLTBrailleModelInternal_brailleUIModel)) != 0)
   {
     v9 = *(*v8 + 344);
-    v10 = *(&selfCopy->super.isa + OBJC_IVAR___BRLTBrailleModelInternal_brailleUIModel);
 
     v9(v4, v6);
 
-    v11 = [objc_allocWithZone(BRLTBrailleUIFormattingOptions) init];
-    sub_241E221E8(v11);
+    v10 = [objc_allocWithZone(BRLTBrailleUIFormattingOptions) init];
+    sub_241E221E8(v10);
   }
 
   else
@@ -619,6 +635,51 @@ LABEL_7:
     v3(v4);
     v5 = [objc_allocWithZone(BRLTBrailleUIFormattingOptions) init];
     sub_241E221E8(v5);
+  }
+}
+
+- (void)uiSelectCharacterWithIsForward:(BOOL)forward
+{
+  v3 = *(&self->super.isa + OBJC_IVAR___BRLTBrailleModelInternal_brailleUIModel);
+  if (v3)
+  {
+    forwardCopy = forward;
+    v5 = *(*v3 + 448);
+    selfCopy = self;
+
+    v5(forwardCopy);
+    v6 = [objc_allocWithZone(BRLTBrailleUIFormattingOptions) init];
+    sub_241E221E8(v6);
+  }
+}
+
+- (void)uiSelectWordWithIsForward:(BOOL)forward
+{
+  v3 = *(&self->super.isa + OBJC_IVAR___BRLTBrailleModelInternal_brailleUIModel);
+  if (v3)
+  {
+    forwardCopy = forward;
+    v5 = *(*v3 + 456);
+    selfCopy = self;
+
+    v5(forwardCopy);
+    v6 = [objc_allocWithZone(BRLTBrailleUIFormattingOptions) init];
+    sub_241E221E8(v6);
+  }
+}
+
+- (void)uiSelectLineWithIsForward:(BOOL)forward
+{
+  v3 = *(&self->super.isa + OBJC_IVAR___BRLTBrailleModelInternal_brailleUIModel);
+  if (v3)
+  {
+    forwardCopy = forward;
+    v5 = *(*v3 + 464);
+    selfCopy = self;
+
+    v5(forwardCopy);
+    v6 = [objc_allocWithZone(BRLTBrailleUIFormattingOptions) init];
+    sub_241E221E8(v6);
   }
 }
 

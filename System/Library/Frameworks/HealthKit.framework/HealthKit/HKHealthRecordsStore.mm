@@ -259,10 +259,10 @@ uint64_t __66__HKHealthRecordsStore_fetchCurrentIngestionStatusWithCompletion___
 void __66__HKHealthRecordsStore_fetchCurrentIngestionStatusWithCompletion___block_invoke_3(uint64_t a1, void *a2)
 {
   v3 = a2;
-  _HKInitializeLogging();
+  _HKInitializeLogging(v3, v4);
   if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_ERROR))
   {
-    __66__HKHealthRecordsStore_fetchCurrentIngestionStatusWithCompletion___block_invoke_3_cold_1(a1);
+    __66__HKHealthRecordsStore_fetchCurrentIngestionStatusWithCompletion___block_invoke_3_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
@@ -270,7 +270,7 @@ void __66__HKHealthRecordsStore_fetchCurrentIngestionStatusWithCompletion___bloc
 
 - (void)clientRemote_healthRecordsAccountsEventObserved:(unint64_t)observed
 {
-  _HKInitializeLogging();
+  _HKInitializeLogging(self, a2);
   v5 = HKLogHealthRecords;
   if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_DEBUG))
   {
@@ -548,7 +548,7 @@ void __66__HKHealthRecordsStore_fetchCurrentIngestionStatusWithCompletion___bloc
 
 - (void)clientRemote_healthRecordsSupportedDidChangeTo:(BOOL)to
 {
-  _HKInitializeLogging();
+  _HKInitializeLogging(self, a2);
   if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_DEBUG))
   {
     [HKHealthRecordsStore clientRemote_healthRecordsSupportedDidChangeTo:];
@@ -685,29 +685,30 @@ uint64_t __65__HKHealthRecordsStore__actionCompletionWithObjectOnClientQueue___b
 - (void)_executeCheapCallOnPluginServerProxy:(id)proxy
 {
   proxyCopy = proxy;
-  _HKInitializeLogging();
+  _HKInitializeLogging(proxyCopy, v5);
   if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_DEBUG))
   {
     [HKHealthRecordsStore _executeCheapCallOnPluginServerProxy:];
   }
 
-  v5[0] = MEMORY[0x1E69E9820];
-  v5[1] = 3221225472;
-  v5[2] = __61__HKHealthRecordsStore__executeCheapCallOnPluginServerProxy___block_invoke;
-  v5[3] = &unk_1E7376A00;
-  v5[4] = self;
-  [proxyCopy remote_pingWithCompletion:v5];
+  v6[0] = MEMORY[0x1E69E9820];
+  v6[1] = 3221225472;
+  v6[2] = __61__HKHealthRecordsStore__executeCheapCallOnPluginServerProxy___block_invoke;
+  v6[3] = &unk_1E7376A00;
+  v6[4] = self;
+  [proxyCopy remote_pingWithCompletion:v6];
 }
 
 void __61__HKHealthRecordsStore__executeCheapCallOnPluginServerProxy___block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v5 = a3;
+  v4 = a3;
+  v6 = v4;
   if ((a2 & 1) == 0)
   {
-    _HKInitializeLogging();
+    _HKInitializeLogging(v4, v5);
     if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_ERROR))
     {
-      __61__HKHealthRecordsStore__executeCheapCallOnPluginServerProxy___block_invoke_cold_1(a1);
+      __61__HKHealthRecordsStore__executeCheapCallOnPluginServerProxy___block_invoke_cold_1();
     }
   }
 }
@@ -718,19 +719,16 @@ void __61__HKHealthRecordsStore__executeCheapCallOnPluginServerProxy___block_inv
   [v4 handleFailureInMethod:a1 object:a2 file:@"HKHealthRecordsStore.m" lineNumber:45 description:{@"Invalid parameter not satisfying: %@", @"healthStore != nil"}];
 }
 
-void __66__HKHealthRecordsStore_fetchCurrentIngestionStatusWithCompletion___block_invoke_3_cold_1(uint64_t a1)
+void __66__HKHealthRecordsStore_fetchCurrentIngestionStatusWithCompletion___block_invoke_3_cold_1()
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v6 = *(a1 + 32);
   OUTLINED_FUNCTION_0_10();
   OUTLINED_FUNCTION_1_6();
-  _os_log_error_impl(v1, v2, OS_LOG_TYPE_ERROR, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, OS_LOG_TYPE_ERROR, v2, v3, 0x16u);
 }
 
 - (void)clientRemote_healthRecordsAccountsEventObserved:(void *)a3 .cold.1(uint64_t a1, uint64_t a2, void *a3)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if ((a2 - 1) > 4)
   {
     v3 = @"unknown";
@@ -741,22 +739,12 @@ void __66__HKHealthRecordsStore_fetchCurrentIngestionStatusWithCompletion___bloc
     v3 = off_1E737D7E8[a2 - 1];
   }
 
-  v6 = 138543618;
-  v7 = a1;
-  v8 = 2114;
-  v9 = v3;
+  v5 = 138543618;
+  v6 = a1;
+  v7 = 2114;
+  v8 = v3;
   v4 = a3;
-  _os_log_debug_impl(&dword_19197B000, v4, OS_LOG_TYPE_DEBUG, "%{public}@: health records accounts event observed: %{public}@", &v6, 0x16u);
-
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)clientRemote_healthRecordsSupportedDidChangeTo:.cold.1()
-{
-  v5 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_6();
-  _os_log_debug_impl(v0, v1, OS_LOG_TYPE_DEBUG, v2, v3, 0x12u);
-  v4 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_19197B000, v4, OS_LOG_TYPE_DEBUG, "%{public}@: health records accounts event observed: %{public}@", &v5, 0x16u);
 }
 
 - (void)registerAppSourceForClinicalUnlimitedAuthorizationModeConfirmation:(uint64_t)a1 completion:(uint64_t)a2 .cold.1(uint64_t a1, uint64_t a2)
@@ -773,21 +761,16 @@ void __66__HKHealthRecordsStore_fetchCurrentIngestionStatusWithCompletion___bloc
 
 - (void)_executeCheapCallOnPluginServerProxy:.cold.1()
 {
-  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_10();
   OUTLINED_FUNCTION_1_6();
   _os_log_debug_impl(v0, v1, OS_LOG_TYPE_DEBUG, v2, v3, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
 }
 
-void __61__HKHealthRecordsStore__executeCheapCallOnPluginServerProxy___block_invoke_cold_1(uint64_t a1)
+void __61__HKHealthRecordsStore__executeCheapCallOnPluginServerProxy___block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v6 = *(a1 + 32);
   OUTLINED_FUNCTION_0_10();
   OUTLINED_FUNCTION_1_6();
-  _os_log_error_impl(v1, v2, OS_LOG_TYPE_ERROR, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, OS_LOG_TYPE_ERROR, v2, v3, 0x16u);
 }
 
 @end

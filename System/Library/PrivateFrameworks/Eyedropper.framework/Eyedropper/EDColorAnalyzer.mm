@@ -220,7 +220,7 @@ LABEL_17:
     while (v12);
   }
 
-  v18 = ColorMake(clusters, clusters, clusters);
+  ColorMake();
   v19 = [MEMORY[0x277CCAE60] valueWithColor:{ColorCombineColors(v11, v10, v9, v18)}];
   v20 = [(NSMutableDictionary *)self->_cache objectForKeyedSubscript:v19];
 
@@ -545,98 +545,84 @@ BOOL __50__EDColorAnalyzer_kmeansColorsForColors_clusters___block_invoke(uint64_
   v17 = IOSurfaceGetHeight(surface);
   BytesPerRow = IOSurfaceGetBytesPerRow(surface);
   array = [MEMORY[0x277CBEB18] array];
-  v55.origin.x = x;
-  v55.origin.y = y;
-  v55.size.width = width;
-  v55.size.height = height;
-  MinY = CGRectGetMinY(v55);
+  v50.origin.x = x;
+  v50.origin.y = y;
+  v50.size.width = width;
+  v50.size.height = height;
+  MinY = CGRectGetMinY(v50);
   v20 = MinY;
-  v56.origin.x = x;
-  v56.origin.y = y;
-  v56.size.width = width;
-  v56.size.height = height;
-  v49 = v11;
-  if (v11 + CGRectGetMaxY(v56) <= v20)
+  v51.origin.x = x;
+  v51.origin.y = y;
+  v51.size.width = width;
+  v51.size.height = height;
+  v44 = v11;
+  if (v11 + CGRectGetMaxY(v51) <= v20)
   {
 LABEL_2:
     v21 = [array copy];
     goto LABEL_19;
   }
 
-  v48 = ((v17 >> 1) - 1);
-  v52 = (v16 >> 1);
-  v53 = ((v16 >> 1) - 1);
+  v43 = ((v17 >> 1) - 1);
+  v47 = (v16 >> 1);
+  v48 = ((v16 >> 1) - 1);
   v22 = MinY;
   v23 = &BaseAddress[BytesPerRow * MinY];
-  v51 = v23 + 2;
+  v46 = v23 + 2;
   while (1)
   {
-    v57.origin.x = x;
-    v57.origin.y = y;
-    v57.size.width = width;
-    v57.size.height = height;
-    MinX = CGRectGetMinX(v57);
+    v52.origin.x = x;
+    v52.origin.y = y;
+    v52.size.width = width;
+    v52.size.height = height;
+    MinX = CGRectGetMinX(v52);
     v25 = MinX;
-    v58.origin.x = x;
-    v58.origin.y = y;
-    v58.size.width = width;
-    v58.size.height = height;
-    if (v12 + CGRectGetMaxX(v58) > v25)
+    v53.origin.x = x;
+    v53.origin.y = y;
+    v53.size.width = width;
+    v53.size.height = height;
+    if (v12 + CGRectGetMaxX(v53) > v25)
     {
       break;
     }
 
 LABEL_16:
     v20 = ++v22;
-    v60.origin.x = x;
-    v60.origin.y = y;
-    v60.size.width = width;
-    v60.size.height = height;
+    v55.origin.x = x;
+    v55.origin.y = y;
+    v55.size.width = width;
+    v55.size.height = height;
     v23 += BytesPerRow;
-    v51 += BytesPerRow;
-    if (v49 + CGRectGetMaxY(v60) <= v22)
+    v46 += BytesPerRow;
+    if (v44 + CGRectGetMaxY(v55) <= v22)
     {
       goto LABEL_2;
     }
   }
 
-  v28 = MinX;
-  v29 = v48 - v20;
-  v30 = v29 * v29;
-  v31 = &v23[4 * v28];
-  v32 = v28 + 1;
-  v33 = &v51[4 * v28];
-  v34 = &v23[8 * v28];
+  v26 = &v23[4 * MinX];
+  v27 = MinX + 1;
+  v28 = &v46[4 * MinX];
+  v29 = &v23[8 * MinX];
   while (1)
   {
-    if (circleCopy)
+    if (circleCopy && floor(sqrt((v43 - v20) * (v43 - v20) + (v48 - v25) * (v48 - v25))) > v47)
     {
-      v26 = *&v52;
-      v29 = floor(sqrt(v30 + (v53 - v25) * (v53 - v25)));
-      if (v29 > v52)
-      {
-        goto LABEL_15;
-      }
+      goto LABEL_15;
     }
 
     if (PixelFormat == 1111970369)
     {
-      LOBYTE(v29) = *v33;
-      _D0 = *&v29 / 255.0;
-      LOBYTE(v26) = *(v33 - 1);
-      _D1 = v26 / 255.0;
-      LOBYTE(v27) = *v31;
-      v35 = MEMORY[0x277CCAE60];
-      _D2 = v27 / 255.0;
+      v30 = MEMORY[0x277CCAE60];
       goto LABEL_14;
     }
 
     if (PixelFormat == 1380411457)
     {
-      _H0 = *v34;
-      _H1 = *(v34 + 1);
-      _H2 = *(v34 + 2);
-      v35 = MEMORY[0x277CCAE60];
+      _H0 = *v29;
+      _H1 = *(v29 + 1);
+      _H2 = *(v29 + 2);
+      v30 = MEMORY[0x277CCAE60];
       __asm
       {
         FCVT            D0, H0
@@ -652,26 +638,23 @@ LABEL_16:
       break;
     }
 
-    v35 = MEMORY[0x277CCAE60];
-    _D0 = ((((*v31 >> 20) & 0x3FF) - 384) / 510.0);
-    _D1 = ((((*v31 >> 10) & 0x3FF) - 384) / 510.0);
-    _D2 = (((*v31 & 0x3FF) - 384) / 510.0);
+    v30 = MEMORY[0x277CCAE60];
 LABEL_14:
-    v46 = [v35 valueWithColor:{ColorMake(_D0, _D1, _D2)}];
-    [array addObject:v46];
+    ColorMake();
+    v41 = [v30 valueWithColor:?];
+    [array addObject:v41];
 
 LABEL_15:
-    v25 = v32;
-    v59.origin.x = x;
-    v59.origin.y = y;
-    v59.size.width = width;
-    v59.size.height = height;
-    v29 = v12 + CGRectGetMaxX(v59);
-    ++v32;
-    v31 += 4;
-    v33 += 4;
-    v34 += 8;
-    if (v29 <= v25)
+    v25 = v27;
+    v54.origin.x = x;
+    v54.origin.y = y;
+    v54.size.width = width;
+    v54.size.height = height;
+    ++v27;
+    v26 += 4;
+    v28 += 4;
+    v29 += 8;
+    if (v12 + CGRectGetMaxX(v54) <= v25)
     {
       goto LABEL_16;
     }
@@ -790,81 +773,69 @@ LABEL_19:
 {
   y = offset.y;
   x = offset.x;
-  v41 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   BaseAddress = IOSurfaceGetBaseAddress(surface);
   PixelFormat = IOSurfaceGetPixelFormat(surface);
   v9 = (x + (IOSurfaceGetWidth(surface) >> 1));
   v10 = (y + (IOSurfaceGetHeight(surface) >> 1));
   BytesPerRow = IOSurfaceGetBytesPerRow(surface);
   v12 = CGColorSpaceCopyFromIOSurface();
-  v16 = v12;
-  v17 = &BaseAddress[BytesPerRow * v10];
+  v14 = v12;
   switch(PixelFormat)
   {
     case 0x42475241u:
-      v33 = &v17[4 * v9];
-      LOBYTE(v13) = v33[2];
-      v19 = v13 / 255.0;
-      LOBYTE(v14) = v33[1];
-      v20 = v14 / 255.0;
-      LOBYTE(v15) = *v33;
-      v21 = v15 / 255.0;
-LABEL_12:
-      v34 = ColorMake(v19, v20, v21);
-      v32 = ColorUIColorWithColorSpace(v16, v34, v35, v36);
-      if (!v16)
+LABEL_11:
+      ColorMake();
+      v25 = ColorUIColorWithColorSpace(v14, v26, v27, v28);
+      if (!v14)
       {
-        goto LABEL_14;
+        goto LABEL_13;
       }
 
-      goto LABEL_13;
+      goto LABEL_12;
     case 0x52476841u:
-      v22 = &v17[8 * v9];
-      LODWORD(v13) = *v22;
-      v38 = vcvtq_f64_f32(*&vcvtq_f32_f16(v13));
-      _H0 = *(v22 + 2);
+      v15 = BaseAddress + 8 * v9 + BytesPerRow * v10;
+      v13.i32[0] = *v15;
+      v30 = vcvtq_f64_f32(*&vcvtq_f32_f16(v13));
+      _H0 = *(v15 + 4);
       __asm { FCVT            D0, H0 }
 
-      v39 = _D0;
-      v40 = 0x3FF0000000000000;
+      v31 = _D0;
+      v32 = 0x3FF0000000000000;
       if (v12)
       {
-        v29 = CGColorCreate(v12, v38.f64);
-        if (v29)
+        v22 = CGColorCreate(v12, v30.f64);
+        if (v22)
         {
-          v30 = v29;
-          v31 = objc_alloc(MEMORY[0x277D75348]);
-          v32 = [v31 initWithCGColor:{v30, *&v38, v39, v40}];
-          CFRelease(v30);
-          if (!v16)
+          v23 = v22;
+          v24 = objc_alloc(MEMORY[0x277D75348]);
+          v25 = [v24 initWithCGColor:{v23, *&v30, v31, v32}];
+          CFRelease(v23);
+          if (!v14)
           {
-            goto LABEL_14;
+            goto LABEL_13;
           }
 
-LABEL_13:
-          CFRelease(v16);
-          goto LABEL_14;
+LABEL_12:
+          CFRelease(v14);
+          goto LABEL_13;
         }
       }
 
       break;
     case 0x77333072u:
-      v18 = *&v17[4 * v9];
-      v19 = ((((v18 >> 20) & 0x3FF) - 384) / 510.0);
-      v20 = ((((v18 >> 10) & 0x3FF) - 384) / 510.0);
-      v21 = (((v18 & 0x3FF) - 384) / 510.0);
-      goto LABEL_12;
+      goto LABEL_11;
   }
 
-  v32 = 0;
-  if (v16)
+  v25 = 0;
+  if (v14)
   {
-    goto LABEL_13;
+    goto LABEL_12;
   }
 
-LABEL_14:
+LABEL_13:
 
-  return v32;
+  return v25;
 }
 
 - (id)getRandomColors:(int64_t)colors from:(id)from

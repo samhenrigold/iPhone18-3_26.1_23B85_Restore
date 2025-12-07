@@ -630,7 +630,7 @@ uint64_t *WrdSectionProperties::setColumnWidthSpacing(WrdSectionProperties *this
   *(this + 2) |= 0x40000000uLL;
   v5 = a2;
   v6 = &v5;
-  result = std::__tree<std::__value_type<unsigned int,int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,int>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 192, &v5);
+  result = std::__tree<std::__value_type<unsigned int,int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,int>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 192, &v5, &std::piecewise_construct, &v6);
   *(result + 8) = a3;
   return result;
 }
@@ -640,12 +640,12 @@ uint64_t *WrdSectionProperties::setColumnGap(WrdSectionProperties *this, unsigne
   *(this + 2) |= 0x20000000uLL;
   v5 = a2;
   v6 = &v5;
-  result = std::__tree<std::__value_type<unsigned int,int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,int>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 168, &v5);
+  result = std::__tree<std::__value_type<unsigned int,int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,int>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 168, &v5, &std::piecewise_construct, &v6);
   *(result + 8) = a3;
   return result;
 }
 
-uint64_t WrdTapParser::parsePartOfTableCellDescriptor(WrdTapParser *this, WrdTableCellDescriptor *a2, unsigned __int16 *a3, unsigned __int16 *a4)
+uint64_t WrdTapParser::parsePartOfTableCellDescriptor(WrdTapParser *this, WrdTableCellDescriptor *a2, char *a3, char *a4)
 {
   if (!a3 || a3 >= a4 || (a4 - a3) <= 0x13)
   {
@@ -672,17 +672,17 @@ uint64_t WrdTapParser::parsePartOfTableCellDescriptor(WrdTapParser *this, WrdTab
   SInt16 = CsLeReadSInt16(a3 + 1);
   WrdTableCellDescriptor::setWidth(a2, SInt16);
   TopBorderReference = WrdTableCellDescriptor::getTopBorderReference(a2);
-  WrdBaseParser::parseBRC80(this, TopBorderReference, a3 + 2, a4);
+  WrdBaseParser::parseBRC80(this, TopBorderReference, a3 + 4, a4);
   LeftBorderReference = WrdTableCellDescriptor::getLeftBorderReference(a2);
-  WrdBaseParser::parseBRC80(this, LeftBorderReference, a3 + 4, a4);
+  WrdBaseParser::parseBRC80(this, LeftBorderReference, a3 + 8, a4);
   BottomBorderReference = WrdTableCellDescriptor::getBottomBorderReference(a2);
-  WrdBaseParser::parseBRC80(this, BottomBorderReference, a3 + 6, a4);
+  WrdBaseParser::parseBRC80(this, BottomBorderReference, a3 + 12, a4);
   RightBorderReference = WrdTableCellDescriptor::getRightBorderReference(a2);
 
-  return WrdBaseParser::parseBRC80(this, RightBorderReference, a3 + 8, a4);
+  return WrdBaseParser::parseBRC80(this, RightBorderReference, a3 + 16, a4);
 }
 
-uint64_t WrdTableProperties::getTableCellDescriptor(WrdTableProperties *this, unsigned int a2)
+uint64_t WrdTableProperties::getTableCellDescriptor(WrdTableProperties *this, int a2)
 {
   if (a2 >= *(this + 172))
   {
@@ -733,12 +733,12 @@ const char *WrdStreamer::getTableStreamName(WrdStreamer *this)
 uint64_t WrdStreamer::decryptStream(OCCBinaryStreamer *this, SsrwOOStream *a2, unsigned int a3, SsrwOOStream *a4)
 {
   var1 = this->var1;
-  v8 = (*(a2->var0 + 6))(a2);
-  result = OCCSegmenter::decryptSegmentsIntoStream(&this[1].var1, a2, 0, var1, v8, a4);
+  v9 = (*(a2->var0 + 6))(a2);
+  result = OCCSegmenter::decryptSegmentsIntoStream(&this[1].var1, a2, 0, var1, v9, a4);
   if (result)
   {
 
-    OCCBinaryStreamer::replaceGarbledBytes(this, a2, a4, 0);
+    OCCBinaryStreamer::replaceGarbledBytes(this, a2, a4, 0, a3);
   }
 
   return result;
@@ -747,12 +747,12 @@ uint64_t WrdStreamer::decryptStream(OCCBinaryStreamer *this, SsrwOOStream *a2, u
 uint64_t WrdStreamer::encryptStream(OCCBinaryStreamer *this, SsrwOOStream *a2, unsigned int a3, SsrwOOStream *a4)
 {
   var1 = this->var1;
-  v8 = (*(a2->var0 + 6))(a2);
-  result = OCCSegmenter::decryptSegmentsIntoStream(&this[1].var1, a2, 0, var1, v8, a4);
+  v9 = (*(a2->var0 + 6))(a2);
+  result = OCCSegmenter::decryptSegmentsIntoStream(&this[1].var1, a2, 0, var1, v9, a4);
   if (result)
   {
 
-    OCCBinaryStreamer::replaceGarbledBytes(this, a2, a4, 0);
+    OCCBinaryStreamer::replaceGarbledBytes(this, a2, a4, 0, a3);
   }
 
   return result;
@@ -952,9 +952,9 @@ void sub_25D5F5910(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_25D5F6310(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, id a10)
+void sub_25D5F6310(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, id a10)
 {
-  MEMORY[0x25F897000](v10, 0x1091C40A2F6EBE1);
+  MEMORY[0x25F897000](v10, 0x1091C40A2F6EBE1, a3, a4, a5, a6, a7, a8);
 
   _Unwind_Resume(a1);
 }
@@ -966,13 +966,13 @@ uint64_t PptContainer::setId(uint64_t this, int a2)
   return this;
 }
 
-void non-virtual thunk toPptContainer::~PptContainer(PptContainer *this)
+void non-virtual thunk toPptContainer::~PptContainer(PptContainer *this, uint64_t a2)
 {
-  EshContainer::~EshContainer((this - 56));
+  EshContainer::~EshContainer((this - 56), a2);
 }
 
 {
-  EshContainer::~EshContainer((this - 56));
+  EshContainer::~EshContainer((this - 56), a2);
 
   JUMPOUT(0x25F897000);
 }
@@ -1159,19 +1159,19 @@ void sub_25D5FA7C0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void std::vector<PBReaderMasterStyleInfo,ChAllocator<PBReaderMasterStyleInfo>>::resize(void *a1, unsigned int a2)
+void std::vector<PBReaderMasterStyleInfo,ChAllocator<PBReaderMasterStyleInfo>>::resize(void *result, unsigned int a2)
 {
-  v2 = (a1[1] - *a1) >> 4;
+  v2 = (result[1] - *result) >> 4;
   v3 = a2 >= v2;
   v4 = a2 - v2;
   if (v4 != 0 && v3)
   {
-    std::vector<PBReaderMasterStyleInfo,ChAllocator<PBReaderMasterStyleInfo>>::__append(a1, v4);
+    std::vector<PBReaderMasterStyleInfo,ChAllocator<PBReaderMasterStyleInfo>>::__append(result, v4);
   }
 
   else if (!v3)
   {
-    a1[1] = *a1 + 16 * a2;
+    result[1] = *result + 16 * a2;
   }
 }
 
@@ -1194,9 +1194,9 @@ void sub_25D5FC904(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_25D5FCBD0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, id a10)
+void sub_25D5FCBD0(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, id a10)
 {
-  MEMORY[0x25F897000](v10, 0x1081C40E42947E0);
+  MEMORY[0x25F897000](v10, 0x1081C40E42947E0, a3, a4, a5, a6, a7, a8);
 
   _Unwind_Resume(a1);
 }
@@ -1974,21 +1974,21 @@ uint64_t verifyRangeValidity(int a1, int a2, int a3)
   return TCVerifyInputMeetsCondition(v6 >= a2);
 }
 
-_WORD *std::vector<PptTab,ChAllocator<PptTab>>::__assign_with_size[abi:ne200100]<PptTab*,PptTab*>(void *a1, uint64_t *a2, uint64_t *a3, unsigned int a4)
+_WORD *std::vector<PptTab,ChAllocator<PptTab>>::__assign_with_size[abi:ne200100]<PptTab*,PptTab*>(uint64_t a1, uint64_t *a2, uint64_t *a3, unsigned int a4)
 {
   v5 = a2;
-  v7 = a1[2];
+  v7 = *(a1 + 16);
   result = *a1;
   if (((v7 - result) >> 3) < a4)
   {
     if (result)
     {
-      a1[1] = result;
+      *(a1 + 8) = result;
       operator delete(result);
       v7 = 0;
       *a1 = 0;
-      a1[1] = 0;
-      a1[2] = 0;
+      *(a1 + 8) = 0;
+      *(a1 + 16) = 0;
     }
 
     v9 = v7 >> 3;
@@ -2011,7 +2011,7 @@ _WORD *std::vector<PptTab,ChAllocator<PptTab>>::__assign_with_size[abi:ne200100]
     std::__allocate_at_least[abi:ne200100]<ChAllocator<PptTab>>(a1, v11);
   }
 
-  v12 = a1[1];
+  v12 = *(a1 + 8);
   v13 = (v12 - result) >> 3;
   if (v13 >= a4)
   {
@@ -2024,7 +2024,7 @@ _WORD *std::vector<PptTab,ChAllocator<PptTab>>::__assign_with_size[abi:ne200100]
       ++v5;
     }
 
-    a1[1] = result;
+    *(a1 + 8) = result;
   }
 
   else
@@ -2044,7 +2044,7 @@ _WORD *std::vector<PptTab,ChAllocator<PptTab>>::__assign_with_size[abi:ne200100]
       }
 
       while (v15);
-      v12 = a1[1];
+      v12 = *(a1 + 8);
     }
 
     v17 = v12;
@@ -2055,15 +2055,14 @@ _WORD *std::vector<PptTab,ChAllocator<PptTab>>::__assign_with_size[abi:ne200100]
       do
       {
         v19 = *v14++;
-        *v18 = v19;
-        v18 += 8;
+        *v18++ = v19;
         v17 += 8;
       }
 
       while (v14 != a3);
     }
 
-    a1[1] = v17;
+    *(a1 + 8) = v17;
   }
 
   return result;
@@ -2514,9 +2513,9 @@ uint64_t PBConvertCsException(unsigned int *a1)
   return [TCMessageException raise:v4];
 }
 
-void sub_25D622D60(_Unwind_Exception *a1, void *a2, void *a3, ...)
+void sub_25D622D60(_Unwind_Exception *a1, void *a2, void *a3, void *a4, void *a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
 
   OcSummary::~OcSummary(va);
   _Unwind_Resume(a1);
@@ -2719,13 +2718,13 @@ uint64_t PptBookmarkSeedAtom::accept(int a1, void *lpsrc)
   return v2();
 }
 
-void non-virtual thunk toPptTextBlockStylingMac11Atom::~PptTextBlockStylingMac11Atom(PptTextBlockStylingMac11Atom *this)
+void non-virtual thunk toPptTextBlockStylingMac11Atom::~PptTextBlockStylingMac11Atom(PptTextBlockStylingMac11Atom *this, uint64_t a2)
 {
-  PptTextBlockStylingMac11Atom::~PptTextBlockStylingMac11Atom((this - 32));
+  PptTextBlockStylingMac11Atom::~PptTextBlockStylingMac11Atom((this - 32), a2);
 }
 
 {
-  PptTextBlockStylingMac11Atom::~PptTextBlockStylingMac11Atom((this - 32));
+  PptTextBlockStylingMac11Atom::~PptTextBlockStylingMac11Atom((this - 32), a2);
 
   JUMPOUT(0x25F897000);
 }
@@ -2815,13 +2814,13 @@ void non-virtual thunk toPptTextDefaultStyleMac11Atom::~PptTextDefaultStyleMac11
   JUMPOUT(0x25F897000);
 }
 
-void non-virtual thunk toPptTextMasterStyleMac11Atom::~PptTextMasterStyleMac11Atom(PptTextMasterStyleMac11Atom *this)
+void non-virtual thunk toPptTextMasterStyleMac11Atom::~PptTextMasterStyleMac11Atom(PptTextMasterStyleMac11Atom *this, uint64_t a2)
 {
-  PptTextBlockStylingMac11Atom::~PptTextBlockStylingMac11Atom((this - 32));
+  PptTextBlockStylingMac11Atom::~PptTextBlockStylingMac11Atom((this - 32), a2);
 }
 
 {
-  PptTextBlockStylingMac11Atom::~PptTextBlockStylingMac11Atom((this - 32));
+  PptTextBlockStylingMac11Atom::~PptTextBlockStylingMac11Atom((this - 32), a2);
 
   JUMPOUT(0x25F897000);
 }
@@ -3052,9 +3051,9 @@ uint64_t PptDocRoutingSlip::accept(int a1, void *lpsrc)
   return v2();
 }
 
-void sub_25D626254(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25D626254(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   ChAutoPtr<PptDocRoutingSlip::RecipientElement>::~ChAutoPtr(va);
   _Unwind_Resume(a1);
 }
@@ -3153,18 +3152,18 @@ uint64_t PptEmFormatAtom::accept(int a1, void *lpsrc)
   return v2();
 }
 
-void non-virtual thunk toPptEshBackground::~PptEshBackground(PptEshBackground *this)
+void non-virtual thunk toPptEshBackground::~PptEshBackground(PptEshBackground *this, uint64_t a2)
 {
-  v1 = (this - 328);
-  PptEshClientContainer::~PptEshClientContainer(this);
+  v2 = (this - 328);
+  PptEshClientContainer::~PptEshClientContainer(this, a2);
 
-  EshContentBase::~EshContentBase(v1);
+  EshContentBase::~EshContentBase(v2);
 }
 
 {
-  v1 = (this - 328);
-  PptEshClientContainer::~PptEshClientContainer(this);
-  EshContentBase::~EshContentBase(v1);
+  v2 = (this - 328);
+  PptEshClientContainer::~PptEshClientContainer(this, a2);
+  EshContentBase::~EshContentBase(v2);
 
   JUMPOUT(0x25F897000);
 }
@@ -3244,7 +3243,7 @@ void non-virtual thunk toPptRoundTripZipBlobAtom::~PptRoundTripZipBlobAtom(PptRo
 
 PptEshClientContainer *PptEshClientContainer::operator=(PptEshClientContainer *a1, uint64_t a2)
 {
-  PptEshClientContainer::removeChildren(a1);
+  PptEshClientContainer::removeChildren(a1, a2);
   v4 = *(a2 + 8);
   if (((*(a2 + 16) - v4) & 0x7FFFFFFF8) != 0)
   {
@@ -3260,33 +3259,33 @@ uint64_t PptEshClientTextBox::accept(int a1, void *lpsrc)
   return v2();
 }
 
-void non-virtual thunk toPptEshGroup::~PptEshGroup(PptEshGroup *this)
+void non-virtual thunk toPptEshGroup::~PptEshGroup(PptEshGroup *this, uint64_t a2)
 {
-  v1 = (this - 272);
-  PptEshClientContainer::~PptEshClientContainer((this + 96));
+  v2 = (this - 272);
+  PptEshClientContainer::~PptEshClientContainer((this + 96), a2);
 
-  EshGroup::~EshGroup(v1);
+  EshGroup::~EshGroup(v2);
 }
 
 {
-  v1 = (this - 272);
-  PptEshClientContainer::~PptEshClientContainer((this + 96));
-  EshGroup::~EshGroup(v1);
+  v2 = (this - 272);
+  PptEshClientContainer::~PptEshClientContainer((this + 96), a2);
+  EshGroup::~EshGroup(v2);
 
   JUMPOUT(0x25F897000);
 }
 
 {
-  v1 = (this - 368);
-  PptEshClientContainer::~PptEshClientContainer(this);
+  v2 = (this - 368);
+  PptEshClientContainer::~PptEshClientContainer(this, a2);
 
-  EshGroup::~EshGroup(v1);
+  EshGroup::~EshGroup(v2);
 }
 
 {
-  v1 = (this - 368);
-  PptEshClientContainer::~PptEshClientContainer(this);
-  EshGroup::~EshGroup(v1);
+  v2 = (this - 368);
+  PptEshClientContainer::~PptEshClientContainer(this, a2);
+  EshGroup::~EshGroup(v2);
 
   JUMPOUT(0x25F897000);
 }
@@ -3309,33 +3308,33 @@ uint64_t PptEshShape::copy(PptEshShape *this, const EshHeader ***a2)
   return result;
 }
 
-void non-virtual thunk toPptEshShape::~PptEshShape(PptEshShape *this)
+void non-virtual thunk toPptEshShape::~PptEshShape(PptEshShape *this, uint64_t a2)
 {
-  v1 = (this - 416);
-  PptEshClientContainer::~PptEshClientContainer((this + 160));
+  v2 = (this - 416);
+  PptEshClientContainer::~PptEshClientContainer((this + 160), a2);
 
-  EshContentBase::~EshContentBase(v1);
+  EshContentBase::~EshContentBase(v2);
 }
 
 {
-  v1 = (this - 416);
-  PptEshClientContainer::~PptEshClientContainer((this + 160));
-  EshContentBase::~EshContentBase(v1);
+  v2 = (this - 416);
+  PptEshClientContainer::~PptEshClientContainer((this + 160), a2);
+  EshContentBase::~EshContentBase(v2);
 
   JUMPOUT(0x25F897000);
 }
 
 {
-  v1 = (this - 576);
-  PptEshClientContainer::~PptEshClientContainer(this);
+  v2 = (this - 576);
+  PptEshClientContainer::~PptEshClientContainer(this, a2);
 
-  EshContentBase::~EshContentBase(v1);
+  EshContentBase::~EshContentBase(v2);
 }
 
 {
-  v1 = (this - 576);
-  PptEshClientContainer::~PptEshClientContainer(this);
-  EshContentBase::~EshContentBase(v1);
+  v2 = (this - 576);
+  PptEshClientContainer::~PptEshClientContainer(this, a2);
+  EshContentBase::~EshContentBase(v2);
 
   JUMPOUT(0x25F897000);
 }
@@ -3714,7 +3713,7 @@ uint64_t PptParaFormatAtom::accept(int a1, void *lpsrc)
   return v2();
 }
 
-uint64_t PptPersistPtrIncrAtom::operator==(uint64_t a1, uint64_t a2)
+BOOL PptPersistPtrIncrAtom::operator==(uint64_t a1, uint64_t a2)
 {
   if (EshHeader::operator!=(a2 + 12, a1 + 12))
   {
@@ -3732,7 +3731,7 @@ uint64_t PptPersistPtrIncrAtom::operator==(uint64_t a1, uint64_t a2)
   return ChSet<ChPair<unsigned int,unsigned int>,PptPersistPtrIncrAtom::RefLess<ChPair<unsigned int,unsigned int>>>::operator==(a2 + 72, a1 + 72);
 }
 
-uint64_t ChSet<ChPair<unsigned int,unsigned int>,PptPersistPtrIncrAtom::RefLess<ChPair<unsigned int,unsigned int>>>::operator==(uint64_t a1, uint64_t a2)
+BOOL ChSet<ChPair<unsigned int,unsigned int>,PptPersistPtrIncrAtom::RefLess<ChPair<unsigned int,unsigned int>>>::operator==(uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 16) != *(a2 + 16))
   {
@@ -3848,41 +3847,41 @@ void non-virtual thunk toPptPersistPtrIncrAtom::~PptPersistPtrIncrAtom(PptPersis
   JUMPOUT(0x25F897000);
 }
 
-uint64_t *std::__tree<ChPair<unsigned int,unsigned int>,PptPersistPtrIncrAtom::RefLess<ChPair<unsigned int,unsigned int>>,std::allocator<ChPair<unsigned int,unsigned int>>>::__emplace_unique_key_args<ChPair<unsigned int,unsigned int>,ChPair<unsigned int,unsigned int> const&>(uint64_t a1, unsigned int *a2)
+uint64_t *std::__tree<ChPair<unsigned int,unsigned int>,PptPersistPtrIncrAtom::RefLess<ChPair<unsigned int,unsigned int>>,std::allocator<ChPair<unsigned int,unsigned int>>>::__emplace_unique_key_args<ChPair<unsigned int,unsigned int>,ChPair<unsigned int,unsigned int> const&>(uint64_t a1, unsigned int *a2, void *a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 28);
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = *(v3 + 28);
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
@@ -4130,49 +4129,49 @@ uint64_t ChBinaryTree<PptSkipVisitor::PptSkipWarning,PptSkipVisitor::PptWarningL
   return result;
 }
 
-void ChBinaryTree<PptSkipVisitor::PptSkipWarning,PptSkipVisitor::PptWarningLess>::insert_internal(uint64_t a1, unsigned __int16 *a2, uint64_t *a3)
+void ChBinaryTree<PptSkipVisitor::PptSkipWarning,PptSkipVisitor::PptWarningLess>::insert_internal(uint64_t a1, unsigned __int16 *a2, uint64_t *a3, uint64_t a4)
 {
-  v3 = *a3;
+  v4 = *a3;
   if (!*a3)
   {
 LABEL_16:
     operator new();
   }
 
-  v4 = *a2;
-  v5 = *(a2 + 1);
-  v6 = *(a2 + 2);
+  v5 = *a2;
+  v6 = *(a2 + 1);
+  v7 = *(a2 + 2);
   while (1)
   {
-    v7 = v3;
-    v8 = *(v3 + 24);
-    if (v4 <= v8)
+    v8 = v4;
+    v9 = *(v4 + 24);
+    if (v5 <= v9)
     {
-      if (v4 != v8 || (v11 = *(v7 + 28), v5 <= v11) && (v5 != v11 || v6 < *(v7 + 32)))
+      if (v5 != v9 || (v12 = *(v8 + 28), v6 <= v12) && (v6 != v12 || v7 < *(v8 + 32)))
       {
-        v10 = 8;
+        v11 = 8;
         goto LABEL_15;
       }
     }
 
-    if (v8 > v4)
+    if (v9 > v5)
     {
       break;
     }
 
-    if (v8 == v4)
+    if (v9 == v5)
     {
-      v9 = *(v7 + 28);
-      if (v9 > v5 || v9 == v5 && *(v7 + 32) >= v6)
+      v10 = *(v8 + 28);
+      if (v10 > v6 || v10 == v6 && *(v8 + 32) >= v7)
       {
         break;
       }
     }
 
-    v10 = 16;
+    v11 = 16;
 LABEL_15:
-    v3 = *(v7 + v10);
-    if (!v3)
+    v4 = *(v8 + v11);
+    if (!v4)
     {
       goto LABEL_16;
     }
@@ -4242,13 +4241,13 @@ uint64_t PptSSlideLayoutAtom::accept(int a1, void *lpsrc)
   return v2();
 }
 
-void non-virtual thunk toPptTextBlockStyling10Atom::~PptTextBlockStyling10Atom(PptTextBlockStyling10Atom *this)
+void non-virtual thunk toPptTextBlockStyling10Atom::~PptTextBlockStyling10Atom(PptTextBlockStyling10Atom *this, uint64_t a2)
 {
-  PptTextBlockStyling10Atom::~PptTextBlockStyling10Atom((this - 32));
+  PptTextBlockStyling10Atom::~PptTextBlockStyling10Atom((this - 32), a2);
 }
 
 {
-  PptTextBlockStyling10Atom::~PptTextBlockStyling10Atom((this - 32));
+  PptTextBlockStyling10Atom::~PptTextBlockStyling10Atom((this - 32), a2);
 
   JUMPOUT(0x25F897000);
 }
@@ -4288,7 +4287,7 @@ void non-virtual thunk toPptTextBytesAtom::~PptTextBytesAtom(PptTextBytesAtom *t
   JUMPOUT(0x25F897000);
 }
 
-uint64_t PptTextBytesAtom::operator=(uint64_t a1, EshRecord *a2)
+uint64_t PptTextBytesAtom::operator=(uint64_t a1, const void **a2)
 {
   v4 = *(a1 + 48);
   if (v4)
@@ -4302,7 +4301,7 @@ uint64_t PptTextBytesAtom::operator=(uint64_t a1, EshRecord *a2)
   EshRecord::setDataLength(a1, DataLength);
   if (DataLength)
   {
-    operator new[](DataLength);
+    operator new[](DataLength, 0x1000C8077774924);
   }
 
   return a1;
@@ -4417,13 +4416,13 @@ void non-virtual thunk toPptTextBlockSpecialInfoAtom::~PptTextBlockSpecialInfoAt
   JUMPOUT(0x25F897000);
 }
 
-void non-virtual thunk toPptTextBlockStyling9Atom::~PptTextBlockStyling9Atom(PptTextBlockStyling9Atom *this)
+void non-virtual thunk toPptTextBlockStyling9Atom::~PptTextBlockStyling9Atom(PptTextBlockStyling9Atom *this, uint64_t a2)
 {
-  PptTextBlockStyling9Atom::~PptTextBlockStyling9Atom((this - 32));
+  PptTextBlockStyling9Atom::~PptTextBlockStyling9Atom((this - 32), a2);
 }
 
 {
-  PptTextBlockStyling9Atom::~PptTextBlockStyling9Atom((this - 32));
+  PptTextBlockStyling9Atom::~PptTextBlockStyling9Atom((this - 32), a2);
 
   JUMPOUT(0x25F897000);
 }
@@ -4749,26 +4748,26 @@ uint64_t PptParserVisitor::parseCharProperty9(PptParserVisitor *this, PptCharPro
   return result;
 }
 
-uint64_t PptParserVisitor::parseParaRun(PptParserVisitor *this, PptParaRun *a2)
+uint64_t PptParserVisitor::parseParaRun(PptParserVisitor *this, PptParaRun *a2, unsigned int a3)
 {
   result = (*(**(this + 1) + 96))(*(this + 1));
   *a2 = result;
   if (result)
   {
-    v5 = (*(**(this + 1) + 72))(*(this + 1));
-    if (v5 <= 5)
+    v7 = (*(**(this + 1) + 72))(*(this + 1));
+    if (v7 <= 5)
     {
-      v6 = v5;
+      v8 = v7;
     }
 
     else
     {
-      v6 = 0;
+      v8 = 0;
     }
 
-    *(a2 + 2) = v6;
+    *(a2 + 2) = v8;
 
-    return PptParserVisitor::parseParaProperty(this, (a2 + 8));
+    return PptParserVisitor::parseParaProperty(this, (a2 + 8), a3);
   }
 
   else
@@ -4861,19 +4860,19 @@ LABEL_10:
   return 1;
 }
 
-uint64_t PptParserVisitor::parseParaProperty(PptParserVisitor *this, PptParaProperty *a2)
+uint64_t PptParserVisitor::parseParaProperty(PptParserVisitor *this, PptParaProperty *a2, unsigned int a3)
 {
   result = (*(**(this + 1) + 104))(*(this + 1));
-  v5 = result;
+  v6 = result;
   if ((result & 0xF) == 0)
   {
     goto LABEL_7;
   }
 
   result = (*(**(this + 1) + 80))(*(this + 1));
-  if ((v5 & 1) == 0)
+  if ((v6 & 1) == 0)
   {
-    if ((v5 & 2) == 0)
+    if ((v6 & 2) == 0)
     {
       goto LABEL_4;
     }
@@ -4881,10 +4880,10 @@ uint64_t PptParserVisitor::parseParaProperty(PptParserVisitor *this, PptParaProp
 LABEL_44:
     *(a2 + 3) = *(a2 + 3) & 0xFFFD | result & 2;
     *a2 |= 2u;
-    if ((v5 & 4) == 0)
+    if ((v6 & 4) == 0)
     {
 LABEL_5:
-      if ((v5 & 8) == 0)
+      if ((v6 & 8) == 0)
       {
         goto LABEL_7;
       }
@@ -4897,13 +4896,13 @@ LABEL_5:
 
   *(a2 + 3) = *(a2 + 3) & 0xFFFE | result & 1;
   *a2 |= 1u;
-  if ((v5 & 2) != 0)
+  if ((v6 & 2) != 0)
   {
     goto LABEL_44;
   }
 
 LABEL_4:
-  if ((v5 & 4) == 0)
+  if ((v6 & 4) == 0)
   {
     goto LABEL_5;
   }
@@ -4911,7 +4910,7 @@ LABEL_4:
 LABEL_45:
   *(a2 + 3) = *(a2 + 3) & 0xFFFB | result & 4;
   *a2 |= 4u;
-  if ((v5 & 8) != 0)
+  if ((v6 & 8) != 0)
   {
 LABEL_6:
     *(a2 + 3) = *(a2 + 3) & 0xFFF7 | result & 8;
@@ -4919,15 +4918,15 @@ LABEL_6:
   }
 
 LABEL_7:
-  if ((v5 & 0x80) != 0)
+  if ((v6 & 0x80) != 0)
   {
     result = (*(**(this + 1) + 80))(*(this + 1));
     *(a2 + 3) = result;
     *a2 |= 0x80u;
-    if ((v5 & 0x10) == 0)
+    if ((v6 & 0x10) == 0)
     {
 LABEL_9:
-      if ((v5 & 0x40) == 0)
+      if ((v6 & 0x40) == 0)
       {
         goto LABEL_10;
       }
@@ -4936,7 +4935,7 @@ LABEL_9:
     }
   }
 
-  else if ((v5 & 0x10) == 0)
+  else if ((v6 & 0x10) == 0)
   {
     goto LABEL_9;
   }
@@ -4944,10 +4943,10 @@ LABEL_9:
   result = (*(**(this + 1) + 80))(*(this + 1));
   *(a2 + 4) = result;
   *a2 |= 0x10u;
-  if ((v5 & 0x40) == 0)
+  if ((v6 & 0x40) == 0)
   {
 LABEL_10:
-    if ((v5 & 0x20) == 0)
+    if ((v6 & 0x20) == 0)
     {
       goto LABEL_11;
     }
@@ -4959,10 +4958,10 @@ LABEL_33:
   result = (*(**(this + 1) + 72))(*(this + 1));
   *(a2 + 5) = result;
   *a2 |= 0x40u;
-  if ((v5 & 0x20) == 0)
+  if ((v6 & 0x20) == 0)
   {
 LABEL_11:
-    if ((v5 & 0x800) == 0)
+    if ((v6 & 0x800) == 0)
     {
       goto LABEL_12;
     }
@@ -4971,18 +4970,18 @@ LABEL_11:
   }
 
 LABEL_34:
-  v9.var0 = 255;
-  v9.var1 = 255;
-  v7 = (*(**(this + 1) + 104))(*(this + 1));
-  result = PptColor::setColor(&v9, v7);
-  var1 = v9.var1;
-  *(a2 + 12) = v9.var0;
+  v10.var0 = 255;
+  v10.var1 = 255;
+  v8 = (*(**(this + 1) + 104))(*(this + 1));
+  result = PptColor::setColor(&v10, v8);
+  var1 = v10.var1;
+  *(a2 + 12) = v10.var0;
   *(a2 + 5) = var1;
   *a2 |= 0x20u;
-  if ((v5 & 0x800) == 0)
+  if ((v6 & 0x800) == 0)
   {
 LABEL_12:
-    if ((v5 & 0x1000) == 0)
+    if ((v6 & 0x1000) == 0)
     {
       goto LABEL_13;
     }
@@ -4994,10 +4993,10 @@ LABEL_35:
   result = (*(**(this + 1) + 80))(*(this + 1));
   *(a2 + 3) = *(a2 + 3) & 0xF0FF | ((result & 0xF) << 8);
   *a2 |= 0x400u;
-  if ((v5 & 0x1000) == 0)
+  if ((v6 & 0x1000) == 0)
   {
 LABEL_13:
-    if ((v5 & 0x2000) == 0)
+    if ((v6 & 0x2000) == 0)
     {
       goto LABEL_14;
     }
@@ -5009,10 +5008,10 @@ LABEL_36:
   result = (*(**(this + 1) + 72))(*(this + 1));
   *(a2 + 12) = result;
   *a2 |= 0x800u;
-  if ((v5 & 0x2000) == 0)
+  if ((v6 & 0x2000) == 0)
   {
 LABEL_14:
-    if ((v5 & 0x4000) == 0)
+    if ((v6 & 0x4000) == 0)
     {
       goto LABEL_15;
     }
@@ -5024,10 +5023,10 @@ LABEL_37:
   result = (*(**(this + 1) + 72))(*(this + 1));
   *(a2 + 13) = result;
   *a2 |= 0x1000u;
-  if ((v5 & 0x4000) == 0)
+  if ((v6 & 0x4000) == 0)
   {
 LABEL_15:
-    if ((v5 & 0x100) == 0)
+    if ((v6 & 0x100) == 0)
     {
       goto LABEL_16;
     }
@@ -5039,10 +5038,10 @@ LABEL_38:
   result = (*(**(this + 1) + 72))(*(this + 1));
   *(a2 + 14) = result;
   *a2 |= 0x2000u;
-  if ((v5 & 0x100) == 0)
+  if ((v6 & 0x100) == 0)
   {
 LABEL_16:
-    if ((v5 & 0x400) == 0)
+    if ((v6 & 0x400) == 0)
     {
       goto LABEL_17;
     }
@@ -5054,10 +5053,10 @@ LABEL_39:
   result = (*(**(this + 1) + 72))(*(this + 1));
   *(a2 + 15) = result;
   *a2 |= 0x100u;
-  if ((v5 & 0x400) == 0)
+  if ((v6 & 0x400) == 0)
   {
 LABEL_17:
-    if ((v5 & 0x8000) == 0)
+    if ((v6 & 0x8000) == 0)
     {
       goto LABEL_18;
     }
@@ -5069,10 +5068,10 @@ LABEL_40:
   result = (*(**(this + 1) + 72))(*(this + 1));
   *(a2 + 16) = result;
   *a2 |= 0x200u;
-  if ((v5 & 0x8000) == 0)
+  if ((v6 & 0x8000) == 0)
   {
 LABEL_18:
-    if ((v5 & 0x100000) == 0)
+    if ((v6 & 0x100000) == 0)
     {
       goto LABEL_19;
     }
@@ -5085,43 +5084,43 @@ LABEL_41:
   result = (*(**(this + 1) + 72))(*(this + 1));
   *(a2 + 17) = result;
   *a2 |= 0x4000u;
-  if ((v5 & 0x100000) != 0)
+  if ((v6 & 0x100000) != 0)
   {
     goto LABEL_42;
   }
 
 LABEL_19:
-  if ((v5 & 0x10000) != 0)
+  if ((v6 & 0x10000) != 0)
   {
     result = (*(**(this + 1) + 80))(*(this + 1));
     *(a2 + 3) = *(a2 + 3) & 0xCFFF | ((result & 3) << 12);
     *(a2 + 2) |= 1u;
   }
 
-  if ((*&v5 & 0xE0000) != 0)
+  if ((*&v6 & 0xE0000) != 0)
   {
     result = (*(**(this + 1) + 80))(*(this + 1));
-    if ((v5 & 0x20000) != 0)
+    if ((v6 & 0x20000) != 0)
     {
       *(a2 + 3) = *(a2 + 3) & 0xFFEF | (16 * (result & 1));
       *(a2 + 2) |= 2u;
     }
 
-    v6 = 16 * result;
-    if ((v5 & 0x40000) != 0)
+    v7 = 16 * result;
+    if ((v6 & 0x40000) != 0)
     {
-      *(a2 + 3) = *(a2 + 3) & 0xFFDF | v6 & 0x20;
+      *(a2 + 3) = *(a2 + 3) & 0xFFDF | v7 & 0x20;
       *(a2 + 2) |= 4u;
     }
 
-    if ((v5 & 0x80000) != 0)
+    if ((v6 & 0x80000) != 0)
     {
-      *(a2 + 3) = *(a2 + 3) & 0xFFBF | v6 & 0x40;
+      *(a2 + 3) = *(a2 + 3) & 0xFFBF | v7 & 0x40;
       *(a2 + 2) |= 8u;
     }
   }
 
-  if ((v5 & 0x200000) != 0)
+  if ((v6 & 0x200000) != 0)
   {
     result = (*(**(this + 1) + 80))(*(this + 1));
     *(a2 + 3) = *(a2 + 3) & 0xFF7F | ((result & 1) << 7);
@@ -5490,7 +5489,7 @@ LABEL_11:
   return 1;
 }
 
-uint64_t PptParserVisitor::parseSpecialInfo11(PptParserVisitor *this, PptSpecialInfo11 *a2, __int16 a3)
+uint64_t PptParserVisitor::parseSpecialInfo11(PptParserVisitor *this, PptSpecialInfo11 *a2, __int16 a3, unsigned int a4)
 {
   if ((a3 & 0x200) != 0)
   {
@@ -5844,19 +5843,19 @@ void PptParserVisitor::visit(PptParserVisitor *this, PptDocRoutingSlip *a2)
   *exception = 4003;
 }
 
-void std::vector<PptTab,ChAllocator<PptTab>>::resize(void *a1, unsigned int a2)
+void std::vector<PptTab,ChAllocator<PptTab>>::resize(void *result, unsigned int a2)
 {
-  v2 = (a1[1] - *a1) >> 3;
+  v2 = (result[1] - *result) >> 3;
   v3 = a2 >= v2;
   v4 = a2 - v2;
   if (v4 != 0 && v3)
   {
-    std::vector<PptTab,ChAllocator<PptTab>>::__append(a1, v4);
+    std::vector<PptTab,ChAllocator<PptTab>>::__append(result, v4);
   }
 
   else if (!v3)
   {
-    a1[1] = *a1 + 8 * a2;
+    result[1] = *result + 8 * a2;
   }
 }
 
@@ -6015,17 +6014,19 @@ uint64_t PptParserVisitor::visit(PptParserVisitor *this, PptRoundTripSlideSyncIn
 
 uint64_t ChBinaryTree<PptSkipVisitor::PptSkipWarning,PptSkipVisitor::PptWarningLess>::node::~node(uint64_t a1)
 {
-  if (*(a1 + 8))
+  v2 = *(a1 + 8);
+  if (v2)
   {
-    v2 = ChBinaryTree<PptSkipVisitor::PptSkipWarning,PptSkipVisitor::PptWarningLess>::node::~node();
-    MEMORY[0x25F897000](v2, 0x1020C40E213B89CLL);
+    v3 = ChBinaryTree<PptSkipVisitor::PptSkipWarning,PptSkipVisitor::PptWarningLess>::node::~node(v2);
+    MEMORY[0x25F897000](v3, 0x1020C40E213B89CLL);
   }
 
   *(a1 + 8) = 0;
-  if (*(a1 + 16))
+  v4 = *(a1 + 16);
+  if (v4)
   {
-    v3 = ChBinaryTree<PptSkipVisitor::PptSkipWarning,PptSkipVisitor::PptWarningLess>::node::~node();
-    MEMORY[0x25F897000](v3, 0x1020C40E213B89CLL);
+    v5 = ChBinaryTree<PptSkipVisitor::PptSkipWarning,PptSkipVisitor::PptWarningLess>::node::~node(v4);
+    MEMORY[0x25F897000](v5, 0x1020C40E213B89CLL);
   }
 
   *(a1 + 16) = 0;
@@ -6677,9 +6678,9 @@ void non-virtual thunk toPptBinaryReader::~PptBinaryReader(PptBinaryReader *this
   JUMPOUT(0x25F897000);
 }
 
-void PptBinaryReader::start(PptBinaryReader *this, __sFILE *a2)
+void PptBinaryReader::start(char **this, __sFILE *a2)
 {
-  (*(*this + 24))(this);
+  (*(*this + 3))(this);
   PptBinaryReader::initSkipConditions(this);
   if (a2)
   {
@@ -6694,7 +6695,7 @@ void PptBinaryReader::start(PptBinaryReader *this, __sFILE *a2)
 
 void sub_25D631960(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
-  MEMORY[0x25F897000](v14, 0x1081C407DC22429);
+  MEMORY[0x25F897000](v14, 0x1081C407DC22429, a3, a4, a5, a6, a7, a8);
   (*(*a10 + 8))(a10);
   (*(*v13 + 8))(v13);
   (*(*v12 + 8))(v12);
@@ -6905,29 +6906,11 @@ BOOL PptBinaryReader::seek(PptBinaryReader *this, const PptEshClientContainer *a
   return result;
 }
 
-void PptBinaryReader::seek(PptBinaryReader *this)
-{
-  operator new();
-}
-
-{
-  operator new();
-}
-
 void sub_25D632454(_Unwind_Exception *a1)
 {
   MEMORY[0x25F897000](v3, 0x10A1C409E3EF3F5);
   MEMORY[0x25F897000](v2, v1);
   _Unwind_Resume(a1);
-}
-
-void non-virtual thunk toPptBinaryReader::seek(PptBinaryReader *this)
-{
-  PptBinaryReader::seek((this - 8));
-}
-
-{
-  PptBinaryReader::seek((this - 8));
 }
 
 void PptBinaryReader::seek(PptBinaryReader *this, const OcMark *lpsrc)
@@ -7084,49 +7067,49 @@ _DWORD *PptBinaryReader::read(_DWORD *this, OcBinaryData *a2)
   return this;
 }
 
-void PptBinaryReader::read(void **a1)
+void PptBinaryReader::read(OcBinaryReader *a1, uint64_t a2)
 {
-  PptVBAInfoAtom::PptVBAInfoAtom(v16);
-  ((*a1)[10])(a1, v16);
-  if (v17)
+  PptVBAInfoAtom::PptVBAInfoAtom(v18);
+  (*(a1->var0 + 10))(a1, v18);
+  if (v19)
   {
-    ((*a1)[24])(a1);
-    PptExOleObjStg::PptExOleObjStg(&v12);
-    ((*a1)[10])(a1, &v12);
-    v2 = v15;
-    destLen = v15;
+    (*(a1->var0 + 24))(a1);
+    PptExOleObjStg::PptExOleObjStg(&v14);
+    (*(a1->var0 + 10))(a1, &v14);
+    v4 = v17;
+    destLen = v17;
     OcBinaryData::OcBinaryData(&sourceLen_4);
-    OcBinaryData::setMinimumCapacity(&sourceLen_4, v2);
-    sourceLen_4.var3 = v2;
-    v3 = v13 - 4;
-    sourceLen = v13 - 4;
-    OcBinaryData::OcBinaryData(&v8);
-    OcBinaryData::setMinimumCapacity(&v8, v3);
-    v8.var3 = v3;
-    v4 = (*(*a1[19] + 40))(a1[19]);
-    (*(*a1[19] + 16))(a1[19], (v14 + 12), 0);
-    (*(*a1[19] + 56))(a1[19], v8.var5, &sourceLen);
-    (*(*a1[19] + 16))(a1[19], v4, 0);
-    if (uncompress(sourceLen_4.var5, &destLen, v8.var5, sourceLen))
+    OcBinaryData::setMinimumCapacity(&sourceLen_4, v4);
+    sourceLen_4.var3 = v4;
+    v5 = v15 - 4;
+    sourceLen = v15 - 4;
+    OcBinaryData::OcBinaryData(&v10);
+    OcBinaryData::setMinimumCapacity(&v10, v5);
+    v10.var3 = v5;
+    v6 = (*(*a1[19].var0 + 5))(a1[19].var0);
+    (*(*a1[19].var0 + 2))(a1[19].var0, (v16 + 12), 0);
+    (*(*a1[19].var0 + 7))(a1[19].var0, v10.var5, &sourceLen);
+    (*(*a1[19].var0 + 2))(a1[19].var0, v6, 0);
+    if (uncompress(sourceLen_4.var5, &destLen, v10.var5, sourceLen))
     {
-      v5 = 0;
+      v7 = 0;
       destLen = 0;
     }
 
     else
     {
-      v5 = destLen;
+      v7 = destLen;
     }
 
-    OcBinaryData::setMinimumCapacity(&sourceLen_4, v5);
-    sourceLen_4.var3 = v5;
-    SsrwOORootStorage::SsrwOORootStorage(v7);
+    OcBinaryData::setMinimumCapacity(&sourceLen_4, v7);
+    sourceLen_4.var3 = v7;
+    SsrwOORootStorage::SsrwOORootStorage(&v9);
     var5 = sourceLen_4.var5;
-    SsrwOORootStorage::openInBuf(v7, &var5, sourceLen_4.var3);
-    OcBinaryReader::readMacros();
+    SsrwOORootStorage::openInBuf(&v9, &var5, sourceLen_4.var3);
+    OcBinaryReader::readMacros(a1, a2, &v9);
   }
 
-  PptVBAInfoAtom::~PptVBAInfoAtom(v16);
+  PptVBAInfoAtom::~PptVBAInfoAtom(v18);
 }
 
 void sub_25D632F18(_Unwind_Exception *a1, int a2, char a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, OcBinaryData *a14, uint64_t a15, OcBinaryData *a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29)
@@ -7147,13 +7130,13 @@ void sub_25D632F18(_Unwind_Exception *a1, int a2, char a3, uint64_t a4, uint64_t
   _Unwind_Resume(a1);
 }
 
-void non-virtual thunk toPptBinaryReader::read(uint64_t a1)
+void non-virtual thunk toPptBinaryReader::read(uint64_t a1, uint64_t a2)
 {
-  PptBinaryReader::read((a1 - 8));
+  PptBinaryReader::read((a1 - 8), a2);
 }
 
 {
-  OcBinaryReader::readCustomProperties(a1 - 8);
+  OcBinaryReader::readCustomProperties(a1 - 8, a2);
 }
 
 uint64_t std::vector<ChPair<unsigned int,EscherObjectEnums>,ChAllocator<ChPair<unsigned int,EscherObjectEnums>>>::__emplace_back_slow_path<ChPair<unsigned int,EscherObjectEnums> const&>(void *a1, void *a2)
@@ -7236,12 +7219,12 @@ void sub_25D6331E4(_Unwind_Exception *a1)
 void PptMark::~PptMark(PptMark *this)
 {
   *this = &unk_286ED3238;
-  EshMark::~EshMark((this + 8));
+  EshMark::~EshMark(this + 8);
 }
 
 {
   *this = &unk_286ED3238;
-  EshMark::~EshMark((this + 8));
+  EshMark::~EshMark(this + 8);
 
   JUMPOUT(0x25F897000);
 }
@@ -7427,13 +7410,13 @@ void non-virtual thunk toPptTextDefaultStyle10Atom::~PptTextDefaultStyle10Atom(P
   JUMPOUT(0x25F897000);
 }
 
-void non-virtual thunk toPptTextBlockStyling11Atom::~PptTextBlockStyling11Atom(PptTextBlockStyling11Atom *this)
+void non-virtual thunk toPptTextBlockStyling11Atom::~PptTextBlockStyling11Atom(PptTextBlockStyling11Atom *this, uint64_t a2)
 {
-  PptTextBlockStyling11Atom::~PptTextBlockStyling11Atom((this - 32));
+  PptTextBlockStyling11Atom::~PptTextBlockStyling11Atom((this - 32), a2);
 }
 
 {
-  PptTextBlockStyling11Atom::~PptTextBlockStyling11Atom((this - 32));
+  PptTextBlockStyling11Atom::~PptTextBlockStyling11Atom((this - 32), a2);
 
   JUMPOUT(0x25F897000);
 }
@@ -7589,7 +7572,7 @@ BOOL PptPicturesDecryptorVisitor::visit(PptPicturesDecryptorVisitor *this, EshBi
   return v6;
 }
 
-uint64_t PptPicturesDecryptorVisitor::decryptAllBlipUidFields<EshBitmapBlipInfo>(PptPicturesDecryptorVisitor *a1, uint64_t a2)
+BOOL PptPicturesDecryptorVisitor::decryptAllBlipUidFields<EshBitmapBlipInfo>(PptPicturesDecryptorVisitor *a1, uint64_t a2)
 {
   result = PptPicturesDecryptorVisitor::decrypt(a1, 16);
   if (result)
@@ -8431,7 +8414,7 @@ BOOL PptPicturesEncryptorVisitor::visit(PptPicturesEncryptorVisitor *this, EshBi
   return v6;
 }
 
-uint64_t PptPicturesEncryptorVisitor::encryptAllBlipUidFields<EshBitmapBlipInfo>(PptPicturesEncryptorVisitor *a1, uint64_t a2)
+BOOL PptPicturesEncryptorVisitor::encryptAllBlipUidFields<EshBitmapBlipInfo>(PptPicturesEncryptorVisitor *a1, uint64_t a2)
 {
   result = PptPicturesEncryptorVisitor::encrypt(a1, 16);
   if (result)
@@ -8674,10 +8657,10 @@ void sub_25D647774(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_25D648510(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_25D648510(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = CMNumberFormatter;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -9023,12 +9006,12 @@ void sub_25D67AF28(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_25D67B914(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_25D67B914(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = CMDocumentMapper;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -9420,10 +9403,10 @@ LABEL_28:
   return (v21 - v22 - ((v20 - v21 - v22) ^ (v22 << 10))) ^ (((v20 - v21 - v22) ^ (v22 << 10)) >> 15);
 }
 
-void sub_25D680C14(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_25D680C14(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = ObjectCacheByCString;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -9468,81 +9451,81 @@ void TCFontWidthEnumMap()
 
 void ___ZL25numberBulletSchemeEnumMapv_block_invoke_cold_1()
 {
-  v0 = __cxa_guard_acquire(&_ZGVZZL25numberBulletSchemeEnumMapvEUb_E14theEnumStructs);
+  v0 = __cxa_guard_acquire(_ZGVZZL25numberBulletSchemeEnumMapvEUb_E14theEnumStructs);
   if (v0)
   {
     OUTLINED_FUNCTION_0(v0, v1, &dword_25D297000);
 
-    __cxa_guard_release(&_ZGVZZL25numberBulletSchemeEnumMapvEUb_E14theEnumStructs);
+    __cxa_guard_release(_ZGVZZL25numberBulletSchemeEnumMapvEUb_E14theEnumStructs);
   }
 }
 
 void ___ZL19tabStopAlignEnumMapv_block_invoke_cold_1()
 {
-  v0 = __cxa_guard_acquire(&_ZGVZZL19tabStopAlignEnumMapvEUb0_E14theEnumStructs);
+  v0 = __cxa_guard_acquire(_ZGVZZL19tabStopAlignEnumMapvEUb0_E14theEnumStructs);
   if (v0)
   {
     OUTLINED_FUNCTION_0(v0, v1, &dword_25D297000);
 
-    __cxa_guard_release(&_ZGVZZL19tabStopAlignEnumMapvEUb0_E14theEnumStructs);
+    __cxa_guard_release(_ZGVZZL19tabStopAlignEnumMapvEUb0_E14theEnumStructs);
   }
 }
 
 void ___ZL16textAlignEnumMapv_block_invoke_cold_1()
 {
-  v0 = __cxa_guard_acquire(&_ZGVZZL16textAlignEnumMapvEUb1_E14theEnumStructs);
+  v0 = __cxa_guard_acquire(_ZGVZZL16textAlignEnumMapvEUb1_E14theEnumStructs);
   if (v0)
   {
     OUTLINED_FUNCTION_0(v0, v1, &dword_25D297000);
 
-    __cxa_guard_release(&_ZGVZZL16textAlignEnumMapvEUb1_E14theEnumStructs);
+    __cxa_guard_release(_ZGVZZL16textAlignEnumMapvEUb1_E14theEnumStructs);
   }
 }
 
 void ___ZL16fontAlignEnumMapv_block_invoke_cold_1()
 {
-  v0 = __cxa_guard_acquire(&_ZGVZZL16fontAlignEnumMapvEUb2_E14theEnumStructs);
+  v0 = __cxa_guard_acquire(_ZGVZZL16fontAlignEnumMapvEUb2_E14theEnumStructs);
   if (v0)
   {
     OUTLINED_FUNCTION_0(v0, v1, &dword_25D297000);
 
-    __cxa_guard_release(&_ZGVZZL16fontAlignEnumMapvEUb2_E14theEnumStructs);
+    __cxa_guard_release(_ZGVZZL16fontAlignEnumMapvEUb2_E14theEnumStructs);
   }
 }
 
 void ___ZL21fontCollectionEnumMapv_block_invoke_cold_1()
 {
-  if (__cxa_guard_acquire(&_ZGVZZL21fontCollectionEnumMapvEUb_E14theStructArray))
+  if (__cxa_guard_acquire(_ZGVZZL21fontCollectionEnumMapvEUb_E14theStructArray))
   {
     __cxa_atexit(__cxx_global_array_dtor_15, 0, &dword_25D297000);
 
-    __cxa_guard_release(&_ZGVZZL21fontCollectionEnumMapvEUb_E14theStructArray);
+    __cxa_guard_release(_ZGVZZL21fontCollectionEnumMapvEUb_E14theStructArray);
   }
 }
 
 void ___ZL15baseFontEnumMapv_block_invoke_cold_1()
 {
-  if (__cxa_guard_acquire(&_ZGVZZL15baseFontEnumMapvEUb0_E14theStructArray))
+  if (__cxa_guard_acquire(_ZGVZZL15baseFontEnumMapvEUb0_E14theStructArray))
   {
     __cxa_atexit(__cxx_global_array_dtor_100, 0, &dword_25D297000);
 
-    __cxa_guard_release(&_ZGVZZL15baseFontEnumMapvEUb0_E14theStructArray);
+    __cxa_guard_release(_ZGVZZL15baseFontEnumMapvEUb0_E14theStructArray);
   }
 }
 
 void getShapeType()
 {
-  if (__cxa_guard_acquire(&qword_27FC41228))
+  if (__cxa_guard_acquire(byte_27FC41228))
   {
     OUTLINED_FUNCTION_21(&unk_27FC42A60);
     OUTLINED_FUNCTION_0(v0, v1, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC41228);
+    __cxa_guard_release(byte_27FC41228);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC41230))
+  if (__cxa_guard_acquire(byte_27FC41230))
   {
     OUTLINED_FUNCTION_636(&unk_27FC43FA0);
     OUTLINED_FUNCTION_789(v0);
@@ -9554,17 +9537,17 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC41218))
+  if (__cxa_guard_acquire(byte_27FC41218))
   {
     OUTLINED_FUNCTION_21(&unk_27FC42A40);
     OUTLINED_FUNCTION_0(v0, v1, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC41218);
+    __cxa_guard_release(byte_27FC41218);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC41220))
+  if (__cxa_guard_acquire(byte_27FC41220))
   {
     OUTLINED_FUNCTION_636(&unk_27FC43F60);
     OUTLINED_FUNCTION_789(v0);
@@ -9576,7 +9559,7 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC411F8))
+  if (__cxa_guard_acquire(byte_27FC411F8))
   {
     OUTLINED_FUNCTION_37(&unk_27FC50C50);
     OUTLINED_FUNCTION_635(v0);
@@ -9626,12 +9609,12 @@ void getShapeType()
     *(v34 + 476) = v35;
     OUTLINED_FUNCTION_0(v36, v37, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC411F8);
+    __cxa_guard_release(byte_27FC411F8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC41200))
+  if (__cxa_guard_acquire(byte_27FC41200))
   {
     OUTLINED_FUNCTION_34(&_MergedGlobals_727);
     *(v0 + 28) = 21600;
@@ -9875,12 +9858,12 @@ void getShapeType()
     *(v19 + 1116) = v29;
     OUTLINED_FUNCTION_0(v25, v22, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC41200);
+    __cxa_guard_release(byte_27FC41200);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC41208))
+  if (__cxa_guard_acquire(byte_27FC41208))
   {
     v0 = &unk_27FC3F528;
     do
@@ -10881,12 +10864,12 @@ void getShapeType()
     OUTLINED_FUNCTION_103(v128);
     OUTLINED_FUNCTION_0(v129, v130, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC41208);
+    __cxa_guard_release(byte_27FC41208);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC41210))
+  if (__cxa_guard_acquire(byte_27FC41210))
   {
     v0 = &xmmword_27FC42A20 + 1;
     do
@@ -10902,7 +10885,7 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC411D8))
+  if (__cxa_guard_acquire(byte_27FC411D8))
   {
     OUTLINED_FUNCTION_37(&_MergedGlobals_716);
     *(v0 + 44) = 15;
@@ -10961,12 +10944,12 @@ void getShapeType()
     *(v26 + 572) = v30;
     OUTLINED_FUNCTION_0(v35, v36, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC411D8);
+    __cxa_guard_release(byte_27FC411D8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC411E0))
+  if (__cxa_guard_acquire(byte_27FC411E0))
   {
     OUTLINED_FUNCTION_15(&_MergedGlobals_722);
     OUTLINED_FUNCTION_681(v0);
@@ -11111,12 +11094,12 @@ void getShapeType()
     *(v7 + 796) = v9;
     OUTLINED_FUNCTION_0(9, 23, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC411E0);
+    __cxa_guard_release(byte_27FC411E0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC411E8))
+  if (__cxa_guard_acquire(byte_27FC411E8))
   {
     v0 = &unk_27FC5BEF8;
     do
@@ -11664,12 +11647,12 @@ void getShapeType()
     OUTLINED_FUNCTION_103(v67);
     OUTLINED_FUNCTION_0(v68, v69, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC411E8);
+    __cxa_guard_release(byte_27FC411E8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC411F0))
+  if (__cxa_guard_acquire(byte_27FC411F0))
   {
     v0 = &xmmword_27FC42A00 + 1;
     do
@@ -11685,7 +11668,7 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC411B8))
+  if (__cxa_guard_acquire(byte_27FC411B8))
   {
     OUTLINED_FUNCTION_302(&unk_27FC52FE0);
     OUTLINED_FUNCTION_47(v0);
@@ -11770,12 +11753,12 @@ void getShapeType()
     *(v13 + 556) = v14;
     OUTLINED_FUNCTION_0(v19, v20, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC411B8);
+    __cxa_guard_release(byte_27FC411B8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC411C0))
+  if (__cxa_guard_acquire(byte_27FC411C0))
   {
     OUTLINED_FUNCTION_15(&unk_27FC57400);
     OUTLINED_FUNCTION_681(v0);
@@ -11913,12 +11896,12 @@ void getShapeType()
     *(v5 + 764) = 14;
     OUTLINED_FUNCTION_0(v9, v10, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC411C0);
+    __cxa_guard_release(byte_27FC411C0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC411C8))
+  if (__cxa_guard_acquire(byte_27FC411C8))
   {
     v0 = &unk_27FC544D0;
     do
@@ -12155,12 +12138,12 @@ void getShapeType()
     OUTLINED_FUNCTION_103(v52);
     OUTLINED_FUNCTION_0(v53, v54, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC411C8);
+    __cxa_guard_release(byte_27FC411C8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC411D0))
+  if (__cxa_guard_acquire(byte_27FC411D0))
   {
     v0 = &xmmword_27FC429E0 + 1;
     do
@@ -12176,7 +12159,7 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC41198))
+  if (__cxa_guard_acquire(byte_27FC41198))
   {
     OUTLINED_FUNCTION_37(&_MergedGlobals_717);
     OUTLINED_FUNCTION_635(v0);
@@ -12280,12 +12263,12 @@ void getShapeType()
     *(v26 + 604) = v31;
     OUTLINED_FUNCTION_0(v34, v35, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC41198);
+    __cxa_guard_release(byte_27FC41198);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC411A0))
+  if (__cxa_guard_acquire(byte_27FC411A0))
   {
     OUTLINED_FUNCTION_15(&unk_27FC59A00);
     *(v0 + 92) = 2;
@@ -12478,12 +12461,12 @@ void getShapeType()
     *(v11 + 988) = v17;
     OUTLINED_FUNCTION_0(v18, v19, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC411A0);
+    __cxa_guard_release(byte_27FC411A0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC411A8))
+  if (__cxa_guard_acquire(byte_27FC411A8))
   {
     v0 = &unk_27FC5C79C;
     do
@@ -13002,12 +12985,12 @@ void getShapeType()
     OUTLINED_FUNCTION_103(v86);
     OUTLINED_FUNCTION_0(v87, v88, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC411A8);
+    __cxa_guard_release(byte_27FC411A8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC411B0))
+  if (__cxa_guard_acquire(byte_27FC411B0))
   {
     v0 = &xmmword_27FC429C0 + 1;
     do
@@ -13023,7 +13006,7 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC41178))
+  if (__cxa_guard_acquire(byte_27FC41178))
   {
     OUTLINED_FUNCTION_302(&unk_27FC50300);
     OUTLINED_FUNCTION_47(v0);
@@ -13051,12 +13034,12 @@ void getShapeType()
     OUTLINED_FUNCTION_714(v21);
     OUTLINED_FUNCTION_0(v22, v23, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC41178);
+    __cxa_guard_release(byte_27FC41178);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC41180))
+  if (__cxa_guard_acquire(byte_27FC41180))
   {
     OUTLINED_FUNCTION_15(&unk_27FC549A0);
     OUTLINED_FUNCTION_681(v0);
@@ -13083,12 +13066,12 @@ void getShapeType()
     OUTLINED_FUNCTION_626(v14);
     OUTLINED_FUNCTION_0(v15, v16, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC41180);
+    __cxa_guard_release(byte_27FC41180);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC41188))
+  if (__cxa_guard_acquire(byte_27FC41188))
   {
     v0 = &unk_27FC5688C;
     do
@@ -13409,12 +13392,12 @@ void getShapeType()
     OUTLINED_FUNCTION_103(v49);
     OUTLINED_FUNCTION_0(v50, v51, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC41188);
+    __cxa_guard_release(byte_27FC41188);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC41190))
+  if (__cxa_guard_acquire(byte_27FC41190))
   {
     v0 = &xmmword_27FC429A0 + 1;
     do
@@ -13430,7 +13413,7 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC41158))
+  if (__cxa_guard_acquire(byte_27FC41158))
   {
     OUTLINED_FUNCTION_302(&unk_27FC50128);
     OUTLINED_FUNCTION_47(v0);
@@ -13458,12 +13441,12 @@ void getShapeType()
     OUTLINED_FUNCTION_714(v21);
     OUTLINED_FUNCTION_0(v22, v23, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC41158);
+    __cxa_guard_release(byte_27FC41158);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC41160))
+  if (__cxa_guard_acquire(byte_27FC41160))
   {
     OUTLINED_FUNCTION_15(&unk_27FC54730);
     OUTLINED_FUNCTION_681(v0);
@@ -13490,12 +13473,12 @@ void getShapeType()
     OUTLINED_FUNCTION_626(v14);
     OUTLINED_FUNCTION_0(v15, v16, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC41160);
+    __cxa_guard_release(byte_27FC41160);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC41168))
+  if (__cxa_guard_acquire(byte_27FC41168))
   {
     v0 = &unk_27FC565D0;
     do
@@ -13841,12 +13824,12 @@ void getShapeType()
     OUTLINED_FUNCTION_103(v55);
     OUTLINED_FUNCTION_0(v56, v57, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC41168);
+    __cxa_guard_release(byte_27FC41168);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC41170))
+  if (__cxa_guard_acquire(byte_27FC41170))
   {
     v0 = &xmmword_27FC42980 + 1;
     do
@@ -13862,7 +13845,7 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC41138))
+  if (__cxa_guard_acquire(byte_27FC41138))
   {
     OUTLINED_FUNCTION_302(&unk_27FC50A70);
     OUTLINED_FUNCTION_47(v0);
@@ -13906,12 +13889,12 @@ void getShapeType()
     *(v30 + 476) = v31;
     OUTLINED_FUNCTION_0(v32, v33, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC41138);
+    __cxa_guard_release(byte_27FC41138);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC41140))
+  if (__cxa_guard_acquire(byte_27FC41140))
   {
     OUTLINED_FUNCTION_15(&unk_27FC53DA0);
     OUTLINED_FUNCTION_681(v0);
@@ -14001,12 +13984,12 @@ void getShapeType()
     *(v8 + 604) = v9;
     OUTLINED_FUNCTION_0(v17, v18, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC41140);
+    __cxa_guard_release(byte_27FC41140);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC41148))
+  if (__cxa_guard_acquire(byte_27FC41148))
   {
     v0 = &unk_27FC51FD0;
     do
@@ -14195,12 +14178,12 @@ void getShapeType()
     OUTLINED_FUNCTION_103(v35);
     OUTLINED_FUNCTION_0(v36, v37, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC41148);
+    __cxa_guard_release(byte_27FC41148);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC41150))
+  if (__cxa_guard_acquire(byte_27FC41150))
   {
     v0 = &xmmword_27FC42960 + 1;
     do
@@ -14216,7 +14199,7 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC41118))
+  if (__cxa_guard_acquire(byte_27FC41118))
   {
     OUTLINED_FUNCTION_302(&unk_27FC50890);
     OUTLINED_FUNCTION_47(v0);
@@ -14260,12 +14243,12 @@ void getShapeType()
     *(v30 + 476) = v31;
     OUTLINED_FUNCTION_0(v32, v33, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC41118);
+    __cxa_guard_release(byte_27FC41118);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC41120))
+  if (__cxa_guard_acquire(byte_27FC41120))
   {
     OUTLINED_FUNCTION_15(&unk_27FC53B40);
     OUTLINED_FUNCTION_681(v0);
@@ -14355,12 +14338,12 @@ void getShapeType()
     *(v8 + 604) = v9;
     OUTLINED_FUNCTION_0(v17, v18, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC41120);
+    __cxa_guard_release(byte_27FC41120);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC41128))
+  if (__cxa_guard_acquire(byte_27FC41128))
   {
     v0 = &unk_27FC51DD8;
     do
@@ -14549,12 +14532,12 @@ void getShapeType()
     OUTLINED_FUNCTION_103(v35);
     OUTLINED_FUNCTION_0(v36, v37, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC41128);
+    __cxa_guard_release(byte_27FC41128);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC41130))
+  if (__cxa_guard_acquire(byte_27FC41130))
   {
     v0 = &xmmword_27FC42940 + 1;
     do
@@ -14570,7 +14553,7 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC410F8))
+  if (__cxa_guard_acquire(byte_27FC410F8))
   {
     OUTLINED_FUNCTION_37(&unk_27FC55618);
     *(v0 + 44) = 15;
@@ -14681,12 +14664,12 @@ void getShapeType()
     *(v21 + 652) = v22;
     OUTLINED_FUNCTION_0(34, v29, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC410F8);
+    __cxa_guard_release(byte_27FC410F8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC41100))
+  if (__cxa_guard_acquire(byte_27FC41100))
   {
     OUTLINED_FUNCTION_15(&unk_27FC5D054);
     OUTLINED_FUNCTION_681(v0);
@@ -14920,12 +14903,12 @@ void getShapeType()
     *(v5 + 1148) = 28;
     OUTLINED_FUNCTION_0(30, 26, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC41100);
+    __cxa_guard_release(byte_27FC41100);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC41108))
+  if (__cxa_guard_acquire(byte_27FC41108))
   {
     v0 = &unk_27FC61E48;
     do
@@ -15741,12 +15724,12 @@ void getShapeType()
     OUTLINED_FUNCTION_103(v98);
     OUTLINED_FUNCTION_0(v99, v100, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC41108);
+    __cxa_guard_release(byte_27FC41108);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC41110))
+  if (__cxa_guard_acquire(byte_27FC41110))
   {
     v0 = &xmmword_27FC42920 + 1;
     do
@@ -15762,7 +15745,7 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC410D8))
+  if (__cxa_guard_acquire(byte_27FC410D8))
   {
     OUTLINED_FUNCTION_37(&unk_27FC538E8);
     *(v0 + 44) = 15;
@@ -15866,12 +15849,12 @@ void getShapeType()
     *(v23 + 596) = v24;
     OUTLINED_FUNCTION_0(v31, v32, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC410D8);
+    __cxa_guard_release(byte_27FC410D8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC410E0))
+  if (__cxa_guard_acquire(byte_27FC410E0))
   {
     OUTLINED_FUNCTION_15(&unk_27FC5A9C0);
     *(v0 + 92) = 2;
@@ -16084,12 +16067,12 @@ void getShapeType()
     *(v7 + 1052) = 31;
     OUTLINED_FUNCTION_0(33, 9, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC410E0);
+    __cxa_guard_release(byte_27FC410E0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC410E8))
+  if (__cxa_guard_acquire(byte_27FC410E8))
   {
     v0 = &unk_27FC62AF4;
     do
@@ -17003,12 +16986,12 @@ void getShapeType()
     OUTLINED_FUNCTION_103(v107);
     OUTLINED_FUNCTION_0(v108, v109, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC410E8);
+    __cxa_guard_release(byte_27FC410E8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC410F0))
+  if (__cxa_guard_acquire(byte_27FC410F0))
   {
     v0 = &xmmword_27FC42900 + 1;
     do
@@ -17024,7 +17007,7 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC410B8))
+  if (__cxa_guard_acquire(byte_27FC410B8))
   {
     OUTLINED_FUNCTION_37(&unk_27FC56328);
     *(v0 + 44) = 15;
@@ -17107,12 +17090,12 @@ void getShapeType()
     *(v27 + 668) = v31;
     OUTLINED_FUNCTION_0(v36, v37, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC410B8);
+    __cxa_guard_release(byte_27FC410B8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC410C0))
+  if (__cxa_guard_acquire(byte_27FC410C0))
   {
     OUTLINED_FUNCTION_34(&unk_27FC5D4D4);
     OUTLINED_FUNCTION_651(v0);
@@ -17395,12 +17378,12 @@ void getShapeType()
     *(v5 + 1180) = 26;
     OUTLINED_FUNCTION_0(28, 31, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC410C0);
+    __cxa_guard_release(byte_27FC410C0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC410C8))
+  if (__cxa_guard_acquire(byte_27FC410C8))
   {
     v0 = &unk_27FC607C0;
     do
@@ -18115,12 +18098,12 @@ void getShapeType()
     OUTLINED_FUNCTION_103(v86);
     OUTLINED_FUNCTION_0(v87, v88, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC410C8);
+    __cxa_guard_release(byte_27FC410C8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC410D0))
+  if (__cxa_guard_acquire(byte_27FC410D0))
   {
     v0 = &xmmword_27FC428E0 + 1;
     do
@@ -18136,7 +18119,7 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC41098))
+  if (__cxa_guard_acquire(byte_27FC41098))
   {
     OUTLINED_FUNCTION_37(&unk_27FC4E610);
     OUTLINED_FUNCTION_635(v0);
@@ -18167,12 +18150,12 @@ void getShapeType()
     *(v24 + 388) = v25;
     OUTLINED_FUNCTION_0(v26, v27, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC41098);
+    __cxa_guard_release(byte_27FC41098);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC410A0))
+  if (__cxa_guard_acquire(byte_27FC410A0))
   {
     OUTLINED_FUNCTION_34(&unk_27FC529C0);
     OUTLINED_FUNCTION_163(v0);
@@ -18214,12 +18197,12 @@ void getShapeType()
     OUTLINED_FUNCTION_470(v24);
     OUTLINED_FUNCTION_0(v25, v26, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC410A0);
+    __cxa_guard_release(byte_27FC410A0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC410A8))
+  if (__cxa_guard_acquire(byte_27FC410A8))
   {
     v0 = &unk_27FC4B528;
     do
@@ -18311,12 +18294,12 @@ void getShapeType()
     OUTLINED_FUNCTION_768();
     OUTLINED_FUNCTION_0(v18, v19, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC410A8);
+    __cxa_guard_release(byte_27FC410A8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC410B0))
+  if (__cxa_guard_acquire(byte_27FC410B0))
   {
     v0 = &xmmword_27FC428C0 + 1;
     do
@@ -18332,7 +18315,7 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC41078))
+  if (__cxa_guard_acquire(byte_27FC41078))
   {
     OUTLINED_FUNCTION_76(&unk_27FC433D8);
     *(v0 + 12) = v1;
@@ -18341,12 +18324,12 @@ void getShapeType()
     OUTLINED_FUNCTION_285(v2);
     OUTLINED_FUNCTION_0(v4, v5, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC41078);
+    __cxa_guard_release(byte_27FC41078);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC41080))
+  if (__cxa_guard_acquire(byte_27FC41080))
   {
     OUTLINED_FUNCTION_464(_MergedGlobals_707);
     OUTLINED_FUNCTION_345(v0);
@@ -18364,13 +18347,13 @@ void getShapeType()
     OUTLINED_FUNCTION_276(v10);
     OUTLINED_FUNCTION_0(v11, v12, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC41080);
+    __cxa_guard_release(byte_27FC41080);
   }
 }
 
 {
   OUTLINED_FUNCTION_766();
-  if (__cxa_guard_acquire(&qword_27FC41088))
+  if (__cxa_guard_acquire(byte_27FC41088))
   {
     v0 = &unk_27FC61898;
     do
@@ -19231,18 +19214,18 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC41058))
+  if (__cxa_guard_acquire(byte_27FC41058))
   {
     OUTLINED_FUNCTION_89(&unk_27FC42860);
     OUTLINED_FUNCTION_14(v0);
     OUTLINED_FUNCTION_0(v1, v2, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC41058);
+    __cxa_guard_release(byte_27FC41058);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC41060))
+  if (__cxa_guard_acquire(byte_27FC41060))
   {
     OUTLINED_FUNCTION_344(&unk_27FC47788);
     *(v0 + 12) = 10800;
@@ -19272,12 +19255,12 @@ void getShapeType()
     *(v9 + 124) = v11;
     OUTLINED_FUNCTION_0(v12, v13, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC41060);
+    __cxa_guard_release(byte_27FC41060);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC41068))
+  if (__cxa_guard_acquire(byte_27FC41068))
   {
     v0 = &unk_27FC46BA0;
     do
@@ -19317,12 +19300,12 @@ void getShapeType()
     OUTLINED_FUNCTION_607();
     OUTLINED_FUNCTION_0(v6, v7, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC41068);
+    __cxa_guard_release(byte_27FC41068);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC41070))
+  if (__cxa_guard_acquire(byte_27FC41070))
   {
     v0 = &xmmword_27FC42880 + 1;
     do
@@ -19339,7 +19322,7 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC41038))
+  if (__cxa_guard_acquire(byte_27FC41038))
   {
     OUTLINED_FUNCTION_58(&unk_27FC4AF3C);
     OUTLINED_FUNCTION_556(v0);
@@ -19389,12 +19372,12 @@ void getShapeType()
     *(v28 + 244) = v31;
     OUTLINED_FUNCTION_0(v32, v33, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC41038);
+    __cxa_guard_release(byte_27FC41038);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC41040))
+  if (__cxa_guard_acquire(byte_27FC41040))
   {
     OUTLINED_FUNCTION_464(byte_27FC4FBC8);
     *(v0 + 4) = 9;
@@ -19500,12 +19483,12 @@ void getShapeType()
     *(v8 + 444) = 0;
     OUTLINED_FUNCTION_0(v14, v15, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC41040);
+    __cxa_guard_release(byte_27FC41040);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC41048))
+  if (__cxa_guard_acquire(byte_27FC41048))
   {
     v0 = &unk_27FC4F16C;
     do
@@ -19674,12 +19657,12 @@ void getShapeType()
     OUTLINED_FUNCTION_458(13);
     OUTLINED_FUNCTION_0(v25, v26, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC41048);
+    __cxa_guard_release(byte_27FC41048);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC41018))
+  if (__cxa_guard_acquire(byte_27FC41018))
   {
     OUTLINED_FUNCTION_58(&unk_27FC494FC);
     OUTLINED_FUNCTION_556(v0);
@@ -19717,12 +19700,12 @@ void getShapeType()
     *(v15 + 180) = v19;
     OUTLINED_FUNCTION_0(v20, v21, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC41018);
+    __cxa_guard_release(byte_27FC41018);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC41020))
+  if (__cxa_guard_acquire(byte_27FC41020))
   {
     OUTLINED_FUNCTION_464(_MergedGlobals_708);
     OUTLINED_FUNCTION_70(v0);
@@ -19759,12 +19742,12 @@ void getShapeType()
     *(v17 + 252) = 0;
     OUTLINED_FUNCTION_0(v20, v21, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC41020);
+    __cxa_guard_release(byte_27FC41020);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC41028))
+  if (__cxa_guard_acquire(byte_27FC41028))
   {
     v0 = &unk_27FC4C944;
     do
@@ -19852,12 +19835,12 @@ void getShapeType()
     OUTLINED_FUNCTION_648(v12);
     OUTLINED_FUNCTION_0(v13, v14, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC41028);
+    __cxa_guard_release(byte_27FC41028);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC41030))
+  if (__cxa_guard_acquire(byte_27FC41030))
   {
     v0 = &xmmword_27FC42820 + 1;
     do
@@ -19873,7 +19856,7 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40FF8))
+  if (__cxa_guard_acquire(byte_27FC40FF8))
   {
     OUTLINED_FUNCTION_76(&unk_27FC43110);
     *(v0 + 12) = 12;
@@ -19884,12 +19867,12 @@ void getShapeType()
     OUTLINED_FUNCTION_227(v0);
     OUTLINED_FUNCTION_0(v2, v3, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40FF8);
+    __cxa_guard_release(byte_27FC40FF8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC41000))
+  if (__cxa_guard_acquire(byte_27FC41000))
   {
     byte_27FC46B28 = 0;
     dword_27FC46B2C = 21600;
@@ -19910,12 +19893,12 @@ void getShapeType()
     *(v4 + 108) = 0;
     OUTLINED_FUNCTION_0(v5, v6, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC41000);
+    __cxa_guard_release(byte_27FC41000);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC41008))
+  if (__cxa_guard_acquire(byte_27FC41008))
   {
     v0 = &unk_27FC506BC;
     do
@@ -20097,12 +20080,12 @@ void getShapeType()
     *(v39 + 20) = 1;
     OUTLINED_FUNCTION_0(v40, v41, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC41008);
+    __cxa_guard_release(byte_27FC41008);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40FD8))
+  if (__cxa_guard_acquire(byte_27FC40FD8))
   {
     OUTLINED_FUNCTION_49(&unk_27FC4A9BC);
     OUTLINED_FUNCTION_298(v0);
@@ -20147,12 +20130,12 @@ void getShapeType()
     *(v9 + 220) = 4;
     OUTLINED_FUNCTION_0(v13, v14, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40FD8);
+    __cxa_guard_release(byte_27FC40FD8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40FE0))
+  if (__cxa_guard_acquire(byte_27FC40FE0))
   {
     OUTLINED_FUNCTION_682(&unk_27FC4FF58);
     OUTLINED_FUNCTION_507(v0);
@@ -20268,12 +20251,12 @@ void getShapeType()
     *(v3 + 460) = 19;
     OUTLINED_FUNCTION_0(3163, 12, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40FE0);
+    __cxa_guard_release(byte_27FC40FE0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40FE8))
+  if (__cxa_guard_acquire(byte_27FC40FE8))
   {
     v0 = &unk_27FC536A4;
     do
@@ -20479,12 +20462,12 @@ void getShapeType()
     *(v43 + 20) = 2;
     OUTLINED_FUNCTION_0(v44, v45, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40FE8);
+    __cxa_guard_release(byte_27FC40FE8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40FF0))
+  if (__cxa_guard_acquire(byte_27FC40FF0))
   {
     v0 = &xmmword_27FC427E0 + 1;
     do
@@ -20501,18 +20484,18 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40FB8))
+  if (__cxa_guard_acquire(byte_27FC40FB8))
   {
     OUTLINED_FUNCTION_89(&unk_27FC427C0);
     OUTLINED_FUNCTION_14(v0);
     OUTLINED_FUNCTION_0(v1, v2, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40FB8);
+    __cxa_guard_release(byte_27FC40FB8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40FC0))
+  if (__cxa_guard_acquire(byte_27FC40FC0))
   {
     OUTLINED_FUNCTION_125(&unk_27FC4BD3C);
     OUTLINED_FUNCTION_301(v0);
@@ -20569,12 +20552,12 @@ void getShapeType()
     *(v11 + 268) = v17;
     OUTLINED_FUNCTION_0(v18, v19, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40FC0);
+    __cxa_guard_release(byte_27FC40FC0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40FC8))
+  if (__cxa_guard_acquire(byte_27FC40FC8))
   {
     v0 = &unk_27FC51BE0;
     do
@@ -20823,35 +20806,35 @@ void getShapeType()
     OUTLINED_FUNCTION_471(v50);
     OUTLINED_FUNCTION_0(v52, v53, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40FC8);
+    __cxa_guard_release(byte_27FC40FC8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40FA0))
+  if (__cxa_guard_acquire(byte_27FC40FA0))
   {
     OUTLINED_FUNCTION_31(&unk_27FC43EE0);
     OUTLINED_FUNCTION_62(v0);
     OUTLINED_FUNCTION_459(v1);
     OUTLINED_FUNCTION_0(v2, v3, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40FA0);
+    __cxa_guard_release(byte_27FC40FA0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40FA8))
+  if (__cxa_guard_acquire(byte_27FC40FA8))
   {
     OUTLINED_FUNCTION_25(&unk_27FC45890);
     OUTLINED_FUNCTION_64(v0);
     OUTLINED_FUNCTION_0(v1, v2, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40FA8);
+    __cxa_guard_release(byte_27FC40FA8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40FB0))
+  if (__cxa_guard_acquire(byte_27FC40FB0))
   {
     v0 = &unk_27FC46AC0;
     do
@@ -20886,30 +20869,30 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40F88))
+  if (__cxa_guard_acquire(byte_27FC40F88))
   {
     OUTLINED_FUNCTION_31(&unk_27FC43EA0);
     OUTLINED_FUNCTION_62(v0);
     OUTLINED_FUNCTION_459(v1);
     OUTLINED_FUNCTION_0(v2, v3, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40F88);
+    __cxa_guard_release(byte_27FC40F88);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40F90))
+  if (__cxa_guard_acquire(byte_27FC40F90))
   {
     OUTLINED_FUNCTION_25(&unk_27FC45830);
     OUTLINED_FUNCTION_64(v0);
     OUTLINED_FUNCTION_0(v1, v2, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40F90);
+    __cxa_guard_release(byte_27FC40F90);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40F98))
+  if (__cxa_guard_acquire(byte_27FC40F98))
   {
     v0 = &unk_27FC46A50;
     do
@@ -20944,7 +20927,7 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40F70))
+  if (__cxa_guard_acquire(byte_27FC40F70))
   {
     OUTLINED_FUNCTION_31(&unk_27FC44190);
     OUTLINED_FUNCTION_62(v0);
@@ -20952,23 +20935,23 @@ void getShapeType()
     OUTLINED_FUNCTION_208(v1);
     OUTLINED_FUNCTION_0(v2, v3, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40F70);
+    __cxa_guard_release(byte_27FC40F70);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40F78))
+  if (__cxa_guard_acquire(byte_27FC40F78))
   {
     OUTLINED_FUNCTION_25(&unk_27FC457D0);
     OUTLINED_FUNCTION_64(v0);
     OUTLINED_FUNCTION_0(v1, v2, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40F78);
+    __cxa_guard_release(byte_27FC40F78);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40F80))
+  if (__cxa_guard_acquire(byte_27FC40F80))
   {
     v0 = &unk_27FC469E0;
     do
@@ -21003,7 +20986,7 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40F58))
+  if (__cxa_guard_acquire(byte_27FC40F58))
   {
     OUTLINED_FUNCTION_31(&unk_27FC44148);
     OUTLINED_FUNCTION_62(v0);
@@ -21011,23 +20994,23 @@ void getShapeType()
     OUTLINED_FUNCTION_208(v1);
     OUTLINED_FUNCTION_0(v2, v3, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40F58);
+    __cxa_guard_release(byte_27FC40F58);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40F60))
+  if (__cxa_guard_acquire(byte_27FC40F60))
   {
     OUTLINED_FUNCTION_25(&unk_27FC45770);
     OUTLINED_FUNCTION_64(v0);
     OUTLINED_FUNCTION_0(v1, v2, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40F60);
+    __cxa_guard_release(byte_27FC40F60);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40F68))
+  if (__cxa_guard_acquire(byte_27FC40F68))
   {
     v0 = &unk_27FC46970;
     do
@@ -21062,19 +21045,19 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40F40))
+  if (__cxa_guard_acquire(byte_27FC40F40))
   {
     OUTLINED_FUNCTION_89(&unk_27FC42780);
     OUTLINED_FUNCTION_194(v0);
     OUTLINED_FUNCTION_298(v1);
     OUTLINED_FUNCTION_0(v2, v3, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40F40);
+    __cxa_guard_release(byte_27FC40F40);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40F48))
+  if (__cxa_guard_acquire(byte_27FC40F48))
   {
     OUTLINED_FUNCTION_36(&unk_27FC44638);
     *(v0 + 28) = 0;
@@ -21086,12 +21069,12 @@ void getShapeType()
     *(v3 + 76) = v4;
     OUTLINED_FUNCTION_0(v5, v6, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40F48);
+    __cxa_guard_release(byte_27FC40F48);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40F20))
+  if (__cxa_guard_acquire(byte_27FC40F20))
   {
     OUTLINED_FUNCTION_58(&unk_27FC445E8);
     OUTLINED_FUNCTION_328(v0);
@@ -21102,12 +21085,12 @@ void getShapeType()
     OUTLINED_FUNCTION_590(v3);
     OUTLINED_FUNCTION_0(v4, v5, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40F20);
+    __cxa_guard_release(byte_27FC40F20);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40F28))
+  if (__cxa_guard_acquire(byte_27FC40F28))
   {
     OUTLINED_FUNCTION_464(byte_27FC47708);
     OUTLINED_FUNCTION_70(v0);
@@ -21115,12 +21098,12 @@ void getShapeType()
     OUTLINED_FUNCTION_191(v2);
     OUTLINED_FUNCTION_0(v3, v4, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40F28);
+    __cxa_guard_release(byte_27FC40F28);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40F30))
+  if (__cxa_guard_acquire(byte_27FC40F30))
   {
     v0 = &unk_27FC4C82C;
     do
@@ -21208,12 +21191,12 @@ void getShapeType()
     OUTLINED_FUNCTION_648(v12);
     OUTLINED_FUNCTION_0(v13, v14, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40F30);
+    __cxa_guard_release(byte_27FC40F30);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40F38))
+  if (__cxa_guard_acquire(byte_27FC40F38))
   {
     v0 = &xmmword_27FC42760 + 1;
     do
@@ -21229,7 +21212,7 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40F08))
+  if (__cxa_guard_acquire(byte_27FC40F08))
   {
     OUTLINED_FUNCTION_76(&unk_27FC430E8);
     *(v0 + 12) = 13;
@@ -21238,12 +21221,12 @@ void getShapeType()
     OUTLINED_FUNCTION_227(v1);
     OUTLINED_FUNCTION_0(v3, v4, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40F08);
+    __cxa_guard_release(byte_27FC40F08);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40F10))
+  if (__cxa_guard_acquire(byte_27FC40F10))
   {
     OUTLINED_FUNCTION_57(&unk_27FC45710);
     OUTLINED_FUNCTION_234(v0);
@@ -21255,12 +21238,12 @@ void getShapeType()
     OUTLINED_FUNCTION_724(v5);
     OUTLINED_FUNCTION_0(v6, v7, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40F10);
+    __cxa_guard_release(byte_27FC40F10);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40F18))
+  if (__cxa_guard_acquire(byte_27FC40F18))
   {
     v0 = &unk_27FC46900;
     do
@@ -21300,7 +21283,7 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40EF0))
+  if (__cxa_guard_acquire(byte_27FC40EF0))
   {
     OUTLINED_FUNCTION_76(&unk_27FC430C0);
     *(v0 + 12) = 13;
@@ -21309,12 +21292,12 @@ void getShapeType()
     OUTLINED_FUNCTION_227(v1);
     OUTLINED_FUNCTION_0(v3, v4, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40EF0);
+    __cxa_guard_release(byte_27FC40EF0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40EF8))
+  if (__cxa_guard_acquire(byte_27FC40EF8))
   {
     OUTLINED_FUNCTION_148(&unk_27FC456B0);
     *(v0 + 12) = v1;
@@ -21327,12 +21310,12 @@ void getShapeType()
     *(v6 + 92) = v7;
     OUTLINED_FUNCTION_0(v8, v9, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40EF8);
+    __cxa_guard_release(byte_27FC40EF8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40F00))
+  if (__cxa_guard_acquire(byte_27FC40F00))
   {
     v0 = &unk_27FC46890;
     do
@@ -21372,17 +21355,17 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40ED8))
+  if (__cxa_guard_acquire(byte_27FC40ED8))
   {
     OUTLINED_FUNCTION_28(&unk_27FC43098);
     OUTLINED_FUNCTION_0(v0, v1, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40ED8);
+    __cxa_guard_release(byte_27FC40ED8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40EE0))
+  if (__cxa_guard_acquire(byte_27FC40EE0))
   {
     OUTLINED_FUNCTION_38(&unk_27FC43E60);
     OUTLINED_FUNCTION_609(v0);
@@ -21393,12 +21376,12 @@ void getShapeType()
     OUTLINED_FUNCTION_184(v3);
     OUTLINED_FUNCTION_0(v5, v6, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40EE0);
+    __cxa_guard_release(byte_27FC40EE0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40EE8))
+  if (__cxa_guard_acquire(byte_27FC40EE8))
   {
     v0 = &unk_27FC48E2C;
     do
@@ -21460,17 +21443,17 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40EC0))
+  if (__cxa_guard_acquire(byte_27FC40EC0))
   {
     OUTLINED_FUNCTION_28(&unk_27FC43070);
     OUTLINED_FUNCTION_0(v0, v1, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40EC0);
+    __cxa_guard_release(byte_27FC40EC0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40EC8))
+  if (__cxa_guard_acquire(byte_27FC40EC8))
   {
     OUTLINED_FUNCTION_113(&unk_27FC43E20);
     OUTLINED_FUNCTION_224(v0);
@@ -21480,12 +21463,12 @@ void getShapeType()
     *(v2 + 60) = v3;
     OUTLINED_FUNCTION_0(v4, v5, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40EC8);
+    __cxa_guard_release(byte_27FC40EC8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40ED0))
+  if (__cxa_guard_acquire(byte_27FC40ED0))
   {
     v0 = &unk_27FC48D84;
     do
@@ -21547,17 +21530,17 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40EA8))
+  if (__cxa_guard_acquire(byte_27FC40EA8))
   {
     OUTLINED_FUNCTION_28(&unk_27FC43048);
     OUTLINED_FUNCTION_0(v0, v1, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40EA8);
+    __cxa_guard_release(byte_27FC40EA8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40EB0))
+  if (__cxa_guard_acquire(byte_27FC40EB0))
   {
     OUTLINED_FUNCTION_36(&unk_27FC43DE0);
     *(v0 + 28) = 0;
@@ -21568,12 +21551,12 @@ void getShapeType()
     OUTLINED_FUNCTION_367(v1);
     OUTLINED_FUNCTION_0(v4, v5, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40EB0);
+    __cxa_guard_release(byte_27FC40EB0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40EB8))
+  if (__cxa_guard_acquire(byte_27FC40EB8))
   {
     v0 = &unk_27FC47D88;
     do
@@ -21618,17 +21601,17 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40E90))
+  if (__cxa_guard_acquire(byte_27FC40E90))
   {
     OUTLINED_FUNCTION_28(&unk_27FC43020);
     OUTLINED_FUNCTION_0(v0, v1, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40E90);
+    __cxa_guard_release(byte_27FC40E90);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40E98))
+  if (__cxa_guard_acquire(byte_27FC40E98))
   {
     OUTLINED_FUNCTION_90(&unk_27FC43DA0);
     *(v0 + 16) = v1;
@@ -21638,12 +21621,12 @@ void getShapeType()
     OUTLINED_FUNCTION_184(v3);
     OUTLINED_FUNCTION_0(v4, v5, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40E98);
+    __cxa_guard_release(byte_27FC40E98);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40EA0))
+  if (__cxa_guard_acquire(byte_27FC40EA0))
   {
     v0 = &unk_27FC47CFC;
     do
@@ -21688,17 +21671,17 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40E78))
+  if (__cxa_guard_acquire(byte_27FC40E78))
   {
     OUTLINED_FUNCTION_28(&unk_27FC42FF8);
     OUTLINED_FUNCTION_0(v0, v1, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40E78);
+    __cxa_guard_release(byte_27FC40E78);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40E80))
+  if (__cxa_guard_acquire(byte_27FC40E80))
   {
     OUTLINED_FUNCTION_113(&unk_27FC43D60);
     OUTLINED_FUNCTION_224(v0);
@@ -21707,12 +21690,12 @@ void getShapeType()
     *(v3 + 60) = v4;
     OUTLINED_FUNCTION_0(v5, v6, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40E80);
+    __cxa_guard_release(byte_27FC40E80);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40E88))
+  if (__cxa_guard_acquire(byte_27FC40E88))
   {
     v0 = &unk_27FC47C70;
     do
@@ -21757,17 +21740,17 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40E60))
+  if (__cxa_guard_acquire(byte_27FC40E60))
   {
     OUTLINED_FUNCTION_28(&unk_27FC42FD0);
     OUTLINED_FUNCTION_0(v0, v1, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40E60);
+    __cxa_guard_release(byte_27FC40E60);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40E68))
+  if (__cxa_guard_acquire(byte_27FC40E68))
   {
     OUTLINED_FUNCTION_38(&unk_27FC43D20);
     OUTLINED_FUNCTION_609(v0);
@@ -21778,12 +21761,12 @@ void getShapeType()
     *(v3 + 60) = v5;
     OUTLINED_FUNCTION_0(v6, v7, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40E68);
+    __cxa_guard_release(byte_27FC40E68);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40E70))
+  if (__cxa_guard_acquire(byte_27FC40E70))
   {
     v0 = &unk_27FC47BE4;
     do
@@ -21828,7 +21811,7 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40E48))
+  if (__cxa_guard_acquire(byte_27FC40E48))
   {
     OUTLINED_FUNCTION_31(&unk_27FC45A90);
     OUTLINED_FUNCTION_225(v0);
@@ -21846,12 +21829,12 @@ void getShapeType()
     *(v8 + 100) = 4;
     OUTLINED_FUNCTION_0(v10, v11, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40E48);
+    __cxa_guard_release(byte_27FC40E48);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40E50))
+  if (__cxa_guard_acquire(byte_27FC40E50))
   {
     OUTLINED_FUNCTION_36(&unk_27FC4CF04);
     OUTLINED_FUNCTION_257(v0);
@@ -21914,12 +21897,12 @@ void getShapeType()
     *(v19 + 316) = v23;
     OUTLINED_FUNCTION_0(v24, v25, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40E50);
+    __cxa_guard_release(byte_27FC40E50);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40E58))
+  if (__cxa_guard_acquire(byte_27FC40E58))
   {
     v0 = &unk_27FC47B58;
     do
@@ -21970,7 +21953,7 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40E30))
+  if (__cxa_guard_acquire(byte_27FC40E30))
   {
     OUTLINED_FUNCTION_31(&unk_27FC44100);
     OUTLINED_FUNCTION_225(v0);
@@ -21983,12 +21966,12 @@ void getShapeType()
     *(v4 + 68) = 4;
     OUTLINED_FUNCTION_0(v6, v7, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40E30);
+    __cxa_guard_release(byte_27FC40E30);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40E38))
+  if (__cxa_guard_acquire(byte_27FC40E38))
   {
     OUTLINED_FUNCTION_36(&unk_27FC498B4);
     OUTLINED_FUNCTION_257(v0);
@@ -22020,12 +22003,12 @@ void getShapeType()
     *(v15 + 188) = v16;
     OUTLINED_FUNCTION_0(v17, v18, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40E38);
+    __cxa_guard_release(byte_27FC40E38);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40E40))
+  if (__cxa_guard_acquire(byte_27FC40E40))
   {
     v0 = &unk_27FC44834;
     do
@@ -22057,19 +22040,19 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40E18))
+  if (__cxa_guard_acquire(byte_27FC40E18))
   {
     OUTLINED_FUNCTION_58(&unk_27FC42FA8);
     *(v0 + 12) = v1;
     OUTLINED_FUNCTION_74(v0);
     OUTLINED_FUNCTION_0(v2, v3, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40E18);
+    __cxa_guard_release(byte_27FC40E18);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40E20))
+  if (__cxa_guard_acquire(byte_27FC40E20))
   {
     OUTLINED_FUNCTION_57(&unk_27FC45650);
     *(v0 + 20) = 7200;
@@ -22083,12 +22066,12 @@ void getShapeType()
     OUTLINED_FUNCTION_338(v5);
     OUTLINED_FUNCTION_0(v6, v7, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40E20);
+    __cxa_guard_release(byte_27FC40E20);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40E28))
+  if (__cxa_guard_acquire(byte_27FC40E28))
   {
     v0 = &unk_27FC46820;
     do
@@ -22135,19 +22118,19 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40E00))
+  if (__cxa_guard_acquire(byte_27FC40E00))
   {
     OUTLINED_FUNCTION_58(&unk_27FC42F80);
     *(v0 + 12) = v1;
     OUTLINED_FUNCTION_74(v0);
     OUTLINED_FUNCTION_0(v2, v3, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40E00);
+    __cxa_guard_release(byte_27FC40E00);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40E08))
+  if (__cxa_guard_acquire(byte_27FC40E08))
   {
     OUTLINED_FUNCTION_113(&unk_27FC455F0);
     OUTLINED_FUNCTION_482(v0);
@@ -22163,12 +22146,12 @@ void getShapeType()
     *(v8 + 92) = v9;
     OUTLINED_FUNCTION_0(v10, v11, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40E08);
+    __cxa_guard_release(byte_27FC40E08);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40E10))
+  if (__cxa_guard_acquire(byte_27FC40E10))
   {
     v0 = &unk_27FC48CDC;
     do
@@ -22228,18 +22211,18 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40DE8))
+  if (__cxa_guard_acquire(byte_27FC40DE8))
   {
     OUTLINED_FUNCTION_31(&unk_27FC42F58);
     OUTLINED_FUNCTION_127(v0);
     OUTLINED_FUNCTION_0(v1, v2, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40DE8);
+    __cxa_guard_release(byte_27FC40DE8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40DF0))
+  if (__cxa_guard_acquire(byte_27FC40DF0))
   {
     OUTLINED_FUNCTION_36(&unk_27FC45590);
     OUTLINED_FUNCTION_257(v0);
@@ -22252,12 +22235,12 @@ void getShapeType()
     OUTLINED_FUNCTION_338(v3);
     OUTLINED_FUNCTION_0(v5, v6, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40DF0);
+    __cxa_guard_release(byte_27FC40DF0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40DF8))
+  if (__cxa_guard_acquire(byte_27FC40DF8))
   {
     v0 = &unk_27FC47ACC;
     do
@@ -22312,18 +22295,18 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40DD0))
+  if (__cxa_guard_acquire(byte_27FC40DD0))
   {
     OUTLINED_FUNCTION_31(&unk_27FC42F30);
     OUTLINED_FUNCTION_127(v0);
     OUTLINED_FUNCTION_0(v1, v2, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40DD0);
+    __cxa_guard_release(byte_27FC40DD0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40DD8))
+  if (__cxa_guard_acquire(byte_27FC40DD8))
   {
     OUTLINED_FUNCTION_36(&unk_27FC45530);
     OUTLINED_FUNCTION_465(v0);
@@ -22338,12 +22321,12 @@ void getShapeType()
     *(v6 + 92) = 0;
     OUTLINED_FUNCTION_0(v8, v9, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40DD8);
+    __cxa_guard_release(byte_27FC40DD8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40DE0))
+  if (__cxa_guard_acquire(byte_27FC40DE0))
   {
     v0 = &unk_27FC47A40;
     do
@@ -22394,19 +22377,19 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40DB8))
+  if (__cxa_guard_acquire(byte_27FC40DB8))
   {
     OUTLINED_FUNCTION_58(&unk_27FC42F08);
     *(v0 + 12) = v1;
     OUTLINED_FUNCTION_98(v0);
     OUTLINED_FUNCTION_0(v2, v3, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40DB8);
+    __cxa_guard_release(byte_27FC40DB8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40DC0))
+  if (__cxa_guard_acquire(byte_27FC40DC0))
   {
     OUTLINED_FUNCTION_57(&unk_27FC47688);
     OUTLINED_FUNCTION_234(v0);
@@ -22426,12 +22409,12 @@ void getShapeType()
     *(v11 + 124) = v12;
     OUTLINED_FUNCTION_0(v13, v14, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40DC0);
+    __cxa_guard_release(byte_27FC40DC0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40DC8))
+  if (__cxa_guard_acquire(byte_27FC40DC8))
   {
     v0 = &unk_27FC467B0;
     do
@@ -22473,19 +22456,19 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40DA0))
+  if (__cxa_guard_acquire(byte_27FC40DA0))
   {
     OUTLINED_FUNCTION_58(&unk_27FC42EE0);
     *(v0 + 12) = v1;
     OUTLINED_FUNCTION_98(v0);
     OUTLINED_FUNCTION_0(v2, v3, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40DA0);
+    __cxa_guard_release(byte_27FC40DA0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40DA8))
+  if (__cxa_guard_acquire(byte_27FC40DA8))
   {
     OUTLINED_FUNCTION_113(&unk_27FC47608);
     OUTLINED_FUNCTION_482(v0);
@@ -22506,12 +22489,12 @@ void getShapeType()
     *(v13 + 124) = v14;
     OUTLINED_FUNCTION_0(v15, v16, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40DA8);
+    __cxa_guard_release(byte_27FC40DA8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40DB0))
+  if (__cxa_guard_acquire(byte_27FC40DB0))
   {
     v0 = &unk_27FC4A060;
     do
@@ -22582,7 +22565,7 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40D88))
+  if (__cxa_guard_acquire(byte_27FC40D88))
   {
     OUTLINED_FUNCTION_76(&unk_27FC42EB8);
     OUTLINED_FUNCTION_359(v0);
@@ -22590,12 +22573,12 @@ void getShapeType()
     OUTLINED_FUNCTION_223(v1);
     OUTLINED_FUNCTION_0(v3, v4, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40D88);
+    __cxa_guard_release(byte_27FC40D88);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40D90))
+  if (__cxa_guard_acquire(byte_27FC40D90))
   {
     OUTLINED_FUNCTION_464(byte_27FC4A8DC);
     OUTLINED_FUNCTION_345(v0);
@@ -22613,13 +22596,13 @@ void getShapeType()
     OUTLINED_FUNCTION_276(v10);
     OUTLINED_FUNCTION_0(v11, v12, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40D90);
+    __cxa_guard_release(byte_27FC40D90);
   }
 }
 
 {
   OUTLINED_FUNCTION_766();
-  if (__cxa_guard_acquire(&qword_27FC40D98))
+  if (__cxa_guard_acquire(byte_27FC40D98))
   {
     v0 = &unk_27FC612E8;
     do
@@ -23473,7 +23456,7 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40D70))
+  if (__cxa_guard_acquire(byte_27FC40D70))
   {
     OUTLINED_FUNCTION_76(&unk_27FC42E90);
     OUTLINED_FUNCTION_359(v0);
@@ -23481,12 +23464,12 @@ void getShapeType()
     OUTLINED_FUNCTION_223(v1);
     OUTLINED_FUNCTION_0(v3, v4, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40D70);
+    __cxa_guard_release(byte_27FC40D70);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40D78))
+  if (__cxa_guard_acquire(byte_27FC40D78))
   {
     OUTLINED_FUNCTION_464(byte_27FC4A7FC);
     OUTLINED_FUNCTION_345(v0);
@@ -23505,13 +23488,13 @@ void getShapeType()
     OUTLINED_FUNCTION_276(v10);
     OUTLINED_FUNCTION_0(v11, v12, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40D78);
+    __cxa_guard_release(byte_27FC40D78);
   }
 }
 
 {
   OUTLINED_FUNCTION_766();
-  if (__cxa_guard_acquire(&qword_27FC40D80))
+  if (__cxa_guard_acquire(byte_27FC40D80))
   {
     v0 = &unk_27FC60D38;
     do
@@ -24365,19 +24348,19 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40D58))
+  if (__cxa_guard_acquire(byte_27FC40D58))
   {
     OUTLINED_FUNCTION_58(&unk_27FC42E68);
     *(v0 + 12) = v1;
     OUTLINED_FUNCTION_98(v0);
     OUTLINED_FUNCTION_0(v2, v3, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40D58);
+    __cxa_guard_release(byte_27FC40D58);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40D60))
+  if (__cxa_guard_acquire(byte_27FC40D60))
   {
     OUTLINED_FUNCTION_464(byte_27FC47588);
     OUTLINED_FUNCTION_345(v0);
@@ -24390,12 +24373,12 @@ void getShapeType()
     OUTLINED_FUNCTION_511(v7);
     OUTLINED_FUNCTION_0(v8, v9, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40D60);
+    __cxa_guard_release(byte_27FC40D60);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40D68))
+  if (__cxa_guard_acquire(byte_27FC40D68))
   {
     v0 = &unk_27FC5BAB4;
     do
@@ -24993,19 +24976,19 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40D40))
+  if (__cxa_guard_acquire(byte_27FC40D40))
   {
     OUTLINED_FUNCTION_58(&unk_27FC42E40);
     *(v0 + 12) = v1;
     OUTLINED_FUNCTION_98(v0);
     OUTLINED_FUNCTION_0(v2, v3, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40D40);
+    __cxa_guard_release(byte_27FC40D40);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40D48))
+  if (__cxa_guard_acquire(byte_27FC40D48))
   {
     OUTLINED_FUNCTION_464(byte_27FC47508);
     OUTLINED_FUNCTION_345(v0);
@@ -25016,12 +24999,12 @@ void getShapeType()
     OUTLINED_FUNCTION_347(v4);
     OUTLINED_FUNCTION_0(v5, v6, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40D48);
+    __cxa_guard_release(byte_27FC40D48);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40D50))
+  if (__cxa_guard_acquire(byte_27FC40D50))
   {
     v0 = &unk_27FC5B670;
     do
@@ -25619,17 +25602,17 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40D28))
+  if (__cxa_guard_acquire(byte_27FC40D28))
   {
     OUTLINED_FUNCTION_28(&unk_27FC42E18);
     OUTLINED_FUNCTION_0(v0, v1, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40D28);
+    __cxa_guard_release(byte_27FC40D28);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40D30))
+  if (__cxa_guard_acquire(byte_27FC40D30))
   {
     OUTLINED_FUNCTION_38(&unk_27FC43CE0);
     OUTLINED_FUNCTION_609(v0);
@@ -25640,12 +25623,12 @@ void getShapeType()
     OUTLINED_FUNCTION_184(v2);
     OUTLINED_FUNCTION_0(v4, v5, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40D30);
+    __cxa_guard_release(byte_27FC40D30);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40D38))
+  if (__cxa_guard_acquire(byte_27FC40D38))
   {
     v0 = &unk_27FC4B42C;
     do
@@ -25733,17 +25716,17 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40D10))
+  if (__cxa_guard_acquire(byte_27FC40D10))
   {
     OUTLINED_FUNCTION_28(&unk_27FC42DF0);
     OUTLINED_FUNCTION_0(v0, v1, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40D10);
+    __cxa_guard_release(byte_27FC40D10);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40D18))
+  if (__cxa_guard_acquire(byte_27FC40D18))
   {
     OUTLINED_FUNCTION_148(&_MergedGlobals_700);
     *(v0 + 12) = 2;
@@ -25755,12 +25738,12 @@ void getShapeType()
     *(v2 + 60) = 0;
     OUTLINED_FUNCTION_0(v4, v5, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40D18);
+    __cxa_guard_release(byte_27FC40D18);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40D20))
+  if (__cxa_guard_acquire(byte_27FC40D20))
   {
     v0 = &unk_27FC4B330;
     do
@@ -25848,19 +25831,19 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40CF8))
+  if (__cxa_guard_acquire(byte_27FC40CF8))
   {
     OUTLINED_FUNCTION_58(&unk_27FC42DC8);
     *(v0 + 12) = v1;
     OUTLINED_FUNCTION_98(v0);
     OUTLINED_FUNCTION_0(v2, v3, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40CF8);
+    __cxa_guard_release(byte_27FC40CF8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40D00))
+  if (__cxa_guard_acquire(byte_27FC40D00))
   {
     OUTLINED_FUNCTION_57(&unk_27FC47488);
     *(v0 + 20) = 7200;
@@ -25885,12 +25868,12 @@ void getShapeType()
     *(v13 + 124) = v16;
     OUTLINED_FUNCTION_0(v17, v18, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40D00);
+    __cxa_guard_release(byte_27FC40D00);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40D08))
+  if (__cxa_guard_acquire(byte_27FC40D08))
   {
     v0 = &unk_27FC4FA10;
     do
@@ -26107,19 +26090,19 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&_MergedGlobals_697))
+  if (__cxa_guard_acquire(_MergedGlobals_697))
   {
     OUTLINED_FUNCTION_58(&unk_27FC42DA0);
     *(v0 + 12) = v1;
     OUTLINED_FUNCTION_98(v0);
     OUTLINED_FUNCTION_0(v2, v3, &dword_25D297000);
 
-    __cxa_guard_release(&_MergedGlobals_697);
+    __cxa_guard_release(_MergedGlobals_697);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40CE8))
+  if (__cxa_guard_acquire(byte_27FC40CE8))
   {
     OUTLINED_FUNCTION_113(&unk_27FC47408);
     OUTLINED_FUNCTION_482(v0);
@@ -26140,12 +26123,12 @@ void getShapeType()
     *(v9 + 124) = v12;
     OUTLINED_FUNCTION_0(v13, v14, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40CE8);
+    __cxa_guard_release(byte_27FC40CE8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40CF0))
+  if (__cxa_guard_acquire(byte_27FC40CF0))
   {
     v0 = &unk_27FC4F850;
     do
@@ -26362,7 +26345,7 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40CC8))
+  if (__cxa_guard_acquire(byte_27FC40CC8))
   {
     OUTLINED_FUNCTION_161(&unk_27FC440B8);
     *(v0 + 12) = v1;
@@ -26379,12 +26362,12 @@ void getShapeType()
     *(v6 + 68) = 4;
     OUTLINED_FUNCTION_0(v9, v10, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40CC8);
+    __cxa_guard_release(byte_27FC40CC8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40CD0))
+  if (__cxa_guard_acquire(byte_27FC40CD0))
   {
     OUTLINED_FUNCTION_68(&unk_27FC4B91C);
     OUTLINED_FUNCTION_356(v0);
@@ -26427,12 +26410,12 @@ void getShapeType()
     *(v13 + 252) = v14;
     OUTLINED_FUNCTION_0(v15, v16, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40CD0);
+    __cxa_guard_release(byte_27FC40CD0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40CD8))
+  if (__cxa_guard_acquire(byte_27FC40CD8))
   {
     v0 = &unk_27FC59650;
     do
@@ -26832,19 +26815,19 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40CB0))
+  if (__cxa_guard_acquire(byte_27FC40CB0))
   {
     OUTLINED_FUNCTION_161(&unk_27FC413B0);
     *(v0 + 12) = v1;
     OUTLINED_FUNCTION_362(v0);
     OUTLINED_FUNCTION_0(v2, v3, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40CB0);
+    __cxa_guard_release(byte_27FC40CB0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40CB8))
+  if (__cxa_guard_acquire(byte_27FC40CB8))
   {
     OUTLINED_FUNCTION_68(&unk_27FC454D0);
     OUTLINED_FUNCTION_356(v0);
@@ -26854,12 +26837,12 @@ void getShapeType()
     OUTLINED_FUNCTION_578(v3);
     OUTLINED_FUNCTION_0(v4, v5, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40CB8);
+    __cxa_guard_release(byte_27FC40CB8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40CC0))
+  if (__cxa_guard_acquire(byte_27FC40CC0))
   {
     v0 = &unk_27FC519E8;
     do
@@ -27051,19 +27034,19 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40C98))
+  if (__cxa_guard_acquire(byte_27FC40C98))
   {
     OUTLINED_FUNCTION_161(&unk_27FC41398);
     *(v0 + 12) = v1;
     OUTLINED_FUNCTION_362(v0);
     OUTLINED_FUNCTION_0(v2, v3, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40C98);
+    __cxa_guard_release(byte_27FC40C98);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40CA0))
+  if (__cxa_guard_acquire(byte_27FC40CA0))
   {
     OUTLINED_FUNCTION_125(&unk_27FC45470);
     OUTLINED_FUNCTION_507(v0);
@@ -27077,12 +27060,12 @@ void getShapeType()
     OUTLINED_FUNCTION_578(v5);
     OUTLINED_FUNCTION_0(v8, v9, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40CA0);
+    __cxa_guard_release(byte_27FC40CA0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40CA8))
+  if (__cxa_guard_acquire(byte_27FC40CA8))
   {
     v0 = &unk_27FC58038;
     do
@@ -27435,19 +27418,19 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40C80))
+  if (__cxa_guard_acquire(byte_27FC40C80))
   {
     OUTLINED_FUNCTION_161(&unk_27FC41380);
     *(v0 + 12) = v1;
     OUTLINED_FUNCTION_362(v0);
     OUTLINED_FUNCTION_0(v2, v3, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40C80);
+    __cxa_guard_release(byte_27FC40C80);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40C88))
+  if (__cxa_guard_acquire(byte_27FC40C88))
   {
     OUTLINED_FUNCTION_68(&unk_27FC45410);
     OUTLINED_FUNCTION_356(v0);
@@ -27457,12 +27440,12 @@ void getShapeType()
     OUTLINED_FUNCTION_578(v3);
     OUTLINED_FUNCTION_0(v4, v5, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40C88);
+    __cxa_guard_release(byte_27FC40C88);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40C90))
+  if (__cxa_guard_acquire(byte_27FC40C90))
   {
     v0 = &unk_27FC57D28;
     do
@@ -27815,7 +27798,7 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40C68))
+  if (__cxa_guard_acquire(byte_27FC40C68))
   {
     OUTLINED_FUNCTION_161(&unk_27FC42D78);
     OUTLINED_FUNCTION_556(v0);
@@ -27824,12 +27807,12 @@ void getShapeType()
     OUTLINED_FUNCTION_227(v2);
     OUTLINED_FUNCTION_0(v4, v5, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40C68);
+    __cxa_guard_release(byte_27FC40C68);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40C70))
+  if (__cxa_guard_acquire(byte_27FC40C70))
   {
     OUTLINED_FUNCTION_68(&unk_27FC47388);
     OUTLINED_FUNCTION_356(v0);
@@ -27845,12 +27828,12 @@ void getShapeType()
     *(v8 + 124) = 15;
     OUTLINED_FUNCTION_0(v9, v10, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40C70);
+    __cxa_guard_release(byte_27FC40C70);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40C78))
+  if (__cxa_guard_acquire(byte_27FC40C78))
   {
     v0 = &unk_27FC56090;
     do
@@ -28076,18 +28059,18 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40C50))
+  if (__cxa_guard_acquire(byte_27FC40C50))
   {
     OUTLINED_FUNCTION_161(&unk_27FC41268);
     OUTLINED_FUNCTION_826(v0);
     OUTLINED_FUNCTION_0(v1, v2, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40C50);
+    __cxa_guard_release(byte_27FC40C50);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40C58))
+  if (__cxa_guard_acquire(byte_27FC40C58))
   {
     OUTLINED_FUNCTION_68(&unk_27FC433A8);
     OUTLINED_FUNCTION_792(v0);
@@ -28095,12 +28078,12 @@ void getShapeType()
     *(v2 + 44) = 5;
     OUTLINED_FUNCTION_0(v3, v4, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40C58);
+    __cxa_guard_release(byte_27FC40C58);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40C60))
+  if (__cxa_guard_acquire(byte_27FC40C60))
   {
     v0 = &unk_27FC4D884;
     do
@@ -28232,18 +28215,18 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40C38))
+  if (__cxa_guard_acquire(byte_27FC40C38))
   {
     OUTLINED_FUNCTION_161(&unk_27FC41258);
     OUTLINED_FUNCTION_826(v0);
     OUTLINED_FUNCTION_0(v1, v2, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40C38);
+    __cxa_guard_release(byte_27FC40C38);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40C40))
+  if (__cxa_guard_acquire(byte_27FC40C40))
   {
     OUTLINED_FUNCTION_68(&unk_27FC43378);
     OUTLINED_FUNCTION_792(v0);
@@ -28251,12 +28234,12 @@ void getShapeType()
     *(v2 + 44) = 15;
     OUTLINED_FUNCTION_0(v3, v4, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40C40);
+    __cxa_guard_release(byte_27FC40C40);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40C48))
+  if (__cxa_guard_acquire(byte_27FC40C48))
   {
     v0 = &unk_27FC55DF0;
     do
@@ -28482,18 +28465,18 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40C20))
+  if (__cxa_guard_acquire(byte_27FC40C20))
   {
     OUTLINED_FUNCTION_161(&unk_27FC41248);
     OUTLINED_FUNCTION_826(v0);
     OUTLINED_FUNCTION_0(v1, v2, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40C20);
+    __cxa_guard_release(byte_27FC40C20);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40C28))
+  if (__cxa_guard_acquire(byte_27FC40C28))
   {
     OUTLINED_FUNCTION_68(&unk_27FC43348);
     OUTLINED_FUNCTION_792(v0);
@@ -28501,12 +28484,12 @@ void getShapeType()
     *(v2 + 44) = 14;
     OUTLINED_FUNCTION_0(v3, v4, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40C28);
+    __cxa_guard_release(byte_27FC40C28);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40C30))
+  if (__cxa_guard_acquire(byte_27FC40C30))
   {
     v0 = &unk_27FC55B50;
     do
@@ -28732,7 +28715,7 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40C08))
+  if (__cxa_guard_acquire(byte_27FC40C08))
   {
     OUTLINED_FUNCTION_89(&unk_27FC42D50);
     OUTLINED_FUNCTION_591(v0);
@@ -28740,12 +28723,12 @@ void getShapeType()
     OUTLINED_FUNCTION_413(v2);
     OUTLINED_FUNCTION_0(v3, v4, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40C08);
+    __cxa_guard_release(byte_27FC40C08);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40C10))
+  if (__cxa_guard_acquire(byte_27FC40C10))
   {
     OUTLINED_FUNCTION_148(&unk_27FC48844);
     OUTLINED_FUNCTION_542(v0);
@@ -28770,12 +28753,12 @@ void getShapeType()
     *(v15 + 156) = v17;
     OUTLINED_FUNCTION_0(v18, v19, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40C10);
+    __cxa_guard_release(byte_27FC40C10);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40C18))
+  if (__cxa_guard_acquire(byte_27FC40C18))
   {
     v0 = &unk_27FC479B4;
     do
@@ -28820,7 +28803,7 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40BF0))
+  if (__cxa_guard_acquire(byte_27FC40BF0))
   {
     OUTLINED_FUNCTION_89(&unk_27FC42D28);
     OUTLINED_FUNCTION_591(v0);
@@ -28828,12 +28811,12 @@ void getShapeType()
     OUTLINED_FUNCTION_413(v2);
     OUTLINED_FUNCTION_0(v3, v4, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40BF0);
+    __cxa_guard_release(byte_27FC40BF0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40BF8))
+  if (__cxa_guard_acquire(byte_27FC40BF8))
   {
     OUTLINED_FUNCTION_148(&unk_27FC487A4);
     *(v0 + 12) = v1;
@@ -28860,12 +28843,12 @@ void getShapeType()
     *(v10 + 156) = v14;
     OUTLINED_FUNCTION_0(v15, v16, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40BF8);
+    __cxa_guard_release(byte_27FC40BF8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40C00))
+  if (__cxa_guard_acquire(byte_27FC40C00))
   {
     v0 = &unk_27FC47928;
     do
@@ -28910,19 +28893,19 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40BD8))
+  if (__cxa_guard_acquire(byte_27FC40BD8))
   {
     OUTLINED_FUNCTION_49(&unk_27FC42D00);
     OUTLINED_FUNCTION_637(v0);
     OUTLINED_FUNCTION_151(v1);
     OUTLINED_FUNCTION_0(v2, v3, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40BD8);
+    __cxa_guard_release(byte_27FC40BD8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40BE0))
+  if (__cxa_guard_acquire(byte_27FC40BE0))
   {
     OUTLINED_FUNCTION_57(&unk_27FC453B0);
     *(v0 + 20) = 10800;
@@ -28939,12 +28922,12 @@ void getShapeType()
     *(v7 + 92) = 0;
     OUTLINED_FUNCTION_0(v9, v10, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40BE0);
+    __cxa_guard_release(byte_27FC40BE0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40BE8))
+  if (__cxa_guard_acquire(byte_27FC40BE8))
   {
     v0 = &unk_27FC46740;
     do
@@ -28982,19 +28965,19 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40BC0))
+  if (__cxa_guard_acquire(byte_27FC40BC0))
   {
     OUTLINED_FUNCTION_49(&unk_27FC42CD8);
     OUTLINED_FUNCTION_637(v0);
     OUTLINED_FUNCTION_151(v1);
     OUTLINED_FUNCTION_0(v2, v3, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40BC0);
+    __cxa_guard_release(byte_27FC40BC0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40BC8))
+  if (__cxa_guard_acquire(byte_27FC40BC8))
   {
     OUTLINED_FUNCTION_113(&unk_27FC45350);
     OUTLINED_FUNCTION_196(v0);
@@ -29007,12 +28990,12 @@ void getShapeType()
     *(v6 + 92) = v7;
     OUTLINED_FUNCTION_0(v8, v9, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40BC8);
+    __cxa_guard_release(byte_27FC40BC8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40BD0))
+  if (__cxa_guard_acquire(byte_27FC40BD0))
   {
     v0 = &unk_27FC466D0;
     do
@@ -29050,19 +29033,19 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40BA8))
+  if (__cxa_guard_acquire(byte_27FC40BA8))
   {
     OUTLINED_FUNCTION_49(&_MergedGlobals_699);
     OUTLINED_FUNCTION_637(v0);
     OUTLINED_FUNCTION_151(v1);
     OUTLINED_FUNCTION_0(v2, v3, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40BA8);
+    __cxa_guard_release(byte_27FC40BA8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40BB0))
+  if (__cxa_guard_acquire(byte_27FC40BB0))
   {
     OUTLINED_FUNCTION_57(&unk_27FC452F0);
     OUTLINED_FUNCTION_156(v0);
@@ -29078,12 +29061,12 @@ void getShapeType()
     *(v5 + 92) = 0;
     OUTLINED_FUNCTION_0(v7, v8, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40BB0);
+    __cxa_guard_release(byte_27FC40BB0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40BB8))
+  if (__cxa_guard_acquire(byte_27FC40BB8))
   {
     v0 = &unk_27FC46660;
     do
@@ -29124,19 +29107,19 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40B90))
+  if (__cxa_guard_acquire(byte_27FC40B90))
   {
     OUTLINED_FUNCTION_49(&unk_27FC42C88);
     OUTLINED_FUNCTION_637(v0);
     OUTLINED_FUNCTION_151(v1);
     OUTLINED_FUNCTION_0(v2, v3, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40B90);
+    __cxa_guard_release(byte_27FC40B90);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40B98))
+  if (__cxa_guard_acquire(byte_27FC40B98))
   {
     OUTLINED_FUNCTION_113(&unk_27FC45290);
     OUTLINED_FUNCTION_196(v0);
@@ -29149,12 +29132,12 @@ void getShapeType()
     *(v5 + 92) = v6;
     OUTLINED_FUNCTION_0(v7, v8, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40B98);
+    __cxa_guard_release(byte_27FC40B98);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40BA0))
+  if (__cxa_guard_acquire(byte_27FC40BA0))
   {
     v0 = &unk_27FC465F0;
     do
@@ -29195,19 +29178,19 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40B78))
+  if (__cxa_guard_acquire(byte_27FC40B78))
   {
     OUTLINED_FUNCTION_73(&unk_27FC42C60);
     OUTLINED_FUNCTION_827(v0);
     OUTLINED_FUNCTION_151(v1);
     OUTLINED_FUNCTION_0(v2, v3, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40B78);
+    __cxa_guard_release(byte_27FC40B78);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40B80))
+  if (__cxa_guard_acquire(byte_27FC40B80))
   {
     OUTLINED_FUNCTION_113(&unk_27FC47308);
     OUTLINED_FUNCTION_224(v0);
@@ -29220,12 +29203,12 @@ void getShapeType()
     OUTLINED_FUNCTION_666(v6);
     OUTLINED_FUNCTION_0(v7, v8, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40B80);
+    __cxa_guard_release(byte_27FC40B80);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40B88))
+  if (__cxa_guard_acquire(byte_27FC40B88))
   {
     v0 = &unk_27FC43528;
     do
@@ -29247,17 +29230,17 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40B60))
+  if (__cxa_guard_acquire(byte_27FC40B60))
   {
     OUTLINED_FUNCTION_28(&unk_27FC42C38);
     OUTLINED_FUNCTION_0(v0, v1, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40B60);
+    __cxa_guard_release(byte_27FC40B60);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40B68))
+  if (__cxa_guard_acquire(byte_27FC40B68))
   {
     OUTLINED_FUNCTION_464(byte_27FC43C60);
     *(v0 + 4) = 7;
@@ -29271,12 +29254,12 @@ void getShapeType()
     *(v5 + 60) = v6;
     OUTLINED_FUNCTION_0(v7, v8, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40B68);
+    __cxa_guard_release(byte_27FC40B68);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40B70))
+  if (__cxa_guard_acquire(byte_27FC40B70))
   {
     v0 = &unk_27FC4E490;
     do
@@ -29429,7 +29412,7 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40B48))
+  if (__cxa_guard_acquire(byte_27FC40B48))
   {
     OUTLINED_FUNCTION_76(&unk_27FC42C10);
     *(v0 + 12) = 12;
@@ -29439,12 +29422,12 @@ void getShapeType()
     OUTLINED_FUNCTION_227(v2);
     OUTLINED_FUNCTION_0(v3, v4, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40B48);
+    __cxa_guard_release(byte_27FC40B48);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40B50))
+  if (__cxa_guard_acquire(byte_27FC40B50))
   {
     OUTLINED_FUNCTION_77(&unk_27FC44598);
     *(v0 + 20) = 21600;
@@ -29456,12 +29439,12 @@ void getShapeType()
     *(v5 + 76) = 0;
     OUTLINED_FUNCTION_0(v6, v7, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40B50);
+    __cxa_guard_release(byte_27FC40B50);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40B30))
+  if (__cxa_guard_acquire(byte_27FC40B30))
   {
     OUTLINED_FUNCTION_89(&unk_27FC42BE8);
     OUTLINED_FUNCTION_619(v0);
@@ -29471,12 +29454,12 @@ void getShapeType()
     OUTLINED_FUNCTION_540(v1);
     OUTLINED_FUNCTION_0(v3, v4, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40B30);
+    __cxa_guard_release(byte_27FC40B30);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40B38))
+  if (__cxa_guard_acquire(byte_27FC40B38))
   {
     byte_27FC4B81C = 0;
     OUTLINED_FUNCTION_128(&byte_27FC4B81C);
@@ -29537,12 +29520,12 @@ void getShapeType()
     *(v4 + 252) = 0;
     OUTLINED_FUNCTION_0(v8, v9, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40B38);
+    __cxa_guard_release(byte_27FC40B38);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40B18))
+  if (__cxa_guard_acquire(byte_27FC40B18))
   {
     OUTLINED_FUNCTION_58(&unk_27FC45230);
     *(v0 + 12) = 13;
@@ -29560,12 +29543,12 @@ void getShapeType()
     *(v8 + 92) = v9;
     OUTLINED_FUNCTION_0(v10, v11, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40B18);
+    __cxa_guard_release(byte_27FC40B18);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40B20))
+  if (__cxa_guard_acquire(byte_27FC40B20))
   {
     OUTLINED_FUNCTION_344(&unk_27FC48704);
     *(v0 + 12) = 10800;
@@ -29591,12 +29574,12 @@ void getShapeType()
     *(v12 + 156) = 0;
     OUTLINED_FUNCTION_0(v14, v15, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40B20);
+    __cxa_guard_release(byte_27FC40B20);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40B00))
+  if (__cxa_guard_acquire(byte_27FC40B00))
   {
     OUTLINED_FUNCTION_58(&unk_27FC451D0);
     OUTLINED_FUNCTION_354(v0);
@@ -29613,12 +29596,12 @@ void getShapeType()
     *(v8 + 92) = v9;
     OUTLINED_FUNCTION_0(v10, v11, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40B00);
+    __cxa_guard_release(byte_27FC40B00);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40B08))
+  if (__cxa_guard_acquire(byte_27FC40B08))
   {
     byte_27FC48664 = 0;
     dword_27FC48668 = 10800;
@@ -29646,24 +29629,24 @@ void getShapeType()
     OUTLINED_FUNCTION_713(v10);
     OUTLINED_FUNCTION_0(v12, v13, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40B08);
+    __cxa_guard_release(byte_27FC40B08);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40AE8))
+  if (__cxa_guard_acquire(byte_27FC40AE8))
   {
     word_27FC426A0 = 1;
     OUTLINED_FUNCTION_722(&word_27FC426A0);
     OUTLINED_FUNCTION_14(v0);
     OUTLINED_FUNCTION_0(v1, v2, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40AE8);
+    __cxa_guard_release(byte_27FC40AE8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40AF0))
+  if (__cxa_guard_acquire(byte_27FC40AF0))
   {
     OUTLINED_FUNCTION_36(&unk_27FC45170);
     OUTLINED_FUNCTION_488(v0);
@@ -29678,12 +29661,12 @@ void getShapeType()
     *(v7 + 92) = v8;
     OUTLINED_FUNCTION_0(v9, v10, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40AF0);
+    __cxa_guard_release(byte_27FC40AF0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40AF8))
+  if (__cxa_guard_acquire(byte_27FC40AF8))
   {
     v0 = &xmmword_27FC426C0 + 1;
     do
@@ -29699,7 +29682,7 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40AD0))
+  if (__cxa_guard_acquire(byte_27FC40AD0))
   {
     OUTLINED_FUNCTION_89(&unk_27FC43318);
     OUTLINED_FUNCTION_619(v0);
@@ -29712,12 +29695,12 @@ void getShapeType()
     *(v3 + 44) = v5;
     OUTLINED_FUNCTION_0(v6, v7, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40AD0);
+    __cxa_guard_release(byte_27FC40AD0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40AD8))
+  if (__cxa_guard_acquire(byte_27FC40AD8))
   {
     byte_27FC4EAD8 = 0;
     dword_27FC4EADC = 3600;
@@ -29824,12 +29807,12 @@ void getShapeType()
     *(v0 + 412) = v2;
     OUTLINED_FUNCTION_0(19085, 18485, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40AD8);
+    __cxa_guard_release(byte_27FC40AD8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40AB8))
+  if (__cxa_guard_acquire(byte_27FC40AB8))
   {
     OUTLINED_FUNCTION_49(&unk_27FC43C20);
     OUTLINED_FUNCTION_91(v0);
@@ -29838,12 +29821,12 @@ void getShapeType()
     OUTLINED_FUNCTION_243(v1);
     OUTLINED_FUNCTION_0(v3, v4, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40AB8);
+    __cxa_guard_release(byte_27FC40AB8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40AC0))
+  if (__cxa_guard_acquire(byte_27FC40AC0))
   {
     OUTLINED_FUNCTION_36(&unk_27FC44548);
     OUTLINED_FUNCTION_465(v0);
@@ -29855,46 +29838,46 @@ void getShapeType()
     OUTLINED_FUNCTION_558(v4);
     OUTLINED_FUNCTION_0(v5, v6, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40AC0);
+    __cxa_guard_release(byte_27FC40AC0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40AA0))
+  if (__cxa_guard_acquire(byte_27FC40AA0))
   {
     OUTLINED_FUNCTION_89(&unk_27FC42620);
     OUTLINED_FUNCTION_14(v0);
     OUTLINED_FUNCTION_0(v1, v2, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40AA0);
+    __cxa_guard_release(byte_27FC40AA0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40AA8))
+  if (__cxa_guard_acquire(byte_27FC40AA8))
   {
     OUTLINED_FUNCTION_36(&unk_27FC432E8);
     OUTLINED_FUNCTION_465(v0);
     OUTLINED_FUNCTION_515(v1);
     OUTLINED_FUNCTION_0(v2, v3, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40AA8);
+    __cxa_guard_release(byte_27FC40AA8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40A88))
+  if (__cxa_guard_acquire(byte_27FC40A88))
   {
     OUTLINED_FUNCTION_89(&unk_27FC425E0);
     OUTLINED_FUNCTION_14(v0);
     OUTLINED_FUNCTION_0(v1, v2, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40A88);
+    __cxa_guard_release(byte_27FC40A88);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40A90))
+  if (__cxa_guard_acquire(byte_27FC40A90))
   {
     OUTLINED_FUNCTION_77(&unk_27FC432B8);
     OUTLINED_FUNCTION_478(v0);
@@ -29903,12 +29886,12 @@ void getShapeType()
     *(v3 + 44) = v4;
     OUTLINED_FUNCTION_0(v5, v6, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40A90);
+    __cxa_guard_release(byte_27FC40A90);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40A70))
+  if (__cxa_guard_acquire(byte_27FC40A70))
   {
     OUTLINED_FUNCTION_73(&unk_27FC43BE0);
     OUTLINED_FUNCTION_91(v0);
@@ -29917,12 +29900,12 @@ void getShapeType()
     OUTLINED_FUNCTION_243(v1);
     OUTLINED_FUNCTION_0(v3, v4, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40A70);
+    __cxa_guard_release(byte_27FC40A70);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40A78))
+  if (__cxa_guard_acquire(byte_27FC40A78))
   {
     OUTLINED_FUNCTION_29(&unk_27FC45110);
     OUTLINED_FUNCTION_291(v0);
@@ -29931,12 +29914,12 @@ void getShapeType()
     *(v3 + 92) = v4;
     OUTLINED_FUNCTION_0(v5, v6, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40A78);
+    __cxa_guard_release(byte_27FC40A78);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40A80))
+  if (__cxa_guard_acquire(byte_27FC40A80))
   {
     v0 = &xmmword_27FC425C0 + 1;
     do
@@ -29952,17 +29935,17 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40A58))
+  if (__cxa_guard_acquire(byte_27FC40A58))
   {
     OUTLINED_FUNCTION_21(&unk_27FC42580);
     OUTLINED_FUNCTION_0(v0, v1, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40A58);
+    __cxa_guard_release(byte_27FC40A58);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40A60))
+  if (__cxa_guard_acquire(byte_27FC40A60))
   {
     byte_27FC43BA0 = 0;
     OUTLINED_FUNCTION_217(&byte_27FC43BA0);
@@ -29973,12 +29956,12 @@ void getShapeType()
     *(v2 + 60) = 0;
     OUTLINED_FUNCTION_0(v3, v4, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40A60);
+    __cxa_guard_release(byte_27FC40A60);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40A68))
+  if (__cxa_guard_acquire(byte_27FC40A68))
   {
     v0 = &xmmword_27FC425A0 + 1;
     do
@@ -29994,7 +29977,7 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40A40))
+  if (__cxa_guard_acquire(byte_27FC40A40))
   {
     OUTLINED_FUNCTION_89(&unk_27FC450B0);
     *(v0 + 8) = 4;
@@ -30003,12 +29986,12 @@ void getShapeType()
     OUTLINED_FUNCTION_157(v2);
     OUTLINED_FUNCTION_0(v3, v4, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40A40);
+    __cxa_guard_release(byte_27FC40A40);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40A48))
+  if (__cxa_guard_acquire(byte_27FC40A48))
   {
     OUTLINED_FUNCTION_29(&unk_27FC480DC);
     OUTLINED_FUNCTION_258(v0);
@@ -30024,12 +30007,12 @@ void getShapeType()
     *(v6 + 140) = v7;
     OUTLINED_FUNCTION_0(v8, v9, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40A48);
+    __cxa_guard_release(byte_27FC40A48);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40A50))
+  if (__cxa_guard_acquire(byte_27FC40A50))
   {
     v0 = &xmmword_27FC42560 + 1;
     do
@@ -30045,7 +30028,7 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40A28))
+  if (__cxa_guard_acquire(byte_27FC40A28))
   {
     OUTLINED_FUNCTION_89(&unk_27FC45050);
     *(v0 + 8) = 4;
@@ -30054,12 +30037,12 @@ void getShapeType()
     OUTLINED_FUNCTION_157(v2);
     OUTLINED_FUNCTION_0(v3, v4, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40A28);
+    __cxa_guard_release(byte_27FC40A28);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40A30))
+  if (__cxa_guard_acquire(byte_27FC40A30))
   {
     OUTLINED_FUNCTION_29(&unk_27FC4804C);
     OUTLINED_FUNCTION_258(v0);
@@ -30075,12 +30058,12 @@ void getShapeType()
     *(v7 + 140) = v9;
     OUTLINED_FUNCTION_0(v10, v11, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40A30);
+    __cxa_guard_release(byte_27FC40A30);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40A38))
+  if (__cxa_guard_acquire(byte_27FC40A38))
   {
     v0 = &xmmword_27FC42540 + 1;
     do
@@ -30096,7 +30079,7 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40A10))
+  if (__cxa_guard_acquire(byte_27FC40A10))
   {
     OUTLINED_FUNCTION_89(&unk_27FC43288);
     *(v0 + 8) = 8;
@@ -30106,13 +30089,13 @@ void getShapeType()
     OUTLINED_FUNCTION_285(v2);
     OUTLINED_FUNCTION_0(v4, v5, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40A10);
+    __cxa_guard_release(byte_27FC40A10);
   }
 }
 
 {
   OUTLINED_FUNCTION_766();
-  if (__cxa_guard_acquire(&qword_27FC40A18))
+  if (__cxa_guard_acquire(byte_27FC40A18))
   {
     byte_27FC58660 = 0;
     OUTLINED_FUNCTION_467(&byte_27FC58660);
@@ -30324,19 +30307,19 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC409F8))
+  if (__cxa_guard_acquire(byte_27FC409F8))
   {
     OUTLINED_FUNCTION_89(&unk_27FC424E0);
     OUTLINED_FUNCTION_194(v0);
     OUTLINED_FUNCTION_298(v1);
     OUTLINED_FUNCTION_0(v2, v3, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC409F8);
+    __cxa_guard_release(byte_27FC409F8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40A00))
+  if (__cxa_guard_acquire(byte_27FC40A00))
   {
     byte_27FC444F8 = 0;
     dword_27FC444FC = 4321;
@@ -30347,12 +30330,12 @@ void getShapeType()
     *(v3 + 76) = 4338;
     OUTLINED_FUNCTION_0(v4, v5, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40A00);
+    __cxa_guard_release(byte_27FC40A00);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40A08))
+  if (__cxa_guard_acquire(byte_27FC40A08))
   {
     v0 = &xmmword_27FC42500 + 1;
     do
@@ -30368,7 +30351,7 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC409E0))
+  if (__cxa_guard_acquire(byte_27FC409E0))
   {
     OUTLINED_FUNCTION_89(&unk_27FC424A0);
     OUTLINED_FUNCTION_619(v0);
@@ -30376,24 +30359,24 @@ void getShapeType()
     OUTLINED_FUNCTION_201(v1);
     OUTLINED_FUNCTION_0(v2, v3, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC409E0);
+    __cxa_guard_release(byte_27FC409E0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC409E8))
+  if (__cxa_guard_acquire(byte_27FC409E8))
   {
     OUTLINED_FUNCTION_29(&unk_27FC444A8);
     OUTLINED_FUNCTION_258(v0);
     *(v1 + 76) = 0;
     OUTLINED_FUNCTION_0(v2, v3, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC409E8);
+    __cxa_guard_release(byte_27FC409E8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC409F0))
+  if (__cxa_guard_acquire(byte_27FC409F0))
   {
     v0 = &xmmword_27FC424C0 + 1;
     do
@@ -30409,17 +30392,17 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC409C8))
+  if (__cxa_guard_acquire(byte_27FC409C8))
   {
     OUTLINED_FUNCTION_21(&unk_27FC42460);
     OUTLINED_FUNCTION_0(v0, v1, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC409C8);
+    __cxa_guard_release(byte_27FC409C8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC409D0))
+  if (__cxa_guard_acquire(byte_27FC409D0))
   {
     OUTLINED_FUNCTION_36(&unk_27FC43B60);
     OUTLINED_FUNCTION_465(v0);
@@ -30428,22 +30411,22 @@ void getShapeType()
     OUTLINED_FUNCTION_367(v2);
     OUTLINED_FUNCTION_0(v3, v4, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC409D0);
+    __cxa_guard_release(byte_27FC409D0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC409B0))
+  if (__cxa_guard_acquire(byte_27FC409B0))
   {
     OUTLINED_FUNCTION_21(&unk_27FC42420);
     OUTLINED_FUNCTION_0(v0, v1, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC409B0);
+    __cxa_guard_release(byte_27FC409B0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC409B8))
+  if (__cxa_guard_acquire(byte_27FC409B8))
   {
     OUTLINED_FUNCTION_203(&unk_27FC43B20);
     *(v0 + 12) = 4292;
@@ -30455,12 +30438,12 @@ void getShapeType()
     *(v2 + 60) = v3;
     OUTLINED_FUNCTION_0(v4, v5, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC409B8);
+    __cxa_guard_release(byte_27FC409B8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC409C0))
+  if (__cxa_guard_acquire(byte_27FC409C0))
   {
     v0 = &xmmword_27FC42440 + 1;
     do
@@ -30476,18 +30459,18 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40998))
+  if (__cxa_guard_acquire(byte_27FC40998))
   {
     OUTLINED_FUNCTION_89(&unk_27FC423E0);
     OUTLINED_FUNCTION_14(v0);
     OUTLINED_FUNCTION_0(v1, v2, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40998);
+    __cxa_guard_release(byte_27FC40998);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC409A0))
+  if (__cxa_guard_acquire(byte_27FC409A0))
   {
     byte_27FC44FF0 = 0;
     OUTLINED_FUNCTION_128(&byte_27FC44FF0);
@@ -30502,12 +30485,12 @@ void getShapeType()
     *(v7 + 92) = v8;
     OUTLINED_FUNCTION_0(v9, v10, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC409A0);
+    __cxa_guard_release(byte_27FC409A0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC409A8))
+  if (__cxa_guard_acquire(byte_27FC409A8))
   {
     v0 = &xmmword_27FC42400 + 1;
     do
@@ -30522,7 +30505,7 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40980))
+  if (__cxa_guard_acquire(byte_27FC40980))
   {
     OUTLINED_FUNCTION_76(&unk_27FC43258);
     OUTLINED_FUNCTION_354(v0);
@@ -30530,12 +30513,12 @@ void getShapeType()
     OUTLINED_FUNCTION_285(v1);
     OUTLINED_FUNCTION_0(v3, v4, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40980);
+    __cxa_guard_release(byte_27FC40980);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40988))
+  if (__cxa_guard_acquire(byte_27FC40988))
   {
     byte_27FC44F90 = 0;
     dword_27FC44F94 = 3475;
@@ -30550,12 +30533,12 @@ void getShapeType()
     *(v5 + 92) = 0;
     OUTLINED_FUNCTION_0(v6, v7, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40988);
+    __cxa_guard_release(byte_27FC40988);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40968))
+  if (__cxa_guard_acquire(byte_27FC40968))
   {
     OUTLINED_FUNCTION_89(&unk_27FC45A28);
     *(v0 + 8) = 10;
@@ -30581,12 +30564,12 @@ void getShapeType()
     *(v5 + 100) = v9;
     OUTLINED_FUNCTION_0(v10, v11, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40968);
+    __cxa_guard_release(byte_27FC40968);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40970))
+  if (__cxa_guard_acquire(byte_27FC40970))
   {
     OUTLINED_FUNCTION_203(&unk_27FC58340);
     OUTLINED_FUNCTION_542(v0);
@@ -30775,12 +30758,12 @@ void getShapeType()
     *(v15 + 796) = 14467;
     OUTLINED_FUNCTION_0(v18, v19, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40970);
+    __cxa_guard_release(byte_27FC40970);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40950))
+  if (__cxa_guard_acquire(byte_27FC40950))
   {
     OUTLINED_FUNCTION_89(&unk_27FC42BC0);
     *(v0 + 8) = 10;
@@ -30791,12 +30774,12 @@ void getShapeType()
     OUTLINED_FUNCTION_227(v3);
     OUTLINED_FUNCTION_0(v4, v5, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40950);
+    __cxa_guard_release(byte_27FC40950);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40958))
+  if (__cxa_guard_acquire(byte_27FC40958))
   {
     OUTLINED_FUNCTION_203(&unk_27FC52DD0);
     OUTLINED_FUNCTION_542(v0);
@@ -30917,24 +30900,24 @@ void getShapeType()
     *(v15 + 524) = 0;
     OUTLINED_FUNCTION_0(v17, v18, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40958);
+    __cxa_guard_release(byte_27FC40958);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40938))
+  if (__cxa_guard_acquire(byte_27FC40938))
   {
     OUTLINED_FUNCTION_73(&unk_27FC44F30);
     OUTLINED_FUNCTION_91(v0);
     OUTLINED_FUNCTION_171(v1);
     OUTLINED_FUNCTION_0(v2, v3, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40938);
+    __cxa_guard_release(byte_27FC40938);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40940))
+  if (__cxa_guard_acquire(byte_27FC40940))
   {
     OUTLINED_FUNCTION_34(&unk_27FC47288);
     OUTLINED_FUNCTION_163(v0);
@@ -30950,12 +30933,12 @@ void getShapeType()
     *(v9 + 124) = v10;
     OUTLINED_FUNCTION_0(v11, v12, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40940);
+    __cxa_guard_release(byte_27FC40940);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40948))
+  if (__cxa_guard_acquire(byte_27FC40948))
   {
     v0 = &xmmword_27FC42360 + 1;
     do
@@ -30971,19 +30954,19 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40920))
+  if (__cxa_guard_acquire(byte_27FC40920))
   {
     OUTLINED_FUNCTION_73(&unk_27FC44ED0);
     OUTLINED_FUNCTION_91(v0);
     OUTLINED_FUNCTION_171(v1);
     OUTLINED_FUNCTION_0(v2, v3, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40920);
+    __cxa_guard_release(byte_27FC40920);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40928))
+  if (__cxa_guard_acquire(byte_27FC40928))
   {
     OUTLINED_FUNCTION_34(&unk_27FC47208);
     OUTLINED_FUNCTION_163(v0);
@@ -31001,12 +30984,12 @@ void getShapeType()
     *(v7 + 124) = v9;
     OUTLINED_FUNCTION_0(v10, v11, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40928);
+    __cxa_guard_release(byte_27FC40928);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40930))
+  if (__cxa_guard_acquire(byte_27FC40930))
   {
     v0 = &xmmword_27FC42340 + 1;
     do
@@ -31021,17 +31004,17 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40908))
+  if (__cxa_guard_acquire(byte_27FC40908))
   {
     OUTLINED_FUNCTION_21(&unk_27FC42300);
     OUTLINED_FUNCTION_0(v0, v1, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40908);
+    __cxa_guard_release(byte_27FC40908);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40910))
+  if (__cxa_guard_acquire(byte_27FC40910))
   {
     byte_27FC43AE0 = 0;
     dword_27FC43AE4 = 4321;
@@ -31041,12 +31024,12 @@ void getShapeType()
     *(v2 + 60) = v3;
     OUTLINED_FUNCTION_0(v4, v5, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40910);
+    __cxa_guard_release(byte_27FC40910);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40918))
+  if (__cxa_guard_acquire(byte_27FC40918))
   {
     v0 = &xmmword_27FC42320 + 1;
     do
@@ -31061,27 +31044,27 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC408F0))
+  if (__cxa_guard_acquire(byte_27FC408F0))
   {
     OUTLINED_FUNCTION_21(&unk_27FC422C0);
     OUTLINED_FUNCTION_0(v0, v1, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC408F0);
+    __cxa_guard_release(byte_27FC408F0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC408F8))
+  if (__cxa_guard_acquire(byte_27FC408F8))
   {
     OUTLINED_FUNCTION_29(&unk_27FC43AA0);
     OUTLINED_FUNCTION_0(v0, v1, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC408F8);
+    __cxa_guard_release(byte_27FC408F8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40900))
+  if (__cxa_guard_acquire(byte_27FC40900))
   {
     v0 = &xmmword_27FC422E0 + 1;
     do
@@ -31097,17 +31080,17 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC408E0))
+  if (__cxa_guard_acquire(byte_27FC408E0))
   {
     OUTLINED_FUNCTION_21(&unk_27FC422A0);
     OUTLINED_FUNCTION_0(v0, v1, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC408E0);
+    __cxa_guard_release(byte_27FC408E0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC408E8))
+  if (__cxa_guard_acquire(byte_27FC408E8))
   {
     OUTLINED_FUNCTION_636(&unk_27FC43A60);
     OUTLINED_FUNCTION_789(v0);
@@ -31119,7 +31102,7 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC408C0))
+  if (__cxa_guard_acquire(byte_27FC408C0))
   {
     OUTLINED_FUNCTION_594(&unk_27FC4BC2C);
     *(v0 + 8) = 2;
@@ -31128,12 +31111,12 @@ void getShapeType()
     OUTLINED_FUNCTION_462(v2);
     OUTLINED_FUNCTION_0(v3, v4, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC408C0);
+    __cxa_guard_release(byte_27FC408C0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC408C8))
+  if (__cxa_guard_acquire(byte_27FC408C8))
   {
     OUTLINED_FUNCTION_464(byte_27FC58FD0);
     OUTLINED_FUNCTION_722(v0);
@@ -31323,13 +31306,13 @@ void getShapeType()
     OUTLINED_FUNCTION_691(29, v16);
     OUTLINED_FUNCTION_0(v28, v29, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC408C8);
+    __cxa_guard_release(byte_27FC408C8);
   }
 }
 
 {
   OUTLINED_FUNCTION_766();
-  if (__cxa_guard_acquire(&qword_27FC408D0))
+  if (__cxa_guard_acquire(byte_27FC408D0))
   {
     v0 = &unk_27FC5DE30;
     do
@@ -32084,7 +32067,7 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC408A0))
+  if (__cxa_guard_acquire(byte_27FC408A0))
   {
     word_27FC4BB1C = 3;
     OUTLINED_FUNCTION_722(&word_27FC4BB1C);
@@ -32094,12 +32077,12 @@ void getShapeType()
     OUTLINED_FUNCTION_462(v2);
     OUTLINED_FUNCTION_0(v3, v4, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC408A0);
+    __cxa_guard_release(byte_27FC408A0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC408A8))
+  if (__cxa_guard_acquire(byte_27FC408A8))
   {
     OUTLINED_FUNCTION_464(byte_27FC58CA0);
     OUTLINED_FUNCTION_722(v0);
@@ -32285,13 +32268,13 @@ void getShapeType()
     OUTLINED_FUNCTION_691(32, v17);
     OUTLINED_FUNCTION_0(v28, v29, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC408A8);
+    __cxa_guard_release(byte_27FC408A8);
   }
 }
 
 {
   OUTLINED_FUNCTION_766();
-  if (__cxa_guard_acquire(&qword_27FC408B0))
+  if (__cxa_guard_acquire(byte_27FC408B0))
   {
     v0 = &unk_27FC5ECD8;
     do
@@ -33086,7 +33069,7 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40880))
+  if (__cxa_guard_acquire(byte_27FC40880))
   {
     word_27FC4DCE8 = 11;
     dword_27FC4DCEC = 9;
@@ -33161,12 +33144,12 @@ void getShapeType()
     *(v36 + 380) = v37;
     OUTLINED_FUNCTION_0(v41, v42, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40880);
+    __cxa_guard_release(byte_27FC40880);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40888))
+  if (__cxa_guard_acquire(byte_27FC40888))
   {
     dword_27FC62500 = 2387;
     dword_27FC62508 = 9757;
@@ -33578,12 +33561,12 @@ void getShapeType()
     *(v1 + 1400) = 0;
     OUTLINED_FUNCTION_0(v2, v3, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40888);
+    __cxa_guard_release(byte_27FC40888);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40890))
+  if (__cxa_guard_acquire(byte_27FC40890))
   {
     v0 = &unk_27FC5C33C;
     do
@@ -34149,12 +34132,12 @@ void getShapeType()
     OUTLINED_FUNCTION_499(v96);
     OUTLINED_FUNCTION_0(v97, v98, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40890);
+    __cxa_guard_release(byte_27FC40890);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40860))
+  if (__cxa_guard_acquire(byte_27FC40860))
   {
     OUTLINED_FUNCTION_705(word_27FC46578);
     OUTLINED_FUNCTION_124(v0);
@@ -34163,12 +34146,12 @@ void getShapeType()
     OUTLINED_FUNCTION_153(v2);
     OUTLINED_FUNCTION_0(v4, v5, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40860);
+    __cxa_guard_release(byte_27FC40860);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40868))
+  if (__cxa_guard_acquire(byte_27FC40868))
   {
     OUTLINED_FUNCTION_97(&_MergedGlobals_714);
     OUTLINED_FUNCTION_566(v0);
@@ -34283,12 +34266,12 @@ void getShapeType()
     *(v14 + 492) = v20;
     OUTLINED_FUNCTION_0(v22, v23, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40868);
+    __cxa_guard_release(byte_27FC40868);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40870))
+  if (__cxa_guard_acquire(byte_27FC40870))
   {
     v0 = &unk_27FC5F774;
     do
@@ -35045,12 +35028,12 @@ void getShapeType()
     OUTLINED_FUNCTION_373(&dword_27FC5FCAC);
     OUTLINED_FUNCTION_0(v106, v107, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40870);
+    __cxa_guard_release(byte_27FC40870);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40840))
+  if (__cxa_guard_acquire(byte_27FC40840))
   {
     OUTLINED_FUNCTION_705(word_27FC46508);
     OUTLINED_FUNCTION_124(v0);
@@ -35059,12 +35042,12 @@ void getShapeType()
     OUTLINED_FUNCTION_153(v2);
     OUTLINED_FUNCTION_0(v3, v4, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40840);
+    __cxa_guard_release(byte_27FC40840);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40848))
+  if (__cxa_guard_acquire(byte_27FC40848))
   {
     OUTLINED_FUNCTION_148(&unk_27FC51210);
     *(v0 + 12) = 22;
@@ -35177,12 +35160,12 @@ void getShapeType()
     *(v17 + 492) = 0;
     OUTLINED_FUNCTION_0(v24, v25, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40848);
+    __cxa_guard_release(byte_27FC40848);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40850))
+  if (__cxa_guard_acquire(byte_27FC40850))
   {
     v0 = &unk_27FC5E7EC;
     do
@@ -35867,12 +35850,12 @@ void getShapeType()
     OUTLINED_FUNCTION_373(&dword_27FC5ECB4);
     OUTLINED_FUNCTION_0(v104, v105, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40850);
+    __cxa_guard_release(byte_27FC40850);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40820))
+  if (__cxa_guard_acquire(byte_27FC40820))
   {
     OUTLINED_FUNCTION_705(word_27FC46498);
     OUTLINED_FUNCTION_124(v0);
@@ -35881,12 +35864,12 @@ void getShapeType()
     OUTLINED_FUNCTION_153(v2);
     OUTLINED_FUNCTION_0(v3, v4, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40820);
+    __cxa_guard_release(byte_27FC40820);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40828))
+  if (__cxa_guard_acquire(byte_27FC40828))
   {
     OUTLINED_FUNCTION_464(byte_27FC51020);
     *(v0 + 4) = 22;
@@ -35994,12 +35977,12 @@ void getShapeType()
     *(v22 + 492) = v23;
     OUTLINED_FUNCTION_0(v27, v28, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40828);
+    __cxa_guard_release(byte_27FC40828);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40830))
+  if (__cxa_guard_acquire(byte_27FC40830))
   {
     v0 = &unk_27FC5E300;
     do
@@ -36684,12 +36667,12 @@ void getShapeType()
     OUTLINED_FUNCTION_373(&dword_27FC5E7C8);
     OUTLINED_FUNCTION_0(v104, v105, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40830);
+    __cxa_guard_release(byte_27FC40830);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40800))
+  if (__cxa_guard_acquire(byte_27FC40800))
   {
     OUTLINED_FUNCTION_705(word_27FC46428);
     OUTLINED_FUNCTION_124(v0);
@@ -36698,12 +36681,12 @@ void getShapeType()
     OUTLINED_FUNCTION_153(v2);
     OUTLINED_FUNCTION_0(v4, v5, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40800);
+    __cxa_guard_release(byte_27FC40800);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40808))
+  if (__cxa_guard_acquire(byte_27FC40808))
   {
     OUTLINED_FUNCTION_97(&unk_27FC50E30);
     OUTLINED_FUNCTION_566(v0);
@@ -36816,12 +36799,12 @@ void getShapeType()
     *(v13 + 492) = v18;
     OUTLINED_FUNCTION_0(v21, v22, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40808);
+    __cxa_guard_release(byte_27FC40808);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40810))
+  if (__cxa_guard_acquire(byte_27FC40810))
   {
     v0 = &unk_27FC5F218;
     do
@@ -37578,12 +37561,12 @@ void getShapeType()
     OUTLINED_FUNCTION_373(&dword_27FC5F750);
     OUTLINED_FUNCTION_0(v106, v107, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40810);
+    __cxa_guard_release(byte_27FC40810);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40818))
+  if (__cxa_guard_acquire(byte_27FC40818))
   {
     v0 = &unk_27FC421C4;
     do
@@ -37599,7 +37582,7 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC407E8))
+  if (__cxa_guard_acquire(byte_27FC407E8))
   {
     OUTLINED_FUNCTION_76(&unk_27FC44458);
     *(v0 + 12) = 0;
@@ -37615,12 +37598,12 @@ void getShapeType()
     *(v4 + 76) = 4;
     OUTLINED_FUNCTION_0(v5, v6, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC407E8);
+    __cxa_guard_release(byte_27FC407E8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC407F0))
+  if (__cxa_guard_acquire(byte_27FC407F0))
   {
     byte_27FC497F4 = 0;
     OUTLINED_FUNCTION_467(&byte_27FC497F4);
@@ -37654,12 +37637,12 @@ void getShapeType()
     *(v13 + 188) = v14;
     OUTLINED_FUNCTION_0(v16, v17, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC407F0);
+    __cxa_guard_release(byte_27FC407F0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC407F8))
+  if (__cxa_guard_acquire(byte_27FC407F8))
   {
     v0 = &xmmword_27FC421A0 + 1;
     do
@@ -37674,7 +37657,7 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC407C8))
+  if (__cxa_guard_acquire(byte_27FC407C8))
   {
     OUTLINED_FUNCTION_679(&unk_27FC42160);
     *(v0 + 8) = 5;
@@ -37682,12 +37665,12 @@ void getShapeType()
     OUTLINED_FUNCTION_32(v0);
     OUTLINED_FUNCTION_0(v1, v2, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC407C8);
+    __cxa_guard_release(byte_27FC407C8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC407D0))
+  if (__cxa_guard_acquire(byte_27FC407D0))
   {
     OUTLINED_FUNCTION_125(&unk_27FC4944C);
     OUTLINED_FUNCTION_507(v0);
@@ -37702,12 +37685,12 @@ void getShapeType()
     OUTLINED_FUNCTION_480(v5);
     OUTLINED_FUNCTION_0(v6, v7, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC407D0);
+    __cxa_guard_release(byte_27FC407D0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC407D8))
+  if (__cxa_guard_acquire(byte_27FC407D8))
   {
     v0 = &unk_27FC60248;
     do
@@ -38354,12 +38337,12 @@ void getShapeType()
     OUTLINED_FUNCTION_317();
     OUTLINED_FUNCTION_0(v115, v116, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC407D8);
+    __cxa_guard_release(byte_27FC407D8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC407E0))
+  if (__cxa_guard_acquire(byte_27FC407E0))
   {
     v0 = &xmmword_27FC42180 + 1;
     do
@@ -38375,7 +38358,7 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC407A8))
+  if (__cxa_guard_acquire(byte_27FC407A8))
   {
     OUTLINED_FUNCTION_679(&unk_27FC42120);
     *(v0 + 8) = 5;
@@ -38383,12 +38366,12 @@ void getShapeType()
     OUTLINED_FUNCTION_32(v0);
     OUTLINED_FUNCTION_0(v1, v2, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC407A8);
+    __cxa_guard_release(byte_27FC407A8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC407B0))
+  if (__cxa_guard_acquire(byte_27FC407B0))
   {
     OUTLINED_FUNCTION_125(&unk_27FC4939C);
     OUTLINED_FUNCTION_507(v0);
@@ -38403,12 +38386,12 @@ void getShapeType()
     OUTLINED_FUNCTION_480(v5);
     OUTLINED_FUNCTION_0(v6, v7, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC407B0);
+    __cxa_guard_release(byte_27FC407B0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC407B8))
+  if (__cxa_guard_acquire(byte_27FC407B8))
   {
     v0 = &unk_27FC5FCD0;
     do
@@ -39055,12 +39038,12 @@ void getShapeType()
     OUTLINED_FUNCTION_317();
     OUTLINED_FUNCTION_0(v115, v116, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC407B8);
+    __cxa_guard_release(byte_27FC407B8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC407C0))
+  if (__cxa_guard_acquire(byte_27FC407C0))
   {
     v0 = &xmmword_27FC42140 + 1;
     do
@@ -39076,7 +39059,7 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40788))
+  if (__cxa_guard_acquire(byte_27FC40788))
   {
     OUTLINED_FUNCTION_302(&unk_27FC4D444);
     *(v0 + 8) = v1;
@@ -39148,12 +39131,12 @@ void getShapeType()
     *(v42 + 348) = v43;
     OUTLINED_FUNCTION_0(v44, v45, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40788);
+    __cxa_guard_release(byte_27FC40788);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40790))
+  if (__cxa_guard_acquire(byte_27FC40790))
   {
     OUTLINED_FUNCTION_148(&_MergedGlobals_718);
     *(v0 + 12) = 5;
@@ -39302,12 +39285,12 @@ void getShapeType()
     *(v18 + 636) = v21;
     OUTLINED_FUNCTION_0(v26, v27, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40790);
+    __cxa_guard_release(byte_27FC40790);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40798))
+  if (__cxa_guard_acquire(byte_27FC40798))
   {
     v0 = &unk_27FC4EFC8;
     do
@@ -39544,12 +39527,12 @@ void getShapeType()
     OUTLINED_FUNCTION_541(&dword_27FC4F148);
     OUTLINED_FUNCTION_0(v31, v32, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40798);
+    __cxa_guard_release(byte_27FC40798);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40768))
+  if (__cxa_guard_acquire(byte_27FC40768))
   {
     OUTLINED_FUNCTION_302(&unk_27FC4D2E4);
     *(v0 + 8) = v1;
@@ -39621,12 +39604,12 @@ void getShapeType()
     *(v42 + 348) = v43;
     OUTLINED_FUNCTION_0(v44, v45, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40768);
+    __cxa_guard_release(byte_27FC40768);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40770))
+  if (__cxa_guard_acquire(byte_27FC40770))
   {
     OUTLINED_FUNCTION_464(byte_27FC54C10);
     *(v0 + 4) = 5;
@@ -39776,12 +39759,12 @@ void getShapeType()
     *(v13 + 636) = v19;
     OUTLINED_FUNCTION_0(v20, v21, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40770);
+    __cxa_guard_release(byte_27FC40770);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40778))
+  if (__cxa_guard_acquire(byte_27FC40778))
   {
     v0 = &unk_27FC4EE24;
     do
@@ -40019,12 +40002,12 @@ void getShapeType()
     OUTLINED_FUNCTION_541(&dword_27FC4EFA4);
     OUTLINED_FUNCTION_0(v31, v32, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40778);
+    __cxa_guard_release(byte_27FC40778);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40748))
+  if (__cxa_guard_acquire(byte_27FC40748))
   {
     OUTLINED_FUNCTION_302(&unk_27FC4AE4C);
     OUTLINED_FUNCTION_619(v0);
@@ -40077,12 +40060,12 @@ void getShapeType()
     *(v24 + 236) = v28;
     OUTLINED_FUNCTION_0(v31, v32, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40748);
+    __cxa_guard_release(byte_27FC40748);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40750))
+  if (__cxa_guard_acquire(byte_27FC40750))
   {
     OUTLINED_FUNCTION_29(&unk_27FC4FD88);
     OUTLINED_FUNCTION_258(v0);
@@ -40178,12 +40161,12 @@ void getShapeType()
     *(v10 + 460) = v14;
     OUTLINED_FUNCTION_0(1, 16640, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40750);
+    __cxa_guard_release(byte_27FC40750);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40758))
+  if (__cxa_guard_acquire(byte_27FC40758))
   {
     v0 = &unk_27FC463C0;
     do
@@ -40226,12 +40209,12 @@ void getShapeType()
     OUTLINED_FUNCTION_307(v8);
     OUTLINED_FUNCTION_0(v9, v10, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40758);
+    __cxa_guard_release(byte_27FC40758);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40760))
+  if (__cxa_guard_acquire(byte_27FC40760))
   {
     v0 = &xmmword_27FC420C0 + 1;
     do
@@ -40247,7 +40230,7 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40728))
+  if (__cxa_guard_acquire(byte_27FC40728))
   {
     OUTLINED_FUNCTION_679(&unk_27FC41368);
     *(v0 + 8) = 1;
@@ -40255,12 +40238,12 @@ void getShapeType()
     OUTLINED_FUNCTION_362(v0);
     OUTLINED_FUNCTION_0(v1, v2, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40728);
+    __cxa_guard_release(byte_27FC40728);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40730))
+  if (__cxa_guard_acquire(byte_27FC40730))
   {
     OUTLINED_FUNCTION_125(&unk_27FC44E70);
     OUTLINED_FUNCTION_507(v0);
@@ -40276,12 +40259,12 @@ void getShapeType()
     *(v5 + 92) = 15;
     OUTLINED_FUNCTION_0(v8, v9, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40730);
+    __cxa_guard_release(byte_27FC40730);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40738))
+  if (__cxa_guard_acquire(byte_27FC40738))
   {
     v0 = &unk_27FC5D97C;
     do
@@ -40966,23 +40949,23 @@ void getShapeType()
     *(v98 + 24) = v101;
     OUTLINED_FUNCTION_0(v102, v103, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40738);
+    __cxa_guard_release(byte_27FC40738);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40708))
+  if (__cxa_guard_acquire(byte_27FC40708))
   {
     OUTLINED_FUNCTION_89(&unk_27FC42060);
     OUTLINED_FUNCTION_14(v0);
     OUTLINED_FUNCTION_0(v1, v2, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40708);
+    __cxa_guard_release(byte_27FC40708);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40710))
+  if (__cxa_guard_acquire(byte_27FC40710))
   {
     OUTLINED_FUNCTION_90(&unk_27FC47188);
     OUTLINED_FUNCTION_348(v0);
@@ -41003,12 +40986,12 @@ void getShapeType()
     *(v9 + 124) = v10;
     OUTLINED_FUNCTION_0(v11, v12, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40710);
+    __cxa_guard_release(byte_27FC40710);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40718))
+  if (__cxa_guard_acquire(byte_27FC40718))
   {
     v0 = &unk_27FC49F9C;
     do
@@ -41067,12 +41050,12 @@ void getShapeType()
     OUTLINED_FUNCTION_99(&unk_27FC4A03C);
     OUTLINED_FUNCTION_0(v9, v10, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40718);
+    __cxa_guard_release(byte_27FC40718);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40720))
+  if (__cxa_guard_acquire(byte_27FC40720))
   {
     v0 = &qword_27FC42080 + 1;
     do
@@ -41089,7 +41072,7 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC406E8))
+  if (__cxa_guard_acquire(byte_27FC406E8))
   {
     OUTLINED_FUNCTION_89(&unk_27FC44408);
     *(v0 + 8) = 6;
@@ -41104,12 +41087,12 @@ void getShapeType()
     *(v6 + 76) = 4;
     OUTLINED_FUNCTION_0(v7, v8, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC406E8);
+    __cxa_guard_release(byte_27FC406E8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC406F0))
+  if (__cxa_guard_acquire(byte_27FC406F0))
   {
     OUTLINED_FUNCTION_90(&unk_27FC4AD5C);
     OUTLINED_FUNCTION_348(v0);
@@ -41150,12 +41133,12 @@ void getShapeType()
     *(v16 + 236) = v18;
     OUTLINED_FUNCTION_0(v19, v20, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC406F0);
+    __cxa_guard_release(byte_27FC406F0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC406F8))
+  if (__cxa_guard_acquire(byte_27FC406F8))
   {
     v0 = &unk_27FC49ED8;
     do
@@ -41214,12 +41197,12 @@ void getShapeType()
     OUTLINED_FUNCTION_99(&unk_27FC49F78);
     OUTLINED_FUNCTION_0(v9, v10, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC406F8);
+    __cxa_guard_release(byte_27FC406F8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40700))
+  if (__cxa_guard_acquire(byte_27FC40700))
   {
     v0 = &qword_27FC42040 + 1;
     do
@@ -41236,18 +41219,18 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC406C8))
+  if (__cxa_guard_acquire(byte_27FC406C8))
   {
     OUTLINED_FUNCTION_89(&unk_27FC42000);
     OUTLINED_FUNCTION_14(v0);
     OUTLINED_FUNCTION_0(v1, v2, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC406C8);
+    __cxa_guard_release(byte_27FC406C8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC406D0))
+  if (__cxa_guard_acquire(byte_27FC406D0))
   {
     byte_27FC57100 = 0;
     dword_27FC57104 = 21600;
@@ -41440,12 +41423,12 @@ void getShapeType()
     *(v4 + 764) = 8;
     OUTLINED_FUNCTION_0(12, v7, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC406D0);
+    __cxa_guard_release(byte_27FC406D0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC406D8))
+  if (__cxa_guard_acquire(byte_27FC406D8))
   {
     v0 = &unk_27FC54268;
     do
@@ -41719,12 +41702,12 @@ void getShapeType()
     OUTLINED_FUNCTION_607();
     OUTLINED_FUNCTION_0(v35, v36, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC406D8);
+    __cxa_guard_release(byte_27FC406D8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC406E0))
+  if (__cxa_guard_acquire(byte_27FC406E0))
   {
     v0 = &xmmword_27FC42020 + 1;
     do
@@ -41741,7 +41724,7 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC406A8))
+  if (__cxa_guard_acquire(byte_27FC406A8))
   {
     OUTLINED_FUNCTION_73(&unk_27FC439E0);
     *(v0 + 20) = 12;
@@ -41752,12 +41735,12 @@ void getShapeType()
     *(v3 + 60) = 4;
     OUTLINED_FUNCTION_0(v4, v5, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC406A8);
+    __cxa_guard_release(byte_27FC406A8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC406B0))
+  if (__cxa_guard_acquire(byte_27FC406B0))
   {
     OUTLINED_FUNCTION_344(&unk_27FC492EC);
     *(v0 + 12) = 6079;
@@ -41789,12 +41772,12 @@ void getShapeType()
     *(v14 + 172) = v15;
     OUTLINED_FUNCTION_0(v16, v17, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC406B0);
+    __cxa_guard_release(byte_27FC406B0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC406B8))
+  if (__cxa_guard_acquire(byte_27FC406B8))
   {
     v0 = &unk_27FC4B234;
     do
@@ -41884,12 +41867,12 @@ void getShapeType()
     OUTLINED_FUNCTION_305(v14);
     OUTLINED_FUNCTION_0(v15, v16, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC406B8);
+    __cxa_guard_release(byte_27FC406B8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC406C0))
+  if (__cxa_guard_acquire(byte_27FC406C0))
   {
     v0 = &qword_27FC43A20 + 1;
     do
@@ -41915,18 +41898,18 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40688))
+  if (__cxa_guard_acquire(byte_27FC40688))
   {
     OUTLINED_FUNCTION_89(&unk_27FC41FE0);
     OUTLINED_FUNCTION_14(v0);
     OUTLINED_FUNCTION_0(v1, v2, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40688);
+    __cxa_guard_release(byte_27FC40688);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40690))
+  if (__cxa_guard_acquire(byte_27FC40690))
   {
     OUTLINED_FUNCTION_464(byte_27FC47FBC);
     *(v0 + 4) = 4;
@@ -41947,12 +41930,12 @@ void getShapeType()
     *(v13 + 140) = v14;
     OUTLINED_FUNCTION_0(v15, v16, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40690);
+    __cxa_guard_release(byte_27FC40690);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40698))
+  if (__cxa_guard_acquire(byte_27FC40698))
   {
     v0 = &unk_27FC517F0;
     do
@@ -42183,23 +42166,23 @@ void getShapeType()
     *(v49 + 20) = 3;
     OUTLINED_FUNCTION_0(v50, v51, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40698);
+    __cxa_guard_release(byte_27FC40698);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40668))
+  if (__cxa_guard_acquire(byte_27FC40668))
   {
     OUTLINED_FUNCTION_89(&unk_27FC41FC0);
     OUTLINED_FUNCTION_14(v0);
     OUTLINED_FUNCTION_0(v1, v2, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40668);
+    __cxa_guard_release(byte_27FC40668);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40670))
+  if (__cxa_guard_acquire(byte_27FC40670))
   {
     OUTLINED_FUNCTION_464(byte_27FC49734);
     *(v0 + 4) = 4;
@@ -42234,12 +42217,12 @@ void getShapeType()
     *(v18 + 188) = v19;
     OUTLINED_FUNCTION_0(v22, v23, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40670);
+    __cxa_guard_release(byte_27FC40670);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40678))
+  if (__cxa_guard_acquire(byte_27FC40678))
   {
     v0 = &unk_27FC4D718;
     do
@@ -42382,12 +42365,12 @@ void getShapeType()
     *(v30 + 20) = 3;
     OUTLINED_FUNCTION_0(v31, v32, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40678);
+    __cxa_guard_release(byte_27FC40678);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40648))
+  if (__cxa_guard_acquire(byte_27FC40648))
   {
     OUTLINED_FUNCTION_58(&unk_27FC434E8);
     OUTLINED_FUNCTION_354(v0);
@@ -42396,12 +42379,12 @@ void getShapeType()
     *(v2 + 52) = 4;
     OUTLINED_FUNCTION_0(v3, v4, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40648);
+    __cxa_guard_release(byte_27FC40648);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40650))
+  if (__cxa_guard_acquire(byte_27FC40650))
   {
     OUTLINED_FUNCTION_57(&unk_27FC46348);
     OUTLINED_FUNCTION_234(v0);
@@ -42419,12 +42402,12 @@ void getShapeType()
     *(v11 + 108) = v12;
     OUTLINED_FUNCTION_0(v13, v14, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40650);
+    __cxa_guard_release(byte_27FC40650);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40658))
+  if (__cxa_guard_acquire(byte_27FC40658))
   {
     v0 = &unk_27FC4D19C;
     do
@@ -42539,12 +42522,12 @@ void getShapeType()
     OUTLINED_FUNCTION_499(v17);
     OUTLINED_FUNCTION_0(v18, v19, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40658);
+    __cxa_guard_release(byte_27FC40658);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40628))
+  if (__cxa_guard_acquire(byte_27FC40628))
   {
     OUTLINED_FUNCTION_58(&unk_27FC434B0);
     OUTLINED_FUNCTION_354(v0);
@@ -42553,12 +42536,12 @@ void getShapeType()
     *(v2 + 52) = 4;
     OUTLINED_FUNCTION_0(v3, v4, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40628);
+    __cxa_guard_release(byte_27FC40628);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40630))
+  if (__cxa_guard_acquire(byte_27FC40630))
   {
     byte_27FC462D8 = 0;
     OUTLINED_FUNCTION_128(&byte_27FC462D8);
@@ -42581,12 +42564,12 @@ void getShapeType()
     *(v11 + 108) = v12;
     OUTLINED_FUNCTION_0(v13, v14, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40630);
+    __cxa_guard_release(byte_27FC40630);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40638))
+  if (__cxa_guard_acquire(byte_27FC40638))
   {
     v0 = &unk_27FC4D04C;
     do
@@ -42701,12 +42684,12 @@ void getShapeType()
     OUTLINED_FUNCTION_499(v17);
     OUTLINED_FUNCTION_0(v18, v19, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40638);
+    __cxa_guard_release(byte_27FC40638);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40608))
+  if (__cxa_guard_acquire(byte_27FC40608))
   {
     OUTLINED_FUNCTION_58(&unk_27FC42B98);
     OUTLINED_FUNCTION_328(v0);
@@ -42714,12 +42697,12 @@ void getShapeType()
     OUTLINED_FUNCTION_227(v1);
     OUTLINED_FUNCTION_0(v2, v3, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40608);
+    __cxa_guard_release(byte_27FC40608);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40610))
+  if (__cxa_guard_acquire(byte_27FC40610))
   {
     OUTLINED_FUNCTION_38(&unk_27FC43918);
     OUTLINED_FUNCTION_297(v0);
@@ -42730,12 +42713,12 @@ void getShapeType()
     *(v4 + 60) = v5;
     OUTLINED_FUNCTION_0(v6, v7, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40610);
+    __cxa_guard_release(byte_27FC40610);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40618))
+  if (__cxa_guard_acquire(byte_27FC40618))
   {
     v0 = &unk_27FC46270;
     do
@@ -42771,12 +42754,12 @@ void getShapeType()
     OUTLINED_FUNCTION_458(2);
     OUTLINED_FUNCTION_0(v4, v5, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40618);
+    __cxa_guard_release(byte_27FC40618);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40620))
+  if (__cxa_guard_acquire(byte_27FC40620))
   {
     v0 = &xmmword_27FC41F60 + 1;
     do
@@ -42793,7 +42776,7 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC405E8))
+  if (__cxa_guard_acquire(byte_27FC405E8))
   {
     OUTLINED_FUNCTION_58(&unk_27FC42B70);
     OUTLINED_FUNCTION_328(v0);
@@ -42801,12 +42784,12 @@ void getShapeType()
     OUTLINED_FUNCTION_227(v1);
     OUTLINED_FUNCTION_0(v2, v3, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC405E8);
+    __cxa_guard_release(byte_27FC405E8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC405F0))
+  if (__cxa_guard_acquire(byte_27FC405F0))
   {
     byte_27FC438D8 = 0;
     OUTLINED_FUNCTION_128(&byte_27FC438D8);
@@ -42818,12 +42801,12 @@ void getShapeType()
     OUTLINED_FUNCTION_184(v1);
     OUTLINED_FUNCTION_0(v3, v4, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC405F0);
+    __cxa_guard_release(byte_27FC405F0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC405F8))
+  if (__cxa_guard_acquire(byte_27FC405F8))
   {
     v0 = &unk_27FC46200;
     do
@@ -42859,12 +42842,12 @@ void getShapeType()
     OUTLINED_FUNCTION_458(2);
     OUTLINED_FUNCTION_0(v4, v5, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC405F8);
+    __cxa_guard_release(byte_27FC405F8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40600))
+  if (__cxa_guard_acquire(byte_27FC40600))
   {
     v0 = &xmmword_27FC41F40 + 1;
     do
@@ -42881,7 +42864,7 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC405C8))
+  if (__cxa_guard_acquire(byte_27FC405C8))
   {
     OUTLINED_FUNCTION_37(&unk_27FC4E300);
     OUTLINED_FUNCTION_635(v0);
@@ -42912,12 +42895,12 @@ void getShapeType()
     *(v24 + 388) = v25;
     OUTLINED_FUNCTION_0(v26, v27, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC405C8);
+    __cxa_guard_release(byte_27FC405C8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC405D0))
+  if (__cxa_guard_acquire(byte_27FC405D0))
   {
     OUTLINED_FUNCTION_34(&unk_27FC527C0);
     OUTLINED_FUNCTION_163(v0);
@@ -42959,12 +42942,12 @@ void getShapeType()
     OUTLINED_FUNCTION_470(v24);
     OUTLINED_FUNCTION_0(v25, v26, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC405D0);
+    __cxa_guard_release(byte_27FC405D0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC405D8))
+  if (__cxa_guard_acquire(byte_27FC405D8))
   {
     v0 = &unk_27FC4B138;
     do
@@ -43056,12 +43039,12 @@ void getShapeType()
     OUTLINED_FUNCTION_768();
     OUTLINED_FUNCTION_0(v18, v19, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC405D8);
+    __cxa_guard_release(byte_27FC405D8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC405E0))
+  if (__cxa_guard_acquire(byte_27FC405E0))
   {
     v0 = &xmmword_27FC41F20 + 1;
     do
@@ -43077,18 +43060,18 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC405A8))
+  if (__cxa_guard_acquire(byte_27FC405A8))
   {
     OUTLINED_FUNCTION_89(&unk_27FC41EE0);
     OUTLINED_FUNCTION_14(v0);
     OUTLINED_FUNCTION_0(v1, v2, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC405A8);
+    __cxa_guard_release(byte_27FC405A8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC405B0))
+  if (__cxa_guard_acquire(byte_27FC405B0))
   {
     OUTLINED_FUNCTION_464(byte_27FC525C0);
     *(v0 + 4) = 0;
@@ -43203,12 +43186,12 @@ void getShapeType()
     *(v17 + 508) = v22;
     OUTLINED_FUNCTION_0(v23, v24, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC405B0);
+    __cxa_guard_release(byte_27FC405B0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC405B8))
+  if (__cxa_guard_acquire(byte_27FC405B8))
   {
     v0 = &unk_27FC4C714;
     do
@@ -43304,12 +43287,12 @@ void getShapeType()
     OUTLINED_FUNCTION_746();
     OUTLINED_FUNCTION_0(v22, v23, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC405B8);
+    __cxa_guard_release(byte_27FC405B8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC405C0))
+  if (__cxa_guard_acquire(byte_27FC405C0))
   {
     v0 = &xmmword_27FC41F00 + 1;
     do
@@ -43325,18 +43308,18 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40588))
+  if (__cxa_guard_acquire(byte_27FC40588))
   {
     OUTLINED_FUNCTION_89(&unk_27FC41EA0);
     OUTLINED_FUNCTION_14(v0);
     OUTLINED_FUNCTION_0(v1, v2, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40588);
+    __cxa_guard_release(byte_27FC40588);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40590))
+  if (__cxa_guard_acquire(byte_27FC40590))
   {
     OUTLINED_FUNCTION_123(&unk_27FC4CB74);
     OUTLINED_FUNCTION_407(v0);
@@ -43392,12 +43375,12 @@ void getShapeType()
     *(v13 + 284) = 8;
     OUTLINED_FUNCTION_0(v20, v21, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40590);
+    __cxa_guard_release(byte_27FC40590);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40598))
+  if (__cxa_guard_acquire(byte_27FC40598))
   {
     v0 = &unk_27FC4C5FC;
     do
@@ -43493,23 +43476,23 @@ void getShapeType()
     OUTLINED_FUNCTION_746();
     OUTLINED_FUNCTION_0(v22, v23, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40598);
+    __cxa_guard_release(byte_27FC40598);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40568))
+  if (__cxa_guard_acquire(byte_27FC40568))
   {
     OUTLINED_FUNCTION_89(&unk_27FC41E60);
     OUTLINED_FUNCTION_14(v0);
     OUTLINED_FUNCTION_0(v1, v2, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40568);
+    __cxa_guard_release(byte_27FC40568);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40570))
+  if (__cxa_guard_acquire(byte_27FC40570))
   {
     OUTLINED_FUNCTION_90(&unk_27FC4CA54);
     *(v0 + 16) = v1;
@@ -43568,12 +43551,12 @@ void getShapeType()
     *(v14 + 284) = 0;
     OUTLINED_FUNCTION_0(v20, v21, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40570);
+    __cxa_guard_release(byte_27FC40570);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40578))
+  if (__cxa_guard_acquire(byte_27FC40578))
   {
     v0 = &unk_27FC4C4E4;
     do
@@ -43669,12 +43652,12 @@ void getShapeType()
     OUTLINED_FUNCTION_746();
     OUTLINED_FUNCTION_0(v22, v23, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40578);
+    __cxa_guard_release(byte_27FC40578);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40580))
+  if (__cxa_guard_acquire(byte_27FC40580))
   {
     v0 = &unk_27FC41E84;
     do
@@ -43689,18 +43672,18 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40548))
+  if (__cxa_guard_acquire(byte_27FC40548))
   {
     OUTLINED_FUNCTION_89(&unk_27FC41E20);
     OUTLINED_FUNCTION_14(v0);
     OUTLINED_FUNCTION_0(v1, v2, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40548);
+    __cxa_guard_release(byte_27FC40548);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40550))
+  if (__cxa_guard_acquire(byte_27FC40550))
   {
     OUTLINED_FUNCTION_36(&unk_27FC4923C);
     OUTLINED_FUNCTION_465(v0);
@@ -43737,12 +43720,12 @@ void getShapeType()
     *(v7 + 172) = 0;
     OUTLINED_FUNCTION_0(v10, v11, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40550);
+    __cxa_guard_release(byte_27FC40550);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40558))
+  if (__cxa_guard_acquire(byte_27FC40558))
   {
     v0 = &unk_27FC49E14;
     do
@@ -43803,23 +43786,23 @@ void getShapeType()
     OUTLINED_FUNCTION_55(&unk_27FC49EB4);
     OUTLINED_FUNCTION_0(v9, v10, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40558);
+    __cxa_guard_release(byte_27FC40558);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40528))
+  if (__cxa_guard_acquire(byte_27FC40528))
   {
     OUTLINED_FUNCTION_89(&unk_27FC41DE0);
     OUTLINED_FUNCTION_14(v0);
     OUTLINED_FUNCTION_0(v1, v2, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40528);
+    __cxa_guard_release(byte_27FC40528);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40530))
+  if (__cxa_guard_acquire(byte_27FC40530))
   {
     OUTLINED_FUNCTION_123(&unk_27FC4918C);
     OUTLINED_FUNCTION_407(v0);
@@ -43842,12 +43825,12 @@ void getShapeType()
     *(v15 + 172) = v16;
     OUTLINED_FUNCTION_0(v17, v18, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40530);
+    __cxa_guard_release(byte_27FC40530);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40538))
+  if (__cxa_guard_acquire(byte_27FC40538))
   {
     v0 = &unk_27FC4A724;
     do
@@ -43923,12 +43906,12 @@ void getShapeType()
     OUTLINED_FUNCTION_104(v15);
     OUTLINED_FUNCTION_0(v16, v17, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40538);
+    __cxa_guard_release(byte_27FC40538);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40540))
+  if (__cxa_guard_acquire(byte_27FC40540))
   {
     v0 = &xmmword_27FC41E00 + 1;
     do
@@ -43944,18 +43927,18 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40508))
+  if (__cxa_guard_acquire(byte_27FC40508))
   {
     OUTLINED_FUNCTION_89(&unk_27FC41DA0);
     OUTLINED_FUNCTION_14(v0);
     OUTLINED_FUNCTION_0(v1, v2, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40508);
+    __cxa_guard_release(byte_27FC40508);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40510))
+  if (__cxa_guard_acquire(byte_27FC40510))
   {
     OUTLINED_FUNCTION_34(&unk_27FC490DC);
     OUTLINED_FUNCTION_636(v0);
@@ -43987,12 +43970,12 @@ void getShapeType()
     *(v13 + 172) = 0;
     OUTLINED_FUNCTION_0(v14, v15, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40510);
+    __cxa_guard_release(byte_27FC40510);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40518))
+  if (__cxa_guard_acquire(byte_27FC40518))
   {
     v0 = &unk_27FC49D50;
     do
@@ -44053,23 +44036,23 @@ void getShapeType()
     OUTLINED_FUNCTION_55(&unk_27FC49DF0);
     OUTLINED_FUNCTION_0(v9, v10, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40518);
+    __cxa_guard_release(byte_27FC40518);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC404E8))
+  if (__cxa_guard_acquire(byte_27FC404E8))
   {
     OUTLINED_FUNCTION_89(&unk_27FC41D60);
     OUTLINED_FUNCTION_14(v0);
     OUTLINED_FUNCTION_0(v1, v2, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC404E8);
+    __cxa_guard_release(byte_27FC404E8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC404F0))
+  if (__cxa_guard_acquire(byte_27FC404F0))
   {
     OUTLINED_FUNCTION_90(&unk_27FC4902C);
     *(v0 + 16) = v1;
@@ -44096,12 +44079,12 @@ void getShapeType()
     *(v16 + 172) = 0;
     OUTLINED_FUNCTION_0(v17, v18, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC404F0);
+    __cxa_guard_release(byte_27FC404F0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC404F8))
+  if (__cxa_guard_acquire(byte_27FC404F8))
   {
     v0 = &unk_27FC4A644;
     do
@@ -44177,12 +44160,12 @@ void getShapeType()
     OUTLINED_FUNCTION_104(v15);
     OUTLINED_FUNCTION_0(v16, v17, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC404F8);
+    __cxa_guard_release(byte_27FC404F8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40500))
+  if (__cxa_guard_acquire(byte_27FC40500))
   {
     v0 = &xmmword_27FC41D80 + 1;
     do
@@ -44198,18 +44181,18 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC404C8))
+  if (__cxa_guard_acquire(byte_27FC404C8))
   {
     OUTLINED_FUNCTION_89(&unk_27FC41D40);
     OUTLINED_FUNCTION_14(v0);
     OUTLINED_FUNCTION_0(v1, v2, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC404C8);
+    __cxa_guard_release(byte_27FC404C8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC404D0))
+  if (__cxa_guard_acquire(byte_27FC404D0))
   {
     byte_27FC4DB68 = 0;
     dword_27FC4DB6C = 10800;
@@ -44286,12 +44269,12 @@ void getShapeType()
     *(v22 + 380) = v29;
     OUTLINED_FUNCTION_0(v30, v31, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC404D0);
+    __cxa_guard_release(byte_27FC404D0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC404D8))
+  if (__cxa_guard_acquire(byte_27FC404D8))
   {
     v0 = &unk_27FC4C3CC;
     do
@@ -44388,22 +44371,22 @@ void getShapeType()
     OUTLINED_FUNCTION_458(8);
     OUTLINED_FUNCTION_0(v22, v23, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC404D8);
+    __cxa_guard_release(byte_27FC404D8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC404B8))
+  if (__cxa_guard_acquire(byte_27FC404B8))
   {
     OUTLINED_FUNCTION_21(&unk_27FC41D20);
     OUTLINED_FUNCTION_0(v0, v1, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC404B8);
+    __cxa_guard_release(byte_27FC404B8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC404C0))
+  if (__cxa_guard_acquire(byte_27FC404C0))
   {
     dword_27FC4386C = 21600;
     OUTLINED_FUNCTION_789(&unk_27FC43858);
@@ -44417,7 +44400,7 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC404A0))
+  if (__cxa_guard_acquire(byte_27FC404A0))
   {
     OUTLINED_FUNCTION_89(&unk_27FC43228);
     *(v0 + 8) = 5;
@@ -44429,12 +44412,12 @@ void getShapeType()
     OUTLINED_FUNCTION_285(v0);
     OUTLINED_FUNCTION_0(v3, v4, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC404A0);
+    __cxa_guard_release(byte_27FC404A0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC404A8))
+  if (__cxa_guard_acquire(byte_27FC404A8))
   {
     byte_27FC52BC0 = 0;
     OUTLINED_FUNCTION_467(&byte_27FC52BC0);
@@ -44565,23 +44548,23 @@ void getShapeType()
     *(v4 + 524) = v6;
     OUTLINED_FUNCTION_0(21115, 4220, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC404A8);
+    __cxa_guard_release(byte_27FC404A8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40488))
+  if (__cxa_guard_acquire(byte_27FC40488))
   {
     OUTLINED_FUNCTION_89(&_MergedGlobals_698);
     OUTLINED_FUNCTION_14(v0);
     OUTLINED_FUNCTION_0(v1, v2, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40488);
+    __cxa_guard_release(byte_27FC40488);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40490))
+  if (__cxa_guard_acquire(byte_27FC40490))
   {
     byte_27FC48F7C = 0;
     dword_27FC48F80 = 8472;
@@ -44608,23 +44591,23 @@ void getShapeType()
     *(v17 + 172) = 6080;
     OUTLINED_FUNCTION_0(v18, v19, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40490);
+    __cxa_guard_release(byte_27FC40490);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40470))
+  if (__cxa_guard_acquire(byte_27FC40470))
   {
     OUTLINED_FUNCTION_89(&unk_27FC41C80);
     OUTLINED_FUNCTION_14(v0);
     OUTLINED_FUNCTION_0(v1, v2, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40470);
+    __cxa_guard_release(byte_27FC40470);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40478))
+  if (__cxa_guard_acquire(byte_27FC40478))
   {
     _MergedGlobals_712 = 0;
     OUTLINED_FUNCTION_467(&_MergedGlobals_712);
@@ -44716,23 +44699,23 @@ void getShapeType()
     *(v21 + 444) = 0;
     OUTLINED_FUNCTION_0(v23, v24, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40478);
+    __cxa_guard_release(byte_27FC40478);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40458))
+  if (__cxa_guard_acquire(byte_27FC40458))
   {
     OUTLINED_FUNCTION_89(&unk_27FC41C40);
     OUTLINED_FUNCTION_14(v0);
     OUTLINED_FUNCTION_0(v1, v2, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40458);
+    __cxa_guard_release(byte_27FC40458);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40460))
+  if (__cxa_guard_acquire(byte_27FC40460))
   {
     OUTLINED_FUNCTION_125(&unk_27FC4D9E8);
     OUTLINED_FUNCTION_542(v0);
@@ -44805,23 +44788,23 @@ void getShapeType()
     *(v21 + 380) = 0;
     OUTLINED_FUNCTION_0(v23, v24, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40460);
+    __cxa_guard_release(byte_27FC40460);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40438))
+  if (__cxa_guard_acquire(byte_27FC40438))
   {
     OUTLINED_FUNCTION_89(&unk_27FC41C00);
     OUTLINED_FUNCTION_14(v0);
     OUTLINED_FUNCTION_0(v1, v2, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40438);
+    __cxa_guard_release(byte_27FC40438);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40440))
+  if (__cxa_guard_acquire(byte_27FC40440))
   {
     OUTLINED_FUNCTION_77(&unk_27FC485C4);
     *(v0 + 20) = 21600;
@@ -44856,12 +44839,12 @@ void getShapeType()
     *(v10 + 156) = 0;
     OUTLINED_FUNCTION_0(v12, v13, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40440);
+    __cxa_guard_release(byte_27FC40440);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40448))
+  if (__cxa_guard_acquire(byte_27FC40448))
   {
     v0 = &unk_27FC49C8C;
     do
@@ -44930,23 +44913,23 @@ void getShapeType()
     OUTLINED_FUNCTION_99(&unk_27FC49D2C);
     OUTLINED_FUNCTION_0(v11, v12, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40448);
+    __cxa_guard_release(byte_27FC40448);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40418))
+  if (__cxa_guard_acquire(byte_27FC40418))
   {
     OUTLINED_FUNCTION_89(&unk_27FC41BC0);
     OUTLINED_FUNCTION_14(v0);
     OUTLINED_FUNCTION_0(v1, v2, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40418);
+    __cxa_guard_release(byte_27FC40418);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40420))
+  if (__cxa_guard_acquire(byte_27FC40420))
   {
     OUTLINED_FUNCTION_203(&unk_27FC48524);
     OUTLINED_FUNCTION_507(v0);
@@ -44982,12 +44965,12 @@ void getShapeType()
     *(v7 + 156) = 0;
     OUTLINED_FUNCTION_0(v10, v11, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40420);
+    __cxa_guard_release(byte_27FC40420);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40428))
+  if (__cxa_guard_acquire(byte_27FC40428))
   {
     v0 = &unk_27FC49BC8;
     do
@@ -45057,23 +45040,23 @@ void getShapeType()
     OUTLINED_FUNCTION_458(5);
     OUTLINED_FUNCTION_0(v19, v20, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40428);
+    __cxa_guard_release(byte_27FC40428);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC403F8))
+  if (__cxa_guard_acquire(byte_27FC403F8))
   {
     OUTLINED_FUNCTION_89(&unk_27FC41B80);
     OUTLINED_FUNCTION_14(v0);
     OUTLINED_FUNCTION_0(v1, v2, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC403F8);
+    __cxa_guard_release(byte_27FC403F8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40400))
+  if (__cxa_guard_acquire(byte_27FC40400))
   {
     OUTLINED_FUNCTION_123(&unk_27FC46188);
     *(v0 + 16) = v1;
@@ -45094,12 +45077,12 @@ void getShapeType()
     *(v11 + 108) = 0;
     OUTLINED_FUNCTION_0(v12, v13, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40400);
+    __cxa_guard_release(byte_27FC40400);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40408))
+  if (__cxa_guard_acquire(byte_27FC40408))
   {
     v0 = &unk_27FC4789C;
     do
@@ -45145,12 +45128,12 @@ void getShapeType()
     OUTLINED_FUNCTION_656(v7);
     OUTLINED_FUNCTION_0(v8, v9, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40408);
+    __cxa_guard_release(byte_27FC40408);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40410))
+  if (__cxa_guard_acquire(byte_27FC40410))
   {
     v0 = &xmmword_27FC41BA0 + 1;
     do
@@ -45166,18 +45149,18 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC403D8))
+  if (__cxa_guard_acquire(byte_27FC403D8))
   {
     OUTLINED_FUNCTION_89(&unk_27FC41B40);
     OUTLINED_FUNCTION_14(v0);
     OUTLINED_FUNCTION_0(v1, v2, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC403D8);
+    __cxa_guard_release(byte_27FC403D8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC403E0))
+  if (__cxa_guard_acquire(byte_27FC403E0))
   {
     OUTLINED_FUNCTION_123(&unk_27FC46118);
     *(v0 + 16) = v1;
@@ -45196,12 +45179,12 @@ void getShapeType()
     *(v11 + 108) = v12;
     OUTLINED_FUNCTION_0(v13, v14, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC403E0);
+    __cxa_guard_release(byte_27FC403E0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC403E8))
+  if (__cxa_guard_acquire(byte_27FC403E8))
   {
     v0 = &unk_27FC49B04;
     do
@@ -45260,12 +45243,12 @@ void getShapeType()
     OUTLINED_FUNCTION_99(&unk_27FC49BA4);
     OUTLINED_FUNCTION_0(v9, v10, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC403E8);
+    __cxa_guard_release(byte_27FC403E8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC403F0))
+  if (__cxa_guard_acquire(byte_27FC403F0))
   {
     v0 = &xmmword_27FC41B60 + 1;
     do
@@ -45282,18 +45265,18 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC403B8))
+  if (__cxa_guard_acquire(byte_27FC403B8))
   {
     OUTLINED_FUNCTION_89(&unk_27FC41B00);
     OUTLINED_FUNCTION_14(v0);
     OUTLINED_FUNCTION_0(v1, v2, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC403B8);
+    __cxa_guard_release(byte_27FC403B8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC403C0))
+  if (__cxa_guard_acquire(byte_27FC403C0))
   {
     OUTLINED_FUNCTION_90(&unk_27FC460A8);
     OUTLINED_FUNCTION_348(v0);
@@ -45311,12 +45294,12 @@ void getShapeType()
     OUTLINED_FUNCTION_814(v8);
     OUTLINED_FUNCTION_0(v9, v10, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC403C0);
+    __cxa_guard_release(byte_27FC403C0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC403C8))
+  if (__cxa_guard_acquire(byte_27FC403C8))
   {
     v0 = &unk_27FC47810;
     do
@@ -45362,12 +45345,12 @@ void getShapeType()
     OUTLINED_FUNCTION_656(v7);
     OUTLINED_FUNCTION_0(v8, v9, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC403C8);
+    __cxa_guard_release(byte_27FC403C8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40398))
+  if (__cxa_guard_acquire(byte_27FC40398))
   {
     OUTLINED_FUNCTION_89(&unk_27FC47108);
     *(v0 + 8) = 4;
@@ -45395,12 +45378,12 @@ void getShapeType()
     *(v9 + 124) = v12;
     OUTLINED_FUNCTION_0(v13, v14, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40398);
+    __cxa_guard_release(byte_27FC40398);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC403A0))
+  if (__cxa_guard_acquire(byte_27FC403A0))
   {
     OUTLINED_FUNCTION_34(&unk_27FC4AC6C);
     OUTLINED_FUNCTION_636(v0);
@@ -45452,12 +45435,12 @@ void getShapeType()
     *(v9 + 236) = 0;
     OUTLINED_FUNCTION_0(v13, v14, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC403A0);
+    __cxa_guard_release(byte_27FC403A0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC403A8))
+  if (__cxa_guard_acquire(byte_27FC403A8))
   {
     v0 = &unk_27FC4E180;
     do
@@ -45607,12 +45590,12 @@ void getShapeType()
     OUTLINED_FUNCTION_305(v26);
     OUTLINED_FUNCTION_0(v27, v28, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC403A8);
+    __cxa_guard_release(byte_27FC403A8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40378))
+  if (__cxa_guard_acquire(byte_27FC40378))
   {
     OUTLINED_FUNCTION_58(&unk_27FC431F8);
     *(v0 + 12) = v1;
@@ -45622,12 +45605,12 @@ void getShapeType()
     OUTLINED_FUNCTION_285(v2);
     OUTLINED_FUNCTION_0(v4, v5, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40378);
+    __cxa_guard_release(byte_27FC40378);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40380))
+  if (__cxa_guard_acquire(byte_27FC40380))
   {
     OUTLINED_FUNCTION_464(byte_27FC47088);
     OUTLINED_FUNCTION_345(v0);
@@ -45637,12 +45620,12 @@ void getShapeType()
     OUTLINED_FUNCTION_347(v4);
     OUTLINED_FUNCTION_0(v5, v6, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40380);
+    __cxa_guard_release(byte_27FC40380);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40388))
+  if (__cxa_guard_acquire(byte_27FC40388))
   {
     v0 = &unk_27FC5B22C;
     do
@@ -46238,12 +46221,12 @@ void getShapeType()
     OUTLINED_FUNCTION_305(v105);
     OUTLINED_FUNCTION_0(v106, v107, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40388);
+    __cxa_guard_release(byte_27FC40388);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40358))
+  if (__cxa_guard_acquire(byte_27FC40358))
   {
     OUTLINED_FUNCTION_594(&unk_27FC41A80);
     *(v0 + 8) = v1;
@@ -46251,12 +46234,12 @@ void getShapeType()
     OUTLINED_FUNCTION_32(v0);
     OUTLINED_FUNCTION_0(v2, v3, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40358);
+    __cxa_guard_release(byte_27FC40358);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40360))
+  if (__cxa_guard_acquire(byte_27FC40360))
   {
     OUTLINED_FUNCTION_36(&unk_27FC443B8);
     *(v0 + 28) = v1;
@@ -46269,12 +46252,12 @@ void getShapeType()
     *(v7 + 76) = 22;
     OUTLINED_FUNCTION_0(v8, v9, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40360);
+    __cxa_guard_release(byte_27FC40360);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40368))
+  if (__cxa_guard_acquire(byte_27FC40368))
   {
     v0 = &unk_27FC5539C;
     do
@@ -46604,12 +46587,12 @@ void getShapeType()
     *(v40 + 20) = 3;
     OUTLINED_FUNCTION_0(v41, v42, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40368);
+    __cxa_guard_release(byte_27FC40368);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40370))
+  if (__cxa_guard_acquire(byte_27FC40370))
   {
     v0 = &xmmword_27FC41AA0 + 1;
     do
@@ -46625,7 +46608,7 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40338))
+  if (__cxa_guard_acquire(byte_27FC40338))
   {
     OUTLINED_FUNCTION_58(&unk_27FC448D8);
     *(v0 + 12) = 12;
@@ -46644,12 +46627,12 @@ void getShapeType()
     *(v5 + 84) = v6;
     OUTLINED_FUNCTION_0(v7, v8, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40338);
+    __cxa_guard_release(byte_27FC40338);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40340))
+  if (__cxa_guard_acquire(byte_27FC40340))
   {
     byte_27FC4CDC4 = 0;
     dword_27FC4CDC8 = 3600;
@@ -46720,12 +46703,12 @@ void getShapeType()
     *(v8 + 316) = 0;
     OUTLINED_FUNCTION_0(v15, v16, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40340);
+    __cxa_guard_release(byte_27FC40340);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40348))
+  if (__cxa_guard_acquire(byte_27FC40348))
   {
     v0 = &unk_27FC5A1D8;
     do
@@ -47229,23 +47212,23 @@ void getShapeType()
     OUTLINED_FUNCTION_355();
     OUTLINED_FUNCTION_0(v93, v94, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40348);
+    __cxa_guard_release(byte_27FC40348);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40320))
+  if (__cxa_guard_acquire(byte_27FC40320))
   {
     OUTLINED_FUNCTION_89(&unk_27FC41A40);
     OUTLINED_FUNCTION_14(v0);
     OUTLINED_FUNCTION_0(v1, v2, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40320);
+    __cxa_guard_release(byte_27FC40320);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40328))
+  if (__cxa_guard_acquire(byte_27FC40328))
   {
     OUTLINED_FUNCTION_57(&unk_27FC4B71C);
     *(v0 + 20) = 0;
@@ -47296,12 +47279,12 @@ void getShapeType()
     *(v15 + 252) = 0;
     OUTLINED_FUNCTION_0(v18, v19, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40328);
+    __cxa_guard_release(byte_27FC40328);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40330))
+  if (__cxa_guard_acquire(byte_27FC40330))
   {
     v0 = &unk_27FC59DE8;
     do
@@ -47807,18 +47790,18 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40300))
+  if (__cxa_guard_acquire(byte_27FC40300))
   {
     OUTLINED_FUNCTION_89(&unk_27FC41A00);
     OUTLINED_FUNCTION_14(v0);
     OUTLINED_FUNCTION_0(v1, v2, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40300);
+    __cxa_guard_release(byte_27FC40300);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40308))
+  if (__cxa_guard_acquire(byte_27FC40308))
   {
     dword_27FC5A6BC = 17;
     dword_27FC5A6DC = 17;
@@ -48078,12 +48061,12 @@ void getShapeType()
     *(v0 + 1000) = 0;
     OUTLINED_FUNCTION_0(v2, v3, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40308);
+    __cxa_guard_release(byte_27FC40308);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40310))
+  if (__cxa_guard_acquire(byte_27FC40310))
   {
     v0 = &unk_27FC57A18;
     do
@@ -48427,12 +48410,12 @@ void getShapeType()
     OUTLINED_FUNCTION_607();
     OUTLINED_FUNCTION_0(v49, v50, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40310);
+    __cxa_guard_release(byte_27FC40310);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40318))
+  if (__cxa_guard_acquire(byte_27FC40318))
   {
     v0 = &xmmword_27FC41A20 + 1;
     do
@@ -48449,18 +48432,18 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC402E0))
+  if (__cxa_guard_acquire(byte_27FC402E0))
   {
     OUTLINED_FUNCTION_89(&unk_27FC419C0);
     OUTLINED_FUNCTION_14(v0);
     OUTLINED_FUNCTION_0(v1, v2, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC402E0);
+    __cxa_guard_release(byte_27FC402E0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC402E8))
+  if (__cxa_guard_acquire(byte_27FC402E8))
   {
     OUTLINED_FUNCTION_682(&_MergedGlobals_715);
     *(v0 + 12) = 10800;
@@ -48574,12 +48557,12 @@ void getShapeType()
     *(v17 + 508) = v16;
     OUTLINED_FUNCTION_0(v16, v18, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC402E8);
+    __cxa_guard_release(byte_27FC402E8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC402F0))
+  if (__cxa_guard_acquire(byte_27FC402F0))
   {
     v0 = &unk_27FC4F4D0;
     do
@@ -48747,12 +48730,12 @@ void getShapeType()
     OUTLINED_FUNCTION_607();
     OUTLINED_FUNCTION_0(v28, v29, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC402F0);
+    __cxa_guard_release(byte_27FC402F0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC402F8))
+  if (__cxa_guard_acquire(byte_27FC402F8))
   {
     v0 = &xmmword_27FC419E0 + 1;
     do
@@ -48769,18 +48752,18 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC402C0))
+  if (__cxa_guard_acquire(byte_27FC402C0))
   {
     OUTLINED_FUNCTION_89(&unk_27FC41980);
     OUTLINED_FUNCTION_14(v0);
     OUTLINED_FUNCTION_0(v1, v2, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC402C0);
+    __cxa_guard_release(byte_27FC402C0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC402C8))
+  if (__cxa_guard_acquire(byte_27FC402C8))
   {
     byte_27FC4B61C = 0;
     dword_27FC4B620 = 21600;
@@ -48847,12 +48830,12 @@ void getShapeType()
     *(v1 + 252) = 4;
     OUTLINED_FUNCTION_0(v6, v7, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC402C8);
+    __cxa_guard_release(byte_27FC402C8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC402D0))
+  if (__cxa_guard_acquire(byte_27FC402D0))
   {
     v0 = &unk_27FC4C2B4;
     do
@@ -48949,12 +48932,12 @@ void getShapeType()
     OUTLINED_FUNCTION_607();
     OUTLINED_FUNCTION_0(v18, v19, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC402D0);
+    __cxa_guard_release(byte_27FC402D0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC402D8))
+  if (__cxa_guard_acquire(byte_27FC402D8))
   {
     v0 = &xmmword_27FC419A0 + 1;
     do
@@ -48971,7 +48954,7 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC402A0))
+  if (__cxa_guard_acquire(byte_27FC402A0))
   {
     OUTLINED_FUNCTION_89(&unk_27FC43818);
     OUTLINED_FUNCTION_619(v0);
@@ -48986,12 +48969,12 @@ void getShapeType()
     *(v4 + 60) = v8;
     OUTLINED_FUNCTION_0(v9, v10, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC402A0);
+    __cxa_guard_release(byte_27FC402A0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC402A8))
+  if (__cxa_guard_acquire(byte_27FC402A8))
   {
     OUTLINED_FUNCTION_203(&unk_27FC4A1EC);
     OUTLINED_FUNCTION_542(v0);
@@ -49029,12 +49012,12 @@ void getShapeType()
     *(v14 + 204) = v19;
     OUTLINED_FUNCTION_0(v20, v21, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC402A8);
+    __cxa_guard_release(byte_27FC402A8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC402B0))
+  if (__cxa_guard_acquire(byte_27FC402B0))
   {
     v0 = &unk_27FC504E0;
     do
@@ -49228,12 +49211,12 @@ void getShapeType()
     *(v44 + 20) = 3;
     OUTLINED_FUNCTION_0(v45, v46, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC402B0);
+    __cxa_guard_release(byte_27FC402B0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC402B8))
+  if (__cxa_guard_acquire(byte_27FC402B8))
   {
     v0 = &xmmword_27FC41960 + 1;
     do
@@ -49249,19 +49232,19 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40288))
+  if (__cxa_guard_acquire(byte_27FC40288))
   {
     OUTLINED_FUNCTION_89(&unk_27FC41920);
     OUTLINED_FUNCTION_194(v0);
     OUTLINED_FUNCTION_298(v1);
     OUTLINED_FUNCTION_0(v2, v3, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40288);
+    __cxa_guard_release(byte_27FC40288);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40290))
+  if (__cxa_guard_acquire(byte_27FC40290))
   {
     byte_27FC44368 = 0;
     dword_27FC4436C = 10800;
@@ -49276,12 +49259,12 @@ void getShapeType()
     OUTLINED_FUNCTION_558(v3);
     OUTLINED_FUNCTION_0(v5, v6, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40290);
+    __cxa_guard_release(byte_27FC40290);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40298))
+  if (__cxa_guard_acquire(byte_27FC40298))
   {
     v0 = &xmmword_27FC41940 + 1;
     do
@@ -49296,18 +49279,18 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40268))
+  if (__cxa_guard_acquire(byte_27FC40268))
   {
     OUTLINED_FUNCTION_89(&unk_27FC41900);
     OUTLINED_FUNCTION_14(v0);
     OUTLINED_FUNCTION_0(v1, v2, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40268);
+    __cxa_guard_release(byte_27FC40268);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40270))
+  if (__cxa_guard_acquire(byte_27FC40270))
   {
     OUTLINED_FUNCTION_464(byte_27FC44DB0);
     OUTLINED_FUNCTION_45(v0);
@@ -49322,12 +49305,12 @@ void getShapeType()
     *(v6 + 92) = v7;
     OUTLINED_FUNCTION_0(v8, v9, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40270);
+    __cxa_guard_release(byte_27FC40270);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40278))
+  if (__cxa_guard_acquire(byte_27FC40278))
   {
     v0 = &unk_27FC447E0;
     do
@@ -49354,12 +49337,12 @@ void getShapeType()
     OUTLINED_FUNCTION_55(&unk_27FC44810);
     OUTLINED_FUNCTION_0(v5, v6, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40278);
+    __cxa_guard_release(byte_27FC40278);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40280))
+  if (__cxa_guard_acquire(byte_27FC40280))
   {
     v0 = &qword_27FC44E10 + 1;
     do
@@ -49391,7 +49374,7 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40248))
+  if (__cxa_guard_acquire(byte_27FC40248))
   {
     OUTLINED_FUNCTION_31(&unk_27FC4E938);
     *(v0 + 20) = 12;
@@ -49429,12 +49412,12 @@ void getShapeType()
     OUTLINED_FUNCTION_622(v9);
     OUTLINED_FUNCTION_0(v18, v19, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40248);
+    __cxa_guard_release(byte_27FC40248);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40250))
+  if (__cxa_guard_acquire(byte_27FC40250))
   {
     OUTLINED_FUNCTION_148(&unk_27FC56E20);
     *(v0 + 12) = 29;
@@ -49615,12 +49598,12 @@ void getShapeType()
     OUTLINED_FUNCTION_725(v0);
     OUTLINED_FUNCTION_0(v2, v3, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40250);
+    __cxa_guard_release(byte_27FC40250);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40258))
+  if (__cxa_guard_acquire(byte_27FC40258))
   {
     v0 = &unk_27FC59308;
     do
@@ -50068,12 +50051,12 @@ void getShapeType()
     OUTLINED_FUNCTION_39(&dword_27FC5962C);
     OUTLINED_FUNCTION_0(v65, v66, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40258);
+    __cxa_guard_release(byte_27FC40258);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40228))
+  if (__cxa_guard_acquire(byte_27FC40228))
   {
     OUTLINED_FUNCTION_31(&_MergedGlobals_711);
     *(v0 + 20) = 12;
@@ -50111,12 +50094,12 @@ void getShapeType()
     OUTLINED_FUNCTION_622(v9);
     OUTLINED_FUNCTION_0(v18, v19, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40228);
+    __cxa_guard_release(byte_27FC40228);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40230))
+  if (__cxa_guard_acquire(byte_27FC40230))
   {
     OUTLINED_FUNCTION_97(&_MergedGlobals_720);
     OUTLINED_FUNCTION_566(v0);
@@ -50289,12 +50272,12 @@ void getShapeType()
     OUTLINED_FUNCTION_725(v10);
     OUTLINED_FUNCTION_0(v18, v19, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40230);
+    __cxa_guard_release(byte_27FC40230);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40238))
+  if (__cxa_guard_acquire(byte_27FC40238))
   {
     v0 = &unk_27FC55118;
     do
@@ -50615,12 +50598,12 @@ void getShapeType()
     OUTLINED_FUNCTION_39(&dword_27FC55378);
     OUTLINED_FUNCTION_0(v64, v65, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40238);
+    __cxa_guard_release(byte_27FC40238);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40240))
+  if (__cxa_guard_acquire(byte_27FC40240))
   {
     v0 = &unk_27FC418C4;
     do
@@ -50635,7 +50618,7 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40210))
+  if (__cxa_guard_acquire(byte_27FC40210))
   {
     OUTLINED_FUNCTION_73(&unk_27FC44D50);
     OUTLINED_FUNCTION_653(v0);
@@ -50649,12 +50632,12 @@ void getShapeType()
     *(v7 + 92) = v8;
     OUTLINED_FUNCTION_0(v9, v10, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40210);
+    __cxa_guard_release(byte_27FC40210);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40218))
+  if (__cxa_guard_acquire(byte_27FC40218))
   {
     OUTLINED_FUNCTION_25(&unk_27FC48484);
     OUTLINED_FUNCTION_150(v0);
@@ -50675,12 +50658,12 @@ void getShapeType()
     OUTLINED_FUNCTION_712(v10);
     OUTLINED_FUNCTION_0(v11, v12, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40218);
+    __cxa_guard_release(byte_27FC40218);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40220))
+  if (__cxa_guard_acquire(byte_27FC40220))
   {
     v0 = &unk_27FC4A564;
     do
@@ -50748,7 +50731,7 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC401F8))
+  if (__cxa_guard_acquire(byte_27FC401F8))
   {
     OUTLINED_FUNCTION_49(&unk_27FC44CF0);
     OUTLINED_FUNCTION_152(v0);
@@ -50756,12 +50739,12 @@ void getShapeType()
     *(v2 + 92) = v3;
     OUTLINED_FUNCTION_0(v4, v5, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC401F8);
+    __cxa_guard_release(byte_27FC401F8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40200))
+  if (__cxa_guard_acquire(byte_27FC40200))
   {
     OUTLINED_FUNCTION_25(&unk_27FC47F2C);
     OUTLINED_FUNCTION_150(v0);
@@ -50777,12 +50760,12 @@ void getShapeType()
     *(v9 + 140) = v10;
     OUTLINED_FUNCTION_0(v11, v12, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40200);
+    __cxa_guard_release(byte_27FC40200);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40208))
+  if (__cxa_guard_acquire(byte_27FC40208))
   {
     v0 = &unk_27FC48C34;
     do
@@ -50834,7 +50817,7 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC401E0))
+  if (__cxa_guard_acquire(byte_27FC401E0))
   {
     OUTLINED_FUNCTION_31(&_MergedGlobals_701);
     OUTLINED_FUNCTION_152(v0);
@@ -50842,12 +50825,12 @@ void getShapeType()
     *(v2 + 92) = v3;
     OUTLINED_FUNCTION_0(v4, v5, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC401E0);
+    __cxa_guard_release(byte_27FC401E0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC401E8))
+  if (__cxa_guard_acquire(byte_27FC401E8))
   {
     OUTLINED_FUNCTION_25(&unk_27FC47008);
     *(v0 + 28) = 3;
@@ -50860,12 +50843,12 @@ void getShapeType()
     OUTLINED_FUNCTION_221(v6);
     OUTLINED_FUNCTION_0(v7, v8, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC401E8);
+    __cxa_guard_release(byte_27FC401E8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC401F0))
+  if (__cxa_guard_acquire(byte_27FC401F0))
   {
     v0 = &unk_27FC46040;
     do
@@ -50900,7 +50883,7 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC401C8))
+  if (__cxa_guard_acquire(byte_27FC401C8))
   {
     OUTLINED_FUNCTION_73(&unk_27FC437D8);
     *(v0 + 20) = 15;
@@ -50911,12 +50894,12 @@ void getShapeType()
     *(v4 + 60) = v5;
     OUTLINED_FUNCTION_0(v6, v7, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC401C8);
+    __cxa_guard_release(byte_27FC401C8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC401D0))
+  if (__cxa_guard_acquire(byte_27FC401D0))
   {
     OUTLINED_FUNCTION_25(&unk_27FC46F88);
     OUTLINED_FUNCTION_150(v0);
@@ -50926,12 +50909,12 @@ void getShapeType()
     OUTLINED_FUNCTION_221(v4);
     OUTLINED_FUNCTION_0(v5, v6, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC401D0);
+    __cxa_guard_release(byte_27FC401D0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC401D8))
+  if (__cxa_guard_acquire(byte_27FC401D8))
   {
     v0 = &unk_27FC4A484;
     do
@@ -50999,19 +50982,19 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC401B0))
+  if (__cxa_guard_acquire(byte_27FC401B0))
   {
     OUTLINED_FUNCTION_76(&unk_27FC43798);
     OUTLINED_FUNCTION_46(v0);
     OUTLINED_FUNCTION_459(v1);
     OUTLINED_FUNCTION_0(v2, v3, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC401B0);
+    __cxa_guard_release(byte_27FC401B0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC401B8))
+  if (__cxa_guard_acquire(byte_27FC401B8))
   {
     OUTLINED_FUNCTION_25(&unk_27FC45FC8);
     OUTLINED_FUNCTION_150(v0);
@@ -51025,12 +51008,12 @@ void getShapeType()
     *(v7 + 108) = v8;
     OUTLINED_FUNCTION_0(v9, v10, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC401B8);
+    __cxa_guard_release(byte_27FC401B8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC401C0))
+  if (__cxa_guard_acquire(byte_27FC401C0))
   {
     v0 = &unk_27FC48B8C;
     do
@@ -51082,30 +51065,30 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40198))
+  if (__cxa_guard_acquire(byte_27FC40198))
   {
     OUTLINED_FUNCTION_31(&unk_27FC43758);
     OUTLINED_FUNCTION_62(v0);
     OUTLINED_FUNCTION_459(v1);
     OUTLINED_FUNCTION_0(v2, v3, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40198);
+    __cxa_guard_release(byte_27FC40198);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC401A0))
+  if (__cxa_guard_acquire(byte_27FC401A0))
   {
     OUTLINED_FUNCTION_25(&unk_27FC44C30);
     OUTLINED_FUNCTION_64(v0);
     OUTLINED_FUNCTION_0(v1, v2, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC401A0);
+    __cxa_guard_release(byte_27FC401A0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC401A8))
+  if (__cxa_guard_acquire(byte_27FC401A8))
   {
     v0 = &unk_27FC45F60;
     do
@@ -51140,7 +51123,7 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40180))
+  if (__cxa_guard_acquire(byte_27FC40180))
   {
     OUTLINED_FUNCTION_73(&unk_27FC459C0);
     OUTLINED_FUNCTION_653(v0);
@@ -51158,12 +51141,12 @@ void getShapeType()
     *(v8 + 100) = v9;
     OUTLINED_FUNCTION_0(v10, v11, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40180);
+    __cxa_guard_release(byte_27FC40180);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40188))
+  if (__cxa_guard_acquire(byte_27FC40188))
   {
     OUTLINED_FUNCTION_25(&unk_27FC483E4);
     OUTLINED_FUNCTION_150(v0);
@@ -51184,12 +51167,12 @@ void getShapeType()
     OUTLINED_FUNCTION_712(v10);
     OUTLINED_FUNCTION_0(v11, v12, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40188);
+    __cxa_guard_release(byte_27FC40188);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40190))
+  if (__cxa_guard_acquire(byte_27FC40190))
   {
     v0 = &unk_27FC4A3A4;
     do
@@ -51257,7 +51240,7 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40168))
+  if (__cxa_guard_acquire(byte_27FC40168))
   {
     OUTLINED_FUNCTION_49(&unk_27FC45958);
     OUTLINED_FUNCTION_152(v0);
@@ -51267,12 +51250,12 @@ void getShapeType()
     *(v2 + 100) = v5;
     OUTLINED_FUNCTION_0(v6, v7, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40168);
+    __cxa_guard_release(byte_27FC40168);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40170))
+  if (__cxa_guard_acquire(byte_27FC40170))
   {
     OUTLINED_FUNCTION_25(&unk_27FC47E9C);
     OUTLINED_FUNCTION_150(v0);
@@ -51288,12 +51271,12 @@ void getShapeType()
     *(v9 + 140) = v10;
     OUTLINED_FUNCTION_0(v11, v12, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40170);
+    __cxa_guard_release(byte_27FC40170);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40178))
+  if (__cxa_guard_acquire(byte_27FC40178))
   {
     v0 = &unk_27FC48AE4;
     do
@@ -51345,7 +51328,7 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40150))
+  if (__cxa_guard_acquire(byte_27FC40150))
   {
     OUTLINED_FUNCTION_31(&unk_27FC458F0);
     OUTLINED_FUNCTION_152(v0);
@@ -51355,12 +51338,12 @@ void getShapeType()
     *(v2 + 100) = v5;
     OUTLINED_FUNCTION_0(v6, v7, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40150);
+    __cxa_guard_release(byte_27FC40150);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40158))
+  if (__cxa_guard_acquire(byte_27FC40158))
   {
     OUTLINED_FUNCTION_25(&unk_27FC46F08);
     *(v0 + 28) = 3;
@@ -51373,12 +51356,12 @@ void getShapeType()
     OUTLINED_FUNCTION_221(v6);
     OUTLINED_FUNCTION_0(v7, v8, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40158);
+    __cxa_guard_release(byte_27FC40158);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40160))
+  if (__cxa_guard_acquire(byte_27FC40160))
   {
     v0 = &unk_27FC45EF0;
     do
@@ -51413,7 +51396,7 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40138))
+  if (__cxa_guard_acquire(byte_27FC40138))
   {
     OUTLINED_FUNCTION_73(&unk_27FC44070);
     *(v0 + 20) = 15;
@@ -51425,12 +51408,12 @@ void getShapeType()
     OUTLINED_FUNCTION_680(v5);
     OUTLINED_FUNCTION_0(v6, v7, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40138);
+    __cxa_guard_release(byte_27FC40138);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40140))
+  if (__cxa_guard_acquire(byte_27FC40140))
   {
     OUTLINED_FUNCTION_25(&unk_27FC46E88);
     OUTLINED_FUNCTION_150(v0);
@@ -51440,12 +51423,12 @@ void getShapeType()
     OUTLINED_FUNCTION_221(v4);
     OUTLINED_FUNCTION_0(v5, v6, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40140);
+    __cxa_guard_release(byte_27FC40140);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40148))
+  if (__cxa_guard_acquire(byte_27FC40148))
   {
     v0 = &unk_27FC4A2C4;
     do
@@ -51513,7 +51496,7 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40120))
+  if (__cxa_guard_acquire(byte_27FC40120))
   {
     OUTLINED_FUNCTION_76(&unk_27FC44028);
     OUTLINED_FUNCTION_46(v0);
@@ -51521,12 +51504,12 @@ void getShapeType()
     OUTLINED_FUNCTION_208(v1);
     OUTLINED_FUNCTION_0(v2, v3, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40120);
+    __cxa_guard_release(byte_27FC40120);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40128))
+  if (__cxa_guard_acquire(byte_27FC40128))
   {
     OUTLINED_FUNCTION_25(&unk_27FC45E78);
     OUTLINED_FUNCTION_150(v0);
@@ -51540,12 +51523,12 @@ void getShapeType()
     *(v7 + 108) = v8;
     OUTLINED_FUNCTION_0(v9, v10, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40128);
+    __cxa_guard_release(byte_27FC40128);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40130))
+  if (__cxa_guard_acquire(byte_27FC40130))
   {
     v0 = &unk_27FC48A3C;
     do
@@ -51597,7 +51580,7 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40108))
+  if (__cxa_guard_acquire(byte_27FC40108))
   {
     OUTLINED_FUNCTION_31(&unk_27FC43FE0);
     OUTLINED_FUNCTION_62(v0);
@@ -51605,23 +51588,23 @@ void getShapeType()
     OUTLINED_FUNCTION_208(v1);
     OUTLINED_FUNCTION_0(v2, v3, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40108);
+    __cxa_guard_release(byte_27FC40108);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40110))
+  if (__cxa_guard_acquire(byte_27FC40110))
   {
     OUTLINED_FUNCTION_25(&unk_27FC44BD0);
     OUTLINED_FUNCTION_64(v0);
     OUTLINED_FUNCTION_0(v1, v2, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40110);
+    __cxa_guard_release(byte_27FC40110);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40118))
+  if (__cxa_guard_acquire(byte_27FC40118))
   {
     v0 = &unk_27FC45E10;
     do
@@ -51656,19 +51639,19 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC400F0))
+  if (__cxa_guard_acquire(byte_27FC400F0))
   {
     OUTLINED_FUNCTION_89(&unk_27FC41350);
     OUTLINED_FUNCTION_619(v0);
     OUTLINED_FUNCTION_359(v1);
     OUTLINED_FUNCTION_0(v2, v3, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC400F0);
+    __cxa_guard_release(byte_27FC400F0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC400F8))
+  if (__cxa_guard_acquire(byte_27FC400F8))
   {
     OUTLINED_FUNCTION_97(&unk_27FC4A11C);
     OUTLINED_FUNCTION_566(v0);
@@ -51702,12 +51685,12 @@ void getShapeType()
     *(v19 + 204) = v20;
     OUTLINED_FUNCTION_0(v21, v22, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC400F8);
+    __cxa_guard_release(byte_27FC400F8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40100))
+  if (__cxa_guard_acquire(byte_27FC40100))
   {
     v0 = &unk_27FC4DFF8;
     do
@@ -51844,19 +51827,19 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC400D8))
+  if (__cxa_guard_acquire(byte_27FC400D8))
   {
     OUTLINED_FUNCTION_78(&unk_27FC41338);
     *(v0 + 12) = v1;
     OUTLINED_FUNCTION_362(v0);
     OUTLINED_FUNCTION_0(v2, v3, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC400D8);
+    __cxa_guard_release(byte_27FC400D8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC400E0))
+  if (__cxa_guard_acquire(byte_27FC400E0))
   {
     OUTLINED_FUNCTION_97(&unk_27FC48344);
     OUTLINED_FUNCTION_289(v0);
@@ -51880,24 +51863,24 @@ void getShapeType()
     OUTLINED_FUNCTION_713(v13);
     OUTLINED_FUNCTION_0(v15, v16, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC400E0);
+    __cxa_guard_release(byte_27FC400E0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC400C0))
+  if (__cxa_guard_acquire(byte_27FC400C0))
   {
     OUTLINED_FUNCTION_76(&unk_27FC41320);
     *(v0 + 12) = v1;
     OUTLINED_FUNCTION_362(v0);
     OUTLINED_FUNCTION_0(v2, v3, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC400C0);
+    __cxa_guard_release(byte_27FC400C0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC400C8))
+  if (__cxa_guard_acquire(byte_27FC400C8))
   {
     OUTLINED_FUNCTION_97(&unk_27FC45D98);
     OUTLINED_FUNCTION_289(v0);
@@ -51913,12 +51896,12 @@ void getShapeType()
     *(v9 + 108) = v10;
     OUTLINED_FUNCTION_0(v11, v12, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC400C8);
+    __cxa_guard_release(byte_27FC400C8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC400D0))
+  if (__cxa_guard_acquire(byte_27FC400D0))
   {
     v0 = &unk_27FC4478C;
     do
@@ -51949,19 +51932,19 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC400B0))
+  if (__cxa_guard_acquire(byte_27FC400B0))
   {
     OUTLINED_FUNCTION_58(&unk_27FC41308);
     *(v0 + 12) = v1;
     OUTLINED_FUNCTION_362(v0);
     OUTLINED_FUNCTION_0(v2, v3, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC400B0);
+    __cxa_guard_release(byte_27FC400B0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC400B8))
+  if (__cxa_guard_acquire(byte_27FC400B8))
   {
     OUTLINED_FUNCTION_57(&unk_27FC43718);
     OUTLINED_FUNCTION_156(v0);
@@ -51972,19 +51955,19 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40098))
+  if (__cxa_guard_acquire(byte_27FC40098))
   {
     OUTLINED_FUNCTION_89(&unk_27FC412F0);
     OUTLINED_FUNCTION_194(v0);
     *(v1 + 20) = 4;
     OUTLINED_FUNCTION_0(v2, v3, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40098);
+    __cxa_guard_release(byte_27FC40098);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC400A0))
+  if (__cxa_guard_acquire(byte_27FC400A0))
   {
     OUTLINED_FUNCTION_97(&unk_27FC44B70);
     OUTLINED_FUNCTION_289(v0);
@@ -51997,12 +51980,12 @@ void getShapeType()
     OUTLINED_FUNCTION_338(v6);
     OUTLINED_FUNCTION_0(v7, v8, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC400A0);
+    __cxa_guard_release(byte_27FC400A0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC400A8))
+  if (__cxa_guard_acquire(byte_27FC400A8))
   {
     v0 = &unk_27FC48994;
     do
@@ -52065,19 +52048,19 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40080))
+  if (__cxa_guard_acquire(byte_27FC40080))
   {
     OUTLINED_FUNCTION_89(&unk_27FC412D8);
     OUTLINED_FUNCTION_194(v0);
     *(v1 + 20) = v2;
     OUTLINED_FUNCTION_0(v3, v4, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40080);
+    __cxa_guard_release(byte_27FC40080);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40088))
+  if (__cxa_guard_acquire(byte_27FC40088))
   {
     OUTLINED_FUNCTION_97(&unk_27FC44318);
     OUTLINED_FUNCTION_289(v0);
@@ -52090,24 +52073,24 @@ void getShapeType()
     *(v4 + 76) = v5;
     OUTLINED_FUNCTION_0(v6, v7, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40088);
+    __cxa_guard_release(byte_27FC40088);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40068))
+  if (__cxa_guard_acquire(byte_27FC40068))
   {
     OUTLINED_FUNCTION_78(&unk_27FC412C0);
     *(v0 + 12) = 0;
     OUTLINED_FUNCTION_362(v0);
     OUTLINED_FUNCTION_0(v1, v2, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40068);
+    __cxa_guard_release(byte_27FC40068);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40070))
+  if (__cxa_guard_acquire(byte_27FC40070))
   {
     OUTLINED_FUNCTION_97(&unk_27FC436D8);
     OUTLINED_FUNCTION_289(v0);
@@ -52116,12 +52099,12 @@ void getShapeType()
     OUTLINED_FUNCTION_184(v2);
     OUTLINED_FUNCTION_0(v3, v4, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40070);
+    __cxa_guard_release(byte_27FC40070);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40078))
+  if (__cxa_guard_acquire(byte_27FC40078))
   {
     v0 = &unk_27FC413EC;
     do
@@ -52135,18 +52118,18 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40058))
+  if (__cxa_guard_acquire(byte_27FC40058))
   {
     OUTLINED_FUNCTION_49(&unk_27FC412A8);
     *(v0 + 20) = 4;
     OUTLINED_FUNCTION_0(v1, v2, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40058);
+    __cxa_guard_release(byte_27FC40058);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40060))
+  if (__cxa_guard_acquire(byte_27FC40060))
   {
     dword_27FC431DC = 21600;
     OUTLINED_FUNCTION_789(&unk_27FC431C8);
@@ -52158,18 +52141,18 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40048))
+  if (__cxa_guard_acquire(byte_27FC40048))
   {
     OUTLINED_FUNCTION_31(&unk_27FC41290);
     *(v0 + 20) = 4;
     OUTLINED_FUNCTION_0(v1, v2, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40048);
+    __cxa_guard_release(byte_27FC40048);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40050))
+  if (__cxa_guard_acquire(byte_27FC40050))
   {
     OUTLINED_FUNCTION_36(&unk_27FC418A0);
     *(v0 + 28) = v1;
@@ -52177,18 +52160,18 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40030))
+  if (__cxa_guard_acquire(byte_27FC40030))
   {
     OUTLINED_FUNCTION_161(&unk_27FC41238);
     OUTLINED_FUNCTION_826(v0);
     OUTLINED_FUNCTION_0(v1, v2, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40030);
+    __cxa_guard_release(byte_27FC40030);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40038))
+  if (__cxa_guard_acquire(byte_27FC40038))
   {
     OUTLINED_FUNCTION_68(&unk_27FC43198);
     OUTLINED_FUNCTION_792(v0);
@@ -52196,12 +52179,12 @@ void getShapeType()
     *(v2 + 44) = 14;
     OUTLINED_FUNCTION_0(v3, v4, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40038);
+    __cxa_guard_release(byte_27FC40038);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40040))
+  if (__cxa_guard_acquire(byte_27FC40040))
   {
     v0 = &unk_27FC558B0;
     do
@@ -52427,7 +52410,7 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40018))
+  if (__cxa_guard_acquire(byte_27FC40018))
   {
     OUTLINED_FUNCTION_76(&unk_27FC42B48);
     *(v0 + 12) = 13;
@@ -52436,12 +52419,12 @@ void getShapeType()
     OUTLINED_FUNCTION_227(v1);
     OUTLINED_FUNCTION_0(v3, v4, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40018);
+    __cxa_guard_release(byte_27FC40018);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40020))
+  if (__cxa_guard_acquire(byte_27FC40020))
   {
     OUTLINED_FUNCTION_57(&unk_27FC44B10);
     OUTLINED_FUNCTION_234(v0);
@@ -52453,12 +52436,12 @@ void getShapeType()
     OUTLINED_FUNCTION_724(v5);
     OUTLINED_FUNCTION_0(v6, v7, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40020);
+    __cxa_guard_release(byte_27FC40020);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40028))
+  if (__cxa_guard_acquire(byte_27FC40028))
   {
     v0 = &unk_27FC45CC0;
     do
@@ -52498,19 +52481,19 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40000))
+  if (__cxa_guard_acquire(byte_27FC40000))
   {
     OUTLINED_FUNCTION_161(&unk_27FC41278);
     *(v0 + 12) = v1;
     OUTLINED_FUNCTION_362(v0);
     OUTLINED_FUNCTION_0(v2, v3, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40000);
+    __cxa_guard_release(byte_27FC40000);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40008))
+  if (__cxa_guard_acquire(byte_27FC40008))
   {
     OUTLINED_FUNCTION_68(&unk_27FC44AB0);
     OUTLINED_FUNCTION_356(v0);
@@ -52520,12 +52503,12 @@ void getShapeType()
     OUTLINED_FUNCTION_578(v3);
     OUTLINED_FUNCTION_0(v4, v5, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC40008);
+    __cxa_guard_release(byte_27FC40008);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC40010))
+  if (__cxa_guard_acquire(byte_27FC40010))
   {
     v0 = &unk_27FC57708;
     do
@@ -52878,19 +52861,19 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FFE8))
+  if (__cxa_guard_acquire(byte_27FC3FFE8))
   {
     OUTLINED_FUNCTION_58(&unk_27FC42B20);
     *(v0 + 12) = v1;
     OUTLINED_FUNCTION_98(v0);
     OUTLINED_FUNCTION_0(v2, v3, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC3FFE8);
+    __cxa_guard_release(byte_27FC3FFE8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FFF0))
+  if (__cxa_guard_acquire(byte_27FC3FFF0))
   {
     OUTLINED_FUNCTION_464(byte_27FC46E08);
     OUTLINED_FUNCTION_345(v0);
@@ -52901,12 +52884,12 @@ void getShapeType()
     OUTLINED_FUNCTION_347(v4);
     OUTLINED_FUNCTION_0(v5, v6, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC3FFF0);
+    __cxa_guard_release(byte_27FC3FFF0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FFF8))
+  if (__cxa_guard_acquire(byte_27FC3FFF8))
   {
     v0 = &unk_27FC5ADE8;
     do
@@ -53504,7 +53487,7 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FFD0))
+  if (__cxa_guard_acquire(byte_27FC3FFD0))
   {
     OUTLINED_FUNCTION_76(&unk_27FC42AF8);
     *(v0 + 12) = 13;
@@ -53513,12 +53496,12 @@ void getShapeType()
     OUTLINED_FUNCTION_227(v1);
     OUTLINED_FUNCTION_0(v3, v4, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC3FFD0);
+    __cxa_guard_release(byte_27FC3FFD0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FFD8))
+  if (__cxa_guard_acquire(byte_27FC3FFD8))
   {
     OUTLINED_FUNCTION_57(&unk_27FC44A50);
     OUTLINED_FUNCTION_234(v0);
@@ -53530,12 +53513,12 @@ void getShapeType()
     OUTLINED_FUNCTION_724(v5);
     OUTLINED_FUNCTION_0(v6, v7, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC3FFD8);
+    __cxa_guard_release(byte_27FC3FFD8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FFE0))
+  if (__cxa_guard_acquire(byte_27FC3FFE0))
   {
     v0 = &unk_27FC45C50;
     do
@@ -53575,19 +53558,19 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FFB8))
+  if (__cxa_guard_acquire(byte_27FC3FFB8))
   {
     OUTLINED_FUNCTION_49(&unk_27FC42AD0);
     OUTLINED_FUNCTION_637(v0);
     OUTLINED_FUNCTION_151(v1);
     OUTLINED_FUNCTION_0(v2, v3, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC3FFB8);
+    __cxa_guard_release(byte_27FC3FFB8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FFC0))
+  if (__cxa_guard_acquire(byte_27FC3FFC0))
   {
     OUTLINED_FUNCTION_113(&unk_27FC449F0);
     OUTLINED_FUNCTION_196(v0);
@@ -53600,12 +53583,12 @@ void getShapeType()
     *(v5 + 92) = v6;
     OUTLINED_FUNCTION_0(v7, v8, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC3FFC0);
+    __cxa_guard_release(byte_27FC3FFC0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FFC8))
+  if (__cxa_guard_acquire(byte_27FC3FFC8))
   {
     v0 = &unk_27FC45BE0;
     do
@@ -53646,19 +53629,19 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FFA0))
+  if (__cxa_guard_acquire(byte_27FC3FFA0))
   {
     OUTLINED_FUNCTION_73(&unk_27FC42AA8);
     OUTLINED_FUNCTION_827(v0);
     OUTLINED_FUNCTION_151(v1);
     OUTLINED_FUNCTION_0(v2, v3, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC3FFA0);
+    __cxa_guard_release(byte_27FC3FFA0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FFA8))
+  if (__cxa_guard_acquire(byte_27FC3FFA8))
   {
     OUTLINED_FUNCTION_113(&unk_27FC46D88);
     OUTLINED_FUNCTION_224(v0);
@@ -53671,12 +53654,12 @@ void getShapeType()
     OUTLINED_FUNCTION_666(v6);
     OUTLINED_FUNCTION_0(v7, v8, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC3FFA8);
+    __cxa_guard_release(byte_27FC3FFA8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FFB0))
+  if (__cxa_guard_acquire(byte_27FC3FFB0))
   {
     v0 = &unk_27FC43480;
     do
@@ -53698,17 +53681,17 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FF88))
+  if (__cxa_guard_acquire(byte_27FC3FF88))
   {
     OUTLINED_FUNCTION_28(&unk_27FC42A80);
     OUTLINED_FUNCTION_0(v0, v1, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC3FF88);
+    __cxa_guard_release(byte_27FC3FF88);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FF90))
+  if (__cxa_guard_acquire(byte_27FC3FF90))
   {
     OUTLINED_FUNCTION_464(byte_27FC43698);
     *(v0 + 4) = 7;
@@ -53722,12 +53705,12 @@ void getShapeType()
     *(v5 + 60) = v6;
     OUTLINED_FUNCTION_0(v7, v8, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC3FF90);
+    __cxa_guard_release(byte_27FC3FF90);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FF98))
+  if (__cxa_guard_acquire(byte_27FC3FF98))
   {
     v0 = &unk_27FC4DE70;
     do
@@ -53880,7 +53863,7 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FF68))
+  if (__cxa_guard_acquire(byte_27FC3FF68))
   {
     OUTLINED_FUNCTION_89(&unk_27FC43440);
     OUTLINED_FUNCTION_591(v0);
@@ -53895,12 +53878,12 @@ void getShapeType()
     *(v2 + 52) = v5;
     OUTLINED_FUNCTION_0(v8, v9, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC3FF68);
+    __cxa_guard_release(byte_27FC3FF68);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FF70))
+  if (__cxa_guard_acquire(byte_27FC3FF70))
   {
     OUTLINED_FUNCTION_203(&unk_27FC482A4);
     OUTLINED_FUNCTION_542(v0);
@@ -53927,12 +53910,12 @@ void getShapeType()
     OUTLINED_FUNCTION_712(v11);
     OUTLINED_FUNCTION_0(v14, v15, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC3FF70);
+    __cxa_guard_release(byte_27FC3FF70);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FF78))
+  if (__cxa_guard_acquire(byte_27FC3FF78))
   {
     v0 = &unk_27FC488EC;
     do
@@ -53983,12 +53966,12 @@ void getShapeType()
     *(v6 + 20) = 3;
     OUTLINED_FUNCTION_0(v7, v8, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC3FF78);
+    __cxa_guard_release(byte_27FC3FF78);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FF80))
+  if (__cxa_guard_acquire(byte_27FC3FF80))
   {
     v0 = &xmmword_27FC41880 + 1;
     do
@@ -54004,7 +53987,7 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FF48))
+  if (__cxa_guard_acquire(byte_27FC3FF48))
   {
     OUTLINED_FUNCTION_58(&unk_27FC4816C);
     OUTLINED_FUNCTION_354(v0);
@@ -54035,12 +54018,12 @@ void getShapeType()
     *(v10 + 148) = v15;
     OUTLINED_FUNCTION_0(v16, v17, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC3FF48);
+    __cxa_guard_release(byte_27FC3FF48);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FF50))
+  if (__cxa_guard_acquire(byte_27FC3FF50))
   {
     OUTLINED_FUNCTION_77(&unk_27FC4AB7C);
     *(v0 + 20) = 0;
@@ -54085,12 +54068,12 @@ void getShapeType()
     OUTLINED_FUNCTION_745(v22);
     OUTLINED_FUNCTION_0(v23, v24, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC3FF50);
+    __cxa_guard_release(byte_27FC3FF50);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FF58))
+  if (__cxa_guard_acquire(byte_27FC3FF58))
   {
     v0 = &unk_27FC44738;
     do
@@ -54119,12 +54102,12 @@ void getShapeType()
     OUTLINED_FUNCTION_307(v4);
     OUTLINED_FUNCTION_0(v5, v6, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC3FF58);
+    __cxa_guard_release(byte_27FC3FF58);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FF60))
+  if (__cxa_guard_acquire(byte_27FC3FF60))
   {
     v0 = &xmmword_27FC41860 + 1;
     do
@@ -54141,7 +54124,7 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FF28))
+  if (__cxa_guard_acquire(byte_27FC3FF28))
   {
     OUTLINED_FUNCTION_58(&unk_27FC442C8);
     OUTLINED_FUNCTION_328(v0);
@@ -54152,12 +54135,12 @@ void getShapeType()
     OUTLINED_FUNCTION_590(v3);
     OUTLINED_FUNCTION_0(v4, v5, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC3FF28);
+    __cxa_guard_release(byte_27FC3FF28);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FF30))
+  if (__cxa_guard_acquire(byte_27FC3FF30))
   {
     OUTLINED_FUNCTION_464(byte_27FC46D08);
     OUTLINED_FUNCTION_70(v0);
@@ -54165,12 +54148,12 @@ void getShapeType()
     OUTLINED_FUNCTION_191(v2);
     OUTLINED_FUNCTION_0(v3, v4, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC3FF30);
+    __cxa_guard_release(byte_27FC3FF30);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FF38))
+  if (__cxa_guard_acquire(byte_27FC3FF38))
   {
     v0 = &unk_27FC4C084;
     do
@@ -54261,12 +54244,12 @@ void getShapeType()
     OUTLINED_FUNCTION_648(v13);
     OUTLINED_FUNCTION_0(v14, v15, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC3FF38);
+    __cxa_guard_release(byte_27FC3FF38);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FF40))
+  if (__cxa_guard_acquire(byte_27FC3FF40))
   {
     v0 = &xmmword_27FC41840 + 1;
     do
@@ -54282,19 +54265,19 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FF18))
+  if (__cxa_guard_acquire(byte_27FC3FF18))
   {
     OUTLINED_FUNCTION_58(&unk_27FC41800);
     OUTLINED_FUNCTION_328(v0);
     *(v1 + 28) = 4;
     OUTLINED_FUNCTION_0(v2, v3, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC3FF18);
+    __cxa_guard_release(byte_27FC3FF18);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FF20))
+  if (__cxa_guard_acquire(byte_27FC3FF20))
   {
     OUTLINED_FUNCTION_36(&unk_27FC41820);
     *(v0 + 28) = v1;
@@ -54302,7 +54285,7 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FF00))
+  if (__cxa_guard_acquire(byte_27FC3FF00))
   {
     OUTLINED_FUNCTION_594(&unk_27FC43658);
     *(v0 + 8) = v1;
@@ -54315,12 +54298,12 @@ void getShapeType()
     OUTLINED_FUNCTION_459(v5);
     OUTLINED_FUNCTION_0(v7, v8, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC3FF00);
+    __cxa_guard_release(byte_27FC3FF00);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FF08))
+  if (__cxa_guard_acquire(byte_27FC3FF08))
   {
     byte_27FC47E0C = 0;
     OUTLINED_FUNCTION_128(&byte_27FC47E0C);
@@ -54343,12 +54326,12 @@ void getShapeType()
     *(v10 + 140) = v11;
     OUTLINED_FUNCTION_0(v12, v13, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC3FF08);
+    __cxa_guard_release(byte_27FC3FF08);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FF10))
+  if (__cxa_guard_acquire(byte_27FC3FF10))
   {
     v0 = &unk_27FC446E4;
     do
@@ -54378,18 +54361,18 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FEE0))
+  if (__cxa_guard_acquire(byte_27FC3FEE0))
   {
     OUTLINED_FUNCTION_89(&unk_27FC417C0);
     OUTLINED_FUNCTION_14(v0);
     OUTLINED_FUNCTION_0(v1, v2, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC3FEE0);
+    __cxa_guard_release(byte_27FC3FEE0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FEE8))
+  if (__cxa_guard_acquire(byte_27FC3FEE8))
   {
     OUTLINED_FUNCTION_682(&unk_27FC521C0);
     *(v0 + 12) = 10800;
@@ -54503,12 +54486,12 @@ void getShapeType()
     *(v17 + 508) = v16;
     OUTLINED_FUNCTION_0(v16, v18, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC3FEE8);
+    __cxa_guard_release(byte_27FC3FEE8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FEF0))
+  if (__cxa_guard_acquire(byte_27FC3FEF0))
   {
     v0 = &unk_27FC4F310;
     do
@@ -54676,12 +54659,12 @@ void getShapeType()
     OUTLINED_FUNCTION_607();
     OUTLINED_FUNCTION_0(v28, v29, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC3FEF0);
+    __cxa_guard_release(byte_27FC3FEF0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FEF8))
+  if (__cxa_guard_acquire(byte_27FC3FEF8))
   {
     v0 = &xmmword_27FC417E0 + 1;
     do
@@ -54698,7 +54681,7 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FEC0))
+  if (__cxa_guard_acquire(byte_27FC3FEC0))
   {
     OUTLINED_FUNCTION_58(&unk_27FC44880);
     OUTLINED_FUNCTION_328(v0);
@@ -54709,12 +54692,12 @@ void getShapeType()
     *(v4 + 84) = 4;
     OUTLINED_FUNCTION_0(v5, v6, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC3FEC0);
+    __cxa_guard_release(byte_27FC3FEC0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FEC8))
+  if (__cxa_guard_acquire(byte_27FC3FEC8))
   {
     byte_27FC48ECC = 0;
     OUTLINED_FUNCTION_217(&byte_27FC48ECC);
@@ -54744,12 +54727,12 @@ void getShapeType()
     *(v15 + 172) = v16;
     OUTLINED_FUNCTION_0(v17, v18, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC3FEC8);
+    __cxa_guard_release(byte_27FC3FEC8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FED0))
+  if (__cxa_guard_acquire(byte_27FC3FED0))
   {
     v0 = &unk_27FC413D0;
     do
@@ -54761,12 +54744,12 @@ void getShapeType()
     OUTLINED_FUNCTION_5(&unk_27FC413C8);
     OUTLINED_FUNCTION_0(v2, v3, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC3FED0);
+    __cxa_guard_release(byte_27FC3FED0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FEA0))
+  if (__cxa_guard_acquire(byte_27FC3FEA0))
   {
     OUTLINED_FUNCTION_89(&unk_27FC49674);
     *(v0 + 8) = 5;
@@ -54812,12 +54795,12 @@ void getShapeType()
     *(v9 + 188) = v12;
     OUTLINED_FUNCTION_0(v15, v16, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC3FEA0);
+    __cxa_guard_release(byte_27FC3FEA0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FEA8))
+  if (__cxa_guard_acquire(byte_27FC3FEA8))
   {
     OUTLINED_FUNCTION_464(byte_27FC4CC94);
     OUTLINED_FUNCTION_70(v0);
@@ -54869,12 +54852,12 @@ void getShapeType()
     *(v19 + 300) = 0;
     OUTLINED_FUNCTION_0(v23, v24, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC3FEA8);
+    __cxa_guard_release(byte_27FC3FEA8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FEB0))
+  if (__cxa_guard_acquire(byte_27FC3FEB0))
   {
     v0 = &unk_27FC4B03C;
     do
@@ -54959,12 +54942,12 @@ void getShapeType()
     OUTLINED_FUNCTION_39(&dword_27FC4B114);
     OUTLINED_FUNCTION_0(v14, v15, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC3FEB0);
+    __cxa_guard_release(byte_27FC3FEB0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FEB8))
+  if (__cxa_guard_acquire(byte_27FC3FEB8))
   {
     v0 = &xmmword_27FC41780 + 1;
     do
@@ -54979,19 +54962,19 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FE80))
+  if (__cxa_guard_acquire(byte_27FC3FE80))
   {
     OUTLINED_FUNCTION_89(&unk_27FC41760);
     OUTLINED_FUNCTION_194(v0);
     OUTLINED_FUNCTION_298(v1);
     OUTLINED_FUNCTION_0(v2, v3, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC3FE80);
+    __cxa_guard_release(byte_27FC3FE80);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FE88))
+  if (__cxa_guard_acquire(byte_27FC3FE88))
   {
     OUTLINED_FUNCTION_464(byte_27FC44278);
     OUTLINED_FUNCTION_45(v0);
@@ -55004,12 +54987,12 @@ void getShapeType()
     *(v4 + 76) = 10800;
     OUTLINED_FUNCTION_0(v6, v7, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC3FE88);
+    __cxa_guard_release(byte_27FC3FE88);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FE90))
+  if (__cxa_guard_acquire(byte_27FC3FE90))
   {
     v0 = &unk_27FC43410;
     do
@@ -55028,12 +55011,12 @@ void getShapeType()
     OUTLINED_FUNCTION_55(&unk_27FC43424);
     OUTLINED_FUNCTION_0(v3, v4, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC3FE90);
+    __cxa_guard_release(byte_27FC3FE90);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FE98))
+  if (__cxa_guard_acquire(byte_27FC3FE98))
   {
     v0 = &qword_27FC44990 + 1;
     do
@@ -55065,18 +55048,18 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FE60))
+  if (__cxa_guard_acquire(byte_27FC3FE60))
   {
     OUTLINED_FUNCTION_89(&unk_27FC41720);
     OUTLINED_FUNCTION_14(v0);
     OUTLINED_FUNCTION_0(v1, v2, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC3FE60);
+    __cxa_guard_release(byte_27FC3FE60);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FE68))
+  if (__cxa_guard_acquire(byte_27FC3FE68))
   {
     OUTLINED_FUNCTION_90(&unk_27FC45B68);
     OUTLINED_FUNCTION_348(v0);
@@ -55090,12 +55073,12 @@ void getShapeType()
     OUTLINED_FUNCTION_814(v6);
     OUTLINED_FUNCTION_0(v7, v8, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC3FE68);
+    __cxa_guard_release(byte_27FC3FE68);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FE70))
+  if (__cxa_guard_acquire(byte_27FC3FE70))
   {
     v0 = &unk_27FC49A40;
     do
@@ -55154,23 +55137,23 @@ void getShapeType()
     OUTLINED_FUNCTION_99(&unk_27FC49AE0);
     OUTLINED_FUNCTION_0(v9, v10, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC3FE70);
+    __cxa_guard_release(byte_27FC3FE70);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FE40))
+  if (__cxa_guard_acquire(byte_27FC3FE40))
   {
     OUTLINED_FUNCTION_89(&unk_27FC416E0);
     OUTLINED_FUNCTION_14(v0);
     OUTLINED_FUNCTION_0(v1, v2, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC3FE40);
+    __cxa_guard_release(byte_27FC3FE40);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FE48))
+  if (__cxa_guard_acquire(byte_27FC3FE48))
   {
     OUTLINED_FUNCTION_90(&unk_27FC45AF8);
     OUTLINED_FUNCTION_348(v0);
@@ -55184,12 +55167,12 @@ void getShapeType()
     OUTLINED_FUNCTION_814(v6);
     OUTLINED_FUNCTION_0(v7, v8, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC3FE48);
+    __cxa_guard_release(byte_27FC3FE48);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FE50))
+  if (__cxa_guard_acquire(byte_27FC3FE50))
   {
     v0 = &unk_27FC4997C;
     do
@@ -55248,23 +55231,23 @@ void getShapeType()
     OUTLINED_FUNCTION_99(&unk_27FC49A1C);
     OUTLINED_FUNCTION_0(v9, v10, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC3FE50);
+    __cxa_guard_release(byte_27FC3FE50);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FE28))
+  if (__cxa_guard_acquire(byte_27FC3FE28))
   {
     OUTLINED_FUNCTION_89(&unk_27FC416A0);
     OUTLINED_FUNCTION_14(v0);
     OUTLINED_FUNCTION_0(v1, v2, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC3FE28);
+    __cxa_guard_release(byte_27FC3FE28);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FE30))
+  if (__cxa_guard_acquire(byte_27FC3FE30))
   {
     OUTLINED_FUNCTION_77(&unk_27FC48204);
     OUTLINED_FUNCTION_552(v0);
@@ -55292,23 +55275,23 @@ void getShapeType()
     *(v13 + 156) = v14;
     OUTLINED_FUNCTION_0(v15, v16, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC3FE30);
+    __cxa_guard_release(byte_27FC3FE30);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FE08))
+  if (__cxa_guard_acquire(byte_27FC3FE08))
   {
     OUTLINED_FUNCTION_89(&unk_27FC41660);
     OUTLINED_FUNCTION_14(v0);
     OUTLINED_FUNCTION_0(v1, v2, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC3FE08);
+    __cxa_guard_release(byte_27FC3FE08);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FE10))
+  if (__cxa_guard_acquire(byte_27FC3FE10))
   {
     OUTLINED_FUNCTION_90(&unk_27FC495B4);
     OUTLINED_FUNCTION_348(v0);
@@ -55334,12 +55317,12 @@ void getShapeType()
     *(v13 + 188) = 0;
     OUTLINED_FUNCTION_0(v15, v16, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC3FE10);
+    __cxa_guard_release(byte_27FC3FE10);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FE18))
+  if (__cxa_guard_acquire(byte_27FC3FE18))
   {
     v0 = &unk_27FC4BF6C;
     do
@@ -55427,12 +55410,12 @@ void getShapeType()
     OUTLINED_FUNCTION_648(v12);
     OUTLINED_FUNCTION_0(v13, v14, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC3FE18);
+    __cxa_guard_release(byte_27FC3FE18);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FE20))
+  if (__cxa_guard_acquire(byte_27FC3FE20))
   {
     v0 = &xmmword_27FC41680 + 1;
     do
@@ -55448,18 +55431,18 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FDE8))
+  if (__cxa_guard_acquire(byte_27FC3FDE8))
   {
     OUTLINED_FUNCTION_89(&unk_27FC41620);
     OUTLINED_FUNCTION_14(v0);
     OUTLINED_FUNCTION_0(v1, v2, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC3FDE8);
+    __cxa_guard_release(byte_27FC3FDE8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FDF0))
+  if (__cxa_guard_acquire(byte_27FC3FDF0))
   {
     OUTLINED_FUNCTION_464(byte_27FC46C88);
     OUTLINED_FUNCTION_70(v0);
@@ -55467,12 +55450,12 @@ void getShapeType()
     OUTLINED_FUNCTION_191(v2);
     OUTLINED_FUNCTION_0(v3, v4, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC3FDF0);
+    __cxa_guard_release(byte_27FC3FDF0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FDF8))
+  if (__cxa_guard_acquire(byte_27FC3FDF8))
   {
     v0 = &unk_27FC4D5AC;
     do
@@ -55609,23 +55592,23 @@ void getShapeType()
     *(v27 + 24) = v29;
     OUTLINED_FUNCTION_0(v30, v31, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC3FDF8);
+    __cxa_guard_release(byte_27FC3FDF8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FDC8))
+  if (__cxa_guard_acquire(byte_27FC3FDC8))
   {
     OUTLINED_FUNCTION_89(&unk_27FC415E0);
     OUTLINED_FUNCTION_14(v0);
     OUTLINED_FUNCTION_0(v1, v2, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC3FDC8);
+    __cxa_guard_release(byte_27FC3FDC8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FDD0))
+  if (__cxa_guard_acquire(byte_27FC3FDD0))
   {
     OUTLINED_FUNCTION_464(byte_27FC44930);
     OUTLINED_FUNCTION_45(v0);
@@ -55641,12 +55624,12 @@ void getShapeType()
     *(v9 + 92) = 0;
     OUTLINED_FUNCTION_0(v10, v11, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC3FDD0);
+    __cxa_guard_release(byte_27FC3FDD0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FDD8))
+  if (__cxa_guard_acquire(byte_27FC3FDD8))
   {
     v0 = &unk_27FC515F8;
     do
@@ -55821,12 +55804,12 @@ void getShapeType()
     OUTLINED_FUNCTION_458(16);
     OUTLINED_FUNCTION_0(v35, v36, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC3FDD8);
+    __cxa_guard_release(byte_27FC3FDD8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FDE0))
+  if (__cxa_guard_acquire(byte_27FC3FDE0))
   {
     v0 = &xmmword_27FC41600 + 1;
     do
@@ -55843,17 +55826,17 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FDA8))
+  if (__cxa_guard_acquire(byte_27FC3FDA8))
   {
     OUTLINED_FUNCTION_21(&unk_27FC415A0);
     OUTLINED_FUNCTION_0(v0, v1, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC3FDA8);
+    __cxa_guard_release(byte_27FC3FDA8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FDB0))
+  if (__cxa_guard_acquire(byte_27FC3FDB0))
   {
     OUTLINED_FUNCTION_97(&unk_27FC43618);
     OUTLINED_FUNCTION_566(v0);
@@ -55864,12 +55847,12 @@ void getShapeType()
     OUTLINED_FUNCTION_106(v2);
     OUTLINED_FUNCTION_0(v4, v5, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC3FDB0);
+    __cxa_guard_release(byte_27FC3FDB0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FDB8))
+  if (__cxa_guard_acquire(byte_27FC3FDB8))
   {
     v0 = &unk_27FC4EC80;
     do
@@ -56021,22 +56004,22 @@ void getShapeType()
     OUTLINED_FUNCTION_307(v34);
     OUTLINED_FUNCTION_0(v35, v36, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC3FDB8);
+    __cxa_guard_release(byte_27FC3FDB8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FD88))
+  if (__cxa_guard_acquire(byte_27FC3FD88))
   {
     OUTLINED_FUNCTION_21(&unk_27FC41560);
     OUTLINED_FUNCTION_0(v0, v1, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC3FD88);
+    __cxa_guard_release(byte_27FC3FD88);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FD90))
+  if (__cxa_guard_acquire(byte_27FC3FD90))
   {
     OUTLINED_FUNCTION_464(byte_27FC435D8);
     OUTLINED_FUNCTION_45(v0);
@@ -56045,12 +56028,12 @@ void getShapeType()
     OUTLINED_FUNCTION_106(v2);
     OUTLINED_FUNCTION_0(v4, v5, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC3FD90);
+    __cxa_guard_release(byte_27FC3FD90);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FD98))
+  if (__cxa_guard_acquire(byte_27FC3FD98))
   {
     v0 = &unk_27FC53458;
     do
@@ -56269,12 +56252,12 @@ void getShapeType()
     OUTLINED_FUNCTION_307(v47);
     OUTLINED_FUNCTION_0(v48, v49, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC3FD98);
+    __cxa_guard_release(byte_27FC3FD98);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FDA0))
+  if (__cxa_guard_acquire(byte_27FC3FDA0))
   {
     v0 = &xmmword_27FC41580 + 1;
     do
@@ -56291,41 +56274,41 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FD70))
+  if (__cxa_guard_acquire(byte_27FC3FD70))
   {
     OUTLINED_FUNCTION_89(&unk_27FC41520);
     OUTLINED_FUNCTION_14(v0);
     OUTLINED_FUNCTION_0(v1, v2, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC3FD70);
+    __cxa_guard_release(byte_27FC3FD70);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FD78))
+  if (__cxa_guard_acquire(byte_27FC3FD78))
   {
     OUTLINED_FUNCTION_34(&unk_27FC43168);
     OUTLINED_FUNCTION_163(v0);
     *(v1 + 44) = v2;
     OUTLINED_FUNCTION_0(v3, v4, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC3FD78);
+    __cxa_guard_release(byte_27FC3FD78);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FD50))
+  if (__cxa_guard_acquire(byte_27FC3FD50))
   {
     OUTLINED_FUNCTION_89(&unk_27FC414E0);
     OUTLINED_FUNCTION_14(v0);
     OUTLINED_FUNCTION_0(v1, v2, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC3FD50);
+    __cxa_guard_release(byte_27FC3FD50);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FD58))
+  if (__cxa_guard_acquire(byte_27FC3FD58))
   {
     OUTLINED_FUNCTION_464(byte_27FC43138);
     OUTLINED_FUNCTION_45(v0);
@@ -56333,12 +56316,12 @@ void getShapeType()
     *(v2 + 44) = v3;
     OUTLINED_FUNCTION_0(v4, v5, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC3FD58);
+    __cxa_guard_release(byte_27FC3FD58);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FD60))
+  if (__cxa_guard_acquire(byte_27FC3FD60))
   {
     v0 = &unk_27FC44690;
     do
@@ -56370,12 +56353,12 @@ void getShapeType()
     *(v4 + 20) = 1;
     OUTLINED_FUNCTION_0(v5, v6, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC3FD60);
+    __cxa_guard_release(byte_27FC3FD60);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FD68))
+  if (__cxa_guard_acquire(byte_27FC3FD68))
   {
     v0 = &xmmword_27FC41500 + 1;
     do
@@ -56391,27 +56374,27 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FD38))
+  if (__cxa_guard_acquire(byte_27FC3FD38))
   {
     OUTLINED_FUNCTION_21(&unk_27FC414A0);
     OUTLINED_FUNCTION_0(v0, v1, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC3FD38);
+    __cxa_guard_release(byte_27FC3FD38);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FD40))
+  if (__cxa_guard_acquire(byte_27FC3FD40))
   {
     OUTLINED_FUNCTION_29(&unk_27FC43598);
     OUTLINED_FUNCTION_0(v0, v1, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC3FD40);
+    __cxa_guard_release(byte_27FC3FD40);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FD48))
+  if (__cxa_guard_acquire(byte_27FC3FD48))
   {
     v0 = &xmmword_27FC414C0 + 1;
     do
@@ -56427,7 +56410,7 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FD20))
+  if (__cxa_guard_acquire(byte_27FC3FD20))
   {
     OUTLINED_FUNCTION_89(&unk_27FC41460);
     OUTLINED_FUNCTION_619(v0);
@@ -56435,24 +56418,24 @@ void getShapeType()
     OUTLINED_FUNCTION_201(v1);
     OUTLINED_FUNCTION_0(v2, v3, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC3FD20);
+    __cxa_guard_release(byte_27FC3FD20);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FD28))
+  if (__cxa_guard_acquire(byte_27FC3FD28))
   {
     OUTLINED_FUNCTION_29(&unk_27FC44228);
     OUTLINED_FUNCTION_258(v0);
     *(v1 + 76) = 0;
     OUTLINED_FUNCTION_0(v2, v3, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC3FD28);
+    __cxa_guard_release(byte_27FC3FD28);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FD30))
+  if (__cxa_guard_acquire(byte_27FC3FD30))
   {
     v0 = &xmmword_27FC41480 + 1;
     do
@@ -56468,7 +56451,7 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FD00))
+  if (__cxa_guard_acquire(byte_27FC3FD00))
   {
     OUTLINED_FUNCTION_58(&unk_27FC441D8);
     OUTLINED_FUNCTION_328(v0);
@@ -56479,12 +56462,12 @@ void getShapeType()
     OUTLINED_FUNCTION_590(v3);
     OUTLINED_FUNCTION_0(v4, v5, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC3FD00);
+    __cxa_guard_release(byte_27FC3FD00);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FD08))
+  if (__cxa_guard_acquire(byte_27FC3FD08))
   {
     OUTLINED_FUNCTION_464(_MergedGlobals_703);
     OUTLINED_FUNCTION_70(v0);
@@ -56492,12 +56475,12 @@ void getShapeType()
     OUTLINED_FUNCTION_191(v2);
     OUTLINED_FUNCTION_0(v3, v4, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC3FD08);
+    __cxa_guard_release(byte_27FC3FD08);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FD10))
+  if (__cxa_guard_acquire(byte_27FC3FD10))
   {
     v0 = &unk_27FC4BE54;
     do
@@ -56585,12 +56568,12 @@ void getShapeType()
     OUTLINED_FUNCTION_648(v12);
     OUTLINED_FUNCTION_0(v13, v14, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC3FD10);
+    __cxa_guard_release(byte_27FC3FD10);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FD18))
+  if (__cxa_guard_acquire(byte_27FC3FD18))
   {
     v0 = &xmmword_27FC41440 + 1;
     do
@@ -56606,17 +56589,17 @@ void getShapeType()
 }
 
 {
-  if (__cxa_guard_acquire(&_MergedGlobals_57))
+  if (__cxa_guard_acquire(_MergedGlobals_57))
   {
     OUTLINED_FUNCTION_21(&unk_27FC41400);
     OUTLINED_FUNCTION_0(v0, v1, &dword_25D297000);
 
-    __cxa_guard_release(&_MergedGlobals_57);
+    __cxa_guard_release(_MergedGlobals_57);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FCF0))
+  if (__cxa_guard_acquire(byte_27FC3FCF0))
   {
     OUTLINED_FUNCTION_36(&unk_27FC43558);
     *(v0 + 28) = 0;
@@ -56626,12 +56609,12 @@ void getShapeType()
     *(v1 + 60) = v2;
     OUTLINED_FUNCTION_0(v3, v4, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC3FCF0);
+    __cxa_guard_release(byte_27FC3FCF0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27FC3FCF8))
+  if (__cxa_guard_acquire(byte_27FC3FCF8))
   {
     v0 = &unk_27FC41424;
     do
@@ -56646,7 +56629,7 @@ void getShapeType()
 
 uint64_t getShapeType()
 {
-  if (!__cxa_guard_acquire(&qword_27FC41090))
+  if (!__cxa_guard_acquire(byte_27FC41090))
   {
     return 1;
   }
@@ -56665,7 +56648,7 @@ uint64_t getShapeType()
 }
 
 {
-  if (!__cxa_guard_acquire(&qword_27FC41050))
+  if (!__cxa_guard_acquire(byte_27FC41050))
   {
     return 1;
   }
@@ -56684,7 +56667,7 @@ uint64_t getShapeType()
 }
 
 {
-  if (!__cxa_guard_acquire(&qword_27FC41010))
+  if (!__cxa_guard_acquire(byte_27FC41010))
   {
     return 1;
   }
@@ -56703,7 +56686,7 @@ uint64_t getShapeType()
 }
 
 {
-  if (!__cxa_guard_acquire(&qword_27FC40FD0))
+  if (!__cxa_guard_acquire(byte_27FC40FD0))
   {
     return 1;
   }
@@ -56731,7 +56714,7 @@ uint64_t getShapeType()
 }
 
 {
-  if (!__cxa_guard_acquire(&qword_27FC40F50))
+  if (!__cxa_guard_acquire(byte_27FC40F50))
   {
     return 1;
   }
@@ -56751,7 +56734,7 @@ uint64_t getShapeType()
 }
 
 {
-  if (!__cxa_guard_acquire(&qword_27FC40B58))
+  if (!__cxa_guard_acquire(byte_27FC40B58))
   {
     return 1;
   }
@@ -56770,7 +56753,7 @@ uint64_t getShapeType()
 }
 
 {
-  if (!__cxa_guard_acquire(&qword_27FC40B40))
+  if (!__cxa_guard_acquire(byte_27FC40B40))
   {
     return 1;
   }
@@ -56789,7 +56772,7 @@ uint64_t getShapeType()
 }
 
 {
-  if (!__cxa_guard_acquire(&qword_27FC40B28))
+  if (!__cxa_guard_acquire(byte_27FC40B28))
   {
     return 1;
   }
@@ -56808,7 +56791,7 @@ uint64_t getShapeType()
 }
 
 {
-  if (!__cxa_guard_acquire(&qword_27FC40B10))
+  if (!__cxa_guard_acquire(byte_27FC40B10))
   {
     return 1;
   }
@@ -56827,7 +56810,7 @@ uint64_t getShapeType()
 }
 
 {
-  if (!__cxa_guard_acquire(&qword_27FC40AE0))
+  if (!__cxa_guard_acquire(byte_27FC40AE0))
   {
     return 1;
   }
@@ -56846,7 +56829,7 @@ uint64_t getShapeType()
 }
 
 {
-  if (!__cxa_guard_acquire(&qword_27FC40AC8))
+  if (!__cxa_guard_acquire(byte_27FC40AC8))
   {
     return 1;
   }
@@ -56865,7 +56848,7 @@ uint64_t getShapeType()
 }
 
 {
-  if (!__cxa_guard_acquire(&qword_27FC40AB0))
+  if (!__cxa_guard_acquire(byte_27FC40AB0))
   {
     return 1;
   }
@@ -56884,7 +56867,7 @@ uint64_t getShapeType()
 }
 
 {
-  if (!__cxa_guard_acquire(&qword_27FC40A98))
+  if (!__cxa_guard_acquire(byte_27FC40A98))
   {
     return 1;
   }
@@ -56903,7 +56886,7 @@ uint64_t getShapeType()
 }
 
 {
-  if (!__cxa_guard_acquire(&qword_27FC40A20))
+  if (!__cxa_guard_acquire(byte_27FC40A20))
   {
     return 1;
   }
@@ -56922,7 +56905,7 @@ uint64_t getShapeType()
 }
 
 {
-  if (!__cxa_guard_acquire(&qword_27FC409D8))
+  if (!__cxa_guard_acquire(byte_27FC409D8))
   {
     return 1;
   }
@@ -56941,7 +56924,7 @@ uint64_t getShapeType()
 }
 
 {
-  if (!__cxa_guard_acquire(&qword_27FC40990))
+  if (!__cxa_guard_acquire(byte_27FC40990))
   {
     return 1;
   }
@@ -56961,7 +56944,7 @@ uint64_t getShapeType()
 }
 
 {
-  if (!__cxa_guard_acquire(&qword_27FC40978))
+  if (!__cxa_guard_acquire(byte_27FC40978))
   {
     return 1;
   }
@@ -56980,7 +56963,7 @@ uint64_t getShapeType()
 }
 
 {
-  if (!__cxa_guard_acquire(&qword_27FC40960))
+  if (!__cxa_guard_acquire(byte_27FC40960))
   {
     return 1;
   }
@@ -57000,7 +56983,7 @@ uint64_t getShapeType()
 }
 
 {
-  if (!__cxa_guard_acquire(&qword_27FC408D8))
+  if (!__cxa_guard_acquire(byte_27FC408D8))
   {
     return 1;
   }
@@ -57019,7 +57002,7 @@ uint64_t getShapeType()
 }
 
 {
-  if (!__cxa_guard_acquire(&qword_27FC408B8))
+  if (!__cxa_guard_acquire(byte_27FC408B8))
   {
     return 1;
   }
@@ -57038,7 +57021,7 @@ uint64_t getShapeType()
 }
 
 {
-  if (!__cxa_guard_acquire(&qword_27FC40898))
+  if (!__cxa_guard_acquire(byte_27FC40898))
   {
     return 1;
   }
@@ -57057,7 +57040,7 @@ uint64_t getShapeType()
 }
 
 {
-  if (!__cxa_guard_acquire(&qword_27FC40878))
+  if (!__cxa_guard_acquire(byte_27FC40878))
   {
     return 1;
   }
@@ -57076,7 +57059,7 @@ uint64_t getShapeType()
 }
 
 {
-  if (!__cxa_guard_acquire(&qword_27FC40858))
+  if (!__cxa_guard_acquire(byte_27FC40858))
   {
     return 1;
   }
@@ -57095,7 +57078,7 @@ uint64_t getShapeType()
 }
 
 {
-  if (!__cxa_guard_acquire(&qword_27FC40838))
+  if (!__cxa_guard_acquire(byte_27FC40838))
   {
     return 1;
   }
@@ -57114,7 +57097,7 @@ uint64_t getShapeType()
 }
 
 {
-  if (!__cxa_guard_acquire(&qword_27FC407A0))
+  if (!__cxa_guard_acquire(byte_27FC407A0))
   {
     return 1;
   }
@@ -57135,7 +57118,7 @@ uint64_t getShapeType()
 }
 
 {
-  if (!__cxa_guard_acquire(&qword_27FC40780))
+  if (!__cxa_guard_acquire(byte_27FC40780))
   {
     return 1;
   }
@@ -57156,7 +57139,7 @@ uint64_t getShapeType()
 }
 
 {
-  if (!__cxa_guard_acquire(&qword_27FC40740))
+  if (!__cxa_guard_acquire(byte_27FC40740))
   {
     return 1;
   }
@@ -57175,7 +57158,7 @@ uint64_t getShapeType()
 }
 
 {
-  if (!__cxa_guard_acquire(&qword_27FC406A0))
+  if (!__cxa_guard_acquire(byte_27FC406A0))
   {
     return 1;
   }
@@ -57202,7 +57185,7 @@ uint64_t getShapeType()
 }
 
 {
-  if (!__cxa_guard_acquire(&qword_27FC40680))
+  if (!__cxa_guard_acquire(byte_27FC40680))
   {
     return 1;
   }
@@ -57234,7 +57217,7 @@ uint64_t getShapeType()
 }
 
 {
-  if (!__cxa_guard_acquire(&qword_27FC40660))
+  if (!__cxa_guard_acquire(byte_27FC40660))
   {
     return 1;
   }
@@ -57253,7 +57236,7 @@ uint64_t getShapeType()
 }
 
 {
-  if (!__cxa_guard_acquire(&qword_27FC40640))
+  if (!__cxa_guard_acquire(byte_27FC40640))
   {
     return 1;
   }
@@ -57272,7 +57255,7 @@ uint64_t getShapeType()
 }
 
 {
-  if (!__cxa_guard_acquire(&qword_27FC405A0))
+  if (!__cxa_guard_acquire(byte_27FC405A0))
   {
     return 1;
   }
@@ -57292,7 +57275,7 @@ uint64_t getShapeType()
 }
 
 {
-  if (!__cxa_guard_acquire(&qword_27FC40560))
+  if (!__cxa_guard_acquire(byte_27FC40560))
   {
     return 1;
   }
@@ -57313,7 +57296,7 @@ uint64_t getShapeType()
 }
 
 {
-  if (!__cxa_guard_acquire(&qword_27FC40520))
+  if (!__cxa_guard_acquire(byte_27FC40520))
   {
     return 1;
   }
@@ -57334,7 +57317,7 @@ uint64_t getShapeType()
 }
 
 {
-  if (!__cxa_guard_acquire(&qword_27FC404E0))
+  if (!__cxa_guard_acquire(byte_27FC404E0))
   {
     return 1;
   }
@@ -57364,7 +57347,7 @@ uint64_t getShapeType()
 }
 
 {
-  if (!__cxa_guard_acquire(&qword_27FC404B0))
+  if (!__cxa_guard_acquire(byte_27FC404B0))
   {
     return 1;
   }
@@ -57383,7 +57366,7 @@ uint64_t getShapeType()
 }
 
 {
-  if (!__cxa_guard_acquire(&qword_27FC40498))
+  if (!__cxa_guard_acquire(byte_27FC40498))
   {
     return 1;
   }
@@ -57402,7 +57385,7 @@ uint64_t getShapeType()
 }
 
 {
-  if (!__cxa_guard_acquire(&qword_27FC40480))
+  if (!__cxa_guard_acquire(byte_27FC40480))
   {
     return 1;
   }
@@ -57421,7 +57404,7 @@ uint64_t getShapeType()
 }
 
 {
-  if (!__cxa_guard_acquire(&qword_27FC40468))
+  if (!__cxa_guard_acquire(byte_27FC40468))
   {
     return 1;
   }
@@ -57440,7 +57423,7 @@ uint64_t getShapeType()
 }
 
 {
-  if (!__cxa_guard_acquire(&qword_27FC40450))
+  if (!__cxa_guard_acquire(byte_27FC40450))
   {
     return 1;
   }
@@ -57459,7 +57442,7 @@ uint64_t getShapeType()
 }
 
 {
-  if (!__cxa_guard_acquire(&qword_27FC40430))
+  if (!__cxa_guard_acquire(byte_27FC40430))
   {
     return 1;
   }
@@ -57479,7 +57462,7 @@ uint64_t getShapeType()
 }
 
 {
-  if (!__cxa_guard_acquire(&qword_27FC403D0))
+  if (!__cxa_guard_acquire(byte_27FC403D0))
   {
     return 1;
   }
@@ -57498,7 +57481,7 @@ uint64_t getShapeType()
 }
 
 {
-  if (!__cxa_guard_acquire(&qword_27FC403B0))
+  if (!__cxa_guard_acquire(byte_27FC403B0))
   {
     return 1;
   }
@@ -57518,7 +57501,7 @@ uint64_t getShapeType()
 }
 
 {
-  if (!__cxa_guard_acquire(&qword_27FC40390))
+  if (!__cxa_guard_acquire(byte_27FC40390))
   {
     return 1;
   }
@@ -57537,7 +57520,7 @@ uint64_t getShapeType()
 }
 
 {
-  if (!__cxa_guard_acquire(&qword_27FC40350))
+  if (!__cxa_guard_acquire(byte_27FC40350))
   {
     return 1;
   }
@@ -57556,7 +57539,7 @@ uint64_t getShapeType()
 }
 
 {
-  if (!__cxa_guard_acquire(&qword_27FC40260))
+  if (!__cxa_guard_acquire(byte_27FC40260))
   {
     return 1;
   }
@@ -57575,7 +57558,7 @@ uint64_t getShapeType()
 }
 
 {
-  if (!__cxa_guard_acquire(&qword_27FC400E8))
+  if (!__cxa_guard_acquire(byte_27FC400E8))
   {
     return 1;
   }
@@ -57681,7 +57664,7 @@ uint64_t getShapeType()
 }
 
 {
-  if (!__cxa_guard_acquire(&qword_27FC40090))
+  if (!__cxa_guard_acquire(byte_27FC40090))
   {
     return 1;
   }
@@ -57729,7 +57712,7 @@ uint64_t getShapeType()
 }
 
 {
-  if (!__cxa_guard_acquire(&qword_27FC3FED8))
+  if (!__cxa_guard_acquire(byte_27FC3FED8))
   {
     return 1;
   }
@@ -57748,7 +57731,7 @@ uint64_t getShapeType()
 }
 
 {
-  if (!__cxa_guard_acquire(&qword_27FC3FE78))
+  if (!__cxa_guard_acquire(byte_27FC3FE78))
   {
     return 1;
   }
@@ -57767,7 +57750,7 @@ uint64_t getShapeType()
 }
 
 {
-  if (!__cxa_guard_acquire(&qword_27FC3FE58))
+  if (!__cxa_guard_acquire(byte_27FC3FE58))
   {
     return 1;
   }
@@ -57786,7 +57769,7 @@ uint64_t getShapeType()
 }
 
 {
-  if (!__cxa_guard_acquire(&qword_27FC3FE38))
+  if (!__cxa_guard_acquire(byte_27FC3FE38))
   {
     return 1;
   }
@@ -57805,7 +57788,7 @@ uint64_t getShapeType()
 }
 
 {
-  if (!__cxa_guard_acquire(&qword_27FC3FE00))
+  if (!__cxa_guard_acquire(byte_27FC3FE00))
   {
     return 1;
   }
@@ -57824,7 +57807,7 @@ uint64_t getShapeType()
 }
 
 {
-  if (!__cxa_guard_acquire(&qword_27FC3FDC0))
+  if (!__cxa_guard_acquire(byte_27FC3FDC0))
   {
     return 1;
   }
@@ -57843,7 +57826,7 @@ uint64_t getShapeType()
 }
 
 {
-  if (!__cxa_guard_acquire(&qword_27FC3FD80))
+  if (!__cxa_guard_acquire(byte_27FC3FD80))
   {
     return 1;
   }
@@ -57901,25 +57884,25 @@ uint64_t XlChartBinaryReader::read()
 
 void transparentWhite()
 {
-  v0 = __cxa_guard_acquire(&qword_27FC68DD8);
+  v0 = __cxa_guard_acquire(byte_27FC68DD8);
   if (v0)
   {
     _MergedGlobals_58 = 0xFF00FF00FF0000;
     OUTLINED_FUNCTION_0_2(v0, &_MergedGlobals_58, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC68DD8);
+    __cxa_guard_release(byte_27FC68DD8);
   }
 }
 
 void transparentBlack()
 {
-  v0 = __cxa_guard_acquire(&qword_27FC68DE8);
+  v0 = __cxa_guard_acquire(byte_27FC68DE8);
   if (v0)
   {
     qword_27FC68DE0 = 0;
     OUTLINED_FUNCTION_0_2(v0, &qword_27FC68DE0, &dword_25D297000);
 
-    __cxa_guard_release(&qword_27FC68DE8);
+    __cxa_guard_release(byte_27FC68DE8);
   }
 }
 

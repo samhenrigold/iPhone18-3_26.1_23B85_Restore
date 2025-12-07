@@ -47,7 +47,7 @@
   {
     [otherCopy fraction];
     v5->_fraction = v6;
-    [otherCopy duration];
+    objc_msgSend_duration(otherCopy);
     v5->_duration = v7;
     v5->_flags = [otherCopy flags];
   }

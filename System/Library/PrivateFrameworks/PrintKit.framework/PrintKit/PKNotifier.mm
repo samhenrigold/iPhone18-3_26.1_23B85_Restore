@@ -30,12 +30,12 @@
   return v2;
 }
 
-void __28__PKNotifier_sharedNotifier__block_invoke()
+void __28__PKNotifier_sharedNotifier__block_invoke(uint64_t a1)
 {
   objc_opt_class();
-  v0 = objc_opt_new();
-  v1 = +[PKNotifier sharedNotifier]::sNotifier;
-  +[PKNotifier sharedNotifier]::sNotifier = v0;
+  v1 = objc_opt_new();
+  v2 = +[PKNotifier sharedNotifier]::sNotifier;
+  +[PKNotifier sharedNotifier]::sNotifier = v1;
 }
 
 - (PKNotifier)init

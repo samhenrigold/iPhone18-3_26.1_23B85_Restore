@@ -45,7 +45,7 @@
 
 + (id)representativeTitlePropertySet
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_E10EF0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_E10EF0, &unk_B1DCB0);
   v2 = swift_allocObject();
   *(v2 + 16) = xmmword_AF85F0;
   *(v2 + 32) = sub_AB92A0();

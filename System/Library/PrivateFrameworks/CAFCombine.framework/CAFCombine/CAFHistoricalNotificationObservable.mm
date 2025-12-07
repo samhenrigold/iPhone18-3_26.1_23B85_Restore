@@ -29,35 +29,42 @@
 {
   if (description)
   {
-    static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v6 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v8 = v7;
+  }
+
+  else
+  {
+    v6 = 0;
+    v8 = 0;
   }
 
   serviceCopy = service;
   selfCopy = self;
-  CAFHistoricalNotificationObservable.historicalNotificationService(_:didUpdateUserVisibleFullDescription:)();
+  CAFHistoricalNotificationObservable.historicalNotificationService(_:didUpdateUserVisibleFullDescription:)(selfCopy, v6, v8);
 }
 
 - (void)historicalNotificationService:(id)service didUpdateTimestamp:(id)timestamp
 {
   v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation11MeasurementVySo14NSUnitDurationCGMd, &_s10Foundation11MeasurementVySo14NSUnitDurationCGMR);
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x28223BE20](v6);
-  v10 = &v13 - v9;
+  v9 = &v12 - v8;
   type metadata accessor for CAFVehicleUnits(0, &lazy cache variable for type metadata for NSUnitDuration, 0x277CCADD0);
   static Measurement._unconditionallyBridgeFromObjectiveC(_:)();
   serviceCopy = service;
   selfCopy = self;
-  CAFHistoricalNotificationObservable.historicalNotificationService(_:didUpdateTimestamp:)(selfCopy, v10);
+  CAFHistoricalNotificationObservable.historicalNotificationService(_:didUpdateTimestamp:)(selfCopy, v9);
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 }
 
 - (void)historicalNotificationService:(id)service didUpdateNotificationSeverity:(unsigned __int8)severity
 {
+  severityCopy = severity;
   serviceCopy = service;
   selfCopy = self;
-  CAFHistoricalNotificationObservable.historicalNotificationService(_:didUpdateNotificationSeverity:)();
+  CAFHistoricalNotificationObservable.historicalNotificationService(_:didUpdateNotificationSeverity:)(selfCopy, severityCopy);
 }
 
 - (void)historicalNotificationService:(id)service didUpdateHistoricalNotificationUserActions:(id)actions
@@ -70,23 +77,26 @@
 
 - (void)historicalNotificationService:(id)service didUpdateUserDismissible:(BOOL)dismissible
 {
+  dismissibleCopy = dismissible;
   serviceCopy = service;
   selfCopy = self;
-  CAFHistoricalNotificationObservable.historicalNotificationService(_:didUpdateUserDismissible:)(selfCopy, dismissible);
+  CAFHistoricalNotificationObservable.historicalNotificationService(_:didUpdateUserDismissible:)(selfCopy, dismissibleCopy);
 }
 
 - (void)historicalNotificationService:(id)service didUpdateHidden:(BOOL)hidden
 {
+  hiddenCopy = hidden;
   serviceCopy = service;
   selfCopy = self;
-  CAFHistoricalNotificationObservable.historicalNotificationService(_:didUpdateHidden:)(selfCopy, hidden);
+  CAFHistoricalNotificationObservable.historicalNotificationService(_:didUpdateHidden:)(selfCopy, hiddenCopy);
 }
 
 - (void)historicalNotificationService:(id)service didUpdateUserAction:(unsigned __int8)action
 {
+  actionCopy = action;
   serviceCopy = service;
   selfCopy = self;
-  CAFHistoricalNotificationObservable.historicalNotificationService(_:didUpdateUserAction:)();
+  CAFHistoricalNotificationObservable.historicalNotificationService(_:didUpdateUserAction:)(selfCopy, actionCopy);
 }
 
 - (void)serviceDidUpdate:(id)update characteristic:(id)characteristic fromGroupUpdate:(BOOL)groupUpdate

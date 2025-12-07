@@ -98,7 +98,7 @@
 
 - (void)_requestCredential
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   if (!self->_provider)
   {
     if (loadAuthenticationServices_onceToken != -1)
@@ -121,8 +121,8 @@
 
     v6 = [kASAuthorizationControllerClass alloc];
     createRequest = [(ASAuthorizationPasswordProvider *)self->_provider createRequest];
-    v15[0] = createRequest;
-    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
+    v14[0] = createRequest;
+    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
     v9 = [v6 initWithAuthorizationRequests:v8];
     v10 = self->_controller;
     self->_controller = v9;
@@ -141,7 +141,6 @@
   self->_error = 0;
 
   [(ASAuthorizationController *)self->_controller performRequests];
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc

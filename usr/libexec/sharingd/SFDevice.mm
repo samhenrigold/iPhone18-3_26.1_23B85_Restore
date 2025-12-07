@@ -9,7 +9,7 @@
 - (NSUUID)deviceIdentifier
 {
   bleDevice = [(SFDevice *)self bleDevice];
-  advertisementFields = [bleDevice advertisementFields];
+  v4 = objc_msgSend_advertisementFields(bleDevice);
 
   Int64Ranged = CFDictionaryGetInt64Ranged();
   model = [(SFDevice *)self model];
@@ -62,7 +62,7 @@ LABEL_6:
 - (char)channel
 {
   bleDevice = [(SFDevice *)self bleDevice];
-  advertisementFields = [bleDevice advertisementFields];
+  v3 = objc_msgSend_advertisementFields(bleDevice);
   Int64Ranged = CFDictionaryGetInt64Ranged();
 
   return Int64Ranged;

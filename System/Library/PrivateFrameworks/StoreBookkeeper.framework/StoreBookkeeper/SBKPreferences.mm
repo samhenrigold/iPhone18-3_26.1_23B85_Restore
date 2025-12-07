@@ -5,10 +5,22 @@
 - (void)_preferencesDidChange;
 - (void)dealloc;
 - (void)registerDefaultsIfKeyNotSet:(id)set registrationBlock:(id)block;
+- (void)setBool:(BOOL)bool forKey:(id)key;
 - (void)setObject:(id)object forKey:(id)key;
 @end
 
 @implementation SBKPreferences
+
+- (void)setBool:(BOOL)bool forKey:(id)key
+{
+  boolCopy = bool;
+  v5 = MEMORY[0x277CCABB0];
+  keyCopy = key;
+  v7 = [v5 numberWithBool:boolCopy];
+  CFPreferencesSetAppValue(keyCopy, v7, @"com.apple.storebookkeeper");
+
+  CFPreferencesAppSynchronize(@"com.apple.storebookkeeper");
+}
 
 - (id)objectForKey:(id)key withDefaultValue:(id)value
 {

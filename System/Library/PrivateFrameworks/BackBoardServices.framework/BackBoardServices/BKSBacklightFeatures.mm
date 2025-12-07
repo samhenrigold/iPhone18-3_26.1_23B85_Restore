@@ -13,7 +13,6 @@
 
 - (id)didFinishProtobufDecodingWithError:(id *)error
 {
-  v14[1] = *MEMORY[0x1E69E9840];
   fixedBrightnessLevelWhileDisabled = self->_fixedBrightnessLevelWhileDisabled;
   if (fixedBrightnessLevelWhileDisabled == -1.0 || (fixedBrightnessNitsWhileDisabled = self->_fixedBrightnessNitsWhileDisabled, fixedBrightnessNitsWhileDisabled == -1.0))
   {
@@ -25,18 +24,13 @@
     if (error)
     {
       v6 = MEMORY[0x1E696ABC0];
-      v7 = *MEMORY[0x1E696A798];
-      v13 = *MEMORY[0x1E696A588];
-      fixedBrightnessLevelWhileDisabled = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot have both set: nitsWhileDisabled:%g levelWhileDisabled:%g", fixedBrightnessNitsWhileDisabled, fixedBrightnessLevelWhileDisabled];
-      v14[0] = fixedBrightnessLevelWhileDisabled;
-      v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
-      *error = [v6 errorWithDomain:v7 code:22 userInfo:v9];
+      fixedBrightnessLevelWhileDisabled = [MEMORY[0x1E696AEC0] stringWithFormat:fixedBrightnessNitsWhileDisabled, fixedBrightnessLevelWhileDisabled];
+      v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:? forKeys:? count:?];
+      *error = [v6 errorWithDomain:? code:? userInfo:?];
     }
 
     selfCopy = 0;
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return selfCopy;
 }
@@ -44,16 +38,16 @@
 - (id)descriptionBuilderWithMultilinePrefix:(id)prefix
 {
   succinctDescriptionBuilder = [(BKSBacklightFeatures *)self succinctDescriptionBuilder];
-  v5 = [succinctDescriptionBuilder appendBool:self->_disableFeatures withName:@"disableFeatures"];
-  v6 = [succinctDescriptionBuilder appendFloat:@"fixedBrightnessNitsWhileDisabled" withName:self->_fixedBrightnessNitsWhileDisabled];
-  v7 = [succinctDescriptionBuilder appendFloat:@"fixedBrightnessLevelWhileDisabled" withName:self->_fixedBrightnessLevelWhileDisabled];
+  v4 = [succinctDescriptionBuilder appendBool:? withName:?];
+  v5 = [succinctDescriptionBuilder appendFloat:? withName:?];
+  v6 = [succinctDescriptionBuilder appendFloat:? withName:?];
 
   return succinctDescriptionBuilder;
 }
 
 - (id)descriptionWithMultilinePrefix:(id)prefix
 {
-  v3 = [(BKSBacklightFeatures *)self descriptionBuilderWithMultilinePrefix:prefix];
+  v3 = [(BKSBacklightFeatures *)self descriptionBuilderWithMultilinePrefix:?];
   build = [v3 build];
 
   return build;
@@ -72,7 +66,7 @@
   if (self->_fixedBrightnessNitsWhileDisabled >= 0.0)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    [currentHandler handleFailureInMethod:a2 object:self file:@"BKSBacklightFeatures.m" lineNumber:33 description:@"cannot set both brightness level and nits; choose one or the other"];
+    [currentHandler handleFailureInMethod:? object:? file:? lineNumber:? description:?];
   }
 
   self->_fixedBrightnessLevelWhileDisabled = disabled;
@@ -83,7 +77,7 @@
   if (self->_fixedBrightnessLevelWhileDisabled >= 0.0)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    [currentHandler handleFailureInMethod:a2 object:self file:@"BKSBacklightFeatures.m" lineNumber:28 description:@"cannot set both brightness level and nits; choose one or the other"];
+    [currentHandler handleFailureInMethod:? object:? file:? lineNumber:? description:?];
   }
 
   self->_fixedBrightnessNitsWhileDisabled = disabled;
@@ -123,18 +117,21 @@
 
 uint64_t __38__BKSBacklightFeatures_protobufSchema__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  protobufSchema_schema_9820 = [MEMORY[0x1E698E750] buildSchemaForClass:objc_opt_class() builder:&__block_literal_global_9822];
+  v1 = MEMORY[0x1E698E750];
+  objc_opt_class();
+  v2 = [v1 buildSchemaForClass:? builder:?];
+  v3 = protobufSchema_schema_9820;
+  protobufSchema_schema_9820 = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v3);
 }
 
 void __38__BKSBacklightFeatures_protobufSchema__block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = a2;
-  [v2 addField:"_disableFeatures" forTag:1];
-  [v2 addField:"_fixedBrightnessNitsWhileDisabled" forTag:2];
-  [v2 addField:"_fixedBrightnessLevelWhileDisabled" forTag:3];
+  [v2 addField:? forTag:?];
+  [v2 addField:? forTag:?];
+  [v2 addField:? forTag:?];
 }
 
 @end

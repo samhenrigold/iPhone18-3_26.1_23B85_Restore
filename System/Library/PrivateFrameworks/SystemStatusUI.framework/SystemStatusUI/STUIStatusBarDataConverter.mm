@@ -626,7 +626,7 @@ LABEL_57:
   return immutableCopy;
 }
 
-uint64_t __60__STUIStatusBarDataConverter_convertData_fromReferenceData___block_invoke(uint64_t a1, unsigned int a2, int a3)
+void *__60__STUIStatusBarDataConverter_convertData_fromReferenceData___block_invoke(uint64_t a1, unsigned int a2, int a3)
 {
   result = [*(a1 + 32) isEnabled];
   if ((result & 1) == 0 && *(*(a1 + 56) + a2) == 1)

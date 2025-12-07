@@ -65,7 +65,7 @@ MXUserPreferredInputRouteCache *__48__MXUserPreferredInputRouteCache_sharedInsta
 
 - (int)setUserPreferredRoute:(id)route hostApplicationBundleID:(id)d
 {
-  v21[26] = *MEMORY[0x1E69E9840];
+  v18[26] = *MEMORY[0x1E69E9840];
   v7 = [route objectForKey:@"RouteName"];
   v8 = [route objectForKey:@"RouteUID"];
   v9 = [route objectForKey:@"AudioRouteName"];
@@ -84,18 +84,18 @@ MXUserPreferredInputRouteCache *__48__MXUserPreferredInputRouteCache_sharedInsta
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
-    result = -12980;
+    return -12980;
   }
 
   else
   {
-    v20[0] = @"RouteName";
-    v20[1] = @"RouteUID";
-    v21[0] = v7;
-    v21[1] = v8;
-    v20[2] = @"AudioRouteName";
-    v21[2] = v9;
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:3];
+    v17[0] = @"RouteName";
+    v17[1] = @"RouteUID";
+    v18[0] = v7;
+    v18[1] = v8;
+    v17[2] = @"AudioRouteName";
+    v18[2] = v9;
+    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:3];
     if (d)
     {
       dCopy = d;
@@ -114,14 +114,11 @@ MXUserPreferredInputRouteCache *__48__MXUserPreferredInputRouteCache_sharedInsta
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    [(NSMutableDictionary *)self->mUserPreferredRouteCache setObject:v13 forKey:dCopy, v18, v19];
+    [(NSMutableDictionary *)self->mUserPreferredRouteCache setObject:v13 forKey:dCopy];
     MXCFPreferencesSetAndSynchronizeUserPreference(@"UserPreferredInputRoute", self->mUserPreferredRouteCache);
     [(NSLock *)self->mUserPreferredRouteCacheLock unlock];
-    result = 0;
+    return 0;
   }
-
-  v17 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 - (id)copyUserPreferredRoute:(id)route
@@ -154,7 +151,7 @@ MXUserPreferredInputRouteCache *__48__MXUserPreferredInputRouteCache_sharedInsta
 
 - (void)clearCurrentUserPreferenceForApp:(id)app
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if (app)
   {
     appCopy = app;
@@ -171,7 +168,7 @@ MXUserPreferredInputRouteCache *__48__MXUserPreferredInputRouteCache_sharedInsta
       appCopy = @"Default";
     }
 
-    [(NSLock *)self->mUserPreferredRouteCacheLock unlock:v8];
+    [(NSLock *)self->mUserPreferredRouteCacheLock unlock];
     [(MXUserPreferredInputRouteCache *)self clearUserPreference:appCopy];
   }
 
@@ -181,8 +178,6 @@ MXUserPreferredInputRouteCache *__48__MXUserPreferredInputRouteCache_sharedInsta
     os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)clearUserPreferredRoute:(id)route
@@ -209,7 +204,7 @@ MXUserPreferredInputRouteCache *__48__MXUserPreferredInputRouteCache_sharedInsta
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  [(NSLock *)self->mUserPreferredRouteCacheLock unlock:v14];
+  [(NSLock *)self->mUserPreferredRouteCacheLock unlock];
   [(MXUserPreferredInputRouteCache *)self clearUserPreference:routeCopy];
   cf[0] = 0;
   FigRoutingManagerContextUtilities_CopySystemAudioInputContextUUID(cf);
@@ -246,7 +241,7 @@ MXUserPreferredInputRouteCache *__48__MXUserPreferredInputRouteCache_sharedInsta
       FigRoutingManagerPickRouteDescriptorForContext(cf[0], v7, 0, 0);
     }
 
-    -[MXAudioStatistics sendSingleClearUserPreferredInputMessage:audioRouteName:isInputOverride:](+[MXAudioStatistics sharedInstance](MXAudioStatistics, "sharedInstance"), "sendSingleClearUserPreferredInputMessage:audioRouteName:isInputOverride:", route, [v6 objectForKey:{@"AudioRouteName", v15, v17}], 0);
+    -[MXAudioStatistics sendSingleClearUserPreferredInputMessage:audioRouteName:isInputOverride:](+[MXAudioStatistics sharedInstance](MXAudioStatistics, "sharedInstance"), "sendSingleClearUserPreferredInputMessage:audioRouteName:isInputOverride:", route, [v6 objectForKey:@"AudioRouteName"], 0);
 
     if (cf[0])
     {
@@ -260,8 +255,6 @@ MXUserPreferredInputRouteCache *__48__MXUserPreferredInputRouteCache_sharedInsta
     os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 @end

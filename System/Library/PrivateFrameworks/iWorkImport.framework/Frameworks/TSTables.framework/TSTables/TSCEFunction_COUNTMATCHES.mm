@@ -8,17 +8,17 @@
 {
   v8 = **arguments;
   v9 = *(*arguments + 8);
-  isRegexString = objc_msgSend_isRegexString(v9, v10, v11, v12, v13);
-  v55 = 0;
-  v16 = objc_msgSend_asString_functionSpec_argumentIndex_outError_(v8, v15, context, spec, 0, &v55);
-  v17 = v55;
-  v54 = v17;
-  v19 = objc_msgSend_asString_functionSpec_argumentIndex_outError_(v9, v18, context, spec, 1, &v54);
-  v20 = v54;
+  isRegexString = objc_msgSend_isRegexString(v9, v10, v11, v12);
+  v48 = 0;
+  v15 = objc_msgSend_asString_functionSpec_argumentIndex_outError_(v8, v14, context, spec, 0, &v48);
+  v16 = v48;
+  v47 = v16;
+  v18 = objc_msgSend_asString_functionSpec_argumentIndex_outError_(v9, v17, context, spec, 1, &v47);
+  v19 = v47;
 
-  if (v20)
+  if (v19)
   {
-    v25 = objc_msgSend_raiseErrorOrConvert_(context, v21, v20, v23, v24);
+    v23 = objc_msgSend_raiseErrorOrConvert_(context, v20, v19, v22);
 LABEL_3:
 
     goto LABEL_12;
@@ -26,40 +26,40 @@ LABEL_3:
 
   if (isRegexString)
   {
-    v26 = objc_msgSend_asStringValue(v9, v21, v22, v23, v24);
-    isCaseSensitiveRegex = objc_msgSend_isCaseSensitiveRegex(v26, v27, v28, v29, v30);
-    v53 = 0;
-    v33 = objc_msgSend_regexMatcherWithRegexString_caseSensitive_outError_(TSCERegexMatcher, v32, v19, isCaseSensitiveRegex, &v53);
-    v20 = v53;
-    if (v20)
+    v24 = objc_msgSend_asStringValue(v9, v20, v21, v22);
+    isCaseSensitiveRegex = objc_msgSend_isCaseSensitiveRegex(v24, v25, v26, v27);
+    v46 = 0;
+    v30 = objc_msgSend_regexMatcherWithRegexString_caseSensitive_outError_(TSCERegexMatcher, v29, v18, isCaseSensitiveRegex, &v46);
+    v19 = v46;
+    if (v19)
     {
-      v25 = objc_msgSend_raiseErrorOrConvert_(context, v34, v20, v36, v37);
+      v23 = objc_msgSend_raiseErrorOrConvert_(context, v31, v19, v33);
 
       goto LABEL_3;
     }
 
-    v46 = objc_msgSend_length(v16, v34, v35, v36, v37);
-    objc_msgSend_numberOfMatchesInString_options_range_(v33, v47, v16, 0, 0, v46);
+    v40 = objc_msgSend_length(v15, v31, v32, v33);
+    objc_msgSend_numberOfMatchesInString_options_range_(v30, v41, v15, 0, 0, v40);
   }
 
   else
   {
-    v38 = 0;
-    for (i = objc_msgSend_rangeOfString_options_(v16, v21, v19, 1, v24); i != 0x7FFFFFFFFFFFFFFFLL; i = objc_msgSend_rangeOfString_options_(v43, v44, v19, 1, v45))
+    v34 = 0;
+    for (i = objc_msgSend_rangeOfString_options_(v15, v20, v18, 1); i != 0x7FFFFFFFFFFFFFFFLL; i = objc_msgSend_rangeOfString_options_(v38, v39, v18, 1))
     {
-      v43 = objc_msgSend_substringFromIndex_(v16, v40, i + 1, v41, v42);
-      ++v38;
+      v38 = objc_msgSend_substringFromIndex_(v15, v36, i + 1, v37);
+      ++v34;
 
-      v16 = v43;
+      v15 = v38;
     }
   }
 
   TSUDecimal::operator=();
-  TSCEFormat::TSCEFormat(v51, 256);
-  v25 = objc_msgSend_numberWithDecimal_format_(TSCENumberValue, v48, v52, v51, v49);
+  TSCEFormat::TSCEFormat(v44, 256);
+  v23 = objc_msgSend_numberWithDecimal_format_(TSCENumberValue, v42, v45, v44);
 LABEL_12:
 
-  return v25;
+  return v23;
 }
 
 @end

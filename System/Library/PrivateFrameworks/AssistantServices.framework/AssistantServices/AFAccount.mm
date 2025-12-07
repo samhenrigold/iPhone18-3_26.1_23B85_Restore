@@ -19,58 +19,58 @@
     v5 = equalCopy;
     identifier = [v5 identifier];
     identifier2 = [(AFAccount *)self identifier];
-    if ([identifier isEqualToString:identifier2])
+    if (objc_msgSend_isEqualToString_(identifier))
     {
       label = [v5 label];
       label2 = [(AFAccount *)self label];
-      if ([label isEqualToString:label2])
+      if (objc_msgSend_isEqualToString_(label))
       {
         assistantIdentifier = [v5 assistantIdentifier];
         assistantIdentifier2 = [(AFAccount *)self assistantIdentifier];
-        if ([assistantIdentifier isEqualToString:assistantIdentifier2])
+        if (objc_msgSend_isEqualToString_(assistantIdentifier))
         {
           loggingAssistantIdentifier = [v5 loggingAssistantIdentifier];
           loggingAssistantIdentifier2 = [(AFAccount *)self loggingAssistantIdentifier];
           v72 = loggingAssistantIdentifier;
           v14 = loggingAssistantIdentifier;
           v15 = loggingAssistantIdentifier2;
-          if ([v14 isEqualToString:loggingAssistantIdentifier2])
+          if (objc_msgSend_isEqualToString_(v14))
           {
             v69 = v15;
             speechIdentifier = [v5 speechIdentifier];
             speechIdentifier2 = [(AFAccount *)self speechIdentifier];
             v71 = speechIdentifier;
-            if ([speechIdentifier isEqualToString:speechIdentifier2])
+            if (objc_msgSend_isEqualToString_(speechIdentifier))
             {
               hostname = [v5 hostname];
               hostname2 = [(AFAccount *)self hostname];
               v68 = hostname;
-              if ([hostname isEqualToString:hostname2])
+              if (objc_msgSend_isEqualToString_(hostname))
               {
                 peerAssistantIdentifier = [v5 peerAssistantIdentifier];
                 peerAssistantIdentifier2 = [(AFAccount *)self peerAssistantIdentifier];
                 v66 = peerAssistantIdentifier;
                 v20 = peerAssistantIdentifier;
                 v21 = peerAssistantIdentifier2;
-                if ([v20 isEqualToString:peerAssistantIdentifier2])
+                if (objc_msgSend_isEqualToString_(v20))
                 {
                   v65 = v21;
                   peerLoggingAssistantIdentifier = [v5 peerLoggingAssistantIdentifier];
                   peerLoggingAssistantIdentifier2 = [(AFAccount *)self peerLoggingAssistantIdentifier];
                   v64 = peerLoggingAssistantIdentifier;
-                  if ([peerLoggingAssistantIdentifier isEqualToString:peerLoggingAssistantIdentifier2])
+                  if (objc_msgSend_isEqualToString_(peerLoggingAssistantIdentifier))
                   {
                     peerSpeechIdentifier = [v5 peerSpeechIdentifier];
                     peerSpeechIdentifier2 = [(AFAccount *)self peerSpeechIdentifier];
                     v62 = peerSpeechIdentifier;
-                    if ([peerSpeechIdentifier isEqualToString:peerSpeechIdentifier2])
+                    if (objc_msgSend_isEqualToString_(peerSpeechIdentifier))
                     {
                       peerUserAgentString = [v5 peerUserAgentString];
                       peerUserAgentString2 = [(AFAccount *)self peerUserAgentString];
                       v60 = peerUserAgentString;
                       v26 = peerUserAgentString;
                       v27 = peerUserAgentString2;
-                      if ([v26 isEqualToString:peerUserAgentString2])
+                      if (objc_msgSend_isEqualToString_(v26))
                       {
                         v59 = v27;
                         predefinedServer = [v5 predefinedServer];
@@ -78,7 +78,7 @@
                         v58 = predefinedServer;
                         v30 = predefinedServer;
                         v31 = predefinedServer2;
-                        if ([v30 isEqualToString:predefinedServer2])
+                        if (objc_msgSend_isEqualToString_(v30))
                         {
                           v57 = v31;
                           aceHost = [v5 aceHost];
@@ -86,7 +86,7 @@
                           v56 = aceHost;
                           v34 = aceHost;
                           v35 = aceHost2;
-                          if ([v34 isEqualToString:aceHost2])
+                          if (objc_msgSend_isEqualToString_(v34))
                           {
                             connectionPolicy = [v5 connectionPolicy];
                             connectionPolicy2 = [(AFAccount *)self connectionPolicy];
@@ -101,12 +101,12 @@
                                 connectionPolicyHostname = [v5 connectionPolicyHostname];
                                 connectionPolicyHostname2 = [(AFAccount *)self connectionPolicyHostname];
                                 v50 = connectionPolicyHostname;
-                                if ([connectionPolicyHostname isEqualToString:?])
+                                if (objc_msgSend_isEqualToString_(connectionPolicyHostname))
                                 {
                                   group = [v5 group];
                                   group2 = [(AFAccount *)self group];
                                   v48 = group;
-                                  if ([group isEqualToString:?])
+                                  if (objc_msgSend_isEqualToString_(group))
                                   {
                                     lastSyncDates = [v5 lastSyncDates];
                                     lastSyncDates2 = [(AFAccount *)self lastSyncDates];
@@ -307,11 +307,11 @@
 
 - (AFAccount)initWithCoder:(id)coder
 {
-  v50[5] = *MEMORY[0x1E69E9840];
+  v49[5] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v49.receiver = self;
-  v49.super_class = AFAccount;
-  v5 = [(AFAccount *)&v49 init];
+  v48.receiver = self;
+  v48.super_class = AFAccount;
+  v5 = [(AFAccount *)&v48 init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_identifier"];
@@ -363,12 +363,12 @@
     v5->_aceHost = v28;
 
     v30 = MEMORY[0x1E695DFD8];
-    v50[0] = objc_opt_class();
-    v50[1] = objc_opt_class();
-    v50[2] = objc_opt_class();
-    v50[3] = objc_opt_class();
-    v50[4] = objc_opt_class();
-    v31 = [MEMORY[0x1E695DEC8] arrayWithObjects:v50 count:5];
+    v49[0] = objc_opt_class();
+    v49[1] = objc_opt_class();
+    v49[2] = objc_opt_class();
+    v49[3] = objc_opt_class();
+    v49[4] = objc_opt_class();
+    v31 = [MEMORY[0x1E695DEC8] arrayWithObjects:v49 count:5];
     v32 = [v30 setWithArray:v31];
     v33 = [coderCopy decodeObjectOfClasses:v32 forKey:@"kAFAccountInfoConnectionPolicyKey"];
     connectionPolicy = v5->_connectionPolicy;
@@ -401,7 +401,6 @@
     v5->_isActive = [coderCopy decodeBoolForKey:@"_isActive"];
   }
 
-  v47 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -639,13 +638,12 @@
 
 - (id)description
 {
-  v7.receiver = self;
-  v7.super_class = AFAccount;
-  v3 = [(AFAccount *)&v7 description];
-  aceHost = self->_aceHost;
-  v5 = [v3 stringByAppendingFormat:@": %@ { Assistant: %@, Host: %@, Ace Host: %@, Group: %@ }", self->_identifier, self->_assistantIdentifier, self->_hostname, aceHost, self->_group];
+  v6.receiver = self;
+  v6.super_class = AFAccount;
+  v3 = [(AFAccount *)&v6 description];
+  v4 = [v3 stringByAppendingFormat:@": %@ { Assistant: %@, Host: %@, Ace Host: %@, Group: %@ }", self->_identifier, self->_assistantIdentifier, self->_hostname, self->_aceHost, self->_group];
 
-  return v5;
+  return v4;
 }
 
 @end

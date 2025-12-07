@@ -79,7 +79,7 @@
   }
 
   [dictionary setObject:v23 forKeyedSubscript:@"isTTSUInProgress_INT"];
-  v24 = [dictionary copy];
+  v24 = objc_msgSend_copy(dictionary);
 
   return v24;
 }

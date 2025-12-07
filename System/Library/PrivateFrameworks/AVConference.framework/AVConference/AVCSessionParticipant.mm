@@ -1272,7 +1272,7 @@ __n128 __44__AVCSessionParticipant_videoPositionalInfo__block_invoke(uint64_t a1
 {
   if (a2)
   {
-    [a2 avcPositionalInfo];
+    objc_msgSend_avcPositionalInfo(a2);
   }
 
   else
@@ -1456,7 +1456,7 @@ LABEL_15:
   }
 }
 
-uint64_t __48__AVCSessionParticipant_setVideoPositionalInfo___block_invoke_2(uint64_t a1, void *a2)
+void *__48__AVCSessionParticipant_setVideoPositionalInfo___block_invoke_2(uint64_t a1, void *a2)
 {
   v7 = *MEMORY[0x1E69E9840];
   v4 = *(a1 + 56);
@@ -1569,7 +1569,7 @@ uint64_t __57__AVCSessionParticipant_playbackSynchronizationGroupUUID__block_inv
   return selfCopy;
 }
 
-uint64_t __42__AVCSessionParticipant_hasPendingChanges__block_invoke(uint64_t a1)
+void *__42__AVCSessionParticipant_hasPendingChanges__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 200) hasCachedChanges];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -2643,7 +2643,7 @@ LABEL_48:
   return selfCopy;
 }
 
-uint64_t __44__AVCSessionParticipant_isEnabledMediaType___block_invoke(uint64_t a1)
+void *__44__AVCSessionParticipant_isEnabledMediaType___block_invoke(uint64_t a1)
 {
   result = [objc_msgSend(*(*(a1 + 32) + 112) objectForKeyedSubscript:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedInt:", *(a1 + 48))), "unsignedIntValue"}];
   *(*(*(a1 + 40) + 8) + 24) = result != 0;
@@ -2679,7 +2679,7 @@ uint64_t __44__AVCSessionParticipant_isEnabledMediaType___block_invoke(uint64_t 
   return selfCopy;
 }
 
-uint64_t __43__AVCSessionParticipant_isPausedMediaType___block_invoke(uint64_t a1)
+void *__43__AVCSessionParticipant_isPausedMediaType___block_invoke(uint64_t a1)
 {
   result = [objc_msgSend(*(*(a1 + 32) + 112) objectForKeyedSubscript:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedInt:", *(a1 + 48))), "unsignedIntValue"}];
   *(*(*(a1 + 40) + 8) + 24) = result == 2;
@@ -3357,7 +3357,7 @@ uint64_t __54__AVCSessionParticipant_accessPropertyWithName_block___block_invoke
   return v3;
 }
 
-uint64_t __52__AVCSessionParticipant_uint32ValueForPropertyName___block_invoke(uint64_t a1, void *a2)
+void *__52__AVCSessionParticipant_uint32ValueForPropertyName___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 unsignedIntValue];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -3999,7 +3999,7 @@ void __55__AVCSessionParticipant_registerBlocksForNotifications__block_invoke(ui
 
       _os_log_impl(&dword_1DB56E000, v13, OS_LOG_TYPE_DEFAULT, v12, v18, v14);
 LABEL_15:
-      v17 = [v6 newNSErrorWithErrorDictionary:{objc_msgSend(a2, "objectForKeyedSubscript:", @"vcSessionError", *v18, *&v18[16], v19, *v20, *&v20[8], v21, v22)}];
+      v17 = [v6 newNSErrorWithErrorDictionary:{objc_msgSend(a2, "objectForKeyedSubscript:", @"vcSessionError", *v18, *&v18[8], v19, *v20, *&v20[8], v21, v22)}];
       [v6 completeVideoEnabled:v7 didSucceed:v8 error:v17];
     }
   }
@@ -4094,7 +4094,7 @@ void __55__AVCSessionParticipant_registerBlocksForNotifications__block_invoke_17
 
       _os_log_impl(&dword_1DB56E000, v13, OS_LOG_TYPE_DEFAULT, v12, v18, v14);
 LABEL_15:
-      v17 = [v6 newNSErrorWithErrorDictionary:{objc_msgSend(a2, "objectForKeyedSubscript:", @"vcSessionError", *v18, *&v18[16], v19, *v20, *&v20[8], v21, v22)}];
+      v17 = [v6 newNSErrorWithErrorDictionary:{objc_msgSend(a2, "objectForKeyedSubscript:", @"vcSessionError", *v18, *&v18[8], v19, *v20, *&v20[8], v21, v22)}];
       [v6 completeScreenEnabled:v7 didSucceed:v8 error:v17];
     }
   }
@@ -4189,7 +4189,7 @@ void __55__AVCSessionParticipant_registerBlocksForNotifications__block_invoke_17
 
       _os_log_impl(&dword_1DB56E000, v13, OS_LOG_TYPE_DEFAULT, v12, v18, v14);
 LABEL_15:
-      v17 = [v6 newNSErrorWithErrorDictionary:{objc_msgSend(a2, "objectForKeyedSubscript:", @"vcSessionError", *v18, *&v18[16], v19, *v20, *&v20[8], v21, v22)}];
+      v17 = [v6 newNSErrorWithErrorDictionary:{objc_msgSend(a2, "objectForKeyedSubscript:", @"vcSessionError", *v18, *&v18[8], v19, *v20, *&v20[8], v21, v22)}];
       [v6 completeAudioEnabled:v7 didSucceed:v8 error:v17];
     }
   }
@@ -4877,7 +4877,7 @@ void __55__AVCSessionParticipant_registerBlocksForNotifications__block_invoke_2_
 
       _os_log_impl(&dword_1DB56E000, v13, OS_LOG_TYPE_DEFAULT, v12, v18, v14);
 LABEL_15:
-      v17 = [v6 newNSErrorWithErrorDictionary:{objc_msgSend(a2, "objectForKeyedSubscript:", @"vcSessionError", *v18, *&v18[16], v19, *v20, *&v20[8], v21, v22)}];
+      v17 = [v6 newNSErrorWithErrorDictionary:{objc_msgSend(a2, "objectForKeyedSubscript:", @"vcSessionError", *v18, *&v18[8], v19, *v20, *&v20[8], v21, v22)}];
       [v6 completeAudioPaused:v7 didSucceed:v8 error:0];
     }
   }
@@ -4972,7 +4972,7 @@ void __55__AVCSessionParticipant_registerBlocksForNotifications__block_invoke_20
 
       _os_log_impl(&dword_1DB56E000, v13, OS_LOG_TYPE_DEFAULT, v12, v18, v14);
 LABEL_15:
-      v17 = [v6 newNSErrorWithErrorDictionary:{objc_msgSend(a2, "objectForKeyedSubscript:", @"vcSessionError", *v18, *&v18[16], v19, *v20, *&v20[8], v21, v22)}];
+      v17 = [v6 newNSErrorWithErrorDictionary:{objc_msgSend(a2, "objectForKeyedSubscript:", @"vcSessionError", *v18, *&v18[8], v19, *v20, *&v20[8], v21, v22)}];
       [v6 completeVideoPaused:v7 didSucceed:v8 error:0];
     }
   }

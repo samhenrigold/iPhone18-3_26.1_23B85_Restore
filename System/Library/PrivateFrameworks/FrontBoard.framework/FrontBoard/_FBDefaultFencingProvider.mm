@@ -20,7 +20,7 @@
 - (void)synchronizeDrawingWithFence:(id)fence
 {
   fenceCopy = fence;
-  if (UIKitLibraryCore())
+  if (UIKitLibraryCore(0))
   {
     v3 = getUIWindowClass();
     if (v3)

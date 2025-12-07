@@ -1,6 +1,6 @@
 void __serviceStatus(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v17 = *MEMORY[0x29EDCA608];
+  v16 = *MEMORY[0x29EDCA608];
   v8 = os_transaction_create();
   v9 = objc_autoreleasePoolPush();
   v10 = a1;
@@ -16,17 +16,16 @@ void __serviceStatus(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
-    v13 = 134218242;
-    v14 = v10;
-    v15 = 2112;
-    v16 = v10;
-    _os_log_impl(&dword_296CA4000, v11, OS_LOG_TYPE_DEBUG, "__serviceStatus %p(%@) --> serviceStatus:type:inValue:\n", &v13, 0x16u);
+    v12 = 134218242;
+    v13 = v10;
+    v14 = 2112;
+    v15 = v10;
+    _os_log_impl(&dword_296CA4000, v11, OS_LOG_TYPE_DEBUG, "__serviceStatus %p(%@) --> serviceStatus:type:inValue:\n", &v12, 0x16u);
   }
 
   [v10 serviceStatus:a2 type:a3 inValue:a4];
 
   objc_autoreleasePoolPop(v9);
-  v12 = *MEMORY[0x29EDCA608];
 }
 
 double crop_packed_raw10(uint64_t a1, int a2, unint64_t a3, unint64_t a4, char *__dst, double a6, double a7, double a8, double a9, uint64_t a10)
@@ -99,7 +98,7 @@ void sub_296CA89D8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t __LoggingStateNotificationCallback(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v24 = *MEMORY[0x29EDCA608];
+  v23 = *MEMORY[0x29EDCA608];
   if (__osLogTrace)
   {
     v10 = __osLogTrace;
@@ -112,30 +111,28 @@ uint64_t __LoggingStateNotificationCallback(uint64_t a1, void *a2, uint64_t a3, 
 
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    v14 = 134219010;
-    v15 = a1;
-    v16 = 2048;
-    v17 = a2;
-    v18 = 2112;
-    v19 = a3;
-    v20 = 2048;
-    v21 = a4;
-    v22 = 2112;
-    v23 = a5;
-    _os_log_impl(&dword_296CA4000, v10, OS_LOG_TYPE_DEBUG, "__LoggingStateNotificationCallback %p %p %@ %p %@\n", &v14, 0x34u);
+    v13 = 134219010;
+    v14 = a1;
+    v15 = 2048;
+    v16 = a2;
+    v17 = 2112;
+    v18 = a3;
+    v19 = 2048;
+    v20 = a4;
+    v21 = 2112;
+    v22 = a5;
+    _os_log_impl(&dword_296CA4000, v10, OS_LOG_TYPE_DEBUG, "__LoggingStateNotificationCallback %p %p %@ %p %@\n", &v13, 0x34u);
   }
 
   v11 = [MEMORY[0x29EDBFD50] sharedInstance];
   [v11 synchronize];
 
-  result = [a2 updateLoggingState];
-  v13 = *MEMORY[0x29EDCA608];
-  return result;
+  return [a2 updateLoggingState];
 }
 
 uint64_t __AutoRetryModeNotificationCallback(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v24 = *MEMORY[0x29EDCA608];
+  v23 = *MEMORY[0x29EDCA608];
   if (__osLogTrace)
   {
     v10 = __osLogTrace;
@@ -148,30 +145,28 @@ uint64_t __AutoRetryModeNotificationCallback(uint64_t a1, void *a2, uint64_t a3,
 
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    v14 = 134219010;
-    v15 = a1;
-    v16 = 2048;
-    v17 = a2;
-    v18 = 2112;
-    v19 = a3;
-    v20 = 2048;
-    v21 = a4;
-    v22 = 2112;
-    v23 = a5;
-    _os_log_impl(&dword_296CA4000, v10, OS_LOG_TYPE_DEBUG, "__AutoRetryModeNotificationCallback %p %p %@ %p %@\n", &v14, 0x34u);
+    v13 = 134219010;
+    v14 = a1;
+    v15 = 2048;
+    v16 = a2;
+    v17 = 2112;
+    v18 = a3;
+    v19 = 2048;
+    v20 = a4;
+    v21 = 2112;
+    v22 = a5;
+    _os_log_impl(&dword_296CA4000, v10, OS_LOG_TYPE_DEBUG, "__AutoRetryModeNotificationCallback %p %p %@ %p %@\n", &v13, 0x34u);
   }
 
   v11 = [MEMORY[0x29EDBFD50] sharedInstance];
   [v11 synchronize];
 
-  result = [a2 updateAutoRetryMode];
-  v13 = *MEMORY[0x29EDCA608];
-  return result;
+  return [a2 updateAutoRetryMode];
 }
 
 uint64_t __CombinedSequenceModeNotificationCallback(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v24 = *MEMORY[0x29EDCA608];
+  v23 = *MEMORY[0x29EDCA608];
   if (__osLogTrace)
   {
     v10 = __osLogTrace;
@@ -184,30 +179,28 @@ uint64_t __CombinedSequenceModeNotificationCallback(uint64_t a1, void *a2, uint6
 
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    v14 = 134219010;
-    v15 = a1;
-    v16 = 2048;
-    v17 = a2;
-    v18 = 2112;
-    v19 = a3;
-    v20 = 2048;
-    v21 = a4;
-    v22 = 2112;
-    v23 = a5;
-    _os_log_impl(&dword_296CA4000, v10, OS_LOG_TYPE_DEBUG, "__CombinedSequenceModeNotificationCallback %p %p %@ %p %@\n", &v14, 0x34u);
+    v13 = 134219010;
+    v14 = a1;
+    v15 = 2048;
+    v16 = a2;
+    v17 = 2112;
+    v18 = a3;
+    v19 = 2048;
+    v20 = a4;
+    v21 = 2112;
+    v22 = a5;
+    _os_log_impl(&dword_296CA4000, v10, OS_LOG_TYPE_DEBUG, "__CombinedSequenceModeNotificationCallback %p %p %@ %p %@\n", &v13, 0x34u);
   }
 
   v11 = [MEMORY[0x29EDBFD50] sharedInstance];
   [v11 synchronize];
 
-  result = [a2 updateCombinedSequenceMode];
-  v13 = *MEMORY[0x29EDCA608];
-  return result;
+  return [a2 updateCombinedSequenceMode];
 }
 
 uint64_t __CoachingHintsEnabledNotificationCallback(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v24 = *MEMORY[0x29EDCA608];
+  v23 = *MEMORY[0x29EDCA608];
   if (__osLogTrace)
   {
     v10 = __osLogTrace;
@@ -220,30 +213,28 @@ uint64_t __CoachingHintsEnabledNotificationCallback(uint64_t a1, void *a2, uint6
 
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    v14 = 134219010;
-    v15 = a1;
-    v16 = 2048;
-    v17 = a2;
-    v18 = 2112;
-    v19 = a3;
-    v20 = 2048;
-    v21 = a4;
-    v22 = 2112;
-    v23 = a5;
-    _os_log_impl(&dword_296CA4000, v10, OS_LOG_TYPE_DEBUG, "__CoachingHintsEnabledNotificationCallback %p %p %@ %p %@\n", &v14, 0x34u);
+    v13 = 134219010;
+    v14 = a1;
+    v15 = 2048;
+    v16 = a2;
+    v17 = 2112;
+    v18 = a3;
+    v19 = 2048;
+    v20 = a4;
+    v21 = 2112;
+    v22 = a5;
+    _os_log_impl(&dword_296CA4000, v10, OS_LOG_TYPE_DEBUG, "__CoachingHintsEnabledNotificationCallback %p %p %@ %p %@\n", &v13, 0x34u);
   }
 
   v11 = [MEMORY[0x29EDBFD50] sharedInstance];
   [v11 synchronize];
 
-  result = [a2 updateCoachingHintsEnabled];
-  v13 = *MEMORY[0x29EDCA608];
-  return result;
+  return [a2 updateCoachingHintsEnabled];
 }
 
 uint64_t __EntitlementOverrideFlagsNotificationCallback(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v24 = *MEMORY[0x29EDCA608];
+  v23 = *MEMORY[0x29EDCA608];
   if (__osLogTrace)
   {
     v10 = __osLogTrace;
@@ -256,30 +247,28 @@ uint64_t __EntitlementOverrideFlagsNotificationCallback(uint64_t a1, void *a2, u
 
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    v14 = 134219010;
-    v15 = a1;
-    v16 = 2048;
-    v17 = a2;
-    v18 = 2112;
-    v19 = a3;
-    v20 = 2048;
-    v21 = a4;
-    v22 = 2112;
-    v23 = a5;
-    _os_log_impl(&dword_296CA4000, v10, OS_LOG_TYPE_DEBUG, "__EntitlementOverrideFlagsNotificationCallback %p %p %@ %p %@\n", &v14, 0x34u);
+    v13 = 134219010;
+    v14 = a1;
+    v15 = 2048;
+    v16 = a2;
+    v17 = 2112;
+    v18 = a3;
+    v19 = 2048;
+    v20 = a4;
+    v21 = 2112;
+    v22 = a5;
+    _os_log_impl(&dword_296CA4000, v10, OS_LOG_TYPE_DEBUG, "__EntitlementOverrideFlagsNotificationCallback %p %p %@ %p %@\n", &v13, 0x34u);
   }
 
   v11 = [MEMORY[0x29EDBFD50] sharedInstance];
   [v11 synchronize];
 
-  result = [a2 updateEntitlementOverrideFlags];
-  v13 = *MEMORY[0x29EDCA608];
-  return result;
+  return [a2 updateEntitlementOverrideFlags];
 }
 
 void __serviceMatch(void *a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x29EDCA608];
+  v9 = *MEMORY[0x29EDCA608];
   v3 = a1;
   if (__osLog)
   {
@@ -293,16 +282,14 @@ void __serviceMatch(void *a1, uint64_t a2)
 
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v6 = 134218242;
-    v7 = v3;
-    v8 = 2112;
-    v9 = v3;
-    _os_log_impl(&dword_296CA4000, v4, OS_LOG_TYPE_DEBUG, "__serviceMatch %p(%@) --> serviceMatch:\n", &v6, 0x16u);
+    v5 = 134218242;
+    v6 = v3;
+    v7 = 2112;
+    v8 = v3;
+    _os_log_impl(&dword_296CA4000, v4, OS_LOG_TYPE_DEBUG, "__serviceMatch %p(%@) --> serviceMatch:\n", &v5, 0x16u);
   }
 
   [v3 serviceMatch:a2];
-
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 void sub_296CA9C58(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, id location)
@@ -314,7 +301,7 @@ void sub_296CA9C58(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void __firstUnlockCallback(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x29EDCA608];
+  v8 = *MEMORY[0x29EDCA608];
   v2 = a2;
   if (__osLog)
   {
@@ -328,19 +315,17 @@ void __firstUnlockCallback(uint64_t a1, void *a2)
 
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    v5 = 134218242;
-    v6 = v2;
-    v7 = 2112;
-    v8 = v2;
-    _os_log_impl(&dword_296CA4000, v3, OS_LOG_TYPE_DEBUG, "__firstUnlockCallback %p(%@) --> handleFirstUnlock\n", &v5, 0x16u);
+    v4 = 134218242;
+    v5 = v2;
+    v6 = 2112;
+    v7 = v2;
+    _os_log_impl(&dword_296CA4000, v3, OS_LOG_TYPE_DEBUG, "__firstUnlockCallback %p(%@) --> handleFirstUnlock\n", &v4, 0x16u);
   }
 
   if ([v2 handleFirstUnlock])
   {
     __firstUnlockCallback_cold_1();
   }
-
-  v4 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
@@ -366,119 +351,120 @@ void sub_296CAFDC0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t getSensorSerialNumStringUT(char *a1, size_t a2, uint64_t a3)
 {
-  v41 = *MEMORY[0x29EDCA608];
+  v40 = *MEMORY[0x29EDCA608];
   strcpy(__s, "0123456789ABCDEFGHJKLMNPQRSTUVWXYZ");
-  if (!a3)
+  if (a3)
   {
-    getSensorSerialNumStringUT_cold_4();
-LABEL_22:
-    result = v39;
-    goto LABEL_20;
-  }
+    if (a2 <= 0x11)
+    {
+      getSensorSerialNumStringUT_cold_3();
+    }
 
-  if (a2 <= 0x11)
-  {
-    getSensorSerialNumStringUT_cold_3();
-    goto LABEL_22;
-  }
+    else
+    {
+      v4 = bswap32(*a3);
+      v5 = *(a3 + 4);
+      v6 = *(a3 + 5) << 8;
+      v7 = *(a3 + 6);
+      v8 = *(a3 + 7);
+      v9 = *(a3 + 8) << 16;
+      v10 = *(a3 + 9) << 8;
+      v11 = *(a3 + 10);
+      bzero(a1, a2);
+      v12 = 0;
+      v13 = &dword_296D29F9C;
+      do
+      {
+        v14 = *v13--;
+        v15 = __s[v4 / v14];
+        v4 %= v14;
+        a1[v12++] = v15;
+      }
 
-  v4 = bswap32(*a3);
-  v5 = *(a3 + 4);
-  v6 = *(a3 + 5) << 8;
-  v7 = *(a3 + 6);
-  v8 = *(a3 + 7);
-  v9 = *(a3 + 8) << 16;
-  v10 = *(a3 + 9) << 8;
-  v11 = *(a3 + 10);
-  bzero(a1, a2);
-  v12 = 0;
-  v13 = &dword_296D29F9C;
-  do
-  {
-    v14 = *v13--;
-    v15 = __s[v4 / v14];
-    v4 %= v14;
-    a1[v12++] = v15;
-  }
+      while (v12 != 6);
+      v16 = v6 | (v5 << 16) | v7;
+      v17 = &dword_296D29F98;
+      for (i = 6; i != 11; ++i)
+      {
+        v19 = *v17--;
+        v20 = __s[v16 / v19];
+        v16 %= v19;
+        a1[i] = v20;
+      }
 
-  while (v12 != 6);
-  v16 = v6 | (v5 << 16) | v7;
-  v17 = &dword_296D29F98;
-  for (i = 6; i != 11; ++i)
-  {
-    v19 = *v17--;
-    v20 = __s[v16 / v19];
-    v16 %= v19;
-    a1[i] = v20;
-  }
+      v21 = v9 | (v8 << 24) | v10 | v11;
+      v22 = 11;
+      v23 = &dword_296D29F9C;
+      do
+      {
+        v24 = *v23--;
+        v25 = __s[v21 / v24];
+        v21 %= v24;
+        a1[v22++] = v25;
+      }
 
-  v21 = v9 | (v8 << 24) | v10 | v11;
-  v22 = 11;
-  v23 = &dword_296D29F9C;
-  do
-  {
-    v24 = *v23--;
-    v25 = __s[v21 / v24];
-    v21 %= v24;
-    a1[v22++] = v25;
-  }
-
-  while (v22 != 17);
-  v26 = strlen(a1);
-  v27 = v26;
-  v28 = v26 - 1;
-  if (v26 < 2)
-  {
+      while (v22 != 17);
+      v26 = strlen(a1);
+      v27 = v26;
+      v28 = v26 - 1;
+      if (v26 < 2)
+      {
 LABEL_17:
-    v36 = 48;
+        v36 = 48;
+      }
+
+      else
+      {
+        v29 = 0;
+        v30 = v26 & 0x7FFFFFFF;
+        v31 = &a1[v28 - 1];
+        v32 = 1;
+        do
+        {
+          v33 = *v31--;
+          v34 = strchr(__s, v33);
+          if (!v34)
+          {
+            getSensorSerialNumStringUT_cold_2();
+            return v38;
+          }
+
+          v35 = v34 - __s;
+          if (v32)
+          {
+            v35 *= 3;
+          }
+
+          v29 += v35;
+          ++v32;
+        }
+
+        while (v30 != v32);
+        if (v29 % 34 < 1)
+        {
+          goto LABEL_17;
+        }
+
+        v36 = __s[-(v29 % 34) + 34];
+      }
+
+      if (v36 == a1[v28])
+      {
+        result = 0;
+        a1[v27] = 0;
+        return result;
+      }
+
+      getSensorSerialNumStringUT_cold_1();
+    }
   }
 
   else
   {
-    v29 = 0;
-    v30 = v26 & 0x7FFFFFFF;
-    v31 = &a1[v28 - 1];
-    v32 = 1;
-    do
-    {
-      v33 = *v31--;
-      v34 = strchr(__s, v33);
-      if (!v34)
-      {
-        getSensorSerialNumStringUT_cold_2();
-        goto LABEL_22;
-      }
-
-      v35 = v34 - __s;
-      if (v32)
-      {
-        v35 *= 3;
-      }
-
-      v29 += v35;
-      ++v32;
-    }
-
-    while (v30 != v32);
-    if (v29 % 34 < 1)
-    {
-      goto LABEL_17;
-    }
-
-    v36 = __s[-(v29 % 34) + 34];
+    getSensorSerialNumStringUT_cold_4();
   }
 
-  if (v36 != a1[v28])
-  {
-    getSensorSerialNumStringUT_cold_1();
-    goto LABEL_22;
-  }
-
-  result = 0;
-  a1[v27] = 0;
-LABEL_20:
-  v38 = *MEMORY[0x29EDCA608];
-  return result;
+  return v38;
 }
 
 void sub_296CBB3BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, id location)
@@ -618,13 +604,6 @@ uint64_t BKDMInitialize()
   return 22;
 }
 
-void OUTLINED_FUNCTION_11()
-{
-  *v1 = 0;
-  *v0 = 0;
-  v3 = *(v2 - 40);
-}
-
 BOOL OUTLINED_FUNCTION_12@<W0>(NSObject *a1@<X8>)
 {
   if (a1)
@@ -640,10 +619,11 @@ BOOL OUTLINED_FUNCTION_12@<W0>(NSObject *a1@<X8>)
   return os_log_type_enabled(v3, OS_LOG_TYPE_ERROR);
 }
 
-void OUTLINED_FUNCTION_13(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_13(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x30u);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x30u);
 }
 
 BOOL OUTLINED_FUNCTION_14@<W0>(NSObject *a1@<X8>)
@@ -661,10 +641,11 @@ BOOL OUTLINED_FUNCTION_14@<W0>(NSObject *a1@<X8>)
   return os_log_type_enabled(v3, OS_LOG_TYPE_ERROR);
 }
 
-void OUTLINED_FUNCTION_15(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_15(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x30u);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x30u);
 }
 
 BOOL OUTLINED_FUNCTION_16@<W0>(NSObject *a1@<X8>)
@@ -697,10 +678,11 @@ BOOL OUTLINED_FUNCTION_18@<W0>(NSObject *a1@<X8>)
   return os_log_type_enabled(v3, OS_LOG_TYPE_ERROR);
 }
 
-void OUTLINED_FUNCTION_20(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_20(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x30u);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x30u);
 }
 
 BOOL OUTLINED_FUNCTION_21@<W0>(NSObject *a1@<X8>)
@@ -718,10 +700,11 @@ BOOL OUTLINED_FUNCTION_21@<W0>(NSObject *a1@<X8>)
   return os_log_type_enabled(v3, OS_LOG_TYPE_ERROR);
 }
 
-void OUTLINED_FUNCTION_27(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_27(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x30u);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x30u);
 }
 
 BOOL OUTLINED_FUNCTION_28@<W0>(NSObject *a1@<X8>)
@@ -780,17 +763,11 @@ BOOL OUTLINED_FUNCTION_43@<W0>(NSObject *a1@<X0>, uint64_t a2@<X8>)
   return os_log_type_enabled(a1, OS_LOG_TYPE_ERROR);
 }
 
-void OUTLINED_FUNCTION_46()
+void OUTLINED_FUNCTION_49(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  *v1 = 257;
-  *v0 = 0;
-  v3 = *(v2 - 40);
-}
+  va_start(va, a16);
 
-void OUTLINED_FUNCTION_49(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint8_t buf)
-{
-
-  _os_log_impl(a1, v17, OS_LOG_TYPE_DEBUG, a4, &buf, 2u);
+  _os_log_impl(a1, v16, OS_LOG_TYPE_DEBUG, a4, va, 2u);
 }
 
 BOOL OUTLINED_FUNCTION_50@<W0>(NSObject *a1@<X8>)
@@ -986,10 +963,11 @@ uint64_t OUTLINED_FUNCTION_3_0@<X0>(uint64_t a1@<X8>)
   }
 }
 
-void OUTLINED_FUNCTION_7_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_7_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x30u);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x30u);
 }
 
 void OUTLINED_FUNCTION_17_0()

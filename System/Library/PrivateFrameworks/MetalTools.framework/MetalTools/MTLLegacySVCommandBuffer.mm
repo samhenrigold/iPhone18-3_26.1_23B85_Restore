@@ -10,6 +10,7 @@
 - (id)computeCommandEncoderWithDescriptor:(id)descriptor;
 - (id)computeCommandEncoderWithDispatchType:(unint64_t)type;
 - (id)encodeBuffers:(const void *)buffers offsets:(const unint64_t *)offsets withRange:(_NSRange)range resultOffset:(unint64_t *)offset;
+- (id)encoderIdentifierForEncoderIndex:(unsigned int)index;
 - (id)parallelRenderCommandEncoderWithDescriptor:(id)descriptor;
 - (id)renderCommandEncoderWithDescriptor:(id)descriptor;
 - (id)sampledComputeCommandEncoderWithDescriptor:(id)descriptor programInfoBuffer:(id *)buffer capacity:(unint64_t)capacity;
@@ -580,6 +581,31 @@ LABEL_8:
   }
 }
 
+- (id)encoderIdentifierForEncoderIndex:(unsigned int)index
+{
+  v3 = *&index;
+  v4 = *(self + 39);
+  if (index >= ((*(self + 40) - v4) >> 3))
+  {
+    result = [MEMORY[0x277CCACA8] stringWithFormat:@"%u", *&index];
+    if (result)
+    {
+      return result;
+    }
+  }
+
+  else
+  {
+    result = *(v4 + 8 * index);
+    if (result)
+    {
+      return result;
+    }
+  }
+
+  return [MEMORY[0x277CCACA8] stringWithFormat:@"%u", v3];
+}
+
 - (void)_checkReportBuffers
 {
   v7 = [objc_msgSend(a2 "description")];
@@ -645,8 +671,8 @@ LABEL_8:
     if (*(self + 406) == 1)
     {
       *(self + 406) = 0;
-      [(MTLLegacySVCommandBuffer *)self _allocReportEntryStorageForType:8];
-      [(MTLLegacySVCommandBuffer *)self _allocReportEntryStorageForType:7, 0];
+      objc_msgSend__allocReportEntryStorageForType_(self);
+      objc_msgSend__allocReportEntryStorageForType_(self, 0);
       [encoder setObjectReportBuffer:0 offset:0];
       [encoder setMeshReportBuffer:0 offset:0];
     }
@@ -910,15 +936,15 @@ LABEL_4:
 LABEL_4:
     if (self)
     {
-      [(MTLLegacySVCommandBuffer *)self _allocReportEntryStorageForType:1];
-      [(MTLLegacySVCommandBuffer *)self _allocReportEntryStorageForType:2];
+      objc_msgSend__allocReportEntryStorageForType_(self, a2, 1);
+      objc_msgSend__allocReportEntryStorageForType_(self);
     }
 
     [buffer setVertexReportBuffer:0 offset:0];
     [buffer setFragmentReportBuffer:0 offset:0];
     if (*(self + 404) == 1)
     {
-      [(MTLLegacySVCommandBuffer *)self _allocReportEntryStorageForType:2];
+      objc_msgSend__allocReportEntryStorageForType_(self);
       [buffer setTileReportBuffer:0 offset:0];
     }
 
@@ -942,7 +968,7 @@ LABEL_4:
 
   if (self)
   {
-    [(MTLLegacySVCommandBuffer *)self _allocReportEntryStorageForType:3];
+    objc_msgSend__allocReportEntryStorageForType_(self, a2, 3);
   }
 
   [buffer setKernelReportBuffer:0 offset:0];
@@ -1275,7 +1301,7 @@ LABEL_50:
   if (!std::__hash_table<std::__hash_value_type<unsigned long long,MTLLegacySVResidencySet *>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,MTLLegacySVResidencySet *>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,MTLLegacySVResidencySet *>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,MTLLegacySVResidencySet *>>>::find<unsigned long long>(v25 + 3, &v27))
   {
     *&v27 = [debugCopy hash];
-    std::__hash_table<std::__hash_value_type<unsigned long long,MTLLegacySVResidencySet *>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,MTLLegacySVResidencySet *>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,MTLLegacySVResidencySet *>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,MTLLegacySVResidencySet *>>>::__emplace_unique_impl<unsigned long,MTLLegacySVResidencySet *&>();
+    std::__hash_table<std::__hash_value_type<unsigned long long,MTLLegacySVResidencySet *>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,MTLLegacySVResidencySet *>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,MTLLegacySVResidencySet *>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,MTLLegacySVResidencySet *>>>::__emplace_unique_impl<unsigned long,MTLLegacySVResidencySet *&>((v25 + 3), &v27, &debugCopy);
   }
 }
 
@@ -1288,7 +1314,7 @@ LABEL_50:
     {
       setCopy = set;
       v7 = [set hash];
-      std::__hash_table<std::__hash_value_type<unsigned long,MTLLegacySVResidencySet *>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,MTLLegacySVResidencySet *>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,MTLLegacySVResidencySet *>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,MTLLegacySVResidencySet *>>>::__emplace_unique_key_args<unsigned long,unsigned long,MTLLegacySVResidencySet *>(self + 63, &v7);
+      std::__hash_table<std::__hash_value_type<unsigned long,MTLLegacySVResidencySet *>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,MTLLegacySVResidencySet *>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,MTLLegacySVResidencySet *>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,MTLLegacySVResidencySet *>>>::__emplace_unique_key_args<unsigned long,unsigned long,MTLLegacySVResidencySet *>(self + 63, &v7, &v7, &setCopy);
     }
   }
 
@@ -1310,7 +1336,7 @@ LABEL_50:
       if (!std::__hash_table<std::__hash_value_type<unsigned long long,MTLLegacySVResidencySet *>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,MTLLegacySVResidencySet *>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,MTLLegacySVResidencySet *>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,MTLLegacySVResidencySet *>>>::find<unsigned long long>(self + 63, &v11))
       {
         v11 = [v12 hash];
-        std::__hash_table<std::__hash_value_type<unsigned long,MTLLegacySVResidencySet *>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,MTLLegacySVResidencySet *>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,MTLLegacySVResidencySet *>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,MTLLegacySVResidencySet *>>>::__emplace_unique_key_args<unsigned long,unsigned long,MTLLegacySVResidencySet *&>(self + 63, &v11);
+        std::__hash_table<std::__hash_value_type<unsigned long,MTLLegacySVResidencySet *>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,MTLLegacySVResidencySet *>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,MTLLegacySVResidencySet *>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,MTLLegacySVResidencySet *>>>::__emplace_unique_key_args<unsigned long,unsigned long,MTLLegacySVResidencySet *&>(self + 63, &v11, &v11, &v12);
       }
 
       ++setsCopy;
@@ -1327,40 +1353,40 @@ LABEL_50:
 
 - (void)preCommit
 {
-  v69 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   if ((*(*(self + 19) + 20) & 0x200000001) != 0)
   {
+    v62 = 0u;
     v63 = 0u;
-    v64 = 0u;
-    LODWORD(v65) = 1065353216;
+    LODWORD(v64) = 1065353216;
+    v41 = 0u;
     v42 = 0u;
     v43 = 0u;
     v44 = 0u;
-    v45 = 0u;
     residencySetsArray = [(MTLCommandQueue *)[(MTLToolsCommandBuffer *)self commandQueue] residencySetsArray];
-    v4 = [residencySetsArray countByEnumeratingWithState:&v42 objects:v68 count:16];
+    v4 = [residencySetsArray countByEnumeratingWithState:&v41 objects:v67 count:16];
     if (v4)
     {
-      v5 = *v43;
+      v5 = *v42;
       do
       {
         for (i = 0; i != v4; ++i)
         {
-          if (*v43 != v5)
+          if (*v42 != v5)
           {
             objc_enumerationMutation(residencySetsArray);
           }
 
-          *&v59 = *(*(&v42 + 1) + 8 * i);
-          *&v55 = [v59 hash];
-          if (!std::__hash_table<std::__hash_value_type<unsigned long long,MTLLegacySVResidencySet *>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,MTLLegacySVResidencySet *>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,MTLLegacySVResidencySet *>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,MTLLegacySVResidencySet *>>>::find<unsigned long long>(&v63, &v55))
+          *&v58 = *(*(&v41 + 1) + 8 * i);
+          *&v54 = [v58 hash];
+          if (!std::__hash_table<std::__hash_value_type<unsigned long long,MTLLegacySVResidencySet *>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,MTLLegacySVResidencySet *>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,MTLLegacySVResidencySet *>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,MTLLegacySVResidencySet *>>>::find<unsigned long long>(&v62, &v54))
           {
-            *&v55 = [v59 hash];
-            std::__hash_table<std::__hash_value_type<unsigned long,MTLLegacySVResidencySet *>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,MTLLegacySVResidencySet *>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,MTLLegacySVResidencySet *>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,MTLLegacySVResidencySet *>>>::__emplace_unique_key_args<unsigned long,unsigned long,MTLLegacySVResidencySet *&>(&v63, &v55);
+            *&v54 = [v58 hash];
+            std::__hash_table<std::__hash_value_type<unsigned long,MTLLegacySVResidencySet *>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,MTLLegacySVResidencySet *>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,MTLLegacySVResidencySet *>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,MTLLegacySVResidencySet *>>>::__emplace_unique_key_args<unsigned long,unsigned long,MTLLegacySVResidencySet *&>(&v62, &v54, &v54, &v58);
           }
         }
 
-        v4 = [residencySetsArray countByEnumeratingWithState:&v42 objects:v68 count:16];
+        v4 = [residencySetsArray countByEnumeratingWithState:&v41 objects:v67 count:16];
       }
 
       while (v4);
@@ -1368,12 +1394,12 @@ LABEL_50:
 
     for (j = *(self + 65); j; j = *j)
     {
-      *&v59 = j[3];
-      *&v55 = [v59 hash];
-      if (!std::__hash_table<std::__hash_value_type<unsigned long long,MTLLegacySVResidencySet *>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,MTLLegacySVResidencySet *>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,MTLLegacySVResidencySet *>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,MTLLegacySVResidencySet *>>>::find<unsigned long long>(&v63, &v55))
+      *&v58 = j[3];
+      *&v54 = [v58 hash];
+      if (!std::__hash_table<std::__hash_value_type<unsigned long long,MTLLegacySVResidencySet *>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,MTLLegacySVResidencySet *>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,MTLLegacySVResidencySet *>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,MTLLegacySVResidencySet *>>>::find<unsigned long long>(&v62, &v54))
       {
-        *&v55 = [v59 hash];
-        std::__hash_table<std::__hash_value_type<unsigned long,MTLLegacySVResidencySet *>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,MTLLegacySVResidencySet *>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,MTLLegacySVResidencySet *>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,MTLLegacySVResidencySet *>>>::__emplace_unique_key_args<unsigned long,unsigned long,MTLLegacySVResidencySet *&>(&v63, &v55);
+        *&v54 = [v58 hash];
+        std::__hash_table<std::__hash_value_type<unsigned long,MTLLegacySVResidencySet *>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,MTLLegacySVResidencySet *>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,MTLLegacySVResidencySet *>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,MTLLegacySVResidencySet *>>>::__emplace_unique_key_args<unsigned long,unsigned long,MTLLegacySVResidencySet *&>(&v62, &v54, &v54, &v58);
       }
     }
 
@@ -1381,61 +1407,61 @@ LABEL_50:
     {
       for (m = k[5]; m; m = *m)
       {
-        *&v59 = m[3];
-        *&v55 = [v59 hash];
-        if (!std::__hash_table<std::__hash_value_type<unsigned long long,MTLLegacySVResidencySet *>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,MTLLegacySVResidencySet *>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,MTLLegacySVResidencySet *>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,MTLLegacySVResidencySet *>>>::find<unsigned long long>(&v63, &v55))
+        *&v58 = m[3];
+        *&v54 = [v58 hash];
+        if (!std::__hash_table<std::__hash_value_type<unsigned long long,MTLLegacySVResidencySet *>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,MTLLegacySVResidencySet *>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,MTLLegacySVResidencySet *>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,MTLLegacySVResidencySet *>>>::find<unsigned long long>(&v62, &v54))
         {
-          *&v55 = [v59 hash];
-          std::__hash_table<std::__hash_value_type<unsigned long,MTLLegacySVResidencySet *>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,MTLLegacySVResidencySet *>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,MTLLegacySVResidencySet *>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,MTLLegacySVResidencySet *>>>::__emplace_unique_key_args<unsigned long,unsigned long,MTLLegacySVResidencySet *&>(&v63, &v55);
+          *&v54 = [v58 hash];
+          std::__hash_table<std::__hash_value_type<unsigned long,MTLLegacySVResidencySet *>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,MTLLegacySVResidencySet *>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,MTLLegacySVResidencySet *>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,MTLLegacySVResidencySet *>>>::__emplace_unique_key_args<unsigned long,unsigned long,MTLLegacySVResidencySet *&>(&v62, &v54, &v54, &v58);
         }
       }
     }
 
+    v58 = 0u;
     v59 = 0u;
-    v60 = 0u;
-    LODWORD(v61) = 1065353216;
+    LODWORD(v60) = 1065353216;
+    v54 = 0u;
     v55 = 0u;
-    v56 = 0u;
-    LODWORD(v57) = 1065353216;
-    v10 = v64;
-    if (v64)
+    LODWORD(v56) = 1065353216;
+    v10 = v63;
+    if (v63)
     {
       do
       {
         v11 = v10[3];
-        v40 = 0u;
-        v41 = 0u;
-        v38 = 0u;
         v39 = 0u;
+        v40 = 0u;
+        v37 = 0u;
+        v38 = 0u;
         allCommittedAllocations = [v11 allCommittedAllocations];
-        v13 = [allCommittedAllocations countByEnumeratingWithState:&v38 objects:v67 count:16];
+        v13 = [allCommittedAllocations countByEnumeratingWithState:&v37 objects:v66 count:16];
         if (v13)
         {
-          v14 = *v39;
+          v14 = *v38;
           do
           {
             for (n = 0; n != v13; ++n)
             {
-              if (*v39 != v14)
+              if (*v38 != v14)
               {
                 objc_enumerationMutation(allCommittedAllocations);
               }
 
-              v16 = *(*(&v38 + 1) + 8 * n);
+              v16 = *(*(&v37 + 1) + 8 * n);
               if (objc_opt_respondsToSelector())
               {
-                v54[0] = v16;
-                std::__hash_table<_MTLResource *,std::hash<_MTLResource *>,std::equal_to<_MTLResource *>,std::allocator<_MTLResource *>>::__emplace_unique_key_args<_MTLResource *,_MTLResource *>(&v59, v54);
+                v53[0] = v16;
+                std::__hash_table<_MTLResource *,std::hash<_MTLResource *>,std::equal_to<_MTLResource *>,std::allocator<_MTLResource *>>::__emplace_unique_key_args<_MTLResource *,_MTLResource *>(&v58, v53, v53);
               }
 
               else
               {
-                v54[0] = v16;
-                std::__hash_table<_MTLHeap *,std::hash<_MTLHeap *>,std::equal_to<_MTLHeap *>,std::allocator<_MTLHeap *>>::__emplace_unique_key_args<_MTLHeap *,_MTLHeap *>(&v55, v54);
+                v53[0] = v16;
+                std::__hash_table<_MTLHeap *,std::hash<_MTLHeap *>,std::equal_to<_MTLHeap *>,std::allocator<_MTLHeap *>>::__emplace_unique_key_args<_MTLHeap *,_MTLHeap *>(&v54, v53, v53);
               }
             }
 
-            v13 = [allCommittedAllocations countByEnumeratingWithState:&v38 objects:v67 count:16];
+            v13 = [allCommittedAllocations countByEnumeratingWithState:&v37 objects:v66 count:16];
           }
 
           while (v13);
@@ -1445,7 +1471,7 @@ LABEL_50:
       }
 
       while (v10);
-      for (ii = v60; ii; ii = *ii)
+      for (ii = v59; ii; ii = *ii)
       {
         v18 = ii[2];
         objc_opt_class();
@@ -1474,14 +1500,14 @@ LABEL_50:
       }
     }
 
-    for (jj = v56; jj; jj = *jj)
+    for (jj = v55; jj; jj = *jj)
     {
       [(MTLLegacySVCommandBuffer *)self markHeap:jj[2] usage:3 stages:31];
     }
 
-    std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(&v55);
-    std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(&v59);
-    std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(&v63);
+    std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(&v54);
+    std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(&v58);
+    std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(&v62);
     if ((*(*(self + 19) + 20) & 0x200000001) != 0)
     {
       v20 = *(self + 60);
@@ -1495,116 +1521,116 @@ LABEL_50:
           if (v23)
           {
             v24 = *v20;
-            *&v63 = MEMORY[0x277D85DD0];
-            *(&v63 + 1) = 3221225472;
-            *&v64 = ___ZN12_GLOBAL__N_112_GLOBAL__N_114HeapUsageTable5applyERNS0_16BufferUsageTableES3_S3_S3_RNS0_17TextureUsageTableES5_S5_S5__block_invoke;
-            *(&v64 + 1) = &__block_descriptor_48_e12_v20__0_I8I16l;
-            v65 = self + 408;
-            v66 = v20;
-            [v24 enumerateBufferIndices:&v63];
+            *&v62 = MEMORY[0x277D85DD0];
+            *(&v62 + 1) = 3221225472;
+            *&v63 = ___ZN12_GLOBAL__N_112_GLOBAL__N_114HeapUsageTable5applyERNS0_16BufferUsageTableES3_S3_S3_RNS0_17TextureUsageTableES5_S5_S5__block_invoke;
+            *(&v63 + 1) = &__block_descriptor_48_e12_v20__0_I8I16l;
+            v64 = self + 408;
+            v65 = v20;
+            [v24 enumerateBufferIndices:&v62];
             v25 = *v20;
-            *&v59 = v22;
-            *(&v59 + 1) = 3221225472;
-            *&v60 = ___ZN12_GLOBAL__N_112_GLOBAL__N_114HeapUsageTable5applyERNS0_16BufferUsageTableES3_S3_S3_RNS0_17TextureUsageTableES5_S5_S5__block_invoke_2;
-            *(&v60 + 1) = &__block_descriptor_48_e12_v20__0_I8I16l;
-            v61 = self + 408;
-            v62 = v20;
-            [v25 enumerateAccelerationStructureIndices:&v59];
+            *&v58 = v22;
+            *(&v58 + 1) = 3221225472;
+            *&v59 = ___ZN12_GLOBAL__N_112_GLOBAL__N_114HeapUsageTable5applyERNS0_16BufferUsageTableES3_S3_S3_RNS0_17TextureUsageTableES5_S5_S5__block_invoke_2;
+            *(&v59 + 1) = &__block_descriptor_48_e12_v20__0_I8I16l;
+            v60 = self + 408;
+            v61 = v20;
+            [v25 enumerateAccelerationStructureIndices:&v58];
             v26 = *v20;
-            *&v55 = v22;
-            *(&v55 + 1) = 3221225472;
-            *&v56 = ___ZN12_GLOBAL__N_112_GLOBAL__N_114HeapUsageTable5applyERNS0_16BufferUsageTableES3_S3_S3_RNS0_17TextureUsageTableES5_S5_S5__block_invoke_3;
-            *(&v56 + 1) = &__block_descriptor_48_e12_v20__0_I8I16l;
-            v57 = self + 440;
-            v58 = v20;
-            [v26 enumerateTextureIndices:&v55];
+            *&v54 = v22;
+            *(&v54 + 1) = 3221225472;
+            *&v55 = ___ZN12_GLOBAL__N_112_GLOBAL__N_114HeapUsageTable5applyERNS0_16BufferUsageTableES3_S3_S3_RNS0_17TextureUsageTableES5_S5_S5__block_invoke_3;
+            *(&v55 + 1) = &__block_descriptor_48_e12_v20__0_I8I16l;
+            v56 = self + 440;
+            v57 = v20;
+            [v26 enumerateTextureIndices:&v54];
             v23 = *(v20 + 8);
           }
 
           if ((v23 & 6) != 0)
           {
             v27 = *v20;
-            v54[0] = MEMORY[0x277D85DD0];
-            v54[1] = 3221225472;
-            v54[2] = ___ZN12_GLOBAL__N_112_GLOBAL__N_114HeapUsageTable5applyERNS0_16BufferUsageTableES3_S3_S3_RNS0_17TextureUsageTableES5_S5_S5__block_invoke_4;
-            v54[3] = &__block_descriptor_48_e12_v20__0_I8I16l;
-            v54[4] = self + 416;
-            v54[5] = v20;
-            [v27 enumerateBufferIndices:v54];
-            v28 = *v20;
-            v53[0] = v22;
+            v53[0] = MEMORY[0x277D85DD0];
             v53[1] = 3221225472;
-            v53[2] = ___ZN12_GLOBAL__N_112_GLOBAL__N_114HeapUsageTable5applyERNS0_16BufferUsageTableES3_S3_S3_RNS0_17TextureUsageTableES5_S5_S5__block_invoke_5;
+            v53[2] = ___ZN12_GLOBAL__N_112_GLOBAL__N_114HeapUsageTable5applyERNS0_16BufferUsageTableES3_S3_S3_RNS0_17TextureUsageTableES5_S5_S5__block_invoke_4;
             v53[3] = &__block_descriptor_48_e12_v20__0_I8I16l;
             v53[4] = self + 416;
             v53[5] = v20;
-            [v28 enumerateAccelerationStructureIndices:v53];
-            v29 = *v20;
+            [v27 enumerateBufferIndices:v53];
+            v28 = *v20;
             v52[0] = v22;
             v52[1] = 3221225472;
-            v52[2] = ___ZN12_GLOBAL__N_112_GLOBAL__N_114HeapUsageTable5applyERNS0_16BufferUsageTableES3_S3_S3_RNS0_17TextureUsageTableES5_S5_S5__block_invoke_6;
+            v52[2] = ___ZN12_GLOBAL__N_112_GLOBAL__N_114HeapUsageTable5applyERNS0_16BufferUsageTableES3_S3_S3_RNS0_17TextureUsageTableES5_S5_S5__block_invoke_5;
             v52[3] = &__block_descriptor_48_e12_v20__0_I8I16l;
-            v52[4] = self + 448;
+            v52[4] = self + 416;
             v52[5] = v20;
-            [v29 enumerateTextureIndices:v52];
+            [v28 enumerateAccelerationStructureIndices:v52];
+            v29 = *v20;
+            v51[0] = v22;
+            v51[1] = 3221225472;
+            v51[2] = ___ZN12_GLOBAL__N_112_GLOBAL__N_114HeapUsageTable5applyERNS0_16BufferUsageTableES3_S3_S3_RNS0_17TextureUsageTableES5_S5_S5__block_invoke_6;
+            v51[3] = &__block_descriptor_48_e12_v20__0_I8I16l;
+            v51[4] = self + 448;
+            v51[5] = v20;
+            [v29 enumerateTextureIndices:v51];
             v23 = *(v20 + 8);
           }
 
           if ((v23 & 8) != 0)
           {
             v30 = *v20;
-            v51[0] = MEMORY[0x277D85DD0];
-            v51[1] = 3221225472;
-            v51[2] = ___ZN12_GLOBAL__N_112_GLOBAL__N_114HeapUsageTable5applyERNS0_16BufferUsageTableES3_S3_S3_RNS0_17TextureUsageTableES5_S5_S5__block_invoke_7;
-            v51[3] = &__block_descriptor_48_e12_v20__0_I8I16l;
-            v51[4] = self + 424;
-            v51[5] = v20;
-            [v30 enumerateBufferIndices:v51];
-            v31 = *v20;
-            v50[0] = v22;
+            v50[0] = MEMORY[0x277D85DD0];
             v50[1] = 3221225472;
-            v50[2] = ___ZN12_GLOBAL__N_112_GLOBAL__N_114HeapUsageTable5applyERNS0_16BufferUsageTableES3_S3_S3_RNS0_17TextureUsageTableES5_S5_S5__block_invoke_8;
+            v50[2] = ___ZN12_GLOBAL__N_112_GLOBAL__N_114HeapUsageTable5applyERNS0_16BufferUsageTableES3_S3_S3_RNS0_17TextureUsageTableES5_S5_S5__block_invoke_7;
             v50[3] = &__block_descriptor_48_e12_v20__0_I8I16l;
             v50[4] = self + 424;
             v50[5] = v20;
-            [v31 enumerateAccelerationStructureIndices:v50];
-            v32 = *v20;
+            [v30 enumerateBufferIndices:v50];
+            v31 = *v20;
             v49[0] = v22;
             v49[1] = 3221225472;
-            v49[2] = ___ZN12_GLOBAL__N_112_GLOBAL__N_114HeapUsageTable5applyERNS0_16BufferUsageTableES3_S3_S3_RNS0_17TextureUsageTableES5_S5_S5__block_invoke_9;
+            v49[2] = ___ZN12_GLOBAL__N_112_GLOBAL__N_114HeapUsageTable5applyERNS0_16BufferUsageTableES3_S3_S3_RNS0_17TextureUsageTableES5_S5_S5__block_invoke_8;
             v49[3] = &__block_descriptor_48_e12_v20__0_I8I16l;
-            v49[4] = self + 456;
+            v49[4] = self + 424;
             v49[5] = v20;
-            [v32 enumerateTextureIndices:v49];
+            [v31 enumerateAccelerationStructureIndices:v49];
+            v32 = *v20;
+            v48[0] = v22;
+            v48[1] = 3221225472;
+            v48[2] = ___ZN12_GLOBAL__N_112_GLOBAL__N_114HeapUsageTable5applyERNS0_16BufferUsageTableES3_S3_S3_RNS0_17TextureUsageTableES5_S5_S5__block_invoke_9;
+            v48[3] = &__block_descriptor_48_e12_v20__0_I8I16l;
+            v48[4] = self + 456;
+            v48[5] = v20;
+            [v32 enumerateTextureIndices:v48];
             v23 = *(v20 + 8);
           }
 
           if ((v23 & 0x10) != 0)
           {
             v33 = *v20;
-            v48[0] = MEMORY[0x277D85DD0];
-            v48[1] = 3221225472;
-            v48[2] = ___ZN12_GLOBAL__N_112_GLOBAL__N_114HeapUsageTable5applyERNS0_16BufferUsageTableES3_S3_S3_RNS0_17TextureUsageTableES5_S5_S5__block_invoke_10;
-            v48[3] = &__block_descriptor_48_e12_v20__0_I8I16l;
-            v48[4] = self + 432;
-            v48[5] = v20;
-            [v33 enumerateBufferIndices:v48];
-            v34 = *v20;
-            v47[0] = v22;
+            v47[0] = MEMORY[0x277D85DD0];
             v47[1] = 3221225472;
-            v47[2] = ___ZN12_GLOBAL__N_112_GLOBAL__N_114HeapUsageTable5applyERNS0_16BufferUsageTableES3_S3_S3_RNS0_17TextureUsageTableES5_S5_S5__block_invoke_11;
+            v47[2] = ___ZN12_GLOBAL__N_112_GLOBAL__N_114HeapUsageTable5applyERNS0_16BufferUsageTableES3_S3_S3_RNS0_17TextureUsageTableES5_S5_S5__block_invoke_10;
             v47[3] = &__block_descriptor_48_e12_v20__0_I8I16l;
             v47[4] = self + 432;
             v47[5] = v20;
-            [v34 enumerateAccelerationStructureIndices:v47];
-            v35 = *v20;
+            [v33 enumerateBufferIndices:v47];
+            v34 = *v20;
             v46[0] = v22;
             v46[1] = 3221225472;
-            v46[2] = ___ZN12_GLOBAL__N_112_GLOBAL__N_114HeapUsageTable5applyERNS0_16BufferUsageTableES3_S3_S3_RNS0_17TextureUsageTableES5_S5_S5__block_invoke_12;
+            v46[2] = ___ZN12_GLOBAL__N_112_GLOBAL__N_114HeapUsageTable5applyERNS0_16BufferUsageTableES3_S3_S3_RNS0_17TextureUsageTableES5_S5_S5__block_invoke_11;
             v46[3] = &__block_descriptor_48_e12_v20__0_I8I16l;
-            v46[4] = self + 464;
+            v46[4] = self + 432;
             v46[5] = v20;
-            [v35 enumerateTextureIndices:v46];
+            [v34 enumerateAccelerationStructureIndices:v46];
+            v35 = *v20;
+            v45[0] = v22;
+            v45[1] = 3221225472;
+            v45[2] = ___ZN12_GLOBAL__N_112_GLOBAL__N_114HeapUsageTable5applyERNS0_16BufferUsageTableES3_S3_S3_RNS0_17TextureUsageTableES5_S5_S5__block_invoke_12;
+            v45[3] = &__block_descriptor_48_e12_v20__0_I8I16l;
+            v45[4] = self + 464;
+            v45[5] = v20;
+            [v35 enumerateTextureIndices:v45];
           }
 
           v20 += 24;
@@ -1615,10 +1641,9 @@ LABEL_50:
     }
   }
 
-  v37.receiver = self;
-  v37.super_class = MTLLegacySVCommandBuffer;
-  [(MTLToolsCommandBuffer *)&v37 preCommit];
-  v36 = *MEMORY[0x277D85DE8];
+  v36.receiver = self;
+  v36.super_class = MTLLegacySVCommandBuffer;
+  [(MTLToolsCommandBuffer *)&v36 preCommit];
 }
 
 - (void)preCompletionHandlers

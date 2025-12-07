@@ -55,9 +55,11 @@
 
 uint64_t __49__VSTreeNode_keyPathsForValuesAffectingIndexPath__block_invoke()
 {
-  keyPathsForValuesAffectingIndexPath___vs_lazy_init_variable = __49__VSTreeNode_keyPathsForValuesAffectingIndexPath__block_invoke_2();
+  v0 = __49__VSTreeNode_keyPathsForValuesAffectingIndexPath__block_invoke_2();
+  v1 = keyPathsForValuesAffectingIndexPath___vs_lazy_init_variable;
+  keyPathsForValuesAffectingIndexPath___vs_lazy_init_variable = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 id __49__VSTreeNode_keyPathsForValuesAffectingIndexPath__block_invoke_2()
@@ -100,9 +102,11 @@ id __49__VSTreeNode_keyPathsForValuesAffectingIndexPath__block_invoke_2()
 
 uint64_t __44__VSTreeNode_keyPathsForValuesAffectingLeaf__block_invoke()
 {
-  keyPathsForValuesAffectingLeaf___vs_lazy_init_variable = __44__VSTreeNode_keyPathsForValuesAffectingLeaf__block_invoke_2();
+  v0 = __44__VSTreeNode_keyPathsForValuesAffectingLeaf__block_invoke_2();
+  v1 = keyPathsForValuesAffectingLeaf___vs_lazy_init_variable;
+  keyPathsForValuesAffectingLeaf___vs_lazy_init_variable = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 id __44__VSTreeNode_keyPathsForValuesAffectingLeaf__block_invoke_2()

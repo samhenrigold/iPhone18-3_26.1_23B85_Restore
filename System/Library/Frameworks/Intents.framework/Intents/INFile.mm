@@ -24,6 +24,7 @@
 - (void)encodeWithCoder:(id)coder;
 - (void)loadDataRepresentationWithType:(id)type completion:(id)completion;
 - (void)loadFileRepresentationWithType:(id)type completion:(id)completion;
+- (void)setRemovedOnCompletion:(BOOL)removedOnCompletion;
 @end
 
 @implementation INFile
@@ -39,14 +40,14 @@
 
 - (void)dealloc
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (self->_fileURL && [(INFile *)self _isMarkedForDeletionOnDeallocation]&& [(INFile *)self _hasAssociatedAuditToken])
   {
     processInfo = [MEMORY[0x1E696AE30] processInfo];
     v4 = processInfo;
     if (processInfo)
     {
-      [processInfo if_auditToken];
+      objc_msgSend_if_auditToken(processInfo);
     }
 
     else
@@ -62,31 +63,31 @@
       if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_DEBUG))
       {
         fileURL = self->_fileURL;
-        v13 = v6;
+        v12 = v6;
         absoluteString = [(NSURL *)fileURL absoluteString];
         *buf = 136315394;
         *&buf[4] = "[INFile dealloc]";
         *&buf[12] = 2112;
         *&buf[14] = absoluteString;
-        _os_log_debug_impl(&dword_18E991000, v13, OS_LOG_TYPE_DEBUG, "%s Deleting file on deallocation: %@", buf, 0x16u);
+        _os_log_debug_impl(&dword_18E991000, v12, OS_LOG_TYPE_DEBUG, "%s Deleting file on deallocation: %@", buf, 0x16u);
       }
 
       defaultManager = [MEMORY[0x1E696AC08] defaultManager];
       v8 = self->_fileURL;
-      v17 = 0;
-      [defaultManager removeItemAtURL:v8 error:&v17];
-      v9 = v17;
+      v16 = 0;
+      [defaultManager removeItemAtURL:v8 error:&v16];
+      v9 = v16;
 
       if (v9)
       {
         v10 = INSiriLogContextIntents;
         if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
         {
-          v15 = self->_fileURL;
+          v14 = self->_fileURL;
           *buf = 136315650;
           *&buf[4] = "[INFile dealloc]";
           *&buf[12] = 2112;
-          *&buf[14] = v15;
+          *&buf[14] = v14;
           *&buf[22] = 2112;
           *&buf[24] = v9;
           _os_log_error_impl(&dword_18E991000, v10, OS_LOG_TYPE_ERROR, "%s Error deleting file at URL: %@. Error: %@", buf, 0x20u);
@@ -95,10 +96,9 @@
     }
   }
 
-  v16.receiver = self;
-  v16.super_class = INFile;
-  [(INFile *)&v16 dealloc];
-  v11 = *MEMORY[0x1E69E9840];
+  v15.receiver = self;
+  v15.super_class = INFile;
+  [(INFile *)&v15 dealloc];
 }
 
 - (BOOL)_intents_enumerateObjectsOfClass:(Class)class withBlock:(id)block
@@ -251,7 +251,7 @@ LABEL_9:
 
 - (id)itemProvider
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E696ACA0]);
   _itemProviderRequestMetadata = [(INFile *)self _itemProviderRequestMetadata];
   supportedContentTypes = [_itemProviderRequestMetadata supportedContentTypes];
@@ -263,54 +263,54 @@ LABEL_9:
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315394;
-      v37 = "[INFile itemProvider]";
-      v38 = 2112;
-      v39 = supportedContentTypes;
+      v36 = "[INFile itemProvider]";
+      v37 = 2112;
+      v38 = supportedContentTypes;
       _os_log_debug_impl(&dword_18E991000, v6, OS_LOG_TYPE_DEBUG, "%s Registering type identifiers: %@ for item provider with itemProviderRequestMetadata", buf, 0x16u);
     }
 
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
     v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
     v7 = supportedContentTypes;
-    v8 = [v7 countByEnumeratingWithState:&v26 objects:v35 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v25 objects:v34 count:16];
     if (v8)
     {
-      v9 = *v27;
+      v9 = *v26;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v27 != v9)
+          if (*v26 != v9)
           {
             objc_enumerationMutation(v7);
           }
 
-          v11 = *(*(&v26 + 1) + 8 * i);
-          v24[0] = MEMORY[0x1E69E9820];
-          v24[1] = 3221225472;
-          v24[2] = __22__INFile_itemProvider__block_invoke_60;
-          v24[3] = &unk_1E7287300;
-          objc_copyWeak(&v25, &location);
-          v24[4] = v11;
-          [v3 registerFileRepresentationForTypeIdentifier:v11 fileOptions:1 visibility:0 loadHandler:v24];
-          objc_destroyWeak(&v25);
+          v11 = *(*(&v25 + 1) + 8 * i);
+          v23[0] = MEMORY[0x1E69E9820];
+          v23[1] = 3221225472;
+          v23[2] = __22__INFile_itemProvider__block_invoke_60;
+          v23[3] = &unk_1E7287300;
+          objc_copyWeak(&v24, &location);
+          v23[4] = v11;
+          [v3 registerFileRepresentationForTypeIdentifier:v11 fileOptions:1 visibility:0 loadHandler:v23];
+          objc_destroyWeak(&v24);
         }
 
-        v8 = [v7 countByEnumeratingWithState:&v26 objects:v35 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v25 objects:v34 count:16];
       }
 
       while (v8);
     }
 
-    v22[0] = MEMORY[0x1E69E9820];
-    v22[1] = 3221225472;
-    v22[2] = __22__INFile_itemProvider__block_invoke_2_61;
-    v22[3] = &unk_1E72872D8;
-    objc_copyWeak(&v23, &location);
-    [v3 registerDataRepresentationForTypeIdentifier:@"com.apple.lplinkmetadata" visibility:0 loadHandler:v22];
-    objc_destroyWeak(&v23);
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __22__INFile_itemProvider__block_invoke_2_61;
+    v21[3] = &unk_1E72872D8;
+    objc_copyWeak(&v22, &location);
+    [v3 registerDataRepresentationForTypeIdentifier:@"com.apple.lplinkmetadata" visibility:0 loadHandler:v21];
+    objc_destroyWeak(&v22);
   }
 
   else
@@ -324,7 +324,7 @@ LABEL_9:
       if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315138;
-        v37 = "[INFile itemProvider]";
+        v36 = "[INFile itemProvider]";
         _os_log_debug_impl(&dword_18E991000, v14, OS_LOG_TYPE_DEBUG, "%s Did not find a typeIdentifier returning an empty item provider!", buf, 0xCu);
       }
     }
@@ -336,9 +336,9 @@ LABEL_9:
       {
         typeIdentifier2 = [(INFile *)self typeIdentifier];
         *buf = 136315394;
-        v37 = "[INFile itemProvider]";
-        v38 = 2112;
-        v39 = typeIdentifier2;
+        v36 = "[INFile itemProvider]";
+        v37 = 2112;
+        v38 = typeIdentifier2;
         _os_log_debug_impl(&dword_18E991000, v15, OS_LOG_TYPE_DEBUG, "%s Using natural type: %@ because no item provider metadata was found", buf, 0x16u);
       }
 
@@ -347,24 +347,24 @@ LABEL_9:
       typeIdentifier3 = [(INFile *)self typeIdentifier];
       if (fileURL)
       {
-        v32[0] = MEMORY[0x1E69E9820];
-        v32[1] = 3221225472;
-        v32[2] = __22__INFile_itemProvider__block_invoke;
-        v32[3] = &unk_1E72872B0;
-        v18 = &v33;
-        objc_copyWeak(&v33, &location);
-        [v3 registerFileRepresentationForTypeIdentifier:typeIdentifier3 fileOptions:1 visibility:0 loadHandler:v32];
+        v31[0] = MEMORY[0x1E69E9820];
+        v31[1] = 3221225472;
+        v31[2] = __22__INFile_itemProvider__block_invoke;
+        v31[3] = &unk_1E72872B0;
+        v18 = &v32;
+        objc_copyWeak(&v32, &location);
+        [v3 registerFileRepresentationForTypeIdentifier:typeIdentifier3 fileOptions:1 visibility:0 loadHandler:v31];
       }
 
       else
       {
-        v30[0] = MEMORY[0x1E69E9820];
-        v30[1] = 3221225472;
-        v30[2] = __22__INFile_itemProvider__block_invoke_2;
-        v30[3] = &unk_1E72872D8;
-        v18 = &v31;
-        objc_copyWeak(&v31, &location);
-        [v3 registerDataRepresentationForTypeIdentifier:typeIdentifier3 visibility:0 loadHandler:v30];
+        v29[0] = MEMORY[0x1E69E9820];
+        v29[1] = 3221225472;
+        v29[2] = __22__INFile_itemProvider__block_invoke_2;
+        v29[3] = &unk_1E72872D8;
+        v18 = &v30;
+        objc_copyWeak(&v30, &location);
+        [v3 registerDataRepresentationForTypeIdentifier:typeIdentifier3 visibility:0 loadHandler:v29];
       }
 
       objc_destroyWeak(v18);
@@ -372,8 +372,6 @@ LABEL_9:
   }
 
   objc_destroyWeak(&location);
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -430,16 +428,15 @@ void __22__INFile_itemProvider__block_invoke_3(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
-    v5 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:a2 requiringSecureCoding:1 error:0];
+    v4 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:a2 requiringSecureCoding:1 error:0];
     (*(*(a1 + 32) + 16))();
   }
 
   else
   {
-    v3 = *(a1 + 32);
-    v4 = *(*(a1 + 32) + 16);
+    v3 = *(*(a1 + 32) + 16);
 
-    v4();
+    v3();
   }
 }
 
@@ -460,7 +457,7 @@ void __22__INFile_itemProvider__block_invoke_3(uint64_t a1, uint64_t a2)
 
 - (void)loadDataRepresentationWithType:(id)type completion:(id)completion
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   typeCopy = type;
   completionCopy = completion;
   v8 = _INVCVoiceShortcutClient();
@@ -470,12 +467,12 @@ void __22__INFile_itemProvider__block_invoke_3(uint64_t a1, uint64_t a2)
     metadata = [_itemProviderRequestMetadata metadata];
     v11 = _INItemProviderMetadataFromData(metadata);
 
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __52__INFile_loadDataRepresentationWithType_completion___block_invoke;
-    v14[3] = &unk_1E7287288;
-    v15 = completionCopy;
-    [v8 loadDataWithItemProviderRequestMetadata:v11 type:typeCopy completion:v14];
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __52__INFile_loadDataRepresentationWithType_completion___block_invoke;
+    v13[3] = &unk_1E7287288;
+    v14 = completionCopy;
+    [v8 loadDataWithItemProviderRequestMetadata:v11 type:typeCopy completion:v13];
   }
 
   else
@@ -484,40 +481,36 @@ void __22__INFile_itemProvider__block_invoke_3(uint64_t a1, uint64_t a2)
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v17 = "[INFile loadDataRepresentationWithType:completion:]";
+      v16 = "[INFile loadDataRepresentationWithType:completion:]";
       _os_log_error_impl(&dword_18E991000, v12, OS_LOG_TYPE_ERROR, "%s No VoiceShortcutClient; completing with nil", buf, 0xCu);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __52__INFile_loadDataRepresentationWithType_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = INSiriLogContextIntents;
   if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_DEBUG))
   {
-    v9 = v7;
-    v10 = 136315650;
-    v11 = "[INFile loadDataRepresentationWithType:completion:]_block_invoke";
-    v12 = 2048;
-    v13 = [v5 length];
-    v14 = 2112;
-    v15 = v6;
-    _os_log_debug_impl(&dword_18E991000, v9, OS_LOG_TYPE_DEBUG, "%s Loaded data: %lu with error: %@", &v10, 0x20u);
+    v8 = v7;
+    v9 = 136315650;
+    v10 = "[INFile loadDataRepresentationWithType:completion:]_block_invoke";
+    v11 = 2048;
+    v12 = [v5 length];
+    v13 = 2112;
+    v14 = v6;
+    _os_log_debug_impl(&dword_18E991000, v8, OS_LOG_TYPE_DEBUG, "%s Loaded data: %lu with error: %@", &v9, 0x20u);
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)loadFileRepresentationWithType:(id)type completion:(id)completion
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   typeCopy = type;
   completionCopy = completion;
   v8 = _INVCVoiceShortcutClient();
@@ -527,12 +520,12 @@ void __52__INFile_loadDataRepresentationWithType_completion___block_invoke(uint6
     metadata = [_itemProviderRequestMetadata metadata];
     v11 = _INItemProviderMetadataFromData(metadata);
 
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __52__INFile_loadFileRepresentationWithType_completion___block_invoke;
-    v14[3] = &unk_1E7287260;
-    v15 = completionCopy;
-    [v8 loadFileURLWithItemProviderRequestMetadata:v11 type:typeCopy openInPlace:1 completion:v14];
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __52__INFile_loadFileRepresentationWithType_completion___block_invoke;
+    v13[3] = &unk_1E7287260;
+    v14 = completionCopy;
+    [v8 loadFileURLWithItemProviderRequestMetadata:v11 type:typeCopy openInPlace:1 completion:v13];
   }
 
   else
@@ -541,47 +534,43 @@ void __52__INFile_loadDataRepresentationWithType_completion___block_invoke(uint6
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v17 = "[INFile loadFileRepresentationWithType:completion:]";
+      v16 = "[INFile loadFileRepresentationWithType:completion:]";
       _os_log_error_impl(&dword_18E991000, v12, OS_LOG_TYPE_ERROR, "%s No VoiceShortcutClient; completing with nil", buf, 0xCu);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __52__INFile_loadFileRepresentationWithType_completion___block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a4;
   v9 = INSiriLogContextIntents;
   if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_DEBUG))
   {
-    v13 = v9;
-    v14 = [v7 url];
-    v15 = v14;
-    v16 = @"NO";
-    *v17 = 136315906;
-    *&v17[4] = "[INFile loadFileRepresentationWithType:completion:]_block_invoke";
+    v12 = v9;
+    v13 = [v7 url];
+    v14 = v13;
+    v15 = @"NO";
+    *v16 = 136315906;
+    *&v16[4] = "[INFile loadFileRepresentationWithType:completion:]_block_invoke";
     if (a3)
     {
-      v16 = @"YES";
+      v15 = @"YES";
     }
 
-    *&v17[12] = 2112;
-    *&v17[14] = v14;
-    v18 = 2112;
-    v19 = v16;
-    v20 = 2112;
-    v21 = v8;
-    _os_log_debug_impl(&dword_18E991000, v13, OS_LOG_TYPE_DEBUG, "%s Loaded file url: %@ with wasOpenedInPlace: %@ error: %@", v17, 0x2Au);
+    *&v16[12] = 2112;
+    *&v16[14] = v13;
+    v17 = 2112;
+    v18 = v15;
+    v19 = 2112;
+    v20 = v8;
+    _os_log_debug_impl(&dword_18E991000, v12, OS_LOG_TYPE_DEBUG, "%s Loaded file url: %@ with wasOpenedInPlace: %@ error: %@", v16, 0x2Au);
   }
 
   v10 = *(a1 + 32);
   v11 = [v7 url];
   (*(v10 + 16))(v10, v11, a3, v8);
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_setAssociatedAuditToken:(id *)token
@@ -613,19 +602,19 @@ void __52__INFile_loadFileRepresentationWithType_completion___block_invoke(uint6
 
 - (id)_dictionaryRepresentation
 {
-  v22[5] = *MEMORY[0x1E69E9840];
+  v21[5] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E695DF90];
   data = self->_data;
-  v20 = data;
-  v21[0] = @"data";
+  v19 = data;
+  v20[0] = @"data";
   if (!data)
   {
     data = [MEMORY[0x1E695DFB0] null];
   }
 
-  v19 = data;
-  v22[0] = data;
-  v21[1] = @"bookmarkData";
+  v18 = data;
+  v21[0] = data;
+  v20[1] = @"bookmarkData";
   bookmarkData = self->_bookmarkData;
   null = bookmarkData;
   if (!bookmarkData)
@@ -633,9 +622,9 @@ void __52__INFile_loadFileRepresentationWithType_completion___block_invoke(uint6
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v17 = null;
-  v22[1] = null;
-  v21[2] = @"filename";
+  v16 = null;
+  v21[1] = null;
+  v20[2] = @"filename";
   filename = self->_filename;
   null2 = filename;
   if (!filename)
@@ -643,8 +632,8 @@ void __52__INFile_loadFileRepresentationWithType_completion___block_invoke(uint6
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v22[2] = null2;
-  v21[3] = @"fileURL";
+  v21[2] = null2;
+  v20[3] = @"fileURL";
   fileURL = self->_fileURL;
   null3 = fileURL;
   if (!fileURL)
@@ -652,8 +641,8 @@ void __52__INFile_loadFileRepresentationWithType_completion___block_invoke(uint6
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v22[3] = null3;
-  v21[4] = @"typeIdentifier";
+  v21[3] = null3;
+  v20[4] = @"typeIdentifier";
   typeIdentifier = self->_typeIdentifier;
   null4 = typeIdentifier;
   if (!typeIdentifier)
@@ -661,8 +650,8 @@ void __52__INFile_loadFileRepresentationWithType_completion___block_invoke(uint6
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v22[4] = null4;
-  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:{5, v17}];
+  v21[4] = null4;
+  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:{5, v16}];
   v14 = [v3 dictionaryWithDictionary:v13];
 
   if (typeIdentifier)
@@ -709,12 +698,11 @@ LABEL_14:
 LABEL_23:
 
 LABEL_15:
-  if (!v20)
+  if (!v19)
   {
   }
 
   [v14 if_setObjectIfNonNil:self->_removedOnCompletionValue forKey:@"removedOnCompletion"];
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
@@ -881,6 +869,12 @@ LABEL_9:
   }
 
   return v17;
+}
+
+- (void)setRemovedOnCompletion:(BOOL)removedOnCompletion
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:removedOnCompletion];
+  [(INFile *)self _setRemovedOnCompletionValue:v4];
 }
 
 - (BOOL)removedOnCompletion

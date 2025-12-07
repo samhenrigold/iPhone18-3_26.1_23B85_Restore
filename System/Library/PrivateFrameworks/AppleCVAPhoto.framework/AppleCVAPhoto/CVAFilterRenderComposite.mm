@@ -1,9 +1,125 @@
 @interface CVAFilterRenderComposite
 - (CVAFilterRenderComposite)initWithFigMetalContext:(id)context error:(id *)error;
 - (void)encodeColorCubesToCommandBuffer:(id)buffer sdofYTexture:(id)texture sdofUVTexture:(id)vTexture alphaTexture:(id)alphaTexture fgColorLut:(id)lut bgColorLut:(id)colorLut dstColorTex:(id)tex dstColorTex_plane1:(id)self0;
+- (void)encodeToCommandBuffer:(id)buffer srcForegroundTex:(id)tex srcBackgroundTex:(id)backgroundTex srcCocTex:(id)cocTex dstYTex:(id)yTex dstUVTex:(id)vTex fgColorLut:(id)lut bgColorLut:(id)self0 frameNumber:(unsigned int)self1 seedGeneratorFactor:(unsigned int)self2 noiseBits:(int)self3 noiseBitsFactor:(float)self4 cubeIntensity:(float)self5 maxBlurRadius:(optional<float>)self6;
 @end
 
 @implementation CVAFilterRenderComposite
+
+- (void)encodeToCommandBuffer:(id)buffer srcForegroundTex:(id)tex srcBackgroundTex:(id)backgroundTex srcCocTex:(id)cocTex dstYTex:(id)yTex dstUVTex:(id)vTex fgColorLut:(id)lut bgColorLut:(id)self0 frameNumber:(unsigned int)self1 seedGeneratorFactor:(unsigned int)self2 noiseBits:(int)self3 noiseBitsFactor:(float)self4 cubeIntensity:(float)self5 maxBlurRadius:(optional<float>)self6
+{
+  bufferCopy = buffer;
+  texCopy = tex;
+  backgroundTexCopy = backgroundTex;
+  cocTexCopy = cocTex;
+  yTexCopy = yTex;
+  vTexCopy = vTex;
+  lutCopy = lut;
+  colorLutCopy = colorLut;
+  v44 = *&number;
+  bitsCopy = bits;
+  v28 = 1.0;
+  bitsFactorCopy = bitsFactor;
+  intensityCopy = intensity;
+  if (radius.m_initialized)
+  {
+    v28 = 1.0 - (1.0 / fmaxf((radius.m_storage * 2.0) + 1.0, 1.0));
+  }
+
+  v48 = v28;
+  if ((atomic_load_explicit(&qword_1ECDE13B8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1ECDE13B8))
+  {
+    v33 = +[CVAPreferenceManager defaults];
+    v34 = [v33 BOOLForKey:@"CVAPhotoDebugCoC"];
+
+    byte_1ECDE13B5 = v34;
+    __cxa_guard_release(&qword_1ECDE13B8);
+  }
+
+  if (byte_1ECDE13B5 == 1)
+  {
+    [MEMORY[0x1E696AEC0] stringWithFormat:@"noisePercentToAddAtInfinity = %.1f", (v48 * 100.0)];
+  }
+
+  width = [texCopy width];
+  height = [texCopy height];
+  computeCommandEncoder = [bufferCopy computeCommandEncoder];
+  v32 = computeCommandEncoder;
+  if (lutCopy && colorLutCopy)
+  {
+    [computeCommandEncoder setLabel:@"_renderingCompositeFixupAndColorMapKernel"];
+    [v32 setComputePipelineState:self->_renderingCompositeFixupAndColorMapKernel];
+    [v32 setTexture:backgroundTexCopy atIndex:0];
+    [v32 setTexture:texCopy atIndex:1];
+    [v32 setTexture:cocTexCopy atIndex:2];
+    [v32 setTexture:yTexCopy atIndex:3];
+    [v32 setTexture:vTexCopy atIndex:4];
+    [v32 setTexture:colorLutCopy atIndex:5];
+    [v32 setTexture:lutCopy atIndex:6];
+    [v32 setBytes:&v44 length:24 atIndex:0];
+    v41 = ((width >> 1) + 15) >> 4;
+    v42 = ((height >> 1) + 15) >> 4;
+    v43 = 1;
+    v39 = xmmword_1DED747F0;
+    v40 = 1;
+    [v32 dispatchThreadgroups:&v41 threadsPerThreadgroup:&v39];
+  }
+
+  else if (colorLutCopy)
+  {
+    [computeCommandEncoder setLabel:@"_renderingCompositeFixupAndBGColorMapKernel"];
+    [v32 setComputePipelineState:self->_renderingCompositeFixupAndBGColorMapKernel];
+    [v32 setTexture:backgroundTexCopy atIndex:0];
+    [v32 setTexture:texCopy atIndex:1];
+    [v32 setTexture:cocTexCopy atIndex:2];
+    [v32 setTexture:yTexCopy atIndex:3];
+    [v32 setTexture:vTexCopy atIndex:4];
+    [v32 setTexture:colorLutCopy atIndex:5];
+    [v32 setBytes:&v44 length:24 atIndex:0];
+    v41 = ((width >> 1) + 15) >> 4;
+    v42 = ((height >> 1) + 15) >> 4;
+    v43 = 1;
+    v39 = xmmword_1DED747F0;
+    v40 = 1;
+    [v32 dispatchThreadgroups:&v41 threadsPerThreadgroup:&v39];
+  }
+
+  else
+  {
+    if (lutCopy)
+    {
+      [computeCommandEncoder setLabel:@"_renderingCompositeFixupAndFGColorMapKernel"];
+      [v32 setComputePipelineState:self->_renderingCompositeFixupAndFGColorMapKernel];
+      [v32 setTexture:backgroundTexCopy atIndex:0];
+      [v32 setTexture:texCopy atIndex:1];
+      [v32 setTexture:cocTexCopy atIndex:2];
+      [v32 setTexture:yTexCopy atIndex:3];
+      [v32 setTexture:vTexCopy atIndex:4];
+      [v32 setTexture:lutCopy atIndex:6];
+    }
+
+    else
+    {
+      [computeCommandEncoder setLabel:@"_renderingCompositeFixUpAddNoiseKernel"];
+      [v32 setComputePipelineState:self->_renderingCompositeFixUpAddNoiseKernel];
+      [v32 setTexture:backgroundTexCopy atIndex:0];
+      [v32 setTexture:texCopy atIndex:1];
+      [v32 setTexture:cocTexCopy atIndex:2];
+      [v32 setTexture:yTexCopy atIndex:3];
+      [v32 setTexture:vTexCopy atIndex:4];
+    }
+
+    [v32 setBytes:&v44 length:24 atIndex:0];
+    v41 = ((width >> 1) + 15) >> 4;
+    v42 = ((height >> 1) + 15) >> 4;
+    v43 = 1;
+    v39 = xmmword_1DED747F0;
+    v40 = 1;
+    [v32 dispatchThreadgroups:&v41 threadsPerThreadgroup:&v39];
+  }
+
+  [v32 endEncoding];
+}
 
 - (void)encodeColorCubesToCommandBuffer:(id)buffer sdofYTexture:(id)texture sdofUVTexture:(id)vTexture alphaTexture:(id)alphaTexture fgColorLut:(id)lut bgColorLut:(id)colorLut dstColorTex:(id)tex dstColorTex_plane1:(id)self0
 {
@@ -72,62 +188,13 @@
     sub_1DED422A0(&v6->_renderingCompositeFixUpAddNoiseKernel, contextCopy, @"compositeFixupAndAddNoise", v11);
     renderingCompositeFixUpAddNoiseKernel = v6->_renderingCompositeFixUpAddNoiseKernel;
 
-    if (!renderingCompositeFixUpAddNoiseKernel)
-    {
-      goto LABEL_8;
-    }
-
-    v13 = [v10 copy];
-    v23 = 257;
-    [v13 setConstantValue:&v23 + 1 type:53 withName:@"kUseBgLut"];
-    [v13 setConstantValue:&v23 type:53 withName:@"kUseFgLut"];
-    sub_1DED422A0(&v6->_renderingCompositeApplyColorCubes, contextCopy, @"compositeApplyColorCubes", v13);
-    renderingCompositeApplyColorCubes = v6->_renderingCompositeApplyColorCubes;
-
-    if (!renderingCompositeApplyColorCubes)
-    {
-      goto LABEL_8;
-    }
-
-    v15 = [v10 copy];
-    v23 = 256;
-    [v15 setConstantValue:&v23 + 1 type:53 withName:@"kUseBgLut"];
-    [v15 setConstantValue:&v23 type:53 withName:@"kUseFgLut"];
-    sub_1DED422A0(&v6->_renderingCompositeFixupAndBGColorMapKernel, contextCopy, @"compositeFixupAndAddNoise", v15);
-    renderingCompositeFixupAndBGColorMapKernel = v6->_renderingCompositeFixupAndBGColorMapKernel;
-
-    if (!renderingCompositeFixupAndBGColorMapKernel)
-    {
-      goto LABEL_8;
-    }
-
-    v17 = [v10 copy];
-    v23 = 1;
-    [v17 setConstantValue:&v23 + 1 type:53 withName:@"kUseBgLut"];
-    [v17 setConstantValue:&v23 type:53 withName:@"kUseFgLut"];
-    sub_1DED422A0(&v6->_renderingCompositeFixupAndFGColorMapKernel, contextCopy, @"compositeFixupAndAddNoise", v17);
-    renderingCompositeFixupAndFGColorMapKernel = v6->_renderingCompositeFixupAndFGColorMapKernel;
-
-    if (!renderingCompositeFixupAndFGColorMapKernel)
-    {
-      goto LABEL_8;
-    }
-
-    v19 = [v10 copy];
-    v23 = 257;
-    [v19 setConstantValue:&v23 + 1 type:53 withName:@"kUseBgLut"];
-    [v19 setConstantValue:&v23 type:53 withName:@"kUseFgLut"];
-    sub_1DED422A0(&v6->_renderingCompositeFixupAndColorMapKernel, contextCopy, @"compositeFixupAndAddNoise", v19);
-    renderingCompositeFixupAndColorMapKernel = v6->_renderingCompositeFixupAndColorMapKernel;
-
-    if (renderingCompositeFixupAndColorMapKernel)
+    if (renderingCompositeFixUpAddNoiseKernel && (v13 = [v10 copy], v23 = 257, objc_msgSend(v13, "setConstantValue:type:withName:", &v23 + 1, 53, @"kUseBgLut"), objc_msgSend(v13, "setConstantValue:type:withName:", &v23, 53, @"kUseFgLut"), sub_1DED422A0(&v6->_renderingCompositeApplyColorCubes, contextCopy, @"compositeApplyColorCubes", v13), renderingCompositeApplyColorCubes = v6->_renderingCompositeApplyColorCubes, v13, renderingCompositeApplyColorCubes) && (v15 = objc_msgSend(v10, "copy"), v23 = 256, objc_msgSend(v15, "setConstantValue:type:withName:", &v23 + 1, 53, @"kUseBgLut"), objc_msgSend(v15, "setConstantValue:type:withName:", &v23, 53, @"kUseFgLut"), sub_1DED422A0(&v6->_renderingCompositeFixupAndBGColorMapKernel, contextCopy, @"compositeFixupAndAddNoise", v15), renderingCompositeFixupAndBGColorMapKernel = v6->_renderingCompositeFixupAndBGColorMapKernel, v15, renderingCompositeFixupAndBGColorMapKernel) && (v17 = objc_msgSend(v10, "copy"), v23 = 1, objc_msgSend(v17, "setConstantValue:type:withName:", &v23 + 1, 53, @"kUseBgLut"), objc_msgSend(v17, "setConstantValue:type:withName:", &v23, 53, @"kUseFgLut"), sub_1DED422A0(&v6->_renderingCompositeFixupAndFGColorMapKernel, contextCopy, @"compositeFixupAndAddNoise", v17), renderingCompositeFixupAndFGColorMapKernel = v6->_renderingCompositeFixupAndFGColorMapKernel, v17, renderingCompositeFixupAndFGColorMapKernel) && (v19 = objc_msgSend(v10, "copy"), v23 = 257, objc_msgSend(v19, "setConstantValue:type:withName:", &v23 + 1, 53, @"kUseBgLut"), objc_msgSend(v19, "setConstantValue:type:withName:", &v23, 53, @"kUseFgLut"), sub_1DED422A0(&v6->_renderingCompositeFixupAndColorMapKernel, contextCopy, @"compositeFixupAndAddNoise", v19), renderingCompositeFixupAndColorMapKernel = v6->_renderingCompositeFixupAndColorMapKernel, v19, renderingCompositeFixupAndColorMapKernel))
     {
       v21 = v6;
     }
 
     else
     {
-LABEL_8:
       v21 = 0;
     }
   }

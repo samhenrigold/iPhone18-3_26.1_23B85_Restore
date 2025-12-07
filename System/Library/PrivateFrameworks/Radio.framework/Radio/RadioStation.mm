@@ -47,7 +47,6 @@
 - (int64_t)stationID;
 - (unint64_t)hash;
 - (unint64_t)impressionThreshold;
-- (void)_radioModelWasDeletedNotification:(id)notification;
 - (void)dealloc;
 - (void)setAdData:(id)data;
 - (void)setAdamID:(int64_t)d;
@@ -55,16 +54,31 @@
 - (void)setArtworkURLData:(id)data;
 - (void)setCoreSeedName:(id)name;
 - (void)setDebugDictionary:(id)dictionary;
+- (void)setEditEnabled:(BOOL)enabled;
 - (void)setEditableFields:(id)fields;
+- (void)setFeatured:(BOOL)featured;
+- (void)setGatewayVideoAdEnabled:(BOOL)enabled;
+- (void)setHasSkipRules:(BOOL)rules;
 - (void)setImpressionThreshold:(unint64_t)threshold;
+- (void)setIsExplicit:(BOOL)explicit;
+- (void)setLikesEnabled:(BOOL)enabled;
 - (void)setName:(id)name;
 - (void)setPersistentID:(int64_t)d;
+- (void)setPremiumPlacement:(BOOL)placement;
+- (void)setPreviewOnly:(BOOL)only;
+- (void)setRequiresSubscription:(BOOL)subscription;
 - (void)setSeedTracks:(id)tracks;
 - (void)setShareToken:(id)token;
+- (void)setShared:(BOOL)shared;
+- (void)setSharingEnabled:(BOOL)enabled;
+- (void)setSkipEnabled:(BOOL)enabled;
+- (void)setSkipFrequency:(int)frequency;
 - (void)setSkipIdentifier:(id)identifier;
 - (void)setSkipInterval:(double)interval;
 - (void)setSkipTimestamps:(id)timestamps;
 - (void)setSongMixType:(int64_t)type;
+- (void)setSortOrder:(int)order;
+- (void)setSponsored:(BOOL)sponsored;
 - (void)setStationDescription:(id)description;
 - (void)setStationHash:(id)hash;
 - (void)setStationID:(int64_t)d;
@@ -72,6 +86,9 @@
 - (void)setStreamCertificateURL:(id)l;
 - (void)setStreamKeyURL:(id)l;
 - (void)setStreamURL:(id)l;
+- (void)setSubscribed:(BOOL)subscribed;
+- (void)setSubscriberCount:(int)count;
+- (void)setVirtualPlayEnabled:(BOOL)enabled;
 @end
 
 @implementation RadioStation
@@ -184,7 +201,7 @@ LABEL_5:
 
 - (RadioArtworkCollection)artworkCollection
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   artworkURLData = [(RadioStation *)self artworkURLData];
   if ([artworkURLData length])
   {
@@ -212,8 +229,8 @@ LABEL_5:
     if (v7)
     {
       v8 = [RadioArtworkCollection alloc];
-      v12[0] = v7;
-      v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+      v11[0] = v7;
+      v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
       v5 = [(RadioArtworkCollection *)v8 initWithArtworks:v9];
     }
 
@@ -229,9 +246,33 @@ LABEL_5:
   }
 
 LABEL_13:
-  v10 = *MEMORY[0x277D85DE8];
 
   return v5;
+}
+
+- (void)setVirtualPlayEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  if ([(RadioStation *)self isDatabaseBacked])
+  {
+    managedObject = [(RadioStation *)self managedObject];
+    managedObjectContext = [managedObject managedObjectContext];
+    if (managedObjectContext)
+    {
+      v6 = managedObjectContext;
+      isDeleted = [managedObject isDeleted];
+
+      if ((isDeleted & 1) == 0)
+      {
+        [managedObject setVirtualPlayEnabled:enabledCopy];
+      }
+    }
+  }
+
+  else
+  {
+    self->_virtualPlayEnabled = enabledCopy;
+  }
 }
 
 - (BOOL)virtualPlayEnabled
@@ -265,7 +306,7 @@ LABEL_13:
   return virtualPlayEnabled & 1;
 }
 
-uint64_t __34__RadioStation_virtualPlayEnabled__block_invoke(uint64_t a1)
+void *__34__RadioStation_virtualPlayEnabled__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isDeleted];
   if ((result & 1) == 0)
@@ -275,6 +316,31 @@ uint64_t __34__RadioStation_virtualPlayEnabled__block_invoke(uint64_t a1)
   }
 
   return result;
+}
+
+- (void)setSubscriberCount:(int)count
+{
+  v3 = *&count;
+  if ([(RadioStation *)self isDatabaseBacked])
+  {
+    managedObject = [(RadioStation *)self managedObject];
+    managedObjectContext = [managedObject managedObjectContext];
+    if (managedObjectContext)
+    {
+      v6 = managedObjectContext;
+      isDeleted = [managedObject isDeleted];
+
+      if ((isDeleted & 1) == 0)
+      {
+        [managedObject setSubscriberCount:v3];
+      }
+    }
+  }
+
+  else
+  {
+    self->_subscriberCount = v3;
+  }
 }
 
 - (int)subscriberCount
@@ -305,7 +371,7 @@ uint64_t __34__RadioStation_virtualPlayEnabled__block_invoke(uint64_t a1)
   return v6;
 }
 
-uint64_t __31__RadioStation_subscriberCount__block_invoke(uint64_t a1)
+void *__31__RadioStation_subscriberCount__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isDeleted];
   if ((result & 1) == 0)
@@ -382,10 +448,7 @@ uint64_t __28__RadioStation_streamKeyURL__block_invoke(uint64_t a1)
   result = [*(a1 + 32) isDeleted];
   if ((result & 1) == 0)
   {
-    v3 = [*(a1 + 32) streamKeyURL];
-    v4 = *(*(a1 + 40) + 8);
-    v5 = *(v4 + 40);
-    *(v4 + 40) = v3;
+    *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) streamKeyURL];
 
     return MEMORY[0x2821F96F8]();
   }
@@ -458,10 +521,7 @@ uint64_t __36__RadioStation_streamCertificateURL__block_invoke(uint64_t a1)
   result = [*(a1 + 32) isDeleted];
   if ((result & 1) == 0)
   {
-    v3 = [*(a1 + 32) streamCertificateURL];
-    v4 = *(*(a1 + 40) + 8);
-    v5 = *(v4 + 40);
-    *(v4 + 40) = v3;
+    *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) streamCertificateURL];
 
     return MEMORY[0x2821F96F8]();
   }
@@ -534,10 +594,7 @@ uint64_t __25__RadioStation_streamURL__block_invoke(uint64_t a1)
   result = [*(a1 + 32) isDeleted];
   if ((result & 1) == 0)
   {
-    v3 = [*(a1 + 32) streamURL];
-    v4 = *(*(a1 + 40) + 8);
-    v5 = *(v4 + 40);
-    *(v4 + 40) = v3;
+    *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) streamURL];
 
     return MEMORY[0x2821F96F8]();
   }
@@ -597,7 +654,7 @@ uint64_t __25__RadioStation_streamURL__block_invoke(uint64_t a1)
   return v6;
 }
 
-uint64_t __25__RadioStation_stationID__block_invoke(uint64_t a1)
+void *__25__RadioStation_stationID__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isDeleted];
   if ((result & 1) == 0)
@@ -634,7 +691,7 @@ uint64_t __25__RadioStation_stationID__block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __35__RadioStation_setStationStringID___block_invoke(uint64_t a1)
+void *__35__RadioStation_setStationStringID___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isDeleted];
   if ((result & 1) == 0)
@@ -686,10 +743,7 @@ uint64_t __31__RadioStation_stationStringID__block_invoke(uint64_t a1)
   result = [*(a1 + 32) isDeleted];
   if ((result & 1) == 0)
   {
-    v3 = [*(a1 + 32) stationStringID];
-    v4 = *(*(a1 + 40) + 8);
-    v5 = *(v4 + 40);
-    *(v4 + 40) = v3;
+    *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) stationStringID];
 
     return MEMORY[0x2821F96F8]();
   }
@@ -722,7 +776,7 @@ uint64_t __31__RadioStation_stationStringID__block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __31__RadioStation_setStationHash___block_invoke(uint64_t a1)
+void *__31__RadioStation_setStationHash___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isDeleted];
   if ((result & 1) == 0)
@@ -774,10 +828,7 @@ uint64_t __27__RadioStation_stationHash__block_invoke(uint64_t a1)
   result = [*(a1 + 32) isDeleted];
   if ((result & 1) == 0)
   {
-    v3 = [*(a1 + 32) stationHash];
-    v4 = *(*(a1 + 40) + 8);
-    v5 = *(v4 + 40);
-    *(v4 + 40) = v3;
+    *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) stationHash];
 
     return MEMORY[0x2821F96F8]();
   }
@@ -810,7 +861,7 @@ uint64_t __27__RadioStation_stationHash__block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __38__RadioStation_setStationDescription___block_invoke(uint64_t a1)
+void *__38__RadioStation_setStationDescription___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isDeleted];
   if ((result & 1) == 0)
@@ -862,15 +913,37 @@ uint64_t __34__RadioStation_stationDescription__block_invoke(uint64_t a1)
   result = [*(a1 + 32) isDeleted];
   if ((result & 1) == 0)
   {
-    v3 = [*(a1 + 32) stationDescription];
-    v4 = *(*(a1 + 40) + 8);
-    v5 = *(v4 + 40);
-    *(v4 + 40) = v3;
+    *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) stationDescription];
 
     return MEMORY[0x2821F96F8]();
   }
 
   return result;
+}
+
+- (void)setSortOrder:(int)order
+{
+  v3 = *&order;
+  if ([(RadioStation *)self isDatabaseBacked])
+  {
+    managedObject = [(RadioStation *)self managedObject];
+    managedObjectContext = [managedObject managedObjectContext];
+    if (managedObjectContext)
+    {
+      v6 = managedObjectContext;
+      isDeleted = [managedObject isDeleted];
+
+      if ((isDeleted & 1) == 0)
+      {
+        [managedObject setSortOrder:v3];
+      }
+    }
+  }
+
+  else
+  {
+    self->_sortOrder = v3;
+  }
 }
 
 - (int)sortOrder
@@ -901,7 +974,7 @@ uint64_t __34__RadioStation_stationDescription__block_invoke(uint64_t a1)
   return v6;
 }
 
-uint64_t __25__RadioStation_sortOrder__block_invoke(uint64_t a1)
+void *__25__RadioStation_sortOrder__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isDeleted];
   if ((result & 1) == 0)
@@ -965,7 +1038,7 @@ uint64_t __25__RadioStation_sortOrder__block_invoke(uint64_t a1)
   return v6;
 }
 
-uint64_t __27__RadioStation_songMixType__block_invoke(uint64_t a1)
+void *__27__RadioStation_songMixType__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isDeleted];
   if ((result & 1) == 0)
@@ -1002,7 +1075,7 @@ uint64_t __27__RadioStation_songMixType__block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __34__RadioStation_setSkipTimestamps___block_invoke(uint64_t a1)
+void *__34__RadioStation_setSkipTimestamps___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isDeleted];
   if ((result & 1) == 0)
@@ -1054,10 +1127,7 @@ uint64_t __30__RadioStation_skipTimestamps__block_invoke(uint64_t a1)
   result = [*(a1 + 32) isDeleted];
   if ((result & 1) == 0)
   {
-    v3 = [*(a1 + 32) skipTimestamps];
-    v4 = *(*(a1 + 40) + 8);
-    v5 = *(v4 + 40);
-    *(v4 + 40) = v3;
+    *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) skipTimestamps];
 
     return MEMORY[0x2821F96F8]();
   }
@@ -1117,7 +1187,7 @@ uint64_t __30__RadioStation_skipTimestamps__block_invoke(uint64_t a1)
   return v6;
 }
 
-uint64_t __28__RadioStation_skipInterval__block_invoke(uint64_t a1)
+void *__28__RadioStation_skipInterval__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isDeleted];
   if ((result & 1) == 0)
@@ -1154,7 +1224,7 @@ uint64_t __28__RadioStation_skipInterval__block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __34__RadioStation_setSkipIdentifier___block_invoke(uint64_t a1)
+void *__34__RadioStation_setSkipIdentifier___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isDeleted];
   if ((result & 1) == 0)
@@ -1206,15 +1276,37 @@ uint64_t __30__RadioStation_skipIdentifier__block_invoke(uint64_t a1)
   result = [*(a1 + 32) isDeleted];
   if ((result & 1) == 0)
   {
-    v3 = [*(a1 + 32) skipIdentifier];
-    v4 = *(*(a1 + 40) + 8);
-    v5 = *(v4 + 40);
-    *(v4 + 40) = v3;
+    *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) skipIdentifier];
 
     return MEMORY[0x2821F96F8]();
   }
 
   return result;
+}
+
+- (void)setSkipFrequency:(int)frequency
+{
+  v3 = *&frequency;
+  if ([(RadioStation *)self isDatabaseBacked])
+  {
+    managedObject = [(RadioStation *)self managedObject];
+    managedObjectContext = [managedObject managedObjectContext];
+    if (managedObjectContext)
+    {
+      v6 = managedObjectContext;
+      isDeleted = [managedObject isDeleted];
+
+      if ((isDeleted & 1) == 0)
+      {
+        [managedObject setSkipFrequency:v3];
+      }
+    }
+  }
+
+  else
+  {
+    self->_skipFrequency = v3;
+  }
 }
 
 - (int)skipFrequency
@@ -1245,7 +1337,7 @@ uint64_t __30__RadioStation_skipIdentifier__block_invoke(uint64_t a1)
   return v6;
 }
 
-uint64_t __29__RadioStation_skipFrequency__block_invoke(uint64_t a1)
+void *__29__RadioStation_skipFrequency__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isDeleted];
   if ((result & 1) == 0)
@@ -1255,6 +1347,31 @@ uint64_t __29__RadioStation_skipFrequency__block_invoke(uint64_t a1)
   }
 
   return result;
+}
+
+- (void)setSkipEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  if ([(RadioStation *)self isDatabaseBacked])
+  {
+    managedObject = [(RadioStation *)self managedObject];
+    managedObjectContext = [managedObject managedObjectContext];
+    if (managedObjectContext)
+    {
+      v6 = managedObjectContext;
+      isDeleted = [managedObject isDeleted];
+
+      if ((isDeleted & 1) == 0)
+      {
+        [managedObject setSkipEnabled:enabledCopy];
+      }
+    }
+  }
+
+  else
+  {
+    self->_skipEnabled = enabledCopy;
+  }
 }
 
 - (BOOL)skipEnabled
@@ -1288,7 +1405,7 @@ uint64_t __29__RadioStation_skipFrequency__block_invoke(uint64_t a1)
   return skipEnabled & 1;
 }
 
-uint64_t __27__RadioStation_skipEnabled__block_invoke(uint64_t a1)
+void *__27__RadioStation_skipEnabled__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isDeleted];
   if ((result & 1) == 0)
@@ -1325,7 +1442,7 @@ uint64_t __27__RadioStation_skipEnabled__block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __30__RadioStation_setShareToken___block_invoke(uint64_t a1)
+void *__30__RadioStation_setShareToken___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isDeleted];
   if ((result & 1) == 0)
@@ -1377,10 +1494,7 @@ uint64_t __26__RadioStation_shareToken__block_invoke(uint64_t a1)
   result = [*(a1 + 32) isDeleted];
   if ((result & 1) == 0)
   {
-    v3 = [*(a1 + 32) shareToken];
-    v4 = *(*(a1 + 40) + 8);
-    v5 = *(v4 + 40);
-    *(v4 + 40) = v3;
+    *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) shareToken];
 
     return MEMORY[0x2821F96F8]();
   }
@@ -1453,15 +1567,37 @@ uint64_t __26__RadioStation_seedTracks__block_invoke(uint64_t a1)
   result = [*(a1 + 32) isDeleted];
   if ((result & 1) == 0)
   {
-    v3 = [*(a1 + 32) seedTracks];
-    v4 = *(*(a1 + 40) + 8);
-    v5 = *(v4 + 40);
-    *(v4 + 40) = v3;
+    *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) seedTracks];
 
     return MEMORY[0x2821F96F8]();
   }
 
   return result;
+}
+
+- (void)setPreviewOnly:(BOOL)only
+{
+  onlyCopy = only;
+  if ([(RadioStation *)self isDatabaseBacked])
+  {
+    managedObject = [(RadioStation *)self managedObject];
+    managedObjectContext = [managedObject managedObjectContext];
+    if (managedObjectContext)
+    {
+      v6 = managedObjectContext;
+      isDeleted = [managedObject isDeleted];
+
+      if ((isDeleted & 1) == 0)
+      {
+        [managedObject setPreviewOnly:onlyCopy];
+      }
+    }
+  }
+
+  else
+  {
+    self->_previewOnly = onlyCopy;
+  }
 }
 
 - (BOOL)isPreviewOnly
@@ -1495,7 +1631,7 @@ uint64_t __26__RadioStation_seedTracks__block_invoke(uint64_t a1)
   return previewOnly & 1;
 }
 
-uint64_t __29__RadioStation_isPreviewOnly__block_invoke(uint64_t a1)
+void *__29__RadioStation_isPreviewOnly__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isDeleted];
   if ((result & 1) == 0)
@@ -1559,7 +1695,7 @@ uint64_t __29__RadioStation_isPreviewOnly__block_invoke(uint64_t a1)
   return v6;
 }
 
-uint64_t __28__RadioStation_persistentID__block_invoke(uint64_t a1)
+void *__28__RadioStation_persistentID__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isDeleted];
   if ((result & 1) == 0)
@@ -1596,7 +1732,7 @@ uint64_t __28__RadioStation_persistentID__block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __24__RadioStation_setName___block_invoke(uint64_t a1)
+void *__24__RadioStation_setName___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isDeleted];
   if ((result & 1) == 0)
@@ -1648,15 +1784,37 @@ uint64_t __20__RadioStation_name__block_invoke(uint64_t a1)
   result = [*(a1 + 32) isDeleted];
   if ((result & 1) == 0)
   {
-    v3 = [*(a1 + 32) name];
-    v4 = *(*(a1 + 40) + 8);
-    v5 = *(v4 + 40);
-    *(v4 + 40) = v3;
+    *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) name];
 
     return MEMORY[0x2821F96F8]();
   }
 
   return result;
+}
+
+- (void)setRequiresSubscription:(BOOL)subscription
+{
+  subscriptionCopy = subscription;
+  if ([(RadioStation *)self isDatabaseBacked])
+  {
+    managedObject = [(RadioStation *)self managedObject];
+    managedObjectContext = [managedObject managedObjectContext];
+    if (managedObjectContext)
+    {
+      v6 = managedObjectContext;
+      isDeleted = [managedObject isDeleted];
+
+      if ((isDeleted & 1) == 0)
+      {
+        [managedObject setRequiresSubscription:subscriptionCopy];
+      }
+    }
+  }
+
+  else
+  {
+    self->_requiresSubscription = subscriptionCopy;
+  }
 }
 
 - (BOOL)requiresSubscription
@@ -1690,7 +1848,7 @@ uint64_t __20__RadioStation_name__block_invoke(uint64_t a1)
   return requiresSubscription & 1;
 }
 
-uint64_t __36__RadioStation_requiresSubscription__block_invoke(uint64_t a1)
+void *__36__RadioStation_requiresSubscription__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isDeleted];
   if ((result & 1) == 0)
@@ -1700,6 +1858,31 @@ uint64_t __36__RadioStation_requiresSubscription__block_invoke(uint64_t a1)
   }
 
   return result;
+}
+
+- (void)setLikesEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  if ([(RadioStation *)self isDatabaseBacked])
+  {
+    managedObject = [(RadioStation *)self managedObject];
+    managedObjectContext = [managedObject managedObjectContext];
+    if (managedObjectContext)
+    {
+      v6 = managedObjectContext;
+      isDeleted = [managedObject isDeleted];
+
+      if ((isDeleted & 1) == 0)
+      {
+        [managedObject setLikesEnabled:enabledCopy];
+      }
+    }
+  }
+
+  else
+  {
+    self->_likesEnabled = enabledCopy;
+  }
 }
 
 - (BOOL)likesEnabled
@@ -1733,7 +1916,7 @@ uint64_t __36__RadioStation_requiresSubscription__block_invoke(uint64_t a1)
   return likesEnabled & 1;
 }
 
-uint64_t __28__RadioStation_likesEnabled__block_invoke(uint64_t a1)
+void *__28__RadioStation_likesEnabled__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isDeleted];
   if ((result & 1) == 0)
@@ -1743,6 +1926,31 @@ uint64_t __28__RadioStation_likesEnabled__block_invoke(uint64_t a1)
   }
 
   return result;
+}
+
+- (void)setHasSkipRules:(BOOL)rules
+{
+  rulesCopy = rules;
+  if ([(RadioStation *)self isDatabaseBacked])
+  {
+    managedObject = [(RadioStation *)self managedObject];
+    managedObjectContext = [managedObject managedObjectContext];
+    if (managedObjectContext)
+    {
+      v6 = managedObjectContext;
+      isDeleted = [managedObject isDeleted];
+
+      if ((isDeleted & 1) == 0)
+      {
+        [managedObject setHasSkipRules:rulesCopy];
+      }
+    }
+  }
+
+  else
+  {
+    self->_hasSkipRules = rulesCopy;
+  }
 }
 
 - (BOOL)hasSkipRules
@@ -1776,7 +1984,7 @@ uint64_t __28__RadioStation_likesEnabled__block_invoke(uint64_t a1)
   return hasSkipRules & 1;
 }
 
-uint64_t __28__RadioStation_hasSkipRules__block_invoke(uint64_t a1)
+void *__28__RadioStation_hasSkipRules__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isDeleted];
   if ((result & 1) == 0)
@@ -1786,6 +1994,31 @@ uint64_t __28__RadioStation_hasSkipRules__block_invoke(uint64_t a1)
   }
 
   return result;
+}
+
+- (void)setSubscribed:(BOOL)subscribed
+{
+  subscribedCopy = subscribed;
+  if ([(RadioStation *)self isDatabaseBacked])
+  {
+    managedObject = [(RadioStation *)self managedObject];
+    managedObjectContext = [managedObject managedObjectContext];
+    if (managedObjectContext)
+    {
+      v6 = managedObjectContext;
+      isDeleted = [managedObject isDeleted];
+
+      if ((isDeleted & 1) == 0)
+      {
+        [managedObject setSubscribed:subscribedCopy];
+      }
+    }
+  }
+
+  else
+  {
+    self->_subscribed = subscribedCopy;
+  }
 }
 
 - (BOOL)isSubscribed
@@ -1819,7 +2052,7 @@ uint64_t __28__RadioStation_hasSkipRules__block_invoke(uint64_t a1)
   return subscribed & 1;
 }
 
-uint64_t __28__RadioStation_isSubscribed__block_invoke(uint64_t a1)
+void *__28__RadioStation_isSubscribed__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isDeleted];
   if ((result & 1) == 0)
@@ -1829,6 +2062,31 @@ uint64_t __28__RadioStation_isSubscribed__block_invoke(uint64_t a1)
   }
 
   return result;
+}
+
+- (void)setSponsored:(BOOL)sponsored
+{
+  sponsoredCopy = sponsored;
+  if ([(RadioStation *)self isDatabaseBacked])
+  {
+    managedObject = [(RadioStation *)self managedObject];
+    managedObjectContext = [managedObject managedObjectContext];
+    if (managedObjectContext)
+    {
+      v6 = managedObjectContext;
+      isDeleted = [managedObject isDeleted];
+
+      if ((isDeleted & 1) == 0)
+      {
+        [managedObject setSponsored:sponsoredCopy];
+      }
+    }
+  }
+
+  else
+  {
+    self->_sponsored = sponsoredCopy;
+  }
 }
 
 - (BOOL)isSponsored
@@ -1862,7 +2120,7 @@ uint64_t __28__RadioStation_isSubscribed__block_invoke(uint64_t a1)
   return sponsored & 1;
 }
 
-uint64_t __27__RadioStation_isSponsored__block_invoke(uint64_t a1)
+void *__27__RadioStation_isSponsored__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isDeleted];
   if ((result & 1) == 0)
@@ -1872,6 +2130,31 @@ uint64_t __27__RadioStation_isSponsored__block_invoke(uint64_t a1)
   }
 
   return result;
+}
+
+- (void)setSharingEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  if ([(RadioStation *)self isDatabaseBacked])
+  {
+    managedObject = [(RadioStation *)self managedObject];
+    managedObjectContext = [managedObject managedObjectContext];
+    if (managedObjectContext)
+    {
+      v6 = managedObjectContext;
+      isDeleted = [managedObject isDeleted];
+
+      if ((isDeleted & 1) == 0)
+      {
+        [managedObject setSharingEnabled:enabledCopy];
+      }
+    }
+  }
+
+  else
+  {
+    self->_sharingEnabled = enabledCopy;
+  }
 }
 
 - (BOOL)isSharingEnabled
@@ -1905,7 +2188,7 @@ uint64_t __27__RadioStation_isSponsored__block_invoke(uint64_t a1)
   return sharingEnabled & 1;
 }
 
-uint64_t __32__RadioStation_isSharingEnabled__block_invoke(uint64_t a1)
+void *__32__RadioStation_isSharingEnabled__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isDeleted];
   if ((result & 1) == 0)
@@ -1915,6 +2198,31 @@ uint64_t __32__RadioStation_isSharingEnabled__block_invoke(uint64_t a1)
   }
 
   return result;
+}
+
+- (void)setShared:(BOOL)shared
+{
+  sharedCopy = shared;
+  if ([(RadioStation *)self isDatabaseBacked])
+  {
+    managedObject = [(RadioStation *)self managedObject];
+    managedObjectContext = [managedObject managedObjectContext];
+    if (managedObjectContext)
+    {
+      v6 = managedObjectContext;
+      isDeleted = [managedObject isDeleted];
+
+      if ((isDeleted & 1) == 0)
+      {
+        [managedObject setShared:sharedCopy];
+      }
+    }
+  }
+
+  else
+  {
+    self->_shared = sharedCopy;
+  }
 }
 
 - (BOOL)isShared
@@ -1948,7 +2256,7 @@ uint64_t __32__RadioStation_isSharingEnabled__block_invoke(uint64_t a1)
   return shared & 1;
 }
 
-uint64_t __24__RadioStation_isShared__block_invoke(uint64_t a1)
+void *__24__RadioStation_isShared__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isDeleted];
   if ((result & 1) == 0)
@@ -1958,6 +2266,31 @@ uint64_t __24__RadioStation_isShared__block_invoke(uint64_t a1)
   }
 
   return result;
+}
+
+- (void)setPremiumPlacement:(BOOL)placement
+{
+  placementCopy = placement;
+  if ([(RadioStation *)self isDatabaseBacked])
+  {
+    managedObject = [(RadioStation *)self managedObject];
+    managedObjectContext = [managedObject managedObjectContext];
+    if (managedObjectContext)
+    {
+      v6 = managedObjectContext;
+      isDeleted = [managedObject isDeleted];
+
+      if ((isDeleted & 1) == 0)
+      {
+        [managedObject setPremiumPlacement:placementCopy];
+      }
+    }
+  }
+
+  else
+  {
+    self->_premiumPlacement = placementCopy;
+  }
 }
 
 - (BOOL)isPremiumPlacement
@@ -1991,7 +2324,7 @@ uint64_t __24__RadioStation_isShared__block_invoke(uint64_t a1)
   return premiumPlacement & 1;
 }
 
-uint64_t __34__RadioStation_isPremiumPlacement__block_invoke(uint64_t a1)
+void *__34__RadioStation_isPremiumPlacement__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isDeleted];
   if ((result & 1) == 0)
@@ -2001,6 +2334,31 @@ uint64_t __34__RadioStation_isPremiumPlacement__block_invoke(uint64_t a1)
   }
 
   return result;
+}
+
+- (void)setGatewayVideoAdEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  if ([(RadioStation *)self isDatabaseBacked])
+  {
+    managedObject = [(RadioStation *)self managedObject];
+    managedObjectContext = [managedObject managedObjectContext];
+    if (managedObjectContext)
+    {
+      v6 = managedObjectContext;
+      isDeleted = [managedObject isDeleted];
+
+      if ((isDeleted & 1) == 0)
+      {
+        [managedObject setGatewayVideoAdEnabled:enabledCopy];
+      }
+    }
+  }
+
+  else
+  {
+    self->_gatewayVideoAdEnabled = enabledCopy;
+  }
 }
 
 - (BOOL)isGatewayVideoAdEnabled
@@ -2034,7 +2392,7 @@ uint64_t __34__RadioStation_isPremiumPlacement__block_invoke(uint64_t a1)
   return gatewayVideoAdEnabled & 1;
 }
 
-uint64_t __39__RadioStation_isGatewayVideoAdEnabled__block_invoke(uint64_t a1)
+void *__39__RadioStation_isGatewayVideoAdEnabled__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isDeleted];
   if ((result & 1) == 0)
@@ -2044,6 +2402,31 @@ uint64_t __39__RadioStation_isGatewayVideoAdEnabled__block_invoke(uint64_t a1)
   }
 
   return result;
+}
+
+- (void)setFeatured:(BOOL)featured
+{
+  featuredCopy = featured;
+  if ([(RadioStation *)self isDatabaseBacked])
+  {
+    managedObject = [(RadioStation *)self managedObject];
+    managedObjectContext = [managedObject managedObjectContext];
+    if (managedObjectContext)
+    {
+      v6 = managedObjectContext;
+      isDeleted = [managedObject isDeleted];
+
+      if ((isDeleted & 1) == 0)
+      {
+        [managedObject setFeatured:featuredCopy];
+      }
+    }
+  }
+
+  else
+  {
+    self->_featured = featuredCopy;
+  }
 }
 
 - (BOOL)isFeatured
@@ -2077,7 +2460,7 @@ uint64_t __39__RadioStation_isGatewayVideoAdEnabled__block_invoke(uint64_t a1)
   return featured & 1;
 }
 
-uint64_t __26__RadioStation_isFeatured__block_invoke(uint64_t a1)
+void *__26__RadioStation_isFeatured__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isDeleted];
   if ((result & 1) == 0)
@@ -2087,6 +2470,31 @@ uint64_t __26__RadioStation_isFeatured__block_invoke(uint64_t a1)
   }
 
   return result;
+}
+
+- (void)setIsExplicit:(BOOL)explicit
+{
+  explicitCopy = explicit;
+  if ([(RadioStation *)self isDatabaseBacked])
+  {
+    managedObject = [(RadioStation *)self managedObject];
+    managedObjectContext = [managedObject managedObjectContext];
+    if (managedObjectContext)
+    {
+      v6 = managedObjectContext;
+      isDeleted = [managedObject isDeleted];
+
+      if ((isDeleted & 1) == 0)
+      {
+        [managedObject setIsExplicit:explicitCopy];
+      }
+    }
+  }
+
+  else
+  {
+    self->_isExplicit = explicitCopy;
+  }
 }
 
 - (BOOL)isExplicit
@@ -2120,7 +2528,7 @@ uint64_t __26__RadioStation_isFeatured__block_invoke(uint64_t a1)
   return isExplicit & 1;
 }
 
-uint64_t __26__RadioStation_isExplicit__block_invoke(uint64_t a1)
+void *__26__RadioStation_isExplicit__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isDeleted];
   if ((result & 1) == 0)
@@ -2184,7 +2592,7 @@ uint64_t __26__RadioStation_isExplicit__block_invoke(uint64_t a1)
   return v6;
 }
 
-uint64_t __35__RadioStation_impressionThreshold__block_invoke(uint64_t a1)
+void *__35__RadioStation_impressionThreshold__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isDeleted];
   if ((result & 1) == 0)
@@ -2194,6 +2602,31 @@ uint64_t __35__RadioStation_impressionThreshold__block_invoke(uint64_t a1)
   }
 
   return result;
+}
+
+- (void)setEditEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  if ([(RadioStation *)self isDatabaseBacked])
+  {
+    managedObject = [(RadioStation *)self managedObject];
+    managedObjectContext = [managedObject managedObjectContext];
+    if (managedObjectContext)
+    {
+      v6 = managedObjectContext;
+      isDeleted = [managedObject isDeleted];
+
+      if ((isDeleted & 1) == 0)
+      {
+        [managedObject setEditEnabled:enabledCopy];
+      }
+    }
+  }
+
+  else
+  {
+    self->_editEnabled = enabledCopy;
+  }
 }
 
 - (BOOL)editEnabled
@@ -2227,7 +2660,7 @@ uint64_t __35__RadioStation_impressionThreshold__block_invoke(uint64_t a1)
   return editEnabled & 1;
 }
 
-uint64_t __27__RadioStation_editEnabled__block_invoke(uint64_t a1)
+void *__27__RadioStation_editEnabled__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isDeleted];
   if ((result & 1) == 0)
@@ -2264,7 +2697,7 @@ uint64_t __27__RadioStation_editEnabled__block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __34__RadioStation_setEditableFields___block_invoke(uint64_t a1)
+void *__34__RadioStation_setEditableFields___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isDeleted];
   if ((result & 1) == 0)
@@ -2316,10 +2749,7 @@ uint64_t __30__RadioStation_editableFields__block_invoke(uint64_t a1)
   result = [*(a1 + 32) isDeleted];
   if ((result & 1) == 0)
   {
-    v3 = [*(a1 + 32) editableFields];
-    v4 = *(*(a1 + 40) + 8);
-    v5 = *(v4 + 40);
-    *(v4 + 40) = v3;
+    *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) editableFields];
 
     return MEMORY[0x2821F96F8]();
   }
@@ -2352,7 +2782,7 @@ uint64_t __30__RadioStation_editableFields__block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __35__RadioStation_setDebugDictionary___block_invoke(uint64_t a1)
+void *__35__RadioStation_setDebugDictionary___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isDeleted];
   if ((result & 1) == 0)
@@ -2404,10 +2834,7 @@ uint64_t __31__RadioStation_debugDictionary__block_invoke(uint64_t a1)
   result = [*(a1 + 32) isDeleted];
   if ((result & 1) == 0)
   {
-    v3 = [*(a1 + 32) debugDictionary];
-    v4 = *(*(a1 + 40) + 8);
-    v5 = *(v4 + 40);
-    *(v4 + 40) = v3;
+    *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) debugDictionary];
 
     return MEMORY[0x2821F96F8]();
   }
@@ -2440,7 +2867,7 @@ uint64_t __31__RadioStation_debugDictionary__block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __32__RadioStation_setCoreSeedName___block_invoke(uint64_t a1)
+void *__32__RadioStation_setCoreSeedName___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isDeleted];
   if ((result & 1) == 0)
@@ -2492,10 +2919,7 @@ uint64_t __28__RadioStation_coreSeedName__block_invoke(uint64_t a1)
   result = [*(a1 + 32) isDeleted];
   if ((result & 1) == 0)
   {
-    v3 = [*(a1 + 32) coreSeedName];
-    v4 = *(*(a1 + 40) + 8);
-    v5 = *(v4 + 40);
-    *(v4 + 40) = v3;
+    *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) coreSeedName];
 
     return MEMORY[0x2821F96F8]();
   }
@@ -2528,7 +2952,7 @@ uint64_t __28__RadioStation_coreSeedName__block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __34__RadioStation_setArtworkURLData___block_invoke(uint64_t a1)
+void *__34__RadioStation_setArtworkURLData___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isDeleted];
   if ((result & 1) == 0)
@@ -2580,10 +3004,7 @@ uint64_t __30__RadioStation_artworkURLData__block_invoke(uint64_t a1)
   result = [*(a1 + 32) isDeleted];
   if ((result & 1) == 0)
   {
-    v3 = [*(a1 + 32) artworkURLData];
-    v4 = *(*(a1 + 40) + 8);
-    v5 = *(v4 + 40);
-    *(v4 + 40) = v3;
+    *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) artworkURLData];
 
     return MEMORY[0x2821F96F8]();
   }
@@ -2656,10 +3077,7 @@ uint64_t __26__RadioStation_artworkURL__block_invoke(uint64_t a1)
   result = [*(a1 + 32) isDeleted];
   if ((result & 1) == 0)
   {
-    v3 = [*(a1 + 32) artworkURL];
-    v4 = *(*(a1 + 40) + 8);
-    v5 = *(v4 + 40);
-    *(v4 + 40) = v3;
+    *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) artworkURL];
 
     return MEMORY[0x2821F96F8]();
   }
@@ -2692,7 +3110,7 @@ uint64_t __26__RadioStation_artworkURL__block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __26__RadioStation_setAdData___block_invoke(uint64_t a1)
+void *__26__RadioStation_setAdData___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isDeleted];
   if ((result & 1) == 0)
@@ -2744,10 +3162,7 @@ uint64_t __22__RadioStation_adData__block_invoke(uint64_t a1)
   result = [*(a1 + 32) isDeleted];
   if ((result & 1) == 0)
   {
-    v3 = [*(a1 + 32) adData];
-    v4 = *(*(a1 + 40) + 8);
-    v5 = *(v4 + 40);
-    *(v4 + 40) = v3;
+    *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) adData];
 
     return MEMORY[0x2821F96F8]();
   }
@@ -2807,7 +3222,7 @@ uint64_t __22__RadioStation_adData__block_invoke(uint64_t a1)
   return v6;
 }
 
-uint64_t __22__RadioStation_adamID__block_invoke(uint64_t a1)
+void *__22__RadioStation_adamID__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isDeleted];
   if ((result & 1) == 0)
@@ -2817,13 +3232,6 @@ uint64_t __22__RadioStation_adamID__block_invoke(uint64_t a1)
   }
 
   return result;
-}
-
-- (void)_radioModelWasDeletedNotification:(id)notification
-{
-  managedObject = self->_managedObject;
-  self->_managedObject = 0;
-  MEMORY[0x2821F96F8]();
 }
 
 - (BOOL)isEqual:(id)equal

@@ -101,10 +101,11 @@
 
 uint64_t __25__WFDevice_currentDevice__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  currentDevice_currentDevice = objc_opt_new();
+  v1 = objc_opt_new();
+  v2 = currentDevice_currentDevice;
+  currentDevice_currentDevice = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 void __17__WFDevice_idiom__block_invoke()
@@ -384,18 +385,16 @@ void __18__WFDevice_chipID__block_invoke()
 
 - (NSString)hostname
 {
-  v6 = *MEMORY[0x1E69E9840];
-  if (gethostname(v5, 0xFFuLL))
+  v5 = *MEMORY[0x1E69E9840];
+  if (gethostname(v4, 0xFFuLL))
   {
     v2 = 0;
   }
 
   else
   {
-    v2 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v5];
+    v2 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v4];
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 
   return v2;
 }

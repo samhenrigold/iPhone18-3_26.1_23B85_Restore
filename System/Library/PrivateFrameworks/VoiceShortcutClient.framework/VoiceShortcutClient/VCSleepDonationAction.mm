@@ -10,72 +10,70 @@
 
 + (id)sleepActionsDictionaryForShortcutsByApp:(id)app
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   appCopy = app;
   v5 = objc_opt_new();
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   allKeys = [appCopy allKeys];
-  v7 = [allKeys countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [allKeys countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * i);
+        v11 = *(*(&v15 + 1) + 8 * i);
         v12 = [appCopy objectForKeyedSubscript:v11];
         v13 = [self sleepActionsForShortcuts:v12 bundleIdentifier:v11];
 
         [v5 setObject:v13 forKeyedSubscript:v11];
       }
 
-      v8 = [allKeys countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [allKeys countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 + (id)sleepActionsDictionaryForShortcuts:(id)shortcuts
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   shortcutsCopy = shortcuts;
   v5 = objc_opt_new();
-  v20 = shortcutsCopy;
+  v19 = shortcutsCopy;
   v6 = [self sleepActionsForShortcuts:shortcutsCopy bundleIdentifier:0];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
-  v7 = [v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v22;
+    v9 = *v21;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v22 != v9)
+        if (*v21 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v21 + 1) + 8 * i);
+        v11 = *(*(&v20 + 1) + 8 * i);
         sourceAppBundleIdentifier = [v11 sourceAppBundleIdentifier];
         v13 = [v5 objectForKey:sourceAppBundleIdentifier];
         v14 = v13;
@@ -96,13 +94,11 @@
         [v5 setObject:v16 forKey:sourceAppBundleIdentifier2];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v8);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -143,7 +139,7 @@ VCSleepDonationAction *__79__VCSleepDonationAction_INShortcut__sleepActionsForSh
 
 - (VCSleepDonationAction)initWithShortcut:(id)shortcut bundleIdentifier:(id)identifier
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   shortcutCopy = shortcut;
   identifierCopy = identifier;
   if (!shortcutCopy)
@@ -199,9 +195,9 @@ VCSleepDonationAction *__79__VCSleepDonationAction_INShortcut__sleepActionsForSh
     {
       v22 = MEMORY[0x1E696ACC8];
       intent3 = [shortcutCopy intent];
-      v41 = 0;
-      v24 = [v22 archivedDataWithRootObject:intent3 requiringSecureCoding:1 error:&v41];
-      activityData = v41;
+      v40 = 0;
+      v24 = [v22 archivedDataWithRootObject:intent3 requiringSecureCoding:1 error:&v40];
+      activityData = v40;
 
       if ([v24 length])
       {
@@ -214,9 +210,9 @@ LABEL_20:
         v31 = [objc_alloc(MEMORY[0x1E69635F8]) initWithBundleIdentifier:v18 allowPlaceholder:1 error:0];
         localizedName = [v31 localizedName];
 
-        v40.receiver = self;
-        v40.super_class = VCSleepDonationAction;
-        v33 = -[VCSleepAction initWithIdentifier:workflowActionIdentifier:sourceAppBundleIdentifier:bundleIdentifierForDisplay:title:subtitle:serializedParameters:shortcutAvailability:](&v40, sel_initWithIdentifier_workflowActionIdentifier_sourceAppBundleIdentifier_bundleIdentifierForDisplay_title_subtitle_serializedParameters_shortcutAvailability_, v30, v26, v18, v18, v12, localizedName, v20, [shortcutCopy wf_shortcutAvailability]);
+        v39.receiver = self;
+        v39.super_class = VCSleepDonationAction;
+        v33 = -[VCSleepAction initWithIdentifier:workflowActionIdentifier:sourceAppBundleIdentifier:bundleIdentifierForDisplay:title:subtitle:serializedParameters:shortcutAvailability:](&v39, sel_initWithIdentifier_workflowActionIdentifier_sourceAppBundleIdentifier_bundleIdentifierForDisplay_title_subtitle_serializedParameters_shortcutAvailability_, v30, v26, v18, v18, v12, localizedName, v20, [shortcutCopy wf_shortcutAvailability]);
         self = v33;
         if (v33)
         {
@@ -232,9 +228,9 @@ LABEL_20:
       {
         localizedDescription = [activityData localizedDescription];
         *buf = 136315394;
-        v43 = "[VCSleepDonationAction initWithShortcut:bundleIdentifier:]";
-        v44 = 2114;
-        v45 = localizedDescription;
+        v42 = "[VCSleepDonationAction initWithShortcut:bundleIdentifier:]";
+        v43 = 2114;
+        v44 = localizedDescription;
         _os_log_impl(&dword_1B1DE3000, v35, OS_LOG_TYPE_ERROR, "%s Could not create intent data from intent with error: %{public}@", buf, 0x16u);
       }
     }
@@ -273,7 +269,6 @@ LABEL_27:
 
 LABEL_28:
 
-  v37 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

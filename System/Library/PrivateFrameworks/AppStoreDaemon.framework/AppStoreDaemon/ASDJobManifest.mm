@@ -44,15 +44,15 @@
 
 - (id)addActivity:(id)activity
 {
-  v9[2] = *MEMORY[0x1E69E9840];
+  v8[2] = *MEMORY[0x1E69E9840];
   activityCopy = activity;
   if (self)
   {
     uUID = [MEMORY[0x1E696AFB0] UUID];
-    v9[0] = 0;
-    v9[1] = 0;
-    [uUID getUUIDBytes:v9];
-    v6 = [MEMORY[0x1E696AD98] numberWithLongLong:v9[0]];
+    v8[0] = 0;
+    v8[1] = 0;
+    [uUID getUUIDBytes:v8];
+    v6 = [MEMORY[0x1E696AD98] numberWithLongLong:v8[0]];
   }
 
   else
@@ -61,8 +61,6 @@
   }
 
   [(ASDJobManifest *)self _addActivity:activityCopy withIdentifier:v6 persistentID:v6];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }

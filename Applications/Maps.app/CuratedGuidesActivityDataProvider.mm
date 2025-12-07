@@ -31,7 +31,7 @@
 
 - (NSURL)activityURL
 {
-  v3 = sub_1000CE6B8(&unk_101909B00);
+  v3 = sub_1000CE6B8(&unk_101909B00, &unk_1011E4C10);
   __chkstk_darwin(v3 - 8);
   v5 = &v14 - v4;
   selfCopy = self;
@@ -114,7 +114,7 @@
   ObjectType = swift_getObjectType();
   if (items)
   {
-    sub_100014C84(0, &unk_101918390);
+    sub_100014C84(0, &unk_101918390, MKMapItem_ptr);
     items = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   }
 

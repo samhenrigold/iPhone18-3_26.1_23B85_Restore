@@ -26,10 +26,10 @@
 
 - (void)layoutSubviews
 {
-  v17[1] = *MEMORY[0x277D85DE8];
-  v15.receiver = self;
-  v15.super_class = CNFRegEmailLinkListCell;
-  [(PSTableCell *)&v15 layoutSubviews];
+  v16[1] = *MEMORY[0x277D85DE8];
+  v14.receiver = self;
+  v14.super_class = CNFRegEmailLinkListCell;
+  [(PSTableCell *)&v14 layoutSubviews];
   textLabel = [(CNFRegEmailLinkListCell *)self textLabel];
   detailTextLabel = [(CNFRegEmailLinkListCell *)self detailTextLabel];
   text = [textLabel text];
@@ -45,10 +45,10 @@ LABEL_6:
 
   if (v7)
   {
-    v16 = *MEMORY[0x277D740A8];
+    v15 = *MEMORY[0x277D740A8];
     font = [detailTextLabel font];
-    v17[0] = font;
-    text = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    v16[0] = font;
+    text = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
 
     text3 = [detailTextLabel text];
     if ([text3 length])
@@ -60,7 +60,7 @@ LABEL_6:
 
     contentView = [(CNFRegEmailLinkListCell *)self contentView];
     [contentView bounds];
-    CGRectGetWidth(v18);
+    CGRectGetWidth(v17);
 
     [textLabel frame];
     [textLabel setFrame:?];
@@ -68,8 +68,6 @@ LABEL_6:
   }
 
 LABEL_7:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 @end

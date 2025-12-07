@@ -8,12 +8,12 @@
 
 + (id)acs_uniquelyIdentifiedCard
 {
-  v0 = objc_alloc_init(objc_opt_class());
+  v1 = objc_alloc_init(objc_opt_class());
   uUID = [MEMORY[0x277CCAD78] UUID];
   uUIDString = [uUID UUIDString];
-  [v0 setCardId:uUIDString];
+  [v1 setCardId:uUIDString];
 
-  return v0;
+  return v1;
 }
 
 - (void)acs_setInteraction:()AssistantCardService

@@ -8,18 +8,17 @@
 
 - (SRDInternalClientProtocol)proxy
 {
-  v2 = *(&self->super.isa + OBJC_IVAR____TtC50com_apple_SpeechRecognitionCore_speechrecognitiond25RDServiceClientConnection_proxy);
-  v3 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v3;
+  return v2;
 }
 
 - (_TtC50com_apple_SpeechRecognitionCore_speechrecognitiond25RDServiceClientConnection)initWithConnection:(id)connection
 {
   connectionCopy = connection;
-  v4 = sub_10005EBE0(connectionCopy);
+  v5 = sub_10005EBE0(connectionCopy, v4);
 
-  return v4;
+  return v5;
 }
 
 - (_TtC50com_apple_SpeechRecognitionCore_speechrecognitiond25RDServiceClientConnection)init

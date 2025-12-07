@@ -1,9 +1,11 @@
 @interface POServiceCoreConnection
 + (id)xpcQueue;
 - (BOOL)_connectToService;
-- (void)_connectToService;
+- (POServiceCoreConnection)initWithUid:(unsigned int)uid forLogin:(BOOL)login;
 - (void)dealloc;
 - (void)getLoginTypeForUser:(id)user completion:(id)completion;
+- (void)performPasswordLogin:(id)login loginUserName:(id)name passwordContext:(id)context updateLocalAccountPassword:(BOOL)password completion:(id)completion;
+- (void)performPasswordLogin:(id)login passwordContext:(id)context updateLocalAccountPassword:(BOOL)password completion:(id)completion;
 - (void)verifyPasswordLogin:(id)login passwordContext:(id)context completion:(id)completion;
 - (void)verifyPasswordUser:(id)user passwordContext:(id)context completion:(id)completion;
 @end
@@ -31,15 +33,49 @@ uint64_t __35__POServiceCoreConnection_xpcQueue__block_invoke()
   return MEMORY[0x2821F96F8](v0, v1);
 }
 
+- (POServiceCoreConnection)initWithUid:(unsigned int)uid forLogin:(BOOL)login
+{
+  loginCopy = login;
+  v5 = *&uid;
+  v22 = *MEMORY[0x277D85DE8];
+  v7 = PO_LOG_POServiceCoreConnection(self);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  {
+    v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v5];
+    v12 = [MEMORY[0x277CCABB0] numberWithBool:loginCopy];
+    *buf = 136315906;
+    v15 = "[POServiceCoreConnection initWithUid:forLogin:]";
+    v16 = 2114;
+    v17 = v11;
+    v18 = 2114;
+    v19 = v12;
+    v20 = 2112;
+    selfCopy = self;
+    _os_log_debug_impl(&dword_25E8B1000, v7, OS_LOG_TYPE_DEBUG, "%s userID = %{public}@, login = %{public}@ on %@", buf, 0x2Au);
+  }
+
+  v13.receiver = self;
+  v13.super_class = POServiceCoreConnection;
+  v8 = [(POServiceCoreConnection *)&v13 init];
+  v9 = v8;
+  if (v8)
+  {
+    v8->_uid = v5;
+    v8->_forLogin = loginCopy;
+    [(POServiceCoreConnection *)v8 _connectToService];
+  }
+
+  return v9;
+}
+
 - (void)dealloc
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 136315394;
-  v4 = "[POServiceCoreConnection dealloc]";
-  v5 = 2112;
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 136315394;
+  v3 = "[POServiceCoreConnection dealloc]";
+  v4 = 2112;
   selfCopy = self;
-  _os_log_debug_impl(&dword_25E8B1000, a2, OS_LOG_TYPE_DEBUG, "%s  on %@", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_25E8B1000, a2, OS_LOG_TYPE_DEBUG, "%s  on %@", &v2, 0x16u);
 }
 
 - (void)getLoginTypeForUser:(id)user completion:(id)completion
@@ -69,7 +105,7 @@ uint64_t __35__POServiceCoreConnection_xpcQueue__block_invoke()
 void __58__POServiceCoreConnection_getLoginTypeForUser_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_POServiceCoreConnection();
+  v4 = PO_LOG_POServiceCoreConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __70__PODaemonCoreConnection_deviceConfigurationForIdentifier_completion___block_invoke_cold_1();
@@ -82,10 +118,36 @@ void __58__POServiceCoreConnection_getLoginTypeForUser_completion___block_invoke
   }
 }
 
+- (void)performPasswordLogin:(id)login passwordContext:(id)context updateLocalAccountPassword:(BOOL)password completion:(id)completion
+{
+  passwordCopy = password;
+  loginCopy = login;
+  contextCopy = context;
+  completionCopy = completion;
+  if ([(POServiceCoreConnection *)self _connectToService])
+  {
+    xpcConnection = [(POServiceCoreConnection *)self xpcConnection];
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __102__POServiceCoreConnection_performPasswordLogin_passwordContext_updateLocalAccountPassword_completion___block_invoke;
+    v17[3] = &unk_279A3E488;
+    v14 = completionCopy;
+    v18 = v14;
+    v15 = [xpcConnection synchronousRemoteObjectProxyWithErrorHandler:v17];
+    [v15 performPasswordLogin:loginCopy passwordContext:contextCopy updateLocalAccountPassword:passwordCopy completion:v14];
+  }
+
+  else if (completionCopy)
+  {
+    v16 = [POError internalErrorWithMessage:@"Failed to connect to PSSO service"];
+    (*(completionCopy + 2))(completionCopy, 2, v16);
+  }
+}
+
 void __102__POServiceCoreConnection_performPasswordLogin_passwordContext_updateLocalAccountPassword_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_POServiceCoreConnection();
+  v4 = PO_LOG_POServiceCoreConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __70__PODaemonCoreConnection_deviceConfigurationForIdentifier_completion___block_invoke_cold_1();
@@ -98,10 +160,37 @@ void __102__POServiceCoreConnection_performPasswordLogin_passwordContext_updateL
   }
 }
 
+- (void)performPasswordLogin:(id)login loginUserName:(id)name passwordContext:(id)context updateLocalAccountPassword:(BOOL)password completion:(id)completion
+{
+  passwordCopy = password;
+  loginCopy = login;
+  nameCopy = name;
+  contextCopy = context;
+  completionCopy = completion;
+  if ([(POServiceCoreConnection *)self _connectToService])
+  {
+    xpcConnection = [(POServiceCoreConnection *)self xpcConnection];
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __116__POServiceCoreConnection_performPasswordLogin_loginUserName_passwordContext_updateLocalAccountPassword_completion___block_invoke;
+    v20[3] = &unk_279A3E488;
+    v17 = completionCopy;
+    v21 = v17;
+    v18 = [xpcConnection synchronousRemoteObjectProxyWithErrorHandler:v20];
+    [v18 performPasswordLogin:loginCopy loginUserName:nameCopy passwordContext:contextCopy updateLocalAccountPassword:passwordCopy completion:v17];
+  }
+
+  else if (completionCopy)
+  {
+    v19 = [POError internalErrorWithMessage:@"Failed to connect to PSSO service"];
+    (*(completionCopy + 2))(completionCopy, 2, v19);
+  }
+}
+
 void __116__POServiceCoreConnection_performPasswordLogin_loginUserName_passwordContext_updateLocalAccountPassword_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_POServiceCoreConnection();
+  v4 = PO_LOG_POServiceCoreConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __70__PODaemonCoreConnection_deviceConfigurationForIdentifier_completion___block_invoke_cold_1();
@@ -142,7 +231,7 @@ void __116__POServiceCoreConnection_performPasswordLogin_loginUserName_passwordC
 void __74__POServiceCoreConnection_verifyPasswordLogin_passwordContext_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_POServiceCoreConnection();
+  v4 = PO_LOG_POServiceCoreConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __70__PODaemonCoreConnection_deviceConfigurationForIdentifier_completion___block_invoke_cold_1();
@@ -183,7 +272,7 @@ void __74__POServiceCoreConnection_verifyPasswordLogin_passwordContext_completio
 void __73__POServiceCoreConnection_verifyPasswordUser_passwordContext_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_POServiceCoreConnection();
+  v4 = PO_LOG_POServiceCoreConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __70__PODaemonCoreConnection_deviceConfigurationForIdentifier_completion___block_invoke_cold_1();
@@ -200,7 +289,7 @@ void __73__POServiceCoreConnection_verifyPasswordUser_passwordContext_completion
 {
   if (self->_xpcConnection)
   {
-    v3 = PO_LOG_POServiceCoreConnection();
+    v3 = PO_LOG_POServiceCoreConnection(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
       [POServiceCoreConnection _connectToService];
@@ -231,41 +320,40 @@ void __73__POServiceCoreConnection_verifyPasswordUser_passwordContext_completion
       [(NSXPCConnection *)self->_xpcConnection _setTargetUserIdentifier:[(POServiceCoreConnection *)self uid]];
     }
 
-    v8 = [POInternalProtocols interfaceWithInternalProtocol:&unk_2870B1AB8];
-    [(NSXPCConnection *)self->_xpcConnection setRemoteObjectInterface:v8];
+    v9 = [POInternalProtocols interfaceWithInternalProtocol:&unk_2870B1AB8];
+    [(NSXPCConnection *)self->_xpcConnection setRemoteObjectInterface:v9];
 
     objc_initWeak(&location, self);
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __44__POServiceCoreConnection__connectToService__block_invoke;
-    v16[3] = &unk_279A3E4B0;
-    objc_copyWeak(&v17, &location);
-    [(NSXPCConnection *)self->_xpcConnection setInvalidationHandler:v16];
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __44__POServiceCoreConnection__connectToService__block_invoke_64;
-    v14[3] = &unk_279A3E4B0;
-    objc_copyWeak(&v15, &location);
-    [(NSXPCConnection *)self->_xpcConnection setInterruptionHandler:v14];
-    v9 = self->_xpcConnection;
-    v10 = +[POServiceCoreConnection xpcQueue];
-    [(NSXPCConnection *)v9 _setQueue:v10];
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __44__POServiceCoreConnection__connectToService__block_invoke;
+    v17[3] = &unk_279A3E4B0;
+    objc_copyWeak(&v18, &location);
+    [(NSXPCConnection *)self->_xpcConnection setInvalidationHandler:v17];
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __44__POServiceCoreConnection__connectToService__block_invoke_64;
+    v15[3] = &unk_279A3E4B0;
+    objc_copyWeak(&v16, &location);
+    [(NSXPCConnection *)self->_xpcConnection setInterruptionHandler:v15];
+    v10 = self->_xpcConnection;
+    v11 = +[POServiceCoreConnection xpcQueue];
+    [(NSXPCConnection *)v10 _setQueue:v11];
 
-    [(NSXPCConnection *)self->_xpcConnection resume];
-    v11 = PO_LOG_POServiceCoreConnection();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v12 = PO_LOG_POServiceCoreConnection([(NSXPCConnection *)self->_xpcConnection resume]);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
       [POServiceCoreConnection _connectToService];
     }
 
-    objc_destroyWeak(&v15);
-    objc_destroyWeak(&v17);
+    objc_destroyWeak(&v16);
+    objc_destroyWeak(&v18);
     objc_destroyWeak(&location);
     return 1;
   }
 
-  v13 = PO_LOG_POServiceCoreConnection();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+  v14 = PO_LOG_POServiceCoreConnection(v8);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
     [PODaemonCoreConnection _connectToService];
   }
@@ -279,8 +367,7 @@ void __44__POServiceCoreConnection__connectToService__block_invoke(uint64_t a1)
   v2 = WeakRetained;
   if (WeakRetained)
   {
-    [WeakRetained setXpcConnection:0];
-    v3 = PO_LOG_POServiceCoreConnection();
+    v3 = PO_LOG_POServiceCoreConnection([WeakRetained setXpcConnection:0]);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
       __44__POServiceCoreConnection__connectToService__block_invoke_cold_1();
@@ -291,30 +378,15 @@ void __44__POServiceCoreConnection__connectToService__block_invoke(uint64_t a1)
 void __44__POServiceCoreConnection__connectToService__block_invoke_64(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v2 = WeakRetained;
   if (WeakRetained)
   {
-    v2 = PO_LOG_POServiceCoreConnection();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v3 = PO_LOG_POServiceCoreConnection(WeakRetained);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __43__PODaemonCoreConnection__connectToService__block_invoke_77_cold_1();
     }
   }
-}
-
-- (void)_connectToService
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_6(&dword_25E8B1000, v0, v1, "%{public}@: new XPC connection", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __44__POServiceCoreConnection__connectToService__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_6(&dword_25E8B1000, v0, v1, "%{public}@: XPC connection invalidated", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

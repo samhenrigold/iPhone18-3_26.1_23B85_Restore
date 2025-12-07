@@ -22,16 +22,20 @@ void __29___SFDownload_removeFromDisk__block_invoke_2(uint64_t a1)
 {
   v2 = [MEMORY[0x1E696AC08] defaultManager];
   v3 = *(a1 + 32);
-  v7 = 0;
-  v4 = [v2 removeItemAtPath:v3 error:&v7];
-  v5 = v7;
+  v9 = 0;
+  v4 = [v2 removeItemAtPath:v3 error:&v9];
+  v5 = v9;
 
-  if ((v4 & 1) == 0 && ([v5 safari_matchesErrorDomain:*MEMORY[0x1E696A250] andCode:4] & 1) == 0)
+  if ((v4 & 1) == 0)
   {
-    v6 = WBS_LOG_CHANNEL_PREFIXDownloads();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+    v6 = [v5 safari_matchesErrorDomain:*MEMORY[0x1E696A250] andCode:4];
+    if ((v6 & 1) == 0)
     {
-      __29___SFDownload_removeFromDisk__block_invoke_2_cold_1(a1, v6);
+      v8 = WBS_LOG_CHANNEL_PREFIXDownloads(v6, v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+      {
+        __29___SFDownload_removeFromDisk__block_invoke_2_cold_1(a1, v8);
+      }
     }
   }
 
@@ -63,16 +67,16 @@ void __47___SFDownload_removeDataAndPlaceholderFromDisk__block_invoke_3(uint64_t
 {
   v2 = [MEMORY[0x1E696AC08] defaultManager];
   v3 = *(a1 + 32);
-  v7 = 0;
-  v4 = [v2 removeItemAtURL:v3 error:&v7];
-  v5 = v7;
+  v9 = 0;
+  v4 = [v2 removeItemAtURL:v3 error:&v9];
+  v5 = v9;
 
   if ((v4 & 1) == 0)
   {
-    v6 = WBS_LOG_CHANNEL_PREFIXDownloads();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = WBS_LOG_CHANNEL_PREFIXDownloads(v6, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __47___SFDownload_removeDataAndPlaceholderFromDisk__block_invoke_3_cold_1(a1, v6);
+      __47___SFDownload_removeDataAndPlaceholderFromDisk__block_invoke_3_cold_1(a1, v8);
     }
   }
 }
@@ -90,42 +94,42 @@ void __21___SFDownload_cancel__block_invoke(uint64_t a1, void *a2)
 
 void __31___SFDownload_resumeInWebView___block_invoke(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = WBS_LOG_CHANNEL_PREFIXDownloads();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v5 = WBS_LOG_CHANNEL_PREFIXDownloads(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v5 = *(a1 + 32);
-    v6 = *(v5 + 8);
-    v15 = 138543618;
-    v16 = v5;
-    v17 = 2114;
-    v18 = v6;
-    _os_log_impl(&dword_1D4644000, v4, OS_LOG_TYPE_INFO, "%{public}@: resumed download %{public}@", &v15, 0x16u);
+    v6 = *(a1 + 32);
+    v7 = *(v6 + 8);
+    v16 = 138543618;
+    v17 = v6;
+    v18 = 2114;
+    v19 = v7;
+    _os_log_impl(&dword_1D4644000, v5, OS_LOG_TYPE_INFO, "%{public}@: resumed download %{public}@", &v16, 0x16u);
   }
 
   [*(a1 + 32) setWKDownload:v3];
 
-  v7 = *(a1 + 32);
-  v8 = *(a1 + 40);
-  v9 = *(v7 + 72);
-  *(v7 + 72) = 0;
+  v8 = *(a1 + 32);
+  v9 = *(a1 + 40);
+  v10 = *(v8 + 72);
+  *(v8 + 72) = 0;
 
   *(*(a1 + 32) + 192) = 1;
-  v10 = *(a1 + 32);
-  v11 = *(v10 + 208);
-  *(v10 + 208) = 0;
+  v11 = *(a1 + 32);
+  v12 = *(v11 + 208);
+  *(v11 + 208) = 0;
 
   *(*(a1 + 32) + 16) = 0;
-  v12 = [MEMORY[0x1E696AD88] defaultCenter];
-  [v12 postNotificationName:@"_SFDownloadDidStartNotification" object:*(a1 + 32)];
+  v13 = [MEMORY[0x1E696AD88] defaultCenter];
+  [v13 postNotificationName:@"_SFDownloadDidStartNotification" object:*(a1 + 32)];
 
-  v13 = +[_SFDownloadDispatcher sharedDownloadDispatcher];
-  [v13 registerResumedDownload:*(a1 + 32)];
+  v14 = +[_SFDownloadDispatcher sharedDownloadDispatcher];
+  [v14 registerResumedDownload:*(a1 + 32)];
 
   [*(a1 + 32) _reportUpdatedProgressNow];
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 224));
-  if (v8 && (objc_opt_respondsToSelector() & 1) != 0)
+  if (v9 && (objc_opt_respondsToSelector() & 1) != 0)
   {
     [WeakRetained downloadDidResume:*(a1 + 32)];
   }
@@ -138,26 +142,28 @@ void __31___SFDownload_resumeInWebView___block_invoke(uint64_t a1, void *a2)
 
 void __42___SFDownload__importPlaceholderIfNeeded___block_invoke(uint64_t a1)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
-  v30 = 0;
-  v4 = [v2 writeToURL:v3 options:1 error:&v30];
-  v5 = v30;
+  v34 = 0;
+  v4 = [v2 writeToURL:v3 options:1 error:&v34];
+  v5 = v34;
+  v7 = v5;
   if (v4)
   {
-    v6 = *(a1 + 40);
-    v7 = *MEMORY[0x1E695DCC0];
-    v29 = v5;
-    v8 = [v6 setResourceValue:MEMORY[0x1E695E118] forKey:v7 error:&v29];
-    v9 = v29;
+    v8 = *(a1 + 40);
+    v9 = *MEMORY[0x1E695DCC0];
+    v33 = v7;
+    v10 = [v8 setResourceValue:MEMORY[0x1E695E118] forKey:v9 error:&v33];
+    v11 = v33;
 
-    if ((v8 & 1) == 0)
+    if ((v10 & 1) == 0)
     {
-      v10 = WBS_LOG_CHANNEL_PREFIXDownloads();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v14 = WBS_LOG_CHANNEL_PREFIXDownloads(v12, v13);
+      v12 = os_log_type_enabled(v14, OS_LOG_TYPE_ERROR);
+      if (v12)
       {
-        __42___SFDownload__importPlaceholderIfNeeded___block_invoke_cold_2(a1, v10);
+        __42___SFDownload__importPlaceholderIfNeeded___block_invoke_cold_2(a1, v14);
       }
     }
 
@@ -167,81 +173,81 @@ void __42___SFDownload__importPlaceholderIfNeeded___block_invoke(uint64_t a1)
       block[1] = 3221225472;
       block[2] = __42___SFDownload__importPlaceholderIfNeeded___block_invoke_136;
       block[3] = &unk_1E84939B8;
-      v21 = *(a1 + 48);
-      v11 = *(a1 + 56);
-      v12 = *(a1 + 40);
-      v13 = *(a1 + 64);
-      *&v14 = v12;
-      *(&v14 + 1) = v13;
-      *&v15 = v21;
-      *(&v15 + 1) = v11;
-      v27 = v15;
-      v28 = v14;
+      v25 = *(a1 + 48);
+      v15 = *(a1 + 56);
+      v16 = *(a1 + 40);
+      v17 = *(a1 + 64);
+      *&v18 = v16;
+      *(&v18 + 1) = v17;
+      *&v19 = v25;
+      *(&v19 + 1) = v15;
+      v31 = v19;
+      v32 = v18;
       dispatch_async(MEMORY[0x1E69E96A0], block);
     }
 
     else
     {
-      v17 = WBS_LOG_CHANNEL_PREFIXDownloads();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+      v21 = WBS_LOG_CHANNEL_PREFIXDownloads(v12, v13);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
       {
-        v18 = *(a1 + 48);
+        v22 = *(a1 + 48);
         *buf = 138543362;
-        v32 = v18;
-        _os_log_impl(&dword_1D4644000, v17, OS_LOG_TYPE_INFO, "%{public}@: using DOCDownloadImportManager", buf, 0xCu);
+        v36 = v22;
+        _os_log_impl(&dword_1D4644000, v21, OS_LOG_TYPE_INFO, "%{public}@: using DOCDownloadImportManager", buf, 0xCu);
       }
 
-      v19 = objc_alloc_init(MEMORY[0x1E699A3E8]);
-      v23[0] = MEMORY[0x1E69E9820];
-      v23[1] = 3221225472;
-      v23[2] = __42___SFDownload__importPlaceholderIfNeeded___block_invoke_141;
-      v23[3] = &unk_1E84965B0;
-      v22 = *(a1 + 40);
-      v20 = v22.i64[0];
-      v24 = vextq_s8(v22, v22, 8uLL);
-      v25 = *(a1 + 64);
-      [v19 importPlaceholderAtURLToDownloadsDirectory:v20 completion:v23];
+      v23 = objc_alloc_init(MEMORY[0x1E699A3E8]);
+      v27[0] = MEMORY[0x1E69E9820];
+      v27[1] = 3221225472;
+      v27[2] = __42___SFDownload__importPlaceholderIfNeeded___block_invoke_141;
+      v27[3] = &unk_1E84965B0;
+      v26 = *(a1 + 40);
+      v24 = v26.i64[0];
+      v28 = vextq_s8(v26, v26, 8uLL);
+      v29 = *(a1 + 64);
+      [v23 importPlaceholderAtURLToDownloadsDirectory:v24 completion:v27];
     }
 
-    v5 = v9;
+    v7 = v11;
   }
 
   else
   {
-    v16 = WBS_LOG_CHANNEL_PREFIXDownloads();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v20 = WBS_LOG_CHANNEL_PREFIXDownloads(v5, v6);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      __42___SFDownload__importPlaceholderIfNeeded___block_invoke_cold_1(a1, v16);
+      __42___SFDownload__importPlaceholderIfNeeded___block_invoke_cold_1(a1, v20);
     }
 
     (*(*(a1 + 64) + 16))();
   }
 }
 
-void __42___SFDownload__importPlaceholderIfNeeded___block_invoke_136(uint64_t a1)
+void __42___SFDownload__importPlaceholderIfNeeded___block_invoke_136(uint64_t a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v2 = WBS_LOG_CHANNEL_PREFIXDownloads();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v15 = *MEMORY[0x1E69E9840];
+  v3 = WBS_LOG_CHANNEL_PREFIXDownloads(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v3 = *(a1 + 32);
+    v4 = *(a1 + 32);
     *buf = 138543362;
-    v13 = v3;
-    _os_log_impl(&dword_1D4644000, v2, OS_LOG_TYPE_INFO, "%{public}@: using custom placeholder importer", buf, 0xCu);
+    v14 = v4;
+    _os_log_impl(&dword_1D4644000, v3, OS_LOG_TYPE_INFO, "%{public}@: using custom placeholder importer", buf, 0xCu);
   }
 
-  v5 = *(a1 + 32);
-  v4 = *(a1 + 40);
-  v6 = *(a1 + 48);
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __42___SFDownload__importPlaceholderIfNeeded___block_invoke_137;
-  v8[3] = &unk_1E8496588;
-  v9 = v6;
-  v7 = *(a1 + 56);
-  v10 = *(a1 + 32);
-  v11 = v7;
-  [v4 importPlaceholderForDownload:v5 fromURL:v9 completionHandler:v8];
+  v6 = *(a1 + 32);
+  v5 = *(a1 + 40);
+  v7 = *(a1 + 48);
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __42___SFDownload__importPlaceholderIfNeeded___block_invoke_137;
+  v9[3] = &unk_1E8496588;
+  v10 = v7;
+  v8 = *(a1 + 56);
+  v11 = *(a1 + 32);
+  v12 = v8;
+  [v5 importPlaceholderForDownload:v6 fromURL:v10 completionHandler:v9];
 }
 
 void __42___SFDownload__importPlaceholderIfNeeded___block_invoke_137(uint64_t a1, void *a2)
@@ -250,30 +256,30 @@ void __42___SFDownload__importPlaceholderIfNeeded___block_invoke_137(uint64_t a1
   if (v3)
   {
     v4 = +[_SFDownload _sharedQueue];
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __42___SFDownload__importPlaceholderIfNeeded___block_invoke_138;
-    v10[3] = &unk_1E84949D0;
-    v10[4] = *(a1 + 40);
-    v11 = v3;
-    v12 = *(a1 + 48);
-    dispatch_async(v4, v10);
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __42___SFDownload__importPlaceholderIfNeeded___block_invoke_138;
+    v12[3] = &unk_1E84949D0;
+    v12[4] = *(a1 + 40);
+    v13 = v3;
+    v14 = *(a1 + 48);
+    dispatch_async(v4, v12);
   }
 
   else
   {
     v5 = [MEMORY[0x1E696AC08] defaultManager];
     v6 = *(a1 + 32);
-    v13 = 0;
-    v7 = [v5 removeItemAtURL:v6 error:&v13];
-    v8 = v13;
+    v15 = 0;
+    v7 = [v5 removeItemAtURL:v6 error:&v15];
+    v8 = v15;
 
     if ((v7 & 1) == 0)
     {
-      v9 = WBS_LOG_CHANNEL_PREFIXDownloads();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v11 = WBS_LOG_CHANNEL_PREFIXDownloads(v9, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        __42___SFDownload__importPlaceholderIfNeeded___block_invoke_137_cold_1(v9);
+        __42___SFDownload__importPlaceholderIfNeeded___block_invoke_137_cold_1(v11);
       }
     }
 
@@ -284,17 +290,17 @@ void __42___SFDownload__importPlaceholderIfNeeded___block_invoke_137(uint64_t a1
 void __42___SFDownload__importPlaceholderIfNeeded___block_invoke_141(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = a3;
-  v6 = v5;
+  v7 = v5;
   if (!a2 || v5)
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXDownloads();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = WBS_LOG_CHANNEL_PREFIXDownloads(v5, v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __42___SFDownload__importPlaceholderIfNeeded___block_invoke_141_cold_1(a1, v7);
+      __42___SFDownload__importPlaceholderIfNeeded___block_invoke_141_cold_1(a1, v8);
     }
 
-    v8 = [MEMORY[0x1E696AC08] defaultManager];
-    [v8 removeItemAtURL:*(a1 + 40) error:0];
+    v9 = [MEMORY[0x1E696AC08] defaultManager];
+    [v9 removeItemAtURL:*(a1 + 40) error:0];
 
     (*(*(a1 + 48) + 16))();
   }
@@ -322,16 +328,16 @@ uint64_t __60___SFDownload__didImportPlaceholderAtURL_completionHandler___block_
   return v2();
 }
 
-void __46___SFDownload__importCompleteDownloadIfNeeded__block_invoke(uint64_t a1)
+void __46___SFDownload__importCompleteDownloadIfNeeded__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXDownloads();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+  v3 = WBS_LOG_CHANNEL_PREFIXDownloads(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
-    __46___SFDownload__importCompleteDownloadIfNeeded__block_invoke_cold_1(a1, v2);
+    __46___SFDownload__importCompleteDownloadIfNeeded__block_invoke_cold_1(a1, v3);
   }
 
-  v3 = [MEMORY[0x1E69DC668] sharedApplication];
-  [v3 endBackgroundTask:*(*(*(a1 + 40) + 8) + 24)];
+  v4 = [MEMORY[0x1E69DC668] sharedApplication];
+  [v4 endBackgroundTask:*(*(*(a1 + 40) + 8) + 24)];
 }
 
 void __46___SFDownload__importCompleteDownloadIfNeeded__block_invoke_147(uint64_t a1)
@@ -351,41 +357,41 @@ void __46___SFDownload__importCompleteDownloadIfNeeded__block_invoke_2(uint64_t 
 {
   v5 = a2;
   v6 = a3;
-  v7 = v6;
+  v8 = v6;
   if (!v5 || v6)
   {
-    v8 = WBS_LOG_CHANNEL_PREFIXDownloads();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXDownloads(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __46___SFDownload__importCompleteDownloadIfNeeded__block_invoke_2_cold_1(a1, v8);
+      __46___SFDownload__importCompleteDownloadIfNeeded__block_invoke_2_cold_1(a1, v9);
     }
   }
 
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __46___SFDownload__importCompleteDownloadIfNeeded__block_invoke_148;
-  v9[3] = &unk_1E84902F0;
-  v10 = *(a1 + 32);
-  [v10 _didImportFileAtURL:v5 completionHandler:v9];
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __46___SFDownload__importCompleteDownloadIfNeeded__block_invoke_148;
+  v10[3] = &unk_1E84902F0;
+  v11 = *(a1 + 32);
+  [v11 _didImportFileAtURL:v5 completionHandler:v10];
 }
 
-void __46___SFDownload__importCompleteDownloadIfNeeded__block_invoke_148(uint64_t a1)
+void __46___SFDownload__importCompleteDownloadIfNeeded__block_invoke_148(uint64_t a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v2 = WBS_LOG_CHANNEL_PREFIXDownloads();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v11 = *MEMORY[0x1E69E9840];
+  v3 = WBS_LOG_CHANNEL_PREFIXDownloads(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = *(*(*(a1 + 40) + 8) + 24);
-    v6 = 138543618;
-    v7 = v3;
-    v8 = 1024;
-    v9 = v4;
-    _os_log_impl(&dword_1D4644000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@: ending background task %u", &v6, 0x12u);
+    v4 = *(a1 + 32);
+    v5 = *(*(*(a1 + 40) + 8) + 24);
+    v7 = 138543618;
+    v8 = v4;
+    v9 = 1024;
+    v10 = v5;
+    _os_log_impl(&dword_1D4644000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: ending background task %u", &v7, 0x12u);
   }
 
-  v5 = [MEMORY[0x1E69DC668] sharedApplication];
-  [v5 endBackgroundTask:*(*(*(a1 + 40) + 8) + 24)];
+  v6 = [MEMORY[0x1E69DC668] sharedApplication];
+  [v6 endBackgroundTask:*(*(*(a1 + 40) + 8) + 24)];
 }
 
 uint64_t __53___SFDownload__didImportFileAtURL_completionHandler___block_invoke(uint64_t a1)
@@ -400,26 +406,27 @@ void __53___SFDownload__didImportFileAtURL_completionHandler___block_invoke_2(vo
 {
   v2 = a1[4];
   v3 = *MEMORY[0x1E695DCC0];
-  v13 = 0;
-  v4 = [v2 setResourceValue:MEMORY[0x1E695E110] forKey:v3 error:&v13];
-  v5 = v13;
+  v15 = 0;
+  v4 = [v2 setResourceValue:MEMORY[0x1E695E110] forKey:v3 error:&v15];
+  v5 = v15;
+  v7 = v5;
   if ((v4 & 1) == 0)
   {
-    v6 = WBS_LOG_CHANNEL_PREFIXDownloads();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = WBS_LOG_CHANNEL_PREFIXDownloads(v5, v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __53___SFDownload__didImportFileAtURL_completionHandler___block_invoke_2_cold_1(a1, v6);
+      __53___SFDownload__didImportFileAtURL_completionHandler___block_invoke_2_cold_1(a1, v8);
     }
   }
 
-  v7 = a1[4];
-  v8 = *(a1[7] + 8);
-  obj = *(v8 + 40);
-  v9 = [v7 bookmarkDataWithOptions:0 includingResourceValuesForKeys:0 relativeToURL:0 error:&obj];
-  objc_storeStrong((v8 + 40), obj);
-  v10 = *(a1[6] + 8);
-  v11 = *(v10 + 40);
-  *(v10 + 40) = v9;
+  v9 = a1[4];
+  v10 = *(a1[7] + 8);
+  obj = *(v10 + 40);
+  v11 = [v9 bookmarkDataWithOptions:0 includingResourceValuesForKeys:0 relativeToURL:0 error:&obj];
+  objc_storeStrong((v10 + 40), obj);
+  v12 = *(a1[6] + 8);
+  v13 = *(v12 + 40);
+  *(v12 + 40) = v11;
 }
 
 uint64_t __53___SFDownload__didImportFileAtURL_completionHandler___block_invoke_149(uint64_t a1)
@@ -481,11 +488,11 @@ void __67___SFDownload_download_didReceivePlaceholderURL_completionHandler___blo
   [v3 _didImportPlaceholderAtURL:v5 completionHandler:v4];
 }
 
-void __67___SFDownload_download_didReceivePlaceholderURL_completionHandler___block_invoke_2(uint64_t a1, char a2)
+void __67___SFDownload_download_didReceivePlaceholderURL_completionHandler___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   if ((a2 & 1) == 0)
   {
-    v3 = WBS_LOG_CHANNEL_PREFIXDownloads();
+    v3 = WBS_LOG_CHANNEL_PREFIXDownloads(a1, a2);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __67___SFDownload_download_didReceivePlaceholderURL_completionHandler___block_invoke_2_cold_1(a1, v3);
@@ -498,10 +505,10 @@ void __67___SFDownload_download_didReceivePlaceholderURL_completionHandler___blo
 void __81___SFDownload_download_decideDestinationWithSuggestedFilename_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = WBS_LOG_CHANNEL_PREFIXDownloads();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  v5 = WBS_LOG_CHANNEL_PREFIXDownloads(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    __81___SFDownload_download_decideDestinationWithSuggestedFilename_completionHandler___block_invoke_cold_1(a1, v4);
+    __81___SFDownload_download_decideDestinationWithSuggestedFilename_completionHandler___block_invoke_cold_1(a1, v5);
   }
 
   (*(*(a1 + 40) + 16))();
@@ -509,7 +516,7 @@ void __81___SFDownload_download_decideDestinationWithSuggestedFilename_completio
 
 uint64_t __81___SFDownload_download_decideDestinationWithSuggestedFilename_completionHandler___block_invoke_227(uint64_t a1, uint64_t a2)
 {
-  v4 = WBS_LOG_CHANNEL_PREFIXDownloads();
+  v4 = WBS_LOG_CHANNEL_PREFIXDownloads(a1, a2);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     __81___SFDownload_download_decideDestinationWithSuggestedFilename_completionHandler___block_invoke_227_cold_1(a1, a2, v4);
@@ -534,27 +541,27 @@ void __79___SFDownload__continueAfterDownloadConfirmation_destinationCompletionH
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __79___SFDownload__continueAfterDownloadConfirmation_destinationCompletionHandler___block_invoke_2(void *a1)
+uint64_t __79___SFDownload__continueAfterDownloadConfirmation_destinationCompletionHandler___block_invoke_2(void *a1, uint64_t a2)
 {
-  v2 = a1[4];
-  if (v2)
+  v3 = a1[4];
+  if (v3)
   {
-    [v2 stringByAppendingPathComponent:*(a1[5] + 96)];
+    [v3 stringByAppendingPathComponent:*(a1[5] + 96)];
   }
 
   else
   {
     [objc_opt_class() downloadDestinationPathWithFilename:*(a1[5] + 96)];
   }
-  v3 = ;
-  v4 = a1[5];
-  v5 = *(v4 + 128);
-  *(v4 + 128) = v3;
+  v4 = ;
+  v5 = a1[5];
+  v6 = *(v5 + 128);
+  *(v5 + 128) = v4;
 
-  v6 = a1[5];
-  v7 = a1[6];
+  v7 = a1[5];
+  v8 = a1[6];
 
-  return [v6 _continueAfterDecidingFileDownloadPath:v7];
+  return [v7 _continueAfterDecidingFileDownloadPath:v8];
 }
 
 void __54___SFDownload__continueAfterDecidingFileDownloadPath___block_invoke(uint64_t a1, char a2)
@@ -615,7 +622,7 @@ void __29___SFDownload_removeFromDisk__block_invoke_2_cold_1(uint64_t a1, void *
   v3 = a2;
   v4 = [OUTLINED_FUNCTION_2() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_0_8();
-  OUTLINED_FUNCTION_5_2(&dword_1D4644000, v5, v6, "%{public}@: failed to remove file: %{public}@", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_5_2(&dword_1D4644000, v5, v6, "%{public}@: failed to remove file: %{public}@", v7, v8, v9, v10);
 }
 
 void __47___SFDownload_removeDataAndPlaceholderFromDisk__block_invoke_3_cold_1(uint64_t a1, void *a2)

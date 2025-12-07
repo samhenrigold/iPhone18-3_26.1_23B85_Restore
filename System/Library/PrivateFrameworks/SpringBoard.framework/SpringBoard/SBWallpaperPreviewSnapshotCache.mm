@@ -253,12 +253,12 @@ void __67__SBWallpaperPreviewSnapshotCache_regenerateSnapshotsForLocations___blo
   }
 }
 
-void __67__SBWallpaperPreviewSnapshotCache_regenerateSnapshotsForLocations___block_invoke_2(uint64_t a1, void *a2)
+void __67__SBWallpaperPreviewSnapshotCache_regenerateSnapshotsForLocations___block_invoke_2(void *a1, void *a2)
 {
   v7 = a2;
-  *(*(a1 + 32) + 24) &= ~PBUIWallpaperLocationForVariant();
-  v3 = *(a1 + 32);
-  v4 = *(a1 + 40);
+  *(a1[4] + 24) &= ~PBUIWallpaperLocationForVariant();
+  v3 = a1[4];
+  v4 = a1[5];
   v5 = *(v3 + 16);
   if (MGGetBoolAnswer())
   {

@@ -1,4 +1,5 @@
 @interface WFTriggerManager
+- (BOOL)updateNotificationLevel:(int)level forConfiguredTrigger:(id)trigger error:(id *)error;
 - (NSXPCConnection)connection;
 - (WFTriggerManager)initWithDatabase:(id)database;
 - (id)allConfiguredTriggers;
@@ -11,10 +12,64 @@
 - (void)saveNewConfiguredTrigger:(id)trigger notifyDaemon:(BOOL)daemon completion:(id)completion;
 - (void)saveNewConfiguredTrigger:(id)trigger workflow:(id)workflow notifyDaemon:(BOOL)daemon completion:(id)completion;
 - (void)saveNewConfiguredTrigger:(id)trigger workflowReference:(id)reference notifyDaemon:(BOOL)daemon completion:(id)completion;
+- (void)storeLoopDetectionForTriggerWithIdentifier:(id)identifier loopDetected:(BOOL)detected;
 - (void)updateConfiguredTrigger:(id)trigger triggerID:(id)d notifyDaemon:(BOOL)daemon completion:(id)completion;
 @end
 
 @implementation WFTriggerManager
+
+- (void)storeLoopDetectionForTriggerWithIdentifier:(id)identifier loopDetected:(BOOL)detected
+{
+  detectedCopy = detected;
+  v22 = *MEMORY[0x1E69E9840];
+  identifierCopy = identifier;
+  database = [(WFTriggerManager *)self database];
+  v8 = [database configuredTriggerForTriggerID:identifierCopy];
+
+  database2 = [(WFTriggerManager *)self database];
+  v17 = 0;
+  v10 = [database2 recordWithDescriptor:v8 error:&v17];
+  v11 = v17;
+
+  if (!v10)
+  {
+    v15 = getWFTriggerNotificationsLogObject();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136315394;
+      v19 = "[WFTriggerManager storeLoopDetectionForTriggerWithIdentifier:loopDetected:]";
+      v20 = 2112;
+      v21 = v11;
+      _os_log_impl(&dword_1CA256000, v15, OS_LOG_TYPE_ERROR, "%s Could not set loop detection for trigger due to no existing record error: %@", buf, 0x16u);
+    }
+
+    goto LABEL_8;
+  }
+
+  [v10 setPotentialLoopDetected:detectedCopy];
+  database3 = [(WFTriggerManager *)self database];
+  v16 = v11;
+  v13 = [database3 saveRecord:v10 withDescriptor:v8 error:&v16];
+  v14 = v16;
+
+  if ((v13 & 1) == 0)
+  {
+    v15 = getWFTriggerNotificationsLogObject();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136315394;
+      v19 = "[WFTriggerManager storeLoopDetectionForTriggerWithIdentifier:loopDetected:]";
+      v20 = 2112;
+      v21 = v14;
+      _os_log_impl(&dword_1CA256000, v15, OS_LOG_TYPE_ERROR, "%s Could not set loop detection for trigger due to error: %@", buf, 0x16u);
+    }
+
+    v11 = v14;
+LABEL_8:
+
+    v14 = v11;
+  }
+}
 
 - (void)disableTriggersWithIdentifiers:(id)identifiers withReason:(id)reason
 {
@@ -31,16 +86,16 @@
 
 void __62__WFTriggerManager_disableTriggersWithIdentifiers_withReason___block_invoke(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
   v4 = a2;
   v5 = [v3 database];
   v6 = [v5 configuredTriggerForTriggerID:v4];
 
   v7 = [*(a1 + 32) database];
-  v16 = 0;
-  v8 = [v7 recordWithDescriptor:v6 error:&v16];
-  v9 = v16;
+  v15 = 0;
+  v8 = [v7 recordWithDescriptor:v6 error:&v15];
+  v9 = v15;
 
   if (!v8)
   {
@@ -48,9 +103,9 @@ void __62__WFTriggerManager_disableTriggersWithIdentifiers_withReason___block_in
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v18 = "[WFTriggerManager disableTriggersWithIdentifiers:withReason:]_block_invoke";
-      v19 = 2112;
-      v20 = v9;
+      v17 = "[WFTriggerManager disableTriggersWithIdentifiers:withReason:]_block_invoke";
+      v18 = 2112;
+      v19 = v9;
       _os_log_impl(&dword_1CA256000, v13, OS_LOG_TYPE_ERROR, "%s Could not disable trigger due to no existing record error: %@", buf, 0x16u);
     }
 
@@ -64,9 +119,9 @@ void __62__WFTriggerManager_disableTriggersWithIdentifiers_withReason___block_in
 
   [v8 setEnabled:0];
   v10 = [*(a1 + 32) database];
-  v15 = v9;
-  v11 = [v10 saveRecord:v8 withDescriptor:v6 error:&v15];
-  v12 = v15;
+  v14 = v9;
+  v11 = [v10 saveRecord:v8 withDescriptor:v6 error:&v14];
+  v12 = v14;
 
   if ((v11 & 1) == 0)
   {
@@ -74,9 +129,9 @@ void __62__WFTriggerManager_disableTriggersWithIdentifiers_withReason___block_in
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v18 = "[WFTriggerManager disableTriggersWithIdentifiers:withReason:]_block_invoke";
-      v19 = 2112;
-      v20 = v12;
+      v17 = "[WFTriggerManager disableTriggersWithIdentifiers:withReason:]_block_invoke";
+      v18 = 2112;
+      v19 = v12;
       _os_log_impl(&dword_1CA256000, v13, OS_LOG_TYPE_ERROR, "%s Could not disable trigger due to error: %@", buf, 0x16u);
     }
 
@@ -85,8 +140,6 @@ LABEL_10:
 
     v12 = v9;
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)disableAllTriggers
@@ -111,6 +164,34 @@ id __38__WFTriggerManager_disableAllTriggers__block_invoke(uint64_t a1, void *a2
   }
 
   return v3;
+}
+
+- (BOOL)updateNotificationLevel:(int)level forConfiguredTrigger:(id)trigger error:(id *)error
+{
+  v6 = *&level;
+  triggerCopy = trigger;
+  if (!triggerCopy)
+  {
+    currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
+    [currentHandler handleFailureInMethod:a2 object:self file:@"WFTriggerManager.m" lineNumber:428 description:{@"Invalid parameter not satisfying: %@", @"configuredTrigger"}];
+  }
+
+  database = [(WFTriggerManager *)self database];
+  v11 = [database recordWithDescriptor:triggerCopy error:error];
+
+  if (v11)
+  {
+    [v11 setNotificationLevel:v6];
+    database2 = [(WFTriggerManager *)self database];
+    v13 = [database2 saveRecord:v11 withDescriptor:triggerCopy error:error];
+  }
+
+  else
+  {
+    v13 = 0;
+  }
+
+  return v13;
 }
 
 - (id)configuredTriggerWithID:(id)d
@@ -210,29 +291,29 @@ LABEL_3:
 
 void __74__WFTriggerManager_deleteTriggersWithIdentifiers_notifyDaemon_completion___block_invoke(uint64_t a1)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   obj = *(a1 + 32);
-  v2 = [obj countByEnumeratingWithState:&v24 objects:v34 count:16];
+  v2 = [obj countByEnumeratingWithState:&v23 objects:v33 count:16];
   if (v2)
   {
     v4 = v2;
-    v5 = *v25;
+    v5 = *v24;
     *&v3 = 136315650;
-    v21 = v3;
+    v20 = v3;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v25 != v5)
+        if (*v24 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v24 + 1) + 8 * i);
+        v7 = *(*(&v23 + 1) + 8 * i);
         v8 = [*(a1 + 40) database];
         v9 = [v8 configuredTriggerForTriggerID:v7];
 
@@ -242,9 +323,9 @@ void __74__WFTriggerManager_deleteTriggersWithIdentifiers_notifyDaemon_completio
         if (v9)
         {
           v12 = [*(a1 + 40) database];
-          v23 = 0;
-          v13 = [v12 deleteReference:v9 error:&v23];
-          v14 = v23;
+          v22 = 0;
+          v13 = [v12 deleteReference:v9 error:&v22];
+          v14 = v22;
 
           if (v13)
           {
@@ -258,12 +339,12 @@ void __74__WFTriggerManager_deleteTriggersWithIdentifiers_notifyDaemon_completio
             v17 = getWFTriggersLogObject();
             if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
             {
-              *buf = v21;
-              v29 = "[WFTriggerManager deleteTriggersWithIdentifiers:notifyDaemon:completion:]_block_invoke";
-              v30 = 2112;
-              v31 = v7;
-              v32 = 2114;
-              v33 = v14;
+              *buf = v20;
+              v28 = "[WFTriggerManager deleteTriggersWithIdentifiers:notifyDaemon:completion:]_block_invoke";
+              v29 = 2112;
+              v30 = v7;
+              v31 = 2114;
+              v32 = v14;
               _os_log_impl(&dword_1CA256000, v17, OS_LOG_TYPE_ERROR, "%s Failed to delete triggerID (%@) error: %{public}@", buf, 0x20u);
             }
 
@@ -280,21 +361,19 @@ void __74__WFTriggerManager_deleteTriggersWithIdentifiers_notifyDaemon_completio
           if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
           {
             *buf = 136315394;
-            v29 = "[WFTriggerManager deleteTriggersWithIdentifiers:notifyDaemon:completion:]_block_invoke";
-            v30 = 2112;
-            v31 = v7;
+            v28 = "[WFTriggerManager deleteTriggersWithIdentifiers:notifyDaemon:completion:]_block_invoke";
+            v29 = 2112;
+            v30 = v7;
             _os_log_impl(&dword_1CA256000, v14, OS_LOG_TYPE_ERROR, "%s No configuredTrigger for triggerID %@", buf, 0x16u);
           }
         }
       }
 
-      v4 = [obj countByEnumeratingWithState:&v24 objects:v34 count:16];
+      v4 = [obj countByEnumeratingWithState:&v23 objects:v33 count:16];
     }
 
     while (v4);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __74__WFTriggerManager_deleteTriggersWithIdentifiers_notifyDaemon_completion___block_invoke_274(uint64_t a1, void *a2, void *a3)
@@ -316,7 +395,7 @@ void __74__WFTriggerManager_deleteTriggersWithIdentifiers_notifyDaemon_completio
 
 void __74__WFTriggerManager_deleteTriggersWithIdentifiers_notifyDaemon_completion___block_invoke_2(uint64_t a1, char a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if ((a2 & 1) == 0)
   {
@@ -324,23 +403,21 @@ void __74__WFTriggerManager_deleteTriggersWithIdentifiers_notifyDaemon_completio
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v7 = *(a1 + 32);
-      v9 = 136315650;
-      v10 = "[WFTriggerManager deleteTriggersWithIdentifiers:notifyDaemon:completion:]_block_invoke_2";
-      v11 = 2112;
-      v12 = v7;
-      v13 = 2114;
-      v14 = v5;
-      _os_log_impl(&dword_1CA256000, v6, OS_LOG_TYPE_ERROR, "%s Failed to unregister triggerID (%@) error: %{public}@", &v9, 0x20u);
+      v8 = 136315650;
+      v9 = "[WFTriggerManager deleteTriggersWithIdentifiers:notifyDaemon:completion:]_block_invoke_2";
+      v10 = 2112;
+      v11 = v7;
+      v12 = 2114;
+      v13 = v5;
+      _os_log_impl(&dword_1CA256000, v6, OS_LOG_TYPE_ERROR, "%s Failed to unregister triggerID (%@) error: %{public}@", &v8, 0x20u);
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)deleteTriggerWithIdentifier:(id)identifier notifyDaemon:(BOOL)daemon completion:(id)completion
 {
   daemonCopy = daemon;
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   completionCopy = completion;
   v11 = completionCopy;
@@ -373,9 +450,9 @@ LABEL_3:
   if (v13)
   {
     database2 = [(WFTriggerManager *)self database];
-    v24 = 0;
-    v15 = [database2 deleteReference:v13 error:&v24];
-    v16 = v24;
+    v23 = 0;
+    v15 = [database2 deleteReference:v13 error:&v23];
+    v16 = v23;
 
     if ((v15 & 1) == 0)
     {
@@ -390,9 +467,9 @@ LABEL_3:
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v26 = "[WFTriggerManager deleteTriggerWithIdentifier:notifyDaemon:completion:]";
-      v27 = 2112;
-      v28 = identifierCopy;
+      v25 = "[WFTriggerManager deleteTriggerWithIdentifier:notifyDaemon:completion:]";
+      v26 = 2112;
+      v27 = identifierCopy;
       _os_log_impl(&dword_1CA256000, v17, OS_LOG_TYPE_ERROR, "%s No configuredTrigger for triggerID %@", buf, 0x16u);
     }
 
@@ -414,8 +491,6 @@ LABEL_3:
   }
 
 LABEL_12:
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)associateWorkflowToTriggerID:(id)d deletingExistingReference:(BOOL)reference notifyDaemon:(BOOL)daemon workflowReference:(id)workflowReference completion:(id)completion
@@ -542,7 +617,7 @@ LABEL_10:
 - (void)updateConfiguredTrigger:(id)trigger triggerID:(id)d notifyDaemon:(BOOL)daemon completion:(id)completion
 {
   daemonCopy = daemon;
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   triggerCopy = trigger;
   dCopy = d;
   completionCopy = completion;
@@ -590,13 +665,13 @@ LABEL_4:
   if (v15)
   {
     database2 = [(WFTriggerManager *)self database];
-    v35 = 0;
-    v17 = [database2 recordWithDescriptor:v15 error:&v35];
-    v18 = v35;
+    v34 = 0;
+    v17 = [database2 recordWithDescriptor:v15 error:&v34];
+    v18 = v34;
 
     if (v17)
     {
-      v33 = daemonCopy;
+      v32 = daemonCopy;
       triggerData = [triggerCopy triggerData];
       [v17 setTriggerData:triggerData];
 
@@ -613,13 +688,13 @@ LABEL_4:
       [v17 setSelectedEntryMetadata:selectedEntryMetadata];
 
       database3 = [(WFTriggerManager *)self database];
-      v34 = v18;
-      v23 = [database3 saveRecord:v17 withDescriptor:v15 error:&v34];
-      v24 = v34;
+      v33 = v18;
+      v23 = [database3 saveRecord:v17 withDescriptor:v15 error:&v33];
+      v24 = v33;
 
       if (v23)
       {
-        if (v33)
+        if (v32)
         {
           if (_os_feature_enabled_impl())
           {
@@ -662,86 +737,82 @@ LABEL_4:
     if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v37 = "[WFTriggerManager updateConfiguredTrigger:triggerID:notifyDaemon:completion:]";
-      v38 = 2112;
-      v39 = dCopy;
+      v36 = "[WFTriggerManager updateConfiguredTrigger:triggerID:notifyDaemon:completion:]";
+      v37 = 2112;
+      v38 = dCopy;
       _os_log_impl(&dword_1CA256000, v27, OS_LOG_TYPE_ERROR, "%s Couldn't find trigger to update for triggerID (%@)", buf, 0x16u);
     }
 
     v18 = [MEMORY[0x1E696ABC0] errorWithDomain:@"WFTriggerErrorDomain" code:1001 userInfo:0];
     (completionCopy)[2](completionCopy, 0, v18);
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 - (void)saveNewConfiguredTrigger:(id)trigger workflowReference:(id)reference notifyDaemon:(BOOL)daemon completion:(id)completion
 {
   daemonCopy = daemon;
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   triggerCopy = trigger;
   referenceCopy = reference;
   completionCopy = completion;
-  v35 = 0;
-  v36 = &v35;
-  v37 = 0x3032000000;
-  v38 = __Block_byref_object_copy__41507;
-  v39 = __Block_byref_object_dispose__41508;
-  v40 = 0;
-  v29 = 0;
-  v30 = &v29;
-  v31 = 0x3032000000;
-  v32 = __Block_byref_object_copy__41507;
-  v33 = __Block_byref_object_dispose__41508;
   v34 = 0;
+  v35 = &v34;
+  v36 = 0x3032000000;
+  v37 = __Block_byref_object_copy__41507;
+  v38 = __Block_byref_object_dispose__41508;
+  v39 = 0;
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x3032000000;
+  v31 = __Block_byref_object_copy__41507;
+  v32 = __Block_byref_object_dispose__41508;
+  v33 = 0;
   v13 = getWFTriggersLogObject();
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v42 = "[WFTriggerManager saveNewConfiguredTrigger:workflowReference:notifyDaemon:completion:]";
-    v43 = 2112;
-    v44 = triggerCopy;
+    v41 = "[WFTriggerManager saveNewConfiguredTrigger:workflowReference:notifyDaemon:completion:]";
+    v42 = 2112;
+    v43 = triggerCopy;
     _os_log_impl(&dword_1CA256000, v13, OS_LOG_TYPE_DEFAULT, "%s Saving new configured trigger: %@", buf, 0x16u);
   }
 
   database = [(WFTriggerManager *)self database];
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __87__WFTriggerManager_saveNewConfiguredTrigger_workflowReference_notifyDaemon_completion___block_invoke;
-  v24[3] = &unk_1E8379B48;
-  v27 = &v29;
-  v24[4] = self;
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __87__WFTriggerManager_saveNewConfiguredTrigger_workflowReference_notifyDaemon_completion___block_invoke;
+  v23[3] = &unk_1E8379B48;
+  v26 = &v28;
+  v23[4] = self;
   v15 = triggerCopy;
-  v25 = v15;
+  v24 = v15;
   v16 = referenceCopy;
-  v26 = v16;
-  v28 = &v35;
-  v17 = v36;
-  obj = v36[5];
-  [database performTransactionWithReason:@"save trigger with workflow" block:v24 error:&obj];
+  v25 = v16;
+  v27 = &v34;
+  v17 = v35;
+  obj = v35[5];
+  [database performTransactionWithReason:@"save trigger with workflow" block:v23 error:&obj];
   objc_storeStrong(v17 + 5, obj);
 
-  v18 = v30[5];
+  v18 = v29[5];
   if (v18 && daemonCopy)
   {
     standardClient = [MEMORY[0x1E69E0938] standardClient];
-    identifier = [v30[5] identifier];
-    v22[0] = MEMORY[0x1E69E9820];
-    v22[1] = 3221225472;
-    v22[2] = __87__WFTriggerManager_saveNewConfiguredTrigger_workflowReference_notifyDaemon_completion___block_invoke_2;
-    v22[3] = &unk_1E8379AF8;
-    v22[4] = &v29;
-    [standardClient refreshTriggerWithIdentifier:identifier completion:v22];
+    identifier = [v29[5] identifier];
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __87__WFTriggerManager_saveNewConfiguredTrigger_workflowReference_notifyDaemon_completion___block_invoke_2;
+    v21[3] = &unk_1E8379AF8;
+    v21[4] = &v28;
+    [standardClient refreshTriggerWithIdentifier:identifier completion:v21];
 
-    v18 = v30[5];
+    v18 = v29[5];
   }
 
-  (completionCopy)[2](completionCopy, v18, v36[5]);
+  (completionCopy)[2](completionCopy, v18, v35[5]);
 
-  _Block_object_dispose(&v29, 8);
-  _Block_object_dispose(&v35, 8);
-
-  v21 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v28, 8);
+  _Block_object_dispose(&v34, 8);
 }
 
 void __87__WFTriggerManager_saveNewConfiguredTrigger_workflowReference_notifyDaemon_completion___block_invoke(uint64_t a1, void **a2)
@@ -763,7 +834,7 @@ void __87__WFTriggerManager_saveNewConfiguredTrigger_workflowReference_notifyDae
 
 void __87__WFTriggerManager_saveNewConfiguredTrigger_workflowReference_notifyDaemon_completion___block_invoke_2(uint64_t a1, char a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if ((a2 & 1) == 0)
   {
@@ -771,17 +842,15 @@ void __87__WFTriggerManager_saveNewConfiguredTrigger_workflowReference_notifyDae
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v7 = *(*(*(a1 + 32) + 8) + 40);
-      v9 = 136315650;
-      v10 = "[WFTriggerManager saveNewConfiguredTrigger:workflowReference:notifyDaemon:completion:]_block_invoke_2";
-      v11 = 2112;
-      v12 = v7;
-      v13 = 2114;
-      v14 = v5;
-      _os_log_impl(&dword_1CA256000, v6, OS_LOG_TYPE_ERROR, "%s failed to refresh new trigger (%@): %{public}@", &v9, 0x20u);
+      v8 = 136315650;
+      v9 = "[WFTriggerManager saveNewConfiguredTrigger:workflowReference:notifyDaemon:completion:]_block_invoke_2";
+      v10 = 2112;
+      v11 = v7;
+      v12 = 2114;
+      v13 = v5;
+      _os_log_impl(&dword_1CA256000, v6, OS_LOG_TYPE_ERROR, "%s failed to refresh new trigger (%@): %{public}@", &v8, 0x20u);
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)saveNewConfiguredTrigger:(id)trigger workflow:(id)workflow notifyDaemon:(BOOL)daemon completion:(id)completion
@@ -945,7 +1014,7 @@ void __78__WFTriggerManager_saveNewConfiguredTrigger_workflow_notifyDaemon_compl
 
 void __78__WFTriggerManager_saveNewConfiguredTrigger_workflow_notifyDaemon_completion___block_invoke_2(uint64_t a1, char a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if ((a2 & 1) == 0)
   {
@@ -953,22 +1022,20 @@ void __78__WFTriggerManager_saveNewConfiguredTrigger_workflow_notifyDaemon_compl
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v7 = *(*(*(a1 + 32) + 8) + 40);
-      v9 = 136315650;
-      v10 = "[WFTriggerManager saveNewConfiguredTrigger:workflow:notifyDaemon:completion:]_block_invoke_2";
-      v11 = 2112;
-      v12 = v7;
-      v13 = 2114;
-      v14 = v5;
-      _os_log_impl(&dword_1CA256000, v6, OS_LOG_TYPE_ERROR, "%s failed to refresh new trigger (%@): %{public}@", &v9, 0x20u);
+      v8 = 136315650;
+      v9 = "[WFTriggerManager saveNewConfiguredTrigger:workflow:notifyDaemon:completion:]_block_invoke_2";
+      v10 = 2112;
+      v11 = v7;
+      v12 = 2114;
+      v13 = v5;
+      _os_log_impl(&dword_1CA256000, v6, OS_LOG_TYPE_ERROR, "%s failed to refresh new trigger (%@): %{public}@", &v8, 0x20u);
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __78__WFTriggerManager_saveNewConfiguredTrigger_workflow_notifyDaemon_completion___block_invoke_258(uint64_t a1, char a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if ((a2 & 1) == 0)
   {
@@ -976,17 +1043,15 @@ void __78__WFTriggerManager_saveNewConfiguredTrigger_workflow_notifyDaemon_compl
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v7 = *(*(*(a1 + 32) + 8) + 40);
-      v9 = 136315650;
-      v10 = "[WFTriggerManager saveNewConfiguredTrigger:workflow:notifyDaemon:completion:]_block_invoke";
-      v11 = 2112;
-      v12 = v7;
-      v13 = 2114;
-      v14 = v5;
-      _os_log_impl(&dword_1CA256000, v6, OS_LOG_TYPE_ERROR, "%s failed to refresh new trigger (%@): %{public}@", &v9, 0x20u);
+      v8 = 136315650;
+      v9 = "[WFTriggerManager saveNewConfiguredTrigger:workflow:notifyDaemon:completion:]_block_invoke";
+      v10 = 2112;
+      v11 = v7;
+      v12 = 2114;
+      v13 = v5;
+      _os_log_impl(&dword_1CA256000, v6, OS_LOG_TYPE_ERROR, "%s failed to refresh new trigger (%@): %{public}@", &v8, 0x20u);
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)saveNewConfiguredTrigger:(id)trigger notifyDaemon:(BOOL)daemon completion:(id)completion
@@ -1102,7 +1167,7 @@ void __69__WFTriggerManager_saveNewConfiguredTrigger_notifyDaemon_completion___b
 
 void __69__WFTriggerManager_saveNewConfiguredTrigger_notifyDaemon_completion___block_invoke_2(uint64_t a1, char a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if ((a2 & 1) == 0)
   {
@@ -1110,22 +1175,20 @@ void __69__WFTriggerManager_saveNewConfiguredTrigger_notifyDaemon_completion___b
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v7 = *(*(*(a1 + 32) + 8) + 40);
-      v9 = 136315650;
-      v10 = "[WFTriggerManager saveNewConfiguredTrigger:notifyDaemon:completion:]_block_invoke_2";
-      v11 = 2112;
-      v12 = v7;
-      v13 = 2114;
-      v14 = v5;
-      _os_log_impl(&dword_1CA256000, v6, OS_LOG_TYPE_ERROR, "%s failed to refresh new trigger (%@): %{public}@", &v9, 0x20u);
+      v8 = 136315650;
+      v9 = "[WFTriggerManager saveNewConfiguredTrigger:notifyDaemon:completion:]_block_invoke_2";
+      v10 = 2112;
+      v11 = v7;
+      v12 = 2114;
+      v13 = v5;
+      _os_log_impl(&dword_1CA256000, v6, OS_LOG_TYPE_ERROR, "%s failed to refresh new trigger (%@): %{public}@", &v8, 0x20u);
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __69__WFTriggerManager_saveNewConfiguredTrigger_notifyDaemon_completion___block_invoke_245(uint64_t a1, char a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if ((a2 & 1) == 0)
   {
@@ -1133,17 +1196,15 @@ void __69__WFTriggerManager_saveNewConfiguredTrigger_notifyDaemon_completion___b
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v7 = *(*(*(a1 + 32) + 8) + 40);
-      v9 = 136315650;
-      v10 = "[WFTriggerManager saveNewConfiguredTrigger:notifyDaemon:completion:]_block_invoke";
-      v11 = 2112;
-      v12 = v7;
-      v13 = 2114;
-      v14 = v5;
-      _os_log_impl(&dword_1CA256000, v6, OS_LOG_TYPE_ERROR, "%s failed to refresh new trigger (%@): %{public}@", &v9, 0x20u);
+      v8 = 136315650;
+      v9 = "[WFTriggerManager saveNewConfiguredTrigger:notifyDaemon:completion:]_block_invoke";
+      v10 = 2112;
+      v11 = v7;
+      v12 = 2114;
+      v13 = v5;
+      _os_log_impl(&dword_1CA256000, v6, OS_LOG_TYPE_ERROR, "%s failed to refresh new trigger (%@): %{public}@", &v8, 0x20u);
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (NSXPCConnection)connection
@@ -1167,32 +1228,28 @@ void __69__WFTriggerManager_saveNewConfiguredTrigger_notifyDaemon_completion___b
   return connection;
 }
 
-void __30__WFTriggerManager_connection__block_invoke_228()
+void __30__WFTriggerManager_connection__block_invoke_228(uint64_t a1)
 {
   v4 = *MEMORY[0x1E69E9840];
-  v0 = getWFTriggersLogObject();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = getWFTriggersLogObject();
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     v2 = 136315138;
     v3 = "[WFTriggerManager connection]_block_invoke";
-    _os_log_impl(&dword_1CA256000, v0, OS_LOG_TYPE_ERROR, "%s Client connection invalidated to automationd", &v2, 0xCu);
+    _os_log_impl(&dword_1CA256000, v1, OS_LOG_TYPE_ERROR, "%s Client connection invalidated to automationd", &v2, 0xCu);
   }
-
-  v1 = *MEMORY[0x1E69E9840];
 }
 
-void __30__WFTriggerManager_connection__block_invoke()
+void __30__WFTriggerManager_connection__block_invoke(uint64_t a1)
 {
   v4 = *MEMORY[0x1E69E9840];
-  v0 = getWFTriggersLogObject();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = getWFTriggersLogObject();
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     v2 = 136315138;
     v3 = "[WFTriggerManager connection]_block_invoke";
-    _os_log_impl(&dword_1CA256000, v0, OS_LOG_TYPE_ERROR, "%s Client connection to automationd interrupted", &v2, 0xCu);
+    _os_log_impl(&dword_1CA256000, v1, OS_LOG_TYPE_ERROR, "%s Client connection to automationd interrupted", &v2, 0xCu);
   }
-
-  v1 = *MEMORY[0x1E69E9840];
 }
 
 - (WFTriggerManager)initWithDatabase:(id)database

@@ -144,7 +144,7 @@
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v5 = [devices countByEnumeratingWithState:&v14 objects:v24 count:16];
+  v5 = objc_msgSend_countByEnumeratingWithState_objects_count_(devices);
   if (v5)
   {
     v6 = v5;
@@ -166,7 +166,7 @@
         }
       }
 
-      v6 = [devices countByEnumeratingWithState:&v14 objects:v24 count:16];
+      v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(devices);
       if (v6)
       {
         continue;
@@ -588,32 +588,25 @@ LABEL_12:
 - (void)withClients:(id)clients
 {
   [-[CLLocationStreamingConnectionManager universe](self "universe")];
-  v10 = 0u;
-  v11 = 0u;
-  v12 = 0u;
-  v13 = 0u;
   clients = self->_clients;
-  v6 = [(NSMutableSet *)clients countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(clients, 0);
   if (v6)
   {
     v7 = v6;
-    v8 = *v11;
+    v8 = MEMORY[0];
     do
     {
-      v9 = 0;
-      do
+      for (i = 0; i != v7; i = i + 1)
       {
-        if (*v11 != v8)
+        if (MEMORY[0] != v8)
         {
           objc_enumerationMutation(clients);
         }
 
-        (*(clients + 2))(clients, *(*(&v10 + 1) + 8 * v9));
-        v9 = v9 + 1;
+        (*(clients + 2))(clients, *(8 * i));
       }
 
-      while (v7 != v9);
-      v7 = [(NSMutableSet *)clients countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(clients);
     }
 
     while (v7);
@@ -807,7 +800,7 @@ LABEL_12:
           _os_log_impl(dword_100000000, v22, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Assertion failed, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
         }
 
-        abort_report_np();
+        abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocation/Daemon/Shared/Streaming/CLLocationStreamingConnectionManager.mm", 528, "[CLLocationStreamingConnectionManager service:account:identifier:didSendWithSuccess:error:]");
 LABEL_41:
         sub_1018BAE30();
       }

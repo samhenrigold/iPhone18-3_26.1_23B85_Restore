@@ -420,7 +420,6 @@ LABEL_15:
   has = self->_has;
   if ((has & 0x40) != 0)
   {
-    dataFrames = self->_dataFrames;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 8) == 0)
@@ -440,7 +439,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  dataCFack = self->_dataCFack;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -455,7 +453,6 @@ LABEL_4:
   }
 
 LABEL_18:
-  dataCFpoll = self->_dataCFpoll;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -470,7 +467,6 @@ LABEL_5:
   }
 
 LABEL_19:
-  dataCFackCFpoll = self->_dataCFackCFpoll;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x80) == 0)
@@ -485,7 +481,6 @@ LABEL_6:
   }
 
 LABEL_20:
-  null = self->_null;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 1) == 0)
@@ -500,7 +495,6 @@ LABEL_7:
   }
 
 LABEL_21:
-  cFack = self->_cFack;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -515,7 +509,6 @@ LABEL_8:
   }
 
 LABEL_22:
-  cFpoll = self->_cFpoll;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -530,7 +523,6 @@ LABEL_9:
   }
 
 LABEL_23:
-  cFackCFpoll = self->_cFackCFpoll;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x100) == 0)
@@ -545,7 +537,6 @@ LABEL_10:
   }
 
 LABEL_24:
-  qoSdata = self->_qoSdata;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x200) == 0)
@@ -560,7 +551,6 @@ LABEL_11:
   }
 
 LABEL_25:
-  qoSdataCFack = self->_qoSdataCFack;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x400) == 0)
@@ -575,7 +565,6 @@ LABEL_12:
   }
 
 LABEL_26:
-  qoSdataCFackCFpoll = self->_qoSdataCFackCFpoll;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x2000) == 0)
@@ -587,7 +576,6 @@ LABEL_13:
     }
 
 LABEL_28:
-    qoSnodataCFpoll = self->_qoSnodataCFpoll;
     PBDataWriterWriteUint64Field();
     if ((*&self->_has & 0x800) == 0)
     {
@@ -598,7 +586,6 @@ LABEL_28:
   }
 
 LABEL_27:
-  qoSnull = self->_qoSnull;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x1000) != 0)
@@ -613,7 +600,6 @@ LABEL_14:
   }
 
 LABEL_29:
-  qoSnodataCFack = self->_qoSnodataCFack;
 
   PBDataWriterWriteUint64Field();
 }

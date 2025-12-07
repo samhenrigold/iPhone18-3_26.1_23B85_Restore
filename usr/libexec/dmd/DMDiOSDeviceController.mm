@@ -440,9 +440,9 @@ LABEL_56:
 
   v51 = objc_opt_new();
   v4 = objc_opt_new();
-  v69 = 0;
-  v5 = [v3 getMobileEquipmentInfo:&v69];
-  v6 = v69;
+  v67 = 0;
+  v5 = [v3 getMobileEquipmentInfo:&v67];
+  v6 = v67;
   if (v5)
   {
     meInfoList = [v5 meInfoList];
@@ -461,27 +461,27 @@ LABEL_56:
     v47 = v6;
     v48 = v5;
     v8 = [(DMDiOSDeviceController *)self _esimIdentifierFromEquipmentInfoArray:meInfoList];
+    v63 = 0u;
+    v64 = 0u;
     v65 = 0u;
     v66 = 0u;
-    v67 = 0u;
-    v68 = 0u;
     v46 = meInfoList;
     v9 = meInfoList;
-    v10 = [v9 countByEnumeratingWithState:&v65 objects:v72 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v63 objects:v70 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v66;
+      v12 = *v64;
       while (2)
       {
         for (i = 0; i != v11; i = i + 1)
         {
-          if (*v66 != v12)
+          if (*v64 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v65 + 1) + 8 * i);
+          v14 = *(*(&v63 + 1) + 8 * i);
           slotId = [v14 slotId];
           if (!slotId)
           {
@@ -497,13 +497,13 @@ LABEL_56:
           v17 = [v4 objectForKeyedSubscript:v16];
           if (v17 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
           {
-            sub_1000825A4(&buf, v64);
+            sub_1000825A4(buf, &buf[1]);
           }
 
           [v4 setObject:v14 forKeyedSubscript:v16];
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v65 objects:v72 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v63 objects:v70 count:16];
         if (v11)
         {
           continue;
@@ -516,10 +516,10 @@ LABEL_56:
 LABEL_22:
 
     v19 = objc_opt_new();
-    v62 = 0;
-    v20 = [v3 getSubscriptionInfoWithError:&v62];
+    v61 = 0;
+    v20 = [v3 getSubscriptionInfoWithError:&v61];
     v49 = v4;
-    v44 = v62;
+    v44 = v61;
     v45 = v20;
     if (v20)
     {
@@ -527,26 +527,26 @@ LABEL_22:
       if (subscriptionsInUse)
       {
         v43 = v3;
-        v60 = 0u;
-        v61 = 0u;
-        v58 = 0u;
         v59 = 0u;
+        v60 = 0u;
+        v57 = 0u;
+        v58 = 0u;
         v22 = subscriptionsInUse;
-        v23 = [v22 countByEnumeratingWithState:&v58 objects:v71 count:16];
+        v23 = [v22 countByEnumeratingWithState:&v57 objects:v69 count:16];
         if (v23)
         {
           v24 = v23;
-          v25 = *v59;
+          v25 = *v58;
           while (2)
           {
             for (j = 0; j != v24; j = j + 1)
             {
-              if (*v59 != v25)
+              if (*v58 != v25)
               {
                 objc_enumerationMutation(v22);
               }
 
-              v27 = *(*(&v58 + 1) + 8 * j);
+              v27 = *(*(&v57 + 1) + 8 * j);
               slotID = [v27 slotID];
               if (!slotID)
               {
@@ -562,13 +562,13 @@ LABEL_22:
               v30 = [v19 objectForKeyedSubscript:v29];
               if (v30 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
               {
-                sub_10008262C(&v56, v57);
+                sub_10008262C(v56, &v56[1]);
               }
 
               [v19 setObject:v27 forKeyedSubscript:v29];
             }
 
-            v24 = [v22 countByEnumeratingWithState:&v58 objects:v71 count:16];
+            v24 = [v22 countByEnumeratingWithState:&v57 objects:v69 count:16];
             if (v24)
             {
               continue;
@@ -602,7 +602,7 @@ LABEL_46:
     v52 = 0u;
     v53 = 0u;
     allValues = [v49 allValues];
-    v33 = [allValues countByEnumeratingWithState:&v52 objects:v70 count:16];
+    v33 = [allValues countByEnumeratingWithState:&v52 objects:v68 count:16];
     if (v33)
     {
       v34 = v33;
@@ -624,7 +624,7 @@ LABEL_46:
           [v51 addObject:v40];
         }
 
-        v34 = [allValues countByEnumeratingWithState:&v52 objects:v70 count:16];
+        v34 = [allValues countByEnumeratingWithState:&v52 objects:v68 count:16];
       }
 
       while (v34);

@@ -2,6 +2,7 @@
 - (HDCloudSyncSharedSummaryUpdateCodableEntryOperation)initWithConfiguration:(id)configuration updatedLocalEntries:(id)entries isActive:(BOOL)active shouldResolveCNContact:(BOOL)contact;
 - (id)_filterEntries:(id)entries active:(BOOL)active;
 - (void)main;
+- (void)synchronousTaskGroup:(id)group didFinishWithSuccess:(BOOL)success errors:(id)errors;
 @end
 
 @implementation HDCloudSyncSharedSummaryUpdateCodableEntryOperation
@@ -14,7 +15,7 @@
   v11 = [(HDCloudSyncOperation *)&v17 initWithConfiguration:configuration cloudState:0];
   if (v11)
   {
-    v12 = [entriesCopy copy];
+    v12 = objc_msgSend_copy(entriesCopy);
     updatedLocalEntries = v11->_updatedLocalEntries;
     v11->_updatedLocalEntries = v12;
 
@@ -58,7 +59,7 @@
 
 void __59__HDCloudSyncSharedSummaryUpdateCodableEntryOperation_main__block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (a2)
   {
@@ -71,18 +72,16 @@ void __59__HDCloudSyncSharedSummaryUpdateCodableEntryOperation_main__block_invok
     v6 = *MEMORY[0x277CCC328];
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
     {
-      v8 = *(a1 + 32);
-      v9 = 138543618;
-      v10 = v8;
-      v11 = 2114;
-      v12 = v5;
-      _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "%{public}@: [summary-sharing] Unable to insert inactive entries %{public}@", &v9, 0x16u);
+      v7 = *(a1 + 32);
+      v8 = 138543618;
+      v9 = v7;
+      v10 = 2114;
+      v11 = v5;
+      _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "%{public}@: [summary-sharing] Unable to insert inactive entries %{public}@", &v8, 0x16u);
     }
 
     [*(*(a1 + 32) + 112) failTaskWithError:v5];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_filterEntries:(id)entries active:(BOOL)active
@@ -111,6 +110,13 @@ uint64_t __77__HDCloudSyncSharedSummaryUpdateCodableEntryOperation__filterEntrie
   }
 
   return v4 & 1;
+}
+
+- (void)synchronousTaskGroup:(id)group didFinishWithSuccess:(BOOL)success errors:(id)errors
+{
+  successCopy = success;
+  firstObject = [errors firstObject];
+  [(HDCloudSyncOperation *)self finishWithSuccess:successCopy error:firstObject];
 }
 
 @end

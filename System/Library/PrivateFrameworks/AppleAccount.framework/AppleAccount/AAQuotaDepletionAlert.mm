@@ -34,12 +34,12 @@
 
 + (BOOL)_isDisabledDataclass:(id)dataclass
 {
-  v10[2] = *MEMORY[0x1E69E9840];
+  v9[2] = *MEMORY[0x1E69E9840];
   dataclassCopy = dataclass;
   v4 = *MEMORY[0x1E6959B28];
-  v10[0] = *MEMORY[0x1E6959B58];
-  v10[1] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:2];
+  v9[0] = *MEMORY[0x1E6959B58];
+  v9[1] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:2];
   v6 = v5;
   if (dataclassCopy)
   {
@@ -51,7 +51,6 @@
     v7 = 0;
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -79,17 +78,18 @@
 
 - (void)showWithHandler:(id)handler
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
-  if ([AAQuotaDepletionAlert _isDisabledDataclass:self->_dataclass])
+  v5 = [AAQuotaDepletionAlert _isDisabledDataclass:self->_dataclass];
+  if (v5)
   {
-    v5 = _AALogSystem();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = _AALogSystem(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       dataclass = self->_dataclass;
       *buf = 138412290;
-      v34 = dataclass;
-      _os_log_impl(&dword_1B6F6A000, v5, OS_LOG_TYPE_DEFAULT, "Quota ran out for dataclass: %@. Skipping notifying user.", buf, 0xCu);
+      v35 = dataclass;
+      _os_log_impl(&dword_1B6F6A000, v6, OS_LOG_TYPE_DEFAULT, "Quota ran out for dataclass: %@. Skipping notifying user.", buf, 0xCu);
     }
 
     if (handlerCopy)
@@ -104,72 +104,70 @@
     if (_primaryAccount)
     {
       _primaryAccount2 = [(AAQuotaDepletionAlert *)self _primaryAccount];
-      v9 = [_primaryAccount2 aa_isManagedAppleID] ^ 1;
+      v10 = [_primaryAccount2 aa_isManagedAppleID] ^ 1;
     }
 
     else
     {
-      v9 = 0;
+      v10 = 0;
     }
 
-    v10 = _AALogSystem();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v12 = _AALogSystem(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = self->_dataclass;
+      v13 = self->_dataclass;
       *buf = 138412546;
-      v34 = v11;
-      v35 = 1024;
-      v36 = v9;
-      _os_log_impl(&dword_1B6F6A000, v10, OS_LOG_TYPE_DEFAULT, "Quota ran out for dataclass: %@. Notify user. Upgrade Available: %d", buf, 0x12u);
+      v35 = v13;
+      v36 = 1024;
+      v37 = v10;
+      _os_log_impl(&dword_1B6F6A000, v12, OS_LOG_TYPE_DEFAULT, "Quota ran out for dataclass: %@. Notify user. Upgrade Available: %d", buf, 0x12u);
     }
 
-    v12 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-    v13 = v12;
-    if (v9)
+    v14 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+    v15 = v14;
+    if (v10)
     {
-      v14 = @"QUOTA_ALERT_UPGRADE_BUTTON";
+      v16 = @"QUOTA_ALERT_UPGRADE_BUTTON";
     }
 
     else
     {
-      v14 = @"QUOTA_ALERT_MANAGE_BUTTON";
+      v16 = @"QUOTA_ALERT_MANAGE_BUTTON";
     }
 
-    v15 = [v12 localizedStringForKey:v14 value:&stru_1F2EF6280 table:@"Localizable"];
+    v17 = [v14 localizedStringForKey:v16 value:&stru_1F2EF6280 table:@"Localizable"];
 
-    v16 = [(NSString *)self->_dataclass isEqualToString:*MEMORY[0x1E6959AD8]];
-    v17 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-    v18 = v17;
-    if (v16)
+    v18 = [(NSString *)self->_dataclass isEqualToString:*MEMORY[0x1E6959AD8]];
+    v19 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+    v20 = v19;
+    if (v18)
     {
-      v19 = [v17 localizedStringForKey:@"QUOTA_ALERT_BACKUP_TITLE" value:&stru_1F2EF6280 table:@"Localizable"];
+      v21 = [v19 localizedStringForKey:@"QUOTA_ALERT_BACKUP_TITLE" value:&stru_1F2EF6280 table:@"Localizable"];
 
-      v20 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-      v21 = [(AAQuotaDepletionAlert *)self _deviceSpecificLocalizedString:@"QUOTA_ALERT_BACKUP_MESSAGE"];
-      v22 = [v20 localizedStringForKey:v21 value:&stru_1F2EF6280 table:@"Localizable"];
+      v22 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+      v23 = [(AAQuotaDepletionAlert *)self _deviceSpecificLocalizedString:@"QUOTA_ALERT_BACKUP_MESSAGE"];
+      v24 = [v22 localizedStringForKey:v23 value:&stru_1F2EF6280 table:@"Localizable"];
     }
 
     else
     {
-      v19 = [v17 localizedStringForKey:@"QUOTA_ALERT_TITLE" value:&stru_1F2EF6280 table:@"Localizable"];
+      v21 = [v19 localizedStringForKey:@"QUOTA_ALERT_TITLE" value:&stru_1F2EF6280 table:@"Localizable"];
 
-      v20 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-      v22 = [v20 localizedStringForKey:@"QUOTA_ALERT_MESSAGE" value:&stru_1F2EF6280 table:@"Localizable"];
+      v22 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+      v24 = [v22 localizedStringForKey:@"QUOTA_ALERT_MESSAGE" value:&stru_1F2EF6280 table:@"Localizable"];
     }
 
-    v27 = MEMORY[0x1E69E9820];
-    v28 = 3221225472;
-    v29 = __41__AAQuotaDepletionAlert_showWithHandler___block_invoke;
-    v30 = &unk_1E7C9D710;
-    v32 = v9;
-    v31 = handlerCopy;
-    v23 = _Block_copy(&v27);
-    v24 = [MEMORY[0x1E696AAE8] bundleForClass:{objc_opt_class(), v27, v28, v29, v30}];
-    v25 = [v24 localizedStringForKey:@"ALERT_CLOSE" value:&stru_1F2EF6280 table:@"Localizable"];
-    [AAUserNotification showUserNotificationWithTitle:v19 message:v22 cancelButtonTitle:v25 otherButtonTitle:v15 withCompletionBlock:v23];
+    v28 = MEMORY[0x1E69E9820];
+    v29 = 3221225472;
+    v30 = __41__AAQuotaDepletionAlert_showWithHandler___block_invoke;
+    v31 = &unk_1E7C9D710;
+    v33 = v10;
+    v32 = handlerCopy;
+    v25 = _Block_copy(&v28);
+    v26 = [MEMORY[0x1E696AAE8] bundleForClass:{objc_opt_class(), v28, v29, v30, v31}];
+    v27 = [v26 localizedStringForKey:@"ALERT_CLOSE" value:&stru_1F2EF6280 table:@"Localizable"];
+    [AAUserNotification showUserNotificationWithTitle:v21 message:v24 cancelButtonTitle:v27 otherButtonTitle:v17 withCompletionBlock:v25];
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __41__AAQuotaDepletionAlert_showWithHandler___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -217,55 +215,55 @@ void __41__AAQuotaDepletionAlert_showWithHandler___block_invoke_2(uint64_t a1)
   v19 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v5 = [AAQuotaDepletionAlert _isDisabledDataclass:self->_dataclass];
-  v6 = _AALogSystem();
-  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
-  if (v5)
+  v6 = v5;
+  v7 = _AALogSystem(v5);
+  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+  if (v6)
   {
-    if (v7)
+    if (v8)
     {
       dataclass = self->_dataclass;
       v17 = 138412290;
       v18 = dataclass;
-      _os_log_impl(&dword_1B6F6A000, v6, OS_LOG_TYPE_DEFAULT, "Quota ran out for dataclass: %@. Skipping notifying user.", &v17, 0xCu);
+      _os_log_impl(&dword_1B6F6A000, v7, OS_LOG_TYPE_DEFAULT, "Quota ran out for dataclass: %@. Skipping notifying user.", &v17, 0xCu);
     }
 
 LABEL_9:
-    v14 = 0;
+    v15 = 0;
     goto LABEL_10;
   }
 
-  if (v7)
+  if (v8)
   {
-    v9 = self->_dataclass;
+    v10 = self->_dataclass;
     v17 = 138412290;
-    v18 = v9;
-    _os_log_impl(&dword_1B6F6A000, v6, OS_LOG_TYPE_DEFAULT, "Quota ran out for dataclass: %@. Notify user.", &v17, 0xCu);
+    v18 = v10;
+    _os_log_impl(&dword_1B6F6A000, v7, OS_LOG_TYPE_DEFAULT, "Quota ran out for dataclass: %@. Notify user.", &v17, 0xCu);
   }
 
-  v6 = CFPreferencesCopyAppValue(@"AANextCastleQuotaAlert", @"com.apple.appleaccount");
-  if (v6)
+  v7 = CFPreferencesCopyAppValue(@"AANextCastleQuotaAlert", @"com.apple.appleaccount");
+  if (v7)
   {
     date = [MEMORY[0x1E695DF00] date];
-    v11 = [date compare:v6];
+    v12 = [date compare:v7];
 
-    if (v11 != 1)
+    if (v12 != 1)
     {
       goto LABEL_9;
     }
   }
 
   date2 = [MEMORY[0x1E695DF00] date];
-  v13 = [date2 dateByAddingTimeInterval:86400.0];
+  v14 = [date2 dateByAddingTimeInterval:86400.0];
 
-  CFPreferencesSetAppValue(@"AANextCastleQuotaAlert", v13, @"com.apple.appleaccount");
+  CFPreferencesSetAppValue(@"AANextCastleQuotaAlert", v14, @"com.apple.appleaccount");
   CFPreferencesSynchronize(@"com.apple.appleaccount", *MEMORY[0x1E695E8B8], *MEMORY[0x1E695E8B0]);
   [(AAQuotaDepletionAlert *)self showWithHandler:handlerCopy];
 
-  v14 = 1;
+  v15 = 1;
 LABEL_10:
 
-  v15 = *MEMORY[0x1E69E9840];
-  return v14;
+  return v15;
 }
 
 - (id)_deviceSpecificLocalizedString:(id)string

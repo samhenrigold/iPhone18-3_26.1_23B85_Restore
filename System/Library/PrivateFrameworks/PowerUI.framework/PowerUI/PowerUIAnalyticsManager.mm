@@ -154,7 +154,7 @@ uint64_t __41__PowerUIAnalyticsManager_sharedInstance__block_invoke(uint64_t a1)
 
 void __46__PowerUIAnalyticsManager_printExistingEvents__block_invoke_2(uint64_t a1, void *a2)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v3 = *(*(a1 + 32) + 8);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -178,21 +178,19 @@ void __46__PowerUIAnalyticsManager_printExistingEvents__block_invoke_2(uint64_t 
     [v16 obcEvent];
     v17 = BMDeviceSmartChargingOBCEventAsString();
     *buf = 138413570;
-    v21 = v6;
-    v22 = 1024;
-    v23 = v8;
-    v24 = 1024;
-    v25 = v10;
-    v26 = 2048;
-    v27 = v13;
-    v28 = 2112;
-    v29 = v15;
-    v30 = 2112;
-    v31 = v17;
+    v20 = v6;
+    v21 = 1024;
+    v22 = v8;
+    v23 = 1024;
+    v24 = v10;
+    v25 = 2048;
+    v26 = v13;
+    v27 = 2112;
+    v28 = v15;
+    v29 = 2112;
+    v30 = v17;
     _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "Event (%@): SoC: %d - TargetSoC: %d - PredictedEoC: %f - Mode: %@ - event: %@", buf, 0x36u);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)submitEngagementEventWithBatteryLevel:(id)level targetSoC:(id)c predictedEndOfCharge:(id)charge modeOfOperation:(int)operation eventType:(int)type
@@ -231,7 +229,7 @@ void __46__PowerUIAnalyticsManager_printExistingEvents__block_invoke_2(uint64_t 
 
 void __122__PowerUIAnalyticsManager_submitEngagementEventWithBatteryLevel_targetSoC_predictedEndOfCharge_modeOfOperation_eventType___block_invoke(uint64_t a1)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v2 = os_transaction_create();
   v3 = objc_alloc(MEMORY[0x277CF1120]);
   v4 = *(a1 + 32);
@@ -257,20 +255,18 @@ void __122__PowerUIAnalyticsManager_submitEngagementEventWithBatteryLevel_target
     v18 = [v8 batteryLevel];
     v19 = [v8 targetSoC];
     [v8 predictedEndOfCharge];
-    v22[0] = 67110144;
-    v22[1] = v16;
-    v23 = 1024;
-    v24 = v17;
-    v25 = 1024;
-    v26 = v18;
-    v27 = 1024;
-    v28 = v19;
-    v29 = 2048;
-    v30 = v20;
-    _os_log_impl(&dword_21B766000, v15, OS_LOG_TYPE_DEFAULT, "Sent engagementEvent: EventType: %d - Mode: %d - SoC: %d - TargetSoC: %d - PredictedEoC: %f", v22, 0x24u);
+    v21[0] = 67110144;
+    v21[1] = v16;
+    v22 = 1024;
+    v23 = v17;
+    v24 = 1024;
+    v25 = v18;
+    v26 = 1024;
+    v27 = v19;
+    v28 = 2048;
+    v29 = v20;
+    _os_log_impl(&dword_21B766000, v15, OS_LOG_TYPE_DEFAULT, "Sent engagementEvent: EventType: %d - Mode: %d - SoC: %d - TargetSoC: %d - PredictedEoC: %f", v21, 0x24u);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)submitGaugingEventWithUpdateType:(int)type qmaxState:(int)state daysSinceQMax:(id)max ocvState:(int)ocvState daysSinceOCV:(id)v fullChargeState:(int)chargeState daysSinceFullChargeAttempt:(id)attempt
@@ -313,7 +309,7 @@ void __122__PowerUIAnalyticsManager_submitEngagementEventWithBatteryLevel_target
 
 void __149__PowerUIAnalyticsManager_submitGaugingEventWithUpdateType_qmaxState_daysSinceQMax_ocvState_daysSinceOCV_fullChargeState_daysSinceFullChargeAttempt___block_invoke(uint64_t a1)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v2 = [objc_alloc(MEMORY[0x277CF10A0]) initWithUpdateType:*(a1 + 64) qmaxState:*(a1 + 68) daysSinceQMax:*(a1 + 32) ocvState:*(a1 + 72) daysSinceOCV:*(a1 + 40) fullChargeState:*(a1 + 76) daysSinceFullChargeAttempt:*(a1 + 48)];
   v3 = BiomeLibrary();
   v4 = [v3 Device];
@@ -336,23 +332,21 @@ void __149__PowerUIAnalyticsManager_submitGaugingEventWithUpdateType_qmaxState_d
     [v2 fullChargeState];
     v15 = BMDeviceBatteryGaugingPeriodicFullChargeStateAsString();
     *buf = 67110658;
-    v18 = v10;
-    v19 = 2112;
-    v20 = v11;
-    v21 = 1024;
-    v22 = v12;
-    v23 = 2112;
-    v24 = v13;
-    v25 = 1024;
-    v26 = v14;
-    v27 = 2112;
-    v28 = v15;
-    v29 = 1024;
-    v30 = [v2 daysSinceFullChargeAttempt];
+    v17 = v10;
+    v18 = 2112;
+    v19 = v11;
+    v20 = 1024;
+    v21 = v12;
+    v22 = 2112;
+    v23 = v13;
+    v24 = 1024;
+    v25 = v14;
+    v26 = 2112;
+    v27 = v15;
+    v28 = 1024;
+    v29 = [v2 daysSinceFullChargeAttempt];
     _os_log_impl(&dword_21B766000, v9, OS_LOG_TYPE_DEFAULT, "Sent gauging Event: Type: %d - qmaxState: %@ - daysSinceQMax: %d - ocvState: %@ - daysSinceOCV: %d - fullChargeState: %@ - daysSinceFullChargeAttempt: %d", buf, 0x38u);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)stringFromEngagementEvent:(id)event
@@ -380,126 +374,126 @@ void __149__PowerUIAnalyticsManager_submitGaugingEventWithUpdateType_qmaxState_d
 
 - (id)chargingStatisticsForSessionBetween:(id)between and:(id)and
 {
-  v84[8] = *MEMORY[0x277D85DE8];
+  v83[8] = *MEMORY[0x277D85DE8];
   betweenCopy = between;
   andCopy = and;
-  v81[0] = 0;
-  v81[1] = v81;
-  v81[2] = 0x3032000000;
-  v81[3] = __Block_byref_object_copy__0;
-  v81[4] = __Block_byref_object_dispose__0;
-  v82 = 0;
-  v75 = 0;
-  v76 = &v75;
-  v77 = 0x3032000000;
-  v78 = __Block_byref_object_copy__0;
-  v79 = __Block_byref_object_dispose__0;
-  v80 = 0;
-  v73[0] = 0;
-  v73[1] = v73;
-  v73[2] = 0x3032000000;
-  v73[3] = __Block_byref_object_copy__0;
-  v73[4] = __Block_byref_object_dispose__0;
+  v80[0] = 0;
+  v80[1] = v80;
+  v80[2] = 0x3032000000;
+  v80[3] = __Block_byref_object_copy__0;
+  v80[4] = __Block_byref_object_dispose__0;
+  v81 = 0;
   v74 = 0;
-  v71[0] = 0;
-  v71[1] = v71;
-  v71[2] = 0x3032000000;
-  v71[3] = __Block_byref_object_copy__0;
-  v71[4] = __Block_byref_object_dispose__0;
-  v72 = 0;
-  v65 = 0;
-  v66 = &v65;
-  v67 = 0x3032000000;
-  v68 = __Block_byref_object_copy__0;
-  v69 = __Block_byref_object_dispose__0;
-  v70 = 0;
-  v63[0] = 0;
-  v63[1] = v63;
-  v63[2] = 0x2020000000;
+  v75 = &v74;
+  v76 = 0x3032000000;
+  v77 = __Block_byref_object_copy__0;
+  v78 = __Block_byref_object_dispose__0;
+  v79 = 0;
+  v72[0] = 0;
+  v72[1] = v72;
+  v72[2] = 0x3032000000;
+  v72[3] = __Block_byref_object_copy__0;
+  v72[4] = __Block_byref_object_dispose__0;
+  v73 = 0;
+  v70[0] = 0;
+  v70[1] = v70;
+  v70[2] = 0x3032000000;
+  v70[3] = __Block_byref_object_copy__0;
+  v70[4] = __Block_byref_object_dispose__0;
+  v71 = 0;
   v64 = 0;
+  v65 = &v64;
+  v66 = 0x3032000000;
+  v67 = __Block_byref_object_copy__0;
+  v68 = __Block_byref_object_dispose__0;
+  v69 = 0;
   v62[0] = 0;
   v62[1] = v62;
   v62[2] = 0x2020000000;
-  v62[3] = 0;
-  v56 = 0;
-  v57 = &v56;
-  v58 = 0x3032000000;
-  v59 = __Block_byref_object_copy__0;
-  v60 = __Block_byref_object_dispose__0;
-  v61 = &stru_282D0B728;
-  v52 = 0;
-  v53 = &v52;
-  v54 = 0x2020000000;
+  v63 = 0;
+  v61[0] = 0;
+  v61[1] = v61;
+  v61[2] = 0x2020000000;
+  v61[3] = 0;
   v55 = 0;
-  v48 = 0;
-  v49 = &v48;
-  v50 = 0x2020000000;
+  v56 = &v55;
+  v57 = 0x3032000000;
+  v58 = __Block_byref_object_copy__0;
+  v59 = __Block_byref_object_dispose__0;
+  v60 = &stru_282D0B728;
   v51 = 0;
-  v42 = 0;
-  v43 = &v42;
-  v44 = 0x3032000000;
-  v45 = __Block_byref_object_copy__0;
-  v46 = __Block_byref_object_dispose__0;
-  v47 = [MEMORY[0x277CBEB18] arrayWithCapacity:8];
+  v52 = &v51;
+  v53 = 0x2020000000;
+  v54 = 0;
+  v47 = 0;
+  v48 = &v47;
+  v49 = 0x2020000000;
+  v50 = 0;
+  v41 = 0;
+  v42 = &v41;
+  v43 = 0x3032000000;
+  v44 = __Block_byref_object_copy__0;
+  v45 = __Block_byref_object_dispose__0;
+  v46 = [MEMORY[0x277CBEB18] arrayWithCapacity:8];
   v8 = 8;
   do
   {
-    [v43[5] addObject:&unk_282D4E0C8];
+    [v42[5] addObject:&unk_282D4E0C8];
     --v8;
   }
 
   while (v8);
-  v38 = 0;
-  v39 = &v38;
-  v40 = 0x2020000000;
-  v41 = 0;
-  v34 = 0;
-  v35 = &v34;
-  v36 = 0x2020000000;
   v37 = 0;
+  v38 = &v37;
+  v39 = 0x2020000000;
+  v40 = 0;
+  v33 = 0;
+  v34 = &v33;
+  v35 = 0x2020000000;
+  v36 = 0;
   v9 = BiomeLibrary();
   device = [v9 Device];
   charging = [device Charging];
   smartCharging = [charging SmartCharging];
   publisher = [smartCharging publisher];
-  v31[0] = MEMORY[0x277D85DD0];
-  v31[1] = 3221225472;
-  v31[2] = __67__PowerUIAnalyticsManager_chargingStatisticsForSessionBetween_and___block_invoke;
-  v31[3] = &unk_2782D3F88;
-  v14 = betweenCopy;
-  v32 = v14;
-  v15 = andCopy;
-  v33 = v15;
-  v16 = [publisher filterWithIsIncluded:v31];
   v30[0] = MEMORY[0x277D85DD0];
   v30[1] = 3221225472;
-  v30[2] = __67__PowerUIAnalyticsManager_chargingStatisticsForSessionBetween_and___block_invoke_2;
-  v30[3] = &unk_2782D3E10;
-  v30[4] = self;
+  v30[2] = __67__PowerUIAnalyticsManager_chargingStatisticsForSessionBetween_and___block_invoke;
+  v30[3] = &unk_2782D3F88;
+  v14 = betweenCopy;
+  v31 = v14;
+  v15 = andCopy;
+  v32 = v15;
+  v16 = [publisher filterWithIsIncluded:v30];
   v29[0] = MEMORY[0x277D85DD0];
   v29[1] = 3221225472;
-  v29[2] = __67__PowerUIAnalyticsManager_chargingStatisticsForSessionBetween_and___block_invoke_72;
-  v29[3] = &unk_2782D3FB0;
+  v29[2] = __67__PowerUIAnalyticsManager_chargingStatisticsForSessionBetween_and___block_invoke_2;
+  v29[3] = &unk_2782D3E10;
   v29[4] = self;
-  v29[5] = v81;
-  v29[6] = &v56;
-  v29[7] = v73;
-  v29[8] = v71;
-  v29[9] = &v42;
-  v29[10] = v63;
-  v29[11] = &v34;
-  v29[12] = v62;
-  v29[13] = &v75;
-  v29[14] = &v65;
-  v29[15] = &v52;
-  v29[16] = &v48;
-  v29[17] = &v38;
-  v17 = [v16 sinkWithCompletion:v30 receiveInput:v29];
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v28[2] = __67__PowerUIAnalyticsManager_chargingStatisticsForSessionBetween_and___block_invoke_72;
+  v28[3] = &unk_2782D3FB0;
+  v28[4] = self;
+  v28[5] = v80;
+  v28[6] = &v55;
+  v28[7] = v72;
+  v28[8] = v70;
+  v28[9] = &v41;
+  v28[10] = v62;
+  v28[11] = &v33;
+  v28[12] = v61;
+  v28[13] = &v74;
+  v28[14] = &v64;
+  v28[15] = &v51;
+  v28[16] = &v47;
+  v28[17] = &v37;
+  v17 = [v16 sinkWithCompletion:v29 receiveInput:v28];
 
-  v83[0] = @"pluginTime";
-  v18 = [MEMORY[0x277CCABB0] numberWithDouble:v53[3]];
+  v82[0] = @"pluginTime";
+  v18 = [MEMORY[0x277CCABB0] numberWithDouble:v52[3]];
   v19 = v18;
-  if (v76[5])
+  if (v75[5])
   {
     v20 = &unk_282D4E0E0;
   }
@@ -509,17 +503,17 @@ void __149__PowerUIAnalyticsManager_submitGaugingEventWithUpdateType_qmaxState_d
     v20 = &unk_282D4E0C8;
   }
 
-  v84[0] = v18;
-  v84[1] = v20;
-  v83[1] = @"wasOBCEligible";
-  v83[2] = @"eligibleIdleTime";
-  v21 = [MEMORY[0x277CCABB0] numberWithDouble:v49[3]];
-  v22 = v43[5];
-  v84[2] = v21;
-  v84[3] = v22;
-  v83[3] = @"idleTimes";
-  v83[4] = @"reachedTargetSoC";
-  if (v66[5])
+  v83[0] = v18;
+  v83[1] = v20;
+  v82[1] = @"wasOBCEligible";
+  v82[2] = @"eligibleIdleTime";
+  v21 = [MEMORY[0x277CCABB0] numberWithDouble:v48[3]];
+  v22 = v42[5];
+  v83[2] = v21;
+  v83[3] = v22;
+  v82[3] = @"idleTimes";
+  v82[4] = @"reachedTargetSoC";
+  if (v65[5])
   {
     v23 = &unk_282D4E0E0;
   }
@@ -529,36 +523,34 @@ void __149__PowerUIAnalyticsManager_submitGaugingEventWithUpdateType_qmaxState_d
     v23 = &unk_282D4E0C8;
   }
 
-  v84[4] = v23;
-  v83[5] = @"wasUndercharged";
-  v24 = [MEMORY[0x277CCABB0] numberWithBool:*(v39 + 24)];
-  v84[5] = v24;
-  v83[6] = @"wasTempDisabled";
-  v25 = [MEMORY[0x277CCABB0] numberWithBool:*(v35 + 24)];
-  v84[6] = v25;
-  v83[7] = @"sessionDescription";
-  v84[7] = v57[5];
-  v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v84 forKeys:v83 count:8];
+  v83[4] = v23;
+  v82[5] = @"wasUndercharged";
+  v24 = [MEMORY[0x277CCABB0] numberWithBool:*(v38 + 24)];
+  v83[5] = v24;
+  v82[6] = @"wasTempDisabled";
+  v25 = [MEMORY[0x277CCABB0] numberWithBool:*(v34 + 24)];
+  v83[6] = v25;
+  v82[7] = @"sessionDescription";
+  v83[7] = v56[5];
+  v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v83 forKeys:v82 count:8];
 
-  _Block_object_dispose(&v34, 8);
-  _Block_object_dispose(&v38, 8);
-  _Block_object_dispose(&v42, 8);
+  _Block_object_dispose(&v33, 8);
+  _Block_object_dispose(&v37, 8);
+  _Block_object_dispose(&v41, 8);
 
-  _Block_object_dispose(&v48, 8);
-  _Block_object_dispose(&v52, 8);
-  _Block_object_dispose(&v56, 8);
+  _Block_object_dispose(&v47, 8);
+  _Block_object_dispose(&v51, 8);
+  _Block_object_dispose(&v55, 8);
 
+  _Block_object_dispose(v61, 8);
   _Block_object_dispose(v62, 8);
-  _Block_object_dispose(v63, 8);
-  _Block_object_dispose(&v65, 8);
+  _Block_object_dispose(&v64, 8);
 
-  _Block_object_dispose(v71, 8);
-  _Block_object_dispose(v73, 8);
+  _Block_object_dispose(v70, 8);
+  _Block_object_dispose(v72, 8);
 
-  _Block_object_dispose(&v75, 8);
-  _Block_object_dispose(v81, 8);
-
-  v27 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v74, 8);
+  _Block_object_dispose(v80, 8);
 
   return v26;
 }
@@ -1182,7 +1174,7 @@ void __53__PowerUIAnalyticsManager_chargingStatisticsFrom_to___block_invoke(uint
 
 void __53__PowerUIAnalyticsManager_chargingStatisticsFrom_to___block_invoke_123(uint64_t a1, void *a2)
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 eventBody];
   v5 = [v4 obcEvent];
@@ -1238,20 +1230,20 @@ void __53__PowerUIAnalyticsManager_chargingStatisticsFrom_to___block_invoke_123(
     {
       v17 = *(*(*(a1 + 40) + 8) + 40);
       v18 = *(*(*(a1 + 48) + 8) + 40);
-      v51 = 138412546;
-      v52 = v17;
-      v53 = 2112;
-      v54 = v18;
-      _os_log_impl(&dword_21B766000, v16, OS_LOG_TYPE_INFO, "Found plugin between %@ and %@:", &v51, 0x16u);
+      v50 = 138412546;
+      v51 = v17;
+      v52 = 2112;
+      v53 = v18;
+      _os_log_impl(&dword_21B766000, v16, OS_LOG_TYPE_INFO, "Found plugin between %@ and %@:", &v50, 0x16u);
     }
 
     v19 = [*(a1 + 32) chargingStatisticsForSessionBetween:*(*(*(a1 + 40) + 8) + 40) and:*(*(*(a1 + 48) + 8) + 40)];
     v20 = [*(a1 + 32) log];
     if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
     {
-      v51 = 138412290;
-      v52 = v19;
-      _os_log_impl(&dword_21B766000, v20, OS_LOG_TYPE_INFO, "Session: %@", &v51, 0xCu);
+      v50 = 138412290;
+      v51 = v19;
+      _os_log_impl(&dword_21B766000, v20, OS_LOG_TYPE_INFO, "Session: %@", &v50, 0xCu);
     }
 
     ++*(*(*(a1 + 56) + 8) + 24);
@@ -1321,8 +1313,6 @@ void __53__PowerUIAnalyticsManager_chargingStatisticsFrom_to___block_invoke_123(
   }
 
 LABEL_25:
-
-  v50 = *MEMORY[0x277D85DE8];
 }
 
 - (id)gaugingMitigationStatisticsSince:(id)since
@@ -1672,63 +1662,49 @@ void __60__PowerUIAnalyticsManager_gaugingMitigationStatisticsSince___block_invo
 
 void __67__PowerUIAnalyticsManager_chargingStatisticsForSessionBetween_and___block_invoke_2_cold_1(void *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v1 = [a1 error];
   v2 = [v1 description];
   [v2 UTF8String];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_1(&dword_21B766000, v3, v4, "Error getting chargingExperience biome events in chargingStatisticsSince: %s", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_1(&dword_21B766000, v3, v4, "Error getting chargingExperience biome events in chargingStatisticsSince: %s", v5, v6, v7, v8);
 }
 
 void __67__PowerUIAnalyticsManager_chargingStatisticsForSessionBetween_and___block_invoke_72_cold_1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = [PowerUISmartChargeUtilities timeStringFromDate:*(*(*a1 + 8) + 40)];
   v6 = MEMORY[0x277CBEAA8];
   [a2 timestamp];
   v7 = [v6 dateWithTimeIntervalSinceReferenceDate:?];
   v8 = [PowerUISmartChargeUtilities timeStringFromDate:v7];
-  v10 = 138412546;
-  v11 = v5;
-  v12 = 2112;
-  v13 = v8;
-  _os_log_error_impl(&dword_21B766000, a3, OS_LOG_TYPE_ERROR, "Unaccounted OBC engagement time from %@ to %@", &v10, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  v9 = 138412546;
+  v10 = v5;
+  v11 = 2112;
+  v12 = v8;
+  _os_log_error_impl(&dword_21B766000, a3, OS_LOG_TYPE_ERROR, "Unaccounted OBC engagement time from %@ to %@", &v9, 0x16u);
 }
 
 void __67__PowerUIAnalyticsManager_chargingStatisticsForSessionBetween_and___block_invoke_72_cold_4(id *a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v2 = [*a1 stringFromEngagementEvent:a2];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_1(&dword_21B766000, v3, v4, "Second plugin event without unplug: %@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_1(&dword_21B766000, v3, v4, "Second plugin event without unplug: %@", v5, v6, v7, v8);
 }
 
 void __67__PowerUIAnalyticsManager_chargingStatisticsForSessionBetween_and___block_invoke_72_cold_5(id *a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v2 = [*a1 stringFromEngagementEvent:a2];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_1(&dword_21B766000, v3, v4, "Charging event with unknown state: %@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_1(&dword_21B766000, v3, v4, "Charging event with unknown state: %@", v5, v6, v7, v8);
 }
 
 void __60__PowerUIAnalyticsManager_gaugingMitigationStatisticsSince___block_invoke_3_cold_1(void *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v1 = [a1 error];
   v2 = [v1 description];
   [v2 UTF8String];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_1(&dword_21B766000, v3, v4, "Error getting gauging mitigation events in analytics manager: %s", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_1(&dword_21B766000, v3, v4, "Error getting gauging mitigation events in analytics manager: %s", v5, v6, v7, v8);
 }
 
 @end

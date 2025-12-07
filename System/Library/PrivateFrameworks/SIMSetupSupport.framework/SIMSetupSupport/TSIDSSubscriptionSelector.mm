@@ -9,15 +9,16 @@
 
 + (id)activeIMessageSlots
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v2 = objc_opt_new();
-  v24 = 0;
-  v3 = [v2 selectedSubscriptionsWithError:&v24];
-  v4 = v24;
+  v25 = 0;
+  v3 = [v2 selectedSubscriptionsWithError:&v25];
+  v4 = v25;
+  v5 = v4;
   if (v4)
   {
-    v5 = _TSLogDomain();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = _TSLogDomain(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       +[TSIDSSubscriptionSelector activeIMessageSlots];
     }
@@ -26,93 +27,86 @@
     goto LABEL_24;
   }
 
-  v19 = v2;
+  v20 = v2;
   array = [MEMORY[0x277CBEB18] array];
-  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v18 = v3;
-  v7 = v3;
-  v8 = [v7 countByEnumeratingWithState:&v20 objects:v27 count:16];
-  if (!v8)
+  v24 = 0u;
+  v19 = v3;
+  v8 = v3;
+  v9 = [v8 countByEnumeratingWithState:&v21 objects:v28 count:16];
+  if (!v9)
   {
     goto LABEL_21;
   }
 
-  v9 = v8;
-  v10 = *v21;
+  v10 = v9;
+  v11 = *v22;
   do
   {
-    v11 = 0;
-    do
+    for (i = 0; i != v10; ++i)
     {
-      if (*v21 != v10)
+      if (*v22 != v11)
       {
-        objc_enumerationMutation(v7);
+        objc_enumerationMutation(v8);
       }
 
-      subscriptionSlot = [*(*(&v20 + 1) + 8 * v11) subscriptionSlot];
+      subscriptionSlot = [*(*(&v21 + 1) + 8 * i) subscriptionSlot];
       if (subscriptionSlot)
       {
         if (subscriptionSlot == 2)
         {
-          v13 = array;
-          v14 = &unk_287583D48;
+          v14 = array;
+          v15 = &unk_287583D48;
         }
 
         else
         {
           if (subscriptionSlot != 1)
           {
-            goto LABEL_19;
+            continue;
           }
 
-          v13 = array;
-          v14 = &unk_287583D30;
+          v14 = array;
+          v15 = &unk_287583D30;
         }
 
-        [v13 addObject:v14];
+        [v14 addObject:v15];
       }
 
       else
       {
-        v15 = _TSLogDomain();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+        v16 = _TSLogDomain(0);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
           +[(TSIDSSubscriptionSelector *)buf];
         }
       }
-
-LABEL_19:
-      ++v11;
     }
 
-    while (v9 != v11);
-    v9 = [v7 countByEnumeratingWithState:&v20 objects:v27 count:16];
+    v10 = [v8 countByEnumeratingWithState:&v21 objects:v28 count:16];
   }
 
-  while (v9);
+  while (v10);
 LABEL_21:
 
-  v5 = _TSLogDomain();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v6 = _TSLogDomain(v17);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     +[TSIDSSubscriptionSelector activeIMessageSlots];
   }
 
-  v3 = v18;
-  v2 = v19;
+  v3 = v19;
+  v2 = v20;
 LABEL_24:
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return array;
 }
 
 + (void)registerSlotsForIMessage:(id)message
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   if ([messageCopy count])
   {
@@ -121,24 +115,22 @@ LABEL_24:
     block[1] = 3221225472;
     block[2] = __54__TSIDSSubscriptionSelector_registerSlotsForIMessage___block_invoke;
     block[3] = &unk_279B44578;
-    v8 = messageCopy;
+    v7 = messageCopy;
     dispatch_async(v4, block);
 
-    v5 = v8;
+    v5 = v7;
   }
 
   else
   {
-    v5 = _TSLogDomain();
+    v5 = _TSLogDomain(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v10 = "+[TSIDSSubscriptionSelector registerSlotsForIMessage:]";
+      v9 = "+[TSIDSSubscriptionSelector registerSlotsForIMessage:]";
       _os_log_impl(&dword_262AA8000, v5, OS_LOG_TYPE_DEFAULT, "Empty input @%s", buf, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 + (void)doRegistrationForIMessage:(id)message
@@ -177,7 +169,7 @@ LABEL_24:
         integerValue = [*(*(&v18 + 1) + 8 * v10) integerValue];
         if ((integerValue - 1) >= 2)
         {
-          v13 = _TSLogDomain();
+          v13 = _TSLogDomain(integerValue);
           if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
           {
             [(TSIDSSubscriptionSelector *)v26 doRegistrationForIMessage:v13];
@@ -195,7 +187,7 @@ LABEL_24:
 
           else
           {
-            v14 = _TSLogDomain();
+            v14 = _TSLogDomain(0);
             if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
             {
               *buf = 134218242;
@@ -217,25 +209,24 @@ LABEL_24:
     while (v8);
   }
 
-  if ([v5 count])
+  v15 = [v5 count];
+  if (v15)
   {
-    v15 = _TSLogDomain();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+    v16 = _TSLogDomain(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
       +[TSIDSSubscriptionSelector doRegistrationForIMessage:];
     }
 
     [v17 setSelectedSubscriptions:v5 withCompletion:&__block_literal_global_21];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __55__TSIDSSubscriptionSelector_doRegistrationForIMessage___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v4 = a2;
   v5 = a3;
-  v6 = _TSLogDomain();
+  v6 = _TSLogDomain(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     __55__TSIDSSubscriptionSelector_doRegistrationForIMessage___block_invoke_cold_1(v4, v5, v6);
@@ -244,11 +235,10 @@ void __55__TSIDSSubscriptionSelector_doRegistrationForIMessage___block_invoke(ui
 
 + (void)activeIMessageSlots
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  v3 = "+[TSIDSSubscriptionSelector activeIMessageSlots]";
-  _os_log_debug_impl(&dword_262AA8000, v0, OS_LOG_TYPE_DEBUG, "[Db] %@ @%s", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  v2 = "+[TSIDSSubscriptionSelector activeIMessageSlots]";
+  _os_log_debug_impl(&dword_262AA8000, v0, OS_LOG_TYPE_DEBUG, "[Db] %@ @%s", v1, 0x16u);
 }
 
 + (void)doRegistrationForIMessage:(os_log_t)log .cold.1(uint8_t *buf, void *a2, os_log_t log)
@@ -260,24 +250,22 @@ void __55__TSIDSSubscriptionSelector_doRegistrationForIMessage___block_invoke(ui
 
 + (void)doRegistrationForIMessage:.cold.2()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  v3 = "+[TSIDSSubscriptionSelector doRegistrationForIMessage:]";
-  _os_log_debug_impl(&dword_262AA8000, v0, OS_LOG_TYPE_DEBUG, "[Db]  %@ @%s", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  v2 = "+[TSIDSSubscriptionSelector doRegistrationForIMessage:]";
+  _os_log_debug_impl(&dword_262AA8000, v0, OS_LOG_TYPE_DEBUG, "[Db]  %@ @%s", v1, 0x16u);
 }
 
 void __55__TSIDSSubscriptionSelector_doRegistrationForIMessage___block_invoke_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v4 = 138412802;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  v8 = 2080;
-  v9 = "+[TSIDSSubscriptionSelector doRegistrationForIMessage:]_block_invoke";
-  _os_log_error_impl(&dword_262AA8000, log, OS_LOG_TYPE_ERROR, "[E]Selection %@, Error %@ @%s", &v4, 0x20u);
-  v3 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
+  v3 = 138412802;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  v7 = 2080;
+  v8 = "+[TSIDSSubscriptionSelector doRegistrationForIMessage:]_block_invoke";
+  _os_log_error_impl(&dword_262AA8000, log, OS_LOG_TYPE_ERROR, "[E]Selection %@, Error %@ @%s", &v3, 0x20u);
 }
 
 @end

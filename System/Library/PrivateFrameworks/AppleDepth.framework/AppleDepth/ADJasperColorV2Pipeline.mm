@@ -174,14 +174,14 @@ LABEL_22:
     }
 
     v32 = buf;
-    PixelBufferUtils::pixelFormatAsString(PixelFormatType, buf);
+    PixelBufferUtils::pixelFormatAsString(buf, PixelFormatType);
     if (v60 < 0)
     {
       v32 = *buf;
     }
 
     v33 = CVPixelBufferGetPixelFormatType(uncertainty);
-    PixelBufferUtils::pixelFormatAsString(v33, __p);
+    PixelBufferUtils::pixelFormatAsString(__p, v33);
     if (v49 >= 0)
     {
       v34 = __p;
@@ -225,14 +225,14 @@ LABEL_54:
       }
 
       v37 = buf;
-      PixelBufferUtils::pixelFormatAsString(v44, buf);
+      PixelBufferUtils::pixelFormatAsString(buf, v44);
       if (v60 < 0)
       {
         v37 = *buf;
       }
 
       v38 = CVPixelBufferGetPixelFormatType(outputUncertainty);
-      PixelBufferUtils::pixelFormatAsString(v38, __p);
+      PixelBufferUtils::pixelFormatAsString(__p, v38);
       if (v49 >= 0)
       {
         v39 = __p;
@@ -322,10 +322,10 @@ LABEL_79:
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    PixelBufferUtils::pixelFormatAsString(PixelFormatType, buf);
+    PixelBufferUtils::pixelFormatAsString(buf, PixelFormatType);
     v40 = SHIBYTE(v60);
     v41 = *buf;
-    PixelBufferUtils::pixelFormatAsString(v44, __p);
+    PixelBufferUtils::pixelFormatAsString(__p, v44);
     v42 = buf;
     if (v40 < 0)
     {

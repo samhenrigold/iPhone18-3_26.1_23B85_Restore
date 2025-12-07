@@ -106,7 +106,7 @@
 {
   if (actions)
   {
-    sub_1000122EC(0, &qword_1001BC220);
+    sub_1000122EC(0, &qword_1001BC220, SBUIRemoteAlertButtonAction_ptr);
     sub_1000670A4();
     v4 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
   }
@@ -140,7 +140,7 @@
 
 - (void)updateDeviceInfoWithDeviceType:(unint64_t)type batteryLevel:(double)level batteryLevelKnown:(BOOL)known edge:(unint64_t)edge orientation:(int64_t)orientation isCharging:(BOOL)charging identifier:(id)identifier
 {
-  v16 = sub_100005DCC(&unk_1001BBAA0);
+  v16 = sub_100005DCC(&unk_1001BBAA0, &qword_10016CD60);
   __chkstk_darwin(v16 - 8);
   v18 = &v22 - v17;
   if (identifier)
@@ -159,7 +159,7 @@
   selfCopy = self;
   sub_1000B45F4(type, edge, orientation, charging, v18, level);
 
-  sub_10001259C(v18, &unk_1001BBAA0);
+  sub_10001259C(v18, &unk_1001BBAA0, &qword_10016CD60);
 }
 
 - (void)dismissUIAnimated:(BOOL)animated

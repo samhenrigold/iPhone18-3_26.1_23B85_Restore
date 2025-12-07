@@ -48,7 +48,7 @@ uint64_t sub_25BE95180(void *a1, id a2, uint64_t a3, uint64_t a4)
     if (v21)
     {
       v22 = v21;
-      sub_25BE80458(0, &unk_280E76678);
+      sub_25BE80458(0, &unk_280E76678, 0x277CEE4B0);
       v23 = sub_25BEB49A4();
 
       sub_25BE9441C(v23, (v20 + 16));
@@ -73,7 +73,7 @@ uint64_t sub_25BE95458(id *a1, uint64_t *a2)
     sub_25BE97774(0, &unk_280E766E0, &qword_280E76688, 0x277CEE4B8, MEMORY[0x277D83940]);
     sub_25BEB4834();
 
-    sub_25BE80458(0, &unk_280E766A0);
+    sub_25BE80458(0, &unk_280E766A0, 0x277CEE4C8);
     v16 = sub_25BE5CD58();
     v6 = sub_25BEB4844();
   }
@@ -90,7 +90,7 @@ uint64_t sub_25BE95458(id *a1, uint64_t *a2)
     sub_25BE97774(0, &unk_280E766E0, &qword_280E76688, 0x277CEE4B8, MEMORY[0x277D83940]);
     sub_25BEB4834();
 
-    sub_25BE80458(0, &qword_280E766D0);
+    sub_25BE80458(0, &qword_280E766D0, 0x277CEE488);
     sub_25BE5CD58();
     v9 = sub_25BEB4844();
   }
@@ -129,7 +129,7 @@ uint64_t sub_25BE95458(id *a1, uint64_t *a2)
   return result;
 }
 
-void sub_25BE95740(_BYTE *a1, void *a2, uint64_t *a3, uint64_t *a4)
+void sub_25BE95740(_BYTE *a1, void *a2, uint64_t *a3, unint64_t *a4)
 {
   v6 = *a3;
   v7 = a3[1];
@@ -181,7 +181,7 @@ LABEL_9:
   __break(1u);
 }
 
-void sub_25BE9584C(_BYTE *a1, void *a2, uint64_t *a3, uint64_t *a4)
+void sub_25BE9584C(_BYTE *a1, void *a2, uint64_t *a3, unint64_t *a4)
 {
   v6 = *a3;
   v7 = a3[1];
@@ -235,11 +235,11 @@ LABEL_10:
   __break(1u);
 }
 
-uint64_t sub_25BE95978(void (*a1)(uint64_t, void))
+uint64_t sub_25BE95978(void (*a1)(uint64_t, void), uint64_t a2, uint64_t a3)
 {
   swift_beginAccess();
 
-  a1(v2, 0);
+  a1(v4, 0);
 }
 
 void sub_25BE959E4(uint64_t a1, void *a2, void *a3)
@@ -260,7 +260,7 @@ void sub_25BE95A70(uint64_t a1, unint64_t a2, unsigned __int8 *a3)
   MEMORY[0x28223BE20](v7, v9);
   v11 = (&v47 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0));
   v48 = *a3;
-  sub_25BE80458(0, &qword_280E766B0);
+  sub_25BE80458(0, &qword_280E766B0, 0x277D85C78);
   *v11 = sub_25BEB4AA4();
   (*(v8 + 104))(v11, *MEMORY[0x277D85200], v7);
   LOBYTE(a3) = sub_25BEB4814();
@@ -326,7 +326,7 @@ LABEL_21:
 
 LABEL_10:
       v28 = 0;
-      v16 = v26 & 0xF8;
+      v16 = v26 & 0xFFFFFFFFFFFFFF8;
       while (1)
       {
         if ((v26 & 0xC000000000000001) != 0)
@@ -468,7 +468,7 @@ void sub_25BE960D4(unint64_t a1, uint64_t a2, unsigned __int8 *a3)
   MEMORY[0x28223BE20](v7, v9);
   v11 = (&v61 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0));
   v12 = *a3;
-  sub_25BE80458(0, &qword_280E766B0);
+  sub_25BE80458(0, &qword_280E766B0, 0x277D85C78);
   *v11 = sub_25BEB4AA4();
   (*(v8 + 104))(v11, *MEMORY[0x277D85200], v7);
   v13 = sub_25BEB4814();
@@ -533,7 +533,7 @@ LABEL_45:
     {
       v29 = 0;
       v30 = v4 & 0xC000000000000001;
-      v12 = v4 & 0xFFFFFFF8;
+      v12 = v4 & 0xFFFFFFFFFFFFFF8;
       do
       {
         if (v30)
@@ -729,7 +729,7 @@ LABEL_21:
   }
 }
 
-void sub_25BE968E4(void *a1, int a2, void *a3, void *a4, void *aBlock, unint64_t *a6, unint64_t *a7, uint64_t a8)
+void sub_25BE968E4(void *a1, int a2, void *a3, void *a4, void *aBlock, unint64_t *a6, unint64_t *a7, void *a8)
 {
   v14 = _Block_copy(aBlock);
   v15 = a3;
@@ -928,7 +928,7 @@ LABEL_8:
   return result;
 }
 
-void sub_25BE96EC0(void *a1, unint64_t *a2, unint64_t *a3, uint64_t a4)
+void sub_25BE96EC0(void *a1, unint64_t *a2, unint64_t *a3, void *a4)
 {
   if (qword_280E76F20 != -1)
   {
@@ -1022,7 +1022,7 @@ void sub_25BE97080(void *a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5)
       v27._countAndFlagsBits = a2;
       v27._object = a3;
       EngagementUIPlacement.init(rawValue:)(v27);
-      v28 = v38[0];
+      v28 = LOBYTE(v38[0]);
       if (LOBYTE(v38[0]) != 32)
       {
         v29 = OBJC_IVAR____TtC14NewsEngagement23EngagementEventProvider_observersStore;
@@ -1129,7 +1129,7 @@ void sub_25BE973D4(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5)
     v25._countAndFlagsBits = a2;
     v25._object = a3;
     EngagementUIPlacement.init(rawValue:)(v25);
-    v26 = v35[0];
+    v26 = LOBYTE(v35[0]);
     if (LOBYTE(v35[0]) != 32)
     {
       v27 = OBJC_IVAR____TtC14NewsEngagement23EngagementEventProvider_observersStore;
@@ -1163,11 +1163,11 @@ void sub_25BE973D4(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5)
   }
 }
 
-void sub_25BE97774(uint64_t a1, unint64_t *a2, unint64_t *a3, uint64_t a4, uint64_t (*a5)(uint64_t, uint64_t))
+void sub_25BE97774(uint64_t a1, unint64_t *a2, unint64_t *a3, void *a4, uint64_t (*a5)(uint64_t, uint64_t))
 {
   if (!*a2)
   {
-    v8 = sub_25BE80458(255, a3);
+    v8 = sub_25BE80458(255, a3, a4);
     v9 = a5(a1, v8);
     if (!v10)
     {
@@ -1176,7 +1176,7 @@ void sub_25BE97774(uint64_t a1, unint64_t *a2, unint64_t *a3, uint64_t a4, uint6
   }
 }
 
-uint64_t sub_25BE977F4()
+uint64_t sub_25BE977F4(uint64_t a1, unsigned __int8 a2)
 {
   sub_25BEB48C4();
 }
@@ -1242,22 +1242,24 @@ unint64_t sub_25BE97958(unsigned __int8 a1)
 
 uint64_t sub_25BE97A94()
 {
+  v1 = *v0;
   sub_25BEB4F04();
-  sub_25BE977F4();
+  sub_25BE977F4(v3, v1);
   return sub_25BEB4F24();
 }
 
 uint64_t sub_25BE97AE4()
 {
+  v1 = *v0;
   sub_25BEB4F04();
-  sub_25BE977F4();
+  sub_25BE977F4(v3, v1);
   return sub_25BEB4F24();
 }
 
-uint64_t sub_25BE97B28@<X0>(_BYTE *a1@<X8>)
+unint64_t sub_25BE97B28@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
 {
-  result = sub_25BE992A0();
-  *a1 = result;
+  result = sub_25BE992A0(*a1, a1[1]);
+  *a2 = result;
   return result;
 }
 
@@ -1269,10 +1271,10 @@ unint64_t sub_25BE97B58@<X0>(unint64_t *a1@<X8>)
   return result;
 }
 
-uint64_t sub_25BE97BA0@<X0>(_BYTE *a1@<X8>)
+unint64_t sub_25BE97BA0@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_25BE992A0();
-  *a1 = result;
+  result = sub_25BE992A0(a1, a2);
+  *a3 = result;
   return result;
 }
 
@@ -1947,18 +1949,18 @@ unint64_t sub_25BE9924C()
   return result;
 }
 
-uint64_t sub_25BE992A0()
+unint64_t sub_25BE992A0(uint64_t a1, uint64_t a2)
 {
-  v0 = sub_25BEB4CD4();
+  v2 = sub_25BEB4CD4();
 
-  if (v0 >= 9)
+  if (v2 >= 9)
   {
     return 9;
   }
 
   else
   {
-    return v0;
+    return v2;
   }
 }
 
@@ -2235,10 +2237,10 @@ uint64_t sub_25BE996F8(uint64_t a1)
   return MEMORY[0x2821FE720](a1, v2);
 }
 
-uint64_t sub_25BE9973C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t sub_25BE9973C@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = sub_25BE9D68C(a1, a2);
-  *a3 = result;
+  result = sub_25BE9D68C(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -2952,7 +2954,7 @@ uint64_t EngagementUpsellCondition.init(from:)@<X0>(void *a1@<X0>, void *a2@<X8>
     v53 = sub_25BEB4BF4();
     swift_allocError();
     v55 = v54;
-    sub_25BE9C7A8();
+    sub_25BE9C7A8(0);
     *v55 = &type metadata for EngagementUpsellCondition;
     v50 = v116;
     sub_25BEB4CF4();
@@ -3248,14 +3250,14 @@ void sub_25BE9C740(uint64_t a1, unint64_t *a2, uint64_t (*a3)(void), uint64_t a4
   }
 }
 
-void sub_25BE9C7A8()
+void sub_25BE9C7A8(uint64_t a1)
 {
   if (!qword_27FBE4508)
   {
     sub_25BE9C818();
     sub_25BEB4BE4();
     TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-    if (!v1)
+    if (!v2)
     {
       atomic_store(TupleTypeMetadata2, &qword_27FBE4508);
     }
@@ -3393,7 +3395,7 @@ LABEL_26:
   }
 
   v17 = v5;
-  v9 = (EngagementUpsellCondition.debugDescription.getter)();
+  v9 = EngagementUpsellCondition.debugDescription.getter(a1);
   MEMORY[0x25F87F0E0](v9);
 
   a1 = MEMORY[0x25F87F0E0](8236, 0xE200000000000000);
@@ -4166,34 +4168,34 @@ id Assembly.__allocating_init()()
   return [v1 init];
 }
 
-id Assembly.init()()
+id Assembly.init()(uint64_t a1, uint64_t a2)
 {
   ObjectType = swift_getObjectType();
-  v2 = OBJC_IVAR___EGAssembly_assemblies;
-  sub_25BE5BFA0();
-  v3 = swift_allocObject();
-  *(v3 + 16) = xmmword_25BEB60E0;
-  v4 = type metadata accessor for EngagementAssembly();
+  v4 = OBJC_IVAR___EGAssembly_assemblies;
+  sub_25BE5BFA0(0);
   v5 = swift_allocObject();
-  *(v3 + 56) = v4;
-  *(v3 + 64) = sub_25BE5C080();
-  *(v3 + 32) = v5;
-  *&v0[v2] = v3;
-  v7.receiver = v0;
-  v7.super_class = ObjectType;
-  return objc_msgSendSuper2(&v7, sel_init);
+  *(v5 + 16) = xmmword_25BEB60E0;
+  v6 = type metadata accessor for EngagementAssembly();
+  v7 = swift_allocObject();
+  *(v5 + 56) = v6;
+  *(v5 + 64) = sub_25BE5C080();
+  *(v5 + 32) = v7;
+  *&v2[v4] = v5;
+  v9.receiver = v2;
+  v9.super_class = ObjectType;
+  return objc_msgSendSuper2(&v9, sel_init);
 }
 
-id Assembly.__deallocating_deinit()
+id Assembly.__deallocating_deinit(uint64_t a1, uint64_t a2)
 {
-  v2.receiver = v0;
-  v2.super_class = swift_getObjectType();
-  return objc_msgSendSuper2(&v2, sel_dealloc);
+  v4.receiver = v2;
+  v4.super_class = swift_getObjectType();
+  return objc_msgSendSuper2(&v4, sel_dealloc);
 }
 
 uint64_t EngagementUpsellBannerPropertiesResult.error.getter@<X0>(uint64_t *a1@<X8>)
 {
-  v3 = *(v1 + *(type metadata accessor for EngagementUpsellBannerPropertiesResult() + 20));
+  v3 = *(v1 + *(type metadata accessor for EngagementUpsellBannerPropertiesResult(0) + 20));
   *a1 = v3;
 
   return sub_25BE5EC10(v3);
@@ -4201,7 +4203,7 @@ uint64_t EngagementUpsellBannerPropertiesResult.error.getter@<X0>(uint64_t *a1@<
 
 uint64_t EngagementUpsellBannerPropertiesResult.trigger.getter()
 {
-  v1 = *(v0 + *(type metadata accessor for EngagementUpsellBannerPropertiesResult() + 24));
+  v1 = *(v0 + *(type metadata accessor for EngagementUpsellBannerPropertiesResult(0) + 24));
 
   return v1;
 }
@@ -4210,7 +4212,7 @@ uint64_t EngagementUpsellBannerPropertiesResult.init(bannerProperties:error:trig
 {
   v8 = *a2;
   sub_25BE9E564(a1, a5);
-  result = type metadata accessor for EngagementUpsellBannerPropertiesResult();
+  result = type metadata accessor for EngagementUpsellBannerPropertiesResult(0);
   *(a5 + *(result + 20)) = v8;
   v10 = (a5 + *(result + 24));
   *v10 = a3;
@@ -4220,14 +4222,14 @@ uint64_t EngagementUpsellBannerPropertiesResult.init(bannerProperties:error:trig
 
 uint64_t sub_25BE9E564(uint64_t a1, uint64_t a2)
 {
-  sub_25BE5E748();
+  sub_25BE5E748(0);
   (*(*(v4 - 8) + 32))(a2, a1, v4);
   return a2;
 }
 
 uint64_t sub_25BE9E5C8()
 {
-  v0 = type metadata accessor for EngagementUpsellBannerPropertiesResult();
+  v0 = type metadata accessor for EngagementUpsellBannerPropertiesResult(0);
   __swift_allocate_value_buffer(v0, qword_280E76880);
   v1 = __swift_project_value_buffer(v0, qword_280E76880);
   v2 = type metadata accessor for EngagementUpsellBannerProperties(0);
@@ -4246,7 +4248,7 @@ uint64_t static EngagementUpsellBannerPropertiesResult.empty.getter@<X0>(uint64_
     swift_once();
   }
 
-  v2 = type metadata accessor for EngagementUpsellBannerPropertiesResult();
+  v2 = type metadata accessor for EngagementUpsellBannerPropertiesResult(0);
   v3 = __swift_project_value_buffer(v2, qword_280E76880);
   return sub_25BE5E8D8(v3, a1, type metadata accessor for EngagementUpsellBannerPropertiesResult);
 }
@@ -4311,7 +4313,7 @@ uint64_t sub_25BE9EAEC()
   return sub_25BEB4F24();
 }
 
-uint64_t sub_25BE9EBA0()
+uint64_t sub_25BE9EBA0(uint64_t a1)
 {
   sub_25BEB48C4();
 }
@@ -4507,7 +4509,7 @@ void sub_25BE9EE80(_BYTE *a1@<X0>, char a2@<W2>, uint64_t a3@<X8>)
   *(a3 + 40) = 0;
 }
 
-uint64_t sub_25BE9F090(char *a1)
+uint64_t sub_25BE9F090(unsigned __int8 *a1)
 {
   v2 = v1;
   sub_25BEA7D54(0, &qword_280E76E58, MEMORY[0x277CC9578], MEMORY[0x277D83D88]);
@@ -4806,7 +4808,7 @@ uint64_t sub_25BE9F090(char *a1)
 
   v41 = sub_25BE8A92C(inited);
   swift_setDeallocating();
-  sub_25BE8A86C();
+  sub_25BE8A86C(0);
   swift_arrayDestroy();
   if (*(v41 + 16) && (sub_25BE65758(v8), (v42 & 1) != 0))
   {
@@ -6729,7 +6731,7 @@ void sub_25BEA76F0(uint64_t a1@<X8>)
   *(a1 + 8) = 0;
 }
 
-BOOL sub_25BEA7A38(uint64_t a1, char a2)
+BOOL sub_25BEA7A38(uint64_t a1, uint64_t a2)
 {
   v4 = sub_25BEB43C4();
   v5 = *(v4 - 8);
@@ -6798,14 +6800,14 @@ uint64_t sub_25BEA7CE4(uint64_t a1)
   return a1;
 }
 
-uint64_t sub_25BEA7D40(uint64_t a1, unint64_t a2)
+uint64_t sub_25BEA7D40(uint64_t result, unint64_t a2)
 {
   if (a2 >> 60 != 15)
   {
-    return sub_25BE672C8(a1, a2);
+    return sub_25BE672C8(result, a2);
   }
 
-  return a1;
+  return result;
 }
 
 void sub_25BEA7D54(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t), uint64_t (*a4)(uint64_t, uint64_t))
@@ -7047,7 +7049,7 @@ unint64_t EngagementUpsellTriggerFailureReason.rawValue.getter()
   }
 }
 
-uint64_t sub_25BEA831C()
+uint64_t sub_25BEA831C(uint64_t a1)
 {
   sub_25BEB48C4();
 }
@@ -7294,7 +7296,7 @@ uint64_t sub_25BEA87F4()
   return sub_25BEB4F24();
 }
 
-uint64_t sub_25BEA88B4()
+uint64_t sub_25BEA88B4(uint64_t a1)
 {
   sub_25BEB48C4();
 }
@@ -7460,9 +7462,9 @@ uint64_t sub_25BEA8DC8()
   return sub_25BEB4F24();
 }
 
-uint64_t sub_25BEA8E2C()
+uint64_t sub_25BEA8E2C(uint64_t a1)
 {
-  sub_25BEA8BD4(*v0);
+  sub_25BEA8BD4(*v1);
   sub_25BEB48C4();
 }
 
@@ -7476,10 +7478,10 @@ uint64_t sub_25BEA8E80()
   return sub_25BEB4F24();
 }
 
-uint64_t sub_25BEA8EE0@<X0>(_BYTE *a1@<X8>)
+unint64_t sub_25BEA8EE0@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
 {
-  result = sub_25BEADAB4();
-  *a1 = result;
+  result = sub_25BEADAB4(*a1, a1[1]);
+  *a2 = result;
   return result;
 }
 
@@ -7491,10 +7493,10 @@ unint64_t sub_25BEA8F10@<X0>(unint64_t *a1@<X8>)
   return result;
 }
 
-uint64_t sub_25BEA8F58@<X0>(_BYTE *a1@<X8>)
+unint64_t sub_25BEA8F58@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_25BEADAB4();
-  *a1 = result;
+  result = sub_25BEADAB4(a1, a2);
+  *a3 = result;
   return result;
 }
 
@@ -7525,7 +7527,7 @@ uint64_t EngagementUpsellTrigger.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8
   v8 = sub_25BEB4524();
   MEMORY[0x28223BE20](v8 - 8, v9);
   v115 = &v88 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v113 = type metadata accessor for EngagementUpsellTrigger();
+  v113 = type metadata accessor for EngagementUpsellTrigger(0);
   MEMORY[0x28223BE20](v113, v11);
   v114 = &v88 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_25BE63CCC(0, &qword_280E76DE8, MEMORY[0x277D6CF38], MEMORY[0x277D83D88]);
@@ -7561,7 +7563,7 @@ uint64_t EngagementUpsellTrigger.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8
   v106 = v23;
   v118 = v31;
   LOBYTE(v121[0]) = 0;
-  sub_25BEAC81C(&qword_27FBE46C0);
+  sub_25BEAC81C(&qword_27FBE46C0, MEMORY[0x277D6CF50]);
   v42 = v116;
   sub_25BEB4D44();
   LOBYTE(v121[0]) = 1;
@@ -7710,14 +7712,14 @@ uint64_t EngagementUpsellTrigger.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8
   v76 = v121[0];
   sub_25BEB4AF4();
   swift_unknownObjectRelease();
-  sub_25BE63D30(0, &qword_280E76F18);
+  sub_25BE63D30(0, &qword_280E76F18, MEMORY[0x277D84F70] + 8);
   if ((swift_dynamicCast() & 1) == 0)
   {
     sub_25BE672C8(v70, v72);
     goto LABEL_29;
   }
 
-  sub_25BE67480(v121, v120);
+  sub_25BE67480(v120, v121);
   sub_25BE672C8(v70, v72);
   if ((~v121[0] & 0xF000000000000007) == 0)
   {
@@ -7779,7 +7781,7 @@ LABEL_26:
   return __swift_destroy_boxed_opaque_existential_0Tm(v119);
 }
 
-uint64_t sub_25BEA9E70(uint64_t a1, uint64_t a2)
+void *sub_25BEA9E70(uint64_t a1, uint64_t a2)
 {
   v4 = MEMORY[0x28223BE20](a1, a2);
   v5 = sub_25BEB4BE4();
@@ -7787,7 +7789,7 @@ uint64_t sub_25BEA9E70(uint64_t a1, uint64_t a2)
   MEMORY[0x28223BE20](v5, v7);
   v9 = v46 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   v56 = v4;
-  sub_25BE63D30(0, &qword_27FBE46D8);
+  sub_25BE63D30(0, &qword_27FBE46D8, &type metadata for EngagementUpsellPlacement);
   sub_25BEAC7B8(0, &qword_27FBE46B0, MEMORY[0x277D844C8]);
   v11 = v10;
   sub_25BEABB9C();
@@ -7961,7 +7963,7 @@ LABEL_7:
   return v2;
 }
 
-uint64_t KeyedDecodingContainer.decode(_:forKey:)(uint64_t a1, uint64_t a2)
+void *KeyedDecodingContainer.decode(_:forKey:)(uint64_t a1, uint64_t a2)
 {
   MEMORY[0x28223BE20](a1, a2);
   v5 = v4;
@@ -7969,7 +7971,7 @@ uint64_t KeyedDecodingContainer.decode(_:forKey:)(uint64_t a1, uint64_t a2)
   v7 = *(v6 - 8);
   MEMORY[0x28223BE20](v6, v8);
   v10 = v45 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_25BE63D30(0, &qword_27FBE46D8);
+  sub_25BE63D30(0, &qword_27FBE46D8, &type metadata for EngagementUpsellPlacement);
   sub_25BEABB9C();
   sub_25BEB4D84();
   if (!v3)
@@ -8143,7 +8145,7 @@ LABEL_7:
 
 uint64_t EngagementUpsellTrigger.condition.getter@<X0>(uint64_t *a1@<X8>)
 {
-  v3 = *(v1 + *(type metadata accessor for EngagementUpsellTrigger() + 48));
+  v3 = *(v1 + *(type metadata accessor for EngagementUpsellTrigger(0) + 48));
   *a1 = v3;
 
   return sub_25BEAC7A0(v3);
@@ -8162,11 +8164,11 @@ uint64_t EngagementUpsellTrigger.encode(to:)(void *a1)
   sub_25BEB4F44();
   LOBYTE(v15) = 0;
   sub_25BEB4714();
-  sub_25BEAC81C(&qword_27FBE46F8);
+  sub_25BEAC81C(&qword_27FBE46F8, MEMORY[0x277D6CF40]);
   sub_25BEB4E34();
   if (!v2)
   {
-    v11 = type metadata accessor for EngagementUpsellTrigger();
+    v11 = type metadata accessor for EngagementUpsellTrigger(0);
     LOBYTE(v15) = 1;
     sub_25BEB4E34();
     LOBYTE(v15) = 2;
@@ -8199,16 +8201,17 @@ uint64_t EngagementUpsellTrigger.encode(to:)(void *a1)
   return (*(v7 + 8))(v10, v6);
 }
 
-uint64_t sub_25BEAABB4(uint64_t a1, int a2)
+uint64_t sub_25BEAABB4(uint64_t a1, uint64_t a2)
 {
   v3 = v2;
+  v4 = a2;
   v41 = sub_25BEB43C4();
   v5 = *(v41 - 8);
   MEMORY[0x28223BE20](v41, v6);
   v40 = &v34 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   v8 = *v2;
-  sub_25BEADB9C();
-  v38 = a2;
+  sub_25BEADB9C(0);
+  v38 = v4;
   result = sub_25BEB4CA4();
   v10 = result;
   if (*(v8 + 16))
@@ -8348,12 +8351,13 @@ LABEL_34:
   return result;
 }
 
-uint64_t sub_25BEAAF34(uint64_t a1, char a2)
+uint64_t sub_25BEAAF34(uint64_t a1, uint64_t a2)
 {
   v3 = v2;
+  v4 = a2;
   v5 = *v2;
   sub_25BE61E38(0, &qword_280E76638, &type metadata for EngagementRequest, MEMORY[0x277D84460]);
-  v33 = a2;
+  v33 = v4;
   result = sub_25BEB4CA4();
   v7 = result;
   if (*(v5 + 16))
@@ -8485,11 +8489,12 @@ LABEL_7:
   return result;
 }
 
-uint64_t sub_25BEAB20C(uint64_t a1, char a2)
+uint64_t sub_25BEAB20C(uint64_t a1, uint64_t a2)
 {
   v3 = v2;
+  v4 = a2;
   v5 = *v2;
-  sub_25BE6998C(0, &qword_280E76610);
+  sub_25BE6998C(0, &qword_280E76610, MEMORY[0x277D84030], MEMORY[0x277D84F70] + 8, MEMORY[0x277D84038]);
   result = sub_25BEB4CA4();
   v7 = result;
   if (*(v5 + 16))
@@ -8518,7 +8523,7 @@ uint64_t sub_25BEAB20C(uint64_t a1, char a2)
 LABEL_15:
       v22 = v19 | (v8 << 6);
       v23 = *(v5 + 48) + 40 * v22;
-      if (a2)
+      if (v4)
       {
         v24 = *v23;
         v25 = *(v23 + 16);
@@ -8602,7 +8607,7 @@ LABEL_7:
       }
     }
 
-    if (a2)
+    if (v4)
     {
       v33 = 1 << *(v5 + 32);
       if (v33 >= 64)
@@ -8629,12 +8634,13 @@ LABEL_7:
   return result;
 }
 
-uint64_t sub_25BEAB4DC(uint64_t a1, char a2)
+uint64_t sub_25BEAB4DC(uint64_t a1, uint64_t a2)
 {
   v3 = v2;
+  v4 = a2;
   v5 = *v2;
-  sub_25BEADB00();
-  v30 = a2;
+  sub_25BEADB00(0);
+  v30 = v4;
   result = sub_25BEB4CA4();
   v7 = result;
   if (*(v5 + 16))
@@ -8761,12 +8767,13 @@ LABEL_33:
   return result;
 }
 
-uint64_t sub_25BEAB780(uint64_t a1, char a2)
+uint64_t sub_25BEAB780(uint64_t a1, uint64_t a2)
 {
   v3 = v2;
+  v4 = a2;
   v5 = *v2;
   sub_25BE61E38(0, &qword_280E76640, &type metadata for EngagementInlineViewManager.Placement, MEMORY[0x277D84460]);
-  v38 = a2;
+  v38 = v4;
   result = sub_25BEB4CA4();
   v7 = result;
   if (*(v5 + 16))
@@ -8950,7 +8957,7 @@ unint64_t sub_25BEABB9C()
   result = qword_27FBE46E0;
   if (!qword_27FBE46E0)
   {
-    sub_25BE63D30(255, &qword_27FBE46D8);
+    sub_25BE63D30(255, &qword_27FBE46D8, &type metadata for EngagementUpsellPlacement);
     sub_25BEABC2C();
     result = swift_getWitnessTable();
     atomic_store(result, &qword_27FBE46E0);
@@ -9095,7 +9102,7 @@ void *sub_25BEABEE8()
   v30 = *(v28 - 8);
   MEMORY[0x28223BE20](v28, v2);
   v27 = v26 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_25BEADB9C();
+  sub_25BEADB9C(0);
   v4 = *v0;
   v5 = sub_25BEB4C94();
   v6 = v5;
@@ -9276,7 +9283,7 @@ LABEL_19:
 void *sub_25BEAC2CC()
 {
   v1 = v0;
-  sub_25BE6998C(0, &qword_280E76610);
+  sub_25BE6998C(0, &qword_280E76610, MEMORY[0x277D84030], MEMORY[0x277D84F70] + 8, MEMORY[0x277D84038]);
   v2 = *v0;
   v3 = sub_25BEB4C94();
   v4 = v3;
@@ -9365,7 +9372,7 @@ LABEL_19:
 void *sub_25BEAC488()
 {
   v1 = v0;
-  sub_25BEADB00();
+  sub_25BEADB00(0);
   v2 = *v0;
   v3 = sub_25BEB4C94();
   v4 = v3;
@@ -9541,7 +9548,7 @@ void sub_25BEAC7B8(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t, ValueMet
   }
 }
 
-uint64_t sub_25BEAC81C(unint64_t *a1)
+uint64_t sub_25BEAC81C(unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)
@@ -9818,11 +9825,11 @@ unint64_t sub_25BEACC6C()
 void *sub_25BEACCC0()
 {
   v1 = v0;
-  v2 = type metadata accessor for EngagementUpsellTrigger();
+  v2 = type metadata accessor for EngagementUpsellTrigger(0);
   v32 = *(v2 - 8);
   MEMORY[0x28223BE20](v2 - 8, v3);
   v31 = &v30 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_25BE6862C();
+  sub_25BE6862C(0);
   v5 = *v0;
   v6 = sub_25BEB4C94();
   v7 = v6;

@@ -1,6 +1,7 @@
 @interface SPIiBootUpdater
 + (id)IOMatchingPropertyTable;
 - (BOOL)updateBootFirmwareWithError:(id *)error;
+- (SPIiBootUpdater)initWithIOService:(unsigned int)service;
 - (id)_stitchFirmwareImage;
 - (void)dealloc;
 @end
@@ -12,6 +13,49 @@
   v3 = @"IOProviderClass";
   v4 = @"AppleEmbeddedSimpleSPINORFlasherDriver";
   return [NSDictionary dictionaryWithObjects:&v4 forKeys:&v3 count:1];
+}
+
+- (SPIiBootUpdater)initWithIOService:(unsigned int)service
+{
+  v3 = *&service;
+  v17.receiver = self;
+  v17.super_class = SPIiBootUpdater;
+  v4 = [(MSUBootFirmwareUpdater *)&v17 initWithIOService:?];
+  if (v4)
+  {
+    supportsDualiBoot = [objc_opt_class() supportsDualiBoot];
+    v12 = supportsDualiBoot == 0;
+    if (supportsDualiBoot)
+    {
+      v13 = @"Device supports dual SPI boot.";
+    }
+
+    else
+    {
+      v13 = @"Device does not support dual SPI boot.";
+    }
+
+    if (v12)
+    {
+      v14 = off_100098E18;
+    }
+
+    else
+    {
+      v14 = off_100098E10;
+    }
+
+    iBU_LOG_real(v13, "[SPIiBootUpdater initWithIOService:]", v6, v7, v8, v9, v10, v11, v17.receiver);
+    v15 = [objc_alloc(*v14) initWithService:v3];
+    v4->_writer = v15;
+    if (!v15)
+    {
+
+      return 0;
+    }
+  }
+
+  return v4;
 }
 
 - (BOOL)updateBootFirmwareWithError:(id *)error

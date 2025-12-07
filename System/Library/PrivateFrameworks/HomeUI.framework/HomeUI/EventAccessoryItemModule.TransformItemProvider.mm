@@ -14,8 +14,8 @@
 
   if (v6)
   {
-    sub_20CECF940(0, &qword_281120AC0);
-    sub_20CEF7F74(&qword_281120AB0, &qword_281120AC0);
+    sub_20CECF940(0, &qword_281120AC0, 0x277D14748);
+    sub_20CEF7F74(&qword_281120AB0, &qword_281120AC0, 0x277D14748);
     v7 = sub_20D567CD8();
   }
 

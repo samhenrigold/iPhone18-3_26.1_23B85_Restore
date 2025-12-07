@@ -15,13 +15,11 @@
 
 + (NSSet)allowedPayloadKeys
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEB98];
-  v7[0] = @"Restrictions";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
+  v6[0] = @"Restrictions";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
   v4 = [v2 setWithArray:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -82,55 +80,51 @@
 
 + (id)combineConfigurations:(id)configurations
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   configurationsCopy = configurations;
   v4 = objc_opt_new();
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v5 = configurationsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [v4 combineWithOther:{*(*(&v12 + 1) + 8 * i), v12}];
+        [v4 combineWithOther:{*(*(&v11 + 1) + 8 * i), v11}];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 + (id)supportedOS
 {
-  v10[1] = *MEMORY[0x277D85DE8];
-  v9 = &unk_28746B1E0;
+  v9[1] = *MEMORY[0x277D85DE8];
+  v8 = &unk_28746B1E0;
   v2 = [MEMORY[0x277CBEB98] setWithArray:&unk_287466C38];
-  v8[0] = v2;
+  v7[0] = v2;
   v3 = [MEMORY[0x277CBEB98] setWithArray:&unk_287466C50];
-  v8[1] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:2];
-  v10[0] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v7[1] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:2];
+  v9[0] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
 
   return v5;
 }

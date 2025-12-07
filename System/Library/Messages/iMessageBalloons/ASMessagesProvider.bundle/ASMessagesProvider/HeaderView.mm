@@ -11,7 +11,7 @@
 - (_TtC18ASMessagesProviderP33_F8126028EBC951D565C2F73D484F972E10HeaderView)initWithCoder:(id)coder
 {
   v4 = OBJC_IVAR____TtC18ASMessagesProviderP33_F8126028EBC951D565C2F73D484F972E10HeaderView_mediaView;
-  type metadata accessor for StoryCardMediaView();
+  type metadata accessor for StoryCardMediaView(0);
   *(&self->super.super.super.isa + v4) = [objc_allocWithZone(swift_getObjCClassFromMetadata()) init];
   v5 = OBJC_IVAR____TtC18ASMessagesProviderP33_F8126028EBC951D565C2F73D484F972E10HeaderView_gradientBlurView;
   v6 = objc_allocWithZone(type metadata accessor for TodayCardProtectionLayerView());

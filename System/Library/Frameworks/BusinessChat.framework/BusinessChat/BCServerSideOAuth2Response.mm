@@ -8,11 +8,11 @@
 
 - (BCServerSideOAuth2Response)initWithRedirectURI:(id)i
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   iCopy = i;
-  v48.receiver = self;
-  v48.super_class = BCServerSideOAuth2Response;
-  v5 = [(BCServerSideOAuth2Response *)&v48 init];
+  v47.receiver = self;
+  v47.super_class = BCServerSideOAuth2Response;
+  v5 = [(BCServerSideOAuth2Response *)&v47 init];
   if (!v5)
   {
     goto LABEL_34;
@@ -30,31 +30,31 @@
     goto LABEL_33;
   }
 
-  v42 = iCopy;
-  v43 = v6;
-  v51 = 0u;
-  v52 = 0u;
-  v49 = 0u;
+  v41 = iCopy;
+  v42 = v6;
   v50 = 0u;
+  v51 = 0u;
+  v48 = 0u;
+  v49 = 0u;
   v10 = queryItems;
-  v11 = [v10 countByEnumeratingWithState:&v49 objects:v54 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v48 objects:v53 count:16];
   if (!v11)
   {
     goto LABEL_16;
   }
 
   v12 = v11;
-  v13 = *v50;
+  v13 = *v49;
 LABEL_5:
   v14 = 0;
   while (1)
   {
-    if (*v50 != v13)
+    if (*v49 != v13)
     {
       objc_enumerationMutation(v10);
     }
 
-    v15 = *(*(&v49 + 1) + 8 * v14);
+    v15 = *(*(&v48 + 1) + 8 * v14);
     name = [v15 name];
     if ([name isEqualToString:@"status"])
     {
@@ -72,34 +72,34 @@ LABEL_5:
 LABEL_14:
     if (v12 == ++v14)
     {
-      v12 = [v10 countByEnumeratingWithState:&v49 objects:v54 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v48 objects:v53 count:16];
       if (!v12)
       {
 LABEL_16:
 
+        v43 = 0u;
         v44 = 0u;
         v45 = 0u;
         v46 = 0u;
-        v47 = 0u;
-        queryItems2 = [v43 queryItems];
-        v25 = [queryItems2 countByEnumeratingWithState:&v44 objects:v53 count:16];
+        queryItems2 = [v42 queryItems];
+        v25 = [queryItems2 countByEnumeratingWithState:&v43 objects:v52 count:16];
         if (!v25)
         {
           goto LABEL_28;
         }
 
         v26 = v25;
-        v27 = *v45;
+        v27 = *v44;
         while (1)
         {
           for (i = 0; i != v26; ++i)
           {
-            if (*v45 != v27)
+            if (*v44 != v27)
             {
               objc_enumerationMutation(queryItems2);
             }
 
-            v29 = *(*(&v44 + 1) + 8 * i);
+            v29 = *(*(&v43 + 1) + 8 * i);
             name3 = [v29 name];
             v31 = [name3 isEqualToString:@"status"];
 
@@ -130,7 +130,7 @@ LABEL_16:
             }
           }
 
-          v26 = [queryItems2 countByEnumeratingWithState:&v44 objects:v53 count:16];
+          v26 = [queryItems2 countByEnumeratingWithState:&v43 objects:v52 count:16];
           if (!v26)
           {
 LABEL_28:
@@ -165,22 +165,21 @@ LABEL_11:
 
 LABEL_31:
 LABEL_32:
-  iCopy = v42;
-  v6 = v43;
+  iCopy = v41;
+  v6 = v42;
 LABEL_33:
 
 LABEL_34:
-  v40 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (id)_initWithDictionary:(id)dictionary
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
-  v17.receiver = self;
-  v17.super_class = BCServerSideOAuth2Response;
-  v5 = [(BCServerSideOAuth2Response *)&v17 init];
+  v16.receiver = self;
+  v16.super_class = BCServerSideOAuth2Response;
+  v5 = [(BCServerSideOAuth2Response *)&v16 init];
   if (v5)
   {
     v6 = LogCategory_Daemon();
@@ -188,7 +187,7 @@ LABEL_34:
     {
       v7 = [dictionaryCopy description];
       *buf = 138412290;
-      v19 = v7;
+      v18 = v7;
       _os_log_impl(&dword_236EA0000, v6, OS_LOG_TYPE_DEFAULT, "BCAuthenticationResponse: initWithDictionary %@", buf, 0xCu);
     }
 
@@ -224,7 +223,6 @@ LABEL_10:
     }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

@@ -56,7 +56,7 @@ void __37__CHSScreenshotManager_sharedManager__block_invoke(uint64_t a1)
 
   else
   {
-    v11 = CHSLogClientSnapshots();
+    v11 = CHSLogClientSnapshots(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -70,11 +70,10 @@ void __37__CHSScreenshotManager_sharedManager__block_invoke(uint64_t a1)
 
 + (NSString)basePath
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   started = sysdir_start_search_path_enumeration_private();
-  MEMORY[0x19A8C5CD0](started, v6);
-  v3 = [MEMORY[0x1E696AEC0] stringWithCString:v6 encoding:4];
-  v4 = *MEMORY[0x1E69E9840];
+  MEMORY[0x19A8C5CD0](started, v5);
+  v3 = [MEMORY[0x1E696AEC0] stringWithCString:v5 encoding:4];
 
   return v3;
 }
@@ -98,13 +97,13 @@ void __37__CHSScreenshotManager_sharedManager__block_invoke(uint64_t a1)
 
 - (void)deleteAllCachedScreenshots
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   threadSafe_fileManager = self->_threadSafe_fileManager;
   baseURL = self->_baseURL;
-  v11 = 0;
-  [(NSFileManager *)threadSafe_fileManager removeItemAtURL:baseURL error:&v11];
-  v5 = v11;
-  v6 = CHSLogClientSnapshots();
+  v10 = 0;
+  [(NSFileManager *)threadSafe_fileManager removeItemAtURL:baseURL error:&v10];
+  v5 = v10;
+  v6 = CHSLogClientSnapshots(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = @"success";
@@ -114,15 +113,13 @@ void __37__CHSScreenshotManager_sharedManager__block_invoke(uint64_t a1)
     }
 
     *buf = 138543362;
-    v13 = v7;
+    v12 = v7;
     _os_log_impl(&dword_195EB2000, v6, OS_LOG_TYPE_DEFAULT, "Clearing all cached client-side snapshots: %{public}@", buf, 0xCu);
   }
 
   v8 = self->_threadSafe_fileManager;
   path = [(NSURL *)self->_baseURL path];
   [(NSFileManager *)v8 createDirectoryAtPath:path withIntermediateDirectories:1 attributes:0 error:0];
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (id)allCachedSnapshotURLs
@@ -158,10 +155,11 @@ void __37__CHSScreenshotManager_sharedManager__block_invoke(uint64_t a1)
         v18 = 0;
         [v12 getResourceValue:&v18 forKey:v10 error:0];
         v13 = v18;
-        if (([v13 BOOLValue] & 1) == 0)
+        bOOLValue = [v13 BOOLValue];
+        if ((bOOLValue & 1) == 0)
         {
-          v14 = CHSLogClientSnapshots();
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+          v15 = CHSLogClientSnapshots(bOOLValue);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
           {
             path = [v12 path];
             [(CHSScreenshotManager *)path allCachedSnapshotURLs:buf];
@@ -177,15 +175,13 @@ void __37__CHSScreenshotManager_sharedManager__block_invoke(uint64_t a1)
     while (v8);
   }
 
-  v16 = *MEMORY[0x1E69E9840];
-
   return v6;
 }
 
 uint64_t __45__CHSScreenshotManager_allCachedSnapshotURLs__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v3 = a3;
-  v4 = CHSLogClientSnapshots();
+  v4 = CHSLogClientSnapshots(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __45__CHSScreenshotManager_allCachedSnapshotURLs__block_invoke_cold_1(v3, v4);
@@ -258,7 +254,8 @@ uint64_t __45__CHSScreenshotManager_allCachedSnapshotURLs__block_invoke(uint64_t
   v4 = v3;
   if (widget)
   {
-    v5 = CHSWidgetFamilyDescription([v3 family]);
+    [v3 family];
+    v5 = CHSWidgetFamilyDescription();
     intentReference = [v4 intentReference];
     if ([intentReference stableHash])
     {
@@ -378,11 +375,10 @@ uint64_t __45__CHSScreenshotManager_allCachedSnapshotURLs__block_invoke(uint64_t
 
 void __45__CHSScreenshotManager_allCachedSnapshotURLs__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_195EB2000, a2, OS_LOG_TYPE_ERROR, "Unexpected error iterating directories for client snapshots: error = %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_195EB2000, a2, OS_LOG_TYPE_ERROR, "Unexpected error iterating directories for client snapshots: error = %{public}@", &v2, 0xCu);
 }
 
 @end

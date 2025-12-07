@@ -81,7 +81,7 @@
 
 - (void)promptForEvent:(id)event
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   profileIdentifier = [eventCopy profileIdentifier];
   v6 = -[HDDatabaseCorruptionTTRPrompter shouldAttemptTTRForProfileIdentier:component:](self, "shouldAttemptTTRForProfileIdentier:component:", profileIdentifier, [eventCopy component]);
@@ -91,9 +91,9 @@
     v7 = objc_alloc(MEMORY[0x277CCACA8]);
     v8 = HDStringFromDatabaseComponentIdentifier([eventCopy component]);
     error = [eventCopy error];
-    v33 = [v7 initWithFormat:@"Database corruption in %@: %@", v8, error];
+    v32 = [v7 initWithFormat:@"Database corruption in %@: %@", v8, error];
 
-    v30 = objc_alloc(MEMORY[0x277CCACA8]);
+    v29 = objc_alloc(MEMORY[0x277CCACA8]);
     error2 = [eventCopy error];
     domain = [error2 domain];
     error3 = [eventCopy error];
@@ -104,9 +104,9 @@
     v15 = HDStringFromDatabaseComponentIdentifier([eventCopy component]);
     profileIdentifier2 = [eventCopy profileIdentifier];
     date = [eventCopy date];
-    v29 = code;
+    v28 = code;
     v18 = domain;
-    v19 = [v30 initWithFormat:@"%@\n\nError(%@, %ld):\n%@\n\nBuild:%@\nComponent:%@\nProfile:%@\nDate:%@\n", v33, domain, v29, localizedDescription, buildDescription, v15, profileIdentifier2, date];
+    v19 = [v29 initWithFormat:@"%@\n\nError(%@, %ld):\n%@\n\nBuild:%@\nComponent:%@\nProfile:%@\nDate:%@\n", v32, domain, v28, localizedDescription, buildDescription, v15, profileIdentifier2, date];
 
     failedObliterationReason = [eventCopy failedObliterationReason];
 
@@ -124,8 +124,8 @@
     {
       *buf = 138543618;
       selfCopy = self;
-      v36 = 2114;
-      v37 = v19;
+      v35 = 2114;
+      v36 = v19;
       _os_log_impl(&dword_228986000, v23, OS_LOG_TYPE_DEFAULT, "%{public}@: present database corruption alert %{public}@", buf, 0x16u);
     }
 
@@ -136,8 +136,6 @@
     profileIdentifier4 = [eventCopy profileIdentifier];
     -[HDDatabaseCorruptionEventStore persistTTRAttempt:forProfileIdentifier:component:](corruptionStore, "persistTTRAttempt:forProfileIdentifier:component:", v26, profileIdentifier4, [eventCopy component]);
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_popAlertWithRadarDescription:(id)description
@@ -174,7 +172,7 @@
 
 void __65__HDDatabaseCorruptionTTRPrompter__popAlertWithRadarDescription___block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a4;
   if (a3 == 1)
@@ -185,7 +183,7 @@ void __65__HDDatabaseCorruptionTTRPrompter__popAlertWithRadarDescription___block
     {
       v14 = *(a1 + 32);
       *buf = 138543362;
-      v17 = v14;
+      v16 = v14;
       _os_log_impl(&dword_228986000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@: TTR alert: 'Not Now' button pressed", buf, 0xCu);
     }
   }
@@ -198,7 +196,7 @@ void __65__HDDatabaseCorruptionTTRPrompter__popAlertWithRadarDescription___block
     {
       v10 = *(a1 + 32);
       *buf = 138543362;
-      v17 = v10;
+      v16 = v10;
       _os_log_impl(&dword_228986000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@: TTR alert: 'Tap-to-Radar' button pressed", buf, 0xCu);
     }
 
@@ -208,13 +206,11 @@ void __65__HDDatabaseCorruptionTTRPrompter__popAlertWithRadarDescription___block
   }
 
   atomic_store(0, _isPresenting);
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __65__HDDatabaseCorruptionTTRPrompter__popAlertWithRadarDescription___block_invoke_324(uint64_t a1, uint64_t a2, void *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v4 = a3;
   if (!a2)
   {
@@ -222,13 +218,11 @@ void __65__HDDatabaseCorruptionTTRPrompter__popAlertWithRadarDescription___block
     v5 = *MEMORY[0x277CCC2A0];
     if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
     {
-      v7 = 138543362;
-      v8 = v4;
-      _os_log_error_impl(&dword_228986000, v5, OS_LOG_TYPE_ERROR, "Could not open Tap-to-Radar URL %{public}@", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v4;
+      _os_log_error_impl(&dword_228986000, v5, OS_LOG_TYPE_ERROR, "Could not open Tap-to-Radar URL %{public}@", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

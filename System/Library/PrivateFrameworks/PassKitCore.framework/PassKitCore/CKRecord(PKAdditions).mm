@@ -1093,19 +1093,19 @@ LABEL_9:
   v3 = v2;
   if (recordType == v2)
   {
-    v4 = 1;
+    isEqualToString = 1;
   }
 
   else
   {
-    v4 = 0;
+    isEqualToString = 0;
     if (recordType && v2)
     {
-      v4 = [(__CFString *)recordType isEqualToString:v2];
+      isEqualToString = objc_msgSend_isEqualToString_(recordType);
     }
   }
 
-  return v4;
+  return isEqualToString;
 }
 
 - (uint64_t)pk_isPassCatalog
@@ -1115,19 +1115,19 @@ LABEL_9:
   v3 = v2;
   if (recordType == v2)
   {
-    v4 = 1;
+    isEqualToString = 1;
   }
 
   else
   {
-    v4 = 0;
+    isEqualToString = 0;
     if (recordType && v2)
     {
-      v4 = [(__CFString *)recordType isEqualToString:v2];
+      isEqualToString = objc_msgSend_isEqualToString_(recordType);
     }
   }
 
-  return v4;
+  return isEqualToString;
 }
 
 - (uint64_t)pk_isRemoteAsset
@@ -1137,19 +1137,19 @@ LABEL_9:
   v3 = v2;
   if (recordType == v2)
   {
-    v4 = 1;
+    isEqualToString = 1;
   }
 
   else
   {
-    v4 = 0;
+    isEqualToString = 0;
     if (recordType && v2)
     {
-      v4 = [(__CFString *)recordType isEqualToString:v2];
+      isEqualToString = objc_msgSend_isEqualToString_(recordType);
     }
   }
 
-  return v4;
+  return isEqualToString;
 }
 
 + (id)pk_recordWithSystemFieldsData:()PKAdditions

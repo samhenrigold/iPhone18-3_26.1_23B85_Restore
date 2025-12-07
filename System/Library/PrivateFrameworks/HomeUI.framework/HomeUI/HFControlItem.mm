@@ -3,27 +3,27 @@
 
 @implementation HFControlItem
 
-void __79__HFControlItem_HUQuickControlsAdditions___hu_prioritizedViewControllerClasses__block_invoke_2()
+void __79__HFControlItem_HUQuickControlsAdditions___hu_prioritizedViewControllerClasses__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2[15] = *MEMORY[0x277D85DE8];
-  v2[0] = objc_opt_class();
-  v2[1] = objc_opt_class();
-  v2[2] = objc_opt_class();
-  v2[3] = objc_opt_class();
-  v2[4] = objc_opt_class();
-  v2[5] = objc_opt_class();
-  v2[6] = objc_opt_class();
-  v2[7] = objc_opt_class();
-  v2[8] = objc_opt_class();
-  v2[9] = objc_opt_class();
-  v2[10] = objc_opt_class();
-  v2[11] = objc_opt_class();
-  v2[12] = objc_opt_class();
-  v2[13] = objc_opt_class();
-  v2[14] = objc_opt_class();
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:15];
-  v1 = qword_281122228;
-  qword_281122228 = v0;
+  v4[15] = *MEMORY[0x277D85DE8];
+  v4[0] = objc_opt_class();
+  v4[1] = objc_opt_class();
+  v4[2] = objc_opt_class();
+  v4[3] = objc_opt_class();
+  v4[4] = objc_opt_class();
+  v4[5] = objc_opt_class();
+  v4[6] = objc_opt_class();
+  v4[7] = objc_opt_class();
+  v4[8] = objc_opt_class();
+  v4[9] = objc_opt_class();
+  v4[10] = objc_opt_class();
+  v4[11] = objc_opt_class();
+  v4[12] = objc_opt_class();
+  v4[13] = objc_opt_class();
+  v4[14] = objc_opt_class();
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:15];
+  v3 = qword_281122228;
+  qword_281122228 = v2;
 }
 
 id __101__HFControlItem_HUQuickControlsAdditions___hu_quickControlContextOfClass_controlItems_configuration___block_invoke(uint64_t a1, void *a2)
@@ -134,7 +134,7 @@ BOOL __122__HFControlItem_HUQuickControlsAdditions__hu_preferredQuickControlGrou
   return v6;
 }
 
-uint64_t __122__HFControlItem_HUQuickControlsAdditions__hu_preferredQuickControlGroupContextForControlItems_configuration_ignoringGrid___block_invoke_75(uint64_t a1)
+void *__122__HFControlItem_HUQuickControlsAdditions__hu_preferredQuickControlGroupContextForControlItems_configuration_ignoringGrid___block_invoke_75(uint64_t a1)
 {
   for (i = *(a1 + 32); ; i = *(a1 + 32))
   {

@@ -29,7 +29,7 @@
   updatedProperties = self->_updatedProperties;
   self->_changeType = 1;
   self->_updatedProperties = 0;
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](self, updatedProperties);
 }
 
 - (void)deleted
@@ -37,7 +37,7 @@
   updatedProperties = self->_updatedProperties;
   self->_changeType = 3;
   self->_updatedProperties = 0;
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](self, updatedProperties);
 }
 
 - (void)updatedWithProperties:(id)properties
@@ -72,28 +72,28 @@
 
 - (void)removePropertyWithName:(id)name
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   nameCopy = name;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v5 = self->_updatedProperties;
-  v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
+        v10 = *(*(&v13 + 1) + 8 * i);
         name = [v10 name];
         v12 = [name isEqualToString:nameCopy];
 
@@ -104,7 +104,7 @@
         }
       }
 
-      v7 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v7)
       {
         continue;
@@ -115,8 +115,6 @@
   }
 
 LABEL_11:
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 @end

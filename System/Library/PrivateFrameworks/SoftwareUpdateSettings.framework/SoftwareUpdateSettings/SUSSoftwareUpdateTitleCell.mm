@@ -456,7 +456,6 @@
   MEMORY[0x277D82BD8](heightAnchor);
   MEMORY[0x277D82BD8](v29);
   [MEMORY[0x277CCAAD0] activateConstraints:{self->_updateIconContraints, MEMORY[0x277D82BD8](widthAnchor).n128_f64[0]}];
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)configureUpdateImageViewFromImageSize:(CGSize)size
@@ -502,7 +501,6 @@
   MEMORY[0x277D82BD8](heightAnchor);
   MEMORY[0x277D82BD8](v16);
   [MEMORY[0x277CCAAD0] activateConstraints:{self->_updateIconContraints, MEMORY[0x277D82BD8](widthAnchor).n128_f64[0]}];
-  *MEMORY[0x277D85DE8];
 }
 
 - (id)configureUpdateIcon
@@ -606,7 +604,6 @@
   [(SUSSoftwareUpdateTitleCell *)self configureProgressBar:IsAccessibilityCategory];
   [(UIStackView *)self->_updateLabelsStackView layoutSubviews];
   [MEMORY[0x277CCAAD0] activateConstraints:self->_updateLabelsConstraints];
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)configureUpdateNameLabel:(BOOL)label
@@ -1035,7 +1032,6 @@
   objc_storeStrong(&v158, 0);
   objc_storeStrong(&v159, 0);
   objc_storeStrong(&v160, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)configureProgressBar:(BOOL)bar
@@ -1145,14 +1141,14 @@ uint64_t __54__SUSSoftwareUpdateTitleCell_setProgressDisplayStyle___block_invoke
   return [*(a1 + 32) layoutIfNeeded];
 }
 
-uint64_t __54__SUSSoftwareUpdateTitleCell_setProgressDisplayStyle___block_invoke_2(uint64_t result)
+id *__54__SUSSoftwareUpdateTitleCell_setProgressDisplayStyle___block_invoke_2(id *result)
 {
   v1 = result;
-  if (!*(*(result + 32) + 1208))
+  if (!*(result[4] + 302))
   {
-    [*(result + 32) setNeedsUpdateConstraints];
-    [*(v1 + 32) updateConstraintsIfNeeded];
-    return [*(v1 + 32) layoutIfNeeded];
+    [result[4] setNeedsUpdateConstraints];
+    [v1[4] updateConstraintsIfNeeded];
+    return [v1[4] layoutIfNeeded];
   }
 
   return result;
@@ -1430,7 +1426,6 @@ uint64_t __54__SUSSoftwareUpdateTitleCell_setProgressDisplayStyle___block_invoke
   v13 = MEMORY[0x277D82BE0](v15[0]);
   objc_storeStrong(&v14, 0);
   objc_storeStrong(v15, 0);
-  *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -1472,7 +1467,6 @@ uint64_t __54__SUSSoftwareUpdateTitleCell_setProgressDisplayStyle___block_invoke
   v17 = MEMORY[0x277D82BE0](v19[0]);
   objc_storeStrong(&v18, 0);
   objc_storeStrong(v19, 0);
-  *MEMORY[0x277D85DE8];
   return v17;
 }
 

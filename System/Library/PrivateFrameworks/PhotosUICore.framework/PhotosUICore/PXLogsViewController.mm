@@ -227,7 +227,7 @@ void __75__PXLogsViewController_substitutionForCollectionRepresentation_attribut
   }
 }
 
-uint64_t __44__PXLogsViewController_logAttributedString___block_invoke(uint64_t a1)
+void *__44__PXLogsViewController_logAttributedString___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 1008) setAttributedText:*(*(a1 + 32) + 1032)];
   *(*(a1 + 32) + 1040) = 0;

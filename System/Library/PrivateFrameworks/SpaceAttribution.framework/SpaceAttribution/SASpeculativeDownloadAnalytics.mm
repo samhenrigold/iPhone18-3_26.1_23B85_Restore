@@ -10,6 +10,7 @@
 - (id)collectDenominatorInfoForVolPath:(id)path volType:(int)type volumeInfo:(id)info;
 - (void)adjustDenomAgeBy:(unint64_t)by;
 - (void)analyzeVolumesInfo:(id)info pathList:(id)list appSizerResults:(id)results appSizerTelemetry:(id)telemetry shouldStop:(BOOL)stop;
+- (void)processDenominatorsWithVolPath:(id)path volType:(int)type pathList:(id)list volumesInfo:(id)info state:(id)state;
 @end
 
 @implementation SASpeculativeDownloadAnalytics
@@ -426,6 +427,30 @@ LABEL_36:
     {
       sub_1000401CC();
     }
+  }
+}
+
+- (void)processDenominatorsWithVolPath:(id)path volType:(int)type pathList:(id)list volumesInfo:(id)info state:(id)state
+{
+  v8 = *&type;
+  stateCopy = state;
+  infoCopy = info;
+  pathCopy = path;
+  v14 = SALog();
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "SDA: start denominator processing:", buf, 2u);
+  }
+
+  v15 = [(SASpeculativeDownloadAnalytics *)self collectDenominatorInfoForVolPath:pathCopy volType:v8 volumeInfo:infoCopy];
+
+  [stateCopy updateSdaStateWithDenominatorInfo:v15 volType:v8 volPath:pathCopy];
+  v16 = SALog();
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  {
+    *v17 = 0;
+    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "SDA: end denominator processing:", v17, 2u);
   }
 }
 

@@ -28,7 +28,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   alternativeProviderBundleIdentifier = [(_INPBPrivatePlayMediaIntentData *)self alternativeProviderBundleIdentifier];
   dictionaryRepresentation = [alternativeProviderBundleIdentifier dictionaryRepresentation];
@@ -65,30 +65,30 @@
   if ([(NSArray *)self->_audioSearchResults count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v34 = 0u;
     v35 = 0u;
     v36 = 0u;
     v37 = 0u;
-    v38 = 0u;
     v13 = self->_audioSearchResults;
-    v14 = [(NSArray *)v13 countByEnumeratingWithState:&v35 objects:v39 count:16];
+    v14 = [(NSArray *)v13 countByEnumeratingWithState:&v34 objects:v38 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v36;
+      v16 = *v35;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v36 != v16)
+          if (*v35 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          dictionaryRepresentation3 = [*(*(&v35 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation3 = [*(*(&v34 + 1) + 8 * i) dictionaryRepresentation];
           [array addObject:dictionaryRepresentation3];
         }
 
-        v15 = [(NSArray *)v13 countByEnumeratingWithState:&v35 objects:v39 count:16];
+        v15 = [(NSArray *)v13 countByEnumeratingWithState:&v34 objects:v38 count:16];
       }
 
       while (v15);
@@ -162,8 +162,6 @@
     v32 = [MEMORY[0x1E696AD98] numberWithBool:{-[_INPBPrivatePlayMediaIntentData shouldSuppressCommonWholeHouseAudioRoutes](self, "shouldSuppressCommonWholeHouseAudioRoutes")}];
     [dictionary setObject:v32 forKeyedSubscript:@"shouldSuppressCommonWholeHouseAudioRoutes"];
   }
-
-  v33 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -784,7 +782,7 @@ LABEL_77:
 
 - (void)writeTo:(id)to
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   toCopy = to;
   alternativeProviderBundleIdentifier = [(_INPBPrivatePlayMediaIntentData *)self alternativeProviderBundleIdentifier];
 
@@ -804,131 +802,118 @@ LABEL_77:
 
   if ([(_INPBPrivatePlayMediaIntentData *)self hasAppInferred])
   {
-    appInferred = self->_appInferred;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_INPBPrivatePlayMediaIntentData *)self hasAppSelectionEnabled])
   {
-    appSelectionEnabled = self->_appSelectionEnabled;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_INPBPrivatePlayMediaIntentData *)self hasAppSelectionSignalsEnabled])
   {
-    appSelectionSignalsEnabled = self->_appSelectionSignalsEnabled;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_INPBPrivatePlayMediaIntentData *)self hasAppSelectionSignalsFrequencyDenominator])
   {
-    appSelectionSignalsFrequencyDenominator = self->_appSelectionSignalsFrequencyDenominator;
     PBDataWriterWriteInt32Field();
   }
 
-  v44 = 0u;
-  v45 = 0u;
-  v42 = 0u;
-  v43 = 0u;
-  v13 = self->_audioSearchResults;
-  v14 = [(NSArray *)v13 countByEnumeratingWithState:&v42 objects:v47 count:16];
-  if (v14)
+  v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
+  v9 = self->_audioSearchResults;
+  v10 = [(NSArray *)v9 countByEnumeratingWithState:&v26 objects:v31 count:16];
+  if (v10)
   {
-    v15 = v14;
-    v16 = *v43;
+    v11 = v10;
+    v12 = *v27;
     do
     {
-      v17 = 0;
+      v13 = 0;
       do
       {
-        if (*v43 != v16)
+        if (*v27 != v12)
         {
-          objc_enumerationMutation(v13);
+          objc_enumerationMutation(v9);
         }
 
-        v18 = *(*(&v42 + 1) + 8 * v17);
         PBDataWriterWriteSubmessage();
-        ++v17;
+        ++v13;
       }
 
-      while (v15 != v17);
-      v15 = [(NSArray *)v13 countByEnumeratingWithState:&v42 objects:v47 count:16];
+      while (v11 != v13);
+      v11 = [(NSArray *)v9 countByEnumeratingWithState:&v26 objects:v31 count:16];
     }
 
-    while (v15);
+    while (v11);
   }
 
   if ([(_INPBPrivatePlayMediaIntentData *)self hasEntityConfidenceSignalsEnabled])
   {
-    entityConfidenceSignalsEnabled = self->_entityConfidenceSignalsEnabled;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_INPBPrivatePlayMediaIntentData *)self hasEntityConfidenceSignalsFrequencyDenominatorInternal])
   {
-    entityConfidenceSignalsFrequencyDenominatorInternal = self->_entityConfidenceSignalsFrequencyDenominatorInternal;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBPrivatePlayMediaIntentData *)self hasEntityConfidenceSignalsFrequencyDenominatorProd])
   {
-    entityConfidenceSignalsFrequencyDenominatorProd = self->_entityConfidenceSignalsFrequencyDenominatorProd;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBPrivatePlayMediaIntentData *)self hasEntityConfidenceSignalsMaxItemsToDisambiguate])
   {
-    entityConfidenceSignalsMaxItemsToDisambiguate = self->_entityConfidenceSignalsMaxItemsToDisambiguate;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBPrivatePlayMediaIntentData *)self hasImmediatelyStartPlayback])
   {
-    immediatelyStartPlayback = self->_immediatelyStartPlayback;
     PBDataWriterWriteBOOLField();
   }
 
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
-  v39 = 0u;
-  v24 = self->_internalSignals;
-  v25 = [(NSArray *)v24 countByEnumeratingWithState:&v38 objects:v46 count:16];
-  if (v25)
+  v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  v14 = self->_internalSignals;
+  v15 = [(NSArray *)v14 countByEnumeratingWithState:&v22 objects:v30 count:16];
+  if (v15)
   {
-    v26 = v25;
-    v27 = *v39;
+    v16 = v15;
+    v17 = *v23;
     do
     {
-      v28 = 0;
+      v18 = 0;
       do
       {
-        if (*v39 != v27)
+        if (*v23 != v17)
         {
-          objc_enumerationMutation(v24);
+          objc_enumerationMutation(v14);
         }
 
-        v29 = *(*(&v38 + 1) + 8 * v28);
         PBDataWriterWriteStringField();
-        ++v28;
+        ++v18;
       }
 
-      while (v26 != v28);
-      v26 = [(NSArray *)v24 countByEnumeratingWithState:&v38 objects:v46 count:16];
+      while (v16 != v18);
+      v16 = [(NSArray *)v14 countByEnumeratingWithState:&v22 objects:v30 count:16];
     }
 
-    while (v26);
+    while (v16);
   }
 
   if ([(_INPBPrivatePlayMediaIntentData *)self hasIsAmbiguousPlay])
   {
-    isAmbiguousPlay = self->_isAmbiguousPlay;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_INPBPrivatePlayMediaIntentData *)self hasIsPersonalizedRequest])
   {
-    isPersonalizedRequest = self->_isPersonalizedRequest;
     PBDataWriterWriteBOOLField();
   }
 
@@ -936,7 +921,6 @@ LABEL_77:
 
   if (pegasusMetaData)
   {
-    pegasusMetaData = self->_pegasusMetaData;
     PBDataWriterWriteDataField();
   }
 
@@ -950,11 +934,8 @@ LABEL_77:
 
   if ([(_INPBPrivatePlayMediaIntentData *)self hasShouldSuppressCommonWholeHouseAudioRoutes])
   {
-    shouldSuppressCommonWholeHouseAudioRoutes = self->_shouldSuppressCommonWholeHouseAudioRoutes;
     PBDataWriterWriteBOOLField();
   }
-
-  v37 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setHasShouldSuppressCommonWholeHouseAudioRoutes:(BOOL)routes

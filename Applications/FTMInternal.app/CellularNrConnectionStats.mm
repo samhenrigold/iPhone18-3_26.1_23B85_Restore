@@ -1,8 +1,12 @@
 @interface CellularNrConnectionStats
 - (BOOL)isEqual:(id)equal;
+- (id)causeAsString:(int)string;
+- (id)connectionTypeAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)maxDlModAsString:(int)string;
+- (id)maxUlModAsString:(int)string;
 - (int)StringAsCause:(id)cause;
 - (int)StringAsConnectionType:(id)type;
 - (int)StringAsMaxDlMod:(id)mod;
@@ -80,6 +84,21 @@
   self->_has = (*&self->_has & 0xFFFFF7FF | v3);
 }
 
+- (id)maxUlModAsString:(int)string
+{
+  if (string >= 7)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100318D38 + string);
+  }
+
+  return v4;
+}
+
 - (int)StringAsMaxUlMod:(id)mod
 {
   modCopy = mod;
@@ -154,6 +173,21 @@
   self->_has = (*&self->_has & 0xFFFFFFBF | v3);
 }
 
+- (id)maxDlModAsString:(int)string
+{
+  if (string >= 7)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100318D38 + string);
+  }
+
+  return v4;
+}
+
 - (int)StringAsMaxDlMod:(id)mod
 {
   modCopy = mod;
@@ -226,6 +260,21 @@
   }
 
   self->_has = (*&self->_has & 0xFFFFFFF7 | v3);
+}
+
+- (id)connectionTypeAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100318D70 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsConnectionType:(id)type
@@ -463,6 +512,21 @@
   }
 
   self->_has = (*&self->_has & 0xFFFFFFFD | v3);
+}
+
+- (id)causeAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100318D88 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsCause:(id)cause
@@ -882,7 +946,6 @@ LABEL_35:
   has = self->_has;
   if (*&has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((*&has & 0x10) == 0)
@@ -902,7 +965,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  duration = self->_duration;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x800) == 0)
@@ -917,7 +979,6 @@ LABEL_4:
   }
 
 LABEL_36:
-  maxUlMod = self->_maxUlMod;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x40) == 0)
@@ -932,7 +993,6 @@ LABEL_5:
   }
 
 LABEL_37:
-  maxDlMod = self->_maxDlMod;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 8) == 0)
@@ -947,7 +1007,6 @@ LABEL_6:
   }
 
 LABEL_38:
-  connectionType = self->_connectionType;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x80) == 0)
@@ -962,7 +1021,6 @@ LABEL_7:
   }
 
 LABEL_39:
-  maxNwMimoLyr = self->_maxNwMimoLyr;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x400) == 0)
@@ -977,7 +1035,6 @@ LABEL_8:
   }
 
 LABEL_40:
-  maxUeRank = self->_maxUeRank;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x100) == 0)
@@ -992,7 +1049,6 @@ LABEL_9:
   }
 
 LABEL_41:
-  maxRxAnt = self->_maxRxAnt;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x200) == 0)
@@ -1007,7 +1063,6 @@ LABEL_10:
   }
 
 LABEL_42:
-  maxSchdMimoLyr = self->_maxSchdMimoLyr;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x20) == 0)
@@ -1022,7 +1077,6 @@ LABEL_11:
   }
 
 LABEL_43:
-  durationOfConn = self->_durationOfConn;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x20000) == 0)
@@ -1037,7 +1091,6 @@ LABEL_12:
   }
 
 LABEL_44:
-  hasBwpSwitch = self->_hasBwpSwitch;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x2000) == 0)
@@ -1052,12 +1105,10 @@ LABEL_13:
   }
 
 LABEL_45:
-  nr5gTotalNumCcs = self->_nr5gTotalNumCcs;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x1000) != 0)
   {
 LABEL_14:
-    nr5gTotalDlMimoLayers = self->_nr5gTotalDlMimoLayers;
     PBDataWriterWriteUint32Field();
   }
 
@@ -1067,41 +1118,39 @@ LABEL_15:
     PBDataWriterWriteSubmessage();
   }
 
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
-  v32 = 0u;
-  v7 = self->_nwUeCapStats;
-  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v31 objects:v35 count:16];
-  if (v8)
+  v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v6 = self->_nwUeCapStats;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v7)
   {
-    v9 = v8;
-    v10 = *v32;
+    v8 = v7;
+    v9 = *v13;
     do
     {
-      v11 = 0;
+      v10 = 0;
       do
       {
-        if (*v32 != v10)
+        if (*v13 != v9)
         {
-          objc_enumerationMutation(v7);
+          objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v31 + 1) + 8 * v11);
         PBDataWriterWriteSubmessage();
-        v11 = v11 + 1;
+        ++v10;
       }
 
-      while (v9 != v11);
-      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v31 objects:v35 count:16];
+      while (v8 != v10);
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
-    while (v9);
+    while (v8);
   }
 
   if ((*(&self->_has + 1) & 0x40) != 0)
   {
-    numSubs = self->_numSubs;
     PBDataWriterWriteUint32Field();
   }
 
@@ -1110,22 +1159,20 @@ LABEL_15:
     PBDataWriterWriteDataField();
   }
 
-  v14 = self->_has;
-  if ((*&v14 & 0x10000) != 0)
+  v11 = self->_has;
+  if ((*&v11 & 0x10000) != 0)
   {
-    subsId = self->_subsId;
     PBDataWriterWriteUint32Field();
-    v14 = self->_has;
-    if ((*&v14 & 0x8000) == 0)
+    v11 = self->_has;
+    if ((*&v11 & 0x8000) == 0)
     {
 LABEL_30:
-      if ((*&v14 & 2) == 0)
+      if ((*&v11 & 2) == 0)
       {
         goto LABEL_31;
       }
 
 LABEL_49:
-      cause = self->_cause;
       PBDataWriterWriteInt32Field();
       if ((*&self->_has & 4) == 0)
       {
@@ -1136,24 +1183,22 @@ LABEL_49:
     }
   }
 
-  else if ((*&v14 & 0x8000) == 0)
+  else if ((*&v11 & 0x8000) == 0)
   {
     goto LABEL_30;
   }
 
-  psPref = self->_psPref;
   PBDataWriterWriteUint32Field();
-  v14 = self->_has;
-  if ((*&v14 & 2) != 0)
+  v11 = self->_has;
+  if ((*&v11 & 2) != 0)
   {
     goto LABEL_49;
   }
 
 LABEL_31:
-  if ((*&v14 & 4) != 0)
+  if ((*&v11 & 4) != 0)
   {
 LABEL_32:
-    connDuration = self->_connDuration;
     PBDataWriterWriteUint32Field();
   }
 
@@ -1861,7 +1906,6 @@ LABEL_28:
       goto LABEL_102;
     }
 
-    v7 = *(equalCopy + 112);
     if (self->_hasBwpSwitch)
     {
       if ((*(equalCopy + 112) & 1) == 0)
@@ -1922,17 +1966,17 @@ LABEL_28:
     }
   }
 
-  v10 = self->_has;
-  v11 = *(equalCopy + 29);
-  if ((*&v10 & 0x4000) != 0)
+  v9 = self->_has;
+  v10 = *(equalCopy + 29);
+  if ((*&v9 & 0x4000) != 0)
   {
-    if ((v11 & 0x4000) == 0 || self->_numSubs != *(equalCopy + 20))
+    if ((v10 & 0x4000) == 0 || self->_numSubs != *(equalCopy + 20))
     {
       goto LABEL_102;
     }
   }
 
-  else if ((v11 & 0x4000) != 0)
+  else if ((v10 & 0x4000) != 0)
   {
     goto LABEL_102;
   }
@@ -1942,74 +1986,74 @@ LABEL_28:
   {
     if ([(NSData *)plmn isEqual:?])
     {
-      v10 = self->_has;
+      v9 = self->_has;
       goto LABEL_82;
     }
 
 LABEL_102:
-    v14 = 0;
+    v13 = 0;
     goto LABEL_103;
   }
 
 LABEL_82:
-  v13 = *(equalCopy + 29);
-  if ((*&v10 & 0x10000) != 0)
+  v12 = *(equalCopy + 29);
+  if ((*&v9 & 0x10000) != 0)
   {
-    if ((v13 & 0x10000) == 0 || self->_subsId != *(equalCopy + 27))
+    if ((v12 & 0x10000) == 0 || self->_subsId != *(equalCopy + 27))
     {
       goto LABEL_102;
     }
   }
 
-  else if ((v13 & 0x10000) != 0)
+  else if ((v12 & 0x10000) != 0)
   {
     goto LABEL_102;
   }
 
-  if ((*&v10 & 0x8000) != 0)
+  if ((*&v9 & 0x8000) != 0)
   {
-    if ((v13 & 0x8000) == 0 || self->_psPref != *(equalCopy + 26))
+    if ((v12 & 0x8000) == 0 || self->_psPref != *(equalCopy + 26))
     {
       goto LABEL_102;
     }
   }
 
-  else if ((v13 & 0x8000) != 0)
+  else if ((v12 & 0x8000) != 0)
   {
     goto LABEL_102;
   }
 
-  if ((*&v10 & 2) != 0)
+  if ((*&v9 & 2) != 0)
   {
-    if ((v13 & 2) == 0 || self->_cause != *(equalCopy + 4))
+    if ((v12 & 2) == 0 || self->_cause != *(equalCopy + 4))
     {
       goto LABEL_102;
     }
   }
 
-  else if ((v13 & 2) != 0)
+  else if ((v12 & 2) != 0)
   {
     goto LABEL_102;
   }
 
-  if ((*&v10 & 4) != 0)
+  if ((*&v9 & 4) != 0)
   {
-    if ((v13 & 4) == 0 || self->_connDuration != *(equalCopy + 5))
+    if ((v12 & 4) == 0 || self->_connDuration != *(equalCopy + 5))
     {
       goto LABEL_102;
     }
 
-    v14 = 1;
+    v13 = 1;
   }
 
   else
   {
-    v14 = (*(equalCopy + 29) & 4) == 0;
+    v13 = (*(equalCopy + 29) & 4) == 0;
   }
 
 LABEL_103:
 
-  return v14;
+  return v13;
 }
 
 - (unint64_t)hash

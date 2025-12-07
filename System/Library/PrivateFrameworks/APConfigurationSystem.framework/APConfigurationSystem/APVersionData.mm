@@ -22,7 +22,7 @@
 
 - (id)subdirectoriesAtURL:(id)l
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   lCopy = l;
   v7 = objc_msgSend_fileManager(self, v5, v6);
   v9 = objc_msgSend_enumeratorAtURL_includingPropertiesForKeys_options_errorHandler_(v7, v8, lCopy, 0, 1, 0);
@@ -37,16 +37,14 @@
     v13 = APLogForCategory();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v17 = 138477827;
-      v18 = objc_opt_class();
-      v14 = v18;
-      _os_log_impl(&dword_1CA1CE000, v13, OS_LOG_TYPE_ERROR, "[%{private}@] Error: Unable to create Enumerator from URL.", &v17, 0xCu);
+      v16 = 138477827;
+      v17 = objc_opt_class();
+      v14 = v17;
+      _os_log_impl(&dword_1CA1CE000, v13, OS_LOG_TYPE_ERROR, "[%{private}@] Error: Unable to create Enumerator from URL.", &v16, 0xCu);
     }
 
     v12 = MEMORY[0x1E695E0F0];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v12;
 }

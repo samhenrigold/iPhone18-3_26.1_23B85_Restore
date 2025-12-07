@@ -23,13 +23,12 @@
 
 - (id)featureNames
 {
-  v5[4] = *MEMORY[0x277D85DE8];
-  v5[0] = @"MediaTypeUnknown";
-  v5[1] = @"Image";
-  v5[2] = @"Video";
-  v5[3] = @"Audio";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:4];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[4] = *MEMORY[0x277D85DE8];
+  v4[0] = @"MediaTypeUnknown";
+  v4[1] = @"Image";
+  v4[2] = @"Video";
+  v4[3] = @"Audio";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:4];
 
   return v2;
 }

@@ -1568,28 +1568,28 @@ id __58__AMSFollowUp__getHardwareFollowUpGroupingEnabledWithBag___block_invoke(u
   return v10;
 }
 
-id __58__AMSFollowUp__getHardwareFollowUpGroupingEnabledWithBag___block_invoke_84()
+id __58__AMSFollowUp__getHardwareFollowUpGroupingEnabledWithBag___block_invoke_84(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = +[AMSLogConfig sharedFollowUpConfig];
-  if (!v0)
+  v9 = *MEMORY[0x1E69E9840];
+  v1 = +[AMSLogConfig sharedFollowUpConfig];
+  if (!v1)
   {
-    v0 = +[AMSLogConfig sharedConfig];
+    v1 = +[AMSLogConfig sharedConfig];
   }
 
-  v1 = [v0 OSLogObject];
-  if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
+  v2 = [v1 OSLogObject];
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    v6 = 138543362;
-    v7 = objc_opt_class();
-    v2 = v7;
-    _os_log_impl(&dword_192869000, v1, OS_LOG_TYPE_INFO, "%{public}@: Hardware offer grouping bag feature flag is enabled: NO (bag key not found)", &v6, 0xCu);
+    v7 = 138543362;
+    v8 = objc_opt_class();
+    v3 = v8;
+    _os_log_impl(&dword_192869000, v2, OS_LOG_TYPE_INFO, "%{public}@: Hardware offer grouping bag feature flag is enabled: NO (bag key not found)", &v7, 0xCu);
   }
 
-  v3 = [AMSBoolean BOOLeanWithBool:0];
-  v4 = [AMSPromise promiseWithResult:v3];
+  v4 = [AMSBoolean BOOLeanWithBool:0];
+  v5 = [AMSPromise promiseWithResult:v4];
 
-  return v4;
+  return v5;
 }
 
 - (id)_getHardwareFollowUpSheetURLWithBag:(id)bag

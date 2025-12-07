@@ -97,10 +97,10 @@
 
     if (HIWORD(pdrDeviceVersion) <= 4u)
     {
-      v16 = sub_7A8C();
-      v17 = [v16 containsIndex:{-[NTKZeusColorEditOption _value](self, "_value")}];
+      v17 = sub_7A8C(v16);
+      v18 = [v17 containsIndex:{-[NTKZeusColorEditOption _value](self, "_value")}];
 
-      if (v17)
+      if (v18)
       {
         goto LABEL_33;
       }
@@ -133,15 +133,15 @@
     }
 
 LABEL_33:
-    v21 = 0;
+    v22 = 0;
     goto LABEL_34;
   }
 
 LABEL_31:
-  v21 = 1;
+  v22 = 1;
 LABEL_34:
 
-  return v21;
+  return v22;
 }
 
 + (id)_orderedValuesForDevice:(id)device

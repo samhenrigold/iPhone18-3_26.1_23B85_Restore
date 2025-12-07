@@ -37,48 +37,49 @@
   if (!announceCalls)
   {
     v5 = [[NSUserDefaults alloc] initWithSuiteName:@"com.apple.InCallService"];
-    v6 = sub_100004778();
+    v6 = sub_100004778(v5);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 138412290;
-      v14 = v5;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Migrator is looking for legacy Announce Calls setting in %@", &v13, 0xCu);
+      v14 = 138412290;
+      v15 = v5;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Migrator is looking for legacy Announce Calls setting in %@", &v14, 0xCu);
     }
 
     v7 = [v5 objectForKey:@"announcements"];
     objc_opt_class();
     isKindOfClass = objc_opt_isKindOfClass();
-    userConfiguration2 = sub_100004778();
-    v10 = os_log_type_enabled(userConfiguration2, OS_LOG_TYPE_DEFAULT);
-    if (isKindOfClass)
+    v9 = isKindOfClass;
+    userConfiguration2 = sub_100004778(isKindOfClass);
+    v11 = os_log_type_enabled(userConfiguration2, OS_LOG_TYPE_DEFAULT);
+    if (v9)
     {
-      if (v10)
+      if (v11)
       {
-        v13 = 138412290;
-        v14 = v7;
-        _os_log_impl(&_mh_execute_header, userConfiguration2, OS_LOG_TYPE_DEFAULT, "Migrator found legacy Announce Calls setting %@", &v13, 0xCu);
+        v14 = 138412290;
+        v15 = v7;
+        _os_log_impl(&_mh_execute_header, userConfiguration2, OS_LOG_TYPE_DEFAULT, "Migrator found legacy Announce Calls setting %@", &v14, 0xCu);
       }
 
-      v11 = [v7 unsignedIntegerValue] - 1;
-      if (v11 > 3)
+      v12 = [v7 unsignedIntegerValue] - 1;
+      if (v12 > 3)
       {
-        v12 = 0;
+        v13 = 0;
       }
 
       else
       {
-        v12 = qword_10057A250[v11];
+        v13 = qword_10057A250[v12];
       }
 
       userConfiguration2 = [(CSDUserConfigurationMigrator *)self userConfiguration];
-      [userConfiguration2 setAnnounceCalls:v12];
+      [userConfiguration2 setAnnounceCalls:v13];
     }
 
-    else if (v10)
+    else if (v11)
     {
-      v13 = 138412290;
-      v14 = v5;
-      _os_log_impl(&_mh_execute_header, userConfiguration2, OS_LOG_TYPE_DEFAULT, "Migrator did not find legacy Announce Calls setting in %@", &v13, 0xCu);
+      v14 = 138412290;
+      v15 = v5;
+      _os_log_impl(&_mh_execute_header, userConfiguration2, OS_LOG_TYPE_DEFAULT, "Migrator did not find legacy Announce Calls setting in %@", &v14, 0xCu);
     }
 
     [v5 removeObjectForKey:@"announcements"];
@@ -93,7 +94,7 @@
   if (conversationLinkBaseURL)
   {
     v5 = +[NSUserDefaults tu_defaults];
-    v6 = sub_100004778();
+    v6 = sub_100004778(v5);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v11 = 138412290;
@@ -102,7 +103,7 @@
     }
 
     v7 = [v5 stringForKey:@"GondolaLinkOverrideBaseURL"];
-    v8 = sub_100004778();
+    v8 = sub_100004778(v7);
     v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
     if (v7)
     {

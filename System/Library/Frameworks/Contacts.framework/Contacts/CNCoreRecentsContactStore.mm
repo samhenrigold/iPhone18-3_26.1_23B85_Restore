@@ -13,28 +13,29 @@
 
 + (NSString)acceptedContactsDomainIdentifier
 {
-  v7 = 0;
-  v8 = &v7;
-  v9 = 0x2020000000;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
   v2 = getCRRecentsDomainAcceptedIntroductionsSymbolLoc_ptr_0;
-  v10 = getCRRecentsDomainAcceptedIntroductionsSymbolLoc_ptr_0;
+  v11 = getCRRecentsDomainAcceptedIntroductionsSymbolLoc_ptr_0;
   if (!getCRRecentsDomainAcceptedIntroductionsSymbolLoc_ptr_0)
   {
-    v6[0] = MEMORY[0x1E69E9820];
-    v6[1] = 3221225472;
-    v6[2] = __getCRRecentsDomainAcceptedIntroductionsSymbolLoc_block_invoke_0;
-    v6[3] = &unk_1E7412110;
-    v6[4] = &v7;
-    __getCRRecentsDomainAcceptedIntroductionsSymbolLoc_block_invoke_0(v6);
-    v2 = v8[3];
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[1] = 3221225472;
+    v7[2] = __getCRRecentsDomainAcceptedIntroductionsSymbolLoc_block_invoke_0;
+    v7[3] = &unk_1E7412110;
+    v7[4] = &v8;
+    __getCRRecentsDomainAcceptedIntroductionsSymbolLoc_block_invoke_0(v7);
+    v2 = v9[3];
   }
 
-  _Block_object_dispose(&v7, 8);
+  _Block_object_dispose(&v8, 8);
   if (!v2)
   {
-    MDItemUniqueIdentifier_cold_1 = getMDItemUniqueIdentifier_cold_1();
-    _Block_object_dispose(&v7, 8);
-    _Unwind_Resume(MDItemUniqueIdentifier_cold_1);
+    getMDItemUniqueIdentifier_cold_1();
+    v6 = v5;
+    _Block_object_dispose(&v8, 8);
+    _Unwind_Resume(v6);
   }
 
   v3 = *v2;

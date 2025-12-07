@@ -4,6 +4,15 @@
 - (BOOL)shouldVisualizeHitTestRegions;
 - (BOOL)shouldVisualizeTouches;
 - (id)_stringByRemovingPrefix:(id)prefix fromString:(id)string;
+- (id)_stringDescribingContextID:(unsigned int)d clientPort:(unsigned int)port;
+- (id)_stringDescribingPID:(int)d;
+- (int)_pidForClientPort:(unsigned int)port;
+- (void)_queue_annotateTouch:(unsigned int)touch withString:(id)string uniqueIdentifier:(id)identifier fromPID:(int)d;
+- (void)_queue_applyBasicAnnotationTextForTouchIdentifier:(unsigned int)identifier pathIndex:(int64_t)index;
+- (void)_queue_setCenter:(CGPoint)center forTouchIdentifier:(unsigned int)identifier;
+- (void)_queue_touchWasHardCanceled:(unsigned int)canceled;
+- (void)_queue_touchWasSoftCanceled:(unsigned int)canceled;
+- (void)_queue_updateHoverStateForTouchIdentifier:(unsigned int)identifier z:(double)z maxZ:(double)maxZ;
 - (void)annotateTouch:(unsigned int)touch withString:(id)string uniqueIdentifier:(id)identifier;
 - (void)annotateTouch:(unsigned int)touch withString:(id)string uniqueIdentifier:(id)identifier fromPID:(int)d;
 - (void)annotateTouch:(unsigned int)touch withUniqueString:(id)string;
@@ -35,6 +44,158 @@
   sub_10000B850(v6, controllerCopy);
 }
 
+- (void)_queue_touchWasSoftCanceled:(unsigned int)canceled
+{
+  displayAnnotationController = self->_displayAnnotationController;
+  v4 = [(BKTouchAnnotationController *)self _keyPathForTouchIdentifier:*&canceled];
+  v5 = [v4 stringByAppendingString:@".ctx"];
+  v6 = [(BKDisplayAnnotationController *)displayAnnotationController allAnnotationsForKeyPath:v5];
+
+  v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v7 = v6;
+  v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  if (v8)
+  {
+    v9 = v8;
+    v10 = *v15;
+    do
+    {
+      v11 = 0;
+      do
+      {
+        if (*v15 != v10)
+        {
+          objc_enumerationMutation(v7);
+        }
+
+        v12 = *(*(&v14 + 1) + 8 * v11);
+        v13 = +[BKDisplayAnnotationStyle canceledStyle];
+        [v12 setStyleModifier:v13];
+
+        v11 = v11 + 1;
+      }
+
+      while (v9 != v11);
+      v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    }
+
+    while (v9);
+  }
+}
+
+- (void)_queue_touchWasHardCanceled:(unsigned int)canceled
+{
+  v6 = [(BKTouchAnnotationController *)self _keyPathForTouchIdentifier:*&canceled];
+  v4 = [(BKDisplayAnnotationController *)self->_displayAnnotationController annotationForKeyPath:v6];
+  v5 = +[BKDisplayAnnotationStyle canceledStyle];
+  [v4 setStyleModifier:v5];
+
+  [(BKDisplayAnnotationController *)self->_displayAnnotationController removeAnnotationsForKeyPath:v6 afterDelay:self->_workQueue queue:0.5];
+}
+
+- (void)_queue_setCenter:(CGPoint)center forTouchIdentifier:(unsigned int)identifier
+{
+  y = center.y;
+  x = center.x;
+  v11 = [(BKTouchAnnotationController *)self _keyPathForTouchIdentifier:*&identifier];
+  v7 = [(BKDisplayAnnotationController *)self->_displayAnnotationController annotationForKeyPath:?];
+  if (v7)
+  {
+    v8 = [BKDisplayAnnotationLocation centerAtPoint:x, y];
+    [v7 setLocation:v8];
+  }
+
+  else
+  {
+    v8 = [BKDisplayAnnotation annotationWithEllipseSize:64.0, 64.0];
+    v9 = [BKDisplayAnnotationLocation centerAtPoint:x, y];
+    v10 = objc_alloc_init(BKDisplayAnnotationContainedSubnodeRenderer);
+    [v8 setLocation:v9];
+    [v8 setRenderer:v10];
+    [(BKDisplayAnnotationController *)self->_displayAnnotationController setAnnotation:v8 forKeyPath:v11];
+  }
+}
+
+- (int)_pidForClientPort:(unsigned int)port
+{
+  v3 = *&port;
+  v4 = BKHIDEventRoutingGetClientConnectionManager();
+  v5 = [v4 clientForTaskPort:v3];
+  v6 = v5;
+  if (v5)
+  {
+    v7 = [v5 pid];
+  }
+
+  else
+  {
+    v7 = -1;
+  }
+
+  return v7;
+}
+
+- (id)_stringDescribingContextID:(unsigned int)d clientPort:(unsigned int)port
+{
+  v4 = *&d;
+  v6 = [(BKTouchAnnotationController *)self _pidForClientPort:*&port];
+  if (v6 < 1)
+  {
+    v11 = [NSString stringWithFormat:@"ctx:%X", v4];
+  }
+
+  else
+  {
+    v7 = v6;
+    v8 = BSBundleIDForPID();
+    v9 = [(BKTouchAnnotationController *)self _stringByRemovingPrefix:@"com.apple." fromString:v8];
+    v10 = [v9 stringByAppendingFormat:@" (%d)", v7];
+
+    v11 = [NSString stringWithFormat:@"ctx:%X -- %@", v4, v10];
+  }
+
+  return v11;
+}
+
+- (id)_stringDescribingPID:(int)d
+{
+  if (d < 1)
+  {
+    v7 = &stru_1001013E0;
+    goto LABEL_9;
+  }
+
+  v3 = *&d;
+  v5 = BSBundleIDForPID();
+  if ([v5 length])
+  {
+    v6 = [(BKTouchAnnotationController *)self _stringByRemovingPrefix:@"com.apple." fromString:v5];
+    [v6 stringByAppendingFormat:@" (%d)", v3];
+  }
+
+  else
+  {
+    v6 = BSProcessNameForPID();
+    if (![v6 length])
+    {
+      v8 = [NSString stringWithFormat:@"pid %d", v3];
+      goto LABEL_8;
+    }
+
+    [v6 stringByAppendingFormat:@" (%d)", v3];
+  }
+  v8 = ;
+LABEL_8:
+  v7 = v8;
+
+LABEL_9:
+
+  return v7;
+}
+
 - (id)_stringByRemovingPrefix:(id)prefix fromString:(id)string
 {
   prefixCopy = prefix;
@@ -53,6 +214,79 @@
   v9 = v8;
 
   return v9;
+}
+
+- (void)_queue_annotateTouch:(unsigned int)touch withString:(id)string uniqueIdentifier:(id)identifier fromPID:(int)d
+{
+  v6 = *&d;
+  v8 = *&touch;
+  stringCopy = string;
+  identifierCopy = identifier;
+  displayAnnotationController = self->_displayAnnotationController;
+  v13 = [(BKTouchAnnotationController *)self _keyPathForTouchIdentifier:v8];
+  v14 = [(BKDisplayAnnotationController *)displayAnnotationController annotationForKeyPath:v13];
+
+  v15 = sub_1000525A0();
+  identifierCopy = v15;
+  if (v14)
+  {
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 67109634;
+      v21 = v8;
+      v22 = 2114;
+      v23 = stringCopy;
+      v24 = 1024;
+      v25 = v6;
+      _os_log_impl(&_mh_execute_header, identifierCopy, OS_LOG_TYPE_DEFAULT, "touchIdentifier:%X annotation:%{public}@ pid:%d", buf, 0x18u);
+    }
+
+    identifierCopy = [NSString stringWithFormat:@"touch.%X.%@", v8, identifierCopy];
+    if ([stringCopy length])
+    {
+      v17 = [BKDisplayAnnotation annotationWithString:stringCopy];
+      v18 = objc_alloc_init(BKDisplayAnnotationNullRenderer);
+      [v17 setRenderer:v18];
+      if (v6 >= 1)
+      {
+        v19 = [(BKTouchAnnotationController *)self _stringDescribingPID:v6];
+        [v17 setSection:v19];
+      }
+
+      [(BKDisplayAnnotationController *)self->_displayAnnotationController setAnnotation:v17 forKeyPath:identifierCopy];
+    }
+
+    else
+    {
+      [(BKDisplayAnnotationController *)self->_displayAnnotationController removeAnnotationsForKeyPath:identifierCopy];
+    }
+  }
+
+  else if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 67109378;
+    v21 = v8;
+    v22 = 2114;
+    v23 = stringCopy;
+    _os_log_error_impl(&_mh_execute_header, identifierCopy, OS_LOG_TYPE_ERROR, "touchIdentifier %X does not exist; dropping annotation:%{public}@", buf, 0x12u);
+  }
+}
+
+- (void)_queue_updateHoverStateForTouchIdentifier:(unsigned int)identifier z:(double)z maxZ:(double)maxZ
+{
+  v5 = *&identifier;
+  if (z > 0.0 || maxZ > 0.0)
+  {
+    v7 = [@"in range" stringByAppendingFormat:@" max:%.4g z:%.4g", *&maxZ, *&z];
+  }
+
+  else
+  {
+    v7 = @"in range";
+  }
+
+  v8 = v7;
+  [(BKTouchAnnotationController *)self _queue_annotateTouch:v5 withString:v7 uniqueIdentifier:@"withinRange" fromPID:0xFFFFFFFFLL];
 }
 
 - (void)hitTestRegionsDidChange:(id)change
@@ -218,6 +452,26 @@
   zCopy = z;
   maxZCopy = maxZ;
   dispatch_async(workQueue, block);
+}
+
+- (void)_queue_applyBasicAnnotationTextForTouchIdentifier:(unsigned int)identifier pathIndex:(int64_t)index
+{
+  v5 = *&identifier;
+  v12 = [NSString stringWithFormat:@"touch.%X.id", *&identifier];
+  v7 = [(BKDisplayAnnotationController *)self->_displayAnnotationController annotationForKeyPath:?];
+
+  if (!v7)
+  {
+    index = [NSString stringWithFormat:@"t%X p%d", v5, index];
+    v9 = [BKDisplayAnnotation annotationWithString:index];
+
+    v10 = objc_alloc_init(BKDisplayAnnotationNullRenderer);
+    v11 = [BKDisplayAnnotationStyle colorVariationStyleWithIndex:v5];
+    [v9 setStyleModifier:v11];
+
+    [v9 setRenderer:v10];
+    [(BKDisplayAnnotationController *)self->_displayAnnotationController setAnnotation:v9 forKeyPath:v12];
+  }
 }
 
 - (void)annotateTouch:(unsigned int)touch withString:(id)string uniqueIdentifier:(id)identifier fromPID:(int)d

@@ -60,7 +60,7 @@
   pathCopy = path;
   kindCopy = kind;
   assetReference = [(PUSingleAssetLayout *)self assetReference];
-  indexPath = [assetReference indexPath];
+  v9 = objc_msgSend_indexPath(assetReference);
   [(PUSingleAssetLayout *)self assetRect];
   v11 = v10;
   v13 = v12;
@@ -80,7 +80,7 @@
   v28 = v27;
   v30 = v29;
   v32 = v31;
-  if ([pathCopy isEqual:indexPath] && objc_msgSend(kindCopy, "isEqual:", @"PUTileKindItemContent") && (v51.origin.x = v11, v51.origin.y = v13, v51.size.width = v15, v51.size.height = v17, !CGRectIsInfinite(v51)) && (v52.origin.x = v11, v52.origin.y = v13, v52.size.width = v15, v52.size.height = v17, !CGRectIsNull(v52)))
+  if ([pathCopy isEqual:v9] && objc_msgSend(kindCopy, "isEqual:", @"PUTileKindItemContent") && (v51.origin.x = v11, v51.origin.y = v13, v51.size.width = v15, v51.size.height = v17, !CGRectIsInfinite(v51)) && (v52.origin.x = v11, v52.origin.y = v13, v52.size.width = v15, v52.size.height = v17, !CGRectIsNull(v52)))
   {
     v35 = [(PUTilingLayout *)self tileIdentifierForTileWithIndexPath:pathCopy kind:kindCopy];
     v36 = [PUCroppedTileLayoutInfo alloc];
@@ -132,8 +132,8 @@
   if (CGRectIntersectsRect(v20, v21))
   {
     assetReference = [(PUSingleAssetLayout *)self assetReference];
-    indexPath = [assetReference indexPath];
-    v14 = [(PUSingleAssetLayout *)self layoutInfoForTileWithIndexPath:indexPath kind:@"PUTileKindItemContent"];
+    v13 = objc_msgSend_indexPath(assetReference);
+    v14 = [(PUSingleAssetLayout *)self layoutInfoForTileWithIndexPath:v13 kind:@"PUTileKindItemContent"];
     v19[0] = v14;
     v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:1];
   }
@@ -266,10 +266,10 @@
 {
   v5 = objc_alloc_init(PUTilingLayoutInvalidationContext);
   assetReference = [(PUSingleAssetLayout *)self assetReference];
-  indexPath = [assetReference indexPath];
-  if (indexPath)
+  v4 = objc_msgSend_indexPath(assetReference);
+  if (v4)
   {
-    [(PUTilingLayoutInvalidationContext *)v5 invalidateTileWithIndexPath:indexPath kind:@"PUTileKindItemContent"];
+    [(PUTilingLayoutInvalidationContext *)v5 invalidateTileWithIndexPath:v4 kind:@"PUTileKindItemContent"];
   }
 
   [(PUTilingLayout *)self invalidateLayoutWithContext:v5];

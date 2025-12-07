@@ -29,7 +29,7 @@
   coordinatorCopy = coordinator;
   selfCopy = self;
   sub_1AD47AAE4(v6, v7);
-  sub_1AD3C5FB8(v6);
+  sub_1AD3C5FB8(v6, v7);
 }
 
 - (void)paymentAuthorizationCoordinator:(id)coordinator didChangeCouponCode:(id)code handler:(id)handler
@@ -77,7 +77,7 @@ LABEL_10:
   selfCopy = self;
   sub_1AD4763BC(v11, code, sub_1AD47AE5C, v13);
 
-  sub_1AD3C5FB8(sub_1AD47AE5C);
+  sub_1AD3C5FB8(sub_1AD47AE5C, v13);
 }
 
 - (void)paymentAuthorizationCoordinator:(id)coordinator didSelectShippingAddress:(id)address handler:(id)handler
@@ -110,7 +110,7 @@ LABEL_7:
   selfCopy = self;
   sub_1AD4766F4(addressCopy, sub_1AD47AE5C, v10);
 
-  sub_1AD3C5FB8(sub_1AD47AE5C);
+  sub_1AD3C5FB8(sub_1AD47AE5C, v10);
 }
 
 - (void)paymentAuthorizationCoordinator:(id)coordinator didSelectPaymentMethod:(id)method handler:(id)handler
@@ -162,7 +162,7 @@ LABEL_7:
   selfCopy = self;
   sub_1AD476E04(methodCopy, sub_1AD47AE5C, v10);
 
-  sub_1AD3C5FB8(sub_1AD47AE5C);
+  sub_1AD3C5FB8(sub_1AD47AE5C, v10);
 }
 
 - (void)paymentAuthorizationCoordinator:(id)coordinator didAuthorizePayment:(id)payment handler:(id)handler
@@ -195,7 +195,7 @@ LABEL_7:
   selfCopy = self;
   sub_1AD4771A4(paymentCopy, sub_1AD452788, v10);
 
-  sub_1AD3C5FB8(sub_1AD452788);
+  sub_1AD3C5FB8(sub_1AD452788, v10);
 }
 
 - (void)paymentAuthorizationCoordinatorDidFinish:(id)finish

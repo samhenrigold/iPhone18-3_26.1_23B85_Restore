@@ -22,16 +22,17 @@
 
 - (CGSize)vui_layoutSubviews:(CGSize)subviews computationOnly:(BOOL)only
 {
+  onlyCopy = only;
   selfCopy = self;
   OUTLINED_FUNCTION_6_12();
-  sub_1E3BD0B80();
-  v6 = v5;
-  v8 = v7;
+  sub_1E3BD0B80(onlyCopy);
+  v7 = v6;
+  v9 = v8;
 
-  v9 = v6;
-  v10 = v8;
-  result.height = v10;
-  result.width = v9;
+  v10 = v7;
+  v11 = v9;
+  result.height = v11;
+  result.width = v10;
   return result;
 }
 

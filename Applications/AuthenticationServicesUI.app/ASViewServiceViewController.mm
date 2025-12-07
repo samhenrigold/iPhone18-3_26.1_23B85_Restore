@@ -23,6 +23,7 @@
 - (void)setUpWithPresentationContextData:(id)data xpcEndpoint:(id)endpoint;
 - (void)updateInterfaceForUserVisibleError:(id)error;
 - (void)updateInterfaceWithLoginChoices:(id)choices;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation ASViewServiceViewController
@@ -49,6 +50,23 @@
   else
   {
     return 2;
+  }
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = ASViewServiceViewController;
+  [(ASViewServiceViewController *)&v4 viewWillAppear:appear];
+  [(ASViewServiceViewController *)self _setUpRemoteProxy];
+  if (self->_presentationContext)
+  {
+    [(ASViewServiceViewController *)self _showAuthorizationFlow];
+  }
+
+  else if (self->_exporterBundleID)
+  {
+    [(ASViewServiceViewController *)self _showExportFlow];
   }
 }
 
@@ -292,18 +310,18 @@ LABEL_6:
   [(ASViewServiceViewController *)self _setupWithXPCEndpoint:endpoint];
   if ([dataCopy length])
   {
-    v12 = 0;
-    v7 = [NSKeyedUnarchiver unarchivedObjectOfClass:objc_opt_class() fromData:dataCopy error:&v12];
-    v8 = v12;
+    v15 = 0;
+    v8 = [NSKeyedUnarchiver unarchivedObjectOfClass:objc_opt_class() fromData:dataCopy error:&v15];
+    v9 = v15;
     presentationContext = self->_presentationContext;
-    self->_presentationContext = v7;
+    self->_presentationContext = v8;
 
-    if (v8)
+    if (v9)
     {
-      v10 = sub_100001B18();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v13 = sub_100001B18(v11, v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        sub_1000065DC(v10, v8);
+        sub_1000065DC(v13, v9);
       }
 
       [(ASViewServiceViewController *)self _dismissAndExit];
@@ -312,10 +330,10 @@ LABEL_6:
 
   else
   {
-    v11 = sub_100001B18();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v14 = sub_100001B18(0, v7);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      sub_100006674(v11);
+      sub_100006674(v14);
     }
 
     [(ASViewServiceViewController *)self _dismissAndExit];
@@ -340,50 +358,51 @@ LABEL_6:
 - (void)handleButtonActions:(id)actions
 {
   actionsCopy = actions;
-  v17 = 0u;
-  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v5 = [actionsCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v21 = 0u;
+  v22 = 0u;
+  v5 = [actionsCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v18;
+    v7 = *v20;
     v8 = ASCAuthorizationErrorDomain;
     do
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v18 != v7)
+        if (*v20 != v7)
         {
           objc_enumerationMutation(actionsCopy);
         }
 
-        v10 = *(*(&v17 + 1) + 8 * i);
+        v10 = *(*(&v19 + 1) + 8 * i);
         v11 = [v10 events] & 0x10;
-        if (v11 & 0xFFFFFFFFFFFFFFFELL | [v10 events] & 1)
+        events = [v10 events];
+        if (v11 & 0xFFFFFFFFFFFFFFFELL | events & 1)
         {
-          v12 = sub_100001B18();
-          if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+          v14 = sub_100001B18(events, v13);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
           {
             *buf = 0;
-            _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "Dismissing credential picker because of home button or lock button event.", buf, 2u);
+            _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "Dismissing credential picker because of home button or lock button event.", buf, 2u);
           }
 
-          v13 = [NSError errorWithDomain:v8 code:2 userInfo:0];
+          v15 = [NSError errorWithDomain:v8 code:2 userInfo:0];
           hostProxy = self->_hostProxy;
-          v15[0] = _NSConcreteStackBlock;
-          v15[1] = 3221225472;
-          v15[2] = sub_100002D08;
-          v15[3] = &unk_10000C548;
-          v15[4] = self;
-          [(ASCAuthorizationPresenterHostProtocol *)hostProxy authorizationRequestFinishedWithCredential:0 error:v13 completionHandler:v15];
+          v17[0] = _NSConcreteStackBlock;
+          v17[1] = 3221225472;
+          v17[2] = sub_100002D08;
+          v17[3] = &unk_10000C548;
+          v17[4] = self;
+          [(ASCAuthorizationPresenterHostProtocol *)hostProxy authorizationRequestFinishedWithCredential:0 error:v15 completionHandler:v17];
         }
 
         [v10 sendResponseWithUnHandledEvents:{objc_msgSend(v10, "events") & ~v11}];
       }
 
-      v6 = [actionsCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v6 = [actionsCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v6);
@@ -416,23 +435,23 @@ LABEL_6:
 
   if (v11 && ([errorCopy userInfo], v12 = objc_claimAutoreleasedReturnValue(), v13 = objc_msgSend(v12, "safari_BOOLForKey:", v10), v12, (v13 & 1) == 0))
   {
-    v15 = sub_100001B18();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+    v17 = sub_100001B18(v14, v15);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "Skipping UI dismissal after failed Sign in with Apple credential sign in attempt.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "Skipping UI dismissal after failed Sign in with Apple credential sign in attempt.", buf, 2u);
     }
   }
 
   else
   {
     hostProxy = self->_hostProxy;
-    v16[0] = _NSConcreteStackBlock;
-    v16[1] = 3221225472;
-    v16[2] = sub_100002F44;
-    v16[3] = &unk_10000C548;
-    v16[4] = self;
-    [(ASCAuthorizationPresenterHostProtocol *)hostProxy authorizationRequestFinishedWithCredential:credentialCopy error:errorCopy completionHandler:v16];
+    v18[0] = _NSConcreteStackBlock;
+    v18[1] = 3221225472;
+    v18[2] = sub_100002F44;
+    v18[3] = &unk_10000C548;
+    v18[4] = self;
+    [(ASCAuthorizationPresenterHostProtocol *)hostProxy authorizationRequestFinishedWithCredential:credentialCopy error:errorCopy completionHandler:v18];
   }
 }
 

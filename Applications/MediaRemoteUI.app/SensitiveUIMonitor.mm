@@ -39,7 +39,7 @@
     }
 
 LABEL_6:
-    memset(v17, 0, sizeof(v17));
+    memset(v18, 0, sizeof(v18));
     changeCopy = change;
     selfCopy = self;
     if (change)
@@ -48,7 +48,7 @@ LABEL_6:
     }
 
 LABEL_7:
-    v14 = 0;
+    v15 = 0;
     goto LABEL_8;
   }
 
@@ -73,12 +73,12 @@ LABEL_3:
 LABEL_4:
   type metadata accessor for NSKeyValueChangeKey(0);
   sub_1000137F4();
-  v14 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
+  v15 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
 
 LABEL_8:
-  sub_10001365C(v9, v11, v17, v14);
+  sub_10001365C(v9, v11, v14, v18, v15);
 
-  sub_1000080EC(v17);
+  sub_1000080EC(v18);
 }
 
 - (_TtC13MediaRemoteUI18SensitiveUIMonitor)init

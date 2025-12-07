@@ -27,7 +27,7 @@
 + (BOOL)supportsResult:(id)result
 {
   resultCopy = result;
-  if ((SSSpotlightUIPlusEnabled() & 1) == 0)
+  if ((SSSpotlightUIPlusEnabled(resultCopy, v4) & 1) == 0)
   {
     contentType = [resultCopy contentType];
     if (contentType)

@@ -37,21 +37,21 @@
 
 - (void)cancel
 {
-  v4.receiver = self;
-  v4.super_class = VMSpeechAnalyzerLanguageIDOperation;
-  [(VMSpeechAnalyzerLanguageIDOperation *)&v4 cancel];
-  v3 = sub_10000280C();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v5.receiver = self;
+  v5.super_class = VMSpeechAnalyzerLanguageIDOperation;
+  cancel = [(VMSpeechAnalyzerLanguageIDOperation *)&v5 cancel];
+  v4 = sub_10000280C(cancel);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
     selfCopy = self;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Cancelled LanguageID operation %@.", buf, 0xCu);
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Cancelled LanguageID operation %@.", buf, 0xCu);
   }
 }
 
 - (void)main
 {
-  v3 = sub_10000280C();
+  v3 = sub_10000280C(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     dataURL = [(VMSpeechAnalyzerLanguageIDOperation *)self dataURL];
@@ -61,27 +61,27 @@
     v8 = @" not";
     *buf = 138413058;
     selfCopy = self;
-    v33 = 2112;
+    v34 = 2112;
     if (isPluggedIn)
     {
       v8 = &stru_1000F0098;
     }
 
-    v34 = dataURL;
-    v35 = 2048;
-    v36 = queuePriority;
-    v37 = 2112;
-    v38 = v8;
+    v35 = dataURL;
+    v36 = 2048;
+    v37 = queuePriority;
+    v38 = 2112;
+    v39 = v8;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Starting LanguageID operation %@ for %@. Priority is %ld and device is %@ charging.", buf, 0x2Au);
   }
 
   if ([(VMSpeechAnalyzerLanguageIDOperation *)self isCancelled])
   {
     v9 = kVVErrorDomain;
-    v29 = NSLocalizedDescriptionKey;
-    v30 = @"Language ID operation was cancelled.";
-    v10 = &v30;
-    v11 = &v29;
+    v30 = NSLocalizedDescriptionKey;
+    v31 = @"Language ID operation was cancelled.";
+    v10 = &v31;
+    v11 = &v30;
     goto LABEL_7;
   }
 
@@ -93,10 +93,10 @@
     if ((isPluggedIn2 & 1) == 0)
     {
       v9 = kVVErrorDomain;
-      v27 = NSLocalizedDescriptionKey;
-      v28 = @"Low priority Language ID operation cancelled. The device is no longer connected to a power source.";
-      v10 = &v28;
-      v11 = &v27;
+      v28 = NSLocalizedDescriptionKey;
+      v29 = @"Low priority Language ID operation cancelled. The device is no longer connected to a power source.";
+      v10 = &v29;
+      v11 = &v28;
 LABEL_7:
       v12 = [NSDictionary dictionaryWithObjects:v10 forKeys:v11 count:1];
       v13 = [NSError errorWithDomain:v9 code:1041 userInfo:v12];
@@ -118,13 +118,13 @@ LABEL_7:
 
   if (v18)
   {
-    v19 = sub_10000280C();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v20 = sub_10000280C(v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       dataURL3 = [(VMSpeechAnalyzerLanguageIDOperation *)self dataURL];
       *buf = 138412290;
       selfCopy = dataURL3;
-      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "VMSpeechAnalyzerLanguageIDOperation: Submitted URL %@ for Language ID", buf, 0xCu);
+      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "VMSpeechAnalyzerLanguageIDOperation: Submitted URL %@ for Language ID", buf, 0xCu);
     }
 
     semaphore = [(VMSpeechAnalyzerLanguageIDOperation *)self semaphore];
@@ -134,11 +134,11 @@ LABEL_7:
 
   else
   {
-    v22 = kVVErrorDomain;
-    v25 = NSLocalizedDescriptionKey;
-    v26 = @"Audio was not submitted to speech analyzer successfully.";
-    semaphore = [NSDictionary dictionaryWithObjects:&v26 forKeys:&v25 count:1];
-    v13 = [NSError errorWithDomain:v22 code:1042 userInfo:semaphore];
+    v23 = kVVErrorDomain;
+    v26 = NSLocalizedDescriptionKey;
+    v27 = @"Audio was not submitted to speech analyzer successfully.";
+    semaphore = [NSDictionary dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+    v13 = [NSError errorWithDomain:v23 code:1042 userInfo:semaphore];
   }
 
   [(VMSpeechAnalyzerLanguageIDOperation *)self cancel];
@@ -160,7 +160,7 @@ LABEL_19:
 - (void)speechAnalyzer:(id)analyzer didProduceLanguageHypothesis:(id)hypothesis
 {
   hypothesisCopy = hypothesis;
-  v6 = sub_10000280C();
+  v6 = sub_10000280C(hypothesisCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     dominantLocale = [hypothesisCopy dominantLocale];
@@ -176,7 +176,7 @@ LABEL_19:
 - (void)speechAnalyzer:(id)analyzer didStopLanguageDetectorWithError:(id)error
 {
   errorCopy = error;
-  v6 = sub_10000280C();
+  v6 = sub_10000280C(errorCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v11 = 138412290;

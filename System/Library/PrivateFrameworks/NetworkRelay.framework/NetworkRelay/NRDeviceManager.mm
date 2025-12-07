@@ -19,40 +19,40 @@
 
 - (void)disableDevice:(id)device
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   if (!deviceCopy)
   {
-    v8 = nrCopyLogObj_1876();
+    v7 = nrCopyLogObj_1876();
     if (sNRCopyLogToStdErr == 1)
     {
     }
 
     else
     {
-      v9 = v8;
-      v10 = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
+      v8 = v7;
+      v9 = os_log_type_enabled(v7, OS_LOG_TYPE_ERROR);
 
-      if (!v10)
+      if (!v9)
       {
         goto LABEL_9;
       }
     }
 
-    v11 = nrCopyLogObj_1876();
-    _NRLogWithArgs(v11, 16, "%s%.30s:%-4d ABORTING: BUG IN CLIENT OF NetworkRelay: %s called with NULL deviceID", v12, v13, v14, v15, v16, "");
+    v10 = nrCopyLogObj_1876();
+    _NRLogWithArgs(v10, 16, "%s%.30s:%-4d ABORTING: BUG IN CLIENT OF NetworkRelay: %s called with NULL deviceID", ", "[NRDeviceManager disableDevice:]", 170, "[NRDeviceManager disableDevice:]"");
 
 LABEL_9:
-    v17 = _os_log_pack_size();
-    MEMORY[0x28223BE20](v17, v18);
-    v19 = *__error();
-    v20 = _os_log_pack_fill();
-    *v20 = 136446466;
-    *(v20 + 4) = "[NRDeviceManager disableDevice:]";
-    *(v20 + 12) = 2080;
-    *(v20 + 14) = "[NRDeviceManager disableDevice:]";
-    v21 = nrCopyLogObj_1876();
-    _NRLogAbortWithPack(v21);
+    v11 = _os_log_pack_size();
+    v13 = v17 - ((MEMORY[0x28223BE20](v11, v12) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v14 = __error();
+    v15 = _os_log_pack_fill(v13, v11, *v14, &dword_25B98C000, "%{public}s BUG IN CLIENT OF NetworkRelay: %s called with NULL deviceID");
+    *v15 = 136446466;
+    *(v15 + 4) = "[NRDeviceManager disableDevice:]";
+    *(v15 + 12) = 2080;
+    *(v15 + 14) = "[NRDeviceManager disableDevice:]";
+    v16 = nrCopyLogObj_1876();
+    _NRLogAbortWithPack(v16, v13);
   }
 
   if (self)
@@ -65,21 +65,19 @@ LABEL_9:
     queue = 0;
   }
 
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __33__NRDeviceManager_disableDevice___block_invoke;
-  v22[3] = &unk_27996B3A8;
-  v23 = deviceCopy;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __33__NRDeviceManager_disableDevice___block_invoke;
+  v17[3] = &unk_27996B3A8;
+  v18 = deviceCopy;
   v6 = deviceCopy;
-  [(NRDeviceManager *)self disableDevice:v6 queue:queue completionBlock:v22];
-
-  v7 = *MEMORY[0x277D85DE8];
+  [(NRDeviceManager *)self disableDevice:v6 queue:queue completionBlock:v17];
 }
 
 void __33__NRDeviceManager_disableDevice___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = a2;
-  if (v10)
+  v3 = a2;
+  if (v3)
   {
     if (nrCopyLogObj_onceToken_1880 != -1)
     {
@@ -88,8 +86,7 @@ void __33__NRDeviceManager_disableDevice___block_invoke(uint64_t a1, void *a2)
 
     if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1881, OS_LOG_TYPE_ERROR))
     {
-      v8 = *(a1 + 32);
-      _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1881, 16, "%s%.30s:%-4d Failed to disable device %@: %@", v3, v4, v5, v6, v7, "");
+      _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1881, 16, "%s%.30s:%-4d Failed to disable device %@: %@", ", "[NRDeviceManager disableDevice:]_block_invoke"", 178, *(a1 + 32), v3);
     }
   }
 
@@ -102,48 +99,47 @@ void __33__NRDeviceManager_disableDevice___block_invoke(uint64_t a1, void *a2)
 
     if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1881, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = *(a1 + 32);
-      _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1881, 0, "%s%.30s:%-4d Disabled device %@", v3, v4, v5, v6, v7, "");
+      _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1881, 0, "%s%.30s:%-4d Disabled device %@", ", "[NRDeviceManager disableDevice:]_block_invoke"", 176, *(a1 + 32));
     }
   }
 }
 
 - (void)enableDevice:(id)device
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   if (!deviceCopy)
   {
-    v8 = nrCopyLogObj_1876();
+    v7 = nrCopyLogObj_1876();
     if (sNRCopyLogToStdErr == 1)
     {
     }
 
     else
     {
-      v9 = v8;
-      v10 = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
+      v8 = v7;
+      v9 = os_log_type_enabled(v7, OS_LOG_TYPE_ERROR);
 
-      if (!v10)
+      if (!v9)
       {
         goto LABEL_9;
       }
     }
 
-    v11 = nrCopyLogObj_1876();
-    _NRLogWithArgs(v11, 16, "%s%.30s:%-4d ABORTING: BUG IN CLIENT OF NetworkRelay: %s called with NULL deviceID", v12, v13, v14, v15, v16, "");
+    v10 = nrCopyLogObj_1876();
+    _NRLogWithArgs(v10, 16, "%s%.30s:%-4d ABORTING: BUG IN CLIENT OF NetworkRelay: %s called with NULL deviceID", ", "[NRDeviceManager enableDevice:]", 155, "[NRDeviceManager enableDevice:]"");
 
 LABEL_9:
-    v17 = _os_log_pack_size();
-    MEMORY[0x28223BE20](v17, v18);
-    v19 = *__error();
-    v20 = _os_log_pack_fill();
-    *v20 = 136446466;
-    *(v20 + 4) = "[NRDeviceManager enableDevice:]";
-    *(v20 + 12) = 2080;
-    *(v20 + 14) = "[NRDeviceManager enableDevice:]";
-    v21 = nrCopyLogObj_1876();
-    _NRLogAbortWithPack(v21);
+    v11 = _os_log_pack_size();
+    v13 = v17 - ((MEMORY[0x28223BE20](v11, v12) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v14 = __error();
+    v15 = _os_log_pack_fill(v13, v11, *v14, &dword_25B98C000, "%{public}s BUG IN CLIENT OF NetworkRelay: %s called with NULL deviceID");
+    *v15 = 136446466;
+    *(v15 + 4) = "[NRDeviceManager enableDevice:]";
+    *(v15 + 12) = 2080;
+    *(v15 + 14) = "[NRDeviceManager enableDevice:]";
+    v16 = nrCopyLogObj_1876();
+    _NRLogAbortWithPack(v16, v13);
   }
 
   if (self)
@@ -156,21 +152,19 @@ LABEL_9:
     queue = 0;
   }
 
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __32__NRDeviceManager_enableDevice___block_invoke;
-  v22[3] = &unk_27996B3A8;
-  v23 = deviceCopy;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __32__NRDeviceManager_enableDevice___block_invoke;
+  v17[3] = &unk_27996B3A8;
+  v18 = deviceCopy;
   v6 = deviceCopy;
-  [(NRDeviceManager *)self enableDevice:v6 queue:queue completionBlock:v22];
-
-  v7 = *MEMORY[0x277D85DE8];
+  [(NRDeviceManager *)self enableDevice:v6 queue:queue completionBlock:v17];
 }
 
 void __32__NRDeviceManager_enableDevice___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = a2;
-  if (v10)
+  v3 = a2;
+  if (v3)
   {
     if (nrCopyLogObj_onceToken_1880 != -1)
     {
@@ -179,8 +173,7 @@ void __32__NRDeviceManager_enableDevice___block_invoke(uint64_t a1, void *a2)
 
     if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1881, OS_LOG_TYPE_ERROR))
     {
-      v8 = *(a1 + 32);
-      _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1881, 16, "%s%.30s:%-4d Failed to enable device %@: %@", v3, v4, v5, v6, v7, "");
+      _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1881, 16, "%s%.30s:%-4d Failed to enable device %@: %@", ", "[NRDeviceManager enableDevice:]_block_invoke"", 163, *(a1 + 32), v3);
     }
   }
 
@@ -193,48 +186,47 @@ void __32__NRDeviceManager_enableDevice___block_invoke(uint64_t a1, void *a2)
 
     if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1881, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = *(a1 + 32);
-      _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1881, 0, "%s%.30s:%-4d Enabled device %@", v3, v4, v5, v6, v7, "");
+      _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1881, 0, "%s%.30s:%-4d Enabled device %@", ", "[NRDeviceManager enableDevice:]_block_invoke"", 161, *(a1 + 32));
     }
   }
 }
 
 - (void)unregisterDevice:(id)device
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   if (!deviceCopy)
   {
-    v8 = nrCopyLogObj_1876();
+    v7 = nrCopyLogObj_1876();
     if (sNRCopyLogToStdErr == 1)
     {
     }
 
     else
     {
-      v9 = v8;
-      v10 = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
+      v8 = v7;
+      v9 = os_log_type_enabled(v7, OS_LOG_TYPE_ERROR);
 
-      if (!v10)
+      if (!v9)
       {
         goto LABEL_9;
       }
     }
 
-    v11 = nrCopyLogObj_1876();
-    _NRLogWithArgs(v11, 16, "%s%.30s:%-4d ABORTING: BUG IN CLIENT OF NetworkRelay: %s called with NULL deviceID", v12, v13, v14, v15, v16, "");
+    v10 = nrCopyLogObj_1876();
+    _NRLogWithArgs(v10, 16, "%s%.30s:%-4d ABORTING: BUG IN CLIENT OF NetworkRelay: %s called with NULL deviceID", ", "[NRDeviceManager unregisterDevice:]", 140, "[NRDeviceManager unregisterDevice:]"");
 
 LABEL_9:
-    v17 = _os_log_pack_size();
-    MEMORY[0x28223BE20](v17, v18);
-    v19 = *__error();
-    v20 = _os_log_pack_fill();
-    *v20 = 136446466;
-    *(v20 + 4) = "[NRDeviceManager unregisterDevice:]";
-    *(v20 + 12) = 2080;
-    *(v20 + 14) = "[NRDeviceManager unregisterDevice:]";
-    v21 = nrCopyLogObj_1876();
-    _NRLogAbortWithPack(v21);
+    v11 = _os_log_pack_size();
+    v13 = v17 - ((MEMORY[0x28223BE20](v11, v12) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v14 = __error();
+    v15 = _os_log_pack_fill(v13, v11, *v14, &dword_25B98C000, "%{public}s BUG IN CLIENT OF NetworkRelay: %s called with NULL deviceID");
+    *v15 = 136446466;
+    *(v15 + 4) = "[NRDeviceManager unregisterDevice:]";
+    *(v15 + 12) = 2080;
+    *(v15 + 14) = "[NRDeviceManager unregisterDevice:]";
+    v16 = nrCopyLogObj_1876();
+    _NRLogAbortWithPack(v16, v13);
   }
 
   if (self)
@@ -247,21 +239,19 @@ LABEL_9:
     queue = 0;
   }
 
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __36__NRDeviceManager_unregisterDevice___block_invoke;
-  v22[3] = &unk_27996B3A8;
-  v23 = deviceCopy;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __36__NRDeviceManager_unregisterDevice___block_invoke;
+  v17[3] = &unk_27996B3A8;
+  v18 = deviceCopy;
   v6 = deviceCopy;
-  [(NRDeviceManager *)self unregisterDevice:v6 queue:queue completionBlock:v22];
-
-  v7 = *MEMORY[0x277D85DE8];
+  [(NRDeviceManager *)self unregisterDevice:v6 queue:queue completionBlock:v17];
 }
 
 void __36__NRDeviceManager_unregisterDevice___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = a2;
-  if (v10)
+  v3 = a2;
+  if (v3)
   {
     if (nrCopyLogObj_onceToken_1880 != -1)
     {
@@ -270,8 +260,7 @@ void __36__NRDeviceManager_unregisterDevice___block_invoke(uint64_t a1, void *a2
 
     if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1881, OS_LOG_TYPE_ERROR))
     {
-      v8 = *(a1 + 32);
-      _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1881, 16, "%s%.30s:%-4d Failed to unregister device %@: %@", v3, v4, v5, v6, v7, "");
+      _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1881, 16, "%s%.30s:%-4d Failed to unregister device %@: %@", ", "[NRDeviceManager unregisterDevice:]_block_invoke"", 148, *(a1 + 32), v3);
     }
   }
 
@@ -284,8 +273,7 @@ void __36__NRDeviceManager_unregisterDevice___block_invoke(uint64_t a1, void *a2
 
     if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1881, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = *(a1 + 32);
-      _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1881, 0, "%s%.30s:%-4d Unregistered device %@", v3, v4, v5, v6, v7, "");
+      _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1881, 0, "%s%.30s:%-4d Unregistered device %@", ", "[NRDeviceManager unregisterDevice:]_block_invoke"", 146, *(a1 + 32));
     }
   }
 }
@@ -302,7 +290,7 @@ void __36__NRDeviceManager_unregisterDevice___block_invoke(uint64_t a1, void *a2
 
 - (void)registerDevice:(id)device properties:(id)properties operationalproperties:(id)operationalproperties queue:(id)queue completionBlock:(id)block
 {
-  v199 = *MEMORY[0x277D85DE8];
+  v156 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   propertiesCopy = properties;
   operationalpropertiesCopy = operationalproperties;
@@ -310,127 +298,157 @@ void __36__NRDeviceManager_unregisterDevice___block_invoke(uint64_t a1, void *a2
   blockCopy = block;
   if (!deviceCopy)
   {
-    v55 = nrCopyLogObj_1876();
+    v44 = nrCopyLogObj_1876();
     if (sNRCopyLogToStdErr == 1)
     {
     }
 
     else
     {
-      v60 = v55;
-      v61 = os_log_type_enabled(v55, OS_LOG_TYPE_ERROR);
+      v49 = v44;
+      v50 = os_log_type_enabled(v44, OS_LOG_TYPE_ERROR);
 
-      if (!v61)
+      if (!v50)
       {
-        goto LABEL_59;
+LABEL_47:
+        v52 = _os_log_pack_size();
+        v54 = &v139 - ((MEMORY[0x28223BE20](v52, v53) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v55 = *__error();
+        v56 = _os_log_pack_fill(v54, v52, v55, &dword_25B98C000, "%{public}s BUG IN CLIENT OF NetworkRelay: %s called with NULL deviceID");
+LABEL_60:
+        *v56 = 136446466;
+        *(v56 + 4) = "[NRDeviceManager registerDevice:properties:operationalproperties:queue:completionBlock:]";
+        *(v56 + 12) = 2080;
+        *(v56 + 14) = "[NRDeviceManager registerDevice:properties:operationalproperties:queue:completionBlock:]";
+        goto LABEL_61;
       }
     }
 
-    v62 = nrCopyLogObj_1876();
-    _NRLogWithArgs(v62, 16, "%s%.30s:%-4d ABORTING: BUG IN CLIENT OF NetworkRelay: %s called with NULL deviceID", v63, v64, v65, v66, v67, "");
+    v51 = nrCopyLogObj_1876();
+    _NRLogWithArgs(v51, 16, "%s%.30s:%-4d ABORTING: BUG IN CLIENT OF NetworkRelay: %s called with NULL deviceID", ", "[NRDeviceManager registerDevice:properties:operationalproperties:queue:completionBlock:]", 48, "[NRDeviceManager registerDevice:properties:operationalproperties:queue:completionBlock:]"");
 
-    goto LABEL_59;
+    goto LABEL_47;
   }
 
   if (!propertiesCopy)
   {
-    v56 = nrCopyLogObj_1876();
+    v45 = nrCopyLogObj_1876();
     if (sNRCopyLogToStdErr == 1)
     {
     }
 
     else
     {
-      v68 = v56;
-      v69 = os_log_type_enabled(v56, OS_LOG_TYPE_ERROR);
+      v57 = v45;
+      v58 = os_log_type_enabled(v45, OS_LOG_TYPE_ERROR);
 
-      if (!v69)
+      if (!v58)
       {
-        goto LABEL_59;
+LABEL_50:
+        v60 = _os_log_pack_size();
+        v54 = &v139 - ((MEMORY[0x28223BE20](v60, v61) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v62 = *__error();
+        v56 = _os_log_pack_fill(v54, v60, v62, &dword_25B98C000, "%{public}s BUG IN CLIENT OF NetworkRelay: %s called with NULL properties");
+        goto LABEL_60;
       }
     }
 
-    v70 = nrCopyLogObj_1876();
-    _NRLogWithArgs(v70, 16, "%s%.30s:%-4d ABORTING: BUG IN CLIENT OF NetworkRelay: %s called with NULL properties", v71, v72, v73, v74, v75, "");
+    v59 = nrCopyLogObj_1876();
+    _NRLogWithArgs(v59, 16, "%s%.30s:%-4d ABORTING: BUG IN CLIENT OF NetworkRelay: %s called with NULL properties", ", "[NRDeviceManager registerDevice:properties:operationalproperties:queue:completionBlock:]", 49, "[NRDeviceManager registerDevice:properties:operationalproperties:queue:completionBlock:]"");
 
-    goto LABEL_59;
+    goto LABEL_50;
   }
 
   if (!operationalpropertiesCopy)
   {
-    v57 = nrCopyLogObj_1876();
+    v46 = nrCopyLogObj_1876();
     if (sNRCopyLogToStdErr == 1)
     {
     }
 
     else
     {
-      v76 = v57;
-      v77 = os_log_type_enabled(v57, OS_LOG_TYPE_ERROR);
+      v63 = v46;
+      v64 = os_log_type_enabled(v46, OS_LOG_TYPE_ERROR);
 
-      if (!v77)
+      if (!v64)
       {
-        goto LABEL_59;
+LABEL_53:
+        v66 = _os_log_pack_size();
+        v54 = &v139 - ((MEMORY[0x28223BE20](v66, v67) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v68 = *__error();
+        v56 = _os_log_pack_fill(v54, v66, v68, &dword_25B98C000, "%{public}s BUG IN CLIENT OF NetworkRelay: %s called with NULL operationalproperties");
+        goto LABEL_60;
       }
     }
 
-    v78 = nrCopyLogObj_1876();
-    _NRLogWithArgs(v78, 16, "%s%.30s:%-4d ABORTING: BUG IN CLIENT OF NetworkRelay: %s called with NULL operationalproperties", v79, v80, v81, v82, v83, "");
+    v65 = nrCopyLogObj_1876();
+    _NRLogWithArgs(v65, 16, "%s%.30s:%-4d ABORTING: BUG IN CLIENT OF NetworkRelay: %s called with NULL operationalproperties", ", "[NRDeviceManager registerDevice:properties:operationalproperties:queue:completionBlock:]", 50, "[NRDeviceManager registerDevice:properties:operationalproperties:queue:completionBlock:]"");
 
-    goto LABEL_59;
+    goto LABEL_53;
   }
 
   if (!queueCopy)
   {
-    v58 = nrCopyLogObj_1876();
+    v47 = nrCopyLogObj_1876();
     if (sNRCopyLogToStdErr == 1)
     {
     }
 
     else
     {
-      v84 = v58;
-      v85 = os_log_type_enabled(v58, OS_LOG_TYPE_ERROR);
+      v69 = v47;
+      v70 = os_log_type_enabled(v47, OS_LOG_TYPE_ERROR);
 
-      if (!v85)
+      if (!v70)
       {
-        goto LABEL_59;
+LABEL_56:
+        v72 = _os_log_pack_size();
+        v54 = &v139 - ((MEMORY[0x28223BE20](v72, v73) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v74 = *__error();
+        v56 = _os_log_pack_fill(v54, v72, v74, &dword_25B98C000, "%{public}s BUG IN CLIENT OF NetworkRelay: %s called with NULL queue");
+        goto LABEL_60;
       }
     }
 
-    v86 = nrCopyLogObj_1876();
-    _NRLogWithArgs(v86, 16, "%s%.30s:%-4d ABORTING: BUG IN CLIENT OF NetworkRelay: %s called with NULL queue", v87, v88, v89, v90, v91, "");
+    v71 = nrCopyLogObj_1876();
+    _NRLogWithArgs(v71, 16, "%s%.30s:%-4d ABORTING: BUG IN CLIENT OF NetworkRelay: %s called with NULL queue", ", "[NRDeviceManager registerDevice:properties:operationalproperties:queue:completionBlock:]", 51, "[NRDeviceManager registerDevice:properties:operationalproperties:queue:completionBlock:]"");
 
-    goto LABEL_59;
+    goto LABEL_56;
   }
 
   v16 = blockCopy;
   if (!blockCopy)
   {
-    v59 = nrCopyLogObj_1876();
+    v48 = nrCopyLogObj_1876();
     if (sNRCopyLogToStdErr == 1)
     {
     }
 
     else
     {
-      v92 = v59;
-      v93 = os_log_type_enabled(v59, OS_LOG_TYPE_ERROR);
+      v75 = v48;
+      v76 = os_log_type_enabled(v48, OS_LOG_TYPE_ERROR);
 
-      if (!v93)
+      if (!v76)
       {
-        goto LABEL_59;
+LABEL_59:
+        v78 = _os_log_pack_size();
+        v54 = &v139 - ((MEMORY[0x28223BE20](v78, v79) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v80 = *__error();
+        v56 = _os_log_pack_fill(v54, v78, v80, &dword_25B98C000, "%{public}s BUG IN CLIENT OF NetworkRelay: %s called with NULL completionBlock");
+        goto LABEL_60;
       }
     }
 
-    v94 = nrCopyLogObj_1876();
-    _NRLogWithArgs(v94, 16, "%s%.30s:%-4d ABORTING: BUG IN CLIENT OF NetworkRelay: %s called with NULL completionBlock", v95, v96, v97, v98, v99, "");
+    v77 = nrCopyLogObj_1876();
+    _NRLogWithArgs(v77, 16, "%s%.30s:%-4d ABORTING: BUG IN CLIENT OF NetworkRelay: %s called with NULL completionBlock", ", "[NRDeviceManager registerDevice:properties:operationalproperties:queue:completionBlock:]", 52, "[NRDeviceManager registerDevice:properties:operationalproperties:queue:completionBlock:]"");
 
     goto LABEL_59;
   }
 
   v17 = [deviceCopy copy];
-  v23 = [propertiesCopy copy];
+  v18 = [propertiesCopy copy];
   if (nrCopyLogObj_onceToken_1880 != -1)
   {
     dispatch_once(&nrCopyLogObj_onceToken_1880, &__block_literal_global_78);
@@ -438,83 +456,96 @@ void __36__NRDeviceManager_unregisterDevice___block_invoke(uint64_t a1, void *a2
 
   if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1881, OS_LOG_TYPE_DEFAULT))
   {
-    _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1881, 0, "%s%.30s:%-4d Registering device %@ with properties %@", v18, v19, v20, v21, v22, "");
+    _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1881, 0, "%s%.30s:%-4d Registering device %@ with properties %@", ", "[NRDeviceManager registerDevice:properties:operationalproperties:queue:completionBlock:]"", 56, v17, v18);
   }
 
-  if (([v23 wasInitiallySetupUsingIDSPairing] & 1) == 0)
+  if (([v18 wasInitiallySetupUsingIDSPairing] & 1) == 0)
   {
-    outOfBandKey = [v23 outOfBandKey];
+    outOfBandKey = [v18 outOfBandKey];
     if (outOfBandKey)
     {
+
+      goto LABEL_15;
     }
 
-    else if (([propertiesCopy isExternalPairing] & 1) == 0)
+    if (([propertiesCopy isExternalPairing] & 1) == 0)
     {
-      v165 = nrCopyLogObj_1876();
-      v166 = v165;
+      v124 = nrCopyLogObj_1876();
+      v125 = v124;
       if (sNRCopyLogToStdErr == 1)
       {
       }
 
       else
       {
-        v169 = os_log_type_enabled(v165, OS_LOG_TYPE_ERROR);
+        v128 = os_log_type_enabled(v124, OS_LOG_TYPE_ERROR);
 
-        if (!v169)
+        if (!v128)
         {
-          goto LABEL_59;
+LABEL_96:
+          v130 = _os_log_pack_size();
+          v54 = &v139 - ((MEMORY[0x28223BE20](v130, v131) + 15) & 0xFFFFFFFFFFFFFFF0);
+          v132 = __error();
+          v133 = _os_log_pack_fill(v54, v130, *v132, &dword_25B98C000, "%{public}s BUG IN CLIENT OF NetworkRelay: %s called with Device pairing properties must either have wasInitiallySetupUsingIDSPairing or outOfBandKey or isExternalPairing");
+          *v133 = 136446466;
+          *(v133 + 4) = "[NRDeviceManager registerDevice:properties:operationalproperties:queue:completionBlock:]";
+          *(v133 + 12) = 2080;
+          *(v133 + 14) = "[NRDeviceManager registerDevice:properties:operationalproperties:queue:completionBlock:]";
+LABEL_61:
+          v81 = nrCopyLogObj_1876();
+          _NRLogAbortWithPack(v81, v54);
         }
       }
 
-      v170 = nrCopyLogObj_1876();
-      _NRLogWithArgs(v170, 16, "%s%.30s:%-4d ABORTING: BUG IN CLIENT OF NetworkRelay: %s called with Device pairing properties must either have wasInitiallySetupUsingIDSPairing or outOfBandKey or isExternalPairing", v171, v172, v173, v174, v175, "");
+      v129 = nrCopyLogObj_1876();
+      _NRLogWithArgs(v129, 16, "%s%.30s:%-4d ABORTING: BUG IN CLIENT OF NetworkRelay: %s called with Device pairing properties must either have wasInitiallySetupUsingIDSPairing or outOfBandKey or isExternalPairing", ", "[NRDeviceManager registerDevice:properties:operationalproperties:queue:completionBlock:]", 60, "[NRDeviceManager registerDevice:properties:operationalproperties:queue:completionBlock:]"");
 
-      goto LABEL_59;
+      goto LABEL_96;
     }
   }
 
-  v192 = v16;
-  v194 = queueCopy;
-  if ([v23 pairingProtocolVersion] < 0)
+LABEL_15:
+  v150 = v16;
+  v151 = queueCopy;
+  if ([v18 pairingProtocolVersion] < 0)
   {
-    v127 = nrCopyLogObj_1876();
-    v128 = v127;
+    v97 = nrCopyLogObj_1876();
+    v98 = v97;
     if (sNRCopyLogToStdErr == 1)
     {
     }
 
     else
     {
-      v131 = os_log_type_enabled(v127, OS_LOG_TYPE_ERROR);
+      v101 = os_log_type_enabled(v97, OS_LOG_TYPE_ERROR);
 
-      if (!v131)
+      if (!v101)
       {
-LABEL_78:
-        v138 = _os_log_pack_size();
-        MEMORY[0x28223BE20](v138, v139);
-        v140 = *__error();
-        v141 = _os_log_pack_fill();
-        __os_log_helper_1_2_3_8_34_8_32_8_0(v141, [v23 pairingProtocolVersion]);
-        goto LABEL_84;
+LABEL_80:
+        v103 = _os_log_pack_size();
+        v105 = &v139 - ((MEMORY[0x28223BE20](v103, v104) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v106 = __error();
+        v107 = _os_log_pack_fill(v105, v103, *v106, &dword_25B98C000, "%{public}s BUG IN CLIENT OF NetworkRelay: %s called with Device pairing protocol version %llu is too large");
+        __os_log_helper_1_2_3_8_34_8_32_8_0(v107, [v18 pairingProtocolVersion]);
+        goto LABEL_86;
       }
     }
 
-    v132 = nrCopyLogObj_1876();
-    [v23 pairingProtocolVersion];
-    _NRLogWithArgs(v132, 16, "%s%.30s:%-4d ABORTING: BUG IN CLIENT OF NetworkRelay: %s called with Device pairing protocol version %llu is too large", v133, v134, v135, v136, v137, "");
+    v102 = nrCopyLogObj_1876();
+    _NRLogWithArgs(v102, 16, "%s%.30s:%-4d ABORTING: BUG IN CLIENT OF NetworkRelay: %s called with Device pairing protocol version %llu is too large", ", "-[NRDeviceManager registerDevice:properties:operationalproperties:queue:completionBlock:]", 64, "-[NRDeviceManager registerDevice:properties:operationalproperties:queue:completionBlock:]"", [v18 pairingProtocolVersion]);
 
-    goto LABEL_78;
+    goto LABEL_80;
   }
 
-  [v23 peerNetworkRelayVersion];
-  outOfBandKey2 = [v23 outOfBandKey];
+  [v18 peerNetworkRelayVersion];
+  outOfBandKey2 = [v18 outOfBandKey];
   if (outOfBandKey2)
   {
-    v26 = outOfBandKey2;
-    outOfBandKey3 = [v23 outOfBandKey];
-    v28 = [outOfBandKey3 length];
+    v21 = outOfBandKey2;
+    outOfBandKey3 = [v18 outOfBandKey];
+    v23 = [outOfBandKey3 length];
 
-    if (!v28)
+    if (!v23)
     {
       if (nrCopyLogObj_onceToken_1880 != -1)
       {
@@ -523,254 +554,257 @@ LABEL_78:
 
       if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1881, OS_LOG_TYPE_ERROR))
       {
-        _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1881, 16, "%s%.30s:%-4d Received empty out of band key, using generic key for device %@ with properties %@", v29, v30, v31, v32, v33, "");
+        _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1881, 16, "%s%.30s:%-4d Received empty out of band key, using generic key for device %@ with properties %@", ", "[NRDeviceManager registerDevice:properties:operationalproperties:queue:completionBlock:]"", 72, v17, v18);
       }
 
-      v34 = [@"Apple Watch Pairing Bluetooth PIN!" dataUsingEncoding:4];
-      [v23 setOutOfBandKey:v34];
+      v24 = [@"Apple Watch Pairing Bluetooth PIN!" dataUsingEncoding:4];
+      [v18 setOutOfBandKey:v24];
 
-      outOfBandKey4 = [v23 outOfBandKey];
+      outOfBandKey4 = [v18 outOfBandKey];
 
-      if (!outOfBandKey4)
+      if (outOfBandKey4)
       {
-        v105 = nrCopyLogObj_1876();
+        outOfBandKey5 = [v18 outOfBandKey];
+        v27 = [outOfBandKey5 length];
+
+        if (v27 == 34)
+        {
+          goto LABEL_25;
+        }
+
+        v83 = nrCopyLogObj_1876();
         if (sNRCopyLogToStdErr == 1)
         {
         }
 
         else
         {
-          v107 = v105;
-          v108 = os_log_type_enabled(v105, OS_LOG_TYPE_ERROR);
+          v91 = v83;
+          v92 = os_log_type_enabled(v83, OS_LOG_TYPE_ERROR);
 
-          if (!v108)
+          if (!v92)
           {
-            goto LABEL_70;
+LABEL_71:
+            v94 = _os_log_pack_size();
+            v54 = &v139 - ((MEMORY[0x28223BE20](v94, v95) + 15) & 0xFFFFFFFFFFFFFFF0);
+            v96 = *__error();
+            v90 = _os_log_pack_fill(v54, v94, v96, &dword_25B98C000, "%{public}s Assertion Failed: propertiesCopy.outOfBandKey.length == 34");
+            goto LABEL_72;
           }
         }
 
-        v109 = nrCopyLogObj_1876();
-        _NRLogWithArgs(v109, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: (propertiesCopy.outOfBandKey) != ((void*)0)", v110, v111, v112, v113, v114, "");
+        v93 = nrCopyLogObj_1876();
+        _NRLogWithArgs(v93, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: propertiesCopy.outOfBandKey.length == 34", ", "[NRDeviceManager registerDevice:properties:operationalproperties:queue:completionBlock:]"", 77);
 
-        goto LABEL_70;
+        goto LABEL_71;
       }
 
-      outOfBandKey5 = [v23 outOfBandKey];
-      v37 = [outOfBandKey5 length];
-
-      if (v37 == 34)
-      {
-        goto LABEL_25;
-      }
-
-      v106 = nrCopyLogObj_1876();
+      v82 = nrCopyLogObj_1876();
       if (sNRCopyLogToStdErr == 1)
       {
       }
 
       else
       {
-        v115 = v106;
-        v116 = os_log_type_enabled(v106, OS_LOG_TYPE_ERROR);
+        v84 = v82;
+        v85 = os_log_type_enabled(v82, OS_LOG_TYPE_ERROR);
 
-        if (!v116)
+        if (!v85)
         {
-LABEL_70:
-          v123 = _os_log_pack_size();
-          MEMORY[0x28223BE20](v123, v124);
-          v125 = *__error();
-          v126 = _os_log_pack_fill();
-          *v126 = 136446210;
-          *(v126 + 4) = "[NRDeviceManager registerDevice:properties:operationalproperties:queue:completionBlock:]";
-LABEL_60:
-          v104 = nrCopyLogObj_1876();
-          _NRLogAbortWithPack(v104);
+LABEL_68:
+          v87 = _os_log_pack_size();
+          v54 = &v139 - ((MEMORY[0x28223BE20](v87, v88) + 15) & 0xFFFFFFFFFFFFFFF0);
+          v89 = *__error();
+          v90 = _os_log_pack_fill(v54, v87, v89, &dword_25B98C000, "%{public}s Assertion Failed: (propertiesCopy.outOfBandKey) != ((void*)0)");
+LABEL_72:
+          *v90 = 136446210;
+          *(v90 + 4) = "[NRDeviceManager registerDevice:properties:operationalproperties:queue:completionBlock:]";
+          goto LABEL_61;
         }
       }
 
-      v117 = nrCopyLogObj_1876();
-      _NRLogWithArgs(v117, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: propertiesCopy.outOfBandKey.length == 34", v118, v119, v120, v121, v122, "");
+      v86 = nrCopyLogObj_1876();
+      _NRLogWithArgs(v86, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: (propertiesCopy.outOfBandKey) != ((void*)0)", ", "[NRDeviceManager registerDevice:properties:operationalproperties:queue:completionBlock:]"", 76);
 
-      goto LABEL_70;
+      goto LABEL_68;
     }
   }
 
 LABEL_25:
-  if ([v23 pairWithSPPLink])
+  if ([v18 pairWithSPPLink])
   {
-    bluetoothMACAddress = [v23 bluetoothMACAddress];
+    bluetoothMACAddress = [v18 bluetoothMACAddress];
 
     if (!bluetoothMACAddress)
     {
-      v142 = nrCopyLogObj_1876();
-      v143 = v142;
+      v108 = nrCopyLogObj_1876();
+      v109 = v108;
       if (sNRCopyLogToStdErr == 1)
       {
       }
 
       else
       {
-        v158 = os_log_type_enabled(v142, OS_LOG_TYPE_ERROR);
+        v119 = os_log_type_enabled(v108, OS_LOG_TYPE_ERROR);
 
-        if (!v158)
+        if (!v119)
         {
-          goto LABEL_59;
+LABEL_89:
+          v121 = _os_log_pack_size();
+          v54 = &v139 - ((MEMORY[0x28223BE20](v121, v122) + 15) & 0xFFFFFFFFFFFFFFF0);
+          v123 = *__error();
+          v56 = _os_log_pack_fill(v54, v121, v123, &dword_25B98C000, "%{public}s BUG IN CLIENT OF NetworkRelay: %s called with Device pairing properties has pairWithSPPLink but no bluetoothMACAddress");
+          goto LABEL_60;
         }
       }
 
-      v159 = nrCopyLogObj_1876();
-      _NRLogWithArgs(v159, 16, "%s%.30s:%-4d ABORTING: BUG IN CLIENT OF NetworkRelay: %s called with Device pairing properties has pairWithSPPLink but no bluetoothMACAddress", v160, v161, v162, v163, v164, "");
+      v120 = nrCopyLogObj_1876();
+      _NRLogWithArgs(v120, 16, "%s%.30s:%-4d ABORTING: BUG IN CLIENT OF NetworkRelay: %s called with Device pairing properties has pairWithSPPLink but no bluetoothMACAddress", ", "[NRDeviceManager registerDevice:properties:operationalproperties:queue:completionBlock:]", 81, "[NRDeviceManager registerDevice:properties:operationalproperties:queue:completionBlock:]"");
 
-      goto LABEL_59;
+      goto LABEL_89;
     }
   }
 
-  bluetoothMACAddress2 = [v23 bluetoothMACAddress];
+  bluetoothMACAddress2 = [v18 bluetoothMACAddress];
   if (bluetoothMACAddress2)
   {
-    v40 = bluetoothMACAddress2;
-    bluetoothMACAddress3 = [v23 bluetoothMACAddress];
-    v42 = [bluetoothMACAddress3 length];
+    v30 = bluetoothMACAddress2;
+    bluetoothMACAddress3 = [v18 bluetoothMACAddress];
+    v32 = [bluetoothMACAddress3 length];
 
-    if (v42 != 6)
+    if (v32 != 6)
     {
-      v129 = nrCopyLogObj_1876();
-      v130 = v129;
+      v99 = nrCopyLogObj_1876();
+      v100 = v99;
       if (sNRCopyLogToStdErr == 1)
       {
       }
 
       else
       {
-        v144 = os_log_type_enabled(v129, OS_LOG_TYPE_ERROR);
+        v110 = os_log_type_enabled(v99, OS_LOG_TYPE_ERROR);
 
-        if (!v144)
+        if (!v110)
         {
-LABEL_83:
-          v152 = _os_log_pack_size();
-          MEMORY[0x28223BE20](v152, v153);
-          v154 = *__error();
-          v155 = _os_log_pack_fill();
-          bluetoothMACAddress4 = [v23 bluetoothMACAddress];
-          __os_log_helper_1_2_3_8_34_8_32_8_0(v155, [bluetoothMACAddress4 length]);
+LABEL_85:
+          v113 = _os_log_pack_size();
+          v105 = &v139 - ((MEMORY[0x28223BE20](v113, v114) + 15) & 0xFFFFFFFFFFFFFFF0);
+          v115 = __error();
+          v116 = _os_log_pack_fill(v105, v113, *v115, &dword_25B98C000, "%{public}s BUG IN CLIENT OF NetworkRelay: %s called with Device pairing bluetoothMACAddress length %lu != 6");
+          bluetoothMACAddress4 = [v18 bluetoothMACAddress];
+          __os_log_helper_1_2_3_8_34_8_32_8_0(v116, [bluetoothMACAddress4 length]);
 
-LABEL_84:
-          v157 = nrCopyLogObj_1876();
-          _NRLogAbortWithPack(v157);
+LABEL_86:
+          v118 = nrCopyLogObj_1876();
+          _NRLogAbortWithPack(v118, v105);
         }
       }
 
-      v145 = nrCopyLogObj_1876();
-      bluetoothMACAddress5 = [v23 bluetoothMACAddress];
-      [bluetoothMACAddress5 length];
-      _NRLogWithArgs(v145, 16, "%s%.30s:%-4d ABORTING: BUG IN CLIENT OF NetworkRelay: %s called with Device pairing bluetoothMACAddress length %lu != 6", v147, v148, v149, v150, v151, "");
+      v111 = nrCopyLogObj_1876();
+      bluetoothMACAddress5 = [v18 bluetoothMACAddress];
+      _NRLogWithArgs(v111, 16, "%s%.30s:%-4d ABORTING: BUG IN CLIENT OF NetworkRelay: %s called with Device pairing bluetoothMACAddress length %lu != 6", ", "-[NRDeviceManager registerDevice:properties:operationalproperties:queue:completionBlock:]", 85, "-[NRDeviceManager registerDevice:properties:operationalproperties:queue:completionBlock:]"", [bluetoothMACAddress5 length]);
 
-      goto LABEL_83;
+      goto LABEL_85;
     }
   }
 
-  if ([v23 isExternalPairing])
+  if ([v18 isExternalPairing])
   {
-    if (![v23 psm])
+    if (![v18 psm])
     {
       allowedLinkTypes = [operationalpropertiesCopy allowedLinkTypes];
-      v44 = [allowedLinkTypes containsObject:&unk_286D2D0E8];
+      v34 = [allowedLinkTypes containsObject:&unk_286D2D0E8];
 
-      if (v44)
+      if (v34)
       {
-        v167 = nrCopyLogObj_1876();
-        v168 = v167;
+        v126 = nrCopyLogObj_1876();
+        v127 = v126;
         if (sNRCopyLogToStdErr == 1)
         {
-
-LABEL_96:
-          v177 = nrCopyLogObj_1876();
-          _NRLogWithArgs(v177, 16, "%s%.30s:%-4d ABORTING: BUG IN CLIENT OF NetworkRelay: %s called with Invalid PSM for external device registration", v178, v179, v180, v181, v182, "");
-
-          goto LABEL_59;
         }
 
-        v176 = os_log_type_enabled(v167, OS_LOG_TYPE_ERROR);
-
-        if (v176)
+        else
         {
-          goto LABEL_96;
+          v134 = os_log_type_enabled(v126, OS_LOG_TYPE_ERROR);
+
+          if (!v134)
+          {
+LABEL_99:
+            v136 = _os_log_pack_size();
+            v54 = &v139 - ((MEMORY[0x28223BE20](v136, v137) + 15) & 0xFFFFFFFFFFFFFFF0);
+            v138 = *__error();
+            v56 = _os_log_pack_fill(v54, v136, v138, &dword_25B98C000, "%{public}s BUG IN CLIENT OF NetworkRelay: %s called with Invalid PSM for external device registration");
+            goto LABEL_60;
+          }
         }
 
-LABEL_59:
-        v100 = _os_log_pack_size();
-        MEMORY[0x28223BE20](v100, v101);
-        v102 = *__error();
-        v103 = _os_log_pack_fill();
-        *v103 = 136446466;
-        *(v103 + 4) = "[NRDeviceManager registerDevice:properties:operationalproperties:queue:completionBlock:]";
-        *(v103 + 12) = 2080;
-        *(v103 + 14) = "[NRDeviceManager registerDevice:properties:operationalproperties:queue:completionBlock:]";
-        goto LABEL_60;
+        v135 = nrCopyLogObj_1876();
+        _NRLogWithArgs(v135, 16, "%s%.30s:%-4d ABORTING: BUG IN CLIENT OF NetworkRelay: %s called with Invalid PSM for external device registration", ", "[NRDeviceManager registerDevice:properties:operationalproperties:queue:completionBlock:]", 89, "[NRDeviceManager registerDevice:properties:operationalproperties:queue:completionBlock:]"");
+
+        goto LABEL_99;
       }
     }
   }
 
-  v190 = operationalpropertiesCopy;
-  v45 = v17;
+  v147 = operationalpropertiesCopy;
+  v35 = v17;
   nrDeviceIdentifier = [v17 nrDeviceIdentifier];
-  pairingProtocolVersion = [v23 pairingProtocolVersion];
-  peerNetworkRelayVersion = [v23 peerNetworkRelayVersion];
-  wasInitiallySetupUsingIDSPairing = [v23 wasInitiallySetupUsingIDSPairing];
-  outOfBandKey6 = [v23 outOfBandKey];
-  pairWithSPPLink = [v23 pairWithSPPLink];
-  isAltAccountPairing = [v23 isAltAccountPairing];
-  isExternalPairing = [v23 isExternalPairing];
-  v183 = [v23 psm];
-  bluetoothMACAddress6 = [v23 bluetoothMACAddress];
-  peerEndpointDictionary = [v23 peerEndpointDictionary];
-  v191 = deviceCopy;
+  pairingProtocolVersion = [v18 pairingProtocolVersion];
+  peerNetworkRelayVersion = [v18 peerNetworkRelayVersion];
+  wasInitiallySetupUsingIDSPairing = [v18 wasInitiallySetupUsingIDSPairing];
+  outOfBandKey6 = [v18 outOfBandKey];
+  pairWithSPPLink = [v18 pairWithSPPLink];
+  isAltAccountPairing = [v18 isAltAccountPairing];
+  isExternalPairing = [v18 isExternalPairing];
+  v140 = [v18 psm];
+  bluetoothMACAddress6 = [v18 bluetoothMACAddress];
+  peerEndpointDictionary = [v18 peerEndpointDictionary];
+  v148 = propertiesCopy;
+  v149 = deviceCopy;
   if (v17)
   {
-    v50 = v17[8];
+    v40 = v17[8];
   }
 
   else
   {
-    v50 = 0;
+    v40 = 0;
   }
 
-  candidateService = [v23 candidateService];
-  v195[0] = MEMORY[0x277D85DD0];
-  v195[1] = 3221225472;
-  v195[2] = __89__NRDeviceManager_registerDevice_properties_operationalproperties_queue_completionBlock___block_invoke;
-  v195[3] = &unk_27996B380;
-  v196 = v45;
-  v197 = v23;
-  v198 = v192;
-  v193 = v192;
-  v52 = v23;
-  v53 = v45;
-  nrXPCRegisterDeviceByNRUUID(nrDeviceIdentifier, pairingProtocolVersion, peerNetworkRelayVersion, wasInitiallySetupUsingIDSPairing, outOfBandKey6, pairWithSPPLink, isAltAccountPairing, isExternalPairing, v183, bluetoothMACAddress6, v194, v190, peerEndpointDictionary, v50 & 1, candidateService, v195);
-
-  v54 = *MEMORY[0x277D85DE8];
+  candidateService = [v18 candidateService];
+  v152[0] = MEMORY[0x277D85DD0];
+  v152[1] = 3221225472;
+  v152[2] = __89__NRDeviceManager_registerDevice_properties_operationalproperties_queue_completionBlock___block_invoke;
+  v152[3] = &unk_27996B380;
+  v153 = v35;
+  v154 = v18;
+  v155 = v150;
+  v150 = v150;
+  v42 = v18;
+  v43 = v35;
+  nrXPCRegisterDeviceByNRUUID(nrDeviceIdentifier, pairingProtocolVersion, peerNetworkRelayVersion, wasInitiallySetupUsingIDSPairing, outOfBandKey6, pairWithSPPLink, isAltAccountPairing, isExternalPairing, v140, bluetoothMACAddress6, v151, v147, peerEndpointDictionary, v40 & 1, candidateService, v152);
 }
 
 void __89__NRDeviceManager_registerDevice_properties_operationalproperties_queue_completionBlock___block_invoke(void *a1, uint64_t a2, void *a3)
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v5 = a3;
-  v11 = v5;
+  v6 = v5;
   if (a2)
   {
     if (v5)
     {
-      v24 = *MEMORY[0x277CCA450];
-      v25[0] = v5;
-      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
+      v9 = *MEMORY[0x277CCA450];
+      v10[0] = v5;
+      v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
     }
 
     else
     {
-      v12 = 0;
+      v7 = 0;
     }
 
-    v18 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"NRDeviceManagerErrorDomain" code:a2 userInfo:v12];
+    v8 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"NRDeviceManagerErrorDomain" code:a2 userInfo:v7];
     if (nrCopyLogObj_onceToken_1880 != -1)
     {
       dispatch_once(&nrCopyLogObj_onceToken_1880, &__block_literal_global_78);
@@ -778,9 +812,7 @@ void __89__NRDeviceManager_registerDevice_properties_operationalproperties_queue
 
     if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1881, OS_LOG_TYPE_ERROR))
     {
-      v23 = a1[5];
-      v21 = a1[4];
-      _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1881, 16, "%s%.30s:%-4d Failed to register device %@ with properties %@: %@", v13, v14, v15, v16, v17, "");
+      _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1881, 16, "%s%.30s:%-4d Failed to register device %@ with properties %@: %@", ", "[NRDeviceManager registerDevice:properties:operationalproperties:queue:completionBlock:]_block_invoke"", 113, a1[4], a1[5], v8);
     }
 
     (*(a1[6] + 16))();
@@ -795,15 +827,11 @@ void __89__NRDeviceManager_registerDevice_properties_operationalproperties_queue
 
     if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1881, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = a1[4];
-      v22 = a1[5];
-      _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1881, 0, "%s%.30s:%-4d Registered device %@ with properties %@", v6, v7, v8, v9, v10, "");
+      _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1881, 0, "%s%.30s:%-4d Registered device %@ with properties %@", ", "[NRDeviceManager registerDevice:properties:operationalproperties:queue:completionBlock:]_block_invoke"", 101, a1[4], a1[5]);
     }
 
     (*(a1[6] + 16))();
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 + (id)copySharedDeviceManager
@@ -829,46 +857,44 @@ uint64_t __42__NRDeviceManager_copySharedDeviceManager__block_invoke()
 
 - (id)initInternal
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (!self)
   {
-    v2 = 0;
-    goto LABEL_6;
+    return 0;
   }
 
-  v28.receiver = self;
-  v28.super_class = NRDeviceManager;
-  v1 = objc_msgSendSuper2(&v28, sel_init);
+  v23.receiver = self;
+  v23.super_class = NRDeviceManager;
+  v1 = objc_msgSendSuper2(&v23, sel_init);
   if (!v1)
   {
-    v5 = nrCopyLogObj_1876();
+    v4 = nrCopyLogObj_1876();
     if (sNRCopyLogToStdErr == 1)
     {
     }
 
     else
     {
-      v7 = v5;
-      v8 = os_log_type_enabled(v5, OS_LOG_TYPE_ERROR);
+      v6 = v4;
+      v7 = os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
 
-      if (!v8)
+      if (!v7)
       {
-        goto LABEL_16;
+LABEL_13:
+        v9 = _os_log_pack_size();
+        v11 = &v22 - ((MEMORY[0x28223BE20](v9, v10) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v12 = __error();
+        v13 = _os_log_pack_fill(v11, v9, *v12, &dword_25B98C000, "%{public}s [super init] failed");
+        *v13 = 136446210;
+        *(v13 + 4) = "[NRDeviceManager initInternal]";
+        goto LABEL_17;
       }
     }
 
-    v9 = nrCopyLogObj_1876();
-    _NRLogWithArgs(v9, 16, "%s%.30s:%-4d ABORTING: [super init] failed", v10, v11, v12, v13, v14, "");
+    v8 = nrCopyLogObj_1876();
+    _NRLogWithArgs(v8, 16, "%s%.30s:%-4d ABORTING: [super init] failed", ", "[NRDeviceManager initInternal]"", 26);
 
-LABEL_16:
-    v23 = _os_log_pack_size();
-    MEMORY[0x28223BE20](v23, v24);
-    v25 = *__error();
-    v26 = _os_log_pack_fill();
-    *v26 = 136446210;
-    *(v26 + 4) = "[NRDeviceManager initInternal]";
-    v27 = nrCopyLogObj_1876();
-    _NRLogAbortWithPack(v27);
+    goto LABEL_13;
   }
 
   v2 = v1;
@@ -880,30 +906,37 @@ LABEL_16:
   objc_storeStrong(v2 + 1, nrXPCCopyQueue_nrXPCQueue);
   if (!v2[1])
   {
-    v6 = nrCopyLogObj_1876();
+    v5 = nrCopyLogObj_1876();
     if (sNRCopyLogToStdErr == 1)
     {
     }
 
     else
     {
-      v15 = v6;
-      v16 = os_log_type_enabled(v6, OS_LOG_TYPE_ERROR);
+      v14 = v5;
+      v15 = os_log_type_enabled(v5, OS_LOG_TYPE_ERROR);
 
-      if (!v16)
+      if (!v15)
       {
-        goto LABEL_16;
+LABEL_16:
+        v17 = _os_log_pack_size();
+        v11 = &v22 - ((MEMORY[0x28223BE20](v17, v18) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v19 = __error();
+        v20 = _os_log_pack_fill(v11, v17, *v19, &dword_25B98C000, "%{public}s Assertion Failed: (self.queue) != ((void*)0)");
+        *v20 = 136446210;
+        *(v20 + 4) = "[NRDeviceManager initInternal]";
+LABEL_17:
+        v21 = nrCopyLogObj_1876();
+        _NRLogAbortWithPack(v21, v11);
       }
     }
 
-    v17 = nrCopyLogObj_1876();
-    _NRLogWithArgs(v17, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: (self.queue) != ((void*)0)", v18, v19, v20, v21, v22, "");
+    v16 = nrCopyLogObj_1876();
+    _NRLogWithArgs(v16, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: (self.queue) != ((void*)0)", ", "[NRDeviceManager initInternal]"", 28);
 
     goto LABEL_16;
   }
 
-LABEL_6:
-  v3 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -943,42 +976,42 @@ uint64_t __44__NRDeviceManager_Internal__copyIDSDeviceID__block_invoke(uint64_t 
 
 - (void)disableDevice:(id)device queue:(id)queue completionBlock:(id)block
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   queueCopy = queue;
   blockCopy = block;
   if (!deviceCopy)
   {
-    v20 = nrCopyLogObj_1876();
+    v14 = nrCopyLogObj_1876();
     if (sNRCopyLogToStdErr == 1)
     {
     }
 
     else
     {
-      v23 = v20;
-      v24 = os_log_type_enabled(v20, OS_LOG_TYPE_ERROR);
+      v17 = v14;
+      v18 = os_log_type_enabled(v14, OS_LOG_TYPE_ERROR);
 
-      if (!v24)
+      if (!v18)
       {
         goto LABEL_20;
       }
     }
 
-    v25 = nrCopyLogObj_1876();
-    _NRLogWithArgs(v25, 16, "%s%.30s:%-4d ABORTING: BUG IN CLIENT OF NetworkRelay: %s called with NULL deviceID", v26, v27, v28, v29, v30, "");
+    v19 = nrCopyLogObj_1876();
+    _NRLogWithArgs(v19, 16, "%s%.30s:%-4d ABORTING: BUG IN CLIENT OF NetworkRelay: %s called with NULL deviceID", ", "[NRDeviceManager(Internal) disableDevice:queue:completionBlock:]", 336, "[NRDeviceManager(Internal) disableDevice:queue:completionBlock:]"");
 
 LABEL_20:
-    v31 = _os_log_pack_size();
-    MEMORY[0x28223BE20](v31, v32);
-    v33 = *__error();
-    v34 = _os_log_pack_fill();
-    *v34 = 136446466;
-    *(v34 + 4) = "[NRDeviceManager(Internal) disableDevice:queue:completionBlock:]";
-    *(v34 + 12) = 2080;
-    *(v34 + 14) = "[NRDeviceManager(Internal) disableDevice:queue:completionBlock:]";
-    v35 = nrCopyLogObj_1876();
-    _NRLogAbortWithPack(v35);
+    v20 = _os_log_pack_size();
+    v22 = &v31[-1] - ((MEMORY[0x28223BE20](v20, v21) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v23 = __error();
+    v24 = _os_log_pack_fill(v22, v20, *v23, &dword_25B98C000, "%{public}s BUG IN CLIENT OF NetworkRelay: %s called with NULL deviceID");
+    *v24 = 136446466;
+    *(v24 + 4) = "[NRDeviceManager(Internal) disableDevice:queue:completionBlock:]";
+    *(v24 + 12) = 2080;
+    *(v24 + 14) = "[NRDeviceManager(Internal) disableDevice:queue:completionBlock:]";
+    v25 = nrCopyLogObj_1876();
+    _NRLogAbortWithPack(v25, v22);
   }
 
   v10 = blockCopy;
@@ -986,7 +1019,7 @@ LABEL_20:
   {
     if (blockCopy)
     {
-      v16 = [deviceCopy copy];
+      v11 = [deviceCopy copy];
       if (nrCopyLogObj_onceToken_1880 != -1)
       {
         dispatch_once(&nrCopyLogObj_onceToken_1880, &__block_literal_global_78);
@@ -994,89 +1027,88 @@ LABEL_20:
 
       if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1881, OS_LOG_TYPE_DEFAULT))
       {
-        _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1881, 0, "%s%.30s:%-4d Disabling device %@", v11, v12, v13, v14, v15, "");
+        _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1881, 0, "%s%.30s:%-4d Disabling device %@", ", "[NRDeviceManager(Internal) disableDevice:queue:completionBlock:]"", 341, v11);
       }
 
-      nrDeviceIdentifier = [v16 nrDeviceIdentifier];
-      v50[0] = MEMORY[0x277D85DD0];
-      v50[1] = 3221225472;
-      v50[2] = __65__NRDeviceManager_Internal__disableDevice_queue_completionBlock___block_invoke;
-      v50[3] = &unk_27996B3D0;
-      v51 = v16;
-      v52 = v10;
-      v18 = v16;
-      nrXPCDisableDeviceByNRUUID(nrDeviceIdentifier, queueCopy, v50);
+      nrDeviceIdentifier = [v11 nrDeviceIdentifier];
+      v31[0] = MEMORY[0x277D85DD0];
+      v31[1] = 3221225472;
+      v31[2] = __65__NRDeviceManager_Internal__disableDevice_queue_completionBlock___block_invoke;
+      v31[3] = &unk_27996B3D0;
+      v32 = v11;
+      v33 = v10;
+      v13 = v11;
+      nrXPCDisableDeviceByNRUUID(nrDeviceIdentifier, queueCopy, v31);
     }
 
     else
     {
-      v22 = nrCopyLogObj_1876();
+      v16 = nrCopyLogObj_1876();
       if (sNRCopyLogToStdErr == 1)
       {
       }
 
       else
       {
-        v43 = v22;
-        v44 = os_log_type_enabled(v22, OS_LOG_TYPE_FAULT);
+        v28 = v16;
+        v29 = os_log_type_enabled(v16, OS_LOG_TYPE_FAULT);
 
-        if (!v44)
+        if (!v29)
         {
           goto LABEL_11;
         }
       }
 
-      v18 = nrCopyLogObj_1876();
-      _NRLogWithArgs(v18, 17, "%s called with null completionBlock", v45, v46, v47, v48, v49, "[NRDeviceManager(Internal) disableDevice:queue:completionBlock:]");
+      v13 = nrCopyLogObj_1876();
+      _NRLogWithArgs(v13, 17, "%s called with null completionBlock");
     }
   }
 
   else
   {
-    v21 = nrCopyLogObj_1876();
+    v15 = nrCopyLogObj_1876();
     if (sNRCopyLogToStdErr == 1)
     {
     }
 
     else
     {
-      v36 = v21;
-      v37 = os_log_type_enabled(v21, OS_LOG_TYPE_FAULT);
+      v26 = v15;
+      v27 = os_log_type_enabled(v15, OS_LOG_TYPE_FAULT);
 
-      if (!v37)
+      if (!v27)
       {
         goto LABEL_11;
       }
     }
 
-    v18 = nrCopyLogObj_1876();
-    _NRLogWithArgs(v18, 17, "%s called with null queue", v38, v39, v40, v41, v42, "[NRDeviceManager(Internal) disableDevice:queue:completionBlock:]");
+    v13 = nrCopyLogObj_1876();
+    _NRLogWithArgs(v13, 17, "%s called with null queue");
   }
 
 LABEL_11:
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __65__NRDeviceManager_Internal__disableDevice_queue_completionBlock___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v5 = a3;
-  v11 = v5;
+  v6 = v5;
   if (a2)
   {
     if (v5)
     {
-      v22 = *MEMORY[0x277CCA450];
-      v23[0] = v5;
-      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+      v9 = *MEMORY[0x277CCA450];
+      v10[0] = v5;
+      v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
     }
 
     else
     {
-      v12 = 0;
+      v7 = 0;
     }
 
-    v18 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"NRDeviceManagerErrorDomain" code:a2 userInfo:v12];
+    v8 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"NRDeviceManagerErrorDomain" code:a2 userInfo:v7];
     if (nrCopyLogObj_onceToken_1880 != -1)
     {
       dispatch_once(&nrCopyLogObj_onceToken_1880, &__block_literal_global_78);
@@ -1084,8 +1116,7 @@ void __65__NRDeviceManager_Internal__disableDevice_queue_completionBlock___block
 
     if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1881, OS_LOG_TYPE_ERROR))
     {
-      v21 = *(a1 + 32);
-      _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1881, 16, "%s%.30s:%-4d Failed to disable device %@: %@", v13, v14, v15, v16, v17, "");
+      _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1881, 16, "%s%.30s:%-4d Failed to disable device %@: %@", ", "[NRDeviceManager(Internal) disableDevice:queue:completionBlock:]_block_invoke"", 357, *(a1 + 32), v8);
     }
 
     (*(*(a1 + 40) + 16))();
@@ -1100,54 +1131,51 @@ void __65__NRDeviceManager_Internal__disableDevice_queue_completionBlock___block
 
     if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1881, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = *(a1 + 32);
-      _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1881, 0, "%s%.30s:%-4d Disabled device %@", v6, v7, v8, v9, v10, "");
+      _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1881, 0, "%s%.30s:%-4d Disabled device %@", ", "[NRDeviceManager(Internal) disableDevice:queue:completionBlock:]_block_invoke"", 346, *(a1 + 32));
     }
 
     (*(*(a1 + 40) + 16))();
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enableDevice:(id)device queue:(id)queue completionBlock:(id)block
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   queueCopy = queue;
   blockCopy = block;
   if (!deviceCopy)
   {
-    v20 = nrCopyLogObj_1876();
+    v14 = nrCopyLogObj_1876();
     if (sNRCopyLogToStdErr == 1)
     {
     }
 
     else
     {
-      v23 = v20;
-      v24 = os_log_type_enabled(v20, OS_LOG_TYPE_ERROR);
+      v17 = v14;
+      v18 = os_log_type_enabled(v14, OS_LOG_TYPE_ERROR);
 
-      if (!v24)
+      if (!v18)
       {
         goto LABEL_20;
       }
     }
 
-    v25 = nrCopyLogObj_1876();
-    _NRLogWithArgs(v25, 16, "%s%.30s:%-4d ABORTING: BUG IN CLIENT OF NetworkRelay: %s called with NULL deviceID", v26, v27, v28, v29, v30, "");
+    v19 = nrCopyLogObj_1876();
+    _NRLogWithArgs(v19, 16, "%s%.30s:%-4d ABORTING: BUG IN CLIENT OF NetworkRelay: %s called with NULL deviceID", ", "[NRDeviceManager(Internal) enableDevice:queue:completionBlock:]", 305, "[NRDeviceManager(Internal) enableDevice:queue:completionBlock:]"");
 
 LABEL_20:
-    v31 = _os_log_pack_size();
-    MEMORY[0x28223BE20](v31, v32);
-    v33 = *__error();
-    v34 = _os_log_pack_fill();
-    *v34 = 136446466;
-    *(v34 + 4) = "[NRDeviceManager(Internal) enableDevice:queue:completionBlock:]";
-    *(v34 + 12) = 2080;
-    *(v34 + 14) = "[NRDeviceManager(Internal) enableDevice:queue:completionBlock:]";
-    v35 = nrCopyLogObj_1876();
-    _NRLogAbortWithPack(v35);
+    v20 = _os_log_pack_size();
+    v22 = &v31[-1] - ((MEMORY[0x28223BE20](v20, v21) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v23 = __error();
+    v24 = _os_log_pack_fill(v22, v20, *v23, &dword_25B98C000, "%{public}s BUG IN CLIENT OF NetworkRelay: %s called with NULL deviceID");
+    *v24 = 136446466;
+    *(v24 + 4) = "[NRDeviceManager(Internal) enableDevice:queue:completionBlock:]";
+    *(v24 + 12) = 2080;
+    *(v24 + 14) = "[NRDeviceManager(Internal) enableDevice:queue:completionBlock:]";
+    v25 = nrCopyLogObj_1876();
+    _NRLogAbortWithPack(v25, v22);
   }
 
   v10 = blockCopy;
@@ -1155,7 +1183,7 @@ LABEL_20:
   {
     if (blockCopy)
     {
-      v16 = [deviceCopy copy];
+      v11 = [deviceCopy copy];
       if (nrCopyLogObj_onceToken_1880 != -1)
       {
         dispatch_once(&nrCopyLogObj_onceToken_1880, &__block_literal_global_78);
@@ -1163,89 +1191,88 @@ LABEL_20:
 
       if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1881, OS_LOG_TYPE_DEFAULT))
       {
-        _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1881, 0, "%s%.30s:%-4d Enabling device %@", v11, v12, v13, v14, v15, "");
+        _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1881, 0, "%s%.30s:%-4d Enabling device %@", ", "[NRDeviceManager(Internal) enableDevice:queue:completionBlock:]"", 310, v11);
       }
 
-      nrDeviceIdentifier = [v16 nrDeviceIdentifier];
-      v50[0] = MEMORY[0x277D85DD0];
-      v50[1] = 3221225472;
-      v50[2] = __64__NRDeviceManager_Internal__enableDevice_queue_completionBlock___block_invoke;
-      v50[3] = &unk_27996B3D0;
-      v51 = v16;
-      v52 = v10;
-      v18 = v16;
-      nrXPCEnableDeviceByNRUUID(nrDeviceIdentifier, queueCopy, v50);
+      nrDeviceIdentifier = [v11 nrDeviceIdentifier];
+      v31[0] = MEMORY[0x277D85DD0];
+      v31[1] = 3221225472;
+      v31[2] = __64__NRDeviceManager_Internal__enableDevice_queue_completionBlock___block_invoke;
+      v31[3] = &unk_27996B3D0;
+      v32 = v11;
+      v33 = v10;
+      v13 = v11;
+      nrXPCEnableDeviceByNRUUID(nrDeviceIdentifier, queueCopy, v31);
     }
 
     else
     {
-      v22 = nrCopyLogObj_1876();
+      v16 = nrCopyLogObj_1876();
       if (sNRCopyLogToStdErr == 1)
       {
       }
 
       else
       {
-        v43 = v22;
-        v44 = os_log_type_enabled(v22, OS_LOG_TYPE_FAULT);
+        v28 = v16;
+        v29 = os_log_type_enabled(v16, OS_LOG_TYPE_FAULT);
 
-        if (!v44)
+        if (!v29)
         {
           goto LABEL_11;
         }
       }
 
-      v18 = nrCopyLogObj_1876();
-      _NRLogWithArgs(v18, 17, "%s called with null completionBlock", v45, v46, v47, v48, v49, "[NRDeviceManager(Internal) enableDevice:queue:completionBlock:]");
+      v13 = nrCopyLogObj_1876();
+      _NRLogWithArgs(v13, 17, "%s called with null completionBlock");
     }
   }
 
   else
   {
-    v21 = nrCopyLogObj_1876();
+    v15 = nrCopyLogObj_1876();
     if (sNRCopyLogToStdErr == 1)
     {
     }
 
     else
     {
-      v36 = v21;
-      v37 = os_log_type_enabled(v21, OS_LOG_TYPE_FAULT);
+      v26 = v15;
+      v27 = os_log_type_enabled(v15, OS_LOG_TYPE_FAULT);
 
-      if (!v37)
+      if (!v27)
       {
         goto LABEL_11;
       }
     }
 
-    v18 = nrCopyLogObj_1876();
-    _NRLogWithArgs(v18, 17, "%s called with null queue", v38, v39, v40, v41, v42, "[NRDeviceManager(Internal) enableDevice:queue:completionBlock:]");
+    v13 = nrCopyLogObj_1876();
+    _NRLogWithArgs(v13, 17, "%s called with null queue");
   }
 
 LABEL_11:
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __64__NRDeviceManager_Internal__enableDevice_queue_completionBlock___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v5 = a3;
-  v11 = v5;
+  v6 = v5;
   if (a2)
   {
     if (v5)
     {
-      v22 = *MEMORY[0x277CCA450];
-      v23[0] = v5;
-      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+      v9 = *MEMORY[0x277CCA450];
+      v10[0] = v5;
+      v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
     }
 
     else
     {
-      v12 = 0;
+      v7 = 0;
     }
 
-    v18 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"NRDeviceManagerErrorDomain" code:a2 userInfo:v12];
+    v8 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"NRDeviceManagerErrorDomain" code:a2 userInfo:v7];
     if (nrCopyLogObj_onceToken_1880 != -1)
     {
       dispatch_once(&nrCopyLogObj_onceToken_1880, &__block_literal_global_78);
@@ -1253,8 +1280,7 @@ void __64__NRDeviceManager_Internal__enableDevice_queue_completionBlock___block_
 
     if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1881, OS_LOG_TYPE_ERROR))
     {
-      v21 = *(a1 + 32);
-      _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1881, 16, "%s%.30s:%-4d Failed to enable device %@: %@", v13, v14, v15, v16, v17, "");
+      _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1881, 16, "%s%.30s:%-4d Failed to enable device %@: %@", ", "[NRDeviceManager(Internal) enableDevice:queue:completionBlock:]_block_invoke"", 326, *(a1 + 32), v8);
     }
 
     (*(*(a1 + 40) + 16))();
@@ -1269,41 +1295,38 @@ void __64__NRDeviceManager_Internal__enableDevice_queue_completionBlock___block_
 
     if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1881, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = *(a1 + 32);
-      _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1881, 0, "%s%.30s:%-4d Enabled device %@", v6, v7, v8, v9, v10, "");
+      _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1881, 0, "%s%.30s:%-4d Enabled device %@", ", "[NRDeviceManager(Internal) enableDevice:queue:completionBlock:]_block_invoke"", 315, *(a1 + 32));
     }
 
     (*(*(a1 + 40) + 16))();
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)scrubAllDevicesWithQueue:(id)queue completionBlock:(id)block
 {
   queueCopy = queue;
   blockCopy = block;
-  v12 = blockCopy;
+  v7 = blockCopy;
   if (!queueCopy)
   {
-    v13 = nrCopyLogObj_1876();
+    v8 = nrCopyLogObj_1876();
     if (sNRCopyLogToStdErr == 1)
     {
     }
 
     else
     {
-      v15 = v13;
-      v16 = os_log_type_enabled(v13, OS_LOG_TYPE_FAULT);
+      v10 = v8;
+      v11 = os_log_type_enabled(v8, OS_LOG_TYPE_FAULT);
 
-      if (!v16)
+      if (!v11)
       {
         goto LABEL_9;
       }
     }
 
-    v17 = nrCopyLogObj_1876();
-    _NRLogWithArgs(v17, 17, "%s called with null queue", v18, v19, v20, v21, v22, "[NRDeviceManager(Internal) scrubAllDevicesWithQueue:completionBlock:]");
+    v12 = nrCopyLogObj_1876();
+    _NRLogWithArgs(v12, 17, "%s called with null queue");
 LABEL_18:
 
     goto LABEL_9;
@@ -1311,24 +1334,24 @@ LABEL_18:
 
   if (!blockCopy)
   {
-    v14 = nrCopyLogObj_1876();
+    v9 = nrCopyLogObj_1876();
     if (sNRCopyLogToStdErr == 1)
     {
     }
 
     else
     {
-      v23 = v14;
-      v24 = os_log_type_enabled(v14, OS_LOG_TYPE_FAULT);
+      v13 = v9;
+      v14 = os_log_type_enabled(v9, OS_LOG_TYPE_FAULT);
 
-      if (!v24)
+      if (!v14)
       {
         goto LABEL_9;
       }
     }
 
-    v17 = nrCopyLogObj_1876();
-    _NRLogWithArgs(v17, 17, "%s called with null completionBlock", v25, v26, v27, v28, v29, "[NRDeviceManager(Internal) scrubAllDevicesWithQueue:completionBlock:]");
+    v12 = nrCopyLogObj_1876();
+    _NRLogWithArgs(v12, 17, "%s called with null completionBlock");
     goto LABEL_18;
   }
 
@@ -1339,39 +1362,39 @@ LABEL_18:
 
   if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1881, OS_LOG_TYPE_DEFAULT))
   {
-    _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1881, 0, "%s%.30s:%-4d Scrubbing all devices", v7, v8, v9, v10, v11, "");
+    _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1881, 0, "%s%.30s:%-4d Scrubbing all devices", ", "[NRDeviceManager(Internal) scrubAllDevicesWithQueue:completionBlock:]"", 281);
   }
 
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 3221225472;
-  v30[2] = __70__NRDeviceManager_Internal__scrubAllDevicesWithQueue_completionBlock___block_invoke;
-  v30[3] = &unk_27996B3F8;
-  v31 = v12;
-  nrXPCScrubAllDevices(queueCopy, v30);
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __70__NRDeviceManager_Internal__scrubAllDevicesWithQueue_completionBlock___block_invoke;
+  v15[3] = &unk_27996B3F8;
+  v16 = v7;
+  nrXPCScrubAllDevices(queueCopy, v15);
 
 LABEL_9:
 }
 
 void __70__NRDeviceManager_Internal__scrubAllDevicesWithQueue_completionBlock___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v5 = a3;
-  v11 = v5;
+  v6 = v5;
   if (a2)
   {
     if (v5)
     {
-      v20 = *MEMORY[0x277CCA450];
-      v21[0] = v5;
-      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+      v9 = *MEMORY[0x277CCA450];
+      v10[0] = v5;
+      v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
     }
 
     else
     {
-      v12 = 0;
+      v7 = 0;
     }
 
-    v18 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"NRDeviceManagerErrorDomain" code:a2 userInfo:v12];
+    v8 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"NRDeviceManagerErrorDomain" code:a2 userInfo:v7];
     if (nrCopyLogObj_onceToken_1880 != -1)
     {
       dispatch_once(&nrCopyLogObj_onceToken_1880, &__block_literal_global_78);
@@ -1379,7 +1402,7 @@ void __70__NRDeviceManager_Internal__scrubAllDevicesWithQueue_completionBlock___
 
     if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1881, OS_LOG_TYPE_ERROR))
     {
-      _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1881, 16, "%s%.30s:%-4d Failed to scrub all devices: %@", v13, v14, v15, v16, v17, "");
+      _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1881, 16, "%s%.30s:%-4d Failed to scrub all devices: %@", ", "[NRDeviceManager(Internal) scrubAllDevicesWithQueue:completionBlock:]_block_invoke"", 295, v8);
     }
 
     (*(*(a1 + 32) + 16))();
@@ -1394,215 +1417,20 @@ void __70__NRDeviceManager_Internal__scrubAllDevicesWithQueue_completionBlock___
 
     if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1881, OS_LOG_TYPE_DEFAULT))
     {
-      _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1881, 0, "%s%.30s:%-4d Scrubbed all devices", v6, v7, v8, v9, v10, "");
+      _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1881, 0, "%s%.30s:%-4d Scrubbed all devices", ", "[NRDeviceManager(Internal) scrubAllDevicesWithQueue:completionBlock:]_block_invoke"", 285);
     }
 
     (*(*(a1 + 32) + 16))();
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)scrubDevice:(id)device queue:(id)queue completionBlock:(id)block
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   queueCopy = queue;
   blockCopy = block;
   if (!deviceCopy)
-  {
-    v20 = nrCopyLogObj_1876();
-    if (sNRCopyLogToStdErr == 1)
-    {
-    }
-
-    else
-    {
-      v23 = v20;
-      v24 = os_log_type_enabled(v20, OS_LOG_TYPE_ERROR);
-
-      if (!v24)
-      {
-        goto LABEL_20;
-      }
-    }
-
-    v25 = nrCopyLogObj_1876();
-    _NRLogWithArgs(v25, 16, "%s%.30s:%-4d ABORTING: BUG IN CLIENT OF NetworkRelay: %s called with NULL deviceID", v26, v27, v28, v29, v30, "");
-
-LABEL_20:
-    v31 = _os_log_pack_size();
-    MEMORY[0x28223BE20](v31, v32);
-    v33 = *__error();
-    v34 = _os_log_pack_fill();
-    *v34 = 136446466;
-    *(v34 + 4) = "[NRDeviceManager(Internal) scrubDevice:queue:completionBlock:]";
-    *(v34 + 12) = 2080;
-    *(v34 + 14) = "[NRDeviceManager(Internal) scrubDevice:queue:completionBlock:]";
-    v35 = nrCopyLogObj_1876();
-    _NRLogAbortWithPack(v35);
-  }
-
-  v10 = blockCopy;
-  if (queueCopy)
-  {
-    if (blockCopy)
-    {
-      v16 = [deviceCopy copy];
-      if (nrCopyLogObj_onceToken_1880 != -1)
-      {
-        dispatch_once(&nrCopyLogObj_onceToken_1880, &__block_literal_global_78);
-      }
-
-      if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1881, OS_LOG_TYPE_DEFAULT))
-      {
-        _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1881, 0, "%s%.30s:%-4d Scrubbing device %@", v11, v12, v13, v14, v15, "");
-      }
-
-      nrDeviceIdentifier = [v16 nrDeviceIdentifier];
-      v50[0] = MEMORY[0x277D85DD0];
-      v50[1] = 3221225472;
-      v50[2] = __63__NRDeviceManager_Internal__scrubDevice_queue_completionBlock___block_invoke;
-      v50[3] = &unk_27996B3D0;
-      v51 = v16;
-      v52 = v10;
-      v18 = v16;
-      nrXPCScrubDeviceByNRUUID(nrDeviceIdentifier, queueCopy, v50);
-    }
-
-    else
-    {
-      v22 = nrCopyLogObj_1876();
-      if (sNRCopyLogToStdErr == 1)
-      {
-      }
-
-      else
-      {
-        v43 = v22;
-        v44 = os_log_type_enabled(v22, OS_LOG_TYPE_FAULT);
-
-        if (!v44)
-        {
-          goto LABEL_11;
-        }
-      }
-
-      v18 = nrCopyLogObj_1876();
-      _NRLogWithArgs(v18, 17, "%s called with null completionBlock", v45, v46, v47, v48, v49, "[NRDeviceManager(Internal) scrubDevice:queue:completionBlock:]");
-    }
-  }
-
-  else
-  {
-    v21 = nrCopyLogObj_1876();
-    if (sNRCopyLogToStdErr == 1)
-    {
-    }
-
-    else
-    {
-      v36 = v21;
-      v37 = os_log_type_enabled(v21, OS_LOG_TYPE_FAULT);
-
-      if (!v37)
-      {
-        goto LABEL_11;
-      }
-    }
-
-    v18 = nrCopyLogObj_1876();
-    _NRLogWithArgs(v18, 17, "%s called with null queue", v38, v39, v40, v41, v42, "[NRDeviceManager(Internal) scrubDevice:queue:completionBlock:]");
-  }
-
-LABEL_11:
-  v19 = *MEMORY[0x277D85DE8];
-}
-
-void __63__NRDeviceManager_Internal__scrubDevice_queue_completionBlock___block_invoke(uint64_t a1, uint64_t a2, void *a3)
-{
-  v23[1] = *MEMORY[0x277D85DE8];
-  v5 = a3;
-  v11 = v5;
-  if (a2)
-  {
-    if (v5)
-    {
-      v22 = *MEMORY[0x277CCA450];
-      v23[0] = v5;
-      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
-    }
-
-    else
-    {
-      v12 = 0;
-    }
-
-    v18 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"NRDeviceManagerErrorDomain" code:a2 userInfo:v12];
-    if (nrCopyLogObj_onceToken_1880 != -1)
-    {
-      dispatch_once(&nrCopyLogObj_onceToken_1880, &__block_literal_global_78);
-    }
-
-    if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1881, OS_LOG_TYPE_ERROR))
-    {
-      v21 = *(a1 + 32);
-      _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1881, 16, "%s%.30s:%-4d Failed to scrub device %@: %@", v13, v14, v15, v16, v17, "");
-    }
-
-    (*(*(a1 + 40) + 16))();
-  }
-
-  else
-  {
-    if (nrCopyLogObj_onceToken_1880 != -1)
-    {
-      dispatch_once(&nrCopyLogObj_onceToken_1880, &__block_literal_global_78);
-    }
-
-    if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1881, OS_LOG_TYPE_DEFAULT))
-    {
-      v20 = *(a1 + 32);
-      _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1881, 0, "%s%.30s:%-4d Scrubbed device %@", v6, v7, v8, v9, v10, "");
-    }
-
-    (*(*(a1 + 40) + 16))();
-  }
-
-  v19 = *MEMORY[0x277D85DE8];
-}
-
-- (void)unregisterAllDevicesWithQueue:(id)queue completionBlock:(id)block
-{
-  queueCopy = queue;
-  blockCopy = block;
-  v12 = blockCopy;
-  if (!queueCopy)
-  {
-    v13 = nrCopyLogObj_1876();
-    if (sNRCopyLogToStdErr == 1)
-    {
-    }
-
-    else
-    {
-      v15 = v13;
-      v16 = os_log_type_enabled(v13, OS_LOG_TYPE_FAULT);
-
-      if (!v16)
-      {
-        goto LABEL_9;
-      }
-    }
-
-    v17 = nrCopyLogObj_1876();
-    _NRLogWithArgs(v17, 17, "%s called with null queue", v18, v19, v20, v21, v22, "[NRDeviceManager(Internal) unregisterAllDevicesWithQueue:completionBlock:]");
-LABEL_18:
-
-    goto LABEL_9;
-  }
-
-  if (!blockCopy)
   {
     v14 = nrCopyLogObj_1876();
     if (sNRCopyLogToStdErr == 1)
@@ -1611,17 +1439,205 @@ LABEL_18:
 
     else
     {
-      v23 = v14;
-      v24 = os_log_type_enabled(v14, OS_LOG_TYPE_FAULT);
+      v17 = v14;
+      v18 = os_log_type_enabled(v14, OS_LOG_TYPE_ERROR);
 
-      if (!v24)
+      if (!v18)
+      {
+        goto LABEL_20;
+      }
+    }
+
+    v19 = nrCopyLogObj_1876();
+    _NRLogWithArgs(v19, 16, "%s%.30s:%-4d ABORTING: BUG IN CLIENT OF NetworkRelay: %s called with NULL deviceID", ", "[NRDeviceManager(Internal) scrubDevice:queue:completionBlock:]", 248, "[NRDeviceManager(Internal) scrubDevice:queue:completionBlock:]"");
+
+LABEL_20:
+    v20 = _os_log_pack_size();
+    v22 = &v31[-1] - ((MEMORY[0x28223BE20](v20, v21) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v23 = __error();
+    v24 = _os_log_pack_fill(v22, v20, *v23, &dword_25B98C000, "%{public}s BUG IN CLIENT OF NetworkRelay: %s called with NULL deviceID");
+    *v24 = 136446466;
+    *(v24 + 4) = "[NRDeviceManager(Internal) scrubDevice:queue:completionBlock:]";
+    *(v24 + 12) = 2080;
+    *(v24 + 14) = "[NRDeviceManager(Internal) scrubDevice:queue:completionBlock:]";
+    v25 = nrCopyLogObj_1876();
+    _NRLogAbortWithPack(v25, v22);
+  }
+
+  v10 = blockCopy;
+  if (queueCopy)
+  {
+    if (blockCopy)
+    {
+      v11 = [deviceCopy copy];
+      if (nrCopyLogObj_onceToken_1880 != -1)
+      {
+        dispatch_once(&nrCopyLogObj_onceToken_1880, &__block_literal_global_78);
+      }
+
+      if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1881, OS_LOG_TYPE_DEFAULT))
+      {
+        _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1881, 0, "%s%.30s:%-4d Scrubbing device %@", ", "[NRDeviceManager(Internal) scrubDevice:queue:completionBlock:]"", 253, v11);
+      }
+
+      nrDeviceIdentifier = [v11 nrDeviceIdentifier];
+      v31[0] = MEMORY[0x277D85DD0];
+      v31[1] = 3221225472;
+      v31[2] = __63__NRDeviceManager_Internal__scrubDevice_queue_completionBlock___block_invoke;
+      v31[3] = &unk_27996B3D0;
+      v32 = v11;
+      v33 = v10;
+      v13 = v11;
+      nrXPCScrubDeviceByNRUUID(nrDeviceIdentifier, queueCopy, v31);
+    }
+
+    else
+    {
+      v16 = nrCopyLogObj_1876();
+      if (sNRCopyLogToStdErr == 1)
+      {
+      }
+
+      else
+      {
+        v28 = v16;
+        v29 = os_log_type_enabled(v16, OS_LOG_TYPE_FAULT);
+
+        if (!v29)
+        {
+          goto LABEL_11;
+        }
+      }
+
+      v13 = nrCopyLogObj_1876();
+      _NRLogWithArgs(v13, 17, "%s called with null completionBlock");
+    }
+  }
+
+  else
+  {
+    v15 = nrCopyLogObj_1876();
+    if (sNRCopyLogToStdErr == 1)
+    {
+    }
+
+    else
+    {
+      v26 = v15;
+      v27 = os_log_type_enabled(v15, OS_LOG_TYPE_FAULT);
+
+      if (!v27)
+      {
+        goto LABEL_11;
+      }
+    }
+
+    v13 = nrCopyLogObj_1876();
+    _NRLogWithArgs(v13, 17, "%s called with null queue");
+  }
+
+LABEL_11:
+}
+
+void __63__NRDeviceManager_Internal__scrubDevice_queue_completionBlock___block_invoke(uint64_t a1, uint64_t a2, void *a3)
+{
+  v10[1] = *MEMORY[0x277D85DE8];
+  v5 = a3;
+  v6 = v5;
+  if (a2)
+  {
+    if (v5)
+    {
+      v9 = *MEMORY[0x277CCA450];
+      v10[0] = v5;
+      v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+    }
+
+    else
+    {
+      v7 = 0;
+    }
+
+    v8 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"NRDeviceManagerErrorDomain" code:a2 userInfo:v7];
+    if (nrCopyLogObj_onceToken_1880 != -1)
+    {
+      dispatch_once(&nrCopyLogObj_onceToken_1880, &__block_literal_global_78);
+    }
+
+    if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1881, OS_LOG_TYPE_ERROR))
+    {
+      _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1881, 16, "%s%.30s:%-4d Failed to scrub device %@: %@", ", "[NRDeviceManager(Internal) scrubDevice:queue:completionBlock:]_block_invoke"", 269, *(a1 + 32), v8);
+    }
+
+    (*(*(a1 + 40) + 16))();
+  }
+
+  else
+  {
+    if (nrCopyLogObj_onceToken_1880 != -1)
+    {
+      dispatch_once(&nrCopyLogObj_onceToken_1880, &__block_literal_global_78);
+    }
+
+    if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1881, OS_LOG_TYPE_DEFAULT))
+    {
+      _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1881, 0, "%s%.30s:%-4d Scrubbed device %@", ", "[NRDeviceManager(Internal) scrubDevice:queue:completionBlock:]_block_invoke"", 258, *(a1 + 32));
+    }
+
+    (*(*(a1 + 40) + 16))();
+  }
+}
+
+- (void)unregisterAllDevicesWithQueue:(id)queue completionBlock:(id)block
+{
+  queueCopy = queue;
+  blockCopy = block;
+  v7 = blockCopy;
+  if (!queueCopy)
+  {
+    v8 = nrCopyLogObj_1876();
+    if (sNRCopyLogToStdErr == 1)
+    {
+    }
+
+    else
+    {
+      v10 = v8;
+      v11 = os_log_type_enabled(v8, OS_LOG_TYPE_FAULT);
+
+      if (!v11)
       {
         goto LABEL_9;
       }
     }
 
-    v17 = nrCopyLogObj_1876();
-    _NRLogWithArgs(v17, 17, "%s called with null completionBlock", v25, v26, v27, v28, v29, "[NRDeviceManager(Internal) unregisterAllDevicesWithQueue:completionBlock:]");
+    v12 = nrCopyLogObj_1876();
+    _NRLogWithArgs(v12, 17, "%s called with null queue");
+LABEL_18:
+
+    goto LABEL_9;
+  }
+
+  if (!blockCopy)
+  {
+    v9 = nrCopyLogObj_1876();
+    if (sNRCopyLogToStdErr == 1)
+    {
+    }
+
+    else
+    {
+      v13 = v9;
+      v14 = os_log_type_enabled(v9, OS_LOG_TYPE_FAULT);
+
+      if (!v14)
+      {
+        goto LABEL_9;
+      }
+    }
+
+    v12 = nrCopyLogObj_1876();
+    _NRLogWithArgs(v12, 17, "%s called with null completionBlock");
     goto LABEL_18;
   }
 
@@ -1632,39 +1648,39 @@ LABEL_18:
 
   if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1881, OS_LOG_TYPE_DEFAULT))
   {
-    _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1881, 0, "%s%.30s:%-4d Unregistering all devices", v7, v8, v9, v10, v11, "");
+    _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1881, 0, "%s%.30s:%-4d Unregistering all devices", ", "[NRDeviceManager(Internal) unregisterAllDevicesWithQueue:completionBlock:]"", 224);
   }
 
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 3221225472;
-  v30[2] = __75__NRDeviceManager_Internal__unregisterAllDevicesWithQueue_completionBlock___block_invoke;
-  v30[3] = &unk_27996B3F8;
-  v31 = v12;
-  nrXPCUnregisterAllDevices(queueCopy, v30);
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __75__NRDeviceManager_Internal__unregisterAllDevicesWithQueue_completionBlock___block_invoke;
+  v15[3] = &unk_27996B3F8;
+  v16 = v7;
+  nrXPCUnregisterAllDevices(queueCopy, v15);
 
 LABEL_9:
 }
 
 void __75__NRDeviceManager_Internal__unregisterAllDevicesWithQueue_completionBlock___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v5 = a3;
-  v11 = v5;
+  v6 = v5;
   if (a2)
   {
     if (v5)
     {
-      v20 = *MEMORY[0x277CCA450];
-      v21[0] = v5;
-      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+      v9 = *MEMORY[0x277CCA450];
+      v10[0] = v5;
+      v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
     }
 
     else
     {
-      v12 = 0;
+      v7 = 0;
     }
 
-    v18 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"NRDeviceManagerErrorDomain" code:a2 userInfo:v12];
+    v8 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"NRDeviceManagerErrorDomain" code:a2 userInfo:v7];
     if (nrCopyLogObj_onceToken_1880 != -1)
     {
       dispatch_once(&nrCopyLogObj_onceToken_1880, &__block_literal_global_78);
@@ -1672,7 +1688,7 @@ void __75__NRDeviceManager_Internal__unregisterAllDevicesWithQueue_completionBlo
 
     if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1881, OS_LOG_TYPE_ERROR))
     {
-      _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1881, 16, "%s%.30s:%-4d Failed to unregister all devices: %@", v13, v14, v15, v16, v17, "");
+      _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1881, 16, "%s%.30s:%-4d Failed to unregister all devices: %@", ", "[NRDeviceManager(Internal) unregisterAllDevicesWithQueue:completionBlock:]_block_invoke"", 238, v8);
     }
 
     (*(*(a1 + 32) + 16))();
@@ -1687,53 +1703,51 @@ void __75__NRDeviceManager_Internal__unregisterAllDevicesWithQueue_completionBlo
 
     if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1881, OS_LOG_TYPE_DEFAULT))
     {
-      _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1881, 0, "%s%.30s:%-4d Unregistered all devices", v6, v7, v8, v9, v10, "");
+      _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1881, 0, "%s%.30s:%-4d Unregistered all devices", ", "[NRDeviceManager(Internal) unregisterAllDevicesWithQueue:completionBlock:]_block_invoke"", 228);
     }
 
     (*(*(a1 + 32) + 16))();
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unregisterDevice:(id)device queue:(id)queue completionBlock:(id)block
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   queueCopy = queue;
   blockCopy = block;
   if (!deviceCopy)
   {
-    v20 = nrCopyLogObj_1876();
+    v14 = nrCopyLogObj_1876();
     if (sNRCopyLogToStdErr == 1)
     {
     }
 
     else
     {
-      v23 = v20;
-      v24 = os_log_type_enabled(v20, OS_LOG_TYPE_ERROR);
+      v17 = v14;
+      v18 = os_log_type_enabled(v14, OS_LOG_TYPE_ERROR);
 
-      if (!v24)
+      if (!v18)
       {
         goto LABEL_20;
       }
     }
 
-    v25 = nrCopyLogObj_1876();
-    _NRLogWithArgs(v25, 16, "%s%.30s:%-4d ABORTING: BUG IN CLIENT OF NetworkRelay: %s called with NULL deviceID", v26, v27, v28, v29, v30, "");
+    v19 = nrCopyLogObj_1876();
+    _NRLogWithArgs(v19, 16, "%s%.30s:%-4d ABORTING: BUG IN CLIENT OF NetworkRelay: %s called with NULL deviceID", ", "[NRDeviceManager(Internal) unregisterDevice:queue:completionBlock:]", 192, "[NRDeviceManager(Internal) unregisterDevice:queue:completionBlock:]"");
 
 LABEL_20:
-    v31 = _os_log_pack_size();
-    MEMORY[0x28223BE20](v31, v32);
-    v33 = *__error();
-    v34 = _os_log_pack_fill();
-    *v34 = 136446466;
-    *(v34 + 4) = "[NRDeviceManager(Internal) unregisterDevice:queue:completionBlock:]";
-    *(v34 + 12) = 2080;
-    *(v34 + 14) = "[NRDeviceManager(Internal) unregisterDevice:queue:completionBlock:]";
-    v35 = nrCopyLogObj_1876();
-    _NRLogAbortWithPack(v35);
+    v20 = _os_log_pack_size();
+    v22 = &v31[-1] - ((MEMORY[0x28223BE20](v20, v21) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v23 = __error();
+    v24 = _os_log_pack_fill(v22, v20, *v23, &dword_25B98C000, "%{public}s BUG IN CLIENT OF NetworkRelay: %s called with NULL deviceID");
+    *v24 = 136446466;
+    *(v24 + 4) = "[NRDeviceManager(Internal) unregisterDevice:queue:completionBlock:]";
+    *(v24 + 12) = 2080;
+    *(v24 + 14) = "[NRDeviceManager(Internal) unregisterDevice:queue:completionBlock:]";
+    v25 = nrCopyLogObj_1876();
+    _NRLogAbortWithPack(v25, v22);
   }
 
   v10 = blockCopy;
@@ -1741,7 +1755,7 @@ LABEL_20:
   {
     if (blockCopy)
     {
-      v16 = [deviceCopy copy];
+      v11 = [deviceCopy copy];
       if (nrCopyLogObj_onceToken_1880 != -1)
       {
         dispatch_once(&nrCopyLogObj_onceToken_1880, &__block_literal_global_78);
@@ -1749,89 +1763,88 @@ LABEL_20:
 
       if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1881, OS_LOG_TYPE_DEFAULT))
       {
-        _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1881, 0, "%s%.30s:%-4d Unregistering device %@", v11, v12, v13, v14, v15, "");
+        _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1881, 0, "%s%.30s:%-4d Unregistering device %@", ", "[NRDeviceManager(Internal) unregisterDevice:queue:completionBlock:]"", 197, v11);
       }
 
-      nrDeviceIdentifier = [v16 nrDeviceIdentifier];
-      v50[0] = MEMORY[0x277D85DD0];
-      v50[1] = 3221225472;
-      v50[2] = __68__NRDeviceManager_Internal__unregisterDevice_queue_completionBlock___block_invoke;
-      v50[3] = &unk_27996B3D0;
-      v51 = v16;
-      v52 = v10;
-      v18 = v16;
-      nrXPCUnregisterDeviceByNRUUID(nrDeviceIdentifier, queueCopy, v50);
+      nrDeviceIdentifier = [v11 nrDeviceIdentifier];
+      v31[0] = MEMORY[0x277D85DD0];
+      v31[1] = 3221225472;
+      v31[2] = __68__NRDeviceManager_Internal__unregisterDevice_queue_completionBlock___block_invoke;
+      v31[3] = &unk_27996B3D0;
+      v32 = v11;
+      v33 = v10;
+      v13 = v11;
+      nrXPCUnregisterDeviceByNRUUID(nrDeviceIdentifier, queueCopy, v31);
     }
 
     else
     {
-      v22 = nrCopyLogObj_1876();
+      v16 = nrCopyLogObj_1876();
       if (sNRCopyLogToStdErr == 1)
       {
       }
 
       else
       {
-        v43 = v22;
-        v44 = os_log_type_enabled(v22, OS_LOG_TYPE_FAULT);
+        v28 = v16;
+        v29 = os_log_type_enabled(v16, OS_LOG_TYPE_FAULT);
 
-        if (!v44)
+        if (!v29)
         {
           goto LABEL_11;
         }
       }
 
-      v18 = nrCopyLogObj_1876();
-      _NRLogWithArgs(v18, 17, "%s called with null completionBlock", v45, v46, v47, v48, v49, "[NRDeviceManager(Internal) unregisterDevice:queue:completionBlock:]");
+      v13 = nrCopyLogObj_1876();
+      _NRLogWithArgs(v13, 17, "%s called with null completionBlock");
     }
   }
 
   else
   {
-    v21 = nrCopyLogObj_1876();
+    v15 = nrCopyLogObj_1876();
     if (sNRCopyLogToStdErr == 1)
     {
     }
 
     else
     {
-      v36 = v21;
-      v37 = os_log_type_enabled(v21, OS_LOG_TYPE_FAULT);
+      v26 = v15;
+      v27 = os_log_type_enabled(v15, OS_LOG_TYPE_FAULT);
 
-      if (!v37)
+      if (!v27)
       {
         goto LABEL_11;
       }
     }
 
-    v18 = nrCopyLogObj_1876();
-    _NRLogWithArgs(v18, 17, "%s called with null queue", v38, v39, v40, v41, v42, "[NRDeviceManager(Internal) unregisterDevice:queue:completionBlock:]");
+    v13 = nrCopyLogObj_1876();
+    _NRLogWithArgs(v13, 17, "%s called with null queue");
   }
 
 LABEL_11:
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __68__NRDeviceManager_Internal__unregisterDevice_queue_completionBlock___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v5 = a3;
-  v11 = v5;
+  v6 = v5;
   if (a2)
   {
     if (v5)
     {
-      v22 = *MEMORY[0x277CCA450];
-      v23[0] = v5;
-      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+      v9 = *MEMORY[0x277CCA450];
+      v10[0] = v5;
+      v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
     }
 
     else
     {
-      v12 = 0;
+      v7 = 0;
     }
 
-    v18 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"NRDeviceManagerErrorDomain" code:a2 userInfo:v12];
+    v8 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"NRDeviceManagerErrorDomain" code:a2 userInfo:v7];
     if (nrCopyLogObj_onceToken_1880 != -1)
     {
       dispatch_once(&nrCopyLogObj_onceToken_1880, &__block_literal_global_78);
@@ -1839,8 +1852,7 @@ void __68__NRDeviceManager_Internal__unregisterDevice_queue_completionBlock___bl
 
     if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1881, OS_LOG_TYPE_ERROR))
     {
-      v21 = *(a1 + 32);
-      _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1881, 16, "%s%.30s:%-4d Failed to unregister device %@: %@", v13, v14, v15, v16, v17, "");
+      _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1881, 16, "%s%.30s:%-4d Failed to unregister device %@: %@", ", "[NRDeviceManager(Internal) unregisterDevice:queue:completionBlock:]_block_invoke"", 213, *(a1 + 32), v8);
     }
 
     (*(*(a1 + 40) + 16))();
@@ -1855,14 +1867,11 @@ void __68__NRDeviceManager_Internal__unregisterDevice_queue_completionBlock___bl
 
     if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1881, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = *(a1 + 32);
-      _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1881, 0, "%s%.30s:%-4d Unregistered device %@", v6, v7, v8, v9, v10, "");
+      _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1881, 0, "%s%.30s:%-4d Unregistered device %@", ", "[NRDeviceManager(Internal) unregisterDevice:queue:completionBlock:]_block_invoke"", 202, *(a1 + 32));
     }
 
     (*(*(a1 + 40) + 16))();
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 @end

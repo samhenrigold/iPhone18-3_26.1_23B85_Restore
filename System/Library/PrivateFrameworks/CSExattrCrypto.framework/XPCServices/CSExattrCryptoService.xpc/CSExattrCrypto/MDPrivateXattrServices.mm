@@ -11,6 +11,7 @@
 - (void)digestUUIDBytesWithKey:(id)key forUUID:(id)d uuidBytes:(unsigned __int8)bytes[16];
 - (void)digestUUIDBytesWithKey:(id)key forXPCUUID:(id)d uuidBytes:(unsigned __int8)bytes[16];
 - (void)extractDecryptedDataWith:(id)with cryptoCallback:(id)callback decryptableXids:(id)xids intoDict:(id)dict keyRing:(id)ring xid:(id)xid;
+- (void)updatePrivateXattrParams:(id)params flags:(unint64_t)flags forFileDescriptor:(int)descriptor completionHandler:(id)handler;
 - (void)updatePrivateXattrParams:(id)params flags:(unint64_t)flags forFileDescriptor:(int)descriptor mergeCallback:(id)callback completionHandler:(id)handler;
 @end
 
@@ -833,6 +834,16 @@ LABEL_11:
   v21[6] = handler;
   v21[4] = v17;
   (*(callback + 2))(callback, v20, params, v18, flagsCopy & 1, v21);
+}
+
+- (void)updatePrivateXattrParams:(id)params flags:(unint64_t)flags forFileDescriptor:(int)descriptor completionHandler:(id)handler
+{
+  v6[0] = _NSConcreteStackBlock;
+  v6[1] = 3221225472;
+  v6[2] = sub_100009A4C;
+  v6[3] = &unk_100014E48;
+  v6[4] = self;
+  [(MDPrivateXattrServices *)self updatePrivateXattrParams:params flags:flags forFileDescriptor:*&descriptor mergeCallback:v6 completionHandler:handler];
 }
 
 @end

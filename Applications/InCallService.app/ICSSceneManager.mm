@@ -120,7 +120,7 @@
 
   else
   {
-    v8 = sub_100004F84();
+    v8 = sub_100004F84(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
       sub_1002540F8(identifierCopy, v8);
@@ -156,41 +156,42 @@
   [(NSMutableSet *)pendingSceneTypes removeObject:v8];
 
   v9 = [(ICSSceneManager *)self genericSceneOfType:type];
+  v11 = v9;
   if (v9)
   {
-    v10 = sub_100009960();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v12 = sub_100009960(v9, v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = v10;
-      v12 = sub_100030C10(type);
-      v20 = 138412802;
-      v21 = v9;
-      v22 = 2114;
-      v23 = v12;
-      v24 = 2112;
-      v25 = sceneCopy;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "[Warning]: Existing scene '%@' already exists for type '%{public}@'. Ignoring new scene '%@'", &v20, 0x20u);
+      v13 = v12;
+      v14 = sub_100030C10(type);
+      v22 = 138412802;
+      v23 = v11;
+      v24 = 2114;
+      v25 = v14;
+      v26 = 2112;
+      v27 = sceneCopy;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "[Warning]: Existing scene '%@' already exists for type '%{public}@'. Ignoring new scene '%@'", &v22, 0x20u);
     }
   }
 
   else
   {
     sceneMapping = self->_sceneMapping;
-    v14 = [NSNumber numberWithUnsignedInteger:type];
-    [(NSMapTable *)sceneMapping setObject:sceneCopy forKey:v14];
+    v16 = [NSNumber numberWithUnsignedInteger:type];
+    [(NSMapTable *)sceneMapping setObject:sceneCopy forKey:v16];
 
     sceneTypeToRegisterBlockMapping = self->_sceneTypeToRegisterBlockMapping;
-    v16 = [NSNumber numberWithUnsignedInteger:type];
-    v17 = [(NSMutableDictionary *)sceneTypeToRegisterBlockMapping objectForKeyedSubscript:v16];
+    v18 = [NSNumber numberWithUnsignedInteger:type];
+    v19 = [(NSMutableDictionary *)sceneTypeToRegisterBlockMapping objectForKeyedSubscript:v18];
 
-    if (v17)
+    if (v19)
     {
-      (v17)[2](v17, sceneCopy);
+      (v19)[2](v19, sceneCopy);
     }
 
-    v18 = self->_sceneTypeToRegisterBlockMapping;
-    v19 = [NSNumber numberWithUnsignedInteger:type];
-    [(NSMutableDictionary *)v18 setObject:0 forKeyedSubscript:v19];
+    v20 = self->_sceneTypeToRegisterBlockMapping;
+    v21 = [NSNumber numberWithUnsignedInteger:type];
+    [(NSMutableDictionary *)v20 setObject:0 forKeyedSubscript:v21];
   }
 }
 
@@ -198,50 +199,50 @@
 {
   sceneCopy = scene;
   dispatch_assert_queue_V2(&_dispatch_main_q);
-  v7 = sub_100004F84();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = sub_100004F84(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = SBSInCallPresentationModeDescription();
-    v23 = 138543362;
-    v24 = v8;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "ICSSceneManager did update presentationMode to %{public}@", &v23, 0xCu);
+    v9 = SBSInCallPresentationModeDescription();
+    v25 = 138543362;
+    v26 = v9;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "ICSSceneManager did update presentationMode to %{public}@", &v25, 0xCu);
   }
 
   ics_sceneType = [sceneCopy ics_sceneType];
-  v10 = [(ICSSceneManager *)self sceneOfType:ics_sceneType];
-  if (v10)
+  v12 = [(ICSSceneManager *)self sceneOfType:ics_sceneType];
+  if (v12)
   {
     sceneTypeAndPresentationModeToBlockMapping = self->_sceneTypeAndPresentationModeToBlockMapping;
-    v12 = [NSNumber numberWithUnsignedInteger:ics_sceneType];
-    v13 = [(NSMutableDictionary *)sceneTypeAndPresentationModeToBlockMapping objectForKeyedSubscript:v12];
-    v14 = [NSNumber numberWithInteger:mode];
-    v15 = [v13 objectForKeyedSubscript:v14];
+    v14 = [NSNumber numberWithUnsignedInteger:ics_sceneType];
+    v15 = [(NSMutableDictionary *)sceneTypeAndPresentationModeToBlockMapping objectForKeyedSubscript:v14];
+    v16 = [NSNumber numberWithInteger:mode];
+    v17 = [v15 objectForKeyedSubscript:v16];
 
-    if (v15)
+    if (v17)
     {
-      (v15)[2](v15, sceneCopy);
+      (v17)[2](v17, sceneCopy);
     }
 
-    v16 = self->_sceneTypeAndPresentationModeToBlockMapping;
-    v17 = [NSNumber numberWithUnsignedInteger:ics_sceneType];
-    v18 = [(NSMutableDictionary *)v16 objectForKeyedSubscript:v17];
-    v19 = [NSNumber numberWithInteger:mode];
-    [v18 setObject:0 forKeyedSubscript:v19];
+    v18 = self->_sceneTypeAndPresentationModeToBlockMapping;
+    v19 = [NSNumber numberWithUnsignedInteger:ics_sceneType];
+    v20 = [(NSMutableDictionary *)v18 objectForKeyedSubscript:v19];
+    v21 = [NSNumber numberWithInteger:mode];
+    [v20 setObject:0 forKeyedSubscript:v21];
 
     if (mode == 2)
     {
       sceneTypesPresentedFullScreen = self->_sceneTypesPresentedFullScreen;
-      v21 = [NSNumber numberWithUnsignedInteger:ics_sceneType];
-      [(NSMutableSet *)sceneTypesPresentedFullScreen addObject:v21];
+      v23 = [NSNumber numberWithUnsignedInteger:ics_sceneType];
+      [(NSMutableSet *)sceneTypesPresentedFullScreen addObject:v23];
     }
   }
 
   else
   {
-    v22 = sub_100009960();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v24 = sub_100009960(0, v11);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
-      sub_100254170(v22, ics_sceneType, sceneCopy);
+      sub_100254170(v24, ics_sceneType, sceneCopy);
     }
   }
 }

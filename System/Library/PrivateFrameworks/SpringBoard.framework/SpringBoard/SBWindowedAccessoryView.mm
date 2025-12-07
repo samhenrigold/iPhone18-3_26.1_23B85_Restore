@@ -50,7 +50,7 @@
 
   [(SBWindowedAccessoryView *)self setBounds:v5, v7, v9, v11];
   [(UIButton *)self->_forceDetachWindowedAcessoryButton sizeToFit];
-  [(UIButton *)self->_forceDetachWindowedAcessoryButton frame];
+  objc_msgSend_frame(self->_forceDetachWindowedAcessoryButton);
   [(UIButton *)self->_forceDetachWindowedAcessoryButton setFrame:v9 - (v12 + 20.0), 40.0];
 }
 

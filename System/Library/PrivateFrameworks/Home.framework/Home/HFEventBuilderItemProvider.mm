@@ -21,9 +21,9 @@
   v6 = [(HFItemProvider *)&v12 init];
   if (v6)
   {
-    home = [builderCopy home];
+    v7 = objc_msgSend_home(builderCopy);
     home = v6->_home;
-    v6->_home = home;
+    v6->_home = v7;
 
     objc_storeStrong(&v6->_triggerBuilder, builder);
     v9 = [MEMORY[0x277CBEB58] set];
@@ -78,8 +78,8 @@
   if (!naturalLanguageOptions)
   {
     v4 = [HFTriggerNaturalLanguageOptions alloc];
-    home = [(HFEventBuilderItemProvider *)self home];
-    v6 = [(HFTriggerNaturalLanguageOptions *)v4 initWithHome:home nameType:2];
+    v5 = objc_msgSend_home(self);
+    v6 = [(HFTriggerNaturalLanguageOptions *)v4 initWithHome:v5 nameType:2];
     v7 = self->_naturalLanguageOptions;
     self->_naturalLanguageOptions = v6;
 
@@ -333,9 +333,9 @@ void __65__HFEventBuilderItemProvider_eventBuilderGroupsForEventBuilders___block
 
   if (v6)
   {
-    v7 = [*(a1 + 32) home];
+    v7 = objc_msgSend_home(*(a1 + 32));
     v8 = [v6 characteristic];
-    v9 = [v8 service];
+    v9 = objc_msgSend_service(v8);
     v10 = [v7 hf_serviceGroupsForService:v9];
 
     v11[0] = MEMORY[0x277D85DD0];
@@ -379,7 +379,7 @@ void __65__HFEventBuilderItemProvider_eventBuilderGroupsForEventBuilders___block
   v5 = a3;
   v6 = *(a1 + 32);
   v7 = a2;
-  v8 = [v6 home];
+  v8 = objc_msgSend_home(v6);
   v9 = [v8 hf_serviceGroupWithIdentifier:v7];
 
   if ([v5 count] >= 2)
@@ -471,7 +471,7 @@ void __65__HFEventBuilderItemProvider_eventBuilderGroupsForEventBuilders___block
 id __65__HFEventBuilderItemProvider_eventBuilderGroupsForEventBuilders___block_invoke_6(uint64_t a1, void *a2)
 {
   v2 = [a2 characteristic];
-  v3 = [v2 service];
+  v3 = objc_msgSend_service(v2);
 
   return v3;
 }

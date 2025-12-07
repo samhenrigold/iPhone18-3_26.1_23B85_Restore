@@ -137,7 +137,7 @@ void CA::OGL::PingPongState::~PingPongState(CA::OGL::PingPongState *this)
   }
 }
 
-void CA::OGL::PingPongState::scale_and_dilate(CA::OGL::PingPongState *this, double a2, float32_t a3, signed int a4, signed int a5)
+void CA::OGL::PingPongState::scale_and_dilate(CA::OGL::PingPongState *this, double a2, float32_t a3, unsigned int a4, unsigned int a5)
 {
   *(this + 10) = vmul_f32(*(this + 80), __PAIR64__(LODWORD(a3), LODWORD(a2)));
   v6 = floorf(*(this + 13) * a3);
@@ -186,16 +186,16 @@ uint64_t CA::OGL::BlurState::tile_downsample(float32x2_t *this, int a2)
   v9 = this[4].i16[0];
   v10 = v9;
   v11 = v9 & 1;
-  v12 = (v10 >= 0 ? &this[v11 + 11] : &this[1]);
+  v12 = v10 >= 0 ? &this[v11 + 11] : &this[1];
   v13 = *v12;
-  if (v6[85] != *v12 || (*(v13 + 147) & 0xF) < a2)
+  if (v6[85] != *v12 || (*(*&v13 + 147) & 0xF) < a2)
   {
     return 0;
   }
 
   v14 = v11 ^ 1;
-  v15 = *(v13 + 48);
-  v7.i64[0] = *(v13 + 56);
+  v15 = *(*&v13 + 48);
+  v7.i64[0] = *(*&v13 + 56);
   v16.i64[0] = v15;
   v16.i64[1] = SHIDWORD(v15);
   v17 = vcvtq_f64_s64(v16);
@@ -205,7 +205,7 @@ uint64_t CA::OGL::BlurState::tile_downsample(float32x2_t *this, int a2)
   v19 = v16;
   if (v7.i32[0] > v7.i32[1])
   {
-    v18 = *(v13 + 56);
+    v18 = *(*&v13 + 56);
   }
 
   v7.i32[0] = v18;
@@ -264,8 +264,8 @@ uint64_t CA::OGL::BlurState::tile_downsample(float32x2_t *this, int a2)
   }
 
   v38 = this[v14 + 11];
-  v39 = *(v13 + 48) / a2 - *(*&v38 + 48);
-  v40 = *(v13 + 52) / a2 - *(*&v38 + 52);
+  v39 = *(*&v13 + 48) / a2 - *(*&v38 + 48);
+  v40 = *(*&v13 + 52) / a2 - *(*&v38 + 52);
   this[7] = vcvt_f32_s32(vadd_s32(v41.u64[1], *v41.i8));
   v42 = v39;
   v43 = v40;
@@ -558,7 +558,7 @@ void *CA::OGL::PingPongState::render_pass(uint64_t a1, int a2, int a3, int a4, u
 void CA::OGL::BlurState::narrow_blur(float32x2_t *this, int a2, const float *a3, const float *a4, int a5)
 {
   v5 = a5;
-  v63 = *MEMORY[0x1E69E9840];
+  v70 = *MEMORY[0x1E69E9840];
   v10 = *this;
   if ((a5 & 1) != 0 || ((this[15].i8[0] & 1) == 0 ? (v11 = 32) : (v11 = 16), CA::OGL::PingPongState::attach_dest(this, 1, v11)))
   {
@@ -615,9 +615,9 @@ void CA::OGL::BlurState::narrow_blur(float32x2_t *this, int a2, const float *a3,
 
     v17 = *v16;
     v18 = *(*v16 + 52);
-    v54 = *(*v16 + 48);
-    v62[0] = v54;
-    v62[1] = v18;
+    v61 = *(*v16 + 48);
+    v69[0] = v61;
+    v69[1] = v18;
     CA::OGL::Context::bind_surface(*this, v17, 0, 1u, 1, 0.0);
     if ((v5 & 1) == 0)
     {
@@ -627,20 +627,20 @@ void CA::OGL::BlurState::narrow_blur(float32x2_t *this, int a2, const float *a3,
         v19 = 16.0;
       }
 
-      CA::OGL::BlurState::process_edges(this, v19, 1.0, 1.0, v62);
+      CA::OGL::BlurState::process_edges(this, v19, 1.0, 1.0, v69);
     }
 
     v20 = 0;
     *(*(v10 + 16) + 16) = v12;
     v21 = *(*(v10 + 16) + 96);
-    v61 = 0;
-    v59 = 0u;
-    v60 = 0u;
-    v58 = 0u;
+    v68 = 0;
+    v66 = 0u;
+    v67 = 0u;
+    v65 = 0u;
     v22 = -2;
     do
     {
-      *(&v58 + v20 * 4) = vmul_f32(*&a3[v20], v21);
+      *(&v65 + v20 * 4) = vmul_f32(*&a3[v20], v21);
       v22 += 2;
       v20 += 2;
     }
@@ -666,11 +666,11 @@ void CA::OGL::BlurState::narrow_blur(float32x2_t *this, int a2, const float *a3,
         v23 = 0.0;
       }
 
-      v24 = v59;
-      *(v10 + 160) = v58;
+      v24 = v66;
+      *(v10 + 160) = v65;
       *(v10 + 176) = v24;
-      *(v10 + 192) = v60;
-      *(v10 + 208) = v61;
+      *(v10 + 192) = v67;
+      *(v10 + 208) = v68;
       v25 = *(a4 + 1);
       *(v10 + 240) = *a4;
       *(v10 + 256) = v25;
@@ -678,8 +678,8 @@ void CA::OGL::BlurState::narrow_blur(float32x2_t *this, int a2, const float *a3,
       if (v5)
       {
         v26 = (this[15].u8[0] >> 2) & 1;
-        v56[0] = 0;
-        CA::OGL::PingPongState::render_pass_final_dest(*this, v54, v18, v26, v56);
+        v63[0] = 0;
+        CA::OGL::PingPongState::render_pass_final_dest(*this, v61, v18, v26, v63);
       }
 
       else
@@ -687,31 +687,31 @@ void CA::OGL::BlurState::narrow_blur(float32x2_t *this, int a2, const float *a3,
         *(v10 + 144) = 0;
         *(v10 + 112) = v10 + 1386;
         *(v10 + 120) = xmmword_183E20E50;
-        v56[0] = 0;
-        CA::OGL::PingPongState::render_pass(this, v54, v18, 0, v56, 1.0, 1.0, 0.0, 0.0);
+        v63[0] = 0;
+        CA::OGL::PingPongState::render_pass(this, v61, v18, 0, v63, 1.0, 1.0, 0.0, 0.0);
         CA::OGL::Context::array_flush(v10);
       }
     }
 
     else
     {
-      v50 = v13;
-      v51 = v5;
+      v57 = v13;
+      v58 = v5;
       v27 = 0;
       *(*(v10 + 16) + 16) = 3;
       *(*(v10 + 16) + 496) = 12;
       *(v10 + 144) = 0;
-      v53 = v10 + 1386;
+      v60 = v10 + 1386;
       *(v10 + 112) = v10 + 1386;
       *(v10 + 120) = xmmword_183E20E50;
-      memset(v56, 0, sizeof(v56));
-      v57 = 0;
+      memset(v63, 0, sizeof(v63));
+      v64 = 0;
       v28 = 255;
       do
       {
         v29 = ((a4[v27] * 255.0) + 0.5);
         v28 -= 2 * v29;
-        *(v56 + v27 * 4) = v29;
+        *(v63 + v27 * 4) = v29;
         ++v27;
       }
 
@@ -719,8 +719,8 @@ void CA::OGL::BlurState::narrow_blur(float32x2_t *this, int a2, const float *a3,
       v30 = 0;
       v31 = 0;
       v32 = v28 & ~(v28 >> 31);
-      LODWORD(v56[0]) += v32 >> 1;
-      v52 = v32 & 1;
+      LODWORD(v63[0]) += v32 >> 1;
+      v59 = v32 & 1;
       v33 = a2 - 3;
       v34 = a3 + 1;
       v35 = 1;
@@ -739,32 +739,32 @@ void CA::OGL::BlurState::narrow_blur(float32x2_t *this, int a2, const float *a3,
             *(v10 + 1384) |= 0x20u;
             CA::OGL::Context::array_flush(v10);
             *(v10 + 144) = 0;
-            *(v10 + 112) = v53;
+            *(v10 + 112) = v60;
             *(v10 + 120) = xmmword_183E20E50;
           }
 
-          v38 = *(v56 + v31);
+          v38 = *(v63 + v31);
           *&_S0 = v38 * 0.0039216;
           __asm { FCVT            H0, S0 }
 
           v44 = _S0;
-          v55 = 0x1000100010001 * _S0;
-          CA::OGL::PingPongState::render_pass(this, v54, v18, 1, &v55, 1.0, 1.0, -*(v34 - 1), -*v34);
+          v62 = 0x1000100010001 * _S0;
+          CA::OGL::PingPongState::render_pass(this, v61, v18, 1, &v62, 1.0, 1.0, -*(v34 - 1), -*v34);
           if (v35)
           {
             CA::OGL::Context::array_flush(v10);
             *(*(v10 + 16) + 497) |= 1u;
             *(v10 + 144) = 0;
-            *(v10 + 112) = v53;
+            *(v10 + 112) = v60;
             *(v10 + 120) = xmmword_183E20E50;
-            *&_S0 = (v38 + v52) * 0.0039216;
+            *&_S0 = (v38 + v59) * 0.0039216;
             __asm { FCVT            H0, S0 }
 
             v44 = _S0;
           }
 
-          v55 = (v44 << 32) | (v44 << 48) | (v44 << 16) | v44;
-          CA::OGL::PingPongState::render_pass(this, v54, v18, 1, &v55, 1.0, 1.0, *(v34 - 1), *v34);
+          v62 = (v44 << 32) | (v44 << 48) | (v44 << 16) | v44;
+          CA::OGL::PingPongState::render_pass(this, v61, v18, 1, &v62, 1.0, 1.0, *(v34 - 1), *v34);
           v35 = 0;
         }
 
@@ -776,8 +776,8 @@ void CA::OGL::BlurState::narrow_blur(float32x2_t *this, int a2, const float *a3,
       while (v31 != 6);
       CA::OGL::Context::array_flush(v10);
       *(*(v10 + 16) + 497) &= ~1u;
-      v13 = v50;
-      v5 = v51;
+      v13 = v57;
+      v5 = v58;
     }
 
     v46 = this[4].i16[0];
@@ -785,24 +785,24 @@ void CA::OGL::BlurState::narrow_blur(float32x2_t *this, int a2, const float *a3,
     v48 = &this[(v46 & 1) + 11];
     if (v47 < 0)
     {
-      v48 = &this[1];
+      v48 = this + 1;
     }
 
     CA::OGL::Context::unbind_surface(*this, *v48, 0);
     if (v5)
     {
-      v49 = v13;
+      v56 = v13;
     }
 
     else
     {
-      v49 = 0;
+      v56 = 0;
     }
 
-    *(*(v10 + 16) + 16) = v49;
+    *(*(v10 + 16) + 16) = v56;
     if ((v5 & 1) == 0)
     {
-      CA::OGL::Context::pop_surface(*this);
+      CA::OGL::Context::pop_surface(*this, v49, v50, v51, v52, v53, v54, v55);
       ++this[4].i16[0];
     }
   }
@@ -873,7 +873,7 @@ uint64_t CA::OGL::anonymous namespace::set_destination_bounds(uint64_t result, i
 
 void CA::OGL::PingPongState::render_pass_final_dest(void *a1, int a2, int a3, int a4, uint64_t *a5)
 {
-  v28[3] = *MEMORY[0x1E69E9840];
+  v35[3] = *MEMORY[0x1E69E9840];
   v9 = a1[84];
   if (v9)
   {
@@ -893,26 +893,26 @@ void CA::OGL::PingPongState::render_pass_final_dest(void *a1, int a2, int a3, in
 
   v11 = 0;
   a1[18] = 0;
-  v26 = 0;
+  v33 = 0;
   a1[14] = a1 + 1386;
   *(a1 + 15) = xmmword_183E20E50;
   v12 = *(a1[82] + 8);
-  v28[1] = 0;
-  v28[2] = 0;
-  v27 = 0;
-  v28[0] = v12;
-  while (CA::ShapeIterator::iterate(v28, &v26))
+  v35[1] = 0;
+  v35[2] = 0;
+  v34 = 0;
+  v35[0] = v12;
+  while (CA::ShapeIterator::iterate(v35, &v33))
   {
     if (v9)
     {
-      if (v27 + v26 == v9[14] + v9[12])
+      if (v34 + v33 == v9[14] + v9[12])
       {
-        LODWORD(v27) = v27 + 1;
+        LODWORD(v34) = v34 + 1;
       }
 
-      if (HIDWORD(v27) + HIDWORD(v26) == v9[15] + v9[13])
+      if (HIDWORD(v34) + HIDWORD(v33) == v9[15] + v9[13])
       {
-        ++HIDWORD(v27);
+        ++HIDWORD(v34);
       }
     }
 
@@ -931,11 +931,11 @@ void CA::OGL::PingPongState::render_pass_final_dest(void *a1, int a2, int a3, in
       *(a1 + 15) = xmmword_183E20E50;
     }
 
-    v15 = v26;
-    v16 = HIDWORD(v26);
-    v18 = v27;
-    v17 = HIDWORD(v27);
-    CA::OGL::Context::array_rect(a1, v26, SHIDWORD(v26), (v27 + v26), (HIDWORD(v27) + HIDWORD(v26)));
+    v15 = v33;
+    v16 = HIDWORD(v33);
+    v18 = v34;
+    v17 = HIDWORD(v34);
+    CA::OGL::Context::array_rect(a1, v33, SHIDWORD(v33), (v34 + v33), (HIDWORD(v34) + HIDWORD(v33)));
     v19 = *a5;
     v20 = a1[17] + 48 * a1[18];
     *(v20 - 160) = *a5;
@@ -960,7 +960,7 @@ void CA::OGL::PingPongState::render_pass_final_dest(void *a1, int a2, int a3, in
   CA::OGL::Context::array_flush(a1);
   if (v9 && a4)
   {
-    CA::OGL::Context::pop_surface(a1);
+    CA::OGL::Context::pop_surface(a1, v25, v26, v27, v28, v29, v30, v31);
     (*(*a1 + 744))(a1, a1[84], v9);
 
     CA::OGL::Context::release_surface(a1, v9);
@@ -1252,8 +1252,9 @@ uint64_t CA::OGL::PingPongState::clear_edges(CA::OGL::PingPongState *this, float
   return CA::OGL::Context::array_flush(this);
 }
 
-float CA::OGL::anonymous namespace::narrowBlurParameters(CA::OGL::_anonymous_namespace_ *this, float a2, unsigned int a3, uint64_t a4, float *a5, float *a6)
+float CA::OGL::anonymous namespace::narrowBlurParameters(CA::OGL::_anonymous_namespace_ *this, float a2, uint64_t a3, uint64_t a4, float *a5, float *a6)
 {
+  v8 = a3;
   v9 = this;
   v54 = *MEMORY[0x1E69E9840];
   v52 = 0u;
@@ -1292,7 +1293,7 @@ float CA::OGL::anonymous namespace::narrowBlurParameters(CA::OGL::_anonymous_nam
     v25 = *&v47 + *(&v47 + 1);
   }
 
-  if (a3)
+  if (v8)
   {
     v26 = v24;
   }
@@ -1302,7 +1303,7 @@ float CA::OGL::anonymous namespace::narrowBlurParameters(CA::OGL::_anonymous_nam
     v26 = 0.0;
   }
 
-  if (a3)
+  if (v8)
   {
     v24 = 0.0;
   }
@@ -1375,7 +1376,7 @@ float CA::OGL::anonymous namespace::narrowBlurParameters(CA::OGL::_anonymous_nam
   *&v33 = v31;
   *&v34 = v13;
   *&v35 = v14;
-  v36 = vcltzq_s32(vshlq_n_s32(vmovl_u16(vdup_n_s16(a3)), 0x1FuLL));
+  v36 = vcltzq_s32(vshlq_n_s32(vmovl_u16(vdup_n_s16(v8)), 0x1FuLL));
   v37.i64[0] = v32;
   v37.i64[1] = v33;
   v38.i64[0] = v34;
@@ -1865,30 +1866,30 @@ float32x4_t *CA::OGL::aa_adjust_vertices(float32x4_t *result, float32x4_t *a2, u
 
 _DWORD *CA::ColorProgram::Cache::lookup_(CA::ColorProgram::Cache *this, CGColorSpace *a2, unsigned int a3, CGColorRenderingIntent a4)
 {
-  v4 = MEMORY[0x1EEE9AC00](this);
-  v6 = v5;
-  v8 = v7;
-  v9 = v4;
+  MEMORY[0x1EEE9AC00](this);
+  v5 = v4;
+  v7 = v6;
+  v9 = v8;
   v129 = *MEMORY[0x1E69E9840];
-  v10 = *(v4 + 8);
-  if (CGColorSpaceGetModel(v7) == kCGColorSpaceModelCMYK)
+  v10 = *(v8 + 8);
+  if (CGColorSpaceGetModel(v6) == kCGColorSpaceModelCMYK)
   {
-    v8 = CAGetReconciledColorSpace(v8);
+    v7 = CAGetReconciledColorSpace(v7);
   }
 
   theDict = 0;
   v95 = 0;
   v96 = 0;
-  IsHLGBased = CGColorSpaceIsHLGBased(v8);
-  IsPQBased = CGColorSpaceIsPQBased(v8);
-  v13 = CGColorSpaceUsesExtendedRange(v8);
-  v97 = (v6 & 0x30) != 0;
-  BYTE1(v97) = (v6 & 0x30) == 16;
-  v14 = (v6 & 0x200) != 0 && (IsHLGBased || IsPQBased || v13);
+  IsHLGBased = CGColorSpaceIsHLGBased(v7);
+  IsPQBased = CGColorSpaceIsPQBased(v7);
+  v13 = CGColorSpaceUsesExtendedRange(v7);
+  v97 = (v5 & 0x30) != 0;
+  BYTE1(v97) = (v5 & 0x30) == 16;
+  v14 = (v5 & 0x200) != 0 && (IsHLGBased || IsPQBased || v13);
   BYTE2(v97) = v14;
   LODWORD(v95) = *(v9 + 100);
   X::CFRef<CGColorSpace *>::operator=(&v96, *(v9 + 40));
-  v15 = (v6 & 0x100) != 0 && ((v97 & 0x100000000) != 0 || BYTE5(v97) == 1) && CGColorSpaceContainsFlexGTCInfo() && v96 == 0;
+  v15 = (v5 & 0x100) != 0 && ((v97 & 0x100000000) != 0 || BYTE5(v97) == 1) && CGColorSpaceContainsFlexGTCInfo() && v96 == 0;
   BYTE3(v97) = v15;
   v16 = ((v97 & 0x100000000) != 0 || BYTE5(v97) == 1) && *(v9 + 88) == 2;
   if (BYTE2(v97) == 1)
@@ -1902,7 +1903,7 @@ _DWORD *CA::ColorProgram::Cache::lookup_(CA::ColorProgram::Cache *this, CGColorS
     Extended = 0;
   }
 
-  NumberOfComponents = CGColorSpaceGetNumberOfComponents(v8);
+  NumberOfComponents = CGColorSpaceGetNumberOfComponents(v7);
   if (NumberOfComponents == 4)
   {
     if (*(v9 + 48) == 5)
@@ -1950,14 +1951,14 @@ LABEL_29:
       v20 = 203.0;
     }
 
-    if ((v6 & 0x40) != 0 && BYTE4(v97) && *(v9 + 64) > 0.0)
+    if ((v5 & 0x40) != 0 && BYTE4(v97) && *(v9 + 64) > 0.0)
     {
       v20 = *(v9 + 64);
     }
   }
 
   v21 = v20;
-  if ((v6 & 0x20) == 0)
+  if ((v5 & 0x20) == 0)
   {
     v22 = BYTE5(v97);
     if ((v97 & 0x10000000000) != 0 || (v97 & 0x100000000) != 0)
@@ -1975,7 +1976,7 @@ LABEL_35:
       goto LABEL_35;
     }
 
-    if ((v6 & 0x40) != 0 || BYTE5(v97))
+    if ((v5 & 0x40) != 0 || BYTE5(v97))
     {
       v21 = *(v9 + 56) * v20;
     }
@@ -2045,7 +2046,7 @@ LABEL_36:
 
     if ((CA::ColorProgram::Cache::force_single_cache(void)::force_single_cache & 1) == 0)
     {
-      if (CA::ColorProgram::Cache::find_program(v9, (v9 + 32), v8, v10, v6, &v95, v21, v24))
+      if (CA::ColorProgram::Cache::find_program(v9, (v9 + 32), v7, v10, v5, &v95, v21, v24))
       {
         v27 = *(v9 + 32);
         goto LABEL_183;
@@ -2055,7 +2056,7 @@ LABEL_36:
     else
     {
 LABEL_214:
-      if (CA::ColorProgram::Cache::find_program(v9, (v9 + 24), v8, v10, v6, &v95, v21, v24))
+      if (CA::ColorProgram::Cache::find_program(v9, (v9 + 24), v7, v10, v5, &v95, v21, v24))
       {
         v27 = *(v9 + 24);
         goto LABEL_183;
@@ -2063,16 +2064,16 @@ LABEL_214:
     }
   }
 
-  v91 = v16 | v6 & 0x400;
+  v91 = v16 | v5 & 0x400;
   v92 = v25;
   if (v91)
   {
-    v29 = (v6 >> 3) & 1 | 2;
+    v29 = (v5 >> 3) & 1 | 2;
   }
 
   else
   {
-    v29 = (v6 >> 3) & 1;
+    v29 = (v5 >> 3) & 1;
   }
 
   v30 = v97;
@@ -2089,7 +2090,7 @@ LABEL_214:
 
   X::CFRef<CGColorSpace *>::operator=(&theDict, CA::ColorProgram::Cache::lookup_(CGColorSpace *,unsigned int,CGColorRenderingIntent)::converter_options[v31]);
   v32 = 1.0;
-  if ((v6 & 0x20) == 0)
+  if ((v5 & 0x20) == 0)
   {
     v32 = *(v9 + 56);
   }
@@ -2318,7 +2319,7 @@ LABEL_122:
   }
 
 LABEL_139:
-  v56 = CGColorConversionInfoCreateFromList(theDict, v8, kCGColorConversionTransformFromSpace, kCGRenderingIntentDefault, v10, 1, 0, 0);
+  v56 = CGColorConversionInfoCreateFromList(theDict, v7, kCGColorConversionTransformFromSpace, kCGRenderingIntentDefault, v10, 1, 0, 0);
   v57 = v56;
   if (*(v26 + 2105) == 1)
   {
@@ -2391,7 +2392,7 @@ LABEL_139:
       v63 = v91 == 0 && ~v97;
     }
 
-    v27 = CA::ColorProgram::Program::color_program(v57, *(v9 + 48), v63, *(v9 + 96) == 24, v62, v6, &v93, v34, *(v9 + 72), *(v9 + 76), *(v9 + 68), v21);
+    v27 = CA::ColorProgram::Program::color_program(v57, *(v9 + 48), v63, *(v9 + 96) == 24, v62, v5, &v93, v34, *(v9 + 72), *(v9 + 76), *(v9 + 68), v21);
     if (v93 == 1)
     {
       if (x_log_get_color(void)::once != -1)
@@ -2421,7 +2422,7 @@ LABEL_139:
       v115 = 0u;
       v116 = 0u;
       memset(v114, 0, sizeof(v114));
-      CA_CGColorSpaceGetCString(v8, &valuePtr);
+      CA_CGColorSpaceGetCString(v7, &valuePtr);
       CA_CGColorSpaceGetCString(v10, v114);
       if (x_log_get_color(void)::once != -1)
       {
@@ -2461,9 +2462,9 @@ LABEL_139:
   v66 = *(v9 + 52) + 1;
   *(v9 + 52) = v66;
   v27[2] = v66;
-  *(v27 + 2) = CGColorSpaceRetain(v8);
+  *(v27 + 2) = CGColorSpaceRetain(v7);
   *(v27 + 3) = CGColorSpaceRetain(v10);
-  v27[24] = v6;
+  v27[24] = v5;
   v27[8] = 0;
   v27[25] = *(v9 + 48);
   *(v27 + 28) = v24;
@@ -2547,7 +2548,7 @@ LABEL_171:
   _os_log_impl(&dword_183AA6000, v68, OS_LOG_TYPE_DEFAULT, v69, &valuePtr, 2u);
 LABEL_179:
   v70 = v27[9];
-  if (v27[25] == 5 || (v6 & 1) != 0 && v70)
+  if (v27[25] == 5 || (v5 & 1) != 0 && v70)
   {
     v27[9] = v70 | 0x80000000;
   }
@@ -2573,9 +2574,9 @@ LABEL_183:
   v115 = 0u;
   v116 = 0u;
   memset(v114, 0, sizeof(v114));
-  CA_CGColorSpaceGetCString(v8, &valuePtr);
+  CA_CGColorSpaceGetCString(v7, &valuePtr);
   CA_CGColorSpaceGetCString(v10, v114);
-  if (CGColorSpaceUsesITUR_2100TF(v8))
+  if (CGColorSpaceUsesITUR_2100TF(v7))
   {
     if (x_log_get_color(void)::once != -1)
     {
@@ -4107,7 +4108,7 @@ char *CA::Render::SDFLayer::copy@<X0>(CA::Render::SDFLayer *this@<X0>, void *a2@
   return result;
 }
 
-double CA::Render::SDFLayer::set_property(CA::Render::SDFLayer *this, uint64_t a2, const unsigned int *a3, BOOL a4, unint64_t a5, const double *a6, __n128 a7, uint64_t a8, CGColorSpace *a9)
+double CA::Render::SDFLayer::set_property(uint64_t this, uint64_t a2, const unsigned int *a3, BOOL a4, unint64_t a5, const double *a6, uint64_t a7, CGColorSpace *a8, __n128 a9)
 {
   v25 = *MEMORY[0x1E69E9840];
   if (a2 != 2)
@@ -4121,17 +4122,17 @@ double CA::Render::SDFLayer::set_property(CA::Render::SDFLayer *this, uint64_t a
         {
           if (a5)
           {
-            a7.n128_f64[0] = *a6;
-            a7.n128_f32[0] = *a6;
-            *(this + 37) = a7.n128_u32[0];
+            a9.n128_f64[0] = *a6;
+            a9.n128_f32[0] = *a6;
+            *(this + 148) = a9.n128_u32[0];
           }
         }
 
         else if (v10 == 658 && a5)
         {
-          a7.n128_f64[0] = *a6;
-          a7.n128_f32[0] = *a6;
-          *(this + 35) = a7.n128_u32[0];
+          a9.n128_f64[0] = *a6;
+          a9.n128_f32[0] = *a6;
+          *(this + 140) = a9.n128_u32[0];
         }
       }
 
@@ -4139,25 +4140,25 @@ double CA::Render::SDFLayer::set_property(CA::Render::SDFLayer *this, uint64_t a
       {
         if (a5)
         {
-          a7.n128_f64[0] = *a6;
-          a7.n128_f32[0] = *a6;
-          *(this + 36) = a7.n128_u32[0];
+          a9.n128_f64[0] = *a6;
+          a9.n128_f32[0] = *a6;
+          *(this + 144) = a9.n128_u32[0];
         }
       }
 
       else if (v10 == 514 && a5)
       {
-        a7.n128_f64[0] = *a6;
+        a9.n128_f64[0] = *a6;
         *(this + 152) = *a6 != 0.0;
       }
     }
 
-    return a7.n128_f64[0];
+    return a9.n128_f64[0];
   }
 
   if (*a3 != 217)
   {
-    return a7.n128_f64[0];
+    return a9.n128_f64[0];
   }
 
   v11 = *(this + 136);
@@ -4169,7 +4170,7 @@ double CA::Render::SDFLayer::set_property(CA::Render::SDFLayer *this, uint64_t a
       {
         if (v11 != 8)
         {
-          return a7.n128_f64[0];
+          return a9.n128_f64[0];
         }
 
         v14 = a3[1];
@@ -4183,17 +4184,17 @@ double CA::Render::SDFLayer::set_property(CA::Render::SDFLayer *this, uint64_t a
               {
                 if (a5)
                 {
-                  a7.n128_f64[0] = *a6;
-                  a7.n128_f32[0] = *a6;
-                  *(this + 12) = a7.n128_u32[0];
+                  a9.n128_f64[0] = *a6;
+                  a9.n128_f32[0] = *a6;
+                  *(this + 48) = a9.n128_u32[0];
                 }
               }
 
               else if (v14 == 460 && a5)
               {
-                a7.n128_f64[0] = *a6;
-                a7.n128_f32[0] = *a6;
-                *(this + 11) = a7.n128_u32[0];
+                a9.n128_f64[0] = *a6;
+                a9.n128_f32[0] = *a6;
+                *(this + 44) = a9.n128_u32[0];
               }
             }
 
@@ -4201,9 +4202,9 @@ double CA::Render::SDFLayer::set_property(CA::Render::SDFLayer *this, uint64_t a
             {
               if (a5)
               {
-                a7.n128_f64[0] = *a6;
-                a7.n128_f32[0] = *a6;
-                *(this + 26) = a7.n128_u32[0];
+                a9.n128_f64[0] = *a6;
+                a9.n128_f32[0] = *a6;
+                *(this + 104) = a9.n128_u32[0];
               }
             }
 
@@ -4211,17 +4212,17 @@ double CA::Render::SDFLayer::set_property(CA::Render::SDFLayer *this, uint64_t a
             {
               if (a5)
               {
-                a7.n128_f64[0] = *a6;
-                a7.n128_f32[0] = *a6;
-                *(this + 14) = a7.n128_u32[0];
+                a9.n128_f64[0] = *a6;
+                a9.n128_f32[0] = *a6;
+                *(this + 56) = a9.n128_u32[0];
               }
             }
 
             else if (v14 == 464 && a5)
             {
-              a7.n128_f64[0] = *a6;
-              a7.n128_f32[0] = *a6;
-              *(this + 13) = a7.n128_u32[0];
+              a9.n128_f64[0] = *a6;
+              a9.n128_f32[0] = *a6;
+              *(this + 52) = a9.n128_u32[0];
             }
           }
 
@@ -4231,16 +4232,16 @@ double CA::Render::SDFLayer::set_property(CA::Render::SDFLayer *this, uint64_t a
             {
               if (a5)
               {
-                a7.n128_f64[0] = *a6;
+                a9.n128_f64[0] = *a6;
                 *(this + 132) = *a6 > 0.5;
               }
             }
 
             else if (v14 == 455 && a5)
             {
-              a7.n128_f64[0] = *a6;
-              a7.n128_f32[0] = *a6;
-              *(this + 27) = a7.n128_u32[0];
+              a9.n128_f64[0] = *a6;
+              a9.n128_f32[0] = *a6;
+              *(this + 108) = a9.n128_u32[0];
             }
           }
 
@@ -4248,9 +4249,9 @@ double CA::Render::SDFLayer::set_property(CA::Render::SDFLayer *this, uint64_t a
           {
             if (a5)
             {
-              a7.n128_f64[0] = *a6;
-              a7.n128_f32[0] = *a6;
-              *(this + 25) = a7.n128_u32[0];
+              a9.n128_f64[0] = *a6;
+              a9.n128_f32[0] = *a6;
+              *(this + 100) = a9.n128_u32[0];
             }
           }
 
@@ -4263,13 +4264,13 @@ double CA::Render::SDFLayer::set_property(CA::Render::SDFLayer *this, uint64_t a
 
             if (a5)
             {
-              a7.n128_f64[0] = *a6;
-              a7.n128_f32[0] = *a6;
-              *(this + 24) = a7.n128_u32[0];
+              a9.n128_f64[0] = *a6;
+              a9.n128_f32[0] = *a6;
+              *(this + 96) = a9.n128_u32[0];
             }
           }
 
-          return a7.n128_f64[0];
+          return a9.n128_f64[0];
         }
 
         if (v14 <= 247)
@@ -4280,17 +4281,17 @@ double CA::Render::SDFLayer::set_property(CA::Render::SDFLayer *this, uint64_t a
             {
               if (a5)
               {
-                a7.n128_f64[0] = *a6;
-                a7.n128_f32[0] = *a6;
-                *(this + 32) = a7.n128_u32[0];
+                a9.n128_f64[0] = *a6;
+                a9.n128_f32[0] = *a6;
+                *(this + 128) = a9.n128_u32[0];
               }
             }
 
             else if (v14 == 244 && a5)
             {
-              a7.n128_f64[0] = *a6;
-              a7.n128_f32[0] = *a6;
-              *(this + 31) = a7.n128_u32[0];
+              a9.n128_f64[0] = *a6;
+              a9.n128_f32[0] = *a6;
+              *(this + 124) = a9.n128_u32[0];
             }
           }
 
@@ -4298,28 +4299,28 @@ double CA::Render::SDFLayer::set_property(CA::Render::SDFLayer *this, uint64_t a
           {
             if (a5)
             {
-              a7.n128_f64[0] = *a6;
-              a7.n128_f32[0] = *a6;
-              *(this + 29) = a7.n128_u32[0];
+              a9.n128_f64[0] = *a6;
+              a9.n128_f32[0] = *a6;
+              *(this + 116) = a9.n128_u32[0];
             }
           }
 
           else if (v14 == 246)
           {
             CA::Render::color_from_vec(&v23, a5, a6);
-            a7.n128_u64[0] = v23;
+            a9.n128_u64[0] = v23;
             *(this + 60) = v23;
-            *(this + 19) = v24;
+            *(this + 76) = v24;
           }
 
           else if (a5)
           {
-            a7.n128_f64[0] = *a6;
-            a7.n128_f32[0] = *a6;
-            *(this + 28) = a7.n128_u32[0];
+            a9.n128_f64[0] = *a6;
+            a9.n128_f32[0] = *a6;
+            *(this + 112) = a9.n128_u32[0];
           }
 
-          return a7.n128_f64[0];
+          return a9.n128_f64[0];
         }
 
         if (v14 <= 251)
@@ -4328,18 +4329,18 @@ double CA::Render::SDFLayer::set_property(CA::Render::SDFLayer *this, uint64_t a
           {
             if (v14 != 249)
             {
-              return a7.n128_f64[0];
+              return a9.n128_f64[0];
             }
 
 LABEL_132:
             if (a5)
             {
-              a7.n128_f64[0] = *a6;
-              a7.n128_f32[0] = *a6;
-              *(this + 20) = a7.n128_u32[0];
+              a9.n128_f64[0] = *a6;
+              a9.n128_f32[0] = *a6;
+              *(this + 80) = a9.n128_u32[0];
             }
 
-            return a7.n128_f64[0];
+            return a9.n128_f64[0];
           }
 
           goto LABEL_134;
@@ -4349,29 +4350,29 @@ LABEL_132:
         {
           if (a5)
           {
-            a7.n128_f64[0] = *a6;
-            a7.n128_f32[0] = *a6;
-            *(this + 30) = a7.n128_u32[0];
+            a9.n128_f64[0] = *a6;
+            a9.n128_f32[0] = *a6;
+            *(this + 120) = a9.n128_u32[0];
           }
 
-          return a7.n128_f64[0];
+          return a9.n128_f64[0];
         }
 
         if (v14 == 253)
         {
           if (a5)
           {
-            a7.n128_f64[0] = *a6;
-            a7.n128_f32[0] = *a6;
-            *(this + 23) = a7.n128_u32[0];
+            a9.n128_f64[0] = *a6;
+            a9.n128_f32[0] = *a6;
+            *(this + 92) = a9.n128_u32[0];
           }
 
-          return a7.n128_f64[0];
+          return a9.n128_f64[0];
         }
 
         if (v14 != 254)
         {
-          return a7.n128_f64[0];
+          return a9.n128_f64[0];
         }
 
         goto LABEL_106;
@@ -4388,7 +4389,7 @@ LABEL_132:
 LABEL_74:
         if (v12 != 295)
         {
-          return a7.n128_f64[0];
+          return a9.n128_f64[0];
         }
 
         goto LABEL_75;
@@ -4401,7 +4402,7 @@ LABEL_74:
 
       if (v12 != 176)
       {
-        return a7.n128_f64[0];
+        return a9.n128_f64[0];
       }
     }
 
@@ -4415,18 +4416,18 @@ LABEL_74:
           if (v16 == 101)
           {
             CA::Render::color_from_vec(&v23, a5, a6);
-            a7.n128_u64[0] = v23;
+            a9.n128_u64[0] = v23;
             *(this + 36) = v23;
-            *(this + 13) = v24;
-            return a7.n128_f64[0];
+            *(this + 52) = v24;
+            return a9.n128_f64[0];
           }
 
           if (v16 != 448 || !a5)
           {
-            return a7.n128_f64[0];
+            return a9.n128_f64[0];
           }
 
-          a7.n128_f64[0] = *a6;
+          a9.n128_f64[0] = *a6;
           v21 = *(this + 56) & 0xFD | (2 * (*a6 != 0.0));
         }
 
@@ -4436,37 +4437,37 @@ LABEL_74:
           {
             if (a5 >= 2)
             {
-              a7.n128_u64[0] = vcvt_f32_f64(*a6);
-              *(this + 28) = a7.n128_u64[0];
+              a9.n128_u64[0] = vcvt_f32_f64(*a6);
+              *(this + 28) = a9.n128_u64[0];
             }
 
-            return a7.n128_f64[0];
+            return a9.n128_f64[0];
           }
 
           if (v16 != 584)
           {
             if (v16 != 588)
             {
-              return a7.n128_f64[0];
+              return a9.n128_f64[0];
             }
 
 LABEL_75:
             if (a5)
             {
-              a7.n128_f64[0] = *a6;
-              a7.n128_f32[0] = *a6;
-              *(this + 6) = a7.n128_u32[0];
+              a9.n128_f64[0] = *a6;
+              a9.n128_f32[0] = *a6;
+              *(this + 24) = a9.n128_u32[0];
             }
 
-            return a7.n128_f64[0];
+            return a9.n128_f64[0];
           }
 
           if (!a5)
           {
-            return a7.n128_f64[0];
+            return a9.n128_f64[0];
           }
 
-          a7.n128_f64[0] = *a6;
+          a9.n128_f64[0] = *a6;
           v21 = *(this + 56) & 0xFE;
           if (*a6 != 0.0)
           {
@@ -4475,12 +4476,12 @@ LABEL_75:
         }
 
         *(this + 56) = v21;
-        return a7.n128_f64[0];
+        return a9.n128_f64[0];
       }
 
       if (v11 != 6)
       {
-        return a7.n128_f64[0];
+        return a9.n128_f64[0];
       }
 
       v12 = a3[1];
@@ -4490,19 +4491,19 @@ LABEL_75:
         {
           if (a5)
           {
-            a7.n128_f64[0] = *a6;
-            a7.n128_f32[0] = *a6;
-            *(this + 10) = a7.n128_u32[0];
+            a9.n128_f64[0] = *a6;
+            a9.n128_f32[0] = *a6;
+            *(this + 40) = a9.n128_u32[0];
           }
 
-          return a7.n128_f64[0];
+          return a9.n128_f64[0];
         }
 
         if (v12 != 35)
         {
           if (v12 != 101)
           {
-            return a7.n128_f64[0];
+            return a9.n128_f64[0];
           }
 
           goto LABEL_88;
@@ -4511,12 +4512,12 @@ LABEL_75:
 LABEL_70:
         if (a5)
         {
-          a7.n128_f64[0] = *a6;
-          a7.n128_f32[0] = *a6;
-          *(this + 8) = a7.n128_u32[0];
+          a9.n128_f64[0] = *a6;
+          a9.n128_f32[0] = *a6;
+          *(this + 32) = a9.n128_u32[0];
         }
 
-        return a7.n128_f64[0];
+        return a9.n128_f64[0];
       }
 
       if (v12 != 176)
@@ -4525,12 +4526,12 @@ LABEL_70:
         {
           if (a5)
           {
-            a7.n128_f64[0] = *a6;
-            a7.n128_f32[0] = *a6;
-            *(this + 9) = a7.n128_u32[0];
+            a9.n128_f64[0] = *a6;
+            a9.n128_f32[0] = *a6;
+            *(this + 36) = a9.n128_u32[0];
           }
 
-          return a7.n128_f64[0];
+          return a9.n128_f64[0];
         }
 
         goto LABEL_74;
@@ -4540,12 +4541,12 @@ LABEL_70:
 LABEL_77:
     if (a5)
     {
-      a7.n128_f64[0] = *a6;
-      a7.n128_f32[0] = *a6;
-      *(this + 7) = a7.n128_u32[0];
+      a9.n128_f64[0] = *a6;
+      a9.n128_f32[0] = *a6;
+      *(this + 28) = a9.n128_u32[0];
     }
 
-    return a7.n128_f64[0];
+    return a9.n128_f64[0];
   }
 
   if (*(this + 136) <= 2u)
@@ -4554,15 +4555,15 @@ LABEL_77:
     {
       if (v11 != 2 || a3[1] != 101)
       {
-        return a7.n128_f64[0];
+        return a9.n128_f64[0];
       }
 
 LABEL_14:
       CA::Render::color_from_vec(&v23, a5, a6);
-      a7.n128_u64[0] = v23;
+      a9.n128_u64[0] = v23;
       *(this + 24) = v23;
-      *(this + 10) = v24;
-      return a7.n128_f64[0];
+      *(this + 40) = v24;
+      return a9.n128_f64[0];
     }
 
     v15 = a3[1];
@@ -4570,7 +4571,7 @@ LABEL_14:
     {
       if (v15 != 520)
       {
-        return a7.n128_f64[0];
+        return a9.n128_f64[0];
       }
 
       goto LABEL_75;
@@ -4581,7 +4582,7 @@ LABEL_14:
 
   if (v11 == 3)
   {
-    v17 = *(this + 3);
+    v17 = *(this + 24);
     if (v17)
     {
       v20 = a3[1];
@@ -4590,16 +4591,16 @@ LABEL_14:
       if (v20 == 121 || v19 == 490 || v19 == 446)
       {
 
-        a7.n128_u64[0] = CA::Render::Gradient::set_values(v17, 1, v18, a5, a6, 0, 0, a9, a7).n128_u64[0];
+        a9.n128_u64[0] = CA::Render::Gradient::set_values(v17, 1, v18, a5, a6, 0, 0, a8, a9).n128_u64[0];
       }
     }
 
-    return a7.n128_f64[0];
+    return a9.n128_f64[0];
   }
 
   if (v11 != 4)
   {
-    return a7.n128_f64[0];
+    return a9.n128_f64[0];
   }
 
   v13 = a3[1];
@@ -4611,25 +4612,25 @@ LABEL_14:
       {
         if (a5)
         {
-          a7.n128_f64[0] = *a6;
-          a7.n128_f32[0] = *a6;
-          *(this + 16) = a7.n128_u32[0];
+          a9.n128_f64[0] = *a6;
+          a9.n128_f32[0] = *a6;
+          *(this + 64) = a9.n128_u32[0];
         }
 
-        return a7.n128_f64[0];
+        return a9.n128_f64[0];
       }
 
       if (v13 != 108)
       {
-        return a7.n128_f64[0];
+        return a9.n128_f64[0];
       }
 
 LABEL_88:
       CA::Render::color_from_vec(&v23, a5, a6);
-      a7.n128_u64[0] = v23;
+      a9.n128_u64[0] = v23;
       *(this + 44) = v23;
-      *(this + 15) = v24;
-      return a7.n128_f64[0];
+      *(this + 60) = v24;
+      return a9.n128_f64[0];
     }
 
     if (v13 == 119)
@@ -4639,18 +4640,18 @@ LABEL_88:
 
     if (v13 != 287)
     {
-      return a7.n128_f64[0];
+      return a9.n128_f64[0];
     }
 
 LABEL_106:
     if (a5)
     {
-      a7.n128_f64[0] = *a6;
-      a7.n128_f32[0] = *a6;
-      *(this + 22) = a7.n128_u32[0];
+      a9.n128_f64[0] = *a6;
+      a9.n128_f32[0] = *a6;
+      *(this + 88) = a9.n128_u32[0];
     }
 
-    return a7.n128_f64[0];
+    return a9.n128_f64[0];
   }
 
   if (v13 <= 638)
@@ -4659,28 +4660,28 @@ LABEL_106:
     {
       if (a5)
       {
-        a7.n128_f64[0] = *a6;
-        a7.n128_f32[0] = *a6;
-        *(this + 17) = a7.n128_u32[0];
+        a9.n128_f64[0] = *a6;
+        a9.n128_f32[0] = *a6;
+        *(this + 68) = a9.n128_u32[0];
       }
 
-      return a7.n128_f64[0];
+      return a9.n128_f64[0];
     }
 
     if (v13 != 637)
     {
-      return a7.n128_f64[0];
+      return a9.n128_f64[0];
     }
 
 LABEL_134:
     if (a5)
     {
-      a7.n128_f64[0] = *a6;
-      a7.n128_f32[0] = *a6;
-      *(this + 21) = a7.n128_u32[0];
+      a9.n128_f64[0] = *a6;
+      a9.n128_f32[0] = *a6;
+      *(this + 84) = a9.n128_u32[0];
     }
 
-    return a7.n128_f64[0];
+    return a9.n128_f64[0];
   }
 
   if (v13 != 639)
@@ -4689,12 +4690,12 @@ LABEL_134:
     {
       if (v13 == 642 && a5)
       {
-        a7.n128_f64[0] = *a6;
-        a7.n128_f32[0] = *a6;
-        *(this + 19) = a7.n128_u32[0];
+        a9.n128_f64[0] = *a6;
+        a9.n128_f32[0] = *a6;
+        *(this + 76) = a9.n128_u32[0];
       }
 
-      return a7.n128_f64[0];
+      return a9.n128_f64[0];
     }
 
     goto LABEL_132;
@@ -4702,12 +4703,12 @@ LABEL_134:
 
   if (a5)
   {
-    a7.n128_f64[0] = *a6;
-    a7.n128_f32[0] = *a6;
-    *(this + 18) = a7.n128_u32[0];
+    a9.n128_f64[0] = *a6;
+    a9.n128_f32[0] = *a6;
+    *(this + 72) = a9.n128_u32[0];
   }
 
-  return a7.n128_f64[0];
+  return a9.n128_f64[0];
 }
 
 void CA::Render::color_from_vec(CA::Render *this, unint64_t a2, const double *a3)
@@ -4812,8 +4813,8 @@ uint64_t IOGPUDeviceSetDisplayParamsFunc(uint64_t a1, uint64_t a2, uint64_t a3)
 
   else
   {
-    dlerror();
-    abort_report_np();
+    v8 = dlerror();
+    abort_report_np("%s", v8);
     return getIOGPUDeviceSetDisplayParamsSymbolLoc();
   }
 }
@@ -6305,7 +6306,7 @@ void CAFrameRateRangeGroupShouldUpdate(int a1)
       *(i + 104) = *(i + 96);
       for (j = *(i + 72); j; j = *j)
       {
-        CA::FrameRateRangeGroup::add(i, *(j + 2));
+        CA::FrameRateRangeGroup::add(i, *(j + 2), v3, v4);
         --j[6];
       }
 
@@ -6592,12 +6593,12 @@ uint64_t CA::WindowServer::IOMFBServer::set_vsync_disabled(CA::WindowServer::IOM
 void CA::WindowServer::IOMFBDisplay::set_timings_enabled(CA::WindowServer::IOMFBDisplay *this, int a2)
 {
   os_unfair_lock_lock(this + 6576);
-  CA::WindowServer::IOMFBDisplay::initialize_timings(this);
-  v4 = *(this + 3290);
-  if (v4)
+  CA::WindowServer::IOMFBDisplay::initialize_timings(this, v4);
+  v5 = *(this + 3290);
+  if (v5)
   {
-    v5 = atomic_load(v4);
-    if ((v5 & 1) != a2)
+    v6 = atomic_load(v5);
+    if ((v6 & 1) != a2)
     {
       if ((a2 & 1) == 0)
       {
@@ -7655,7 +7656,7 @@ uint64_t get_cg_name(int a1)
   return get_cg_name(CAColorSpaceName)::named_cg_colorspaces[a1];
 }
 
-double CAValueObjCUnbox(void *a1, int a2, uint64_t a3)
+double CAValueObjCUnbox(void *a1, const char *a2, uint64_t a3)
 {
   switch(a2)
   {
@@ -7727,7 +7728,7 @@ LABEL_2:
     case 23:
       if (a1)
       {
-        [a1 CA_CGAffineTransformValue];
+        objc_msgSend_CA_CGAffineTransformValue(a1);
       }
 
       else
@@ -8484,49 +8485,48 @@ LABEL_7:
 
 uint64_t CA::Render::Server::audit_token_cache_lookup(CA::Render::Server *this, const audit_token_t *a2)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&CA::Render::Server::_audit_token_lock);
-  v3 = CA::Render::Server::_audit_token_cache;
   if (CA::Render::Server::_audit_token_cache)
   {
-    v4 = 0;
-    v5 = CA::Render::Server::_audit_token_cache;
+    v3 = 0;
+    v4 = CA::Render::Server::_audit_token_cache;
     do
     {
-      v6 = *v5;
-      if (*(*v5 + 20) == *(this + 5))
+      v5 = *v4;
+      if (*(*v4 + 20) == *(this + 5))
       {
-        v7 = *v6 == *this && *(v6 + 8) == *(this + 1);
-        v8 = v7 && *(v6 + 16) == *(this + 2);
-        if (v8 && *(v6 + 24) == *(this + 3))
+        v6 = *v5 == *this && *(v5 + 8) == *(this + 1);
+        v7 = v6 && *(v5 + 16) == *(this + 2);
+        if (v7 && *(v5 + 24) == *(this + 3))
         {
-          x_list_remove(CA::Render::Server::_audit_token_cache, *v5);
-          CA::Render::Server::_audit_token_cache = v3;
+          x_list_remove(CA::Render::Server::_audit_token_cache, *v4);
+          CA::Render::Server::_audit_token_cache = v23;
           goto LABEL_37;
         }
       }
 
-      v5 = v5[1];
-      ++v4;
+      v4 = v4[1];
+      ++v3;
     }
 
-    while (v5);
-    if (v4 < 0x10)
+    while (v4);
+    if (v3 < 0x10)
     {
       goto LABEL_19;
     }
 
-    v10 = CA::Render::Server::_audit_token_cache;
+    v9 = CA::Render::Server::_audit_token_cache;
     do
     {
-      v11 = v10;
-      v10 = *(v10 + 8);
+      v10 = v9;
+      v9 = *(v9 + 8);
     }
 
-    while (v10);
-    v6 = *v11;
-    x_list_remove(CA::Render::Server::_audit_token_cache, *v11);
-    CA::Render::Server::_audit_token_cache = v3;
+    while (v9);
+    v5 = *v10;
+    x_list_remove(CA::Render::Server::_audit_token_cache, *v10);
+    CA::Render::Server::_audit_token_cache = v11;
   }
 
   else
@@ -8537,16 +8537,16 @@ LABEL_19:
       dispatch_once_f(&x_malloc_get_zone::once, 0, malloc_zone_init);
     }
 
-    v6 = malloc_type_zone_malloc(malloc_zone, 0x24uLL, 0x10000408AA14F5FuLL);
+    v5 = malloc_type_zone_malloc(malloc_zone, 0x24uLL, 0x10000408AA14F5FuLL);
   }
 
   v12 = *(this + 1);
-  *v6 = *this;
-  *(v6 + 16) = v12;
+  *v5 = *this;
+  *(v5 + 16) = v12;
   v13 = *(this + 1);
-  *v25.val = *this;
-  *&v25.val[4] = v13;
-  v14 = SecTaskCreateWithAuditToken(0, &v25);
+  *v26.val = *this;
+  *&v26.val[4] = v13;
+  v14 = SecTaskCreateWithAuditToken(0, &v26);
   if (v14)
   {
     v15 = v14;
@@ -8598,17 +8598,18 @@ LABEL_34:
     v17 = 0;
   }
 
-  *(v6 + 32) = v17;
-  v3 = CA::Render::Server::_audit_token_cache;
+  *(v5 + 32) = v17;
+  v23 = CA::Render::Server::_audit_token_cache;
 LABEL_37:
-  CA::Render::Server::_audit_token_cache = x_list_prepend(v3, v6);
-  v23 = *(v6 + 32);
+  CA::Render::Server::_audit_token_cache = x_list_prepend(v23, v5);
+  v24 = *(v5 + 32);
   os_unfair_lock_unlock(&CA::Render::Server::_audit_token_lock);
-  return v23;
+  return v24;
 }
 
-void __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> x_list_remove(uint64_t *ptr, uint64_t a2)
+void x_list_remove(uint64_t *ptr, uint64_t a2)
 {
+  v5 = ptr;
   if (ptr)
   {
     v3 = ptr;
@@ -8628,7 +8629,7 @@ void __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q
 
       else
       {
-        v4 = v3 + 1;
+        v4 = (v3 + 1);
       }
 
       v3 = *v4;
@@ -9261,7 +9262,7 @@ void CA::OGL::MetalContext::end_new_render_pipeline(CA::OGL::MetalContext *this,
       {
         v11 = 136446210;
         v12 = __str;
-        _os_signpost_emit_unreliably_with_name_impl();
+        _os_signpost_emit_unreliably_with_name_impl(&dword_183AA6000, v8, 2, a2, "NewRenderPipeline", "flags=%{public, name=flags, signpost.telemetry:string2}s enableTelemetry=YES ", &v11, 12);
       }
     }
 

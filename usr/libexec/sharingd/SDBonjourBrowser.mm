@@ -13,9 +13,13 @@
 - (__SFNode)copyNodeForService:(id)service;
 - (id)colorArrayFromEcolor:(id)ecolor icolor:(id)icolor;
 - (id)odiskMountPoints:(id)points;
+- (id)queryKey:(id)key type:(id)type domain:(id)domain recordType:(unsigned __int16)recordType;
 - (id)serviceFromServiceName:(id)name;
 - (id)valueForKey:(id)key inTXTRecord:(const void *)record withLength:(unsigned __int16)length;
+- (unsigned)getInterface:(unsigned int)interface;
 - (void)addObservers;
+- (void)addQueryToDictionary:(_DNSServiceRef_t *)dictionary name:(id)name type:(id)type domain:(id)domain recordType:(unsigned __int16)recordType;
+- (void)addService:(id)service type:(id)type domain:(id)domain interface:(unsigned int)interface;
 - (void)advertiseHashes;
 - (void)airDropClient:(id)client event:(int64_t)event withResults:(id)results;
 - (void)awdl:(id)awdl failedToStartAdvertisingWithError:(id)error;
@@ -24,14 +28,18 @@
 - (void)cancelAirDropRequests;
 - (void)cancelIdentityQueries;
 - (void)cleanupAirDropRequest:(id)request;
+- (void)cleanupRecordQuery:(id)query type:(id)type domain:(id)domain recordType:(unsigned __int16)recordType;
 - (void)cleanupRecordQueryForKey:(id)key;
+- (void)cleanupRecordQueryForNetService:(id)service recordType:(unsigned __int16)type;
 - (void)clearCache;
 - (void)clearCacheAndNotify;
 - (void)commentChanged:(id)changed comment:(id)comment;
 - (void)contactsChanged:(id)changed;
 - (void)dealloc;
 - (void)deviceInfoChanged:(id)changed model:(id)model ecolor:(id)ecolor icolor:(id)icolor osxvers:(id)osxvers;
+- (void)handleBrowseCallBack:(unsigned int)back interface:(unsigned int)interface error:(int)error name:(const char *)name type:(const char *)type domain:(const char *)domain;
 - (void)handleIdentity:(id)identity withQueryID:(id)d emailOrPhone:(id)phone error:(id)error;
+- (void)handleQueryCallBack:(unsigned int)back error:(int)error fullname:(const char *)fullname rrtype:(unsigned __int16)rrtype rdlen:(unsigned __int16)rdlen rdata:(const void *)rdata;
 - (void)invalidate;
 - (void)linkStateChanged:(id)changed;
 - (void)logAirDropDiscoveryInfoForNode:(__SFNode *)node;
@@ -39,6 +47,7 @@
 - (void)notifyClient;
 - (void)notifyClientIfDone:(unsigned int)done;
 - (void)personInfoChanged:(id)changed flags:(id)flags atag:(id)atag cname:(id)cname phash:(id)phash ehash:(id)ehash nhash:(id)nhash;
+- (void)processTXTRecordUpdate:(const char *)update rdlen:(unsigned __int16)rdlen rdata:(const void *)rdata;
 - (void)queryRecordTimerCallBack:(id)back;
 - (void)removeInvalidNodes:(id)nodes;
 - (void)removeObservers;
@@ -51,6 +60,7 @@
 - (void)startConnectionlessAdvertisingWithData:(id)data;
 - (void)startIdentityQueryForNode:(__SFNode *)node;
 - (void)startPictureQuery:(id)query;
+- (void)startRecordQuery:(id)query type:(id)type domain:(id)domain recordType:(unsigned __int16)recordType interface:(unsigned int)interface;
 - (void)stop;
 - (void)stopConnectionlessAdvertising;
 - (void)systemInfoChanged:(id)changed diskInfo:(__CFDictionary *)info;
@@ -229,6 +239,54 @@
 {
   v3 = +[NSNotificationCenter defaultCenter];
   [v3 removeObserver:self];
+}
+
+- (unsigned)getInterface:(unsigned int)interface
+{
+  if (self->_isAirDrop)
+  {
+    if ([(SDStatusMonitor *)self->_monitor browseAllInterfaces])
+    {
+      return 0;
+    }
+
+    else
+    {
+      result = self->_awdlIndex;
+      if (!result)
+      {
+        result = sub_1001F2A44();
+        self->_awdlIndex = result;
+        if (!result)
+        {
+          v5 = airdrop_log();
+          if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+          {
+            sub_10017DA5C();
+          }
+
+          return self->_awdlIndex;
+        }
+      }
+    }
+  }
+
+  else if (self->_isWorkgroups)
+  {
+    return -1;
+  }
+
+  else if (self->_isNetBIOS)
+  {
+    return -1;
+  }
+
+  else
+  {
+    return interface;
+  }
+
+  return result;
 }
 
 - (BOOL)thisIsTheFinder
@@ -779,24 +837,20 @@ LABEL_31:
     v6 = *v10;
     do
     {
-      v7 = 0;
-      do
+      for (i = 0; i != v5; i = i + 1)
       {
         if (*v10 != v6)
         {
           objc_enumerationMutation(nodesCopy);
         }
 
-        v8 = *(*(&v9 + 1) + 8 * v7);
-        if (sub_100090360())
+        v8 = *(*(&v9 + 1) + 8 * i);
+        if (sub_100090360(v8))
         {
           sub_100090598(v8, nodesCopy);
         }
-
-        v7 = v7 + 1;
       }
 
-      while (v5 != v7);
       v5 = [nodesCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
@@ -890,6 +944,252 @@ LABEL_31:
   return [(NSMutableDictionary *)serverCache allValues];
 }
 
+- (void)addService:(id)service type:(id)type domain:(id)domain interface:(unsigned int)interface
+{
+  v6 = *&interface;
+  serviceCopy = service;
+  typeCopy = type;
+  domainCopy = domain;
+  if (sub_10011885C(typeCopy))
+  {
+    lowercaseString = [serviceCopy lowercaseString];
+    v14 = [(NSMutableDictionary *)self->_servers objectForKeyedSubscript:lowercaseString];
+
+    if (v14)
+    {
+LABEL_25:
+      SFNodeAddBonjourProtocol();
+
+      goto LABEL_26;
+    }
+
+    v15 = sub_1001F2B40(domainCopy);
+    if (self->_isNetBIOS)
+    {
+      v16 = SFNodeCreate();
+      SFNodeAddKind();
+      SFNodeSetNetbiosName();
+      SFNodeSetWorkgroup();
+      v17 = sub_1001174F4(kSFNodeProtocolSMB, 0, 0, lowercaseString, 0xFFFFFFFF, 0, 0, 0);
+      if (v17)
+      {
+        v18 = v17;
+        SFNodeSetURL();
+        CFRelease(v18);
+      }
+
+      selfCopy2 = self;
+      v20 = serviceCopy;
+      v21 = typeCopy;
+    }
+
+    else
+    {
+      if (self->_isWorkgroups)
+      {
+        v16 = SFNodeCreate();
+        SFNodeAddKind();
+        SFNodeAddWorkgroup();
+        goto LABEL_24;
+      }
+
+      v16 = SFNodeCreate();
+      SFNodeSetServiceName();
+      SFNodeSetDomain();
+      SFNodeAddKind();
+      v22 = sub_10011830C();
+      if (CFEqual(typeCopy, v22))
+      {
+        SFNodeSetDisplayName();
+        SFNodeSetRealName();
+        SFNodeAddKind();
+        SFNodeAddKind();
+        v23 = sub_10008FA28(0, 0);
+        if (![serviceCopy isEqual:v23] || -[SDStatusMonitor showMeInWormhole](self->_monitor, "showMeInWormhole"))
+        {
+          v35 = v15;
+          v37 = v23;
+          v24 = objc_opt_new();
+          [v24 setSessionID:self->_browserID];
+          objc_setAssociatedObject(v16, @"SDAirDropPeerMetric", v24, 0x301);
+          Current = CFAbsoluteTimeGetCurrent();
+          v26 = [NSNumber numberWithDouble:Current - self->_startTime];
+          [v24 setBonjourPTRDiscovery:v26];
+
+          v27 = [NSNumber numberWithDouble:Current];
+          [v24 setBonjourTXTRecordDiscovery:v27];
+
+          v36 = v24;
+          bonjourPTRDiscovery = [v24 bonjourPTRDiscovery];
+          [bonjourPTRDiscovery doubleValue];
+          v30 = v29;
+
+          v31 = sub_1001F04A8(v6);
+          v32 = v31;
+          if (v31)
+          {
+            v33 = v31;
+          }
+
+          else
+          {
+            v33 = [NSNumber numberWithInt:v6];
+          }
+
+          v38 = v33;
+
+          v34 = airdrop_log();
+          v15 = v35;
+          if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 138412802;
+            v40 = serviceCopy;
+            v41 = 2112;
+            v42 = v38;
+            v43 = 1024;
+            v44 = (v30 * 1000.0);
+            _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "Bonjour discovered %@ PTR over %@ in %d ms", buf, 0x1Cu);
+          }
+
+          [(SDBonjourBrowser *)self startRecordQuery:serviceCopy type:typeCopy domain:v35 recordType:16 interface:v6];
+          v23 = v37;
+        }
+
+        goto LABEL_24;
+      }
+
+      if (CFEqual(typeCopy, @"_odisk._tcp."))
+      {
+        SFNodeAddKind();
+        [(SDBonjourBrowser *)self startRecordQuery:serviceCopy type:typeCopy domain:v15 recordType:16 interface:v6];
+      }
+
+      if (self->_mode == 1)
+      {
+        goto LABEL_24;
+      }
+
+      v21 = @"_device-info._tcp.";
+      selfCopy2 = self;
+      v20 = serviceCopy;
+    }
+
+    [(SDBonjourBrowser *)selfCopy2 startRecordQuery:v20 type:v21 domain:v15 recordType:16 interface:v6];
+LABEL_24:
+    [(NSMutableDictionary *)self->_servers setObject:v16 forKeyedSubscript:lowercaseString, v35];
+    CFRelease(v15);
+    CFRelease(v16);
+    goto LABEL_25;
+  }
+
+LABEL_26:
+}
+
+- (id)queryKey:(id)key type:(id)type domain:(id)domain recordType:(unsigned __int16)recordType
+{
+  recordTypeCopy = recordType;
+  typeCopy = type;
+  keyCopy = key;
+  v11 = sub_1001F2B40(domain);
+  recordTypeCopy = [NSString stringWithFormat:@"%@.%@%@.%d", keyCopy, typeCopy, v11, recordTypeCopy];
+
+  lowercaseString = [recordTypeCopy lowercaseString];
+
+  return lowercaseString;
+}
+
+- (void)addQueryToDictionary:(_DNSServiceRef_t *)dictionary name:(id)name type:(id)type domain:(id)domain recordType:(unsigned __int16)recordType
+{
+  recordTypeCopy = recordType;
+  typeCopy = type;
+  v16 = [(SDBonjourBrowser *)self queryKey:name type:typeCopy domain:domain recordType:recordTypeCopy];
+  v13 = objc_opt_new();
+  v14 = [NSNumber numberWithLong:*dictionary];
+  [v13 setObject:v14 forKeyedSubscript:@"ServiceRef"];
+
+  LODWORD(v14) = CFEqual(typeCopy, @"_device-info._tcp.");
+  if (v14)
+  {
+    v15 = [NSTimer scheduledTimerWithTimeInterval:self target:"queryRecordTimerCallBack:" selector:v16 userInfo:0 repeats:30.0];
+    [v13 setObject:v15 forKeyedSubscript:@"QueryTimer"];
+  }
+
+  [(NSMutableDictionary *)self->_dnsQueries setObject:v13 forKeyedSubscript:v16];
+}
+
+- (void)startRecordQuery:(id)query type:(id)type domain:(id)domain recordType:(unsigned __int16)recordType interface:(unsigned int)interface
+{
+  v7 = *&interface;
+  recordTypeCopy = recordType;
+  queryCopy = query;
+  typeCopy = type;
+  domainCopy = domain;
+  v15 = sub_1001F2C18(queryCopy, typeCopy, domainCopy, 1);
+  if (!v15)
+  {
+    v20 = browser_log();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    {
+      sub_10017DD88();
+    }
+
+    goto LABEL_16;
+  }
+
+  bzero(buffer, 0x3F1uLL);
+  if (!CFStringGetCString(v15, buffer, 1009, 0x8000100u))
+  {
+    v20 = browser_log();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    {
+      sub_10017DD4C();
+    }
+
+    goto LABEL_16;
+  }
+
+  sdRef = self->_connection;
+  isAirDrop = self->_isAirDrop;
+  v17 = [(SDBonjourBrowser *)self getInterface:v7];
+  if (isAirDrop)
+  {
+    v18 = 1065216;
+  }
+
+  else
+  {
+    v18 = 16640;
+  }
+
+  v19 = DNSServiceQueryRecord(&sdRef, v18, v17, buffer, recordTypeCopy, 1u, sub_10017A7AC, self);
+  if (v19 == -65540)
+  {
+    if (![(SDStatusMonitor *)self->_monitor enableBugs])
+    {
+      goto LABEL_17;
+    }
+
+    goto LABEL_14;
+  }
+
+  if (v19)
+  {
+LABEL_14:
+    v20 = browser_log();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    {
+      sub_10017DCDC();
+    }
+
+LABEL_16:
+
+    goto LABEL_17;
+  }
+
+  [(SDBonjourBrowser *)self addQueryToDictionary:&sdRef name:queryCopy type:typeCopy domain:domainCopy recordType:recordTypeCopy];
+LABEL_17:
+}
+
 - (void)cleanupRecordQueryForKey:(id)key
 {
   keyCopy = key;
@@ -910,6 +1210,28 @@ LABEL_31:
 
     [(NSMutableDictionary *)self->_dnsQueries removeObjectForKey:keyCopy];
   }
+}
+
+- (void)cleanupRecordQuery:(id)query type:(id)type domain:(id)domain recordType:(unsigned __int16)recordType
+{
+  v7 = [(SDBonjourBrowser *)self queryKey:query type:type domain:domain recordType:recordType];
+  if (v7)
+  {
+    v8 = v7;
+    [(SDBonjourBrowser *)self cleanupRecordQueryForKey:v7];
+    v7 = v8;
+  }
+}
+
+- (void)cleanupRecordQueryForNetService:(id)service recordType:(unsigned __int16)type
+{
+  typeCopy = type;
+  serviceCopy = service;
+  name = [serviceCopy name];
+  type = [serviceCopy type];
+  domain = [serviceCopy domain];
+
+  [(SDBonjourBrowser *)self cleanupRecordQuery:name type:type domain:domain recordType:typeCopy];
 }
 
 - (void)removeService:(id)service type:(id)type domain:(id)domain
@@ -1519,7 +1841,7 @@ LABEL_25:
         }
 
         v13 = v28;
-        if (v17 && (sub_100090360() & 1) == 0)
+        if (v17 && (sub_100090360(v12) & 1) == 0)
         {
           [SDBonjourBrowser updateFriendRPIdentityForAccountID:v17 withAirDropClientInfo:resultsCopy];
         }
@@ -1875,6 +2197,54 @@ LABEL_26:
   return [(SDStatusMonitor *)monitor showMeInWormhole];
 }
 
+- (void)handleBrowseCallBack:(unsigned int)back interface:(unsigned int)interface error:(int)error name:(const char *)name type:(const char *)type domain:(const char *)domain
+{
+  if (error)
+  {
+    v9 = browser_log();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    {
+      sub_10017DFC8();
+    }
+
+    [(SDBonjourBrowser *)self restartAfterDelay:2.0];
+  }
+
+  else
+  {
+    v12 = *&interface;
+    v13 = *&back;
+    v18 = [NSString stringWithUTF8String:name];
+    v14 = [NSString stringWithUTF8String:type];
+    v15 = [NSString stringWithUTF8String:domain];
+    if (v18)
+    {
+      v16 = v14 == 0;
+    }
+
+    else
+    {
+      v16 = 1;
+    }
+
+    v17 = v16 || v15 == 0;
+    if (!v17 && (!self->_isAirDrop || sub_100092428(v18) && [(SDBonjourBrowser *)self validAirDropInterface:v12]))
+    {
+      if ((v13 & 2) != 0)
+      {
+        [(SDBonjourBrowser *)self addService:v18 type:v14 domain:v15 interface:v12];
+      }
+
+      else
+      {
+        [(SDBonjourBrowser *)self removeService:v18 type:v14 domain:v15];
+      }
+    }
+
+    [(SDBonjourBrowser *)self notifyClientIfDone:v13];
+  }
+}
+
 - (id)odiskMountPoints:(id)points
 {
   pointsCopy = points;
@@ -1950,6 +2320,152 @@ LABEL_26:
   return ValuePtr;
 }
 
+- (void)processTXTRecordUpdate:(const char *)update rdlen:(unsigned __int16)rdlen rdata:(const void *)rdata
+{
+  rdlenCopy = rdlen;
+  v8 = &NSURLAuthenticationMethodServerTrust_ptr;
+  v9 = [NSString stringWithUTF8String:update];
+  v10 = [(SDBonjourBrowser *)self serviceFromServiceName:v9];
+
+  if (v10)
+  {
+    type = [v10 type];
+    if ([type isEqualToString:@"_device-info._tcp."])
+    {
+      v12 = [(SDBonjourBrowser *)self valueForKey:@"model" inTXTRecord:rdata withLength:rdlenCopy];
+      v13 = [(SDBonjourBrowser *)self valueForKey:@"osxvers" inTXTRecord:rdata withLength:rdlenCopy];
+      v14 = [(SDBonjourBrowser *)self valueForKey:@"ecolor" inTXTRecord:rdata withLength:rdlenCopy];
+      v15 = [(SDBonjourBrowser *)self valueForKey:@"icolor" inTXTRecord:rdata withLength:rdlenCopy];
+      [(SDBonjourBrowser *)self deviceInfoChanged:v10 model:v12 ecolor:v14 icolor:v15 osxvers:v13];
+    }
+
+    else
+    {
+      if ([type isEqualToString:@"_netbios._udp."])
+      {
+        v16 = [(SDBonjourBrowser *)self valueForKey:@"comment" inTXTRecord:rdata withLength:rdlenCopy];
+        [(SDBonjourBrowser *)self commentChanged:v10 comment:v16];
+
+        goto LABEL_23;
+      }
+
+      if (![type isEqualToString:sub_10011830C()])
+      {
+        v27 = type;
+        Count = TXTRecordGetCount(rdlenCopy, rdata);
+        v28 = objc_opt_new();
+        if (Count)
+        {
+          v21 = 0;
+          v22 = Count;
+          do
+          {
+            value = 0;
+            v45 = 0u;
+            v46 = 0u;
+            v43 = 0u;
+            v44 = 0u;
+            v41 = 0u;
+            v42 = 0u;
+            v39 = 0u;
+            v40 = 0u;
+            v37 = 0u;
+            v38 = 0u;
+            v35 = 0u;
+            v36 = 0u;
+            v33 = 0u;
+            v34 = 0u;
+            *key = 0u;
+            v32 = 0u;
+            valueLen = 0;
+            if (!TXTRecordGetItemAtIndex(rdlenCopy, rdata, v21, 0x100u, key, &valueLen, &value))
+            {
+              v23 = [v8[266] stringWithUTF8String:key];
+              if (v23)
+              {
+                v24 = sub_1001F2EBC(valueLen, value);
+                if (v24)
+                {
+                  if ([v23 isEqual:@"sys"])
+                  {
+                    [(SDBonjourBrowser *)self systemInfoChanged:v10 diskInfo:v24];
+                  }
+
+                  else
+                  {
+                    v25 = [v24 objectForKeyedSubscript:@"adVN"];
+                    if (v25)
+                    {
+                      [v28 addObject:v25];
+                    }
+                  }
+                }
+
+                v8 = &NSURLAuthenticationMethodServerTrust_ptr;
+              }
+            }
+
+            ++v21;
+          }
+
+          while (v22 != v21);
+        }
+
+        name = [v10 name];
+        [(SDBonjourBrowser *)self ejectDisksIfNeeded:name diskNames:v28];
+
+        type = v27;
+        goto LABEL_23;
+      }
+
+      v12 = [(SDBonjourBrowser *)self valueForKey:@"flags" inTXTRecord:rdata withLength:rdlenCopy];
+      v13 = [(SDBonjourBrowser *)self valueForKey:@"atag" inTXTRecord:rdata withLength:rdlenCopy];
+      v14 = [(SDBonjourBrowser *)self valueForKey:@"ehash" inTXTRecord:rdata withLength:rdlenCopy];
+      v17 = [(SDBonjourBrowser *)self valueForKey:@"nhash" inTXTRecord:rdata withLength:rdlenCopy];
+      v18 = [(SDBonjourBrowser *)self valueForKey:@"phash" inTXTRecord:rdata withLength:rdlenCopy];
+      v19 = [(SDBonjourBrowser *)self valueForKey:@"cname" inTXTRecord:rdata withLength:rdlenCopy];
+      [(SDBonjourBrowser *)self personInfoChanged:v10 flags:v12 atag:v13 cname:v19 phash:v18 ehash:v14 nhash:v17];
+    }
+
+LABEL_23:
+  }
+}
+
+- (void)handleQueryCallBack:(unsigned int)back error:(int)error fullname:(const char *)fullname rrtype:(unsigned __int16)rrtype rdlen:(unsigned __int16)rdlen rdata:(const void *)rdata
+{
+  if (error)
+  {
+    v8 = browser_log();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    {
+      sub_10017E038();
+    }
+  }
+
+  else
+  {
+    v9 = *&back;
+    if ((back & 2) != 0)
+    {
+      if (rrtype == 16)
+      {
+        [(SDBonjourBrowser *)self processTXTRecordUpdate:fullname rdlen:rdlen rdata:rdata];
+      }
+
+      else
+      {
+        v11 = browser_log();
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+        {
+          sub_10017E0A8();
+        }
+      }
+    }
+
+    [(SDBonjourBrowser *)self notifyClientIfDone:v9];
+  }
+}
+
 - (void)queryRecordTimerCallBack:(id)back
 {
   userInfo = [back userInfo];
@@ -1967,50 +2483,64 @@ LABEL_26:
 
 - (NSString)description
 {
-  NSAppendPrintF();
-  v15 = 0;
-  NSAppendPrintF();
-  v3 = v15;
+  v19 = 0;
+  NSAppendPrintF(&v19, "BonjourBrowser\n");
+  v3 = v19;
+  v18 = v3;
+  NSAppendPrintF(&v18, "--------------\n");
+  v4 = v18;
 
+  v17 = v4;
   mode = self->_mode;
-  if (mode <= 2)
+  if (mode > 2)
   {
-    v5 = *(&off_1008D2128 + mode);
-  }
-
-  NSAppendPrintF();
-  v6 = v3;
-
-  if (self->_proximity)
-  {
-    v7 = "yes";
+    v6 = @"?";
   }
 
   else
   {
-    v7 = "no";
+    v6 = *(&off_1008D2128 + mode);
   }
 
-  v14 = v7;
-  NSAppendPrintF();
-  v8 = v6;
+  NSAppendPrintF(&v17, "Mode:                                %@\n", v6);
+  v7 = v17;
+
+  v16 = v7;
+  if (self->_proximity)
+  {
+    v8 = "yes";
+  }
+
+  else
+  {
+    v8 = "no";
+  }
+
+  NSAppendPrintF(&v16, "WirelessProx object:                 %s\n", v8);
+  v9 = v16;
 
   proximity = self->_proximity;
   if (proximity)
   {
+    v15 = v9;
     state = [(WPAWDL *)proximity state];
-    if (state <= 5)
+    if (state > 5)
     {
-      v11 = off_1008D2140[state];
+      v12 = "?";
     }
 
-    NSAppendPrintF();
-    v12 = v8;
+    else
+    {
+      v12 = off_1008D2140[state];
+    }
 
-    v8 = v12;
+    NSAppendPrintF(&v15, "WirelessProx state:                  %s\n", v12);
+    v13 = v15;
+
+    v9 = v13;
   }
 
-  return v8;
+  return v9;
 }
 
 - (SDXPCHelperConnection)helperConnection

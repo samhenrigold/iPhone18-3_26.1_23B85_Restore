@@ -104,12 +104,12 @@
 
 - (BOOL)uncompressBuffer:(const char *)buffer ofLength:(unint64_t)length toBuffer:(char *)toBuffer withKnownUncompressedLength:(unint64_t)uncompressedLength usingCompressionType:(int)type
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   if (!uncompressedLength || !length || !buffer || !toBuffer)
   {
     if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_28;
+      return 0;
     }
 
     LOWORD(strm.next_in) = 0;
@@ -118,7 +118,7 @@
     v18 = 2;
 LABEL_14:
     _os_log_impl(&dword_247F3D000, v16, OS_LOG_TYPE_ERROR, v17, &strm, v18);
-    goto LABEL_28;
+    return 0;
   }
 
   if ((type - 5) <= 1)
@@ -145,15 +145,15 @@ LABEL_14:
           v15 = 1;
 LABEL_25:
           inflateEnd(&strm);
-          goto LABEL_29;
+          return v15;
         }
 
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
           *buf = 67109376;
           uncompressedLengthCopy = uncompressedLength;
-          v32 = 2048;
-          v33 = total_out;
+          v31 = 2048;
+          v32 = total_out;
           v25 = MEMORY[0x277D86220];
           v26 = "inflate() returned unexpected uncompressed size, expected %u but was %lu";
           v27 = 18;
@@ -180,15 +180,13 @@ LABEL_23:
       goto LABEL_25;
     }
 
-LABEL_28:
-    v15 = 0;
-    goto LABEL_29;
+    return 0;
   }
 
   v19 = type - 3;
   if ((type - 3) > 7 || ((0xF3u >> v19) & 1) == 0)
   {
-    goto LABEL_28;
+    return 0;
   }
 
   v21 = dword_247F5C8E0[v19];
@@ -199,7 +197,7 @@ LABEL_28:
   {
     if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_28;
+      return 0;
     }
 
     LODWORD(strm.next_in) = 134218240;
@@ -212,10 +210,7 @@ LABEL_28:
     goto LABEL_14;
   }
 
-  v15 = 1;
-LABEL_29:
-  v28 = *MEMORY[0x277D85DE8];
-  return v15;
+  return 1;
 }
 
 @end

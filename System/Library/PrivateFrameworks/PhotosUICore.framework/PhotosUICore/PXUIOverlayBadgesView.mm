@@ -320,7 +320,7 @@ LABEL_11:
 
   if ([assetCopy isVideo])
   {
-    [assetCopy duration];
+    objc_msgSend_duration(assetCopy);
     PXLocalizedVideoDuration();
   }
 

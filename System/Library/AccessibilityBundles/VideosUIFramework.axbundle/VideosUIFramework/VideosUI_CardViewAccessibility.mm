@@ -42,42 +42,40 @@
 
 - (void)_accessibilityLoadAccessibilityInformation
 {
-  v16 = *MEMORY[0x29EDCA608];
-  v14.receiver = self;
-  v14.super_class = VideosUI_CardViewAccessibility;
-  [(VideosUI_CardViewAccessibility *)&v14 _accessibilityLoadAccessibilityInformation];
+  v15 = *MEMORY[0x29EDCA608];
+  v13.receiver = self;
+  v13.super_class = VideosUI_CardViewAccessibility;
+  [(VideosUI_CardViewAccessibility *)&v13 _accessibilityLoadAccessibilityInformation];
   v3 = [(VideosUI_CardViewAccessibility *)self _accessibilityFindSubviewDescendantsPassingTest:&__block_literal_global_3];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v10 objects:v15 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v9 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     v7 = *MEMORY[0x29EDC7FA0];
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [*(*(&v10 + 1) + 8 * v8++) setAccessibilityTraits:v7];
+        [*(*(&v9 + 1) + 8 * v8++) setAccessibilityTraits:v7];
       }
 
       while (v5 != v8);
-      v5 = [v3 countByEnumeratingWithState:&v10 objects:v15 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v9 objects:v14 count:16];
     }
 
     while (v5);
   }
-
-  v9 = *MEMORY[0x29EDCA608];
 }
 
 - (id)automationElements
@@ -279,55 +277,54 @@ LABEL_15:
 
 - (id)accessibilityLabel
 {
-  v56 = *MEMORY[0x29EDCA608];
+  v54 = *MEMORY[0x29EDCA608];
   v3 = [(VideosUI_CardViewAccessibility *)self safeSwiftArrayForKey:@"labelViews"];
   v4 = [v3 mutableCopy];
 
-  v53[0] = MEMORY[0x29EDCA5F8];
-  v53[1] = 3221225472;
-  v53[2] = __52__VideosUI_CardViewAccessibility_accessibilityLabel__block_invoke;
-  v53[3] = &unk_29F31C158;
-  v53[4] = self;
-  [v4 sortUsingComparator:v53];
-  v52 = 0;
+  v51[0] = MEMORY[0x29EDCA5F8];
+  v51[1] = 3221225472;
+  v51[2] = __52__VideosUI_CardViewAccessibility_accessibilityLabel__block_invoke;
+  v51[3] = &unk_29F31C158;
+  v51[4] = self;
+  [v4 sortUsingComparator:v51];
+  v50 = 0;
   objc_opt_class();
   v5 = [(VideosUI_CardViewAccessibility *)self safeSwiftValueForKey:@"overlayView"];
   v6 = __UIAccessibilityCastAsClass();
 
-  v41 = v6;
+  v39 = v6;
+  v46 = 0u;
+  v47 = 0u;
   v48 = 0u;
   v49 = 0u;
-  v50 = 0u;
-  v51 = 0u;
   obj = v4;
-  v7 = [obj countByEnumeratingWithState:&v48 objects:v55 count:16];
+  v7 = [obj countByEnumeratingWithState:&v46 objects:v53 count:16];
   if (v7)
   {
     v8 = v7;
     v9 = 0;
-    v10 = *v49;
+    v10 = *v47;
     do
     {
       v11 = 0;
       v12 = v9;
       do
       {
-        if (*v49 != v10)
+        if (*v47 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v48 + 1) + 8 * v11);
-        v52 = 0;
+        v50 = 0;
         objc_opt_class();
-        v14 = __UIAccessibilityCastAsClass();
-        if (v52 == 1)
+        v13 = __UIAccessibilityCastAsClass();
+        if (v50 == 1)
         {
           abort();
         }
 
-        v15 = v14;
-        accessibilityLabel = [v14 accessibilityLabel];
+        v14 = v13;
+        accessibilityLabel = [v13 accessibilityLabel];
         v9 = __UIAXStringForVariables();
 
         ++v11;
@@ -335,7 +332,7 @@ LABEL_15:
       }
 
       while (v8 != v11);
-      v8 = [obj countByEnumeratingWithState:&v48 objects:v55 count:{16, accessibilityLabel, @"__AXStringForVariablesSentinel"}];
+      v8 = [obj countByEnumeratingWithState:&v46 objects:v53 count:{16, accessibilityLabel, @"__AXStringForVariablesSentinel"}];
     }
 
     while (v8);
@@ -348,84 +345,83 @@ LABEL_15:
 
   if ([v9 length])
   {
-    v16 = v41;
+    v15 = v39;
   }
 
   else
   {
-    v17 = [(VideosUI_CardViewAccessibility *)self safeSwiftValueForKey:@"imageView"];
-    v18 = [(VideosUI_CardViewAccessibility *)self safeSwiftValueForKey:@"appImageView"];
-    accessibilityLabel2 = [v17 accessibilityLabel];
-    accessibilityLabel3 = [v18 accessibilityLabel];
-    v16 = v41;
-    v21 = [v41 safeValueForKey:@"titleLabel"];
-    accessibilityLabel4 = [v21 accessibilityLabel];
-    v40 = @"__AXStringForVariablesSentinel";
+    v16 = [(VideosUI_CardViewAccessibility *)self safeSwiftValueForKey:@"imageView"];
+    v17 = [(VideosUI_CardViewAccessibility *)self safeSwiftValueForKey:@"appImageView"];
+    accessibilityLabel2 = [v16 accessibilityLabel];
+    accessibilityLabel3 = [v17 accessibilityLabel];
+    v15 = v39;
+    v20 = [v39 safeValueForKey:@"titleLabel"];
+    accessibilityLabel4 = [v20 accessibilityLabel];
+    v38 = @"__AXStringForVariablesSentinel";
     accessibilityLabel5 = accessibilityLabel2;
-    v38 = accessibilityLabel3;
-    v22 = __UIAXStringForVariables();
+    v36 = accessibilityLabel3;
+    v21 = __UIAXStringForVariables();
 
-    v9 = v22;
+    v9 = v21;
   }
 
   MEMORY[0x29ED3FF70](@"VideosUI.UnifiedOverlayView");
   if (objc_opt_isKindOfClass())
   {
-    accessibilityLabel5 = [v16 accessibilityLabel];
-    v38 = @"__AXStringForVariablesSentinel";
-    v23 = __UIAXStringForVariables();
+    accessibilityLabel5 = [v15 accessibilityLabel];
+    v36 = @"__AXStringForVariablesSentinel";
+    v22 = __UIAXStringForVariables();
 
-    v9 = v23;
+    v9 = v22;
   }
 
   if (objc_opt_respondsToSelector())
   {
-    v46 = 0u;
-    v47 = 0u;
     v44 = 0u;
     v45 = 0u;
-    v42 = [v16 safeArrayForKey:@"badgeViewWrappers"];
-    v24 = [v42 countByEnumeratingWithState:&v44 objects:v54 count:16];
-    if (v24)
+    v42 = 0u;
+    v43 = 0u;
+    v40 = [v15 safeArrayForKey:@"badgeViewWrappers"];
+    v23 = [v40 countByEnumeratingWithState:&v42 objects:v52 count:16];
+    if (v23)
     {
-      v25 = v24;
-      v26 = *v45;
+      v24 = v23;
+      v25 = *v43;
       do
       {
-        for (i = 0; i != v25; ++i)
+        for (i = 0; i != v24; ++i)
         {
-          if (*v45 != v26)
+          if (*v43 != v25)
           {
-            objc_enumerationMutation(v42);
+            objc_enumerationMutation(v40);
           }
 
-          v28 = *(*(&v44 + 1) + 8 * i);
+          v27 = *(*(&v42 + 1) + 8 * i);
           mEMORY[0x29EDBDDF0] = [MEMORY[0x29EDBDDF0] sharedInstance];
-          v30 = [v28 safeValueForKeyPath:@"badgeElement.url"];
-          v31 = [mEMORY[0x29EDBDDF0] accessibilityIdentifierForResourceURL:v30];
+          v29 = [v27 safeValueForKeyPath:@"badgeElement.url"];
+          v30 = [mEMORY[0x29EDBDDF0] accessibilityIdentifierForResourceURL:v29];
 
-          if (([v31 isEqualToString:@"Badge-Play"] & 1) == 0)
+          if (([v30 isEqualToString:@"Badge-Play"] & 1) == 0)
           {
-            accessibilityLabel5 = v31;
-            v38 = @"__AXStringForVariablesSentinel";
-            v32 = __UIAXStringForVariables();
+            accessibilityLabel5 = v30;
+            v36 = @"__AXStringForVariablesSentinel";
+            v31 = __UIAXStringForVariables();
 
-            v9 = v32;
+            v9 = v31;
           }
         }
 
-        v25 = [v42 countByEnumeratingWithState:&v44 objects:v54 count:16];
+        v24 = [v40 countByEnumeratingWithState:&v42 objects:v52 count:16];
       }
 
-      while (v25);
+      while (v24);
     }
 
-    v16 = v41;
+    v15 = v39;
   }
 
-  v33 = v9;
+  v32 = v9;
 
-  v34 = *MEMORY[0x29EDCA608];
   return v9;
 }
 
@@ -448,7 +444,7 @@ LABEL_15:
 
 - (id)accessibilityAttributedValue
 {
-  v31[1] = *MEMORY[0x29EDCA608];
+  v30[1] = *MEMORY[0x29EDCA608];
   v3 = objc_alloc_init(MEMORY[0x29EDBA038]);
   v4 = [(VideosUI_CardViewAccessibility *)self _accessibilityFindSubviewDescendantsPassingTest:&__block_literal_global_437_0];
   firstObject = [v4 firstObject];
@@ -477,24 +473,24 @@ LABEL_15:
 
     if ([v11 length])
     {
-      v27 = v11;
-      v29 = @"__AXStringForVariablesSentinel";
+      v26 = v11;
+      v28 = @"__AXStringForVariablesSentinel";
       v12 = __UIAXStringForVariables();
 
       v8 = v12;
     }
   }
 
-  v13 = [(VideosUI_CardViewAccessibility *)self safeSwiftValueForKey:@"overlayView", v27, v29];
+  v13 = [(VideosUI_CardViewAccessibility *)self safeSwiftValueForKey:@"overlayView", v26, v28];
   v14 = [v13 safeValueForKey:@"textLabel"];
   accessibilityLabel3 = [v14 accessibilityLabel];
 
   if ([accessibilityLabel3 length])
   {
     v16 = objc_alloc(MEMORY[0x29EDB9F30]);
-    v30 = *MEMORY[0x29EDBD8B0];
-    v31[0] = MEMORY[0x29EDB8EB0];
-    v17 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v31 forKeys:&v30 count:1];
+    v29 = *MEMORY[0x29EDBD8B0];
+    v30[0] = MEMORY[0x29EDB8EB0];
+    v17 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v30 forKeys:&v29 count:1];
     v18 = [v16 initWithString:accessibilityLabel3 attributes:v17];
 
     v19 = accessibilityLocalizedString(@"playback.time.remaining");
@@ -505,8 +501,6 @@ LABEL_15:
     [v21 replaceCharactersInRange:v22 withAttributedString:{v23, v18}];
     [v3 appendAttributedString:v21];
   }
-
-  v24 = *MEMORY[0x29EDCA608];
 
   return v3;
 }

@@ -2,6 +2,7 @@
 + (id)identifierBLEDevice:(id)device other:(BOOL)other;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isValid;
+- (FMDBLEBeaconIdentifier)initWithBLEDevice:(id)device other:(BOOL)other;
 - (FMDBLEBeaconIdentifier)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (unint64_t)hash;
@@ -9,6 +10,22 @@
 @end
 
 @implementation FMDBLEBeaconIdentifier
+
+- (FMDBLEBeaconIdentifier)initWithBLEDevice:(id)device other:(BOOL)other
+{
+  otherCopy = other;
+  deviceCopy = device;
+  v10.receiver = self;
+  v10.super_class = FMDBLEBeaconIdentifier;
+  v7 = [(FMDBLEBeaconIdentifier *)&v10 init];
+  if (v7)
+  {
+    v8 = [FMDBLEBeaconIdentifier identifierBLEDevice:deviceCopy other:otherCopy];
+    [(FMDBLEBeaconIdentifier *)v7 setString:v8];
+  }
+
+  return v7;
+}
 
 - (BOOL)isValid
 {

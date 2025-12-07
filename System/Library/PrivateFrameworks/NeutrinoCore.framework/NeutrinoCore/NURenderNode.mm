@@ -666,8 +666,8 @@ LABEL_5:
     if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
     {
       v40 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid parameter not satisfying: %s", "error != nil"];
-      *buf = 138543362;
-      *&buf[4] = v40;
+      buf[0].n128_u32[0] = 138543362;
+      *(buf[0].n128_u64 + 4) = v40;
       _os_log_error_impl(&dword_1C0184000, v39, OS_LOG_TYPE_ERROR, "Fail: %{public}@", buf, 0xCu);
     }
 
@@ -683,10 +683,10 @@ LABEL_5:
         v48 = v46;
         callStackSymbols = [v47 callStackSymbols];
         v50 = [callStackSymbols componentsJoinedByString:@"\n"];
-        *buf = 138543618;
-        *&buf[4] = v46;
-        *&buf[12] = 2114;
-        *&buf[14] = v50;
+        buf[0].n128_u32[0] = 138543618;
+        *(buf[0].n128_u64 + 4) = v46;
+        buf[0].n128_u16[6] = 2114;
+        *(&buf[0].n128_u64[1] + 6) = v50;
         _os_log_error_impl(&dword_1C0184000, v42, OS_LOG_TYPE_ERROR, "job: %{public}@\nTrace:\n%{public}@", buf, 0x16u);
       }
     }
@@ -695,8 +695,8 @@ LABEL_5:
     {
       callStackSymbols2 = [MEMORY[0x1E696AF00] callStackSymbols];
       v45 = [callStackSymbols2 componentsJoinedByString:@"\n"];
-      *buf = 138543362;
-      *&buf[4] = v45;
+      buf[0].n128_u32[0] = 138543362;
+      *(buf[0].n128_u64 + 4) = v45;
       _os_log_error_impl(&dword_1C0184000, v42, OS_LOG_TYPE_ERROR, "Trace:\n%{public}@", buf, 0xCu);
     }
 
@@ -721,7 +721,7 @@ LABEL_5:
       {
         v6 = renderScale;
         v5 = v11;
-        [v9 extent];
+        objc_msgSend_extent(v9);
         orientation = [v9 orientation];
         roundingPolicy = [v9 roundingPolicy];
 
@@ -794,7 +794,7 @@ LABEL_41:
       v27 = v24;
       if (v16)
       {
-        [v22 extent];
+        objc_msgSend_extent(v22);
         v64 = 0u;
         v65 = 0u;
         orientation2 = [v22 orientation];
@@ -817,8 +817,8 @@ LABEL_40:
         goto LABEL_41;
       }
 
-      [v22 extent];
-      memset(buf, 0, 32);
+      objc_msgSend_extent(v22);
+      memset(buf, 0, sizeof(buf));
       v66 = v64;
       v67 = v65;
       NU::RectT<long>::add(&v66, buf);
@@ -869,8 +869,8 @@ LABEL_25:
 LABEL_31:
 
   v33 = [NUImageGeometry alloc];
-  *buf = v64;
-  *&buf[16] = v65;
+  buf[0] = v64;
+  buf[1] = v65;
   v34 = [(NUImageGeometry *)v33 initWithExtent:buf renderScale:v6 orientation:v5 spaceMap:orientation roundingPolicy:0, roundingPolicy];
 LABEL_42:
 
@@ -1967,7 +1967,7 @@ LABEL_79:
       }
 
       v21 = v20;
-      [v20 frameDuration];
+      objc_msgSend_frameDuration(v20);
       time1.start.value = value;
       time1.start.timescale = timescale;
       time1.start.flags = flags;
@@ -2069,7 +2069,7 @@ LABEL_40:
           memset(&v144, 0, sizeof(v144));
           if (v114)
           {
-            [v114 timeRange];
+            objc_msgSend_timeRange(v114);
             v42 = 0uLL;
             if (v41)
             {
@@ -2091,7 +2091,7 @@ LABEL_47:
             }
 
 LABEL_45:
-            [v41 timeRange];
+            objc_msgSend_timeRange(v41, 0.0);
           }
 
           CMTimeRangeGetIntersection(&v144, &time2, &time1);

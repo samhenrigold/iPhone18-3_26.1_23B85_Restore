@@ -22,7 +22,7 @@
 
 - (void)batteryInformationWithCallback:(id)callback
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   callbackCopy = callback;
   IOPSCopyPowerSourcesByTypePrecise();
   v4 = __atxlog_handle_heuristic();
@@ -33,8 +33,6 @@
 
   v5 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:4 userInfo:0];
   callbackCopy[2](callbackCopy, 0, v5);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

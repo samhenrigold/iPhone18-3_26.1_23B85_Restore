@@ -53,42 +53,42 @@
 
   if (![TSUTemporaryDirectory _createDirectoryWithSignature:subdirectory:]::secretSubdirectoryNameBase)
   {
-    objc_sync_enter(self);
+    v7 = objc_sync_enter(self);
     if (![TSUTemporaryDirectory _createDirectoryWithSignature:subdirectory:]::secretSubdirectoryNameBase)
     {
-      bundleIdentifier = [SFUBundle() bundleIdentifier];
-      v8 = objc_alloc(MEMORY[0x277CCACA8]);
-      v9 = getpid();
-      v10 = @"com.apple.Unknown";
-      if (bundleIdentifier)
+      v9 = [SFUBundle(v7 v8)];
+      v10 = objc_alloc(MEMORY[0x277CCACA8]);
+      v11 = getpid();
+      v12 = @"com.apple.Unknown";
+      if (v9)
       {
-        v10 = bundleIdentifier;
+        v12 = v9;
       }
 
-      v11 = [v8 initWithFormat:@"%@_%d", v10, v9];
+      v13 = [v10 initWithFormat:@"%@_%d", v12, v11];
       __dmb(0xBu);
-      [TSUTemporaryDirectory _createDirectoryWithSignature:subdirectory:]::secretSubdirectoryNameBase = v11;
-      if (!v11)
+      [TSUTemporaryDirectory _createDirectoryWithSignature:subdirectory:]::secretSubdirectoryNameBase = v13;
+      if (!v13)
       {
-        v12 = +[TSUAssertionHandler currentHandler];
-        v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TSUTemporaryDirectory _createDirectoryWithSignature:subdirectory:]"];
-        [v12 handleFailureInFunction:v13 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/utility/TSUTemporaryDirectory.mm"), 105, @"Couldn't initialize lazy variable %s", "secretSubdirectoryNameBase"}];
+        v14 = +[TSUAssertionHandler currentHandler];
+        v15 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TSUTemporaryDirectory _createDirectoryWithSignature:subdirectory:]"];
+        [v14 handleFailureInFunction:v15 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/utility/TSUTemporaryDirectory.mm"), 105, @"Couldn't initialize lazy variable %s", "secretSubdirectoryNameBase"}];
       }
     }
 
     objc_sync_exit(self);
   }
 
-  v14 = [-[TSUTemporaryDirectory _createDirectoryWithSignature:subdirectory:]::secretSubdirectoryNameBase stringByAppendingFormat:@"_%@_%d_%d", signatureCopy, CFAbsoluteTimeGetCurrent(), atomic_fetch_add(-[TSUTemporaryDirectory _createDirectoryWithSignature:subdirectory:]::secretSubdirectoryIndex, 1u) + 1];
-  if ([v14 length] >= 0x100)
+  v16 = [-[TSUTemporaryDirectory _createDirectoryWithSignature:subdirectory:]::secretSubdirectoryNameBase stringByAppendingFormat:@"_%@_%d_%d", signatureCopy, CFAbsoluteTimeGetCurrent(), atomic_fetch_add(-[TSUTemporaryDirectory _createDirectoryWithSignature:subdirectory:]::secretSubdirectoryIndex, 1u) + 1];
+  if ([v16 length] >= 0x100)
   {
-    v14 = [v14 substringToIndex:255];
+    v16 = [v16 substringToIndex:255];
   }
 
-  v15 = getenv("CIRRUSEXPORTERTEMPDIR");
-  if (v15)
+  v17 = getenv("CIRRUSEXPORTERTEMPDIR");
+  if (v17)
   {
-    v16 = [MEMORY[0x277CCACA8] stringWithUTF8String:v15];
+    v18 = [MEMORY[0x277CCACA8] stringWithUTF8String:v17];
     if (!subdirectory)
     {
       goto LABEL_16;
@@ -97,24 +97,24 @@
     goto LABEL_15;
   }
 
-  v16 = NSTemporaryDirectory();
+  v18 = NSTemporaryDirectory();
   if (subdirectory)
   {
 LABEL_15:
-    v16 = [(NSString *)v16 stringByAppendingPathComponent:subdirectory];
+    v18 = [(NSString *)v18 stringByAppendingPathComponent:subdirectory];
   }
 
 LABEL_16:
-  v17 = [(NSString *)v16 stringByAppendingPathComponent:v14];
-  v18 = 0;
+  v19 = [(NSString *)v18 stringByAppendingPathComponent:v16];
+  v20 = 0;
   if ([objc_msgSend(MEMORY[0x277CCAA00] "defaultManager")])
   {
-    self->_path = v17;
+    self->_path = v19;
   }
 
   else
   {
-    [MEMORY[0x277CBEAD8] tsu_raiseWithError:v18];
+    [MEMORY[0x277CBEAD8] tsu_raiseWithError:v20];
   }
 }
 

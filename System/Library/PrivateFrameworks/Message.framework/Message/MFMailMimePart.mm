@@ -2,6 +2,7 @@
 + (BOOL)isRecognizedClassForContent:(id)content;
 + (id)log;
 - (BOOL)_shouldContinueDecodingProcess;
+- (id)contentToOffset:(unint64_t)offset resultOffset:(unint64_t *)resultOffset downloadIfNecessary:(BOOL)necessary asHTML:(BOOL)l isComplete:(BOOL *)complete;
 - (id)decodeMessagePartial;
 - (id)decodeMessageRfc822;
 - (id)decodeMultipartAppledouble;
@@ -10,6 +11,7 @@
 - (id)decodeTextPlain;
 - (id)decodeTextRichtext;
 - (id)fileWrapperForDecodedObject:(id)object withFileData:(id *)data;
+- (id)storeData:(id)data inMessage:(id)message isComplete:(BOOL)complete;
 - (void)configureFileWrapper:(id)wrapper;
 @end
 
@@ -185,28 +187,21 @@ void __21__MFMailMimePart_log__block_invoke(uint64_t a1)
   if (wrapperCopy)
   {
     v5 = [(MFMailMimePart *)self bodyParameterForKey:*MEMORY[0x1E69AD630]];
-    if (v5)
+    if (v5 || (-[MFMailMimePart mimeBody](self, "mimeBody"), v6 = objc_claimAutoreleasedReturnValue(), [v6 message], v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "URL"), v5 = objc_claimAutoreleasedReturnValue(), v7, v6, v5) && (-[MFMailMimePart partNumber](self, "partNumber"), v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "stringByAppendingFormat:", @"&aid=%@", v8), v9 = objc_claimAutoreleasedReturnValue(), v5, v8, (v5 = v9) != 0))
     {
-      goto LABEL_3;
-    }
-
-    mimeBody = [(MFMailMimePart *)self mimeBody];
-    message = [mimeBody message];
-    v5 = [message URL];
-
-    if (v5)
-    {
-      partNumber = [(MFMailMimePart *)self partNumber];
-      v9 = [v5 stringByAppendingFormat:@"&aid=%@", partNumber];
-
-      v5 = v9;
-      if (v9)
-      {
-LABEL_3:
-        [wrapperCopy setURL:v5];
-      }
+      [wrapperCopy setURL:v5];
     }
   }
+}
+
+- (id)storeData:(id)data inMessage:(id)message isComplete:(BOOL)complete
+{
+  completeCopy = complete;
+  dataCopy = data;
+  messageStore = [message messageStore];
+  v10 = [messageStore storeData:dataCopy forMimePart:self isComplete:completeCopy];
+
+  return v10;
 }
 
 - (BOOL)_shouldContinueDecodingProcess
@@ -235,6 +230,98 @@ LABEL_3:
   }
 
   return v5;
+}
+
+- (id)contentToOffset:(unint64_t)offset resultOffset:(unint64_t *)resultOffset downloadIfNecessary:(BOOL)necessary asHTML:(BOOL)l isComplete:(BOOL *)complete
+{
+  lCopy = l;
+  necessaryCopy = necessary;
+  v31 = *MEMORY[0x1E69E9840];
+  v13 = +[MFActivityMonitor currentMonitor];
+  [v13 recordTransportType:1];
+
+  v29.receiver = self;
+  v29.super_class = MFMailMimePart;
+  v24 = [(MFMailMimePart *)&v29 contentToOffset:offset resultOffset:resultOffset downloadIfNecessary:necessaryCopy asHTML:lCopy isComplete:complete];
+  array = [MEMORY[0x1E695DF70] array];
+  if (v24)
+  {
+    v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
+    v15 = v24;
+    v16 = [(MFContentErrorDocument *)v15 countByEnumeratingWithState:&v25 objects:v30 count:16];
+    if (!v16)
+    {
+      goto LABEL_20;
+    }
+
+    v17 = *v26;
+    while (1)
+    {
+      for (i = 0; i != v16; ++i)
+      {
+        if (*v26 != v17)
+        {
+          objc_enumerationMutation(v15);
+        }
+
+        v19 = *(*(&v25 + 1) + 8 * i);
+        objc_opt_class();
+        if (objc_opt_isKindOfClass())
+        {
+          v20 = [v19 dataUsingEncoding:4];
+          v21 = [[MFWebMessageDocument alloc] initWithMimePart:self htmlData:v20 encoding:134217984];
+
+          if (v21)
+          {
+            goto LABEL_14;
+          }
+        }
+
+        else
+        {
+          objc_opt_class();
+          if (objc_opt_isKindOfClass())
+          {
+            v22 = [[MFContentErrorDocument alloc] initWithMimePart:self];
+          }
+
+          else
+          {
+            v22 = v19;
+          }
+
+          v21 = v22;
+          if (v22)
+          {
+LABEL_14:
+            [array addObject:v21];
+          }
+        }
+      }
+
+      v16 = [(MFContentErrorDocument *)v15 countByEnumeratingWithState:&v25 objects:v30 count:16];
+      if (!v16)
+      {
+LABEL_20:
+
+        goto LABEL_21;
+      }
+    }
+  }
+
+  if ([(MFMailMimePart *)self _shouldContinueDecodingProcess])
+  {
+    v15 = [[MFContentErrorDocument alloc] initWithMimePart:self];
+    [array addObject:v15];
+    goto LABEL_20;
+  }
+
+LABEL_21:
+
+  return array;
 }
 
 - (id)decodeMessageRfc822

@@ -221,7 +221,7 @@
     _NUAssertFailHandler("+[_NUStyleTransferApplyProcessor processWithInputs:arguments:output:error:]", "/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/neutrino/Core/Pipeline/NUStyleTransferNode.m", 1958, @"Missing style extent!", v120, v121, v122, v123, v172);
   }
 
-  [v15 region];
+  objc_msgSend_region(v15);
   v223.origin.x = v49;
   v223.origin.y = v51;
   v223.size.width = v53;
@@ -301,7 +301,7 @@
       _NUAssertFailHandler("+[_NUStyleTransferApplyProcessor processWithInputs:arguments:output:error:]", "/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/neutrino/Core/Pipeline/NUStyleTransferNode.m", 1967, @"Missing thumbnail extent!", v150, v151, v152, v153, v172);
     }
 
-    [v18 region];
+    objc_msgSend_region(v18);
     v224.origin.x = v58;
     v224.origin.y = v60;
     v224.size.width = v62;
@@ -439,7 +439,7 @@
       _NUAssertFailHandler("+[_NUStyleTransferApplyProcessor processWithInputs:arguments:output:error:]", "/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/neutrino/Core/Pipeline/NUStyleTransferNode.m", 1983, @"Missing target extent!", v168, v169, v170, v171, v172);
     }
 
-    [v24 region];
+    objc_msgSend_region(v24);
     v225.origin.x = v76;
     v225.origin.y = v78;
     v225.size.width = v80;
@@ -468,7 +468,7 @@ LABEL_43:
     }
   }
 
-  [outputCopy region];
+  objc_msgSend_region(outputCopy);
   v226.origin.x = v182;
   v226.origin.y = v181;
   v226.size.width = v180;
@@ -919,7 +919,7 @@ LABEL_10:
   [v28 setObject:v29 forKeyedSubscript:@"imageIndex"];
 
   v30 = MEMORY[0x1E695F688];
-  [imageCopy extent];
+  objc_msgSend_extent(imageCopy);
   v31 = [v30 vectorWithCGRect:?];
   [v28 setObject:v31 forKeyedSubscript:@"imageExtent"];
 
@@ -930,7 +930,7 @@ LABEL_10:
   [v28 setObject:v33 forKeyedSubscript:@"styleIndex"];
 
   v34 = MEMORY[0x1E695F688];
-  [styleCopy extent];
+  objc_msgSend_extent(styleCopy);
   v35 = [v34 vectorWithCGRect:?];
   [v28 setObject:v35 forKeyedSubscript:@"styleExtent"];
 
@@ -939,7 +939,7 @@ LABEL_10:
   [v28 setObject:v36 forKeyedSubscript:@"thumbIndex"];
 
   v37 = MEMORY[0x1E695F688];
-  [thumbnailCopy extent];
+  objc_msgSend_extent(thumbnailCopy);
   v38 = [v37 vectorWithCGRect:?];
   [v28 setObject:v38 forKeyedSubscript:@"thumbExtent"];
 
@@ -952,7 +952,7 @@ LABEL_10:
     [v28 setObject:v40 forKeyedSubscript:@"deltaIndex"];
 
     v41 = MEMORY[0x1E695F688];
-    [mapCopy extent];
+    objc_msgSend_extent(mapCopy);
     v42 = [v41 vectorWithCGRect:?];
     [v28 setObject:v42 forKeyedSubscript:@"deltaExtent"];
 
@@ -965,7 +965,7 @@ LABEL_10:
     [v28 setObject:v43 forKeyedSubscript:@"targetIndex"];
 
     v44 = MEMORY[0x1E695F688];
-    [v151 extent];
+    objc_msgSend_extent(v151);
     v45 = [v44 vectorWithCGRect:?];
     [v28 setObject:v45 forKeyedSubscript:@"targetExtent"];
 
@@ -973,7 +973,7 @@ LABEL_10:
     [v27 addObject:v46];
   }
 
-  [imageCopy extent];
+  objc_msgSend_extent(imageCopy);
   v152 = 0;
   v47 = [self applyWithExtent:v27 inputs:v28 arguments:&v152 error:?];
   v48 = v152;

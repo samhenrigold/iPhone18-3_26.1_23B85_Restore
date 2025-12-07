@@ -24,12 +24,12 @@
   {
     if (!v6)
     {
-      [SBCameraActivationManager initWithWorkspace:? lockScreenManager:?];
+      [SBCameraActivationManager initWithWorkspace:self lockScreenManager:?];
     }
 
     if (!workspaceCopy)
     {
-      [SBCameraActivationManager initWithWorkspace:? lockScreenManager:?];
+      [SBCameraActivationManager initWithWorkspace:self lockScreenManager:?];
     }
 
     v10.receiver = self;
@@ -48,78 +48,80 @@
 
 - (uint64_t)activateCaptureApplicationWithBundleID:(void *)d URL:(uint64_t)l launchType:(unint64_t)type fromSource:(void *)source withPreludeAnimationToken:(void *)token completion:
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   v13 = a2;
   dCopy = d;
   sourceCopy = source;
   tokenCopy = token;
+  v31 = tokenCopy;
   if (self)
   {
     if (!(v13 | dCopy))
     {
-      dCopy = [MEMORY[0x277CBEBC0] URLWithString:@"camera://"];
+      tokenCopy = [MEMORY[0x277CBEBC0] URLWithString:@"camera://"];
+      dCopy = tokenCopy;
     }
 
     lCopy = l;
-    v16 = SBLogCameraActivation();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v17 = SBLogCameraActivation(tokenCopy);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = SBMainWorkspaceTransitionSourceDescription(type);
+      v18 = SBMainWorkspaceTransitionSourceDescription(type);
       *buf = 138543874;
-      v45 = v13;
-      v46 = 2114;
-      v47 = dCopy;
-      v48 = 2114;
-      v49 = v17;
-      _os_log_impl(&dword_21ED4E000, v16, OS_LOG_TYPE_DEFAULT, "(Activating capture application %{public}@ (with url: %{public}@) from source: %{public}@", buf, 0x20u);
+      v46 = v13;
+      v47 = 2114;
+      v48 = dCopy;
+      v49 = 2114;
+      v50 = v18;
+      _os_log_impl(&dword_21ED4E000, v17, OS_LOG_TYPE_DEFAULT, "(Activating capture application %{public}@ (with url: %{public}@) from source: %{public}@", buf, 0x20u);
     }
 
-    v18 = *(self + 8);
-    v19 = *(self + 16);
+    v19 = *(self + 8);
+    v20 = *(self + 16);
     if (v13)
     {
-      v20 = +[SBApplicationController sharedInstance];
-      v21 = [v20 applicationWithBundleIdentifier:v13];
+      v21 = +[SBApplicationController sharedInstance];
+      v22 = [v21 applicationWithBundleIdentifier:v13];
 
-      v22 = 0;
+      v23 = 0;
     }
 
     else
     {
-      v42 = 0;
-      v21 = SBWorkspaceApplicationForURLWithError(dCopy, 0, &v42);
-      v22 = v42;
+      v43 = 0;
+      v22 = SBWorkspaceApplicationForURLWithError(dCopy, 0, &v43);
+      v23 = v43;
     }
 
-    v23 = [[SBDeviceApplicationSceneEntity alloc] initWithApplicationForMainDisplay:v21];
-    v31[0] = MEMORY[0x277D85DD0];
-    v31[1] = 3221225472;
-    v31[2] = __131__SBCameraActivationManager_activateCaptureApplicationWithBundleID_URL_launchType_fromSource_withPreludeAnimationToken_completion___block_invoke;
-    v31[3] = &unk_2783AD930;
-    v41 = (type - 32 < 0x27) & (0x4800000001uLL >> (type - 32));
+    v24 = [[SBDeviceApplicationSceneEntity alloc] initWithApplicationForMainDisplay:v22];
+    v32[0] = MEMORY[0x277D85DD0];
+    v32[1] = 3221225472;
+    v32[2] = __131__SBCameraActivationManager_activateCaptureApplicationWithBundleID_URL_launchType_fromSource_withPreludeAnimationToken_completion___block_invoke;
+    v32[3] = &unk_2783AD930;
+    v42 = (type - 32 < 0x27) & (0x4800000001uLL >> (type - 32));
     typeCopy = type;
-    v32 = v23;
-    v33 = sourceCopy;
-    v34 = v22;
-    v40 = lCopy;
-    v35 = v13;
-    v24 = tokenCopy;
+    v33 = v24;
+    v34 = sourceCopy;
+    v35 = v23;
+    v41 = lCopy;
+    v36 = v13;
+    v25 = v31;
     selfCopy = self;
-    v38 = tokenCopy;
-    v36 = v19;
-    v25 = v19;
-    v26 = v22;
+    v39 = v31;
+    v37 = v20;
+    v26 = v20;
     v27 = v23;
-    v43 = [v18 requestTransitionWithOptions:0 displayConfiguration:0 builder:v31 validator:&__block_literal_global_37];
+    v28 = v24;
+    v44 = [v19 requestTransitionWithOptions:0 displayConfiguration:0 builder:v32 validator:&__block_literal_global_37];
   }
 
   else
   {
-    v43 = 0;
-    v24 = tokenCopy;
+    v44 = 0;
+    v25 = tokenCopy;
   }
 
-  return v43;
+  return v44;
 }
 
 void __131__SBCameraActivationManager_activateCaptureApplicationWithBundleID_URL_launchType_fromSource_withPreludeAnimationToken_completion___block_invoke(uint64_t a1, void *a2)
@@ -215,7 +217,7 @@ void __131__SBCameraActivationManager_activateCaptureApplicationWithBundleID_URL
   }
 
   v5 = v4;
-  v6 = SBLogCameraActivation();
+  v6 = SBLogCameraActivation(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = *(a1 + 32);
@@ -234,46 +236,46 @@ void __131__SBCameraActivationManager_activateCaptureApplicationWithBundleID_URL
   (*(*(a1 + 40) + 16))();
 }
 
-- (void)initWithWorkspace:(const char *)a1 lockScreenManager:.cold.1(const char *a1)
+- (void)initWithWorkspace:(const char *)a1 lockScreenManager:(uint64_t)a2 .cold.1(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"lockScreenManager != ((void *)0)"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"lockScreenManager != ((void *)0)"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    v8 = @"SBCameraActivationManager.m";
-    v9 = 1024;
-    v10 = 59;
-    v11 = v6;
-    v12 = v2;
+    v9 = @"SBCameraActivationManager.m";
+    v10 = 1024;
+    v11 = 59;
+    v12 = v7;
+    v13 = v3;
     _os_log_error_impl(&dword_21ED4E000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
-- (void)initWithWorkspace:(const char *)a1 lockScreenManager:.cold.2(const char *a1)
+- (void)initWithWorkspace:(const char *)a1 lockScreenManager:(uint64_t)a2 .cold.2(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"workspace != ((void *)0)"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"workspace != ((void *)0)"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    v8 = @"SBCameraActivationManager.m";
-    v9 = 1024;
-    v10 = 58;
-    v11 = v6;
-    v12 = v2;
+    v9 = @"SBCameraActivationManager.m";
+    v10 = 1024;
+    v11 = 58;
+    v12 = v7;
+    v13 = v3;
     _os_log_error_impl(&dword_21ED4E000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }

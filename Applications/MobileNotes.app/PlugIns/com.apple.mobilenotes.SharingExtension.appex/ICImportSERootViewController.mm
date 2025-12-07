@@ -5,6 +5,7 @@
 - (void)importNotes;
 - (void)importStartedForNoteProcessor:(id)processor;
 - (void)progressUpdatedForImportNoteProcessor:(id)processor;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
 
@@ -20,6 +21,91 @@
 
   importNoteProcessor = [(ICImportSERootViewController *)self importNoteProcessor];
   [importNoteProcessor setDelegate:self];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v35.receiver = self;
+  v35.super_class = ICImportSERootViewController;
+  [(ICImportSERootViewController *)&v35 viewDidAppear:appear];
+  v4 = +[ICNoteContext sharedContext];
+  managedObjectContext = [v4 managedObjectContext];
+  v6 = [ICAccount defaultAccountInContext:managedObjectContext];
+
+  if (v6)
+  {
+    v7 = +[NSBundle mainBundle];
+    v8 = [v7 localizedStringForKey:@"Import to Notes?" value:&stru_1000F6F48 table:0];
+    v9 = +[NSBundle mainBundle];
+    v10 = [v9 localizedStringForKey:@"This file’s notes will be added to an Imported Notes folder. They may look different." value:&stru_1000F6F48 table:0];
+    v11 = [UIAlertController alertControllerWithTitle:v8 message:v10 preferredStyle:1];
+
+    v12 = +[NSBundle mainBundle];
+    v13 = [v12 localizedStringForKey:@"Import" value:&stru_1000F6F48 table:0];
+    v32[0] = _NSConcreteStackBlock;
+    v32[1] = 3221225472;
+    v32[2] = sub_100006748;
+    v32[3] = &unk_1000F22B0;
+    v32[4] = self;
+    v14 = [UIAlertAction actionWithTitle:v13 style:0 handler:v32];
+
+    [v11 addAction:v14];
+    v15 = +[NSBundle mainBundle];
+    v16 = [v15 localizedStringForKey:@"Cancel" value:&stru_1000F6F48 table:0];
+    v31[0] = _NSConcreteStackBlock;
+    v31[1] = 3221225472;
+    v31[2] = sub_10000693C;
+    v31[3] = &unk_1000F22B0;
+    v31[4] = self;
+    v17 = [UIAlertAction actionWithTitle:v16 style:1 handler:v31];
+
+    [v11 addAction:v17];
+    [(ICImportSERootViewController *)self presentViewController:v11 animated:1 completion:0];
+  }
+
+  else
+  {
+    IsAppleAccountBrandingEnabled = ICInternalSettingsIsAppleAccountBrandingEnabled();
+    v19 = +[NSBundle mainBundle];
+    v20 = v19;
+    if (IsAppleAccountBrandingEnabled)
+    {
+      v21 = @"To import to Notes, you’ll need to go to Notes and upgrade your Apple Account.";
+    }
+
+    else
+    {
+      v21 = @"To import to Notes, you’ll need to go to Notes and upgrade your iCloud account.";
+    }
+
+    v11 = [v19 localizedStringForKey:v21 value:&stru_1000F6F48 table:0];
+
+    v22 = +[NSBundle mainBundle];
+    v23 = [v22 localizedStringForKey:@"Upgrade Your Notes" value:&stru_1000F6F48 table:0];
+    v24 = [UIAlertController alertControllerWithTitle:v23 message:v11 preferredStyle:1];
+
+    v25 = +[NSBundle mainBundle];
+    v26 = [v25 localizedStringForKey:@"Cancel" value:&stru_1000F6F48 table:0];
+    v34[0] = _NSConcreteStackBlock;
+    v34[1] = 3221225472;
+    v34[2] = sub_100006688;
+    v34[3] = &unk_1000F22B0;
+    v34[4] = self;
+    v27 = [UIAlertAction actionWithTitle:v26 style:1 handler:v34];
+
+    v28 = +[NSBundle mainBundle];
+    v29 = [v28 localizedStringForKey:@"Go to Notes" value:&stru_1000F6F48 table:0];
+    v33[0] = _NSConcreteStackBlock;
+    v33[1] = 3221225472;
+    v33[2] = sub_100006690;
+    v33[3] = &unk_1000F22B0;
+    v33[4] = self;
+    v30 = [UIAlertAction actionWithTitle:v29 style:0 handler:v33];
+
+    [v24 addAction:v30];
+    [v24 addAction:v27];
+    [(ICImportSERootViewController *)self presentViewController:v24 animated:1 completion:0];
+  }
 }
 
 - (void)progressUpdatedForImportNoteProcessor:(id)processor

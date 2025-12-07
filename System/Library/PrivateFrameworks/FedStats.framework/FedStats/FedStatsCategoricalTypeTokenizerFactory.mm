@@ -10,19 +10,19 @@
 
 + (Class)stringToTokenizerClass:(id)class error:(id *)error
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   classCopy = class;
-  v10 = @"character";
+  v9 = @"character";
+  v14 = objc_opt_class();
+  v10 = @"delimited";
   v15 = objc_opt_class();
-  v11 = @"delimited";
+  v11 = @"url";
   v16 = objc_opt_class();
-  v12 = @"url";
+  v12 = @"ngram";
   v17 = objc_opt_class();
-  v13 = @"ngram";
+  v13 = @"charactersFromUnknownSample";
   v18 = objc_opt_class();
-  v14 = @"charactersFromUnknownSample";
-  v19 = objc_opt_class();
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:&v10 count:5];
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v14 forKeys:&v9 count:5];
   if ([v6 objectForKeyedSubscript:classCopy])
   {
     error = [v6 objectForKeyedSubscript:classCopy];
@@ -34,8 +34,6 @@
 
     error = 0;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return error;
 }

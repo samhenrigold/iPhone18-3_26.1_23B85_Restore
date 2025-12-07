@@ -31,7 +31,7 @@
 
 - (BOOL)removeToken
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E696AB90] one];
   if (self)
   {
@@ -70,11 +70,11 @@
       {
         name = self->_name;
         v19 = self->_lock_availableTokens;
-        v24 = 138412546;
-        v25 = name;
-        v26 = 2112;
-        v27 = v19;
-        _os_signpost_emit_with_name_impl(&dword_1D8B9C000, v17, OS_SIGNPOST_EVENT, v15, "PFTokenBucket consume", "name: %@, availableTokens: %@", &v24, 0x16u);
+        v23 = 138412546;
+        v24 = name;
+        v25 = 2112;
+        v26 = v19;
+        _os_signpost_emit_with_name_impl(&dword_1D8B9C000, v17, OS_SIGNPOST_EVENT, v15, "PFTokenBucket consume", "name: %@, availableTokens: %@", &v23, 0x16u);
       }
 
       v20 = [(NSDecimalNumber *)self->_lock_availableTokens decimalNumberBySubtracting:v3];
@@ -91,7 +91,6 @@
     v14 = 0;
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return v14;
 }
 

@@ -129,14 +129,14 @@ LABEL_27:
 
 - (PDFFormField)initWithFormDictionary:(CGPDFDictionary *)dictionary
 {
-  v41 = 0u;
   v42 = 0u;
+  v43 = 0u;
   value = 0;
   string = 0;
-  v37.receiver = self;
-  v37.super_class = PDFFormField;
-  v38 = 0;
-  v4 = [(PDFFormField *)&v37 init];
+  v38.receiver = self;
+  v38.super_class = PDFFormField;
+  v39 = 0;
+  v4 = [(PDFFormField *)&v38 init];
   v5 = v4;
   if (v4)
   {
@@ -154,13 +154,14 @@ LABEL_27:
     if (CGPDFDictionaryGetRect())
     {
       v7 = v5->_private;
-      v7->bounds.origin.x = PDFRectFromCGRect(*&v41, *(&v41 + 1), *&v42, *(&v42 + 1));
-      v7->bounds.origin.y = v8;
-      v7->bounds.size.width = v9;
-      v7->bounds.size.height = v10;
+      PDFRectFromCGRect();
+      v7->bounds.origin.x = v8;
+      v7->bounds.origin.y = v9;
+      v7->bounds.size.width = v10;
+      v7->bounds.size.height = v11;
     }
 
-    if (!CGPDFDictionaryGetName(dictionary, "FT", &v38))
+    if (!CGPDFDictionaryGetName(dictionary, "FT", &v39))
     {
 LABEL_24:
       if (!CGPDFDictionaryGetString(dictionary, "T", &string))
@@ -169,123 +170,123 @@ LABEL_24:
         goto LABEL_37;
       }
 
-      v21 = CGPDFStringCopyTextString(string);
-      v22 = v5->_private;
-      fieldName = v22->fieldName;
-      v22->fieldName = &v21->isa;
+      v22 = CGPDFStringCopyTextString(string);
+      v23 = v5->_private;
+      fieldName = v23->fieldName;
+      v23->fieldName = &v22->isa;
 
-      if (!CGPDFDictionaryGetName(dictionary, "V", &v38))
+      if (!CGPDFDictionaryGetName(dictionary, "V", &v39))
       {
         if (CGPDFDictionaryGetString(dictionary, "V", &string))
         {
-          v25 = CGPDFStringCopyTextString(string);
+          v26 = CGPDFStringCopyTextString(string);
           goto LABEL_30;
         }
 
-        if (!CGPDFDictionaryGetName(dictionary, "AS", &v38))
+        if (!CGPDFDictionaryGetName(dictionary, "AS", &v39))
         {
           goto LABEL_31;
         }
       }
 
-      v24 = objc_alloc(MEMORY[0x1E696AEC0]);
-      v25 = [v24 initWithCString:v38 encoding:1];
+      v25 = objc_alloc(MEMORY[0x1E696AEC0]);
+      v26 = [v25 initWithCString:v39 encoding:1];
 LABEL_30:
-      v26 = v5->_private;
-      stringValue = v26->stringValue;
-      v26->stringValue = &v25->isa;
+      v27 = v5->_private;
+      stringValue = v27->stringValue;
+      v27->stringValue = &v26->isa;
 
 LABEL_31:
       if (CGPDFDictionaryGetString(dictionary, "DV", &string))
       {
-        v28 = CGPDFStringCopyTextString(string);
-        v29 = 1;
+        v29 = CGPDFStringCopyTextString(string);
+        v30 = 1;
       }
 
       else
       {
-        v30 = v5->_private;
-        v31 = v30->stringValue;
-        if (!v31 || !v30->fieldType)
+        v31 = v5->_private;
+        v32 = v31->stringValue;
+        if (!v32 || !v31->fieldType)
         {
           goto LABEL_37;
         }
 
-        v28 = [(NSString *)v31 copy];
-        v29 = 0;
+        v29 = [(NSString *)v32 copy];
+        v30 = 0;
       }
 
-      v32 = v5->_private;
-      defaultStringValue = v32->defaultStringValue;
-      v32->defaultStringValue = &v28->isa;
+      v33 = v5->_private;
+      defaultStringValue = v33->defaultStringValue;
+      v33->defaultStringValue = &v29->isa;
 
-      v5->_private->writeDefaultValue = v29;
+      v5->_private->writeDefaultValue = v30;
 LABEL_37:
-      v34 = v5;
+      v35 = v5;
       goto LABEL_38;
     }
 
-    v11 = objc_alloc(MEMORY[0x1E696AEC0]);
-    v12 = [v11 initWithUTF8String:v38];
-    v13 = [PDFAnnotation getProperNameStringFromString:v12];
+    v12 = objc_alloc(MEMORY[0x1E696AEC0]);
+    v13 = [v12 initWithUTF8String:v39];
+    v14 = [PDFAnnotation getProperNameStringFromString:v13];
 
-    if ([v13 isEqualToString:@"/Btn"])
+    if ([v14 isEqualToString:@"/Btn"])
     {
       v5->_private->fieldType = 0;
       if ((v6 & 0x8000) != 0)
       {
-        v14 = v5->_private;
-        v15 = 1;
+        v15 = v5->_private;
+        v16 = 1;
       }
 
       else
       {
-        v14 = v5->_private;
+        v15 = v5->_private;
         if ((v6 & 0x10000) != 0)
         {
-          v14->buttonType = 0;
+          v15->buttonType = 0;
           goto LABEL_23;
         }
 
-        v15 = 2;
+        v16 = 2;
       }
 
-      v14->buttonType = v15;
+      v15->buttonType = v16;
     }
 
     else
     {
-      if ([v13 isEqualToString:@"/Tx"])
+      if ([v14 isEqualToString:@"/Tx"])
       {
-        v16 = v5->_private;
-        v17 = 1;
+        v17 = v5->_private;
+        v18 = 1;
       }
 
       else
       {
-        if (![v13 isEqualToString:@"/Ch"])
+        if (![v14 isEqualToString:@"/Ch"])
         {
-          if ([v13 isEqualToString:@"/Sig"])
+          if ([v14 isEqualToString:@"/Sig"])
           {
             v5->_private->fieldType = 3;
-            v36 = 0;
-            if (CGPDFDictionaryGetDictionary(dictionary, "V", &v36))
+            v37 = 0;
+            if (CGPDFDictionaryGetDictionary(dictionary, "V", &v37))
             {
-              v18 = CGPDFDictionaryCreateNSDictionary(v36);
-              v19 = v5->_private;
-              digitalSignature = v19->digitalSignature;
-              v19->digitalSignature = v18;
+              v19 = CGPDFDictionaryCreateNSDictionary(v37);
+              v20 = v5->_private;
+              digitalSignature = v20->digitalSignature;
+              v20->digitalSignature = v19;
             }
           }
 
           goto LABEL_23;
         }
 
-        v16 = v5->_private;
-        v17 = 2;
+        v17 = v5->_private;
+        v18 = 2;
       }
 
-      v16->fieldType = v17;
+      v17->fieldType = v18;
     }
 
 LABEL_23:
@@ -751,7 +752,7 @@ LABEL_24:
   fieldName = [(PDFFormField *)self fieldName];
   stringValue = [(PDFFormField *)self stringValue];
   defaultStringValue = [(PDFFormField *)self defaultStringValue];
-  v7 = [v3 stringWithFormat:@"Field \"%@\" = \"%@\" (\"%@\"", fieldName, stringValue, defaultStringValue];
+  v7 = [v3 stringWithFormat:@"Field %@ = %@ (%@", fieldName, stringValue, defaultStringValue];
 
   return v7;
 }

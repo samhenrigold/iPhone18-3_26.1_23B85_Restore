@@ -153,16 +153,16 @@
 
 + (id)voiceFromAVVoice:(id)voice
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   voiceCopy = voice;
   if (!voiceCopy)
   {
     v4 = getWFActionsLogObject();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v10 = 136315138;
-      v11 = "+[WFSpeechSynthesisVoice voiceFromAVVoice:]";
-      _os_log_impl(&dword_23DE30000, v4, OS_LOG_TYPE_ERROR, "%s Attempting to create a speech synthesis voice without a backing avVoice", &v10, 0xCu);
+      v9 = 136315138;
+      v10 = "+[WFSpeechSynthesisVoice voiceFromAVVoice:]";
+      _os_log_impl(&dword_23DE30000, v4, OS_LOG_TYPE_ERROR, "%s Attempting to create a speech synthesis voice without a backing avVoice", &v9, 0xCu);
     }
   }
 
@@ -171,7 +171,6 @@
   v7 = [(WFSpeechSynthesisVoice *)v5 initWithIdentifier:identifier];
 
   [(WFSpeechSynthesisVoice *)v7 setAvVoice:voiceCopy];
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -194,52 +193,52 @@
 
 + (id)defaultVoiceForLanguageCode:(id)code
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   codeCopy = code;
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x2050000000;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x2050000000;
   v5 = getAXSettingsClass_softClass;
-  v28 = getAXSettingsClass_softClass;
+  v27 = getAXSettingsClass_softClass;
   if (!getAXSettingsClass_softClass)
   {
     *buf = MEMORY[0x277D85DD0];
     *&buf[8] = 3221225472;
     *&buf[16] = __getAXSettingsClass_block_invoke;
-    v30 = &unk_278C222B8;
-    v31 = &v25;
+    v29 = &unk_278C222B8;
+    v30 = &v24;
     __getAXSettingsClass_block_invoke(buf);
-    v5 = v26[3];
+    v5 = v25[3];
   }
 
   v6 = v5;
-  _Block_object_dispose(&v25, 8);
+  _Block_object_dispose(&v24, 8);
   sharedInstance = [v5 sharedInstance];
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x2020000000;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x2020000000;
   v8 = getAXSpeechSourceKeySpeechFeaturesSymbolLoc_ptr;
-  v28 = getAXSpeechSourceKeySpeechFeaturesSymbolLoc_ptr;
+  v27 = getAXSpeechSourceKeySpeechFeaturesSymbolLoc_ptr;
   if (!getAXSpeechSourceKeySpeechFeaturesSymbolLoc_ptr)
   {
     *buf = MEMORY[0x277D85DD0];
     *&buf[8] = 3221225472;
     *&buf[16] = __getAXSpeechSourceKeySpeechFeaturesSymbolLoc_block_invoke;
-    v30 = &unk_278C222B8;
-    v31 = &v25;
+    v29 = &unk_278C222B8;
+    v30 = &v24;
     v9 = AccessibilityUtilitiesLibrary();
     v10 = dlsym(v9, "AXSpeechSourceKeySpeechFeatures");
-    *(v31[1] + 24) = v10;
-    getAXSpeechSourceKeySpeechFeaturesSymbolLoc_ptr = *(v31[1] + 24);
-    v8 = v26[3];
+    *(v30[1] + 24) = v10;
+    getAXSpeechSourceKeySpeechFeaturesSymbolLoc_ptr = *(v30[1] + 24);
+    v8 = v25[3];
   }
 
-  _Block_object_dispose(&v25, 8);
+  _Block_object_dispose(&v24, 8);
   if (!v8)
   {
     currentHandler = [MEMORY[0x277CCA890] currentHandler];
-    v24 = [MEMORY[0x277CCACA8] stringWithUTF8String:"NSString *getAXSpeechSourceKeySpeechFeatures(void)"];
-    [currentHandler handleFailureInFunction:v24 file:@"WFSpeechSynthesisVoice.m" lineNumber:42 description:{@"%s", dlerror()}];
+    v23 = [MEMORY[0x277CCACA8] stringWithUTF8String:"NSString *getAXSpeechSourceKeySpeechFeatures(void)"];
+    [currentHandler handleFailureInFunction:v23 file:@"WFSpeechSynthesisVoice.m" lineNumber:42 description:{@"%s", dlerror()}];
 
     __break(1u);
   }
@@ -303,8 +302,6 @@
 
 LABEL_19:
   v20 = [self voiceFromAVVoice:firstObject];
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v20;
 }

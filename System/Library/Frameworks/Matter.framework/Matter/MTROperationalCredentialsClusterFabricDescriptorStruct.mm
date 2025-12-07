@@ -60,8 +60,8 @@
   vidVerificationStatement = [(MTROperationalCredentialsClusterFabricDescriptorStruct *)self vidVerificationStatement];
   [(MTROperationalCredentialsClusterFabricDescriptorStruct *)v4 setVidVerificationStatement:vidVerificationStatement];
 
-  fabricIndex = [(MTROperationalCredentialsClusterFabricDescriptorStruct *)self fabricIndex];
-  [(MTROperationalCredentialsClusterFabricDescriptorStruct *)v4 setFabricIndex:fabricIndex];
+  v11 = objc_msgSend_fabricIndex(self);
+  [(MTROperationalCredentialsClusterFabricDescriptorStruct *)v4 setFabricIndex:v11];
 
   return v4;
 }

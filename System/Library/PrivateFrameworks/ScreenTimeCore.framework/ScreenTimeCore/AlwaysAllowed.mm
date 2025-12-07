@@ -14,11 +14,10 @@
 
 - (NSSet)apps
 {
-  v2 = *(self + OBJC_IVAR____TtC14ScreenTimeCore13AlwaysAllowed_apps);
 
-  v3 = sub_1B83DDE5C();
+  v2 = sub_1B83DDE5C();
 
-  return v3;
+  return v2;
 }
 
 - (_TtC14ScreenTimeCore13AlwaysAllowed)initWithApps:(id)apps
@@ -82,26 +81,24 @@
 
   v10 = sub_1B83A321C(inited, v7);
   swift_setDeallocating();
-  v11 = *(inited + 16);
   swift_arrayDestroy();
-  v12 = type metadata accessor for AlwaysAllowed();
-  v13 = objc_allocWithZone(v12);
-  *&v13[OBJC_IVAR____TtC14ScreenTimeCore13AlwaysAllowed_apps] = v10;
-  v16.receiver = v13;
-  v16.super_class = v12;
-  v14 = [(AlwaysAllowed *)&v16 init];
+  v11 = type metadata accessor for AlwaysAllowed();
+  v12 = objc_allocWithZone(v11);
+  *&v12[OBJC_IVAR____TtC14ScreenTimeCore13AlwaysAllowed_apps] = v10;
+  v15.receiver = v12;
+  v15.super_class = v11;
+  v13 = [(AlwaysAllowed *)&v15 init];
 
-  return v14;
+  return v13;
 }
 
 - (void)encodeWithCoder:(id)coder
 {
-  v4 = *(self + OBJC_IVAR____TtC14ScreenTimeCore13AlwaysAllowed_apps);
   coderCopy = coder;
   selfCopy = self;
-  v6 = sub_1B83DDE5C();
-  v7 = sub_1B83DDCBC();
-  [coderCopy encodeObject:v6 forKey:v7];
+  v5 = sub_1B83DDE5C();
+  v6 = sub_1B83DDCBC();
+  [coderCopy encodeObject:v5 forKey:v6];
 }
 
 - (int64_t)hash

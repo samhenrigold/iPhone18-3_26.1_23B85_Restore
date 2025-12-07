@@ -12,15 +12,13 @@
 
 - (NSArray)attributeDescriptions
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E69A29C8]);
   [(HMHomePersonManagerSettings *)self isFaceClassificationEnabled];
   v4 = HMFBooleanToString();
   v5 = [v3 initWithName:@"Face Classification Enabled" value:v4];
-  v9[0] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v8[0] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
 
   return v6;
 }

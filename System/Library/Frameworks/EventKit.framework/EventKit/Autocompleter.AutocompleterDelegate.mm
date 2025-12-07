@@ -13,7 +13,7 @@
   (*(*(v4 - 8) + 56))(self + v3, 1, 1, v4);
   *(&self->super.isa + OBJC_IVAR____TtCV8EventKit13AutocompleterP33_DEA997DC7EC58B9D25A8208EE08F08CD21AutocompleterDelegate_autocompleter) = 0;
   v6.receiver = self;
-  v6.super_class = type metadata accessor for Autocompleter.AutocompleterDelegate();
+  v6.super_class = type metadata accessor for Autocompleter.AutocompleterDelegate(0);
   return [(Autocompleter.AutocompleterDelegate *)&v6 init];
 }
 

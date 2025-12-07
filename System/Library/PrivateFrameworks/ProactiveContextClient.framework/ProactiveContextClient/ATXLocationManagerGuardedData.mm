@@ -40,9 +40,7 @@
   lastPredictedLOIsUpdateTimestamp = self->lastPredictedLOIsUpdateTimestamp;
   self->lastPredictedLOIsUpdateTimestamp = distantPast3;
 
-  distantPast4 = [MEMORY[0x277CBEAA8] distantPast];
-  lastPredictedExitTimesUpdateTimestamp = self->lastPredictedExitTimesUpdateTimestamp;
-  self->lastPredictedExitTimesUpdateTimestamp = distantPast4;
+  self->lastPredictedExitTimesUpdateTimestamp = [MEMORY[0x277CBEAA8] distantPast];
 
   MEMORY[0x2821F96F8]();
 }

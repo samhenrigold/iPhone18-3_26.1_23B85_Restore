@@ -6,6 +6,7 @@
 - (void)artworkRequest:(id)request didLoadImage:(id)image;
 - (void)dealloc;
 - (void)reloadAfterDocumentUpdateWithNavigationItem:(id)item;
+- (void)view;
 - (void)viewLayoutContext;
 @end
 
@@ -132,11 +133,41 @@
   }
 }
 
+- (void)barButtonItemForElementIdentifier:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUINavigationBarSectionController barButtonItemForElementIdentifier:]";
+}
+
+- (void)reloadAfterDocumentUpdateWithNavigationItem:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUINavigationBarSectionController reloadAfterDocumentUpdateWithNavigationItem:]";
+}
+
+- (void)view
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUINavigationBarSectionController view]";
+}
+
+- (void)viewForElementIdentifier:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUINavigationBarSectionController viewForElementIdentifier:]";
+}
+
 - (void)viewLayoutContext
 {
   v2 = *MEMORY[0x277D85DE8];
   v0 = 136446210;
   v1 = "[SKUINavigationBarSectionController viewLayoutContext]";
+}
+
+- (void)artworkRequest:(uint64_t)a3 didLoadImage:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUINavigationBarSectionController artworkRequest:didLoadImage:]";
 }
 
 @end

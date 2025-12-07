@@ -2,6 +2,7 @@
 - (VPNCiscoImageHeader)initWithSpecifier:(id)specifier;
 - (double)preferredHeightForWidth:(double)width;
 - (void)layoutSubviews;
+- (void)setImageHidden:(BOOL)hidden;
 @end
 
 @implementation VPNCiscoImageHeader
@@ -62,6 +63,13 @@
   }
 
   return v5;
+}
+
+- (void)setImageHidden:(BOOL)hidden
+{
+  hiddenCopy = hidden;
+  imageView = [(VPNCiscoImageHeader *)self imageView];
+  [imageView setHidden:hiddenCopy];
 }
 
 - (void)layoutSubviews

@@ -10,8 +10,6 @@ uint64_t ___PurgeDirectory_block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
     v6 = *(a2 + 8);
     if (gLogHandle && *(gLogHandle + 44) >= 7)
     {
-      v8 = *(a2 + 8);
-      v9 = *(a2 + 24);
       MOLogWrite();
     }
 

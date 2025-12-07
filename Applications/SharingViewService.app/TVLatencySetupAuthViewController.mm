@@ -124,7 +124,7 @@
   buttonCopy = button;
   if (dword_1001BF2B8 <= 30 && (dword_1001BF2B8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BF2B8, "[TVLatencySetupAuthViewController handleDismissButton:]", 30, "Dismiss button\n");
   }
 
   [*(&self->_infoLabel + 1) setDisabled:1];
@@ -136,7 +136,7 @@
   disappearCopy = disappear;
   if (dword_1001BF2B8 <= 30 && (dword_1001BF2B8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BF2B8, "[TVLatencySetupAuthViewController viewDidDisappear:]", 30, "Done ViewDidDisappear\n");
   }
 
   v6.receiver = self;
@@ -151,7 +151,7 @@
   appearCopy = appear;
   if (dword_1001BF2B8 <= 30 && (dword_1001BF2B8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BF2B8, "[TVLatencySetupAuthViewController viewWillAppear:]", 30, "Done ViewWillAppear\n");
   }
 
   v15.receiver = self;

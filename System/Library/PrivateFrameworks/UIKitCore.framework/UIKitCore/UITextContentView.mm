@@ -301,7 +301,7 @@ LABEL_16:
   self->m_font = v7;
 
   self->m_marginTop = 8;
-  v9 = +[UIColor blackColor];
+  v9 = objc_msgSend_blackColor(UIColor);
   m_textColor = self->m_textColor;
   self->m_textColor = v9;
 
@@ -1680,7 +1680,7 @@ LABEL_7:
   {
     if (!colorCopy)
     {
-      colorCopy = +[UIColor blackColor];
+      colorCopy = objc_msgSend_blackColor(UIColor);
     }
 
     obj = colorCopy;

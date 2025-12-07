@@ -2,6 +2,7 @@
 - (BOOL)expandTLVs;
 - (BOOL)queryTatsuSigningServer:(id)server ssoOnly:(BOOL)only error:(id *)error;
 - (UARPSuperBinaryPayloadBackDeploy)initWithData:(id)data metaData:(id)metaData tag:(id)tag version:(id)version;
+- (id)composeTSSRequest:(unint64_t)request asMeasurement:(BOOL)measurement;
 - (id)description;
 - (id)personalizedData;
 - (id)personalizedMetaData;
@@ -355,6 +356,84 @@ LABEL_29:
   }
 
   return v3;
+}
+
+- (id)composeTSSRequest:(unint64_t)request asMeasurement:(BOOL)measurement
+{
+  measurementCopy = measurement;
+  manifest = self->_manifest;
+  self->_manifest = 0;
+
+  v8 = objc_opt_new();
+  tssRequest = self->_tssRequest;
+  self->_tssRequest = v8;
+
+  v10 = objc_opt_new();
+  keyManifest = self->_keyManifest;
+  self->_keyManifest = v10;
+
+  [(NSMutableString *)self->_keyManifest appendFormat:@"%@", self->_ticketPrefix];
+  if (self->_ticketNeedsUnitNumber)
+  {
+    [(NSMutableString *)self->_keyManifest appendFormat:@"%lu", request];
+  }
+
+  [(NSMutableString *)self->_keyManifest appendFormat:@", Ticket"];
+  if (!measurementCopy)
+  {
+    v27 = objc_opt_new();
+    [v27 appendFormat:@"@%@", self->_keyManifest];
+    [(NSMutableDictionary *)self->_tssRequest setObject:&__kCFBooleanTrue forKeyedSubscript:v27];
+    v28 = [(UARPSuperBinaryPayloadBackDeploy *)self tssKeyName:@"BoardID" unitNumber:request];
+    v12 = [NSNumber numberWithUnsignedInt:[(UARPSuperBinaryPayloadBackDeploy *)self boardID]];
+    [(NSMutableDictionary *)self->_tssRequest setObject:v12 forKeyedSubscript:v28];
+
+    v26 = [(UARPSuperBinaryPayloadBackDeploy *)self tssKeyName:@"ChipID" unitNumber:request];
+    v13 = [NSNumber numberWithUnsignedInt:[(UARPSuperBinaryPayloadBackDeploy *)self chipID]];
+    [(NSMutableDictionary *)self->_tssRequest setObject:v13 forKeyedSubscript:v26];
+
+    v14 = [(UARPSuperBinaryPayloadBackDeploy *)self tssKeyName:@"ECID" unitNumber:request];
+    v15 = [NSNumber numberWithUnsignedLongLong:[(UARPSuperBinaryPayloadBackDeploy *)self ecID]];
+    [(NSMutableDictionary *)self->_tssRequest setObject:v15 forKeyedSubscript:v14];
+
+    v16 = [(UARPSuperBinaryPayloadBackDeploy *)self tssKeyName:@"Nonce" unitNumber:request];
+    nonce = [(UARPSuperBinaryPayloadBackDeploy *)self nonce];
+    [(NSMutableDictionary *)self->_tssRequest setObject:nonce forKeyedSubscript:v16];
+
+    v18 = [(UARPSuperBinaryPayloadBackDeploy *)self tssKeyName:@"ProductionMode" unitNumber:request];
+    if ([(UARPSuperBinaryPayloadBackDeploy *)self productionMode])
+    {
+      v19 = &__kCFBooleanTrue;
+    }
+
+    else
+    {
+      v19 = &__kCFBooleanFalse;
+    }
+
+    [(NSMutableDictionary *)self->_tssRequest setObject:v19 forKeyedSubscript:v18];
+    v20 = [(UARPSuperBinaryPayloadBackDeploy *)self tssKeyName:@"SecurityDomain" unitNumber:request];
+    v21 = [NSNumber numberWithUnsignedChar:[(UARPSuperBinaryPayloadBackDeploy *)self securityDomain]];
+    [(NSMutableDictionary *)self->_tssRequest setObject:v21 forKeyedSubscript:v20];
+
+    v22 = [(UARPSuperBinaryPayloadBackDeploy *)self tssKeyName:@"SecurityMode" unitNumber:request];
+    if ([(UARPSuperBinaryPayloadBackDeploy *)self securityMode])
+    {
+      v23 = &__kCFBooleanTrue;
+    }
+
+    else
+    {
+      v23 = &__kCFBooleanFalse;
+    }
+
+    [(NSMutableDictionary *)self->_tssRequest setObject:v23 forKeyedSubscript:v22];
+  }
+
+  [(UARPSuperBinaryPayloadBackDeploy *)self processMeasurementsForTSSOptions:self->_tssRequest unitNumber:request asMeasurement:measurementCopy];
+  v24 = self->_tssRequest;
+
+  return [NSDictionary dictionaryWithDictionary:v24];
 }
 
 - (BOOL)queryTatsuSigningServer:(id)server ssoOnly:(BOOL)only error:(id *)error

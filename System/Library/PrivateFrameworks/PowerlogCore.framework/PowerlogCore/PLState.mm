@@ -70,8 +70,7 @@
     currValue = [(PLState *)self currValue];
     [(PLState *)self setLastValue:currValue];
 
-    [(PLState *)self setCurrValue:valueCopy];
-    v9 = PLLogCommon();
+    v9 = PLLogCommon([(PLState *)self setCurrValue:valueCopy]);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       [(PLState *)self updateWithValue:v9];
@@ -90,20 +89,18 @@
 
 - (void)updateWithValue:(void *)a1 .cold.1(void *a1, NSObject *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
   v6 = [a1 lastValue];
   v7 = [a1 currValue];
-  v9 = 138412802;
-  v10 = v5;
-  v11 = 2112;
-  v12 = v6;
-  v13 = 2112;
-  v14 = v7;
-  _os_log_debug_impl(&dword_1D8611000, a2, OS_LOG_TYPE_DEBUG, "%@ Last:%@ Curr:%@", &v9, 0x20u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  v8 = 138412802;
+  v9 = v5;
+  v10 = 2112;
+  v11 = v6;
+  v12 = 2112;
+  v13 = v7;
+  _os_log_debug_impl(&dword_1D8611000, a2, OS_LOG_TYPE_DEBUG, "%@ Last:%@ Curr:%@", &v8, 0x20u);
 }
 
 @end

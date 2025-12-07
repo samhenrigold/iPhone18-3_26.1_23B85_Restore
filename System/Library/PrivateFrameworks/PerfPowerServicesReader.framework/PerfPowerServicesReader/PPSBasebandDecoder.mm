@@ -100,69 +100,67 @@
 
 void __39__PPSBasebandDecoder_transformPayload___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v31 = *MEMORY[0x277D85DE8];
-  v19 = a2;
+  v30 = *MEMORY[0x277D85DE8];
+  v18 = a2;
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   obj = a3;
-  v5 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
+  v5 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v26;
+    v7 = *v25;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v26 != v7)
+        if (*v25 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v25 + 1) + 8 * i);
+        v9 = *(*(&v24 + 1) + 8 * i);
+        v20 = 0u;
         v21 = 0u;
         v22 = 0u;
         v23 = 0u;
-        v24 = 0u;
         v10 = v9;
-        v11 = [v10 countByEnumeratingWithState:&v21 objects:v29 count:16];
+        v11 = [v10 countByEnumeratingWithState:&v20 objects:v28 count:16];
         if (v11)
         {
           v12 = v11;
-          v13 = *v22;
+          v13 = *v21;
           do
           {
             for (j = 0; j != v12; ++j)
             {
-              if (*v22 != v13)
+              if (*v21 != v13)
               {
                 objc_enumerationMutation(v10);
               }
 
-              v15 = *(*(&v21 + 1) + 8 * j);
-              v16 = [v10 objectForKeyedSubscript:{v15, v19}];
+              v15 = *(*(&v20 + 1) + 8 * j);
+              v16 = [v10 objectForKeyedSubscript:{v15, v18}];
               [*(*(*(a1 + 32) + 8) + 40) setObject:v16 forKeyedSubscript:v15];
             }
 
-            v12 = [v10 countByEnumeratingWithState:&v21 objects:v29 count:16];
+            v12 = [v10 countByEnumeratingWithState:&v20 objects:v28 count:16];
           }
 
           while (v12);
         }
       }
 
-      v6 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v6 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
     }
 
     while (v6);
   }
 
-  v17 = v19;
-  [*(*(*(a1 + 32) + 8) + 40) setObject:v19 forKeyedSubscript:{@"metric_name", v19}];
-
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = v18;
+  [*(*(*(a1 + 32) + 8) + 40) setObject:v18 forKeyedSubscript:{@"metric_name", v18}];
 }
 
 + (id)flattenResult:(id)result withParentKey:(id)key

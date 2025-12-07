@@ -175,25 +175,25 @@
 
 - (id)dictionaryRepresentation
 {
-  v15[6] = *MEMORY[0x277D85DE8];
-  v14[0] = @"type";
+  v14[6] = *MEMORY[0x277D85DE8];
+  v13[0] = @"type";
   type = [(ELSQueueEntry *)self type];
-  v15[0] = type;
-  v14[1] = @"typeName";
+  v14[0] = type;
+  v13[1] = @"typeName";
   typeName = [(ELSQueueEntry *)self typeName];
-  v15[1] = typeName;
-  v14[2] = @"parameters";
+  v14[1] = typeName;
+  v13[2] = @"parameters";
   parameters = [(ELSQueueEntry *)self parameters];
-  v15[2] = parameters;
-  v14[3] = @"executeAfterDuration";
+  v14[2] = parameters;
+  v13[3] = @"executeAfterDuration";
   v6 = MEMORY[0x277CCABB0];
   [(ELSQueueEntry *)self executeAfterDuration];
   v7 = [v6 numberWithDouble:?];
-  v15[3] = v7;
-  v14[4] = @"retry";
+  v14[3] = v7;
+  v13[4] = @"retry";
   v8 = [MEMORY[0x277CCABB0] numberWithBool:{-[ELSQueueEntry retry](self, "retry")}];
-  v15[4] = v8;
-  v14[5] = @"platform";
+  v14[4] = v8;
+  v13[5] = @"platform";
   platform = [(ELSQueueEntry *)self platform];
   null = platform;
   if (!platform)
@@ -201,13 +201,11 @@
     null = [MEMORY[0x277CBEB68] null];
   }
 
-  v15[5] = null;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:6];
+  v14[5] = null;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:6];
   if (!platform)
   {
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

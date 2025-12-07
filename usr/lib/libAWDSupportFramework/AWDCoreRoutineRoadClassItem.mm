@@ -57,14 +57,12 @@
   has = self->_has;
   if ((has & 2) != 0)
   {
-    roadClass = self->_roadClass;
     PBDataWriterWriteInt32Field();
     has = self->_has;
   }
 
   if (has)
   {
-    percentage = self->_percentage;
 
     PBDataWriterWriteInt32Field();
   }

@@ -17,16 +17,15 @@ void __65___LABKOperation_observeValueForKeyPath_ofObject_change_context___block
 
 void __33___LABKOperation_startWithReply___block_invoke(void *a1, int a2, void *a3)
 {
-  v5 = a1[4];
-  v8 = a3;
-  v6 = objc_opt_class();
-  v7 = @"YES";
+  v7 = a3;
+  v5 = objc_opt_class();
+  v6 = @"YES";
   if (!a2)
   {
-    v7 = v8;
+    v6 = v7;
   }
 
-  [_LABKLog logClass:v6 selector:a1[6] message:@"started: %@", v7];
+  [_LABKLog logClass:v5 selector:a1[6] message:@"started: %@", v6];
   (*(a1[5] + 16))();
 }
 

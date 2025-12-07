@@ -4,6 +4,7 @@
 + (id)sharedAccountStore;
 - (ACAccountStore)persistentStore;
 - (MFAccountStore)init;
+- (id)_accountWithPersistentAccount:(id)account useExisting:(BOOL)existing;
 - (id)accountsWithTypeIdentifiers:(id)identifiers error:(id *)error;
 - (id)existingAccountWithPersistentAccount:(id)account;
 - (id)newPersistentAccountWithAccountTypeIdentifier:(id)identifier;
@@ -176,17 +177,17 @@ void __36__MFAccountStore_sharedAccountStore__block_invoke()
 
 - (id)accountsWithTypeIdentifiers:(id)identifiers error:(id *)error
 {
-  v62 = *MEMORY[0x1E69E9840];
+  v61 = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
   accountStore = self->_accountStore;
-  v52[1] = 0;
-  v42 = identifiersCopy;
+  v51[1] = 0;
+  v41 = identifiersCopy;
   obj = [ACAccountStore accountsWithAccountTypeIdentifiers:"accountsWithAccountTypeIdentifiers:error:" error:?];
-  v43 = 0;
-  domain = [v43 domain];
+  v42 = 0;
+  domain = [v42 domain];
   if ([domain isEqualToString:*MEMORY[0x1E6959978]])
   {
-    v8 = [v43 code] == 10002;
+    v8 = [v42 code] == 10002;
 
     if (!v8)
     {
@@ -196,59 +197,59 @@ void __36__MFAccountStore_sharedAccountStore__block_invoke()
     v9 = MFAccountsLog();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = [v42 componentsJoinedByString:{@", "}];
-      ef_publicDescription = [v43 ef_publicDescription];
+      v10 = [v41 componentsJoinedByString:{@", "}];
+      ef_publicDescription = [v42 ef_publicDescription];
       *buf = 138543618;
-      v59 = v10;
-      v60 = 2114;
-      v61 = ef_publicDescription;
+      v58 = v10;
+      v59 = 2114;
+      v60 = ef_publicDescription;
       _os_log_impl(&dword_1B0389000, v9, OS_LOG_TYPE_DEFAULT, "Transient account store error; re-attempting to fetch accounts for types [%{public}@]: %{public}@", buf, 0x16u);
     }
 
     v12 = self->_accountStore;
-    v52[0] = v43;
-    v13 = [(ACAccountStore *)v12 accountsWithAccountTypeIdentifiers:v42 error:v52];
-    v14 = v52[0];
+    v51[0] = v42;
+    v13 = [(ACAccountStore *)v12 accountsWithAccountTypeIdentifiers:v41 error:v51];
+    v14 = v51[0];
 
     domain = obj;
     obj = v13;
-    v43 = v14;
+    v42 = v14;
   }
 
 LABEL_7:
-  if (v43)
+  if (v42)
   {
     v15 = MFAccountsLog();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v16 = [v42 componentsJoinedByString:{@", "}];
-      ef_publicDescription2 = [v43 ef_publicDescription];
+      v16 = [v41 componentsJoinedByString:{@", "}];
+      ef_publicDescription2 = [v42 ef_publicDescription];
       [(MFAccountStore *)v16 accountsWithTypeIdentifiers:ef_publicDescription2 error:buf, v15];
     }
   }
 
-  v50 = 0u;
-  v51 = 0u;
-  v48 = 0u;
   v49 = 0u;
+  v50 = 0u;
+  v47 = 0u;
+  v48 = 0u;
   obja = obj;
-  v18 = [obja countByEnumeratingWithState:&v48 objects:v57 count:16];
+  v18 = [obja countByEnumeratingWithState:&v47 objects:v56 count:16];
   if (v18)
   {
     v19 = 0;
     array = 0;
-    v47 = *v49;
-    v46 = *MEMORY[0x1E698B760];
+    v46 = *v48;
+    v45 = *MEMORY[0x1E698B760];
     do
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v49 != v47)
+        if (*v48 != v46)
         {
           objc_enumerationMutation(obja);
         }
 
-        v22 = *(*(&v48 + 1) + 8 * i);
+        v22 = *(*(&v47 + 1) + 8 * i);
         v23 = -[MFAccountStore _accountWithPersistentAccount:useExisting:](self, "_accountWithPersistentAccount:useExisting:", v22, [objc_opt_class() _shouldUpdateAccountsInPlace]);
         if (v23)
         {
@@ -258,7 +259,7 @@ LABEL_7:
           }
 
           parentAccount = [v22 parentAccount];
-          v25 = [parentAccount aa_isAccountClass:v46];
+          v25 = [parentAccount aa_isAccountClass:v45];
 
           if (v25)
           {
@@ -270,11 +271,11 @@ LABEL_7:
                 identifier = [v22 identifier];
                 parentAccount2 = [v22 parentAccount];
                 identifier2 = [parentAccount2 identifier];
-                *v53 = 138543618;
-                v54 = identifier;
-                v55 = 2114;
-                v56 = identifier2;
-                _os_log_error_impl(&dword_1B0389000, v26, OS_LOG_TYPE_ERROR, "Duplicate Primary iCloud IMAPMail account %{public}@ found for parent iCloud account %{public}@", v53, 0x16u);
+                *v52 = 138543618;
+                v53 = identifier;
+                v54 = 2114;
+                v55 = identifier2;
+                _os_log_error_impl(&dword_1B0389000, v26, OS_LOG_TYPE_ERROR, "Duplicate Primary iCloud IMAPMail account %{public}@ found for parent iCloud account %{public}@", v52, 0x16u);
               }
             }
 
@@ -286,11 +287,11 @@ LABEL_7:
                 identifier3 = [v22 identifier];
                 parentAccount3 = [v22 parentAccount];
                 identifier4 = [parentAccount3 identifier];
-                *v53 = 138543618;
-                v54 = identifier3;
-                v55 = 2114;
-                v56 = identifier4;
-                _os_log_impl(&dword_1B0389000, v31, OS_LOG_TYPE_DEFAULT, "Primary iCloud IMAPMail account %{public}@ found for parent iCloud account %{public}@", v53, 0x16u);
+                *v52 = 138543618;
+                v53 = identifier3;
+                v54 = 2114;
+                v55 = identifier4;
+                _os_log_impl(&dword_1B0389000, v31, OS_LOG_TYPE_DEFAULT, "Primary iCloud IMAPMail account %{public}@ found for parent iCloud account %{public}@", v52, 0x16u);
               }
 
               [array addObject:v23];
@@ -307,11 +308,11 @@ LABEL_7:
               identifier5 = [v22 identifier];
               parentAccount4 = [v22 parentAccount];
               identifier6 = [parentAccount4 identifier];
-              *v53 = 138543618;
-              v54 = identifier5;
-              v55 = 2114;
-              v56 = identifier6;
-              _os_log_impl(&dword_1B0389000, v27, OS_LOG_TYPE_DEFAULT, "Mail account %{public}@ found for parent account %{public}@", v53, 0x16u);
+              *v52 = 138543618;
+              v53 = identifier5;
+              v54 = 2114;
+              v55 = identifier6;
+              _os_log_impl(&dword_1B0389000, v27, OS_LOG_TYPE_DEFAULT, "Mail account %{public}@ found for parent account %{public}@", v52, 0x16u);
             }
 
             [array addObject:v23];
@@ -319,7 +320,7 @@ LABEL_7:
         }
       }
 
-      v18 = [obja countByEnumeratingWithState:&v48 objects:v57 count:16];
+      v18 = [obja countByEnumeratingWithState:&v47 objects:v56 count:16];
     }
 
     while (v18);
@@ -332,11 +333,9 @@ LABEL_7:
 
   if (error)
   {
-    v38 = v43;
-    *error = v43;
+    v38 = v42;
+    *error = v42;
   }
-
-  v39 = *MEMORY[0x1E69E9840];
 
   return array;
 }
@@ -346,6 +345,62 @@ LABEL_7:
   v3 = [(MFAccountStore *)self _accountWithPersistentAccount:account useExisting:1];
 
   return v3;
+}
+
+- (id)_accountWithPersistentAccount:(id)account useExisting:(BOOL)existing
+{
+  existingCopy = existing;
+  v23 = *MEMORY[0x1E69E9840];
+  accountCopy = account;
+  if (accountCopy)
+  {
+    v16 = 0;
+    v6 = [MFAccountLoader accountClassForPersistentAccount:accountCopy error:&v16];
+    v7 = v16;
+    if (v6)
+    {
+      v8 = [objc_opt_class() _accountWithAccountClass:v6 persistentAccount:accountCopy useExisting:existingCopy];
+    }
+
+    else
+    {
+      v9 = MFAccountsLog();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      {
+        identifier = [accountCopy identifier];
+        ef_publicDescription = [v7 ef_publicDescription];
+        v13 = ef_publicDescription;
+        v14 = ": ";
+        if (!v7)
+        {
+          v14 = "";
+        }
+
+        v15 = &stru_1F273A5E0;
+        *buf = 138543874;
+        v18 = identifier;
+        if (ef_publicDescription)
+        {
+          v15 = ef_publicDescription;
+        }
+
+        v19 = 2080;
+        v20 = v14;
+        v21 = 2114;
+        v22 = v15;
+        _os_log_error_impl(&dword_1B0389000, v9, OS_LOG_TYPE_ERROR, "Failed to load account for persistent account %{public}@%s%{public}@", buf, 0x20u);
+      }
+
+      v8 = 0;
+    }
+  }
+
+  else
+  {
+    v8 = 0;
+  }
+
+  return v8;
 }
 
 + (id)_accountWithAccountClass:(Class)class persistentAccount:(id)account useExisting:(BOOL)existing
@@ -371,7 +426,7 @@ LABEL_7:
 
 - (void)savePersistentAccountWithAccount:(id)account
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   persistentAccount = [accountCopy persistentAccount];
   v6 = persistentAccount;
@@ -392,9 +447,9 @@ LABEL_7:
         if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412546;
-          v24 = accountDescription;
-          v25 = 2114;
-          v26 = identifier;
+          v23 = accountDescription;
+          v24 = 2114;
+          v25 = identifier;
           _os_log_impl(&dword_1B0389000, v13, OS_LOG_TYPE_DEFAULT, "%@ has Non-ASCII username - Disabling Notes for account (%{public}@)", buf, 0x16u);
         }
 
@@ -412,15 +467,15 @@ LABEL_7:
     {
       v15 = dispatch_semaphore_create(0);
       accountStore = self->_accountStore;
-      v19[0] = MEMORY[0x1E69E9820];
-      v19[1] = 3221225472;
-      v19[2] = __51__MFAccountStore_savePersistentAccountWithAccount___block_invoke;
-      v19[3] = &unk_1E7AA4AA8;
-      v20 = accountDescription;
-      v21 = identifier;
-      v22 = v15;
+      v18[0] = MEMORY[0x1E69E9820];
+      v18[1] = 3221225472;
+      v18[2] = __51__MFAccountStore_savePersistentAccountWithAccount___block_invoke;
+      v18[3] = &unk_1E7AA4AA8;
+      v19 = accountDescription;
+      v20 = identifier;
+      v21 = v15;
       v17 = v15;
-      [(ACAccountStore *)accountStore saveVerifiedAccount:v6 withCompletionHandler:v19];
+      [(ACAccountStore *)accountStore saveVerifiedAccount:v6 withCompletionHandler:v18];
       dispatch_semaphore_wait(v17, 0xFFFFFFFFFFFFFFFFLL);
     }
 
@@ -430,20 +485,18 @@ LABEL_7:
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v24 = accountDescription;
-        v25 = 2114;
-        v26 = identifier;
+        v23 = accountDescription;
+        v24 = 2114;
+        v25 = identifier;
         _os_log_impl(&dword_1B0389000, v17, OS_LOG_TYPE_DEFAULT, "Nothing to save for account %@ (%{public}@)", buf, 0x16u);
       }
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __51__MFAccountStore_savePersistentAccountWithAccount___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (a2)
   {
@@ -452,11 +505,11 @@ void __51__MFAccountStore_savePersistentAccountWithAccount___block_invoke(uint64
     {
       v7 = *(a1 + 32);
       v8 = *(a1 + 40);
-      v13 = 138412546;
-      v14 = v7;
-      v15 = 2114;
-      v16 = v8;
-      _os_log_impl(&dword_1B0389000, v6, OS_LOG_TYPE_DEFAULT, "Saved account %@ (%{public}@)", &v13, 0x16u);
+      v12 = 138412546;
+      v13 = v7;
+      v14 = 2114;
+      v15 = v8;
+      _os_log_impl(&dword_1B0389000, v6, OS_LOG_TYPE_DEFAULT, "Saved account %@ (%{public}@)", &v12, 0x16u);
     }
   }
 
@@ -465,21 +518,20 @@ void __51__MFAccountStore_savePersistentAccountWithAccount___block_invoke(uint64
     v6 = MFAccountsLog();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v11 = *(a1 + 32);
-      v10 = *(a1 + 40);
-      v12 = [v5 ef_publicDescription];
-      v13 = 138412802;
-      v14 = v11;
-      v15 = 2112;
-      v16 = v10;
-      v17 = 2114;
-      v18 = v12;
-      _os_log_error_impl(&dword_1B0389000, v6, OS_LOG_TYPE_ERROR, "Failed to save account %@ (%@) error: %{public}@", &v13, 0x20u);
+      v10 = *(a1 + 32);
+      v9 = *(a1 + 40);
+      v11 = [v5 ef_publicDescription];
+      v12 = 138412802;
+      v13 = v10;
+      v14 = 2112;
+      v15 = v9;
+      v16 = 2114;
+      v17 = v11;
+      _os_log_error_impl(&dword_1B0389000, v6, OS_LOG_TYPE_ERROR, "Failed to save account %@ (%@) error: %{public}@", &v12, 0x20u);
     }
   }
 
   dispatch_semaphore_signal(*(a1 + 48));
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removePersistentAccountWithAccount:(id)account
@@ -510,7 +562,7 @@ void __51__MFAccountStore_savePersistentAccountWithAccount___block_invoke(uint64
 
 void __53__MFAccountStore_removePersistentAccountWithAccount___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (a2)
   {
@@ -519,11 +571,11 @@ void __53__MFAccountStore_removePersistentAccountWithAccount___block_invoke(uint
     {
       v7 = *(a1 + 32);
       v8 = *(a1 + 40);
-      v13 = 138412546;
-      v14 = v7;
-      v15 = 2114;
-      v16 = v8;
-      _os_log_impl(&dword_1B0389000, v6, OS_LOG_TYPE_DEFAULT, "Removed account %@ (%{public}@)", &v13, 0x16u);
+      v12 = 138412546;
+      v13 = v7;
+      v14 = 2114;
+      v15 = v8;
+      _os_log_impl(&dword_1B0389000, v6, OS_LOG_TYPE_DEFAULT, "Removed account %@ (%{public}@)", &v12, 0x16u);
     }
   }
 
@@ -532,46 +584,42 @@ void __53__MFAccountStore_removePersistentAccountWithAccount___block_invoke(uint
     v6 = MFAccountsLog();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v11 = *(a1 + 32);
-      v10 = *(a1 + 40);
-      v12 = [v5 ef_publicDescription];
-      v13 = 138412802;
-      v14 = v11;
-      v15 = 2114;
-      v16 = v10;
-      v17 = 2114;
-      v18 = v12;
-      _os_log_error_impl(&dword_1B0389000, v6, OS_LOG_TYPE_ERROR, "Failed to remove account %@ (%{public}@) error: %{public}@", &v13, 0x20u);
+      v10 = *(a1 + 32);
+      v9 = *(a1 + 40);
+      v11 = [v5 ef_publicDescription];
+      v12 = 138412802;
+      v13 = v10;
+      v14 = 2114;
+      v15 = v9;
+      v16 = 2114;
+      v17 = v11;
+      _os_log_error_impl(&dword_1B0389000, v6, OS_LOG_TYPE_ERROR, "Failed to remove account %@ (%{public}@) error: %{public}@", &v12, 0x20u);
     }
   }
 
   dispatch_semaphore_signal(*(a1 + 48));
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_accountsStoreChanged:(id)changed
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   changedCopy = changed;
   v4 = MFAccountsLog();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     name = [changedCopy name];
-    v7 = 138412290;
-    v8 = name;
-    _os_log_impl(&dword_1B0389000, v4, OS_LOG_TYPE_INFO, "Received %@ notification", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = name;
+    _os_log_impl(&dword_1B0389000, v4, OS_LOG_TYPE_INFO, "Received %@ notification", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)newPersistentAccountWithAccountTypeIdentifier:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B0389000, a2, OS_LOG_TYPE_ERROR, "Missing account type for identifier %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B0389000, a2, OS_LOG_TYPE_ERROR, "Missing account type for identifier %{public}@", &v2, 0xCu);
 }
 
 - (void)accountsWithTypeIdentifiers:(uint8_t *)buf error:(os_log_t)log .cold.1(void *a1, void *a2, uint8_t *buf, os_log_t log)

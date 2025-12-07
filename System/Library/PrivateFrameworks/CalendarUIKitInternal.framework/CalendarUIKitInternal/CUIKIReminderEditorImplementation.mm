@@ -23,24 +23,20 @@
 
 - (CUIKIntegrationAlertDisplayer)alertDisplayer
 {
-  v3 = OBJC_IVAR____TtC21CalendarUIKitInternal33CUIKIReminderEditorImplementation_alertDisplayer;
   swift_beginAccess();
-  v4 = *(&self->super.isa + v3);
-  v5 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v5;
+  return v2;
 }
 
 - (void)setAlertDisplayer:(id)displayer
 {
   v5 = OBJC_IVAR____TtC21CalendarUIKitInternal33CUIKIReminderEditorImplementation_alertDisplayer;
   swift_beginAccess();
-  v6 = *(&self->super.isa + v5);
   *(&self->super.isa + v5) = displayer;
   swift_unknownObjectRetain();
   selfCopy = self;
   swift_unknownObjectRelease();
-  v8 = *(&selfCopy->super.isa + OBJC_IVAR____TtC21CalendarUIKitInternal33CUIKIReminderEditorImplementation__requestPerformer);
   *(&selfCopy->super.isa + OBJC_IVAR____TtC21CalendarUIKitInternal33CUIKIReminderEditorImplementation__requestPerformer) = 0;
 }
 

@@ -9,15 +9,13 @@
 
 - (void)runWithInput:(id)input error:(id *)error
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   v5 = WFLocalizedString(@"The shortcut could not be run because an action could not be found.");
   v6 = MEMORY[0x1E696ABC0];
-  v9 = *MEMORY[0x1E696A578];
-  v10[0] = v5;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8 = *MEMORY[0x1E696A578];
+  v9[0] = v5;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   *error = [v6 errorWithDomain:@"WFActionErrorDomain" code:14 userInfo:v7];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (id)localizedDescriptionSummary

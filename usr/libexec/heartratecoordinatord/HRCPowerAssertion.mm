@@ -9,65 +9,67 @@
 {
   nameCopy = name;
   reasonCopy = reason;
-  v17.receiver = self;
-  v17.super_class = HRCPowerAssertion;
-  v8 = [(HRCPowerAssertion *)&v17 init];
+  v19.receiver = self;
+  v19.super_class = HRCPowerAssertion;
+  v8 = [(HRCPowerAssertion *)&v19 init];
+  v9 = v8;
   if (v8)
   {
-    v9 = sub_10000132C();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v10 = sub_10000132C(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       *buf = 138543618;
-      v19 = nameCopy;
-      v20 = 2114;
-      v21 = reasonCopy;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "creating a %{public}@ power assertion to prevent system sleep, reason : %{public}@", buf, 0x16u);
+      v21 = nameCopy;
+      v22 = 2114;
+      v23 = reasonCopy;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "creating a %{public}@ power assertion to prevent system sleep, reason : %{public}@", buf, 0x16u);
     }
 
-    v10 = [(__CFString *)nameCopy copy];
-    name = v8->_name;
-    v8->_name = v10;
+    v11 = [(__CFString *)nameCopy copy];
+    name = v9->_name;
+    v9->_name = v11;
 
-    v12 = IOPMAssertionCreateWithDescription(@"PreventUserIdleSystemSleep", nameCopy, reasonCopy, 0, 0, 0.0, @"TimeoutActionTurnOff", &v8->_powerAssertion);
-    v13 = sub_10000132C();
+    v13 = IOPMAssertionCreateWithDescription(@"PreventUserIdleSystemSleep", nameCopy, reasonCopy, 0, 0, 0.0, @"TimeoutActionTurnOff", &v9->_powerAssertion);
     v14 = v13;
-    if (v12)
+    v15 = sub_10000132C(v13);
+    v16 = v15;
+    if (v14)
     {
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
       {
-        sub_100011BF8(v12, v14);
+        sub_100011BF8(v14, v16);
       }
 
-      v15 = 0;
-      v8->_powerAssertion = 0;
+      v17 = 0;
+      v9->_powerAssertion = 0;
     }
 
     else
     {
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
         *buf = 138543362;
-        v19 = nameCopy;
-        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "successfully acquired power assertion %{public}@", buf, 0xCu);
+        v21 = nameCopy;
+        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "successfully acquired power assertion %{public}@", buf, 0xCu);
       }
 
-      v15 = v8;
+      v17 = v9;
     }
   }
 
   else
   {
-    v15 = 0;
+    v17 = 0;
   }
 
-  return v15;
+  return v17;
 }
 
 - (void)dealloc
 {
   if (self->_powerAssertion)
   {
-    v3 = sub_10000132C();
+    v3 = sub_10000132C(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       name = self->_name;

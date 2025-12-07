@@ -90,56 +90,58 @@
 
 + (void)setServerAddresses:(id)addresses
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   if (VRTraceGetErrorLogLevelForModule() >= 7)
   {
     v4 = VRTraceErrorLogLevelToCSTR();
     v5 = *MEMORY[0x1E6986650];
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 136315906;
-      v12 = v4;
-      v13 = 2080;
-      v14 = "+[GKSConnectivitySettings setServerAddresses:]";
-      v15 = 1024;
-      v16 = 500;
-      v17 = 2112;
+      v12 = 136315906;
+      v13 = v4;
+      v14 = 2080;
+      v15 = "+[GKSConnectivitySettings setServerAddresses:]";
+      v16 = 1024;
+      v17 = 500;
+      v18 = 2112;
       addressesCopy = addresses;
-      _os_log_impl(&dword_1DB56E000, v5, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d GKSConnSettings: set server: %@", &v11, 0x26u);
+      _os_log_impl(&dword_1DB56E000, v5, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d GKSConnSettings: set server: %@", &v12, 0x26u);
     }
   }
 
-  pthread_mutex_lock(&g_xGKSConnectivitySettings);
+  ErrorLogLevelForModule = pthread_mutex_lock(&g_xGKSConnectivitySettings);
   if (!g_Settings)
   {
     g_Settings = objc_alloc_init(MEMORY[0x1E695DF90]);
-    v6 = [CFPreferencesCopyAppValue(@"specialAllocForHeapInspection" @"com.apple.VideoConference")];
-    g_bSpecialAllocForHeapInspection = v6;
-    if (v6)
+    ErrorLogLevelForModule = [CFPreferencesCopyAppValue(@"specialAllocForHeapInspection" @"com.apple.VideoConference")];
+    g_bSpecialAllocForHeapInspection = ErrorLogLevelForModule;
+    if (ErrorLogLevelForModule)
     {
-      if (VRTraceGetErrorLogLevelForModule() >= 6)
+      ErrorLogLevelForModule = VRTraceGetErrorLogLevelForModule();
+      if (ErrorLogLevelForModule >= 6)
       {
-        v7 = VRTraceErrorLogLevelToCSTR();
-        v8 = *MEMORY[0x1E6986650];
-        if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
+        v8 = VRTraceErrorLogLevelToCSTR();
+        v9 = *MEMORY[0x1E6986650];
+        ErrorLogLevelForModule = os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT);
+        if (ErrorLogLevelForModule)
         {
-          v11 = 136315650;
-          v12 = v7;
-          v13 = 2080;
-          v14 = "+[GKSConnectivitySettings setServerAddresses:]";
-          v15 = 1024;
-          v16 = 508;
-          _os_log_impl(&dword_1DB56E000, v8, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d  **** GKSConnectivitySettings:setServerAddresses: Special Allocation For Heap Inspection has been enabled.", &v11, 0x1Cu);
+          v12 = 136315650;
+          v13 = v8;
+          v14 = 2080;
+          v15 = "+[GKSConnectivitySettings setServerAddresses:]";
+          v16 = 1024;
+          v17 = 508;
+          _os_log_impl(&dword_1DB56E000, v9, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d  **** GKSConnectivitySettings:setServerAddresses: Special Allocation For Heap Inspection has been enabled.", &v12, 0x1Cu);
         }
       }
     }
   }
 
-  v9 = g_cacheClearTime;
+  v10 = g_cacheClearTime;
   if (*&g_cacheClearTime == 0.0)
   {
-    *&v9 = micro();
-    g_cacheClearTime = v9;
+    *&v10 = micro(ErrorLogLevelForModule, v7);
+    g_cacheClearTime = v10;
   }
 
   if (g_bSpecialAllocForHeapInspection)
@@ -150,7 +152,7 @@
 
   else
   {
-    [g_Settings addEntriesFromDictionary:{addresses, *&v9}];
+    [g_Settings addEntriesFromDictionary:{addresses, *&v10}];
   }
 
   pthread_mutex_unlock(&g_xGKSConnectivitySettings);
@@ -587,7 +589,7 @@ LABEL_44:
 + (void)clearAllSettingsWithRefreshIntervalInSeconds:(int)seconds
 {
   v24 = *MEMORY[0x1E69E9840];
-  v4 = micro();
+  v4 = micro(self, a2);
   secondsCopy = seconds;
   v6 = *&g_cacheClearTime + seconds;
   ErrorLogLevelForModule = VRTraceGetErrorLogLevelForModule();
@@ -3607,7 +3609,7 @@ LABEL_13:
 
 + (BOOL)isFeatureDisabledByExceptionKey:(id)key
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   v4 = [+[GKSConnectivitySettings getAllSettings](GKSConnectivitySettings "getAllSettings")];
   if (v4)
   {
@@ -3620,25 +3622,25 @@ LABEL_13:
       v9 = [v7 isEqualToString:&stru_1F570E008];
       if ((v9 & 1) == 0)
       {
-        v49 = 0u;
-        v50 = 0u;
-        v47 = 0u;
-        v48 = 0u;
-        v17 = OUTLINED_FUNCTION_2_3(v9, v10, v11, v12, v13, v14, v15, v16);
+        v39 = 0u;
+        v40 = 0u;
+        v37 = 0u;
+        v38 = 0u;
+        v17 = OUTLINED_FUNCTION_2_3(v9, v10, v11, v12, v13, v14, v15, v16, *v33, *&v33[8], *&v33[16], v34, *(&v34 + 1), v35, v36, *(&v36 + 1));
         if (v17)
         {
           v18 = v17;
-          v19 = *v48;
+          v19 = *v38;
           while (2)
           {
             for (i = 0; i != v18; ++i)
             {
-              if (*v48 != v19)
+              if (*v38 != v19)
               {
                 objc_enumerationMutation(v6);
               }
 
-              v21 = [*(*(&v47 + 1) + 8 * i) isEqualToString:v8];
+              v21 = [*(*(&v37 + 1) + 8 * i) isEqualToString:v8];
               if (v21)
               {
                 if (VRTraceGetErrorLogLevelForModule() < 7)
@@ -3653,21 +3655,21 @@ LABEL_13:
                   v29 = 1;
                   if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
                   {
-                    v33 = 136316674;
-                    v34 = v31;
-                    v35 = 2080;
-                    v36 = "+[GKSConnectivitySettings isFeatureDisabledByExceptionKey:]";
-                    v37 = 1024;
-                    v38 = 1500;
-                    v39 = 2112;
-                    keyCopy = key;
-                    v41 = 2112;
-                    v42 = v5;
-                    v43 = 2112;
-                    v44 = v8;
-                    v45 = 1024;
-                    v46 = 1;
-                    _os_log_impl(&dword_1DB56E000, v32, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Found storebag exception value '%@'=%@, deviceCode=%@ isDisabled=%d", &v33, 0x40u);
+                    *v33 = 136316674;
+                    *&v33[4] = v31;
+                    *&v33[12] = 2080;
+                    *&v33[14] = "+[GKSConnectivitySettings isFeatureDisabledByExceptionKey:]";
+                    *&v33[22] = 1024;
+                    LODWORD(v34) = 1500;
+                    WORD2(v34) = 2112;
+                    *(&v34 + 6) = key;
+                    HIWORD(v34) = 2112;
+                    v35 = v5;
+                    LOWORD(v36) = 2112;
+                    *(&v36 + 2) = v8;
+                    WORD5(v36) = 1024;
+                    HIDWORD(v36) = 1;
+                    _os_log_impl(&dword_1DB56E000, v32, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Found storebag exception value '%@'=%@, deviceCode=%@ isDisabled=%d", v33, 0x40u);
                   }
                 }
 
@@ -3675,7 +3677,7 @@ LABEL_13:
               }
             }
 
-            v18 = OUTLINED_FUNCTION_2_3(v21, v22, v23, v24, v25, v26, v27, v28);
+            v18 = OUTLINED_FUNCTION_2_3(v21, v22, v23, v24, v25, v26, v27, v28, *v33, *&v33[8], *&v33[16], v34, *(&v34 + 1), v35, v36, *(&v36 + 1));
             if (v18)
             {
               continue;

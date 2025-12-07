@@ -84,42 +84,40 @@ uint64_t __51__REDataSourceCatalog__applicationsStatesDidChange__block_invoke(ui
 
 - (void)enumerateDataSources:(id)sources
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   sourcesCopy = sources;
   if (sourcesCopy)
   {
-    v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
     v12 = 0u;
+    v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
     currentDataSources = [(REDataSourceManager *)self->_dataSourceManager currentDataSources];
-    v6 = [currentDataSources countByEnumeratingWithState:&v11 objects:v15 count:16];
+    v6 = [currentDataSources countByEnumeratingWithState:&v10 objects:v14 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v12;
+      v8 = *v11;
       do
       {
         v9 = 0;
         do
         {
-          if (*v12 != v8)
+          if (*v11 != v8)
           {
             objc_enumerationMutation(currentDataSources);
           }
 
-          sourcesCopy[2](sourcesCopy, *(*(&v11 + 1) + 8 * v9++));
+          sourcesCopy[2](sourcesCopy, *(*(&v10 + 1) + 8 * v9++));
         }
 
         while (v7 != v9);
-        v7 = [currentDataSources countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v7 = [currentDataSources countByEnumeratingWithState:&v10 objects:v14 count:16];
       }
 
       while (v7);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)donatedAppIdentifiersWithCompletion:(id)completion
@@ -153,7 +151,7 @@ uint64_t __51__REDataSourceCatalog__applicationsStatesDidChange__block_invoke(ui
 
 void __59__REDataSourceCatalog_donatedAppIdentifiersWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3;
   v5 = MEMORY[0x277CBEBF8];
@@ -163,25 +161,25 @@ void __59__REDataSourceCatalog_donatedAppIdentifiersWithCompletion___block_invok
   }
 
   v6 = v5;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * i);
+        v11 = *(*(&v15 + 1) + 8 * i);
         v12 = [v11 bundleIdentifier];
 
         if (v12)
@@ -192,13 +190,11 @@ void __59__REDataSourceCatalog_donatedAppIdentifiersWithCompletion___block_invok
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __59__REDataSourceCatalog_donatedAppIdentifiersWithCompletion___block_invoke_2(uint64_t a1)
@@ -210,29 +206,29 @@ void __59__REDataSourceCatalog_donatedAppIdentifiersWithCompletion___block_invok
 
 - (id)localAndRemoteAppIdentifiersForDataSourceIdentifiers:(id)identifiers
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   v5 = [MEMORY[0x277CBEB58] set];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v6 = identifiersCopy;
-  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        applicationBundleIdentifier = [(objc_class *)[(REDataSourceManager *)self->_dataSourceManager classForDataSourceIdentifier:*(*(&v16 + 1) + 8 * i) applicationBundleIdentifier];
+        applicationBundleIdentifier = [(objc_class *)[(REDataSourceManager *)self->_dataSourceManager classForDataSourceIdentifier:*(*(&v15 + 1) + 8 * i) applicationBundleIdentifier];
         if (applicationBundleIdentifier)
         {
           [v5 addObject:applicationBundleIdentifier];
@@ -244,14 +240,13 @@ void __59__REDataSourceCatalog_donatedAppIdentifiersWithCompletion___block_invok
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
   }
 
   v13 = [v5 copy];
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -423,9 +418,9 @@ LABEL_8:
   return v5;
 }
 
-uint64_t __65__REDataSourceCatalog_localizedNameForApplicationWithIdentifier___block_invoke()
+uint64_t __65__REDataSourceCatalog_localizedNameForApplicationWithIdentifier___block_invoke(uint64_t a1, uint64_t a2)
 {
-  result = _REGetIsInternalBuild();
+  result = _REGetIsInternalBuild(a1, a2);
   _isInternalDevice_2 = result;
   return result;
 }

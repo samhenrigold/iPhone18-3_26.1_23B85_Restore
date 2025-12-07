@@ -65,18 +65,16 @@ uint64_t __37__CDPDNetworkObserver_sharedInstance__block_invoke()
 
 uint64_t __44__CDPDNetworkObserver_startObservingNetwork__block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   address = xmmword_245199C00;
   *(*(a1 + 32) + 32) = SCNetworkReachabilityCreateWithAddress(*MEMORY[0x277CBECE8], &address);
   flags = 0;
   SCNetworkReachabilityGetFlags(*(*(a1 + 32) + 32), &flags);
   *(*(a1 + 32) + 8) = (flags & 2) != 0;
-  memset(&v4, 0, sizeof(v4));
-  v4.info = *(a1 + 32);
-  SCNetworkReachabilitySetCallback(*(v4.info + 4), _networkReachabilityCallBack, &v4);
-  result = SCNetworkReachabilitySetDispatchQueue(*(*(a1 + 32) + 32), *(*(a1 + 32) + 40));
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  memset(&v3, 0, sizeof(v3));
+  v3.info = *(a1 + 32);
+  SCNetworkReachabilitySetCallback(*(v3.info + 4), _networkReachabilityCallBack, &v3);
+  return SCNetworkReachabilitySetDispatchQueue(*(*(a1 + 32) + 32), *(*(a1 + 32) + 40));
 }
 
 - (void)_networkReachabilityDidChangeWithFlags:(unsigned int)flags

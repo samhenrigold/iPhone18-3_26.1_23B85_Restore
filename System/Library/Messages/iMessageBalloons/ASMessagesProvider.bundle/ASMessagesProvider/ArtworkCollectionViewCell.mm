@@ -18,7 +18,7 @@
   (*(*(v9 - 8) + 56))(self + v8, 1, 1, v9);
   *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC18ASMessagesProvider25ArtworkCollectionViewCell_artworkView) = [objc_allocWithZone(sub_759210()) initWithFrame:{0.0, 0.0, 0.0, 0.0}];
   v13.receiver = self;
-  v13.super_class = type metadata accessor for ArtworkCollectionViewCell();
+  v13.super_class = type metadata accessor for ArtworkCollectionViewCell(0);
   height = [(ArtworkCollectionViewCell *)&v13 initWithFrame:x, y, width, height];
   contentView = [(ArtworkCollectionViewCell *)height contentView];
   [contentView addSubview:*(&height->super.super.super.super.super.isa + OBJC_IVAR____TtC18ASMessagesProvider25ArtworkCollectionViewCell_artworkView)];
@@ -39,7 +39,7 @@
 - (void)prepareForReuse
 {
   v4.receiver = self;
-  v4.super_class = type metadata accessor for ArtworkCollectionViewCell();
+  v4.super_class = type metadata accessor for ArtworkCollectionViewCell(0);
   v2 = v4.receiver;
   [(ArtworkCollectionViewCell *)&v4 prepareForReuse];
   v5.value.super.isa = 0;
@@ -50,7 +50,7 @@
 - (void)layoutSubviews
 {
   v4.receiver = self;
-  v4.super_class = type metadata accessor for ArtworkCollectionViewCell();
+  v4.super_class = type metadata accessor for ArtworkCollectionViewCell(0);
   v2 = v4.receiver;
   [(ArtworkCollectionViewCell *)&v4 layoutSubviews];
   contentView = [v2 contentView];

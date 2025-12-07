@@ -39,7 +39,7 @@
 {
   if (dword_1001BED68 <= 30 && (dword_1001BED68 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BED68, "[RepairMainController showProgressUI]", 30, "ShowProgressUI\n");
   }
 
   vcProgress = self->_vcProgress;
@@ -75,8 +75,7 @@
 
   if (dword_1001BED68 <= 30 && (dword_1001BED68 != -1 || _LogCategory_Initialize()))
   {
-    v13 = v6;
-    LogPrintF();
+    LogPrintF(&dword_1001BED68, "[RepairMainController showDoneUI:error:final:]", 30, "ShowDoneUI: %#m\n", v6);
   }
 
   if ((v6 & 0xFFFFFFFB) == 0x497C8)
@@ -89,7 +88,7 @@
     v8 = @"Done";
   }
 
-  v9 = [(UIStoryboard *)self->_storyboard instantiateViewControllerWithIdentifier:v8, v13];
+  v9 = [(UIStoryboard *)self->_storyboard instantiateViewControllerWithIdentifier:v8];
   vcDone = self->_vcDone;
   self->_vcDone = v9;
 
@@ -103,7 +102,7 @@
 LABEL_12:
     if (dword_1001BED68 <= 30 && (dword_1001BED68 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1001BED68, "[RepairMainController showDoneUI:error:final:]", 30, "Invalidating session\n");
     }
 
     [(SFDeviceRepairSession *)self->_sfSession invalidate];
@@ -129,7 +128,7 @@ LABEL_17:
         v8 = infoCopy;
         if (dword_1001BED68 <= 30 && (dword_1001BED68 != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF();
+          LogPrintF(&dword_1001BED68, "[RepairMainController _sessionHandleProgress:info:]", 30, "Repair Finalized\n");
         }
 
         [(RepairMainController *)self showDoneUI:0 error:0 final:1];
@@ -140,7 +139,7 @@ LABEL_17:
         v7 = CFDictionaryGetTypedValue();
         if (dword_1001BED68 <= 60 && (dword_1001BED68 != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF();
+          LogPrintF(&dword_1001BED68, "[RepairMainController _sessionHandleProgress:info:]", 60, "### Setup failed: %{error}\n", v7);
         }
 
         [(RepairMainController *)self showDoneUI:NSErrorToOSStatus() error:v7 final:1];
@@ -150,7 +149,7 @@ LABEL_17:
         v8 = infoCopy;
         if (dword_1001BED68 <= 30 && (dword_1001BED68 != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF();
+          LogPrintF(&dword_1001BED68, "[RepairMainController _sessionHandleProgress:info:]", 30, "Repair completed\n");
         }
 
         [(RepairMainController *)self showDoneUI:0];
@@ -178,11 +177,10 @@ LABEL_24:
   startCopy = start;
   if (dword_1001BED68 <= 30 && (dword_1001BED68 != -1 || _LogCategory_Initialize()))
   {
-    v9 = startCopy;
-    LogPrintF();
+    LogPrintF(&dword_1001BED68, "[RepairMainController _sessionStart:]", 30, "Start setup with %@\n", startCopy);
   }
 
-  [(RepairMainController *)self logUsageStart:9, v9];
+  [(RepairMainController *)self logUsageStart:9];
   [(RepairMainController *)self showProgressUI];
   if (self->_testMode)
   {
@@ -205,12 +203,12 @@ LABEL_24:
     [(SFDeviceRepairSession *)self->_sfSession setPeerDevice:startCopy];
     [(SFDeviceRepairSession *)self->_sfSession setPresentingViewController:self->_vcStart];
     [(SFDeviceRepairSession *)self->_sfSession setRepairFlags:CFDictionaryGetInt64Ranged()];
-    v10[0] = _NSConcreteStackBlock;
-    v10[1] = 3221225472;
-    v10[2] = sub_100114D4C;
-    v10[3] = &unk_1001959F8;
-    v10[4] = self;
-    [(SFDeviceRepairSession *)self->_sfSession setProgressHandler:v10];
+    v9[0] = _NSConcreteStackBlock;
+    v9[1] = 3221225472;
+    v9[2] = sub_100114D4C;
+    v9[3] = &unk_1001959F8;
+    v9[4] = self;
+    [(SFDeviceRepairSession *)self->_sfSession setProgressHandler:v9];
     [(SFDeviceRepairSession *)self->_sfSession activate];
     _remoteViewControllerProxy = [(RepairMainController *)self _remoteViewControllerProxy];
     [_remoteViewControllerProxy setIdleTimerDisabled:1 forReason:@"com.apple.SharingViewService.Repair"];
@@ -258,7 +256,7 @@ LABEL_24:
 
     if (dword_1001BED68 <= 50 && (dword_1001BED68 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1001BED68, "[RepairMainController logUsageDone:]", 50, "Repair: Done, ID %@, RSSI %ld, error %d, totalMs %llu", v5, Int64Ranged, v3, v7);
     }
   }
 }
@@ -304,7 +302,7 @@ LABEL_24:
 
     if (dword_1001BED68 <= 50 && (dword_1001BED68 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1001BED68, "[RepairMainController logUsageStart:]", 50, "Repair: Start, ID %@, RSSI %ld, action %d, userMs %llu", v5, Int64Ranged, v3, v7);
     }
   }
 }
@@ -334,7 +332,7 @@ LABEL_24:
         {
           if (dword_1001BED68 <= 30 && (dword_1001BED68 != -1 || _LogCategory_Initialize()))
           {
-            LogPrintF();
+            LogPrintF(&dword_1001BED68, "[RepairMainController handleButtonActions:]", 30, "Home button\n");
           }
 
           [(RepairMainController *)self dismiss:4];
@@ -382,7 +380,7 @@ LABEL_24:
   disappearCopy = disappear;
   if (dword_1001BED68 <= 30 && (dword_1001BED68 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BED68, "[RepairMainController viewDidDisappear:]", 30, "Main ViewDidDisappear\n");
   }
 
   _remoteViewControllerProxy = [(RepairMainController *)self _remoteViewControllerProxy];
@@ -392,7 +390,7 @@ LABEL_24:
   {
     if (dword_1001BED68 <= 30 && (dword_1001BED68 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1001BED68, "[RepairMainController viewDidDisappear:]", 30, "Main disappeared without dismiss (device locked?)...dismissing UI\n");
     }
 
     [(RepairMainController *)self dismiss:21];
@@ -430,7 +428,7 @@ LABEL_24:
   appearCopy = appear;
   if (dword_1001BED68 <= 30 && (dword_1001BED68 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BED68, "[RepairMainController viewDidAppear:]", 30, "Main ViewDidAppear\n");
   }
 
   v14.receiver = self;
@@ -498,8 +496,7 @@ LABEL_24:
 
   if (dword_1001BED68 <= 30 && (dword_1001BED68 != -1 || _LogCategory_Initialize()))
   {
-    v14 = self->super._userInfo;
-    LogPrintF();
+    LogPrintF(&dword_1001BED68, "[RepairMainController configureWithContext:completion:]", 30, "Main configuration: %@\n", self->super._userInfo);
   }
 
   self->_deviceColorCode = CFDictionaryGetInt64Ranged();
@@ -512,7 +509,7 @@ LABEL_24:
     self->_deviceIdentifier = v9;
   }
 
-  if ([v8 isEqual:{@"00000000-0000-0000-0000-000000000001", v14}])
+  if ([v8 isEqual:@"00000000-0000-0000-0000-000000000001"])
   {
     v11 = 1;
 LABEL_13:

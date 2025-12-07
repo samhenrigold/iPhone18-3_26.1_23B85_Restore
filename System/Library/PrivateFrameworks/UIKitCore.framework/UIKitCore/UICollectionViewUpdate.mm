@@ -5,9 +5,7 @@
 - (id)finalIndexPathForInitialIndexPath:(id)path;
 - (id)initWithCollectionView:(void *)view updateItems:(void *)items moveItemSourceIndexPaths:(void *)paths moveItemDestinationIndexPaths:(void *)indexPaths oldModel:(void *)model newModel:(double)newModel oldContentOffset:(double)offset newContentOffset:(double)self0;
 - (id)initialIndexPathForFinalIndexPath:(id)path;
-- (id)newIndexPathForSupplementaryElementOfKind:(void *)kind oldIndexPath:;
 - (id)validatedNewIndexPathForSupplementaryElementOfKind:(void *)kind oldIndexPath:;
-- (id)validatedOldIndexPathForSupplementaryElementOfKind:(void *)kind newIndexPath:;
 - (int64_t)finalGlobalIndexForInitialGlobalIndex:(int64_t)index;
 - (int64_t)finalSectionIndexForInitialSectionIndex:(int64_t)index;
 - (int64_t)initialGlobalIndexForFinalGlobalIndex:(int64_t)index;
@@ -16,6 +14,8 @@
 - (uint64_t)hasInsertedAuxiliaryElementOfKind:(void *)kind atIndexPath:;
 - (uint64_t)hasMovedItemWithDestinationIndexPath:(uint64_t)path;
 - (uint64_t)hasMovedItemWithSourceIndexPath:(uint64_t)path;
+- (unsigned)newIndexPathForSupplementaryElementOfKind:(void *)kind oldIndexPath:;
+- (unsigned)validatedOldIndexPathForSupplementaryElementOfKind:(void *)kind newIndexPath:;
 - (void)_computeAuxiliaryUpdates;
 - (void)_generateUpdateMaps;
 - (void)_processDeletedAuxiliaryOfKind:(void *)kind atIndexPath:(int)path isSupplementary:;
@@ -452,7 +452,7 @@ void __45__UICollectionViewUpdate__generateUpdateMaps__block_invoke_5(uint64_t a
   _UIDataSourceUpdateFromCollectionViewUpdateItem(v4, a3);
 }
 
-uint64_t __45__UICollectionViewUpdate__generateUpdateMaps__block_invoke_4(uint64_t a1, unsigned int a2)
+unint64_t __45__UICollectionViewUpdate__generateUpdateMaps__block_invoke_4(uint64_t a1, unsigned int a2)
 {
   v2 = [(UICollectionViewData *)*(a1 + 32) numberOfItemsInSection:a2];
   if (v2 != 0x7FFFFFFFFFFFFFFFLL)
@@ -471,7 +471,7 @@ uint64_t __45__UICollectionViewUpdate__generateUpdateMaps__block_invoke_4(uint64
   return 0xFFFFFFFFLL;
 }
 
-uint64_t __45__UICollectionViewUpdate__generateUpdateMaps__block_invoke_3(uint64_t a1, unsigned int a2)
+unint64_t __45__UICollectionViewUpdate__generateUpdateMaps__block_invoke_3(uint64_t a1, unsigned int a2)
 {
   v2 = [(UICollectionViewData *)*(a1 + 32) numberOfItemsBeforeSection:a2];
   if (v2 != 0x7FFFFFFFFFFFFFFFLL)
@@ -490,7 +490,7 @@ uint64_t __45__UICollectionViewUpdate__generateUpdateMaps__block_invoke_3(uint64
   return 0xFFFFFFFFLL;
 }
 
-uint64_t __45__UICollectionViewUpdate__generateUpdateMaps__block_invoke_2(uint64_t a1, unsigned int a2)
+unint64_t __45__UICollectionViewUpdate__generateUpdateMaps__block_invoke_2(uint64_t a1, unsigned int a2)
 {
   v2 = [(UICollectionViewData *)*(a1 + 32) numberOfItemsInSection:a2];
   if (v2 != 0x7FFFFFFFFFFFFFFFLL)
@@ -509,7 +509,7 @@ uint64_t __45__UICollectionViewUpdate__generateUpdateMaps__block_invoke_2(uint64
   return 0xFFFFFFFFLL;
 }
 
-uint64_t __45__UICollectionViewUpdate__generateUpdateMaps__block_invoke(uint64_t a1, unsigned int a2)
+unint64_t __45__UICollectionViewUpdate__generateUpdateMaps__block_invoke(uint64_t a1, unsigned int a2)
 {
   v2 = [(UICollectionViewData *)*(a1 + 32) numberOfItemsBeforeSection:a2];
   if (v2 != 0x7FFFFFFFFFFFFFFFLL)
@@ -691,17 +691,17 @@ uint64_t __45__UICollectionViewUpdate__generateUpdateMaps__block_invoke(uint64_t
   [v11 addIndex:item];
 }
 
-- (id)newIndexPathForSupplementaryElementOfKind:(void *)kind oldIndexPath:
+- (unsigned)newIndexPathForSupplementaryElementOfKind:(void *)kind oldIndexPath:
 {
   v5 = a2;
   kindCopy = kind;
   if (self)
   {
     has_internal_diagnostics = os_variant_has_internal_diagnostics();
-    v8 = *(self + 80);
+    v8 = *(self + 10);
     if (has_internal_diagnostics)
     {
-      if (!v8 || !*(self + 88))
+      if (!v8 || !*(self + 11))
       {
         v24 = __UIFaultDebugAssertLog();
         if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
@@ -712,7 +712,7 @@ uint64_t __45__UICollectionViewUpdate__generateUpdateMaps__block_invoke(uint64_t
       }
     }
 
-    else if (!v8 || !*(self + 88))
+    else if (!v8 || !*(self + 11))
     {
       v23 = *(__UILogGetCategoryCachedImpl("Assert", &newIndexPathForSupplementaryElementOfKind_oldIndexPath____s_category) + 8);
       if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
@@ -726,14 +726,14 @@ uint64_t __45__UICollectionViewUpdate__generateUpdateMaps__block_invoke(uint64_t
     if (item != 0x7FFFFFFFFFFFFFFFLL)
     {
       v11 = item;
-      if (![*(self + 136) containsObject:v5])
+      if (![*(self + 17) containsObject:v5])
       {
         section = [kindCopy section];
-        v13 = *(self + 160);
-        v14 = *(self + 176);
+        v13 = self[40];
+        v14 = *(self + 22);
         if (!v14)
         {
-          v27 = *(self + 160);
+          v27 = self[40];
           v28 = section;
           currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
           v26 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"NSInteger _UIUpdateMapNewSectionForOldSection(const _UIDataSourceUpdateMaps, const NSInteger)"}];
@@ -748,11 +748,11 @@ uint64_t __45__UICollectionViewUpdate__generateUpdateMaps__block_invoke(uint64_t
           v15 = 0x7FFFFFFFFFFFFFFFLL;
         }
 
-        v16 = [*(self + 80) objectAtIndexedSubscript:?];
+        v16 = [*(self + 10) objectAtIndexedSubscript:?];
         v17 = [v16 valueForKey:v5];
         v18 = v11 - [v17 countOfIndexesInRange:{0, v11}];
 
-        v19 = [*(self + 88) objectAtIndexedSubscript:v15];
+        v19 = [*(self + 11) objectAtIndexedSubscript:v15];
         v20 = [v19 valueForKey:v5];
         v21 = [v20 countOfIndexesInRange:{0, v18 + 1}];
 
@@ -868,17 +868,17 @@ LABEL_9:
   return self;
 }
 
-- (id)validatedOldIndexPathForSupplementaryElementOfKind:(void *)kind newIndexPath:
+- (unsigned)validatedOldIndexPathForSupplementaryElementOfKind:(void *)kind newIndexPath:
 {
   v5 = a2;
   kindCopy = kind;
   if (self)
   {
     has_internal_diagnostics = os_variant_has_internal_diagnostics();
-    v8 = *(self + 80);
+    v8 = *(self + 10);
     if (has_internal_diagnostics)
     {
-      if (!v8 || !*(self + 88))
+      if (!v8 || !*(self + 11))
       {
         v36 = __UIFaultDebugAssertLog();
         if (os_log_type_enabled(v36, OS_LOG_TYPE_FAULT))
@@ -889,7 +889,7 @@ LABEL_9:
       }
     }
 
-    else if (!v8 || !*(self + 88))
+    else if (!v8 || !*(self + 11))
     {
       v35 = *(__UILogGetCategoryCachedImpl("Assert", &qword_1ED49D668) + 8);
       if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
@@ -904,21 +904,21 @@ LABEL_9:
       goto LABEL_6;
     }
 
-    if ([*(self + 136) containsObject:v5])
+    if ([*(self + 17) containsObject:v5])
     {
       self = [self initialIndexPathForFinalIndexPath:kindCopy];
       goto LABEL_38;
     }
 
     section = [kindCopy section];
-    if (section >= [*(self + 88) count])
+    if (section >= [*(self + 11) count])
     {
 LABEL_6:
       self = 0;
       goto LABEL_38;
     }
 
-    v10 = [*(self + 88) objectAtIndexedSubscript:section];
+    v10 = [*(self + 11) objectAtIndexedSubscript:section];
     v11 = [v10 objectForKey:v5];
 
     if (v11 && ([v11 containsIndex:{objc_msgSend(kindCopy, "item")}] & 1) != 0)
@@ -926,8 +926,8 @@ LABEL_6:
       goto LABEL_24;
     }
 
-    v12 = *(self + 164);
-    v13 = *(self + 184);
+    v12 = self[41];
+    v13 = *(self + 23);
     if (!v13)
     {
       currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
@@ -940,7 +940,7 @@ LABEL_6:
       v14 = 0x7FFFFFFFFFFFFFFFLL;
     }
 
-    if (v14 >= [*(self + 80) count])
+    if (v14 >= [*(self + 10) count])
     {
 LABEL_24:
       self = 0;
@@ -952,10 +952,10 @@ LABEL_37:
     v15 = v5;
     v16 = kindCopy;
     v17 = os_variant_has_internal_diagnostics();
-    v18 = *(self + 80);
+    v18 = *(self + 10);
     if (v17)
     {
-      if (!v18 || !*(self + 88))
+      if (!v18 || !*(self + 11))
       {
         v40 = __UIFaultDebugAssertLog();
         if (os_log_type_enabled(v40, OS_LOG_TYPE_FAULT))
@@ -966,7 +966,7 @@ LABEL_37:
       }
     }
 
-    else if (!v18 || !*(self + 88))
+    else if (!v18 || !*(self + 11))
     {
       v39 = *(__UILogGetCategoryCachedImpl("Assert", &_MergedGlobals_1041) + 8);
       if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
@@ -980,11 +980,11 @@ LABEL_37:
     if (item != 0x7FFFFFFFFFFFFFFFLL)
     {
       v21 = item;
-      if (![*(self + 136) containsObject:v15])
+      if (![*(self + 17) containsObject:v15])
       {
         section2 = [v16 section];
-        v23 = *(self + 164);
-        v24 = *(self + 184);
+        v23 = self[41];
+        v24 = *(self + 23);
         if (!v24)
         {
           v44 = section2;
@@ -1001,12 +1001,12 @@ LABEL_37:
         }
 
         v43 = v25;
-        v26 = [*(self + 88) objectAtIndexedSubscript:?];
+        v26 = [*(self + 11) objectAtIndexedSubscript:?];
         v27 = [v26 valueForKey:v15];
         v28 = v15;
         v29 = v21 - [v27 countOfIndexesInRange:{0, v21}];
 
-        v30 = [*(self + 80) objectAtIndexedSubscript:v43];
+        v30 = [*(self + 10) objectAtIndexedSubscript:v43];
         v31 = [v30 valueForKey:v28];
         v32 = [v31 countOfIndexesInRange:{0, v29 + 1}];
 

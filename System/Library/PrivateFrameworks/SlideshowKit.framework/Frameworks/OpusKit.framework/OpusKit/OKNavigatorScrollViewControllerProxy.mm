@@ -291,7 +291,7 @@
   }
 }
 
-uint64_t __105__OKNavigatorScrollViewControllerProxy_navigateToOffset_animated_duration_timingFunctionName_completion___block_invoke(uint64_t a1, void *a2)
+void *__105__OKNavigatorScrollViewControllerProxy_navigateToOffset_animated_duration_timingFunctionName_completion___block_invoke(uint64_t a1, void *a2)
 {
   [objc_msgSend(a2 objectForKeyedSubscript:{@"x", "doubleValue"}];
   v5 = v4;

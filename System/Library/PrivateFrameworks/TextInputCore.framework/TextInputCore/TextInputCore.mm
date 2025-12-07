@@ -32,7 +32,7 @@ const void **KB::retain_ptr<__CFDictionary const*>::operator=(const void **a1, C
   return a1;
 }
 
-uint64_t std::vector<std::string>::__init_with_size[abi:nn200100]<std::string*,std::string*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::string>::__init_with_size[abi:nn200100]<std::string*,std::string*>(uint64_t *result, int a2, int a3, unint64_t a4)
 {
   if (a4)
   {
@@ -147,7 +147,7 @@ uint64_t TILexiconIDForLocaleIdentifier(const char *a1)
     operator new();
   }
 
-  v16 = v2;
+  v15 = v2;
   if (v2)
   {
     memcpy(__dst, a1, v2);
@@ -156,16 +156,16 @@ uint64_t TILexiconIDForLocaleIdentifier(const char *a1)
   *(__dst + v3) = 0;
   _TISharedLexiconIDManager();
   explicit = atomic_load_explicit(&_TISharedLexiconIDManager(void)::lexicon_id_manager, memory_order_acquire);
-  v5 = v16;
+  v5 = v15;
   if (!explicit)
   {
-LABEL_24:
+LABEL_23:
     operator new();
   }
 
-  if ((v16 & 0x80u) == 0)
+  if ((v15 & 0x80u) == 0)
   {
-    v6 = v16;
+    v6 = v15;
   }
 
   else
@@ -173,7 +173,7 @@ LABEL_24:
     v6 = __dst[1];
   }
 
-  if ((v16 & 0x80u) == 0)
+  if ((v15 & 0x80u) == 0)
   {
     v7 = __dst;
   }
@@ -205,18 +205,17 @@ LABEL_24:
     v8 = *(v8 + 32);
     if (!v8)
     {
-      v12 = (*(explicit + 24) + 1);
-      goto LABEL_24;
+      goto LABEL_23;
     }
   }
 
-  v13 = *(v8 + 24);
+  v12 = *(v8 + 24);
   if ((v5 & 0x80) != 0)
   {
     operator delete(__dst[0]);
   }
 
-  return v13;
+  return v12;
 }
 
 void _TISharedLexiconIDManager(void)
@@ -262,20 +261,18 @@ uint64_t KB::StaticDictionary::lexicon_index(KB::StaticDictionary *this, int a2)
 
 void TIRestoreAdaptationAutocorrectionRejectionV2Trial()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v1 = 136315138;
-    v2 = "TIRestoreAdaptationAutocorrectionRejectionV2Trial";
-    _os_log_debug_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%s  Trial: removing override of adaptation_autocorrection_rejection_v2", &v1, 0xCu);
+    v0 = 136315138;
+    v1 = "TIRestoreAdaptationAutocorrectionRejectionV2Trial";
+    _os_log_debug_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%s  Trial: removing override of adaptation_autocorrection_rejection_v2", &v0, 0xCu);
   }
 
   if (HIBYTE(adaptation_autocorrection_rejection_v2_override_for_trial) == 1)
   {
     HIBYTE(adaptation_autocorrection_rejection_v2_override_for_trial) = 0;
   }
-
-  v0 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t TI::Favonius::FavoniusStrokeBuildManager::set_favonius_language_weight(uint64_t result, uint64_t a2)
@@ -441,19 +438,19 @@ unsigned __int16 *KB::String::compute_length(unsigned __int16 *this)
   return this;
 }
 
-uint64_t TIInputManager::register_key_area(uint64_t this, _LXLexicon *a2, CGRect a3)
+void *TIInputManager::register_key_area(void *this, _LXLexicon *a2, CGRect a3, __int16 a4)
 {
   if (*a2)
   {
-    v4 = this;
-    v5 = *(this + 360);
-    *(v4 + 360) = 0;
-    if (v5)
+    v5 = this;
+    v6 = this[45];
+    v5[45] = 0;
+    if (v6)
     {
-      WTF::RefCounted<TI::Favonius::KeyboardLayout>::deref(v5);
+      WTF::RefCounted<TI::Favonius::KeyboardLayout>::deref(v6);
     }
 
-    KB::CollatorWrapper::sortkey_for_string((*(*(v4 + 264) + 8) + 72), a2, &v6);
+    KB::CollatorWrapper::sortkey_for_string(&v7, (*(v5[33] + 8) + 72), a2);
     operator new();
   }
 
@@ -580,60 +577,57 @@ uint64_t *KB::String::iterator::initialize(uint64_t *this)
   return this;
 }
 
-void KB::CollatorWrapper::_sortkey_for_string(_LXLexicon *a1@<X1>, _WORD *a2@<X8>)
+void KB::CollatorWrapper::_sortkey_for_string(_LXLexicon *a2@<X1>, _WORD *a4@<X8>)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  KB::cf_string_impl<KB::String>(&cf, a1);
-  v7 = 0;
-  v8 = 32;
-  v9 = 0;
+  v9 = *MEMORY[0x277D85DE8];
+  KB::cf_string_impl<KB::String>(&cf, a2);
+  v6 = 0;
+  v7 = 32;
+  v8 = 0;
   if (LXLexiconGetSortkeyBytes())
   {
-    *a2 = 0;
+    *a4 = 0;
   }
 
   else
   {
-    *a2 = 0;
+    *a4 = 0;
   }
 
-  free(v7);
+  free(v6);
   if (cf)
   {
     CFRelease(cf);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void KB::CollatorWrapper::sortkey_for_string(KB::CollatorWrapper *this@<X0>, _LXLexicon *a2@<X1>, _WORD *a3@<X8>)
+void KB::CollatorWrapper::sortkey_for_string(uint64_t *__return_ptr a1@<X8>, KB::CollatorWrapper **this@<X0>, _LXLexicon *a3@<X1>)
 {
   if (*this)
   {
 
-    KB::CollatorWrapper::_sortkey_for_string(a2, a3);
+    KB::CollatorWrapper::_sortkey_for_string(a3, a1);
   }
 
   else
   {
-    v5 = _icu_root_collator();
+    v6 = _icu_root_collator();
 
-    _sortkey_for_string_with_collator(a3, a2, v5);
+    _sortkey_for_string_with_collator(a1, a3, v6);
   }
 }
 
 void KB::cf_string_impl<KB::String>(CFStringRef *a1, unsigned __int16 *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v4 = *a2;
   v5 = *(a2 + 1);
   v6 = a2 + 8;
   if (!v5)
   {
-    v5 = (a2 + 8);
+    v5 = a2 + 8;
   }
 
-  *a2;
   if (*a2)
   {
     v7 = v5;
@@ -657,36 +651,35 @@ void KB::cf_string_impl<KB::String>(CFStringRef *a1, unsigned __int16 *a2)
       v9 = TIOSLogFacility();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
-        v11 = *(a2 + 1);
-        if (!v11)
+        v10 = *(a2 + 1);
+        if (!v10)
         {
-          v11 = v6;
+          v10 = v6;
         }
 
         if (*a2)
         {
-          v12 = v11;
+          v11 = v10;
         }
 
         else
         {
-          v12 = "";
+          v11 = "";
         }
 
-        v13 = 136315394;
-        v14 = "cf_string_impl";
-        v15 = 2080;
-        v16 = v12;
-        _os_log_debug_impl(&dword_22CA55000, v9, OS_LOG_TYPE_DEBUG, "%s warning: bytes do not represent UTF8 string: %s", &v13, 0x16u);
+        v12 = 136315394;
+        v13 = "cf_string_impl";
+        v14 = 2080;
+        v15 = v11;
+        _os_log_debug_impl(&dword_22CA55000, v9, OS_LOG_TYPE_DEBUG, "%s warning: bytes do not represent UTF8 string: %s", &v12, 0x16u);
       }
     }
   }
 
   *a1 = v8;
-  v10 = *MEMORY[0x277D85DE8];
 }
 
-TI::Favonius::Key *TI::Favonius::Key::Key(TI::Favonius::Key *this, const KB::String *a2, const KB::ByteString *a3)
+TI::Favonius::Key *TI::Favonius::Key::Key(TI::Favonius::Key *this, const KB::String *a2, const void **a3)
 {
   *this = 1;
   v6 = (this + 8);
@@ -817,7 +810,7 @@ LABEL_19:
   return this;
 }
 
-TI::Favonius::LayoutKey *TI::Favonius::LayoutKey::LayoutKey(TI::Favonius::LayoutKey *this, const KB::String *a2, const KB::ByteString *a3, CGRect a4, __int16 a5)
+TI::Favonius::LayoutKey *TI::Favonius::LayoutKey::LayoutKey(TI::Favonius::LayoutKey *this, const KB::String *a2, const void **a3, CGRect a4, __int16 a5)
 {
   height = a4.size.height;
   width = a4.size.width;
@@ -1135,36 +1128,36 @@ void WTF::Vector<WTF::RefPtr<TI::Favonius::LayoutKey>,0ul>::reserveCapacity(void
   }
 }
 
-void TIInputManager::clear_primary2secondary_character_map(TIInputManager *this)
+void TIInputManager::clear_primary2secondary_character_map(uint64_t this)
 {
-  if (*(this + 25))
+  if (*(this + 200))
   {
-    std::__hash_table<std::__hash_value_type<KB::String,KB::String>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,KB::String>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,KB::String>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,KB::String>>>::__deallocate_node(*(this + 24));
-    *(this + 24) = 0;
-    v2 = *(this + 23);
+    std::__hash_table<std::__hash_value_type<KB::String,KB::String>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,KB::String>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,KB::String>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,KB::String>>>::__deallocate_node(*(this + 192));
+    *(this + 192) = 0;
+    v2 = *(this + 184);
     if (v2)
     {
       for (i = 0; i != v2; ++i)
       {
-        *(*(this + 22) + 8 * i) = 0;
+        *(*(this + 176) + 8 * i) = 0;
       }
     }
 
-    *(this + 25) = 0;
+    *(this + 200) = 0;
   }
 }
 
-void KB::utf8_string(KB *this@<X0>, uint64_t a2@<X8>)
+void KB::utf8_string(KB *this@<X0>, uint64_t x8_0@<X8>)
 {
   v4 = this;
   v6.location = [(KB *)v4 length];
-  KB::utf8_substring(v4, 0, v6, a2);
+  KB::utf8_substring(v4, 0, v6, x8_0);
 }
 
 void KB::utf8_substring(KB *this@<X0>, NSString *a2@<X1>, _NSRange a3@<0:X2, 8:X3>, uint64_t a4@<X8>)
 {
   location = a3.location;
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v7 = this;
   if (!v7)
   {
@@ -1186,23 +1179,23 @@ void KB::utf8_substring(KB *this@<X0>, NSString *a2@<X1>, _NSRange a3@<0:X2, 8:X
     v8 = 65520;
   }
 
-  v28 = 0;
-  v29 = v8;
-  v30 = v8 > 0x400;
+  v27 = 0;
+  v28 = v8;
+  v29 = v8 > 0x400;
   if (v8 <= 0x400)
   {
-    *v24 = 0;
-    v23 = xmmword_22CC889D0;
-    v10 = v27;
+    *v23 = 0;
+    v22 = xmmword_22CC889D0;
+    v10 = v26;
 LABEL_10:
     v9 = v8 - 1;
     goto LABEL_11;
   }
 
   v10 = malloc_type_malloc(v8, 0x100004077774924uLL);
-  v28 = v10;
-  *v24 = 0;
-  v23 = xmmword_22CC889D0;
+  v27 = v10;
+  *v23 = 0;
+  v22 = xmmword_22CC889D0;
   if (v10)
   {
     goto LABEL_10;
@@ -1210,20 +1203,20 @@ LABEL_10:
 
   v9 = -1;
 LABEL_11:
-  if (([(KB *)v7 getBytes:v10 maxLength:v9 usedLength:v24 encoding:4 options:0 range:a2 remainingRange:location, &v23]& 1) != 0)
+  if (([(KB *)v7 getBytes:v10 maxLength:v9 usedLength:v23 encoding:4 options:0 range:a2 remainingRange:location, &v22]& 1) != 0)
   {
-    if (v30)
-    {
-      v11 = v28;
-    }
-
-    else
+    if (v29)
     {
       v11 = v27;
     }
 
-    v11[*v24] = 0;
-    if (*(&v23 + 1))
+    else
+    {
+      v11 = v26;
+    }
+
+    v11[*v23] = 0;
+    if (v22.length)
     {
       if (TICanLogMessageAtLevel_onceToken != -1)
       {
@@ -1233,29 +1226,29 @@ LABEL_11:
       v12 = TIOSLogFacility();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
-        v16 = MEMORY[0x277CCACA8];
-        v32.location = a2;
-        v32.length = location;
-        v17 = NSStringFromRange(v32);
-        v18 = NSStringFromRange(v23);
-        v19 = [v16 stringWithFormat:@"%s warning: attempt to convert range [%@] is incomplete, with remaining range [%@]", "utf8_substring", v17, v18];
+        v15 = MEMORY[0x277CCACA8];
+        v31.location = a2;
+        v31.length = location;
+        v16 = NSStringFromRange(v31);
+        v17 = NSStringFromRange(v22);
+        v18 = [v15 stringWithFormat:@"%s warning: attempt to convert range [%@] is incomplete, with remaining range [%@]", "utf8_substring", v16, v17];
         *buf = 138412290;
-        v26 = v19;
+        v25 = v18;
         _os_log_debug_impl(&dword_22CA55000, v12, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
 
-    if (v30)
-    {
-      v13 = v28;
-    }
-
-    else
+    if (v29)
     {
       v13 = v27;
     }
 
-    KB::String::String(a4, v13, v24[0]);
+    else
+    {
+      v13 = v26;
+    }
+
+    KB::String::String(a4, v13, v23[0]);
   }
 
   else
@@ -1270,13 +1263,13 @@ LABEL_11:
       v14 = TIOSLogFacility();
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
-        v20 = MEMORY[0x277CCACA8];
-        v33.location = a2;
-        v33.length = location;
-        v21 = NSStringFromRange(v33);
-        v22 = [v20 stringWithFormat:@"%s warning: cannot get UTF8 substring from [%@] in range [%@]", "utf8_substring", v7, v21];
+        v19 = MEMORY[0x277CCACA8];
+        v32.location = a2;
+        v32.length = location;
+        v20 = NSStringFromRange(v32);
+        v21 = [v19 stringWithFormat:@"%s warning: cannot get UTF8 substring from [%@] in range [%@]", "utf8_substring", v7, v20];
         *buf = 138412290;
-        v26 = v22;
+        v25 = v21;
         _os_log_debug_impl(&dword_22CA55000, v14, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -1288,10 +1281,8 @@ LABEL_11:
     *(a4 + 16) = 0;
   }
 
-  free(v28);
+  free(v27);
 LABEL_33:
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 KB::String *KB::String::String(KB::String *this, const char *a2, unsigned int a3)
@@ -1492,16 +1483,16 @@ uint64_t TI::Favonius::FavoniusStrokeBuildManager::typing_model@<X0>(uint64_t th
 
 uint64_t TIInputManager::clear_input(TIInputManager *this)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v8 = 0x100000;
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0x100000;
+  v8 = 0;
   v9 = 0;
   v10 = 0;
   v11 = 0;
-  v12 = 0;
-  KB::String::operator=((this + 32), &v8);
-  if (v11)
+  KB::String::operator=((this + 32), &v7);
+  if (v10)
   {
-    v2 = v10 == 1;
+    v2 = v9 == 1;
   }
 
   else
@@ -1511,7 +1502,7 @@ uint64_t TIInputManager::clear_input(TIInputManager *this)
 
   if (v2)
   {
-    free(v11);
+    free(v10);
   }
 
   v3 = *(this + 1);
@@ -1533,9 +1524,7 @@ uint64_t TIInputManager::clear_input(TIInputManager *this)
   *(this + 27) = 0;
   KB::String::clear((this + 64));
   *(this + 728) = 0;
-  result = (*(**(this + 28) + 136))(*(this + 28));
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(**(this + 28) + 136))(*(this + 28));
 }
 
 void TI::Favonius::FavoniusStrokeBuildManager::input_disruption_from_UI(TI::Favonius::FavoniusStrokeBuildManager *this)
@@ -1567,7 +1556,7 @@ id KB::ns_string(KB *this, const KB::String *a2)
   return v2;
 }
 
-unsigned __int16 *TIInputManager::input_substring@<X0>(unsigned __int16 *result@<X0>, unsigned int a2@<W1>, int a3@<W2>, uint64_t a4@<X8>)
+KB::String *TIInputManager::input_substring@<X0>(KB::String *result@<X0>, unsigned int a2@<W1>, int a3@<W2>, uint64_t a4@<X8>)
 {
   *a4 = 0x100000;
   *(a4 + 4) = 0;
@@ -1601,40 +1590,40 @@ uint64_t *KB::compose_diacritics@<X0>(KB *this@<X0>, const KB::String *a2@<X1>, 
   *(a3 + 16) = 0;
   if (*(this + 1))
   {
-    v6 = *(this + 1);
+    v5 = *(this + 1);
   }
 
   else
   {
-    v6 = this + 16;
+    v5 = this + 16;
   }
 
-  v17 = v6;
-  v7 = *this;
-  v18 = 0;
-  v19 = v7;
-  v20 = 0;
-  KB::String::iterator::initialize(&v17);
+  v16 = v5;
+  v6 = *this;
+  v17 = 0;
+  v18 = v6;
+  v19 = 0;
+  KB::String::iterator::initialize(&v16);
+  v12 = v5;
   v13 = v6;
-  v14 = v7;
-  v15 = v7;
-  v16 = 0;
-  result = KB::String::iterator::initialize(&v13);
-  for (i = v14; v18 != i; result = KB::String::iterator::operator++(&v17))
+  v14 = v6;
+  v15 = 0;
+  result = KB::String::iterator::initialize(&v12);
+  for (i = v13; v17 != i; result = KB::String::iterator::operator++(&v16))
   {
-    v10 = v20;
-    v11 = combine_with_accent();
-    if (v11)
+    v9 = v19;
+    v10 = combine_with_accent();
+    if (v10)
     {
-      v12 = v11;
-      if (!a2 || MEMORY[0x2318BF290](a2, v11))
+      v11 = v10;
+      if (!a2 || MEMORY[0x2318BF290](a2, v10))
       {
         KB::String::pop_last(a3);
-        v10 = v12;
+        v9 = v11;
       }
     }
 
-    KB::String::append(a3, v10);
+    KB::String::append(a3, v9);
   }
 
   return result;
@@ -1654,7 +1643,7 @@ uint64_t *KB::decompose_diacritics@<X0>(unsigned __int16 *a1@<X0>, unsigned int 
 
   else
   {
-    v7 = (a1 + 8);
+    v7 = a1 + 8;
   }
 
   v21 = v7;
@@ -1700,7 +1689,7 @@ uint64_t *KB::decompose_diacritics@<X0>(unsigned __int16 *a1@<X0>, unsigned int 
   return result;
 }
 
-uint64_t KB::LanguageModelContext::LanguageModelContext(uint64_t a1, unint64_t *a2, uint64_t a3, uint64_t a4)
+uint64_t KB::LanguageModelContext::LanguageModelContext(uint64_t a1, unint64_t *a2, uint64_t a3, __int128 *a4)
 {
   *(a1 + 32) = 0u;
   *(a1 + 48) = 0u;
@@ -1714,27 +1703,27 @@ uint64_t KB::LanguageModelContext::LanguageModelContext(uint64_t a1, unint64_t *
   {
     v8 = *a2++;
     KB::LanguageModelContext::append(a1, v8, a4, 0);
-    a4 += 24;
+    a4 = (a4 + 24);
   }
 
   return a1;
 }
 
-void *std::vector<TITokenID>::vector[abi:nn200100](void *result, void *a2)
+uint64_t *std::vector<TITokenID>::vector[abi:nn200100](uint64_t *a1, void *a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   v2 = a2[1];
   if (v2 != *a2)
   {
-    std::vector<TITokenID>::__vallocate[abi:nn200100](result, (v2 - *a2) >> 3);
+    std::vector<TITokenID>::__vallocate[abi:nn200100](a1, (v2 - *a2) >> 3);
   }
 
-  return result;
+  return a1;
 }
 
-_BYTE *std::string::basic_string[abi:nn200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:nn200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -1748,17 +1737,17 @@ _BYTE *std::string::basic_string[abi:nn200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
-void KB::LanguageModelContext::append(KB::LanguageModelContext *this, unint64_t a2, uint64_t a3, int a4)
+void KB::LanguageModelContext::append(KB::LanguageModelContext *this, unint64_t a2, __int128 *a3, int a4)
 {
   v41 = a2;
   if (HIDWORD(a2) == 1)
@@ -1877,13 +1866,13 @@ void KB::LanguageModelContext::append(KB::LanguageModelContext *this, unint64_t 
       v32 = (24 * v27);
       if (*(a3 + 23) < 0)
       {
-        std::string::__init_copy_ctor_external(v32, *a3, *(a3 + 8));
+        std::string::__init_copy_ctor_external(v32, *a3, *(a3 + 1));
       }
 
       else
       {
         v33 = *a3;
-        v32->__r_.__value_.__r.__words[2] = *(a3 + 16);
+        v32->__r_.__value_.__r.__words[2] = *(a3 + 2);
         *&v32->__r_.__value_.__l.__data_ = v33;
       }
 
@@ -1908,13 +1897,13 @@ void KB::LanguageModelContext::append(KB::LanguageModelContext *this, unint64_t 
     {
       if (*(a3 + 23) < 0)
       {
-        std::string::__init_copy_ctor_external(*(this + 11), *a3, *(a3 + 8));
+        std::string::__init_copy_ctor_external(*(this + 11), *a3, *(a3 + 1));
       }
 
       else
       {
         v25 = *a3;
-        *(v24 + 16) = *(a3 + 16);
+        *(v24 + 16) = *(a3 + 2);
         *v24 = v25;
       }
 
@@ -2145,7 +2134,7 @@ void std::string::__init_copy_ctor_external(std::string *this, const std::string
   memmove(this, __s, v3);
 }
 
-void std::vector<TITokenID>::__vallocate[abi:nn200100](uint64_t a1, unint64_t a2)
+void std::vector<TITokenID>::__vallocate[abi:nn200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -2174,11 +2163,11 @@ KB::LanguageModelContext *KB::LanguageModelContext::LanguageModelContext(KB::Lan
   *(this + 11) = 0;
   *(this + 12) = 0;
   *(this + 10) = 0;
-  std::vector<std::string>::__init_with_size[abi:nn200100]<std::string*,std::string*>(this + 80, *(a2 + 10), *(a2 + 11), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 11) - *(a2 + 10)) >> 3));
+  std::vector<std::string>::__init_with_size[abi:nn200100]<std::string*,std::string*>(this + 10, *(a2 + 10), *(a2 + 11), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 11) - *(a2 + 10)) >> 3));
   return this;
 }
 
-void std::vector<std::string>::__vallocate[abi:nn200100](uint64_t a1, unint64_t a2)
+void std::vector<std::string>::__vallocate[abi:nn200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -2298,7 +2287,7 @@ uint64_t KB::LanguageModelContext::operator=(uint64_t a1, uint64_t *a2)
           v14 = v13;
         }
 
-        std::vector<TITokenID>::__vallocate[abi:nn200100](a1 + 16, v14);
+        std::vector<TITokenID>::__vallocate[abi:nn200100]((a1 + 16), v14);
       }
 
       std::vector<unsigned long>::__throw_length_error[abi:nn200100]();
@@ -2318,7 +2307,7 @@ uint64_t KB::LanguageModelContext::operator=(uint64_t a1, uint64_t *a2)
 
     else
     {
-      v18 = &v8[v17];
+      v18 = (v8 + v17);
       if (v16 != v7)
       {
         memmove(*(a1 + 16), a2[2], v17);
@@ -2345,48 +2334,44 @@ uint64_t KB::LanguageModelContext::operator=(uint64_t a1, uint64_t *a2)
   return a1;
 }
 
-void *KB::DictionaryContainer::load_dynamic_dict(void *this, uint64_t a2)
+void KB::DictionaryContainer::load_dynamic_dict(void *this, uint64_t a2)
 {
   v2 = this + 5;
   if (this[5] != this[6])
   {
-    v3 = this;
-    this = this[3];
-    if (this)
+    v4 = this[3];
+    if (v4)
     {
-      if (((*(*this + 32))(this) & 1) == 0)
+      if (((*(*v4 + 32))(v4) & 1) == 0)
       {
-        (*(*v3[3] + 40))(v3[3], v2, a2);
-        KB::DynamicDictionary::load_address_book(v3[3]);
-        KB::DynamicDictionary::load_app_names(v3[3]);
-        v5 = +[TITransientLexiconManager sharedInstance];
-        [v5 loadLexicons];
+        (*(*this[3] + 40))(this[3], v2, a2);
+        KB::DynamicDictionary::load_address_book(this[3]);
+        KB::DynamicDictionary::load_app_names(this[3]);
+        v6 = +[TITransientLexiconManager sharedInstance];
+        [v6 loadLexicons];
       }
 
-      v6 = v3[3];
+      v7 = this[3];
 
-      return KB::DynamicDictionary::load_user_dictionary(v6);
+      KB::DynamicDictionary::load_user_dictionary(v7);
     }
   }
-
-  return this;
 }
 
-void *KB::DynamicDictionary::load_user_dictionary(void *this)
+void KB::DynamicDictionary::load_user_dictionary(KB::DynamicDictionary *this)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  if (!this[3])
+  v12 = *MEMORY[0x277D85DE8];
+  if (!*(this + 3))
   {
-    v1 = this;
-    v6 = 0x100000;
+    v5 = 0x100000;
+    v6 = 0;
     v7 = 0;
     v8 = 0;
     v9 = 0;
-    v10 = 0;
     if ((*(*this + 32))(this))
     {
-      v2 = (*(*v1 + 48))(v1, 0);
-      KB::String::operator=(&v6, v2);
+      v2 = (*(*this + 48))(this, 0);
+      KB::String::operator=(&v5, v2);
     }
 
     v3 = TIUserDictionaryOSLogFacility();
@@ -2400,9 +2385,6 @@ void *KB::DynamicDictionary::load_user_dictionary(void *this)
 
     operator new();
   }
-
-  v5 = *MEMORY[0x277D85DE8];
-  return this;
 }
 
 BOOL KB::DynamicDictionaryContainer::get_valid(KB::DynamicDictionaryContainer *this)
@@ -2496,14 +2478,14 @@ id _deepCopyOfStringDictionary(void *a1)
 
 void ___ZN2KB20UserDictionaryLoader15create_and_loadERKNS_6StringE_block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = TIUserDictionaryOSLogFacility();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Queuing UserDictionary trie load/reload...", "create_and_load_block_invoke"];
     *buf = 138412290;
-    v13 = v5;
+    v11 = v5;
     _os_log_impl(&dword_22CA55000, v4, OS_LOG_TYPE_INFO, "%@", buf, 0xCu);
   }
 
@@ -2513,24 +2495,24 @@ void ___ZN2KB20UserDictionaryLoader15create_and_loadERKNS_6StringE_block_invoke(
   }
 
   v6 = KB::UserDictionaryLoader::dispatch_queue(void)::queue;
-  KB::String::String(v10, (a1 + 40));
-  v9 = *(a1 + 32);
+  KB::String::String(v8, (a1 + 40));
   v7 = v3;
   TIDispatchAsync();
 
-  if (v11 && v10[6] == 1)
+  if (v9)
   {
-    free(v11);
+    if (v8[6] == 1)
+    {
+      free(v9);
+    }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t TI::Favonius::FavoniusStrokeBuildManager::set_mltt_bundle_url(uint64_t result, const std::string *a2)
 {
   v2 = a2;
   v3 = result;
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v4 = (result + 736);
   v5 = *(result + 760);
   v6 = a2[1].__r_.__value_.__s.__data_[0];
@@ -2538,7 +2520,7 @@ uint64_t TI::Favonius::FavoniusStrokeBuildManager::set_mltt_bundle_url(uint64_t 
   {
     if (v5 == v6)
     {
-      goto LABEL_35;
+      return result;
     }
 
     goto LABEL_20;
@@ -2577,7 +2559,6 @@ uint64_t TI::Favonius::FavoniusStrokeBuildManager::set_mltt_bundle_url(uint64_t 
     v12 = v4->__r_.__value_.__r.__words[0];
   }
 
-  v13 = a2->__r_.__value_.__r.__words[0];
   if (v11 < 0)
   {
     a2 = a2->__r_.__value_.__r.__words[0];
@@ -2589,9 +2570,9 @@ uint64_t TI::Favonius::FavoniusStrokeBuildManager::set_mltt_bundle_url(uint64_t 
 LABEL_20:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
-      v16 = 136315138;
-      v17 = "set_mltt_bundle_url";
-      _os_log_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s  Resetting ml tap typing recognizer", &v16, 0xCu);
+      v14 = 136315138;
+      v15 = "set_mltt_bundle_url";
+      _os_log_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s  Resetting ml tap typing recognizer", &v14, 0xCu);
       v5 = *(v3 + 760);
       v6 = v2[1].__r_.__value_.__s.__data_[0];
     }
@@ -2623,9 +2604,9 @@ LABEL_20:
 
       else
       {
-        v14 = *&v2->__r_.__value_.__l.__data_;
+        v13 = *&v2->__r_.__value_.__l.__data_;
         v4->__r_.__value_.__r.__words[2] = v2->__r_.__value_.__r.__words[2];
-        *&v4->__r_.__value_.__l.__data_ = v14;
+        *&v4->__r_.__value_.__l.__data_ = v13;
       }
 
       *(v3 + 760) = 1;
@@ -2635,25 +2616,23 @@ LABEL_20:
     *(v3 + 720) = 0;
     if (result)
     {
-      result = (*(*result + 8))(result);
+      return (*(*result + 8))(result);
     }
   }
 
-LABEL_35:
-  v15 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void ___ZN2KB20UserDictionaryLoader15create_and_loadERKNS_6StringE_block_invoke_10()
+void ___ZN2KB20UserDictionaryLoader15create_and_loadERKNS_6StringE_block_invoke_10(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v0 = TIUserDictionaryOSLogFacility();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  v5 = *MEMORY[0x277D85DE8];
+  v1 = TIUserDictionaryOSLogFacility();
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
   {
-    v1 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Loading UserDictionary trie...", "create_and_load_block_invoke"];
+    v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Loading UserDictionary trie...", "create_and_load_block_invoke"];
     buf = 138412290;
-    *buf_4 = v1;
-    _os_log_impl(&dword_22CA55000, v0, OS_LOG_TYPE_INFO, "%@", &buf, 0xCu);
+    *buf_4 = v2;
+    _os_log_impl(&dword_22CA55000, v1, OS_LOG_TYPE_INFO, "%@", &buf, 0xCu);
   }
 
   operator new();
@@ -2661,7 +2640,7 @@ void ___ZN2KB20UserDictionaryLoader15create_and_loadERKNS_6StringE_block_invoke_
 
 uint64_t getExcessMemoryInBytes()
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   getpid();
   v0 = memorystatus_control();
   if (v0)
@@ -2675,14 +2654,12 @@ uint64_t getExcessMemoryInBytes()
       v5 = __error();
       v6 = [v3 stringWithFormat:@"%s memorystatus_control returned error: %d, errno: %d, error-string: %s", "getExcessMemoryInBytes", v1, v4, strerror(*v5)];
       *buf = 138412290;
-      v10 = v6;
+      v9 = v6;
       _os_log_impl(&dword_22CA55000, v2, OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
     }
   }
 
-  result = 0;
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 id TIKeyboardActivityOSLogFacility()
@@ -2697,153 +2674,153 @@ id TIKeyboardActivityOSLogFacility()
   return v1;
 }
 
-void KB::LanguageModelStr::set_current_recipient_names(uint64_t a1, uint64_t *a2)
+void KB::LanguageModelStr::set_current_recipient_names(uint64_t result, const KB::String **a2)
 {
-  v33 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 184);
+  v34 = *MEMORY[0x277D85DE8];
+  v2 = *(result + 184);
   if (!v2)
   {
-    goto LABEL_36;
+    return;
   }
 
-  v22 = 0;
   v23 = 0;
   v24 = 0;
-  std::vector<KB::String>::__init_with_size[abi:nn200100]<KB::String*,KB::String*>(&v22, *a2, a2[1], (a2[1] - *a2) >> 5);
-  v3 = (v2 + 328);
+  v25 = 0;
+  std::vector<KB::String>::__init_with_size[abi:nn200100]<KB::String*,KB::String*>(&v23, *a2, a2[1], (a2[1] - *a2) >> 5);
+  v5 = (v2 + 328);
   if ((*(v2 + 352) & 1) == 0)
   {
-    v6 = v22;
-    v7 = v23;
+    v8 = v23;
+    v9 = v24;
     goto LABEL_11;
   }
 
-  v5 = *(v2 + 328);
-  v4 = *(v2 + 336);
-  v6 = v22;
-  v7 = v23;
-  if (v4 - v5 != v23 - v22)
+  v7 = *(v2 + 328);
+  v6 = *(v2 + 336);
+  v8 = v23;
+  v9 = v24;
+  if (v6 - v7 != v24 - v23)
   {
 LABEL_11:
-    v9 = *(v2 + 360);
-    v30 = 0;
-    v10 = 0uLL;
-    v29 = 0u;
-    if (v7 == v6)
+    v11 = *(v2 + 360);
+    v31 = 0;
+    v12 = 0uLL;
+    v30 = 0u;
+    if (v9 == v8)
     {
-      v19 = 0;
+      v21 = 0;
     }
 
     else
     {
-      v11 = 0;
-      v12 = 0;
+      v13 = 0;
+      v14 = 0;
       do
       {
-        v13 = objc_opt_new();
-        if (*(v6 + v11))
+        v15 = objc_opt_new();
+        if (*(v8 + v13))
         {
-          if (*(v6 + v11 + 8))
+          if (*(v8 + v13 + 8))
           {
-            v14 = *(v6 + v11 + 8);
+            v16 = *(v8 + v13 + 8);
           }
 
           else
           {
-            v14 = v6 + v11 + 16;
+            v16 = v8 + v13 + 16;
           }
         }
 
         else
         {
-          v14 = "";
+          v16 = "";
         }
 
-        v15 = [MEMORY[0x277CCACA8] stringWithUTF8String:v14];
-        v16 = [v13 personNameComponentsFromString:v15];
-        v17 = [v16 givenName];
+        v17 = [MEMORY[0x277CCACA8] stringWithUTF8String:v16];
+        v18 = [v15 personNameComponentsFromString:v17];
+        v19 = [v18 givenName];
 
-        if ([v17 length])
+        if ([v19 length])
         {
-          *&v26 = 0;
-          *(&v26 + 1) = &v26;
-          v27 = 0x2020000000;
-          v28 = 1;
-          v18 = [v17 length];
-          v25[0] = MEMORY[0x277D85DD0];
-          v25[1] = 3221225472;
-          v25[2] = ___Z15validFirstNamesRKNSt3__16vectorIN2KB6StringENS_9allocatorIS2_EEEEPK4USet_block_invoke;
-          v25[3] = &unk_2787318F8;
-          v25[4] = &v26;
-          v25[5] = v9;
-          [v17 _enumerateLongCharactersInRange:0 usingBlock:{v18, v25}];
-          if (*(*(&v26 + 1) + 24) == 1)
+          *&v27 = 0;
+          *(&v27 + 1) = &v27;
+          v28 = 0x2020000000;
+          v29 = 1;
+          v20 = [v19 length];
+          v26[0] = MEMORY[0x277D85DD0];
+          v26[1] = 3221225472;
+          v26[2] = ___Z15validFirstNamesRKNSt3__16vectorIN2KB6StringENS_9allocatorIS2_EEEEPK4USet_block_invoke;
+          v26[3] = &unk_2787318F8;
+          v26[4] = &v27;
+          v26[5] = v11;
+          [v19 _enumerateLongCharactersInRange:0 usingBlock:{v20, v26}];
+          if (*(*(&v27 + 1) + 24) == 1)
           {
-            KB::utf8_string(v17, &v31);
-            std::vector<KB::String>::push_back[abi:nn200100](&v29, &v31);
-            if (v32)
+            KB::utf8_string(v19, &v32);
+            std::vector<KB::String>::push_back[abi:nn200100](&v30, &v32);
+            if (v33)
             {
-              if (BYTE6(v31) == 1)
+              if (BYTE6(v32) == 1)
               {
-                free(v32);
+                free(v33);
               }
             }
           }
 
-          _Block_object_dispose(&v26, 8);
+          _Block_object_dispose(&v27, 8);
         }
 
-        ++v12;
-        v6 = v22;
-        v7 = v23;
-        v11 += 32;
+        ++v14;
+        v8 = v23;
+        v9 = v24;
+        v13 += 32;
       }
 
-      while (v12 < (v23 - v22) >> 5);
-      v10 = v29;
-      v19 = v30;
-      v3 = (v2 + 328);
+      while (v14 < (v24 - v23) >> 5);
+      v12 = v30;
+      v21 = v31;
+      v5 = (v2 + 328);
     }
 
-    v21 = v10;
-    v26 = v10;
-    v27 = v19;
-    v30 = 0;
-    v29 = 0uLL;
-    v28 = 1;
-    v31 = &v29;
-    std::vector<KB::String>::__destroy_vector::operator()[abi:nn200100](&v31);
+    v22 = v12;
+    v27 = v12;
+    v28 = v21;
+    v31 = 0;
+    v30 = 0uLL;
+    v29 = 1;
+    v32 = &v30;
+    std::vector<KB::String>::__destroy_vector::operator()[abi:nn200100](&v32);
     if (*(v2 + 392))
     {
       std::vector<KB::String>::__vdeallocate((v2 + 368));
-      *(v2 + 368) = v21;
-      *(v2 + 384) = v19;
-      v27 = 0;
-      v26 = 0uLL;
+      *(v2 + 368) = v22;
+      *(v2 + 384) = v21;
+      v28 = 0;
+      v27 = 0uLL;
     }
 
     else
     {
-      *(v2 + 368) = v21;
-      *(v2 + 384) = v19;
-      v27 = 0;
-      v26 = 0uLL;
+      *(v2 + 368) = v22;
+      *(v2 + 384) = v21;
+      v28 = 0;
+      v27 = 0uLL;
       *(v2 + 392) = 1;
     }
 
-    v25[0] = &v26;
-    std::vector<KB::String>::__destroy_vector::operator()[abi:nn200100](v25);
+    v26[0] = &v27;
+    std::vector<KB::String>::__destroy_vector::operator()[abi:nn200100](v26);
     goto LABEL_31;
   }
 
-  if (v5 != v4)
+  if (v7 != v6)
   {
-    v8 = v22;
-    while (v5 == v8 || KB::String::equal(v5, v8, 1))
+    v10 = v23;
+    while (v7 == v10 || KB::String::equal(v7, v10, 1, v3, v4))
     {
-      v5 = (v5 + 32);
-      v8 = (v8 + 32);
-      if (v5 == v4)
+      v7 = (v7 + 32);
+      v10 = (v10 + 32);
+      if (v7 == v6)
       {
         goto LABEL_31;
       }
@@ -2855,28 +2832,26 @@ LABEL_11:
 LABEL_31:
   if (*(v2 + 352) == 1)
   {
-    if (v3 != &v22)
+    if (v5 != &v23)
     {
-      std::vector<KB::String>::__assign_with_size[abi:nn200100]<KB::String*,KB::String*>(v3, v6, v7, (v7 - v6) >> 5);
+      std::vector<KB::String>::__assign_with_size[abi:nn200100]<KB::String*,KB::String*>(v5, v8, v9, (v9 - v8) >> 5);
     }
   }
 
   else
   {
-    *v3 = 0;
-    v3[1] = 0;
-    v3[2] = 0;
-    std::vector<KB::String>::__init_with_size[abi:nn200100]<KB::String*,KB::String*>(v3, v6, v7, (v7 - v6) >> 5);
+    *v5 = 0;
+    *(v5 + 1) = 0;
+    *(v5 + 2) = 0;
+    std::vector<KB::String>::__init_with_size[abi:nn200100]<KB::String*,KB::String*>(v5, v8, v9, (v9 - v8) >> 5);
     *(v2 + 352) = 1;
   }
 
-  v25[0] = &v22;
-  std::vector<KB::String>::__destroy_vector::operator()[abi:nn200100](v25);
-LABEL_36:
-  v20 = *MEMORY[0x277D85DE8];
+  v26[0] = &v23;
+  std::vector<KB::String>::__destroy_vector::operator()[abi:nn200100](v26);
 }
 
-uint64_t std::vector<KB::String>::__init_with_size[abi:nn200100]<KB::String*,KB::String*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+KB::String *std::vector<KB::String>::__init_with_size[abi:nn200100]<KB::String*,KB::String*>(KB::String *result, const KB::String *a2, const KB::String *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -2886,7 +2861,7 @@ uint64_t std::vector<KB::String>::__init_with_size[abi:nn200100]<KB::String*,KB:
   return result;
 }
 
-unsigned int *KB::LanguageModelContainer::set_dictionaries(unsigned int *result, unsigned int **a2)
+unsigned int *KB::LanguageModelContainer::set_dictionaries(unsigned int *result, atomic_uint **a2)
 {
   v2 = *(result + 3);
   for (i = *(result + 4); v2 != i; v2 += 7)
@@ -2967,32 +2942,31 @@ uint64_t KB::LanguageModelContainer::set_inline_completion_analytics_metadata(ui
 
 void TIInlineCompletionGeneratorImpl::setInlineCompletionPersonalization(CFMutableDictionaryRef *this, const KB::String *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  KB::String::String(v7, a2);
-  v3 = isInlineCompletionDefaultAllowlistedApp(v7);
-  if (v8)
+  v12 = *MEMORY[0x277D85DE8];
+  KB::String::String(v10, a2);
+  v7 = isInlineCompletionDefaultAllowlistedApp(v10, v3, v4, v5, v6);
+  if (v11)
   {
-    v4 = v7[6] == 1;
+    v8 = v10[6] == 1;
   }
 
   else
   {
-    v4 = 0;
+    v8 = 0;
   }
 
-  if (v4)
+  if (v8)
   {
-    free(v8);
+    free(v11);
   }
 
-  v5 = MEMORY[0x277CBED10];
-  if (v3)
+  v9 = MEMORY[0x277CBED10];
+  if (v7)
   {
-    v5 = MEMORY[0x277CBED28];
+    v9 = MEMORY[0x277CBED28];
   }
 
-  CFDictionarySetValue(this[6], *MEMORY[0x277D22E88], *v5);
-  v6 = *MEMORY[0x277D85DE8];
+  CFDictionarySetValue(this[6], *MEMORY[0x277D22E88], *v9);
 }
 
 KB::String *std::__optional_storage_base<TIInlineCompletionAnalyticsMetadata,false>::__construct[abi:nn200100]<TIInlineCompletionAnalyticsMetadata const&>(_BYTE *a1, _BYTE *a2)
@@ -3049,29 +3023,27 @@ uint64_t KB::LanguageModelContainer::updateAdditionalLexicons(uint64_t this)
 
 void KB::LanguageModelStr::updateAdditionalLexicons(const _LXLexicon **this)
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   if ((*(*this + 2))(this))
   {
-    *v3 = TITransientLexiconManagerGetActiveSupplementalLexiconWords();
-    KB::LanguageModelStr::checkAndUpdateLexicon(this, this + 29, v3, *MEMORY[0x277D22DF0]);
-    *v3 = TITransientLexiconManagerGetActiveSupplementalLexiconPhrases();
-    KB::LanguageModelStr::checkAndUpdateLexicon(this, this + 30, v3, *MEMORY[0x277D22E38]);
-    *v3 = KB::LanguageModel::get_word_lexicon(this);
-    KB::LanguageModelStr::checkAndUpdateLexicon(this, this + 31, v3, *MEMORY[0x277D22DD8]);
-    *v3 = KB::LanguageModel::get_phrase_lexicon(this);
-    KB::LanguageModelStr::checkAndUpdateLexicon(this, this + 32, v3, *MEMORY[0x277D22E18]);
-    *v3 = KB::LanguageModel::get_contacts_lexicon(this);
-    KB::LanguageModelStr::checkAndUpdateLexicon(this, this + 33, v3, *MEMORY[0x277D22DE0]);
+    *v2 = TITransientLexiconManagerGetActiveSupplementalLexiconWords();
+    KB::LanguageModelStr::checkAndUpdateLexicon(this, this + 29, v2, *MEMORY[0x277D22DF0]);
+    *v2 = TITransientLexiconManagerGetActiveSupplementalLexiconPhrases();
+    KB::LanguageModelStr::checkAndUpdateLexicon(this, this + 30, v2, *MEMORY[0x277D22E38]);
+    *v2 = KB::LanguageModel::get_word_lexicon(this);
+    KB::LanguageModelStr::checkAndUpdateLexicon(this, this + 31, v2, *MEMORY[0x277D22DD8]);
+    *v2 = KB::LanguageModel::get_phrase_lexicon(this);
+    KB::LanguageModelStr::checkAndUpdateLexicon(this, this + 32, v2, *MEMORY[0x277D22E18]);
+    *v2 = KB::LanguageModel::get_contacts_lexicon(this);
+    KB::LanguageModelStr::checkAndUpdateLexicon(this, this + 33, v2, *MEMORY[0x277D22DE0]);
   }
 
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    *v3 = 136315138;
-    *&v3[4] = "updateAdditionalLexicons";
-    _os_log_error_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s  LM model is not valid yet", v3, 0xCu);
+    *v2 = 136315138;
+    *&v2[4] = "updateAdditionalLexicons";
+    _os_log_error_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s  LM model is not valid yet", v2, 0xCu);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t TITransientLexiconManagerGetActiveSupplementalLexiconWords()
@@ -3199,22 +3171,21 @@ void ___ZN33TIInlineCompletionEventDispatcher19did_update_metadataERKNSt3__18opt
 
 void KB::LanguageModelStr::checkAndUpdateLexicon(KB::LanguageModelStr *this, const _LXLexicon **a2, const _LXLexicon **a3, char *a4)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (*a2 != *a3)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *__p = 136315394;
       *&__p[4] = "checkAndUpdateLexicon";
-      v14 = 2080;
-      v15 = a4;
+      v9 = 2080;
+      v10 = a4;
       _os_log_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s  Removing lexicon for %s in Language Model", __p, 0x16u);
     }
 
-    v8 = *(this + 21);
     std::string::basic_string[abi:nn200100]<0>(__p, a4);
     language_modeling::v1::LanguageModel::removeLexicon();
-    if (v16 < 0)
+    if (v11 < 0)
     {
       operator delete(*__p);
     }
@@ -3225,32 +3196,28 @@ void KB::LanguageModelStr::checkAndUpdateLexicon(KB::LanguageModelStr *this, con
       {
         *__p = 136315394;
         *&__p[4] = "checkAndUpdateLexicon";
-        v14 = 2080;
-        v15 = a4;
+        v9 = 2080;
+        v10 = a4;
         _os_log_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s  Setting lexicon for %s in Language Model", __p, 0x16u);
-        v9 = *a3;
       }
 
-      v10 = *(this + 21);
       std::string::basic_string[abi:nn200100]<0>(__p, a4);
       language_modeling::v1::LanguageModel::addLexicon();
-      if (v16 < 0)
+      if (v11 < 0)
       {
         operator delete(*__p);
       }
 
-      v11 = *a3;
+      v7 = *a3;
     }
 
     else
     {
-      v11 = 0;
+      v7 = 0;
     }
 
-    *a2 = v11;
+    *a2 = v7;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t TITransientLexiconManagerGetActiveSupplementalLexiconPhrases()
@@ -3301,9 +3268,9 @@ LABEL_4:
   return v2;
 }
 
-__n128 KB::LanguageModelStr::lexicon_id_vector@<Q0>(language_modeling::v1::LanguageModel **this@<X0>, __n128 *a2@<X8>)
+__n128 KB::LanguageModelStr::lexicon_id_vector@<Q0>(uint64_t (***this)(language_modeling::v1::LanguageModel **)@<X0>, __n128 *a2@<X8>)
 {
-  if ((*(*this + 2))(this))
+  if ((*this)[2](this))
   {
     LanguageLocales = language_modeling::v1::LanguageModel::getLanguageLocales(this[21]);
     v5 = 0;
@@ -3314,7 +3281,7 @@ __n128 KB::LanguageModelStr::lexicon_id_vector@<Q0>(language_modeling::v1::Langu
       v7 = MEMORY[0x2318BC170](ValueAtIndex);
       if (v7)
       {
-        KB::std_string(v7, __p);
+        KB::std_string(__p, v7);
         if (v19 >= 0)
         {
           v8 = __p;
@@ -3396,7 +3363,7 @@ __n128 KB::LanguageModelStr::lexicon_id_vector@<Q0>(language_modeling::v1::Langu
   return result;
 }
 
-const __CFString *KB::std_string@<X0>(const __CFString *this@<X0>, void *a2@<X8>)
+const __CFString *KB::std_string@<X0>(uint64_t *__return_ptr a1@<X8>, const __CFString *this@<X0>)
 {
   if (this)
   {
@@ -3405,9 +3372,9 @@ const __CFString *KB::std_string@<X0>(const __CFString *this@<X0>, void *a2@<X8>
     operator new[]();
   }
 
-  *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   return this;
 }
 
@@ -3446,91 +3413,91 @@ unint64_t TILocaleIdentifierForLexiconID(int a1)
   return result;
 }
 
-void *std::__hash_table<std::__hash_value_type<KB::String,unsigned long>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,unsigned long>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,unsigned long>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,unsigned long>>>::find<KB::String>(void *a1, void *a2)
+void *std::__hash_table<std::__hash_value_type<KB::String,unsigned long>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,unsigned long>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,unsigned long>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,unsigned long>>>::find<KB::String>(void *a1, const KB::String *a2, unsigned int a3)
 {
-  if (a2[1])
+  if (*(a2 + 1))
   {
-    v4 = a2[1];
+    v5 = *(a2 + 1);
   }
 
   else
   {
-    v4 = (a2 + 2);
+    v5 = (a2 + 16);
   }
 
-  v5 = KB::String::hash(v4, *a2);
-  v6 = a1[1];
-  if (!v6)
+  v6 = KB::String::hash(v5, *a2);
+  v9 = a1[1];
+  if (!v9)
   {
     return 0;
   }
 
-  v7 = v5;
-  v8 = vcnt_s8(v6);
-  v8.i16[0] = vaddlv_u8(v8);
-  v9 = v8.u32[0];
-  if (v8.u32[0] > 1uLL)
+  v10 = v6;
+  v11 = vcnt_s8(v9);
+  v11.i16[0] = vaddlv_u8(v11);
+  v12 = v11.u32[0];
+  if (v11.u32[0] > 1uLL)
   {
-    v10 = v5;
-    if (v6 <= v5)
+    v13 = v6;
+    if (v9 <= v6)
     {
-      v10 = v5 % v6;
+      v13 = v6 % v9;
     }
   }
 
   else
   {
-    v10 = (v6 - 1) & v5;
+    v13 = (v9 - 1) & v6;
   }
 
-  v11 = *(*a1 + 8 * v10);
-  if (!v11)
+  v14 = *(*a1 + 8 * v13);
+  if (!v14)
   {
     return 0;
   }
 
-  v12 = *v11;
-  if (*v11)
+  v15 = *v14;
+  if (*v14)
   {
     do
     {
-      v13 = v12[1];
-      if (v13 == v7)
+      v16 = v15[1];
+      if (v16 == v10)
       {
-        if (v12 + 2 == a2 || KB::String::equal((v12 + 2), a2, 1))
+        if (v15 + 2 == a2 || KB::String::equal((v15 + 2), a2, 1, v7, v8))
         {
-          return v12;
+          return v15;
         }
       }
 
       else
       {
-        if (v9 > 1)
+        if (v12 > 1)
         {
-          if (v13 >= v6)
+          if (v16 >= v9)
           {
-            v13 %= v6;
+            v16 %= v9;
           }
         }
 
         else
         {
-          v13 &= v6 - 1;
+          v16 &= v9 - 1;
         }
 
-        if (v13 != v10)
+        if (v16 != v13)
         {
           return 0;
         }
       }
 
-      v12 = *v12;
+      v15 = *v15;
     }
 
-    while (v12);
+    while (v15);
   }
 
-  return v12;
+  return v15;
 }
 
 uint64_t KB::String::hash(KB::String *this, const char *a2)
@@ -3596,57 +3563,57 @@ uint64_t AddressBookTrieLoaderImpl::handle@<X0>(uint64_t this@<X0>, void *a2@<X8
 
 void KB::LanguageModelStr::set_inline_completion_analytics_metadata(KB::LanguageModelStr *this, const TIInlineCompletionAnalyticsMetadata *a2)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v2 = *(this + 23);
   if (!v2)
   {
-    goto LABEL_38;
+    return;
   }
 
-  KB::String::String(v8, a2);
-  KB::String::String(v10, &a2->var1);
-  KB::String::String(v12, &a2->var2);
-  KB::String::String(v14, &a2->var3);
-  KB::String::String(v16, &a2->var4);
-  KB::String::String(v18, &a2->var5);
+  KB::String::String(v7, a2);
+  KB::String::String(v9, &a2->var1);
+  KB::String::String(v11, &a2->var2);
+  KB::String::String(v13, &a2->var3);
+  KB::String::String(v15, &a2->var4);
+  KB::String::String(v17, &a2->var5);
   var6 = a2->var6;
-  KB::String::String(v21, &a2->var7);
-  KB::String::String(v23, &a2->var8);
-  KB::String::String(v25, &a2->var9);
-  KB::String::String(v27, &a2->var10);
+  KB::String::String(v20, &a2->var7);
+  KB::String::String(v22, &a2->var8);
+  KB::String::String(v24, &a2->var9);
+  KB::String::String(v26, &a2->var10);
   v4 = (v2 + 408);
-  v5 = v8;
+  v5 = v7;
   if (*(v2 + 736) != 1)
   {
     goto LABEL_5;
   }
 
-  KB::String::operator=(v4, v8);
-  KB::String::operator=((v2 + 440), v10);
-  KB::String::operator=((v2 + 472), v12);
-  KB::String::operator=((v2 + 504), v14);
-  KB::String::operator=((v2 + 536), v16);
-  KB::String::operator=((v2 + 568), v18);
+  KB::String::operator=(v4, v7);
+  KB::String::operator=((v2 + 440), v9);
+  KB::String::operator=((v2 + 472), v11);
+  KB::String::operator=((v2 + 504), v13);
+  KB::String::operator=((v2 + 536), v15);
+  KB::String::operator=((v2 + 568), v17);
   *(v2 + 600) = var6;
-  KB::String::operator=((v2 + 608), v21);
-  KB::String::operator=((v2 + 640), v23);
-  KB::String::operator=((v2 + 672), v25);
-  KB::String::operator=((v2 + 704), v27);
+  KB::String::operator=((v2 + 608), v20);
+  KB::String::operator=((v2 + 640), v22);
+  KB::String::operator=((v2 + 672), v24);
+  KB::String::operator=((v2 + 704), v26);
   if ((*(v2 + 736) & 1) == 0)
   {
     v4 = std::__throw_bad_optional_access[abi:nn200100]();
 LABEL_5:
     KB::String::String(v4, v5);
-    KB::String::String((v2 + 440), v10);
-    KB::String::String((v2 + 472), v12);
-    KB::String::String((v2 + 504), v14);
-    KB::String::String((v2 + 536), v16);
-    KB::String::String((v2 + 568), v18);
+    KB::String::String((v2 + 440), v9);
+    KB::String::String((v2 + 472), v11);
+    KB::String::String((v2 + 504), v13);
+    KB::String::String((v2 + 536), v15);
+    KB::String::String((v2 + 568), v17);
     *(v2 + 600) = var6;
-    KB::String::String((v2 + 608), v21);
-    KB::String::String((v2 + 640), v23);
-    KB::String::String((v2 + 672), v25);
-    KB::String::String((v2 + 704), v27);
+    KB::String::String((v2 + 608), v20);
+    KB::String::String((v2 + 640), v22);
+    KB::String::String((v2 + 672), v24);
+    KB::String::String((v2 + 704), v26);
     *(v2 + 736) = 1;
   }
 
@@ -3657,61 +3624,61 @@ LABEL_5:
     TIInlineCompletionEventDispatcher::did_update_metadata(*v6, *(v6 + 8), (v2 + 408));
   }
 
-  if (v28 && v27[6] == 1)
+  if (v27 && v26[6] == 1)
   {
-    free(v28);
+    free(v27);
   }
 
-  if (v26 && v25[6] == 1)
+  if (v25 && v24[6] == 1)
   {
-    free(v26);
+    free(v25);
   }
 
-  if (v24 && v23[6] == 1)
+  if (v23 && v22[6] == 1)
   {
-    free(v24);
+    free(v23);
   }
 
-  if (v22 && v21[6] == 1)
+  if (v21 && v20[6] == 1)
   {
-    free(v22);
+    free(v21);
   }
 
-  if (v19 && v18[6] == 1)
+  if (v18 && v17[6] == 1)
   {
-    free(v19);
+    free(v18);
   }
 
-  if (v17 && v16[6] == 1)
+  if (v16 && v15[6] == 1)
   {
-    free(v17);
+    free(v16);
   }
 
-  if (v15 && v14[6] == 1)
+  if (v14 && v13[6] == 1)
   {
-    free(v15);
+    free(v14);
   }
 
-  if (v13 && v12[6] == 1)
+  if (v12 && v11[6] == 1)
   {
-    free(v13);
+    free(v12);
   }
 
-  if (v11 && v10[6] == 1)
+  if (v10 && v9[6] == 1)
   {
-    free(v11);
+    free(v10);
   }
 
-  if (v9 && v8[6] == 1)
+  if (v8)
   {
-    free(v9);
+    if (v7[6] == 1)
+    {
+      free(v8);
+    }
   }
-
-LABEL_38:
-  v7 = *MEMORY[0x277D85DE8];
 }
 
-BOOL isInlineCompletionDefaultAllowlistedApp(KB::String *a1)
+BOOL isInlineCompletionDefaultAllowlistedApp(KB::String *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   {
     KB::String::String(&isInlineCompletionDefaultAllowlistedApp(KB::String)::mobileSMS, "com.apple.MobileSMS");
@@ -3743,194 +3710,186 @@ BOOL isInlineCompletionDefaultAllowlistedApp(KB::String *a1)
     __cxa_atexit(KB::String::~String, &isInlineCompletionDefaultAllowlistedApp(KB::String)::typist, &dword_22CA55000);
   }
 
-  if (KB::String::equal(a1, &isInlineCompletionDefaultAllowlistedApp(KB::String)::mobileSMS, 1) || KB::String::equal(a1, &isInlineCompletionDefaultAllowlistedApp(KB::String)::mobilemail, 1) || KB::String::equal(a1, &isInlineCompletionDefaultAllowlistedApp(KB::String)::reminders, 1) || KB::String::equal(a1, &isInlineCompletionDefaultAllowlistedApp(KB::String)::mobilenotes, 1) || KB::String::equal(a1, &isInlineCompletionDefaultAllowlistedApp(KB::String)::mobilecal, 1))
+  if (KB::String::equal(a1, &isInlineCompletionDefaultAllowlistedApp(KB::String)::mobileSMS, 1, a4, a5) || KB::String::equal(a1, &isInlineCompletionDefaultAllowlistedApp(KB::String)::mobilemail, 1, v6, v7) || KB::String::equal(a1, &isInlineCompletionDefaultAllowlistedApp(KB::String)::reminders, 1, v8, v9) || KB::String::equal(a1, &isInlineCompletionDefaultAllowlistedApp(KB::String)::mobilenotes, 1, v10, v11) || KB::String::equal(a1, &isInlineCompletionDefaultAllowlistedApp(KB::String)::mobilecal, 1, v12, v13))
   {
     return 1;
   }
 
-  return KB::String::equal(a1, &isInlineCompletionDefaultAllowlistedApp(KB::String)::typist, 1);
+  return KB::String::equal(a1, &isInlineCompletionDefaultAllowlistedApp(KB::String)::typist, 1, v14, v15);
 }
 
-BOOL KB::String::equal(KB::String *this, const KB::String *a2, int a3)
+BOOL KB::String::equal(KB::String *this, const KB::String *a2, const __CFLocale *a3, uint64_t a4, uint64_t a5)
 {
-  v25[2] = *MEMORY[0x277D85DE8];
+  v29[2] = *MEMORY[0x277D85DE8];
   if (a3)
   {
     if (*(this + 6) | *(a2 + 6) || *(this + 1) != *(a2 + 1))
     {
       if (*this != *a2)
       {
-        v7 = 0;
-        goto LABEL_40;
+        return 0;
       }
 
       if (*this)
       {
         if (*(this + 1))
         {
-          v5 = *(this + 1);
+          v7 = *(this + 1);
         }
 
         else
         {
-          v5 = this + 16;
+          v7 = this + 16;
         }
 
         if (*(a2 + 1))
         {
-          v6 = *(a2 + 1);
+          v8 = *(a2 + 1);
         }
 
         else
         {
-          v6 = a2 + 16;
+          v8 = a2 + 16;
         }
 
-        v7 = strcmp(v5, v6) == 0;
-        goto LABEL_40;
+        return strcmp(v7, v8) == 0;
       }
     }
 
-LABEL_38:
-    v7 = 1;
-    goto LABEL_40;
+    return 1;
   }
 
   if (*this == *a2)
   {
     if (!*this)
     {
-      goto LABEL_38;
+      return 1;
     }
 
-    v8 = *(this + 1) ? *(this + 1) : this + 16;
-    v9 = *(a2 + 1) ? *(a2 + 1) : a2 + 16;
-    if (!strcasecmp(v8, v9))
+    v10 = *(this + 1) ? *(this + 1) : this + 16;
+    v11 = *(a2 + 1) ? *(a2 + 1) : a2 + 16;
+    if (!strcasecmp(v10, v11))
     {
-      goto LABEL_38;
+      return 1;
     }
   }
 
-  KB::lower_string(this, 0, v22);
-  KB::lower_string(a2, 0, v18);
-  v10 = v24;
-  v11 = v25;
+  KB::lower_string(v26, this, 0, a3, a4, a5);
+  KB::lower_string(v22, a2, 0, v12, v13, v14);
+  v15 = v28;
+  v16 = v29;
+  if (v28)
+  {
+    v16 = v28;
+  }
+
+  if (v26[0])
+  {
+    v17 = v16;
+  }
+
+  else
+  {
+    v17 = "";
+  }
+
+  v18 = v24;
+  v19 = &v25;
   if (v24)
   {
-    v11 = v24;
+    v19 = v24;
   }
 
   if (v22[0])
   {
-    v12 = v11;
+    v20 = v19;
   }
 
   else
   {
-    v12 = "";
+    v20 = "";
   }
 
-  v13 = v20;
-  v14 = &v21;
-  if (v20)
+  v9 = strcmp(v17, v20) == 0;
+  if (v18 && v23 == 1)
   {
-    v14 = v20;
+    free(v18);
+    v15 = v28;
   }
 
-  if (v18[0])
+  if (v15 && v27 == 1)
   {
-    v15 = v14;
+    free(v15);
   }
 
-  else
-  {
-    v15 = "";
-  }
-
-  v7 = strcmp(v12, v15) == 0;
-  if (v13 && v19 == 1)
-  {
-    free(v13);
-    v10 = v24;
-  }
-
-  if (v10 && v23 == 1)
-  {
-    free(v10);
-  }
-
-LABEL_40:
-  v16 = *MEMORY[0x277D85DE8];
-  return v7;
+  return v9;
 }
 
 void TIInlineCompletionEventDispatcher::did_update_metadata(uint64_t a1, std::__shared_weak_count *this, _BYTE *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
-  std::shared_ptr<TIInlineCompletionEventDispatcher>::shared_ptr[abi:nn200100]<TIInlineCompletionEventDispatcher,0>(&v9, a1, this);
-  v5 = v9;
-  v4 = v10;
-  if (v10)
+  v19 = *MEMORY[0x277D85DE8];
+  std::shared_ptr<TIInlineCompletionEventDispatcher>::shared_ptr[abi:nn200100]<TIInlineCompletionEventDispatcher,0>(&v8, a1, this);
+  v5 = v8;
+  v4 = v9;
+  if (v9)
   {
-    atomic_fetch_add_explicit(&v10->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v9->__shared_weak_owners_, 1uLL, memory_order_relaxed);
     std::__shared_weak_count::__release_shared[abi:nn200100](v4);
   }
 
   v6 = analytics_queue();
-  v13 = MEMORY[0x277D85DD0];
-  v14 = 3321888768;
-  v15 = ___ZN33TIInlineCompletionEventDispatcher19did_update_metadataERKNSt3__18optionalI35TIInlineCompletionAnalyticsMetadataEE_block_invoke;
-  v16 = &__block_descriptor_384_a8_32c127_ZTSKZN33TIInlineCompletionEventDispatcher19did_update_metadataERKNSt3__18optionalI35TIInlineCompletionAnalyticsMetadataEEE3__0_e5_v8__0l;
-  v9 = v5;
-  v10 = v4;
+  v12 = MEMORY[0x277D85DD0];
+  v13 = 3321888768;
+  v14 = ___ZN33TIInlineCompletionEventDispatcher19did_update_metadataERKNSt3__18optionalI35TIInlineCompletionAnalyticsMetadataEE_block_invoke;
+  v15 = &__block_descriptor_384_a8_32c127_ZTSKZN33TIInlineCompletionEventDispatcher19did_update_metadataERKNSt3__18optionalI35TIInlineCompletionAnalyticsMetadataEEE3__0_e5_v8__0l;
+  v8 = v5;
+  v9 = v4;
   if (v4)
   {
     atomic_fetch_add_explicit(&v4->__shared_weak_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v11[0] = 0;
-  v12 = 0;
+  v10[0] = 0;
+  v11 = 0;
   v7 = v4;
   if (a3[328] == 1)
   {
-    std::__optional_storage_base<TIInlineCompletionAnalyticsMetadata,false>::__construct[abi:nn200100]<TIInlineCompletionAnalyticsMetadata const&>(v11, a3);
-    v5 = v9;
-    v7 = v10;
+    std::__optional_storage_base<TIInlineCompletionAnalyticsMetadata,false>::__construct[abi:nn200100]<TIInlineCompletionAnalyticsMetadata const&>(v10, a3);
+    v5 = v8;
+    v7 = v9;
   }
 
-  v17 = v5;
-  v18 = v7;
+  v16 = v5;
+  v17 = v7;
   if (v7)
   {
     atomic_fetch_add_explicit(&v7->__shared_weak_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v19[0] = 0;
-  v19[328] = 0;
-  if (v12 == 1)
+  v18[0] = 0;
+  v18[328] = 0;
+  if (v11 == 1)
   {
-    std::__optional_storage_base<TIInlineCompletionAnalyticsMetadata,false>::__construct[abi:nn200100]<TIInlineCompletionAnalyticsMetadata const&>(v19, v11);
+    std::__optional_storage_base<TIInlineCompletionAnalyticsMetadata,false>::__construct[abi:nn200100]<TIInlineCompletionAnalyticsMetadata const&>(v18, v10);
   }
 
   TIDispatchAsync();
-  std::__optional_storage_base<TIInlineCompletionAnalyticsMetadata,false>::~__optional_storage_base(v11);
-  if (v10)
+  std::__optional_storage_base<TIInlineCompletionAnalyticsMetadata,false>::~__optional_storage_base(v10);
+  if (v9)
   {
-    std::__shared_weak_count::__release_weak(v10);
+    std::__shared_weak_count::__release_weak(v9);
   }
 
-  std::__optional_storage_base<TIInlineCompletionAnalyticsMetadata,false>::~__optional_storage_base(v19);
-  if (v18)
+  std::__optional_storage_base<TIInlineCompletionAnalyticsMetadata,false>::~__optional_storage_base(v18);
+  if (v17)
   {
-    std::__shared_weak_count::__release_weak(v18);
+    std::__shared_weak_count::__release_weak(v17);
   }
 
   if (v4)
   {
     std::__shared_weak_count::__release_weak(v4);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 id analytics_queue(void)
@@ -4071,10 +4030,10 @@ uint64_t _icu_root_collator(void)
   return _icu_root_collator(void)::root_collator;
 }
 
-void KB::LanguageModelContainer::set_current_recipient_names(uint64_t a1, uint64_t *a2)
+void KB::LanguageModelContainer::set_current_recipient_names(uint64_t result, const KB::String **a2)
 {
-  v2 = *(a1 + 24);
-  v3 = *(a1 + 32);
+  v2 = *(result + 24);
+  v3 = *(result + 32);
   while (v2 != v3)
   {
     v5 = *v2;
@@ -4187,7 +4146,7 @@ void std::vector<KB::String>::__assign_with_size[abi:nn200100]<KB::String*,KB::S
       {
         KB::String::operator=(v8, v6);
         v6 = (v6 + 32);
-        v8 = (v8 + 32);
+        v8 += 32;
       }
 
       while (v6 != a3);
@@ -4202,7 +4161,7 @@ void std::vector<KB::String>::__assign_with_size[abi:nn200100]<KB::String*,KB::S
         free(v17);
       }
 
-      v12 = (v12 - 32);
+      v12 -= 32;
     }
 
     *(a1 + 8) = v8;
@@ -4217,7 +4176,7 @@ void std::vector<KB::String>::__assign_with_size[abi:nn200100]<KB::String*,KB::S
       {
         KB::String::operator=(v8, v6);
         v6 = (v6 + 32);
-        v8 = (v8 + 32);
+        v8 += 32;
         v13 -= 32;
       }
 
@@ -4252,12 +4211,12 @@ void KB::LanguageModelImplBase::set_recipient_context(KB::LanguageModelImplBase 
   std::mutex::unlock(v4);
 }
 
-CFIndex KB::LanguageModelStr::active_locale_identifiers_vector@<X0>(language_modeling::v1::LanguageModel **this@<X0>, void *a2@<X8>)
+CFIndex KB::LanguageModelStr::active_locale_identifiers_vector@<X0>(uint64_t (***this)(language_modeling::v1::LanguageModel **)@<X0>, void *a2@<X8>)
 {
   *a2 = 0;
   a2[1] = 0;
   a2[2] = 0;
-  result = (*(*this + 2))(this);
+  result = (*this)[2](this);
   if (result)
   {
     LanguageLocales = language_modeling::v1::LanguageModel::getLanguageLocales(this[21]);
@@ -4313,26 +4272,27 @@ void std::__allocate_at_least[abi:nn200100]<std::allocator<__CFString const*>>(u
   std::vector<unsigned long>::__throw_length_error[abi:nn200100]();
 }
 
-void KB::LanguageModelStr::start_session(_DWORD *a1, int a2)
+void KB::LanguageModelStr::start_session(_DWORD *a1, uint64_t a2)
 {
+  v2 = a2;
   if ((*(*a1 + 16))(a1))
   {
 
-    KB::LanguageModelStr::__start_session(a1, a2);
+    KB::LanguageModelStr::__start_session(a1, v2);
   }
 
   else
   {
-    a1[16] = a2;
+    a1[16] = v2;
   }
 }
 
 void KB::LanguageModelStr::__start_session(uint64_t a1, int a2)
 {
-  v33 = *MEMORY[0x277D85DE8];
-  v30[0] = 0;
-  v30[1] = 0;
-  v29 = v30;
+  v31 = *MEMORY[0x277D85DE8];
+  v28[0] = 0;
+  v28[1] = 0;
+  v27 = v28;
   v4 = *(a1 + 184);
   if (v4)
   {
@@ -4346,7 +4306,7 @@ void KB::LanguageModelStr::__start_session(uint64_t a1, int a2)
     atomic_store(0, (v5 + 760));
   }
 
-  KB::utf8_string(*(a1 + 48), &__p);
+  KB::utf8_string(&__p, *(a1 + 48));
   size = __p.__r_.__value_.__l.__size_;
   if (!__p.__r_.__value_.__l.__size_)
   {
@@ -4363,7 +4323,7 @@ void KB::LanguageModelStr::__start_session(uint64_t a1, int a2)
     v7 = "";
   }
 
-  std::string::basic_string[abi:nn200100]<0>(&v28, v7);
+  std::string::basic_string[abi:nn200100]<0>(&v26, v7);
   if (__p.__r_.__value_.__l.__size_ && __p.__r_.__value_.__s.__data_[6] == 1)
   {
     free(__p.__r_.__value_.__l.__size_);
@@ -4371,8 +4331,8 @@ void KB::LanguageModelStr::__start_session(uint64_t a1, int a2)
 
   v8 = a2 != 0;
   std::string::basic_string[abi:nn200100]<0>(&__p, *MEMORY[0x277D22E28]);
-  v26[0] = &__p;
-  v9 = std::__tree<std::__value_type<std::string,std::variant<language_modeling::v1::SessionType,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::variant<language_modeling::v1::SessionType,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::variant<language_modeling::v1::SessionType,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v29, &__p);
+  v24[0] = &__p;
+  v9 = std::__tree<std::__value_type<std::string,std::variant<language_modeling::v1::SessionType,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::variant<language_modeling::v1::SessionType,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::variant<language_modeling::v1::SessionType,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v27, &__p, v24);
   v10 = v9;
   v11 = *(v9 + 20);
   if (v11 != -1)
@@ -4383,7 +4343,7 @@ void KB::LanguageModelStr::__start_session(uint64_t a1, int a2)
       goto LABEL_18;
     }
 
-    (off_283FD6FE8[v11])(v26, v9 + 7);
+    (off_283FD6FE8[v11])(v24, v9 + 7);
   }
 
   *(v10 + 14) = v8;
@@ -4394,19 +4354,19 @@ LABEL_18:
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v28.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v26.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&__p, v28.__r_.__value_.__l.__data_, v28.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&__p, v26.__r_.__value_.__l.__data_, v26.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    __p = v28;
+    __p = v26;
   }
 
-  std::string::basic_string[abi:nn200100]<0>(v26, *MEMORY[0x277D22E60]);
-  v31 = v26;
-  v12 = std::__tree<std::__value_type<std::string,std::variant<language_modeling::v1::SessionType,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::variant<language_modeling::v1::SessionType,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::variant<language_modeling::v1::SessionType,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v29, v26);
+  std::string::basic_string[abi:nn200100]<0>(v24, *MEMORY[0x277D22E60]);
+  v29 = v24;
+  v12 = std::__tree<std::__value_type<std::string,std::variant<language_modeling::v1::SessionType,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::variant<language_modeling::v1::SessionType,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::variant<language_modeling::v1::SessionType,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v27, v24, &v29);
   v13 = v12;
   v14 = *(v12 + 20);
   if (v14 == -1)
@@ -4416,7 +4376,7 @@ LABEL_18:
 
   if (v14 != 1)
   {
-    (off_283FD6FE8[v14])(&v31, v12 + 7);
+    (off_283FD6FE8[v14])(&v29, v12 + 7);
 LABEL_29:
     *(v13 + 7) = __p;
     memset(&__p, 0, sizeof(__p));
@@ -4433,12 +4393,11 @@ LABEL_29:
   *(&__p.__r_.__value_.__s + 23) = 0;
   __p.__r_.__value_.__s.__data_[0] = 0;
 LABEL_30:
-  if (v27 < 0)
+  if (v25 < 0)
   {
-    operator delete(v26[0]);
+    operator delete(v24[0]);
   }
 
-  v15 = *(a1 + 168);
   language_modeling::v1::LanguageModel::makeSession();
   if (__p.__r_.__value_.__r.__words[0])
   {
@@ -4446,16 +4405,16 @@ LABEL_30:
   }
 
   __p.__r_.__value_.__r.__words[0] = 0;
-  v16 = *(a1 + 208);
+  v15 = *(a1 + 208);
   *(a1 + 200) = 0u;
-  if (v16)
+  if (v15)
   {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v16);
-    v17 = __p.__r_.__value_.__r.__words[0];
+    std::__shared_weak_count::__release_shared[abi:nn200100](v15);
+    v16 = __p.__r_.__value_.__r.__words[0];
     __p.__r_.__value_.__r.__words[0] = 0;
-    if (v17)
+    if (v16)
     {
-      language_modeling::v1::LanguageModelSession::~LanguageModelSession(v17);
+      language_modeling::v1::LanguageModelSession::~LanguageModelSession(v16);
       MEMORY[0x2318BE270]();
     }
   }
@@ -4466,56 +4425,56 @@ LABEL_30:
   }
 
   std::mutex::unlock(*(a1 + 136));
-  v18 = *(a1 + 184);
-  if (v18)
+  v17 = *(a1 + 184);
+  if (v17)
   {
-    v20 = *(a1 + 136);
-    v19 = *(a1 + 144);
-    if (v19)
+    v19 = *(a1 + 136);
+    v18 = *(a1 + 144);
+    if (v18)
     {
-      atomic_fetch_add_explicit(&v19->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v18->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v22 = *(a1 + 200);
-    v21 = *(a1 + 208);
-    if (v21)
+    v21 = *(a1 + 200);
+    v20 = *(a1 + 208);
+    if (v20)
     {
-      atomic_fetch_add_explicit(&v21->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v20->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    atomic_store(0, (v18 + 16));
-    if (v19)
+    atomic_store(0, (v17 + 16));
+    if (v18)
     {
-      atomic_fetch_add_explicit(&v19->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v18->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v23 = *(v18 + 304);
-    *(v18 + 296) = v20;
-    *(v18 + 304) = v19;
+    v22 = *(v17 + 304);
+    *(v17 + 296) = v19;
+    *(v17 + 304) = v18;
+    if (v22)
+    {
+      std::__shared_weak_count::__release_shared[abi:nn200100](v22);
+      v19 = *(v17 + 296);
+    }
+
+    std::mutex::lock(v19);
+    if (v20)
+    {
+      atomic_fetch_add_explicit(&v20->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    v23 = *(v17 + 40);
+    *(v17 + 32) = v21;
+    *(v17 + 40) = v20;
     if (v23)
     {
       std::__shared_weak_count::__release_shared[abi:nn200100](v23);
-      v20 = *(v18 + 296);
+      v21 = *(v17 + 32);
     }
 
-    std::mutex::lock(v20);
     if (v21)
     {
-      atomic_fetch_add_explicit(&v21->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    v24 = *(v18 + 40);
-    *(v18 + 32) = v22;
-    *(v18 + 40) = v21;
-    if (v24)
-    {
-      std::__shared_weak_count::__release_shared[abi:nn200100](v24);
-      v22 = *(v18 + 32);
-    }
-
-    if (v22)
-    {
-      atomic_store(1u, (v18 + 16));
+      atomic_store(1u, (v17 + 16));
     }
 
     else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -4525,28 +4484,27 @@ LABEL_30:
       _os_log_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s  TIInlineCompletionGeneratorImpl: Failed to initialize language model session", &__p, 0xCu);
     }
 
-    std::mutex::unlock(v20);
-    if (v21)
+    std::mutex::unlock(v19);
+    if (v20)
     {
-      std::__shared_weak_count::__release_shared[abi:nn200100](v21);
+      std::__shared_weak_count::__release_shared[abi:nn200100](v20);
     }
 
-    if (v19)
+    if (v18)
     {
-      std::__shared_weak_count::__release_shared[abi:nn200100](v19);
+      std::__shared_weak_count::__release_shared[abi:nn200100](v18);
     }
   }
 
-  if (SHIBYTE(v28.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v26.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v28.__r_.__value_.__l.__data_);
+    operator delete(v26.__r_.__value_.__l.__data_);
   }
 
-  std::__tree<std::__value_type<std::string,std::variant<language_modeling::v1::SessionType,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::variant<language_modeling::v1::SessionType,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::variant<language_modeling::v1::SessionType,std::string>>>>::destroy(v30[0]);
-  v25 = *MEMORY[0x277D85DE8];
+  std::__tree<std::__value_type<std::string,std::variant<language_modeling::v1::SessionType,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::variant<language_modeling::v1::SessionType,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::variant<language_modeling::v1::SessionType,std::string>>>>::destroy(v28[0]);
 }
 
-const __CFString *KB::utf8_string@<X0>(const __CFString *this@<X0>, uint64_t a2@<X8>)
+const __CFString *KB::utf8_string@<X0>(KB::String *__return_ptr a1@<X8>, const __CFString *this@<X0>)
 {
   if (this)
   {
@@ -4555,11 +4513,11 @@ const __CFString *KB::utf8_string@<X0>(const __CFString *this@<X0>, uint64_t a2@
     operator new[]();
   }
 
-  *a2 = 0x100000;
-  *(a2 + 4) = 0;
-  *(a2 + 6) = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  *a1 = 0x100000;
+  *(a1 + 2) = 0;
+  *(a1 + 6) = 0;
+  *(a1 + 1) = 0;
+  *(a1 + 16) = 0;
   return this;
 }
 
@@ -4571,12 +4529,12 @@ uint64_t *std::__tree_balance_after_insert[abi:nn200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -4590,22 +4548,22 @@ uint64_t *std::__tree_balance_after_insert[abi:nn200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -4639,13 +4597,13 @@ uint64_t *std::__tree_balance_after_insert[abi:nn200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -4951,10 +4909,10 @@ id TIAssetsOSLogFacility()
   return v1;
 }
 
-void *std::__tree<std::__value_type<std::string,std::variant<language_modeling::v1::SessionType,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::variant<language_modeling::v1::SessionType,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::variant<language_modeling::v1::SessionType,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t a1, void *a2)
+uint64_t *std::__tree<std::__value_type<std::string,std::variant<language_modeling::v1::SessionType,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::variant<language_modeling::v1::SessionType,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::variant<language_modeling::v1::SessionType,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t **a1, void *a2, _OWORD **a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = a1[1];
+  if (!v3)
   {
 LABEL_7:
     operator new();
@@ -4964,26 +4922,26 @@ LABEL_7:
   {
     while (1)
     {
-      v4 = v2;
-      if ((std::operator<=>[abi:nn200100]<char,std::char_traits<char>,std::allocator<char>>(a2, v2 + 4) & 0x80) == 0)
+      v5 = v3;
+      if ((std::operator<=>[abi:nn200100]<char,std::char_traits<char>,std::allocator<char>>(a2, v3 + 4) & 0x80) == 0)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_7;
       }
     }
 
-    if ((std::operator<=>[abi:nn200100]<char,std::char_traits<char>,std::allocator<char>>(v4 + 4, a2) & 0x80) == 0)
+    if ((std::operator<=>[abi:nn200100]<char,std::char_traits<char>,std::allocator<char>>(v5 + 4, a2) & 0x80) == 0)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_7;
     }
@@ -5003,56 +4961,56 @@ language_modeling::v1::LanguageModelSession *std::__shared_ptr_pointer<language_
   return result;
 }
 
-void *std::__hash_table<std::__hash_value_type<std::string,KB::LanguageModelLexiconGroup>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,KB::LanguageModelLexiconGroup>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,KB::LanguageModelLexiconGroup>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,KB::LanguageModelLexiconGroup>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, uint64_t a2)
+void *std::__hash_table<std::__hash_value_type<std::string,KB::LanguageModelLexiconGroup>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,KB::LanguageModelLexiconGroup>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,KB::LanguageModelLexiconGroup>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,KB::LanguageModelLexiconGroup>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(float *a1, uint64_t a2, __int128 **a3)
 {
-  v4 = *(a2 + 23);
-  if (v4 >= 0)
+  v5 = *(a2 + 23);
+  if (v5 >= 0)
   {
-    v5 = a2;
+    v6 = a2;
   }
 
   else
   {
-    v5 = *a2;
+    v6 = *a2;
   }
 
-  if (v4 >= 0)
+  if (v5 >= 0)
   {
-    v6 = *(a2 + 23);
+    v7 = *(a2 + 23);
   }
 
   else
   {
-    v6 = *(a2 + 8);
+    v7 = *(a2 + 8);
   }
 
-  v7 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](v5, v6);
-  v8 = v7;
-  v9 = a1[1];
-  if (!*&v9)
+  v8 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](v6, v7);
+  v9 = v8;
+  v10 = *(a1 + 2);
+  if (!*&v10)
   {
     goto LABEL_24;
   }
 
-  v10 = vcnt_s8(v9);
-  v10.i16[0] = vaddlv_u8(v10);
-  v11 = v10.u32[0];
-  if (v10.u32[0] > 1uLL)
+  v11 = vcnt_s8(v10);
+  v11.i16[0] = vaddlv_u8(v11);
+  v12 = v11.u32[0];
+  if (v11.u32[0] > 1uLL)
   {
-    v12 = v7;
-    if (v7 >= *&v9)
+    v13 = v8;
+    if (v8 >= *&v10)
     {
-      v12 = v7 % *&v9;
+      v13 = v8 % *&v10;
     }
   }
 
   else
   {
-    v12 = (*&v9 - 1) & v7;
+    v13 = (*&v10 - 1) & v8;
   }
 
-  v13 = *(*a1 + 8 * v12);
-  if (!v13 || (v14 = *v13) == 0)
+  v14 = *(*a1 + 8 * v13);
+  if (!v14 || (v15 = *v14) == 0)
   {
 LABEL_24:
     operator new();
@@ -5060,44 +5018,44 @@ LABEL_24:
 
   while (1)
   {
-    v15 = v14[1];
-    if (v15 == v8)
+    v16 = v15[1];
+    if (v16 == v9)
     {
       break;
     }
 
-    if (v11 > 1)
+    if (v12 > 1)
     {
-      if (v15 >= *&v9)
+      if (v16 >= *&v10)
       {
-        v15 %= *&v9;
+        v16 %= *&v10;
       }
     }
 
     else
     {
-      v15 &= *&v9 - 1;
+      v16 &= *&v10 - 1;
     }
 
-    if (v15 != v12)
+    if (v16 != v13)
     {
       goto LABEL_24;
     }
 
 LABEL_23:
-    v14 = *v14;
-    if (!v14)
+    v15 = *v15;
+    if (!v15)
     {
       goto LABEL_24;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:nn200100](v14 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:nn200100](v15 + 2, a2))
   {
     goto LABEL_23;
   }
 
-  return v14;
+  return v15;
 }
 
 uint64_t KB::LanguageModelLexiconGroup::LanguageModelLexiconGroup(uint64_t a1, uint64_t *a2)
@@ -5359,9 +5317,9 @@ BOOL KB::LanguageModelContainer::supports_multilingual(KB::LanguageModelContaine
   return (0x6DB6DB6DB6DB6DB7 * (v2 >> 3)) > 1 || v2 == 56 && *(v1 + 40) > 1;
 }
 
-uint64_t KB::LanguageModelStr::wire_memory(language_modeling::v1::LanguageModel **this)
+uint64_t KB::LanguageModelStr::wire_memory(uint64_t (***this)(language_modeling::v1::LanguageModel **))
 {
-  result = (*(*this + 2))(this);
+  result = (*this)[2](this);
   if (result)
   {
     v3 = this[21];
@@ -5384,22 +5342,22 @@ BOOL TICanLogMessageAtLevel(unsigned int a1)
 
 Class ___ZL22getSRSensorWriterClassv_block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v5[0] = 0;
+  v7 = *MEMORY[0x277D85DE8];
+  v4[0] = 0;
   if (!SensorKitLibraryCore(char **)::frameworkLibrary)
   {
-    v5[1] = MEMORY[0x277D85DD0];
-    v5[2] = 3221225472;
-    v5[3] = ___ZL20SensorKitLibraryCorePPc_block_invoke;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_27872EC50;
-    v7 = 0;
+    v4[1] = MEMORY[0x277D85DD0];
+    v4[2] = 3221225472;
+    v4[3] = ___ZL20SensorKitLibraryCorePPc_block_invoke;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_27872EC50;
+    v6 = 0;
     SensorKitLibraryCore(char **)::frameworkLibrary = _sl_dlopen();
-    v2 = v5[0];
+    v2 = v4[0];
     if (SensorKitLibraryCore(char **)::frameworkLibrary)
     {
-      if (!v5[0])
+      if (!v4[0])
       {
         goto LABEL_4;
       }
@@ -5407,7 +5365,7 @@ Class ___ZL22getSRSensorWriterClassv_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -5418,25 +5376,21 @@ LABEL_4:
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    abort_report_np();
+    abort_report_np("Unable to find class %s", "SRSensorWriter");
   }
 
   getSRSensorWriterClass(void)::softClass = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t ___ZL20SensorKitLibraryCorePPc_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   SensorKitLibraryCore(char **)::frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void std::vector<unsigned long>::push_back[abi:nn200100](uint64_t a1, void *a2)
+void std::vector<unsigned long>::push_back[abi:nn200100](uint64_t a1, uint64_t *a2)
 {
   v5 = *(a1 + 8);
   v4 = *(a1 + 16);
@@ -5536,53 +5490,47 @@ void __getLAContextClass_block_invoke(uint64_t a1)
 
   else
   {
-    abort_report_np();
+    abort_report_np("Unable to find class %s", "LAContext");
     LocalAuthenticationLibrary();
   }
 }
 
 void LocalAuthenticationLibrary()
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v2[0] = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v1[0] = 0;
   if (!LocalAuthenticationLibraryCore_frameworkLibrary)
   {
-    v2[1] = MEMORY[0x277D85DD0];
-    v2[2] = 3221225472;
-    v2[3] = __LocalAuthenticationLibraryCore_block_invoke;
-    v2[4] = &__block_descriptor_40_e5_v8__0l;
-    v2[5] = v2;
-    v3 = xmmword_27872EF88;
-    v4 = 0;
+    v1[1] = MEMORY[0x277D85DD0];
+    v1[2] = 3221225472;
+    v1[3] = __LocalAuthenticationLibraryCore_block_invoke;
+    v1[4] = &__block_descriptor_40_e5_v8__0l;
+    v1[5] = v1;
+    v2 = xmmword_27872EF88;
+    v3 = 0;
     LocalAuthenticationLibraryCore_frameworkLibrary = _sl_dlopen();
-    v0 = v2[0];
+    v0 = v1[0];
     if (LocalAuthenticationLibraryCore_frameworkLibrary)
     {
-      if (!v2[0])
+      if (!v1[0])
       {
-        goto LABEL_4;
+        return;
       }
     }
 
     else
     {
-      v0 = abort_report_np();
+      v0 = abort_report_np("%s", v1[0]);
     }
 
     free(v0);
   }
-
-LABEL_4:
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __LocalAuthenticationLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   LocalAuthenticationLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -5593,11 +5541,10 @@ id deviceClassString()
   return v0;
 }
 
-Class __getLARatchetManagerClass_block_invoke(uint64_t a1)
+void __getLARatchetManagerClass_block_invoke(uint64_t a1)
 {
   LocalAuthenticationLibrary();
-  result = objc_getClass("LARatchetManager");
-  *(*(*(a1 + 32) + 8) + 24) = result;
+  *(*(*(a1 + 32) + 8) + 24) = objc_getClass("LARatchetManager");
   if (*(*(*(a1 + 32) + 8) + 24))
   {
     getLARatchetManagerClass_softClass = *(*(*(a1 + 32) + 8) + 24);
@@ -5605,11 +5552,9 @@ Class __getLARatchetManagerClass_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = abort_report_np();
-    return __68__TIAppAutofillManager_shouldAcceptAutofill_withPayload_completion___block_invoke_396(v3);
+    v2 = abort_report_np("Unable to find class %s", "LARatchetManager");
+    __68__TIAppAutofillManager_shouldAcceptAutofill_withPayload_completion___block_invoke_396(v2, v3);
   }
-
-  return result;
 }
 
 Class __getMCProfileConnectionClass_block_invoke(uint64_t a1)
@@ -5624,7 +5569,7 @@ Class __getMCProfileConnectionClass_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = abort_report_np();
+    v3 = abort_report_np("Unable to find class %s", "MCProfileConnection");
     return __getMCFeatureAuthenticationBeforeAutoFillRequiredSymbolLoc_block_invoke(v3);
   }
 
@@ -5642,50 +5587,44 @@ void *__getMCFeatureAuthenticationBeforeAutoFillRequiredSymbolLoc_block_invoke(u
 
 uint64_t ManagedConfigurationLibrary()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4[0] = 0;
+  v6 = *MEMORY[0x277D85DE8];
+  v3[0] = 0;
   if (!ManagedConfigurationLibraryCore_frameworkLibrary)
   {
-    v4[1] = MEMORY[0x277D85DD0];
-    v4[2] = 3221225472;
-    v4[3] = __ManagedConfigurationLibraryCore_block_invoke;
-    v4[4] = &__block_descriptor_40_e5_v8__0l;
-    v4[5] = v4;
-    v5 = xmmword_27872EF70;
-    v6 = 0;
+    v3[1] = MEMORY[0x277D85DD0];
+    v3[2] = 3221225472;
+    v3[3] = __ManagedConfigurationLibraryCore_block_invoke;
+    v3[4] = &__block_descriptor_40_e5_v8__0l;
+    v3[5] = v3;
+    v4 = xmmword_27872EF70;
+    v5 = 0;
     ManagedConfigurationLibraryCore_frameworkLibrary = _sl_dlopen();
-    v1 = v4[0];
+    v1 = v3[0];
     v0 = ManagedConfigurationLibraryCore_frameworkLibrary;
     if (ManagedConfigurationLibraryCore_frameworkLibrary)
     {
-      if (!v4[0])
+      if (!v3[0])
       {
-        goto LABEL_5;
+        return v0;
       }
     }
 
     else
     {
-      v1 = abort_report_np();
+      v1 = abort_report_np("%s", v3[0]);
     }
 
     free(v1);
-    goto LABEL_5;
+    return v0;
   }
 
-  v0 = ManagedConfigurationLibraryCore_frameworkLibrary;
-LABEL_5:
-  v2 = *MEMORY[0x277D85DE8];
-  return v0;
+  return ManagedConfigurationLibraryCore_frameworkLibrary;
 }
 
 uint64_t __ManagedConfigurationLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   ManagedConfigurationLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -5698,22 +5637,22 @@ uint64_t __Block_byref_object_copy__80(uint64_t result, uint64_t a2)
 
 Class __getCoreTelephonyClientClass_block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v5[0] = 0;
+  v7 = *MEMORY[0x277D85DE8];
+  v4[0] = 0;
   if (!CoreTelephonyLibraryCore_frameworkLibrary)
   {
-    v5[1] = MEMORY[0x277D85DD0];
-    v5[2] = 3221225472;
-    v5[3] = __CoreTelephonyLibraryCore_block_invoke;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_27872EF58;
-    v7 = 0;
+    v4[1] = MEMORY[0x277D85DD0];
+    v4[2] = 3221225472;
+    v4[3] = __CoreTelephonyLibraryCore_block_invoke;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_27872EF58;
+    v6 = 0;
     CoreTelephonyLibraryCore_frameworkLibrary = _sl_dlopen();
-    v2 = v5[0];
+    v2 = v4[0];
     if (CoreTelephonyLibraryCore_frameworkLibrary)
     {
-      if (!v5[0])
+      if (!v4[0])
       {
         goto LABEL_4;
       }
@@ -5721,7 +5660,7 @@ Class __getCoreTelephonyClientClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -5732,21 +5671,17 @@ LABEL_4:
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    abort_report_np();
+    abort_report_np("Unable to find class %s", "CoreTelephonyClient");
   }
 
   getCoreTelephonyClientClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __CoreTelephonyLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   CoreTelephonyLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -5761,53 +5696,47 @@ void __getSFAutoFillPasskeyClass_block_invoke(uint64_t a1)
 
   else
   {
-    abort_report_np();
+    abort_report_np("Unable to find class %s", "SFAutoFillPasskey");
     SafariFoundationLibrary();
   }
 }
 
 void SafariFoundationLibrary()
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v2[0] = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v1[0] = 0;
   if (!SafariFoundationLibraryCore_frameworkLibrary)
   {
-    v2[1] = MEMORY[0x277D85DD0];
-    v2[2] = 3221225472;
-    v2[3] = __SafariFoundationLibraryCore_block_invoke;
-    v2[4] = &__block_descriptor_40_e5_v8__0l;
-    v2[5] = v2;
-    v3 = xmmword_27872EF40;
-    v4 = 0;
+    v1[1] = MEMORY[0x277D85DD0];
+    v1[2] = 3221225472;
+    v1[3] = __SafariFoundationLibraryCore_block_invoke;
+    v1[4] = &__block_descriptor_40_e5_v8__0l;
+    v1[5] = v1;
+    v2 = xmmword_27872EF40;
+    v3 = 0;
     SafariFoundationLibraryCore_frameworkLibrary = _sl_dlopen();
-    v0 = v2[0];
+    v0 = v1[0];
     if (SafariFoundationLibraryCore_frameworkLibrary)
     {
-      if (!v2[0])
+      if (!v1[0])
       {
-        goto LABEL_4;
+        return;
       }
     }
 
     else
     {
-      v0 = abort_report_np();
+      v0 = abort_report_np("%s", v1[0]);
     }
 
     free(v0);
   }
-
-LABEL_4:
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __SafariFoundationLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   SafariFoundationLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -5823,36 +5752,35 @@ Class __getSFAppAutoFillPasskeyProviderClass_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = abort_report_np();
+    v3 = abort_report_np("Unable to find class %s", "SFAppAutoFillPasskeyProvider");
     return +[(TIAppAutofillManager *)v3];
   }
 
   return result;
 }
 
-uint64_t KB::FilterContactWordsConflictingWithValidInput::filter_candidates(KB::FilterContactWordsConflictingWithValidInput *this, KB::CandidateCollection *a2, const KB::CandidateFilterLookupContext *a3, const KB::CandidateFilterResources *a4)
+unsigned int *KB::FilterContactWordsConflictingWithValidInput::filter_candidates(KB::FilterContactWordsConflictingWithValidInput *this, KB::Candidate **a2, const KB::CandidateFilterLookupContext *a3, const KB::CandidateFilterResources *a4)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v7 = *(a4 + 2);
-  if (v7)
+  v6 = *(a4 + 2);
+  if (v6)
   {
-    atomic_fetch_add(v7, 1u);
+    atomic_fetch_add(v6, 1u);
   }
 
-  v8 = *(v7 + 8) + 144;
-  result = WTF::RefCounted<KB::DictionaryContainer>::deref(v7);
-  v10 = *a2;
-  v11 = *(a2 + 1);
-  if (*a2 != v11)
+  v7 = *(v6 + 8) + 144;
+  result = WTF::RefCounted<KB::DictionaryContainer>::deref(v6);
+  v9 = *a2;
+  v10 = a2[1];
+  if (*a2 != v10)
   {
     while (1)
     {
-      if ((*(*(v10 + 8) + 240 * *v10 - 134) & 0x80) == 0)
+      if ((*(*(v9 + 1) + 240 * *v9 - 134) & 0x80) == 0)
       {
-        result = KB::CandidateFilter::candidate_matches_input(v10, a3, v8);
+        result = KB::CandidateFilter::candidate_matches_input(v9, a3, v7);
         if (result)
         {
-          result = KB::FilterContactWordsConflictingWithValidInput::candidate_contains_non_input_contact_word(v10, a3, v8);
+          result = KB::FilterContactWordsConflictingWithValidInput::candidate_contains_non_input_contact_word(v9, a3, v7);
           if (!result)
           {
             break;
@@ -5860,24 +5788,22 @@ uint64_t KB::FilterContactWordsConflictingWithValidInput::filter_candidates(KB::
         }
       }
 
-      v10 += 1000;
-      if (v10 == v11)
+      v9 = (v9 + 1000);
+      if (v9 == v10)
       {
-        v10 = v11;
+        v9 = v10;
         break;
       }
     }
 
-    v11 = *(a2 + 1);
+    v10 = a2[1];
   }
 
-  if (v10 != v11)
+  if (v9 != v10)
   {
-    v12 = *(a4 + 7);
     operator new();
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -5988,7 +5914,7 @@ uint64_t std::__function::__value_func<BOOL ()(KB::Candidate const&,KB::String *
 
 uint64_t std::__function::__func<KB::FilterContactWordsConflictingWithValidInput::filter_candidates(KB::CandidateCollection &,KB::CandidateFilterLookupContext const&,KB::CandidateFilterResources const&)::$_1,std::allocator<KB::FilterContactWordsConflictingWithValidInput::filter_candidates(KB::CandidateCollection &,KB::CandidateFilterLookupContext const&,KB::CandidateFilterResources const&)::$_1>,BOOL ()(KB::Candidate const&,KB::String *)>::operator()(uint64_t a1, unint64_t *a2, KB::String **a3)
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   v5 = *a3;
   v6 = KB::FilterContactWordsConflictingWithValidInput::candidate_contains_non_input_contact_word(a2, *(a1 + 8), *(a1 + 16));
   v7 = v6;
@@ -6004,14 +5930,14 @@ uint64_t std::__function::__func<KB::FilterContactWordsConflictingWithValidInput
 
   if (!v8)
   {
-    KB::Candidate::capitalized_string(a2, v13);
-    v9 = v15;
-    if (!v15)
+    KB::Candidate::capitalized_string(&v12, a2);
+    v9 = v13;
+    if (!v13)
     {
-      v9 = v16;
+      v9 = v14;
     }
 
-    if (v13[0])
+    if (v12)
     {
       v10 = v9;
     }
@@ -6022,25 +5948,24 @@ uint64_t std::__function::__func<KB::FilterContactWordsConflictingWithValidInput
     }
 
     KB::String::append_format(v5, "Candidate '%s' contains a contact word suggestion in a collection with a non contact suggestion", v10);
-    if (v15 && v14 == 1)
+    if (v13 && BYTE6(v12) == 1)
     {
-      free(v15);
+      free(v13);
     }
   }
 
   if (v7)
   {
-    std::vector<KB::Candidate>::push_back[abi:nn200100](*(a1 + 24) + 24, a2);
+    std::vector<KB::Candidate>::push_back[abi:nn200100]((*(a1 + 24) + 24), a2);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
-uint64_t std::vector<KB::Candidate>::push_back[abi:nn200100](uint64_t a1, const KB::Candidate *a2)
+uint64_t std::vector<KB::Candidate>::push_back[abi:nn200100](KB::Candidate **a1, const KB::Candidate *a2)
 {
-  v3 = *(a1 + 8);
-  v4 = *(a1 + 16);
+  v3 = a1[1];
+  v4 = a1[2];
   if (v3 >= v4)
   {
     v7 = 0x1CAC083126E978D5 * ((v3 - *a1) >> 3);
@@ -6072,17 +5997,17 @@ uint64_t std::vector<KB::Candidate>::push_back[abi:nn200100](uint64_t a1, const 
       std::__allocate_at_least[abi:nn200100]<std::allocator<KB::Candidate>>(v10);
     }
 
-    v11 = (1000 * v7);
+    v11 = 1000 * v7;
     KB::Candidate::Candidate(v11, a2);
     v6 = v11 + 1000;
-    v12 = *(a1 + 8);
+    v12 = a1[1];
     v13 = v11 + *a1 - v12;
     std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<KB::Candidate>,KB::Candidate*>(*a1, v12, v13);
     v14 = *a1;
     *a1 = v13;
-    *(a1 + 8) = v11 + 1000;
-    v15 = *(a1 + 16);
-    *(a1 + 16) = 0;
+    a1[1] = (v11 + 1000);
+    v15 = a1[2];
+    a1[2] = 0;
     v16[2] = v14;
     v16[3] = v15;
     v16[0] = v14;
@@ -6093,10 +6018,10 @@ uint64_t std::vector<KB::Candidate>::push_back[abi:nn200100](uint64_t a1, const 
   else
   {
     result = KB::Candidate::Candidate(v3, a2);
-    v6 = (result + 1000);
+    v6 = result + 1000;
   }
 
-  *(a1 + 8) = v6;
+  a1[1] = v6;
   return result;
 }
 
@@ -6171,7 +6096,7 @@ void std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<KB::Ca
     do
     {
       KB::Candidate::Candidate(a3, v6);
-      v6 += 1000;
+      v6 = (v6 + 1000);
       a3 += 1000;
     }
 
@@ -6571,9 +6496,9 @@ __n128 std::__function::__func<KB::FilterContactWordsConflictingWithValidInput::
   return result;
 }
 
-void KB::FilterWordsConflictingWithValidContactNames::filter_candidates(KB::FilterWordsConflictingWithValidContactNames *this, const KB::Candidate **a2, const KB::CandidateFilterLookupContext *a3, const KB::CandidateFilterResources *a4)
+void KB::FilterWordsConflictingWithValidContactNames::filter_candidates(KB::FilterWordsConflictingWithValidContactNames *this, float **a2, const KB::CandidateFilterLookupContext *a3, const KB::CandidateFilterResources *a4)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v6 = 1000;
   if (!*(a3 + 2000))
   {
@@ -6586,15 +6511,15 @@ void KB::FilterWordsConflictingWithValidContactNames::filter_candidates(KB::Filt
     KB::Candidate::compute_string(v7);
   }
 
-  WORD2(v40) = 0;
-  BYTE6(v40) = 0;
-  v41 = " \t\n";
-  LODWORD(v40) = 1048579;
-  v42 = 0;
-  KB::sbs_string_tokenize(v7 + 111, &v40, v39);
-  if (v41 && BYTE6(v40) == 1)
+  WORD2(v35) = 0;
+  BYTE6(v35) = 0;
+  v36 = " \t\n";
+  LODWORD(v35) = 1048579;
+  v37 = 0;
+  KB::sbs_string_tokenize(v34, v7 + 111, &v35);
+  if (v36 && BYTE6(v35) == 1)
   {
-    free(v41);
+    free(v36);
   }
 
   v8 = *(a4 + 2);
@@ -6620,8 +6545,8 @@ void KB::FilterWordsConflictingWithValidContactNames::filter_candidates(KB::Filt
         {
           if ((*(v13 + 106) & 2) != 0)
           {
-            v16 = v39[0];
-            v15 = v39[1];
+            v16 = v34[0];
+            v15 = v34[1];
             while (v16 != v15)
             {
               v17 = *(v9 + 168);
@@ -6647,116 +6572,98 @@ void KB::FilterWordsConflictingWithValidContactNames::filter_candidates(KB::Filt
         while (v13 != v14);
       }
 
-      v11 = (v12 + 1000);
+      v11 = v12 + 250;
     }
 
-    while ((v12 + 1000) != v10);
+    while (v12 + 250 != v10);
     v11 = v10;
   }
 
 LABEL_24:
   if (v11 != a2[1] && v11 != *a2)
   {
-    v30 = a4;
-    KB::LanguageModelContext::LanguageModelContext(v32, (a3 + 2032));
+    v24 = a4;
+    KB::LanguageModelContext::LanguageModelContext(v27, (a3 + 2032));
     if (*v11)
     {
-      v18 = 240 * *v11;
-      v19 = (*(v11 + 1) + 136);
       if ((*(*(v11 + 1) + 106) & 2) != 0)
       {
-        *v19 = 0;
-      }
-
-      if ((*(v19 - 1) & 4) == 0)
-      {
-        v20 = (v19 - 30);
-        if (*(v19 - 16))
-        {
-          v20 = *(v19 - 16);
-        }
-
-        v21 = *v20;
-        if (v21 == 32)
-        {
-          v20[1];
-        }
+        *(*(v11 + 1) + 136) = 0;
       }
 
       std::__allocate_at_least[abi:nn200100]<std::allocator<language_modeling::v1::TokenMetadata>>(1);
     }
 
-    v22 = *(a4 + 3);
-    v23 = *(a4 + 4);
-    if (v23)
+    v18 = *(a4 + 3);
+    v19 = *(a4 + 4);
+    if (v19)
     {
-      atomic_fetch_add_explicit(&v23->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v19->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    if (v22)
+    if (v18)
     {
-      v24 = *(a4 + 3);
-      v25 = *(a4 + 4);
-      if (v25)
+      v20 = *(a4 + 3);
+      v21 = *(a4 + 4);
+      if (v21)
       {
-        atomic_fetch_add_explicit(&v25->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v21->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      v26 = (*(*v24 + 16))(v24) ^ 1;
-      if (v25)
+      v22 = (*(*v20 + 16))(v20) ^ 1;
+      if (v21)
       {
-        std::__shared_weak_count::__release_shared[abi:nn200100](v25);
+        std::__shared_weak_count::__release_shared[abi:nn200100](v21);
       }
 
-      if (!v23)
+      if (!v19)
       {
-        goto LABEL_44;
+        goto LABEL_39;
       }
     }
 
     else
     {
-      v26 = 1;
-      if (!v23)
+      v22 = 1;
+      if (!v19)
       {
-        goto LABEL_44;
+        goto LABEL_39;
       }
     }
 
-    std::__shared_weak_count::__release_shared[abi:nn200100](v23);
-LABEL_44:
-    if ((v26 & 1) == 0)
+    std::__shared_weak_count::__release_shared[abi:nn200100](v19);
+LABEL_39:
+    if ((v22 & 1) == 0)
     {
-      v28 = *(v30 + 3);
-      v27 = *(v30 + 4);
-      if (v27)
+      v23 = *(v24 + 4);
+      if (v23)
       {
-        atomic_fetch_add_explicit((v27 + 8), 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit((v23 + 8), 1uLL, memory_order_relaxed);
       }
 
-      KB::Candidate::Candidate(&v40, v11);
-      std::vector<KB::Candidate>::__init_with_size[abi:nn200100]<KB::Candidate const*,KB::Candidate const*>();
+      KB::Candidate::Candidate(&v35, v11);
+      memset(v26, 0, sizeof(v26));
+      std::vector<KB::Candidate>::__init_with_size[abi:nn200100]<KB::Candidate const*,KB::Candidate const*>(v26, &v35, &v38);
     }
 
-    v40 = &v38;
-    std::vector<std::string>::__destroy_vector::operator()[abi:nn200100](&v40);
-    language_modeling::v1::LinguisticContext::~LinguisticContext(&v37);
-    language_modeling::v1::LinguisticContext::~LinguisticContext(&v36);
-    if (v34)
+    v35 = &v33;
+    std::vector<std::string>::__destroy_vector::operator()[abi:nn200100](&v35);
+    language_modeling::v1::LinguisticContext::~LinguisticContext(&v32);
+    language_modeling::v1::LinguisticContext::~LinguisticContext(&v31);
+    if (v29)
     {
-      v35 = v34;
-      operator delete(v34);
+      v30 = v29;
+      operator delete(v29);
     }
 
-    if (v33)
+    if (v28)
     {
-      std::__shared_weak_count::__release_shared[abi:nn200100](v33);
+      std::__shared_weak_count::__release_shared[abi:nn200100](v28);
     }
   }
 
-  v40 = v39;
-  std::vector<KB::String>::__destroy_vector::operator()[abi:nn200100](&v40);
-  v29 = *MEMORY[0x277D85DE8];
+  v35 = v34;
+  std::vector<KB::String>::__destroy_vector::operator()[abi:nn200100](&v35);
 }
 
 void std::__allocate_at_least[abi:nn200100]<std::allocator<language_modeling::v1::TokenMetadata>>(uint64_t a1)
@@ -6769,7 +6676,7 @@ void std::__allocate_at_least[abi:nn200100]<std::allocator<language_modeling::v1
   std::vector<unsigned long>::__throw_length_error[abi:nn200100]();
 }
 
-void std::vector<language_modeling::v1::TokenMetadata>::__vallocate[abi:nn200100](uint64_t a1, uint64_t a2)
+void std::vector<language_modeling::v1::TokenMetadata>::__vallocate[abi:nn200100](uint64_t *a1, uint64_t a2)
 {
   if ((a2 & 0x8000000000000000) == 0)
   {
@@ -6839,7 +6746,7 @@ void std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](void
   }
 }
 
-void std::vector<std::vector<KB::LikelihoodInfo>>::__destroy_vector::operator()[abi:nn200100](void ***a1)
+void std::vector<std::vector<KB::LikelihoodInfo>>::__destroy_vector::operator()[abi:nn200100](void ****a1)
 {
   v1 = *a1;
   v2 = **a1;
@@ -6898,7 +6805,7 @@ void std::vector<KB::LikelihoodInfo>::__destroy_vector::operator()[abi:nn200100]
 
 BOOL std::__function::__func<KB::FilterWordsConflictingWithValidContactNames::filter_candidates(KB::CandidateCollection &,KB::CandidateFilterLookupContext const&,KB::CandidateFilterResources const&)::$_1,std::allocator<KB::FilterWordsConflictingWithValidContactNames::filter_candidates(KB::CandidateCollection &,KB::CandidateFilterLookupContext const&,KB::CandidateFilterResources const&)::$_1>,BOOL ()(KB::Candidate const&,KB::String *)>::operator()(uint64_t a1, uint64_t a2, KB::String **a3)
 {
-  v22[2] = *MEMORY[0x277D85DE8];
+  v20[2] = *MEMORY[0x277D85DE8];
   if (*a2)
   {
     v5 = 240 * *a2 - 240;
@@ -6956,14 +6863,14 @@ BOOL std::__function::__func<KB::FilterWordsConflictingWithValidContactNames::fi
 
   if (v10 && v14)
   {
-    KB::Candidate::capitalized_string(a2, v19);
-    v15 = v21;
-    if (!v21)
+    KB::Candidate::capitalized_string(&v18, a2);
+    v15 = v19;
+    if (!v19)
     {
-      v15 = v22;
+      v15 = v20;
     }
 
-    if (v19[0])
+    if (v18)
     {
       v16 = v15;
     }
@@ -6974,13 +6881,12 @@ BOOL std::__function::__func<KB::FilterWordsConflictingWithValidContactNames::fi
     }
 
     KB::String::append_format(v10, "Candidate list contains a valid contact name matching input, and '%s' is not a valid contact name nor sortkey equivalent to what the user typed", v16);
-    if (v21 && v20 == 1)
+    if (v19 && BYTE6(v18) == 1)
     {
-      free(v21);
+      free(v19);
     }
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -6992,18 +6898,18 @@ __n128 std::__function::__func<KB::FilterWordsConflictingWithValidContactNames::
   return result;
 }
 
-void *std::vector<language_modeling::v1::TokenMetadata>::vector[abi:nn200100](void *result, void *a2)
+uint64_t *std::vector<language_modeling::v1::TokenMetadata>::vector[abi:nn200100](uint64_t *a1, void *a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   v2 = a2[1];
   if (v2 != *a2)
   {
-    std::vector<language_modeling::v1::TokenMetadata>::__vallocate[abi:nn200100](result, (v2 - *a2) >> 1);
+    std::vector<language_modeling::v1::TokenMetadata>::__vallocate[abi:nn200100](a1, (v2 - *a2) >> 1);
   }
 
-  return result;
+  return a1;
 }
 
 void std::__allocate_at_least[abi:nn200100]<std::allocator<std::vector<language_modeling::v1::TokenMetadata>>>(unint64_t a1)
@@ -7016,7 +6922,7 @@ void std::__allocate_at_least[abi:nn200100]<std::allocator<std::vector<language_
   std::vector<unsigned long>::__throw_length_error[abi:nn200100]();
 }
 
-void std::vector<KB::Candidate>::__vallocate[abi:nn200100](uint64_t a1, unint64_t a2)
+void std::vector<KB::Candidate>::__vallocate[abi:nn200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x4189374BC6A7F0)
   {
@@ -7036,22 +6942,22 @@ void KB::LikelihoodInfo::~LikelihoodInfo(void **this)
 
 Class __getUITextCheckerClass_block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v5[0] = 0;
+  v7 = *MEMORY[0x277D85DE8];
+  v4[0] = 0;
   if (!UIKitLibraryCore_frameworkLibrary)
   {
-    v5[1] = MEMORY[0x277D85DD0];
-    v5[2] = 3221225472;
-    v5[3] = __UIKitLibraryCore_block_invoke;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_27872EFD8;
-    v7 = 0;
+    v4[1] = MEMORY[0x277D85DD0];
+    v4[2] = 3221225472;
+    v4[3] = __UIKitLibraryCore_block_invoke;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_27872EFD8;
+    v6 = 0;
     UIKitLibraryCore_frameworkLibrary = _sl_dlopen();
-    v2 = v5[0];
+    v2 = v4[0];
     if (UIKitLibraryCore_frameworkLibrary)
     {
-      if (!v5[0])
+      if (!v4[0])
       {
         goto LABEL_4;
       }
@@ -7059,7 +6965,7 @@ Class __getUITextCheckerClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -7070,21 +6976,17 @@ LABEL_4:
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    abort_report_np();
+    abort_report_np("Unable to find class %s", "UITextChecker");
   }
 
   getUITextCheckerClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __UIKitLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   UIKitLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -7114,71 +7016,65 @@ id get_KSUserWordsSynchroniserClass()
 
 uint64_t KeyboardServicesLibrary()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4[0] = 0;
+  v6 = *MEMORY[0x277D85DE8];
+  v3[0] = 0;
   if (!KeyboardServicesLibraryCore_frameworkLibrary)
   {
-    v4[1] = MEMORY[0x277D85DD0];
-    v4[2] = 3221225472;
-    v4[3] = __KeyboardServicesLibraryCore_block_invoke;
-    v4[4] = &__block_descriptor_40_e5_v8__0l;
-    v4[5] = v4;
-    v5 = xmmword_27872EFF0;
-    v6 = 0;
+    v3[1] = MEMORY[0x277D85DD0];
+    v3[2] = 3221225472;
+    v3[3] = __KeyboardServicesLibraryCore_block_invoke;
+    v3[4] = &__block_descriptor_40_e5_v8__0l;
+    v3[5] = v3;
+    v4 = xmmword_27872EFF0;
+    v5 = 0;
     KeyboardServicesLibraryCore_frameworkLibrary = _sl_dlopen();
-    v1 = v4[0];
+    v1 = v3[0];
     v0 = KeyboardServicesLibraryCore_frameworkLibrary;
     if (KeyboardServicesLibraryCore_frameworkLibrary)
     {
-      if (!v4[0])
+      if (!v3[0])
       {
-        goto LABEL_5;
+        return v0;
       }
     }
 
     else
     {
-      v1 = abort_report_np();
+      v1 = abort_report_np("%s", v3[0]);
     }
 
     free(v1);
-    goto LABEL_5;
+    return v0;
   }
 
-  v0 = KeyboardServicesLibraryCore_frameworkLibrary;
-LABEL_5:
-  v2 = *MEMORY[0x277D85DE8];
-  return v0;
+  return KeyboardServicesLibraryCore_frameworkLibrary;
 }
 
 uint64_t __KeyboardServicesLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   KeyboardServicesLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 Class __getLSApplicationProxyClass_block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v5[0] = 0;
+  v7 = *MEMORY[0x277D85DE8];
+  v4[0] = 0;
   if (!CoreServicesLibraryCore_frameworkLibrary)
   {
-    v5[1] = MEMORY[0x277D85DD0];
-    v5[2] = 3221225472;
-    v5[3] = __CoreServicesLibraryCore_block_invoke;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_27872F008;
-    v7 = 0;
+    v4[1] = MEMORY[0x277D85DD0];
+    v4[2] = 3221225472;
+    v4[3] = __CoreServicesLibraryCore_block_invoke;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_27872F008;
+    v6 = 0;
     CoreServicesLibraryCore_frameworkLibrary = _sl_dlopen();
-    v2 = v5[0];
+    v2 = v4[0];
     if (CoreServicesLibraryCore_frameworkLibrary)
     {
-      if (!v5[0])
+      if (!v4[0])
       {
         goto LABEL_4;
       }
@@ -7186,7 +7082,7 @@ Class __getLSApplicationProxyClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -7197,21 +7093,17 @@ LABEL_4:
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    abort_report_np();
+    abort_report_np("Unable to find class %s", "LSApplicationProxy");
   }
 
   getLSApplicationProxyClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __CoreServicesLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   CoreServicesLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -7286,65 +7178,65 @@ LABEL_8:
   return v15;
 }
 
-void TILXEntryGetSupplementalItemIdentifiers(uint64_t a1)
+void TILXEntryGetSupplementalItemIdentifiers(uint64_t a1, uint64_t a2)
 {
   v23 = *MEMORY[0x277D85DE8];
-  v2 = ICLXEntryGetEntities();
-  v3 = v2;
+  v3 = ICLXEntryGetEntities();
+  v4 = v3;
   *a1 = 0u;
   *(a1 + 16) = 0u;
   *(a1 + 32) = 1065353216;
-  if (v2)
+  if (v3)
   {
-    std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__rehash<true>(a1, [v2 count]);
+    std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__rehash<true>(a1, [v3 count]);
     v20 = 0u;
     v21 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v17 = v3;
-    v4 = v3;
-    v5 = [v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
-    if (!v5)
+    v17 = v4;
+    v5 = v4;
+    v6 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    if (!v6)
     {
       goto LABEL_26;
     }
 
-    v6 = v5;
-    v7 = *v19;
+    v7 = v6;
+    v8 = *v19;
     while (1)
     {
-      for (i = 0; i != v6; ++i)
+      for (i = 0; i != v7; ++i)
       {
-        if (*v19 != v7)
+        if (*v19 != v8)
         {
-          objc_enumerationMutation(v4);
+          objc_enumerationMutation(v5);
         }
 
-        v9 = [*(*(&v18 + 1) + 8 * i) data];
-        v10 = *(a1 + 8);
-        if (!*&v10)
+        v10 = [*(*(&v18 + 1) + 8 * i) data];
+        v11 = *(a1 + 8);
+        if (!*&v11)
         {
           goto LABEL_23;
         }
 
-        v11 = vcnt_s8(v10);
-        v11.i16[0] = vaddlv_u8(v11);
-        if (v11.u32[0] > 1uLL)
+        v12 = vcnt_s8(v11);
+        v12.i16[0] = vaddlv_u8(v12);
+        if (v12.u32[0] > 1uLL)
         {
-          v12 = v9;
-          if (v9 >= *&v10)
+          v13 = v10;
+          if (v10 >= *&v11)
           {
-            v12 = v9 % *&v10;
+            v13 = v10 % *&v11;
           }
         }
 
         else
         {
-          v12 = (*&v10 - 1) & v9;
+          v13 = (*&v11 - 1) & v10;
         }
 
-        v13 = *(*a1 + 8 * v12);
-        if (!v13 || (v14 = *v13) == 0)
+        v14 = *(*a1 + 8 * v13);
+        if (!v14 || (v15 = *v14) == 0)
         {
 LABEL_23:
           operator new();
@@ -7352,95 +7244,93 @@ LABEL_23:
 
         while (1)
         {
-          v15 = v14[1];
-          if (v15 == v9)
+          v16 = v15[1];
+          if (v16 == v10)
           {
             break;
           }
 
-          if (v11.u32[0] > 1uLL)
+          if (v12.u32[0] > 1uLL)
           {
-            if (v15 >= *&v10)
+            if (v16 >= *&v11)
             {
-              v15 %= *&v10;
+              v16 %= *&v11;
             }
           }
 
           else
           {
-            v15 &= *&v10 - 1;
+            v16 &= *&v11 - 1;
           }
 
-          if (v15 != v12)
+          if (v16 != v13)
           {
             goto LABEL_23;
           }
 
 LABEL_22:
-          v14 = *v14;
-          if (!v14)
+          v15 = *v15;
+          if (!v15)
           {
             goto LABEL_23;
           }
         }
 
-        if (v14[2] != v9)
+        if (v15[2] != v10)
         {
           goto LABEL_22;
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
-      if (!v6)
+      v7 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      if (!v7)
       {
 LABEL_26:
 
-        v3 = v17;
+        v4 = v17;
         break;
       }
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t TILXEntryIsPartOfHyphenatedWord()
+uint64_t TILXEntryIsPartOfHyphenatedWord(uint64_t a1)
 {
   v16 = *MEMORY[0x277D85DE8];
-  v0 = ICLXEntryGetEntities();
-  if (v0)
+  v1 = ICLXEntryGetEntities();
+  if (v1)
   {
-    v1 = ICLXEntryGetTransientLexicon();
+    v2 = ICLXEntryGetTransientLexicon();
     v11 = 0u;
     v12 = 0u;
     v13 = 0u;
     v14 = 0u;
-    v2 = v0;
-    v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
-    if (v3)
+    v3 = v1;
+    v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+    if (v4)
     {
-      v4 = v3;
-      v5 = *v12;
+      v5 = v4;
+      v6 = *v12;
       while (2)
       {
-        for (i = 0; i != v4; ++i)
+        for (i = 0; i != v5; ++i)
         {
-          if (*v12 != v5)
+          if (*v12 != v6)
           {
-            objc_enumerationMutation(v2);
+            objc_enumerationMutation(v3);
           }
 
-          v7 = *(*(&v11 + 1) + 8 * i);
-          if ((objc_opt_respondsToSelector() & 1) == 0 || ![v1 entityIsHyphenatedWord:{v7, v11}])
+          v8 = *(*(&v11 + 1) + 8 * i);
+          if ((objc_opt_respondsToSelector() & 1) == 0 || ![v2 entityIsHyphenatedWord:{v8, v11}])
           {
-            v8 = 0;
+            v9 = 0;
             goto LABEL_15;
           }
         }
 
-        v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
-        v8 = 1;
-        if (v4)
+        v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v9 = 1;
+        if (v5)
         {
           continue;
         }
@@ -7451,7 +7341,7 @@ uint64_t TILXEntryIsPartOfHyphenatedWord()
 
     else
     {
-      v8 = 1;
+      v9 = 1;
     }
 
 LABEL_15:
@@ -7459,11 +7349,10 @@ LABEL_15:
 
   else
   {
-    v8 = 0;
+    v9 = 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-  return v8;
+  return v9;
 }
 
 uint64_t TI::Favonius::UnigramCandidateGenerator::combined_word_id(TI::Favonius::UnigramCandidateGenerator *this, const KB::Candidate *a2, TITokenID *a3)
@@ -7573,20 +7462,20 @@ void TI::Favonius::UnigramCandidateGenerator::score_candidate(float a1, float a2
   *(a4 + 744) = logf(v18);
 }
 
-void TI::Favonius::UnigramCandidateGenerator::generate_candidates()
+void TI::Favonius::UnigramCandidateGenerator::generate_candidates(uint64_t a1, uint64_t a2, uint64_t a3, KB::CandidateCollection *a4)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v6 = 0;
-  v0 = 0u;
-  v1 = 0u;
-  v2 = 0u;
-  v3 = 0u;
+  v11 = *MEMORY[0x277D85DE8];
+  v10 = 0;
   v4 = 0u;
   v5 = 0u;
+  v6 = 0u;
+  v7 = 0u;
+  v8 = 0u;
+  v9 = 0u;
   operator new();
 }
 
-unint64_t *KB::CandidateCollection::add(KB::CandidateCollection *this, const KB::Candidate **a2)
+KB::Candidate **KB::CandidateCollection::add(KB::CandidateCollection *this, const KB::Candidate **a2)
 {
   std::vector<KB::Candidate>::__insert_with_size[abi:nn200100]<std::__wrap_iter<KB::Candidate const*>,std::__wrap_iter<KB::Candidate const*>>(this, *(this + 1), *a2, a2[1], 0x1CAC083126E978D5 * ((a2[1] - *a2) >> 3));
   std::vector<KB::Candidate>::__insert_with_size[abi:nn200100]<std::__wrap_iter<KB::Candidate const*>,std::__wrap_iter<KB::Candidate const*>>(this + 3, *(this + 4), a2[3], a2[4], 0x1CAC083126E978D5 * ((a2[4] - a2[3]) >> 3));
@@ -7598,7 +7487,7 @@ unint64_t *KB::CandidateCollection::add(KB::CandidateCollection *this, const KB:
   return std::vector<KB::Candidate>::__insert_with_size[abi:nn200100]<std::__wrap_iter<KB::Candidate const*>,std::__wrap_iter<KB::Candidate const*>>(this + 9, v4, v5, v6, 0x1CAC083126E978D5 * ((v6 - v5) >> 3));
 }
 
-unint64_t *std::vector<KB::Candidate>::__insert_with_size[abi:nn200100]<std::__wrap_iter<KB::Candidate const*>,std::__wrap_iter<KB::Candidate const*>>(unint64_t *result, uint64_t a2, const KB::Candidate *a3, const KB::Candidate *a4, uint64_t a5)
+KB::Candidate **std::vector<KB::Candidate>::__insert_with_size[abi:nn200100]<std::__wrap_iter<KB::Candidate const*>,std::__wrap_iter<KB::Candidate const*>>(KB::Candidate **result, unint64_t *a2, const KB::Candidate *a3, const KB::Candidate *a4, uint64_t a5)
 {
   if (a5 >= 1)
   {
@@ -7612,14 +7501,14 @@ unint64_t *std::vector<KB::Candidate>::__insert_with_size[abi:nn200100]<std::__w
       v15 = v10 - a2;
       if (0x1CAC083126E978D5 * ((v10 - a2) >> 3) >= a5)
       {
-        v20 = 1000 * a5;
-        std::vector<KB::Candidate>::__move_range(result, a2, result[1], a2 + 1000 * a5);
-        v21 = (v6 + v20);
+        v20 = 125 * a5;
+        std::vector<KB::Candidate>::__move_range(result, a2, result[1], &a2[125 * a5]);
+        v21 = &v6[v20];
         do
         {
           result = KB::Candidate::operator=(v7, v6);
-          v6 = (v6 + 1000);
-          v7 = (v7 + 1000);
+          v6 += 125;
+          v7 += 125;
         }
 
         while (v6 != v21);
@@ -7643,15 +7532,15 @@ unint64_t *std::vector<KB::Candidate>::__insert_with_size[abi:nn200100]<std::__w
           while (v18 != a4);
         }
 
-        *(v8 + 8) = result;
+        *(v8 + 1) = result;
         if (v15 >= 1)
         {
-          std::vector<KB::Candidate>::__move_range(v8, v7, v10, v7 + 1000 * a5);
+          std::vector<KB::Candidate>::__move_range(v8, v7, v10, &v7[125 * a5]);
           do
           {
             result = KB::Candidate::operator=(v7, v6);
-            v6 = (v6 + 1000);
-            v7 = (v7 + 1000);
+            v6 += 125;
+            v7 += 125;
           }
 
           while (v6 != v17);
@@ -7699,7 +7588,7 @@ unint64_t *std::vector<KB::Candidate>::__insert_with_size[abi:nn200100]<std::__w
       do
       {
         v22 = (KB::Candidate::Candidate(v22, v6) + 1000);
-        v6 = (v6 + 1000);
+        v6 += 125;
         v23 -= 1000;
       }
 
@@ -7754,7 +7643,7 @@ uint64_t *std::vector<KB::Candidate>::__move_range(uint64_t a1, uint64_t a2, uni
   return result;
 }
 
-uint64_t KB::Candidate::operator=(uint64_t a1, uint64_t a2)
+unint64_t *KB::Candidate::operator=(unint64_t *a1, unint64_t *a2)
 {
   if (a2 != a1)
   {
@@ -7762,13 +7651,13 @@ uint64_t KB::Candidate::operator=(uint64_t a1, uint64_t a2)
     v5 = *a2;
     if (*a1 <= *a2)
     {
-      v9 = v5 > *(a1 + 16);
+      v9 = v5 > a1[2];
       v5 = *a1;
       if (v9)
       {
         WTF::Vector<KB::Word,3ul>::shrinkCapacity(a1);
         WTF::Vector<KB::Word,3ul>::reserveCapacity(a1, *a2);
-        if (!*(a1 + 8))
+        if (!a1[1])
         {
           goto LABEL_22;
         }
@@ -7779,7 +7668,7 @@ uint64_t KB::Candidate::operator=(uint64_t a1, uint64_t a2)
 
     else
     {
-      v6 = (*(a1 + 8) + 240 * v5);
+      v6 = (a1[1] + 240 * v5);
       v7 = -240 * v5 + 240 * v4;
       do
       {
@@ -7792,11 +7681,11 @@ uint64_t KB::Candidate::operator=(uint64_t a1, uint64_t a2)
       *a1 = v5;
     }
 
-    v10 = *(a2 + 8);
+    v10 = a2[1];
     if (v5)
     {
       v11 = 0;
-      v12 = *(a1 + 8);
+      v12 = a1[1];
       v13 = 240 * v5;
       do
       {
@@ -7827,7 +7716,7 @@ uint64_t KB::Candidate::operator=(uint64_t a1, uint64_t a2)
       }
 
       while (v13 != v11);
-      v10 = *(a2 + 8);
+      v10 = a2[1];
       v20 = *a1;
     }
 
@@ -7839,7 +7728,7 @@ uint64_t KB::Candidate::operator=(uint64_t a1, uint64_t a2)
     if (v20 != *a2)
     {
       v21 = 240 * v20;
-      v22 = (*(a1 + 8) + v21);
+      v22 = (a1[1] + v21);
       v23 = (v10 + v21);
       v24 = 240 * *a2 - v21;
       do
@@ -7857,25 +7746,25 @@ uint64_t KB::Candidate::operator=(uint64_t a1, uint64_t a2)
   }
 
 LABEL_22:
-  *(a1 + 744) = *(a2 + 744);
+  *(a1 + 186) = *(a2 + 186);
   v25 = *(a2 + 748);
-  *(a1 + 760) = *(a2 + 760);
+  *(a1 + 95) = *(a2 + 95);
   *(a1 + 748) = v25;
-  *(a1 + 776) = *(a2 + 776);
-  KB::LanguageModelContext::operator=(a1 + 784, (a2 + 784));
-  KB::String::operator=((a1 + 888), (a2 + 888));
-  std::string::operator=((a1 + 920), (a2 + 920));
-  KB::ByteString::operator=((a1 + 944), (a2 + 944));
-  *(a1 + 960) = *(a2 + 960);
-  KB::retain_ptr<__CFDictionary const*>::operator=((a1 + 976), *(a2 + 976));
-  v26 = *(a2 + 984);
-  v27 = *(a1 + 984);
+  a1[97] = a2[97];
+  KB::LanguageModelContext::operator=((a1 + 98), a2 + 98);
+  KB::String::operator=((a1 + 111), (a2 + 111));
+  std::string::operator=((a1 + 115), (a2 + 115));
+  KB::ByteString::operator=(a1 + 472, a2 + 118);
+  *(a1 + 60) = *(a2 + 60);
+  KB::retain_ptr<__CFDictionary const*>::operator=(a1 + 122, a2[122]);
+  v26 = a2[123];
+  v27 = a1[123];
   if (v27 != v26)
   {
     if (v26)
     {
-      CFRetain(*(a2 + 984));
-      v27 = *(a1 + 984);
+      CFRetain(a2[123]);
+      v27 = a1[123];
     }
 
     if (v27)
@@ -7883,10 +7772,10 @@ LABEL_22:
       CFRelease(v27);
     }
 
-    *(a1 + 984) = v26;
+    a1[123] = v26;
   }
 
-  *(a1 + 992) = *(a2 + 992);
+  *(a1 + 248) = *(a2 + 248);
   return a1;
 }
 
@@ -8429,49 +8318,49 @@ uint64_t *KB::Candidate::operator=(uint64_t *a1, uint64_t *a2)
 
 void std::__function::__func<TI::Favonius::UnigramCandidateGenerator::generate_candidates(TI::Favonius::TypingHypothesis const*,KB::LanguageModelContext const&,KB::CandidateCollection &)::$_0,std::allocator<TI::Favonius::UnigramCandidateGenerator::generate_candidates(TI::Favonius::TypingHypothesis const*,KB::LanguageModelContext const&,KB::CandidateCollection &)::$_0>,void ()(TI::Favonius::TypingHypothesis const*)>::operator()(uint64_t a1, uint64_t *a2)
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   v3 = *a2;
   v4 = *(a1 + 8);
   v5 = (*(**a2 + 176))(*a2);
   v6 = v5;
+  v46 = 0;
   v47 = 0;
   v48 = 0;
-  v49 = 0;
-  TI::Favonius::UnigramCandidateGenerator::words_for_input_segment(v5, v3, v7, &v47);
-  v45 = 0uLL;
-  v46 = 0;
+  TI::Favonius::UnigramCandidateGenerator::words_for_input_segment(v5, v3, v7, &v46);
+  v44 = 0uLL;
+  v45 = 0;
   v8 = (*(*v3 + 136))(v3);
-  v44 = a1;
+  v43 = a1;
   if ((*(*v8 + 144))(v8))
   {
-    v10 = v47;
-    for (i = v48; v10 != i; v10 += 30)
+    v10 = v46;
+    for (i = v47; v10 != i; v10 += 30)
     {
-      KB::Word::Word(v55, v10);
+      KB::Word::Word(v54, v10);
       if ((*(*v3 + 168))(v3))
       {
-        v57 = 0;
+        v56 = 0;
       }
 
-      else if ((v56 & 0x80060100) == 0 && HIDWORD(v57) == 0 && v58 == 0)
+      else if ((v55 & 0x80060100) == 0 && HIDWORD(v56) == 0 && v57 == 0)
       {
-        v56 |= 4u;
+        v55 |= 4u;
       }
 
-      if (*(&v45 + 1) >= v46)
+      if (*(&v44 + 1) >= v45)
       {
-        v14 = 0x1CAC083126E978D5 * ((*(&v45 + 1) - v45) >> 3) + 1;
+        v14 = 0x1CAC083126E978D5 * ((*(&v44 + 1) - v44) >> 3) + 1;
         if (v14 > 0x4189374BC6A7EFLL)
         {
           goto LABEL_75;
         }
 
-        if (0x395810624DD2F1AALL * ((v46 - v45) >> 3) > v14)
+        if (0x395810624DD2F1AALL * ((v45 - v44) >> 3) > v14)
         {
-          v14 = 0x395810624DD2F1AALL * ((v46 - v45) >> 3);
+          v14 = 0x395810624DD2F1AALL * ((v45 - v44) >> 3);
         }
 
-        if ((0x1CAC083126E978D5 * ((v46 - v45) >> 3)) >= 0x20C49BA5E353F7)
+        if ((0x1CAC083126E978D5 * ((v45 - v44) >> 3)) >= 0x20C49BA5E353F7)
         {
           v15 = 0x4189374BC6A7EFLL;
         }
@@ -8481,42 +8370,42 @@ void std::__function::__func<TI::Favonius::UnigramCandidateGenerator::generate_c
           v15 = v14;
         }
 
-        v59[4] = &v45;
+        v58[4] = &v44;
         if (v15)
         {
           std::__allocate_at_least[abi:nn200100]<std::allocator<KB::Candidate>>(v15);
         }
 
-        v16 = (8 * ((*(&v45 + 1) - v45) >> 3));
-        KB::Candidate::Candidate(v16, v55);
+        v16 = (8 * ((*(&v44 + 1) - v44) >> 3));
+        KB::Candidate::Candidate(v16, v54);
         v13 = v16 + 1000;
-        v17 = v16 + v45 - *(&v45 + 1);
-        std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<KB::Candidate>,KB::Candidate*>(v45, *(&v45 + 1), v17);
-        v18 = v45;
-        v19 = v46;
-        *&v45 = v17;
-        *(&v45 + 1) = v13;
-        v46 = 0;
-        v59[2] = v18;
-        v59[3] = v19;
-        v59[1] = v18;
-        v59[0] = v18;
-        std::__split_buffer<KB::Candidate>::~__split_buffer(v59);
+        v17 = v16 + v44 - *(&v44 + 1);
+        std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<KB::Candidate>,KB::Candidate*>(v44, *(&v44 + 1), v17);
+        v18 = v44;
+        v19 = v45;
+        *&v44 = v17;
+        *(&v44 + 1) = v13;
+        v45 = 0;
+        v58[2] = v18;
+        v58[3] = v19;
+        v58[1] = v18;
+        v58[0] = v18;
+        std::__split_buffer<KB::Candidate>::~__split_buffer(v58);
       }
 
       else
       {
-        v13 = KB::Candidate::Candidate(*(&v45 + 1), v55) + 1000;
+        v13 = KB::Candidate::Candidate(*(&v44 + 1), v54) + 1000;
       }
 
-      *(&v45 + 1) = v13;
-      KB::LanguageModelContext::operator=((v13 - 216), *(v44 + 24));
+      *(&v44 + 1) = v13;
+      KB::LanguageModelContext::operator=((v13 - 216), *(v43 + 24));
       if (v6)
       {
-        *(*(&v45 + 1) - 38) = 1;
+        *(*(&v44 + 1) - 38) = 1;
       }
 
-      KB::Word::~Word(v55);
+      KB::Word::~Word(v54);
     }
   }
 
@@ -8524,52 +8413,52 @@ void std::__function::__func<TI::Favonius::UnigramCandidateGenerator::generate_c
   {
     v20 = *(a1 + 16);
     v21 = *v20;
-    v43 = v20[1];
-    if (*v20 != v43)
+    v42 = v20[1];
+    if (*v20 != v42)
     {
       do
       {
-        v22 = v47;
-        v23 = v48;
+        v22 = v46;
+        v23 = v47;
         while (v22 != v23)
         {
-          KB::Word::Word(v59, v22);
-          if ((*(*v4 + 40))(v4, v21, v59))
+          KB::Word::Word(v58, v22);
+          if ((*(*v4 + 40))(v4, v21, v58))
           {
-            v24 = (*(*v4 + 48))(v4, v21, v59);
+            v24 = (*(*v4 + 48))(v4, v21, v58);
             if (HIDWORD(v24))
             {
               v25 = v24;
-              KB::Candidate::Candidate(v55, v21);
-              KB::Word::Word(v51, (v21[1] + 240 * *v21 - 240));
+              KB::Candidate::Candidate(v54, v21);
+              KB::Word::Word(v50, (v21[1] + 240 * *v21 - 240));
               v26 = v25;
-              KB::Word::append_suffix(v51, v22, 0, v26);
-              KB::Candidate::pop_last_word(v55);
+              KB::Word::append_suffix(v50, v22, 0, v26);
+              KB::Candidate::pop_last_word(v54);
               if ((*(*v3 + 168))(v3))
               {
-                v53 = 0;
+                v52 = 0;
               }
 
-              else if ((v52 & 0x80060100) == 0 && !HIDWORD(v53) && !v54)
+              else if ((v51 & 0x80060100) == 0 && !HIDWORD(v52) && !v53)
               {
-                v52 |= 4u;
+                v51 |= 4u;
               }
 
-              if (*(&v45 + 1) >= v46)
+              if (*(&v44 + 1) >= v45)
               {
-                v31 = 0x1CAC083126E978D5 * ((*(&v45 + 1) - v45) >> 3) + 1;
+                v31 = 0x1CAC083126E978D5 * ((*(&v44 + 1) - v44) >> 3) + 1;
                 if (v31 > 0x4189374BC6A7EFLL)
                 {
 LABEL_75:
                   std::vector<unsigned long>::__throw_length_error[abi:nn200100]();
                 }
 
-                if (0x395810624DD2F1AALL * ((v46 - v45) >> 3) > v31)
+                if (0x395810624DD2F1AALL * ((v45 - v44) >> 3) > v31)
                 {
-                  v31 = 0x395810624DD2F1AALL * ((v46 - v45) >> 3);
+                  v31 = 0x395810624DD2F1AALL * ((v45 - v44) >> 3);
                 }
 
-                if ((0x1CAC083126E978D5 * ((v46 - v45) >> 3)) >= 0x20C49BA5E353F7)
+                if ((0x1CAC083126E978D5 * ((v45 - v44) >> 3)) >= 0x20C49BA5E353F7)
                 {
                   v32 = 0x4189374BC6A7EFLL;
                 }
@@ -8579,66 +8468,66 @@ LABEL_75:
                   v32 = v31;
                 }
 
-                v50[4] = &v45;
+                v49[4] = &v44;
                 if (v32)
                 {
                   std::__allocate_at_least[abi:nn200100]<std::allocator<KB::Candidate>>(v32);
                 }
 
-                v37 = (8 * ((*(&v45 + 1) - v45) >> 3));
-                KB::Candidate::Candidate(v37, v55, v51);
+                v37 = (8 * ((*(&v44 + 1) - v44) >> 3));
+                KB::Candidate::Candidate(v37, v54, v50);
                 v28 = v37 + 1000;
-                v38 = v37 + v45 - *(&v45 + 1);
-                std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<KB::Candidate>,KB::Candidate*>(v45, *(&v45 + 1), v38);
-                v39 = v45;
-                v40 = v46;
-                *&v45 = v38;
-                *(&v45 + 1) = v28;
-                v46 = 0;
-                v50[2] = v39;
-                v50[3] = v40;
-                v50[0] = v39;
-                v50[1] = v39;
-                std::__split_buffer<KB::Candidate>::~__split_buffer(v50);
+                v38 = v37 + v44 - *(&v44 + 1);
+                std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<KB::Candidate>,KB::Candidate*>(v44, *(&v44 + 1), v38);
+                v39 = v44;
+                v40 = v45;
+                *&v44 = v38;
+                *(&v44 + 1) = v28;
+                v45 = 0;
+                v49[2] = v39;
+                v49[3] = v40;
+                v49[0] = v39;
+                v49[1] = v39;
+                std::__split_buffer<KB::Candidate>::~__split_buffer(v49);
               }
 
               else
               {
-                v28 = KB::Candidate::Candidate(*(&v45 + 1), v55, v51) + 1000;
+                v28 = KB::Candidate::Candidate(*(&v44 + 1), v54, v50) + 1000;
               }
 
-              *(&v45 + 1) = v28;
-              KB::Word::~Word(v51);
-              KB::Candidate::~Candidate(v55);
-              v27 = *(&v45 + 1);
+              *(&v44 + 1) = v28;
+              KB::Word::~Word(v50);
+              KB::Candidate::~Candidate(v54);
+              v27 = *(&v44 + 1);
             }
 
             else
             {
               if ((*(*v3 + 168))(v3))
               {
-                v61 = 0;
+                v60 = 0;
               }
 
-              else if ((v60 & 0x80060100) == 0 && !HIDWORD(v61) && !v62)
+              else if ((v59 & 0x80060100) == 0 && !HIDWORD(v60) && !v61)
               {
-                v60 |= 4u;
+                v59 |= 4u;
               }
 
-              if (*(&v45 + 1) >= v46)
+              if (*(&v44 + 1) >= v45)
               {
-                v29 = 0x1CAC083126E978D5 * ((*(&v45 + 1) - v45) >> 3) + 1;
+                v29 = 0x1CAC083126E978D5 * ((*(&v44 + 1) - v44) >> 3) + 1;
                 if (v29 > 0x4189374BC6A7EFLL)
                 {
                   goto LABEL_75;
                 }
 
-                if (0x395810624DD2F1AALL * ((v46 - v45) >> 3) > v29)
+                if (0x395810624DD2F1AALL * ((v45 - v44) >> 3) > v29)
                 {
-                  v29 = 0x395810624DD2F1AALL * ((v46 - v45) >> 3);
+                  v29 = 0x395810624DD2F1AALL * ((v45 - v44) >> 3);
                 }
 
-                if ((0x1CAC083126E978D5 * ((v46 - v45) >> 3)) >= 0x20C49BA5E353F7)
+                if ((0x1CAC083126E978D5 * ((v45 - v44) >> 3)) >= 0x20C49BA5E353F7)
                 {
                   v30 = 0x4189374BC6A7EFLL;
                 }
@@ -8648,71 +8537,70 @@ LABEL_75:
                   v30 = v29;
                 }
 
-                v55[4] = &v45;
+                v54[4] = &v44;
                 if (v30)
                 {
                   std::__allocate_at_least[abi:nn200100]<std::allocator<KB::Candidate>>(v30);
                 }
 
-                v33 = (8 * ((*(&v45 + 1) - v45) >> 3));
-                KB::Candidate::Candidate(v33, v21, v59);
+                v33 = (8 * ((*(&v44 + 1) - v44) >> 3));
+                KB::Candidate::Candidate(v33, v21, v58);
                 v27 = v33 + 1000;
-                v34 = v33 + v45 - *(&v45 + 1);
-                std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<KB::Candidate>,KB::Candidate*>(v45, *(&v45 + 1), v34);
-                v35 = v45;
-                v36 = v46;
-                *&v45 = v34;
-                *(&v45 + 1) = v27;
-                v46 = 0;
-                v55[2] = v35;
-                v55[3] = v36;
-                v55[0] = v35;
-                v55[1] = v35;
-                std::__split_buffer<KB::Candidate>::~__split_buffer(v55);
+                v34 = v33 + v44 - *(&v44 + 1);
+                std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<KB::Candidate>,KB::Candidate*>(v44, *(&v44 + 1), v34);
+                v35 = v44;
+                v36 = v45;
+                *&v44 = v34;
+                *(&v44 + 1) = v27;
+                v45 = 0;
+                v54[2] = v35;
+                v54[3] = v36;
+                v54[0] = v35;
+                v54[1] = v35;
+                std::__split_buffer<KB::Candidate>::~__split_buffer(v54);
               }
 
               else
               {
-                v27 = KB::Candidate::Candidate(*(&v45 + 1), v21, v59) + 1000;
+                v27 = KB::Candidate::Candidate(*(&v44 + 1), v21, v58) + 1000;
               }
 
-              *(&v45 + 1) = v27;
+              *(&v44 + 1) = v27;
             }
 
             KB::LanguageModelContext::operator=((v27 - 216), v21 + 98);
             if (v6)
             {
-              *(*(&v45 + 1) - 38) = 1;
+              *(*(&v44 + 1) - 38) = 1;
             }
           }
 
-          KB::Word::~Word(v59);
+          KB::Word::~Word(v58);
           v22 += 30;
         }
 
         v21 += 125;
       }
 
-      while (v21 != v43);
+      while (v21 != v42);
     }
   }
 
-  v41 = *(v44 + 16);
+  v41 = *(v43 + 16);
   std::vector<KB::Candidate>::__vdeallocate(v41);
-  *v41 = v45;
-  *(v41 + 16) = v46;
-  v45 = 0uLL;
-  v46 = 0;
-  v55[0] = &v45;
-  std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](v55);
-  v55[0] = &v47;
-  std::vector<KB::Word>::__destroy_vector::operator()[abi:nn200100](v55);
-  v42 = *MEMORY[0x277D85DE8];
+  *v41 = v44;
+  *(v41 + 16) = v45;
+  v44 = 0uLL;
+  v45 = 0;
+  v54[0] = &v44;
+  std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](v54);
+  v54[0] = &v46;
+  std::vector<KB::Word>::__destroy_vector::operator()[abi:nn200100](v54);
 }
 
 uint64_t TI::Favonius::UnigramCandidateGenerator::words_for_input_segment(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
-  (*(*a2 + 128))(a2, a4);
+  (*(*a2 + 128))(a2, a4, a3);
   result = (*(*a2 + 168))(a2);
   v7 = *a4;
   if (result)
@@ -8725,23 +8613,9 @@ uint64_t TI::Favonius::UnigramCandidateGenerator::words_for_input_segment(uint64
     for (i = a4[1]; v7 != i; v7 += 240)
     {
       v9 = *(v7 + 104);
-      if ((v9 & 0x40000) == 0)
+      if ((v9 & 0x40000) == 0 && (v9 & 0x80020100) == 0 && HIDWORD(*(v7 + 136)) == 0 && !*(v7 + 224))
       {
-        if ((v9 & 0x80020100) != 0)
-        {
-          v10 = 0;
-        }
-
-        else
-        {
-          v10 = HIDWORD(*(v7 + 136)) == 0;
-          *(v7 + 136);
-        }
-
-        if (v10 && !*(v7 + 224))
-        {
-          *(v7 + 104) = v9 | 4;
-        }
+        *(v7 + 104) = v9 | 4;
       }
     }
   }
@@ -8781,7 +8655,7 @@ KB::Candidate *KB::Candidate::Candidate(KB::Candidate *this, size_t *a2)
   return this;
 }
 
-void std::vector<KB::Candidate>::__vdeallocate(void **a1)
+void std::vector<KB::Candidate>::__vdeallocate(char **a1)
 {
   v1 = *a1;
   if (*a1)
@@ -8943,18 +8817,7 @@ uint64_t TI::Favonius::UnigramCandidateGenerator::update_word(uint64_t a1, uint6
   else
   {
     v5 = *(a2 + 104);
-    if ((v5 & 0x80060100) != 0)
-    {
-      v6 = 0;
-    }
-
-    else
-    {
-      v6 = HIDWORD(*(a2 + 136)) == 0;
-      *(a2 + 136);
-    }
-
-    if (v6 && *(a2 + 224) == 0)
+    if ((v5 & 0x80060100) == 0 && HIDWORD(*(a2 + 136)) == 0 && *(a2 + 224) == 0)
     {
       *(a2 + 104) = v5 | 4;
     }
@@ -9043,58 +8906,58 @@ void ___ZN2KB16LanguageModelStr8do_storeEb_block_invoke(uint64_t a1)
   }
 }
 
-void KB::LanguageModelStr::register_inline_completion_acceptance_rejection(uint64_t a1, const KB::String *a2, const KB::String *a3, const KB::String *a4, int a5)
+void KB::LanguageModelStr::register_inline_completion_acceptance_rejection(uint64_t result, const KB::String *a2, const KB::String *a3, const KB::String *a4, int a5)
 {
-  v5 = *(a1 + 184);
+  v5 = *(result + 184);
   if (v5)
   {
     TIInlineCompletionEventDispatcher::did_register_completion_acceptance(**(v5 + 744), *(*(v5 + 744) + 8), a2, a3, a4, a5);
   }
 }
 
-void KB::LanguageModelStr::inline_completions_with_stems(uint64_t a1@<X0>, uint64_t *a2@<X1>, KB::LanguageModelContext *a3@<X2>, uint64_t a4@<X4>, uint64_t a5@<X8>)
+void KB::LanguageModelStr::inline_completions_with_stems(uint64_t a1@<X0>, const KB::Candidate **a2@<X1>, const KB::LanguageModelContext *a3@<X2>, uint64_t a5@<X4>, uint64_t a6@<X8>)
 {
-  v153 = *MEMORY[0x277D85DE8];
+  v151 = *MEMORY[0x277D85DE8];
   if ((*(*a1 + 16))(a1))
   {
-    v100 = a2;
-    v101 = a4;
-    memset(v103, 0, sizeof(v103));
-    convert_to_lm_completion_stem(a2, v103, 0);
-    v99 = *(a1 + 88);
-    v102 = (*(*a1 + 40))(a1);
-    v10 = *(a1 + 184);
-    v11 = v103[0];
-    language_modeling::v1::CompletionStem::prefix(&v108, v103[0]);
-    if (*(v10 + 288))
+    v98 = a2;
+    v99 = a5;
+    memset(v101, 0, sizeof(v101));
+    convert_to_lm_completion_stem(a2, v101, 0);
+    v97 = *(a1 + 88);
+    v100 = (*(*a1 + 40))(a1);
+    v11 = *(a1 + 184);
+    v12 = v101[0];
+    language_modeling::v1::CompletionStem::prefix(&v106, v101[0]);
+    if (*(v11 + 288))
     {
-      v12 = *(v10 + 88);
-      v13 = v110;
-      if ((v110 & 0x80u) != 0)
+      v13 = *(v11 + 88);
+      v14 = v108;
+      if ((v108 & 0x80u) != 0)
       {
-        v13 = v109;
+        v14 = v107;
       }
 
-      if (v13)
+      if (v14)
       {
 LABEL_6:
-        KB::LanguageModelContext::LanguageModelContext(&buf, (v10 + 104));
-        v14 = *(&v125 + 1);
-        v15 = 0xAAAAAAAAAAAAAAABLL * ((v126 - *(&v125 + 1)) >> 3);
-        v16 = *(a3 + 10);
-        v17 = 0xAAAAAAAAAAAAAAABLL * ((*(a3 + 11) - v16) >> 3);
-        if (v17 < v15 || v17 > *(v10 + 96) - 0x5555555555555555 * ((v126 - *(&v125 + 1)) >> 3))
+        KB::LanguageModelContext::LanguageModelContext(&buf, (v11 + 104));
+        v15 = *(&v123 + 1);
+        v16 = 0xAAAAAAAAAAAAAAABLL * ((v124 - *(&v123 + 1)) >> 3);
+        v17 = *(a3 + 10);
+        v18 = 0xAAAAAAAAAAAAAAABLL * ((*(a3 + 11) - v17) >> 3);
+        if (v18 < v16 || v18 > *(v11 + 96) - 0x5555555555555555 * ((v124 - *(&v123 + 1)) >> 3))
         {
           LOBYTE(__sz[0]) = 0;
-          BYTE8(v151) = 0;
+          BYTE8(v149) = 0;
 LABEL_9:
-          v111.__r_.__value_.__r.__words[0] = &v125 + 8;
-          std::vector<std::string>::__destroy_vector::operator()[abi:nn200100](&v111);
-          language_modeling::v1::LinguisticContext::~LinguisticContext(&v125);
-          language_modeling::v1::LinguisticContext::~LinguisticContext(&v124);
+          v109.__r_.__value_.__r.__words[0] = &v123 + 8;
+          std::vector<std::string>::__destroy_vector::operator()[abi:nn200100](&v109);
+          language_modeling::v1::LinguisticContext::~LinguisticContext(&v123);
+          language_modeling::v1::LinguisticContext::~LinguisticContext(&v122);
           if (buf.__r_.__value_.__r.__words[2])
           {
-            v122.__r_.__value_.__r.__words[0] = buf.__r_.__value_.__r.__words[2];
+            v120.__r_.__value_.__r.__words[0] = buf.__r_.__value_.__r.__words[2];
             operator delete(buf.__r_.__value_.__r.__words[2]);
           }
 
@@ -9104,12 +8967,12 @@ LABEL_9:
           }
 
 LABEL_48:
-          if (v110 < 0)
+          if (v108 < 0)
           {
-            operator delete(v108);
+            operator delete(v106);
           }
 
-          if (BYTE8(v151) != 1)
+          if (BYTE8(v149) != 1)
           {
             if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
             {
@@ -9118,14 +8981,14 @@ LABEL_48:
               _os_log_debug_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%s  TIInlineCompletionGeneratorImpl: No cached completion was found, cache emptied", &buf, 0xCu);
             }
 
-            TIInlineCompletionsCache::clear((v10 + 96));
-            v32 = *(v10 + 400);
-            v104[0] = v32;
+            TIInlineCompletionsCache::clear((v11 + 96));
+            v32 = *(v11 + 400);
+            v102[0] = v32;
             if (v32)
             {
               atomic_fetch_add(v32, 1u);
-              v33 = v104[0];
-              greetingCompletion(&v132, a3, v11, v10 + 368, v104, *(v10 + 56));
+              v33 = v102[0];
+              greetingCompletion(&v130, a3, v12, v11 + 368, v102, *(v11 + 56));
               if (v33)
               {
                 WTF::RefCounted<KB::DictionaryContainer>::deref(v33);
@@ -9134,91 +8997,91 @@ LABEL_48:
 
             else
             {
-              greetingCompletion(&v132, a3, v11, v10 + 368, v104, *(v10 + 56));
+              greetingCompletion(&v130, a3, v12, v11 + 368, v102, *(v11 + 56));
             }
 
-            v34 = v133.__r_.__value_.__s.__data_[0];
-            if (v133.__r_.__value_.__s.__data_[0] == 1)
+            v34 = v131.__r_.__value_.__s.__data_[0];
+            if (v131.__r_.__value_.__s.__data_[0] == 1)
             {
-              v98 = SHIBYTE(v132.__r_.__value_.__r.__words[2]);
-              if (SHIBYTE(v132.__r_.__value_.__r.__words[2]) < 0)
+              v96 = SHIBYTE(v130.__r_.__value_.__r.__words[2]);
+              if (SHIBYTE(v130.__r_.__value_.__r.__words[2]) < 0)
               {
-                std::string::__init_copy_ctor_external(&v138, v132.__r_.__value_.__l.__data_, v132.__r_.__value_.__l.__size_);
+                std::string::__init_copy_ctor_external(&v136, v130.__r_.__value_.__l.__data_, v130.__r_.__value_.__l.__size_);
               }
 
               else
               {
-                v138 = v132;
+                v136 = v130;
               }
 
-              if (SHIBYTE(v138.__r_.__value_.__r.__words[2]) < 0)
+              if (SHIBYTE(v136.__r_.__value_.__r.__words[2]) < 0)
               {
-                std::string::__init_copy_ctor_external(&v111, v138.__r_.__value_.__l.__data_, v138.__r_.__value_.__l.__size_);
-                v113 = 0u;
-                v112 = 0u;
-                v114 = 3;
-                v115[0] = 0;
-                v116 = 0;
-                operator delete(v138.__r_.__value_.__l.__data_);
-              }
-
-              else
-              {
-                v111 = v138;
-                v112 = 0u;
-                v113 = 0u;
-                v114 = 3;
-                v115[0] = 0;
-                v116 = 0;
-              }
-
-              if (SHIBYTE(v111.__r_.__value_.__r.__words[2]) < 0)
-              {
-                std::string::__init_copy_ctor_external(&buf, v111.__r_.__value_.__l.__data_, v111.__r_.__value_.__l.__size_);
+                std::string::__init_copy_ctor_external(&v109, v136.__r_.__value_.__l.__data_, v136.__r_.__value_.__l.__size_);
+                v111 = 0u;
+                v110 = 0u;
+                v112 = 3;
+                v113[0] = 0;
+                v114 = 0;
+                operator delete(v136.__r_.__value_.__l.__data_);
               }
 
               else
               {
-                buf = v111;
+                v109 = v136;
+                v110 = 0u;
+                v111 = 0u;
+                v112 = 3;
+                v113[0] = 0;
+                v114 = 0;
               }
 
-              if (SBYTE7(v113) < 0)
+              if (SHIBYTE(v109.__r_.__value_.__r.__words[2]) < 0)
               {
-                std::string::__init_copy_ctor_external(&v122, v112, *(&v112 + 1));
+                std::string::__init_copy_ctor_external(&buf, v109.__r_.__value_.__l.__data_, v109.__r_.__value_.__l.__size_);
               }
 
               else
               {
-                *&v122.__r_.__value_.__l.__data_ = v112;
-                v122.__r_.__value_.__r.__words[2] = v113;
+                buf = v109;
               }
 
-              *&v123 = *(&v113 + 1);
-              DWORD2(v123) = v114;
-              LOBYTE(v124) = 0;
-              LOBYTE(v125) = 0;
-              if (v116 == 1)
+              if (SBYTE7(v111) < 0)
               {
-                MEMORY[0x2318BDB20](&v124, v115);
-                LOBYTE(v125) = 1;
+                std::string::__init_copy_ctor_external(&v120, v110, *(&v110 + 1));
               }
 
-              *(&v125 + 1) = 0;
-              language_modeling::v1::CompletionStem::prefix(&v108, v11);
-              shouldSuppress = TIInlineCompletionGeneratorImpl::_shouldSuppress(v10, &buf, &v108);
-              if (v110 < 0)
+              else
               {
-                operator delete(v108);
+                *&v120.__r_.__value_.__l.__data_ = v110;
+                v120.__r_.__value_.__r.__words[2] = v111;
               }
 
-              if (v125 == 1)
+              *&v121 = *(&v111 + 1);
+              DWORD2(v121) = v112;
+              LOBYTE(v122) = 0;
+              LOBYTE(v123) = 0;
+              if (v114 == 1)
               {
-                language_modeling::v1::InlineCompletion::~InlineCompletion(&v124);
+                MEMORY[0x2318BDB20](&v122, v113);
+                LOBYTE(v123) = 1;
               }
 
-              if (SHIBYTE(v122.__r_.__value_.__r.__words[2]) < 0)
+              *(&v123 + 1) = 0;
+              language_modeling::v1::CompletionStem::prefix(&v106, v12);
+              shouldSuppress = TIInlineCompletionGeneratorImpl::_shouldSuppress(v11, &buf, &v106);
+              if (v108 < 0)
               {
-                operator delete(v122.__r_.__value_.__l.__data_);
+                operator delete(v106);
+              }
+
+              if (v123 == 1)
+              {
+                language_modeling::v1::InlineCompletion::~InlineCompletion(&v122);
+              }
+
+              if (SHIBYTE(v120.__r_.__value_.__r.__words[2]) < 0)
+              {
+                operator delete(v120.__r_.__value_.__l.__data_);
               }
 
               if (SHIBYTE(buf.__r_.__value_.__r.__words[2]) < 0)
@@ -9226,114 +9089,114 @@ LABEL_48:
                 operator delete(buf.__r_.__value_.__l.__data_);
               }
 
-              TIInlineCompletionEventDispatcher::did_generate_cached_completion(**(v10 + 744), *(*(v10 + 744) + 8), &v111, &v111, v11, shouldSuppress);
+              TIInlineCompletionEventDispatcher::did_generate_cached_completion(**(v11 + 744), *(*(v11 + 744) + 8), &v109, &v109, v12, shouldSuppress);
               if (!shouldSuppress)
               {
-                if (SHIBYTE(v111.__r_.__value_.__r.__words[2]) < 0)
+                if (SHIBYTE(v109.__r_.__value_.__r.__words[2]) < 0)
                 {
-                  std::string::__init_copy_ctor_external(&v141, v111.__r_.__value_.__l.__data_, v111.__r_.__value_.__l.__size_);
+                  std::string::__init_copy_ctor_external(&v139, v109.__r_.__value_.__l.__data_, v109.__r_.__value_.__l.__size_);
                 }
 
                 else
                 {
-                  v141 = v111;
+                  v139 = v109;
                 }
 
-                if (SBYTE7(v113) < 0)
+                if (SBYTE7(v111) < 0)
                 {
-                  std::string::__init_copy_ctor_external(&v142, v112, *(&v112 + 1));
+                  std::string::__init_copy_ctor_external(&v140, v110, *(&v110 + 1));
                 }
 
                 else
                 {
-                  *&v142.__r_.__value_.__l.__data_ = v112;
-                  v142.__r_.__value_.__r.__words[2] = v113;
+                  *&v140.__r_.__value_.__l.__data_ = v110;
+                  v140.__r_.__value_.__r.__words[2] = v111;
                 }
 
-                v143 = *(&v113 + 1);
-                v144 = v114;
-                v145[0] = 0;
-                v146 = 0;
-                if (v116 == 1)
+                v141 = *(&v111 + 1);
+                v142 = v112;
+                v143[0] = 0;
+                v144 = 0;
+                if (v114 == 1)
                 {
-                  MEMORY[0x2318BDB20](v145, v115);
-                  v146 = 1;
+                  MEMORY[0x2318BDB20](v143, v113);
+                  v144 = 1;
                 }
 
-                memset(&v107, 0, sizeof(v107));
-                std::vector<TIInlineCompletion>::__init_with_size[abi:nn200100]<TIInlineCompletion const*,TIInlineCompletion const*>();
+                memset(&v105, 0, sizeof(v105));
+                std::vector<TIInlineCompletion>::__init_with_size[abi:nn200100]<TIInlineCompletion const*,TIInlineCompletion const*>(&v105, &v139, __sz);
               }
 
               if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
               {
-                if (SHIBYTE(v111.__r_.__value_.__r.__words[2]) < 0)
+                if (SHIBYTE(v109.__r_.__value_.__r.__words[2]) < 0)
                 {
-                  std::string::__init_copy_ctor_external(&v141, v111.__r_.__value_.__l.__data_, v111.__r_.__value_.__l.__size_);
+                  std::string::__init_copy_ctor_external(&v139, v109.__r_.__value_.__l.__data_, v109.__r_.__value_.__l.__size_);
                 }
 
                 else
                 {
-                  v141 = v111;
+                  v139 = v109;
                 }
 
-                v94 = &v141;
-                if ((v141.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+                v92 = &v139;
+                if ((v139.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
                 {
-                  v94 = v141.__r_.__value_.__r.__words[0];
+                  v92 = v139.__r_.__value_.__r.__words[0];
                 }
 
-                LODWORD(v139.__r_.__value_.__l.__data_) = 136315394;
-                *(v139.__r_.__value_.__r.__words + 4) = "cachedCompletionsForContextAndStem";
-                WORD2(v139.__r_.__value_.__r.__words[1]) = 2080;
-                *(&v139.__r_.__value_.__r.__words[1] + 6) = v94;
-                _os_log_debug_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%s  TIInlineCompletionGeneratorImpl: Greeting completion --> %s was found but was suppressed", &v139, 0x16u);
-                if (SHIBYTE(v141.__r_.__value_.__r.__words[2]) < 0)
+                LODWORD(v137.__r_.__value_.__l.__data_) = 136315394;
+                *(v137.__r_.__value_.__r.__words + 4) = "cachedCompletionsForContextAndStem";
+                WORD2(v137.__r_.__value_.__r.__words[1]) = 2080;
+                *(&v137.__r_.__value_.__r.__words[1] + 6) = v92;
+                _os_log_debug_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%s  TIInlineCompletionGeneratorImpl: Greeting completion --> %s was found but was suppressed", &v137, 0x16u);
+                if (SHIBYTE(v139.__r_.__value_.__r.__words[2]) < 0)
                 {
-                  operator delete(v141.__r_.__value_.__l.__data_);
+                  operator delete(v139.__r_.__value_.__l.__data_);
                 }
               }
 
+              memset(&v137, 0, sizeof(v137));
               memset(&v139, 0, sizeof(v139));
-              memset(&v141, 0, sizeof(v141));
-              v140 = 1;
-              v107.__r_.__value_.__r.__words[0] = &v141;
-              std::vector<TIInlineCompletion>::__destroy_vector::operator()[abi:nn200100](&v107);
-              if (v116 == 1)
+              v138 = 1;
+              v105.__r_.__value_.__r.__words[0] = &v139;
+              std::vector<TIInlineCompletion>::__destroy_vector::operator()[abi:nn200100](&v105);
+              if (v114 == 1)
               {
-                language_modeling::v1::InlineCompletion::~InlineCompletion(v115);
+                language_modeling::v1::InlineCompletion::~InlineCompletion(v113);
               }
 
-              if (SBYTE7(v113) < 0)
+              if (SBYTE7(v111) < 0)
               {
-                operator delete(v112);
+                operator delete(v110);
               }
 
-              if (SHIBYTE(v111.__r_.__value_.__r.__words[2]) < 0)
+              if (SHIBYTE(v109.__r_.__value_.__r.__words[2]) < 0)
               {
-                operator delete(v111.__r_.__value_.__l.__data_);
+                operator delete(v109.__r_.__value_.__l.__data_);
               }
 
-              if (v98 < 0)
+              if (v96 < 0)
               {
-                operator delete(v132.__r_.__value_.__l.__data_);
+                operator delete(v130.__r_.__value_.__l.__data_);
               }
             }
 
             else
             {
-              v139.__r_.__value_.__s.__data_[0] = 0;
-              v140 = 0;
+              v137.__r_.__value_.__s.__data_[0] = 0;
+              v138 = 0;
             }
 
-            if (BYTE8(v151) != 1)
+            if (BYTE8(v149) != 1)
             {
               goto LABEL_254;
             }
 
 LABEL_248:
-            if (LOBYTE(v150[1]) == 1)
+            if (LOBYTE(v148[1]) == 1)
             {
-              language_modeling::v1::InlineCompletion::~InlineCompletion(v150);
+              language_modeling::v1::InlineCompletion::~InlineCompletion(v148);
             }
 
             if (SHIBYTE(__s[3]) < 0)
@@ -9357,10 +9220,10 @@ LABEL_254:
               {
 LABEL_255:
                 v67 = 0uLL;
-                memset(&v111, 0, sizeof(v111));
-                size = v139.__r_.__value_.__l.__size_;
-                v68 = v139.__r_.__value_.__r.__words[0];
-                if (v139.__r_.__value_.__r.__words[0] == v139.__r_.__value_.__l.__size_)
+                memset(&v109, 0, sizeof(v109));
+                size = v137.__r_.__value_.__l.__size_;
+                v68 = v137.__r_.__value_.__r.__words[0];
+                if (v137.__r_.__value_.__r.__words[0] == v137.__r_.__value_.__l.__size_)
                 {
                   v85 = 0;
                 }
@@ -9369,23 +9232,23 @@ LABEL_255:
                 {
                   do
                   {
-                    KB::LanguageModel::PredictionInfo::PredictionInfo(&buf, v68, v102);
-                    v70 = v111.__r_.__value_.__l.__size_;
-                    if (v111.__r_.__value_.__l.__size_ >= v111.__r_.__value_.__r.__words[2])
+                    KB::LanguageModel::PredictionInfo::PredictionInfo(&buf, v68, v100);
+                    v70 = v109.__r_.__value_.__l.__size_;
+                    if (v109.__r_.__value_.__l.__size_ >= v109.__r_.__value_.__r.__words[2])
                     {
-                      v75 = 0xCCCCCCCCCCCCCCCDLL * ((v111.__r_.__value_.__l.__size_ - v111.__r_.__value_.__r.__words[0]) >> 5);
+                      v75 = 0xCCCCCCCCCCCCCCCDLL * ((v109.__r_.__value_.__l.__size_ - v109.__r_.__value_.__r.__words[0]) >> 5);
                       v76 = v75 + 1;
                       if (v75 + 1 > 0x199999999999999)
                       {
                         std::vector<unsigned long>::__throw_length_error[abi:nn200100]();
                       }
 
-                      if (0x999999999999999ALL * ((v111.__r_.__value_.__r.__words[2] - v111.__r_.__value_.__r.__words[0]) >> 5) > v76)
+                      if (0x999999999999999ALL * ((v109.__r_.__value_.__r.__words[2] - v109.__r_.__value_.__r.__words[0]) >> 5) > v76)
                       {
-                        v76 = 0x999999999999999ALL * ((v111.__r_.__value_.__r.__words[2] - v111.__r_.__value_.__r.__words[0]) >> 5);
+                        v76 = 0x999999999999999ALL * ((v109.__r_.__value_.__r.__words[2] - v109.__r_.__value_.__r.__words[0]) >> 5);
                       }
 
-                      if (0xCCCCCCCCCCCCCCCDLL * ((v111.__r_.__value_.__r.__words[2] - v111.__r_.__value_.__r.__words[0]) >> 5) >= 0xCCCCCCCCCCCCCCLL)
+                      if (0xCCCCCCCCCCCCCCCDLL * ((v109.__r_.__value_.__r.__words[2] - v109.__r_.__value_.__r.__words[0]) >> 5) >= 0xCCCCCCCCCCCCCCLL)
                       {
                         v77 = 0x199999999999999;
                       }
@@ -9395,54 +9258,54 @@ LABEL_255:
                         v77 = v76;
                       }
 
-                      __s[2] = &v111;
+                      __s[2] = &v109;
                       if (v77)
                       {
                         std::__allocate_at_least[abi:nn200100]<std::allocator<KB::LanguageModel::PredictionInfo>>(v77);
                       }
 
-                      v78 = 32 * ((v111.__r_.__value_.__l.__size_ - v111.__r_.__value_.__r.__words[0]) >> 5);
+                      v78 = 32 * ((v109.__r_.__value_.__l.__size_ - v109.__r_.__value_.__r.__words[0]) >> 5);
                       *v78 = 0;
                       *(v78 + 8) = 0;
                       *(v78 + 16) = 0;
                       *v78 = buf;
                       memset(&buf, 0, sizeof(buf));
-                      v79 = *&v122.__r_.__value_.__l.__data_;
-                      *(v78 + 40) = v122.__r_.__value_.__r.__words[2];
+                      v79 = *&v120.__r_.__value_.__l.__data_;
+                      *(v78 + 40) = v120.__r_.__value_.__r.__words[2];
                       *(v78 + 24) = v79;
-                      v80 = v123;
-                      *(v78 + 64) = v124;
+                      v80 = v121;
+                      *(v78 + 64) = v122;
                       *(v78 + 48) = v80;
+                      v122 = 0;
+                      v121 = 0uLL;
+                      v81 = v123;
+                      *(v78 + 88) = v124;
+                      *(v78 + 72) = v81;
                       v124 = 0;
                       v123 = 0uLL;
-                      v81 = v125;
-                      *(v78 + 88) = v126;
-                      *(v78 + 72) = v81;
-                      v126 = 0;
-                      v125 = 0uLL;
                       *(v78 + 96) = 0;
                       *(v78 + 104) = 0;
                       *(v78 + 112) = 0;
-                      *(v78 + 96) = *v127;
-                      *(v78 + 112) = v128;
-                      v127[0] = 0;
-                      v127[1] = 0;
-                      v128 = 0;
+                      *(v78 + 96) = *v125;
+                      *(v78 + 112) = v126;
+                      v125[0] = 0;
+                      v125[1] = 0;
+                      v126 = 0;
                       *(v78 + 120) = 0;
                       *(v78 + 128) = 0;
                       *(v78 + 136) = 0;
-                      *(v78 + 120) = v129;
-                      *(v78 + 136) = v130;
-                      v129 = 0uLL;
-                      v130 = 0;
-                      *(v78 + 144) = v131;
+                      *(v78 + 120) = v127;
+                      *(v78 + 136) = v128;
+                      v127 = 0uLL;
+                      v128 = 0;
+                      *(v78 + 144) = v129;
                       v74 = 160 * v75 + 160;
-                      v82 = 160 * v75 + v111.__r_.__value_.__r.__words[0] - v111.__r_.__value_.__l.__size_;
-                      std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<KB::LanguageModel::PredictionInfo>,KB::LanguageModel::PredictionInfo*>(v111.__r_.__value_.__l.__data_, v111.__r_.__value_.__l.__size_, v82);
-                      v83 = v111.__r_.__value_.__r.__words[0];
-                      v84 = v111.__r_.__value_.__r.__words[2];
-                      v111.__r_.__value_.__r.__words[0] = v82;
-                      *&v111.__r_.__value_.__r.__words[1] = v74;
+                      v82 = 160 * v75 + v109.__r_.__value_.__r.__words[0] - v109.__r_.__value_.__l.__size_;
+                      std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<KB::LanguageModel::PredictionInfo>,KB::LanguageModel::PredictionInfo*>(v109.__r_.__value_.__l.__data_, v109.__r_.__value_.__l.__size_, v82);
+                      v83 = v109.__r_.__value_.__r.__words[0];
+                      v84 = v109.__r_.__value_.__r.__words[2];
+                      v109.__r_.__value_.__r.__words[0] = v82;
+                      *&v109.__r_.__value_.__r.__words[1] = v74;
                       __s[0] = v83;
                       __s[1] = v84;
                       __sz[1] = v83;
@@ -9452,55 +9315,55 @@ LABEL_255:
 
                     else
                     {
-                      *v111.__r_.__value_.__l.__size_ = 0uLL;
+                      *v109.__r_.__value_.__l.__size_ = 0uLL;
                       *(v70 + 16) = 0;
                       *v70 = buf;
                       memset(&buf, 0, sizeof(buf));
-                      v71 = v122.__r_.__value_.__r.__words[2];
-                      *(v70 + 24) = *&v122.__r_.__value_.__l.__data_;
+                      v71 = v120.__r_.__value_.__r.__words[2];
+                      *(v70 + 24) = *&v120.__r_.__value_.__l.__data_;
                       *(v70 + 40) = v71;
-                      v72 = v124;
-                      *(v70 + 48) = v123;
+                      v72 = v122;
+                      *(v70 + 48) = v121;
                       *(v70 + 64) = v72;
-                      v123 = 0uLL;
-                      v73 = v125;
-                      *(v70 + 88) = v126;
+                      v121 = 0uLL;
+                      v73 = v123;
+                      *(v70 + 88) = v124;
                       *(v70 + 96) = 0;
                       *(v70 + 72) = v73;
-                      v126 = 0;
                       v124 = 0;
-                      v125 = 0uLL;
+                      v122 = 0;
+                      v123 = 0uLL;
                       *(v70 + 104) = 0;
                       *(v70 + 112) = 0;
-                      *(v70 + 96) = *v127;
-                      v127[0] = 0;
-                      v127[1] = 0;
-                      *(v70 + 112) = v128;
+                      *(v70 + 96) = *v125;
+                      v125[0] = 0;
+                      v125[1] = 0;
+                      *(v70 + 112) = v126;
                       *(v70 + 120) = 0;
-                      v128 = 0;
+                      v126 = 0;
                       *(v70 + 128) = 0;
                       *(v70 + 136) = 0;
-                      *(v70 + 120) = v129;
-                      *(v70 + 136) = v130;
-                      v129 = 0uLL;
-                      v130 = 0;
-                      *(v70 + 144) = v131;
+                      *(v70 + 120) = v127;
+                      *(v70 + 136) = v128;
+                      v127 = 0uLL;
+                      v128 = 0;
+                      *(v70 + 144) = v129;
                       v74 = v70 + 160;
                     }
 
-                    v111.__r_.__value_.__l.__size_ = v74;
-                    __sz[0] = &v129;
+                    v109.__r_.__value_.__l.__size_ = v74;
+                    __sz[0] = &v127;
                     std::vector<std::string>::__destroy_vector::operator()[abi:nn200100](__sz);
-                    __sz[0] = v127;
+                    __sz[0] = v125;
                     std::vector<std::string>::__destroy_vector::operator()[abi:nn200100](__sz);
-                    if (SHIBYTE(v126) < 0)
-                    {
-                      operator delete(v125);
-                    }
-
                     if (SHIBYTE(v124) < 0)
                     {
                       operator delete(v123);
+                    }
+
+                    if (SHIBYTE(v122) < 0)
+                    {
+                      operator delete(v121);
                     }
 
                     if (buf.__r_.__value_.__r.__words[0])
@@ -9513,74 +9376,71 @@ LABEL_255:
                   }
 
                   while (v68 != size);
-                  v67 = *&v111.__r_.__value_.__l.__data_;
-                  v85 = v111.__r_.__value_.__r.__words[2];
-                  LOBYTE(v34) = v140;
+                  v67 = *&v109.__r_.__value_.__l.__data_;
+                  v85 = v109.__r_.__value_.__r.__words[2];
+                  LOBYTE(v34) = v138;
                 }
 
-                *a5 = v67;
-                *(a5 + 16) = v85;
-                memset(&v111, 0, sizeof(v111));
-                *(a5 + 24) = 1;
-                buf.__r_.__value_.__r.__words[0] = &v111;
+                *a6 = v67;
+                *(a6 + 16) = v85;
+                memset(&v109, 0, sizeof(v109));
+                *(a6 + 24) = 1;
+                buf.__r_.__value_.__r.__words[0] = &v109;
                 std::vector<KB::LanguageModel::PredictionInfo>::__destroy_vector::operator()[abi:nn200100](&buf);
                 if (v34)
                 {
-                  buf.__r_.__value_.__r.__words[0] = &v139;
+                  buf.__r_.__value_.__r.__words[0] = &v137;
                   std::vector<TIInlineCompletion>::__destroy_vector::operator()[abi:nn200100](&buf);
                 }
 
-                buf.__r_.__value_.__r.__words[0] = v103;
+                buf.__r_.__value_.__r.__words[0] = v101;
                 std::vector<language_modeling::v1::CompletionStem>::__destroy_vector::operator()[abi:nn200100](&buf);
-LABEL_281:
-                v87 = *MEMORY[0x277D85DE8];
                 return;
               }
             }
 
-            v86 = *(a1 + 184);
-            v118 = v99 | (v102 << 32);
-            std::__function::__value_func<void ()(std::vector<KB::LanguageModel::PredictionInfo> const&,KB::Candidate const&,KB::LanguageModelContext const&)>::__value_func[abi:nn200100](&v119, v101);
-            KB::Candidate::Candidate(&v120, *v100);
+            v116 = v97 | (v100 << 32);
+            std::__function::__value_func<void ()(std::vector<KB::LanguageModel::PredictionInfo> const&,KB::Candidate const&,KB::LanguageModelContext const&)>::__value_func[abi:nn200100](&v117, v99);
+            KB::Candidate::Candidate(&v118, *v98);
             operator new();
           }
 
           if (SHIBYTE(__s[0]) < 0)
           {
-            std::string::__init_copy_ctor_external(&v111, __sz[0], __sz[1]);
+            std::string::__init_copy_ctor_external(&v109, __sz[0], __sz[1]);
           }
 
           else
           {
-            *&v111.__r_.__value_.__l.__data_ = *__sz;
-            v111.__r_.__value_.__r.__words[2] = __s[0];
+            *&v109.__r_.__value_.__l.__data_ = *__sz;
+            v109.__r_.__value_.__r.__words[2] = __s[0];
           }
 
           if (SHIBYTE(__s[3]) < 0)
           {
-            std::string::__init_copy_ctor_external(&v112, __s[1], __s[2]);
+            std::string::__init_copy_ctor_external(&v110, __s[1], __s[2]);
           }
 
           else
           {
-            v112 = *&__s[1];
-            *&v113 = __s[3];
+            v110 = *&__s[1];
+            *&v111 = __s[3];
           }
 
-          *(&v113 + 1) = v149;
-          v114 = DWORD2(v149);
-          v115[0] = 0;
-          v116 = 0;
-          if (LOBYTE(v150[1]) == 1)
+          *(&v111 + 1) = v147;
+          v112 = DWORD2(v147);
+          v113[0] = 0;
+          v114 = 0;
+          if (LOBYTE(v148[1]) == 1)
           {
-            MEMORY[0x2318BDB20](v115, v150);
-            v116 = 1;
+            MEMORY[0x2318BDB20](v113, v148);
+            v114 = 1;
           }
 
-          if (BYTE8(v151))
+          if (BYTE8(v149))
           {
-            completionFromCacheElement(&v141, __sz);
-            if (BYTE8(v151))
+            completionFromCacheElement(&v139, __sz);
+            if (BYTE8(v149))
             {
               if (SHIBYTE(__s[0]) < 0)
               {
@@ -9595,40 +9455,40 @@ LABEL_281:
 
               if (SHIBYTE(__s[3]) < 0)
               {
-                std::string::__init_copy_ctor_external(&v122, __s[1], __s[2]);
+                std::string::__init_copy_ctor_external(&v120, __s[1], __s[2]);
               }
 
               else
               {
-                v122 = *&__s[1];
+                v120 = *&__s[1];
               }
 
-              *&v123 = v149;
-              DWORD2(v123) = DWORD2(v149);
-              LOBYTE(v124) = 0;
-              LOBYTE(v125) = 0;
-              if (LOBYTE(v150[1]) == 1)
+              *&v121 = v147;
+              DWORD2(v121) = DWORD2(v147);
+              LOBYTE(v122) = 0;
+              LOBYTE(v123) = 0;
+              if (LOBYTE(v148[1]) == 1)
               {
-                MEMORY[0x2318BDB20](&v124, v150);
-                LOBYTE(v125) = 1;
+                MEMORY[0x2318BDB20](&v122, v148);
+                LOBYTE(v123) = 1;
               }
 
-              *(&v125 + 1) = v151;
-              language_modeling::v1::CompletionStem::prefix(&v108, v11);
-              v35 = TIInlineCompletionGeneratorImpl::_shouldSuppress(v10, &buf, &v108);
-              if (v110 < 0)
+              *(&v123 + 1) = v149;
+              language_modeling::v1::CompletionStem::prefix(&v106, v12);
+              v35 = TIInlineCompletionGeneratorImpl::_shouldSuppress(v11, &buf, &v106);
+              if (v108 < 0)
               {
-                operator delete(v108);
+                operator delete(v106);
               }
 
-              if (v125 == 1)
+              if (v123 == 1)
               {
-                language_modeling::v1::InlineCompletion::~InlineCompletion(&v124);
+                language_modeling::v1::InlineCompletion::~InlineCompletion(&v122);
               }
 
-              if (SHIBYTE(v122.__r_.__value_.__r.__words[2]) < 0)
+              if (SHIBYTE(v120.__r_.__value_.__r.__words[2]) < 0)
               {
-                operator delete(v122.__r_.__value_.__l.__data_);
+                operator delete(v120.__r_.__value_.__l.__data_);
               }
 
               if (SHIBYTE(buf.__r_.__value_.__r.__words[2]) < 0)
@@ -9636,56 +9496,56 @@ LABEL_281:
                 operator delete(buf.__r_.__value_.__l.__data_);
               }
 
-              TIInlineCompletionEventDispatcher::did_generate_cached_completion(**(v10 + 744), *(*(v10 + 744) + 8), &v141, &v111, v11, v35);
-              language_modeling::v1::CompletionStem::prefix(&v132, v11);
-              if (SHIBYTE(v141.__r_.__value_.__r.__words[2]) < 0)
+              TIInlineCompletionEventDispatcher::did_generate_cached_completion(**(v11 + 744), *(*(v11 + 744) + 8), &v139, &v109, v12, v35);
+              language_modeling::v1::CompletionStem::prefix(&v130, v12);
+              if (SHIBYTE(v139.__r_.__value_.__r.__words[2]) < 0)
               {
-                std::string::__init_copy_ctor_external(&v139, v141.__r_.__value_.__l.__data_, v141.__r_.__value_.__l.__size_);
+                std::string::__init_copy_ctor_external(&v137, v139.__r_.__value_.__l.__data_, v139.__r_.__value_.__l.__size_);
               }
 
               else
               {
-                v139 = v141;
+                v137 = v139;
               }
 
-              v36 = HIBYTE(v132.__r_.__value_.__r.__words[2]);
-              if ((v132.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+              v36 = HIBYTE(v130.__r_.__value_.__r.__words[2]);
+              if ((v130.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
               {
-                v37 = HIBYTE(v132.__r_.__value_.__r.__words[2]);
+                v37 = HIBYTE(v130.__r_.__value_.__r.__words[2]);
               }
 
               else
               {
-                v37 = v132.__r_.__value_.__l.__size_;
+                v37 = v130.__r_.__value_.__l.__size_;
               }
 
-              v38 = HIBYTE(v139.__r_.__value_.__r.__words[2]);
-              v39 = SHIBYTE(v139.__r_.__value_.__r.__words[2]);
-              if ((v139.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+              v38 = HIBYTE(v137.__r_.__value_.__r.__words[2]);
+              v39 = SHIBYTE(v137.__r_.__value_.__r.__words[2]);
+              if ((v137.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
               {
-                v38 = v139.__r_.__value_.__l.__size_;
+                v38 = v137.__r_.__value_.__l.__size_;
               }
 
               if (v37 == v38)
               {
-                if ((v132.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+                if ((v130.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
                 {
-                  v40 = &v132;
+                  v40 = &v130;
                 }
 
                 else
                 {
-                  v40 = v132.__r_.__value_.__r.__words[0];
+                  v40 = v130.__r_.__value_.__r.__words[0];
                 }
 
-                if ((v139.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+                if ((v137.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
                 {
-                  v41 = &v139;
+                  v41 = &v137;
                 }
 
                 else
                 {
-                  v41 = v139.__r_.__value_.__r.__words[0];
+                  v41 = v137.__r_.__value_.__r.__words[0];
                 }
 
                 v42 = memcmp(v40, v41, v37) == 0;
@@ -9699,8 +9559,8 @@ LABEL_281:
               v43 = v35 != 2 && v42;
               if (v39 < 0)
               {
-                operator delete(v139.__r_.__value_.__l.__data_);
-                if ((*(&v132.__r_.__value_.__s + 23) & 0x80) == 0)
+                operator delete(v137.__r_.__value_.__l.__data_);
+                if ((*(&v130.__r_.__value_.__s + 23) & 0x80) == 0)
                 {
 LABEL_108:
                   if (!v43)
@@ -9717,44 +9577,44 @@ LABEL_108:
                 goto LABEL_108;
               }
 
-              operator delete(v132.__r_.__value_.__l.__data_);
+              operator delete(v130.__r_.__value_.__l.__data_);
               if (!v43)
               {
 LABEL_167:
                 if (!v35)
                 {
-                  if (SHIBYTE(v141.__r_.__value_.__r.__words[2]) < 0)
+                  if (SHIBYTE(v139.__r_.__value_.__r.__words[2]) < 0)
                   {
-                    std::string::__init_copy_ctor_external(&v132, v141.__r_.__value_.__l.__data_, v141.__r_.__value_.__l.__size_);
+                    std::string::__init_copy_ctor_external(&v130, v139.__r_.__value_.__l.__data_, v139.__r_.__value_.__l.__size_);
                   }
 
                   else
                   {
-                    v132 = v141;
+                    v130 = v139;
                   }
 
-                  if (SHIBYTE(v142.__r_.__value_.__r.__words[2]) < 0)
+                  if (SHIBYTE(v140.__r_.__value_.__r.__words[2]) < 0)
                   {
-                    std::string::__init_copy_ctor_external(&v133, v142.__r_.__value_.__l.__data_, v142.__r_.__value_.__l.__size_);
+                    std::string::__init_copy_ctor_external(&v131, v140.__r_.__value_.__l.__data_, v140.__r_.__value_.__l.__size_);
                   }
 
                   else
                   {
-                    v133 = v142;
+                    v131 = v140;
                   }
 
-                  v134 = v143;
-                  v135 = v144;
-                  v136[0] = 0;
-                  v137 = 0;
-                  if (v146 == 1)
+                  v132 = v141;
+                  v133 = v142;
+                  v134[0] = 0;
+                  v135 = 0;
+                  if (v144 == 1)
                   {
-                    MEMORY[0x2318BDB20](v136, v145);
-                    v137 = 1;
+                    MEMORY[0x2318BDB20](v134, v143);
+                    v135 = 1;
                   }
 
-                  memset(&v138, 0, sizeof(v138));
-                  std::vector<TIInlineCompletion>::__init_with_size[abi:nn200100]<TIInlineCompletion const*,TIInlineCompletion const*>();
+                  memset(&v136, 0, sizeof(v136));
+                  std::vector<TIInlineCompletion>::__init_with_size[abi:nn200100]<TIInlineCompletion const*,TIInlineCompletion const*>(&v136, &v130, &v136);
                 }
 
                 v49 = MEMORY[0x277D86220];
@@ -9764,247 +9624,246 @@ LABEL_167:
                   goto LABEL_169;
                 }
 
-                if (BYTE8(v151))
+                if (BYTE8(v149))
                 {
                   if (SHIBYTE(__s[0]) < 0)
                   {
-                    std::string::__init_copy_ctor_external(&v132, __sz[0], __sz[1]);
+                    std::string::__init_copy_ctor_external(&v130, __sz[0], __sz[1]);
                   }
 
                   else
                   {
-                    *&v132.__r_.__value_.__l.__data_ = *__sz;
-                    v132.__r_.__value_.__r.__words[2] = __s[0];
+                    *&v130.__r_.__value_.__l.__data_ = *__sz;
+                    v130.__r_.__value_.__r.__words[2] = __s[0];
                   }
 
-                  v93 = &v132;
-                  if ((v132.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+                  v91 = &v130;
+                  if ((v130.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
                   {
-                    v93 = v132.__r_.__value_.__r.__words[0];
+                    v91 = v130.__r_.__value_.__r.__words[0];
                   }
 
-                  LODWORD(v139.__r_.__value_.__l.__data_) = 136315394;
-                  *(v139.__r_.__value_.__r.__words + 4) = "cachedCompletionsForContextAndStem";
-                  WORD2(v139.__r_.__value_.__r.__words[1]) = 2080;
-                  *(&v139.__r_.__value_.__r.__words[1] + 6) = v93;
-                  _os_log_debug_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%s  TIInlineCompletionGeneratorImpl: Cached completion --> %s was found but was suppressed or blocked by negative learning", &v139, 0x16u);
-                  if (SHIBYTE(v132.__r_.__value_.__r.__words[2]) < 0)
+                  LODWORD(v137.__r_.__value_.__l.__data_) = 136315394;
+                  *(v137.__r_.__value_.__r.__words + 4) = "cachedCompletionsForContextAndStem";
+                  WORD2(v137.__r_.__value_.__r.__words[1]) = 2080;
+                  *(&v137.__r_.__value_.__r.__words[1] + 6) = v91;
+                  _os_log_debug_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%s  TIInlineCompletionGeneratorImpl: Cached completion --> %s was found but was suppressed or blocked by negative learning", &v137, 0x16u);
+                  if (SHIBYTE(v130.__r_.__value_.__r.__words[2]) < 0)
                   {
-                    operator delete(v132.__r_.__value_.__l.__data_);
+                    operator delete(v130.__r_.__value_.__l.__data_);
                   }
 
 LABEL_169:
 
-                  memset(&v139, 0, sizeof(v139));
-                  memset(&v132, 0, sizeof(v132));
-                  v140 = 1;
-                  v138.__r_.__value_.__r.__words[0] = &v132;
-                  std::vector<TIInlineCompletion>::__destroy_vector::operator()[abi:nn200100](&v138);
-                  if (v146 == 1)
+                  memset(&v137, 0, sizeof(v137));
+                  memset(&v130, 0, sizeof(v130));
+                  v138 = 1;
+                  v136.__r_.__value_.__r.__words[0] = &v130;
+                  std::vector<TIInlineCompletion>::__destroy_vector::operator()[abi:nn200100](&v136);
+                  if (v144 == 1)
                   {
-                    language_modeling::v1::InlineCompletion::~InlineCompletion(v145);
+                    language_modeling::v1::InlineCompletion::~InlineCompletion(v143);
                   }
 
-                  if (SHIBYTE(v142.__r_.__value_.__r.__words[2]) < 0)
+                  if (SHIBYTE(v140.__r_.__value_.__r.__words[2]) < 0)
                   {
-                    operator delete(v142.__r_.__value_.__l.__data_);
+                    operator delete(v140.__r_.__value_.__l.__data_);
                   }
 
-                  if (SHIBYTE(v141.__r_.__value_.__r.__words[2]) < 0)
+                  if (SHIBYTE(v139.__r_.__value_.__r.__words[2]) < 0)
                   {
-                    operator delete(v141.__r_.__value_.__l.__data_);
+                    operator delete(v139.__r_.__value_.__l.__data_);
                   }
 
-                  if (v116 == 1)
+                  if (v114 == 1)
                   {
-                    language_modeling::v1::InlineCompletion::~InlineCompletion(v115);
+                    language_modeling::v1::InlineCompletion::~InlineCompletion(v113);
                   }
 
-                  if (SBYTE7(v113) < 0)
+                  if (SBYTE7(v111) < 0)
                   {
-                    operator delete(v112);
+                    operator delete(v110);
                   }
 
-                  if (SHIBYTE(v111.__r_.__value_.__r.__words[2]) < 0)
+                  if (SHIBYTE(v109.__r_.__value_.__r.__words[2]) < 0)
                   {
-                    operator delete(v111.__r_.__value_.__l.__data_);
+                    operator delete(v109.__r_.__value_.__l.__data_);
                   }
 
                   v34 = 1;
                   goto LABEL_248;
                 }
 
-                goto LABEL_338;
+                goto LABEL_337;
               }
 
 LABEL_112:
-              v44 = *(v10 + 744);
-              if (SHIBYTE(v141.__r_.__value_.__r.__words[2]) < 0)
+              v44 = *(v11 + 744);
+              if (SHIBYTE(v139.__r_.__value_.__r.__words[2]) < 0)
               {
-                std::string::__init_copy_ctor_external(&v107, v141.__r_.__value_.__l.__data_, v141.__r_.__value_.__l.__size_);
+                std::string::__init_copy_ctor_external(&v105, v139.__r_.__value_.__l.__data_, v139.__r_.__value_.__l.__size_);
               }
 
               else
               {
-                v107 = v141;
+                v105 = v139;
               }
 
-              if ((v107.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+              if ((v105.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
               {
-                v46 = &v107;
-              }
-
-              else
-              {
-                v46 = v107.__r_.__value_.__r.__words[0];
-              }
-
-              KB::String::String(&v132, v46);
-              if (SHIBYTE(v111.__r_.__value_.__r.__words[2]) < 0)
-              {
-                std::string::__init_copy_ctor_external(&v106, v111.__r_.__value_.__l.__data_, v111.__r_.__value_.__l.__size_);
+                v46 = &v105;
               }
 
               else
               {
-                v106 = v111;
+                v46 = v105.__r_.__value_.__r.__words[0];
               }
 
-              if ((v106.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+              KB::String::String(&v130, v46);
+              if (SHIBYTE(v109.__r_.__value_.__r.__words[2]) < 0)
               {
-                v47 = &v106;
-              }
-
-              else
-              {
-                v47 = v106.__r_.__value_.__r.__words[0];
-              }
-
-              KB::String::String(&v139, v47);
-              language_modeling::v1::CompletionStem::prefix(v104, v11);
-              if (v105 >= 0)
-              {
-                v48 = v104;
+                std::string::__init_copy_ctor_external(&v104, v109.__r_.__value_.__l.__data_, v109.__r_.__value_.__l.__size_);
               }
 
               else
               {
-                v48 = v104[0];
+                v104 = v109;
               }
 
-              KB::String::String(&v138, v48);
-              TIInlineCompletionEventDispatcher::did_register_completion_acceptance(*v44, *(v44 + 8), &v132, &v139, &v138, 2);
-              if (v138.__r_.__value_.__l.__size_ && v138.__r_.__value_.__s.__data_[6] == 1)
+              if ((v104.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
               {
-                free(v138.__r_.__value_.__l.__size_);
+                v47 = &v104;
               }
 
-              if (v105 < 0)
+              else
               {
-                operator delete(v104[0]);
+                v47 = v104.__r_.__value_.__r.__words[0];
               }
 
-              if (v139.__r_.__value_.__l.__size_ && v139.__r_.__value_.__s.__data_[6] == 1)
+              KB::String::String(&v137, v47);
+              language_modeling::v1::CompletionStem::prefix(v102, v12);
+              if (v103 >= 0)
               {
-                free(v139.__r_.__value_.__l.__size_);
+                v48 = v102;
               }
 
-              if (SHIBYTE(v106.__r_.__value_.__r.__words[2]) < 0)
+              else
               {
-                operator delete(v106.__r_.__value_.__l.__data_);
+                v48 = v102[0];
               }
 
-              if (v132.__r_.__value_.__l.__size_ && v132.__r_.__value_.__s.__data_[6] == 1)
+              KB::String::String(&v136, v48);
+              TIInlineCompletionEventDispatcher::did_register_completion_acceptance(*v44, *(v44 + 8), &v130, &v137, &v136, 2);
+              if (v136.__r_.__value_.__l.__size_ && v136.__r_.__value_.__s.__data_[6] == 1)
               {
-                free(v132.__r_.__value_.__l.__size_);
+                free(v136.__r_.__value_.__l.__size_);
               }
 
-              if (SHIBYTE(v107.__r_.__value_.__r.__words[2]) < 0)
+              if (v103 < 0)
               {
-                operator delete(v107.__r_.__value_.__l.__data_);
+                operator delete(v102[0]);
+              }
+
+              if (v137.__r_.__value_.__l.__size_ && v137.__r_.__value_.__s.__data_[6] == 1)
+              {
+                free(v137.__r_.__value_.__l.__size_);
+              }
+
+              if (SHIBYTE(v104.__r_.__value_.__r.__words[2]) < 0)
+              {
+                operator delete(v104.__r_.__value_.__l.__data_);
+              }
+
+              if (v130.__r_.__value_.__l.__size_ && v130.__r_.__value_.__s.__data_[6] == 1)
+              {
+                free(v130.__r_.__value_.__l.__size_);
+              }
+
+              if (SHIBYTE(v105.__r_.__value_.__r.__words[2]) < 0)
+              {
+                operator delete(v105.__r_.__value_.__l.__data_);
               }
 
               goto LABEL_167;
             }
           }
 
-LABEL_338:
+LABEL_337:
           std::__throw_bad_optional_access[abi:nn200100]();
-          goto LABEL_339;
+          goto LABEL_338;
         }
 
-        v96 = v12;
-        if (v126 != *(&v125 + 1))
+        v94 = v13;
+        if (v124 != *(&v123 + 1))
         {
-          v97 = a5;
-          if (v15 <= 1)
+          v95 = a6;
+          if (v16 <= 1)
           {
-            v21 = 1;
+            v22 = 1;
           }
 
           else
           {
-            v21 = 0xAAAAAAAAAAAAAAABLL * ((v126 - *(&v125 + 1)) >> 3);
+            v22 = 0xAAAAAAAAAAAAAAABLL * ((v124 - *(&v123 + 1)) >> 3);
           }
 
-          v22 = *(a3 + 10);
-          v23 = v21;
+          v23 = *(a3 + 10);
+          v24 = v22;
           while (1)
           {
-            v24 = *(v22 + 23);
-            if (v24 >= 0)
+            v25 = *(v23 + 23);
+            if (v25 >= 0)
             {
-              v25 = *(v22 + 23);
+              v26 = *(v23 + 23);
             }
 
             else
             {
-              v25 = *(v22 + 8);
+              v26 = *(v23 + 8);
             }
 
-            v26 = *(v14 + 23);
-            v27 = v26;
-            if ((v26 & 0x80u) != 0)
+            v27 = *(v15 + 23);
+            v28 = v27;
+            if ((v27 & 0x80u) != 0)
             {
-              v26 = v14[1];
+              v27 = *(v15 + 8);
             }
 
-            if (v25 != v26)
-            {
-              break;
-            }
-
-            v28 = v24 >= 0 ? v22 : *v22;
-            v29 = *v14;
-            v30 = v27 >= 0 ? v14 : *v14;
-            if (memcmp(v28, v30, v25))
+            if (v26 != v27)
             {
               break;
             }
 
-            v14 += 3;
-            v22 += 24;
-            if (!--v23)
+            v29 = v25 >= 0 ? v23 : *v23;
+            v30 = v28 >= 0 ? v15 : *v15;
+            if (memcmp(v29, v30, v26))
             {
-              a5 = v97;
+              break;
+            }
+
+            v15 += 24;
+            v23 += 24;
+            if (!--v24)
+            {
+              a6 = v95;
               goto LABEL_194;
             }
           }
 
           LOBYTE(__sz[0]) = 0;
-          BYTE8(v151) = 0;
-          a5 = v97;
+          BYTE8(v149) = 0;
+          a6 = v95;
           goto LABEL_9;
         }
 
-        v21 = 0;
+        v22 = 0;
 LABEL_194:
-        std::string::basic_string[abi:nn200100]<0>(&v132, "");
-        v51 = v17 > v21;
-        v52 = v17 - v21;
+        std::string::basic_string[abi:nn200100]<0>(&v130, "");
+        v51 = v18 > v22;
+        v52 = v18 - v22;
         if (v51)
         {
-          v53 = (v16 + 24 * v21);
+          v53 = (v17 + 24 * v22);
           do
           {
             v54 = v53;
@@ -10013,8 +9872,8 @@ LABEL_194:
               v54 = *v53;
             }
 
-            std::string::basic_string[abi:nn200100]<0>(&v111, v54);
-            v55 = std::string::append(&v111, " ", 1uLL);
+            std::string::basic_string[abi:nn200100]<0>(&v109, v54);
+            v55 = std::string::append(&v109, " ", 1uLL);
             v56 = v55->__r_.__value_.__r.__words[2];
             *__sz = *&v55->__r_.__value_.__l.__data_;
             __s[0] = v56;
@@ -10041,15 +9900,15 @@ LABEL_194:
               v58 = __sz[1];
             }
 
-            std::string::append(&v132, v57, v58);
+            std::string::append(&v130, v57, v58);
             if (SHIBYTE(__s[0]) < 0)
             {
               operator delete(__sz[0]);
             }
 
-            if (SHIBYTE(v111.__r_.__value_.__r.__words[2]) < 0)
+            if (SHIBYTE(v109.__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(v111.__r_.__value_.__l.__data_);
+              operator delete(v109.__r_.__value_.__l.__data_);
             }
 
             v53 += 24;
@@ -10059,47 +9918,47 @@ LABEL_194:
           while (v52);
         }
 
-        if ((v132.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        if ((v130.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v59 = HIBYTE(v132.__r_.__value_.__r.__words[2]);
+          v59 = HIBYTE(v130.__r_.__value_.__r.__words[2]);
         }
 
         else
         {
-          v59 = v132.__r_.__value_.__l.__size_;
+          v59 = v130.__r_.__value_.__l.__size_;
         }
 
-        if ((v110 & 0x80u) == 0)
+        if ((v108 & 0x80u) == 0)
         {
-          v60 = v110;
-        }
-
-        else
-        {
-          v60 = v109;
-        }
-
-        std::string::basic_string[abi:nn200100](&v139, v60 + v59);
-        if ((v139.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-        {
-          v61 = &v139;
+          v60 = v108;
         }
 
         else
         {
-          v61 = v139.__r_.__value_.__r.__words[0];
+          v60 = v107;
+        }
+
+        std::string::basic_string[abi:nn200100](&v137, v60 + v59);
+        if ((v137.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        {
+          v61 = &v137;
+        }
+
+        else
+        {
+          v61 = v137.__r_.__value_.__r.__words[0];
         }
 
         if (v59)
         {
-          if ((v132.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          if ((v130.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v62 = &v132;
+            v62 = &v130;
           }
 
           else
           {
-            v62 = v132.__r_.__value_.__r.__words[0];
+            v62 = v130.__r_.__value_.__r.__words[0];
           }
 
           memmove(v61, v62, v59);
@@ -10108,170 +9967,170 @@ LABEL_194:
         v63 = v61 + v59;
         if (v60)
         {
-          if ((v110 & 0x80u) == 0)
+          if ((v108 & 0x80u) == 0)
           {
-            v64 = &v108;
+            v64 = &v106;
           }
 
           else
           {
-            v64 = v108;
+            v64 = v106;
           }
 
           memmove(v63, v64, v60);
         }
 
         v63[v60] = 0;
-        v65 = HIBYTE(v139.__r_.__value_.__r.__words[2]);
-        v66 = HIBYTE(v139.__r_.__value_.__r.__words[2]);
-        if ((v139.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+        v65 = HIBYTE(v137.__r_.__value_.__r.__words[2]);
+        v66 = HIBYTE(v137.__r_.__value_.__r.__words[2]);
+        if ((v137.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
         {
-          v65 = v139.__r_.__value_.__l.__size_;
+          v65 = v137.__r_.__value_.__l.__size_;
         }
 
-        if (v65 < v96)
+        if (v65 < v94)
         {
           LOBYTE(__sz[0]) = 0;
-          BYTE8(v151) = 0;
-LABEL_320:
+          BYTE8(v149) = 0;
+LABEL_319:
           if (v66 < 0)
           {
-            operator delete(v139.__r_.__value_.__l.__data_);
+            operator delete(v137.__r_.__value_.__l.__data_);
           }
 
-          if (SHIBYTE(v132.__r_.__value_.__r.__words[2]) < 0)
+          if (SHIBYTE(v130.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v132.__r_.__value_.__l.__data_);
+            operator delete(v130.__r_.__value_.__l.__data_);
           }
 
           goto LABEL_9;
         }
 
-        if ((*(v10 + 288) & 1) == 0)
+        if ((*(v11 + 288) & 1) == 0)
         {
-          goto LABEL_338;
+          goto LABEL_337;
         }
 
-        if (*(v10 + 231) < 0)
+        if (*(v11 + 231) < 0)
         {
-          std::string::__init_copy_ctor_external(&v141, *(v10 + 208), *(v10 + 216));
-        }
-
-        else
-        {
-          v141 = *(v10 + 208);
-        }
-
-        if (*(v10 + 255) < 0)
-        {
-          std::string::__init_copy_ctor_external(&v142, *(v10 + 232), *(v10 + 240));
+          std::string::__init_copy_ctor_external(&v139, *(v11 + 208), *(v11 + 216));
         }
 
         else
         {
-          v142 = *(v10 + 232);
+          v139 = *(v11 + 208);
         }
 
-        v143 = *(v10 + 256);
-        v144 = *(v10 + 264);
-        v145[0] = 0;
-        v146 = 0;
-        if (*(v10 + 280) == 1)
+        if (*(v11 + 255) < 0)
         {
-          MEMORY[0x2318BDB20](v145, v10 + 272);
-          v146 = 1;
-        }
-
-        if (SHIBYTE(v141.__r_.__value_.__r.__words[2]) < 0)
-        {
-          std::string::__init_copy_ctor_external(&v138, v141.__r_.__value_.__l.__data_, v141.__r_.__value_.__l.__size_);
+          std::string::__init_copy_ctor_external(&v140, *(v11 + 232), *(v11 + 240));
         }
 
         else
         {
-          v138 = v141;
+          v140 = *(v11 + 232);
         }
 
-        v88 = HIBYTE(v138.__r_.__value_.__r.__words[2]);
-        v89 = SHIBYTE(v138.__r_.__value_.__r.__words[2]);
-        if ((v138.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+        v141 = *(v11 + 256);
+        v142 = *(v11 + 264);
+        v143[0] = 0;
+        v144 = 0;
+        if (*(v11 + 280) == 1)
         {
-          v88 = v138.__r_.__value_.__l.__size_;
+          MEMORY[0x2318BDB20](v143, v11 + 272);
+          v144 = 1;
         }
 
-        v90 = SHIBYTE(v139.__r_.__value_.__r.__words[2]);
-        if ((SHIBYTE(v139.__r_.__value_.__r.__words[2]) & 0x8000000000000000) != 0)
+        if (SHIBYTE(v139.__r_.__value_.__r.__words[2]) < 0)
         {
-          v90 = v139.__r_.__value_.__l.__size_;
-          if (v88 < v139.__r_.__value_.__l.__size_)
+          std::string::__init_copy_ctor_external(&v136, v139.__r_.__value_.__l.__data_, v139.__r_.__value_.__l.__size_);
+        }
+
+        else
+        {
+          v136 = v139;
+        }
+
+        v86 = HIBYTE(v136.__r_.__value_.__r.__words[2]);
+        v87 = SHIBYTE(v136.__r_.__value_.__r.__words[2]);
+        if ((v136.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+        {
+          v86 = v136.__r_.__value_.__l.__size_;
+        }
+
+        v88 = SHIBYTE(v137.__r_.__value_.__r.__words[2]);
+        if ((SHIBYTE(v137.__r_.__value_.__r.__words[2]) & 0x8000000000000000) != 0)
+        {
+          v88 = v137.__r_.__value_.__l.__size_;
+          if (v86 < v137.__r_.__value_.__l.__size_)
           {
-            goto LABEL_310;
+            goto LABEL_309;
           }
 
-          v91 = v139.__r_.__value_.__r.__words[0];
+          v89 = v137.__r_.__value_.__r.__words[0];
         }
 
         else
         {
-          if (v88 < SHIBYTE(v139.__r_.__value_.__r.__words[2]))
+          if (v86 < SHIBYTE(v137.__r_.__value_.__r.__words[2]))
           {
-            goto LABEL_310;
+            goto LABEL_309;
           }
 
-          v91 = &v139;
+          v89 = &v137;
         }
 
-        if (std::string::starts_with[abi:nn200100](&v138, v91, v90))
+        if (std::string::starts_with[abi:nn200100](&v136, v89, v88))
         {
-          if ((*(v10 + 288) & 1) == 0)
+          if ((*(v11 + 288) & 1) == 0)
           {
-            goto LABEL_338;
+            goto LABEL_337;
           }
 
-          if ((v132.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          if ((v130.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v92 = HIBYTE(v132.__r_.__value_.__r.__words[2]);
+            v90 = HIBYTE(v130.__r_.__value_.__r.__words[2]);
           }
 
           else
           {
-            v92 = v132.__r_.__value_.__l.__size_;
+            v90 = v130.__r_.__value_.__l.__size_;
           }
 
-          TIInlineCompletion::TIInlineCompletion(&v111, (v10 + 208));
-          v117 = v92;
-          std::pair<TIInlineCompletion,unsigned long>::pair[abi:nn200100](__sz, &v111);
-          BYTE8(v151) = 1;
-          std::pair<TIInlineCompletion,unsigned long>::~pair(&v111);
-          goto LABEL_311;
+          TIInlineCompletion::TIInlineCompletion(&v109, (v11 + 208));
+          v115 = v90;
+          std::pair<TIInlineCompletion,unsigned long>::pair[abi:nn200100](__sz, &v109);
+          BYTE8(v149) = 1;
+          std::pair<TIInlineCompletion,unsigned long>::~pair(&v109);
+          goto LABEL_310;
         }
 
-LABEL_310:
+LABEL_309:
         LOBYTE(__sz[0]) = 0;
-        BYTE8(v151) = 0;
-LABEL_311:
-        if (v89 < 0)
+        BYTE8(v149) = 0;
+LABEL_310:
+        if (v87 < 0)
         {
-          operator delete(v138.__r_.__value_.__l.__data_);
+          operator delete(v136.__r_.__value_.__l.__data_);
         }
 
-        if (v146 == 1)
+        if (v144 == 1)
         {
-          language_modeling::v1::InlineCompletion::~InlineCompletion(v145);
+          language_modeling::v1::InlineCompletion::~InlineCompletion(v143);
         }
 
-        if (SHIBYTE(v142.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v140.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v142.__r_.__value_.__l.__data_);
+          operator delete(v140.__r_.__value_.__l.__data_);
         }
 
-        if (SHIBYTE(v141.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v139.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v141.__r_.__value_.__l.__data_);
+          operator delete(v139.__r_.__value_.__l.__data_);
         }
 
-        v66 = HIBYTE(v139.__r_.__value_.__r.__words[2]);
-        goto LABEL_320;
+        v66 = HIBYTE(v137.__r_.__value_.__r.__words[2]);
+        goto LABEL_319;
       }
 
       if (KB::LanguageModelContext::is_linguistically_void(a3))
@@ -10280,10 +10139,10 @@ LABEL_311:
         {
           LODWORD(buf.__r_.__value_.__l.__data_) = 136315138;
           *(buf.__r_.__value_.__r.__words + 4) = "cached_candidate";
-          v19 = MEMORY[0x277D86220];
-          v20 = "%s  TIInlineCompletionsCache:: Context is not linguistically void. Also prefix is empty - will not look into cache.";
+          v20 = MEMORY[0x277D86220];
+          v21 = "%s  TIInlineCompletionsCache:: Context is not linguistically void. Also prefix is empty - will not look into cache.";
 LABEL_46:
-          _os_log_debug_impl(&dword_22CA55000, v19, OS_LOG_TYPE_DEBUG, v20, &buf, 0xCu);
+          _os_log_debug_impl(&dword_22CA55000, v20, OS_LOG_TYPE_DEBUG, v21, &buf, 0xCu);
         }
       }
 
@@ -10299,60 +10158,60 @@ LABEL_46:
         {
           LODWORD(buf.__r_.__value_.__l.__data_) = 136315138;
           *(buf.__r_.__value_.__r.__words + 4) = "cached_candidate";
-          v19 = MEMORY[0x277D86220];
-          v20 = "%s  TIInlineCompletionsCache:: Context is not linguistically void but ends with a sentence delimiter or special token. Also prefix is empty - will not look into cache.";
+          v20 = MEMORY[0x277D86220];
+          v21 = "%s  TIInlineCompletionsCache:: Context is not linguistically void but ends with a sentence delimiter or special token. Also prefix is empty - will not look into cache.";
           goto LABEL_46;
         }
       }
     }
 
     LOBYTE(__sz[0]) = 0;
-    BYTE8(v151) = 0;
+    BYTE8(v149) = 0;
     goto LABEL_48;
   }
 
-  memset(&v111, 0, sizeof(v111));
+  memset(&v109, 0, sizeof(v109));
   bzero(&buf, 0x3E8uLL);
   KB::Candidate::Candidate(&buf);
-  v152 = 0;
-  v151 = 0u;
-  *v150 = 0u;
+  v150 = 0;
   v149 = 0u;
+  *v148 = 0u;
+  v147 = 0u;
   memset(__s, 0, sizeof(__s));
   *__sz = 0u;
-  language_modeling::v1::LinguisticContext::LinguisticContext(v150);
-  language_modeling::v1::LinguisticContext::LinguisticContext(&v150[1]);
-  v151 = 0uLL;
-  v152 = 0;
-  v18 = *(a4 + 24);
-  if (v18)
+  language_modeling::v1::LinguisticContext::LinguisticContext(v148);
+  language_modeling::v1::LinguisticContext::LinguisticContext(&v148[1]);
+  v149 = 0uLL;
+  v150 = 0;
+  v19 = *(a5 + 24);
+  if (!v19)
   {
-    (*(*v18 + 48))(v18, &v111, &buf, __sz);
-    v141.__r_.__value_.__r.__words[0] = &v151;
-    std::vector<std::string>::__destroy_vector::operator()[abi:nn200100](&v141);
-    language_modeling::v1::LinguisticContext::~LinguisticContext(&v150[1]);
-    language_modeling::v1::LinguisticContext::~LinguisticContext(v150);
-    if (__s[0])
-    {
-      __s[1] = __s[0];
-      operator delete(__s[0]);
-    }
-
-    if (__sz[1])
-    {
-      std::__shared_weak_count::__release_shared[abi:nn200100](__sz[1]);
-    }
-
-    KB::Candidate::~Candidate(&buf);
-    *a5 = 0;
-    *(a5 + 24) = 0;
-    buf.__r_.__value_.__r.__words[0] = &v111;
-    std::vector<KB::LanguageModel::PredictionInfo>::__destroy_vector::operator()[abi:nn200100](&buf);
-    goto LABEL_281;
+LABEL_338:
+    std::__throw_bad_function_call[abi:nn200100]();
+    std::__throw_bad_weak_ptr[abi:nn200100]();
+    KB::Candidate::Candidate(v93);
+    return;
   }
 
-LABEL_339:
-  std::__throw_bad_function_call[abi:nn200100]();
-  v95 = std::__throw_bad_weak_ptr[abi:nn200100]();
-  KB::Candidate::Candidate(v95);
+  (*(*v19 + 48))(v19, &v109, &buf, __sz);
+  v139.__r_.__value_.__r.__words[0] = &v149;
+  std::vector<std::string>::__destroy_vector::operator()[abi:nn200100](&v139);
+  language_modeling::v1::LinguisticContext::~LinguisticContext(&v148[1]);
+  language_modeling::v1::LinguisticContext::~LinguisticContext(v148);
+  if (__s[0])
+  {
+    __s[1] = __s[0];
+    operator delete(__s[0]);
+  }
+
+  if (__sz[1])
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](__sz[1]);
+  }
+
+  KB::Candidate::~Candidate(&buf);
+  *a6 = 0;
+  *(a6 + 24) = 0;
+  buf.__r_.__value_.__r.__words[0] = &v109;
+  std::vector<KB::LanguageModel::PredictionInfo>::__destroy_vector::operator()[abi:nn200100](&buf);
 }

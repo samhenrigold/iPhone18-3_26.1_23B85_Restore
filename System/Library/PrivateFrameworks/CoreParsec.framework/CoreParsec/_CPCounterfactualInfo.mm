@@ -27,19 +27,16 @@
   to;
   if ([(_CPCounterfactualInfo *)self cfDiffered])
   {
-    cfDiffered = self->_cfDiffered;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_CPCounterfactualInfo *)self cfUsed])
   {
-    cfUsed = self->_cfUsed;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_CPCounterfactualInfo *)self cfError])
   {
-    cfError = self->_cfError;
     PBDataWriterWriteInt32Field();
   }
 

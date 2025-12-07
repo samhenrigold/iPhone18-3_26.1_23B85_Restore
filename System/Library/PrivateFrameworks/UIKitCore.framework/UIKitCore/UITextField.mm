@@ -806,7 +806,7 @@ LABEL_14:
   self->_textFieldFlags = (*&self->_textFieldFlags & 0xFFFFFFFFFFFFBFFFLL | ((v3 != qword_1ED49AA90) << 14));
 }
 
-uint64_t __35__UITextField__detectCustomDrawing__block_invoke()
+void *__35__UITextField__detectCustomDrawing__block_invoke()
 {
   result = [UITextField instanceMethodForSelector:sel_drawRect_];
   qword_1ED49AA90 = result;
@@ -1912,7 +1912,7 @@ LABEL_8:
 
 - (BOOL)_shouldShrinkPlaceholderToFitForAccessibility
 {
-  if (!dyld_program_sdk_at_least() || (_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_TextFieldShrinksPlaceholderToFitForAXSizes, @"TextFieldShrinksPlaceholderToFitForAXSizes") & 1) == 0 && !byte_1ED48B61C)
+  if (!dyld_program_sdk_at_least() || !_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_TextFieldShrinksPlaceholderToFitForAXSizes, @"TextFieldShrinksPlaceholderToFitForAXSizes") && !byte_1ED48B61C)
   {
     return 0;
   }
@@ -2059,7 +2059,7 @@ LABEL_54:
 
 LABEL_48:
           v56 = v70[5];
-          if (v56 && ([v56 isEqual:font] & 1) == 0)
+          if (v56 && (objc_msgSend_isEqual_(v56) & 1) == 0)
           {
             v57 = v70[5];
             v58 = [(_UIFullFontSize *)self->_fullFontSize overrideUnlessDefault:v19];
@@ -3767,9 +3767,9 @@ LABEL_5:
   {
     if (v10 && v6)
     {
-      v7 = [v10 isEqual:v6];
+      isEqual = objc_msgSend_isEqual_(v10);
 
-      if (v7)
+      if (isEqual)
       {
         goto LABEL_11;
       }
@@ -3955,7 +3955,7 @@ LABEL_11:
 
 - (Class)_intelligenceBaseClass
 {
-  sub_188A34624(0, &qword_1EA934D60);
+  sub_188A34624(0, &qword_1EA934D60, off_1E70EAA40);
 
   return swift_getObjCClassFromMetadata();
 }
@@ -3964,7 +3964,7 @@ LABEL_11:
 {
   collectorCopy = collector;
   selfCopy = self;
-  _sSo11UITextFieldC5UIKitE27_intelligenceCollectContent2in9collectorySo6CGRectV_21UIIntelligenceSupport0J16ElementCollectorCtF_0(collectorCopy);
+  _sSo11UITextFieldC5UIKitE27_intelligenceCollectContent2in9collectorySo6CGRectV_21UIIntelligenceSupport0J16ElementCollectorCtF_0(collectorCopy, v6);
 }
 
 - (id)largeContentTitle
@@ -5850,7 +5850,7 @@ LABEL_8:
     self = [contextCopy nextFocusedItem];
     v8 = [(_UIDynamicFocusGroupMap *)v6 focusGroupIdentifierForItem:self];
 
-    LODWORD(self) = [v7 isEqualToString:v8] ^ 1;
+    LODWORD(self) = objc_msgSend_isEqualToString_(v7) ^ 1;
   }
 
   else
@@ -6342,7 +6342,7 @@ LABEL_55:
   }
 
   obj = sizeCopy;
-  if (![(_UIFullFontSize *)self->_fullFontSize isEqual:sizeCopy])
+  if ((objc_msgSend_isEqual_(self->_fullFontSize, sizeCopy, sizeCopy) & 1) == 0)
   {
     objc_storeStrong(&self->_fullFontSize, obj);
     if ([(UITextField *)self adjustsFontSizeToFitWidth])
@@ -6444,7 +6444,7 @@ void __37__UITextField__invalidateDefaultFont__block_invoke(uint64_t a1)
   traitCollection = [(UIView *)self traitCollection];
   preferredContentSizeCategory = [traitCollection preferredContentSizeCategory];
 
-  if ([(NSString *)preferredContentSizeCategory isEqualToString:@"UICTContentSizeCategoryXXXL"])
+  if (objc_msgSend_isEqualToString_(preferredContentSizeCategory))
   {
     height = 48.0;
   }
@@ -8028,9 +8028,9 @@ LABEL_9:
 {
   keyCopy = key;
   v5 = keyCopy;
-  if ((valueForKey__checkedPlaceholderLabel & 1) == 0 && [keyCopy isEqualToString:@"_placeholderLabel"])
+  if ((valueForKey__checkedPlaceholderLabel & 1) == 0 && objc_msgSend_isEqualToString_(keyCopy))
   {
-    UIKVCAccessProhibited(v5, @"UITextField");
+    UIKVCAccessProhibited(v5, @"UITextField", 851968);
     valueForKey__checkedPlaceholderLabel = 1;
   }
 
@@ -8200,9 +8200,9 @@ LABEL_9:
   rulesCopy = rules;
   textInputTraits = [(UITextField *)self textInputTraits];
   passwordRules = [textInputTraits passwordRules];
-  v6 = [rulesCopy isEqual:passwordRules];
+  isEqual = objc_msgSend_isEqual_(rulesCopy);
 
-  if ((v6 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
     [textInputTraits setPasswordRules:rulesCopy];
   }
@@ -8648,7 +8648,7 @@ LABEL_6:
   if (*(&self->_textFieldFlags + 1))
   {
     v15 = attributeCopy;
-    if (![attributeCopy isEqualToString:*off_1E70EC918] || (v6 = -[UITextField _tvHasFloatingFieldEditor](self, "_tvHasFloatingFieldEditor"), v5 = v15, !v6))
+    if (!objc_msgSend_isEqualToString_(attributeCopy) || (v6 = [(UITextField *)self _tvHasFloatingFieldEditor], v5 = v15, !v6))
     {
       _fieldEditor = [(UITextField *)self _fieldEditor];
       _textStorage = [_fieldEditor _textStorage];
@@ -8805,9 +8805,9 @@ LABEL_11:
   if (font != v10)
   {
     font2 = [(_UICascadingTextStorage *)v4 font];
-    v7 = [font2 isEqual:v10];
+    isEqual = objc_msgSend_isEqual_(font2);
 
-    if (v7)
+    if (isEqual)
     {
       goto LABEL_8;
     }
@@ -8895,7 +8895,7 @@ LABEL_8:
     if (font2 && v6)
     {
       font3 = [(UITextField *)self font];
-      v8 = [font3 isEqual:v6] ^ 1;
+      v8 = objc_msgSend_isEqual_(font3) ^ 1;
     }
 
     v22 = v8;
@@ -8971,7 +8971,7 @@ void __49__UITextField__adjustFontForAccessibilityTraits___block_invoke_2(uint64
     v13 = 1;
   }
 
-  if (!v13 && ([v10 isEqual:v11] & 1) == 0)
+  if (!v13 && (objc_msgSend_isEqual_(v10) & 1) == 0)
   {
     *(*(*(a1 + 48) + 8) + 24) = 1;
     [*(a1 + 40) addAttribute:*off_1E70EC918 value:v12 range:{a3, a4}];
@@ -9120,9 +9120,9 @@ void __40__UITextField_setDefaultTextAttributes___block_invoke(uint64_t a1, void
   {
     if (v6 && v7)
     {
-      v9 = [(_UITextFieldBackgroundProvider *)v6 isEqual:v7];
+      isEqual = objc_msgSend_isEqual_(v6);
 
-      if (v9)
+      if (isEqual)
       {
         goto LABEL_16;
       }
@@ -9230,9 +9230,9 @@ void __38__UITextField__setBackgroundProvider___block_invoke(uint64_t a1)
 
   if (v10 && v8)
   {
-    v9 = [(_UITextFieldBackgroundProvider *)v10 isEqual:v8];
+    isEqual = objc_msgSend_isEqual_(v10);
 
-    if (!v9)
+    if ((isEqual & 1) == 0)
     {
       goto LABEL_10;
     }
@@ -9352,9 +9352,9 @@ LABEL_12:
   if ([placeholderCopy length] || (-[UILabel text](self->_placeholderLabel, "text"), v4 = objc_claimAutoreleasedReturnValue(), v5 = objc_msgSend(v4, "length"), v4, v5))
   {
     text = [(UILabel *)self->_placeholderLabel text];
-    v7 = [placeholderCopy isEqualToString:text];
+    isEqualToString = objc_msgSend_isEqualToString_(placeholderCopy);
 
-    if ((v7 & 1) == 0)
+    if ((isEqualToString & 1) == 0)
     {
       [(UILabel *)self->_placeholderLabel setText:placeholderCopy];
       [(UITextField *)self finishedSettingPlaceholder];
@@ -10522,10 +10522,10 @@ void __58__UITextField__detachFieldEditorDiscardingEdits_animated___block_invoke
   markedTextCopy = markedText;
   inputCopy = input;
   textCopy = text;
-  if (-[UITextField isEditing](self, "isEditing") || -[UITextField _showsContentCoverView](self, "_showsContentCoverView") && [textCopy isEqualToString:@"\n"])
+  if ([(UITextField *)self isEditing]|| [(UITextField *)self _showsContentCoverView]&& objc_msgSend_isEqualToString_(textCopy))
   {
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
-    if ([textCopy isEqualToString:@"\n"])
+    if (objc_msgSend_isEqualToString_(textCopy))
     {
       if (objc_opt_respondsToSelector())
       {
@@ -11293,10 +11293,10 @@ LABEL_9:
   if ([text length] || objc_msgSend(labelCopy, "length"))
   {
     text2 = [(UILabel *)self->_label text];
-    v6 = [text2 isEqualToString:labelCopy];
+    isEqualToString = objc_msgSend_isEqualToString_(text2);
 
     v7 = labelCopy;
-    if (v6)
+    if (isEqualToString)
     {
       goto LABEL_15;
     }
@@ -13092,25 +13092,25 @@ uint64_t __65__UITextField_pointerInteraction_regionForRequest_defaultRegion___b
     v21 = v20;
     if (v19 == v20)
     {
-      v15 = 1;
+      isEqual = 1;
     }
 
     else
     {
-      v15 = 0;
+      isEqual = 0;
       if (v19 && v20)
       {
-        v15 = [v19 isEqual:v20];
+        isEqual = objc_msgSend_isEqual_(v19);
       }
     }
   }
 
   else
   {
-    v15 = 0;
+    isEqual = 0;
   }
 
-  return v15;
+  return isEqual;
 }
 
 - (id)pointerInteraction:(id)interaction styleForRegion:(id)region
@@ -13118,9 +13118,9 @@ uint64_t __65__UITextField_pointerInteraction_regionForRequest_defaultRegion___b
   interactionCopy = interaction;
   regionCopy = region;
   identifier = [regionCopy identifier];
-  v9 = [identifier isEqual:@"_UITextFieldLeftViewRegion"];
+  isEqual = objc_msgSend_isEqual_(identifier);
 
-  if (v9)
+  if (isEqual)
   {
     v10 = &OBJC_IVAR___UITextField__leftView;
   }
@@ -13128,7 +13128,7 @@ uint64_t __65__UITextField_pointerInteraction_regionForRequest_defaultRegion___b
   else
   {
     identifier2 = [regionCopy identifier];
-    v12 = [identifier2 isEqual:@"_UITextFieldRightViewRegion"];
+    v12 = objc_msgSend_isEqual_(identifier2);
 
     if (!v12)
     {
@@ -13157,7 +13157,7 @@ LABEL_8:
     v21[3] = &unk_1E7126410;
     v21[4] = self;
     v22 = interactionAssistant;
-    v23 = v9 ^ 1;
+    v23 = isEqual ^ 1;
     v16 = [v22 _shapeInContainer:self proposal:v21];
   }
 
@@ -13450,7 +13450,7 @@ LABEL_8:
   [(UITextField *)self _updateSelectionGestures];
 }
 
-uint64_t __52__UITextField_resignDropResponderWithDropPerformed___block_invoke(uint64_t a1)
+void *__52__UITextField_resignDropResponderWithDropPerformed___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isFirstResponder];
   if ((result & 1) == 0)

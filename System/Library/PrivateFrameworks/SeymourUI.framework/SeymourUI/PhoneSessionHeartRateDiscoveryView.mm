@@ -31,17 +31,19 @@
   selfCopy = self;
   sub_20C13DA64();
   swift_unknownObjectRelease();
-  v5 = (*(&selfCopy->super.super.super.isa + OBJC_IVAR____TtC9SeymourUI34PhoneSessionHeartRateDiscoveryView_presenter))[4];
-  if (v5)
+  v5 = *(&selfCopy->super.super.super.isa + OBJC_IVAR____TtC9SeymourUI34PhoneSessionHeartRateDiscoveryView_presenter);
+  v6 = *(v5 + 32);
+  if (v6)
   {
+    v7 = *(v5 + 40);
 
-    v5(v6);
-    sub_20B583ECC(v5);
+    v6(v8);
+    sub_20B583ECC(v6, v7);
   }
 
   [(PhoneSessionHeartRateDiscoveryView *)selfCopy removeFromSuperview];
 
-  __swift_destroy_boxed_opaque_existential_1(&v7);
+  __swift_destroy_boxed_opaque_existential_1(v9);
 }
 
 - (_TtC9SeymourUI34PhoneSessionHeartRateDiscoveryView)initWithFrame:(CGRect)frame

@@ -57,28 +57,59 @@
 
 - (void)layoutSubviews
 {
-  v19.receiver = self;
-  v19.super_class = PKPaymentSetupInitialCardEducationIconsView;
-  [(PKPaymentSetupInitialCardEducationIconsView *)&v19 layoutSubviews];
+  v67.receiver = self;
+  v67.super_class = PKPaymentSetupInitialCardEducationIconsView;
+  [(PKPaymentSetupInitialCardEducationIconsView *)&v67 layoutSubviews];
   [(PKPaymentSetupInitialCardEducationIconsView *)self bounds];
-  [(PKPaymentSetupInitialCardEducationIconsView *)self _shouldReverseLayoutDirection];
-  PKSizeAspectFit();
-  PKSizeAspectFit();
-  PKSizeAlignedInRect();
-  PKContentAlignmentMake();
-  PKSizeAlignedInRect();
   v4 = v3;
   v6 = v5;
   v8 = v7;
   v10 = v9;
-  PKContentAlignmentMake();
-  PKSizeAlignedInRect();
+  [(PKPaymentSetupInitialCardEducationIconsView *)self _shouldReverseLayoutDirection];
+  PKSizeAspectFit();
   v12 = v11;
-  v14 = v13;
-  v16 = v15;
-  v18 = v17;
-  [(UIImageView *)self->_applePayIcon setFrame:v4, v6, v8, v10];
-  [(UIImageView *)self->_contactlessIcon setFrame:v12, v14, v16, v18];
+  v65 = *&v11;
+  v66 = v13;
+  PKSizeAspectFit();
+  v15 = *&v14;
+  v17 = v16;
+  v18.n128_f64[0] = fmax(v12 + v14 + 20.0, v8);
+  v19.n128_u64[0] = v10;
+  v20.n128_u64[0] = v4;
+  v21.n128_u64[0] = v6;
+  v22.n128_f64[0] = v8;
+  v23.n128_u64[0] = v10;
+  PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v18, v19, v20, v21, v22, v23, v24);
+  v26 = v25;
+  v28 = v27;
+  v30 = v29;
+  v32 = v31;
+  v33 = PKContentAlignmentMake();
+  v34.n128_u64[0] = v15;
+  v35.n128_u64[0] = v17;
+  v36.n128_u64[0] = v26;
+  v37.n128_u64[0] = v28;
+  v38.n128_u64[0] = v30;
+  v39.n128_u64[0] = v32;
+  PKSizeAlignedInRect(v33, v34, v35, v36, v37, v38, v39, v40);
+  v42 = v41;
+  v44 = v43;
+  v46 = v45;
+  v48 = v47;
+  v49 = PKContentAlignmentMake();
+  v50.n128_u64[0] = v65;
+  v51.n128_u64[0] = v66;
+  v52.n128_u64[0] = v26;
+  v53.n128_u64[0] = v28;
+  v54.n128_u64[0] = v30;
+  v55.n128_u64[0] = v32;
+  PKSizeAlignedInRect(v49, v50, v51, v52, v53, v54, v55, v56);
+  v58 = v57;
+  v60 = v59;
+  v62 = v61;
+  v64 = v63;
+  [(UIImageView *)self->_applePayIcon setFrame:v42, v44, v46, v48];
+  [(UIImageView *)self->_contactlessIcon setFrame:v58, v60, v62, v64];
 }
 
 - (CGSize)sizeThatFits:(CGSize)result

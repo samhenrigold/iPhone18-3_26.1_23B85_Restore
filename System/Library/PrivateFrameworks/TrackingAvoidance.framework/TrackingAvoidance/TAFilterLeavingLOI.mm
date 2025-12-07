@@ -9,10 +9,10 @@
 
 + (id)filterSuspiciousDeviceWithStore:(id)store leavingLOISettings:(id)settings andAppendOutgoingRequestsTo:(id)to
 {
-  v139 = *MEMORY[0x277D85DE8];
+  v138 = *MEMORY[0x277D85DE8];
   storeCopy = store;
   settingsCopy = settings;
-  v102 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v101 = objc_alloc_init(MEMORY[0x277CBEB18]);
   if ([TAFilterLeavingLOI shouldDetectWithStore:storeCopy filterLeavingLOISettings:settingsCopy])
   {
     if (!settingsCopy)
@@ -24,13 +24,13 @@
     visitSnapshotBuffer = [visitState visitSnapshotBuffer];
     lastObject = [visitSnapshotBuffer lastObject];
 
-    v110 = storeCopy;
+    v109 = storeCopy;
     visitState2 = [storeCopy visitState];
     interVisitMetricSnapshotBuffer = [visitState2 interVisitMetricSnapshotBuffer];
     lastObject2 = [interVisitMetricSnapshotBuffer lastObject];
 
     visitsSettings = [(TAFilterLeavingLOISettings *)settingsCopy visitsSettings];
-    v113 = lastObject;
+    v112 = lastObject;
     v15 = [TAFilterVisits getExitAddressSetInTAVisitSnapshot:lastObject usingSettings:visitsSettings];
 
     v16 = MEMORY[0x277CBEB98];
@@ -50,39 +50,39 @@
       [TAFilterLeavingLOI filterSuspiciousDeviceWithStore:v21 leavingLOISettings:v19 andAppendOutgoingRequestsTo:?];
     }
 
-    v100 = v19;
-    v101 = v15;
+    v99 = v19;
+    v100 = v15;
     v22 = [TAFilterVisits getIntersectionOfFirstSet:v15 andSecondSet:v19];
     v23 = TAStatusLog;
     if (os_log_type_enabled(TAStatusLog, OS_LOG_TYPE_DEFAULT))
     {
       v24 = v23;
       *buf = 134349056;
-      v124 = [v22 count];
+      v123 = [v22 count];
       _os_log_impl(&dword_26F2E2000, v24, OS_LOG_TYPE_DEFAULT, "#TAFilterLeavingLOI identified %{public}lu suspicious candidates ...", buf, 0xCu);
     }
 
-    v121 = 0u;
-    v122 = 0u;
-    v119 = 0u;
     v120 = 0u;
+    v121 = 0u;
+    v118 = 0u;
+    v119 = 0u;
     obj = v22;
-    v117 = [obj countByEnumeratingWithState:&v119 objects:v138 count:16];
-    if (v117)
+    v116 = [obj countByEnumeratingWithState:&v118 objects:v137 count:16];
+    if (v116)
     {
-      v116 = *v120;
-      v109 = settingsCopy;
-      v103 = lastObject2;
+      v115 = *v119;
+      v108 = settingsCopy;
+      v102 = lastObject2;
       do
       {
-        for (i = 0; i != v117; ++i)
+        for (i = 0; i != v116; ++i)
         {
-          if (*v120 != v116)
+          if (*v119 != v115)
           {
             objc_enumerationMutation(obj);
           }
 
-          v26 = *(*(&v119 + 1) + 8 * i);
+          v26 = *(*(&v118 + 1) + 8 * i);
           lastAdvPerDevice = [lastObject2 lastAdvPerDevice];
           v28 = [lastAdvPerDevice objectForKey:v26];
 
@@ -90,7 +90,7 @@
           {
             getDate = [v28 getDate];
             clock = [storeCopy clock];
-            v118 = getDate;
+            v117 = getDate;
             [clock timeIntervalSinceDate:getDate];
             v32 = v31;
             visitsSettings2 = [(TAFilterLeavingLOISettings *)settingsCopy visitsSettings];
@@ -102,23 +102,23 @@
               v84 = TAStatusLog;
               if (os_log_type_enabled(TAStatusLog, OS_LOG_TYPE_DEBUG))
               {
-                [TAFilterLeavingLOI filterSuspiciousDeviceWithStore:v136 leavingLOISettings:v84 andAppendOutgoingRequestsTo:?];
+                [TAFilterLeavingLOI filterSuspiciousDeviceWithStore:v135 leavingLOISettings:v84 andAppendOutgoingRequestsTo:?];
               }
             }
 
             else
             {
-              earliestUtAdvertisements = [v113 earliestUtAdvertisements];
+              earliestUtAdvertisements = [v112 earliestUtAdvertisements];
               v37 = [earliestUtAdvertisements objectForKey:v26];
 
-              latestUtAdvertisements = [v113 latestUtAdvertisements];
+              latestUtAdvertisements = [v112 latestUtAdvertisements];
               v39 = [latestUtAdvertisements objectForKey:v26];
 
-              v115 = v39;
+              v114 = v39;
               if (v37 && v39)
               {
                 getDate2 = [v39 getDate];
-                v112 = v37;
+                v111 = v37;
                 getDate3 = [v37 getDate];
                 [getDate2 timeIntervalSinceDate:getDate3];
                 v43 = v42;
@@ -148,18 +148,18 @@
                     v88 = v86;
                     hexString = [v26 hexString];
                     *buf = 138478851;
-                    v124 = hexString;
-                    v125 = 1026;
-                    v126 = v50 > v52;
-                    v127 = 1026;
-                    v128 = v54 > v56;
-                    v129 = 1026;
-                    v130 = v87;
-                    settingsCopy = v109;
-                    storeCopy = v110;
-                    v131 = 1026;
-                    v132 = v43 > v46;
-                    lastObject2 = v103;
+                    v123 = hexString;
+                    v124 = 1026;
+                    v125 = v50 > v52;
+                    v126 = 1026;
+                    v127 = v54 > v56;
+                    v128 = 1026;
+                    v129 = v87;
+                    settingsCopy = v108;
+                    storeCopy = v109;
+                    v130 = 1026;
+                    v131 = v43 > v46;
+                    lastObject2 = v102;
                     _os_log_impl(&dword_26F2E2000, v88, OS_LOG_TYPE_DEFAULT, "#TAFilterLeavingLOI not adding %{private}@ because satisfy-length=%{public}d satisfy-duration=%{public}d satisfy-speed=%{public}d  satisfy-min-observation-duration=%{public}d", buf, 0x24u);
                   }
                 }
@@ -170,33 +170,33 @@
                   v60 = [lastAdvPerDevice2 objectForKey:v26];
 
                   v61 = storeCopy;
-                  loiType = [v113 loiType];
-                  v133[0] = @"DetectionAlgorithm";
+                  loiType = [v112 loiType];
+                  v132[0] = @"DetectionAlgorithm";
                   v63 = objc_opt_class();
-                  v105 = NSStringFromClass(v63);
-                  v134[0] = v105;
-                  v133[1] = @"LastObservation";
-                  v108 = v60;
+                  v104 = NSStringFromClass(v63);
+                  v133[0] = v104;
+                  v132[1] = @"LastObservation";
+                  v107 = v60;
                   descriptionDictionary = [v60 descriptionDictionary];
-                  v134[1] = descriptionDictionary;
-                  v133[2] = @"LengthTraveled";
+                  v133[1] = descriptionDictionary;
+                  v132[2] = @"LengthTraveled";
                   v65 = MEMORY[0x277CCABB0];
                   [v48 distance];
                   v66 = [v65 numberWithDouble:?];
-                  v134[2] = v66;
-                  v133[3] = @"Duration";
+                  v133[2] = v66;
+                  v132[3] = @"Duration";
                   v67 = MEMORY[0x277CCABB0];
-                  v111 = v48;
+                  v110 = v48;
                   v68 = v48;
                   v69 = loiType;
                   v70 = v61;
                   [v68 duration];
                   v71 = [v67 numberWithDouble:?];
-                  v134[3] = v71;
-                  v133[4] = @"LOIType";
+                  v133[3] = v71;
+                  v132[4] = @"LOIType";
                   v72 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v69];
-                  v134[4] = v72;
-                  v107 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v134 forKeys:v133 count:5];
+                  v133[4] = v72;
+                  v106 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v133 forKeys:v132 count:5];
 
                   visitState3 = [v61 visitState];
                   visitSnapshotBuffer2 = [visitState3 visitSnapshotBuffer];
@@ -220,25 +220,25 @@
                   }
 
                   v90 = [TAFilterLeavingLOI getLeavingLOIDetectionTypeForLOIType:v69];
-                  v104 = [TAFilterLeavingLOI getLeavingLOINotificationImmediacyTypeForLOIType:v69 leavingLOISettings:v109];
-                  v106 = [[TASingleVisitDetectionMetrics alloc] initWithInterVisitMetrics:v111 loiType:v69 previousVisitType:loiType2];
-                  v91 = [[TAMetricsDetection alloc] initWithDetectionType:v90 visitDetectionMetrics:0 generalDetectionMetrics:0 singleVisitDetectionMetrics:v106 latestAdvertisement:v108];
+                  v103 = [TAFilterLeavingLOI getLeavingLOINotificationImmediacyTypeForLOIType:v69 leavingLOISettings:v108];
+                  v105 = [[TASingleVisitDetectionMetrics alloc] initWithInterVisitMetrics:v110 loiType:v69 previousVisitType:loiType2];
+                  v91 = [[TAMetricsDetection alloc] initWithDetectionType:v90 visitDetectionMetrics:0 generalDetectionMetrics:0 singleVisitDetectionMetrics:v105 latestAdvertisement:v107];
                   v92 = [TASuspiciousDevice alloc];
                   clock2 = [v70 clock];
-                  sampledObservedLocations = [v111 sampledObservedLocations];
-                  deviceRecord = [v110 deviceRecord];
+                  sampledObservedLocations = [v110 sampledObservedLocations];
+                  deviceRecord = [v109 deviceRecord];
                   v96 = [deviceRecord getAccessoryInfo:v26];
-                  v97 = [(TASuspiciousDevice *)v92 initWithLatestAdv:v108 detectionSummary:v107 date:clock2 locHistory:sampledObservedLocations detectionMetrics:v91 detectionType:v90 immediacyType:v104 accessoryInfo:v96 forceSurfaceReason:0];
-                  [v102 addObject:v97];
+                  v97 = [(TASuspiciousDevice *)v92 initWithLatestAdv:v107 detectionSummary:v106 date:clock2 locHistory:sampledObservedLocations detectionMetrics:v91 detectionType:v90 immediacyType:v103 accessoryInfo:v96 forceSurfaceReason:0];
+                  [v101 addObject:v97];
 
-                  storeCopy = v110;
-                  settingsCopy = v109;
+                  storeCopy = v109;
+                  settingsCopy = v108;
 
-                  v48 = v111;
-                  lastObject2 = v103;
+                  v48 = v110;
+                  lastObject2 = v102;
                 }
 
-                v37 = v112;
+                v37 = v111;
               }
 
               else
@@ -246,7 +246,7 @@
                 v85 = TAStatusLog;
                 if (os_log_type_enabled(TAStatusLog, OS_LOG_TYPE_FAULT))
                 {
-                  [TAFilterLeavingLOI filterSuspiciousDeviceWithStore:v135 leavingLOISettings:v85 andAppendOutgoingRequestsTo:?];
+                  [TAFilterLeavingLOI filterSuspiciousDeviceWithStore:v134 leavingLOISettings:v85 andAppendOutgoingRequestsTo:?];
                 }
               }
             }
@@ -257,21 +257,19 @@
             v83 = TAStatusLog;
             if (os_log_type_enabled(TAStatusLog, OS_LOG_TYPE_FAULT))
             {
-              [TAFilterLeavingLOI filterSuspiciousDeviceWithStore:v137 leavingLOISettings:v83 andAppendOutgoingRequestsTo:?];
+              [TAFilterLeavingLOI filterSuspiciousDeviceWithStore:v136 leavingLOISettings:v83 andAppendOutgoingRequestsTo:?];
             }
           }
         }
 
-        v117 = [obj countByEnumeratingWithState:&v119 objects:v138 count:16];
+        v116 = [obj countByEnumeratingWithState:&v118 objects:v137 count:16];
       }
 
-      while (v117);
+      while (v116);
     }
   }
 
-  v98 = *MEMORY[0x277D85DE8];
-
-  return v102;
+  return v101;
 }
 
 + (unint64_t)getLeavingLOIDetectionTypeForLOIType:(unint64_t)type
@@ -355,29 +353,19 @@ LABEL_7:
   interVisitMetricSnapshotBuffer = [visitState3 interVisitMetricSnapshotBuffer];
   v18 = [interVisitMetricSnapshotBuffer count];
 
-  if (!v18)
-  {
-    goto LABEL_9;
-  }
-
-  visitState4 = [storeCopy visitState];
-  visitSnapshotBuffer3 = [visitState4 visitSnapshotBuffer];
-  lastObject2 = [visitSnapshotBuffer3 lastObject];
-  isClosed = [lastObject2 isClosed];
-
-  if (!isClosed)
+  if (!v18 || ([storeCopy visitState], v19 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v19, "visitSnapshotBuffer"), v20 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v20, "lastObject"), v21 = objc_claimAutoreleasedReturnValue(), v22 = objc_msgSend(v21, "isClosed"), v21, v20, v19, !v22))
   {
 LABEL_9:
     v27 = 0;
     goto LABEL_10;
   }
 
-  visitState5 = [storeCopy visitState];
-  interVisitMetricSnapshotBuffer2 = [visitState5 interVisitMetricSnapshotBuffer];
-  lastObject3 = [interVisitMetricSnapshotBuffer2 lastObject];
-  isClosed2 = [lastObject3 isClosed];
+  visitState4 = [storeCopy visitState];
+  interVisitMetricSnapshotBuffer2 = [visitState4 interVisitMetricSnapshotBuffer];
+  lastObject2 = [interVisitMetricSnapshotBuffer2 lastObject];
+  isClosed = [lastObject2 isClosed];
 
-  v27 = isClosed2 ^ 1;
+  v27 = isClosed ^ 1;
 LABEL_10:
 
   return v27;
@@ -385,22 +373,18 @@ LABEL_10:
 
 + (void)filterSuspiciousDeviceWithStore:(void *)a1 leavingLOISettings:(void *)a2 andAppendOutgoingRequestsTo:.cold.1(void *a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v3 = a1;
-  [a2 count];
-  OUTLINED_FUNCTION_2(&dword_26F2E2000, v4, v5, "#TAFilterLeavingLOI observed %{public}lu devices in last visit", v6, v7, v8, v9, 0);
-
-  v10 = *MEMORY[0x277D85DE8];
+  LODWORD(v10) = 134349056;
+  *(&v10 + 4) = [a2 count];
+  OUTLINED_FUNCTION_2(&dword_26F2E2000, v4, v5, "#TAFilterLeavingLOI observed %{public}lu devices in last visit", v6, v7, v8, v9, v10, DWORD2(v10));
 }
 
 + (void)filterSuspiciousDeviceWithStore:(void *)a1 leavingLOISettings:(void *)a2 andAppendOutgoingRequestsTo:.cold.2(void *a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v3 = a1;
-  [a2 count];
-  OUTLINED_FUNCTION_2(&dword_26F2E2000, v4, v5, "#TAFilterLeavingLOI observed %{public}lu devices after last visit", v6, v7, v8, v9, 0);
-
-  v10 = *MEMORY[0x277D85DE8];
+  LODWORD(v10) = 134349056;
+  *(&v10 + 4) = [a2 count];
+  OUTLINED_FUNCTION_2(&dword_26F2E2000, v4, v5, "#TAFilterLeavingLOI observed %{public}lu devices after last visit", v6, v7, v8, v9, v10, DWORD2(v10));
 }
 
 + (void)filterSuspiciousDeviceWithStore:(uint64_t)a1 leavingLOISettings:(void *)a2 andAppendOutgoingRequestsTo:.cold.3(uint64_t a1, void *a2)
@@ -423,17 +407,15 @@ LABEL_10:
 
 + (void)shouldDetectWithStore:(void *)a3 filterLeavingLOISettings:.cold.1(void *a1, unint64_t a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = TALocationOfInterestTypeToString(a2);
   v7 = [a3 enabledLoiTypesToString];
-  v9 = 138478083;
-  v10 = v6;
-  v11 = 2113;
-  v12 = v7;
-  _os_log_debug_impl(&dword_26F2E2000, v5, OS_LOG_TYPE_DEBUG, "#TAFilterLeavingLOI LOI type %{private}@ is not in the enabled list %{private}@", &v9, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v8 = 138478083;
+  v9 = v6;
+  v10 = 2113;
+  v11 = v7;
+  _os_log_debug_impl(&dword_26F2E2000, v5, OS_LOG_TYPE_DEBUG, "#TAFilterLeavingLOI LOI type %{private}@ is not in the enabled list %{private}@", &v8, 0x16u);
 }
 
 @end

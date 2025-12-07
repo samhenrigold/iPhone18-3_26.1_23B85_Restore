@@ -12,8 +12,10 @@
 - (void)dealloc;
 - (void)presentDisableEltonAlert:(id)alert greyOptional:(BOOL)optional confirmBlock:(id)block disableGreyBlock:(id)greyBlock;
 - (void)presentQuickActionsDisabledAlertIfNeeded;
+- (void)setGizmoAccessibilityPref:(id)pref forKey:(id)key reloadSpecifiers:(BOOL)specifiers;
 - (void)setGizmoPref:(id)pref forKey:(id)key domainAccessor:(id)accessor reloadSpecifiers:(BOOL)specifiers;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator;
 @end
 
@@ -112,6 +114,14 @@
   [(AccessibilityBridgeBaseController *)self endUpdates];
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = AccessibilityBridgeBaseController;
+  [(AccessibilityBridgeBaseController *)&v4 viewWillAppear:appear];
+  [(AccessibilityBridgeBaseController *)self reloadSpecifiers];
+}
+
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator
 {
   v4 = [(AccessibilityBridgeBaseController *)self view:coordinator];
@@ -130,7 +140,7 @@
 
 + (void)setGizmoPref:(id)pref forKey:(id)key domainAccessor:(id)accessor
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   accessorCopy = accessor;
   keyCopy = key;
   [accessorCopy setObject:pref forKey:keyCopy];
@@ -139,12 +149,11 @@
   domain = [accessorCopy domain];
 
   v12 = MEMORY[0x277CBEB98];
-  v16[0] = keyCopy;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
+  v15[0] = keyCopy;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
   v14 = [v12 setWithArray:v13];
 
   [v10 synchronizeNanoDomain:domain keys:v14];
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setGizmoPref:(id)pref forKey:(id)key domainAccessor:(id)accessor reloadSpecifiers:(BOOL)specifiers
@@ -168,6 +177,15 @@
   prefCopy = pref;
   accessibilityDomainAccessor = [self accessibilityDomainAccessor];
   [self setGizmoPref:prefCopy forKey:keyCopy domainAccessor:accessibilityDomainAccessor];
+}
+
+- (void)setGizmoAccessibilityPref:(id)pref forKey:(id)key reloadSpecifiers:(BOOL)specifiers
+{
+  specifiersCopy = specifiers;
+  keyCopy = key;
+  prefCopy = pref;
+  accessibilityDomainAccessor = [(AccessibilityBridgeBaseController *)self accessibilityDomainAccessor];
+  [(AccessibilityBridgeBaseController *)self setGizmoPref:prefCopy forKey:keyCopy domainAccessor:accessibilityDomainAccessor reloadSpecifiers:specifiersCopy];
 }
 
 - (id)specifierForIndexPath:(id)path

@@ -11,16 +11,14 @@
 
 + (NSSet)allowedResponseKeys
 {
-  v7[4] = *MEMORY[0x277D85DE8];
+  v6[4] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEB98];
-  v7[0] = @"Activations";
-  v7[1] = @"Configurations";
-  v7[2] = @"Assets";
-  v7[3] = @"Management";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:4];
+  v6[0] = @"Activations";
+  v6[1] = @"Configurations";
+  v6[2] = @"Assets";
+  v6[3] = @"Management";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:4];
   v4 = [v2 setWithArray:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -61,7 +59,7 @@
 
 - (BOOL)loadFromDictionary:(id)dictionary serializationType:(signed __int16)type error:(id *)error
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   v9 = MEMORY[0x277CBEB58];
   allKeys = [dictionaryCopy allKeys];
@@ -75,10 +73,10 @@
     if (error)
     {
       v13 = MEMORY[0x277CCA9B8];
-      v22 = *MEMORY[0x277CCA450];
+      v21 = *MEMORY[0x277CCA450];
       v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"Unexpected payload keys: %@", v11];
-      v23[0] = v14;
-      v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+      v22[0] = v14;
+      v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
       *error = [v13 errorWithDomain:@"error" code:1 userInfo:v15];
 
 LABEL_8:
@@ -88,29 +86,28 @@ LABEL_8:
 
   else
   {
+    LOWORD(v17) = type;
+    if (![(RMModelPayloadBase *)self loadArrayFromDictionary:dictionaryCopy usingKey:@"Activations" forKeyPath:@"responseActivations" classType:objc_opt_class() nested:0 isRequired:1 defaultValue:0 serializationType:v17 error:error])
+    {
+      goto LABEL_8;
+    }
+
     LOWORD(v18) = type;
-    if (![(RMModelPayloadBase *)self loadArrayFromDictionary:dictionaryCopy usingKey:@"Activations" forKeyPath:@"responseActivations" classType:objc_opt_class() nested:0 isRequired:1 defaultValue:0 serializationType:v18 error:error])
+    if (![(RMModelPayloadBase *)self loadArrayFromDictionary:dictionaryCopy usingKey:@"Configurations" forKeyPath:@"responseConfigurations" classType:objc_opt_class() nested:0 isRequired:1 defaultValue:0 serializationType:v18 error:error])
     {
       goto LABEL_8;
     }
 
     LOWORD(v19) = type;
-    if (![(RMModelPayloadBase *)self loadArrayFromDictionary:dictionaryCopy usingKey:@"Configurations" forKeyPath:@"responseConfigurations" classType:objc_opt_class() nested:0 isRequired:1 defaultValue:0 serializationType:v19 error:error])
+    if (![(RMModelPayloadBase *)self loadArrayFromDictionary:dictionaryCopy usingKey:@"Assets" forKeyPath:@"responseAssets" classType:objc_opt_class() nested:0 isRequired:1 defaultValue:0 serializationType:v19 error:error])
     {
       goto LABEL_8;
     }
 
     LOWORD(v20) = type;
-    if (![(RMModelPayloadBase *)self loadArrayFromDictionary:dictionaryCopy usingKey:@"Assets" forKeyPath:@"responseAssets" classType:objc_opt_class() nested:0 isRequired:1 defaultValue:0 serializationType:v20 error:error])
-    {
-      goto LABEL_8;
-    }
-
-    LOWORD(v21) = type;
-    LOBYTE(error) = [(RMModelPayloadBase *)self loadArrayFromDictionary:dictionaryCopy usingKey:@"Management" forKeyPath:@"responseManagement" classType:objc_opt_class() nested:0 isRequired:1 defaultValue:0 serializationType:v21 error:error];
+    LOBYTE(error) = [(RMModelPayloadBase *)self loadArrayFromDictionary:dictionaryCopy usingKey:@"Management" forKeyPath:@"responseManagement" classType:objc_opt_class() nested:0 isRequired:1 defaultValue:0 serializationType:v20 error:error];
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return error;
 }
 

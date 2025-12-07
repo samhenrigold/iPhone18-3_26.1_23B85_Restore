@@ -2,6 +2,7 @@
 - (BOOL)_activateSource:(id)source;
 - (BOOL)relayMessage:(id)message error:(id *)error;
 - (BOOL)send:(id)send inReplyTo:(id)to error:(id *)error replyQueue:(id)queue timeout:(unint64_t)timeout handler:(id)handler;
+- (BOOL)sendNewMessage:(int)message error:(id *)error replyQueue:(id)queue timeout:(unint64_t)timeout handler:(id)handler;
 - (GTTransport_capture)init;
 - (NSURL)url;
 - (id)debugDescription;
@@ -82,6 +83,14 @@ LABEL_16:
   }
 
   return v7;
+}
+
+- (BOOL)sendNewMessage:(int)message error:(id *)error replyQueue:(id)queue timeout:(unint64_t)timeout handler:(id)handler
+{
+  v12 = [[GTTransportMessage_capture alloc] initWithKind:*&message attributes:0 payload:0];
+  LOBYTE(handler) = [(GTTransport_capture *)self send:v12 inReplyTo:0 error:error replyQueue:queue timeout:timeout handler:handler];
+
+  return handler;
 }
 
 - (BOOL)send:(id)send inReplyTo:(id)to error:(id *)error replyQueue:(id)queue timeout:(unint64_t)timeout handler:(id)handler

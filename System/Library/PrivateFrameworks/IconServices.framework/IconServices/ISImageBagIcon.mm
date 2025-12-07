@@ -77,99 +77,97 @@
 
   else
   {
-    v15 = _ISDefaultLog();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = _ISDefaultLog(v10);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *v39 = 0;
-      _os_log_impl(&dword_1A77B8000, v15, OS_LOG_TYPE_DEFAULT, "No images provided. Attempting to fallback to default assets", v39, 2u);
+      _os_log_impl(&dword_1A77B8000, v16, OS_LOG_TYPE_DEFAULT, "No images provided. Attempting to fallback to default assets", v39, 2u);
     }
 
-    v16 = +[ISStaticResources sharedInstance];
+    v17 = +[ISStaticResources sharedInstance];
     identifier = [*MEMORY[0x1E6982CA8] identifier];
-    v18 = [v16 fallbackResourceForHint:identifier descriptor:descriptorCopy referenceObj:self];
+    v19 = [v17 fallbackResourceForHint:identifier descriptor:descriptorCopy referenceObj:self];
 
-    p_super = v18;
-    if (v18)
+    p_super = v19;
+    if (v19)
     {
 LABEL_3:
-      v10 = +[ISDefaults sharedInstance];
-      if ([(ISCompositingDescriptor *)v10 iconStackAppIconsAllowed])
+      v11 = +[ISDefaults sharedInstance];
+      if ([(ISCompositingDescriptor *)v11 iconStackAppIconsAllowed])
       {
         shape = [descriptorCopy shape];
 
         if (shape == 4)
         {
 LABEL_7:
-          v13 = [ISRecipeFactory factoryWithDescriptor:descriptorCopy];
-          v14 = v13;
+          v14 = [ISRecipeFactory factoryWithDescriptor:descriptorCopy];
+          v15 = v14;
           if (v9)
           {
-            [v13 recipe];
+            [v14 recipe];
           }
 
           else
           {
-            [v13 genericTaggedRecipe];
+            [v14 genericTaggedRecipe];
           }
-          v20 = ;
-          v21 = objc_alloc_init(ISCompositor);
+          v21 = ;
+          v22 = objc_alloc_init(ISCompositor);
           if ([descriptorCopy shape] == 5 || objc_msgSend(descriptorCopy, "shape") == 6)
           {
-            [(ISCompositor *)v21 setRenderingMode:2];
+            [(ISCompositor *)v22 setRenderingMode:2];
           }
 
           v40 = @"kISPrimaryResourceKey";
           v41[0] = p_super;
-          v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v41 forKeys:&v40 count:1];
-          [(ISCompositor *)v21 addElementWithRecipe:v20 resources:v22];
+          v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v41 forKeys:&v40 count:1];
+          [(ISCompositor *)v22 addElementWithRecipe:v21 resources:v23];
 
           [descriptorCopy size];
-          v24 = v23;
-          v26 = v25;
+          v25 = v24;
+          v27 = v26;
           [descriptorCopy scale];
-          v19 = [(ISCompositor *)v21 imageForSize:v24 scale:v26, v27];
+          v20 = [(ISCompositor *)v22 imageForSize:v25 scale:v27, v28];
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
             [descriptorCopy size];
-            v29 = v28;
-            v31 = v30;
+            v30 = v29;
+            v32 = v31;
             [descriptorCopy scale];
-            v33 = [p_super _finalizedIconForSize:v29 scale:v31, v32];
-            v34 = objc_alloc(MEMORY[0x1E69A8988]);
-            cGImage = [v19 CGImage];
+            v34 = [p_super _finalizedIconForSize:v30 scale:v32, v33];
+            v35 = objc_alloc(MEMORY[0x1E69A8988]);
+            cGImage = [v20 CGImage];
             [descriptorCopy scale];
-            v36 = [v34 initWithCGImage:cGImage scale:v33 finalizedIcon:?];
+            v37 = [v35 initWithCGImage:cGImage scale:v34 finalizedIcon:?];
 
-            v19 = v36;
+            v20 = v37;
           }
 
           goto LABEL_22;
         }
 
-        v10 = [[ISCompositingDescriptor alloc] initWithImageDescriptor:descriptorCopy];
-        v12 = [[ISIconStackCompositeResource alloc] initWithResource:p_super platform:[(ISCompositingDescriptor *)v10 assetPlatform]];
-        [(ISIconStackCompositeResource *)v12 setCompositingDescriptor:v10];
+        v11 = [[ISCompositingDescriptor alloc] initWithImageDescriptor:descriptorCopy];
+        v13 = [[ISIconStackCompositeResource alloc] initWithResource:p_super platform:[(ISCompositingDescriptor *)v11 assetPlatform]];
+        [(ISIconStackCompositeResource *)v13 setCompositingDescriptor:v11];
 
-        p_super = &v12->super;
+        p_super = &v13->super;
       }
 
       goto LABEL_7;
     }
   }
 
-  p_super = _ISDefaultLog();
+  p_super = _ISDefaultLog(v10);
   if (os_log_type_enabled(p_super, OS_LOG_TYPE_ERROR))
   {
     [(ISImageBagIcon *)self _generateImageWithDescriptor:?];
   }
 
-  v19 = 0;
+  v20 = 0;
 LABEL_22:
 
-  v37 = *MEMORY[0x1E69E9840];
-
-  return v19;
+  return v20;
 }
 
 - (id)_remoteGenerateImageWithDescriptor:(id)descriptor
@@ -193,27 +191,27 @@ LABEL_22:
 
 - (void)_prepareImagesForImageDescriptors:(id)descriptors
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   obj = descriptors;
-  v4 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v4 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v24;
+    v6 = *v23;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v24 != v6)
+        if (*v23 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v23 + 1) + 8 * i);
+        v8 = *(*(&v22 + 1) + 8 * i);
         v9 = [(ISImageCache *)self->_imageCache imageForDescriptor:v8];
         v10 = v9;
         if (!v9 || (([v9 size], v12 = v11, v14 = v13, objc_msgSend(v8, "size"), v12 == v16) ? (v17 = v14 == v15) : (v17 = 0), !v17))
@@ -237,13 +235,11 @@ LABEL_22:
         }
       }
 
-      v5 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v5 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v5);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (id)makeResourceProvider
@@ -255,14 +251,14 @@ LABEL_22:
 
 - (id)imageForImageDescriptor:(id)descriptor
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   descriptorCopy = descriptor;
   v5 = [(ISImageCache *)self->_imageCache imageForDescriptor:descriptorCopy];
   v6 = v5;
   if (!v5 || (([v5 size], v8 = v7, v10 = v9, objc_msgSend(descriptorCopy, "size"), v8 == v12) ? (v13 = v10 == v11) : (v13 = 0), !v13))
   {
-    v18[0] = descriptorCopy;
-    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
+    v17[0] = descriptorCopy;
+    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
     [(ISIcon *)self prepareImagesForImageDescriptors:v14];
 
     v15 = [(ISImageCache *)self->_imageCache imageForDescriptor:descriptorCopy];
@@ -270,34 +266,30 @@ LABEL_22:
     v6 = v15;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
-
   return v6;
 }
 
 - (void)getImageForImageDescriptor:(id)descriptor completion:(id)completion
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   descriptorCopy = descriptor;
   v6 = MEMORY[0x1E695DEC8];
   completionCopy = completion;
   descriptorCopy2 = descriptor;
   v9 = [v6 arrayWithObjects:&descriptorCopy count:1];
-  [(ISIcon *)self prepareImagesForImageDescriptors:v9, descriptorCopy, v13];
+  [(ISIcon *)self prepareImagesForImageDescriptors:v9, descriptorCopy, v12];
 
   v10 = [(ISImageBagIcon *)self imageForImageDescriptor:descriptorCopy2];
 
   completionCopy[2](completionCopy, v10);
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_generateImageWithDescriptor:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1A77B8000, a2, OS_LOG_TYPE_ERROR, "Unable to create icon! Failed to create resource for %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1A77B8000, a2, OS_LOG_TYPE_ERROR, "Unable to create icon! Failed to create resource for %@", &v2, 0xCu);
 }
 
 @end

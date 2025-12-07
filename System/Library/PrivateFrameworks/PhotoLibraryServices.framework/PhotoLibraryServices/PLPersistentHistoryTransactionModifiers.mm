@@ -75,9 +75,9 @@ uint64_t __71__PLPersistentHistoryTransactionModifiers_updateFromTransactionAuth
   if (v2)
   {
     v3 = v2;
-    v4 = [v2 isEqualToString:&stru_1F0F06D80];
+    isEqualToString = objc_msgSend_isEqualToString_(v2);
 
-    if ((v4 & 1) == 0 && ([*(a1 + 40) hasPrefix:@"com.apple.coredata"] & 1) == 0)
+    if ((isEqualToString & 1) == 0 && ([*(a1 + 40) hasPrefix:@"com.apple.coredata"] & 1) == 0)
     {
       v7 = [*(a1 + 40) dataUsingEncoding:4];
       v24 = 0;
@@ -89,7 +89,7 @@ uint64_t __71__PLPersistentHistoryTransactionModifiers_updateFromTransactionAuth
         if (objc_opt_isKindOfClass())
         {
           v10 = v8;
-          if ([v10 count]< 2 || [v10 count]>= 4)
+          if (objc_msgSend_count(v10) < 2 || objc_msgSend_count(v10) >= 4)
           {
             v11 = PLPersistentHistoryGetLog();
             if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
@@ -106,7 +106,7 @@ uint64_t __71__PLPersistentHistoryTransactionModifiers_updateFromTransactionAuth
           v11 = [v10 objectAtIndexedSubscript:0];
           v16 = [v10 objectAtIndexedSubscript:1];
           v17 = 0;
-          if ([v10 count]>= 3)
+          if (objc_msgSend_count(v10) >= 3)
           {
             v17 = [v10 objectAtIndexedSubscript:2];
           }

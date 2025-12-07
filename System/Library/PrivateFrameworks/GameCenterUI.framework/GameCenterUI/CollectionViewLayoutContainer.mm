@@ -18,14 +18,13 @@
 - (CGSize)effectiveContentSize
 {
   selfCopy = self;
-  sub_24E12AF54();
-  v4 = v3;
-  v6 = v5;
+  v3 = sub_24E12AF54();
+  v5 = v4;
 
-  v7 = v4;
-  v8 = v6;
-  result.height = v8;
-  result.width = v7;
+  v6 = v3;
+  v7 = v5;
+  result.height = v7;
+  result.width = v6;
   return result;
 }
 

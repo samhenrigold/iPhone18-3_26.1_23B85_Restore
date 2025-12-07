@@ -63,11 +63,10 @@ uint64_t __42__AXBDisplayWakeManager_initializeManager__block_invoke()
 
 - (void)_setupScreenStateMonitoring
 {
-  v4 = *MEMORY[0x29EDCA608];
-  v3[0] = 67109120;
-  v3[1] = self;
-  _os_log_error_impl(&dword_29BBBD000, a2, OS_LOG_TYPE_ERROR, "Failed to register for screen state notifications: %d", v3, 8u);
-  v2 = *MEMORY[0x29EDCA608];
+  v3 = *MEMORY[0x29EDCA608];
+  v2[0] = 67109120;
+  v2[1] = self;
+  _os_log_error_impl(&dword_29BBBD000, a2, OS_LOG_TYPE_ERROR, "Failed to register for screen state notifications: %d", v2, 8u);
 }
 
 void __52__AXBDisplayWakeManager__setupScreenStateMonitoring__block_invoke(uint64_t a1, int a2)
@@ -143,7 +142,7 @@ void __52__AXBDisplayWakeManager__setupScreenStateMonitoring__block_invoke(uint6
 
 - (void)_handleDisplayDidWake
 {
-  v40 = *MEMORY[0x29EDCA608];
+  v39 = *MEMORY[0x29EDCA608];
   v3 = _AXSVoiceOverTouchEnabled();
   v4 = _AXSAssistiveTouchScannerEnabled();
   mEMORY[0x29EDBDFA0] = [MEMORY[0x29EDBDFA0] sharedInstance];
@@ -163,13 +162,13 @@ void __52__AXBDisplayWakeManager__setupScreenStateMonitoring__block_invoke(uint6
     v8 = AXLogBackboardServer();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      *v37 = 67109632;
-      *&v37[4] = v3 != 0;
-      *&v37[8] = 1024;
-      *&v37[10] = v4 != 0;
-      v38 = 1024;
-      v39 = touchAccommodationsAreConfigured;
-      _os_log_impl(&dword_29BBBD000, v8, OS_LOG_TYPE_DEFAULT, "Display wake: VoiceOver=%{BOOL}d, SwitchControl=%{BOOL}d, TouchAccommodations=%{BOOL}d", v37, 0x14u);
+      *v36 = 67109632;
+      *&v36[4] = v3 != 0;
+      *&v36[8] = 1024;
+      *&v36[10] = v4 != 0;
+      v37 = 1024;
+      v38 = touchAccommodationsAreConfigured;
+      _os_log_impl(&dword_29BBBD000, v8, OS_LOG_TYPE_DEFAULT, "Display wake: VoiceOver=%{BOOL}d, SwitchControl=%{BOOL}d, TouchAccommodations=%{BOOL}d", v36, 0x14u);
     }
 
     v9 = _AXSTripleClickCopyOptions();
@@ -197,9 +196,9 @@ void __52__AXBDisplayWakeManager__setupScreenStateMonitoring__block_invoke(uint6
         v13 = 0;
       }
 
-      *v37 = 134217984;
-      *&v37[4] = v13;
-      _os_log_impl(&dword_29BBBD000, v12, OS_LOG_TYPE_DEFAULT, "Current triple-click options count: %lu", v37, 0xCu);
+      *v36 = 134217984;
+      *&v36[4] = v13;
+      _os_log_impl(&dword_29BBBD000, v12, OS_LOG_TYPE_DEFAULT, "Current triple-click options count: %lu", v36, 0xCu);
     }
 
     if (v11 && [v10 count] != 1)
@@ -233,14 +232,14 @@ void __52__AXBDisplayWakeManager__setupScreenStateMonitoring__block_invoke(uint6
 LABEL_47:
 
 LABEL_48:
-        goto LABEL_49;
+        return;
       }
 
       v22 = AXLogBackboardServer();
       if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
-        *v37 = 0;
-        _os_log_impl(&dword_29BBBD000, v22, OS_LOG_TYPE_DEFAULT, "Accessibility features available but not temporarily setting triple-click options (3-day window has expired)", v37, 2u);
+        *v36 = 0;
+        _os_log_impl(&dword_29BBBD000, v22, OS_LOG_TYPE_DEFAULT, "Accessibility features available but not temporarily setting triple-click options (3-day window has expired)", v36, 2u);
       }
 
       mEMORY[0x29EDBDFA0]3 = [MEMORY[0x29EDBDFA0] sharedInstance];
@@ -248,10 +247,13 @@ LABEL_48:
 
       v25 = _AXSTripleClickCopyOptions();
       v26 = v25;
-      if (accessibilityHelpBannerTemporaryTripleClickOptions && v25 && [accessibilityHelpBannerTemporaryTripleClickOptions isEqualToArray:v25])
+      if (accessibilityHelpBannerTemporaryTripleClickOptions && v25)
       {
-        mEMORY[0x29EDBDFA0]4 = [MEMORY[0x29EDBDFA0] sharedInstance];
-        [mEMORY[0x29EDBDFA0]4 setAccessibilityHelpBannerTemporaryTripleClickOptions:0];
+        if ([accessibilityHelpBannerTemporaryTripleClickOptions isEqualToArray:v25])
+        {
+          mEMORY[0x29EDBDFA0]4 = [MEMORY[0x29EDBDFA0] sharedInstance];
+          [mEMORY[0x29EDBDFA0]4 setAccessibilityHelpBannerTemporaryTripleClickOptions:0];
+        }
       }
 
       goto LABEL_46;
@@ -268,7 +270,7 @@ LABEL_48:
         goto LABEL_40;
       }
 
-      *v37 = 0;
+      *v36 = 0;
       v21 = "Not adding features to triple-click options because we already did this";
     }
 
@@ -284,11 +286,11 @@ LABEL_48:
         goto LABEL_40;
       }
 
-      *v37 = 0;
+      *v36 = 0;
       v21 = "Temporarily added accessibility features to triple-click options";
     }
 
-    _os_log_impl(&dword_29BBBD000, v20, OS_LOG_TYPE_DEFAULT, v21, v37, 2u);
+    _os_log_impl(&dword_29BBBD000, v20, OS_LOG_TYPE_DEFAULT, v21, v36, 2u);
 LABEL_40:
 
     [(AXBDisplayWakeManager *)self _showAccessibilityHelpBannerForVoiceOver:v3 != 0 switchControl:v4 != 0 touchAccommodations:touchAccommodationsAreConfigured];
@@ -304,10 +306,10 @@ LABEL_40:
       accessibilityHelpBannerTemporaryTripleClickOptions = AXLogBackboardServer();
       if (os_log_type_enabled(accessibilityHelpBannerTemporaryTripleClickOptions, OS_LOG_TYPE_DEFAULT))
       {
-        *v37 = 0;
+        *v36 = 0;
         v33 = "Accessibility help banner shown (still within 3-day window)";
 LABEL_45:
-        _os_log_impl(&dword_29BBBD000, accessibilityHelpBannerTemporaryTripleClickOptions, OS_LOG_TYPE_DEFAULT, v33, v37, 2u);
+        _os_log_impl(&dword_29BBBD000, accessibilityHelpBannerTemporaryTripleClickOptions, OS_LOG_TYPE_DEFAULT, v33, v36, 2u);
       }
     }
 
@@ -320,7 +322,7 @@ LABEL_45:
       accessibilityHelpBannerTemporaryTripleClickOptions = AXLogBackboardServer();
       if (os_log_type_enabled(accessibilityHelpBannerTemporaryTripleClickOptions, OS_LOG_TYPE_DEFAULT))
       {
-        *v37 = 0;
+        *v36 = 0;
         v33 = "Accessibility help banner shown for first time, timestamp recorded";
         goto LABEL_45;
       }
@@ -330,9 +332,6 @@ LABEL_46:
 
     goto LABEL_47;
   }
-
-LABEL_49:
-  v36 = *MEMORY[0x29EDCA608];
 }
 
 - (void)_handleDisplayDidSleep
@@ -347,7 +346,7 @@ LABEL_49:
 
 - (void)_showAccessibilityHelpBannerForVoiceOver:(BOOL)over switchControl:(BOOL)control touchAccommodations:(BOOL)accommodations
 {
-  v15[2] = *MEMORY[0x29EDCA608];
+  v14[2] = *MEMORY[0x29EDCA608];
   if (control || accommodations || over)
   {
     v6 = AXLocStringKeyForHomeButton();
@@ -360,13 +359,13 @@ LABEL_49:
 
       if (bannerClient)
       {
-        v14[0] = @"title";
+        v13[0] = @"title";
         v9 = accessibilityLocalizedString(@"accessibility");
-        v14[1] = @"text";
-        v15[0] = v9;
+        v13[1] = @"text";
+        v14[0] = v9;
         v10 = accessibilityLocalizedString(v7);
-        v15[1] = v10;
-        v11 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
+        v14[1] = v10;
+        v11 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
 
         v12 = v11;
         AXPerformBlockOnMainThreadAfterDelay();
@@ -382,8 +381,6 @@ LABEL_49:
       }
     }
   }
-
-  v13 = *MEMORY[0x29EDCA608];
 }
 
 void __100__AXBDisplayWakeManager__showAccessibilityHelpBannerForVoiceOver_switchControl_touchAccommodations___block_invoke(uint64_t a1)

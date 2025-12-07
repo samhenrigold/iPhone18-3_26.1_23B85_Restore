@@ -46,9 +46,9 @@
 
 @implementation PKStrokePath
 
-uint64_t __32__PKStrokePath_calculateOffsets__block_invoke()
+uint64_t __32__PKStrokePath_calculateOffsets__block_invoke(uint64_t a1)
 {
-  v0 = objc_opt_class();
+  v1 = objc_opt_class();
 }
 
 - (id).cxx_construct
@@ -189,7 +189,7 @@ uint64_t __32__PKStrokePath_calculateOffsets__block_invoke()
         v14 = v13;
         if (v13)
         {
-          [v13 _compressedPoint];
+          objc_msgSend__compressedPoint(v13);
         }
 
         else
@@ -1296,7 +1296,7 @@ LABEL_18:
       cachedMaxWidth = 1.0;
       do
       {
-        [(PKStrokePath *)selfCopy _compressedPointAt:v6, 0, 0];
+        objc_msgSend__compressedPointAt_(selfCopy, 0, 0);
         LOWORD(v7) = 0;
         v8 = v7 / 10.0;
         LOWORD(v9) = 0;

@@ -6,7 +6,7 @@
 
 - (_TtC8Freeform32CRLConnectorModeMessageViewState)init
 {
-  v3 = sub_1005B981C(&unk_101A08DC0);
+  v3 = sub_1005B981C(&unk_101A08DC0, &unk_101474840);
   v4 = *(v3 - 8);
   __chkstk_darwin(v3);
   v6 = &v12 - v5;
@@ -19,7 +19,7 @@
   v14 = 0;
   Published.init(initialValue:)();
   v8(self + v9, v6, v3);
-  v10 = type metadata accessor for CRLConnectorModeMessageViewState();
+  v10 = type metadata accessor for CRLConnectorModeMessageViewState(0);
   v13.receiver = self;
   v13.super_class = v10;
   return [(CRLConnectorModeMessageViewState *)&v13 init];

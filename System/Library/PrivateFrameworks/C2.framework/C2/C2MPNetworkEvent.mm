@@ -45,13 +45,13 @@
 
 - (id)dictionaryRepresentation
 {
-  v71 = *MEMORY[0x277D85DE8];
+  v70 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   has = self->_has;
   if ((*&has & 0x20000) != 0)
   {
-    v44 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_triggers];
-    [dictionary setObject:v44 forKey:@"triggers"];
+    v43 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_triggers];
+    [dictionary setObject:v43 forKey:@"triggers"];
 
     has = self->_has;
     if ((*&has & 8) == 0)
@@ -71,8 +71,8 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  v45 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_reportFrequency];
-  [dictionary setObject:v45 forKey:@"report_frequency"];
+  v44 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_reportFrequency];
+  [dictionary setObject:v44 forKey:@"report_frequency"];
 
   if ((*&self->_has & 0x10) != 0)
   {
@@ -127,8 +127,8 @@ LABEL_5:
   v13 = self->_has;
   if ((*&v13 & 0x80000) != 0)
   {
-    v46 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:self->_networkRequestHeaderSize];
-    [dictionary setObject:v46 forKey:@"network_request_header_size"];
+    v45 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:self->_networkRequestHeaderSize];
+    [dictionary setObject:v45 forKey:@"network_request_header_size"];
 
     v13 = self->_has;
     if ((*&v13 & 1) == 0)
@@ -148,8 +148,8 @@ LABEL_21:
     goto LABEL_21;
   }
 
-  v47 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_networkRequestBodyBytesSent];
-  [dictionary setObject:v47 forKey:@"network_request_body_bytes_sent"];
+  v46 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_networkRequestBodyBytesSent];
+  [dictionary setObject:v46 forKey:@"network_request_body_bytes_sent"];
 
   v13 = self->_has;
   if ((*&v13 & 0x100000) == 0)
@@ -164,8 +164,8 @@ LABEL_22:
   }
 
 LABEL_86:
-  v48 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:self->_networkResponseHeaderSize];
-  [dictionary setObject:v48 forKey:@"network_response_header_size"];
+  v47 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:self->_networkResponseHeaderSize];
+  [dictionary setObject:v47 forKey:@"network_response_header_size"];
 
   v13 = self->_has;
   if ((*&v13 & 2) == 0)
@@ -180,8 +180,8 @@ LABEL_23:
   }
 
 LABEL_87:
-  v49 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_networkResponseBodyBytesReceived];
-  [dictionary setObject:v49 forKey:@"network_response_body_bytes_received"];
+  v48 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_networkResponseBodyBytesReceived];
+  [dictionary setObject:v48 forKey:@"network_response_body_bytes_received"];
 
   if ((*&self->_has & 0x40000) != 0)
   {
@@ -225,30 +225,30 @@ LABEL_25:
   if ([(NSMutableArray *)self->_networkPathInfos count])
   {
     v21 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSMutableArray count](self->_networkPathInfos, "count")}];
+    v65 = 0u;
     v66 = 0u;
     v67 = 0u;
     v68 = 0u;
-    v69 = 0u;
     v22 = self->_networkPathInfos;
-    v23 = [(NSMutableArray *)v22 countByEnumeratingWithState:&v66 objects:v70 count:16];
+    v23 = [(NSMutableArray *)v22 countByEnumeratingWithState:&v65 objects:v69 count:16];
     if (v23)
     {
       v24 = v23;
-      v25 = *v67;
+      v25 = *v66;
       do
       {
         for (i = 0; i != v24; ++i)
         {
-          if (*v67 != v25)
+          if (*v66 != v25)
           {
             objc_enumerationMutation(v22);
           }
 
-          dictionaryRepresentation2 = [*(*(&v66 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation2 = [*(*(&v65 + 1) + 8 * i) dictionaryRepresentation];
           [v21 addObject:dictionaryRepresentation2];
         }
 
-        v24 = [(NSMutableArray *)v22 countByEnumeratingWithState:&v66 objects:v70 count:16];
+        v24 = [(NSMutableArray *)v22 countByEnumeratingWithState:&v65 objects:v69 count:16];
       }
 
       while (v24);
@@ -260,8 +260,8 @@ LABEL_25:
   v28 = self->_has;
   if ((*&v28 & 0x20) != 0)
   {
-    v50 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_timestampC2Init];
-    [dictionary setObject:v50 forKey:@"timestamp_c2_init"];
+    v49 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_timestampC2Init];
+    [dictionary setObject:v49 forKey:@"timestamp_c2_init"];
 
     v28 = self->_has;
     if ((*&v28 & 0x80) == 0)
@@ -281,8 +281,8 @@ LABEL_46:
     goto LABEL_46;
   }
 
-  v51 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{self->_timestampC2Start, v66}];
-  [dictionary setObject:v51 forKey:@"timestamp_c2_start"];
+  v50 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{self->_timestampC2Start, v65}];
+  [dictionary setObject:v50 forKey:@"timestamp_c2_start"];
 
   v28 = self->_has;
   if ((*&v28 & 0x40) == 0)
@@ -297,8 +297,8 @@ LABEL_47:
   }
 
 LABEL_91:
-  v52 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{self->_timestampC2Now, v66}];
-  [dictionary setObject:v52 forKey:@"timestamp_c2_now"];
+  v51 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{self->_timestampC2Now, v65}];
+  [dictionary setObject:v51 forKey:@"timestamp_c2_now"];
 
   v28 = self->_has;
   if ((*&v28 & 0x200) == 0)
@@ -313,8 +313,8 @@ LABEL_48:
   }
 
 LABEL_92:
-  v53 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{self->_timestampDnsStart, v66}];
-  [dictionary setObject:v53 forKey:@"timestamp_dns_start"];
+  v52 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{self->_timestampDnsStart, v65}];
+  [dictionary setObject:v52 forKey:@"timestamp_dns_start"];
 
   v28 = self->_has;
   if ((*&v28 & 0x100) == 0)
@@ -329,8 +329,8 @@ LABEL_49:
   }
 
 LABEL_93:
-  v54 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{self->_timestampDnsEnd, v66}];
-  [dictionary setObject:v54 forKey:@"timestamp_dns_end"];
+  v53 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{self->_timestampDnsEnd, v65}];
+  [dictionary setObject:v53 forKey:@"timestamp_dns_end"];
 
   v28 = self->_has;
   if ((*&v28 & 0x10000) == 0)
@@ -345,8 +345,8 @@ LABEL_50:
   }
 
 LABEL_94:
-  v55 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{self->_timestampTcpStart, v66}];
-  [dictionary setObject:v55 forKey:@"timestamp_tcp_start"];
+  v54 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{self->_timestampTcpStart, v65}];
+  [dictionary setObject:v54 forKey:@"timestamp_tcp_start"];
 
   v28 = self->_has;
   if ((*&v28 & 0x8000) == 0)
@@ -361,8 +361,8 @@ LABEL_51:
   }
 
 LABEL_95:
-  v56 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{self->_timestampTcpEnd, v66}];
-  [dictionary setObject:v56 forKey:@"timestamp_tcp_end"];
+  v55 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{self->_timestampTcpEnd, v65}];
+  [dictionary setObject:v55 forKey:@"timestamp_tcp_end"];
 
   v28 = self->_has;
   if ((*&v28 & 0x4000) == 0)
@@ -377,8 +377,8 @@ LABEL_52:
   }
 
 LABEL_96:
-  v57 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{self->_timestampSslStart, v66}];
-  [dictionary setObject:v57 forKey:@"timestamp_ssl_start"];
+  v56 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{self->_timestampSslStart, v65}];
+  [dictionary setObject:v56 forKey:@"timestamp_ssl_start"];
 
   v28 = self->_has;
   if ((*&v28 & 0x800) == 0)
@@ -393,8 +393,8 @@ LABEL_53:
   }
 
 LABEL_97:
-  v58 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{self->_timestampRequestStart, v66}];
-  [dictionary setObject:v58 forKey:@"timestamp_request_start"];
+  v57 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{self->_timestampRequestStart, v65}];
+  [dictionary setObject:v57 forKey:@"timestamp_request_start"];
 
   v28 = self->_has;
   if ((*&v28 & 0x400) == 0)
@@ -409,8 +409,8 @@ LABEL_54:
   }
 
 LABEL_98:
-  v59 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{self->_timestampRequestEnd, v66}];
-  [dictionary setObject:v59 forKey:@"timestamp_request_end"];
+  v58 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{self->_timestampRequestEnd, v65}];
+  [dictionary setObject:v58 forKey:@"timestamp_request_end"];
 
   v28 = self->_has;
   if ((*&v28 & 0x2000) == 0)
@@ -425,13 +425,13 @@ LABEL_55:
   }
 
 LABEL_99:
-  v60 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{self->_timestampResponseStart, v66}];
-  [dictionary setObject:v60 forKey:@"timestamp_response_start"];
+  v59 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{self->_timestampResponseStart, v65}];
+  [dictionary setObject:v59 forKey:@"timestamp_response_start"];
 
   if ((*&self->_has & 0x1000) != 0)
   {
 LABEL_56:
-    v29 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{self->_timestampResponseEnd, v66}];
+    v29 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{self->_timestampResponseEnd, v65}];
     [dictionary setObject:v29 forKey:@"timestamp_response_end"];
   }
 
@@ -445,8 +445,8 @@ LABEL_57:
   v31 = self->_has;
   if ((*&v31 & 0x20000000) != 0)
   {
-    v61 = [MEMORY[0x277CCABB0] numberWithBool:self->_optionsOutOfProcess];
-    [dictionary setObject:v61 forKey:@"options_out_of_process"];
+    v60 = [MEMORY[0x277CCABB0] numberWithBool:self->_optionsOutOfProcess];
+    [dictionary setObject:v60 forKey:@"options_out_of_process"];
 
     v31 = self->_has;
     if ((*&v31 & 0x40000000) == 0)
@@ -466,8 +466,8 @@ LABEL_61:
     goto LABEL_61;
   }
 
-  v62 = [MEMORY[0x277CCABB0] numberWithBool:{self->_optionsOutOfProcessForceDiscretionary, v66}];
-  [dictionary setObject:v62 forKey:@"options_out_of_process_force_discretionary"];
+  v61 = [MEMORY[0x277CCABB0] numberWithBool:{self->_optionsOutOfProcessForceDiscretionary, v65}];
+  [dictionary setObject:v61 forKey:@"options_out_of_process_force_discretionary"];
 
   v31 = self->_has;
   if ((*&v31 & 0x4000000) == 0)
@@ -482,8 +482,8 @@ LABEL_62:
   }
 
 LABEL_103:
-  v63 = [MEMORY[0x277CCABB0] numberWithBool:{self->_optionsAllowExpensiveAccess, v66}];
-  [dictionary setObject:v63 forKey:@"options_allow_expensive_access"];
+  v62 = [MEMORY[0x277CCABB0] numberWithBool:{self->_optionsAllowExpensiveAccess, v65}];
+  [dictionary setObject:v62 forKey:@"options_allow_expensive_access"];
 
   v31 = self->_has;
   if ((*&v31 & 0x8000000) == 0)
@@ -498,8 +498,8 @@ LABEL_63:
   }
 
 LABEL_104:
-  v64 = [MEMORY[0x277CCABB0] numberWithBool:{self->_optionsAllowPowerNapScheduling, v66}];
-  [dictionary setObject:v64 forKey:@"options_allow_power_nap_scheduling"];
+  v63 = [MEMORY[0x277CCABB0] numberWithBool:{self->_optionsAllowPowerNapScheduling, v65}];
+  [dictionary setObject:v63 forKey:@"options_allow_power_nap_scheduling"];
 
   v31 = self->_has;
   if ((*&v31 & 0x200000) == 0)
@@ -514,13 +514,13 @@ LABEL_64:
   }
 
 LABEL_105:
-  v65 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{self->_optionsTimeoutIntervalForRequest, v66}];
-  [dictionary setObject:v65 forKey:@"options_timeout_interval_for_request"];
+  v64 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{self->_optionsTimeoutIntervalForRequest, v65}];
+  [dictionary setObject:v64 forKey:@"options_timeout_interval_for_request"];
 
   if ((*&self->_has & 0x400000) != 0)
   {
 LABEL_65:
-    v32 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{self->_optionsTimeoutIntervalForResource, v66}];
+    v32 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{self->_optionsTimeoutIntervalForResource, v65}];
     [dictionary setObject:v32 forKey:@"options_timeout_interval_for_resource"];
   }
 
@@ -572,7 +572,6 @@ LABEL_66:
 
   v41 = dictionary;
 
-  v42 = *MEMORY[0x277D85DE8];
   return dictionary;
 }
 
@@ -1073,12 +1072,11 @@ LABEL_66:
 
 - (void)writeTo:(id)to
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   toCopy = to;
   has = self->_has;
   if ((*&has & 0x20000) != 0)
   {
-    triggers = self->_triggers;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((*&has & 8) == 0)
@@ -1098,12 +1096,10 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  reportFrequency = self->_reportFrequency;
   PBDataWriterWriteUint64Field();
   if ((*&self->_has & 0x10) != 0)
   {
 LABEL_4:
-    reportFrequencyBase = self->_reportFrequencyBase;
     PBDataWriterWriteUint64Field();
   }
 
@@ -1130,7 +1126,6 @@ LABEL_5:
 
   if ((*(&self->_has + 2) & 0x80) != 0)
   {
-    networkConnectionReused = self->_networkConnectionReused;
     PBDataWriterWriteBOOLField();
   }
 
@@ -1144,16 +1139,15 @@ LABEL_5:
     PBDataWriterWriteStringField();
   }
 
-  v8 = self->_has;
-  if ((*&v8 & 0x80000) != 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x80000) != 0)
   {
-    networkRequestHeaderSize = self->_networkRequestHeaderSize;
     PBDataWriterWriteUint32Field();
-    v8 = self->_has;
-    if ((*&v8 & 1) == 0)
+    v6 = self->_has;
+    if ((*&v6 & 1) == 0)
     {
 LABEL_21:
-      if ((*&v8 & 0x100000) == 0)
+      if ((*&v6 & 0x100000) == 0)
       {
         goto LABEL_22;
       }
@@ -1162,18 +1156,17 @@ LABEL_21:
     }
   }
 
-  else if ((*&v8 & 1) == 0)
+  else if ((*&v6 & 1) == 0)
   {
     goto LABEL_21;
   }
 
-  networkRequestBodyBytesSent = self->_networkRequestBodyBytesSent;
   PBDataWriterWriteUint64Field();
-  v8 = self->_has;
-  if ((*&v8 & 0x100000) == 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x100000) == 0)
   {
 LABEL_22:
-    if ((*&v8 & 2) == 0)
+    if ((*&v6 & 2) == 0)
     {
       goto LABEL_23;
     }
@@ -1182,13 +1175,12 @@ LABEL_22:
   }
 
 LABEL_84:
-  networkResponseHeaderSize = self->_networkResponseHeaderSize;
   PBDataWriterWriteUint32Field();
-  v8 = self->_has;
-  if ((*&v8 & 2) == 0)
+  v6 = self->_has;
+  if ((*&v6 & 2) == 0)
   {
 LABEL_23:
-    if ((*&v8 & 0x40000) == 0)
+    if ((*&v6 & 0x40000) == 0)
     {
       goto LABEL_25;
     }
@@ -1197,12 +1189,10 @@ LABEL_23:
   }
 
 LABEL_85:
-  networkResponseBodyBytesReceived = self->_networkResponseBodyBytesReceived;
   PBDataWriterWriteUint64Field();
   if ((*&self->_has & 0x40000) != 0)
   {
 LABEL_24:
-    networkPreviousAttemptCount = self->_networkPreviousAttemptCount;
     PBDataWriterWriteUint32Field();
   }
 
@@ -1214,7 +1204,6 @@ LABEL_25:
 
   if ((*&self->_has & 4) != 0)
   {
-    networkStatusCode = self->_networkStatusCode;
     PBDataWriterWriteUint64Field();
   }
 
@@ -1225,7 +1214,6 @@ LABEL_25:
 
   if (*(&self->_has + 3))
   {
-    networkIsDiscretionary = self->_networkIsDiscretionary;
     PBDataWriterWriteBOOLField();
   }
 
@@ -1234,48 +1222,46 @@ LABEL_25:
     PBDataWriterWriteStringField();
   }
 
-  v51 = 0u;
-  v52 = 0u;
-  v49 = 0u;
-  v50 = 0u;
-  v12 = self->_networkPathInfos;
-  v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v49 objects:v53 count:16];
-  if (v13)
+  v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v7 = self->_networkPathInfos;
+  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  if (v8)
   {
-    v14 = v13;
-    v15 = *v50;
+    v9 = v8;
+    v10 = *v16;
     do
     {
-      v16 = 0;
+      v11 = 0;
       do
       {
-        if (*v50 != v15)
+        if (*v16 != v10)
         {
-          objc_enumerationMutation(v12);
+          objc_enumerationMutation(v7);
         }
 
-        v17 = *(*(&v49 + 1) + 8 * v16);
         PBDataWriterWriteSubmessage();
-        ++v16;
+        ++v11;
       }
 
-      while (v14 != v16);
-      v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v49 objects:v53 count:16];
+      while (v9 != v11);
+      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
-    while (v14);
+    while (v9);
   }
 
-  v18 = self->_has;
-  if ((*&v18 & 0x20) != 0)
+  v12 = self->_has;
+  if ((*&v12 & 0x20) != 0)
   {
-    timestampC2Init = self->_timestampC2Init;
     PBDataWriterWriteUint64Field();
-    v18 = self->_has;
-    if ((*&v18 & 0x80) == 0)
+    v12 = self->_has;
+    if ((*&v12 & 0x80) == 0)
     {
 LABEL_44:
-      if ((*&v18 & 0x40) == 0)
+      if ((*&v12 & 0x40) == 0)
       {
         goto LABEL_45;
       }
@@ -1284,18 +1270,17 @@ LABEL_44:
     }
   }
 
-  else if ((*&v18 & 0x80) == 0)
+  else if ((*&v12 & 0x80) == 0)
   {
     goto LABEL_44;
   }
 
-  timestampC2Start = self->_timestampC2Start;
   PBDataWriterWriteUint64Field();
-  v18 = self->_has;
-  if ((*&v18 & 0x40) == 0)
+  v12 = self->_has;
+  if ((*&v12 & 0x40) == 0)
   {
 LABEL_45:
-    if ((*&v18 & 0x200) == 0)
+    if ((*&v12 & 0x200) == 0)
     {
       goto LABEL_46;
     }
@@ -1304,13 +1289,12 @@ LABEL_45:
   }
 
 LABEL_89:
-  timestampC2Now = self->_timestampC2Now;
   PBDataWriterWriteUint64Field();
-  v18 = self->_has;
-  if ((*&v18 & 0x200) == 0)
+  v12 = self->_has;
+  if ((*&v12 & 0x200) == 0)
   {
 LABEL_46:
-    if ((*&v18 & 0x100) == 0)
+    if ((*&v12 & 0x100) == 0)
     {
       goto LABEL_47;
     }
@@ -1319,13 +1303,12 @@ LABEL_46:
   }
 
 LABEL_90:
-  timestampDnsStart = self->_timestampDnsStart;
   PBDataWriterWriteUint64Field();
-  v18 = self->_has;
-  if ((*&v18 & 0x100) == 0)
+  v12 = self->_has;
+  if ((*&v12 & 0x100) == 0)
   {
 LABEL_47:
-    if ((*&v18 & 0x10000) == 0)
+    if ((*&v12 & 0x10000) == 0)
     {
       goto LABEL_48;
     }
@@ -1334,13 +1317,12 @@ LABEL_47:
   }
 
 LABEL_91:
-  timestampDnsEnd = self->_timestampDnsEnd;
   PBDataWriterWriteUint64Field();
-  v18 = self->_has;
-  if ((*&v18 & 0x10000) == 0)
+  v12 = self->_has;
+  if ((*&v12 & 0x10000) == 0)
   {
 LABEL_48:
-    if ((*&v18 & 0x8000) == 0)
+    if ((*&v12 & 0x8000) == 0)
     {
       goto LABEL_49;
     }
@@ -1349,13 +1331,12 @@ LABEL_48:
   }
 
 LABEL_92:
-  timestampTcpStart = self->_timestampTcpStart;
   PBDataWriterWriteUint64Field();
-  v18 = self->_has;
-  if ((*&v18 & 0x8000) == 0)
+  v12 = self->_has;
+  if ((*&v12 & 0x8000) == 0)
   {
 LABEL_49:
-    if ((*&v18 & 0x4000) == 0)
+    if ((*&v12 & 0x4000) == 0)
     {
       goto LABEL_50;
     }
@@ -1364,13 +1345,12 @@ LABEL_49:
   }
 
 LABEL_93:
-  timestampTcpEnd = self->_timestampTcpEnd;
   PBDataWriterWriteUint64Field();
-  v18 = self->_has;
-  if ((*&v18 & 0x4000) == 0)
+  v12 = self->_has;
+  if ((*&v12 & 0x4000) == 0)
   {
 LABEL_50:
-    if ((*&v18 & 0x800) == 0)
+    if ((*&v12 & 0x800) == 0)
     {
       goto LABEL_51;
     }
@@ -1379,13 +1359,12 @@ LABEL_50:
   }
 
 LABEL_94:
-  timestampSslStart = self->_timestampSslStart;
   PBDataWriterWriteUint64Field();
-  v18 = self->_has;
-  if ((*&v18 & 0x800) == 0)
+  v12 = self->_has;
+  if ((*&v12 & 0x800) == 0)
   {
 LABEL_51:
-    if ((*&v18 & 0x400) == 0)
+    if ((*&v12 & 0x400) == 0)
     {
       goto LABEL_52;
     }
@@ -1394,13 +1373,12 @@ LABEL_51:
   }
 
 LABEL_95:
-  timestampRequestStart = self->_timestampRequestStart;
   PBDataWriterWriteUint64Field();
-  v18 = self->_has;
-  if ((*&v18 & 0x400) == 0)
+  v12 = self->_has;
+  if ((*&v12 & 0x400) == 0)
   {
 LABEL_52:
-    if ((*&v18 & 0x2000) == 0)
+    if ((*&v12 & 0x2000) == 0)
     {
       goto LABEL_53;
     }
@@ -1409,13 +1387,12 @@ LABEL_52:
   }
 
 LABEL_96:
-  timestampRequestEnd = self->_timestampRequestEnd;
   PBDataWriterWriteUint64Field();
-  v18 = self->_has;
-  if ((*&v18 & 0x2000) == 0)
+  v12 = self->_has;
+  if ((*&v12 & 0x2000) == 0)
   {
 LABEL_53:
-    if ((*&v18 & 0x1000) == 0)
+    if ((*&v12 & 0x1000) == 0)
     {
       goto LABEL_55;
     }
@@ -1424,12 +1401,10 @@ LABEL_53:
   }
 
 LABEL_97:
-  timestampResponseStart = self->_timestampResponseStart;
   PBDataWriterWriteUint64Field();
   if ((*&self->_has & 0x1000) != 0)
   {
 LABEL_54:
-    timestampResponseEnd = self->_timestampResponseEnd;
     PBDataWriterWriteUint64Field();
   }
 
@@ -1439,16 +1414,15 @@ LABEL_55:
     PBDataWriterWriteStringField();
   }
 
-  v20 = self->_has;
-  if ((*&v20 & 0x20000000) != 0)
+  v13 = self->_has;
+  if ((*&v13 & 0x20000000) != 0)
   {
-    optionsOutOfProcess = self->_optionsOutOfProcess;
     PBDataWriterWriteBOOLField();
-    v20 = self->_has;
-    if ((*&v20 & 0x40000000) == 0)
+    v13 = self->_has;
+    if ((*&v13 & 0x40000000) == 0)
     {
 LABEL_59:
-      if ((*&v20 & 0x4000000) == 0)
+      if ((*&v13 & 0x4000000) == 0)
       {
         goto LABEL_60;
       }
@@ -1457,18 +1431,17 @@ LABEL_59:
     }
   }
 
-  else if ((*&v20 & 0x40000000) == 0)
+  else if ((*&v13 & 0x40000000) == 0)
   {
     goto LABEL_59;
   }
 
-  optionsOutOfProcessForceDiscretionary = self->_optionsOutOfProcessForceDiscretionary;
   PBDataWriterWriteBOOLField();
-  v20 = self->_has;
-  if ((*&v20 & 0x4000000) == 0)
+  v13 = self->_has;
+  if ((*&v13 & 0x4000000) == 0)
   {
 LABEL_60:
-    if ((*&v20 & 0x8000000) == 0)
+    if ((*&v13 & 0x8000000) == 0)
     {
       goto LABEL_61;
     }
@@ -1477,13 +1450,12 @@ LABEL_60:
   }
 
 LABEL_101:
-  optionsAllowExpensiveAccess = self->_optionsAllowExpensiveAccess;
   PBDataWriterWriteBOOLField();
-  v20 = self->_has;
-  if ((*&v20 & 0x8000000) == 0)
+  v13 = self->_has;
+  if ((*&v13 & 0x8000000) == 0)
   {
 LABEL_61:
-    if ((*&v20 & 0x200000) == 0)
+    if ((*&v13 & 0x200000) == 0)
     {
       goto LABEL_62;
     }
@@ -1492,13 +1464,12 @@ LABEL_61:
   }
 
 LABEL_102:
-  optionsAllowPowerNapScheduling = self->_optionsAllowPowerNapScheduling;
   PBDataWriterWriteBOOLField();
-  v20 = self->_has;
-  if ((*&v20 & 0x200000) == 0)
+  v13 = self->_has;
+  if ((*&v13 & 0x200000) == 0)
   {
 LABEL_62:
-    if ((*&v20 & 0x400000) == 0)
+    if ((*&v13 & 0x400000) == 0)
     {
       goto LABEL_64;
     }
@@ -1507,12 +1478,10 @@ LABEL_62:
   }
 
 LABEL_103:
-  optionsTimeoutIntervalForRequest = self->_optionsTimeoutIntervalForRequest;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x400000) != 0)
   {
 LABEL_63:
-    optionsTimeoutIntervalForResource = self->_optionsTimeoutIntervalForResource;
     PBDataWriterWriteUint32Field();
   }
 
@@ -1527,17 +1496,15 @@ LABEL_64:
     PBDataWriterWriteStringField();
   }
 
-  v22 = self->_has;
-  if ((*&v22 & 0x10000000) != 0)
+  v14 = self->_has;
+  if ((*&v14 & 0x10000000) != 0)
   {
-    optionsAppleIdContext = self->_optionsAppleIdContext;
     PBDataWriterWriteBOOLField();
-    v22 = self->_has;
+    v14 = self->_has;
   }
 
-  if ((*&v22 & 0x80000000) != 0)
+  if ((*&v14 & 0x80000000) != 0)
   {
-    optionsTlsPinningRequired = self->_optionsTlsPinningRequired;
     PBDataWriterWriteBOOLField();
   }
 
@@ -1553,11 +1520,8 @@ LABEL_64:
 
   if ((*(&self->_has + 3) & 2) != 0)
   {
-    optionsAllowCellularAccess = self->_optionsAllowCellularAccess;
     PBDataWriterWriteBOOLField();
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyTo:(id)to
@@ -2046,7 +2010,7 @@ LABEL_61:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = v5;
   has = self->_has;
@@ -2199,34 +2163,34 @@ LABEL_13:
   v26 = *(v6 + 184);
   *(v6 + 184) = v25;
 
-  v51 = 0u;
-  v52 = 0u;
-  v49 = 0u;
   v50 = 0u;
+  v51 = 0u;
+  v48 = 0u;
+  v49 = 0u;
   v27 = self->_networkPathInfos;
-  v28 = [(NSMutableArray *)v27 countByEnumeratingWithState:&v49 objects:v53 count:16];
+  v28 = [(NSMutableArray *)v27 countByEnumeratingWithState:&v48 objects:v52 count:16];
   if (v28)
   {
     v29 = v28;
-    v30 = *v50;
+    v30 = *v49;
     do
     {
       v31 = 0;
       do
       {
-        if (*v50 != v30)
+        if (*v49 != v30)
         {
           objc_enumerationMutation(v27);
         }
 
-        v32 = [*(*(&v49 + 1) + 8 * v31) copyWithZone:{zone, v49}];
+        v32 = [*(*(&v48 + 1) + 8 * v31) copyWithZone:{zone, v48}];
         [v6 addNetworkPathInfo:v32];
 
         ++v31;
       }
 
       while (v29 != v31);
-      v29 = [(NSMutableArray *)v27 countByEnumeratingWithState:&v49 objects:v53 count:16];
+      v29 = [(NSMutableArray *)v27 countByEnumeratingWithState:&v48 objects:v52 count:16];
     }
 
     while (v29);
@@ -2400,7 +2364,7 @@ LABEL_36:
   }
 
 LABEL_37:
-  v34 = [(NSString *)self->_optionsQualityOfService copyWithZone:zone, v49];
+  v34 = [(NSString *)self->_optionsQualityOfService copyWithZone:zone, v48];
   v35 = *(v6 + 272);
   *(v6 + 272) = v34;
 
@@ -2520,7 +2484,6 @@ LABEL_44:
 
   v46 = v6;
 
-  v47 = *MEMORY[0x277D85DE8];
   return v46;
 }
 
@@ -2614,7 +2577,6 @@ LABEL_44:
       goto LABEL_35;
     }
 
-    v18 = *(equalCopy + 304);
     if (self->_networkConnectionReused)
     {
       if ((*(equalCopy + 304) & 1) == 0)
@@ -2727,16 +2689,16 @@ LABEL_44:
     v14 = self->_has;
   }
 
-  v20 = *(equalCopy + 79);
+  v19 = *(equalCopy + 79);
   if ((*&v14 & 4) != 0)
   {
-    if ((v20 & 4) == 0 || self->_networkStatusCode != *(equalCopy + 3))
+    if ((v19 & 4) == 0 || self->_networkStatusCode != *(equalCopy + 3))
     {
       goto LABEL_35;
     }
   }
 
-  else if ((v20 & 4) != 0)
+  else if ((v19 & 4) != 0)
   {
     goto LABEL_35;
   }
@@ -2752,15 +2714,14 @@ LABEL_44:
     v14 = self->_has;
   }
 
-  v22 = *(equalCopy + 79);
+  v21 = *(equalCopy + 79);
   if ((*&v14 & 0x1000000) != 0)
   {
-    if ((v22 & 0x1000000) == 0)
+    if ((v21 & 0x1000000) == 0)
     {
       goto LABEL_35;
     }
 
-    v27 = *(equalCopy + 305);
     if (self->_networkIsDiscretionary)
     {
       if ((*(equalCopy + 305) & 1) == 0)
@@ -2775,7 +2736,7 @@ LABEL_44:
     }
   }
 
-  else if ((v22 & 0x1000000) != 0)
+  else if ((v21 & 0x1000000) != 0)
   {
     goto LABEL_35;
   }
@@ -2795,160 +2756,160 @@ LABEL_44:
     }
   }
 
-  v25 = self->_has;
-  v26 = *(equalCopy + 79);
-  if ((*&v25 & 0x20) != 0)
+  v24 = self->_has;
+  v25 = *(equalCopy + 79);
+  if ((*&v24 & 0x20) != 0)
   {
-    if ((v26 & 0x20) == 0 || self->_timestampC2Init != *(equalCopy + 6))
+    if ((v25 & 0x20) == 0 || self->_timestampC2Init != *(equalCopy + 6))
     {
       goto LABEL_35;
     }
   }
 
-  else if ((v26 & 0x20) != 0)
+  else if ((v25 & 0x20) != 0)
   {
     goto LABEL_35;
   }
 
-  if ((*&v25 & 0x80) != 0)
+  if ((*&v24 & 0x80) != 0)
   {
-    if ((v26 & 0x80) == 0 || self->_timestampC2Start != *(equalCopy + 8))
+    if ((v25 & 0x80) == 0 || self->_timestampC2Start != *(equalCopy + 8))
     {
       goto LABEL_35;
     }
   }
 
-  else if ((v26 & 0x80) != 0)
+  else if ((v25 & 0x80) != 0)
   {
     goto LABEL_35;
   }
 
-  if ((*&v25 & 0x40) != 0)
+  if ((*&v24 & 0x40) != 0)
   {
-    if ((v26 & 0x40) == 0 || self->_timestampC2Now != *(equalCopy + 7))
+    if ((v25 & 0x40) == 0 || self->_timestampC2Now != *(equalCopy + 7))
     {
       goto LABEL_35;
     }
   }
 
-  else if ((v26 & 0x40) != 0)
+  else if ((v25 & 0x40) != 0)
   {
     goto LABEL_35;
   }
 
-  if ((*&v25 & 0x200) != 0)
+  if ((*&v24 & 0x200) != 0)
   {
-    if ((v26 & 0x200) == 0 || self->_timestampDnsStart != *(equalCopy + 10))
+    if ((v25 & 0x200) == 0 || self->_timestampDnsStart != *(equalCopy + 10))
     {
       goto LABEL_35;
     }
   }
 
-  else if ((v26 & 0x200) != 0)
+  else if ((v25 & 0x200) != 0)
   {
     goto LABEL_35;
   }
 
-  if ((*&v25 & 0x100) != 0)
+  if ((*&v24 & 0x100) != 0)
   {
-    if ((v26 & 0x100) == 0 || self->_timestampDnsEnd != *(equalCopy + 9))
+    if ((v25 & 0x100) == 0 || self->_timestampDnsEnd != *(equalCopy + 9))
     {
       goto LABEL_35;
     }
   }
 
-  else if ((v26 & 0x100) != 0)
+  else if ((v25 & 0x100) != 0)
   {
     goto LABEL_35;
   }
 
-  if ((*&v25 & 0x10000) != 0)
+  if ((*&v24 & 0x10000) != 0)
   {
-    if ((v26 & 0x10000) == 0 || self->_timestampTcpStart != *(equalCopy + 17))
+    if ((v25 & 0x10000) == 0 || self->_timestampTcpStart != *(equalCopy + 17))
     {
       goto LABEL_35;
     }
   }
 
-  else if ((v26 & 0x10000) != 0)
+  else if ((v25 & 0x10000) != 0)
   {
     goto LABEL_35;
   }
 
-  if ((*&v25 & 0x8000) != 0)
+  if ((*&v24 & 0x8000) != 0)
   {
-    if ((v26 & 0x8000) == 0 || self->_timestampTcpEnd != *(equalCopy + 16))
+    if ((v25 & 0x8000) == 0 || self->_timestampTcpEnd != *(equalCopy + 16))
     {
       goto LABEL_35;
     }
   }
 
-  else if ((v26 & 0x8000) != 0)
+  else if ((v25 & 0x8000) != 0)
   {
     goto LABEL_35;
   }
 
-  if ((*&v25 & 0x4000) != 0)
+  if ((*&v24 & 0x4000) != 0)
   {
-    if ((v26 & 0x4000) == 0 || self->_timestampSslStart != *(equalCopy + 15))
+    if ((v25 & 0x4000) == 0 || self->_timestampSslStart != *(equalCopy + 15))
     {
       goto LABEL_35;
     }
   }
 
-  else if ((v26 & 0x4000) != 0)
+  else if ((v25 & 0x4000) != 0)
   {
     goto LABEL_35;
   }
 
-  if ((*&v25 & 0x800) != 0)
+  if ((*&v24 & 0x800) != 0)
   {
-    if ((v26 & 0x800) == 0 || self->_timestampRequestStart != *(equalCopy + 12))
+    if ((v25 & 0x800) == 0 || self->_timestampRequestStart != *(equalCopy + 12))
     {
       goto LABEL_35;
     }
   }
 
-  else if ((v26 & 0x800) != 0)
+  else if ((v25 & 0x800) != 0)
   {
     goto LABEL_35;
   }
 
-  if ((*&v25 & 0x400) != 0)
+  if ((*&v24 & 0x400) != 0)
   {
-    if ((v26 & 0x400) == 0 || self->_timestampRequestEnd != *(equalCopy + 11))
+    if ((v25 & 0x400) == 0 || self->_timestampRequestEnd != *(equalCopy + 11))
     {
       goto LABEL_35;
     }
   }
 
-  else if ((v26 & 0x400) != 0)
+  else if ((v25 & 0x400) != 0)
   {
     goto LABEL_35;
   }
 
-  if ((*&v25 & 0x2000) != 0)
+  if ((*&v24 & 0x2000) != 0)
   {
-    if ((v26 & 0x2000) == 0 || self->_timestampResponseStart != *(equalCopy + 14))
+    if ((v25 & 0x2000) == 0 || self->_timestampResponseStart != *(equalCopy + 14))
     {
       goto LABEL_35;
     }
   }
 
-  else if ((v26 & 0x2000) != 0)
+  else if ((v25 & 0x2000) != 0)
   {
     goto LABEL_35;
   }
 
-  if ((*&v25 & 0x1000) != 0)
+  if ((*&v24 & 0x1000) != 0)
   {
-    if ((v26 & 0x1000) == 0 || self->_timestampResponseEnd != *(equalCopy + 13))
+    if ((v25 & 0x1000) == 0 || self->_timestampResponseEnd != *(equalCopy + 13))
     {
       goto LABEL_35;
     }
   }
 
-  else if ((v26 & 0x1000) != 0)
+  else if ((v25 & 0x1000) != 0)
   {
     goto LABEL_35;
   }
@@ -2961,18 +2922,17 @@ LABEL_44:
       goto LABEL_35;
     }
 
-    v25 = self->_has;
+    v24 = self->_has;
   }
 
-  v29 = *(equalCopy + 79);
-  if ((*&v25 & 0x20000000) != 0)
+  v27 = *(equalCopy + 79);
+  if ((*&v24 & 0x20000000) != 0)
   {
-    if ((v29 & 0x20000000) == 0)
+    if ((v27 & 0x20000000) == 0)
     {
       goto LABEL_35;
     }
 
-    v30 = *(equalCopy + 310);
     if (self->_optionsOutOfProcess)
     {
       if ((*(equalCopy + 310) & 1) == 0)
@@ -2987,19 +2947,18 @@ LABEL_44:
     }
   }
 
-  else if ((v29 & 0x20000000) != 0)
+  else if ((v27 & 0x20000000) != 0)
   {
     goto LABEL_35;
   }
 
-  if ((*&v25 & 0x40000000) != 0)
+  if ((*&v24 & 0x40000000) != 0)
   {
-    if ((v29 & 0x40000000) == 0)
+    if ((v27 & 0x40000000) == 0)
     {
       goto LABEL_35;
     }
 
-    v31 = *(equalCopy + 311);
     if (self->_optionsOutOfProcessForceDiscretionary)
     {
       if ((*(equalCopy + 311) & 1) == 0)
@@ -3014,19 +2973,18 @@ LABEL_44:
     }
   }
 
-  else if ((v29 & 0x40000000) != 0)
+  else if ((v27 & 0x40000000) != 0)
   {
     goto LABEL_35;
   }
 
-  if ((*&v25 & 0x4000000) != 0)
+  if ((*&v24 & 0x4000000) != 0)
   {
-    if ((v29 & 0x4000000) == 0)
+    if ((v27 & 0x4000000) == 0)
     {
       goto LABEL_35;
     }
 
-    v32 = *(equalCopy + 307);
     if (self->_optionsAllowExpensiveAccess)
     {
       if ((*(equalCopy + 307) & 1) == 0)
@@ -3041,19 +2999,18 @@ LABEL_44:
     }
   }
 
-  else if ((v29 & 0x4000000) != 0)
+  else if ((v27 & 0x4000000) != 0)
   {
     goto LABEL_35;
   }
 
-  if ((*&v25 & 0x8000000) != 0)
+  if ((*&v24 & 0x8000000) != 0)
   {
-    if ((v29 & 0x8000000) == 0)
+    if ((v27 & 0x8000000) == 0)
     {
       goto LABEL_35;
     }
 
-    v33 = *(equalCopy + 308);
     if (self->_optionsAllowPowerNapScheduling)
     {
       if ((*(equalCopy + 308) & 1) == 0)
@@ -3068,33 +3025,33 @@ LABEL_44:
     }
   }
 
-  else if ((v29 & 0x8000000) != 0)
+  else if ((v27 & 0x8000000) != 0)
   {
     goto LABEL_35;
   }
 
-  if ((*&v25 & 0x200000) != 0)
+  if ((*&v24 & 0x200000) != 0)
   {
-    if ((v29 & 0x200000) == 0 || self->_optionsTimeoutIntervalForRequest != *(equalCopy + 74))
+    if ((v27 & 0x200000) == 0 || self->_optionsTimeoutIntervalForRequest != *(equalCopy + 74))
     {
       goto LABEL_35;
     }
   }
 
-  else if ((v29 & 0x200000) != 0)
+  else if ((v27 & 0x200000) != 0)
   {
     goto LABEL_35;
   }
 
-  if ((*&v25 & 0x400000) != 0)
+  if ((*&v24 & 0x400000) != 0)
   {
-    if ((v29 & 0x400000) == 0 || self->_optionsTimeoutIntervalForResource != *(equalCopy + 75))
+    if ((v27 & 0x400000) == 0 || self->_optionsTimeoutIntervalForResource != *(equalCopy + 75))
     {
       goto LABEL_35;
     }
   }
 
-  else if ((v29 & 0x400000) != 0)
+  else if ((v27 & 0x400000) != 0)
   {
     goto LABEL_35;
   }
@@ -3114,16 +3071,15 @@ LABEL_44:
     }
   }
 
-  v36 = self->_has;
-  v37 = *(equalCopy + 79);
-  if ((*&v36 & 0x10000000) != 0)
+  v30 = self->_has;
+  v31 = *(equalCopy + 79);
+  if ((*&v30 & 0x10000000) != 0)
   {
-    if ((v37 & 0x10000000) == 0)
+    if ((v31 & 0x10000000) == 0)
     {
       goto LABEL_35;
     }
 
-    v41 = *(equalCopy + 309);
     if (self->_optionsAppleIdContext)
     {
       if ((*(equalCopy + 309) & 1) == 0)
@@ -3138,19 +3094,18 @@ LABEL_44:
     }
   }
 
-  else if ((v37 & 0x10000000) != 0)
+  else if ((v31 & 0x10000000) != 0)
   {
     goto LABEL_35;
   }
 
-  if ((*&v36 & 0x80000000) != 0)
+  if ((*&v30 & 0x80000000) != 0)
   {
-    if ((v37 & 0x80000000) == 0)
+    if ((v31 & 0x80000000) == 0)
     {
       goto LABEL_35;
     }
 
-    v42 = *(equalCopy + 312);
     if (self->_optionsTlsPinningRequired)
     {
       if ((*(equalCopy + 312) & 1) == 0)
@@ -3165,7 +3120,7 @@ LABEL_44:
     }
   }
 
-  else if (v37 < 0)
+  else if (v31 < 0)
   {
     goto LABEL_35;
   }
@@ -3176,14 +3131,14 @@ LABEL_44:
     optionsDuetPreClearedMode = self->_optionsDuetPreClearedMode;
     if (!(optionsDuetPreClearedMode | *(equalCopy + 33)) || [(NSString *)optionsDuetPreClearedMode isEqual:?])
     {
-      v40 = *(equalCopy + 79);
+      v34 = *(equalCopy + 79);
       if ((*(&self->_has + 3) & 2) == 0)
       {
-        v16 = (v40 & 0x2000000) == 0;
+        v16 = (v34 & 0x2000000) == 0;
         goto LABEL_36;
       }
 
-      if ((v40 & 0x2000000) != 0)
+      if ((v34 & 0x2000000) != 0)
       {
         if (self->_optionsAllowCellularAccess)
         {
@@ -3639,7 +3594,7 @@ LABEL_71:
 
 - (void)mergeFrom:(id)from
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   v5 = fromCopy;
   v6 = *(fromCopy + 79);
@@ -3811,29 +3766,29 @@ LABEL_25:
     [(C2MPNetworkEvent *)self setNetworkNegotiatedTlsProtocolVersion:?];
   }
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v10 = v5[24];
-  v11 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v20;
+    v13 = *v19;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v20 != v13)
+        if (*v19 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        [(C2MPNetworkEvent *)self addNetworkPathInfo:*(*(&v19 + 1) + 8 * i), v19];
+        [(C2MPNetworkEvent *)self addNetworkPathInfo:*(*(&v18 + 1) + 8 * i), v18];
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v12);
@@ -4129,8 +4084,6 @@ LABEL_75:
     self->_optionsAllowCellularAccess = *(v5 + 306);
     *&self->_has |= 0x2000000u;
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 @end

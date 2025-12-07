@@ -12,7 +12,7 @@
   selfCopy = self;
   [v2 setDelegate:0];
   v4.receiver = selfCopy;
-  v4.super_class = type metadata accessor for StationListObserver();
+  v4.super_class = type metadata accessor for StationListObserver(0);
   [(StationListObserver *)&v4 dealloc];
 }
 

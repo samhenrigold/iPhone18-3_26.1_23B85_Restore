@@ -14,98 +14,98 @@
 
 - (id)_dictionaryRepresentation
 {
-  v51[16] = *MEMORY[0x1E69E9840];
+  v50[16] = *MEMORY[0x1E69E9840];
   recommendationId = self->_recommendationId;
-  v49 = recommendationId;
-  v50[0] = @"recommendationId";
+  v48 = recommendationId;
+  v49[0] = @"recommendationId";
   if (!recommendationId)
   {
     recommendationId = [MEMORY[0x1E695DFB0] null];
   }
 
-  v39 = recommendationId;
-  v51[0] = recommendationId;
-  v50[1] = @"assetInfo";
+  v38 = recommendationId;
+  v50[0] = recommendationId;
+  v49[1] = @"assetInfo";
   assetInfo = self->_assetInfo;
-  v48 = assetInfo;
+  v47 = assetInfo;
   if (!assetInfo)
   {
     assetInfo = [MEMORY[0x1E695DFB0] null];
   }
 
-  v38 = assetInfo;
-  v51[1] = assetInfo;
-  v50[2] = @"sharedUserIdFromPlayableMusicAccount";
+  v37 = assetInfo;
+  v50[1] = assetInfo;
+  v49[2] = @"sharedUserIdFromPlayableMusicAccount";
   sharedUserIdFromPlayableMusicAccount = self->_sharedUserIdFromPlayableMusicAccount;
-  v47 = sharedUserIdFromPlayableMusicAccount;
+  v46 = sharedUserIdFromPlayableMusicAccount;
   if (!sharedUserIdFromPlayableMusicAccount)
   {
     sharedUserIdFromPlayableMusicAccount = [MEMORY[0x1E695DFB0] null];
   }
 
-  v37 = sharedUserIdFromPlayableMusicAccount;
-  v51[2] = sharedUserIdFromPlayableMusicAccount;
-  v50[3] = @"punchoutURI";
+  v36 = sharedUserIdFromPlayableMusicAccount;
+  v50[2] = sharedUserIdFromPlayableMusicAccount;
+  v49[3] = @"punchoutURI";
   punchoutURI = self->_punchoutURI;
-  v46 = punchoutURI;
+  v45 = punchoutURI;
   if (!punchoutURI)
   {
     punchoutURI = [MEMORY[0x1E695DFB0] null];
   }
 
-  v36 = punchoutURI;
-  v51[3] = punchoutURI;
-  v50[4] = @"requiresSubscription";
+  v35 = punchoutURI;
+  v50[3] = punchoutURI;
+  v49[4] = @"requiresSubscription";
   requiresSubscription = self->_requiresSubscription;
-  v45 = requiresSubscription;
+  v44 = requiresSubscription;
   if (!requiresSubscription)
   {
     requiresSubscription = [MEMORY[0x1E695DFB0] null];
   }
 
-  v35 = requiresSubscription;
-  v51[4] = requiresSubscription;
-  v50[5] = @"provider";
+  v34 = requiresSubscription;
+  v50[4] = requiresSubscription;
+  v49[5] = @"provider";
   provider = self->_provider;
-  v44 = provider;
+  v43 = provider;
   if (!provider)
   {
     provider = [MEMORY[0x1E695DFB0] null];
   }
 
-  v34 = provider;
-  v51[5] = provider;
-  v50[6] = @"isAvailable";
+  v33 = provider;
+  v50[5] = provider;
+  v49[6] = @"isAvailable";
   isAvailable = self->_isAvailable;
-  v43 = isAvailable;
+  v42 = isAvailable;
   if (!isAvailable)
   {
     isAvailable = [MEMORY[0x1E695DFB0] null];
   }
 
-  v33 = isAvailable;
-  v51[6] = isAvailable;
-  v50[7] = @"isHardBan";
+  v32 = isAvailable;
+  v50[6] = isAvailable;
+  v49[7] = @"isHardBan";
   isHardBan = self->_isHardBan;
-  v42 = isHardBan;
+  v41 = isHardBan;
   if (!isHardBan)
   {
     isHardBan = [MEMORY[0x1E695DFB0] null];
   }
 
-  v32 = isHardBan;
-  v51[7] = isHardBan;
-  v50[8] = @"bundleId";
+  v31 = isHardBan;
+  v50[7] = isHardBan;
+  v49[8] = @"bundleId";
   bundleId = self->_bundleId;
-  v41 = bundleId;
+  v40 = bundleId;
   if (!bundleId)
   {
     bundleId = [MEMORY[0x1E695DFB0] null];
   }
 
-  v31 = bundleId;
-  v51[8] = bundleId;
-  v50[9] = @"universalResourceLink";
+  v30 = bundleId;
+  v50[8] = bundleId;
+  v49[9] = @"universalResourceLink";
   universalResourceLink = self->_universalResourceLink;
   null = universalResourceLink;
   if (!universalResourceLink)
@@ -113,9 +113,9 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v30 = null;
-  v51[9] = null;
-  v50[10] = @"providerAppName";
+  v29 = null;
+  v50[9] = null;
+  v49[10] = @"providerAppName";
   providerAppName = self->_providerAppName;
   null2 = providerAppName;
   if (!providerAppName)
@@ -123,9 +123,9 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v29 = null2;
-  v51[10] = null2;
-  v50[11] = @"internalSignals";
+  v28 = null2;
+  v50[10] = null2;
+  v49[11] = @"internalSignals";
   internalSignals = self->_internalSignals;
   null3 = internalSignals;
   if (!internalSignals)
@@ -133,9 +133,9 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v27 = null3;
-  v51[11] = null3;
-  v50[12] = @"ampConfidenceScore";
+  v26 = null3;
+  v50[11] = null3;
+  v49[12] = @"ampConfidenceScore";
   ampConfidenceScore = self->_ampConfidenceScore;
   null4 = ampConfidenceScore;
   if (!ampConfidenceScore)
@@ -143,11 +143,11 @@
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v51[12] = null4;
-  v50[13] = @"ampConfidenceLevel";
-  v20 = [MEMORY[0x1E696AD98] numberWithInteger:{self->_ampConfidenceLevel, v27}];
-  v51[13] = v20;
-  v50[14] = @"pegasusMetaData";
+  v50[12] = null4;
+  v49[13] = @"ampConfidenceLevel";
+  v20 = [MEMORY[0x1E696AD98] numberWithInteger:{self->_ampConfidenceLevel, v26}];
+  v50[13] = v20;
+  v49[14] = @"pegasusMetaData";
   pegasusMetaData = self->_pegasusMetaData;
   null5 = pegasusMetaData;
   if (!pegasusMetaData)
@@ -155,8 +155,8 @@
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v51[14] = null5;
-  v50[15] = @"mediaSubItems";
+  v50[14] = null5;
+  v49[15] = @"mediaSubItems";
   mediaSubItems = self->_mediaSubItems;
   null6 = mediaSubItems;
   if (!mediaSubItems)
@@ -164,8 +164,8 @@
     null6 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v51[15] = null6;
-  v40 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v51 forKeys:v50 count:16];
+  v50[15] = null6;
+  v39 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v50 forKeys:v49 count:16];
   if (mediaSubItems)
   {
     if (pegasusMetaData)
@@ -228,6 +228,10 @@ LABEL_36:
 LABEL_63:
 
 LABEL_37:
+  if (!v40)
+  {
+  }
+
   if (!v41)
   {
   }
@@ -260,13 +264,7 @@ LABEL_37:
   {
   }
 
-  if (!v49)
-  {
-  }
-
-  v25 = *MEMORY[0x1E69E9840];
-
-  return v40;
+  return v39;
 }
 
 - (id)descriptionAtIndent:(unint64_t)indent
@@ -374,45 +372,45 @@ LABEL_37:
 
 - (INPrivateMediaItemValueData)initWithCoder:(id)coder
 {
-  v55[3] = *MEMORY[0x1E69E9840];
+  v54[3] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E695DFD8];
   coderCopy = coder;
   v5 = objc_opt_class();
   v6 = [v3 setWithObjects:{v5, objc_opt_class(), 0}];
-  v53 = [coderCopy decodeObjectOfClasses:v6 forKey:@"recommendationId"];
+  v52 = [coderCopy decodeObjectOfClasses:v6 forKey:@"recommendationId"];
 
   v7 = MEMORY[0x1E695DFD8];
   v8 = objc_opt_class();
   v9 = [v7 setWithObjects:{v8, objc_opt_class(), 0}];
-  v52 = [coderCopy decodeObjectOfClasses:v9 forKey:@"assetInfo"];
+  v51 = [coderCopy decodeObjectOfClasses:v9 forKey:@"assetInfo"];
 
   v10 = MEMORY[0x1E695DFD8];
   v11 = objc_opt_class();
   v12 = [v10 setWithObjects:{v11, objc_opt_class(), 0}];
-  v51 = [coderCopy decodeObjectOfClasses:v12 forKey:@"sharedUserIdFromPlayableMusicAccount"];
+  v50 = [coderCopy decodeObjectOfClasses:v12 forKey:@"sharedUserIdFromPlayableMusicAccount"];
 
   v13 = MEMORY[0x1E695DFD8];
   v14 = objc_opt_class();
   v15 = [v13 setWithObjects:{v14, objc_opt_class(), 0}];
-  v50 = [coderCopy decodeObjectOfClasses:v15 forKey:@"punchoutURI"];
+  v49 = [coderCopy decodeObjectOfClasses:v15 forKey:@"punchoutURI"];
 
-  v47 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"requiresSubscription"];
+  v46 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"requiresSubscription"];
   v16 = MEMORY[0x1E695DFD8];
   v17 = objc_opt_class();
   v18 = [v16 setWithObjects:{v17, objc_opt_class(), 0}];
-  v46 = [coderCopy decodeObjectOfClasses:v18 forKey:@"provider"];
+  v45 = [coderCopy decodeObjectOfClasses:v18 forKey:@"provider"];
 
-  v45 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"isAvailable"];
-  v44 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"isHardBan"];
+  v44 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"isAvailable"];
+  v43 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"isHardBan"];
   v19 = MEMORY[0x1E695DFD8];
   v20 = objc_opt_class();
   v21 = [v19 setWithObjects:{v20, objc_opt_class(), 0}];
-  v43 = [coderCopy decodeObjectOfClasses:v21 forKey:@"bundleId"];
+  v42 = [coderCopy decodeObjectOfClasses:v21 forKey:@"bundleId"];
 
   v22 = MEMORY[0x1E695DFD8];
   v23 = objc_opt_class();
   v24 = [v22 setWithObjects:{v23, objc_opt_class(), 0}];
-  v42 = [coderCopy decodeObjectOfClasses:v24 forKey:@"universalResourceLink"];
+  v41 = [coderCopy decodeObjectOfClasses:v24 forKey:@"universalResourceLink"];
 
   v25 = MEMORY[0x1E695DFD8];
   v26 = objc_opt_class();
@@ -420,26 +418,25 @@ LABEL_37:
   v28 = [coderCopy decodeObjectOfClasses:v27 forKey:@"providerAppName"];
 
   v29 = MEMORY[0x1E695DFD8];
-  v55[0] = objc_opt_class();
-  v55[1] = objc_opt_class();
-  v55[2] = objc_opt_class();
-  v30 = [MEMORY[0x1E695DEC8] arrayWithObjects:v55 count:3];
+  v54[0] = objc_opt_class();
+  v54[1] = objc_opt_class();
+  v54[2] = objc_opt_class();
+  v30 = [MEMORY[0x1E695DEC8] arrayWithObjects:v54 count:3];
   v31 = [v29 setWithArray:v30];
-  v41 = [coderCopy decodeObjectOfClasses:v31 forKey:@"internalSignals"];
+  v40 = [coderCopy decodeObjectOfClasses:v31 forKey:@"internalSignals"];
 
   v32 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"ampConfidenceScore"];
   v33 = [coderCopy decodeIntegerForKey:@"ampConfidenceLevel"];
   v34 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"pegasusMetaData"];
   v35 = MEMORY[0x1E695DFD8];
-  v54[0] = objc_opt_class();
-  v54[1] = objc_opt_class();
-  v36 = [MEMORY[0x1E695DEC8] arrayWithObjects:v54 count:2];
+  v53[0] = objc_opt_class();
+  v53[1] = objc_opt_class();
+  v36 = [MEMORY[0x1E695DEC8] arrayWithObjects:v53 count:2];
   v37 = [v35 setWithArray:v36];
   v38 = [coderCopy decodeObjectOfClasses:v37 forKey:@"mediaSubItems"];
 
-  v49 = [(INPrivateMediaItemValueData *)self initWithRecommendationId:v53 assetInfo:v52 sharedUserIdFromPlayableMusicAccount:v51 punchoutURI:v50 requiresSubscription:v47 provider:v46 isAvailable:v45 isHardBan:v44 bundleId:v43 universalResourceLink:v42 providerAppName:v28 internalSignals:v41 ampConfidenceScore:v32 ampConfidenceLevel:v33 pegasusMetaData:v34 mediaSubItems:v38];
-  v39 = *MEMORY[0x1E69E9840];
-  return v49;
+  v48 = [(INPrivateMediaItemValueData *)self initWithRecommendationId:v52 assetInfo:v51 sharedUserIdFromPlayableMusicAccount:v50 punchoutURI:v49 requiresSubscription:v46 provider:v45 isAvailable:v44 isHardBan:v43 bundleId:v42 universalResourceLink:v41 providerAppName:v28 internalSignals:v40 ampConfidenceScore:v32 ampConfidenceLevel:v33 pegasusMetaData:v34 mediaSubItems:v38];
+  return v48;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -457,62 +454,66 @@ LABEL_37:
     {
       v5 = equalCopy;
       recommendationId = self->_recommendationId;
-      if (recommendationId != v5->_recommendationId && ![(NSString *)recommendationId isEqual:?])
+      v21 = 0;
+      if (recommendationId == v5->_recommendationId || [(NSString *)recommendationId isEqual:?])
       {
-        goto LABEL_37;
-      }
-
-      assetInfo = self->_assetInfo;
-      if (assetInfo != v5->_assetInfo && ![(NSString *)assetInfo isEqual:?])
-      {
-        goto LABEL_37;
-      }
-
-      sharedUserIdFromPlayableMusicAccount = self->_sharedUserIdFromPlayableMusicAccount;
-      if (sharedUserIdFromPlayableMusicAccount != v5->_sharedUserIdFromPlayableMusicAccount && ![(NSString *)sharedUserIdFromPlayableMusicAccount isEqual:?])
-      {
-        goto LABEL_37;
-      }
-
-      punchoutURI = self->_punchoutURI;
-      if (punchoutURI != v5->_punchoutURI && ![(NSString *)punchoutURI isEqual:?])
-      {
-        goto LABEL_37;
-      }
-
-      requiresSubscription = self->_requiresSubscription;
-      if (requiresSubscription != v5->_requiresSubscription && ![(NSNumber *)requiresSubscription isEqual:?])
-      {
-        goto LABEL_37;
-      }
-
-      provider = self->_provider;
-      if (provider != v5->_provider && ![(NSString *)provider isEqual:?])
-      {
-        goto LABEL_37;
-      }
-
-      isAvailable = self->_isAvailable;
-      if (isAvailable != v5->_isAvailable && ![(NSNumber *)isAvailable isEqual:?])
-      {
-        goto LABEL_37;
-      }
-
-      isHardBan = self->_isHardBan;
-      if (isHardBan != v5->_isHardBan && ![(NSNumber *)isHardBan isEqual:?])
-      {
-        goto LABEL_37;
-      }
-
-      if (((bundleId = self->_bundleId, bundleId == v5->_bundleId) || [(NSString *)bundleId isEqual:?]) && ((universalResourceLink = self->_universalResourceLink, universalResourceLink == v5->_universalResourceLink) || [(NSString *)universalResourceLink isEqual:?]) && ((providerAppName = self->_providerAppName, providerAppName == v5->_providerAppName) || [(NSString *)providerAppName isEqual:?]) && ((internalSignals = self->_internalSignals, internalSignals == v5->_internalSignals) || [(NSArray *)internalSignals isEqual:?]) && ((ampConfidenceScore = self->_ampConfidenceScore, ampConfidenceScore == v5->_ampConfidenceScore) || [(NSNumber *)ampConfidenceScore isEqual:?]) && self->_ampConfidenceLevel == v5->_ampConfidenceLevel && ((pegasusMetaData = self->_pegasusMetaData, pegasusMetaData == v5->_pegasusMetaData) || [(NSData *)pegasusMetaData isEqual:?]) && ((mediaSubItems = self->_mediaSubItems, mediaSubItems == v5->_mediaSubItems) || [(NSArray *)mediaSubItems isEqual:?]))
-      {
-        v21 = 1;
-      }
-
-      else
-      {
-LABEL_37:
-        v21 = 0;
+        assetInfo = self->_assetInfo;
+        if (assetInfo == v5->_assetInfo || [(NSString *)assetInfo isEqual:?])
+        {
+          sharedUserIdFromPlayableMusicAccount = self->_sharedUserIdFromPlayableMusicAccount;
+          if (sharedUserIdFromPlayableMusicAccount == v5->_sharedUserIdFromPlayableMusicAccount || [(NSString *)sharedUserIdFromPlayableMusicAccount isEqual:?])
+          {
+            punchoutURI = self->_punchoutURI;
+            if (punchoutURI == v5->_punchoutURI || [(NSString *)punchoutURI isEqual:?])
+            {
+              requiresSubscription = self->_requiresSubscription;
+              if (requiresSubscription == v5->_requiresSubscription || [(NSNumber *)requiresSubscription isEqual:?])
+              {
+                provider = self->_provider;
+                if (provider == v5->_provider || [(NSString *)provider isEqual:?])
+                {
+                  isAvailable = self->_isAvailable;
+                  if (isAvailable == v5->_isAvailable || [(NSNumber *)isAvailable isEqual:?])
+                  {
+                    isHardBan = self->_isHardBan;
+                    if (isHardBan == v5->_isHardBan || [(NSNumber *)isHardBan isEqual:?])
+                    {
+                      bundleId = self->_bundleId;
+                      if (bundleId == v5->_bundleId || [(NSString *)bundleId isEqual:?])
+                      {
+                        universalResourceLink = self->_universalResourceLink;
+                        if (universalResourceLink == v5->_universalResourceLink || [(NSString *)universalResourceLink isEqual:?])
+                        {
+                          providerAppName = self->_providerAppName;
+                          if (providerAppName == v5->_providerAppName || [(NSString *)providerAppName isEqual:?])
+                          {
+                            internalSignals = self->_internalSignals;
+                            if (internalSignals == v5->_internalSignals || [(NSArray *)internalSignals isEqual:?])
+                            {
+                              ampConfidenceScore = self->_ampConfidenceScore;
+                              if ((ampConfidenceScore == v5->_ampConfidenceScore || [(NSNumber *)ampConfidenceScore isEqual:?]) && self->_ampConfidenceLevel == v5->_ampConfidenceLevel)
+                              {
+                                pegasusMetaData = self->_pegasusMetaData;
+                                if (pegasusMetaData == v5->_pegasusMetaData || [(NSData *)pegasusMetaData isEqual:?])
+                                {
+                                  mediaSubItems = self->_mediaSubItems;
+                                  if (mediaSubItems == v5->_mediaSubItems || [(NSArray *)mediaSubItems isEqual:?])
+                                  {
+                                    v21 = 1;
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     }
 

@@ -26,29 +26,27 @@
 
 - (void)start
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v9.receiver = self;
-  v9.super_class = LNAsyncSequenceReleaseOperation;
-  [(LNConnectionOperation *)&v9 start];
+  v11 = *MEMORY[0x1E69E9840];
+  v8.receiver = self;
+  v8.super_class = LNAsyncSequenceReleaseOperation;
+  [(LNConnectionOperation *)&v8 start];
   v3 = getLNLogCategoryExecution();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     sequence = [(LNAsyncSequenceReleaseOperation *)self sequence];
     *buf = 138412290;
-    v11 = sequence;
+    v10 = sequence;
     _os_log_impl(&dword_19763D000, v3, OS_LOG_TYPE_INFO, "Releasing sequence: %@", buf, 0xCu);
   }
 
   connectionInterface = [(LNInterfaceConnectionOperation *)self connectionInterface];
   sequence2 = [(LNAsyncSequenceReleaseOperation *)self sequence];
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __40__LNAsyncSequenceReleaseOperation_start__block_invoke;
-  v8[3] = &unk_1E74B1B90;
-  v8[4] = self;
-  [connectionInterface releaseAsyncSequence:sequence2 completionHandler:v8];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __40__LNAsyncSequenceReleaseOperation_start__block_invoke;
+  v7[3] = &unk_1E74B1B90;
+  v7[4] = self;
+  [connectionInterface releaseAsyncSequence:sequence2 completionHandler:v7];
 }
 
 void __40__LNAsyncSequenceReleaseOperation_start__block_invoke(uint64_t a1, void *a2)

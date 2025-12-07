@@ -1,8 +1,11 @@
 @interface PDDPProgressEventDetails
 - (BOOL)isEqual:(id)equal;
+- (id)attachmentTypeAsString:(int)string;
+- (id)contextTypeAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)progressInfoAsString:(int)string;
 - (int)StringAsAttachmentType:(id)type;
 - (int)StringAsContextType:(id)type;
 - (int)StringAsProgressInfo:(id)info;
@@ -50,6 +53,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)contextTypeAsString:(int)string
+{
+  if ((string + 1) >= 0x13)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1002061F8[string + 1];
+  }
+
+  return v4;
 }
 
 - (int)StringAsContextType:(id)type
@@ -171,6 +189,21 @@
   }
 }
 
+- (id)attachmentTypeAsString:(int)string
+{
+  if (string >= 8)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_100206290[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsAttachmentType:(id)type
 {
   typeCopy = type;
@@ -288,6 +321,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFB | v3;
+}
+
+- (id)progressInfoAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1002062D0[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsProgressInfo:(id)info
@@ -491,93 +539,91 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v8 = toCopy;
+  v6 = toCopy;
   if (self->_classId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_handoutId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_attachmentId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 2) != 0)
   {
-    contextType = self->_contextType;
     PBDataWriterWriteInt32Field();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if (has)
   {
-    attachmentType = self->_attachmentType;
     PBDataWriterWriteInt32Field();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_parentObjectId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_objectIdPath)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_appIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_handoutAuthorizedObjectId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_activityItemInfo)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_rangeInfo)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_timeIntervalInfo)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_activityInfo)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_activityId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 
@@ -761,7 +807,6 @@
     goto LABEL_41;
   }
 
-  v5 = *(equalCopy + 128);
   if ((*&self->_has & 4) != 0)
   {
     if ((*(equalCopy + 128) & 4) == 0 || self->_progressInfo != *(equalCopy + 26))
@@ -773,7 +818,7 @@
   else if ((*(equalCopy + 128) & 4) != 0)
   {
 LABEL_41:
-    v19 = 0;
+    v17 = 0;
     goto LABEL_42;
   }
 
@@ -801,7 +846,6 @@ LABEL_41:
     }
   }
 
-  v9 = *(equalCopy + 128);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 128) & 2) == 0 || self->_contextType != *(equalCopy + 16))
@@ -900,17 +944,17 @@ LABEL_41:
   activityId = self->_activityId;
   if (activityId | *(equalCopy + 1))
   {
-    v19 = [(NSString *)activityId isEqual:?];
+    v17 = [(NSString *)activityId isEqual:?];
   }
 
   else
   {
-    v19 = 1;
+    v17 = 1;
   }
 
 LABEL_42:
 
-  return v19;
+  return v17;
 }
 
 - (unint64_t)hash

@@ -14,6 +14,7 @@
 - (void)setBounds:(CGRect)bounds;
 - (void)setCenter:(CGPoint)center;
 - (void)setFrame:(CGRect)frame;
+- (void)setHidden:(BOOL)hidden;
 - (void)setTransform3D:(CATransform3D *)d;
 - (void)setTransform:(CGAffineTransform *)transform;
 @end
@@ -75,7 +76,7 @@
   y = center.y;
   x = center.x;
   selfCopy = self;
-  sub_249ED431C(x, y);
+  sub_249ED431C(selfCopy, x, y);
 }
 
 - (CGAffineTransform)transform
@@ -171,6 +172,20 @@
   return [(DropletParticipantView *)&v3 isHidden];
 }
 
+- (void)setHidden:(BOOL)hidden
+{
+  hiddenCopy = hidden;
+  v5 = type metadata accessor for DropletParticipantView();
+  v9.receiver = self;
+  v9.super_class = v5;
+  selfCopy = self;
+  isHidden = [(DropletParticipantView *)&v9 isHidden];
+  v8.receiver = selfCopy;
+  v8.super_class = v5;
+  [(DropletParticipantView *)&v8 setHidden:hiddenCopy];
+  sub_249ED522C(isHidden);
+}
+
 - (void)_setVelocity:(id)velocity forKey:(id)key
 {
   if (!velocity)
@@ -218,7 +233,7 @@ LABEL_6:
 - (void)removeFromSuperview
 {
   selfCopy = self;
-  sub_249ED57B0();
+  sub_249ED57B0(selfCopy);
 }
 
 - (_TtC9DropletUI22DropletParticipantView)initWithFrame:(CGRect)frame

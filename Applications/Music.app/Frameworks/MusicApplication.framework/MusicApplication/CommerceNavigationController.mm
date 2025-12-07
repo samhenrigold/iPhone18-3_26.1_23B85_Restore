@@ -9,16 +9,17 @@
 - (void)viewDidDisappear:(BOOL)disappear
 {
   disappearCopy = disappear;
-  v6.receiver = self;
-  v6.super_class = type metadata accessor for CommerceNavigationController();
-  v4 = v6.receiver;
-  [(CommerceNavigationController *)&v6 viewDidDisappear:disappearCopy];
+  v7.receiver = self;
+  v7.super_class = type metadata accessor for CommerceNavigationController();
+  v4 = v7.receiver;
+  [(CommerceNavigationController *)&v7 viewDidDisappear:disappearCopy];
   v5 = *&v4[OBJC_IVAR____TtC16MusicApplicationP33_ACDED154BD7D27D1EDCE9CE66AA9990C28CommerceNavigationController_dismissCallback];
   if (v5)
   {
+    v6 = *&v4[OBJC_IVAR____TtC16MusicApplicationP33_ACDED154BD7D27D1EDCE9CE66AA9990C28CommerceNavigationController_dismissCallback + 8];
 
     v5(v4);
-    sub_17654(v5);
+    sub_17654(v5, v6);
   }
 }
 

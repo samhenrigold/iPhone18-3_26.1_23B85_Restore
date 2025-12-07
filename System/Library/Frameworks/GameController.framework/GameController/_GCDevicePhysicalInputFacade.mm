@@ -71,9 +71,10 @@
 
 - (void)setQueue:(id)queue
 {
-  if ([-[_GCDevicePhysicalInputView physicalInput](self) isSnapshot])
+  isSnapshot = [-[_GCDevicePhysicalInputView physicalInput](self) isSnapshot];
+  if (isSnapshot)
   {
-    [_GCDevicePhysicalInputFacade setQueue:];
+    [_GCDevicePhysicalInputFacade setQueue:isSnapshot];
   }
 
   else
@@ -86,16 +87,17 @@
 
 - (void)setElementValueDidChangeHandler:(id)handler
 {
-  if ([-[_GCDevicePhysicalInputView physicalInput](self) isSnapshot])
+  isSnapshot = [-[_GCDevicePhysicalInputView physicalInput](self) isSnapshot];
+  if (isSnapshot)
   {
-    [_GCDevicePhysicalInputFacade setElementValueDidChangeHandler:];
+    [_GCDevicePhysicalInputFacade setElementValueDidChangeHandler:isSnapshot];
   }
 
   else
   {
     physicalInput = [(_GCDevicePhysicalInputView *)self physicalInput];
 
-    [(_GCDevicePhysicalInput *)physicalInput setElementValueDidChangeHandler:handler, v6];
+    [(_GCDevicePhysicalInput *)physicalInput setElementValueDidChangeHandler:handler, v7];
   }
 }
 
@@ -114,24 +116,26 @@
 
 - (void)setInputStateAvailableHandler:(id)handler
 {
-  if ([-[_GCDevicePhysicalInputView physicalInput](self) isSnapshot])
+  isSnapshot = [-[_GCDevicePhysicalInputView physicalInput](self) isSnapshot];
+  if (isSnapshot)
   {
-    [_GCDevicePhysicalInputFacade setInputStateAvailableHandler:];
+    [_GCDevicePhysicalInputFacade setInputStateAvailableHandler:isSnapshot];
   }
 
   else
   {
     physicalInput = [(_GCDevicePhysicalInputView *)self physicalInput];
 
-    [(_GCDevicePhysicalInput *)physicalInput setInputStateAvailableHandler:handler, v6];
+    [(_GCDevicePhysicalInput *)physicalInput setInputStateAvailableHandler:handler, v7];
   }
 }
 
 - (void)setInputStateQueueDepth:(int64_t)depth
 {
-  if ([-[_GCDevicePhysicalInputView physicalInput](self) isSnapshot])
+  isSnapshot = [-[_GCDevicePhysicalInputView physicalInput](self) isSnapshot];
+  if (isSnapshot)
   {
-    [_GCDevicePhysicalInputFacade setInputStateQueueDepth:];
+    [_GCDevicePhysicalInputFacade setInputStateQueueDepth:isSnapshot];
   }
 
   else
@@ -312,39 +316,43 @@
   return result;
 }
 
-- (void)setQueue:.cold.1()
+- (void)setQueue:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  GCRuntimeIssuesLogger = getGCRuntimeIssuesLogger();
+  GCRuntimeIssuesLogger = getGCRuntimeIssuesLogger(a1);
   if (OUTLINED_FUNCTION_1_11(GCRuntimeIssuesLogger))
   {
-    OUTLINED_FUNCTION_0_19(&dword_1D2CD5000, v1, v2, "Setting a 'queue' on a snapshot is ignored.", v3, v4, v5, v6, 0);
+    v8 = 0;
+    OUTLINED_FUNCTION_0_19(&dword_1D2CD5000, v2, v3, "Setting a 'queue' on a snapshot is ignored.", v4, v5, v6, v7, v8);
   }
 }
 
-- (void)setElementValueDidChangeHandler:.cold.1()
+- (void)setElementValueDidChangeHandler:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  GCRuntimeIssuesLogger = getGCRuntimeIssuesLogger();
+  GCRuntimeIssuesLogger = getGCRuntimeIssuesLogger(a1);
   if (OUTLINED_FUNCTION_1_11(GCRuntimeIssuesLogger))
   {
-    OUTLINED_FUNCTION_0_19(&dword_1D2CD5000, v1, v2, "Setting a 'elementValueDidChangeHandler' on a snapshot is ignored.", v3, v4, v5, v6, 0);
+    v8 = 0;
+    OUTLINED_FUNCTION_0_19(&dword_1D2CD5000, v2, v3, "Setting a 'elementValueDidChangeHandler' on a snapshot is ignored.", v4, v5, v6, v7, v8);
   }
 }
 
-- (void)setInputStateAvailableHandler:.cold.1()
+- (void)setInputStateAvailableHandler:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  GCRuntimeIssuesLogger = getGCRuntimeIssuesLogger();
+  GCRuntimeIssuesLogger = getGCRuntimeIssuesLogger(a1);
   if (OUTLINED_FUNCTION_1_11(GCRuntimeIssuesLogger))
   {
-    OUTLINED_FUNCTION_0_19(&dword_1D2CD5000, v1, v2, "Setting a 'inputStateAvailableHandler' on a snapshot is ignored.", v3, v4, v5, v6, 0);
+    v8 = 0;
+    OUTLINED_FUNCTION_0_19(&dword_1D2CD5000, v2, v3, "Setting a 'inputStateAvailableHandler' on a snapshot is ignored.", v4, v5, v6, v7, v8);
   }
 }
 
-- (void)setInputStateQueueDepth:.cold.2()
+- (void)setInputStateQueueDepth:(uint64_t)a1 .cold.2(uint64_t a1)
 {
-  GCRuntimeIssuesLogger = getGCRuntimeIssuesLogger();
+  GCRuntimeIssuesLogger = getGCRuntimeIssuesLogger(a1);
   if (OUTLINED_FUNCTION_1_11(GCRuntimeIssuesLogger))
   {
-    OUTLINED_FUNCTION_0_19(&dword_1D2CD5000, v1, v2, "Setting 'inputStateQueueDepth' on a snapshot is ignored.", v3, v4, v5, v6, 0);
+    v8 = 0;
+    OUTLINED_FUNCTION_0_19(&dword_1D2CD5000, v2, v3, "Setting 'inputStateQueueDepth' on a snapshot is ignored.", v4, v5, v6, v7, v8);
   }
 }
 

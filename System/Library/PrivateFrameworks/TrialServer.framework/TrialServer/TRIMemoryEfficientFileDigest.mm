@@ -6,13 +6,13 @@
 
 + (id)sha256DigestForFile:(id)file
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   fileCopy = file;
   v4 = MEMORY[0x277CCA9F8];
   v5 = [objc_alloc(MEMORY[0x277CBEBC0]) initFileURLWithPath:fileCopy];
-  v19 = 0;
-  v6 = [v4 fileHandleForReadingFromURL:v5 error:&v19];
-  v7 = v19;
+  v18 = 0;
+  v6 = [v4 fileHandleForReadingFromURL:v5 error:&v18];
+  v7 = v18;
 
   if (v6)
   {
@@ -22,9 +22,9 @@
     while (1)
     {
       v9 = objc_autoreleasePoolPush();
-      v18 = 0;
-      v10 = [v6 readDataUpToLength:0x20000 error:&v18];
-      v11 = v18;
+      v17 = 0;
+      v10 = [v6 readDataUpToLength:0x20000 error:&v17];
+      v11 = v17;
       if (!v10)
       {
         break;
@@ -37,8 +37,8 @@
         mutableBytes = [v8 mutableBytes];
         if (!mutableBytes)
         {
-          v17 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE728] reason:@"malloc failed" userInfo:0];
-          objc_exception_throw(v17);
+          v16 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE728] reason:@"malloc failed" userInfo:0];
+          objc_exception_throw(v16);
         }
 
         CC_SHA256_Final(mutableBytes, &c);
@@ -55,9 +55,9 @@
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543618;
-      v21 = fileCopy;
-      v22 = 2114;
-      v23 = v11;
+      v20 = fileCopy;
+      v21 = 2114;
+      v22 = v11;
       _os_log_error_impl(&dword_26F567000, v12, OS_LOG_TYPE_ERROR, "Failed to read from %{public}@ during digest creation with error %{public}@", buf, 0x16u);
     }
 
@@ -79,8 +79,6 @@
 
   v13 = 0;
 LABEL_12:
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }

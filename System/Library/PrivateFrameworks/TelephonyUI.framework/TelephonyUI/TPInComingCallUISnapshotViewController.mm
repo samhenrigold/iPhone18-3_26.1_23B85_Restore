@@ -106,7 +106,7 @@
 
 + (id)posterDisplayNameComponentsForContact:(id)contact
 {
-  v29[1] = *MEMORY[0x1E69E9840];
+  v28[1] = *MEMORY[0x1E69E9840];
   contactCopy = contact;
   v4 = [MEMORY[0x1E696ADF0] componentsForContact:contactCopy];
   v5 = objc_alloc_init(MEMORY[0x1E696ADF8]);
@@ -123,9 +123,9 @@
     if (v10)
     {
       nickname3 = [contactCopy nickname];
-      v29[0] = nickname3;
+      v28[0] = nickname3;
       v12 = MEMORY[0x1E695DEC8];
-      v13 = v29;
+      v13 = v28;
 LABEL_13:
       v18 = [v12 arrayWithObjects:v13 count:1];
       goto LABEL_18;
@@ -151,15 +151,15 @@ LABEL_13:
       familyName2 = [contactCopy familyName];
       if ([nickname3 rangeOfString:familyName2] != 0x7FFFFFFFFFFFFFFFLL)
       {
-        v24 = [nickname3 rangeOfString:@" "];
+        v23 = [nickname3 rangeOfString:@" "];
 
-        if (v24 != 0x7FFFFFFFFFFFFFFFLL)
+        if (v23 != 0x7FFFFFFFFFFFFFFFLL)
         {
           givenName2 = [contactCopy givenName];
-          v28[0] = givenName2;
+          v27[0] = givenName2;
           familyName3 = [contactCopy familyName];
-          v28[1] = familyName3;
-          v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:2];
+          v27[1] = familyName3;
+          v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:2];
 
           goto LABEL_16;
         }
@@ -176,9 +176,9 @@ LABEL_11:
   nickname3 = [v5 stringFromPersonNameComponents:v4];
   if ([nickname3 length])
   {
-    v27 = nickname3;
+    v26 = nickname3;
     v12 = MEMORY[0x1E695DEC8];
-    v13 = &v27;
+    v13 = &v26;
     goto LABEL_13;
   }
 
@@ -188,8 +188,8 @@ LABEL_11:
   if (v20)
   {
     givenName2 = [contactCopy organizationName];
-    v26 = givenName2;
-    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v26 count:1];
+    v25 = givenName2;
+    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v25 count:1];
 LABEL_16:
 
     goto LABEL_18;
@@ -197,8 +197,6 @@ LABEL_16:
 
   v18 = 0;
 LABEL_18:
-
-  v22 = *MEMORY[0x1E69E9840];
 
   return v18;
 }
@@ -263,7 +261,7 @@ LABEL_18:
 
 - (void)setUpConstraints
 {
-  v154[2] = *MEMORY[0x1E69E9840];
+  v153[2] = *MEMORY[0x1E69E9840];
   +[TPIncomingCallMetricsProvider incomingCallAndInCallControlsBottomPadding];
   v4 = v3;
   +[TPIncomingCallMetricsProvider sideMarginForDoubleButton];
@@ -278,15 +276,15 @@ LABEL_18:
   overlaysContainerView = [(TPInComingCallUISnapshotViewController *)self overlaysContainerView];
   topAnchor2 = [overlaysContainerView topAnchor];
   v13 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:v8];
-  v154[0] = v13;
+  v153[0] = v13;
   callDetailsViewButton2 = [(TPInComingCallUISnapshotViewController *)self callDetailsViewButton];
   trailingAnchor = [callDetailsViewButton2 trailingAnchor];
   overlaysContainerView2 = [(TPInComingCallUISnapshotViewController *)self overlaysContainerView];
   trailingAnchor2 = [overlaysContainerView2 trailingAnchor];
   v18 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2 constant:-v10];
-  v154[1] = v18;
-  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v154 count:2];
-  v150 = array;
+  v153[1] = v18;
+  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v153 count:2];
+  v149 = array;
   [array addObjectsFromArray:v19];
 
   avatarView = [(TPInComingCallUISnapshotViewController *)self avatarView];
@@ -299,61 +297,61 @@ LABEL_18:
     safeAreaLayoutGuide = [overlaysContainerView3 safeAreaLayoutGuide];
     topAnchor4 = [safeAreaLayoutGuide topAnchor];
     +[TPIncomingCallMetricsProvider twelvePercentOfDeviceHeight];
-    v129 = [topAnchor3 constraintEqualToAnchor:topAnchor4 constant:?];
-    v153[0] = v129;
+    v128 = [topAnchor3 constraintEqualToAnchor:topAnchor4 constant:?];
+    v152[0] = v128;
     avatarView3 = [(TPInComingCallUISnapshotViewController *)self avatarView];
     leadingAnchor = [avatarView3 leadingAnchor];
     overlaysContainerView4 = [(TPInComingCallUISnapshotViewController *)self overlaysContainerView];
     safeAreaLayoutGuide2 = [overlaysContainerView4 safeAreaLayoutGuide];
     leadingAnchor2 = [safeAreaLayoutGuide2 leadingAnchor];
-    v111 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:v6];
-    v153[1] = v111;
+    v110 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:v6];
+    v152[1] = v110;
     avatarView4 = [(TPInComingCallUISnapshotViewController *)self avatarView];
     widthAnchor = [avatarView4 widthAnchor];
     +[TPUIConfiguration defaultHeight];
-    v103 = [widthAnchor constraintEqualToConstant:?];
-    v153[2] = v103;
+    v102 = [widthAnchor constraintEqualToConstant:?];
+    v152[2] = v102;
     avatarView5 = [(TPInComingCallUISnapshotViewController *)self avatarView];
     heightAnchor = [avatarView5 heightAnchor];
     +[TPUIConfiguration defaultHeight];
-    v97 = [heightAnchor constraintEqualToConstant:?];
-    v153[3] = v97;
+    v96 = [heightAnchor constraintEqualToConstant:?];
+    v152[3] = v96;
     mobileLabel = [(TPInComingCallUISnapshotViewController *)self mobileLabel];
     topAnchor5 = [mobileLabel topAnchor];
     overlaysContainerView5 = [(TPInComingCallUISnapshotViewController *)self overlaysContainerView];
     safeAreaLayoutGuide3 = [overlaysContainerView5 safeAreaLayoutGuide];
     topAnchor6 = [safeAreaLayoutGuide3 topAnchor];
     +[TPIncomingCallMetricsProvider twelvePercentOfDeviceHeight];
-    v85 = [topAnchor5 constraintEqualToAnchor:topAnchor6 constant:v21 + 4.0];
-    v153[4] = v85;
+    v84 = [topAnchor5 constraintEqualToAnchor:topAnchor6 constant:v21 + 4.0];
+    v152[4] = v84;
     mobileLabel2 = [(TPInComingCallUISnapshotViewController *)self mobileLabel];
     leadingAnchor3 = [mobileLabel2 leadingAnchor];
     nameLabel = [(TPInComingCallUISnapshotViewController *)self nameLabel];
     safeAreaLayoutGuide4 = [nameLabel safeAreaLayoutGuide];
     leadingAnchor4 = [safeAreaLayoutGuide4 leadingAnchor];
-    v73 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4];
-    v153[5] = v73;
+    v72 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4];
+    v152[5] = v72;
     nameLabel2 = [(TPInComingCallUISnapshotViewController *)self nameLabel];
     topAnchor7 = [nameLabel2 topAnchor];
     mobileLabel3 = [(TPInComingCallUISnapshotViewController *)self mobileLabel];
     bottomAnchor = [mobileLabel3 bottomAnchor];
-    v66 = [topAnchor7 constraintEqualToAnchor:bottomAnchor];
-    v153[6] = v66;
+    v65 = [topAnchor7 constraintEqualToAnchor:bottomAnchor];
+    v152[6] = v65;
     nameLabel3 = [(TPInComingCallUISnapshotViewController *)self nameLabel];
     leadingAnchor5 = [nameLabel3 leadingAnchor];
     avatarView6 = [(TPInComingCallUISnapshotViewController *)self avatarView];
     trailingAnchor3 = [avatarView6 trailingAnchor];
     v24 = [leadingAnchor5 constraintEqualToAnchor:trailingAnchor3 constant:16.0];
-    v153[7] = v24;
+    v152[7] = v24;
     nameLabel4 = [(TPInComingCallUISnapshotViewController *)self nameLabel];
     trailingAnchor4 = [nameLabel4 trailingAnchor];
     overlaysContainerView6 = [(TPInComingCallUISnapshotViewController *)self overlaysContainerView];
     trailingAnchor5 = [overlaysContainerView6 trailingAnchor];
     v29 = -v6;
     v30 = [trailingAnchor4 constraintEqualToAnchor:trailingAnchor5 constant:-v6];
-    v153[8] = v30;
-    v31 = [MEMORY[0x1E695DEC8] arrayWithObjects:v153 count:9];
-    [v150 addObjectsFromArray:v31];
+    v152[8] = v30;
+    v31 = [MEMORY[0x1E695DEC8] arrayWithObjects:v152 count:9];
+    [v149 addObjectsFromArray:v31];
   }
 
   else
@@ -364,29 +362,29 @@ LABEL_18:
     safeAreaLayoutGuide5 = [overlaysContainerView7 safeAreaLayoutGuide];
     topAnchor9 = [safeAreaLayoutGuide5 topAnchor];
     +[TPIncomingCallMetricsProvider sixPercentOfDeviceHeight];
-    v130 = [topAnchor8 constraintEqualToAnchor:topAnchor9 constant:?];
-    v152[0] = v130;
+    v129 = [topAnchor8 constraintEqualToAnchor:topAnchor9 constant:?];
+    v151[0] = v129;
     mobileLabel5 = [(TPInComingCallUISnapshotViewController *)self mobileLabel];
     centerXAnchor = [mobileLabel5 centerXAnchor];
     overlaysContainerView8 = [(TPInComingCallUISnapshotViewController *)self overlaysContainerView];
     safeAreaLayoutGuide6 = [overlaysContainerView8 safeAreaLayoutGuide];
     centerXAnchor2 = [safeAreaLayoutGuide6 centerXAnchor];
-    v112 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-    v152[1] = v112;
+    v111 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
+    v151[1] = v111;
     nameLabel5 = [(TPInComingCallUISnapshotViewController *)self nameLabel];
     topAnchor10 = [nameLabel5 topAnchor];
     mobileLabel6 = [(TPInComingCallUISnapshotViewController *)self mobileLabel];
     bottomAnchor2 = [mobileLabel6 bottomAnchor];
     v34 = [topAnchor10 constraintEqualToAnchor:bottomAnchor2 constant:2.0];
-    v152[2] = v34;
+    v151[2] = v34;
     nameLabel6 = [(TPInComingCallUISnapshotViewController *)self nameLabel];
     centerXAnchor3 = [nameLabel6 centerXAnchor];
     overlaysContainerView9 = [(TPInComingCallUISnapshotViewController *)self overlaysContainerView];
     centerXAnchor4 = [overlaysContainerView9 centerXAnchor];
     v39 = [centerXAnchor3 constraintEqualToAnchor:centerXAnchor4];
-    v152[3] = v39;
-    v40 = [MEMORY[0x1E695DEC8] arrayWithObjects:v152 count:4];
-    [v150 addObjectsFromArray:v40];
+    v151[3] = v39;
+    v40 = [MEMORY[0x1E695DEC8] arrayWithObjects:v151 count:4];
+    [v149 addObjectsFromArray:v40];
 
     v29 = -v6;
   }
@@ -396,37 +394,37 @@ LABEL_18:
   overlaysContainerView10 = [(TPInComingCallUISnapshotViewController *)self overlaysContainerView];
   [overlaysContainerView10 bottomAnchor];
   v42 = -v4;
-  v137 = v145 = bottomAnchor3;
-  v134 = [bottomAnchor3 constraintEqualToAnchor:v42 constant:?];
-  v151[0] = v134;
+  v136 = v144 = bottomAnchor3;
+  v133 = [bottomAnchor3 constraintEqualToAnchor:v42 constant:?];
+  v150[0] = v133;
   declineButton2 = [(TPInComingCallUISnapshotViewController *)self declineButton];
   leadingAnchor6 = [declineButton2 leadingAnchor];
   overlaysContainerView11 = [(TPInComingCallUISnapshotViewController *)self overlaysContainerView];
   [overlaysContainerView11 leadingAnchor];
-  v122 = v128 = leadingAnchor6;
-  v119 = [leadingAnchor6 constraintEqualToAnchor:v6 constant:?];
-  v151[1] = v119;
+  v121 = v127 = leadingAnchor6;
+  v118 = [leadingAnchor6 constraintEqualToAnchor:v6 constant:?];
+  v150[1] = v118;
   acceptButton = [(TPInComingCallUISnapshotViewController *)self acceptButton];
   bottomAnchor4 = [acceptButton bottomAnchor];
   overlaysContainerView12 = [(TPInComingCallUISnapshotViewController *)self overlaysContainerView];
   [overlaysContainerView12 bottomAnchor];
-  v107 = v113 = bottomAnchor4;
-  v104 = [bottomAnchor4 constraintEqualToAnchor:v42 constant:?];
-  v151[2] = v104;
+  v106 = v112 = bottomAnchor4;
+  v103 = [bottomAnchor4 constraintEqualToAnchor:v42 constant:?];
+  v150[2] = v103;
   acceptButton2 = [(TPInComingCallUISnapshotViewController *)self acceptButton];
   trailingAnchor6 = [acceptButton2 trailingAnchor];
   overlaysContainerView13 = [(TPInComingCallUISnapshotViewController *)self overlaysContainerView];
   [overlaysContainerView13 trailingAnchor];
-  v96 = v100 = trailingAnchor6;
-  v94 = [trailingAnchor6 constraintEqualToAnchor:v29 constant:?];
-  v151[3] = v94;
+  v95 = v99 = trailingAnchor6;
+  v93 = [trailingAnchor6 constraintEqualToAnchor:v29 constant:?];
+  v150[3] = v93;
   messageButton = [(TPInComingCallUISnapshotViewController *)self messageButton];
   centerXAnchor5 = [messageButton centerXAnchor];
   declineButton3 = [(TPInComingCallUISnapshotViewController *)self declineButton];
   [declineButton3 centerXAnchor];
-  v86 = v90 = centerXAnchor5;
-  v84 = [centerXAnchor5 constraintEqualToAnchor:?];
-  v151[4] = v84;
+  v85 = v89 = centerXAnchor5;
+  v83 = [centerXAnchor5 constraintEqualToAnchor:?];
+  v150[4] = v83;
   messageButton2 = [(TPInComingCallUISnapshotViewController *)self messageButton];
   bottomAnchor5 = [messageButton2 bottomAnchor];
   declineButton4 = [(TPInComingCallUISnapshotViewController *)self declineButton];
@@ -444,17 +442,17 @@ LABEL_18:
     }
   }
 
-  v80 = bottomAnchor5;
-  v76 = topAnchor11;
-  v74 = [bottomAnchor5 constraintEqualToAnchor:topAnchor11 constant:-*&v51];
-  v151[5] = v74;
+  v79 = bottomAnchor5;
+  v75 = topAnchor11;
+  v73 = [bottomAnchor5 constraintEqualToAnchor:topAnchor11 constant:-*&v51];
+  v150[5] = v73;
   remindMeButton = [(TPInComingCallUISnapshotViewController *)self remindMeButton];
   centerXAnchor6 = [remindMeButton centerXAnchor];
   acceptButton3 = [(TPInComingCallUISnapshotViewController *)self acceptButton];
   centerXAnchor7 = [acceptButton3 centerXAnchor];
-  v70 = centerXAnchor6;
+  v69 = centerXAnchor6;
   v56 = [centerXAnchor6 constraintEqualToAnchor:centerXAnchor7];
-  v151[6] = v56;
+  v150[6] = v56;
   remindMeButton2 = [(TPInComingCallUISnapshotViewController *)self remindMeButton];
   bottomAnchor6 = [remindMeButton2 bottomAnchor];
   acceptButton4 = [(TPInComingCallUISnapshotViewController *)self acceptButton];
@@ -473,34 +471,33 @@ LABEL_18:
   }
 
   v61 = [bottomAnchor6 constraintEqualToAnchor:topAnchor12 constant:-v50];
-  v151[7] = v61;
-  v62 = [MEMORY[0x1E695DEC8] arrayWithObjects:v151 count:8];
-  [v150 addObjectsFromArray:v62];
+  v150[7] = v61;
+  v62 = [MEMORY[0x1E695DEC8] arrayWithObjects:v150 count:8];
+  [v149 addObjectsFromArray:v62];
 
-  [MEMORY[0x1E696ACD8] activateConstraints:v150];
-  v63 = *MEMORY[0x1E69E9840];
+  [MEMORY[0x1E696ACD8] activateConstraints:v149];
 }
 
 - (void)setupLabels
 {
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x2050000000;
+  v27 = 0;
+  v28 = &v27;
+  v29 = 0x2050000000;
   v3 = getPRPosterLabelClass_softClass;
-  v28 = getPRPosterLabelClass_softClass;
+  v30 = getPRPosterLabelClass_softClass;
   if (!getPRPosterLabelClass_softClass)
   {
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = __getPRPosterLabelClass_block_invoke;
-    v24[3] = &unk_1E7C0C110;
-    v24[4] = &v25;
-    __getPRPosterLabelClass_block_invoke(v24);
-    v3 = v26[3];
+    v26[0] = MEMORY[0x1E69E9820];
+    v26[1] = 3221225472;
+    v26[2] = __getPRPosterLabelClass_block_invoke;
+    v26[3] = &unk_1E7C0C110;
+    v26[4] = &v27;
+    __getPRPosterLabelClass_block_invoke(v26);
+    v3 = v28[3];
   }
 
   v4 = v3;
-  _Block_object_dispose(&v25, 8);
+  _Block_object_dispose(&v27, 8);
   v5 = objc_alloc_init(v3);
   [(TPInComingCallUISnapshotViewController *)self setMobileLabel:v5];
 
@@ -511,10 +508,10 @@ LABEL_18:
   nameLabel = [(TPInComingCallUISnapshotViewController *)self nameLabel];
   [nameLabel setText:nameString];
 
-  v9 = TelephonyUIBundle();
-  v10 = [v9 localizedStringForKey:@"MOBILE" value:&stru_1F2CA8008 table:@"General"];
+  v11 = TelephonyUIBundle(v9, v10);
+  v12 = [v11 localizedStringForKey:@"MOBILE" value:&stru_1F2CA8008 table:@"General"];
   mobileLabel = [(TPInComingCallUISnapshotViewController *)self mobileLabel];
-  [mobileLabel setText:v10];
+  [mobileLabel setText:v12];
 
   overlaysContainerView = [(TPInComingCallUISnapshotViewController *)self overlaysContainerView];
   mobileLabel2 = [(TPInComingCallUISnapshotViewController *)self mobileLabel];
@@ -543,13 +540,13 @@ LABEL_18:
   {
     +[TPIncomingCallMetricsProvider nameLabelFont];
   }
-  v20 = ;
+  v22 = ;
   nameLabel5 = [(TPInComingCallUISnapshotViewController *)self nameLabel];
-  [nameLabel5 setFont:v20];
+  [nameLabel5 setFont:v22];
 
-  v22 = +[TPIncomingCallMetricsProvider mobileLabelFont];
+  v24 = +[TPIncomingCallMetricsProvider mobileLabelFont];
   mobileLabel4 = [(TPInComingCallUISnapshotViewController *)self mobileLabel];
-  [mobileLabel4 setFont:v22];
+  [mobileLabel4 setFont:v24];
 }
 
 - (void)setupAvatarViewIfNeeded
@@ -681,9 +678,9 @@ LABEL_16:
   {
     if (button == 1)
     {
-      v49 = [TPInComingCallBottomBarSupplementalButton alloc];
-      v50 = [(TPInComingCallBottomBarSupplementalButton *)v49 initWithFrame:*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)];
-      [(TPInComingCallUISnapshotViewController *)self setRemindMeButton:v50];
+      v52 = [TPInComingCallBottomBarSupplementalButton alloc];
+      v53 = [(TPInComingCallBottomBarSupplementalButton *)v52 initWithFrame:*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)];
+      [(TPInComingCallUISnapshotViewController *)self setRemindMeButton:v53];
 
       overlaysContainerView = [(TPInComingCallUISnapshotViewController *)self overlaysContainerView];
       remindMeButton = [(TPInComingCallUISnapshotViewController *)self remindMeButton];
@@ -692,14 +689,14 @@ LABEL_16:
       remindMeButton2 = [(TPInComingCallUISnapshotViewController *)self remindMeButton];
       [remindMeButton2 setTranslatesAutoresizingMaskIntoConstraints:0];
 
-      v56 = [MEMORY[0x1E69DCAB8] tpImageForSymbolType:39 textStyle:*MEMORY[0x1E69DDDC8] scale:-1 isStaticSize:1];
+      v60 = [MEMORY[0x1E69DCAB8] tpImageForSymbolType:39 textStyle:*MEMORY[0x1E69DDDC8] scale:-1 isStaticSize:1];
       remindMeButton3 = [(TPInComingCallUISnapshotViewController *)self remindMeButton];
-      [remindMeButton3 setImage:v56 forState:0];
+      [remindMeButton3 setImage:v60 forState:0];
 
       remindMeButton4 = [(TPInComingCallUISnapshotViewController *)self remindMeButton];
-      v17 = TelephonyUIBundle();
-      v18 = v17;
-      v19 = @"CALL_BACK_LATER";
+      v18 = TelephonyUIBundle(remindMeButton4, v58);
+      v19 = v18;
+      v20 = @"CALL_BACK_LATER";
     }
 
     else
@@ -720,26 +717,26 @@ LABEL_16:
       messageButton2 = [(TPInComingCallUISnapshotViewController *)self messageButton];
       [messageButton2 setTranslatesAutoresizingMaskIntoConstraints:0];
 
-      v56 = [MEMORY[0x1E69DCAB8] tpImageForSymbolType:14 textStyle:*MEMORY[0x1E69DDDC8] scale:-1 isStaticSize:1];
+      v60 = [MEMORY[0x1E69DCAB8] tpImageForSymbolType:14 textStyle:*MEMORY[0x1E69DDDC8] scale:-1 isStaticSize:1];
       messageButton3 = [(TPInComingCallUISnapshotViewController *)self messageButton];
-      [messageButton3 setImage:v56 forState:0];
+      [messageButton3 setImage:v60 forState:0];
 
       remindMeButton4 = [(TPInComingCallUISnapshotViewController *)self messageButton];
-      v17 = TelephonyUIBundle();
-      v18 = v17;
-      v19 = @"SEND_MESSAGE";
+      v18 = TelephonyUIBundle(remindMeButton4, v17);
+      v19 = v18;
+      v20 = @"SEND_MESSAGE";
     }
 
-    v55 = [v17 localizedStringForKey:v19 value:&stru_1F2CA8008 table:@"General"];
-    [remindMeButton4 setTitle:v55 forState:0];
+    v59 = [v18 localizedStringForKey:v20 value:&stru_1F2CA8008 table:@"General"];
+    [remindMeButton4 setTitle:v59 forState:0];
   }
 
   else
   {
     if (button == 3)
     {
-      v20 = objc_alloc_init(TPInComingCallBottomBarButton);
-      [(TPInComingCallUISnapshotViewController *)self setDeclineButton:v20];
+      v21 = objc_alloc_init(TPInComingCallBottomBarButton);
+      [(TPInComingCallUISnapshotViewController *)self setDeclineButton:v21];
 
       overlaysContainerView3 = [(TPInComingCallUISnapshotViewController *)self overlaysContainerView];
       declineButton = [(TPInComingCallUISnapshotViewController *)self declineButton];
@@ -748,14 +745,14 @@ LABEL_16:
       declineButton2 = [(TPInComingCallUISnapshotViewController *)self declineButton];
       [declineButton2 setTranslatesAutoresizingMaskIntoConstraints:0];
 
-      v56 = [MEMORY[0x1E69DCAB8] tpImageForSymbolType:2 textStyle:*MEMORY[0x1E69DDDB8] scale:3 isStaticSize:1];
+      v60 = [MEMORY[0x1E69DCAB8] tpImageForSymbolType:2 textStyle:*MEMORY[0x1E69DDDB8] scale:3 isStaticSize:1];
       declineButton3 = [(TPInComingCallUISnapshotViewController *)self declineButton];
-      [declineButton3 setImage:v56 forState:0];
+      [declineButton3 setImage:v60 forState:0];
 
       declineButton4 = [(TPInComingCallUISnapshotViewController *)self declineButton];
-      v26 = TelephonyUIBundle();
-      v27 = [v26 localizedStringForKey:@"DECLINE" value:&stru_1F2CA8008 table:@"General"];
-      [declineButton4 setTitle:v27 forState:0];
+      v28 = TelephonyUIBundle(declineButton4, v27);
+      v29 = [v28 localizedStringForKey:@"DECLINE" value:&stru_1F2CA8008 table:@"General"];
+      [declineButton4 setTitle:v29 forState:0];
 
       systemRedColor = [MEMORY[0x1E69DC888] systemRedColor];
       declineButton5 = [(TPInComingCallUISnapshotViewController *)self declineButton];
@@ -798,8 +795,8 @@ LABEL_16:
         return;
       }
 
-      v35 = objc_alloc_init(TPInComingCallBottomBarButton);
-      [(TPInComingCallUISnapshotViewController *)self setAcceptButton:v35];
+      v37 = objc_alloc_init(TPInComingCallBottomBarButton);
+      [(TPInComingCallUISnapshotViewController *)self setAcceptButton:v37];
 
       overlaysContainerView5 = [(TPInComingCallUISnapshotViewController *)self overlaysContainerView];
       acceptButton = [(TPInComingCallUISnapshotViewController *)self acceptButton];
@@ -808,14 +805,14 @@ LABEL_16:
       acceptButton2 = [(TPInComingCallUISnapshotViewController *)self acceptButton];
       [acceptButton2 setTranslatesAutoresizingMaskIntoConstraints:0];
 
-      v56 = [MEMORY[0x1E69DCAB8] tpImageForSymbolType:1 textStyle:*MEMORY[0x1E69DDDB8] scale:3 isStaticSize:1];
+      v60 = [MEMORY[0x1E69DCAB8] tpImageForSymbolType:1 textStyle:*MEMORY[0x1E69DDDB8] scale:3 isStaticSize:1];
       acceptButton3 = [(TPInComingCallUISnapshotViewController *)self acceptButton];
-      [acceptButton3 setImage:v56 forState:0];
+      [acceptButton3 setImage:v60 forState:0];
 
       acceptButton4 = [(TPInComingCallUISnapshotViewController *)self acceptButton];
-      v41 = TelephonyUIBundle();
-      v42 = [v41 localizedStringForKey:@"ACCEPT" value:&stru_1F2CA8008 table:@"General"];
-      [acceptButton4 setTitle:v42 forState:0];
+      v44 = TelephonyUIBundle(acceptButton4, v43);
+      v45 = [v44 localizedStringForKey:@"ACCEPT" value:&stru_1F2CA8008 table:@"General"];
+      [acceptButton4 setTitle:v45 forState:0];
 
       systemGreenColor = [MEMORY[0x1E69DC888] systemGreenColor];
       acceptButton5 = [(TPInComingCallUISnapshotViewController *)self acceptButton];
@@ -1110,7 +1107,7 @@ LABEL_12:
 
 - (id)attachmentIdentifiersForStyle
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   style = [(TPInComingCallUISnapshotViewController *)self style];
   v4 = @"TPUI_MobileLabel";
   if (style != 2)
@@ -1129,51 +1126,49 @@ LABEL_12:
   {
     if (v5)
     {
-      v14 = v5;
+      v13 = v5;
       v7 = getPRUISIncomingCallPosterAttachmentTypeIdentifierNameLabel();
-      v15 = v7;
+      v14 = v7;
       v8 = MEMORY[0x1E695DEC8];
-      v9 = &v14;
+      v9 = &v13;
       v10 = 2;
     }
 
     else
     {
       v7 = getPRUISIncomingCallPosterAttachmentTypeIdentifierNameLabel();
-      v13 = v7;
+      v12 = v7;
       v8 = MEMORY[0x1E695DEC8];
-      v9 = &v13;
+      v9 = &v12;
       v10 = 1;
     }
 
-    v6 = [v8 arrayWithObjects:v9 count:{v10, v13, v14, v15}];
+    v6 = [v8 arrayWithObjects:v9 count:{v10, v12, v13, v14}];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
 
 - (id)attachmentsForStyle
 {
-  v68 = 0;
-  v69 = &v68;
-  v70 = 0x2050000000;
+  v70 = 0;
+  v71 = &v70;
+  v72 = 0x2050000000;
   v3 = getPRUISPosterAppearanceObservingAttachmentProviderClass_softClass;
-  v71 = getPRUISPosterAppearanceObservingAttachmentProviderClass_softClass;
+  v73 = getPRUISPosterAppearanceObservingAttachmentProviderClass_softClass;
   if (!getPRUISPosterAppearanceObservingAttachmentProviderClass_softClass)
   {
-    *&v65 = MEMORY[0x1E69E9820];
-    *(&v65 + 1) = 3221225472;
-    *&v66 = __getPRUISPosterAppearanceObservingAttachmentProviderClass_block_invoke;
-    *(&v66 + 1) = &unk_1E7C0C110;
-    *&v67 = &v68;
-    __getPRUISPosterAppearanceObservingAttachmentProviderClass_block_invoke(&v65);
-    v3 = v69[3];
+    *&v67 = MEMORY[0x1E69E9820];
+    *(&v67 + 1) = 3221225472;
+    *&v68 = __getPRUISPosterAppearanceObservingAttachmentProviderClass_block_invoke;
+    *(&v68 + 1) = &unk_1E7C0C110;
+    *&v69 = &v70;
+    __getPRUISPosterAppearanceObservingAttachmentProviderClass_block_invoke(&v67);
+    v3 = v71[3];
   }
 
   v4 = v3;
-  _Block_object_dispose(&v68, 8);
+  _Block_object_dispose(&v70, 8);
   v5 = [v3 alloc];
   configuration = [(TPInComingCallUISnapshotViewController *)self configuration];
   v7 = [v5 initWithPRSConfiguration:configuration];
@@ -1224,74 +1219,75 @@ LABEL_12:
   v10 = [MEMORY[0x1E695DF70] arrayWithCapacity:1];
 LABEL_11:
   vibrantObscurableContentView = [v7 vibrantObscurableContentView];
+  v26 = vibrantObscurableContentView;
   if (style == 1)
   {
-    v25 = 0;
+    v27 = 0;
   }
 
   else
   {
-    v26 = TelephonyUIBundle();
-    v25 = [v26 localizedStringForKey:@"MOBILE" value:&stru_1F2CA8008 table:@"General"];
+    v28 = TelephonyUIBundle(vibrantObscurableContentView, v25);
+    v27 = [v28 localizedStringForKey:@"MOBILE" value:&stru_1F2CA8008 table:@"General"];
   }
 
-  v27 = 0x1E7C0B000uLL;
+  v29 = 0x1E7C0B000uLL;
   contact = [(TPInComingCallUISnapshotViewController *)self contact];
-  v29 = [TPIncomingCallMetricsProvider appropriateCallerNameViewForContact:contact callStatus:v25 callIsActive:0 optionalBackupName:0];
+  v31 = [TPIncomingCallMetricsProvider appropriateCallerNameViewForContact:contact callStatus:v27 callIsActive:0 optionalBackupName:0];
 
-  [v7 applyPosterAppearanceToObserver:v29];
-  if ([v29 layout] != 1 || (objc_msgSend(v29, "statusIsSuitableForVerticalLayout") & 1) != 0 || style == 1)
+  [v7 applyPosterAppearanceToObserver:v31];
+  if ([v31 layout] != 1 || (objc_msgSend(v31, "statusIsSuitableForVerticalLayout") & 1) != 0 || style == 1)
   {
     mobileLabel = [(TPInComingCallUISnapshotViewController *)self mobileLabel];
-    v42 = *(MEMORY[0x1E695EFD0] + 16);
-    v65 = *MEMORY[0x1E695EFD0];
-    v66 = v42;
-    v67 = *(MEMORY[0x1E695EFD0] + 32);
-    [mobileLabel setTransform:&v65];
+    v44 = *(MEMORY[0x1E695EFD0] + 16);
+    v67 = *MEMORY[0x1E695EFD0];
+    v68 = v44;
+    v69 = *(MEMORY[0x1E695EFD0] + 32);
+    [mobileLabel setTransform:&v67];
 
     mobileLabel4 = +[TPIncomingCallMetricsProvider mobileLabelFont];
     mobileLabel2 = [(TPInComingCallUISnapshotViewController *)self mobileLabel];
     [mobileLabel2 setFont:mobileLabel4];
-    v40 = 1;
+    v42 = 1;
   }
 
   else
   {
     [(TPInComingCallUISnapshotViewController *)self moveMobileLabelToBeYAxisCenteredWithInfoButton];
     callDetailsViewButton = [(TPInComingCallUISnapshotViewController *)self callDetailsViewButton];
-    v31 = +[TPIncomingCallMetricsProvider callDetailsButtonMaxSize];
-    [callDetailsViewButton setMaximumContentSizeCategory:v31];
+    v33 = +[TPIncomingCallMetricsProvider callDetailsButtonMaxSize];
+    [callDetailsViewButton setMaximumContentSizeCategory:v33];
 
     mobileLabel3 = [(TPInComingCallUISnapshotViewController *)self mobileLabel];
     [v7 applyPosterAppearanceToObserver:mobileLabel3];
 
     mobileLabel4 = [(TPInComingCallUISnapshotViewController *)self mobileLabel];
     mobileLabel2 = [mobileLabel4 font];
-    v35 = [mobileLabel2 fontWithSize:22.0];
+    v37 = [mobileLabel2 fontWithSize:22.0];
     [(TPInComingCallUISnapshotViewController *)self mobileLabel];
-    v36 = v10;
-    v37 = v25;
-    v39 = v38 = vibrantObscurableContentView;
-    [v39 setFont:v35];
+    v38 = v10;
+    v39 = v27;
+    v41 = v40 = v26;
+    [v41 setFont:v37];
 
-    vibrantObscurableContentView = v38;
-    v25 = v37;
-    v10 = v36;
-    v27 = 0x1E7C0B000;
+    v26 = v40;
+    v27 = v39;
+    v10 = v38;
+    v29 = 0x1E7C0B000;
 
-    v40 = 0;
+    v42 = 0;
   }
 
   mobileLabel5 = [(TPInComingCallUISnapshotViewController *)self mobileLabel];
-  [mobileLabel5 setHidden:v40];
+  [mobileLabel5 setHidden:v42];
 
-  [*(v27 + 1880) addCallerNameView:v29 toContainerView:vibrantObscurableContentView];
-  emojiViewController = [v29 emojiViewController];
+  [*(v29 + 1880) addCallerNameView:v31 toContainerView:v26];
+  emojiViewController = [v31 emojiViewController];
 
   if (emojiViewController)
   {
     obscurableOverlayView = [v7 obscurableOverlayView];
-    emojiViewController2 = [v29 emojiViewController];
+    emojiViewController2 = [v31 emojiViewController];
     view = [emojiViewController2 view];
     [obscurableOverlayView addSubview:view];
   }
@@ -1304,24 +1300,24 @@ LABEL_11:
     vibrantObscurableContentView3 = [v7 vibrantObscurableContentView];
     [vibrantObscurableContentView3 layoutIfNeeded];
 
-    emojiViewController3 = [v29 emojiViewController];
+    emojiViewController3 = [v31 emojiViewController];
 
     if (emojiViewController3)
     {
-      viewController = [v29 viewController];
+      viewController = [v31 viewController];
       view2 = [viewController view];
       [view2 frame];
-      v54 = v53;
       v56 = v55;
       v58 = v57;
       v60 = v59;
+      v62 = v61;
 
-      emojiViewController4 = [v29 emojiViewController];
+      emojiViewController4 = [v31 emojiViewController];
       view3 = [emojiViewController4 view];
-      [view3 setFrame:{v54, v56, v58, v60}];
+      [view3 setFrame:{v56, v58, v60, v62}];
     }
 
-    [v29 tightFrame];
+    [v31 tightFrame];
     [v7 setPrimaryContentTightFrame:?];
   }
 
@@ -1338,24 +1334,22 @@ LABEL_29:
 
 - (void)moveMobileLabelToBeYAxisCenteredWithInfoButton
 {
-  v16[2] = *MEMORY[0x1E69E9840];
-  v14 = MEMORY[0x1E696ACD8];
+  v15[2] = *MEMORY[0x1E69E9840];
+  v13 = MEMORY[0x1E696ACD8];
   mobileLabel = [(TPInComingCallUISnapshotViewController *)self mobileLabel];
   topAnchor = [mobileLabel topAnchor];
   callDetailsViewButton = [(TPInComingCallUISnapshotViewController *)self callDetailsViewButton];
   topAnchor2 = [callDetailsViewButton topAnchor];
   v6 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:0.0];
-  v16[0] = v6;
+  v15[0] = v6;
   mobileLabel2 = [(TPInComingCallUISnapshotViewController *)self mobileLabel];
   centerYAnchor = [mobileLabel2 centerYAnchor];
   callDetailsViewButton2 = [(TPInComingCallUISnapshotViewController *)self callDetailsViewButton];
   centerYAnchor2 = [callDetailsViewButton2 centerYAnchor];
   v11 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2 constant:0.0];
-  v16[1] = v11;
-  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:2];
-  [v14 activateConstraints:v12];
-
-  v13 = *MEMORY[0x1E69E9840];
+  v15[1] = v11;
+  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:2];
+  [v13 activateConstraints:v12];
 }
 
 - (void)snapshotWithOptions:(unint64_t)options windowScene:(id)scene useAttachmentConfiguration:(BOOL)configuration completionBlock:(id)block
@@ -1574,29 +1568,7 @@ void __117__TPInComingCallUISnapshotViewController_snapshotWithOptions_windowSce
   v76 = 0;
   v51 = [v50 latestSnapshotBundleForRequest:v39 error:&v76];
   v52 = v76;
-  if (!v51)
-  {
-    goto LABEL_24;
-  }
-
-  [v35 levelSets];
-  v64 = v1;
-  v53 = v35;
-  v54 = v8;
-  v56 = v55 = v5;
-  [v56 firstObject];
-  v57 = v39;
-  v59 = v58 = v52;
-  v60 = [v51 snapshotForLevelSet:v59];
-
-  v52 = v58;
-  v39 = v57;
-
-  v5 = v55;
-  v8 = v54;
-  v35 = v53;
-  v1 = v64;
-  if (v60)
+  if (v51 && ([v35 levelSets], v64 = v1, v53 = v35, v54 = v8, v55 = v5, v56 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v56, "firstObject"), v57 = v39, v58 = v52, v59 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v51, "snapshotForLevelSet:", v59), v60 = objc_claimAutoreleasedReturnValue(), v59, v52 = v58, v39 = v57, v56, v5 = v55, v8 = v54, v35 = v53, v1 = v64, v60))
   {
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
@@ -1610,7 +1582,6 @@ void __117__TPInComingCallUISnapshotViewController_snapshotWithOptions_windowSce
 
   else
   {
-LABEL_24:
     v61 = dispatch_get_global_queue(-32768, 0);
     v67[0] = MEMORY[0x1E69E9820];
     v67[1] = 3221225472;
@@ -1662,54 +1633,55 @@ void __117__TPInComingCallUISnapshotViewController_snapshotWithOptions_windowSce
 {
   v28 = *MEMORY[0x1E69E9840];
   v6 = a4;
+  v7 = v6;
   if (a3)
   {
-    v7 = [a3 snapshotBundle];
-    v8 = [*(a1 + 40) levelSets];
-    v9 = [v8 firstObject];
-    v10 = [v7 snapshotForLevelSet:v9];
+    v8 = [a3 snapshotBundle];
+    v9 = [*(a1 + 40) levelSets];
+    v10 = [v9 firstObject];
+    v11 = [v8 snapshotForLevelSet:v10];
 
-    v11 = *(a1 + 48);
-    if (v10)
+    v12 = *(a1 + 48);
+    if (v11)
     {
-      (*(v11 + 16))(*(a1 + 48), v10, 0);
-      v12 = v21;
+      (*(v12 + 16))(*(a1 + 48), v11, 0);
+      v13 = v21;
       v21[0] = MEMORY[0x1E69E9820];
       v21[1] = 3221225472;
-      v13 = __117__TPInComingCallUISnapshotViewController_snapshotWithOptions_windowScene_useAttachmentConfiguration_completionBlock___block_invoke_2_74;
+      v14 = __117__TPInComingCallUISnapshotViewController_snapshotWithOptions_windowScene_useAttachmentConfiguration_completionBlock___block_invoke_2_74;
     }
 
     else
     {
-      v16 = MEMORY[0x1E696ABC0];
+      v17 = MEMORY[0x1E696ABC0];
       v24 = *MEMORY[0x1E696A578];
       v25 = @"Snapshot generation returned nil snapshot";
-      v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
-      v18 = [v16 errorWithDomain:@"com.apple.TPInComingCallUISnapshotViewController" code:-1 userInfo:v17];
-      (*(v11 + 16))(v11, 0, v18);
+      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+      v19 = [v17 errorWithDomain:@"com.apple.TPInComingCallUISnapshotViewController" code:-1 userInfo:v18];
+      (*(v12 + 16))(v12, 0, v19);
 
-      v12 = v20;
+      v13 = v20;
       v20[0] = MEMORY[0x1E69E9820];
       v20[1] = 3221225472;
-      v13 = __117__TPInComingCallUISnapshotViewController_snapshotWithOptions_windowScene_useAttachmentConfiguration_completionBlock___block_invoke_3_83;
+      v14 = __117__TPInComingCallUISnapshotViewController_snapshotWithOptions_windowScene_useAttachmentConfiguration_completionBlock___block_invoke_3_83;
     }
 
-    v12[2] = v13;
-    v12[3] = &unk_1E7C0C070;
-    *(v12 + 40) = *(a1 + 56);
-    v12[4] = *(a1 + 32);
-    dispatch_async(MEMORY[0x1E69E96A0], v12);
+    v13[2] = v14;
+    v13[3] = &unk_1E7C0C070;
+    *(v13 + 40) = *(a1 + 56);
+    v13[4] = *(a1 + 32);
+    dispatch_async(MEMORY[0x1E69E96A0], v13);
   }
 
   else
   {
-    v14 = TPDefaultLog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = TPDefaultLog(v6);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = [v6 debugDescription];
+      v16 = [v7 debugDescription];
       *buf = 138412290;
-      v27 = v15;
-      _os_log_impl(&dword_1B4894000, v14, OS_LOG_TYPE_DEFAULT, "Error in executeSnapshotRequest: %@", buf, 0xCu);
+      v27 = v16;
+      _os_log_impl(&dword_1B4894000, v15, OS_LOG_TYPE_DEFAULT, "Error in executeSnapshotRequest: %@", buf, 0xCu);
     }
 
     (*(*(a1 + 48) + 16))();
@@ -1721,8 +1693,6 @@ void __117__TPInComingCallUISnapshotViewController_snapshotWithOptions_windowSce
     block[4] = *(a1 + 32);
     dispatch_async(MEMORY[0x1E69E96A0], block);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __117__TPInComingCallUISnapshotViewController_snapshotWithOptions_windowScene_useAttachmentConfiguration_completionBlock___block_invoke_73(uint64_t a1)

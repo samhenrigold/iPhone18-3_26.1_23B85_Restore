@@ -15,6 +15,7 @@
 - (void)database:(id)database protectedDataDidBecomeAvailable:(BOOL)available;
 - (void)dealloc;
 - (void)didReceiveOriginalSignedClinicalDataRecordSyncEntities;
+- (void)extractUnextractedOriginalRecordsWithReason:(id)reason ignoreExtractionVersion:(BOOL)version completion:(id)completion;
 - (void)ontologyShardImporter:(id)importer didImportEntry:(id)entry;
 - (void)parseSignedClinicalData:(id)data options:(unint64_t)options completion:(id)completion;
 - (void)profileDidBecomeReady:(id)ready;
@@ -111,7 +112,7 @@
   v10 = HKLogHealthRecords;
   if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_DEBUG))
   {
-    sub_A38EC(v10, self);
+    sub_A38EC(v10);
   }
 
   XPCServiceClient = self->_XPCServiceClient;
@@ -133,7 +134,7 @@
   v8 = HKLogHealthRecords;
   if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_DEBUG))
   {
-    sub_A3ADC(v8, self);
+    sub_A3ADC(v8);
   }
 
   XPCServiceClient = self->_XPCServiceClient;
@@ -308,7 +309,7 @@
       v34 = HKLogHealthRecords;
       if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_ERROR))
       {
-        sub_A3DD0(v34);
+        sub_A3DD0(v34, self, v40);
       }
 
       [(HDSignedClinicalDataManager *)self didCompleteReExtractionWithCompletion:completionCopy numExtracted:0 errorReturned:v40];
@@ -1774,6 +1775,65 @@ LABEL_20:
   }
 
   return v19;
+}
+
+- (void)extractUnextractedOriginalRecordsWithReason:(id)reason ignoreExtractionVersion:(BOOL)version completion:(id)completion
+{
+  versionCopy = version;
+  reasonCopy = reason;
+  completionCopy = completion;
+  _HKInitializeLogging();
+  v11 = HKLogHealthRecords;
+  if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_DEFAULT))
+  {
+    v12 = v11;
+    v13 = objc_opt_class();
+    v14 = NSStringFromClass(v13);
+    v15 = NSStringFromSelector(a2);
+    *buf = 138543874;
+    v25 = v14;
+    v26 = 2114;
+    v27 = v15;
+    v28 = 2114;
+    v29 = reasonCopy;
+    _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "%{public}@.%{public}@ starting to extract potentially unextracted SCD records with reason %{public}@", buf, 0x20u);
+  }
+
+  WeakRetained = objc_loadWeakRetained(&self->_profileExtension);
+  profile = [WeakRetained profile];
+  v23 = 0;
+  v18 = [HDOriginalSignedClinicalDataRecordEntity unextractedOriginalRecordsOnProfile:profile extractionVersion:[(HDSignedClinicalDataManager *)self extractionVersion] ignoreExtractionVersion:versionCopy error:&v23];
+  v19 = v23;
+
+  if (v18)
+  {
+    v21[0] = _NSConcreteStackBlock;
+    v21[1] = 3221225472;
+    v21[2] = sub_5BA74;
+    v21[3] = &unk_107BB0;
+    v22 = completionCopy;
+    [(HDSignedClinicalDataManager *)self reextractOriginalSignedClinicalDataRecords:v18 completion:v21];
+  }
+
+  else
+  {
+    hk_isDatabaseAccessibilityError = [v19 hk_isDatabaseAccessibilityError];
+    _HKInitializeLogging();
+    if (hk_isDatabaseAccessibilityError)
+    {
+      if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_ERROR))
+      {
+        sub_A46C4();
+      }
+    }
+
+    else if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_FAULT))
+    {
+      sub_A464C();
+    }
+
+    completionCopy[2](completionCopy);
+  }
 }
 
 - (void)reextractSignedClinicalDataRecordsForAccountWithIdentifier:(id)identifier completion:(id)completion

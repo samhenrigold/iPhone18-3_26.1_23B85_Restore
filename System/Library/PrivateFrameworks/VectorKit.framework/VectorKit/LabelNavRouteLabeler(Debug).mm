@@ -7,9 +7,9 @@
 - (__n128)drawNavOverlayDebugView:()Debug navContext:
 {
 LABEL_1:
-  n128_u64 = a2[-1].n128_u64;
-  n128_f64 = a2[-2].n128_f64;
-  v11 = a2[-3].n128_f64;
+  v9 = a2 - 1;
+  v10 = a2 - 2;
+  v11 = a2 - 3;
   selfCopy = self;
   while (1)
   {
@@ -24,18 +24,18 @@ LABEL_1:
 
       if (v13 == 2)
       {
-        result.n128_u64[0] = *n128_u64;
-        if (*n128_u64 >= *selfCopy)
+        result.n128_u64[0] = v9->n128_u64[0];
+        if (v9->n128_f64[0] >= *selfCopy)
         {
           return result;
         }
 
 LABEL_107:
         v119 = *selfCopy;
-        *selfCopy = *n128_u64;
+        *selfCopy = *v9;
         result = v119;
 LABEL_108:
-        *n128_u64 = result;
+        *v9 = result;
         return result;
       }
 
@@ -92,15 +92,15 @@ LABEL_177:
         }
       }
 
-      result.n128_u64[0] = *n128_u64;
-      if (*n128_u64 >= v59->n128_f64[0])
+      result.n128_u64[0] = v9->n128_u64[0];
+      if (v9->n128_f64[0] >= v59->n128_f64[0])
       {
         return result;
       }
 
       result = *v59;
-      *v59 = *n128_u64;
-      *n128_u64 = result;
+      *v59 = *v9;
+      *v9 = result;
       result.n128_u64[0] = v59->n128_u64[0];
       if (v59->n128_f64[0] >= v56->n128_f64[0])
       {
@@ -317,7 +317,7 @@ LABEL_127:
               result.n128_u64[0] = v83->n128_u64[0];
               if (v94->n128_f64[0] < v83->n128_f64[0])
               {
-                v95 = v83->n128_i64[1];
+                v95 = v83->n128_u64[1];
                 do
                 {
                   v96 = v83;
@@ -350,7 +350,7 @@ LABEL_127:
 
     v14 = (selfCopy + 16 * (v13 >> 1));
     v15 = v14;
-    v16 = *n128_u64;
+    v16 = v9->n128_f64[0];
     if (v13 >= 0x81)
     {
       v17 = *v14;
@@ -359,8 +359,8 @@ LABEL_127:
         if (v16 < v17)
         {
           v103 = *v14;
-          *v14 = *n128_u64;
-          *n128_u64 = v103;
+          *v14 = *v9;
+          *v9 = v103;
           if (*v14 < *selfCopy)
           {
             v104 = *selfCopy;
@@ -375,34 +375,34 @@ LABEL_127:
         if (v16 < v17)
         {
           v101 = *selfCopy;
-          *selfCopy = *n128_u64;
+          *selfCopy = *v9;
           goto LABEL_26;
         }
 
         v107 = *selfCopy;
         *selfCopy = *v14;
         *v14 = v107;
-        if (*n128_u64 < *v14)
+        if (v9->n128_f64[0] < *v14)
         {
           v101 = *v14;
-          *v14 = *n128_u64;
+          *v14 = *v9;
 LABEL_26:
-          *n128_u64 = v101;
+          *v9 = v101;
         }
       }
 
       v19 = (selfCopy + 16);
-      v20 = v14 - 2;
+      v20 = (v14 - 2);
       v21 = *(v14 - 2);
-      v22 = *n128_f64;
+      v22 = v10->n128_f64[0];
       if (v21 >= *(selfCopy + 16))
       {
         if (v22 < v21)
         {
           v108 = *v20;
-          *v20 = *n128_f64;
-          *n128_f64 = v108;
-          if (*v20 < *v19)
+          *v20 = *v10;
+          *v10 = v108;
+          if (v20->n128_f64[0] < v19->n128_f64[0])
           {
             v24 = *v19;
             *v19 = *v20;
@@ -416,20 +416,20 @@ LABEL_26:
         if (v22 < v21)
         {
           v23 = *v19;
-          *v19 = *n128_f64;
+          *v19 = *v10;
           goto LABEL_38;
         }
 
         v25 = *v19;
         *v19 = *v20;
         *v20 = v25;
-        if (*n128_f64 < *v20)
+        if (v10->n128_f64[0] < v20->n128_f64[0])
         {
           v110 = *v20;
-          *v20 = *n128_f64;
+          *v20 = *v10;
           v23 = v110;
 LABEL_38:
-          *n128_f64 = v23;
+          *v10 = v23;
         }
       }
 
@@ -437,7 +437,7 @@ LABEL_38:
       v28 = v14[2];
       v27 = (v14 + 2);
       v29 = v28;
-      v30 = *v11;
+      v30 = v11->n128_f64[0];
       if (v28 >= *(selfCopy + 32))
       {
         if (v30 < v29)
@@ -445,7 +445,7 @@ LABEL_38:
           v111 = *v27;
           *v27 = *v11;
           *v11 = v111;
-          if (*v27 < *v26)
+          if (v27->n128_f64[0] < v26->n128_f64[0])
           {
             v32 = *v26;
             *v26 = *v27;
@@ -466,7 +466,7 @@ LABEL_38:
         v33 = *v26;
         *v26 = *v27;
         *v27 = v33;
-        if (*v11 < *v27)
+        if (v11->n128_f64[0] < v27->n128_f64[0])
         {
           v112 = *v27;
           *v27 = *v11;
@@ -477,15 +477,15 @@ LABEL_47:
       }
 
       v34 = *v15;
-      v35 = *v27;
-      if (*v15 >= *v20)
+      v35 = v27->n128_f64[0];
+      if (*v15 >= v20->n128_f64[0])
       {
         if (v35 < v34)
         {
           v114 = *v15;
           *v15 = *v27;
           *v27 = v114;
-          if (*v15 < *v20)
+          if (*v15 < v20->n128_f64[0])
           {
             v115 = *v20;
             *v20 = *v15;
@@ -506,7 +506,7 @@ LABEL_47:
         v116 = *v20;
         *v20 = *v15;
         *v15 = v116;
-        if (*v27 < *v15)
+        if (v27->n128_f64[0] < *v15)
         {
           v113 = *v15;
           *v15 = *v27;
@@ -528,9 +528,9 @@ LABEL_56:
       if (v16 < v18)
       {
         v105 = *selfCopy;
-        *selfCopy = *n128_u64;
+        *selfCopy = *v9;
         result.n128_u64[1] = v105.n128_u64[1];
-        *n128_u64 = v105;
+        *v9 = v105;
         if (*selfCopy < *v14)
         {
           v106 = *v14;
@@ -549,23 +549,23 @@ LABEL_56:
       *v14 = *selfCopy;
       result.n128_u64[1] = v109.n128_u64[1];
       *selfCopy = v109;
-      if (*n128_u64 >= *selfCopy)
+      if (v9->n128_f64[0] >= *selfCopy)
       {
         goto LABEL_58;
       }
 
       v102 = *selfCopy;
-      *selfCopy = *n128_u64;
+      *selfCopy = *v9;
     }
 
     else
     {
       v102 = *v14;
-      *v14 = *n128_u64;
+      *v14 = *v9;
     }
 
     result.n128_u64[1] = v102.n128_u64[1];
-    *n128_u64 = v102;
+    *v9 = v102;
 LABEL_58:
     --a3;
     result.n128_u64[0] = *selfCopy;
@@ -665,14 +665,14 @@ LABEL_58:
       if (!v47)
       {
 LABEL_79:
-        std::__introsort<std::_ClassicAlgPolicy,[LabelNavRouteLabeler(Debug) drawNavOverlayDebugView:navContext:]::$_0 &,gm::Range<double> *,false>(self, selfCopy - 16, a3, a4 & 1);
+        result = std::__introsort<std::_ClassicAlgPolicy,[LabelNavRouteLabeler(Debug) drawNavOverlayDebugView:navContext:]::$_0 &,gm::Range<double> *,false>(self, (selfCopy - 16), a3, a4 & 1, result);
         a4 = 0;
       }
     }
 
     else
     {
-      if (result.n128_f64[0] >= *n128_u64)
+      if (result.n128_f64[0] >= v9->n128_f64[0])
       {
         v50 = selfCopy + 16;
         do
@@ -748,7 +748,7 @@ LABEL_79:
 
   v56 = (selfCopy + 16);
   result.n128_u64[0] = *(selfCopy + 16);
-  v57 = *n128_u64;
+  v57 = v9->n128_f64[0];
   if (result.n128_f64[0] >= *selfCopy)
   {
     if (v57 >= result.n128_f64[0])
@@ -757,8 +757,8 @@ LABEL_79:
     }
 
     result = *v56;
-    *v56 = *n128_u64;
-    *n128_u64 = result;
+    *v56 = *v9;
+    *v9 = result;
     goto LABEL_181;
   }
 
@@ -771,11 +771,11 @@ LABEL_79:
   *selfCopy = *v56;
   result.n128_u64[1] = v123.n128_u64[1];
   *v56 = v123;
-  result.n128_u64[0] = *n128_u64;
-  if (*n128_u64 < *(selfCopy + 16))
+  result.n128_u64[0] = v9->n128_u64[0];
+  if (v9->n128_f64[0] < *(selfCopy + 16))
   {
     result = *v56;
-    *v56 = *n128_u64;
+    *v56 = *v9;
     goto LABEL_108;
   }
 

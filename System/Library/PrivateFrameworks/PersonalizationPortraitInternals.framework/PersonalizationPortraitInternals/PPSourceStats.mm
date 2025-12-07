@@ -114,17 +114,17 @@ void __29__PPSourceStats_featureNames__block_invoke()
 
 - (id)toDictionary
 {
-  v28[4] = *MEMORY[0x277D85DE8];
+  v27[4] = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   [v3 setFormatOptions:275];
-  v27[0] = @"ref_count";
-  v25[0] = @"min";
-  v19 = [MEMORY[0x277CCABB0] numberWithLongLong:self->_minRefCount];
-  v26[0] = v19;
-  v25[1] = @"max";
-  v18 = [MEMORY[0x277CCABB0] numberWithLongLong:self->_maxRefCount];
-  v26[1] = v18;
-  v25[2] = @"median";
+  v26[0] = @"ref_count";
+  v24[0] = @"min";
+  v18 = [MEMORY[0x277CCABB0] numberWithLongLong:self->_minRefCount];
+  v25[0] = v18;
+  v24[1] = @"max";
+  v17 = [MEMORY[0x277CCABB0] numberWithLongLong:self->_maxRefCount];
+  v25[1] = v17;
+  v24[2] = @"median";
   medianRefCount = self->_medianRefCount;
   if (medianRefCount < 0.0)
   {
@@ -136,11 +136,11 @@ void __29__PPSourceStats_featureNames__block_invoke()
     v5 = [MEMORY[0x277CCABB0] numberWithDouble:self->_medianRefCount];
   }
 
-  v26[2] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:{3, v5}];
-  v28[0] = v6;
-  v27[1] = @"date";
-  v23[0] = @"earliest";
+  v25[2] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:{3, v5}];
+  v27[0] = v6;
+  v26[1] = @"date";
+  v22[0] = @"earliest";
   if (self->_earliestDate)
   {
     [v3 stringFromDate:?];
@@ -151,9 +151,9 @@ void __29__PPSourceStats_featureNames__block_invoke()
     [MEMORY[0x277CBEB68] null];
   }
   v7 = ;
-  v23[1] = @"latest";
-  v24[0] = v7;
-  v20 = v3;
+  v22[1] = @"latest";
+  v23[0] = v7;
+  v19 = v3;
   if (self->_latestDate)
   {
     [v3 stringFromDate:?];
@@ -164,28 +164,26 @@ void __29__PPSourceStats_featureNames__block_invoke()
     [MEMORY[0x277CBEB68] null];
   }
   v8 = ;
-  v24[1] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:2];
-  v28[1] = v9;
-  v27[2] = @"unique_field_count";
-  v21[0] = @"bundleId";
+  v23[1] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:2];
+  v27[1] = v9;
+  v26[2] = @"unique_field_count";
+  v20[0] = @"bundleId";
   v10 = [MEMORY[0x277CCABB0] numberWithLongLong:self->_uniqueBundleIdCount];
-  v21[1] = @"docId";
-  v22[0] = v10;
+  v20[1] = @"docId";
+  v21[0] = v10;
   v11 = [MEMORY[0x277CCABB0] numberWithLongLong:self->_uniqueDocIdCount];
-  v22[1] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:2];
-  v28[2] = v12;
-  v27[3] = @"recordCount";
+  v21[1] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:2];
+  v27[2] = v12;
+  v26[3] = @"recordCount";
   v13 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_recordCount];
-  v28[3] = v13;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:4];
+  v27[3] = v13;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:4];
 
   if (medianRefCount >= 0.0)
   {
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }

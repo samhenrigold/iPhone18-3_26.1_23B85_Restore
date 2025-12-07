@@ -37,8 +37,8 @@
     sub_1E4205F14();
   }
 
-  v11 = OUTLINED_FUNCTION_75();
-  ASCNavigationViewController.init(appName:appBundleIDs:appAdamIDs:contentTitle:shouldHandleVPPA:shouldPunchOutAfterAppInstallation:)(v11);
+  OUTLINED_FUNCTION_75();
+  ASCNavigationViewController.init(appName:appBundleIDs:appAdamIDs:contentTitle:shouldHandleVPPA:shouldPunchOutAfterAppInstallation:)();
   OUTLINED_FUNCTION_25_2();
   return result;
 }

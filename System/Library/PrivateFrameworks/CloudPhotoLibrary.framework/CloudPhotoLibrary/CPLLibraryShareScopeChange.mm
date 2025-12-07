@@ -103,7 +103,7 @@ LABEL_14:
 
 - (void)removePendingParticipantIDs:(id)ds
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   if ([dsCopy count])
   {
@@ -122,26 +122,26 @@ LABEL_14:
     }
 
     v9 = v8;
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     v10 = participants;
-    v11 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v21;
+      v13 = *v20;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v21 != v13)
+          if (*v20 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v20 + 1) + 8 * i);
+          v15 = *(*(&v19 + 1) + 8 * i);
           participantID = [v15 participantID];
           if (!participantID || ([dsCopy containsObject:participantID] & 1) == 0)
           {
@@ -149,7 +149,7 @@ LABEL_14:
           }
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v12);
@@ -159,40 +159,38 @@ LABEL_14:
     share2 = [(CPLScopeChange *)self share];
     [share2 setParticipants:v17];
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addExitingUserIdentifiers:(id)identifiers
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
   if ([identifiersCopy count])
   {
     v5 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:{objc_msgSend(identifiersCopy, "count")}];
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
     share = [(CPLScopeChange *)self share];
     participants = [share participants];
 
-    v8 = [participants countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v8 = [participants countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v17;
+      v10 = *v16;
       do
       {
         v11 = 0;
         do
         {
-          if (*v17 != v10)
+          if (*v16 != v10)
           {
             objc_enumerationMutation(participants);
           }
 
-          userIdentifier = [*(*(&v16 + 1) + 8 * v11) userIdentifier];
+          userIdentifier = [*(*(&v15 + 1) + 8 * v11) userIdentifier];
           if (userIdentifier && [identifiersCopy containsObject:userIdentifier])
           {
             [v5 addObject:userIdentifier];
@@ -202,7 +200,7 @@ LABEL_14:
         }
 
         while (v9 != v11);
-        v9 = [participants countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v9 = [participants countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v9);
@@ -221,8 +219,6 @@ LABEL_14:
     exitingUserIdentifiers = self->_exitingUserIdentifiers;
     self->_exitingUserIdentifiers = v13;
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (int64_t)exitState
@@ -350,20 +346,18 @@ LABEL_14:
 
 void __48__CPLLibraryShareScopeChange_mappingForExitType__block_invoke()
 {
-  v4[4] = *MEMORY[0x1E69E9840];
-  v3[0] = &unk_1F57EF2F0;
-  v3[1] = &unk_1F57EF338;
-  v4[0] = @"unknown";
-  v4[1] = @"owner-dismantle";
-  v3[2] = &unk_1F57EF320;
-  v3[3] = &unk_1F57EF308;
-  v4[2] = @"removed";
-  v4[3] = @"self-exit";
-  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:v3 count:4];
+  v3[4] = *MEMORY[0x1E69E9840];
+  v2[0] = &unk_1F57EF2F0;
+  v2[1] = &unk_1F57EF338;
+  v3[0] = @"unknown";
+  v3[1] = @"owner-dismantle";
+  v2[2] = &unk_1F57EF320;
+  v2[3] = &unk_1F57EF308;
+  v3[2] = @"removed";
+  v3[3] = @"self-exit";
+  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v3 forKeys:v2 count:4];
   v1 = mappingForExitType_mapping;
   mappingForExitType_mapping = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 + (id)descriptionForExitState:(int64_t)state
@@ -401,18 +395,16 @@ void __48__CPLLibraryShareScopeChange_mappingForExitType__block_invoke()
 
 void __49__CPLLibraryShareScopeChange_mappingForExitState__block_invoke()
 {
-  v4[3] = *MEMORY[0x1E69E9840];
-  v3[0] = &unk_1F57EF2F0;
-  v3[1] = &unk_1F57EF308;
-  v4[0] = @"none";
-  v4[1] = @"preparing";
-  v3[2] = &unk_1F57EF320;
-  v4[2] = @"exiting";
-  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:v3 count:3];
+  v3[3] = *MEMORY[0x1E69E9840];
+  v2[0] = &unk_1F57EF2F0;
+  v2[1] = &unk_1F57EF308;
+  v3[0] = @"none";
+  v3[1] = @"preparing";
+  v2[2] = &unk_1F57EF320;
+  v3[2] = @"exiting";
+  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v3 forKeys:v2 count:3];
   v1 = mappingForExitState_mapping;
   mappingForExitState_mapping = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 + (id)cplAdditionalSecureClassesForProperty:(id)property

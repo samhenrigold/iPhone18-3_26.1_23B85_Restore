@@ -2,6 +2,7 @@
 - (HSPCMVVMShellViewController)initWithTableViewStyle:(int64_t)style moduleCreator:(id)creator moduleControllerBuilder:(id)builder;
 - (void)performPRXLayoutPass;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation HSPCMVVMShellViewController
@@ -38,6 +39,30 @@
 
   mvvmController2 = [(HSPCMVVMShellViewController *)self mvvmController];
   [mvvmController2 didMoveToParentViewController:self];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v9.receiver = self;
+  v9.super_class = HSPCMVVMShellViewController;
+  [(HSPCMVVMShellViewController *)&v9 viewWillAppear:appear];
+  mvvmController = [(HSPCMVVMShellViewController *)self mvvmController];
+  tableView = [mvvmController tableView];
+
+  v6 = +[UIColor systemBackgroundColor];
+  [tableView setBackgroundColor:v6];
+
+  v7 = +[UIColor systemBackgroundColor];
+  backgroundView = [tableView backgroundView];
+  [backgroundView setBackgroundColor:v7];
+
+  if ([tableView style] == 2)
+  {
+    [tableView _setTopPadding:0.0];
+    [tableView _setBottomPadding:0.0];
+  }
+
+  [(HSPCMVVMShellViewController *)self performPRXLayoutPass];
 }
 
 - (void)performPRXLayoutPass

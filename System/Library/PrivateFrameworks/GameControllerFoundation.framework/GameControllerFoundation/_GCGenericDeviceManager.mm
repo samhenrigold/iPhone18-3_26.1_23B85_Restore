@@ -50,7 +50,7 @@
 
   else
   {
-    v12 = _gc_log_generic_device();
+    v12 = _gc_log_generic_device(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
     {
       [(_GCGenericDeviceManager *)v12 init];
@@ -111,7 +111,7 @@
 
 - (void)_onqueue_registerDefaultConfigurationForDevice:(id)device
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   v4 = MEMORY[0x1E696AEC0];
   deviceCopy = device;
   v6 = [v4 alloc];
@@ -119,8 +119,8 @@
   v8 = [v6 initWithFormat:@"LOGICAL_DEVICE(%@)", identifier];
 
   identifier2 = [deviceCopy identifier];
-  v17[0] = identifier2;
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
+  v16[0] = identifier2;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
   identifier3 = [(_GCGenericDeviceManager *)self identifier];
   v12 = [(_GCDeviceConfiguration *)_GCMutableDeviceConfiguration configurationWithIdentifier:v8 priority:10 deviceIdentifier:v8 deviceDependencies:v10 deviceBuilder:identifier3];
 
@@ -137,8 +137,6 @@
   deviceRegistry = [(_GCGenericDeviceManager *)self deviceRegistry];
   deviceConfigurationRegistry = [deviceRegistry deviceConfigurationRegistry];
   [deviceConfigurationRegistry addConfiguration:v12 replaceExisting:1];
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)claimHIDService:(id)service
@@ -148,8 +146,8 @@
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v6, &state);
-  v7 = _gc_log_generic_device();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v8 = _gc_log_generic_device(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [_GCGenericDeviceManager claimHIDService:?];
   }
@@ -166,10 +164,10 @@
   block[1] = 3221225472;
   block[2] = __43___GCGenericDeviceManager_claimHIDService___block_invoke;
   block[3] = &unk_1E8413E18;
-  v12 = serviceCopy;
+  v13 = serviceCopy;
   selfCopy = self;
-  v14 = a2;
-  v9 = serviceCopy;
+  v15 = a2;
+  v10 = serviceCopy;
   dispatch_async(queue, block);
 
   os_activity_scope_leave(&state);
@@ -182,8 +180,8 @@
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v6, &state);
-  v7 = _gc_log_generic_device();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v8 = _gc_log_generic_device(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [_GCGenericDeviceManager relinquishHIDService:?];
   }
@@ -201,8 +199,8 @@
   block[2] = __48___GCGenericDeviceManager_relinquishHIDService___block_invoke;
   block[3] = &unk_1E8413E40;
   block[4] = self;
-  v12 = serviceCopy;
-  v9 = serviceCopy;
+  v13 = serviceCopy;
+  v10 = serviceCopy;
   dispatch_async(queue, block);
 
   os_activity_scope_leave(&state);
@@ -277,11 +275,10 @@
 
 - (void)_onioqueue_setupHIDMatching
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3[0] = 67109120;
-  v3[1] = self;
-  _os_log_fault_impl(&dword_1D2C3B000, a2, OS_LOG_TYPE_FAULT, "Failed to setup IOHIDDevice service matching: %{mach.errno}d.  Game controller discovery may be impacted.", v3, 8u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v2[0] = 67109120;
+  v2[1] = self;
+  _os_log_fault_impl(&dword_1D2C3B000, a2, OS_LOG_TYPE_FAULT, "Failed to setup IOHIDDevice service matching: %{mach.errno}d.  Game controller discovery may be impacted.", v2, 8u);
 }
 
 - (_GCPhysicalDeviceRegistry)deviceRegistry
@@ -293,75 +290,73 @@
 
 - (void)_onqueue_relinquishHIDService:(uint64_t)service
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (service)
   {
     dispatch_assert_queue_V2(*(service + 8));
     v4 = [*(service + 56) objectForKey:v3];
+    v5 = v4;
     if (v4)
     {
-      v5 = _gc_log_generic_device();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+      v6 = _gc_log_generic_device(v4);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
       {
-        *v11 = 138412546;
-        *&v11[4] = service;
+        *v12 = 138412546;
+        *&v12[4] = service;
         OUTLINED_FUNCTION_2_1();
-        *&v11[14] = v4;
-        _os_log_debug_impl(&dword_1D2C3B000, v5, OS_LOG_TYPE_DEBUG, "%@: Removing %@", v11, 0x16u);
+        *&v12[14] = v5;
+        _os_log_debug_impl(&dword_1D2C3B000, v6, OS_LOG_TYPE_DEBUG, "%@: Removing %@", v12, 0x16u);
       }
 
       deviceRegistry = [service deviceRegistry];
-      [deviceRegistry deviceManager:service deviceDidDisconnect:v4];
+      [deviceRegistry deviceManager:service deviceDidDisconnect:v5];
 
       [*(service + 56) removeObjectForKey:v3];
     }
 
-    v7 = [*(service + 48) objectForKey:{v3, *v11}];
-    if (v7)
+    v8 = [*(service + 48) objectForKey:{v3, *v12, *&v12[8]}];
+    v9 = v8;
+    if (v8)
     {
-      v8 = _gc_log_generic_device();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+      v10 = _gc_log_generic_device(v8);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
-        *v11 = 138412546;
-        *&v11[4] = service;
+        *v12 = 138412546;
+        *&v12[4] = service;
         OUTLINED_FUNCTION_2_1();
-        *&v11[14] = v7;
-        _os_log_debug_impl(&dword_1D2C3B000, v8, OS_LOG_TYPE_DEBUG, "%@: Removing %@", v11, 0x16u);
+        *&v12[14] = v9;
+        _os_log_debug_impl(&dword_1D2C3B000, v10, OS_LOG_TYPE_DEBUG, "%@: Removing %@", v12, 0x16u);
       }
 
-      device = [v7 device];
+      device = [v9 device];
       [device cancel];
 
-      [v7 setFilterConnection:0 invalidatingPrevious:1];
-      [v7 setDriverConnection:0 invalidatingPrevious:1];
+      [v9 setFilterConnection:0 invalidatingPrevious:1];
+      [v9 setDriverConnection:0 invalidatingPrevious:1];
       [*(service + 48) removeObjectForKey:v3];
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)claimHIDService:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  LODWORD(v4) = 138412546;
-  *(&v4 + 4) = a1;
+  v5 = *MEMORY[0x1E69E9840];
+  LODWORD(v3) = 138412546;
+  *(&v3 + 4) = a1;
   OUTLINED_FUNCTION_2_1();
-  *v5 = v1;
-  OUTLINED_FUNCTION_1_1(&dword_1D2C3B000, v1, v2, "%@: Asked to claim %@", v4, DWORD2(v4), *&v5[2], v6);
-  v3 = *MEMORY[0x1E69E9840];
+  *v4 = v1;
+  OUTLINED_FUNCTION_1_1(&dword_1D2C3B000, v1, v2, "%@: Asked to claim %@", v3, DWORD2(v3), *&v4[2], v5);
 }
 
 - (void)relinquishHIDService:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  LODWORD(v4) = 138412546;
-  *(&v4 + 4) = a1;
+  v5 = *MEMORY[0x1E69E9840];
+  LODWORD(v3) = 138412546;
+  *(&v3 + 4) = a1;
   OUTLINED_FUNCTION_2_1();
-  *v5 = v1;
-  OUTLINED_FUNCTION_1_1(&dword_1D2C3B000, v1, v2, "%@: Asked to relinquish %@", v4, DWORD2(v4), *&v5[2], v6);
-  v3 = *MEMORY[0x1E69E9840];
+  *v4 = v1;
+  OUTLINED_FUNCTION_1_1(&dword_1D2C3B000, v1, v2, "%@: Asked to relinquish %@", v3, DWORD2(v3), *&v4[2], v5);
 }
 
 @end

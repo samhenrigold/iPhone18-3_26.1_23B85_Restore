@@ -39,44 +39,44 @@
 
 + (void)clearHARFiles
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   objc_opt_self();
   objc_opt_self();
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"/var/mobile/Library/Logs/%@/HTTPArchives", @"com.apple.StoreServices"];
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   v4 = [defaultManager contentsOfDirectoryAtPath:v2 error:0];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         if (([v10 hasSuffix:@".har.compressed"] & 1) != 0 || objc_msgSend(v10, "hasSuffix:", @".har"))
         {
           v11 = [v2 stringByAppendingPathComponent:v10];
-          v14 = v7;
-          [defaultManager removeItemAtPath:v11 error:&v14];
-          v12 = v14;
+          v13 = v7;
+          [defaultManager removeItemAtPath:v11 error:&v13];
+          v12 = v13;
 
           v7 = v12;
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v6);
@@ -86,8 +86,6 @@
   {
     v7 = 0;
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)createLogFileArchiveWithCompletionBlock:(id)block
@@ -166,63 +164,63 @@ void __47__ASDGatherLogsRequest__appstoredContainerPath__block_invoke()
 
 - (id)_combineAllLogs
 {
-  v50[4] = *MEMORY[0x1E69E9840];
+  v49[4] = *MEMORY[0x1E69E9840];
   if (self)
   {
     v1 = [@"/var/mobile/Library/Caches/com.apple.appstored/" stringByAppendingPathComponent:@"scratch"];
     [MEMORY[0x1E696AC08] defaultManager];
-    v39 = v42 = 0;
-    [v39 removeItemAtPath:v1 error:&v42];
+    v38 = v41 = 0;
+    [v38 removeItemAtPath:v1 error:&v41];
     v2 = @"appstored";
     v3 = v1;
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-    v38 = v3;
+    v37 = v3;
     v5 = [v3 stringByAppendingPathComponent:@"appstored"];
     v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@.log", @"appstored"];
     v7 = [v5 stringByAppendingPathComponent:v6];
 
-    v44 = 0;
-    v40 = v7;
-    [defaultManager createDirectoryAtPath:v7 withIntermediateDirectories:1 attributes:0 error:&v44];
-    v8 = v44;
+    v43 = 0;
+    v39 = v7;
+    [defaultManager createDirectoryAtPath:v7 withIntermediateDirectories:1 attributes:0 error:&v43];
+    v8 = v43;
     v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"/var/mobile/Library/Logs/com.apple.%@/", @"appstored"];
     v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@.log", @"appstored"];
-    v50[0] = v10;
+    v49[0] = v10;
     v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@.1.log", @"appstored"];
-    v50[1] = v11;
+    v49[1] = v11;
     v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@.2.log", @"appstored"];
-    v50[2] = v12;
+    v49[2] = v12;
     v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@.3.log", @"appstored"];
-    v50[3] = v13;
-    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v50 count:4];
+    v49[3] = v13;
+    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v49 count:4];
 
-    v48 = 0u;
-    v49 = 0u;
-    v46 = 0u;
     v47 = 0u;
+    v48 = 0u;
+    v45 = 0u;
+    v46 = 0u;
     obj = v14;
-    v15 = [obj countByEnumeratingWithState:&v46 objects:v45 count:16];
+    v15 = [obj countByEnumeratingWithState:&v45 objects:v44 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v47;
+      v17 = *v46;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v47 != v17)
+          if (*v46 != v17)
           {
             objc_enumerationMutation(obj);
           }
 
-          v19 = *(*(&v46 + 1) + 8 * i);
+          v19 = *(*(&v45 + 1) + 8 * i);
           v20 = [v9 stringByAppendingPathComponent:v19];
           if ([defaultManager fileExistsAtPath:v20])
           {
-            v21 = [v40 stringByAppendingPathComponent:v19];
-            v43 = v8;
-            [defaultManager copyItemAtPath:v20 toPath:v21 error:&v43];
-            v22 = v43;
+            v21 = [v39 stringByAppendingPathComponent:v19];
+            v42 = v8;
+            [defaultManager copyItemAtPath:v20 toPath:v21 error:&v42];
+            v22 = v42;
 
             if (v22)
             {
@@ -235,14 +233,14 @@ void __47__ASDGatherLogsRequest__appstoredContainerPath__block_invoke()
           }
         }
 
-        v16 = [obj countByEnumeratingWithState:&v46 objects:v45 count:16];
+        v16 = [obj countByEnumeratingWithState:&v45 objects:v44 count:16];
       }
 
       while (v16);
     }
 
-    v25 = [MEMORY[0x1E695DFF8] URLWithString:v38];
-    [ASDGatherLogsRequest _copyDB:@"/var/mobile/Media/Downloads/" fullSourcePath:v38 toDir:@"downloads.28" datbaseBase:?];
+    v25 = [MEMORY[0x1E695DFF8] URLWithString:v37];
+    [ASDGatherLogsRequest _copyDB:@"/var/mobile/Media/Downloads/" fullSourcePath:v37 toDir:@"downloads.28" datbaseBase:?];
     if (qword_1ED90D670 != -1)
     {
       dispatch_once(&qword_1ED90D670, &__block_literal_global_30);
@@ -251,19 +249,19 @@ void __47__ASDGatherLogsRequest__appstoredContainerPath__block_invoke()
     v26 = _MergedGlobals_55;
     v27 = [v26 stringByAppendingPathComponent:@"Documents"];
 
-    [ASDGatherLogsRequest _copyDB:v27 fullSourcePath:v38 toDir:@"appstored" datbaseBase:?];
-    [ASDGatherLogsRequest _copyDB:v27 fullSourcePath:v38 toDir:@"updates" datbaseBase:?];
+    [ASDGatherLogsRequest _copyDB:v27 fullSourcePath:v37 toDir:@"appstored" datbaseBase:?];
+    [ASDGatherLogsRequest _copyDB:v27 fullSourcePath:v37 toDir:@"updates" datbaseBase:?];
     v28 = v25;
     if (BOMCopierNew())
     {
       initToMemory = [objc_alloc(MEMORY[0x1E695DFC0]) initToMemory];
       [initToMemory open];
-      *&v46 = @"createPKZip";
+      *&v45 = @"createPKZip";
       v30 = [MEMORY[0x1E696AD98] numberWithBool:1];
-      *(&v46 + 1) = @"outputStream";
-      v45[0] = v30;
-      v45[1] = initToMemory;
-      v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v45 forKeys:&v46 count:2];
+      *(&v45 + 1) = @"outputStream";
+      v44[0] = v30;
+      v44[1] = initToMemory;
+      v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v44 forKeys:&v45 count:2];
 
       path = [v28 path];
       [path fileSystemRepresentation];
@@ -297,65 +295,63 @@ void __47__ASDGatherLogsRequest__appstoredContainerPath__block_invoke()
     v35 = 0;
   }
 
-  v36 = *MEMORY[0x1E69E9840];
-
   return v35;
 }
 
 - (void)_copyDB:(void *)b fullSourcePath:(void *)path toDir:(void *)dir datbaseBase:(void *)base
 {
-  v44[3] = *MEMORY[0x1E69E9840];
+  v43[3] = *MEMORY[0x1E69E9840];
   bCopy = b;
   pathCopy = path;
   dirCopy = dir;
   baseCopy = base;
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v33 = dirCopy;
-  v34 = bCopy;
+  v32 = dirCopy;
+  v33 = bCopy;
   v12 = [dirCopy stringByAppendingPathComponent:bCopy];
   baseCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@.sqlitedb", baseCopy];
   v14 = [v12 stringByAppendingPathComponent:baseCopy];
 
-  v42 = 0;
-  v35 = v14;
-  [defaultManager createDirectoryAtPath:v14 withIntermediateDirectories:1 attributes:0 error:&v42];
-  v15 = v42;
+  v41 = 0;
+  v34 = v14;
+  [defaultManager createDirectoryAtPath:v14 withIntermediateDirectories:1 attributes:0 error:&v41];
+  v15 = v41;
   baseCopy2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@.sqlitedb", baseCopy];
-  v44[0] = baseCopy2;
+  v43[0] = baseCopy2;
   baseCopy3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@.sqlitedb-shm", baseCopy];
-  v44[1] = baseCopy3;
-  v32 = baseCopy;
+  v43[1] = baseCopy3;
+  v31 = baseCopy;
   baseCopy4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@.sqlitedb-wal", baseCopy];
-  v44[2] = baseCopy4;
-  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v44 count:3];
+  v43[2] = baseCopy4;
+  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v43 count:3];
 
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
   v39 = 0u;
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
   obj = v19;
-  v20 = [obj countByEnumeratingWithState:&v38 objects:v43 count:16];
+  v20 = [obj countByEnumeratingWithState:&v37 objects:v42 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v39;
+    v22 = *v38;
     do
     {
       for (i = 0; i != v21; ++i)
       {
-        if (*v39 != v22)
+        if (*v38 != v22)
         {
           objc_enumerationMutation(obj);
         }
 
-        v24 = *(*(&v38 + 1) + 8 * i);
+        v24 = *(*(&v37 + 1) + 8 * i);
         v25 = [pathCopy stringByAppendingPathComponent:v24];
         if ([defaultManager fileExistsAtPath:v25])
         {
-          v26 = [v35 stringByAppendingPathComponent:v24];
-          v37 = v15;
-          [defaultManager copyItemAtPath:v25 toPath:v26 error:&v37];
-          v27 = v37;
+          v26 = [v34 stringByAppendingPathComponent:v24];
+          v36 = v15;
+          [defaultManager copyItemAtPath:v25 toPath:v26 error:&v36];
+          v27 = v36;
 
           if (v27)
           {
@@ -371,18 +367,16 @@ void __47__ASDGatherLogsRequest__appstoredContainerPath__block_invoke()
         }
       }
 
-      v21 = [obj countByEnumeratingWithState:&v38 objects:v43 count:16];
+      v21 = [obj countByEnumeratingWithState:&v37 objects:v42 count:16];
     }
 
     while (v21);
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_createCombinedHarFile
 {
-  v106 = *MEMORY[0x1E69E9840];
+  v103 = *MEMORY[0x1E69E9840];
   if (self)
   {
     selfCopy = self;
@@ -400,7 +394,7 @@ void __47__ASDGatherLogsRequest__appstoredContainerPath__block_invoke()
       v5 = @"combined.har";
     }
 
-    v61 = [v2 stringByAppendingPathComponent:v5];
+    v58 = [v2 stringByAppendingPathComponent:v5];
 
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
     v6 = [defaultManager contentsOfDirectoryAtPath:v2 error:0];
@@ -410,65 +404,45 @@ void __47__ASDGatherLogsRequest__appstoredContainerPath__block_invoke()
       NSLog(&cfstr_CheckingForLdF.isa, v7, [v6 count], v2);
     }
 
-    v63 = v2;
-    v76 = objc_opt_new();
+    v60 = v2;
+    v73 = objc_opt_new();
+    v91 = 0u;
+    v92 = 0u;
+    v93 = 0u;
     v94 = 0u;
-    v95 = 0u;
-    v96 = 0u;
-    v97 = 0u;
     obj = v6;
-    v8 = [obj countByEnumeratingWithState:&v94 objects:v105 count:16];
-    v74 = selfCopy;
+    v8 = [obj countByEnumeratingWithState:&v91 objects:v102 count:16];
+    v71 = selfCopy;
     if (v8)
     {
       v9 = v8;
-      v10 = *v95;
+      v10 = *v92;
       do
       {
         v11 = 0;
         do
         {
-          if (*v95 != v10)
+          if (*v92 != v10)
           {
             objc_enumerationMutation(obj);
           }
 
-          v12 = *(*(&v94 + 1) + 8 * v11);
-          if (([v12 hasSuffix:@".har.compressed"] & 1) == 0 && !objc_msgSend(v12, "hasSuffix:", @".har"))
+          v12 = *(*(&v91 + 1) + 8 * v11);
+          if ([v12 hasSuffix:@".har.compressed"] & 1) == 0 && !objc_msgSend(v12, "hasSuffix:", @".har") || (objc_msgSend(v12, "isEqualToString:", @"combined.har") & 1) != 0 || (objc_msgSend(*(selfCopy + 32), "fileName"), (v13 = objc_claimAutoreleasedReturnValue()) != 0) && (v14 = v13, objc_msgSend(*(selfCopy + 32), "fileName"), v15 = objc_claimAutoreleasedReturnValue(), v16 = objc_msgSend(v12, "isEqualToString:", v15), v15, selfCopy = v71, v14, (v16))
           {
-            goto LABEL_17;
-          }
-
-          if ([v12 isEqualToString:@"combined.har"])
-          {
-            goto LABEL_17;
-          }
-
-          fileName2 = [*(selfCopy + 32) fileName];
-          if (fileName2)
-          {
-            v14 = fileName2;
-            fileName3 = [*(selfCopy + 32) fileName];
-            v16 = [v12 isEqualToString:fileName3];
-
-            selfCopy = v74;
-            if (v16)
+            verbose = [*(selfCopy + 32) verbose];
+            v18 = @"Skipping file: %@";
+            if (!verbose)
             {
-LABEL_17:
-              verbose = [*(selfCopy + 32) verbose];
-              v18 = @"Skipping file: %@";
-              if (!verbose)
-              {
-                goto LABEL_19;
-              }
-
-LABEL_18:
-              NSLog(&v18->isa, v12);
               goto LABEL_19;
             }
+
+LABEL_18:
+            NSLog(&v18->isa, v12);
+            goto LABEL_19;
           }
 
-          [v76 addObject:v12];
+          [v73 addObject:v12];
           verbose2 = [*(selfCopy + 32) verbose];
           v18 = @"Including har file: %@";
           if (verbose2)
@@ -481,7 +455,7 @@ LABEL_19:
         }
 
         while (v9 != v11);
-        v20 = [obj countByEnumeratingWithState:&v94 objects:v105 count:16];
+        v20 = [obj countByEnumeratingWithState:&v91 objects:v102 count:16];
         v9 = v20;
       }
 
@@ -489,48 +463,47 @@ LABEL_19:
     }
 
     v21 = objc_opt_new();
+    v87 = 0u;
+    v88 = 0u;
+    v89 = 0u;
     v90 = 0u;
-    v91 = 0u;
-    v92 = 0u;
-    v93 = 0u;
-    v22 = v76;
+    v22 = v73;
     v23 = 0x1E695D000uLL;
-    v62 = v22;
-    v68 = [v22 countByEnumeratingWithState:&v90 objects:v104 count:16];
+    v59 = v22;
+    v65 = [v22 countByEnumeratingWithState:&v87 objects:v101 count:16];
     v24 = 0;
-    if (v68)
+    if (v65)
     {
-      v67 = *v91;
-      v26 = v63;
+      v64 = *v88;
+      v26 = v60;
       v25 = defaultManager;
       do
       {
         v27 = 0;
         do
         {
-          if (*v91 != v67)
+          if (*v88 != v64)
           {
             objc_enumerationMutation(v22);
           }
 
-          v72 = v27;
-          v28 = [v26 stringByAppendingPathComponent:*(*(&v90 + 1) + 8 * v27)];
-          v89 = v24;
-          v71 = v28;
+          v69 = v27;
+          v28 = [v26 stringByAppendingPathComponent:*(*(&v87 + 1) + 8 * v27)];
+          v86 = v24;
+          v68 = v28;
           v29 = [MEMORY[0x1E695DEF0] dataWithContentsOfFile:? options:? error:?];
-          v30 = v89;
+          v30 = v86;
 
-          v88 = v30;
-          v70 = v29;
-          v31 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v29 options:0 error:&v88];
-          v69 = v88;
+          v85 = v30;
+          v67 = v29;
+          v31 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v29 options:0 error:&v85];
+          v66 = v85;
 
-          v32 = *(v23 + 3872);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v33 = [v31 objectForKeyedSubscript:@"log"];
-            v34 = [v33 objectForKeyedSubscript:@"entries"];
+            v32 = [v31 objectForKeyedSubscript:@"log"];
+            v33 = [v32 objectForKeyedSubscript:@"entries"];
 
             objc_opt_class();
             if (objc_opt_isKindOfClass())
@@ -539,163 +512,160 @@ LABEL_19:
 
               if (urlFilters)
               {
-                v65 = v31;
-                v86 = 0u;
-                v87 = 0u;
+                v62 = v31;
+                v83 = 0u;
                 v84 = 0u;
-                v85 = 0u;
-                v77 = v34;
-                v36 = [v77 countByEnumeratingWithState:&v84 objects:v103 count:16];
-                if (v36)
+                v81 = 0u;
+                v82 = 0u;
+                v74 = v33;
+                v35 = [v74 countByEnumeratingWithState:&v81 objects:v100 count:16];
+                if (v35)
                 {
-                  v37 = v36;
-                  v38 = *v85;
-                  v73 = *v85;
+                  v36 = v35;
+                  v37 = *v82;
+                  v70 = *v82;
                   do
                   {
-                    v39 = 0;
-                    v75 = v37;
+                    v38 = 0;
+                    v72 = v36;
                     do
                     {
-                      if (*v85 != v38)
+                      if (*v82 != v37)
                       {
-                        objc_enumerationMutation(v77);
+                        objc_enumerationMutation(v74);
                       }
 
-                      v40 = *(*(&v84 + 1) + 8 * v39);
-                      v41 = *(v23 + 3872);
+                      v39 = *(*(&v81 + 1) + 8 * v38);
                       objc_opt_class();
                       if (objc_opt_isKindOfClass())
                       {
-                        v42 = v34;
-                        v43 = v23;
-                        v44 = [v40 objectForKeyedSubscript:@"request"];
-                        v45 = [v44 objectForKeyedSubscript:@"url"];
+                        v40 = v33;
+                        v41 = v23;
+                        v42 = [v39 objectForKeyedSubscript:@"request"];
+                        v43 = [v42 objectForKeyedSubscript:@"url"];
 
-                        v82 = 0u;
-                        v83 = 0u;
+                        v79 = 0u;
                         v80 = 0u;
-                        v81 = 0u;
-                        urlFilters2 = [*(v74 + 32) urlFilters];
-                        v47 = [urlFilters2 countByEnumeratingWithState:&v80 objects:v102 count:16];
-                        if (v47)
+                        v77 = 0u;
+                        v78 = 0u;
+                        urlFilters2 = [*(v71 + 32) urlFilters];
+                        v45 = [urlFilters2 countByEnumeratingWithState:&v77 objects:v99 count:16];
+                        if (v45)
                         {
-                          v48 = v47;
-                          v49 = *v81;
+                          v46 = v45;
+                          v47 = *v78;
                           do
                           {
-                            for (i = 0; i != v48; ++i)
+                            for (i = 0; i != v46; ++i)
                             {
-                              if (*v81 != v49)
+                              if (*v78 != v47)
                               {
                                 objc_enumerationMutation(urlFilters2);
                               }
 
-                              if ([v45 containsString:*(*(&v80 + 1) + 8 * i)])
+                              if ([v43 containsString:*(*(&v77 + 1) + 8 * i)])
                               {
-                                [v21 addObject:v40];
+                                [v21 addObject:v39];
                               }
                             }
 
-                            v48 = [urlFilters2 countByEnumeratingWithState:&v80 objects:v102 count:16];
+                            v46 = [urlFilters2 countByEnumeratingWithState:&v77 objects:v99 count:16];
                           }
 
-                          while (v48);
+                          while (v46);
                         }
 
-                        v23 = v43;
-                        v34 = v42;
-                        v38 = v73;
-                        v37 = v75;
+                        v23 = v41;
+                        v33 = v40;
+                        v37 = v70;
+                        v36 = v72;
                       }
 
-                      ++v39;
+                      ++v38;
                     }
 
-                    while (v39 != v37);
-                    v37 = [v77 countByEnumeratingWithState:&v84 objects:v103 count:16];
+                    while (v38 != v36);
+                    v36 = [v74 countByEnumeratingWithState:&v81 objects:v100 count:16];
                   }
 
-                  while (v37);
+                  while (v36);
                 }
 
-                v26 = v63;
+                v26 = v60;
                 v25 = defaultManager;
-                selfCopy = v74;
-                v22 = v62;
-                v31 = v65;
+                selfCopy = v71;
+                v22 = v59;
+                v31 = v62;
               }
 
               else
               {
-                [v21 addObjectsFromArray:v34];
+                [v21 addObjectsFromArray:v33];
               }
             }
           }
 
-          v79 = v69;
-          [v25 removeItemAtPath:v71 error:&v79];
-          v51 = v31;
-          v24 = v79;
+          v76 = v66;
+          [v25 removeItemAtPath:v68 error:&v76];
+          v49 = v31;
+          v24 = v76;
 
-          v27 = v72 + 1;
+          v27 = v69 + 1;
         }
 
-        while (v72 + 1 != v68);
-        v68 = [v22 countByEnumeratingWithState:&v90 objects:v104 count:16];
+        while (v69 + 1 != v65);
+        v65 = [v22 countByEnumeratingWithState:&v87 objects:v101 count:16];
       }
 
-      while (v68);
+      while (v65);
     }
 
     else
     {
-      v26 = v63;
+      v26 = v60;
     }
 
-    v99[2] = v21;
-    v100 = @"log";
-    v98[0] = @"version";
-    v98[1] = @"creator";
-    v99[0] = @"1.2";
-    v99[1] = &unk_1F30333A0;
-    v98[2] = @"entries";
-    v52 = [*(v23 + 3872) dictionaryWithObjects:v99 forKeys:v98 count:3];
-    v101 = v52;
-    v53 = [*(v23 + 3872) dictionaryWithObjects:&v101 forKeys:&v100 count:1];
+    v96[2] = v21;
+    v97 = @"log";
+    v95[0] = @"version";
+    v95[1] = @"creator";
+    v96[0] = @"1.2";
+    v96[1] = &unk_1F30333A0;
+    v95[2] = @"entries";
+    v50 = [*(v23 + 3872) dictionaryWithObjects:v96 forKeys:v95 count:3];
+    v98 = v50;
+    v51 = [*(v23 + 3872) dictionaryWithObjects:&v98 forKeys:&v97 count:1];
 
-    v78 = v24;
-    v54 = [MEMORY[0x1E696ACB0] dataWithJSONObject:v53 options:0 error:&v78];
-    v55 = v78;
+    v75 = v24;
+    v52 = [MEMORY[0x1E696ACB0] dataWithJSONObject:v51 options:0 error:&v75];
+    v53 = v75;
 
-    if (v55)
+    if (v53)
     {
-      v56 = objc_opt_class();
-      NSLog(&cfstr_ErrorMergingHa.isa, v56, v55);
-      v57 = v61;
+      v54 = objc_opt_class();
+      NSLog(&cfstr_ErrorMergingHa.isa, v54, v53);
+      v55 = v58;
     }
 
     else
     {
-      v57 = v61;
+      v55 = v58;
       if ([*(selfCopy + 32) verbose])
       {
-        v58 = objc_opt_class();
-        NSLog(&cfstr_CreatedMergedH.isa, v58, v61);
+        v56 = objc_opt_class();
+        NSLog(&cfstr_CreatedMergedH.isa, v56, v58);
       }
     }
 
-    [v54 writeToFile:v57 atomically:1];
+    [v52 writeToFile:v55 atomically:1];
   }
 
   else
   {
-    v57 = 0;
+    v55 = 0;
   }
 
-  v59 = *MEMORY[0x1E69E9840];
-
-  return v57;
+  return v55;
 }
 
 void __70__ASDGatherLogsRequest__sendGatherRequestWithOptions_completionBlock___block_invoke(uint64_t a1)

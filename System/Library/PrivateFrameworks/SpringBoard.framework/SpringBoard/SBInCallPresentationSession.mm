@@ -419,11 +419,11 @@ void __75__SBInCallPresentationSession__handleTransitionToSceneHandle_sceneManag
   v6 = [a2 addCompletionHandler:v7];
 }
 
-uint64_t __75__SBInCallPresentationSession__handleTransitionToSceneHandle_sceneManager___block_invoke_2(uint64_t result)
+id *__75__SBInCallPresentationSession__handleTransitionToSceneHandle_sceneManager___block_invoke_2(id *result)
 {
   if (*(result + 48) != *(result + 49))
   {
-    return [*(result + 32) inCallClientPresentationSessionInvalidateBacklightEnvironment:*(result + 40)];
+    return [result[4] inCallClientPresentationSessionInvalidateBacklightEnvironment:result[5]];
   }
 
   return result;
@@ -5056,7 +5056,7 @@ void __77__SBInCallPresentationSession__notifySceneOfDeviceLockFromSource_comple
   v12 = v11 != 0;
   if (v11 && !v10)
   {
-    v12 = [audioCategoriesDisablingVolumeHUD containsObject:categoryCopy];
+    v12 = objc_msgSend_containsObject_(audioCategoriesDisablingVolumeHUD);
   }
 
   return v12;
@@ -5448,7 +5448,7 @@ void __67__SBInCallPresentationSession__acquireAssertionForAnalyticsSource___blo
 - (void)_removeSystemGestureDeactivationReason:(id)reason
 {
   reasonCopy = reason;
-  if ([(NSMutableSet *)self->_activeSystemGestureDeactivationReasons containsObject:?])
+  if (objc_msgSend_containsObject_(self->_activeSystemGestureDeactivationReasons))
   {
     [(NSMutableSet *)self->_activeSystemGestureDeactivationReasons removeObject:reasonCopy];
     [(SBInCallPresentationSession *)self _updateSceneDeactivationAssertions];
@@ -5477,7 +5477,7 @@ void __67__SBInCallPresentationSession__acquireAssertionForAnalyticsSource___blo
 - (void)_removeSystemAnimationDeactivationReason:(id)reason
 {
   reasonCopy = reason;
-  if ([(NSMutableSet *)self->_activeSystemAnimationDeactivationReasons containsObject:?])
+  if (objc_msgSend_containsObject_(self->_activeSystemAnimationDeactivationReasons))
   {
     [(NSMutableSet *)self->_activeSystemAnimationDeactivationReasons removeObject:reasonCopy];
     [(SBInCallPresentationSession *)self _updateSceneDeactivationAssertions];

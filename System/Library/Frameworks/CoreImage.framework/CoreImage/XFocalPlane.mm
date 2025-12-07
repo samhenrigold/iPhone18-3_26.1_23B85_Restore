@@ -213,7 +213,7 @@ LABEL_7:
     [computeCommandEncoder setLabel:@"encoder _minMax_kernels"];
     [v8 setComputePipelineState:self->_minMax0_kernel];
     v9 = OUTLINED_FUNCTION_0_6();
-    OUTLINED_FUNCTION_1_9(v9, v10);
+    OUTLINED_FUNCTION_1_9(v9, v10, v11, v12);
     [v8 setComputePipelineState:self->_minMax1_kernel];
     [v8 setTexture:textureCopy atIndex:0];
     OUTLINED_FUNCTION_0_6();
@@ -221,21 +221,21 @@ LABEL_7:
     [(MTLComputePipelineState *)self->_minMax1_kernel maxTotalThreadsPerThreadgroup];
     [textureCopy width];
     height = [textureCopy height];
-    OUTLINED_FUNCTION_1_9(height, v12);
+    OUTLINED_FUNCTION_1_9(height, v14, v15, v16);
     [v8 setComputePipelineState:self->_minMax2_kernel];
     OUTLINED_FUNCTION_0_6();
-    v13 = [v8 setBuffer:self->_minMaxResult_buf offset:0 atIndex:1];
-    OUTLINED_FUNCTION_1_9(v13, v14);
+    v17 = [v8 setBuffer:self->_minMaxResult_buf offset:0 atIndex:1];
+    OUTLINED_FUNCTION_1_9(v17, v18, v19, v20);
     [v8 endEncoding];
-    v15 = 0;
+    v21 = 0;
   }
 
   else
   {
-    v15 = -1;
+    v21 = -1;
   }
 
-  return v15;
+  return v21;
 }
 
 - (int)encodeFocalPlaneCalcOn:(id)on disparityTexture:(id)texture

@@ -22,15 +22,16 @@
 
 uint64_t __36__HMMTRFabricV0KeyStore_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  logCategory__hmf_once_v14 = HMFCreateOSLogHandle();
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v14;
+  logCategory__hmf_once_v14 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (BOOL)forceUpdateNocSigner:(id)signer ownerSharedOperationalKeyPair:(id)pair
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   signerCopy = signer;
   pairCopy = pair;
   v8 = objc_autoreleasePoolPush();
@@ -39,9 +40,9 @@ uint64_t __36__HMMTRFabricV0KeyStore_logCategory__block_invoke()
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     v11 = HMFGetLogIdentifier();
-    v43 = 138543362;
-    v44 = v11;
-    _os_log_impl(&dword_22AEAE000, v10, OS_LOG_TYPE_INFO, "%{public}@Force updating V0 keys", &v43, 0xCu);
+    v42 = 138543362;
+    v43 = v11;
+    _os_log_impl(&dword_22AEAE000, v10, OS_LOG_TYPE_INFO, "%{public}@Force updating V0 keys", &v42, 0xCu);
   }
 
   objc_autoreleasePoolPop(v8);
@@ -62,8 +63,8 @@ uint64_t __36__HMMTRFabricV0KeyStore_logCategory__block_invoke()
       }
 
       v19 = HMFGetLogIdentifier();
-      v43 = 138543362;
-      v44 = v19;
+      v42 = 138543362;
+      v43 = v19;
       v20 = "%{public}@Replaced NOC signer key in storage";
       goto LABEL_10;
     }
@@ -71,9 +72,9 @@ uint64_t __36__HMMTRFabricV0KeyStore_logCategory__block_invoke()
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       v30 = HMFGetLogIdentifier();
-      v43 = 138543362;
-      v44 = v30;
-      _os_log_impl(&dword_22AEAE000, v18, OS_LOG_TYPE_ERROR, "%{public}@Failed to replace current NOC signer key in storage", &v43, 0xCu);
+      v42 = 138543362;
+      v43 = v30;
+      _os_log_impl(&dword_22AEAE000, v18, OS_LOG_TYPE_ERROR, "%{public}@Failed to replace current NOC signer key in storage", &v42, 0xCu);
     }
 
     objc_autoreleasePoolPop(v15);
@@ -94,11 +95,11 @@ uint64_t __36__HMMTRFabricV0KeyStore_logCategory__block_invoke()
       }
 
       v19 = HMFGetLogIdentifier();
-      v43 = 138543362;
-      v44 = v19;
+      v42 = 138543362;
+      v43 = v19;
       v20 = "%{public}@Installed NOC signer key into storage";
 LABEL_10:
-      _os_log_impl(&dword_22AEAE000, v18, OS_LOG_TYPE_INFO, v20, &v43, 0xCu);
+      _os_log_impl(&dword_22AEAE000, v18, OS_LOG_TYPE_INFO, v20, &v42, 0xCu);
 
 LABEL_11:
       objc_autoreleasePoolPop(v15);
@@ -117,9 +118,9 @@ LABEL_11:
           if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
           {
             v29 = HMFGetLogIdentifier();
-            v43 = 138543362;
-            v44 = v29;
-            _os_log_impl(&dword_22AEAE000, v28, OS_LOG_TYPE_INFO, "%{public}@Replaced operational key in storage", &v43, 0xCu);
+            v42 = 138543362;
+            v43 = v29;
+            _os_log_impl(&dword_22AEAE000, v28, OS_LOG_TYPE_INFO, "%{public}@Replaced operational key in storage", &v42, 0xCu);
           }
 
           objc_autoreleasePoolPop(v25);
@@ -133,9 +134,9 @@ LABEL_35:
         if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
         {
           v38 = HMFGetLogIdentifier();
-          v43 = 138543362;
-          v44 = v38;
-          _os_log_impl(&dword_22AEAE000, v28, OS_LOG_TYPE_ERROR, "%{public}@Failed to replace current operational key in storage", &v43, 0xCu);
+          v42 = 138543362;
+          v43 = v38;
+          _os_log_impl(&dword_22AEAE000, v28, OS_LOG_TYPE_ERROR, "%{public}@Failed to replace current operational key in storage", &v42, 0xCu);
         }
 
         objc_autoreleasePoolPop(v25);
@@ -153,9 +154,9 @@ LABEL_35:
           if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
           {
             v36 = HMFGetLogIdentifier();
-            v43 = 138543362;
-            v44 = v36;
-            _os_log_impl(&dword_22AEAE000, v35, OS_LOG_TYPE_INFO, "%{public}@Installed operational key into storage", &v43, 0xCu);
+            v42 = 138543362;
+            v43 = v36;
+            _os_log_impl(&dword_22AEAE000, v35, OS_LOG_TYPE_INFO, "%{public}@Installed operational key into storage", &v42, 0xCu);
           }
 
           objc_autoreleasePoolPop(v32);
@@ -165,9 +166,9 @@ LABEL_35:
         if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
         {
           v40 = HMFGetLogIdentifier();
-          v43 = 138543362;
-          v44 = v40;
-          _os_log_impl(&dword_22AEAE000, v35, OS_LOG_TYPE_ERROR, "%{public}@Failed to store operational Key", &v43, 0xCu);
+          v42 = 138543362;
+          v43 = v40;
+          _os_log_impl(&dword_22AEAE000, v35, OS_LOG_TYPE_ERROR, "%{public}@Failed to store operational Key", &v42, 0xCu);
         }
 
         objc_autoreleasePoolPop(v32);
@@ -180,9 +181,9 @@ LABEL_35:
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       v39 = HMFGetLogIdentifier();
-      v43 = 138543362;
-      v44 = v39;
-      _os_log_impl(&dword_22AEAE000, v18, OS_LOG_TYPE_ERROR, "%{public}@Failed to store NOC signer", &v43, 0xCu);
+      v42 = 138543362;
+      v43 = v39;
+      _os_log_impl(&dword_22AEAE000, v18, OS_LOG_TYPE_ERROR, "%{public}@Failed to store NOC signer", &v42, 0xCu);
     }
 
     objc_autoreleasePoolPop(v15);
@@ -191,13 +192,12 @@ LABEL_35:
   v37 = 0;
 LABEL_36:
 
-  v41 = *MEMORY[0x277D85DE8];
   return v37;
 }
 
 - (BOOL)updateNocSigner:(id)signer ownerSharedOperationalKeyPair:(id)pair
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   signerCopy = signer;
   pairCopy = pair;
   nocSigner = [(HMMTRFabricV0KeyStore *)self nocSigner];
@@ -230,18 +230,18 @@ LABEL_14:
       if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         v25 = HMFGetLogIdentifier();
-        v31 = 138543362;
-        v32 = v25;
+        v30 = 138543362;
+        v31 = v25;
         v26 = "%{public}@Shared operational key already exists - failed to store new shared operational key";
 LABEL_12:
-        _os_log_impl(&dword_22AEAE000, v24, OS_LOG_TYPE_ERROR, v26, &v31, 0xCu);
+        _os_log_impl(&dword_22AEAE000, v24, OS_LOG_TYPE_ERROR, v26, &v30, 0xCu);
       }
     }
 
     else
     {
-      v30 = -[HMMTRMatterKeypair initWithV0Account:privateKey:]([HMMTRMatterKeypair alloc], "initWithV0Account:privateKey:", @"CHIPPlugin.nodeOperationalKeyPair.CA:0", [pairCopy privateKey]);
-      if (v30)
+      v29 = -[HMMTRMatterKeypair initWithV0Account:privateKey:]([HMMTRMatterKeypair alloc], "initWithV0Account:privateKey:", @"CHIPPlugin.nodeOperationalKeyPair.CA:0", [pairCopy privateKey]);
+      if (v29)
       {
 
         goto LABEL_3;
@@ -253,8 +253,8 @@ LABEL_12:
       if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         v25 = HMFGetLogIdentifier();
-        v31 = 138543362;
-        v32 = v25;
+        v30 = 138543362;
+        v31 = v25;
         v26 = "%{public}@Failed to store Shared Operational Key";
         goto LABEL_12;
       }
@@ -273,18 +273,18 @@ LABEL_12:
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       v20 = HMFGetLogIdentifier();
-      v31 = 138543362;
-      v32 = v20;
+      v30 = 138543362;
+      v31 = v20;
       v21 = "%{public}@NOC signer already exists - failed to store new NOC signer";
 LABEL_7:
-      _os_log_impl(&dword_22AEAE000, v19, OS_LOG_TYPE_ERROR, v21, &v31, 0xCu);
+      _os_log_impl(&dword_22AEAE000, v19, OS_LOG_TYPE_ERROR, v21, &v30, 0xCu);
     }
   }
 
   else
   {
-    v29 = -[HMMTRMatterKeypair initWithV0Account:privateKey:]([HMMTRMatterKeypair alloc], "initWithV0Account:privateKey:", @"CHIPPlugin.nodeopcerts.CA:0", [signerCopy privateKey]);
-    if (v29)
+    v28 = -[HMMTRMatterKeypair initWithV0Account:privateKey:]([HMMTRMatterKeypair alloc], "initWithV0Account:privateKey:", @"CHIPPlugin.nodeopcerts.CA:0", [signerCopy privateKey]);
+    if (v28)
     {
 
       goto LABEL_2;
@@ -296,8 +296,8 @@ LABEL_7:
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       v20 = HMFGetLogIdentifier();
-      v31 = 138543362;
-      v32 = v20;
+      v30 = 138543362;
+      v31 = v20;
       v21 = "%{public}@Failed to store NOC signer";
       goto LABEL_7;
     }
@@ -307,7 +307,6 @@ LABEL_7:
   v16 = 0;
 LABEL_15:
 
-  v27 = *MEMORY[0x277D85DE8];
   return v16;
 }
 

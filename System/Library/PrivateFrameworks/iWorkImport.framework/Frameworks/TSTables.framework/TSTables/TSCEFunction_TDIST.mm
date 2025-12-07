@@ -23,38 +23,38 @@
 + (id)evaluateForArgsWithContext:(id)context functionSpec:(id)spec arguments:(const void *)arguments
 {
   v8 = **arguments;
-  v76 = 0;
-  v10 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(v8, v9, context, spec, 0, &v76);
-  v11 = v76;
-  v75._decimal.w[0] = objc_msgSend_decimalRepresentation(v10, v12, v13, v14, v15);
-  v75._decimal.w[1] = v16;
+  v65 = 0;
+  v10 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(v8, v9, context, spec, 0, &v65);
+  v11 = v65;
+  v64._decimal.w[0] = objc_msgSend_decimalRepresentation(v10, v12, v13, v14);
+  v64._decimal.w[1] = v15;
   if (v11)
   {
-    v19 = objc_msgSend_raiseErrorOrConvert_(context, v16, v11, v17, v18);
+    v17 = objc_msgSend_raiseErrorOrConvert_(context, v15, v11, v16);
     goto LABEL_16;
   }
 
-  v20 = *(*arguments + 8);
-  v74 = 0;
-  v22 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(v20, v21, context, spec, 1, &v74);
-  v11 = v74;
-  v27 = objc_msgSend_trunc(v22, v23, v24, v25, v26);
+  v18 = *(*arguments + 8);
+  v63 = 0;
+  v20 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(v18, v19, context, spec, 1, &v63);
+  v11 = v63;
+  v24 = objc_msgSend_trunc(v20, v21, v22, v23);
 
-  v70._decimal.w[0] = objc_msgSend_decimalRepresentation(v27, v28, v29, v30, v31);
-  v70._decimal.w[1] = v32;
-  v33 = TSUDecimal::truncateWithRounding(&v70);
+  v58._decimal.w[0] = objc_msgSend_decimalRepresentation(v24, v25, v26, v27);
+  v58._decimal.w[1] = v28;
+  v29 = TSUDecimal::truncateWithRounding(&v58);
   if (!v11)
   {
-    v37 = v33;
-    v38 = *(*arguments + 16);
-    v73 = 0;
-    v40 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(v38, v39, context, spec, 2, &v73);
-    v11 = v73;
-    v72._decimal.w[0] = objc_msgSend_decimalRepresentation(v40, v41, v42, v43, v44);
-    v72._decimal.w[1] = v45;
+    v32 = v29;
+    v33 = *(*arguments + 16);
+    v62 = 0;
+    v35 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(v33, v34, context, spec, 2, &v62);
+    v11 = v62;
+    v61._decimal.w[0] = objc_msgSend_decimalRepresentation(v35, v36, v37, v38);
+    v61._decimal.w[1] = v39;
     if (v11)
     {
-      v48 = objc_msgSend_raiseErrorOrConvert_(context, v45, v11, v46, v47);
+      v41 = objc_msgSend_raiseErrorOrConvert_(context, v39, v11, v40);
     }
 
     else
@@ -65,44 +65,45 @@
         TSUDecimal::operator=();
         if ((TSUDecimal::operator==() & 1) == 0)
         {
-          v63 = objc_msgSend_functionName(spec, v49, v50, v51, v52);
-          v66 = objc_msgSend_invalidTailErrorForFunctionName_argumentNumber_(TSCEError, v64, v63, 3, v65);
-          v19 = objc_msgSend_raiseErrorOrConvert_(context, v67, v66, v68, v69);
+          v53 = objc_msgSend_functionName(spec, v42, v43, v44);
+          v55 = objc_msgSend_invalidTailErrorForFunctionName_argumentNumber_(TSCEError, v54, v53, 3);
+          v17 = objc_msgSend_raiseErrorOrConvert_(context, v56, v55, v57);
 
           goto LABEL_14;
         }
       }
 
-      TSUDecimal::doubleValue(&v75);
-      v54 = v53;
-      TSUDecimal::doubleValue(&v72);
-      objc_msgSend_probabilityWithX_V_tails_(TSCEFunction_TDIST, v55, v37, v56, v57, v54, v58);
+      TSUDecimal::doubleValue(&v64);
+      v46 = v45;
+      TSUDecimal::doubleValue(&v61);
+      objc_msgSend_probabilityWithX_V_tails_(TSCEFunction_TDIST, v47, v32, v48, v46, v49);
       TSUDecimal::operator=();
       if (v8)
       {
-        objc_msgSend_formatWithContext_(v8, v59, context, v60, v61);
+        objc_msgSend_formatWithContext_(v8, v50, context, v51);
       }
 
       else
       {
-        memset(&v70, 0, 32);
+        v58 = 0;
+        v59 = 0u;
       }
 
-      v48 = objc_msgSend_numberWithDecimal_format_(TSCENumberValue, v59, v71, &v70, v61);
+      v41 = objc_msgSend_numberWithDecimal_format_(TSCENumberValue, v50, v60, &v58);
     }
 
-    v19 = v48;
+    v17 = v41;
 LABEL_14:
 
     goto LABEL_15;
   }
 
-  v19 = objc_msgSend_raiseErrorOrConvert_(context, v34, v11, v35, v36);
+  v17 = objc_msgSend_raiseErrorOrConvert_(context, v30, v11, v31);
 LABEL_15:
 
 LABEL_16:
 
-  return v19;
+  return v17;
 }
 
 @end

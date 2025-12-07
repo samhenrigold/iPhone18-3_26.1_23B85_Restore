@@ -81,7 +81,7 @@ void __43__SSVAppleAccountStore_primaryAppleAccount__block_invoke(uint64_t a1)
     v4 = *(v2 + 8);
     if (!v4)
     {
-      v5 = SSVAccountsFramework();
+      v5 = SSVAccountsFramework(0, 0);
       v6 = objc_alloc_init(SSVWeakLinkedClassForString(&cfstr_Acaccountstore.isa, v5));
       v7 = *(a1 + 32);
       v8 = *(v7 + 8);
@@ -89,26 +89,26 @@ void __43__SSVAppleAccountStore_primaryAppleAccount__block_invoke(uint64_t a1)
 
       if (*(*(a1 + 32) + 8))
       {
-        v9 = [MEMORY[0x1E696AD88] defaultCenter];
-        v10 = SSVAccountsFramework();
-        [v9 addObserver:*(a1 + 32) selector:sel__accountStoreDidChangeNotification_ name:*SSVWeakLinkedSymbolForString("ACAccountStoreDidChangeNotification" object:{v10), *(*(a1 + 32) + 8)}];
+        v11 = [MEMORY[0x1E696AD88] defaultCenter];
+        v13 = SSVAccountsFramework(v11, v12);
+        [v11 addObserver:*(a1 + 32) selector:sel__accountStoreDidChangeNotification_ name:*SSVWeakLinkedSymbolForString("ACAccountStoreDidChangeNotification" object:{v13), *(*(a1 + 32) + 8)}];
       }
 
-      SSVAppleAccountFramework();
+      SSVAppleAccountFramework(v9, v10);
       v4 = *(*(a1 + 32) + 8);
     }
 
-    v11 = [v4 aa_primaryAppleAccount];
-    v12 = *(a1 + 32);
-    v13 = *(v12 + 24);
-    *(v12 + 24) = v11;
+    v14 = [v4 aa_primaryAppleAccount];
+    v15 = *(a1 + 32);
+    v16 = *(v15 + 24);
+    *(v15 + 24) = v14;
 
     v3 = *(*(a1 + 32) + 24);
   }
 
-  v14 = (*(*(a1 + 40) + 8) + 40);
+  v17 = (*(*(a1 + 40) + 8) + 40);
 
-  objc_storeStrong(v14, v3);
+  objc_storeStrong(v17, v3);
 }
 
 - (void)_accountStoreDidChangeNotification:(id)notification

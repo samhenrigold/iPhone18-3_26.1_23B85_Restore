@@ -17,17 +17,17 @@ uint64_t __30___HKFactorization_unitString__block_invoke(uint64_t a1, void *a2, 
       }
 
       v7 = a1 + 56;
-      v10 = v5;
+      v9 = v5;
       if (*(*(*(a1 + 56) + 8) + 24))
       {
         [*(a1 + 40) appendString:@"·"];
-        v6 = v10;
+        v6 = v9;
       }
 
-      [*(a1 + 40) appendString:v6];
+      v5 = [*(a1 + 40) appendString:v6];
       if (a3 != -1)
       {
-        [*(a1 + 40) appendFormat:@"^%ld", -a3];
+        v5 = [*(a1 + 40) appendFormat:@"^%ld", -a3];
       }
     }
 
@@ -41,19 +41,20 @@ uint64_t __30___HKFactorization_unitString__block_invoke(uint64_t a1, void *a2, 
         v6 = v9;
       }
 
-      [*(a1 + 32) appendString:v6];
+      v5 = [*(a1 + 32) appendString:v6];
       if (a3 != 1)
       {
-        [*(a1 + 32) appendFormat:@"^%ld", a3];
+        v5 = [*(a1 + 32) appendFormat:@"^%ld", a3];
       }
     }
 
     ++*(*(*v7 + 8) + 24);
+    v6 = v9;
   }
 
 LABEL_13:
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v5, v6);
 }
 
 void __24___HKFactorization_hash__block_invoke(uint64_t a1, void *a2, void *a3)

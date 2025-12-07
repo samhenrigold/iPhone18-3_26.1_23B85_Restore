@@ -78,14 +78,14 @@
 
 - (void)setDestinationFile:(__CFString *)file runLoopRef:(__CFRunLoop *)ref runLoopMode:(__CFString *)mode classC:(unsigned __int8)c dateFormatter:(__CFDateFormatter *)formatter maxFileSizeInMB:(unint64_t)b logLifespanInDays:(unint64_t)days
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   if ([(__CFString *)file isEmpty])
   {
     v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s filePath is empty", "-[WFLogger setDestinationFile:runLoopRef:runLoopMode:classC:dateFormatter:maxFileSizeInMB:logLifespanInDays:]"];
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       *buf = 136446210;
-      v27 = [objc_msgSend(MEMORY[0x277CCACA8] stringWithFormat:@"[WiFiPolicy] %s", objc_msgSend(v16, "UTF8String")), "UTF8String"];
+      v26 = [objc_msgSend(MEMORY[0x277CCACA8] stringWithFormat:@"[WiFiPolicy] %s", objc_msgSend(v16, "UTF8String")), "UTF8String"];
       _os_log_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}s", buf, 0xCu);
     }
   }
@@ -96,7 +96,7 @@
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446210;
-      v27 = [objc_msgSend(MEMORY[0x277CCACA8] stringWithFormat:@"[WiFiPolicy] %s", objc_msgSend(v19, "UTF8String")), "UTF8String"];
+      v26 = [objc_msgSend(MEMORY[0x277CCACA8] stringWithFormat:@"[WiFiPolicy] %s", objc_msgSend(v19, "UTF8String")), "UTF8String"];
       _os_log_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}s", buf, 0xCu);
     }
 
@@ -109,7 +109,7 @@
         {
           v21 = [objc_msgSend(MEMORY[0x277CCACA8] stringWithFormat:@"[WiFiPolicy] %s", objc_msgSend(v20, "UTF8String")), "UTF8String"];
           *buf = 136446210;
-          v27 = v21;
+          v26 = v21;
           _os_log_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}s", buf, 0xCu);
         }
       }
@@ -130,99 +130,90 @@
     block[10] = days;
     dispatch_sync(dispatchQueue, block);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
-void __109__WFLogger_setDestinationFile_runLoopRef_runLoopMode_classC_dateFormatter_maxFileSizeInMB_logLifespanInDays___block_invoke(uint64_t a1)
+void __109__WFLogger_setDestinationFile_runLoopRef_runLoopMode_classC_dateFormatter_maxFileSizeInMB_logLifespanInDays___block_invoke(void *a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v2 = *(*(a1 + 32) + 8);
+  v10 = *MEMORY[0x277D85DE8];
+  v2 = *(a1[4] + 8);
   if (v2)
   {
     [v2 stopWatchingLogFile];
   }
 
-  v3 = [WFLoggerFile alloc];
-  v4 = *(a1 + 40);
-  v5 = *(a1 + 48);
-  v6 = *(a1 + 56);
-  v7 = *(a1 + 88);
-  v8 = *(a1 + 64);
-  v9 = *(a1 + 80);
-  v10 = [WFLoggerFile initWithFilePath:v3 filePath:"initWithFilePath:filePath:runLoopRef:runLoopMode:classC:dateFormatter:maxFileSizeInMB:logLifespanInDays:dispatchQueue:" runLoopRef:*(a1 + 72) runLoopMode:v9 classC:*(*(a1 + 32) + 32) dateFormatter:? maxFileSizeInMB:? logLifespanInDays:? dispatchQueue:?];
-  if (v10)
+  v3 = [WFLoggerFile initWithFilePath:"initWithFilePath:filePath:runLoopRef:runLoopMode:classC:dateFormatter:maxFileSizeInMB:logLifespanInDays:dispatchQueue:" filePath:a1[9] runLoopRef:a1[10] runLoopMode:*(a1[4] + 32) classC:? dateFormatter:? maxFileSizeInMB:? logLifespanInDays:? dispatchQueue:?];
+  if (v3)
   {
-    v11 = v10;
-    v12 = *(*(a1 + 32) + 8);
-    if (v12)
+    v4 = v3;
+    v5 = *(a1[4] + 8);
+    if (v5)
     {
 
-      *(*(a1 + 32) + 8) = 0;
+      *(a1[4] + 8) = 0;
     }
 
-    [v11 schedule:1];
-    *(*(a1 + 32) + 8) = v11;
-    v13 = *(a1 + 40);
-    *(*(a1 + 32) + 16) = 3;
-    v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Logging destination changed to file: %s", "-[WFLogger setDestinationFile:runLoopRef:runLoopMode:classC:dateFormatter:maxFileSizeInMB:logLifespanInDays:]_block_invoke", objc_msgSend(v13, "UTF8String")];
+    [(WFLoggerFile *)v4 schedule:1];
+    *(a1[4] + 8) = v4;
+    v6 = a1[5];
+    *(a1[4] + 16) = 3;
+    v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Logging destination changed to file: %s", "-[WFLogger setDestinationFile:runLoopRef:runLoopMode:classC:dateFormatter:maxFileSizeInMB:logLifespanInDays:]_block_invoke", objc_msgSend(v6, "UTF8String")];
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446210;
-      v17 = [objc_msgSend(MEMORY[0x277CCACA8] stringWithFormat:@"[WiFiPolicy] %s", objc_msgSend(v14, "UTF8String")), "UTF8String"];
+      v9 = [objc_msgSend(MEMORY[0x277CCACA8] stringWithFormat:@"[WiFiPolicy] %s", objc_msgSend(v7, "UTF8String")), "UTF8String"];
       _os_log_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}s", buf, 0xCu);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setDestinationFileLocation:(__CFString *)location fileNamePrefix:(__CFString *)prefix runLoopRef:(__CFRunLoop *)ref runLoopMode:(__CFString *)mode classC:(unsigned __int8)c dateFormatter:(__CFDateFormatter *)formatter maxFileSizeInMB:(unint64_t)b logLifespanInDays:(unint64_t)self0
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   if ([(__CFString *)location isEmpty])
   {
     v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s dirPath is empty", "-[WFLogger setDestinationFileLocation:fileNamePrefix:runLoopRef:runLoopMode:classC:dateFormatter:maxFileSizeInMB:logLifespanInDays:]"];
-    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_6;
+      return;
     }
+
+LABEL_6:
+    *buf = 136446210;
+    v29 = [objc_msgSend(MEMORY[0x277CCACA8] stringWithFormat:@"[WiFiPolicy] %s", objc_msgSend(v17, "UTF8String")), "UTF8String"];
+    _os_log_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}s", buf, 0xCu);
+    return;
   }
 
-  else if ([(__CFString *)prefix isEmpty])
+  if ([(__CFString *)prefix isEmpty])
   {
     v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s fileNamePrefix is empty", "-[WFLogger setDestinationFileLocation:fileNamePrefix:runLoopRef:runLoopMode:classC:dateFormatter:maxFileSizeInMB:logLifespanInDays:]"];
-    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-LABEL_6:
-      *buf = 136446210;
-      v30 = [objc_msgSend(MEMORY[0x277CCACA8] stringWithFormat:@"[WiFiPolicy] %s", objc_msgSend(v17, "UTF8String")), "UTF8String"];
-      _os_log_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}s", buf, 0xCu);
+      return;
     }
+
+    goto LABEL_6;
   }
 
-  else if (self->_destination != 3 || (loggerBase = self->_loggerBase) == 0 || (v19 = [(WFLoggerBase *)loggerBase getLogDirPath], v20 = [(WFLoggerBase *)self->_loggerBase getLogFileNamePrefix], !v19) || (v21 = v20) == 0 || ([(__CFString *)v19 isEmpty]& 1) != 0 || ([(__CFString *)v21 isEmpty]& 1) != 0 || CFStringCompare(location, v19, 4uLL) || CFStringCompare(prefix, v21, 4uLL))
+  if (self->_destination != 3 || (loggerBase = self->_loggerBase) == 0 || (v19 = [(WFLoggerBase *)loggerBase getLogDirPath], v20 = [(WFLoggerBase *)self->_loggerBase getLogFileNamePrefix], !v19) || (v21 = v20) == 0 || ([(__CFString *)v19 isEmpty]& 1) != 0 || ([(__CFString *)v21 isEmpty]& 1) != 0 || CFStringCompare(location, v19, 4uLL) || CFStringCompare(prefix, v21, 4uLL))
   {
     v22 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Logging destination will change to directory: %s FileNamePrefix: %s", "-[WFLogger setDestinationFileLocation:fileNamePrefix:runLoopRef:runLoopMode:classC:dateFormatter:maxFileSizeInMB:logLifespanInDays:]", -[__CFString UTF8String](location, "UTF8String"), -[__CFString UTF8String](prefix, "UTF8String")];
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446210;
-      v30 = [objc_msgSend(MEMORY[0x277CCACA8] stringWithFormat:@"[WiFiPolicy] %s", objc_msgSend(v22, "UTF8String")), "UTF8String"];
+      v29 = [objc_msgSend(MEMORY[0x277CCACA8] stringWithFormat:@"[WiFiPolicy] %s", objc_msgSend(v22, "UTF8String")), "UTF8String"];
       _os_log_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}s", buf, 0xCu);
     }
 
-    if (self->_wflRunningOnWatchClassDevice)
+    if (self->_wflRunningOnWatchClassDevice && !self->_wflEnableDualLoggingOnWatchClassDevice)
     {
-      if (!self->_wflEnableDualLoggingOnWatchClassDevice)
+      v23 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s: Dual logging suppressed on watch class device. WiFi logs will not be present in the system log while file logging is configured", "-[WFLogger setDestinationFileLocation:fileNamePrefix:runLoopRef:runLoopMode:classC:dateFormatter:maxFileSizeInMB:logLifespanInDays:]"];
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        v23 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s: Dual logging suppressed on watch class device. WiFi logs will not be present in the system log while file logging is configured", "-[WFLogger setDestinationFileLocation:fileNamePrefix:runLoopRef:runLoopMode:classC:dateFormatter:maxFileSizeInMB:logLifespanInDays:]"];
-        if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
-        {
-          v24 = [objc_msgSend(MEMORY[0x277CCACA8] stringWithFormat:@"[WiFiPolicy] %s", objc_msgSend(v23, "UTF8String")), "UTF8String"];
-          *buf = 136446210;
-          v30 = v24;
-          _os_log_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}s", buf, 0xCu);
-        }
+        v24 = [objc_msgSend(MEMORY[0x277CCACA8] stringWithFormat:@"[WiFiPolicy] %s", objc_msgSend(v23, "UTF8String")), "UTF8String"];
+        *buf = 136446210;
+        v29 = v24;
+        _os_log_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}s", buf, 0xCu);
       }
     }
 
@@ -242,63 +233,52 @@ LABEL_6:
     block[11] = days;
     dispatch_sync(dispatchQueue, block);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __132__WFLogger_setDestinationFileLocation_fileNamePrefix_runLoopRef_runLoopMode_classC_dateFormatter_maxFileSizeInMB_logLifespanInDays___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 32) + 8);
   if (v2)
   {
     [v2 stopWatchingLogFile];
   }
 
-  v3 = [WFLoggerFile alloc];
-  v4 = *(a1 + 40);
-  v5 = *(a1 + 48);
-  v6 = *(a1 + 56);
-  v7 = *(a1 + 64);
-  v8 = *(a1 + 96);
-  v9 = *(a1 + 88);
-  v10 = [WFLoggerFile initWithDirectoryPath:v3 dirPath:"initWithDirectoryPath:dirPath:fileNamePrefix:runLoopRef:runLoopMode:classC:dateFormatter:maxFileSizeInMB:logLifespanInDays:dispatchQueue:" fileNamePrefix:*(a1 + 72) runLoopRef:*(a1 + 80) runLoopMode:v9 classC:*(*(a1 + 32) + 32) dateFormatter:? maxFileSizeInMB:? logLifespanInDays:? dispatchQueue:?];
-  if (v10)
+  v3 = [WFLoggerFile initWithDirectoryPath:"initWithDirectoryPath:dirPath:fileNamePrefix:runLoopRef:runLoopMode:classC:dateFormatter:maxFileSizeInMB:logLifespanInDays:dispatchQueue:" dirPath:*(a1 + 72) fileNamePrefix:*(a1 + 80) runLoopRef:*(a1 + 88) runLoopMode:*(*(a1 + 32) + 32) classC:? dateFormatter:? maxFileSizeInMB:? logLifespanInDays:? dispatchQueue:?];
+  if (v3)
   {
-    v11 = v10;
-    v12 = *(*(a1 + 32) + 8);
-    if (v12)
+    v4 = v3;
+    v5 = *(*(a1 + 32) + 8);
+    if (v5)
     {
 
       *(*(a1 + 32) + 8) = 0;
     }
 
-    [v11 schedule:1];
-    *(*(a1 + 32) + 8) = v11;
-    v13 = *(a1 + 40);
+    [(WFLoggerFile *)v4 schedule:1];
+    *(*(a1 + 32) + 8) = v4;
+    v6 = *(a1 + 40);
     *(*(a1 + 32) + 16) = 3;
-    v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Logging destination changed to directory: %s FileNamePrefix: %s", "-[WFLogger setDestinationFileLocation:fileNamePrefix:runLoopRef:runLoopMode:classC:dateFormatter:maxFileSizeInMB:logLifespanInDays:]_block_invoke", objc_msgSend(v13, "UTF8String"), objc_msgSend(*(a1 + 48), "UTF8String")];
+    v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Logging destination changed to directory: %s FileNamePrefix: %s", "-[WFLogger setDestinationFileLocation:fileNamePrefix:runLoopRef:runLoopMode:classC:dateFormatter:maxFileSizeInMB:logLifespanInDays:]_block_invoke", objc_msgSend(v6, "UTF8String"), objc_msgSend(*(a1 + 48), "UTF8String")];
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446210;
-      v17 = [objc_msgSend(MEMORY[0x277CCACA8] stringWithFormat:@"[WiFiPolicy] %s", objc_msgSend(v14, "UTF8String")), "UTF8String"];
+      v9 = [objc_msgSend(MEMORY[0x277CCACA8] stringWithFormat:@"[WiFiPolicy] %s", objc_msgSend(v7, "UTF8String")), "UTF8String"];
       _os_log_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}s", buf, 0xCu);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setDestinationOsLog:(__CFString *)log category:(__CFString *)category logLifespanInDays:(unint64_t)days logLevel:(unint64_t)level logPrivacy:(unint64_t)privacy
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if ([(__CFString *)log isEmpty])
   {
     v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s subSystem is empty", "-[WFLogger setDestinationOsLog:category:logLifespanInDays:logLevel:logPrivacy:]"];
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       *buf = 136446210;
-      v18 = [objc_msgSend(MEMORY[0x277CCACA8] stringWithFormat:@"[WiFiPolicy] %s", objc_msgSend(v13, "UTF8String")), "UTF8String"];
+      v17 = [objc_msgSend(MEMORY[0x277CCACA8] stringWithFormat:@"[WiFiPolicy] %s", objc_msgSend(v13, "UTF8String")), "UTF8String"];
       _os_log_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}s", buf, 0xCu);
     }
   }
@@ -318,51 +298,42 @@ void __132__WFLogger_setDestinationFileLocation_fileNamePrefix_runLoopRef_runLoo
     block[9] = privacy;
     dispatch_sync(dispatchQueue, block);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __79__WFLogger_setDestinationOsLog_category_logLifespanInDays_logLevel_logPrivacy___block_invoke(void *a1)
+id __79__WFLogger_setDestinationOsLog_category_logLifespanInDays_logLevel_logPrivacy___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v2 = *(a1[4] + 8);
+  v9 = *MEMORY[0x277D85DE8];
+  v2 = *(*(a1 + 32) + 8);
   if (v2)
   {
     [v2 stopWatchingLogFile];
   }
 
-  v3 = [WFLoggerOsLog alloc];
-  v4 = a1[5];
-  v5 = a1[6];
-  v6 = a1[7];
-  v7 = a1[8];
-  v8 = a1[9];
-  result = [WFLoggerOsLog init:v3 subSystem:"init:subSystem:category:logLifespanInDays:logLevel:logPrivacy:dispatchQueue:" category:*(a1[4] + 32) logLifespanInDays:? logLevel:? logPrivacy:? dispatchQueue:?];
+  result = [WFLoggerOsLog init:"init:subSystem:category:logLifespanInDays:logLevel:logPrivacy:dispatchQueue:" subSystem:*(*(a1 + 32) + 32) category:? logLifespanInDays:? logLevel:? logPrivacy:? dispatchQueue:?];
   if (result)
   {
-    v10 = result;
-    v11 = a1[4];
-    if (*(v11 + 8))
+    v4 = result;
+    v5 = *(a1 + 32);
+    if (*(v5 + 8))
     {
-      v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Logging destination changed to system wide logging (os_log)", "-[WFLogger setDestinationOsLog:category:logLifespanInDays:logLevel:logPrivacy:]_block_invoke"];
+      v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Logging destination changed to system wide logging (os_log)", "-[WFLogger setDestinationOsLog:category:logLifespanInDays:logLevel:logPrivacy:]_block_invoke"];
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136446210;
-        v15 = [objc_msgSend(MEMORY[0x277CCACA8] stringWithFormat:@"[WiFiPolicy] %s", objc_msgSend(v12, "UTF8String")), "UTF8String"];
+        v8 = [objc_msgSend(MEMORY[0x277CCACA8] stringWithFormat:@"[WiFiPolicy] %s", objc_msgSend(v6, "UTF8String")), "UTF8String"];
         _os_log_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}s", buf, 0xCu);
       }
 
-      *(a1[4] + 8) = 0;
-      v11 = a1[4];
+      *(*(a1 + 32) + 8) = 0;
+      v5 = *(a1 + 32);
     }
 
-    *(v11 + 8) = v10;
-    *(a1[4] + 16) = 2;
-    result = [*(a1[4] + 8) getLogPrivacy];
-    *(a1[4] + 24) = result;
+    *(v5 + 8) = v4;
+    *(*(a1 + 32) + 16) = 2;
+    result = [*(*(a1 + 32) + 8) getLogPrivacy];
+    *(*(a1 + 32) + 24) = result;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return result;
 }
 

@@ -9,24 +9,23 @@
 
 - (_STKTextInputObjCStoreFacade)init
 {
-  v3 = type metadata accessor for StickerStore.PersistenceType();
-  v4 = *(*(v3 - 8) + 64);
+  v3 = type metadata accessor for StickerStore.PersistenceType(0);
   MEMORY[0x1EEE9AC00](v3 - 8);
-  v6 = &v13 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = &v12 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1B8A23BB4();
-  v7 = sub_1B8A23784();
-  (*(*(v7 - 8) + 56))(v6, 1, 3, v7);
-  v8 = type metadata accessor for StickerStore();
+  v6 = sub_1B8A23784();
+  (*(*(v6 - 8) + 56))(v5, 1, 3, v6);
+  v7 = type metadata accessor for StickerStore();
   swift_allocObject();
-  v9 = StickerStore.init(persistence:)(v6);
-  v10 = (self + OBJC_IVAR____STKTextInputObjCStoreFacade_store);
-  v10[3] = v8;
-  v10[4] = &protocol witness table for StickerStore;
-  *v10 = v9;
-  v11 = type metadata accessor for _STKTextInputObjCStoreFacade(0);
-  v13.receiver = self;
-  v13.super_class = v11;
-  return [(_STKTextInputObjCStoreFacade *)&v13 init];
+  v8 = StickerStore.init(persistence:)(v5);
+  v9 = (self + OBJC_IVAR____STKTextInputObjCStoreFacade_store);
+  v9[3] = v7;
+  v9[4] = &protocol witness table for StickerStore;
+  *v9 = v8;
+  v10 = type metadata accessor for _STKTextInputObjCStoreFacade(0);
+  v12.receiver = self;
+  v12.super_class = v10;
+  return [(_STKTextInputObjCStoreFacade *)&v12 init];
 }
 
 - (id)stickersWithIdentifiers:(id)identifiers roles:(id)roles error:(id *)error
@@ -86,18 +85,17 @@
   errorCopy = error;
   v5 = sub_1B8A23904();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x1EEE9AC00](v5);
-  v9 = &errorCopy - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = &errorCopy - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1B8A238D4();
-  v10 = *&self->store[OBJC_IVAR____STKTextInputObjCStoreFacade_store + 16];
-  v11 = *&self->store[OBJC_IVAR____STKTextInputObjCStoreFacade_store + 24];
-  __swift_project_boxed_opaque_existential_0((&self->super.isa + OBJC_IVAR____STKTextInputObjCStoreFacade_store), v10);
-  v12 = *(v11 + 72);
+  v9 = *&self->store[OBJC_IVAR____STKTextInputObjCStoreFacade_store + 16];
+  v10 = *&self->store[OBJC_IVAR____STKTextInputObjCStoreFacade_store + 24];
+  __swift_project_boxed_opaque_existential_0((&self->super.isa + OBJC_IVAR____STKTextInputObjCStoreFacade_store), v9);
+  v11 = *(v10 + 72);
   selfCopy = self;
-  v12(v9, v10, v11);
+  v11(v8, v9, v10);
 
-  (*(v6 + 8))(v9, v5);
+  (*(v6 + 8))(v8, v5);
   return 1;
 }
 

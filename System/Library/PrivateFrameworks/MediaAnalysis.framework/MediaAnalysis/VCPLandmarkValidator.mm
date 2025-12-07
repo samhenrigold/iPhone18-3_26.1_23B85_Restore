@@ -203,7 +203,7 @@
     }
 
     while (v12 != 3);
-    vcp_matrix_invert(buf);
+    vcp_matrix_invert(buf, 3);
   }
 
   v69[0] = 0.0;

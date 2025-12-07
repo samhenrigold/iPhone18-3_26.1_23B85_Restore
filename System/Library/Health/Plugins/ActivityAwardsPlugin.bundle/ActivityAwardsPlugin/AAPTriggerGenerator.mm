@@ -75,7 +75,7 @@
 
 - (void)_notifyForUpdatedSummary:(id)summary changedFields:(unint64_t)fields
 {
-  v12 = *MEMORY[0x29EDCA608];
+  v11 = *MEMORY[0x29EDCA608];
   v5 = [(AAPTriggerGenerator *)self _triggersForSummary:summary changedFields:fields];
   if (v5)
   {
@@ -84,15 +84,13 @@
     v8 = ACHLogDefault();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138412290;
-      v11 = v7;
-      _os_log_impl(&dword_29E9F4000, v8, OS_LOG_TYPE_DEFAULT, "Singaling awards daemon for triggers: %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v7;
+      _os_log_impl(&dword_29E9F4000, v8, OS_LOG_TYPE_DEFAULT, "Singaling awards daemon for triggers: %@", &v9, 0xCu);
     }
 
     [(AACAwardsClient *)self->_awardsClient requestAwardingWithTriggers:v6 completion:&unk_2A25200B8];
   }
-
-  v9 = *MEMORY[0x29EDCA608];
 }
 
 - (unint64_t)_triggersForSummary:(id)summary changedFields:(unint64_t)fields

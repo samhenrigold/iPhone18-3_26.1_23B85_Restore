@@ -59,10 +59,10 @@
 
 void __39__UIGestureGraphElement_hasProperties___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
-  v7 = [*(*(a1 + 32) + 8) objectForKeyedSubscript:a2];
-  LOBYTE(a3) = [v7 isEqual:a3];
+  v6 = [*(*(a1 + 32) + 8) objectForKeyedSubscript:a2];
+  isEqual = objc_msgSend_isEqual_(v6);
 
-  if ((a3 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
     *(*(*(a1 + 40) + 8) + 24) = 0;
     *a4 = 1;

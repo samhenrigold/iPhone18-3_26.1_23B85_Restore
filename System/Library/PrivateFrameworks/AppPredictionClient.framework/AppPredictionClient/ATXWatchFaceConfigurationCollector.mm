@@ -33,48 +33,49 @@ uint64_t __52__ATXWatchFaceConfigurationCollector_sharedInstance__block_invoke()
 
 - (ATXWatchFaceConfigurationCollector)init
 {
-  v21 = *MEMORY[0x1E69E9840];
-  v18.receiver = self;
-  v18.super_class = ATXWatchFaceConfigurationCollector;
-  v2 = [(ATXWatchFaceConfigurationCollector *)&v18 init];
+  v22 = *MEMORY[0x1E69E9840];
+  v19.receiver = self;
+  v19.super_class = ATXWatchFaceConfigurationCollector;
+  v2 = [(ATXWatchFaceConfigurationCollector *)&v19 init];
   if (v2)
   {
-    if ([MEMORY[0x1E69C5CF8] isiPad])
+    isiPad = [MEMORY[0x1E69C5CF8] isiPad];
+    if (isiPad)
     {
-      v3 = __atxlog_handle_lock_screen();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+      v4 = __atxlog_handle_lock_screen(isiPad);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v20 = "[ATXWatchFaceConfigurationCollector init]";
-        _os_log_impl(&dword_1BF549000, v3, OS_LOG_TYPE_DEFAULT, "%s: device is iPad, not initializing connection", buf, 0xCu);
+        v21 = "[ATXWatchFaceConfigurationCollector init]";
+        _os_log_impl(&dword_1BF549000, v4, OS_LOG_TYPE_DEFAULT, "%s: device is iPad, not initializing connection", buf, 0xCu);
       }
     }
 
     else
     {
-      v4 = objc_alloc(MEMORY[0x1E698AFF0]);
+      v5 = objc_alloc(MEMORY[0x1E698AFF0]);
       watchFaceConfigurationCacheFilePath = [MEMORY[0x1E698B010] watchFaceConfigurationCacheFilePath];
-      v6 = __atxlog_handle_lock_screen();
-      v7 = [v4 initWithCacheFilePath:watchFaceConfigurationCacheFilePath loggingHandle:v6 debugName:@"watch faces"];
+      v7 = __atxlog_handle_lock_screen(watchFaceConfigurationCacheFilePath);
+      v8 = [v5 initWithCacheFilePath:watchFaceConfigurationCacheFilePath loggingHandle:v7 debugName:@"watch faces"];
       fileCache = v2->_fileCache;
-      v2->_fileCache = v7;
+      v2->_fileCache = v8;
 
-      v9 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-      v10 = dispatch_queue_create("com.apple.proactive.ATXWatchFaceConfigurationCollector", v9);
+      v10 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+      v11 = dispatch_queue_create("com.apple.proactive.ATXWatchFaceConfigurationCollector", v10);
       queue = v2->_queue;
-      v2->_queue = v10;
+      v2->_queue = v11;
 
-      v12 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-      v13 = dispatch_queue_create("com.apple.proactive.ATXWatchFaceConfigurationCollector.Output", v12);
+      v13 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+      v14 = dispatch_queue_create("com.apple.proactive.ATXWatchFaceConfigurationCollector.Output", v13);
       outputQueue = v2->_outputQueue;
-      v2->_outputQueue = v13;
+      v2->_outputQueue = v14;
 
-      v15 = [objc_alloc(MEMORY[0x1E696B0B8]) initWithMachServiceName:@"com.apple.nanotimekit.devicelibraryserver" options:4096];
+      v16 = [objc_alloc(MEMORY[0x1E696B0B8]) initWithMachServiceName:@"com.apple.nanotimekit.devicelibraryserver" options:4096];
       connection = v2->_connection;
-      v2->_connection = v15;
+      v2->_connection = v16;
 
-      v3 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F3EA43A0];
-      [(NSXPCConnection *)v2->_connection setRemoteObjectInterface:v3];
+      v4 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F3EA43A0];
+      [(NSXPCConnection *)v2->_connection setRemoteObjectInterface:v4];
       [(NSXPCConnection *)v2->_connection setInvalidationHandler:&__block_literal_global_190];
       [(NSXPCConnection *)v2->_connection setInterruptionHandler:&__block_literal_global_193];
       [(NSXPCConnection *)v2->_connection resume];
@@ -84,26 +85,26 @@ uint64_t __52__ATXWatchFaceConfigurationCollector_sharedInstance__block_invoke()
   return v2;
 }
 
-void __42__ATXWatchFaceConfigurationCollector_init__block_invoke()
+void __42__ATXWatchFaceConfigurationCollector_init__block_invoke(uint64_t a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v0 = __atxlog_handle_lock_screen();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v6 = *MEMORY[0x1E69E9840];
+  v1 = __atxlog_handle_lock_screen(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    v1 = 136315394;
-    v2 = "[ATXWatchFaceConfigurationCollector init]_block_invoke";
-    v3 = 2112;
-    v4 = @"com.apple.nanotimekit.devicelibraryserver";
-    _os_log_impl(&dword_1BF549000, v0, OS_LOG_TYPE_DEFAULT, "%s: connection to %@ invalidated", &v1, 0x16u);
+    v2 = 136315394;
+    v3 = "[ATXWatchFaceConfigurationCollector init]_block_invoke";
+    v4 = 2112;
+    v5 = @"com.apple.nanotimekit.devicelibraryserver";
+    _os_log_impl(&dword_1BF549000, v1, OS_LOG_TYPE_DEFAULT, "%s: connection to %@ invalidated", &v2, 0x16u);
   }
 }
 
-void __42__ATXWatchFaceConfigurationCollector_init__block_invoke_191()
+void __42__ATXWatchFaceConfigurationCollector_init__block_invoke_191(uint64_t a1)
 {
-  v0 = __atxlog_handle_lock_screen();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = __atxlog_handle_lock_screen(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    __42__ATXWatchFaceConfigurationCollector_init__block_invoke_191_cold_1(v0, v1, v2, v3, v4, v5, v6, v7);
+    __42__ATXWatchFaceConfigurationCollector_init__block_invoke_191_cold_1(v1, v2, v3, v4, v5, v6, v7, v8);
   }
 }
 
@@ -141,7 +142,7 @@ void __42__ATXWatchFaceConfigurationCollector_init__block_invoke_191()
 void __60__ATXWatchFaceConfigurationCollector_refreshWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_lock_screen();
+  v4 = __atxlog_handle_lock_screen(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __60__ATXWatchFaceConfigurationCollector_refreshWithCompletion___block_invoke_cold_1();
@@ -156,19 +157,20 @@ void __60__ATXWatchFaceConfigurationCollector_refreshWithCompletion___block_invo
 
 void __60__ATXWatchFaceConfigurationCollector_refreshWithCompletion___block_invoke_195(uint64_t a1, void *a2, void *a3)
 {
-  v43[1] = *MEMORY[0x1E69E9840];
+  v46[1] = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = v6;
   if (v5 && !v6)
   {
-    v37 = 0;
-    v8 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v5 options:0 error:&v37];
-    v9 = v37;
+    v40 = 0;
+    v8 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v5 options:0 error:&v40];
+    v9 = v40;
+    v10 = v9;
     if (v9 || !v8)
     {
-      v20 = __atxlog_handle_lock_screen();
-      if (!os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v22 = __atxlog_handle_lock_screen(v9);
+      if (!os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_19;
       }
@@ -177,67 +179,68 @@ void __60__ATXWatchFaceConfigurationCollector_refreshWithCompletion___block_invo
     else
     {
       objc_opt_class();
-      if (objc_opt_isKindOfClass())
+      isKindOfClass = objc_opt_isKindOfClass();
+      if (isKindOfClass)
       {
-        v10 = v8;
-        v11 = __atxlog_handle_lock_screen();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+        v12 = v8;
+        v13 = __atxlog_handle_lock_screen(v12);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315394;
-          v39 = "[ATXWatchFaceConfigurationCollector refreshWithCompletion:]_block_invoke";
-          v40 = 2112;
-          v41 = v10;
-          _os_log_impl(&dword_1BF549000, v11, OS_LOG_TYPE_DEFAULT, "%s: retrieved JSON array: %@", buf, 0x16u);
+          v42 = "[ATXWatchFaceConfigurationCollector refreshWithCompletion:]_block_invoke";
+          v43 = 2112;
+          v44 = v12;
+          _os_log_impl(&dword_1BF549000, v13, OS_LOG_TYPE_DEFAULT, "%s: retrieved JSON array: %@", buf, 0x16u);
         }
 
-        v36[0] = MEMORY[0x1E69E9820];
-        v36[1] = 3221225472;
-        v36[2] = __60__ATXWatchFaceConfigurationCollector_refreshWithCompletion___block_invoke_206;
-        v36[3] = &unk_1E80C1FE0;
-        v36[4] = *(a1 + 32);
-        v12 = [v10 _pas_mappedArrayWithTransform:v36];
-        v14 = *(a1 + 32);
-        v13 = *(a1 + 40);
-        v15 = *(v14 + 24);
-        v32[0] = MEMORY[0x1E69E9820];
-        v32[1] = 3221225472;
-        v32[2] = __60__ATXWatchFaceConfigurationCollector_refreshWithCompletion___block_invoke_2;
-        v32[3] = &unk_1E80C2030;
-        v32[4] = v14;
-        v33 = v12;
-        v34 = v10;
-        v35 = v13;
-        v16 = v10;
-        v17 = v12;
-        dispatch_async(v15, v32);
+        v39[0] = MEMORY[0x1E69E9820];
+        v39[1] = 3221225472;
+        v39[2] = __60__ATXWatchFaceConfigurationCollector_refreshWithCompletion___block_invoke_206;
+        v39[3] = &unk_1E80C1FE0;
+        v39[4] = *(a1 + 32);
+        v14 = [v12 _pas_mappedArrayWithTransform:v39];
+        v16 = *(a1 + 32);
+        v15 = *(a1 + 40);
+        v17 = *(v16 + 24);
+        v35[0] = MEMORY[0x1E69E9820];
+        v35[1] = 3221225472;
+        v35[2] = __60__ATXWatchFaceConfigurationCollector_refreshWithCompletion___block_invoke_2;
+        v35[3] = &unk_1E80C2030;
+        v35[4] = v16;
+        v36 = v14;
+        v37 = v12;
+        v38 = v15;
+        v18 = v12;
+        v19 = v14;
+        dispatch_async(v17, v35);
 
-        v9 = 0;
+        v10 = 0;
 LABEL_21:
 
         goto LABEL_22;
       }
 
-      v21 = __atxlog_handle_lock_screen();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      v23 = __atxlog_handle_lock_screen(isKindOfClass);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
-        __60__ATXWatchFaceConfigurationCollector_refreshWithCompletion___block_invoke_195_cold_3(v21, v22, v23, v24, v25, v26, v27, v28);
+        __60__ATXWatchFaceConfigurationCollector_refreshWithCompletion___block_invoke_195_cold_3(v23, v24, v25, v26, v27, v28, v29, v30);
       }
 
-      v29 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v42 = *MEMORY[0x1E696A578];
-      v43[0] = @"JSON is not an array";
-      v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v43 forKeys:&v42 count:1];
-      v9 = [v29 initWithDomain:@"ATXWatchFaceConfigurationCollector" code:1 userInfo:v30];
+      v31 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v45 = *MEMORY[0x1E696A578];
+      v46[0] = @"JSON is not an array";
+      v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v46 forKeys:&v45 count:1];
+      v10 = [v31 initWithDomain:@"ATXWatchFaceConfigurationCollector" code:1 userInfo:v32];
 
-      v20 = __atxlog_handle_lock_screen();
-      if (!os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v22 = __atxlog_handle_lock_screen(v33);
+      if (!os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
 LABEL_19:
 
-        v31 = *(a1 + 40);
-        if (v31)
+        v34 = *(a1 + 40);
+        if (v34)
         {
-          (*(v31 + 16))(v31, 0, v9);
+          (*(v34 + 16))(v34, 0, v10);
         }
 
         goto LABEL_21;
@@ -248,16 +251,16 @@ LABEL_19:
     goto LABEL_19;
   }
 
-  v18 = __atxlog_handle_lock_screen();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+  v20 = __atxlog_handle_lock_screen(v6);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
   {
     __60__ATXWatchFaceConfigurationCollector_refreshWithCompletion___block_invoke_195_cold_1();
   }
 
-  v19 = *(a1 + 40);
-  if (v19)
+  v21 = *(a1 + 40);
+  if (v21)
   {
-    (*(v19 + 16))(v19, 0, v7);
+    (*(v21 + 16))(v21, 0, v7);
   }
 
 LABEL_22:
@@ -321,7 +324,7 @@ void __60__ATXWatchFaceConfigurationCollector_refreshWithCompletion___block_invo
 
 void __48__ATXWatchFaceConfigurationCollector_watchFaces__block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   if (v2[5])
   {
@@ -330,37 +333,37 @@ void __48__ATXWatchFaceConfigurationCollector_watchFaces__block_invoke(uint64_t 
     v5 = *(v4 + 40);
     *(v4 + 40) = v3;
 
-    v6 = __atxlog_handle_lock_screen();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = __atxlog_handle_lock_screen(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 136315138;
-      v15 = "[ATXWatchFaceConfigurationCollector watchFaces]_block_invoke";
-      _os_log_impl(&dword_1BF549000, v6, OS_LOG_TYPE_DEFAULT, "%s: returning in-memory watchfaces", &v14, 0xCu);
+      v16 = 136315138;
+      v17 = "[ATXWatchFaceConfigurationCollector watchFaces]_block_invoke";
+      _os_log_impl(&dword_1BF549000, v7, OS_LOG_TYPE_DEFAULT, "%s: returning in-memory watchfaces", &v16, 0xCu);
     }
   }
 
   else
   {
-    v7 = [v2 _queue_readWatchFacesFromDisk];
-    v8 = *(a1 + 32);
-    v9 = *(v8 + 40);
-    *(v8 + 40) = v7;
+    v8 = [v2 _queue_readWatchFacesFromDisk];
+    v9 = *(a1 + 32);
+    v10 = *(v9 + 40);
+    *(v9 + 40) = v8;
 
-    v10 = __atxlog_handle_lock_screen();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v12 = __atxlog_handle_lock_screen(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = *(*(a1 + 32) + 40);
-      v14 = 136315394;
-      v15 = "[ATXWatchFaceConfigurationCollector watchFaces]_block_invoke";
-      v16 = 2112;
-      v17 = v11;
-      _os_log_impl(&dword_1BF549000, v10, OS_LOG_TYPE_DEFAULT, "%s: read watch faces from disk: %@", &v14, 0x16u);
+      v13 = *(*(a1 + 32) + 40);
+      v16 = 136315394;
+      v17 = "[ATXWatchFaceConfigurationCollector watchFaces]_block_invoke";
+      v18 = 2112;
+      v19 = v13;
+      _os_log_impl(&dword_1BF549000, v12, OS_LOG_TYPE_DEFAULT, "%s: read watch faces from disk: %@", &v16, 0x16u);
     }
 
-    v12 = [*(*(a1 + 32) + 40) copy];
-    v13 = *(*(a1 + 40) + 8);
-    v6 = *(v13 + 40);
-    *(v13 + 40) = v12;
+    v14 = [*(*(a1 + 32) + 40) copy];
+    v15 = *(*(a1 + 40) + 8);
+    v7 = *(v15 + 40);
+    *(v15 + 40) = v14;
   }
 }
 
@@ -368,63 +371,53 @@ void __48__ATXWatchFaceConfigurationCollector_watchFaces__block_invoke(uint64_t 
 {
   objectCopy = object;
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    v4 = objectCopy;
-    v5 = [v4 objectForKeyedSubscript:@"faceJSON"];
-    v6 = [v4 objectForKeyedSubscript:@"selected"];
-    bOOLValue = [v6 BOOLValue];
+    v5 = objectCopy;
+    v6 = [v5 objectForKeyedSubscript:@"faceJSON"];
+    v7 = [v5 objectForKeyedSubscript:@"selected"];
+    bOOLValue = [v7 BOOLValue];
 
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
+    v9 = objc_opt_isKindOfClass();
+    if ((v9 & 1) == 0)
     {
-      v15 = __atxlog_handle_lock_screen();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v17 = __atxlog_handle_lock_screen(v9);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         +[ATXWatchFaceConfigurationCollector _watchFaceFromJSONObject:];
       }
 
-      v14 = 0;
+      v16 = 0;
       goto LABEL_32;
     }
 
-    v28 = bOOLValue;
-    v8 = v5;
-    v9 = [v8 objectForKeyedSubscript:@"face type"];
-    stringValue = [v9 stringValue];
+    v30 = bOOLValue;
+    v10 = v6;
+    v11 = [v10 objectForKeyedSubscript:@"face type"];
+    stringValue = [v11 stringValue];
 
-    v11 = [v8 objectForKeyedSubscript:@"bundle id"];
-    stringValue2 = [v11 stringValue];
+    v13 = [v10 objectForKeyedSubscript:@"bundle id"];
+    stringValue2 = [v13 stringValue];
 
-    v12 = [v8 objectForKeyedSubscript:@"customization"];
+    v14 = [v10 objectForKeyedSubscript:@"customization"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v13 = [v8 objectForKeyedSubscript:@"customization"];
+      v15 = [v10 objectForKeyedSubscript:@"customization"];
     }
 
     else
     {
-      v13 = 0;
+      v15 = 0;
     }
 
-    v16 = [v13 objectForKeyedSubscript:@"content"];
+    v18 = [v15 objectForKeyedSubscript:@"content"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v17 = [v13 objectForKeyedSubscript:@"content"];
-    }
-
-    else
-    {
-      v17 = 0;
-    }
-
-    v18 = [v13 objectForKeyedSubscript:@"color"];
-    objc_opt_class();
-    if (objc_opt_isKindOfClass())
-    {
-      v19 = [v13 objectForKeyedSubscript:@"color"];
+      v19 = [v15 objectForKeyedSubscript:@"content"];
     }
 
     else
@@ -432,155 +425,167 @@ void __48__ATXWatchFaceConfigurationCollector_watchFaces__block_invoke(uint64_t 
       v19 = 0;
     }
 
-    if ([stringValue isEqualToString:@"astronomy"])
+    v20 = [v15 objectForKeyedSubscript:@"color"];
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
     {
-      v20 = 1;
-    }
-
-    else if ([stringValue isEqualToString:@"spectrum-analog"])
-    {
-      v20 = 2;
-    }
-
-    else if ([stringValue isEqualToString:@"color"] & 1) != 0 || (objc_msgSend(stringValue, "isEqualToString:", @"color-rich"))
-    {
-      v20 = 10;
-    }
-
-    else if ([stringValue isEqualToString:@"photos"])
-    {
-      v20 = 3;
-    }
-
-    else if ([stringValue isEqualToString:@"pride"])
-    {
-      v20 = 4;
-    }
-
-    else if ([stringValue isEqualToString:@"pride analog"] & 1) != 0 || (objc_msgSend(stringValue, "isEqualToString:", @"pride analog rich"))
-    {
-      v20 = 11;
-    }
-
-    else if ([stringValue isEqualToString:@"big-numerals-analog"] && (objc_msgSend(v19, "isEqualToString:", @"multicolor gradient 1") & 1) != 0)
-    {
-      v20 = 14;
-    }
-
-    else if ([stringValue isEqualToString:@"big-numerals-digital"] && (objc_msgSend(v19, "isEqualToString:", @"multicolor gradient 1") & 1) != 0)
-    {
-      v20 = 15;
+      v21 = [v15 objectForKeyedSubscript:@"color"];
     }
 
     else
     {
-      if (![stringValue isEqualToString:@"california"] || (objc_msgSend(v19, "isEqualToString:", @"style 10") & 1) == 0)
+      v21 = 0;
+    }
+
+    if ([stringValue isEqualToString:@"astronomy"])
+    {
+      v22 = 1;
+    }
+
+    else if ([stringValue isEqualToString:@"spectrum-analog"])
+    {
+      v22 = 2;
+    }
+
+    else if ([stringValue isEqualToString:@"color"] & 1) != 0 || (objc_msgSend(stringValue, "isEqualToString:", @"color-rich"))
+    {
+      v22 = 10;
+    }
+
+    else if ([stringValue isEqualToString:@"photos"])
+    {
+      v22 = 3;
+    }
+
+    else if ([stringValue isEqualToString:@"pride"])
+    {
+      v22 = 4;
+    }
+
+    else if ([stringValue isEqualToString:@"pride analog"] & 1) != 0 || (objc_msgSend(stringValue, "isEqualToString:", @"pride analog rich"))
+    {
+      v22 = 11;
+    }
+
+    else if ([stringValue isEqualToString:@"big-numerals-analog"] && (objc_msgSend(v21, "isEqualToString:", @"multicolor gradient 1") & 1) != 0)
+    {
+      v22 = 14;
+    }
+
+    else if ([stringValue isEqualToString:@"big-numerals-digital"] && (objc_msgSend(v21, "isEqualToString:", @"multicolor gradient 1") & 1) != 0)
+    {
+      v22 = 15;
+    }
+
+    else
+    {
+      if (![stringValue isEqualToString:@"california"] || (objc_msgSend(v21, "isEqualToString:", @"style 10") & 1) == 0)
       {
-        v27 = stringValue2;
+        v29 = stringValue2;
         if ([stringValue2 length])
         {
           if ([stringValue2 isEqualToString:@"com.apple.NTKAegirFaceBundle"])
           {
-            if ([v17 isEqualToString:@"earth"])
+            if ([v19 isEqualToString:@"earth"])
             {
-              v20 = 7;
+              v22 = 7;
               goto LABEL_25;
             }
 
-            if ([v17 isEqualToString:@"luna"])
+            if ([v19 isEqualToString:@"luna"])
             {
-              v20 = 8;
+              v22 = 8;
               goto LABEL_25;
             }
 
-            if ([v17 isEqualToString:@"orrery"])
+            if ([v19 isEqualToString:@"orrery"])
             {
-              v20 = 9;
+              v22 = 9;
               goto LABEL_25;
             }
 
-            v27 = stringValue2;
-            if ([v17 isEqualToString:@"random"])
+            v29 = stringValue2;
+            if ([v19 isEqualToString:@"random"])
             {
-              v20 = 17;
+              v22 = 17;
               goto LABEL_25;
             }
           }
 
-          if ([v27 isEqualToString:@"com.apple.NanoTimeKit.NTKPrideWeaveFaceBundle"])
+          if ([v29 isEqualToString:@"com.apple.NanoTimeKit.NTKPrideWeaveFaceBundle"])
           {
-            v20 = 13;
+            v22 = 13;
             goto LABEL_25;
           }
 
-          if ([v27 isEqualToString:@"com.apple.NTKLilypadFaceBundle"])
+          if ([v29 isEqualToString:@"com.apple.NTKLilypadFaceBundle"])
           {
-            v20 = 12;
+            v22 = 12;
             goto LABEL_25;
           }
 
           if ([stringValue2 isEqualToString:@"com.apple.NTKRenegadeFaceBundle"])
           {
-            v20 = 5;
+            v22 = 5;
             goto LABEL_25;
           }
 
           if ([stringValue2 isEqualToString:@"com.apple.NTKColtanFaceBundle"])
           {
-            v20 = 6;
+            v22 = 6;
             goto LABEL_25;
           }
         }
 
-        v20 = 0;
+        v22 = 0;
         goto LABEL_25;
       }
 
-      v20 = 16;
+      v22 = 16;
     }
 
 LABEL_25:
 
-    v21 = [v8 objectForKeyedSubscript:@"complications"];
+    v23 = [v10 objectForKeyedSubscript:@"complications"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      allValues = [v21 allValues];
-      v23 = [allValues _pas_mappedArrayWithTransform:&__block_literal_global_211];
+      allValues = [v23 allValues];
+      v25 = [allValues _pas_mappedArrayWithTransform:&__block_literal_global_211];
     }
 
     else
     {
-      v23 = 0;
+      v25 = 0;
     }
 
-    v24 = [ATXWatchFace alloc];
-    if (v23)
+    v26 = [ATXWatchFace alloc];
+    if (v25)
     {
-      v25 = v23;
+      v27 = v25;
     }
 
     else
     {
-      v25 = MEMORY[0x1E695E0F0];
+      v27 = MEMORY[0x1E695E0F0];
     }
 
-    v14 = [(ATXWatchFace *)v24 initWithStyle:v20 complications:v25 selected:v28];
+    v16 = [(ATXWatchFace *)v26 initWithStyle:v22 complications:v27 selected:v30];
 
 LABEL_32:
     goto LABEL_33;
   }
 
-  v4 = __atxlog_handle_lock_screen();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = __atxlog_handle_lock_screen(isKindOfClass);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     +[ATXWatchFaceConfigurationCollector _watchFaceFromJSONObject:];
   }
 
-  v14 = 0;
+  v16 = 0;
 LABEL_33:
 
-  return v14;
+  return v16;
 }
 
 id __63__ATXWatchFaceConfigurationCollector__watchFaceFromJSONObject___block_invoke(uint64_t a1, void *a2)
@@ -643,6 +648,59 @@ id __63__ATXWatchFaceConfigurationCollector__watchFaceFromJSONObject___block_inv
   diskCopy = disk;
   dispatch_assert_queue_V2(queue);
   [(ATXGenericFileBasedCache *)self->_fileCache storeSecureCodedObject:diskCopy error:0];
+}
+
+void __42__ATXWatchFaceConfigurationCollector_init__block_invoke_191_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  *v8 = 136315394;
+  *&v8[4] = "[ATXWatchFaceConfigurationCollector init]_block_invoke";
+  *&v8[12] = 2112;
+  *&v8[14] = @"com.apple.nanotimekit.devicelibraryserver";
+  OUTLINED_FUNCTION_1_2(&dword_1BF549000, a1, a3, "%s: connection to %@ interrupted", a5, a6, a7, a8, *v8, *&v8[8], *&v8[16], *MEMORY[0x1E69E9840]);
+}
+
+void __60__ATXWatchFaceConfigurationCollector_refreshWithCompletion___block_invoke_cold_1()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_3();
+  OUTLINED_FUNCTION_1_2(&dword_1BF549000, v0, v1, "%s: unable to grab remote object proxy: %@", v2, v3, v4, v5, v6);
+}
+
+void __60__ATXWatchFaceConfigurationCollector_refreshWithCompletion___block_invoke_195_cold_1()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_3();
+  OUTLINED_FUNCTION_1_2(&dword_1BF549000, v0, v1, "%s: error fetching library as JSON: %@", v2, v3, v4, v5, v6);
+}
+
+void __60__ATXWatchFaceConfigurationCollector_refreshWithCompletion___block_invoke_195_cold_2()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_3();
+  OUTLINED_FUNCTION_1_2(&dword_1BF549000, v0, v1, "%s: could not deserialize json: %@", v2, v3, v4, v5, v6);
+}
+
+void __60__ATXWatchFaceConfigurationCollector_refreshWithCompletion___block_invoke_195_cold_3(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  *v8 = 136315394;
+  *&v8[4] = "[ATXWatchFaceConfigurationCollector refreshWithCompletion:]_block_invoke";
+  *&v8[12] = 2112;
+  *&v8[14] = 0;
+  OUTLINED_FUNCTION_1_2(&dword_1BF549000, a1, a3, "%s: could not deserialize json: %@", a5, a6, a7, a8, *v8, *&v8[8], *&v8[16], *MEMORY[0x1E69E9840]);
+}
+
++ (void)_watchFaceFromJSONObject:.cold.1()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_3();
+  OUTLINED_FUNCTION_1_2(&dword_1BF549000, v0, v1, "%s: watch face JSON object is not a dictionary: %@", v2, v3, v4, v5, v6);
+}
+
++ (void)_watchFaceFromJSONObject:.cold.2()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_3();
+  OUTLINED_FUNCTION_1_2(&dword_1BF549000, v0, v1, "%s: faceJSON object is not a dictionary: %@", v2, v3, v4, v5, v6);
 }
 
 @end

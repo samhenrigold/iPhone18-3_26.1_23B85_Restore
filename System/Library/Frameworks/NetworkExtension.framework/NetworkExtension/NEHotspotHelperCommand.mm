@@ -1,5 +1,4 @@
 @interface NEHotspotHelperCommand
-- (NEHotspotHelperCommandType)commandType;
 - (NEHotspotHelperResponse)createResponse:(NEHotspotHelperResult)result;
 - (NEHotspotNetwork)network;
 - (NSArray)networkList;
@@ -32,7 +31,6 @@
 {
   if (self)
   {
-    v2 = self[1];
     self = CNPluginCommandGetInterfaceName();
     v1 = vars8;
   }
@@ -136,16 +134,6 @@
   }
 
   return v4;
-}
-
-- (NEHotspotHelperCommandType)commandType
-{
-  if (self)
-  {
-    command = self->_command;
-  }
-
-  return CNPluginCommandGetType();
 }
 
 - (void)dealloc

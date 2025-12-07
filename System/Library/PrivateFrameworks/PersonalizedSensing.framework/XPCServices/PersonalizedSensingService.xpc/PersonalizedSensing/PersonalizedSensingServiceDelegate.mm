@@ -188,7 +188,7 @@ LABEL_16:
   memset(&v6, 0, sizeof(v6));
   if (connectionCopy)
   {
-    [connectionCopy auditToken];
+    objc_msgSend_auditToken(connectionCopy, *v6.val, *&v6.val[4]);
   }
 
   if (proc_pidpath_audittoken(&v6, buffer, 0x1000u) < 1)
@@ -266,7 +266,7 @@ LABEL_16:
   [(PersonalizedSensingServiceDelegate *)self clientConnection:connectionCopy cacheContextRetrievalEntitlement:@"com.apple.personalized-sensing-service.data-access"];
   if (connectionCopy)
   {
-    [connectionCopy auditToken];
+    objc_msgSend_auditToken(connectionCopy);
   }
 
   else
@@ -366,7 +366,7 @@ LABEL_16:
   v4 = connectionCopy;
   if (connectionCopy)
   {
-    [connectionCopy auditToken];
+    objc_msgSend_auditToken(connectionCopy);
   }
 
   else

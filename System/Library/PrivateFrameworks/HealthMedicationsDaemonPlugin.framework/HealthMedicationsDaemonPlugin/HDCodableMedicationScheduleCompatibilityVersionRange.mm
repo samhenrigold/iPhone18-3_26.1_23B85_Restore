@@ -64,20 +64,18 @@
 {
   toCopy = to;
   has = self->_has;
-  v8 = toCopy;
+  v6 = toCopy;
   if (has)
   {
-    minimum = self->_minimum;
     PBDataWriterWriteInt64Field();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    origin = self->_origin;
     PBDataWriterWriteInt64Field();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 

@@ -910,7 +910,7 @@ LABEL_11:
         if ([v20 accountType] == 1 && (objc_msgSend(v20, "isAdHocAccount") & 1) == 0)
         {
           dsID = [v20 dsID];
-          if (([dsID isEqualToIgnoringCase:dCopy]& 1) == 0)
+          if ((objc_msgSend_isEqualToIgnoringCase_(dsID) & 1) == 0)
           {
             goto LABEL_30;
           }
@@ -2494,12 +2494,12 @@ LABEL_35:
     v5 = _lastRepairIntervalFromPrefs;
     if (_lastRepairIntervalFromPrefs)
     {
-      [_lastRepairIntervalFromPrefs doubleValue];
+      objc_msgSend_doubleValue(_lastRepairIntervalFromPrefs);
       v14 = v13;
       v15 = +[IMRGLog phoneRepair];
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        [v5 doubleValue];
+        objc_msgSend_doubleValue(v5);
         v16 = [NSDate dateWithTimeIntervalSinceReferenceDate:?];
         *buf = 138412290;
         v42 = v16;
@@ -2568,7 +2568,7 @@ LABEL_32:
 
     if (v18)
     {
-      [v18 doubleValue];
+      objc_msgSend_doubleValue(v18);
       v22 = v21;
       userDefaults2 = +[IMRGLog phoneRepair];
       if (!os_log_type_enabled(userDefaults2, OS_LOG_TYPE_DEFAULT))

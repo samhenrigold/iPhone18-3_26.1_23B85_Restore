@@ -7,7 +7,7 @@
 
 + (id)treatmentFromCKRecord:()CloudKit treatmentSize:
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v7 = a3;
   *a4 = 0;
   values = [v7 values];
@@ -41,7 +41,7 @@
       if (os_log_type_enabled(&v17->super, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v28 = v9;
+        v27 = v9;
         _os_log_error_impl(&dword_26F567000, &v17->super, OS_LOG_TYPE_ERROR, "could not create treatment artifact from CloudKit record for %@ due to missing fields", buf, 0xCu);
       }
 
@@ -53,9 +53,9 @@
       v17 = [[TRIClientTreatmentArtifact alloc] initWithEncodedTreatmentDefinition:v10 encodedTreatmentDefinitionSignature:v11 publicCertificate:v12];
       if ([(TRIClientTreatmentArtifact *)v17 isValidWithTreatmentId:v9])
       {
-        v26 = 0;
-        v16 = [MEMORY[0x277D73AF0] parseFromData:v10 error:&v26];
-        v19 = v26;
+        v25 = 0;
+        v16 = [MEMORY[0x277D73AF0] parseFromData:v10 error:&v25];
+        v19 = v25;
         if (v16)
         {
           v20 = v16;
@@ -68,9 +68,9 @@
           {
             recordID = [v7 recordID];
             *buf = 138412546;
-            v28 = recordID;
-            v29 = 2114;
-            v30 = v19;
+            v27 = recordID;
+            v28 = 2114;
+            v29 = v19;
             _os_log_error_impl(&dword_26F567000, v21, OS_LOG_TYPE_ERROR, "could not parse TRIClientTreatment from CloudKit record %@: %{public}@", buf, 0x16u);
           }
         }
@@ -82,7 +82,7 @@
         if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v28 = v9;
+          v27 = v9;
           _os_log_error_impl(&dword_26F567000, v19, OS_LOG_TYPE_ERROR, "invalid signature for treatment id %@", buf, 0xCu);
         }
 
@@ -102,8 +102,6 @@
 
     v16 = 0;
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v16;
 }

@@ -265,7 +265,7 @@ LABEL_39:
 - (void)invalidate
 {
   name = [self name];
-  LogPrintF_safe();
+  LogPrintF_safe(&gLogCategory_ENXPCTimer, "[ENXPCTimer invalidate]", 30, "ENXPCTimer Unregistering XPC activity %@", name);
 }
 
 - (id)activityHandler
@@ -273,6 +273,12 @@ LABEL_39:
   name = [(ENXPCTimer *)self name];
   date = [(ENXPCTimer *)self date];
   [date timeIntervalSinceNow];
+  v6 = v5;
+
+  if (v6 < 0.0)
+  {
+    v6 = 0.0;
+  }
 
   if (gLogCategory_ENXPCTimer <= 30 && (gLogCategory_ENXPCTimer != -1 || _LogCategory_Initialize()))
   {
@@ -281,21 +287,21 @@ LABEL_39:
 
   objc_initWeak(&location, self);
   block = [(ENXPCTimer *)self block];
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __29__ENXPCTimer_activityHandler__block_invoke;
-  v10[3] = &unk_278FD2608;
-  objc_copyWeak(&v13, &location);
-  v11 = name;
-  v12 = block;
-  v6 = block;
-  v7 = name;
-  v8 = MEMORY[0x24C214430](v10);
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __29__ENXPCTimer_activityHandler__block_invoke;
+  v12[3] = &unk_278FD2608;
+  objc_copyWeak(&v15, &location);
+  v13 = name;
+  v14 = block;
+  v8 = block;
+  v9 = name;
+  v10 = MEMORY[0x24C214430](v12);
 
-  objc_destroyWeak(&v13);
+  objc_destroyWeak(&v15);
   objc_destroyWeak(&location);
 
-  return v8;
+  return v10;
 }
 
 void __29__ENXPCTimer_activityHandler__block_invoke(uint64_t a1, void *a2)
@@ -328,29 +334,26 @@ void __29__ENXPCTimer_activityHandler__block_invoke(uint64_t a1, void *a2)
       v4 = xpc_activity_copy_criteria(activity);
       if (state == 2)
       {
-        xpc_activity_set_state(activity, 5);
-        v8 = MEMORY[0x277CCACA0];
-        v9 = *(a1 + 32);
-        v10 = [MEMORY[0x277CCAD70] UUID];
-        v11 = [v10 UUIDString];
-        v12 = [v8 stringWithFormat:@"%@-%@", v9, v11];
+        v8 = xpc_activity_set_state(activity, 5);
+        v9 = MEMORY[0x277CCACA0];
+        v10 = *(a1 + 32);
+        v11 = [MEMORY[0x277CCAD70] UUID];
+        v12 = [v11 UUIDString];
+        v13 = [v9 stringWithFormat:@"%@-%@", v10, v12];
 
-        [v12 UTF8String];
-        v13 = os_transaction_create();
+        [v13 UTF8String];
+        v14 = os_transaction_create();
         if (gLogCategory_ENXPCTimer <= 30 && (gLogCategory_ENXPCTimer != -1 || _LogCategory_Initialize()))
         {
-          __29__ENXPCTimer_activityHandler__block_invoke_cold_1((a1 + 32));
+          __29__ENXPCTimer_activityHandler__block_invoke_cold_1((a1 + 32), v8);
         }
 
         (*(*(a1 + 40) + 16))();
-
-        goto LABEL_42;
       }
 
-      if (gLogCategory_ENXPCTimer <= 30 && (gLogCategory_ENXPCTimer != -1 || _LogCategory_Initialize()))
+      else if (gLogCategory_ENXPCTimer <= 30 && (gLogCategory_ENXPCTimer != -1 || _LogCategory_Initialize()))
       {
-        v17 = *(a1 + 32);
-        goto LABEL_30;
+        LogPrintF_safe(&gLogCategory_ENXPCTimer, "[ENXPCTimer activityHandler]_block_invoke", 30, "ENXPCTimer %@ changed to state %ld with criteria %p", *(a1 + 32), state, v4);
       }
     }
 
@@ -358,44 +361,42 @@ void __29__ENXPCTimer_activityHandler__block_invoke(uint64_t a1, void *a2)
     {
       [WeakRetained setActivity:activity];
       v4 = xpc_activity_copy_criteria(activity);
-      if (!v4)
+      if (v4)
+      {
+        v5 = [WeakRetained criteria];
+        v6 = xpc_equal(v5, v4);
+
+        if (v6)
+        {
+          if (gLogCategory_ENXPCTimer <= 30 && (gLogCategory_ENXPCTimer != -1 || _LogCategory_Initialize()))
+          {
+            LogPrintF_safe(&gLogCategory_ENXPCTimer, "[ENXPCTimer activityHandler]_block_invoke", 30, "ENXPCTimer Check-in: %@, with existing criteria: %@", *(a1 + 32), v4);
+          }
+        }
+
+        else
+        {
+          v16 = [WeakRetained criteria];
+          xpc_activity_set_criteria(activity, v16);
+
+          if (gLogCategory_ENXPCTimer <= 30 && (gLogCategory_ENXPCTimer != -1 || _LogCategory_Initialize()))
+          {
+            __29__ENXPCTimer_activityHandler__block_invoke_cold_4(a1, WeakRetained);
+          }
+        }
+      }
+
+      else
       {
         if (gLogCategory_ENXPCTimer <= 30 && (gLogCategory_ENXPCTimer != -1 || _LogCategory_Initialize()))
         {
           __29__ENXPCTimer_activityHandler__block_invoke_cold_5(a1, WeakRetained);
         }
 
-        v14 = [WeakRetained criteria];
-        xpc_activity_set_criteria(activity, v14);
-
-        goto LABEL_42;
-      }
-
-      v5 = [WeakRetained criteria];
-      v6 = xpc_equal(v5, v4);
-
-      if (!v6)
-      {
         v15 = [WeakRetained criteria];
         xpc_activity_set_criteria(activity, v15);
-
-        if (gLogCategory_ENXPCTimer <= 30 && (gLogCategory_ENXPCTimer != -1 || _LogCategory_Initialize()))
-        {
-          __29__ENXPCTimer_activityHandler__block_invoke_cold_4(a1, WeakRetained);
-        }
-
-        goto LABEL_42;
-      }
-
-      if (gLogCategory_ENXPCTimer <= 30 && (gLogCategory_ENXPCTimer != -1 || _LogCategory_Initialize()))
-      {
-        v16 = *(a1 + 32);
-LABEL_30:
-        LogPrintF_safe();
       }
     }
-
-LABEL_42:
 
     goto LABEL_43;
   }
@@ -419,23 +420,60 @@ LABEL_43:
 
 - (uint64_t)activityHandler
 {
-  [self cadence];
+  cadence = [self cadence];
+  switch(cadence)
+  {
+    case 60:
+      v7 = "1 Minute";
+      break;
+    case 300:
+      v7 = "5 Minutes";
+      break;
+    case 900:
+      v7 = "15 Minutes";
+      break;
+    case 1800:
+      v7 = "30 Minutes";
+      break;
+    case 3600:
+      v7 = "1 Hour";
+      break;
+    case 14400:
+      v7 = "4 Hours";
+      break;
+    case 28800:
+      v7 = "8 Hours";
+      break;
+    case 86400:
+      v7 = "1 Day";
+      break;
+    case 604800:
+      v7 = "7 Days";
+      break;
+    case 2592000:
+      v7 = "1 Month";
+      break;
+    default:
+      v7 = "Custom";
+      break;
+  }
+
   [self gracePeriod];
-  return LogPrintF_safe();
+  return LogPrintF_safe(&gLogCategory_ENXPCTimer, "[ENXPCTimer activityHandler]", 30, "ENXPCTimer: Scheduling XPC activity (%@) in %lld, cadence: %s, ~%lf grace.", a2, a3, v7, v8);
 }
 
 void __29__ENXPCTimer_activityHandler__block_invoke_cold_4(uint64_t a1, void *a2)
 {
   v2 = *(a1 + 32);
   v3 = [a2 criteria];
-  LogPrintF_safe();
+  LogPrintF_safe(&gLogCategory_ENXPCTimer, "[ENXPCTimer activityHandler]_block_invoke", 30, "ENXPCTimer Check-in: %@, with updating criteria: %@", v2, v3);
 }
 
 void __29__ENXPCTimer_activityHandler__block_invoke_cold_5(uint64_t a1, void *a2)
 {
   v2 = *(a1 + 32);
   v3 = [a2 criteria];
-  LogPrintF_safe();
+  LogPrintF_safe(&gLogCategory_ENXPCTimer, "[ENXPCTimer activityHandler]_block_invoke", 30, "ENXPCTimer Check-in: %@, with criteria: %@", v2, v3);
 }
 
 @end

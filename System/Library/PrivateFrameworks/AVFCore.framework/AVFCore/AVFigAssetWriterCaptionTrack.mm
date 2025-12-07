@@ -43,7 +43,7 @@
   v14 = outputSettings;
   if (outputSettings)
   {
-    [outputSettings captionTimeCodeFrameDuration];
+    objc_msgSend_captionTimeCodeFrameDuration(outputSettings);
   }
 
   v28 = 0uLL;
@@ -191,7 +191,7 @@ LABEL_9:
   {
     if (caption)
     {
-      [caption timeRange];
+      objc_msgSend_timeRange(caption, a2);
     }
 
     else
@@ -217,7 +217,7 @@ LABEL_9:
   {
     if (caption)
     {
-      [caption timeRange];
+      objc_msgSend_timeRange(caption, a2);
     }
 
     else
@@ -250,7 +250,7 @@ LABEL_21:
 
   if (caption)
   {
-    [caption timeRange];
+    objc_msgSend_timeRange(caption, a2);
   }
 
   else
@@ -266,7 +266,7 @@ LABEL_21:
   [(AVCaptionGrouper *)self->_captionGrouper addCaption:caption];
   if (caption)
   {
-    [caption timeRange];
+    objc_msgSend_timeRange(caption);
   }
 
   else
@@ -299,7 +299,7 @@ LABEL_22:
   {
     if (group)
     {
-      [group timeRange];
+      objc_msgSend_timeRange(group, a2);
     }
 
     else
@@ -330,7 +330,7 @@ LABEL_22:
   {
     if (group)
     {
-      [group timeRange];
+      objc_msgSend_timeRange(group);
     }
 
     else
@@ -367,7 +367,7 @@ LABEL_18:
 
   if (group)
   {
-    [group timeRange];
+    objc_msgSend_timeRange(group);
   }
 
   else

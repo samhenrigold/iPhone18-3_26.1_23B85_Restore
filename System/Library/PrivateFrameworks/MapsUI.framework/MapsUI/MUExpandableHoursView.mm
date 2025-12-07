@@ -8,8 +8,10 @@
 - (void)_buildDayRowViewModels;
 - (void)_createDayRowViewsIfNeeded;
 - (void)_invokeChildrenOfStackingChange;
+- (void)_setExpanded:(BOOL)expanded animated:(BOOL)animated;
 - (void)_setupStackView;
 - (void)_updateHoursVisibilityAnimated:(BOOL)animated;
+- (void)setExpanded:(BOOL)expanded;
 - (void)setStacked:(BOOL)stacked;
 @end
 
@@ -24,38 +26,36 @@
 
 - (void)_invokeChildrenOfStackingChange
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v3 = self->_dayRowViews;
-  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [*(*(&v9 + 1) + 8 * v7++) setStacked:{self->_stacked, v9}];
+        [*(*(&v8 + 1) + 8 * v7++) setStacked:{self->_stacked, v8}];
       }
 
       while (v5 != v7);
-      v5 = [(NSArray *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [(NSArray *)v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setStacked:(BOOL)stacked
@@ -69,33 +69,33 @@
 
 - (BOOL)shouldStackForProposedWidth:(double)width
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v4 = self->_dayRowViews;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
-    v6 = *v11;
+    v6 = *v10;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        if ([*(*(&v10 + 1) + 8 * i) shouldStackForProposedWidth:{width, v10}])
+        if ([*(*(&v9 + 1) + 8 * i) shouldStackForProposedWidth:{width, v9}])
         {
           LOBYTE(v5) = 1;
           goto LABEL_11;
         }
       }
 
-      v5 = [(NSArray *)v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [(NSArray *)v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
       if (v5)
       {
         continue;
@@ -107,7 +107,6 @@
 
 LABEL_11:
 
-  v8 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -143,35 +142,35 @@ LABEL_11:
 
 void __56__MUExpandableHoursView__updateHoursVisibilityAnimated___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = WeakRetained;
   if (WeakRetained)
   {
     [WeakRetained[59] setExpanded:{objc_msgSend(WeakRetained, "isExpanded")}];
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
     v13 = 0u;
+    v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
     v4 = v3[60];
-    v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v13;
+      v7 = *v12;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v13 != v7)
+          if (*v12 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          [*(*(&v12 + 1) + 8 * i) setHidden:{objc_msgSend(v3, "isExpanded", v12) ^ 1}];
+          [*(*(&v11 + 1) + 8 * i) setHidden:{objc_msgSend(v3, "isExpanded", v11) ^ 1}];
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v6);
@@ -184,11 +183,9 @@ void __56__MUExpandableHoursView__updateHoursVisibilityAnimated___block_invoke(u
       v10 = 1.0;
     }
 
-    [v3[58] setAlpha:{v10, v12}];
+    [v3[58] setAlpha:{v10, v11}];
     [*(a1 + 32) invalidateIntrinsicContentSize];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (CGSize)sizeThatFits:(CGSize)fits
@@ -232,9 +229,32 @@ void __56__MUExpandableHoursView__updateHoursVisibilityAnimated___block_invoke(u
   return result;
 }
 
+- (void)setExpanded:(BOOL)expanded
+{
+  expanded = self->_expanded;
+  [(MUExpandableHoursView *)self _setExpanded:expanded animated:0];
+  if (self->_expanded != expanded)
+  {
+    hoursSummaryView = self->_hoursSummaryView;
+
+    [(MUHoursSummaryView *)hoursSummaryView expandButtonTapped:0];
+  }
+}
+
+- (void)_setExpanded:(BOOL)expanded animated:(BOOL)animated
+{
+  if (self->_expanded != expanded)
+  {
+    self->_expanded = expanded;
+    [(MUExpandableHoursView *)self _updateHoursVisibilityAnimated:animated];
+    delegate = [(MUExpandableHoursView *)self delegate];
+    [delegate expandableHoursViewDidExpand:self];
+  }
+}
+
 - (void)_setupStackView
 {
-  v26[2] = *MEMORY[0x1E69E9840];
+  v25[2] = *MEMORY[0x1E69E9840];
   [(MUExpandableHoursView *)self setInsetsLayoutMarginsFromSafeArea:0];
   [(MUExpandableHoursView *)self setDirectionalLayoutMargins:*MEMORY[0x1E69DC5C0], *(MEMORY[0x1E69DC5C0] + 8), *(MEMORY[0x1E69DC5C0] + 16), *(MEMORY[0x1E69DC5C0] + 24)];
   v3 = [MUStackView alloc];
@@ -258,17 +278,17 @@ void __56__MUExpandableHoursView__updateHoursVisibilityAnimated___block_invoke(u
   {
     objc_initWeak(&location, self);
     v9 = self->_hoursSummaryView;
-    v19 = MEMORY[0x1E69E9820];
-    v20 = 3221225472;
-    v21 = __40__MUExpandableHoursView__setupStackView__block_invoke;
-    v22 = &unk_1E821BAC8;
-    objc_copyWeak(&v23, &location);
-    [(MUHoursSummaryView *)v9 setActionHandler:&v19];
-    objc_destroyWeak(&v23);
+    v18 = MEMORY[0x1E69E9820];
+    v19 = 3221225472;
+    v20 = __40__MUExpandableHoursView__setupStackView__block_invoke;
+    v21 = &unk_1E821BAC8;
+    objc_copyWeak(&v22, &location);
+    [(MUHoursSummaryView *)v9 setActionHandler:&v18];
+    objc_destroyWeak(&v22);
     objc_destroyWeak(&location);
   }
 
-  [(MUExpandableHoursView *)self addSubview:self->_hoursSummaryView, v19, v20, v21, v22];
+  [(MUExpandableHoursView *)self addSubview:self->_hoursSummaryView, v18, v19, v20, v21];
   [(MUExpandableHoursView *)self addSubview:self->_contentStackView];
   v10 = [MUStackLayout alloc];
   layoutMarginsGuide = [(MUExpandableHoursView *)self layoutMarginsGuide];
@@ -277,17 +297,15 @@ void __56__MUExpandableHoursView__updateHoursVisibilityAnimated___block_invoke(u
   self->_summaryAndHoursStackLayout = v12;
 
   v14 = self->_contentStackView;
-  v26[0] = self->_hoursSummaryView;
-  v26[1] = v14;
-  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:2];
+  v25[0] = self->_hoursSummaryView;
+  v25[1] = v14;
+  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:2];
   [(MUStackLayout *)self->_summaryAndHoursStackLayout setArrangedLayoutItems:v15];
 
   v16 = MEMORY[0x1E696ACD8];
-  v25 = self->_summaryAndHoursStackLayout;
-  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v25 count:1];
+  v24 = self->_summaryAndHoursStackLayout;
+  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v24 count:1];
   [v16 _mapsui_activateLayouts:v17];
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __40__MUExpandableHoursView__setupStackView__block_invoke(uint64_t a1)
@@ -303,43 +321,46 @@ void __40__MUExpandableHoursView__setupStackView__block_invoke(uint64_t a1)
 
 - (void)_addDayRowViewsToStackViewIfNeeded
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   arrangedSubviews = [(MUStackView *)self->_contentStackView arrangedSubviews];
   v4 = [arrangedSubviews isEqual:self->_dayRowViews];
 
   if ((v4 & 1) == 0)
   {
     [(MUExpandableHoursView *)self _createDayRowViewsIfNeeded];
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     obj = self->_dayRowViews;
-    v5 = [(NSArray *)obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v5 = [(NSArray *)obj countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v5)
     {
       v6 = v5;
       v7 = 0;
-      v8 = *v21;
+      v8 = *v20;
       do
       {
         for (i = 0; i != v6; ++i)
         {
           v10 = v7;
-          if (*v21 != v8)
+          if (*v20 != v8)
           {
             objc_enumerationMutation(obj);
           }
 
-          v11 = *(*(&v20 + 1) + 8 * i);
+          v11 = *(*(&v19 + 1) + 8 * i);
           [(MUStackView *)self->_contentStackView addArrangedSubview:v11];
           viewModel = [v11 viewModel];
           labelHeaderString = [viewModel labelHeaderString];
           v14 = [labelHeaderString length];
 
-          if (v10 && v14)
+          if (v10)
           {
-            [(MUStackView *)self->_contentStackView setCustomSpacing:v10 afterView:12.0];
+            if (v14)
+            {
+              [(MUStackView *)self->_contentStackView setCustomSpacing:v10 afterView:12.0];
+            }
           }
 
           v7 = v11;
@@ -353,7 +374,7 @@ void __40__MUExpandableHoursView__setupStackView__block_invoke(uint64_t a1)
           [v7 layoutIfNeeded];
         }
 
-        v6 = [(NSArray *)obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v6 = [(NSArray *)obj countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v6);
@@ -364,8 +385,6 @@ void __40__MUExpandableHoursView__setupStackView__block_invoke(uint64_t a1)
       v7 = 0;
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_createDayRowViewsIfNeeded
@@ -390,32 +409,32 @@ MUDayRowView *__51__MUExpandableHoursView__createDayRowViewsIfNeeded__block_invo
 
 - (void)_buildDayRowViewModels
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v42 = 0u;
   v43 = 0u;
   v44 = 0u;
   v45 = 0u;
-  v46 = 0u;
   selfCopy = self;
   obj = [(MUBusinessHoursConfiguration *)self->_config businessHours];
-  v38 = [obj countByEnumeratingWithState:&v43 objects:v47 count:16];
-  if (v38)
+  v37 = [obj countByEnumeratingWithState:&v42 objects:v46 count:16];
+  if (v37)
   {
     hoursType = 1;
-    v36 = *v44;
+    v35 = *v43;
     v4 = 0x1E696F000uLL;
     do
     {
       v5 = 0;
       do
       {
-        if (*v44 != v36)
+        if (*v43 != v35)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v43 + 1) + 8 * v5);
-        v41 = v5;
+        v6 = *(*(&v42 + 1) + 8 * v5);
+        v40 = v5;
         if ([v6 hoursType] == hoursType)
         {
 LABEL_11:
@@ -481,7 +500,7 @@ LABEL_20:
         v19 = [v18 objectForKeyedSubscript:@"DaysShort"];
         v20 = [v18 objectForKeyedSubscript:@"DaysFull"];
         v21 = [v18 objectForKeyedSubscript:@"HoursFull"];
-        v40 = v18;
+        v39 = v18;
         v22 = [v18 objectForKeyedSubscript:@"SingularWeekdayIdentifier"];
         if ([v19 count])
         {
@@ -524,22 +543,20 @@ LABEL_20:
           while (v23 < [v19 count]);
         }
 
-        v5 = v41 + 1;
+        v5 = v40 + 1;
         v4 = 0x1E696F000;
       }
 
-      while (v41 + 1 != v38);
-      v38 = [obj countByEnumeratingWithState:&v43 objects:v47 count:16];
+      while (v40 + 1 != v37);
+      v37 = [obj countByEnumeratingWithState:&v42 objects:v46 count:16];
     }
 
-    while (v38);
+    while (v37);
   }
 
   v32 = [v3 copy];
   dayRowViewModels = selfCopy->_dayRowViewModels;
   selfCopy->_dayRowViewModels = v32;
-
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 - (MUExpandableHoursView)initWithBusinessHoursConfiguration:(id)configuration

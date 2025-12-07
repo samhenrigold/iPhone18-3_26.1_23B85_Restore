@@ -3,7 +3,9 @@
 - (unint64_t)getMappedApplicationType;
 - (void)activateMobilityContext:(BOOL)context;
 - (void)dealloc;
+- (void)setConnectedLinkType:(int)type;
 - (void)setMappedApplicationType:(unint64_t)type :(int)a4;
+- (void)setRecommendedLinkType:(int)type;
 @end
 
 @implementation WRM_Mobility_Context
@@ -65,6 +67,46 @@
   {
     return self->m_ApplicationType;
   }
+}
+
+- (void)setConnectedLinkType:(int)type
+{
+  self->m_iWLANLinkType = type;
+  if (type >= 3)
+  {
+    v5 = "UNKNOWN_WRM_IWLAN_LINK_TYPE!!!";
+    if (type == 3)
+    {
+      v5 = "WRM_IWLAN_BLUETOOTH";
+    }
+  }
+
+  else
+  {
+    v5 = (&off_1002414C8)[type];
+  }
+
+  [WCM_Logging logLevel:24 message:@"Set connected link type %d(%s)", *&type, v5, v3, v4];
+}
+
+- (void)setRecommendedLinkType:(int)type
+{
+  self->m_prevRecommendedLinkType = type;
+  if (type >= 3)
+  {
+    v5 = "UNKNOWN_WRM_IWLAN_LINK_TYPE!!!";
+    if (type == 3)
+    {
+      v5 = "WRM_IWLAN_BLUETOOTH";
+    }
+  }
+
+  else
+  {
+    v5 = (&off_1002414C8)[type];
+  }
+
+  [WCM_Logging logLevel:24 message:@"Set prev connected link type %d(%s)", *&type, v5, v3, v4];
 }
 
 - (void)setMappedApplicationType:(unint64_t)type :(int)a4

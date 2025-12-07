@@ -1,4 +1,5 @@
 @interface TRICKAssetMetadata
++ (id)metadataWithType:(unsigned __int8)type namespaceNameForEncryptionKey:(id)key treatmentIndex:(id)index downloadSize:(unint64_t)size compressionMode:(unint64_t)mode;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isEqualToMetadata:(id)metadata;
 - (TRICKAssetMetadata)initWithType:(unsigned __int8)type namespaceNameForEncryptionKey:(id)key treatmentIndex:(id)index downloadSize:(unint64_t)size compressionMode:(unint64_t)mode;
@@ -6,6 +7,7 @@
 - (id)copyWithReplacementDownloadSize:(unint64_t)size;
 - (id)copyWithReplacementNamespaceNameForEncryptionKey:(id)key;
 - (id)copyWithReplacementTreatmentIndex:(id)index;
+- (id)copyWithReplacementType:(unsigned __int8)type;
 - (id)description;
 - (unint64_t)hash;
 @end
@@ -30,6 +32,28 @@
   }
 
   return v16;
+}
+
++ (id)metadataWithType:(unsigned __int8)type namespaceNameForEncryptionKey:(id)key treatmentIndex:(id)index downloadSize:(unint64_t)size compressionMode:(unint64_t)mode
+{
+  typeCopy = type;
+  indexCopy = index;
+  keyCopy = key;
+  v14 = [[self alloc] initWithType:typeCopy namespaceNameForEncryptionKey:keyCopy treatmentIndex:indexCopy downloadSize:size compressionMode:mode];
+
+  return v14;
+}
+
+- (id)copyWithReplacementType:(unsigned __int8)type
+{
+  typeCopy = type;
+  v5 = objc_alloc(objc_opt_class());
+  namespaceNameForEncryptionKey = self->_namespaceNameForEncryptionKey;
+  treatmentIndex = self->_treatmentIndex;
+  downloadSize = self->_downloadSize;
+  compressionMode = self->_compressionMode;
+
+  return [v5 initWithType:typeCopy namespaceNameForEncryptionKey:namespaceNameForEncryptionKey treatmentIndex:treatmentIndex downloadSize:downloadSize compressionMode:compressionMode];
 }
 
 - (id)copyWithReplacementNamespaceNameForEncryptionKey:(id)key
@@ -74,61 +98,7 @@
 {
   metadataCopy = metadata;
   v5 = metadataCopy;
-  if (!metadataCopy)
-  {
-    goto LABEL_11;
-  }
-
-  type = self->_type;
-  if (type != [metadataCopy type])
-  {
-    goto LABEL_11;
-  }
-
-  v7 = self->_namespaceNameForEncryptionKey == 0;
-  namespaceNameForEncryptionKey = [v5 namespaceNameForEncryptionKey];
-  v9 = namespaceNameForEncryptionKey != 0;
-
-  if (v7 == v9)
-  {
-    goto LABEL_11;
-  }
-
-  namespaceNameForEncryptionKey = self->_namespaceNameForEncryptionKey;
-  if (namespaceNameForEncryptionKey)
-  {
-    namespaceNameForEncryptionKey2 = [v5 namespaceNameForEncryptionKey];
-    v12 = [(NSString *)namespaceNameForEncryptionKey isEqual:namespaceNameForEncryptionKey2];
-
-    if (!v12)
-    {
-      goto LABEL_11;
-    }
-  }
-
-  v13 = self->_treatmentIndex == 0;
-  treatmentIndex = [v5 treatmentIndex];
-  v15 = treatmentIndex != 0;
-
-  if (v13 == v15)
-  {
-    goto LABEL_11;
-  }
-
-  treatmentIndex = self->_treatmentIndex;
-  if (treatmentIndex)
-  {
-    treatmentIndex2 = [v5 treatmentIndex];
-    v18 = [(TRITreatmentQualifiedAssetIndex *)treatmentIndex isEqual:treatmentIndex2];
-
-    if (!v18)
-    {
-      goto LABEL_11;
-    }
-  }
-
-  downloadSize = self->_downloadSize;
-  if (downloadSize == [v5 downloadSize])
+  if (metadataCopy && (type = self->_type, type == [metadataCopy type]) && (v7 = self->_namespaceNameForEncryptionKey == 0, objc_msgSend(v5, "namespaceNameForEncryptionKey"), v8 = objc_claimAutoreleasedReturnValue(), v9 = v8 != 0, v8, v7 != v9) && ((namespaceNameForEncryptionKey = self->_namespaceNameForEncryptionKey) == 0 || (objc_msgSend(v5, "namespaceNameForEncryptionKey"), v11 = objc_claimAutoreleasedReturnValue(), v12 = -[NSString isEqual:](namespaceNameForEncryptionKey, "isEqual:", v11), v11, v12)) && (v13 = self->_treatmentIndex == 0, objc_msgSend(v5, "treatmentIndex"), v14 = objc_claimAutoreleasedReturnValue(), v15 = v14 != 0, v14, v13 != v15) && ((treatmentIndex = self->_treatmentIndex) == 0 || (objc_msgSend(v5, "treatmentIndex"), v17 = objc_claimAutoreleasedReturnValue(), v18 = -[TRITreatmentQualifiedAssetIndex isEqual:](treatmentIndex, "isEqual:", v17), v17, v18)) && (downloadSize = self->_downloadSize, downloadSize == objc_msgSend(v5, "downloadSize")))
   {
     compressionMode = self->_compressionMode;
     v21 = compressionMode == [v5 compressionMode];
@@ -136,7 +106,6 @@
 
   else
   {
-LABEL_11:
     v21 = 0;
   }
 

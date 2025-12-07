@@ -200,11 +200,11 @@ LABEL_5:
 
 - (void)tlk_updateForAppearance:(id)appearance
 {
-  v41[4] = *MEMORY[0x277D85DE8];
-  v39.receiver = self;
-  v39.super_class = SPUIDynamicKeyboardVisualEffectView;
+  v40[4] = *MEMORY[0x277D85DE8];
+  v38.receiver = self;
+  v38.super_class = SPUIDynamicKeyboardVisualEffectView;
   appearanceCopy = appearance;
-  [(SPUIDynamicKeyboardVisualEffectView *)&v39 tlk_updateForAppearance:appearanceCopy];
+  [(SPUIDynamicKeyboardVisualEffectView *)&v38 tlk_updateForAppearance:appearanceCopy];
   isDark = [appearanceCopy isDark];
 
   if (isDark)
@@ -229,14 +229,14 @@ LABEL_5:
 
     v11 = objc_opt_new();
     v12 = [v8 colorWithAlphaComponent:0.0];
-    v41[0] = [v12 CGColor];
+    v40[0] = [v12 CGColor];
     v13 = [v8 colorWithAlphaComponent:0.4];
-    v41[1] = [v13 CGColor];
+    v40[1] = [v13 CGColor];
     v14 = [v8 colorWithAlphaComponent:0.39];
-    v41[2] = [v14 CGColor];
+    v40[2] = [v14 CGColor];
     v15 = [v8 colorWithAlphaComponent:0.27];
-    v41[3] = [v15 CGColor];
-    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:4];
+    v40[3] = [v15 CGColor];
+    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:4];
     layer = [v11 layer];
     [layer setColors:v16];
 
@@ -244,8 +244,8 @@ LABEL_5:
     [layer2 setLocations:&unk_287C4F800];
 
     v19 = [MEMORY[0x277CD9EF8] functionWithName:*MEMORY[0x277CDA7B8]];
-    v40 = v19;
-    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:&v40 count:1];
+    v39 = v19;
+    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:&v39 count:1];
     layer3 = [v11 layer];
     [layer3 setInterpolations:v20];
 
@@ -301,8 +301,6 @@ LABEL_5:
 
   [(SPUIDynamicKeyboardVisualEffectView *)self setNeedsLayout];
   [(SPUIDynamicKeyboardVisualEffectView *)self layoutIfNeeded];
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 @end

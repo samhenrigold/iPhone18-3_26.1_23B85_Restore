@@ -8,9 +8,9 @@ void __74___UIScenePresenterOwner__updateHostingStateForScenePresentersIfNecessa
   v6 = a2;
   v3 = [v6 identifier];
   v4 = [*(*(a1 + 32) + 48) identifier];
-  v5 = [v3 isEqual:v4];
+  isEqual = objc_msgSend_isEqual_(v3);
 
-  if ((v5 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
     [v6 updateHostingStateIfNecessary];
   }

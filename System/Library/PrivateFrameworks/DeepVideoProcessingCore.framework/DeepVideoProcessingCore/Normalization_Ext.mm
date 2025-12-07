@@ -534,11 +534,10 @@
     return 12;
   }
 
-  usageCopy = usage;
   Width = CVPixelBufferGetWidth(with);
   v19 = CVPixelBufferGetHeight(with) / 3;
   v9 = createTexturesFromCVPixelBuffer(with, self->super._device, 1, 3uLL);
-  if (v9 && (getAlignedInputFrameSizeForUsage(usageCopy, &Width, &v19), destination))
+  if (v9 && (getAlignedInputFrameSizeForUsage(usage, &Width, &v19), destination))
   {
     v10 = createTexturesFromCVPixelBuffer(destination, self->super._device, 1, 3uLL);
     if (v10)

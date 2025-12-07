@@ -7,8 +7,8 @@
 - (NSString)description;
 - (UIView)contentView;
 - (_UIContentViewEditingController)initWithContentView:(id)view editableLabel:(id)label;
-- (uint64_t)removeGestureRecognizer;
-- (uint64_t)tearDownTextInputView;
+- (id)removeGestureRecognizer;
+- (id)tearDownTextInputView;
 - (void)dealloc;
 - (void)longPressRecognizerChanged:(id)changed;
 - (void)setupTextInputView;
@@ -84,15 +84,15 @@ LABEL_4:
   textInputView = self->_textInputView;
   if (textInputView && ![(UIView *)textInputView isFirstResponder]&& ![(_UIContentViewEditingConfiguration *)self->_editingConfiguration useTextInputAsLabel])
   {
-    [(_UIContentViewEditingController *)self tearDownTextInputView];
+    [(_UIContentViewEditingController *)&self->super.isa tearDownTextInputView];
   }
 
   editingConfiguration = self->_editingConfiguration;
   if (!editingConfiguration)
   {
-    [(_UIContentViewEditingController *)self tearDownTextInputView];
+    [(_UIContentViewEditingController *)&self->super.isa tearDownTextInputView];
 LABEL_19:
-    [(_UIContentViewEditingController *)self removeGestureRecognizer];
+    [(_UIContentViewEditingController *)&self->super.isa removeGestureRecognizer];
     goto LABEL_20;
   }
 
@@ -146,18 +146,18 @@ LABEL_19:
 LABEL_20:
 }
 
-- (uint64_t)tearDownTextInputView
+- (id)tearDownTextInputView
 {
   if (result)
   {
     v1 = result;
     [(_UIContentViewEditingController *)result tearDownPassthroughInteraction];
-    [*(v1 + 48) setDelegate:0];
-    [*(v1 + 48) removeFromSuperview];
-    v2 = *(v1 + 48);
-    *(v1 + 48) = 0;
+    [v1[6] setDelegate:0];
+    [v1[6] removeFromSuperview];
+    v2 = v1[6];
+    v1[6] = 0;
 
-    v3 = *(v1 + 40);
+    v3 = v1[5];
 
     return [v3 setAlpha:1.0];
   }
@@ -188,15 +188,15 @@ LABEL_20:
   }
 }
 
-- (uint64_t)removeGestureRecognizer
+- (id)removeGestureRecognizer
 {
   if (result)
   {
     v1 = result;
-    view = [*(result + 8) view];
-    [view removeGestureRecognizer:*(v1 + 8)];
+    view = [result[1] view];
+    [view removeGestureRecognizer:v1[1]];
 
-    v3 = *(v1 + 40);
+    v3 = v1[5];
 
     return [v3 setUserInteractionEnabled:0];
   }
@@ -206,7 +206,7 @@ LABEL_20:
 
 - (void)dealloc
 {
-  [(_UIContentViewEditingController *)self tearDownTextInputView];
+  [(_UIContentViewEditingController *)&self->super.isa tearDownTextInputView];
   v3.receiver = self;
   v3.super_class = _UIContentViewEditingController;
   [(_UIContentViewEditingController *)&v3 dealloc];
@@ -217,7 +217,7 @@ LABEL_20:
   if ([changed state] == 1 && !-[UIView isFirstResponder](self->_textInputView, "isFirstResponder") && !-[_UIContentViewEditingController makeTextInputFirstResponderWithInitialLayoutBlock:](self, "makeTextInputFirstResponderWithInitialLayoutBlock:", &__block_literal_global_321))
   {
 
-    [(_UIContentViewEditingController *)self tearDownTextInputView];
+    [(_UIContentViewEditingController *)&self->super.isa tearDownTextInputView];
   }
 }
 
@@ -286,10 +286,10 @@ LABEL_20:
   location = range.location;
   fieldCopy = field;
   stringCopy = string;
-  if ([stringCopy isEqualToString:@"\t"])
+  if (objc_msgSend_isEqualToString_(stringCopy))
   {
     [fieldCopy resignFirstResponder];
-    v11 = 0;
+    isEqual = 0;
   }
 
   else
@@ -302,8 +302,8 @@ LABEL_20:
       v15 = [(_UIContentViewEditingState *)v13 initWithText:text proposedReplacementText:stringCopy proposedReplacementRange:location, length];
 
       v16 = (shouldChangeHandler)[2](shouldChangeHandler, v15);
-      v11 = [(_UIContentViewEditingState *)v15 isEqual:v16];
-      if ((v11 & 1) == 0)
+      isEqual = objc_msgSend_isEqual_(v15);
+      if ((isEqual & 1) == 0)
       {
         text2 = [v16 text];
         [fieldCopy setText:text2];
@@ -312,11 +312,11 @@ LABEL_20:
 
     else
     {
-      v11 = 1;
+      isEqual = 1;
     }
   }
 
-  return v11;
+  return isEqual;
 }
 
 - (BOOL)textFieldShouldBeginEditing:(id)editing
@@ -371,10 +371,10 @@ LABEL_20:
   {
     text = [editingCopy text];
     text2 = [(_UIListContentTextPropertiesInternal *)self->_labelProperties text];
-    v11 = [text isEqualToString:text2];
+    isEqualToString = objc_msgSend_isEqualToString_(text);
 
     v12 = 1;
-    if ((v11 & 1) == 0)
+    if ((isEqualToString & 1) == 0)
     {
       self->_hasEdits = 1;
     }
@@ -406,7 +406,7 @@ LABEL_20:
 
   if (!self->_hasEdits && ![(_UIContentViewEditingConfiguration *)v5 useTextInputAsLabel])
   {
-    [(_UIContentViewEditingController *)self tearDownTextInputView];
+    [(_UIContentViewEditingController *)&self->super.isa tearDownTextInputView];
   }
 
   self->_hasEdits = 0;

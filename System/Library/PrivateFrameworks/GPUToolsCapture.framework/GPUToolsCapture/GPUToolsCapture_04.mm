@@ -447,7 +447,7 @@ void CaptureMTLDeviceStoreMetadata(uint64_t a1, void *a2)
   }
 }
 
-uint64_t CaptureRespondsToSelector(uint64_t a1, const char *a2)
+uint64_t CaptureRespondsToSelector(uint64_t a1, SEL a2)
 {
   v3 = objc_opt_respondsToSelector();
   if ((v3 & 1) == 0 && (sel_getUid("baseObject") == a2 || sel_getUid("streamReference") == a2 || sel_getUid("traceStream") == a2 || sel_getUid("traceContext") == a2 || sel_getUid("touch") == a2))
@@ -644,13 +644,13 @@ id copyAndNullifyReferencesInAccelerationStructureDescriptor(void *a1)
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v68 = 0u;
-    v69 = 0u;
+    v65 = 0u;
     v66 = 0u;
-    v67 = 0u;
-    v46 = v1;
+    v63 = 0u;
+    v64 = 0u;
+    v43 = v1;
     v2 = [v1 geometryDescriptors];
-    v3 = [v2 countByEnumeratingWithState:&v66 objects:v74 count:16];
+    v3 = [v2 countByEnumeratingWithState:&v63 objects:v71 count:16];
     if (!v3)
     {
       goto LABEL_56;
@@ -658,38 +658,36 @@ id copyAndNullifyReferencesInAccelerationStructureDescriptor(void *a1)
 
     v4 = v3;
     v5 = &GSSystemRootDirectory_ptr;
-    v6 = &GSSystemRootDirectory_ptr;
-    v7 = *v67;
-    v49 = *v67;
+    v6 = *v64;
+    v46 = *v64;
     while (1)
     {
-      v8 = 0;
-      v48 = v4;
+      v7 = 0;
+      v45 = v4;
       do
       {
-        if (*v67 != v7)
+        if (*v64 != v6)
         {
           objc_enumerationMutation(v2);
         }
 
-        v9 = *(*(&v66 + 1) + 8 * v8);
+        v8 = *(*(&v63 + 1) + 8 * v7);
         if (objc_opt_respondsToSelector())
         {
-          [v9 setPrimitiveDataBuffer:0];
-          [v9 setPrimitiveDataBufferOffset:0];
-          [v9 setPrimitiveDataStride:0];
-          [v9 setPrimitiveDataElementSize:0];
+          [v8 setPrimitiveDataBuffer:0];
+          [v8 setPrimitiveDataBufferOffset:0];
+          [v8 setPrimitiveDataStride:0];
+          [v8 setPrimitiveDataElementSize:0];
         }
 
-        v10 = v5[500];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v11 = v9;
-          [v11 setVertexBuffer:0];
-          [v11 setVertexBufferOffset:0];
-          [v11 setIndexBuffer:0];
-          [v11 setIndexBufferOffset:0];
+          v9 = v8;
+          [v9 setVertexBuffer:0];
+          [v9 setVertexBufferOffset:0];
+          [v9 setIndexBuffer:0];
+          [v9 setIndexBufferOffset:0];
           if (objc_opt_respondsToSelector())
           {
             goto LABEL_11;
@@ -698,67 +696,65 @@ id copyAndNullifyReferencesInAccelerationStructureDescriptor(void *a1)
           goto LABEL_36;
         }
 
-        v12 = v6[494];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v13 = v9;
-          [v13 setBoundingBoxBuffer:0];
-          [v13 setBoundingBoxBufferOffset:0];
+          v10 = v8;
+          [v10 setBoundingBoxBuffer:0];
+          [v10 setBoundingBoxBufferOffset:0];
           goto LABEL_36;
         }
 
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v14 = v5;
-          v15 = v2;
-          v11 = v9;
+          v11 = v5;
+          v12 = v2;
+          v9 = v8;
+          v59 = 0u;
+          v60 = 0u;
+          v61 = 0u;
           v62 = 0u;
-          v63 = 0u;
-          v64 = 0u;
-          v65 = 0u;
-          v16 = [v11 vertexBuffers];
-          v17 = [v16 countByEnumeratingWithState:&v62 objects:v73 count:16];
-          if (v17)
+          v13 = [v9 vertexBuffers];
+          v14 = [v13 countByEnumeratingWithState:&v59 objects:v70 count:16];
+          if (v14)
           {
-            v18 = v17;
-            v19 = *v63;
+            v15 = v14;
+            v16 = *v60;
             do
             {
-              for (i = 0; i != v18; i = i + 1)
+              for (i = 0; i != v15; i = i + 1)
               {
-                if (*v63 != v19)
+                if (*v60 != v16)
                 {
-                  objc_enumerationMutation(v16);
+                  objc_enumerationMutation(v13);
                 }
 
-                v21 = *(*(&v62 + 1) + 8 * i);
-                [v21 setBuffer:0];
-                [v21 setOffset:0];
+                v18 = *(*(&v59 + 1) + 8 * i);
+                [v18 setBuffer:0];
+                [v18 setOffset:0];
               }
 
-              v18 = [v16 countByEnumeratingWithState:&v62 objects:v73 count:16];
+              v15 = [v13 countByEnumeratingWithState:&v59 objects:v70 count:16];
             }
 
-            while (v18);
+            while (v15);
           }
 
-          [v11 setIndexBuffer:0];
-          [v11 setIndexBufferOffset:0];
-          v2 = v15;
-          v5 = v14;
-          v4 = v48;
-          v7 = v49;
-          v6 = &GSSystemRootDirectory_ptr;
+          [v9 setIndexBuffer:0];
+          [v9 setIndexBufferOffset:0];
+          v2 = v12;
+          v5 = v11;
+          v4 = v45;
+          v6 = v46;
           if ((objc_opt_respondsToSelector() & 1) == 0)
           {
             goto LABEL_36;
           }
 
 LABEL_11:
-          [v11 setTransformationMatrixBuffer:0];
-          [v11 setTransformationMatrixBufferOffset:0];
+          [v9 setTransformationMatrixBuffer:0];
+          [v9 setTransformationMatrixBufferOffset:0];
 LABEL_36:
 
           goto LABEL_37;
@@ -767,35 +763,35 @@ LABEL_36:
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v22 = v9;
+          v19 = v8;
+          v55 = 0u;
+          v56 = 0u;
+          v57 = 0u;
           v58 = 0u;
-          v59 = 0u;
-          v60 = 0u;
-          v61 = 0u;
-          v23 = [v22 boundingBoxBuffers];
-          v24 = [v23 countByEnumeratingWithState:&v58 objects:v72 count:16];
-          if (v24)
+          v20 = [v19 boundingBoxBuffers];
+          v21 = [v20 countByEnumeratingWithState:&v55 objects:v69 count:16];
+          if (v21)
           {
-            v25 = v24;
-            v26 = *v59;
+            v22 = v21;
+            v23 = *v56;
             do
             {
-              for (j = 0; j != v25; j = j + 1)
+              for (j = 0; j != v22; j = j + 1)
               {
-                if (*v59 != v26)
+                if (*v56 != v23)
                 {
-                  objc_enumerationMutation(v23);
+                  objc_enumerationMutation(v20);
                 }
 
-                v28 = *(*(&v58 + 1) + 8 * j);
-                [v28 setBuffer:0];
-                [v28 setOffset:0];
+                v25 = *(*(&v55 + 1) + 8 * j);
+                [v25 setBuffer:0];
+                [v25 setOffset:0];
               }
 
-              v25 = [v23 countByEnumeratingWithState:&v58 objects:v72 count:16];
+              v22 = [v20 countByEnumeratingWithState:&v55 objects:v69 count:16];
             }
 
-            while (v25);
+            while (v22);
           }
 
           goto LABEL_33;
@@ -804,101 +800,100 @@ LABEL_36:
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v29 = v9;
-          [v29 setControlPointBuffer:0];
-          [v29 setControlPointBufferOffset:0];
-          [v29 setRadiusBuffer:0];
-          [v29 setRadiusBufferOffset:0];
-          [v29 setIndexBuffer:0];
-          [v29 setIndexBufferOffset:0];
+          v26 = v8;
+          [v26 setControlPointBuffer:0];
+          [v26 setControlPointBufferOffset:0];
+          [v26 setRadiusBuffer:0];
+          [v26 setRadiusBufferOffset:0];
+          [v26 setIndexBuffer:0];
+          [v26 setIndexBufferOffset:0];
           goto LABEL_36;
         }
 
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v30 = v9;
-          v54 = 0u;
-          v55 = 0u;
-          v56 = 0u;
-          v57 = 0u;
-          v47 = v30;
-          v31 = [v30 controlPointBuffers];
-          v32 = [v31 countByEnumeratingWithState:&v54 objects:v71 count:16];
-          if (v32)
-          {
-            v33 = v32;
-            v34 = *v55;
-            do
-            {
-              for (k = 0; k != v33; k = k + 1)
-              {
-                if (*v55 != v34)
-                {
-                  objc_enumerationMutation(v31);
-                }
-
-                v36 = *(*(&v54 + 1) + 8 * k);
-                [v36 setBuffer:0];
-                [v36 setOffset:0];
-              }
-
-              v33 = [v31 countByEnumeratingWithState:&v54 objects:v71 count:16];
-            }
-
-            while (v33);
-          }
-
+          v27 = v8;
+          v51 = 0u;
           v52 = 0u;
           v53 = 0u;
-          v50 = 0u;
-          v51 = 0u;
-          v37 = [v47 radiusBuffers];
-          v38 = [v37 countByEnumeratingWithState:&v50 objects:v70 count:16];
-          if (v38)
+          v54 = 0u;
+          v44 = v27;
+          v28 = [v27 controlPointBuffers];
+          v29 = [v28 countByEnumeratingWithState:&v51 objects:v68 count:16];
+          if (v29)
           {
-            v39 = v38;
-            v40 = *v51;
+            v30 = v29;
+            v31 = *v52;
             do
             {
-              for (m = 0; m != v39; m = m + 1)
+              for (k = 0; k != v30; k = k + 1)
               {
-                if (*v51 != v40)
+                if (*v52 != v31)
                 {
-                  objc_enumerationMutation(v37);
+                  objc_enumerationMutation(v28);
                 }
 
-                v42 = *(*(&v50 + 1) + 8 * m);
-                [v42 setBuffer:0];
-                [v42 setOffset:0];
+                v33 = *(*(&v51 + 1) + 8 * k);
+                [v33 setBuffer:0];
+                [v33 setOffset:0];
               }
 
-              v39 = [v37 countByEnumeratingWithState:&v50 objects:v70 count:16];
+              v30 = [v28 countByEnumeratingWithState:&v51 objects:v68 count:16];
             }
 
-            while (v39);
+            while (v30);
           }
 
-          [v47 setIndexBuffer:0];
-          [v47 setIndexBufferOffset:0];
+          v49 = 0u;
+          v50 = 0u;
+          v47 = 0u;
+          v48 = 0u;
+          v34 = [v44 radiusBuffers];
+          v35 = [v34 countByEnumeratingWithState:&v47 objects:v67 count:16];
+          if (v35)
+          {
+            v36 = v35;
+            v37 = *v48;
+            do
+            {
+              for (m = 0; m != v36; m = m + 1)
+              {
+                if (*v48 != v37)
+                {
+                  objc_enumerationMutation(v34);
+                }
+
+                v39 = *(*(&v47 + 1) + 8 * m);
+                [v39 setBuffer:0];
+                [v39 setOffset:0];
+              }
+
+              v36 = [v34 countByEnumeratingWithState:&v47 objects:v67 count:16];
+            }
+
+            while (v36);
+          }
+
+          [v44 setIndexBuffer:0];
+          [v44 setIndexBufferOffset:0];
 LABEL_33:
-          v6 = &GSSystemRootDirectory_ptr;
-          v7 = v49;
+          v6 = v46;
           goto LABEL_36;
         }
 
 LABEL_37:
-        v8 = v8 + 1;
+        v7 = v7 + 1;
       }
 
-      while (v8 != v4);
-      v43 = [v2 countByEnumeratingWithState:&v66 objects:v74 count:16];
-      v4 = v43;
-      if (!v43)
+      while (v7 != v4);
+      v40 = [v2 countByEnumeratingWithState:&v63 objects:v71 count:16];
+      v4 = v40;
+      if (!v40)
       {
 LABEL_56:
 
-        v1 = v46;
+        v1 = v43;
         goto LABEL_62;
       }
     }
@@ -907,11 +902,11 @@ LABEL_56:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v44 = v1;
-    [v44 setInstanceDescriptorBuffer:0];
-    [v44 setInstanceDescriptorBufferOffset:0];
-    [v44 setMotionTransformBuffer:0];
-    [v44 setMotionTransformBufferOffset:0];
+    v41 = v1;
+    [v41 setInstanceDescriptorBuffer:0];
+    [v41 setInstanceDescriptorBufferOffset:0];
+    [v41 setMotionTransformBuffer:0];
+    [v41 setMotionTransformBufferOffset:0];
   }
 
   else
@@ -922,15 +917,15 @@ LABEL_56:
       goto LABEL_62;
     }
 
-    v44 = v1;
-    [v44 setInstanceDescriptorBuffer:0];
-    [v44 setInstanceDescriptorBufferOffset:0];
-    [v44 setMotionTransformBuffer:0];
-    [v44 setMotionTransformBufferOffset:0];
-    [v44 setMotionTransformCountBuffer:0];
-    [v44 setMotionTransformCountBufferOffset:0];
-    [v44 setInstanceCountBuffer:0];
-    [v44 setInstanceCountBufferOffset:0];
+    v41 = v1;
+    [v41 setInstanceDescriptorBuffer:0];
+    [v41 setInstanceDescriptorBufferOffset:0];
+    [v41 setMotionTransformBuffer:0];
+    [v41 setMotionTransformBufferOffset:0];
+    [v41 setMotionTransformCountBuffer:0];
+    [v41 setMotionTransformCountBufferOffset:0];
+    [v41 setInstanceCountBuffer:0];
+    [v41 setInstanceCountBufferOffset:0];
   }
 
 LABEL_62:
@@ -953,12 +948,12 @@ void MTLTextureInfo(void *a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X2>, uint64_t
   *(a5 + 144) = 0u;
   if ((a2 - 250) <= 0xB && ((1 << (a2 + 6)) & 0xC0D) != 0)
   {
-    *&v43 = 0;
-    v41 = 0uLL;
-    v42 = 0uLL;
-    v40 = 0uLL;
-    GTMTLPixelFormatGetInfoForDevice(a2, &v40);
-    LODWORD(v10) = (DWORD2(v40) >> 3) & 4;
+    *&v40 = 0;
+    v38 = 0uLL;
+    v39 = 0uLL;
+    v37 = 0uLL;
+    GTMTLPixelFormatGetInfoForDevice(a2, &v37);
+    LODWORD(v10) = (DWORD2(v37) >> 3) & 4;
     if (a2 == 250)
     {
       v10 = 2;
@@ -969,8 +964,8 @@ void MTLTextureInfo(void *a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X2>, uint64_t
       v10 = v10;
     }
 
-    v11 = BYTE8(v40) & 0x40;
-    v12 = (DWORD2(v40) >> 6) & 1;
+    v11 = BYTE8(v37) & 0x40;
+    v12 = (DWORD2(v37) >> 6) & 1;
     v13 = a3[1];
     v14 = *a3 * a4;
     v15 = (v10 | v12) * v14;
@@ -1041,46 +1036,43 @@ LABEL_16:
       goto LABEL_17;
     }
 
-    v50 = 0;
-    v48 = 0uLL;
-    v49 = 0uLL;
-    v47 = 0uLL;
-    GTMTLPixelFormatGetInfoForDevice(a2, &v47);
-    if ((WORD4(v47) & 0x400) != 0)
+    v47 = 0;
+    v45 = 0uLL;
+    v46 = 0uLL;
+    v44 = 0uLL;
+    GTMTLPixelFormatGetInfoForDevice(a2, &v44);
+    if ((WORD4(v44) & 0x400) != 0)
     {
-      v35 = (v49 + *a3 - 1) / v49 * *(&v48 + 1);
-      v37 = v35 * ((*(&v49 + 1) + a3[1] - 1) / *(&v49 + 1));
-      v38 = a3[2] * v37;
-      *(a5 + 56) = (DWORD2(v47) >> 11) & 4;
-      v39 = v37;
+      v32 = (v46 + *a3 - 1) / v46 * *(&v45 + 1);
+      v34 = v32 * ((*(&v46 + 1) + a3[1] - 1) / *(&v46 + 1));
+      v35 = a3[2] * v34;
+      *(a5 + 56) = (DWORD2(v44) >> 11) & 4;
+      v36 = v34;
     }
 
     else
     {
-      v46 = 0;
-      v44 = 0u;
-      v45 = 0u;
-      v42 = 0u;
-      v43 = 0u;
-      v40 = 0u;
+      v43 = 0;
       v41 = 0u;
-      v32 = *a3;
+      v42 = 0u;
+      v39 = 0u;
+      v40 = 0u;
+      v37 = 0u;
+      v38 = 0u;
+      GTMTLGetTextureLevelInfoForDeviceWithOptions(a2, a4, &v37);
+      v32 = v42;
       v33 = a3[1];
-      v34 = a3[2];
-      GTMTLGetTextureLevelInfoForDeviceWithOptions(a2, a4, &v40);
-      v35 = v45;
-      v36 = a3[1];
-      v37 = v36 * v45;
-      v38 = a3[2] * v36 * v45;
-      v39 = v36 * v45;
+      v34 = v33 * v42;
+      v35 = a3[2] * v33 * v42;
+      v36 = v33 * v42;
     }
 
-    *(a5 + 40) = v35;
-    *(a5 + 48) = v37;
-    *(a5 + 24) = v38;
-    *(a5 + 32) = v38;
-    *(a5 + 8) = v35;
-    *(a5 + 16) = v39;
+    *(a5 + 40) = v32;
+    *(a5 + 48) = v34;
+    *(a5 + 24) = v35;
+    *(a5 + 32) = v35;
+    *(a5 + 8) = v32;
+    *(a5 + 16) = v36;
     *a5 = 1;
   }
 
@@ -1220,28 +1212,28 @@ id GetSparseTextureMappingBuffer(void *a1, void *a2)
             v13 = v12 >> v7;
           }
 
-          v14 = [v3 textureType];
-          v15 = [v3 pixelFormat];
-          v16 = [v3 sampleCount];
+          [v3 textureType];
+          [v3 pixelFormat];
+          objc_msgSend_sampleCount(v3);
           if (v4)
           {
-            [v4 sparseTileSizeWithTextureType:v14 pixelFormat:v15 sampleCount:v16];
-            LODWORD(v17) = 0;
-            LODWORD(v18) = 0;
-            v19 = v17;
-            v20 = v18;
-            LODWORD(v17) = 0;
-            v21 = v17;
+            objc_msgSend_sparseTileSizeWithTextureType_pixelFormat_sampleCount_(v4);
+            LODWORD(v14) = 0;
+            LODWORD(v15) = 0;
+            v16 = v14;
+            v17 = v15;
+            LODWORD(v14) = 0;
+            v18 = v14;
           }
 
           else
           {
-            v21 = 0.0;
-            v20 = 0.0;
-            v19 = 0.0;
+            v18 = 0.0;
+            v17 = 0.0;
+            v16 = 0.0;
           }
 
-          v5 += vcvtpd_u64_f64(v11 / v20) * vcvtpd_u64_f64(v9 / v19) * vcvtpd_u64_f64(v13 / v21);
+          v5 += vcvtpd_u64_f64(v11 / v17) * vcvtpd_u64_f64(v9 / v16) * vcvtpd_u64_f64(v13 / v18);
           ++v7;
         }
 
@@ -1254,9 +1246,9 @@ id GetSparseTextureMappingBuffer(void *a1, void *a2)
     while (v6 < [v3 arrayLength]);
   }
 
-  v22 = [v4 newBufferWithLength:v5 options:0];
+  v19 = [v4 newBufferWithLength:v5 options:0];
 
-  return v22;
+  return v19;
 }
 
 uint64_t _Xmach_exception_raise_state_identity(uint64_t result, uint64_t a2)
@@ -1424,583 +1416,584 @@ uint64_t mach_exc_server(_DWORD *a1, uint64_t a2)
   return result;
 }
 
-double GTResourceTrackerBuildArgumentBuffers()
+double GTResourceTrackerBuildArgumentBuffers(uint64_t a1)
 {
-  v0 = __chkstk_darwin();
+  __chkstk_darwin(a1);
   v2 = v1;
   v4 = v3;
   v6 = v5;
   v8 = v7;
   v10 = v9;
-  v11 = v0;
+  v12 = v11;
   newpool = 0;
   apr_pool_create_ex(&newpool, v1, 0, 0);
-  v71 = 0;
-  memset(v70, 0, sizeof(v70));
-  v65 = v11;
-  v66 = v10;
+  v73 = 0;
+  memset(v72, 0, sizeof(v72));
+  v67 = v12;
+  v68 = v10;
   pool = 0;
   arr[0] = apr_array_make(v2, 128, 40);
   arr[1] = apr_array_make(v2, 32, 16);
   p = v2;
-  v69 = apr_array_make(v2, 32, 8);
-  v12 = newpool;
-  GTMTLSMContext_indirectCommandBufferResources(newpool, v6, v4, v70);
-  apr_pool_create_ex(&pool, v12, 0, 0);
-  *&v75 = v8;
-  v13 = *(*(*find_entry(v11, &v75, 8uLL, 0) + 32) + 32);
-  if (v13)
+  v71 = apr_array_make(v2, 32, 8);
+  v13 = newpool;
+  GTMTLSMContext_indirectCommandBufferResources(v72, newpool, v6, v4);
+  apr_pool_create_ex(&pool, v13, 0, 0);
+  *&v77 = v8;
+  v14 = *(*(*find_entry(v12, &v77, 8uLL, 0) + 32) + 32);
+  if (v14)
   {
-    v14 = 0;
+    v15 = 0;
     while (1)
     {
-      v15 = atomic_load((v13 + 4));
-      v16 = v14 + (v15 >> 6) - 1;
-      if (v16 > 0)
+      v16 = atomic_load((v14 + 4));
+      v17 = v15 + (v16 >> 6) - 1;
+      if (v17 > 0)
       {
         break;
       }
 
-      v13 = *(v13 + 40);
-      v14 = v16;
-      if (!v13)
+      v14 = *(v14 + 40);
+      v15 = v17;
+      if (!v14)
       {
-        v14 = v16;
+        v15 = v17;
         goto LABEL_8;
       }
     }
 
-    v16 = 0;
+    v17 = 0;
 LABEL_8:
-    v17 = v14 | (v16 << 32);
+    v18 = v15 | (v17 << 32);
   }
 
   else
   {
-    v17 = 0;
+    v18 = 0;
   }
 
-  v63 = v10;
+  v65 = v10;
 LABEL_10:
-  v18 = v13 + 64;
-  while (v13)
+  v19 = v14 + 64;
+  while (v14)
   {
-    v19 = HIDWORD(v17);
-    v20 = v18 + ((HIDWORD(v17) - v17) << 6);
-    if ((*(v20 + 15) & 8) == 0)
+    v20 = HIDWORD(v18);
+    v21 = v19 + ((HIDWORD(v18) - v18) << 6);
+    if ((*(v21 + 15) & 8) == 0)
     {
       break;
     }
 
-    ConstructorType = GTFenum_getConstructorType(*(v20 + 8));
+    ConstructorType = GTFenum_getConstructorType(*(v21 + 8));
     if (GTFenum_isMTLCommandEncoder(ConstructorType))
     {
-      bzero(&v73, 0x2BA0uLL);
-      GTMTLSMCommandEncoder_processTraceFunc(&v73, (v18 + ((HIDWORD(v17) - v17) << 6)), v10);
-      if (v73 > 64)
+      bzero(&v75, 0x2BA0uLL);
+      GTMTLSMCommandEncoder_processTraceFunc(&v75, (v19 + ((HIDWORD(v18) - v18) << 6)), v10);
+      if (v75 > 64)
       {
-        if (v73 == 65)
+        if (v75 == 65)
         {
-          v64 = HIDWORD(v17);
-          v26 = v74;
+          v66 = HIDWORD(v18);
+          v27 = v76;
+          v28 = v67;
           nelts = arr[0]->nelts;
-          v27 = v69;
-          v28 = apr_hash_make(v69->pool);
-          *apr_array_push(v27) = v28;
-          *&v75 = v26;
-          v29 = *(*(*find_entry(v65, &v75, 8uLL, 0) + 32) + 32);
-          if (v29)
+          v29 = v71;
+          v30 = apr_hash_make(v71->pool);
+          *apr_array_push(v29) = v30;
+          *&v77 = v27;
+          v31 = *(*(*find_entry(v28, &v77, 8uLL, 0) + 32) + 32);
+          if (v31)
           {
-            v30 = 0;
+            v32 = 0;
             while (1)
             {
-              v31 = atomic_load((v29 + 4));
-              v32 = v30 + (v31 >> 6) - 1;
-              if (v32 > 1)
+              v33 = atomic_load((v31 + 4));
+              v34 = v32 + (v33 >> 6) - 1;
+              if (v34 > 1)
               {
                 break;
               }
 
-              v29 = *(v29 + 40);
-              v30 = v32;
-              if (!v29)
+              v31 = *(v31 + 40);
+              v32 = v34;
+              if (!v31)
               {
-                v30 = v32;
+                v32 = v34;
                 goto LABEL_28;
               }
             }
 
-            v32 = 1;
+            v34 = 1;
 LABEL_28:
-            v33 = v30 | (v32 << 32);
+            v35 = v32 | (v34 << 32);
           }
 
           else
           {
-            v33 = 0;
+            v35 = 0;
           }
 
-          v34 = 0;
-          while (v29)
+          v36 = 0;
+          while (v31)
           {
-            v35 = v29 + 64 + ((HIDWORD(v33) - v33) << 6);
-            if ((*(v35 + 15) & 8) == 0)
+            v37 = v31 + 64 + ((HIDWORD(v35) - v35) << 6);
+            if ((*(v37 + 15) & 8) == 0)
             {
               break;
             }
 
-            v36 = GTFenum_getConstructorType(*(v35 + 8));
-            if (GTFenum_isMTLCommandEncoder(v36))
+            v38 = GTFenum_getConstructorType(*(v37 + 8));
+            if (GTFenum_isMTLCommandEncoder(v38))
             {
-              bzero(&v75, 0x2BA0uLL);
-              GTMTLSMCommandEncoder_processTraceFunc(&v75, (v29 + 64 + ((HIDWORD(v33) - v33) << 6)), v66);
-              v34 += commandEncoder_processStream_();
+              bzero(&v77, 0x2BA0uLL);
+              GTMTLSMCommandEncoder_processTraceFunc(&v77, (v31 + 64 + ((HIDWORD(v35) - v35) << 6)), v68);
+              v36 += commandEncoder_processStream_(&v67);
             }
 
-            v37 = atomic_load((v29 + 4));
-            v38 = v33 + (v37 >> 6);
-            v39 = (HIDWORD(v33) + 1);
-            v33 = (v39 << 32) | v33;
-            if (v39 == v38 - 1)
+            v39 = atomic_load((v31 + 4));
+            v40 = v35 + (v39 >> 6);
+            v41 = (HIDWORD(v35) + 1);
+            v35 = (v41 << 32) | v35;
+            if (v41 == v40 - 1)
             {
-              v33 = (v39 << 32) | v39;
-              v29 = *(v29 + 40);
+              v35 = (v41 << 32) | v41;
+              v31 = *(v31 + 40);
             }
           }
 
-          v22 = arr[0];
-          v18 = v13 + 64;
+          v23 = arr[0];
+          v19 = v14 + 64;
           goto LABEL_37;
         }
 
-        if (v73 == 70)
+        if (v75 == 70)
         {
           goto LABEL_20;
         }
       }
 
-      else if (v73 == 21 || v73 == 28)
+      else if (v75 == 21 || v75 == 28)
       {
 LABEL_20:
-        v64 = HIDWORD(v17);
-        v22 = arr[0];
-        v23 = v69;
+        v66 = HIDWORD(v18);
+        v23 = arr[0];
+        v24 = v71;
         nelts = arr[0]->nelts;
-        v25 = apr_hash_make(v69->pool);
-        *apr_array_push(v23) = v25;
-        commandEncoder_processStream_();
+        v26 = apr_hash_make(v71->pool);
+        *apr_array_push(v24) = v26;
+        commandEncoder_processStream_(&v67);
 LABEL_37:
-        v40 = nelts;
-        v41 = v22->nelts;
-        v19 = v41 - nelts;
-        v42 = pool;
-        v43 = apr_hash_make(pool);
-        if (v19 >= 1)
+        v42 = nelts;
+        v43 = v23->nelts;
+        v20 = v43 - nelts;
+        v44 = pool;
+        v45 = apr_hash_make(pool);
+        if (v20 >= 1)
         {
-          v44 = v43;
-          v45 = 40 * v41;
+          v46 = v45;
+          v47 = 40 * v43;
           do
           {
-            v46 = &v22->elts[v45];
-            *&v76[16] = 0;
-            *v76 = 0u;
-            v75 = 0u;
-            v48 = *(v46 - 40);
-            v47 = v46 - 40;
-            v75 = v48;
-            *&v76[8] = *(v47 + 24);
-            v49 = *find_entry(v44, &v75, 0x28uLL, 0);
-            if (v49 && *(v49 + 32))
+            v48 = &v23->elts[v47];
+            *&v78[16] = 0;
+            *v78 = 0u;
+            v77 = 0u;
+            v50 = *(v48 - 40);
+            v49 = v48 - 40;
+            v77 = v50;
+            *&v78[8] = *(v49 + 24);
+            v51 = *find_entry(v46, &v77, 0x28uLL, 0);
+            if (v51 && *(v51 + 32))
             {
-              --v19;
-              v50 = &v22->elts[40 * v40 + 40 * v19];
-              v51 = *v50;
-              v52 = *(v50 + 16);
-              *(v47 + 4) = *(v50 + 32);
-              *v47 = v51;
-              *(v47 + 1) = v52;
+              --v20;
+              v52 = &v23->elts[40 * v42 + 40 * v20];
+              v53 = *v52;
+              v54 = *(v52 + 16);
+              *(v49 + 4) = *(v52 + 32);
+              *v49 = v53;
+              *(v49 + 1) = v54;
             }
 
             else
             {
-              v53 = apr_palloc(v42, 0x28uLL);
-              v54 = *&v76[16];
-              v55 = *v76;
-              *v53 = v75;
-              v53[1] = v55;
-              *(v53 + 4) = v54;
-              apr_hash_set(v44, v53, 40, v53);
+              v55 = apr_palloc(v44, 0x28uLL);
+              v56 = *&v78[16];
+              v57 = *v78;
+              *v55 = v77;
+              v55[1] = v57;
+              *(v55 + 4) = v56;
+              apr_hash_set(v46, v55, 40, v55);
             }
 
-            --v41;
-            v45 -= 40;
+            --v43;
+            v47 -= 40;
           }
 
-          while (v41 > v40);
-          v10 = v63;
-          v18 = v13 + 64;
+          while (v43 > v42);
+          v10 = v65;
+          v19 = v14 + 64;
         }
 
-        apr_pool_clear(v42);
-        v22->nelts = v40 + v19;
-        v56 = apr_array_push(arr[1]);
-        *v56 = v40;
-        v56[1] = v19;
-        LODWORD(v19) = v64;
+        apr_pool_clear(v44);
+        v23->nelts = v42 + v20;
+        v58 = apr_array_push(arr[1]);
+        *v58 = v42;
+        v58[1] = v20;
+        LODWORD(v20) = v66;
       }
     }
 
-    v57 = atomic_load((v13 + 4));
-    v58 = v17 + (v57 >> 6);
-    v59 = (v19 + 1);
-    v17 = (v59 << 32) | v17;
-    if (v59 == v58 - 1)
+    v59 = atomic_load((v14 + 4));
+    v60 = v18 + (v59 >> 6);
+    v61 = (v20 + 1);
+    v18 = (v61 << 32) | v18;
+    if (v61 == v60 - 1)
     {
-      v17 = (v59 << 32) | v59;
-      v13 = *(v13 + 40);
+      v18 = (v61 << 32) | v61;
+      v14 = *(v14 + 40);
       goto LABEL_10;
     }
   }
 
   apr_pool_destroy(newpool);
-  v60 = apr_palloc(p, 0x18uLL);
-  v60[2] = v69;
+  v62 = apr_palloc(p, 0x18uLL);
+  v62[2] = v71;
   result = *arr;
-  *v60 = *arr;
+  *v62 = *arr;
   return result;
 }
 
-uint64_t commandEncoder_processStream_()
+uint64_t commandEncoder_processStream_(uint64_t a1)
 {
-  v0 = __chkstk_darwin();
+  __chkstk_darwin(a1);
   v2 = v1;
-  v3 = v0;
-  v71 = v4;
+  v4 = v3;
+  v72 = v5;
   bzero(__src, 0x2BA0uLL);
-  v5 = *(*(*find_entry(*v3, &v71, 8uLL, 0) + 32) + 32);
-  if (v5)
+  v6 = *(*(*find_entry(*v4, &v72, 8uLL, 0) + 32) + 32);
+  if (v6)
   {
-    v6 = 0;
+    v7 = 0;
     while (1)
     {
-      v7 = atomic_load((v5 + 4));
-      v8 = v6 + (v7 >> 6) - 1;
-      if (v8 > 0)
+      v8 = atomic_load((v6 + 4));
+      v9 = v7 + (v8 >> 6) - 1;
+      if (v9 > 0)
       {
         break;
       }
 
-      v5 = *(v5 + 40);
-      v6 = v8;
-      if (!v5)
+      v6 = *(v6 + 40);
+      v7 = v9;
+      if (!v6)
       {
-        v6 = v8;
+        v7 = v9;
         goto LABEL_8;
       }
     }
 
-    v8 = 0;
+    v9 = 0;
 LABEL_8:
-    v9 = v6 | (v8 << 32);
+    v10 = v7 | (v9 << 32);
   }
 
   else
   {
-    v9 = 0;
+    v10 = 0;
   }
 
-  v10 = 0;
-  v69 = v2;
+  v11 = 0;
+  v70 = v2;
 LABEL_10:
-  v70 = v5 + 64;
-  while (v5)
+  v71 = v6 + 64;
+  while (v6)
   {
-    v11 = v70 + ((HIDWORD(v9) - v9) << 6);
-    if ((*(v11 + 15) & 8) == 0)
+    v12 = v71 + ((HIDWORD(v10) - v10) << 6);
+    if ((*(v12 + 15) & 8) == 0)
     {
       break;
     }
 
-    GTMTLSMCommandEncoder_processTraceFunc(__src, (v70 + ((HIDWORD(v9) - v9) << 6)), *(v3 + 8));
-    v12 = v10 + v2;
-    v13 = *(v11 + 8);
-    if (v13 == -16377)
+    GTMTLSMCommandEncoder_processTraceFunc(__src, (v71 + ((HIDWORD(v10) - v10) << 6)), *(v4 + 8));
+    v13 = v11 + v2;
+    v14 = *(v12 + 8);
+    if (v14 == -16377)
     {
-      v14 = GTTraceFunc_argumentBytesWithMap(v11, *(v11 + 13), *(v3 + 8));
-      v15 = *(v3 + 40);
-      v16 = *(v14 + 3);
-      v85[0].i64[0] = *(v14 + 1);
-      v85[0].i64[1] = v16;
-      MTLHarvesterMarkMutableAncestors(*(*(v15 + 24) + 8 * *(v15 + 12) - 8), v85, qword_297620, v10 + v2);
-      LODWORD(v17) = 1;
+      v15 = GTTraceFunc_argumentBytesWithMap(v12, *(v12 + 13), *(v4 + 8));
+      v16 = *(v4 + 40);
+      v17 = *(v15 + 3);
+      v86[0].i64[0] = *(v15 + 1);
+      v86[0].i64[1] = v17;
+      MTLHarvesterMarkMutableAncestors(*(*(v16 + 24) + 8 * *(v16 + 12) - 8), v86, qword_297620, v11 + v2);
+      LODWORD(v18) = 1;
     }
 
     else
     {
-      if (GTFenum_isDrawCall(*(v11 + 8)))
+      if (GTFenum_isDrawCall(*(v12 + 8)))
       {
-        v18 = Draw(v3, __src, v10 + v2);
+        v19 = Draw(v4, __src, v11 + v2);
       }
 
       else
       {
-        if (v13 > -15298)
+        if (v14 > -15298)
         {
-          v19 = v13 == -15059;
-          v20 = -15297;
+          v20 = v14 == -15059;
+          v21 = -15297;
         }
 
         else
         {
-          v19 = v13 == -16137;
-          v20 = -15486;
+          v20 = v14 == -16137;
+          v21 = -15486;
         }
 
-        if (v19 || v13 == v20)
+        if (v20 || v14 == v21)
         {
-          v22 = *v3;
-          v85[0].i64[0] = __src[1075];
-          entry = find_entry(v22, v85, 8uLL, 0);
+          v23 = *v4;
+          v86[0].i64[0] = __src[1075];
+          entry = find_entry(v23, v86, 8uLL, 0);
           if (*entry)
           {
-            v24 = *(*entry + 32);
-            v25 = 0uLL;
-            if (v24 && (v26 = *(v24 + 32)) != 0 && (*(v26 + 79) & 8) != 0)
+            v25 = *(*entry + 32);
+            v26 = 0uLL;
+            if (v25 && (v27 = *(v25 + 32)) != 0 && (*(v27 + 79) & 8) != 0)
             {
-              v27 = (v26 + 64);
+              v28 = (v27 + 64);
             }
 
             else
             {
-              v27 = 0;
+              v28 = 0;
             }
           }
 
           else
           {
-            v24 = 0;
-            v27 = 0;
-            v25 = 0uLL;
+            v25 = 0;
+            v28 = 0;
+            v26 = 0uLL;
           }
 
-          v83 = 0;
-          *&v82[256] = v25;
-          *&v82[272] = v25;
-          *&v82[224] = v25;
-          *&v82[240] = v25;
-          *&v82[192] = v25;
-          *&v82[208] = v25;
-          *&v82[160] = v25;
-          *&v82[176] = v25;
-          *&v82[128] = v25;
-          *&v82[144] = v25;
-          *&v82[96] = v25;
-          *&v82[112] = v25;
-          *&v82[64] = v25;
-          *&v82[80] = v25;
-          *&v82[32] = v25;
-          *&v82[48] = v25;
-          *v82 = v25;
-          *&v82[16] = v25;
-          *&v80 = v25;
-          v81 = v25;
-          v78 = v25;
-          v79 = v25;
-          v76 = v25;
-          v77 = v25;
-          *&v74 = v25;
-          v75 = v25;
-          v73 = v25;
-          LODWORD(v73) = 71;
-          *(&v74 + 1) = -1;
-          *(&v80 + 1) = -1;
-          GTMTLSMRenderPipelineState_processTraceFuncWithMap(&v73, *(v3 + 8), v27);
-          if (*(&v78 + 1))
+          v84 = 0;
+          *&v83[256] = v26;
+          *&v83[272] = v26;
+          *&v83[224] = v26;
+          *&v83[240] = v26;
+          *&v83[192] = v26;
+          *&v83[208] = v26;
+          *&v83[160] = v26;
+          *&v83[176] = v26;
+          *&v83[128] = v26;
+          *&v83[144] = v26;
+          *&v83[96] = v26;
+          *&v83[112] = v26;
+          *&v83[64] = v26;
+          *&v83[80] = v26;
+          *&v83[32] = v26;
+          *&v83[48] = v26;
+          *v83 = v26;
+          *&v83[16] = v26;
+          *&v81 = v26;
+          v82 = v26;
+          v79 = v26;
+          v80 = v26;
+          v77 = v26;
+          v78 = v26;
+          *&v75 = v26;
+          v76 = v26;
+          v74 = v26;
+          LODWORD(v74) = 71;
+          *(&v75 + 1) = -1;
+          *(&v81 + 1) = -1;
+          GTMTLSMRenderPipelineState_processTraceFuncWithMap(&v74, *(v4 + 8), v28);
+          if (*(&v79 + 1))
           {
-            LODWORD(v17) = 0;
+            LODWORD(v18) = 0;
           }
 
           else
           {
-            memcpy(__dst, v82, sizeof(__dst));
-            v35 = *(v3 + 8);
-            memset(v85, 0, 440);
-            GTMTLRenderPipelineState_rootPipeline(v85, v24, v22, v35);
-            v36 = *(*(*(v3 + 40) + 24) + 8 * *(*(v3 + 40) + 12) - 8);
-            ArgumentBufferAccess(*(v3 + 24), &__src[869], &__src[900], &__src[868], &__dst[272], *(v85[4].i64[0] + 136), v12);
+            memcpy(__dst, v83, sizeof(__dst));
+            v36 = *(v4 + 8);
+            memset(v86, 0, 440);
+            GTMTLRenderPipelineState_rootPipeline(v86, v25, v23, v36);
+            v37 = *(*(*(v4 + 40) + 24) + 8 * *(*(v4 + 40) + 12) - 8);
+            ArgumentBufferAccess(*(v4 + 24), &__src[869], &__src[900], &__src[868], &__dst[272], *(v86[4].i64[0] + 136), v13);
             *&__dst[224] = vandq_s8(*&__dst[224], vdupq_n_s64(~__src[868]));
-            MTLHarvesterMarkMutableAncestors(v36, &__src[869], &__dst[224], v12);
-            LODWORD(v17) = 1;
+            MTLHarvesterMarkMutableAncestors(v37, &__src[869], &__dst[224], v13);
+            LODWORD(v18) = 1;
           }
 
 LABEL_43:
-          v2 = v69;
+          v2 = v70;
           goto LABEL_44;
         }
 
-        if (!GTFenum_isComputeCall(v13))
+        if (!GTFenum_isComputeCall(v14))
         {
-          if (v13 >> 2 != 1073737833)
+          if (v14 >> 2 != 1073737833)
           {
             goto LABEL_80;
           }
 
-          v29 = 0;
-          v30 = *v3;
-          v31 = 0uLL;
-          if (v13 > -15963)
+          v30 = 0;
+          v31 = *v4;
+          v32 = 0uLL;
+          if (v14 > -15963)
           {
-            if (v13 != -15961)
+            if (v14 != -15961)
             {
-              v67 = *v3;
-              v68 = 0;
-              v17 = 0;
-              v32 = 0;
-              if (v13 != -15962)
+              v68 = *v4;
+              v69 = 0;
+              v18 = 0;
+              v33 = 0;
+              if (v14 != -15962)
               {
                 goto LABEL_64;
               }
 
-              v40 = GTTraceFunc_argumentBytesWithMap(v11, *(v11 + 13), *(v3 + 8));
-              v85[0].i64[0] = *(v40 + 1);
-              v41 = v67;
+              v41 = GTTraceFunc_argumentBytesWithMap(v12, *(v12 + 13), *(v4 + 8));
+              v86[0].i64[0] = *(v41 + 1);
+              v42 = v68;
               goto LABEL_50;
             }
 
-            v33 = GTTraceFunc_argumentBytesWithMap(v11, *(v11 + 13), *(v3 + 8));
-            v85[0].i64[0] = *(v33 + 1);
-            v34 = v30;
+            v34 = GTTraceFunc_argumentBytesWithMap(v12, *(v12 + 13), *(v4 + 8));
+            v86[0].i64[0] = *(v34 + 1);
+            v35 = v31;
 LABEL_53:
-            v44 = *find_entry(v34, v85, 8uLL, 0);
-            if (v44)
+            v45 = *find_entry(v35, v86, 8uLL, 0);
+            if (v45)
             {
-              v43 = *(v44 + 32);
+              v44 = *(v45 + 32);
             }
 
             else
             {
-              v43 = 0;
+              v44 = 0;
             }
 
-            v49 = GTTraceMemoryMap_argumentBlobAtIndex(v33[40], *(v3 + 8), *(v33 + 4));
-            v50 = v49 + 16;
-            if (!v49)
+            v50 = GTTraceMemoryMap_argumentBlobAtIndex(v34[40], *(v4 + 8), *(v34 + 4));
+            v51 = v50 + 16;
+            if (!v50)
             {
-              v50 = 0;
+              v51 = 0;
             }
 
-            v68 = v50;
-            v47 = GTTraceFunc_argumentBytesWithMap(v11, v33[41], *(v3 + 8));
-            v48 = (v47 + 8);
+            v69 = v51;
+            v48 = GTTraceFunc_argumentBytesWithMap(v12, v34[41], *(v4 + 8));
+            v49 = (v48 + 8);
           }
 
           else
           {
-            if (v13 != -15964)
+            if (v14 != -15964)
             {
-              v66 = *v3;
-              v68 = 0;
-              v17 = 0;
-              v32 = 0;
-              if (v13 == -15963)
+              v67 = *v4;
+              v69 = 0;
+              v18 = 0;
+              v33 = 0;
+              if (v14 == -15963)
               {
-                v33 = GTTraceFunc_argumentBytesWithMap(v11, *(v11 + 13), *(v3 + 8));
-                v85[0].i64[0] = *(v33 + 1);
-                v34 = v66;
+                v34 = GTTraceFunc_argumentBytesWithMap(v12, *(v12 + 13), *(v4 + 8));
+                v86[0].i64[0] = *(v34 + 1);
+                v35 = v67;
                 goto LABEL_53;
               }
 
 LABEL_64:
-              v51 = v32;
-              v85[0] = v31;
-              v85[1].i64[0] = v31.i64[0];
-              v85[9].i64[0] = 0;
-              v85[8] = v31;
-              v85[6] = v31;
-              v85[7] = v31;
-              v85[5].i64[1] = v31.i64[1];
-              v85[4] = v31;
-              v85[3] = v31;
-              v85[2] = v31;
-              v85[0].i32[0] = 57;
-              v85[1].i64[1] = -1;
-              v85[6].i16[5] = 2;
-              v85[5].i64[0] = -1;
-              if (v29 && (v52 = *(v29 + 32)) != 0 && (*(v52 + 79) & 8) != 0)
+              v52 = v33;
+              v86[0] = v32;
+              v86[1].i64[0] = v32.i64[0];
+              v86[9].i64[0] = 0;
+              v86[8] = v32;
+              v86[6] = v32;
+              v86[7] = v32;
+              v86[5].i64[1] = v32.i64[1];
+              v86[4] = v32;
+              v86[3] = v32;
+              v86[2] = v32;
+              v86[0].i32[0] = 57;
+              v86[1].i64[1] = -1;
+              v86[6].i16[5] = 2;
+              v86[5].i64[0] = -1;
+              if (v30 && (v53 = *(v30 + 32)) != 0 && (*(v53 + 79) & 8) != 0)
               {
-                v53 = v52 + 64;
+                v54 = v53 + 64;
               }
 
               else
               {
-                v53 = 0;
+                v54 = 0;
               }
 
-              GTMTLSMIndirectCommandBuffer_processTraceFuncWithMap(v85, *(v3 + 8), v53);
-              memset(v82, 0, 72);
-              v80 = 0u;
+              GTMTLSMIndirectCommandBuffer_processTraceFuncWithMap(v86, *(v4 + 8), v54);
+              memset(v83, 0, 72);
               v81 = 0u;
-              v78 = 0u;
+              v82 = 0u;
               v79 = 0u;
-              v76 = 0u;
+              v80 = 0u;
               v77 = 0u;
-              v74 = 0u;
+              v78 = 0u;
               v75 = 0u;
-              v73 = 0u;
-              GTMTLCreateIndirectCommandEncoder(&v73, v85[7].i64[0]);
+              v76 = 0u;
+              v74 = 0u;
+              GTMTLCreateIndirectCommandEncoder(&v74, v86[7].i64[0]);
               if (LODWORD(__src[0]) == 70)
               {
-                memcpy(v85, __src, sizeof(v85));
-                if (!*(v73 + 19))
+                memcpy(v86, __src, sizeof(v86));
+                if (!*(v74 + 19))
                 {
-                  v58 = *(v73 + 38);
-                  if (v58 >= 0x40)
-                  {
-                    LOBYTE(v58) = 64;
-                  }
-
-                  v85[4].i64[0] &= -1 << v58;
-                  v59 = *(v73 + 31);
+                  v59 = *(v74 + 38);
                   if (v59 >= 0x40)
                   {
                     LOBYTE(v59) = 64;
                   }
 
-                  v85[123].i64[1] &= -1 << v59;
-                  v60 = *(v73 + 35);
+                  v86[4].i64[0] &= -1 << v59;
+                  v60 = *(v74 + 31);
                   if (v60 >= 0x40)
                   {
                     LOBYTE(v60) = 64;
                   }
 
-                  v85[227].i64[0] &= -1 << v60;
-                  v61 = *(v73 + 34);
+                  v86[123].i64[1] &= -1 << v60;
+                  v61 = *(v74 + 35);
                   if (v61 >= 0x40)
                   {
                     LOBYTE(v61) = 64;
                   }
 
-                  v85[330].i64[1] &= -1 << v61;
-                }
-
-                if (v17)
-                {
-                  v62 = *&v82[64];
-                  v63 = v68 + v51 * *&v82[64];
-                  v64 = v17;
-                  do
+                  v86[227].i64[0] &= -1 << v61;
+                  v62 = *(v74 + 34);
+                  if (v62 >= 0x40)
                   {
-                    if (GTMTLSMRenderCommandEncoder_loadIndirectCommand(&v85[3].i64[1], &v73, v63, v3 + 48))
-                    {
-                      Draw(v3, v85, v12);
-                    }
-
-                    ++v12;
-                    v63 += v62;
-                    --v64;
+                    LOBYTE(v62) = 64;
                   }
 
-                  while (v64);
+                  v86[330].i64[1] &= -1 << v62;
+                }
+
+                if (v18)
+                {
+                  v63 = *&v83[64];
+                  v64 = v69 + v52 * *&v83[64];
+                  v65 = v18;
+                  do
+                  {
+                    if (GTMTLSMRenderCommandEncoder_loadIndirectCommand(&v86[3].i64[1], &v74, v64, v4 + 48))
+                    {
+                      Draw(v4, v86, v13);
+                    }
+
+                    ++v13;
+                    v64 += v63;
+                    --v65;
+                  }
+
+                  while (v65);
                 }
               }
 
@@ -2009,105 +2002,105 @@ LABEL_64:
                 if (LODWORD(__src[0]) != 28)
                 {
 LABEL_80:
-                  LODWORD(v17) = 0;
+                  LODWORD(v18) = 0;
                   goto LABEL_44;
                 }
 
-                memcpy(v85, __src, sizeof(v85));
-                if (!*(v73 + 19))
+                memcpy(v86, __src, sizeof(v86));
+                if (!*(v74 + 19))
                 {
-                  v54 = *(v73 + 32);
-                  if (v54 >= 0x40)
+                  v55 = *(v74 + 32);
+                  if (v55 >= 0x40)
                   {
-                    LOBYTE(v54) = 64;
+                    LOBYTE(v55) = 64;
                   }
 
-                  v85[4].i64[1] &= -1 << v54;
+                  v86[4].i64[1] &= -1 << v55;
                 }
 
-                if (v17)
+                if (v18)
                 {
-                  v55 = *&v82[64];
-                  v56 = v68 + v51 * *&v82[64];
-                  v57 = v17;
+                  v56 = *&v83[64];
+                  v57 = v69 + v52 * *&v83[64];
+                  v58 = v18;
                   do
                   {
-                    if (GTMTLSMComputeCommandEncoder_loadIndirectCommand(&v85[3].i64[1], &v73, v56, v3 + 48))
+                    if (GTMTLSMComputeCommandEncoder_loadIndirectCommand(&v86[3].i64[1], &v74, v57, v4 + 48))
                     {
-                      Dispatch(v3, v85, v12);
+                      Dispatch(v4, v86, v13);
                     }
 
-                    ++v12;
-                    v56 += v55;
-                    --v57;
+                    ++v13;
+                    v57 += v56;
+                    --v58;
                   }
 
-                  while (v57);
+                  while (v58);
                 }
               }
 
               goto LABEL_43;
             }
 
-            v40 = GTTraceFunc_argumentBytesWithMap(v11, *(v11 + 13), *(v3 + 8));
-            v85[0].i64[0] = *(v40 + 1);
-            v41 = v30;
+            v41 = GTTraceFunc_argumentBytesWithMap(v12, *(v12 + 13), *(v4 + 8));
+            v86[0].i64[0] = *(v41 + 1);
+            v42 = v31;
 LABEL_50:
-            v42 = *find_entry(v41, v85, 8uLL, 0);
-            if (v42)
+            v43 = *find_entry(v42, v86, 8uLL, 0);
+            if (v43)
             {
-              v43 = *(v42 + 32);
+              v44 = *(v43 + 32);
             }
 
             else
             {
-              v43 = 0;
+              v44 = 0;
             }
 
-            v45 = GTTraceMemoryMap_argumentBlobAtIndex(v40[40], *(v3 + 8), *(v40 + 4));
-            v46 = v45 + 16;
-            if (!v45)
+            v46 = GTTraceMemoryMap_argumentBlobAtIndex(v41[40], *(v4 + 8), *(v41 + 4));
+            v47 = v46 + 16;
+            if (!v46)
             {
-              v46 = 0;
+              v47 = 0;
             }
 
-            v68 = v46;
-            v47 = v40 + 16;
-            v48 = (v40 + 24);
+            v69 = v47;
+            v48 = v41 + 16;
+            v49 = (v41 + 24);
           }
 
-          v32 = *v47;
-          v17 = *v48;
-          v2 = v69;
-          v31 = 0uLL;
-          v29 = v43;
+          v33 = *v48;
+          v18 = *v49;
+          v2 = v70;
+          v32 = 0uLL;
+          v30 = v44;
           goto LABEL_64;
         }
 
-        v18 = Dispatch(v3, __src, v10 + v2);
+        v19 = Dispatch(v4, __src, v11 + v2);
       }
 
-      LODWORD(v17) = v18;
+      LODWORD(v18) = v19;
     }
 
 LABEL_44:
-    v10 += v17;
-    v37 = atomic_load((v5 + 4));
-    v38 = v9 + (v37 >> 6);
-    v39 = (HIDWORD(v9) + 1);
-    v9 = (v39 << 32) | v9;
-    if (v39 == v38 - 1)
+    v11 += v18;
+    v38 = atomic_load((v6 + 4));
+    v39 = v10 + (v38 >> 6);
+    v40 = (HIDWORD(v10) + 1);
+    v10 = (v40 << 32) | v10;
+    if (v40 == v39 - 1)
     {
-      v9 = (v39 << 32) | v39;
-      v5 = *(v5 + 40);
+      v10 = (v40 << 32) | v40;
+      v6 = *(v6 + 40);
       goto LABEL_10;
     }
   }
 
-  return v10;
+  return v11;
 }
 
-void MTLHarvesterMarkMutableAncestors(apr_hash_t *a1, uint64_t a2, void *a3, uint64_t a4)
+void MTLHarvesterMarkMutableAncestors(apr_pool_t **a1, uint64_t a2, void *a3, uint64_t a4)
 {
   v8 = 0;
   v9 = 0;
@@ -2171,7 +2164,7 @@ void MTLHarvesterMarkMutableAncestors(apr_hash_t *a1, uint64_t a2, void *a3, uin
   while (v12 < 63);
 }
 
-uint64_t Draw(uint64_t a1, void *a2, uint64_t a3)
+uint64_t Draw(uint64_t *a1, void *a2, uint64_t a3)
 {
   v6 = *a1;
   *&v25 = a2[1075];
@@ -2192,9 +2185,9 @@ uint64_t Draw(uint64_t a1, void *a2, uint64_t a3)
   v21 = 0u;
   memset(v20, 0, sizeof(v20));
   memset(v19, 0, sizeof(v19));
-  GTMTLSMRenderPipelineState_resourceAccess(v8, *(a1 + 8), v19);
-  v9 = *(*(*(a1 + 40) + 24) + 8 * *(*(a1 + 40) + 12) - 8);
-  v10 = *(a1 + 8);
+  GTMTLSMRenderPipelineState_resourceAccess(v8, a1[1], v19);
+  v9 = *(*(a1[5] + 24) + 8 * *(a1[5] + 12) - 8);
+  v10 = a1[1];
   v52 = 0;
   v50 = 0u;
   v51 = 0u;
@@ -2227,7 +2220,7 @@ uint64_t Draw(uint64_t a1, void *a2, uint64_t a3)
   v11 = GTMTLSMRenderPipelineState_renderPipelineDescriptorType(0, &v25);
   if (v11 == 3)
   {
-    v16 = *(a1 + 8);
+    v16 = a1[1];
     v52 = 0;
     v50 = 0u;
     v51 = 0u;
@@ -2258,22 +2251,22 @@ uint64_t Draw(uint64_t a1, void *a2, uint64_t a3)
     v25 = 0u;
     GTMTLRenderPipelineState_rootPipeline(&v25, v8, v6, v16);
     v17 = *(&v29 + 1);
-    ArgumentBufferAccess(*(a1 + 24), (a2 + 455), (a2 + 486), (a2 + 454), v23, *(*(&v29 + 1) + 368), a3);
+    ArgumentBufferAccess(a1[3], (a2 + 455), (a2 + 486), (a2 + 454), v23, *(*(&v29 + 1) + 368), a3);
     v22[0] = vandq_s8(v22[0], vdupq_n_s64(~a2[454]));
     MTLHarvesterMarkMutableAncestors(v9, (a2 + 455), v22, a3);
-    ArgumentBufferAccess(*(a1 + 24), (a2 + 662), (a2 + 693), (a2 + 661), &v23[3].i64[1], *(v17 + 360), a3);
+    ArgumentBufferAccess(a1[3], (a2 + 662), (a2 + 693), (a2 + 661), &v23[3].i64[1], *(v17 + 360), a3);
     *(v23 + 8) = vandq_s8(*(v23 + 8), vdupq_n_s64(~a2[661]));
     MTLHarvesterMarkMutableAncestors(v9, (a2 + 662), &v23[0].i64[1], a3);
-    ArgumentBufferAccess(*(a1 + 24), (a2 + 248), (a2 + 279), (a2 + 247), &v21 + 1, *(v17 + 344), a3);
+    ArgumentBufferAccess(a1[3], (a2 + 248), (a2 + 279), (a2 + 247), &v21 + 1, *(v17 + 344), a3);
     *(v20 + 8) = vandq_s8(*(v20 + 8), vdupq_n_s64(~a2[247]));
-    v14 = (a2 + 248);
+    v14 = a2 + 248;
     v15 = &v20[0].i64[1];
     goto LABEL_8;
   }
 
   if (v11 == 1)
   {
-    v12 = *(a1 + 8);
+    v12 = a1[1];
     v52 = 0;
     v50 = 0u;
     v51 = 0u;
@@ -2304,18 +2297,18 @@ uint64_t Draw(uint64_t a1, void *a2, uint64_t a3)
     v25 = 0u;
     GTMTLRenderPipelineState_rootPipeline(&v25, v8, v6, v12);
     v13 = v28;
-    ArgumentBufferAccess(*(a1 + 24), (a2 + 10), (a2 + 41), (a2 + 8), v20, *(v28 + 1296), a3);
+    ArgumentBufferAccess(a1[3], (a2 + 10), (a2 + 41), (a2 + 8), v20, *(v28 + 1296), a3);
     v19[0] = vandq_s8(v19[0], vdupq_n_s64(~a2[8]));
     MTLHarvesterMarkMutableAncestors(v9, (a2 + 10), v19, a3);
-    ArgumentBufferAccess(*(a1 + 24), (a2 + 248), (a2 + 279), (a2 + 247), &v21 + 1, v13[147], a3);
+    ArgumentBufferAccess(a1[3], (a2 + 248), (a2 + 279), (a2 + 247), &v21 + 1, v13[147], a3);
     *(v20 + 8) = vandq_s8(*(v20 + 8), vdupq_n_s64(~a2[247]));
     MTLHarvesterMarkMutableAncestors(v9, (a2 + 248), &v20[0].i64[1], a3);
-    ArgumentBufferAccess(*(a1 + 24), (a2 + 455), (a2 + 486), (a2 + 454), v23, v13[155], a3);
+    ArgumentBufferAccess(a1[3], (a2 + 455), (a2 + 486), (a2 + 454), v23, v13[155], a3);
     v22[0] = vandq_s8(v22[0], vdupq_n_s64(~a2[454]));
     MTLHarvesterMarkMutableAncestors(v9, (a2 + 455), v22, a3);
-    ArgumentBufferAccess(*(a1 + 24), (a2 + 662), (a2 + 693), (a2 + 661), &v23[3].i64[1], v13[152], a3);
+    ArgumentBufferAccess(a1[3], (a2 + 662), (a2 + 693), (a2 + 661), &v23[3].i64[1], v13[152], a3);
     *(v23 + 8) = vandq_s8(*(v23 + 8), vdupq_n_s64(~a2[661]));
-    v14 = (a2 + 662);
+    v14 = a2 + 662;
     v15 = &v23[0].i64[1];
 LABEL_8:
     MTLHarvesterMarkMutableAncestors(v9, v14, v15, a3);
@@ -2338,8 +2331,8 @@ apr_array_header_t *ArgumentBufferAccess(apr_array_header_t *arr, uint64_t a2, u
     }
 
     v16 = __clz(__rbit64(v15));
-    v17 = (v14 + v16);
-    if (((*(a4 + (((v14 + v16) >> 3) & 0x1FFFFFFFFFFFFFF8)) >> (v14 + v16)) & 1) == 0)
+    v17 = &v14[v16];
+    if (((*(a4 + ((&v14[v16] >> 3) & 0x1FFFFFFFFFFFFFF8)) >> (v14 + v16)) & 1) == 0)
     {
       arr = apr_array_push(v13);
       arr->pool = *(a2 + 8 * v17);
@@ -2356,7 +2349,7 @@ apr_array_header_t *ArgumentBufferAccess(apr_array_header_t *arr, uint64_t a2, u
   return arr;
 }
 
-char *Dispatch(uint64_t a1, uint64_t a2, uint64_t a3)
+char *Dispatch(uint64_t *a1, uint64_t a2, uint64_t a3)
 {
   v6 = *a1;
   *&v15 = *(a2 + 64);
@@ -2402,7 +2395,7 @@ LABEL_8:
   LODWORD(v15) = 29;
   v17 = -1;
   v24 = -1;
-  GTMTLSMComputePipelineState_processTraceFuncWithMap(&v15, *(a1 + 8), v10);
+  GTMTLSMComputePipelineState_processTraceFuncWithMap(&v15, a1[1], v10);
   if (*(&v20 + 1))
   {
     return 0;
@@ -2412,11 +2405,11 @@ LABEL_8:
   v13[1] = v27;
   v13[2] = v28;
   v14 = v29;
-  result = GTMTLComputePipelineState_computeFunction(v8, v6, *(a1 + 8));
+  result = GTMTLComputePipelineState_computeFunction(v8, v6, a1[1]);
   if (result)
   {
-    v12 = *(*(*(a1 + 40) + 24) + 8 * *(*(a1 + 40) + 12) - 8);
-    ArgumentBufferAccess(*(a1 + 24), a2 + 88, a2 + 336, a2 + 72, &v14, result, a3);
+    v12 = *(*(a1[5] + 24) + 8 * *(a1[5] + 12) - 8);
+    ArgumentBufferAccess(a1[3], a2 + 88, a2 + 336, a2 + 72, &v14, result, a3);
     v13[0] = vandq_s8(v13[0], vdupq_n_s64(~*(a2 + 72)));
     MTLHarvesterMarkMutableAncestors(v12, a2 + 88, v13, a3);
     return (&dword_0 + 1);
@@ -2442,15 +2435,13 @@ void CreateCommandBufferEpilogue(void *a1, uint64_t a2)
   }
 }
 
-uint64_t __CreateCommandBufferEpilogue_block_invoke(uint64_t a1)
+IMP __CreateCommandBufferEpilogue_block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   result = objc_opt_respondsToSelector();
   if (result)
   {
-    v4 = *(a1 + 32);
-    v5 = objc_opt_class();
-    InstanceMethod = class_getInstanceMethod(v5, "encodeWaitForEvent:value:");
+    v2 = objc_opt_class();
+    InstanceMethod = class_getInstanceMethod(v2, "encodeWaitForEvent:value:");
 
     return method_setImplementation(InstanceMethod, MTLCommandBuffer_encodeWaitForEventWithValue);
   }
@@ -2467,10 +2458,10 @@ void CommandQueueTakeSnapshot(void *a1)
   {
     if (*(v1 + 88))
     {
-      v10 = [*(v1 + 9) allObjects];
-      v11 = [v10 copy];
-      v12 = *(v2 + 10);
-      *(v2 + 10) = v11;
+      v9 = [*(v1 + 9) allObjects];
+      v10 = [v9 copy];
+      v11 = *(v2 + 10);
+      *(v2 + 10) = v10;
 
       v3 = 0;
     }
@@ -2487,112 +2478,108 @@ void CommandQueueTakeSnapshot(void *a1)
       *(v4 + 8) |= 0x80u;
       if (*(v2 + 10))
       {
-        v43 = 0u;
-        v44 = 0u;
-        v42 = 0u;
-        v6 = *(v2 + 4);
-        GTTraceContext_pushEncoderWithStream(*(v2 + 3), &v42);
-        v7 = v43;
-        *(v43 + 8) = -15249;
-        v8 = BYTE9(v44);
-        if (BYTE9(v44) > 0x28uLL)
+        v39 = 0u;
+        v40 = 0u;
+        v38 = 0u;
+        GTTraceContext_pushEncoderWithStream(*(v2 + 3), &v38);
+        v6 = v39;
+        *(v39 + 8) = -15249;
+        v7 = BYTE9(v40);
+        if (BYTE9(v40) > 0x28uLL)
         {
-          v13 = *(*(&v42 + 1) + 24);
-          v14 = BYTE10(v44);
-          ++BYTE10(v44);
-          v9 = GTTraceMemPool_allocateBytes(v13, *(&v43 + 1), v14 | 0x1800000000) + 16;
-          v8 = v14;
+          v12 = *(*(&v38 + 1) + 24);
+          v13 = BYTE10(v40);
+          ++BYTE10(v40);
+          v8 = GTTraceMemPool_allocateBytes(v12, *(&v39 + 1), v13 | 0x1800000000) + 16;
+          v7 = v13;
         }
 
         else
         {
-          v9 = (v7 + BYTE9(v44));
-          BYTE9(v44) += 24;
+          v8 = (v6 + BYTE9(v40));
+          BYTE9(v40) += 24;
         }
 
-        *(v7 + 13) = v8;
-        v15 = [v2 traceStream];
-        if (v15)
+        *(v6 + 13) = v7;
+        v14 = [v2 traceStream];
+        if (v14)
         {
-          v16 = *v15;
+          v15 = *v14;
         }
 
         else
         {
-          v16 = 0;
+          v15 = 0;
         }
 
-        v17 = [*(v2 + 10) count];
-        v18 = [*(v2 + 10) count];
-        __chkstk_darwin(v18, 8 * v18);
-        v20 = (&v42 - v19);
-        bzero(&v42 - v19, v21);
-        v22 = StreamNSArray(&v42, v20, *(v2 + 10));
-        *v9 = v16;
-        *(v9 + 1) = v17;
-        v9[16] = v22;
-        *(v9 + 17) = 0;
-        *(v9 + 5) = 0;
-        v23 = v43;
-        *v5 = v44;
-        *(v5 + 8) = BYTE8(v44);
-        *(v23 + 15) |= 8u;
+        v16 = [*(v2 + 10) count];
+        __chkstk_darwin([*(v2 + 10) count]);
+        v18 = (&v38 - v17);
+        bzero(&v38 - v17, v19);
+        v20 = StreamNSArray(&v38, v18, *(v2 + 10));
+        *v8 = v15;
+        *(v8 + 1) = v16;
+        v8[16] = v20;
+        *(v8 + 17) = 0;
+        *(v8 + 5) = 0;
+        v21 = v39;
+        *v5 = v40;
+        *(v5 + 8) = BYTE8(v40);
+        *(v21 + 15) |= 8u;
       }
 
-      v43 = 0u;
-      v44 = 0u;
-      v42 = 0u;
-      v24 = *(v2 + 4);
-      GTTraceContext_pushEncoderWithStream(*(v2 + 3), &v42);
-      v25 = v43;
-      *(v43 + 8) = -15251;
-      v26 = BYTE9(v44);
-      if (BYTE9(v44) > 0x28uLL)
+      v39 = 0u;
+      v40 = 0u;
+      v38 = 0u;
+      GTTraceContext_pushEncoderWithStream(*(v2 + 3), &v38);
+      v22 = v39;
+      *(v39 + 8) = -15251;
+      v23 = BYTE9(v40);
+      if (BYTE9(v40) > 0x28uLL)
       {
-        v28 = *(*(&v42 + 1) + 24);
-        v29 = BYTE10(v44);
-        ++BYTE10(v44);
-        v27 = GTTraceMemPool_allocateBytes(v28, *(&v43 + 1), v29 | 0x1800000000) + 16;
-        v26 = v29;
+        v25 = *(*(&v38 + 1) + 24);
+        v26 = BYTE10(v40);
+        ++BYTE10(v40);
+        v24 = GTTraceMemPool_allocateBytes(v25, *(&v39 + 1), v26 | 0x1800000000) + 16;
+        v23 = v26;
       }
 
       else
       {
-        v27 = (v25 + BYTE9(v44));
-        BYTE9(v44) += 24;
+        v24 = (v22 + BYTE9(v40));
+        BYTE9(v40) += 24;
       }
 
-      *(v25 + 13) = v26;
-      v30 = [v2 traceStream];
-      if (v30)
+      *(v22 + 13) = v23;
+      v27 = [v2 traceStream];
+      if (v27)
       {
-        v31 = *v30;
+        v28 = *v27;
       }
 
       else
       {
-        v31 = 0;
+        v28 = 0;
       }
 
-      v32 = [*(v2 + 9) count];
-      v33 = [*(v2 + 9) allObjects];
-      v34 = [v33 count];
-      __chkstk_darwin(v34, 8 * v34);
-      v36 = (&v42 - v35);
-      bzero(&v42 - v35, v37);
-      v38 = [*(v2 + 9) allObjects];
-      v39 = StreamNSArray(&v42, v36, v38);
-      *v27 = v31;
-      *(v27 + 1) = v32;
-      v27[16] = v39;
-      *(v27 + 17) = 0;
-      *(v27 + 5) = 0;
+      v29 = [*(v2 + 9) count];
+      v30 = [*(v2 + 9) allObjects];
+      __chkstk_darwin([v30 count]);
+      v32 = (&v38 - v31);
+      bzero(&v38 - v31, v33);
+      v34 = [*(v2 + 9) allObjects];
+      v35 = StreamNSArray(&v38, v32, v34);
+      *v24 = v28;
+      *(v24 + 1) = v29;
+      v24[16] = v35;
+      *(v24 + 17) = 0;
+      *(v24 + 5) = 0;
 
-      v40 = v43;
-      *v5 = v44;
-      v41 = BYTE8(v44);
-      *(v40 + 15) |= 8u;
-      *(v5 + 8) = v41 & 0x7F;
+      v36 = v39;
+      *v5 = v40;
+      v37 = BYTE8(v40);
+      *(v36 + 15) |= 8u;
+      *(v5 + 8) = v37 & 0x7F;
     }
 
     v3 = 1;
@@ -2828,9 +2815,11 @@ uint64_t GTMTLCaptureManager_init()
   v1 = qword_31F528;
   qword_31F528 = v0;
 
-  qword_31F530 = dispatch_semaphore_create(0);
+  v2 = dispatch_semaphore_create(0);
+  v3 = qword_31F530;
+  qword_31F530 = v2;
 
-  return _objc_release_x1();
+  return _objc_release_x1(v2, v3);
 }
 
 intptr_t GTMTLCaptureManager_waitForCaptureTrigger()
@@ -2910,354 +2899,351 @@ void GTMTLCaptureManager_preCaptureTakeSnapshots(uint64_t a1)
   apr_pool_destroy(v2);
 }
 
-unint64_t GTMTLCaptureManager_stopActiveCapture(uint64_t a1, uint64_t a2)
+unint64_t GTMTLCaptureManager_stopActiveCapture(unsigned int *a1, unsigned int *a2)
 {
-  v4 = *(g_ctx + 72);
-  GTTraceStoreDebugDescription();
-  v5 = &unk_31F000;
-  v6 = _sharedCaptureManager;
+  GTTraceStoreDebugDescription("before dump");
+  v4 = &unk_31F000;
+  v5 = _sharedCaptureManager;
   p_prots = &OBJC_PROTOCOL___CaptureMTLObject.prots;
-  v8 = g_signpostLog;
+  v7 = g_signpostLog;
   if (os_signpost_enabled(g_signpostLog))
   {
     LOWORD(buf) = 0;
-    _os_signpost_emit_with_name_impl(&dword_0, v8, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "StopActiveCapture", &unk_2E94FB, &buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_0, v7, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "StopActiveCapture", &unk_2E94FB, &buf, 2u);
   }
 
   context = objc_autoreleasePoolPush();
-  v9 = *(v6 + 77);
-  if (*v6)
+  v8 = *(v5 + 77);
+  if (*v5)
   {
-    WaitForDevice(g_ctx, *v6);
+    WaitForDevice(g_ctx, *v5);
   }
 
-  v10 = g_signpostLog;
+  v9 = g_signpostLog;
   if (os_signpost_enabled(g_signpostLog))
   {
     LODWORD(buf) = 134217984;
-    *(&buf + 4) = a1 + a2;
-    _os_signpost_emit_with_name_impl(&dword_0, v10, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "Capture-StopActiveCaptureDumpContext", "Index: %llu", &buf, 0xCu);
+    *(&buf + 4) = a2 + a1;
+    _os_signpost_emit_with_name_impl(&dword_0, v9, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "Capture-StopActiveCaptureDumpContext", "Index: %llu", &buf, 0xCu);
   }
 
-  v101[0] = g_ctx;
-  v101[1] = v6;
-  v101[2] = a1;
-  v101[3] = a2;
-  v102 = (dword_31F7C8 & 0x400000) != 0;
-  v103[0] = 0;
-  *(v103 + 3) = 0;
-  v11 = GTMTLCaptureManager_prepareForSerialization(v101);
-  v12 = v11;
-  if (*(*(v11 + 728) + 12) < 1)
+  v98[0] = g_ctx;
+  v98[1] = v5;
+  v98[2] = a1;
+  v98[3] = a2;
+  v99 = (dword_31F7C8 & 0x400000) != 0;
+  v100[0] = 0;
+  *(v100 + 3) = 0;
+  v10 = GTMTLCaptureManager_prepareForSerialization(v98);
+  v11 = v10;
+  if (*(v10[91] + 3) < 1)
   {
-    GTTraceContextDumpEmptyCapture(v11);
+    GTTraceContextDumpEmptyCapture(v10);
     goto LABEL_34;
   }
 
-  GTTraceDump_writeStartup0(v11, *(v11 + 32), *v11);
-  v13 = *(v12 + 32);
-  v14 = *v12;
-  v15 = *(v12 + 16);
-  v16 = apr_palloc(*v12, 0x100000uLL);
-  *&buf = *(v12 + 56);
-  entry = find_entry(v15, &buf, 8uLL, 0);
-  if (*entry && (v18 = *(*entry + 32)) != 0)
+  GTTraceDump_writeStartup0(v10, v10[4], *v10);
+  v12 = *(v11 + 32);
+  v13 = *v11;
+  v14 = *(v11 + 16);
+  v15 = apr_palloc(*v11, 0x100000uLL);
+  *&buf = *(v11 + 56);
+  entry = find_entry(v14, &buf, 8uLL, 0);
+  if (*entry && (v17 = *(*entry + 32)) != 0)
   {
-    v19 = atomic_load((v18 + 56));
-    v20 = (v18 + (~(v19 >> 2) & 8));
+    v18 = atomic_load((v17 + 56));
+    v19 = (v17 + (~(v18 >> 2) & 8));
   }
 
   else
   {
-    v20 = &dword_8;
+    v19 = &dword_8;
   }
 
-  *&buf = *v20;
-  *(&buf + 1) = v16;
-  v107 = 0x100000;
-  v21 = fbstream_open(v13[24], "startup-1-platform", v14);
-  v108 = v21;
-  v109 = v13;
-  v110 = 0;
-  LOBYTE(v111) = *(v12 + 668);
-  *(&v111 + 1) = 0;
-  HIDWORD(v111) = 0;
-  GTEncodeMetalLayers(&buf, v12);
-  apr_pool_cleanup_kill(*v21, v21, fbstream_cleanup);
-  fbstream_cleanup(v21);
-  GTTraceDump_writeDeviceResources(v12, *(v12 + 32), *v12);
-  GTTraceDump_writeDelta(v12, *(v12 + 32), *v12);
+  *&buf = *v19;
+  *(&buf + 1) = v15;
+  v104 = 0x100000;
+  v20 = fbstream_open(v12[24], "startup-1-platform", v13);
+  v105 = v20;
+  v106 = v12;
+  v107 = 0;
+  LOBYTE(v108) = *(v11 + 668);
+  *(&v108 + 1) = 0;
+  HIDWORD(v108) = 0;
+  GTEncodeMetalLayers(&buf, v11);
+  apr_pool_cleanup_kill(*v20, v20, fbstream_cleanup);
+  fbstream_cleanup(v20);
+  GTTraceDump_writeDeviceResources(v11, *(v11 + 32), *v11);
+  GTTraceDump_writeDelta(v11, *(v11 + 32), *v11);
   strcpy(&buf, "temporary data");
-  GTMTLCaptureState_storePointer(*(v12 + 32), "gttrace-dump", &buf, &dword_C + 3);
+  GTMTLCaptureState_storePointer(*(v11 + 32), "gttrace-dump", &buf, &dword_C + 3);
   strcpy(&buf, "dummy data");
-  v104 = 0;
-  v105[0] = 4;
-  if (!sysctlbyname("sysctl.proc_translated", &v104, v105, 0, 0) && v104)
+  v101 = 0;
+  v102[0] = 4;
+  if (!sysctlbyname("sysctl.proc_translated", &v101, v102, 0, 0) && v101)
   {
-    GTMTLCaptureState_storePointer(*(v12 + 32), "is_rosetta", &buf, &dword_8 + 3);
+    GTMTLCaptureState_storePointer(*(v11 + 32), "is_rosetta", &buf, &dword_8 + 3);
   }
 
   if (os_variant_has_internal_content())
   {
-    GTMTLCaptureState_storePointer(*(v12 + 32), "is_internal", &buf, &dword_8 + 3);
+    GTMTLCaptureState_storePointer(*(v11 + 32), "is_internal", &buf, &dword_8 + 3);
   }
 
-  v96 = v9;
-  v98 = v6;
+  v93 = v8;
+  v95 = v5;
   if (GTCorePlatform_isAlmond())
   {
-    v22 = "is_almond";
+    v21 = "is_almond";
 LABEL_22:
-    GTMTLCaptureState_storePointer(*(v12 + 32), v22, &buf, &dword_8 + 3);
+    GTMTLCaptureState_storePointer(*(v11 + 32), v21, &buf, &dword_8 + 3);
     goto LABEL_23;
   }
 
   if (GTCorePlatform_isCatalyst())
   {
-    v22 = "is_catalyst";
+    v21 = "is_catalyst";
     goto LABEL_22;
   }
 
 LABEL_23:
-  WaitForDevice(*(v12 + 8), *(v12 + 56));
-  GTTraceDump_writeCapture(v12, *(v12 + 32), *v12, dword_31F7C8 & 1);
-  GTTraceDump_writeUnsortedCapture(v12, *(v12 + 32), *v12);
-  p = *v12;
-  v105[0] = @"MTLCAPTURE_PRESENT_DOWNLOAD";
-  v93 = [NSNumber numberWithUnsignedLongLong:dword_31F7C8 & 1];
-  *&buf = v93;
-  v105[1] = @"MTLCAPTURE_PRESENT_DOWNLOAD_SIZE";
-  v91 = [NSNumber numberWithUnsignedLongLong:qword_31F7C0];
-  *(&buf + 1) = v91;
-  v105[2] = @"MTLCAPTURE_LOG_ERRORS";
-  v90 = [NSNumber numberWithUnsignedLongLong:(dword_31F7C8 >> 1) & 1];
-  v107 = v90;
-  v105[3] = @"MTLCAPTURE_HASH_DUPLICATE_FILES";
-  v89 = [NSNumber numberWithUnsignedLongLong:(dword_31F7C8 >> 5) & 1];
-  v108 = v89;
-  v105[4] = @"MTLCAPTURE_WAIT_EVENT_TIMEOUT";
-  v88 = [NSNumber numberWithUnsignedLongLong:GT_ENV];
-  v109 = v88;
-  v105[5] = @"MTLCAPTURE_WAIT_SHARED_EVENT_TIMEOUT_CPU";
-  v87 = [NSNumber numberWithUnsignedLongLong:qword_31F7A8];
-  v110 = v87;
-  v105[6] = @"MTLCAPTURE_DESTINATION_DEVELOPER_TOOLS_ENABLE";
-  v86 = [NSNumber numberWithUnsignedLongLong:(dword_31F7C8 >> 11) & 1];
-  v111 = v86;
-  v105[7] = @"MTLCAPTURE_WAIT_FOR_SIGNAL";
-  v85 = [NSNumber numberWithUnsignedLongLong:(dword_31F7C8 >> 6) & 1];
-  v112 = v85;
-  v105[8] = @"MTLCAPTURE_NO_METALFX_CAPTURE";
-  v84 = [NSNumber numberWithUnsignedLongLong:(dword_31F7C8 >> 8) & 1];
-  v113 = v84;
-  v105[9] = @"MTLCAPTURE_DISABLE_HEAP_TEXTURE_COMPRESSION";
-  v83 = [NSNumber numberWithUnsignedLongLong:(dword_31F7C8 >> 9) & 1];
-  v114 = v83;
-  v105[10] = @"MTLCAPTURE_CAPTURE_ADS_BUFFER_SPI";
-  v82 = [NSNumber numberWithUnsignedLongLong:(dword_31F7C8 >> 2) & 1];
-  v115 = v82;
-  v105[11] = @"MTLCAPTURE_ADS_EXTRA_BUFFERS";
-  v81 = [NSNumber numberWithUnsignedLongLong:(dword_31F7C8 >> 4) & 1];
-  v116 = v81;
-  v105[12] = @"MTLCAPTURE_MAX_DOWNLOAD_COMMAND_BUFFERS";
-  v80 = [NSNumber numberWithUnsignedLongLong:qword_31F7B0];
-  v117 = v80;
-  v105[13] = @"MTLCAPTURE_FORCE_RAYTRACING_ENABLE";
-  v79 = [NSNumber numberWithUnsignedLongLong:(dword_31F7C8 >> 3) & 1];
-  v118 = v79;
-  v105[14] = @"MTLCAPTURE_IS_COMPOSITOR";
-  v78 = [NSNumber numberWithUnsignedLongLong:(dword_31F7C8 >> 7) & 1];
-  v119 = v78;
-  v105[15] = @"MTLCAPTURE_ENABLE_DOWNLOADS_AT_EVENTS";
-  v77 = [NSNumber numberWithUnsignedLongLong:(dword_31F7C8 >> 10) & 1];
-  v120 = v77;
-  v105[16] = @"MTLCAPTURE_ENABLE_MPROTECT";
-  v76 = [NSNumber numberWithUnsignedLongLong:(dword_31F7C8 >> 12) & 1];
-  v121 = v76;
-  v105[17] = @"MTLCAPTURE_ENABLE_MPROTECT_BUFFER_SPLITTING";
-  v75 = [NSNumber numberWithUnsignedLongLong:(dword_31F7C8 >> 13) & 1];
-  v122 = v75;
-  v105[18] = @"MTLCAPTURE_DISABLE_HEAPS";
-  v74 = [NSNumber numberWithUnsignedLongLong:(dword_31F7C8 >> 14) & 1];
-  v123 = v74;
-  v105[19] = @"MTLCAPTURE_DISABLE_PLACEMENT_HEAPS";
-  v73 = [NSNumber numberWithUnsignedLongLong:(dword_31F7C8 >> 15) & 1];
-  v124 = v73;
-  v105[20] = @"MTLCAPTURE_FORCE_WAIT_UNTIL_COMPLETED_ON_COMMIT";
-  v72 = [NSNumber numberWithUnsignedLongLong:(dword_31F7C8 >> 16) & 1];
-  v125 = v72;
-  v105[21] = @"MTLCAPTURE_REDIRECT_LOGGING_TO_STREAMS";
-  v71 = [NSNumber numberWithUnsignedLongLong:(dword_31F7C8 >> 17) & 1];
-  v126 = v71;
-  v105[22] = @"MTLCAPTURE_WITH_F12";
-  v70 = [NSNumber numberWithUnsignedLongLong:(dword_31F7C8 >> 18) & 1];
-  v127 = v70;
-  v105[23] = @"MTLCAPTURE_SUPPORT_SUPERSEDING_LAYERS";
-  v23 = [NSNumber numberWithUnsignedLongLong:(dword_31F7C8 >> 19) & 1];
-  v128 = v23;
-  v105[24] = @"MTLCAPTURE_DOWNLOADER_ENHANCED_COMMAND_BUFFER_ERRORS";
-  v24 = [NSNumber numberWithUnsignedLongLong:(dword_31F7C8 >> 20) & 1];
-  v129 = v24;
-  v105[25] = @"MTLCAPTURE_DOWNLOADER_FORCE_SPLIT_COMMAND_ENCODERS";
-  v25 = [NSNumber numberWithUnsignedLongLong:(dword_31F7C8 >> 21) & 1];
-  v130 = v25;
-  v105[26] = @"MTLCAPTURE_ENABLE_DOWNLOADER_FULL_HEAPS";
-  v26 = [NSNumber numberWithUnsignedLongLong:(dword_31F7C8 >> 22) & 1];
-  v131 = v26;
-  v105[27] = @"MTLCAPTURE_FORCE_WAIT_SHARED_EVENT_TIMEOUT_CPU";
-  v27 = [NSNumber numberWithUnsignedLongLong:(dword_31F7C8 >> 26) & 1];
-  v132 = v27;
-  v105[28] = @"MTLCAPTURE_ENABLE_EVENT_BUFFER";
-  v28 = [NSNumber numberWithUnsignedLongLong:(dword_31F7C8 >> 27) & 1];
-  v133 = v28;
-  v105[29] = @"MTLCAPTURE_ENABLE_STREAMREF_AS_OBJECT_ID";
-  v29 = [NSNumber numberWithUnsignedLongLong:(dword_31F7C8 >> 28) & 1];
-  v134 = v29;
-  v105[30] = @"MTLCAPTURE_DISABLE_CADISPLAY";
-  v30 = [NSNumber numberWithUnsignedLongLong:(dword_31F7C8 >> 29) & 1];
-  v135 = v30;
-  v31 = [NSDictionary dictionaryWithObjects:&buf forKeys:v105 count:31];
+  WaitForDevice(*(v11 + 8), *(v11 + 56));
+  GTTraceDump_writeCapture(v11, *(v11 + 32), *v11, dword_31F7C8 & 1);
+  GTTraceDump_writeUnsortedCapture(v11, *(v11 + 32), *v11);
+  p = *v11;
+  v102[0] = @"MTLCAPTURE_PRESENT_DOWNLOAD";
+  v90 = [NSNumber numberWithUnsignedLongLong:dword_31F7C8 & 1];
+  *&buf = v90;
+  v102[1] = @"MTLCAPTURE_PRESENT_DOWNLOAD_SIZE";
+  v88 = [NSNumber numberWithUnsignedLongLong:qword_31F7C0];
+  *(&buf + 1) = v88;
+  v102[2] = @"MTLCAPTURE_LOG_ERRORS";
+  v87 = [NSNumber numberWithUnsignedLongLong:(dword_31F7C8 >> 1) & 1];
+  v104 = v87;
+  v102[3] = @"MTLCAPTURE_HASH_DUPLICATE_FILES";
+  v86 = [NSNumber numberWithUnsignedLongLong:(dword_31F7C8 >> 5) & 1];
+  v105 = v86;
+  v102[4] = @"MTLCAPTURE_WAIT_EVENT_TIMEOUT";
+  v85 = [NSNumber numberWithUnsignedLongLong:GT_ENV];
+  v106 = v85;
+  v102[5] = @"MTLCAPTURE_WAIT_SHARED_EVENT_TIMEOUT_CPU";
+  v84 = [NSNumber numberWithUnsignedLongLong:qword_31F7A8];
+  v107 = v84;
+  v102[6] = @"MTLCAPTURE_DESTINATION_DEVELOPER_TOOLS_ENABLE";
+  v83 = [NSNumber numberWithUnsignedLongLong:(dword_31F7C8 >> 11) & 1];
+  v108 = v83;
+  v102[7] = @"MTLCAPTURE_WAIT_FOR_SIGNAL";
+  v82 = [NSNumber numberWithUnsignedLongLong:(dword_31F7C8 >> 6) & 1];
+  v109 = v82;
+  v102[8] = @"MTLCAPTURE_NO_METALFX_CAPTURE";
+  v81 = [NSNumber numberWithUnsignedLongLong:(dword_31F7C8 >> 8) & 1];
+  v110 = v81;
+  v102[9] = @"MTLCAPTURE_DISABLE_HEAP_TEXTURE_COMPRESSION";
+  v80 = [NSNumber numberWithUnsignedLongLong:(dword_31F7C8 >> 9) & 1];
+  v111 = v80;
+  v102[10] = @"MTLCAPTURE_CAPTURE_ADS_BUFFER_SPI";
+  v79 = [NSNumber numberWithUnsignedLongLong:(dword_31F7C8 >> 2) & 1];
+  v112 = v79;
+  v102[11] = @"MTLCAPTURE_ADS_EXTRA_BUFFERS";
+  v78 = [NSNumber numberWithUnsignedLongLong:(dword_31F7C8 >> 4) & 1];
+  v113 = v78;
+  v102[12] = @"MTLCAPTURE_MAX_DOWNLOAD_COMMAND_BUFFERS";
+  v77 = [NSNumber numberWithUnsignedLongLong:qword_31F7B0];
+  v114 = v77;
+  v102[13] = @"MTLCAPTURE_FORCE_RAYTRACING_ENABLE";
+  v76 = [NSNumber numberWithUnsignedLongLong:(dword_31F7C8 >> 3) & 1];
+  v115 = v76;
+  v102[14] = @"MTLCAPTURE_IS_COMPOSITOR";
+  v75 = [NSNumber numberWithUnsignedLongLong:(dword_31F7C8 >> 7) & 1];
+  v116 = v75;
+  v102[15] = @"MTLCAPTURE_ENABLE_DOWNLOADS_AT_EVENTS";
+  v74 = [NSNumber numberWithUnsignedLongLong:(dword_31F7C8 >> 10) & 1];
+  v117 = v74;
+  v102[16] = @"MTLCAPTURE_ENABLE_MPROTECT";
+  v73 = [NSNumber numberWithUnsignedLongLong:(dword_31F7C8 >> 12) & 1];
+  v118 = v73;
+  v102[17] = @"MTLCAPTURE_ENABLE_MPROTECT_BUFFER_SPLITTING";
+  v72 = [NSNumber numberWithUnsignedLongLong:(dword_31F7C8 >> 13) & 1];
+  v119 = v72;
+  v102[18] = @"MTLCAPTURE_DISABLE_HEAPS";
+  v71 = [NSNumber numberWithUnsignedLongLong:(dword_31F7C8 >> 14) & 1];
+  v120 = v71;
+  v102[19] = @"MTLCAPTURE_DISABLE_PLACEMENT_HEAPS";
+  v70 = [NSNumber numberWithUnsignedLongLong:(dword_31F7C8 >> 15) & 1];
+  v121 = v70;
+  v102[20] = @"MTLCAPTURE_FORCE_WAIT_UNTIL_COMPLETED_ON_COMMIT";
+  v69 = [NSNumber numberWithUnsignedLongLong:(dword_31F7C8 >> 16) & 1];
+  v122 = v69;
+  v102[21] = @"MTLCAPTURE_REDIRECT_LOGGING_TO_STREAMS";
+  v68 = [NSNumber numberWithUnsignedLongLong:(dword_31F7C8 >> 17) & 1];
+  v123 = v68;
+  v102[22] = @"MTLCAPTURE_WITH_F12";
+  v67 = [NSNumber numberWithUnsignedLongLong:(dword_31F7C8 >> 18) & 1];
+  v124 = v67;
+  v102[23] = @"MTLCAPTURE_SUPPORT_SUPERSEDING_LAYERS";
+  v22 = [NSNumber numberWithUnsignedLongLong:(dword_31F7C8 >> 19) & 1];
+  v125 = v22;
+  v102[24] = @"MTLCAPTURE_DOWNLOADER_ENHANCED_COMMAND_BUFFER_ERRORS";
+  v23 = [NSNumber numberWithUnsignedLongLong:(dword_31F7C8 >> 20) & 1];
+  v126 = v23;
+  v102[25] = @"MTLCAPTURE_DOWNLOADER_FORCE_SPLIT_COMMAND_ENCODERS";
+  v24 = [NSNumber numberWithUnsignedLongLong:(dword_31F7C8 >> 21) & 1];
+  v127 = v24;
+  v102[26] = @"MTLCAPTURE_ENABLE_DOWNLOADER_FULL_HEAPS";
+  v25 = [NSNumber numberWithUnsignedLongLong:(dword_31F7C8 >> 22) & 1];
+  v128 = v25;
+  v102[27] = @"MTLCAPTURE_FORCE_WAIT_SHARED_EVENT_TIMEOUT_CPU";
+  v26 = [NSNumber numberWithUnsignedLongLong:(dword_31F7C8 >> 26) & 1];
+  v129 = v26;
+  v102[28] = @"MTLCAPTURE_ENABLE_EVENT_BUFFER";
+  v27 = [NSNumber numberWithUnsignedLongLong:(dword_31F7C8 >> 27) & 1];
+  v130 = v27;
+  v102[29] = @"MTLCAPTURE_ENABLE_STREAMREF_AS_OBJECT_ID";
+  v28 = [NSNumber numberWithUnsignedLongLong:(dword_31F7C8 >> 28) & 1];
+  v131 = v28;
+  v102[30] = @"MTLCAPTURE_DISABLE_CADISPLAY";
+  v29 = [NSNumber numberWithUnsignedLongLong:(dword_31F7C8 >> 29) & 1];
+  v132 = v29;
+  v30 = [NSDictionary dictionaryWithObjects:&buf forKeys:v102 count:31];
 
-  v94 = v31;
-  v32 = [NSKeyedArchiver archivedDataWithRootObject:v31 requiringSecureCoding:1 error:0];
-  v33 = v32;
-  if (v32)
+  v91 = v30;
+  v31 = [NSKeyedArchiver archivedDataWithRootObject:v30 requiringSecureCoding:1 error:0];
+  v32 = v31;
+  if (v31)
   {
-    v34 = [v32 bytes];
-    v35 = [v33 length];
-    v5 = &unk_31F000;
-    v6 = v98;
+    v33 = [v31 bytes];
+    v34 = [v32 length];
+    v4 = &unk_31F000;
+    v5 = v95;
     p_prots = &OBJC_PROTOCOL___CaptureMTLObject.prots;
-    v36 = v96;
-    if (v34)
+    v35 = v93;
+    if (v33)
     {
-      v37 = v35;
-      v38 = apr_palloc(p, v35);
-      memcpy(v38, v34, v37);
+      v36 = v34;
+      v37 = apr_palloc(p, v34);
+      memcpy(v37, v33, v36);
     }
 
     else
     {
-      v38 = 0;
+      v37 = 0;
     }
 
-    v39 = [v33 length];
+    v38 = [v32 length];
   }
 
   else
   {
-    v39 = 0;
     v38 = 0;
-    v5 = &unk_31F000;
-    v6 = v98;
+    v37 = 0;
+    v4 = &unk_31F000;
+    v5 = v95;
     p_prots = (&OBJC_PROTOCOL___CaptureMTLObject + 16);
-    v36 = v96;
+    v35 = v93;
   }
 
-  if (v38 && v39)
+  if (v37 && v38)
   {
-    GTMTLCaptureState_storePointer(*(v12 + 32), "environment", v38, v39);
+    GTMTLCaptureState_storePointer(*(v11 + 32), "environment", v37, v38);
   }
 
-  if ((v36 & 1) == 0)
+  if ((v35 & 1) == 0)
   {
-    UnusedDownloadRequest = GTTraceContextDumpGetUnusedDownloadRequest(v12);
-    v41 = GTResourceDownloaderProcessRequest(*v12, UnusedDownloadRequest);
-    DownloadFromDevice(*(v12 + 16), *(v12 + 56), v41);
-    apr_hash_clear(*(v12 + 672));
-    DownloadsByResource(v41, *(v12 + 672));
-    GTTraceDump_writeUnusedDeviceResources(v12, *(v12 + 32), *v12);
-    GTTraceContextDumpUnusedCount(v12, &buf);
+    UnusedDownloadRequest = GTTraceContextDumpGetUnusedDownloadRequest(v11);
+    v40 = GTResourceDownloaderProcessRequest(*v11, UnusedDownloadRequest);
+    DownloadFromDevice(*(v11 + 16), *(v11 + 56), v40);
+    apr_hash_clear(*(v11 + 672));
+    DownloadsByResource(v40, *(v11 + 672));
+    GTTraceDump_writeUnusedDeviceResources(v11, *(v11 + 32), *v11);
+    GTTraceContextDumpUnusedCount(v11, &buf);
   }
 
 LABEL_34:
-  v42 = *(g_ctx + 72);
-  GTTraceStoreDebugDescription();
-  GTTraceContextDumpEnd(v12);
-  v43 = p_prots[10];
-  if (os_signpost_enabled(v43))
+  GTTraceStoreDebugDescription("before transient stream cleanup");
+  GTTraceContextDumpEnd(v11);
+  v41 = p_prots[10];
+  if (os_signpost_enabled(v41))
   {
     LOWORD(buf) = 0;
-    _os_signpost_emit_with_name_impl(&dword_0, v43, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Capture-StopActiveCaptureDumpContext", &unk_2E94FB, &buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_0, v41, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Capture-StopActiveCaptureDumpContext", &unk_2E94FB, &buf, 2u);
   }
 
   WaitForHarvesting();
   *&buf = 0;
   mach_timebase_info(&buf);
   mach_absolute_time();
-  if (*(v6 + 73) == 1)
+  if (*(v5 + 73) == 1)
   {
-    v44 = atomic_load((v6 + 216));
-    v99 = v44 != 0;
+    v42 = atomic_load((v5 + 216));
+    v96 = v42 != 0;
   }
 
   else
   {
-    v99 = 0;
+    v96 = 0;
   }
 
-  v45 = objc_retainBlock(*(v6 + 80));
-  v46 = [NSString stringWithUTF8String:*(v6 + 208)];
-  atomic_load((v6 + 216));
-  GTMTLCaptureState_close(v5[164]);
-  v5[164] = 0;
+  v43 = objc_retainBlock(*(v5 + 80));
+  v44 = [NSString stringWithUTF8String:*(v5 + 208)];
+  atomic_load((v5 + 216));
+  GTMTLCaptureState_close(v4[164]);
+  v4[164] = 0;
   GTCaptureBoundaryTracker_reset();
-  if (v45)
+  if (v43)
   {
-    v45[2](v45, [v46 UTF8String]);
+    v43[2](v43, [v44 UTF8String]);
   }
 
   g_targetRef = 0;
-  v47 = atomic_load(&g_frameCount);
-  v48 = atomic_load(&g_frameOther);
-  v49 = atomic_load(&g_commitCount);
-  v50 = atomic_load(&g_commitOther);
-  v51 = atomic_load(&g_resourceCount);
-  v52 = atomic_load(&g_resourceDownloaded);
-  v53 = atomic_load(&g_GPUDataSize);
-  v92 = v52;
-  v95 = v53;
-  v54 = atomic_load(&g_GPUDataDownloaded);
-  v97 = v54;
+  v45 = atomic_load(&g_frameCount);
+  v46 = atomic_load(&g_frameOther);
+  v47 = atomic_load(&g_commitCount);
+  v48 = atomic_load(&g_commitOther);
+  v49 = atomic_load(&g_resourceCount);
+  v50 = atomic_load(&g_resourceDownloaded);
+  v51 = atomic_load(&g_GPUDataSize);
+  v89 = v50;
+  v92 = v51;
+  v52 = atomic_load(&g_GPUDataDownloaded);
+  v94 = v52;
+  v53 = objc_opt_new();
+  v54 = [NSURL URLWithString:v44];
+  [v53 setArchiveURL:v54];
+
   v55 = objc_opt_new();
-  v56 = [NSURL URLWithString:v46];
-  [v55 setArchiveURL:v56];
+  [v55 setCaptureState:2];
+  [v55 setCompletionState:v53];
+  v56 = objc_opt_new();
+  [v55 setStats:v56];
 
-  v57 = objc_opt_new();
-  [v57 setCaptureState:2];
-  [v57 setCompletionState:v55];
-  v58 = objc_opt_new();
-  [v57 setStats:v58];
+  v57 = [v55 stats];
+  [v57 setFrameCount:v45];
 
-  v59 = [v57 stats];
-  [v59 setFrameCount:v47];
+  v58 = [v55 stats];
+  [v58 setFrameOther:v46];
 
-  v60 = [v57 stats];
-  [v60 setFrameOther:v48];
+  v59 = [v55 stats];
+  [v59 setCommitCount:v47];
 
-  v61 = [v57 stats];
-  [v61 setCommitCount:v49];
+  v60 = [v55 stats];
+  [v60 setCommitOther:v48];
 
-  v62 = [v57 stats];
-  [v62 setCommitOther:v50];
+  v61 = [v55 stats];
+  [v61 setResourceCount:v49];
 
-  v63 = [v57 stats];
-  [v63 setResourceCount:v51];
+  v62 = [v55 stats];
+  [v62 setResourceDownloaded:v89];
 
-  v64 = [v57 stats];
-  [v64 setResourceDownloaded:v92];
+  v63 = [v55 stats];
+  [v63 setGPUDataSize:v92];
 
-  v65 = [v57 stats];
-  [v65 setGPUDataSize:v95];
+  v64 = [v55 stats];
+  [v64 setGPUDataDownloaded:v94];
 
-  v66 = [v57 stats];
-  [v66 setGPUDataDownloaded:v97];
-
-  [*g_guestAppClientMTL notifyCaptureProgress:v57];
+  [*g_guestAppClientMTL notifyCaptureProgress:v55];
   objc_autoreleasePoolPop(context);
-  v67 = *(g_ctx + 72);
-  result = GTTraceStoreDebugDescription();
-  if (v99)
+  result = GTTraceStoreDebugDescription("after dump");
+  if (v96)
   {
     return task_suspend(mach_task_self_);
   }
@@ -3813,42 +3799,40 @@ LABEL_7:
   GTCaptureBoundaryTracker_handleTrigger(&v14);
 }
 
-uint64_t GetClientMemorySize(void *a1, uint64_t *a2, uint64_t a3, uint64_t a4)
+uint64_t GetClientMemorySize(void *a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v7 = a1;
-  v8 = [v7 pixelFormat];
-  v20 = 0;
-  v18 = 0u;
-  v19 = 0u;
+  v6 = a1;
+  v7 = [v6 pixelFormat];
+  v17 = 0;
+  v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v9 = [v7 device];
-  v10 = *a2;
-  v11 = a2[1];
-  v12 = a2[2];
-  GTMTLGetTextureLevelInfoForDeviceWithOptions(v8, [v7 sampleCount], &v15);
+  v13 = 0u;
+  v14 = 0u;
+  v8 = [v6 device];
+  v9 = objc_msgSend_sampleCount(v6);
+  GTMTLGetTextureLevelInfoForDeviceWithOptions(v7, v9, &v12);
 
-  v13 = [v7 textureType];
-  if (v13 < 2)
+  v10 = [v6 textureType];
+  if (v10 < 2)
   {
     goto LABEL_5;
   }
 
-  if (v13 != &dword_4 + 3 || !a4)
+  if (v10 != &dword_4 + 3 || !a4)
   {
     if (a3)
     {
 LABEL_6:
-      a4 = v16 * a3;
-      return *(&v16 + 1) * a4;
+      a4 = v13 * a3;
+      return *(&v13 + 1) * a4;
     }
 
 LABEL_5:
-    a3 = v19;
+    a3 = v16;
     goto LABEL_6;
   }
 
-  return *(&v16 + 1) * a4;
+  return *(&v13 + 1) * a4;
 }
 
 id unwrapFrameInterpolatorDescriptor(void *a1)
@@ -3863,13 +3847,12 @@ id unwrapFrameInterpolatorDescriptor(void *a1)
   return v2;
 }
 
-uint64_t WrapMTLFX(uint64_t a1, objc_class *a2)
+Class WrapMTLFX(uint64_t a1, Class a2)
 {
   if (NSClassFromString(@"MTLFXSpatialScalerDescriptor") == a2)
   {
-    v4 = MTLFXSpatialScalerDescriptor_ptr;
-    v10 = objc_opt_class();
-    InstanceMethod = class_getInstanceMethod(v10, "newSpatialScalerWithDevice:");
+    v9 = objc_opt_class();
+    InstanceMethod = class_getInstanceMethod(v9, "newSpatialScalerWithDevice:");
     MTLFXSpatialScalerDescriptor_newSpatialScalerWithDeviceIMP = method_setImplementation(InstanceMethod, MTLFXSpatialScalerDescriptor_newSpatialScalerWithDevice);
     result = objc_opt_respondsToSelector();
     if ((result & 1) == 0)
@@ -3877,67 +3860,63 @@ uint64_t WrapMTLFX(uint64_t a1, objc_class *a2)
       return result;
     }
 
-    v7 = MTLFXSpatialScalerDescriptor_newMTL4SpatialScalerWithDevice_compiler;
-    v8 = &MTLFXSpatialScalerDescriptor_newMTL4SpatialScalerWithDevice_compilerIMP;
-    v9 = &selRef_newSpatialScalerWithDevice_compiler_;
+    v6 = MTLFXSpatialScalerDescriptor_newMTL4SpatialScalerWithDevice_compiler;
+    v7 = &MTLFXSpatialScalerDescriptor_newMTL4SpatialScalerWithDevice_compilerIMP;
+    v8 = &selRef_newSpatialScalerWithDevice_compiler_;
     goto LABEL_13;
   }
 
   if (NSClassFromString(@"MTLFXTemporalScalerDescriptor") == a2)
   {
-    v4 = MTLFXTemporalScalerDescriptor_ptr;
-    v12 = objc_opt_class();
-    v13 = class_getInstanceMethod(v12, "newTemporalScalerWithDevice:");
-    MTLFXTemporalScalerDescriptor_newTemporalScalerWithDeviceIMP = method_setImplementation(v13, MTLFXTemporalScalerDescriptor_newTemporalScalerWithDevice);
+    v11 = objc_opt_class();
+    v12 = class_getInstanceMethod(v11, "newTemporalScalerWithDevice:");
+    MTLFXTemporalScalerDescriptor_newTemporalScalerWithDeviceIMP = method_setImplementation(v12, MTLFXTemporalScalerDescriptor_newTemporalScalerWithDevice);
     result = objc_opt_respondsToSelector();
     if ((result & 1) == 0)
     {
       return result;
     }
 
-    v7 = MTLFXTemporalScalerDescriptor_newMTL4TemporalScalerWithDevice_compiler;
-    v8 = &MTLFXTemporalScalerDescriptor_newMTL4TemporalScalerWithDevice_compilerIMP;
-    v9 = &selRef_newTemporalScalerWithDevice_compiler_;
+    v6 = MTLFXTemporalScalerDescriptor_newMTL4TemporalScalerWithDevice_compiler;
+    v7 = &MTLFXTemporalScalerDescriptor_newMTL4TemporalScalerWithDevice_compilerIMP;
+    v8 = &selRef_newTemporalScalerWithDevice_compiler_;
     goto LABEL_13;
   }
 
   if (NSClassFromString(@"MTLFXFrameInterpolatorDescriptor") == a2)
   {
-    v4 = MTLFXFrameInterpolatorDescriptor_ptr;
-    v14 = objc_opt_class();
-    v15 = class_getInstanceMethod(v14, "newFrameInterpolatorWithDevice:");
-    MTLFXFrameInterpolatorDescriptor_newFrameInterpolatorWithDeviceIMP = method_setImplementation(v15, MTLFXFrameInterpolatorDescriptor_newFrameInterpolatorWithDevice);
+    v13 = objc_opt_class();
+    v14 = class_getInstanceMethod(v13, "newFrameInterpolatorWithDevice:");
+    MTLFXFrameInterpolatorDescriptor_newFrameInterpolatorWithDeviceIMP = method_setImplementation(v14, MTLFXFrameInterpolatorDescriptor_newFrameInterpolatorWithDevice);
     result = objc_opt_respondsToSelector();
     if ((result & 1) == 0)
     {
       return result;
     }
 
-    v7 = MTLFXFrameInterpolatorDescriptor_newMTL4FrameInterpolatorWithDevice_compiler;
-    v8 = &MTLFXFrameInterpolatorDescriptor_newMTL4FrameInterpolatorWithDevice_compilerIMP;
-    v9 = &selRef_newFrameInterpolatorWithDevice_compiler_;
+    v6 = MTLFXFrameInterpolatorDescriptor_newMTL4FrameInterpolatorWithDevice_compiler;
+    v7 = &MTLFXFrameInterpolatorDescriptor_newMTL4FrameInterpolatorWithDevice_compilerIMP;
+    v8 = &selRef_newFrameInterpolatorWithDevice_compiler_;
     goto LABEL_13;
   }
 
   result = NSClassFromString(@"MTLFXTemporalDenoisedScalerDescriptor");
   if (result == a2)
   {
-    v4 = MTLFXTemporalDenoisedScalerDescriptor_ptr;
-    v5 = objc_opt_class();
-    v6 = class_getInstanceMethod(v5, "newTemporalDenoisedScalerWithDevice:");
-    MTLFXTemporalDenoisedScalerDescriptor_newTemporalDenoisedScalerWithDeviceIMP = method_setImplementation(v6, MTLFXTemporalDenoisedScalerDescriptor_newTemporalDenoisedScalerWithDevice);
+    v4 = objc_opt_class();
+    v5 = class_getInstanceMethod(v4, "newTemporalDenoisedScalerWithDevice:");
+    MTLFXTemporalDenoisedScalerDescriptor_newTemporalDenoisedScalerWithDeviceIMP = method_setImplementation(v5, MTLFXTemporalDenoisedScalerDescriptor_newTemporalDenoisedScalerWithDevice);
     result = objc_opt_respondsToSelector();
     if (result)
     {
-      v7 = MTLFXTemporalDenoisedScalerDescriptor_newMTL4TemporalDenoisedScalerWithDevice_compiler;
-      v8 = &MTLFXTemporalDenoisedScalerDescriptor_newMTL4TemporalDenoisedScalerWithDevice_compilerIMP;
-      v9 = &selRef_newTemporalDenoisedScalerWithDevice_compiler_;
+      v6 = MTLFXTemporalDenoisedScalerDescriptor_newMTL4TemporalDenoisedScalerWithDevice_compiler;
+      v7 = &MTLFXTemporalDenoisedScalerDescriptor_newMTL4TemporalDenoisedScalerWithDevice_compilerIMP;
+      v8 = &selRef_newTemporalDenoisedScalerWithDevice_compiler_;
 LABEL_13:
-      v16 = *v4;
-      v17 = objc_opt_class();
-      v18 = class_getInstanceMethod(v17, *v9);
-      result = method_setImplementation(v18, v7);
-      *v8 = result;
+      v15 = objc_opt_class();
+      v16 = class_getInstanceMethod(v15, *v8);
+      result = method_setImplementation(v16, v6);
+      *v7 = result;
     }
   }
 
@@ -4856,7 +4835,7 @@ LABEL_20:
 
 uint64_t mach_exception_raise_state(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, _DWORD *a9)
 {
-  v9 = __chkstk_darwin(a1, a2);
+  __chkstk_darwin(a1);
   memset(v36, 0, 480);
   memset(&reply_port, 0, sizeof(reply_port));
   v35 = NDR_record;
@@ -4986,7 +4965,7 @@ LABEL_30:
 
 uint64_t mach_exception_raise_state_identity(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, unsigned int a9, void *a10, _DWORD *a11)
 {
-  v11 = __chkstk_darwin(a1, a2);
+  __chkstk_darwin(a1);
   v67 = 0u;
   v68 = 0u;
   v65 = 0u;
@@ -6067,7 +6046,7 @@ LABEL_9:
   return v17;
 }
 
-id MTLTexture_descriptor(void *a1)
+MTLTextureDescriptor *MTLTexture_descriptor(void *a1)
 {
   v1 = a1;
   v2 = objc_opt_new();
@@ -6079,7 +6058,7 @@ id MTLTexture_descriptor(void *a1)
   [v2 setUsage:{objc_msgSend(v1, "usage")}];
   [v2 setResourceOptions:{objc_msgSend(v1, "resourceOptions")}];
   [v2 setMipmapLevelCount:{objc_msgSend(v1, "mipmapLevelCount")}];
-  [v2 setSampleCount:{objc_msgSend(v1, "sampleCount")}];
+  [v2 setSampleCount:objc_msgSend_sampleCount(v1)];
   [v2 setArrayLength:{objc_msgSend(v1, "arrayLength")}];
   [v2 setFramebufferOnly:{objc_msgSend(v1, "isFramebufferOnly")}];
   [v2 setAllowGPUOptimizedContents:{objc_msgSend(v1, "allowGPUOptimizedContents")}];
@@ -6404,7 +6383,7 @@ uint64_t GTBinarySearch(uint64_t a1, uint64_t a2, uint64_t (*a3)(uint64_t, uint6
   return v9;
 }
 
-uint64_t GTInsert(apr_array_header_t *a1, int a2)
+char *GTInsert(apr_array_header_t *a1, int a2)
 {
   apr_array_push(a1);
   memmove(&a1->elts[a1->elt_size + a1->elt_size * a2], &a1->elts[a1->elt_size * a2], a1->elt_size * (a1->nelts + ~a2));
@@ -6659,12 +6638,12 @@ const char *ReadDynamicBufferString(const char **a1)
   }
 }
 
-uint64_t ReadDynamicBufferData(uint64_t **a1)
+uint64_t *ReadDynamicBufferData(uint64_t **a1)
 {
   v1 = **a1;
   if (v1)
   {
-    v2 = (*a1 + 1);
+    v2 = *a1 + 1;
   }
 
   else
@@ -7114,15 +7093,16 @@ uint64_t GTFile_close(_DWORD *a1)
   return result;
 }
 
-uint64_t GTFile_printf(int a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t GTFile_printf(int a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  v9 = 0xFFFFFFFFLL;
+  va_start(va, a8);
+  v8 = 0xFFFFFFFFLL;
   if (a2 && (a1 & 0x80000000) == 0)
   {
-    return vdprintf(a1, a2, &a9);
+    return vdprintf(a1, a2, va);
   }
 
-  return v9;
+  return v8;
 }
 
 id GTFileSystem_move(uint64_t a1, uint64_t a2)
@@ -7354,12 +7334,12 @@ ssize_t gt_write_full(int __fd, uint64_t a2, uint64_t a3)
   return result;
 }
 
-uint64_t gt_file_copy(uint64_t a1, uint64_t a2)
+uint64_t gt_file_copy(uint64_t a1)
 {
-  v2 = __chkstk_darwin(a1, a2);
-  v4 = v3;
-  v5 = open(v2, 0);
-  v6 = creat(v4, 0x1B0u);
+  v1 = __chkstk_darwin(a1);
+  v3 = v2;
+  v5 = open(v4, 0, v1);
+  v6 = creat(v3, 0x1B0u);
   v7 = lseek(v5, 0, 2);
   lseek(v5, 0, 0);
   if (v7)
@@ -7476,11 +7456,11 @@ void *GTCoreLog_getLogForTag(unsigned int a1)
   return v1;
 }
 
-uint64_t GTCoreLog_enabled(uint64_t a1)
+id GTCoreLog_enabled(uint64_t a1)
 {
   if (!*(a1 + 8))
   {
-    return 1;
+    return &dword_0 + 1;
   }
 
   v2 = +[NSUserDefaults standardUserDefaults];
@@ -7497,11 +7477,11 @@ void GTCoreLogInit()
   }
 }
 
-uint64_t GTCoreLogTagEnabled(unsigned int a1)
+id GTCoreLogTagEnabled(unsigned int a1)
 {
   if (a1 == 18)
   {
-    return 1;
+    return &dword_0 + 1;
   }
 
   if (a1 > 0x10)
@@ -7604,7 +7584,7 @@ unint64_t GTHash_data(uint64_t *a1, unint64_t a2)
   else
   {
     v2 = 0;
-    v3 = a1 + a2 - 31;
+    v3 = (a1 + a2 - 31);
     v4 = 0x61C8864E7A143579;
     v5 = 0x60EA27EEADC0B5D6;
     v6 = 0xC2B2AE3D27D4EB4FLL;

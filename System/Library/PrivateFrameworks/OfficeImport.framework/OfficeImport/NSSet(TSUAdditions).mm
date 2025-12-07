@@ -223,22 +223,22 @@ LABEL_4:
 
 - (uint64_t)tsu_isHomogeneousForClass:()TSUAdditions
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v7 = 0u;
-  v8 = 0u;
+  v14 = *MEMORY[0x277D85DE8];
   v9 = 0u;
   v10 = 0u;
-  v2 = [self countByEnumeratingWithState:&v7 objects:v11 count:16];
-  if (v2)
+  v11 = 0u;
+  v12 = 0u;
+  v4 = [self countByEnumeratingWithState:&v9 objects:v13 count:16];
+  if (v4)
   {
-    v3 = v2;
-    v4 = *v8;
+    v5 = v4;
+    v6 = *v10;
     while (2)
     {
-      v5 = 0;
+      v7 = 0;
       do
       {
-        if (*v8 != v4)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(self);
         }
@@ -248,12 +248,12 @@ LABEL_4:
           return 0;
         }
 
-        ++v5;
+        ++v7;
       }
 
-      while (v3 != v5);
-      v3 = [self countByEnumeratingWithState:&v7 objects:v11 count:16];
-      if (v3)
+      while (v5 != v7);
+      v5 = [self countByEnumeratingWithState:&v9 objects:v13 count:16];
+      if (v5)
       {
         continue;
       }

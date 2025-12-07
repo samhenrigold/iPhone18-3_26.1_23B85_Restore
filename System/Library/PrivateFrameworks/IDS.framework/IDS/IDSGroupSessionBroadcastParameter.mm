@@ -24,12 +24,12 @@
 
 - (IDSGroupSessionBroadcastParameter)initWithGroupSessionID:(id)d salt:(id)salt serviceName:(id)name
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   dCopy = d;
   nameCopy = name;
-  v33.receiver = self;
-  v33.super_class = IDSGroupSessionBroadcastParameter;
-  v10 = [(IDSGroupSessionBroadcastParameter *)&v33 init];
+  v28.receiver = self;
+  v28.super_class = IDSGroupSessionBroadcastParameter;
+  v10 = [(IDSGroupSessionBroadcastParameter *)&v28 init];
   v11 = v10;
   if (v10)
   {
@@ -58,27 +58,22 @@
     [v22 setSessionID:v11->_groupSessionID];
     [v22 setParticipantID:0];
     [v22 setSalt:v11->_salt];
-    v23 = v11->_parameters;
     stringRepresentation = [v22 stringRepresentation];
     [stringRepresentation UTF8String];
     nw_parameters_set_account_id();
 
     MEMORY[0x19A8BBA70](v11->_parameters, v21);
-    v25 = v11->_parameters;
     nw_parameters_set_indefinite();
-    v26 = xpc_array_create(0, 0);
-    v27 = xpc_array_create(0, 0);
-    v28 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%u", *MEMORY[0x1E69A4EC8], getuid()];
-    xpc_array_set_string(v26, 0xFFFFFFFFFFFFFFFFLL, [v28 UTF8String]);
+    v24 = xpc_array_create(0, 0);
+    v25 = xpc_array_create(0, 0);
+    v26 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%u", *MEMORY[0x1E69A4EC8], getuid()];
+    xpc_array_set_string(v24, 0xFFFFFFFFFFFFFFFFLL, [v26 UTF8String]);
 
-    xpc_array_set_string(v27, 0xFFFFFFFFFFFFFFFFLL, [*MEMORY[0x1E69A4ED0] UTF8String]);
-    v29 = v11->_parameters;
+    xpc_array_set_string(v25, 0xFFFFFFFFFFFFFFFFLL, [*MEMORY[0x1E69A4ED0] UTF8String]);
     nw_parameters_set_data_mode();
-    v30 = v11->_parameters;
     nw_parameters_set_required_netagent_classes();
   }
 
-  v31 = *MEMORY[0x1E69E9840];
   return v11;
 }
 

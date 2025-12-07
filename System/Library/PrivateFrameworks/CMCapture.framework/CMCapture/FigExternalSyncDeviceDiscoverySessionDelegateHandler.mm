@@ -103,18 +103,11 @@
 
     else
     {
-      [FigExternalSyncDeviceDiscoverySessionDelegateHandler externalSyncDeviceDiscoverySessionManager:connectedDevicesDidChange:];
+      [FigExternalSyncDeviceDiscoverySessionDelegateHandler externalSyncDeviceDiscoverySessionManager:? connectedDevicesDidChange:?];
     }
 
     os_unfair_lock_unlock(&self->_sourceLock);
   }
-}
-
-- (uint64_t)externalSyncDeviceDiscoverySessionManager:connectedDevicesDidChange:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
 }
 
 @end

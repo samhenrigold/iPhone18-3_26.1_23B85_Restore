@@ -112,7 +112,7 @@ LABEL_18:
 
 - (id)jsonDictionary
 {
-  v18[4] = *MEMORY[0x1E69E9840];
+  v17[4] = *MEMORY[0x1E69E9840];
   bundleID = [(BMMLSEConversationUserInteraction *)self bundleID];
   conversationId = [(BMMLSEConversationUserInteraction *)self conversationId];
   v5 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMMLSEConversationUserInteraction eventType](self, "eventType")}];
@@ -130,39 +130,39 @@ LABEL_18:
     v9 = 0;
   }
 
-  v17[0] = @"bundleID";
+  v16[0] = @"bundleID";
   null = bundleID;
   if (!bundleID)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18[0] = null;
-  v17[1] = @"conversationId";
+  v17[0] = null;
+  v16[1] = @"conversationId";
   null2 = conversationId;
   if (!conversationId)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18[1] = null2;
-  v17[2] = @"eventType";
+  v17[1] = null2;
+  v16[2] = @"eventType";
   null3 = v5;
   if (!v5)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18[2] = null3;
-  v17[3] = @"timestamp";
+  v17[2] = null3;
+  v16[3] = @"timestamp";
   null4 = v9;
   if (!v9)
   {
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18[3] = null4;
-  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:4];
+  v17[3] = null4;
+  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:4];
   if (v9)
   {
     if (v5)
@@ -207,19 +207,18 @@ LABEL_15:
 LABEL_22:
 
 LABEL_16:
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
 
 - (BMMLSEConversationUserInteraction)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v48[1] = *MEMORY[0x1E69E9840];
+  v47[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"bundleID"];
   if (!v7 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
-    v40 = 0;
+    v39 = 0;
 LABEL_4:
     v8 = [dictionaryCopy objectForKeyedSubscript:@"conversationId"];
     if (v8 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
@@ -236,10 +235,10 @@ LABEL_4:
 
         v18 = objc_alloc(MEMORY[0x1E696ABC0]);
         v19 = *MEMORY[0x1E698F240];
-        v45 = *MEMORY[0x1E696A578];
+        v44 = *MEMORY[0x1E696A578];
         v12 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"conversationId"];
-        v46 = v12;
-        v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v46 forKeys:&v45 count:1];
+        v45 = v12;
+        v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v45 forKeys:&v44 count:1];
         v20 = [v18 initWithDomain:v19 code:2 userInfo:v10];
         v16 = 0;
         selfCopy = 0;
@@ -256,7 +255,7 @@ LABEL_4:
     }
 
     v10 = [dictionaryCopy objectForKeyedSubscript:@"eventType"];
-    v39 = v9;
+    v38 = v9;
     if (v10 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
       errorCopy2 = error;
@@ -275,20 +274,20 @@ LABEL_4:
           {
             v12 = 0;
             selfCopy = 0;
-            v16 = v39;
+            v16 = v38;
             goto LABEL_33;
           }
 
-          v37 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v32 = *MEMORY[0x1E698F240];
-          v43 = *MEMORY[0x1E696A578];
+          v36 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v31 = *MEMORY[0x1E698F240];
+          v42 = *MEMORY[0x1E696A578];
           v22 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"eventType"];
-          v44 = v22;
-          v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v44 forKeys:&v43 count:1];
-          v33 = [v37 initWithDomain:v32 code:2 userInfo:v21];
+          v43 = v22;
+          v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v43 forKeys:&v42 count:1];
+          v32 = [v36 initWithDomain:v31 code:2 userInfo:v21];
           v12 = 0;
           selfCopy = 0;
-          *errorCopy2 = v33;
+          *errorCopy2 = v32;
           goto LABEL_45;
         }
 
@@ -309,8 +308,8 @@ LABEL_4:
     {
       v22 = 0;
 LABEL_31:
-      v16 = v39;
-      self = -[BMMLSEConversationUserInteraction initWithBundleID:conversationId:eventType:timestamp:](self, "initWithBundleID:conversationId:eventType:timestamp:", v40, v39, [v12 intValue], v22);
+      v16 = v38;
+      self = -[BMMLSEConversationUserInteraction initWithBundleID:conversationId:eventType:timestamp:](self, "initWithBundleID:conversationId:eventType:timestamp:", v39, v38, [v12 intValue], v22);
       selfCopy = self;
 LABEL_32:
 
@@ -351,49 +350,48 @@ LABEL_28:
 
     if (errorCopy2)
     {
-      v38 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v36 = *MEMORY[0x1E698F240];
-      v41 = *MEMORY[0x1E696A578];
-      v34 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (as time internal since 1970), NSString (ISO8601 format), or NSDate", objc_opt_class(), @"timestamp"];
-      v42 = v34;
-      v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
-      *errorCopy2 = [v38 initWithDomain:v36 code:2 userInfo:v35];
+      v37 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v35 = *MEMORY[0x1E698F240];
+      v40 = *MEMORY[0x1E696A578];
+      v33 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (as time internal since 1970), NSString (ISO8601 format), or NSDate", objc_opt_class(), @"timestamp"];
+      v41 = v33;
+      v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v41 forKeys:&v40 count:1];
+      *errorCopy2 = [v37 initWithDomain:v35 code:2 userInfo:v34];
     }
 
     v22 = 0;
     selfCopy = 0;
 LABEL_45:
-    v16 = v39;
+    v16 = v38;
     goto LABEL_32;
   }
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v40 = v7;
+    v39 = v7;
     goto LABEL_4;
   }
 
   if (!error)
   {
-    v40 = 0;
+    v39 = 0;
     selfCopy = 0;
     goto LABEL_35;
   }
 
   v14 = objc_alloc(MEMORY[0x1E696ABC0]);
   v15 = *MEMORY[0x1E698F240];
-  v47 = *MEMORY[0x1E696A578];
+  v46 = *MEMORY[0x1E696A578];
   v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"bundleID"];
-  v48[0] = v16;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v48 forKeys:&v47 count:1];
-  v40 = 0;
+  v47[0] = v16;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v47 forKeys:&v46 count:1];
+  v39 = 0;
   selfCopy = 0;
   *error = [v14 initWithDomain:v15 code:2 userInfo:v8];
 LABEL_34:
 
 LABEL_35:
-  v30 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -419,11 +417,9 @@ LABEL_35:
     PBDataWriterWriteStringField();
   }
 
-  eventType = self->_eventType;
   PBDataWriterWriteUint32Field();
   if (self->_hasRaw_timestamp)
   {
-    raw_timestamp = self->_raw_timestamp;
     PBDataWriterWriteDoubleField();
   }
 }
@@ -661,36 +657,32 @@ LABEL_49:
 
 + (id)protoFields
 {
-  v9[4] = *MEMORY[0x1E69E9840];
+  v8[4] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"bundleID" number:1 type:13 subMessageClass:0];
-  v9[0] = v2;
+  v8[0] = v2;
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"conversationId" number:2 type:13 subMessageClass:0];
-  v9[1] = v3;
+  v8[1] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"eventType" number:10 type:4 subMessageClass:0];
-  v9[2] = v4;
+  v8[2] = v4;
   v5 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"timestamp" number:11 type:0 subMessageClass:0];
-  v9[3] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:4];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v8[3] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:4];
 
   return v6;
 }
 
 + (id)columns
 {
-  v9[4] = *MEMORY[0x1E69E9840];
+  v8[4] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"bundleID" dataType:2 requestOnly:0 fieldNumber:1 protoDataType:13 convertedType:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"conversationId" dataType:2 requestOnly:0 fieldNumber:2 protoDataType:13 convertedType:0];
   v4 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"eventType" dataType:0 requestOnly:0 fieldNumber:10 protoDataType:4 convertedType:0];
   v5 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"timestamp" dataType:3 requestOnly:0 fieldNumber:11 protoDataType:0 convertedType:2];
-  v9[0] = v2;
-  v9[1] = v3;
-  v9[2] = v4;
-  v9[3] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:4];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v8[0] = v2;
+  v8[1] = v3;
+  v8[2] = v4;
+  v8[3] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:4];
 
   return v6;
 }

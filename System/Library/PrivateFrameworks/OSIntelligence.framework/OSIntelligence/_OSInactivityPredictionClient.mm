@@ -56,43 +56,41 @@
 
 - (void)initConnection
 {
-  v18[6] = *MEMORY[0x277D85DE8];
+  v17[6] = *MEMORY[0x277D85DE8];
   v3 = [objc_alloc(MEMORY[0x277CCAE80]) initWithMachServiceName:@"com.apple.OSIntelligence" options:4096];
   connection = self->_connection;
   self->_connection = v3;
 
   v5 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_286EBC6C8];
   v6 = MEMORY[0x277CBEB98];
-  v18[0] = objc_opt_class();
-  v18[1] = objc_opt_class();
-  v18[2] = objc_opt_class();
-  v18[3] = objc_opt_class();
-  v18[4] = objc_opt_class();
-  v18[5] = objc_opt_class();
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:6];
+  v17[0] = objc_opt_class();
+  v17[1] = objc_opt_class();
+  v17[2] = objc_opt_class();
+  v17[3] = objc_opt_class();
+  v17[4] = objc_opt_class();
+  v17[5] = objc_opt_class();
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:6];
   v8 = [v6 setWithArray:v7];
   [v5 setClasses:v8 forSelector:sel_backedUpDataWithHandler_ argumentIndex:0 ofReply:1];
 
   [(NSXPCConnection *)self->_connection setRemoteObjectInterface:v5];
   objc_initWeak(&location, self);
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __47___OSInactivityPredictionClient_initConnection__block_invoke;
-  v15[3] = &unk_2799C1528;
-  objc_copyWeak(&v16, &location);
-  [(NSXPCConnection *)self->_connection setInvalidationHandler:v15];
-  v10 = MEMORY[0x277D85DD0];
-  v11 = 3221225472;
-  v12 = __47___OSInactivityPredictionClient_initConnection__block_invoke_85;
-  v13 = &unk_2799C1528;
-  objc_copyWeak(&v14, &location);
-  [(NSXPCConnection *)self->_connection setInterruptionHandler:&v10];
-  [(NSXPCConnection *)self->_connection resume:v10];
-  objc_destroyWeak(&v14);
-  objc_destroyWeak(&v16);
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __47___OSInactivityPredictionClient_initConnection__block_invoke;
+  v14[3] = &unk_2799C1528;
+  objc_copyWeak(&v15, &location);
+  [(NSXPCConnection *)self->_connection setInvalidationHandler:v14];
+  v9 = MEMORY[0x277D85DD0];
+  v10 = 3221225472;
+  v11 = __47___OSInactivityPredictionClient_initConnection__block_invoke_85;
+  v12 = &unk_2799C1528;
+  objc_copyWeak(&v13, &location);
+  [(NSXPCConnection *)self->_connection setInterruptionHandler:&v9];
+  [(NSXPCConnection *)self->_connection resume:v9];
+  objc_destroyWeak(&v13);
+  objc_destroyWeak(&v15);
   objc_destroyWeak(&location);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleInterruption

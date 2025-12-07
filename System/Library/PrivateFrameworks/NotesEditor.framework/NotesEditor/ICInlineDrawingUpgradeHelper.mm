@@ -22,7 +22,7 @@
   noteCopy = note;
   contextCopy = context;
   viewCopy = view;
-  v10 = sub_21539A6A0(noteCopy, contextCopy);
+  v10 = sub_21539A6A0(noteCopy, contextCopy, view);
 
   return v10;
 }
@@ -31,24 +31,26 @@
 {
   y = location.y;
   x = location.x;
-  sub_2151A6C9C(0, &qword_27CA5A360);
+  sub_2151A6C9C(0, &qword_27CA5A360, 0x277CCAA88);
   v9 = sub_2154A1F4C();
   attachmentCopy = attachment;
   selfCopy = self;
-  v12 = ICInlineDrawingUpgradeHelper.upgrade(attachment:itemProviders:itemsLocation:)(attachmentCopy, v9, x, y);
+  ICInlineDrawingUpgradeHelper.upgrade(attachment:itemProviders:itemsLocation:)(attachmentCopy, v9, x, y);
+  v13 = v12;
 
-  return v12;
+  return v13;
 }
 
 - (id)upgradeWithAttachment:(id)attachment itemProviders:(id)providers itemsAnchor:(int64_t)anchor
 {
-  sub_2151A6C9C(0, &qword_27CA5A360);
+  sub_2151A6C9C(0, &qword_27CA5A360, 0x277CCAA88);
   v8 = sub_2154A1F4C();
   attachmentCopy = attachment;
   selfCopy = self;
-  v11 = ICInlineDrawingUpgradeHelper.upgrade(attachment:itemProviders:itemsAnchor:)(attachmentCopy, v8, anchor);
+  ICInlineDrawingUpgradeHelper.upgrade(attachment:itemProviders:itemsAnchor:)(attachmentCopy, v8, anchor);
+  v12 = v11;
 
-  return v11;
+  return v12;
 }
 
 - (void)cancelUpgrade

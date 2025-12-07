@@ -37,7 +37,7 @@
 
 - (NSString)accessibilityLabel
 {
-  sub_257D14A40();
+  sub_257D14A40(self);
   v2 = sub_257ECF4C0();
 
   return v2;
@@ -141,11 +141,13 @@
 
 - (id)clickPresentationInteraction:(id)interaction previewForHighlightingAtLocation:(CGPoint)location
 {
+  y = location.y;
+  x = location.x;
   interactionCopy = interaction;
   selfCopy = self;
-  v7 = sub_257CA5AC8(interactionCopy);
+  v9 = sub_257CA5AC8(interactionCopy, x, y);
 
-  return v7;
+  return v9;
 }
 
 @end

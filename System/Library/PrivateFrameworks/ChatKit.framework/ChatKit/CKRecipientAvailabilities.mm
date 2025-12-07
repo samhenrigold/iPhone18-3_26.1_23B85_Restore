@@ -40,7 +40,7 @@
   swift_beginAccess();
   selfCopy = self;
   sub_190D52690();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAD584A0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAD584A0, &qword_190DE22C8);
   sub_190D56DA0();
 
   v4 = sub_190D56ED0();
@@ -140,31 +140,33 @@
 - (id)availabilitiesForRecipients:(id)recipients service:(id)service
 {
   v5 = sub_190D57180();
-  sub_190D56F10();
+  v6 = sub_190D56F10();
+  v8 = v7;
   selfCopy = self;
-  sub_1909866A0(v5);
+  sub_1909866A0(v5, v6, v8);
 
-  sub_1902188FC(0, &qword_1EAD46510);
-  v7 = sub_190D56D60();
+  sub_1902188FC(0, &qword_1EAD46510, 0x1E696AD98);
+  v10 = sub_190D56D60();
 
-  return v7;
+  return v10;
 }
 
 - (BOOL)hasIDStatus:(int64_t)status forRecipient:(id)recipient forServicesWithCapability:(id)capability
 {
   v7 = sub_190D56F10();
   v9 = v8;
-  sub_190D56F10();
-  selfCopy = self;
-  sub_190986A24(status, v7, v9);
+  v10 = sub_190D56F10();
   v12 = v11;
+  selfCopy = self;
+  sub_190986A24(status, v7, v9, v10, v12);
+  LOBYTE(v10) = v14;
 
-  return v12 & 1;
+  return v10 & 1;
 }
 
 - (void)addEntriesFromIDSResults:(id)results
 {
-  sub_1902188FC(0, &qword_1EAD46510);
+  sub_1902188FC(0, &qword_1EAD46510, 0x1E696AD98);
   v4 = sub_190D56D90();
   selfCopy = self;
   sub_190986D28(v4);

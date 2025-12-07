@@ -25,6 +25,7 @@
 - (void)_serverPairVerifyExchange:(id)exchange options:(id)options;
 - (void)_serverRunStateMachine;
 - (void)_start;
+- (void)_stop:(int)_stop;
 - (void)_transportReceivedMessage:(id)message options:(id)options;
 - (void)dealloc;
 - (void)sendRequest:(id)request options:(id)options responseHandler:(id)handler;
@@ -60,7 +61,7 @@ LABEL_7:
 
 - (void)_serverCompletePrepareRequest:(id)request
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   v5 = [(NSMutableDictionary *)self->_prepareRequests objectForKeyedSubscript:requestCopy];
   v6 = v5;
@@ -84,48 +85,46 @@ LABEL_7:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       v12 = HMFGetLogIdentifier();
-      v14 = 138543618;
-      v15 = v12;
-      v16 = 2112;
-      v17 = requestCopy;
-      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@Missing prepare request, tid %@", &v14, 0x16u);
+      v13 = 138543618;
+      v14 = v12;
+      v15 = 2112;
+      v16 = requestCopy;
+      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@Missing prepare request, tid %@", &v13, 0x16u);
     }
 
     objc_autoreleasePoolPop(v9);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (int)_serverHandleCommitRequest:(id)request options:(id)options responseHandler:(id)handler
 {
-  v76 = *MEMORY[0x277D85DE8];
+  v75 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   optionsCopy = options;
   handlerCopy = handler;
-  v66[0] = 0;
-  v66[1] = v66;
-  v66[2] = 0x2020000000;
-  v67 = 0;
-  v50 = requestCopy;
+  v65[0] = 0;
+  v65[1] = v65;
+  v65[2] = 0x2020000000;
+  v66 = 0;
+  v49 = requestCopy;
   [requestCopy objectForKeyedSubscript:@"utid"];
-  v53 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+  v52 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     v13 = 0;
-    v52 = 0;
+    v51 = 0;
     source = 0;
     v10 = 0;
     goto LABEL_19;
   }
 
-  v9 = [(NSMutableDictionary *)self->_prepareRequests objectForKeyedSubscript:*&v53];
+  v9 = [(NSMutableDictionary *)self->_prepareRequests objectForKeyedSubscript:*&v52];
   v10 = v9;
   if (!v9)
   {
     v13 = 0;
-    v52 = 0;
+    v51 = 0;
     source = 0;
     v34 = -6727;
     goto LABEL_24;
@@ -137,7 +136,7 @@ LABEL_7:
   if (bOOLValue)
   {
     v13 = 0;
-    v52 = 0;
+    v51 = 0;
     source = 0;
     v34 = -6730;
     goto LABEL_24;
@@ -147,7 +146,7 @@ LABEL_7:
   v13 = [v10 objectForKeyedSubscript:@"request"];
   if (!v13)
   {
-    v52 = 0;
+    v51 = 0;
     source = 0;
     v34 = -6762;
     goto LABEL_24;
@@ -160,16 +159,16 @@ LABEL_7:
   {
     v17 = HMFGetLogIdentifier();
     *buf = 138543874;
-    v71 = v17;
-    v72 = 2112;
-    v73 = v53;
-    v74 = 2112;
-    v75 = *&v50;
+    v70 = v17;
+    v71 = 2112;
+    v72 = v52;
+    v73 = 2112;
+    v74 = *&v49;
     _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_DEBUG, "%{public}@Received commit request, utid %@ %@", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v14);
-  v18 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:*&v53];
+  v18 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:*&v52];
   logRemoteMessageEvent(v13, optionsCopy, v18);
 
   v19 = [v10 objectForKeyedSubscript:@"timer"];
@@ -179,8 +178,8 @@ LABEL_7:
     dispatch_source_cancel(v19);
   }
 
-  v52 = [v50 objectForKeyedSubscript:@"timeout"];
-  if (!v52)
+  v51 = [v49 objectForKeyedSubscript:@"timeout"];
+  if (!v51)
   {
     sendInternalTimeoutNanos = selfCopy->_sendInternalTimeoutNanos;
     goto LABEL_13;
@@ -194,7 +193,7 @@ LABEL_19:
     goto LABEL_24;
   }
 
-  sendInternalTimeoutNanos = 1000000000 * [v52 longLongValue];
+  sendInternalTimeoutNanos = 1000000000 * [v51 longLongValue];
 LABEL_13:
   v21 = objc_autoreleasePoolPush();
   v22 = selfCopy;
@@ -204,11 +203,11 @@ LABEL_13:
   {
     v25 = HMFGetLogIdentifier();
     *buf = 138543874;
-    v71 = v25;
-    v72 = 2048;
-    v73 = (v23 / 1000000000.0);
-    v74 = 2112;
-    v75 = v53;
+    v70 = v25;
+    v71 = 2048;
+    v72 = (v23 / 1000000000.0);
+    v73 = 2112;
+    v74 = v52;
     _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_INFO, "%{public}@Starting commit response timeout of %.03f seconds for transaction: %@", buf, 0x20u);
   }
 
@@ -221,16 +220,16 @@ LABEL_13:
     handler[1] = 3221225472;
     handler[2] = __84__HMDSecureRemoteStreamInternal__serverHandleCommitRequest_options_responseHandler___block_invoke;
     handler[3] = &unk_2786889C8;
-    v65 = v66;
+    v64 = v65;
     handler[4] = v22;
-    v28 = *&v53;
-    v61 = v28;
+    v28 = *&v52;
+    v60 = v28;
     v29 = v13;
-    v62 = v29;
+    v61 = v29;
     v30 = optionsCopy;
-    v63 = v30;
+    v62 = v30;
     v31 = handlerCopy;
-    v64 = v31;
+    v63 = v31;
     dispatch_source_set_event_handler(v27, handler);
 
     dispatch_source_set_cancel_handler(v27, &__block_literal_global_131_270412);
@@ -245,11 +244,11 @@ LABEL_13:
     block[3] = &unk_2786889C8;
     block[4] = v22;
     v13 = v29;
-    v55 = v13;
-    v56 = v30;
-    v59 = v66;
-    v57 = v28;
-    v58 = v31;
+    v54 = v13;
+    v55 = v30;
+    v58 = v65;
+    v56 = v28;
+    v57 = v31;
     dispatch_async(userQueue, block);
 
     v34 = 0;
@@ -260,44 +259,43 @@ LABEL_13:
 LABEL_24:
   context = objc_autoreleasePoolPush();
   selfCopy2 = self;
-  v38 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+  v37 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
   {
-    v45 = HMFGetLogIdentifier();
-    v39 = MEMORY[0x277CCA9B8];
-    v68 = *MEMORY[0x277CCA450];
-    v40 = [MEMORY[0x277CCACA8] stringWithUTF8String:DebugGetErrorString()];
-    v41 = v40;
-    v42 = @"?";
-    if (v40)
+    v44 = HMFGetLogIdentifier();
+    v38 = MEMORY[0x277CCA9B8];
+    v67 = *MEMORY[0x277CCA450];
+    v39 = [MEMORY[0x277CCACA8] stringWithUTF8String:DebugGetErrorString()];
+    v40 = v39;
+    v41 = @"?";
+    if (v39)
     {
-      v42 = v40;
+      v41 = v39;
     }
 
-    v69 = v42;
-    v43 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v69 forKeys:&v68 count:{1, v45, context}];
-    [v39 errorWithDomain:*MEMORY[0x277CCA590] code:v34 userInfo:v43];
-    v44 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+    v68 = v41;
+    v42 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v68 forKeys:&v67 count:{1, v44, context}];
+    [v38 errorWithDomain:*MEMORY[0x277CCA590] code:v34 userInfo:v42];
+    v43 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
     *buf = 138543874;
-    v71 = v46;
-    v72 = 2112;
-    v73 = v44;
-    v74 = 2112;
-    v75 = *&v50;
-    _os_log_impl(&dword_229538000, v38, OS_LOG_TYPE_ERROR, "%{public}@Commit failed: %@ %@", buf, 0x20u);
+    v70 = v45;
+    v71 = 2112;
+    v72 = v43;
+    v73 = 2112;
+    v74 = *&v49;
+    _os_log_impl(&dword_229538000, v37, OS_LOG_TYPE_ERROR, "%{public}@Commit failed: %@ %@", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(context);
 LABEL_17:
 
-  _Block_object_dispose(v66, 8);
-  v35 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v65, 8);
   return v34;
 }
 
 void __84__HMDSecureRemoteStreamInternal__serverHandleCommitRequest_options_responseHandler___block_invoke(uint64_t a1)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   if ((*(*(*(a1 + 72) + 8) + 24) & 1) == 0)
   {
     v2 = objc_autoreleasePoolPush();
@@ -308,16 +306,16 @@ void __84__HMDSecureRemoteStreamInternal__serverHandleCommitRequest_options_resp
       v5 = HMFGetLogIdentifier();
       v6 = *(a1 + 40);
       *buf = 138543618;
-      v28 = v5;
-      v29 = 2112;
-      v30 = v6;
+      v27 = v5;
+      v28 = 2112;
+      v29 = v6;
       _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Transaction, %@, timed out, sending cancelled error", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v2);
     [*(a1 + 32) _serverCompletePrepareRequest:*(a1 + 40)];
-    v25[0] = @"response";
-    v23 = @"kIDSMessageResponseErrorDataKey";
+    v24[0] = @"response";
+    v22 = @"kIDSMessageResponseErrorDataKey";
     v7 = MEMORY[0x277CCAAB0];
     v8 = MEMORY[0x277CCA9B8];
     v9 = *MEMORY[0x277CCA590];
@@ -329,24 +327,22 @@ void __84__HMDSecureRemoteStreamInternal__serverHandleCommitRequest_options_resp
       v12 = v10;
     }
 
-    v22 = v12;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+    v21 = v12;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
     v14 = [v8 errorWithDomain:v9 code:-6723 userInfo:v13];
     v15 = [v7 archivedDataWithRootObject:v14 requiringSecureCoding:1 error:0];
-    v24 = v15;
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
-    v25[1] = @"utid";
-    v26[0] = v16;
-    v26[1] = *(a1 + 40);
-    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:2];
+    v23 = v15;
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
+    v24[1] = @"utid";
+    v25[0] = v16;
+    v25[1] = *(a1 + 40);
+    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:2];
 
     v18 = [*(a1 + 48) hmf_stringForKey:@"kIDSMessageNameKey"];
     v19 = augmentResponseOptions(*(a1 + 56), v18);
     (*(*(a1 + 64) + 16))();
     *(*(*(a1 + 72) + 8) + 24) = 1;
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __84__HMDSecureRemoteStreamInternal__serverHandleCommitRequest_options_responseHandler___block_invoke_2(uint64_t a1)
@@ -371,7 +367,7 @@ void __84__HMDSecureRemoteStreamInternal__serverHandleCommitRequest_options_resp
 
 void __84__HMDSecureRemoteStreamInternal__serverHandleCommitRequest_options_responseHandler___block_invoke_3(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v34[2] = *MEMORY[0x277D85DE8];
+  v33[2] = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -387,9 +383,9 @@ void __84__HMDSecureRemoteStreamInternal__serverHandleCommitRequest_options_resp
       v14 = v13 = v8;
       v15 = *(a1 + 40);
       *buf = 138543618;
-      v28 = v14;
-      v29 = 2112;
-      v30 = v15;
+      v27 = v14;
+      v28 = 2112;
+      v29 = v15;
       _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@Transaction, %@, has already been completed", buf, 0x16u);
 
       v8 = v13;
@@ -401,12 +397,12 @@ void __84__HMDSecureRemoteStreamInternal__serverHandleCommitRequest_options_resp
   else
   {
     [*(a1 + 32) _serverCompletePrepareRequest:*(a1 + 40)];
-    v33[0] = @"response";
-    v33[1] = @"utid";
+    v32[0] = @"response";
+    v32[1] = @"utid";
     v16 = *(a1 + 40);
-    v34[0] = v7;
-    v34[1] = v16;
-    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:v33 count:2];
+    v33[0] = v7;
+    v33[1] = v16;
+    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:2];
     v18 = [*(a1 + 48) hmf_stringForKey:@"kIDSMessageNameKey"];
     v19 = augmentResponseOptions(v8, v18);
     v20 = objc_autoreleasePoolPush();
@@ -415,30 +411,28 @@ void __84__HMDSecureRemoteStreamInternal__serverHandleCommitRequest_options_resp
     if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
     {
       HMFGetLogIdentifier();
-      v23 = v26 = v8;
+      v23 = v25 = v8;
       v24 = *(a1 + 40);
       *buf = 138543874;
-      v28 = v23;
-      v29 = 2112;
-      v30 = v24;
-      v31 = 2112;
-      v32 = v7;
+      v27 = v23;
+      v28 = 2112;
+      v29 = v24;
+      v30 = 2112;
+      v31 = v7;
       _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_DEBUG, "%{public}@sending commit response, utid %@ %@", buf, 0x20u);
 
-      v8 = v26;
+      v8 = v25;
     }
 
     objc_autoreleasePoolPop(v20);
     (*(*(a1 + 56) + 16))();
     *(*(*(a1 + 64) + 8) + 24) = 1;
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (int)_serverHandlePrepareRequest:(id)request options:(id)options responseHandler:(id)handler
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   optionsCopy = options;
   handlerCopy = handler;
@@ -466,11 +460,11 @@ LABEL_9:
   {
     v16 = HMFGetLogIdentifier();
     *buf = 138543874;
-    v36 = v16;
-    v37 = 2112;
-    v38 = v11;
-    v39 = 2112;
-    v40 = requestCopy;
+    v35 = v16;
+    v36 = 2112;
+    v37 = v11;
+    v38 = 2112;
+    v39 = requestCopy;
     _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_DEBUG, "%{public}@Received prepare request, utid %@ %@", buf, 0x20u);
   }
 
@@ -488,7 +482,7 @@ LABEL_9:
     handler[3] = &unk_27868A750;
     handler[4] = selfCopy;
     v20 = v11;
-    v34 = v20;
+    v33 = v20;
     dispatch_source_set_event_handler(v19, handler);
 
     dispatch_source_set_cancel_handler(v19, &__block_literal_global_124_270447);
@@ -505,11 +499,11 @@ LABEL_9:
     block[2] = __85__HMDSecureRemoteStreamInternal__serverHandlePrepareRequest_options_responseHandler___block_invoke_3;
     block[3] = &unk_278688978;
     v12 = v12;
-    v28 = v12;
-    v29 = optionsCopy;
-    v30 = selfCopy;
-    v31 = v20;
-    v32 = handlerCopy;
+    v27 = v12;
+    v28 = optionsCopy;
+    v29 = selfCopy;
+    v30 = v20;
+    v31 = handlerCopy;
     dispatch_async(internalQueue, block);
 
     v24 = 0;
@@ -522,13 +516,12 @@ LABEL_9:
 
 LABEL_7:
 
-  v25 = *MEMORY[0x277D85DE8];
   return v24;
 }
 
 void __85__HMDSecureRemoteStreamInternal__serverHandlePrepareRequest_options_responseHandler___block_invoke_3(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) hmf_stringForKey:@"kIDSMessageNameKey"];
   v3 = augmentResponseOptions(*(a1 + 40), v2);
   v4 = objc_autoreleasePoolPush();
@@ -538,19 +531,17 @@ void __85__HMDSecureRemoteStreamInternal__serverHandlePrepareRequest_options_res
   {
     v7 = HMFGetLogIdentifier();
     v8 = *(a1 + 56);
-    v10 = 138543874;
-    v11 = v7;
-    v12 = 2112;
-    v13 = v3;
-    v14 = 2112;
-    v15 = v8;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_DEBUG, "%{public}@Sending prepare response options %@, utid %@", &v10, 0x20u);
+    v9 = 138543874;
+    v10 = v7;
+    v11 = 2112;
+    v12 = v3;
+    v13 = 2112;
+    v14 = v8;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_DEBUG, "%{public}@Sending prepare response options %@, utid %@", &v9, 0x20u);
   }
 
   objc_autoreleasePoolPop(v4);
   (*(*(a1 + 64) + 16))();
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (int)_serverHandleDecryptedRequest:(id)request options:(id)options responseHandler:(id)handler
@@ -583,18 +574,18 @@ LABEL_7:
 
 - (void)_serverHandleEncryptedRequest:(id)request options:(id)options
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   optionsCopy = options;
   if (!self->_sessionID)
   {
-    v42 = 0;
+    v41 = 0;
     goto LABEL_25;
   }
 
   v8 = [requestCopy objectForKeyedSubscript:@"tid"];
   objc_opt_class();
-  v42 = v8;
+  v41 = v8;
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
 LABEL_25:
@@ -612,11 +603,11 @@ LABEL_25:
   {
     v12 = HMFGetLogIdentifier();
     *buf = 138543874;
-    v48 = v12;
-    v49 = 2112;
-    v50 = v8;
-    v51 = 2112;
-    v52 = requestCopy;
+    v47 = v12;
+    v48 = 2112;
+    v49 = v8;
+    v50 = 2112;
+    v51 = requestCopy;
     _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_DEBUG, "%{public}@Received request, tid %@ %@", buf, 0x20u);
   }
 
@@ -672,14 +663,14 @@ LABEL_25:
           v21 = [MEMORY[0x277CCAC58] propertyListWithData:v17 options:0 format:0 error:0];
           if (v21)
           {
-            v43[0] = MEMORY[0x277D85DD0];
-            v43[1] = 3221225472;
-            v43[2] = __71__HMDSecureRemoteStreamInternal__serverHandleEncryptedRequest_options___block_invoke;
-            v43[3] = &unk_278688950;
-            v43[4] = selfCopy;
-            v42 = v42;
-            v44 = v42;
-            v20 = [(HMDSecureRemoteStreamInternal *)selfCopy _serverHandleDecryptedRequest:v21 options:optionsCopy responseHandler:v43];
+            v42[0] = MEMORY[0x277D85DD0];
+            v42[1] = 3221225472;
+            v42[2] = __71__HMDSecureRemoteStreamInternal__serverHandleEncryptedRequest_options___block_invoke;
+            v42[3] = &unk_278688950;
+            v42[4] = selfCopy;
+            v41 = v41;
+            v43 = v41;
+            v20 = [(HMDSecureRemoteStreamInternal *)selfCopy _serverHandleDecryptedRequest:v21 options:optionsCopy responseHandler:v42];
 
             if (!v20)
             {
@@ -710,18 +701,18 @@ LABEL_25:
   }
 
 LABEL_18:
-  v41 = optionsCopy;
+  v40 = optionsCopy;
   v25 = objc_autoreleasePoolPush();
   selfCopy2 = self;
   v27 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
   {
     v28 = HMFGetLogIdentifier();
-    v40 = requestCopy;
-    v36 = MEMORY[0x277CCA9B8];
+    v39 = requestCopy;
+    v35 = MEMORY[0x277CCA9B8];
     v29 = *MEMORY[0x277CCA590];
-    v45 = *MEMORY[0x277CCA450];
-    v38 = v25;
+    v44 = *MEMORY[0x277CCA450];
+    v37 = v25;
     v30 = [MEMORY[0x277CCACA8] stringWithUTF8String:DebugGetErrorString()];
     v31 = v30;
     v32 = @"?";
@@ -730,57 +721,55 @@ LABEL_18:
       v32 = v30;
     }
 
-    v46 = v32;
-    [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v46 forKeys:&v45 count:{1, v36}];
-    v33 = v39 = v21;
-    v34 = [v37 errorWithDomain:v29 code:v20 userInfo:v33];
+    v45 = v32;
+    [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v45 forKeys:&v44 count:{1, v35}];
+    v33 = v38 = v21;
+    v34 = [v36 errorWithDomain:v29 code:v20 userInfo:v33];
     *buf = 138543874;
-    v48 = v28;
-    v49 = 2112;
-    v50 = v34;
-    v51 = 2112;
-    v52 = v40;
+    v47 = v28;
+    v48 = 2112;
+    v49 = v34;
+    v50 = 2112;
+    v51 = v39;
     _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_DEFAULT, "%{public}@Request failed: %@, %@", buf, 0x20u);
 
-    requestCopy = v40;
-    v21 = v39;
+    requestCopy = v39;
+    v21 = v38;
 
-    v25 = v38;
+    v25 = v37;
   }
 
   objc_autoreleasePoolPop(v25);
   [(HMDSecureRemoteStreamInternal *)selfCopy2 _stop:v20];
-  optionsCopy = v41;
+  optionsCopy = v40;
 LABEL_23:
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 void __71__HMDSecureRemoteStreamInternal__serverHandleEncryptedRequest_options___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v65[4] = *MEMORY[0x277D85DE8];
+  v63[4] = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
   dispatch_assert_queue_V2(*(*(a1 + 32) + 104));
-  v50 = v7;
+  v48 = v7;
   if (v9)
   {
     if ([v9 code])
     {
-      v33 = [v9 code];
-      if (!v33)
+      v31 = [v9 code];
+      if (!v31)
       {
         goto LABEL_20;
       }
 
-      v31 = 0;
+      v30 = 0;
     }
 
     else
     {
-      v31 = 0;
-      v33 = 4294960596;
+      v30 = 0;
+      v31 = 4294960596;
     }
 
     goto LABEL_28;
@@ -789,59 +778,59 @@ void __71__HMDSecureRemoteStreamInternal__serverHandleEncryptedRequest_options__
   v10 = *(a1 + 32);
   if (*(v10 + 160) != 1)
   {
-    v31 = 0;
-    v33 = 4294960576;
+    v30 = 0;
+    v31 = 4294960576;
     goto LABEL_28;
   }
 
   if (!*(v10 + 152) || !*(v10 + 224))
   {
 LABEL_21:
-    v31 = 0;
-    v33 = 4294960534;
+    v30 = 0;
+    v31 = 4294960534;
 LABEL_28:
-    v34 = objc_autoreleasePoolPush();
-    v35 = *(a1 + 32);
-    v36 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+    v32 = objc_autoreleasePoolPush();
+    v33 = *(a1 + 32);
+    v34 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
     {
-      v37 = HMFGetLogIdentifier();
-      v47 = MEMORY[0x277CCA9B8];
-      v45 = *MEMORY[0x277CCA590];
-      v49 = v33;
-      v56 = *MEMORY[0x277CCA450];
-      v52 = v31;
-      v38 = [MEMORY[0x277CCACA8] stringWithUTF8String:DebugGetErrorString()];
-      v39 = v38;
-      v40 = @"?";
-      if (v38)
+      v35 = HMFGetLogIdentifier();
+      v45 = MEMORY[0x277CCA9B8];
+      v43 = *MEMORY[0x277CCA590];
+      v47 = v31;
+      v54 = *MEMORY[0x277CCA450];
+      v50 = v30;
+      v36 = [MEMORY[0x277CCACA8] stringWithUTF8String:DebugGetErrorString()];
+      v37 = v36;
+      v38 = @"?";
+      if (v36)
       {
-        v40 = v38;
+        v38 = v36;
       }
 
-      v57 = v40;
-      [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v57 forKeys:&v56 count:{1, v45, v47}];
-      v41 = v34;
-      v43 = v42 = v8;
-      v44 = [v48 errorWithDomain:v46 code:v33 userInfo:v43];
+      v55 = v38;
+      [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v55 forKeys:&v54 count:{1, v43, v45}];
+      v39 = v32;
+      v41 = v40 = v8;
+      v42 = [v46 errorWithDomain:v44 code:v31 userInfo:v41];
       *buf = 138543874;
-      v59 = v37;
+      v57 = v35;
+      v58 = 2112;
+      v59 = v42;
       v60 = 2112;
-      v61 = v44;
-      v62 = 2112;
-      v63 = v50;
-      _os_log_impl(&dword_229538000, v36, OS_LOG_TYPE_DEFAULT, "%{public}@Response failed: %@, %@", buf, 0x20u);
+      v61 = v48;
+      _os_log_impl(&dword_229538000, v34, OS_LOG_TYPE_DEFAULT, "%{public}@Response failed: %@, %@", buf, 0x20u);
 
-      v33 = v49;
-      v8 = v42;
-      v34 = v41;
+      v31 = v47;
+      v8 = v40;
+      v32 = v39;
 
-      v31 = v52;
+      v30 = v50;
     }
 
-    objc_autoreleasePoolPop(v34);
-    [*(a1 + 32) _stop:v33];
-    v7 = v50;
+    objc_autoreleasePoolPop(v32);
+    [*(a1 + 32) _stop:v31];
+    v7 = v48;
     goto LABEL_19;
   }
 
@@ -850,7 +839,7 @@ LABEL_28:
     v11 = [(HMDSecureRemoteStreamInternal *)v10 _encodeBinaryPlist:v7];
     if (v11)
     {
-      v51 = v11;
+      v49 = v11;
       v12 = [v11 length];
       goto LABEL_9;
     }
@@ -859,100 +848,98 @@ LABEL_28:
   }
 
   v12 = 0;
-  v51 = 0;
+  v49 = 0;
 LABEL_9:
   v13 = [MEMORY[0x277CBEB28] dataWithLength:v12 + 16];
   if (!v13)
   {
-    v33 = 4294960568;
+    v31 = 4294960568;
     v9 = 0;
-    v31 = v51;
+    v30 = v49;
     goto LABEL_28;
   }
 
   v14 = v13;
   v15 = v8;
   [v13 mutableBytes];
-  v16 = *(a1 + 32);
-  [v51 bytes];
+  [v49 bytes];
   chacha20_poly1305_encrypt_all_64x64();
-  v17 = 0;
-  v18 = *(a1 + 32) + 80;
+  v16 = 0;
+  v17 = *(a1 + 32) + 80;
   do
   {
-    if (++*(v18 + v17))
+    if (++*(v17 + v16))
     {
-      v20 = 1;
+      v19 = 1;
     }
 
     else
     {
-      v20 = v17 == 7;
+      v19 = v16 == 7;
     }
 
-    ++v17;
+    ++v16;
   }
 
-  while (!v20);
-  v65[0] = v14;
-  v64[0] = @"edata";
-  v64[1] = @"sid";
-  v21 = *(a1 + 40);
-  v65[1] = *(*(a1 + 32) + 152);
-  v65[2] = v21;
-  v64[2] = @"tid";
-  v64[3] = @"type";
-  v65[3] = @"response";
-  v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v65 forKeys:v64 count:4];
-  v23 = objc_autoreleasePoolPush();
-  v24 = *(a1 + 32);
-  v25 = HMFGetOSLogHandle();
+  while (!v19);
+  v63[0] = v14;
+  v62[0] = @"edata";
+  v62[1] = @"sid";
+  v20 = *(a1 + 40);
+  v63[1] = *(*(a1 + 32) + 152);
+  v63[2] = v20;
+  v62[2] = @"tid";
+  v62[3] = @"type";
+  v63[3] = @"response";
+  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v63 forKeys:v62 count:4];
+  v22 = objc_autoreleasePoolPush();
+  v23 = *(a1 + 32);
+  v24 = HMFGetOSLogHandle();
   v9 = 0;
-  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
   {
-    v26 = HMFGetLogIdentifier();
-    v27 = *(a1 + 40);
+    v25 = HMFGetLogIdentifier();
+    v26 = *(a1 + 40);
     *buf = 138543874;
+    v57 = v25;
+    v58 = 2112;
     v59 = v26;
     v60 = 2112;
-    v61 = v27;
-    v62 = 2112;
-    v63 = v22;
-    _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_DEBUG, "%{public}@Sending response, tid %@ %@", buf, 0x20u);
+    v61 = v21;
+    _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_DEBUG, "%{public}@Sending response, tid %@ %@", buf, 0x20u);
   }
 
-  objc_autoreleasePoolPop(v23);
-  v28 = *(a1 + 32);
-  v29 = *(v28 + 240);
+  objc_autoreleasePoolPop(v22);
+  v27 = *(a1 + 32);
+  v28 = *(v27 + 240);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __71__HMDSecureRemoteStreamInternal__serverHandleEncryptedRequest_options___block_invoke_122;
   block[3] = &unk_27868A010;
-  block[4] = v28;
-  v54 = v22;
+  block[4] = v27;
+  v52 = v21;
   v8 = v15;
-  v55 = v15;
-  v30 = v22;
-  dispatch_async(v29, block);
+  v53 = v15;
+  v29 = v21;
+  dispatch_async(v28, block);
 
   [*(a1 + 32) _updateIdleTimer];
-  v7 = v50;
-  v31 = v51;
+  v7 = v48;
+  v30 = v49;
 LABEL_19:
 
 LABEL_20:
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_encodeBinaryPlist:(void *)plist
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (plist)
   {
-    v12 = 0;
-    v4 = [MEMORY[0x277CCAC58] dataWithPropertyList:v3 format:200 options:0 error:&v12];
-    v5 = v12;
+    v11 = 0;
+    v4 = [MEMORY[0x277CCAC58] dataWithPropertyList:v3 format:200 options:0 error:&v11];
+    v5 = v11;
     if (!v4)
     {
       v6 = objc_autoreleasePoolPush();
@@ -962,9 +949,9 @@ LABEL_20:
       {
         v9 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v14 = v9;
-        v15 = 2112;
-        v16 = v5;
+        v13 = v9;
+        v14 = 2112;
+        v15 = v5;
         _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@Failed to encode payload as binary PList: %@", buf, 0x16u);
       }
 
@@ -977,27 +964,25 @@ LABEL_20:
     v4 = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
 - (void)_serverPairVerifyExchange:(id)exchange options:(id)options
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   exchangeCopy = exchange;
   optionsCopy = options;
-  v54 = 0;
-  v55 = 0;
+  v51 = 0;
+  v52 = 0;
   v8 = [exchangeCopy objectForKeyedSubscript:@"op"];
   v9 = [v8 isEqual:@"pv"];
 
-  v47 = optionsCopy;
+  v44 = optionsCopy;
   if (!v9)
   {
     v23 = 0;
     v13 = 0;
-    v50 = 0;
+    v47 = 0;
     v10 = 0;
     v15 = 4294960560;
     goto LABEL_20;
@@ -1009,14 +994,14 @@ LABEL_20:
   {
     v23 = 0;
     v13 = 0;
-    v50 = 0;
+    v47 = 0;
     v15 = 4294960588;
     goto LABEL_20;
   }
 
   v11 = [exchangeCopy objectForKeyedSubscript:@"data"];
   objc_opt_class();
-  v50 = v11;
+  v47 = v11;
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     v23 = 0;
@@ -1051,24 +1036,24 @@ LABEL_20:
     goto LABEL_9;
   }
 
-  v63 = 0u;
-  v62 = 0u;
-  v61 = 0u;
+  v60 = 0u;
+  v59 = 0u;
+  v58 = 0u;
   *&buf[8] = 0u;
   *buf = self;
   if (self->_findPeerHandler)
   {
-    *&v62 = _pairingFindPeer;
+    *&v59 = _pairingFindPeer;
   }
 
-  *(&v61 + 1) = _pairingCopyIdentity;
+  *(&v58 + 1) = _pairingCopyIdentity;
   v24 = PairingSessionCreate();
   if (v24)
   {
     v15 = v24;
     v23 = 0;
     exchangeCopy = v12;
-    optionsCopy = v47;
+    optionsCopy = v44;
 LABEL_20:
     v25 = objc_autoreleasePoolPush();
     selfCopy = self;
@@ -1076,15 +1061,15 @@ LABEL_20:
     if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
       v28 = HMFGetLogIdentifier();
-      v46 = v13;
+      v43 = v13;
       v29 = v10;
       v30 = MEMORY[0x277CCA9B8];
-      v45 = v23;
+      v42 = v23;
       v31 = *MEMORY[0x277CCA590];
       v32 = exchangeCopy;
       v33 = v15;
-      v56 = *MEMORY[0x277CCA450];
-      v49 = v15;
+      v53 = *MEMORY[0x277CCA450];
+      v46 = v15;
       v34 = [MEMORY[0x277CCACA8] stringWithUTF8String:DebugGetErrorString()];
       v35 = v34;
       v36 = @"?";
@@ -1093,28 +1078,28 @@ LABEL_20:
         v36 = v34;
       }
 
-      v57 = v36;
-      [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v57 forKeys:&v56 count:1];
-      v37 = v44 = v25;
+      v54 = v36;
+      [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v54 forKeys:&v53 count:1];
+      v37 = v41 = v25;
       v38 = v30;
       v10 = v29;
       v39 = v33;
       exchangeCopy = v32;
-      v13 = v46;
-      optionsCopy = v47;
+      v13 = v43;
+      optionsCopy = v44;
       v40 = [v38 errorWithDomain:v31 code:v39 userInfo:v37];
       *buf = 138543874;
       *&buf[4] = v28;
       *&buf[12] = 2112;
       *&buf[14] = v40;
       *&buf[22] = 2112;
-      *&v61 = exchangeCopy;
+      *&v58 = exchangeCopy;
       _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_DEFAULT, "%{public}@Pair-verify failed: %@, %@", buf, 0x20u);
 
-      v23 = v45;
-      v25 = v44;
+      v23 = v42;
+      v25 = v41;
 
-      v15 = v49;
+      v15 = v46;
     }
 
     objc_autoreleasePoolPop(v25);
@@ -1122,36 +1107,34 @@ LABEL_20:
     goto LABEL_25;
   }
 
-  pairVerifySession = self->_pairVerifySession;
   PairingSessionSetLogging();
-  v43 = self->_pairVerifySession;
 LABEL_9:
-  [v50 bytes];
-  [v50 length];
+  [v11 bytes];
+  [v11 length];
   v14 = PairingSessionExchange();
   v15 = v14;
   if (v14)
   {
     v23 = 0;
     exchangeCopy = v12;
-    optionsCopy = v47;
+    optionsCopy = v44;
   }
 
   else
   {
-    v48 = v14;
-    v58[0] = @"data";
-    v16 = [MEMORY[0x277CBEA90] dataWithBytes:v55 length:v54];
-    v59[0] = v16;
-    v59[1] = @"pv";
-    v58[1] = @"op";
-    v58[2] = @"sid";
-    v59[2] = self->_sessionID;
-    v59[3] = v10;
-    v58[3] = @"tid";
-    v58[4] = @"type";
-    v59[4] = @"response";
-    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v59 forKeys:v58 count:5];
+    v45 = v14;
+    v55[0] = @"data";
+    v16 = [MEMORY[0x277CBEA90] dataWithBytes:v52 length:v51];
+    v56[0] = v16;
+    v56[1] = @"pv";
+    v55[1] = @"op";
+    v55[2] = @"sid";
+    v56[2] = self->_sessionID;
+    v56[3] = v10;
+    v55[3] = @"tid";
+    v55[4] = @"type";
+    v56[4] = @"response";
+    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v56 forKeys:v55 count:5];
 
     v18 = objc_autoreleasePoolPush();
     selfCopy2 = self;
@@ -1175,16 +1158,16 @@ LABEL_9:
     block[3] = &unk_27868A010;
     block[4] = selfCopy2;
     v23 = v17;
-    v52 = v23;
-    optionsCopy = v47;
-    v53 = v47;
+    v49 = v23;
+    optionsCopy = v44;
+    v50 = v44;
     dispatch_async(userQueue, block);
 
     [(HMDSecureRemoteStreamInternal *)selfCopy2 _updateIdleTimer];
-    v15 = v48;
-    if (v55)
+    v15 = v45;
+    if (v52)
     {
-      free(v55);
+      free(v52);
     }
   }
 
@@ -1194,13 +1177,11 @@ LABEL_9:
   }
 
 LABEL_25:
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_serverRunStateMachine
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   while (1)
   {
     while (1)
@@ -1216,7 +1197,7 @@ LABEL_25:
         case 13:
           if (!self->_pairVerifyDone)
           {
-            goto LABEL_22;
+            return;
           }
 
           self->_state = 14;
@@ -1230,13 +1211,13 @@ LABEL_25:
           }
 
           selfCopy = self;
-          v18[0] = MEMORY[0x277D85DD0];
-          v18[1] = 3221225472;
-          v18[2] = __55__HMDSecureRemoteStreamInternal__serverRunStateMachine__block_invoke_2;
-          v18[3] = &unk_278688928;
-          v19 = selfCopy;
+          v17[0] = MEMORY[0x277D85DD0];
+          v17[1] = 3221225472;
+          v17[2] = __55__HMDSecureRemoteStreamInternal__serverRunStateMachine__block_invoke_2;
+          v17[3] = &unk_278688928;
+          v18 = selfCopy;
           v5 = selfCopy;
-          [(HMDSecureRemoteStreamInternal *)v5 setInternalRequestHandler:v18];
+          [(HMDSecureRemoteStreamInternal *)v5 setInternalRequestHandler:v17];
           self->_state = 15;
           userQueue = v5->_userQueue;
           block[0] = MEMORY[0x277D85DD0];
@@ -1245,12 +1226,12 @@ LABEL_25:
           block[3] = &unk_27868A728;
           block[4] = v5;
           dispatch_async(userQueue, block);
-          v6 = v19;
+          v6 = v18;
 LABEL_10:
 
           break;
         case 15:
-          goto LABEL_22;
+          return;
         default:
           goto LABEL_17;
       }
@@ -1267,21 +1248,21 @@ LABEL_10:
   if (state == 12)
   {
     selfCopy2 = self;
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __55__HMDSecureRemoteStreamInternal__serverRunStateMachine__block_invoke;
-    v20[3] = &unk_278688928;
-    v21 = selfCopy2;
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __55__HMDSecureRemoteStreamInternal__serverRunStateMachine__block_invoke;
+    v19[3] = &unk_278688928;
+    v20 = selfCopy2;
     v5 = selfCopy2;
-    [(HMDSecureRemoteStreamInternal *)v5 setInternalRequestHandler:v20];
+    [(HMDSecureRemoteStreamInternal *)v5 setInternalRequestHandler:v19];
     self->_state = 13;
-    v6 = v21;
+    v6 = v20;
     goto LABEL_10;
   }
 
   if (state == 11)
   {
-    goto LABEL_22;
+    return;
   }
 
 LABEL_17:
@@ -1293,9 +1274,9 @@ LABEL_17:
     v13 = HMFGetLogIdentifier();
     v14 = self->_state;
     *buf = 138543618;
-    v23 = v13;
-    v24 = 1024;
-    v25 = v14;
+    v22 = v13;
+    v23 = 1024;
+    v24 = v14;
     _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Bad state: %d", buf, 0x12u);
   }
 
@@ -1303,8 +1284,6 @@ LABEL_17:
   v15 = 4294960587;
 LABEL_21:
   [(HMDSecureRemoteStreamInternal *)self _stop:v15];
-LABEL_22:
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __55__HMDSecureRemoteStreamInternal__serverRunStateMachine__block_invoke_3(uint64_t a1)
@@ -1324,7 +1303,7 @@ void __55__HMDSecureRemoteStreamInternal__serverRunStateMachine__block_invoke_3(
 
 - (int)_clientHandleCommitResponse:(id)response options:(id)options
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   optionsCopy = options;
   v8 = [responseCopy objectForKeyedSubscript:@"edata"];
@@ -1418,7 +1397,7 @@ LABEL_24:
     goto LABEL_18;
   }
 
-  v30 = optionsCopy;
+  v29 = optionsCopy;
   self->_commitResponded = 1;
   v23 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -1427,42 +1406,41 @@ LABEL_24:
   {
     v26 = HMFGetLogIdentifier();
     *buf = 138543874;
-    v32 = v26;
-    v33 = 2112;
-    v34 = v18;
-    v35 = 2112;
-    v36 = v16;
+    v31 = v26;
+    v32 = 2112;
+    v33 = v18;
+    v34 = 2112;
+    v35 = v16;
     _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_DEBUG, "%{public}@Received commit response, utid %@ %@", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v23);
-  optionsCopy = v30;
-  [(HMDSecureRemoteStreamInternal *)selfCopy _completeUserTransaction:v18 response:v17 options:v30 status:0];
+  optionsCopy = v29;
+  [(HMDSecureRemoteStreamInternal *)selfCopy _completeUserTransaction:v18 response:v17 options:v29 status:0];
   v27 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:v18];
-  logRemoteMessageEvent(responseCopy, v30, v27);
+  logRemoteMessageEvent(responseCopy, v29, v27);
 
   v15 = 0;
 LABEL_18:
 
-  v28 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
 - (int)_clientSendCommitRequest:(id)request
 {
-  v51[3] = *MEMORY[0x277D85DE8];
+  v50[3] = *MEMORY[0x277D85DE8];
   requestCopy = request;
   v5 = [requestCopy objectForKeyedSubscript:@"utid"];
   if (v5)
   {
     v6 = [MEMORY[0x277CCABB0] numberWithDouble:self->_sendInternalTimeoutNanos / 1000000000.0];
-    v50[0] = @"op";
-    v50[1] = @"utid";
-    v51[0] = @"commit";
-    v51[1] = v5;
-    v50[2] = @"timeout";
-    v51[2] = v6;
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v51 forKeys:v50 count:3];
+    v49[0] = @"op";
+    v49[1] = @"utid";
+    v50[0] = @"commit";
+    v50[1] = v5;
+    v49[2] = @"timeout";
+    v50[2] = v6;
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v50 forKeys:v49 count:3];
     v8 = [(HMDSecureRemoteStreamInternal *)self _encodeBinaryPlist:v7];
     v9 = v8;
     if (v8)
@@ -1500,25 +1478,25 @@ LABEL_18:
         {
           v20 = HMFGetLogIdentifier();
           *buf = 138543874;
-          v45 = v20;
-          v46 = 2112;
-          v47 = v5;
-          v48 = 2112;
-          v49 = v7;
+          v44 = v20;
+          v45 = 2112;
+          v46 = v5;
+          v47 = 2112;
+          v48 = v7;
           _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_DEBUG, "%{public}@Sending commit request, utid %@ %@", buf, 0x20u);
         }
 
         objc_autoreleasePoolPop(v17);
-        v42 = @"edata";
-        v43 = v12;
-        v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v43 forKeys:&v42 count:1];
+        v41 = @"edata";
+        v42 = v12;
+        v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
         v22 = [requestCopy objectForKeyedSubscript:@"options"];
-        v39[0] = MEMORY[0x277D85DD0];
-        v39[1] = 3221225472;
-        v39[2] = __58__HMDSecureRemoteStreamInternal__clientSendCommitRequest___block_invoke;
-        v39[3] = &unk_278688900;
-        v39[4] = selfCopy;
-        [(HMDSecureRemoteStreamInternal *)selfCopy _sendRequest:v21 options:v22 responseHandler:v39];
+        v38[0] = MEMORY[0x277D85DD0];
+        v38[1] = 3221225472;
+        v38[2] = __58__HMDSecureRemoteStreamInternal__clientSendCommitRequest___block_invoke;
+        v38[3] = &unk_278688900;
+        v38[4] = selfCopy;
+        [(HMDSecureRemoteStreamInternal *)selfCopy _sendRequest:v21 options:v22 responseHandler:v38];
 
         v23 = 0;
         goto LABEL_13;
@@ -1541,47 +1519,46 @@ LABEL_18:
     v23 = -6762;
   }
 
-  v26 = objc_autoreleasePoolPush();
+  v25 = objc_autoreleasePoolPush();
   selfCopy2 = self;
-  v28 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+  v27 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
   {
-    v29 = HMFGetLogIdentifier();
-    v35 = MEMORY[0x277CCA9B8];
+    v28 = HMFGetLogIdentifier();
+    v34 = MEMORY[0x277CCA9B8];
+    v35 = v28;
+    v33 = *MEMORY[0x277CCA590];
+    v39 = *MEMORY[0x277CCA450];
+    v37 = v25;
+    v29 = [MEMORY[0x277CCACA8] stringWithUTF8String:DebugGetErrorString()];
     v36 = v29;
-    v34 = *MEMORY[0x277CCA590];
-    v40 = *MEMORY[0x277CCA450];
-    v38 = v26;
-    v30 = [MEMORY[0x277CCACA8] stringWithUTF8String:DebugGetErrorString()];
-    v37 = v30;
-    v31 = @"?";
-    if (v30)
+    v30 = @"?";
+    if (v29)
     {
-      v31 = v30;
+      v30 = v29;
     }
 
-    v41 = v31;
-    v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v41 forKeys:&v40 count:1];
-    v32 = [v35 errorWithDomain:v34 code:v23 userInfo:v33];
+    v40 = v30;
+    v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
+    v31 = [v34 errorWithDomain:v33 code:v23 userInfo:v32];
     *buf = 138543618;
-    v45 = v36;
-    v46 = 2112;
-    v47 = v32;
-    _os_log_impl(&dword_229538000, v28, OS_LOG_TYPE_ERROR, "%{public}@Send commit request failed: %@", buf, 0x16u);
+    v44 = v35;
+    v45 = 2112;
+    v46 = v31;
+    _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_ERROR, "%{public}@Send commit request failed: %@", buf, 0x16u);
 
-    v26 = v38;
+    v25 = v37;
   }
 
-  objc_autoreleasePoolPop(v26);
+  objc_autoreleasePoolPop(v25);
 LABEL_13:
 
-  v24 = *MEMORY[0x277D85DE8];
   return v23;
 }
 
 void __58__HMDSecureRemoteStreamInternal__clientSendCommitRequest___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -1615,11 +1592,11 @@ LABEL_7:
   v14 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
-    v23 = HMFGetLogIdentifier();
-    v24 = MEMORY[0x277CCA9B8];
-    v21 = *MEMORY[0x277CCA590];
-    v25 = v12;
-    v26 = *MEMORY[0x277CCA450];
+    v22 = HMFGetLogIdentifier();
+    v23 = MEMORY[0x277CCA9B8];
+    v20 = *MEMORY[0x277CCA590];
+    v24 = v12;
+    v25 = *MEMORY[0x277CCA450];
     v15 = [MEMORY[0x277CCACA8] stringWithUTF8String:DebugGetErrorString()];
     v16 = v15;
     v17 = @"?";
@@ -1628,16 +1605,16 @@ LABEL_7:
       v17 = v15;
     }
 
-    v27 = v17;
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v27 forKeys:&v26 count:{1, v21}];
-    v19 = [v24 errorWithDomain:v22 code:v11 userInfo:v18];
+    v26 = v17;
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v26 forKeys:&v25 count:{1, v20}];
+    v19 = [v23 errorWithDomain:v21 code:v11 userInfo:v18];
     *buf = 138543618;
-    v29 = v23;
-    v30 = 2112;
-    v31 = v19;
+    v28 = v22;
+    v29 = 2112;
+    v30 = v19;
     _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_ERROR, "%{public}@Commit response failed: %@", buf, 0x16u);
 
-    v12 = v25;
+    v12 = v24;
   }
 
   objc_autoreleasePoolPop(v12);
@@ -1647,13 +1624,11 @@ LABEL_7:
   }
 
 LABEL_13:
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (int)_clientHandlePrepareResponse:(id)response options:(id)options
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   optionsCopy = options;
   v8 = [responseCopy objectForKeyedSubscript:@"edata"];
@@ -1724,9 +1699,9 @@ LABEL_13:
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
     {
       v21 = HMFGetLogIdentifier();
-      v25 = 138543362;
-      v26 = v21;
-      _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_DEBUG, "%{public}@Received prepare response", &v25, 0xCu);
+      v24 = 138543362;
+      v25 = v21;
+      _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_DEBUG, "%{public}@Received prepare response", &v24, 0xCu);
     }
 
     objc_autoreleasePoolPop(v18);
@@ -1738,13 +1713,12 @@ LABEL_13:
 
 LABEL_18:
 
-  v23 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 - (int)_clientSendPrepareRequest:(id)request
 {
-  v51[3] = *MEMORY[0x277D85DE8];
+  v50[3] = *MEMORY[0x277D85DE8];
   requestCopy = request;
   v5 = [requestCopy objectForKeyedSubscript:@"utid"];
   if (!v5)
@@ -1766,13 +1740,13 @@ LABEL_17:
     goto LABEL_17;
   }
 
-  v50[0] = @"op";
-  v50[1] = @"request";
-  v51[0] = @"prepare";
-  v51[1] = v6;
-  v50[2] = @"utid";
-  v51[2] = v5;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v51 forKeys:v50 count:3];
+  v49[0] = @"op";
+  v49[1] = @"request";
+  v50[0] = @"prepare";
+  v50[1] = v6;
+  v49[2] = @"utid";
+  v50[2] = v5;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v50 forKeys:v49 count:3];
   v9 = [(HMDSecureRemoteStreamInternal *)self _encodeBinaryPlist:v8];
   v10 = v9;
   if (v9)
@@ -1810,25 +1784,25 @@ LABEL_17:
       {
         v21 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v45 = v21;
-        v46 = 2112;
-        v47 = v5;
-        v48 = 2112;
-        v49 = v8;
+        v44 = v21;
+        v45 = 2112;
+        v46 = v5;
+        v47 = 2112;
+        v48 = v8;
         _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_DEBUG, "%{public}@Sending prepare request, utid %@ %@", buf, 0x20u);
       }
 
       objc_autoreleasePoolPop(v18);
-      v42 = @"edata";
-      v43 = v13;
-      v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v43 forKeys:&v42 count:1];
+      v41 = @"edata";
+      v42 = v13;
+      v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
       v23 = [requestCopy objectForKeyedSubscript:@"options"];
-      v39[0] = MEMORY[0x277D85DD0];
-      v39[1] = 3221225472;
-      v39[2] = __59__HMDSecureRemoteStreamInternal__clientSendPrepareRequest___block_invoke;
-      v39[3] = &unk_278688900;
-      v39[4] = selfCopy;
-      [(HMDSecureRemoteStreamInternal *)selfCopy _sendRequest:v22 options:v23 responseHandler:v39];
+      v38[0] = MEMORY[0x277D85DD0];
+      v38[1] = 3221225472;
+      v38[2] = __59__HMDSecureRemoteStreamInternal__clientSendPrepareRequest___block_invoke;
+      v38[3] = &unk_278688900;
+      v38[4] = selfCopy;
+      [(HMDSecureRemoteStreamInternal *)selfCopy _sendRequest:v22 options:v23 responseHandler:v38];
 
       v24 = 0;
       goto LABEL_14;
@@ -1843,46 +1817,45 @@ LABEL_17:
   }
 
 LABEL_20:
-  v27 = objc_autoreleasePoolPush();
+  v26 = objc_autoreleasePoolPush();
   selfCopy2 = self;
-  v29 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+  v28 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
   {
-    v30 = HMFGetLogIdentifier();
-    v36 = MEMORY[0x277CCA9B8];
-    v35 = *MEMORY[0x277CCA590];
-    v40 = *MEMORY[0x277CCA450];
-    v38 = v27;
-    v31 = [MEMORY[0x277CCACA8] stringWithUTF8String:DebugGetErrorString()];
-    v37 = v31;
-    v32 = @"?";
-    if (v31)
+    v29 = HMFGetLogIdentifier();
+    v35 = MEMORY[0x277CCA9B8];
+    v34 = *MEMORY[0x277CCA590];
+    v39 = *MEMORY[0x277CCA450];
+    v37 = v26;
+    v30 = [MEMORY[0x277CCACA8] stringWithUTF8String:DebugGetErrorString()];
+    v36 = v30;
+    v31 = @"?";
+    if (v30)
     {
-      v32 = v31;
+      v31 = v30;
     }
 
-    v41 = v32;
-    v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v41 forKeys:&v40 count:1];
-    v33 = [v36 errorWithDomain:v35 code:v24 userInfo:v34];
+    v40 = v31;
+    v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
+    v32 = [v35 errorWithDomain:v34 code:v24 userInfo:v33];
     *buf = 138543618;
-    v45 = v30;
-    v46 = 2112;
-    v47 = v33;
-    _os_log_impl(&dword_229538000, v29, OS_LOG_TYPE_ERROR, "%{public}@Send prepare request failed: %@", buf, 0x16u);
+    v44 = v29;
+    v45 = 2112;
+    v46 = v32;
+    _os_log_impl(&dword_229538000, v28, OS_LOG_TYPE_ERROR, "%{public}@Send prepare request failed: %@", buf, 0x16u);
 
-    v27 = v38;
+    v26 = v37;
   }
 
-  objc_autoreleasePoolPop(v27);
+  objc_autoreleasePoolPop(v26);
 LABEL_14:
 
-  v25 = *MEMORY[0x277D85DE8];
   return v24;
 }
 
 void __59__HMDSecureRemoteStreamInternal__clientSendPrepareRequest___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -1916,11 +1889,11 @@ LABEL_7:
   v14 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
-    v23 = HMFGetLogIdentifier();
-    v24 = MEMORY[0x277CCA9B8];
-    v21 = *MEMORY[0x277CCA590];
-    v25 = v12;
-    v26 = *MEMORY[0x277CCA450];
+    v22 = HMFGetLogIdentifier();
+    v23 = MEMORY[0x277CCA9B8];
+    v20 = *MEMORY[0x277CCA590];
+    v24 = v12;
+    v25 = *MEMORY[0x277CCA450];
     v15 = [MEMORY[0x277CCACA8] stringWithUTF8String:DebugGetErrorString()];
     v16 = v15;
     v17 = @"?";
@@ -1929,16 +1902,16 @@ LABEL_7:
       v17 = v15;
     }
 
-    v27 = v17;
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v27 forKeys:&v26 count:{1, v21}];
-    v19 = [v24 errorWithDomain:v22 code:v11 userInfo:v18];
+    v26 = v17;
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v26 forKeys:&v25 count:{1, v20}];
+    v19 = [v23 errorWithDomain:v21 code:v11 userInfo:v18];
     *buf = 138543618;
-    v29 = v23;
-    v30 = 2112;
-    v31 = v19;
+    v28 = v22;
+    v29 = 2112;
+    v30 = v19;
     _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_ERROR, "%{public}@Prepare response failed: %@", buf, 0x16u);
 
-    v12 = v25;
+    v12 = v24;
   }
 
   objc_autoreleasePoolPop(v12);
@@ -1948,29 +1921,27 @@ LABEL_7:
   }
 
 LABEL_13:
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (int)_clientPairVerifyExchange:(id)exchange
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   exchangeCopy = exchange;
-  v26 = 0;
-  v27 = 0;
+  v23 = 0;
+  v24 = 0;
   if (!self->_pairVerifySession)
   {
-    v35 = 0u;
-    v34 = 0u;
-    v33 = 0u;
+    v32 = 0u;
+    v31 = 0u;
+    v30 = 0u;
     *&buf[8] = 0u;
     *buf = self;
     if (self->_findPeerHandler)
     {
-      *&v34 = _pairingFindPeer;
+      *&v31 = _pairingFindPeer;
     }
 
-    *(&v33 + 1) = _pairingCopyIdentity;
+    *(&v30 + 1) = _pairingCopyIdentity;
     v8 = PairingSessionCreate();
     if (v8)
     {
@@ -1978,9 +1949,7 @@ LABEL_13:
       goto LABEL_10;
     }
 
-    pairVerifySession = self->_pairVerifySession;
     PairingSessionSetLogging();
-    v22 = self->_pairVerifySession;
   }
 
   [exchangeCopy bytes];
@@ -1990,27 +1959,27 @@ LABEL_13:
   {
     if (!self->_pairVerifyDone)
     {
-      v30[0] = @"data";
-      v6 = [MEMORY[0x277CBEA90] dataWithBytes:v27 length:v26];
-      v30[1] = @"op";
-      v31[0] = v6;
-      v31[1] = @"pv";
-      v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:2];
-      v25[0] = MEMORY[0x277D85DD0];
-      v25[1] = 3221225472;
-      v25[2] = __59__HMDSecureRemoteStreamInternal__clientPairVerifyExchange___block_invoke;
-      v25[3] = &unk_278688900;
-      v25[4] = self;
-      [(HMDSecureRemoteStreamInternal *)self _sendRequest:v7 options:0 responseHandler:v25];
+      v27[0] = @"data";
+      v6 = [MEMORY[0x277CBEA90] dataWithBytes:v24 length:v23];
+      v27[1] = @"op";
+      v28[0] = v6;
+      v28[1] = @"pv";
+      v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:2];
+      v22[0] = MEMORY[0x277D85DD0];
+      v22[1] = 3221225472;
+      v22[2] = __59__HMDSecureRemoteStreamInternal__clientPairVerifyExchange___block_invoke;
+      v22[3] = &unk_278688900;
+      v22[4] = self;
+      [(HMDSecureRemoteStreamInternal *)self _sendRequest:v7 options:0 responseHandler:v22];
     }
 
     v5 = 0;
   }
 
 LABEL_10:
-  if (v27)
+  if (v24)
   {
-    free(v27);
+    free(v24);
   }
 
   if (v5)
@@ -2020,10 +1989,10 @@ LABEL_10:
     v11 = HMFGetOSLogHandle();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v23 = HMFGetLogIdentifier();
+      v20 = HMFGetLogIdentifier();
       v12 = MEMORY[0x277CCA9B8];
       v13 = *MEMORY[0x277CCA590];
-      v28 = *MEMORY[0x277CCA450];
+      v25 = *MEMORY[0x277CCA450];
       v14 = [MEMORY[0x277CCACA8] stringWithUTF8String:DebugGetErrorString()];
       v15 = v14;
       v16 = @"?";
@@ -2032,11 +2001,11 @@ LABEL_10:
         v16 = v14;
       }
 
-      v29 = v16;
-      v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v29 forKeys:&v28 count:{1, v23}];
+      v26 = v16;
+      v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v26 forKeys:&v25 count:{1, v20}];
       v18 = [v12 errorWithDomain:v13 code:v5 userInfo:v17];
       *buf = 138543618;
-      *&buf[4] = v24;
+      *&buf[4] = v21;
       *&buf[12] = 2112;
       *&buf[14] = v18;
       _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@Pair-verify failed: %@", buf, 0x16u);
@@ -2045,13 +2014,12 @@ LABEL_10:
     objc_autoreleasePoolPop(v9);
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 void __59__HMDSecureRemoteStreamInternal__clientPairVerifyExchange___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -2102,12 +2070,12 @@ void __59__HMDSecureRemoteStreamInternal__clientPairVerifyExchange___block_invok
   v16 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
-    v24 = HMFGetLogIdentifier();
-    v25 = MEMORY[0x277CCA9B8];
-    v23 = *MEMORY[0x277CCA590];
-    v27 = v8;
-    v28 = *MEMORY[0x277CCA450];
-    v26 = v14;
+    v23 = HMFGetLogIdentifier();
+    v24 = MEMORY[0x277CCA9B8];
+    v22 = *MEMORY[0x277CCA590];
+    v26 = v8;
+    v27 = *MEMORY[0x277CCA450];
+    v25 = v14;
     v17 = [MEMORY[0x277CCACA8] stringWithUTF8String:DebugGetErrorString()];
     v18 = v17;
     v19 = @"?";
@@ -2116,17 +2084,17 @@ void __59__HMDSecureRemoteStreamInternal__clientPairVerifyExchange___block_invok
       v19 = v17;
     }
 
-    v29 = v19;
-    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
-    v21 = [v25 errorWithDomain:v23 code:v13 userInfo:v20];
+    v28 = v19;
+    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
+    v21 = [v24 errorWithDomain:v22 code:v13 userInfo:v20];
     *buf = 138543618;
-    v31 = v24;
-    v32 = 2112;
-    v33 = v21;
+    v30 = v23;
+    v31 = 2112;
+    v32 = v21;
     _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@Pair-verify response failed: %@", buf, 0x16u);
 
-    v8 = v27;
-    v14 = v26;
+    v8 = v26;
+    v14 = v25;
   }
 
   objc_autoreleasePoolPop(v14);
@@ -2136,13 +2104,11 @@ void __59__HMDSecureRemoteStreamInternal__clientPairVerifyExchange___block_invok
   }
 
 LABEL_12:
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_clientRunStateMachine
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   while (1)
   {
     while (1)
@@ -2163,7 +2129,7 @@ LABEL_12:
             {
               if (![(NSMutableArray *)self->_userTransactions count])
               {
-                goto LABEL_36;
+                return;
               }
 
               self->_state = 6;
@@ -2191,7 +2157,7 @@ LABEL_12:
               case 7:
                 if (!self->_prepareResponded)
                 {
-                  goto LABEL_36;
+                  return;
                 }
 
                 self->_state = 8;
@@ -2211,7 +2177,7 @@ LABEL_12:
               case 9:
                 if (!self->_commitResponded)
                 {
-                  goto LABEL_36;
+                  return;
                 }
 
                 goto LABEL_17;
@@ -2230,7 +2196,7 @@ LABEL_12:
         {
           if (!self->_pairVerifyDone)
           {
-            goto LABEL_36;
+            return;
           }
 
           self->_state = 4;
@@ -2282,7 +2248,7 @@ LABEL_17:
 
   if (state == 1)
   {
-    goto LABEL_36;
+    return;
   }
 
 LABEL_32:
@@ -2294,9 +2260,9 @@ LABEL_32:
     v12 = HMFGetLogIdentifier();
     v13 = self->_state;
     *buf = 138543618;
-    v17 = v12;
-    v18 = 1024;
-    v19 = v13;
+    v16 = v12;
+    v17 = 1024;
+    v18 = v13;
     _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@Bad state: %d", buf, 0x12u);
   }
 
@@ -2304,8 +2270,6 @@ LABEL_32:
   v7 = 4294960587;
 LABEL_35:
   [(HMDSecureRemoteStreamInternal *)self _stop:v7];
-LABEL_36:
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __55__HMDSecureRemoteStreamInternal__clientRunStateMachine__block_invoke(uint64_t a1)
@@ -2325,7 +2289,7 @@ void __55__HMDSecureRemoteStreamInternal__clientRunStateMachine__block_invoke(ui
 
 - (void)_transportReceivedMessage:(id)message options:(id)options
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   optionsCopy = options;
   v8 = objc_autoreleasePoolPush();
@@ -2335,9 +2299,9 @@ void __55__HMDSecureRemoteStreamInternal__clientRunStateMachine__block_invoke(ui
   {
     v11 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v41 = v11;
-    v42 = 2112;
-    v43 = messageCopy;
+    v40 = v11;
+    v41 = 2112;
+    v42 = messageCopy;
     _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_DEBUG, "%{public}@Transport received message %@", buf, 0x16u);
   }
 
@@ -2400,16 +2364,16 @@ LABEL_17:
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
     {
       HMFGetLogIdentifier();
-      v20 = v36 = optionsCopy;
+      v20 = v35 = optionsCopy;
       *buf = 138543874;
-      v41 = v20;
-      v42 = 2112;
-      v43 = v13;
-      v44 = 2112;
-      v45 = messageCopy;
+      v40 = v20;
+      v41 = 2112;
+      v42 = v13;
+      v43 = 2112;
+      v44 = messageCopy;
       _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_DEBUG, "%{public}@Received response, tid %@, %@", buf, 0x20u);
 
-      optionsCopy = v36;
+      optionsCopy = v35;
     }
 
     objc_autoreleasePoolPop(v17);
@@ -2434,39 +2398,37 @@ LABEL_19:
   if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
   {
     v25 = HMFGetLogIdentifier();
-    v33 = MEMORY[0x277CCA9B8];
-    v34 = v25;
-    v32 = *MEMORY[0x277CCA590];
-    v37 = v22;
-    v38 = *MEMORY[0x277CCA450];
+    v32 = MEMORY[0x277CCA9B8];
+    v33 = v25;
+    v31 = *MEMORY[0x277CCA590];
+    v36 = v22;
+    v37 = *MEMORY[0x277CCA450];
     v26 = optionsCopy;
     v27 = [MEMORY[0x277CCACA8] stringWithUTF8String:DebugGetErrorString()];
-    v35 = v27;
+    v34 = v27;
     v28 = @"?";
     if (v27)
     {
       v28 = v27;
     }
 
-    v39 = v28;
-    v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
-    v30 = [v33 errorWithDomain:v32 code:v21 userInfo:v29];
+    v38 = v28;
+    v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
+    v30 = [v32 errorWithDomain:v31 code:v21 userInfo:v29];
     *buf = 138543874;
-    v41 = v34;
-    v42 = 2112;
-    v43 = v30;
-    v44 = 2112;
-    v45 = messageCopy;
+    v40 = v33;
+    v41 = 2112;
+    v42 = v30;
+    v43 = 2112;
+    v44 = messageCopy;
     _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_DEFAULT, "%{public}@Transport message error: %@, %@", buf, 0x20u);
 
     optionsCopy = v26;
-    v22 = v37;
+    v22 = v36;
   }
 
   objc_autoreleasePoolPop(v22);
 LABEL_24:
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)transportReceivedMessage:(id)message options:(id)options
@@ -2486,17 +2448,17 @@ LABEL_24:
   dispatch_async(internalQueue, block);
 }
 
-void __66__HMDSecureRemoteStreamInternal_transportReceivedMessage_options___block_invoke(uint64_t a1)
+void __66__HMDSecureRemoteStreamInternal_transportReceivedMessage_options___block_invoke(uint64_t a1, const char *a2)
 {
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
-  v3 = [*(a1 + 48) copy];
-  [v1 _transportReceivedMessage:v2 options:v3];
+  v3 = *(a1 + 32);
+  v4 = *(a1 + 40);
+  v5 = objc_msgSend_copy(*(a1 + 48), a2);
+  [v3 _transportReceivedMessage:v4 options:v5];
 }
 
 - (void)_completeTransaction:(id)transaction response:(id)response options:(id)options status:(int)status
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   transactionCopy = transaction;
   responseCopy = response;
   optionsCopy = options;
@@ -2509,15 +2471,15 @@ void __66__HMDSecureRemoteStreamInternal_transportReceivedMessage_options___bloc
   {
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
-      v45 = v14;
-      v47 = responseCopy;
-      v49 = optionsCopy;
+      v44 = v14;
+      v46 = responseCopy;
+      v48 = optionsCopy;
       v18 = HMFGetLogIdentifier();
       if (status)
       {
-        v43 = MEMORY[0x277CCA9B8];
-        v41 = *MEMORY[0x277CCA590];
-        v53 = *MEMORY[0x277CCA450];
+        v42 = MEMORY[0x277CCA9B8];
+        v40 = *MEMORY[0x277CCA590];
+        v52 = *MEMORY[0x277CCA450];
         v19 = [MEMORY[0x277CCACA8] stringWithUTF8String:DebugGetErrorString()];
         responseCopy = v19;
         v20 = @"?";
@@ -2526,11 +2488,11 @@ void __66__HMDSecureRemoteStreamInternal_transportReceivedMessage_options___bloc
           v20 = v19;
         }
 
-        v54 = v20;
-        v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v54 forKeys:&v53 count:1];
-        v22 = v43;
-        v42 = v21;
-        v23 = [v22 errorWithDomain:v41 code:status userInfo:?];
+        v53 = v20;
+        v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v53 forKeys:&v52 count:1];
+        v22 = v42;
+        v41 = v21;
+        v23 = [v22 errorWithDomain:v40 code:status userInfo:?];
       }
 
       else
@@ -2540,26 +2502,26 @@ void __66__HMDSecureRemoteStreamInternal_transportReceivedMessage_options___bloc
 
       v26 = &stru_283CF9D50;
       *buf = 138544130;
-      if (v47)
+      if (v46)
       {
-        v26 = v47;
+        v26 = v46;
       }
 
-      v56 = v18;
-      v57 = 2112;
-      v58 = transactionCopy;
-      v59 = 2112;
-      v60 = v23;
-      v61 = 2112;
-      v62 = v26;
+      v55 = v18;
+      v56 = 2112;
+      v57 = transactionCopy;
+      v58 = 2112;
+      v59 = v23;
+      v60 = 2112;
+      v61 = v26;
       _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_DEBUG, "%{public}@Completed request, tid %@, status %@\n%@", buf, 0x2Au);
       if (status)
       {
       }
 
-      responseCopy = v47;
-      optionsCopy = v49;
-      v14 = v45;
+      responseCopy = v46;
+      optionsCopy = v48;
+      v14 = v44;
     }
 
     objc_autoreleasePoolPop(v14);
@@ -2579,12 +2541,12 @@ void __66__HMDSecureRemoteStreamInternal_transportReceivedMessage_options___bloc
       v32 = augmentResponseOptions(optionsCopy, v31);
       if (status)
       {
-        v46 = MEMORY[0x277CCA9B8];
-        v44 = *MEMORY[0x277CCA590];
-        v50 = optionsCopy;
+        v45 = MEMORY[0x277CCA9B8];
+        v43 = *MEMORY[0x277CCA590];
+        v49 = optionsCopy;
         statusCopy = status;
-        v51 = *MEMORY[0x277CCA450];
-        v48 = v30;
+        v50 = *MEMORY[0x277CCA450];
+        v47 = v30;
         v34 = responseCopy;
         v35 = [MEMORY[0x277CCACA8] stringWithUTF8String:DebugGetErrorString()];
         v36 = v35;
@@ -2594,14 +2556,14 @@ void __66__HMDSecureRemoteStreamInternal_transportReceivedMessage_options___bloc
           v37 = v35;
         }
 
-        v52 = v37;
-        v38 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v52 forKeys:&v51 count:1];
-        v39 = [v46 errorWithDomain:v44 code:statusCopy userInfo:v38];
+        v51 = v37;
+        v38 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v51 forKeys:&v50 count:1];
+        v39 = [v45 errorWithDomain:v43 code:statusCopy userInfo:v38];
         (v29)[2](v29, v34, v32, v39);
 
-        optionsCopy = v50;
+        optionsCopy = v49;
         responseCopy = v34;
-        v30 = v48;
+        v30 = v47;
       }
 
       else
@@ -2618,9 +2580,9 @@ void __66__HMDSecureRemoteStreamInternal_transportReceivedMessage_options___bloc
       HMFGetLogIdentifier();
       v25 = v24 = optionsCopy;
       *buf = 138543618;
-      v56 = v25;
-      v57 = 2112;
-      v58 = transactionCopy;
+      v55 = v25;
+      v56 = 2112;
+      v57 = transactionCopy;
       _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_ERROR, "%{public}@Missing, tid %@", buf, 0x16u);
 
       optionsCopy = v24;
@@ -2628,13 +2590,11 @@ void __66__HMDSecureRemoteStreamInternal_transportReceivedMessage_options___bloc
 
     objc_autoreleasePoolPop(v14);
   }
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sendRequest:(id)request options:(id)options responseHandler:(id)handler
 {
-  v48[3] = *MEMORY[0x277D85DE8];
+  v47[3] = *MEMORY[0x277D85DE8];
   requestCopy = request;
   optionsCopy = options;
   handlerCopy = handler;
@@ -2651,14 +2611,14 @@ void __66__HMDSecureRemoteStreamInternal_transportReceivedMessage_options___bloc
     handler[3] = &unk_27868A750;
     handler[4] = self;
     v14 = uUIDString;
-    v40 = v14;
+    v39 = v14;
     dispatch_source_set_event_handler(v13, handler);
 
     dispatch_source_set_cancel_handler(v13, &__block_literal_global_80);
     v15 = dispatch_walltime(0, self->_sendInternalTimeoutNanos);
     dispatch_source_set_timer(v13, v15, 0xFFFFFFFFFFFFFFFFLL, self->_sendInternalTimeoutNanos / 0xA);
     dispatch_resume(v13);
-    v16 = [handlerCopy copy];
+    v16 = objc_msgSend_copy(handlerCopy);
     v17 = v16;
     v18 = MEMORY[0x277CBEC10];
     if (optionsCopy)
@@ -2666,16 +2626,16 @@ void __66__HMDSecureRemoteStreamInternal_transportReceivedMessage_options___bloc
       v18 = optionsCopy;
     }
 
-    v48[0] = v18;
-    v47[0] = @"options";
-    v47[1] = @"responseHandler";
+    v47[0] = v18;
+    v46[0] = @"options";
+    v46[1] = @"responseHandler";
     v19 = _Block_copy(v16);
-    v47[2] = @"timer";
-    v48[1] = v19;
-    v48[2] = v13;
-    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v48 forKeys:v47 count:3];
+    v46[2] = @"timer";
+    v47[1] = v19;
+    v47[2] = v13;
+    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v47 forKeys:v46 count:3];
 
-    v31 = v20;
+    v30 = v20;
     [(NSMutableDictionary *)self->_transactions setObject:v20 forKey:v14];
     v21 = [objc_alloc(MEMORY[0x277CBEB38]) initWithDictionary:requestCopy];
     [v21 setObject:self->_sessionID forKeyedSubscript:@"sid"];
@@ -2687,16 +2647,16 @@ void __66__HMDSecureRemoteStreamInternal_transportReceivedMessage_options___bloc
     if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
     {
       HMFGetLogIdentifier();
-      v25 = v30 = optionsCopy;
+      v25 = v29 = optionsCopy;
       *buf = 138543874;
-      v42 = v25;
-      v43 = 2112;
-      v44 = v14;
-      v45 = 2112;
-      v46 = v21;
+      v41 = v25;
+      v42 = 2112;
+      v43 = v14;
+      v44 = 2112;
+      v45 = v21;
       _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_DEBUG, "%{public}@Sending request, tid %@\n%@", buf, 0x20u);
 
-      optionsCopy = v30;
+      optionsCopy = v29;
     }
 
     objc_autoreleasePoolPop(v22);
@@ -2706,8 +2666,8 @@ void __66__HMDSecureRemoteStreamInternal_transportReceivedMessage_options___bloc
     block[2] = __70__HMDSecureRemoteStreamInternal__sendRequest_options_responseHandler___block_invoke_90;
     block[3] = &unk_27868A010;
     block[4] = selfCopy;
-    v37 = v21;
-    v38 = optionsCopy;
+    v36 = v21;
+    v37 = optionsCopy;
     v27 = v21;
     dispatch_async(userQueue, block);
 
@@ -2717,29 +2677,27 @@ void __66__HMDSecureRemoteStreamInternal_transportReceivedMessage_options___bloc
   else
   {
     internalQueue = self->_internalQueue;
-    v33[0] = MEMORY[0x277D85DD0];
-    v33[1] = 3221225472;
-    v33[2] = __70__HMDSecureRemoteStreamInternal__sendRequest_options_responseHandler___block_invoke_2_91;
-    v33[3] = &unk_2786888B0;
-    v34 = handlerCopy;
-    v35 = -6700;
-    dispatch_async(internalQueue, v33);
-    v17 = v34;
+    v32[0] = MEMORY[0x277D85DD0];
+    v32[1] = 3221225472;
+    v32[2] = __70__HMDSecureRemoteStreamInternal__sendRequest_options_responseHandler___block_invoke_2_91;
+    v32[3] = &unk_2786888B0;
+    v33 = handlerCopy;
+    v34 = -6700;
+    dispatch_async(internalQueue, v32);
+    v17 = v33;
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __70__HMDSecureRemoteStreamInternal__sendRequest_options_responseHandler___block_invoke_2_91(uint64_t a1)
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   v2 = *(a1 + 40);
   if (v2)
   {
     v3 = MEMORY[0x277CCA9B8];
     v4 = *MEMORY[0x277CCA590];
-    v14 = *MEMORY[0x277CCA450];
+    v12 = *MEMORY[0x277CCA450];
     v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:DebugGetErrorString()];
     v6 = v5;
     v7 = @"?";
@@ -2748,27 +2706,24 @@ void __70__HMDSecureRemoteStreamInternal__sendRequest_options_responseHandler___
       v7 = v5;
     }
 
-    v15[0] = v7;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:{1, v1 + 16}];
+    v13[0] = v7;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:{1, v1 + 16}];
     v9 = [v3 errorWithDomain:v4 code:v2 userInfo:v8];
     (*(v1 + 16))(v1, 0, 0, v9);
-
-    v10 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v11 = *(v1 + 16);
-    v12 = *MEMORY[0x277D85DE8];
-    v13 = *(a1 + 32);
+    v10 = *(v1 + 16);
+    v11 = *(a1 + 32);
 
-    v11(v13, 0, 0, 0);
+    v10(v11, 0, 0, 0);
   }
 }
 
 - (void)_completeUserTransaction:(id)transaction response:(id)response options:(id)options status:(int)status
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   transactionCopy = transaction;
   responseCopy = response;
   optionsCopy = options;
@@ -2777,13 +2732,13 @@ void __70__HMDSecureRemoteStreamInternal__sendRequest_options_responseHandler___
   v15 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
-    v42 = responseCopy;
+    v41 = responseCopy;
     v16 = HMFGetLogIdentifier();
     if (status)
     {
-      v41 = MEMORY[0x277CCA9B8];
+      v40 = MEMORY[0x277CCA9B8];
       v17 = *MEMORY[0x277CCA590];
-      v50 = *MEMORY[0x277CCA450];
+      v49 = *MEMORY[0x277CCA450];
       v18 = [MEMORY[0x277CCACA8] stringWithUTF8String:DebugGetErrorString()];
       responseCopy = v18;
       v19 = @"?";
@@ -2792,9 +2747,9 @@ void __70__HMDSecureRemoteStreamInternal__sendRequest_options_responseHandler___
         v19 = v18;
       }
 
-      v51 = v19;
-      v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v51 forKeys:&v50 count:1];
-      v20 = [v41 errorWithDomain:v17 code:status userInfo:v6];
+      v50 = v19;
+      v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v50 forKeys:&v49 count:1];
+      v20 = [v40 errorWithDomain:v17 code:status userInfo:v6];
     }
 
     else
@@ -2804,24 +2759,24 @@ void __70__HMDSecureRemoteStreamInternal__sendRequest_options_responseHandler___
 
     v21 = &stru_283CF9D50;
     *buf = 138544130;
-    if (v42)
+    if (v41)
     {
-      v21 = v42;
+      v21 = v41;
     }
 
-    v53 = v16;
-    v54 = 2112;
-    v55 = transactionCopy;
-    v56 = 2112;
-    v57 = v20;
-    v58 = 2112;
-    v59 = v21;
+    v52 = v16;
+    v53 = 2112;
+    v54 = transactionCopy;
+    v55 = 2112;
+    v56 = v20;
+    v57 = 2112;
+    v58 = v21;
     _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_DEBUG, "%{public}@Completed user request, utid %@, status %@\n%@", buf, 0x2Au);
     if (status)
     {
     }
 
-    responseCopy = v42;
+    responseCopy = v41;
   }
 
   objc_autoreleasePoolPop(v13);
@@ -2837,11 +2792,11 @@ LABEL_24:
     {
       v39 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v53 = v39;
-      v54 = 2112;
-      v55 = transactionCopy;
-      v56 = 2112;
-      v57 = responseCopy;
+      v52 = v39;
+      v53 = 2112;
+      v54 = transactionCopy;
+      v55 = 2112;
+      v56 = responseCopy;
       _os_log_impl(&dword_229538000, v38, OS_LOG_TYPE_ERROR, "%{public}@Missing, utid %@ for response %@", buf, 0x20u);
     }
 
@@ -2896,10 +2851,10 @@ LABEL_24:
     block[1] = 3221225472;
     block[2] = __82__HMDSecureRemoteStreamInternal__completeUserTransaction_response_options_status___block_invoke;
     block[3] = &unk_2786888D8;
-    v48 = v33;
-    v46 = v30;
-    v47 = optionsCopy;
-    v49 = statusCopy;
+    v47 = v33;
+    v45 = v30;
+    v46 = optionsCopy;
+    v48 = statusCopy;
     dispatch_async(userQueue, block);
   }
 
@@ -2907,13 +2862,11 @@ LABEL_24:
 
   responseCopy = v30;
 LABEL_27:
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 void __82__HMDSecureRemoteStreamInternal__completeUserTransaction_response_options_status___block_invoke(uint64_t a1)
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 40);
   v1 = *(a1 + 48);
   v3 = *(a1 + 32);
@@ -2922,7 +2875,7 @@ void __82__HMDSecureRemoteStreamInternal__completeUserTransaction_response_optio
   {
     v5 = MEMORY[0x277CCA9B8];
     v6 = *MEMORY[0x277CCA590];
-    v16 = *MEMORY[0x277CCA450];
+    v14 = *MEMORY[0x277CCA450];
     v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:DebugGetErrorString()];
     v8 = v7;
     v9 = @"?";
@@ -2931,27 +2884,24 @@ void __82__HMDSecureRemoteStreamInternal__completeUserTransaction_response_optio
       v9 = v7;
     }
 
-    v17[0] = v9;
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:{1, v1 + 16}];
+    v15[0] = v9;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:{1, v1 + 16}];
     v11 = [v5 errorWithDomain:v6 code:v4 userInfo:v10];
     (*(v1 + 16))(v1, v3, v2, v11);
-
-    v12 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v13 = *(v1 + 16);
-    v14 = *MEMORY[0x277D85DE8];
-    v15 = *(a1 + 48);
+    v12 = *(v1 + 16);
+    v13 = *(a1 + 48);
 
-    v13(v15, v3, v2, 0);
+    v12(v13, v3, v2, 0);
   }
 }
 
 - (void)_sendUserRequest:(id)request options:(id)options responseHandler:(id)handler
 {
-  v59[5] = *MEMORY[0x277D85DE8];
+  v58[5] = *MEMORY[0x277D85DE8];
   requestCopy = request;
   optionsCopy = options;
   handlerCopy = handler;
@@ -2974,27 +2924,27 @@ void __82__HMDSecureRemoteStreamInternal__completeUserTransaction_response_optio
       v15 = dispatch_walltime(0, self->_sendUserTimeoutNanos);
       dispatch_source_set_timer(v14, v15, 0xFFFFFFFFFFFFFFFFLL, self->_sendUserTimeoutNanos / 0xA);
       dispatch_resume(v14);
-      v16 = [handlerCopy copy];
+      v16 = objc_msgSend_copy(handlerCopy);
       v17 = v16;
       userTransactions = self->_userTransactions;
-      v58[0] = @"options";
-      v58[1] = @"request";
+      v57[0] = @"options";
+      v57[1] = @"request";
       v19 = MEMORY[0x277CBEC10];
       if (optionsCopy)
       {
         v19 = optionsCopy;
       }
 
-      v59[0] = v19;
-      v59[1] = requestCopy;
-      v58[2] = @"responseHandler";
+      v58[0] = v19;
+      v58[1] = requestCopy;
+      v57[2] = @"responseHandler";
       v20 = _Block_copy(v16);
-      v59[2] = v20;
-      v59[3] = v14;
-      v58[3] = @"timer";
-      v58[4] = @"utid";
-      v59[4] = uUIDString;
-      v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v59 forKeys:v58 count:5];
+      v58[2] = v20;
+      v58[3] = v14;
+      v57[3] = @"timer";
+      v57[4] = @"utid";
+      v58[4] = uUIDString;
+      v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v58 forKeys:v57 count:5];
       [(NSMutableArray *)userTransactions addObject:v21];
 
       v22 = objc_autoreleasePoolPush();
@@ -3004,11 +2954,11 @@ void __82__HMDSecureRemoteStreamInternal__completeUserTransaction_response_optio
       {
         v25 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v53 = v25;
-        v54 = 2112;
-        v55 = uUIDString;
-        v56 = 2112;
-        v57 = requestCopy;
+        v52 = v25;
+        v53 = 2112;
+        v54 = uUIDString;
+        v55 = 2112;
+        v56 = requestCopy;
         _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_DEBUG, "%{public}@Scheduled user request, utid %@\n%@", buf, 0x20u);
       }
 
@@ -3018,74 +2968,72 @@ void __82__HMDSecureRemoteStreamInternal__completeUserTransaction_response_optio
       goto LABEL_8;
     }
 
-    v27 = -6700;
+    v26 = -6700;
   }
 
   else
   {
     uUIDString = 0;
-    v27 = -6703;
+    v26 = -6703;
   }
 
-  v28 = objc_autoreleasePoolPush();
+  v27 = objc_autoreleasePoolPush();
   selfCopy2 = self;
-  v30 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+  v29 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
   {
-    v31 = HMFGetLogIdentifier();
-    v41 = MEMORY[0x277CCA9B8];
-    v43 = v31;
-    v39 = *MEMORY[0x277CCA590];
-    v32 = v27;
-    v50 = *MEMORY[0x277CCA450];
-    v33 = [MEMORY[0x277CCACA8] stringWithUTF8String:DebugGetErrorString()];
-    v44 = v33;
-    v34 = @"?";
-    if (v33)
+    v30 = HMFGetLogIdentifier();
+    v40 = MEMORY[0x277CCA9B8];
+    v42 = v30;
+    v38 = *MEMORY[0x277CCA590];
+    v31 = v26;
+    v49 = *MEMORY[0x277CCA450];
+    v32 = [MEMORY[0x277CCACA8] stringWithUTF8String:DebugGetErrorString()];
+    v43 = v32;
+    v33 = @"?";
+    if (v32)
     {
-      v34 = v33;
+      v33 = v32;
     }
 
-    v51 = v34;
-    [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v51 forKeys:&v50 count:{1, v39, v41}];
-    v45 = v27;
-    v36 = v35 = v28;
-    v37 = [v42 errorWithDomain:v40 code:v32 userInfo:v36];
+    v50 = v33;
+    [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v50 forKeys:&v49 count:{1, v38, v40}];
+    v44 = v26;
+    v35 = v34 = v27;
+    v36 = [v41 errorWithDomain:v39 code:v31 userInfo:v35];
     *buf = 138543618;
-    v53 = v43;
-    v54 = 2112;
-    v55 = v37;
-    _os_log_impl(&dword_229538000, v30, OS_LOG_TYPE_ERROR, "%{public}@Send user request failed: %@", buf, 0x16u);
+    v52 = v42;
+    v53 = 2112;
+    v54 = v36;
+    _os_log_impl(&dword_229538000, v29, OS_LOG_TYPE_ERROR, "%{public}@Send user request failed: %@", buf, 0x16u);
 
-    v28 = v35;
-    v27 = v45;
+    v27 = v34;
+    v26 = v44;
   }
 
-  objc_autoreleasePoolPop(v28);
+  objc_autoreleasePoolPop(v27);
   userQueue = selfCopy2->_userQueue;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __74__HMDSecureRemoteStreamInternal__sendUserRequest_options_responseHandler___block_invoke_75;
   block[3] = &unk_2786888B0;
-  v47 = handlerCopy;
-  v48 = v27;
+  v46 = handlerCopy;
+  v47 = v26;
   dispatch_async(userQueue, block);
-  v14 = v47;
+  v14 = v46;
 LABEL_8:
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __74__HMDSecureRemoteStreamInternal__sendUserRequest_options_responseHandler___block_invoke_75(uint64_t a1)
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   v2 = *(a1 + 40);
   if (v2)
   {
     v3 = MEMORY[0x277CCA9B8];
     v4 = *MEMORY[0x277CCA590];
-    v14 = *MEMORY[0x277CCA450];
+    v12 = *MEMORY[0x277CCA450];
     v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:DebugGetErrorString()];
     v6 = v5;
     v7 = @"?";
@@ -3094,21 +3042,18 @@ void __74__HMDSecureRemoteStreamInternal__sendUserRequest_options_responseHandle
       v7 = v5;
     }
 
-    v15[0] = v7;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:{1, v1 + 16}];
+    v13[0] = v7;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:{1, v1 + 16}];
     v9 = [v3 errorWithDomain:v4 code:v2 userInfo:v8];
     (*(v1 + 16))(v1, 0, 0, v9);
-
-    v10 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v11 = *(v1 + 16);
-    v12 = *MEMORY[0x277D85DE8];
-    v13 = *(a1 + 32);
+    v10 = *(v1 + 16);
+    v11 = *(a1 + 32);
 
-    v11(v13, 0, 0, 0);
+    v10(v11, 0, 0, 0);
   }
 }
 
@@ -3134,7 +3079,7 @@ void __74__HMDSecureRemoteStreamInternal__sendUserRequest_options_responseHandle
 
 - (int)_updateIdleTimer
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   idleTimer = self->_idleTimer;
   v4 = idleTimer;
   if (idleTimer)
@@ -3158,8 +3103,7 @@ LABEL_4:
       dispatch_resume(self->_idleTimer);
     }
 
-    result = 0;
-    goto LABEL_10;
+    return 0;
   }
 
   v5 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, self->_internalQueue);
@@ -3180,95 +3124,68 @@ LABEL_4:
     goto LABEL_4;
   }
 
-  v13 = objc_autoreleasePoolPush();
+  v12 = objc_autoreleasePoolPush();
   selfCopy = self;
-  v15 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+  v14 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
-    v16 = HMFGetLogIdentifier();
-    v17 = MEMORY[0x277CCA9B8];
-    v18 = *MEMORY[0x277CCA590];
-    v25 = *MEMORY[0x277CCA450];
-    v19 = [MEMORY[0x277CCACA8] stringWithUTF8String:DebugGetErrorString()];
-    v20 = v19;
-    v21 = @"?";
-    if (v19)
+    v15 = HMFGetLogIdentifier();
+    v16 = MEMORY[0x277CCA9B8];
+    v17 = *MEMORY[0x277CCA590];
+    v24 = *MEMORY[0x277CCA450];
+    v18 = [MEMORY[0x277CCACA8] stringWithUTF8String:DebugGetErrorString()];
+    v19 = v18;
+    v20 = @"?";
+    if (v18)
     {
-      v21 = v19;
+      v20 = v18;
     }
 
-    v26 = v21;
-    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
-    v23 = [v17 errorWithDomain:v18 code:-6700 userInfo:v22];
+    v25 = v20;
+    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+    v22 = [v16 errorWithDomain:v17 code:-6700 userInfo:v21];
     *buf = 138543618;
-    v28 = v16;
-    v29 = 2112;
-    v30 = v23;
-    _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_ERROR, "%{public}@idle timer failed: %@", buf, 0x16u);
+    v27 = v15;
+    v28 = 2112;
+    v29 = v22;
+    _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_ERROR, "%{public}@idle timer failed: %@", buf, 0x16u);
   }
 
-  objc_autoreleasePoolPop(v13);
-  result = -6700;
-LABEL_10:
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  objc_autoreleasePoolPop(v12);
+  return -6700;
 }
 
 - (int)_setupEncryption
 {
-  type = self->_type;
-  if (type == 1)
-  {
-    v4 = &OBJC_IVAR___HMDSecureRemoteStreamInternal__cipherWriteKey;
-  }
-
-  else
-  {
-    v4 = &OBJC_IVAR___HMDSecureRemoteStreamInternal__cipherReadKey;
-  }
-
   if (!self->_pairVerifySession)
   {
     return -6745;
   }
 
-  v5 = *v4;
-  if (type == 1)
+  v3 = PairingSessionDeriveKey();
+  if (v3)
   {
-    v6 = &OBJC_IVAR___HMDSecureRemoteStreamInternal__cipherReadKey;
+    v4 = v3;
   }
 
   else
   {
-    v6 = &OBJC_IVAR___HMDSecureRemoteStreamInternal__cipherWriteKey;
-  }
-
-  v7 = *v6;
-  v8 = PairingSessionDeriveKey();
-  if (v8)
-  {
-    v9 = v8;
-  }
-
-  else
-  {
-    pairVerifySession = self->_pairVerifySession;
-    v9 = PairingSessionDeriveKey();
-    if (!v9)
+    v4 = PairingSessionDeriveKey();
+    if (!v4)
     {
       *self->_cipherReadNonce = 0;
       *self->_cipherWriteNonce = 0;
     }
   }
 
-  v11 = self->_pairVerifySession;
-  if (v11)
+  pairVerifySession = self->_pairVerifySession;
+  if (pairVerifySession)
   {
-    CFRelease(v11);
+    CFRelease(pairVerifySession);
     self->_pairVerifySession = 0;
   }
 
-  return v9;
+  return v4;
 }
 
 - (void)_runStateMachine
@@ -3284,9 +3201,255 @@ LABEL_10:
   }
 }
 
+- (void)_stop:(int)_stop
+{
+  v5 = *&_stop;
+  v77 = *MEMORY[0x277D85DE8];
+  started = self->_started;
+  if (started)
+  {
+    v7 = objc_autoreleasePoolPush();
+    selfCopy = self;
+    v9 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    {
+      v10 = HMFGetLogIdentifier();
+      if (v5)
+      {
+        v53 = MEMORY[0x277CCA9B8];
+        v52 = *MEMORY[0x277CCA590];
+        v71 = *MEMORY[0x277CCA450];
+        v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:DebugGetErrorString()];
+        v3 = v11;
+        v12 = @"?";
+        if (v11)
+        {
+          v12 = v11;
+        }
+
+        v72 = v12;
+        v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v72 forKeys:&v71 count:1];
+        v13 = [v53 errorWithDomain:v52 code:v5 userInfo:v4];
+      }
+
+      else
+      {
+        v13 = 0;
+      }
+
+      *buf = 138543618;
+      v74 = v10;
+      v75 = 2112;
+      v76 = v13;
+      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_DEBUG, "%{public}@Stopping: %@", buf, 0x16u);
+      if (v5)
+      {
+      }
+    }
+
+    objc_autoreleasePoolPop(v7);
+  }
+
+  self->_started = 0;
+  if (self->_type == 1)
+  {
+    v14 = 1;
+  }
+
+  else
+  {
+    v14 = 11;
+  }
+
+  self->_state = v14;
+  userQueue = self->_userQueue;
+  block[0] = MEMORY[0x277D85DD0];
+  block[1] = 3221225472;
+  block[2] = __39__HMDSecureRemoteStreamInternal__stop___block_invoke;
+  block[3] = &unk_278688888;
+  block[4] = self;
+  v66 = v5;
+  dispatch_async(userQueue, block);
+  v16 = self->_userQueue;
+  v63[0] = MEMORY[0x277D85DD0];
+  v63[1] = 3221225472;
+  v63[2] = __39__HMDSecureRemoteStreamInternal__stop___block_invoke_2;
+  v63[3] = &unk_278688888;
+  v63[4] = self;
+  v64 = v5;
+  dispatch_async(v16, v63);
+  idleTimer = self->_idleTimer;
+  if (idleTimer)
+  {
+    v18 = idleTimer;
+    dispatch_source_cancel(v18);
+    v19 = self->_idleTimer;
+    self->_idleTimer = 0;
+  }
+
+  v61 = 0u;
+  v62 = 0u;
+  v59 = 0u;
+  v60 = 0u;
+  allKeys = [(NSMutableDictionary *)self->_prepareRequests allKeys];
+  v21 = [allKeys countByEnumeratingWithState:&v59 objects:v70 count:16];
+  if (v21)
+  {
+    v22 = v21;
+    v23 = 0;
+    v3 = *v60;
+    do
+    {
+      v24 = 0;
+      v25 = v23;
+      do
+      {
+        if (*v60 != v3)
+        {
+          objc_enumerationMutation(allKeys);
+        }
+
+        v23 = *(*(&v59 + 1) + 8 * v24);
+
+        [(HMDSecureRemoteStreamInternal *)self _serverCompletePrepareRequest:v23];
+        ++v24;
+        v25 = v23;
+      }
+
+      while (v22 != v24);
+      v22 = [allKeys countByEnumeratingWithState:&v59 objects:v70 count:16];
+    }
+
+    while (v22);
+  }
+
+  prepareRequests = self->_prepareRequests;
+  self->_prepareRequests = 0;
+
+  v57 = 0u;
+  v58 = 0u;
+  v55 = 0u;
+  v56 = 0u;
+  allKeys2 = [(NSMutableDictionary *)self->_transactions allKeys];
+  v28 = [allKeys2 countByEnumeratingWithState:&v55 objects:v69 count:16];
+  if (v28)
+  {
+    v29 = v28;
+    v30 = 0;
+    v3 = *v56;
+    do
+    {
+      v31 = 0;
+      v32 = v30;
+      do
+      {
+        if (*v56 != v3)
+        {
+          objc_enumerationMutation(allKeys2);
+        }
+
+        v30 = *(*(&v55 + 1) + 8 * v31);
+
+        [(HMDSecureRemoteStreamInternal *)self _completeTransaction:v30 response:0 options:0 status:4294960544];
+        ++v31;
+        v32 = v30;
+      }
+
+      while (v29 != v31);
+      v29 = [allKeys2 countByEnumeratingWithState:&v55 objects:v69 count:16];
+    }
+
+    while (v29);
+  }
+
+  transactions = self->_transactions;
+  self->_transactions = 0;
+
+  v34 = 176;
+  firstObject = [(NSMutableArray *)self->_userTransactions firstObject];
+  if (firstObject)
+  {
+    v36 = firstObject;
+    do
+    {
+      v37 = [v36 objectForKeyedSubscript:@"utid"];
+      [(HMDSecureRemoteStreamInternal *)self _completeUserTransaction:v37 response:0 options:0 status:v5];
+
+      firstObject2 = [(NSMutableArray *)self->_userTransactions firstObject];
+
+      v36 = firstObject2;
+    }
+
+    while (firstObject2);
+  }
+
+  userTransactions = self->_userTransactions;
+  self->_userTransactions = 0;
+
+  memset_s(self->_cipherReadKey, 0x20uLL, 0, 0x20uLL);
+  memset_s(self->_cipherWriteKey, 0x20uLL, 0, 0x20uLL);
+  internalRequestHandler = self->_internalRequestHandler;
+  self->_internalRequestHandler = 0;
+
+  pairVerifySession = self->_pairVerifySession;
+  if (pairVerifySession)
+  {
+    CFRelease(pairVerifySession);
+    self->_pairVerifySession = 0;
+  }
+
+  self->_pairVerifyDone = 0;
+  sessionID = self->_sessionID;
+  self->_sessionID = 0;
+
+  if (started)
+  {
+    v43 = objc_autoreleasePoolPush();
+    selfCopy2 = self;
+    v45 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
+    {
+      v46 = HMFGetLogIdentifier();
+      if (v5)
+      {
+        v47 = MEMORY[0x277CCA9B8];
+        v48 = *MEMORY[0x277CCA590];
+        v67 = *MEMORY[0x277CCA450];
+        v49 = [MEMORY[0x277CCACA8] stringWithUTF8String:DebugGetErrorString()];
+        v34 = v49;
+        v50 = @"?";
+        if (v49)
+        {
+          v50 = v49;
+        }
+
+        v68 = v50;
+        v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v68 forKeys:&v67 count:1];
+        v51 = [v47 errorWithDomain:v48 code:v5 userInfo:v3];
+      }
+
+      else
+      {
+        v51 = 0;
+      }
+
+      *buf = 138543618;
+      v74 = v46;
+      v75 = 2112;
+      v76 = v51;
+      _os_log_impl(&dword_229538000, v45, OS_LOG_TYPE_DEBUG, "%{public}@Stopped: %@", buf, 0x16u);
+      if (v5)
+      {
+      }
+    }
+
+    objc_autoreleasePoolPop(v43);
+  }
+}
+
 void __39__HMDSecureRemoteStreamInternal__stop___block_invoke(uint64_t a1)
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   v2 = _Block_copy(*(*(a1 + 32) + 208));
   if (v2)
   {
@@ -3299,7 +3462,7 @@ void __39__HMDSecureRemoteStreamInternal__stop___block_invoke(uint64_t a1)
     {
       v6 = MEMORY[0x277CCA9B8];
       v7 = *MEMORY[0x277CCA590];
-      v14 = *MEMORY[0x277CCA450];
+      v13 = *MEMORY[0x277CCA450];
       v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:DebugGetErrorString()];
       v9 = v8;
       v10 = @"?";
@@ -3308,8 +3471,8 @@ void __39__HMDSecureRemoteStreamInternal__stop___block_invoke(uint64_t a1)
         v10 = v8;
       }
 
-      v15[0] = v10;
-      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+      v14[0] = v10;
+      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
       v12 = [v6 errorWithDomain:v7 code:v5 userInfo:v11];
       v2[2](v2, v12);
     }
@@ -3319,13 +3482,11 @@ void __39__HMDSecureRemoteStreamInternal__stop___block_invoke(uint64_t a1)
       v2[2](v2, 0);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __39__HMDSecureRemoteStreamInternal__stop___block_invoke_2(uint64_t a1)
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   v2 = _Block_copy(*(*(a1 + 32) + 216));
   if (v2)
   {
@@ -3354,7 +3515,7 @@ void __39__HMDSecureRemoteStreamInternal__stop___block_invoke_2(uint64_t a1)
       v7 = v5;
       v8 = MEMORY[0x277CCA9B8];
       v9 = *MEMORY[0x277CCA590];
-      v16 = *MEMORY[0x277CCA450];
+      v15 = *MEMORY[0x277CCA450];
       v10 = [MEMORY[0x277CCACA8] stringWithUTF8String:DebugGetErrorString()];
       v11 = v10;
       v12 = @"?";
@@ -3363,14 +3524,12 @@ void __39__HMDSecureRemoteStreamInternal__stop___block_invoke_2(uint64_t a1)
         v12 = v10;
       }
 
-      v17[0] = v12;
-      v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+      v16[0] = v12;
+      v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
       v14 = [v8 errorWithDomain:v9 code:v7 userInfo:v13];
       (v2)[2](v2, v14);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stop
@@ -3386,7 +3545,7 @@ void __39__HMDSecureRemoteStreamInternal__stop___block_invoke_2(uint64_t a1)
 
 - (void)_start
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   started = self->_started;
   if (!started)
   {
@@ -3397,7 +3556,7 @@ void __39__HMDSecureRemoteStreamInternal__stop___block_invoke_2(uint64_t a1)
     {
       v7 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v46 = v7;
+      v45 = v7;
       _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_DEBUG, "%{public}@Starting", buf, 0xCu);
     }
 
@@ -3415,7 +3574,7 @@ void __39__HMDSecureRemoteStreamInternal__stop___block_invoke_2(uint64_t a1)
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v46 = v13;
+      v45 = v13;
       _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Start failed, attempt to restart session", buf, 0xCu);
     }
 
@@ -3437,7 +3596,7 @@ void __39__HMDSecureRemoteStreamInternal__stop___block_invoke_2(uint64_t a1)
   {
     if (self->_requestHandler)
     {
-      v32 = 10;
+      v31 = 10;
       goto LABEL_25;
     }
 
@@ -3454,31 +3613,31 @@ LABEL_38:
 
   uUID = [MEMORY[0x277CCAD78] UUID];
   uUIDString = [uUID UUIDString];
-  v31 = self->_sessionID;
+  v30 = self->_sessionID;
   self->_sessionID = uUIDString;
 
-  v32 = 0;
+  v31 = 0;
 LABEL_25:
-  self->_state = v32;
+  self->_state = v31;
   if (!self->_prepareRequests)
   {
-    v33 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v32 = objc_alloc_init(MEMORY[0x277CBEB38]);
     prepareRequests = self->_prepareRequests;
-    self->_prepareRequests = v33;
+    self->_prepareRequests = v32;
   }
 
   if (!self->_transactions)
   {
-    v35 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v34 = objc_alloc_init(MEMORY[0x277CBEB38]);
     transactions = self->_transactions;
-    self->_transactions = v35;
+    self->_transactions = v34;
   }
 
   if (!self->_userTransactions)
   {
-    v37 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v36 = objc_alloc_init(MEMORY[0x277CBEB18]);
     userTransactions = self->_userTransactions;
-    self->_userTransactions = v37;
+    self->_userTransactions = v36;
   }
 
   _updateIdleTimer = [(HMDSecureRemoteStreamInternal *)self _updateIdleTimer];
@@ -3486,22 +3645,22 @@ LABEL_25:
   {
     if (!started)
     {
-      v39 = objc_autoreleasePoolPush();
+      v38 = objc_autoreleasePoolPush();
       selfCopy3 = self;
-      v41 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
+      v40 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
       {
-        v42 = HMFGetLogIdentifier();
+        v41 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v46 = v42;
-        _os_log_impl(&dword_229538000, v41, OS_LOG_TYPE_DEBUG, "%{public}@Started", buf, 0xCu);
+        v45 = v41;
+        _os_log_impl(&dword_229538000, v40, OS_LOG_TYPE_DEBUG, "%{public}@Started", buf, 0xCu);
       }
 
-      objc_autoreleasePoolPop(v39);
+      objc_autoreleasePoolPop(v38);
     }
 
     [(HMDSecureRemoteStreamInternal *)self _runStateMachine];
-    goto LABEL_18;
+    return;
   }
 
 LABEL_13:
@@ -3521,20 +3680,18 @@ LABEL_13:
       v23 = v21;
     }
 
-    v44 = v23;
-    v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v44 forKeys:&v43 count:1];
+    v43 = v23;
+    v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v43 forKeys:&v42 count:1];
     v25 = [v19 errorWithDomain:v20 code:_updateIdleTimer userInfo:v24];
     *buf = 138543618;
-    v46 = v18;
-    v47 = 2112;
-    v48 = v25;
+    v45 = v18;
+    v46 = 2112;
+    v47 = v25;
     _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_ERROR, "%{public}@Start failed: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v15);
   [(HMDSecureRemoteStreamInternal *)selfCopy4 _stop:_updateIdleTimer];
-LABEL_18:
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)start
@@ -3667,10 +3824,9 @@ void __132__HMDSecureRemoteStreamInternal_initWithType_commitTimeout_clientIdleT
 
 void __44__HMDSecureRemoteStreamInternal_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v50;
-  logCategory__hmf_once_v50 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v50;
+  logCategory__hmf_once_v50 = v0;
 }
 
 @end

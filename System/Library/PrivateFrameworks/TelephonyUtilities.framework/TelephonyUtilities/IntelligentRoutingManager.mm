@@ -40,7 +40,7 @@
 {
   sessionCopy = session;
   selfCopy = self;
-  sub_1003D7324(sessionCopy);
+  sub_1003D7324(sessionCopy, reason);
 }
 
 - (void)session:(id)session suspensionReasonEnded:(int64_t)ended isNoLongerSuspended:(BOOL)suspended

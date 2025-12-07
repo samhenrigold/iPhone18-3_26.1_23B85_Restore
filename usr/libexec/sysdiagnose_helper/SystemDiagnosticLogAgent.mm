@@ -22,6 +22,7 @@
 - (BOOL)batteryHealthTaskWithDir:(id)dir withTimeout:(double)timeout;
 - (BOOL)batteryUITaskWithDir:(id)dir withTimeout:(double)timeout;
 - (BOOL)centauriTaskWithDir:(id)dir withTimeout:(double)timeout withRequest:(id)request;
+- (BOOL)coreCaptureTaskWithDir:(id)dir withTimeout:(double)timeout ofType:(int)type;
 - (BOOL)coreRepairDiagnosticTaskWithDir:(id)dir withTimeout:(double)timeout;
 - (BOOL)getCloudKitPreferences:(id)preferences withTimeout:(double)timeout;
 - (BOOL)getPreferences:(id)preferences withTimeout:(double)timeout;
@@ -44,12 +45,15 @@
 - (id)_memoryExceptionsTaskWithTimeout:(double)timeout;
 - (id)coreCaptureConfigTask:(double)task;
 - (id)excResourcePathsWithTimeout:(double)timeout;
+- (id)getPreferencesForDomain:(id)domain withKey:(id)key andNestedKeys:(id)keys currentUser:(BOOL)user;
 - (id)getPreferencesForDomain:(id)domain withKeys:(id)keys currentUser:(BOOL)user;
 - (id)intelligencePlatformTaskWithDir:(id)dir withTimeout:(double)timeout;
+- (id)tailspinAugmentSpiWrapperForPath:(id)path withDestName:(id)name collectAriadne:(BOOL)ariadne withTimeout:(double)timeout;
 - (id)tailspinAugmentTaskWithDir:(id)dir withTimeout:(double)timeout;
 - (id)tailspinKeychordTaskWithDir:(id)dir withTimeout:(double)timeout;
 - (int64_t)_logItemForType:(int)type;
 - (void)processMessage:(id)message replyWith:(id)with;
+- (void)writePreferenceInDomain:(id)domain withKey:(id)key toDirectory:(id)directory currentUser:(BOOL)user;
 @end
 
 @implementation SystemDiagnosticLogAgent
@@ -801,6 +805,98 @@ LABEL_20:
   {
     return v3;
   }
+}
+
+- (BOOL)coreCaptureTaskWithDir:(id)dir withTimeout:(double)timeout ofType:(int)type
+{
+  v5 = *&type;
+  dirCopy = dir;
+  if (objc_opt_class())
+  {
+    v9 = [(SystemDiagnosticLogAgent *)self _logItemForType:v5];
+    if (v9)
+    {
+      *buf = 0;
+      v32 = buf;
+      v33 = 0x3032000000;
+      v34 = sub_100005FB8;
+      v35 = sub_100005FC8;
+      v36 = 0;
+      v25 = 0;
+      v26 = &v25;
+      v27 = 0x3032000000;
+      v28 = sub_100005FB8;
+      v29 = sub_100005FC8;
+      v30 = 0;
+      v15 = _NSConcreteStackBlock;
+      v16 = 3221225472;
+      v17 = sub_100008258;
+      v18 = &unk_100074BF8;
+      v23 = v9;
+      selfCopy = self;
+      timeoutCopy = timeout;
+      v20 = dirCopy;
+      v21 = buf;
+      v22 = &v25;
+      if ([SystemDiagnosticLogAgent _runBlock:&v15 withTimeout:timeout])
+      {
+        if (*(v32 + 5))
+        {
+          v10 = 1;
+LABEL_17:
+
+          _Block_object_dispose(&v25, 8);
+          _Block_object_dispose(buf, 8);
+
+          goto LABEL_18;
+        }
+
+        v12 = [(SystemDiagnosticLogAgent *)self logHandle:v15];
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+        {
+          localizedDescription = [v26[5] localizedDescription];
+          *v37 = 138412290;
+          v38 = localizedDescription;
+          _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "CoreCapture SPI failed due to %@", v37, 0xCu);
+        }
+      }
+
+      else
+      {
+        v12 = [(SystemDiagnosticLogAgent *)self logHandle:v15];
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+        {
+          *v37 = 0;
+          _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "CoreCapture task timed out", v37, 2u);
+        }
+      }
+
+      v10 = 0;
+      goto LABEL_17;
+    }
+
+    logHandle = [(SystemDiagnosticLogAgent *)self logHandle];
+    if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, logHandle, OS_LOG_TYPE_DEFAULT, "Not a valid corecapture request type.", buf, 2u);
+    }
+  }
+
+  else
+  {
+    logHandle = [(SystemDiagnosticLogAgent *)self logHandle];
+    if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, logHandle, OS_LOG_TYPE_DEFAULT, "Wifi velocity SPI not found", buf, 2u);
+    }
+  }
+
+  v10 = 0;
+LABEL_18:
+
+  return v10;
 }
 
 - (BOOL)unifiedAssetTaskWithDir:(id)dir withTimeout:(double)timeout
@@ -1848,6 +1944,119 @@ LABEL_27:
   return v19;
 }
 
+- (id)tailspinAugmentSpiWrapperForPath:(id)path withDestName:(id)name collectAriadne:(BOOL)ariadne withTimeout:(double)timeout
+{
+  ariadneCopy = ariadne;
+  pathCopy = path;
+  nameCopy = name;
+  if (!&_tailspin_augment_output)
+  {
+    logHandle = [(SystemDiagnosticLogAgent *)self logHandle];
+    if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, logHandle, OS_LOG_TYPE_DEFAULT, "Tailspin augment SPI not found", buf, 2u);
+    }
+
+    goto LABEL_12;
+  }
+
+  if (sub_100005634([pathCopy fileSystemRepresentation], 2) == -1)
+  {
+    v28 = *__error();
+    logHandle = [(SystemDiagnosticLogAgent *)self logHandle];
+    if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 136315394;
+      *&buf[4] = [pathCopy fileSystemRepresentation];
+      *&buf[12] = 2080;
+      *&buf[14] = strerror(v28);
+      _os_log_impl(&_mh_execute_header, logHandle, OS_LOG_TYPE_DEFAULT, "Unable to open '%s' for augmenting with error: %s", buf, 0x16u);
+    }
+
+LABEL_12:
+
+    v29 = pathCopy;
+    goto LABEL_18;
+  }
+
+  v12 = dispatch_semaphore_create(0);
+  *buf = 0;
+  *&buf[8] = buf;
+  *&buf[16] = 0x2020000000;
+  v44 = 0;
+  v42[0] = &__kCFBooleanTrue;
+  v41[0] = UnsafePointer;
+  v41[1] = UnsafePointer;
+  v13 = [NSNumber numberWithBool:ariadneCopy];
+  v42[1] = v13;
+  v42[2] = &__kCFBooleanTrue;
+  v41[2] = UnsafePointer;
+  v41[3] = UnsafePointer;
+  v42[3] = &__kCFBooleanTrue;
+  v14 = [NSDictionary dictionaryWithObjects:v42 forKeys:v41 count:4];
+
+  v15 = dispatch_queue_create("com.apple.sysdiagnose.tailspin_augment_queue", 0);
+  v16 = v12;
+  tailspin_augment_output();
+  v17 = dispatch_time(0, (timeout * 1000000000.0));
+  v18 = dispatch_semaphore_wait(v16, v17);
+  v19 = v18;
+  if (*(*&buf[8] + 24) != 1 || v18)
+  {
+    logHandle2 = [(SystemDiagnosticLogAgent *)self logHandle];
+    if (os_log_type_enabled(logHandle2, OS_LOG_TYPE_DEFAULT))
+    {
+      v30 = *(*&buf[8] + 24);
+      *v36 = 67109376;
+      *v37 = v19 != 0;
+      *&v37[4] = 1024;
+      *&v37[6] = v30;
+      _os_log_impl(&_mh_execute_header, logHandle2, OS_LOG_TYPE_DEFAULT, "Tailspin augment task timed out (!%d) or failed (!%d)", v36, 0xEu);
+    }
+  }
+
+  else
+  {
+    v20 = pathCopy;
+    fileSystemRepresentation = [pathCopy fileSystemRepresentation];
+    v22 = nameCopy;
+    fileSystemRepresentation2 = [nameCopy fileSystemRepresentation];
+    rename(fileSystemRepresentation, fileSystemRepresentation2, v24);
+    if (v25 == -1)
+    {
+      v31 = *__error();
+      logHandle2 = [(SystemDiagnosticLogAgent *)self logHandle];
+      if (os_log_type_enabled(logHandle2, OS_LOG_TYPE_ERROR))
+      {
+        v33 = pathCopy;
+        fileSystemRepresentation3 = [pathCopy fileSystemRepresentation];
+        v35 = nameCopy;
+        *v36 = 136315650;
+        *v37 = fileSystemRepresentation3;
+        *&v37[8] = 2080;
+        fileSystemRepresentation4 = [nameCopy fileSystemRepresentation];
+        v39 = 2080;
+        v40 = strerror(v31);
+        _os_log_error_impl(&_mh_execute_header, logHandle2, OS_LOG_TYPE_ERROR, "Failed to rename %s -> %s: %s", v36, 0x20u);
+      }
+    }
+
+    else
+    {
+      logHandle2 = pathCopy;
+      pathCopy = nameCopy;
+    }
+  }
+
+  v29 = pathCopy;
+  _Block_object_dispose(buf, 8);
+
+LABEL_18:
+
+  return v29;
+}
+
 - (BOOL)tailspinSaveNoSymbolicateTSTaskWithDir:(id)dir withTimeout:(double)timeout
 {
   v6 = [dir stringByAppendingPathComponent:@"tailspin-trace.tailspin"];
@@ -2057,6 +2266,78 @@ LABEL_11:
   CFRelease(v12);
 
   return v14;
+}
+
+- (id)getPreferencesForDomain:(id)domain withKey:(id)key andNestedKeys:(id)keys currentUser:(BOOL)user
+{
+  userCopy = user;
+  keysCopy = keys;
+  keyCopy = key;
+  keyCopy2 = key;
+  domainCopy = domain;
+  v13 = [NSArray arrayWithObjects:&keyCopy count:1];
+  v14 = [(SystemDiagnosticLogAgent *)self getPreferencesForDomain:domainCopy withKeys:v13 currentUser:userCopy];
+
+  v15 = +[NSMutableDictionary dictionary];
+  v16 = [v14 objectForKeyedSubscript:keyCopy2];
+  v21 = _NSConcreteStackBlock;
+  v22 = 3221225472;
+  v23 = sub_10000C324;
+  v24 = &unk_100074D98;
+  v25 = keysCopy;
+  v26 = v15;
+  v17 = v15;
+  v18 = keysCopy;
+  [v16 enumerateKeysAndObjectsUsingBlock:&v21];
+
+  v19 = [v17 copy];
+
+  return v19;
+}
+
+- (void)writePreferenceInDomain:(id)domain withKey:(id)key toDirectory:(id)directory currentUser:(BOOL)user
+{
+  userCopy = user;
+  domainCopy = domain;
+  keyCopy = key;
+  directoryCopy = directory;
+  if (keyCopy)
+  {
+    v22 = keyCopy;
+    v13 = [NSArray arrayWithObjects:&v22 count:1];
+    v14 = keyCopy;
+  }
+
+  else
+  {
+    v13 = 0;
+    v14 = domainCopy;
+  }
+
+  v15 = [(SystemDiagnosticLogAgent *)self getPreferencesForDomain:domainCopy withKeys:v13 currentUser:userCopy];
+  if (userCopy)
+  {
+    v16 = @"_CurrentUser.txt";
+  }
+
+  else
+  {
+    v16 = @"_Global.txt";
+  }
+
+  v17 = [v14 stringByAppendingString:v16];
+  v18 = [v15 description];
+  v19 = sub_100004F98(directoryCopy, v17, v18);
+
+  if ((v19 & 1) == 0)
+  {
+    logHandle = [(SystemDiagnosticLogAgent *)self logHandle];
+    if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEFAULT))
+    {
+      *v21 = 0;
+      _os_log_impl(&_mh_execute_header, logHandle, OS_LOG_TYPE_DEFAULT, "Unable to create file to write preferences", v21, 2u);
+    }
+  }
 }
 
 - (BOOL)getPreferences:(id)preferences withTimeout:(double)timeout

@@ -61,10 +61,10 @@
 
 - (id)matrixDescription
 {
-  objc_msgSend_matrix(self, a2, v2, v3, v4);
-  v12 = sub_2761B4E18(&v14, v5, v6, v7, v8, v9, v10, v11);
+  objc_msgSend_matrix(self, v2, v3, v4, a2);
+  v5 = sub_2761B4E18(&v7);
 
-  return v12;
+  return v5;
 }
 
 - (id)frustumRect

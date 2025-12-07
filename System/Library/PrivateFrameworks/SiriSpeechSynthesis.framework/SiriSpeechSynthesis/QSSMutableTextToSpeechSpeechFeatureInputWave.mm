@@ -4,6 +4,7 @@
 - (int)sample_rate;
 - (void)pcm_data:(id)pcm_data;
 - (void)setPcm_data:(id)pcm_data;
+- (void)setSample_rate:(int)sample_rate;
 @end
 
 @implementation QSSMutableTextToSpeechSpeechFeatureInputWave
@@ -20,6 +21,12 @@
 - (void)setPcm_data:(id)pcm_data
 {
   v4 = [pcm_data copy];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
+}
+
+- (void)setSample_rate:(int)sample_rate
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInt:*&sample_rate];
   [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 

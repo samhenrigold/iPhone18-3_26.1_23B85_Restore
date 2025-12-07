@@ -33,7 +33,7 @@ uint64_t __33__POUIServiceConnection_xpcQueue__block_invoke()
 
 - (POUIServiceConnection)init
 {
-  v3 = PO_LOG_POUIServiceConnection();
+  v3 = PO_LOG_POUIServiceConnection(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [POUIServiceConnection init];
@@ -53,11 +53,9 @@ uint64_t __33__POUIServiceConnection_xpcQueue__block_invoke()
 
 - (void)dealloc
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deviceStatusWithCompletion:(id)completion
@@ -86,7 +84,7 @@ uint64_t __33__POUIServiceConnection_xpcQueue__block_invoke()
 void __52__POUIServiceConnection_deviceStatusWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_POUIServiceConnection();
+  v4 = PO_LOG_POUIServiceConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -126,7 +124,7 @@ void __52__POUIServiceConnection_deviceStatusWithCompletion___block_invoke(uint6
 void __50__POUIServiceConnection_statusForUser_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_POUIServiceConnection();
+  v4 = PO_LOG_POUIServiceConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -166,7 +164,7 @@ void __50__POUIServiceConnection_statusForUser_completion___block_invoke(uint64_
 void __60__POUIServiceConnection_startAction_forUserName_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_POUIServiceConnection();
+  v4 = PO_LOG_POUIServiceConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -205,7 +203,7 @@ void __60__POUIServiceConnection_startAction_forUserName_completion___block_invo
 void __54__POUIServiceConnection_startDeviceAction_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_POUIServiceConnection();
+  v4 = PO_LOG_POUIServiceConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -222,7 +220,7 @@ void __54__POUIServiceConnection_startDeviceAction_completion___block_invoke(uin
 {
   if (self->_xpcConnection)
   {
-    v3 = PO_LOG_POUIServiceConnection();
+    v3 = PO_LOG_POUIServiceConnection(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
       [POServiceLoginManagerConnection _connectToService];
@@ -242,41 +240,40 @@ void __54__POUIServiceConnection_startDeviceAction_completion___block_invoke(uin
       [(NSXPCConnection *)self->_xpcConnection _setTargetUserIdentifier:[(POUIServiceConnection *)self uid]];
     }
 
-    v6 = [MEMORY[0x277D3D1F8] interfaceWithInternalProtocol:&unk_287096150];
-    [(NSXPCConnection *)self->_xpcConnection setRemoteObjectInterface:v6];
+    v7 = [MEMORY[0x277D3D1F8] interfaceWithInternalProtocol:&unk_287096150];
+    [(NSXPCConnection *)self->_xpcConnection setRemoteObjectInterface:v7];
 
     objc_initWeak(&location, self);
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __42__POUIServiceConnection__connectToService__block_invoke;
-    v14[3] = &unk_279A3A298;
-    objc_copyWeak(&v15, &location);
-    [(NSXPCConnection *)self->_xpcConnection setInvalidationHandler:v14];
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __42__POUIServiceConnection__connectToService__block_invoke_64;
-    v12[3] = &unk_279A3A298;
-    objc_copyWeak(&v13, &location);
-    [(NSXPCConnection *)self->_xpcConnection setInterruptionHandler:v12];
-    v7 = self->_xpcConnection;
-    v8 = +[POUIServiceConnection xpcQueue];
-    [(NSXPCConnection *)v7 _setQueue:v8];
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __42__POUIServiceConnection__connectToService__block_invoke;
+    v15[3] = &unk_279A3A298;
+    objc_copyWeak(&v16, &location);
+    [(NSXPCConnection *)self->_xpcConnection setInvalidationHandler:v15];
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __42__POUIServiceConnection__connectToService__block_invoke_64;
+    v13[3] = &unk_279A3A298;
+    objc_copyWeak(&v14, &location);
+    [(NSXPCConnection *)self->_xpcConnection setInterruptionHandler:v13];
+    v8 = self->_xpcConnection;
+    v9 = +[POUIServiceConnection xpcQueue];
+    [(NSXPCConnection *)v8 _setQueue:v9];
 
-    [(NSXPCConnection *)self->_xpcConnection resume];
-    v9 = PO_LOG_POUIServiceConnection();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v10 = PO_LOG_POUIServiceConnection([(NSXPCConnection *)self->_xpcConnection resume]);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       [POServiceLoginManagerConnection _connectToService];
     }
 
-    objc_destroyWeak(&v13);
-    objc_destroyWeak(&v15);
+    objc_destroyWeak(&v14);
+    objc_destroyWeak(&v16);
     objc_destroyWeak(&location);
     return 1;
   }
 
-  v11 = PO_LOG_POUIServiceConnection();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+  v12 = PO_LOG_POUIServiceConnection(v6);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
     [POServiceConnection _connectToService];
   }
@@ -290,8 +287,7 @@ void __42__POUIServiceConnection__connectToService__block_invoke(uint64_t a1)
   v2 = WeakRetained;
   if (WeakRetained)
   {
-    [WeakRetained setXpcConnection:0];
-    v3 = PO_LOG_POUIServiceConnection();
+    v3 = PO_LOG_POUIServiceConnection([WeakRetained setXpcConnection:0]);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
       __52__POServiceLoginManagerConnection__connectToService__block_invoke_cold_1();
@@ -302,10 +298,11 @@ void __42__POUIServiceConnection__connectToService__block_invoke(uint64_t a1)
 void __42__POUIServiceConnection__connectToService__block_invoke_64(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v2 = WeakRetained;
   if (WeakRetained)
   {
-    v2 = PO_LOG_POUIServiceConnection();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v3 = PO_LOG_POUIServiceConnection(WeakRetained);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __40__POServiceConnection__connectToService__block_invoke_83_cold_1();
     }
@@ -314,11 +311,9 @@ void __42__POUIServiceConnection__connectToService__block_invoke_64(uint64_t a1)
 
 - (void)init
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

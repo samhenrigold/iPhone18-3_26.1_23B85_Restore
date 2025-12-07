@@ -12,14 +12,11 @@
 
 - (NSString)assetIdentifier
 {
-  v2 = (self + OBJC_IVAR___TPSAssetsDownloadOperation_assetIdentifier);
   swift_beginAccess();
-  v4 = *v2;
-  v3 = v2[1];
 
-  v5 = sub_232E014C0();
+  v2 = sub_232E014C0();
 
-  return v5;
+  return v2;
 }
 
 - (void)setAssetIdentifier:(id)identifier
@@ -28,7 +25,6 @@
   v6 = v5;
   v7 = (self + OBJC_IVAR___TPSAssetsDownloadOperation_assetIdentifier);
   swift_beginAccess();
-  v8 = v7[1];
   *v7 = v4;
   v7[1] = v6;
 }
@@ -36,49 +32,47 @@
 - (NSURL)downloadedURL
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DDD7300, &qword_232E06830);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v14 - v5;
-  v7 = OBJC_IVAR___TPSAssetsDownloadOperation_downloadedURL;
+  v5 = &v13 - v4;
+  v6 = OBJC_IVAR___TPSAssetsDownloadOperation_downloadedURL;
   swift_beginAccess();
-  sub_232DAB3CC(self + v7, v6, &qword_27DDD7300, &qword_232E06830);
-  v8 = sub_232E00BE0();
-  v9 = *(v8 - 8);
-  v10 = (*(v9 + 48))(v6, 1, v8);
-  v11 = 0;
-  if (v10 != 1)
+  sub_232DAB3CC(self + v6, v5, &qword_27DDD7300, &qword_232E06830);
+  v7 = sub_232E00BE0();
+  v8 = *(v7 - 8);
+  v9 = (*(v8 + 48))(v5, 1, v7);
+  v10 = 0;
+  if (v9 != 1)
   {
-    v12 = sub_232E00B70();
-    (*(v9 + 8))(v6, v8);
-    v11 = v12;
+    v11 = sub_232E00B70();
+    (*(v8 + 8))(v5, v7);
+    v10 = v11;
   }
 
-  return v11;
+  return v10;
 }
 
 - (void)setDownloadedURL:(id)l
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DDD7300, &qword_232E06830);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = &v13 - v7;
+  v7 = &v12 - v6;
   if (l)
   {
     sub_232E00BB0();
-    v9 = sub_232E00BE0();
-    (*(*(v9 - 8) + 56))(v8, 0, 1, v9);
+    v8 = sub_232E00BE0();
+    (*(*(v8 - 8) + 56))(v7, 0, 1, v8);
   }
 
   else
   {
-    v10 = sub_232E00BE0();
-    (*(*(v10 - 8) + 56))(v8, 1, 1, v10);
+    v9 = sub_232E00BE0();
+    (*(*(v9 - 8) + 56))(v7, 1, 1, v9);
   }
 
-  v11 = OBJC_IVAR___TPSAssetsDownloadOperation_downloadedURL;
+  v10 = OBJC_IVAR___TPSAssetsDownloadOperation_downloadedURL;
   swift_beginAccess();
   selfCopy = self;
-  sub_232DDEBE0(v8, self + v11);
+  sub_232DDEBE0(v7, self + v10);
   swift_endAccess();
 }
 
@@ -100,7 +94,7 @@
   *v14 = v8;
   v14[1] = v10;
   v16.receiver = self;
-  v16.super_class = type metadata accessor for AssetsDownloadOperation();
+  v16.super_class = type metadata accessor for AssetsDownloadOperation(0);
   return [(TPSAsyncOperation *)&v16 init];
 }
 

@@ -141,7 +141,7 @@
 
 - (BOOL)_verifyIsMigratingGeneration:(unint64_t)generation stateVerifier:(id)verifier logIdentifier:(id)identifier logAction:(id)action logCount:(unint64_t)count
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   verifierCopy = verifier;
   identifierCopy = identifier;
   actionCopy = action;
@@ -150,17 +150,17 @@
     v16 = +[EDThreadMigrator log];
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v21 = 134219010;
-      v22 = identifierCopy;
-      v23 = 2048;
+      v20 = 134219010;
+      v21 = identifierCopy;
+      v22 = 2048;
       generationCopy2 = generation;
-      v25 = 2114;
-      v26 = actionCopy;
-      v27 = 2048;
+      v24 = 2114;
+      v25 = actionCopy;
+      v26 = 2048;
       countCopy2 = count;
-      v29 = 2048;
+      v28 = 2048;
       generation = [(_EDThreadMigrationState *)self generation];
-      _os_log_impl(&dword_1C61EF000, v16, OS_LOG_TYPE_DEFAULT, "%p[%lu]: %{public}@ for %lu threads due to generation change (to %lu)", &v21, 0x34u);
+      _os_log_impl(&dword_1C61EF000, v16, OS_LOG_TYPE_DEFAULT, "%p[%lu]: %{public}@ for %lu threads due to generation change (to %lu)", &v20, 0x34u);
     }
 
     goto LABEL_7;
@@ -174,25 +174,25 @@
       state = [(_EDThreadMigrationState *)self state];
       if (state - 1 > 4)
       {
-        v20 = @"Not Started";
+        v19 = @"Not Started";
       }
 
       else
       {
-        v20 = off_1E8258028[state - 1];
+        v19 = off_1E8258028[state - 1];
       }
 
-      v21 = 134219010;
-      v22 = identifierCopy;
-      v23 = 2048;
+      v20 = 134219010;
+      v21 = identifierCopy;
+      v22 = 2048;
       generationCopy2 = generation;
-      v25 = 2114;
-      v26 = actionCopy;
-      v27 = 2048;
+      v24 = 2114;
+      v25 = actionCopy;
+      v26 = 2048;
       countCopy2 = count;
-      v29 = 2114;
-      generation = v20;
-      _os_log_error_impl(&dword_1C61EF000, v16, OS_LOG_TYPE_ERROR, "%p[%lu]: %{public}@ for %lu threads due to wrong state: %{public}@", &v21, 0x34u);
+      v28 = 2114;
+      generation = v19;
+      _os_log_error_impl(&dword_1C61EF000, v16, OS_LOG_TYPE_ERROR, "%p[%lu]: %{public}@ for %lu threads due to wrong state: %{public}@", &v20, 0x34u);
     }
 
 LABEL_7:
@@ -204,7 +204,6 @@ LABEL_7:
   v15 = 1;
 LABEL_8:
 
-  v17 = *MEMORY[0x1E69E9840];
   return v15;
 }
 

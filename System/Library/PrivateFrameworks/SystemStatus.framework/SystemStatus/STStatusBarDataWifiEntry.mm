@@ -1,4 +1,5 @@
 @interface STStatusBarDataWifiEntry
++ (id)entryWithType:(int64_t)type status:(int64_t)status lowDataMode:(BOOL)mode rawValue:(int64_t)value displayValue:(int64_t)displayValue displayRawValue:(BOOL)rawValue;
 - (STStatusBarDataWifiEntry)initWithBSXPCCoder:(id)coder;
 - (STStatusBarDataWifiEntry)initWithCoder:(id)coder;
 - (id)_equalsBuilderWithObject:(id)object;
@@ -35,6 +36,13 @@
   [succinctDescriptionBuilder appendString:v6 withName:@"type"];
 
   return succinctDescriptionBuilder;
+}
+
++ (id)entryWithType:(int64_t)type status:(int64_t)status lowDataMode:(BOOL)mode rawValue:(int64_t)value displayValue:(int64_t)displayValue displayRawValue:(BOOL)rawValue
+{
+  result = [self entryWithStatus:status lowDataMode:mode rawValue:value displayValue:displayValue displayRawValue:rawValue];
+  *(result + 6) = type;
+  return result;
 }
 
 - (void)encodeWithCoder:(id)coder

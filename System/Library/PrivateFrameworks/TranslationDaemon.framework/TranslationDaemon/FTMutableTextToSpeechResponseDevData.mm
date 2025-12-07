@@ -3,7 +3,9 @@
 - (FTMutableTextToSpeechResponseDevData)init;
 - (id)copyWithZone:(_NSZone *)zone;
 - (int)engine_error_code;
+- (void)setEngine_error_code:(int)engine_error_code;
 - (void)setEngine_error_message:(id)engine_error_message;
+- (void)setHas_click:(BOOL)has_click;
 - (void)setLog:(id)log;
 - (void)setServer_info:(id)server_info;
 - (void)setWorker_process_type:(id)worker_process_type;
@@ -56,6 +58,12 @@
   return bOOLValue;
 }
 
+- (void)setHas_click:(BOOL)has_click
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithBool:has_click];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
+}
+
 - (void)setWorker_process_type:(id)worker_process_type
 {
   v4 = [worker_process_type copy];
@@ -68,6 +76,12 @@
   intValue = [v2 intValue];
 
   return intValue;
+}
+
+- (void)setEngine_error_code:(int)engine_error_code
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInt:*&engine_error_code];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
 - (void)setEngine_error_message:(id)engine_error_message

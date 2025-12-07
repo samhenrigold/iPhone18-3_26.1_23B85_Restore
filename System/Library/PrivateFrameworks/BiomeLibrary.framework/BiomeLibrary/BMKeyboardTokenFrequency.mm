@@ -17,16 +17,14 @@
 
 + (id)columns
 {
-  v8[3] = *MEMORY[0x1E69E9840];
+  v7[3] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"tokenFrequencies_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_168];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"locale" dataType:2 requestOnly:0 fieldNumber:2 protoDataType:13 convertedType:0];
   v4 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"tokenType" dataType:0 requestOnly:0 fieldNumber:3 protoDataType:4 convertedType:0];
-  v8[0] = v2;
-  v8[1] = v3;
-  v8[2] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:3];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v7[0] = v2;
+  v7[1] = v3;
+  v7[2] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:3];
 
   return v5;
 }
@@ -93,35 +91,35 @@ LABEL_13:
 
 - (id)jsonDictionary
 {
-  v13[3] = *MEMORY[0x1E69E9840];
+  v12[3] = *MEMORY[0x1E69E9840];
   _tokenFrequenciesJSONArray = [(BMKeyboardTokenFrequency *)self _tokenFrequenciesJSONArray];
   locale = [(BMKeyboardTokenFrequency *)self locale];
   v5 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMKeyboardTokenFrequency tokenType](self, "tokenType")}];
-  v12[0] = @"tokenFrequencies";
+  v11[0] = @"tokenFrequencies";
   null = _tokenFrequenciesJSONArray;
   if (!_tokenFrequenciesJSONArray)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v13[0] = null;
-  v12[1] = @"locale";
+  v12[0] = null;
+  v11[1] = @"locale";
   null2 = locale;
   if (!locale)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v13[1] = null2;
-  v12[2] = @"tokenType";
+  v12[1] = null2;
+  v11[2] = @"tokenType";
   null3 = v5;
   if (!v5)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v13[2] = null3;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:3];
+  v12[2] = null3;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:3];
   if (v5)
   {
     if (locale)
@@ -153,52 +151,49 @@ LABEL_9:
 LABEL_15:
 
 LABEL_10:
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
 
 - (id)_tokenFrequenciesJSONArray
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   tokenFrequencies = [(BMKeyboardTokenFrequency *)self tokenFrequencies];
-  v5 = [tokenFrequencies countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [tokenFrequencies countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(tokenFrequencies);
         }
 
-        jsonDictionary = [*(*(&v12 + 1) + 8 * i) jsonDictionary];
+        jsonDictionary = [*(*(&v11 + 1) + 8 * i) jsonDictionary];
         [v3 addObject:jsonDictionary];
       }
 
-      v6 = [tokenFrequencies countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [tokenFrequencies countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 - (BMKeyboardTokenFrequency)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v67[1] = *MEMORY[0x1E69E9840];
+  v66[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"tokenFrequencies"];
   null = [MEMORY[0x1E695DFB0] null];
@@ -207,7 +202,7 @@ LABEL_10:
   if (v9)
   {
     errorCopy2 = error;
-    v48 = dictionaryCopy;
+    v47 = dictionaryCopy;
     selfCopy2 = self;
 
     v7 = 0;
@@ -224,10 +219,10 @@ LABEL_10:
         {
           v31 = objc_alloc(MEMORY[0x1E696ABC0]);
           v32 = *MEMORY[0x1E698F240];
-          v66 = *MEMORY[0x1E696A578];
-          v51 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Expecting %@ as an array", @"tokenFrequencies"];
-          v67[0] = v51;
-          [MEMORY[0x1E695DF20] dictionaryWithObjects:v67 forKeys:&v66 count:1];
+          v65 = *MEMORY[0x1E696A578];
+          v50 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Expecting %@ as an array", @"tokenFrequencies"];
+          v66[0] = v50;
+          [MEMORY[0x1E695DF20] dictionaryWithObjects:v66 forKeys:&v65 count:1];
           v19 = v33 = error;
           selfCopy3 = 0;
           *v33 = [v31 initWithDomain:v32 code:2 userInfo:v19];
@@ -240,34 +235,34 @@ LABEL_10:
     }
 
     errorCopy2 = error;
-    v48 = dictionaryCopy;
+    v47 = dictionaryCopy;
     selfCopy2 = self;
   }
 
-  v51 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v7, "count")}];
+  v50 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v7, "count")}];
+  v52 = 0u;
   v53 = 0u;
   v54 = 0u;
   v55 = 0u;
-  v56 = 0u;
   v7 = v7;
-  v10 = [v7 countByEnumeratingWithState:&v53 objects:v65 count:16];
+  v10 = [v7 countByEnumeratingWithState:&v52 objects:v64 count:16];
   if (!v10)
   {
     goto LABEL_16;
   }
 
   v11 = v10;
-  v12 = *v54;
+  v12 = *v53;
   while (2)
   {
     for (i = 0; i != v11; ++i)
     {
-      if (*v54 != v12)
+      if (*v53 != v12)
       {
         objc_enumerationMutation(v7);
       }
 
-      v14 = *(*(&v53 + 1) + 8 * i);
+      v14 = *(*(&v52 + 1) + 8 * i);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
@@ -276,12 +271,12 @@ LABEL_10:
         {
           v23 = objc_alloc(MEMORY[0x1E696ABC0]);
           v24 = *MEMORY[0x1E698F240];
-          v63 = *MEMORY[0x1E696A578];
+          v62 = *MEMORY[0x1E696A578];
           v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type null for element of %@, must not be null", @"tokenFrequencies"];
-          v64 = v15;
+          v63 = v15;
           v25 = MEMORY[0x1E695DF20];
-          v26 = &v64;
-          v27 = &v63;
+          v26 = &v63;
+          v27 = &v62;
 LABEL_26:
           v21 = [v25 dictionaryWithObjects:v26 forKeys:v27 count:1];
           v28 = [v23 initWithDomain:v24 code:2 userInfo:v21];
@@ -289,7 +284,7 @@ LABEL_26:
           *v22 = v28;
 LABEL_30:
           v19 = v7;
-          dictionaryCopy = v48;
+          dictionaryCopy = v47;
           self = selfCopy2;
           goto LABEL_46;
         }
@@ -297,7 +292,7 @@ LABEL_30:
 LABEL_33:
         selfCopy3 = 0;
         v19 = v7;
-        dictionaryCopy = v48;
+        dictionaryCopy = v47;
         self = selfCopy2;
         goto LABEL_48;
       }
@@ -310,12 +305,12 @@ LABEL_33:
         {
           v23 = objc_alloc(MEMORY[0x1E696ABC0]);
           v24 = *MEMORY[0x1E698F240];
-          v61 = *MEMORY[0x1E696A578];
+          v60 = *MEMORY[0x1E696A578];
           v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"tokenFrequencies"];
-          v62 = v15;
+          v61 = v15;
           v25 = MEMORY[0x1E695DF20];
-          v26 = &v62;
-          v27 = &v61;
+          v26 = &v61;
+          v27 = &v60;
           goto LABEL_26;
         }
 
@@ -324,9 +319,9 @@ LABEL_33:
 
       v15 = v14;
       v16 = [BMKeyboardTokenFrequencyTokenFrequency alloc];
-      v52 = 0;
-      v17 = [(BMKeyboardTokenFrequencyTokenFrequency *)v16 initWithJSONDictionary:v15 error:&v52];
-      v18 = v52;
+      v51 = 0;
+      v17 = [(BMKeyboardTokenFrequencyTokenFrequency *)v16 initWithJSONDictionary:v15 error:&v51];
+      v18 = v51;
       if (v18)
       {
         v21 = v18;
@@ -340,10 +335,10 @@ LABEL_33:
         goto LABEL_30;
       }
 
-      [v51 addObject:v17];
+      [v50 addObject:v17];
     }
 
-    v11 = [v7 countByEnumeratingWithState:&v53 objects:v65 count:16];
+    v11 = [v7 countByEnumeratingWithState:&v52 objects:v64 count:16];
     if (v11)
     {
       continue;
@@ -354,8 +349,8 @@ LABEL_33:
 
 LABEL_16:
 
-  dictionaryCopy = v48;
-  v15 = [v48 objectForKeyedSubscript:@"locale"];
+  dictionaryCopy = v47;
+  v15 = [v47 objectForKeyedSubscript:@"locale"];
   if (v15 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
   {
     objc_opt_class();
@@ -369,10 +364,10 @@ LABEL_16:
     {
       v36 = objc_alloc(MEMORY[0x1E696ABC0]);
       v37 = *MEMORY[0x1E698F240];
-      v59 = *MEMORY[0x1E696A578];
+      v58 = *MEMORY[0x1E696A578];
       v21 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"locale"];
-      v60 = v21;
-      v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v60 forKeys:&v59 count:1];
+      v59 = v21;
+      v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v59 forKeys:&v58 count:1];
       v38 = [v36 initWithDomain:v37 code:2 userInfo:v20];
       v19 = 0;
       selfCopy3 = 0;
@@ -390,7 +385,7 @@ LABEL_16:
   {
     v19 = 0;
 LABEL_19:
-    v20 = [v48 objectForKeyedSubscript:@"tokenType"];
+    v20 = [v47 objectForKeyedSubscript:@"tokenType"];
     if (!v20 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
     {
       v21 = 0;
@@ -405,7 +400,7 @@ LABEL_19:
 LABEL_43:
       v21 = v35;
 LABEL_44:
-      self = -[BMKeyboardTokenFrequency initWithTokenFrequencies:locale:tokenType:](selfCopy2, "initWithTokenFrequencies:locale:tokenType:", v51, v19, [v21 intValue]);
+      self = -[BMKeyboardTokenFrequency initWithTokenFrequencies:locale:tokenType:](selfCopy2, "initWithTokenFrequencies:locale:tokenType:", v50, v19, [v21 intValue]);
       selfCopy3 = self;
     }
 
@@ -417,20 +412,20 @@ LABEL_44:
         v39 = MEMORY[0x1E696AD98];
         v40 = BMKeyboardTokenFrequencyTokenTypeFromString(v20);
         v41 = v39;
-        dictionaryCopy = v48;
+        dictionaryCopy = v47;
         v35 = [v41 numberWithInt:v40];
         goto LABEL_43;
       }
 
       if (errorCopy2)
       {
-        v50 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v46 = *MEMORY[0x1E698F240];
-        v57 = *MEMORY[0x1E696A578];
-        v44 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"tokenType"];
-        v58 = v44;
-        v45 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v58 forKeys:&v57 count:1];
-        *errorCopy2 = [v50 initWithDomain:v46 code:2 userInfo:v45];
+        v49 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v45 = *MEMORY[0x1E698F240];
+        v56 = *MEMORY[0x1E696A578];
+        v43 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"tokenType"];
+        v57 = v43;
+        v44 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v57 forKeys:&v56 count:1];
+        *errorCopy2 = [v49 initWithDomain:v45 code:2 userInfo:v44];
       }
 
       v21 = 0;
@@ -446,7 +441,6 @@ LABEL_46:
 LABEL_48:
 LABEL_49:
 
-  v42 = *MEMORY[0x1E69E9840];
   return selfCopy3;
 }
 
@@ -461,34 +455,34 @@ LABEL_49:
 
 - (void)writeTo:(id)to
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   toCopy = to;
+  v11 = 0u;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v16 = 0u;
   v5 = self->_tokenFrequencies;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v12;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * i);
+        v10 = *(*(&v11 + 1) + 8 * i);
         PBDataWriterPlaceMark();
         [v10 writeTo:toCopy];
         PBDataWriterRecallMark();
       }
 
-      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
@@ -499,10 +493,7 @@ LABEL_49:
     PBDataWriterWriteStringField();
   }
 
-  tokenType = self->_tokenType;
   PBDataWriterWriteUint32Field();
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (id)initByReadFrom:(id)from
@@ -698,26 +689,24 @@ LABEL_43:
 
 + (id)protoFields
 {
-  v8[3] = *MEMORY[0x1E69E9840];
+  v7[3] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"tokenFrequencies" number:1 type:14 subMessageClass:objc_opt_class()];
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"locale" number:2 type:13 subMessageClass:{0, v2}];
-  v8[1] = v3;
+  v7[1] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"tokenType" number:3 type:4 subMessageClass:0];
-  v8[2] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:3];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v7[2] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:3];
 
   return v5;
 }
 
-id __35__BMKeyboardTokenFrequency_columns__block_invoke(uint64_t a1, void *a2)
+id __35__BMKeyboardTokenFrequency_columns__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 _tokenFrequenciesJSONArray];
-  v4 = BMConvertObjectToJSONString();
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 _tokenFrequenciesJSONArray];
+  v5 = BMConvertObjectToJSONString();
 
-  return v4;
+  return v5;
 }
 
 + (id)eventWithData:(id)data dataVersion:(unsigned int)version

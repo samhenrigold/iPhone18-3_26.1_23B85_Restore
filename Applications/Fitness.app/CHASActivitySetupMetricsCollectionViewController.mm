@@ -322,9 +322,11 @@ LABEL_21:
 
 - (void)_contentSizeDidChange
 {
-  self->_footerView = [(CHASActivitySetupMetricsCollectionViewController *)self _makeFooterView];
+  _makeFooterView = [(CHASActivitySetupMetricsCollectionViewController *)self _makeFooterView];
+  footerView = self->_footerView;
+  self->_footerView = _makeFooterView;
 
-  _objc_release_x1();
+  _objc_release_x1(_makeFooterView, footerView);
 }
 
 - (void)_determinePresentationContextIfNeededWithHealthStore:(id)store

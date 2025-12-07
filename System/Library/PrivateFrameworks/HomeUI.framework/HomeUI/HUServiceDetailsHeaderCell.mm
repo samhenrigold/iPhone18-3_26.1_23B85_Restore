@@ -162,26 +162,26 @@
     }
   }
 
-  v51[0] = MEMORY[0x277D85DD0];
-  v51[1] = 3221225472;
-  v51[2] = __52__HUServiceDetailsHeaderCell_updateUIWithAnimation___block_invoke;
-  v51[3] = &unk_277DBA678;
-  v51[4] = self;
+  v52[0] = MEMORY[0x277D85DD0];
+  v52[1] = 3221225472;
+  v52[2] = __52__HUServiceDetailsHeaderCell_updateUIWithAnimation___block_invoke;
+  v52[3] = &unk_277DBA678;
+  v52[4] = self;
   v11 = latestResults;
-  v52 = v11;
-  v12 = __52__HUServiceDetailsHeaderCell_updateUIWithAnimation___block_invoke(v51);
+  v53 = v11;
+  v13 = __52__HUServiceDetailsHeaderCell_updateUIWithAnimation___block_invoke(v52, v12);
   item3 = [(HUServiceDetailsHeaderCell *)self item];
   latestResults3 = [item3 latestResults];
-  v47 = [latestResults3 objectForKeyedSubscript:*MEMORY[0x277D13E58]];
+  v48 = [latestResults3 objectForKeyedSubscript:*MEMORY[0x277D13E58]];
 
-  v15 = [v11 objectForKeyedSubscript:*MEMORY[0x277D13E70]];
+  v16 = [v11 objectForKeyedSubscript:*MEMORY[0x277D13E70]];
   item4 = [(HUServiceDetailsHeaderCell *)self item];
   latestResults4 = [item4 latestResults];
-  v18 = [latestResults4 objectForKeyedSubscript:*MEMORY[0x277D140F8]];
-  v19 = v18;
-  if (v18)
+  v19 = [latestResults4 objectForKeyedSubscript:*MEMORY[0x277D140F8]];
+  v20 = v19;
+  if (v19)
   {
-    text = v18;
+    text = v19;
   }
 
   else
@@ -189,63 +189,63 @@
     text = [(UILabel *)self->_titleLabel text];
   }
 
-  v21 = text;
+  v22 = text;
 
-  v22 = v47;
+  v23 = v48;
   if (v8)
   {
-    v22 = v8;
+    v23 = v8;
   }
 
-  v23 = v22;
-  v24 = *MEMORY[0x277D13E78];
-  v25 = [v11 objectForKeyedSubscript:*MEMORY[0x277D13E78]];
+  v24 = v23;
+  v25 = *MEMORY[0x277D13E78];
+  v26 = [v11 objectForKeyedSubscript:*MEMORY[0x277D13E78]];
 
-  v46 = v21;
-  if (v25)
+  v47 = v22;
+  if (v26)
   {
-    v26 = [v11 objectForKeyedSubscript:v24];
+    v27 = [v11 objectForKeyedSubscript:v25];
 
-    v23 = v26;
+    v24 = v27;
   }
 
-  v48[0] = MEMORY[0x277D85DD0];
-  v48[1] = 3221225472;
-  v48[2] = __52__HUServiceDetailsHeaderCell_updateUIWithAnimation___block_invoke_2;
-  v48[3] = &unk_277DBA678;
-  v27 = v12;
-  v49 = v27;
-  v28 = v23;
+  v49[0] = MEMORY[0x277D85DD0];
+  v49[1] = 3221225472;
+  v49[2] = __52__HUServiceDetailsHeaderCell_updateUIWithAnimation___block_invoke_2;
+  v49[3] = &unk_277DBA678;
+  v28 = v13;
   v50 = v28;
-  v29 = __52__HUServiceDetailsHeaderCell_updateUIWithAnimation___block_invoke_2(v48);
+  v29 = v24;
+  v51 = v29;
+  v30 = __52__HUServiceDetailsHeaderCell_updateUIWithAnimation___block_invoke_2(v49);
   messageTextView = [(HUServiceDetailsHeaderCell *)self messageTextView];
-  [messageTextView setAttributedText:v29];
+  [messageTextView setAttributedText:v30];
 
   labelColor = [MEMORY[0x277D75348] labelColor];
   messageTextView2 = [(HUServiceDetailsHeaderCell *)self messageTextView];
   [messageTextView2 setTextColor:labelColor];
 
   actionButton = [(HUServiceDetailsHeaderCell *)self actionButton];
-  [actionButton setTitle:v15 forState:0];
+  [actionButton setTitle:v16 forState:0];
 
   messageTextView3 = [(HUServiceDetailsHeaderCell *)self messageTextView];
-  [messageTextView3 setHidden:v29 == 0];
+  [messageTextView3 setHidden:v30 == 0];
 
   actionButton2 = [(HUServiceDetailsHeaderCell *)self actionButton];
-  [actionButton2 setHidden:v15 == 0];
+  [actionButton2 setHidden:v16 == 0];
 
-  v36 = [v11 objectForKeyedSubscript:*MEMORY[0x277D140F0]];
-  bOOLValue = [v36 BOOLValue];
+  v37 = [v11 objectForKeyedSubscript:*MEMORY[0x277D140F0]];
+  bOOLValue = [v37 BOOLValue];
 
   titleLabel = [(HUServiceDetailsHeaderCell *)self titleLabel];
-  v39 = titleLabel;
+  v40 = titleLabel;
   if (bOOLValue)
   {
     [titleLabel setHidden:0];
 
     titleLabel2 = [(HUServiceDetailsHeaderCell *)self titleLabel];
-    v41 = v46;
-    [titleLabel2 setText:v46];
+    v42 = v47;
+    [titleLabel2 setText:v47];
 
     checkingForUpdateSpinner = [(HUServiceDetailsHeaderCell *)self checkingForUpdateSpinner];
     [checkingForUpdateSpinner setHidden:0];
@@ -258,10 +258,10 @@
     [titleLabel setHidden:1];
 
     actionButton3 = [(HUServiceDetailsHeaderCell *)self checkingForUpdateSpinner];
-    v41 = v46;
+    v42 = v47;
   }
 
-  [actionButton3 setHidden:{1, v46}];
+  [actionButton3 setHidden:{1, v47}];
 
   messageTextView4 = [(HUServiceDetailsHeaderCell *)self messageTextView];
   [messageTextView4 sizeToFit];
@@ -272,89 +272,89 @@
   [(HUServiceDetailsHeaderCell *)self _updateErrorLabelConstraints];
 }
 
-id __52__HUServiceDetailsHeaderCell_updateUIWithAnimation___block_invoke(uint64_t a1)
+id __52__HUServiceDetailsHeaderCell_updateUIWithAnimation___block_invoke(uint64_t a1, uint64_t a2)
 {
   objc_opt_class();
-  v2 = [*(a1 + 32) item];
-  v3 = [v2 latestResults];
-  v4 = [v3 objectForKeyedSubscript:*MEMORY[0x277D13E48]];
+  v3 = [*(a1 + 32) item];
+  v4 = [v3 latestResults];
+  v5 = [v4 objectForKeyedSubscript:*MEMORY[0x277D13E48]];
   if (objc_opt_isKindOfClass())
   {
-    v5 = v4;
+    v6 = v5;
   }
 
   else
   {
-    v5 = 0;
+    v6 = 0;
   }
 
-  v6 = v5;
+  v7 = v6;
 
   objc_opt_class();
-  v7 = [*(a1 + 32) item];
-  v8 = [v7 latestResults];
-  v9 = [v8 objectForKeyedSubscript:*MEMORY[0x277D13E50]];
+  v8 = [*(a1 + 32) item];
+  v9 = [v8 latestResults];
+  v10 = [v9 objectForKeyedSubscript:*MEMORY[0x277D13E50]];
   if (objc_opt_isKindOfClass())
   {
-    v10 = v9;
+    v11 = v10;
   }
 
   else
   {
-    v10 = 0;
+    v11 = 0;
   }
 
-  v11 = v10;
+  v12 = v11;
 
   objc_opt_class();
-  v12 = [*(a1 + 32) item];
-  v13 = [v12 latestResults];
-  v14 = [v13 objectForKeyedSubscript:*MEMORY[0x277D13E40]];
+  v13 = [*(a1 + 32) item];
+  v14 = [v13 latestResults];
+  v15 = [v14 objectForKeyedSubscript:*MEMORY[0x277D13E40]];
   if (objc_opt_isKindOfClass())
   {
-    v15 = v14;
+    v16 = v15;
   }
 
   else
   {
-    v15 = 0;
+    v16 = 0;
   }
 
-  v16 = v15;
+  v17 = v16;
 
-  v17 = [*(a1 + 32) item];
-  v18 = [v17 latestResults];
-  v19 = *MEMORY[0x277D13E78];
-  v20 = [v18 objectForKeyedSubscript:*MEMORY[0x277D13E78]];
+  v18 = [*(a1 + 32) item];
+  v19 = [v18 latestResults];
+  v20 = *MEMORY[0x277D13E78];
+  v21 = [v19 objectForKeyedSubscript:*MEMORY[0x277D13E78]];
 
-  if (v20)
+  if (v21)
   {
     objc_opt_class();
-    v21 = [*(a1 + 40) objectForKeyedSubscript:v19];
+    v22 = [*(a1 + 40) objectForKeyedSubscript:v20];
     if (objc_opt_isKindOfClass())
     {
-      v22 = v21;
+      v23 = v22;
     }
 
     else
     {
-      v22 = 0;
+      v23 = 0;
     }
 
-    v23 = v22;
+    v24 = v23;
 
-    v16 = v23;
+    v17 = v24;
   }
 
-  v24 = 0;
-  if (v6 && v11 && v16)
+  v25 = 0;
+  if (v7 && v12 && v17)
   {
-    v25 = MEMORY[0x277CCA898];
-    v26 = [v16 stringByAppendingString:@"\n"];
-    v24 = [v25 hf_attributedStringForString:v26 withAppendedString:v11 asURL:v6 withAttributes:0];
+    v26 = MEMORY[0x277CCA898];
+    v27 = [v17 stringByAppendingString:@"\n"];
+    v25 = [v26 hf_attributedStringForString:v27 withAppendedString:v12 asURL:v7 withAttributes:0];
   }
 
-  return v24;
+  return v25;
 }
 
 id __52__HUServiceDetailsHeaderCell_updateUIWithAnimation___block_invoke_2(uint64_t a1)

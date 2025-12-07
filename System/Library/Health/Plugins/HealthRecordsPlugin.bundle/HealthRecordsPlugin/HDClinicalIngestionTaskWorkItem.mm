@@ -142,9 +142,7 @@
 
 - (void)main
 {
-  v3 = [(HDClinicalIngestionTaskWorkItem *)self _extractReferencesAfterFetchSuccess:[(HDClinicalIngestionTaskWorkItem *)self _download]];
-  outcome = self->_outcome;
-  self->_outcome = v3;
+  self->_outcome = [(HDClinicalIngestionTaskWorkItem *)self _extractReferencesAfterFetchSuccess:[(HDClinicalIngestionTaskWorkItem *)self _download]];
 
   _objc_release_x1();
 }

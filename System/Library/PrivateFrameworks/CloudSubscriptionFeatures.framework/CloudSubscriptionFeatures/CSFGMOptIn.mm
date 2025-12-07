@@ -3,6 +3,7 @@
 - (CSFGMOptIn)init;
 - (CSFGMOptIn)initWithOptInProvider:(id)provider;
 - (unint64_t)state;
+- (void)setIsOptedIn:(BOOL)in;
 @end
 
 @implementation CSFGMOptIn
@@ -52,6 +53,13 @@
   {
     return 2 * (state == 2);
   }
+}
+
+- (void)setIsOptedIn:(BOOL)in
+{
+  inCopy = in;
+  gmOptIn = [(CSFGMOptIn *)self gmOptIn];
+  [gmOptIn setIsOptedIn:inCopy];
 }
 
 @end

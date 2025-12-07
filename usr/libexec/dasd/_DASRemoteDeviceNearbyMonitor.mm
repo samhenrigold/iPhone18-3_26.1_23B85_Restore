@@ -324,7 +324,7 @@
     [(_DASRemoteDeviceNearbyMonitor *)self setLastRegisteredDevices:0];
   }
 
-  if (![remoteDevices count])
+  if (!objc_msgSend_count(remoteDevices))
   {
     goto LABEL_9;
   }

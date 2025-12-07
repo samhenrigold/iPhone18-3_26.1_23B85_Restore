@@ -16,6 +16,8 @@
 - (unint64_t)hash;
 - (void)encodeWithCoder:(id)coder;
 - (void)setBlur:(double)blur forAppearance:(int64_t)appearance;
+- (void)setHasOverlappingChildSpecularsCombined:(BOOL)combined forAppearance:(int64_t)appearance;
+- (void)setHasSpecular:(BOOL)specular forAppearance:(int64_t)appearance;
 - (void)setOpacity:(double)opacity forAppearance:(int64_t)appearance;
 - (void)setShadow:(double)shadow forAppearance:(int64_t)appearance;
 - (void)setShadowStyle:(int64_t)style forAppearance:(int64_t)appearance;
@@ -55,12 +57,12 @@
 
 - (ISIconLayerGroup)initWithCoder:(id)coder
 {
-  v54[2] = *MEMORY[0x1E69E9840];
+  v53[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = MEMORY[0x1E695DFD8];
-  v54[0] = objc_opt_class();
-  v54[1] = objc_opt_class();
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v54 count:2];
+  v53[0] = objc_opt_class();
+  v53[1] = objc_opt_class();
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v53 count:2];
   v7 = [v5 setWithArray:v6];
   v8 = [coderCopy decodeObjectOfClasses:v7 forKey:@"layers"];
 
@@ -68,70 +70,69 @@
   if (v9)
   {
     v10 = MEMORY[0x1E695DFD8];
-    v53[0] = objc_opt_class();
-    v53[1] = objc_opt_class();
-    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v53 count:2];
+    v52[0] = objc_opt_class();
+    v52[1] = objc_opt_class();
+    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v52 count:2];
     v12 = [v10 setWithArray:v11];
     v13 = [coderCopy decodeObjectOfClasses:v12 forKey:@"opacities"];
     opacities = v9->_opacities;
     v9->_opacities = v13;
 
     v15 = MEMORY[0x1E695DFD8];
-    v52[0] = objc_opt_class();
-    v52[1] = objc_opt_class();
-    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v52 count:2];
+    v51[0] = objc_opt_class();
+    v51[1] = objc_opt_class();
+    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v51 count:2];
     v17 = [v15 setWithArray:v16];
     v18 = [coderCopy decodeObjectOfClasses:v17 forKey:@"speculars"];
     speculars = v9->_speculars;
     v9->_speculars = v18;
 
     v20 = MEMORY[0x1E695DFD8];
-    v51[0] = objc_opt_class();
-    v51[1] = objc_opt_class();
-    v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v51 count:2];
+    v50[0] = objc_opt_class();
+    v50[1] = objc_opt_class();
+    v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v50 count:2];
     v22 = [v20 setWithArray:v21];
     v23 = [coderCopy decodeObjectOfClasses:v22 forKey:@"combineSpeculars"];
     combineSpeculars = v9->_combineSpeculars;
     v9->_combineSpeculars = v23;
 
     v25 = MEMORY[0x1E695DFD8];
-    v50[0] = objc_opt_class();
-    v50[1] = objc_opt_class();
-    v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:v50 count:2];
+    v49[0] = objc_opt_class();
+    v49[1] = objc_opt_class();
+    v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:v49 count:2];
     v27 = [v25 setWithArray:v26];
     v28 = [coderCopy decodeObjectOfClasses:v27 forKey:@"blurs"];
     blurs = v9->_blurs;
     v9->_blurs = v28;
 
     v30 = MEMORY[0x1E695DFD8];
-    v49[0] = objc_opt_class();
-    v49[1] = objc_opt_class();
-    v31 = [MEMORY[0x1E695DEC8] arrayWithObjects:v49 count:2];
+    v48[0] = objc_opt_class();
+    v48[1] = objc_opt_class();
+    v31 = [MEMORY[0x1E695DEC8] arrayWithObjects:v48 count:2];
     v32 = [v30 setWithArray:v31];
     v33 = [coderCopy decodeObjectOfClasses:v32 forKey:@"translucencies"];
     translucencies = v9->_translucencies;
     v9->_translucencies = v33;
 
     v35 = MEMORY[0x1E695DFD8];
-    v48[0] = objc_opt_class();
-    v48[1] = objc_opt_class();
-    v36 = [MEMORY[0x1E695DEC8] arrayWithObjects:v48 count:2];
+    v47[0] = objc_opt_class();
+    v47[1] = objc_opt_class();
+    v36 = [MEMORY[0x1E695DEC8] arrayWithObjects:v47 count:2];
     v37 = [v35 setWithArray:v36];
     v38 = [coderCopy decodeObjectOfClasses:v37 forKey:@"shadowStyles"];
     shadowStyles = v9->_shadowStyles;
     v9->_shadowStyles = v38;
 
     v40 = MEMORY[0x1E695DFD8];
-    v47[0] = objc_opt_class();
-    v47[1] = objc_opt_class();
-    v41 = [MEMORY[0x1E695DEC8] arrayWithObjects:v47 count:2];
+    v46[0] = objc_opt_class();
+    v46[1] = objc_opt_class();
+    v41 = [MEMORY[0x1E695DEC8] arrayWithObjects:v46 count:2];
     v42 = [v40 setWithArray:v41];
     v43 = [coderCopy decodeObjectOfClasses:v42 forKey:@"shadows"];
     shadows = v9->_shadows;
     v9->_shadows = v43;
   }
 
-  v45 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -170,6 +171,24 @@
   return v6;
 }
 
+- (void)setHasSpecular:(BOOL)specular forAppearance:(int64_t)appearance
+{
+  specularCopy = specular;
+  speculars = self->_speculars;
+  if (!speculars)
+  {
+    v8 = objc_opt_new();
+    v9 = self->_speculars;
+    self->_speculars = v8;
+
+    speculars = self->_speculars;
+  }
+
+  v11 = [MEMORY[0x1E696AD98] numberWithBool:specularCopy];
+  v10 = [MEMORY[0x1E696AD98] numberWithInteger:appearance];
+  [(NSMutableDictionary *)speculars setObject:v11 forKey:v10];
+}
+
 - (BOOL)hasSpecularForAppearance:(int64_t)appearance
 {
   v3 = [(NSMutableDictionary *)self->_speculars _IS_layerObjectForKey:appearance];
@@ -185,6 +204,24 @@
   }
 
   return bOOLValue;
+}
+
+- (void)setHasOverlappingChildSpecularsCombined:(BOOL)combined forAppearance:(int64_t)appearance
+{
+  combinedCopy = combined;
+  combineSpeculars = self->_combineSpeculars;
+  if (!combineSpeculars)
+  {
+    v8 = objc_opt_new();
+    v9 = self->_combineSpeculars;
+    self->_combineSpeculars = v8;
+
+    combineSpeculars = self->_combineSpeculars;
+  }
+
+  v11 = [MEMORY[0x1E696AD98] numberWithBool:combinedCopy];
+  v10 = [MEMORY[0x1E696AD98] numberWithInteger:appearance];
+  [(NSMutableDictionary *)combineSpeculars setObject:v11 forKey:v10];
 }
 
 - (BOOL)hasOverlappingChildSpecularsCombinedForAppearance:(int64_t)appearance
@@ -391,7 +428,7 @@
 
 - (id)digest
 {
-  v31[2] = *MEMORY[0x1E69E9840];
+  v30[2] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696AEC0];
   opacities = [(ISIconLayerGroup *)self opacities];
   speculars = [(ISIconLayerGroup *)self speculars];
@@ -402,7 +439,7 @@
   shadows = [(ISIconLayerGroup *)self shadows];
   v11 = [v3 stringWithFormat:@"O:%@, S:%@, CS:%@ B:%@ T:%@ SS:%@ S:%@", opacities, speculars, combineSpeculars, blurs, translucencies, shadowStyles, shadows];
 
-  v30 = v11;
+  v29 = v11;
   v12 = [MEMORY[0x1E696AFB0] _IF_UUIDWithString:v11];
   layers = [(ISIconLayerGroup *)self layers];
   v14 = [layers count];
@@ -422,9 +459,9 @@
       v22 = [v18 _IF_UUIDWithString:v21];
 
       v23 = MEMORY[0x1E696AFB0];
-      v31[0] = v12;
-      v31[1] = v22;
-      v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:2];
+      v30[0] = v12;
+      v30[1] = v22;
+      v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:2];
       v25 = [v23 _IF_UUIDByXORingUUIDs:v24];
 
       ++v15;
@@ -441,8 +478,6 @@
   {
     v25 = v12;
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 
   return v25;
 }
@@ -462,7 +497,7 @@
     return qword_1A7825330[style];
   }
 
-  v4 = _ISDefaultLog();
+  v4 = _ISDefaultLog(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     [ISIconLayerGroup _IS_cuiShadowStyleFromStyle:v4];

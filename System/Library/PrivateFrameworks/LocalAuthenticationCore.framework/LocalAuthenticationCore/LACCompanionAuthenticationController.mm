@@ -40,18 +40,16 @@
 
 - (LACCompanionAuthenticationEnvironmentProviding)environmentProvider
 {
-  v2 = *(&self->super.isa + OBJC_IVAR___LACCompanionAuthenticationController_environmentProvider);
-  v3 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v3;
+  return v2;
 }
 
 - (LACCompanionAuthenticationCoordinating)authenticator
 {
-  v2 = *(&self->super.isa + OBJC_IVAR___LACCompanionAuthenticationController_authenticator);
-  v3 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v3;
+  return v2;
 }
 
 - (BOOL)isSessionActive
@@ -65,39 +63,35 @@
 
 - (LACCompanionAuthenticationSessionMonitoring)sessionMonitor
 {
-  v2 = *(&self->super.isa + OBJC_IVAR___LACCompanionAuthenticationController_sessionMonitor);
-  v3 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v3;
+  return v2;
 }
 
 - (void)cancelRequestsForContextID:(id)d
 {
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x1EEE9AC00](v4 - 8);
-  v7 = (&v14 - v6);
-  v8 = type metadata accessor for UUID();
-  v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  MEMORY[0x1EEE9AC00](v8);
-  v12 = &v14 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v12 - v5;
+  v7 = type metadata accessor for UUID();
+  v8 = *(v7 - 8);
+  MEMORY[0x1EEE9AC00](v7);
+  v10 = &v12 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
-  (*(v9 + 16))(v7, v12, v8);
-  (*(v9 + 56))(v7, 0, 1, v8);
+  (*(v8 + 16))(v6, v10, v7);
+  (*(v8 + 56))(v6, 0, 1, v7);
   selfCopy = self;
-  LACCompanionAuthenticationController.cancelPendingRequests(contextID:)(v7);
+  LACCompanionAuthenticationController.cancelPendingRequests(contextID:)(v6);
 
-  outlined destroy of AsyncStream<()>.Continuation?(v7, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-  (*(v9 + 8))(v12, v8);
+  outlined destroy of AsyncStream<()>.Continuation?(v6, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+  (*(v8 + 8))(v10, v7);
 }
 
 - (LACClientInfoProviding)clientInfoProvider
 {
-  v2 = *(&self->super.isa + OBJC_IVAR___LACCompanionAuthenticationController_clientInfoProvider);
-  v3 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v3;
+  return v2;
 }
 
 - (LACCompanionAuthenticationController)initWithAuthenticator:(id)authenticator clientInfoProvider:(id)provider environmentProvider:(id)environmentProvider sessionMonitor:(id)monitor replyQueue:(id)queue
@@ -135,15 +129,14 @@
 - (void)cancelAllRequests
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x1EEE9AC00](v3 - 8);
-  v6 = (&v9 - v5);
-  v7 = type metadata accessor for UUID();
-  (*(*(v7 - 8) + 56))(v6, 1, 1, v7);
+  v5 = &v8 - v4;
+  v6 = type metadata accessor for UUID();
+  (*(*(v6 - 8) + 56))(v5, 1, 1, v6);
   selfCopy = self;
-  LACCompanionAuthenticationController.cancelPendingRequests(contextID:)(v6);
+  LACCompanionAuthenticationController.cancelPendingRequests(contextID:)(v5);
 
-  outlined destroy of AsyncStream<()>.Continuation?(v6, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+  outlined destroy of AsyncStream<()>.Continuation?(v5, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
 }
 
 - (id)mapError:(id)error

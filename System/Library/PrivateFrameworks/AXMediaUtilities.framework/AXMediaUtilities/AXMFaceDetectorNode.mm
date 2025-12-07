@@ -80,8 +80,8 @@
     {
       if (!getVNCreateFaceprintRequestClass())
       {
-        v61 = AXMediaLogCommon();
-        if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
+        v45 = AXMediaLogCommon();
+        if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
         {
           [AXMFaceDetectorNode _createRequestsForContext:];
         }
@@ -93,21 +93,21 @@
 
       if (!_faceprintRequest)
       {
-        v62 = objc_alloc_init(getVNCreateFaceprintRequestClass());
-        [(AXMFaceDetectorNode *)self set_faceprintRequest:v62];
+        v46 = objc_alloc_init(getVNCreateFaceprintRequestClass());
+        [(AXMFaceDetectorNode *)self set_faceprintRequest:v46];
 
         _faceprintRequest2 = [(AXMFaceDetectorNode *)self _faceprintRequest];
         _faceNameHelper3 = [(AXMFaceDetectorNode *)self _faceNameHelper];
-        v71 = 0;
-        [_faceprintRequest2 setRevision:objc_msgSend(_faceNameHelper3 error:{"faceprintRequestRevisionForPersonsModel"), &v71}];
-        v61 = v71;
+        v55 = 0;
+        [_faceprintRequest2 setRevision:objc_msgSend(_faceNameHelper3 error:{"faceprintRequestRevisionForPersonsModel"), &v55}];
+        v45 = v55;
 
-        if (v61)
+        if (v45)
         {
-          v65 = AXMediaLogCommon();
-          if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
+          v49 = AXMediaLogCommon();
+          if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
           {
-            [(AXMFaceDetectorNode *)self _createRequestsForContext:v61, v65];
+            [(AXMFaceDetectorNode *)self _createRequestsForContext:v45, v49];
           }
 
 LABEL_54:
@@ -129,8 +129,8 @@ LABEL_59:
   {
     if (!getVNClassifyFaceAttributesRequestClass())
     {
-      v57 = AXMediaLogCommon();
-      if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
+      v41 = AXMediaLogCommon();
+      if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
       {
         [AXMFaceDetectorNode _createRequestsForContext:];
       }
@@ -142,20 +142,20 @@ LABEL_59:
 
     if (!_faceAttributesRequest)
     {
-      v58 = objc_alloc_init(getVNClassifyFaceAttributesRequestClass());
-      [(AXMFaceDetectorNode *)self set_faceAttributesRequest:v58];
+      v42 = objc_alloc_init(getVNClassifyFaceAttributesRequestClass());
+      [(AXMFaceDetectorNode *)self set_faceAttributesRequest:v42];
 
       _faceAttributesRequest2 = [(AXMFaceDetectorNode *)self _faceAttributesRequest];
-      v70 = 0;
-      [_faceAttributesRequest2 setRevision:3737841666 error:&v70];
-      photoLibraryURL = v70;
+      v54 = 0;
+      [_faceAttributesRequest2 setRevision:3737841666 error:&v54];
+      photoLibraryURL = v54;
 
       if (photoLibraryURL)
       {
-        v60 = AXMediaLogCommon();
-        if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
+        v44 = AXMediaLogCommon();
+        if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
         {
-          [(AXMFaceDetectorNode *)photoLibraryURL _createRequestsForContext:v60];
+          [(AXMFaceDetectorNode *)photoLibraryURL _createRequestsForContext:v44];
         }
 
 LABEL_58:
@@ -175,8 +175,8 @@ LABEL_58:
   {
     if (!getVNDetectFaceExpressionsRequestClass())
     {
-      v57 = AXMediaLogCommon();
-      if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
+      v41 = AXMediaLogCommon();
+      if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
       {
         [AXMFaceDetectorNode validateVisionKitSoftLinkSymbols];
       }
@@ -203,8 +203,8 @@ LABEL_58:
   {
     if (!getVNDetectFaceLandmarksRequestClass())
     {
-      v57 = AXMediaLogCommon();
-      if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
+      v41 = AXMediaLogCommon();
+      if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
       {
         [AXMFaceDetectorNode _createRequestsForContext:];
       }
@@ -231,8 +231,8 @@ LABEL_58:
   {
     if (!getVNDetectFacePoseRequestClass())
     {
-      v57 = AXMediaLogCommon();
-      if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
+      v41 = AXMediaLogCommon();
+      if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
       {
         [AXMFaceDetectorNode _createRequestsForContext:];
       }
@@ -261,26 +261,26 @@ LABEL_58:
     goto LABEL_33;
   }
 
-  if (getVNDetectFaceRectanglesRequestClass(v38, v39, v40, v41, v42, v43, v44, v45))
+  if (getVNDetectFaceRectanglesRequestClass())
   {
     _faceRectanglesRequest = [(AXMFaceDetectorNode *)self _faceRectanglesRequest];
 
     if (!_faceRectanglesRequest)
     {
-      v66 = objc_alloc_init(getVNDetectFaceRectanglesRequestClass(v47, v48, v49, v50, v51, v52, v53, v54));
-      [(AXMFaceDetectorNode *)self set_faceRectanglesRequest:v66];
+      v50 = objc_alloc_init(getVNDetectFaceRectanglesRequestClass());
+      [(AXMFaceDetectorNode *)self set_faceRectanglesRequest:v50];
 
       _faceRectanglesRequest2 = [(AXMFaceDetectorNode *)self _faceRectanglesRequest];
-      v69 = 0;
-      [_faceRectanglesRequest2 setRevision:3737841666 error:&v69];
-      photoLibraryURL = v69;
+      v53 = 0;
+      [_faceRectanglesRequest2 setRevision:3737841666 error:&v53];
+      photoLibraryURL = v53;
 
       if (photoLibraryURL)
       {
-        v60 = AXMediaLogCommon();
-        if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
+        v44 = AXMediaLogCommon();
+        if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
         {
-          [(AXMFaceDetectorNode *)photoLibraryURL _createRequestsForContext:v60];
+          [(AXMFaceDetectorNode *)photoLibraryURL _createRequestsForContext:v44];
         }
 
         goto LABEL_58;
@@ -291,12 +291,12 @@ LABEL_58:
     [array addObject:_faceRectanglesRequest3];
 
 LABEL_33:
-    v56 = array;
+    v40 = array;
     goto LABEL_61;
   }
 
-  v57 = AXMediaLogCommon();
-  if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
+  v41 = AXMediaLogCommon();
+  if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
   {
     [AXMFaceDetectorNode _createRequestsForContext:];
   }
@@ -304,10 +304,10 @@ LABEL_33:
 LABEL_49:
 
 LABEL_60:
-  v56 = 0;
+  v40 = 0;
 LABEL_61:
 
-  return v56;
+  return v40;
 }
 
 - (id)_faceDetectionResultsForVisionRequests:(id)requests canvasSize:(CGSize)size
@@ -332,50 +332,50 @@ LABEL_61:
 
 void __73__AXMFaceDetectorNode__faceDetectionResultsForVisionRequests_canvasSize___block_invoke(uint64_t a1, void *a2)
 {
-  v111 = *MEMORY[0x1E69E9840];
+  v104 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  getVNDetectFaceRectanglesRequestClass(v3, v4, v5, v6, v7, v8, v9, v10);
+  getVNDetectFaceRectanglesRequestClass();
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v103 = 0u;
-    v104 = 0u;
-    v101 = 0u;
-    v102 = 0u;
-    v11 = [v3 results];
-    v12 = [v11 countByEnumeratingWithState:&v101 objects:v110 count:16];
-    if (v12)
+    v96 = 0u;
+    v97 = 0u;
+    v94 = 0u;
+    v95 = 0u;
+    v4 = [v3 results];
+    v5 = [v4 countByEnumeratingWithState:&v94 objects:v103 count:16];
+    if (v5)
     {
-      v13 = v12;
-      v14 = *v102;
+      v6 = v5;
+      v7 = *v95;
       do
       {
-        for (i = 0; i != v13; ++i)
+        for (i = 0; i != v6; ++i)
         {
-          if (*v102 != v14)
+          if (*v95 != v7)
           {
-            objc_enumerationMutation(v11);
+            objc_enumerationMutation(v4);
           }
 
-          v16 = *(*(&v101 + 1) + 8 * i);
-          v17 = *(a1 + 32);
-          v18 = [v16 uuid];
-          v19 = [v17 _faceResultForUUID:v18 inFaceDictionary:*(a1 + 40)];
+          v9 = *(*(&v94 + 1) + 8 * i);
+          v10 = *(a1 + 32);
+          v11 = [v9 uuid];
+          v12 = [v10 _faceResultForUUID:v11 inFaceDictionary:*(a1 + 40)];
 
-          [v19 setFaceId:{objc_msgSend(v16, "faceId")}];
-          v20 = [v16 uuid];
-          [v19 setUuid:v20];
+          [v12 setFaceId:{objc_msgSend(v9, "faceId")}];
+          v13 = [v9 uuid];
+          [v12 setUuid:v13];
 
-          [v16 boundingBox];
-          [v19 setFrame:?];
-          [v16 confidence];
-          [v19 setRectanglesConfidence:v21];
+          [v9 boundingBox];
+          [v12 setFrame:?];
+          [v9 confidence];
+          [v12 setRectanglesConfidence:v14];
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v101 objects:v110 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v94 objects:v103 count:16];
       }
 
-      while (v13);
+      while (v6);
     }
 
     goto LABEL_54;
@@ -385,42 +385,42 @@ void __73__AXMFaceDetectorNode__faceDetectionResultsForVisionRequests_canvasSize
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v99 = 0u;
-    v100 = 0u;
-    v97 = 0u;
-    v98 = 0u;
-    v11 = [v3 results];
-    v22 = [v11 countByEnumeratingWithState:&v97 objects:v109 count:16];
-    if (v22)
+    v92 = 0u;
+    v93 = 0u;
+    v90 = 0u;
+    v91 = 0u;
+    v4 = [v3 results];
+    v15 = [v4 countByEnumeratingWithState:&v90 objects:v102 count:16];
+    if (v15)
     {
-      v23 = v22;
-      v24 = *v98;
+      v16 = v15;
+      v17 = *v91;
       do
       {
-        for (j = 0; j != v23; ++j)
+        for (j = 0; j != v16; ++j)
         {
-          if (*v98 != v24)
+          if (*v91 != v17)
           {
-            objc_enumerationMutation(v11);
+            objc_enumerationMutation(v4);
           }
 
-          v26 = *(*(&v97 + 1) + 8 * j);
-          v27 = *(a1 + 32);
-          v28 = [v26 uuid];
-          v29 = [v27 _faceResultForUUID:v28 inFaceDictionary:*(a1 + 40)];
+          v19 = *(*(&v90 + 1) + 8 * j);
+          v20 = *(a1 + 32);
+          v21 = [v19 uuid];
+          v22 = [v20 _faceResultForUUID:v21 inFaceDictionary:*(a1 + 40)];
 
-          v30 = [*(a1 + 32) _faceNameHelper];
-          v31 = [v30 nameForFaceObservation:v26];
-          [v29 setName:v31];
+          v23 = [*(a1 + 32) _faceNameHelper];
+          v24 = [v23 nameForFaceObservation:v19];
+          [v22 setName:v24];
 
-          [v26 confidence];
-          [v29 setNameConfidence:v32];
+          [v19 confidence];
+          [v22 setNameConfidence:v25];
         }
 
-        v23 = [v11 countByEnumeratingWithState:&v97 objects:v109 count:16];
+        v16 = [v4 countByEnumeratingWithState:&v90 objects:v102 count:16];
       }
 
-      while (v23);
+      while (v16);
     }
 
     goto LABEL_54;
@@ -430,55 +430,55 @@ void __73__AXMFaceDetectorNode__faceDetectionResultsForVisionRequests_canvasSize
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v95 = 0u;
-    v96 = 0u;
-    v93 = 0u;
-    v94 = 0u;
-    v11 = [v3 results];
-    v33 = [v11 countByEnumeratingWithState:&v93 objects:v108 count:16];
-    if (!v33)
+    v88 = 0u;
+    v89 = 0u;
+    v86 = 0u;
+    v87 = 0u;
+    v4 = [v3 results];
+    v26 = [v4 countByEnumeratingWithState:&v86 objects:v101 count:16];
+    if (!v26)
     {
 LABEL_54:
 
       goto LABEL_55;
     }
 
-    v34 = v33;
-    v80 = v3;
-    v35 = *v94;
+    v27 = v26;
+    v73 = v3;
+    v28 = *v87;
     do
     {
-      for (k = 0; k != v34; ++k)
+      for (k = 0; k != v27; ++k)
       {
-        if (*v94 != v35)
+        if (*v87 != v28)
         {
-          objc_enumerationMutation(v11);
+          objc_enumerationMutation(v4);
         }
 
-        v37 = *(*(&v93 + 1) + 8 * k);
-        v38 = *(a1 + 32);
-        v39 = [v37 uuid];
-        v40 = [v38 _faceResultForUUID:v39 inFaceDictionary:*(a1 + 40)];
+        v30 = *(*(&v86 + 1) + 8 * k);
+        v31 = *(a1 + 32);
+        v32 = [v30 uuid];
+        v33 = [v31 _faceResultForUUID:v32 inFaceDictionary:*(a1 + 40)];
 
-        v41 = [AXMVisionFeatureFaceAttributes alloc];
-        v42 = [v37 faceAttributes];
-        v43 = [(AXMVisionFeatureFaceAttributes *)v41 initWithVisionFaceAttributes:v42];
-        [v40 setAttributes:v43];
+        v34 = [AXMVisionFeatureFaceAttributes alloc];
+        v35 = [v30 faceAttributes];
+        v36 = [(AXMVisionFeatureFaceAttributes *)v34 initWithVisionFaceAttributes:v35];
+        [v33 setAttributes:v36];
 
-        v44 = +[AXMVisionFeatureFaceAttributes defaultExcludeOptions];
-        v45 = [v40 attributes];
-        [v45 setExcludeOptions:v44];
+        v37 = +[AXMVisionFeatureFaceAttributes defaultExcludeOptions];
+        v38 = [v33 attributes];
+        [v38 setExcludeOptions:v37];
 
-        [v37 confidence];
-        [v40 setAttributesConfidence:v46];
+        [v30 confidence];
+        [v33 setAttributesConfidence:v39];
       }
 
-      v34 = [v11 countByEnumeratingWithState:&v93 objects:v108 count:16];
+      v27 = [v4 countByEnumeratingWithState:&v86 objects:v101 count:16];
     }
 
-    while (v34);
+    while (v27);
 LABEL_27:
-    v3 = v80;
+    v3 = v73;
     goto LABEL_54;
   }
 
@@ -486,38 +486,38 @@ LABEL_27:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v91 = 0u;
-    v92 = 0u;
-    v89 = 0u;
-    v90 = 0u;
-    v11 = [v3 results];
-    v47 = [v11 countByEnumeratingWithState:&v89 objects:v107 count:16];
-    if (v47)
+    v84 = 0u;
+    v85 = 0u;
+    v82 = 0u;
+    v83 = 0u;
+    v4 = [v3 results];
+    v40 = [v4 countByEnumeratingWithState:&v82 objects:v100 count:16];
+    if (v40)
     {
-      v48 = v47;
-      v49 = *v90;
+      v41 = v40;
+      v42 = *v83;
       do
       {
-        for (m = 0; m != v48; ++m)
+        for (m = 0; m != v41; ++m)
         {
-          if (*v90 != v49)
+          if (*v83 != v42)
           {
-            objc_enumerationMutation(v11);
+            objc_enumerationMutation(v4);
           }
 
-          v51 = *(*(&v89 + 1) + 8 * m);
-          v52 = *(a1 + 32);
-          v53 = [v51 uuid];
-          v54 = [v52 _faceResultForUUID:v53 inFaceDictionary:*(a1 + 40)];
+          v44 = *(*(&v82 + 1) + 8 * m);
+          v45 = *(a1 + 32);
+          v46 = [v44 uuid];
+          v47 = [v45 _faceResultForUUID:v46 inFaceDictionary:*(a1 + 40)];
 
-          v55 = [v51 expressionsAndConfidence];
-          [v54 setExpressionsAndConfidence:v55];
+          v48 = [v44 expressionsAndConfidence];
+          [v47 setExpressionsAndConfidence:v48];
         }
 
-        v48 = [v11 countByEnumeratingWithState:&v89 objects:v107 count:16];
+        v41 = [v4 countByEnumeratingWithState:&v82 objects:v100 count:16];
       }
 
-      while (v48);
+      while (v41);
     }
 
     goto LABEL_54;
@@ -527,52 +527,52 @@ LABEL_27:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v87 = 0u;
-    v88 = 0u;
-    v85 = 0u;
-    v86 = 0u;
-    v11 = [v3 results];
-    v56 = [v11 countByEnumeratingWithState:&v85 objects:v106 count:16];
-    if (!v56)
+    v80 = 0u;
+    v81 = 0u;
+    v78 = 0u;
+    v79 = 0u;
+    v4 = [v3 results];
+    v49 = [v4 countByEnumeratingWithState:&v78 objects:v99 count:16];
+    if (!v49)
     {
       goto LABEL_54;
     }
 
-    v57 = v56;
-    v80 = v3;
-    v58 = *v86;
+    v50 = v49;
+    v73 = v3;
+    v51 = *v79;
     do
     {
-      for (n = 0; n != v57; ++n)
+      for (n = 0; n != v50; ++n)
       {
-        if (*v86 != v58)
+        if (*v79 != v51)
         {
-          objc_enumerationMutation(v11);
+          objc_enumerationMutation(v4);
         }
 
-        v60 = *(*(&v85 + 1) + 8 * n);
-        v61 = *(a1 + 32);
-        v62 = [v60 uuid];
-        v63 = [v61 _faceResultForUUID:v62 inFaceDictionary:*(a1 + 40)];
+        v53 = *(*(&v78 + 1) + 8 * n);
+        v54 = *(a1 + 32);
+        v55 = [v53 uuid];
+        v56 = [v54 _faceResultForUUID:v55 inFaceDictionary:*(a1 + 40)];
 
-        v64 = [AXMVisionFeatureFaceLandmarks alloc];
-        v65 = [v60 landmarks];
-        v66 = [(AXMVisionFeatureFaceLandmarks *)v64 initWithVisionFaceLandmarks:v65];
-        [v63 setLandmarks:v66];
+        v57 = [AXMVisionFeatureFaceLandmarks alloc];
+        v58 = [v53 landmarks];
+        v59 = [(AXMVisionFeatureFaceLandmarks *)v57 initWithVisionFaceLandmarks:v58];
+        [v56 setLandmarks:v59];
 
-        v67 = [AXMVisionFeatureFaceLandmarks alloc];
-        v68 = [v60 landmarks3d];
-        v69 = [(AXMVisionFeatureFaceLandmarks *)v67 initWithVisionFaceLandmarks:v68];
-        [v63 setLandmarks3d:v69];
+        v60 = [AXMVisionFeatureFaceLandmarks alloc];
+        v61 = [v53 landmarks3d];
+        v62 = [(AXMVisionFeatureFaceLandmarks *)v60 initWithVisionFaceLandmarks:v61];
+        [v56 setLandmarks3d:v62];
 
-        [v60 confidence];
-        [v63 setLandmarksConfidence:v70];
+        [v53 confidence];
+        [v56 setLandmarksConfidence:v63];
       }
 
-      v57 = [v11 countByEnumeratingWithState:&v85 objects:v106 count:16];
+      v50 = [v4 countByEnumeratingWithState:&v78 objects:v99 count:16];
     }
 
-    while (v57);
+    while (v50);
     goto LABEL_27;
   }
 
@@ -580,40 +580,40 @@ LABEL_27:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v83 = 0u;
-    v84 = 0u;
-    v81 = 0u;
-    v82 = 0u;
-    v11 = [v3 results];
-    v71 = [v11 countByEnumeratingWithState:&v81 objects:v105 count:16];
-    if (v71)
+    v76 = 0u;
+    v77 = 0u;
+    v74 = 0u;
+    v75 = 0u;
+    v4 = [v3 results];
+    v64 = [v4 countByEnumeratingWithState:&v74 objects:v98 count:16];
+    if (v64)
     {
-      v72 = v71;
-      v73 = *v82;
+      v65 = v64;
+      v66 = *v75;
       do
       {
-        for (ii = 0; ii != v72; ++ii)
+        for (ii = 0; ii != v65; ++ii)
         {
-          if (*v82 != v73)
+          if (*v75 != v66)
           {
-            objc_enumerationMutation(v11);
+            objc_enumerationMutation(v4);
           }
 
-          v75 = *(*(&v81 + 1) + 8 * ii);
-          v76 = *(a1 + 32);
-          v77 = [v75 uuid];
-          v78 = [v76 _faceResultForUUID:v77 inFaceDictionary:*(a1 + 40)];
+          v68 = *(*(&v74 + 1) + 8 * ii);
+          v69 = *(a1 + 32);
+          v70 = [v68 uuid];
+          v71 = [v69 _faceResultForUUID:v70 inFaceDictionary:*(a1 + 40)];
 
-          [v75 pose];
-          [v78 setPose:?];
-          [v75 confidence];
-          [v78 setPoseConfidence:v79];
+          [v68 pose];
+          [v71 setPose:?];
+          [v68 confidence];
+          [v71 setPoseConfidence:v72];
         }
 
-        v72 = [v11 countByEnumeratingWithState:&v81 objects:v105 count:16];
+        v65 = [v4 countByEnumeratingWithState:&v74 objects:v98 count:16];
       }
 
-      while (v72);
+      while (v65);
     }
 
     goto LABEL_54;

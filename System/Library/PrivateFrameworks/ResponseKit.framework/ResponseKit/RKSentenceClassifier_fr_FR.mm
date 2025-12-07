@@ -20,34 +20,32 @@
 
 - (void)analyzeSentence
 {
-  v13[5] = *MEMORY[0x277D85DE8];
-  v12.receiver = self;
-  v12.super_class = RKSentenceClassifier_fr_FR;
-  [(RKSentenceClassifier *)&v12 analyzeSentence];
+  v12[5] = *MEMORY[0x277D85DE8];
+  v11.receiver = self;
+  v11.super_class = RKSentenceClassifier_fr_FR;
+  [(RKSentenceClassifier *)&v11 analyzeSentence];
   array = [MEMORY[0x277CBEA60] array];
   [(RKSentenceClassifier *)self setInversions:array];
 
   v4 = MEMORY[0x277CBEB98];
   v5 = *MEMORY[0x277CCA3C8];
-  v13[0] = *MEMORY[0x277CCA368];
-  v13[1] = v5;
+  v12[0] = *MEMORY[0x277CCA368];
+  v12[1] = v5;
   v6 = *MEMORY[0x277CCA3B8];
-  v13[2] = *MEMORY[0x277CCA3B0];
-  v13[3] = v6;
-  v13[4] = *MEMORY[0x277CCA388];
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:5];
+  v12[2] = *MEMORY[0x277CCA3B0];
+  v12[3] = v6;
+  v12[4] = *MEMORY[0x277CCA388];
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:5];
   v8 = [v4 setWithArray:v7];
 
   sentenceEntities = [(RKSentenceClassifier *)self sentenceEntities];
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __45__RKSentenceClassifier_fr_FR_analyzeSentence__block_invoke;
-  v11[3] = &unk_279B0FDC0;
-  v11[4] = v8;
-  v11[5] = self;
-  [sentenceEntities enumerateObjectsUsingBlock:v11];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __45__RKSentenceClassifier_fr_FR_analyzeSentence__block_invoke;
+  v10[3] = &unk_279B0FDC0;
+  v10[4] = v8;
+  v10[5] = self;
+  [sentenceEntities enumerateObjectsUsingBlock:v10];
 }
 
 - (id)classifySentence
@@ -109,7 +107,7 @@ LABEL_9:
 
   if ([classifySentence sentenceType] && objc_msgSend(lowercaseString, "containsString:", @"comment"))
   {
-    v17 = [MEMORY[0x277CCAC30] predicateWithFormat:@"(lemma == 'appeler') || (lemma == 'appelles') || (lemma == \"s'appeler\""];
+    v17 = [MEMORY[0x277CCAC30] predicateWithFormat:@"(lemma == 'appeler') || (lemma == 'appelles') || (lemma == s'appeler"];
     v18 = [MEMORY[0x277CCAC30] predicateWithFormat:@"(lemma == 'dire')"];
     if (([lowercaseString isEqualToString:@"comment?"] & 1) == 0 && (objc_msgSend(lowercaseString, "isEqualToString:", @"comment!") & 1) == 0)
     {

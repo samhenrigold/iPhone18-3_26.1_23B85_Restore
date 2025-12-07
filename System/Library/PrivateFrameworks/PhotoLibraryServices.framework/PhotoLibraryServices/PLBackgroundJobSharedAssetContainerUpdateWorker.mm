@@ -409,7 +409,7 @@ LABEL_65:
   {
     v66 = objc_opt_class();
     v67 = NSStringFromClass(v66);
-    v68 = [v63 count];
+    v68 = objc_msgSend_count(v63);
     *buf = 138543618;
     v141 = v67;
     v142 = 2048;
@@ -567,7 +567,7 @@ LABEL_3:
       {
         v27 = objc_opt_class();
         v28 = NSStringFromClass(v27);
-        v29 = [v24 count];
+        v29 = objc_msgSend_count(v24);
         *buf = 138543618;
         v141 = v28;
         v142 = 2048;
@@ -613,7 +613,7 @@ LABEL_9:
           {
             v42 = objc_opt_class();
             v43 = NSStringFromClass(v42);
-            v44 = [v24 count];
+            v44 = objc_msgSend_count(v24);
             *buf = 138543618;
             v141 = v43;
             v142 = 2048;
@@ -764,7 +764,7 @@ LABEL_67:
     v34 = libraryCopy;
     [v34 performBlockAndWait:v33];
     identifiers = [v37[5] identifiers];
-    v9 = [identifiers count] == 0;
+    v9 = objc_msgSend_count(identifiers) == 0;
 
     if (v9)
     {
@@ -803,7 +803,7 @@ LABEL_67:
             }
 
             v16 = *(*(&v29 + 1) + 8 * i);
-            if (![v11 count] || (objc_msgSend(v11, "lastObject"), v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(v17, "count") < v10, v17, !v18))
+            if (!objc_msgSend_count(v11) || ([v11 lastObject], v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend_count(v17) < v10, v17, !v18))
             {
               v19 = objc_alloc_init(MEMORY[0x1E695DFA8]);
               [v11 addObject:v19];
@@ -844,7 +844,7 @@ LABEL_67:
 void __102__PLBackgroundJobSharedAssetContainerUpdateWorker_workItemsNeedingProcessingInLibrary_validCriterias___block_invoke(uint64_t a1)
 {
   v2 = [*(*(*(a1 + 48) + 8) + 40) identifiers];
-  v3 = [v2 count];
+  v3 = objc_msgSend_count(v2);
 
   if (!v3)
   {
@@ -855,7 +855,7 @@ void __102__PLBackgroundJobSharedAssetContainerUpdateWorker_workItemsNeedingProc
   }
 
   v7 = [*(*(*(a1 + 48) + 8) + 40) identifiers];
-  v8 = [v7 count];
+  v8 = objc_msgSend_count(v7);
 
   if (!v8)
   {
@@ -866,7 +866,7 @@ void __102__PLBackgroundJobSharedAssetContainerUpdateWorker_workItemsNeedingProc
   }
 
   v12 = [*(*(*(a1 + 48) + 8) + 40) identifiers];
-  v13 = [v12 count];
+  v13 = objc_msgSend_count(v12);
 
   if (!v13)
   {
@@ -957,7 +957,7 @@ void __88__PLBackgroundJobSharedAssetContainerUpdateWorker__workItemForJobFlags_
 
           v16 = *(*(&v24 + 1) + 8 * i);
           v17 = objc_autoreleasePoolPush();
-          if ([*(a1 + 48) count] >= *(a1 + 64))
+          if (objc_msgSend_count(*(a1 + 48)) >= *(a1 + 64))
           {
             objc_autoreleasePoolPop(v17);
             goto LABEL_12;

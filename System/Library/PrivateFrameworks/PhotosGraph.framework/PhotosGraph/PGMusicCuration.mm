@@ -73,65 +73,57 @@
 
 - (NSString)keySongAdamID
 {
-  v2 = *(&self->super.isa + OBJC_IVAR___PGMusicCuration_bestMusicSuggestions);
-  if (*(v2 + 16))
+  if ((*(&self->super.isa + OBJC_IVAR___PGMusicCuration_bestMusicSuggestions))[2])
   {
-    v3 = *(type metadata accessor for Song() - 8);
-    v4 = (v2 + ((*(v3 + 80) + 32) & ~*(v3 + 80)));
-    v5 = *v4;
-    v6 = v4[1];
+    type metadata accessor for Song(0);
 
-    v7 = sub_22F740DF0();
+    v2 = sub_22F740DF0();
   }
 
   else
   {
-    v7 = 0;
+    v2 = 0;
   }
 
-  return v7;
+  return v2;
 }
 
 - (NSString)keySongTitle
 {
   v2 = *(&self->super.isa + OBJC_IVAR___PGMusicCuration_bestMusicSuggestions);
-  if (*(v2 + 16) && (v3 = *(type metadata accessor for Song() - 8), v4 = v2 + ((*(v3 + 80) + 32) & ~*(v3 + 80)), *(v4 + 24)))
+  if (*(v2 + 16) && (v3 = *(type metadata accessor for Song(0) - 8), *(v2 + ((*(v3 + 80) + 32) & ~*(v3 + 80)) + 24)))
   {
-    v5 = *(v4 + 16);
-    v6 = *(v4 + 24);
 
-    v7 = sub_22F740DF0();
+    v4 = sub_22F740DF0();
 
-    v8 = v7;
+    v5 = v4;
   }
 
   else
   {
-    v8 = 0;
+    v5 = 0;
   }
 
-  return v8;
+  return v5;
 }
 
 - (NSString)keySongArtist
 {
   v2 = *(&self->super.isa + OBJC_IVAR___PGMusicCuration_bestMusicSuggestions);
-  if (*(v2 + 16) && (v3 = *(type metadata accessor for Song() - 8), v4 = v2 + ((*(v3 + 80) + 32) & ~*(v3 + 80)), *(v4 + 40)))
+  if (*(v2 + 16) && (v3 = *(type metadata accessor for Song(0) - 8), *(v2 + ((*(v3 + 80) + 32) & ~*(v3 + 80)) + 40)))
   {
-    v5 = *(v4 + 32);
-    v6 = *(v4 + 40);
 
-    v7 = sub_22F740DF0();
+    v4 = sub_22F740DF0();
 
-    v8 = v7;
+    v5 = v4;
   }
 
   else
   {
-    v8 = 0;
+    v5 = 0;
   }
 
-  return v8;
+  return v5;
 }
 
 - (NSNumber)keySongArousal

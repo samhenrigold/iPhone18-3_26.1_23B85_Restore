@@ -20,28 +20,27 @@
 - (void)loader:(id)loader didReceiveHTTPResponse:(id)response forRequest:(id)request
 {
   v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2809F60B8, &qword_2755513B8);
-  v10 = *(*(v9 - 8) + 64);
   MEMORY[0x28223BE20](v9 - 8);
-  v12 = &v18 - v11;
+  v11 = &v17 - v10;
   if (request)
   {
     sub_27554C4A8();
-    v13 = sub_27554C4D8();
-    (*(*(v13 - 8) + 56))(v12, 0, 1, v13);
+    v12 = sub_27554C4D8();
+    (*(*(v12 - 8) + 56))(v11, 0, 1, v12);
   }
 
   else
   {
-    v14 = sub_27554C4D8();
-    (*(*(v14 - 8) + 56))(v12, 1, 1, v14);
+    v13 = sub_27554C4D8();
+    (*(*(v13 - 8) + 56))(v11, 1, 1, v13);
   }
 
   loaderCopy = loader;
   responseCopy = response;
   selfCopy = self;
-  sub_2755465EC(response, v12);
+  sub_2755465EC(response, v11);
 
-  sub_275514DA8(v12, &qword_2809F60B8, &qword_2755513B8);
+  sub_275514DA8(v11, &qword_2809F60B8, &qword_2755513B8);
 }
 
 - (id)sessionConfigurationForLoader:(id)loader
@@ -65,38 +64,37 @@
 - (void)objectModel:(id)model pressedLink:(id)link httpMethod:(id)method
 {
   v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2809F60B0, &qword_2755513B0);
-  v10 = *(*(v9 - 8) + 64);
   MEMORY[0x28223BE20](v9 - 8);
-  v12 = &v19 - v11;
+  v11 = &v18 - v10;
   if (link)
   {
     sub_27554C5C8();
-    v13 = sub_27554C5F8();
-    (*(*(v13 - 8) + 56))(v12, 0, 1, v13);
+    v12 = sub_27554C5F8();
+    (*(*(v12 - 8) + 56))(v11, 0, 1, v12);
   }
 
   else
   {
-    v14 = sub_27554C5F8();
-    (*(*(v14 - 8) + 56))(v12, 1, 1, v14);
+    v13 = sub_27554C5F8();
+    (*(*(v13 - 8) + 56))(v11, 1, 1, v13);
   }
 
   if (method)
   {
-    v15 = sub_27554D338();
-    method = v16;
+    v14 = sub_27554D338();
+    method = v15;
   }
 
   else
   {
-    v15 = 0;
+    v14 = 0;
   }
 
   modelCopy = model;
   selfCopy = self;
-  sub_275545434(model, v12, v15, method);
+  sub_275545434(model, v11, v14, method);
 
-  sub_275514DA8(v12, &qword_2809F60B0, &qword_2755513B0);
+  sub_275514DA8(v11, &qword_2809F60B0, &qword_2755513B0);
 }
 
 - (void)objectModel:(id)model pressedButton:(id)button attributes:(id)attributes

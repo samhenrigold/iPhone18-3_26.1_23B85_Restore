@@ -1,4 +1,5 @@
 @interface IOGPUMetalDeviceShmemPool
+- (IOGPUMetalDeviceShmemPool)initWithDevice:(id)device resourceClass:(Class)class shmemSize:(unsigned int)size shmemType:(int)type options:(id)options;
 - (unint64_t)allocatedSize;
 - (void)dealloc;
 - (void)prune;
@@ -7,6 +8,32 @@
 @end
 
 @implementation IOGPUMetalDeviceShmemPool
+
+- (IOGPUMetalDeviceShmemPool)initWithDevice:(id)device resourceClass:(Class)class shmemSize:(unsigned int)size shmemType:(int)type options:(id)options
+{
+  v14.receiver = self;
+  v14.super_class = IOGPUMetalDeviceShmemPool;
+  v11 = [(IOGPUMetalDeviceShmemPool *)&v14 init:device];
+  v12 = v11;
+  if (v11)
+  {
+    v11->_priv.queue.tqh_first = 0;
+    v11->_priv.queue.tqh_last = &v11->_priv.queue.tqh_first;
+    *&v11->_priv.lock._os_unfair_lock_opaque = 0;
+    v11->_priv.shmemClass = class;
+    v11->_priv.device = device;
+    v11->_priv.shmemSize = size;
+    v11->_priv.shmemType = type;
+    if (([(objc_class *)class isSubclassOfClass:objc_opt_class()]& 1) == 0)
+    {
+      [IOGPUMetalDeviceShmemPool initWithDevice:resourceClass:shmemSize:shmemType:options:];
+    }
+
+    v12->_allocatedSize = 0;
+  }
+
+  return v12;
+}
 
 - (void)dealloc
 {

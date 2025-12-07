@@ -96,17 +96,15 @@ void __38__ASDDiagnosticService_defaultService__block_invoke()
 
 void __50__ASDDiagnosticService_addSubscriberWithEndpoint___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = ASDLogHandleForCategory(13);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_error_impl(&dword_1B8220000, v3, OS_LOG_TYPE_ERROR, "[DiagnosticService] Adding subscriber failed: %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_error_impl(&dword_1B8220000, v3, OS_LOG_TYPE_ERROR, "[DiagnosticService] Adding subscriber failed: %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)pingWithError:(id *)error
@@ -188,35 +186,35 @@ void __50__ASDDiagnosticService_addSubscriberWithEndpoint___block_invoke(uint64_
 
 - (id)sendDetailsCommand:(int64_t)command timeout:(id)timeout withError:(id *)error
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   timeoutCopy = timeout;
   v9 = dispatch_semaphore_create(0);
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x3032000000;
-  v34 = __Block_byref_object_copy__12;
-  v35 = __Block_byref_object_dispose__12;
-  v36 = 0;
-  v30[0] = MEMORY[0x1E69E9820];
-  v30[1] = 3221225472;
-  v30[2] = __61__ASDDiagnosticService_sendDetailsCommand_timeout_withError___block_invoke;
-  v30[3] = &unk_1E7CDBB80;
-  v30[4] = &v31;
-  v10 = [(ASDDiagnosticService *)self _asynchronousRemoteObjectProxyWithErrorHandler:v30];
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x3032000000;
-  v27 = __Block_byref_object_copy__12;
-  v28 = __Block_byref_object_dispose__12;
-  v29 = 0;
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __61__ASDDiagnosticService_sendDetailsCommand_timeout_withError___block_invoke_2;
-  v21[3] = &unk_1E7CDD2B0;
-  v23 = &v24;
+  v30 = 0;
+  v31 = &v30;
+  v32 = 0x3032000000;
+  v33 = __Block_byref_object_copy__12;
+  v34 = __Block_byref_object_dispose__12;
+  v35 = 0;
+  v29[0] = MEMORY[0x1E69E9820];
+  v29[1] = 3221225472;
+  v29[2] = __61__ASDDiagnosticService_sendDetailsCommand_timeout_withError___block_invoke;
+  v29[3] = &unk_1E7CDBB80;
+  v29[4] = &v30;
+  v10 = [(ASDDiagnosticService *)self _asynchronousRemoteObjectProxyWithErrorHandler:v29];
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x3032000000;
+  v26 = __Block_byref_object_copy__12;
+  v27 = __Block_byref_object_dispose__12;
+  v28 = 0;
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __61__ASDDiagnosticService_sendDetailsCommand_timeout_withError___block_invoke_2;
+  v20[3] = &unk_1E7CDD2B0;
+  v22 = &v23;
   v11 = v9;
-  v22 = v11;
-  [v10 sendCommandWithDetailedReplyHandler:command handler:v21];
+  v21 = v11;
+  [v10 sendCommandWithDetailedReplyHandler:command handler:v20];
   if ([timeoutCopy intValue] < 1)
   {
     dispatch_semaphore_wait(v11, 0xFFFFFFFFFFFFFFFFLL);
@@ -234,33 +232,31 @@ void __50__ASDDiagnosticService_addSubscriberWithEndpoint___block_invoke(uint64_
     v13 = ASDLogHandleForCategory(13);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v19 = objc_opt_class();
+      v18 = objc_opt_class();
       *buf = 138543618;
-      v38 = v19;
-      v39 = 2048;
+      v37 = v18;
+      v38 = 2048;
       commandCopy = command;
-      v20 = v19;
+      v19 = v18;
       _os_log_error_impl(&dword_1B8220000, v13, OS_LOG_TYPE_ERROR, "[%{public}@]: Timed out attempting to diagnostic command %ld", buf, 0x16u);
     }
 
     v14 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.asclient.diagnostics" code:515 userInfo:&unk_1F3033378];
-    v15 = v32[5];
-    v32[5] = v14;
+    v15 = v31[5];
+    v31[5] = v14;
   }
 
   if (error)
   {
 LABEL_9:
-    *error = v32[5];
+    *error = v31[5];
   }
 
 LABEL_10:
-  v16 = v25[5];
+  v16 = v24[5];
 
-  _Block_object_dispose(&v24, 8);
-  _Block_object_dispose(&v31, 8);
-
-  v17 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v23, 8);
+  _Block_object_dispose(&v30, 8);
 
   return v16;
 }

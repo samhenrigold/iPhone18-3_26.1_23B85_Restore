@@ -174,21 +174,21 @@
 
   scheme2 = [(WFInterchangeScheme *)self scheme];
   lowercaseString2 = [scheme2 lowercaseString];
-  v9 = [lowercaseString isEqualToString:lowercaseString2];
+  isEqualToString = objc_msgSend_isEqualToString_(lowercaseString);
 
-  if (v9)
+  if (isEqualToString)
   {
     v10 = 1;
   }
 
-  else if (([lowercaseString isEqualToString:@"http"] & 1) != 0 || objc_msgSend(lowercaseString, "isEqualToString:", @"https"))
+  else if ((objc_msgSend_isEqualToString_(lowercaseString) & 1) != 0 || objc_msgSend_isEqualToString_(lowercaseString))
   {
     universalLinkBaseURL = [(WFInterchangeScheme *)self universalLinkBaseURL];
     if (universalLinkBaseURL)
     {
       host = [lCopy host];
       host2 = [universalLinkBaseURL host];
-      if ([host isEqualToString:host2])
+      if (objc_msgSend_isEqualToString_(host))
       {
         path = [lCopy path];
         path2 = [universalLinkBaseURL path];
@@ -256,7 +256,7 @@
 
 - (WFInterchangeScheme)initWithDefinition:(id)definition app:(id)app
 {
-  v57 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   definitionCopy = definition;
   appCopy = app;
   v9 = [(WFInterchangeScheme *)self init];
@@ -337,32 +337,32 @@ LABEL_26:
 
           if ([v32 count])
           {
-            v49 = v16;
-            v50 = appCopy;
-            v51 = definitionCopy;
+            v48 = v16;
+            v49 = appCopy;
+            v50 = definitionCopy;
             v33 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v32, "count")}];
+            v51 = 0u;
             v52 = 0u;
             v53 = 0u;
             v54 = 0u;
-            v55 = 0u;
-            v48 = v32;
+            v47 = v32;
             v34 = v32;
-            v35 = [v34 countByEnumeratingWithState:&v52 objects:v56 count:16];
+            v35 = [v34 countByEnumeratingWithState:&v51 objects:v55 count:16];
             if (v35)
             {
               v36 = v35;
-              v37 = *v53;
+              v37 = *v52;
               do
               {
                 for (i = 0; i != v36; ++i)
                 {
-                  if (*v53 != v37)
+                  if (*v52 != v37)
                   {
                     objc_enumerationMutation(v34);
                   }
 
-                  v39 = *(*(&v52 + 1) + 8 * i);
-                  v40 = [v39 objectForKey:{@"ActionClass", v48}];
+                  v39 = *(*(&v51 + 1) + 8 * i);
+                  v40 = [v39 objectForKey:{@"ActionClass", v47}];
                   v41 = NSClassFromString(v40);
                   if (!v41)
                   {
@@ -376,7 +376,7 @@ LABEL_26:
                   }
                 }
 
-                v36 = [v34 countByEnumeratingWithState:&v52 objects:v56 count:16];
+                v36 = [v34 countByEnumeratingWithState:&v51 objects:v55 count:16];
               }
 
               while (v36);
@@ -386,10 +386,10 @@ LABEL_26:
             actions = v10->_actions;
             v10->_actions = v43;
 
-            appCopy = v50;
-            definitionCopy = v51;
-            v32 = v48;
-            v16 = v49;
+            appCopy = v49;
+            definitionCopy = v50;
+            v32 = v47;
+            v16 = v48;
           }
 
           goto LABEL_42;
@@ -450,7 +450,6 @@ LABEL_26:
   v19 = 0;
 LABEL_43:
 
-  v45 = *MEMORY[0x1E69E9840];
   return v19;
 }
 

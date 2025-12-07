@@ -14,7 +14,7 @@
 
 - (void)locationManager:(id)manager didUpdateLocations:(id)locations
 {
-  sub_26A4EC5B0(0, &qword_2803B9380);
+  sub_26A4EC5B0(0, &qword_2803B9380, 0x277CE41F8);
   v6 = sub_26A851A98();
   managerCopy = manager;
   selfCopy = self;

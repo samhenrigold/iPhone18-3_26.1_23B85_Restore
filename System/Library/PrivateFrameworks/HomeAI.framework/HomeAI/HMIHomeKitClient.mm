@@ -26,8 +26,8 @@
     homeKitOperationQueue = v5->_homeKitOperationQueue;
     v5->_homeKitOperationQueue = v6;
 
-    [(NSOperationQueue *)v5->_homeKitOperationQueue setName:@"HMIHomeKitClient HomeKit Delegate Queue"];
-    [(NSOperationQueue *)v5->_homeKitOperationQueue setMaxConcurrentOperationCount:1];
+    [(NSOperationQueue *)v5->_homeKitOperationQueue setName:?];
+    [(NSOperationQueue *)v5->_homeKitOperationQueue setMaxConcurrentOperationCount:?];
     v5->_setup = 0;
     homeManager = v5->_homeManager;
     v5->_homeManager = 0;
@@ -48,7 +48,7 @@
 {
   dCopy = d;
   homes = [(HMIHomeKitClient *)self homes];
-  v6 = [homes hmf_firstObjectWithUUID:dCopy];
+  v6 = [homes hmf_firstObjectWithUUID:?];
 
   if (v6)
   {
@@ -67,63 +67,55 @@
 {
   dCopy = d;
   homes = [(HMIHomeKitClient *)self homes];
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __47__HMIHomeKitClient_homeForHMPersonManagerUUID___block_invoke;
-  v9[3] = &unk_278752D18;
-  v10 = dCopy;
+  v9 = dCopy;
   v6 = dCopy;
-  v7 = [homes na_firstObjectPassingTest:v9];
+  v7 = [homes na_firstObjectPassingTest:?];
 
   return v7;
 }
 
-uint64_t __47__HMIHomeKitClient_homeForHMPersonManagerUUID___block_invoke(uint64_t a1, void *a2)
+void *__47__HMIHomeKitClient_homeForHMPersonManagerUUID___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = [a2 personManager];
-  v4 = [v3 UUID];
-  v5 = [v4 isEqual:*(a1 + 32)];
+  v2 = [a2 personManager];
+  v3 = [v2 UUID];
+  v4 = [v3 isEqual:?];
 
-  return v5;
+  return v4;
 }
 
 - (id)homePersonManagersForCurrentDevice
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CBEB58] set];
-  v24 = 0u;
-  v25 = 0u;
-  v26 = 0u;
-  v27 = 0u;
   selfCopy = self;
   homes = [(HMIHomeKitClient *)self homes];
-  v5 = [homes countByEnumeratingWithState:&v24 objects:v32 count:16];
+  v5 = [homes countByEnumeratingWithState:? objects:? count:?];
   if (v5)
   {
     v7 = v5;
-    v8 = *v25;
+    v8 = MEMORY[0];
     *&v6 = 138543618;
     v21 = v6;
     v22 = v3;
     do
     {
-      for (i = 0; i != v7; ++i)
+      for (i = 0; i != v7; i = (i + 1))
       {
-        if (*v25 != v8)
+        if (MEMORY[0] != v8)
         {
           objc_enumerationMutation(homes);
         }
 
-        v10 = *(*(&v24 + 1) + 8 * i);
+        v10 = *(8 * i);
         residentDevices = [v10 residentDevices];
-        v12 = [residentDevices na_any:&__block_literal_global_4];
+        v12 = [residentDevices na_any:?];
 
         if (v12)
         {
           personManager = [v10 personManager];
           if (personManager)
           {
-            [v3 addObject:personManager];
+            [v3 addObject:?];
           }
 
           else
@@ -137,9 +129,9 @@ uint64_t __47__HMIHomeKitClient_homeForHMPersonManagerUUID___block_invoke(uint64
               v18 = HMFGetLogIdentifier();
               uuid = [v10 uuid];
               *buf = v21;
-              v29 = v18;
-              v30 = 2112;
-              v31 = uuid;
+              v25 = v18;
+              v26 = 2112;
+              v27 = uuid;
               _os_log_impl(&dword_22D12F000, v17, OS_LOG_TYPE_INFO, "%{public}@personManager is nil for homeUUID: %@", buf, 0x16u);
 
               v3 = v22;
@@ -151,7 +143,7 @@ uint64_t __47__HMIHomeKitClient_homeForHMPersonManagerUUID___block_invoke(uint64
         }
       }
 
-      v7 = [homes countByEnumeratingWithState:&v24 objects:v32 count:16];
+      v7 = [homes countByEnumeratingWithState:? objects:? count:?];
     }
 
     while (v7);
@@ -165,11 +157,11 @@ uint64_t __47__HMIHomeKitClient_homeForHMPersonManagerUUID___block_invoke(uint64
   iDCopy = iD;
   dCopy = d;
   homes = [(HMIHomeKitClient *)self homes];
-  v9 = [homes hmf_firstObjectWithUUID:dCopy];
+  v9 = [homes hmf_firstObjectWithUUID:?];
 
   if (v9)
   {
-    v10 = [v9 photosPersonManagerWithUUID:iDCopy];
+    v10 = [v9 photosPersonManagerWithUUID:?];
   }
 
   else
@@ -182,57 +174,47 @@ uint64_t __47__HMIHomeKitClient_homeForHMPersonManagerUUID___block_invoke(uint64
 
 - (BOOL)isCurrentDevicePrimaryResident
 {
-  v26 = *MEMORY[0x277D85DE8];
-  v20 = 0u;
-  v21 = 0u;
-  v22 = 0u;
-  v23 = 0u;
   homes = [(HMIHomeKitClient *)self homes];
-  v3 = [homes countByEnumeratingWithState:&v20 objects:v25 count:16];
+  v3 = [homes countByEnumeratingWithState:? objects:? count:?];
   if (v3)
   {
     v4 = v3;
-    v5 = *v21;
+    v5 = MEMORY[0];
     do
     {
-      for (i = 0; i != v4; ++i)
+      for (i = 0; i != v4; i = (i + 1))
       {
-        if (*v21 != v5)
+        if (MEMORY[0] != v5)
         {
           objc_enumerationMutation(homes);
         }
 
-        residentDevices = [*(*(&v20 + 1) + 8 * i) residentDevices];
-        v16 = 0u;
-        v17 = 0u;
-        v18 = 0u;
-        v19 = 0u;
-        v8 = residentDevices;
-        v9 = [v8 countByEnumeratingWithState:&v16 objects:v24 count:16];
-        if (v9)
+        residentDevices = [*(8 * i) residentDevices];
+        v8 = [residentDevices countByEnumeratingWithState:? objects:? count:?];
+        if (v8)
         {
-          v10 = v9;
-          v11 = *v17;
+          v9 = v8;
+          v10 = MEMORY[0];
           while (2)
           {
-            for (j = 0; j != v10; ++j)
+            for (j = 0; j != v9; j = (j + 1))
             {
-              if (*v17 != v11)
+              if (MEMORY[0] != v10)
               {
-                objc_enumerationMutation(v8);
+                objc_enumerationMutation(residentDevices);
               }
 
-              v13 = *(*(&v16 + 1) + 8 * j);
-              if ([v13 isCurrentDevice] && (objc_msgSend(v13, "status") & 2) != 0)
+              v12 = *(8 * j);
+              if ([v12 isCurrentDevice] && (objc_msgSend(v12, "status") & 2) != 0)
               {
 
-                v14 = 1;
+                v13 = 1;
                 goto LABEL_20;
               }
             }
 
-            v10 = [v8 countByEnumeratingWithState:&v16 objects:v24 count:16];
-            if (v10)
+            v9 = [residentDevices countByEnumeratingWithState:? objects:? count:?];
+            if (v9)
             {
               continue;
             }
@@ -242,8 +224,8 @@ uint64_t __47__HMIHomeKitClient_homeForHMPersonManagerUUID___block_invoke(uint64
         }
       }
 
-      v4 = [homes countByEnumeratingWithState:&v20 objects:v25 count:16];
-      v14 = 0;
+      v4 = [homes countByEnumeratingWithState:? objects:? count:?];
+      v13 = 0;
     }
 
     while (v4);
@@ -251,78 +233,155 @@ uint64_t __47__HMIHomeKitClient_homeForHMPersonManagerUUID___block_invoke(uint64
 
   else
   {
-    v14 = 0;
+    v13 = 0;
   }
 
 LABEL_20:
 
-  return v14;
+  return v13;
 }
 
 - (id)cameraProfileWithUUID:(id)d
 {
-  v33 = *MEMORY[0x277D85DE8];
   dCopy = d;
-  v27 = 0u;
-  v28 = 0u;
-  v29 = 0u;
-  v30 = 0u;
   homes = [(HMIHomeKitClient *)self homes];
-  v18 = [homes countByEnumeratingWithState:&v27 objects:v32 count:16];
-  if (v18)
+  v17 = [homes countByEnumeratingWithState:? objects:? count:?];
+  if (v17)
   {
-    v6 = *v28;
-    v20 = homes;
-    v17 = *v28;
+    v6 = MEMORY[0];
+    v19 = homes;
+    v16 = MEMORY[0];
     do
     {
       v7 = 0;
       do
       {
-        if (*v28 != v6)
+        if (MEMORY[0] != v6)
+        {
+          objc_enumerationMutation(homes);
+        }
+
+        v18 = v7;
+        accessories = [*(8 * v7) accessories];
+        v9 = [accessories countByEnumeratingWithState:? objects:? count:?];
+        if (v9)
+        {
+          v10 = v9;
+          v11 = MEMORY[0];
+          while (2)
+          {
+            for (i = 0; i != v10; i = (i + 1))
+            {
+              if (MEMORY[0] != v11)
+              {
+                objc_enumerationMutation(accessories);
+              }
+
+              cameraProfiles = [*(8 * i) cameraProfiles];
+              v20 = dCopy;
+              v14 = [cameraProfiles na_firstObjectPassingTest:?];
+
+              if (v14)
+              {
+
+                homes = v19;
+                goto LABEL_19;
+              }
+            }
+
+            v10 = [accessories countByEnumeratingWithState:? objects:? count:?];
+            if (v10)
+            {
+              continue;
+            }
+
+            break;
+          }
+        }
+
+        v7 = v18 + 1;
+        homes = v19;
+        v6 = v16;
+      }
+
+      while ((v18 + 1) != v17);
+      v14 = 0;
+      v17 = [v19 countByEnumeratingWithState:? objects:? count:?];
+    }
+
+    while (v17);
+  }
+
+  else
+  {
+    v14 = 0;
+  }
+
+LABEL_19:
+
+  return v14;
+}
+
+void *__42__HMIHomeKitClient_cameraProfileWithUUID___block_invoke(uint64_t a1, void *a2)
+{
+  v2 = [a2 uuid];
+  v3 = [v2 isEqual:?];
+
+  return v3;
+}
+
+- (id)homeWithCameraProfileUUID:(id)d
+{
+  dCopy = d;
+  homes = [(HMIHomeKitClient *)self homes];
+  v18 = [homes countByEnumeratingWithState:? objects:? count:?];
+  if (v18)
+  {
+    v6 = MEMORY[0];
+    v21 = homes;
+    v17 = MEMORY[0];
+    do
+    {
+      v7 = 0;
+      do
+      {
+        if (MEMORY[0] != v6)
         {
           objc_enumerationMutation(homes);
         }
 
         v19 = v7;
-        v8 = *(*(&v27 + 1) + 8 * v7);
-        v23 = 0u;
-        v24 = 0u;
-        v25 = 0u;
-        v26 = 0u;
-        accessories = [v8 accessories];
-        v10 = [accessories countByEnumeratingWithState:&v23 objects:v31 count:16];
-        if (v10)
+        v20 = *(8 * v7);
+        accessories = [v20 accessories];
+        v9 = [accessories countByEnumeratingWithState:? objects:? count:?];
+        if (v9)
         {
-          v11 = v10;
-          v12 = *v24;
+          v10 = v9;
+          v11 = MEMORY[0];
           while (2)
           {
-            for (i = 0; i != v11; ++i)
+            for (i = 0; i != v10; i = (i + 1))
             {
-              if (*v24 != v12)
+              if (MEMORY[0] != v11)
               {
                 objc_enumerationMutation(accessories);
               }
 
-              cameraProfiles = [*(*(&v23 + 1) + 8 * i) cameraProfiles];
-              v21[0] = MEMORY[0x277D85DD0];
-              v21[1] = 3221225472;
-              v21[2] = __42__HMIHomeKitClient_cameraProfileWithUUID___block_invoke;
-              v21[3] = &unk_278752D60;
+              cameraProfiles = [*(8 * i) cameraProfiles];
               v22 = dCopy;
-              v15 = [cameraProfiles na_firstObjectPassingTest:v21];
+              v14 = [cameraProfiles na_firstObjectPassingTest:?];
 
-              if (v15)
+              if (v14)
               {
+                v15 = v20;
 
-                homes = v20;
+                homes = v21;
                 goto LABEL_19;
               }
             }
 
-            v11 = [accessories countByEnumeratingWithState:&v23 objects:v31 count:16];
-            if (v11)
+            v10 = [accessories countByEnumeratingWithState:? objects:? count:?];
+            if (v10)
             {
               continue;
             }
@@ -332,13 +391,13 @@ LABEL_20:
         }
 
         v7 = v19 + 1;
-        homes = v20;
+        homes = v21;
         v6 = v17;
       }
 
-      while (v19 + 1 != v18);
+      while ((v19 + 1) != v18);
       v15 = 0;
-      v18 = [v20 countByEnumeratingWithState:&v27 objects:v32 count:16];
+      v18 = [v21 countByEnumeratingWithState:? objects:? count:?];
     }
 
     while (v18);
@@ -354,242 +413,125 @@ LABEL_19:
   return v15;
 }
 
-uint64_t __42__HMIHomeKitClient_cameraProfileWithUUID___block_invoke(uint64_t a1, void *a2)
+void *__46__HMIHomeKitClient_homeWithCameraProfileUUID___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = [a2 uuid];
-  v4 = [v3 isEqual:*(a1 + 32)];
+  v2 = [a2 uuid];
+  v3 = [v2 isEqual:?];
 
-  return v4;
-}
-
-- (id)homeWithCameraProfileUUID:(id)d
-{
-  v35 = *MEMORY[0x277D85DE8];
-  dCopy = d;
-  v29 = 0u;
-  v30 = 0u;
-  v31 = 0u;
-  v32 = 0u;
-  homes = [(HMIHomeKitClient *)self homes];
-  v19 = [homes countByEnumeratingWithState:&v29 objects:v34 count:16];
-  if (v19)
-  {
-    v6 = *v30;
-    v22 = homes;
-    v18 = *v30;
-    do
-    {
-      v7 = 0;
-      do
-      {
-        if (*v30 != v6)
-        {
-          objc_enumerationMutation(homes);
-        }
-
-        v8 = *(*(&v29 + 1) + 8 * v7);
-        v25 = 0u;
-        v26 = 0u;
-        v27 = 0u;
-        v28 = 0u;
-        v20 = v7;
-        v21 = v8;
-        accessories = [v8 accessories];
-        v10 = [accessories countByEnumeratingWithState:&v25 objects:v33 count:16];
-        if (v10)
-        {
-          v11 = v10;
-          v12 = *v26;
-          while (2)
-          {
-            for (i = 0; i != v11; ++i)
-            {
-              if (*v26 != v12)
-              {
-                objc_enumerationMutation(accessories);
-              }
-
-              cameraProfiles = [*(*(&v25 + 1) + 8 * i) cameraProfiles];
-              v23[0] = MEMORY[0x277D85DD0];
-              v23[1] = 3221225472;
-              v23[2] = __46__HMIHomeKitClient_homeWithCameraProfileUUID___block_invoke;
-              v23[3] = &unk_278752D60;
-              v24 = dCopy;
-              v15 = [cameraProfiles na_firstObjectPassingTest:v23];
-
-              if (v15)
-              {
-                v16 = v21;
-
-                homes = v22;
-                goto LABEL_19;
-              }
-            }
-
-            v11 = [accessories countByEnumeratingWithState:&v25 objects:v33 count:16];
-            if (v11)
-            {
-              continue;
-            }
-
-            break;
-          }
-        }
-
-        v7 = v20 + 1;
-        homes = v22;
-        v6 = v18;
-      }
-
-      while (v20 + 1 != v19);
-      v16 = 0;
-      v19 = [v22 countByEnumeratingWithState:&v29 objects:v34 count:16];
-    }
-
-    while (v19);
-  }
-
-  else
-  {
-    v16 = 0;
-  }
-
-LABEL_19:
-
-  return v16;
-}
-
-uint64_t __46__HMIHomeKitClient_homeWithCameraProfileUUID___block_invoke(uint64_t a1, void *a2)
-{
-  v3 = [a2 uuid];
-  v4 = [v3 isEqual:*(a1 + 32)];
-
-  return v4;
+  return v3;
 }
 
 - (void)setup
 {
   selfCopy = self;
-  v60 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   if (![(HMIHomeKitClient *)self isSetup])
   {
     defaultPrivateConfiguration = [MEMORY[0x277CD1C60] defaultPrivateConfiguration];
-    [defaultPrivateConfiguration setOptions:1];
-    [defaultPrivateConfiguration setCachePolicy:{-[HMIHomeKitClient cachePolicy](selfCopy, "cachePolicy")}];
-    [defaultPrivateConfiguration setDiscretionary:1];
+    [defaultPrivateConfiguration setOptions:?];
+    [(HMIHomeKitClient *)selfCopy cachePolicy];
+    [defaultPrivateConfiguration setCachePolicy:?];
+    [defaultPrivateConfiguration setDiscretionary:?];
     homeKitOperationQueue = [(HMIHomeKitClient *)selfCopy homeKitOperationQueue];
-    [defaultPrivateConfiguration setDelegateQueue:homeKitOperationQueue];
+    [defaultPrivateConfiguration setDelegateQueue:?];
 
     v5 = dispatch_group_create();
     dispatch_group_enter(v5);
     v6 = objc_opt_new();
-    v49[0] = MEMORY[0x277D85DD0];
-    v49[1] = 3221225472;
-    v49[2] = __25__HMIHomeKitClient_setup__block_invoke;
-    v49[3] = &unk_278752D88;
-    v7 = v5;
-    v50 = v7;
-    [v6 setDidUpdateHomes:v49];
-    v8 = [objc_alloc(MEMORY[0x277CD1A90]) initWithHomeMangerConfiguration:defaultPrivateConfiguration];
-    [(HMIHomeKitClient *)selfCopy setHomeManager:v8];
+    v43 = v5;
+    [v6 setDidUpdateHomes:?];
+    v7 = [objc_alloc(MEMORY[0x277CD1A90]) initWithHomeMangerConfiguration:?];
+    [(HMIHomeKitClient *)selfCopy setHomeManager:?];
 
     homeManager = [(HMIHomeKitClient *)selfCopy homeManager];
-    [homeManager setDelegate:v6];
+    [homeManager setDelegate:?];
 
-    dispatch_group_enter(v7);
+    dispatch_group_enter(v43);
     homeManager2 = [(HMIHomeKitClient *)selfCopy homeManager];
-    v11 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:1.0e10];
-    v47[0] = MEMORY[0x277D85DD0];
-    v47[1] = 3221225472;
-    v47[2] = __25__HMIHomeKitClient_setup__block_invoke_2;
-    v47[3] = &unk_2787529D0;
-    v12 = v7;
-    v48 = v12;
-    v13 = [homeManager2 _refreshBeforeDate:v11 completionHandler:v47];
+    v10 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:?];
+    v11 = v43;
+    v42 = v11;
+    v12 = [homeManager2 _refreshBeforeDate:? completionHandler:?];
 
-    v14 = dispatch_time(0, 10000000000);
-    dispatch_group_wait(v12, v14);
+    v13 = dispatch_time(0, 10000000000);
+    dispatch_group_wait(v11, v13);
     homeManager3 = [(HMIHomeKitClient *)selfCopy homeManager];
     homes = [homeManager3 homes];
 
     if (homes)
     {
       objc_storeStrong(&selfCopy->_homes, homes);
-      v45 = 0u;
-      v46 = 0u;
-      v43 = 0u;
-      v44 = 0u;
       obj = homes;
-      v17 = [(NSArray *)obj countByEnumeratingWithState:&v43 objects:v59 count:16];
-      if (v17)
+      v16 = [NSArray countByEnumeratingWithState:"countByEnumeratingWithState:objects:count:" objects:? count:?];
+      if (v16)
       {
-        v18 = v17;
-        v37 = homes;
-        v38 = v12;
-        v39 = v6;
-        v40 = defaultPrivateConfiguration;
-        v19 = *v44;
-        v20 = obj;
-        v41 = selfCopy;
+        v17 = v16;
+        v36 = homes;
+        v37 = v11;
+        v38 = v6;
+        v39 = defaultPrivateConfiguration;
+        v18 = MEMORY[0];
+        v19 = obj;
+        v40 = selfCopy;
         do
         {
-          for (i = 0; i != v18; ++i)
+          for (i = 0; i != v17; i = (i + 1))
           {
-            if (*v44 != v19)
+            if (MEMORY[0] != v18)
             {
-              objc_enumerationMutation(v20);
+              objc_enumerationMutation(v19);
             }
 
-            v22 = *(*(&v43 + 1) + 8 * i);
-            v23 = objc_autoreleasePoolPush();
-            v24 = selfCopy;
-            v25 = HMFGetOSLogHandle();
-            if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+            v21 = *(8 * i);
+            v22 = objc_autoreleasePoolPush();
+            v23 = selfCopy;
+            v24 = HMFGetOSLogHandle();
+            if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
             {
-              v26 = HMFGetLogIdentifier();
-              [v22 name];
-              v27 = v18;
-              v29 = v28 = v19;
-              if ([v22 isPrimary])
+              v25 = HMFGetLogIdentifier();
+              [v21 name];
+              v26 = v17;
+              v28 = v27 = v18;
+              if ([v21 isPrimary])
               {
-                v30 = "Yes";
+                v29 = "Yes";
               }
 
               else
               {
-                v30 = "No";
+                v29 = "No";
               }
 
-              uuid = [v22 uuid];
+              uuid = [v21 uuid];
               *buf = 138544130;
-              v52 = v26;
-              v53 = 2112;
-              v54 = v29;
-              v55 = 2080;
-              v56 = v30;
-              v20 = obj;
-              v57 = 2112;
-              v58 = uuid;
-              _os_log_impl(&dword_22D12F000, v25, OS_LOG_TYPE_DEBUG, "%{public}@Found home: name: %@, primary: %s, UUID: %@", buf, 0x2Au);
+              v45 = v25;
+              v46 = 2112;
+              v47 = v28;
+              v48 = 2080;
+              v49 = v29;
+              v19 = obj;
+              v50 = 2112;
+              v51 = uuid;
+              _os_log_impl(&dword_22D12F000, v24, OS_LOG_TYPE_DEBUG, "%{public}@Found home: name: %@, primary: %s, UUID: %@", buf, 0x2Au);
 
-              v19 = v28;
               v18 = v27;
+              v17 = v26;
 
-              selfCopy = v41;
+              selfCopy = v40;
             }
 
-            objc_autoreleasePoolPop(v23);
+            objc_autoreleasePoolPop(v22);
           }
 
-          v18 = [(NSArray *)v20 countByEnumeratingWithState:&v43 objects:v59 count:16];
+          v17 = [NSArray countByEnumeratingWithState:v19 objects:"countByEnumeratingWithState:objects:count:" count:?];
         }
 
-        while (v18);
-        homes = v20;
-        v6 = v39;
-        defaultPrivateConfiguration = v40;
-        homes = v37;
-        v12 = v38;
+        while (v17);
+        homes = v19;
+        v6 = v38;
+        defaultPrivateConfiguration = v39;
+        homes = v36;
+        v11 = v37;
       }
 
       else
@@ -600,20 +542,20 @@ uint64_t __46__HMIHomeKitClient_homeWithCameraProfileUUID___block_invoke(uint64_
 
     else
     {
-      v33 = objc_autoreleasePoolPush();
-      v34 = selfCopy;
-      v35 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+      v32 = objc_autoreleasePoolPush();
+      v33 = selfCopy;
+      v34 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
       {
-        v36 = HMFGetLogIdentifier();
+        v35 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v52 = v36;
-        _os_log_impl(&dword_22D12F000, v35, OS_LOG_TYPE_ERROR, "%{public}@No homes were located", buf, 0xCu);
+        v45 = v35;
+        _os_log_impl(&dword_22D12F000, v34, OS_LOG_TYPE_ERROR, "%{public}@No homes were located", buf, 0xCu);
       }
 
-      objc_autoreleasePoolPop(v33);
-      homes = v34->_homes;
-      v34->_homes = MEMORY[0x277CBEBF8];
+      objc_autoreleasePoolPop(v32);
+      homes = v33->_homes;
+      v33->_homes = MEMORY[0x277CBEBF8];
     }
 
     selfCopy->_setup = 1;

@@ -53,15 +53,16 @@
 - (BOOL)validateRequiredFields
 {
   selfCopy = self;
-  v3 = sub_10014DD58();
+  sub_10014DD58();
+  v4 = v3;
 
-  return v3 & 1;
+  return v4 & 1;
 }
 
 - (void)cancelConsent
 {
   selfCopy = self;
-  sub_10014E2C8();
+  sub_10014E2C8(v2);
 }
 
 - (void)generateConsentDocument

@@ -5,10 +5,10 @@
 
 void ___QueryBuildInformation_block_invoke()
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v11 = xmmword_1E81DBE78;
-  v12 = @"ReleaseType";
-  v0 = CFArrayCreate(*MEMORY[0x1E695E480], &v11, 3, MEMORY[0x1E695E9C0]);
+  v12 = *MEMORY[0x1E69E9840];
+  v10 = xmmword_1E81DBE78;
+  v11 = @"ReleaseType";
+  v0 = CFArrayCreate(*MEMORY[0x1E695E480], &v10, 3, MEMORY[0x1E695E9C0]);
   if (v0)
   {
     v1 = v0;
@@ -40,8 +40,6 @@ void ___QueryBuildInformation_block_invoke()
 
     CFRelease(v1);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 @end

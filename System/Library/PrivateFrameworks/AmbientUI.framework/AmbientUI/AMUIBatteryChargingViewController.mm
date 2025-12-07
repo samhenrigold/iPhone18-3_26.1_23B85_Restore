@@ -95,26 +95,26 @@
 
 - (id)_internalBattery
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   [(BCBatteryDeviceController *)self->_batteryController connectedDevices];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
-  v2 = v12 = 0u;
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v2 = v11 = 0u;
+  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
-    v4 = *v10;
+    v4 = *v9;
     while (2)
     {
       for (i = 0; i != v3; i = i + 1)
       {
-        if (*v10 != v4)
+        if (*v9 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        v6 = *(*(&v9 + 1) + 8 * i);
+        v6 = *(*(&v8 + 1) + 8 * i);
         if ([v6 isInternal])
         {
           v3 = v6;
@@ -122,7 +122,7 @@
         }
       }
 
-      v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
       if (v3)
       {
         continue;
@@ -134,35 +134,33 @@
 
 LABEL_11:
 
-  v7 = *MEMORY[0x277D85DE8];
-
   return v3;
 }
 
 - (void)connectedDevicesDidChange:(id)change
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   changeCopy = change;
-  v5 = [changeCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [changeCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     while (2)
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(changeCopy);
         }
 
-        if ([*(*(&v10 + 1) + 8 * v8) isPowerSource])
+        if ([*(*(&v9 + 1) + 8 * v8) isPowerSource])
         {
 
           [(AMUIBatteryChargingViewController *)self _updateChargingViewIfNecessary];
@@ -173,7 +171,7 @@ LABEL_11:
       }
 
       while (v6 != v8);
-      v6 = [changeCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [changeCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
       if (v6)
       {
         continue;
@@ -184,7 +182,6 @@ LABEL_11:
   }
 
 LABEL_11:
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 @end

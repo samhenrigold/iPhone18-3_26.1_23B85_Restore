@@ -347,7 +347,7 @@ uint64_t __90__SBHomePeekToFullScreenTransitionModifier_appLayoutsToEnsureExistF
   return result;
 }
 
-uint64_t __86__SBHomePeekToFullScreenTransitionModifier_frameForLayoutRole_inAppLayout_withBounds___block_invoke(uint64_t a1)
+void *__86__SBHomePeekToFullScreenTransitionModifier_frameForLayoutRole_inAppLayout_withBounds___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 200) frameForLayoutRole:*(a1 + 56) inAppLayout:*(a1 + 40) withBounds:{*(a1 + 64), *(a1 + 72), *(a1 + 80), *(a1 + 88)}];
   v3 = *(*(a1 + 48) + 8);
@@ -398,7 +398,7 @@ uint64_t __86__SBHomePeekToFullScreenTransitionModifier_frameForLayoutRole_inApp
   return v8;
 }
 
-uint64_t __75__SBHomePeekToFullScreenTransitionModifier_scaleForLayoutRole_inAppLayout___block_invoke(void *a1)
+void *__75__SBHomePeekToFullScreenTransitionModifier_scaleForLayoutRole_inAppLayout___block_invoke(void *a1)
 {
   result = [*(a1[4] + 200) scaleForLayoutRole:a1[7] inAppLayout:a1[5]];
   *(*(a1[6] + 8) + 24) = v3;
@@ -462,7 +462,7 @@ uint64_t __75__SBHomePeekToFullScreenTransitionModifier_scaleForLayoutRole_inApp
   return result;
 }
 
-uint64_t __107__SBHomePeekToFullScreenTransitionModifier_perspectiveAngleForLayoutRole_inAppLayout_withPerspectiveAngle___block_invoke(uint64_t a1)
+void *__107__SBHomePeekToFullScreenTransitionModifier_perspectiveAngleForLayoutRole_inAppLayout_withPerspectiveAngle___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 200) perspectiveAngleForLayoutRole:*(a1 + 56) inAppLayout:*(a1 + 40) withPerspectiveAngle:{*(a1 + 64), *(a1 + 72)}];
   v3 = *(*(a1 + 48) + 8);
@@ -505,7 +505,7 @@ uint64_t __107__SBHomePeekToFullScreenTransitionModifier_perspectiveAngleForLayo
   return v8 & 1;
 }
 
-uint64_t __88__SBHomePeekToFullScreenTransitionModifier_shouldUseAnchorPointToPinLayoutRolesToSpace___block_invoke(void *a1)
+void *__88__SBHomePeekToFullScreenTransitionModifier_shouldUseAnchorPointToPinLayoutRolesToSpace___block_invoke(void *a1)
 {
   result = [*(a1[4] + 200) shouldUseAnchorPointToPinLayoutRolesToSpace:a1[6]];
   *(*(a1[5] + 8) + 24) = result;

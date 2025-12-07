@@ -44,7 +44,7 @@
 - (void)dealloc
 {
   v7 = *MEMORY[0x1E69E9840];
-  v3 = SBLogLiveRendering();
+  v3 = SBLogLiveRendering(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
@@ -99,8 +99,7 @@ void __84__SBFAlwaysOnLiveRenderingAssertionManager_acquireLiveRenderingAssertio
 {
   v11 = *MEMORY[0x1E69E9840];
   proxyCopy = proxy;
-  [(SBFAlwaysOnLiveRenderingAssertionWeakCollection *)self->_liveRenderingAssertionProxies addAssertion:proxyCopy];
-  v5 = SBLogLiveRendering();
+  v5 = SBLogLiveRendering([(SBFAlwaysOnLiveRenderingAssertionWeakCollection *)self->_liveRenderingAssertionProxies addAssertion:proxyCopy]);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v7 = 138412546;
@@ -118,8 +117,7 @@ void __84__SBFAlwaysOnLiveRenderingAssertionManager_acquireLiveRenderingAssertio
 {
   v10 = *MEMORY[0x1E69E9840];
   proxyCopy = proxy;
-  [(SBFAlwaysOnLiveRenderingAssertionWeakCollection *)self->_liveRenderingAssertionProxies removeAssertion:proxyCopy];
-  v5 = SBLogLiveRendering();
+  v5 = SBLogLiveRendering([(SBFAlwaysOnLiveRenderingAssertionWeakCollection *)self->_liveRenderingAssertionProxies removeAssertion:proxyCopy]);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = 138412546;
@@ -137,17 +135,18 @@ void __84__SBFAlwaysOnLiveRenderingAssertionManager_acquireLiveRenderingAssertio
 
 - (void)_acquireLiveRenderingAssertionIfNeededForProxy:(id)proxy backlight:(id)backlight
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   proxyCopy = proxy;
   backlightCopy = backlight;
-  if (!proxyCopy || ([proxyCopy isValid] & 1) == 0)
+  v8 = backlightCopy;
+  if (!proxyCopy || (backlightCopy = [proxyCopy isValid], (backlightCopy & 1) == 0))
   {
-    assertionAttributes = SBLogLiveRendering();
+    assertionAttributes = SBLogLiveRendering(backlightCopy);
     if (os_log_type_enabled(assertionAttributes, OS_LOG_TYPE_INFO))
     {
-      v27 = 138412290;
+      v28 = 138412290;
       selfCopy6 = self;
-      _os_log_impl(&dword_1BEA11000, assertionAttributes, OS_LOG_TYPE_INFO, "%@ Ignoring live-rendering assertion acquisition request because of there are no valid pending proxies", &v27, 0xCu);
+      _os_log_impl(&dword_1BEA11000, assertionAttributes, OS_LOG_TYPE_INFO, "%@ Ignoring live-rendering assertion acquisition request because of there are no valid pending proxies", &v28, 0xCu);
     }
 
     goto LABEL_21;
@@ -156,59 +155,60 @@ void __84__SBFAlwaysOnLiveRenderingAssertionManager_acquireLiveRenderingAssertio
   assertionAttributes = [(SBFAlwaysOnLiveRenderingBLSAttributesProvider *)self->_attributesProvider assertionAttributes];
   if (![assertionAttributes count])
   {
-    v12 = SBLogLiveRendering();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = SBLogLiveRendering(0);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      [(SBFAlwaysOnLiveRenderingAssertionManager *)self _acquireLiveRenderingAssertionIfNeededForProxy:proxyCopy backlight:v12];
+      [(SBFAlwaysOnLiveRenderingAssertionManager *)self _acquireLiveRenderingAssertionIfNeededForProxy:proxyCopy backlight:v13];
     }
 
     goto LABEL_20;
   }
 
-  if ([backlightCopy backlightState] != 1)
+  backlightState = [v8 backlightState];
+  if (backlightState != 1)
   {
-    v12 = SBLogLiveRendering();
-    if (!os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    v13 = SBLogLiveRendering(backlightState);
+    if (!os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       goto LABEL_20;
     }
 
-    [backlightCopy backlightState];
-    v14 = NSStringFromBLSBacklightState();
-    v27 = 138412802;
+    [v8 backlightState];
+    v15 = NSStringFromBLSBacklightState();
+    v28 = 138412802;
     selfCopy6 = self;
-    v29 = 2112;
-    v30 = proxyCopy;
-    v31 = 2112;
-    v32 = v14;
-    v16 = "%@ Ignoring live-rendering assertion acquisition request for %@ because backlight state is %@";
+    v30 = 2112;
+    v31 = proxyCopy;
+    v32 = 2112;
+    v33 = v15;
+    v17 = "%@ Ignoring live-rendering assertion acquisition request for %@ because backlight state is %@";
 LABEL_18:
-    v17 = v12;
-    v18 = OS_LOG_TYPE_INFO;
-    v19 = 32;
+    v18 = v13;
+    v19 = OS_LOG_TYPE_INFO;
+    v20 = 32;
 LABEL_19:
-    _os_log_impl(&dword_1BEA11000, v17, v18, v16, &v27, v19);
+    _os_log_impl(&dword_1BEA11000, v18, v19, v17, &v28, v20);
 
     goto LABEL_20;
   }
 
-  if (![backlightCopy flipbookState])
+  if (![v8 flipbookState])
   {
-    v12 = SBLogLiveRendering();
-    if (!os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    v13 = SBLogLiveRendering(0);
+    if (!os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       goto LABEL_20;
     }
 
-    [backlightCopy flipbookState];
-    v14 = NSStringFromBLSFlipbookState();
-    v27 = 138412802;
+    [v8 flipbookState];
+    v15 = NSStringFromBLSFlipbookState();
+    v28 = 138412802;
     selfCopy6 = self;
-    v29 = 2112;
-    v30 = proxyCopy;
-    v31 = 2112;
-    v32 = v14;
-    v16 = "%@ Ignoring live-rendering assertion acquisition request for %@ because flipbook state is %@";
+    v30 = 2112;
+    v31 = proxyCopy;
+    v32 = 2112;
+    v33 = v15;
+    v17 = "%@ Ignoring live-rendering assertion acquisition request for %@ because flipbook state is %@";
     goto LABEL_18;
   }
 
@@ -216,29 +216,28 @@ LABEL_19:
   if (liveRenderingAssertion)
   {
     isAcquired = [(BLSAssertion *)liveRenderingAssertion isAcquired];
-    v11 = self->_liveRenderingAssertion;
+    liveRenderingAssertion = self->_liveRenderingAssertion;
     if (isAcquired)
     {
-      [(BLSAssertion *)v11 restartTimeoutTimer];
-      v12 = SBLogLiveRendering();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v13 = SBLogLiveRendering([(BLSAssertion *)liveRenderingAssertion restartTimeoutTimer]);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = objc_opt_class();
-        v14 = NSStringFromClass(v13);
-        v15 = self->_liveRenderingAssertion;
-        v27 = 138413058;
+        v14 = objc_opt_class();
+        v15 = NSStringFromClass(v14);
+        v16 = self->_liveRenderingAssertion;
+        v28 = 138413058;
         selfCopy6 = self;
-        v29 = 2112;
-        v30 = v14;
-        v31 = 2048;
-        v32 = v15;
-        v33 = 2112;
-        v34 = proxyCopy;
-        v16 = "%@ Tickled live-rendering <%@; %p> for %@";
-        v17 = v12;
-        v18 = OS_LOG_TYPE_DEFAULT;
+        v30 = 2112;
+        v31 = v15;
+        v32 = 2048;
+        v33 = v16;
+        v34 = 2112;
+        v35 = proxyCopy;
+        v17 = "%@ Tickled live-rendering <%@; %p> for %@";
+        v18 = v13;
+        v19 = OS_LOG_TYPE_DEFAULT;
 LABEL_25:
-        v19 = 42;
+        v20 = 42;
         goto LABEL_19;
       }
 
@@ -247,47 +246,47 @@ LABEL_20:
       goto LABEL_21;
     }
 
-    if (v11)
+    if (liveRenderingAssertion)
     {
-      v12 = SBLogLiveRendering();
-      if (!os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+      v13 = SBLogLiveRendering(liveRenderingAssertion);
+      if (!os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
         goto LABEL_20;
       }
 
-      v20 = objc_opt_class();
-      v14 = NSStringFromClass(v20);
-      v21 = self->_liveRenderingAssertion;
-      v27 = 138413058;
+      v21 = objc_opt_class();
+      v15 = NSStringFromClass(v21);
+      v22 = self->_liveRenderingAssertion;
+      v28 = 138413058;
       selfCopy6 = self;
-      v29 = 2112;
-      v30 = proxyCopy;
-      v31 = 2112;
-      v32 = v14;
-      v33 = 2048;
-      v34 = v21;
-      v16 = "%@ Ignoring live-rendering assertion acquisition for %@ because <%@; %p> is pending acquisition";
-      v17 = v12;
-      v18 = OS_LOG_TYPE_INFO;
+      v30 = 2112;
+      v31 = proxyCopy;
+      v32 = 2112;
+      v33 = v15;
+      v34 = 2048;
+      v35 = v22;
+      v17 = "%@ Ignoring live-rendering assertion acquisition for %@ because <%@; %p> is pending acquisition";
+      v18 = v13;
+      v19 = OS_LOG_TYPE_INFO;
       goto LABEL_25;
     }
   }
 
-  v22 = SBLogLiveRendering();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+  v23 = SBLogLiveRendering(liveRenderingAssertion);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
   {
-    v27 = 138412546;
+    v28 = 138412546;
     selfCopy6 = self;
-    v29 = 2112;
-    v30 = proxyCopy;
-    _os_log_impl(&dword_1BEA11000, v22, OS_LOG_TYPE_INFO, "%@ Will acquire live-rendering assertion for %@", &v27, 0x16u);
+    v30 = 2112;
+    v31 = proxyCopy;
+    _os_log_impl(&dword_1BEA11000, v23, OS_LOG_TYPE_INFO, "%@ Will acquire live-rendering assertion for %@", &v28, 0x16u);
   }
 
   assertionProvider = self->_assertionProvider;
   reason = [proxyCopy reason];
-  v25 = [(SBFAlwaysOnLiveRenderingBLSAssertionProvider *)assertionProvider acquireWithExplanation:reason attributes:assertionAttributes];
-  v26 = self->_liveRenderingAssertion;
-  self->_liveRenderingAssertion = v25;
+  v26 = [(SBFAlwaysOnLiveRenderingBLSAssertionProvider *)assertionProvider acquireWithExplanation:reason attributes:assertionAttributes];
+  v27 = self->_liveRenderingAssertion;
+  self->_liveRenderingAssertion = v26;
 
   [(BLSAssertion *)self->_liveRenderingAssertion addObserver:self];
 LABEL_21:
@@ -298,7 +297,7 @@ LABEL_21:
   v20 = *MEMORY[0x1E69E9840];
   reasonCopy = reason;
   liveRenderingAssertion = self->_liveRenderingAssertion;
-  v6 = SBLogLiveRendering();
+  v6 = SBLogLiveRendering(reasonCopy);
   v7 = v6;
   if (liveRenderingAssertion)
   {
@@ -337,57 +336,59 @@ LABEL_21:
 
 - (void)assertion:(id)assertion didFailToAcquireWithError:(id)error
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   errorCopy = error;
+  v7 = errorCopy;
   if (self->_liveRenderingAssertion == assertion)
   {
-    v7 = SBLogLiveRendering();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = SBLogLiveRendering(errorCopy);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v9 = objc_opt_class();
-      v10 = NSStringFromClass(v9);
+      v10 = objc_opt_class();
+      v11 = NSStringFromClass(v10);
       liveRenderingAssertion = self->_liveRenderingAssertion;
       *buf = 138413058;
       selfCopy = self;
-      v14 = 2112;
-      v15 = v10;
-      v16 = 2048;
-      v17 = liveRenderingAssertion;
-      v18 = 2112;
-      v19 = errorCopy;
-      _os_log_error_impl(&dword_1BEA11000, v7, OS_LOG_TYPE_ERROR, "%@ Could not acquire live-rendering <%@; %p> with error '%@'", buf, 0x2Au);
+      v15 = 2112;
+      v16 = v11;
+      v17 = 2048;
+      v18 = liveRenderingAssertion;
+      v19 = 2112;
+      v20 = v7;
+      _os_log_error_impl(&dword_1BEA11000, v8, OS_LOG_TYPE_ERROR, "%@ Could not acquire live-rendering <%@; %p> with error '%@'", buf, 0x2Au);
     }
 
-    errorCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to acquire assertion with error '%@'", errorCopy];
-    [(SBFAlwaysOnLiveRenderingAssertionManager *)self _releaseLiveRenderingAssertionWithReason:errorCopy];
+    v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to acquire assertion with error '%@'", v7];
+    [(SBFAlwaysOnLiveRenderingAssertionManager *)self _releaseLiveRenderingAssertionWithReason:v9];
   }
 }
 
 - (void)assertion:(id)assertion didCancelWithError:(id)error
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   errorCopy = error;
+  v7 = errorCopy;
   if (self->_liveRenderingAssertion == assertion)
   {
-    v7 = SBLogLiveRendering();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = SBLogLiveRendering(errorCopy);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v9 = objc_opt_class();
-      v10 = NSStringFromClass(v9);
+      v10 = objc_opt_class();
+      v11 = NSStringFromClass(v10);
       liveRenderingAssertion = self->_liveRenderingAssertion;
       *buf = 138413058;
       selfCopy = self;
-      v14 = 2112;
-      v15 = v10;
-      v16 = 2048;
-      v17 = liveRenderingAssertion;
-      v18 = 2112;
-      v19 = errorCopy;
-      _os_log_error_impl(&dword_1BEA11000, v7, OS_LOG_TYPE_ERROR, "%@ Received unexpected cancellation for <%@; %p> with error '%@'", buf, 0x2Au);
+      v15 = 2112;
+      v16 = v11;
+      v17 = 2048;
+      v18 = liveRenderingAssertion;
+      v19 = 2112;
+      v20 = v7;
+      _os_log_error_impl(&dword_1BEA11000, v8, OS_LOG_TYPE_ERROR, "%@ Received unexpected cancellation for <%@; %p> with error '%@'", buf, 0x2Au);
     }
 
-    errorCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"Received unexpected cancellation with error '%@'", errorCopy];
-    [(SBFAlwaysOnLiveRenderingAssertionManager *)self _releaseLiveRenderingAssertionWithReason:errorCopy];
+    v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Received unexpected cancellation with error '%@'", v7];
+    [(SBFAlwaysOnLiveRenderingAssertionManager *)self _releaseLiveRenderingAssertionWithReason:v9];
   }
 }
 
@@ -453,25 +454,28 @@ void __79__SBFAlwaysOnLiveRenderingAssertionManager_backlight_didChangeAlwaysOnE
 uint64_t __88__SBFAlwaysOnLiveRenderingAssertionManager_backlight_didCompleteUpdateToState_forEvent___block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v3 = WeakRetained;
   if (WeakRetained)
   {
-    v7 = WeakRetained;
+    v8 = WeakRetained;
     if (*(a1 + 48) == 1)
     {
-      v3 = [WeakRetained _nextLiveRenderingAssertionProxyIfAny];
-      [v7 _acquireLiveRenderingAssertionIfNeededForProxy:v3 backlight:*(a1 + 32)];
+      v4 = [WeakRetained _nextLiveRenderingAssertionProxyIfAny];
+      [v8 _acquireLiveRenderingAssertionIfNeededForProxy:v4 backlight:*(a1 + 32)];
     }
 
     else
     {
-      v4 = MEMORY[0x1E696AEC0];
-      v3 = NSStringFromBLSBacklightState();
-      v5 = [v4 stringWithFormat:@"Backlight state is %@", v3];
-      [v7 _releaseLiveRenderingAssertionWithReason:v5];
+      v5 = MEMORY[0x1E696AEC0];
+      v4 = NSStringFromBLSBacklightState();
+      v6 = [v5 stringWithFormat:@"Backlight state is %@", v4];
+      [v8 _releaseLiveRenderingAssertionWithReason:v6];
     }
+
+    v3 = v8;
   }
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](WeakRetained, v3);
 }
 
 - (NSString)description

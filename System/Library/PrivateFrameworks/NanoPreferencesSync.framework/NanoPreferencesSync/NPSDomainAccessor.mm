@@ -39,6 +39,7 @@
 - (void)invalidate;
 - (void)objectForKey:(id)key completionHandler:(id)handler;
 - (void)removeObjectForKey:(id)key;
+- (void)setBool:(BOOL)bool forKey:(id)key;
 - (void)setDouble:(double)double forKey:(id)key;
 - (void)setFloat:(float)float forKey:(id)key;
 - (void)setInteger:(int64_t)integer forKey:(id)key;
@@ -52,7 +53,7 @@
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = nps_domain_accessor_log;
   if (os_log_type_enabled(nps_domain_accessor_log, OS_LOG_TYPE_DEFAULT))
   {
@@ -66,10 +67,9 @@
     [NPSDomainAccessorInternal decrementInternalAccessorReferenceCount:?];
   }
 
-  v5.receiver = self;
-  v5.super_class = NPSDomainAccessor;
-  [(NPSDomainAccessor *)&v5 dealloc];
-  v4 = *MEMORY[0x1E69E9840];
+  v4.receiver = self;
+  v4.super_class = NPSDomainAccessor;
+  [(NPSDomainAccessor *)&v4 dealloc];
 }
 
 - (id)shouldNotDoWork
@@ -135,14 +135,14 @@
 
 void __36__NPSDomainAccessor_shouldNotDoWork__block_invoke(uint64_t a1)
 {
-  v28[1] = *MEMORY[0x1E69E9840];
+  v27[1] = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   if (v2[8] == 1 && [v2 activeDeviceChanged])
   {
     v3 = MEMORY[0x1E696ABC0];
-    v27 = *MEMORY[0x1E696A578];
-    v28[0] = @"NPS domain accessor invalid because the active watch has changed- to resolve this specify a device when creating an NPSDomainAccessor";
-    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:&v27 count:1];
+    v26 = *MEMORY[0x1E696A578];
+    v27[0] = @"NPS domain accessor invalid because the active watch has changed- to resolve this specify a device when creating an NPSDomainAccessor";
+    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:&v26 count:1];
     v5 = [v3 errorWithDomain:@"com.apple.NanoPreferencesSync" code:1 userInfo:v4];
     v6 = *(*(a1 + 40) + 8);
     v7 = *(v6 + 40);
@@ -152,9 +152,9 @@ void __36__NPSDomainAccessor_shouldNotDoWork__block_invoke(uint64_t a1)
   if ((*(*(a1 + 32) + 8) & 1) == 0 && !NPSShouldRun())
   {
     v8 = MEMORY[0x1E696ABC0];
-    v25 = *MEMORY[0x1E696A578];
-    v26 = @"NPS domain accessor invalid because there are no paired or pairing watches";
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
+    v24 = *MEMORY[0x1E696A578];
+    v25 = @"NPS domain accessor invalid because there are no paired or pairing watches";
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
     v10 = [v8 errorWithDomain:@"com.apple.NanoPreferencesSync" code:1 userInfo:v9];
     v11 = *(*(a1 + 40) + 8);
     v12 = *(v11 + 40);
@@ -168,24 +168,22 @@ void __36__NPSDomainAccessor_shouldNotDoWork__block_invoke(uint64_t a1)
     v15 = v13;
     v16 = [v14 domain];
     v17 = *(*(*(a1 + 40) + 8) + 40);
-    v19 = 136315650;
-    v20 = "[NPSDomainAccessor shouldNotDoWork]_block_invoke";
-    v21 = 2114;
-    v22 = v16;
-    v23 = 2114;
-    v24 = v17;
-    _os_log_impl(&dword_1C0D93000, v15, OS_LOG_TYPE_DEFAULT, "%s: domain: %{public}@ error: %{public}@", &v19, 0x20u);
+    v18 = 136315650;
+    v19 = "[NPSDomainAccessor shouldNotDoWork]_block_invoke";
+    v20 = 2114;
+    v21 = v16;
+    v22 = 2114;
+    v23 = v17;
+    _os_log_impl(&dword_1C0D93000, v15, OS_LOG_TYPE_DEFAULT, "%s: domain: %{public}@ error: %{public}@", &v18, 0x20u);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)activeDeviceChanged
 {
-  v19 = *MEMORY[0x1E69E9840];
-  v12 = 0;
-  [objc_opt_class() resolveActivePairedDevicePairingID:&v12 pairingDataStore:0];
-  v3 = v12;
+  v18 = *MEMORY[0x1E69E9840];
+  v11 = 0;
+  [objc_opt_class() resolveActivePairedDevicePairingID:&v11 pairingDataStore:0];
+  v3 = v11;
   v4 = nps_framework_log;
   if (os_log_type_enabled(nps_framework_log, OS_LOG_TYPE_DEFAULT))
   {
@@ -193,18 +191,17 @@ void __36__NPSDomainAccessor_shouldNotDoWork__block_invoke(uint64_t a1)
     v6 = v4;
     pairingID = [(NPSDomainAccessorInternal *)internalAccessor pairingID];
     *buf = 136315650;
-    v14 = "[NPSDomainAccessor activeDeviceChanged]";
-    v15 = 2112;
-    v16 = v3;
-    v17 = 2112;
-    v18 = pairingID;
+    v13 = "[NPSDomainAccessor activeDeviceChanged]";
+    v14 = 2112;
+    v15 = v3;
+    v16 = 2112;
+    v17 = pairingID;
     _os_log_impl(&dword_1C0D93000, v6, OS_LOG_TYPE_DEFAULT, "%s: Current active pairing ID: %@. Old ID %@.", buf, 0x20u);
   }
 
   pairingID2 = [(NPSDomainAccessorInternal *)self->_internalAccessor pairingID];
   v9 = [v3 isEqual:pairingID2];
 
-  v10 = *MEMORY[0x1E69E9840];
   return v9 ^ 1;
 }
 
@@ -218,7 +215,7 @@ void __36__NPSDomainAccessor_shouldNotDoWork__block_invoke(uint64_t a1)
 
 + (void)resolveActivePairedDevicePairingID:(id *)d pairingDataStore:(id *)store
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   mEMORY[0x1E69B7DA0] = [MEMORY[0x1E69B7DA0] sharedInstance];
   pairingID = [mEMORY[0x1E69B7DA0] pairingID];
 
@@ -240,11 +237,11 @@ void __36__NPSDomainAccessor_shouldNotDoWork__block_invoke(uint64_t a1)
     v11 = nps_domain_accessor_log;
     if (os_log_type_enabled(nps_domain_accessor_log, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 138412546;
-      v16 = pairingID;
-      v17 = 2112;
-      v18 = pairingStorePath;
-      _os_log_impl(&dword_1C0D93000, v11, OS_LOG_TYPE_DEFAULT, "Failed to resolve pairing ID (%@) or data store (%@) for active device", &v15, 0x16u);
+      v14 = 138412546;
+      v15 = pairingID;
+      v16 = 2112;
+      v17 = pairingStorePath;
+      _os_log_impl(&dword_1C0D93000, v11, OS_LOG_TYPE_DEFAULT, "Failed to resolve pairing ID (%@) or data store (%@) for active device", &v14, 0x16u);
     }
   }
 
@@ -262,8 +259,6 @@ void __36__NPSDomainAccessor_shouldNotDoWork__block_invoke(uint64_t a1)
       *store = pairingStorePath;
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (NSString)domain
@@ -284,46 +279,45 @@ void __36__NPSDomainAccessor_shouldNotDoWork__block_invoke(uint64_t a1)
 
 - (NPSDomainAccessor)initWithDomain:(id)domain
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   domainCopy = domain;
   v5 = nps_domain_accessor_log;
   if (os_log_type_enabled(nps_domain_accessor_log, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 136315394;
-    v10 = "[NPSDomainAccessor initWithDomain:]";
-    v11 = 2112;
-    v12 = domainCopy;
-    _os_log_impl(&dword_1C0D93000, v5, OS_LOG_TYPE_DEFAULT, "%s: domain: (%@)", &v9, 0x16u);
+    v8 = 136315394;
+    v9 = "[NPSDomainAccessor initWithDomain:]";
+    v10 = 2112;
+    v11 = domainCopy;
+    _os_log_impl(&dword_1C0D93000, v5, OS_LOG_TYPE_DEFAULT, "%s: domain: (%@)", &v8, 0x16u);
   }
 
   v6 = [(NPSDomainAccessor *)self initWithDomain:domainCopy queue:0];
 
-  v7 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (NPSDomainAccessor)initWithDomain:(id)domain queue:(id)queue
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   domainCopy = domain;
   queueCopy = queue;
+  v14 = 0;
   v15 = 0;
-  v16 = 0;
-  [objc_opt_class() resolveActivePairedDevicePairingID:&v16 pairingDataStore:&v15];
-  v8 = v16;
-  v9 = v15;
+  [objc_opt_class() resolveActivePairedDevicePairingID:&v15 pairingDataStore:&v14];
+  v8 = v15;
+  v9 = v14;
   self->_initializedWithActiveDevice = 1;
   v10 = nps_domain_accessor_log;
   if (os_log_type_enabled(nps_domain_accessor_log, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315906;
-    v18 = "[NPSDomainAccessor initWithDomain:queue:]";
-    v19 = 2112;
-    v20 = domainCopy;
-    v21 = 2112;
-    v22 = v8;
-    v23 = 2112;
-    v24 = v9;
+    v17 = "[NPSDomainAccessor initWithDomain:queue:]";
+    v18 = 2112;
+    v19 = domainCopy;
+    v20 = 2112;
+    v21 = v8;
+    v22 = 2112;
+    v23 = v9;
     _os_log_impl(&dword_1C0D93000, v10, OS_LOG_TYPE_DEFAULT, "%s: domain: (%@) pairingID: (%@); pairingDataStore: (%@)", buf, 0x2Au);
   }
 
@@ -339,14 +333,13 @@ void __36__NPSDomainAccessor_shouldNotDoWork__block_invoke(uint64_t a1)
     if (os_log_type_enabled(nps_domain_accessor_log, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v18 = "[NPSDomainAccessor initWithDomain:queue:]";
+      v17 = "[NPSDomainAccessor initWithDomain:queue:]";
       _os_log_impl(&dword_1C0D93000, v12, OS_LOG_TYPE_DEFAULT, "%s: Unable to create domain accessor. No pairing ID or data store.", buf, 0xCu);
     }
 
     selfCopy = 0;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -375,7 +368,7 @@ void __36__NPSDomainAccessor_shouldNotDoWork__block_invoke(uint64_t a1)
 
 - (NPSDomainAccessor)initWithDomain:(id)domain queue:(id)queue pairingID:(id)d pairingDataStore:(id)store
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   domainCopy = domain;
   queueCopy = queue;
   dCopy = d;
@@ -383,17 +376,17 @@ void __36__NPSDomainAccessor_shouldNotDoWork__block_invoke(uint64_t a1)
   v14 = nps_domain_accessor_log;
   if (os_log_type_enabled(nps_domain_accessor_log, OS_LOG_TYPE_DEFAULT))
   {
-    v22 = 136316162;
-    v23 = "[NPSDomainAccessor initWithDomain:queue:pairingID:pairingDataStore:]";
-    v24 = 2112;
-    v25 = domainCopy;
-    v26 = 2112;
-    v27 = queueCopy;
-    v28 = 2112;
-    v29 = dCopy;
-    v30 = 2112;
-    v31 = storeCopy;
-    _os_log_impl(&dword_1C0D93000, v14, OS_LOG_TYPE_DEFAULT, "%s: domain: (%@); queue: (%@); pairingID: (%@); pairingDataStore: (%@)", &v22, 0x34u);
+    v21 = 136316162;
+    v22 = "[NPSDomainAccessor initWithDomain:queue:pairingID:pairingDataStore:]";
+    v23 = 2112;
+    v24 = domainCopy;
+    v25 = 2112;
+    v26 = queueCopy;
+    v27 = 2112;
+    v28 = dCopy;
+    v29 = 2112;
+    v30 = storeCopy;
+    _os_log_impl(&dword_1C0D93000, v14, OS_LOG_TYPE_DEFAULT, "%s: domain: (%@); queue: (%@); pairingID: (%@); pairingDataStore: (%@)", &v21, 0x34u);
   }
 
   v15 = [NPSDomainAccessorInternal domainIsValid:domainCopy];
@@ -411,9 +404,9 @@ void __36__NPSDomainAccessor_shouldNotDoWork__block_invoke(uint64_t a1)
       v19 = nps_domain_accessor_log;
       if (os_log_type_enabled(nps_domain_accessor_log, OS_LOG_TYPE_DEFAULT))
       {
-        v22 = 136315138;
-        v23 = "[NPSDomainAccessor initWithDomain:queue:pairingID:pairingDataStore:]";
-        _os_log_impl(&dword_1C0D93000, v19, OS_LOG_TYPE_DEFAULT, "%s: Unable to create domain accessor.", &v22, 0xCu);
+        v21 = 136315138;
+        v22 = "[NPSDomainAccessor initWithDomain:queue:pairingID:pairingDataStore:]";
+        _os_log_impl(&dword_1C0D93000, v19, OS_LOG_TYPE_DEFAULT, "%s: Unable to create domain accessor.", &v21, 0xCu);
       }
 
       selfCopy = 0;
@@ -425,26 +418,25 @@ void __36__NPSDomainAccessor_shouldNotDoWork__block_invoke(uint64_t a1)
     v18 = nps_domain_accessor_log;
     if (os_log_type_enabled(nps_domain_accessor_log, OS_LOG_TYPE_DEFAULT))
     {
-      v22 = 136315138;
-      v23 = "[NPSDomainAccessor initWithDomain:queue:pairingID:pairingDataStore:]";
-      _os_log_impl(&dword_1C0D93000, v18, OS_LOG_TYPE_DEFAULT, "%s: Unable to create domain accessor. domain not valid.", &v22, 0xCu);
+      v21 = 136315138;
+      v22 = "[NPSDomainAccessor initWithDomain:queue:pairingID:pairingDataStore:]";
+      _os_log_impl(&dword_1C0D93000, v18, OS_LOG_TYPE_DEFAULT, "%s: Unable to create domain accessor. domain not valid.", &v21, 0xCu);
     }
 
     selfCopy = 0;
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
 - (NPSDomainAccessor)initWithInternalDomainAccessor:(id)accessor queue:(id)queue
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   accessorCopy = accessor;
   queueCopy = queue;
-  v22.receiver = self;
-  v22.super_class = NPSDomainAccessor;
-  v9 = [(NPSDomainAccessor *)&v22 init];
+  v21.receiver = self;
+  v21.super_class = NPSDomainAccessor;
+  v9 = [(NPSDomainAccessor *)&v21 init];
   if (!v9)
   {
     goto LABEL_11;
@@ -454,11 +446,11 @@ void __36__NPSDomainAccessor_shouldNotDoWork__block_invoke(uint64_t a1)
   if (os_log_type_enabled(nps_domain_accessor_log, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218498;
-    v24 = v9;
-    v25 = 2112;
-    v26 = queueCopy;
-    v27 = 2048;
-    v28 = accessorCopy;
+    v23 = v9;
+    v24 = 2112;
+    v25 = queueCopy;
+    v26 = 2048;
+    v27 = accessorCopy;
     _os_log_impl(&dword_1C0D93000, v10, OS_LOG_TYPE_DEFAULT, "self: (%p); queue: (%@); internalAccessor: (%p)", buf, 0x20u);
   }
 
@@ -490,7 +482,7 @@ void __36__NPSDomainAccessor_shouldNotDoWork__block_invoke(uint64_t a1)
     if (os_log_type_enabled(nps_domain_accessor_log, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v24 = "[NPSDomainAccessor initWithInternalDomainAccessor:queue:]";
+      v23 = "[NPSDomainAccessor initWithInternalDomainAccessor:queue:]";
       _os_log_impl(&dword_1C0D93000, v18, OS_LOG_TYPE_DEFAULT, "%s: Unable to create domain accessor.", buf, 0xCu);
     }
 
@@ -503,7 +495,6 @@ LABEL_11:
     v19 = v9;
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
@@ -873,6 +864,14 @@ void __56__NPSDomainAccessor_setObject_forKey_completionHandler___block_invoke_2
   [internalAccessor setDouble:keyCopy forKey:double];
 }
 
+- (void)setBool:(BOOL)bool forKey:(id)key
+{
+  boolCopy = bool;
+  keyCopy = key;
+  internalAccessor = [(NPSDomainAccessor *)self internalAccessor];
+  [internalAccessor setBool:boolCopy forKey:keyCopy];
+}
+
 - (void)setURL:(id)l forKey:(id)key
 {
   keyCopy = key;
@@ -899,22 +898,22 @@ void __56__NPSDomainAccessor_setObject_forKey_completionHandler___block_invoke_2
 
 + (id)copyDomainList
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = nps_domain_accessor_log;
   if (os_log_type_enabled(nps_domain_accessor_log, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v14 = "+[NPSDomainAccessor copyDomainList]";
+    v13 = "+[NPSDomainAccessor copyDomainList]";
     _os_log_impl(&dword_1C0D93000, v3, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
   }
 
   if (NPSShouldRun())
   {
+    v10 = 0;
     v11 = 0;
-    v12 = 0;
-    [objc_opt_class() resolveActivePairedDevicePairingID:&v12 pairingDataStore:&v11];
-    v4 = v12;
-    v5 = v11;
+    [objc_opt_class() resolveActivePairedDevicePairingID:&v11 pairingDataStore:&v10];
+    v4 = v11;
+    v5 = v10;
     v6 = v5;
     v7 = 0;
     if (v4 && v5)
@@ -929,32 +928,31 @@ void __56__NPSDomainAccessor_setObject_forKey_completionHandler___block_invoke_2
     if (os_log_type_enabled(nps_domain_accessor_log, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v14 = "+[NPSDomainAccessor copyDomainList]";
+      v13 = "+[NPSDomainAccessor copyDomainList]";
       _os_log_impl(&dword_1C0D93000, v8, OS_LOG_TYPE_DEFAULT, "%s: No paired watches, returning nil", buf, 0xCu);
     }
 
-    v7 = 0;
+    return 0;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 + (id)copyDomainListForPairingID:(id)d pairingDataStore:(id)store
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   dCopy = d;
   storeCopy = store;
   v7 = nps_domain_accessor_log;
   if (os_log_type_enabled(nps_domain_accessor_log, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 136315650;
-    v13 = "+[NPSDomainAccessor copyDomainListForPairingID:pairingDataStore:]";
-    v14 = 2112;
-    v15 = dCopy;
-    v16 = 2112;
-    v17 = storeCopy;
-    _os_log_impl(&dword_1C0D93000, v7, OS_LOG_TYPE_DEFAULT, "%s: pairingID: (%@); pairingDataStore: (%@)", &v12, 0x20u);
+    v11 = 136315650;
+    v12 = "+[NPSDomainAccessor copyDomainListForPairingID:pairingDataStore:]";
+    v13 = 2112;
+    v14 = dCopy;
+    v15 = 2112;
+    v16 = storeCopy;
+    _os_log_impl(&dword_1C0D93000, v7, OS_LOG_TYPE_DEFAULT, "%s: pairingID: (%@); pairingDataStore: (%@)", &v11, 0x20u);
   }
 
   if (NPSShouldRun())
@@ -967,15 +965,14 @@ void __56__NPSDomainAccessor_setObject_forKey_completionHandler___block_invoke_2
     v9 = nps_domain_accessor_log;
     if (os_log_type_enabled(nps_domain_accessor_log, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 136315138;
-      v13 = "+[NPSDomainAccessor copyDomainListForPairingID:pairingDataStore:]";
-      _os_log_impl(&dword_1C0D93000, v9, OS_LOG_TYPE_DEFAULT, "%s: No paired watches, returning nil", &v12, 0xCu);
+      v11 = 136315138;
+      v12 = "+[NPSDomainAccessor copyDomainListForPairingID:pairingDataStore:]";
+      _os_log_impl(&dword_1C0D93000, v9, OS_LOG_TYPE_DEFAULT, "%s: No paired watches, returning nil", &v11, 0xCu);
     }
 
     v8 = 0;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v8;
 }
 

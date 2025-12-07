@@ -9,7 +9,7 @@
 - (_TtC8AppStore20ProductTapToRateView)initWithCoder:(id)coder
 {
   v4 = OBJC_IVAR____TtC8AppStore20ProductTapToRateView_rateAction;
-  v5 = sub_10002849C(&qword_10098E2C0);
+  v5 = sub_10002849C(&qword_10098E2C0, &qword_1007D8478);
   (*(*(v5 - 8) + 56))(self + v4, 1, 1, v5);
   *(&self->super.super.super.isa + OBJC_IVAR____TtC8AppStore20ProductTapToRateView_isSingleColumn) = 0;
   result = _assertionFailure(_:_:file:line:flags:)();

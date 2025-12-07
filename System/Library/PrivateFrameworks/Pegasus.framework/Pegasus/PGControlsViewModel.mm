@@ -47,7 +47,7 @@
 - (void)updatePlaybackStateWithDiff:(id)diff
 {
   diffCopy = diff;
-  v5 = PGLogCommon();
+  v5 = PGLogCommon(diffCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [(PGControlsViewModel *)diffCopy updatePlaybackStateWithDiff:v5];
@@ -56,10 +56,10 @@
   playbackState = [(PGControlsViewModel *)self playbackState];
   [playbackState updatePlaybackStateWithDiff:diffCopy];
 
-  v7 = PGLogCommon();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v8 = PGLogCommon(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    [(PGControlsViewModel *)self updatePlaybackStateWithDiff:v7];
+    [(PGControlsViewModel *)self updatePlaybackStateWithDiff:v8];
   }
 
   [(PGControlsViewModel *)self _updateViewModelValues];

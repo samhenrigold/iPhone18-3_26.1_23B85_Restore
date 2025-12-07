@@ -430,7 +430,7 @@ LABEL_6:
     v7 = v6;
     if (objc_opt_respondsToSelector())
     {
-      [v7 targetPreviewTransform];
+      objc_msgSend_targetPreviewTransform(v7);
       v27 = v26;
     }
   }

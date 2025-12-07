@@ -23,7 +23,7 @@
 {
   v1 = [a1 shortLoggingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_214D51000, v2, v3, "Cannot retrieve main key to add to Keychain {object: %@}", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_0(&dword_214D51000, v2, v3, "Cannot retrieve main key to add to Keychain {object: %@}", v4, v5, v6, v7);
 }
 
 - (void)removeMainKeysFromKeychainForAccount:()Keychain .cold.1(void *a1)
@@ -62,7 +62,7 @@
 {
   v1 = [a1 shortLoggingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_214D51000, v2, v3, "Removed main key from Keychain {object: %@}", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_0(&dword_214D51000, v2, v3, "Removed main key from Keychain {object: %@}", v4, v5, v6, v7);
 }
 
 - (void)setMainKeyInKeychain:()Keychain forObject:.cold.4(void *a1)

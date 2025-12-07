@@ -9,14 +9,14 @@
 
 + (id)ax_errorWithDomain:()AXExtensions description:
 {
-  v9 = [self ax_errorWithDomain:a3 code:0 description:a4 arguments:&a9];
+  v9 = [self ax_errorWithDomain:a3 code:0 description:a4 arguments:{&a9, a7, a8}];
 
   return v9;
 }
 
 + (id)ax_errorWithDomain:()AXExtensions code:description:
 {
-  v9 = [self ax_errorWithDomain:a3 code:a4 description:a5 arguments:&a9];
+  v9 = [self ax_errorWithDomain:a3 code:a4 description:a5 arguments:{&a9, a7, a8}];
 
   return v9;
 }

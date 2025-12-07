@@ -4,10 +4,38 @@
 - (BOOL)isStreamerRunningWithMask:(unint64_t)mask;
 - (id)cancelEventStreamWithMask:(unint64_t)mask;
 - (id)initForUnitTest:(BOOL)test useAVFoundation:(BOOL)foundation;
+- (id)streamEventsWithMask:(unint64_t)mask block:(id)block options:(id)options operationStartFailedBlock:(id)failedBlock;
+- (void)logStreamComplete:(unint64_t)complete identifier:(id)identifier duration:(unint64_t)duration ERActivated:(BOOL)activated;
+- (void)setDisplayStateWithMask:(unint64_t)mask displayState:(BOOL)state;
 - (void)setNotificationHandler:(id)handler withMask:(unint64_t)mask;
+- (void)setSmartCoverStateWithMask:(unint64_t)mask smartCoverState:(BOOL)state;
 @end
 
 @implementation AWAttentionStreamer
+
+- (void)setDisplayStateWithMask:(unint64_t)mask displayState:(BOOL)state
+{
+  if (mask == 128)
+  {
+    [(StreamingOperation *)self->_faceDetectStreamer setDisplayState:state];
+  }
+}
+
+- (void)setSmartCoverStateWithMask:(unint64_t)mask smartCoverState:(BOOL)state
+{
+  if (mask == 128)
+  {
+    [(StreamingOperation *)self->_faceDetectStreamer setSmartCoverState:state];
+  }
+}
+
+- (void)logStreamComplete:(unint64_t)complete identifier:(id)identifier duration:(unint64_t)duration ERActivated:(BOOL)activated
+{
+  if (complete == 128)
+  {
+    [(AWSampleLogger *)self->_sampleLogger streamingCompleteWithidentifier:identifier duration:duration ERActivated:activated];
+  }
+}
 
 - ($EB925890EBEBD6850280D1FB85A9BD43)getStreamerOptionsWithMask:(unint64_t)mask
 {
@@ -34,11 +62,9 @@
 
 - (BOOL)isStreamerRunningWithMask:(unint64_t)mask
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (mask != 128)
   {
-LABEL_9:
-    v7 = *MEMORY[0x1E69E9840];
     return 0;
   }
 
@@ -47,37 +73,35 @@ LABEL_9:
   {
     if (currentLogLevel >= 3)
     {
-      v6 = _AALog();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v5 = _AALog();
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
-        v8 = absTimeNS();
-        if (v8 == -1)
+        v6 = absTimeNS();
+        if (v6 == -1)
         {
-          v9 = INFINITY;
+          v7 = INFINITY;
         }
 
         else
         {
-          v9 = v8 / 1000000000.0;
+          v7 = v6 / 1000000000.0;
         }
 
-        v10 = 134217984;
-        v11 = v9;
-        _os_log_error_impl(&dword_1BB2EF000, v6, OS_LOG_TYPE_ERROR, "%13.5f: No Attention streamer available", &v10, 0xCu);
+        v8 = 134217984;
+        v9 = v7;
+        _os_log_error_impl(&dword_1BB2EF000, v5, OS_LOG_TYPE_ERROR, "%13.5f: No Attention streamer available", &v8, 0xCu);
       }
     }
 
-    goto LABEL_9;
+    return 0;
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 
   return [(StreamingOperation *)faceDetectStreamer attentionStreamerRunning];
 }
 
 - (id)cancelEventStreamWithMask:(unint64_t)mask
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   if (mask == 128)
   {
     faceDetectStreamer = self->_faceDetectStreamer;
@@ -89,33 +113,33 @@ LABEL_9:
 
     if (currentLogLevel >= 3)
     {
-      v13 = _AALog();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v12 = _AALog();
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        v16 = absTimeNS();
-        if (v16 == -1)
+        v15 = absTimeNS();
+        if (v15 == -1)
         {
-          v17 = INFINITY;
+          v16 = INFINITY;
         }
 
         else
         {
-          v17 = v16 / 1000000000.0;
+          v16 = v15 / 1000000000.0;
         }
 
         *buf = 134217984;
-        v23 = v17;
-        _os_log_error_impl(&dword_1BB2EF000, v13, OS_LOG_TYPE_ERROR, "%13.5f: No Attention streamer available", buf, 0xCu);
+        v22 = v16;
+        _os_log_error_impl(&dword_1BB2EF000, v12, OS_LOG_TYPE_ERROR, "%13.5f: No Attention streamer available", buf, 0xCu);
       }
     }
 
-    v14 = MEMORY[0x1E696ABC0];
-    v15 = *MEMORY[0x1E696A798];
-    v20 = *MEMORY[0x1E696A578];
-    v21 = @" No attention streamer found";
-    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
-    v8 = v14;
-    v9 = v15;
+    v13 = MEMORY[0x1E696ABC0];
+    v14 = *MEMORY[0x1E696A798];
+    v19 = *MEMORY[0x1E696A578];
+    v20 = @" No attention streamer found";
+    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
+    v8 = v13;
+    v9 = v14;
     v10 = 19;
   }
 
@@ -123,9 +147,9 @@ LABEL_9:
   {
     v5 = MEMORY[0x1E696ABC0];
     v6 = *MEMORY[0x1E696A798];
-    v18 = *MEMORY[0x1E696A578];
-    v19 = @" Invalid mask to start a stream";
-    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
+    v17 = *MEMORY[0x1E696A578];
+    v18 = @" Invalid mask to start a stream";
+    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
     v8 = v5;
     v9 = v6;
     v10 = 22;
@@ -134,9 +158,74 @@ LABEL_9:
   cancelEventStream = [v8 errorWithDomain:v9 code:v10 userInfo:v7];
 
 LABEL_6:
-  v11 = *MEMORY[0x1E69E9840];
 
   return cancelEventStream;
+}
+
+- (id)streamEventsWithMask:(unint64_t)mask block:(id)block options:(id)options operationStartFailedBlock:(id)failedBlock
+{
+  v7 = *&options.var0;
+  v32 = *MEMORY[0x1E69E9840];
+  blockCopy = block;
+  failedBlockCopy = failedBlock;
+  if (mask == 128)
+  {
+    faceDetectStreamer = self->_faceDetectStreamer;
+    if (faceDetectStreamer)
+    {
+      v13 = [(StreamingOperation *)faceDetectStreamer streamEventWithBlock:blockCopy options:*&v7 & 0xFFFFFFLL operationStartFailedBlock:failedBlockCopy];
+      goto LABEL_6;
+    }
+
+    if (currentLogLevel >= 3)
+    {
+      v21 = _AALog();
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      {
+        v24 = absTimeNS();
+        if (v24 == -1)
+        {
+          v25 = INFINITY;
+        }
+
+        else
+        {
+          v25 = v24 / 1000000000.0;
+        }
+
+        *buf = 134217984;
+        v31 = v25;
+        _os_log_error_impl(&dword_1BB2EF000, v21, OS_LOG_TYPE_ERROR, "%13.5f: No Attention streamer available", buf, 0xCu);
+      }
+    }
+
+    v22 = MEMORY[0x1E696ABC0];
+    v23 = *MEMORY[0x1E696A798];
+    v28 = *MEMORY[0x1E696A578];
+    v29 = @" No attention streamer found";
+    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+    v17 = v22;
+    v18 = v23;
+    v19 = 19;
+  }
+
+  else
+  {
+    v14 = MEMORY[0x1E696ABC0];
+    v15 = *MEMORY[0x1E696A798];
+    v26 = *MEMORY[0x1E696A578];
+    v27 = @" Invalid mask to start a stream";
+    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+    v17 = v14;
+    v18 = v15;
+    v19 = 22;
+  }
+
+  v13 = [v17 errorWithDomain:v18 code:v19 userInfo:v16];
+
+LABEL_6:
+
+  return v13;
 }
 
 - (id)initForUnitTest:(BOOL)test useAVFoundation:(BOOL)foundation

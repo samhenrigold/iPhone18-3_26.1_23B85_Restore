@@ -269,7 +269,7 @@ LABEL_21:
   dispatch_assert_queue_V2(self->_stateQueue);
   if (os_log_type_enabled(self->_log, OS_LOG_TYPE_DEBUG))
   {
-    sub_100120270(self);
+    sub_100120270();
   }
 
   if ((self->_configurationField & 8) != 0)
@@ -290,7 +290,7 @@ LABEL_21:
   dispatch_assert_queue_V2(self->_stateQueue);
   if (os_log_type_enabled(self->_log, OS_LOG_TYPE_DEBUG))
   {
-    sub_100120270(self);
+    sub_100120270();
   }
 
   if ([(_DASProgressTracker *)self isStalled])
@@ -331,7 +331,7 @@ LABEL_9:
   dispatch_assert_queue_V2(self->_stateQueue);
   if (os_log_type_enabled(self->_log, OS_LOG_TYPE_DEBUG))
   {
-    sub_100120270(self);
+    sub_100120270();
   }
 
   if ([(_DASProgressTracker *)self isStalled])
@@ -370,7 +370,7 @@ LABEL_11:
   dispatch_assert_queue_V2(self->_stateQueue);
   if (os_log_type_enabled(self->_log, OS_LOG_TYPE_DEBUG))
   {
-    sub_100120270(self);
+    sub_100120270();
   }
 
   if ([(_DASProgressTracker *)self isStalled])
@@ -385,7 +385,7 @@ LABEL_11:
   dispatch_assert_queue_V2(self->_stateQueue);
   if (os_log_type_enabled(self->_log, OS_LOG_TYPE_DEBUG))
   {
-    sub_100120270(self);
+    sub_100120270();
   }
 }
 
@@ -394,7 +394,7 @@ LABEL_11:
   dispatch_assert_queue_V2(self->_stateQueue);
   if (os_log_type_enabled(self->_log, OS_LOG_TYPE_DEBUG))
   {
-    sub_100120270(self);
+    sub_100120270();
   }
 }
 
@@ -403,7 +403,7 @@ LABEL_11:
   dispatch_assert_queue_V2(self->_stateQueue);
   if (os_log_type_enabled(self->_log, OS_LOG_TYPE_DEBUG))
   {
-    sub_100120270(self);
+    sub_100120270();
   }
 }
 
@@ -434,7 +434,7 @@ LABEL_11:
 {
   if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
   {
-    sub_100120424(self);
+    sub_100120424();
   }
 
   deviationStrategy = self->_deviationStrategy;
@@ -450,7 +450,7 @@ LABEL_11:
 {
   if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
   {
-    sub_100120424(self);
+    sub_100120424();
   }
 
   deviationStrategy = self->_deviationStrategy;

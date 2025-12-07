@@ -18,19 +18,18 @@
 {
   v10 = type metadata accessor for URLRequest();
   v11 = *(v10 - 8);
-  v12 = *(v11 + 64);
   __chkstk_darwin(v10);
-  v14 = &v19 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = _Block_copy(handler);
+  v13 = &v18 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = _Block_copy(handler);
   static URLRequest._unconditionallyBridgeFromObjectiveC(_:)();
-  _Block_copy(v15);
+  _Block_copy(v14);
   sessionCopy = session;
   taskCopy = task;
   selfCopy = self;
-  sub_1000AD8C8(sessionCopy, taskCopy, v14, selfCopy, v15);
-  _Block_release(v15);
+  sub_1000AD8C8(sessionCopy, taskCopy, v13, selfCopy, v14);
+  _Block_release(v14);
 
-  (*(v11 + 8))(v14, v10);
+  (*(v11 + 8))(v13, v10);
 }
 
 - (void)URLSession:(id)session task:(id)task didCompleteWithError:(id)error
@@ -46,16 +45,15 @@
 {
   v8 = type metadata accessor for URL();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
   __chkstk_darwin(v8);
-  v12 = &v16 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = &v15 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   static URL._unconditionallyBridgeFromObjectiveC(_:)();
   sessionCopy = session;
   taskCopy = task;
   selfCopy = self;
   sub_1000B03E0();
 
-  (*(v9 + 8))(v12, v8);
+  (*(v9 + 8))(v11, v8);
 }
 
 @end

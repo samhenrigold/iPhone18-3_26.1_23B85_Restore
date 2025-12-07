@@ -30,7 +30,7 @@
   v4 = String._bridgeToObjectiveC()();
   [standardUserDefaults removeObjectForKey:v4];
 
-  sub_10000CAAC(v5, &unk_1019F4D00);
+  sub_10000CAAC(v5, &unk_1019F4D00, &unk_10146E7F0);
 }
 
 @end

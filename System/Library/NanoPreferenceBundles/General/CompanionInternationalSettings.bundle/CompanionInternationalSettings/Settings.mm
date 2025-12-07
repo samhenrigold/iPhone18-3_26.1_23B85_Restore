@@ -153,31 +153,29 @@
 {
   v3 = sub_1AB28();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  __chkstk_darwin(v3);
-  v7 = &v21 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v3, v5);
+  v7 = &v22 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   v8 = sub_1AAE8();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  v11 = __chkstk_darwin(v8);
-  v13 = &v21 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v11);
-  v15 = &v21 - v14;
-  v16 = objc_opt_self();
+  v11 = __chkstk_darwin(v8, v10);
+  v13 = &v22 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v11, v14);
+  v16 = &v22 - v15;
+  v17 = objc_opt_self();
   selfCopy = self;
-  result = [v16 preferredLocale];
+  result = [v17 preferredLocale];
   if (result)
   {
-    v19 = result;
+    v20 = result;
     sub_1A9C8();
 
-    (*(v9 + 32))(v15, v13, v8);
+    (*(v9 + 32))(v16, v13, v8);
     sub_1AAD8();
-    v20 = sub_1AAF8();
+    v21 = sub_1AAF8();
     (*(v4 + 8))(v7, v3);
-    (*(v9 + 8))(v15, v8);
+    (*(v9 + 8))(v16, v8);
 
-    return v20;
+    return v21;
   }
 
   else

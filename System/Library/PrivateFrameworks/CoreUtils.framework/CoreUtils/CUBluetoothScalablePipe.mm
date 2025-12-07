@@ -83,7 +83,7 @@
       {
         ucat = self->_ucat;
 LABEL_5:
-        LogPrintF(ucat, "[CUBluetoothScalablePipe _processWrites]", 9u, "Write channel, pre-ion %d, post-ion %d, %#m\n", v8, v9, v10, v11, ion);
+        LogPrintF(ucat, "[CUBluetoothScalablePipe _processWrites]", 9, "Write channel, pre-ion %d, post-ion %d, %#m\n", v8, v9, v10, v11, ion);
       }
     }
 
@@ -169,7 +169,7 @@ LABEL_5:
 LABEL_7:
       minLength = [(CUReadRequest *)obj minLength];
       [(CUReadRequest *)obj maxLength];
-      LogPrintF(ucat, "[CUBluetoothScalablePipe _processReads]", 9u, "Read channel, %zu min, %zu max, %zu offset, %zu nread, %#m\n", v15, v16, v17, v18, minLength);
+      LogPrintF(ucat, "[CUBluetoothScalablePipe _processReads]", 9, "Read channel, %zu min, %zu max, %zu offset, %zu nread, %#m\n", v15, v16, v17, v18, minLength);
     }
 
 LABEL_9:
@@ -253,7 +253,7 @@ LABEL_18:
         name2 = [v12 name];
         peer = [disconnectCopy peer];
         identifier = [peer identifier];
-        LogPrintF(ucat, "[CUBluetoothScalablePipe scalablePipeManager:pipeDidDisconnect:error:]", 0x1Eu, "Pipe disconnected: ID '%@', Peer %@, %{error}\n", v15, v16, v17, v18, name2);
+        LogPrintF(ucat, "[CUBluetoothScalablePipe scalablePipeManager:pipeDidDisconnect:error:]", 30, "Pipe disconnected: ID '%@', Peer %@, %{error}\n", v15, v16, v17, v18, name2);
       }
 
 LABEL_10:
@@ -284,7 +284,7 @@ LABEL_10:
     {
 LABEL_8:
       name3 = [disconnectCopy name];
-      LogPrintF(ucat, "[CUBluetoothScalablePipe scalablePipeManager:pipeDidDisconnect:error:]", 0x1Eu, "Ignoring pipeDidDisconnect for unknown identifier ('%@' not '%@'): %{error}\n", v20, v21, v22, v23, name3);
+      LogPrintF(ucat, "[CUBluetoothScalablePipe scalablePipeManager:pipeDidDisconnect:error:]", 30, "Ignoring pipeDidDisconnect for unknown identifier ('%@' not '%@'): %{error}\n", v20, v21, v22, v23, name3);
 LABEL_13:
 
       goto LABEL_14;
@@ -332,7 +332,7 @@ LABEL_14:
       }
 
       name2 = [v7 name];
-      LogPrintF(ucat, "[CUBluetoothScalablePipe scalablePipeManager:pipeDidConnect:]", 0x1Eu, "Ignoring pipeDidConnect for unknown identifier ('%@' not '%@')\n", v29, v30, v31, v32, name2);
+      LogPrintF(ucat, "[CUBluetoothScalablePipe scalablePipeManager:pipeDidConnect:]", 30, "Ignoring pipeDidConnect for unknown identifier ('%@' not '%@')\n", v29, v30, v31, v32, name2);
 
       goto LABEL_20;
     }
@@ -362,7 +362,7 @@ LABEL_14:
         name3 = [connectCopy name];
         [connectCopy type];
         [connectCopy priority];
-        LogPrintF(v39, "[CUBluetoothScalablePipe scalablePipeManager:pipeDidConnect:]", 0x1Eu, "Pipe connected: ID '%@', Peer %@, Type %s, Priority %s\n", v41, v42, v43, v44, name3);
+        LogPrintF(v39, "[CUBluetoothScalablePipe scalablePipeManager:pipeDidConnect:]", 30, "Pipe connected: ID '%@', Peer %@, Type %s, Priority %s\n", v41, v42, v43, v44, name3);
       }
 
 LABEL_19:
@@ -393,7 +393,7 @@ LABEL_20:
       name5 = [connectCopy name];
       peer3 = [connectCopy peer];
       identifier3 = [peer3 identifier];
-      LogPrintF(v17, "[CUBluetoothScalablePipe scalablePipeManager:pipeDidConnect:]", 0x5Au, "Pipe connect when already connected: '%@', Peer %@ -> '%@', Peer %@\n", v23, v24, v25, v26, name4);
+      LogPrintF(v17, "[CUBluetoothScalablePipe scalablePipeManager:pipeDidConnect:]", 90, "Pipe connect when already connected: '%@', Peer %@ -> '%@', Peer %@\n", v23, v24, v25, v26, name4);
     }
 
 LABEL_13:
@@ -439,7 +439,7 @@ LABEL_21:
           ucat = self->_ucat;
         }
 
-        LogPrintF(ucat, "[CUBluetoothScalablePipe scalablePipeManager:didUnregisterEndpoint:]", 0x1Eu, "Endpoint unregistered '%@'\n", v9, v10, v11, v12, endpointCopy);
+        LogPrintF(ucat, "[CUBluetoothScalablePipe scalablePipeManager:didUnregisterEndpoint:]", 30, "Endpoint unregistered '%@'\n", v9, v10, v11, v12, endpointCopy);
       }
 
 LABEL_10:
@@ -459,7 +459,7 @@ LABEL_10:
     if (v14 != -1)
     {
 LABEL_8:
-      ucat = LogPrintF(ucat, "[CUBluetoothScalablePipe scalablePipeManager:didUnregisterEndpoint:]", 0x1Eu, "Ignoring didRegisterEndpoint for unknown identifier ('%@' not '%@')\n", v9, v10, v11, v12, v6);
+      ucat = LogPrintF(ucat, "[CUBluetoothScalablePipe scalablePipeManager:didUnregisterEndpoint:]", 30, "Ignoring didRegisterEndpoint for unknown identifier ('%@' not '%@')\n", v9, v10, v11, v12, v6);
 LABEL_11:
       v6 = endpointCopy;
       goto LABEL_12;
@@ -509,7 +509,7 @@ LABEL_12:
       {
         ucat = self->_ucat;
 LABEL_6:
-        LogPrintF(ucat, "[CUBluetoothScalablePipe scalablePipeManager:didRegisterEndpoint:error:]", 0x5Au, "### didRegisterEndpoint error: %{error}\n", v8, v9, v10, v11, errorCopy);
+        LogPrintF(ucat, "[CUBluetoothScalablePipe scalablePipeManager:didRegisterEndpoint:error:]", 90, "### didRegisterEndpoint error: %{error}\n", v8, v9, v10, v11, errorCopy);
         goto LABEL_20;
       }
 
@@ -530,7 +530,7 @@ LABEL_6:
         v15 = endpointCopy;
       }
 
-      LogPrintF(ucat, "[CUBluetoothScalablePipe scalablePipeManager:didRegisterEndpoint:error:]", 0x1Eu, "Endpoint registered '%@'\n", v8, v9, v10, v11, v15);
+      LogPrintF(ucat, "[CUBluetoothScalablePipe scalablePipeManager:didRegisterEndpoint:error:]", 30, "Endpoint registered '%@'\n", v8, v9, v10, v11, v15);
     }
 
 LABEL_19:
@@ -555,7 +555,7 @@ LABEL_19:
     v14 = self->_ucat;
   }
 
-  LogPrintF(v14, "[CUBluetoothScalablePipe scalablePipeManager:didRegisterEndpoint:error:]", 0x1Eu, "Ignoring didRegisterEndpoint for unknown identifier ('%@' not '%@'): %{error}\n", v8, v9, v10, v11, endpointCopy);
+  LogPrintF(v14, "[CUBluetoothScalablePipe scalablePipeManager:didRegisterEndpoint:error:]", 30, "Ignoring didRegisterEndpoint for unknown identifier ('%@' not '%@'): %{error}\n", v8, v9, v10, v11, endpointCopy);
 LABEL_20:
 }
 
@@ -593,7 +593,7 @@ LABEL_20:
       v13 = off_1E73A3018[state];
     }
 
-    LogPrintF(ucat, "[CUBluetoothScalablePipe scalablePipeManagerDidUpdateState:]", 0x1Eu, "Bluetooth scalable pipe state changed: %s\n", v7, v8, v9, v10, v13);
+    LogPrintF(ucat, "[CUBluetoothScalablePipe scalablePipeManagerDidUpdateState:]", 30, "Bluetooth scalable pipe state changed: %s\n", v7, v8, v9, v10, v13);
 LABEL_10:
     if (state <= 2)
     {
@@ -646,7 +646,7 @@ LABEL_10:
         v15 = self->_ucat;
       }
 
-      LogPrintF(v15, "[CUBluetoothScalablePipe scalablePipeManagerDidUpdateState:]", 0x32u, "Tear down due to %s state\n", v7, v8, v9, v10, v14);
+      LogPrintF(v15, "[CUBluetoothScalablePipe scalablePipeManagerDidUpdateState:]", 50, "Tear down due to %s state\n", v7, v8, v9, v10, v14);
     }
 
 LABEL_25:
@@ -695,7 +695,7 @@ _BYTE *__74__CUBluetoothScalablePipe_observeValueForKeyPath_ofObject_change_cont
     if (ucat->var0 != -1)
     {
 LABEL_3:
-      LogPrintF(ucat, "[CUBluetoothScalablePipe _completeWriteRequest:error:]", 9u, "Write completed: %{error}\n", v6, v7, v8, v9, errorCopy);
+      LogPrintF(ucat, "[CUBluetoothScalablePipe _completeWriteRequest:error:]", 9, "Write completed: %{error}\n", v6, v7, v8, v9, errorCopy);
       goto LABEL_5;
     }
 
@@ -730,7 +730,7 @@ LABEL_5:
       if (ucat->var0 != -1)
       {
 LABEL_5:
-        LogPrintF(ucat, "[CUBluetoothScalablePipe _abortWritesWithError:]", 0x1Eu, "Abort writes: %{error}\n", v4, v5, v6, v7, errorCopy);
+        LogPrintF(ucat, "[CUBluetoothScalablePipe _abortWritesWithError:]", 30, "Abort writes: %{error}\n", v4, v5, v6, v7, errorCopy);
         goto LABEL_7;
       }
 
@@ -829,7 +829,7 @@ LABEL_7:
         ucat = self->_ucat;
       }
 
-      LogPrintF(ucat, "[CUBluetoothScalablePipe _writeBytes:length:]", 8u, "Write channel slot %p, remain %zu, slotLen %u\n", v10, v11, v12, v13, v7);
+      LogPrintF(ucat, "[CUBluetoothScalablePipe _writeBytes:length:]", 8, "Write channel slot %p, remain %zu, slotLen %u\n", v10, v11, v12, v13, v7);
     }
 
 LABEL_8:
@@ -863,7 +863,7 @@ LABEL_12:
       {
         v21 = self->_ucat;
 LABEL_15:
-        LogPrintF(v21, "[CUBluetoothScalablePipe _writeBytes:length:]", 0x3Cu, "### Advance tx slot failed: %#m\n", v16, v17, v18, v19, v20);
+        LogPrintF(v21, "[CUBluetoothScalablePipe _writeBytes:length:]", 60, "### Advance tx slot failed: %#m\n", v16, v17, v18, v19, v20);
       }
     }
   }
@@ -884,7 +884,7 @@ LABEL_15:
       {
         v28 = self->_ucat;
 LABEL_20:
-        LogPrintF(v28, "[CUBluetoothScalablePipe _writeBytes:length:]", 0x3Cu, "### Sync tx failed: %#m\n", v23, v24, v25, v26, v27);
+        LogPrintF(v28, "[CUBluetoothScalablePipe _writeBytes:length:]", 60, "### Sync tx failed: %#m\n", v23, v24, v25, v26, v27);
       }
     }
   }
@@ -1026,7 +1026,7 @@ LABEL_14:
       v32 = *(requestCopy + 70);
     }
 
-    LogPrintF(ucat, "[CUBluetoothScalablePipe _prepareWriteRequest:error:]", 9u, "Write prepared (%d iov, %zu total)\n", v28, v29, v30, v31, v32);
+    LogPrintF(ucat, "[CUBluetoothScalablePipe _prepareWriteRequest:error:]", 9, "Write prepared (%d iov, %zu total)\n", v28, v29, v30, v31, v32);
 LABEL_27:
     v17 = 1;
     goto LABEL_28;
@@ -1075,7 +1075,7 @@ void __44__CUBluetoothScalablePipe_writeWithRequest___block_invoke(uint64_t a1, 
 
   else
   {
-    [*(v9 + 160) addObject:*(a1 + 40)];
+    [*(v9 + 160) addObject:{*(a1 + 40), a4, a5, a6, a7, a8}];
     v11 = *(a1 + 32);
     if ((v11[28] & 0x80000000) == 0)
     {
@@ -1097,7 +1097,7 @@ void __44__CUBluetoothScalablePipe_writeWithRequest___block_invoke(uint64_t a1, 
     {
 LABEL_3:
       v9 = [v8 length];
-      LogPrintF(ucat, "[CUBluetoothScalablePipe _completeReadRequest:error:]", 9u, "Read completed: %zu byte(s), %{error}\n", v10, v11, v12, v13, v9);
+      LogPrintF(ucat, "[CUBluetoothScalablePipe _completeReadRequest:error:]", 9, "Read completed: %zu byte(s), %{error}\n", v10, v11, v12, v13, v9);
       goto LABEL_5;
     }
 
@@ -1133,7 +1133,7 @@ LABEL_5:
       if (ucat->var0 != -1)
       {
 LABEL_5:
-        LogPrintF(ucat, "[CUBluetoothScalablePipe _abortReadsWithError:]", 0x1Eu, "Abort reads: %{error}\n", v4, v5, v6, v7, errorCopy);
+        LogPrintF(ucat, "[CUBluetoothScalablePipe _abortReadsWithError:]", 30, "Abort reads: %{error}\n", v4, v5, v6, v7, errorCopy);
         goto LABEL_7;
       }
 
@@ -1248,7 +1248,7 @@ LABEL_7:
     {
       ucat = self->_ucat;
 LABEL_11:
-      LogPrintF(ucat, "[CUBluetoothScalablePipe _readBytes:minLen:maxLen:offset:]", 8u, "Read channel slot %p, remain %zu, slotLen %u\n", v17, v18, v19, v20, v21);
+      LogPrintF(ucat, "[CUBluetoothScalablePipe _readBytes:minLen:maxLen:offset:]", 8, "Read channel slot %p, remain %zu, slotLen %u\n", v17, v18, v19, v20, v21);
       continue;
     }
   }
@@ -1273,7 +1273,7 @@ LABEL_11:
         {
           v29 = self->_ucat;
 LABEL_19:
-          LogPrintF(v29, "[CUBluetoothScalablePipe _readBytes:minLen:maxLen:offset:]", 0x5Au, "### Advance rx slot failed: %#m\n", v24, v25, v26, v27, v28);
+          LogPrintF(v29, "[CUBluetoothScalablePipe _readBytes:minLen:maxLen:offset:]", 90, "### Advance rx slot failed: %#m\n", v24, v25, v26, v27, v28);
         }
       }
     }
@@ -1294,7 +1294,7 @@ LABEL_19:
         {
           v36 = self->_ucat;
 LABEL_24:
-          LogPrintF(v36, "[CUBluetoothScalablePipe _readBytes:minLen:maxLen:offset:]", 0x5Au, "### Sync rx failed: %#m\n", v31, v32, v33, v34, v35);
+          LogPrintF(v36, "[CUBluetoothScalablePipe _readBytes:minLen:maxLen:offset:]", 90, "### Sync rx failed: %#m\n", v31, v32, v33, v34, v35);
         }
       }
     }
@@ -1366,7 +1366,7 @@ LABEL_26:
 LABEL_10:
       minLength = [v15 minLength];
       [requestCopy maxLength];
-      LogPrintF(ucat, "[CUBluetoothScalablePipe _prepareReadRequest:]", 9u, "Read prepared (%zu min, %zu max)\n", v17, v18, v19, v20, minLength);
+      LogPrintF(ucat, "[CUBluetoothScalablePipe _prepareReadRequest:]", 9, "Read prepared (%zu min, %zu max)\n", v17, v18, v19, v20, minLength);
       goto LABEL_12;
     }
 
@@ -1407,7 +1407,7 @@ void __43__CUBluetoothScalablePipe_readWithRequest___block_invoke(uint64_t a1, u
 
   else
   {
-    [*(v9 + 128) addObject:*(a1 + 40)];
+    [*(v9 + 128) addObject:{*(a1 + 40), a4, a5, a6, a7, a8}];
     v11 = *(a1 + 32);
     if ((v11[28] & 0x80000000) == 0)
     {
@@ -1462,7 +1462,7 @@ LABEL_9:
         v12 = off_1E73A3000[peerHostState];
       }
 
-      LogPrintF(ucat, "[CUBluetoothScalablePipe _handleBTPeerHostStateChanged]", 0x1Eu, "Peer host state changed: %s -> %s\n", v2, v3, v4, v5, v12);
+      LogPrintF(ucat, "[CUBluetoothScalablePipe _handleBTPeerHostStateChanged]", 30, "Peer host state changed: %s -> %s\n", v2, v3, v4, v5, v12);
       goto LABEL_15;
     }
 
@@ -1495,7 +1495,7 @@ LABEL_15:
       if (ucat->var0 != -1)
       {
 LABEL_4:
-        LogPrintF(ucat, "[CUBluetoothScalablePipe _tearDownPipe]", 0x1Eu, "Tear down pipe\n", v2, v3, v4, v5, v15);
+        LogPrintF(ucat, "[CUBluetoothScalablePipe _tearDownPipe]", 30, "Tear down pipe\n", v2, v3, v4, v5, v15);
         goto LABEL_6;
       }
 
@@ -1666,7 +1666,7 @@ LABEL_21:
 
       v22 = "### Create channel attr failed\n";
 LABEL_20:
-      LogPrintF(ucat, "[CUBluetoothScalablePipe _setupPipe]", 0x5Au, v22, v5, v6, v7, v8, v29);
+      LogPrintF(ucat, "[CUBluetoothScalablePipe _setupPipe]", 90, v22, v5, v6, v7, v8, v29);
       goto LABEL_21;
     }
 
@@ -1690,7 +1690,7 @@ LABEL_20:
         v24 = self->_ucat;
       }
 
-      LogPrintF(v24, "[CUBluetoothScalablePipe _setupPipe]", 0x5Au, "### Read channel attr failed: %#m\n", v12, v13, v14, v15, v23);
+      LogPrintF(v24, "[CUBluetoothScalablePipe _setupPipe]", 90, "### Read channel attr failed: %#m\n", v12, v13, v14, v15, v23);
     }
   }
 
@@ -1719,7 +1719,7 @@ LABEL_20:
           v27 = 0;
         }
 
-        LogPrintF(v26, "[CUBluetoothScalablePipe _setupPipe]", 0x5Au, "### Bad channel slot size: %llu\n", v17, v18, v19, v20, v27);
+        LogPrintF(v26, "[CUBluetoothScalablePipe _setupPipe]", 90, "### Bad channel slot size: %llu\n", v17, v18, v19, v20, v27);
       }
 
 LABEL_45:
@@ -1741,7 +1741,7 @@ LABEL_45:
         v25 = self->_ucat;
       }
 
-      LogPrintF(v25, "[CUBluetoothScalablePipe _setupPipe]", 0x5Au, "### Get channel slot size failed: %#m\n", v17, v18, v19, v20, v23);
+      LogPrintF(v25, "[CUBluetoothScalablePipe _setupPipe]", 90, "### Get channel slot size failed: %#m\n", v17, v18, v19, v20, v23);
     }
   }
 
@@ -1761,7 +1761,7 @@ LABEL_47:
       v28 = self->_ucat;
     }
 
-    LogPrintF(v28, "[CUBluetoothScalablePipe _setupPipe]", 0x5Au, "### Setup pipe failed: %#m\n", v5, v6, v7, v8, v23);
+    LogPrintF(v28, "[CUBluetoothScalablePipe _setupPipe]", 90, "### Setup pipe failed: %#m\n", v5, v6, v7, v8, v23);
   }
 
 LABEL_51:
@@ -1803,7 +1803,7 @@ LABEL_51:
   btPipeManager = self->_btPipeManager;
   if (!btPipeManager)
   {
-    v12 = [objc_alloc(getCBScalablePipeManagerClass[0]()) initWithDelegate:self queue:self->_dispatchQueue];
+    v12 = [objc_alloc(getCBScalablePipeManagerClass()) initWithDelegate:self queue:self->_dispatchQueue];
     v13 = self->_btPipeManager;
     self->_btPipeManager = v12;
 
@@ -1811,12 +1811,12 @@ LABEL_51:
     if (!v14)
     {
       ucat = self->_ucat;
-      if (ucat->var0 > 90)
+      if (*ucat > 90)
       {
         return;
       }
 
-      if (ucat->var0 == -1)
+      if (*ucat == -1)
       {
         if (!_LogCategory_Initialize(ucat, 0x5Au))
         {
@@ -1846,12 +1846,12 @@ LABEL_11:
         }
 
         ucat = self->_ucat;
-        if (ucat->var0 > 20)
+        if (*ucat > 20)
         {
           return;
         }
 
-        if (ucat->var0 == -1)
+        if (*ucat == -1)
         {
           if (!_LogCategory_Initialize(ucat, 0x14u))
           {
@@ -1885,12 +1885,12 @@ LABEL_18:
         }
 
         ucat = self->_ucat;
-        if (ucat->var0 > 20)
+        if (*ucat > 20)
         {
           return;
         }
 
-        if (ucat->var0 == -1)
+        if (*ucat == -1)
         {
           if (!_LogCategory_Initialize(ucat, 0x14u))
           {
@@ -1927,17 +1927,18 @@ LABEL_19:
 
     v20 = self->_identifier;
     ucat = self->_ucat;
-    var0 = ucat->var0;
+    v21 = *ucat;
     if (v20)
     {
-      if (var0 > 30)
+      if (v21 > 30)
       {
         goto LABEL_53;
       }
 
-      if (var0 == -1)
+      if (v21 == -1)
       {
-        if (!_LogCategory_Initialize(ucat, 0x1Eu))
+        ucat = _LogCategory_Initialize(ucat, 0x1Eu);
+        if (!ucat)
         {
 LABEL_53:
           v23 = 1;
@@ -1959,7 +1960,7 @@ LABEL_53:
           }
 
           v26 = self->_btPipeManager;
-          v27 = getCBScalablePipeOptionTransport();
+          v27 = getCBScalablePipeOptionTransport(ucat);
           v29 = v27;
           v30[0] = &unk_1F06A2F50;
           v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:&v29 count:1];
@@ -1982,16 +1983,16 @@ LABEL_53:
         ucat = self->_ucat;
       }
 
-      LogPrintF(ucat, "[CUBluetoothScalablePipe _ensureStarted]", 0x1Eu, "Register endpoint '%@'\n", v5, v6, v7, v8, v20);
+      ucat = LogPrintF(ucat, "[CUBluetoothScalablePipe _ensureStarted]", 30, "Register endpoint '%@'\n", v5, v6, v7, v8, v20);
       goto LABEL_53;
     }
 
-    if (var0 > 90)
+    if (v21 > 90)
     {
       return;
     }
 
-    if (var0 == -1)
+    if (v21 == -1)
     {
       if (!_LogCategory_Initialize(ucat, 0x5Au))
       {
@@ -2040,7 +2041,7 @@ LABEL_44:
     v11 = off_1E73A2FA8[v9];
   }
 
-  LogPrintF(v10, "[CUBluetoothScalablePipe _ensureStarted]", 0x14u, "Waiting until Bluetooth ready (%s)\n", v5, v6, v7, v8, v11);
+  LogPrintF(v10, "[CUBluetoothScalablePipe _ensureStarted]", 20, "Waiting until Bluetooth ready (%s)\n", v5, v6, v7, v8, v11);
 }
 
 - (void)_invalidate
@@ -2057,7 +2058,7 @@ LABEL_44:
     if (ucat->var0 != -1)
     {
 LABEL_5:
-      LogPrintF(ucat, "[CUBluetoothScalablePipe _invalidate]", 0x1Eu, "Invalidating\n", v2, v3, v4, v5, v26);
+      LogPrintF(ucat, "[CUBluetoothScalablePipe _invalidate]", 30, "Invalidating\n", v2, v3, v4, v5, v26);
       goto LABEL_7;
     }
 
@@ -2095,7 +2096,7 @@ LABEL_7:
       v22 = self->_ucat;
     }
 
-    LogPrintF(v22, "[CUBluetoothScalablePipe _invalidate]", 0x1Eu, "Invalidated\n", v18, v19, v20, v21, v27);
+    LogPrintF(v22, "[CUBluetoothScalablePipe _invalidate]", 30, "Invalidated\n", v18, v19, v20, v21, v27);
   }
 
 LABEL_11:
@@ -2183,7 +2184,7 @@ LABEL_9:
       v8 = *(*(a1 + 32) + 16);
     }
 
-    LogPrintF(v8, "[CUBluetoothScalablePipe activateWithCompletion:]_block_invoke", 0x1Eu, "Activate\n", v4, v5, v6, v7, v23);
+    LogPrintF(v8, "[CUBluetoothScalablePipe activateWithCompletion:]_block_invoke", 30, "Activate\n", v4, v5, v6, v7, v23);
     goto LABEL_9;
   }
 
@@ -2201,7 +2202,7 @@ LABEL_9:
       v14 = *(*(a1 + 32) + 16);
     }
 
-    LogPrintF(v14, "[CUBluetoothScalablePipe activateWithCompletion:]_block_invoke", 0x5Au, "### Activate failed: %{error}\n", v9, v10, v11, v12, v13);
+    LogPrintF(v14, "[CUBluetoothScalablePipe activateWithCompletion:]_block_invoke", 90, "### Activate failed: %{error}\n", v9, v10, v11, v12, v13);
   }
 
 LABEL_12:

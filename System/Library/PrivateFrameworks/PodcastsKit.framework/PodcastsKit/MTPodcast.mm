@@ -5,7 +5,7 @@
 
 void __42__MTPodcast_DB_App__updateCursorPosition___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277D3DB40];
   v3 = [*(a1 + 32) uuid];
   v4 = [v2 upNextForPodcastUuid:v3 excludeExplicit:0 ctx:*(a1 + 40)];
@@ -18,24 +18,24 @@ void __42__MTPodcast_DB_App__updateCursorPosition___block_invoke(uint64_t a1)
     v8 = [*(a1 + 32) uuid];
     v9 = [v4 episodeUuid];
     [v4 modifiedDate];
-    v16 = 138543874;
-    v17 = v8;
-    v18 = 2114;
-    v19 = v9;
-    v20 = 2050;
-    v21 = v10;
-    _os_log_impl(&dword_25E9F0000, v7, OS_LOG_TYPE_DEFAULT, "UpNext result from update cursor position for podcast %{public}@: episodeUuid: %{public}@ at %{public}f", &v16, 0x20u);
+    v15 = 138543874;
+    v16 = v8;
+    v17 = 2114;
+    v18 = v9;
+    v19 = 2050;
+    v20 = v10;
+    _os_log_impl(&dword_25E9F0000, v7, OS_LOG_TYPE_DEFAULT, "UpNext result from update cursor position for podcast %{public}@: episodeUuid: %{public}@ at %{public}f", &v15, 0x20u);
   }
 
   v11 = _MTLogCategoryDefault();
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     v12 = [v4 episodeUuid];
-    v16 = 138543618;
-    v17 = v6;
-    v18 = 2114;
-    v19 = v12;
-    _os_log_impl(&dword_25E9F0000, v11, OS_LOG_TYPE_DEFAULT, "UpNext result updating podcast nextEpisodeUuid from %{public}@ to %{public}@", &v16, 0x16u);
+    v15 = 138543618;
+    v16 = v6;
+    v17 = 2114;
+    v18 = v12;
+    _os_log_impl(&dword_25E9F0000, v11, OS_LOG_TYPE_DEFAULT, "UpNext result updating podcast nextEpisodeUuid from %{public}@ to %{public}@", &v15, 0x16u);
   }
 
   if (v6 != v5 && ([v6 isEqualToString:v5] & 1) == 0)
@@ -61,8 +61,6 @@ void __42__MTPodcast_DB_App__updateCursorPosition___block_invoke(uint64_t a1)
   {
     *(*(*(a1 + 48) + 8) + 24) = [*(a1 + 40) saveInCurrentBlock];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __53__MTPodcast_DB_App__podcastUuidForFeedUrlString_ctx___block_invoke(uint64_t a1)

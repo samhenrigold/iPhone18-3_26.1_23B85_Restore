@@ -17,7 +17,7 @@ id SAEffectiveElementIdentityDescription(void *a1)
 
 id SAElementIdentityDescription(void *a1, void *a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = a2;
   if (v3)
@@ -36,31 +36,31 @@ id SAElementIdentityDescription(void *a1, void *a2)
 
     if ([v4 count])
     {
-      v22 = 0u;
-      v23 = 0u;
-      v20 = 0u;
       v21 = 0u;
+      v22 = 0u;
+      v19 = 0u;
+      v20 = 0u;
       v11 = v4;
-      v12 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
       if (v12)
       {
         v13 = v12;
-        v14 = *v21;
+        v14 = *v20;
         do
         {
           for (i = 0; i != v13; ++i)
           {
-            if (*v21 != v14)
+            if (*v20 != v14)
             {
               objc_enumerationMutation(v11);
             }
 
-            v16 = *(*(&v20 + 1) + 8 * i);
+            v16 = *(*(&v19 + 1) + 8 * i);
             v17 = [v11 objectForKeyedSubscript:v16];
             [v9 appendFormat:@"; %@: %@", v16, v17];
           }
 
-          v13 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
+          v13 = [v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
         }
 
         while (v13);
@@ -74,8 +74,6 @@ id SAElementIdentityDescription(void *a1, void *a2)
   {
     v9 = 0;
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -173,7 +171,7 @@ uint64_t SAHasActivityBehavior(void *a1)
   return v2;
 }
 
-void SARegisterSystemApertureLogging()
+void SARegisterSystemApertureLogging(uint64_t result, uint64_t a2)
 {
   if (SARegisterSystemApertureLogging_onceToken != -1)
   {

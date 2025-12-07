@@ -100,7 +100,7 @@ LABEL_20:
 
 - (id)filter:(id)filter
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   filterCopy = filter;
   if (!filterCopy)
   {
@@ -155,8 +155,8 @@ LABEL_14:
           v24 = -*md;
         }
 
-        v31 = v24;
-        v25 = [MEMORY[0x277CBEA90] dataWithBytes:&v31 length:8];
+        v30 = v24;
+        v25 = [MEMORY[0x277CBEA90] dataWithBytes:&v30 length:8];
         bloomFilter = [(FedStatsCategoricalTypeBloomFilter *)self bloomFilter];
         v27 = [bloomFilter computeHashesWithSeed:1 forData:v25 reuse:0];
 
@@ -204,7 +204,6 @@ LABEL_14:
 LABEL_23:
 
 LABEL_24:
-  v29 = *MEMORY[0x277D85DE8];
 
   return v14;
 }

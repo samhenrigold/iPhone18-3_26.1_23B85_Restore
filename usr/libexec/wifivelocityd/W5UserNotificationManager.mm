@@ -62,7 +62,16 @@
     v21 = sub_100098A04();
     if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
-      _os_log_send_and_compose_impl();
+      v28 = 136315906;
+      v29 = "[W5UserNotificationManager dispatchNotificationWithTitle:subtitle:body:type:UUID:actionURL:]";
+      v30 = 2080;
+      v31 = "W5UserNotificationManager.m";
+      v32 = 1024;
+      v33 = 80;
+      v34 = 2114;
+      v35 = v19;
+      v27 = 38;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v21, 0, "[wifivelocity] %s (%s:%u) Generated User Notification: %{public}@", &v28, v27);
     }
 
     uUIDString = [dCopy UUIDString];
@@ -71,7 +80,16 @@
     v24 = sub_100098A04();
     if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
-      _os_log_send_and_compose_impl();
+      v28 = 136315906;
+      v29 = "[W5UserNotificationManager dispatchNotificationWithTitle:subtitle:body:type:UUID:actionURL:]";
+      v30 = 2080;
+      v31 = "W5UserNotificationManager.m";
+      v32 = 1024;
+      v33 = 83;
+      v34 = 2114;
+      v35 = v23;
+      LODWORD(v25) = 38;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v24, 0, "[wifivelocity] %s (%s:%u) Queueing User Notification Request: %{public}@", &v28, v25);
     }
 
     [(UNUserNotificationCenter *)self->_userNotificationCenter addNotificationRequest:v23 withCompletionHandler:&stru_1000E16D8];
@@ -82,7 +100,14 @@
     v19 = sub_100098A04();
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      _os_log_send_and_compose_impl();
+      v28 = 136315650;
+      v29 = "[W5UserNotificationManager dispatchNotificationWithTitle:subtitle:body:type:UUID:actionURL:]";
+      v30 = 2080;
+      v31 = "W5UserNotificationManager.m";
+      v32 = 1024;
+      v33 = 58;
+      v26 = 28;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v19, 0, "[wifivelocity] %s (%s:%u) suppressing user notification on non-internal build", &v28, v26);
     }
   }
 }

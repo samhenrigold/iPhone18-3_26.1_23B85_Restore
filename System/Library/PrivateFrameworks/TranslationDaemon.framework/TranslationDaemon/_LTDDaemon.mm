@@ -82,34 +82,35 @@
 
 - (void)run
 {
-  v14 = *MEMORY[0x277D85DE8];
-  if ((_set_user_dir_suffix() & 1) == 0)
+  v16 = *MEMORY[0x277D85DE8];
+  v3 = _set_user_dir_suffix();
+  if ((v3 & 1) == 0)
   {
-    v3 = _LTOSLogSandbox();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = _LTOSLogSandbox(v3, v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v4 = v3;
-      v5 = __error();
-      v6 = strerror(*v5);
-      v12 = 136446210;
-      v13 = v6;
-      _os_log_error_impl(&dword_232E53000, v4, OS_LOG_TYPE_ERROR, "Failed to set user dir suffix: %{public}s", &v12, 0xCu);
+      v6 = v5;
+      v7 = __error();
+      v8 = strerror(*v7);
+      v14 = 136446210;
+      v15 = v8;
+      _os_log_error_impl(&dword_232E53000, v6, OS_LOG_TYPE_ERROR, "Failed to set user dir suffix: %{public}s", &v14, 0xCu);
     }
   }
 
   [(_LTDDaemon *)self _enterSandbox];
   [(_LTDDaemon *)self _setupMemoryWarningListener];
   [(_LTDDaemon *)self _setupNotifyHandlers];
-  v7 = [objc_alloc(MEMORY[0x277CCAE98]) initWithMachServiceName:@"com.apple.translationd"];
+  v9 = [objc_alloc(MEMORY[0x277CCAE98]) initWithMachServiceName:@"com.apple.translationd"];
   translationListener = self->_translationListener;
-  self->_translationListener = v7;
+  self->_translationListener = v9;
 
   [(NSXPCListener *)self->_translationListener _setQueue:self->_listenerQueue];
   [(NSXPCListener *)self->_translationListener setDelegate:self];
   [(NSXPCListener *)self->_translationListener resume];
-  v9 = [objc_alloc(MEMORY[0x277CCAE98]) initWithMachServiceName:@"com.apple.translation.text"];
+  v11 = [objc_alloc(MEMORY[0x277CCAE98]) initWithMachServiceName:@"com.apple.translation.text"];
   textTranslationListener = self->_textTranslationListener;
-  self->_textTranslationListener = v9;
+  self->_textTranslationListener = v11;
 
   [(NSXPCListener *)self->_textTranslationListener _setQueue:self->_listenerQueue];
   [(NSXPCListener *)self->_textTranslationListener setDelegate:self];
@@ -142,7 +143,7 @@
   v7 = *MEMORY[0x277D85DE8];
   if (!confstr(65538, v6, 0x400uLL))
   {
-    v5 = _LTOSLogSandbox();
+    v5 = _LTOSLogSandbox(0, v2);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       [(_LTDDaemon *)v5 _cacheDirectoryPath];
@@ -151,10 +152,9 @@
     exit(1);
   }
 
-  v2 = [MEMORY[0x277CCACA8] stringWithUTF8String:v6];
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = [MEMORY[0x277CCACA8] stringWithUTF8String:v6];
 
-  return v2;
+  return v3;
 }
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
@@ -171,7 +171,7 @@
     }
 
 LABEL_8:
-    v12 = 0;
+    v14 = 0;
     goto LABEL_9;
   }
 
@@ -180,10 +180,10 @@ LABEL_8:
 
   if ((bOOLValue & 1) == 0)
   {
-    v13 = _LTOSLogXPC();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v15 = _LTOSLogXPC(v11, v12);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      [_LTDDaemon listener:v13 shouldAcceptNewConnection:connectionCopy];
+      [_LTDDaemon listener:v15 shouldAcceptNewConnection:connectionCopy];
     }
 
     goto LABEL_8;
@@ -195,10 +195,10 @@ LABEL_5:
   [(NSMutableArray *)self->_connections addObject:listenerCopy];
   [connectionCopy resume];
 
-  v12 = 1;
+  v14 = 1;
 LABEL_9:
 
-  return v12;
+  return v14;
 }
 
 - (void)clientConnectionClosed:(id)closed
@@ -259,28 +259,24 @@ LABEL_9:
 
 - (void)_cacheDirectoryPath
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   v2 = __error();
   v3 = strerror(*v2);
-  v5 = 136446210;
-  v6 = v3;
-  _os_log_error_impl(&dword_232E53000, selfCopy, OS_LOG_TYPE_ERROR, "Failed to get cache directory: %{public}s", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 136446210;
+  v5 = v3;
+  _os_log_error_impl(&dword_232E53000, selfCopy, OS_LOG_TYPE_ERROR, "Failed to get cache directory: %{public}s", &v4, 0xCu);
 }
 
 - (void)listener:(void *)a1 shouldAcceptNewConnection:(void *)a2 .cold.1(void *a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a1;
-  v5[0] = 67109378;
-  v5[1] = [a2 processIdentifier];
-  v6 = 2114;
-  v7 = @"com.apple.private.translation";
-  _os_log_error_impl(&dword_232E53000, v3, OS_LOG_TYPE_ERROR, "Rejected Translation client with PID %d lacking the appropriate entitlement (%{public}@).", v5, 0x12u);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4[0] = 67109378;
+  v4[1] = [a2 processIdentifier];
+  v5 = 2114;
+  v6 = @"com.apple.private.translation";
+  _os_log_error_impl(&dword_232E53000, v3, OS_LOG_TYPE_ERROR, "Rejected Translation client with PID %d lacking the appropriate entitlement (%{public}@).", v4, 0x12u);
 }
 
 @end

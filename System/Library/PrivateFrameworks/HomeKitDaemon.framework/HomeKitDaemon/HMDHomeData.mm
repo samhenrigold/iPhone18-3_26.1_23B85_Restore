@@ -8,27 +8,27 @@
 
 - (id)homeWithUUID:(id)d
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   dCopy = d;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   homes = [(HMDHomeData *)self homes];
-  v6 = [homes countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [homes countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(homes);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         uuid = [v9 uuid];
         v11 = [uuid isEqual:dCopy];
 
@@ -39,7 +39,7 @@
         }
       }
 
-      v6 = [homes countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [homes countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -50,8 +50,6 @@
   }
 
 LABEL_11:
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

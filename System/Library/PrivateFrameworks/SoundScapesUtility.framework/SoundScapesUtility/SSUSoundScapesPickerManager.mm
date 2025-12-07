@@ -30,7 +30,6 @@
 
 uint64_t __44__SSUSoundScapesPickerManager_sharedManager__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   sharedManager_manager = objc_opt_new();
 
   return MEMORY[0x2821F96F8]();
@@ -88,34 +87,34 @@ uint64_t __44__SSUSoundScapesPickerManager_sharedManager__block_invoke(uint64_t 
   return v3;
 }
 
-void __45__SSUSoundScapesPickerManager_pickerIdentity__block_invoke()
+void __45__SSUSoundScapesPickerManager_pickerIdentity__block_invoke(uint64_t a1)
 {
-  v0 = _SSULoggingFacility();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  v1 = _SSULoggingFacility(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
   {
-    *v5 = 0;
-    _os_log_impl(&dword_26B266000, v0, OS_LOG_TYPE_INFO, "Start looking for picker", v5, 2u);
+    *v6 = 0;
+    _os_log_impl(&dword_26B266000, v1, OS_LOG_TYPE_INFO, "Start looking for picker", v6, 2u);
   }
 
-  v1 = [objc_alloc(MEMORY[0x277CC5DF8]) initWithExtensionPointIdentifier:@"com.apple.SoundScapesViewServices.ViewService"];
-  v2 = [MEMORY[0x277CC5E00] executeQuery:v1];
-  v3 = [v2 firstObject];
-  v4 = pickerIdentity_identity;
-  pickerIdentity_identity = v3;
+  v2 = [objc_alloc(MEMORY[0x277CC5DF8]) initWithExtensionPointIdentifier:@"com.apple.SoundScapesViewServices.ViewService"];
+  v3 = [MEMORY[0x277CC5E00] executeQuery:v2];
+  v4 = [v3 firstObject];
+  v5 = pickerIdentity_identity;
+  pickerIdentity_identity = v4;
 }
 
 + (id)pickerForMediaProfiles:(id)profiles forDelegate:(id)delegate
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   profilesCopy = profiles;
   delegateCopy = delegate;
   pickerIdentity = [self pickerIdentity];
-  v9 = _SSULoggingFacility();
+  v9 = _SSULoggingFacility(pickerIdentity);
   v10 = v9;
   if (pickerIdentity)
   {
-    v39 = delegateCopy;
-    v40 = profilesCopy;
+    v38 = delegateCopy;
+    v39 = profilesCopy;
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
@@ -170,14 +169,13 @@ void __45__SSUSoundScapesPickerManager_pickerIdentity__block_invoke()
 
     v35 = +[SSUSoundScapesPickerManager sharedManager];
     [v11 setDelegate:v35];
-    delegateCopy = v39;
-    profilesCopy = v40;
-    [v35 registerViewController:v11 forMediaProfiles:v40 andDelegate:v39];
-    v36 = _SSULoggingFacility();
+    delegateCopy = v38;
+    profilesCopy = v39;
+    v36 = _SSULoggingFacility([v35 registerViewController:v11 forMediaProfiles:v39 andDelegate:v38]);
     if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v42 = v11;
+      v41 = v11;
       _os_log_impl(&dword_26B266000, v36, OS_LOG_TYPE_INFO, "Return picker: %@", buf, 0xCu);
     }
   }
@@ -192,8 +190,6 @@ void __45__SSUSoundScapesPickerManager_pickerIdentity__block_invoke()
     v11 = 0;
   }
 
-  v37 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
@@ -201,7 +197,7 @@ void __45__SSUSoundScapesPickerManager_pickerIdentity__block_invoke()
 {
   v34 = *MEMORY[0x277D85DE8];
   activateCopy = activate;
-  v5 = _SSULoggingFacility();
+  v5 = _SSULoggingFacility(activateCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -227,7 +223,7 @@ void __45__SSUSoundScapesPickerManager_pickerIdentity__block_invoke()
   v13 = home;
   v29 = v13;
   v14 = [residentDevices na_map:v28];
-  v15 = _SSULoggingFacility();
+  v15 = _SSULoggingFacility(v14);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
   {
     *buf = 138412546;
@@ -240,22 +236,23 @@ void __45__SSUSoundScapesPickerManager_pickerIdentity__block_invoke()
   v27 = 0;
   v16 = [activateCopy makeXPCConnectionWithError:&v27];
   v17 = v27;
+  v18 = v17;
   if (v17)
   {
-    v18 = _SSULoggingFacility();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
+    v19 = _SSULoggingFacility(v17);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
     {
-      [(SSUSoundScapesPickerManager *)v17 hostViewControllerDidActivate:v18];
+      [(SSUSoundScapesPickerManager *)v18 hostViewControllerDidActivate:v19];
     }
   }
 
   else
   {
-    v19 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_287BCB168];
-    [v16 setRemoteObjectInterface:v19];
+    v20 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_287BCB168];
+    [v16 setRemoteObjectInterface:v20];
 
-    v20 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_287BCA700];
-    [v16 setExportedInterface:v20];
+    v21 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_287BCA700];
+    [v16 setExportedInterface:v21];
 
     [v16 setExportedObject:v23];
     objc_initWeak(buf, self);
@@ -273,8 +270,6 @@ void __45__SSUSoundScapesPickerManager_pickerIdentity__block_invoke()
     objc_destroyWeak(&v26);
     objc_destroyWeak(buf);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 id __61__SSUSoundScapesPickerManager_hostViewControllerDidActivate___block_invoke(uint64_t a1, void *a2)
@@ -315,7 +310,7 @@ uint64_t __61__SSUSoundScapesPickerManager_hostViewControllerDidActivate___block
 
 void __61__SSUSoundScapesPickerManager_hostViewControllerDidActivate___block_invoke_141(uint64_t a1)
 {
-  v2 = _SSULoggingFacility();
+  v2 = _SSULoggingFacility(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     *v3 = 0;
@@ -335,11 +330,10 @@ void __61__SSUSoundScapesPickerManager_hostViewControllerDidActivate___block_inv
 
 - (void)hostViewControllerDidActivate:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_fault_impl(&dword_26B266000, a2, OS_LOG_TYPE_FAULT, "Failed to get picker connection: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_fault_impl(&dword_26B266000, a2, OS_LOG_TYPE_FAULT, "Failed to get picker connection: %@", &v2, 0xCu);
 }
 
 @end

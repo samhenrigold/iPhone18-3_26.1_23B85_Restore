@@ -5,7 +5,7 @@ void sub_2389A8DC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void GKCMinmaxStrategist::findBestMoveNPlayer(uint64_t a1, void *a2, uint64_t a3, uint64_t *a4, void *a5)
+void GKCMinmaxStrategist::findBestMoveNPlayer(uint64_t a1, void *a2, uint64_t a3, uint64_t *a4, uint64_t *a5)
 {
   v8 = a2;
   v9 = v8;
@@ -112,7 +112,7 @@ void GKCMinmaxStrategist::findBestMoveNPlayer(uint64_t a1, void *a2, uint64_t a3
           [v23 setValue:v26];
           if (*(a1 + 96) == a3)
           {
-            GKCMinmaxStrategist::addMoveToConsideredMoves(a1, v23);
+            GKCMinmaxStrategist::addMoveToConsideredMoves(a1, v23, v26, v36, v35);
           }
         }
       }
@@ -411,7 +411,7 @@ void GKCMinmaxStrategist::getScores(uint64_t a1, void *a2, uint64_t a3)
   }
 }
 
-uint64_t *std::list<GKCMoveData>::__sort<GKCMinmaxStrategist::findBestMoveForPlayer(objc_object  {objcproto17GKGameModelPlayer}*,BOOL)::{lambda(GKCMoveData const&,GKCMoveData const)#1}>(uint64_t *result, uint64_t *a2, unint64_t a3)
+uint64_t *std::list<GKCMoveData>::__sort<GKCMinmaxStrategist::findBestMoveForPlayer(objc_object  {objcproto17GKGameModelPlayer}*,BOOL)::{lambda(GKCMoveData const&,GKCMoveData const)#1}>(uint64_t *result, uint64_t *a2, unint64_t a3, uint64_t a4)
 {
   if (a3 < 2)
   {
@@ -420,43 +420,43 @@ uint64_t *std::list<GKCMoveData>::__sort<GKCMinmaxStrategist::findBestMoveForPla
 
   if (a3 == 2)
   {
-    v4 = *a2;
+    v5 = *a2;
     if (*(*a2 + 32) > result[4])
     {
-      v6 = *v4;
-      v5 = v4[1];
-      *(v6 + 8) = v5;
-      *v5 = v6;
-      v7 = *result;
-      *(v7 + 8) = v4;
-      *v4 = v7;
-      *result = v4;
-      v4[1] = result;
-      return v4;
+      v7 = *v5;
+      v6 = v5[1];
+      *(v7 + 8) = v6;
+      *v6 = v7;
+      v8 = *result;
+      *(v8 + 8) = v5;
+      *v5 = v8;
+      *result = v5;
+      v5[1] = result;
+      return v5;
     }
   }
 
   else
   {
-    v9 = a3 >> 1;
-    v10 = (a3 >> 1) + 1;
-    v11 = result;
+    v10 = a3 >> 1;
+    v11 = (a3 >> 1) + 1;
+    v12 = result;
     do
     {
-      v11 = v11[1];
-      --v10;
+      v12 = v12[1];
+      --v11;
     }
 
-    while (v10 > 1);
-    v12 = std::list<GKCMoveData>::__sort<GKCMinmaxStrategist::findBestMoveForPlayer(objc_object  {objcproto17GKGameModelPlayer}*,BOOL)::{lambda(GKCMoveData const&,GKCMoveData const)#1}>(result, v11, a3 >> 1);
-    result = std::list<GKCMoveData>::__sort<GKCMinmaxStrategist::findBestMoveForPlayer(objc_object  {objcproto17GKGameModelPlayer}*,BOOL)::{lambda(GKCMoveData const&,GKCMoveData const)#1}>(v11, a2, a3 - v9);
-    v13 = v12[4];
-    if (result[4] <= v13)
+    while (v11 > 1);
+    v14 = std::list<GKCMoveData>::__sort<GKCMinmaxStrategist::findBestMoveForPlayer(objc_object  {objcproto17GKGameModelPlayer}*,BOOL)::{lambda(GKCMoveData const&,GKCMoveData const)#1}>(result, v12, a3 >> 1, a4);
+    result = std::list<GKCMoveData>::__sort<GKCMinmaxStrategist::findBestMoveForPlayer(objc_object  {objcproto17GKGameModelPlayer}*,BOOL)::{lambda(GKCMoveData const&,GKCMoveData const)#1}>(v12, a2, a3 - v10, a4);
+    v15 = v14[4];
+    if (result[4] <= v15)
     {
-      v18 = v12[1];
+      v20 = v14[1];
       i = result;
-      result = v12;
-      if (v18 == i)
+      result = v14;
+      if (v20 == i)
       {
         return result;
       }
@@ -466,24 +466,24 @@ uint64_t *std::list<GKCMoveData>::__sort<GKCMinmaxStrategist::findBestMoveForPla
     {
       for (i = result[1]; i != a2; i = i[1])
       {
-        if (i[4] <= v13)
+        if (i[4] <= v15)
         {
           break;
         }
       }
 
-      v15 = *i;
-      v16 = *(*i + 8);
-      v17 = *result;
-      *(v17 + 8) = v16;
-      *v16 = v17;
-      v19 = *v12;
-      v18 = v12[1];
-      *(v19 + 8) = result;
-      *result = v19;
-      *v12 = v15;
-      *(v15 + 8) = v12;
-      if (v18 == i)
+      v17 = *i;
+      v18 = *(*i + 8);
+      v19 = *result;
+      *(v19 + 8) = v18;
+      *v18 = v19;
+      v21 = *v14;
+      v20 = v14[1];
+      *(v21 + 8) = result;
+      *result = v21;
+      *v14 = v17;
+      *(v17 + 8) = v14;
+      if (v20 == i)
       {
         return result;
       }
@@ -491,14 +491,14 @@ uint64_t *std::list<GKCMoveData>::__sort<GKCMinmaxStrategist::findBestMoveForPla
 
     if (i != a2)
     {
-      v20 = i;
+      v22 = i;
       do
       {
-        v21 = v18[4];
-        if (i[4] <= v21)
+        v23 = v20[4];
+        if (i[4] <= v23)
         {
-          v18 = v18[1];
-          if (v18 == v20)
+          v20 = v20[1];
+          if (v20 == v22)
           {
             return result;
           }
@@ -508,31 +508,31 @@ uint64_t *std::list<GKCMoveData>::__sort<GKCMinmaxStrategist::findBestMoveForPla
         {
           for (j = i[1]; j != a2; j = j[1])
           {
-            if (j[4] <= v21)
+            if (j[4] <= v23)
             {
               break;
             }
           }
 
-          v23 = *j;
-          v24 = *(*j + 8);
-          v25 = *i;
-          *(v25 + 8) = v24;
-          *v24 = v25;
-          if (v20 == i)
+          v25 = *j;
+          v26 = *(*j + 8);
+          v27 = *i;
+          *(v27 + 8) = v26;
+          *v26 = v27;
+          if (v22 == i)
           {
-            v20 = j;
+            v22 = j;
           }
 
-          v27 = *v18;
-          v26 = v18[1];
-          *(v27 + 8) = i;
-          *i = v27;
-          *v18 = v23;
-          *(v23 + 8) = v18;
-          v18 = v26;
+          v29 = *v20;
+          v28 = v20[1];
+          *(v29 + 8) = i;
+          *i = v29;
+          *v20 = v25;
+          *(v25 + 8) = v20;
+          v20 = v28;
           i = j;
-          if (v26 == v20)
+          if (v28 == v22)
           {
             return result;
           }
@@ -546,7 +546,7 @@ uint64_t *std::list<GKCMoveData>::__sort<GKCMinmaxStrategist::findBestMoveForPla
   return result;
 }
 
-uint64_t *std::list<GKCMoveData>::__sort<GKCMinmaxStrategist::findBestMoveForPlayer(objc_object  {objcproto17GKGameModelPlayer}*,BOOL)::{lambda(GKCMoveData const&,GKCMoveData const)#2}>(uint64_t *result, uint64_t *a2, unint64_t a3)
+uint64_t *std::list<GKCMoveData>::__sort<GKCMinmaxStrategist::findBestMoveForPlayer(objc_object  {objcproto17GKGameModelPlayer}*,BOOL)::{lambda(GKCMoveData const&,GKCMoveData const)#2}>(uint64_t *result, uint64_t *a2, unint64_t a3, uint64_t a4)
 {
   if (a3 < 2)
   {
@@ -555,43 +555,43 @@ uint64_t *std::list<GKCMoveData>::__sort<GKCMinmaxStrategist::findBestMoveForPla
 
   if (a3 == 2)
   {
-    v4 = *a2;
+    v5 = *a2;
     if (*(*a2 + 40) < result[5])
     {
-      v6 = *v4;
-      v5 = v4[1];
-      *(v6 + 8) = v5;
-      *v5 = v6;
-      v7 = *result;
-      *(v7 + 8) = v4;
-      *v4 = v7;
-      *result = v4;
-      v4[1] = result;
-      return v4;
+      v7 = *v5;
+      v6 = v5[1];
+      *(v7 + 8) = v6;
+      *v6 = v7;
+      v8 = *result;
+      *(v8 + 8) = v5;
+      *v5 = v8;
+      *result = v5;
+      v5[1] = result;
+      return v5;
     }
   }
 
   else
   {
-    v9 = a3 >> 1;
-    v10 = (a3 >> 1) + 1;
-    v11 = result;
+    v10 = a3 >> 1;
+    v11 = (a3 >> 1) + 1;
+    v12 = result;
     do
     {
-      v11 = v11[1];
-      --v10;
+      v12 = v12[1];
+      --v11;
     }
 
-    while (v10 > 1);
-    v12 = std::list<GKCMoveData>::__sort<GKCMinmaxStrategist::findBestMoveForPlayer(objc_object  {objcproto17GKGameModelPlayer}*,BOOL)::{lambda(GKCMoveData const&,GKCMoveData const)#2}>(result, v11, a3 >> 1);
-    result = std::list<GKCMoveData>::__sort<GKCMinmaxStrategist::findBestMoveForPlayer(objc_object  {objcproto17GKGameModelPlayer}*,BOOL)::{lambda(GKCMoveData const&,GKCMoveData const)#2}>(v11, a2, a3 - v9);
-    v13 = v12[5];
-    if (result[5] >= v13)
+    while (v11 > 1);
+    v14 = std::list<GKCMoveData>::__sort<GKCMinmaxStrategist::findBestMoveForPlayer(objc_object  {objcproto17GKGameModelPlayer}*,BOOL)::{lambda(GKCMoveData const&,GKCMoveData const)#2}>(result, v12, a3 >> 1, a4);
+    result = std::list<GKCMoveData>::__sort<GKCMinmaxStrategist::findBestMoveForPlayer(objc_object  {objcproto17GKGameModelPlayer}*,BOOL)::{lambda(GKCMoveData const&,GKCMoveData const)#2}>(v12, a2, a3 - v10, a4);
+    v15 = v14[5];
+    if (result[5] >= v15)
     {
-      v18 = v12[1];
+      v20 = v14[1];
       i = result;
-      result = v12;
-      if (v18 == i)
+      result = v14;
+      if (v20 == i)
       {
         return result;
       }
@@ -601,24 +601,24 @@ uint64_t *std::list<GKCMoveData>::__sort<GKCMinmaxStrategist::findBestMoveForPla
     {
       for (i = result[1]; i != a2; i = i[1])
       {
-        if (i[5] >= v13)
+        if (i[5] >= v15)
         {
           break;
         }
       }
 
-      v15 = *i;
-      v16 = *(*i + 8);
-      v17 = *result;
-      *(v17 + 8) = v16;
-      *v16 = v17;
-      v19 = *v12;
-      v18 = v12[1];
-      *(v19 + 8) = result;
-      *result = v19;
-      *v12 = v15;
-      *(v15 + 8) = v12;
-      if (v18 == i)
+      v17 = *i;
+      v18 = *(*i + 8);
+      v19 = *result;
+      *(v19 + 8) = v18;
+      *v18 = v19;
+      v21 = *v14;
+      v20 = v14[1];
+      *(v21 + 8) = result;
+      *result = v21;
+      *v14 = v17;
+      *(v17 + 8) = v14;
+      if (v20 == i)
       {
         return result;
       }
@@ -626,14 +626,14 @@ uint64_t *std::list<GKCMoveData>::__sort<GKCMinmaxStrategist::findBestMoveForPla
 
     if (i != a2)
     {
-      v20 = i;
+      v22 = i;
       do
       {
-        v21 = v18[5];
-        if (i[5] >= v21)
+        v23 = v20[5];
+        if (i[5] >= v23)
         {
-          v18 = v18[1];
-          if (v18 == v20)
+          v20 = v20[1];
+          if (v20 == v22)
           {
             return result;
           }
@@ -643,31 +643,31 @@ uint64_t *std::list<GKCMoveData>::__sort<GKCMinmaxStrategist::findBestMoveForPla
         {
           for (j = i[1]; j != a2; j = j[1])
           {
-            if (j[5] >= v21)
+            if (j[5] >= v23)
             {
               break;
             }
           }
 
-          v23 = *j;
-          v24 = *(*j + 8);
-          v25 = *i;
-          *(v25 + 8) = v24;
-          *v24 = v25;
-          if (v20 == i)
+          v25 = *j;
+          v26 = *(*j + 8);
+          v27 = *i;
+          *(v27 + 8) = v26;
+          *v26 = v27;
+          if (v22 == i)
           {
-            v20 = j;
+            v22 = j;
           }
 
-          v27 = *v18;
-          v26 = v18[1];
-          *(v27 + 8) = i;
-          *i = v27;
-          *v18 = v23;
-          *(v23 + 8) = v18;
-          v18 = v26;
+          v29 = *v20;
+          v28 = v20[1];
+          *(v29 + 8) = i;
+          *i = v29;
+          *v20 = v25;
+          *(v25 + 8) = v20;
+          v20 = v28;
           i = j;
-          if (v26 == v20)
+          if (v28 == v22)
           {
             return result;
           }
@@ -681,7 +681,7 @@ uint64_t *std::list<GKCMoveData>::__sort<GKCMinmaxStrategist::findBestMoveForPla
   return result;
 }
 
-uint64_t *std::list<GKCMoveData>::__sort<GKCMinmaxStrategist::findBestMoveForPlayer(objc_object  {objcproto17GKGameModelPlayer}*,BOOL)::{lambda(GKCMoveData const&,GKCMoveData const)#3}>(uint64_t *result, uint64_t *a2, unint64_t a3)
+uint64_t *std::list<GKCMoveData>::__sort<GKCMinmaxStrategist::findBestMoveForPlayer(objc_object  {objcproto17GKGameModelPlayer}*,BOOL)::{lambda(GKCMoveData const&,GKCMoveData const)#3}>(uint64_t *result, uint64_t *a2, unint64_t a3, uint64_t a4)
 {
   if (a3 < 2)
   {
@@ -690,43 +690,43 @@ uint64_t *std::list<GKCMoveData>::__sort<GKCMinmaxStrategist::findBestMoveForPla
 
   if (a3 == 2)
   {
-    v4 = *a2;
+    v5 = *a2;
     if (*(*a2 + 40) > result[5])
     {
-      v6 = *v4;
-      v5 = v4[1];
-      *(v6 + 8) = v5;
-      *v5 = v6;
-      v7 = *result;
-      *(v7 + 8) = v4;
-      *v4 = v7;
-      *result = v4;
-      v4[1] = result;
-      return v4;
+      v7 = *v5;
+      v6 = v5[1];
+      *(v7 + 8) = v6;
+      *v6 = v7;
+      v8 = *result;
+      *(v8 + 8) = v5;
+      *v5 = v8;
+      *result = v5;
+      v5[1] = result;
+      return v5;
     }
   }
 
   else
   {
-    v9 = a3 >> 1;
-    v10 = (a3 >> 1) + 1;
-    v11 = result;
+    v10 = a3 >> 1;
+    v11 = (a3 >> 1) + 1;
+    v12 = result;
     do
     {
-      v11 = v11[1];
-      --v10;
+      v12 = v12[1];
+      --v11;
     }
 
-    while (v10 > 1);
-    v12 = std::list<GKCMoveData>::__sort<GKCMinmaxStrategist::findBestMoveForPlayer(objc_object  {objcproto17GKGameModelPlayer}*,BOOL)::{lambda(GKCMoveData const&,GKCMoveData const)#3}>(result, v11, a3 >> 1);
-    result = std::list<GKCMoveData>::__sort<GKCMinmaxStrategist::findBestMoveForPlayer(objc_object  {objcproto17GKGameModelPlayer}*,BOOL)::{lambda(GKCMoveData const&,GKCMoveData const)#3}>(v11, a2, a3 - v9);
-    v13 = v12[5];
-    if (result[5] <= v13)
+    while (v11 > 1);
+    v14 = std::list<GKCMoveData>::__sort<GKCMinmaxStrategist::findBestMoveForPlayer(objc_object  {objcproto17GKGameModelPlayer}*,BOOL)::{lambda(GKCMoveData const&,GKCMoveData const)#3}>(result, v12, a3 >> 1, a4);
+    result = std::list<GKCMoveData>::__sort<GKCMinmaxStrategist::findBestMoveForPlayer(objc_object  {objcproto17GKGameModelPlayer}*,BOOL)::{lambda(GKCMoveData const&,GKCMoveData const)#3}>(v12, a2, a3 - v10, a4);
+    v15 = v14[5];
+    if (result[5] <= v15)
     {
-      v18 = v12[1];
+      v20 = v14[1];
       i = result;
-      result = v12;
-      if (v18 == i)
+      result = v14;
+      if (v20 == i)
       {
         return result;
       }
@@ -736,24 +736,24 @@ uint64_t *std::list<GKCMoveData>::__sort<GKCMinmaxStrategist::findBestMoveForPla
     {
       for (i = result[1]; i != a2; i = i[1])
       {
-        if (i[5] <= v13)
+        if (i[5] <= v15)
         {
           break;
         }
       }
 
-      v15 = *i;
-      v16 = *(*i + 8);
-      v17 = *result;
-      *(v17 + 8) = v16;
-      *v16 = v17;
-      v19 = *v12;
-      v18 = v12[1];
-      *(v19 + 8) = result;
-      *result = v19;
-      *v12 = v15;
-      *(v15 + 8) = v12;
-      if (v18 == i)
+      v17 = *i;
+      v18 = *(*i + 8);
+      v19 = *result;
+      *(v19 + 8) = v18;
+      *v18 = v19;
+      v21 = *v14;
+      v20 = v14[1];
+      *(v21 + 8) = result;
+      *result = v21;
+      *v14 = v17;
+      *(v17 + 8) = v14;
+      if (v20 == i)
       {
         return result;
       }
@@ -761,14 +761,14 @@ uint64_t *std::list<GKCMoveData>::__sort<GKCMinmaxStrategist::findBestMoveForPla
 
     if (i != a2)
     {
-      v20 = i;
+      v22 = i;
       do
       {
-        v21 = v18[5];
-        if (i[5] <= v21)
+        v23 = v20[5];
+        if (i[5] <= v23)
         {
-          v18 = v18[1];
-          if (v18 == v20)
+          v20 = v20[1];
+          if (v20 == v22)
           {
             return result;
           }
@@ -778,31 +778,31 @@ uint64_t *std::list<GKCMoveData>::__sort<GKCMinmaxStrategist::findBestMoveForPla
         {
           for (j = i[1]; j != a2; j = j[1])
           {
-            if (j[5] <= v21)
+            if (j[5] <= v23)
             {
               break;
             }
           }
 
-          v23 = *j;
-          v24 = *(*j + 8);
-          v25 = *i;
-          *(v25 + 8) = v24;
-          *v24 = v25;
-          if (v20 == i)
+          v25 = *j;
+          v26 = *(*j + 8);
+          v27 = *i;
+          *(v27 + 8) = v26;
+          *v26 = v27;
+          if (v22 == i)
           {
-            v20 = j;
+            v22 = j;
           }
 
-          v27 = *v18;
-          v26 = v18[1];
-          *(v27 + 8) = i;
-          *i = v27;
-          *v18 = v23;
-          *(v23 + 8) = v18;
-          v18 = v26;
+          v29 = *v20;
+          v28 = v20[1];
+          *(v29 + 8) = i;
+          *i = v29;
+          *v20 = v25;
+          *(v25 + 8) = v20;
+          v20 = v28;
           i = j;
-          if (v26 == v20)
+          if (v28 == v22)
           {
             return result;
           }
@@ -816,7 +816,7 @@ uint64_t *std::list<GKCMoveData>::__sort<GKCMinmaxStrategist::findBestMoveForPla
   return result;
 }
 
-uint64_t *std::list<GKCMoveData>::__sort<GKCMinmaxStrategist::findBestMoveForPlayer(objc_object  {objcproto17GKGameModelPlayer}*,BOOL)::{lambda(GKCMoveData const&,GKCMoveData const)#5}>(uint64_t *result, uint64_t *a2, unint64_t a3)
+uint64_t *std::list<GKCMoveData>::__sort<GKCMinmaxStrategist::findBestMoveForPlayer(objc_object  {objcproto17GKGameModelPlayer}*,BOOL)::{lambda(GKCMoveData const&,GKCMoveData const)#5}>(uint64_t *result, uint64_t *a2, unint64_t a3, uint64_t a4)
 {
   if (a3 < 2)
   {
@@ -825,43 +825,43 @@ uint64_t *std::list<GKCMoveData>::__sort<GKCMinmaxStrategist::findBestMoveForPla
 
   if (a3 == 2)
   {
-    v4 = *a2;
+    v5 = *a2;
     if (*(*a2 + 24) > result[3])
     {
-      v6 = *v4;
-      v5 = v4[1];
-      *(v6 + 8) = v5;
-      *v5 = v6;
-      v7 = *result;
-      *(v7 + 8) = v4;
-      *v4 = v7;
-      *result = v4;
-      v4[1] = result;
-      return v4;
+      v7 = *v5;
+      v6 = v5[1];
+      *(v7 + 8) = v6;
+      *v6 = v7;
+      v8 = *result;
+      *(v8 + 8) = v5;
+      *v5 = v8;
+      *result = v5;
+      v5[1] = result;
+      return v5;
     }
   }
 
   else
   {
-    v9 = a3 >> 1;
-    v10 = (a3 >> 1) + 1;
-    v11 = result;
+    v10 = a3 >> 1;
+    v11 = (a3 >> 1) + 1;
+    v12 = result;
     do
     {
-      v11 = v11[1];
-      --v10;
+      v12 = v12[1];
+      --v11;
     }
 
-    while (v10 > 1);
-    v12 = std::list<GKCMoveData>::__sort<GKCMinmaxStrategist::findBestMoveForPlayer(objc_object  {objcproto17GKGameModelPlayer}*,BOOL)::{lambda(GKCMoveData const&,GKCMoveData const)#5}>(result, v11, a3 >> 1);
-    result = std::list<GKCMoveData>::__sort<GKCMinmaxStrategist::findBestMoveForPlayer(objc_object  {objcproto17GKGameModelPlayer}*,BOOL)::{lambda(GKCMoveData const&,GKCMoveData const)#5}>(v11, a2, a3 - v9);
-    v13 = v12[3];
-    if (result[3] <= v13)
+    while (v11 > 1);
+    v14 = std::list<GKCMoveData>::__sort<GKCMinmaxStrategist::findBestMoveForPlayer(objc_object  {objcproto17GKGameModelPlayer}*,BOOL)::{lambda(GKCMoveData const&,GKCMoveData const)#5}>(result, v12, a3 >> 1, a4);
+    result = std::list<GKCMoveData>::__sort<GKCMinmaxStrategist::findBestMoveForPlayer(objc_object  {objcproto17GKGameModelPlayer}*,BOOL)::{lambda(GKCMoveData const&,GKCMoveData const)#5}>(v12, a2, a3 - v10, a4);
+    v15 = v14[3];
+    if (result[3] <= v15)
     {
-      v18 = v12[1];
+      v20 = v14[1];
       i = result;
-      result = v12;
-      if (v18 == i)
+      result = v14;
+      if (v20 == i)
       {
         return result;
       }
@@ -871,24 +871,24 @@ uint64_t *std::list<GKCMoveData>::__sort<GKCMinmaxStrategist::findBestMoveForPla
     {
       for (i = result[1]; i != a2; i = i[1])
       {
-        if (i[3] <= v13)
+        if (i[3] <= v15)
         {
           break;
         }
       }
 
-      v15 = *i;
-      v16 = *(*i + 8);
-      v17 = *result;
-      *(v17 + 8) = v16;
-      *v16 = v17;
-      v19 = *v12;
-      v18 = v12[1];
-      *(v19 + 8) = result;
-      *result = v19;
-      *v12 = v15;
-      *(v15 + 8) = v12;
-      if (v18 == i)
+      v17 = *i;
+      v18 = *(*i + 8);
+      v19 = *result;
+      *(v19 + 8) = v18;
+      *v18 = v19;
+      v21 = *v14;
+      v20 = v14[1];
+      *(v21 + 8) = result;
+      *result = v21;
+      *v14 = v17;
+      *(v17 + 8) = v14;
+      if (v20 == i)
       {
         return result;
       }
@@ -896,14 +896,14 @@ uint64_t *std::list<GKCMoveData>::__sort<GKCMinmaxStrategist::findBestMoveForPla
 
     if (i != a2)
     {
-      v20 = i;
+      v22 = i;
       do
       {
-        v21 = v18[3];
-        if (i[3] <= v21)
+        v23 = v20[3];
+        if (i[3] <= v23)
         {
-          v18 = v18[1];
-          if (v18 == v20)
+          v20 = v20[1];
+          if (v20 == v22)
           {
             return result;
           }
@@ -913,31 +913,31 @@ uint64_t *std::list<GKCMoveData>::__sort<GKCMinmaxStrategist::findBestMoveForPla
         {
           for (j = i[1]; j != a2; j = j[1])
           {
-            if (j[3] <= v21)
+            if (j[3] <= v23)
             {
               break;
             }
           }
 
-          v23 = *j;
-          v24 = *(*j + 8);
-          v25 = *i;
-          *(v25 + 8) = v24;
-          *v24 = v25;
-          if (v20 == i)
+          v25 = *j;
+          v26 = *(*j + 8);
+          v27 = *i;
+          *(v27 + 8) = v26;
+          *v26 = v27;
+          if (v22 == i)
           {
-            v20 = j;
+            v22 = j;
           }
 
-          v27 = *v18;
-          v26 = v18[1];
-          *(v27 + 8) = i;
-          *i = v27;
-          *v18 = v23;
-          *(v23 + 8) = v18;
-          v18 = v26;
+          v29 = *v20;
+          v28 = v20[1];
+          *(v29 + 8) = i;
+          *i = v29;
+          *v20 = v25;
+          *(v25 + 8) = v20;
+          v20 = v28;
           i = j;
-          if (v26 == v20)
+          if (v28 == v22)
           {
             return result;
           }
@@ -951,7 +951,7 @@ uint64_t *std::list<GKCMoveData>::__sort<GKCMinmaxStrategist::findBestMoveForPla
   return result;
 }
 
-uint64_t p2t::SweepContext::SweepContext(uint64_t a1, uint64_t a2)
+uint64_t p2t::SweepContext::SweepContext(uint64_t a1, char **a2)
 {
   *(a1 + 80) = 0;
   *(a1 + 88) = 0;
@@ -971,7 +971,7 @@ uint64_t p2t::SweepContext::SweepContext(uint64_t a1, uint64_t a2)
   *(a1 + 56) = 0;
   *(a1 + 64) = 0;
   *(a1 + 72) = 0;
-  if (a1 + 128 == a2)
+  if ((a1 + 128) == a2)
   {
     v6 = 0;
     v7 = 0;
@@ -980,7 +980,7 @@ uint64_t p2t::SweepContext::SweepContext(uint64_t a1, uint64_t a2)
 
   else
   {
-    std::vector<p2t::Point *>::__assign_with_size[abi:ne200100]<p2t::Point **,p2t::Point **>((a1 + 128), *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 3);
+    std::vector<p2t::Point *>::__assign_with_size[abi:ne200100]<p2t::Point **,p2t::Point **>((a1 + 128), *a2, a2[1], (a2[1] - *a2) >> 3);
     v4 = *(a1 + 128);
     v3 = *(a1 + 136);
     v7 = 0;
@@ -1124,13 +1124,13 @@ void sub_2389AA8E0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t p2t::SweepContext::GetTriangles@<X0>(uint64_t this@<X0>, void *a2@<X8>)
+void *p2t::SweepContext::GetTriangles@<X0>(void *this@<X0>, void *a2@<X8>)
 {
   *a2 = 0;
   a2[1] = 0;
   a2[2] = 0;
-  v3 = *(this + 80);
-  v2 = *(this + 88);
+  v3 = this[10];
+  v2 = this[11];
   if (v2 != v3)
   {
     if (((v2 - v3) & 0x8000000000000000) == 0)
@@ -1144,12 +1144,12 @@ uint64_t p2t::SweepContext::GetTriangles@<X0>(uint64_t this@<X0>, void *a2@<X8>)
   return this;
 }
 
-uint64_t p2t::SweepContext::GetMap@<X0>(uint64_t this@<X0>, void *a2@<X8>)
+uint64_t *p2t::SweepContext::GetMap@<X0>(uint64_t *this@<X0>, uint64_t *a2@<X8>)
 {
   *a2 = a2;
   a2[1] = a2;
   a2[2] = 0;
-  if (*(this + 112) != this + 104)
+  if (this[14] != this + 13)
   {
     operator new();
   }
@@ -1163,78 +1163,73 @@ void p2t::SweepContext::InitTriangulation(p2t::SweepContext *this)
   v3 = **v1;
   v2 = (*v1)[1];
   v4 = *(this + 17) - v1;
-  if (!v4)
+  if (v4)
   {
-    v14 = *(*v1 + 1);
-    v15 = **v1;
-    goto LABEL_12;
-  }
+    v5 = v4 >> 3;
+    if (v5 < 2 || (v5 ? (v6 = (v5 - 1) >> 32 == 0) : (v6 = 0), !v6))
+    {
+      v7 = 0;
+      v8 = 0;
+      v9 = **v1;
+      v10 = (*v1)[1];
+LABEL_8:
+      v11 = v8 + 1;
+      do
+      {
+        v12 = v1[v7];
+        v13 = v12[1];
+        v3 = fmax(*v12, v3);
+        v9 = fmin(*v12, v9);
+        v2 = fmax(v13, v2);
+        v10 = fmin(v13, v10);
+        v7 = v11++;
+      }
 
-  v5 = v4 >> 3;
-  if (v5 >= 2 && (v5 ? (v6 = (v5 - 1) >> 32 == 0) : (v6 = 0), v6))
-  {
+      while (v5 > v7);
+      goto LABEL_10;
+    }
+
     v7 = v5 & 0x1FFFFFFFELL;
     v8 = v5 & 0xFFFFFFFE;
-    v16 = v1 + 1;
-    v17 = v5 & 0x1FFFFFFFELL;
-    v18 = **v1;
-    v19 = v18;
-    v20 = v18;
-    v21 = (*v1)[1];
-    v22 = v21;
-    v23 = v21;
+    v14 = v1 + 1;
+    v15 = v5 & 0x1FFFFFFFELL;
+    v16 = **v1;
+    v17 = v16;
+    v18 = v16;
+    v19 = (*v1)[1];
+    v20 = v19;
+    v21 = v19;
     do
     {
-      v24 = *(v16 - 1);
-      v25 = v24[1];
-      v3 = fmax(*v24, v3);
-      v19 = fmin(*v24, v19);
-      v26 = **v16;
-      v27 = (*v16)[1];
-      v18 = fmax(v26, v18);
-      v20 = fmin(v26, v20);
-      v2 = fmax(v25, v2);
-      v21 = fmax(v27, v21);
-      v22 = fmin(v25, v22);
-      v23 = fmin(v27, v23);
-      v16 += 2;
-      v17 -= 2;
+      v22 = *(v14 - 1);
+      v23 = v22[1];
+      v3 = fmax(*v22, v3);
+      v17 = fmin(*v22, v17);
+      v24 = **v14;
+      v25 = (*v14)[1];
+      v16 = fmax(v24, v16);
+      v18 = fmin(v24, v18);
+      v2 = fmax(v23, v2);
+      v19 = fmax(v25, v19);
+      v20 = fmin(v23, v20);
+      v21 = fmin(v25, v21);
+      v14 += 2;
+      v15 -= 2;
     }
 
-    while (v17);
-    v3 = fmax(v3, v18);
-    v9 = fmin(v19, v20);
-    v2 = fmax(v2, v21);
-    v10 = fmin(v22, v23);
-    if (v5 == v7)
+    while (v15);
+    v3 = fmax(v3, v16);
+    v9 = fmin(v17, v18);
+    v2 = fmax(v2, v19);
+    v10 = fmin(v20, v21);
+    if (v5 != v7)
     {
-LABEL_12:
-      operator new();
+      goto LABEL_8;
     }
   }
 
-  else
-  {
-    v7 = 0;
-    v8 = 0;
-    v9 = **v1;
-    v10 = (*v1)[1];
-  }
-
-  v11 = v8 + 1;
-  do
-  {
-    v12 = v1[v7];
-    v13 = v12[1];
-    v3 = fmax(*v12, v3);
-    v9 = fmin(*v12, v9);
-    v2 = fmax(v13, v2);
-    v10 = fmin(v13, v10);
-    v7 = v11++;
-  }
-
-  while (v5 > v7);
-  goto LABEL_12;
+LABEL_10:
+  operator new();
 }
 
 BOOL p2t::cmp(p2t *this, const Point *a2, const Point *a3)
@@ -1739,7 +1734,7 @@ char *std::vector<p2t::Point *>::__assign_with_size[abi:ne200100]<p2t::Point **,
   return result;
 }
 
-uint64_t std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(p2t::Point const*,p2t::Point const*),p2t::Point**,false>(uint64_t result, int8x16_t *a2, unsigned int (**a3)(uint64_t), uint64_t a4, char a5)
+uint64_t std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(p2t::Point const*,p2t::Point const*),p2t::Point**,false>(uint64_t result, int8x16_t *a2, uint64_t (**a3)(void), uint64_t a4, char a5)
 {
   v8 = result;
 LABEL_2:
@@ -1761,10 +1756,10 @@ LABEL_2:
         result = (*a3)(*v9, v10->i64[0]);
         if (result)
         {
-          v78 = v10->i64[0];
+          v76 = v10->i64[0];
           v10->i64[0] = *v9;
 LABEL_106:
-          *v9 = v78;
+          *v9 = v76;
           return result;
         }
 
@@ -1794,111 +1789,110 @@ LABEL_106:
         return result;
       }
 
-      v72 = v10[1].i64[1];
+      v71 = v10[1].i64[1];
       v10[1].i64[1] = *v9;
-      *v9 = v72;
+      *v9 = v71;
       result = (*a3)(v10[1].i64[1], v10[1].i64[0]);
       if (!result)
       {
         return result;
       }
 
-      v73 = v10[1].i64[0];
-      v74 = v10->i64[1];
+      v72 = v10[1].i64[0];
       v10[1].i64[0] = v10[1].i64[1];
-      v10[1].i64[1] = v73;
+      v10[1].i64[1] = v72;
       result = (*a3)();
       if (!result)
       {
         return result;
       }
 
-      v76 = v10->i64[1];
-      v75 = v10[1].i64[0];
-      v77 = v10->i64[0];
-      v10->i64[1] = v75;
-      v10[1].i64[0] = v76;
-      result = (*a3)(v75, v77);
+      v74 = v10->i64[1];
+      v73 = v10[1].i64[0];
+      v75 = v10->i64[0];
+      v10->i64[1] = v73;
+      v10[1].i64[0] = v74;
+      result = (*a3)(v73, v75);
       goto LABEL_136;
     }
 
 LABEL_10:
     if (v11 <= 23)
     {
-      v81 = &v10->u64[1];
-      v83 = v10 == a2 || v81 == a2;
+      v79 = &v10->u64[1];
+      v81 = v10 == a2 || v79 == a2;
       if (a5)
       {
-        if (!v83)
+        if (!v81)
         {
-          v84 = 0;
-          v85 = v10;
+          v82 = 0;
+          v83 = v10;
           do
           {
-            v88 = *v85;
-            v87 = v85[1];
-            v85 = v81;
-            result = (*a3)(v87, v88);
+            v86 = v83->i64[0];
+            v85 = v83->i64[1];
+            v83 = v79;
+            result = (*a3)(v85, v86);
             if (result)
             {
-              v89 = *v85;
-              v90 = v84;
-              v86 = v85;
+              v87 = v83->i64[0];
+              v88 = v82;
+              v84 = v83;
               while (1)
               {
-                *v86 = *(v86 - 1);
-                if (!v90)
+                *v84 = *(v84 - 1);
+                if (!v88)
                 {
                   break;
                 }
 
-                result = (*a3)(v89, *(v86 - 2));
-                --v86;
-                v90 += 8;
+                result = (*a3)(v87, *(v84 - 2));
+                --v84;
+                v88 += 8;
                 if ((result & 1) == 0)
                 {
                   goto LABEL_123;
                 }
               }
 
-              v86 = v10;
+              v84 = v10;
 LABEL_123:
-              *v86 = v89;
+              *v84 = v87;
             }
 
-            v81 = (v85 + 1);
-            v84 -= 8;
+            v79 = &v83->u64[1];
+            v82 -= 8;
           }
 
-          while (v85 + 1 != a2);
+          while (&v83->u64[1] != a2);
         }
       }
 
-      else if (!v83)
+      else if (!v81)
       {
         do
         {
-          v93 = v8->i64[0];
-          v92 = v8->i64[1];
-          v8 = v81;
-          result = (*a3)(v92, v93);
+          v91 = v8->i64[0];
+          v90 = v8->i64[1];
+          v8 = v79;
+          result = (*a3)(v90, v91);
           if (result)
           {
-            v94 = v8->i64[0];
-            v95 = v8;
+            v92 = v8->i64[0];
+            v93 = v8;
             do
             {
-              v96 = v95;
-              v97 = *--v95;
-              *v96 = v97;
-              result = (*a3)(v94, *(v96 - 2));
+              v94 = v93;
+              v95 = *--v93;
+              *v94 = v95;
+              result = (*a3)(v92, *(v94 - 2));
             }
 
             while ((result & 1) != 0);
-            *v95 = v94;
+            *v93 = v92;
           }
 
-          v81 = &v8->u64[1];
+          v79 = &v8->u64[1];
         }
 
         while (&v8->u64[1] != a2);
@@ -1912,7 +1906,7 @@ LABEL_123:
       if (v10 != a2)
       {
 
-        return std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(p2t::Point const*,p2t::Point const*),p2t::Point**,p2t::Point**>(v10, a2, a2, a3);
+        return std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(p2t::Point const*,p2t::Point const*),p2t::Point**,p2t::Point**>(v10->i8, a2->i8, a2->i8, a3);
       }
 
       return result;
@@ -1922,7 +1916,7 @@ LABEL_123:
     v13 = *a3;
     if (v11 < 0x81)
     {
-      v17 = (v13)(v10->i64[0], v10->i64[v12]);
+      v17 = v13(v10->i64[0], v10->i64[v12]);
       v18 = (*a3)(*v9, v10->i64[0]);
       if (v17)
       {
@@ -1986,9 +1980,9 @@ LABEL_37:
       }
 
 LABEL_59:
-      v49 = (*a3)(v8[-1].i64[1], v20);
+      v48 = (*a3)(v8[-1].i64[1], v20);
       v20 = v8->i64[0];
-      if (v49)
+      if (v48)
       {
         goto LABEL_60;
       }
@@ -1999,9 +1993,9 @@ LABEL_59:
         v10 = v8;
         do
         {
-          v64 = v10->i64[1];
+          v63 = v10->i64[1];
           v10 = (v10 + 8);
-          result = (*a3)(v20, v64);
+          result = (*a3)(v20, v63);
         }
 
         while ((result & 1) == 0);
@@ -2009,71 +2003,71 @@ LABEL_59:
 
       else
       {
-        v65 = &v8->u64[1];
+        v64 = &v8->u64[1];
         do
         {
-          v10 = v65;
-          if (v65 >= a2)
+          v10 = v64;
+          if (v64 >= a2)
           {
             break;
           }
 
-          v65 = (v65 + 8);
+          v64 += 8;
           result = (*a3)(v20, v10->i64[0]);
         }
 
         while (!result);
       }
 
-      v66 = a2;
+      v65 = a2;
       if (v10 < a2)
       {
-        v66 = a2;
+        v65 = a2;
         do
         {
-          v67 = v66[-1].i64[1];
-          v66 = (v66 - 8);
-          result = (*a3)(v20, v67);
+          v66 = v65[-1].i64[1];
+          v65 = (v65 - 8);
+          result = (*a3)(v20, v66);
         }
 
         while ((result & 1) != 0);
       }
 
-      while (v10 < v66)
+      while (v10 < v65)
       {
-        v68 = v10->i64[0];
-        v10->i64[0] = v66->i64[0];
-        v66->i64[0] = v68;
+        v67 = v10->i64[0];
+        v10->i64[0] = v65->i64[0];
+        v65->i64[0] = v67;
         do
         {
-          v69 = v10->i64[1];
+          v68 = v10->i64[1];
           v10 = (v10 + 8);
         }
 
-        while (!(*a3)(v20, v69));
+        while (!(*a3)(v20, v68));
         do
         {
-          v70 = v66[-1].i64[1];
-          v66 = (v66 - 8);
-          result = (*a3)(v20, v70);
+          v69 = v65[-1].i64[1];
+          v65 = (v65 - 8);
+          result = (*a3)(v20, v69);
         }
 
         while ((result & 1) != 0);
       }
 
-      v71 = &v10[-1].i64[1];
+      v70 = &v10[-1].i64[1];
       if (&v10[-1].u64[1] != v8)
       {
-        v8->i64[0] = *v71;
+        v8->i64[0] = *v70;
       }
 
       a5 = 0;
-      *v71 = v20;
+      *v70 = v20;
     }
 
     else
     {
-      v14 = (v13)(v10->i64[v12], v10->i64[0]);
+      v14 = v13(v10->i64[v12], v10->i64[0]);
       v15 = (*a3)(*v9, v10->i64[v12]);
       if (v14)
       {
@@ -2200,12 +2194,12 @@ LABEL_59:
 
         *(v26 - 1) = v8->i64[v12];
         v8->i64[v12] = v42;
-        v47 = (*a3)(*(v26 + 1));
+        v46 = (*a3)(*(v26 + 1));
         v43 = v8->i64[v12];
-        if (v47)
+        if (v46)
         {
-          v46 = *(v26 + 1);
-          v8->i64[v12] = v46;
+          v45 = *(v26 + 1);
+          v8->i64[v12] = v45;
           *(v26 + 1) = v43;
           goto LABEL_57;
         }
@@ -2218,24 +2212,23 @@ LABEL_59:
         {
           v8->i64[v12] = *(v26 + 1);
           *(v26 + 1) = v43;
-          v44 = *(v26 - 1);
-          v45 = (*a3)();
+          v44 = (*a3)();
           v43 = v8->i64[v12];
-          if (v45)
+          if (v44)
           {
-            v46 = *(v26 - 1);
+            v45 = *(v26 - 1);
             *(v26 - 1) = v43;
-            v8->i64[v12] = v46;
+            v8->i64[v12] = v45;
 LABEL_57:
-            v43 = v46;
+            v43 = v45;
           }
         }
       }
 
 LABEL_58:
-      v48 = v8->i64[0];
+      v47 = v8->i64[0];
       v8->i64[0] = v43;
-      v8->i64[v12] = v48;
+      v8->i64[v12] = v47;
       --a4;
       v20 = v8->i64[0];
       if ((a5 & 1) == 0)
@@ -2244,96 +2237,97 @@ LABEL_58:
       }
 
 LABEL_60:
-      v50 = v8;
+      v49 = v8;
       do
       {
-        v51 = v50;
-        v52 = v50->i64[1];
-        v50 = (v50 + 8);
+        v50 = v49;
+        v51 = v49->i64[1];
+        v49 = (v49 + 8);
       }
 
-      while (((*a3)(v52, v20) & 1) != 0);
-      v53 = a2;
-      if (v51 == v8)
+      while (((*a3)(v51, v20) & 1) != 0);
+      v52 = a2;
+      if (v50 == v8)
       {
-        v53 = a2;
+        v52 = a2;
         do
         {
-          if (v50 >= v53)
+          if (v49 >= v52)
           {
             break;
           }
 
-          v55 = v53[-1].i64[1];
-          v53 = (v53 - 8);
+          v54 = v52[-1].i64[1];
+          v52 = (v52 - 8);
         }
 
-        while (((*a3)(v55, v20) & 1) == 0);
+        while (((*a3)(v54, v20) & 1) == 0);
       }
 
       else
       {
         do
         {
-          v54 = v53[-1].i64[1];
-          v53 = (v53 - 8);
+          v53 = v52[-1].i64[1];
+          v52 = (v52 - 8);
         }
 
-        while (!(*a3)(v54, v20));
+        while (!(*a3)(v53, v20));
       }
 
-      v99 = a4;
-      v56 = v9;
-      v57 = a2;
-      if (v50 < v53)
+      v97 = a4;
+      v55 = v9;
+      v56 = a2;
+      if (v49 < v52)
       {
-        v58 = v50;
-        v59 = v53;
+        v57 = v49;
+        v58 = v52;
         do
         {
-          v60 = v58->i64[0];
-          v58->i64[0] = *v59;
-          *v59 = v60;
+          v59 = v57->i64[0];
+          v57->i64[0] = v58->i64[0];
+          v58->i64[0] = v59;
           do
           {
-            v51 = v58;
-            v61 = v58->i64[1];
-            v58 = (v58 + 8);
+            v50 = v57;
+            v60 = v57->i64[1];
+            v57 = (v57 + 8);
           }
 
-          while (((*a3)(v61, v20) & 1) != 0);
+          while (((*a3)(v60, v20) & 1) != 0);
           do
           {
-            v62 = *--v59;
+            v61 = v58[-1].i64[1];
+            v58 = (v58 - 8);
           }
 
-          while (!(*a3)(v62, v20));
+          while (!(*a3)(v61, v20));
         }
 
-        while (v58 < v59);
+        while (v57 < v58);
       }
 
-      if (v51 != v8)
+      if (v50 != v8)
       {
-        v8->i64[0] = v51->i64[0];
+        v8->i64[0] = v50->i64[0];
       }
 
-      v51->i64[0] = v20;
-      a2 = v57;
-      v9 = v56;
-      a4 = v99;
-      if (v50 < v53)
+      v50->i64[0] = v20;
+      a2 = v56;
+      v9 = v55;
+      a4 = v97;
+      if (v49 < v52)
       {
         goto LABEL_79;
       }
 
-      v63 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(p2t::Point const*,p2t::Point const*),p2t::Point**>(v8, v51, a3);
-      v10 = &v51->u64[1];
-      result = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(p2t::Point const*,p2t::Point const*),p2t::Point**>(&v51->i64[1], a2, a3);
+      v62 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(p2t::Point const*,p2t::Point const*),p2t::Point**>(v8, v50, a3);
+      v10 = &v50->u64[1];
+      result = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(p2t::Point const*,p2t::Point const*),p2t::Point**>(&v50->i64[1], a2, a3);
       if (result)
       {
-        a2 = v51;
-        if (!v63)
+        a2 = v50;
+        if (!v62)
         {
           goto LABEL_2;
         }
@@ -2341,28 +2335,28 @@ LABEL_60:
         return result;
       }
 
-      if (!v63)
+      if (!v62)
       {
 LABEL_79:
-        result = std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(p2t::Point const*,p2t::Point const*),p2t::Point**,false>(v8, v51, a3, v99, a5 & 1);
+        result = std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(p2t::Point const*,p2t::Point const*),p2t::Point**,false>(v8, v50, a3, v97, a5 & 1);
         a5 = 0;
-        v10 = &v51->u64[1];
+        v10 = &v50->u64[1];
       }
     }
   }
 
-  v79 = (*a3)(v10->i64[1], v10->i64[0]);
+  v77 = (*a3)(v10->i64[1], v10->i64[0]);
   result = (*a3)(*v9, v10->i64[1]);
-  if ((v79 & 1) == 0)
+  if ((v77 & 1) == 0)
   {
     if (!result)
     {
       return result;
     }
 
-    v91 = v10->i64[1];
+    v89 = v10->i64[1];
     v10->i64[1] = *v9;
-    *v9 = v91;
+    *v9 = v89;
     result = (*a3)(v10->i64[1], v10->i64[0]);
 LABEL_136:
     if (result)
@@ -2373,21 +2367,21 @@ LABEL_136:
     return result;
   }
 
-  v80 = v10->i64[0];
+  v78 = v10->i64[0];
   if (result)
   {
     v10->i64[0] = *v9;
-    *v9 = v80;
+    *v9 = v78;
   }
 
   else
   {
     v10->i64[0] = v10->i64[1];
-    v10->i64[1] = v80;
+    v10->i64[1] = v78;
     result = (*a3)(*v9);
     if (result)
     {
-      v78 = v10->i64[1];
+      v76 = v10->i64[1];
       v10->i64[1] = *v9;
       goto LABEL_106;
     }
@@ -2468,41 +2462,41 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL 
     switch(v6)
     {
       case 3:
-        v15 = (*a3)(a1[1], *a1);
-        v16 = (*a3)(*(a2 - 1), a1[1]);
-        if (v15)
+        v14 = (*a3)(a1[1], *a1);
+        v15 = (*a3)(*(a2 - 1), a1[1]);
+        if (v14)
         {
-          v17 = *a1;
-          if (v16)
+          v16 = *a1;
+          if (v15)
           {
             *a1 = *(a2 - 1);
-            *(a2 - 1) = v17;
+            *(a2 - 1) = v16;
           }
 
           else
           {
             *a1 = a1[1];
-            a1[1] = v17;
+            a1[1] = v16;
             if ((*a3)(*(a2 - 1)))
             {
-              v25 = a1[1];
+              v23 = a1[1];
               a1[1] = *(a2 - 1);
-              *(a2 - 1) = v25;
+              *(a2 - 1) = v23;
             }
           }
 
           return 1;
         }
 
-        if (!v16)
+        if (!v15)
         {
           return 1;
         }
 
-        v22 = a1[1];
+        v21 = a1[1];
         a1[1] = *(a2 - 1);
-        *(a2 - 1) = v22;
-        v14 = (*a3)(a1[1], *a1);
+        *(a2 - 1) = v21;
+        v13 = (*a3)(a1[1], *a1);
         break;
       case 4:
         std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(p2t::Point const*,p2t::Point const*),p2t::Point**,0>(a1, a1 + 1, a1 + 2, a2 - 1, a3);
@@ -2523,7 +2517,6 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL 
         }
 
         v9 = a1[2];
-        v10 = a1[1];
         a1[2] = a1[3];
         a1[3] = v9;
         if (!(*a3)())
@@ -2531,18 +2524,18 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL 
           return 1;
         }
 
-        v12 = a1[1];
-        v11 = a1[2];
-        v13 = *a1;
-        a1[1] = v11;
-        a1[2] = v12;
-        v14 = (*a3)(v11, v13);
+        v11 = a1[1];
+        v10 = a1[2];
+        v12 = *a1;
+        a1[1] = v10;
+        a1[2] = v11;
+        v13 = (*a3)(v10, v12);
         break;
       default:
         goto LABEL_16;
     }
 
-    if (v14)
+    if (v13)
     {
       *a1 = vextq_s8(*a1, *a1, 8uLL);
     }
@@ -2568,92 +2561,91 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL 
   }
 
 LABEL_16:
-  v18 = (*a3)(a1[1], *a1);
-  v19 = a1 + 2;
-  v20 = (*a3)(a1[2], a1[1]);
-  if (v18)
+  v17 = (*a3)(a1[1], *a1);
+  v18 = a1 + 2;
+  v19 = (*a3)(a1[2], a1[1]);
+  if (v17)
   {
-    v21 = *a1;
-    if (v20)
+    v20 = *a1;
+    if (v19)
     {
       *a1 = a1[2];
-      a1[2] = v21;
+      a1[2] = v20;
     }
 
     else
     {
-      v26 = a1[2];
+      v24 = a1[2];
       *a1 = a1[1];
-      a1[1] = v21;
-      if ((*a3)(v26))
+      a1[1] = v20;
+      if ((*a3)(v24))
       {
         *(a1 + 1) = vextq_s8(*(a1 + 1), *(a1 + 1), 8uLL);
       }
     }
   }
 
-  else if (v20)
+  else if (v19)
   {
-    v23 = a1[1];
-    v24 = *a1;
+    v22 = a1[1];
     a1[1] = a1[2];
-    a1[2] = v23;
+    a1[2] = v22;
     if ((*a3)())
     {
       *a1 = vextq_s8(*a1, *a1, 8uLL);
     }
   }
 
-  v27 = a1 + 3;
+  v25 = a1 + 3;
   if (a1 + 3 == a2)
   {
     return 1;
   }
 
-  v28 = 0;
-  v29 = 0;
-  while (!(*a3)(*v27, *v19))
+  v26 = 0;
+  v27 = 0;
+  while (!(*a3)(*v25, *v18))
   {
 LABEL_40:
-    v19 = v27;
-    v28 += 8;
-    if (++v27 == a2)
+    v18 = v25;
+    v26 += 8;
+    if (++v25 == a2)
     {
       return 1;
     }
   }
 
-  v30 = *v27;
-  v31 = v28;
+  v28 = *v25;
+  v29 = v26;
   do
   {
-    v32 = a1 + v31;
-    *(a1 + v31 + 24) = *(a1 + v31 + 16);
-    if (v31 == -16)
+    v30 = a1 + v29;
+    *(a1 + v29 + 24) = *(a1 + v29 + 16);
+    if (v29 == -16)
     {
-      *a1 = v30;
-      if (++v29 != 8)
+      *a1 = v28;
+      if (++v27 != 8)
       {
         goto LABEL_40;
       }
 
-      return v27 + 1 == a2;
+      return v25 + 1 == a2;
     }
 
-    v31 -= 8;
+    v29 -= 8;
   }
 
-  while (((*a3)(v30, *(v32 + 1)) & 1) != 0);
-  *(a1 + v31 + 24) = v30;
-  if (++v29 != 8)
+  while (((*a3)(v28, *(v30 + 1)) & 1) != 0);
+  *(a1 + v29 + 24) = v28;
+  if (++v27 != 8)
   {
     goto LABEL_40;
   }
 
-  return v27 + 1 == a2;
+  return v25 + 1 == a2;
 }
 
-void *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(p2t::Point const*,p2t::Point const*),p2t::Point**,p2t::Point**>(void *a1, void *a2, void *a3, unsigned int (**a4)(void, uint64_t))
+char *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(p2t::Point const*,p2t::Point const*),p2t::Point**,p2t::Point**>(char *a1, char *a2, char *a3, unsigned int (**a4)(uint64_t, uint64_t))
 {
   v4 = a3;
   if (a1 == a2)
@@ -2663,11 +2655,11 @@ void *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(p2
 
   v51 = a2;
   v49 = a2 - a1;
-  v6 = a2 - a1;
+  v6 = (a2 - a1) >> 3;
   if (v6 >= 2)
   {
     v7 = (v6 - 2) >> 1;
-    v53 = a1 + 1;
+    v53 = a1 + 8;
     v8 = v7;
     do
     {
@@ -2681,7 +2673,7 @@ void *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(p2
           v10 = 2 * (v8 & 0x1FFFFFFFFFFFFFFFLL) + 2;
         }
 
-        v12 = &a1[v8];
+        v12 = &a1[8 * v8];
         if (((*a4)(*v11, *v12) & 1) == 0)
         {
           v13 = *v12;
@@ -2735,15 +2727,15 @@ void *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(p2
           *a1 = v19;
         }
 
-        ++i;
+        i += 8;
       }
 
       while (i != v4);
       goto LABEL_45;
     }
 
-    v20 = a1 + 1;
-    for (i = v51; i != v4; ++i)
+    v20 = a1 + 8;
+    for (i = v51; i != v4; i += 8)
     {
       if ((*a4)(*i, *v17))
       {
@@ -2752,7 +2744,7 @@ void *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(p2
         *a1 = v21;
         if (v49 == 16)
         {
-          v22 = a1 + 1;
+          v22 = (a1 + 8);
           v23 = 1;
           if (((*a4)(*v20) & 1) == 0)
           {
@@ -2762,15 +2754,15 @@ void *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(p2
 
         else
         {
-          v24 = (*a4)(a1[1], a1[2]);
+          v24 = (*a4)(*(a1 + 1), *(a1 + 2));
           if (v24)
           {
-            v22 = a1 + 2;
+            v22 = (a1 + 16);
           }
 
           else
           {
-            v22 = a1 + 1;
+            v22 = (a1 + 8);
           }
 
           if (v24)
@@ -2874,8 +2866,8 @@ LABEL_45:
 
       while (v32 <= v34);
 LABEL_57:
-      v42 = v51 - 1;
-      if (v38 == v51 - 1)
+      v42 = (v51 - 8);
+      if (v38 == (v51 - 8))
       {
         *v38 = v33;
         v17 = a1;
@@ -2892,7 +2884,7 @@ LABEL_57:
         if (!v9)
         {
           v45 = v44 >> 1;
-          v46 = &a1[v44 >> 1];
+          v46 = &a1[8 * (v44 >> 1)];
           if ((*a4)(*v46, *v38))
           {
             v47 = *v38;
@@ -2906,7 +2898,7 @@ LABEL_57:
               }
 
               v45 = (v45 - 1) >> 1;
-              v46 = &a1[v45];
+              v46 = &a1[8 * v45];
               v38 = v48;
             }
 
@@ -2916,7 +2908,7 @@ LABEL_57:
         }
       }
 
-      --v51;
+      v51 -= 8;
       v9 = v6-- <= 2;
     }
 
@@ -3135,7 +3127,7 @@ uint64_t GKCMonteCarloStrategist::deleteChildren(uint64_t result, uint64_t a2)
       {
         if (*v3)
         {
-          result = GKCMonteCarloStrategist::deleteChildren(v5);
+          result = GKCMonteCarloStrategist::deleteChildren(v5, *v3);
           v6 = *v3;
           if (*v3)
           {
@@ -3447,27 +3439,27 @@ void GKCMeshGraph::~GKCMeshGraph(id *this)
 
 void GKCMeshGraph::AddObstacle(GKCMeshGraph *this, id *a2)
 {
-  v24 = 0;
-  v25 = a2;
+  v23 = 0;
+  v24 = a2;
   v3 = *(this + 168);
   if (v3 == 0.0)
   {
     v4 = a2[8];
-    v24 = v4;
+    v23 = v4;
   }
 
   else
   {
     v5 = GKCPolygonObstacle::extrudeObstacle(a2, a2, v3);
-    v6 = v24;
-    v24 = v5;
+    v6 = v23;
+    v23 = v5;
     v7 = v5;
 
     v4 = v7;
   }
 
   v8 = [v4 cPolygonObstacle];
-  v9 = [v24 cPolygonObstacle];
+  v9 = [v23 cPolygonObstacle];
   v10 = *(this + 57);
   if (!v10)
   {
@@ -3475,14 +3467,14 @@ LABEL_10:
     operator new();
   }
 
-  v11 = v25;
+  v11 = v24;
   while (1)
   {
     while (1)
     {
       v12 = v10;
       v13 = v10[4];
-      if (v25 >= v13)
+      if (v24 >= v13)
       {
         break;
       }
@@ -3494,7 +3486,7 @@ LABEL_10:
       }
     }
 
-    if (v13 >= v25)
+    if (v13 >= v24)
     {
       break;
     }
@@ -3507,7 +3499,7 @@ LABEL_10:
   }
 
   v12[5] = v9;
-  v14 = [v24 cPolygonObstacle];
+  v14 = [v23 cPolygonObstacle];
   v15 = *(this + 60);
   if (!v15)
   {
@@ -3549,32 +3541,31 @@ LABEL_17:
   v19 = *(this + 54);
   if (v19 < *(this + 55))
   {
-    *v19 = v24;
-    v18 = (v19 + 1);
+    *v19 = v23;
+    v18 = v19 + 1;
   }
 
   else
   {
-    v18 = std::vector<NSObject * {__strong}>::__emplace_back_slow_path<NSObject * const {__strong}&>(this + 53, &v24);
+    v18 = std::vector<NSObject * {__strong}>::__emplace_back_slow_path<NSObject * const {__strong}&>(this + 53, &v23);
   }
 
   *(this + 54) = v18;
-  std::vector<GKCPolygonObstacle *>::push_back[abi:ne200100](this + 376, &v25);
-  __p = [v24 cPolygonObstacle];
+  std::vector<GKCPolygonObstacle *>::push_back[abi:ne200100](this + 376, &v24);
+  __p = [v23 cPolygonObstacle];
   std::vector<GKCPolygonObstacle *>::push_back[abi:ne200100](this + 400, &__p);
+  v21 = 0;
   v22 = 0;
-  v23 = 0;
   __p = 0;
   if (*(v8 + 16) != *(v8 + 8))
   {
-    v20 = vcvtq_s64_f64(vmulq_f64(vcvtq_f64_f32(**(v8 + 8)), vdupq_n_s64(0x40C3880000000000uLL)));
     operator new();
   }
 
   ClipperLib::ClipperBase::AddPath(this + *(*(this + 5) - 24) + 40, &__p, 0, 1);
   if (__p)
   {
-    v22 = __p;
+    v21 = __p;
     operator delete(__p);
   }
 }
@@ -4042,9 +4033,10 @@ void sub_2389AED5C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_2389AEDE4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19, uint64_t a20, void *a21)
+void sub_2389AEDE4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19, uint64_t a20, ...)
 {
-  std::vector<std::vector<ClipperLib::IntPoint>>::~vector[abi:ne200100](&a21);
+  va_start(va, a20);
+  std::vector<std::vector<ClipperLib::IntPoint>>::~vector[abi:ne200100](va);
   operator delete(a10);
   _Unwind_Resume(a1);
 }
@@ -4066,7 +4058,7 @@ void GKCMeshGraph::BuildGraphFromTriangles(GKCMeshGraph *this)
   *(this + 45) = 0;
   *(this + 46) = 0;
   *(this + 44) = v2;
-  p2t::CDT::GetTriangles(*(this + 43), &v107);
+  p2t::CDT::GetTriangles(&v107, *(this + 43));
   *__p = 0u;
   *v105 = 0u;
   v106 = 1065353216;
@@ -4099,26 +4091,26 @@ void GKCMeshGraph::BuildGraphFromTriangles(GKCMeshGraph *this)
         v100 = *&v7[-24 * (v6 / 3) + 24];
         if (v8 < v101)
         {
-          v109 = &v102;
-          v10 = std::__hash_table<std::__hash_value_type<p2t::Point *,std::unordered_map<p2t::Point *,BOOL>>,std::__unordered_map_hasher<p2t::Point *,std::__hash_value_type<p2t::Point *,std::unordered_map<p2t::Point *,BOOL>>,std::hash<p2t::Point *>,std::equal_to<p2t::Point *>,true>,std::__unordered_map_equal<p2t::Point *,std::__hash_value_type<p2t::Point *,std::unordered_map<p2t::Point *,BOOL>>,std::equal_to<p2t::Point *>,std::hash<p2t::Point *>,true>,std::allocator<std::__hash_value_type<p2t::Point *,std::unordered_map<p2t::Point *,BOOL>>>>::__emplace_unique_key_args<p2t::Point *,std::piecewise_construct_t const&,std::tuple<p2t::Point * const&>,std::tuple<>>(__p, &v102);
-          v109 = &v101;
-          if ((std::__hash_table<std::__hash_value_type<p2t::Point *,BOOL>,std::__unordered_map_hasher<p2t::Point *,std::__hash_value_type<p2t::Point *,BOOL>,std::hash<p2t::Point *>,std::equal_to<p2t::Point *>,true>,std::__unordered_map_equal<p2t::Point *,std::__hash_value_type<p2t::Point *,BOOL>,std::equal_to<p2t::Point *>,std::hash<p2t::Point *>,true>,std::allocator<std::__hash_value_type<p2t::Point *,BOOL>>>::__emplace_unique_key_args<p2t::Point *,std::piecewise_construct_t const&,std::tuple<p2t::Point * const&>,std::tuple<>>(v10 + 3, &v101)[3] & 1) == 0)
+          v109[0] = &v102;
+          v10 = std::__hash_table<std::__hash_value_type<p2t::Point *,std::unordered_map<p2t::Point *,BOOL>>,std::__unordered_map_hasher<p2t::Point *,std::__hash_value_type<p2t::Point *,std::unordered_map<p2t::Point *,BOOL>>,std::hash<p2t::Point *>,std::equal_to<p2t::Point *>,true>,std::__unordered_map_equal<p2t::Point *,std::__hash_value_type<p2t::Point *,std::unordered_map<p2t::Point *,BOOL>>,std::equal_to<p2t::Point *>,std::hash<p2t::Point *>,true>,std::allocator<std::__hash_value_type<p2t::Point *,std::unordered_map<p2t::Point *,BOOL>>>>::__emplace_unique_key_args<p2t::Point *,std::piecewise_construct_t const&,std::tuple<p2t::Point * const&>,std::tuple<>>(__p, &v102, &std::piecewise_construct, v109);
+          v109[0] = &v101;
+          if ((std::__hash_table<std::__hash_value_type<p2t::Point *,BOOL>,std::__unordered_map_hasher<p2t::Point *,std::__hash_value_type<p2t::Point *,BOOL>,std::hash<p2t::Point *>,std::equal_to<p2t::Point *>,true>,std::__unordered_map_equal<p2t::Point *,std::__hash_value_type<p2t::Point *,BOOL>,std::equal_to<p2t::Point *>,std::hash<p2t::Point *>,true>,std::allocator<std::__hash_value_type<p2t::Point *,BOOL>>>::__emplace_unique_key_args<p2t::Point *,std::piecewise_construct_t const&,std::tuple<p2t::Point * const&>,std::tuple<>>(v10 + 3, &v101, &std::piecewise_construct, v109)[3] & 1) == 0)
           {
-            v109 = &v102;
-            std::__hash_table<std::__hash_value_type<p2t::Point *,std::vector<p2t::Edge *>>,std::__unordered_map_hasher<p2t::Point *,std::__hash_value_type<p2t::Point *,std::vector<p2t::Edge *>>,std::hash<p2t::Point *>,std::equal_to<p2t::Point *>,true>,std::__unordered_map_equal<p2t::Point *,std::__hash_value_type<p2t::Point *,std::vector<p2t::Edge *>>,std::equal_to<p2t::Point *>,std::hash<p2t::Point *>,true>,std::allocator<std::__hash_value_type<p2t::Point *,std::vector<p2t::Edge *>>>>::__emplace_unique_key_args<p2t::Point *,std::piecewise_construct_t const&,std::tuple<p2t::Point * const&>,std::tuple<>>(this + 77, &v102);
+            v109[0] = &v102;
+            std::__hash_table<std::__hash_value_type<p2t::Point *,std::vector<p2t::Edge *>>,std::__unordered_map_hasher<p2t::Point *,std::__hash_value_type<p2t::Point *,std::vector<p2t::Edge *>>,std::hash<p2t::Point *>,std::equal_to<p2t::Point *>,true>,std::__unordered_map_equal<p2t::Point *,std::__hash_value_type<p2t::Point *,std::vector<p2t::Edge *>>,std::equal_to<p2t::Point *>,std::hash<p2t::Point *>,true>,std::allocator<std::__hash_value_type<p2t::Point *,std::vector<p2t::Edge *>>>>::__emplace_unique_key_args<p2t::Point *,std::piecewise_construct_t const&,std::tuple<p2t::Point * const&>,std::tuple<>>(this + 77, &v102, &std::piecewise_construct, v109);
             operator new();
           }
         }
 
         if (v102 < v100)
         {
-          v109 = &v102;
-          v11 = std::__hash_table<std::__hash_value_type<p2t::Point *,std::unordered_map<p2t::Point *,BOOL>>,std::__unordered_map_hasher<p2t::Point *,std::__hash_value_type<p2t::Point *,std::unordered_map<p2t::Point *,BOOL>>,std::hash<p2t::Point *>,std::equal_to<p2t::Point *>,true>,std::__unordered_map_equal<p2t::Point *,std::__hash_value_type<p2t::Point *,std::unordered_map<p2t::Point *,BOOL>>,std::equal_to<p2t::Point *>,std::hash<p2t::Point *>,true>,std::allocator<std::__hash_value_type<p2t::Point *,std::unordered_map<p2t::Point *,BOOL>>>>::__emplace_unique_key_args<p2t::Point *,std::piecewise_construct_t const&,std::tuple<p2t::Point * const&>,std::tuple<>>(__p, &v102);
-          v109 = &v100;
-          if ((std::__hash_table<std::__hash_value_type<p2t::Point *,BOOL>,std::__unordered_map_hasher<p2t::Point *,std::__hash_value_type<p2t::Point *,BOOL>,std::hash<p2t::Point *>,std::equal_to<p2t::Point *>,true>,std::__unordered_map_equal<p2t::Point *,std::__hash_value_type<p2t::Point *,BOOL>,std::equal_to<p2t::Point *>,std::hash<p2t::Point *>,true>,std::allocator<std::__hash_value_type<p2t::Point *,BOOL>>>::__emplace_unique_key_args<p2t::Point *,std::piecewise_construct_t const&,std::tuple<p2t::Point * const&>,std::tuple<>>(v11 + 3, &v100)[3] & 1) == 0)
+          v109[0] = &v102;
+          v11 = std::__hash_table<std::__hash_value_type<p2t::Point *,std::unordered_map<p2t::Point *,BOOL>>,std::__unordered_map_hasher<p2t::Point *,std::__hash_value_type<p2t::Point *,std::unordered_map<p2t::Point *,BOOL>>,std::hash<p2t::Point *>,std::equal_to<p2t::Point *>,true>,std::__unordered_map_equal<p2t::Point *,std::__hash_value_type<p2t::Point *,std::unordered_map<p2t::Point *,BOOL>>,std::equal_to<p2t::Point *>,std::hash<p2t::Point *>,true>,std::allocator<std::__hash_value_type<p2t::Point *,std::unordered_map<p2t::Point *,BOOL>>>>::__emplace_unique_key_args<p2t::Point *,std::piecewise_construct_t const&,std::tuple<p2t::Point * const&>,std::tuple<>>(__p, &v102, &std::piecewise_construct, v109);
+          v109[0] = &v100;
+          if ((std::__hash_table<std::__hash_value_type<p2t::Point *,BOOL>,std::__unordered_map_hasher<p2t::Point *,std::__hash_value_type<p2t::Point *,BOOL>,std::hash<p2t::Point *>,std::equal_to<p2t::Point *>,true>,std::__unordered_map_equal<p2t::Point *,std::__hash_value_type<p2t::Point *,BOOL>,std::equal_to<p2t::Point *>,std::hash<p2t::Point *>,true>,std::allocator<std::__hash_value_type<p2t::Point *,BOOL>>>::__emplace_unique_key_args<p2t::Point *,std::piecewise_construct_t const&,std::tuple<p2t::Point * const&>,std::tuple<>>(v11 + 3, &v100, &std::piecewise_construct, v109)[3] & 1) == 0)
           {
-            v109 = &v102;
-            std::__hash_table<std::__hash_value_type<p2t::Point *,std::vector<p2t::Edge *>>,std::__unordered_map_hasher<p2t::Point *,std::__hash_value_type<p2t::Point *,std::vector<p2t::Edge *>>,std::hash<p2t::Point *>,std::equal_to<p2t::Point *>,true>,std::__unordered_map_equal<p2t::Point *,std::__hash_value_type<p2t::Point *,std::vector<p2t::Edge *>>,std::equal_to<p2t::Point *>,std::hash<p2t::Point *>,true>,std::allocator<std::__hash_value_type<p2t::Point *,std::vector<p2t::Edge *>>>>::__emplace_unique_key_args<p2t::Point *,std::piecewise_construct_t const&,std::tuple<p2t::Point * const&>,std::tuple<>>(this + 77, &v102);
+            v109[0] = &v102;
+            std::__hash_table<std::__hash_value_type<p2t::Point *,std::vector<p2t::Edge *>>,std::__unordered_map_hasher<p2t::Point *,std::__hash_value_type<p2t::Point *,std::vector<p2t::Edge *>>,std::hash<p2t::Point *>,std::equal_to<p2t::Point *>,true>,std::__unordered_map_equal<p2t::Point *,std::__hash_value_type<p2t::Point *,std::vector<p2t::Edge *>>,std::equal_to<p2t::Point *>,std::hash<p2t::Point *>,true>,std::allocator<std::__hash_value_type<p2t::Point *,std::vector<p2t::Edge *>>>>::__emplace_unique_key_args<p2t::Point *,std::piecewise_construct_t const&,std::tuple<p2t::Point * const&>,std::tuple<>>(this + 77, &v102, &std::piecewise_construct, v109);
             operator new();
           }
         }
@@ -4131,8 +4123,8 @@ void GKCMeshGraph::BuildGraphFromTriangles(GKCMeshGraph *this)
       if (*(this + 656) == 1)
       {
         v102 = *(v103 + 1);
-        v109 = &v102;
-        if (!std::__hash_table<std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::__unordered_map_hasher<p2t::Point *,std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::hash<p2t::Point *>,std::equal_to<p2t::Point *>,true>,std::__unordered_map_equal<p2t::Point *,std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::equal_to<p2t::Point *>,std::hash<p2t::Point *>,true>,std::allocator<std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>>>::__emplace_unique_key_args<p2t::Point *,std::piecewise_construct_t const&,std::tuple<p2t::Point * const&>,std::tuple<>>(this + 62, &v102)[3])
+        v109[0] = &v102;
+        if (!std::__hash_table<std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::__unordered_map_hasher<p2t::Point *,std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::hash<p2t::Point *>,std::equal_to<p2t::Point *>,true>,std::__unordered_map_equal<p2t::Point *,std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::equal_to<p2t::Point *>,std::hash<p2t::Point *>,true>,std::allocator<std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>>>::__emplace_unique_key_args<p2t::Point *,std::piecewise_construct_t const&,std::tuple<p2t::Point * const&>,std::tuple<>>(this + 62, &v102, &std::piecewise_construct, v109)[3])
         {
           WeakRetained = objc_loadWeakRetained(this + 83);
           v13 = objc_alloc([WeakRetained nodeClass]);
@@ -4142,14 +4134,14 @@ void GKCMeshGraph::BuildGraphFromTriangles(GKCMeshGraph *this)
           v16 = [v13 initWithPoint:v14];
 
           v17 = [v16 cGraphNode2D];
-          v109 = &v102;
-          std::__hash_table<std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::__unordered_map_hasher<p2t::Point *,std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::hash<p2t::Point *>,std::equal_to<p2t::Point *>,true>,std::__unordered_map_equal<p2t::Point *,std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::equal_to<p2t::Point *>,std::hash<p2t::Point *>,true>,std::allocator<std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>>>::__emplace_unique_key_args<p2t::Point *,std::piecewise_construct_t const&,std::tuple<p2t::Point * const&>,std::tuple<>>(this + 62, &v102)[3] = v17;
+          v109[0] = &v102;
+          std::__hash_table<std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::__unordered_map_hasher<p2t::Point *,std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::hash<p2t::Point *>,std::equal_to<p2t::Point *>,true>,std::__unordered_map_equal<p2t::Point *,std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::equal_to<p2t::Point *>,std::hash<p2t::Point *>,true>,std::allocator<std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>>>::__emplace_unique_key_args<p2t::Point *,std::piecewise_construct_t const&,std::tuple<p2t::Point * const&>,std::tuple<>>(this + 62, &v102, &std::piecewise_construct, v109)[3] = v17;
           GKCGraph::addNode(this, [v16 cGraphNode2D]);
         }
 
         v102 = *(v103 + 2);
-        v109 = &v102;
-        if (!std::__hash_table<std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::__unordered_map_hasher<p2t::Point *,std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::hash<p2t::Point *>,std::equal_to<p2t::Point *>,true>,std::__unordered_map_equal<p2t::Point *,std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::equal_to<p2t::Point *>,std::hash<p2t::Point *>,true>,std::allocator<std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>>>::__emplace_unique_key_args<p2t::Point *,std::piecewise_construct_t const&,std::tuple<p2t::Point * const&>,std::tuple<>>(this + 62, &v102)[3])
+        v109[0] = &v102;
+        if (!std::__hash_table<std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::__unordered_map_hasher<p2t::Point *,std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::hash<p2t::Point *>,std::equal_to<p2t::Point *>,true>,std::__unordered_map_equal<p2t::Point *,std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::equal_to<p2t::Point *>,std::hash<p2t::Point *>,true>,std::allocator<std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>>>::__emplace_unique_key_args<p2t::Point *,std::piecewise_construct_t const&,std::tuple<p2t::Point * const&>,std::tuple<>>(this + 62, &v102, &std::piecewise_construct, v109)[3])
         {
           v18 = objc_loadWeakRetained(this + 83);
           v19 = objc_alloc([v18 nodeClass]);
@@ -4159,14 +4151,14 @@ void GKCMeshGraph::BuildGraphFromTriangles(GKCMeshGraph *this)
           v22 = [v19 initWithPoint:v20];
 
           v23 = [v22 cGraphNode2D];
-          v109 = &v102;
-          std::__hash_table<std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::__unordered_map_hasher<p2t::Point *,std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::hash<p2t::Point *>,std::equal_to<p2t::Point *>,true>,std::__unordered_map_equal<p2t::Point *,std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::equal_to<p2t::Point *>,std::hash<p2t::Point *>,true>,std::allocator<std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>>>::__emplace_unique_key_args<p2t::Point *,std::piecewise_construct_t const&,std::tuple<p2t::Point * const&>,std::tuple<>>(this + 62, &v102)[3] = v23;
+          v109[0] = &v102;
+          std::__hash_table<std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::__unordered_map_hasher<p2t::Point *,std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::hash<p2t::Point *>,std::equal_to<p2t::Point *>,true>,std::__unordered_map_equal<p2t::Point *,std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::equal_to<p2t::Point *>,std::hash<p2t::Point *>,true>,std::allocator<std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>>>::__emplace_unique_key_args<p2t::Point *,std::piecewise_construct_t const&,std::tuple<p2t::Point * const&>,std::tuple<>>(this + 62, &v102, &std::piecewise_construct, v109)[3] = v23;
           GKCGraph::addNode(this, [v22 cGraphNode2D]);
         }
 
         v102 = *(v103 + 3);
-        v109 = &v102;
-        if (!std::__hash_table<std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::__unordered_map_hasher<p2t::Point *,std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::hash<p2t::Point *>,std::equal_to<p2t::Point *>,true>,std::__unordered_map_equal<p2t::Point *,std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::equal_to<p2t::Point *>,std::hash<p2t::Point *>,true>,std::allocator<std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>>>::__emplace_unique_key_args<p2t::Point *,std::piecewise_construct_t const&,std::tuple<p2t::Point * const&>,std::tuple<>>(this + 62, &v102)[3])
+        v109[0] = &v102;
+        if (!std::__hash_table<std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::__unordered_map_hasher<p2t::Point *,std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::hash<p2t::Point *>,std::equal_to<p2t::Point *>,true>,std::__unordered_map_equal<p2t::Point *,std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::equal_to<p2t::Point *>,std::hash<p2t::Point *>,true>,std::allocator<std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>>>::__emplace_unique_key_args<p2t::Point *,std::piecewise_construct_t const&,std::tuple<p2t::Point * const&>,std::tuple<>>(this + 62, &v102, &std::piecewise_construct, v109)[3])
         {
           break;
         }
@@ -4193,8 +4185,8 @@ LABEL_3:
     v47 = [v44 initWithPoint:v45];
 
     v48 = [v47 cGraphNode2D];
-    v109 = &v102;
-    std::__hash_table<std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::__unordered_map_hasher<p2t::Point *,std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::hash<p2t::Point *>,std::equal_to<p2t::Point *>,true>,std::__unordered_map_equal<p2t::Point *,std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::equal_to<p2t::Point *>,std::hash<p2t::Point *>,true>,std::allocator<std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>>>::__emplace_unique_key_args<p2t::Point *,std::piecewise_construct_t const&,std::tuple<p2t::Point * const&>,std::tuple<>>(this + 62, &v102)[3] = v48;
+    v109[0] = &v102;
+    std::__hash_table<std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::__unordered_map_hasher<p2t::Point *,std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::hash<p2t::Point *>,std::equal_to<p2t::Point *>,true>,std::__unordered_map_equal<p2t::Point *,std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::equal_to<p2t::Point *>,std::hash<p2t::Point *>,true>,std::allocator<std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>>>::__emplace_unique_key_args<p2t::Point *,std::piecewise_construct_t const&,std::tuple<p2t::Point * const&>,std::tuple<>>(this + 62, &v102, &std::piecewise_construct, v109)[3] = v48;
     GKCGraph::addNode(this, [v47 cGraphNode2D]);
 
     if (*(this + 657) != 1)
@@ -4227,8 +4219,8 @@ LABEL_22:
     v41 = [v34 initWithPoint:{COERCE_DOUBLE(vmul_f32(vadd_f32(v37, v39), v4))}];
 
     v42 = [v41 cGraphNode2D];
-    v109 = &v103;
-    std::__hash_table<std::__hash_value_type<p2t::Triangle *,GKCGraphNode2D *>,std::__unordered_map_hasher<p2t::Triangle *,std::__hash_value_type<p2t::Triangle *,GKCGraphNode2D *>,std::hash<p2t::Triangle *>,std::equal_to<p2t::Triangle *>,true>,std::__unordered_map_equal<p2t::Triangle *,std::__hash_value_type<p2t::Triangle *,GKCGraphNode2D *>,std::equal_to<p2t::Triangle *>,std::hash<p2t::Triangle *>,true>,std::allocator<std::__hash_value_type<p2t::Triangle *,GKCGraphNode2D *>>>::__emplace_unique_key_args<p2t::Triangle *,std::piecewise_construct_t const&,std::tuple<p2t::Triangle * const&>,std::tuple<>>(this + 67, &v103)[3] = v42;
+    v109[0] = &v103;
+    std::__hash_table<std::__hash_value_type<p2t::Triangle *,GKCGraphNode2D *>,std::__unordered_map_hasher<p2t::Triangle *,std::__hash_value_type<p2t::Triangle *,GKCGraphNode2D *>,std::hash<p2t::Triangle *>,std::equal_to<p2t::Triangle *>,true>,std::__unordered_map_equal<p2t::Triangle *,std::__hash_value_type<p2t::Triangle *,GKCGraphNode2D *>,std::equal_to<p2t::Triangle *>,std::hash<p2t::Triangle *>,true>,std::allocator<std::__hash_value_type<p2t::Triangle *,GKCGraphNode2D *>>>::__emplace_unique_key_args<p2t::Triangle *,std::piecewise_construct_t const&,std::tuple<p2t::Triangle * const&>,std::tuple<>>(this + 67, &v103, &std::piecewise_construct, v109)[3] = v42;
     GKCGraph::addNode(this, [v41 cGraphNode2D]);
 
     goto LABEL_3;
@@ -4274,8 +4266,8 @@ LABEL_30:
           v62 = [v57 initWithPoint:{COERCE_DOUBLE(vmla_f32(v58, vsub_f32(v60, v58), 0x3F0000003F000000))}];
 
           v63 = [v62 cGraphNode2D];
-          v109 = &v103;
-          std::__hash_table<std::__hash_value_type<p2t::Edge *,GKCGraphNode2D *>,std::__unordered_map_hasher<p2t::Edge *,std::__hash_value_type<p2t::Edge *,GKCGraphNode2D *>,std::hash<p2t::Edge *>,std::equal_to<p2t::Edge *>,true>,std::__unordered_map_equal<p2t::Edge *,std::__hash_value_type<p2t::Edge *,GKCGraphNode2D *>,std::equal_to<p2t::Edge *>,std::hash<p2t::Edge *>,true>,std::allocator<std::__hash_value_type<p2t::Edge *,GKCGraphNode2D *>>>::__emplace_unique_key_args<p2t::Edge *,std::piecewise_construct_t const&,std::tuple<p2t::Edge * const&>,std::tuple<>>(this + 72, &v103)[3] = v63;
+          v109[0] = &v103;
+          std::__hash_table<std::__hash_value_type<p2t::Edge *,GKCGraphNode2D *>,std::__unordered_map_hasher<p2t::Edge *,std::__hash_value_type<p2t::Edge *,GKCGraphNode2D *>,std::hash<p2t::Edge *>,std::equal_to<p2t::Edge *>,true>,std::__unordered_map_equal<p2t::Edge *,std::__hash_value_type<p2t::Edge *,GKCGraphNode2D *>,std::equal_to<p2t::Edge *>,std::hash<p2t::Edge *>,true>,std::allocator<std::__hash_value_type<p2t::Edge *,GKCGraphNode2D *>>>::__emplace_unique_key_args<p2t::Edge *,std::piecewise_construct_t const&,std::tuple<p2t::Edge * const&>,std::tuple<>>(this + 72, &v103, &std::piecewise_construct, v109)[3] = v63;
           GKCGraph::addNode(this, [v62 cGraphNode2D]);
         }
       }
@@ -4291,11 +4283,11 @@ LABEL_30:
         v66 = j[2];
         v65 = j[3];
         v103 = *v66;
-        v109 = &v103;
-        v67 = std::__hash_table<std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::__unordered_map_hasher<p2t::Point *,std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::hash<p2t::Point *>,std::equal_to<p2t::Point *>,true>,std::__unordered_map_equal<p2t::Point *,std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::equal_to<p2t::Point *>,std::hash<p2t::Point *>,true>,std::allocator<std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>>>::__emplace_unique_key_args<p2t::Point *,std::piecewise_construct_t const&,std::tuple<p2t::Point * const&>,std::tuple<>>(this + 62, &v103)[3];
+        v109[0] = &v103;
+        v67 = std::__hash_table<std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::__unordered_map_hasher<p2t::Point *,std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::hash<p2t::Point *>,std::equal_to<p2t::Point *>,true>,std::__unordered_map_equal<p2t::Point *,std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::equal_to<p2t::Point *>,std::hash<p2t::Point *>,true>,std::allocator<std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>>>::__emplace_unique_key_args<p2t::Point *,std::piecewise_construct_t const&,std::tuple<p2t::Point * const&>,std::tuple<>>(this + 62, &v103, &std::piecewise_construct, v109)[3];
         v102 = *(v66 + 8);
-        v109 = &v102;
-        v68 = std::__hash_table<std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::__unordered_map_hasher<p2t::Point *,std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::hash<p2t::Point *>,std::equal_to<p2t::Point *>,true>,std::__unordered_map_equal<p2t::Point *,std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::equal_to<p2t::Point *>,std::hash<p2t::Point *>,true>,std::allocator<std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>>>::__emplace_unique_key_args<p2t::Point *,std::piecewise_construct_t const&,std::tuple<p2t::Point * const&>,std::tuple<>>(this + 62, &v102)[3];
+        v109[0] = &v102;
+        v68 = std::__hash_table<std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::__unordered_map_hasher<p2t::Point *,std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::hash<p2t::Point *>,std::equal_to<p2t::Point *>,true>,std::__unordered_map_equal<p2t::Point *,std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::equal_to<p2t::Point *>,std::hash<p2t::Point *>,true>,std::allocator<std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>>>::__emplace_unique_key_args<p2t::Point *,std::piecewise_construct_t const&,std::tuple<p2t::Point * const&>,std::tuple<>>(this + 62, &v102, &std::piecewise_construct, v109)[3];
         GKCGraphNode::addConnectionToNode(v65, v67, 1);
         GKCGraphNode::addConnectionToNode(v65, v68, 1);
       }
@@ -4312,11 +4304,11 @@ LABEL_30:
           {
             v71 = *k;
             v103 = **k;
-            v109 = &v103;
-            v72 = std::__hash_table<std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::__unordered_map_hasher<p2t::Point *,std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::hash<p2t::Point *>,std::equal_to<p2t::Point *>,true>,std::__unordered_map_equal<p2t::Point *,std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::equal_to<p2t::Point *>,std::hash<p2t::Point *>,true>,std::allocator<std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>>>::__emplace_unique_key_args<p2t::Point *,std::piecewise_construct_t const&,std::tuple<p2t::Point * const&>,std::tuple<>>(this + 62, &v103)[3];
+            v109[0] = &v103;
+            v72 = std::__hash_table<std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::__unordered_map_hasher<p2t::Point *,std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::hash<p2t::Point *>,std::equal_to<p2t::Point *>,true>,std::__unordered_map_equal<p2t::Point *,std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::equal_to<p2t::Point *>,std::hash<p2t::Point *>,true>,std::allocator<std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>>>::__emplace_unique_key_args<p2t::Point *,std::piecewise_construct_t const&,std::tuple<p2t::Point * const&>,std::tuple<>>(this + 62, &v103, &std::piecewise_construct, v109)[3];
             v102 = v71[1];
-            v109 = &v102;
-            v73 = std::__hash_table<std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::__unordered_map_hasher<p2t::Point *,std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::hash<p2t::Point *>,std::equal_to<p2t::Point *>,true>,std::__unordered_map_equal<p2t::Point *,std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::equal_to<p2t::Point *>,std::hash<p2t::Point *>,true>,std::allocator<std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>>>::__emplace_unique_key_args<p2t::Point *,std::piecewise_construct_t const&,std::tuple<p2t::Point * const&>,std::tuple<>>(this + 62, &v102);
+            v109[0] = &v102;
+            v73 = std::__hash_table<std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::__unordered_map_hasher<p2t::Point *,std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::hash<p2t::Point *>,std::equal_to<p2t::Point *>,true>,std::__unordered_map_equal<p2t::Point *,std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::equal_to<p2t::Point *>,std::hash<p2t::Point *>,true>,std::allocator<std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>>>::__emplace_unique_key_args<p2t::Point *,std::piecewise_construct_t const&,std::tuple<p2t::Point * const&>,std::tuple<>>(this + 62, &v102, &std::piecewise_construct, v109);
             GKCGraphNode::addConnectionToNode(v72, v73[3], 1);
             ++k;
           }
@@ -4343,8 +4335,8 @@ LABEL_30:
     do
     {
       v103 = *v75;
-      v109 = &v103;
-      v76 = std::__hash_table<std::__hash_value_type<p2t::Triangle *,GKCGraphNode2D *>,std::__unordered_map_hasher<p2t::Triangle *,std::__hash_value_type<p2t::Triangle *,GKCGraphNode2D *>,std::hash<p2t::Triangle *>,std::equal_to<p2t::Triangle *>,true>,std::__unordered_map_equal<p2t::Triangle *,std::__hash_value_type<p2t::Triangle *,GKCGraphNode2D *>,std::equal_to<p2t::Triangle *>,std::hash<p2t::Triangle *>,true>,std::allocator<std::__hash_value_type<p2t::Triangle *,GKCGraphNode2D *>>>::__emplace_unique_key_args<p2t::Triangle *,std::piecewise_construct_t const&,std::tuple<p2t::Triangle * const&>,std::tuple<>>(this + 67, &v103)[3];
+      v109[0] = &v103;
+      v76 = std::__hash_table<std::__hash_value_type<p2t::Triangle *,GKCGraphNode2D *>,std::__unordered_map_hasher<p2t::Triangle *,std::__hash_value_type<p2t::Triangle *,GKCGraphNode2D *>,std::hash<p2t::Triangle *>,std::equal_to<p2t::Triangle *>,true>,std::__unordered_map_equal<p2t::Triangle *,std::__hash_value_type<p2t::Triangle *,GKCGraphNode2D *>,std::equal_to<p2t::Triangle *>,std::hash<p2t::Triangle *>,true>,std::allocator<std::__hash_value_type<p2t::Triangle *,GKCGraphNode2D *>>>::__emplace_unique_key_args<p2t::Triangle *,std::piecewise_construct_t const&,std::tuple<p2t::Triangle * const&>,std::tuple<>>(this + 67, &v103, &std::piecewise_construct, v109)[3];
       v77 = v103;
       v78 = *(v103 + 4);
       v102 = v78;
@@ -4364,8 +4356,8 @@ LABEL_30:
 
           if (v80 != v108)
           {
-            v109 = &v102;
-            v81 = std::__hash_table<std::__hash_value_type<p2t::Triangle *,GKCGraphNode2D *>,std::__unordered_map_hasher<p2t::Triangle *,std::__hash_value_type<p2t::Triangle *,GKCGraphNode2D *>,std::hash<p2t::Triangle *>,std::equal_to<p2t::Triangle *>,true>,std::__unordered_map_equal<p2t::Triangle *,std::__hash_value_type<p2t::Triangle *,GKCGraphNode2D *>,std::equal_to<p2t::Triangle *>,std::hash<p2t::Triangle *>,true>,std::allocator<std::__hash_value_type<p2t::Triangle *,GKCGraphNode2D *>>>::__emplace_unique_key_args<p2t::Triangle *,std::piecewise_construct_t const&,std::tuple<p2t::Triangle * const&>,std::tuple<>>(this + 67, &v102);
+            v109[0] = &v102;
+            v81 = std::__hash_table<std::__hash_value_type<p2t::Triangle *,GKCGraphNode2D *>,std::__unordered_map_hasher<p2t::Triangle *,std::__hash_value_type<p2t::Triangle *,GKCGraphNode2D *>,std::hash<p2t::Triangle *>,std::equal_to<p2t::Triangle *>,true>,std::__unordered_map_equal<p2t::Triangle *,std::__hash_value_type<p2t::Triangle *,GKCGraphNode2D *>,std::equal_to<p2t::Triangle *>,std::hash<p2t::Triangle *>,true>,std::allocator<std::__hash_value_type<p2t::Triangle *,GKCGraphNode2D *>>>::__emplace_unique_key_args<p2t::Triangle *,std::piecewise_construct_t const&,std::tuple<p2t::Triangle * const&>,std::tuple<>>(this + 67, &v102, &std::piecewise_construct, v109);
             GKCGraphNode::addConnectionToNode(v76, v81[3], 0);
             v77 = v103;
             v79 = v108;
@@ -4391,8 +4383,8 @@ LABEL_55:
 
           if (v83 != v79)
           {
-            v109 = &v102;
-            v84 = std::__hash_table<std::__hash_value_type<p2t::Triangle *,GKCGraphNode2D *>,std::__unordered_map_hasher<p2t::Triangle *,std::__hash_value_type<p2t::Triangle *,GKCGraphNode2D *>,std::hash<p2t::Triangle *>,std::equal_to<p2t::Triangle *>,true>,std::__unordered_map_equal<p2t::Triangle *,std::__hash_value_type<p2t::Triangle *,GKCGraphNode2D *>,std::equal_to<p2t::Triangle *>,std::hash<p2t::Triangle *>,true>,std::allocator<std::__hash_value_type<p2t::Triangle *,GKCGraphNode2D *>>>::__emplace_unique_key_args<p2t::Triangle *,std::piecewise_construct_t const&,std::tuple<p2t::Triangle * const&>,std::tuple<>>(this + 67, &v102);
+            v109[0] = &v102;
+            v84 = std::__hash_table<std::__hash_value_type<p2t::Triangle *,GKCGraphNode2D *>,std::__unordered_map_hasher<p2t::Triangle *,std::__hash_value_type<p2t::Triangle *,GKCGraphNode2D *>,std::hash<p2t::Triangle *>,std::equal_to<p2t::Triangle *>,true>,std::__unordered_map_equal<p2t::Triangle *,std::__hash_value_type<p2t::Triangle *,GKCGraphNode2D *>,std::equal_to<p2t::Triangle *>,std::hash<p2t::Triangle *>,true>,std::allocator<std::__hash_value_type<p2t::Triangle *,GKCGraphNode2D *>>>::__emplace_unique_key_args<p2t::Triangle *,std::piecewise_construct_t const&,std::tuple<p2t::Triangle * const&>,std::tuple<>>(this + 67, &v102, &std::piecewise_construct, v109);
             GKCGraphNode::addConnectionToNode(v76, v84[3], 0);
             v77 = v103;
             v79 = v108;
@@ -4418,8 +4410,8 @@ LABEL_62:
 
           if (v86 != v79)
           {
-            v109 = &v102;
-            v87 = std::__hash_table<std::__hash_value_type<p2t::Triangle *,GKCGraphNode2D *>,std::__unordered_map_hasher<p2t::Triangle *,std::__hash_value_type<p2t::Triangle *,GKCGraphNode2D *>,std::hash<p2t::Triangle *>,std::equal_to<p2t::Triangle *>,true>,std::__unordered_map_equal<p2t::Triangle *,std::__hash_value_type<p2t::Triangle *,GKCGraphNode2D *>,std::equal_to<p2t::Triangle *>,std::hash<p2t::Triangle *>,true>,std::allocator<std::__hash_value_type<p2t::Triangle *,GKCGraphNode2D *>>>::__emplace_unique_key_args<p2t::Triangle *,std::piecewise_construct_t const&,std::tuple<p2t::Triangle * const&>,std::tuple<>>(this + 67, &v102);
+            v109[0] = &v102;
+            v87 = std::__hash_table<std::__hash_value_type<p2t::Triangle *,GKCGraphNode2D *>,std::__unordered_map_hasher<p2t::Triangle *,std::__hash_value_type<p2t::Triangle *,GKCGraphNode2D *>,std::hash<p2t::Triangle *>,std::equal_to<p2t::Triangle *>,true>,std::__unordered_map_equal<p2t::Triangle *,std::__hash_value_type<p2t::Triangle *,GKCGraphNode2D *>,std::equal_to<p2t::Triangle *>,std::hash<p2t::Triangle *>,true>,std::allocator<std::__hash_value_type<p2t::Triangle *,GKCGraphNode2D *>>>::__emplace_unique_key_args<p2t::Triangle *,std::piecewise_construct_t const&,std::tuple<p2t::Triangle * const&>,std::tuple<>>(this + 67, &v102, &std::piecewise_construct, v109);
             GKCGraphNode::addConnectionToNode(v76, v87[3], 0);
             v79 = v108;
           }
@@ -4449,19 +4441,19 @@ LABEL_73:
       do
       {
         v103 = *v88;
-        v109 = &v103;
-        v89 = std::__hash_table<std::__hash_value_type<p2t::Triangle *,GKCGraphNode2D *>,std::__unordered_map_hasher<p2t::Triangle *,std::__hash_value_type<p2t::Triangle *,GKCGraphNode2D *>,std::hash<p2t::Triangle *>,std::equal_to<p2t::Triangle *>,true>,std::__unordered_map_equal<p2t::Triangle *,std::__hash_value_type<p2t::Triangle *,GKCGraphNode2D *>,std::equal_to<p2t::Triangle *>,std::hash<p2t::Triangle *>,true>,std::allocator<std::__hash_value_type<p2t::Triangle *,GKCGraphNode2D *>>>::__emplace_unique_key_args<p2t::Triangle *,std::piecewise_construct_t const&,std::tuple<p2t::Triangle * const&>,std::tuple<>>(this + 67, &v103)[3];
+        v109[0] = &v103;
+        v89 = std::__hash_table<std::__hash_value_type<p2t::Triangle *,GKCGraphNode2D *>,std::__unordered_map_hasher<p2t::Triangle *,std::__hash_value_type<p2t::Triangle *,GKCGraphNode2D *>,std::hash<p2t::Triangle *>,std::equal_to<p2t::Triangle *>,true>,std::__unordered_map_equal<p2t::Triangle *,std::__hash_value_type<p2t::Triangle *,GKCGraphNode2D *>,std::equal_to<p2t::Triangle *>,std::hash<p2t::Triangle *>,true>,std::allocator<std::__hash_value_type<p2t::Triangle *,GKCGraphNode2D *>>>::__emplace_unique_key_args<p2t::Triangle *,std::piecewise_construct_t const&,std::tuple<p2t::Triangle * const&>,std::tuple<>>(this + 67, &v103, &std::piecewise_construct, v109)[3];
         v102 = *(v103 + 1);
-        v109 = &v102;
-        v90 = std::__hash_table<std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::__unordered_map_hasher<p2t::Point *,std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::hash<p2t::Point *>,std::equal_to<p2t::Point *>,true>,std::__unordered_map_equal<p2t::Point *,std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::equal_to<p2t::Point *>,std::hash<p2t::Point *>,true>,std::allocator<std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>>>::__emplace_unique_key_args<p2t::Point *,std::piecewise_construct_t const&,std::tuple<p2t::Point * const&>,std::tuple<>>(this + 62, &v102);
+        v109[0] = &v102;
+        v90 = std::__hash_table<std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::__unordered_map_hasher<p2t::Point *,std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::hash<p2t::Point *>,std::equal_to<p2t::Point *>,true>,std::__unordered_map_equal<p2t::Point *,std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::equal_to<p2t::Point *>,std::hash<p2t::Point *>,true>,std::allocator<std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>>>::__emplace_unique_key_args<p2t::Point *,std::piecewise_construct_t const&,std::tuple<p2t::Point * const&>,std::tuple<>>(this + 62, &v102, &std::piecewise_construct, v109);
         GKCGraphNode::addConnectionToNode(v90[3], v89, 1);
         v102 = *(v103 + 2);
-        v109 = &v102;
-        v91 = std::__hash_table<std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::__unordered_map_hasher<p2t::Point *,std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::hash<p2t::Point *>,std::equal_to<p2t::Point *>,true>,std::__unordered_map_equal<p2t::Point *,std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::equal_to<p2t::Point *>,std::hash<p2t::Point *>,true>,std::allocator<std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>>>::__emplace_unique_key_args<p2t::Point *,std::piecewise_construct_t const&,std::tuple<p2t::Point * const&>,std::tuple<>>(this + 62, &v102);
+        v109[0] = &v102;
+        v91 = std::__hash_table<std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::__unordered_map_hasher<p2t::Point *,std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::hash<p2t::Point *>,std::equal_to<p2t::Point *>,true>,std::__unordered_map_equal<p2t::Point *,std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::equal_to<p2t::Point *>,std::hash<p2t::Point *>,true>,std::allocator<std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>>>::__emplace_unique_key_args<p2t::Point *,std::piecewise_construct_t const&,std::tuple<p2t::Point * const&>,std::tuple<>>(this + 62, &v102, &std::piecewise_construct, v109);
         GKCGraphNode::addConnectionToNode(v91[3], v89, 1);
         v102 = *(v103 + 3);
-        v109 = &v102;
-        v92 = std::__hash_table<std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::__unordered_map_hasher<p2t::Point *,std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::hash<p2t::Point *>,std::equal_to<p2t::Point *>,true>,std::__unordered_map_equal<p2t::Point *,std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::equal_to<p2t::Point *>,std::hash<p2t::Point *>,true>,std::allocator<std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>>>::__emplace_unique_key_args<p2t::Point *,std::piecewise_construct_t const&,std::tuple<p2t::Point * const&>,std::tuple<>>(this + 62, &v102);
+        v109[0] = &v102;
+        v92 = std::__hash_table<std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::__unordered_map_hasher<p2t::Point *,std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::hash<p2t::Point *>,std::equal_to<p2t::Point *>,true>,std::__unordered_map_equal<p2t::Point *,std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::equal_to<p2t::Point *>,std::hash<p2t::Point *>,true>,std::allocator<std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>>>::__emplace_unique_key_args<p2t::Point *,std::piecewise_construct_t const&,std::tuple<p2t::Point * const&>,std::tuple<>>(this + 62, &v102, &std::piecewise_construct, v109);
         GKCGraphNode::addConnectionToNode(v92[3], v89, 1);
         ++v88;
       }
@@ -4578,7 +4570,7 @@ LABEL_4:
 
 uint64_t GKCMeshGraph::TriangleAtIndex(p2t::CDT **this, int a2)
 {
-  p2t::CDT::GetTriangles(this[43], __p);
+  p2t::CDT::GetTriangles(__p, this[43]);
   v3 = *(__p[0] + a2);
   __p[1] = __p[0];
   operator delete(__p[0]);
@@ -4587,7 +4579,7 @@ uint64_t GKCMeshGraph::TriangleAtIndex(p2t::CDT **this, int a2)
 
 unint64_t GKCMeshGraph::GetNumTriangles(p2t::CDT **this)
 {
-  p2t::CDT::GetTriangles(this[43], &v4);
+  p2t::CDT::GetTriangles(&v4, this[43]);
   v1 = v4;
   v2 = v5;
   if (v4)
@@ -4602,7 +4594,7 @@ unint64_t GKCMeshGraph::GetNumTriangles(p2t::CDT **this)
 void GKCMeshGraph::ConnectNodeUsingObstacles(p2t::CDT **this, float32x2_t *a2)
 {
   v25 = 0;
-  p2t::CDT::GetTriangles(this[43], &__p);
+  p2t::CDT::GetTriangles(&__p, this[43]);
   v4 = __p;
   if (__p == v24)
   {
@@ -4644,15 +4636,15 @@ LABEL_15:
   {
     v22 = v6[1];
     v26 = &v22;
-    v18 = std::__hash_table<std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::__unordered_map_hasher<p2t::Point *,std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::hash<p2t::Point *>,std::equal_to<p2t::Point *>,true>,std::__unordered_map_equal<p2t::Point *,std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::equal_to<p2t::Point *>,std::hash<p2t::Point *>,true>,std::allocator<std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>>>::__emplace_unique_key_args<p2t::Point *,std::piecewise_construct_t const&,std::tuple<p2t::Point * const&>,std::tuple<>>(this + 62, &v22);
+    v18 = std::__hash_table<std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::__unordered_map_hasher<p2t::Point *,std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::hash<p2t::Point *>,std::equal_to<p2t::Point *>,true>,std::__unordered_map_equal<p2t::Point *,std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::equal_to<p2t::Point *>,std::hash<p2t::Point *>,true>,std::allocator<std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>>>::__emplace_unique_key_args<p2t::Point *,std::piecewise_construct_t const&,std::tuple<p2t::Point * const&>,std::tuple<>>(this + 62, &v22, &std::piecewise_construct, &v26);
     GKCGraphNode::addConnectionToNode(a2, v18[3], 1);
     v22 = v6[2];
     v26 = &v22;
-    v19 = std::__hash_table<std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::__unordered_map_hasher<p2t::Point *,std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::hash<p2t::Point *>,std::equal_to<p2t::Point *>,true>,std::__unordered_map_equal<p2t::Point *,std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::equal_to<p2t::Point *>,std::hash<p2t::Point *>,true>,std::allocator<std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>>>::__emplace_unique_key_args<p2t::Point *,std::piecewise_construct_t const&,std::tuple<p2t::Point * const&>,std::tuple<>>(this + 62, &v22);
+    v19 = std::__hash_table<std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::__unordered_map_hasher<p2t::Point *,std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::hash<p2t::Point *>,std::equal_to<p2t::Point *>,true>,std::__unordered_map_equal<p2t::Point *,std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::equal_to<p2t::Point *>,std::hash<p2t::Point *>,true>,std::allocator<std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>>>::__emplace_unique_key_args<p2t::Point *,std::piecewise_construct_t const&,std::tuple<p2t::Point * const&>,std::tuple<>>(this + 62, &v22, &std::piecewise_construct, &v26);
     GKCGraphNode::addConnectionToNode(a2, v19[3], 1);
     v22 = v6[3];
     v26 = &v22;
-    v20 = std::__hash_table<std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::__unordered_map_hasher<p2t::Point *,std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::hash<p2t::Point *>,std::equal_to<p2t::Point *>,true>,std::__unordered_map_equal<p2t::Point *,std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::equal_to<p2t::Point *>,std::hash<p2t::Point *>,true>,std::allocator<std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>>>::__emplace_unique_key_args<p2t::Point *,std::piecewise_construct_t const&,std::tuple<p2t::Point * const&>,std::tuple<>>(this + 62, &v22);
+    v20 = std::__hash_table<std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::__unordered_map_hasher<p2t::Point *,std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::hash<p2t::Point *>,std::equal_to<p2t::Point *>,true>,std::__unordered_map_equal<p2t::Point *,std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::equal_to<p2t::Point *>,std::hash<p2t::Point *>,true>,std::allocator<std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>>>::__emplace_unique_key_args<p2t::Point *,std::piecewise_construct_t const&,std::tuple<p2t::Point * const&>,std::tuple<>>(this + 62, &v22, &std::piecewise_construct, &v26);
     GKCGraphNode::addConnectionToNode(a2, v20[3], 1);
   }
 
@@ -4664,7 +4656,7 @@ LABEL_15:
   if (*(this + 657) == 1)
   {
     v26 = &v25;
-    v21 = std::__hash_table<std::__hash_value_type<p2t::Triangle *,GKCGraphNode2D *>,std::__unordered_map_hasher<p2t::Triangle *,std::__hash_value_type<p2t::Triangle *,GKCGraphNode2D *>,std::hash<p2t::Triangle *>,std::equal_to<p2t::Triangle *>,true>,std::__unordered_map_equal<p2t::Triangle *,std::__hash_value_type<p2t::Triangle *,GKCGraphNode2D *>,std::equal_to<p2t::Triangle *>,std::hash<p2t::Triangle *>,true>,std::allocator<std::__hash_value_type<p2t::Triangle *,GKCGraphNode2D *>>>::__emplace_unique_key_args<p2t::Triangle *,std::piecewise_construct_t const&,std::tuple<p2t::Triangle * const&>,std::tuple<>>(this + 67, &v25);
+    v21 = std::__hash_table<std::__hash_value_type<p2t::Triangle *,GKCGraphNode2D *>,std::__unordered_map_hasher<p2t::Triangle *,std::__hash_value_type<p2t::Triangle *,GKCGraphNode2D *>,std::hash<p2t::Triangle *>,std::equal_to<p2t::Triangle *>,true>,std::__unordered_map_equal<p2t::Triangle *,std::__hash_value_type<p2t::Triangle *,GKCGraphNode2D *>,std::equal_to<p2t::Triangle *>,std::hash<p2t::Triangle *>,true>,std::allocator<std::__hash_value_type<p2t::Triangle *,GKCGraphNode2D *>>>::__emplace_unique_key_args<p2t::Triangle *,std::piecewise_construct_t const&,std::tuple<p2t::Triangle * const&>,std::tuple<>>(this + 67, &v25, &std::piecewise_construct, &v26);
     GKCGraphNode::addConnectionToNode(a2, v21[3], 1);
   }
 
@@ -4687,7 +4679,7 @@ void sub_2389B0BCC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void **std::vector<std::vector<ClipperLib::IntPoint>>::~vector[abi:ne200100](void **a1)
+char **std::vector<std::vector<ClipperLib::IntPoint>>::~vector[abi:ne200100](char **a1)
 {
   v2 = *a1;
   if (*a1)
@@ -4733,61 +4725,61 @@ void std::__tree<std::__value_type<p2t::Triangle *,GKTriangleGraphNodes>,std::__
   }
 }
 
-void *std::__hash_table<std::__hash_value_type<p2t::Point *,std::unordered_map<p2t::Point *,BOOL>>,std::__unordered_map_hasher<p2t::Point *,std::__hash_value_type<p2t::Point *,std::unordered_map<p2t::Point *,BOOL>>,std::hash<p2t::Point *>,std::equal_to<p2t::Point *>,true>,std::__unordered_map_equal<p2t::Point *,std::__hash_value_type<p2t::Point *,std::unordered_map<p2t::Point *,BOOL>>,std::equal_to<p2t::Point *>,std::hash<p2t::Point *>,true>,std::allocator<std::__hash_value_type<p2t::Point *,std::unordered_map<p2t::Point *,BOOL>>>>::__emplace_unique_key_args<p2t::Point *,std::piecewise_construct_t const&,std::tuple<p2t::Point * const&>,std::tuple<>>(void *a1, uint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<p2t::Point *,std::unordered_map<p2t::Point *,BOOL>>,std::__unordered_map_hasher<p2t::Point *,std::__hash_value_type<p2t::Point *,std::unordered_map<p2t::Point *,BOOL>>,std::hash<p2t::Point *>,std::equal_to<p2t::Point *>,true>,std::__unordered_map_equal<p2t::Point *,std::__hash_value_type<p2t::Point *,std::unordered_map<p2t::Point *,BOOL>>,std::equal_to<p2t::Point *>,std::hash<p2t::Point *>,true>,std::allocator<std::__hash_value_type<p2t::Point *,std::unordered_map<p2t::Point *,BOOL>>>>::__emplace_unique_key_args<p2t::Point *,std::piecewise_construct_t const&,std::tuple<p2t::Point * const&>,std::tuple<>>(float *a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *a2;
-  v3 = HIDWORD(*a2);
-  v4 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFF) + 8) ^ v3);
-  v5 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (v3 ^ (v4 >> 47) ^ v4)) ^ ((0x9DDFEA08EB382D69 * (v3 ^ (v4 >> 47) ^ v4)) >> 47));
-  v6 = a1[1];
-  if (!*&v6)
+  v4 = *a2;
+  v5 = HIDWORD(*a2);
+  v6 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFF) + 8) ^ v5);
+  v7 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (v5 ^ (v6 >> 47) ^ v6)) ^ ((0x9DDFEA08EB382D69 * (v5 ^ (v6 >> 47) ^ v6)) >> 47));
+  v8 = *(a1 + 2);
+  if (!*&v8)
   {
     goto LABEL_23;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  if (v7.u32[0] > 1uLL)
+  v9 = vcnt_s8(v8);
+  v9.i16[0] = vaddlv_u8(v9);
+  if (v9.u32[0] > 1uLL)
   {
-    v8 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (v3 ^ (v4 >> 47) ^ v4)) ^ ((0x9DDFEA08EB382D69 * (v3 ^ (v4 >> 47) ^ v4)) >> 47));
-    if (v5 >= *&v6)
+    v10 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (v5 ^ (v6 >> 47) ^ v6)) ^ ((0x9DDFEA08EB382D69 * (v5 ^ (v6 >> 47) ^ v6)) >> 47));
+    if (v7 >= *&v8)
     {
-      v8 = v5 % *&v6;
+      v10 = v7 % *&v8;
     }
   }
 
   else
   {
-    v8 = v5 & (*&v6 - 1);
+    v10 = v7 & (*&v8 - 1);
   }
 
-  v9 = *(*a1 + 8 * v8);
-  if (!v9 || (v10 = *v9) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_23:
     operator new();
   }
 
-  if (v7.u32[0] < 2uLL)
+  if (v9.u32[0] < 2uLL)
   {
     while (1)
     {
-      v12 = v10[1];
-      if (v12 == v5)
+      v14 = v12[1];
+      if (v14 == v7)
       {
-        if (v10[2] == v2)
+        if (v12[2] == v4)
         {
-          return v10;
+          return v12;
         }
       }
 
-      else if ((v12 & (*&v6 - 1)) != v8)
+      else if ((v14 & (*&v8 - 1)) != v10)
       {
         goto LABEL_23;
       }
 
-      v10 = *v10;
-      if (!v10)
+      v12 = *v12;
+      if (!v12)
       {
         goto LABEL_23;
       }
@@ -4796,41 +4788,41 @@ LABEL_23:
 
   while (1)
   {
-    v11 = v10[1];
-    if (v11 == v5)
+    v13 = v12[1];
+    if (v13 == v7)
     {
       break;
     }
 
-    if (v11 >= *&v6)
+    if (v13 >= *&v8)
     {
-      v11 %= *&v6;
+      v13 %= *&v8;
     }
 
-    if (v11 != v8)
+    if (v13 != v10)
     {
       goto LABEL_23;
     }
 
 LABEL_12:
-    v10 = *v10;
-    if (!v10)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_23;
     }
   }
 
-  if (v10[2] != v2)
+  if (v12[2] != v4)
   {
     goto LABEL_12;
   }
 
-  return v10;
+  return v12;
 }
 
-void sub_2389B1080(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2389B1080(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<p2t::Point *,std::unordered_map<p2t::Point *,BOOL>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<p2t::Point *,std::unordered_map<p2t::Point *,BOOL>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -4894,61 +4886,61 @@ void std::__hash_table<std::__hash_value_type<p2t::Point *,std::unordered_map<p2
   *(a1 + 8) = 0;
 }
 
-void *std::__hash_table<std::__hash_value_type<p2t::Point *,BOOL>,std::__unordered_map_hasher<p2t::Point *,std::__hash_value_type<p2t::Point *,BOOL>,std::hash<p2t::Point *>,std::equal_to<p2t::Point *>,true>,std::__unordered_map_equal<p2t::Point *,std::__hash_value_type<p2t::Point *,BOOL>,std::equal_to<p2t::Point *>,std::hash<p2t::Point *>,true>,std::allocator<std::__hash_value_type<p2t::Point *,BOOL>>>::__emplace_unique_key_args<p2t::Point *,std::piecewise_construct_t const&,std::tuple<p2t::Point * const&>,std::tuple<>>(void *a1, uint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<p2t::Point *,BOOL>,std::__unordered_map_hasher<p2t::Point *,std::__hash_value_type<p2t::Point *,BOOL>,std::hash<p2t::Point *>,std::equal_to<p2t::Point *>,true>,std::__unordered_map_equal<p2t::Point *,std::__hash_value_type<p2t::Point *,BOOL>,std::equal_to<p2t::Point *>,std::hash<p2t::Point *>,true>,std::allocator<std::__hash_value_type<p2t::Point *,BOOL>>>::__emplace_unique_key_args<p2t::Point *,std::piecewise_construct_t const&,std::tuple<p2t::Point * const&>,std::tuple<>>(void *a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *a2;
-  v3 = HIDWORD(*a2);
-  v4 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFF) + 8) ^ v3);
-  v5 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (v3 ^ (v4 >> 47) ^ v4)) ^ ((0x9DDFEA08EB382D69 * (v3 ^ (v4 >> 47) ^ v4)) >> 47));
-  v6 = a1[1];
-  if (!*&v6)
+  v4 = *a2;
+  v5 = HIDWORD(*a2);
+  v6 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFF) + 8) ^ v5);
+  v7 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (v5 ^ (v6 >> 47) ^ v6)) ^ ((0x9DDFEA08EB382D69 * (v5 ^ (v6 >> 47) ^ v6)) >> 47));
+  v8 = a1[1];
+  if (!*&v8)
   {
     goto LABEL_23;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  if (v7.u32[0] > 1uLL)
+  v9 = vcnt_s8(v8);
+  v9.i16[0] = vaddlv_u8(v9);
+  if (v9.u32[0] > 1uLL)
   {
-    v8 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (v3 ^ (v4 >> 47) ^ v4)) ^ ((0x9DDFEA08EB382D69 * (v3 ^ (v4 >> 47) ^ v4)) >> 47));
-    if (v5 >= *&v6)
+    v10 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (v5 ^ (v6 >> 47) ^ v6)) ^ ((0x9DDFEA08EB382D69 * (v5 ^ (v6 >> 47) ^ v6)) >> 47));
+    if (v7 >= *&v8)
     {
-      v8 = v5 % *&v6;
+      v10 = v7 % *&v8;
     }
   }
 
   else
   {
-    v8 = v5 & (*&v6 - 1);
+    v10 = v7 & (*&v8 - 1);
   }
 
-  v9 = *(*a1 + 8 * v8);
-  if (!v9 || (v10 = *v9) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_23:
     operator new();
   }
 
-  if (v7.u32[0] < 2uLL)
+  if (v9.u32[0] < 2uLL)
   {
     while (1)
     {
-      v12 = v10[1];
-      if (v12 == v5)
+      v14 = v12[1];
+      if (v14 == v7)
       {
-        if (v10[2] == v2)
+        if (v12[2] == v4)
         {
-          return v10;
+          return v12;
         }
       }
 
-      else if ((v12 & (*&v6 - 1)) != v8)
+      else if ((v14 & (*&v8 - 1)) != v10)
       {
         goto LABEL_23;
       }
 
-      v10 = *v10;
-      if (!v10)
+      v12 = *v12;
+      if (!v12)
       {
         goto LABEL_23;
       }
@@ -4957,93 +4949,93 @@ LABEL_23:
 
   while (1)
   {
-    v11 = v10[1];
-    if (v11 == v5)
+    v13 = v12[1];
+    if (v13 == v7)
     {
       break;
     }
 
-    if (v11 >= *&v6)
+    if (v13 >= *&v8)
     {
-      v11 %= *&v6;
+      v13 %= *&v8;
     }
 
-    if (v11 != v8)
+    if (v13 != v10)
     {
       goto LABEL_23;
     }
 
 LABEL_12:
-    v10 = *v10;
-    if (!v10)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_23;
     }
   }
 
-  if (v10[2] != v2)
+  if (v12[2] != v4)
   {
     goto LABEL_12;
   }
 
-  return v10;
+  return v12;
 }
 
-void *std::__hash_table<std::__hash_value_type<p2t::Point *,std::vector<p2t::Edge *>>,std::__unordered_map_hasher<p2t::Point *,std::__hash_value_type<p2t::Point *,std::vector<p2t::Edge *>>,std::hash<p2t::Point *>,std::equal_to<p2t::Point *>,true>,std::__unordered_map_equal<p2t::Point *,std::__hash_value_type<p2t::Point *,std::vector<p2t::Edge *>>,std::equal_to<p2t::Point *>,std::hash<p2t::Point *>,true>,std::allocator<std::__hash_value_type<p2t::Point *,std::vector<p2t::Edge *>>>>::__emplace_unique_key_args<p2t::Point *,std::piecewise_construct_t const&,std::tuple<p2t::Point * const&>,std::tuple<>>(void *a1, uint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<p2t::Point *,std::vector<p2t::Edge *>>,std::__unordered_map_hasher<p2t::Point *,std::__hash_value_type<p2t::Point *,std::vector<p2t::Edge *>>,std::hash<p2t::Point *>,std::equal_to<p2t::Point *>,true>,std::__unordered_map_equal<p2t::Point *,std::__hash_value_type<p2t::Point *,std::vector<p2t::Edge *>>,std::equal_to<p2t::Point *>,std::hash<p2t::Point *>,true>,std::allocator<std::__hash_value_type<p2t::Point *,std::vector<p2t::Edge *>>>>::__emplace_unique_key_args<p2t::Point *,std::piecewise_construct_t const&,std::tuple<p2t::Point * const&>,std::tuple<>>(void *a1, unint64_t *a2, uint64_t a3, uint64_t **a4)
 {
-  v2 = *a2;
-  v3 = HIDWORD(*a2);
-  v4 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFF) + 8) ^ v3);
-  v5 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (v3 ^ (v4 >> 47) ^ v4)) ^ ((0x9DDFEA08EB382D69 * (v3 ^ (v4 >> 47) ^ v4)) >> 47));
-  v6 = a1[1];
-  if (!*&v6)
+  v4 = *a2;
+  v5 = HIDWORD(*a2);
+  v6 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFF) + 8) ^ v5);
+  v7 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (v5 ^ (v6 >> 47) ^ v6)) ^ ((0x9DDFEA08EB382D69 * (v5 ^ (v6 >> 47) ^ v6)) >> 47));
+  v8 = a1[1];
+  if (!*&v8)
   {
     goto LABEL_23;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  if (v7.u32[0] > 1uLL)
+  v9 = vcnt_s8(v8);
+  v9.i16[0] = vaddlv_u8(v9);
+  if (v9.u32[0] > 1uLL)
   {
-    v8 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (v3 ^ (v4 >> 47) ^ v4)) ^ ((0x9DDFEA08EB382D69 * (v3 ^ (v4 >> 47) ^ v4)) >> 47));
-    if (v5 >= *&v6)
+    v10 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (v5 ^ (v6 >> 47) ^ v6)) ^ ((0x9DDFEA08EB382D69 * (v5 ^ (v6 >> 47) ^ v6)) >> 47));
+    if (v7 >= *&v8)
     {
-      v8 = v5 % *&v6;
+      v10 = v7 % *&v8;
     }
   }
 
   else
   {
-    v8 = v5 & (*&v6 - 1);
+    v10 = v7 & (*&v8 - 1);
   }
 
-  v9 = *(*a1 + 8 * v8);
-  if (!v9 || (v10 = *v9) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_23:
     operator new();
   }
 
-  if (v7.u32[0] < 2uLL)
+  if (v9.u32[0] < 2uLL)
   {
     while (1)
     {
-      v12 = v10[1];
-      if (v12 == v5)
+      v14 = v12[1];
+      if (v14 == v7)
       {
-        if (v10[2] == v2)
+        if (v12[2] == v4)
         {
-          return v10;
+          return v12;
         }
       }
 
-      else if ((v12 & (*&v6 - 1)) != v8)
+      else if ((v14 & (*&v8 - 1)) != v10)
       {
         goto LABEL_23;
       }
 
-      v10 = *v10;
-      if (!v10)
+      v12 = *v12;
+      if (!v12)
       {
         goto LABEL_23;
       }
@@ -5052,41 +5044,41 @@ LABEL_23:
 
   while (1)
   {
-    v11 = v10[1];
-    if (v11 == v5)
+    v13 = v12[1];
+    if (v13 == v7)
     {
       break;
     }
 
-    if (v11 >= *&v6)
+    if (v13 >= *&v8)
     {
-      v11 %= *&v6;
+      v13 %= *&v8;
     }
 
-    if (v11 != v8)
+    if (v13 != v10)
     {
       goto LABEL_23;
     }
 
 LABEL_12:
-    v10 = *v10;
-    if (!v10)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_23;
     }
   }
 
-  if (v10[2] != v2)
+  if (v12[2] != v4)
   {
     goto LABEL_12;
   }
 
-  return v10;
+  return v12;
 }
 
-void sub_2389B1970(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2389B1970(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<p2t::Point *,std::vector<p2t::Edge *>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<p2t::Point *,std::vector<p2t::Edge *>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -5118,61 +5110,61 @@ void **std::unique_ptr<std::__hash_node<std::__hash_value_type<p2t::Point *,std:
   return v1;
 }
 
-void *std::__hash_table<std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::__unordered_map_hasher<p2t::Point *,std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::hash<p2t::Point *>,std::equal_to<p2t::Point *>,true>,std::__unordered_map_equal<p2t::Point *,std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::equal_to<p2t::Point *>,std::hash<p2t::Point *>,true>,std::allocator<std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>>>::__emplace_unique_key_args<p2t::Point *,std::piecewise_construct_t const&,std::tuple<p2t::Point * const&>,std::tuple<>>(void *a1, uint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::__unordered_map_hasher<p2t::Point *,std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::hash<p2t::Point *>,std::equal_to<p2t::Point *>,true>,std::__unordered_map_equal<p2t::Point *,std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>,std::equal_to<p2t::Point *>,std::hash<p2t::Point *>,true>,std::allocator<std::__hash_value_type<p2t::Point *,GKCGraphNode2D *>>>::__emplace_unique_key_args<p2t::Point *,std::piecewise_construct_t const&,std::tuple<p2t::Point * const&>,std::tuple<>>(void *a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *a2;
-  v3 = HIDWORD(*a2);
-  v4 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFF) + 8) ^ v3);
-  v5 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (v3 ^ (v4 >> 47) ^ v4)) ^ ((0x9DDFEA08EB382D69 * (v3 ^ (v4 >> 47) ^ v4)) >> 47));
-  v6 = a1[1];
-  if (!*&v6)
+  v4 = *a2;
+  v5 = HIDWORD(*a2);
+  v6 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFF) + 8) ^ v5);
+  v7 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (v5 ^ (v6 >> 47) ^ v6)) ^ ((0x9DDFEA08EB382D69 * (v5 ^ (v6 >> 47) ^ v6)) >> 47));
+  v8 = a1[1];
+  if (!*&v8)
   {
     goto LABEL_23;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  if (v7.u32[0] > 1uLL)
+  v9 = vcnt_s8(v8);
+  v9.i16[0] = vaddlv_u8(v9);
+  if (v9.u32[0] > 1uLL)
   {
-    v8 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (v3 ^ (v4 >> 47) ^ v4)) ^ ((0x9DDFEA08EB382D69 * (v3 ^ (v4 >> 47) ^ v4)) >> 47));
-    if (v5 >= *&v6)
+    v10 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (v5 ^ (v6 >> 47) ^ v6)) ^ ((0x9DDFEA08EB382D69 * (v5 ^ (v6 >> 47) ^ v6)) >> 47));
+    if (v7 >= *&v8)
     {
-      v8 = v5 % *&v6;
+      v10 = v7 % *&v8;
     }
   }
 
   else
   {
-    v8 = v5 & (*&v6 - 1);
+    v10 = v7 & (*&v8 - 1);
   }
 
-  v9 = *(*a1 + 8 * v8);
-  if (!v9 || (v10 = *v9) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_23:
     operator new();
   }
 
-  if (v7.u32[0] < 2uLL)
+  if (v9.u32[0] < 2uLL)
   {
     while (1)
     {
-      v12 = v10[1];
-      if (v12 == v5)
+      v14 = v12[1];
+      if (v14 == v7)
       {
-        if (v10[2] == v2)
+        if (v12[2] == v4)
         {
-          return v10;
+          return v12;
         }
       }
 
-      else if ((v12 & (*&v6 - 1)) != v8)
+      else if ((v14 & (*&v8 - 1)) != v10)
       {
         goto LABEL_23;
       }
 
-      v10 = *v10;
-      if (!v10)
+      v12 = *v12;
+      if (!v12)
       {
         goto LABEL_23;
       }
@@ -5181,93 +5173,93 @@ LABEL_23:
 
   while (1)
   {
-    v11 = v10[1];
-    if (v11 == v5)
+    v13 = v12[1];
+    if (v13 == v7)
     {
       break;
     }
 
-    if (v11 >= *&v6)
+    if (v13 >= *&v8)
     {
-      v11 %= *&v6;
+      v13 %= *&v8;
     }
 
-    if (v11 != v8)
+    if (v13 != v10)
     {
       goto LABEL_23;
     }
 
 LABEL_12:
-    v10 = *v10;
-    if (!v10)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_23;
     }
   }
 
-  if (v10[2] != v2)
+  if (v12[2] != v4)
   {
     goto LABEL_12;
   }
 
-  return v10;
+  return v12;
 }
 
-void *std::__hash_table<std::__hash_value_type<p2t::Triangle *,GKCGraphNode2D *>,std::__unordered_map_hasher<p2t::Triangle *,std::__hash_value_type<p2t::Triangle *,GKCGraphNode2D *>,std::hash<p2t::Triangle *>,std::equal_to<p2t::Triangle *>,true>,std::__unordered_map_equal<p2t::Triangle *,std::__hash_value_type<p2t::Triangle *,GKCGraphNode2D *>,std::equal_to<p2t::Triangle *>,std::hash<p2t::Triangle *>,true>,std::allocator<std::__hash_value_type<p2t::Triangle *,GKCGraphNode2D *>>>::__emplace_unique_key_args<p2t::Triangle *,std::piecewise_construct_t const&,std::tuple<p2t::Triangle * const&>,std::tuple<>>(void *a1, uint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<p2t::Triangle *,GKCGraphNode2D *>,std::__unordered_map_hasher<p2t::Triangle *,std::__hash_value_type<p2t::Triangle *,GKCGraphNode2D *>,std::hash<p2t::Triangle *>,std::equal_to<p2t::Triangle *>,true>,std::__unordered_map_equal<p2t::Triangle *,std::__hash_value_type<p2t::Triangle *,GKCGraphNode2D *>,std::equal_to<p2t::Triangle *>,std::hash<p2t::Triangle *>,true>,std::allocator<std::__hash_value_type<p2t::Triangle *,GKCGraphNode2D *>>>::__emplace_unique_key_args<p2t::Triangle *,std::piecewise_construct_t const&,std::tuple<p2t::Triangle * const&>,std::tuple<>>(void *a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *a2;
-  v3 = HIDWORD(*a2);
-  v4 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFF) + 8) ^ v3);
-  v5 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (v3 ^ (v4 >> 47) ^ v4)) ^ ((0x9DDFEA08EB382D69 * (v3 ^ (v4 >> 47) ^ v4)) >> 47));
-  v6 = a1[1];
-  if (!*&v6)
+  v4 = *a2;
+  v5 = HIDWORD(*a2);
+  v6 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFF) + 8) ^ v5);
+  v7 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (v5 ^ (v6 >> 47) ^ v6)) ^ ((0x9DDFEA08EB382D69 * (v5 ^ (v6 >> 47) ^ v6)) >> 47));
+  v8 = a1[1];
+  if (!*&v8)
   {
     goto LABEL_23;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  if (v7.u32[0] > 1uLL)
+  v9 = vcnt_s8(v8);
+  v9.i16[0] = vaddlv_u8(v9);
+  if (v9.u32[0] > 1uLL)
   {
-    v8 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (v3 ^ (v4 >> 47) ^ v4)) ^ ((0x9DDFEA08EB382D69 * (v3 ^ (v4 >> 47) ^ v4)) >> 47));
-    if (v5 >= *&v6)
+    v10 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (v5 ^ (v6 >> 47) ^ v6)) ^ ((0x9DDFEA08EB382D69 * (v5 ^ (v6 >> 47) ^ v6)) >> 47));
+    if (v7 >= *&v8)
     {
-      v8 = v5 % *&v6;
+      v10 = v7 % *&v8;
     }
   }
 
   else
   {
-    v8 = v5 & (*&v6 - 1);
+    v10 = v7 & (*&v8 - 1);
   }
 
-  v9 = *(*a1 + 8 * v8);
-  if (!v9 || (v10 = *v9) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_23:
     operator new();
   }
 
-  if (v7.u32[0] < 2uLL)
+  if (v9.u32[0] < 2uLL)
   {
     while (1)
     {
-      v12 = v10[1];
-      if (v12 == v5)
+      v14 = v12[1];
+      if (v14 == v7)
       {
-        if (v10[2] == v2)
+        if (v12[2] == v4)
         {
-          return v10;
+          return v12;
         }
       }
 
-      else if ((v12 & (*&v6 - 1)) != v8)
+      else if ((v14 & (*&v8 - 1)) != v10)
       {
         goto LABEL_23;
       }
 
-      v10 = *v10;
-      if (!v10)
+      v12 = *v12;
+      if (!v12)
       {
         goto LABEL_23;
       }
@@ -5276,93 +5268,93 @@ LABEL_23:
 
   while (1)
   {
-    v11 = v10[1];
-    if (v11 == v5)
+    v13 = v12[1];
+    if (v13 == v7)
     {
       break;
     }
 
-    if (v11 >= *&v6)
+    if (v13 >= *&v8)
     {
-      v11 %= *&v6;
+      v13 %= *&v8;
     }
 
-    if (v11 != v8)
+    if (v13 != v10)
     {
       goto LABEL_23;
     }
 
 LABEL_12:
-    v10 = *v10;
-    if (!v10)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_23;
     }
   }
 
-  if (v10[2] != v2)
+  if (v12[2] != v4)
   {
     goto LABEL_12;
   }
 
-  return v10;
+  return v12;
 }
 
-void *std::__hash_table<std::__hash_value_type<p2t::Edge *,GKCGraphNode2D *>,std::__unordered_map_hasher<p2t::Edge *,std::__hash_value_type<p2t::Edge *,GKCGraphNode2D *>,std::hash<p2t::Edge *>,std::equal_to<p2t::Edge *>,true>,std::__unordered_map_equal<p2t::Edge *,std::__hash_value_type<p2t::Edge *,GKCGraphNode2D *>,std::equal_to<p2t::Edge *>,std::hash<p2t::Edge *>,true>,std::allocator<std::__hash_value_type<p2t::Edge *,GKCGraphNode2D *>>>::__emplace_unique_key_args<p2t::Edge *,std::piecewise_construct_t const&,std::tuple<p2t::Edge * const&>,std::tuple<>>(void *a1, uint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<p2t::Edge *,GKCGraphNode2D *>,std::__unordered_map_hasher<p2t::Edge *,std::__hash_value_type<p2t::Edge *,GKCGraphNode2D *>,std::hash<p2t::Edge *>,std::equal_to<p2t::Edge *>,true>,std::__unordered_map_equal<p2t::Edge *,std::__hash_value_type<p2t::Edge *,GKCGraphNode2D *>,std::equal_to<p2t::Edge *>,std::hash<p2t::Edge *>,true>,std::allocator<std::__hash_value_type<p2t::Edge *,GKCGraphNode2D *>>>::__emplace_unique_key_args<p2t::Edge *,std::piecewise_construct_t const&,std::tuple<p2t::Edge * const&>,std::tuple<>>(void *a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *a2;
-  v3 = HIDWORD(*a2);
-  v4 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFF) + 8) ^ v3);
-  v5 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (v3 ^ (v4 >> 47) ^ v4)) ^ ((0x9DDFEA08EB382D69 * (v3 ^ (v4 >> 47) ^ v4)) >> 47));
-  v6 = a1[1];
-  if (!*&v6)
+  v4 = *a2;
+  v5 = HIDWORD(*a2);
+  v6 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFF) + 8) ^ v5);
+  v7 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (v5 ^ (v6 >> 47) ^ v6)) ^ ((0x9DDFEA08EB382D69 * (v5 ^ (v6 >> 47) ^ v6)) >> 47));
+  v8 = a1[1];
+  if (!*&v8)
   {
     goto LABEL_23;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  if (v7.u32[0] > 1uLL)
+  v9 = vcnt_s8(v8);
+  v9.i16[0] = vaddlv_u8(v9);
+  if (v9.u32[0] > 1uLL)
   {
-    v8 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (v3 ^ (v4 >> 47) ^ v4)) ^ ((0x9DDFEA08EB382D69 * (v3 ^ (v4 >> 47) ^ v4)) >> 47));
-    if (v5 >= *&v6)
+    v10 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (v5 ^ (v6 >> 47) ^ v6)) ^ ((0x9DDFEA08EB382D69 * (v5 ^ (v6 >> 47) ^ v6)) >> 47));
+    if (v7 >= *&v8)
     {
-      v8 = v5 % *&v6;
+      v10 = v7 % *&v8;
     }
   }
 
   else
   {
-    v8 = v5 & (*&v6 - 1);
+    v10 = v7 & (*&v8 - 1);
   }
 
-  v9 = *(*a1 + 8 * v8);
-  if (!v9 || (v10 = *v9) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_23:
     operator new();
   }
 
-  if (v7.u32[0] < 2uLL)
+  if (v9.u32[0] < 2uLL)
   {
     while (1)
     {
-      v12 = v10[1];
-      if (v12 == v5)
+      v14 = v12[1];
+      if (v14 == v7)
       {
-        if (v10[2] == v2)
+        if (v12[2] == v4)
         {
-          return v10;
+          return v12;
         }
       }
 
-      else if ((v12 & (*&v6 - 1)) != v8)
+      else if ((v14 & (*&v8 - 1)) != v10)
       {
         goto LABEL_23;
       }
 
-      v10 = *v10;
-      if (!v10)
+      v12 = *v12;
+      if (!v12)
       {
         goto LABEL_23;
       }
@@ -5371,36 +5363,36 @@ LABEL_23:
 
   while (1)
   {
-    v11 = v10[1];
-    if (v11 == v5)
+    v13 = v12[1];
+    if (v13 == v7)
     {
       break;
     }
 
-    if (v11 >= *&v6)
+    if (v13 >= *&v8)
     {
-      v11 %= *&v6;
+      v13 %= *&v8;
     }
 
-    if (v11 != v8)
+    if (v13 != v10)
     {
       goto LABEL_23;
     }
 
 LABEL_12:
-    v10 = *v10;
-    if (!v10)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_23;
     }
   }
 
-  if (v10[2] != v2)
+  if (v12[2] != v4)
   {
     goto LABEL_12;
   }
 
-  return v10;
+  return v12;
 }
 
 void sub_2389B325C(_Unwind_Exception *a1)
@@ -5410,16 +5402,13 @@ void sub_2389B325C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void OpenSteer::SphericalObstacle::steerToAvoid(float *a1, uint64_t a2)
+void OpenSteer::SphericalObstacle::steerToAvoid(uint64_t a1, uint64_t a2)
 {
   (*(*a2 + 200))(a2);
-  v4 = a1[2];
-  v5 = (*(*a2 + 176))(a2) + v4;
-  v6 = a1[3] - (*(*a2 + 48))(a2);
-  v8 = a1[4] - v7;
-  v10 = a1[5] - v9;
-  v11 = (*(*a2 + 32))(a2);
-  v14 = v6 - ((*(*a2 + 32))(a2) * (((v11 * v6) + (v12 * v8)) + (v13 * v10)));
+  (*(*a2 + 176))(a2);
+  (*(*a2 + 48))(a2);
+  (*(*a2 + 32))(a2);
+  (*(*a2 + 32))(a2);
 }
 
 void GKCGraph::GKCGraph(GKCGraph *this)
@@ -5564,14 +5553,14 @@ void GKCGridGraph::GKCGridGraph(GKCGridGraph *this)
 void GKCGridGraph::initDontConstructNodes(void *a1, int a2, int a3, char a4, uint64_t a5, double a6)
 {
   v10 = a1[8];
-  v8 = (a1 + 8);
+  v8 = a1 + 8;
   v9 = v10;
   *(v8 - 8) = a4;
-  *(v8 - 24) = a6;
-  *(v8 - 16) = a2;
-  *(v8 - 12) = a3;
+  *(v8 - 3) = a6;
+  *(v8 - 4) = a2;
+  *(v8 - 3) = a3;
   v11 = (a3 * a2);
-  v12 = (*(v8 + 8) - v10) >> 3;
+  v12 = (v8[1] - v10) >> 3;
   if (v11 > v12)
   {
     std::vector<GKCGridGraphNode *>::__append(v8, v11 - v12);
@@ -5589,32 +5578,32 @@ LABEL_3:
   a1[11] = a5;
 }
 
-void GKCGridGraph::init(uint64_t a1, unsigned int a2, unsigned int a3, char a4, void *a5, double a6)
+void GKCGridGraph::init(uint64_t result, unsigned int a2, unsigned int a3, char a4, void *a5, double a6)
 {
-  v10 = (a1 + 64);
-  v9 = *(a1 + 64);
-  *(a1 + 56) = a4;
-  *(a1 + 40) = a6;
-  *(a1 + 48) = a2;
-  *(a1 + 52) = a3;
+  v10 = (result + 64);
+  v9 = *(result + 64);
+  *(result + 56) = a4;
+  *(result + 40) = a6;
+  *(result + 48) = a2;
+  *(result + 52) = a3;
   v11 = a3 * a2;
-  v12 = (*(a1 + 72) - v9) >> 3;
+  v12 = (*(result + 72) - v9) >> 3;
   if (v11 <= v12)
   {
     if (v11 < v12)
     {
-      *(a1 + 72) = v9 + 8 * v11;
+      *(result + 72) = v9 + 8 * v11;
     }
   }
 
   else
   {
     v47 = a6;
-    std::vector<GKCGridGraphNode *>::__append(a1 + 64, v11 - v12);
+    std::vector<GKCGridGraphNode *>::__append(result + 64, v11 - v12);
     a6 = v47;
   }
 
-  *(a1 + 88) = a5;
+  *(result + 88) = a5;
   if (a2 && a3)
   {
     v13 = 0;
@@ -5636,11 +5625,11 @@ void GKCGridGraph::init(uint64_t a1, unsigned int a2, unsigned int a3, char a4, 
         v19 = [a5 nodeWithGridPosition:{COERCE_DOUBLE(__PAIR64__(v17, v48)), v41, v42}];
         v20 = [v19 cGridGraphNode];
         v21 = v20;
-        v23 = *(a1 + 16);
-        v22 = *(a1 + 24);
+        v23 = *(result + 16);
+        v22 = *(result + 24);
         if (v23 >= v22)
         {
-          v25 = *(a1 + 8);
+          v25 = *(result + 8);
           v26 = v23 - v25;
           v27 = (v23 - v25) >> 3;
           v28 = v27 + 1;
@@ -5681,9 +5670,9 @@ void GKCGridGraph::init(uint64_t a1, unsigned int a2, unsigned int a3, char a4, 
           *v32 = v20;
           v24 = v32 + 1;
           memcpy(v33, v25, v26);
-          *(a1 + 8) = v33;
-          *(a1 + 16) = v24;
-          *(a1 + 24) = 0;
+          *(result + 8) = v33;
+          *(result + 16) = v24;
+          *(result + 24) = 0;
           if (v25)
           {
             operator delete(v25);
@@ -5696,8 +5685,8 @@ void GKCGridGraph::init(uint64_t a1, unsigned int a2, unsigned int a3, char a4, 
           v24 = v23 + 1;
         }
 
-        *(a1 + 16) = v24;
-        WeakRetained = objc_loadWeakRetained((a1 + 32));
+        *(result + 16) = v24;
+        WeakRetained = objc_loadWeakRetained((result + 32));
         v35 = [WeakRetained nodesMut];
 
         v36 = objc_loadWeakRetained((v21 + 56));
@@ -5724,7 +5713,7 @@ void GKCGridGraph::init(uint64_t a1, unsigned int a2, unsigned int a3, char a4, 
       v40 = v37;
       do
       {
-        GKCGridGraph::connectNodeToAdjacentNodesNoAdd(a1, *(*(a1 + 64) + 8 * v40++), 0);
+        GKCGridGraph::connectNodeToAdjacentNodesNoAdd(result, *(*(result + 64) + 8 * v40++), 0);
         --v39;
       }
 
@@ -5775,8 +5764,8 @@ void GKCGridGraph::connectNodeToAdjacentNodesNoAdd(int32x2_t *this, int32x2_t *a
         this = v38;
         a2 = v39;
         a3 = v40;
-        v3 = *(v39 + 64);
-        v4 = *(v38 + 40);
+        v3 = v39[8];
+        v4 = v38[5];
         v5 = vzip1_s32(v3, v4);
       }
     }
@@ -5797,8 +5786,8 @@ void GKCGridGraph::connectNodeToAdjacentNodesNoAdd(int32x2_t *this, int32x2_t *a
         this = v43;
         a2 = v44;
         a3 = v45;
-        v3 = *(v44 + 64);
-        v4 = *(v43 + 40);
+        v3 = v44[8];
+        v4 = v43[5];
         v5 = vzip1_s32(v3, v4);
       }
     }
@@ -5823,7 +5812,7 @@ void GKCGridGraph::connectNodeToAdjacentNodesNoAdd(int32x2_t *this, int32x2_t *a
           this = v48;
           a2 = v49;
           a3 = v50;
-          v4 = *(v48 + 40);
+          v4 = v48[5];
           v14 = HIDWORD(*&v49[8]);
           v5 = vzip1_s32(v49[8], v4);
         }
@@ -5872,8 +5861,8 @@ void GKCGridGraph::connectNodeToAdjacentNodesNoAdd(int32x2_t *this, int32x2_t *a
           this = v25;
           a2 = v26;
           a3 = v27;
-          v28 = *(v26 + 64);
-          v20 = *(v25 + 40);
+          v28 = v26[8];
+          v20 = v25[5];
           v19 = v28.i32[1];
           v22 = v28.i32[1] + 1;
           v21 = vzip1_s32(v28, v20);
@@ -5896,7 +5885,7 @@ void GKCGridGraph::connectNodeToAdjacentNodesNoAdd(int32x2_t *this, int32x2_t *a
           this = v58;
           a2 = v59;
           a3 = v60;
-          v20 = *(v58 + 40);
+          v20 = v58[5];
           v19 = HIDWORD(*&v59[8]);
           v21 = vzip1_s32(v59[8], v20);
         }
@@ -5920,9 +5909,9 @@ void GKCGridGraph::connectNodeToAdjacentNodesNoAdd(int32x2_t *this, int32x2_t *a
           this = v63;
           a2 = v64;
           a3 = v65;
-          v20 = *(v63 + 40);
-          v19 = HIDWORD(*(v64 + 8));
-          v30 = *(v64 + 8);
+          v20 = v63[5];
+          v19 = HIDWORD(*&v64[8]);
+          v30 = v64[8];
           v31 = v20.i32[0];
         }
       }
@@ -6087,28 +6076,27 @@ void GKCGridGraph::removeNode(int32x2_t *this, GKCGraphNode *lpsrc)
 {
   if (lpsrc)
   {
-    v2 = **lpsrc;
-    v3 = this;
-    v4 = lpsrc;
-    lpsrc = v4;
-    v6 = v5;
-    this = v3;
-    if (v6)
+    v2 = this;
+    v3 = lpsrc;
+    lpsrc = v3;
+    v5 = v4;
+    this = v2;
+    if (v5)
     {
-      v7 = vsub_s32(v6[8], v3[5]);
-      v8 = (v7.i32[1] + v7.i32[0] * v3[6].i32[1]);
-      if ((v8 & 0x80000000) != 0)
+      v6 = vsub_s32(v5[8], v2[5]);
+      v7 = (v6.i32[1] + v6.i32[0] * v2[6].i32[1]);
+      if ((v7 & 0x80000000) != 0)
       {
         return;
       }
 
-      v9 = v3[8];
-      if (v8 >= (*&v3[9] - *&v9) >> 3)
+      v8 = v2[8];
+      if (v7 >= (*&v2[9] - *&v8) >> 3)
       {
         return;
       }
 
-      *(*&v9 + 8 * v8) = 0;
+      *(*&v8 + 8 * v7) = 0;
     }
   }
 
@@ -6239,12 +6227,12 @@ uint64_t GKCObstacleGraph::connectNodeUsingObstaclesIgnoringObstacles(uint64_t a
   return GKCGraph::addNode(a1, a2);
 }
 
-void GKCObstacleGraph::connectNodeToNodeUsingObstacles(uint64_t a1, float32x2_t *a2, GKCGraphNode *this, void *a4)
+void GKCObstacleGraph::connectNodeToNodeUsingObstacles(uint64_t result, float32x2_t *a2, GKCGraphNode ***this, void *a4)
 {
   v5 = this;
-  v31 = *MEMORY[0x277D85DE8];
-  v8 = *(this + 1);
-  v9 = *(this + 2);
+  v30 = *MEMORY[0x277D85DE8];
+  v8 = this[1];
+  v9 = this[2];
   if (v8 != v9)
   {
     while (*v8 != a2)
@@ -6259,20 +6247,20 @@ void GKCObstacleGraph::connectNodeToNodeUsingObstacles(uint64_t a1, float32x2_t 
   if (v8 == v9)
   {
 LABEL_6:
-    v10 = *(a1 + 64);
-    if (v10 != *(a1 + 72))
+    v10 = *(result + 64);
+    if (v10 != *(result + 72))
     {
-      v28 = (a1 + 152);
+      v27 = (result + 152);
       do
       {
         v11 = *v10;
-        memset(v29, 0, sizeof(v29));
+        memset(v28, 0, sizeof(v28));
         v12 = a4;
-        if ([v12 countByEnumeratingWithState:v29 objects:v30 count:16])
+        if ([v12 countByEnumeratingWithState:v28 objects:v29 count:16])
         {
           v13 = a4;
-          v14 = [**(&v29[0] + 1) cPolygonObstacle];
-          v15 = v28;
+          v14 = [**(&v28[0] + 1) cPolygonObstacle];
+          v15 = v27;
 LABEL_11:
           v16 = *v15;
           if (!*v15)
@@ -6365,21 +6353,18 @@ LABEL_29:
 LABEL_20:
         if (GKCPolygonObstacle::intersectsLineFrom(v11, a2 + 8, v5 + 8) || GKCPolygonObstacle::intersectsPoint(v11, &a2[8]) || GKCPolygonObstacle::intersectsPoint(v11, &v5[8]))
         {
-          goto LABEL_41;
+          return;
         }
 
 LABEL_8:
         ++v10;
       }
 
-      while (v10 != *(a1 + 72));
+      while (v10 != *(result + 72));
     }
 
     GKCGraphNode::addConnectionToNode(v5, a2, 1);
   }
-
-LABEL_41:
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t GKCObstacleGraph::connectNodeUsingObstaclesIgnoringBufferRadiusOfObstacles(uint64_t a1, float32x2_t *a2, void *a3)
@@ -6393,7 +6378,7 @@ uint64_t GKCObstacleGraph::connectNodeUsingObstaclesIgnoringBufferRadiusOfObstac
   return GKCGraph::addNode(a1, a2);
 }
 
-void GKCObstacleGraph::connectNodeToNodeUsingObstaclesIgnoreBufferRadius(uint64_t a1, float32x2_t *a2, float32x2_t *this, void *a4)
+void GKCObstacleGraph::connectNodeToNodeUsingObstaclesIgnoreBufferRadius(uint64_t result, float32x2_t *a2, float32x2_t *this, void *a4)
 {
   v8 = this[1];
   v9 = this[2];
@@ -6411,8 +6396,8 @@ void GKCObstacleGraph::connectNodeToNodeUsingObstaclesIgnoreBufferRadius(uint64_
   if (v8 == v9)
   {
 LABEL_7:
-    v10 = *(a1 + 64);
-    if (v10 == *(a1 + 72))
+    v10 = *(result + 64);
+    if (v10 == *(result + 72))
     {
 LABEL_41:
 
@@ -6420,7 +6405,7 @@ LABEL_41:
       return;
     }
 
-    v11 = (a1 + 176);
+    v11 = (result + 176);
     while (1)
     {
       v12 = *v10;
@@ -6518,7 +6503,7 @@ LABEL_30:
       }
 
 LABEL_23:
-      if (++v10 == *(a1 + 72))
+      if (++v10 == *(result + 72))
       {
         goto LABEL_41;
       }
@@ -6691,65 +6676,65 @@ LABEL_7:
   }
 }
 
-void sub_2389B58E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2389B58E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
 
   std::vector<NSObject * {__strong}>::~vector[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_2389B58FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2389B58FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
 
   std::vector<NSObject * {__strong}>::~vector[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_2389B5914(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2389B5914(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::vector<NSObject * {__strong}>::~vector[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_2389B5928(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2389B5928(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::vector<NSObject * {__strong}>::~vector[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_2389B593C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2389B593C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::vector<NSObject * {__strong}>::~vector[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_2389B5950(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2389B5950(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::vector<NSObject * {__strong}>::~vector[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_2389B5964(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2389B5964(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::vector<NSObject * {__strong}>::~vector[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_2389B5978(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2389B5978(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::vector<NSObject * {__strong}>::~vector[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void GKCObstacleGraph::extrudeObstacleAndGenerateGraphNodes(uint64_t a1, GKCPolygonObstacle *a2, unint64_t *a3)
+void GKCObstacleGraph::extrudeObstacleAndGenerateGraphNodes(uint64_t a1, GKCPolygonObstacle *a2, uint64_t a3)
 {
   std::vector<GKPolygonObstacle * {__strong}>::reserve(a3, (*(a2 + 2) - *(a2 + 1)) >> 3);
   v7 = GKCObstacleGraph::extrudeObstacle(a1, a2);
@@ -6765,7 +6750,7 @@ void GKCObstacleGraph::extrudeObstacleAndGenerateGraphNodes(uint64_t a1, GKCPoly
   {
     v9 = v7;
     *v8 = v9;
-    v10 = (v8 + 1);
+    v10 = v8 + 1;
   }
 
   *(a1 + 96) = v10;
@@ -6794,14 +6779,14 @@ void GKCObstacleGraph::extrudeObstacleAndGenerateGraphNodes(uint64_t a1, GKCPoly
         *(v22 + 32) = a2;
         *(v22 + 40) = v11;
         *(v22 + 48) = v13;
-        v23 = a3[1];
-        if (v23 >= a3[2])
+        v23 = *(a3 + 8);
+        if (v23 >= *(a3 + 16))
         {
           break;
         }
 
         *v23 = v24;
-        a3[1] = (v23 + 1);
+        *(a3 + 8) = v23 + 1;
 
         if (v14 == ++v13)
         {
@@ -6809,7 +6794,7 @@ void GKCObstacleGraph::extrudeObstacleAndGenerateGraphNodes(uint64_t a1, GKCPoly
         }
       }
 
-      a3[1] = std::vector<NSObject * {__strong}>::__emplace_back_slow_path<NSObject * const {__strong}&>(a3, &v24);
+      *(a3 + 8) = std::vector<NSObject * {__strong}>::__emplace_back_slow_path<NSObject * const {__strong}&>(a3, &v24);
 
       ++v13;
     }
@@ -7033,10 +7018,10 @@ LABEL_28:
   }
 }
 
-void GKCObstacleGraph::restoreObstacleNodeConnections(GKCObstacleGraph *this)
+void GKCObstacleGraph::restoreObstacleNodeConnections(uint64_t this)
 {
-  v1 = *(this + 1);
-  v2 = *(this + 2);
+  v1 = *(this + 8);
+  v2 = *(this + 16);
   if (v2 != v1)
   {
     v4 = 0;
@@ -7052,8 +7037,8 @@ void GKCObstacleGraph::restoreObstacleNodeConnections(GKCObstacleGraph *this)
         do
         {
           GKCObstacleGraph::connectNodeToNodeUsingObstacles(this, *(v1 + 8 * v4), *(v1 + 8 * v9++), v6);
-          v1 = *(this + 1);
-          v2 = *(this + 2);
+          v1 = *(this + 8);
+          v2 = *(this + 16);
           v8 = (v2 - v1) >> 3;
         }
 
@@ -7412,31 +7397,31 @@ void sub_2389B796C(_Unwind_Exception *a1)
 
 void GKCDecisionTree::decode(GKCDecisionTree *this, NSArray *a2)
 {
-  v37 = *MEMORY[0x277D85DE8];
-  v35[0] = 0;
-  v35[1] = 0;
-  v34 = v35;
+  v36 = *MEMORY[0x277D85DE8];
+  v34[0] = 0;
+  v34[1] = 0;
+  v33 = v34;
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   obj = a2;
-  v2 = [(NSArray *)obj countByEnumeratingWithState:&v30 objects:v36 count:16];
+  v2 = [(NSArray *)obj countByEnumeratingWithState:&v29 objects:v35 count:16];
   if (v2)
   {
-    v28 = *v31;
-    v25 = xmmword_2389FBB70;
+    v27 = *v30;
+    v24 = xmmword_2389FBB70;
     do
     {
-      v29 = v2;
-      for (i = 0; i != v29; ++i)
+      v28 = v2;
+      for (i = 0; i != v28; ++i)
       {
-        if (*v31 != v28)
+        if (*v30 != v27)
         {
           objc_enumerationMutation(obj);
         }
 
-        v4 = [*(*(&v30 + 1) + 8 * i) objectForKeyedSubscript:{@"branch", v25}];
+        v4 = [*(*(&v29 + 1) + 8 * i) objectForKeyedSubscript:{@"branch", v24}];
         v5 = v4 == 0;
 
         if (!v5)
@@ -7471,8 +7456,8 @@ void GKCDecisionTree::decode(GKCDecisionTree *this, NSArray *a2)
         v19 = [v6 objectForKeyedSubscript:@"depth"];
         v20 = [v19 integerValue];
 
-        v21 = v35[0];
-        if (!v35[0])
+        v21 = v34[0];
+        if (!v34[0])
         {
 LABEL_17:
           operator new();
@@ -7511,17 +7496,16 @@ LABEL_17:
         v22[5] = this->var0;
       }
 
-      v2 = [(NSArray *)obj countByEnumeratingWithState:&v30 objects:v36 count:16];
+      v2 = [(NSArray *)obj countByEnumeratingWithState:&v29 objects:v35 count:16];
     }
 
     while (v2);
   }
 
-  std::__tree<std::__value_type<p2t::Triangle *,GKTriangleGraphNodes>,std::__map_value_compare<p2t::Triangle *,std::__value_type<p2t::Triangle *,GKTriangleGraphNodes>,std::less<p2t::Triangle *>,true>,std::allocator<std::__value_type<p2t::Triangle *,GKTriangleGraphNodes>>>::destroy(&v34, v35[0]);
-  v24 = *MEMORY[0x277D85DE8];
+  std::__tree<std::__value_type<p2t::Triangle *,GKTriangleGraphNodes>,std::__map_value_compare<p2t::Triangle *,std::__value_type<p2t::Triangle *,GKTriangleGraphNodes>,std::less<p2t::Triangle *>,true>,std::allocator<std::__value_type<p2t::Triangle *,GKTriangleGraphNodes>>>::destroy(&v33, v34[0]);
 }
 
-void sub_2389B80C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26, void *a27)
+void sub_2389B80C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, void *a27)
 {
   std::__tree<std::__value_type<p2t::Triangle *,GKTriangleGraphNodes>,std::__map_value_compare<p2t::Triangle *,std::__value_type<p2t::Triangle *,GKTriangleGraphNodes>,std::less<p2t::Triangle *>,true>,std::allocator<std::__value_type<p2t::Triangle *,GKTriangleGraphNodes>>>::destroy(&a26, a27);
 
@@ -7530,9 +7514,9 @@ void sub_2389B80C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 NSArray *GKCDecisionTree::encodeWithCoder(GKCDecisionTree *this, GKCDecisionNode *a2, NSArray *a3, uint64_t a4, NSMutableDictionary *a5)
 {
-  v32[1] = *MEMORY[0x277D85DE8];
+  v31[1] = *MEMORY[0x277D85DE8];
   v9 = a3;
-  v31 = a5;
+  v30 = a5;
   if (v9)
   {
     v11 = *a2;
@@ -7556,9 +7540,9 @@ NSArray *GKCDecisionTree::encodeWithCoder(GKCDecisionTree *this, GKCDecisionNode
     v17 = objc_alloc_init(MEMORY[0x277CBEB18]);
     [(NSMutableDictionary *)v15 setObject:v17 forKeyedSubscript:@"children"];
 
-    v32[0] = v15;
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:1];
-    v31 = v15;
+    v31[0] = v15;
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:1];
+    v30 = v15;
     v11 = *var0;
     v10 = *(var0 + 1);
     if (*var0 == v10)
@@ -7582,7 +7566,7 @@ NSArray *GKCDecisionTree::encodeWithCoder(GKCDecisionTree *this, GKCDecisionNode
       v23 = objc_alloc_init(MEMORY[0x277CBEB18]);
       [(NSMutableDictionary *)v21 setObject:v23 forKeyedSubscript:@"children"];
 
-      v24 = [(NSMutableDictionary *)v31 objectForKeyedSubscript:@"children"];
+      v24 = [(NSMutableDictionary *)v30 objectForKeyedSubscript:@"children"];
       v25 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[NSArray count](v9, "count")}];
       [v24 addObject:v25];
 
@@ -7599,15 +7583,13 @@ NSArray *GKCDecisionTree::encodeWithCoder(GKCDecisionTree *this, GKCDecisionNode
   while (v11 != v10);
 LABEL_9:
 
-  v29 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
-void sub_2389B86E8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_2389B86E8(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = GKDecisionTree;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -7640,7 +7622,7 @@ void GKCDecisionTree::cartTreeGrowth(GKCDecisionTree *this, NSArray *a2, NSArray
       {
         if (i > 0.0 && [(NSArray *)v56 count]< 2 || (*(a4 + 4) <= a5 ? (v40 = v11 < a6) : (v40 = 1), v40))
         {
-          GKCDecisionTree::splitByAttribute(this, v54, [(NSArray *)v56 count], &v70);
+          GKCDecisionTree::splitByAttribute(&v70, v54, [(NSArray *)v56 count]);
           v41 = v70;
           if (v70 != &v71)
           {
@@ -7698,7 +7680,7 @@ void GKCDecisionTree::cartTreeGrowth(GKCDecisionTree *this, NSArray *a2, NSArray
           {
             do
             {
-              std::__tree<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<objc_object * {__strong},std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::less<objc_object * {__strong}>,true>,std::allocator<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>>>::__emplace_hint_unique_key_args<objc_object * {__strong},std::pair<objc_object * const {__strong},NSMutableArray * {__strong}> const&>(&v59, v60, v47 + 4);
+              std::__tree<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<objc_object * {__strong},std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::less<objc_object * {__strong}>,true>,std::allocator<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>>>::__emplace_hint_unique_key_args<objc_object * {__strong},std::pair<objc_object * const {__strong},NSMutableArray * {__strong}> const&>(&v59, v60, v47 + 4, v47 + 4);
               v48 = v47[1];
               if (v48)
               {
@@ -7729,7 +7711,7 @@ void GKCDecisionTree::cartTreeGrowth(GKCDecisionTree *this, NSArray *a2, NSArray
             while (v49 != v74);
           }
 
-          GKCDecisionTree::splitOnIndex(this, obj, v56, &v59);
+          GKCDecisionTree::splitOnIndex(this, obj, v56, &v59, a4, v53, a5, a6);
           v45 = v60[0];
           v46 = &v59;
         }
@@ -7746,7 +7728,7 @@ void GKCDecisionTree::cartTreeGrowth(GKCDecisionTree *this, NSArray *a2, NSArray
 
 LABEL_26:
         v55 = v16;
-        GKCDecisionTree::binarySplitByAttributeValue(this, v54, v16, &v70);
+        GKCDecisionTree::binarySplitByAttributeValue(&v70, v54, v16);
         v31 = v70;
         v32 = v71;
         v25 = i;
@@ -7843,7 +7825,7 @@ LABEL_8:
         goto LABEL_26;
       }
 
-      GKCDecisionTree::multiwaySplitByAttributeValue(this, v54, v16, &v70);
+      GKCDecisionTree::multiwaySplitByAttributeValue(&v70, v54, v16);
       v67[0] = 0;
       v67[1] = 0;
       v66 = v67;
@@ -7852,7 +7834,7 @@ LABEL_8:
       {
         do
         {
-          std::__tree<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<objc_object * {__strong},std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::less<objc_object * {__strong}>,true>,std::allocator<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>>>::__emplace_hint_unique_key_args<objc_object * {__strong},std::pair<objc_object * const {__strong},NSMutableArray * {__strong}> const&>(&v66, v67, v22 + 4);
+          std::__tree<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<objc_object * {__strong},std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::less<objc_object * {__strong}>,true>,std::allocator<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>>>::__emplace_hint_unique_key_args<objc_object * {__strong},std::pair<objc_object * const {__strong},NSMutableArray * {__strong}> const&>(&v66, v67, v22 + 4, v22 + 4);
           v28 = v22[1];
           if (v28)
           {
@@ -7887,7 +7869,7 @@ LABEL_8:
       std::__tree<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>>>::destroy(&v66, v67[0]);
       [v69 floatValue];
       v24 = v23;
-      GKCDecisionTree::splitOnValueOfAttribute(this, v54, v68, v16, &v63);
+      GKCDecisionTree::splitOnValueOfAttribute(&v63, v54, v68, v16);
       std::__tree<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>>>::destroy(&v70, v71);
       v70 = v63;
       v71 = v64;
@@ -8001,7 +7983,7 @@ LABEL_9:
 LABEL_77:
 }
 
-void sub_2389B9630(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17, void *a18, uint64_t a19, void *a20, uint64_t a21, uint64_t a22, void *a23, char a24, void *a25)
+void sub_2389B9630(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17, void *a18, uint64_t a19, void *a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, void *a25)
 {
   std::__tree<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>>>::destroy(&a24, a25);
 
@@ -8046,20 +8028,19 @@ id GKCDecisionTree::findActionForAnswers(uint64_t **a1, void *a2)
     if (*v4 == *v5)
     {
 LABEL_19:
-      v18 = 0;
+      v17 = 0;
       goto LABEL_20;
     }
 
     while (1)
     {
-      v11 = *v8;
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
         [*v8 allowEvaluation];
-        v12 = *v8;
-        v13 = [v3 objectForKeyedSubscript:v4[6]];
-        v14 = [v12 evaluateWithObject:v13];
+        v11 = *v8;
+        v12 = [v3 objectForKeyedSubscript:v4[6]];
+        v13 = [v11 evaluateWithObject:v12];
         goto LABEL_8;
       }
 
@@ -8068,11 +8049,11 @@ LABEL_19:
         break;
       }
 
-      v17 = *v8;
-      v13 = [v3 objectForKeyedSubscript:v4[6]];
-      v14 = [v17 isEqual:v13];
+      v16 = *v8;
+      v12 = [v3 objectForKeyedSubscript:v4[6]];
+      v13 = [v16 isEqual:v12];
 LABEL_8:
-      v10 = v14;
+      v10 = v13;
 
       if (v10)
       {
@@ -8087,10 +8068,10 @@ LABEL_9:
       }
     }
 
-    v15 = [*v8 integerValue];
-    v16 = v7 <= v15;
-    v7 -= v15;
-    if (!v16)
+    v14 = [*v8 integerValue];
+    v15 = v7 <= v14;
+    v7 -= v14;
+    if (!v15)
     {
       goto LABEL_9;
     }
@@ -8106,10 +8087,10 @@ LABEL_17:
     break;
   }
 
-  v18 = v4[6];
+  v17 = v4[6];
 LABEL_20:
 
-  return v18;
+  return v17;
 }
 
 __CFString *GKCDecisionTree::printTree(GKCDecisionTree *this, GKCDecisionNode *a2, NSString *a3, NSString *a4)
@@ -8120,60 +8101,58 @@ __CFString *GKCDecisionTree::printTree(GKCDecisionTree *this, GKCDecisionNode *a
   {
     if ([(NSString *)v7 isEqualToString:@"\t"])
     {
-      v9 = *(a2 + 4);
-      v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"\n%@(depth:%lu, ex:%lu)\n", *(a2 + 6), v9, *(a2 + 5)];
+      v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"\n%@(depth:%lu, ex:%lu)\n", *(a2 + 6), *(a2 + 4), *(a2 + 5)];
 
-      p_isa = v10;
+      p_isa = v9;
     }
 
-    v12 = *a2;
-    v11 = *(a2 + 1);
-    if (*a2 == v11)
+    v11 = *a2;
+    v10 = *(a2 + 1);
+    if (*a2 == v10)
     {
-      v17 = p_isa;
+      v15 = p_isa;
     }
 
     else
     {
       do
       {
-        v13 = v12[1];
-        v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@\t", v7];
-        if (v13)
+        v12 = v11[1];
+        v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@\t", v7];
+        if (v12)
         {
-          v15 = *v12;
-          v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@%@%@, %@(depth:%lu, ex:%lu)\n", p_isa, v7, *v12, *(v12[1] + 48), *(v12[1] + 32), *(v12[1] + 40)];
-          v17 = GKCDecisionTree::printTree(this, v13, v14, v16);
+          v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@%@%@, %@(depth:%lu, ex:%lu)\n", p_isa, v7, *v11, *(v11[1] + 48), *(v11[1] + 32), *(v11[1] + 40)];
+          v15 = GKCDecisionTree::printTree(this, v12, v13, v14);
         }
 
         else
         {
-          v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@%@%@\n", p_isa, v7, *v12];
-          v17 = &stru_284B50D90;
+          v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@%@%@\n", p_isa, v7, *v11];
+          v15 = &stru_284B50D90;
         }
 
-        v12 += 2;
-        p_isa = &v17->isa;
+        v11 += 2;
+        p_isa = &v15->isa;
       }
 
-      while (v12 != v11);
+      while (v11 != v10);
     }
 
-    p_isa = v17;
-    v18 = p_isa;
+    p_isa = v15;
+    v16 = p_isa;
   }
 
   else
   {
-    v18 = &stru_284B50D90;
+    v16 = &stru_284B50D90;
   }
 
-  return v18;
+  return v16;
 }
 
 id GKCDecisionNode::nodeData(GKCDecisionNode *this, objc_object *a2)
 {
-  v12[3] = *MEMORY[0x277D85DE8];
+  v11[3] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_alloc_init(MEMORY[0x277CBEB38]);
   [v4 setObject:*(this + 6) forKeyedSubscript:@"attribute"];
@@ -8183,16 +8162,14 @@ id GKCDecisionNode::nodeData(GKCDecisionNode *this, objc_object *a2)
     v6 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v5, "lowestValue")}];
     v7 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(this + 8), "highestValue", v6)}];
     v8 = *(this + 9);
-    v12[1] = v7;
-    v12[2] = v8;
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:3];
+    v11[1] = v7;
+    v11[2] = v8;
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:3];
     [v4 setObject:v9 forKeyedSubscript:@"randomDistribution"];
   }
 
   [v4 setObject:v3 forKeyedSubscript:@"branch"];
   [v4 setObject:*(this + 7) forKeyedSubscript:@"branchValue"];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -8269,65 +8246,65 @@ void GKCDecisionNode::~GKCDecisionNode(GKCDecisionNode *this)
 
 double GKCDecisionTree::giniImpurity(GKCDecisionTree *this, NSArray *a2)
 {
-  v3 = a2;
-  v4 = [(NSArray *)v3 firstObject];
-  GKCDecisionTree::splitByAttribute(this, v3, [v4 count] - 1, &v14);
+  v2 = a2;
+  v3 = [(NSArray *)v2 firstObject];
+  GKCDecisionTree::splitByAttribute(&v13, v2, [v3 count] - 1);
 
-  v5 = [(NSArray *)v3 count];
-  v6 = 0.0;
-  if (v5 && v15[1] != 1)
+  v4 = [(NSArray *)v2 count];
+  v5 = 0.0;
+  if (v4 && v14[1] != 1)
   {
-    v7 = v14;
-    if (v14 == v15)
+    v6 = v13;
+    if (v13 == v14)
     {
-      v6 = 1.0;
+      v5 = 1.0;
     }
 
     else
     {
-      v6 = 1.0;
-      v8 = 1.0 / v5;
+      v5 = 1.0;
+      v7 = 1.0 / v4;
       do
       {
-        v9 = [v7[5] count];
-        v10 = v7[1];
-        if (v10)
+        v8 = [v6[5] count];
+        v9 = v6[1];
+        if (v9)
         {
           do
           {
-            v11 = v10;
-            v10 = *v10;
+            v10 = v9;
+            v9 = *v9;
           }
 
-          while (v10);
+          while (v9);
         }
 
         else
         {
           do
           {
-            v11 = v7[2];
-            v12 = *v11 == v7;
-            v7 = v11;
+            v10 = v6[2];
+            v11 = *v10 == v6;
+            v6 = v10;
           }
 
-          while (!v12);
+          while (!v11);
         }
 
-        v6 = v6 - v9 * v8 * (v9 * v8);
-        v7 = v11;
+        v5 = v5 - v8 * v7 * (v8 * v7);
+        v6 = v10;
       }
 
-      while (v11 != v15);
+      while (v10 != v14);
     }
   }
 
-  std::__tree<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>>>::destroy(&v14, v15[0]);
+  std::__tree<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>>>::destroy(&v13, v14[0]);
 
-  return v6;
+  return v5;
 }
 
-void sub_2389BA6E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, void *a11)
+void sub_2389BA6E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11)
 {
   std::__tree<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>>>::destroy(&a10, a11);
 
@@ -8366,60 +8343,60 @@ id GKCDecisionTree::getAttributeCounts(uint64_t a1, void *a2, void *a3)
   return v6;
 }
 
-void GKCDecisionTree::multiwaySplitByAttributeValue(GKCDecisionTree *this@<X0>, NSArray *a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
+void GKCDecisionTree::multiwaySplitByAttributeValue(uint64_t *__return_ptr a1@<X8>, NSArray *a2@<X1>, uint64_t a3@<X2>)
 {
-  v32 = *MEMORY[0x277D85DE8];
-  v25 = a2;
-  a4[1] = 0;
-  v6 = a4 + 1;
-  a4[2] = 0;
-  *a4 = a4 + 1;
-  v24 = objc_opt_new();
-  for (i = 0; [(NSArray *)v25 count]> i; ++i)
+  v30 = *MEMORY[0x277D85DE8];
+  v23 = a2;
+  a1[1] = 0;
+  v5 = a1 + 1;
+  a1[2] = 0;
+  *a1 = (a1 + 1);
+  v22 = objc_opt_new();
+  for (i = 0; [(NSArray *)v23 count]> i; ++i)
   {
-    v8 = [(NSArray *)v25 objectAtIndexedSubscript:i];
-    v9 = [v8 objectAtIndexedSubscript:a3];
+    v7 = [(NSArray *)v23 objectAtIndexedSubscript:i];
+    v8 = [v7 objectAtIndexedSubscript:a3];
 
-    v10 = [v24 objectForKey:v9];
+    v9 = [v22 objectForKey:v8];
 
-    if (v10)
+    if (v9)
     {
-      v11 = [v24 objectForKey:v9];
-      v12 = [(NSArray *)v25 objectAtIndexedSubscript:i];
-      [v11 addObject:v12];
+      v10 = [v22 objectForKey:v8];
+      v11 = [(NSArray *)v23 objectAtIndexedSubscript:i];
+      [v10 addObject:v11];
     }
 
     else
     {
-      v13 = objc_alloc(MEMORY[0x277CBEB18]);
-      v11 = [(NSArray *)v25 objectAtIndexedSubscript:i];
-      v12 = [v13 initWithObjects:{v11, 0}];
-      [v24 setObject:v12 forKey:v9];
+      v12 = objc_alloc(MEMORY[0x277CBEB18]);
+      v10 = [(NSArray *)v23 objectAtIndexedSubscript:i];
+      v11 = [v12 initWithObjects:{v10, 0}];
+      [v22 setObject:v11 forKey:v8];
     }
   }
 
-  v29 = 0u;
-  v30 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v14 = v24;
-  v15 = [v14 countByEnumeratingWithState:&v27 objects:v31 count:16];
-  if (v15)
+  v25 = 0u;
+  v26 = 0u;
+  v13 = v22;
+  v14 = [v13 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  if (v14)
   {
-    v26 = *v28;
+    v24 = *v26;
     do
     {
-      for (j = 0; j != v15; ++j)
+      for (j = 0; j != v14; ++j)
       {
-        if (*v28 != v26)
+        if (*v26 != v24)
         {
-          objc_enumerationMutation(v14);
+          objc_enumerationMutation(v13);
         }
 
-        v17 = *(*(&v27 + 1) + 8 * j);
-        v18 = [v14 objectForKey:v17];
-        v19 = *v6;
-        if (!*v6)
+        v16 = *(*(&v25 + 1) + 8 * j);
+        v17 = [v13 objectForKey:v16];
+        v18 = *v5;
+        if (!*v5)
         {
 LABEL_18:
           operator new();
@@ -8429,43 +8406,41 @@ LABEL_18:
         {
           while (1)
           {
-            v20 = v19;
-            v21 = v19[4];
-            if (v17 >= v21)
+            v19 = v18;
+            v20 = v18[4];
+            if (v16 >= v20)
             {
               break;
             }
 
-            v19 = *v20;
-            if (!*v20)
+            v18 = *v19;
+            if (!*v19)
             {
               goto LABEL_18;
             }
           }
 
-          if (v21 >= v17)
+          if (v20 >= v16)
           {
             break;
           }
 
-          v19 = v20[1];
-          if (!v19)
+          v18 = v19[1];
+          if (!v18)
           {
             goto LABEL_18;
           }
         }
 
-        v22 = v20[5];
-        v20[5] = v18;
+        v21 = v19[5];
+        v19[5] = v17;
       }
 
-      v15 = [v14 countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v14 = [v13 countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
-    while (v15);
+    while (v14);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2389BAC78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, void *a11)
@@ -8486,7 +8461,7 @@ void GKCDecisionTree::continuousGiniSplit(GKCDecisionTree *a1@<X0>, void *a2@<X1
   {
     do
     {
-      std::__tree<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<objc_object * {__strong},std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::less<objc_object * {__strong}>,true>,std::allocator<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>>>::__emplace_hint_unique_key_args<objc_object * {__strong},std::pair<objc_object * const {__strong},NSMutableArray * {__strong}> const&>(&v211, v212, v6 + 4);
+      std::__tree<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<objc_object * {__strong},std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::less<objc_object * {__strong}>,true>,std::allocator<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>>>::__emplace_hint_unique_key_args<objc_object * {__strong},std::pair<objc_object * const {__strong},NSMutableArray * {__strong}> const&>(&v211, v212, v6 + 4, v6 + 4);
       v13 = v6[1];
       if (v13)
       {
@@ -8524,7 +8499,7 @@ void GKCDecisionTree::continuousGiniSplit(GKCDecisionTree *a1@<X0>, void *a2@<X1
   v209 = v210;
   v202 = v7;
   v8 = [(NSArray *)v7 firstObject];
-  GKCDecisionTree::splitByAttribute(a1, v7, [v8 count] - 1, &v206);
+  GKCDecisionTree::splitByAttribute(&v206, v7, [v8 count] - 1);
 
   v9 = objc_alloc(MEMORY[0x277CBEB18]);
   v203 = [v9 initWithCapacity:v208];
@@ -9543,4 +9518,197 @@ LABEL_24:
 
   std::__tree<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>>>::destroy(&v206, v207);
   std::__tree<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>>>::destroy(&v209, v210[0]);
+}
+
+void sub_2389BD8DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, void *a18, uint64_t a19, uint64_t a20, void *a21, uint64_t a22, uint64_t a23, void *a24, uint64_t a25, uint64_t a26, void *a27)
+{
+  std::__tree<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>>>::destroy(&a20, a21);
+
+  std::__tree<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>>>::destroy(&a23, a24);
+  std::__tree<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>>>::destroy(&a26, a27);
+
+  _Unwind_Resume(a1);
+}
+
+void GKCDecisionTree::splitOnValueOfAttribute(uint64_t *__return_ptr a1@<X8>, NSArray *a2@<X1>, NSNumber *a3@<X2>, uint64_t a4@<X3>)
+{
+  v47[2] = *MEMORY[0x277D85DE8];
+  v6 = a2;
+  v7 = a3;
+  a1[1] = 0;
+  v8 = a1 + 1;
+  a1[2] = 0;
+  v43 = v7;
+  *a1 = (a1 + 1);
+  v46[0] = @"predicate";
+  v39 = v6;
+  v9 = [MEMORY[0x277CCAC30] predicateWithFormat:@"SELF <= %@", v7];
+  v46[1] = @"value";
+  v47[0] = v9;
+  v47[1] = v7;
+  v41 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v47 forKeys:v46 count:2];
+
+  v44[0] = @"predicate";
+  v10 = [MEMORY[0x277CCAC30] predicateWithFormat:@"SELF > %@", v7];
+  v44[1] = @"value";
+  v45[0] = v10;
+  v45[1] = v7;
+  v42 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v45 forKeys:v44 count:2];
+
+  v11 = 0;
+  v12 = 0;
+  while ([(NSArray *)v6 count]> v11)
+  {
+    v13 = [(NSArray *)v6 objectAtIndexedSubscript:v11];
+    v14 = [v13 objectAtIndexedSubscript:a4];
+
+    [v14 floatValue];
+    v16 = v15;
+    [(NSNumber *)v43 floatValue];
+    v17 = v41;
+    if (v16 > v18)
+    {
+      v17 = v42;
+    }
+
+    v19 = v17;
+
+    v20 = v19;
+    v12 = v20;
+    v21 = *v8;
+    if (!*v8)
+    {
+LABEL_11:
+      operator new();
+    }
+
+    while (1)
+    {
+      while (1)
+      {
+        v22 = v21;
+        v23 = v21[4];
+        if (v20 >= v23)
+        {
+          break;
+        }
+
+        v21 = *v22;
+        if (!*v22)
+        {
+          goto LABEL_11;
+        }
+      }
+
+      if (v23 >= v20)
+      {
+        break;
+      }
+
+      v21 = v22[1];
+      if (!v21)
+      {
+        goto LABEL_11;
+      }
+    }
+
+    v24 = v22[5] == 0;
+
+    if (v24)
+    {
+      v29 = objc_alloc(MEMORY[0x277CBEB18]);
+      v30 = [(NSArray *)v6 objectAtIndexedSubscript:v11];
+      v31 = [v29 initWithObjects:{v30, 0}];
+      v32 = v12;
+      v33 = v32;
+      v34 = *v8;
+      if (!*v8)
+      {
+LABEL_26:
+        operator new();
+      }
+
+      while (1)
+      {
+        while (1)
+        {
+          v35 = v34;
+          v36 = v34[4];
+          if (v32 >= v36)
+          {
+            break;
+          }
+
+          v34 = *v35;
+          if (!*v35)
+          {
+            goto LABEL_26;
+          }
+        }
+
+        if (v36 >= v32)
+        {
+          break;
+        }
+
+        v34 = v35[1];
+        if (!v34)
+        {
+          goto LABEL_26;
+        }
+      }
+
+      v6 = v39;
+      v38 = v35[5];
+      v35[5] = v31;
+    }
+
+    else
+    {
+      v25 = v12;
+      v26 = *v8;
+      if (!*v8)
+      {
+LABEL_19:
+        operator new();
+      }
+
+      while (1)
+      {
+        while (1)
+        {
+          v27 = v26;
+          v28 = v26[4];
+          if (v25 >= v28)
+          {
+            break;
+          }
+
+          v26 = *v27;
+          if (!*v27)
+          {
+            goto LABEL_19;
+          }
+        }
+
+        if (v28 >= v25)
+        {
+          break;
+        }
+
+        v26 = v27[1];
+        if (!v26)
+        {
+          goto LABEL_19;
+        }
+      }
+
+      v30 = v25;
+      v37 = v27[5];
+      v33 = [(NSArray *)v6 objectAtIndexedSubscript:v11];
+      [v37 addObject:v33];
+    }
+
+    ++v11;
+  }
 }

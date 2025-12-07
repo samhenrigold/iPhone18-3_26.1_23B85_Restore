@@ -200,7 +200,6 @@ LABEL_10:
 {
   if ((*&self->_has & 4) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -211,21 +210,19 @@ LABEL_10:
 
   if (self->_postConnectSubflowFailureErrors.count)
   {
-    v5 = 0;
+    v4 = 0;
     do
     {
-      v6 = self->_postConnectSubflowFailureErrors.list[v5];
       PBDataWriterWriteInt32Field();
-      ++v5;
+      ++v4;
     }
 
-    while (v5 < self->_postConnectSubflowFailureErrors.count);
+    while (v4 < self->_postConnectSubflowFailureErrors.count);
   }
 
   has = self->_has;
   if (has)
   {
-    dataInKB = self->_dataInKB;
     PBDataWriterWriteInt64Field();
     has = self->_has;
     if ((has & 2) == 0)
@@ -245,7 +242,6 @@ LABEL_10:
     goto LABEL_10;
   }
 
-  dataOutKB = self->_dataOutKB;
   PBDataWriterWriteInt64Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -257,7 +253,6 @@ LABEL_11:
     }
 
 LABEL_17:
-    secondaryFlowFailureCount = self->_secondaryFlowFailureCount;
     PBDataWriterWriteInt32Field();
     if ((*&self->_has & 0x20) == 0)
     {
@@ -268,7 +263,6 @@ LABEL_17:
   }
 
 LABEL_16:
-  secondaryFlowSuccessCount = self->_secondaryFlowSuccessCount;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 8) != 0)
@@ -283,7 +277,6 @@ LABEL_12:
   }
 
 LABEL_18:
-  postConnectTcpFallbackCount = self->_postConnectTcpFallbackCount;
 
   PBDataWriterWriteBOOLField();
 }
@@ -462,7 +455,6 @@ LABEL_8:
   IsEqual = [equal isMemberOfClass:objc_opt_class()];
   if (IsEqual)
   {
-    v6 = *(equal + 76);
     if ((*&self->_has & 4) != 0)
     {
       if ((*(equal + 76) & 4) == 0 || self->_timestamp != *(equal + 6))

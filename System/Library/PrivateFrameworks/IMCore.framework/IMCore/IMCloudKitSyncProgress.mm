@@ -15,36 +15,32 @@
 {
   if (*(&self->type + OBJC_IVAR___IMCloudKitSyncProgress_descriptor))
   {
-    v2 = *(&self->syncStatistics + OBJC_IVAR___IMCloudKitSyncProgress_descriptor);
-    v3 = *(&self->type + OBJC_IVAR___IMCloudKitSyncProgress_descriptor);
 
-    v4 = sub_1A84E5D8C();
+    v2 = sub_1A84E5D8C();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (NSString)actionLabel
 {
   if (*&self->descriptor[OBJC_IVAR___IMCloudKitSyncProgress_descriptor + 8])
   {
-    v2 = *&self->descriptor[OBJC_IVAR___IMCloudKitSyncProgress_descriptor];
-    v3 = *&self->descriptor[OBJC_IVAR___IMCloudKitSyncProgress_descriptor + 8];
 
-    v4 = sub_1A84E5D8C();
+    v2 = sub_1A84E5D8C();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (double)percentComplete

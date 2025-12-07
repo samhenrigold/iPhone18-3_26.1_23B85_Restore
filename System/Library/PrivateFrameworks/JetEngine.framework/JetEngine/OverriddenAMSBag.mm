@@ -45,7 +45,7 @@
 
 - (NSDate)expirationDate
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB4395E0);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB4395E0, qword_1AB4DB790);
   MEMORY[0x1EEE9AC00](v3 - 8);
   v5 = &v19 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v6);

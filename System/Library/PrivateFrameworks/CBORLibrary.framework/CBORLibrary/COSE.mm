@@ -85,19 +85,8 @@ LABEL_9:
       objc_storeStrong(&v6->_cborObj, r);
       v10 = [(CBOR *)v6->_cborObj tag];
 
-      if (!v10)
+      if (!v10 || (-[CBOR tag](v6->_cborObj, "tag"), v11 = objc_claimAutoreleasedReturnValue(), [v11 numeric], v12 = objc_claimAutoreleasedReturnValue(), v6->_type = objc_msgSend(v12, "integerValue"), v12, v11, type = v6->_type, (type - 96) < 3) || (type - 16) <= 2)
       {
-        goto LABEL_8;
-      }
-
-      v11 = [(CBOR *)v6->_cborObj tag];
-      numeric = [v11 numeric];
-      v6->_type = [numeric integerValue];
-
-      type = v6->_type;
-      if ((type - 96) < 3 || (type - 16) <= 2)
-      {
-LABEL_8:
         v14 = v6->_cborObj;
         if ([(CBOR *)v14 type]!= 4)
         {
@@ -282,33 +271,33 @@ LABEL_23:
 
 - (void)_parseCommonHeaderParameters:(void *)parameters
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v59 = 0u;
   v60 = 0u;
   v61 = 0u;
   v62 = 0u;
-  v63 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v60 objects:v65 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v59 objects:v64 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v61;
-    v55 = *v61;
-    v52 = v3;
+    v6 = *v60;
+    v54 = *v60;
+    v51 = v3;
     parametersCopy = parameters;
     do
     {
       v7 = 0;
-      v54 = v5;
+      v53 = v5;
       do
       {
-        if (*v61 != v6)
+        if (*v60 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v60 + 1) + 8 * v7);
-        v9 = [v3 objectForKeyedSubscript:{v8, v52}];
+        v8 = *(*(&v59 + 1) + 8 * v7);
+        v9 = [v3 objectForKeyedSubscript:{v8, v51}];
         type = [v8 type];
         if (type < 2)
         {
@@ -397,29 +386,29 @@ LABEL_11:
           }
 
           numeric3 = objc_opt_new();
+          v55 = 0u;
           v56 = 0u;
           v57 = 0u;
           v58 = 0u;
-          v59 = 0u;
           array = [v9 array];
-          v22 = [array countByEnumeratingWithState:&v56 objects:v64 count:16];
+          v22 = [array countByEnumeratingWithState:&v55 objects:v63 count:16];
           if (!v22)
           {
             goto LABEL_40;
           }
 
           v23 = v22;
-          v24 = *v57;
+          v24 = *v56;
           while (1)
           {
             for (i = 0; i != v23; ++i)
             {
-              if (*v57 != v24)
+              if (*v56 != v24)
               {
                 objc_enumerationMutation(array);
               }
 
-              v26 = *(*(&v56 + 1) + 8 * i);
+              v26 = *(*(&v55 + 1) + 8 * i);
               if ([v26 isWholeNumber])
               {
                 numeric2 = [v26 numeric];
@@ -442,7 +431,7 @@ LABEL_11:
               }
             }
 
-            v23 = [array countByEnumeratingWithState:&v56 objects:v64 count:16];
+            v23 = [array countByEnumeratingWithState:&v55 objects:v63 count:16];
             if (!v23)
             {
 LABEL_40:
@@ -460,11 +449,11 @@ LABEL_40:
                 parameters = parametersCopy;
               }
 
-              v3 = v52;
-              v5 = v54;
+              v3 = v51;
+              v5 = v53;
 LABEL_66:
 
-              v6 = v55;
+              v6 = v54;
               goto LABEL_67;
             }
           }
@@ -586,13 +575,11 @@ LABEL_67:
       }
 
       while (v7 != v5);
-      v5 = [v3 countByEnumeratingWithState:&v60 objects:v65 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v59 objects:v64 count:16];
     }
 
     while (v5);
   }
-
-  v51 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_searchForHeaderLabel:(id)label

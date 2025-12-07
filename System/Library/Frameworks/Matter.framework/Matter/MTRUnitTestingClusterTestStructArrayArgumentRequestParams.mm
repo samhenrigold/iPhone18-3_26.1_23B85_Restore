@@ -89,15 +89,15 @@
 
 - (ChipError)_encodeToTLVReader:(PacketBufferTLVReader *)reader
 {
-  v36 = *MEMORY[0x277D85DE8];
-  v30 = 0;
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
+  v35 = *MEMORY[0x277D85DE8];
+  v29 = 0;
   v27 = 0u;
-  v25[0] = 0;
-  v25[1] = 0;
-  v24 = v25;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+  v24[0] = 0;
+  v24[1] = 0;
+  v23 = v24;
   arg1 = [(MTRUnitTestingClusterTestStructArrayArgumentRequestParams *)self arg1];
   v5 = [arg1 count] == 0;
 
@@ -106,7 +106,7 @@
     operator new();
   }
 
-  v26 = 0uLL;
+  v25 = 0uLL;
   arg2 = [(MTRUnitTestingClusterTestStructArrayArgumentRequestParams *)self arg2];
   v7 = [arg2 count] == 0;
 
@@ -115,7 +115,7 @@
     operator new();
   }
 
-  v27 = 0uLL;
+  v26 = 0uLL;
   arg3 = [(MTRUnitTestingClusterTestStructArrayArgumentRequestParams *)self arg3];
   v9 = [arg3 count] == 0;
 
@@ -124,7 +124,7 @@
     operator new();
   }
 
-  v28 = 0uLL;
+  v27 = 0uLL;
   arg4 = [(MTRUnitTestingClusterTestStructArrayArgumentRequestParams *)self arg4];
   v11 = [arg4 count] == 0;
 
@@ -133,58 +133,57 @@
     operator new();
   }
 
-  v29 = 0uLL;
+  v28 = 0uLL;
   arg5 = [(MTRUnitTestingClusterTestStructArrayArgumentRequestParams *)self arg5];
-  LOBYTE(v30) = [arg5 unsignedCharValue];
+  LOBYTE(v29) = [arg5 unsignedCharValue];
 
   arg6 = [(MTRUnitTestingClusterTestStructArrayArgumentRequestParams *)self arg6];
-  HIBYTE(v30) = [arg6 BOOLValue];
+  HIBYTE(v29) = [arg6 BOOLValue];
 
-  sub_2393D9C18(0x62FuLL, 0, &v23);
-  if (v23)
+  sub_2393D9C18(0x62FuLL, 0, &v22);
+  if (v22)
   {
     sub_2393C7B90(buf);
+    v32 = 0;
     v33 = 0;
+    v31 = &unk_284BB83A8;
     v34 = 0;
-    v32 = &unk_284BB83A8;
-    v35 = 0;
-    sub_238EA16C4(&v32, &v23, 0);
-    sub_2393C7BF0(buf, &v32, 0xFFFFFFFF);
-    v18 = sub_238F30180(&v26, buf, 0x100uLL);
-    v19 = v18;
-    if (v18 || (v18 = sub_238DD2EFC(buf, &v23), v19 = v18, v18))
+    sub_238EA16C4(&v31, &v22, 0);
+    sub_2393C7BF0(buf, &v31, 0xFFFFFFFF);
+    v17 = sub_238F30180(&v25, buf, 0x100uLL);
+    v18 = v17;
+    if (v17 || (v17 = sub_238DD2EFC(buf, &v22), v18 = v17, v17))
     {
-      v20 = v17;
+      v19 = v16;
     }
 
     else
     {
-      sub_238DD2F90(reader, &v23);
-      v18 = sub_2393C7114(reader, 21, 256);
-      v20 = v21;
-      v19 = v18;
+      sub_238DD2F90(reader, &v22);
+      v17 = sub_2393C7114(reader, 21, 256);
+      v19 = v20;
+      v18 = v17;
     }
 
-    v32 = &unk_284BB83A8;
-    sub_238EA1758(&v34);
+    v31 = &unk_284BB83A8;
     sub_238EA1758(&v33);
+    sub_238EA1758(&v32);
   }
 
   else
   {
-    v18 = 0xB19900000000;
-    v20 = "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/zap-generated/MTRCommandPayloadsObjc.mm";
-    v19 = 11;
+    v17 = 0xB19900000000;
+    v19 = "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/zap-generated/MTRCommandPayloadsObjc.mm";
+    v18 = 11;
   }
 
-  sub_238EA1758(&v23);
-  sub_238EA1790(&v24);
-  v12 = *MEMORY[0x277D85DE8];
-  v13 = v18 & 0xFFFFFFFF00000000 | v19;
-  v14 = v20;
-  result.mFile = v14;
-  result.mError = v13;
-  result.mLine = HIDWORD(v13);
+  sub_238EA1758(&v22);
+  sub_238EA1790(&v23);
+  v12 = v17 & 0xFFFFFFFF00000000 | v18;
+  v13 = v19;
+  result.mFile = v13;
+  result.mError = v12;
+  result.mLine = HIDWORD(v12);
   return result;
 }
 

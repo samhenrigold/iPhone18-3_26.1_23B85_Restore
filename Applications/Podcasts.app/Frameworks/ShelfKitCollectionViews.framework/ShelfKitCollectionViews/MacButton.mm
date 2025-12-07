@@ -27,11 +27,11 @@
 
 - (void)tintColorDidChange
 {
-  v3.receiver = self;
-  v3.super_class = swift_getObjectType();
-  v2 = v3.receiver;
-  [(MacButton *)&v3 tintColorDidChange];
-  sub_272F28();
+  v4.receiver = self;
+  v4.super_class = swift_getObjectType();
+  v2 = v4.receiver;
+  [(MacButton *)&v4 tintColorDidChange];
+  sub_272F28(v3);
 }
 
 - (void)setHighlighted:(BOOL)highlighted

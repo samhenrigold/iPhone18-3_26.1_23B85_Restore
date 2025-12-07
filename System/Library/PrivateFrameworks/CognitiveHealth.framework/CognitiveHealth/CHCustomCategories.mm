@@ -93,13 +93,13 @@ void __72__CHCustomCategories_lockAssetAndReturnAssetPathForFile_withLockReason_
 
 - (id)loadMappingFromFile
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   v4 = [(CHCustomCategories *)self lockAssetAndReturnAssetPathForFile:@"uuid-int-mapping.csv" withLockReason:@"Locking to load uuid to int mapping file"];
   NSLog(&cfstr_CustomCategory.isa, v4);
-  v24 = 0;
-  v5 = [MEMORY[0x277CCACA8] stringWithContentsOfFile:v4 encoding:4 error:&v24];
-  v6 = v24;
+  v23 = 0;
+  v5 = [MEMORY[0x277CCACA8] stringWithContentsOfFile:v4 encoding:4 error:&v23];
+  v6 = v23;
   v7 = v6;
   if (v6)
   {
@@ -108,28 +108,28 @@ void __72__CHCustomCategories_lockAssetAndReturnAssetPathForFile_withLockReason_
 
   else
   {
-    v18 = v5;
-    v19 = v4;
+    v17 = v5;
+    v18 = v4;
     v8 = [v5 componentsSeparatedByString:@"\n"];
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
-    v9 = [v8 countByEnumeratingWithState:&v20 objects:v25 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v19 objects:v24 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v21;
+      v11 = *v20;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v21 != v11)
+          if (*v20 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = [*(*(&v20 + 1) + 8 * i) componentsSeparatedByString:{@", "}];
+          v13 = [*(*(&v19 + 1) + 8 * i) componentsSeparatedByString:{@", "}];
           if ([v13 count] == 2)
           {
             v14 = [v13 objectAtIndex:0];
@@ -138,47 +138,45 @@ void __72__CHCustomCategories_lockAssetAndReturnAssetPathForFile_withLockReason_
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v20 objects:v25 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v19 objects:v24 count:16];
       }
 
       while (v10);
     }
 
-    v5 = v18;
-    v4 = v19;
+    v5 = v17;
+    v4 = v18;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }
 
 - (id)extractDataFromCoreDataResult:(id)result
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   resultCopy = result;
   array = [MEMORY[0x277CBEB18] array];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v6 = resultCopy;
-  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
         intToUUIDMapping = self->_intToUUIDMapping;
-        category = [*(*(&v16 + 1) + 8 * i) category];
+        category = [*(*(&v15 + 1) + 8 * i) category];
         v13 = [(NSDictionary *)intToUUIDMapping objectForKey:category];
 
         if (v13)
@@ -187,13 +185,11 @@ void __72__CHCustomCategories_lockAssetAndReturnAssetPathForFile_withLockReason_
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -248,42 +244,41 @@ void __72__CHCustomCategories_lockAssetAndReturnAssetPathForFile_withLockReason_
 
 - (void)categoriesForBundleIdSet:(id)set completion:(id)completion
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   setCopy = set;
   completionCopy = completion;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v9 = setCopy;
-  v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v18;
+    v12 = *v17;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v18 != v12)
+        if (*v17 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v17 + 1) + 8 * i);
-        v15 = [(CHCustomCategories *)self categoryForBundleId:v14, v17];
+        v14 = *(*(&v16 + 1) + 8 * i);
+        v15 = [(CHCustomCategories *)self categoryForBundleId:v14, v16];
         [dictionary setValue:v15 forKey:v14];
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v11);
   }
 
   completionCopy[2](completionCopy, dictionary, self->_fetchError);
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)categoriesForBundleId:(id)id completion:(id)completion

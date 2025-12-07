@@ -3,6 +3,7 @@
 - (BOOL)grayscale;
 - (void)drawRect:(CGRect)rect;
 - (void)setAxis:(BOOL)axis animated:;
+- (void)setGrayscale:(BOOL)grayscale;
 - (void)setSampleCount:(unint64_t)count;
 - (void)setState:(unint64_t)state;
 @end
@@ -15,11 +16,11 @@
   width = frame.size.width;
   y = frame.origin.y;
   x = frame.origin.x;
-  v109 = *MEMORY[0x277D85DE8];
+  v108 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
-  v90.receiver = self;
-  v90.super_class = BKUIPearlCrossHairsRenderingView;
-  height = [(MTKView *)&v90 initWithFrame:deviceCopy device:x, y, width, height];
+  v89.receiver = self;
+  v89.super_class = BKUIPearlCrossHairsRenderingView;
+  height = [(MTKView *)&v89 initWithFrame:deviceCopy device:x, y, width, height];
   if (height)
   {
     v11 = dispatch_semaphore_create(3);
@@ -32,29 +33,29 @@
     height->_commandQueue = newCommandQueue;
 
     [(MTLCommandQueue *)height->_commandQueue setLabel:@"Crosshairs Command Queue"];
-    v108 = 0;
     v107 = 0;
+    v106 = 0;
     v15 = objc_alloc(MEMORY[0x277CF1C80]);
     __asm { FMOV            V0.4S, #1.0 }
 
-    v101 = _Q0;
+    v100 = _Q0;
     v21 = *&_Q0;
-    v87 = _Q0;
-    v102 = 0uLL;
+    v86 = _Q0;
+    v101 = 0uLL;
     LODWORD(_Q0) = 2.5;
     LODWORD(v22) = 1126247083;
-    v23 = [v15 initWithStrokeWeight:&v101 radius:*&_Q0 scale:v22 rotation:v21 translation:0.0];
+    v23 = [v15 initWithStrokeWeight:&v100 radius:*&_Q0 scale:v22 rotation:v21 translation:0.0];
     v24 = objc_alloc(MEMORY[0x277CF1C80]);
-    v101 = v87;
-    v102 = 0uLL;
+    v100 = v86;
+    v101 = 0uLL;
     LODWORD(v25) = 1112014848;
     LODWORD(v26) = 4.0;
-    v27 = [v24 initWithStrokeWeight:&v101 radius:v26 scale:v25 rotation:? translation:?];
+    v27 = [v24 initWithStrokeWeight:&v100 radius:v26 scale:v25 rotation:? translation:?];
     v28 = [objc_alloc(MEMORY[0x277CF1C68]) initWithDefaultPath:v23];
     [(BKUIPearlCrossHairsRenderingView *)height setCrosshairsPathCollection:v28];
 
     crosshairsPathCollection = [(BKUIPearlCrossHairsRenderingView *)height crosshairsPathCollection];
-    v84 = v27;
+    v83 = v27;
     [crosshairsPathCollection setPath:v27 forKey:@"small"];
 
     height->_pathBlendDest = 0.0;
@@ -81,65 +82,65 @@
     v42 = [v39 initWithCollection:crosshairsPathCollection4 device:deviceCopy viewRatio:_D9];
     [(BKUIPearlCrossHairsRenderingView *)height setCrosshairsData:v42];
 
+    v100 = 0u;
     v101 = 0u;
-    v102 = 0u;
+    v102 = xmmword_241B72CF0;
     v103 = xmmword_241B72CF0;
-    v104 = xmmword_241B72CF0;
+    v104 = xmmword_241B72D00;
     v105 = xmmword_241B72D00;
-    v106 = xmmword_241B72D00;
-    memset(v100, 0, 32);
-    v100[2] = xmmword_241B72D10;
-    v100[3] = xmmword_241B72D10;
-    v100[4] = xmmword_241B72D20;
-    v100[5] = xmmword_241B72D20;
     memset(v99, 0, 32);
-    v99[2] = xmmword_241B72D20;
-    v99[3] = xmmword_241B72D20;
-    v99[4] = xmmword_241B72D30;
-    v99[5] = xmmword_241B72D30;
+    v99[2] = xmmword_241B72D10;
+    v99[3] = xmmword_241B72D10;
+    v99[4] = xmmword_241B72D20;
+    v99[5] = xmmword_241B72D20;
     memset(v98, 0, 32);
     v98[2] = xmmword_241B72D20;
     v98[3] = xmmword_241B72D20;
-    v98[4] = xmmword_241B72D40;
-    v98[5] = xmmword_241B72D40;
-    v97[0] = xmmword_241B72830;
-    v97[1] = xmmword_241B72830;
-    v97[2] = xmmword_241B72830;
-    v97[3] = xmmword_241B72830;
-    v97[4] = xmmword_241B72830;
-    v97[5] = xmmword_241B72830;
-    v96[0] = xmmword_241B72D50;
-    v96[1] = xmmword_241B72D50;
-    v96[2] = xmmword_241B72D50;
-    v96[3] = xmmword_241B72D50;
-    v96[4] = xmmword_241B72D50;
-    v96[5] = xmmword_241B72D50;
+    v98[4] = xmmword_241B72D30;
+    v98[5] = xmmword_241B72D30;
+    memset(v97, 0, 32);
+    v97[2] = xmmword_241B72D20;
+    v97[3] = xmmword_241B72D20;
+    v97[4] = xmmword_241B72D40;
+    v97[5] = xmmword_241B72D40;
+    v96[0] = xmmword_241B72830;
+    v96[1] = xmmword_241B72830;
+    v96[2] = xmmword_241B72830;
+    v96[3] = xmmword_241B72830;
+    v96[4] = xmmword_241B72830;
+    v96[5] = xmmword_241B72830;
+    v95[0] = xmmword_241B72D50;
+    v95[1] = xmmword_241B72D50;
+    v95[2] = xmmword_241B72D50;
+    v95[3] = xmmword_241B72D50;
+    v95[4] = xmmword_241B72D50;
+    v95[5] = xmmword_241B72D50;
     v43 = objc_alloc(MEMORY[0x277CF1C70]);
-    v92 = v87;
-    v93 = 0uLL;
+    v91 = v86;
+    v92 = 0uLL;
     LODWORD(v44) = 4.0;
-    v45 = [v43 initWithPoints:&v101 colors:v97 count:6 strokeWeight:0 pattern:&v92 rotation:v44 scale:? translation:?];
+    v45 = [v43 initWithPoints:&v100 colors:v96 count:6 strokeWeight:0 pattern:&v91 rotation:v44 scale:? translation:?];
     v46 = objc_alloc(MEMORY[0x277CF1C70]);
-    v92 = v87;
-    LODWORD(v93) = 0;
-    *(&v93 + 4) = v107;
-    HIDWORD(v93) = v108;
+    v91 = v86;
+    LODWORD(v92) = 0;
+    *(&v92 + 4) = v106;
+    HIDWORD(v92) = v107;
     LODWORD(v47) = 4.0;
-    v48 = [v46 initWithPoints:v100 colors:v96 count:6 strokeWeight:0 pattern:&v92 rotation:v47 scale:? translation:?];
+    v48 = [v46 initWithPoints:v99 colors:v95 count:6 strokeWeight:0 pattern:&v91 rotation:v47 scale:? translation:?];
     v49 = objc_alloc(MEMORY[0x277CF1C70]);
-    v92 = v87;
-    LODWORD(v93) = 0;
-    *(&v93 + 4) = v107;
-    HIDWORD(v93) = v108;
+    v91 = v86;
+    LODWORD(v92) = 0;
+    *(&v92 + 4) = v106;
+    HIDWORD(v92) = v107;
     LODWORD(v50) = 4.0;
-    v51 = [v49 initWithPoints:v99 colors:v96 count:6 strokeWeight:0 pattern:&v92 rotation:v50 scale:? translation:?];
+    v51 = [v49 initWithPoints:v98 colors:v95 count:6 strokeWeight:0 pattern:&v91 rotation:v50 scale:? translation:?];
     v52 = objc_alloc(MEMORY[0x277CF1C70]);
-    v92 = v87;
-    LODWORD(v93) = 0;
-    *(&v93 + 4) = v107;
-    HIDWORD(v93) = v108;
+    v91 = v86;
+    LODWORD(v92) = 0;
+    *(&v92 + 4) = v106;
+    HIDWORD(v92) = v107;
     LODWORD(v53) = 4.0;
-    v54 = [v52 initWithPoints:v98 colors:v96 count:6 strokeWeight:0 pattern:&v92 rotation:v53 scale:? translation:?];
+    v54 = [v52 initWithPoints:v97 colors:v95 count:6 strokeWeight:0 pattern:&v91 rotation:v53 scale:? translation:?];
     v55 = [objc_alloc(MEMORY[0x277CF1C68]) initWithDefaultPath:v54];
     [(BKUIPearlCrossHairsRenderingView *)height setCheckMarkPathCollection:v55];
 
@@ -166,38 +167,44 @@
     [(BKUIPearlCrossHairsRenderingView *)height setRenderer:v66];
 
     matrix_ortho();
-    v85 = v68;
-    v88 = v67;
-    v80 = v70;
-    v82 = v69;
-    LODWORD(v79) = 0;
+    v84 = v68;
+    v87 = v67;
+    v79 = v70;
+    v81 = v69;
+    LODWORD(v78) = 0;
     matrix_look_at();
     v71 = 0;
-    v91[0] = v72;
-    v91[1] = v73;
-    v91[2] = v74;
-    v91[3] = v75;
+    v90[0] = v72;
+    v90[1] = v73;
+    v90[2] = v74;
+    v90[3] = v75;
+    v91 = 0u;
     v92 = 0u;
     v93 = 0u;
     v94 = 0u;
-    v95 = 0u;
     do
     {
-      *(&v92 + v71 * 16) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v88, COERCE_FLOAT(v91[v71])), v85, *&v91[v71], 1), v82, v91[v71], 2), v80, v91[v71], 3);
+      *(&v91 + v71 * 16) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v87, COERCE_FLOAT(v90[v71])), v84, *&v90[v71], 1), v81, v90[v71], 2), v79, v90[v71], 3);
       ++v71;
     }
 
     while (v71 != 4);
-    v86 = *&v94;
-    v89 = *&v95;
-    v81 = *&v92;
-    v83 = *&v93;
+    v85 = *&v93;
+    v88 = *&v94;
+    v80 = *&v91;
+    v82 = *&v92;
     renderer = [(BKUIPearlCrossHairsRenderingView *)height renderer];
-    [renderer setProjectionMatrix:{v81, v83, v86, v89}];
+    [renderer setProjectionMatrix:{v80, v82, v85, v88}];
   }
 
-  v77 = *MEMORY[0x277D85DE8];
   return height;
+}
+
+- (void)setGrayscale:(BOOL)grayscale
+{
+  grayscaleCopy = grayscale;
+  crosshairsInstanceManager = [(BKUIPearlCrossHairsRenderingView *)self crosshairsInstanceManager];
+  [crosshairsInstanceManager setGrayscale:grayscaleCopy];
 }
 
 - (BOOL)grayscale

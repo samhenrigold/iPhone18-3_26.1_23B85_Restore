@@ -5,6 +5,7 @@
 - (BOOL)_updateInDB:(id)b diffs:(unint64_t)diffs;
 - (BOOL)isBRAlias;
 - (BRCClientZone)targetClientZone;
+- (id)structureRecordBeingDeadInServerTruth:(BOOL)truth stageID:(id)d shouldPCSChainStatus:(unsigned __int8)status;
 - (void)isBRAlias;
 - (void)markLatestSyncRequestRejectedInZone:(id)zone;
 @end
@@ -97,6 +98,25 @@
   {
     [recordCopy serializeSystemFields:infoCopy];
   }
+}
+
+- (id)structureRecordBeingDeadInServerTruth:(BOOL)truth stageID:(id)d shouldPCSChainStatus:(unsigned __int8)status
+{
+  v6 = [(BRCLocalItem *)self baseStructureRecord:truth];
+  v7 = objc_opt_class();
+  serverZone = self->super._serverZone;
+  itemID = self->super._itemID;
+  ckInfo = [(BRCStatInfo *)self->super._st ckInfo];
+  parentID = [(BRCStatInfo *)self->super._st parentID];
+  targetItemID = [(BRCAliasItem *)self targetItemID];
+  targetClientZone = [(BRCAliasItem *)self targetClientZone];
+  serverZone = [targetClientZone serverZone];
+  BYTE2(v16) = status;
+  BYTE1(v16) = truth;
+  LOBYTE(v16) = 0;
+  [v7 fillStructureRecord:v6 inZone:serverZone itemID:itemID ckInfo:ckInfo parentID:parentID targetItemID:targetItemID targetZone:serverZone diffs:self->super._localDiffs | -[BRCLocalItem diffAgainstOriginalItem](self isFolderShare:"diffAgainstOriginalItem") beingDeadInServerTruth:v16 shouldPCSChainStatus:?];
+
+  return v6;
 }
 
 - (BOOL)isBRAlias
@@ -256,26 +276,23 @@
 
 - (void)isBRAlias
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   v0 = brc_bread_crumbs();
   v1 = brc_default_log();
   if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
-    v3 = 138412290;
-    v4 = v0;
-    _os_log_fault_impl(&dword_223E7A000, v1, OS_LOG_TYPE_FAULT, "[CRIT] Assertion failed: _st.type == BRC_ITEM_TYPE_ALIAS%@", &v3, 0xCu);
+    v2 = 138412290;
+    v3 = v0;
+    _os_log_fault_impl(&dword_223E7A000, v1, OS_LOG_TYPE_FAULT, "[CRIT] Assertion failed: _st.type == BRC_ITEM_TYPE_ALIAS%@", &v2, 0xCu);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (void)markLatestSyncRequestRejectedInZone:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_223E7A000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] Forcing rejection of alias item%@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_223E7A000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] Forcing rejection of alias item%@", &v2, 0xCu);
 }
 
 @end

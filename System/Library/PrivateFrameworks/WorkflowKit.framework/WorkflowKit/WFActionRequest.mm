@@ -68,9 +68,9 @@
         goto LABEL_27;
       }
 
-      v17 = [v11 isEqualToString:v12];
+      isEqualToString = objc_msgSend_isEqualToString_(v11);
 
-      if (!v17)
+      if (!isEqualToString)
       {
         LOBYTE(v14) = 0;
 LABEL_28:

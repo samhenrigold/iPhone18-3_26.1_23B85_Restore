@@ -163,17 +163,17 @@ void __57__WTFullScreenContainerViewController__setupSceneHosting__block_invoke_
 
 - (void)viewDidAppear:(BOOL)appear
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v8.receiver = self;
-  v8.super_class = WTFullScreenContainerViewController;
-  [(WTFullScreenContainerViewController *)&v8 viewDidAppear:appear];
-  v4 = _WTVCLog();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v12 = *MEMORY[0x1E69E9840];
+  v9.receiver = self;
+  v9.super_class = WTFullScreenContainerViewController;
+  v4 = [(WTFullScreenContainerViewController *)&v9 viewDidAppear:appear];
+  v5 = _WTVCLog(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     pendingHandoffHandler = [(WTFullScreenContainerViewController *)self pendingHandoffHandler];
     *buf = 67109120;
-    v10 = pendingHandoffHandler != 0;
-    _os_log_impl(&dword_1D451D000, v4, OS_LOG_TYPE_DEFAULT, "Fullscreen view controller didAppear, with pending handler: %d", buf, 8u);
+    v11 = pendingHandoffHandler != 0;
+    _os_log_impl(&dword_1D451D000, v5, OS_LOG_TYPE_DEFAULT, "Fullscreen view controller didAppear, with pending handler: %d", buf, 8u);
   }
 
   pendingHandoffHandler2 = [(WTFullScreenContainerViewController *)self pendingHandoffHandler];
@@ -190,7 +190,7 @@ void __57__WTFullScreenContainerViewController__setupSceneHosting__block_invoke_
 - (void)updateKeyboardTrackingHeight:(double)height
 {
   v8 = *MEMORY[0x1E69E9840];
-  v5 = _WTSizingLog();
+  v5 = _WTSizingLog(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 134217984;
@@ -204,7 +204,7 @@ void __57__WTFullScreenContainerViewController__setupSceneHosting__block_invoke_
 
 - (void)_sendKeyboardTrackingNotificationsForReason:(id)reason
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   reasonCopy = reason;
   [(WTFullScreenContainerViewController *)self _startFrameForAnimation];
   v6 = v5;
@@ -216,36 +216,37 @@ void __57__WTFullScreenContainerViewController__setupSceneHosting__block_invoke_
   v16 = v15;
   v18 = v17;
   v20 = v19;
-  v32.origin.x = v6;
-  v32.origin.y = v8;
-  v32.size.width = v10;
-  v32.size.height = v12;
-  v35.origin.x = v14;
-  v35.origin.y = v16;
-  v35.size.width = v18;
-  v35.size.height = v20;
-  if (!CGRectEqualToRect(v32, v35))
+  v33.origin.x = v6;
+  v33.origin.y = v8;
+  v33.size.width = v10;
+  v33.size.height = v12;
+  v36.origin.x = v14;
+  v36.origin.y = v16;
+  v36.size.width = v18;
+  v36.size.height = v20;
+  v21 = CGRectEqualToRect(v33, v36);
+  if (!v21)
   {
-    v21 = _WTSizingLog();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    v22 = _WTSizingLog(v21);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
-      v33.origin.x = v6;
-      v33.origin.y = v8;
-      v33.size.width = v10;
-      v33.size.height = v12;
-      v22 = NSStringFromCGRect(v33);
-      v34.origin.x = v14;
-      v34.origin.y = v16;
-      v34.size.width = v18;
-      v34.size.height = v20;
+      v34.origin.x = v6;
+      v34.origin.y = v8;
+      v34.size.width = v10;
+      v34.size.height = v12;
       v23 = NSStringFromCGRect(v34);
-      v25 = 138412802;
-      v26 = v22;
-      v27 = 2112;
-      v28 = v23;
-      v29 = 2112;
-      v30 = reasonCopy;
-      _os_log_impl(&dword_1D451D000, v21, OS_LOG_TYPE_DEFAULT, "Send keyboard tracking notification now (start:%@, end:%@, reason:%@)", &v25, 0x20u);
+      v35.origin.x = v14;
+      v35.origin.y = v16;
+      v35.size.width = v18;
+      v35.size.height = v20;
+      v24 = NSStringFromCGRect(v35);
+      v26 = 138412802;
+      v27 = v23;
+      v28 = 2112;
+      v29 = v24;
+      v30 = 2112;
+      v31 = reasonCopy;
+      _os_log_impl(&dword_1D451D000, v22, OS_LOG_TYPE_DEFAULT, "Send keyboard tracking notification now (start:%@, end:%@, reason:%@)", &v26, 0x20u);
     }
 
     ivsPlacementController = [(WTFullScreenContainerViewController *)self ivsPlacementController];
@@ -457,7 +458,7 @@ void __57__WTFullScreenContainerViewController__setupSceneHosting__block_invoke_
   v21 = *MEMORY[0x1E69E9840];
   sessionCopy = session;
   contextsCopy = contexts;
-  v8 = _WTVCLog();
+  v8 = _WTVCLog(contextsCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     uuid = [sessionCopy uuid];
@@ -489,7 +490,7 @@ void __57__WTFullScreenContainerViewController__setupSceneHosting__block_invoke_
   v21 = *MEMORY[0x1E69E9840];
   sessionCopy = session;
   contextsCopy = contexts;
-  v8 = _WTVCLog();
+  v8 = _WTVCLog(contextsCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     uuid = [sessionCopy uuid];
@@ -514,7 +515,7 @@ void __57__WTFullScreenContainerViewController__setupSceneHosting__block_invoke_
 {
   v20 = *MEMORY[0x1E69E9840];
   sessionCopy = session;
-  v7 = _WTVCLog();
+  v7 = _WTVCLog(sessionCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     uuid = [sessionCopy uuid];
@@ -540,7 +541,7 @@ void __57__WTFullScreenContainerViewController__setupSceneHosting__block_invoke_
   acceptedCopy = accepted;
   v23 = *MEMORY[0x1E69E9840];
   sessionCopy = session;
-  v7 = _WTVCLog();
+  v7 = _WTVCLog(sessionCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     uuid = [sessionCopy uuid];
@@ -580,7 +581,7 @@ void __57__WTFullScreenContainerViewController__setupSceneHosting__block_invoke_
   sessionCopy = session;
   textCopy = text;
   contextCopy = context;
-  v16 = _WTVCLog();
+  v16 = _WTVCLog(contextCopy);
   if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
   {
     uuid = [sessionCopy uuid];
@@ -640,7 +641,7 @@ void __57__WTFullScreenContainerViewController__setupSceneHosting__block_invoke_
 {
   v13 = *MEMORY[0x1E69E9840];
   errorCopy = error;
-  v5 = _WTVCLog();
+  v5 = _WTVCLog(errorCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v7 = 136315650;
@@ -728,7 +729,7 @@ void __75__WTFullScreenContainerViewController_showContentWarningWithTitle_messa
   presentingViewController = [(WTFullScreenContainerViewController *)self presentingViewController];
   if (presentingViewController && (v15 = presentingViewController, v16 = [(WTFullScreenContainerViewController *)self isBeingPresented], v15, (v16 & 1) == 0))
   {
-    v18 = _WTVCLog();
+    v18 = _WTVCLog(presentingViewController);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf[0]) = 0;
@@ -740,7 +741,7 @@ void __75__WTFullScreenContainerViewController_showContentWarningWithTitle_messa
 
   else
   {
-    v17 = _WTVCLog();
+    v17 = _WTVCLog(presentingViewController);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf[0]) = 0;
@@ -865,7 +866,7 @@ void __92__WTFullScreenContainerViewController__showAlertWithTitle_message_butto
 - (void)endWritingTools
 {
   v8 = *MEMORY[0x1E69E9840];
-  v3 = _WTVCLog();
+  v3 = _WTVCLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v4 = 136315394;
@@ -881,7 +882,7 @@ void __92__WTFullScreenContainerViewController__showAlertWithTitle_message_butto
 - (void)undo
 {
   v9 = *MEMORY[0x1E69E9840];
-  v3 = _WTVCLog();
+  v3 = _WTVCLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v5 = 136315394;
@@ -898,7 +899,7 @@ void __92__WTFullScreenContainerViewController__showAlertWithTitle_message_butto
 - (void)redo
 {
   v9 = *MEMORY[0x1E69E9840];
-  v3 = _WTVCLog();
+  v3 = _WTVCLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v5 = 136315394;
@@ -916,7 +917,7 @@ void __92__WTFullScreenContainerViewController__showAlertWithTitle_message_butto
 {
   v13 = *MEMORY[0x1E69E9840];
   textCopy = text;
-  v5 = _WTVCLog();
+  v5 = _WTVCLog(textCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v7 = 136315650;
@@ -936,7 +937,7 @@ void __92__WTFullScreenContainerViewController__showAlertWithTitle_message_butto
 {
   v13 = *MEMORY[0x1E69E9840];
   textCopy = text;
-  v5 = _WTVCLog();
+  v5 = _WTVCLog(textCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v7 = 136315650;
@@ -955,7 +956,7 @@ void __92__WTFullScreenContainerViewController__showAlertWithTitle_message_butto
 - (void)beginTextPlaceholder
 {
   v9 = *MEMORY[0x1E69E9840];
-  v3 = _WTVCLog();
+  v3 = _WTVCLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v5 = 136315394;
@@ -974,7 +975,7 @@ void __92__WTFullScreenContainerViewController__showAlertWithTitle_message_butto
   textCopy = text;
   v16 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  v7 = _WTVCLog();
+  v7 = _WTVCLog(completionCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = "no";
@@ -1034,7 +1035,7 @@ void __92__WTFullScreenContainerViewController__showAlertWithTitle_message_butto
 {
   resignCopy = resign;
   v13 = *MEMORY[0x1E69E9840];
-  v5 = _WTVCLog();
+  v5 = _WTVCLog(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = [MEMORY[0x1E696AD98] numberWithBool:resignCopy];

@@ -67,7 +67,7 @@
   sub_2764A4E34(rep);
   swift_unknownObjectRelease();
 
-  sub_2764A12F8(0, &qword_280A46380);
+  sub_2764A12F8(0, &qword_280A46380, off_27A6B5B90);
   v6 = sub_2764B1218();
 
   return v6;

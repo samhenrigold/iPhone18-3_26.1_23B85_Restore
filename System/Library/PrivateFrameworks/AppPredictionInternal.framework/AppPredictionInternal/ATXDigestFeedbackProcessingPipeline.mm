@@ -102,72 +102,69 @@
 
 void __65__ATXDigestFeedbackProcessingPipeline_logMetricsWithXPCActivity___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [v5 error];
 
   if (!v7)
   {
-    v9 = *(*(*(a1 + 48) + 8) + 24);
-    v8 = __atxlog_handle_metrics();
-    v10 = os_log_type_enabled(v8, OS_LOG_TYPE_INFO);
-    if (v9 == 1)
+    v10 = *(*(*(a1 + 48) + 8) + 24);
+    v9 = __atxlog_handle_metrics(v8);
+    v11 = os_log_type_enabled(v9, OS_LOG_TYPE_INFO);
+    if (v10 == 1)
     {
-      if (!v10)
+      if (!v11)
       {
         goto LABEL_10;
       }
 
-      v11 = *(a1 + 32);
       v12 = objc_opt_class();
       v13 = NSStringFromClass(v12);
       v14 = *(*(*(a1 + 40) + 8) + 24);
-      v23 = 138412546;
-      v24 = v13;
-      v25 = 2048;
-      v26 = v14;
+      v21 = 138412546;
+      v22 = v13;
+      v23 = 2048;
+      v24 = v14;
       v15 = "[%@] Stopping digest metrics due to XPC deferral.  Logged %lu digests.";
     }
 
     else
     {
-      if (!v10)
+      if (!v11)
       {
         goto LABEL_10;
       }
 
-      v16 = *(a1 + 32);
-      v17 = objc_opt_class();
-      v13 = NSStringFromClass(v17);
-      v18 = *(*(*(a1 + 40) + 8) + 24);
-      v23 = 138412546;
-      v24 = v13;
-      v25 = 2048;
-      v26 = v18;
+      v16 = objc_opt_class();
+      v13 = NSStringFromClass(v16);
+      v17 = *(*(*(a1 + 40) + 8) + 24);
+      v21 = 138412546;
+      v22 = v13;
+      v23 = 2048;
+      v24 = v17;
       v15 = "[%@] Finished logging digest metrics.  Logged %lu digests.";
     }
 
-    _os_log_impl(&dword_2263AA000, v8, OS_LOG_TYPE_INFO, v15, &v23, 0x16u);
+    _os_log_impl(&dword_2263AA000, v9, OS_LOG_TYPE_INFO, v15, &v21, 0x16u);
 
     goto LABEL_10;
   }
 
-  v8 = __atxlog_handle_metrics();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+  v9 = __atxlog_handle_metrics(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
-    __65__ATXDigestFeedbackProcessingPipeline_logMetricsWithXPCActivity___block_invoke_cold_1(a1, v5, v8);
+    __65__ATXDigestFeedbackProcessingPipeline_logMetricsWithXPCActivity___block_invoke_cold_1(a1, v5, v9);
   }
 
 LABEL_10:
 
-  v19 = *(a1 + 32);
-  v20 = *(v19 + 8);
-  *(v19 + 8) = v6;
-  v21 = v6;
+  v18 = *(a1 + 32);
+  v19 = *(v18 + 8);
+  *(v18 + 8) = v6;
+  v20 = v6;
 
   [*(a1 + 32) _writeBookmarkToPath];
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __65__ATXDigestFeedbackProcessingPipeline_logMetricsWithXPCActivity___block_invoke_22(uint64_t a1, void *a2)
@@ -189,45 +186,42 @@ uint64_t __65__ATXDigestFeedbackProcessingPipeline_logMetricsWithXPCActivity___b
 
 - (void)logFeedbackForDigest:(id)digest
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   digestCopy = digest;
-  v5 = __atxlog_handle_notification_management();
+  v5 = __atxlog_handle_notification_management(digestCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = objc_opt_class();
     v7 = NSStringFromClass(v6);
     uuid = [digestCopy uuid];
     uUIDString = [uuid UUIDString];
-    v16 = 138412546;
-    v17 = v7;
-    v18 = 2112;
-    v19 = uUIDString;
-    _os_log_impl(&dword_2263AA000, v5, OS_LOG_TYPE_INFO, "[%@] Logging feedback for digest %@", &v16, 0x16u);
+    v15 = 138412546;
+    v16 = v7;
+    v17 = 2112;
+    v18 = uUIDString;
+    _os_log_impl(&dword_2263AA000, v5, OS_LOG_TYPE_INFO, "[%@] Logging feedback for digest %@", &v15, 0x16u);
   }
 
-  [(ATXNotificationDigestFeedbackLogger *)self->_feedbackLogger logFeedbackForAnnotatedDigest:digestCopy];
-  v10 = __atxlog_handle_notification_management();
+  v10 = __atxlog_handle_notification_management([(ATXNotificationDigestFeedbackLogger *)self->_feedbackLogger logFeedbackForAnnotatedDigest:digestCopy]);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     v11 = objc_opt_class();
     v12 = NSStringFromClass(v11);
     uuid2 = [digestCopy uuid];
     uUIDString2 = [uuid2 UUIDString];
-    v16 = 138412546;
-    v17 = v12;
-    v18 = 2112;
-    v19 = uUIDString2;
-    _os_log_impl(&dword_2263AA000, v10, OS_LOG_TYPE_INFO, "[%@] Finished logging feedback for digest %@", &v16, 0x16u);
+    v15 = 138412546;
+    v16 = v12;
+    v17 = 2112;
+    v18 = uUIDString2;
+    _os_log_impl(&dword_2263AA000, v10, OS_LOG_TYPE_INFO, "[%@] Finished logging feedback for digest %@", &v15, 0x16u);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logMetricsForDigest:(id)digest
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   digestCopy = digest;
-  v4 = __atxlog_handle_metrics();
+  v4 = __atxlog_handle_metrics(digestCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = objc_opt_class();
@@ -235,35 +229,35 @@ uint64_t __65__ATXDigestFeedbackProcessingPipeline_logMetricsWithXPCActivity___b
     uuid = [digestCopy uuid];
     uUIDString = [uuid UUIDString];
     *buf = 138412546;
-    v26 = v6;
-    v27 = 2112;
-    v28 = uUIDString;
+    v25 = v6;
+    v26 = 2112;
+    v27 = uUIDString;
     _os_log_impl(&dword_2263AA000, v4, OS_LOG_TYPE_INFO, "[%@] Logging metrics for digest %@", buf, 0x16u);
   }
 
   v9 = objc_opt_new();
   [v9 populateMetricsFromDigest:digestCopy];
   [v9 logToCoreAnalytics];
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   viewFlattenedGroups = [digestCopy viewFlattenedGroups];
-  v11 = [viewFlattenedGroups countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v11 = [viewFlattenedGroups countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v21;
+    v13 = *v20;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v21 != v13)
+        if (*v20 != v13)
         {
           objc_enumerationMutation(viewFlattenedGroups);
         }
 
-        v15 = *(*(&v20 + 1) + 8 * i);
+        v15 = *(*(&v19 + 1) + 8 * i);
         digestEngagementTrackingMetrics = [v15 digestEngagementTrackingMetrics];
 
         if (digestEngagementTrackingMetrics)
@@ -276,13 +270,11 @@ uint64_t __65__ATXDigestFeedbackProcessingPipeline_logMetricsWithXPCActivity___b
         }
       }
 
-      v12 = [viewFlattenedGroups countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v12 = [viewFlattenedGroups countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v12);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_readBookmarkFromPath
@@ -296,16 +288,14 @@ uint64_t __65__ATXDigestFeedbackProcessingPipeline_logMetricsWithXPCActivity___b
 
 - (void)_writeBookmarkToPath
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = objc_opt_class();
   v6 = NSStringFromClass(v5);
-  v8 = 138412546;
-  v9 = v6;
-  v10 = 2112;
-  v11 = a2;
-  _os_log_error_impl(&dword_2263AA000, a3, OS_LOG_TYPE_ERROR, "%@ – Error writing notification digest metrics bookmark: %@", &v8, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = 138412546;
+  v8 = v6;
+  v9 = 2112;
+  v10 = a2;
+  _os_log_error_impl(&dword_2263AA000, a3, OS_LOG_TYPE_ERROR, "%@ – Error writing notification digest metrics bookmark: %@", &v7, 0x16u);
 }
 
 - (BOOL)_fileExistsAtPath:(id)path
@@ -320,21 +310,18 @@ uint64_t __65__ATXDigestFeedbackProcessingPipeline_logMetricsWithXPCActivity___b
 
 void __65__ATXDigestFeedbackProcessingPipeline_logMetricsWithXPCActivity___block_invoke_cold_1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v6 = *(a1 + 32);
-  v7 = objc_opt_class();
-  v8 = NSStringFromClass(v7);
-  v9 = [a2 error];
-  v10 = *(*(*(a1 + 40) + 8) + 24);
-  v12 = 138412802;
+  v16 = *MEMORY[0x277D85DE8];
+  v6 = objc_opt_class();
+  v7 = NSStringFromClass(v6);
+  v8 = [a2 error];
+  v9 = *(*(*(a1 + 40) + 8) + 24);
+  v10 = 138412802;
+  v11 = v7;
+  v12 = 2112;
   v13 = v8;
-  v14 = 2112;
+  v14 = 2048;
   v15 = v9;
-  v16 = 2048;
-  v17 = v10;
-  _os_log_error_impl(&dword_2263AA000, a3, OS_LOG_TYPE_ERROR, "[%@] Error while sinking Biome stream: %@.  Logged %lu digests.", &v12, 0x20u);
-
-  v11 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_2263AA000, a3, OS_LOG_TYPE_ERROR, "[%@] Error while sinking Biome stream: %@.  Logged %lu digests.", &v10, 0x20u);
 }
 
 @end

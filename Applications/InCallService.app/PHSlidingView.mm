@@ -331,7 +331,7 @@
   }
 
   self->_slidingViewState = state;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     slidingViewState = self->_slidingViewState;
@@ -883,23 +883,24 @@ LABEL_13:
 - (void)interactiveStartWithCountdownModel:(id)model
 {
   modelCopy = model;
-  if ([(PHSlidingView *)self slidingViewState])
+  slidingViewState = [(PHSlidingView *)self slidingViewState];
+  if (slidingViewState)
   {
-    v5 = sub_100004F84();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100004F84(slidingViewState);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      LODWORD(v24) = [(PHSlidingView *)self slidingViewState];
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "PHSlidingView,ignoring interactive start in state %d", buf, 8u);
+      LODWORD(v26) = [(PHSlidingView *)self slidingViewState];
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "PHSlidingView,ignoring interactive start in state %d", buf, 8u);
     }
 
     goto LABEL_13;
   }
 
   +[SOSUtilities clawReleaseToCallSupport];
-  v7 = v6;
+  v8 = v7;
   [(PHSlidingView *)self clearMetricItems];
-  if (v7 <= 0.0)
+  if (v8 <= 0.0)
   {
 LABEL_12:
     [(PHSlidingView *)self setSlidingViewState:1];
@@ -909,39 +910,39 @@ LABEL_12:
   }
 
   [(PHSlidingView *)self clearClawHoldInitialTimer];
-  v8 = +[NSDate date];
-  [v8 timeIntervalSince1970];
-  v10 = v9;
+  v9 = +[NSDate date];
+  [v9 timeIntervalSince1970];
+  v11 = v10;
   [(PHSlidingView *)self sliderViewCreationTime];
-  v12 = v11;
+  v13 = v12;
 
   clawHoldInitialTimer = [(PHSlidingView *)self clawHoldInitialTimer];
 
-  if (clawHoldInitialTimer || (v14 = v12 - v10 + 1.5, v14 <= 0.0))
+  if (clawHoldInitialTimer || (v16 = v13 - v11 + 1.5, v16 <= 0.0))
   {
     [(PHSlidingView *)self clearMetricItems];
     goto LABEL_12;
   }
 
-  v15 = sub_100004F84();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v17 = sub_100004F84(v15);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v24 = v14;
-    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "PHSlidingView,interactiveStartWithCountdownModel,wait for %f seconds before moving to slider progressing state", buf, 0xCu);
+    v26 = v16;
+    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "PHSlidingView,interactiveStartWithCountdownModel,wait for %f seconds before moving to slider progressing state", buf, 0xCu);
   }
 
   objc_initWeak(buf, self);
-  v17 = _NSConcreteStackBlock;
-  v18 = 3221225472;
-  v19 = sub_10009A78C;
-  v20 = &unk_100358360;
-  objc_copyWeak(&v22, buf);
-  v21 = modelCopy;
-  v16 = [NSTimer scheduledTimerWithTimeInterval:0 repeats:&v17 block:v14];
-  [(PHSlidingView *)self setClawHoldInitialTimer:v16, v17, v18, v19, v20];
+  v19 = _NSConcreteStackBlock;
+  v20 = 3221225472;
+  v21 = sub_10009A78C;
+  v22 = &unk_100358360;
+  objc_copyWeak(&v24, buf);
+  v23 = modelCopy;
+  v18 = [NSTimer scheduledTimerWithTimeInterval:0 repeats:&v19 block:v16];
+  [(PHSlidingView *)self setClawHoldInitialTimer:v18, v19, v20, v21, v22];
 
-  objc_destroyWeak(&v22);
+  objc_destroyWeak(&v24);
   objc_destroyWeak(buf);
 LABEL_13:
 }
@@ -1030,11 +1031,11 @@ LABEL_13:
 
   if (isValid)
   {
-    v5 = sub_100004F84();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100004F84(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Invalidating clawHoldInitialTimer", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Invalidating clawHoldInitialTimer", v8, 2u);
     }
 
     clawHoldInitialTimer2 = [(PHSlidingView *)self clawHoldInitialTimer];
@@ -1052,11 +1053,11 @@ LABEL_13:
 
     if (cmMotionActivityManager)
     {
-      v4 = sub_100004F84();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      v5 = sub_100004F84(v4);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
         LOWORD(buf[0]) = 0;
-        _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "PHSlidingView,CMMotionActivity,about to call startPeriodicActivityUpdatesToQueue", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "PHSlidingView,CMMotionActivity,about to call startPeriodicActivityUpdatesToQueue", buf, 2u);
       }
 
       motionActivityList = [(PHSlidingView *)self motionActivityList];
@@ -1065,14 +1066,14 @@ LABEL_13:
       objc_initWeak(buf, self);
       cmMotionActivityManager2 = [(PHSlidingView *)self cmMotionActivityManager];
       motionActivityQueue = [(PHSlidingView *)self motionActivityQueue];
-      v8[0] = _NSConcreteStackBlock;
-      v8[1] = 3221225472;
-      v8[2] = sub_10009AC80;
-      v8[3] = &unk_100358388;
-      objc_copyWeak(&v9, buf);
-      [cmMotionActivityManager2 startPeriodicActivityUpdatesToQueue:motionActivityQueue withHandler:v8];
+      v9[0] = _NSConcreteStackBlock;
+      v9[1] = 3221225472;
+      v9[2] = sub_10009AC80;
+      v9[3] = &unk_100358388;
+      objc_copyWeak(&v10, buf);
+      [cmMotionActivityManager2 startPeriodicActivityUpdatesToQueue:motionActivityQueue withHandler:v9];
 
-      objc_destroyWeak(&v9);
+      objc_destroyWeak(&v10);
       objc_destroyWeak(buf);
     }
   }
@@ -1514,31 +1515,31 @@ LABEL_16:
       goto LABEL_16;
     }
 
+    v23 = 0u;
+    v24 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v19 = 0u;
-    v20 = 0u;
     motionActivityList3 = [(PHSlidingView *)self motionActivityList];
-    v7 = [motionActivityList3 countByEnumeratingWithState:&v19 objects:v25 count:16];
+    v7 = [motionActivityList3 countByEnumeratingWithState:&v21 objects:v27 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v20;
+      v9 = *v22;
       v10 = 0.0;
       do
       {
         for (i = 0; i != v8; i = i + 1)
         {
-          if (*v20 != v9)
+          if (*v22 != v9)
           {
             objc_enumerationMutation(motionActivityList3);
           }
 
-          [*(*(&v19 + 1) + 8 * i) mountedProbability];
+          [*(*(&v21 + 1) + 8 * i) mountedProbability];
           v10 = v10 + v12;
         }
 
-        v8 = [motionActivityList3 countByEnumeratingWithState:&v19 objects:v25 count:16];
+        v8 = [motionActivityList3 countByEnumeratingWithState:&v21 objects:v27 count:16];
       }
 
       while (v8);
@@ -1552,12 +1553,12 @@ LABEL_16:
     motionActivityList4 = [(PHSlidingView *)self motionActivityList];
     v14 = v10 / [motionActivityList4 count];
 
-    v15 = sub_100004F84();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = sub_100004F84(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v24 = v14;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "PHSlidingView,averageMountedProbability:%lf", buf, 0xCu);
+      v26 = v14;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "PHSlidingView,averageMountedProbability:%lf", buf, 0xCu);
     }
 
     [(PHSlidingView *)self setWasMountedProbability:vcvtpd_s64_f64(v14 * 100.0)];
@@ -1565,13 +1566,13 @@ LABEL_16:
     -[PHSlidingView setNumberOfEpochsForMountProbability:](self, "setNumberOfEpochsForMountProbability:", [motionActivityList5 count]);
 
     [(PHSlidingView *)self setWasMounted:0];
-    +[SOSUtilities mountProbabilityThreshold];
-    if (v14 < v17)
+    v18 = +[SOSUtilities mountProbabilityThreshold];
+    if (v14 < v19)
     {
       goto LABEL_16;
     }
 
-    motionActivityList = sub_100004F84();
+    motionActivityList = sub_100004F84(v18);
     if (os_log_type_enabled(motionActivityList, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -1774,11 +1775,11 @@ LABEL_16:
 
   if (isValid)
   {
-    v5 = sub_100004F84();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100004F84(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Invalidating PHSOSReleaseToCallCountdown timer", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Invalidating PHSOSReleaseToCallCountdown timer", v8, 2u);
     }
 
     releaseToCallTimer2 = [(PHSlidingView *)self releaseToCallTimer];
@@ -1790,21 +1791,21 @@ LABEL_16:
 
 - (void)startVoiceLoopMessagePlaybackWithMessageType:(int64_t)type
 {
-  [(PHSlidingView *)self stopVoiceLoopMessagePlayback];
+  stopVoiceLoopMessagePlayback = [(PHSlidingView *)self stopVoiceLoopMessagePlayback];
   if ((type & 0xFFFFFFFFFFFFFFFELL) != 0x66)
   {
-    voiceMessageManager2 = sub_100004F84();
+    voiceMessageManager2 = sub_100004F84(stopVoiceLoopMessagePlayback);
     if (os_log_type_enabled(voiceMessageManager2, OS_LOG_TYPE_DEFAULT))
     {
-      *v10 = 0;
-      _os_log_impl(&_mh_execute_header, voiceMessageManager2, OS_LOG_TYPE_DEFAULT, "PHSlidingView,startVoiceLoopMessagePlaybackWithMessageType,unsupported message,ignoring request", v10, 2u);
+      *v12 = 0;
+      _os_log_impl(&_mh_execute_header, voiceMessageManager2, OS_LOG_TYPE_DEFAULT, "PHSlidingView,startVoiceLoopMessagePlaybackWithMessageType,unsupported message,ignoring request", v12, 2u);
     }
 
     goto LABEL_10;
   }
 
   +[SOSUtilities clawReleaseToCallSupport];
-  if (v5 != 0.0)
+  if (v6 != 0.0)
   {
     if (+[SOSUtilities shouldPlayAudioDuringCountdown])
     {
@@ -1812,14 +1813,14 @@ LABEL_16:
 
       if (!voiceMessageManager)
       {
-        v7 = [[SOSVoiceMessageManager alloc] initWithMessageType:type];
-        [(PHSlidingView *)self setVoiceMessageManager:v7];
+        v8 = [[SOSVoiceMessageManager alloc] initWithMessageType:type];
+        [(PHSlidingView *)self setVoiceMessageManager:v8];
 
-        v8 = sub_100004F84();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+        v10 = sub_100004F84(v9);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "PHSlidingView,startVoiceLoopMessagePlaybackWithMessageType,starting release to call voice message", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "PHSlidingView,startVoiceLoopMessagePlaybackWithMessageType,starting release to call voice message", buf, 2u);
         }
 
         voiceMessageManager2 = [(PHSlidingView *)self voiceMessageManager];
@@ -1836,11 +1837,11 @@ LABEL_10:
 
   if (voiceMessageManager)
   {
-    v4 = sub_100004F84();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_100004F84(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "PHSlidingView,stopVoiceLoopMessagePlayback", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "PHSlidingView,stopVoiceLoopMessagePlayback", v7, 2u);
     }
 
     voiceMessageManager2 = [(PHSlidingView *)self voiceMessageManager];
@@ -1857,11 +1858,11 @@ LABEL_10:
 
   if (isValid)
   {
-    v5 = sub_100004F84();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100004F84(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Invalidating PHSOSReleaseToCallVoiceLoop timer", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Invalidating PHSOSReleaseToCallVoiceLoop timer", v8, 2u);
     }
 
     releaseToCallVoiceLoopTimer2 = [(PHSlidingView *)self releaseToCallVoiceLoopTimer];
@@ -1911,7 +1912,7 @@ LABEL_10:
     sub_1002559BC();
   }
 
-  v2 = sub_100004F84();
+  v2 = sub_100004F84(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = NSStringFromCGRect(*ymmword_1003B0D30);
@@ -1920,8 +1921,8 @@ LABEL_10:
     _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "PHSlidingView,lockButtonDimension,lock button frame - %@", &v8, 0xCu);
   }
 
-  v5 = *&ymmword_1003B0D30[8];
   v4 = *ymmword_1003B0D30;
+  v5 = *&ymmword_1003B0D30[8];
   v6 = *&ymmword_1003B0D30[16];
   v7 = *&ymmword_1003B0D30[24];
   result.size.height = v7;
@@ -1936,132 +1937,141 @@ LABEL_10:
   v2 = +[SOSManager sharedInstance];
   currentSOSButtonPressState = [v2 currentSOSButtonPressState];
 
-  v4 = sub_100004F84();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = sub_100004F84(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109376;
-    *v39 = [currentSOSButtonPressState volumeUpPressed];
-    *&v39[4] = 1024;
-    *&v39[6] = [currentSOSButtonPressState volumeDownPressed];
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "PHSlidingView,volumeButtonDimension,VolumeUpPressed=%d,VolumeDownPressed=%d", buf, 0xEu);
+    *v43 = [currentSOSButtonPressState volumeUpPressed];
+    *&v43[4] = 1024;
+    *&v43[6] = [currentSOSButtonPressState volumeDownPressed];
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "PHSlidingView,volumeButtonDimension,VolumeUpPressed=%d,VolumeDownPressed=%d", buf, 0xEu);
   }
 
-  v5 = +[UIScreen mainScreen];
-  [v5 _referenceBounds];
-  v7 = v6;
-  v9 = v8;
-  v11 = v10;
-  v13 = v12;
+  v6 = +[UIScreen mainScreen];
+  [v6 _referenceBounds];
+  v8 = v7;
+  v10 = v9;
+  v12 = v11;
+  v14 = v13;
 
-  v30 = _NSConcreteStackBlock;
-  v31 = 3221225472;
-  v32 = sub_10009E4F8;
-  v33 = &unk_1003584E8;
-  v34 = v7;
-  v35 = v9;
-  v36 = v11;
-  v37 = v13;
+  v34 = _NSConcreteStackBlock;
+  v35 = 3221225472;
+  v36 = sub_10009E4F8;
+  v37 = &unk_1003584E8;
+  v38 = v8;
+  v39 = v10;
+  v40 = v12;
+  v41 = v14;
   if (qword_1003B0DC0 != -1)
   {
-    dispatch_once(&qword_1003B0DC0, &v30);
+    dispatch_once(&qword_1003B0DC0, &v34);
   }
 
-  if ([currentSOSButtonPressState volumeUpPressed] && (objc_msgSend(currentSOSButtonPressState, "volumeDownPressed") & 1) == 0)
+  if ([currentSOSButtonPressState volumeUpPressed])
   {
-    v14 = sub_100004F84();
-    v15 = ymmword_1003B0D80;
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    volumeDownPressed = [currentSOSButtonPressState volumeDownPressed];
+    if ((volumeDownPressed & 1) == 0)
     {
-      v16 = NSStringFromCGRect(*ymmword_1003B0D80);
-      *buf = 138412546;
-      *v39 = v16;
-      *&v39[8] = 2048;
-      v40 = *&ymmword_1003B0D80[8] + *&ymmword_1003B0D80[24] * 0.5;
-      v17 = "PHSlidingView,volumeButtonDimension,volume UP frame - %@,CenterY - %f";
-      goto LABEL_22;
-    }
+      v17 = sub_100004F84(volumeDownPressed);
+      v18 = ymmword_1003B0D80;
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      {
+        v19 = NSStringFromCGRect(*ymmword_1003B0D80);
+        *buf = 138412546;
+        *v43 = v19;
+        *&v43[8] = 2048;
+        v44 = *&ymmword_1003B0D80[8] + *&ymmword_1003B0D80[24] * 0.5;
+        v20 = "PHSlidingView,volumeButtonDimension,volume UP frame - %@,CenterY - %f";
+        goto LABEL_22;
+      }
 
 LABEL_23:
 
-    v25 = *v15;
-    v18 = v15[1];
-    v22 = v15[2];
-    v19 = v15[3];
-    goto LABEL_24;
+      v29 = *v18;
+      v22 = v18[1];
+      v26 = v18[2];
+      v23 = v18[3];
+      goto LABEL_24;
+    }
   }
 
-  if (([currentSOSButtonPressState volumeUpPressed] & 1) == 0 && objc_msgSend(currentSOSButtonPressState, "volumeDownPressed"))
+  if (([currentSOSButtonPressState volumeUpPressed] & 1) == 0)
   {
-    v14 = sub_100004F84();
-    v15 = ymmword_1003B0DA0;
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    volumeDownPressed2 = [currentSOSButtonPressState volumeDownPressed];
+    if (volumeDownPressed2)
     {
-      v16 = NSStringFromCGRect(*ymmword_1003B0DA0);
-      *buf = 138412546;
-      *v39 = v16;
-      *&v39[8] = 2048;
-      v40 = *&ymmword_1003B0DA0[8] + *&ymmword_1003B0DA0[24] * 0.5;
-      v17 = "PHSlidingView,volumeButtonDimension,volume DOWN frame - %@,CenterY - %f";
+      v17 = sub_100004F84(volumeDownPressed2);
+      v18 = ymmword_1003B0DA0;
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      {
+        v19 = NSStringFromCGRect(*ymmword_1003B0DA0);
+        *buf = 138412546;
+        *v43 = v19;
+        *&v43[8] = 2048;
+        v44 = *&ymmword_1003B0DA0[8] + *&ymmword_1003B0DA0[24] * 0.5;
+        v20 = "PHSlidingView,volumeButtonDimension,volume DOWN frame - %@,CenterY - %f";
 LABEL_22:
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, v17, buf, 0x16u);
+        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, v20, buf, 0x16u);
+
+        goto LABEL_23;
+      }
 
       goto LABEL_23;
     }
-
-    goto LABEL_23;
   }
 
-  if ([currentSOSButtonPressState volumeUpPressed] && objc_msgSend(currentSOSButtonPressState, "volumeDownPressed"))
+  volumeUpPressed = [currentSOSButtonPressState volumeUpPressed];
+  if (volumeUpPressed && (volumeUpPressed = [currentSOSButtonPressState volumeDownPressed], volumeUpPressed))
   {
-    v18 = *&ymmword_1003B0D80[8];
-    v19 = *&ymmword_1003B0DA0[8] + *&ymmword_1003B0DA0[24] - *&ymmword_1003B0D80[8];
-    v20 = sub_100004F84();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    v22 = *&ymmword_1003B0D80[8];
+    v23 = *&ymmword_1003B0DA0[8] + *&ymmword_1003B0DA0[24] - *&ymmword_1003B0D80[8];
+    v24 = sub_100004F84(volumeUpPressed);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
-      v41.origin.x = 0.0;
-      v41.size.width = 0.0;
-      v41.origin.y = v18;
-      v41.size.height = v19;
-      v21 = NSStringFromCGRect(v41);
+      v45.origin.x = 0.0;
+      v45.size.width = 0.0;
+      v45.origin.y = v22;
+      v45.size.height = v23;
+      v25 = NSStringFromCGRect(v45);
       *buf = 138412290;
-      *v39 = v21;
-      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "PHSlidingView,volumeButtonDimension,combined volume frame - %@", buf, 0xCu);
+      *v43 = v25;
+      _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "PHSlidingView,volumeButtonDimension,combined volume frame - %@", buf, 0xCu);
     }
 
-    v22 = 0.0;
+    v26 = 0.0;
   }
 
   else
   {
-    v23 = sub_100004F84();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    v27 = sub_100004F84(volumeUpPressed);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
-      v42.origin.x = 0.0;
-      v42.origin.y = 0.0;
-      v42.size.width = 0.0;
-      v42.size.height = 0.0;
-      v24 = NSStringFromCGRect(v42);
+      v46.origin.x = 0.0;
+      v46.origin.y = 0.0;
+      v46.size.width = 0.0;
+      v46.size.height = 0.0;
+      v28 = NSStringFromCGRect(v46);
       *buf = 138412290;
-      *v39 = v24;
-      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "PHSlidingView,volumeButtonDimension,no button pressed frame - %@", buf, 0xCu);
+      *v43 = v28;
+      _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "PHSlidingView,volumeButtonDimension,no button pressed frame - %@", buf, 0xCu);
     }
 
-    v19 = 0.0;
+    v23 = 0.0;
+    v26 = 0.0;
     v22 = 0.0;
-    v18 = 0.0;
   }
 
-  v25 = 0.0;
+  v29 = 0.0;
 LABEL_24:
 
-  v26 = v25;
-  v27 = v18;
-  v28 = v22;
-  v29 = v19;
-  result.size.height = v29;
-  result.size.width = v28;
-  result.origin.y = v27;
-  result.origin.x = v26;
+  v30 = v29;
+  v31 = v22;
+  v32 = v26;
+  v33 = v23;
+  result.size.height = v33;
+  result.size.width = v32;
+  result.origin.y = v31;
+  result.origin.x = v30;
   return result;
 }
 

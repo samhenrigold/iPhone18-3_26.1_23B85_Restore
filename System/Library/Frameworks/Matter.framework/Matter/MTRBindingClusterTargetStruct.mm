@@ -48,8 +48,8 @@
   cluster = [(MTRBindingClusterTargetStruct *)self cluster];
   [(MTRBindingClusterTargetStruct *)v4 setCluster:cluster];
 
-  fabricIndex = [(MTRBindingClusterTargetStruct *)self fabricIndex];
-  [(MTRBindingClusterTargetStruct *)v4 setFabricIndex:fabricIndex];
+  v9 = objc_msgSend_fabricIndex(self);
+  [(MTRBindingClusterTargetStruct *)v4 setFabricIndex:v9];
 
   return v4;
 }

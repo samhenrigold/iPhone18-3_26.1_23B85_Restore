@@ -558,23 +558,23 @@
   {
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v61 = 0x2020000000;
-    v62 = 0;
-    v55 = 0;
-    v56 = &v55;
-    v57 = 0x2020000000;
-    v58 = 0;
+    v60 = 0x2020000000;
+    v61 = 0;
+    v54 = 0;
+    v55 = &v54;
+    v56 = 0x2020000000;
+    v57 = 0;
     v15 = +[AXSettings sharedInstance];
     assistiveTouchSwitches = [v15 assistiveTouchSwitches];
-    v54[0] = _NSConcreteStackBlock;
-    v54[1] = 3221225472;
-    v54[2] = sub_3B80;
-    v54[3] = &unk_1C840;
-    v54[4] = &buf;
-    v54[5] = &v55;
-    [assistiveTouchSwitches enumerateObjectsUsingBlock:v54];
+    v53[0] = _NSConcreteStackBlock;
+    v53[1] = 3221225472;
+    v53[2] = sub_3B80;
+    v53[3] = &unk_1C840;
+    v53[4] = &buf;
+    v53[5] = &v54;
+    [assistiveTouchSwitches enumerateObjectsUsingBlock:v53];
 
-    v17 = *(v56 + 24);
+    v17 = *(v55 + 24);
     if (*(*(&buf + 1) + 24) & 1) != 0 || (v17)
     {
       LOBYTE(v9) = v17 != 0;
@@ -583,7 +583,7 @@
       LOBYTE(v6) = *(*(&buf + 1) + 24);
     }
 
-    _Block_object_dispose(&v55, 8);
+    _Block_object_dispose(&v54, 8);
     _Block_object_dispose(&buf, 8);
   }
 
@@ -620,41 +620,40 @@
     LOBYTE(backTapEnabled) = (v22 || v25) | backTapEnabled;
   }
 
-  v46 = _NSConcreteStackBlock;
-  v47 = 3221225472;
-  v48 = sub_3C34;
-  v49 = &unk_1C868;
-  v51 = backTapEnabled & 1;
+  v45 = _NSConcreteStackBlock;
+  v46 = 3221225472;
+  v47 = sub_3C34;
+  v48 = &unk_1C868;
+  v50 = backTapEnabled & 1;
   v27 = v10;
-  v50 = v27;
-  v52 = v6;
-  v53 = v9;
+  v49 = v27;
+  v51 = v6;
+  v52 = v9;
   AnalyticsSendEventLazy();
   if (backTapEnabled)
   {
-    v44 = 0u;
-    v45 = 0u;
-    v42 = 0u;
     v43 = 0u;
+    v44 = 0u;
+    v41 = 0u;
+    v42 = 0u;
     v28 = v40;
-    v29 = [v28 countByEnumeratingWithState:&v42 objects:v59 count:16];
+    v29 = [v28 countByEnumeratingWithState:&v41 objects:v58 count:16];
     if (v29)
     {
-      v30 = *v43;
+      v30 = *v42;
       do
       {
-        for (i = 0; i != v29; i = i + 1)
+        for (i = 0; i != v29; ++i)
         {
-          if (*v43 != v30)
+          if (*v42 != v30)
           {
             objc_enumerationMutation(v28);
           }
 
-          v41 = *(*(&v42 + 1) + 8 * i);
           AnalyticsSendEventLazy();
         }
 
-        v29 = [v28 countByEnumeratingWithState:&v42 objects:v59 count:16];
+        v29 = [v28 countByEnumeratingWithState:&v41 objects:v58 count:16];
       }
 
       while (v29);
@@ -879,31 +878,30 @@
   v2 = +[AXSettings sharedInstance];
   perAppSettingsStats = [v2 perAppSettingsStats];
 
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v4 = perAppSettingsStats;
-  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
-      for (i = 0; i != v6; i = i + 1)
+      for (i = 0; i != v6; ++i)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v11 + 1) + 8 * i);
-        v10 = v4;
+        v9 = v4;
         AnalyticsSendEventLazy();
       }
 
-      v6 = [v10 countByEnumeratingWithState:&v11 objects:v15 count:{16, _NSConcreteStackBlock, 3221225472, sub_6E04, &unk_1CA18}];
+      v6 = [v9 countByEnumeratingWithState:&v10 objects:v14 count:{16, _NSConcreteStackBlock, 3221225472, sub_6E04, &unk_1CA18}];
     }
 
     while (v6);
@@ -1288,43 +1286,43 @@ LABEL_57:
     v2 = +[AXSettings sharedInstance];
     customPronunciationSubstitutions = [v2 customPronunciationSubstitutions];
 
-    v125 = 0u;
-    v126 = 0u;
-    v123 = 0u;
     v124 = 0u;
+    v125 = 0u;
+    v122 = 0u;
+    v123 = 0u;
     obj = customPronunciationSubstitutions;
     v4 = 0;
-    v5 = [obj countByEnumeratingWithState:&v123 objects:v143 count:16];
+    v5 = [obj countByEnumeratingWithState:&v122 objects:v142 count:16];
     if (v5)
     {
-      v6 = *v124;
+      v6 = *v123;
       do
       {
         for (i = 0; i != v5; i = i + 1)
         {
-          if (*v124 != v6)
+          if (*v123 != v6)
           {
             objc_enumerationMutation(obj);
           }
 
-          phonemes = [*(*(&v123 + 1) + 8 * i) phonemes];
+          phonemes = [*(*(&v122 + 1) + 8 * i) phonemes];
           if (phonemes)
           {
             ++v4;
           }
         }
 
-        v5 = [obj countByEnumeratingWithState:&v123 objects:v143 count:16];
+        v5 = [obj countByEnumeratingWithState:&v122 objects:v142 count:16];
       }
 
       while (v5);
     }
 
-    v118 = _NSConcreteStackBlock;
-    v119 = 3221225472;
-    v120 = sub_C120;
-    v121 = &unk_1C698;
-    v122 = v4;
+    v117 = _NSConcreteStackBlock;
+    v118 = 3221225472;
+    v119 = sub_C120;
+    v120 = &unk_1C698;
+    v121 = v4;
     AnalyticsSendEventLazy();
     AnalyticsSendEventLazy();
     AnalyticsSendEventLazy();
@@ -1338,11 +1336,11 @@ LABEL_57:
 
     if ((v11 | voiceOverBrailleTableIdentifier))
     {
-      v113 = _NSConcreteStackBlock;
-      v114 = 3221225472;
-      v115 = sub_C384;
-      v116 = &unk_1C6E0;
-      v117 = v11;
+      v112 = _NSConcreteStackBlock;
+      v113 = 3221225472;
+      v114 = sub_C384;
+      v115 = &unk_1C6E0;
+      v116 = v11;
       AnalyticsSendEventLazy();
     }
 
@@ -1351,48 +1349,48 @@ LABEL_57:
     v14 = +[AXSettings sharedInstance];
     voiceOverKeyboardModifierChoice = [v14 voiceOverKeyboardModifierChoice];
 
-    v108 = _NSConcreteStackBlock;
-    v109 = 3221225472;
-    v110 = sub_C5F4;
-    v111 = &unk_1C698;
-    v112 = voiceOverKeyboardModifierChoice;
+    v107 = _NSConcreteStackBlock;
+    v108 = 3221225472;
+    v109 = sub_C5F4;
+    v110 = &unk_1C698;
+    v111 = voiceOverKeyboardModifierChoice;
     AnalyticsSendEventLazy();
-    v106 = 0u;
-    v107 = 0u;
-    v104 = 0u;
     v105 = 0u;
+    v106 = 0u;
+    v103 = 0u;
+    v104 = 0u;
     v16 = +[AXSettings sharedInstance];
-    v52 = [v16 selectedSpeechVoiceIdentifiersForSourceKey:AXSpeechSourceKeyVoiceOver];
+    v51 = [v16 selectedSpeechVoiceIdentifiersForSourceKey:AXSpeechSourceKeyVoiceOver];
 
-    v17 = [v52 countByEnumeratingWithState:&v104 objects:v142 count:16];
+    v17 = [v51 countByEnumeratingWithState:&v103 objects:v141 count:16];
     if (v17)
     {
-      v18 = *v105;
+      v18 = *v104;
       do
       {
         for (j = 0; j != v17; j = j + 1)
         {
-          if (*v105 != v18)
+          if (*v104 != v18)
           {
-            objc_enumerationMutation(v52);
+            objc_enumerationMutation(v51);
           }
 
-          v20 = *(*(&v104 + 1) + 8 * j);
-          v99 = _NSConcreteStackBlock;
-          v100 = 3221225472;
-          v101 = sub_C6A8;
-          v102 = &unk_1C6C0;
-          v103 = v20;
+          v20 = *(*(&v103 + 1) + 8 * j);
+          v98 = _NSConcreteStackBlock;
+          v99 = 3221225472;
+          v100 = sub_C6A8;
+          v101 = &unk_1C6C0;
+          v102 = v20;
           AnalyticsSendEventLazy();
-          v94 = _NSConcreteStackBlock;
-          v95 = 3221225472;
-          v96 = sub_C72C;
-          v97 = &unk_1C6C0;
-          v98 = v20;
+          v93 = _NSConcreteStackBlock;
+          v94 = 3221225472;
+          v95 = sub_C72C;
+          v96 = &unk_1C6C0;
+          v97 = v20;
           AnalyticsSendEventLazy();
         }
 
-        v17 = [v52 countByEnumeratingWithState:&v104 objects:v142 count:16];
+        v17 = [v51 countByEnumeratingWithState:&v103 objects:v141 count:16];
       }
 
       while (v17);
@@ -1400,36 +1398,36 @@ LABEL_57:
   }
 
   AnalyticsSendEventLazy();
-  v92 = 0u;
-  v93 = 0u;
-  v90 = 0u;
   v91 = 0u;
+  v92 = 0u;
+  v89 = 0u;
+  v90 = 0u;
   v21 = +[AXSDSettings sharedInstance];
   enabledSoundDetectionTypes = [v21 enabledSoundDetectionTypes];
 
-  v23 = [enabledSoundDetectionTypes countByEnumeratingWithState:&v90 objects:v141 count:16];
+  v23 = [enabledSoundDetectionTypes countByEnumeratingWithState:&v89 objects:v140 count:16];
   if (v23)
   {
-    v24 = *v91;
+    v24 = *v90;
     do
     {
       for (k = 0; k != v23; k = k + 1)
       {
-        if (*v91 != v24)
+        if (*v90 != v24)
         {
           objc_enumerationMutation(enabledSoundDetectionTypes);
         }
 
-        v26 = *(*(&v90 + 1) + 8 * k);
-        v85 = _NSConcreteStackBlock;
-        v86 = 3221225472;
-        v87 = sub_C8EC;
-        v88 = &unk_1C6C0;
-        v89 = v26;
+        v26 = *(*(&v89 + 1) + 8 * k);
+        v84 = _NSConcreteStackBlock;
+        v85 = 3221225472;
+        v86 = sub_C8EC;
+        v87 = &unk_1C6C0;
+        v88 = v26;
         AnalyticsSendEventLazy();
       }
 
-      v23 = [enabledSoundDetectionTypes countByEnumeratingWithState:&v90 objects:v141 count:16];
+      v23 = [enabledSoundDetectionTypes countByEnumeratingWithState:&v89 objects:v140 count:16];
     }
 
     while (v23);
@@ -1441,11 +1439,11 @@ LABEL_57:
     v27 = +[AXSettings sharedInstance];
     hapticMusicAlgorithmSelections = [v27 hapticMusicAlgorithmSelections];
 
-    v80 = _NSConcreteStackBlock;
-    v81 = 3221225472;
-    v82 = sub_CA3C;
-    v83 = &unk_1C698;
-    v84 = [hapticMusicAlgorithmSelections containsObject:SHHapticPatternAlgorithmVocals];
+    v79 = _NSConcreteStackBlock;
+    v80 = 3221225472;
+    v81 = sub_CA3C;
+    v82 = &unk_1C698;
+    v83 = [hapticMusicAlgorithmSelections containsObject:SHHapticPatternAlgorithmVocals];
     AnalyticsSendEventLazy();
     AnalyticsSendEventLazy();
     hapticMusicClient = self->_hapticMusicClient;
@@ -1469,18 +1467,18 @@ LABEL_57:
 
   AnalyticsSendEventLazy();
   v33 = [NSUserDefaults alloc];
-  v75 = _NSConcreteStackBlock;
-  v76 = 3221225472;
-  v77 = sub_CDCC;
-  v78 = &unk_1C6C0;
-  v53 = [v33 initWithSuiteName:AX_SpringBoardBundleName];
-  v79 = v53;
+  v74 = _NSConcreteStackBlock;
+  v75 = 3221225472;
+  v76 = sub_CDCC;
+  v77 = &unk_1C6C0;
+  v52 = [v33 initWithSuiteName:AX_SpringBoardBundleName];
+  v78 = v52;
   AnalyticsSendEventLazy();
   CFPreferencesAppSynchronize(@"com.apple.backboardd");
-  v70 = _NSConcreteStackBlock;
-  v71 = 3221225472;
-  v72 = sub_CE90;
-  v73 = &unk_1C6E0;
+  v69 = _NSConcreteStackBlock;
+  v70 = 3221225472;
+  v71 = sub_CE90;
+  v72 = &unk_1C6E0;
   AppBooleanValue = CFPreferencesGetAppBooleanValue(@"BKEnableALS", @"com.apple.backboardd", 0);
   AnalyticsSendEventLazy();
   AnalyticsSendEventLazy();
@@ -1520,11 +1518,11 @@ LABEL_57:
     }
 
     v35 = v34;
-    v65 = _NSConcreteStackBlock;
-    v66 = 3221225472;
-    v67 = sub_E31C;
-    v68 = &unk_1C6E0;
-    v69 = v35;
+    v64 = _NSConcreteStackBlock;
+    v65 = 3221225472;
+    v66 = sub_E31C;
+    v67 = &unk_1C6E0;
+    v68 = v35;
     AnalyticsSendEventLazy();
   }
 
@@ -1533,10 +1531,10 @@ LABEL_57:
   AnalyticsSendEventLazy();
   AnalyticsSendEventLazy();
   AnalyticsSendEventLazy();
-  v60 = _NSConcreteStackBlock;
-  v61 = 3221225472;
-  v62 = sub_E908;
-  v63 = &unk_1C698;
+  v59 = _NSConcreteStackBlock;
+  v60 = 3221225472;
+  v61 = sub_E908;
+  v62 = &unk_1C698;
   Type = MADisplayFilterPrefGetType();
   AnalyticsSendEventLazy();
   AnalyticsSendEventLazy();
@@ -1548,32 +1546,31 @@ LABEL_57:
   if (_AXSQuickSpeakEnabled() || _AXSSpeakThisEnabled())
   {
     AnalyticsSendEventLazy();
-    v58 = 0u;
-    v59 = 0u;
-    v56 = 0u;
     v57 = 0u;
+    v58 = 0u;
+    v55 = 0u;
+    v56 = 0u;
     v36 = +[AXSettings sharedInstance];
     obja = [v36 selectedSpeechVoiceIdentifiersForSourceKey:AXSpeechSourceKeySpeechFeatures];
 
-    v37 = [obja countByEnumeratingWithState:&v56 objects:v140 count:16];
+    v37 = [obja countByEnumeratingWithState:&v55 objects:v139 count:16];
     if (v37)
     {
-      v38 = *v57;
+      v38 = *v56;
       do
       {
-        for (m = 0; m != v37; m = m + 1)
+        for (m = 0; m != v37; ++m)
         {
-          if (*v57 != v38)
+          if (*v56 != v38)
           {
             objc_enumerationMutation(obja);
           }
 
-          v40 = *(*(&v56 + 1) + 8 * m);
           AnalyticsSendEventLazy();
           AnalyticsSendEventLazy();
         }
 
-        v37 = [obja countByEnumeratingWithState:&v56 objects:v140 count:16];
+        v37 = [obja countByEnumeratingWithState:&v55 objects:v139 count:16];
       }
 
       while (v37);
@@ -1611,61 +1608,61 @@ LABEL_57:
 
   [(AXAggregateStatistics *)self _logVoiceTriggerStatistics];
   [(AXAggregateStatistics *)self _logBackTapStatistics];
-  v138 = @"enabled";
-  v41 = [NSNumber numberWithUnsignedChar:_AXSFullKeyboardAccessEnabled()];
-  v139 = v41;
-  v42 = [NSDictionary dictionaryWithObjects:&v139 forKeys:&v138 count:1];
+  v137 = @"enabled";
+  v40 = [NSNumber numberWithUnsignedChar:_AXSFullKeyboardAccessEnabled()];
+  v138 = v40;
+  v41 = [NSDictionary dictionaryWithObjects:&v138 forKeys:&v137 count:1];
   AnalyticsSendEvent();
 
   [(AXAggregateStatistics *)self _logAssistiveTouchMouseStatistics];
   [(AXAggregateStatistics *)self _logLaserAXStatistics];
   [(AXAggregateStatistics *)self _logPerAppStatistics];
-  v132 = 0;
-  v133 = &v132;
-  v134 = 0x2050000000;
-  v43 = qword_24CA8;
-  v135 = qword_24CA8;
+  v131 = 0;
+  v132 = &v131;
+  v133 = 0x2050000000;
+  v42 = qword_24CA8;
+  v134 = qword_24CA8;
   if (!qword_24CA8)
   {
     *keyExistsAndHasValidFormat = _NSConcreteStackBlock;
-    v128 = 3221225472;
-    v129 = sub_10654;
-    v130 = &unk_1D868;
-    v131 = &v132;
+    v127 = 3221225472;
+    v128 = sub_10654;
+    v129 = &unk_1D868;
+    v130 = &v131;
     sub_10654(keyExistsAndHasValidFormat);
-    v43 = v133[3];
+    v42 = v132[3];
   }
 
-  v44 = v43;
-  _Block_object_dispose(&v132, 8);
-  sharedInstance = [v43 sharedInstance];
-  v132 = 0;
-  v133 = &v132;
-  v134 = 0x2020000000;
-  v46 = qword_24CB8;
-  v135 = qword_24CB8;
+  v43 = v42;
+  _Block_object_dispose(&v131, 8);
+  sharedInstance = [v42 sharedInstance];
+  v131 = 0;
+  v132 = &v131;
+  v133 = 0x2020000000;
+  v45 = qword_24CB8;
+  v134 = qword_24CB8;
   if (!qword_24CB8)
   {
     *keyExistsAndHasValidFormat = _NSConcreteStackBlock;
-    v128 = 3221225472;
-    v129 = sub_1080C;
-    v130 = &unk_1D868;
-    v131 = &v132;
-    v47 = sub_10328();
-    v48 = dlsym(v47, "AXHearingControlCenterBundleID");
-    *(v131[1] + 24) = v48;
-    qword_24CB8 = *(v131[1] + 24);
-    v46 = v133[3];
+    v127 = 3221225472;
+    v128 = sub_1080C;
+    v129 = &unk_1D868;
+    v130 = &v131;
+    v46 = sub_10328();
+    v47 = dlsym(v46, "AXHearingControlCenterBundleID");
+    *(v130[1] + 24) = v47;
+    qword_24CB8 = *(v130[1] + 24);
+    v45 = v132[3];
   }
 
-  _Block_object_dispose(&v132, 8);
-  if (!v46)
+  _Block_object_dispose(&v131, 8);
+  if (!v45)
   {
     sub_10884();
     __break(1u);
   }
 
-  [sharedInstance getEnabledStateOfModuleWithIdentifier:*v46 completionHandler:&stru_1D840];
+  [sharedInstance getEnabledStateOfModuleWithIdentifier:*v45 completionHandler:&stru_1D840];
 
   [(AXAggregateStatistics *)self _logSoundDetectionCustomTonesHaptics];
   [(AXAggregateStatistics *)self _logCustomSoundDetection];
@@ -1677,10 +1674,10 @@ LABEL_57:
     [(AXAggregateStatistics *)self _logCameraButtonStatistics];
   }
 
-  v136 = @"enabled";
-  v49 = [NSNumber numberWithUnsignedChar:_AXSAudioDonationSiriImprovementEnabled()];
-  v137 = v49;
-  v50 = [NSDictionary dictionaryWithObjects:&v137 forKeys:&v136 count:1];
+  v135 = @"enabled";
+  v48 = [NSNumber numberWithUnsignedChar:_AXSAudioDonationSiriImprovementEnabled()];
+  v136 = v48;
+  v49 = [NSDictionary dictionaryWithObjects:&v136 forKeys:&v135 count:1];
   AnalyticsSendEvent();
 
   if (AXDeviceSupportsNameRecognition())

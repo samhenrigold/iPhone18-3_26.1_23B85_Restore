@@ -68,14 +68,14 @@ void __41__RMInternalServiceClient_initWithQueue___block_invoke_2(uint64_t a1)
 
 - (void)parseSpiErrorReply:(id)reply forMessage:(id)message
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   replyCopy = reply;
   messageCopy = message;
   if (replyCopy)
   {
-    v12 = 0;
-    v7 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:replyCopy error:&v12];
-    v8 = v12;
+    v11 = 0;
+    v7 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:replyCopy error:&v11];
+    v8 = v11;
     if (v7)
     {
       if (onceToken_InternalService_Default != -1)
@@ -87,9 +87,9 @@ void __41__RMInternalServiceClient_initWithQueue___block_invoke_2(uint64_t a1)
       if (os_log_type_enabled(logObject_InternalService_Default, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v14 = messageCopy;
-        v15 = 2112;
-        v16 = v7;
+        v13 = messageCopy;
+        v14 = 2112;
+        v15 = v7;
         _os_log_impl(&dword_261A9A000, v9, OS_LOG_TYPE_ERROR, "Error recived to SPI %@: %@", buf, 0x16u);
       }
 
@@ -111,13 +111,11 @@ void __41__RMInternalServiceClient_initWithQueue___block_invoke_2(uint64_t a1)
   if (os_log_type_enabled(logObject_InternalService_Default, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v14 = v8;
+    v13 = v8;
     _os_log_impl(&dword_261A9A000, v10, OS_LOG_TYPE_ERROR, "Can't unarchive the SPI error data: %@", buf, 0xCu);
   }
 
 LABEL_13:
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getNumClientsWithReply:(id)reply
@@ -149,7 +147,7 @@ void __50__RMInternalServiceClient_getNumClientsWithReply___block_invoke(uint64_
 
 void __50__RMInternalServiceClient_getNumClientsWithReply___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if ([a2 isEqualToString:@"RMSpiError"])
   {
@@ -180,9 +178,9 @@ LABEL_11:
     goto LABEL_11;
   }
 
-  v12 = 0;
-  v6 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v5 error:&v12];
-  v7 = v12;
+  v11 = 0;
+  v6 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v5 error:&v11];
+  v7 = v11;
   v8 = v7;
   if (v6)
   {
@@ -202,7 +200,7 @@ LABEL_11:
       if (os_log_type_enabled(logObject_InternalService_Default, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v14 = v8;
+        v13 = v8;
         _os_log_impl(&dword_261A9A000, v10, OS_LOG_TYPE_ERROR, "Error received from GetNumClients: %@", buf, 0xCu);
       }
     }
@@ -211,7 +209,6 @@ LABEL_11:
   }
 
 LABEL_19:
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)disconnectAllClientsWithReply:(id)reply
@@ -243,7 +240,7 @@ void __57__RMInternalServiceClient_disconnectAllClientsWithReply___block_invoke(
 
 void __57__RMInternalServiceClient_disconnectAllClientsWithReply___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if ([a2 isEqualToString:@"RMSpiError"])
   {
@@ -274,9 +271,9 @@ LABEL_11:
     goto LABEL_11;
   }
 
-  v12 = 0;
-  v6 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v5 error:&v12];
-  v7 = v12;
+  v11 = 0;
+  v6 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v5 error:&v11];
+  v7 = v11;
   v8 = v7;
   if (v6)
   {
@@ -296,7 +293,7 @@ LABEL_11:
       if (os_log_type_enabled(logObject_InternalService_Default, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v14 = v8;
+        v13 = v8;
         _os_log_impl(&dword_261A9A000, v10, OS_LOG_TYPE_ERROR, "Error received from disconnectClient: %@", buf, 0xCu);
       }
     }
@@ -305,7 +302,6 @@ LABEL_11:
   }
 
 LABEL_19:
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)disconnectClient:(id)client withReply:(id)reply
@@ -340,7 +336,7 @@ void __54__RMInternalServiceClient_disconnectClient_withReply___block_invoke(uin
 
 void __54__RMInternalServiceClient_disconnectClient_withReply___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if ([a2 isEqualToString:@"RMSpiError"])
   {
@@ -371,9 +367,9 @@ LABEL_11:
     goto LABEL_11;
   }
 
-  v12 = 0;
-  v6 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v5 error:&v12];
-  v7 = v12;
+  v11 = 0;
+  v6 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v5 error:&v11];
+  v7 = v11;
   v8 = v7;
   if (v6)
   {
@@ -393,7 +389,7 @@ LABEL_11:
       if (os_log_type_enabled(logObject_InternalService_Default, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v14 = v8;
+        v13 = v8;
         _os_log_impl(&dword_261A9A000, v10, OS_LOG_TYPE_ERROR, "Error received from disconnectClient: %@", buf, 0xCu);
       }
     }
@@ -402,7 +398,6 @@ LABEL_11:
   }
 
 LABEL_19:
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)listClientsWithReply:(id)reply
@@ -434,7 +429,7 @@ void __48__RMInternalServiceClient_listClientsWithReply___block_invoke(uint64_t 
 
 void __48__RMInternalServiceClient_listClientsWithReply___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if ([a2 isEqualToString:@"RMSpiError"])
   {
@@ -469,9 +464,9 @@ LABEL_11:
   v7 = MEMORY[0x277CBEB98];
   v8 = objc_opt_class();
   v9 = [v7 setWithObjects:{v8, objc_opt_class(), 0}];
-  v16 = 0;
-  v10 = [v6 unarchivedObjectOfClasses:v9 fromData:v5 error:&v16];
-  v11 = v16;
+  v15 = 0;
+  v10 = [v6 unarchivedObjectOfClasses:v9 fromData:v5 error:&v15];
+  v11 = v15;
 
   if (v10)
   {
@@ -491,7 +486,7 @@ LABEL_11:
       if (os_log_type_enabled(logObject_InternalService_Default, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v18 = v11;
+        v17 = v11;
         _os_log_impl(&dword_261A9A000, v14, OS_LOG_TYPE_ERROR, "Error received from listClientsWithReply: %@", buf, 0xCu);
       }
     }
@@ -502,7 +497,6 @@ LABEL_11:
   v12();
 
 LABEL_19:
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 @end

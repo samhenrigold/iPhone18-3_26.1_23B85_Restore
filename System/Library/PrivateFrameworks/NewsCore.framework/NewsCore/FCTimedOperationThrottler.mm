@@ -4,6 +4,7 @@
 - (FCTimedOperationThrottler)init;
 - (FCTimedOperationThrottler)initWithDelegate:(id)delegate;
 - (void)operationThrottler:(id)throttler performAsyncOperationWithCompletion:(id)completion;
+- (void)setSuspended:(BOOL)suspended;
 - (void)tickle;
 - (void)tickleWithCompletion:(id)completion;
 @end
@@ -44,25 +45,25 @@
 
 - (FCTimedOperationThrottler)initWithDelegate:(id)delegate
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   delegateCopy = delegate;
   if (!delegateCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "delegate"];
+    v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "delegate"];
     *buf = 136315906;
-    v14 = "[FCTimedOperationThrottler initWithDelegate:]";
-    v15 = 2080;
-    v16 = "FCOperationThrottler.m";
-    v17 = 1024;
-    v18 = 194;
-    v19 = 2114;
-    v20 = v11;
+    v13 = "[FCTimedOperationThrottler initWithDelegate:]";
+    v14 = 2080;
+    v15 = "FCOperationThrottler.m";
+    v16 = 1024;
+    v17 = 194;
+    v18 = 2114;
+    v19 = v10;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
-  v12.receiver = self;
-  v12.super_class = FCTimedOperationThrottler;
-  v5 = [(FCTimedOperationThrottler *)&v12 init];
+  v11.receiver = self;
+  v11.super_class = FCTimedOperationThrottler;
+  v5 = [(FCTimedOperationThrottler *)&v11 init];
   v6 = v5;
   if (v5)
   {
@@ -72,7 +73,6 @@
     v6->_operationThrottler = v7;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -89,6 +89,13 @@
   suspended = [operationThrottler suspended];
 
   return suspended;
+}
+
+- (void)setSuspended:(BOOL)suspended
+{
+  suspendedCopy = suspended;
+  operationThrottler = [(FCTimedOperationThrottler *)self operationThrottler];
+  [operationThrottler setSuspended:suspendedCopy];
 }
 
 - (void)operationThrottler:(id)throttler performAsyncOperationWithCompletion:(id)completion

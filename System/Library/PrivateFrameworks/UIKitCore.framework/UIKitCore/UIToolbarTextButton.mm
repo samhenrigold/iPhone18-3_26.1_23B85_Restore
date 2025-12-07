@@ -240,10 +240,9 @@ LABEL_10:
       [(UIToolbarButton *)self _adjustToolbarButtonInfo];
       v11 = *off_1E70EC918;
       v12 = [_ui_attributesForDictionaryContainingUIStringDrawingKeys objectForKey:*off_1E70EC918];
-      v13 = [v10 objectForKey:v11];
-      if (v12 | v13)
+      if (v12 | [v10 objectForKey:v11])
       {
-        if (([v12 isEqual:v13] & 1) == 0)
+        if ((objc_msgSend_isEqual_(v12) & 1) == 0)
         {
           [(UIView *)self->super._info sizeToFit];
           if (*&self->_pressedTitle != 0)
@@ -252,37 +251,37 @@ LABEL_10:
           }
 
           [(UIView *)self->super._info frame];
-          v15 = v14;
-          v17 = v16;
-          v19 = v18;
-          v21 = v20;
+          v14 = v13;
+          v16 = v15;
+          v18 = v17;
+          v20 = v19;
           _isBordered = [(UIToolbarButton *)self _isBordered];
-          v23 = v19 + 20.0;
+          v22 = v18 + 20.0;
           if (_isBordered)
           {
-            v24 = 30.0;
+            v23 = 30.0;
           }
 
           else
           {
-            v23 = v19;
-            v24 = v21;
+            v22 = v18;
+            v23 = v20;
           }
 
           maximumWidth = self->super._maximumWidth;
-          v26 = fmax(self->super._minimumWidth, v23);
-          v27 = fmin(maximumWidth, v26);
+          v25 = fmax(self->super._minimumWidth, v22);
+          v26 = fmin(maximumWidth, v25);
           if (maximumWidth <= 0.0)
           {
-            v28 = v26;
+            v27 = v25;
           }
 
           else
           {
-            v28 = v27;
+            v27 = v26;
           }
 
-          [(UIButton *)self->super._info setFrame:v15, v17, v28, v24];
+          [(UIButton *)self->super._info setFrame:v14, v16, v27, v23];
           superview = [(UIView *)self superview];
 
           [(UIView *)superview setNeedsLayout];

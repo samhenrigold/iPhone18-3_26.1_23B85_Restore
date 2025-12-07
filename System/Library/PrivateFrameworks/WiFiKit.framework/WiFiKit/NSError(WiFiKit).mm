@@ -10,15 +10,13 @@
 
 + (id)associationErrorWithReason:()WiFiKit
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CCA9B8];
-  v10 = *MEMORY[0x277CCA068];
+  v9 = *MEMORY[0x277CCA068];
   v5 = WFAssociationErrorCodeToString(a3);
-  v11[0] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v10[0] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
   v7 = [v4 associationErrorWithReason:a3 userInfo:v6];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -36,7 +34,7 @@
 
 + (id)associationErrorWithCode:()WiFiKit requiresPassword:signalStrength:userInfo:
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   v9 = a6;
   v10 = 1;
   if (a3 > -3914)
@@ -139,10 +137,10 @@ LABEL_22:
 
 LABEL_31:
   v13 = MEMORY[0x277CBEB38];
-  v20 = *MEMORY[0x277CCA068];
+  v19 = *MEMORY[0x277CCA068];
   v14 = WFAssociationErrorCodeToString(v10);
-  v21[0] = v14;
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+  v20[0] = v14;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
   v16 = [v13 dictionaryWithDictionary:v15];
 
   if (v9)
@@ -151,8 +149,6 @@ LABEL_31:
   }
 
   v17 = [MEMORY[0x277CCA9B8] associationErrorWithReason:v10 userInfo:v16];
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
@@ -182,7 +178,7 @@ LABEL_31:
 
 + (id)scanErrorWithReason:()WiFiKit
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   if (a3 <= 3)
   {
     if (!a3)
@@ -217,12 +213,10 @@ LABEL_31:
   v4 = @"Unknown scan error";
 LABEL_13:
   v5 = MEMORY[0x277CCA9B8];
-  v10 = *MEMORY[0x277CCA450];
-  v11[0] = v4;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v9 = *MEMORY[0x277CCA450];
+  v10[0] = v4;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
   v7 = [v5 errorWithDomain:@"com.apple.wifikit.error" code:a3 userInfo:v6];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

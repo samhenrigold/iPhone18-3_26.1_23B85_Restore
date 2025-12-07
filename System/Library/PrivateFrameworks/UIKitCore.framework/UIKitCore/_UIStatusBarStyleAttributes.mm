@@ -239,9 +239,9 @@ LABEL_29:
         goto LABEL_26;
       }
 
-      v15 = [(UITraitCollection *)font isEqual:v13];
+      isEqual = objc_msgSend_isEqual_(font);
 
-      if (!v15)
+      if (!isEqual)
       {
 LABEL_24:
         v6 = 0;
@@ -515,7 +515,7 @@ LABEL_8:
   font = [(_UIStatusBarStyleAttributes *)self font];
   UIFontDesign = CTFontGetUIFontDesign();
 
-  LOBYTE(font) = [UIFontDesign isEqualToString:*MEMORY[0x1E69658C8]];
+  LOBYTE(font) = objc_msgSend_isEqualToString_(UIFontDesign);
   return font;
 }
 

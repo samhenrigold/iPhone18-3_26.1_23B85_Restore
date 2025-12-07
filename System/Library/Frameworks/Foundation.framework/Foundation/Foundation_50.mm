@@ -1,10 +1,1508 @@
+uint64_t String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.locale(_:)@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
+{
+  v5 = type metadata accessor for NSDecimal.FormatStyle.Percent(0);
+  MEMORY[0x1EEE9AC00](v5 - 8);
+  v7 = (&v25 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v8 = type metadata accessor for NSDecimal.FormatStyle.Currency(0);
+  MEMORY[0x1EEE9AC00](v8 - 8);
+  v10 = (&v25 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v11 = type metadata accessor for NSDecimal.FormatStyle(0);
+  MEMORY[0x1EEE9AC00](v11 - 8);
+  v13 = (&v25 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v14 = type metadata accessor for String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format(0);
+  MEMORY[0x1EEE9AC00](v14);
+  v16 = &v25 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v17 = *a1;
+  v18 = a1[1];
+  outlined init with copy of String.LocalizationValue.FormatArgument.CodableStorage(v2, v16, type metadata accessor for String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format);
+  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+  if (EnumCaseMultiPayload)
+  {
+    if (EnumCaseMultiPayload != 1)
+    {
+      outlined init with take of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v16, v7, type metadata accessor for NSDecimal.FormatStyle.Percent);
+      swift_unknownObjectRetain();
+      swift_unknownObjectRelease();
+      *v7 = v17;
+      v7[1] = v18;
+      v21 = v7;
+      v22 = a2;
+      v23 = type metadata accessor for NSDecimal.FormatStyle.Percent;
+      goto LABEL_7;
+    }
+
+    v20 = type metadata accessor for NSDecimal.FormatStyle.Currency;
+    outlined init with take of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v16, v10, type metadata accessor for NSDecimal.FormatStyle.Currency);
+    swift_unknownObjectRetain();
+    swift_unknownObjectRelease();
+    *v10 = v17;
+    v10[1] = v18;
+    v21 = v10;
+  }
+
+  else
+  {
+    v20 = type metadata accessor for NSDecimal.FormatStyle;
+    outlined init with take of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v16, v13, type metadata accessor for NSDecimal.FormatStyle);
+    swift_unknownObjectRetain();
+    swift_unknownObjectRelease();
+    *v13 = v17;
+    v13[1] = v18;
+    v21 = v13;
+  }
+
+  v22 = a2;
+  v23 = v20;
+LABEL_7:
+  outlined init with take of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v21, v22, v23);
+  return swift_storeEnumTagMultiPayload();
+}
+
+uint64_t String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.hash(into:)(Swift::Int a1)
+{
+  v3 = type metadata accessor for FloatingPointRoundingRule();
+  v213 = *(v3 - 8);
+  v214 = v3;
+  MEMORY[0x1EEE9AC00](v3);
+  v212 = &v198 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss25FloatingPointRoundingRuleOSgMd, &_ss25FloatingPointRoundingRuleOSgMR);
+  MEMORY[0x1EEE9AC00](v5 - 8);
+  v211 = &v198 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v7);
+  v210 = &v198 - v8;
+  MEMORY[0x1EEE9AC00](v9);
+  v11 = &v198 - v10;
+  v208 = type metadata accessor for NSDecimal.FormatStyle.Percent(0);
+  MEMORY[0x1EEE9AC00](v208);
+  v13 = &v198 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v209 = type metadata accessor for NSDecimal.FormatStyle.Currency(0);
+  MEMORY[0x1EEE9AC00](v209);
+  v15 = &v198 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v16 = type metadata accessor for NSDecimal.FormatStyle(0);
+  MEMORY[0x1EEE9AC00](v16);
+  v18 = &v198 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v19 = type metadata accessor for String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format(0);
+  MEMORY[0x1EEE9AC00](v19);
+  v21 = &v198 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of String.LocalizationValue.FormatArgument.CodableStorage(v1, v21, type metadata accessor for String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format);
+  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+  if (EnumCaseMultiPayload)
+  {
+    if (EnumCaseMultiPayload == 1)
+    {
+      outlined init with take of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v21, v15, type metadata accessor for NSDecimal.FormatStyle.Currency);
+      MEMORY[0x1865CD060](1);
+      v23 = *(v15 + 1);
+      ObjectType = swift_getObjectType();
+      if ((*(v23 + 48))(ObjectType, v23))
+      {
+        v25 = 1;
+LABEL_11:
+        Hasher._combine(_:)(v25);
+        v34 = v214;
+        v35 = v209;
+        v36 = v210;
+        goto LABEL_84;
+      }
+
+      Hasher._combine(_:)(0);
+      (*(v23 + 64))(ObjectType, v23);
+      String.hash(into:)();
+
+      (*(v23 + 464))(&v215, ObjectType, v23);
+      v228 = v221;
+      v229[0] = v222[0];
+      *(v229 + 12) = *(v222 + 12);
+      *v225 = v217;
+      *&v225[16] = v218;
+      v226 = v219;
+      v227 = v220;
+      v223 = v215;
+      v224 = v216;
+      if (_s10Foundation17LocalePreferencesVSgWOg(&v223) == 1)
+      {
+        v25 = 0;
+        goto LABEL_11;
+      }
+
+      v43 = v215;
+      v44 = *(&v215 + 1);
+      v45 = *(&v216 + 1);
+      v198 = v216;
+      v46 = *(&v217 + 1);
+      v199 = v217;
+      v201 = v218;
+      v202 = v219;
+      v203 = v220;
+      *&v204[8] = v221;
+      v200 = *(&v222[0] + 1);
+      v205 = *&v222[0];
+      v206 = *&v222[1];
+      v47 = BYTE8(v222[1]);
+      v208 = BYTE9(v222[1]);
+      LODWORD(v207) = BYTE10(v222[1]);
+      LODWORD(v211) = BYTE11(v222[1]);
+      Hasher._combine(_:)(1u);
+      if (v43 == 2)
+      {
+        v48 = 0;
+      }
+
+      else
+      {
+        Hasher._combine(_:)(1u);
+        v48 = v43 & 1;
+      }
+
+      Hasher._combine(_:)(v48);
+      if (v44)
+      {
+        Hasher._combine(_:)(1u);
+        MEMORY[0x1865CD060](*(v44 + 16));
+        v61 = *(v44 + 16);
+        if (v61)
+        {
+          v62 = v44 + 40;
+          do
+          {
+
+            String.hash(into:)();
+
+            v62 += 16;
+            --v61;
+          }
+
+          while (v61);
+        }
+
+        *v204 = v47;
+        if (v45)
+        {
+          goto LABEL_30;
+        }
+      }
+
+      else
+      {
+        Hasher._combine(_:)(0);
+        *v204 = v47;
+        if (v45)
+        {
+LABEL_30:
+          Hasher._combine(_:)(1u);
+          String.hash(into:)();
+          goto LABEL_47;
+        }
+      }
+
+      Hasher._combine(_:)(0);
+LABEL_47:
+      v34 = v214;
+      v35 = v209;
+      v36 = v210;
+      v67 = *(&v202 + 1);
+      v68 = *(&v201 + 1);
+      if (v46)
+      {
+        Hasher._combine(_:)(1u);
+        String.hash(into:)();
+        v69 = v201;
+        if (v201)
+        {
+          goto LABEL_49;
+        }
+      }
+
+      else
+      {
+        Hasher._combine(_:)(0);
+        v69 = v201;
+        if (v201)
+        {
+LABEL_49:
+          Hasher._combine(_:)(1u);
+          specialized Dictionary<>.hash(into:)(a1, v69, v70, v71, v72, v73, v74, v75);
+          if (v68)
+          {
+            goto LABEL_50;
+          }
+
+          goto LABEL_55;
+        }
+      }
+
+      Hasher._combine(_:)(0);
+      if (v68)
+      {
+LABEL_50:
+        Hasher._combine(_:)(1u);
+        specialized Dictionary<>.hash(into:)(a1, v68, v76, v77, v78, v79, v80, v81);
+        if (v202)
+        {
+          goto LABEL_51;
+        }
+
+        goto LABEL_56;
+      }
+
+LABEL_55:
+      Hasher._combine(_:)(0);
+      if (v202)
+      {
+LABEL_51:
+        Hasher._combine(_:)(1u);
+        type metadata accessor for CFDictionaryRef(0);
+        lazy protocol witness table accessor for type String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format and conformance String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
+        _CFObject.hash(into:)();
+        if (v67)
+        {
+LABEL_52:
+          Hasher._combine(_:)(1u);
+          type metadata accessor for CFDictionaryRef(0);
+          lazy protocol witness table accessor for type String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format and conformance String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
+          _CFObject.hash(into:)();
+          goto LABEL_58;
+        }
+
+LABEL_57:
+        Hasher._combine(_:)(0);
+LABEL_58:
+        v82 = v205;
+        if (v203)
+        {
+          v83 = v208;
+          Hasher._combine(_:)(1u);
+          type metadata accessor for CFDictionaryRef(0);
+          lazy protocol witness table accessor for type String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format and conformance String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
+          _CFObject.hash(into:)();
+          if (*(&v203 + 1))
+          {
+LABEL_60:
+            Hasher._combine(_:)(1u);
+            type metadata accessor for CFDictionaryRef(0);
+            lazy protocol witness table accessor for type String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format and conformance String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
+            _CFObject.hash(into:)();
+            goto LABEL_63;
+          }
+        }
+
+        else
+        {
+          v83 = v208;
+          Hasher._combine(_:)(0);
+          if (*(&v203 + 1))
+          {
+            goto LABEL_60;
+          }
+        }
+
+        Hasher._combine(_:)(0);
+LABEL_63:
+        v84 = v83;
+        if (*&v204[8])
+        {
+          Hasher._combine(_:)(1u);
+          type metadata accessor for CFDictionaryRef(0);
+          lazy protocol witness table accessor for type String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format and conformance String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
+          _CFObject.hash(into:)();
+        }
+
+        else
+        {
+          Hasher._combine(_:)(0);
+        }
+
+        v85 = v82;
+        v86 = *&v204[16];
+        if (*&v204[16])
+        {
+          Hasher._combine(_:)(1u);
+          specialized Dictionary<>.hash(into:)(a1, v86);
+          v87 = *v204;
+          if (v85)
+          {
+            goto LABEL_68;
+          }
+        }
+
+        else
+        {
+          Hasher._combine(_:)(0);
+          v87 = *v204;
+          if (v85)
+          {
+LABEL_68:
+            Hasher._combine(_:)(1u);
+            specialized Dictionary<>.hash(into:)(a1, v85);
+            if (v206)
+            {
+LABEL_69:
+              Hasher._combine(_:)(1u);
+              String.hash(into:)();
+              goto LABEL_73;
+            }
+
+LABEL_72:
+            Hasher._combine(_:)(0);
+LABEL_73:
+            v88 = v207;
+            if (v87 == 2)
+            {
+              Hasher._combine(_:)(0);
+              if (v84 != 2)
+              {
+                goto LABEL_75;
+              }
+            }
+
+            else
+            {
+              Hasher._combine(_:)(1u);
+              MEMORY[0x1865CD060](v87 & 1);
+              if (v84 != 2)
+              {
+LABEL_75:
+                Hasher._combine(_:)(1u);
+                MEMORY[0x1865CD060](v84 & 1);
+                if (v88 != 2)
+                {
+LABEL_76:
+                  Hasher._combine(_:)(1u);
+                  v89 = v88 & 1;
+LABEL_80:
+                  Hasher._combine(_:)(v89);
+                  v90 = v211;
+                  if (v211 == 2)
+                  {
+                    v91 = 0;
+                  }
+
+                  else
+                  {
+                    Hasher._combine(_:)(1u);
+                    v91 = v90 & 1;
+                  }
+
+                  Hasher._combine(_:)(v91);
+                  outlined destroy of TermOfAddress?(&v215, &_s10Foundation17LocalePreferencesVSgMd, &_s10Foundation17LocalePreferencesVSgMR);
+LABEL_84:
+                  String.hash(into:)();
+                  v92 = &v15[*(v35 + 24)];
+                  if (v92[8] == 1)
+                  {
+                    Hasher._combine(_:)(0);
+                  }
+
+                  else
+                  {
+                    v93 = *v92;
+                    Hasher._combine(_:)(1u);
+                    if ((v93 & 0x7FFFFFFFFFFFFFFFLL) != 0)
+                    {
+                      v94 = v93;
+                    }
+
+                    else
+                    {
+                      v94 = 0;
+                    }
+
+                    MEMORY[0x1865CD090](v94);
+                  }
+
+                  v95 = v213;
+                  v96 = *(v92 + 2);
+                  v223 = *(v92 + 1);
+                  v224 = v96;
+                  *v225 = *(v92 + 3);
+                  *&v225[9] = *(v92 + 57);
+                  specialized Optional<A>.hash(into:)();
+                  v97 = v92[73];
+                  if (v97 == 2)
+                  {
+                    Hasher._combine(_:)(0);
+                  }
+
+                  else
+                  {
+                    Hasher._combine(_:)(1u);
+                    MEMORY[0x1865CD060](v97 & 1);
+                  }
+
+                  v98 = *(v92 + 74);
+                  if (*(v92 + 74) == 2)
+                  {
+                    LOBYTE(v99) = 0;
+                  }
+
+                  else
+                  {
+                    Hasher._combine(_:)(1u);
+                    MEMORY[0x1865CD060](v98 & 1);
+                    MEMORY[0x1865CD060]((v98 >> 8) & 1);
+                    MEMORY[0x1865CD060](WORD1(v98) & 1);
+                    v99 = BYTE3(v98) & 1;
+                  }
+
+                  Hasher._combine(_:)(v99);
+                  v100 = v92[78];
+                  if (v100 == 2)
+                  {
+                    Hasher._combine(_:)(0);
+                  }
+
+                  else
+                  {
+                    Hasher._combine(_:)(1u);
+                    MEMORY[0x1865CD060](v100 & 1);
+                  }
+
+                  v101 = type metadata accessor for CurrencyFormatStyleConfiguration.Collection(0);
+                  outlined init with copy of FloatingPointRoundingRule?(&v92[v101[9]], v36, &_ss25FloatingPointRoundingRuleOSgMd, &_ss25FloatingPointRoundingRuleOSgMR);
+                  if ((*(v95 + 48))(v36, 1, v34) == 1)
+                  {
+                    Hasher._combine(_:)(0);
+                  }
+
+                  else
+                  {
+                    v102 = v212;
+                    (*(v95 + 32))(v212, v36, v34);
+                    Hasher._combine(_:)(1u);
+                    dispatch thunk of Hashable.hash(into:)();
+                    (*(v95 + 8))(v102, v34);
+                  }
+
+                  v103 = &v92[v101[10]];
+                  v104 = v103[8];
+                  if (v104 == 255)
+                  {
+                    Hasher._combine(_:)(0);
+                  }
+
+                  else
+                  {
+                    v105 = *v103;
+                    Hasher._combine(_:)(1u);
+                    if (v104)
+                    {
+                      MEMORY[0x1865CD060](1);
+                      if ((v105 & 0x7FFFFFFFFFFFFFFFLL) != 0)
+                      {
+                        v106 = v105;
+                      }
+
+                      else
+                      {
+                        v106 = 0;
+                      }
+
+                      MEMORY[0x1865CD090](v106);
+                    }
+
+                    else
+                    {
+                      MEMORY[0x1865CD060](0);
+                      MEMORY[0x1865CD060](v105);
+                    }
+                  }
+
+                  MEMORY[0x1865CD060](v92[v101[11]]);
+                  v107 = v92[v101[12]];
+                  if (v107 == 3)
+                  {
+                    Hasher._combine(_:)(0);
+                  }
+
+                  else
+                  {
+                    Hasher._combine(_:)(1u);
+                    MEMORY[0x1865CD060](v107);
+                  }
+
+                  v108 = type metadata accessor for NSDecimal.FormatStyle.Currency;
+                  v109 = v15;
+                  return outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v109, v108);
+                }
+
+LABEL_79:
+                v89 = 0;
+                goto LABEL_80;
+              }
+            }
+
+            Hasher._combine(_:)(0);
+            if (v88 != 2)
+            {
+              goto LABEL_76;
+            }
+
+            goto LABEL_79;
+          }
+        }
+
+        Hasher._combine(_:)(0);
+        if (v206)
+        {
+          goto LABEL_69;
+        }
+
+        goto LABEL_72;
+      }
+
+LABEL_56:
+      Hasher._combine(_:)(0);
+      if (v67)
+      {
+        goto LABEL_52;
+      }
+
+      goto LABEL_57;
+    }
+
+    v30 = v13;
+    outlined init with take of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v21, v13, type metadata accessor for NSDecimal.FormatStyle.Percent);
+    MEMORY[0x1865CD060](2);
+    v31 = *(v13 + 1);
+    v32 = swift_getObjectType();
+    if ((*(v31 + 48))(v32, v31))
+    {
+      v33 = 1;
+LABEL_17:
+      Hasher._combine(_:)(v33);
+      v40 = v213;
+      v41 = v214;
+      v42 = v208;
+      goto LABEL_225;
+    }
+
+    Hasher._combine(_:)(0);
+    (*(v31 + 64))(v32, v31);
+    String.hash(into:)();
+
+    (*(v31 + 464))(&v215, v32, v31);
+    v228 = v221;
+    v229[0] = v222[0];
+    *(v229 + 12) = *(v222 + 12);
+    *v225 = v217;
+    *&v225[16] = v218;
+    v226 = v219;
+    v227 = v220;
+    v223 = v215;
+    v224 = v216;
+    if (_s10Foundation17LocalePreferencesVSgWOg(&v223) == 1)
+    {
+      v33 = 0;
+      goto LABEL_17;
+    }
+
+    v55 = v215;
+    v56 = *(&v215 + 1);
+    v57 = *(&v216 + 1);
+    v198 = v216;
+    v58 = *(&v217 + 1);
+    v199 = v217;
+    v201 = v218;
+    v202 = v219;
+    v203 = v220;
+    *&v204[16] = *(&v221 + 1);
+    *v204 = v221;
+    v200 = *(&v222[0] + 1);
+    v205 = *&v222[0];
+    v206 = *&v222[1];
+    v207 = BYTE8(v222[1]);
+    v209 = BYTE9(v222[1]);
+    v59 = BYTE10(v222[1]);
+    LODWORD(v210) = BYTE11(v222[1]);
+    Hasher._combine(_:)(1u);
+    if (v55 == 2)
+    {
+      v60 = 0;
+    }
+
+    else
+    {
+      Hasher._combine(_:)(1u);
+      v60 = v55 & 1;
+    }
+
+    Hasher._combine(_:)(v60);
+    if (v56)
+    {
+      Hasher._combine(_:)(1u);
+      MEMORY[0x1865CD060](*(v56 + 16));
+      v65 = *(v56 + 16);
+      if (v65)
+      {
+        v66 = v56 + 40;
+        do
+        {
+
+          String.hash(into:)();
+
+          v66 += 16;
+          --v65;
+        }
+
+        while (v65);
+      }
+
+      *&v204[8] = v59;
+      if (v57)
+      {
+        goto LABEL_44;
+      }
+    }
+
+    else
+    {
+      Hasher._combine(_:)(0);
+      *&v204[8] = v59;
+      if (v57)
+      {
+LABEL_44:
+        Hasher._combine(_:)(1u);
+        String.hash(into:)();
+        goto LABEL_186;
+      }
+    }
+
+    Hasher._combine(_:)(0);
+LABEL_186:
+    v40 = v213;
+    v42 = v208;
+    v153 = v203;
+    v154 = v202;
+    if (v58)
+    {
+      Hasher._combine(_:)(1u);
+      String.hash(into:)();
+    }
+
+    else
+    {
+      Hasher._combine(_:)(0);
+    }
+
+    v30 = v13;
+    v155 = v201;
+    if (v201)
+    {
+      Hasher._combine(_:)(1u);
+      specialized Dictionary<>.hash(into:)(a1, v155, v156, v157, v158, v159, v160, v161);
+    }
+
+    else
+    {
+      Hasher._combine(_:)(0);
+    }
+
+    v41 = v214;
+    v162 = *(&v201 + 1);
+    if (*(&v201 + 1))
+    {
+      Hasher._combine(_:)(1u);
+      specialized Dictionary<>.hash(into:)(a1, v162, v163, v164, v165, v166, v167, v168);
+      if (v154)
+      {
+        goto LABEL_194;
+      }
+    }
+
+    else
+    {
+      Hasher._combine(_:)(0);
+      if (v154)
+      {
+LABEL_194:
+        Hasher._combine(_:)(1u);
+        type metadata accessor for CFDictionaryRef(0);
+        lazy protocol witness table accessor for type String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format and conformance String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
+        _CFObject.hash(into:)();
+        if (*(&v202 + 1))
+        {
+          goto LABEL_195;
+        }
+
+        goto LABEL_199;
+      }
+    }
+
+    Hasher._combine(_:)(0);
+    if (*(&v202 + 1))
+    {
+LABEL_195:
+      Hasher._combine(_:)(1u);
+      type metadata accessor for CFDictionaryRef(0);
+      lazy protocol witness table accessor for type String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format and conformance String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
+      _CFObject.hash(into:)();
+      v169 = v206;
+      if (v153)
+      {
+LABEL_196:
+        Hasher._combine(_:)(1u);
+        type metadata accessor for CFDictionaryRef(0);
+        lazy protocol witness table accessor for type String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format and conformance String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
+        _CFObject.hash(into:)();
+        goto LABEL_201;
+      }
+
+LABEL_200:
+      Hasher._combine(_:)(0);
+LABEL_201:
+      v170 = v169;
+      if (*(&v203 + 1))
+      {
+        v171 = v209;
+        Hasher._combine(_:)(1u);
+        type metadata accessor for CFDictionaryRef(0);
+        lazy protocol witness table accessor for type String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format and conformance String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
+        _CFObject.hash(into:)();
+        if (*v204)
+        {
+LABEL_203:
+          Hasher._combine(_:)(1u);
+          type metadata accessor for CFDictionaryRef(0);
+          lazy protocol witness table accessor for type String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format and conformance String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
+          _CFObject.hash(into:)();
+          goto LABEL_206;
+        }
+      }
+
+      else
+      {
+        v171 = v209;
+        Hasher._combine(_:)(0);
+        if (*v204)
+        {
+          goto LABEL_203;
+        }
+      }
+
+      Hasher._combine(_:)(0);
+LABEL_206:
+      v172 = v171;
+      v173 = v170;
+      v174 = *&v204[16];
+      if (*&v204[16])
+      {
+        Hasher._combine(_:)(1u);
+        specialized Dictionary<>.hash(into:)(a1, v174);
+        v175 = v205;
+        if (v205)
+        {
+          goto LABEL_208;
+        }
+      }
+
+      else
+      {
+        Hasher._combine(_:)(0);
+        v175 = v205;
+        if (v205)
+        {
+LABEL_208:
+          Hasher._combine(_:)(1u);
+          specialized Dictionary<>.hash(into:)(a1, v175);
+          v176 = v210;
+          if (v173)
+          {
+LABEL_209:
+            Hasher._combine(_:)(1u);
+            String.hash(into:)();
+            goto LABEL_213;
+          }
+
+LABEL_212:
+          Hasher._combine(_:)(0);
+LABEL_213:
+          v177 = v207;
+          if (v207 == 2)
+          {
+            Hasher._combine(_:)(0);
+          }
+
+          else
+          {
+            Hasher._combine(_:)(1u);
+            MEMORY[0x1865CD060](v177 & 1);
+          }
+
+          v178 = *&v204[8];
+          if (v172 == 2)
+          {
+            Hasher._combine(_:)(0);
+            if (v178 != 2)
+            {
+LABEL_218:
+              Hasher._combine(_:)(1u);
+              v179 = v178 & 1;
+LABEL_221:
+              Hasher._combine(_:)(v179);
+              if (v176 == 2)
+              {
+                v180 = 0;
+              }
+
+              else
+              {
+                Hasher._combine(_:)(1u);
+                v180 = v176 & 1;
+              }
+
+              Hasher._combine(_:)(v180);
+              outlined destroy of TermOfAddress?(&v215, &_s10Foundation17LocalePreferencesVSgMd, &_s10Foundation17LocalePreferencesVSgMR);
+LABEL_225:
+              v181 = &v30[*(v42 + 20)];
+              if (v181[8] == 1)
+              {
+                Hasher._combine(_:)(0);
+              }
+
+              else
+              {
+                v182 = *v181;
+                Hasher._combine(_:)(1u);
+                if ((v182 & 0x7FFFFFFFFFFFFFFFLL) != 0)
+                {
+                  v183 = v182;
+                }
+
+                else
+                {
+                  v183 = 0;
+                }
+
+                MEMORY[0x1865CD090](v183);
+              }
+
+              v184 = *(v181 + 2);
+              v223 = *(v181 + 1);
+              v224 = v184;
+              *v225 = *(v181 + 3);
+              *&v225[9] = *(v181 + 57);
+              specialized Optional<A>.hash(into:)();
+              v185 = v181[73];
+              if (v185 == 2)
+              {
+                Hasher._combine(_:)(0);
+              }
+
+              else
+              {
+                Hasher._combine(_:)(1u);
+                MEMORY[0x1865CD060](v185 & 1);
+              }
+
+              v186 = *(v181 + 37);
+              v187 = v186 | (v181[76] << 16);
+              if (v186 == 2)
+              {
+                Hasher._combine(_:)(0);
+              }
+
+              else
+              {
+                Hasher._combine(_:)(1u);
+                MEMORY[0x1865CD060](v187 & 1);
+                MEMORY[0x1865CD060]((v187 >> 8) & 1);
+                MEMORY[0x1865CD060](HIWORD(v187) & 1);
+              }
+
+              v188 = v181[77];
+              if (v188 == 2)
+              {
+                Hasher._combine(_:)(0);
+              }
+
+              else
+              {
+                Hasher._combine(_:)(1u);
+                MEMORY[0x1865CD060](v188 & 1);
+              }
+
+              v189 = type metadata accessor for NumberFormatStyleConfiguration.Collection(0);
+              v190 = v211;
+              outlined init with copy of FloatingPointRoundingRule?(&v181[v189[9]], v211, &_ss25FloatingPointRoundingRuleOSgMd, &_ss25FloatingPointRoundingRuleOSgMR);
+              if ((*(v40 + 48))(v190, 1, v41) == 1)
+              {
+                Hasher._combine(_:)(0);
+              }
+
+              else
+              {
+                v191 = v212;
+                (*(v40 + 32))(v212, v190, v41);
+                Hasher._combine(_:)(1u);
+                dispatch thunk of Hashable.hash(into:)();
+                (*(v40 + 8))(v191, v41);
+              }
+
+              v192 = &v181[v189[10]];
+              v193 = v192[8];
+              if (v193 == 255)
+              {
+                Hasher._combine(_:)(0);
+              }
+
+              else
+              {
+                v194 = *v192;
+                Hasher._combine(_:)(1u);
+                if (v193)
+                {
+                  MEMORY[0x1865CD060](1);
+                  if ((v194 & 0x7FFFFFFFFFFFFFFFLL) != 0)
+                  {
+                    v195 = v194;
+                  }
+
+                  else
+                  {
+                    v195 = 0;
+                  }
+
+                  MEMORY[0x1865CD090](v195);
+                }
+
+                else
+                {
+                  MEMORY[0x1865CD060](0);
+                  MEMORY[0x1865CD060](v194);
+                }
+              }
+
+              v196 = v181[v189[11]];
+              if (v196 == 3)
+              {
+                Hasher._combine(_:)(0);
+              }
+
+              else
+              {
+                Hasher._combine(_:)(1u);
+                MEMORY[0x1865CD060](v196);
+              }
+
+              v108 = type metadata accessor for NSDecimal.FormatStyle.Percent;
+              v109 = v30;
+              return outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v109, v108);
+            }
+          }
+
+          else
+          {
+            Hasher._combine(_:)(1u);
+            MEMORY[0x1865CD060](v172 & 1);
+            if (v178 != 2)
+            {
+              goto LABEL_218;
+            }
+          }
+
+          v179 = 0;
+          goto LABEL_221;
+        }
+      }
+
+      Hasher._combine(_:)(0);
+      v176 = v210;
+      if (v173)
+      {
+        goto LABEL_209;
+      }
+
+      goto LABEL_212;
+    }
+
+LABEL_199:
+    Hasher._combine(_:)(0);
+    v169 = v206;
+    if (v153)
+    {
+      goto LABEL_196;
+    }
+
+    goto LABEL_200;
+  }
+
+  v26 = v16;
+  v211 = v11;
+  outlined init with take of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v21, v18, type metadata accessor for NSDecimal.FormatStyle);
+  MEMORY[0x1865CD060](0);
+  v27 = *(v18 + 1);
+  v28 = swift_getObjectType();
+  if ((*(v27 + 48))(v28, v27))
+  {
+    v29 = 1;
+LABEL_14:
+    Hasher._combine(_:)(v29);
+    v38 = v213;
+    v37 = v214;
+    v39 = v26;
+    goto LABEL_154;
+  }
+
+  Hasher._combine(_:)(0);
+  (*(v27 + 64))(v28, v27);
+  String.hash(into:)();
+
+  (*(v27 + 464))(&v215, v28, v27);
+  v228 = v221;
+  v229[0] = v222[0];
+  *(v229 + 12) = *(v222 + 12);
+  *v225 = v217;
+  *&v225[16] = v218;
+  v226 = v219;
+  v227 = v220;
+  v223 = v215;
+  v224 = v216;
+  if (_s10Foundation17LocalePreferencesVSgWOg(&v223) == 1)
+  {
+    v29 = 0;
+    goto LABEL_14;
+  }
+
+  v210 = v18;
+  v49 = v215;
+  v50 = *(&v215 + 1);
+  v51 = *(&v216 + 1);
+  v198 = v216;
+  v52 = *(&v217 + 1);
+  v199 = v217;
+  v201 = v218;
+  v202 = v219;
+  v203 = v220;
+  *v204 = v221;
+  v200 = *(&v222[0] + 1);
+  v205 = *&v222[0];
+  v206 = *&v222[1];
+  v207 = BYTE8(v222[1]);
+  v208 = BYTE9(v222[1]);
+  LODWORD(v209) = BYTE10(v222[1]);
+  v53 = BYTE11(v222[1]);
+  Hasher._combine(_:)(1u);
+  if (v49 == 2)
+  {
+    v54 = 0;
+  }
+
+  else
+  {
+    Hasher._combine(_:)(1u);
+    v54 = v49 & 1;
+  }
+
+  Hasher._combine(_:)(v54);
+  if (v50)
+  {
+    Hasher._combine(_:)(1u);
+    MEMORY[0x1865CD060](*(v50 + 16));
+    v63 = *(v50 + 16);
+    if (v63)
+    {
+      v64 = v50 + 40;
+      do
+      {
+
+        String.hash(into:)();
+
+        v64 += 16;
+        --v63;
+      }
+
+      while (v63);
+    }
+
+    *&v204[16] = v53;
+    if (v51)
+    {
+      goto LABEL_37;
+    }
+  }
+
+  else
+  {
+    Hasher._combine(_:)(0);
+    *&v204[16] = v53;
+    if (v51)
+    {
+LABEL_37:
+      Hasher._combine(_:)(1u);
+      String.hash(into:)();
+      goto LABEL_116;
+    }
+  }
+
+  Hasher._combine(_:)(0);
+LABEL_116:
+  v37 = v214;
+  v39 = v26;
+  v110 = v202;
+  v18 = v210;
+  v111 = v203;
+  if (v52)
+  {
+    Hasher._combine(_:)(1u);
+    String.hash(into:)();
+  }
+
+  else
+  {
+    Hasher._combine(_:)(0);
+  }
+
+  v38 = v213;
+  v112 = v201;
+  if (v201)
+  {
+    Hasher._combine(_:)(1u);
+    specialized Dictionary<>.hash(into:)(a1, v112, v113, v114, v115, v116, v117, v118);
+    v119 = *(&v201 + 1);
+    if (*(&v201 + 1))
+    {
+      goto LABEL_121;
+    }
+  }
+
+  else
+  {
+    Hasher._combine(_:)(0);
+    v119 = *(&v201 + 1);
+    if (*(&v201 + 1))
+    {
+LABEL_121:
+      Hasher._combine(_:)(1u);
+      specialized Dictionary<>.hash(into:)(a1, v119, v120, v121, v122, v123, v124, v125);
+      if (v110)
+      {
+        goto LABEL_122;
+      }
+
+      goto LABEL_127;
+    }
+  }
+
+  Hasher._combine(_:)(0);
+  if (v110)
+  {
+LABEL_122:
+    Hasher._combine(_:)(1u);
+    type metadata accessor for CFDictionaryRef(0);
+    lazy protocol witness table accessor for type String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format and conformance String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
+    _CFObject.hash(into:)();
+    if (*(&v202 + 1))
+    {
+      goto LABEL_123;
+    }
+
+LABEL_128:
+    Hasher._combine(_:)(0);
+    if (v111)
+    {
+      goto LABEL_124;
+    }
+
+    goto LABEL_129;
+  }
+
+LABEL_127:
+  Hasher._combine(_:)(0);
+  if (!*(&v202 + 1))
+  {
+    goto LABEL_128;
+  }
+
+LABEL_123:
+  Hasher._combine(_:)(1u);
+  type metadata accessor for CFDictionaryRef(0);
+  lazy protocol witness table accessor for type String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format and conformance String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
+  _CFObject.hash(into:)();
+  if (v111)
+  {
+LABEL_124:
+    Hasher._combine(_:)(1u);
+    type metadata accessor for CFDictionaryRef(0);
+    lazy protocol witness table accessor for type String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format and conformance String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
+    _CFObject.hash(into:)();
+    goto LABEL_130;
+  }
+
+LABEL_129:
+  Hasher._combine(_:)(0);
+LABEL_130:
+  v126 = v206;
+  if (*(&v203 + 1))
+  {
+    v127 = v208;
+    Hasher._combine(_:)(1u);
+    type metadata accessor for CFDictionaryRef(0);
+    lazy protocol witness table accessor for type String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format and conformance String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
+    _CFObject.hash(into:)();
+    if (*v204)
+    {
+LABEL_132:
+      Hasher._combine(_:)(1u);
+      type metadata accessor for CFDictionaryRef(0);
+      lazy protocol witness table accessor for type String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format and conformance String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
+      _CFObject.hash(into:)();
+      goto LABEL_135;
+    }
+  }
+
+  else
+  {
+    v127 = v208;
+    Hasher._combine(_:)(0);
+    if (*v204)
+    {
+      goto LABEL_132;
+    }
+  }
+
+  Hasher._combine(_:)(0);
+LABEL_135:
+  v128 = v127;
+  v129 = v126;
+  v130 = *&v204[8];
+  if (*&v204[8])
+  {
+    Hasher._combine(_:)(1u);
+    specialized Dictionary<>.hash(into:)(a1, v130);
+    v131 = v205;
+    if (v205)
+    {
+      goto LABEL_137;
+    }
+
+LABEL_140:
+    Hasher._combine(_:)(0);
+    v132 = v209;
+    if (v129)
+    {
+      goto LABEL_138;
+    }
+
+    goto LABEL_141;
+  }
+
+  Hasher._combine(_:)(0);
+  v131 = v205;
+  if (!v205)
+  {
+    goto LABEL_140;
+  }
+
+LABEL_137:
+  Hasher._combine(_:)(1u);
+  specialized Dictionary<>.hash(into:)(a1, v131);
+  v132 = v209;
+  if (v129)
+  {
+LABEL_138:
+    Hasher._combine(_:)(1u);
+    String.hash(into:)();
+    goto LABEL_142;
+  }
+
+LABEL_141:
+  Hasher._combine(_:)(0);
+LABEL_142:
+  v133 = v207;
+  if (v207 == 2)
+  {
+    Hasher._combine(_:)(0);
+  }
+
+  else
+  {
+    Hasher._combine(_:)(1u);
+    MEMORY[0x1865CD060](v133 & 1);
+  }
+
+  v134 = *&v204[16];
+  if (v128 != 2)
+  {
+    Hasher._combine(_:)(1u);
+    MEMORY[0x1865CD060](v128 & 1);
+    if (v132 != 2)
+    {
+      goto LABEL_147;
+    }
+
+LABEL_149:
+    v135 = 0;
+    goto LABEL_150;
+  }
+
+  Hasher._combine(_:)(0);
+  if (v132 == 2)
+  {
+    goto LABEL_149;
+  }
+
+LABEL_147:
+  Hasher._combine(_:)(1u);
+  v135 = v132 & 1;
+LABEL_150:
+  Hasher._combine(_:)(v135);
+  if (v134 == 2)
+  {
+    v136 = 0;
+  }
+
+  else
+  {
+    Hasher._combine(_:)(1u);
+    v136 = v134 & 1;
+  }
+
+  Hasher._combine(_:)(v136);
+  outlined destroy of TermOfAddress?(&v215, &_s10Foundation17LocalePreferencesVSgMd, &_s10Foundation17LocalePreferencesVSgMR);
+LABEL_154:
+  v137 = &v18[*(v39 + 20)];
+  if (v137[8] == 1)
+  {
+    Hasher._combine(_:)(0);
+  }
+
+  else
+  {
+    v138 = *v137;
+    Hasher._combine(_:)(1u);
+    if ((v138 & 0x7FFFFFFFFFFFFFFFLL) != 0)
+    {
+      v139 = v138;
+    }
+
+    else
+    {
+      v139 = 0;
+    }
+
+    MEMORY[0x1865CD090](v139);
+  }
+
+  v140 = v211;
+  v141 = *(v137 + 2);
+  v223 = *(v137 + 1);
+  v224 = v141;
+  *v225 = *(v137 + 3);
+  *&v225[9] = *(v137 + 57);
+  specialized Optional<A>.hash(into:)();
+  v142 = v137[73];
+  if (v142 == 2)
+  {
+    Hasher._combine(_:)(0);
+  }
+
+  else
+  {
+    Hasher._combine(_:)(1u);
+    MEMORY[0x1865CD060](v142 & 1);
+  }
+
+  v143 = *(v137 + 37);
+  v144 = v143 | (v137[76] << 16);
+  if (v143 == 2)
+  {
+    Hasher._combine(_:)(0);
+  }
+
+  else
+  {
+    Hasher._combine(_:)(1u);
+    MEMORY[0x1865CD060](v144 & 1);
+    MEMORY[0x1865CD060]((v144 >> 8) & 1);
+    MEMORY[0x1865CD060](HIWORD(v144) & 1);
+  }
+
+  v145 = v137[77];
+  if (v145 == 2)
+  {
+    Hasher._combine(_:)(0);
+  }
+
+  else
+  {
+    Hasher._combine(_:)(1u);
+    MEMORY[0x1865CD060](v145 & 1);
+  }
+
+  v146 = type metadata accessor for NumberFormatStyleConfiguration.Collection(0);
+  outlined init with copy of FloatingPointRoundingRule?(&v137[v146[9]], v140, &_ss25FloatingPointRoundingRuleOSgMd, &_ss25FloatingPointRoundingRuleOSgMR);
+  if ((*(v38 + 48))(v140, 1, v37) == 1)
+  {
+    Hasher._combine(_:)(0);
+  }
+
+  else
+  {
+    v147 = v212;
+    (*(v38 + 32))(v212, v140, v37);
+    Hasher._combine(_:)(1u);
+    dispatch thunk of Hashable.hash(into:)();
+    (*(v38 + 8))(v147, v37);
+  }
+
+  v148 = &v137[v146[10]];
+  v149 = v148[8];
+  if (v149 == 255)
+  {
+    Hasher._combine(_:)(0);
+  }
+
+  else
+  {
+    v150 = *v148;
+    Hasher._combine(_:)(1u);
+    if (v149)
+    {
+      MEMORY[0x1865CD060](1);
+      if ((v150 & 0x7FFFFFFFFFFFFFFFLL) != 0)
+      {
+        v151 = v150;
+      }
+
+      else
+      {
+        v151 = 0;
+      }
+
+      MEMORY[0x1865CD090](v151);
+    }
+
+    else
+    {
+      MEMORY[0x1865CD060](0);
+      MEMORY[0x1865CD060](v150);
+    }
+  }
+
+  v152 = v137[v146[11]];
+  if (v152 == 3)
+  {
+    Hasher._combine(_:)(0);
+  }
+
+  else
+  {
+    Hasher._combine(_:)(1u);
+    MEMORY[0x1865CD060](v152);
+  }
+
+  v108 = type metadata accessor for NSDecimal.FormatStyle;
+  v109 = v18;
+  return outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v109, v108);
+}
+
 uint64_t String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
   v15 = a2;
   v4 = type metadata accessor for String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format(0);
   MEMORY[0x1EEE9AC00](v4);
   v17 = &v15 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVySS10FoundationE17LocalizationValueV14FormatArgumentV07DecimalhG5StyleV10CodingKeys33_52A34860FC1D9F87FB0A99C608112EB3LLOGMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVySS10FoundationE17LocalizationValueV14FormatArgumentV07DecimalhG5StyleV10CodingKeys33_52A34860FC1D9F87FB0A99C608112EB3LLOGMd, &_ss22KeyedDecodingContainerVySS10FoundationE17LocalizationValueV14FormatArgumentV07DecimalhG5StyleV10CodingKeys33_52A34860FC1D9F87FB0A99C608112EB3LLOGMR);
   v16 = *(v6 - 8);
   MEMORY[0x1EEE9AC00](v6);
   v8 = &v15 - v7;
@@ -17,7 +1515,7 @@ uint64_t String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.init
   if (!v2)
   {
     v12 = v15;
-    lazy protocol witness table accessor for type String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format and conformance String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format(&lazy protocol witness table cache variable for type String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format and conformance String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format, type metadata accessor for String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format);
+    lazy protocol witness table accessor for type String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format and conformance String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format(&lazy protocol witness table cache variable for type String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format and conformance String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format, type metadata accessor for String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format, &protocol conformance descriptor for String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format);
     v13 = v17;
     KeyedDecodingContainer.decode<A>(_:forKey:)();
     (*(v16 + 8))(v8, v6);
@@ -35,7 +1533,7 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance String.
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance String.LocalizationValue.FormatArgument.DateArgumentFormatStyle.CodingKeys()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance String.LocalizationValue.FormatArgument.DateArgumentFormatStyle.CodingKeys(uint64_t a1)
 {
   Hasher.init(_seed:)();
   MEMORY[0x1865CD060](0);
@@ -85,7 +1583,7 @@ uint64_t protocol witness for FormatStyle.format(_:) in conformance String.Local
 
 uint64_t protocol witness for Encodable.encode(to:) in conformance String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(void *a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVySS10FoundationE17LocalizationValueV14FormatArgumentV07DecimalhG5StyleV10CodingKeys33_52A34860FC1D9F87FB0A99C608112EB3LLOGMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVySS10FoundationE17LocalizationValueV14FormatArgumentV07DecimalhG5StyleV10CodingKeys33_52A34860FC1D9F87FB0A99C608112EB3LLOGMd, &_ss22KeyedEncodingContainerVySS10FoundationE17LocalizationValueV14FormatArgumentV07DecimalhG5StyleV10CodingKeys33_52A34860FC1D9F87FB0A99C608112EB3LLOGMR);
   v3 = *(v2 - 8);
   MEMORY[0x1EEE9AC00](v2);
   v5 = &v7 - v4;
@@ -93,7 +1591,7 @@ uint64_t protocol witness for Encodable.encode(to:) in conformance String.Locali
   lazy protocol witness table accessor for type String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.CodingKeys and conformance String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.CodingKeys();
   dispatch thunk of Encoder.container<A>(keyedBy:)();
   type metadata accessor for String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format(0);
-  lazy protocol witness table accessor for type String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format and conformance String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format(&lazy protocol witness table cache variable for type String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format and conformance String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format, type metadata accessor for String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format);
+  lazy protocol witness table accessor for type String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format and conformance String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format(&lazy protocol witness table cache variable for type String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format and conformance String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format, type metadata accessor for String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format, &protocol conformance descriptor for String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format);
   KeyedEncodingContainer.encode<A>(_:forKey:)();
   return (*(v3 + 8))(v5, v2);
 }
@@ -145,25 +1643,25 @@ uint64_t specialized closure #1 in String.LocalizationValue.FormatArgument.Stora
   return String.init<A>(_:)();
 }
 
-uint64_t specialized closure #1 in String.LocalizationValue.FormatArgument.Storage.StringFormatWrapper.init<A, B>(_:format:)(__int128 *a1, uint64_t a2, __int128 *a3)
+uint64_t specialized closure #1 in String.LocalizationValue.FormatArgument.Storage.StringFormatWrapper.init<A, B>(_:format:)(void *a1, __int128 *a2, __int128 *a3)
 {
-  v4 = *(a2 + 48);
-  v5 = *(a2 + 80);
-  v21 = *(a2 + 64);
+  v4 = a2[3];
+  v5 = a2[5];
+  v21 = a2[4];
   v22 = v5;
-  v6 = *(a2 + 16);
+  v6 = a2[1];
   v18[0] = *a2;
   v18[1] = v6;
-  v7 = *(a2 + 48);
-  v8 = *(a2 + 16);
-  v19 = *(a2 + 32);
+  v7 = a2[3];
+  v8 = a2[1];
+  v19 = a2[2];
   v20 = v7;
   v17 = *a3;
   v14 = v21;
-  v15 = *(a2 + 80);
+  v15 = a2[5];
   v11 = v8;
-  v23 = *(a2 + 96);
-  v16 = *(a2 + 96);
+  v23 = *(a2 + 48);
+  v16 = *(a2 + 48);
   v12 = v19;
   v13 = v4;
   outlined init with copy of Date.IntervalFormatStyle(v18, v24);
@@ -186,164 +1684,162 @@ uint64_t specialized static String.LocalizationValue.FormatArgument.DateArgument
 {
   v2 = a1[3];
   v3 = a1[5];
-  v106 = a1[4];
-  v107 = v3;
+  v104 = a1[4];
+  v105 = v3;
   v4 = a1[5];
-  v108[0] = a1[6];
-  *(v108 + 10) = *(a1 + 106);
+  v106[0] = a1[6];
+  *(v106 + 10) = *(a1 + 106);
   v5 = a1[1];
-  v103[0] = *a1;
-  v103[1] = v5;
+  v101[0] = *a1;
+  v101[1] = v5;
   v6 = a1[3];
   v8 = *a1;
   v7 = a1[1];
-  v104 = a1[2];
-  v105 = v6;
+  v102 = a1[2];
+  v103 = v6;
   v9 = *a2;
   v10 = a2[1];
   v11 = a2[3];
-  v111 = a2[2];
-  v112 = v11;
+  v109 = a2[2];
+  v110 = v11;
   v12 = a2[1];
   v13 = a2[2];
   v14 = *a2;
-  v109 = v9;
-  v110 = v12;
-  *(v115 + 10) = *(a2 + 106);
+  v107 = v9;
+  v108 = v12;
+  *(v113 + 10) = *(a2 + 106);
   v15 = a2[5];
-  v115[0] = a2[6];
+  v113[0] = a2[6];
   v16 = a2[3];
   v17 = a2[5];
-  v113 = a2[4];
-  v114 = v17;
+  v111 = a2[4];
+  v112 = v17;
   v18 = a1[3];
-  v116[2] = a1[2];
-  v116[3] = v18;
+  v114[2] = a1[2];
+  v114[3] = v18;
   v19 = a1[1];
-  v116[0] = *a1;
-  v116[1] = v19;
-  *(v117 + 10) = *(a1 + 106);
+  v114[0] = *a1;
+  v114[1] = v19;
+  *(v115 + 10) = *(a1 + 106);
   v20 = a1[5];
-  v116[4] = a1[4];
-  v116[5] = v20;
-  v117[3] = v10;
-  v117[4] = v13;
-  v117[0] = a1[6];
-  v117[2] = v14;
-  *(v118 + 10) = *(a2 + 106);
-  v118[0] = a2[6];
-  v117[7] = v15;
-  v117[5] = v16;
-  v117[6] = v113;
-  v119[2] = v104;
-  v119[3] = v2;
-  v119[0] = v8;
-  v119[1] = v7;
+  v114[4] = a1[4];
+  v114[5] = v20;
+  v115[3] = v10;
+  v115[4] = v13;
+  v115[0] = a1[6];
+  v115[2] = v14;
+  *(v116 + 10) = *(a2 + 106);
+  v116[0] = a2[6];
+  v115[7] = v15;
+  v115[5] = v16;
+  v115[6] = v111;
+  v117[2] = v102;
+  v117[3] = v2;
+  v117[0] = v8;
+  v117[1] = v7;
   v21 = a1[6];
-  *&v120[10] = *(a1 + 106);
-  v119[5] = v4;
-  *v120 = v21;
-  v119[4] = v106;
-  v22 = _sSS10FoundationE17LocalizationValueV14FormatArgumentV04DateeD5StyleV0D033_52A34860FC1D9F87FB0A99C608112EB3LLOWOg(v119);
+  *&v118[10] = *(a1 + 106);
+  v117[5] = v4;
+  *v118 = v21;
+  v117[4] = v104;
+  v22 = _sSS10FoundationE17LocalizationValueV14FormatArgumentV04DateeD5StyleV0D033_52A34860FC1D9F87FB0A99C608112EB3LLOWOg(v117);
   if (v22 > 1)
   {
     if (v22 == 2)
     {
-      v29 = destructiveProjectEnumData for String.LocalizationValue.FormatArgument.DateArgumentFormatStyle.Format(v119);
-      v100 = v113;
-      v101 = v114;
-      v102[0] = v115[0];
-      *(v102 + 10) = *(v115 + 10);
-      v96 = v109;
-      v97 = v110;
+      v29 = destructiveProjectEnumData for String.LocalizationValue.FormatArgument.DateArgumentFormatStyle.Format(v117);
       v98 = v111;
       v99 = v112;
-      if (_sSS10FoundationE17LocalizationValueV14FormatArgumentV04DateeD5StyleV0D033_52A34860FC1D9F87FB0A99C608112EB3LLOWOg(&v96) == 2)
+      v100[0] = v113[0];
+      *(v100 + 10) = *(v113 + 10);
+      v94 = v107;
+      v95 = v108;
+      v96 = v109;
+      v97 = v110;
+      if (_sSS10FoundationE17LocalizationValueV14FormatArgumentV04DateeD5StyleV0D033_52A34860FC1D9F87FB0A99C608112EB3LLOWOg(&v94) == 2)
       {
-        v30 = destructiveProjectEnumData for String.LocalizationValue.FormatArgument.DateArgumentFormatStyle.Format(&v96);
+        v30 = destructiveProjectEnumData for String.LocalizationValue.FormatArgument.DateArgumentFormatStyle.Format(&v94);
         v31 = v29[1];
-        v87 = *v29;
-        v88 = v31;
+        v85 = *v29;
+        v86 = v31;
         v32 = v29[3];
-        v89 = v29[2];
-        v90 = v32;
-        v86[0] = *v30;
-        v86[1] = v30[1];
-        v86[2] = v30[2];
-        v86[3] = v30[3];
-        outlined init with copy of String.LocalizationValue.FormatArgument.DateArgumentFormatStyle.Format(&v109, v94);
-        outlined init with copy of String.LocalizationValue.FormatArgument.DateArgumentFormatStyle.Format(v103, v94);
-        outlined init with copy of String.LocalizationValue.FormatArgument.DateArgumentFormatStyle.Format(v103, v94);
-        outlined init with copy of String.LocalizationValue.FormatArgument.DateArgumentFormatStyle.Format(&v109, v94);
-        v28 = specialized static Date.VerbatimFormatStyle.== infix(_:_:)(&v87, v86);
+        v87 = v29[2];
+        v88 = v32;
+        v84[0] = *v30;
+        v84[1] = v30[1];
+        v84[2] = v30[2];
+        v84[3] = v30[3];
+        outlined init with copy of String.LocalizationValue.FormatArgument.DateArgumentFormatStyle.Format(&v107, v92);
+        outlined init with copy of String.LocalizationValue.FormatArgument.DateArgumentFormatStyle.Format(v101, v92);
+        outlined init with copy of String.LocalizationValue.FormatArgument.DateArgumentFormatStyle.Format(v101, v92);
+        outlined init with copy of String.LocalizationValue.FormatArgument.DateArgumentFormatStyle.Format(&v107, v92);
+        v28 = specialized static Date.VerbatimFormatStyle.== infix(_:_:)(&v85, v84);
         goto LABEL_8;
       }
 
       goto LABEL_33;
     }
 
-    v48 = destructiveProjectEnumData for String.LocalizationValue.FormatArgument.DateArgumentFormatStyle.Format(v119);
+    v48 = destructiveProjectEnumData for String.LocalizationValue.FormatArgument.DateArgumentFormatStyle.Format(v117);
     v49 = *v48;
     v50 = v48[1];
     v51 = v48[2];
-    v83 = *(v48 + 24);
-    v85 = *(v48 + 8);
-    v52 = *(v48 + 5);
-    v100 = v113;
-    v101 = v114;
-    v102[0] = v115[0];
-    *(v102 + 10) = *(v115 + 10);
+    v81 = *(v48 + 24);
+    v83 = *(v48 + 8);
     v98 = v111;
     v99 = v112;
+    v100[0] = v113[0];
+    *(v100 + 10) = *(v113 + 10);
     v96 = v109;
     v97 = v110;
-    if (_sSS10FoundationE17LocalizationValueV14FormatArgumentV04DateeD5StyleV0D033_52A34860FC1D9F87FB0A99C608112EB3LLOWOg(&v96) != 3)
+    v94 = v107;
+    v95 = v108;
+    if (_sSS10FoundationE17LocalizationValueV14FormatArgumentV04DateeD5StyleV0D033_52A34860FC1D9F87FB0A99C608112EB3LLOWOg(&v94) != 3)
     {
 LABEL_33:
-      outlined init with copy of String.LocalizationValue.FormatArgument.DateArgumentFormatStyle.Format(v103, &v96);
-      v58 = &v96;
+      outlined init with copy of String.LocalizationValue.FormatArgument.DateArgumentFormatStyle.Format(v101, &v94);
+      v56 = &v94;
 LABEL_34:
-      outlined init with copy of String.LocalizationValue.FormatArgument.DateArgumentFormatStyle.Format(&v109, v58);
+      outlined init with copy of String.LocalizationValue.FormatArgument.DateArgumentFormatStyle.Format(&v107, v56);
 LABEL_35:
-      outlined destroy of TermOfAddress?(v116, &_sSS10FoundationE17LocalizationValueV14FormatArgumentV04DateeD5StyleV0D033_52A34860FC1D9F87FB0A99C608112EB3LLO_AJtMd);
+      outlined destroy of TermOfAddress?(v114, &_sSS10FoundationE17LocalizationValueV14FormatArgumentV04DateeD5StyleV0D033_52A34860FC1D9F87FB0A99C608112EB3LLO_AJtMd, &_sSS10FoundationE17LocalizationValueV14FormatArgumentV04DateeD5StyleV0D033_52A34860FC1D9F87FB0A99C608112EB3LLO_AJtMR);
       goto LABEL_36;
     }
 
-    v53 = destructiveProjectEnumData for String.LocalizationValue.FormatArgument.DateArgumentFormatStyle.Format(&v96);
-    if (v49 != *v53 || v50 != v53[1] || v51 != v53[2])
+    v52 = destructiveProjectEnumData for String.LocalizationValue.FormatArgument.DateArgumentFormatStyle.Format(&v94);
+    if (v49 != *v52 || v50 != v52[1] || v51 != v52[2])
     {
-      outlined init with copy of String.LocalizationValue.FormatArgument.DateArgumentFormatStyle.Format(v103, v94);
-      v58 = v94;
+      outlined init with copy of String.LocalizationValue.FormatArgument.DateArgumentFormatStyle.Format(v101, v92);
+      v56 = v92;
       goto LABEL_34;
     }
 
-    v79 = *(v53 + 8);
-    v81 = *(v53 + 24);
-    v54 = *(v53 + 5);
-    v87 = v85;
-    v86[0] = v79;
-    outlined init with copy of String.LocalizationValue.FormatArgument.DateArgumentFormatStyle.Format(&v109, v94);
-    outlined init with copy of String.LocalizationValue.FormatArgument.DateArgumentFormatStyle.Format(v103, v94);
-    outlined init with copy of String.LocalizationValue.FormatArgument.DateArgumentFormatStyle.Format(v103, v94);
-    outlined init with copy of String.LocalizationValue.FormatArgument.DateArgumentFormatStyle.Format(&v109, v94);
+    v77 = *(v52 + 8);
+    v79 = *(v52 + 24);
+    v85 = v83;
+    v84[0] = v77;
+    outlined init with copy of String.LocalizationValue.FormatArgument.DateArgumentFormatStyle.Format(&v107, v92);
+    outlined init with copy of String.LocalizationValue.FormatArgument.DateArgumentFormatStyle.Format(v101, v92);
+    outlined init with copy of String.LocalizationValue.FormatArgument.DateArgumentFormatStyle.Format(v101, v92);
+    outlined init with copy of String.LocalizationValue.FormatArgument.DateArgumentFormatStyle.Format(&v107, v92);
     swift_unknownObjectRetain();
     swift_unknownObjectRetain();
-    v55 = specialized static Locale.== infix(_:_:)(&v87, v86);
+    v53 = specialized static Locale.== infix(_:_:)(&v85, v84);
     swift_unknownObjectRelease();
     swift_unknownObjectRelease();
-    if ((v55 & 1) == 0 || (v94[0] = v83, v87 = v81, swift_unknownObjectRetain(), swift_unknownObjectRetain(), v56 = specialized static Calendar.== infix(_:_:)(v94, &v87), swift_unknownObjectRelease(), swift_unknownObjectRelease(), (v56 & 1) == 0))
+    if ((v53 & 1) == 0 || (v92[0] = v81, v85 = v79, swift_unknownObjectRetain(), swift_unknownObjectRetain(), v54 = specialized static Calendar.== infix(_:_:)(v92, &v85), swift_unknownObjectRelease(), swift_unknownObjectRelease(), (v54 & 1) == 0))
     {
-      outlined destroy of TermOfAddress?(v116, &_sSS10FoundationE17LocalizationValueV14FormatArgumentV04DateeD5StyleV0D033_52A34860FC1D9F87FB0A99C608112EB3LLO_AJtMd);
-      outlined destroy of String.LocalizationValue.FormatArgument.DateArgumentFormatStyle.Format(&v109);
-      outlined destroy of String.LocalizationValue.FormatArgument.DateArgumentFormatStyle.Format(v103);
+      outlined destroy of TermOfAddress?(v114, &_sSS10FoundationE17LocalizationValueV14FormatArgumentV04DateeD5StyleV0D033_52A34860FC1D9F87FB0A99C608112EB3LLO_AJtMd, &_sSS10FoundationE17LocalizationValueV14FormatArgumentV04DateeD5StyleV0D033_52A34860FC1D9F87FB0A99C608112EB3LLO_AJtMR);
+      outlined destroy of String.LocalizationValue.FormatArgument.DateArgumentFormatStyle.Format(&v107);
+      outlined destroy of String.LocalizationValue.FormatArgument.DateArgumentFormatStyle.Format(v101);
       goto LABEL_36;
     }
 
-    v57 = _sSh2eeoiySbShyxG_ABtFZs8DurationV10FoundationE16UnitsFormatStyleV4UnitV_Tt1g5(v52, v54);
-    outlined destroy of TermOfAddress?(v116, &_sSS10FoundationE17LocalizationValueV14FormatArgumentV04DateeD5StyleV0D033_52A34860FC1D9F87FB0A99C608112EB3LLO_AJtMd);
-    outlined destroy of String.LocalizationValue.FormatArgument.DateArgumentFormatStyle.Format(&v109);
-    outlined destroy of String.LocalizationValue.FormatArgument.DateArgumentFormatStyle.Format(v103);
-    if ((v57 & 1) == 0)
+    v55 = _sSh2eeoiySbShyxG_ABtFZs8DurationV10FoundationE16UnitsFormatStyleV4UnitV_Tt1g5();
+    outlined destroy of TermOfAddress?(v114, &_sSS10FoundationE17LocalizationValueV14FormatArgumentV04DateeD5StyleV0D033_52A34860FC1D9F87FB0A99C608112EB3LLO_AJtMd, &_sSS10FoundationE17LocalizationValueV14FormatArgumentV04DateeD5StyleV0D033_52A34860FC1D9F87FB0A99C608112EB3LLO_AJtMR);
+    outlined destroy of String.LocalizationValue.FormatArgument.DateArgumentFormatStyle.Format(&v107);
+    outlined destroy of String.LocalizationValue.FormatArgument.DateArgumentFormatStyle.Format(v101);
+    if ((v55 & 1) == 0)
     {
 LABEL_36:
       v33 = 0;
@@ -357,34 +1853,34 @@ LABEL_93:
 
   if (v22)
   {
-    v34 = destructiveProjectEnumData for String.LocalizationValue.FormatArgument.DateArgumentFormatStyle.Format(v119);
-    v100 = v113;
-    v101 = v114;
-    v102[0] = v115[0];
-    *(v102 + 10) = *(v115 + 10);
-    v96 = v109;
-    v97 = v110;
+    v34 = destructiveProjectEnumData for String.LocalizationValue.FormatArgument.DateArgumentFormatStyle.Format(v117);
     v98 = v111;
     v99 = v112;
-    if (_sSS10FoundationE17LocalizationValueV14FormatArgumentV04DateeD5StyleV0D033_52A34860FC1D9F87FB0A99C608112EB3LLOWOg(&v96) != 1)
+    v100[0] = v113[0];
+    *(v100 + 10) = *(v113 + 10);
+    v94 = v107;
+    v95 = v108;
+    v96 = v109;
+    v97 = v110;
+    if (_sSS10FoundationE17LocalizationValueV14FormatArgumentV04DateeD5StyleV0D033_52A34860FC1D9F87FB0A99C608112EB3LLOWOg(&v94) != 1)
     {
       goto LABEL_33;
     }
 
-    v35 = destructiveProjectEnumData for String.LocalizationValue.FormatArgument.DateArgumentFormatStyle.Format(&v96);
+    v35 = destructiveProjectEnumData for String.LocalizationValue.FormatArgument.DateArgumentFormatStyle.Format(&v94);
     v36 = v34[1];
     v37 = v34[3];
     v38 = v34[4];
     v39 = *(v34 + 1);
-    v77 = *v34;
-    v78 = *v35;
+    v75 = *v34;
+    v76 = *v35;
     v40 = v35[1];
     v41 = v35[2];
-    v80 = v35[3];
+    v78 = v35[3];
     v42 = v35[4];
     v43 = *(v35 + 1);
-    v82 = *(v34 + 2);
-    v84 = *(v35 + 2);
+    v80 = *(v34 + 2);
+    v82 = *(v35 + 2);
     if (v34[2])
     {
       v44 = 0;
@@ -427,35 +1923,55 @@ LABEL_93:
 
     if (v44 == v46 && v45 == v47)
     {
-      outlined init with copy of String.LocalizationValue.FormatArgument.DateArgumentFormatStyle.Format(v103, v94);
-      outlined init with copy of String.LocalizationValue.FormatArgument.DateArgumentFormatStyle.Format(&v109, v94);
+      outlined init with copy of String.LocalizationValue.FormatArgument.DateArgumentFormatStyle.Format(v101, v92);
+      outlined init with copy of String.LocalizationValue.FormatArgument.DateArgumentFormatStyle.Format(&v107, v92);
     }
 
     else
     {
-      v60 = _stringCompareWithSmolCheck(_:_:expecting:)();
-      outlined init with copy of String.LocalizationValue.FormatArgument.DateArgumentFormatStyle.Format(v103, v94);
-      outlined init with copy of String.LocalizationValue.FormatArgument.DateArgumentFormatStyle.Format(&v109, v94);
+      v58 = _stringCompareWithSmolCheck(_:_:expecting:)();
+      outlined init with copy of String.LocalizationValue.FormatArgument.DateArgumentFormatStyle.Format(v101, v92);
+      outlined init with copy of String.LocalizationValue.FormatArgument.DateArgumentFormatStyle.Format(&v107, v92);
 
-      if ((v60 & 1) == 0)
+      if ((v58 & 1) == 0)
       {
         goto LABEL_35;
       }
     }
 
-    v94[0] = v82;
-    v87 = v84;
+    v92[0] = v80;
+    v85 = v82;
     swift_unknownObjectRetain();
     swift_unknownObjectRetain();
-    v61 = specialized static TimeZone.== infix(_:_:)(v94, &v87);
+    v59 = specialized static TimeZone.== infix(_:_:)(v92, &v85);
     swift_unknownObjectRelease();
     swift_unknownObjectRelease();
-    if ((v61 & 1) == 0 || v39 != v43)
+    if ((v59 & 1) == 0 || v39 != v43)
     {
       goto LABEL_35;
     }
 
     if (v38)
+    {
+      v60 = 2577447;
+    }
+
+    else
+    {
+      v60 = 32;
+    }
+
+    if (v38)
+    {
+      v61 = 0xE300000000000000;
+    }
+
+    else
+    {
+      v61 = 0xE100000000000000;
+    }
+
+    if (v42)
     {
       v62 = 2577447;
     }
@@ -465,7 +1981,7 @@ LABEL_93:
       v62 = 32;
     }
 
-    if (v38)
+    if (v42)
     {
       v63 = 0xE300000000000000;
     }
@@ -475,27 +1991,7 @@ LABEL_93:
       v63 = 0xE100000000000000;
     }
 
-    if (v42)
-    {
-      v64 = 2577447;
-    }
-
-    else
-    {
-      v64 = 32;
-    }
-
-    if (v42)
-    {
-      v65 = 0xE300000000000000;
-    }
-
-    else
-    {
-      v65 = 0xE100000000000000;
-    }
-
-    if (v62 == v64 && v63 == v65)
+    if (v60 == v62 && v61 == v63)
     {
 
       if (v36 != v40)
@@ -506,15 +2002,35 @@ LABEL_93:
 
     else
     {
-      v66 = _stringCompareWithSmolCheck(_:_:expecting:)();
+      v64 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-      if (v66 & 1) == 0 || ((v36 ^ v40))
+      if (v64 & 1) == 0 || ((v36 ^ v40))
       {
         goto LABEL_35;
       }
     }
 
     if (v37)
+    {
+      v65 = 0;
+    }
+
+    else
+    {
+      v65 = 45;
+    }
+
+    if (v37)
+    {
+      v66 = 0xE000000000000000;
+    }
+
+    else
+    {
+      v66 = 0xE100000000000000;
+    }
+
+    if (v78)
     {
       v67 = 0;
     }
@@ -524,7 +2040,7 @@ LABEL_93:
       v67 = 45;
     }
 
-    if (v37)
+    if (v78)
     {
       v68 = 0xE000000000000000;
     }
@@ -534,41 +2050,41 @@ LABEL_93:
       v68 = 0xE100000000000000;
     }
 
-    if (v80)
-    {
-      v69 = 0;
-    }
-
-    else
-    {
-      v69 = 45;
-    }
-
-    if (v80)
-    {
-      v70 = 0xE000000000000000;
-    }
-
-    else
-    {
-      v70 = 0xE100000000000000;
-    }
-
-    if (v67 == v69 && v68 == v70)
+    if (v65 == v67 && v66 == v68)
     {
     }
 
     else
     {
-      v71 = _stringCompareWithSmolCheck(_:_:expecting:)();
+      v69 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-      if ((v71 & 1) == 0)
+      if ((v69 & 1) == 0)
       {
         goto LABEL_35;
       }
     }
 
-    if (v77)
+    if (v75)
+    {
+      v70 = 0;
+    }
+
+    else
+    {
+      v70 = 58;
+    }
+
+    if (v75)
+    {
+      v71 = 0xE000000000000000;
+    }
+
+    else
+    {
+      v71 = 0xE100000000000000;
+    }
+
+    if (v76)
     {
       v72 = 0;
     }
@@ -578,7 +2094,7 @@ LABEL_93:
       v72 = 58;
     }
 
-    if (v77)
+    if (v76)
     {
       v73 = 0xE000000000000000;
     }
@@ -588,38 +2104,18 @@ LABEL_93:
       v73 = 0xE100000000000000;
     }
 
-    if (v78)
-    {
-      v74 = 0;
-    }
-
-    else
-    {
-      v74 = 58;
-    }
-
-    if (v78)
-    {
-      v75 = 0xE000000000000000;
-    }
-
-    else
-    {
-      v75 = 0xE100000000000000;
-    }
-
-    if (v72 == v74 && v73 == v75)
+    if (v70 == v72 && v71 == v73)
     {
 
-      outlined destroy of TermOfAddress?(v116, &_sSS10FoundationE17LocalizationValueV14FormatArgumentV04DateeD5StyleV0D033_52A34860FC1D9F87FB0A99C608112EB3LLO_AJtMd);
+      outlined destroy of TermOfAddress?(v114, &_sSS10FoundationE17LocalizationValueV14FormatArgumentV04DateeD5StyleV0D033_52A34860FC1D9F87FB0A99C608112EB3LLO_AJtMd, &_sSS10FoundationE17LocalizationValueV14FormatArgumentV04DateeD5StyleV0D033_52A34860FC1D9F87FB0A99C608112EB3LLO_AJtMR);
       v33 = 1;
       return v33 & 1;
     }
 
-    v76 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v74 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-    outlined destroy of TermOfAddress?(v116, &_sSS10FoundationE17LocalizationValueV14FormatArgumentV04DateeD5StyleV0D033_52A34860FC1D9F87FB0A99C608112EB3LLO_AJtMd);
-    if ((v76 & 1) == 0)
+    outlined destroy of TermOfAddress?(v114, &_sSS10FoundationE17LocalizationValueV14FormatArgumentV04DateeD5StyleV0D033_52A34860FC1D9F87FB0A99C608112EB3LLO_AJtMd, &_sSS10FoundationE17LocalizationValueV14FormatArgumentV04DateeD5StyleV0D033_52A34860FC1D9F87FB0A99C608112EB3LLO_AJtMR);
+    if ((v74 & 1) == 0)
     {
       goto LABEL_36;
     }
@@ -627,50 +2123,50 @@ LABEL_93:
     goto LABEL_93;
   }
 
-  v23 = destructiveProjectEnumData for String.LocalizationValue.FormatArgument.DateArgumentFormatStyle.Format(v119);
-  v100 = v113;
-  v101 = v114;
-  v102[0] = v115[0];
-  *(v102 + 10) = *(v115 + 10);
-  v96 = v109;
-  v97 = v110;
+  v23 = destructiveProjectEnumData for String.LocalizationValue.FormatArgument.DateArgumentFormatStyle.Format(v117);
   v98 = v111;
   v99 = v112;
-  if (_sSS10FoundationE17LocalizationValueV14FormatArgumentV04DateeD5StyleV0D033_52A34860FC1D9F87FB0A99C608112EB3LLOWOg(&v96))
+  v100[0] = v113[0];
+  *(v100 + 10) = *(v113 + 10);
+  v94 = v107;
+  v95 = v108;
+  v96 = v109;
+  v97 = v110;
+  if (_sSS10FoundationE17LocalizationValueV14FormatArgumentV04DateeD5StyleV0D033_52A34860FC1D9F87FB0A99C608112EB3LLOWOg(&v94))
   {
     goto LABEL_33;
   }
 
-  v24 = destructiveProjectEnumData for String.LocalizationValue.FormatArgument.DateArgumentFormatStyle.Format(&v96);
-  v94[4] = v23[4];
-  v94[5] = v23[5];
-  v95[0] = v23[6];
-  *(v95 + 10) = *(v23 + 106);
-  v94[0] = *v23;
-  v94[1] = v23[1];
-  v94[2] = v23[2];
-  v94[3] = v23[3];
+  v24 = destructiveProjectEnumData for String.LocalizationValue.FormatArgument.DateArgumentFormatStyle.Format(&v94);
+  v92[4] = v23[4];
+  v92[5] = v23[5];
+  v93[0] = v23[6];
+  *(v93 + 10) = *(v23 + 106);
+  v92[0] = *v23;
+  v92[1] = v23[1];
+  v92[2] = v23[2];
+  v92[3] = v23[3];
   v25 = v24[5];
-  v91 = v24[4];
-  v92 = v25;
-  v93[0] = v24[6];
-  *(v93 + 10) = *(v24 + 106);
+  v89 = v24[4];
+  v90 = v25;
+  v91[0] = v24[6];
+  *(v91 + 10) = *(v24 + 106);
   v26 = v24[1];
-  v87 = *v24;
-  v88 = v26;
+  v85 = *v24;
+  v86 = v26;
   v27 = v24[3];
-  v89 = v24[2];
-  v90 = v27;
-  outlined init with copy of String.LocalizationValue.FormatArgument.DateArgumentFormatStyle.Format(&v109, v86);
-  outlined init with copy of String.LocalizationValue.FormatArgument.DateArgumentFormatStyle.Format(v103, v86);
-  outlined init with copy of String.LocalizationValue.FormatArgument.DateArgumentFormatStyle.Format(v103, v86);
-  outlined init with copy of String.LocalizationValue.FormatArgument.DateArgumentFormatStyle.Format(&v109, v86);
-  v28 = specialized static Date.FormatStyle.== infix(_:_:)(v94, &v87);
+  v87 = v24[2];
+  v88 = v27;
+  outlined init with copy of String.LocalizationValue.FormatArgument.DateArgumentFormatStyle.Format(&v107, v84);
+  outlined init with copy of String.LocalizationValue.FormatArgument.DateArgumentFormatStyle.Format(v101, v84);
+  outlined init with copy of String.LocalizationValue.FormatArgument.DateArgumentFormatStyle.Format(v101, v84);
+  outlined init with copy of String.LocalizationValue.FormatArgument.DateArgumentFormatStyle.Format(&v107, v84);
+  v28 = specialized static Date.FormatStyle.== infix(_:_:)(v92, &v85);
 LABEL_8:
   v33 = v28;
-  outlined destroy of TermOfAddress?(v116, &_sSS10FoundationE17LocalizationValueV14FormatArgumentV04DateeD5StyleV0D033_52A34860FC1D9F87FB0A99C608112EB3LLO_AJtMd);
-  outlined destroy of String.LocalizationValue.FormatArgument.DateArgumentFormatStyle.Format(&v109);
-  outlined destroy of String.LocalizationValue.FormatArgument.DateArgumentFormatStyle.Format(v103);
+  outlined destroy of TermOfAddress?(v114, &_sSS10FoundationE17LocalizationValueV14FormatArgumentV04DateeD5StyleV0D033_52A34860FC1D9F87FB0A99C608112EB3LLO_AJtMd, &_sSS10FoundationE17LocalizationValueV14FormatArgumentV04DateeD5StyleV0D033_52A34860FC1D9F87FB0A99C608112EB3LLO_AJtMR);
+  outlined destroy of String.LocalizationValue.FormatArgument.DateArgumentFormatStyle.Format(&v107);
+  outlined destroy of String.LocalizationValue.FormatArgument.DateArgumentFormatStyle.Format(v101);
   return v33 & 1;
 }
 
@@ -722,16 +2218,16 @@ LABEL_8:
   return result;
 }
 
-uint64_t specialized static String.LocalizationValue.FormatArgument.== infix(_:_:)(uint64_t a1, uint64_t a2)
+uint64_t specialized static String.LocalizationValue.FormatArgument.== infix(_:_:)(uint64_t a1, char *a2)
 {
   *(&v598 + 1) = a1;
   v599 = a2;
-  v574 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVy10Foundation16AttributedStringV4RunsVGMd);
+  v574 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVy10Foundation16AttributedStringV4RunsVGMd, &_ss16IndexingIteratorVy10Foundation16AttributedStringV4RunsVGMR);
   MEMORY[0x1EEE9AC00](v574);
   v581 = &v536 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v3);
   v578 = &v536 - v4;
-  v601 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd);
+  v601 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMR);
   v594 = *(v601 - 8);
   MEMORY[0x1EEE9AC00](v601);
   v582 = &v536 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -747,12 +2243,12 @@ uint64_t specialized static String.LocalizationValue.FormatArgument.== infix(_:_
   v583 = &v536 - v15;
   MEMORY[0x1EEE9AC00](v16);
   v590 = &v536 - v17;
-  v585 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd);
+  v585 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMR);
   MEMORY[0x1EEE9AC00](v585);
   v596 = &v536 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v19);
   v595 = &v536 - v20;
-  v600 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMd);
+  v600 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMd, &_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMR);
   v589 = *(v600 - 8);
   MEMORY[0x1EEE9AC00](v600);
   v575 = &v536 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -766,7 +2262,7 @@ uint64_t specialized static String.LocalizationValue.FormatArgument.== infix(_:_
   v30 = &v536 - v29;
   MEMORY[0x1EEE9AC00](v31);
   v33 = &v536 - v32;
-  v34 = type metadata accessor for AttributedString.Runs();
+  v34 = type metadata accessor for AttributedString.Runs(0);
   MEMORY[0x1EEE9AC00](v34);
   v36 = &v536 - ((v35 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v37);
@@ -874,7 +2370,7 @@ uint64_t specialized static String.LocalizationValue.FormatArgument.== infix(_:_
 
       outlined destroy of String.LocalizationValue.FormatArgument.Storage.AttributedStringFormatWrapper(&v617);
 LABEL_37:
-      outlined destroy of TermOfAddress?(v641, &_sSS10FoundationE17LocalizationValueV14FormatArgumentV7StorageO_AGtMd);
+      outlined destroy of TermOfAddress?(v641, &_sSS10FoundationE17LocalizationValueV14FormatArgumentV7StorageO_AGtMd, &_sSS10FoundationE17LocalizationValueV14FormatArgumentV7StorageO_AGtMR);
       return 0;
     }
 
@@ -1045,7 +2541,7 @@ LABEL_39:
   v555 = v50 + 16;
   v554(v595, v73, v601);
   v76 = *(v585 + 36);
-  v77 = lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd);
+  v77 = lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMR, MEMORY[0x1E69E7BC8]);
   dispatch thunk of Collection.startIndex.getter();
   v78 = *(v50 + 8);
   v594 = v50 + 8;
@@ -1110,7 +2606,7 @@ LABEL_39:
     while (*(v79 + v587) != v617);
   }
 
-  outlined destroy of TermOfAddress?(v79, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd);
+  outlined destroy of TermOfAddress?(v79, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMR);
   v82 = v572;
   v81 = v573;
   v83 = *(v573 + 24);
@@ -1218,7 +2714,7 @@ LABEL_47:
 
   v541 = v83;
   dispatch thunk of Collection.endIndex.getter();
-  lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd);
+  lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMR, MEMORY[0x1E69E7BB0]);
   dispatch thunk of BidirectionalCollection.index(before:)();
   v263 = dispatch thunk of Collection.subscript.read();
   v265 = v264[4];
@@ -1450,7 +2946,7 @@ LABEL_55:
     while (*(v172 + v595) != v617);
   }
 
-  outlined destroy of TermOfAddress?(v172, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd);
+  outlined destroy of TermOfAddress?(v172, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMR);
   v175 = v573;
   v176 = *(v573 + 24);
   v177 = v571;
@@ -1557,7 +3053,7 @@ LABEL_64:
 
   v557 = v176;
   dispatch thunk of Collection.endIndex.getter();
-  lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd);
+  lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMR, MEMORY[0x1E69E7BB0]);
   dispatch thunk of BidirectionalCollection.index(before:)();
   v279 = dispatch thunk of Collection.subscript.read();
   v281 = v280[4];
@@ -3093,8 +4589,8 @@ LABEL_114:
 
             if (!v603)
             {
-              outlined destroy of TermOfAddress?(&v617, &_s10Foundation16AttributedStringV4RunsV3RunVSg_AHtMd);
-              outlined destroy of TermOfAddress?(v581, &_ss16IndexingIteratorVy10Foundation16AttributedStringV4RunsVGMd);
+              outlined destroy of TermOfAddress?(&v617, &_s10Foundation16AttributedStringV4RunsV3RunVSg_AHtMd, &_s10Foundation16AttributedStringV4RunsV3RunVSg_AHtMR);
+              outlined destroy of TermOfAddress?(v581, &_ss16IndexingIteratorVy10Foundation16AttributedStringV4RunsVGMd, &_ss16IndexingIteratorVy10Foundation16AttributedStringV4RunsVGMR);
               v365 = v319;
               goto LABEL_137;
             }
@@ -3106,12 +4602,12 @@ LABEL_114:
             {
 
 LABEL_135:
-              outlined destroy of TermOfAddress?(&v617, &_s10Foundation16AttributedStringV4RunsV3RunVSg_AHtMd);
+              outlined destroy of TermOfAddress?(&v617, &_s10Foundation16AttributedStringV4RunsV3RunVSg_AHtMd, &_s10Foundation16AttributedStringV4RunsV3RunVSg_AHtMR);
 LABEL_136:
-              outlined destroy of TermOfAddress?(v581, &_ss16IndexingIteratorVy10Foundation16AttributedStringV4RunsVGMd);
+              outlined destroy of TermOfAddress?(v581, &_ss16IndexingIteratorVy10Foundation16AttributedStringV4RunsVGMd, &_ss16IndexingIteratorVy10Foundation16AttributedStringV4RunsVGMR);
               v365 = v578;
 LABEL_137:
-              outlined destroy of TermOfAddress?(v365, &_ss16IndexingIteratorVy10Foundation16AttributedStringV4RunsVGMd);
+              outlined destroy of TermOfAddress?(v365, &_ss16IndexingIteratorVy10Foundation16AttributedStringV4RunsVGMd, &_ss16IndexingIteratorVy10Foundation16AttributedStringV4RunsVGMR);
 LABEL_138:
               v247 = v566;
               v251 = v567;
@@ -3234,7 +4730,7 @@ LABEL_333:
             outlined destroy of BigString(v715);
             v364 = MEMORY[0x1865CA260](&v651, &v658);
             outlined destroy of BigSubstring(&v651);
-            outlined destroy of TermOfAddress?(&v617, &_s10Foundation16AttributedStringV4RunsV3RunVSg_AHtMd);
+            outlined destroy of TermOfAddress?(&v617, &_s10Foundation16AttributedStringV4RunsV3RunVSg_AHtMd, &_s10Foundation16AttributedStringV4RunsV3RunVSg_AHtMR);
             outlined destroy of BigSubstring(&v658);
             if ((v364 & 1) == 0)
             {
@@ -3251,9 +4747,9 @@ LABEL_333:
             v319 = v578;
           }
 
-          outlined destroy of TermOfAddress?(v581, &_ss16IndexingIteratorVy10Foundation16AttributedStringV4RunsVGMd);
-          outlined destroy of TermOfAddress?(v319, &_ss16IndexingIteratorVy10Foundation16AttributedStringV4RunsVGMd);
-          outlined destroy of TermOfAddress?(&v617, &_s10Foundation16AttributedStringV4RunsV3RunVSg_AHtMd);
+          outlined destroy of TermOfAddress?(v581, &_ss16IndexingIteratorVy10Foundation16AttributedStringV4RunsVGMd, &_ss16IndexingIteratorVy10Foundation16AttributedStringV4RunsVGMR);
+          outlined destroy of TermOfAddress?(v319, &_ss16IndexingIteratorVy10Foundation16AttributedStringV4RunsVGMd, &_ss16IndexingIteratorVy10Foundation16AttributedStringV4RunsVGMR);
+          outlined destroy of TermOfAddress?(&v617, &_s10Foundation16AttributedStringV4RunsV3RunVSg_AHtMd, &_s10Foundation16AttributedStringV4RunsV3RunVSg_AHtMR);
           if (!v341)
           {
             v247 = v566;
@@ -3488,7 +4984,7 @@ unint64_t instantiation function for generic protocol witness table for String.L
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format and conformance String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format and conformance String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -3503,27 +4999,27 @@ uint64_t lazy protocol witness table accessor for type String.LocalizationValue.
 
 uint64_t instantiation function for generic protocol witness table for String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(void *a1)
 {
-  a1[1] = lazy protocol witness table accessor for type String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format and conformance String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format(&lazy protocol witness table cache variable for type String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle and conformance String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle, type metadata accessor for String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle);
-  a1[2] = lazy protocol witness table accessor for type String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format and conformance String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format(&lazy protocol witness table cache variable for type String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle and conformance String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle, type metadata accessor for String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle);
-  result = lazy protocol witness table accessor for type String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format and conformance String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format(&lazy protocol witness table cache variable for type String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle and conformance String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle, type metadata accessor for String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle);
+  a1[1] = lazy protocol witness table accessor for type String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format and conformance String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format(&lazy protocol witness table cache variable for type String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle and conformance String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle, type metadata accessor for String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle, &protocol conformance descriptor for String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle);
+  a1[2] = lazy protocol witness table accessor for type String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format and conformance String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format(&lazy protocol witness table cache variable for type String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle and conformance String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle, type metadata accessor for String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle, &protocol conformance descriptor for String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle);
+  result = lazy protocol witness table accessor for type String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format and conformance String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format(&lazy protocol witness table cache variable for type String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle and conformance String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle, type metadata accessor for String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle, &protocol conformance descriptor for String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle);
   a1[3] = result;
   return result;
 }
 
 uint64_t instantiation function for generic protocol witness table for String.LocalizationValue.FormatArgument.FloatingPointArgumentFormatStyle(void *a1)
 {
-  a1[1] = lazy protocol witness table accessor for type String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format and conformance String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format(&lazy protocol witness table cache variable for type String.LocalizationValue.FormatArgument.FloatingPointArgumentFormatStyle and conformance String.LocalizationValue.FormatArgument.FloatingPointArgumentFormatStyle, type metadata accessor for String.LocalizationValue.FormatArgument.FloatingPointArgumentFormatStyle);
-  a1[2] = lazy protocol witness table accessor for type String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format and conformance String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format(&lazy protocol witness table cache variable for type String.LocalizationValue.FormatArgument.FloatingPointArgumentFormatStyle and conformance String.LocalizationValue.FormatArgument.FloatingPointArgumentFormatStyle, type metadata accessor for String.LocalizationValue.FormatArgument.FloatingPointArgumentFormatStyle);
-  result = lazy protocol witness table accessor for type String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format and conformance String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format(&lazy protocol witness table cache variable for type String.LocalizationValue.FormatArgument.FloatingPointArgumentFormatStyle and conformance String.LocalizationValue.FormatArgument.FloatingPointArgumentFormatStyle, type metadata accessor for String.LocalizationValue.FormatArgument.FloatingPointArgumentFormatStyle);
+  a1[1] = lazy protocol witness table accessor for type String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format and conformance String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format(&lazy protocol witness table cache variable for type String.LocalizationValue.FormatArgument.FloatingPointArgumentFormatStyle and conformance String.LocalizationValue.FormatArgument.FloatingPointArgumentFormatStyle, type metadata accessor for String.LocalizationValue.FormatArgument.FloatingPointArgumentFormatStyle, &protocol conformance descriptor for String.LocalizationValue.FormatArgument.FloatingPointArgumentFormatStyle);
+  a1[2] = lazy protocol witness table accessor for type String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format and conformance String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format(&lazy protocol witness table cache variable for type String.LocalizationValue.FormatArgument.FloatingPointArgumentFormatStyle and conformance String.LocalizationValue.FormatArgument.FloatingPointArgumentFormatStyle, type metadata accessor for String.LocalizationValue.FormatArgument.FloatingPointArgumentFormatStyle, &protocol conformance descriptor for String.LocalizationValue.FormatArgument.FloatingPointArgumentFormatStyle);
+  result = lazy protocol witness table accessor for type String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format and conformance String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format(&lazy protocol witness table cache variable for type String.LocalizationValue.FormatArgument.FloatingPointArgumentFormatStyle and conformance String.LocalizationValue.FormatArgument.FloatingPointArgumentFormatStyle, type metadata accessor for String.LocalizationValue.FormatArgument.FloatingPointArgumentFormatStyle, &protocol conformance descriptor for String.LocalizationValue.FormatArgument.FloatingPointArgumentFormatStyle);
   a1[3] = result;
   return result;
 }
 
 uint64_t instantiation function for generic protocol witness table for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle(void *a1)
 {
-  a1[1] = lazy protocol witness table accessor for type String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format and conformance String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format(&lazy protocol witness table cache variable for type String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle and conformance String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle, type metadata accessor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle);
-  a1[2] = lazy protocol witness table accessor for type String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format and conformance String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format(&lazy protocol witness table cache variable for type String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle and conformance String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle, type metadata accessor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle);
-  result = lazy protocol witness table accessor for type String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format and conformance String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format(&lazy protocol witness table cache variable for type String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle and conformance String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle, type metadata accessor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle);
+  a1[1] = lazy protocol witness table accessor for type String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format and conformance String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format(&lazy protocol witness table cache variable for type String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle and conformance String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle, type metadata accessor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle, &protocol conformance descriptor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle);
+  a1[2] = lazy protocol witness table accessor for type String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format and conformance String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format(&lazy protocol witness table cache variable for type String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle and conformance String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle, type metadata accessor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle, &protocol conformance descriptor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle);
+  result = lazy protocol witness table accessor for type String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format and conformance String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format(&lazy protocol witness table cache variable for type String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle and conformance String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle, type metadata accessor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle, &protocol conformance descriptor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle);
   a1[3] = result;
   return result;
 }
@@ -3657,7 +5153,7 @@ unint64_t lazy protocol witness table accessor for type Range<Date> and conforma
   result = lazy protocol witness table cache variable for type Range<Date> and conformance <> Range<A>;
   if (!lazy protocol witness table cache variable for type Range<Date> and conformance <> Range<A>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSny10Foundation4DateVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSny10Foundation4DateVGMd, &_sSny10Foundation4DateVGMR);
     lazy protocol witness table accessor for type Date and conformance Date();
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type Range<Date> and conformance <> Range<A>);
@@ -3670,7 +5166,7 @@ unint64_t lazy protocol witness table accessor for type Range<Date> and conforma
   result = lazy protocol witness table cache variable for type Range<Date> and conformance <> Range<A>;
   if (!lazy protocol witness table cache variable for type Range<Date> and conformance <> Range<A>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSny10Foundation4DateVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSny10Foundation4DateVGMd, &_sSny10Foundation4DateVGMR);
     lazy protocol witness table accessor for type Date and conformance Date();
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type Range<Date> and conformance <> Range<A>);
@@ -3683,7 +5179,7 @@ unint64_t lazy protocol witness table accessor for type Range<Date> and conforma
   result = lazy protocol witness table cache variable for type Range<Date> and conformance <> Range<A>;
   if (!lazy protocol witness table cache variable for type Range<Date> and conformance <> Range<A>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSny10Foundation4DateVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSny10Foundation4DateVGMd, &_sSny10Foundation4DateVGMR);
     lazy protocol witness table accessor for type Date and conformance Date();
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type Range<Date> and conformance <> Range<A>);
@@ -3782,12 +5278,12 @@ unint64_t lazy protocol witness table accessor for type CGFloat and conformance 
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type [LocalizedStringResource] and conformance <A> [A](unint64_t *a1, void (*a2)(void))
+uint64_t lazy protocol witness table accessor for type [LocalizedStringResource] and conformance <A> [A](unint64_t *a1, void (*a2)(void), uint64_t a3)
 {
   result = *a1;
   if (!result)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay10Foundation23LocalizedStringResourceVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay10Foundation23LocalizedStringResourceVGMd, &_sSay10Foundation23LocalizedStringResourceVGMR);
     a2();
     result = swift_getWitnessTable();
     atomic_store(result, a1);
@@ -3798,38 +5294,39 @@ uint64_t lazy protocol witness table accessor for type [LocalizedStringResource]
 
 uint64_t specialized static String.LocalizationValue.FormatArgument.Storage._equalValues(_:_:)(uint64_t a1, uint64_t a2)
 {
-  outlined init with copy of Any(a1, v9);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSQ_pMd);
+  outlined init with copy of Any(a1, v10);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSQ_pMd, &_sSQ_pMR);
   if (swift_dynamicCast())
   {
-    outlined init with take of Equatable(v7, v10);
-    v3 = v11;
-    v4 = __swift_project_boxed_opaque_existential_1(v10, v11);
-    v5 = openEquatable #1 <A>(_:) in static String.LocalizationValue.FormatArgument.Storage._equalValues(_:_:)(v4, a2, v3);
-    __swift_destroy_boxed_opaque_existential_1(v10);
+    outlined init with take of Equatable(v8, v11);
+    v3 = v12;
+    v4 = v13;
+    v5 = __swift_project_boxed_opaque_existential_1(v11, v12);
+    v6 = openEquatable #1 <A>(_:) in static String.LocalizationValue.FormatArgument.Storage._equalValues(_:_:)(v5, a2, v3, v4);
+    __swift_destroy_boxed_opaque_existential_1(v11);
   }
 
   else
   {
-    v8 = 0;
-    memset(v7, 0, sizeof(v7));
-    outlined destroy of TermOfAddress?(v7, &_sSQ_pSgMd);
-    v5 = 0;
+    v9 = 0;
+    memset(v8, 0, sizeof(v8));
+    outlined destroy of TermOfAddress?(v8, &_sSQ_pSgMd, &_sSQ_pSgMR);
+    v6 = 0;
   }
 
-  return v5 & 1;
+  return v6 & 1;
 }
 
-uint64_t specialized static String.LocalizationValue.FormatArgument.Storage.== infix(_:_:)(uint64_t a1, uint64_t a2)
+uint64_t specialized static String.LocalizationValue.FormatArgument.Storage.== infix(_:_:)(uint64_t a1, char *a2)
 {
   *(&v595 + 1) = a1;
   v596 = a2;
-  v571 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVy10Foundation16AttributedStringV4RunsVGMd);
+  v571 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVy10Foundation16AttributedStringV4RunsVGMd, &_ss16IndexingIteratorVy10Foundation16AttributedStringV4RunsVGMR);
   MEMORY[0x1EEE9AC00](v571);
   v578 = &v533 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v3);
   v575 = &v533 - v4;
-  v598 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd);
+  v598 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMR);
   v591 = *(v598 - 8);
   MEMORY[0x1EEE9AC00](v598);
   v579 = &v533 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -3845,12 +5342,12 @@ uint64_t specialized static String.LocalizationValue.FormatArgument.Storage.== i
   v580 = &v533 - v15;
   MEMORY[0x1EEE9AC00](v16);
   v587 = &v533 - v17;
-  v582 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd);
+  v582 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMR);
   MEMORY[0x1EEE9AC00](v582);
   v593 = &v533 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v19);
   v592 = &v533 - v20;
-  v597 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMd);
+  v597 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMd, &_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMR);
   v586 = *(v597 - 8);
   MEMORY[0x1EEE9AC00](v597);
   v572 = &v533 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -3864,7 +5361,7 @@ uint64_t specialized static String.LocalizationValue.FormatArgument.Storage.== i
   v30 = &v533 - v29;
   MEMORY[0x1EEE9AC00](v31);
   v33 = &v533 - v32;
-  v34 = type metadata accessor for AttributedString.Runs();
+  v34 = type metadata accessor for AttributedString.Runs(0);
   MEMORY[0x1EEE9AC00](v34);
   v36 = &v533 - ((v35 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v37);
@@ -4084,7 +5581,7 @@ uint64_t specialized static String.LocalizationValue.FormatArgument.Storage.== i
   {
 
 LABEL_35:
-    outlined destroy of TermOfAddress?(v638, &_sSS10FoundationE17LocalizationValueV14FormatArgumentV7StorageO_AGtMd);
+    outlined destroy of TermOfAddress?(v638, &_sSS10FoundationE17LocalizationValueV14FormatArgumentV7StorageO_AGtMd, &_sSS10FoundationE17LocalizationValueV14FormatArgumentV7StorageO_AGtMR);
     v49 = 0;
     return v49 & 1;
   }
@@ -4142,7 +5639,7 @@ LABEL_35:
   v552 = v50 + 16;
   v551(v592, v73, v598);
   v76 = *(v582 + 36);
-  v77 = lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd);
+  v77 = lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMR, MEMORY[0x1E69E7BC8]);
   dispatch thunk of Collection.startIndex.getter();
   v78 = *(v50 + 8);
   v591 = v50 + 8;
@@ -4207,7 +5704,7 @@ LABEL_35:
     while (*(v79 + v584) != v614);
   }
 
-  outlined destroy of TermOfAddress?(v79, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd);
+  outlined destroy of TermOfAddress?(v79, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMR);
   v82 = v569;
   v81 = v570;
   v83 = *(v570 + 24);
@@ -4315,7 +5812,7 @@ LABEL_43:
 
   v538 = v83;
   dispatch thunk of Collection.endIndex.getter();
-  lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd);
+  lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMR, MEMORY[0x1E69E7BB0]);
   dispatch thunk of BidirectionalCollection.index(before:)();
   v260 = dispatch thunk of Collection.subscript.read();
   v262 = v261[4];
@@ -4547,7 +6044,7 @@ LABEL_52:
     while (*(v168 + v592) != v614);
   }
 
-  outlined destroy of TermOfAddress?(v168, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd);
+  outlined destroy of TermOfAddress?(v168, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMR);
   v171 = v570;
   v172 = *(v570 + 24);
   v173 = v568;
@@ -4654,7 +6151,7 @@ LABEL_61:
 
   v554 = v172;
   dispatch thunk of Collection.endIndex.getter();
-  lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd);
+  lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMR, MEMORY[0x1E69E7BB0]);
   dispatch thunk of BidirectionalCollection.index(before:)();
   v276 = dispatch thunk of Collection.subscript.read();
   v278 = v277[4];
@@ -5631,8 +7128,8 @@ LABEL_110:
 
                       if (!v600)
                       {
-                        outlined destroy of TermOfAddress?(&v614, &_s10Foundation16AttributedStringV4RunsV3RunVSg_AHtMd);
-                        outlined destroy of TermOfAddress?(v578, &_ss16IndexingIteratorVy10Foundation16AttributedStringV4RunsVGMd);
+                        outlined destroy of TermOfAddress?(&v614, &_s10Foundation16AttributedStringV4RunsV3RunVSg_AHtMd, &_s10Foundation16AttributedStringV4RunsV3RunVSg_AHtMR);
+                        outlined destroy of TermOfAddress?(v578, &_ss16IndexingIteratorVy10Foundation16AttributedStringV4RunsVGMd, &_ss16IndexingIteratorVy10Foundation16AttributedStringV4RunsVGMR);
                         v362 = v316;
                         goto LABEL_133;
                       }
@@ -5644,12 +7141,12 @@ LABEL_110:
                       {
 
 LABEL_131:
-                        outlined destroy of TermOfAddress?(&v614, &_s10Foundation16AttributedStringV4RunsV3RunVSg_AHtMd);
+                        outlined destroy of TermOfAddress?(&v614, &_s10Foundation16AttributedStringV4RunsV3RunVSg_AHtMd, &_s10Foundation16AttributedStringV4RunsV3RunVSg_AHtMR);
 LABEL_132:
-                        outlined destroy of TermOfAddress?(v578, &_ss16IndexingIteratorVy10Foundation16AttributedStringV4RunsVGMd);
+                        outlined destroy of TermOfAddress?(v578, &_ss16IndexingIteratorVy10Foundation16AttributedStringV4RunsVGMd, &_ss16IndexingIteratorVy10Foundation16AttributedStringV4RunsVGMR);
                         v362 = v575;
 LABEL_133:
-                        outlined destroy of TermOfAddress?(v362, &_ss16IndexingIteratorVy10Foundation16AttributedStringV4RunsVGMd);
+                        outlined destroy of TermOfAddress?(v362, &_ss16IndexingIteratorVy10Foundation16AttributedStringV4RunsVGMd, &_ss16IndexingIteratorVy10Foundation16AttributedStringV4RunsVGMR);
 LABEL_134:
                         v243 = v563;
                         v248 = v564;
@@ -5772,7 +7269,7 @@ LABEL_329:
                       outlined destroy of BigString(v712);
                       v361 = MEMORY[0x1865CA260](&v648, &v655);
                       outlined destroy of BigSubstring(&v648);
-                      outlined destroy of TermOfAddress?(&v614, &_s10Foundation16AttributedStringV4RunsV3RunVSg_AHtMd);
+                      outlined destroy of TermOfAddress?(&v614, &_s10Foundation16AttributedStringV4RunsV3RunVSg_AHtMd, &_s10Foundation16AttributedStringV4RunsV3RunVSg_AHtMR);
                       outlined destroy of BigSubstring(&v655);
                       if ((v361 & 1) == 0)
                       {
@@ -5789,9 +7286,9 @@ LABEL_329:
                       v316 = v575;
                     }
 
-                    outlined destroy of TermOfAddress?(v578, &_ss16IndexingIteratorVy10Foundation16AttributedStringV4RunsVGMd);
-                    outlined destroy of TermOfAddress?(v316, &_ss16IndexingIteratorVy10Foundation16AttributedStringV4RunsVGMd);
-                    outlined destroy of TermOfAddress?(&v614, &_s10Foundation16AttributedStringV4RunsV3RunVSg_AHtMd);
+                    outlined destroy of TermOfAddress?(v578, &_ss16IndexingIteratorVy10Foundation16AttributedStringV4RunsVGMd, &_ss16IndexingIteratorVy10Foundation16AttributedStringV4RunsVGMR);
+                    outlined destroy of TermOfAddress?(v316, &_ss16IndexingIteratorVy10Foundation16AttributedStringV4RunsVGMd, &_ss16IndexingIteratorVy10Foundation16AttributedStringV4RunsVGMR);
+                    outlined destroy of TermOfAddress?(&v614, &_s10Foundation16AttributedStringV4RunsV3RunVSg_AHtMd, &_s10Foundation16AttributedStringV4RunsV3RunVSg_AHtMR);
                     if (!v338)
                     {
                       v243 = v563;
@@ -6381,224 +7878,224 @@ LABEL_136:
 
 uint64_t specialized static String.LocalizationValue.FormatArgument.CodableStorage.== infix(_:_:)(unint64_t a1, uint64_t a2)
 {
-  *&v785 = a2;
-  v784 = a1;
-  v919 = *MEMORY[0x1E69E9840];
+  *&v792 = a2;
+  v791 = a1;
+  v926 = *MEMORY[0x1E69E9840];
   v2 = type metadata accessor for String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(0);
   MEMORY[0x1EEE9AC00](v2 - 8);
-  v767 = &v712 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v774 = &v719 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v4);
-  v769 = &v712 - v5;
-  v720 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation24FloatingPointFormatStyleV7PercentVySd_GMd);
-  MEMORY[0x1EEE9AC00](v720);
-  v726 = (&v712 - v6);
-  v716 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation24FloatingPointFormatStyleV8CurrencyVySd_GMd);
-  MEMORY[0x1EEE9AC00](v716);
-  v727 = &v712 - v7;
-  v715 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation24FloatingPointFormatStyleVySdGMd);
-  MEMORY[0x1EEE9AC00](v715);
-  v722 = (&v712 - v8);
-  v744 = type metadata accessor for String.LocalizationValue.FormatArgument.FloatingPointArgumentFormatStyle.Format(0);
-  MEMORY[0x1EEE9AC00](v744);
-  v734 = (&v712 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v776 = &v719 - v5;
+  v727 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation24FloatingPointFormatStyleV7PercentVySd_GMd, &_s10Foundation24FloatingPointFormatStyleV7PercentVySd_GMR);
+  MEMORY[0x1EEE9AC00](v727);
+  v733 = (&v719 - v6);
+  v723 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation24FloatingPointFormatStyleV8CurrencyVySd_GMd, &_s10Foundation24FloatingPointFormatStyleV8CurrencyVySd_GMR);
+  MEMORY[0x1EEE9AC00](v723);
+  v734 = &v719 - v7;
+  v722 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation24FloatingPointFormatStyleVySdGMd, &_s10Foundation24FloatingPointFormatStyleVySdGMR);
+  MEMORY[0x1EEE9AC00](v722);
+  v729 = (&v719 - v8);
+  v751 = type metadata accessor for String.LocalizationValue.FormatArgument.FloatingPointArgumentFormatStyle.Format(0);
+  MEMORY[0x1EEE9AC00](v751);
+  v741 = (&v719 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0));
   MEMORY[0x1EEE9AC00](v10);
-  v735 = &v712 - v11;
+  v742 = &v719 - v11;
   MEMORY[0x1EEE9AC00](v12);
-  v733 = &v712 - v13;
-  v743 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS10FoundationE17LocalizationValueV14FormatArgumentV013FloatingPointeD5StyleV0D033_52A34860FC1D9F87FB0A99C608112EB3LLO_AJtMd);
-  MEMORY[0x1EEE9AC00](v743);
-  v745 = &v712 - v14;
+  v740 = &v719 - v13;
+  v750 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS10FoundationE17LocalizationValueV14FormatArgumentV013FloatingPointeD5StyleV0D033_52A34860FC1D9F87FB0A99C608112EB3LLO_AJtMd, &_sSS10FoundationE17LocalizationValueV14FormatArgumentV013FloatingPointeD5StyleV0D033_52A34860FC1D9F87FB0A99C608112EB3LLO_AJtMR);
+  MEMORY[0x1EEE9AC00](v750);
+  v752 = &v719 - v14;
   v15 = type metadata accessor for String.LocalizationValue.FormatArgument.FloatingPointArgumentFormatStyle(0);
   MEMORY[0x1EEE9AC00](v15 - 8);
-  v749 = &v712 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v756 = &v719 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v17);
-  v750 = (&v712 - v18);
-  v717 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation18IntegerFormatStyleV7PercentVySi_GMd);
-  MEMORY[0x1EEE9AC00](v717);
-  v723 = (&v712 - v19);
-  v714 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation18IntegerFormatStyleV8CurrencyVySi_GMd);
-  MEMORY[0x1EEE9AC00](v714);
-  v724 = &v712 - v20;
-  v713 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation18IntegerFormatStyleVySiGMd);
-  MEMORY[0x1EEE9AC00](v713);
-  v721 = (&v712 - v21);
-  v739 = type metadata accessor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle.Format(0);
-  MEMORY[0x1EEE9AC00](v739);
-  *&v730 = &v712 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v757 = (&v719 - v18);
+  v724 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation18IntegerFormatStyleV7PercentVySi_GMd, &_s10Foundation18IntegerFormatStyleV7PercentVySi_GMR);
+  MEMORY[0x1EEE9AC00](v724);
+  v730 = (&v719 - v19);
+  v721 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation18IntegerFormatStyleV8CurrencyVySi_GMd, &_s10Foundation18IntegerFormatStyleV8CurrencyVySi_GMR);
+  MEMORY[0x1EEE9AC00](v721);
+  v731 = &v719 - v20;
+  v720 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation18IntegerFormatStyleVySiGMd, &_s10Foundation18IntegerFormatStyleVySiGMR);
+  MEMORY[0x1EEE9AC00](v720);
+  v728 = (&v719 - v21);
+  v746 = type metadata accessor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle.Format(0);
+  MEMORY[0x1EEE9AC00](v746);
+  *&v737 = &v719 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v23);
-  v731 = &v712 - v24;
+  v738 = &v719 - v24;
   MEMORY[0x1EEE9AC00](v25);
-  v729 = (&v712 - v26);
-  v738 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS10FoundationE17LocalizationValueV14FormatArgumentV07IntegereD5StyleV0D033_52A34860FC1D9F87FB0A99C608112EB3LLO_AJtMd);
-  MEMORY[0x1EEE9AC00](v738);
-  v741 = &v712 - v27;
+  v736 = (&v719 - v26);
+  v745 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS10FoundationE17LocalizationValueV14FormatArgumentV07IntegereD5StyleV0D033_52A34860FC1D9F87FB0A99C608112EB3LLO_AJtMd, &_sSS10FoundationE17LocalizationValueV14FormatArgumentV07IntegereD5StyleV0D033_52A34860FC1D9F87FB0A99C608112EB3LLO_AJtMR);
+  MEMORY[0x1EEE9AC00](v745);
+  v748 = &v719 - v27;
   v28 = type metadata accessor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle(0);
   MEMORY[0x1EEE9AC00](v28 - 8);
-  v747 = (&v712 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v754 = (&v719 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0));
   MEMORY[0x1EEE9AC00](v30);
-  v748 = &v712 - v31;
-  v719 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVy10Foundation16AttributedStringV4RunsVGMd);
-  MEMORY[0x1EEE9AC00](v719);
-  v736 = &v712 - ((v32 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v755 = &v719 - v31;
+  v726 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVy10Foundation16AttributedStringV4RunsVGMd, &_ss16IndexingIteratorVy10Foundation16AttributedStringV4RunsVGMR);
+  MEMORY[0x1EEE9AC00](v726);
+  v743 = &v719 - ((v32 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v33);
-  v737 = &v712 - v34;
-  v782 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd);
-  v776 = *(v782 - 8);
-  MEMORY[0x1EEE9AC00](v782);
-  v725 = &v712 - ((v35 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v744 = &v719 - v34;
+  v789 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMR);
+  v783 = *(v789 - 8);
+  MEMORY[0x1EEE9AC00](v789);
+  v732 = &v719 - ((v35 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v36);
-  v732 = &v712 - v37;
+  v739 = &v719 - v37;
   MEMORY[0x1EEE9AC00](v38);
-  v742 = &v712 - v39;
+  v749 = &v719 - v39;
   MEMORY[0x1EEE9AC00](v40);
-  v751 = &v712 - v41;
+  v758 = &v719 - v41;
   MEMORY[0x1EEE9AC00](v42);
-  v740 = &v712 - v43;
+  v747 = &v719 - v43;
   MEMORY[0x1EEE9AC00](v44);
-  v746 = &v712 - v45;
+  v753 = &v719 - v45;
   MEMORY[0x1EEE9AC00](v46);
-  v775 = &v712 - v47;
-  v766.i64[0] = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd);
-  MEMORY[0x1EEE9AC00](v766.i64[0]);
-  *&v779 = &v712 - ((v48 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v782 = &v719 - v47;
+  v773.i64[0] = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMR);
+  MEMORY[0x1EEE9AC00](v773.i64[0]);
+  *&v786 = &v719 - ((v48 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v49);
-  v778 = &v712 - v50;
-  v781 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMd);
-  v771 = *(v781 - 8);
-  MEMORY[0x1EEE9AC00](v781);
-  v728 = &v712 - ((v51 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v785 = &v719 - v50;
+  v788 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMd, &_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMR);
+  v778 = *(v788 - 8);
+  MEMORY[0x1EEE9AC00](v788);
+  v735 = &v719 - ((v51 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v52);
-  v777 = &v712 - v53;
+  v784 = &v719 - v53;
   MEMORY[0x1EEE9AC00](v54);
-  v768 = &v712 - v55;
+  v775 = &v719 - v55;
   MEMORY[0x1EEE9AC00](v56);
-  v780 = &v712 - v57;
+  v787 = &v719 - v57;
   MEMORY[0x1EEE9AC00](v58);
-  v765 = &v712 - v59;
-  v773 = type metadata accessor for AttributedString.Runs();
-  MEMORY[0x1EEE9AC00](v773);
-  v718 = &v712 - ((v60 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v772 = &v719 - v59;
+  v780 = type metadata accessor for AttributedString.Runs(0);
+  MEMORY[0x1EEE9AC00](v780);
+  v725 = &v719 - ((v60 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v61);
-  v772 = &v712 - v62;
+  v779 = &v719 - v62;
   MEMORY[0x1EEE9AC00](v63);
-  v752 = (&v712 - v64);
+  v759 = (&v719 - v64);
   MEMORY[0x1EEE9AC00](v65);
-  *&v774 = &v712 - v66;
+  *&v781 = &v719 - v66;
   MEMORY[0x1EEE9AC00](v67);
-  v770 = (&v712 - v68);
-  *&v783 = type metadata accessor for String.LocalizationValue.FormatArgument.CodableStorage(0);
-  MEMORY[0x1EEE9AC00](v783);
-  v761 = &v712 - ((v69 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v777 = (&v719 - v68);
+  *&v790 = type metadata accessor for String.LocalizationValue.FormatArgument.CodableStorage(0);
+  MEMORY[0x1EEE9AC00](v790);
+  v768 = &v719 - ((v69 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v70);
-  v758 = &v712 - v71;
+  v765 = &v719 - v71;
   MEMORY[0x1EEE9AC00](v72);
-  v764 = &v712 - v73;
+  v771 = &v719 - v73;
   MEMORY[0x1EEE9AC00](v74);
-  v760.i64[0] = &v712 - v75;
+  v767.i64[0] = &v719 - v75;
   MEMORY[0x1EEE9AC00](v76);
-  *&v759 = &v712 - v77;
+  *&v766 = &v719 - v77;
   MEMORY[0x1EEE9AC00](v78);
-  v763 = &v712 - v79;
+  v770 = &v719 - v79;
   MEMORY[0x1EEE9AC00](v80);
-  v762 = (&v712 - v81);
+  v769 = (&v719 - v81);
   MEMORY[0x1EEE9AC00](v82);
-  v756 = &v712 - v83;
+  v763 = &v719 - v83;
   MEMORY[0x1EEE9AC00](v84);
-  *&v755 = &v712 - v85;
+  *&v762 = &v719 - v85;
   MEMORY[0x1EEE9AC00](v86);
-  v753 = (&v712 - v87);
+  v760 = (&v719 - v87);
   MEMORY[0x1EEE9AC00](v88);
-  *&v754 = &v712 - v89;
+  *&v761 = &v719 - v89;
   MEMORY[0x1EEE9AC00](v90);
-  v92 = (&v712 - v91);
+  v92 = (&v719 - v91);
   MEMORY[0x1EEE9AC00](v93);
-  v95 = (&v712 - v94);
+  v95 = (&v719 - v94);
   MEMORY[0x1EEE9AC00](v96);
-  v98 = (&v712 - v97);
+  v98 = (&v719 - v97);
   MEMORY[0x1EEE9AC00](v99);
-  v101 = (&v712 - v100);
+  v101 = (&v719 - v100);
   MEMORY[0x1EEE9AC00](v102);
-  v104 = (&v712 - v103);
+  v104 = (&v719 - v103);
   MEMORY[0x1EEE9AC00](v105);
-  v107 = (&v712 - v106);
+  v107 = (&v719 - v106);
   MEMORY[0x1EEE9AC00](v108);
-  v757 = &v712 - v109;
-  v110 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS10FoundationE17LocalizationValueV14FormatArgumentV14CodableStorageO_AGtMd);
+  v764 = &v719 - v109;
+  v110 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS10FoundationE17LocalizationValueV14FormatArgumentV14CodableStorageO_AGtMd, &_sSS10FoundationE17LocalizationValueV14FormatArgumentV14CodableStorageO_AGtMR);
   MEMORY[0x1EEE9AC00](v110 - 8);
-  v112 = &v712 - v111;
-  v114 = &v712 + *(v113 + 56) - v111;
-  outlined init with copy of String.LocalizationValue.FormatArgument.CodableStorage(v784, &v712 - v111, type metadata accessor for String.LocalizationValue.FormatArgument.CodableStorage);
-  v115 = v785;
-  *&v785 = v114;
+  v112 = &v719 - v111;
+  v114 = &v719 + *(v113 + 56) - v111;
+  outlined init with copy of String.LocalizationValue.FormatArgument.CodableStorage(v791, &v719 - v111, type metadata accessor for String.LocalizationValue.FormatArgument.CodableStorage);
+  v115 = v792;
+  *&v792 = v114;
   outlined init with copy of String.LocalizationValue.FormatArgument.CodableStorage(v115, v114, type metadata accessor for String.LocalizationValue.FormatArgument.CodableStorage);
   switch(swift_getEnumCaseMultiPayload())
   {
     case 1u:
       outlined init with copy of String.LocalizationValue.FormatArgument.CodableStorage(v112, v107, type metadata accessor for String.LocalizationValue.FormatArgument.CodableStorage);
-      v248 = v785;
+      v249 = v792;
       if (swift_getEnumCaseMultiPayload() != 1)
       {
         goto LABEL_113;
       }
 
-      v249 = *v107;
+      v250 = *v107;
       goto LABEL_71;
     case 2u:
       outlined init with copy of String.LocalizationValue.FormatArgument.CodableStorage(v112, v104, type metadata accessor for String.LocalizationValue.FormatArgument.CodableStorage);
-      v190 = v785;
+      v191 = v792;
       if (swift_getEnumCaseMultiPayload() != 2)
       {
         goto LABEL_113;
       }
 
-      v169 = *v104 == *v190;
+      v170 = *v104 == *v191;
       goto LABEL_91;
     case 3u:
       outlined init with copy of String.LocalizationValue.FormatArgument.CodableStorage(v112, v101, type metadata accessor for String.LocalizationValue.FormatArgument.CodableStorage);
-      v248 = v785;
+      v249 = v792;
       if (swift_getEnumCaseMultiPayload() != 3)
       {
         goto LABEL_113;
       }
 
-      v249 = *v101;
+      v250 = *v101;
 LABEL_71:
-      v251 = *v248;
+      v252 = *v249;
       goto LABEL_74;
     case 4u:
       outlined init with copy of String.LocalizationValue.FormatArgument.CodableStorage(v112, v98, type metadata accessor for String.LocalizationValue.FormatArgument.CodableStorage);
-      v168 = v785;
+      v169 = v792;
       if (swift_getEnumCaseMultiPayload() != 4)
       {
         goto LABEL_113;
       }
 
-      v169 = *v98 == *v168;
+      v170 = *v98 == *v169;
       goto LABEL_91;
     case 5u:
       outlined init with copy of String.LocalizationValue.FormatArgument.CodableStorage(v112, v95, type metadata accessor for String.LocalizationValue.FormatArgument.CodableStorage);
-      v254 = v785;
+      v255 = v792;
       if (swift_getEnumCaseMultiPayload() != 5)
       {
         goto LABEL_113;
       }
 
-      v169 = *v95 == *v254;
+      v170 = *v95 == *v255;
       goto LABEL_91;
     case 6u:
       outlined init with copy of String.LocalizationValue.FormatArgument.CodableStorage(v112, v92, type metadata accessor for String.LocalizationValue.FormatArgument.CodableStorage);
-      v189 = v785;
+      v190 = v792;
       if (swift_getEnumCaseMultiPayload() != 6)
       {
         goto LABEL_113;
       }
 
-      v250 = *v92;
+      v251 = *v92;
       goto LABEL_90;
     case 7u:
-      v188 = v754;
-      outlined init with copy of String.LocalizationValue.FormatArgument.CodableStorage(v112, v754, type metadata accessor for String.LocalizationValue.FormatArgument.CodableStorage);
-      v189 = v785;
+      v189 = v761;
+      outlined init with copy of String.LocalizationValue.FormatArgument.CodableStorage(v112, v761, type metadata accessor for String.LocalizationValue.FormatArgument.CodableStorage);
+      v190 = v792;
       if (swift_getEnumCaseMultiPayload() == 7)
       {
         goto LABEL_68;
@@ -6606,707 +8103,707 @@ LABEL_71:
 
       goto LABEL_113;
     case 8u:
-      v361 = v753;
-      outlined init with copy of String.LocalizationValue.FormatArgument.CodableStorage(v112, v753, type metadata accessor for String.LocalizationValue.FormatArgument.CodableStorage);
-      v363 = *v361;
-      v362 = v361[1];
-      v364 = v785;
+      v363 = v760;
+      outlined init with copy of String.LocalizationValue.FormatArgument.CodableStorage(v112, v760, type metadata accessor for String.LocalizationValue.FormatArgument.CodableStorage);
+      v365 = *v363;
+      v364 = v363[1];
+      v366 = v792;
       if (swift_getEnumCaseMultiPayload() != 8)
       {
 
         goto LABEL_113;
       }
 
-      if (v363 == *v364 && v362 == v364[1])
+      if (v365 == *v366 && v364 == v366[1])
       {
       }
 
       else
       {
-        v377 = _stringCompareWithSmolCheck(_:_:expecting:)();
+        v379 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-        if ((v377 & 1) == 0)
+        if ((v379 & 1) == 0)
         {
           goto LABEL_244;
         }
       }
 
-      v378 = v112;
+      v380 = v112;
       goto LABEL_121;
     case 9u:
-      v188 = v755;
-      outlined init with copy of String.LocalizationValue.FormatArgument.CodableStorage(v112, v755, type metadata accessor for String.LocalizationValue.FormatArgument.CodableStorage);
-      v189 = v785;
+      v189 = v762;
+      outlined init with copy of String.LocalizationValue.FormatArgument.CodableStorage(v112, v762, type metadata accessor for String.LocalizationValue.FormatArgument.CodableStorage);
+      v190 = v792;
       if (swift_getEnumCaseMultiPayload() != 9)
       {
         goto LABEL_113;
       }
 
 LABEL_68:
-      v250 = *v188;
+      v251 = *v189;
 LABEL_90:
-      v169 = v250 == *v189;
+      v170 = v251 == *v190;
       goto LABEL_91;
     case 0xAu:
-      v273 = v756;
-      outlined init with copy of String.LocalizationValue.FormatArgument.CodableStorage(v112, v756, type metadata accessor for String.LocalizationValue.FormatArgument.CodableStorage);
-      v275 = *v273;
-      v274 = v273[1];
-      v276 = v785;
+      v275 = v763;
+      outlined init with copy of String.LocalizationValue.FormatArgument.CodableStorage(v112, v763, type metadata accessor for String.LocalizationValue.FormatArgument.CodableStorage);
+      v277 = *v275;
+      v276 = v275[1];
+      v278 = v792;
       if (swift_getEnumCaseMultiPayload() != 10)
       {
 
 LABEL_113:
-        outlined destroy of TermOfAddress?(v112, &_sSS10FoundationE17LocalizationValueV14FormatArgumentV14CodableStorageO_AGtMd);
+        outlined destroy of TermOfAddress?(v112, &_sSS10FoundationE17LocalizationValueV14FormatArgumentV14CodableStorageO_AGtMd, &_sSS10FoundationE17LocalizationValueV14FormatArgumentV14CodableStorageO_AGtMR);
         goto LABEL_114;
       }
 
-      v712 = v112;
-      v277 = *v276;
-      v744 = v276[1];
-      v745 = v274;
-      v278 = *(v275 + 40);
-      v908 = *(v275 + 24);
-      v909 = v278;
-      v910 = *(v275 + 56);
-      *&v785 = BigString.startIndex.getter();
-      v784 = v279;
-      v281 = v280;
+      v719 = v112;
+      v279 = *v278;
+      v751 = v278[1];
+      v752 = v276;
+      v280 = *(v277 + 40);
+      v915 = *(v277 + 24);
+      v916 = v280;
+      v917 = *(v277 + 56);
+      *&v792 = BigString.startIndex.getter();
+      v791 = v281;
       v283 = v282;
-      v284 = BigString.endIndex.getter();
-      v286 = v285;
+      v285 = v284;
+      v286 = BigString.endIndex.getter();
       v288 = v287;
       v290 = v289;
-      v291 = *(v277 + 40);
-      v905 = *(v277 + 24);
-      v906 = v291;
-      v767 = v277;
-      v907 = *(v277 + 56);
-      v292 = BigString.startIndex.getter();
-      v757 = v293;
-      v758 = v292;
-      v756 = v294;
-      *&v755 = v295;
-      v296 = BigString.endIndex.getter();
-      v753 = v297;
-      *&v754 = v296;
-      v749 = v299;
-      v750 = v298;
-      *&v796[0] = v785;
-      *(&v796[0] + 1) = v784;
-      *&v796[1] = v281;
-      *(&v796[1] + 1) = v283;
-      *&v796[2] = v284;
-      *(&v796[2] + 1) = v286;
-      *&v796[3] = v288;
-      *(&v796[3] + 1) = v290;
-      v300 = lazy protocol witness table accessor for type BigString.Index and conformance BigString.Index();
+      v292 = v291;
+      v293 = *(v279 + 40);
+      v912 = *(v279 + 24);
+      v913 = v293;
+      v774 = v279;
+      v914 = *(v279 + 56);
+      v294 = BigString.startIndex.getter();
+      v764 = v295;
+      v765 = v294;
+      v763 = v296;
+      *&v762 = v297;
+      v298 = BigString.endIndex.getter();
+      v760 = v299;
+      *&v761 = v298;
+      v756 = v301;
+      v757 = v300;
+      *&v803[0] = v792;
+      *(&v803[0] + 1) = v791;
+      *&v803[1] = v283;
+      *(&v803[1] + 1) = v285;
+      *&v803[2] = v286;
+      *(&v803[2] + 1) = v288;
+      *&v803[3] = v290;
+      *(&v803[3] + 1) = v292;
+      v302 = lazy protocol witness table accessor for type BigString.Index and conformance BigString.Index();
 
       RangeSet.init(_:)();
-      v764 = v275;
-      *v774 = v275;
-      v301 = v780;
-      v761 = v300;
+      v771 = v277;
+      *v781 = v277;
+      v303 = v787;
+      v768 = v302;
       RangeSet.init()();
-      v302 = v775;
+      v304 = v782;
       RangeSet.ranges.getter();
-      v303 = v776;
-      v304 = v778;
-      v305 = v782;
-      v747 = *(v776 + 16);
-      v748 = v776 + 16;
-      v747(v778, v302, v782);
-      v306 = *(v766.i64[0] + 36);
-      v307 = lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd);
+      v305 = v783;
+      v306 = v785;
+      v307 = v789;
+      v754 = *(v783 + 16);
+      v755 = v783 + 16;
+      v754(v785, v304, v789);
+      v308 = *(v773.i64[0] + 36);
+      v309 = lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMR, MEMORY[0x1E69E7BC8]);
       dispatch thunk of Collection.startIndex.getter();
-      v308 = *(v303 + 8);
-      v776 = v303 + 8;
-      v762 = v308;
-      (v308)(v302, v305);
+      v310 = *(v305 + 8);
+      v783 = v305 + 8;
+      v769 = v310;
+      (v310)(v304, v307);
       dispatch thunk of Collection.endIndex.getter();
-      v309 = *&v306[v304];
-      *&v785 = v307;
-      if (v309 != *&v796[0])
+      v311 = *&v308[v306];
+      *&v792 = v309;
+      if (v311 != *&v803[0])
       {
-        v763 = v306;
+        v770 = v308;
         do
         {
-          v379 = dispatch thunk of Collection.subscript.read();
-          v381 = v380[5];
-          v784 = v380[4];
-          *&v783 = v381;
-          v769 = v380[6];
-          v379(v796, 0);
+          v381 = dispatch thunk of Collection.subscript.read();
+          v383 = v382[5];
+          v791 = v382[4];
+          *&v790 = v383;
+          v776 = v382[6];
+          v381(v803, 0);
           dispatch thunk of Collection.formIndex(after:)();
-          v382 = v764;
-          v383 = *(v764 + 40);
-          v902 = *(v764 + 24);
-          v903 = v383;
-          v904 = *(v764 + 56);
+          v384 = v771;
+          v385 = *(v771 + 40);
+          v909 = *(v771 + 24);
+          v910 = v385;
+          v911 = *(v771 + 56);
           swift_unknownObjectRetain();
-          v384 = BigString.UnicodeScalarView.index(roundingDown:)();
-          v386 = v385;
+          v386 = BigString.UnicodeScalarView.index(roundingDown:)();
           v388 = v387;
           v390 = v389;
+          v392 = v391;
           swift_unknownObjectRelease();
-          v391 = *(v382 + 40);
-          v899 = *(v382 + 24);
-          v900 = v391;
-          v901 = *(v382 + 56);
+          v393 = *(v384 + 40);
+          v906 = *(v384 + 24);
+          v907 = v393;
+          v908 = *(v384 + 56);
           swift_unknownObjectRetain();
-          v392 = BigString.UnicodeScalarView.index(roundingDown:)();
-          v394 = v393;
+          v394 = BigString.UnicodeScalarView.index(roundingDown:)();
           v396 = v395;
           v398 = v397;
+          v400 = v399;
           swift_unknownObjectRelease();
-          *&v796[0] = v384;
-          *(&v796[0] + 1) = v386;
-          *&v796[1] = v388;
-          v301 = v780;
-          *(&v796[1] + 1) = v390;
-          *&v796[2] = v392;
-          *(&v796[2] + 1) = v394;
-          v305 = v782;
-          *&v796[3] = v396;
-          *(&v796[3] + 1) = v398;
-          if ((v392 ^ v384) >= 0x400)
+          *&v803[0] = v386;
+          *(&v803[0] + 1) = v388;
+          *&v803[1] = v390;
+          v303 = v787;
+          *(&v803[1] + 1) = v392;
+          *&v803[2] = v394;
+          *(&v803[2] + 1) = v396;
+          v307 = v789;
+          *&v803[3] = v398;
+          *(&v803[3] + 1) = v400;
+          if ((v394 ^ v386) >= 0x400)
           {
-            v399 = RangeSet._ranges.modify();
+            v401 = RangeSet._ranges.modify();
             RangeSet.Ranges._insert(contentsOf:)();
-            v399(&v829, 0);
+            v401(&v836, 0);
           }
 
-          v304 = v778;
+          v306 = v785;
           dispatch thunk of Collection.endIndex.getter();
         }
 
-        while (*&v763[v304] != *&v796[0]);
+        while (*&v770[v306] != *&v803[0]);
       }
 
-      outlined destroy of TermOfAddress?(v304, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd);
-      v310 = v773;
-      v311 = v771;
-      v312 = *(v771 + 16);
-      v313 = v774;
-      v314 = v774 + *(v773 + 24);
-      v315 = v301;
-      v316 = v781;
-      v769 = v771 + 16;
-      v763 = v312;
-      (v312)(v314, v315, v781);
-      v317 = v775;
+      outlined destroy of TermOfAddress?(v306, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMR);
+      v312 = v780;
+      v313 = v778;
+      v314 = *(v778 + 16);
+      v315 = v781;
+      v316 = v781 + *(v780 + 24);
+      v317 = v303;
+      v318 = v788;
+      v776 = v778 + 16;
+      v770 = v314;
+      (v314)(v316, v317, v788);
+      v319 = v782;
       RangeSet.ranges.getter();
-      v318 = RangeSet.Ranges.count.getter();
-      v319 = v762;
-      (v762)(v317, v305);
-      v320 = *(v310 + 28);
-      LODWORD(v743) = v318 > 1;
-      *(v313 + v320) = v743;
-      v321 = v746;
+      v320 = RangeSet.Ranges.count.getter();
+      v321 = v769;
+      (v769)(v319, v307);
+      v322 = *(v312 + 28);
+      LODWORD(v750) = v320 > 1;
+      *(v315 + v322) = v750;
+      v323 = v753;
       RangeSet.ranges.getter();
-      specialized Collection.first.getter(v796);
-      v319(v321, v305);
-      v322 = *(&v796[1] + 1);
-      if (*(&v796[1] + 1) == 2)
+      specialized Collection.first.getter(v803);
+      v321(v323, v307);
+      v324 = *(&v803[1] + 1);
+      if (*(&v803[1] + 1) == 2)
       {
         goto LABEL_100;
       }
 
-      v746 = *(&v796[0] + 1);
-      v323 = *&v796[0];
-      v741 = *&v796[1];
-      v324 = v740;
+      v753 = *(&v803[0] + 1);
+      v325 = *&v803[0];
+      v748 = *&v803[1];
+      v326 = v747;
       RangeSet.ranges.getter();
       if (dispatch thunk of Collection.isEmpty.getter())
       {
-        v319(v324, v305);
-        v316 = v781;
-        v311 = v771;
+        v321(v326, v307);
+        v318 = v788;
+        v313 = v778;
 LABEL_100:
-        v325 = v764;
-        v326 = *(v764 + 96);
-        v327 = swift_unknownObjectRetain();
-        AttributedString._InternalRuns.startIndex.getter(v327, v326, v836);
+        v327 = v771;
+        v328 = *(v771 + 96);
+        v329 = swift_unknownObjectRetain();
+        AttributedString._InternalRuns.startIndex.getter(v329, v328, v843);
         swift_unknownObjectRelease();
-        v328 = *(v325 + 40);
-        v896 = *(v325 + 24);
-        v897 = v328;
-        v898 = *(v325 + 56);
-        v784 = BigString.startIndex.getter();
-        *&v783 = v329;
-        v778 = v330;
-        v332 = v331;
-        v759 = v836[0];
-        v760 = v836[1];
-        LOBYTE(v796[0]) = 0;
-        v333 = *(v325 + 96);
-        v334 = swift_unknownObjectRetain();
-        v335 = 0;
-        AttributedString._InternalRuns.startIndex.getter(v334, v333, &v837);
+        v330 = *(v327 + 40);
+        v903 = *(v327 + 24);
+        v904 = v330;
+        v905 = *(v327 + 56);
+        v791 = BigString.startIndex.getter();
+        *&v790 = v331;
+        v785 = v332;
+        v334 = v333;
+        v766 = v843[0];
+        v767 = v843[1];
+        LOBYTE(v803[0]) = 0;
+        v335 = *(v327 + 96);
+        v336 = swift_unknownObjectRetain();
+        v337 = 0;
+        AttributedString._InternalRuns.startIndex.getter(v336, v335, &v844);
         swift_unknownObjectRelease();
-        v336 = *(v311 + 8);
-        v336(v780, v316);
-        v337 = v765;
-        v765 = v336;
-        v336(v337, v316);
-        v338 = *(v325 + 40);
-        v893 = *(v325 + 24);
-        v894 = v338;
-        v895 = *(v325 + 56);
-        v339 = BigString.startIndex.getter();
-        v344 = v759;
-        v343 = v760;
-        v345 = v784;
-        v346 = v778;
-        v347 = v783;
-        v348 = 0;
-        v349 = v839;
-        v350 = v837;
-        v351 = -1;
-        v352 = v838;
-        v353 = v784;
-        LOBYTE(v796[0]) = 0;
-        v354 = v783;
-        v355 = v778;
-        v322 = v332;
-        v356 = v339;
-        v357 = v340;
+        v338 = *(v313 + 8);
+        v338(v787, v318);
+        v339 = v772;
+        v772 = v338;
+        v338(v339, v318);
+        v340 = *(v327 + 40);
+        v900 = *(v327 + 24);
+        v901 = v340;
+        v902 = *(v327 + 56);
+        v341 = BigString.startIndex.getter();
+        v346 = v766;
+        v345 = v767;
+        v347 = v791;
+        v348 = v785;
+        v349 = v790;
+        v350 = 0;
+        v351 = v846;
+        v352 = v844;
+        v353 = -1;
+        v354 = v845;
+        v355 = v791;
+        LOBYTE(v803[0]) = 0;
+        v356 = v790;
+        v357 = v785;
+        v324 = v334;
         v358 = v341;
         v359 = v342;
-        v360 = -1;
+        v360 = v343;
+        v361 = v344;
+        v362 = -1;
       }
 
       else
       {
-        v411 = v324;
-        v412 = v305;
+        v413 = v326;
+        v414 = v307;
         dispatch thunk of Collection.endIndex.getter();
-        lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd);
+        lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMR, MEMORY[0x1E69E7BB0]);
         dispatch thunk of BidirectionalCollection.index(before:)();
-        v413 = dispatch thunk of Collection.subscript.read();
-        v414 = v323;
-        v356 = v415[4];
-        v416 = v415[5];
-        v417 = v415[7];
-        v738 = v415[6];
-        v739 = v416;
-        v733 = v417;
-        v413(v796, 0);
-        v319(v411, v305);
-        v740 = v414;
-        v418 = v764;
-        AttributedString.Guts.findRun(at:)(v414, v322, v796);
-        LODWORD(v735) = 0;
-        v759 = v796[0];
-        v760 = v796[1];
-        v784 = *(&v796[2] + 1);
-        v778 = *(&v796[3] + 1);
-        *&v783 = *&v796[3];
-        v734 = *&v796[4];
-        v419 = *(v418 + 40);
-        v896 = *(v418 + 24);
-        v897 = v419;
-        v898 = *(v418 + 56);
-        if ((BigString.endIndex.getter() ^ v356) >= 0x400)
+        v415 = dispatch thunk of Collection.subscript.read();
+        v416 = v325;
+        v358 = v417[4];
+        v418 = v417[5];
+        v419 = v417[7];
+        v745 = v417[6];
+        v746 = v418;
+        v740 = v419;
+        v415(v803, 0);
+        v321(v413, v307);
+        v747 = v416;
+        v420 = v771;
+        AttributedString.Guts.findRun(at:)(v416, v324, v803);
+        LODWORD(v742) = 0;
+        v766 = v803[0];
+        v767 = v803[1];
+        v791 = *(&v803[2] + 1);
+        v785 = *(&v803[3] + 1);
+        *&v790 = *&v803[3];
+        v741 = *&v803[4];
+        v421 = *(v420 + 40);
+        v903 = *(v420 + 24);
+        v904 = v421;
+        v905 = *(v420 + 56);
+        if ((BigString.endIndex.getter() ^ v358) >= 0x400)
         {
-          v439 = v733;
-          AttributedString.Guts.findRun(at:)(v356, v733, v796);
-          v730 = *(v796 + 8);
-          v350 = *&v796[0];
-          v731 = *(&v796[1] + 1);
-          v729 = *(&v796[2] + 1);
-          v726 = *(&v796[3] + 1);
-          v727 = *&v796[3];
-          v724 = *&v796[4];
-          v440 = v775;
-          v441 = v781;
+          v443 = v740;
+          AttributedString.Guts.findRun(at:)(v358, v740, v803);
+          v737 = *(v803 + 8);
+          v352 = *&v803[0];
+          v738 = *(&v803[1] + 1);
+          v736 = *(&v803[2] + 1);
+          v733 = *(&v803[3] + 1);
+          v734 = *&v803[3];
+          v731 = *&v803[4];
+          v444 = v782;
+          v445 = v788;
           RangeSet.ranges.getter();
-          v360 = RangeSet.Ranges.count.getter();
-          (v762)(v440, v412);
-          v442 = *(v771 + 8);
-          v442(v780, v441);
-          v443 = v765;
-          v765 = v442;
-          v442(v443, v441);
-          v352 = v730;
-          v349 = v731;
-          v359 = v439;
-          v358 = v738;
-          v357 = v739;
-          v342 = v724;
-          v341 = v726;
-          v340 = v727;
-          v339 = v729;
-          v351 = 0;
+          v362 = RangeSet.Ranges.count.getter();
+          (v769)(v444, v414);
+          v446 = *(v778 + 8);
+          v446(v787, v445);
+          v447 = v772;
+          v772 = v446;
+          v446(v447, v445);
+          v354 = v737;
+          v351 = v738;
+          v361 = v443;
+          v360 = v745;
+          v359 = v746;
+          v344 = v731;
+          v343 = v733;
+          v342 = v734;
+          v341 = v736;
+          v353 = 0;
         }
 
         else
         {
-          if (*(v418 + 72))
+          if (*(v420 + 72))
           {
-            v420 = *(v418 + 80);
+            v422 = *(v420 + 80);
           }
 
           else
           {
-            v420 = 0;
+            v422 = 0;
           }
 
-          v731 = v420;
-          v350 = *(v418 + 96);
-          v421 = swift_unknownObjectRetain();
-          v422 = specialized Rope._endPath.getter(v421);
+          v738 = v422;
+          v352 = *(v420 + 96);
+          v423 = swift_unknownObjectRetain();
+          v424 = specialized Rope._endPath.getter(v423);
           swift_unknownObjectRelease();
-          v423 = v775;
-          v424 = v781;
+          v425 = v782;
+          v426 = v788;
           RangeSet.ranges.getter();
-          v360 = RangeSet.Ranges.count.getter();
-          (v762)(v423, v412);
-          v425 = *(v771 + 8);
-          v425(v780, v424);
-          v426 = v765;
-          v765 = v425;
-          v425(v426, v424);
-          v349 = v731;
-          v351 = 0;
-          v352 = v422;
-          v339 = v356;
-          v358 = v738;
-          v357 = v739;
-          v340 = v739;
-          v341 = v738;
-          v359 = v733;
-          v342 = v733;
+          v362 = RangeSet.Ranges.count.getter();
+          (v769)(v425, v414);
+          v427 = *(v778 + 8);
+          v427(v787, v426);
+          v428 = v772;
+          v772 = v427;
+          v427(v428, v426);
+          v351 = v738;
+          v353 = 0;
+          v354 = v424;
+          v341 = v358;
+          v360 = v745;
+          v359 = v746;
+          v342 = v746;
+          v343 = v745;
+          v361 = v740;
+          v344 = v740;
         }
 
-        v353 = v740;
-        v355 = v741;
-        v354 = v746;
-        v345 = v784;
-        v335 = v735;
-        v347 = v783;
-        v346 = v778;
-        v332 = v734;
-        v344 = v759;
-        v343 = v760;
-        v348 = v743;
+        v355 = v747;
+        v357 = v748;
+        v356 = v753;
+        v347 = v791;
+        v337 = v742;
+        v349 = v790;
+        v348 = v785;
+        v334 = v741;
+        v346 = v766;
+        v345 = v767;
+        v350 = v750;
       }
 
-      v444 = v774;
-      *(v774 + 24) = vextq_s8(v344, v343, 8uLL);
-      *(v444 + 8) = vextq_s8(v343, v344, 8uLL);
-      *(v444 + 40) = v345;
-      *(v444 + 48) = v347;
-      *(v444 + 56) = v346;
-      *(v444 + 64) = v332;
-      *(v444 + 72) = v353;
-      *(v444 + 80) = v354;
-      *(v444 + 88) = v355;
-      *(v444 + 96) = v322;
-      *(v444 + 104) = v351;
-      *(v444 + 112) = v335;
-      *(v444 + 113) = v348;
-      *(v444 + 120) = v349;
-      *(v444 + 128) = v350;
-      *(v444 + 136) = v352;
-      *(v444 + 152) = v339;
-      *(v444 + 160) = v340;
-      *(v444 + 168) = v341;
-      *(v444 + 176) = v342;
-      *(v444 + 184) = v356;
-      *(v444 + 192) = v357;
-      *(v444 + 200) = v358;
-      *(v444 + 208) = v359;
-      *(v444 + 216) = v360;
-      *(v444 + 224) = 0;
-      *(v444 + 225) = v348;
-      outlined init with take of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v444, v770, type metadata accessor for AttributedString.Runs);
-      *&v796[0] = v758;
-      *(&v796[0] + 1) = v757;
-      *&v796[1] = v756;
-      *(&v796[1] + 1) = v755;
-      *&v796[2] = v754;
-      *(&v796[2] + 1) = v753;
-      *&v796[3] = v750;
-      *(&v796[3] + 1) = v749;
-      v445 = v767;
+      v448 = v781;
+      *(v781 + 24) = vextq_s8(v346, v345, 8uLL);
+      *(v448 + 8) = vextq_s8(v345, v346, 8uLL);
+      *(v448 + 40) = v347;
+      *(v448 + 48) = v349;
+      *(v448 + 56) = v348;
+      *(v448 + 64) = v334;
+      *(v448 + 72) = v355;
+      *(v448 + 80) = v356;
+      *(v448 + 88) = v357;
+      *(v448 + 96) = v324;
+      *(v448 + 104) = v353;
+      *(v448 + 112) = v337;
+      *(v448 + 113) = v350;
+      *(v448 + 120) = v351;
+      *(v448 + 128) = v352;
+      *(v448 + 136) = v354;
+      *(v448 + 152) = v341;
+      *(v448 + 160) = v342;
+      *(v448 + 168) = v343;
+      *(v448 + 176) = v344;
+      *(v448 + 184) = v358;
+      *(v448 + 192) = v359;
+      *(v448 + 200) = v360;
+      *(v448 + 208) = v361;
+      *(v448 + 216) = v362;
+      *(v448 + 224) = 0;
+      *(v448 + 225) = v350;
+      outlined init with take of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v448, v777, type metadata accessor for AttributedString.Runs);
+      *&v803[0] = v765;
+      *(&v803[0] + 1) = v764;
+      *&v803[1] = v763;
+      *(&v803[1] + 1) = v762;
+      *&v803[2] = v761;
+      *(&v803[2] + 1) = v760;
+      *&v803[3] = v757;
+      *(&v803[3] + 1) = v756;
+      v449 = v774;
 
       RangeSet.init(_:)();
-      *v772 = v445;
+      *v779 = v449;
       RangeSet.init()();
-      v446 = v775;
+      v450 = v782;
       RangeSet.ranges.getter();
-      v447 = v779;
-      v448 = v782;
-      v747(v779, v446, v782);
-      v449 = *(v766.i64[0] + 36);
+      v451 = v786;
+      v452 = v789;
+      v754(v786, v450, v789);
+      v453 = *(v773.i64[0] + 36);
       dispatch thunk of Collection.startIndex.getter();
-      v450 = v447;
-      (v762)(v446, v448);
+      v454 = v451;
+      (v769)(v450, v452);
       dispatch thunk of Collection.endIndex.getter();
-      if (*(v447 + v449) != *&v796[0])
+      if (*(v451 + v453) != *&v803[0])
       {
-        v778 = v449;
+        v785 = v453;
         do
         {
-          v459 = dispatch thunk of Collection.subscript.read();
-          v461 = v460[5];
-          v784 = v460[4];
-          *&v783 = v461;
-          v780 = v460[6];
-          v459(v796, 0);
+          v463 = dispatch thunk of Collection.subscript.read();
+          v465 = v464[5];
+          v791 = v464[4];
+          *&v790 = v465;
+          v787 = v464[6];
+          v463(v803, 0);
           dispatch thunk of Collection.formIndex(after:)();
-          v462 = v767;
-          v463 = *(v767 + 40);
-          v890 = *(v767 + 24);
-          v891 = v463;
-          v892 = *(v767 + 56);
+          v466 = v774;
+          v467 = *(v774 + 40);
+          v897 = *(v774 + 24);
+          v898 = v467;
+          v899 = *(v774 + 56);
           swift_unknownObjectRetain();
-          v464 = BigString.UnicodeScalarView.index(roundingDown:)();
-          v466 = v465;
-          v468 = v467;
+          v468 = BigString.UnicodeScalarView.index(roundingDown:)();
           v470 = v469;
-          swift_unknownObjectRelease();
-          v471 = *(v462 + 40);
-          v887 = *(v462 + 24);
-          v888 = v471;
-          v889 = *(v462 + 56);
-          swift_unknownObjectRetain();
-          v472 = BigString.UnicodeScalarView.index(roundingDown:)();
+          v472 = v471;
           v474 = v473;
-          v476 = v475;
-          v478 = v477;
           swift_unknownObjectRelease();
-          *&v796[0] = v464;
-          *(&v796[0] + 1) = v466;
-          *&v796[1] = v468;
-          *(&v796[1] + 1) = v470;
-          *&v796[2] = v472;
-          *(&v796[2] + 1) = v474;
-          v448 = v782;
-          *&v796[3] = v476;
-          *(&v796[3] + 1) = v478;
-          if ((v472 ^ v464) >= 0x400)
+          v475 = *(v466 + 40);
+          v894 = *(v466 + 24);
+          v895 = v475;
+          v896 = *(v466 + 56);
+          swift_unknownObjectRetain();
+          v476 = BigString.UnicodeScalarView.index(roundingDown:)();
+          v478 = v477;
+          v480 = v479;
+          v482 = v481;
+          swift_unknownObjectRelease();
+          *&v803[0] = v468;
+          *(&v803[0] + 1) = v470;
+          *&v803[1] = v472;
+          *(&v803[1] + 1) = v474;
+          *&v803[2] = v476;
+          *(&v803[2] + 1) = v478;
+          v452 = v789;
+          *&v803[3] = v480;
+          *(&v803[3] + 1) = v482;
+          if ((v476 ^ v468) >= 0x400)
           {
-            v479 = RangeSet._ranges.modify();
+            v483 = RangeSet._ranges.modify();
             RangeSet.Ranges._insert(contentsOf:)();
-            v479(&v829, 0);
+            v483(&v836, 0);
           }
 
-          v450 = v779;
+          v454 = v786;
           dispatch thunk of Collection.endIndex.getter();
         }
 
-        while (*(v450 + v778) != *&v796[0]);
+        while (*(v454 + v785) != *&v803[0]);
       }
 
-      outlined destroy of TermOfAddress?(v450, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd);
-      v451 = v773;
-      v452 = v772;
-      (v763)(&v772[*(v773 + 24)], v777, v781);
-      v453 = v775;
+      outlined destroy of TermOfAddress?(v454, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMR);
+      v455 = v780;
+      v456 = v779;
+      (v770)(&v779[*(v780 + 24)], v784, v788);
+      v457 = v782;
       RangeSet.ranges.getter();
-      v454 = RangeSet.Ranges.count.getter();
-      v455 = v453;
-      v456 = v762;
-      (v762)(v455, v448);
-      v452[*(v451 + 28)] = v454 > 1;
-      v457 = v751;
+      v458 = RangeSet.Ranges.count.getter();
+      v459 = v457;
+      v460 = v769;
+      (v769)(v459, v452);
+      v456[*(v455 + 28)] = v458 > 1;
+      v461 = v758;
       RangeSet.ranges.getter();
-      specialized Collection.first.getter(&v829);
-      v456(v457, v448);
-      if (*(&v830 + 1) == 2)
+      specialized Collection.first.getter(&v836);
+      v460(v461, v452);
+      if (*(&v837 + 1) == 2)
       {
-        v458 = v767;
+        v462 = v774;
 LABEL_163:
-        v482 = *(v458 + 96);
-        v483 = swift_unknownObjectRetain();
-        AttributedString._InternalRuns.startIndex.getter(v483, v482, &v840);
+        v486 = *(v462 + 96);
+        v487 = swift_unknownObjectRetain();
+        AttributedString._InternalRuns.startIndex.getter(v487, v486, &v847);
         swift_unknownObjectRelease();
-        v484 = *(v458 + 40);
-        v884 = *(v458 + 24);
-        v885 = v484;
-        v886 = *(v458 + 56);
-        v485 = BigString.startIndex.getter();
-        v487 = v486;
-        v489 = v488;
+        v488 = *(v462 + 40);
+        v891 = *(v462 + 24);
+        v892 = v488;
+        v893 = *(v462 + 56);
+        v489 = BigString.startIndex.getter();
         v491 = v490;
-        v492 = *(v458 + 96);
-        v493 = swift_unknownObjectRetain();
-        AttributedString._InternalRuns.startIndex.getter(v493, v492, &v842);
+        v493 = v492;
+        v495 = v494;
+        v496 = *(v462 + 96);
+        v497 = swift_unknownObjectRetain();
+        AttributedString._InternalRuns.startIndex.getter(v497, v496, &v849);
         swift_unknownObjectRelease();
-        v494 = v771;
-        v495 = v781;
-        v496 = v765;
-        (v765)(v777, v781);
-        v496(v768, v495);
-        v497 = *(v458 + 40);
-        v883[15] = *(v458 + 24);
-        v883[16] = v497;
-        v883[17] = *(v458 + 56);
-        v498 = BigString.startIndex.getter();
-        v499 = v844;
-        v500 = v843;
-        v501 = vextq_s8(v841, v840, 8uLL);
-        v502 = v772;
-        *(v772 + 24) = vextq_s8(v840, v841, 8uLL);
-        *(v502 + 8) = v501;
-        *(v502 + 40) = v485;
-        *(v502 + 48) = v487;
-        *(v502 + 56) = v489;
-        *(v502 + 64) = v491;
-        *(v502 + 72) = v485;
-        *(v502 + 80) = v487;
-        *(v502 + 88) = v489;
-        *(v502 + 96) = v491;
-        *(v502 + 104) = -1;
-        *(v502 + 112) = 0;
-        *(v502 + 120) = v499;
-        *(v502 + 128) = v842;
-        *(v502 + 144) = v500;
-        *(v502 + 152) = v498;
-        *(v502 + 160) = v503;
-        *(v502 + 168) = v504;
-        *(v502 + 176) = v505;
-        *(v502 + 184) = v498;
-        *(v502 + 192) = v503;
-        *(v502 + 200) = v504;
-        *(v502 + 208) = v505;
-        *(v502 + 216) = -1;
-        *(v502 + 224) = 0;
-        v258 = v712;
+        v498 = v778;
+        v499 = v788;
+        v500 = v772;
+        (v772)(v784, v788);
+        v500(v775, v499);
+        v501 = *(v462 + 40);
+        v890[15] = *(v462 + 24);
+        v890[16] = v501;
+        v890[17] = *(v462 + 56);
+        v502 = BigString.startIndex.getter();
+        v503 = v851;
+        v504 = v850;
+        v505 = vextq_s8(v848, v847, 8uLL);
+        v506 = v779;
+        *(v779 + 24) = vextq_s8(v847, v848, 8uLL);
+        *(v506 + 8) = v505;
+        *(v506 + 40) = v489;
+        *(v506 + 48) = v491;
+        *(v506 + 56) = v493;
+        *(v506 + 64) = v495;
+        *(v506 + 72) = v489;
+        *(v506 + 80) = v491;
+        *(v506 + 88) = v493;
+        *(v506 + 96) = v495;
+        *(v506 + 104) = -1;
+        *(v506 + 112) = 0;
+        *(v506 + 120) = v503;
+        *(v506 + 128) = v849;
+        *(v506 + 144) = v504;
+        *(v506 + 152) = v502;
+        *(v506 + 160) = v507;
+        *(v506 + 168) = v508;
+        *(v506 + 176) = v509;
+        *(v506 + 184) = v502;
+        *(v506 + 192) = v507;
+        *(v506 + 200) = v508;
+        *(v506 + 208) = v509;
+        *(v506 + 216) = -1;
+        *(v506 + 224) = 0;
+        v259 = v719;
         goto LABEL_171;
       }
 
-      *&v785 = *(&v830 + 1);
-      LODWORD(v784) = v454 > 1;
-      v480 = v829;
-      v780 = v830;
-      v481 = v742;
+      *&v792 = *(&v837 + 1);
+      LODWORD(v791) = v458 > 1;
+      v484 = v836;
+      v787 = v837;
+      v485 = v749;
       RangeSet.ranges.getter();
-      specialized BidirectionalCollection.last.getter(&v822);
-      v456(v481, v448);
-      v458 = v767;
-      if (*(&v823 + 1) == 2)
+      specialized BidirectionalCollection.last.getter(&v829);
+      v460(v485, v452);
+      v462 = v774;
+      if (*(&v830 + 1) == 2)
       {
         goto LABEL_163;
       }
 
-      v783 = v824;
-      v779 = v825;
-      v778 = v480;
-      v506 = v780;
-      AttributedString.Guts.findRun(at:)(v480, v785, v796);
-      v766 = v796[1];
-      v774 = *(&v796[3] + 8);
-      v759 = *(&v796[2] + 8);
-      v760 = v796[0];
-      v507 = *(v458 + 40);
-      v884 = *(v458 + 24);
-      v885 = v507;
-      v886 = *(v458 + 56);
-      v508 = BigString.endIndex.getter();
-      v509 = v783;
-      v758 = *(&v480 + 1);
-      if ((v508 ^ v783) >= 0x400)
+      v790 = v831;
+      v786 = v832;
+      v785 = v484;
+      v510 = v787;
+      AttributedString.Guts.findRun(at:)(v484, v792, v803);
+      v773 = v803[1];
+      v781 = *(&v803[3] + 8);
+      v766 = *(&v803[2] + 8);
+      v767 = v803[0];
+      v511 = *(v462 + 40);
+      v891 = *(v462 + 24);
+      v892 = v511;
+      v893 = *(v462 + 56);
+      v512 = BigString.endIndex.getter();
+      v513 = v790;
+      v765 = *(&v484 + 1);
+      if ((v512 ^ v790) >= 0x400)
       {
-        AttributedString.Guts.findRun(at:)(v783, *(&v779 + 1), v796);
-        v513 = *&v796[0];
-        v521 = *&v796[1];
-        v756 = *(&v796[0] + 1);
-        v757 = *(&v796[1] + 1);
-        v754 = *(&v796[3] + 8);
-        v755 = *(&v796[2] + 8);
-        v514 = v772;
-        v525 = v775;
-        v526 = v781;
+        AttributedString.Guts.findRun(at:)(v790, *(&v786 + 1), v803);
+        v517 = *&v803[0];
+        v525 = *&v803[1];
+        v763 = *(&v803[0] + 1);
+        v764 = *(&v803[1] + 1);
+        v761 = *(&v803[3] + 8);
+        v762 = *(&v803[2] + 8);
+        v518 = v779;
+        v529 = v782;
+        v530 = v788;
         RangeSet.ranges.getter();
-        v527 = v782;
-        v518 = RangeSet.Ranges.count.getter();
-        (v762)(v525, v527);
-        v528 = v765;
-        (v765)(v777, v526);
-        v528(v768, v526);
-        v524 = v754;
-        v522 = v755;
-        v520 = v783;
-        v523 = v779;
+        v531 = v789;
+        v522 = RangeSet.Ranges.count.getter();
+        (v769)(v529, v531);
+        v532 = v772;
+        (v772)(v784, v530);
+        v532(v775, v530);
+        v528 = v761;
+        v526 = v762;
+        v524 = v790;
+        v527 = v786;
       }
 
       else
       {
-        if (*(v458 + 72))
+        if (*(v462 + 72))
         {
-          v510 = *(v458 + 80);
+          v514 = *(v462 + 80);
         }
 
         else
         {
-          v510 = 0;
+          v514 = 0;
         }
 
-        v757 = v510;
-        v511 = *(v458 + 96);
-        v512 = swift_unknownObjectRetain();
-        v513 = v511;
-        v756 = specialized Rope._endPath.getter(v512);
+        v764 = v514;
+        v515 = *(v462 + 96);
+        v516 = swift_unknownObjectRetain();
+        v517 = v515;
+        v763 = specialized Rope._endPath.getter(v516);
         swift_unknownObjectRelease();
-        v514 = v772;
-        v515 = v775;
-        v516 = v781;
+        v518 = v779;
+        v519 = v782;
+        v520 = v788;
         RangeSet.ranges.getter();
-        v517 = v782;
-        v518 = RangeSet.Ranges.count.getter();
-        (v762)(v515, v517);
-        v519 = v765;
-        (v765)(v777, v516);
-        v519(v768, v516);
-        v520 = v783;
-        v521 = 0;
-        v522 = v783;
-        v523 = v779;
-        v524 = v779;
+        v521 = v789;
+        v522 = RangeSet.Ranges.count.getter();
+        (v769)(v519, v521);
+        v523 = v772;
+        (v772)(v784, v520);
+        v523(v775, v520);
+        v524 = v790;
+        v525 = 0;
+        v526 = v790;
+        v527 = v786;
+        v528 = v786;
       }
 
-      v529 = v784;
-      v530 = v766;
-      v531 = v760;
-      *(v514 + 24) = vextq_s8(v760, v766, 8uLL);
-      *(v514 + 8) = vextq_s8(v530, v531, 8uLL);
-      *(v514 + 40) = v759;
-      *(v514 + 56) = v774;
-      v532 = v758;
-      *(v514 + 9) = v778;
-      *(v514 + 10) = v532;
-      v533 = v785;
-      *(v514 + 11) = v506;
-      *(v514 + 12) = v533;
-      *(v514 + 13) = 0;
-      v514[112] = 0;
-      v514[113] = v529;
-      v534 = v756;
-      *(v514 + 15) = v757;
-      *(v514 + 16) = v513;
-      *(v514 + 17) = v534;
-      *(v514 + 18) = v521;
-      *(v514 + 152) = v522;
-      *(v514 + 168) = v524;
-      *(v514 + 23) = v509;
-      *(v514 + 12) = vextq_s8(v520, v523, 8uLL);
-      *(v514 + 26) = v523.i64[1];
-      *(v514 + 27) = v518;
-      v514[224] = 0;
-      v514[225] = v529;
-      v494 = v771;
-      v502 = v514;
-      v258 = v712;
+      v533 = v791;
+      v534 = v773;
+      v535 = v767;
+      *(v518 + 24) = vextq_s8(v767, v773, 8uLL);
+      *(v518 + 8) = vextq_s8(v534, v535, 8uLL);
+      *(v518 + 40) = v766;
+      *(v518 + 56) = v781;
+      v536 = v765;
+      *(v518 + 9) = v785;
+      *(v518 + 10) = v536;
+      v537 = v792;
+      *(v518 + 11) = v510;
+      *(v518 + 12) = v537;
+      *(v518 + 13) = 0;
+      v518[112] = 0;
+      v518[113] = v533;
+      v538 = v763;
+      *(v518 + 15) = v764;
+      *(v518 + 16) = v517;
+      *(v518 + 17) = v538;
+      *(v518 + 18) = v525;
+      *(v518 + 152) = v526;
+      *(v518 + 168) = v528;
+      *(v518 + 23) = v513;
+      *(v518 + 12) = vextq_s8(v524, v527, 8uLL);
+      *(v518 + 26) = v527.i64[1];
+      *(v518 + 27) = v522;
+      v518[224] = 0;
+      v518[225] = v533;
+      v498 = v778;
+      v506 = v518;
+      v259 = v719;
 LABEL_171:
-      v535 = v752;
-      result = outlined init with take of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v502, v752, type metadata accessor for AttributedString.Runs);
-      v536 = v770;
-      v537 = *v770;
-      *&v785 = *v535;
-      if (v537 == v785)
+      v539 = v759;
+      result = outlined init with take of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v506, v759, type metadata accessor for AttributedString.Runs);
+      v540 = v777;
+      v541 = *v777;
+      *&v792 = *v539;
+      if (v541 == v792)
       {
         result = static RangeSet.== infix(_:_:)();
         if (result)
@@ -7315,63 +8812,63 @@ LABEL_171:
         }
       }
 
-      v538 = v536[1];
-      v539 = v536[15];
-      v540 = v536[23];
-      v541 = v536[26];
-      if (*(v536 + *(v773 + 28)) == 1)
+      v542 = v540[1];
+      v543 = v540[15];
+      v544 = v540[23];
+      v545 = v540[26];
+      if (*(v540 + *(v780 + 28)) == 1)
       {
-        v768 = v537;
-        v771 = 0;
-        v629 = *(v536 + 112);
-        v630 = v536[12];
-        v631 = v536[13];
-        v632 = v536[9];
-        v777 = v536[8];
-        v633 = v536[6];
-        v761 = v536[7];
-        v765 = v633;
-        v634 = v536[4];
-        *&v774 = v536[5];
-        *&v779 = v634;
-        *&v755 = v540;
-        v749 = v540 >> 10;
-        v780 = v632;
-        *&v754 = v632 >> 10;
-        v750 = (v494 + 8);
-        v751 = v541;
-        v635 = v538;
-        v756 = v630;
-        v757 = v541;
-        v784 = v630;
-        v636 = v539;
-        v637 = v536[2];
-        v778 = v536[3];
-        *&v783 = v637;
+        v775 = v541;
+        v778 = 0;
+        v636 = *(v540 + 112);
+        v637 = v540[12];
+        v638 = v540[13];
+        v639 = v540[9];
+        v784 = v540[8];
+        v640 = v540[6];
+        v768 = v540[7];
+        v772 = v640;
+        v641 = v540[4];
+        *&v781 = v540[5];
+        *&v786 = v641;
+        *&v762 = v544;
+        v756 = v544 >> 10;
+        v787 = v639;
+        *&v761 = v639 >> 10;
+        v757 = (v498 + 8);
+        v758 = v545;
+        v642 = v542;
+        v763 = v637;
+        v764 = v545;
+        v791 = v637;
+        v643 = v543;
+        v644 = v540[2];
+        v785 = v540[3];
+        *&v790 = v644;
         while (1)
         {
-          LOBYTE(v829) = v629;
-          v772 = v636;
-          if (v635 >= v539)
+          LOBYTE(v836) = v636;
+          v779 = v643;
+          if (v642 >= v543)
           {
-            if (v539 < v635)
+            if (v543 < v642)
             {
               goto LABEL_357;
             }
 
-            if (v751 == 2)
+            if (v758 == 2)
             {
               goto LABEL_357;
             }
 
-            v636 = v772;
-            if (v784 != 2 && v780 >> 10 >= v749)
+            v643 = v779;
+            if (v791 != 2 && v787 >> 10 >= v756)
             {
               goto LABEL_357;
             }
           }
 
-          if (v635 < v538)
+          if (v642 < v542)
           {
             __break(1u);
 LABEL_364:
@@ -7417,40 +8914,40 @@ LABEL_383:
             return result;
           }
 
-          v638 = v538 < v635 || v756 == 2;
-          v639 = v638;
-          if (!v638)
+          v645 = v542 < v642 || v763 == 2;
+          v646 = v645;
+          if (!v645)
           {
-            if (v784 == 2)
+            if (v791 == 2)
             {
               goto LABEL_381;
             }
 
-            if (v754 > v780 >> 10)
+            if (v761 > v787 >> 10)
             {
               goto LABEL_370;
             }
           }
 
-          if (v635 >= v636)
+          if (v642 >= v643)
           {
-            if (v636 < v635)
+            if (v643 < v642)
             {
               goto LABEL_371;
             }
 
-            if (v757 == 2)
+            if (v764 == 2)
             {
               goto LABEL_382;
             }
 
-            if (v784 == 2)
+            if (v791 == 2)
             {
-              v640 = v768;
-              v636 = v772;
-              v641 = v783;
-              v642 = v779;
-              if (!v639)
+              v647 = v775;
+              v643 = v779;
+              v648 = v790;
+              v649 = v786;
+              if (!v646)
               {
                 goto LABEL_380;
               }
@@ -7458,216 +8955,216 @@ LABEL_383:
               goto LABEL_292;
             }
 
-            v636 = v772;
-            if (v780 >> 10 >= v755 >> 10)
+            v643 = v779;
+            if (v787 >> 10 >= v762 >> 10)
             {
               goto LABEL_375;
             }
           }
 
-          v640 = v768;
-          v641 = v783;
-          v642 = v779;
-          if ((v639 & 1) == 0)
+          v647 = v775;
+          v648 = v790;
+          v649 = v786;
+          if ((v646 & 1) == 0)
           {
-            if (v784 == 2)
+            if (v791 == 2)
             {
               goto LABEL_380;
             }
 
-            if (v754 > v780 >> 10)
+            if (v761 > v787 >> 10)
             {
               goto LABEL_374;
             }
           }
 
 LABEL_292:
-          if (v636 < v635)
+          if (v643 < v642)
           {
             goto LABEL_364;
           }
 
-          if (v635 >= v636 && v784 != 2)
+          if (v642 >= v643 && v791 != 2)
           {
-            if (v757 == 2)
+            if (v764 == 2)
             {
               goto LABEL_383;
             }
 
-            if (v755 >> 10 < v780 >> 10)
+            if (v762 >> 10 < v787 >> 10)
             {
               goto LABEL_372;
             }
           }
 
-          if (v642 == 1 || v641 != *(v640 + 12))
+          if (v649 == 1 || v648 != *(v647 + 12))
           {
             goto LABEL_379;
           }
 
-          if (v777 == 2)
+          if (v784 == 2)
           {
-            v643 = *(v640 + 9);
-            if (v643)
+            v650 = *(v647 + 9);
+            if (v650)
             {
-              v645 = *(v768 + 10);
-              v644 = *(v768 + 11);
+              v652 = *(v775 + 10);
+              v651 = *(v775 + 11);
               swift_unknownObjectRetain();
-              v646 = specialized Rope._Node.distanceFromStart<A>(to:in:)(v783, v778, v779, v643, v645, v644);
+              v653 = specialized Rope._Node.distanceFromStart<A>(to:in:)(v790, v785, v786, v650, v652, v651);
               swift_unknownObjectRelease();
             }
 
             else
             {
-              v646 = 0;
+              v653 = 0;
             }
 
-            v760.i64[0] = v774 >> 11;
-            v640 = v768;
-            v648 = *(v768 + 24);
-            v649 = *(v768 + 40);
-            v865 = *(v768 + 56);
-            v864 = v649;
-            v863 = v648;
-            v650 = *(v768 + 40);
-            v860 = *(v768 + 24);
-            v861 = v650;
-            v862 = *(v768 + 56);
+            v767.i64[0] = v781 >> 11;
+            v647 = v775;
+            v655 = *(v775 + 24);
+            v656 = *(v775 + 40);
+            v872 = *(v775 + 56);
+            v871 = v656;
+            v870 = v655;
+            v657 = *(v775 + 40);
+            v867 = *(v775 + 24);
+            v868 = v657;
+            v869 = *(v775 + 56);
             BigString.startIndex.getter();
-            v766.i64[0] = v651;
-            *&v759 = v652;
-            v915[0] = v863;
-            v915[1] = v864;
-            v916 = v865;
-            outlined init with copy of Rope<BigString._Chunk>._Node?(v915, v796);
-            v766.i64[0] = v646;
-            *&v759 = BigString.UTF8View.index(_:offsetBy:)();
-            result = outlined destroy of BigString(&v863);
-            v641 = v783;
-            v642 = v779;
+            v773.i64[0] = v658;
+            *&v766 = v659;
+            v922[0] = v870;
+            v922[1] = v871;
+            v923 = v872;
+            outlined init with copy of Rope<BigString._Chunk>._Node?(v922, v803);
+            v773.i64[0] = v653;
+            *&v766 = BigString.UTF8View.index(_:offsetBy:)();
+            result = outlined destroy of BigString(&v870);
+            v648 = v790;
+            v649 = v786;
           }
 
           else
           {
-            v760.i64[0] = v774 >> 11;
-            v647 = *(v640 + 40);
-            v857 = *(v640 + 24);
-            v858 = v647;
-            v859 = *(v640 + 56);
+            v767.i64[0] = v781 >> 11;
+            v654 = *(v647 + 40);
+            v864 = *(v647 + 24);
+            v865 = v654;
+            v866 = *(v647 + 56);
             swift_unknownObjectRetain();
-            *&v759 = BigString.UTF8View.index(roundingDown:)();
+            *&v766 = BigString.UTF8View.index(roundingDown:)();
             result = swift_unknownObjectRelease();
-            v766.i64[0] = v760.i64[0];
+            v773.i64[0] = v767.i64[0];
           }
 
-          v653 = *(v640 + 9);
-          v654 = *(v640 + 12);
-          *&v779 = *(v640 + 11);
-          *&v796[0] = v641;
-          v655 = v778;
-          *(&v796[0] + 1) = v778;
-          *&v796[1] = v642;
-          v656 = __OFADD__(v635, 1);
-          v657 = v635 + 1;
-          if (v656)
+          v660 = *(v647 + 9);
+          v661 = *(v647 + 12);
+          *&v786 = *(v647 + 11);
+          *&v803[0] = v648;
+          v662 = v785;
+          *(&v803[0] + 1) = v785;
+          *&v803[1] = v649;
+          v663 = __OFADD__(v642, 1);
+          v664 = v642 + 1;
+          if (v663)
           {
             goto LABEL_365;
           }
 
-          if (v641 != v654)
+          if (v648 != v661)
           {
             goto LABEL_366;
           }
 
-          if (v642)
+          if (v649)
           {
-            v658 = *(v642 + 24 * ((v778 >> ((4 * *(v642 + 18) + 8) & 0x3C)) & 0xF) + 24);
+            v665 = *(v649 + 24 * ((v785 >> ((4 * *(v649 + 18) + 8) & 0x3C)) & 0xF) + 24);
             result = swift_unknownObjectRetain();
           }
 
           else
           {
             swift_unknownObjectRetain();
-            v658 = specialized Rope._Node.subscript.getter(v655, v653);
-            v753 = v659;
+            v665 = specialized Rope._Node.subscript.getter(v662, v660);
+            v760 = v666;
           }
 
-          if (__OFADD__(v766.i64[0], v658))
+          if (__OFADD__(v773.i64[0], v665))
           {
             goto LABEL_367;
           }
 
-          if (v653)
+          if (v660)
           {
-            v660 = ((-15 << ((4 * *(v653 + 18) + 8) & 0x3C)) - 1) & *(v653 + 18) | (*(v653 + 16) << ((4 * *(v653 + 18) + 8) & 0x3C));
+            v667 = ((-15 << ((4 * *(v660 + 18) + 8) & 0x3C)) - 1) & *(v660 + 18) | (*(v660 + 16) << ((4 * *(v660 + 18) + 8) & 0x3C));
           }
 
           else
           {
-            v660 = 0;
+            v667 = 0;
           }
 
-          if (v655 >= v660)
+          if (v662 >= v667)
           {
             goto LABEL_368;
           }
 
-          v758 = v657;
-          v766.i64[0] += v658;
-          if (v642 && (v661 = (4 * *(v642 + 18) + 8) & 0x3C, v662 = ((v655 >> v661) & 0xF) + 1, v662 < *(v642 + 16)))
+          v765 = v664;
+          v773.i64[0] += v665;
+          if (v649 && (v668 = (4 * *(v649 + 18) + 8) & 0x3C, v669 = ((v662 >> v668) & 0xF) + 1, v669 < *(v649 + 16)))
           {
-            v778 = (v662 << v661) | ((-15 << v661) - 1) & v655;
+            v785 = (v669 << v668) | ((-15 << v668) - 1) & v662;
             swift_unknownObjectRelease();
           }
 
-          else if (specialized Rope._Node.formSuccessor(of:)(v796, v653))
+          else if (specialized Rope._Node.formSuccessor(of:)(v803, v660))
           {
             swift_unknownObjectRelease();
-            v778 = *(&v796[0] + 1);
+            v785 = *(&v803[0] + 1);
           }
 
           else
           {
-            if (v653)
+            if (v660)
             {
-              v663 = *(v653 + 18);
-              v664 = *(v653 + 16);
+              v670 = *(v660 + 18);
+              v671 = *(v660 + 16);
               swift_unknownObjectRelease();
-              v778 = ((-15 << ((4 * v663 + 8) & 0x3C)) - 1) & v663 | (v664 << ((4 * v663 + 8) & 0x3C));
+              v785 = ((-15 << ((4 * v670 + 8) & 0x3C)) - 1) & v670 | (v671 << ((4 * v670 + 8) & 0x3C));
             }
 
             else
             {
-              v778 = 0;
+              v785 = 0;
             }
 
-            *&v796[0] = v783;
-            *(&v796[0] + 1) = v778;
-            *&v796[1] = 0;
+            *&v803[0] = v790;
+            *(&v803[0] + 1) = v785;
+            *&v803[1] = 0;
           }
 
-          v665 = v782;
-          v666 = *(v773 + 24);
-          *&v783 = *&v796[0];
-          *&v779 = *&v796[1];
-          if (v829)
+          v672 = v789;
+          v673 = *(v780 + 24);
+          *&v790 = *&v803[0];
+          *&v786 = *&v803[1];
+          if (v836)
           {
-            (v763)(v728, v770 + v666, v781);
-            if (v784 == 2)
+            (v770)(v735, v777 + v673, v788);
+            if (v791 == 2)
             {
-              v667 = v759;
+              v674 = v766;
             }
 
             else
             {
-              v667 = v780;
+              v674 = v787;
             }
 
-            v668 = v775;
+            v675 = v782;
             RangeSet.ranges.getter();
-            v669 = RangeSet.Ranges.count.getter();
-            (v762)(v668, v665);
-            if (v669 < 1)
+            v676 = RangeSet.Ranges.count.getter();
+            (v769)(v675, v672);
+            if (v676 < 1)
             {
 LABEL_361:
               __break(1u);
@@ -7675,253 +9172,253 @@ LABEL_362:
               __break(1u);
             }
 
-            v670 = 0;
-            v671 = v667 >> 10;
+            v677 = 0;
+            v678 = v674 >> 10;
             while (1)
             {
               while (1)
               {
-                if (__OFADD__(v670, v669))
+                if (__OFADD__(v677, v676))
                 {
                   goto LABEL_362;
                 }
 
-                v672 = (v670 + v669) / 2;
-                v673 = v775;
+                v679 = (v677 + v676) / 2;
+                v680 = v782;
                 RangeSet.ranges.getter();
-                v674 = v782;
+                v681 = v789;
                 RangeSet.Ranges.subscript.getter();
-                (v762)(v673, v674);
-                if (v671 >= *&v796[0] >> 10)
+                (v769)(v680, v681);
+                if (v678 >= *&v803[0] >> 10)
                 {
                   break;
                 }
 
-                v669 = (v670 + v669) / 2;
-                if (v670 >= v672)
+                v676 = (v677 + v676) / 2;
+                if (v677 >= v679)
                 {
                   goto LABEL_361;
                 }
               }
 
-              v631 = (v670 + v669) / 2;
-              v675 = *&v796[2];
-              if (v671 < *&v796[2] >> 10)
+              v638 = (v677 + v676) / 2;
+              v682 = *&v803[2];
+              if (v678 < *&v803[2] >> 10)
               {
                 break;
               }
 
-              v670 = v672 + 1;
-              if (v672 + 1 >= v669)
+              v677 = v679 + 1;
+              if (v679 + 1 >= v676)
               {
                 goto LABEL_361;
               }
             }
 
-            result = (*v750)(v728, v781);
+            result = (*v757)(v735, v788);
           }
 
           else
           {
-            v676 = v775;
+            v683 = v782;
             RangeSet.ranges.getter();
             RangeSet.Ranges.subscript.getter();
-            result = (v762)(v676, v665);
-            v675 = *&v796[2];
+            result = (v769)(v683, v672);
+            v682 = *&v803[2];
           }
 
-          if (v766.i64[0] >= (v675 >> 11))
+          if (v773.i64[0] >= (v682 >> 11))
           {
-            v685 = v631 + 1;
-            if (__OFADD__(v631, 1))
+            v692 = v638 + 1;
+            if (__OFADD__(v638, 1))
             {
               goto LABEL_373;
             }
 
-            v686 = v770;
-            v687 = v775;
+            v693 = v777;
+            v694 = v782;
             RangeSet.ranges.getter();
-            v688 = v782;
-            v689 = RangeSet.Ranges.count.getter();
-            result = (v762)(v687, v688);
-            if (v685 == v689)
+            v695 = v789;
+            v696 = RangeSet.Ranges.count.getter();
+            result = (v769)(v694, v695);
+            if (v692 == v696)
             {
-              v635 = v686[15];
-              *&v783 = v686[16];
-              v690 = v686[18];
-              v778 = v686[17];
-              *&v779 = v690;
-              v680 = v686[19];
-              v765 = v686[20];
-              v684 = v686[22];
-              v761 = v686[21];
-              v691 = v686[26];
-              v631 = v686[27];
-              v780 = v686[23];
-              *&v755 = v780;
-              v784 = v691;
-              v757 = v691;
-              v636 = v635;
-              v629 = *(v686 + 224);
-              v692 = v771;
+              v642 = v693[15];
+              *&v790 = v693[16];
+              v697 = v693[18];
+              v785 = v693[17];
+              *&v786 = v697;
+              v687 = v693[19];
+              v772 = v693[20];
+              v691 = v693[22];
+              v768 = v693[21];
+              v698 = v693[26];
+              v638 = v693[27];
+              v787 = v693[23];
+              *&v762 = v787;
+              v791 = v698;
+              v764 = v698;
+              v643 = v642;
+              v636 = *(v693 + 224);
+              v699 = v778;
             }
 
             else
             {
-              v631 = v685;
-              v697 = v775;
+              v638 = v692;
+              v704 = v782;
               RangeSet.ranges.getter();
-              v698 = v782;
+              v705 = v789;
               RangeSet.Ranges.subscript.getter();
-              (v762)(v697, v698);
-              v784 = *(&v796[1] + 1);
-              v699 = *(v768 + 9);
-              v700 = *(v768 + 10);
-              v702 = *(v768 + 11);
-              v701 = *(v768 + 12);
-              v780 = *&v796[0];
-              *&v783 = *&v796[0] >> 11;
+              (v769)(v704, v705);
+              v791 = *(&v803[1] + 1);
+              v706 = *(v775 + 9);
+              v707 = *(v775 + 10);
+              v709 = *(v775 + 11);
+              v708 = *(v775 + 12);
+              v787 = *&v803[0];
+              *&v790 = *&v803[0] >> 11;
               swift_unknownObjectRetain();
-              result = specialized Rope.find<A>(at:in:preferEnd:)(v783, 0, v699, v700, v702, v701);
-              v778 = v703;
-              *&v779 = v704;
-              v777 = v705;
-              *&v783 = v701;
-              if (result != v701)
+              result = specialized Rope.find<A>(at:in:preferEnd:)(v790, 0, v706, v707, v709, v708);
+              v785 = v710;
+              *&v786 = v711;
+              v784 = v712;
+              *&v790 = v708;
+              if (result != v708)
               {
                 goto LABEL_377;
               }
 
-              if (v699)
+              if (v706)
               {
-                v706 = specialized Rope._Node.distanceFromStart<A>(to:in:)(v783, v778, v779, v699, v700);
+                v713 = specialized Rope._Node.distanceFromStart<A>(to:in:)(v790, v785, v786, v706, v707);
                 result = swift_unknownObjectRelease();
               }
 
               else
               {
-                v706 = 0;
+                v713 = 0;
               }
 
-              v707 = *(v768 + 40);
-              v854 = *(v768 + 24);
-              v855 = v707;
-              v856 = *(v768 + 56);
-              if (__OFSUB__(0, v777))
+              v714 = *(v775 + 40);
+              v861 = *(v775 + 24);
+              v862 = v714;
+              v863 = *(v775 + 56);
+              if (__OFSUB__(0, v784))
               {
                 goto LABEL_378;
               }
 
               swift_unknownObjectRetain();
-              v680 = BigString.UTF8View.index(_:offsetBy:)();
-              v765 = v708;
-              v761 = v709;
-              v684 = v710;
+              v687 = BigString.UTF8View.index(_:offsetBy:)();
+              v772 = v715;
+              v768 = v716;
+              v691 = v717;
               result = swift_unknownObjectRelease();
-              v629 = 0;
-              v692 = v771;
-              v636 = v772;
-              v635 = v706;
+              v636 = 0;
+              v699 = v778;
+              v643 = v779;
+              v642 = v713;
             }
           }
 
           else
           {
-            if (v777 == 2)
+            if (v784 == 2)
             {
-              v677 = *(v768 + 24);
-              v678 = *(v768 + 40);
-              v853 = *(v768 + 56);
-              v852 = v678;
-              v851 = v677;
-              v679 = *(v768 + 40);
-              v848 = *(v768 + 24);
-              v849 = v679;
-              v850 = *(v768 + 56);
+              v684 = *(v775 + 24);
+              v685 = *(v775 + 40);
+              v860 = *(v775 + 56);
+              v859 = v685;
+              v858 = v684;
+              v686 = *(v775 + 40);
+              v855 = *(v775 + 24);
+              v856 = v686;
+              v857 = *(v775 + 56);
               BigString.startIndex.getter();
-              v917[0] = v851;
-              v917[1] = v852;
-              v918 = v853;
-              outlined init with copy of Rope<BigString._Chunk>._Node?(v917, v796);
-              v680 = BigString.UTF8View.index(_:offsetBy:)();
-              v765 = v681;
-              v761 = v682;
-              v684 = v683;
-              result = outlined destroy of BigString(&v851);
+              v924[0] = v858;
+              v924[1] = v859;
+              v925 = v860;
+              outlined init with copy of Rope<BigString._Chunk>._Node?(v924, v803);
+              v687 = BigString.UTF8View.index(_:offsetBy:)();
+              v772 = v688;
+              v768 = v689;
+              v691 = v690;
+              result = outlined destroy of BigString(&v858);
             }
 
             else
             {
-              v693 = *(v768 + 40);
-              v845 = *(v768 + 24);
-              v846 = v693;
-              v847 = *(v768 + 56);
-              if (__OFSUB__(v766.i64[0], v760.i64[0]))
+              v700 = *(v775 + 40);
+              v852 = *(v775 + 24);
+              v853 = v700;
+              v854 = *(v775 + 56);
+              if (__OFSUB__(v773.i64[0], v767.i64[0]))
               {
                 goto LABEL_376;
               }
 
               swift_unknownObjectRetain();
-              v680 = BigString.UTF8View.index(_:offsetBy:)();
-              v765 = v694;
-              v761 = v695;
-              v684 = v696;
+              v687 = BigString.UTF8View.index(_:offsetBy:)();
+              v772 = v701;
+              v768 = v702;
+              v691 = v703;
               result = swift_unknownObjectRelease();
             }
 
-            v629 = 0;
-            v780 = v680;
-            v784 = v684;
-            v692 = v771;
-            v636 = v772;
-            v635 = v758;
+            v636 = 0;
+            v787 = v687;
+            v791 = v691;
+            v699 = v778;
+            v643 = v779;
+            v642 = v765;
           }
 
-          v656 = __OFADD__(v692, 1);
-          v711 = v692 + 1;
-          if (v656)
+          v663 = __OFADD__(v699, 1);
+          v718 = v699 + 1;
+          if (v663)
           {
             goto LABEL_369;
           }
 
-          v777 = v684;
-          *&v774 = v680;
-          v771 = v711;
+          v784 = v691;
+          *&v781 = v687;
+          v778 = v718;
         }
       }
 
-      v542 = v539 - v538;
-      if (__OFSUB__(v539, v538))
+      v546 = v543 - v542;
+      if (__OFSUB__(v543, v542))
       {
         __break(1u);
         goto LABEL_356;
       }
 
-      v543 = v536[22];
-      if (v541 == 2)
+      v547 = v540[22];
+      if (v545 == 2)
       {
-        v544 = v543 != 2;
+        v548 = v547 != 2;
       }
 
       else
       {
-        v544 = v543 == 2 || (v540 ^ v536[19]) > 0x3FF;
+        v548 = v547 == 2 || (v544 ^ v540[19]) > 0x3FF;
       }
 
-      v545 = v542 + v544;
-      if (__OFADD__(v542, v544))
+      v549 = v546 + v548;
+      if (__OFADD__(v546, v548))
       {
 LABEL_356:
         __break(1u);
 LABEL_357:
-        v258 = v712;
-        v535 = v752;
-        v536 = v770;
-        v537 = v768;
-        v545 = v771;
+        v259 = v719;
+        v539 = v759;
+        v540 = v777;
+        v541 = v775;
+        v549 = v778;
       }
 
-      if (v545 != specialized Collection.count.getter())
+      if (v549 != specialized Collection.count.getter())
       {
         goto LABEL_264;
       }
@@ -7929,595 +9426,600 @@ LABEL_357:
       if (specialized Collection.isEmpty.getter())
       {
 LABEL_183:
-        outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v535, type metadata accessor for AttributedString.Runs);
-        outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v536, type metadata accessor for AttributedString.Runs);
+        outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v539, type metadata accessor for AttributedString.Runs);
+        outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v540, type metadata accessor for AttributedString.Runs);
 
-        v134 = v745 == v744;
-        outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v258, type metadata accessor for String.LocalizationValue.FormatArgument.CodableStorage);
+        v134 = v752 == v751;
+        outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v259, type metadata accessor for String.LocalizationValue.FormatArgument.CodableStorage);
         return v134 & 1;
       }
 
       if ((AttributedString.Runs._isPartial.getter() & 1) == 0 && (AttributedString.Runs._isPartial.getter() & 1) == 0)
       {
-        v546 = *(v537 + 40);
-        v883[12] = *(v537 + 24);
-        v883[13] = v546;
-        v883[14] = *(v537 + 56);
-        v547 = BigString.count.getter();
-        v548 = *(v785 + 40);
-        v883[9] = *(v785 + 24);
-        v883[10] = v548;
-        v883[11] = *(v785 + 56);
-        if (v547 != BigString.count.getter())
+        v550 = *(v541 + 40);
+        v890[12] = *(v541 + 24);
+        v890[13] = v550;
+        v890[14] = *(v541 + 56);
+        v551 = BigString.count.getter();
+        v552 = *(v792 + 40);
+        v890[9] = *(v792 + 24);
+        v890[10] = v552;
+        v890[11] = *(v792 + 56);
+        if (v551 != BigString.count.getter())
         {
           goto LABEL_264;
         }
       }
 
-      v768 = v537;
-      v549 = v732;
+      v775 = v541;
+      v553 = v739;
       RangeSet.ranges.getter();
-      specialized Collection.first.getter(v804);
-      v550 = v549;
-      v551 = v782;
-      v552 = v762;
-      (v762)(v550, v782);
-      if (v805 == 2 || (v778 = v805, *&v783 = v804[0], v784 = v804[1], v780 = v804[2], v553 = v725, RangeSet.ranges.getter(), specialized Collection.first.getter(v802), v552(v553, v551), *&v779 = v803, v803 == 2))
+      specialized Collection.first.getter(v811);
+      v554 = v553;
+      v555 = v789;
+      v556 = v769;
+      (v769)(v554, v789);
+      if (v812 == 2 || (v785 = v812, *&v790 = v811[0], v791 = v811[1], v787 = v811[2], v557 = v732, RangeSet.ranges.getter(), specialized Collection.first.getter(v809), v556(v557, v555), *&v786 = v810, v810 == 2))
       {
-        v258 = v712;
+        v259 = v719;
 LABEL_264:
-        outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v535, type metadata accessor for AttributedString.Runs);
-        outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v536, type metadata accessor for AttributedString.Runs);
+        outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v539, type metadata accessor for AttributedString.Runs);
+        outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v540, type metadata accessor for AttributedString.Runs);
 
 LABEL_265:
-        outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v258, type metadata accessor for String.LocalizationValue.FormatArgument.CodableStorage);
+        outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v259, type metadata accessor for String.LocalizationValue.FormatArgument.CodableStorage);
         goto LABEL_114;
       }
 
-      v782 = v802[2];
-      v781 = v802[1];
-      v777 = v802[0];
-      v571 = v718;
-      outlined init with copy of String.LocalizationValue.FormatArgument.CodableStorage(v536, v718, type metadata accessor for AttributedString.Runs);
-      v572 = v737;
-      outlined init with copy of String.LocalizationValue.FormatArgument.CodableStorage(v571, v737, type metadata accessor for AttributedString.Runs);
-      v573 = v719;
-      v574 = (v572 + *(v719 + 36));
-      v575 = *(v571 + 56);
-      v576 = *(v571 + 88);
-      v814 = *(v571 + 72);
-      v815[0] = v576;
-      *(v815 + 10) = *(v571 + 98);
-      v577 = *(v571 + 24);
-      v810 = *(v571 + 8);
-      v811 = v577;
-      v578 = *(v571 + 40);
-      v813 = v575;
-      v812 = v578;
-      outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v571, type metadata accessor for AttributedString.Runs);
-      v579 = v815[0];
-      v574[4] = v814;
-      v574[5] = v579;
-      *(v574 + 90) = *(v815 + 10);
-      v580 = v811;
-      *v574 = v810;
-      v574[1] = v580;
-      v581 = v813;
-      v574[2] = v812;
-      v574[3] = v581;
-      outlined init with copy of String.LocalizationValue.FormatArgument.CodableStorage(v535, v571, type metadata accessor for AttributedString.Runs);
-      v582 = v736;
-      outlined init with copy of String.LocalizationValue.FormatArgument.CodableStorage(v571, v736, type metadata accessor for AttributedString.Runs);
-      v583 = (v582 + *(v573 + 36));
-      v584 = *(v571 + 56);
-      v585 = *(v571 + 88);
-      v820 = *(v571 + 72);
-      v821[0] = v585;
-      *(v821 + 10) = *(v571 + 98);
-      v586 = *(v571 + 24);
-      v816 = *(v571 + 8);
-      v817 = v586;
-      v587 = *(v571 + 40);
-      v819 = v584;
-      v818 = v587;
-      outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v571, type metadata accessor for AttributedString.Runs);
-      v588 = v821[0];
-      v583[4] = v820;
-      v583[5] = v588;
-      *(v583 + 90) = *(v821 + 10);
-      v589 = v817;
-      *v583 = v816;
-      v583[1] = v589;
-      v590 = v819;
-      v583[2] = v818;
-      v583[3] = v590;
-      v591 = v784;
-      v592 = v780;
+      v789 = v809[2];
+      v788 = v809[1];
+      v784 = v809[0];
+      v578 = v725;
+      outlined init with copy of String.LocalizationValue.FormatArgument.CodableStorage(v540, v725, type metadata accessor for AttributedString.Runs);
+      v579 = v744;
+      outlined init with copy of String.LocalizationValue.FormatArgument.CodableStorage(v578, v744, type metadata accessor for AttributedString.Runs);
+      v580 = v726;
+      v581 = (v579 + *(v726 + 36));
+      v582 = *(v578 + 56);
+      v583 = *(v578 + 88);
+      v821 = *(v578 + 72);
+      v822[0] = v583;
+      *(v822 + 10) = *(v578 + 98);
+      v584 = *(v578 + 24);
+      v817 = *(v578 + 8);
+      v818 = v584;
+      v585 = *(v578 + 40);
+      v820 = v582;
+      v819 = v585;
+      outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v578, type metadata accessor for AttributedString.Runs);
+      v586 = v822[0];
+      v581[4] = v821;
+      v581[5] = v586;
+      *(v581 + 90) = *(v822 + 10);
+      v587 = v818;
+      *v581 = v817;
+      v581[1] = v587;
+      v588 = v820;
+      v581[2] = v819;
+      v581[3] = v588;
+      outlined init with copy of String.LocalizationValue.FormatArgument.CodableStorage(v539, v578, type metadata accessor for AttributedString.Runs);
+      v589 = v743;
+      outlined init with copy of String.LocalizationValue.FormatArgument.CodableStorage(v578, v743, type metadata accessor for AttributedString.Runs);
+      v590 = (v589 + *(v580 + 36));
+      v591 = *(v578 + 56);
+      v592 = *(v578 + 88);
+      v827 = *(v578 + 72);
+      v828[0] = v592;
+      *(v828 + 10) = *(v578 + 98);
+      v593 = *(v578 + 24);
+      v823 = *(v578 + 8);
+      v824 = v593;
+      v594 = *(v578 + 40);
+      v826 = v591;
+      v825 = v594;
+      outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v578, type metadata accessor for AttributedString.Runs);
+      v595 = v828[0];
+      v590[4] = v827;
+      v590[5] = v595;
+      *(v590 + 90) = *(v828 + 10);
+      v596 = v824;
+      *v590 = v823;
+      v590[1] = v596;
+      v597 = v826;
+      v590[2] = v825;
+      v590[3] = v597;
+      v598 = v791;
+      v599 = v787;
       while (1)
       {
-        specialized IndexingIterator.next()(&v806);
-        v593 = v806;
-        v594 = *&v807[0];
-        v595 = *&v808[0];
-        specialized IndexingIterator.next()(&v789);
-        v596 = v789;
-        v597 = v790;
-        v797[1] = v791;
-        v798 = v792;
-        v598 = *(&v790 + 1);
-        v800 = v794;
-        v801 = v795;
-        v796[0] = v593;
-        *(&v796[1] + 8) = *(v807 + 8);
-        *(&v796[2] + 1) = *(&v807[1] + 1);
-        *&v796[1] = v594;
-        *&v796[3] = v595;
-        *(&v796[4] + 8) = *(&v808[1] + 8);
-        *(&v796[3] + 8) = *(v808 + 8);
-        *(&v796[5] + 1) = v789;
-        v797[0] = v790;
-        v799 = v793;
-        if (!v593)
+        specialized IndexingIterator.next()(&v813);
+        v600 = v813;
+        v601 = *&v814[0];
+        v602 = *&v815[0];
+        specialized IndexingIterator.next()(&v796);
+        v603 = v796;
+        v604 = v797;
+        v804[1] = v798;
+        v805 = v799;
+        v605 = *(&v797 + 1);
+        v807 = v801;
+        v808 = v802;
+        v803[0] = v600;
+        *(&v803[1] + 8) = *(v814 + 8);
+        *(&v803[2] + 1) = *(&v814[1] + 1);
+        *&v803[1] = v601;
+        *&v803[3] = v602;
+        *(&v803[4] + 8) = *(&v815[1] + 8);
+        *(&v803[3] + 8) = *(v815 + 8);
+        *(&v803[5] + 1) = v796;
+        v804[0] = v797;
+        v806 = v800;
+        if (!v600)
         {
-          outlined destroy of TermOfAddress?(v736, &_ss16IndexingIteratorVy10Foundation16AttributedStringV4RunsVGMd);
-          outlined destroy of TermOfAddress?(v737, &_ss16IndexingIteratorVy10Foundation16AttributedStringV4RunsVGMd);
-          outlined destroy of TermOfAddress?(v796, &_s10Foundation16AttributedStringV4RunsV3RunVSg_AHtMd);
-          if (!v596)
+          outlined destroy of TermOfAddress?(v743, &_ss16IndexingIteratorVy10Foundation16AttributedStringV4RunsVGMd, &_ss16IndexingIteratorVy10Foundation16AttributedStringV4RunsVGMR);
+          outlined destroy of TermOfAddress?(v744, &_ss16IndexingIteratorVy10Foundation16AttributedStringV4RunsVGMd, &_ss16IndexingIteratorVy10Foundation16AttributedStringV4RunsVGMR);
+          outlined destroy of TermOfAddress?(v803, &_s10Foundation16AttributedStringV4RunsV3RunVSg_AHtMd, &_s10Foundation16AttributedStringV4RunsV3RunVSg_AHtMR);
+          if (!v603)
           {
-            v258 = v712;
-            v535 = v752;
-            v536 = v770;
+            v259 = v719;
+            v539 = v759;
+            v540 = v777;
             goto LABEL_183;
           }
 
           goto LABEL_262;
         }
 
-        if (!v789)
+        if (!v796)
         {
           goto LABEL_261;
         }
 
-        v776 = v793;
+        v783 = v800;
 
-        if ((_sSDsSQR_rlE2eeoiySbSDyxq_G_ABtFZSS_10Foundation16AttributedStringV15_AttributeValueVTt1g5(v593, v596) & 1) == 0)
+        if ((_sSDsSQR_rlE2eeoiySbSDyxq_G_ABtFZSS_10Foundation16AttributedStringV15_AttributeValueVTt1g5(v600, v603) & 1) == 0)
         {
 
 LABEL_261:
-          outlined destroy of TermOfAddress?(v796, &_s10Foundation16AttributedStringV4RunsV3RunVSg_AHtMd);
-          outlined destroy of TermOfAddress?(v736, &_ss16IndexingIteratorVy10Foundation16AttributedStringV4RunsVGMd);
-          outlined destroy of TermOfAddress?(v737, &_ss16IndexingIteratorVy10Foundation16AttributedStringV4RunsVGMd);
+          outlined destroy of TermOfAddress?(v803, &_s10Foundation16AttributedStringV4RunsV3RunVSg_AHtMd, &_s10Foundation16AttributedStringV4RunsV3RunVSg_AHtMR);
+          outlined destroy of TermOfAddress?(v743, &_ss16IndexingIteratorVy10Foundation16AttributedStringV4RunsVGMd, &_ss16IndexingIteratorVy10Foundation16AttributedStringV4RunsVGMR);
+          outlined destroy of TermOfAddress?(v744, &_ss16IndexingIteratorVy10Foundation16AttributedStringV4RunsVGMd, &_ss16IndexingIteratorVy10Foundation16AttributedStringV4RunsVGMR);
 LABEL_262:
-          v258 = v712;
-          v535 = v752;
-          v536 = v770;
+          v259 = v719;
+          v539 = v759;
+          v540 = v777;
           goto LABEL_264;
         }
 
-        v775 = v598;
-        v599 = _sSh2eeoiySbShyxG_ABtFZSS_Tt1g5(*(&v593 + 1), v597);
+        v782 = v605;
+        v606 = _sSh2eeoiySbShyxG_ABtFZSS_Tt1g5(*(&v600 + 1), v604);
 
-        if ((v599 & 1) == 0)
+        if ((v606 & 1) == 0)
         {
           goto LABEL_261;
         }
 
-        v600 = v768;
-        v601 = *(v768 + 40);
-        v883[6] = *(v768 + 24);
-        v883[7] = v601;
-        v883[8] = *(v768 + 56);
+        v607 = v775;
+        v608 = *(v775 + 40);
+        v890[6] = *(v775 + 24);
+        v890[7] = v608;
+        v890[8] = *(v775 + 56);
         swift_unknownObjectRetain();
-        v602 = v778;
-        v784 = BigString.UTF8View.index(_:offsetBy:)();
-        *&v774 = v603;
-        v773 = v604;
-        v780 = v605;
+        v609 = v785;
+        v791 = BigString.UTF8View.index(_:offsetBy:)();
+        *&v781 = v610;
+        v780 = v611;
+        v787 = v612;
         swift_unknownObjectRelease();
-        v606 = v785;
-        v607 = *(v785 + 40);
-        v883[3] = *(v785 + 24);
-        v883[4] = v607;
-        v883[5] = *(v785 + 56);
-        v776 = (v776 >> 11) - (v775 >> 11);
+        v613 = v792;
+        v614 = *(v792 + 40);
+        v890[3] = *(v792 + 24);
+        v890[4] = v614;
+        v890[5] = *(v792 + 56);
+        v783 = (v783 >> 11) - (v782 >> 11);
         swift_unknownObjectRetain();
-        v246 = v777;
-        v608 = v779;
-        v776 = BigString.UTF8View.index(_:offsetBy:)();
-        v775 = v609;
-        v772 = v610;
-        v771 = v611;
+        v247 = v784;
+        v615 = v786;
+        v783 = BigString.UTF8View.index(_:offsetBy:)();
+        v782 = v616;
+        v779 = v617;
+        v778 = v618;
         swift_unknownObjectRelease();
-        v612 = *(v600 + 40);
-        v883[0] = *(v600 + 24);
-        v883[1] = v612;
-        v883[2] = *(v600 + 56);
-        if (v784 >> 10 < v783 >> 10)
+        v619 = *(v607 + 40);
+        v890[0] = *(v607 + 24);
+        v890[1] = v619;
+        v890[2] = *(v607 + 56);
+        if (v791 >> 10 < v790 >> 10)
         {
           break;
         }
 
-        v875 = v783;
-        v876 = v591;
-        v877 = v592;
-        v878 = v602;
-        v879 = v784;
-        v591 = v774;
-        v880 = v774;
-        v613 = v773;
-        v881 = v773;
-        v882 = v780;
-        v614 = *(v600 + 24);
-        v912 = *(v600 + 7);
-        v911[1] = *(v600 + 40);
-        v911[0] = v614;
-        outlined init with copy of Rope<BigString._Chunk>._Node?(v911, v788);
+        v882 = v790;
+        v883 = v598;
+        v884 = v599;
+        v885 = v609;
+        v886 = v791;
+        v598 = v781;
+        v887 = v781;
+        v620 = v780;
+        v888 = v780;
+        v889 = v787;
+        v621 = *(v607 + 24);
+        v919 = *(v607 + 7);
+        v918[1] = *(v607 + 40);
+        v918[0] = v621;
+        outlined init with copy of Rope<BigString._Chunk>._Node?(v918, v795);
         BigString.subscript.getter();
-        outlined destroy of BigString(v883);
-        v615 = *(v606 + 24);
-        v616 = *(v606 + 40);
-        v874[2] = *(v606 + 56);
-        v874[1] = v616;
-        v874[0] = v615;
-        v617 = v776;
-        if (v776 >> 10 < v246 >> 10)
+        outlined destroy of BigString(v890);
+        v622 = *(v613 + 24);
+        v623 = *(v613 + 40);
+        v881[2] = *(v613 + 56);
+        v881[1] = v623;
+        v881[0] = v622;
+        v624 = v783;
+        if (v783 >> 10 < v247 >> 10)
         {
           goto LABEL_359;
         }
 
-        v866 = v246;
-        v867 = v781;
-        v868 = v782;
-        v869 = v608;
-        v870 = v776;
-        v618 = v775;
-        v871 = v775;
-        v619 = v772;
-        v872 = v772;
-        v620 = v771;
-        v873 = v771;
-        v621 = *(v606 + 24);
-        v914 = *(v606 + 56);
-        v622 = *(v606 + 40);
-        v913[0] = v621;
-        v913[1] = v622;
-        outlined init with copy of Rope<BigString._Chunk>._Node?(v913, v788);
+        v873 = v247;
+        v874 = v788;
+        v875 = v789;
+        v876 = v615;
+        v877 = v783;
+        v625 = v782;
+        v878 = v782;
+        v626 = v779;
+        v879 = v779;
+        v627 = v778;
+        v880 = v778;
+        v628 = *(v613 + 24);
+        v921 = *(v613 + 56);
+        v629 = *(v613 + 40);
+        v920[0] = v628;
+        v920[1] = v629;
+        outlined init with copy of Rope<BigString._Chunk>._Node?(v920, v795);
         BigString.subscript.getter();
-        outlined destroy of BigString(v874);
-        v623 = MEMORY[0x1865CA260](&v822, &v829);
-        outlined destroy of BigSubstring(&v822);
-        outlined destroy of TermOfAddress?(v796, &_s10Foundation16AttributedStringV4RunsV3RunVSg_AHtMd);
+        outlined destroy of BigString(v881);
+        v630 = MEMORY[0x1865CA260](&v829, &v836);
         outlined destroy of BigSubstring(&v829);
-        v536 = v770;
-        if ((v623 & 1) == 0)
+        outlined destroy of TermOfAddress?(v803, &_s10Foundation16AttributedStringV4RunsV3RunVSg_AHtMd, &_s10Foundation16AttributedStringV4RunsV3RunVSg_AHtMR);
+        outlined destroy of BigSubstring(&v836);
+        v540 = v777;
+        if ((v630 & 1) == 0)
         {
-          outlined destroy of TermOfAddress?(v736, &_ss16IndexingIteratorVy10Foundation16AttributedStringV4RunsVGMd);
-          outlined destroy of TermOfAddress?(v737, &_ss16IndexingIteratorVy10Foundation16AttributedStringV4RunsVGMd);
-          v258 = v712;
-          v535 = v752;
+          outlined destroy of TermOfAddress?(v743, &_ss16IndexingIteratorVy10Foundation16AttributedStringV4RunsVGMd, &_ss16IndexingIteratorVy10Foundation16AttributedStringV4RunsVGMR);
+          outlined destroy of TermOfAddress?(v744, &_ss16IndexingIteratorVy10Foundation16AttributedStringV4RunsVGMd, &_ss16IndexingIteratorVy10Foundation16AttributedStringV4RunsVGMR);
+          v259 = v719;
+          v539 = v759;
           goto LABEL_264;
         }
 
-        v777 = v617;
-        v781 = v618;
-        v782 = v619;
-        *&v779 = v620;
-        *&v783 = v784;
-        v592 = v613;
-        v778 = v780;
+        v784 = v624;
+        v788 = v625;
+        v789 = v626;
+        *&v786 = v627;
+        *&v790 = v791;
+        v599 = v620;
+        v785 = v787;
       }
 
       __break(1u);
 LABEL_359:
       __break(1u);
 LABEL_360:
-      v247 = 0;
+      v248 = 0;
 LABEL_252:
 
-      if (_So9NSDecimala__isNegative_getter(&v786))
+      if (_So9NSDecimala__isNegative_getter(&v793))
       {
-        if (v246)
+        if (v247)
         {
           goto LABEL_256;
         }
 
 LABEL_133:
-        outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v767, type metadata accessor for String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle);
-        outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v769, type metadata accessor for String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle);
+        outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v774, type metadata accessor for String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle);
+        outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v776, type metadata accessor for String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle);
 LABEL_134:
-        outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v712, type metadata accessor for String.LocalizationValue.FormatArgument.CodableStorage);
+        outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v719, type metadata accessor for String.LocalizationValue.FormatArgument.CodableStorage);
 LABEL_114:
         v134 = 0;
       }
 
       else
       {
-        if (v247)
+        if (v248)
         {
           goto LABEL_133;
         }
 
 LABEL_256:
-        v627 = v769;
-        v628 = v767;
-        v134 = specialized static String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format.== infix(_:_:)(v769, v767);
-        outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v628, type metadata accessor for String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle);
-        outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v627, type metadata accessor for String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle);
+        v634 = v776;
+        v635 = v774;
+        v134 = specialized static String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format.== infix(_:_:)(v776, v774);
+        outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v635, type metadata accessor for String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle);
+        outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v634, type metadata accessor for String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle);
 LABEL_257:
-        outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v712, type metadata accessor for String.LocalizationValue.FormatArgument.CodableStorage);
+        outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v719, type metadata accessor for String.LocalizationValue.FormatArgument.CodableStorage);
       }
 
       return v134 & 1;
     case 0xBu:
-      v152 = v762;
-      outlined init with copy of String.LocalizationValue.FormatArgument.CodableStorage(v112, v762, type metadata accessor for String.LocalizationValue.FormatArgument.CodableStorage);
-      v153 = *v152;
-      v154 = *(v152 + 72);
-      v796[5] = *(v152 + 88);
-      v797[0] = *(v152 + 104);
-      *(v797 + 10) = *(v152 + 114);
-      v155 = *(v152 + 24);
-      v796[0] = *(v152 + 8);
-      v796[1] = v155;
-      v156 = *(v152 + 56);
-      v796[2] = *(v152 + 40);
-      v796[3] = v156;
-      v796[4] = v154;
-      v157 = v785;
+      v153 = v769;
+      outlined init with copy of String.LocalizationValue.FormatArgument.CodableStorage(v112, v769, type metadata accessor for String.LocalizationValue.FormatArgument.CodableStorage);
+      v154 = *v153;
+      v155 = *(v153 + 72);
+      v803[5] = *(v153 + 88);
+      v804[0] = *(v153 + 104);
+      *(v804 + 10) = *(v153 + 114);
+      v156 = *(v153 + 24);
+      v803[0] = *(v153 + 8);
+      v803[1] = v156;
+      v157 = *(v153 + 56);
+      v803[2] = *(v153 + 40);
+      v803[3] = v157;
+      v803[4] = v155;
+      v158 = v792;
       if (swift_getEnumCaseMultiPayload() != 11)
       {
-        outlined destroy of String.LocalizationValue.FormatArgument.DateArgumentFormatStyle(v796);
+        outlined destroy of String.LocalizationValue.FormatArgument.DateArgumentFormatStyle(v803);
         goto LABEL_113;
       }
 
-      v158 = *v157;
-      v159 = *(v157 + 88);
-      v833 = *(v157 + 72);
-      v834 = v159;
-      v835[0] = *(v157 + 104);
-      *(v835 + 10) = *(v157 + 114);
-      v160 = *(v157 + 24);
-      v829 = *(v157 + 8);
-      v830 = v160;
-      v169 = v153 == v158;
-      v161 = *(v157 + 56);
-      v831 = *(v157 + 40);
-      v832 = v161;
-      if (!v169)
+      v159 = *v158;
+      v160 = *(v158 + 88);
+      v840 = *(v158 + 72);
+      v841 = v160;
+      v842[0] = *(v158 + 104);
+      *(v842 + 10) = *(v158 + 114);
+      v161 = *(v158 + 24);
+      v836 = *(v158 + 8);
+      v837 = v161;
+      v170 = v154 == v159;
+      v162 = *(v158 + 56);
+      v838 = *(v158 + 40);
+      v839 = v162;
+      if (!v170)
       {
-        outlined destroy of String.LocalizationValue.FormatArgument.DateArgumentFormatStyle(&v829);
-        outlined destroy of String.LocalizationValue.FormatArgument.DateArgumentFormatStyle(v796);
+        outlined destroy of String.LocalizationValue.FormatArgument.DateArgumentFormatStyle(&v836);
+        outlined destroy of String.LocalizationValue.FormatArgument.DateArgumentFormatStyle(v803);
         goto LABEL_244;
       }
 
-      v162 = *(v152 + 88);
-      v814 = *(v152 + 72);
-      v815[0] = v162;
-      v815[1] = *(v152 + 104);
-      *(&v815[1] + 10) = *(v152 + 114);
-      v163 = *(v152 + 24);
-      v810 = *(v152 + 8);
-      v811 = v163;
-      v164 = *(v152 + 56);
-      v812 = *(v152 + 40);
-      v813 = v164;
-      v165 = *(v157 + 88);
-      v808[1] = *(v157 + 72);
-      v808[2] = v165;
-      v809[0] = *(v157 + 104);
-      *(v809 + 10) = *(v157 + 114);
-      v166 = *(v157 + 24);
-      v806 = *(v157 + 8);
-      v807[0] = v166;
-      v167 = *(v157 + 56);
-      v807[1] = *(v157 + 40);
-      v808[0] = v167;
-      v134 = specialized static String.LocalizationValue.FormatArgument.DateArgumentFormatStyle.Format.== infix(_:_:)(&v810, &v806);
-      v820 = v808[1];
-      v821[0] = v808[2];
-      v821[1] = v809[0];
-      *(&v821[1] + 10) = *(v809 + 10);
-      v816 = v806;
-      v817 = v807[0];
-      v818 = v807[1];
-      v819 = v808[0];
-      outlined destroy of String.LocalizationValue.FormatArgument.DateArgumentFormatStyle.Format(&v816);
-      v826 = v814;
-      v827 = v815[0];
-      v828[0] = v815[1];
-      *(v828 + 10) = *(&v815[1] + 10);
-      v822 = v810;
-      v823 = v811;
-      v824 = v812;
-      v825 = v813;
-      outlined destroy of String.LocalizationValue.FormatArgument.DateArgumentFormatStyle.Format(&v822);
+      v163 = *(v153 + 88);
+      v821 = *(v153 + 72);
+      v822[0] = v163;
+      v822[1] = *(v153 + 104);
+      *(&v822[1] + 10) = *(v153 + 114);
+      v164 = *(v153 + 24);
+      v817 = *(v153 + 8);
+      v818 = v164;
+      v165 = *(v153 + 56);
+      v819 = *(v153 + 40);
+      v820 = v165;
+      v166 = *(v158 + 88);
+      v815[1] = *(v158 + 72);
+      v815[2] = v166;
+      v816[0] = *(v158 + 104);
+      *(v816 + 10) = *(v158 + 114);
+      v167 = *(v158 + 24);
+      v813 = *(v158 + 8);
+      v814[0] = v167;
+      v168 = *(v158 + 56);
+      v814[1] = *(v158 + 40);
+      v815[0] = v168;
+      v134 = specialized static String.LocalizationValue.FormatArgument.DateArgumentFormatStyle.Format.== infix(_:_:)(&v817, &v813);
+      v827 = v815[1];
+      v828[0] = v815[2];
+      v828[1] = v816[0];
+      *(&v828[1] + 10) = *(v816 + 10);
+      v823 = v813;
+      v824 = v814[0];
+      v825 = v814[1];
+      v826 = v815[0];
+      outlined destroy of String.LocalizationValue.FormatArgument.DateArgumentFormatStyle.Format(&v823);
+      v833 = v821;
+      v834 = v822[0];
+      v835[0] = v822[1];
+      *(v835 + 10) = *(&v822[1] + 10);
+      v829 = v817;
+      v830 = v818;
+      v831 = v819;
+      v832 = v820;
+      outlined destroy of String.LocalizationValue.FormatArgument.DateArgumentFormatStyle.Format(&v829);
       goto LABEL_94;
     case 0xCu:
-      v170 = v763;
-      outlined init with copy of String.LocalizationValue.FormatArgument.CodableStorage(v112, v763, type metadata accessor for String.LocalizationValue.FormatArgument.CodableStorage);
-      v172 = *v170;
-      v171 = *(v170 + 1);
-      v173 = *(v170 + 5);
-      v796[5] = *(v170 + 6);
-      LOWORD(v797[0]) = *(v170 + 56);
-      v174 = *(v170 + 2);
-      v796[0] = *(v170 + 1);
-      v796[1] = v174;
-      v175 = *(v170 + 3);
-      v796[3] = *(v170 + 4);
-      v796[4] = v173;
-      v796[2] = v175;
-      v176 = v785;
+      v171 = v770;
+      outlined init with copy of String.LocalizationValue.FormatArgument.CodableStorage(v112, v770, type metadata accessor for String.LocalizationValue.FormatArgument.CodableStorage);
+      v173 = *v171;
+      v172 = *(v171 + 1);
+      v174 = *(v171 + 5);
+      v803[5] = *(v171 + 6);
+      LOWORD(v804[0]) = *(v171 + 56);
+      v175 = *(v171 + 2);
+      v803[0] = *(v171 + 1);
+      v803[1] = v175;
+      v176 = *(v171 + 3);
+      v803[3] = *(v171 + 4);
+      v803[4] = v174;
+      v803[2] = v176;
+      v177 = v792;
       if (swift_getEnumCaseMultiPayload() != 12)
       {
-        outlined destroy of Date.IntervalFormatStyle(v796);
+        outlined destroy of Date.IntervalFormatStyle(v803);
         goto LABEL_113;
       }
 
-      v178 = *v176;
-      v177 = *(v176 + 8);
-      v179 = *(v176 + 96);
-      v833 = *(v176 + 80);
-      v834 = v179;
-      LOWORD(v835[0]) = *(v176 + 112);
-      v180 = *(v176 + 32);
-      v829 = *(v176 + 16);
-      v830 = v180;
-      v181 = *(v176 + 48);
-      v832 = *(v176 + 64);
-      v831 = v181;
-      if (v172 == v178 && v171 == v177)
+      v179 = *v177;
+      v178 = *(v177 + 8);
+      v180 = *(v177 + 96);
+      v840 = *(v177 + 80);
+      v841 = v180;
+      LOWORD(v842[0]) = *(v177 + 112);
+      v181 = *(v177 + 32);
+      v836 = *(v177 + 16);
+      v837 = v181;
+      v182 = *(v177 + 48);
+      v839 = *(v177 + 64);
+      v838 = v182;
+      if (v173 == v179 && v172 == v178)
       {
-        v182 = *(v170 + 6);
-        v826 = *(v170 + 5);
-        v827 = v182;
-        LOWORD(v828[0]) = *(v170 + 56);
-        v183 = *(v170 + 2);
-        v822 = *(v170 + 1);
-        v823 = v183;
-        v184 = *(v170 + 3);
-        v825 = *(v170 + 4);
-        v824 = v184;
-        v185 = *(v176 + 96);
-        v820 = *(v176 + 80);
-        v821[0] = v185;
-        LOWORD(v821[1]) = *(v176 + 112);
-        v186 = *(v176 + 32);
-        v816 = *(v176 + 16);
-        v817 = v186;
-        v187 = *(v176 + 48);
-        v819 = *(v176 + 64);
-        v818 = v187;
-        v134 = specialized static Date.IntervalFormatStyle.== infix(_:_:)(&v822, &v816);
-        outlined destroy of Date.IntervalFormatStyle(&v829);
-        outlined destroy of Date.IntervalFormatStyle(v796);
+        v183 = *(v171 + 6);
+        v833 = *(v171 + 5);
+        v834 = v183;
+        LOWORD(v835[0]) = *(v171 + 56);
+        v184 = *(v171 + 2);
+        v829 = *(v171 + 1);
+        v830 = v184;
+        v185 = *(v171 + 3);
+        v832 = *(v171 + 4);
+        v831 = v185;
+        v186 = *(v177 + 96);
+        v827 = *(v177 + 80);
+        v828[0] = v186;
+        LOWORD(v828[1]) = *(v177 + 112);
+        v187 = *(v177 + 32);
+        v823 = *(v177 + 16);
+        v824 = v187;
+        v188 = *(v177 + 48);
+        v826 = *(v177 + 64);
+        v825 = v188;
+        v134 = specialized static Date.IntervalFormatStyle.== infix(_:_:)(&v829, &v823);
+        outlined destroy of Date.IntervalFormatStyle(&v836);
+        outlined destroy of Date.IntervalFormatStyle(v803);
         goto LABEL_94;
       }
 
-      outlined destroy of Date.IntervalFormatStyle(&v829);
-      outlined destroy of Date.IntervalFormatStyle(v796);
+      outlined destroy of Date.IntervalFormatStyle(&v836);
+      outlined destroy of Date.IntervalFormatStyle(v803);
       goto LABEL_244;
     case 0xDu:
-      v255 = v759;
-      outlined init with copy of String.LocalizationValue.FormatArgument.CodableStorage(v112, v759, type metadata accessor for String.LocalizationValue.FormatArgument.CodableStorage);
-      v256 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sSi_SS10FoundationE17LocalizationValueV14FormatArgumentV07IntegereD5StyleVtMd) + 48);
-      v257 = v785;
+      v256 = v766;
+      outlined init with copy of String.LocalizationValue.FormatArgument.CodableStorage(v112, v766, type metadata accessor for String.LocalizationValue.FormatArgument.CodableStorage);
+      v257 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sSi_SS10FoundationE17LocalizationValueV14FormatArgumentV07IntegereD5StyleVtMd, &_sSi_SS10FoundationE17LocalizationValueV14FormatArgumentV07IntegereD5StyleVtMR) + 48);
+      v258 = v792;
       if (swift_getEnumCaseMultiPayload() != 13)
       {
-        outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v255 + v256, type metadata accessor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle);
+        outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v256 + v257, type metadata accessor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle);
         goto LABEL_113;
       }
 
-      v258 = v112;
-      v259 = *v255;
-      v260 = *v257;
-      v261 = v255 + v256;
-      v262 = v748;
-      outlined init with take of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v261, v748, type metadata accessor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle);
-      v263 = v257 + v256;
-      v264 = v747;
-      outlined init with take of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v263, v747, type metadata accessor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle);
-      if (v259 != v260)
+      v259 = v112;
+      v260 = *v256;
+      v261 = *v258;
+      v262 = v256 + v257;
+      v263 = v755;
+      outlined init with take of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v262, v755, type metadata accessor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle);
+      v264 = v258 + v257;
+      v265 = v754;
+      outlined init with take of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v264, v754, type metadata accessor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle);
+      if (v260 != v261)
       {
-        outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v264, type metadata accessor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle);
-        outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v262, type metadata accessor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle);
+        outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v265, type metadata accessor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle);
+        outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v263, type metadata accessor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle);
         goto LABEL_265;
       }
 
-      v265 = *(v738 + 48);
-      v144 = v741;
-      outlined init with copy of String.LocalizationValue.FormatArgument.CodableStorage(v262, v741, type metadata accessor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle.Format);
-      outlined init with copy of String.LocalizationValue.FormatArgument.CodableStorage(v264, v144 + v265, type metadata accessor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle.Format);
+      v266 = *(v745 + 48);
+      v144 = v748;
+      outlined init with copy of String.LocalizationValue.FormatArgument.CodableStorage(v263, v748, type metadata accessor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle.Format);
+      outlined init with copy of String.LocalizationValue.FormatArgument.CodableStorage(v265, v144 + v266, type metadata accessor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle.Format);
       EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-      v112 = v258;
+      v112 = v259;
       if (EnumCaseMultiPayload)
       {
         if (EnumCaseMultiPayload == 1)
         {
-          v267 = v731;
-          outlined init with copy of String.LocalizationValue.FormatArgument.CodableStorage(v144, v731, type metadata accessor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle.Format);
+          v268 = v738;
+          outlined init with copy of String.LocalizationValue.FormatArgument.CodableStorage(v144, v738, type metadata accessor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle.Format);
           if (swift_getEnumCaseMultiPayload() == 1)
           {
-            v268 = v724;
-            outlined init with take of IntegerFormatStyle<Int>.Percent(v144 + v265, v724, &_s10Foundation18IntegerFormatStyleV8CurrencyVySi_GMd);
-            v796[0] = *v267;
-            v785 = *v268;
-            v829 = v785;
+            v269 = v731;
+            outlined init with take of IntegerFormatStyle<Int>.Percent(v144 + v266, v731, &_s10Foundation18IntegerFormatStyleV8CurrencyVySi_GMd, &_s10Foundation18IntegerFormatStyleV8CurrencyVySi_GMR);
+            v803[0] = *v268;
+            v792 = *v269;
+            v836 = v792;
             swift_unknownObjectRetain();
             swift_unknownObjectRetain();
-            v269 = specialized static Locale.== infix(_:_:)(v796, &v829);
+            v270 = specialized static Locale.== infix(_:_:)(v803, &v836);
             swift_unknownObjectRelease();
             swift_unknownObjectRelease();
-            if (v269 & 1) != 0 && (*(v267 + 16) == *(v268 + 16) && *(v267 + 24) == *(v268 + 24) || (_stringCompareWithSmolCheck(_:_:expecting:)()))
+            if (v270 & 1) != 0 && (*(v268 + 16) == *(v269 + 16) && *(v268 + 24) == *(v269 + 24) || (_stringCompareWithSmolCheck(_:_:expecting:)()))
             {
-              v270 = static CurrencyFormatStyleConfiguration.Collection.== infix(_:_:)(v267 + *(v714 + 40), v268 + *(v714 + 40));
-              outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v264, type metadata accessor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle);
-              outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v262, type metadata accessor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle);
-              if (v270)
+              v271 = static CurrencyFormatStyleConfiguration.Collection.== infix(_:_:)(v268 + *(v721 + 40), v269 + *(v721 + 40));
+              outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v265, type metadata accessor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle);
+              outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v263, type metadata accessor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle);
+              if (v271)
               {
-                outlined destroy of TermOfAddress?(v268, &_s10Foundation18IntegerFormatStyleV8CurrencyVySi_GMd);
-                v271 = v267;
-                v272 = &_s10Foundation18IntegerFormatStyleV8CurrencyVySi_GMd;
+                outlined destroy of TermOfAddress?(v269, &_s10Foundation18IntegerFormatStyleV8CurrencyVySi_GMd, &_s10Foundation18IntegerFormatStyleV8CurrencyVySi_GMR);
+                v272 = v268;
+                v273 = &_s10Foundation18IntegerFormatStyleV8CurrencyVySi_GMd;
+                v274 = &_s10Foundation18IntegerFormatStyleV8CurrencyVySi_GMR;
                 goto LABEL_210;
               }
             }
 
             else
             {
-              outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v264, type metadata accessor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle);
-              outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v262, type metadata accessor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle);
+              outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v265, type metadata accessor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle);
+              outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v263, type metadata accessor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle);
             }
 
-            outlined destroy of TermOfAddress?(v268, &_s10Foundation18IntegerFormatStyleV8CurrencyVySi_GMd);
-            v569 = v267;
-            v570 = &_s10Foundation18IntegerFormatStyleV8CurrencyVySi_GMd;
+            outlined destroy of TermOfAddress?(v269, &_s10Foundation18IntegerFormatStyleV8CurrencyVySi_GMd, &_s10Foundation18IntegerFormatStyleV8CurrencyVySi_GMR);
+            v575 = v268;
+            v576 = &_s10Foundation18IntegerFormatStyleV8CurrencyVySi_GMd;
+            v577 = &_s10Foundation18IntegerFormatStyleV8CurrencyVySi_GMR;
             goto LABEL_241;
           }
 
-          outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v264, type metadata accessor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle);
-          outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v262, type metadata accessor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle);
-          v434 = &_s10Foundation18IntegerFormatStyleV8CurrencyVySi_GMd;
-          v556 = v267;
+          outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v265, type metadata accessor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle);
+          outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v263, type metadata accessor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle);
+          v437 = &_s10Foundation18IntegerFormatStyleV8CurrencyVySi_GMd;
+          v438 = &_s10Foundation18IntegerFormatStyleV8CurrencyVySi_GMR;
+          v561 = v268;
 LABEL_197:
-          outlined destroy of TermOfAddress?(v556, v434);
-          v555 = &_sSS10FoundationE17LocalizationValueV14FormatArgumentV07IntegereD5StyleV0D033_52A34860FC1D9F87FB0A99C608112EB3LLO_AJtMd;
+          outlined destroy of TermOfAddress?(v561, v437, v438);
+          v559 = &_sSS10FoundationE17LocalizationValueV14FormatArgumentV07IntegereD5StyleV0D033_52A34860FC1D9F87FB0A99C608112EB3LLO_AJtMd;
+          v560 = &_sSS10FoundationE17LocalizationValueV14FormatArgumentV07IntegereD5StyleV0D033_52A34860FC1D9F87FB0A99C608112EB3LLO_AJtMR;
           goto LABEL_198;
         }
 
-        v433 = v730;
-        outlined init with copy of String.LocalizationValue.FormatArgument.CodableStorage(v144, v730, type metadata accessor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle.Format);
+        v436 = v737;
+        outlined init with copy of String.LocalizationValue.FormatArgument.CodableStorage(v144, v737, type metadata accessor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle.Format);
         if (swift_getEnumCaseMultiPayload() == 2)
         {
-          v435 = v144 + v265;
-          v436 = v723;
-          outlined init with take of IntegerFormatStyle<Int>.Percent(v435, v723, &_s10Foundation18IntegerFormatStyleV7PercentVySi_GMd);
-          v796[0] = *v433;
-          v785 = *v436;
-          v829 = v785;
+          v439 = v144 + v266;
+          v440 = v730;
+          outlined init with take of IntegerFormatStyle<Int>.Percent(v439, v730, &_s10Foundation18IntegerFormatStyleV7PercentVySi_GMd, &_s10Foundation18IntegerFormatStyleV7PercentVySi_GMR);
+          v803[0] = *v436;
+          v792 = *v440;
+          v836 = v792;
           swift_unknownObjectRetain();
           swift_unknownObjectRetain();
-          v437 = specialized static Locale.== infix(_:_:)(v796, &v829);
+          v441 = specialized static Locale.== infix(_:_:)(v803, &v836);
           swift_unknownObjectRelease();
           swift_unknownObjectRelease();
-          if (v437)
+          if (v441)
           {
-            v438 = static NumberFormatStyleConfiguration.Collection.== infix(_:_:)(v433 + *(v717 + 36), v436 + *(v717 + 36));
-            outlined destroy of TermOfAddress?(v436, &_s10Foundation18IntegerFormatStyleV7PercentVySi_GMd);
-            outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v264, type metadata accessor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle);
-            outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v262, type metadata accessor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle);
-            if (v438)
+            v442 = static NumberFormatStyleConfiguration.Collection.== infix(_:_:)(v436 + *(v724 + 36), v440 + *(v724 + 36));
+            outlined destroy of TermOfAddress?(v440, &_s10Foundation18IntegerFormatStyleV7PercentVySi_GMd, &_s10Foundation18IntegerFormatStyleV7PercentVySi_GMR);
+            outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v265, type metadata accessor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle);
+            outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v263, type metadata accessor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle);
+            if (v442)
             {
-              v272 = &_s10Foundation18IntegerFormatStyleV7PercentVySi_GMd;
+              v273 = &_s10Foundation18IntegerFormatStyleV7PercentVySi_GMd;
+              v274 = &_s10Foundation18IntegerFormatStyleV7PercentVySi_GMR;
 LABEL_209:
-              v271 = v433;
+              v272 = v436;
 LABEL_210:
-              outlined destroy of TermOfAddress?(v271, v272);
-              v561 = type metadata accessor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle.Format;
+              outlined destroy of TermOfAddress?(v272, v273, v274);
+              v566 = type metadata accessor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle.Format;
 LABEL_211:
-              outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v144, v561);
-              v378 = v112;
+              outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v144, v566);
+              v380 = v112;
 LABEL_121:
-              outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v378, type metadata accessor for String.LocalizationValue.FormatArgument.CodableStorage);
+              outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v380, type metadata accessor for String.LocalizationValue.FormatArgument.CodableStorage);
               v134 = 1;
               return v134 & 1;
             }
@@ -8525,83 +10027,88 @@ LABEL_121:
 
           else
           {
-            outlined destroy of TermOfAddress?(v436, &_s10Foundation18IntegerFormatStyleV7PercentVySi_GMd);
-            outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v264, type metadata accessor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle);
-            outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v262, type metadata accessor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle);
+            outlined destroy of TermOfAddress?(v440, &_s10Foundation18IntegerFormatStyleV7PercentVySi_GMd, &_s10Foundation18IntegerFormatStyleV7PercentVySi_GMR);
+            outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v265, type metadata accessor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle);
+            outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v263, type metadata accessor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle);
           }
 
-          v570 = &_s10Foundation18IntegerFormatStyleV7PercentVySi_GMd;
+          v576 = &_s10Foundation18IntegerFormatStyleV7PercentVySi_GMd;
+          v577 = &_s10Foundation18IntegerFormatStyleV7PercentVySi_GMR;
           goto LABEL_240;
         }
 
-        outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v264, type metadata accessor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle);
-        outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v262, type metadata accessor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle);
-        v434 = &_s10Foundation18IntegerFormatStyleV7PercentVySi_GMd;
+        outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v265, type metadata accessor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle);
+        outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v263, type metadata accessor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle);
+        v437 = &_s10Foundation18IntegerFormatStyleV7PercentVySi_GMd;
+        v438 = &_s10Foundation18IntegerFormatStyleV7PercentVySi_GMR;
       }
 
       else
       {
-        v433 = v729;
-        outlined init with copy of String.LocalizationValue.FormatArgument.CodableStorage(v144, v729, type metadata accessor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle.Format);
+        v436 = v736;
+        outlined init with copy of String.LocalizationValue.FormatArgument.CodableStorage(v144, v736, type metadata accessor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle.Format);
         if (!swift_getEnumCaseMultiPayload())
         {
-          v564 = v144 + v265;
-          v565 = v721;
-          outlined init with take of IntegerFormatStyle<Int>.Percent(v564, v721, &_s10Foundation18IntegerFormatStyleVySiGMd);
-          v796[0] = *v433;
-          v785 = *v565;
-          v829 = v785;
+          v570 = v144 + v266;
+          v571 = v728;
+          outlined init with take of IntegerFormatStyle<Int>.Percent(v570, v728, &_s10Foundation18IntegerFormatStyleVySiGMd, &_s10Foundation18IntegerFormatStyleVySiGMR);
+          v803[0] = *v436;
+          v792 = *v571;
+          v836 = v792;
           swift_unknownObjectRetain();
           swift_unknownObjectRetain();
-          v566 = specialized static Locale.== infix(_:_:)(v796, &v829);
+          v572 = specialized static Locale.== infix(_:_:)(v803, &v836);
           swift_unknownObjectRelease();
           swift_unknownObjectRelease();
-          if (v566)
+          if (v572)
           {
-            v567 = static NumberFormatStyleConfiguration.Collection.== infix(_:_:)(v433 + *(v713 + 36), v565 + *(v713 + 36));
-            outlined destroy of TermOfAddress?(v565, &_s10Foundation18IntegerFormatStyleVySiGMd);
-            outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v264, type metadata accessor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle);
-            outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v262, type metadata accessor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle);
-            if (v567)
+            v573 = static NumberFormatStyleConfiguration.Collection.== infix(_:_:)(v436 + *(v720 + 36), v571 + *(v720 + 36));
+            outlined destroy of TermOfAddress?(v571, &_s10Foundation18IntegerFormatStyleVySiGMd, &_s10Foundation18IntegerFormatStyleVySiGMR);
+            outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v265, type metadata accessor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle);
+            outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v263, type metadata accessor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle);
+            if (v573)
             {
-              v272 = &_s10Foundation18IntegerFormatStyleVySiGMd;
+              v273 = &_s10Foundation18IntegerFormatStyleVySiGMd;
+              v274 = &_s10Foundation18IntegerFormatStyleVySiGMR;
               goto LABEL_209;
             }
           }
 
           else
           {
-            outlined destroy of TermOfAddress?(v565, &_s10Foundation18IntegerFormatStyleVySiGMd);
-            outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v264, type metadata accessor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle);
-            outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v262, type metadata accessor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle);
+            outlined destroy of TermOfAddress?(v571, &_s10Foundation18IntegerFormatStyleVySiGMd, &_s10Foundation18IntegerFormatStyleVySiGMR);
+            outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v265, type metadata accessor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle);
+            outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v263, type metadata accessor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle);
           }
 
-          v570 = &_s10Foundation18IntegerFormatStyleVySiGMd;
+          v576 = &_s10Foundation18IntegerFormatStyleVySiGMd;
+          v577 = &_s10Foundation18IntegerFormatStyleVySiGMR;
 LABEL_240:
-          v569 = v433;
+          v575 = v436;
 LABEL_241:
-          outlined destroy of TermOfAddress?(v569, v570);
-          v624 = type metadata accessor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle.Format;
+          outlined destroy of TermOfAddress?(v575, v576, v577);
+          v631 = type metadata accessor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle.Format;
 LABEL_242:
-          v401 = v624;
-          v400 = v144;
+          v403 = v631;
+          v402 = v144;
 LABEL_243:
-          outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v400, v401);
+          outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v402, v403);
           goto LABEL_244;
         }
 
-        outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v264, type metadata accessor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle);
-        outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v262, type metadata accessor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle);
-        v434 = &_s10Foundation18IntegerFormatStyleVySiGMd;
+        outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v265, type metadata accessor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle);
+        outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v263, type metadata accessor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle);
+        v437 = &_s10Foundation18IntegerFormatStyleVySiGMd;
+        v438 = &_s10Foundation18IntegerFormatStyleVySiGMR;
       }
 
-      v556 = v433;
+      v561 = v436;
       goto LABEL_197;
     case 0xEu:
-      v135 = v760.i64[0];
-      outlined init with copy of String.LocalizationValue.FormatArgument.CodableStorage(v112, v760.i64[0], type metadata accessor for String.LocalizationValue.FormatArgument.CodableStorage);
-      v136 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sSd_SS10FoundationE17LocalizationValueV14FormatArgumentV013FloatingPointeD5StyleVtMd) + 48);
-      v137 = v785;
+      v135 = v767.i64[0];
+      outlined init with copy of String.LocalizationValue.FormatArgument.CodableStorage(v112, v767.i64[0], type metadata accessor for String.LocalizationValue.FormatArgument.CodableStorage);
+      v136 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sSd_SS10FoundationE17LocalizationValueV14FormatArgumentV013FloatingPointeD5StyleVtMd, &_sSd_SS10FoundationE17LocalizationValueV14FormatArgumentV013FloatingPointeD5StyleVtMR) + 48);
+      v137 = v792;
       if (swift_getEnumCaseMultiPayload() != 14)
       {
         outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v135 + v136, type metadata accessor for String.LocalizationValue.FormatArgument.FloatingPointArgumentFormatStyle);
@@ -8611,54 +10118,55 @@ LABEL_243:
       v138 = *v135;
       v139 = *v137;
       v140 = v135 + v136;
-      v141 = v750;
-      outlined init with take of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v140, v750, type metadata accessor for String.LocalizationValue.FormatArgument.FloatingPointArgumentFormatStyle);
-      v142 = v749;
-      outlined init with take of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v137 + v136, v749, type metadata accessor for String.LocalizationValue.FormatArgument.FloatingPointArgumentFormatStyle);
+      v141 = v757;
+      outlined init with take of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v140, v757, type metadata accessor for String.LocalizationValue.FormatArgument.FloatingPointArgumentFormatStyle);
+      v142 = v756;
+      outlined init with take of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v137 + v136, v756, type metadata accessor for String.LocalizationValue.FormatArgument.FloatingPointArgumentFormatStyle);
       if (v138 != v139)
       {
         outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v142, type metadata accessor for String.LocalizationValue.FormatArgument.FloatingPointArgumentFormatStyle);
-        v400 = v141;
-        v401 = type metadata accessor for String.LocalizationValue.FormatArgument.FloatingPointArgumentFormatStyle;
+        v402 = v141;
+        v403 = type metadata accessor for String.LocalizationValue.FormatArgument.FloatingPointArgumentFormatStyle;
         goto LABEL_243;
       }
 
-      v143 = *(v743 + 48);
-      v144 = v745;
-      outlined init with copy of String.LocalizationValue.FormatArgument.CodableStorage(v141, v745, type metadata accessor for String.LocalizationValue.FormatArgument.FloatingPointArgumentFormatStyle.Format);
+      v143 = *(v750 + 48);
+      v144 = v752;
+      outlined init with copy of String.LocalizationValue.FormatArgument.CodableStorage(v141, v752, type metadata accessor for String.LocalizationValue.FormatArgument.FloatingPointArgumentFormatStyle.Format);
       outlined init with copy of String.LocalizationValue.FormatArgument.CodableStorage(v142, v144 + v143, type metadata accessor for String.LocalizationValue.FormatArgument.FloatingPointArgumentFormatStyle.Format);
       v145 = swift_getEnumCaseMultiPayload();
       if (v145)
       {
         if (v145 == 1)
         {
-          v146 = v735;
-          outlined init with copy of String.LocalizationValue.FormatArgument.CodableStorage(v144, v735, type metadata accessor for String.LocalizationValue.FormatArgument.FloatingPointArgumentFormatStyle.Format);
+          v146 = v742;
+          outlined init with copy of String.LocalizationValue.FormatArgument.CodableStorage(v144, v742, type metadata accessor for String.LocalizationValue.FormatArgument.FloatingPointArgumentFormatStyle.Format);
           if (swift_getEnumCaseMultiPayload() == 1)
           {
-            v147 = v727;
-            outlined init with take of IntegerFormatStyle<Int>.Percent(v144 + v143, v727, &_s10Foundation24FloatingPointFormatStyleV8CurrencyVySd_GMd);
-            v796[0] = *v146;
-            v785 = *v147;
-            v829 = v785;
+            v147 = v734;
+            outlined init with take of IntegerFormatStyle<Int>.Percent(v144 + v143, v734, &_s10Foundation24FloatingPointFormatStyleV8CurrencyVySd_GMd, &_s10Foundation24FloatingPointFormatStyleV8CurrencyVySd_GMR);
+            v803[0] = *v146;
+            v792 = *v147;
+            v836 = v792;
             swift_unknownObjectRetain();
             swift_unknownObjectRetain();
-            v148 = specialized static Locale.== infix(_:_:)(v796, &v829);
+            v148 = specialized static Locale.== infix(_:_:)(v803, &v836);
             swift_unknownObjectRelease();
             swift_unknownObjectRelease();
             if (v148 & 1) != 0 && (*(v146 + 16) == *(v147 + 16) && *(v146 + 24) == *(v147 + 24) || (_stringCompareWithSmolCheck(_:_:expecting:)()))
             {
-              v149 = static CurrencyFormatStyleConfiguration.Collection.== infix(_:_:)(v146 + *(v716 + 40), v147 + *(v716 + 40));
+              v149 = static CurrencyFormatStyleConfiguration.Collection.== infix(_:_:)(v146 + *(v723 + 40), v147 + *(v723 + 40));
               outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v142, type metadata accessor for String.LocalizationValue.FormatArgument.FloatingPointArgumentFormatStyle);
               outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v141, type metadata accessor for String.LocalizationValue.FormatArgument.FloatingPointArgumentFormatStyle);
               if (v149)
               {
-                outlined destroy of TermOfAddress?(v147, &_s10Foundation24FloatingPointFormatStyleV8CurrencyVySd_GMd);
+                outlined destroy of TermOfAddress?(v147, &_s10Foundation24FloatingPointFormatStyleV8CurrencyVySd_GMd, &_s10Foundation24FloatingPointFormatStyleV8CurrencyVySd_GMR);
                 v150 = v146;
                 v151 = &_s10Foundation24FloatingPointFormatStyleV8CurrencyVySd_GMd;
+                v152 = &_s10Foundation24FloatingPointFormatStyleV8CurrencyVySd_GMR;
 LABEL_203:
-                outlined destroy of TermOfAddress?(v150, v151);
-                v561 = type metadata accessor for String.LocalizationValue.FormatArgument.FloatingPointArgumentFormatStyle.Format;
+                outlined destroy of TermOfAddress?(v150, v151, v152);
+                v566 = type metadata accessor for String.LocalizationValue.FormatArgument.FloatingPointArgumentFormatStyle.Format;
                 goto LABEL_211;
               }
             }
@@ -8669,290 +10177,299 @@ LABEL_203:
               outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v141, type metadata accessor for String.LocalizationValue.FormatArgument.FloatingPointArgumentFormatStyle);
             }
 
-            outlined destroy of TermOfAddress?(v147, &_s10Foundation24FloatingPointFormatStyleV8CurrencyVySd_GMd);
-            v562 = v146;
-            v563 = &_s10Foundation24FloatingPointFormatStyleV8CurrencyVySd_GMd;
+            outlined destroy of TermOfAddress?(v147, &_s10Foundation24FloatingPointFormatStyleV8CurrencyVySd_GMd, &_s10Foundation24FloatingPointFormatStyleV8CurrencyVySd_GMR);
+            v567 = v146;
+            v568 = &_s10Foundation24FloatingPointFormatStyleV8CurrencyVySd_GMd;
+            v569 = &_s10Foundation24FloatingPointFormatStyleV8CurrencyVySd_GMR;
 LABEL_235:
-            outlined destroy of TermOfAddress?(v562, v563);
-            v624 = type metadata accessor for String.LocalizationValue.FormatArgument.FloatingPointArgumentFormatStyle.Format;
+            outlined destroy of TermOfAddress?(v567, v568, v569);
+            v631 = type metadata accessor for String.LocalizationValue.FormatArgument.FloatingPointArgumentFormatStyle.Format;
             goto LABEL_242;
           }
 
           outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v142, type metadata accessor for String.LocalizationValue.FormatArgument.FloatingPointArgumentFormatStyle);
           outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v141, type metadata accessor for String.LocalizationValue.FormatArgument.FloatingPointArgumentFormatStyle);
-          v428 = &_s10Foundation24FloatingPointFormatStyleV8CurrencyVySd_GMd;
-          v554 = v146;
+          v430 = &_s10Foundation24FloatingPointFormatStyleV8CurrencyVySd_GMd;
+          v431 = &_s10Foundation24FloatingPointFormatStyleV8CurrencyVySd_GMR;
+          v558 = v146;
 LABEL_193:
-          outlined destroy of TermOfAddress?(v554, v428);
-          v555 = &_sSS10FoundationE17LocalizationValueV14FormatArgumentV013FloatingPointeD5StyleV0D033_52A34860FC1D9F87FB0A99C608112EB3LLO_AJtMd;
+          outlined destroy of TermOfAddress?(v558, v430, v431);
+          v559 = &_sSS10FoundationE17LocalizationValueV14FormatArgumentV013FloatingPointeD5StyleV0D033_52A34860FC1D9F87FB0A99C608112EB3LLO_AJtMd;
+          v560 = &_sSS10FoundationE17LocalizationValueV14FormatArgumentV013FloatingPointeD5StyleV0D033_52A34860FC1D9F87FB0A99C608112EB3LLO_AJtMR;
 LABEL_198:
-          outlined destroy of TermOfAddress?(v144, v555);
+          outlined destroy of TermOfAddress?(v144, v559, v560);
 LABEL_244:
           outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v112, type metadata accessor for String.LocalizationValue.FormatArgument.CodableStorage);
           goto LABEL_114;
         }
 
-        v427 = v734;
-        outlined init with copy of String.LocalizationValue.FormatArgument.CodableStorage(v144, v734, type metadata accessor for String.LocalizationValue.FormatArgument.FloatingPointArgumentFormatStyle.Format);
+        v429 = v741;
+        outlined init with copy of String.LocalizationValue.FormatArgument.CodableStorage(v144, v741, type metadata accessor for String.LocalizationValue.FormatArgument.FloatingPointArgumentFormatStyle.Format);
         if (swift_getEnumCaseMultiPayload() == 2)
         {
-          v429 = v144 + v143;
-          v430 = v726;
-          outlined init with take of IntegerFormatStyle<Int>.Percent(v429, v726, &_s10Foundation24FloatingPointFormatStyleV7PercentVySd_GMd);
-          v796[0] = *v427;
-          v785 = *v430;
-          v829 = v785;
+          v432 = v144 + v143;
+          v433 = v733;
+          outlined init with take of IntegerFormatStyle<Int>.Percent(v432, v733, &_s10Foundation24FloatingPointFormatStyleV7PercentVySd_GMd, &_s10Foundation24FloatingPointFormatStyleV7PercentVySd_GMR);
+          v803[0] = *v429;
+          v792 = *v433;
+          v836 = v792;
           swift_unknownObjectRetain();
           swift_unknownObjectRetain();
-          v431 = specialized static Locale.== infix(_:_:)(v796, &v829);
+          v434 = specialized static Locale.== infix(_:_:)(v803, &v836);
           swift_unknownObjectRelease();
           swift_unknownObjectRelease();
-          if (v431)
+          if (v434)
           {
-            v432 = static NumberFormatStyleConfiguration.Collection.== infix(_:_:)(v427 + *(v720 + 36), v430 + *(v720 + 36));
-            outlined destroy of TermOfAddress?(v430, &_s10Foundation24FloatingPointFormatStyleV7PercentVySd_GMd);
+            v435 = static NumberFormatStyleConfiguration.Collection.== infix(_:_:)(v429 + *(v727 + 36), v433 + *(v727 + 36));
+            outlined destroy of TermOfAddress?(v433, &_s10Foundation24FloatingPointFormatStyleV7PercentVySd_GMd, &_s10Foundation24FloatingPointFormatStyleV7PercentVySd_GMR);
             outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v142, type metadata accessor for String.LocalizationValue.FormatArgument.FloatingPointArgumentFormatStyle);
             outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v141, type metadata accessor for String.LocalizationValue.FormatArgument.FloatingPointArgumentFormatStyle);
-            if (v432)
+            if (v435)
             {
               v151 = &_s10Foundation24FloatingPointFormatStyleV7PercentVySd_GMd;
+              v152 = &_s10Foundation24FloatingPointFormatStyleV7PercentVySd_GMR;
 LABEL_202:
-              v150 = v427;
+              v150 = v429;
               goto LABEL_203;
             }
           }
 
           else
           {
-            outlined destroy of TermOfAddress?(v430, &_s10Foundation24FloatingPointFormatStyleV7PercentVySd_GMd);
+            outlined destroy of TermOfAddress?(v433, &_s10Foundation24FloatingPointFormatStyleV7PercentVySd_GMd, &_s10Foundation24FloatingPointFormatStyleV7PercentVySd_GMR);
             outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v142, type metadata accessor for String.LocalizationValue.FormatArgument.FloatingPointArgumentFormatStyle);
             outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v141, type metadata accessor for String.LocalizationValue.FormatArgument.FloatingPointArgumentFormatStyle);
           }
 
-          v563 = &_s10Foundation24FloatingPointFormatStyleV7PercentVySd_GMd;
+          v568 = &_s10Foundation24FloatingPointFormatStyleV7PercentVySd_GMd;
+          v569 = &_s10Foundation24FloatingPointFormatStyleV7PercentVySd_GMR;
           goto LABEL_234;
         }
 
         outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v142, type metadata accessor for String.LocalizationValue.FormatArgument.FloatingPointArgumentFormatStyle);
         outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v141, type metadata accessor for String.LocalizationValue.FormatArgument.FloatingPointArgumentFormatStyle);
-        v428 = &_s10Foundation24FloatingPointFormatStyleV7PercentVySd_GMd;
+        v430 = &_s10Foundation24FloatingPointFormatStyleV7PercentVySd_GMd;
+        v431 = &_s10Foundation24FloatingPointFormatStyleV7PercentVySd_GMR;
       }
 
       else
       {
-        v427 = v733;
-        outlined init with copy of String.LocalizationValue.FormatArgument.CodableStorage(v144, v733, type metadata accessor for String.LocalizationValue.FormatArgument.FloatingPointArgumentFormatStyle.Format);
+        v429 = v740;
+        outlined init with copy of String.LocalizationValue.FormatArgument.CodableStorage(v144, v740, type metadata accessor for String.LocalizationValue.FormatArgument.FloatingPointArgumentFormatStyle.Format);
         if (!swift_getEnumCaseMultiPayload())
         {
-          v557 = v144 + v143;
-          v558 = v722;
-          outlined init with take of IntegerFormatStyle<Int>.Percent(v557, v722, &_s10Foundation24FloatingPointFormatStyleVySdGMd);
-          v796[0] = *v427;
-          v785 = *v558;
-          v829 = v785;
+          v562 = v144 + v143;
+          v563 = v729;
+          outlined init with take of IntegerFormatStyle<Int>.Percent(v562, v729, &_s10Foundation24FloatingPointFormatStyleVySdGMd, &_s10Foundation24FloatingPointFormatStyleVySdGMR);
+          v803[0] = *v429;
+          v792 = *v563;
+          v836 = v792;
           swift_unknownObjectRetain();
           swift_unknownObjectRetain();
-          v559 = specialized static Locale.== infix(_:_:)(v796, &v829);
+          v564 = specialized static Locale.== infix(_:_:)(v803, &v836);
           swift_unknownObjectRelease();
           swift_unknownObjectRelease();
-          if (v559)
+          if (v564)
           {
-            v560 = static NumberFormatStyleConfiguration.Collection.== infix(_:_:)(v427 + *(v715 + 36), v558 + *(v715 + 36));
-            outlined destroy of TermOfAddress?(v558, &_s10Foundation24FloatingPointFormatStyleVySdGMd);
+            v565 = static NumberFormatStyleConfiguration.Collection.== infix(_:_:)(v429 + *(v722 + 36), v563 + *(v722 + 36));
+            outlined destroy of TermOfAddress?(v563, &_s10Foundation24FloatingPointFormatStyleVySdGMd, &_s10Foundation24FloatingPointFormatStyleVySdGMR);
             outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v142, type metadata accessor for String.LocalizationValue.FormatArgument.FloatingPointArgumentFormatStyle);
             outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v141, type metadata accessor for String.LocalizationValue.FormatArgument.FloatingPointArgumentFormatStyle);
-            if (v560)
+            if (v565)
             {
               v151 = &_s10Foundation24FloatingPointFormatStyleVySdGMd;
+              v152 = &_s10Foundation24FloatingPointFormatStyleVySdGMR;
               goto LABEL_202;
             }
           }
 
           else
           {
-            outlined destroy of TermOfAddress?(v558, &_s10Foundation24FloatingPointFormatStyleVySdGMd);
+            outlined destroy of TermOfAddress?(v563, &_s10Foundation24FloatingPointFormatStyleVySdGMd, &_s10Foundation24FloatingPointFormatStyleVySdGMR);
             outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v142, type metadata accessor for String.LocalizationValue.FormatArgument.FloatingPointArgumentFormatStyle);
             outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v141, type metadata accessor for String.LocalizationValue.FormatArgument.FloatingPointArgumentFormatStyle);
           }
 
-          v563 = &_s10Foundation24FloatingPointFormatStyleVySdGMd;
+          v568 = &_s10Foundation24FloatingPointFormatStyleVySdGMd;
+          v569 = &_s10Foundation24FloatingPointFormatStyleVySdGMR;
 LABEL_234:
-          v562 = v427;
+          v567 = v429;
           goto LABEL_235;
         }
 
         outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v142, type metadata accessor for String.LocalizationValue.FormatArgument.FloatingPointArgumentFormatStyle);
         outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v141, type metadata accessor for String.LocalizationValue.FormatArgument.FloatingPointArgumentFormatStyle);
-        v428 = &_s10Foundation24FloatingPointFormatStyleVySdGMd;
+        v430 = &_s10Foundation24FloatingPointFormatStyleVySdGMd;
+        v431 = &_s10Foundation24FloatingPointFormatStyleVySdGMR;
       }
 
-      v554 = v427;
+      v558 = v429;
       goto LABEL_193;
     case 0xFu:
-      v712 = v112;
-      v191 = v764;
-      outlined init with copy of String.LocalizationValue.FormatArgument.CodableStorage(v112, v764, type metadata accessor for String.LocalizationValue.FormatArgument.CodableStorage);
-      v192 = *v191;
-      v193 = *(v191 + 4);
-      v194 = *(v191 + 6);
-      v195 = *(v191 + 8);
-      v196 = *(v191 + 10);
-      LODWORD(v779) = *(v191 + 12);
-      LODWORD(v780) = *(v191 + 14);
-      LODWORD(v781) = *(v191 + 16);
-      LODWORD(v782) = *(v191 + 18);
-      v197 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sSo9NSDecimala_SS10FoundationE17LocalizationValueV14FormatArgumentV07DecimalfE5StyleVtMd) + 48);
-      v198 = v785;
+      v719 = v112;
+      v192 = v771;
+      outlined init with copy of String.LocalizationValue.FormatArgument.CodableStorage(v112, v771, type metadata accessor for String.LocalizationValue.FormatArgument.CodableStorage);
+      v193 = *v192;
+      v194 = *(v192 + 4);
+      v195 = *(v192 + 6);
+      v196 = *(v192 + 8);
+      v197 = *(v192 + 10);
+      LODWORD(v786) = *(v192 + 12);
+      LODWORD(v787) = *(v192 + 14);
+      LODWORD(v788) = *(v192 + 16);
+      LODWORD(v789) = *(v192 + 18);
+      v198 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sSo9NSDecimala_SS10FoundationE17LocalizationValueV14FormatArgumentV07DecimalfE5StyleVtMd, &_sSo9NSDecimala_SS10FoundationE17LocalizationValueV14FormatArgumentV07DecimalfE5StyleVtMR) + 48);
+      v199 = v792;
       if (swift_getEnumCaseMultiPayload() != 15)
       {
-        outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v191 + v197, type metadata accessor for String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle);
-        v112 = v712;
+        outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v192 + v198, type metadata accessor for String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle);
+        v112 = v719;
         goto LABEL_113;
       }
 
-      LODWORD(v784) = *v198;
-      LODWORD(v783) = *(v198 + 4);
-      LODWORD(v778) = *(v198 + 6);
-      LODWORD(v777) = *(v198 + 8);
-      LODWORD(v770) = v193;
-      LODWORD(v776) = *(v198 + 10);
-      LODWORD(v775) = *(v198 + 12);
-      LODWORD(v772) = v192;
-      LODWORD(v774) = *(v198 + 14);
-      LODWORD(v771) = v195;
-      LODWORD(v773) = *(v198 + 16);
-      v199 = *(v198 + 18);
-      outlined init with take of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v191 + v197, v769, type metadata accessor for String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle);
-      outlined init with take of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v198 + v197, v767, type metadata accessor for String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle);
-      LODWORD(v796[0]) = v192;
-      WORD2(v796[0]) = v193;
-      WORD3(v796[0]) = v194;
-      v200 = v771;
-      WORD4(v796[0]) = v771;
-      WORD5(v796[0]) = v196;
-      v201 = v779;
-      WORD6(v796[0]) = v779;
-      v202 = v780;
-      HIWORD(v796[0]) = v780;
-      v203 = v781;
-      LOWORD(v796[1]) = v781;
-      v204 = v782;
-      WORD1(v796[1]) = v782;
-      v205 = _So9NSDecimala__exponent_getter(v796);
-      LODWORD(v796[0]) = v784;
-      WORD2(v796[0]) = v783;
-      WORD3(v796[0]) = v778;
-      WORD4(v796[0]) = v777;
-      WORD5(v796[0]) = v776;
-      WORD6(v796[0]) = v775;
-      HIWORD(v796[0]) = v774;
-      LOWORD(v796[1]) = v773;
-      LODWORD(v785) = v199;
-      WORD1(v796[1]) = v199;
-      v169 = v205 == _So9NSDecimala__exponent_getter(v796);
-      v206 = v203;
-      v207 = v202;
-      v208 = v201;
-      v209 = v196;
-      v210 = v200;
-      v211 = v194;
-      v212 = v206;
-      v213 = v770;
-      v214 = v772;
-      v215 = v208;
-      if (v169)
+      LODWORD(v791) = *v199;
+      LODWORD(v790) = *(v199 + 4);
+      LODWORD(v785) = *(v199 + 6);
+      LODWORD(v784) = *(v199 + 8);
+      LODWORD(v777) = v194;
+      LODWORD(v783) = *(v199 + 10);
+      LODWORD(v782) = *(v199 + 12);
+      LODWORD(v779) = v193;
+      LODWORD(v781) = *(v199 + 14);
+      LODWORD(v778) = v196;
+      LODWORD(v780) = *(v199 + 16);
+      v200 = *(v199 + 18);
+      outlined init with take of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v192 + v198, v776, type metadata accessor for String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle);
+      outlined init with take of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v199 + v198, v774, type metadata accessor for String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle);
+      LODWORD(v803[0]) = v193;
+      WORD2(v803[0]) = v194;
+      WORD3(v803[0]) = v195;
+      v201 = v778;
+      WORD4(v803[0]) = v778;
+      WORD5(v803[0]) = v197;
+      v202 = v786;
+      WORD6(v803[0]) = v786;
+      v203 = v787;
+      HIWORD(v803[0]) = v787;
+      v204 = v788;
+      LOWORD(v803[1]) = v788;
+      v205 = v789;
+      WORD1(v803[1]) = v789;
+      v206 = _So9NSDecimala__exponent_getter(v803);
+      LODWORD(v803[0]) = v791;
+      WORD2(v803[0]) = v790;
+      WORD3(v803[0]) = v785;
+      WORD4(v803[0]) = v784;
+      WORD5(v803[0]) = v783;
+      WORD6(v803[0]) = v782;
+      HIWORD(v803[0]) = v781;
+      LOWORD(v803[1]) = v780;
+      LODWORD(v792) = v200;
+      WORD1(v803[1]) = v200;
+      v170 = v206 == _So9NSDecimala__exponent_getter(v803);
+      v207 = v204;
+      v208 = v203;
+      v209 = v202;
+      v210 = v197;
+      v211 = v201;
+      v212 = v195;
+      v213 = v207;
+      v214 = v777;
+      v215 = v779;
+      v216 = v209;
+      if (v170)
       {
-        LODWORD(v796[0]) = v772;
-        WORD2(v796[0]) = v770;
-        WORD3(v796[0]) = v211;
-        WORD4(v796[0]) = v210;
-        WORD5(v796[0]) = v209;
-        WORD6(v796[0]) = v208;
-        HIWORD(v796[0]) = v207;
-        LOWORD(v796[1]) = v206;
-        WORD1(v796[1]) = v204;
-        v216 = _So9NSDecimala__length_getter(v796);
-        LODWORD(v796[0]) = v784;
-        WORD2(v796[0]) = v783;
-        WORD3(v796[0]) = v778;
-        WORD4(v796[0]) = v777;
-        WORD5(v796[0]) = v776;
-        WORD6(v796[0]) = v775;
-        HIWORD(v796[0]) = v774;
-        LOWORD(v796[1]) = v773;
-        WORD1(v796[1]) = v785;
-        v169 = v216 == _So9NSDecimala__length_getter(v796);
-        v214 = v772;
-        if (v169)
+        LODWORD(v803[0]) = v779;
+        WORD2(v803[0]) = v777;
+        WORD3(v803[0]) = v212;
+        WORD4(v803[0]) = v211;
+        WORD5(v803[0]) = v210;
+        WORD6(v803[0]) = v209;
+        HIWORD(v803[0]) = v208;
+        LOWORD(v803[1]) = v207;
+        WORD1(v803[1]) = v205;
+        v217 = _So9NSDecimala__length_getter(v803);
+        LODWORD(v803[0]) = v791;
+        WORD2(v803[0]) = v790;
+        WORD3(v803[0]) = v785;
+        WORD4(v803[0]) = v784;
+        WORD5(v803[0]) = v783;
+        WORD6(v803[0]) = v782;
+        HIWORD(v803[0]) = v781;
+        LOWORD(v803[1]) = v780;
+        WORD1(v803[1]) = v792;
+        v170 = v217 == _So9NSDecimala__length_getter(v803);
+        v215 = v779;
+        if (v170)
         {
-          LODWORD(v796[0]) = v772;
-          WORD2(v796[0]) = v213;
-          WORD3(v796[0]) = v211;
-          WORD4(v796[0]) = v210;
-          WORD5(v796[0]) = v209;
-          WORD6(v796[0]) = v215;
-          HIWORD(v796[0]) = v207;
-          LOWORD(v796[1]) = v212;
-          WORD1(v796[1]) = v204;
-          isNegative_getter = _So9NSDecimala__isNegative_getter(v796);
-          LODWORD(v796[0]) = v784;
-          WORD2(v796[0]) = v783;
-          WORD3(v796[0]) = v778;
-          WORD4(v796[0]) = v777;
-          WORD5(v796[0]) = v776;
-          WORD6(v796[0]) = v775;
-          HIWORD(v796[0]) = v774;
-          LOWORD(v796[1]) = v773;
-          WORD1(v796[1]) = v785;
-          v169 = isNegative_getter == _So9NSDecimala__isNegative_getter(v796);
-          v214 = v772;
-          if (v169)
+          LODWORD(v803[0]) = v779;
+          WORD2(v803[0]) = v214;
+          WORD3(v803[0]) = v212;
+          WORD4(v803[0]) = v211;
+          WORD5(v803[0]) = v210;
+          WORD6(v803[0]) = v216;
+          HIWORD(v803[0]) = v208;
+          LOWORD(v803[1]) = v213;
+          WORD1(v803[1]) = v205;
+          isNegative_getter = _So9NSDecimala__isNegative_getter(v803);
+          LODWORD(v803[0]) = v791;
+          WORD2(v803[0]) = v790;
+          WORD3(v803[0]) = v785;
+          WORD4(v803[0]) = v784;
+          WORD5(v803[0]) = v783;
+          WORD6(v803[0]) = v782;
+          HIWORD(v803[0]) = v781;
+          LOWORD(v803[1]) = v780;
+          WORD1(v803[1]) = v792;
+          v170 = isNegative_getter == _So9NSDecimala__isNegative_getter(v803);
+          v215 = v779;
+          if (v170)
           {
-            LODWORD(v796[0]) = v772;
-            WORD2(v796[0]) = v213;
-            WORD3(v796[0]) = v211;
-            WORD4(v796[0]) = v210;
-            WORD5(v796[0]) = v209;
-            WORD6(v796[0]) = v215;
-            HIWORD(v796[0]) = v207;
-            LOWORD(v796[1]) = v212;
-            WORD1(v796[1]) = v204;
-            isCompact_getter = _So9NSDecimala__isCompact_getter(v796);
-            LODWORD(v796[0]) = v784;
-            WORD2(v796[0]) = v783;
-            WORD3(v796[0]) = v778;
-            WORD4(v796[0]) = v777;
-            WORD5(v796[0]) = v776;
-            WORD6(v796[0]) = v775;
-            HIWORD(v796[0]) = v774;
-            LOWORD(v796[1]) = v773;
-            WORD1(v796[1]) = v785;
-            v169 = isCompact_getter == _So9NSDecimala__isCompact_getter(v796);
-            v214 = v772;
-            if (v169)
+            LODWORD(v803[0]) = v779;
+            WORD2(v803[0]) = v214;
+            WORD3(v803[0]) = v212;
+            WORD4(v803[0]) = v211;
+            WORD5(v803[0]) = v210;
+            WORD6(v803[0]) = v216;
+            HIWORD(v803[0]) = v208;
+            LOWORD(v803[1]) = v213;
+            WORD1(v803[1]) = v205;
+            isCompact_getter = _So9NSDecimala__isCompact_getter(v803);
+            LODWORD(v803[0]) = v791;
+            WORD2(v803[0]) = v790;
+            WORD3(v803[0]) = v785;
+            WORD4(v803[0]) = v784;
+            WORD5(v803[0]) = v783;
+            WORD6(v803[0]) = v782;
+            HIWORD(v803[0]) = v781;
+            LOWORD(v803[1]) = v780;
+            WORD1(v803[1]) = v792;
+            v170 = isCompact_getter == _So9NSDecimala__isCompact_getter(v803);
+            v215 = v779;
+            if (v170)
             {
-              LODWORD(v796[0]) = v772;
-              WORD2(v796[0]) = v213;
-              WORD3(v796[0]) = v211;
-              WORD4(v796[0]) = v210;
-              WORD5(v796[0]) = v209;
-              WORD6(v796[0]) = v215;
-              HIWORD(v796[0]) = v207;
-              LOWORD(v796[1]) = v212;
-              WORD1(v796[1]) = v204;
-              v219 = _So9NSDecimala__reserved_getter(v796);
-              LODWORD(v796[0]) = v784;
-              WORD2(v796[0]) = v783;
-              WORD3(v796[0]) = v778;
-              WORD4(v796[0]) = v777;
-              WORD5(v796[0]) = v776;
-              WORD6(v796[0]) = v775;
-              HIWORD(v796[0]) = v774;
-              LOWORD(v796[1]) = v773;
-              WORD1(v796[1]) = v785;
-              v169 = v219 == _So9NSDecimala__reserved_getter(v796);
-              v214 = v772;
-              if (v169 && v213 == v783 && v211 == v778 && v210 == v777 && v209 == v776 && v215 == v775 && v207 == v774 && v212 == v773 && v204 == v785)
+              LODWORD(v803[0]) = v779;
+              WORD2(v803[0]) = v214;
+              WORD3(v803[0]) = v212;
+              WORD4(v803[0]) = v211;
+              WORD5(v803[0]) = v210;
+              WORD6(v803[0]) = v216;
+              HIWORD(v803[0]) = v208;
+              LOWORD(v803[1]) = v213;
+              WORD1(v803[1]) = v205;
+              v220 = _So9NSDecimala__reserved_getter(v803);
+              LODWORD(v803[0]) = v791;
+              WORD2(v803[0]) = v790;
+              WORD3(v803[0]) = v785;
+              WORD4(v803[0]) = v784;
+              WORD5(v803[0]) = v783;
+              WORD6(v803[0]) = v782;
+              HIWORD(v803[0]) = v781;
+              LOWORD(v803[1]) = v780;
+              WORD1(v803[1]) = v792;
+              v170 = v220 == _So9NSDecimala__reserved_getter(v803);
+              v215 = v779;
+              if (v170 && v214 == v790 && v212 == v785 && v211 == v784 && v210 == v783 && v216 == v782 && v208 == v781 && v213 == v780 && v205 == v792)
               {
                 goto LABEL_256;
               }
@@ -8961,58 +10478,58 @@ LABEL_234:
         }
       }
 
-      LODWORD(v796[0]) = v214;
-      WORD2(v796[0]) = v213;
-      WORD3(v796[0]) = v211;
-      WORD4(v796[0]) = v210;
-      WORD5(v796[0]) = v209;
-      WORD6(v796[0]) = v215;
-      HIWORD(v796[0]) = v207;
-      LOWORD(v796[1]) = v212;
-      WORD1(v796[1]) = v204;
-      if (!_So9NSDecimala__length_getter(v796))
+      LODWORD(v803[0]) = v215;
+      WORD2(v803[0]) = v214;
+      WORD3(v803[0]) = v212;
+      WORD4(v803[0]) = v211;
+      WORD5(v803[0]) = v210;
+      WORD6(v803[0]) = v216;
+      HIWORD(v803[0]) = v208;
+      LOWORD(v803[1]) = v213;
+      WORD1(v803[1]) = v205;
+      if (!_So9NSDecimala__length_getter(v803))
       {
-        LODWORD(v796[0]) = v214;
-        WORD2(v796[0]) = v213;
-        WORD3(v796[0]) = v211;
-        WORD4(v796[0]) = v210;
-        WORD5(v796[0]) = v209;
-        WORD6(v796[0]) = v215;
-        HIWORD(v796[0]) = v207;
-        LOWORD(v796[1]) = v212;
-        WORD1(v796[1]) = v204;
-        if (_So9NSDecimala__isNegative_getter(v796))
+        LODWORD(v803[0]) = v215;
+        WORD2(v803[0]) = v214;
+        WORD3(v803[0]) = v212;
+        WORD4(v803[0]) = v211;
+        WORD5(v803[0]) = v210;
+        WORD6(v803[0]) = v216;
+        HIWORD(v803[0]) = v208;
+        LOWORD(v803[1]) = v213;
+        WORD1(v803[1]) = v205;
+        if (_So9NSDecimala__isNegative_getter(v803))
         {
-          v402 = v784;
-          LODWORD(v796[0]) = v784;
-          v403 = v783;
-          WORD2(v796[0]) = v783;
-          v404 = v778;
-          WORD3(v796[0]) = v778;
-          v405 = v777;
-          WORD4(v796[0]) = v777;
-          v406 = v776;
-          WORD5(v796[0]) = v776;
-          v407 = v775;
-          WORD6(v796[0]) = v775;
-          v408 = v774;
-          HIWORD(v796[0]) = v774;
-          v409 = v773;
-          LOWORD(v796[1]) = v773;
-          v410 = v785;
-          WORD1(v796[1]) = v785;
-          if (!_So9NSDecimala__length_getter(v796))
+          v404 = v791;
+          LODWORD(v803[0]) = v791;
+          v405 = v790;
+          WORD2(v803[0]) = v790;
+          v406 = v785;
+          WORD3(v803[0]) = v785;
+          v407 = v784;
+          WORD4(v803[0]) = v784;
+          v408 = v783;
+          WORD5(v803[0]) = v783;
+          v409 = v782;
+          WORD6(v803[0]) = v782;
+          v410 = v781;
+          HIWORD(v803[0]) = v781;
+          v411 = v780;
+          LOWORD(v803[1]) = v780;
+          v412 = v792;
+          WORD1(v803[1]) = v792;
+          if (!_So9NSDecimala__length_getter(v803))
           {
-            LODWORD(v796[0]) = v402;
-            WORD2(v796[0]) = v403;
-            WORD3(v796[0]) = v404;
-            WORD4(v796[0]) = v405;
-            WORD5(v796[0]) = v406;
-            WORD6(v796[0]) = v407;
-            HIWORD(v796[0]) = v408;
-            LOWORD(v796[1]) = v409;
-            WORD1(v796[1]) = v410;
-            if (_So9NSDecimala__isNegative_getter(v796))
+            LODWORD(v803[0]) = v404;
+            WORD2(v803[0]) = v405;
+            WORD3(v803[0]) = v406;
+            WORD4(v803[0]) = v407;
+            WORD5(v803[0]) = v408;
+            WORD6(v803[0]) = v409;
+            HIWORD(v803[0]) = v410;
+            LOWORD(v803[1]) = v411;
+            WORD1(v803[1]) = v412;
+            if (_So9NSDecimala__isNegative_getter(v803))
             {
               goto LABEL_256;
             }
@@ -9022,197 +10539,197 @@ LABEL_234:
         }
       }
 
-      LODWORD(v796[0]) = v784;
-      v220 = v783;
-      WORD2(v796[0]) = v783;
-      LODWORD(v768) = v209;
-      v221 = v778;
-      WORD3(v796[0]) = v778;
-      v222 = v777;
-      WORD4(v796[0]) = v777;
-      v223 = v776;
-      WORD5(v796[0]) = v776;
-      v224 = v775;
-      WORD6(v796[0]) = v775;
-      v225 = v774;
-      HIWORD(v796[0]) = v774;
-      v226 = v773;
-      LOWORD(v796[1]) = v773;
-      v766.i32[0] = v211;
-      v227 = v785;
-      WORD1(v796[1]) = v785;
-      if (!_So9NSDecimala__length_getter(v796))
+      LODWORD(v803[0]) = v791;
+      v221 = v790;
+      WORD2(v803[0]) = v790;
+      LODWORD(v775) = v210;
+      v222 = v785;
+      WORD3(v803[0]) = v785;
+      v223 = v784;
+      WORD4(v803[0]) = v784;
+      v224 = v783;
+      WORD5(v803[0]) = v783;
+      v225 = v782;
+      WORD6(v803[0]) = v782;
+      v226 = v781;
+      HIWORD(v803[0]) = v781;
+      v227 = v780;
+      LOWORD(v803[1]) = v780;
+      v773.i32[0] = v212;
+      v228 = v792;
+      WORD1(v803[1]) = v792;
+      if (!_So9NSDecimala__length_getter(v803))
       {
-        LODWORD(v796[0]) = v784;
-        WORD2(v796[0]) = v220;
-        WORD3(v796[0]) = v221;
-        WORD4(v796[0]) = v222;
-        WORD5(v796[0]) = v223;
-        WORD6(v796[0]) = v224;
-        HIWORD(v796[0]) = v225;
-        LOWORD(v796[1]) = v226;
-        WORD1(v796[1]) = v227;
-        if (_So9NSDecimala__isNegative_getter(v796))
+        LODWORD(v803[0]) = v791;
+        WORD2(v803[0]) = v221;
+        WORD3(v803[0]) = v222;
+        WORD4(v803[0]) = v223;
+        WORD5(v803[0]) = v224;
+        WORD6(v803[0]) = v225;
+        HIWORD(v803[0]) = v226;
+        LOWORD(v803[1]) = v227;
+        WORD1(v803[1]) = v228;
+        if (_So9NSDecimala__isNegative_getter(v803))
         {
           goto LABEL_133;
         }
       }
 
-      LODWORD(v796[0]) = v214;
-      WORD2(v796[0]) = v770;
-      WORD3(v796[0]) = v766.i16[0];
-      WORD4(v796[0]) = v771;
-      WORD5(v796[0]) = v768;
-      WORD6(v796[0]) = v779;
-      HIWORD(v796[0]) = v780;
-      LOWORD(v796[1]) = v781;
-      WORD1(v796[1]) = v782;
-      v228 = _So9NSDecimala__isNegative_getter(v796);
-      LODWORD(v796[0]) = v784;
-      WORD2(v796[0]) = v220;
-      WORD3(v796[0]) = v221;
-      WORD4(v796[0]) = v222;
-      WORD5(v796[0]) = v223;
-      WORD6(v796[0]) = v224;
-      HIWORD(v796[0]) = v225;
-      LOWORD(v796[1]) = v226;
-      WORD1(v796[1]) = v227;
-      if (_So9NSDecimala__isNegative_getter(v796) < v228)
+      LODWORD(v803[0]) = v215;
+      WORD2(v803[0]) = v777;
+      WORD3(v803[0]) = v773.i16[0];
+      WORD4(v803[0]) = v778;
+      WORD5(v803[0]) = v775;
+      WORD6(v803[0]) = v786;
+      HIWORD(v803[0]) = v787;
+      LOWORD(v803[1]) = v788;
+      WORD1(v803[1]) = v789;
+      v229 = _So9NSDecimala__isNegative_getter(v803);
+      LODWORD(v803[0]) = v791;
+      WORD2(v803[0]) = v221;
+      WORD3(v803[0]) = v222;
+      WORD4(v803[0]) = v223;
+      WORD5(v803[0]) = v224;
+      WORD6(v803[0]) = v225;
+      HIWORD(v803[0]) = v226;
+      LOWORD(v803[1]) = v227;
+      WORD1(v803[1]) = v228;
+      if (_So9NSDecimala__isNegative_getter(v803) < v229)
       {
         goto LABEL_133;
       }
 
-      LODWORD(v796[0]) = v772;
-      WORD2(v796[0]) = v770;
-      WORD3(v796[0]) = v766.i16[0];
-      WORD4(v796[0]) = v771;
-      WORD5(v796[0]) = v768;
-      WORD6(v796[0]) = v779;
-      HIWORD(v796[0]) = v780;
-      LOWORD(v796[1]) = v781;
-      WORD1(v796[1]) = v782;
-      v229 = _So9NSDecimala__isNegative_getter(v796);
-      LODWORD(v796[0]) = v784;
-      WORD2(v796[0]) = v220;
-      WORD3(v796[0]) = v221;
-      WORD4(v796[0]) = v222;
-      WORD5(v796[0]) = v223;
-      WORD6(v796[0]) = v224;
-      HIWORD(v796[0]) = v225;
-      LOWORD(v796[1]) = v226;
-      WORD1(v796[1]) = v227;
-      if (v229 < _So9NSDecimala__isNegative_getter(v796))
+      LODWORD(v803[0]) = v779;
+      WORD2(v803[0]) = v777;
+      WORD3(v803[0]) = v773.i16[0];
+      WORD4(v803[0]) = v778;
+      WORD5(v803[0]) = v775;
+      WORD6(v803[0]) = v786;
+      HIWORD(v803[0]) = v787;
+      LOWORD(v803[1]) = v788;
+      WORD1(v803[1]) = v789;
+      v230 = _So9NSDecimala__isNegative_getter(v803);
+      LODWORD(v803[0]) = v791;
+      WORD2(v803[0]) = v221;
+      WORD3(v803[0]) = v222;
+      WORD4(v803[0]) = v223;
+      WORD5(v803[0]) = v224;
+      WORD6(v803[0]) = v225;
+      HIWORD(v803[0]) = v226;
+      LOWORD(v803[1]) = v227;
+      WORD1(v803[1]) = v228;
+      if (v230 < _So9NSDecimala__isNegative_getter(v803))
       {
         goto LABEL_133;
       }
 
-      LODWORD(v796[0]) = v772;
-      WORD2(v796[0]) = v770;
-      WORD3(v796[0]) = v766.i16[0];
-      WORD4(v796[0]) = v771;
-      WORD5(v796[0]) = v768;
-      WORD6(v796[0]) = v779;
-      HIWORD(v796[0]) = v780;
-      LOWORD(v796[1]) = v781;
-      WORD1(v796[1]) = v782;
-      if (_So9NSDecimala__length_getter(v796))
+      LODWORD(v803[0]) = v779;
+      WORD2(v803[0]) = v777;
+      WORD3(v803[0]) = v773.i16[0];
+      WORD4(v803[0]) = v778;
+      WORD5(v803[0]) = v775;
+      WORD6(v803[0]) = v786;
+      HIWORD(v803[0]) = v787;
+      LOWORD(v803[1]) = v788;
+      WORD1(v803[1]) = v789;
+      if (_So9NSDecimala__length_getter(v803))
       {
-        v230 = v784;
-        LODWORD(v796[0]) = v784;
-        v231 = v783;
-        WORD2(v796[0]) = v783;
-        v232 = v778;
-        WORD3(v796[0]) = v778;
-        v233 = v777;
-        WORD4(v796[0]) = v777;
-        v234 = v776;
-        WORD5(v796[0]) = v776;
-        v235 = v775;
-        WORD6(v796[0]) = v775;
-        v236 = v774;
-        HIWORD(v796[0]) = v774;
-        v237 = v773;
-        LOWORD(v796[1]) = v773;
-        v238 = v785;
-        WORD1(v796[1]) = v785;
-        if (_So9NSDecimala__length_getter(v796))
+        v231 = v791;
+        LODWORD(v803[0]) = v791;
+        v232 = v790;
+        WORD2(v803[0]) = v790;
+        v233 = v785;
+        WORD3(v803[0]) = v785;
+        v234 = v784;
+        WORD4(v803[0]) = v784;
+        v235 = v783;
+        WORD5(v803[0]) = v783;
+        v236 = v782;
+        WORD6(v803[0]) = v782;
+        v237 = v781;
+        HIWORD(v803[0]) = v781;
+        v238 = v780;
+        LOWORD(v803[1]) = v780;
+        v239 = v792;
+        WORD1(v803[1]) = v792;
+        if (_So9NSDecimala__length_getter(v803))
         {
-          LODWORD(v786) = v772;
-          WORD2(v786) = v770;
-          WORD3(v786) = v766.i16[0];
-          WORD4(v786) = v771;
-          WORD5(v786) = v768;
-          WORD6(v786) = v779;
-          HIWORD(v786) = v780;
-          LOWORD(v787) = v781;
-          HIWORD(v787) = v782;
-          LODWORD(v796[0]) = v230;
-          WORD2(v796[0]) = v231;
-          WORD3(v796[0]) = v232;
-          WORD4(v796[0]) = v233;
-          WORD5(v796[0]) = v234;
-          WORD6(v796[0]) = v235;
-          HIWORD(v796[0]) = v236;
-          LOWORD(v796[1]) = v237;
-          WORD1(v796[1]) = v238;
-          specialized static NSDecimal._normalize(a:b:roundingMode:)(&v786, v796);
-          NSDecimal.asVariableLengthInteger()(v786, *(&v786 + 1), v787);
-          v240 = v239;
-          NSDecimal.asVariableLengthInteger()(*&v796[0], *(&v796[0] + 1), v796[1]);
-          v242 = v241;
-          v243 = v240;
-          v244 = *(v240 + 16);
-          v245 = *(v242 + 16);
-          if (v245 < v244)
+          LODWORD(v793) = v779;
+          WORD2(v793) = v777;
+          WORD3(v793) = v773.i16[0];
+          WORD4(v793) = v778;
+          WORD5(v793) = v775;
+          WORD6(v793) = v786;
+          HIWORD(v793) = v787;
+          LOWORD(v794) = v788;
+          HIWORD(v794) = v789;
+          LODWORD(v803[0]) = v231;
+          WORD2(v803[0]) = v232;
+          WORD3(v803[0]) = v233;
+          WORD4(v803[0]) = v234;
+          WORD5(v803[0]) = v235;
+          WORD6(v803[0]) = v236;
+          HIWORD(v803[0]) = v237;
+          LOWORD(v803[1]) = v238;
+          WORD1(v803[1]) = v239;
+          specialized static NSDecimal._normalize(a:b:roundingMode:)(&v793, v803);
+          NSDecimal.asVariableLengthInteger()(v793, *(&v793 + 1), v794);
+          v241 = v240;
+          NSDecimal.asVariableLengthInteger()(*&v803[0], *(&v803[0] + 1), v803[1]);
+          v243 = v242;
+          v244 = v241;
+          v245 = *(v241 + 16);
+          v246 = *(v243 + 16);
+          if (v246 < v245)
           {
-            LODWORD(v246) = 0;
-            v247 = 1;
+            LODWORD(v247) = 0;
+            v248 = 1;
             goto LABEL_252;
           }
 
-          if (v244 >= v245)
+          if (v245 >= v246)
           {
-            v247 = 1;
+            v248 = 1;
             do
             {
-              LODWORD(v246) = v244 == 0;
-              if (!v244)
+              LODWORD(v247) = v245 == 0;
+              if (!v245)
               {
                 goto LABEL_360;
               }
 
-              v625 = *(v243 + 30 + 2 * v244);
-              v626 = *(v242 + 30 + 2 * v244);
-              if (v626 < v625)
+              v632 = *(v244 + 30 + 2 * v245);
+              v633 = *(v243 + 30 + 2 * v245);
+              if (v633 < v632)
               {
                 goto LABEL_252;
               }
 
-              --v244;
+              --v245;
             }
 
-            while (v625 >= v626);
+            while (v632 >= v633);
           }
 
           else
           {
-            LODWORD(v246) = 0;
+            LODWORD(v247) = 0;
           }
 
-          v247 = -1;
+          v248 = -1;
           goto LABEL_252;
         }
 
-        LODWORD(v796[0]) = v772;
-        WORD2(v796[0]) = v770;
-        WORD3(v796[0]) = v766.i16[0];
-        WORD4(v796[0]) = v771;
-        WORD5(v796[0]) = v768;
-        WORD6(v796[0]) = v779;
-        HIWORD(v796[0]) = v780;
-        LOWORD(v796[1]) = v781;
-        WORD1(v796[1]) = v782;
-        if (_So9NSDecimala__length_getter(v796))
+        LODWORD(v803[0]) = v779;
+        WORD2(v803[0]) = v777;
+        WORD3(v803[0]) = v773.i16[0];
+        WORD4(v803[0]) = v778;
+        WORD5(v803[0]) = v775;
+        WORD6(v803[0]) = v786;
+        HIWORD(v803[0]) = v787;
+        LOWORD(v803[1]) = v788;
+        WORD1(v803[1]) = v789;
+        if (_So9NSDecimala__length_getter(v803))
         {
           goto LABEL_133;
         }
@@ -9220,26 +10737,26 @@ LABEL_234:
 
       else
       {
-        LODWORD(v796[0]) = v784;
-        WORD2(v796[0]) = v783;
-        WORD3(v796[0]) = v778;
-        WORD4(v796[0]) = v777;
-        WORD5(v796[0]) = v776;
-        WORD6(v796[0]) = v775;
-        HIWORD(v796[0]) = v774;
-        LOWORD(v796[1]) = v773;
-        WORD1(v796[1]) = v785;
-        if (_So9NSDecimala__length_getter(v796))
+        LODWORD(v803[0]) = v791;
+        WORD2(v803[0]) = v790;
+        WORD3(v803[0]) = v785;
+        WORD4(v803[0]) = v784;
+        WORD5(v803[0]) = v783;
+        WORD6(v803[0]) = v782;
+        HIWORD(v803[0]) = v781;
+        LOWORD(v803[1]) = v780;
+        WORD1(v803[1]) = v792;
+        if (_So9NSDecimala__length_getter(v803))
         {
-          v568 = -1;
+          v574 = -1;
         }
 
         else
         {
-          v568 = 0;
+          v574 = 0;
         }
 
-        if (v568)
+        if (v574)
         {
           goto LABEL_133;
         }
@@ -9247,14 +10764,14 @@ LABEL_234:
 
       goto LABEL_256;
     case 0x10u:
-      v121 = v758;
-      outlined init with copy of String.LocalizationValue.FormatArgument.CodableStorage(v112, v758, type metadata accessor for String.LocalizationValue.FormatArgument.CodableStorage);
+      v121 = v765;
+      outlined init with copy of String.LocalizationValue.FormatArgument.CodableStorage(v112, v765, type metadata accessor for String.LocalizationValue.FormatArgument.CodableStorage);
       v122 = *v121;
       v123 = *(v121 + 8);
       v124 = *(v121 + 9);
       v126 = *(v121 + 16);
       v125 = *(v121 + 24);
-      v127 = v785;
+      v127 = v792;
       if (swift_getEnumCaseMultiPayload() != 16)
       {
 
@@ -9262,12 +10779,12 @@ LABEL_234:
         goto LABEL_113;
       }
 
-      v712 = v112;
+      v719 = v112;
       v128 = *v127;
-      LODWORD(v784) = *(v127 + 8);
+      LODWORD(v791) = *(v127 + 8);
       v129 = *(v127 + 9);
       v130 = *(v127 + 16);
-      *&v785 = *(v127 + 24);
+      *&v792 = *(v127 + 24);
       v131 = _sSasSQRzlE2eeoiySbSayxG_ABtFZ10Foundation23LocalizedStringResourceV_Tt1g5(v122, v128);
 
       if ((v131 & 1) == 0)
@@ -9297,645 +10814,83 @@ LABEL_234:
         v133 = 0;
       }
 
-      v134 = _s10Foundation15ListFormatStyleV2eeoiySbACyxq_G_AEtFZAA06StringD0V_SaySSGTt1B5(v132 | v123, v126, v125, v133 | v784, v130, v785);
+      v134 = _s10Foundation15ListFormatStyleV2eeoiySbACyxq_G_AEtFZAA06StringD0V_SaySSGTt1B5(v132 | v123, v126, v125, v133 | v791, v130, v792);
       swift_unknownObjectRelease();
       swift_unknownObjectRelease();
       goto LABEL_257;
     case 0x11u:
-      v252 = v761;
-      outlined init with copy of String.LocalizationValue.FormatArgument.CodableStorage(v112, v761, type metadata accessor for String.LocalizationValue.FormatArgument.CodableStorage);
-      v253 = v785;
+      v253 = v768;
+      outlined init with copy of String.LocalizationValue.FormatArgument.CodableStorage(v112, v768, type metadata accessor for String.LocalizationValue.FormatArgument.CodableStorage);
+      v254 = v792;
       if (swift_getEnumCaseMultiPayload() != 17)
       {
         goto LABEL_113;
       }
 
-      v249 = *v252;
-      v251 = *v253;
+      v250 = *v253;
+      v252 = *v254;
 LABEL_74:
-      v169 = v249 == v251;
+      v170 = v250 == v252;
 LABEL_91:
-      v134 = v169;
+      v134 = v170;
       goto LABEL_94;
     default:
-      v116 = v757;
-      outlined init with copy of String.LocalizationValue.FormatArgument.CodableStorage(v112, v757, type metadata accessor for String.LocalizationValue.FormatArgument.CodableStorage);
+      v116 = v764;
+      outlined init with copy of String.LocalizationValue.FormatArgument.CodableStorage(v112, v764, type metadata accessor for String.LocalizationValue.FormatArgument.CodableStorage);
       v117 = *(v116 + 64);
-      v796[5] = *(v116 + 80);
-      *&v797[0] = *(v116 + 96);
+      v803[5] = *(v116 + 80);
+      *&v804[0] = *(v116 + 96);
       v118 = *(v116 + 16);
-      v796[0] = *v116;
-      v796[1] = v118;
+      v803[0] = *v116;
+      v803[1] = v118;
       v119 = *(v116 + 32);
-      v796[3] = *(v116 + 48);
-      v796[4] = v117;
-      v796[2] = v119;
-      v120 = v785;
+      v803[3] = *(v116 + 48);
+      v803[4] = v117;
+      v803[2] = v119;
+      v120 = v792;
       if (swift_getEnumCaseMultiPayload())
       {
-        outlined destroy of LocalizedStringResource(v796);
+        outlined destroy of LocalizedStringResource(v803);
         goto LABEL_113;
       }
 
-      v366 = *(v120 + 48);
-      v367 = *(v120 + 80);
-      v833 = *(v120 + 64);
-      v834 = v367;
-      v368 = *(v120 + 16);
-      v829 = *v120;
-      v830 = v368;
-      v369 = *(v120 + 32);
-      v371 = *v120;
+      v368 = *(v120 + 48);
+      v369 = *(v120 + 80);
+      v840 = *(v120 + 64);
+      v841 = v369;
       v370 = *(v120 + 16);
-      v372 = v369;
-      v832 = *(v120 + 48);
-      v831 = v369;
-      v373 = *(v116 + 80);
-      v826 = *(v116 + 64);
-      v827 = v373;
-      v374 = *(v116 + 16);
-      v822 = *v116;
-      v823 = v374;
-      v375 = *(v116 + 32);
-      v825 = *(v116 + 48);
-      v824 = v375;
-      v376 = *(v120 + 80);
-      v820 = v833;
-      v821[0] = v376;
-      v816 = v371;
-      v817 = v370;
-      *&v835[0] = *(v120 + 96);
-      *&v828[0] = *(v116 + 96);
-      *&v821[1] = *(v120 + 96);
-      v819 = v366;
-      v818 = v372;
-      v134 = static LocalizedStringResource.== infix(_:_:)(&v822, &v816);
-      outlined destroy of LocalizedStringResource(&v829);
-      outlined destroy of LocalizedStringResource(v796);
+      v836 = *v120;
+      v837 = v370;
+      v371 = *(v120 + 32);
+      v373 = *v120;
+      v372 = *(v120 + 16);
+      v374 = v371;
+      v839 = *(v120 + 48);
+      v838 = v371;
+      v375 = *(v116 + 80);
+      v833 = *(v116 + 64);
+      v834 = v375;
+      v376 = *(v116 + 16);
+      v829 = *v116;
+      v830 = v376;
+      v377 = *(v116 + 32);
+      v832 = *(v116 + 48);
+      v831 = v377;
+      v378 = *(v120 + 80);
+      v827 = v840;
+      v828[0] = v378;
+      v823 = v373;
+      v824 = v372;
+      *&v842[0] = *(v120 + 96);
+      *&v835[0] = *(v116 + 96);
+      *&v828[1] = *(v120 + 96);
+      v826 = v368;
+      v825 = v374;
+      v134 = static LocalizedStringResource.== infix(_:_:)(&v829, &v823);
+      outlined destroy of LocalizedStringResource(&v836);
+      outlined destroy of LocalizedStringResource(v803);
 LABEL_94:
       outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v112, type metadata accessor for String.LocalizationValue.FormatArgument.CodableStorage);
       return v134 & 1;
   }
-}
-
-uint64_t specialized static String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle.== infix(_:_:)(uint64_t a1, uint64_t a2)
-{
-  *&v44 = a2;
-  v41 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation18IntegerFormatStyleV7PercentVySi_GMd);
-  MEMORY[0x1EEE9AC00](v41);
-  v42 = (&v40 - v3);
-  v40 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation18IntegerFormatStyleV8CurrencyVySi_GMd);
-  MEMORY[0x1EEE9AC00](v40);
-  v43 = &v40 - v4;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation18IntegerFormatStyleVySiGMd);
-  MEMORY[0x1EEE9AC00](v5);
-  v7 = (&v40 - v6);
-  v8 = type metadata accessor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle.Format(0);
-  MEMORY[0x1EEE9AC00](v8);
-  v10 = (&v40 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0));
-  MEMORY[0x1EEE9AC00](v11);
-  v13 = &v40 - v12;
-  MEMORY[0x1EEE9AC00](v14);
-  v16 = (&v40 - v15);
-  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS10FoundationE17LocalizationValueV14FormatArgumentV07IntegereD5StyleV0D033_52A34860FC1D9F87FB0A99C608112EB3LLO_AJtMd);
-  MEMORY[0x1EEE9AC00](v17 - 8);
-  v19 = &v40 - v18;
-  v21 = *(v20 + 56);
-  outlined init with copy of String.LocalizationValue.FormatArgument.CodableStorage(a1, &v40 - v18, type metadata accessor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle.Format);
-  outlined init with copy of String.LocalizationValue.FormatArgument.CodableStorage(v44, &v19[v21], type metadata accessor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle.Format);
-  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-  if (EnumCaseMultiPayload)
-  {
-    if (EnumCaseMultiPayload == 1)
-    {
-      outlined init with copy of String.LocalizationValue.FormatArgument.CodableStorage(v19, v13, type metadata accessor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle.Format);
-      if (swift_getEnumCaseMultiPayload() == 1)
-      {
-        v23 = v43;
-        outlined init with take of IntegerFormatStyle<Int>.Percent(&v19[v21], v43, &_s10Foundation18IntegerFormatStyleV8CurrencyVySi_GMd);
-        v24 = *v13;
-        v44 = *v23;
-        v45 = v44;
-        v46 = v24;
-        swift_unknownObjectRetain();
-        swift_unknownObjectRetain();
-        v25 = specialized static Locale.== infix(_:_:)(&v46, &v45);
-        swift_unknownObjectRelease();
-        swift_unknownObjectRelease();
-        if (v25 & 1) != 0 && (*(v13 + 2) == *(v23 + 16) && *(v13 + 3) == *(v23 + 24) || (_stringCompareWithSmolCheck(_:_:expecting:)()) && (static CurrencyFormatStyleConfiguration.Collection.== infix(_:_:)(&v13[*(v40 + 40)], v23 + *(v40 + 40)))
-        {
-          outlined destroy of TermOfAddress?(v23, &_s10Foundation18IntegerFormatStyleV8CurrencyVySi_GMd);
-          v26 = v13;
-          v27 = &_s10Foundation18IntegerFormatStyleV8CurrencyVySi_GMd;
-LABEL_23:
-          outlined destroy of TermOfAddress?(v26, v27);
-          outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v19, type metadata accessor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle.Format);
-          return 1;
-        }
-
-        outlined destroy of TermOfAddress?(v23, &_s10Foundation18IntegerFormatStyleV8CurrencyVySi_GMd);
-        v34 = v13;
-        v35 = &_s10Foundation18IntegerFormatStyleV8CurrencyVySi_GMd;
-        goto LABEL_28;
-      }
-
-      v28 = &_s10Foundation18IntegerFormatStyleV8CurrencyVySi_GMd;
-      v29 = v13;
-    }
-
-    else
-    {
-      outlined init with copy of String.LocalizationValue.FormatArgument.CodableStorage(v19, v10, type metadata accessor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle.Format);
-      if (swift_getEnumCaseMultiPayload() == 2)
-      {
-        v30 = v42;
-        outlined init with take of IntegerFormatStyle<Int>.Percent(&v19[v21], v42, &_s10Foundation18IntegerFormatStyleV7PercentVySi_GMd);
-        v31 = *v10;
-        v44 = *v30;
-        v45 = v44;
-        v46 = v31;
-        swift_unknownObjectRetain();
-        swift_unknownObjectRetain();
-        v32 = specialized static Locale.== infix(_:_:)(&v46, &v45);
-        swift_unknownObjectRelease();
-        swift_unknownObjectRelease();
-        if (v32)
-        {
-          v33 = static NumberFormatStyleConfiguration.Collection.== infix(_:_:)(v10 + *(v41 + 36), v30 + *(v41 + 36));
-          outlined destroy of TermOfAddress?(v30, &_s10Foundation18IntegerFormatStyleV7PercentVySi_GMd);
-          if (v33)
-          {
-            v27 = &_s10Foundation18IntegerFormatStyleV7PercentVySi_GMd;
-            v26 = v10;
-            goto LABEL_23;
-          }
-        }
-
-        else
-        {
-          outlined destroy of TermOfAddress?(v30, &_s10Foundation18IntegerFormatStyleV7PercentVySi_GMd);
-        }
-
-        v35 = &_s10Foundation18IntegerFormatStyleV7PercentVySi_GMd;
-        v34 = v10;
-        goto LABEL_28;
-      }
-
-      v28 = &_s10Foundation18IntegerFormatStyleV7PercentVySi_GMd;
-      v29 = v10;
-    }
-  }
-
-  else
-  {
-    outlined init with copy of String.LocalizationValue.FormatArgument.CodableStorage(v19, v16, type metadata accessor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle.Format);
-    if (!swift_getEnumCaseMultiPayload())
-    {
-      outlined init with take of IntegerFormatStyle<Int>.Percent(&v19[v21], v7, &_s10Foundation18IntegerFormatStyleVySiGMd);
-      v36 = *v16;
-      v44 = *v7;
-      v45 = v44;
-      v46 = v36;
-      swift_unknownObjectRetain();
-      swift_unknownObjectRetain();
-      v37 = specialized static Locale.== infix(_:_:)(&v46, &v45);
-      swift_unknownObjectRelease();
-      swift_unknownObjectRelease();
-      if (v37)
-      {
-        v38 = static NumberFormatStyleConfiguration.Collection.== infix(_:_:)(v16 + *(v5 + 36), v7 + *(v5 + 36));
-        outlined destroy of TermOfAddress?(v7, &_s10Foundation18IntegerFormatStyleVySiGMd);
-        if (v38)
-        {
-          v27 = &_s10Foundation18IntegerFormatStyleVySiGMd;
-          v26 = v16;
-          goto LABEL_23;
-        }
-      }
-
-      else
-      {
-        outlined destroy of TermOfAddress?(v7, &_s10Foundation18IntegerFormatStyleVySiGMd);
-      }
-
-      v35 = &_s10Foundation18IntegerFormatStyleVySiGMd;
-      v34 = v16;
-LABEL_28:
-      outlined destroy of TermOfAddress?(v34, v35);
-      outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v19, type metadata accessor for String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle.Format);
-      return 0;
-    }
-
-    v28 = &_s10Foundation18IntegerFormatStyleVySiGMd;
-    v29 = v16;
-  }
-
-  outlined destroy of TermOfAddress?(v29, v28);
-  outlined destroy of TermOfAddress?(v19, &_sSS10FoundationE17LocalizationValueV14FormatArgumentV07IntegereD5StyleV0D033_52A34860FC1D9F87FB0A99C608112EB3LLO_AJtMd);
-  return 0;
-}
-
-uint64_t specialized static String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format.== infix(_:_:)(uint64_t a1, uint64_t a2)
-{
-  *&v45 = a2;
-  v42 = type metadata accessor for NSDecimal.FormatStyle.Percent(0);
-  MEMORY[0x1EEE9AC00](v42);
-  v43 = (&v41 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v41 = type metadata accessor for NSDecimal.FormatStyle.Currency(0);
-  MEMORY[0x1EEE9AC00](v41);
-  v44 = &v41 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = type metadata accessor for NSDecimal.FormatStyle(0);
-  MEMORY[0x1EEE9AC00](v5);
-  v7 = (&v41 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v8 = type metadata accessor for String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format(0);
-  MEMORY[0x1EEE9AC00](v8);
-  v10 = (&v41 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0));
-  MEMORY[0x1EEE9AC00](v11);
-  v13 = &v41 - v12;
-  MEMORY[0x1EEE9AC00](v14);
-  v16 = (&v41 - v15);
-  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS10FoundationE17LocalizationValueV14FormatArgumentV07DecimaleD5StyleV0D033_52A34860FC1D9F87FB0A99C608112EB3LLO_AJtMd);
-  MEMORY[0x1EEE9AC00](v17 - 8);
-  v19 = &v41 - v18;
-  v21 = *(v20 + 56);
-  outlined init with copy of String.LocalizationValue.FormatArgument.CodableStorage(a1, &v41 - v18, type metadata accessor for String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format);
-  outlined init with copy of String.LocalizationValue.FormatArgument.CodableStorage(v45, &v19[v21], type metadata accessor for String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format);
-  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-  if (EnumCaseMultiPayload)
-  {
-    if (EnumCaseMultiPayload == 1)
-    {
-      outlined init with copy of String.LocalizationValue.FormatArgument.CodableStorage(v19, v13, type metadata accessor for String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format);
-      if (swift_getEnumCaseMultiPayload() == 1)
-      {
-        v23 = &v19[v21];
-        v24 = v44;
-        outlined init with take of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v23, v44, type metadata accessor for NSDecimal.FormatStyle.Currency);
-        v25 = *v13;
-        v45 = *v24;
-        v46 = v45;
-        v47 = v25;
-        swift_unknownObjectRetain();
-        swift_unknownObjectRetain();
-        v26 = specialized static Locale.== infix(_:_:)(&v47, &v46);
-        swift_unknownObjectRelease();
-        swift_unknownObjectRelease();
-        if (v26 & 1) != 0 && (*(v13 + 2) == *(v24 + 16) && *(v13 + 3) == *(v24 + 24) || (_stringCompareWithSmolCheck(_:_:expecting:)()) && (static CurrencyFormatStyleConfiguration.Collection.== infix(_:_:)(&v13[*(v41 + 24)], v24 + *(v41 + 24)))
-        {
-          outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v24, type metadata accessor for NSDecimal.FormatStyle.Currency);
-          v27 = v13;
-          v28 = type metadata accessor for NSDecimal.FormatStyle.Currency;
-LABEL_23:
-          outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v27, v28);
-          outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v19, type metadata accessor for String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format);
-          return 1;
-        }
-
-        outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v24, type metadata accessor for NSDecimal.FormatStyle.Currency);
-        v35 = v13;
-        v36 = type metadata accessor for NSDecimal.FormatStyle.Currency;
-        goto LABEL_28;
-      }
-
-      v29 = type metadata accessor for NSDecimal.FormatStyle.Currency;
-      v30 = v13;
-    }
-
-    else
-    {
-      outlined init with copy of String.LocalizationValue.FormatArgument.CodableStorage(v19, v10, type metadata accessor for String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format);
-      if (swift_getEnumCaseMultiPayload() == 2)
-      {
-        v31 = v43;
-        outlined init with take of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(&v19[v21], v43, type metadata accessor for NSDecimal.FormatStyle.Percent);
-        v32 = *v10;
-        v45 = *v31;
-        v46 = v45;
-        v47 = v32;
-        swift_unknownObjectRetain();
-        swift_unknownObjectRetain();
-        v33 = specialized static Locale.== infix(_:_:)(&v47, &v46);
-        swift_unknownObjectRelease();
-        swift_unknownObjectRelease();
-        if (v33)
-        {
-          v34 = static NumberFormatStyleConfiguration.Collection.== infix(_:_:)(v10 + *(v42 + 20), v31 + *(v42 + 20));
-          outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v31, type metadata accessor for NSDecimal.FormatStyle.Percent);
-          if (v34)
-          {
-            v28 = type metadata accessor for NSDecimal.FormatStyle.Percent;
-            v27 = v10;
-            goto LABEL_23;
-          }
-        }
-
-        else
-        {
-          outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v31, type metadata accessor for NSDecimal.FormatStyle.Percent);
-        }
-
-        v36 = type metadata accessor for NSDecimal.FormatStyle.Percent;
-        v35 = v10;
-        goto LABEL_28;
-      }
-
-      v29 = type metadata accessor for NSDecimal.FormatStyle.Percent;
-      v30 = v10;
-    }
-  }
-
-  else
-  {
-    outlined init with copy of String.LocalizationValue.FormatArgument.CodableStorage(v19, v16, type metadata accessor for String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format);
-    if (!swift_getEnumCaseMultiPayload())
-    {
-      outlined init with take of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(&v19[v21], v7, type metadata accessor for NSDecimal.FormatStyle);
-      v37 = *v16;
-      v45 = *v7;
-      v46 = v45;
-      v47 = v37;
-      swift_unknownObjectRetain();
-      swift_unknownObjectRetain();
-      v38 = specialized static Locale.== infix(_:_:)(&v47, &v46);
-      swift_unknownObjectRelease();
-      swift_unknownObjectRelease();
-      if (v38)
-      {
-        v39 = static NumberFormatStyleConfiguration.Collection.== infix(_:_:)(v16 + *(v5 + 20), v7 + *(v5 + 20));
-        outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v7, type metadata accessor for NSDecimal.FormatStyle);
-        if (v39)
-        {
-          v28 = type metadata accessor for NSDecimal.FormatStyle;
-          v27 = v16;
-          goto LABEL_23;
-        }
-      }
-
-      else
-      {
-        outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v7, type metadata accessor for NSDecimal.FormatStyle);
-      }
-
-      v36 = type metadata accessor for NSDecimal.FormatStyle;
-      v35 = v16;
-LABEL_28:
-      outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v35, v36);
-      outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v19, type metadata accessor for String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle.Format);
-      return 0;
-    }
-
-    v29 = type metadata accessor for NSDecimal.FormatStyle;
-    v30 = v16;
-  }
-
-  outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v30, v29);
-  outlined destroy of TermOfAddress?(v19, &_sSS10FoundationE17LocalizationValueV14FormatArgumentV07DecimaleD5StyleV0D033_52A34860FC1D9F87FB0A99C608112EB3LLO_AJtMd);
-  return 0;
-}
-
-uint64_t specialized static String.LocalizationValue.FormatArgument.FloatingPointArgumentFormatStyle.== infix(_:_:)(uint64_t a1, uint64_t a2)
-{
-  *&v44 = a2;
-  v41 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation24FloatingPointFormatStyleV7PercentVySd_GMd);
-  MEMORY[0x1EEE9AC00](v41);
-  v42 = (&v40 - v3);
-  v40 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation24FloatingPointFormatStyleV8CurrencyVySd_GMd);
-  MEMORY[0x1EEE9AC00](v40);
-  v43 = &v40 - v4;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation24FloatingPointFormatStyleVySdGMd);
-  MEMORY[0x1EEE9AC00](v5);
-  v7 = (&v40 - v6);
-  v8 = type metadata accessor for String.LocalizationValue.FormatArgument.FloatingPointArgumentFormatStyle.Format(0);
-  MEMORY[0x1EEE9AC00](v8);
-  v10 = (&v40 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0));
-  MEMORY[0x1EEE9AC00](v11);
-  v13 = &v40 - v12;
-  MEMORY[0x1EEE9AC00](v14);
-  v16 = (&v40 - v15);
-  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS10FoundationE17LocalizationValueV14FormatArgumentV013FloatingPointeD5StyleV0D033_52A34860FC1D9F87FB0A99C608112EB3LLO_AJtMd);
-  MEMORY[0x1EEE9AC00](v17 - 8);
-  v19 = &v40 - v18;
-  v21 = *(v20 + 56);
-  outlined init with copy of String.LocalizationValue.FormatArgument.CodableStorage(a1, &v40 - v18, type metadata accessor for String.LocalizationValue.FormatArgument.FloatingPointArgumentFormatStyle.Format);
-  outlined init with copy of String.LocalizationValue.FormatArgument.CodableStorage(v44, &v19[v21], type metadata accessor for String.LocalizationValue.FormatArgument.FloatingPointArgumentFormatStyle.Format);
-  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-  if (EnumCaseMultiPayload)
-  {
-    if (EnumCaseMultiPayload == 1)
-    {
-      outlined init with copy of String.LocalizationValue.FormatArgument.CodableStorage(v19, v13, type metadata accessor for String.LocalizationValue.FormatArgument.FloatingPointArgumentFormatStyle.Format);
-      if (swift_getEnumCaseMultiPayload() == 1)
-      {
-        v23 = v43;
-        outlined init with take of IntegerFormatStyle<Int>.Percent(&v19[v21], v43, &_s10Foundation24FloatingPointFormatStyleV8CurrencyVySd_GMd);
-        v24 = *v13;
-        v44 = *v23;
-        v45 = v44;
-        v46 = v24;
-        swift_unknownObjectRetain();
-        swift_unknownObjectRetain();
-        v25 = specialized static Locale.== infix(_:_:)(&v46, &v45);
-        swift_unknownObjectRelease();
-        swift_unknownObjectRelease();
-        if (v25 & 1) != 0 && (*(v13 + 2) == *(v23 + 16) && *(v13 + 3) == *(v23 + 24) || (_stringCompareWithSmolCheck(_:_:expecting:)()) && (static CurrencyFormatStyleConfiguration.Collection.== infix(_:_:)(&v13[*(v40 + 40)], v23 + *(v40 + 40)))
-        {
-          outlined destroy of TermOfAddress?(v23, &_s10Foundation24FloatingPointFormatStyleV8CurrencyVySd_GMd);
-          v26 = v13;
-          v27 = &_s10Foundation24FloatingPointFormatStyleV8CurrencyVySd_GMd;
-LABEL_23:
-          outlined destroy of TermOfAddress?(v26, v27);
-          outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v19, type metadata accessor for String.LocalizationValue.FormatArgument.FloatingPointArgumentFormatStyle.Format);
-          return 1;
-        }
-
-        outlined destroy of TermOfAddress?(v23, &_s10Foundation24FloatingPointFormatStyleV8CurrencyVySd_GMd);
-        v34 = v13;
-        v35 = &_s10Foundation24FloatingPointFormatStyleV8CurrencyVySd_GMd;
-        goto LABEL_28;
-      }
-
-      v28 = &_s10Foundation24FloatingPointFormatStyleV8CurrencyVySd_GMd;
-      v29 = v13;
-    }
-
-    else
-    {
-      outlined init with copy of String.LocalizationValue.FormatArgument.CodableStorage(v19, v10, type metadata accessor for String.LocalizationValue.FormatArgument.FloatingPointArgumentFormatStyle.Format);
-      if (swift_getEnumCaseMultiPayload() == 2)
-      {
-        v30 = v42;
-        outlined init with take of IntegerFormatStyle<Int>.Percent(&v19[v21], v42, &_s10Foundation24FloatingPointFormatStyleV7PercentVySd_GMd);
-        v31 = *v10;
-        v44 = *v30;
-        v45 = v44;
-        v46 = v31;
-        swift_unknownObjectRetain();
-        swift_unknownObjectRetain();
-        v32 = specialized static Locale.== infix(_:_:)(&v46, &v45);
-        swift_unknownObjectRelease();
-        swift_unknownObjectRelease();
-        if (v32)
-        {
-          v33 = static NumberFormatStyleConfiguration.Collection.== infix(_:_:)(v10 + *(v41 + 36), v30 + *(v41 + 36));
-          outlined destroy of TermOfAddress?(v30, &_s10Foundation24FloatingPointFormatStyleV7PercentVySd_GMd);
-          if (v33)
-          {
-            v27 = &_s10Foundation24FloatingPointFormatStyleV7PercentVySd_GMd;
-            v26 = v10;
-            goto LABEL_23;
-          }
-        }
-
-        else
-        {
-          outlined destroy of TermOfAddress?(v30, &_s10Foundation24FloatingPointFormatStyleV7PercentVySd_GMd);
-        }
-
-        v35 = &_s10Foundation24FloatingPointFormatStyleV7PercentVySd_GMd;
-        v34 = v10;
-        goto LABEL_28;
-      }
-
-      v28 = &_s10Foundation24FloatingPointFormatStyleV7PercentVySd_GMd;
-      v29 = v10;
-    }
-  }
-
-  else
-  {
-    outlined init with copy of String.LocalizationValue.FormatArgument.CodableStorage(v19, v16, type metadata accessor for String.LocalizationValue.FormatArgument.FloatingPointArgumentFormatStyle.Format);
-    if (!swift_getEnumCaseMultiPayload())
-    {
-      outlined init with take of IntegerFormatStyle<Int>.Percent(&v19[v21], v7, &_s10Foundation24FloatingPointFormatStyleVySdGMd);
-      v36 = *v16;
-      v44 = *v7;
-      v45 = v44;
-      v46 = v36;
-      swift_unknownObjectRetain();
-      swift_unknownObjectRetain();
-      v37 = specialized static Locale.== infix(_:_:)(&v46, &v45);
-      swift_unknownObjectRelease();
-      swift_unknownObjectRelease();
-      if (v37)
-      {
-        v38 = static NumberFormatStyleConfiguration.Collection.== infix(_:_:)(v16 + *(v5 + 36), v7 + *(v5 + 36));
-        outlined destroy of TermOfAddress?(v7, &_s10Foundation24FloatingPointFormatStyleVySdGMd);
-        if (v38)
-        {
-          v27 = &_s10Foundation24FloatingPointFormatStyleVySdGMd;
-          v26 = v16;
-          goto LABEL_23;
-        }
-      }
-
-      else
-      {
-        outlined destroy of TermOfAddress?(v7, &_s10Foundation24FloatingPointFormatStyleVySdGMd);
-      }
-
-      v35 = &_s10Foundation24FloatingPointFormatStyleVySdGMd;
-      v34 = v16;
-LABEL_28:
-      outlined destroy of TermOfAddress?(v34, v35);
-      outlined destroy of String.LocalizationValue.FormatArgument.DecimalArgumentFormatStyle(v19, type metadata accessor for String.LocalizationValue.FormatArgument.FloatingPointArgumentFormatStyle.Format);
-      return 0;
-    }
-
-    v28 = &_s10Foundation24FloatingPointFormatStyleVySdGMd;
-    v29 = v16;
-  }
-
-  outlined destroy of TermOfAddress?(v29, v28);
-  outlined destroy of TermOfAddress?(v19, &_sSS10FoundationE17LocalizationValueV14FormatArgumentV013FloatingPointeD5StyleV0D033_52A34860FC1D9F87FB0A99C608112EB3LLO_AJtMd);
-  return 0;
-}
-
-unint64_t lazy protocol witness table accessor for type String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle.CodingKeys and conformance String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle.CodingKeys()
-{
-  result = lazy protocol witness table cache variable for type String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle.CodingKeys and conformance String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle.CodingKeys;
-  if (!lazy protocol witness table cache variable for type String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle.CodingKeys and conformance String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle.CodingKeys and conformance String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle.CodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle.CodingKeys and conformance String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle.CodingKeys;
-  if (!lazy protocol witness table cache variable for type String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle.CodingKeys and conformance String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle.CodingKeys and conformance String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle.CodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle.CodingKeys and conformance String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle.CodingKeys;
-  if (!lazy protocol witness table cache variable for type String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle.CodingKeys and conformance String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle.CodingKeys and conformance String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle.CodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle.CodingKeys and conformance String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle.CodingKeys;
-  if (!lazy protocol witness table cache variable for type String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle.CodingKeys and conformance String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle.CodingKeys and conformance String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle.CodingKeys);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle.Format.CodingKeys and conformance String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle.Format.CodingKeys()
-{
-  result = lazy protocol witness table cache variable for type String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle.Format.CodingKeys and conformance String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle.Format.CodingKeys;
-  if (!lazy protocol witness table cache variable for type String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle.Format.CodingKeys and conformance String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle.Format.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle.Format.CodingKeys and conformance String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle.Format.CodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle.Format.CodingKeys and conformance String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle.Format.CodingKeys;
-  if (!lazy protocol witness table cache variable for type String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle.Format.CodingKeys and conformance String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle.Format.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle.Format.CodingKeys and conformance String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle.Format.CodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle.Format.CodingKeys and conformance String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle.Format.CodingKeys;
-  if (!lazy protocol witness table cache variable for type String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle.Format.CodingKeys and conformance String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle.Format.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle.Format.CodingKeys and conformance String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle.Format.CodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle.Format.CodingKeys and conformance String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle.Format.CodingKeys;
-  if (!lazy protocol witness table cache variable for type String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle.Format.CodingKeys and conformance String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle.Format.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle.Format.CodingKeys and conformance String.LocalizationValue.FormatArgument.IntegerArgumentFormatStyle.Format.CodingKeys);
-  }
-
-  return result;
 }

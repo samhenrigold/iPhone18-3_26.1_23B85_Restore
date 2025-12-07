@@ -69,7 +69,7 @@
 
           stringValue = [v17 stringValue];
           memset(&v34, 0, sizeof(v34));
-          [self duration];
+          objc_msgSend_duration(self);
           Seconds = 0.0;
           if ((~v34.flags & 0x11) != 0)
           {

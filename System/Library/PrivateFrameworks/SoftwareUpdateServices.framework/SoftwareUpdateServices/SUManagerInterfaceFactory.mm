@@ -18,9 +18,11 @@
 
 uint64_t __43__SUManagerInterfaceFactory_sharedInstance__block_invoke()
 {
-  sharedInstance___instance_0 = objc_alloc_init(SUManagerPolicy);
+  v0 = objc_alloc_init(SUManagerPolicy);
+  v1 = sharedInstance___instance_0;
+  sharedInstance___instance_0 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

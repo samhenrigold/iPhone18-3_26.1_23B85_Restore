@@ -13,7 +13,7 @@
 
 - (id)stringByStrippingTags
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   if ([self rangeOfString:@"<" options:2] == 0x7FFFFFFFFFFFFFFFLL)
   {
@@ -30,9 +30,9 @@
     {
 
       [v4 scanUpToString:@"<" intoString:0];
-      v24 = 0;
-      [v4 scanUpToString:@">" intoString:&v24];
-      v6 = v24;
+      v23 = 0;
+      [v4 scanUpToString:@">" intoString:&v23];
+      v6 = v23;
       if (v6)
       {
         v7 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@>", v6];
@@ -41,29 +41,29 @@
     }
 
     while (![v4 isAtEnd]);
-    v18 = v6;
-    v19 = v4;
+    v17 = v6;
+    v18 = v4;
     v8 = [objc_alloc(MEMORY[0x277CCAB68]) initWithString:self];
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
     v9 = v5;
-    v10 = [v9 countByEnumeratingWithState:&v20 objects:v25 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v19 objects:v24 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v21;
+      v12 = *v20;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v21 != v12)
+          if (*v20 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v20 + 1) + 8 * i);
+          v14 = *(*(&v19 + 1) + 8 * i);
           if (([v14 isEqualToString:@"<a>"] & 1) != 0 || (objc_msgSend(v14, "isEqualToString:", @"</a>") & 1) != 0 || (objc_msgSend(v14, "isEqualToString:", @"<span>") & 1) != 0 || (objc_msgSend(v14, "isEqualToString:", @"</span>") & 1) != 0 || (objc_msgSend(v14, "isEqualToString:", @"<strong>") & 1) != 0 || (objc_msgSend(v14, "isEqualToString:", @"</strong>") & 1) != 0 || (objc_msgSend(v14, "isEqualToString:", @"<em>") & 1) != 0 || (v15 = @" ", objc_msgSend(v14, "isEqualToString:", @"</em>")))
           {
             v15 = &stru_2850323E8;
@@ -72,7 +72,7 @@
           [v8 replaceOccurrencesOfString:v14 withString:v15 options:2 range:{0, objc_msgSend(v8, "length")}];
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v20 objects:v25 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v19 objects:v24 count:16];
       }
 
       while (v11);
@@ -82,7 +82,6 @@
   }
 
   objc_autoreleasePoolPop(v2);
-  v16 = *MEMORY[0x277D85DE8];
 
   return stringByRemovingNewLinesAndWhitespace;
 }

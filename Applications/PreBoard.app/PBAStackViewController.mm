@@ -5,6 +5,12 @@
 - (void)_setViewControllers:(id)controllers animated:(BOOL)animated completion:(id)completion;
 - (void)didReceiveMemoryWarning;
 - (void)loadView;
+- (void)popToRootViewControllerAnimated:(BOOL)animated;
+- (void)popToViewController:(id)controller animated:(BOOL)animated;
+- (void)popViewControllerAnimated:(BOOL)animated;
+- (void)pushViewController:(id)controller animated:(BOOL)animated completion:(id)completion;
+- (void)removeViewController:(id)controller animated:(BOOL)animated;
+- (void)replaceViewController:(id)controller withViewController:(id)viewController animated:(BOOL)animated;
 - (void)showViewController:(id)controller sender:(id)sender;
 - (void)viewDidLoad;
 @end
@@ -300,6 +306,81 @@ LABEL_42:
   }
 
   return v5;
+}
+
+- (void)pushViewController:(id)controller animated:(BOOL)animated completion:(id)completion
+{
+  animatedCopy = animated;
+  viewControllers = self->_viewControllers;
+  completionCopy = completion;
+  v10 = [(NSArray *)viewControllers arrayByAddingObject:controller];
+  [(PBAStackViewController *)self _setViewControllers:v10 animated:animatedCopy completion:completionCopy];
+}
+
+- (void)popViewControllerAnimated:(BOOL)animated
+{
+  animatedCopy = animated;
+  v5 = [(NSArray *)self->_viewControllers count];
+  if (v5)
+  {
+    v6 = v5 - 1;
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  v7 = [(NSArray *)self->_viewControllers subarrayWithRange:0, v6];
+  [(PBAStackViewController *)self setViewControllers:v7 animated:animatedCopy];
+}
+
+- (void)popToRootViewControllerAnimated:(BOOL)animated
+{
+  animatedCopy = animated;
+  v5 = [(NSArray *)self->_viewControllers subarrayWithRange:0, 1];
+  [(PBAStackViewController *)self setViewControllers:v5 animated:animatedCopy];
+}
+
+- (void)popToViewController:(id)controller animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  controllerCopy = controller;
+  v7 = [(NSArray *)self->_viewControllers indexOfObject:?];
+  if (v7 == 0x7FFFFFFFFFFFFFFFLL)
+  {
+    sub_10000D05C(a2, self, controllerCopy);
+  }
+
+  v8 = [(NSArray *)self->_viewControllers subarrayWithRange:0, v7 + 1];
+  [(PBAStackViewController *)self setViewControllers:v8 animated:animatedCopy];
+}
+
+- (void)removeViewController:(id)controller animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  viewControllers = self->_viewControllers;
+  controllerCopy = controller;
+  v8 = [(NSArray *)viewControllers mutableCopy];
+  [v8 removeObject:controllerCopy];
+
+  [(PBAStackViewController *)self setViewControllers:v8 animated:animatedCopy];
+}
+
+- (void)replaceViewController:(id)controller withViewController:(id)viewController animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  controllerCopy = controller;
+  viewControllerCopy = viewController;
+  v10 = [(NSArray *)self->_viewControllers mutableCopy];
+  v11 = [v10 indexOfObject:controllerCopy];
+  if (v11 == 0x7FFFFFFFFFFFFFFFLL)
+  {
+    sub_10000D0DC(a2, self, controllerCopy);
+  }
+
+  [v10 replaceObjectAtIndex:v11 withObject:viewControllerCopy];
+  [(PBAStackViewController *)self setViewControllers:v10 animated:animatedCopy];
 }
 
 - (void)showViewController:(id)controller sender:(id)sender

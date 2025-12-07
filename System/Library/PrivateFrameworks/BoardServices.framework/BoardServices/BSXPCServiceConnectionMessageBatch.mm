@@ -75,7 +75,7 @@
 
 - (BOOL)appendMessage:(id)message
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   os_unfair_lock_lock(&self->_lock);
   lock_messages = self->_lock_messages;
@@ -115,33 +115,33 @@
     v16 = selfCopy->super._targetQueue;
     if (!v16)
     {
-      v21 = MEMORY[0x1E696AEC0];
-      v22 = objc_opt_class();
-      v23 = NSStringFromClass(v22);
-      v24 = [v21 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"targetQueue", v23];
+      v20 = MEMORY[0x1E696AEC0];
+      v21 = objc_opt_class();
+      v22 = NSStringFromClass(v21);
+      v23 = [v20 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"targetQueue", v22];
 
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v25 = NSStringFromSelector(a2);
-        v26 = objc_opt_class();
-        v27 = NSStringFromClass(v26);
+        v24 = NSStringFromSelector(a2);
+        v25 = objc_opt_class();
+        v26 = NSStringFromClass(v25);
         *buf = 138544642;
-        v43 = v25;
-        v44 = 2114;
-        v45 = v27;
-        v46 = 2048;
-        v47 = selfCopy;
-        v48 = 2114;
-        v49 = @"BSXPCServiceConnectionMessage.m";
-        v50 = 1024;
-        v51 = 352;
-        v52 = 2114;
-        v53 = v24;
+        v42 = v24;
+        v43 = 2114;
+        v44 = v26;
+        v45 = 2048;
+        v46 = selfCopy;
+        v47 = 2114;
+        v48 = @"BSXPCServiceConnectionMessage.m";
+        v49 = 1024;
+        v50 = 352;
+        v51 = 2114;
+        v52 = v23;
         _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      v28 = v24;
-      [v24 UTF8String];
+      v27 = v23;
+      [v23 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x19A871080);
@@ -150,53 +150,53 @@
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v29 = MEMORY[0x1E696AEC0];
+      v28 = MEMORY[0x1E696AEC0];
       classForCoder = [(BSServiceDispatchQueue *)v16 classForCoder];
       if (!classForCoder)
       {
         classForCoder = objc_opt_class();
       }
 
-      v31 = NSStringFromClass(classForCoder);
-      v32 = objc_opt_class();
-      v33 = NSStringFromClass(v32);
-      v34 = [v29 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"targetQueue", v31, v33];
+      v30 = NSStringFromClass(classForCoder);
+      v31 = objc_opt_class();
+      v32 = NSStringFromClass(v31);
+      v33 = [v28 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"targetQueue", v30, v32];
 
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v35 = NSStringFromSelector(a2);
-        v36 = objc_opt_class();
-        v37 = NSStringFromClass(v36);
+        v34 = NSStringFromSelector(a2);
+        v35 = objc_opt_class();
+        v36 = NSStringFromClass(v35);
         *buf = 138544642;
-        v43 = v35;
-        v44 = 2114;
-        v45 = v37;
-        v46 = 2048;
-        v47 = selfCopy;
-        v48 = 2114;
-        v49 = @"BSXPCServiceConnectionMessage.m";
-        v50 = 1024;
-        v51 = 352;
-        v52 = 2114;
-        v53 = v34;
+        v42 = v34;
+        v43 = 2114;
+        v44 = v36;
+        v45 = 2048;
+        v46 = selfCopy;
+        v47 = 2114;
+        v48 = @"BSXPCServiceConnectionMessage.m";
+        v49 = 1024;
+        v50 = 352;
+        v51 = 2114;
+        v52 = v33;
         _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      v38 = v34;
-      [v34 UTF8String];
+      v37 = v33;
+      [v33 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x19A8711C8);
     }
 
-    v39[0] = MEMORY[0x1E69E9820];
-    v39[1] = 3221225472;
-    v39[2] = __52__BSXPCServiceConnectionMessageBatch_appendMessage___block_invoke;
-    v39[3] = &unk_1E7520FC0;
-    v41 = count;
+    v38[0] = MEMORY[0x1E69E9820];
+    v38[1] = 3221225472;
+    v38[2] = __52__BSXPCServiceConnectionMessageBatch_appendMessage___block_invoke;
+    v38[3] = &unk_1E7520FC0;
+    v40 = count;
     v17 = selfCopy;
-    v40 = v17;
-    [(BSServiceDispatchQueue *)v16 performAfter:v39 withBlock:0.1];
+    v39 = v17;
+    [(BSServiceDispatchQueue *)v16 performAfter:v38 withBlock:0.1];
 
     v18 = 1;
   }
@@ -207,11 +207,10 @@
     v18 = 0;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
-uint64_t __52__BSXPCServiceConnectionMessageBatch_appendMessage___block_invoke(uint64_t a1)
+void *__52__BSXPCServiceConnectionMessageBatch_appendMessage___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 40);
   result = [*(a1 + 32) messageCount];
@@ -266,7 +265,7 @@ uint64_t __52__BSXPCServiceConnectionMessageBatch_appendMessage___block_invoke(u
 
 - (unint64_t)commitWithReason:(id)reason
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   reasonCopy = reason;
   os_unfair_lock_lock(&self->_lock);
   v5 = self->_lock_messages;
@@ -304,16 +303,16 @@ uint64_t __52__BSXPCServiceConnectionMessageBatch_appendMessage___block_invoke(u
         [(NSDate *)self->_date timeIntervalSinceNow];
         v18 = @"(reason unspecified)";
         *buf = 134218498;
-        v28 = -v19;
+        v27 = -v19;
         if (reasonCopy)
         {
           v18 = reasonCopy;
         }
 
-        v29 = 2048;
-        v30 = count;
-        v31 = 2112;
-        v32 = v18;
+        v28 = 2048;
+        v29 = count;
+        v30 = 2112;
+        v31 = v18;
         _os_log_impl(&dword_19A821000, v17, OS_LOG_TYPE_DEFAULT, "sending batch message after %.3f with %zu messages: %@", buf, 0x20u);
       }
 
@@ -322,14 +321,14 @@ uint64_t __52__BSXPCServiceConnectionMessageBatch_appendMessage___block_invoke(u
       newValue[1] = 3221225472;
       newValue[2] = __55__BSXPCServiceConnectionMessageBatch_commitWithReason___block_invoke;
       newValue[3] = &unk_1E7520670;
-      v25 = v6;
-      v26 = v7;
+      v24 = v6;
+      v25 = v7;
       objc_setProperty_nonatomic_copy(self, v20, newValue, 80);
     }
 
-    v23.receiver = self;
-    v23.super_class = BSXPCServiceConnectionMessageBatch;
-    [(BSXPCServiceConnectionMessage *)&v23 send];
+    v22.receiver = self;
+    v22.super_class = BSXPCServiceConnectionMessageBatch;
+    [(BSXPCServiceConnectionMessage *)&v22 send];
   }
 
   else
@@ -337,40 +336,39 @@ uint64_t __52__BSXPCServiceConnectionMessageBatch_appendMessage___block_invoke(u
     count = 0;
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return count;
 }
 
 void __55__BSXPCServiceConnectionMessageBatch_commitWithReason___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v7 = *(a1 + 32);
-  v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v8)
   {
-    v9 = *v14;
+    v9 = *v13;
     do
     {
       v10 = 0;
       do
       {
-        if (*v14 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        (*(*(*(&v13 + 1) + 8 * v10) + 16))(*(*(&v13 + 1) + 8 * v10));
+        (*(*(*(&v12 + 1) + 8 * v10) + 16))(*(*(&v12 + 1) + 8 * v10));
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v8);
@@ -381,8 +379,6 @@ void __55__BSXPCServiceConnectionMessageBatch_commitWithReason___block_invoke(ui
   {
     (*(v11 + 16))(v11, v5, v6);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)containsMessage:(SEL)message

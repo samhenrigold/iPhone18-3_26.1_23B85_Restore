@@ -165,7 +165,7 @@ LABEL_15:
 
 - (void)_setUpViews
 {
-  v32[8] = *MEMORY[0x277D85DE8];
+  v31[8] = *MEMORY[0x277D85DE8];
   systemGray5Color = [MEMORY[0x277D75348] systemGray5Color];
   v4 = [systemGray5Color colorWithAlphaComponent:0.5];
   [(VSUIActionStatusView *)self setBackgroundColor:v4];
@@ -180,46 +180,44 @@ LABEL_15:
   [v6 setTranslatesAutoresizingMaskIntoConstraints:0];
   [(VSUIActionStatusView *)self addSubview:v6];
   [(VSUIActionStatusView *)self setErrorView:v6];
-  v22 = MEMORY[0x277CCAAD0];
+  v21 = MEMORY[0x277CCAAD0];
   heightAnchor = [v5 heightAnchor];
-  v30 = [heightAnchor constraintEqualToConstant:20.0];
-  v32[0] = v30;
+  v29 = [heightAnchor constraintEqualToConstant:20.0];
+  v31[0] = v29;
   widthAnchor = [v5 widthAnchor];
-  v28 = [widthAnchor constraintEqualToConstant:20.0];
-  v32[1] = v28;
+  v27 = [widthAnchor constraintEqualToConstant:20.0];
+  v31[1] = v27;
   centerXAnchor = [v5 centerXAnchor];
   centerXAnchor2 = [(VSUIActionStatusView *)self centerXAnchor];
-  v25 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-  v32[2] = v25;
+  v24 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
+  v31[2] = v24;
   centerYAnchor = [v5 centerYAnchor];
   centerYAnchor2 = [(VSUIActionStatusView *)self centerYAnchor];
-  v21 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
-  v32[3] = v21;
+  v20 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
+  v31[3] = v20;
   topAnchor = [v6 topAnchor];
   topAnchor2 = [(VSUIActionStatusView *)self topAnchor];
-  v18 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v32[4] = v18;
+  v17 = [topAnchor constraintEqualToAnchor:topAnchor2];
+  v31[4] = v17;
   bottomAnchor = [v6 bottomAnchor];
   bottomAnchor2 = [(VSUIActionStatusView *)self bottomAnchor];
   v7 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  v32[5] = v7;
+  v31[5] = v7;
   leadingAnchor = [v6 leadingAnchor];
   leadingAnchor2 = [(VSUIActionStatusView *)self leadingAnchor];
   v10 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v32[6] = v10;
+  v31[6] = v10;
   trailingAnchor = [v6 trailingAnchor];
   trailingAnchor2 = [(VSUIActionStatusView *)self trailingAnchor];
   v13 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  v32[7] = v13;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:8];
-  [v22 activateConstraints:v14];
-
-  v15 = *MEMORY[0x277D85DE8];
+  v31[7] = v13;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:8];
+  [v21 activateConstraints:v14];
 }
 
 - (void)_updateAcitivityViewSubviewWithDelegateProvidedView
 {
-  v21[4] = *MEMORY[0x277D85DE8];
+  v20[4] = *MEMORY[0x277D85DE8];
   delegate = [(VSUIActionStatusView *)self delegate];
   progressViewController = [delegate progressViewController];
   view = [progressViewController view];
@@ -229,28 +227,26 @@ LABEL_15:
     [view setTranslatesAutoresizingMaskIntoConstraints:0];
     [view removeFromSuperview];
     [(UIView *)self->_activityView addSubview:view];
-    v16 = MEMORY[0x277CCAAD0];
+    v15 = MEMORY[0x277CCAAD0];
     leadingAnchor = [view leadingAnchor];
     leadingAnchor2 = [(UIView *)self->_activityView leadingAnchor];
-    v18 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-    v21[0] = v18;
+    v17 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+    v20[0] = v17;
     trailingAnchor = [view trailingAnchor];
     trailingAnchor2 = [(UIView *)self->_activityView trailingAnchor];
     v7 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-    v21[1] = v7;
+    v20[1] = v7;
     topAnchor = [view topAnchor];
     topAnchor2 = [(UIView *)self->_activityView topAnchor];
     v10 = [topAnchor constraintEqualToAnchor:topAnchor2];
-    v21[2] = v10;
+    v20[2] = v10;
     bottomAnchor = [view bottomAnchor];
     bottomAnchor2 = [(UIView *)self->_activityView bottomAnchor];
     v13 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-    v21[3] = v13;
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:4];
-    [v16 activateConstraints:v14];
+    v20[3] = v13;
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:4];
+    [v15 activateConstraints:v14];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (VSUIActionStatusViewDelegate)delegate
@@ -262,15 +258,13 @@ LABEL_15:
 
 - (void)progressStateMachine:(void *)a1 ignoredEvent:(uint64_t)a2 .cold.1(void *a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCABB0];
   v4 = a1;
   v5 = [v3 numberWithUnsignedInteger:a2];
-  v7 = 138412290;
-  v8 = v5;
-  _os_log_error_impl(&dword_2728B4000, v4, OS_LOG_TYPE_ERROR, "progressStateMachine ignoredEvent:%@", &v7, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138412290;
+  v7 = v5;
+  _os_log_error_impl(&dword_2728B4000, v4, OS_LOG_TYPE_ERROR, "progressStateMachine ignoredEvent:%@", &v6, 0xCu);
 }
 
 @end

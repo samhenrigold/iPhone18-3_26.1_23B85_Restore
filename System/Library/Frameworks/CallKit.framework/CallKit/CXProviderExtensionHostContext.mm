@@ -44,56 +44,50 @@
 
 - (void)commitTransaction:(id)transaction
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   transactionCopy = transaction;
-  v5 = CXDefaultLog();
+  v5 = CXDefaultLog(transactionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = transactionCopy;
-    _os_log_impl(&dword_1B47F3000, v5, OS_LOG_TYPE_DEFAULT, "Committing transaction to extension vendor: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = transactionCopy;
+    _os_log_impl(&dword_1B47F3000, v5, OS_LOG_TYPE_DEFAULT, "Committing transaction to extension vendor: %@", &v7, 0xCu);
   }
 
   remoteObjectProxy = [(CXProviderExtensionHostContext *)self remoteObjectProxy];
   [remoteObjectProxy commitTransaction:transactionCopy];
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleActionTimeout:(id)timeout
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   timeoutCopy = timeout;
-  v5 = CXDefaultLog();
+  v5 = CXDefaultLog(timeoutCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = timeoutCopy;
-    _os_log_impl(&dword_1B47F3000, v5, OS_LOG_TYPE_DEFAULT, "Asking extension vendor to handle action timeout: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = timeoutCopy;
+    _os_log_impl(&dword_1B47F3000, v5, OS_LOG_TYPE_DEFAULT, "Asking extension vendor to handle action timeout: %@", &v7, 0xCu);
   }
 
   remoteObjectProxy = [(CXProviderExtensionHostContext *)self remoteObjectProxy];
   [remoteObjectProxy handleActionTimeout:timeoutCopy];
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleAudioSessionActivationStateChangedTo:(id)to
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   toCopy = to;
-  v5 = CXDefaultLog();
+  v5 = CXDefaultLog(toCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8[0] = 67109120;
-    v8[1] = [toCopy BOOLValue];
-    _os_log_impl(&dword_1B47F3000, v5, OS_LOG_TYPE_DEFAULT, "Asking extension vendor to handle audio session activation state change to: %d", v8, 8u);
+    v7[0] = 67109120;
+    v7[1] = [toCopy BOOLValue];
+    _os_log_impl(&dword_1B47F3000, v5, OS_LOG_TYPE_DEFAULT, "Asking extension vendor to handle audio session activation state change to: %d", v7, 8u);
   }
 
   remoteObjectProxy = [(CXProviderExtensionHostContext *)self remoteObjectProxy];
   [remoteObjectProxy handleAudioSessionActivationStateChangedTo:toCopy];
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)registerWithConfiguration:(id)configuration

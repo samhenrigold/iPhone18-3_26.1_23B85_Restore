@@ -394,9 +394,9 @@ LABEL_10:
     +[NSDate(MTAdditions) mt_dateFormatterRelativeDay];
   }
 
-  v1 = mt_dateFormatterRelativeDay__s__dateFormatterRelativeDay;
+  v2 = mt_dateFormatterRelativeDay__s__dateFormatterRelativeDay;
 
-  return v1;
+  return v2;
 }
 
 + (id)mt_dateFormatterWithYear
@@ -406,9 +406,9 @@ LABEL_10:
     +[NSDate(MTAdditions) mt_dateFormatterWithYear];
   }
 
-  v1 = mt_dateFormatterWithYear__s__dateFormatterWithYear;
+  v2 = mt_dateFormatterWithYear__s__dateFormatterWithYear;
 
-  return v1;
+  return v2;
 }
 
 + (id)mt_dateFormatterJustYear
@@ -418,9 +418,9 @@ LABEL_10:
     +[NSDate(MTAdditions) mt_dateFormatterJustYear];
   }
 
-  v1 = mt_dateFormatterJustYear_justYearFormatter;
+  v2 = mt_dateFormatterJustYear_justYearFormatter;
 
-  return v1;
+  return v2;
 }
 
 + (id)mt_dateFormatterNoDayWithYear
@@ -430,9 +430,9 @@ LABEL_10:
     +[NSDate(MTAdditions) mt_dateFormatterNoDayWithYear];
   }
 
-  v1 = mt_dateFormatterNoDayWithYear__s__dateFormatterNoDayWithYear;
+  v2 = mt_dateFormatterNoDayWithYear__s__dateFormatterNoDayWithYear;
 
-  return v1;
+  return v2;
 }
 
 + (id)mt_dateFormatterShortStyleWithYear
@@ -442,9 +442,9 @@ LABEL_10:
     +[NSDate(MTAdditions) mt_dateFormatterShortStyleWithYear];
   }
 
-  v1 = mt_dateFormatterShortStyleWithYear_dateFormatter;
+  v2 = mt_dateFormatterShortStyleWithYear_dateFormatter;
 
-  return v1;
+  return v2;
 }
 
 + (id)mt_dateFormatterNoYear
@@ -454,9 +454,9 @@ LABEL_10:
     +[NSDate(MTAdditions) mt_dateFormatterNoYear];
   }
 
-  v1 = mt_dateFormatterNoYear__s__dateFormatterNoYear;
+  v2 = mt_dateFormatterNoYear__s__dateFormatterNoYear;
 
-  return v1;
+  return v2;
 }
 
 + (id)mt_dateFormatterNoYearAbbrevMonth
@@ -466,9 +466,9 @@ LABEL_10:
     +[NSDate(MTAdditions) mt_dateFormatterNoYearAbbrevMonth];
   }
 
-  v1 = mt_dateFormatterNoYearAbbrevMonth__s__dateFormatterNoYearAbbrevMonth;
+  v2 = mt_dateFormatterNoYearAbbrevMonth__s__dateFormatterNoYearAbbrevMonth;
 
-  return v1;
+  return v2;
 }
 
 + (id)mt_verboseDateFormatter
@@ -478,9 +478,9 @@ LABEL_10:
     +[NSDate(MTAdditions) mt_verboseDateFormatter];
   }
 
-  v1 = mt_verboseDateFormatter__s__dateFormatterWithYear;
+  v2 = mt_verboseDateFormatter__s__dateFormatterWithYear;
 
-  return v1;
+  return v2;
 }
 
 + (id)mt_lessVerboseDateFormatter
@@ -490,9 +490,9 @@ LABEL_10:
     +[NSDate(MTAdditions) mt_lessVerboseDateFormatter];
   }
 
-  v1 = mt_lessVerboseDateFormatter__s__dateFormatterWithYear;
+  v2 = mt_lessVerboseDateFormatter__s__dateFormatterWithYear;
 
-  return v1;
+  return v2;
 }
 
 - (BOOL)isLessThanDaysOld:()MTAdditions

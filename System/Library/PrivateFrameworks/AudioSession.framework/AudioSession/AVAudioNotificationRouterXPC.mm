@@ -57,7 +57,7 @@ void __46__AVAudioNotificationRouterXPC_sharedInstance__block_invoke(uint64_t a1
   if (createRemoteNotificationCenter)
   {
     os_unfair_lock_lock(&self->_delegates.mMutex.m_lock);
-    NotificationDelegateCollectionXPC::AddDelegate(&self->_delegates.mObject.mDelegates.__table_.__bucket_list_.__ptr_, delegateCopy, createRemoteNotificationCenter);
+    NotificationDelegateCollectionXPC::AddDelegate(&self->_delegates.mObject, delegateCopy, createRemoteNotificationCenter);
     os_unfair_lock_unlock(&self->_delegates.mMutex.m_lock);
   }
 
@@ -75,21 +75,21 @@ void __46__AVAudioNotificationRouterXPC_sharedInstance__block_invoke(uint64_t a1
 
 - (unint64_t)createRemoteNotificationCenter
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   isAudioServiceTerminated = [(AVAudioNotificationRouterXPC *)self isAudioServiceTerminated];
   if (isAudioServiceTerminated)
   {
     v3 = *avas::client::gSessionClientLog(isAudioServiceTerminated);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v8 = 136315394;
-      v9 = "AVAudioNotificationRouterXPC.mm";
-      v10 = 1024;
-      v11 = 101;
-      _os_log_impl(&dword_1AC8A4000, v3, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to create remote notification center, mediaserver has not been reset", &v8, 0x12u);
+      v7 = 136315394;
+      v8 = "AVAudioNotificationRouterXPC.mm";
+      v9 = 1024;
+      v10 = 101;
+      _os_log_impl(&dword_1AC8A4000, v3, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to create remote notification center, mediaserver has not been reset", &v7, 0x12u);
     }
 
-    privateCreateRemoteNotificationCenter = 0;
+    return 0;
   }
 
   else
@@ -98,7 +98,6 @@ void __46__AVAudioNotificationRouterXPC_sharedInstance__block_invoke(uint64_t a1
     privateCreateRemoteNotificationCenter = [v5 privateCreateRemoteNotificationCenter];
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return privateCreateRemoteNotificationCenter;
 }
 
@@ -113,7 +112,7 @@ void __46__AVAudioNotificationRouterXPC_sharedInstance__block_invoke(uint64_t a1
 
 - (void)startObservingNotifications:(id)notifications forDelegate:(unint64_t)delegate
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   notificationsCopy = notifications;
   isAudioServiceTerminated = [(AVAudioNotificationRouterXPC *)self isAudioServiceTerminated];
   if (isAudioServiceTerminated)
@@ -122,9 +121,9 @@ void __46__AVAudioNotificationRouterXPC_sharedInstance__block_invoke(uint64_t a1
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v25 = "AVAudioNotificationRouterXPC.mm";
-      v26 = 1024;
-      v27 = 120;
+      v24 = "AVAudioNotificationRouterXPC.mm";
+      v25 = 1024;
+      v26 = 120;
       _os_log_impl(&dword_1AC8A4000, v7, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to add observers to remote notification center, mediaserver has not been reset", buf, 0x12u);
     }
   }
@@ -132,26 +131,26 @@ void __46__AVAudioNotificationRouterXPC_sharedInstance__block_invoke(uint64_t a1
   else
   {
     v8 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v9 = notificationsCopy;
-    v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v10)
     {
-      v11 = *v20;
+      v11 = *v19;
       do
       {
         v12 = 0;
         do
         {
-          if (*v20 != v11)
+          if (*v19 != v11)
           {
             objc_enumerationMutation(v9);
           }
 
-          v13 = *(*(&v19 + 1) + 8 * v12);
+          v13 = *(*(&v18 + 1) + 8 * v12);
           v14 = objc_alloc_init(MEMORY[0x1E698D740]);
           propertyName = [v13 propertyName];
           [v14 setPropertyName:propertyName];
@@ -163,7 +162,7 @@ void __46__AVAudioNotificationRouterXPC_sharedInstance__block_invoke(uint64_t a1
         }
 
         while (v10 != v12);
-        v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v10);
@@ -172,13 +171,11 @@ void __46__AVAudioNotificationRouterXPC_sharedInstance__block_invoke(uint64_t a1
     v16 = +[AVAudioSession sharedInstance];
     [v16 privateStartOrStopObserving:1 remoteNotifications:v8 forDelegate:delegate];
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stopObservingNotifications:(id)notifications forDelegate:(unint64_t)delegate
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   notificationsCopy = notifications;
   isAudioServiceTerminated = [(AVAudioNotificationRouterXPC *)self isAudioServiceTerminated];
   if (isAudioServiceTerminated)
@@ -187,9 +184,9 @@ void __46__AVAudioNotificationRouterXPC_sharedInstance__block_invoke(uint64_t a1
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v25 = "AVAudioNotificationRouterXPC.mm";
-      v26 = 1024;
-      v27 = 141;
+      v24 = "AVAudioNotificationRouterXPC.mm";
+      v25 = 1024;
+      v26 = 141;
       _os_log_impl(&dword_1AC8A4000, v7, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to remove observers for remote notification center, mediaserver has not been reset", buf, 0x12u);
     }
   }
@@ -197,26 +194,26 @@ void __46__AVAudioNotificationRouterXPC_sharedInstance__block_invoke(uint64_t a1
   else
   {
     v8 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v9 = notificationsCopy;
-    v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v10)
     {
-      v11 = *v20;
+      v11 = *v19;
       do
       {
         v12 = 0;
         do
         {
-          if (*v20 != v11)
+          if (*v19 != v11)
           {
             objc_enumerationMutation(v9);
           }
 
-          v13 = *(*(&v19 + 1) + 8 * v12);
+          v13 = *(*(&v18 + 1) + 8 * v12);
           v14 = objc_alloc_init(MEMORY[0x1E698D740]);
           propertyName = [v13 propertyName];
           [v14 setPropertyName:propertyName];
@@ -228,7 +225,7 @@ void __46__AVAudioNotificationRouterXPC_sharedInstance__block_invoke(uint64_t a1
         }
 
         while (v10 != v12);
-        v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v10);
@@ -237,13 +234,11 @@ void __46__AVAudioNotificationRouterXPC_sharedInstance__block_invoke(uint64_t a1
     v16 = +[AVAudioSession sharedInstance];
     [v16 privateStartOrStopObserving:0 remoteNotifications:v8 forDelegate:delegate];
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleNotification:(id)notification payload:(id)payload
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
   payloadCopy = payload;
   v8 = [payloadCopy objectForKey:notificationCopy];
@@ -262,49 +257,46 @@ void __46__AVAudioNotificationRouterXPC_sharedInstance__block_invoke(uint64_t a1
 
   v12 = [objc_alloc(MEMORY[0x1E698D748]) initWithPropertyName:notificationCopy sourceSessionID:0 nodeSessionID:0 propertyData:delegatePayload];
   os_unfair_lock_lock(&self->_delegates.mMutex.m_lock);
-  v15[0] = v12;
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
+  v14[0] = v12;
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
   NotificationDelegateCollectionXPC::HandleNotifications(&self->_delegates.mObject, v13, subscribedDelegates);
 
   os_unfair_lock_unlock(&self->_delegates.mMutex.m_lock);
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleAudiomxdTermination
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *avas::client::gSessionClientLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315394;
-    v6 = "AVAudioNotificationRouterXPC.mm";
-    v7 = 1024;
-    v8 = 178;
-    _os_log_impl(&dword_1AC8A4000, v3, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Received mediaserver lost notification", &v5, 0x12u);
+    v4 = 136315394;
+    v5 = "AVAudioNotificationRouterXPC.mm";
+    v6 = 1024;
+    v7 = 178;
+    _os_log_impl(&dword_1AC8A4000, v3, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Received mediaserver lost notification", &v4, 0x12u);
   }
 
   [(AVAudioNotificationRouterXPC *)self setAudioServiceTerminated:1];
   os_unfair_lock_lock(&self->_delegates.mMutex.m_lock);
   std::__hash_table<std::__hash_value_type<unsigned long long,NotificationDelegateCollectionXPC::NotificationDelegates>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,NotificationDelegateCollectionXPC::NotificationDelegates>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,NotificationDelegateCollectionXPC::NotificationDelegates>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,NotificationDelegateCollectionXPC::NotificationDelegates>>>::clear(&self->_delegates.mObject);
   os_unfair_lock_unlock(&self->_delegates.mMutex.m_lock);
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleAudiomxdReset
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *avas::client::gSessionClientLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315394;
-    v6 = "AVAudioNotificationRouterXPC.mm";
-    v7 = 1024;
-    v8 = 185;
-    _os_log_impl(&dword_1AC8A4000, v3, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Received mediaserver reset notification", &v5, 0x12u);
+    v4 = 136315394;
+    v5 = "AVAudioNotificationRouterXPC.mm";
+    v6 = 1024;
+    v7 = 185;
+    _os_log_impl(&dword_1AC8A4000, v3, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Received mediaserver reset notification", &v4, 0x12u);
   }
 
   [(AVAudioNotificationRouterXPC *)self setAudioServiceTerminated:0];
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isAudioServiceTerminated

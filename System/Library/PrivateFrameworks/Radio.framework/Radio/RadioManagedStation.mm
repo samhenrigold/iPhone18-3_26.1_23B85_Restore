@@ -50,16 +50,31 @@
 - (void)setArtworkURLData:(id)data;
 - (void)setCoreSeedName:(id)name;
 - (void)setDebugDictionary:(id)dictionary;
+- (void)setEditEnabled:(BOOL)enabled;
 - (void)setEditableFields:(id)fields;
+- (void)setFeatured:(BOOL)featured;
+- (void)setGatewayVideoAdEnabled:(BOOL)enabled;
+- (void)setHasSkipRules:(BOOL)rules;
 - (void)setImpressionThreshold:(unint64_t)threshold;
+- (void)setIsExplicit:(BOOL)explicit;
+- (void)setLikesEnabled:(BOOL)enabled;
 - (void)setName:(id)name;
 - (void)setPersistentID:(int64_t)d;
+- (void)setPremiumPlacement:(BOOL)placement;
+- (void)setPreviewOnly:(BOOL)only;
+- (void)setRequiresSubscription:(BOOL)subscription;
 - (void)setSeedTracks:(id)tracks;
 - (void)setShareToken:(id)token;
+- (void)setShared:(BOOL)shared;
+- (void)setSharingEnabled:(BOOL)enabled;
+- (void)setSkipEnabled:(BOOL)enabled;
+- (void)setSkipFrequency:(int)frequency;
 - (void)setSkipIdentifier:(id)identifier;
 - (void)setSkipInterval:(double)interval;
 - (void)setSkipTimestamps:(id)timestamps;
 - (void)setSongMixType:(int64_t)type;
+- (void)setSortOrder:(int)order;
+- (void)setSponsored:(BOOL)sponsored;
 - (void)setStationDescription:(id)description;
 - (void)setStationHash:(id)hash;
 - (void)setStationID:(int64_t)d;
@@ -67,6 +82,9 @@
 - (void)setStreamCertificateURL:(id)l;
 - (void)setStreamKeyURL:(id)l;
 - (void)setStreamURL:(id)l;
+- (void)setSubscribed:(BOOL)subscribed;
+- (void)setSubscriberCount:(int)count;
+- (void)setVirtualPlayEnabled:(BOOL)enabled;
 @end
 
 @implementation RadioManagedStation
@@ -325,6 +343,45 @@
   return v3;
 }
 
+- (void)setVirtualPlayEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  if ([(RadioManagedStation *)self virtualPlayEnabled]!= enabled)
+  {
+    [(RadioManagedStation *)self willChangeValueForKey:@"virtual_play_enabled"];
+    v5 = [MEMORY[0x277CCABB0] numberWithBool:enabledCopy];
+    [(RadioManagedStation *)self setPrimitiveValue:v5 forKey:@"virtual_play_enabled"];
+
+    [(RadioManagedStation *)self didChangeValueForKey:@"virtual_play_enabled"];
+  }
+}
+
+- (void)setSubscriberCount:(int)count
+{
+  v3 = *&count;
+  if ([(RadioManagedStation *)self subscriberCount]!= count)
+  {
+    [(RadioManagedStation *)self willChangeValueForKey:@"listeners"];
+    v5 = [MEMORY[0x277CCABB0] numberWithInt:v3];
+    [(RadioManagedStation *)self setPrimitiveValue:v5 forKey:@"listeners"];
+
+    [(RadioManagedStation *)self didChangeValueForKey:@"listeners"];
+  }
+}
+
+- (void)setSubscribed:(BOOL)subscribed
+{
+  subscribedCopy = subscribed;
+  if ([(RadioManagedStation *)self isSubscribed]!= subscribed)
+  {
+    [(RadioManagedStation *)self willChangeValueForKey:@"is_subscribed"];
+    v5 = [MEMORY[0x277CCABB0] numberWithBool:subscribedCopy];
+    [(RadioManagedStation *)self setPrimitiveValue:v5 forKey:@"is_subscribed"];
+
+    [(RadioManagedStation *)self didChangeValueForKey:@"is_subscribed"];
+  }
+}
+
 - (void)setStreamKeyURL:(id)l
 {
   absoluteString = [l absoluteString];
@@ -415,6 +472,32 @@
   }
 }
 
+- (void)setSponsored:(BOOL)sponsored
+{
+  sponsoredCopy = sponsored;
+  if ([(RadioManagedStation *)self isSponsored]!= sponsored)
+  {
+    [(RadioManagedStation *)self willChangeValueForKey:@"is_sponsored"];
+    v5 = [MEMORY[0x277CCABB0] numberWithBool:sponsoredCopy];
+    [(RadioManagedStation *)self setPrimitiveValue:v5 forKey:@"is_sponsored"];
+
+    [(RadioManagedStation *)self didChangeValueForKey:@"is_sponsored"];
+  }
+}
+
+- (void)setSortOrder:(int)order
+{
+  v3 = *&order;
+  if ([(RadioManagedStation *)self sortOrder]!= order)
+  {
+    [(RadioManagedStation *)self willChangeValueForKey:@"sort_order"];
+    v5 = [MEMORY[0x277CCABB0] numberWithInt:v3];
+    [(RadioManagedStation *)self setPrimitiveValue:v5 forKey:@"sort_order"];
+
+    [(RadioManagedStation *)self didChangeValueForKey:@"sort_order"];
+  }
+}
+
 - (void)setSongMixType:(int64_t)type
 {
   if ([(RadioManagedStation *)self songMixType]!= type)
@@ -493,6 +576,32 @@ LABEL_9:
   }
 }
 
+- (void)setSkipFrequency:(int)frequency
+{
+  v3 = *&frequency;
+  if ([(RadioManagedStation *)self skipFrequency]!= frequency)
+  {
+    [(RadioManagedStation *)self willChangeValueForKey:@"skip_frequency"];
+    v5 = [MEMORY[0x277CCABB0] numberWithInt:v3];
+    [(RadioManagedStation *)self setPrimitiveValue:v5 forKey:@"skip_frequency"];
+
+    [(RadioManagedStation *)self didChangeValueForKey:@"skip_frequency"];
+  }
+}
+
+- (void)setSkipEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  if ([(RadioManagedStation *)self skipEnabled]!= enabled)
+  {
+    [(RadioManagedStation *)self willChangeValueForKey:@"skip_enabled"];
+    v5 = [MEMORY[0x277CCABB0] numberWithBool:enabledCopy];
+    [(RadioManagedStation *)self setPrimitiveValue:v5 forKey:@"skip_enabled"];
+
+    [(RadioManagedStation *)self didChangeValueForKey:@"skip_enabled"];
+  }
+}
+
 - (void)setShareToken:(id)token
 {
   tokenCopy = token;
@@ -502,6 +611,32 @@ LABEL_9:
     [(RadioManagedStation *)self willChangeValueForKey:@"share_token"];
     [(RadioManagedStation *)self setPrimitiveValue:tokenCopy forKey:@"share_token"];
     [(RadioManagedStation *)self didChangeValueForKey:@"share_token"];
+  }
+}
+
+- (void)setSharingEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  if ([(RadioManagedStation *)self isSharingEnabled]!= enabled)
+  {
+    [(RadioManagedStation *)self willChangeValueForKey:@"sharing_enabled"];
+    v5 = [MEMORY[0x277CCABB0] numberWithBool:enabledCopy];
+    [(RadioManagedStation *)self setPrimitiveValue:v5 forKey:@"sharing_enabled"];
+
+    [(RadioManagedStation *)self didChangeValueForKey:@"sharing_enabled"];
+  }
+}
+
+- (void)setShared:(BOOL)shared
+{
+  sharedCopy = shared;
+  if ([(RadioManagedStation *)self isShared]!= shared)
+  {
+    [(RadioManagedStation *)self willChangeValueForKey:@"is_shared"];
+    v5 = [MEMORY[0x277CCABB0] numberWithBool:sharedCopy];
+    [(RadioManagedStation *)self setPrimitiveValue:v5 forKey:@"is_shared"];
+
+    [(RadioManagedStation *)self didChangeValueForKey:@"is_shared"];
   }
 }
 
@@ -551,6 +686,45 @@ LABEL_10:
 LABEL_11:
 }
 
+- (void)setRequiresSubscription:(BOOL)subscription
+{
+  subscriptionCopy = subscription;
+  if ([(RadioManagedStation *)self requiresSubscription]!= subscription)
+  {
+    [(RadioManagedStation *)self willChangeValueForKey:@"requires_subscription"];
+    v5 = [MEMORY[0x277CCABB0] numberWithBool:subscriptionCopy];
+    [(RadioManagedStation *)self setPrimitiveValue:v5 forKey:@"requires_subscription"];
+
+    [(RadioManagedStation *)self didChangeValueForKey:@"requires_subscription"];
+  }
+}
+
+- (void)setPreviewOnly:(BOOL)only
+{
+  onlyCopy = only;
+  if ([(RadioManagedStation *)self isPreviewOnly]!= only)
+  {
+    [(RadioManagedStation *)self willChangeValueForKey:@"is_preview_only"];
+    v5 = [MEMORY[0x277CCABB0] numberWithBool:onlyCopy];
+    [(RadioManagedStation *)self setPrimitiveValue:v5 forKey:@"is_preview_only"];
+
+    [(RadioManagedStation *)self didChangeValueForKey:@"is_preview_only"];
+  }
+}
+
+- (void)setPremiumPlacement:(BOOL)placement
+{
+  placementCopy = placement;
+  if ([(RadioManagedStation *)self isPremiumPlacement]!= placement)
+  {
+    [(RadioManagedStation *)self willChangeValueForKey:@"is_premium_placement"];
+    v5 = [MEMORY[0x277CCABB0] numberWithBool:placementCopy];
+    [(RadioManagedStation *)self setPrimitiveValue:v5 forKey:@"is_premium_placement"];
+
+    [(RadioManagedStation *)self didChangeValueForKey:@"is_premium_placement"];
+  }
+}
+
 - (void)setPersistentID:(int64_t)d
 {
   if ([(RadioManagedStation *)self persistentID]!= d)
@@ -575,6 +749,32 @@ LABEL_11:
   }
 }
 
+- (void)setLikesEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  if ([(RadioManagedStation *)self likesEnabled]!= enabled)
+  {
+    [(RadioManagedStation *)self willChangeValueForKey:@"likes_enabled"];
+    v5 = [MEMORY[0x277CCABB0] numberWithBool:enabledCopy];
+    [(RadioManagedStation *)self setPrimitiveValue:v5 forKey:@"likes_enabled"];
+
+    [(RadioManagedStation *)self didChangeValueForKey:@"likes_enabled"];
+  }
+}
+
+- (void)setIsExplicit:(BOOL)explicit
+{
+  explicitCopy = explicit;
+  if ([(RadioManagedStation *)self isExplicit]!= explicit)
+  {
+    [(RadioManagedStation *)self willChangeValueForKey:@"is_explicit"];
+    v5 = [MEMORY[0x277CCABB0] numberWithBool:explicitCopy];
+    [(RadioManagedStation *)self setPrimitiveValue:v5 forKey:@"is_explicit"];
+
+    [(RadioManagedStation *)self didChangeValueForKey:@"is_explicit"];
+  }
+}
+
 - (void)setImpressionThreshold:(unint64_t)threshold
 {
   if ([(RadioManagedStation *)self impressionThreshold]!= threshold)
@@ -584,6 +784,45 @@ LABEL_11:
     [(RadioManagedStation *)self setPrimitiveValue:v5 forKey:@"impression_threshold"];
 
     [(RadioManagedStation *)self didChangeValueForKey:@"impression_threshold"];
+  }
+}
+
+- (void)setHasSkipRules:(BOOL)rules
+{
+  rulesCopy = rules;
+  if ([(RadioManagedStation *)self hasSkipRules]!= rules)
+  {
+    [(RadioManagedStation *)self willChangeValueForKey:@"has_skip_rules"];
+    v5 = [MEMORY[0x277CCABB0] numberWithBool:rulesCopy];
+    [(RadioManagedStation *)self setPrimitiveValue:v5 forKey:@"has_skip_rules"];
+
+    [(RadioManagedStation *)self didChangeValueForKey:@"has_skip_rules"];
+  }
+}
+
+- (void)setGatewayVideoAdEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  if ([(RadioManagedStation *)self isGatewayVideoAdEnabled]!= enabled)
+  {
+    [(RadioManagedStation *)self willChangeValueForKey:@"is_gateway_video_ad_enabled"];
+    v5 = [MEMORY[0x277CCABB0] numberWithBool:enabledCopy];
+    [(RadioManagedStation *)self setPrimitiveValue:v5 forKey:@"is_gateway_video_ad_enabled"];
+
+    [(RadioManagedStation *)self didChangeValueForKey:@"is_gateway_video_ad_enabled"];
+  }
+}
+
+- (void)setFeatured:(BOOL)featured
+{
+  featuredCopy = featured;
+  if ([(RadioManagedStation *)self isFeatured]!= featured)
+  {
+    [(RadioManagedStation *)self willChangeValueForKey:@"is_featured"];
+    v5 = [MEMORY[0x277CCABB0] numberWithBool:featuredCopy];
+    [(RadioManagedStation *)self setPrimitiveValue:v5 forKey:@"is_featured"];
+
+    [(RadioManagedStation *)self didChangeValueForKey:@"is_featured"];
   }
 }
 
@@ -598,6 +837,19 @@ LABEL_11:
     [(RadioManagedStation *)self willChangeValueForKey:@"editable_fields"];
     [(RadioManagedStation *)self setPrimitiveValue:v5 forKey:@"editable_fields"];
     [(RadioManagedStation *)self didChangeValueForKey:@"editable_fields"];
+  }
+}
+
+- (void)setEditEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  if ([(RadioManagedStation *)self editEnabled]!= enabled)
+  {
+    [(RadioManagedStation *)self willChangeValueForKey:@"edit_enabled"];
+    v5 = [MEMORY[0x277CCABB0] numberWithBool:enabledCopy];
+    [(RadioManagedStation *)self setPrimitiveValue:v5 forKey:@"edit_enabled"];
+
+    [(RadioManagedStation *)self didChangeValueForKey:@"edit_enabled"];
   }
 }
 

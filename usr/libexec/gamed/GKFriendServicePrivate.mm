@@ -322,12 +322,12 @@ LABEL_7:
   v10 = +[GKAMPController controller];
   [v10 reportFriendInviteActivityEventAtStage:5 hostApp:0];
 
-  v20[0] = @"friend-code";
-  v20[1] = @"send-push";
-  v21[0] = identifierCopy;
+  v20 = @"friend-code";
+  v21 = @"send-push";
+  v22 = identifierCopy;
   v11 = [NSNumber numberWithBool:pushCopy];
-  v21[1] = v11;
-  v12 = [NSDictionary dictionaryWithObjects:v21 forKeys:v20 count:2];
+  v23 = v11;
+  v12 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
 
   v13 = +[GKNetworkRequestManager commonNetworkRequestManager];
   clientProxy = [(GKService *)self clientProxy];
@@ -540,7 +540,7 @@ LABEL_7:
   {
     v18 = @"friend-codes";
     v19 = identifiersCopy;
-    v11 = [NSDictionary dictionaryWithObjects:&v19 forKeys:&v18 count:1];
+    v11 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
     v12 = +[GKNetworkRequestManager commonNetworkRequestManager];
     clientProxy = [(GKService *)self clientProxy];
     v14[0] = _NSConcreteStackBlock;
@@ -969,18 +969,18 @@ LABEL_7:
   if (os_log_type_enabled(os_log_GKTrace, OS_LOG_TYPE_INFO))
   {
     *buf = 138412546;
-    v16 = toCopy;
-    v17 = 1024;
-    v18 = v4;
+    v18 = toCopy;
+    v19 = 1024;
+    v20 = v4;
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "GKFriendService: notifyMessageBasedFriendRequestSentTo:%@ nameKind:%d", buf, 0x12u);
   }
 
-  v13[0] = GKFriendRequestRecipientNameKey;
-  v13[1] = GKFriendRequestRecipientNameKindKey;
-  v14[0] = toCopy;
+  v13 = GKFriendRequestRecipientNameKey;
+  v14 = GKFriendRequestRecipientNameKindKey;
+  v15 = toCopy;
   v8 = [NSNumber numberWithInt:v4];
-  v14[1] = v8;
-  v9 = [NSDictionary dictionaryWithObjects:v14 forKeys:v13 count:2];
+  v16 = v8;
+  v9 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
 
   v11[0] = _NSConcreteStackBlock;
   v11[1] = 3221225472;
@@ -1006,7 +1006,7 @@ LABEL_7:
   v8 = +[GKNetworkRequestManager commonNetworkRequestManager];
   v12 = @"type";
   v13 = typeCopy;
-  v9 = [NSDictionary dictionaryWithObjects:&v13 forKeys:&v12 count:1];
+  v9 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
 
   v10 = GKBagKeyGetFriendInvitationMailbox;
   clientProxy = [(GKService *)self clientProxy];
@@ -1101,7 +1101,7 @@ LABEL_7:
   v12 = @"issuing-player-id";
   dCopy = d;
   dCopy2 = d;
-  v8 = [NSDictionary dictionaryWithObjects:&dCopy forKeys:&v12 count:1];
+  v8 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
   v10[0] = _NSConcreteStackBlock;
   v10[1] = 3221225472;
   v10[2] = sub_100092228;
@@ -1117,7 +1117,7 @@ LABEL_7:
   dCopy = d;
   completionCopy = completion;
   dCopy2 = d;
-  v8 = [NSDictionary dictionaryWithObjects:&dCopy forKeys:&v9 count:1];
+  v8 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
 
   [(GKFriendServicePrivate *)self sendResponselessWithRequest:v8 bagKey:@"gk-cancel-friend-invitation" refreshFriendsRequestContents:0 completion:completionCopy];
 }
@@ -1128,7 +1128,7 @@ LABEL_7:
   v12 = @"issuing-player-id";
   dCopy = d;
   dCopy2 = d;
-  v8 = [NSDictionary dictionaryWithObjects:&dCopy forKeys:&v12 count:1];
+  v8 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
   v10[0] = _NSConcreteStackBlock;
   v10[1] = 3221225472;
   v10[2] = sub_100092524;

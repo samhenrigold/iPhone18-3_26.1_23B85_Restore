@@ -78,22 +78,22 @@
   +[CATransaction begin];
   [CATransaction setDisableActions:1];
   v7 = +[_TUIAnimationState currentState];
-  model = [(TUIRenderModelLayerBuilder *)self->_builder model];
-  v9 = model;
+  v8 = objc_msgSend_model(self->_builder);
+  v9 = v8;
   v10 = 0;
-  if (modelCopy && model)
+  if (modelCopy && v8)
   {
-    model2 = [(TUIRenderModelLayerBuilder *)self->_builder model];
-    identifier = [model2 identifier];
+    v11 = objc_msgSend_model(self->_builder);
+    identifier = [v11 identifier];
     identifier2 = [modelCopy identifier];
     v10 = [identifier isEqual:identifier2];
   }
 
   shouldCaptureCALayerAnimations = [v7 shouldCaptureCALayerAnimations];
-  config = [modelCopy config];
+  v15 = objc_msgSend_config(modelCopy);
   if (objc_opt_respondsToSelector())
   {
-    clipContainerForCrossfade = [config clipContainerForCrossfade];
+    clipContainerForCrossfade = [v15 clipContainerForCrossfade];
   }
 
   else
@@ -101,9 +101,9 @@
     clipContainerForCrossfade = 0;
   }
 
-  [v7 duration];
+  objc_msgSend_duration(v7);
   v18 = v17;
-  v55 = config;
+  v55 = v15;
   v56 = v7;
   if (v10)
   {

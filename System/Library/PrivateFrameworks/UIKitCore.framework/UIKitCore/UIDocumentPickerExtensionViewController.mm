@@ -94,7 +94,7 @@
 - (void)_setUploadURL:(id)l
 {
   lCopy = l;
-  if (([lCopy isEqual:self->_originalURL] & 1) == 0)
+  if ((objc_msgSend_isEqual_(lCopy) & 1) == 0)
   {
     [(NSURL *)self->_originalURL stopAccessingSecurityScopedResource];
     v4 = [lCopy copy];

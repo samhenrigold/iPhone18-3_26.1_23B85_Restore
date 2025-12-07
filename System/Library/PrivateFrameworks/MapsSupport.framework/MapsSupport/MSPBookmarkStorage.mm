@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)typeAsString:(int)string;
 - (int)StringAsType:(id)type;
 - (int)type;
 - (unint64_t)hash;
@@ -41,6 +42,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFB | v3;
+}
+
+- (id)typeAsString:(int)string
+{
+  if ((string - 1) >= 4)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_279868730[string - 1];
+  }
+
+  return v4;
 }
 
 - (int)StringAsType:(id)type
@@ -182,58 +198,55 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v9 = toCopy;
+  v6 = toCopy;
   if ((*&self->_has & 4) != 0)
   {
-    type = self->_type;
     PBDataWriterWriteInt32Field();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_identifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   has = self->_has;
   if (has)
   {
-    position = self->_position;
     PBDataWriterWriteDoubleField();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteDoubleField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_placeBookmark)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_routeBookmark)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_regionBookmark)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_transitLineBookmark)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   [(PBUnknownFields *)self->_unknownFields writeTo:toCopy];
@@ -351,7 +364,6 @@
   }
 
   has = self->_has;
-  v6 = *(equalCopy + 76);
   if ((has & 4) != 0)
   {
     if ((*(equalCopy + 76) & 4) == 0 || self->_type != *(equalCopy + 18))
@@ -371,14 +383,13 @@
     if (![(NSString *)identifier isEqual:?])
     {
 LABEL_28:
-      v13 = 0;
+      v11 = 0;
       goto LABEL_29;
     }
 
     has = self->_has;
   }
 
-  v8 = *(equalCopy + 76);
   if (has)
   {
     if ((*(equalCopy + 76) & 1) == 0 || self->_position != *(equalCopy + 2))
@@ -432,17 +443,17 @@ LABEL_28:
   transitLineBookmark = self->_transitLineBookmark;
   if (transitLineBookmark | *(equalCopy + 8))
   {
-    v13 = [(MSPTransitLineBookmark *)transitLineBookmark isEqual:?];
+    v11 = [(MSPTransitLineBookmark *)transitLineBookmark isEqual:?];
   }
 
   else
   {
-    v13 = 1;
+    v11 = 1;
   }
 
 LABEL_29:
 
-  return v13;
+  return v11;
 }
 
 - (unint64_t)hash

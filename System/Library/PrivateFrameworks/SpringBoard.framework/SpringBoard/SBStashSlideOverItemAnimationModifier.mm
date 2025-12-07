@@ -236,7 +236,7 @@ LABEL_7:
   {
     v13 = [(SBWindowingModifier *)self flexibleAutoLayoutSpaceForAppLayout:layoutCopy];
     v14 = [v13 flexibleAutoLayoutItemForDisplayItem:v12];
-    [v14 frame];
+    objc_msgSend_frame(v14);
     v16 = v15;
     v18 = v17;
     v20 = v19;

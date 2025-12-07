@@ -82,9 +82,9 @@
 
 + (BOOL)isSupported
 {
-  sub_10001A3E8();
+  v2 = sub_10001A3E8(self, a2);
 
-  return sub_10071C8FC();
+  return sub_10071C8FC(v2, v3);
 }
 
 @end

@@ -307,96 +307,92 @@ LABEL_40:
     PBDataWriterWriteSubmessage();
   }
 
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
-  v37 = 0u;
+  v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   v5 = self->_privileges;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v36 objects:v42 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v29 objects:v35 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v37;
+    v8 = *v30;
     do
     {
-      for (i = 0; i != v7; i = i + 1)
+      for (i = 0; i != v7; ++i)
       {
-        if (*v37 != v8)
+        if (*v30 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v36 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v36 objects:v42 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v29 objects:v35 count:16];
     }
 
     while (v7);
   }
 
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
-  v33 = 0u;
-  v11 = self->_roles;
-  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v32 objects:v41 count:16];
-  if (v12)
+  v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+  v10 = self->_roles;
+  v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v25 objects:v34 count:16];
+  if (v11)
   {
-    v13 = v12;
-    v14 = *v33;
+    v12 = v11;
+    v13 = *v26;
     do
     {
-      for (j = 0; j != v13; j = j + 1)
+      for (j = 0; j != v12; ++j)
       {
-        if (*v33 != v14)
+        if (*v26 != v13)
         {
-          objc_enumerationMutation(v11);
+          objc_enumerationMutation(v10);
         }
 
-        v16 = *(*(&v32 + 1) + 8 * j);
         PBDataWriterWriteSubmessage();
       }
 
-      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v32 objects:v41 count:16];
+      v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v25 objects:v34 count:16];
     }
 
-    while (v13);
+    while (v12);
   }
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
-  v29 = 0u;
-  v17 = self->_locations;
-  v18 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v28 objects:v40 count:16];
-  if (v18)
+  v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v15 = self->_locations;
+  v16 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v21 objects:v33 count:16];
+  if (v16)
   {
-    v19 = v18;
-    v20 = *v29;
+    v17 = v16;
+    v18 = *v22;
     do
     {
-      for (k = 0; k != v19; k = k + 1)
+      for (k = 0; k != v17; ++k)
       {
-        if (*v29 != v20)
+        if (*v22 != v18)
         {
-          objc_enumerationMutation(v17);
+          objc_enumerationMutation(v15);
         }
 
-        v22 = *(*(&v28 + 1) + 8 * k);
         PBDataWriterWriteSubmessage();
       }
 
-      v19 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v28 objects:v40 count:16];
+      v17 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v21 objects:v33 count:16];
     }
 
-    while (v19);
+    while (v17);
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    isEduUser = self->_isEduUser;
     PBDataWriterWriteBOOLField();
   }
 
@@ -419,7 +415,6 @@ LABEL_40:
     }
 
 LABEL_36:
-    organizationFacetimeMessagesEnabled = self->_organizationFacetimeMessagesEnabled;
     PBDataWriterWriteBOOLField();
     if ((*&self->_has & 1) == 0)
     {
@@ -429,7 +424,6 @@ LABEL_36:
     goto LABEL_33;
   }
 
-  organizationProgressTrackingAllowed = self->_organizationProgressTrackingAllowed;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 4) != 0)
@@ -441,7 +435,6 @@ LABEL_32:
   if (has)
   {
 LABEL_33:
-    analyticsOptedIn = self->_analyticsOptedIn;
     PBDataWriterWriteBOOLField();
   }
 
@@ -745,7 +738,6 @@ LABEL_27:
     }
   }
 
-  v9 = *(equalCopy + 60);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 60) & 2) == 0)
@@ -753,7 +745,6 @@ LABEL_27:
       goto LABEL_26;
     }
 
-    v14 = *(equalCopy + 57);
     if (self->_isEduUser)
     {
       if ((*(equalCopy + 57) & 1) == 0)
@@ -795,7 +786,6 @@ LABEL_27:
       goto LABEL_26;
     }
 
-    v15 = *(equalCopy + 59);
     if (self->_organizationProgressTrackingAllowed)
     {
       if ((*(equalCopy + 59) & 1) == 0)
@@ -823,7 +813,7 @@ LABEL_27:
     }
 
 LABEL_26:
-    v12 = 0;
+    v11 = 0;
     goto LABEL_27;
   }
 
@@ -832,7 +822,6 @@ LABEL_26:
     goto LABEL_26;
   }
 
-  v16 = *(equalCopy + 58);
   if (self->_organizationFacetimeMessagesEnabled)
   {
     if ((*(equalCopy + 58) & 1) == 0)
@@ -847,7 +836,7 @@ LABEL_26:
   }
 
 LABEL_20:
-  v12 = (*(equalCopy + 60) & 1) == 0;
+  v11 = (*(equalCopy + 60) & 1) == 0;
   if (*&self->_has)
   {
     if (*(equalCopy + 60))
@@ -863,7 +852,7 @@ LABEL_20:
       else if (!*(equalCopy + 56))
       {
 LABEL_46:
-        v12 = 1;
+        v11 = 1;
         goto LABEL_27;
       }
     }
@@ -873,7 +862,7 @@ LABEL_46:
 
 LABEL_27:
 
-  return v12;
+  return v11;
 }
 
 - (unint64_t)hash

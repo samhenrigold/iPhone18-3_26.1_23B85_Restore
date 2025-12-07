@@ -241,7 +241,7 @@
 
 - (void)applyTransitionFraction:(double)fraction fromColor:(id)color toColor:(id)toColor
 {
-  v6 = NTKInterpolateBetweenColors();
+  v6 = NTKInterpolateBetweenColors(fraction);
   [(CLKUIColoringLabel *)self->_label setTextColor:v6];
   [(CLKUIColoringLabel *)self->_transitioningLabel setTextColor:v6];
 }

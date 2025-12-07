@@ -9,6 +9,7 @@
 - (void)configureWithContext:(id)context completion:(id)completion;
 - (void)handleButtonActions:(id)actions;
 - (void)splashDoneButtonPressed:(id)pressed;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
 
@@ -97,6 +98,31 @@
   [(ServicePrivacyPromptViewController *)&v4 _willAppearInRemoteViewController];
   _remoteViewControllerProxy = [(ServicePrivacyPromptViewController *)self _remoteViewControllerProxy];
   [_remoteViewControllerProxy setDesiredHardwareButtonEvents:16];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v12.receiver = self;
+  v12.super_class = ServicePrivacyPromptViewController;
+  [(ServicePrivacyPromptViewController *)&v12 viewDidAppear:appear];
+  if (![(ServicePrivacyPromptViewController *)self privacyControllerShown])
+  {
+    objc_initWeak(&location, self);
+    privacyIdentifier = [(ServicePrivacyPromptViewController *)self privacyIdentifier];
+    v6 = _NSConcreteStackBlock;
+    v7 = 3221225472;
+    v8 = sub_10000A938;
+    v9 = &unk_100051538;
+    objc_copyWeak(&v10, &location);
+    v5 = [AMSUIPrivacyViewController privacyControllerWithIdentifier:privacyIdentifier acknowledgementHandler:&v6];
+
+    [(ServicePrivacyPromptViewController *)self _applyCustomTintColorToViewController:v5, v6, v7, v8, v9];
+    [(ServicePrivacyPromptViewController *)self presentViewController:v5 animated:1 completion:0];
+    [(ServicePrivacyPromptViewController *)self setPrivacyControllerShown:1];
+
+    objc_destroyWeak(&v10);
+    objc_destroyWeak(&location);
+  }
 }
 
 - (unint64_t)supportedInterfaceOrientations

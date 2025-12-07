@@ -1,1808 +1,3 @@
-void sub_274DE9B4C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, char a48)
-{
-  if (a14 < 0)
-  {
-    operator delete(__p);
-    if ((v49 & 1) == 0)
-    {
-LABEL_6:
-      std::ostringstream::~ostringstream(&a15);
-      std::istringstream::~istringstream(&a48);
-      _Unwind_Resume(a1);
-    }
-  }
-
-  else if (!v49)
-  {
-    goto LABEL_6;
-  }
-
-  __cxa_free_exception(v48);
-  goto LABEL_6;
-}
-
-uint64_t dmlc::parameter::FieldEntryBase<dmlc::parameter::FieldEntry<std::vector<int>>,std::vector<int>>::GetStringValue(void *a1, uint64_t a2)
-{
-  std::ostringstream::basic_ostringstream[abi:ne200100](&v9);
-  v4 = (a2 + a1[12]);
-  v7 = 0;
-  v8 = 0;
-  __p = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&__p, *v4, v4[1], (v4[1] - *v4) >> 2);
-  (*(*a1 + 64))(a1, &v9, &__p);
-  if (__p)
-  {
-    v7 = __p;
-    operator delete(__p);
-  }
-
-  std::stringbuf::str();
-  v9 = *MEMORY[0x277D82828];
-  *(&v9 + *(v9 - 24)) = *(MEMORY[0x277D82828] + 24);
-  v10 = MEMORY[0x277D82878] + 16;
-  if (v12 < 0)
-  {
-    operator delete(v11[7].__locale_);
-  }
-
-  v10 = MEMORY[0x277D82868] + 16;
-  std::locale::~locale(v11);
-  std::ostream::~ostream();
-  return MEMORY[0x277C690D0](&v13);
-}
-
-void sub_274DE9D5C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, uint64_t a11, char a12)
-{
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  std::ostringstream::~ostringstream(&a12);
-  _Unwind_Resume(a1);
-}
-
-uint64_t dmlc::parameter::FieldEntryBase<dmlc::parameter::FieldEntry<std::vector<int>>,std::vector<int>>::GetFieldInfo@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  *(a2 + 64) = 0u;
-  *(a2 + 80) = 0u;
-  *(a2 + 32) = 0u;
-  *(a2 + 48) = 0u;
-  *a2 = 0u;
-  *(a2 + 16) = 0u;
-  std::ostringstream::basic_ostringstream[abi:ne200100](&v11);
-  std::string::operator=(a2, (a1 + 24));
-  std::string::operator=((a2 + 24), (a1 + 48));
-  v4 = *(a1 + 71);
-  if (v4 >= 0)
-  {
-    v5 = a1 + 48;
-  }
-
-  else
-  {
-    v5 = *(a1 + 48);
-  }
-
-  if (v4 >= 0)
-  {
-    v6 = *(a1 + 71);
-  }
-
-  else
-  {
-    v6 = *(a1 + 56);
-  }
-
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v11, v5, v6);
-  if (*(a1 + 8) == 1)
-  {
-    LOBYTE(v9) = 44;
-    v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v11, &v9, 1);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, " optional, default=", 19);
-    (*(*a1 + 56))(a1, &v11);
-  }
-
-  else
-  {
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v11, ", required", 10);
-  }
-
-  std::stringbuf::str();
-  if (*(a2 + 71) < 0)
-  {
-    operator delete(*(a2 + 48));
-  }
-
-  *(a2 + 48) = v9;
-  *(a2 + 64) = v10;
-  std::string::operator=((a2 + 72), (a1 + 72));
-  v11 = *MEMORY[0x277D82828];
-  *(&v11 + *(v11 - 24)) = *(MEMORY[0x277D82828] + 24);
-  v12 = MEMORY[0x277D82878] + 16;
-  if (v14 < 0)
-  {
-    operator delete(v13[7].__locale_);
-  }
-
-  v12 = MEMORY[0x277D82868] + 16;
-  std::locale::~locale(v13);
-  std::ostream::~ostream();
-  return MEMORY[0x277C690D0](&v15);
-}
-
-void sub_274DE9FBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
-{
-  va_start(va, a4);
-  std::ostringstream::~ostringstream(va);
-  dmlc::ParamFieldInfo::~ParamFieldInfo(v4);
-  _Unwind_Resume(a1);
-}
-
-void dmlc::parameter::FieldEntryBase<dmlc::parameter::FieldEntry<std::vector<int>>,std::vector<int>>::PrintDefaultValueString(uint64_t *a1, uint64_t a2)
-{
-  __p = 0;
-  v5 = 0;
-  v6 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&__p, a1[13], a1[14], (a1[14] - a1[13]) >> 2);
-  (*(*a1 + 64))(a1, a2, &__p);
-  if (__p)
-  {
-    v5 = __p;
-    operator delete(__p);
-  }
-}
-
-void sub_274DEA06C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11)
-{
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void *dmlc::parameter::FieldEntryBase<dmlc::parameter::FieldEntry<std::vector<int>>,std::vector<int>>::PrintValue(uint64_t a1, void *a2, char **a3)
-{
-  v9 = 40;
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a2, &v9, 1);
-  v5 = *a3;
-  if (*a3 == a3[1])
-  {
-    v7 = *a3;
-  }
-
-  else
-  {
-    do
-    {
-      if (v5 != *a3)
-      {
-        v10 = 44;
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a2, &v10, 1);
-      }
-
-      v6 = *v5;
-      v5 += 4;
-      MEMORY[0x277C68E20](a2, v6);
-    }
-
-    while (v5 != a3[1]);
-    v7 = *a3;
-  }
-
-  if (v5 - v7 == 4)
-  {
-    v11 = 44;
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a2, &v11, 1);
-  }
-
-  v12 = 41;
-  return std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a2, &v12, 1);
-}
-
-void dmlc::parameter::FieldEntryBase<dmlc::parameter::FieldEntry<std::vector<int>>,std::vector<int>>::~FieldEntryBase(dmlc::parameter::FieldAccessEntry *this)
-{
-  *this = &unk_2883E60B0;
-  v2 = *(this + 13);
-  if (v2)
-  {
-    *(this + 14) = v2;
-    operator delete(v2);
-  }
-
-  dmlc::parameter::FieldAccessEntry::~FieldAccessEntry(this);
-}
-
-{
-  *this = &unk_2883E60B0;
-  v2 = *(this + 13);
-  if (v2)
-  {
-    *(this + 14) = v2;
-    operator delete(v2);
-  }
-
-  dmlc::parameter::FieldAccessEntry::~FieldAccessEntry(this);
-
-  JUMPOUT(0x277C69180);
-}
-
-void dmlc::parameter::FieldEntry<double>::~FieldEntry(void **a1)
-{
-  dmlc::parameter::FieldAccessEntry::~FieldAccessEntry(a1);
-
-  JUMPOUT(0x277C69180);
-}
-
-double dmlc::parameter::FieldEntryBase<dmlc::parameter::FieldEntry<double>,double>::SetDefault(uint64_t a1, uint64_t a2)
-{
-  if ((*(a1 + 8) & 1) == 0)
-  {
-    std::ostringstream::basic_ostringstream[abi:ne200100](v19);
-    v4 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v19, "Required parameter ", 19);
-    v5 = *(a1 + 47);
-    if (v5 >= 0)
-    {
-      v6 = a1 + 24;
-    }
-
-    else
-    {
-      v6 = *(a1 + 24);
-    }
-
-    if (v5 >= 0)
-    {
-      v7 = *(a1 + 47);
-    }
-
-    else
-    {
-      v7 = *(a1 + 32);
-    }
-
-    v8 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, v6, v7);
-    v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, " of ", 4);
-    v12 = *(a1 + 48);
-    v11 = a1 + 48;
-    v10 = v12;
-    v13 = *(v11 + 23);
-    if (v13 >= 0)
-    {
-      v14 = v11;
-    }
-
-    else
-    {
-      v14 = v10;
-    }
-
-    if (v13 >= 0)
-    {
-      v15 = *(v11 + 23);
-    }
-
-    else
-    {
-      v15 = *(v11 + 8);
-    }
-
-    v16 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, v14, v15);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v16, " is not presented", 17);
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::stringbuf::str();
-    std::runtime_error::runtime_error(exception, &v18);
-    exception->__vftable = &unk_2883DE2B0;
-  }
-
-  result = *(a1 + 104);
-  *(a2 + *(a1 + 96)) = result;
-  return result;
-}
-
-void sub_274DEA3A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
-{
-  if (a14 < 0)
-  {
-    operator delete(__p);
-    if ((v16 & 1) == 0)
-    {
-LABEL_6:
-      std::ostringstream::~ostringstream(&a15);
-      _Unwind_Resume(a1);
-    }
-  }
-
-  else if (!v16)
-  {
-    goto LABEL_6;
-  }
-
-  __cxa_free_exception(v15);
-  goto LABEL_6;
-}
-
-int *dmlc::parameter::FieldEntry<double>::Set(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v51 = 0;
-  if (*(a3 + 23) >= 0)
-  {
-    v6 = a3;
-  }
-
-  else
-  {
-    v6 = *a3;
-  }
-
-  for (i = v6; ; ++i)
-  {
-    v8 = *i;
-    if (v8 > 0x2D)
-    {
-      break;
-    }
-
-    if (((1 << v8) & 0x100003600) == 0)
-    {
-      if (v8 == 43)
-      {
-        ++i;
-      }
-
-      else if (v8 == 45)
-      {
-        v9 = 0;
-        ++i;
-        goto LABEL_13;
-      }
-
-      break;
-    }
-  }
-
-  v9 = 1;
-LABEL_13:
-  v10 = 0;
-  v11 = i + 8;
-  while ((i[v10] | 0x20) == aInfinity[v10])
-  {
-    if (++v10 == 8)
-    {
-      goto LABEL_19;
-    }
-  }
-
-  v11 = &i[v10];
-  if (v10 == 8 || v10 == 3)
-  {
-LABEL_19:
-    if (v9)
-    {
-      v12 = INFINITY;
-    }
-
-    else
-    {
-      v12 = -INFINITY;
-    }
-
-    goto LABEL_22;
-  }
-
-  v17 = 0;
-  v11 = i + 3;
-  while ((i[v17] | 0x20) == aNan[v17])
-  {
-    if (++v17 == 3)
-    {
-      if (*v11 == 40)
-      {
-        for (j = (i + 4); ; ++j)
-        {
-          v19 = *j;
-          if ((v19 - 48) >= 0xA && v19 != 95 && (v19 & 0xFFFFFFDF) - 65 > 0x19)
-          {
-            break;
-          }
-        }
-
-        v52 = 41;
-        if (v19 != 41)
-        {
-          dmlc::LogCheckFormat<char,char>(j, &v52);
-        }
-
-        v11 = (j + 1);
-      }
-
-      v38 = 0x7FF8000000000000;
-      goto LABEL_74;
-    }
-  }
-
-  v21 = *i;
-  v22 = 0.0;
-  if (v21 - 48 <= 9)
-  {
-    v23 = 0;
-    do
-    {
-      v23 = 10 * v23 + v21 - 48;
-      v24 = *++i;
-      v21 = v24;
-    }
-
-    while (v24 - 48 < 0xA);
-    v22 = v23;
-  }
-
-  if (v21 == 46)
-  {
-    v25 = *++i;
-    v21 = v25;
-    v26 = 0.0;
-    if (v25 - 48 <= 9)
-    {
-      v27 = 0;
-      v28 = 0;
-      v29 = 1;
-      do
-      {
-        v30 = 10 * v28 + v21 - 48;
-        if (v27 < 0x13)
-        {
-          v29 *= 10;
-          v28 = v30;
-        }
-
-        ++v27;
-        v31 = *++i;
-        v21 = v31;
-      }
-
-      while (v31 - 48 < 0xA);
-      v26 = v28 / v29;
-    }
-
-    v22 = v22 + v26;
-  }
-
-  if ((v21 | 0x20) == 0x65)
-  {
-    v32 = i[1];
-    v33 = v32 == 45 || v32 == 43;
-    v34 = 1;
-    if (v33)
-    {
-      v34 = 2;
-      v11 = i + 2;
-    }
-
-    else
-    {
-      v11 = i + 1;
-    }
-
-    v21 = i[v34];
-    v35 = 1.0;
-    if (v21 - 48 > 9)
-    {
-LABEL_86:
-      if (v32 == 45)
-      {
-        v22 = v22 / v35;
-      }
-
-      else
-      {
-        v22 = v22 * v35;
-      }
-
-      goto LABEL_89;
-    }
-
-    v36 = 0;
-    do
-    {
-      v36 = v21 + 10 * v36 - 48;
-      v37 = *++v11;
-      v21 = v37;
-    }
-
-    while (v37 - 48 < 0xA);
-    if (v36 >= 0x135)
-    {
-LABEL_69:
-      *__error() = 34;
-      v38 = 0x7FF0000000000000;
-LABEL_74:
-      v12 = *&v38;
-      goto LABEL_22;
-    }
-
-    if (v36 == 308)
-    {
-      v39 = v22 > 1.79769313;
-      if (v32 == 45)
-      {
-        v39 = v22 < 2.22507386;
-      }
-
-      if (v39)
-      {
-        goto LABEL_69;
-      }
-    }
-
-    else
-    {
-      v35 = 1.0;
-      if (v36 <= 7)
-      {
-        goto LABEL_84;
-      }
-    }
-
-    v35 = 1.0;
-    do
-    {
-      v35 = v35 * 100000000.0;
-      v36 -= 8;
-    }
-
-    while (v36 > 7);
-LABEL_84:
-    while (v36)
-    {
-      v35 = v35 * 10.0;
-      --v36;
-    }
-
-    goto LABEL_86;
-  }
-
-  v11 = i;
-LABEL_89:
-  if ((v21 | 0x20) == 0x66)
-  {
-    ++v11;
-  }
-
-  if (v9)
-  {
-    v12 = v22;
-  }
-
-  else
-  {
-    v12 = -v22;
-  }
-
-LABEL_22:
-  result = __error();
-  if (*result == 34 && v12 == INFINITY)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::logic_error::logic_error(exception, "Out of range value");
-    v41 = MEMORY[0x277D825F8];
-    v42 = off_279EF9A78;
-    v43 = MEMORY[0x277D828E8] + 16;
-    goto LABEL_96;
-  }
-
-  if (v11 == v6)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::logic_error::logic_error(exception, "No conversion could be performed");
-    v41 = MEMORY[0x277D82610];
-    v42 = off_279EF9A80;
-    v43 = MEMORY[0x277D828F8] + 16;
-LABEL_96:
-    exception->__vftable = v43;
-    __cxa_throw(exception, v42, v41);
-  }
-
-  v51 = v11 - v6;
-  *(a2 + *(a1 + 96)) = v12;
-  v15 = *(a3 + 23);
-  if ((v15 & 0x80u) != 0)
-  {
-    v15 = *(a3 + 8);
-  }
-
-  v49.__r_.__value_.__r.__words[0] = v15;
-  if (v11 - v6 > v15)
-  {
-    dmlc::LogCheckFormat<unsigned long,unsigned long>(&v51, &v49);
-  }
-
-  v16 = *(a3 + 23);
-  if ((v16 & 0x80u) != 0)
-  {
-    v16 = *(a3 + 8);
-  }
-
-  if (v51 < v16)
-  {
-    std::ostringstream::basic_ostringstream[abi:ne200100](v50);
-    v44 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v50, "Some trailing characters could not be parsed: '", 47);
-    std::string::basic_string(&v49, a3, v51, 0xFFFFFFFFFFFFFFFFLL, &v53);
-    if ((v49.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      v45 = &v49;
-    }
-
-    else
-    {
-      v45 = v49.__r_.__value_.__r.__words[0];
-    }
-
-    if ((v49.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      size = HIBYTE(v49.__r_.__value_.__r.__words[2]);
-    }
-
-    else
-    {
-      size = v49.__r_.__value_.__l.__size_;
-    }
-
-    v47 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v44, v45, size);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v47, "'", 1);
-    if (SHIBYTE(v49.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v49.__r_.__value_.__l.__data_);
-    }
-
-    v48 = __cxa_allocate_exception(0x10uLL);
-    std::stringbuf::str();
-    std::runtime_error::runtime_error(v48, &v49);
-    v48->__vftable = &unk_2883DE2B0;
-  }
-
-  return result;
-}
-
-void sub_274DEAAC4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, char a16)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-    if ((v17 & 1) == 0)
-    {
-LABEL_6:
-      std::ostringstream::~ostringstream(&a16);
-      _Unwind_Resume(a1);
-    }
-  }
-
-  else if (!v17)
-  {
-    goto LABEL_6;
-  }
-
-  __cxa_free_exception(v16);
-  goto LABEL_6;
-}
-
-void sub_274DEAB5C(void *a1, int a2, uint64_t a3, ...)
-{
-  va_start(va1, a3);
-  va_start(va, a3);
-  v27 = va_arg(va1, void);
-  v29 = va_arg(va1, void);
-  v30 = va_arg(va1, void);
-  __cxa_free_exception(v5);
-  if (a2 == 2)
-  {
-    __cxa_begin_catch(a1);
-    std::ostringstream::basic_ostringstream[abi:ne200100](va1);
-    v8 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(va1, "Invalid Parameter format for ", 29);
-    v9 = *(v4 + 47);
-    if (v9 >= 0)
-    {
-      v10 = v4 + 24;
-    }
-
-    else
-    {
-      v10 = *(v4 + 24);
-    }
-
-    if (v9 >= 0)
-    {
-      v11 = *(v4 + 47);
-    }
-
-    else
-    {
-      v11 = *(v4 + 32);
-    }
-
-    v12 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, v10, v11);
-    v13 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, " expect ", 8);
-    v16 = *(v4 + 48);
-    v15 = v4 + 48;
-    v14 = v16;
-    v17 = *(v15 + 23);
-    if (v17 >= 0)
-    {
-      v18 = v15;
-    }
-
-    else
-    {
-      v18 = v14;
-    }
-
-    if (v17 >= 0)
-    {
-      v19 = *(v15 + 23);
-    }
-
-    else
-    {
-      v19 = *(v15 + 8);
-    }
-
-    v20 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v13, v18, v19);
-    v21 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v20, " but value='", 12);
-    v22 = *(v3 + 23);
-    if (v22 >= 0)
-    {
-      v23 = v3;
-    }
-
-    else
-    {
-      v23 = *v3;
-    }
-
-    if (v22 >= 0)
-    {
-      v24 = *(v3 + 23);
-    }
-
-    else
-    {
-      v24 = *(v3 + 8);
-    }
-
-    v25 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v21, v23, v24);
-    LOBYTE(v27) = 39;
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v25, va, 1);
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::stringbuf::str();
-    std::runtime_error::runtime_error(exception, va);
-    exception->__vftable = &unk_2883DE2B0;
-  }
-
-  JUMPOUT(0x274DEACD8);
-}
-
-void sub_274DEAB74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13)
-{
-  v14 = a13;
-  a13 = 0;
-  if (v14)
-  {
-    std::default_delete<std::string>::operator()[abi:ne200100](&a13, v14);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void sub_274DEADD4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, char a16)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-    if ((v17 & 1) == 0)
-    {
-LABEL_6:
-      std::ostringstream::~ostringstream(&a16);
-      __cxa_end_catch();
-      _Unwind_Resume(a1);
-    }
-  }
-
-  else if (!v17)
-  {
-    goto LABEL_6;
-  }
-
-  __cxa_free_exception(v16);
-  goto LABEL_6;
-}
-
-uint64_t dmlc::parameter::FieldEntryNumeric<dmlc::parameter::FieldEntry<double>,double>::Check(uint64_t result, uint64_t a2)
-{
-  v2 = *(a2 + *(result + 96));
-  v3 = *(result + 113);
-  if (*(result + 112))
-  {
-    v4 = *(result + 120);
-    if (*(result + 113))
-    {
-      if (v2 < v4 || v2 > *(result + 128))
-      {
-        v80 = *(a2 + *(result + 96));
-        v5 = result;
-        std::ostringstream::basic_ostringstream[abi:ne200100](v84);
-        v6 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v84, "value ", 6);
-        v7 = MEMORY[0x277C68E00](v6, v80);
-        v8 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, " for Parameter ", 15);
-        v9 = *(v5 + 24);
-        v10 = *(v5 + 47);
-        if (v10 >= 0)
-        {
-          v11 = v5 + 24;
-        }
-
-        else
-        {
-          v11 = *(v5 + 24);
-        }
-
-        if (v10 >= 0)
-        {
-          v12 = *(v5 + 47);
-        }
-
-        else
-        {
-          v12 = *(v5 + 32);
-        }
-
-        v13 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, v11, v12);
-        v14 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v13, " exceed bound [", 15);
-        v15 = MEMORY[0x277C68E00](v14, *(v5 + 120));
-        v83.__r_.__value_.__s.__data_[0] = 44;
-        v16 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v15, &v83, 1);
-        v17 = MEMORY[0x277C68E00](v16, *(v5 + 128));
-        v83.__r_.__value_.__s.__data_[0] = 93;
-        v18 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v17, &v83, 1);
-        v83.__r_.__value_.__s.__data_[0] = 10;
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v18, &v83, 1);
-        v19 = *(v5 + 47);
-        v20 = *(v5 + 32);
-        if (v19 >= 0)
-        {
-          v21 = v5 + 24;
-        }
-
-        else
-        {
-          v21 = *(v5 + 24);
-        }
-
-        if (v19 >= 0)
-        {
-          v22 = *(v5 + 47);
-        }
-
-        else
-        {
-          v22 = *(v5 + 32);
-        }
-
-        v23 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v84, v21, v22);
-        v24 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v23, ": ", 2);
-        v27 = *(v5 + 72);
-        v26 = v5 + 72;
-        v25 = v27;
-        v28 = *(v26 + 23);
-        if (v28 >= 0)
-        {
-          v29 = v26;
-        }
-
-        else
-        {
-          v29 = v25;
-        }
-
-        if (v28 >= 0)
-        {
-          v30 = *(v26 + 23);
-        }
-
-        else
-        {
-          v30 = *(v26 + 8);
-        }
-
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v24, v29, v30);
-        exception = __cxa_allocate_exception(0x10uLL);
-        std::stringbuf::str();
-        std::runtime_error::runtime_error(exception, &v83);
-        exception->__vftable = &unk_2883DE2B0;
-      }
-    }
-
-    else if (v2 < v4)
-    {
-      v82 = *(a2 + *(result + 96));
-      v56 = result;
-      std::ostringstream::basic_ostringstream[abi:ne200100](v84);
-      v57 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v84, "value ", 6);
-      v58 = MEMORY[0x277C68E00](v57, v82);
-      v59 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v58, " for Parameter ", 15);
-      v60 = *(v56 + 24);
-      v61 = *(v56 + 47);
-      if (v61 >= 0)
-      {
-        v62 = v56 + 24;
-      }
-
-      else
-      {
-        v62 = *(v56 + 24);
-      }
-
-      if (v61 >= 0)
-      {
-        v63 = *(v56 + 47);
-      }
-
-      else
-      {
-        v63 = *(v56 + 32);
-      }
-
-      v64 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v59, v62, v63);
-      v65 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v64, " should be greater equal to ", 28);
-      v66 = MEMORY[0x277C68E00](v65, *(v56 + 120));
-      v83.__r_.__value_.__s.__data_[0] = 10;
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v66, &v83, 1);
-      v67 = *(v56 + 47);
-      v68 = *(v56 + 32);
-      if (v67 >= 0)
-      {
-        v69 = v56 + 24;
-      }
-
-      else
-      {
-        v69 = *(v56 + 24);
-      }
-
-      if (v67 >= 0)
-      {
-        v70 = *(v56 + 47);
-      }
-
-      else
-      {
-        v70 = *(v56 + 32);
-      }
-
-      v71 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v84, v69, v70);
-      v72 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v71, ": ", 2);
-      v75 = *(v56 + 72);
-      v74 = v56 + 72;
-      v73 = v75;
-      v76 = *(v74 + 23);
-      if (v76 >= 0)
-      {
-        v77 = v74;
-      }
-
-      else
-      {
-        v77 = v73;
-      }
-
-      if (v76 >= 0)
-      {
-        v78 = *(v74 + 23);
-      }
-
-      else
-      {
-        v78 = *(v74 + 8);
-      }
-
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v72, v77, v78);
-      v79 = __cxa_allocate_exception(0x10uLL);
-      std::stringbuf::str();
-      std::runtime_error::runtime_error(v79, &v83);
-      v79->__vftable = &unk_2883DE2B0;
-    }
-  }
-
-  else if ((*(result + 113) & 1) != 0 && v2 > *(result + 128))
-  {
-    v81 = *(a2 + *(result + 96));
-    v32 = result;
-    std::ostringstream::basic_ostringstream[abi:ne200100](v84);
-    v33 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v84, "value ", 6);
-    v34 = MEMORY[0x277C68E00](v33, v81);
-    v35 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v34, " for Parameter ", 15);
-    v36 = *(v32 + 24);
-    v37 = *(v32 + 47);
-    if (v37 >= 0)
-    {
-      v38 = v32 + 24;
-    }
-
-    else
-    {
-      v38 = *(v32 + 24);
-    }
-
-    if (v37 >= 0)
-    {
-      v39 = *(v32 + 47);
-    }
-
-    else
-    {
-      v39 = *(v32 + 32);
-    }
-
-    v40 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v35, v38, v39);
-    v41 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v40, " should be smaller equal to ", 28);
-    v42 = MEMORY[0x277C68E00](v41, *(v32 + 128));
-    v83.__r_.__value_.__s.__data_[0] = 10;
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v42, &v83, 1);
-    v43 = *(v32 + 47);
-    v44 = *(v32 + 32);
-    if (v43 >= 0)
-    {
-      v45 = v32 + 24;
-    }
-
-    else
-    {
-      v45 = *(v32 + 24);
-    }
-
-    if (v43 >= 0)
-    {
-      v46 = *(v32 + 47);
-    }
-
-    else
-    {
-      v46 = *(v32 + 32);
-    }
-
-    v47 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v84, v45, v46);
-    v48 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v47, ": ", 2);
-    v51 = *(v32 + 72);
-    v50 = v32 + 72;
-    v49 = v51;
-    v52 = *(v50 + 23);
-    if (v52 >= 0)
-    {
-      v53 = v50;
-    }
-
-    else
-    {
-      v53 = v49;
-    }
-
-    if (v52 >= 0)
-    {
-      v54 = *(v50 + 23);
-    }
-
-    else
-    {
-      v54 = *(v50 + 8);
-    }
-
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v48, v53, v54);
-    v55 = __cxa_allocate_exception(0x10uLL);
-    std::stringbuf::str();
-    std::runtime_error::runtime_error(v55, &v83);
-    v55->__vftable = &unk_2883DE2B0;
-  }
-
-  return result;
-}
-
-void sub_274DEB300(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, char a17)
-{
-  if (a16 < 0)
-  {
-    operator delete(__p);
-    if ((v18 & 1) == 0)
-    {
-LABEL_6:
-      std::ostringstream::~ostringstream(&a17);
-      _Unwind_Resume(a1);
-    }
-  }
-
-  else if (!v18)
-  {
-    goto LABEL_6;
-  }
-
-  __cxa_free_exception(v17);
-  goto LABEL_6;
-}
-
-uint64_t dmlc::parameter::FieldEntryBase<dmlc::parameter::FieldEntry<double>,double>::GetStringValue(void *a1, uint64_t a2)
-{
-  std::ostringstream::basic_ostringstream[abi:ne200100](&v5);
-  (*(*a1 + 64))(a1, &v5, *(a2 + a1[12]));
-  std::stringbuf::str();
-  v5 = *MEMORY[0x277D82828];
-  *(&v5 + *(v5 - 24)) = *(MEMORY[0x277D82828] + 24);
-  v6 = MEMORY[0x277D82878] + 16;
-  if (v8 < 0)
-  {
-    operator delete(v7[7].__locale_);
-  }
-
-  v6 = MEMORY[0x277D82868] + 16;
-  std::locale::~locale(v7);
-  std::ostream::~ostream();
-  return MEMORY[0x277C690D0](&v9);
-}
-
-void sub_274DEB4E4(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  std::ostringstream::~ostringstream(va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t dmlc::parameter::FieldEntryBase<dmlc::parameter::FieldEntry<double>,double>::GetFieldInfo@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  *(a2 + 64) = 0u;
-  *(a2 + 80) = 0u;
-  *(a2 + 32) = 0u;
-  *(a2 + 48) = 0u;
-  *a2 = 0u;
-  *(a2 + 16) = 0u;
-  std::ostringstream::basic_ostringstream[abi:ne200100](&v11);
-  std::string::operator=(a2, (a1 + 24));
-  std::string::operator=((a2 + 24), (a1 + 48));
-  v4 = *(a1 + 71);
-  if (v4 >= 0)
-  {
-    v5 = a1 + 48;
-  }
-
-  else
-  {
-    v5 = *(a1 + 48);
-  }
-
-  if (v4 >= 0)
-  {
-    v6 = *(a1 + 71);
-  }
-
-  else
-  {
-    v6 = *(a1 + 56);
-  }
-
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v11, v5, v6);
-  if (*(a1 + 8) == 1)
-  {
-    LOBYTE(v9) = 44;
-    v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v11, &v9, 1);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, " optional, default=", 19);
-    (*(*a1 + 56))(a1, &v11);
-  }
-
-  else
-  {
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v11, ", required", 10);
-  }
-
-  std::stringbuf::str();
-  if (*(a2 + 71) < 0)
-  {
-    operator delete(*(a2 + 48));
-  }
-
-  *(a2 + 48) = v9;
-  *(a2 + 64) = v10;
-  std::string::operator=((a2 + 72), (a1 + 72));
-  v11 = *MEMORY[0x277D82828];
-  *(&v11 + *(v11 - 24)) = *(MEMORY[0x277D82828] + 24);
-  v12 = MEMORY[0x277D82878] + 16;
-  if (v14 < 0)
-  {
-    operator delete(v13[7].__locale_);
-  }
-
-  v12 = MEMORY[0x277D82868] + 16;
-  std::locale::~locale(v13);
-  std::ostream::~ostream();
-  return MEMORY[0x277C690D0](&v15);
-}
-
-void sub_274DEB72C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
-{
-  va_start(va, a4);
-  std::ostringstream::~ostringstream(va);
-  dmlc::ParamFieldInfo::~ParamFieldInfo(v4);
-  _Unwind_Resume(a1);
-}
-
-uint64_t dmlc::parameter::FieldEntryNumeric<dmlc::parameter::FieldEntry<double>,double>::set_lower_bound(uint64_t result, double a2)
-{
-  *(result + 120) = a2;
-  *(result + 112) = 1;
-  return result;
-}
-
-uint64_t std::__function::__func<xgboost::$_0,std::allocator<xgboost::$_0>,xgboost::TreeGenerator * ()(xgboost::FeatureMap const&,std::string,BOOL)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-void xgboost::TextGenerator::Indicator(xgboost::FeatureMap **this@<X0>, const xgboost::RegTree *a2@<X1>, int __val@<W2>, std::string *a4@<X8>)
-{
-  v29[1] = *MEMORY[0x277D85DE8];
-  if ((atomic_load_explicit(&qword_280AF6C78, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_280AF6C78))
-  {
-    std::string::basic_string[abi:ne200100]<0>(byte_280AF6D60, "{nid}:[{fname}] yes={yes},no={no}");
-    __cxa_atexit(MEMORY[0x277D82640], byte_280AF6D60, &dword_274CA4000);
-    __cxa_guard_release(&qword_280AF6C78);
-  }
-
-  v8 = *(a2 + 20) + 20 * __val;
-  v9 = *(v8 + 12);
-  v10 = 4;
-  if (v9 < 0)
-  {
-    v10 = 8;
-  }
-
-  v11 = *(v8 + v10);
-  std::to_string(&v20, __val);
-  std::string::basic_string[abi:ne200100]<0>(v22, "{nid}");
-  v23 = v20;
-  memset(&v20, 0, sizeof(v20));
-  v19 = xgboost::FeatureMap::Name(this[1], v9 & 0x7FFFFFFF);
-  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[8],char const*,0>(v24, &v19);
-  std::to_string(&v18, v11);
-  std::string::basic_string[abi:ne200100]<0>(v25, "{yes}");
-  v26 = v18;
-  memset(&v18, 0, sizeof(v18));
-  v12 = *(a2 + 20) + 20 * __val;
-  v13 = 8;
-  if (*(v12 + 12) < 0)
-  {
-    v13 = 4;
-  }
-
-  std::to_string(&__p, *(v12 + v13));
-  std::string::basic_string[abi:ne200100]<0>(v27, "{no}");
-  v28 = *&__p.__r_.__value_.__l.__data_;
-  v29[0] = *(&__p.__r_.__value_.__l + 2);
-  memset(&__p, 0, sizeof(__p));
-  std::map<std::string,std::string>::map[abi:ne200100](v21, v22, 4);
-  xgboost::TreeGenerator::Match(a4, byte_280AF6D60, v21);
-  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v21, v21[1]);
-  for (i = 0; i != -24; i -= 6)
-  {
-    v15 = &v22[i];
-    if (SHIBYTE(v29[i]) < 0)
-    {
-      operator delete(v15[21]);
-    }
-
-    if (*(v15 + 167) < 0)
-    {
-      operator delete(v15[18]);
-    }
-  }
-
-  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__p.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v18.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v18.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v20.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v20.__r_.__value_.__l.__data_);
-  }
-
-  v16 = *MEMORY[0x277D85DE8];
-}
-
-void xgboost::TextGenerator::Categorical(xgboost::TextGenerator *this@<X0>, const xgboost::RegTree *a2@<X1>, xgboost::RegTree *a3@<X2>, int a4@<W3>, std::string *a5@<X8>)
-{
-  v6 = a3;
-  xgboost::GetSplitCategories(a2, a3, v12);
-  xgboost::PrintCatsAsSet(v12);
-  if ((atomic_load_explicit(&qword_280AF6C80, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_280AF6C80))
-  {
-    std::string::basic_string[abi:ne200100]<0>(byte_280AF6D78, "{tabs}{nid}:[{fname}:{cond}] yes={right},no={left},missing={missing}");
-    __cxa_atexit(MEMORY[0x277D82640], byte_280AF6D78, &dword_274CA4000);
-    __cxa_guard_release(&qword_280AF6C80);
-  }
-
-  if (SHIBYTE(v11.__r_.__value_.__r.__words[2]) < 0)
-  {
-    std::string::__init_copy_ctor_external(&__p, v11.__r_.__value_.__l.__data_, v11.__r_.__value_.__l.__size_);
-  }
-
-  else
-  {
-    __p = v11;
-  }
-
-  xgboost::TextGenerator::SplitNodeImpl(a5, this, a2, v6, byte_280AF6D78, &__p, a4);
-  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__p.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v11.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v11.__r_.__value_.__l.__data_);
-  }
-
-  if (v12[0])
-  {
-    v12[1] = v12[0];
-    operator delete(v12[0]);
-  }
-}
-
-void sub_274DEBDE4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, void *a22, uint64_t a23)
-{
-  __cxa_guard_abort(&qword_280AF6C80);
-  if (a21 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (a22)
-  {
-    operator delete(a22);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void xgboost::TextGenerator::Integer(xgboost::TextGenerator *this@<X0>, const xgboost::RegTree *a2@<X1>, int a3@<W2>, int a4@<W3>, std::string *a5@<X8>)
-{
-  if ((atomic_load_explicit(&qword_280AF6C88, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_280AF6C88))
-  {
-    std::string::basic_string[abi:ne200100]<0>(byte_280AF6D90, "{tabs}{nid}:[{fname}<{cond}] yes={left},no={right},missing={missing}");
-    __cxa_atexit(MEMORY[0x277D82640], byte_280AF6D90, &dword_274CA4000);
-    __cxa_guard_release(&qword_280AF6C88);
-  }
-
-  v10 = *(*(a2 + 20) + 20 * a3 + 16);
-  v11 = vcvtms_s32_f32(v10);
-  if (floorf(v10) == v10)
-  {
-    v12 = v11;
-  }
-
-  else
-  {
-    v12 = v11 + 1;
-  }
-
-  std::to_string(&v13, v12);
-  xgboost::TextGenerator::SplitNodeImpl(a5, this, a2, a3, byte_280AF6D90, &v13, a4);
-  if (SHIBYTE(v13.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v13.__r_.__value_.__l.__data_);
-  }
-}
-
-void xgboost::TextGenerator::Quantitive(xgboost::TextGenerator *this@<X0>, const xgboost::RegTree *a2@<X1>, int a3@<W2>, int a4@<W3>, std::string *a5@<X8>)
-{
-  if ((atomic_load_explicit(&qword_280AF6C90, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_280AF6C90))
-  {
-    std::string::basic_string[abi:ne200100]<0>(byte_280AF6DA8, "{tabs}{nid}:[{fname}<{cond}] yes={left},no={right},missing={missing}");
-    __cxa_atexit(MEMORY[0x277D82640], byte_280AF6DA8, &dword_274CA4000);
-    __cxa_guard_release(&qword_280AF6C90);
-  }
-
-  v10 = *(*(a2 + 20) + 20 * a3 + 16);
-  xgboost::TreeGenerator::ToStr<float>();
-  xgboost::TextGenerator::SplitNodeImpl(a5, this, a2, a3, byte_280AF6DA8, &__p, a4);
-  if (v12 < 0)
-  {
-    operator delete(__p);
-  }
-}
-
-void xgboost::TextGenerator::NodeStat(const xgboost::RegTree *a1@<X1>, int a2@<W2>, std::string *a3@<X8>)
-{
-  v22[1] = *MEMORY[0x277D85DE8];
-  if ((atomic_load_explicit(&qword_280AF6C98, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_280AF6C98))
-  {
-    std::string::basic_string[abi:ne200100]<0>(byte_280AF6DC0, ",gain={loss_chg},cover={sum_hess}");
-    __cxa_atexit(MEMORY[0x277D82640], byte_280AF6DC0, &dword_274CA4000);
-    __cxa_guard_release(&qword_280AF6C98);
-  }
-
-  v7 = *(*(a1 + 26) + 16 * a2);
-  xgboost::TreeGenerator::ToStr<float>();
-  std::string::basic_string[abi:ne200100]<0>(v17, "{loss_chg}");
-  v18 = *v14;
-  v19 = v15;
-  v8 = *(*(a1 + 26) + 16 * a2 + 4);
-  xgboost::TreeGenerator::ToStr<float>();
-  std::string::basic_string[abi:ne200100]<0>(v20, "{sum_hess}");
-  v21 = *__p;
-  v22[0] = v13;
-  std::map<std::string,std::string>::map[abi:ne200100](v16, v17, 2);
-  xgboost::TreeGenerator::Match(a3, byte_280AF6DC0, v16);
-  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v16, v16[1]);
-  for (i = 0; i != -12; i -= 6)
-  {
-    v10 = &v17[i];
-    if (SHIBYTE(v22[i]) < 0)
-    {
-      operator delete(v10[9]);
-    }
-
-    if (*(v10 + 71) < 0)
-    {
-      operator delete(v10[6]);
-    }
-  }
-
-  v11 = *MEMORY[0x277D85DE8];
-}
-
-void xgboost::TextGenerator::PlainNode(xgboost::TextGenerator *this@<X0>, const xgboost::RegTree *a2@<X1>, int a3@<W2>, int a4@<W3>, std::string *a5@<X8>)
-{
-  v10 = *(*(a2 + 20) + 20 * a3 + 16);
-  if ((atomic_load_explicit(&qword_280AF6CA0, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_280AF6CA0))
-  {
-    std::string::basic_string[abi:ne200100]<0>(byte_280AF6DD8, "{tabs}{nid}:[f{fname}<{cond}] yes={left},no={right},missing={missing}");
-    __cxa_atexit(MEMORY[0x277D82640], byte_280AF6DD8, &dword_274CA4000);
-    __cxa_guard_release(&qword_280AF6CA0);
-  }
-
-  xgboost::TreeGenerator::ToStr<float>();
-  xgboost::TextGenerator::SplitNodeImpl(a5, this, a2, a3, byte_280AF6DD8, &__p, a4);
-  if (v12 < 0)
-  {
-    operator delete(__p);
-  }
-}
-
-void xgboost::TreeGenerator::SplitNode(xgboost::TreeGenerator *this@<X0>, const xgboost::RegTree *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, void *a5@<X8>)
-{
-  v9 = *(*(a2 + 20) + 20 * a3 + 12) & 0x7FFFFFFF;
-  v28 = v9;
-  a5[1] = 0;
-  a5[2] = 0;
-  *a5 = 0;
-  v10 = *(*(a2 + 29) + a3);
-  v27 = v10 == 1;
-  v11 = *(this + 1);
-  if (0xAAAAAAAAAAAAAAABLL * ((*(v11 + 1) - *v11) >> 3) > v9)
-  {
-    v26[0] = &v27;
-    v26[1] = this;
-    v26[2] = &v28;
-    v12 = xgboost::FeatureMap::TypeOf(v11, v9);
-    if (v12 <= 1)
-    {
-      if (!v12)
-      {
-        xgboost::TreeGenerator::SplitNode(xgboost::RegTree const&,int,unsigned int)::{lambda(void)#2}::operator()(v26);
-        (**this)(this, a2, a3, a4);
-        return;
-      }
-
-      if (v12 != 1)
-      {
-        goto LABEL_21;
-      }
-    }
-
-    else
-    {
-      if (v12 == 2)
-      {
-        xgboost::TreeGenerator::SplitNode(xgboost::RegTree const&,int,unsigned int)::{lambda(void)#2}::operator()(v26);
-        (*(*this + 16))(this, a2, a3, a4);
-        return;
-      }
-
-      if (v12 != 3)
-      {
-        if (v12 == 4)
-        {
-          if (!v27)
-          {
-            Entry = dmlc::LogMessageFatal::GetEntry(&v29);
-            dmlc::LogMessageFatal::Entry::Init(Entry, "/Library/Caches/com.apple.xbs/Sources/CoreML/xgboost/src/tree/tree_model.cc", 99);
-            v20 = dmlc::LogMessageFatal::GetEntry(&v29);
-            v21 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v20, "Check failed: is_categorical", 28);
-            v22 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v21, ": ", 2);
-            v23 = xgboost::FeatureMap::Name(*(this + 1), v28);
-            v24 = strlen(v23);
-            v25 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v22, v23, v24);
-            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v25, " in feature map is numerical but tree node is categorical.", 58);
-            dmlc::LogMessageFatal::~LogMessageFatal(&v29);
-          }
-
-          (*(*this + 8))(this, a2, a3, a4);
-          return;
-        }
-
-LABEL_21:
-        v17 = dmlc::LogMessageFatal::GetEntry(&v29);
-        dmlc::LogMessageFatal::Entry::Init(v17, "/Library/Caches/com.apple.xbs/Sources/CoreML/xgboost/src/tree/tree_model.cc", 133);
-        v18 = dmlc::LogMessageFatal::GetEntry(&v29);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v18, "Unknown feature map type.", 25);
-        dmlc::LogMessageFatal::~LogMessageFatal(&v29);
-        return;
-      }
-    }
-
-    xgboost::TreeGenerator::SplitNode(xgboost::RegTree const&,int,unsigned int)::{lambda(void)#2}::operator()(v26);
-    (*(*this + 24))(this, a2, a3, a4);
-    return;
-  }
-
-  v13 = *this;
-  if (v10 == 1)
-  {
-    v14 = *(v13 + 8);
-    v15 = this;
-    v16 = a2;
-  }
-
-  else
-  {
-    v14 = *(v13 + 40);
-    v15 = this;
-    v16 = a2;
-  }
-
-  v14(v15, v16);
-}
-
-void xgboost::TextGenerator::LeafNode(xgboost::TextGenerator *this@<X0>, const xgboost::RegTree *a2@<X1>, int a3@<W2>, int a4@<W3>, std::string *a5@<X8>)
-{
-  v38[1] = *MEMORY[0x277D85DE8];
-  if ((atomic_load_explicit(&qword_280AF6CA8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_280AF6CA8))
-  {
-    std::string::basic_string[abi:ne200100]<0>(byte_280AF6DF0, "{tabs}{nid}:leaf={leaf}{stats}");
-    __cxa_atexit(MEMORY[0x277D82640], byte_280AF6DF0, &dword_274CA4000);
-    __cxa_guard_release(&qword_280AF6CA8);
-  }
-
-  if ((atomic_load_explicit(&qword_280AF6CB0, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_280AF6CB0))
-  {
-    std::string::basic_string[abi:ne200100]<0>(byte_280AF6E08, ",cover={cover}");
-    __cxa_atexit(MEMORY[0x277D82640], byte_280AF6E08, &dword_274CA4000);
-    __cxa_guard_release(&qword_280AF6CB0);
-  }
-
-  xgboost::TreeGenerator::Tabs(&v23, a4);
-  std::string::basic_string[abi:ne200100]<0>(v29, "{tabs}");
-  v30 = v23;
-  memset(&v23, 0, sizeof(v23));
-  std::to_string(&v22, a3);
-  std::string::basic_string[abi:ne200100]<0>(v31, "{nid}");
-  v32 = v22;
-  memset(&v22, 0, sizeof(v22));
-  v10 = *(*(a2 + 20) + 20 * a3 + 16);
-  xgboost::TreeGenerator::ToStr<float>();
-  std::string::basic_string[abi:ne200100]<0>(v33, "{leaf}");
-  v34 = *v20;
-  v35 = v21;
-  v20[1] = 0;
-  v21 = 0;
-  v20[0] = 0;
-  v11 = *(this + 296);
-  if (v11 == 1)
-  {
-    v12 = *(*(a2 + 26) + 16 * a3 + 4);
-    xgboost::TreeGenerator::ToStr<float>();
-    std::string::basic_string[abi:ne200100]<0>(v25, "{cover}");
-    v27 = *v16;
-    v28 = v17;
-    HIBYTE(v17) = 0;
-    v16[0] = 0;
-    std::map<std::string,std::string>::map[abi:ne200100](v18, v25, 1);
-    xgboost::TreeGenerator::Match(&__p, byte_280AF6E08, v18);
-  }
-
-  else
-  {
-    std::string::basic_string[abi:ne200100]<0>(&__p, &unk_274E44C6E);
-  }
-
-  std::string::basic_string[abi:ne200100]<0>(v36, "{stats}");
-  v37 = *&__p.__r_.__value_.__l.__data_;
-  v38[0] = *(&__p.__r_.__value_.__l + 2);
-  memset(&__p, 0, sizeof(__p));
-  std::map<std::string,std::string>::map[abi:ne200100](v24, v29, 4);
-  xgboost::TreeGenerator::Match(a5, byte_280AF6DF0, v24);
-  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v24, v24[1]);
-  for (i = 0; i != -24; i -= 6)
-  {
-    v14 = &v29[i];
-    if (SHIBYTE(v38[i]) < 0)
-    {
-      operator delete(v14[21]);
-    }
-
-    if (*(v14 + 167) < 0)
-    {
-      operator delete(v14[18]);
-    }
-  }
-
-  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__p.__r_.__value_.__l.__data_);
-    if (!v11)
-    {
-      goto LABEL_22;
-    }
-  }
-
-  else if (!v11)
-  {
-    goto LABEL_22;
-  }
-
-  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v18, v18[1]);
-  if (SHIBYTE(v28) < 0)
-  {
-    operator delete(v27);
-  }
-
-  if (v26 < 0)
-  {
-    operator delete(v25[0]);
-  }
-
-  if (SHIBYTE(v17) < 0)
-  {
-    operator delete(v16[0]);
-  }
-
-LABEL_22:
-  if (SHIBYTE(v21) < 0)
-  {
-    operator delete(v20[0]);
-  }
-
-  if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v22.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v23.__r_.__value_.__l.__data_);
-  }
-
-  v15 = *MEMORY[0x277D85DE8];
-}
-
-void xgboost::TextGenerator::BuildTree(xgboost::TextGenerator *this@<X0>, const xgboost::RegTree *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, std::string *a5@<X8>)
-{
-  v35[1] = *MEMORY[0x277D85DE8];
-  if (*(*(a2 + 20) + 20 * a3 + 4) == -1)
-  {
-    v10 = *(*this + 56);
-    v11 = *MEMORY[0x277D85DE8];
-
-    v10();
-  }
-
-  else
-  {
-    if ((atomic_load_explicit(&qword_280AF6CB8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_280AF6CB8))
-    {
-      std::string::basic_string[abi:ne200100]<0>(byte_280AF6E20, "{parent}{stat}\n{left}\n{right}");
-      __cxa_atexit(MEMORY[0x277D82640], byte_280AF6E20, &dword_274CA4000);
-      __cxa_guard_release(&qword_280AF6CB8);
-    }
-
-    (*(*this + 48))(v21, this, a2, a3, a4);
-    std::string::basic_string[abi:ne200100]<0>(v24, "{parent}");
-    v25 = *v21;
-    v26 = v22;
-    v21[1] = 0;
-    v22 = 0;
-    v21[0] = 0;
-    if (*(this + 296) == 1)
-    {
-      (*(*this + 32))(v19, this, a2, a3);
-    }
-
-    else
-    {
-      std::string::basic_string[abi:ne200100]<0>(v19, &unk_274E44C6E);
-    }
-
-    std::string::basic_string[abi:ne200100]<0>(v27, "{stat}");
-    v28 = *v19;
-    v29 = v20;
-    v19[1] = 0;
-    v20 = 0;
-    v19[0] = 0;
-    (*(*this + 64))(v17, this, a2, *(*(a2 + 20) + 20 * a3 + 4), (a4 + 1));
-    std::string::basic_string[abi:ne200100]<0>(v30, "{left}");
-    v31 = *v17;
-    v32 = v18;
-    v17[1] = 0;
-    v18 = 0;
-    v17[0] = 0;
-    (*(*this + 64))(__p, this, a2, *(*(a2 + 20) + 20 * a3 + 8), (a4 + 1));
-    std::string::basic_string[abi:ne200100]<0>(v33, "{right}");
-    v34 = *__p;
-    v35[0] = v16;
-    __p[1] = 0;
-    v16 = 0;
-    __p[0] = 0;
-    std::map<std::string,std::string>::map[abi:ne200100](v23, v24, 4);
-    xgboost::TreeGenerator::Match(a5, byte_280AF6E20, v23);
-    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v23, v23[1]);
-    for (i = 0; i != -24; i -= 6)
-    {
-      v13 = &v24[i];
-      if (SHIBYTE(v35[i]) < 0)
-      {
-        operator delete(v13[21]);
-      }
-
-      if (*(v13 + 167) < 0)
-      {
-        operator delete(v13[18]);
-      }
-    }
-
-    if (SHIBYTE(v16) < 0)
-    {
-      operator delete(__p[0]);
-    }
-
-    if (SHIBYTE(v18) < 0)
-    {
-      operator delete(v17[0]);
-    }
-
-    if (SHIBYTE(v20) < 0)
-    {
-      operator delete(v19[0]);
-    }
-
-    if (SHIBYTE(v22) < 0)
-    {
-      operator delete(v21[0]);
-    }
-
-    v14 = *MEMORY[0x277D85DE8];
-  }
-}
-
 void xgboost::TextGenerator::~TextGenerator(std::locale *this)
 {
   xgboost::TreeGenerator::~TreeGenerator(this);
@@ -1812,7 +7,7 @@ void xgboost::TextGenerator::~TextGenerator(std::locale *this)
 
 void xgboost::TextGenerator::BuildTree(xgboost::TextGenerator *this, const xgboost::RegTree *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if ((atomic_load_explicit(&qword_280AF6CC8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_280AF6CC8))
   {
     std::string::basic_string[abi:ne200100]<0>(_ZGRZN7xgboost13TextGenerator9BuildTreeERKNS_7RegTreeEE13kTreeTemplate_, "{nodes}\n");
@@ -1822,58 +17,56 @@ void xgboost::TextGenerator::BuildTree(xgboost::TextGenerator *this, const xgboo
   }
 
   v4 = qword_280AF6CC0;
-  (*(*this + 64))(v8, this, a2, 0, 0);
-  std::string::basic_string[abi:ne200100]<0>(v12, "{nodes}");
-  *__p = *v8;
-  v15 = v9;
-  v8[1] = 0;
-  v9 = 0;
-  v8[0] = 0;
-  std::map<std::string,std::string>::map[abi:ne200100](v10, v12, 1);
-  xgboost::TreeGenerator::Match(&v11, v4, v10);
-  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v10, v10[1]);
-  if (SHIBYTE(v15) < 0)
+  (*(*this + 64))(v7, this, a2, 0, 0);
+  std::string::basic_string[abi:ne200100]<0>(v11, "{nodes}");
+  *__p = *v7;
+  v14 = v8;
+  v7[1] = 0;
+  v8 = 0;
+  v7[0] = 0;
+  std::map<std::string,std::string>::map[abi:ne200100](v9, v11, 1);
+  xgboost::TreeGenerator::Match(&v10, v4, v9);
+  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v9, v9[1]);
+  if (SHIBYTE(v14) < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (v13 < 0)
+  if (v12 < 0)
   {
-    operator delete(v12[0]);
+    operator delete(v11[0]);
   }
 
-  if (SHIBYTE(v9) < 0)
+  if (SHIBYTE(v8) < 0)
   {
-    operator delete(v8[0]);
+    operator delete(v7[0]);
   }
 
-  if ((v11.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v10.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v5 = &v11;
-  }
-
-  else
-  {
-    v5 = v11.__r_.__value_.__r.__words[0];
-  }
-
-  if ((v11.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-  {
-    size = HIBYTE(v11.__r_.__value_.__r.__words[2]);
+    v5 = &v10;
   }
 
   else
   {
-    size = v11.__r_.__value_.__l.__size_;
+    v5 = v10.__r_.__value_.__r.__words[0];
+  }
+
+  if ((v10.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    size = HIBYTE(v10.__r_.__value_.__r.__words[2]);
+  }
+
+  else
+  {
+    size = v10.__r_.__value_.__l.__size_;
   }
 
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(this + 4, v5, size);
-  if (SHIBYTE(v11.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v11.__r_.__value_.__l.__data_);
+    operator delete(v10.__r_.__value_.__l.__data_);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void xgboost::TreeGenerator::BuildTree(xgboost::TreeGenerator *this, const xgboost::RegTree *a2)
@@ -2127,10 +320,10 @@ void sub_274DED944(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[8],char const*,0>(_BYTE *a1, char **a2)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[8],char const*,0>(void *a1, char **a2)
 {
   v4 = std::string::basic_string[abi:ne200100]<0>(a1, "{fname}");
-  std::string::basic_string[abi:ne200100]<0>(v4 + 24, *a2);
+  std::string::basic_string[abi:ne200100]<0>(v4 + 3, *a2);
   return a1;
 }
 
@@ -2144,18 +337,18 @@ void sub_274DED9B8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::map<std::string,std::string>::map[abi:ne200100](void *a1, const void **a2, uint64_t a3)
+uint64_t std::map<std::string,std::string>::map[abi:ne200100](uint64_t a1, const void **a2, uint64_t a3)
 {
-  a1[1] = 0;
-  v4 = (a1 + 1);
-  a1[2] = 0;
-  *a1 = a1 + 1;
+  *(a1 + 8) = 0;
+  v4 = (a1 + 8);
+  *(a1 + 16) = 0;
+  *a1 = a1 + 8;
   if (a3)
   {
     v6 = 48 * a3;
     do
     {
-      std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,std::string> const&>(a1, v4, a2);
+      std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,std::string> const&>(a1, v4, a2, a2);
       a2 += 6;
       v6 -= 48;
     }
@@ -2168,40 +361,40 @@ void *std::map<std::string,std::string>::map[abi:ne200100](void *a1, const void 
 
 void xgboost::TextGenerator::SplitNodeImpl(std::string *a1, uint64_t a2, uint64_t a3, int a4, uint64_t a5, __int128 *a6, int a7)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v13 = *(*(a3 + 160) + 20 * a4 + 12);
-  xgboost::TreeGenerator::Tabs(&v26, a7);
-  std::string::basic_string[abi:ne200100]<0>(v28, "{tabs}");
-  v29 = v26;
-  memset(&v26, 0, sizeof(v26));
-  std::to_string(&v25, a4);
-  std::string::basic_string[abi:ne200100]<0>(v30, "{nid}");
-  v31 = v25;
+  xgboost::TreeGenerator::Tabs(&v25, a7);
+  std::string::basic_string[abi:ne200100]<0>(v27, "{tabs}");
+  v28 = v25;
   memset(&v25, 0, sizeof(v25));
+  std::to_string(&v24, a4);
+  std::string::basic_string[abi:ne200100]<0>(v29, "{nid}");
+  v30 = v24;
+  memset(&v24, 0, sizeof(v24));
   v14 = *(a2 + 8);
   if (0xAAAAAAAAAAAAAAABLL * ((*(v14 + 1) - *v14) >> 3) <= (v13 & 0x7FFFFFFFu))
   {
-    std::to_string(&v24, v13 & 0x7FFFFFFF);
+    std::to_string(&v23, v13 & 0x7FFFFFFF);
   }
 
   else
   {
     v15 = xgboost::FeatureMap::Name(v14, v13 & 0x7FFFFFFF);
-    std::string::basic_string[abi:ne200100]<0>(&v24, v15);
+    std::string::basic_string[abi:ne200100]<0>(&v23, v15);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(v32, "{fname}");
-  v33 = v24;
-  memset(&v24, 0, sizeof(v24));
-  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[7],std::string&,0>(v34, a6);
-  std::to_string(&v23, *(*(a3 + 160) + 20 * a4 + 4));
-  std::string::basic_string[abi:ne200100]<0>(v35, "{left}");
-  v36 = v23;
+  std::string::basic_string[abi:ne200100]<0>(v31, "{fname}");
+  v32 = v23;
   memset(&v23, 0, sizeof(v23));
-  std::to_string(&v22, *(*(a3 + 160) + 20 * a4 + 8));
-  std::string::basic_string[abi:ne200100]<0>(v37, "{right}");
-  v38 = v22;
+  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[7],std::string&,0>(v33, a6);
+  std::to_string(&v22, *(*(a3 + 160) + 20 * a4 + 4));
+  std::string::basic_string[abi:ne200100]<0>(v34, "{left}");
+  v35 = v22;
   memset(&v22, 0, sizeof(v22));
+  std::to_string(&v21, *(*(a3 + 160) + 20 * a4 + 8));
+  std::string::basic_string[abi:ne200100]<0>(v36, "{right}");
+  v37 = v21;
+  memset(&v21, 0, sizeof(v21));
   v16 = *(a3 + 160) + 20 * a4;
   v17 = 8;
   if (*(v16 + 12) < 0)
@@ -2210,17 +403,17 @@ void xgboost::TextGenerator::SplitNodeImpl(std::string *a1, uint64_t a2, uint64_
   }
 
   std::to_string(&__p, *(v16 + v17));
-  std::string::basic_string[abi:ne200100]<0>(v39, "{missing}");
-  v40 = __p;
+  std::string::basic_string[abi:ne200100]<0>(v38, "{missing}");
+  v39 = __p;
   memset(&__p, 0, sizeof(__p));
-  std::map<std::string,std::string>::map[abi:ne200100](v27, v28, 7);
-  xgboost::TreeGenerator::Match(a1, a5, v27);
-  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v27, v27[1]);
+  std::map<std::string,std::string>::map[abi:ne200100](v26, v27, 7);
+  xgboost::TreeGenerator::Match(a1, a5, v26);
+  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v26, v26[1]);
   v18 = 42;
   do
   {
-    v19 = &v28[v18];
-    if (SHIBYTE(v28[v18 - 1]) < 0)
+    v19 = &v27[v18];
+    if (SHIBYTE(v27[v18 - 1]) < 0)
     {
       operator delete(*(v19 - 3));
     }
@@ -2237,6 +430,11 @@ void xgboost::TextGenerator::SplitNodeImpl(std::string *a1, uint64_t a2, uint64_
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v21.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v21.__r_.__value_.__l.__data_);
   }
 
   if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
@@ -2258,16 +456,9 @@ void xgboost::TextGenerator::SplitNodeImpl(std::string *a1, uint64_t a2, uint64_
   {
     operator delete(v25.__r_.__value_.__l.__data_);
   }
-
-  if (SHIBYTE(v26.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v26.__r_.__value_.__l.__data_);
-  }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
-void sub_274DEDDA8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, void *a27, uint64_t a28, int a29, __int16 a30, char a31, char a32, void *a33, uint64_t a34, int a35, __int16 a36, char a37, char a38, void *a39, uint64_t a40, int a41, __int16 a42, char a43, char a44, char a45, void *a46, uint64_t a47, char a48)
+void sub_274DEDDA8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, void *a27, uint64_t a28, int a29, __int16 a30, char a31, char a32, void *a33, uint64_t a34, int a35, __int16 a36, char a37, char a38, void *a39, uint64_t a40, int a41, __int16 a42, char a43, char a44, uint64_t a45, void *a46, uint64_t a47, char a48)
 {
   std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(&a45, a46);
   v50 = -336;
@@ -2367,31 +558,31 @@ void sub_274DEDF94(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t xgboost::TreeGenerator::ToStr<float>()
+uint64_t xgboost::TreeGenerator::ToStr<float>(void *a1, float a2)
 {
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v2);
-  *(&v5[0].__locale_ + *(v3 - 24)) = 9;
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v4);
+  *(&v7[0].__locale_ + *(v5 - 24)) = 9;
   std::ostream::operator<<();
   std::stringbuf::str();
-  v2[0] = *MEMORY[0x277D82818];
-  v0 = *(MEMORY[0x277D82818] + 72);
-  *(v2 + *(v2[0] - 24)) = *(MEMORY[0x277D82818] + 64);
-  v3 = v0;
-  v4 = MEMORY[0x277D82878] + 16;
-  if (v6 < 0)
+  v4[0] = *MEMORY[0x277D82818];
+  v2 = *(MEMORY[0x277D82818] + 72);
+  *(v4 + *(v4[0] - 24)) = *(MEMORY[0x277D82818] + 64);
+  v5 = v2;
+  v6 = MEMORY[0x277D82878] + 16;
+  if (v8 < 0)
   {
-    operator delete(v5[7].__locale_);
+    operator delete(v7[7].__locale_);
   }
 
-  v4 = MEMORY[0x277D82868] + 16;
-  std::locale::~locale(v5);
+  v6 = MEMORY[0x277D82868] + 16;
+  std::locale::~locale(v7);
   std::iostream::~basic_iostream();
-  return MEMORY[0x277C690D0](&v7);
+  return MEMORY[0x277C690D0](&v9);
 }
 
-void sub_274DEE164(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_274DEE164(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(va);
   _Unwind_Resume(a1);
 }
@@ -2473,7 +664,7 @@ uint64_t std::__function::__func<xgboost::$_1,std::allocator<xgboost::$_1>,xgboo
 
 void xgboost::JsonGenerator::Indicator(xgboost::FeatureMap **this@<X0>, const xgboost::RegTree *a2@<X1>, int __val@<W2>, unsigned int a4@<W3>, std::string *a5@<X8>)
 {
-  v34[1] = *MEMORY[0x277D85DE8];
+  v33[1] = *MEMORY[0x277D85DE8];
   v10 = *(a2 + 20) + 20 * __val;
   v11 = 4;
   if (*(v10 + 12) < 0)
@@ -2484,26 +675,26 @@ void xgboost::JsonGenerator::Indicator(xgboost::FeatureMap **this@<X0>, const xg
   v12 = *(v10 + v11);
   if ((atomic_load_explicit(&qword_280AF6CD0, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_280AF6CD0))
   {
-    std::string::basic_string[abi:ne200100]<0>(byte_280AF6E38, " nodeid: {nid}, depth: {depth}, split: {fname}, yes: {yes}, no: {no}");
-    __cxa_atexit(MEMORY[0x277D82640], byte_280AF6E38, &dword_274CA4000);
+    std::string::basic_string[abi:ne200100]<0>(qword_280AF6E38, " nodeid: {nid}, depth: {depth}, split: {fname}, yes: {yes}, no: {no}");
+    __cxa_atexit(MEMORY[0x277D82640], qword_280AF6E38, &dword_274CA4000);
     __cxa_guard_release(&qword_280AF6CD0);
   }
 
   v13 = *(*(a2 + 20) + 20 * __val + 12);
-  std::to_string(&v23, __val);
-  std::string::basic_string[abi:ne200100]<0>(v25, "{nid}");
-  v26 = v23;
-  memset(&v23, 0, sizeof(v23));
-  std::to_string(&v22, a4);
-  std::string::basic_string[abi:ne200100]<0>(v27, "{depth}");
-  v28 = v22;
+  std::to_string(&v22, __val);
+  std::string::basic_string[abi:ne200100]<0>(v24, "{nid}");
+  v25 = v22;
   memset(&v22, 0, sizeof(v22));
-  v21 = xgboost::FeatureMap::Name(this[1], v13 & 0x7FFFFFFF);
-  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[8],char const*,0>(v29, &v21);
-  std::to_string(&v20, v12);
-  std::string::basic_string[abi:ne200100]<0>(v30, "{yes}");
-  v31 = v20;
-  memset(&v20, 0, sizeof(v20));
+  std::to_string(&v21, a4);
+  std::string::basic_string[abi:ne200100]<0>(v26, "{depth}");
+  v27 = v21;
+  memset(&v21, 0, sizeof(v21));
+  v20 = xgboost::FeatureMap::Name(this[1], v13 & 0x7FFFFFFF);
+  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[8],char const*,0>(v28, &v20);
+  std::to_string(&v19, v12);
+  std::string::basic_string[abi:ne200100]<0>(v29, "{yes}");
+  v30 = v19;
+  memset(&v19, 0, sizeof(v19));
   v14 = *(a2 + 20) + 20 * __val;
   v15 = 8;
   if (*(v14 + 12) < 0)
@@ -2511,18 +702,18 @@ void xgboost::JsonGenerator::Indicator(xgboost::FeatureMap **this@<X0>, const xg
     v15 = 4;
   }
 
-  std::to_string(&v19, *(v14 + v15));
-  std::string::basic_string[abi:ne200100]<0>(v32, "{no}");
-  v33 = *&v19.__r_.__value_.__l.__data_;
-  v34[0] = *(&v19.__r_.__value_.__l + 2);
-  memset(&v19, 0, sizeof(v19));
-  std::map<std::string,std::string>::map[abi:ne200100](v24, v25, 5);
-  xgboost::TreeGenerator::Match(a5, byte_280AF6E38, v24);
-  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v24, v24[1]);
+  std::to_string(&v18, *(v14 + v15));
+  std::string::basic_string[abi:ne200100]<0>(v31, "{no}");
+  v32 = *&v18.__r_.__value_.__l.__data_;
+  v33[0] = *(&v18.__r_.__value_.__l + 2);
+  memset(&v18, 0, sizeof(v18));
+  std::map<std::string,std::string>::map[abi:ne200100](v23, v24, 5);
+  xgboost::TreeGenerator::Match(a5, qword_280AF6E38, v23);
+  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v23, v23[1]);
   for (i = 0; i != -30; i -= 6)
   {
-    v17 = &v25[i];
-    if (SHIBYTE(v34[i]) < 0)
+    v17 = &v24[i];
+    if (SHIBYTE(v33[i]) < 0)
     {
       operator delete(v17[27]);
     }
@@ -2533,37 +724,35 @@ void xgboost::JsonGenerator::Indicator(xgboost::FeatureMap **this@<X0>, const xg
     }
   }
 
+  if (SHIBYTE(v18.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v18.__r_.__value_.__l.__data_);
+  }
+
   if (SHIBYTE(v19.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v19.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v20.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v21.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v20.__r_.__value_.__l.__data_);
+    operator delete(v21.__r_.__value_.__l.__data_);
   }
 
   if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v22.__r_.__value_.__l.__data_);
   }
-
-  if (SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v23.__r_.__value_.__l.__data_);
-  }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
-void xgboost::JsonGenerator::Categorical(xgboost::JsonGenerator *this@<X0>, const xgboost::RegTree *a2@<X1>, xgboost::RegTree *a3@<X2>, unsigned int a4@<W3>, std::string *a5@<X8>)
+void xgboost::JsonGenerator::Categorical(xgboost::JsonGenerator *this@<X0>, const xgboost::RegTree *a2@<X1>, xgboost::RegTree *a3@<X2>, std::string *a4@<X8>, unsigned int a5@<W3>)
 {
   v6 = a3;
   xgboost::GetSplitCategories(a2, a3, &v18);
   if ((atomic_load_explicit(&qword_280AF6CD8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_280AF6CD8))
   {
-    std::string::basic_string[abi:ne200100]<0>(byte_280AF6E50, " nodeid: {nid}, depth: {depth}, split: {fname}, split_condition: {cond}, yes: {right}, no: {left}, missing: {missing}");
-    __cxa_atexit(MEMORY[0x277D82640], byte_280AF6E50, &dword_274CA4000);
+    std::string::basic_string[abi:ne200100]<0>(qword_280AF6E50, " nodeid: {nid}, depth: {depth}, split: {fname}, split_condition: {cond}, yes: {right}, no: {left}, missing: {missing}");
+    __cxa_atexit(MEMORY[0x277D82640], qword_280AF6E50, &dword_274CA4000);
     __cxa_guard_release(&qword_280AF6CD8);
   }
 
@@ -2627,7 +816,7 @@ void xgboost::JsonGenerator::Categorical(xgboost::JsonGenerator *this@<X0>, cons
     __p = v17;
   }
 
-  xgboost::JsonGenerator::SplitNodeImpl(a5, this, a2, v6, byte_280AF6E50, &__p, a4);
+  xgboost::JsonGenerator::SplitNodeImpl(a4, this, a2, v6, qword_280AF6E50, &__p, a5);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -2656,7 +845,7 @@ void sub_274DEEC64(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void xgboost::JsonGenerator::Integer(xgboost::JsonGenerator *this@<X0>, const xgboost::RegTree *a2@<X1>, int a3@<W2>, unsigned int a4@<W3>, std::string *a5@<X8>)
+void xgboost::JsonGenerator::Integer(xgboost::JsonGenerator *this@<X0>, const xgboost::RegTree *a2@<X1>, int a3@<W2>, std::string *a4@<X8>, unsigned int a5@<W3>)
 {
   v10 = *(*(a2 + 20) + 20 * a3 + 16);
   v11 = vcvtms_s32_f32(v10);
@@ -2672,161 +861,172 @@ void xgboost::JsonGenerator::Integer(xgboost::JsonGenerator *this@<X0>, const xg
 
   if ((atomic_load_explicit(&qword_280AF6CE0, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_280AF6CE0))
   {
-    std::string::basic_string[abi:ne200100]<0>(byte_280AF6E68, " nodeid: {nid}, depth: {depth}, split: {fname}, split_condition: {cond}, yes: {left}, no: {right}, missing: {missing}");
-    __cxa_atexit(MEMORY[0x277D82640], byte_280AF6E68, &dword_274CA4000);
+    std::string::basic_string[abi:ne200100]<0>(qword_280AF6E68, " nodeid: {nid}, depth: {depth}, split: {fname}, split_condition: {cond}, yes: {left}, no: {right}, missing: {missing}");
+    __cxa_atexit(MEMORY[0x277D82640], qword_280AF6E68, &dword_274CA4000);
     __cxa_guard_release(&qword_280AF6CE0);
   }
 
   std::to_string(&v13, v12);
-  xgboost::JsonGenerator::SplitNodeImpl(a5, this, a2, a3, byte_280AF6E68, &v13, a4);
+  xgboost::JsonGenerator::SplitNodeImpl(a4, this, a2, a3, qword_280AF6E68, &v13, a5);
   if (SHIBYTE(v13.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v13.__r_.__value_.__l.__data_);
   }
 }
 
-void xgboost::JsonGenerator::Quantitive(xgboost::JsonGenerator *this@<X0>, const xgboost::RegTree *a2@<X1>, int a3@<W2>, unsigned int a4@<W3>, std::string *a5@<X8>)
+void xgboost::JsonGenerator::Quantitive(xgboost::JsonGenerator *this@<X0>, const xgboost::RegTree *a2@<X1>, int a3@<W2>, std::string *a4@<X8>, unsigned int a5@<W3>)
 {
   if ((atomic_load_explicit(&qword_280AF6CE8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_280AF6CE8))
   {
-    std::string::basic_string[abi:ne200100]<0>(byte_280AF6E80, " nodeid: {nid}, depth: {depth}, split: {fname}, split_condition: {cond}, yes: {left}, no: {right}, missing: {missing}");
-    __cxa_atexit(MEMORY[0x277D82640], byte_280AF6E80, &dword_274CA4000);
+    std::string::basic_string[abi:ne200100]<0>(qword_280AF6E80, " nodeid: {nid}, depth: {depth}, split: {fname}, split_condition: {cond}, yes: {left}, no: {right}, missing: {missing}");
+    __cxa_atexit(MEMORY[0x277D82640], qword_280AF6E80, &dword_274CA4000);
     __cxa_guard_release(&qword_280AF6CE8);
   }
 
-  v10 = *(*(a2 + 20) + 20 * a3 + 16);
-  xgboost::TreeGenerator::ToStr<float>();
-  xgboost::JsonGenerator::SplitNodeImpl(a5, this, a2, a3, byte_280AF6E80, &__p, a4);
-  if (v12 < 0)
+  xgboost::TreeGenerator::ToStr<float>(__p, *(*(a2 + 20) + 20 * a3 + 16));
+  xgboost::JsonGenerator::SplitNodeImpl(a4, this, a2, a3, qword_280AF6E80, __p, a5);
+  if (v11 < 0)
   {
-    operator delete(__p);
+    operator delete(__p[0]);
   }
 }
 
 void xgboost::JsonGenerator::NodeStat(const xgboost::RegTree *a1@<X1>, int a2@<W2>, std::string *a3@<X8>)
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   if ((atomic_load_explicit(&qword_280AF6CF0, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_280AF6CF0))
   {
-    std::string::basic_string[abi:ne200100]<0>(byte_280AF6E98, ", gain: {loss_chg}, cover: {sum_hess}");
-    __cxa_atexit(MEMORY[0x277D82640], byte_280AF6E98, &dword_274CA4000);
+    std::string::basic_string[abi:ne200100]<0>(qword_280AF6E98, ", gain: {loss_chg}, cover: {sum_hess}");
+    __cxa_atexit(MEMORY[0x277D82640], qword_280AF6E98, &dword_274CA4000);
     __cxa_guard_release(&qword_280AF6CF0);
   }
 
-  v7 = *(*(a1 + 26) + 16 * a2);
-  xgboost::TreeGenerator::ToStr<float>();
-  std::string::basic_string[abi:ne200100]<0>(v17, "{loss_chg}");
-  v18 = *v14;
-  v19 = v15;
-  v8 = *(*(a1 + 26) + 16 * a2 + 4);
-  xgboost::TreeGenerator::ToStr<float>();
-  std::string::basic_string[abi:ne200100]<0>(v20, "{sum_hess}");
-  v21 = *__p;
-  v22[0] = v13;
-  std::map<std::string,std::string>::map[abi:ne200100](v16, v17, 2);
-  xgboost::TreeGenerator::Match(a3, byte_280AF6E98, v16);
-  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v16, v16[1]);
+  xgboost::TreeGenerator::ToStr<float>(v10, *(*(a1 + 26) + 16 * a2));
+  std::string::basic_string[abi:ne200100]<0>(v13, "{loss_chg}");
+  v14 = *v10;
+  v15 = v11;
+  v10[1] = 0;
+  v11 = 0;
+  v10[0] = 0;
+  xgboost::TreeGenerator::ToStr<float>(__p, *(*(a1 + 26) + 16 * a2 + 4));
+  std::string::basic_string[abi:ne200100]<0>(v16, "{sum_hess}");
+  v17 = *__p;
+  v18[0] = v9;
+  __p[1] = 0;
+  v9 = 0;
+  __p[0] = 0;
+  std::map<std::string,std::string>::map[abi:ne200100](v12, v13, 2);
+  xgboost::TreeGenerator::Match(a3, qword_280AF6E98, v12);
+  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v12, v12[1]);
   for (i = 0; i != -12; i -= 6)
   {
-    v10 = &v17[i];
-    if (SHIBYTE(v22[i]) < 0)
+    v7 = &v13[i];
+    if (SHIBYTE(v18[i]) < 0)
     {
-      operator delete(v10[9]);
+      operator delete(v7[9]);
     }
 
-    if (*(v10 + 71) < 0)
+    if (*(v7 + 71) < 0)
     {
-      operator delete(v10[6]);
+      operator delete(v7[6]);
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
+  if (SHIBYTE(v9) < 0)
+  {
+    operator delete(__p[0]);
+  }
+
+  if (SHIBYTE(v11) < 0)
+  {
+    operator delete(v10[0]);
+  }
 }
 
-void xgboost::JsonGenerator::PlainNode(xgboost::JsonGenerator *this@<X0>, const xgboost::RegTree *a2@<X1>, int a3@<W2>, unsigned int a4@<W3>, std::string *a5@<X8>)
+void xgboost::JsonGenerator::PlainNode(xgboost::JsonGenerator *this@<X0>, const xgboost::RegTree *a2@<X1>, int a3@<W2>, std::string *a4@<X8>, unsigned int a5@<W3>)
 {
   v10 = *(*(a2 + 20) + 20 * a3 + 16);
   if ((atomic_load_explicit(&qword_280AF6CF8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_280AF6CF8))
   {
-    std::string::basic_string[abi:ne200100]<0>(byte_280AF6EB0, " nodeid: {nid}, depth: {depth}, split: {fname}, split_condition: {cond}, yes: {left}, no: {right}, missing: {missing}");
-    __cxa_atexit(MEMORY[0x277D82640], byte_280AF6EB0, &dword_274CA4000);
+    std::string::basic_string[abi:ne200100]<0>(qword_280AF6EB0, " nodeid: {nid}, depth: {depth}, split: {fname}, split_condition: {cond}, yes: {left}, no: {right}, missing: {missing}");
+    __cxa_atexit(MEMORY[0x277D82640], qword_280AF6EB0, &dword_274CA4000);
     __cxa_guard_release(&qword_280AF6CF8);
   }
 
-  xgboost::TreeGenerator::ToStr<float>();
-  xgboost::JsonGenerator::SplitNodeImpl(a5, this, a2, a3, byte_280AF6EB0, &__p, a4);
+  xgboost::TreeGenerator::ToStr<float>(__p, v10);
+  xgboost::JsonGenerator::SplitNodeImpl(a4, this, a2, a3, qword_280AF6EB0, __p, a5);
   if (v12 < 0)
   {
-    operator delete(__p);
+    operator delete(__p[0]);
   }
 }
 
 void xgboost::JsonGenerator::SplitNode(xgboost::JsonGenerator *this@<X0>, const xgboost::RegTree *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, std::string *a5@<X8>)
 {
   v5 = a4;
-  v36[1] = *MEMORY[0x277D85DE8];
-  xgboost::TreeGenerator::SplitNode(this, a2, a3, a4, &v22);
+  v35[1] = *MEMORY[0x277D85DE8];
+  xgboost::TreeGenerator::SplitNode(this, a2, a3, a4, &v21);
   if ((atomic_load_explicit(&qword_280AF6D00, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_280AF6D00))
   {
-    std::string::basic_string[abi:ne200100]<0>(byte_280AF6EC8, "{{properties} {stat}, children: [{left}, {right}\n{indent}]}");
-    __cxa_atexit(MEMORY[0x277D82640], byte_280AF6EC8, &dword_274CA4000);
+    std::string::basic_string[abi:ne200100]<0>(qword_280AF6EC8, "{{properties} {stat}, children: [{left}, {right}\n{indent}]}");
+    __cxa_atexit(MEMORY[0x277D82640], qword_280AF6EC8, &dword_274CA4000);
     __cxa_guard_release(&qword_280AF6D00);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(v23, "{properties}");
-  v10 = SHIBYTE(v22.__r_.__value_.__r.__words[2]);
-  if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
+  std::string::basic_string[abi:ne200100]<0>(v22, "{properties}");
+  v10 = SHIBYTE(v21.__r_.__value_.__r.__words[2]);
+  if (SHIBYTE(v21.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v24, v22.__r_.__value_.__l.__data_, v22.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v23, v21.__r_.__value_.__l.__data_, v21.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v24 = v22;
+    v23 = v21;
   }
 
   if (*(this + 296) == 1)
   {
-    (*(*this + 32))(v19, this, a2, a3);
+    (*(*this + 32))(v18, this, a2, a3);
   }
 
   else
   {
-    std::string::basic_string[abi:ne200100]<0>(v19, &unk_274E44C6E);
+    std::string::basic_string[abi:ne200100]<0>(v18, &unk_274E44C6E);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(v25, "{stat}");
-  v26 = *v19;
-  v27 = v20;
-  v19[1] = 0;
-  v20 = 0;
-  v19[0] = 0;
-  (*(*this + 64))(v17, this, a2, *(*(a2 + 20) + 20 * a3 + 4), (v5 + 1));
-  std::string::basic_string[abi:ne200100]<0>(v28, "{left}");
-  v29 = *v17;
-  v30 = v18;
-  v17[1] = 0;
-  v18 = 0;
-  v17[0] = 0;
-  (*(*this + 64))(v15, this, a2, *(*(a2 + 20) + 20 * a3 + 8), (v5 + 1));
-  std::string::basic_string[abi:ne200100]<0>(v31, "{right}");
-  v32 = *v15;
-  v33 = v16;
-  v15[1] = 0;
-  v16 = 0;
-  v15[0] = 0;
+  std::string::basic_string[abi:ne200100]<0>(v24, "{stat}");
+  v25 = *v18;
+  v26 = v19;
+  v18[1] = 0;
+  v19 = 0;
+  v18[0] = 0;
+  (*(*this + 64))(v16, this, a2, *(*(a2 + 20) + 20 * a3 + 4), (v5 + 1));
+  std::string::basic_string[abi:ne200100]<0>(v27, "{left}");
+  v28 = *v16;
+  v29 = v17;
+  v16[1] = 0;
+  v17 = 0;
+  v16[0] = 0;
+  (*(*this + 64))(v14, this, a2, *(*(a2 + 20) + 20 * a3 + 8), (v5 + 1));
+  std::string::basic_string[abi:ne200100]<0>(v30, "{right}");
+  v31 = *v14;
+  v32 = v15;
+  v14[1] = 0;
+  v15 = 0;
+  v14[0] = 0;
   xgboost::JsonGenerator::Indent(&__p, v5);
-  std::string::basic_string[abi:ne200100]<0>(v34, "{indent}");
-  v35 = *&__p.__r_.__value_.__l.__data_;
-  v36[0] = *(&__p.__r_.__value_.__l + 2);
+  std::string::basic_string[abi:ne200100]<0>(v33, "{indent}");
+  v34 = *&__p.__r_.__value_.__l.__data_;
+  v35[0] = *(&__p.__r_.__value_.__l + 2);
   memset(&__p, 0, sizeof(__p));
-  std::map<std::string,std::string>::map[abi:ne200100](v21, v23, 5);
-  xgboost::TreeGenerator::Match(a5, byte_280AF6EC8, v21);
-  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v21, v21[1]);
+  std::map<std::string,std::string>::map[abi:ne200100](v20, v22, 5);
+  xgboost::TreeGenerator::Match(a5, qword_280AF6EC8, v20);
+  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v20, v20[1]);
   for (i = 0; i != -30; i -= 6)
   {
-    v12 = &v23[i];
-    if (SHIBYTE(v36[i]) < 0)
+    v12 = &v22[i];
+    if (SHIBYTE(v35[i]) < 0)
     {
       operator delete(v12[27]);
     }
@@ -2842,36 +1042,33 @@ void xgboost::JsonGenerator::SplitNode(xgboost::JsonGenerator *this@<X0>, const 
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v16) < 0)
+  if (SHIBYTE(v15) < 0)
   {
-    operator delete(v15[0]);
+    operator delete(v14[0]);
   }
 
-  if (SHIBYTE(v18) < 0)
+  if (SHIBYTE(v17) < 0)
   {
-    operator delete(v17[0]);
+    operator delete(v16[0]);
   }
 
-  if (SHIBYTE(v20) < 0)
+  if ((SHIBYTE(v19) & 0x80000000) == 0)
   {
-    operator delete(v19[0]);
     if ((v10 & 0x80000000) == 0)
     {
-      goto LABEL_22;
+      return;
     }
 
 LABEL_24:
-    operator delete(v22.__r_.__value_.__l.__data_);
-    goto LABEL_22;
+    operator delete(v21.__r_.__value_.__l.__data_);
+    return;
   }
 
+  operator delete(v18[0]);
   if (v10 < 0)
   {
     goto LABEL_24;
   }
-
-LABEL_22:
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void sub_274DEF6AC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, void *a28, uint64_t a29, int a30, __int16 a31, char a32, char a33, char a34, uint64_t a35, uint64_t a36, void *__p, uint64_t a38, int a39, __int16 a40, char a41, char a42, void *a43, uint64_t a44, int a45, __int16 a46, char a47, char a48)
@@ -2887,45 +1084,44 @@ void sub_274DEF6AC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void xgboost::JsonGenerator::LeafNode(xgboost::JsonGenerator *this@<X0>, const xgboost::RegTree *a2@<X1>, int __val@<W2>, std::string *a4@<X8>)
 {
-  v33[1] = *MEMORY[0x277D85DE8];
+  v30[1] = *MEMORY[0x277D85DE8];
   if ((atomic_load_explicit(&qword_280AF6D08, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_280AF6D08))
   {
-    std::string::basic_string[abi:ne200100]<0>(byte_280AF6EE0, "{ nodeid: {nid}, leaf: {leaf} {stat}}");
-    __cxa_atexit(MEMORY[0x277D82640], byte_280AF6EE0, &dword_274CA4000);
+    std::string::basic_string[abi:ne200100]<0>(qword_280AF6EE0, "{ nodeid: {nid}, leaf: {leaf} {stat}}");
+    __cxa_atexit(MEMORY[0x277D82640], qword_280AF6EE0, &dword_274CA4000);
     __cxa_guard_release(&qword_280AF6D08);
   }
 
   if ((atomic_load_explicit(&qword_280AF6D10, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_280AF6D10))
   {
-    std::string::basic_string[abi:ne200100]<0>(byte_280AF6EF8, ", cover: {sum_hess} ");
-    __cxa_atexit(MEMORY[0x277D82640], byte_280AF6EF8, &dword_274CA4000);
+    std::string::basic_string[abi:ne200100]<0>(qword_280AF6EF8, ", cover: {sum_hess} ");
+    __cxa_atexit(MEMORY[0x277D82640], qword_280AF6EF8, &dword_274CA4000);
     __cxa_guard_release(&qword_280AF6D10);
   }
 
-  std::to_string(&v20, __val);
-  std::string::basic_string[abi:ne200100]<0>(v26, "{nid}");
-  v27 = v20;
-  memset(&v20, 0, sizeof(v20));
-  v8 = *(*(a2 + 20) + 20 * __val + 16);
-  xgboost::TreeGenerator::ToStr<float>();
-  std::string::basic_string[abi:ne200100]<0>(v28, "{leaf}");
-  v29 = *v18;
-  v30 = v19;
-  v18[1] = 0;
-  v19 = 0;
-  v18[0] = 0;
-  v9 = *(this + 296);
-  if (v9 == 1)
+  std::to_string(&v17, __val);
+  std::string::basic_string[abi:ne200100]<0>(v23, "{nid}");
+  v24 = v17;
+  memset(&v17, 0, sizeof(v17));
+  xgboost::TreeGenerator::ToStr<float>(v15, *(*(a2 + 20) + 20 * __val + 16));
+  std::string::basic_string[abi:ne200100]<0>(v25, "{leaf}");
+  v26 = *v15;
+  v27 = v16;
+  v15[1] = 0;
+  v16 = 0;
+  v15[0] = 0;
+  v8 = *(this + 296);
+  if (v8 == 1)
   {
-    v10 = *(*(a2 + 26) + 16 * __val + 4);
-    xgboost::TreeGenerator::ToStr<float>();
-    std::string::basic_string[abi:ne200100]<0>(v22, "{sum_hess}");
-    v24 = *v14;
-    v25 = v15;
-    HIBYTE(v15) = 0;
-    v14[0] = 0;
-    std::map<std::string,std::string>::map[abi:ne200100](v16, v22, 1);
-    xgboost::TreeGenerator::Match(&__p, byte_280AF6EF8, v16);
+    xgboost::TreeGenerator::ToStr<float>(v11, *(*(a2 + 26) + 16 * __val + 4));
+    std::string::basic_string[abi:ne200100]<0>(v19, "{sum_hess}");
+    v21 = *v11;
+    v22 = v12;
+    v11[1] = 0;
+    v12 = 0;
+    v11[0] = 0;
+    std::map<std::string,std::string>::map[abi:ne200100](v13, v19, 1);
+    xgboost::TreeGenerator::Match(&__p, qword_280AF6EF8, v13);
   }
 
   else
@@ -2933,82 +1129,80 @@ void xgboost::JsonGenerator::LeafNode(xgboost::JsonGenerator *this@<X0>, const x
     std::string::basic_string[abi:ne200100]<0>(&__p, &unk_274E44C6E);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(v31, "{stat}");
-  v32 = *&__p.__r_.__value_.__l.__data_;
-  v33[0] = *(&__p.__r_.__value_.__l + 2);
+  std::string::basic_string[abi:ne200100]<0>(v28, "{stat}");
+  v29 = *&__p.__r_.__value_.__l.__data_;
+  v30[0] = *(&__p.__r_.__value_.__l + 2);
   memset(&__p, 0, sizeof(__p));
-  std::map<std::string,std::string>::map[abi:ne200100](v21, v26, 3);
-  xgboost::TreeGenerator::Match(a4, byte_280AF6EE0, v21);
-  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v21, v21[1]);
+  std::map<std::string,std::string>::map[abi:ne200100](v18, v23, 3);
+  xgboost::TreeGenerator::Match(a4, qword_280AF6EE0, v18);
+  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v18, v18[1]);
   for (i = 0; i != -18; i -= 6)
   {
-    v12 = &v26[i];
-    if (SHIBYTE(v33[i]) < 0)
+    v10 = &v23[i];
+    if (SHIBYTE(v30[i]) < 0)
     {
-      operator delete(v12[15]);
+      operator delete(v10[15]);
     }
 
-    if (*(v12 + 119) < 0)
+    if (*(v10 + 119) < 0)
     {
-      operator delete(v12[12]);
+      operator delete(v10[12]);
     }
   }
 
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
-    if (!v9)
+    if (!v8)
     {
       goto LABEL_22;
     }
   }
 
-  else if (!v9)
+  else if (!v8)
   {
     goto LABEL_22;
   }
 
-  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v16, v16[1]);
-  if (SHIBYTE(v25) < 0)
+  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v13, v13[1]);
+  if (SHIBYTE(v22) < 0)
   {
-    operator delete(v24);
+    operator delete(v21);
   }
 
-  if (v23 < 0)
+  if (v20 < 0)
   {
-    operator delete(v22[0]);
+    operator delete(v19[0]);
   }
 
-  if (SHIBYTE(v15) < 0)
+  if (SHIBYTE(v12) < 0)
   {
-    operator delete(v14[0]);
+    operator delete(v11[0]);
   }
 
 LABEL_22:
-  if (SHIBYTE(v19) < 0)
+  if (SHIBYTE(v16) < 0)
   {
-    operator delete(v18[0]);
+    operator delete(v15[0]);
   }
 
-  if (SHIBYTE(v20.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v17.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v20.__r_.__value_.__l.__data_);
+    operator delete(v17.__r_.__value_.__l.__data_);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void xgboost::JsonGenerator::BuildTree(xgboost::JsonGenerator *this@<X0>, const xgboost::RegTree *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, std::string *a5@<X8>)
 {
-  v26[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   if ((atomic_load_explicit(&qword_280AF6D18, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_280AF6D18))
   {
-    std::string::basic_string[abi:ne200100]<0>(byte_280AF6F10, "{newline}{indent}{nodes}");
-    __cxa_atexit(MEMORY[0x277D82640], byte_280AF6F10, &dword_274CA4000);
+    std::string::basic_string[abi:ne200100]<0>(qword_280AF6F10, "{newline}{indent}{nodes}");
+    __cxa_atexit(MEMORY[0x277D82640], qword_280AF6F10, &dword_274CA4000);
     __cxa_guard_release(&qword_280AF6D18);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(v20, "{newline}");
+  std::string::basic_string[abi:ne200100]<0>(v19, "{newline}");
   if (a4)
   {
     v10 = "\n";
@@ -3019,11 +1213,11 @@ void xgboost::JsonGenerator::BuildTree(xgboost::JsonGenerator *this@<X0>, const 
     v10 = &unk_274E44C6E;
   }
 
-  std::string::basic_string[abi:ne200100]<0>(v21, v10);
-  xgboost::JsonGenerator::Indent(&v18, a4);
-  std::string::basic_string[abi:ne200100]<0>(v22, "{indent}");
-  v23 = v18;
-  memset(&v18, 0, sizeof(v18));
+  std::string::basic_string[abi:ne200100]<0>(v20, v10);
+  xgboost::JsonGenerator::Indent(&v17, a4);
+  std::string::basic_string[abi:ne200100]<0>(v21, "{indent}");
+  v22 = v17;
+  memset(&v17, 0, sizeof(v17));
   v11 = *this;
   if (*(*(a2 + 20) + 20 * a3 + 4) == -1)
   {
@@ -3036,19 +1230,19 @@ void xgboost::JsonGenerator::BuildTree(xgboost::JsonGenerator *this@<X0>, const 
   }
 
   (*v12)(__p, this, a2, a3, a4);
-  std::string::basic_string[abi:ne200100]<0>(v24, "{nodes}");
-  v25 = *__p;
-  v26[0] = v17;
+  std::string::basic_string[abi:ne200100]<0>(v23, "{nodes}");
+  v24 = *__p;
+  v25[0] = v16;
   __p[1] = 0;
-  v17 = 0;
+  v16 = 0;
   __p[0] = 0;
-  std::map<std::string,std::string>::map[abi:ne200100](v19, v20, 3);
-  xgboost::TreeGenerator::Match(a5, byte_280AF6F10, v19);
-  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v19, v19[1]);
+  std::map<std::string,std::string>::map[abi:ne200100](v18, v19, 3);
+  xgboost::TreeGenerator::Match(a5, qword_280AF6F10, v18);
+  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v18, v18[1]);
   for (i = 0; i != -18; i -= 6)
   {
-    v14 = &v20[i];
-    if (SHIBYTE(v26[i]) < 0)
+    v14 = &v19[i];
+    if (SHIBYTE(v25[i]) < 0)
     {
       operator delete(v14[15]);
     }
@@ -3059,17 +1253,15 @@ void xgboost::JsonGenerator::BuildTree(xgboost::JsonGenerator *this@<X0>, const 
     }
   }
 
-  if (SHIBYTE(v17) < 0)
+  if (SHIBYTE(v16) < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (SHIBYTE(v18.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v17.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v18.__r_.__value_.__l.__data_);
+    operator delete(v17.__r_.__value_.__l.__data_);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void sub_274DEFFB8(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23)
@@ -3091,40 +1283,40 @@ void xgboost::JsonGenerator::~JsonGenerator(std::locale *this)
 
 void xgboost::JsonGenerator::SplitNodeImpl(std::string *a1, uint64_t a2, uint64_t a3, int __val, uint64_t a5, __int128 *a6, unsigned int a7)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v14 = *(*(a3 + 160) + 20 * __val + 12);
-  std::to_string(&v27, __val);
-  std::string::basic_string[abi:ne200100]<0>(v29, "{nid}");
-  v30 = v27;
-  memset(&v27, 0, sizeof(v27));
-  std::to_string(&v26, a7);
-  std::string::basic_string[abi:ne200100]<0>(v31, "{depth}");
-  v32 = v26;
+  std::to_string(&v26, __val);
+  std::string::basic_string[abi:ne200100]<0>(v28, "{nid}");
+  v29 = v26;
   memset(&v26, 0, sizeof(v26));
+  std::to_string(&v25, a7);
+  std::string::basic_string[abi:ne200100]<0>(v30, "{depth}");
+  v31 = v25;
+  memset(&v25, 0, sizeof(v25));
   v15 = *(a2 + 8);
   if (0xAAAAAAAAAAAAAAABLL * ((*(v15 + 1) - *v15) >> 3) <= (v14 & 0x7FFFFFFFu))
   {
-    std::to_string(&v25, v14 & 0x7FFFFFFF);
+    std::to_string(&v24, v14 & 0x7FFFFFFF);
   }
 
   else
   {
     v16 = xgboost::FeatureMap::Name(v15, v14 & 0x7FFFFFFF);
-    std::string::basic_string[abi:ne200100]<0>(&v25, v16);
+    std::string::basic_string[abi:ne200100]<0>(&v24, v16);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(v33, "{fname}");
-  v34 = v25;
-  memset(&v25, 0, sizeof(v25));
-  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[7],std::string&,0>(v35, a6);
-  std::to_string(&v24, *(*(a3 + 160) + 20 * __val + 4));
-  std::string::basic_string[abi:ne200100]<0>(v36, "{left}");
-  v37 = v24;
+  std::string::basic_string[abi:ne200100]<0>(v32, "{fname}");
+  v33 = v24;
   memset(&v24, 0, sizeof(v24));
-  std::to_string(&v23, *(*(a3 + 160) + 20 * __val + 8));
-  std::string::basic_string[abi:ne200100]<0>(v38, "{right}");
-  v39 = v23;
+  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[7],std::string&,0>(v34, a6);
+  std::to_string(&v23, *(*(a3 + 160) + 20 * __val + 4));
+  std::string::basic_string[abi:ne200100]<0>(v35, "{left}");
+  v36 = v23;
   memset(&v23, 0, sizeof(v23));
+  std::to_string(&v22, *(*(a3 + 160) + 20 * __val + 8));
+  std::string::basic_string[abi:ne200100]<0>(v37, "{right}");
+  v38 = v22;
+  memset(&v22, 0, sizeof(v22));
   v17 = *(a3 + 160) + 20 * __val;
   v18 = 8;
   if (*(v17 + 12) < 0)
@@ -3132,18 +1324,18 @@ void xgboost::JsonGenerator::SplitNodeImpl(std::string *a1, uint64_t a2, uint64_
     v18 = 4;
   }
 
-  std::to_string(&v22, *(v17 + v18));
-  std::string::basic_string[abi:ne200100]<0>(v40, "{missing}");
-  v41 = v22;
-  memset(&v22, 0, sizeof(v22));
-  std::map<std::string,std::string>::map[abi:ne200100](v28, v29, 7);
-  xgboost::TreeGenerator::Match(a1, a5, v28);
-  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v28, v28[1]);
+  std::to_string(&v21, *(v17 + v18));
+  std::string::basic_string[abi:ne200100]<0>(v39, "{missing}");
+  v40 = v21;
+  memset(&v21, 0, sizeof(v21));
+  std::map<std::string,std::string>::map[abi:ne200100](v27, v28, 7);
+  xgboost::TreeGenerator::Match(a1, a5, v27);
+  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v27, v27[1]);
   v19 = 42;
   do
   {
-    v20 = &v29[v19];
-    if (SHIBYTE(v29[v19 - 1]) < 0)
+    v20 = &v28[v19];
+    if (SHIBYTE(v28[v19 - 1]) < 0)
     {
       operator delete(*(v20 - 3));
     }
@@ -3157,6 +1349,11 @@ void xgboost::JsonGenerator::SplitNodeImpl(std::string *a1, uint64_t a2, uint64_
   }
 
   while (v19 * 8);
+  if (SHIBYTE(v21.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v21.__r_.__value_.__l.__data_);
+  }
+
   if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v22.__r_.__value_.__l.__data_);
@@ -3181,16 +1378,9 @@ void xgboost::JsonGenerator::SplitNodeImpl(std::string *a1, uint64_t a2, uint64_
   {
     operator delete(v26.__r_.__value_.__l.__data_);
   }
-
-  if (SHIBYTE(v27.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v27.__r_.__value_.__l.__data_);
-  }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
-void sub_274DF0368(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, void *a28, uint64_t a29, int a30, __int16 a31, char a32, char a33, void *a34, uint64_t a35, int a36, __int16 a37, char a38, char a39, void *a40, uint64_t a41, int a42, __int16 a43, char a44, char a45, char a46, void *a47, uint64_t a48, char a49)
+void sub_274DF0368(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, void *a28, uint64_t a29, int a30, __int16 a31, char a32, char a33, void *a34, uint64_t a35, int a36, __int16 a37, char a38, char a39, void *a40, uint64_t a41, int a42, __int16 a43, char a44, char a45, uint64_t a46, void *a47, uint64_t a48, char a49)
 {
   std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(&a46, a47);
   v51 = -336;
@@ -3298,15 +1488,14 @@ void xgboost::GraphvizParam::~GraphvizParam(void **this)
   }
 }
 
-void std::__function::__func<xgboost::$_2,std::allocator<xgboost::$_2>,xgboost::TreeGenerator * ()(xgboost::FeatureMap const&,std::string,BOOL)>::operator()(uint64_t a1, uint64_t a2, uint64_t a3, unsigned __int8 *a4)
+void std::__function::__func<xgboost::$_2,std::allocator<xgboost::$_2>,xgboost::TreeGenerator * ()(xgboost::FeatureMap const&,std::string,BOOL)>::operator()(uint64_t a1, uint64_t a2, uint64_t a3, char *a4)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  *v5 = *a3;
-  v6 = *(a3 + 16);
+  v6 = *MEMORY[0x277D85DE8];
+  *v4 = *a3;
+  v5 = *(a3 + 16);
   *(a3 + 8) = 0;
   *(a3 + 16) = 0;
   *a3 = 0;
-  v4 = *a4;
   operator new();
 }
 
@@ -3325,54 +1514,55 @@ void sub_274DF1658(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_274DF1934(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, unsigned __int8 a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21, void *a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, void *a61, uint64_t a62, int a63)
+void sub_274DF1934(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, int a11, int a12, int a13, int a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, void *a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, void *a61, uint64_t a62, void *a63)
 {
-  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(&a58, a59);
-  if (a66 < 0)
+  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(&a60, a61);
+  if (a65 < 0)
   {
-    operator delete(a61);
+    operator delete(a63);
   }
 
-  if (a21)
+  if (a23)
   {
-    a22 = a21;
-    operator delete(a21);
+    a24 = a23;
+    operator delete(a23);
   }
 
   if (a2 == 1)
   {
-    v68 = __cxa_begin_catch(a1);
-    Entry = dmlc::LogMessageFatal::GetEntry(&a18);
+    v67 = __cxa_begin_catch(a1);
+    Entry = dmlc::LogMessageFatal::GetEntry(&a20);
     dmlc::LogMessageFatal::Entry::Init(Entry, "/Library/Caches/com.apple.xbs/Sources/CoreML/xgboost/src/tree/tree_model.cc", 566);
-    v70 = dmlc::LogMessageFatal::GetEntry(&a18);
-    v71 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v70, "Failed to parse graphviz parameters:\n\t", 38);
-    if ((a16 & 0x80u) == 0)
+    v69 = dmlc::LogMessageFatal::GetEntry(&a20);
+    v70 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v69, "Failed to parse graphviz parameters:\n\t", 38);
+    if (a18 >= 0)
     {
-      v72 = &a11;
+      v71 = &a11;
     }
 
     else
     {
-      v72 = a11;
+      LODWORD(v71) = a11;
     }
 
-    if ((a16 & 0x80u) == 0)
+    if (a18 >= 0)
     {
-      v73 = a16;
+      v72 = a18;
     }
 
     else
     {
-      v73 = a12;
+      v72 = a13;
     }
 
-    v74 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v71, v72, v73);
-    v75 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v74, "\n", 1);
-    v76 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v75, "With error:\n", 12);
-    v77 = (*(*v68 + 16))(v68);
-    v78 = strlen(v77);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v76, v77, v78);
-    dmlc::LogMessageFatal::~LogMessageFatal(&a18);
+    v73 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v70, v71, v72);
+    v74 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v73, "\n", 1);
+    v75 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v74, "With error:\n", 12);
+    v76 = (*(*v67 + 16))(v67);
+    v77 = v76;
+    v78 = strlen(v76);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v75, v77, v78);
+    dmlc::LogMessageFatal::~LogMessageFatal(&a20);
     __cxa_end_catch();
     JUMPOUT(0x274DF0968);
   }
@@ -3380,59 +1570,59 @@ void sub_274DF1934(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint
   JUMPOUT(0x274DF1A98);
 }
 
-void sub_274DF1940(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, unsigned __int8 a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21, void *a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, void *a59, uint64_t a60, void *a61, uint64_t a62, int a63)
+void sub_274DF1940(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a13, int a15, __int16 a16, char a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, void *a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, void *a61, uint64_t a62, void *a63, uint64_t _190, int _198)
 {
-  if (a72 < 0)
+  if (a67 < 0)
   {
     operator delete(__p);
   }
 
-  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(&a58, a59);
-  if (a66 < 0)
+  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(&a60, a61);
+  if (a65 < 0)
   {
-    operator delete(a61);
+    operator delete(a63);
   }
 
-  if (a21)
+  if (a23)
   {
-    a22 = a21;
-    operator delete(a21);
+    a24 = a23;
+    operator delete(a23);
   }
 
   if (a2 == 1)
   {
-    v74 = __cxa_begin_catch(a1);
-    Entry = dmlc::LogMessageFatal::GetEntry(&a18);
+    v69 = __cxa_begin_catch(a1);
+    Entry = dmlc::LogMessageFatal::GetEntry(&a20);
     dmlc::LogMessageFatal::Entry::Init(Entry, "/Library/Caches/com.apple.xbs/Sources/CoreML/xgboost/src/tree/tree_model.cc", 566);
-    v76 = dmlc::LogMessageFatal::GetEntry(&a18);
-    v77 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v76, "Failed to parse graphviz parameters:\n\t", 38);
-    if ((a16 & 0x80u) == 0)
+    v71 = dmlc::LogMessageFatal::GetEntry(&a20);
+    v72 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v71, "Failed to parse graphviz parameters:\n\t", 38);
+    if (a18 >= 0)
     {
-      v78 = &a11;
+      v73 = &a11;
     }
 
     else
     {
-      v78 = a11;
+      v73 = a11;
     }
 
-    if ((a16 & 0x80u) == 0)
+    if (a18 >= 0)
     {
-      v79 = a16;
+      v74 = a18;
     }
 
     else
     {
-      v79 = a12;
+      v74 = a13;
     }
 
-    v80 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v77, v78, v79);
-    v81 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v80, "\n", 1);
-    v82 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v81, "With error:\n", 12);
-    v83 = (*(*v74 + 16))(v74);
-    v84 = strlen(v83);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v82, v83, v84);
-    dmlc::LogMessageFatal::~LogMessageFatal(&a18);
+    v75 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v72, v73, v74);
+    v76 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v75, "\n", 1);
+    v77 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v76, "With error:\n", 12);
+    v78 = (*(*v69 + 16))(v69);
+    v79 = strlen(v78);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v77, v78, v79);
+    dmlc::LogMessageFatal::~LogMessageFatal(&a20);
     __cxa_end_catch();
     JUMPOUT(0x274DF0968);
   }
@@ -3462,7 +1652,7 @@ uint64_t std::__function::__func<xgboost::$_2,std::allocator<xgboost::$_2>,xgboo
   }
 }
 
-uint64_t std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(uint64_t a1, const void **a2)
+char *std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(uint64_t a1, const void **a2)
 {
   if (*(a2 + 23) >= 0)
   {
@@ -3475,7 +1665,7 @@ uint64_t std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator
   }
 
   result = std::string::basic_string[abi:ne200100](a1, v3 + 1);
-  if (*(result + 23) >= 0)
+  if (result[23] >= 0)
   {
     v5 = result;
   }
@@ -3506,40 +1696,40 @@ uint64_t std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator
 
 void xgboost::GraphvizGenerator::Categorical(xgboost::GraphvizGenerator *this@<X0>, const xgboost::RegTree *a2@<X1>, xgboost::RegTree *a3@<X2>, std::string *a4@<X8>)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   if ((atomic_load_explicit(&qword_280AF6D28, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_280AF6D28))
   {
-    std::string::basic_string[abi:ne200100]<0>(byte_280AF6F40, "    {nid} [ label={fname}:{cond} {params}]\n");
-    __cxa_atexit(MEMORY[0x277D82640], byte_280AF6F40, &dword_274CA4000);
+    std::string::basic_string[abi:ne200100]<0>(qword_280AF6F40, "    {nid} [ label={fname}:{cond} {params}]\n");
+    __cxa_atexit(MEMORY[0x277D82640], qword_280AF6F40, &dword_274CA4000);
     __cxa_guard_release(&qword_280AF6D28);
   }
 
-  xgboost::GetSplitCategories(a2, a3, v27);
-  xgboost::PrintCatsAsSet(v27);
+  xgboost::GetSplitCategories(a2, a3, v26);
+  xgboost::PrintCatsAsSet(v26);
   v8 = *(*(a2 + 20) + 20 * a3 + 12);
-  std::to_string(&v23, a3);
-  std::string::basic_string[abi:ne200100]<0>(v28, "{nid}");
+  std::to_string(&v22, a3);
+  std::string::basic_string[abi:ne200100]<0>(v27, "{nid}");
   v9 = v8 & 0x7FFFFFFF;
-  v28[1] = v23;
-  memset(&v23, 0, sizeof(v23));
+  v27[1] = v22;
+  memset(&v22, 0, sizeof(v22));
   v10 = *(this + 1);
   v11 = 0xAAAAAAAAAAAAAAABLL * ((*(v10 + 1) - *v10) >> 3);
   if (v11 <= v9)
   {
-    std::to_string(&v21, v9);
-    if ((v21.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    std::to_string(&v20, v9);
+    if ((v20.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v13.__i_ = &v21;
+      v13.__i_ = &v20;
     }
 
     else
     {
-      v13.__i_ = v21.__r_.__value_.__r.__words[0];
+      v13.__i_ = v20.__r_.__value_.__r.__words[0];
     }
 
-    std::string::insert(&v21, v13, 102);
-    __p = v21;
-    memset(&v21, 0, sizeof(v21));
+    std::string::insert(&v20, v13, 102);
+    __p = v20;
+    memset(&v20, 0, sizeof(v20));
   }
 
   else
@@ -3548,18 +1738,18 @@ void xgboost::GraphvizGenerator::Categorical(xgboost::GraphvizGenerator *this@<X
     std::string::basic_string[abi:ne200100]<0>(&__p, v12);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(v29, "{fname}");
-  v30 = __p;
+  std::string::basic_string[abi:ne200100]<0>(v28, "{fname}");
+  v29 = __p;
   memset(&__p, 0, sizeof(__p));
-  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[7],std::string&,0>(v31, &v25);
-  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[9],std::string const&,0>(v32, this + 24);
-  std::map<std::string,std::string>::map[abi:ne200100](v24, &v28[0].__r_.__value_.__l.__data_, 4);
-  xgboost::TreeGenerator::Match(a4, byte_280AF6F40, v24);
-  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v24, v24[1]);
+  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[7],std::string&,0>(v30, &v24);
+  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[9],std::string const&,0>(v31, this + 24);
+  std::map<std::string,std::string>::map[abi:ne200100](v23, &v27[0].__r_.__value_.__l.__data_, 4);
+  xgboost::TreeGenerator::Match(a4, qword_280AF6F40, v23);
+  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v23, v23[1]);
   for (i = 0; i != 0x1FFFFFFFFFFFFFE8; i -= 6)
   {
-    v15 = &v28[i / 3];
-    if (SHIBYTE(v32[1].__r_.__value_.__r.__words[i + 2]) < 0)
+    v15 = &v27[i / 3];
+    if (SHIBYTE(v31[1].__r_.__value_.__r.__words[i + 2]) < 0)
     {
       operator delete(v15[7].__r_.__value_.__l.__data_);
     }
@@ -3575,134 +1765,133 @@ void xgboost::GraphvizGenerator::Categorical(xgboost::GraphvizGenerator *this@<X
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  if (v11 <= v9 && SHIBYTE(v21.__r_.__value_.__r.__words[2]) < 0)
+  if (v11 <= v9 && SHIBYTE(v20.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v21.__r_.__value_.__l.__data_);
+    operator delete(v20.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v23.__r_.__value_.__l.__data_);
+    operator delete(v22.__r_.__value_.__l.__data_);
   }
 
-  xgboost::GraphvizGenerator::BuildEdge<true>(v28, this, a2, a3, *(*(a2 + 20) + 20 * a3 + 4), 1);
-  if ((v28[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  xgboost::GraphvizGenerator::BuildEdge<true>(v27, this, a2, a3, *(*(a2 + 20) + 20 * a3 + 4), 1);
+  if ((v27[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v16 = v28;
-  }
-
-  else
-  {
-    v16 = v28[0].__r_.__value_.__r.__words[0];
-  }
-
-  if ((v28[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-  {
-    size = HIBYTE(v28[0].__r_.__value_.__r.__words[2]);
+    v16 = v27;
   }
 
   else
   {
-    size = v28[0].__r_.__value_.__l.__size_;
+    v16 = v27[0].__r_.__value_.__r.__words[0];
+  }
+
+  if ((v27[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    size = HIBYTE(v27[0].__r_.__value_.__r.__words[2]);
+  }
+
+  else
+  {
+    size = v27[0].__r_.__value_.__l.__size_;
   }
 
   std::string::append(a4, v16, size);
-  if (SHIBYTE(v28[0].__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v27[0].__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v28[0].__r_.__value_.__l.__data_);
+    operator delete(v27[0].__r_.__value_.__l.__data_);
   }
 
-  xgboost::GraphvizGenerator::BuildEdge<true>(v28, this, a2, a3, *(*(a2 + 20) + 20 * a3 + 8), 0);
-  if ((v28[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  xgboost::GraphvizGenerator::BuildEdge<true>(v27, this, a2, a3, *(*(a2 + 20) + 20 * a3 + 8), 0);
+  if ((v27[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v18 = v28;
-  }
-
-  else
-  {
-    v18 = v28[0].__r_.__value_.__r.__words[0];
-  }
-
-  if ((v28[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-  {
-    v19 = HIBYTE(v28[0].__r_.__value_.__r.__words[2]);
+    v18 = v27;
   }
 
   else
   {
-    v19 = v28[0].__r_.__value_.__l.__size_;
+    v18 = v27[0].__r_.__value_.__r.__words[0];
+  }
+
+  if ((v27[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v19 = HIBYTE(v27[0].__r_.__value_.__r.__words[2]);
+  }
+
+  else
+  {
+    v19 = v27[0].__r_.__value_.__l.__size_;
   }
 
   std::string::append(a4, v18, v19);
-  if (SHIBYTE(v28[0].__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v27[0].__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v28[0].__r_.__value_.__l.__data_);
+    operator delete(v27[0].__r_.__value_.__l.__data_);
   }
 
-  if (v26 < 0)
+  if (v25 < 0)
   {
-    operator delete(v25);
+    operator delete(v24);
   }
 
-  if (v27[0])
+  if (v26[0])
   {
-    v27[1] = v27[0];
-    operator delete(v27[0]);
+    v26[1] = v26[0];
+    operator delete(v26[0]);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
-void xgboost::GraphvizGenerator::PlainNode(xgboost::GraphvizGenerator *this@<X0>, const xgboost::RegTree *a2@<X1>, int a3@<W2>, std::string *a4@<X8>)
+void xgboost::GraphvizGenerator::PlainNode(xgboost::GraphvizGenerator *this@<X0>, const xgboost::RegTree *a2@<X1>, uint64_t a3@<X2>, std::string *a4@<X8>)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v4 = a3;
+  v40 = *MEMORY[0x277D85DE8];
   v8 = *(a2 + 20) + 20 * a3;
   v9 = *(v8 + 12);
   v10 = *(v8 + 16);
   if ((atomic_load_explicit(&qword_280AF6D38, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_280AF6D38))
   {
-    std::string::basic_string[abi:ne200100]<0>(byte_280AF6F70, "    {nid} [ label={fname}{<}{cond} {params}]\n");
-    __cxa_atexit(MEMORY[0x277D82640], byte_280AF6F70, &dword_274CA4000);
+    std::string::basic_string[abi:ne200100]<0>(qword_280AF6F70, "    {nid} [ label={fname}{<}{cond} {params}]\n");
+    __cxa_atexit(MEMORY[0x277D82640], qword_280AF6F70, &dword_274CA4000);
     __cxa_guard_release(&qword_280AF6D38);
   }
 
   v11 = v9 & 0x7FFFFFFF;
   v12 = *(this + 1);
   v13 = 0xAAAAAAAAAAAAAAABLL * ((*(v12 + 1) - *v12) >> 3) <= v11 || xgboost::FeatureMap::TypeOf(v12, v9 & 0x7FFFFFFF) != 0;
-  std::to_string(&v30, a3);
-  std::string::basic_string[abi:ne200100]<0>(v32, "{nid}");
-  v32[1] = v30;
-  memset(&v30, 0, sizeof(v30));
+  std::to_string(&v29, v4);
+  std::string::basic_string[abi:ne200100]<0>(v31, "{nid}");
+  v31[1] = v29;
+  memset(&v29, 0, sizeof(v29));
   v14 = *(this + 1);
   v15 = 0xAAAAAAAAAAAAAAABLL * ((*(v14 + 1) - *v14) >> 3);
   if (v15 <= v11)
   {
-    std::to_string(&v28, v11);
-    if ((v28.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    std::to_string(&v27, v11);
+    if ((v27.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v17.__i_ = &v28;
+      v17.__i_ = &v27;
     }
 
     else
     {
-      v17.__i_ = v28.__r_.__value_.__r.__words[0];
+      v17.__i_ = v27.__r_.__value_.__r.__words[0];
     }
 
-    std::string::insert(&v28, v17, 102);
-    v29 = v28;
-    memset(&v28, 0, sizeof(v28));
+    std::string::insert(&v27, v17, 102);
+    v28 = v27;
+    memset(&v27, 0, sizeof(v27));
   }
 
   else
   {
     v16 = xgboost::FeatureMap::Name(v14, v11);
-    std::string::basic_string[abi:ne200100]<0>(&v29, v16);
+    std::string::basic_string[abi:ne200100]<0>(&v28, v16);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(v33, "{fname}");
-  v34 = v29;
-  memset(&v29, 0, sizeof(v29));
-  std::string::basic_string[abi:ne200100]<0>(v35, "{<}");
+  std::string::basic_string[abi:ne200100]<0>(v32, "{fname}");
+  v33 = v28;
+  memset(&v28, 0, sizeof(v28));
+  std::string::basic_string[abi:ne200100]<0>(v34, "{<}");
   if (v13)
   {
     v18 = "<";
@@ -3713,10 +1902,10 @@ void xgboost::GraphvizGenerator::PlainNode(xgboost::GraphvizGenerator *this@<X0>
     v18 = &unk_274E44C6E;
   }
 
-  std::string::basic_string[abi:ne200100]<0>(v36, v18);
+  std::string::basic_string[abi:ne200100]<0>(v35, v18);
   if (v13)
   {
-    xgboost::TreeGenerator::ToStr<float>();
+    xgboost::TreeGenerator::ToStr<float>(__p, v10);
   }
 
   else
@@ -3724,20 +1913,20 @@ void xgboost::GraphvizGenerator::PlainNode(xgboost::GraphvizGenerator *this@<X0>
     std::string::basic_string[abi:ne200100]<0>(__p, &unk_274E44C6E);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(v37, "{cond}");
-  v38 = *__p;
-  v39 = v27;
+  std::string::basic_string[abi:ne200100]<0>(v36, "{cond}");
+  v37 = *__p;
+  v38 = v26;
   __p[1] = 0;
-  v27 = 0;
+  v26 = 0;
   __p[0] = 0;
-  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[9],std::string const&,0>(v40, this + 24);
-  std::map<std::string,std::string>::map[abi:ne200100](v31, &v32[0].__r_.__value_.__l.__data_, 5);
-  xgboost::TreeGenerator::Match(a4, byte_280AF6F70, v31);
-  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v31, v31[1]);
+  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[9],std::string const&,0>(v39, this + 24);
+  std::map<std::string,std::string>::map[abi:ne200100](v30, &v31[0].__r_.__value_.__l.__data_, 5);
+  xgboost::TreeGenerator::Match(a4, qword_280AF6F70, v30);
+  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v30, v30[1]);
   for (i = 0; i != 0x1FFFFFFFFFFFFFE2; i -= 6)
   {
-    v20 = &v32[i / 3];
-    if (SHIBYTE(v40[1].__r_.__value_.__r.__words[i + 2]) < 0)
+    v20 = &v31[i / 3];
+    if (SHIBYTE(v39[1].__r_.__value_.__r.__words[i + 2]) < 0)
     {
       operator delete(v20[9].__r_.__value_.__l.__data_);
     }
@@ -3748,9 +1937,19 @@ void xgboost::GraphvizGenerator::PlainNode(xgboost::GraphvizGenerator *this@<X0>
     }
   }
 
-  if (SHIBYTE(v27) < 0)
+  if (SHIBYTE(v26) < 0)
   {
     operator delete(__p[0]);
+  }
+
+  if (SHIBYTE(v28.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v28.__r_.__value_.__l.__data_);
+  }
+
+  if (v15 <= v11 && SHIBYTE(v27.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v27.__r_.__value_.__l.__data_);
   }
 
   if (SHIBYTE(v29.__r_.__value_.__r.__words[2]) < 0)
@@ -3758,125 +1957,117 @@ void xgboost::GraphvizGenerator::PlainNode(xgboost::GraphvizGenerator *this@<X0>
     operator delete(v29.__r_.__value_.__l.__data_);
   }
 
-  if (v15 <= v11 && SHIBYTE(v28.__r_.__value_.__r.__words[2]) < 0)
+  xgboost::GraphvizGenerator::BuildEdge<false>(v31, this, a2, v4, *(*(a2 + 20) + 20 * v4 + 4), 1);
+  if ((v31[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    operator delete(v28.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v30.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v30.__r_.__value_.__l.__data_);
-  }
-
-  xgboost::GraphvizGenerator::BuildEdge<false>(v32, this, a2, a3, *(*(a2 + 20) + 20 * a3 + 4), 1);
-  if ((v32[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-  {
-    v21 = v32;
+    v21 = v31;
   }
 
   else
   {
-    v21 = v32[0].__r_.__value_.__r.__words[0];
+    v21 = v31[0].__r_.__value_.__r.__words[0];
   }
 
-  if ((v32[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v31[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    size = HIBYTE(v32[0].__r_.__value_.__r.__words[2]);
+    size = HIBYTE(v31[0].__r_.__value_.__r.__words[2]);
   }
 
   else
   {
-    size = v32[0].__r_.__value_.__l.__size_;
+    size = v31[0].__r_.__value_.__l.__size_;
   }
 
   std::string::append(a4, v21, size);
-  if (SHIBYTE(v32[0].__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v31[0].__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v32[0].__r_.__value_.__l.__data_);
+    operator delete(v31[0].__r_.__value_.__l.__data_);
   }
 
-  xgboost::GraphvizGenerator::BuildEdge<false>(v32, this, a2, a3, *(*(a2 + 20) + 20 * a3 + 8), 0);
-  if ((v32[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  xgboost::GraphvizGenerator::BuildEdge<false>(v31, this, a2, v4, *(*(a2 + 20) + 20 * v4 + 8), 0);
+  if ((v31[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v23 = v32;
-  }
-
-  else
-  {
-    v23 = v32[0].__r_.__value_.__r.__words[0];
-  }
-
-  if ((v32[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-  {
-    v24 = HIBYTE(v32[0].__r_.__value_.__r.__words[2]);
+    v23 = v31;
   }
 
   else
   {
-    v24 = v32[0].__r_.__value_.__l.__size_;
+    v23 = v31[0].__r_.__value_.__r.__words[0];
+  }
+
+  if ((v31[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v24 = HIBYTE(v31[0].__r_.__value_.__r.__words[2]);
+  }
+
+  else
+  {
+    v24 = v31[0].__r_.__value_.__l.__size_;
   }
 
   std::string::append(a4, v23, v24);
-  if (SHIBYTE(v32[0].__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v31[0].__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v32[0].__r_.__value_.__l.__data_);
+    operator delete(v31[0].__r_.__value_.__l.__data_);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void xgboost::GraphvizGenerator::LeafNode(xgboost::GraphvizGenerator *this@<X0>, const xgboost::RegTree *a2@<X1>, int __val@<W2>, std::string *a4@<X8>)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if ((atomic_load_explicit(&qword_280AF6D48, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_280AF6D48))
   {
-    std::string::basic_string[abi:ne200100]<0>(byte_280AF6FA0, "    {nid} [ label=leaf={leaf-value} {params}]\n");
-    __cxa_atexit(MEMORY[0x277D82640], byte_280AF6FA0, &dword_274CA4000);
+    std::string::basic_string[abi:ne200100]<0>(qword_280AF6FA0, "    {nid} [ label=leaf={leaf-value} {params}]\n");
+    __cxa_atexit(MEMORY[0x277D82640], qword_280AF6FA0, &dword_274CA4000);
     __cxa_guard_release(&qword_280AF6D48);
   }
 
-  std::to_string(&v14, __val);
-  std::string::basic_string[abi:ne200100]<0>(v16, "{nid}");
-  v17 = v14;
-  memset(&v14, 0, sizeof(v14));
-  v8 = *(*(a2 + 20) + 20 * __val + 16);
-  xgboost::TreeGenerator::ToStr<float>();
-  std::string::basic_string[abi:ne200100]<0>(v18, "{leaf-value}");
-  v19 = *__p;
-  v20 = v13;
-  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[9],std::string const&,0>(v21, (this + 408));
-  std::map<std::string,std::string>::map[abi:ne200100](v15, v16, 3);
-  xgboost::TreeGenerator::Match(a4, byte_280AF6FA0, v15);
-  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v15, v15[1]);
+  std::to_string(&v12, __val);
+  std::string::basic_string[abi:ne200100]<0>(v14, "{nid}");
+  v15 = v12;
+  memset(&v12, 0, sizeof(v12));
+  xgboost::TreeGenerator::ToStr<float>(__p, *(*(a2 + 20) + 20 * __val + 16));
+  std::string::basic_string[abi:ne200100]<0>(v16, "{leaf-value}");
+  v17 = *__p;
+  v18 = v11;
+  __p[1] = 0;
+  v11 = 0;
+  __p[0] = 0;
+  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[9],std::string const&,0>(v19, (this + 408));
+  std::map<std::string,std::string>::map[abi:ne200100](v13, v14, 3);
+  xgboost::TreeGenerator::Match(a4, qword_280AF6FA0, v13);
+  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v13, v13[1]);
   for (i = 0; i != -18; i -= 6)
   {
-    v10 = &v16[i];
-    if (SHIBYTE(v21[1].__r_.__value_.__r.__words[i + 2]) < 0)
+    v9 = &v14[i];
+    if (SHIBYTE(v19[1].__r_.__value_.__r.__words[i + 2]) < 0)
     {
-      operator delete(v10[15]);
+      operator delete(v9[15]);
     }
 
-    if (*(v10 + 119) < 0)
+    if (*(v9 + 119) < 0)
     {
-      operator delete(v10[12]);
+      operator delete(v9[12]);
     }
   }
 
-  if (SHIBYTE(v14.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v11) < 0)
   {
-    operator delete(v14.__r_.__value_.__l.__data_);
+    operator delete(__p[0]);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
+  if (SHIBYTE(v12.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v12.__r_.__value_.__l.__data_);
+  }
 }
 
 void xgboost::GraphvizGenerator::BuildTree(xgboost::GraphvizGenerator *this@<X0>, const xgboost::RegTree *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, std::string *a5@<X8>)
 {
-  v29[1] = *MEMORY[0x277D85DE8];
+  v27[1] = *MEMORY[0x277D85DE8];
   if (*(*(a2 + 20) + 20 * a3 + 4) == -1)
   {
     v11 = *(*this + 56);
-    v12 = *MEMORY[0x277D85DE8];
 
     v11();
   }
@@ -3885,70 +2076,68 @@ void xgboost::GraphvizGenerator::BuildTree(xgboost::GraphvizGenerator *this@<X0>
   {
     if ((atomic_load_explicit(&qword_280AF6D50, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_280AF6D50))
     {
-      std::string::basic_string[abi:ne200100]<0>(byte_280AF6FB8, "{parent}\n{left}\n{right}");
-      __cxa_atexit(MEMORY[0x277D82640], byte_280AF6FB8, &dword_274CA4000);
+      std::string::basic_string[abi:ne200100]<0>(qword_280AF6FB8, "{parent}\n{left}\n{right}");
+      __cxa_atexit(MEMORY[0x277D82640], qword_280AF6FB8, &dword_274CA4000);
       __cxa_guard_release(&qword_280AF6D50);
     }
 
     v10 = *this;
     if (*(*(a2 + 29) + a3) == 1)
     {
-      (*(v10 + 8))(v21, this, a2, a3, a4);
+      (*(v10 + 8))(v19, this, a2, a3, a4);
     }
 
     else
     {
-      (*(v10 + 40))(v21, this, a2, a3, a4);
+      (*(v10 + 40))(v19, this, a2, a3, a4);
     }
 
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[9],std::string&,0>(v23, "{parent}", v21);
-    (*(*this + 64))(v18, this, a2, *(*(a2 + 20) + 20 * a3 + 4), (a4 + 1));
-    std::string::basic_string[abi:ne200100]<0>(v24, "{left}");
-    v25 = *v18;
-    v26 = v19;
-    v18[1] = 0;
-    v19 = 0;
-    v18[0] = 0;
-    (*(*this + 64))(__p, this, a2, *(*(a2 + 20) + 20 * a3 + 8), (a4 + 1));
-    std::string::basic_string[abi:ne200100]<0>(v27, "{right}");
-    v28 = *__p;
-    v29[0] = v17;
-    __p[1] = 0;
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[9],std::string&,0>(v21, "{parent}", v19);
+    (*(*this + 64))(v16, this, a2, *(*(a2 + 20) + 20 * a3 + 4), (a4 + 1));
+    std::string::basic_string[abi:ne200100]<0>(v22, "{left}");
+    v23 = *v16;
+    v24 = v17;
+    v16[1] = 0;
     v17 = 0;
+    v16[0] = 0;
+    (*(*this + 64))(__p, this, a2, *(*(a2 + 20) + 20 * a3 + 8), (a4 + 1));
+    std::string::basic_string[abi:ne200100]<0>(v25, "{right}");
+    v26 = *__p;
+    v27[0] = v15;
+    __p[1] = 0;
+    v15 = 0;
     __p[0] = 0;
-    std::map<std::string,std::string>::map[abi:ne200100](v20, &v23[0].__r_.__value_.__l.__data_, 3);
-    xgboost::TreeGenerator::Match(a5, byte_280AF6FB8, v20);
-    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v20, v20[1]);
+    std::map<std::string,std::string>::map[abi:ne200100](v18, &v21[0].__r_.__value_.__l.__data_, 3);
+    xgboost::TreeGenerator::Match(a5, qword_280AF6FB8, v18);
+    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v18, v18[1]);
     for (i = 0; i != 0x1FFFFFFFFFFFFFEELL; i -= 6)
     {
-      v14 = &v23[i / 3];
-      if (SHIBYTE(v29[i]) < 0)
+      v13 = &v21[i / 3];
+      if (SHIBYTE(v27[i]) < 0)
       {
-        operator delete(v14[5].__r_.__value_.__l.__data_);
+        operator delete(v13[5].__r_.__value_.__l.__data_);
       }
 
-      if (SHIBYTE(v14[4].__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v13[4].__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v14[4].__r_.__value_.__l.__data_);
+        operator delete(v13[4].__r_.__value_.__l.__data_);
       }
     }
 
-    if (SHIBYTE(v17) < 0)
+    if (SHIBYTE(v15) < 0)
     {
       operator delete(__p[0]);
     }
 
-    if (SHIBYTE(v19) < 0)
+    if (SHIBYTE(v17) < 0)
     {
-      operator delete(v18[0]);
+      operator delete(v16[0]);
     }
 
-    if (v22 < 0)
+    if (v20 < 0)
     {
-      operator delete(v21[0]);
+      operator delete(v19[0]);
     }
-
-    v15 = *MEMORY[0x277D85DE8];
   }
 }
 
@@ -3996,50 +2185,50 @@ void xgboost::GraphvizGenerator::~GraphvizGenerator(std::locale *this)
 
 void xgboost::GraphvizGenerator::BuildTree(xgboost::GraphvizGenerator *this, const xgboost::RegTree *a2)
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   if ((atomic_load_explicit(&qword_280AF6D58, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_280AF6D58))
   {
-    std::string::basic_string[abi:ne200100]<0>(byte_280AF6FD0, "digraph {\n    graph [ rankdir={rankdir} ]\n{graph_attrs}\n{nodes}}");
-    __cxa_atexit(MEMORY[0x277D82640], byte_280AF6FD0, &dword_274CA4000);
+    std::string::basic_string[abi:ne200100]<0>(qword_280AF6FD0, "digraph {\n    graph [ rankdir={rankdir} ]\n{graph_attrs}\n{nodes}}");
+    __cxa_atexit(MEMORY[0x277D82640], qword_280AF6FD0, &dword_274CA4000);
     __cxa_guard_release(&qword_280AF6D58);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(v13, "{rankdir}");
+  std::string::basic_string[abi:ne200100]<0>(v12, "{rankdir}");
   if (*(this + 383) < 0)
   {
-    std::string::__init_copy_ctor_external(&v14, *(this + 45), *(this + 46));
+    std::string::__init_copy_ctor_external(&v13, *(this + 45), *(this + 46));
   }
 
   else
   {
-    v14 = *(this + 15);
+    v13 = *(this + 15);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(v15, "{graph_attrs}");
+  std::string::basic_string[abi:ne200100]<0>(v14, "{graph_attrs}");
   if (*(this + 455) < 0)
   {
-    std::string::__init_copy_ctor_external(&v16, *(this + 54), *(this + 55));
+    std::string::__init_copy_ctor_external(&v15, *(this + 54), *(this + 55));
   }
 
   else
   {
-    v16 = *(this + 18);
+    v15 = *(this + 18);
   }
 
   (*(*this + 64))(__p, this, a2, 0, 0);
-  std::string::basic_string[abi:ne200100]<0>(v17, "{nodes}");
-  v18 = *__p;
-  v19[0] = v10;
+  std::string::basic_string[abi:ne200100]<0>(v16, "{nodes}");
+  v17 = *__p;
+  v18[0] = v9;
   __p[1] = 0;
-  v10 = 0;
+  v9 = 0;
   __p[0] = 0;
-  std::map<std::string,std::string>::map[abi:ne200100](v11, v13, 3);
-  xgboost::TreeGenerator::Match(&v12, byte_280AF6FD0, v11);
-  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v11, v11[1]);
+  std::map<std::string,std::string>::map[abi:ne200100](v10, v12, 3);
+  xgboost::TreeGenerator::Match(&v11, qword_280AF6FD0, v10);
+  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v10, v10[1]);
   for (i = 0; i != -18; i -= 6)
   {
-    v5 = &v13[i];
-    if (SHIBYTE(v19[i]) < 0)
+    v5 = &v12[i];
+    if (SHIBYTE(v18[i]) < 0)
     {
       operator delete(v5[15]);
     }
@@ -4050,38 +2239,36 @@ void xgboost::GraphvizGenerator::BuildTree(xgboost::GraphvizGenerator *this, con
     }
   }
 
-  if (SHIBYTE(v10) < 0)
+  if (SHIBYTE(v9) < 0)
   {
     operator delete(__p[0]);
   }
 
-  if ((v12.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v11.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v6 = &v12;
+    v6 = &v11;
   }
 
   else
   {
-    v6 = v12.__r_.__value_.__r.__words[0];
+    v6 = v11.__r_.__value_.__r.__words[0];
   }
 
-  if ((v12.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v11.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    size = HIBYTE(v12.__r_.__value_.__r.__words[2]);
+    size = HIBYTE(v11.__r_.__value_.__r.__words[2]);
   }
 
   else
   {
-    size = v12.__r_.__value_.__l.__size_;
+    size = v11.__r_.__value_.__l.__size_;
   }
 
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(this + 4, v6, size);
-  if (SHIBYTE(v12.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v11.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v12.__r_.__value_.__l.__data_);
+    operator delete(v11.__r_.__value_.__l.__data_);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void dmlc::JSONReader::BeginObject(dmlc::JSONReader *this)
@@ -4093,96 +2280,95 @@ void dmlc::JSONReader::BeginObject(dmlc::JSONReader *this)
   {
     while (1)
     {
-      v5 = *this;
-      v6 = std::istream::get();
-      v7 = v6;
-      v8 = v3;
-      if (v6 != 10)
+      v5 = std::istream::get();
+      v6 = v5;
+      v7 = v3;
+      if (v5 != 10)
       {
-        v8 = v2;
-        if (v6 != 13)
+        v7 = v2;
+        if (v5 != 13)
         {
           break;
         }
       }
 
-      ++*v8;
+      ++*v7;
 LABEL_5:
-      if ((*(v4 + 4 * v6 + 60) & 0x4000) == 0)
+      if ((*(v4 + 4 * v5 + 60) & 0x4000) == 0)
       {
         goto LABEL_9;
       }
     }
 
-    if (v6 <= 0x7F)
+    if (v5 <= 0x7F)
     {
       goto LABEL_5;
     }
   }
 
-  while (__maskrune(v6, 0x4000uLL));
+  while (__maskrune(v5, 0x4000uLL));
 LABEL_9:
-  v25 = v7;
+  v24 = v6;
   LOBYTE(__p) = 123;
-  if (v7 != 123)
+  if (v6 != 123)
   {
-    dmlc::LogCheckFormat<int,char>(&v24, &v25, &__p);
+    dmlc::LogCheckFormat<int,char>(&v23, &v24, &__p);
   }
 
-  v10 = *(this + 4);
-  v9 = *(this + 5);
-  if (v10 >= v9)
+  v9 = *(this + 4);
+  v8 = *(this + 5);
+  if (v9 >= v8)
   {
-    v12 = *(this + 3);
-    v13 = v10 - v12;
-    v14 = (v10 - v12) >> 3;
-    v15 = v14 + 1;
-    if ((v14 + 1) >> 61)
+    v11 = *(this + 3);
+    v12 = v9 - v11;
+    v13 = (v9 - v11) >> 3;
+    v14 = v13 + 1;
+    if ((v13 + 1) >> 61)
     {
       std::vector<void *>::__throw_length_error[abi:ne200100]();
     }
 
-    v16 = v9 - v12;
-    if (v16 >> 2 > v15)
+    v15 = v8 - v11;
+    if (v15 >> 2 > v14)
     {
-      v15 = v16 >> 2;
+      v14 = v15 >> 2;
     }
 
-    v17 = v16 >= 0x7FFFFFFFFFFFFFF8;
-    v18 = 0x1FFFFFFFFFFFFFFFLL;
-    if (!v17)
+    v16 = v15 >= 0x7FFFFFFFFFFFFFF8;
+    v17 = 0x1FFFFFFFFFFFFFFFLL;
+    if (!v16)
     {
-      v18 = v15;
+      v17 = v14;
     }
 
-    if (v18)
+    if (v17)
     {
-      std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned long>>(this + 24, v18);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned long>>(this + 24, v17);
     }
 
-    v19 = (v10 - v12) >> 3;
-    v20 = (8 * v14);
-    v21 = (8 * v14 - 8 * v19);
-    *v20 = 0;
-    v11 = v20 + 1;
-    memcpy(v21, v12, v13);
-    v22 = *(this + 3);
-    *(this + 3) = v21;
-    *(this + 4) = v11;
+    v18 = (v9 - v11) >> 3;
+    v19 = (8 * v13);
+    v20 = (8 * v13 - 8 * v18);
+    *v19 = 0;
+    v10 = v19 + 1;
+    memcpy(v20, v11, v12);
+    v21 = *(this + 3);
+    *(this + 3) = v20;
+    *(this + 4) = v10;
     *(this + 5) = 0;
-    if (v22)
+    if (v21)
     {
-      operator delete(v22);
+      operator delete(v21);
     }
   }
 
   else
   {
-    *v10 = 0;
-    v11 = v10 + 8;
+    *v9 = 0;
+    v10 = v9 + 8;
   }
 
-  *(this + 4) = v11;
+  *(this + 4) = v10;
 }
 
 void sub_274DF3340(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, int a15, __int16 a16, char a17, char a18, uint64_t a19)
@@ -4198,7 +2384,7 @@ void sub_274DF3340(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t dmlc::JSONReader::NextObjectItem(uint64_t *a1, uint64_t a2)
+uint64_t dmlc::JSONReader::NextObjectItem(void *a1, uint64_t a2)
 {
   v4 = MEMORY[0x277D85DE0];
   v5 = a1 + 1;
@@ -4207,18 +2393,17 @@ uint64_t dmlc::JSONReader::NextObjectItem(uint64_t *a1, uint64_t a2)
   {
     while (1)
     {
-      v12 = *a1;
-      v13 = std::istream::peek();
-      v14 = v13;
-      v15 = v6;
-      if (v13 == 10 || (v15 = v5, v13 == 13))
+      v10 = std::istream::peek();
+      v11 = v10;
+      v12 = v6;
+      if (v10 == 10 || (v12 = v5, v10 == 13))
       {
-        ++*v15;
+        ++*v12;
       }
 
-      else if (v13 > 0x7F)
+      else if (v10 > 0x7F)
       {
-        if (!__maskrune(v13, 0x4000uLL))
+        if (!__maskrune(v10, 0x4000uLL))
         {
           goto LABEL_21;
         }
@@ -4226,15 +2411,14 @@ uint64_t dmlc::JSONReader::NextObjectItem(uint64_t *a1, uint64_t a2)
         goto LABEL_13;
       }
 
-      if ((*(v4 + 4 * v13 + 60) & 0x4000) == 0)
+      if ((*(v4 + 4 * v10 + 60) & 0x4000) == 0)
       {
 LABEL_21:
-        if (v14 != 125)
+        if (v11 != 125)
         {
           goto LABEL_24;
         }
 
-        v16 = *a1;
         std::istream::get();
 LABEL_23:
         result = 0;
@@ -4243,7 +2427,6 @@ LABEL_23:
       }
 
 LABEL_13:
-      v11 = *a1;
       std::istream::get();
     }
   }
@@ -4252,45 +2435,44 @@ LABEL_13:
   {
     while (1)
     {
-      v7 = *a1;
-      v8 = std::istream::get();
-      v9 = v8;
-      v10 = v6;
-      if (v8 != 10)
+      v7 = std::istream::get();
+      v8 = v7;
+      v9 = v6;
+      if (v7 != 10)
       {
-        v10 = v5;
-        if (v8 != 13)
+        v9 = v5;
+        if (v7 != 13)
         {
           break;
         }
       }
 
-      ++*v10;
+      ++*v9;
 LABEL_5:
-      if ((*(v4 + 4 * v8 + 60) & 0x4000) == 0)
+      if ((*(v4 + 4 * v7 + 60) & 0x4000) == 0)
       {
         goto LABEL_9;
       }
     }
 
-    if (v8 <= 0x7F)
+    if (v7 <= 0x7F)
     {
       goto LABEL_5;
     }
   }
 
-  while (__maskrune(v8, 0x4000uLL));
+  while (__maskrune(v7, 0x4000uLL));
 LABEL_9:
-  v24 = v9;
-  if (v9 == -1 || v9 == 125)
+  v19 = v8;
+  if (v8 == -1 || v8 == 125)
   {
     goto LABEL_23;
   }
 
   LOBYTE(__p) = 44;
-  if (v9 != 44)
+  if (v8 != 44)
   {
-    dmlc::LogCheckFormat<int,char>(&v23, &v24, &__p);
+    dmlc::LogCheckFormat<int,char>(&v18, &v19, &__p);
   }
 
 LABEL_24:
@@ -4300,20 +2482,19 @@ LABEL_24:
   {
     while (2)
     {
-      v18 = *a1;
-      v19 = std::istream::get();
-      v20 = v19;
-      v21 = a1 + 2;
-      if (v19 == 10 || (v21 = a1 + 1, v19 == 13))
+      v14 = std::istream::get();
+      v15 = v14;
+      v16 = a1 + 2;
+      if (v14 == 10 || (v16 = a1 + 1, v14 == 13))
       {
-        ++*v21;
+        ++*v16;
         goto LABEL_28;
       }
 
-      if (v19 <= 0x7F)
+      if (v14 <= 0x7F)
       {
 LABEL_28:
-        if ((*(v4 + 4 * v19 + 60) & 0x4000) == 0)
+        if ((*(v4 + 4 * v14 + 60) & 0x4000) == 0)
         {
           goto LABEL_32;
         }
@@ -4324,7 +2505,7 @@ LABEL_28:
       break;
     }
 
-    if (__maskrune(v19, 0x4000uLL))
+    if (__maskrune(v14, 0x4000uLL))
     {
       continue;
     }
@@ -4333,11 +2514,11 @@ LABEL_28:
   }
 
 LABEL_32:
-  v24 = v20;
+  v19 = v15;
   LOBYTE(__p) = 58;
-  if (v20 != 58)
+  if (v15 != 58)
   {
-    dmlc::LogCheckFormat<int,char>(&v23, &v24, &__p);
+    dmlc::LogCheckFormat<int,char>(&v18, &v19, &__p);
   }
 
   return 1;
@@ -4381,9 +2562,9 @@ void std::__destroy_at[abi:ne200100]<std::pair<std::string const,std::map<std::s
 
 uint64_t dmlc::JSONReader::line_info(dmlc::JSONReader *this, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
-  std::ostringstream::basic_ostringstream[abi:ne200100](&v11);
-  v3 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v11, " Line ", 6);
+  v17 = *MEMORY[0x277D85DE8];
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v10);
+  v3 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, " Line ", 6);
   if (a2[1] <= a2[2])
   {
     v4 = a2[2];
@@ -4396,30 +2577,28 @@ uint64_t dmlc::JSONReader::line_info(dmlc::JSONReader *this, void *a2)
 
   MEMORY[0x277C68E50](v3, v4);
   std::ios_base::getloc((*a2 + *(**a2 - 24)));
-  v5 = std::locale::use_facet(&v16, MEMORY[0x277D82680]);
+  v5 = std::locale::use_facet(&v15, MEMORY[0x277D82680]);
   (v5->__vftable[2].~facet_0)(v5, 10);
-  std::locale::~locale(&v16);
+  std::locale::~locale(&v15);
   std::istream::getline();
   v7 = strlen(__s);
   v8 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, __s, v7);
   std::stringbuf::str();
-  v11 = *MEMORY[0x277D82828];
-  *(&v11 + *(v11 - 24)) = *(MEMORY[0x277D82828] + 24);
-  v12 = MEMORY[0x277D82878] + 16;
-  if (v14 < 0)
+  v10 = *MEMORY[0x277D82828];
+  *(&v10 + *(v10 - 24)) = *(MEMORY[0x277D82828] + 24);
+  v11 = MEMORY[0x277D82878] + 16;
+  if (v13 < 0)
   {
-    operator delete(v13[7].__locale_);
+    operator delete(v12[7].__locale_);
   }
 
-  v12 = MEMORY[0x277D82868] + 16;
-  std::locale::~locale(v13);
+  v11 = MEMORY[0x277D82868] + 16;
+  std::locale::~locale(v12);
   std::ostream::~ostream();
-  result = MEMORY[0x277C690D0](&v15);
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  return MEMORY[0x277C690D0](&v14);
 }
 
-void dmlc::LogCheckFormat<int,char>(uint64_t a1, unsigned int *a2, char *a3)
+void dmlc::LogCheckFormat<int,char>(void *a1, unsigned int *a2, char *a3)
 {
   std::ostringstream::basic_ostringstream[abi:ne200100](&v9);
   v5 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v9, " (", 2);
@@ -4433,12 +2612,12 @@ void dmlc::LogCheckFormat<int,char>(uint64_t a1, unsigned int *a2, char *a3)
 
 void sub_274DF3D4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
-  MEMORY[0x277C69180](v9, 0x1012C40EC159624);
+  MEMORY[0x277C69180](v9, 0x1012C40EC159624, a3, a4, a5, a6, a7, a8);
   std::ostringstream::~ostringstream(&a9);
   _Unwind_Resume(a1);
 }
 
-uint64_t dmlc::JSONReader::ReadString(uint64_t *a1, uint64_t a2)
+uint64_t dmlc::JSONReader::ReadString(void *a1, uint64_t a2)
 {
   v4 = a1 + 1;
   v5 = a1 + 2;
@@ -4447,40 +2626,39 @@ uint64_t dmlc::JSONReader::ReadString(uint64_t *a1, uint64_t a2)
   {
     while (1)
     {
-      v7 = *a1;
-      v8 = std::istream::get();
-      v9 = v8;
-      v10 = v5;
-      if (v8 != 10)
+      v7 = std::istream::get();
+      v8 = v7;
+      v9 = v5;
+      if (v7 != 10)
       {
-        v10 = v4;
-        if (v8 != 13)
+        v9 = v4;
+        if (v7 != 13)
         {
           break;
         }
       }
 
-      ++*v10;
+      ++*v9;
 LABEL_5:
-      if ((*(v6 + 4 * v8 + 60) & 0x4000) == 0)
+      if ((*(v6 + 4 * v7 + 60) & 0x4000) == 0)
       {
         goto LABEL_9;
       }
     }
 
-    if (v8 <= 0x7F)
+    if (v7 <= 0x7F)
     {
       goto LABEL_5;
     }
   }
 
-  while (__maskrune(v8, 0x4000uLL));
+  while (__maskrune(v7, 0x4000uLL));
 LABEL_9:
-  v35 = v9;
+  v32 = v8;
   LOBYTE(__p) = 34;
-  if (v9 != 34)
+  if (v8 != 34)
   {
-    dmlc::LogCheckFormat<int,char>(v28, &v35, &__p);
+    dmlc::LogCheckFormat<int,char>(v25, &v32, &__p);
   }
 
   std::ostringstream::basic_ostringstream[abi:ne200100](&__p);
@@ -4488,105 +2666,103 @@ LABEL_9:
   {
     while (1)
     {
-      v11 = *a1;
-      v12 = std::istream::get();
-      v13 = v12;
-      if (v12 != 92)
+      v10 = std::istream::get();
+      v11 = v10;
+      if (v10 != 92)
       {
         break;
       }
 
-      v21 = *a1;
-      v22 = std::istream::get();
-      if (v22 <= 109)
+      v19 = std::istream::get();
+      if (v19 <= 109)
       {
-        if (v22 == 34)
+        if (v19 == 34)
         {
-          v23 = "";
+          v20 = "";
           goto LABEL_37;
         }
 
-        if (v22 == 92)
+        if (v19 == 92)
         {
-          v23 = "\";
+          v20 = "\"";
           goto LABEL_37;
         }
       }
 
       else
       {
-        if (v22 == 110)
+        if (v19 == 110)
         {
-          v23 = "\n";
+          v20 = "\n";
           goto LABEL_37;
         }
 
-        v23 = "\r";
-        if (v22 == 114)
+        v20 = "\r";
+        if (v19 == 114)
         {
           goto LABEL_37;
         }
 
-        if (v22 == 116)
+        if (v19 == 116)
         {
-          v23 = "\t";
+          v20 = "\t";
 LABEL_37:
-          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__p, v23, 1);
+          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__p, v20, 1);
           continue;
         }
       }
 
-      Entry = dmlc::LogMessageFatal::GetEntry(v36);
+      Entry = dmlc::LogMessageFatal::GetEntry(v33);
       dmlc::LogMessageFatal::Entry::Init(Entry, "/Library/Caches/com.apple.xbs/Sources/CoreML/xgboost/dmlc/src/dmlc/././json.h", 695);
-      v25 = dmlc::LogMessageFatal::GetEntry(v36);
-      v26 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v25, "unknown string escape \", 23);
-      LOBYTE(v28[0]) = v22;
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v26, v28, 1);
-      dmlc::LogMessageFatal::~LogMessageFatal(v36);
+      v22 = dmlc::LogMessageFatal::GetEntry(v33);
+      v23 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v22, "unknown string escape \"", 23);
+      LOBYTE(v25[0]) = v19;
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v23, v25, 1);
+      dmlc::LogMessageFatal::~LogMessageFatal(v33);
     }
 
-    if (v12 == 34)
+    if (v10 == 34)
     {
       break;
     }
 
-    LOBYTE(v28[0]) = v12;
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__p, v28, 1);
-    if ((v13 + 1) <= 0xE && ((1 << (v13 + 1)) & 0x4801) != 0)
+    LOBYTE(v25[0]) = v10;
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__p, v25, 1);
+    if ((v11 + 1) <= 0xE && ((1 << (v11 + 1)) & 0x4801) != 0)
     {
-      v15 = dmlc::LogMessageFatal::GetEntry(v36);
-      dmlc::LogMessageFatal::Entry::Init(v15, "/Library/Caches/com.apple.xbs/Sources/CoreML/xgboost/dmlc/src/dmlc/././json.h", 702);
-      v16 = dmlc::LogMessageFatal::GetEntry(v36);
-      v17 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v16, "Error at", 8);
-      dmlc::JSONReader::line_info(v28, a1);
-      if (v29 >= 0)
+      v13 = dmlc::LogMessageFatal::GetEntry(v33);
+      dmlc::LogMessageFatal::Entry::Init(v13, "/Library/Caches/com.apple.xbs/Sources/CoreML/xgboost/dmlc/src/dmlc/././json.h", 702);
+      v14 = dmlc::LogMessageFatal::GetEntry(v33);
+      v15 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v14, "Error at", 8);
+      dmlc::JSONReader::line_info(v25, a1);
+      if (v26 >= 0)
       {
-        v18 = v28;
+        v16 = v25;
       }
 
       else
       {
-        v18 = v28[0];
+        v16 = v25[0];
       }
 
-      if (v29 >= 0)
+      if (v26 >= 0)
       {
-        v19 = HIBYTE(v29);
+        v17 = HIBYTE(v26);
       }
 
       else
       {
-        v19 = v28[1];
+        v17 = v25[1];
       }
 
-      v20 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v17, v18, v19);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v20, ", Expect '' but reach end of line ", 35);
-      if (SHIBYTE(v29) < 0)
+      v18 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v15, v16, v17);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v18, ", Expect '' but reach end of line ", 35);
+      if (SHIBYTE(v26) < 0)
       {
-        operator delete(v28[0]);
+        operator delete(v25[0]);
       }
 
-      dmlc::LogMessageFatal::~LogMessageFatal(v36);
+      dmlc::LogMessageFatal::~LogMessageFatal(v33);
     }
   }
 
@@ -4596,20 +2772,20 @@ LABEL_37:
     operator delete(*a2);
   }
 
-  *a2 = *v28;
-  *(a2 + 16) = v29;
+  *a2 = *v25;
+  *(a2 + 16) = v26;
   __p = *MEMORY[0x277D82828];
   *(&__p + *(__p - 3)) = *(MEMORY[0x277D82828] + 24);
-  v31 = MEMORY[0x277D82878] + 16;
-  if (v33 < 0)
+  v28 = MEMORY[0x277D82878] + 16;
+  if (v30 < 0)
   {
-    operator delete(v32[7].__locale_);
+    operator delete(v29[7].__locale_);
   }
 
-  v31 = MEMORY[0x277D82868] + 16;
-  std::locale::~locale(v32);
+  v28 = MEMORY[0x277D82868] + 16;
+  std::locale::~locale(v29);
   std::ostream::~ostream();
-  return MEMORY[0x277C690D0](&v34);
+  return MEMORY[0x277C690D0](&v31);
 }
 
 void sub_274DF426C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21)
@@ -4642,24 +2818,24 @@ uint64_t std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::map
   return a1;
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t a1, const void **a2)
+uint64_t std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t **a1, const void **a2, _OWORD **a3)
 {
-  v2 = *std::__tree<std::__value_type<std::string,dmlc::parameter::FieldAccessEntry *>,std::__map_value_compare<std::string,std::__value_type<std::string,dmlc::parameter::FieldAccessEntry *>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,dmlc::parameter::FieldAccessEntry *>>>::__find_equal<std::string>(a1, &v4, a2);
-  if (!v2)
+  v3 = *std::__tree<std::__value_type<std::string,dmlc::parameter::FieldAccessEntry *>,std::__map_value_compare<std::string,std::__value_type<std::string,dmlc::parameter::FieldAccessEntry *>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,dmlc::parameter::FieldAccessEntry *>>>::__find_equal<std::string>(a1, &v5, a2);
+  if (!v3)
   {
     operator new();
   }
 
-  return v2;
+  return v3;
 }
 
-void std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__erase_unique<std::string>(void *a1, const void **a2)
+void std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__erase_unique<std::string>(uint64_t **a1, const void **a2)
 {
   v3 = std::__tree<std::__value_type<std::string,dmlc::parameter::FieldAccessEntry *>,std::__map_value_compare<std::string,std::__value_type<std::string,dmlc::parameter::FieldAccessEntry *>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,dmlc::parameter::FieldAccessEntry *>>>::find<std::string>(a1, a2);
   if (a1 + 1 != v3)
   {
     v4 = v3;
-    v5 = *(v3 + 8);
+    v5 = v3[1];
     if (v5)
     {
       do
@@ -4690,7 +2866,7 @@ void std::__tree<std::__value_type<std::string,std::map<std::string,std::string>
     }
 
     v9 = a1[1];
-    --a1[2];
+    a1[2] = (a1[2] - 1);
     std::__tree_remove[abi:ne200100]<std::__tree_node_base<void *> *>(v9, v4);
     std::__destroy_at[abi:ne200100]<std::pair<std::string const,std::map<std::string,std::string>>,0>((v4 + 4));
 
@@ -4739,11 +2915,11 @@ uint64_t std::pair<std::string const,std::map<std::string,std::string>>::~pair(u
 
 void xgboost::GraphvizGenerator::BuildEdge<true>(std::string *a1, uint64_t a2, uint64_t a3, int a4, int a5, int a6)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   if ((atomic_load_explicit(&qword_280AF6D30, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_280AF6D30))
   {
-    std::string::basic_string[abi:ne200100]<0>(byte_280AF6F58, "    {nid} -> {child} [label={branch} color={color}]\n");
-    __cxa_atexit(MEMORY[0x277D82640], byte_280AF6F58, &dword_274CA4000);
+    std::string::basic_string[abi:ne200100]<0>(qword_280AF6F58, "    {nid} -> {child} [label={branch} color={color}]\n");
+    __cxa_atexit(MEMORY[0x277D82640], qword_280AF6F58, &dword_274CA4000);
     __cxa_guard_release(&qword_280AF6D30);
   }
 
@@ -4765,7 +2941,7 @@ void xgboost::GraphvizGenerator::BuildEdge<true>(std::string *a1, uint64_t a2, u
     v15 = "yes";
   }
 
-  std::string::basic_string[abi:ne200100]<0>(&v35, v15);
+  std::string::basic_string[abi:ne200100]<0>(&v34, v15);
   if (v14 == a5)
   {
     v16 = ", missing";
@@ -4777,7 +2953,7 @@ void xgboost::GraphvizGenerator::BuildEdge<true>(std::string *a1, uint64_t a2, u
   }
 
   std::string::basic_string[abi:ne200100]<0>(&__p, v16);
-  if ((v31 & 0x80u) == 0)
+  if ((v30 & 0x80u) == 0)
   {
     p_p = &__p;
   }
@@ -4787,60 +2963,60 @@ void xgboost::GraphvizGenerator::BuildEdge<true>(std::string *a1, uint64_t a2, u
     p_p = __p;
   }
 
-  if ((v31 & 0x80u) == 0)
-  {
-    v18 = v31;
-  }
-
-  else
+  if ((v30 & 0x80u) == 0)
   {
     v18 = v30;
   }
 
-  v19 = std::string::append(&v35, p_p, v18);
+  else
+  {
+    v18 = v29;
+  }
+
+  v19 = std::string::append(&v34, p_p, v18);
   v21 = v19->__r_.__value_.__r.__words[0];
   size = v19->__r_.__value_.__l.__size_;
-  v32 = v19->__r_.__value_.__r.__words[0];
-  *v33 = size;
-  *&v33[7] = *(&v19->__r_.__value_.__r.__words[1] + 7);
+  v31 = v19->__r_.__value_.__r.__words[0];
+  *v32 = size;
+  *&v32[7] = *(&v19->__r_.__value_.__r.__words[1] + 7);
   v22 = SHIBYTE(v19->__r_.__value_.__r.__words[2]);
   v19->__r_.__value_.__l.__size_ = 0;
   v19->__r_.__value_.__r.__words[2] = 0;
   v19->__r_.__value_.__r.__words[0] = 0;
-  v34 = v22;
-  if (v31 < 0)
+  v33 = v22;
+  if (v30 < 0)
   {
     operator delete(__p);
   }
 
-  if (SHIBYTE(v35.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v34.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v35.__r_.__value_.__l.__data_);
+    operator delete(v34.__r_.__value_.__l.__data_);
   }
 
-  std::to_string(&v28, a4);
-  std::string::basic_string[abi:ne200100]<0>(&v35, "{nid}");
-  v36 = v28;
-  memset(&v28, 0, sizeof(v28));
-  std::to_string(&v27, a5);
-  std::string::basic_string[abi:ne200100]<0>(v37, "{child}");
-  v38 = v27;
+  std::to_string(&v27, a4);
+  std::string::basic_string[abi:ne200100]<0>(&v34, "{nid}");
+  v35 = v27;
   memset(&v27, 0, sizeof(v27));
+  std::to_string(&v26, a5);
+  std::string::basic_string[abi:ne200100]<0>(v36, "{child}");
+  v37 = v26;
+  memset(&v26, 0, sizeof(v26));
   v23 = 336;
   if (v14 == a5)
   {
     v23 = 312;
   }
 
-  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[8],std::string const&,0>(v39, "{color}", (a2 + v23));
-  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[9],std::string&,0>(v40, "{branch}", &v32);
-  std::map<std::string,std::string>::map[abi:ne200100](&__p, &v35.__r_.__value_.__l.__data_, 4);
-  xgboost::TreeGenerator::Match(a1, byte_280AF6F58, &__p);
-  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(&__p, v30);
+  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[8],std::string const&,0>(v38, "{color}", (a2 + v23));
+  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[9],std::string&,0>(v39, "{branch}", &v31);
+  std::map<std::string,std::string>::map[abi:ne200100](&__p, &v34.__r_.__value_.__l.__data_, 4);
+  xgboost::TreeGenerator::Match(a1, qword_280AF6F58, &__p);
+  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(&__p, v29);
   for (i = 0; i != -24; i -= 6)
   {
-    v25 = (&v35.__r_.__value_.__l.__data_ + i * 8);
-    if (SHIBYTE(v40[1].__r_.__value_.__r.__words[i + 2]) < 0)
+    v25 = (&v34.__r_.__value_.__l.__data_ + i * 8);
+    if (SHIBYTE(v39[1].__r_.__value_.__r.__words[i + 2]) < 0)
     {
       operator delete(v25[21]);
     }
@@ -4851,31 +3027,28 @@ void xgboost::GraphvizGenerator::BuildEdge<true>(std::string *a1, uint64_t a2, u
     }
   }
 
-  if (SHIBYTE(v27.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v26.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v27.__r_.__value_.__l.__data_);
+    operator delete(v26.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v28.__r_.__value_.__r.__words[2]) < 0)
+  if ((SHIBYTE(v27.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
-    operator delete(v28.__r_.__value_.__l.__data_);
     if ((v22 & 0x80000000) == 0)
     {
-      goto LABEL_32;
+      return;
     }
 
 LABEL_34:
     operator delete(v21);
-    goto LABEL_32;
+    return;
   }
 
+  operator delete(v27.__r_.__value_.__l.__data_);
   if (v22 < 0)
   {
     goto LABEL_34;
   }
-
-LABEL_32:
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 std::string *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[9],std::string const&,0>(std::string *a1, __int128 *a2)
@@ -4936,11 +3109,11 @@ void sub_274DF4A68(_Unwind_Exception *exception_object)
 
 void xgboost::GraphvizGenerator::BuildEdge<false>(std::string *a1, uint64_t a2, uint64_t a3, int a4, int a5, int a6)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   if ((atomic_load_explicit(&qword_280AF6D40, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_280AF6D40))
   {
-    std::string::basic_string[abi:ne200100]<0>(byte_280AF6F88, "    {nid} -> {child} [label={branch} color={color}]\n");
-    __cxa_atexit(MEMORY[0x277D82640], byte_280AF6F88, &dword_274CA4000);
+    std::string::basic_string[abi:ne200100]<0>(qword_280AF6F88, "    {nid} -> {child} [label={branch} color={color}]\n");
+    __cxa_atexit(MEMORY[0x277D82640], qword_280AF6F88, &dword_274CA4000);
     __cxa_guard_release(&qword_280AF6D40);
   }
 
@@ -4962,7 +3135,7 @@ void xgboost::GraphvizGenerator::BuildEdge<false>(std::string *a1, uint64_t a2, 
     v15 = "no";
   }
 
-  std::string::basic_string[abi:ne200100]<0>(&v35, v15);
+  std::string::basic_string[abi:ne200100]<0>(&v34, v15);
   if (v14 == a5)
   {
     v16 = ", missing";
@@ -4974,7 +3147,7 @@ void xgboost::GraphvizGenerator::BuildEdge<false>(std::string *a1, uint64_t a2, 
   }
 
   std::string::basic_string[abi:ne200100]<0>(&__p, v16);
-  if ((v31 & 0x80u) == 0)
+  if ((v30 & 0x80u) == 0)
   {
     p_p = &__p;
   }
@@ -4984,60 +3157,60 @@ void xgboost::GraphvizGenerator::BuildEdge<false>(std::string *a1, uint64_t a2, 
     p_p = __p;
   }
 
-  if ((v31 & 0x80u) == 0)
-  {
-    v18 = v31;
-  }
-
-  else
+  if ((v30 & 0x80u) == 0)
   {
     v18 = v30;
   }
 
-  v19 = std::string::append(&v35, p_p, v18);
+  else
+  {
+    v18 = v29;
+  }
+
+  v19 = std::string::append(&v34, p_p, v18);
   v21 = v19->__r_.__value_.__r.__words[0];
   size = v19->__r_.__value_.__l.__size_;
-  v32 = v19->__r_.__value_.__r.__words[0];
-  *v33 = size;
-  *&v33[7] = *(&v19->__r_.__value_.__r.__words[1] + 7);
+  v31 = v19->__r_.__value_.__r.__words[0];
+  *v32 = size;
+  *&v32[7] = *(&v19->__r_.__value_.__r.__words[1] + 7);
   v22 = SHIBYTE(v19->__r_.__value_.__r.__words[2]);
   v19->__r_.__value_.__l.__size_ = 0;
   v19->__r_.__value_.__r.__words[2] = 0;
   v19->__r_.__value_.__r.__words[0] = 0;
-  v34 = v22;
-  if (v31 < 0)
+  v33 = v22;
+  if (v30 < 0)
   {
     operator delete(__p);
   }
 
-  if (SHIBYTE(v35.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v34.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v35.__r_.__value_.__l.__data_);
+    operator delete(v34.__r_.__value_.__l.__data_);
   }
 
-  std::to_string(&v28, a4);
-  std::string::basic_string[abi:ne200100]<0>(&v35, "{nid}");
-  v36 = v28;
-  memset(&v28, 0, sizeof(v28));
-  std::to_string(&v27, a5);
-  std::string::basic_string[abi:ne200100]<0>(v37, "{child}");
-  v38 = v27;
+  std::to_string(&v27, a4);
+  std::string::basic_string[abi:ne200100]<0>(&v34, "{nid}");
+  v35 = v27;
   memset(&v27, 0, sizeof(v27));
+  std::to_string(&v26, a5);
+  std::string::basic_string[abi:ne200100]<0>(v36, "{child}");
+  v37 = v26;
+  memset(&v26, 0, sizeof(v26));
   v23 = 336;
   if (v14 == a5)
   {
     v23 = 312;
   }
 
-  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[8],std::string const&,0>(v39, "{color}", (a2 + v23));
-  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[9],std::string&,0>(v40, "{branch}", &v32);
-  std::map<std::string,std::string>::map[abi:ne200100](&__p, &v35.__r_.__value_.__l.__data_, 4);
-  xgboost::TreeGenerator::Match(a1, byte_280AF6F88, &__p);
-  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(&__p, v30);
+  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[8],std::string const&,0>(v38, "{color}", (a2 + v23));
+  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[9],std::string&,0>(v39, "{branch}", &v31);
+  std::map<std::string,std::string>::map[abi:ne200100](&__p, &v34.__r_.__value_.__l.__data_, 4);
+  xgboost::TreeGenerator::Match(a1, qword_280AF6F88, &__p);
+  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(&__p, v29);
   for (i = 0; i != -24; i -= 6)
   {
-    v25 = (&v35.__r_.__value_.__l.__data_ + i * 8);
-    if (SHIBYTE(v40[1].__r_.__value_.__r.__words[i + 2]) < 0)
+    v25 = (&v34.__r_.__value_.__l.__data_ + i * 8);
+    if (SHIBYTE(v39[1].__r_.__value_.__r.__words[i + 2]) < 0)
     {
       operator delete(v25[21]);
     }
@@ -5048,139 +3221,125 @@ void xgboost::GraphvizGenerator::BuildEdge<false>(std::string *a1, uint64_t a2, 
     }
   }
 
-  if (SHIBYTE(v27.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v26.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v27.__r_.__value_.__l.__data_);
+    operator delete(v26.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v28.__r_.__value_.__r.__words[2]) < 0)
+  if ((SHIBYTE(v27.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
-    operator delete(v28.__r_.__value_.__l.__data_);
     if ((v22 & 0x80000000) == 0)
     {
-      goto LABEL_32;
+      return;
     }
 
 LABEL_34:
     operator delete(v21);
-    goto LABEL_32;
+    return;
   }
 
+  operator delete(v27.__r_.__value_.__l.__data_);
   if (v22 < 0)
   {
     goto LABEL_34;
   }
-
-LABEL_32:
-  v26 = *MEMORY[0x277D85DE8];
 }
 
-void *xgboost::Cast<xgboost::JsonTypedArray<long long,(xgboost::Value::ValueKind)10> const,xgboost::Value>(char **a1)
+void *xgboost::Cast<xgboost::JsonTypedArray<long long,(xgboost::Value::ValueKind)10> const,xgboost::Value>(_DWORD *a1)
 {
-  if (*(a1 + 3) == 10)
+  if (a1[3] == 10)
   {
-    v2 = **a1;
   }
 
   else
   {
-    Entry = dmlc::LogMessageFatal::GetEntry(&v28);
+    Entry = dmlc::LogMessageFatal::GetEntry(&v26);
     dmlc::LogMessageFatal::Entry::Init(Entry, "/Library/Caches/com.apple.xbs/Sources/CoreML/xgboost/src/xgboost/json.h", 79);
-    v5 = dmlc::LogMessageFatal::GetEntry(&v28);
-    xgboost::Value::TypeStr(a1, &v23);
-    v6 = std::string::insert(&v23, 0, "Invalid cast, from ");
-    v7 = *&v6->__r_.__value_.__l.__data_;
-    v24.__r_.__value_.__r.__words[2] = v6->__r_.__value_.__r.__words[2];
-    *&v24.__r_.__value_.__l.__data_ = v7;
-    v6->__r_.__value_.__l.__size_ = 0;
-    v6->__r_.__value_.__r.__words[2] = 0;
-    v6->__r_.__value_.__r.__words[0] = 0;
-    v8 = std::string::append(&v24, " to ");
-    v9 = *&v8->__r_.__value_.__l.__data_;
-    v25.__r_.__value_.__r.__words[2] = v8->__r_.__value_.__r.__words[2];
-    *&v25.__r_.__value_.__l.__data_ = v9;
-    v8->__r_.__value_.__l.__size_ = 0;
-    v8->__r_.__value_.__r.__words[2] = 0;
-    v8->__r_.__value_.__r.__words[0] = 0;
-    v17[1] = 0xA00000000;
-    v17[0] = &unk_2883E65F0;
+    v4 = dmlc::LogMessageFatal::GetEntry(&v26);
+    xgboost::Value::TypeStr(a1, &v21);
+    v5 = std::string::insert(&v21, 0, "Invalid cast, from ");
+    v6 = *&v5->__r_.__value_.__l.__data_;
+    v22.__r_.__value_.__r.__words[2] = v5->__r_.__value_.__r.__words[2];
+    *&v22.__r_.__value_.__l.__data_ = v6;
+    v5->__r_.__value_.__l.__size_ = 0;
+    v5->__r_.__value_.__r.__words[2] = 0;
+    v5->__r_.__value_.__r.__words[0] = 0;
+    v7 = std::string::append(&v22, " to ");
+    v8 = *&v7->__r_.__value_.__l.__data_;
+    v23.__r_.__value_.__r.__words[2] = v7->__r_.__value_.__r.__words[2];
+    *&v23.__r_.__value_.__l.__data_ = v8;
+    v7->__r_.__value_.__l.__size_ = 0;
+    v7->__r_.__value_.__r.__words[2] = 0;
+    v7->__r_.__value_.__r.__words[0] = 0;
+    v15[1] = 0xA00000000;
+    v15[0] = &unk_2883E65F0;
+    v16 = 0;
+    v17 = 0;
     v18 = 0;
-    v19 = 0;
-    v20 = 0;
-    xgboost::Value::TypeStr(v17, __p);
-    if ((v22 & 0x80u) == 0)
+    xgboost::Value::TypeStr(v15, __p);
+    if ((v20 & 0x80u) == 0)
     {
-      v10 = __p;
+      v9 = __p;
     }
 
     else
     {
-      v10 = __p[0];
+      v9 = __p[0];
     }
 
-    if ((v22 & 0x80u) == 0)
+    if ((v20 & 0x80u) == 0)
     {
-      v11 = v22;
+      v10 = v20;
     }
 
     else
     {
-      v11 = __p[1];
+      v10 = __p[1];
     }
 
-    v12 = std::string::append(&v25, v10, v11);
-    v13 = *&v12->__r_.__value_.__l.__data_;
-    v27 = v12->__r_.__value_.__r.__words[2];
-    v26 = v13;
-    v12->__r_.__value_.__l.__size_ = 0;
-    v12->__r_.__value_.__r.__words[2] = 0;
-    v12->__r_.__value_.__r.__words[0] = 0;
-    if (v27 >= 0)
+    v11 = std::string::append(&v23, v9, v10);
+    v12 = *&v11->__r_.__value_.__l.__data_;
+    v25 = v11->__r_.__value_.__r.__words[2];
+    v24 = v12;
+    v11->__r_.__value_.__l.__size_ = 0;
+    v11->__r_.__value_.__r.__words[2] = 0;
+    v11->__r_.__value_.__r.__words[0] = 0;
+    if (v25 >= 0)
     {
-      v14 = &v26;
+      v13 = &v24;
     }
 
     else
     {
-      v14 = v26;
+      v13 = v24;
     }
 
-    if (v27 >= 0)
+    if (v25 >= 0)
     {
-      v15 = HIBYTE(v27);
+      v14 = HIBYTE(v25);
     }
 
     else
     {
-      v15 = *(&v26 + 1);
+      v14 = *(&v24 + 1);
     }
 
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v5, v14, v15);
-    if (SHIBYTE(v27) < 0)
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, v13, v14);
+    if (SHIBYTE(v25) < 0)
     {
-      operator delete(v26);
+      operator delete(v24);
     }
 
-    if (v22 < 0)
+    if (v20 < 0)
     {
       operator delete(__p[0]);
     }
 
-    v17[0] = &unk_2883E65F0;
-    if (v18)
+    v15[0] = &unk_2883E65F0;
+    if (v16)
     {
-      v19 = v18;
-      operator delete(v18);
-    }
-
-    if (SHIBYTE(v25.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v25.__r_.__value_.__l.__data_);
-    }
-
-    if (SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v24.__r_.__value_.__l.__data_);
+      v17 = v16;
+      operator delete(v16);
     }
 
     if (SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
@@ -5188,8 +3347,17 @@ void *xgboost::Cast<xgboost::JsonTypedArray<long long,(xgboost::Value::ValueKind
       operator delete(v23.__r_.__value_.__l.__data_);
     }
 
-    dmlc::LogMessageFatal::~LogMessageFatal(&v28);
-    v16 = **a1;
+    if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v22.__r_.__value_.__l.__data_);
+    }
+
+    if (SHIBYTE(v21.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v21.__r_.__value_.__l.__data_);
+    }
+
+    dmlc::LogMessageFatal::~LogMessageFatal(&v26);
   }
 }
 
@@ -5229,112 +3397,101 @@ void sub_274DF51B4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *xgboost::Cast<xgboost::JsonTypedArray<int,(xgboost::Value::ValueKind)9> const,xgboost::Value>(char **a1)
+void *xgboost::Cast<xgboost::JsonTypedArray<int,(xgboost::Value::ValueKind)9> const,xgboost::Value>(_DWORD *a1)
 {
-  if (*(a1 + 3) == 9)
+  if (a1[3] == 9)
   {
-    v2 = **a1;
   }
 
   else
   {
-    Entry = dmlc::LogMessageFatal::GetEntry(&v28);
+    Entry = dmlc::LogMessageFatal::GetEntry(&v26);
     dmlc::LogMessageFatal::Entry::Init(Entry, "/Library/Caches/com.apple.xbs/Sources/CoreML/xgboost/src/xgboost/json.h", 79);
-    v5 = dmlc::LogMessageFatal::GetEntry(&v28);
-    xgboost::Value::TypeStr(a1, &v23);
-    v6 = std::string::insert(&v23, 0, "Invalid cast, from ");
-    v7 = *&v6->__r_.__value_.__l.__data_;
-    v24.__r_.__value_.__r.__words[2] = v6->__r_.__value_.__r.__words[2];
-    *&v24.__r_.__value_.__l.__data_ = v7;
-    v6->__r_.__value_.__l.__size_ = 0;
-    v6->__r_.__value_.__r.__words[2] = 0;
-    v6->__r_.__value_.__r.__words[0] = 0;
-    v8 = std::string::append(&v24, " to ");
-    v9 = *&v8->__r_.__value_.__l.__data_;
-    v25.__r_.__value_.__r.__words[2] = v8->__r_.__value_.__r.__words[2];
-    *&v25.__r_.__value_.__l.__data_ = v9;
-    v8->__r_.__value_.__l.__size_ = 0;
-    v8->__r_.__value_.__r.__words[2] = 0;
-    v8->__r_.__value_.__r.__words[0] = 0;
-    v17[1] = 0x900000000;
-    v17[0] = &unk_2883E65A8;
+    v4 = dmlc::LogMessageFatal::GetEntry(&v26);
+    xgboost::Value::TypeStr(a1, &v21);
+    v5 = std::string::insert(&v21, 0, "Invalid cast, from ");
+    v6 = *&v5->__r_.__value_.__l.__data_;
+    v22.__r_.__value_.__r.__words[2] = v5->__r_.__value_.__r.__words[2];
+    *&v22.__r_.__value_.__l.__data_ = v6;
+    v5->__r_.__value_.__l.__size_ = 0;
+    v5->__r_.__value_.__r.__words[2] = 0;
+    v5->__r_.__value_.__r.__words[0] = 0;
+    v7 = std::string::append(&v22, " to ");
+    v8 = *&v7->__r_.__value_.__l.__data_;
+    v23.__r_.__value_.__r.__words[2] = v7->__r_.__value_.__r.__words[2];
+    *&v23.__r_.__value_.__l.__data_ = v8;
+    v7->__r_.__value_.__l.__size_ = 0;
+    v7->__r_.__value_.__r.__words[2] = 0;
+    v7->__r_.__value_.__r.__words[0] = 0;
+    v15[1] = 0x900000000;
+    v15[0] = &unk_2883E65A8;
+    v16 = 0;
+    v17 = 0;
     v18 = 0;
-    v19 = 0;
-    v20 = 0;
-    xgboost::Value::TypeStr(v17, __p);
-    if ((v22 & 0x80u) == 0)
+    xgboost::Value::TypeStr(v15, __p);
+    if ((v20 & 0x80u) == 0)
     {
-      v10 = __p;
+      v9 = __p;
     }
 
     else
     {
-      v10 = __p[0];
+      v9 = __p[0];
     }
 
-    if ((v22 & 0x80u) == 0)
+    if ((v20 & 0x80u) == 0)
     {
-      v11 = v22;
+      v10 = v20;
     }
 
     else
     {
-      v11 = __p[1];
+      v10 = __p[1];
     }
 
-    v12 = std::string::append(&v25, v10, v11);
-    v13 = *&v12->__r_.__value_.__l.__data_;
-    v27 = v12->__r_.__value_.__r.__words[2];
-    v26 = v13;
-    v12->__r_.__value_.__l.__size_ = 0;
-    v12->__r_.__value_.__r.__words[2] = 0;
-    v12->__r_.__value_.__r.__words[0] = 0;
-    if (v27 >= 0)
+    v11 = std::string::append(&v23, v9, v10);
+    v12 = *&v11->__r_.__value_.__l.__data_;
+    v25 = v11->__r_.__value_.__r.__words[2];
+    v24 = v12;
+    v11->__r_.__value_.__l.__size_ = 0;
+    v11->__r_.__value_.__r.__words[2] = 0;
+    v11->__r_.__value_.__r.__words[0] = 0;
+    if (v25 >= 0)
     {
-      v14 = &v26;
+      v13 = &v24;
     }
 
     else
     {
-      v14 = v26;
+      v13 = v24;
     }
 
-    if (v27 >= 0)
+    if (v25 >= 0)
     {
-      v15 = HIBYTE(v27);
+      v14 = HIBYTE(v25);
     }
 
     else
     {
-      v15 = *(&v26 + 1);
+      v14 = *(&v24 + 1);
     }
 
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v5, v14, v15);
-    if (SHIBYTE(v27) < 0)
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, v13, v14);
+    if (SHIBYTE(v25) < 0)
     {
-      operator delete(v26);
+      operator delete(v24);
     }
 
-    if (v22 < 0)
+    if (v20 < 0)
     {
       operator delete(__p[0]);
     }
 
-    v17[0] = &unk_2883E65A8;
-    if (v18)
+    v15[0] = &unk_2883E65A8;
+    if (v16)
     {
-      v19 = v18;
-      operator delete(v18);
-    }
-
-    if (SHIBYTE(v25.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v25.__r_.__value_.__l.__data_);
-    }
-
-    if (SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v24.__r_.__value_.__l.__data_);
+      v17 = v16;
+      operator delete(v16);
     }
 
     if (SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
@@ -5342,8 +3499,17 @@ void *xgboost::Cast<xgboost::JsonTypedArray<int,(xgboost::Value::ValueKind)9> co
       operator delete(v23.__r_.__value_.__l.__data_);
     }
 
-    dmlc::LogMessageFatal::~LogMessageFatal(&v28);
-    v16 = **a1;
+    if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v22.__r_.__value_.__l.__data_);
+    }
+
+    if (SHIBYTE(v21.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v21.__r_.__value_.__l.__data_);
+    }
+
+    dmlc::LogMessageFatal::~LogMessageFatal(&v26);
   }
 }
 
@@ -5383,7 +3549,7 @@ void sub_274DF54D4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void xgboost::FromJson<xgboost::TreeParam>(void *a1, char **a2, uint64_t a3)
+void xgboost::FromJson<xgboost::TreeParam>(void *a1, _DWORD *a2, uint64_t a3)
 {
   v5 = xgboost::Cast<xgboost::JsonObject const,xgboost::Value const>(a2);
   v14[0] = 0;
@@ -5396,9 +3562,9 @@ void xgboost::FromJson<xgboost::TreeParam>(void *a1, char **a2, uint64_t a3)
     do
     {
       v8 = xgboost::Cast<xgboost::JsonString const,xgboost::Value const>(v6[7]);
-      v14[3] = v6 + 4;
-      v9 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&v13, v6 + 4);
-      v5 = std::string::operator=((v9 + 56), (v8 + 16));
+      v16 = v6 + 4;
+      v9 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&v13, v6 + 4, &std::piecewise_construct, &v16, &v15);
+      v5 = std::string::operator=((v9 + 7), (v8 + 16));
       v10 = v6[1];
       if (v10)
       {
@@ -5437,125 +3603,114 @@ void xgboost::FromJson<xgboost::TreeParam>(void *a1, char **a2, uint64_t a3)
   std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(&v13, v14[0]);
 }
 
-void sub_274DF5698(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_274DF5698(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void *);
-  v6 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
+  v6 = va_arg(va1, void *);
   v7 = va_arg(va1, void);
+  v8 = va_arg(va1, void);
   std::vector<std::pair<std::string,std::string>>::__destroy_vector::operator()[abi:ne200100](va1);
-  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(va, v5);
+  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(va, v6);
   _Unwind_Resume(a1);
 }
 
-void *xgboost::Cast<xgboost::JsonTypedArray<float,(xgboost::Value::ValueKind)7> const,xgboost::Value>(char **a1)
+void *xgboost::Cast<xgboost::JsonTypedArray<float,(xgboost::Value::ValueKind)7> const,xgboost::Value>(_DWORD *a1)
 {
-  if (*(a1 + 3) == 7)
+  if (a1[3] == 7)
   {
-    v2 = **a1;
   }
 
   else
   {
-    Entry = dmlc::LogMessageFatal::GetEntry(&v28);
+    Entry = dmlc::LogMessageFatal::GetEntry(&v26);
     dmlc::LogMessageFatal::Entry::Init(Entry, "/Library/Caches/com.apple.xbs/Sources/CoreML/xgboost/src/xgboost/json.h", 79);
-    v5 = dmlc::LogMessageFatal::GetEntry(&v28);
-    xgboost::Value::TypeStr(a1, &v23);
-    v6 = std::string::insert(&v23, 0, "Invalid cast, from ");
-    v7 = *&v6->__r_.__value_.__l.__data_;
-    v24.__r_.__value_.__r.__words[2] = v6->__r_.__value_.__r.__words[2];
-    *&v24.__r_.__value_.__l.__data_ = v7;
-    v6->__r_.__value_.__l.__size_ = 0;
-    v6->__r_.__value_.__r.__words[2] = 0;
-    v6->__r_.__value_.__r.__words[0] = 0;
-    v8 = std::string::append(&v24, " to ");
-    v9 = *&v8->__r_.__value_.__l.__data_;
-    v25.__r_.__value_.__r.__words[2] = v8->__r_.__value_.__r.__words[2];
-    *&v25.__r_.__value_.__l.__data_ = v9;
-    v8->__r_.__value_.__l.__size_ = 0;
-    v8->__r_.__value_.__r.__words[2] = 0;
-    v8->__r_.__value_.__r.__words[0] = 0;
-    v17[1] = 0x700000000;
-    v17[0] = &unk_2883E16B0;
+    v4 = dmlc::LogMessageFatal::GetEntry(&v26);
+    xgboost::Value::TypeStr(a1, &v21);
+    v5 = std::string::insert(&v21, 0, "Invalid cast, from ");
+    v6 = *&v5->__r_.__value_.__l.__data_;
+    v22.__r_.__value_.__r.__words[2] = v5->__r_.__value_.__r.__words[2];
+    *&v22.__r_.__value_.__l.__data_ = v6;
+    v5->__r_.__value_.__l.__size_ = 0;
+    v5->__r_.__value_.__r.__words[2] = 0;
+    v5->__r_.__value_.__r.__words[0] = 0;
+    v7 = std::string::append(&v22, " to ");
+    v8 = *&v7->__r_.__value_.__l.__data_;
+    v23.__r_.__value_.__r.__words[2] = v7->__r_.__value_.__r.__words[2];
+    *&v23.__r_.__value_.__l.__data_ = v8;
+    v7->__r_.__value_.__l.__size_ = 0;
+    v7->__r_.__value_.__r.__words[2] = 0;
+    v7->__r_.__value_.__r.__words[0] = 0;
+    v15[1] = 0x700000000;
+    v15[0] = &unk_2883E16B0;
+    v16 = 0;
+    v17 = 0;
     v18 = 0;
-    v19 = 0;
-    v20 = 0;
-    xgboost::Value::TypeStr(v17, __p);
-    if ((v22 & 0x80u) == 0)
+    xgboost::Value::TypeStr(v15, __p);
+    if ((v20 & 0x80u) == 0)
     {
-      v10 = __p;
+      v9 = __p;
     }
 
     else
     {
-      v10 = __p[0];
+      v9 = __p[0];
     }
 
-    if ((v22 & 0x80u) == 0)
+    if ((v20 & 0x80u) == 0)
     {
-      v11 = v22;
+      v10 = v20;
     }
 
     else
     {
-      v11 = __p[1];
+      v10 = __p[1];
     }
 
-    v12 = std::string::append(&v25, v10, v11);
-    v13 = *&v12->__r_.__value_.__l.__data_;
-    v27 = v12->__r_.__value_.__r.__words[2];
-    v26 = v13;
-    v12->__r_.__value_.__l.__size_ = 0;
-    v12->__r_.__value_.__r.__words[2] = 0;
-    v12->__r_.__value_.__r.__words[0] = 0;
-    if (v27 >= 0)
+    v11 = std::string::append(&v23, v9, v10);
+    v12 = *&v11->__r_.__value_.__l.__data_;
+    v25 = v11->__r_.__value_.__r.__words[2];
+    v24 = v12;
+    v11->__r_.__value_.__l.__size_ = 0;
+    v11->__r_.__value_.__r.__words[2] = 0;
+    v11->__r_.__value_.__r.__words[0] = 0;
+    if (v25 >= 0)
     {
-      v14 = &v26;
+      v13 = &v24;
     }
 
     else
     {
-      v14 = v26;
+      v13 = v24;
     }
 
-    if (v27 >= 0)
+    if (v25 >= 0)
     {
-      v15 = HIBYTE(v27);
+      v14 = HIBYTE(v25);
     }
 
     else
     {
-      v15 = *(&v26 + 1);
+      v14 = *(&v24 + 1);
     }
 
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v5, v14, v15);
-    if (SHIBYTE(v27) < 0)
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, v13, v14);
+    if (SHIBYTE(v25) < 0)
     {
-      operator delete(v26);
+      operator delete(v24);
     }
 
-    if (v22 < 0)
+    if (v20 < 0)
     {
       operator delete(__p[0]);
     }
 
-    v17[0] = &unk_2883E16B0;
-    if (v18)
+    v15[0] = &unk_2883E16B0;
+    if (v16)
     {
-      v19 = v18;
-      operator delete(v18);
-    }
-
-    if (SHIBYTE(v25.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v25.__r_.__value_.__l.__data_);
-    }
-
-    if (SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v24.__r_.__value_.__l.__data_);
+      v17 = v16;
+      operator delete(v16);
     }
 
     if (SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
@@ -5563,8 +3718,17 @@ void *xgboost::Cast<xgboost::JsonTypedArray<float,(xgboost::Value::ValueKind)7> 
       operator delete(v23.__r_.__value_.__l.__data_);
     }
 
-    dmlc::LogMessageFatal::~LogMessageFatal(&v28);
-    v16 = **a1;
+    if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v22.__r_.__value_.__l.__data_);
+    }
+
+    if (SHIBYTE(v21.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v21.__r_.__value_.__l.__data_);
+    }
+
+    dmlc::LogMessageFatal::~LogMessageFatal(&v26);
   }
 }
 
@@ -5604,112 +3768,101 @@ void sub_274DF593C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *xgboost::Cast<xgboost::JsonTypedArray<unsigned char,(xgboost::Value::ValueKind)8> const,xgboost::Value>(char **a1)
+void *xgboost::Cast<xgboost::JsonTypedArray<unsigned char,(xgboost::Value::ValueKind)8> const,xgboost::Value>(_DWORD *a1)
 {
-  if (*(a1 + 3) == 8)
+  if (a1[3] == 8)
   {
-    v2 = **a1;
   }
 
   else
   {
-    Entry = dmlc::LogMessageFatal::GetEntry(&v28);
+    Entry = dmlc::LogMessageFatal::GetEntry(&v26);
     dmlc::LogMessageFatal::Entry::Init(Entry, "/Library/Caches/com.apple.xbs/Sources/CoreML/xgboost/src/xgboost/json.h", 79);
-    v5 = dmlc::LogMessageFatal::GetEntry(&v28);
-    xgboost::Value::TypeStr(a1, &v23);
-    v6 = std::string::insert(&v23, 0, "Invalid cast, from ");
-    v7 = *&v6->__r_.__value_.__l.__data_;
-    v24.__r_.__value_.__r.__words[2] = v6->__r_.__value_.__r.__words[2];
-    *&v24.__r_.__value_.__l.__data_ = v7;
-    v6->__r_.__value_.__l.__size_ = 0;
-    v6->__r_.__value_.__r.__words[2] = 0;
-    v6->__r_.__value_.__r.__words[0] = 0;
-    v8 = std::string::append(&v24, " to ");
-    v9 = *&v8->__r_.__value_.__l.__data_;
-    v25.__r_.__value_.__r.__words[2] = v8->__r_.__value_.__r.__words[2];
-    *&v25.__r_.__value_.__l.__data_ = v9;
-    v8->__r_.__value_.__l.__size_ = 0;
-    v8->__r_.__value_.__r.__words[2] = 0;
-    v8->__r_.__value_.__r.__words[0] = 0;
-    v17[1] = 0x800000000;
-    v17[0] = &unk_2883E6560;
+    v4 = dmlc::LogMessageFatal::GetEntry(&v26);
+    xgboost::Value::TypeStr(a1, &v21);
+    v5 = std::string::insert(&v21, 0, "Invalid cast, from ");
+    v6 = *&v5->__r_.__value_.__l.__data_;
+    v22.__r_.__value_.__r.__words[2] = v5->__r_.__value_.__r.__words[2];
+    *&v22.__r_.__value_.__l.__data_ = v6;
+    v5->__r_.__value_.__l.__size_ = 0;
+    v5->__r_.__value_.__r.__words[2] = 0;
+    v5->__r_.__value_.__r.__words[0] = 0;
+    v7 = std::string::append(&v22, " to ");
+    v8 = *&v7->__r_.__value_.__l.__data_;
+    v23.__r_.__value_.__r.__words[2] = v7->__r_.__value_.__r.__words[2];
+    *&v23.__r_.__value_.__l.__data_ = v8;
+    v7->__r_.__value_.__l.__size_ = 0;
+    v7->__r_.__value_.__r.__words[2] = 0;
+    v7->__r_.__value_.__r.__words[0] = 0;
+    v15[1] = 0x800000000;
+    v15[0] = &unk_2883E6560;
+    v16 = 0;
+    v17 = 0;
     v18 = 0;
-    v19 = 0;
-    v20 = 0;
-    xgboost::Value::TypeStr(v17, __p);
-    if ((v22 & 0x80u) == 0)
+    xgboost::Value::TypeStr(v15, __p);
+    if ((v20 & 0x80u) == 0)
     {
-      v10 = __p;
+      v9 = __p;
     }
 
     else
     {
-      v10 = __p[0];
+      v9 = __p[0];
     }
 
-    if ((v22 & 0x80u) == 0)
+    if ((v20 & 0x80u) == 0)
     {
-      v11 = v22;
+      v10 = v20;
     }
 
     else
     {
-      v11 = __p[1];
+      v10 = __p[1];
     }
 
-    v12 = std::string::append(&v25, v10, v11);
-    v13 = *&v12->__r_.__value_.__l.__data_;
-    v27 = v12->__r_.__value_.__r.__words[2];
-    v26 = v13;
-    v12->__r_.__value_.__l.__size_ = 0;
-    v12->__r_.__value_.__r.__words[2] = 0;
-    v12->__r_.__value_.__r.__words[0] = 0;
-    if (v27 >= 0)
+    v11 = std::string::append(&v23, v9, v10);
+    v12 = *&v11->__r_.__value_.__l.__data_;
+    v25 = v11->__r_.__value_.__r.__words[2];
+    v24 = v12;
+    v11->__r_.__value_.__l.__size_ = 0;
+    v11->__r_.__value_.__r.__words[2] = 0;
+    v11->__r_.__value_.__r.__words[0] = 0;
+    if (v25 >= 0)
     {
-      v14 = &v26;
+      v13 = &v24;
     }
 
     else
     {
-      v14 = v26;
+      v13 = v24;
     }
 
-    if (v27 >= 0)
+    if (v25 >= 0)
     {
-      v15 = HIBYTE(v27);
+      v14 = HIBYTE(v25);
     }
 
     else
     {
-      v15 = *(&v26 + 1);
+      v14 = *(&v24 + 1);
     }
 
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v5, v14, v15);
-    if (SHIBYTE(v27) < 0)
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, v13, v14);
+    if (SHIBYTE(v25) < 0)
     {
-      operator delete(v26);
+      operator delete(v24);
     }
 
-    if (v22 < 0)
+    if (v20 < 0)
     {
       operator delete(__p[0]);
     }
 
-    v17[0] = &unk_2883E6560;
-    if (v18)
+    v15[0] = &unk_2883E6560;
+    if (v16)
     {
-      v19 = v18;
-      operator delete(v18);
-    }
-
-    if (SHIBYTE(v25.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v25.__r_.__value_.__l.__data_);
-    }
-
-    if (SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v24.__r_.__value_.__l.__data_);
+      v17 = v16;
+      operator delete(v16);
     }
 
     if (SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
@@ -5717,8 +3870,17 @@ void *xgboost::Cast<xgboost::JsonTypedArray<unsigned char,(xgboost::Value::Value
       operator delete(v23.__r_.__value_.__l.__data_);
     }
 
-    dmlc::LogMessageFatal::~LogMessageFatal(&v28);
-    v16 = **a1;
+    if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v22.__r_.__value_.__l.__data_);
+    }
+
+    if (SHIBYTE(v21.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v21.__r_.__value_.__l.__data_);
+    }
+
+    dmlc::LogMessageFatal::~LogMessageFatal(&v26);
   }
 }
 
@@ -5758,7 +3920,7 @@ void sub_274DF5C5C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -5833,17 +3995,17 @@ void *std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char
   return result;
 }
 
-void *std::vector<xgboost::RTreeNodeStat>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<xgboost::RTreeNodeStat>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<xgboost::tree::GradStats>::__vallocate[abi:ne200100](result, a2);
+    std::vector<xgboost::tree::GradStats>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_274DF5E88(_Unwind_Exception *exception_object)
@@ -5858,17 +4020,17 @@ void sub_274DF5E88(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<xgboost::RegTree::Node>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<xgboost::RegTree::Node>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<xgboost::RegTree::Node>::__vallocate[abi:ne200100](result, a2);
+    std::vector<xgboost::RegTree::Node>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_274DF5F08(_Unwind_Exception *exception_object)
@@ -5883,6 +4045,19 @@ void sub_274DF5F08(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
+uint64_t *std::vector<xgboost::FeatureType>::vector[abi:ne200100](uint64_t *a1, uint64_t a2)
+{
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  if (a2)
+  {
+    std::vector<xgboost::FeatureType>::__vallocate[abi:ne200100](a1, a2);
+  }
+
+  return a1;
+}
+
 void sub_274DF5F7C(_Unwind_Exception *exception_object)
 {
   v3 = *v1;
@@ -5895,17 +4070,17 @@ void sub_274DF5F7C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<xgboost::RegTree::Segment>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<xgboost::RegTree::Segment>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<xgboost::tree::GradStats>::__vallocate[abi:ne200100](result, a2);
+    std::vector<xgboost::tree::GradStats>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_274DF5FF4(_Unwind_Exception *exception_object)
@@ -5923,7 +4098,7 @@ void sub_274DF5FF4(_Unwind_Exception *exception_object)
 uint64_t xgboost::GetElem<xgboost::JsonBoolean,xgboost::Json>(uint64_t a1, uint64_t a2)
 {
   v2 = *(a1 + 8 * a2);
-  if (*(v2 + 12) == 5)
+  if (v2[3] == 5)
   {
     v3 = *(xgboost::Cast<xgboost::JsonBoolean const,xgboost::Value const>(v2) + 16);
   }
@@ -5936,7 +4111,7 @@ uint64_t xgboost::GetElem<xgboost::JsonBoolean,xgboost::Json>(uint64_t a1, uint6
   return v3 & 1;
 }
 
-uint64_t *std::vector<xgboost::Json>::__assign_with_size[abi:ne200100]<xgboost::Json*,xgboost::Json*>(uint64_t a1, atomic_uint **a2, uint64_t *a3, unint64_t a4)
+uint64_t *std::vector<xgboost::Json>::__assign_with_size[abi:ne200100]<xgboost::Json*,xgboost::Json*>(uint64_t a1, uint64_t *a2, uint64_t *a3, unint64_t a4)
 {
   v6 = a2;
   v8 = *(a1 + 16);
@@ -6105,17 +4280,17 @@ void sub_274DF63BC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<xgboost::PathElement>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<xgboost::PathElement>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<xgboost::PathElement>::__vallocate[abi:ne200100](result, a2);
+    std::vector<xgboost::PathElement>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_274DF6434(_Unwind_Exception *exception_object)
@@ -6130,7 +4305,7 @@ void sub_274DF6434(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<xgboost::PathElement>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<xgboost::PathElement>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -6140,11 +4315,12 @@ void std::vector<xgboost::PathElement>::__vallocate[abi:ne200100](uint64_t a1, u
   std::vector<xgboost::TreeGenReg const*>::__throw_length_error[abi:ne200100]();
 }
 
-void dmlc::io::InputSplitBase::Init(dmlc::io::InputSplitBase *this, dmlc::io::FileSystem *a2, char *__s, unint64_t a4, char a5)
+void dmlc::io::InputSplitBase::Init(dmlc::io::InputSplitBase *this, dmlc::io::FileSystem *a2, char *__s, unint64_t a4, uint64_t a5)
 {
+  v5 = a5;
   *(this + 1) = a2;
   std::string::basic_string[abi:ne200100]<0>(&__p, __s);
-  dmlc::io::InputSplitBase::InitInputFileInfo(this, &__p, a5);
+  dmlc::io::InputSplitBase::InitInputFileInfo(this, &__p, v5);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -6382,10 +4558,10 @@ void *dmlc::io::InputSplitBase::ResetPartition(void *this, unsigned int a2, unsi
     if (v22)
     {
       (*(*v22 + 24))(v22);
-      *(v8 + 88) = 0;
-      v4 = *(v8 + 56);
-      v21 = *(v8 + 104);
-      v9 = *(v8 + 16);
+      v8[11] = 0;
+      v4 = v8[7];
+      v21 = v8[13];
+      v9 = v8[2];
     }
 
     v23 = v9[v21];
@@ -6399,11 +4575,11 @@ void *dmlc::io::InputSplitBase::ResetPartition(void *this, unsigned int a2, unsi
         v26 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v25, "Check failed: offset_end_ >file_offset_[file_ptr_end_]", 54);
         std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v26, ": ", 2);
         dmlc::LogMessageFatal::~LogMessageFatal(&v38);
-        v21 = *(v8 + 104);
+        v21 = v8[13];
       }
 
-      v27 = *(v8 + 64);
-      if (v21 >= 0x2E8BA2E8BA2E8BA3 * ((*(v8 + 72) - v27) >> 3))
+      v27 = v8[8];
+      if (v21 >= 0x2E8BA2E8BA2E8BA3 * ((v8[9] - v27) >> 3))
       {
         v28 = dmlc::LogMessageFatal::GetEntry(&v37);
         dmlc::LogMessageFatal::Entry::Init(v28, "/Library/Caches/com.apple.xbs/Sources/CoreML/xgboost/dmlc/src/io/input_split_base.cc", 52);
@@ -6411,30 +4587,30 @@ void *dmlc::io::InputSplitBase::ResetPartition(void *this, unsigned int a2, unsi
         v30 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v29, "Check failed: file_ptr_end_ < files_.size()", 43);
         std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v30, ": ", 2);
         dmlc::LogMessageFatal::~LogMessageFatal(&v37);
-        v21 = *(v8 + 104);
-        v27 = *(v8 + 64);
+        v21 = v8[13];
+        v27 = v8[8];
       }
 
-      v31 = (*(**(v8 + 8) + 48))(*(v8 + 8), v27 + 88 * v21, 0);
-      *(v8 + 88) = v31;
-      (*(*v31 + 32))(v31, *(v8 + 56) - *(*(v8 + 16) + 8 * *(v8 + 104)));
-      *(v8 + 56) += (*(*v8 + 112))(v8, *(v8 + 88));
-      v32 = *(v8 + 88);
+      v31 = (*(*v8[1] + 48))(v8[1], v27 + 88 * v21, 0);
+      v8[11] = v31;
+      (*(*v31 + 32))(v31, v8[7] - *(v8[2] + 8 * v8[13]));
+      v8[7] += (*(*v8 + 112))(v8, v8[11]);
+      v32 = v8[11];
       if (v32)
       {
         (*(*v32 + 24))(v32);
       }
     }
 
-    v33 = (*(**(v8 + 8) + 48))(*(v8 + 8), *(v8 + 64) + 88 * *(v8 + 96), 0);
-    *(v8 + 88) = v33;
-    v34 = *(v8 + 48);
-    v35 = *(*(v8 + 16) + 8 * *(v8 + 96));
+    v33 = (*(*v8[1] + 48))(v8[1], v8[8] + 88 * v8[12], 0);
+    v8[11] = v33;
+    v34 = v8[6];
+    v35 = *(v8[2] + 8 * v8[12]);
     v36 = v34 - v35;
     if (v34 != v35)
     {
       (*(*v33 + 32))(v33, v36);
-      *(v8 + 48) += (*(*v8 + 112))(v8, *(v8 + 88));
+      v8[6] += (*(*v8 + 112))(v8, v8[11]);
     }
 
     return (*(*v8 + 16))(v8, v36);
@@ -6478,29 +4654,29 @@ void *dmlc::io::InputSplitBase::BeforeFirst(void *this)
 
     v10 = v4 - v3 - 1;
     v11 = this[11];
-    if (*(v2 + 96) != v10)
+    if (v2[12] != v10)
     {
       if (v11)
       {
         (*(*v11 + 24))(v11);
       }
 
-      *(v2 + 96) = v10;
-      v11 = (*(**(v2 + 8) + 48))(*(v2 + 8), *(v2 + 64) + 88 * v10, 0);
-      *(v2 + 88) = v11;
-      v1 = *(v2 + 48);
-      v10 = *(v2 + 96);
-      v3 = *(v2 + 16);
+      v2[12] = v10;
+      v11 = (*(*v2[1] + 48))(v2[1], v2[8] + 88 * v10, 0);
+      v2[11] = v11;
+      v1 = v2[6];
+      v10 = v2[12];
+      v3 = v2[2];
     }
 
     this = (*(*v11 + 32))(v11, v1 - v3[v10]);
-    *(v2 + 40) = *(v2 + 48);
-    *(v2 + 112) = 0;
-    *(v2 + 120) = 0;
+    v2[5] = v2[6];
+    v2[14] = 0;
+    v2[15] = 0;
     if (*(v2 + 191) < 0)
     {
-      **(v2 + 168) = 0;
-      *(v2 + 176) = 0;
+      *v2[21] = 0;
+      v2[22] = 0;
     }
 
     else
@@ -6600,17 +4776,17 @@ LABEL_12:
   return result;
 }
 
-void dmlc::io::InputSplitBase::ConvertToURIs(uint64_t a1@<X0>, const std::string *a2@<X1>, void *a3@<X8>)
+void dmlc::io::InputSplitBase::ConvertToURIs(uint64_t a1@<X0>, const std::string *a2@<X1>, std::string **a3@<X8>)
 {
-  dmlc::Split(a2, 0x3Bu, &v41);
+  dmlc::Split(a2, 59, &v43);
   *a3 = 0;
   a3[1] = 0;
-  v24 = a3;
+  v26 = a3;
   a3[2] = 0;
-  v4 = v41;
-  if (v42 == v41)
+  v4 = v43;
+  if (v44 == v43)
   {
-    goto LABEL_71;
+    goto LABEL_76;
   }
 
   v5 = 0;
@@ -6622,88 +4798,104 @@ void dmlc::io::InputSplitBase::ConvertToURIs(uint64_t a1@<X0>, const std::string
       v6 = *v6;
     }
 
-    dmlc::io::URI::URI(&v38, v6);
-    v7 = std::string::rfind(&v40, 47, 0xFFFFFFFFFFFFFFFFLL);
+    dmlc::io::URI::URI(&v40, v6);
+    v7 = std::string::rfind(&v42, 47, 0xFFFFFFFFFFFFFFFFLL);
     if (v7 == -1)
     {
       goto LABEL_9;
     }
 
     v8 = v7;
-    size = HIBYTE(v40.__r_.__value_.__r.__words[2]);
-    if ((v40.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    size = HIBYTE(v42.__r_.__value_.__r.__words[2]);
+    if ((v42.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
-      size = v40.__r_.__value_.__l.__size_;
+      size = v42.__r_.__value_.__l.__size_;
     }
 
     if (v7 + 1 == size)
     {
 LABEL_9:
-      std::vector<dmlc::io::URI>::push_back[abi:ne200100](v24, &v38);
-      goto LABEL_64;
-    }
-
-    if (SHIBYTE(v38.__r_.__value_.__r.__words[2]) < 0)
-    {
-      std::string::__init_copy_ctor_external(&v35, v38.__r_.__value_.__l.__data_, v38.__r_.__value_.__l.__size_);
-    }
-
-    else
-    {
-      v35 = v38;
-    }
-
-    if (SHIBYTE(v39.__r_.__value_.__r.__words[2]) < 0)
-    {
-      std::string::__init_copy_ctor_external(&v36, v39.__r_.__value_.__l.__data_, v39.__r_.__value_.__l.__size_);
-    }
-
-    else
-    {
-      v36 = v39;
+      std::vector<dmlc::io::URI>::push_back[abi:ne200100](v26, &v40);
+      goto LABEL_69;
     }
 
     if (SHIBYTE(v40.__r_.__value_.__r.__words[2]) < 0)
     {
-      std::string::__init_copy_ctor_external(&__p, v40.__r_.__value_.__l.__data_, v40.__r_.__value_.__l.__size_);
+      std::string::__init_copy_ctor_external(&v37, v40.__r_.__value_.__l.__data_, v40.__r_.__value_.__l.__size_);
     }
 
     else
     {
-      __p = v40;
+      v37 = v40;
     }
 
-    std::string::basic_string(&__dst, &v40, 0, v8, v44);
+    if (SHIBYTE(v41.__r_.__value_.__r.__words[2]) < 0)
+    {
+      std::string::__init_copy_ctor_external(&v38, v41.__r_.__value_.__l.__data_, v41.__r_.__value_.__l.__size_);
+    }
+
+    else
+    {
+      v38 = v41;
+    }
+
+    if (SHIBYTE(v42.__r_.__value_.__r.__words[2]) < 0)
+    {
+      std::string::__init_copy_ctor_external(&__p, v42.__r_.__value_.__l.__data_, v42.__r_.__value_.__l.__size_);
+    }
+
+    else
+    {
+      __p = v42;
+    }
+
+    std::string::basic_string(&__dst, &v42, 0, v8, v46);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
     }
 
-    v23 = v5;
+    v25 = v5;
     __p = __dst;
-    v32 = 0;
-    v33 = 0;
     v34 = 0;
-    (*(**(a1 + 8) + 24))(*(a1 + 8), &v35, &v32);
-    v10 = v32;
-    if (v33 == v32)
+    v35 = 0;
+    v36 = 0;
+    (*(**(a1 + 8) + 24))(*(a1 + 8), &v37, &v34);
+    v10 = v34;
+    if (v35 == v34)
     {
 LABEL_53:
-      if (SHIBYTE(v40.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v42.__r_.__value_.__r.__words[2]) < 0)
       {
-        std::string::__init_copy_ctor_external(&v29, v40.__r_.__value_.__l.__data_, v40.__r_.__value_.__l.__size_);
+        std::string::__init_copy_ctor_external(&v31, v42.__r_.__value_.__l.__data_, v42.__r_.__value_.__l.__size_);
       }
 
       else
       {
-        v29 = v40;
+        v31 = v42;
       }
 
-      std::regex_traits<char>::regex_traits(&v25);
-      v28 = 0;
-      v27 = 0u;
-      v26 = 0u;
-      std::basic_regex<char,std::regex_traits<char>>::__parse<std::__wrap_iter<char const*>>();
+      std::regex_traits<char>::regex_traits(&v27);
+      v30 = 0;
+      v29 = 0u;
+      v28 = 0u;
+      v22 = HIBYTE(v31.__r_.__value_.__r.__words[2]);
+      if ((v31.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      {
+        v23 = &v31;
+      }
+
+      else
+      {
+        v23 = v31.__r_.__value_.__r.__words[0];
+      }
+
+      if ((v31.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+      {
+        v22 = v31.__r_.__value_.__l.__size_;
+      }
+
+      std::basic_regex<char,std::regex_traits<char>>::__parse<std::__wrap_iter<char const*>>(&v27, v23, v23 + v22);
     }
 
     v11 = 0;
@@ -6713,28 +4905,28 @@ LABEL_53:
       v13 = v10 + v11;
       if (*(v13 + 71) < 0)
       {
-        std::string::__init_copy_ctor_external(&v31, *(v13 + 48), *(v13 + 56));
+        std::string::__init_copy_ctor_external(&v33, *(v13 + 48), *(v13 + 56));
       }
 
       else
       {
         v14 = *(v13 + 48);
-        v31.__r_.__value_.__r.__words[2] = *(v13 + 64);
-        *&v31.__r_.__value_.__l.__data_ = v14;
+        v33.__r_.__value_.__r.__words[2] = *(v13 + 64);
+        *&v33.__r_.__value_.__l.__data_ = v14;
       }
 
-      dmlc::io::InputSplitBase::StripEnd(&v31, 0x2Fu, &__dst);
-      if (SHIBYTE(v40.__r_.__value_.__r.__words[2]) < 0)
+      dmlc::io::InputSplitBase::StripEnd(&v33, 0x2Fu, &__dst);
+      if (SHIBYTE(v42.__r_.__value_.__r.__words[2]) < 0)
       {
-        std::string::__init_copy_ctor_external(&v30, v40.__r_.__value_.__l.__data_, v40.__r_.__value_.__l.__size_);
+        std::string::__init_copy_ctor_external(&v32, v42.__r_.__value_.__l.__data_, v42.__r_.__value_.__l.__size_);
       }
 
       else
       {
-        v30 = v40;
+        v32 = v42;
       }
 
-      dmlc::io::InputSplitBase::StripEnd(&v30, 0x2Fu, v44);
+      dmlc::io::InputSplitBase::StripEnd(&v32, 0x2Fu, v46);
       v15 = SHIBYTE(__dst.__r_.__value_.__r.__words[2]);
       if ((__dst.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
@@ -6746,23 +4938,23 @@ LABEL_53:
         v16 = __dst.__r_.__value_.__l.__size_;
       }
 
-      v17 = v45;
-      v18 = v45;
-      if ((v45 & 0x80u) != 0)
+      v17 = v47;
+      v18 = v47;
+      if ((v47 & 0x80u) != 0)
       {
-        v17 = v44[1];
+        v17 = v46[1];
       }
 
       if (v16 != v17)
       {
         v21 = 0;
-        if ((v45 & 0x80000000) == 0)
+        if ((v47 & 0x80000000) == 0)
         {
           goto LABEL_45;
         }
 
 LABEL_44:
-        operator delete(v44[0]);
+        operator delete(v46[0]);
         goto LABEL_45;
       }
 
@@ -6776,14 +4968,14 @@ LABEL_44:
         p_dst = __dst.__r_.__value_.__r.__words[0];
       }
 
-      if ((v45 & 0x80u) == 0)
+      if ((v47 & 0x80u) == 0)
       {
-        v20 = v44;
+        v20 = v46;
       }
 
       else
       {
-        v20 = v44[0];
+        v20 = v46[0];
       }
 
       v21 = memcmp(p_dst, v20, v16) == 0;
@@ -6793,9 +4985,9 @@ LABEL_44:
       }
 
 LABEL_45:
-      if (SHIBYTE(v30.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v32.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v30.__r_.__value_.__l.__data_);
+        operator delete(v32.__r_.__value_.__l.__data_);
       }
 
       if (v15 < 0)
@@ -6803,9 +4995,9 @@ LABEL_45:
         operator delete(__dst.__r_.__value_.__l.__data_);
       }
 
-      if (SHIBYTE(v31.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v33.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v31.__r_.__value_.__l.__data_);
+        operator delete(v33.__r_.__value_.__l.__data_);
       }
 
       if (v21)
@@ -6814,42 +5006,21 @@ LABEL_45:
       }
 
       ++v12;
-      v10 = v32;
+      v10 = v34;
       v11 += 88;
-      if (v12 >= 0x2E8BA2E8BA2E8BA3 * ((v33 - v32) >> 3))
+      if (v12 >= 0x2E8BA2E8BA2E8BA3 * ((v35 - v34) >> 3))
       {
         goto LABEL_53;
       }
     }
 
-    std::vector<dmlc::io::URI>::push_back[abi:ne200100](v24, (v32 + v11));
-    v5 = v23;
-    __dst.__r_.__value_.__r.__words[0] = &v32;
+    std::vector<dmlc::io::URI>::push_back[abi:ne200100](v26, (v34 + v11));
+    v5 = v25;
+    __dst.__r_.__value_.__r.__words[0] = &v34;
     std::vector<dmlc::io::FileInfo>::__destroy_vector::operator()[abi:ne200100](&__dst);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
-    }
-
-    if (SHIBYTE(v36.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v36.__r_.__value_.__l.__data_);
-    }
-
-    if (SHIBYTE(v35.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v35.__r_.__value_.__l.__data_);
-    }
-
-LABEL_64:
-    if (SHIBYTE(v40.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v40.__r_.__value_.__l.__data_);
-    }
-
-    if (SHIBYTE(v39.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v39.__r_.__value_.__l.__data_);
     }
 
     if (SHIBYTE(v38.__r_.__value_.__r.__words[2]) < 0)
@@ -6857,13 +5028,34 @@ LABEL_64:
       operator delete(v38.__r_.__value_.__l.__data_);
     }
 
+    if (SHIBYTE(v37.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v37.__r_.__value_.__l.__data_);
+    }
+
+LABEL_69:
+    if (SHIBYTE(v42.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v42.__r_.__value_.__l.__data_);
+    }
+
+    if (SHIBYTE(v41.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v41.__r_.__value_.__l.__data_);
+    }
+
+    if (SHIBYTE(v40.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v40.__r_.__value_.__l.__data_);
+    }
+
     ++v5;
-    v4 = v41;
+    v4 = v43;
   }
 
-  while (v5 < 0xAAAAAAAAAAAAAAABLL * ((v42 - v41) >> 3));
-LABEL_71:
-  __dst.__r_.__value_.__r.__words[0] = &v41;
+  while (v5 < 0xAAAAAAAAAAAAAAABLL * ((v44 - v43) >> 3));
+LABEL_76:
+  __dst.__r_.__value_.__r.__words[0] = &v43;
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&__dst);
 }
 
@@ -6884,9 +5076,9 @@ void sub_274DF8B24(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a
     operator delete(__p);
   }
 
-  if (a74 < 0)
+  if (a66 < 0)
   {
-    operator delete(a73);
+    operator delete(a65);
   }
 
   if (a51 < 0)
@@ -6897,10 +5089,10 @@ void sub_274DF8B24(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a
   JUMPOUT(0x274DF8B58);
 }
 
-void std::vector<dmlc::io::URI>::push_back[abi:ne200100](uint64_t a1, __int128 *a2)
+void std::vector<dmlc::io::URI>::push_back[abi:ne200100](std::string **a1, __int128 *a2)
 {
-  v5 = *(a1 + 8);
-  v4 = *(a1 + 16);
+  v5 = a1[1];
+  v4 = a1[2];
   if (v5 >= v4)
   {
     v7 = 0x8E38E38E38E38E39 * ((v5 - *a1) >> 3);
@@ -6977,33 +5169,33 @@ void std::vector<dmlc::io::URI>::push_back[abi:ne200100](uint64_t a1, __int128 *
 
     v15 = v27;
     v16 = *a1;
-    v17 = *(a1 + 8);
-    v18 = v26 + *a1 - v17;
+    v17 = a1[1];
+    v18 = (v26 + *a1 - v17);
     if (v17 != *a1)
     {
       v19 = *a1;
       v20 = v26 + *a1 - v17;
       do
       {
-        v21 = *v19;
-        *(v20 + 2) = *(v19 + 16);
+        v21 = *&v19->__r_.__value_.__l.__data_;
+        *(v20 + 2) = *(&v19->__r_.__value_.__l + 2);
         *v20 = v21;
-        *(v19 + 8) = 0;
-        *(v19 + 16) = 0;
-        *v19 = 0;
-        v22 = *(v19 + 24);
-        *(v20 + 5) = *(v19 + 40);
+        v19->__r_.__value_.__l.__size_ = 0;
+        v19->__r_.__value_.__r.__words[2] = 0;
+        v19->__r_.__value_.__r.__words[0] = 0;
+        v22 = *&v19[1].__r_.__value_.__l.__data_;
+        *(v20 + 5) = *(&v19[1].__r_.__value_.__l + 2);
         *(v20 + 24) = v22;
-        *(v19 + 32) = 0;
-        *(v19 + 40) = 0;
-        *(v19 + 24) = 0;
-        v23 = *(v19 + 48);
-        *(v20 + 8) = *(v19 + 64);
+        v19[1].__r_.__value_.__l.__size_ = 0;
+        v19[1].__r_.__value_.__r.__words[2] = 0;
+        v19[1].__r_.__value_.__r.__words[0] = 0;
+        v23 = *&v19[2].__r_.__value_.__l.__data_;
+        *(v20 + 8) = *(&v19[2].__r_.__value_.__l + 2);
         *(v20 + 3) = v23;
-        *(v19 + 56) = 0;
-        *(v19 + 64) = 0;
-        *(v19 + 48) = 0;
-        v19 += 72;
+        v19[2].__r_.__value_.__l.__size_ = 0;
+        v19[2].__r_.__value_.__r.__words[2] = 0;
+        v19[2].__r_.__value_.__r.__words[0] = 0;
+        v19 += 3;
         v20 += 72;
       }
 
@@ -7020,9 +5212,9 @@ void std::vector<dmlc::io::URI>::push_back[abi:ne200100](uint64_t a1, __int128 *
 
     v13 = v15 + 3;
     *a1 = v18;
-    *(a1 + 8) = v13;
-    v24 = *(a1 + 16);
-    *(a1 + 16) = v28;
+    a1[1] = v13;
+    v24 = a1[2];
+    a1[2] = v28;
     v27 = v16;
     v28 = v24;
     v25 = v16;
@@ -7034,58 +5226,58 @@ void std::vector<dmlc::io::URI>::push_back[abi:ne200100](uint64_t a1, __int128 *
   {
     if (*(a2 + 23) < 0)
     {
-      std::string::__init_copy_ctor_external(*(a1 + 8), *a2, *(a2 + 1));
+      std::string::__init_copy_ctor_external(a1[1], *a2, *(a2 + 1));
     }
 
     else
     {
       v6 = *a2;
-      *(v5 + 16) = *(a2 + 2);
-      *v5 = v6;
+      v5->__r_.__value_.__r.__words[2] = *(a2 + 2);
+      *&v5->__r_.__value_.__l.__data_ = v6;
     }
 
     if (*(a2 + 47) < 0)
     {
-      std::string::__init_copy_ctor_external((v5 + 24), *(a2 + 3), *(a2 + 4));
+      std::string::__init_copy_ctor_external(v5 + 1, *(a2 + 3), *(a2 + 4));
     }
 
     else
     {
       v11 = *(a2 + 24);
-      *(v5 + 40) = *(a2 + 5);
-      *(v5 + 24) = v11;
+      v5[1].__r_.__value_.__r.__words[2] = *(a2 + 5);
+      *&v5[1].__r_.__value_.__l.__data_ = v11;
     }
 
     if (*(a2 + 71) < 0)
     {
-      std::string::__init_copy_ctor_external((v5 + 48), *(a2 + 6), *(a2 + 7));
+      std::string::__init_copy_ctor_external(v5 + 2, *(a2 + 6), *(a2 + 7));
     }
 
     else
     {
       v12 = a2[3];
-      *(v5 + 64) = *(a2 + 8);
-      *(v5 + 48) = v12;
+      v5[2].__r_.__value_.__r.__words[2] = *(a2 + 8);
+      *&v5[2].__r_.__value_.__l.__data_ = v12;
     }
 
-    v13 = (v5 + 72);
-    *(a1 + 8) = v13;
+    v13 = v5 + 3;
+    a1[1] = v13;
   }
 
-  *(a1 + 8) = v13;
+  a1[1] = v13;
 }
 
-void sub_274DF8E58(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_274DF8E58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  if (*(v2 + 47) < 0)
+  va_start(va, a3);
+  if (*(v3 + 47) < 0)
   {
-    operator delete(*(v2 + 24));
+    operator delete(*(v3 + 24));
   }
 
-  if (*(v2 + 23) < 0)
+  if (*(v3 + 23) < 0)
   {
-    operator delete(*v2);
+    operator delete(*v3);
   }
 
   std::__split_buffer<dmlc::io::URI>::~__split_buffer(va);
@@ -7123,7 +5315,7 @@ uint64_t std::vector<dmlc::io::FileInfo>::push_back[abi:ne200100](uint64_t *a1, 
 
 uint64_t (***dmlc::io::InputSplitBase::Read(dmlc::io::InputSplitBase *this, char *a2, uint64_t a3))(void, char *, uint64_t)
 {
-  v37[3] = *MEMORY[0x277D85DE8];
+  v36[3] = *MEMORY[0x277D85DE8];
   v6 = (*(*this + 88))(this);
   result = *(this + 11);
   if (result)
@@ -7131,7 +5323,7 @@ uint64_t (***dmlc::io::InputSplitBase::Read(dmlc::io::InputSplitBase *this, char
     v8 = *(this + 7);
     if (*(this + 6) >= v8)
     {
-      goto LABEL_23;
+      return 0;
     }
 
     v9 = *(this + 5);
@@ -7170,8 +5362,8 @@ uint64_t (***dmlc::io::InputSplitBase::Read(dmlc::io::InputSplitBase *this, char
             v17 = *(this + 12);
             if (v13 != *(*(this + 2) + 8 * v17 + 8))
             {
-              dmlc::LogMessage::LogMessage(v37, "/Library/Caches/com.apple.xbs/Sources/CoreML/xgboost/dmlc/src/io/input_split_base.cc", 202);
-              v18 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v37[0], "curr=", 5);
+              dmlc::LogMessage::LogMessage(v36, "/Library/Caches/com.apple.xbs/Sources/CoreML/xgboost/dmlc/src/io/input_split_base.cc", 202);
+              v18 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v36[0], "curr=", 5);
               v19 = MEMORY[0x277C68E50](v18, *(this + 5));
               v20 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v19, ",begin=", 7);
               v21 = MEMORY[0x277C68E50](v20, *(this + 6));
@@ -7181,29 +5373,29 @@ uint64_t (***dmlc::io::InputSplitBase::Read(dmlc::io::InputSplitBase *this, char
               v25 = MEMORY[0x277C68E50](v24, *(this + 12));
               v26 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v25, ",fileoffset=", 12);
               MEMORY[0x277C68E50](v26, *(*(this + 2) + 8 * *(this + 12) + 8));
-              dmlc::LogMessage::~LogMessage(v37);
+              dmlc::LogMessage::~LogMessage(v36);
               if (*(this + 12))
               {
                 v27 = 0;
                 do
                 {
-                  dmlc::LogMessage::LogMessage(v37, "/Library/Caches/com.apple.xbs/Sources/CoreML/xgboost/dmlc/src/io/input_split_base.cc", 208);
-                  v28 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v37[0], "offset[", 7);
+                  dmlc::LogMessage::LogMessage(v36, "/Library/Caches/com.apple.xbs/Sources/CoreML/xgboost/dmlc/src/io/input_split_base.cc", 208);
+                  v28 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v36[0], "offset[", 7);
                   v29 = MEMORY[0x277C68E50](v28, v27);
                   v30 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v29, "]=", 2);
                   MEMORY[0x277C68E50](v30, *(*(this + 2) + 8 * v27));
-                  dmlc::LogMessage::~LogMessage(v37);
+                  dmlc::LogMessage::~LogMessage(v36);
                   ++v27;
                 }
 
                 while (v27 < *(this + 12));
               }
 
-              Entry = dmlc::LogMessageFatal::GetEntry(v37);
+              Entry = dmlc::LogMessageFatal::GetEntry(v36);
               dmlc::LogMessageFatal::Entry::Init(Entry, "/Library/Caches/com.apple.xbs/Sources/CoreML/xgboost/dmlc/src/io/input_split_base.cc", 210);
-              v32 = dmlc::LogMessageFatal::GetEntry(v37);
+              v32 = dmlc::LogMessageFatal::GetEntry(v36);
               std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v32, "file offset not calculated correctly", 36);
-              dmlc::LogMessageFatal::~LogMessageFatal(v37);
+              dmlc::LogMessageFatal::~LogMessageFatal(v36);
               v17 = *(this + 12);
             }
 
@@ -7211,7 +5403,7 @@ uint64_t (***dmlc::io::InputSplitBase::Read(dmlc::io::InputSplitBase *this, char
             v34 = *(this + 8);
             if (v33 >= 0x2E8BA2E8BA2E8BA3 * ((*(this + 9) - v34) >> 3))
             {
-              break;
+              return (a3 - v14);
             }
 
             *(this + 12) = v33;
@@ -7237,17 +5429,15 @@ uint64_t (***dmlc::io::InputSplitBase::Read(dmlc::io::InputSplitBase *this, char
         while (v14);
       }
 
-      result = (a3 - v14);
+      return (a3 - v14);
     }
 
     else
     {
-LABEL_23:
-      result = 0;
+      return 0;
     }
   }
 
-  v36 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -7544,7 +5734,7 @@ void std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)17
   __cxa_throw(exception, MEMORY[0x277D82700], MEMORY[0x277D82628]);
 }
 
-unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_ecma_exp<std::__wrap_iter<char const*>>(std::basic_regex<char> *a1, unsigned __int8 *a2, unsigned __int8 *a3)
+char *std::basic_regex<char,std::regex_traits<char>>::__parse_ecma_exp<std::__wrap_iter<char const*>>(std::basic_regex<char> *a1, char *a2, char *a3)
 {
   end = a1->__end_;
   v7 = a2;
@@ -7750,7 +5940,7 @@ void std::__owns_one_state<char>::~__owns_one_state(std::__owns_one_state<char> 
   JUMPOUT(0x277C69180);
 }
 
-unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_term<std::__wrap_iter<char const*>>(std::basic_regex<char> *a1, unsigned __int8 *a2, unsigned __int8 *a3)
+char *std::basic_regex<char,std::regex_traits<char>>::__parse_term<std::__wrap_iter<char const*>>(std::basic_regex<char> *a1, char *a2, char *a3)
 {
   if (a2 == a3)
   {
@@ -8586,38 +6776,37 @@ void std::__lookahead<char,std::regex_traits<char>>::~__lookahead(std::locale *a
 
 void std::__lookahead<char,std::regex_traits<char>>::__exec(uint64_t a1, uint64_t a2)
 {
+  v19 = 0;
   v20 = 0;
   v21 = 0;
-  v22 = 0;
-  memset(&v23, 0, 17);
+  memset(&v22, 0, 17);
+  v23 = 0;
   v24 = 0;
-  v25 = 0;
   memset(&__p, 0, sizeof(__p));
   v4 = (*(a1 + 44) + 1);
   v5 = *(a2 + 16);
-  v19.first = *(a2 + 24);
-  v19.second = v19.first;
-  v19.matched = 0;
-  std::vector<std::sub_match<char const*>>::assign(&__p, v4, &v19);
+  v18.first = *(a2 + 24);
+  v18.second = v18.first;
+  v18.matched = 0;
+  std::vector<std::sub_match<char const*>>::assign(&__p, v4, &v18);
+  v19 = v5;
   v20 = v5;
-  v21 = v5;
-  v22 = 0;
-  v23 = v19;
-  v25 = v5;
-  v24 = 1;
-  v6 = *(a2 + 88) & 0xFFF;
-  v7 = *(a2 + 16);
-  if (v7 == *(a2 + 8))
+  v21 = 0;
+  v22 = v18;
+  v24 = v5;
+  v23 = 1;
+  v6 = *(a2 + 16);
+  if (v6 == *(a2 + 8))
   {
-    v8 = *(a2 + 92);
+    v7 = *(a2 + 92);
   }
 
   else
   {
-    v8 = 0;
+    v7 = 0;
   }
 
-  if (*(a1 + 84) == std::basic_regex<char,std::regex_traits<char>>::__match_at_start_ecma<std::allocator<std::sub_match<char const*>>>(a1 + 16, v7, *(a2 + 24), &__p, *(a2 + 88) & 0xFBF | 0x40u, v8))
+  if (*(a1 + 84) == std::basic_regex<char,std::regex_traits<char>>::__match_at_start_ecma<std::allocator<std::sub_match<char const*>>>(a1 + 16, v6, *(a2 + 24), &__p, *(a2 + 88) & 0xFBF | 0x40u, v7))
   {
     *a2 = -993;
     *(a2 + 80) = 0;
@@ -8628,8 +6817,8 @@ void std::__lookahead<char,std::regex_traits<char>>::__exec(uint64_t a1, uint64_
   *a2 = -994;
   *(a2 + 80) = *(a1 + 8);
   begin = __p.__begin_;
-  v10 = 0xAAAAAAAAAAAAAAABLL * ((__p.__end_ - __p.__begin_) >> 3);
-  if (v10 < 2)
+  v9 = 0xAAAAAAAAAAAAAAABLL * ((__p.__end_ - __p.__begin_) >> 3);
+  if (v9 < 2)
   {
 LABEL_10:
     if (!begin)
@@ -8640,21 +6829,21 @@ LABEL_10:
     goto LABEL_11;
   }
 
-  v11 = *(a1 + 80);
-  v12 = *(a2 + 32);
-  v13 = 2;
-  v14 = 1;
+  v10 = *(a1 + 80);
+  v11 = *(a2 + 32);
+  v12 = 2;
+  v13 = 1;
   do
   {
-    v15 = &begin[v14];
-    v16 = v12 + 24 * v11;
-    *v16 = v15->std::pair<const char *, const char *>;
-    *(v16 + 16) = v15->matched;
-    v14 = v13;
-    ++v11;
+    v14 = &begin[v13];
+    v15 = v11 + 24 * v10;
+    *v15 = v14->std::pair<const char *, const char *>;
+    *(v15 + 16) = v14->matched;
+    v13 = v12;
+    ++v10;
   }
 
-  while (v10 > v13++);
+  while (v9 > v12++);
 LABEL_11:
 
   operator delete(begin);
@@ -8704,15 +6893,15 @@ LABEL_29:
 
   v35 = a4;
   v13 = v42;
-  *(v42 - 96) = 0;
-  *(v13 - 88) = a2;
-  *(v13 - 80) = a2;
-  *(v13 - 72) = a3;
-  std::vector<std::sub_match<char const*>>::resize((v13 - 64), *(a1 + 28), &__x);
-  std::vector<std::pair<unsigned long,char const*>>::resize((v42 - 40), *(a1 + 32));
+  *(v42 - 24) = 0;
+  *(v13 - 11) = a2;
+  *(v13 - 10) = a2;
+  *(v13 - 9) = a3;
+  std::vector<std::sub_match<char const*>>::resize((v13 - 16), *(a1 + 28), &__x);
+  std::vector<std::pair<unsigned long,char const*>>::resize((v42 - 10), *(a1 + 32));
   v14 = v42;
-  *(v42 - 16) = v6;
-  *(v14 - 8) = a5;
+  *(v42 - 2) = v6;
+  *(v14 - 2) = a5;
   *(v14 - 4) = a6;
   v15 = 1;
   while (1)
@@ -8722,12 +6911,12 @@ LABEL_29:
       std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)12>();
     }
 
-    v17 = (v14 - 16);
-    v16 = *(v14 - 16);
-    v18 = (v14 - 96);
+    v17 = v14 - 4;
+    v16 = *(v14 - 2);
+    v18 = v14 - 24;
     if (v16)
     {
-      (*(*v16 + 16))(v16, v14 - 96);
+      (*(*v16 + 16))(v16, v14 - 24);
     }
 
     v19 = *v18;
@@ -8737,20 +6926,20 @@ LABEL_29:
       {
         if (v19 == -992)
         {
-          v22 = *(v14 - 80);
+          v22 = *(v14 - 5);
           *v36 = *v18;
           *&v36[16] = v22;
           v37 = 0uLL;
           *&v36[32] = 0;
-          std::vector<std::sub_match<char const*>>::__init_with_size[abi:ne200100]<std::sub_match<char const*>*,std::sub_match<char const*>*>(&v36[32], *(v14 - 64), *(v14 - 56), 0xAAAAAAAAAAAAAAABLL * ((*(v14 - 56) - *(v14 - 64)) >> 3));
+          std::vector<std::sub_match<char const*>>::__init_with_size[abi:ne200100]<std::sub_match<char const*>*,std::sub_match<char const*>*>(&v36[32], *(v14 - 8), *(v14 - 7), 0xAAAAAAAAAAAAAAABLL * ((*(v14 - 7) - *(v14 - 8)) >> 3));
           __p[0] = 0;
           __p[1] = 0;
           v39[0] = 0;
-          std::vector<std::pair<unsigned long,char const*>>::__init_with_size[abi:ne200100]<std::pair<unsigned long,char const*>*,std::pair<unsigned long,char const*>*>(__p, *(v14 - 40), *(v14 - 32), (*(v14 - 32) - *(v14 - 40)) >> 4);
+          std::vector<std::pair<unsigned long,char const*>>::__init_with_size[abi:ne200100]<std::pair<unsigned long,char const*>*,std::pair<unsigned long,char const*>*>(__p, *(v14 - 5), *(v14 - 4), (*(v14 - 4) - *(v14 - 5)) >> 4);
           v23 = *v17;
           *(&v39[1] + 5) = *(v14 - 11);
           v39[1] = v23;
-          (*(**v17 + 24))(*v17, 1, v14 - 96);
+          (*(**v17 + 24))(*v17, 1, v14 - 24);
           (*(*v39[1] + 24))(v39[1], 0, v36);
           std::vector<std::__state<char>>::push_back[abi:ne200100](&v41, v36);
           if (__p[0])
@@ -8797,12 +6986,12 @@ LABEL_28:
     goto LABEL_36;
   }
 
-  v20 = *(v14 - 80);
+  v20 = *(v14 - 10);
   if ((a5 & 0x20) != 0 && v20 == a2 || (a5 & 0x1000) != 0 && v20 != a3)
   {
 LABEL_23:
-    v21 = v42 - 96;
-    std::allocator<std::__state<char>>::destroy[abi:ne200100]((v42 - 96));
+    v21 = (v42 - 24);
+    std::allocator<std::__state<char>>::destroy[abi:ne200100](v42 - 12);
     v42 = v21;
     goto LABEL_28;
   }
@@ -8811,8 +7000,8 @@ LABEL_23:
   *v26 = a2;
   *(v26 + 8) = v20;
   *(v26 + 16) = 1;
-  v27 = *(v14 - 64);
-  v28 = *(v14 - 56) - v27;
+  v27 = *(v14 - 8);
+  v28 = *(v14 - 7) - v27;
   if (v28)
   {
     v29 = 0xAAAAAAAAAAAAAAABLL * (v28 >> 3);
@@ -8932,7 +7121,7 @@ void std::vector<std::sub_match<char const*>>::assign(std::vector<std::csub_matc
   }
 }
 
-void std::vector<std::sub_match<char const*>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::sub_match<char const*>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -8952,7 +7141,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<std::sub_match<char c
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void std::vector<std::__state<char>>::push_back[abi:ne200100](uint64_t *a1, uint64_t a2)
+void std::vector<std::__state<char>>::push_back[abi:ne200100](void **a1, uint64_t a2)
 {
   v3 = a1[1];
   v4 = a1[2];
@@ -9011,34 +7200,34 @@ void std::vector<std::__state<char>>::push_back[abi:ne200100](uint64_t *a1, uint
     *(v13 + 80) = v15;
     v16 = *a1;
     v17 = a1[1];
-    v18 = v13 + *a1 - v17;
+    v18 = (v13 + *a1 - v17);
     if (*a1 != v17)
     {
       v19 = *a1;
-      v20 = v13 + *a1 - v17;
+      v20 = (v13 + *a1 - v17);
       do
       {
         v21 = *(v19 + 1);
         *v20 = *v19;
-        *(v20 + 16) = v21;
-        *(v20 + 40) = 0;
-        *(v20 + 48) = 0;
-        *(v20 + 32) = *(v19 + 2);
-        *(v20 + 48) = v19[6];
-        v19[4] = 0;
-        v19[5] = 0;
-        v19[6] = 0;
-        *(v20 + 64) = 0;
-        *(v20 + 72) = 0;
-        *(v20 + 56) = *(v19 + 7);
-        *(v20 + 72) = v19[9];
-        v19[7] = 0;
-        v19[8] = 0;
-        v19[9] = 0;
-        v22 = v19[10];
+        *(v20 + 1) = v21;
+        *(v20 + 5) = 0;
+        *(v20 + 6) = 0;
+        *(v20 + 2) = *(v19 + 2);
+        *(v20 + 6) = *(v19 + 6);
+        *(v19 + 4) = 0;
+        *(v19 + 5) = 0;
+        *(v19 + 6) = 0;
+        *(v20 + 8) = 0;
+        *(v20 + 9) = 0;
+        *(v20 + 56) = *(v19 + 56);
+        *(v20 + 9) = *(v19 + 9);
+        *(v19 + 7) = 0;
+        *(v19 + 8) = 0;
+        *(v19 + 9) = 0;
+        v22 = *(v19 + 10);
         *(v20 + 85) = *(v19 + 85);
-        *(v20 + 80) = v22;
-        v19 += 12;
+        *(v20 + 10) = v22;
+        v19 += 96;
         v20 += 96;
       }
 
@@ -9053,7 +7242,7 @@ void std::vector<std::__state<char>>::push_back[abi:ne200100](uint64_t *a1, uint
       v16 = *a1;
     }
 
-    v7 = v13 + 96;
+    v7 = (v13 + 96);
     *a1 = v18;
     a1[1] = v7;
     a1[2] = 0;
@@ -9067,26 +7256,26 @@ void std::vector<std::__state<char>>::push_back[abi:ne200100](uint64_t *a1, uint
   {
     v5 = *(a2 + 16);
     *v3 = *a2;
-    *(v3 + 16) = v5;
-    *(v3 + 40) = 0;
-    *(v3 + 48) = 0;
-    *(v3 + 32) = 0;
-    *(v3 + 32) = *(a2 + 32);
-    *(v3 + 48) = *(a2 + 48);
+    *(v3 + 1) = v5;
+    *(v3 + 5) = 0;
+    *(v3 + 6) = 0;
+    *(v3 + 4) = 0;
+    *(v3 + 2) = *(a2 + 32);
+    *(v3 + 6) = *(a2 + 48);
     *(a2 + 32) = 0;
     *(a2 + 40) = 0;
     *(a2 + 48) = 0;
-    *(v3 + 56) = 0;
-    *(v3 + 64) = 0;
-    *(v3 + 72) = 0;
+    *(v3 + 7) = 0;
+    *(v3 + 8) = 0;
+    *(v3 + 9) = 0;
     *(v3 + 56) = *(a2 + 56);
-    *(v3 + 72) = *(a2 + 72);
+    *(v3 + 9) = *(a2 + 72);
     *(a2 + 56) = 0;
     *(a2 + 64) = 0;
     *(a2 + 72) = 0;
     v6 = *(a2 + 80);
     *(v3 + 85) = *(a2 + 85);
-    *(v3 + 80) = v6;
+    *(v3 + 10) = v6;
     v7 = v3 + 96;
   }
 
@@ -9268,7 +7457,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<unsigned lo
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t std::vector<std::sub_match<char const*>>::__init_with_size[abi:ne200100]<std::sub_match<char const*>*,std::sub_match<char const*>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::sub_match<char const*>>::__init_with_size[abi:ne200100]<std::sub_match<char const*>*,std::sub_match<char const*>*>(uint64_t *result, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -9290,7 +7479,7 @@ void sub_274DFC46C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<std::pair<unsigned long,char const*>>::__init_with_size[abi:ne200100]<std::pair<unsigned long,char const*>*,std::pair<unsigned long,char const*>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::pair<unsigned long,char const*>>::__init_with_size[abi:ne200100]<std::pair<unsigned long,char const*>*,std::pair<unsigned long,char const*>*>(uint64_t *result, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -9312,7 +7501,7 @@ void sub_274DFC4E0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<std::pair<unsigned long,char const*>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::pair<unsigned long,char const*>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -9357,7 +7546,7 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_bracket
       goto LABEL_203;
     }
 
-    v5 = (a2[1] == 94 ? a2 + 2 : a2 + 1);
+    v5 = a2[1] == 94 ? a2 + 2 : a2 + 1;
     started = std::basic_regex<char,std::regex_traits<char>>::__start_matching_list(a1, a2[1] == 94);
     if (v5 == a3)
     {
@@ -9409,12 +7598,12 @@ LABEL_203:
         goto LABEL_119;
       }
 
-      v12 = (v5 + 1);
+      v12 = v5 + 1;
       memset(&v65, 0, sizeof(v65));
       if (v8 + 1 == a3 || v11 != 91)
       {
 LABEL_31:
-        v5 = *(a1 + 24) & 0x1F0;
+        v5 = (*(a1 + 24) & 0x1F0);
         v10 = v8;
         goto LABEL_32;
       }
@@ -9618,7 +7807,7 @@ LABEL_205:
         v29 = 0;
       }
 
-      v5 = (v15 + 2);
+      v5 = v15 + 2;
       v10 = v8;
 LABEL_117:
       if (SHIBYTE(v65.__r_.__value_.__r.__words[2]) < 0)
@@ -9645,7 +7834,7 @@ LABEL_120:
     }
 
     v10 = std::basic_regex<char,std::regex_traits<char>>::__parse_collating_symbol<std::__wrap_iter<char const*>>(a1, v8 + 2, a3, &v65);
-    v5 = *(a1 + 24) & 0x1F0;
+    v5 = (*(a1 + 24) & 0x1F0);
     v30 = HIBYTE(v65.__r_.__value_.__r.__words[2]);
     if ((v65.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
@@ -9731,7 +7920,7 @@ LABEL_126:
                       v39 = &v63;
                     }
 
-                    v40 = (*(**(v7 + 24) + 40))(*(v7 + 24), v39->__r_.__value_.__s.__data_[v5]);
+                    v40 = (*(**(v7 + 24) + 40))(*(v7 + 24), v5[v39]);
                     if ((v63.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
                     {
                       v41 = &v63;
@@ -9742,7 +7931,7 @@ LABEL_126:
                       v41 = v63.__r_.__value_.__r.__words[0];
                     }
 
-                    v41->__r_.__value_.__s.__data_[v5++] = v40;
+                    (v5++)[v41] = v40;
                     v42 = SHIBYTE(v63.__r_.__value_.__r.__words[2]);
                     v38 = SHIBYTE(v63.__r_.__value_.__r.__words[2]) >> 63;
                     if ((v63.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
@@ -9776,7 +7965,7 @@ LABEL_126:
                       v45 = &v62;
                     }
 
-                    v46 = (*(**(v7 + 24) + 40))(*(v7 + 24), v45->__r_.__value_.__s.__data_[v5]);
+                    v46 = (*(**(v7 + 24) + 40))(*(v7 + 24), v5[v45]);
                     if ((v62.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
                     {
                       v47 = &v62;
@@ -9787,7 +7976,7 @@ LABEL_126:
                       v47 = v62.__r_.__value_.__r.__words[0];
                     }
 
-                    v47->__r_.__value_.__s.__data_[v5++] = v46;
+                    (v5++)[v47] = v46;
                     v48 = SHIBYTE(v62.__r_.__value_.__r.__words[2]);
                     v44 = SHIBYTE(v62.__r_.__value_.__r.__words[2]) >> 63;
                     if ((v62.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
@@ -10045,4 +8234,1644 @@ LABEL_75:
   }
 
   return a2;
+}
+
+void sub_274DFCFBC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, void *__p, uint64_t a24, int a25, __int16 a26, char a27, char a28, void *a29, uint64_t a30, int a31, __int16 a32, char a33, char a34, void *a35, uint64_t a36, int a37, __int16 a38, char a39, char a40, void *a41, uint64_t a42, int a43, __int16 a44, char a45, char a46)
+{
+  if (a28 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (a34 < 0)
+  {
+    operator delete(a29);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void std::basic_regex<char,std::regex_traits<char>>::__push_begin_marked_subexpression(std::basic_regex<char> *this)
+{
+  if ((this->__flags_ & 2) == 0)
+  {
+    operator new();
+  }
+}
+
+void std::basic_regex<char,std::regex_traits<char>>::__push_end_marked_subexpression(std::basic_regex<char> *this, unsigned int a2)
+{
+  if ((this->__flags_ & 2) == 0)
+  {
+    operator new();
+  }
+}
+
+void std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)11>()
+{
+  exception = __cxa_allocate_exception(0x18uLL);
+  MEMORY[0x277C68B90](exception, 11);
+  __cxa_throw(exception, MEMORY[0x277D82700], MEMORY[0x277D82628]);
+}
+
+void (__cdecl ***std::__match_any_but_newline<char>::~__match_any_but_newline(void (__cdecl ***a1)(std::__owns_one_state<char> *__hidden this)))(std::__owns_one_state<char> *__hidden this)
+{
+  v2 = a1[1];
+  if (v2)
+  {
+    (*(*v2 + 1))(v2);
+  }
+
+  return a1;
+}
+
+void std::__match_any_but_newline<char>::~__match_any_but_newline(void (__cdecl ***a1)(std::__owns_one_state<char> *__hidden this))
+{
+  v1 = a1[1];
+  if (v1)
+  {
+    (*(*v1 + 1))(v1);
+  }
+
+  JUMPOUT(0x277C69180);
+}
+
+void std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)3>()
+{
+  exception = __cxa_allocate_exception(0x18uLL);
+  MEMORY[0x277C68B90](exception, 3);
+  __cxa_throw(exception, MEMORY[0x277D82700], MEMORY[0x277D82628]);
+}
+
+char *std::basic_regex<char,std::regex_traits<char>>::__parse_character_escape<std::__wrap_iter<char const*>>(std::basic_regex<char> *a1, std::basic_regex<char>::value_type *a2, std::basic_regex<char>::value_type *a3, std::string *this)
+{
+  v4 = a2;
+  if (a2 == a3)
+  {
+    return v4;
+  }
+
+  v5 = *a2;
+  if (*a2 <= 0x71u)
+  {
+    if (*a2 > 0x65u)
+    {
+      if (v5 == 102)
+      {
+        if (!this)
+        {
+          v8 = 12;
+          goto LABEL_69;
+        }
+
+        v9 = this;
+        v8 = 12;
+      }
+
+      else
+      {
+        if (v5 != 110)
+        {
+          goto LABEL_64;
+        }
+
+        if (!this)
+        {
+          v8 = 10;
+          goto LABEL_69;
+        }
+
+        v9 = this;
+        v8 = 10;
+      }
+    }
+
+    else
+    {
+      if (v5 != 48)
+      {
+        if (v5 == 99)
+        {
+          v4 = a2 + 1;
+          if (a2 + 1 == a3)
+          {
+            goto LABEL_72;
+          }
+
+          if (*v4 < 65)
+          {
+            goto LABEL_72;
+          }
+
+          v7 = *v4;
+          if (v7 >= 0x5B && (v7 - 97) > 0x19u)
+          {
+            goto LABEL_72;
+          }
+
+          v8 = v7 & 0x1F;
+          if (this)
+          {
+            goto LABEL_67;
+          }
+
+          goto LABEL_69;
+        }
+
+        if (v5 == 95)
+        {
+          goto LABEL_72;
+        }
+
+LABEL_64:
+        if ((v5 & 0x80) == 0 && (a1->__traits_.__ct_->__tab_[v5] & 0x500) != 0)
+        {
+          goto LABEL_72;
+        }
+
+        v8 = *a2;
+        if (this)
+        {
+LABEL_67:
+          v9 = this;
+          goto LABEL_68;
+        }
+
+LABEL_69:
+        std::basic_regex<char,std::regex_traits<char>>::__push_char(a1, v8);
+        return ++v4;
+      }
+
+      if (!this)
+      {
+        v8 = 0;
+        goto LABEL_69;
+      }
+
+      v9 = this;
+      v8 = 0;
+    }
+
+LABEL_68:
+    std::string::operator=(v9, v8);
+    return ++v4;
+  }
+
+  if (*a2 <= 0x74u)
+  {
+    if (v5 == 114)
+    {
+      if (!this)
+      {
+        v8 = 13;
+        goto LABEL_69;
+      }
+
+      v9 = this;
+      v8 = 13;
+    }
+
+    else
+    {
+      if (v5 != 116)
+      {
+        goto LABEL_64;
+      }
+
+      if (!this)
+      {
+        v8 = 9;
+        goto LABEL_69;
+      }
+
+      v9 = this;
+      v8 = 9;
+    }
+
+    goto LABEL_68;
+  }
+
+  if (v5 != 117)
+  {
+    if (v5 != 118)
+    {
+      if (v5 == 120)
+      {
+        v6 = 0;
+        goto LABEL_41;
+      }
+
+      goto LABEL_64;
+    }
+
+    if (!this)
+    {
+      v8 = 11;
+      goto LABEL_69;
+    }
+
+    v9 = this;
+    v8 = 11;
+    goto LABEL_68;
+  }
+
+  if (a2 + 1 == a3)
+  {
+    goto LABEL_72;
+  }
+
+  v10 = a2[1];
+  if ((v10 & 0xF8) != 0x30 && (v10 & 0xFE) != 0x38 && (v10 | 0x20u) - 97 >= 6)
+  {
+    goto LABEL_72;
+  }
+
+  v4 = a2 + 2;
+  if (a2 + 2 == a3)
+  {
+    goto LABEL_72;
+  }
+
+  v11 = *v4;
+  v12 = -48;
+  if ((v11 & 0xF8) != 0x30 && (v11 & 0xFE) != 0x38)
+  {
+    v11 |= 0x20u;
+    if ((v11 - 97) >= 6)
+    {
+      goto LABEL_72;
+    }
+
+    v12 = -87;
+  }
+
+  v6 = 16 * (v12 + v11);
+LABEL_41:
+  if (v4 + 1 == a3)
+  {
+    goto LABEL_72;
+  }
+
+  v13 = v4[1];
+  v14 = -48;
+  if ((v13 & 0xF8) != 0x30 && (v13 & 0xFE) != 0x38)
+  {
+    v13 |= 0x20u;
+    if ((v13 - 97) >= 6)
+    {
+      goto LABEL_72;
+    }
+
+    v14 = -87;
+  }
+
+  if (v4 + 2 == a3)
+  {
+LABEL_72:
+    std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)3>();
+  }
+
+  v15 = v4[2];
+  v16 = -48;
+  if ((v15 & 0xF8) != 0x30 && (v15 & 0xFE) != 0x38)
+  {
+    v15 |= 0x20u;
+    if ((v15 - 97) < 6)
+    {
+      v16 = -87;
+      goto LABEL_51;
+    }
+
+    goto LABEL_72;
+  }
+
+LABEL_51:
+  v17 = v15 + 16 * (v6 + v14 + v13) + v16;
+  if (this)
+  {
+    std::string::operator=(this, v17);
+  }
+
+  else
+  {
+    std::basic_regex<char,std::regex_traits<char>>::__push_char(a1, v17);
+  }
+
+  v4 += 3;
+  return v4;
+}
+
+void std::basic_regex<char,std::regex_traits<char>>::__push_char(std::basic_regex<char> *this, std::basic_regex<char>::value_type __c)
+{
+  flags = this->__flags_;
+  if ((flags & 1) == 0)
+  {
+    if ((flags & 8) == 0)
+    {
+      operator new();
+    }
+
+    operator new();
+  }
+
+  operator new();
+}
+
+void sub_274DFD7FC(_Unwind_Exception *a1)
+{
+  std::locale::~locale(v2 + 2);
+  locale = v2[1].__locale_;
+  if (locale)
+  {
+    (*(*locale + 8))(locale);
+  }
+
+  MEMORY[0x277C69180](v2, v1);
+  _Unwind_Resume(a1);
+}
+
+void std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)4>()
+{
+  exception = __cxa_allocate_exception(0x18uLL);
+  MEMORY[0x277C68B90](exception, 4);
+  __cxa_throw(exception, MEMORY[0x277D82700], MEMORY[0x277D82628]);
+}
+
+void std::basic_regex<char,std::regex_traits<char>>::__push_back_ref(std::basic_regex<char> *this, int __i)
+{
+  flags = this->__flags_;
+  if ((flags & 1) == 0)
+  {
+    if ((flags & 8) == 0)
+    {
+      operator new();
+    }
+
+    operator new();
+  }
+
+  operator new();
+}
+
+std::locale *std::__match_char_icase<char,std::regex_traits<char>>::~__match_char_icase(std::locale *a1)
+{
+  a1->__locale_ = &unk_2883E6A18;
+  std::locale::~locale(a1 + 2);
+  locale = a1[1].__locale_;
+  if (locale)
+  {
+    (*(*locale + 8))(locale);
+  }
+
+  return a1;
+}
+
+void std::__match_char_icase<char,std::regex_traits<char>>::~__match_char_icase(std::locale *a1)
+{
+  a1->__locale_ = &unk_2883E6A18;
+  std::locale::~locale(a1 + 2);
+  locale = a1[1].__locale_;
+  if (locale)
+  {
+    (*(*locale + 8))(locale);
+  }
+
+  JUMPOUT(0x277C69180);
+}
+
+uint64_t std::__match_char_icase<char,std::regex_traits<char>>::__exec(uint64_t result, uint64_t a2)
+{
+  v3 = *(a2 + 16);
+  if (v3 == *(a2 + 24) || (v4 = result, result = (*(**(result + 24) + 40))(*(result + 24), *v3), *(v4 + 40) != result))
+  {
+    v5 = 0;
+    *a2 = -993;
+  }
+
+  else
+  {
+    *a2 = -995;
+    ++*(a2 + 16);
+    v5 = *(v4 + 8);
+  }
+
+  *(a2 + 80) = v5;
+  return result;
+}
+
+std::locale *std::__match_char_collate<char,std::regex_traits<char>>::~__match_char_collate(std::locale *a1)
+{
+  a1->__locale_ = &unk_2883E6A60;
+  std::locale::~locale(a1 + 2);
+  locale = a1[1].__locale_;
+  if (locale)
+  {
+    (*(*locale + 8))(locale);
+  }
+
+  return a1;
+}
+
+void std::__match_char_collate<char,std::regex_traits<char>>::~__match_char_collate(std::locale *a1)
+{
+  a1->__locale_ = &unk_2883E6A60;
+  std::locale::~locale(a1 + 2);
+  locale = a1[1].__locale_;
+  if (locale)
+  {
+    (*(*locale + 8))(locale);
+  }
+
+  JUMPOUT(0x277C69180);
+}
+
+uint64_t std::__match_char_collate<char,std::regex_traits<char>>::__exec(uint64_t result, uint64_t a2)
+{
+  v2 = *(a2 + 16);
+  if (v2 == *(a2 + 24) || *v2 != *(result + 40))
+  {
+    v3 = 0;
+    *a2 = -993;
+  }
+
+  else
+  {
+    *a2 = -995;
+    *(a2 + 16) = v2 + 1;
+    v3 = *(result + 8);
+  }
+
+  *(a2 + 80) = v3;
+  return result;
+}
+
+void (__cdecl ***std::__match_char<char>::~__match_char(void (__cdecl ***a1)(std::__owns_one_state<char> *__hidden this)))(std::__owns_one_state<char> *__hidden this)
+{
+  v2 = a1[1];
+  if (v2)
+  {
+    (*(*v2 + 1))(v2);
+  }
+
+  return a1;
+}
+
+void std::__match_char<char>::~__match_char(void (__cdecl ***a1)(std::__owns_one_state<char> *__hidden this))
+{
+  v1 = a1[1];
+  if (v1)
+  {
+    (*(*v1 + 1))(v1);
+  }
+
+  JUMPOUT(0x277C69180);
+}
+
+uint64_t std::__match_char<char>::__exec(uint64_t result, uint64_t a2)
+{
+  v2 = *(a2 + 16);
+  if (v2 == *(a2 + 24) || *v2 != *(result + 16))
+  {
+    v3 = 0;
+    *a2 = -993;
+  }
+
+  else
+  {
+    *a2 = -995;
+    *(a2 + 16) = v2 + 1;
+    v3 = *(result + 8);
+  }
+
+  *(a2 + 80) = v3;
+  return result;
+}
+
+std::locale *std::__back_ref_icase<char,std::regex_traits<char>>::~__back_ref_icase(std::locale *a1)
+{
+  a1->__locale_ = &unk_2883E6AF0;
+  std::locale::~locale(a1 + 2);
+  locale = a1[1].__locale_;
+  if (locale)
+  {
+    (*(*locale + 8))(locale);
+  }
+
+  return a1;
+}
+
+void std::__back_ref_icase<char,std::regex_traits<char>>::~__back_ref_icase(std::locale *a1)
+{
+  a1->__locale_ = &unk_2883E6AF0;
+  std::locale::~locale(a1 + 2);
+  locale = a1[1].__locale_;
+  if (locale)
+  {
+    (*(*locale + 8))(locale);
+  }
+
+  JUMPOUT(0x277C69180);
+}
+
+uint64_t std::__back_ref_icase<char,std::regex_traits<char>>::__exec(uint64_t result, uint64_t a2)
+{
+  v3 = *(a2 + 32) + 24 * (*(result + 40) - 1);
+  if (*(v3 + 16) == 1)
+  {
+    v4 = *(v3 + 8) - *v3;
+    v5 = *(a2 + 16);
+    if (*(a2 + 24) - v5 >= v4)
+    {
+      v7 = result;
+      if (v4 < 1)
+      {
+LABEL_10:
+        *a2 = -994;
+        *(a2 + 16) = v5 + v4;
+        v6 = *(v7 + 8);
+        goto LABEL_4;
+      }
+
+      v8 = 0;
+      while (1)
+      {
+        v9 = (*(**(v7 + 24) + 40))(*(v7 + 24), *(*v3 + v8));
+        result = (*(**(v7 + 24) + 40))(*(v7 + 24), *(*(a2 + 16) + v8));
+        if (v9 != result)
+        {
+          break;
+        }
+
+        if (v4 == ++v8)
+        {
+          v5 = *(a2 + 16);
+          goto LABEL_10;
+        }
+      }
+    }
+  }
+
+  v6 = 0;
+  *a2 = -993;
+LABEL_4:
+  *(a2 + 80) = v6;
+  return result;
+}
+
+std::locale *std::__back_ref_collate<char,std::regex_traits<char>>::~__back_ref_collate(std::locale *a1)
+{
+  a1->__locale_ = &unk_2883E6B38;
+  std::locale::~locale(a1 + 2);
+  locale = a1[1].__locale_;
+  if (locale)
+  {
+    (*(*locale + 8))(locale);
+  }
+
+  return a1;
+}
+
+void std::__back_ref_collate<char,std::regex_traits<char>>::~__back_ref_collate(std::locale *a1)
+{
+  a1->__locale_ = &unk_2883E6B38;
+  std::locale::~locale(a1 + 2);
+  locale = a1[1].__locale_;
+  if (locale)
+  {
+    (*(*locale + 8))(locale);
+  }
+
+  JUMPOUT(0x277C69180);
+}
+
+uint64_t std::__back_ref_collate<char,std::regex_traits<char>>::__exec(uint64_t result, uint64_t a2)
+{
+  v2 = *(a2 + 32) + 24 * (*(result + 40) - 1);
+  if (*(v2 + 16) == 1)
+  {
+    v3 = *v2;
+    v4 = *(v2 + 8) - *v2;
+    v5 = *(a2 + 16);
+    if (*(a2 + 24) - v5 >= v4)
+    {
+      if (v4 < 1)
+      {
+LABEL_9:
+        *a2 = -994;
+        *(a2 + 16) = v5 + v4;
+        v6 = *(result + 8);
+        goto LABEL_4;
+      }
+
+      v7 = v4;
+      v8 = *(a2 + 16);
+      while (1)
+      {
+        v10 = *v3++;
+        v9 = v10;
+        v11 = *v8++;
+        if (v9 != v11)
+        {
+          break;
+        }
+
+        if (!--v7)
+        {
+          goto LABEL_9;
+        }
+      }
+    }
+  }
+
+  v6 = 0;
+  *a2 = -993;
+LABEL_4:
+  *(a2 + 80) = v6;
+  return result;
+}
+
+void (__cdecl ***std::__back_ref<char>::~__back_ref(void (__cdecl ***a1)(std::__owns_one_state<char> *__hidden this)))(std::__owns_one_state<char> *__hidden this)
+{
+  v2 = a1[1];
+  if (v2)
+  {
+    (*(*v2 + 1))(v2);
+  }
+
+  return a1;
+}
+
+void std::__back_ref<char>::~__back_ref(void (__cdecl ***a1)(std::__owns_one_state<char> *__hidden this))
+{
+  v1 = a1[1];
+  if (v1)
+  {
+    (*(*v1 + 1))(v1);
+  }
+
+  JUMPOUT(0x277C69180);
+}
+
+unsigned int *std::__back_ref<char>::__exec(unsigned int *result, uint64_t a2)
+{
+  v2 = result[4];
+  v3 = *(a2 + 32);
+  if (0xAAAAAAAAAAAAAAABLL * ((*(a2 + 40) - v3) >> 3) < v2)
+  {
+    std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)4>();
+  }
+
+  v5 = v3 + 24 * (v2 - 1);
+  if (*(v5 + 16) == 1 && (v6 = result, result = *v5, v7 = *(v5 + 8) - *v5, v8 = *(a2 + 16), *(a2 + 24) - v8 >= v7) && (result = memcmp(result, *(a2 + 16), v7), !result))
+  {
+    *a2 = -994;
+    *(a2 + 16) = v8 + v7;
+    v9 = *(v6 + 1);
+  }
+
+  else
+  {
+    v9 = 0;
+    *a2 = -993;
+  }
+
+  *(a2 + 80) = v9;
+  return result;
+}
+
+void sub_274DFE5C8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::locale *a10)
+{
+  std::locale::~locale(&a9);
+  a10 = v10 + 17;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&a10);
+  locale = v10[14].__locale_;
+  if (locale)
+  {
+    v10[15].__locale_ = locale;
+    operator delete(locale);
+  }
+
+  std::vector<std::pair<std::string,std::string>>::__destroy_vector::operator()[abi:ne200100](&a10);
+  v16 = v10[8].__locale_;
+  if (v16)
+  {
+    v10[9].__locale_ = v16;
+    operator delete(v16);
+  }
+
+  v17 = *v13;
+  if (*v13)
+  {
+    v10[6].__locale_ = v17;
+    operator delete(v17);
+  }
+
+  std::locale::~locale(v10 + 2);
+  v10->__locale_ = v12;
+  v18 = v10[1].__locale_;
+  if (v18)
+  {
+    (*(*v18 + 8))(v18);
+  }
+
+  MEMORY[0x277C69180](v10, v11);
+  _Unwind_Resume(a1);
+}
+
+void std::__bracket_expression<char,std::regex_traits<char>>::__add_char[abi:ne200100](uint64_t a1, char a2)
+{
+  v7 = a2;
+  if (*(a1 + 169) == 1)
+  {
+    v6 = (*(**(a1 + 24) + 40))(*(a1 + 24));
+    v3 = a1 + 40;
+    v4 = &v6;
+LABEL_5:
+    std::vector<char>::push_back[abi:ne200100](v3, v4);
+    return;
+  }
+
+  if (*(a1 + 170) == 1)
+  {
+    v5 = a2;
+    v3 = a1 + 40;
+    v4 = &v5;
+    goto LABEL_5;
+  }
+
+  std::vector<char>::push_back[abi:ne200100](a1 + 40, &v7);
+}
+
+void std::__bracket_expression<char,std::regex_traits<char>>::~__bracket_expression(std::locale *a1)
+{
+  std::__bracket_expression<char,std::regex_traits<char>>::~__bracket_expression(a1);
+
+  JUMPOUT(0x277C69180);
+}
+
+void std::__bracket_expression<char,std::regex_traits<char>>::__exec(const std::__bracket_expression<char, std::regex_traits<char>> *this, std::__bracket_expression<char, std::regex_traits<char>>::__state *a2)
+{
+  current = a2->__current_;
+  last = a2->__last_;
+  if (current == last)
+  {
+    v9 = 0;
+    negate = this->__negate_;
+    goto LABEL_89;
+  }
+
+  if (!this->__might_have_digraph_ || current + 1 == last)
+  {
+    goto LABEL_64;
+  }
+
+  LOBYTE(v113) = *current;
+  v6 = current[1];
+  HIBYTE(v113) = current[1];
+  if (this->__icase_)
+  {
+    LOBYTE(v113) = (this->__traits_.__ct_->do_tolower)(this->__traits_.__ct_);
+    HIBYTE(v113) = (this->__traits_.__ct_->do_tolower)(this->__traits_.__ct_, v6);
+  }
+
+  *(&__s.__r_.__value_.__s + 23) = 2;
+  LOWORD(__s.__r_.__value_.__l.__data_) = v113;
+  __s.__r_.__value_.__s.__data_[2] = 0;
+  std::__get_collation_name(&__src, &__s);
+  __p = __src;
+  size = HIBYTE(__src.__r_.__value_.__r.__words[2]);
+  v8 = SHIBYTE(__src.__r_.__value_.__r.__words[2]);
+  if ((__src.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+  {
+    size = __src.__r_.__value_.__l.__size_;
+  }
+
+  if (size)
+  {
+    goto LABEL_9;
+  }
+
+  if ((SHIBYTE(__s.__r_.__value_.__r.__words[2]) & 0x8000000000000000) != 0)
+  {
+    if (__s.__r_.__value_.__l.__size_ >= 3)
+    {
+      goto LABEL_9;
+    }
+  }
+
+  else if (SHIBYTE(__s.__r_.__value_.__r.__words[2]) >= 3)
+  {
+    goto LABEL_14;
+  }
+
+  (*(*this->__traits_.__col_ + 32))(&__src);
+  if (v8 < 0)
+  {
+    operator delete(__p.__r_.__value_.__l.__data_);
+  }
+
+  __p = __src;
+  if ((SHIBYTE(__src.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+  {
+    if (HIBYTE(__src.__r_.__value_.__r.__words[2]) != 12 && HIBYTE(__src.__r_.__value_.__r.__words[2]) != 1)
+    {
+      __p.__r_.__value_.__s.__data_[0] = 0;
+      *(&__p.__r_.__value_.__s + 23) = 0;
+      goto LABEL_9;
+    }
+
+    goto LABEL_180;
+  }
+
+  if (__p.__r_.__value_.__l.__size_ == 1 || __p.__r_.__value_.__l.__size_ == 12)
+  {
+LABEL_180:
+    std::string::operator=(&__p, &__s);
+    goto LABEL_9;
+  }
+
+  *__p.__r_.__value_.__l.__data_ = 0;
+  __p.__r_.__value_.__l.__size_ = 0;
+LABEL_9:
+  if (SHIBYTE(__s.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(__s.__r_.__value_.__l.__data_);
+  }
+
+LABEL_14:
+  if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+  {
+    if (*(&__p.__r_.__value_.__s + 23))
+    {
+      goto LABEL_16;
+    }
+
+LABEL_64:
+    negate = 0;
+    v9 = 1;
+    goto LABEL_65;
+  }
+
+  v39 = __p.__r_.__value_.__l.__size_;
+  operator delete(__p.__r_.__value_.__l.__data_);
+  if (!v39)
+  {
+    goto LABEL_64;
+  }
+
+LABEL_16:
+  begin = this->__digraphs_.__begin_;
+  v12 = this->__digraphs_.__end_ - begin;
+  if (v12)
+  {
+    v13 = v12 >> 1;
+    if ((v12 >> 1) <= 1)
+    {
+      v13 = 1;
+    }
+
+    p_second = &begin->second;
+    while (v113 != *(p_second - 1) || HIBYTE(v113) != *p_second)
+    {
+      p_second += 2;
+      if (!--v13)
+      {
+        goto LABEL_25;
+      }
+    }
+
+    goto LABEL_233;
+  }
+
+LABEL_25:
+  if (this->__collate_ && this->__ranges_.__begin_ != this->__ranges_.__end_)
+  {
+    p_s = &__s;
+    std::regex_traits<char>::transform<char *>(&__s, &this->__traits_, &v113, &__src);
+    v17 = this->__ranges_.__begin_;
+    v18 = HIBYTE(__s.__r_.__value_.__r.__words[2]);
+    v19 = this->__ranges_.__end_ - v17;
+    if (v19)
+    {
+      v20 = 0xAAAAAAAAAAAAAAABLL * (v19 >> 4);
+      v109 = HIBYTE(__s.__r_.__value_.__r.__words[2]);
+      if ((__s.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      {
+        v21 = HIBYTE(__s.__r_.__value_.__r.__words[2]);
+      }
+
+      else
+      {
+        v21 = __s.__r_.__value_.__l.__size_;
+      }
+
+      if ((__s.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+      {
+        p_s = __s.__r_.__value_.__r.__words[0];
+      }
+
+      v22 = v20 <= 1 ? 1 : 0xAAAAAAAAAAAAAAABLL * (v19 >> 4);
+      v23 = &v17->second.__r_.__value_.__r.__words[2] + 7;
+      v24 = 1;
+      v25 = 1;
+      while (1)
+      {
+        v26 = *(v23 - 24);
+        if (v26 >= 0)
+        {
+          v27 = *(v23 - 24);
+        }
+
+        else
+        {
+          v27 = *(v23 - 39);
+        }
+
+        if (v26 >= 0)
+        {
+          v28 = (v23 - 47);
+        }
+
+        else
+        {
+          v28 = *(v23 - 47);
+        }
+
+        if (v27 >= v21)
+        {
+          v29 = v21;
+        }
+
+        else
+        {
+          v29 = v27;
+        }
+
+        v30 = memcmp(p_s, v28, v29);
+        v31 = v21 >= v27;
+        if (v30)
+        {
+          v31 = v30 >= 0;
+        }
+
+        if (v31)
+        {
+          v32 = *v23;
+          if (v32 >= 0)
+          {
+            v33 = *v23;
+          }
+
+          else
+          {
+            v33 = *(v23 - 15);
+          }
+
+          if (v32 >= 0)
+          {
+            v34 = (v23 - 23);
+          }
+
+          else
+          {
+            v34 = *(v23 - 23);
+          }
+
+          if (v21 >= v33)
+          {
+            v35 = v33;
+          }
+
+          else
+          {
+            v35 = v21;
+          }
+
+          v36 = memcmp(v34, p_s, v35);
+          v37 = v33 >= v21;
+          if (v36)
+          {
+            v37 = v36 >= 0;
+          }
+
+          if (v37)
+          {
+            break;
+          }
+        }
+
+        v25 = v24++ < v20;
+        v23 += 48;
+        if (!--v22)
+        {
+          v38 = 0;
+          goto LABEL_183;
+        }
+      }
+
+      v38 = 5;
+LABEL_183:
+      v18 = v109;
+    }
+
+    else
+    {
+      v25 = 0;
+      v38 = 0;
+    }
+
+    if (v18 < 0)
+    {
+      operator delete(__s.__r_.__value_.__l.__data_);
+    }
+
+    if (v25)
+    {
+      v89 = 1;
+      goto LABEL_213;
+    }
+  }
+
+  if (this->__equivalences_.__begin_ == this->__equivalences_.__end_)
+  {
+    v89 = 0;
+    goto LABEL_215;
+  }
+
+  v90 = &__s;
+  std::regex_traits<char>::__transform_primary<char *>(&__s, &this->__traits_, &v113, &__src);
+  v91 = this->__equivalences_.__begin_;
+  v92 = HIBYTE(__s.__r_.__value_.__r.__words[2]);
+  v93 = this->__equivalences_.__end_ - v91;
+  if (v93)
+  {
+    v94 = 0xAAAAAAAAAAAAAAABLL * (v93 >> 3);
+    if ((__s.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      v95 = HIBYTE(__s.__r_.__value_.__r.__words[2]);
+    }
+
+    else
+    {
+      v95 = __s.__r_.__value_.__l.__size_;
+    }
+
+    if ((__s.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    {
+      v90 = __s.__r_.__value_.__r.__words[0];
+    }
+
+    if (v94 <= 1)
+    {
+      v96 = 1;
+    }
+
+    else
+    {
+      v96 = 0xAAAAAAAAAAAAAAABLL * (v93 >> 3);
+    }
+
+    v97 = 1;
+    v98 = 1;
+    while (1)
+    {
+      v99 = HIBYTE(v91->__r_.__value_.__r.__words[2]);
+      v100 = v99;
+      if ((v99 & 0x80u) != 0)
+      {
+        v99 = v91->__r_.__value_.__l.__size_;
+      }
+
+      if (v95 == v99)
+      {
+        v101 = v100 >= 0 ? v91 : v91->__r_.__value_.__r.__words[0];
+        if (!memcmp(v90, v101, v95))
+        {
+          break;
+        }
+      }
+
+      v98 = v97++ < v94;
+      ++v91;
+      if (!--v96)
+      {
+        goto LABEL_210;
+      }
+    }
+
+    v89 = 1;
+    v38 = 5;
+    if (v92 < 0)
+    {
+LABEL_211:
+      operator delete(__s.__r_.__value_.__l.__data_);
+    }
+  }
+
+  else
+  {
+    v98 = 0;
+LABEL_210:
+    v38 = 0;
+    v89 = 0;
+    if (v92 < 0)
+    {
+      goto LABEL_211;
+    }
+  }
+
+  if (!v98)
+  {
+LABEL_215:
+    if (v113 < 0)
+    {
+      neg_mask = this->__neg_mask_;
+    }
+
+    else
+    {
+      mask = this->__mask_;
+      tab = this->__traits_.__ct_->__tab_;
+      v104 = tab[v113];
+      if (((v104 & mask) != 0 || v113 == 95 && (mask & 0x80) != 0) && (SHIBYTE(v113) & 0x8000000000000000) == 0 && ((tab[SHIBYTE(v113)] & mask) != 0 || (mask & 0x80) != 0 && SHIBYTE(v113) == 95))
+      {
+        goto LABEL_233;
+      }
+
+      neg_mask = this->__neg_mask_;
+      if ((neg_mask & v104) != 0 || v113 == 95 && (neg_mask & 0x80) != 0)
+      {
+LABEL_232:
+        negate = v89;
+LABEL_234:
+        v9 = 2;
+        goto LABEL_89;
+      }
+    }
+
+    if ((SHIBYTE(v113) & 0x8000000000000000) == 0)
+    {
+      if ((this->__traits_.__ct_->__tab_[SHIBYTE(v113)] & neg_mask) == 0)
+      {
+        negate = 1;
+        if (SHIBYTE(v113) != 95 || (neg_mask & 0x80) == 0)
+        {
+          goto LABEL_234;
+        }
+      }
+
+      goto LABEL_232;
+    }
+
+LABEL_233:
+    negate = 1;
+    goto LABEL_234;
+  }
+
+LABEL_213:
+  v9 = 2;
+  negate = v89;
+  if (v38)
+  {
+    goto LABEL_89;
+  }
+
+LABEL_65:
+  v40 = *a2->__current_;
+  __src.__r_.__value_.__s.__data_[0] = *a2->__current_;
+  if (this->__icase_)
+  {
+    LODWORD(v40) = (this->__traits_.__ct_->do_tolower)(this->__traits_.__ct_, v40);
+    __src.__r_.__value_.__s.__data_[0] = v40;
+  }
+
+  v41 = this->__chars_.__begin_;
+  v42 = this->__chars_.__end_ - v41;
+  if (v42)
+  {
+    if (v42 <= 1)
+    {
+      v42 = 1;
+    }
+
+    do
+    {
+      v43 = *v41++;
+      if (v43 == v40)
+      {
+        goto LABEL_88;
+      }
+    }
+
+    while (--v42);
+  }
+
+  v44 = this->__neg_mask_;
+  if (v44 || this->__neg_chars_.__begin_ != this->__neg_chars_.__end_)
+  {
+    if ((v40 & 0x80000000) != 0 || (this->__traits_.__ct_->__tab_[v40] & v44) == 0)
+    {
+      v46 = (v44 >> 7) & 1;
+      v45 = v40 == 95 ? v46 : 0;
+    }
+
+    else
+    {
+      v45 = 1;
+    }
+
+    end = this->__neg_chars_.__end_;
+    v48 = memchr(this->__neg_chars_.__begin_, v40, end - this->__neg_chars_.__begin_);
+    v49 = !v48 || v48 == end;
+    v50 = !v49;
+    if ((v45 & 1) == 0 && !v50)
+    {
+LABEL_88:
+      negate = 1;
+      goto LABEL_89;
+    }
+  }
+
+  v53 = this->__ranges_.__begin_;
+  v54 = this->__ranges_.__end_;
+  if (v53 != v54)
+  {
+    if (this->__collate_)
+    {
+      std::regex_traits<char>::transform<char *>(&__s, &this->__traits_, &__src, &__src.__r_.__value_.__s.__data_[1]);
+      v53 = this->__ranges_.__begin_;
+      v54 = this->__ranges_.__end_;
+      v55 = HIBYTE(__s.__r_.__value_.__r.__words[2]);
+    }
+
+    else
+    {
+      v55 = 1;
+      *(&__s.__r_.__value_.__s + 23) = 1;
+      LOWORD(__s.__r_.__value_.__l.__data_) = v40;
+    }
+
+    v56 = v54 - v53;
+    if (v56)
+    {
+      v110 = v9;
+      v106 = negate;
+      v107 = v55;
+      v57 = 0xAAAAAAAAAAAAAAABLL * (v56 >> 4);
+      if ((v55 & 0x80u) == 0)
+      {
+        v58 = v55;
+      }
+
+      else
+      {
+        v58 = __s.__r_.__value_.__l.__size_;
+      }
+
+      if ((v55 & 0x80u) == 0)
+      {
+        v59 = &__s;
+      }
+
+      else
+      {
+        v59 = __s.__r_.__value_.__r.__words[0];
+      }
+
+      if (v57 <= 1)
+      {
+        v60 = 1;
+      }
+
+      else
+      {
+        v60 = 0xAAAAAAAAAAAAAAABLL * (v56 >> 4);
+      }
+
+      v61 = &v53->second.__r_.__value_.__r.__words[2] + 7;
+      v62 = 1;
+      v63 = 1;
+      while (1)
+      {
+        v64 = *(v61 - 24);
+        if (v64 >= 0)
+        {
+          v65 = *(v61 - 24);
+        }
+
+        else
+        {
+          v65 = *(v61 - 39);
+        }
+
+        if (v64 >= 0)
+        {
+          v66 = (v61 - 47);
+        }
+
+        else
+        {
+          v66 = *(v61 - 47);
+        }
+
+        if (v65 >= v58)
+        {
+          v67 = v58;
+        }
+
+        else
+        {
+          v67 = v65;
+        }
+
+        v68 = memcmp(v59, v66, v67);
+        v69 = v58 >= v65;
+        if (v68)
+        {
+          v69 = v68 >= 0;
+        }
+
+        if (v69)
+        {
+          v70 = *v61;
+          if (v70 >= 0)
+          {
+            v71 = *v61;
+          }
+
+          else
+          {
+            v71 = *(v61 - 15);
+          }
+
+          if (v70 >= 0)
+          {
+            v72 = (v61 - 23);
+          }
+
+          else
+          {
+            v72 = *(v61 - 23);
+          }
+
+          if (v58 >= v71)
+          {
+            v73 = v71;
+          }
+
+          else
+          {
+            v73 = v58;
+          }
+
+          v74 = memcmp(v72, v59, v73);
+          v75 = v71 >= v58;
+          if (v74)
+          {
+            v75 = v74 >= 0;
+          }
+
+          if (v75)
+          {
+            break;
+          }
+        }
+
+        v63 = v62++ < v57;
+        v61 += 48;
+        if (!--v60)
+        {
+          negate = v106;
+          goto LABEL_144;
+        }
+      }
+
+      negate = 1;
+LABEL_144:
+      v9 = v110;
+      if ((v107 & 0x80) == 0)
+      {
+LABEL_146:
+        if (v63)
+        {
+          goto LABEL_89;
+        }
+
+        goto LABEL_147;
+      }
+    }
+
+    else
+    {
+      v63 = 0;
+      if ((v55 & 0x80) == 0)
+      {
+        goto LABEL_146;
+      }
+    }
+
+    operator delete(__s.__r_.__value_.__l.__data_);
+    goto LABEL_146;
+  }
+
+LABEL_147:
+  if (this->__equivalences_.__begin_ == this->__equivalences_.__end_)
+  {
+    goto LABEL_173;
+  }
+
+  v76 = &__s;
+  std::regex_traits<char>::__transform_primary<char *>(&__s, &this->__traits_, &__src, &__src.__r_.__value_.__s.__data_[1]);
+  v77 = this->__equivalences_.__begin_;
+  v78 = this->__equivalences_.__end_ - v77;
+  if (!v78)
+  {
+    v83 = 0;
+    if ((*(&__s.__r_.__value_.__s + 23) & 0x80) == 0)
+    {
+      goto LABEL_172;
+    }
+
+    goto LABEL_171;
+  }
+
+  v108 = HIBYTE(__s.__r_.__value_.__r.__words[2]);
+  v111 = v9;
+  v79 = 0xAAAAAAAAAAAAAAABLL * (v78 >> 3);
+  if ((__s.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v80 = HIBYTE(__s.__r_.__value_.__r.__words[2]);
+  }
+
+  else
+  {
+    v80 = __s.__r_.__value_.__l.__size_;
+  }
+
+  if ((__s.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+  {
+    v76 = __s.__r_.__value_.__r.__words[0];
+  }
+
+  if (v79 <= 1)
+  {
+    v81 = 1;
+  }
+
+  else
+  {
+    v81 = 0xAAAAAAAAAAAAAAABLL * (v78 >> 3);
+  }
+
+  v82 = 1;
+  v83 = 1;
+  while (1)
+  {
+    v84 = HIBYTE(v77->__r_.__value_.__r.__words[2]);
+    v85 = v84;
+    if ((v84 & 0x80u) != 0)
+    {
+      v84 = v77->__r_.__value_.__l.__size_;
+    }
+
+    if (v80 == v84)
+    {
+      v86 = v85 >= 0 ? v77 : v77->__r_.__value_.__r.__words[0];
+      if (!memcmp(v76, v86, v80))
+      {
+        break;
+      }
+    }
+
+    v83 = v82++ < v79;
+    ++v77;
+    if (!--v81)
+    {
+      goto LABEL_170;
+    }
+  }
+
+  negate = 1;
+LABEL_170:
+  v9 = v111;
+  if (v108 < 0)
+  {
+LABEL_171:
+    operator delete(__s.__r_.__value_.__l.__data_);
+  }
+
+LABEL_172:
+  if (v83)
+  {
+    goto LABEL_89;
+  }
+
+LABEL_173:
+  v87 = this->__mask_;
+  if ((__src.__r_.__value_.__s.__data_[0] & 0x8000000000000000) == 0 && (this->__traits_.__ct_->__tab_[__src.__r_.__value_.__s.__data_[0]] & v87) != 0)
+  {
+    goto LABEL_88;
+  }
+
+  v88 = (v87 >> 7) & 1;
+  if (__src.__r_.__value_.__s.__data_[0] != 95)
+  {
+    LOBYTE(v88) = 0;
+  }
+
+  negate |= v88;
+LABEL_89:
+  if (this->__negate_ == (negate & 1))
+  {
+    first = 0;
+    v52 = -993;
+  }
+
+  else
+  {
+    a2->__current_ += v9;
+    first = this->__first_;
+    v52 = -995;
+  }
+
+  a2->__do_ = v52;
+  a2->__node_ = first;
+}
+
+void sub_274DFF090(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28)
+{
+  if (a18 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (a28 < 0)
+  {
+    operator delete(a23);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+std::locale *std::__bracket_expression<char,std::regex_traits<char>>::~__bracket_expression(std::locale *a1)
+{
+  v7 = a1 + 17;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v7);
+  locale = a1[14].__locale_;
+  if (locale)
+  {
+    a1[15].__locale_ = locale;
+    operator delete(locale);
+  }
+
+  v7 = a1 + 11;
+  std::vector<std::pair<std::string,std::string>>::__destroy_vector::operator()[abi:ne200100](&v7);
+  v3 = a1[8].__locale_;
+  if (v3)
+  {
+    a1[9].__locale_ = v3;
+    operator delete(v3);
+  }
+
+  v4 = a1[5].__locale_;
+  if (v4)
+  {
+    a1[6].__locale_ = v4;
+    operator delete(v4);
+  }
+
+  std::locale::~locale(a1 + 2);
+  v5 = a1[1].__locale_;
+  if (v5)
+  {
+    (*(*v5 + 8))(v5);
+  }
+
+  return a1;
+}
+
+void std::regex_traits<char>::transform<char *>(int a1, uint64_t a2, _BYTE *__src, _BYTE *a4)
+{
+  std::string::__init_with_size[abi:ne200100]<char *,char *>(__p, __src, a4, a4 - __src);
+  v5 = v8;
+  if ((v8 & 0x80u) == 0)
+  {
+    v6 = __p;
+  }
+
+  else
+  {
+    v6 = __p[0];
+  }
+
+  if ((v8 & 0x80u) != 0)
+  {
+    v5 = __p[1];
+  }
+
+  (*(**(a2 + 16) + 32))(*(a2 + 16), v6, v6 + v5);
+  if (v8 < 0)
+  {
+    operator delete(__p[0]);
+  }
 }

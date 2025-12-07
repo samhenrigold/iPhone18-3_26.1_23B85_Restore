@@ -67,9 +67,9 @@ LABEL_5:
     [XBApplicationSnapshotImageGenerator initWithScheduler:snapshot:dataProvider:imageDataRequest:loggingPrefix:imageGenerationHandler:imageDataGenerationHandler:];
   }
 
-  v36.receiver = self;
-  v36.super_class = XBApplicationSnapshotImageGenerator;
-  v23 = [(XBApplicationSnapshotImageGenerator *)&v36 init];
+  v37.receiver = self;
+  v37.super_class = XBApplicationSnapshotImageGenerator;
+  v23 = [(XBApplicationSnapshotImageGenerator *)&v37 init];
   v24 = v23;
   if (v23)
   {
@@ -88,34 +88,38 @@ LABEL_5:
       v24->_dataProviderFetchType = 1;
     }
 
-    else if (objc_opt_respondsToSelector())
+    else
     {
-      v24->_dataProviderFetchType = 2;
-      v25 = XBLogCapture();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      v25 = objc_opt_respondsToSelector();
+      if (v25)
       {
-        [XBApplicationSnapshotImageGenerator initWithScheduler:snapshot:dataProvider:imageDataRequest:loggingPrefix:imageGenerationHandler:imageDataGenerationHandler:];
+        v24->_dataProviderFetchType = 2;
+        v26 = XBLogCapture(v25);
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+        {
+          [XBApplicationSnapshotImageGenerator initWithScheduler:v24 snapshot:providerCopy dataProvider:? imageDataRequest:? loggingPrefix:? imageGenerationHandler:? imageDataGenerationHandler:?];
+        }
+      }
+
+      else
+      {
+        currentHandler = [MEMORY[0x277CCA890] currentHandler];
+        [currentHandler handleFailureInMethod:a2 object:v24 file:@"XBApplicationSnapshotImageGenerator.m" lineNumber:93 description:{@"%@ XBSnapshotDataProvider %@ doesn't implement fetch* method", v24->_loggingPrefix, providerCopy}];
       }
     }
 
-    else
-    {
-      currentHandler = [MEMORY[0x277CCA890] currentHandler];
-      [currentHandler handleFailureInMethod:a2 object:v24 file:@"XBApplicationSnapshotImageGenerator.m" lineNumber:93 description:{@"%@ XBSnapshotDataProvider %@ doesn't implement fetch* method", v24->_loggingPrefix, providerCopy}];
-    }
-
     v24->_imageDataRequest = request;
-    v27 = [handlerCopy copy];
+    v28 = [handlerCopy copy];
     didGenerateImageHandler = v24->_didGenerateImageHandler;
-    v24->_didGenerateImageHandler = v27;
+    v24->_didGenerateImageHandler = v28;
 
-    v29 = [generationHandlerCopy copy];
+    v30 = [generationHandlerCopy copy];
     didGenerateImageDataHandler = v24->_didGenerateImageDataHandler;
-    v24->_didGenerateImageDataHandler = v29;
+    v24->_didGenerateImageDataHandler = v30;
 
-    v31 = [prefixCopy copy];
+    v32 = [prefixCopy copy];
     loggingPrefix = v24->_loggingPrefix;
-    v24->_loggingPrefix = v31;
+    v24->_loggingPrefix = v32;
   }
 
   return v24;
@@ -123,79 +127,7 @@ LABEL_5:
 
 - (void)scheduleGeneration
 {
-  v22 = *MEMORY[0x277D85DE8];
-  state.opaque[0] = 0;
-  state.opaque[1] = 0;
-  v3 = _os_activity_create(&dword_26B5EF000, "XBCapture", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_IF_NONE_PRESENT);
-  os_activity_scope_enter(v3, &state);
-
-  WeakRetained = objc_loadWeakRetained(&self->_weak_snapshot);
-  v16 = 0;
-  v5 = [(XBApplicationSnapshotImageGenerator *)self _shouldGenerateForSnapshot:WeakRetained reason:&v16];
-  v6 = v16;
-  if (v5)
-  {
-    v7 = XBLogCapture();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
-    {
-      loggingPrefix = self->_loggingPrefix;
-      *buf = 138543618;
-      v19 = loggingPrefix;
-      v20 = 2114;
-      v21 = v6;
-      _os_log_impl(&dword_26B5EF000, v7, OS_LOG_TYPE_INFO, "[%{public}@] scheduling asynchronous request to generate image because: %{public}@", buf, 0x16u);
-    }
-
-    scheduler = self->_scheduler;
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __57__XBApplicationSnapshotImageGenerator_scheduleGeneration__block_invoke_29;
-    v13[3] = &unk_279CF9280;
-    v13[4] = self;
-    [(XBApplicationSnapshotImageGenerationScheduling *)scheduler performImageGenerationAsync:v13];
-  }
-
-  else
-  {
-    v10 = XBLogCapture();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
-    {
-      v11 = self->_loggingPrefix;
-      *buf = 138543618;
-      v19 = v11;
-      v20 = 2114;
-      v21 = v6;
-      _os_log_impl(&dword_26B5EF000, v10, OS_LOG_TYPE_INFO, "[%{public}@] ignoring asynchronous request to generate image because: %{public}@", buf, 0x16u);
-    }
-
-    if (self->_didGenerateImageHandler)
-    {
-      v12 = self->_scheduler;
-      v15[0] = MEMORY[0x277D85DD0];
-      v15[1] = 3221225472;
-      v15[2] = __57__XBApplicationSnapshotImageGenerator_scheduleGeneration__block_invoke;
-      v15[3] = &unk_279CF9280;
-      v15[4] = self;
-      [(XBApplicationSnapshotImageGenerationScheduling *)v12 performImageGenerationAsync:v15];
-    }
-
-    if (self->_didGenerateImageDataHandler)
-    {
-      v14[0] = MEMORY[0x277D85DD0];
-      v14[1] = 3221225472;
-      v14[2] = __57__XBApplicationSnapshotImageGenerator_scheduleGeneration__block_invoke_2;
-      v14[3] = &unk_279CF9280;
-      v14[4] = self;
-      [(XBApplicationSnapshotImageGenerator *)self _performImageDataGeneration:0 withHandler:v14];
-    }
-  }
-
-  os_activity_scope_leave(&state);
-}
-
-- (void)generate
-{
-  v25 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   v3 = _os_activity_create(&dword_26B5EF000, "XBCapture", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_IF_NONE_PRESENT);
@@ -205,63 +137,137 @@ LABEL_5:
   v17 = 0;
   v5 = [(XBApplicationSnapshotImageGenerator *)self _shouldGenerateForSnapshot:WeakRetained reason:&v17];
   v6 = v17;
+  v7 = v6;
   if (v5)
   {
-    v7 = XBLogCapture();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = XBLogCapture(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       loggingPrefix = self->_loggingPrefix;
-      logIdentifier = [WeakRetained logIdentifier];
-      *buf = 138543874;
+      *buf = 138543618;
       v20 = loggingPrefix;
       v21 = 2114;
-      v22 = logIdentifier;
-      v23 = 2114;
-      v24 = v6;
-      _os_log_error_impl(&dword_26B5EF000, v7, OS_LOG_TYPE_ERROR, "[%{public}@] CALLED IMAGE GENERATOR FOR %{public}@. This should be considered a last resort, and will likely result in significant blocking of the calling thread! reason: %{public}@", buf, 0x20u);
+      v22 = v7;
+      _os_log_impl(&dword_26B5EF000, v8, OS_LOG_TYPE_INFO, "[%{public}@] scheduling asynchronous request to generate image because: %{public}@", buf, 0x16u);
     }
 
     scheduler = self->_scheduler;
     v14[0] = MEMORY[0x277D85DD0];
     v14[1] = 3221225472;
-    v14[2] = __47__XBApplicationSnapshotImageGenerator_generate__block_invoke_30;
+    v14[2] = __57__XBApplicationSnapshotImageGenerator_scheduleGeneration__block_invoke_29;
     v14[3] = &unk_279CF9280;
     v14[4] = self;
-    [(XBApplicationSnapshotImageGenerationScheduling *)scheduler performImageGenerationAsyncAndWait:v14];
+    [(XBApplicationSnapshotImageGenerationScheduling *)scheduler performImageGenerationAsync:v14];
   }
 
   else
   {
-    v9 = XBLogCapture();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v11 = XBLogCapture(v6);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      v10 = self->_loggingPrefix;
+      v12 = self->_loggingPrefix;
       *buf = 138543618;
-      v20 = v10;
+      v20 = v12;
       v21 = 2114;
-      v22 = v6;
-      _os_log_impl(&dword_26B5EF000, v9, OS_LOG_TYPE_INFO, "[%{public}@] ignoring synchronous request to generate image because: %{public}@", buf, 0x16u);
+      v22 = v7;
+      _os_log_impl(&dword_26B5EF000, v11, OS_LOG_TYPE_INFO, "[%{public}@] ignoring asynchronous request to generate image because: %{public}@", buf, 0x16u);
     }
 
     if (self->_didGenerateImageHandler)
     {
-      v11 = self->_scheduler;
+      v13 = self->_scheduler;
       v16[0] = MEMORY[0x277D85DD0];
       v16[1] = 3221225472;
-      v16[2] = __47__XBApplicationSnapshotImageGenerator_generate__block_invoke;
+      v16[2] = __57__XBApplicationSnapshotImageGenerator_scheduleGeneration__block_invoke;
       v16[3] = &unk_279CF9280;
       v16[4] = self;
-      [(XBApplicationSnapshotImageGenerationScheduling *)v11 performImageGenerationAsyncAndWait:v16];
+      [(XBApplicationSnapshotImageGenerationScheduling *)v13 performImageGenerationAsync:v16];
     }
 
     if (self->_didGenerateImageDataHandler)
     {
       v15[0] = MEMORY[0x277D85DD0];
       v15[1] = 3221225472;
-      v15[2] = __47__XBApplicationSnapshotImageGenerator_generate__block_invoke_2;
+      v15[2] = __57__XBApplicationSnapshotImageGenerator_scheduleGeneration__block_invoke_2;
       v15[3] = &unk_279CF9280;
       v15[4] = self;
       [(XBApplicationSnapshotImageGenerator *)self _performImageDataGeneration:0 withHandler:v15];
+    }
+  }
+
+  os_activity_scope_leave(&state);
+}
+
+- (void)generate
+{
+  v26 = *MEMORY[0x277D85DE8];
+  state.opaque[0] = 0;
+  state.opaque[1] = 0;
+  v3 = _os_activity_create(&dword_26B5EF000, "XBCapture", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_IF_NONE_PRESENT);
+  os_activity_scope_enter(v3, &state);
+
+  WeakRetained = objc_loadWeakRetained(&self->_weak_snapshot);
+  v18 = 0;
+  v5 = [(XBApplicationSnapshotImageGenerator *)self _shouldGenerateForSnapshot:WeakRetained reason:&v18];
+  v6 = v18;
+  v7 = v6;
+  if (v5)
+  {
+    v8 = XBLogCapture(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    {
+      loggingPrefix = self->_loggingPrefix;
+      logIdentifier = [WeakRetained logIdentifier];
+      *buf = 138543874;
+      v21 = loggingPrefix;
+      v22 = 2114;
+      v23 = logIdentifier;
+      v24 = 2114;
+      v25 = v7;
+      _os_log_error_impl(&dword_26B5EF000, v8, OS_LOG_TYPE_ERROR, "[%{public}@] CALLED IMAGE GENERATOR FOR %{public}@. This should be considered a last resort, and will likely result in significant blocking of the calling thread! reason: %{public}@", buf, 0x20u);
+    }
+
+    scheduler = self->_scheduler;
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __47__XBApplicationSnapshotImageGenerator_generate__block_invoke_30;
+    v15[3] = &unk_279CF9280;
+    v15[4] = self;
+    [(XBApplicationSnapshotImageGenerationScheduling *)scheduler performImageGenerationAsyncAndWait:v15];
+  }
+
+  else
+  {
+    v10 = XBLogCapture(v6);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    {
+      v11 = self->_loggingPrefix;
+      *buf = 138543618;
+      v21 = v11;
+      v22 = 2114;
+      v23 = v7;
+      _os_log_impl(&dword_26B5EF000, v10, OS_LOG_TYPE_INFO, "[%{public}@] ignoring synchronous request to generate image because: %{public}@", buf, 0x16u);
+    }
+
+    if (self->_didGenerateImageHandler)
+    {
+      v12 = self->_scheduler;
+      v17[0] = MEMORY[0x277D85DD0];
+      v17[1] = 3221225472;
+      v17[2] = __47__XBApplicationSnapshotImageGenerator_generate__block_invoke;
+      v17[3] = &unk_279CF9280;
+      v17[4] = self;
+      [(XBApplicationSnapshotImageGenerationScheduling *)v12 performImageGenerationAsyncAndWait:v17];
+    }
+
+    if (self->_didGenerateImageDataHandler)
+    {
+      v16[0] = MEMORY[0x277D85DD0];
+      v16[1] = 3221225472;
+      v16[2] = __47__XBApplicationSnapshotImageGenerator_generate__block_invoke_2;
+      v16[3] = &unk_279CF9280;
+      v16[4] = self;
+      [(XBApplicationSnapshotImageGenerator *)self _performImageDataGeneration:0 withHandler:v16];
     }
   }
 
@@ -457,7 +463,7 @@ LABEL_9:
   }
 
 LABEL_11:
-  v18 = XBLogCapture();
+  v18 = XBLogCapture(fetchImage);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
   {
     loggingPrefix = self->_loggingPrefix;
@@ -473,85 +479,85 @@ LABEL_14:
 
 void __103__XBApplicationSnapshotImageGenerator__generate_imageFromNewDataProvider_forSnapshot_imageDataHandler___block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
-  v2 = XBLogCapture();
+  v30 = *MEMORY[0x277D85DE8];
+  v2 = XBLogCapture(a1);
   *(*(*(a1 + 56) + 8) + 24) = os_signpost_id_make_with_pointer(v2, *(a1 + 32));
 
-  v3 = XBLogCapture();
-  v4 = v3;
-  v5 = *(*(*(a1 + 56) + 8) + 24);
-  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v3))
+  v4 = XBLogCapture(v3);
+  v5 = v4;
+  v6 = *(*(*(a1 + 56) + 8) + 24);
+  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
-    v6 = objc_opt_class();
-    v7 = NSStringFromClass(v6);
-    v8 = v7;
-    v9 = *(*(a1 + 40) + 64);
-    v10 = "XBImageDataGenerationRequestNone";
-    if (v9 == 1)
+    v7 = objc_opt_class();
+    v8 = NSStringFromClass(v7);
+    v9 = v8;
+    v10 = *(*(a1 + 40) + 64);
+    v11 = "XBImageDataGenerationRequestNone";
+    if (v10 == 1)
     {
-      v10 = "XBImageDataGenerationRequestSynchronous";
+      v11 = "XBImageDataGenerationRequestSynchronous";
     }
 
-    if (v9 == 2)
+    if (v10 == 2)
     {
-      v11 = "XBImageDataGenerationRequestAsynchronous";
+      v12 = "XBImageDataGenerationRequestAsynchronous";
     }
 
     else
     {
-      v11 = v10;
+      v12 = v11;
     }
 
-    v23 = 138543618;
-    v24 = v7;
-    v25 = 2082;
-    v26 = v11;
-    _os_signpost_emit_with_name_impl(&dword_26B5EF000, v4, OS_SIGNPOST_INTERVAL_BEGIN, v5, "GenerateImageData", "dataProvider=%{public}@ imageDataRequest=%{public}s", &v23, 0x16u);
+    v26 = 138543618;
+    v27 = v8;
+    v28 = 2082;
+    v29 = v12;
+    _os_signpost_emit_with_name_impl(&dword_26B5EF000, v5, OS_SIGNPOST_INTERVAL_BEGIN, v6, "GenerateImageData", "dataProvider=%{public}@ imageDataRequest=%{public}s", &v26, 0x16u);
   }
 
-  v12 = XBLogCapture();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v14 = XBLogCapture(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
-    __103__XBApplicationSnapshotImageGenerator__generate_imageFromNewDataProvider_forSnapshot_imageDataHandler___block_invoke_cold_1(a1, a1 + 32, v12);
+    __103__XBApplicationSnapshotImageGenerator__generate_imageFromNewDataProvider_forSnapshot_imageDataHandler___block_invoke_cold_1(a1, (a1 + 32), v14);
   }
 
   if (*(a1 + 48))
   {
     if (*(a1 + 80) == 1)
     {
-      v13 = XBLogCapture();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+      v16 = XBLogCapture(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
       {
-        v14 = *(*(a1 + 40) + 48);
-        v15 = objc_opt_class();
-        v16 = NSStringFromClass(v15);
-        v23 = 138543618;
-        v24 = v14;
-        v25 = 2114;
-        v26 = v16;
-        _os_log_impl(&dword_26B5EF000, v13, OS_LOG_TYPE_INFO, "[%{public}@] [%{public}@<XBSnapshotDataProvider> hasProtectedContent] is YES. skipping imageData generation", &v23, 0x16u);
+        v17 = *(*(a1 + 40) + 48);
+        v18 = objc_opt_class();
+        v19 = NSStringFromClass(v18);
+        v26 = 138543618;
+        v27 = v17;
+        v28 = 2114;
+        v29 = v19;
+        _os_log_impl(&dword_26B5EF000, v16, OS_LOG_TYPE_INFO, "[%{public}@] [%{public}@<XBSnapshotDataProvider> hasProtectedContent] is YES. skipping imageData generation", &v26, 0x16u);
       }
     }
 
     else if (*(*(a1 + 40) + 64))
     {
-      v17 = [XBApplicationSnapshot dataForImage:"dataForImage:withFormat:" withFormat:?];
-      v18 = *(*(a1 + 64) + 8);
-      v19 = *(v18 + 40);
-      *(v18 + 40) = v17;
+      v20 = [XBApplicationSnapshot dataForImage:"dataForImage:withFormat:" withFormat:?];
+      v21 = *(*(a1 + 64) + 8);
+      v22 = *(v21 + 40);
+      *(v21 + 40) = v20;
 
-      v20 = [*(*(*(a1 + 64) + 8) + 40) length];
-      v21 = XBLogCapture();
-      v13 = v21;
-      if (v20)
+      v23 = [*(*(*(a1 + 64) + 8) + 40) length];
+      v24 = XBLogCapture(v23);
+      v16 = v24;
+      if (v23)
       {
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
         {
           __103__XBApplicationSnapshotImageGenerator__generate_imageFromNewDataProvider_forSnapshot_imageDataHandler___block_invoke_cold_2();
         }
       }
 
-      else if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      else if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         __103__XBApplicationSnapshotImageGenerator__generate_imageFromNewDataProvider_forSnapshot_imageDataHandler___block_invoke_cold_3();
       }
@@ -559,23 +565,23 @@ void __103__XBApplicationSnapshotImageGenerator__generate_imageFromNewDataProvid
 
     else
     {
-      v13 = XBLogCapture();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+      v16 = XBLogCapture(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
       {
-        v22 = *(*(a1 + 40) + 48);
-        v23 = 138543362;
-        v24 = v22;
-        _os_log_impl(&dword_26B5EF000, v13, OS_LOG_TYPE_INFO, "[%{public}@] was not asked for imageData. skipping imageData generation", &v23, 0xCu);
+        v25 = *(*(a1 + 40) + 48);
+        v26 = 138543362;
+        v27 = v25;
+        _os_log_impl(&dword_26B5EF000, v16, OS_LOG_TYPE_INFO, "[%{public}@] was not asked for imageData. skipping imageData generation", &v26, 0xCu);
       }
     }
   }
 
   else
   {
-    v13 = XBLogCapture();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v16 = XBLogCapture(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      __103__XBApplicationSnapshotImageGenerator__generate_imageFromNewDataProvider_forSnapshot_imageDataHandler___block_invoke_cold_4();
+      __103__XBApplicationSnapshotImageGenerator__generate_imageFromNewDataProvider_forSnapshot_imageDataHandler___block_invoke_cold_4(a1, (a1 + 32));
     }
   }
 }
@@ -593,89 +599,89 @@ void __103__XBApplicationSnapshotImageGenerator__generate_imageFromNewDataProvid
     v3 = 0;
   }
 
-  (*(v2 + 16))(v2, v3, a1[4] != 0);
-  v4 = XBLogCapture();
-  v5 = v4;
-  v6 = *(*(a1[7] + 8) + 24);
-  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
+  v4 = (*(v2 + 16))(v2, v3, a1[4] != 0);
+  v5 = XBLogCapture(v4);
+  v6 = v5;
+  v7 = *(*(a1[7] + 8) + 24);
+  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
   {
-    *v7 = 0;
-    _os_signpost_emit_with_name_impl(&dword_26B5EF000, v5, OS_SIGNPOST_INTERVAL_END, v6, "GenerateImageData", "", v7, 2u);
+    *v8 = 0;
+    _os_signpost_emit_with_name_impl(&dword_26B5EF000, v6, OS_SIGNPOST_INTERVAL_END, v7, "GenerateImageData", "", v8, 2u);
   }
 }
 
 - (id)_generate_imageFromLegacyDataProvider:(id)provider forSnapshot:(id)snapshot imageDataHandler:(id)handler
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   providerCopy = provider;
   handlerCopy = handler;
-  v9 = XBLogCapture();
+  v9 = XBLogCapture(handlerCopy);
   v10 = os_signpost_id_make_with_pointer(v9, providerCopy);
 
-  v11 = XBLogCapture();
-  v12 = v11;
-  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
+  v12 = XBLogCapture(v11);
+  v13 = v12;
+  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
-    v13 = objc_opt_class();
-    v14 = NSStringFromClass(v13);
+    v14 = objc_opt_class();
+    v15 = NSStringFromClass(v14);
     *buf = 138543362;
-    *&buf[4] = v14;
-    _os_signpost_emit_with_name_impl(&dword_26B5EF000, v12, OS_SIGNPOST_INTERVAL_BEGIN, v10, "GenerateImageDataLegacy", "dataProvider=%{public}@", buf, 0xCu);
+    *&buf[4] = v15;
+    _os_signpost_emit_with_name_impl(&dword_26B5EF000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v10, "GenerateImageDataLegacy", "dataProvider=%{public}@", buf, 0xCu);
   }
 
-  v15 = *(MEMORY[0x277CBF2C0] + 16);
+  v16 = *(MEMORY[0x277CBF2C0] + 16);
   *buf = *MEMORY[0x277CBF2C0];
-  v29 = v15;
-  v30 = *(MEMORY[0x277CBF2C0] + 32);
-  v16 = [providerCopy fetchImageData:buf];
-  if ([v16 length])
+  v31 = v16;
+  v32 = *(MEMORY[0x277CBF2C0] + 32);
+  v17 = [providerCopy fetchImageData:buf];
+  if ([v17 length])
   {
-    v17 = objc_alloc(MEMORY[0x277D755B8]);
+    v18 = objc_alloc(MEMORY[0x277D755B8]);
     context = [providerCopy context];
     [context scale];
-    v19 = [v17 initWithData:v16 scale:?];
+    v20 = [v18 initWithData:v17 scale:?];
 
-    if (v19)
+    if (v20)
     {
       goto LABEL_12;
     }
 
-    v20 = XBLogCapture();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v22 = XBLogCapture(v21);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       [XBApplicationSnapshotImageGenerator _generate_imageFromLegacyDataProvider:forSnapshot:imageDataHandler:];
     }
 
-    v21 = v16;
-    v16 = 0;
+    v23 = v17;
+    v17 = 0;
   }
 
   else
   {
-    v21 = XBLogCapture();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v23 = XBLogCapture(0);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       [XBApplicationSnapshotImageGenerator _generate_imageFromLegacyDataProvider:forSnapshot:imageDataHandler:];
     }
   }
 
-  v19 = 0;
+  v20 = 0;
 LABEL_12:
   if (handlerCopy)
   {
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __106__XBApplicationSnapshotImageGenerator__generate_imageFromLegacyDataProvider_forSnapshot_imageDataHandler___block_invoke;
-    v23[3] = &unk_279CF95D0;
-    v26 = handlerCopy;
-    v23[4] = self;
-    v24 = v16;
-    v25 = v19;
-    v27 = v10;
-    [(XBApplicationSnapshotImageGenerator *)self _performImageDataGeneration:0 withHandler:v23];
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __106__XBApplicationSnapshotImageGenerator__generate_imageFromLegacyDataProvider_forSnapshot_imageDataHandler___block_invoke;
+    v25[3] = &unk_279CF95D0;
+    v28 = handlerCopy;
+    v25[4] = self;
+    v26 = v17;
+    v27 = v20;
+    v29 = v10;
+    [(XBApplicationSnapshotImageGenerator *)self _performImageDataGeneration:0 withHandler:v25];
   }
 
-  return v19;
+  return v20;
 }
 
 void __106__XBApplicationSnapshotImageGenerator__generate_imageFromLegacyDataProvider_forSnapshot_imageDataHandler___block_invoke(void *a1)
@@ -691,100 +697,101 @@ void __106__XBApplicationSnapshotImageGenerator__generate_imageFromLegacyDataPro
     v3 = 0;
   }
 
-  (*(v2 + 16))(v2, v3, a1[6] != 0);
-  v4 = XBLogCapture();
-  v5 = v4;
-  v6 = a1[8];
-  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
+  v4 = (*(v2 + 16))(v2, v3, a1[6] != 0);
+  v5 = XBLogCapture(v4);
+  v6 = v5;
+  v7 = a1[8];
+  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
   {
-    *v7 = 0;
-    _os_signpost_emit_with_name_impl(&dword_26B5EF000, v5, OS_SIGNPOST_INTERVAL_END, v6, "GenerateImageDataLegacy", "", v7, 2u);
+    *v8 = 0;
+    _os_signpost_emit_with_name_impl(&dword_26B5EF000, v6, OS_SIGNPOST_INTERVAL_END, v7, "GenerateImageDataLegacy", "", v8, 2u);
   }
 }
 
 - (void)_generate
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   os_unfair_lock_assert_not_owner(&self->_generate_lock);
   os_unfair_lock_lock(&self->_generate_lock);
   WeakRetained = objc_loadWeakRetained(&self->_weak_snapshot);
-  v38 = 0;
-  v4 = [(XBApplicationSnapshotImageGenerator *)self _generate_lock_shouldGenerateForSnapshot:WeakRetained reason:&v38];
-  v5 = v38;
+  v40 = 0;
+  v4 = [(XBApplicationSnapshotImageGenerator *)self _generate_lock_shouldGenerateForSnapshot:WeakRetained reason:&v40];
+  v5 = v40;
+  v6 = v5;
   if (v4)
   {
     context = objc_autoreleasePoolPush();
-    v6 = self->_dataProvider;
-    v7 = XBLogCapture();
-    v8 = os_signpost_id_make_with_pointer(v7, WeakRetained);
+    v7 = self->_dataProvider;
+    v8 = XBLogCapture(v7);
+    v9 = os_signpost_id_make_with_pointer(v8, WeakRetained);
 
-    v9 = XBLogCapture();
-    v10 = v9;
-    v11 = v8 - 1;
-    if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
+    v11 = XBLogCapture(v10);
+    v12 = v11;
+    v13 = v9 - 1;
+    if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
     {
-      v12 = objc_opt_class();
-      v13 = NSStringFromClass(v12);
+      v14 = objc_opt_class();
+      v15 = NSStringFromClass(v14);
       *buf = 138543362;
-      v40 = v13;
-      _os_signpost_emit_with_name_impl(&dword_26B5EF000, v10, OS_SIGNPOST_INTERVAL_BEGIN, v8, "GenerateImage", "dataProvider=%{public}@", buf, 0xCu);
+      v42 = v15;
+      _os_signpost_emit_with_name_impl(&dword_26B5EF000, v12, OS_SIGNPOST_INTERVAL_BEGIN, v9, "GenerateImage", "dataProvider=%{public}@", buf, 0xCu);
     }
 
-    spid = v8;
+    spid = v9;
 
     BSContinuousMachTimeNow();
-    v15 = v14;
-    v16 = os_transaction_create();
+    v17 = v16;
+    v18 = os_transaction_create();
     logIdentifier = [WeakRetained logIdentifier];
-    v18 = [XBApplicationSnapshotManifestImpl _outputFormatForSnapshot:WeakRetained];
+    v20 = [XBApplicationSnapshotManifestImpl _outputFormatForSnapshot:WeakRetained];
     if (self->_didGenerateImageDataHandler)
     {
-      v33[0] = MEMORY[0x277D85DD0];
-      v33[1] = 3221225472;
-      v33[2] = __48__XBApplicationSnapshotImageGenerator__generate__block_invoke_59;
-      v33[3] = &unk_279CF95F8;
-      v33[4] = self;
-      v35 = v18;
-      v34 = logIdentifier;
-      v36 = v15;
-      v19 = MEMORY[0x26D67C6A0](v33);
+      v35[0] = MEMORY[0x277D85DD0];
+      v35[1] = 3221225472;
+      v35[2] = __48__XBApplicationSnapshotImageGenerator__generate__block_invoke_59;
+      v35[3] = &unk_279CF95F8;
+      v35[4] = self;
+      v37 = v20;
+      v36 = logIdentifier;
+      v38 = v17;
+      v21 = MEMORY[0x26D67C6A0](v35);
     }
 
     else
     {
-      v19 = 0;
+      v21 = 0;
     }
 
     if (self->_dataProviderFetchType > 1uLL)
     {
-      [(XBApplicationSnapshotImageGenerator *)self _generate_imageFromLegacyDataProvider:v6 forSnapshot:WeakRetained imageDataHandler:v19, spid, context];
+      [(XBApplicationSnapshotImageGenerator *)self _generate_imageFromLegacyDataProvider:v7 forSnapshot:WeakRetained imageDataHandler:v21, spid, context];
     }
 
     else
     {
-      [(XBApplicationSnapshotImageGenerator *)self _generate_imageFromNewDataProvider:v6 forSnapshot:WeakRetained imageDataHandler:v19, spid, context];
+      [(XBApplicationSnapshotImageGenerator *)self _generate_imageFromNewDataProvider:v7 forSnapshot:WeakRetained imageDataHandler:v21, spid, context];
     }
-    v22 = ;
-    [WeakRetained _cacheImage:v22];
+    v24 = ;
+    [WeakRetained _cacheImage:v24];
     if (objc_opt_respondsToSelector())
     {
-      v23 = objc_autoreleasePoolPush();
-      [(XBSnapshotDataProvider *)v6 invalidateImage];
-      objc_autoreleasePoolPop(v23);
+      v25 = objc_autoreleasePoolPush();
+      [(XBSnapshotDataProvider *)v7 invalidateImage];
+      objc_autoreleasePoolPop(v25);
     }
 
     didGenerateImageHandler = self->_didGenerateImageHandler;
     if (didGenerateImageHandler)
     {
-      didGenerateImageHandler[2](didGenerateImageHandler, v22 != 0);
+      didGenerateImageHandler = didGenerateImageHandler[2](didGenerateImageHandler, v24 != 0);
     }
 
-    v25 = XBLogCapture();
-    v26 = v25;
-    if (v11 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v25))
+    v27 = XBLogCapture(didGenerateImageHandler);
+    v28 = v27;
+    if (v13 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v27))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_26B5EF000, v26, OS_SIGNPOST_INTERVAL_END, spida, "GenerateImage", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_26B5EF000, v28, OS_SIGNPOST_INTERVAL_END, spida, "GenerateImage", "", buf, 2u);
     }
 
     objc_autoreleasePoolPop(contexta);
@@ -792,34 +799,34 @@ void __106__XBApplicationSnapshotImageGenerator__generate_imageFromLegacyDataPro
 
   else
   {
-    v20 = XBLogCapture();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v22 = XBLogCapture(v5);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       loggingPrefix = self->_loggingPrefix;
       logIdentifier2 = [WeakRetained logIdentifier];
       *buf = 138543874;
-      v40 = loggingPrefix;
-      v41 = 2114;
-      v42 = v5;
+      v42 = loggingPrefix;
       v43 = 2114;
-      v44 = logIdentifier2;
-      _os_log_error_impl(&dword_26B5EF000, v20, OS_LOG_TYPE_ERROR, "[%{public}@] we needlessly scheduled _generate even though we have nothing to do because: %{public}@; Snapshot: %{public}@", buf, 0x20u);
+      v44 = v6;
+      v45 = 2114;
+      v46 = logIdentifier2;
+      _os_log_error_impl(&dword_26B5EF000, v22, OS_LOG_TYPE_ERROR, "[%{public}@] we needlessly scheduled _generate even though we have nothing to do because: %{public}@; Snapshot: %{public}@", buf, 0x20u);
     }
 
-    v21 = self->_didGenerateImageHandler;
-    if (v21)
+    v23 = self->_didGenerateImageHandler;
+    if (v23)
     {
-      v21[2](v21, 0);
+      v23[2](v23, 0);
     }
 
     if (self->_didGenerateImageDataHandler)
     {
-      v37[0] = MEMORY[0x277D85DD0];
-      v37[1] = 3221225472;
-      v37[2] = __48__XBApplicationSnapshotImageGenerator__generate__block_invoke;
-      v37[3] = &unk_279CF9280;
-      v37[4] = self;
-      [(XBApplicationSnapshotImageGenerator *)self _performImageDataGeneration:0 withHandler:v37];
+      v39[0] = MEMORY[0x277D85DD0];
+      v39[1] = 3221225472;
+      v39[2] = __48__XBApplicationSnapshotImageGenerator__generate__block_invoke;
+      v39[3] = &unk_279CF9280;
+      v39[4] = self;
+      [(XBApplicationSnapshotImageGenerator *)self _performImageDataGeneration:0 withHandler:v39];
     }
   }
 
@@ -829,31 +836,32 @@ void __106__XBApplicationSnapshotImageGenerator__generate_imageFromLegacyDataPro
 
 void __48__XBApplicationSnapshotImageGenerator__generate__block_invoke_59(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  if ([v3 length])
+  v4 = [v3 length];
+  if (v4)
   {
-    v4 = XBLogCapture();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    v5 = XBLogCapture(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v5 = *(*(a1 + 32) + 48);
+      v6 = *(*(a1 + 32) + 48);
       [v3 length];
-      v6 = NSLocalizedFileSizeDescription();
-      v7 = NSStringFromXBApplicationSnapshotOnDiskFormat(*(a1 + 48));
-      v8 = *(a1 + 40);
+      v7 = NSLocalizedFileSizeDescription();
+      v8 = NSStringFromXBApplicationSnapshotOnDiskFormat(*(a1 + 48));
+      v9 = *(a1 + 40);
       BSContinuousMachTimeNow();
-      v10 = v9 - *(a1 + 56);
-      v11 = 138544386;
-      v12 = v5;
-      v13 = 2114;
-      v14 = v6;
-      v15 = 2114;
-      v16 = v7;
-      v17 = 2114;
-      v18 = v8;
-      v19 = 2048;
-      v20 = v10;
-      _os_log_impl(&dword_26B5EF000, v4, OS_LOG_TYPE_INFO, "[%{public}@] Generated image data (%{public}@ as %{public}@) for %{public}@ after %.3fs", &v11, 0x34u);
+      v11 = v10 - *(a1 + 56);
+      v12 = 138544386;
+      v13 = v6;
+      v14 = 2114;
+      v15 = v7;
+      v16 = 2114;
+      v17 = v8;
+      v18 = 2114;
+      v19 = v9;
+      v20 = 2048;
+      v21 = v11;
+      _os_log_impl(&dword_26B5EF000, v5, OS_LOG_TYPE_INFO, "[%{public}@] Generated image data (%{public}@ as %{public}@) for %{public}@ after %.3fs", &v12, 0x34u);
     }
   }
 
@@ -900,17 +908,17 @@ void __48__XBApplicationSnapshotImageGenerator__generate__block_invoke_59(uint64
   [v0 handleFailureInMethod:@"[dataProvider context]" object:? file:? lineNumber:? description:?];
 }
 
-- (void)initWithScheduler:snapshot:dataProvider:imageDataRequest:loggingPrefix:imageGenerationHandler:imageDataGenerationHandler:.cold.6()
+- (void)initWithScheduler:(uint64_t)a1 snapshot:(uint64_t)a2 dataProvider:imageDataRequest:loggingPrefix:imageGenerationHandler:imageDataGenerationHandler:.cold.6(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v2 = objc_opt_class();
+  v3 = NSStringFromClass(v2);
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_5(&dword_26B5EF000, v2, v3, "[%{public}@] %{public}@ implementing deprecated fetchImageData:. rude. inconsiderate.", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_5(&dword_26B5EF000, v4, v5, "[%{public}@] %{public}@ implementing deprecated fetchImageData:. rude. inconsiderate.", v6, v7, v8, v9);
 }
 
-void __103__XBApplicationSnapshotImageGenerator__generate_imageFromNewDataProvider_forSnapshot_imageDataHandler___block_invoke_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
+void __103__XBApplicationSnapshotImageGenerator__generate_imageFromNewDataProvider_forSnapshot_imageDataHandler___block_invoke_cold_1(uint64_t a1, uint64_t *a2, NSObject *a3)
 {
-  v4 = OUTLINED_FUNCTION_6();
+  v4 = OUTLINED_FUNCTION_6(a1, a2);
   v5 = NSStringFromClass(v4);
   OUTLINED_FUNCTION_0_1();
   _os_log_debug_impl(&dword_26B5EF000, a3, OS_LOG_TYPE_DEBUG, "[%{public}@] [%{public}@<XBSnapshotDataProvider> fetchImage] doing imageData generation", v6, 0x16u);
@@ -923,12 +931,12 @@ void __103__XBApplicationSnapshotImageGenerator__generate_imageFromNewDataProvid
   _os_log_debug_impl(&dword_26B5EF000, v0, OS_LOG_TYPE_DEBUG, "[%{public}@] completed snapshot dataForImage", v1, 0xCu);
 }
 
-void __103__XBApplicationSnapshotImageGenerator__generate_imageFromNewDataProvider_forSnapshot_imageDataHandler___block_invoke_cold_4()
+void __103__XBApplicationSnapshotImageGenerator__generate_imageFromNewDataProvider_forSnapshot_imageDataHandler___block_invoke_cold_4(uint64_t a1, uint64_t *a2)
 {
-  v0 = OUTLINED_FUNCTION_6();
-  v1 = NSStringFromClass(v0);
+  v2 = OUTLINED_FUNCTION_6(a1, a2);
+  v3 = NSStringFromClass(v2);
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_5(&dword_26B5EF000, v2, v3, "[%{public}@] [%{public}@<XBSnapshotDataProvider> fetchImage] returned a nil image. skipping imageData generation", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_5(&dword_26B5EF000, v4, v5, "[%{public}@] [%{public}@<XBSnapshotDataProvider> fetchImage] returned a nil image. skipping imageData generation", v6, v7, v8, v9);
 }
 
 @end

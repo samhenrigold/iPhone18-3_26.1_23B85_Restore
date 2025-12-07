@@ -160,13 +160,6 @@ uint64_t OUTLINED_FUNCTION_1()
   return IOService::GetRegistryEntryID(v0, (v1 - 144), 0);
 }
 
-uint64_t *OUTLINED_FUNCTION_4@<X0>(uint64_t **a1@<X8>)
-{
-  result = *a1;
-  v2 = **a1;
-  return result;
-}
-
 BOOL XboxHIDDevice::init(IOService *this)
 {
   v2 = IOService::init(this);
@@ -2820,10 +2813,11 @@ uint64_t OUTLINED_FUNCTION_8()
   return IOUSBHostPipe::AsyncIO(v5, v6, v7, v2, 0, 0);
 }
 
-void OUTLINED_FUNCTION_9(void *a1, os_log_s *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_9(void *a1, os_log_s *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, a2, OS_LOG_TYPE_DEFAULT, a4, &a9, 0x16u);
+  _os_log_impl(a1, a2, OS_LOG_TYPE_DEFAULT, a4, va, 0x16u);
 }
 
 void OUTLINED_FUNCTION_10(void *a1, os_log_s *a2, uint64_t a3, const char *a4, uint8_t *a5)
@@ -3877,7 +3871,7 @@ void XboxHIDDevice::CompleteAsyncReceive_Impl(OSMetaClassBase *this, OSAction *a
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
     ClassName = OSMetaClassBase::GetClassName(this);
-    OUTLINED_FUNCTION_6(ClassName, v11, v12, v13, v14, v15, v16, v17, v47, v48, v49, v50, v51, v52, v53, v54, v55, v56, v57, _NSConcreteStackBlock, 0x40000000, ___ZN13XboxHIDDevice25CompleteAsyncReceive_ImplEP8OSActionijy_block_invoke, &__block_descriptor_tmp_113, this, *buf);
+    OUTLINED_FUNCTION_6(ClassName, v11, v12, v13, v14, v15, v16, v17, v44, v45, v46, v47, v48, v49, v50, v51, v52, v53, v54, _NSConcreteStackBlock, 0x40000000, ___ZN13XboxHIDDevice25CompleteAsyncReceive_ImplEP8OSActionijy_block_invoke, &__block_descriptor_tmp_113, this, *buf);
     v18 = *buf;
     *buf = 136315650;
     *&buf[4] = ClassName;
@@ -3885,19 +3879,18 @@ void XboxHIDDevice::CompleteAsyncReceive_Impl(OSMetaClassBase *this, OSAction *a
     OUTLINED_FUNCTION_10(&_mh_execute_header, &_os_log_default, v19, "[%s 0x%llx] ::CompleteAsyncReceive(%x)\n", buf);
   }
 
-  Reference = OSAction::GetReference(a2);
-  Reference[16] = 0;
+  *(OSAction::GetReference(a2) + 16) = 0;
   if (a3)
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
     {
-      v21 = OSMetaClassBase::GetClassName(this);
-      OUTLINED_FUNCTION_6(v21, v22, v23, v24, v25, v26, v27, v28, v47, v48, v49, v50, v51, v52, _NSConcreteStackBlock, 0x40000000, ___ZN13XboxHIDDevice25CompleteAsyncReceive_ImplEP8OSActionijy_block_invoke_114, &__block_descriptor_tmp_115, this, v58, v59, v60, v61, v62, *buf);
-      v29 = *buf;
+      v20 = OSMetaClassBase::GetClassName(this);
+      OUTLINED_FUNCTION_6(v20, v21, v22, v23, v24, v25, v26, v27, v44, v45, v46, v47, v48, v49, _NSConcreteStackBlock, 0x40000000, ___ZN13XboxHIDDevice25CompleteAsyncReceive_ImplEP8OSActionijy_block_invoke_114, &__block_descriptor_tmp_115, this, v55, v56, v57, v58, v59, *buf);
+      v28 = *buf;
       *buf = 136315650;
-      *&buf[4] = v21;
-      OUTLINED_FUNCTION_7(v29);
-      OUTLINED_FUNCTION_10(&_mh_execute_header, &_os_log_default, v30, "[%s 0x%llx] CompleteInReport:0x%x\n", buf);
+      *&buf[4] = v20;
+      OUTLINED_FUNCTION_7(v28);
+      OUTLINED_FUNCTION_10(&_mh_execute_header, &_os_log_default, v29, "[%s 0x%llx] CompleteInReport:0x%x\n", buf);
     }
 
     if (this[3].meta[5].refcount)
@@ -3912,38 +3905,36 @@ LABEL_15:
 
   if ((this[3].meta[5].refcount & 1) == 0)
   {
-    v31 = Reference;
     OUTLINED_FUNCTION_11();
-    (*(v32 + 160))(this);
+    (*(v30 + 160))(this);
     if (*&this[3].meta[2].refcount >= a4)
     {
-      v43 = *(v31 + 1);
       OUTLINED_FUNCTION_11();
-      (*(v44 + 112))(this, a5);
+      (*(v41 + 112))(this, a5);
     }
 
     else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
     {
-      v33 = OSMetaClassBase::GetClassName(this);
-      OUTLINED_FUNCTION_6(v33, v34, v35, v36, v37, v38, v39, v40, v47, _NSConcreteStackBlock, 0x40000000, ___ZN13XboxHIDDevice25CompleteAsyncReceive_ImplEP8OSActionijy_block_invoke_116, &__block_descriptor_tmp_117, this, v53, v54, v55, v56, v57, v58, v59, v60, v61, v62, *buf);
-      v41 = *buf;
-      v42 = *&this[3].meta[2].refcount;
+      v31 = OSMetaClassBase::GetClassName(this);
+      OUTLINED_FUNCTION_6(v31, v32, v33, v34, v35, v36, v37, v38, v44, _NSConcreteStackBlock, 0x40000000, ___ZN13XboxHIDDevice25CompleteAsyncReceive_ImplEP8OSActionijy_block_invoke_116, &__block_descriptor_tmp_117, this, v50, v51, v52, v53, v54, v55, v56, v57, v58, v59, *buf);
+      v39 = *buf;
+      v40 = *&this[3].meta[2].refcount;
       *buf = 136315906;
-      *&buf[4] = v33;
-      v64 = 2048;
-      v65 = v41;
-      v66 = 1024;
-      v67 = a4;
-      v68 = 1024;
-      v69 = v42;
+      *&buf[4] = v31;
+      v61 = 2048;
+      v62 = v39;
+      v63 = 1024;
+      v64 = a4;
+      v65 = 1024;
+      v66 = v40;
       _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "[%s 0x%llx] CompleteAsyncReceive actualByteCount:%d inBufferSize:%d\n", buf, 0x22u);
     }
 
     OUTLINED_FUNCTION_11();
-    v46 = (*(v45 + 144))(this);
-    if (v46)
+    v43 = (*(v42 + 144))(this);
+    if (v43)
     {
-      a3 = v46;
+      a3 = v43;
       goto LABEL_15;
     }
   }
@@ -3959,7 +3950,7 @@ void XboxHIDDevice::handleStart(OSMetaClassBase *a1, uint64_t a2)
     *(a2 + 16) = ___ZN13XboxHIDDevice11handleStartEP9IOService_block_invoke_58;
     OUTLINED_FUNCTION_5_0(v4, v5, v6, v7, v8, v9, v10, v11, v17);
     OUTLINED_FUNCTION_2_0();
-    OUTLINED_FUNCTION_9(&_mh_execute_header, &_os_log_default, v12, "[%s 0x%llx] missing outPipe\n", v13, v14, v15, v16, v18);
+    OUTLINED_FUNCTION_9(&_mh_execute_header, &_os_log_default, v12, "[%s 0x%llx] missing outPipe\n", v13, v14, v15, v16);
   }
 }
 
@@ -3972,7 +3963,7 @@ void XboxHIDDevice::handleStart(OSMetaClassBase *a1, uint64_t a2)
     *(a2 + 16) = ___ZN13XboxHIDDevice11handleStartEP9IOService_block_invoke_56;
     OUTLINED_FUNCTION_5_0(v4, v5, v6, v7, v8, v9, v10, v11, v17);
     OUTLINED_FUNCTION_2_0();
-    OUTLINED_FUNCTION_9(&_mh_execute_header, &_os_log_default, v12, "[%s 0x%llx] missing inPipe\n", v13, v14, v15, v16, v18);
+    OUTLINED_FUNCTION_9(&_mh_execute_header, &_os_log_default, v12, "[%s 0x%llx] missing inPipe\n", v13, v14, v15, v16);
   }
 }
 
@@ -3986,7 +3977,7 @@ void XboxHIDDevice::CompleteAsyncSend_Impl(OSMetaClassBase *a1, uint64_t a2)
     *(a2 + 16) = ___ZN13XboxHIDDevice22CompleteAsyncSend_ImplEP8OSActionijy_block_invoke_119;
     OUTLINED_FUNCTION_5_0(v4, v5, v6, v7, v8, v9, v10, v11, v17);
     OUTLINED_FUNCTION_2_0();
-    OUTLINED_FUNCTION_9(&_mh_execute_header, &_os_log_default, v12, "[%s 0x%llx] ComleteOutputReport: Missing completion info, cannot complete callback.\n", v13, v14, v15, v16, v18);
+    OUTLINED_FUNCTION_9(&_mh_execute_header, &_os_log_default, v12, "[%s 0x%llx] ComleteOutputReport: Missing completion info, cannot complete callback.\n", v13, v14, v15, v16);
   }
 }
 

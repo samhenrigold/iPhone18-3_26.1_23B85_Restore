@@ -272,7 +272,7 @@
         *&v171.a = v163;
         *&v171.c = v162;
         *&v171.tx = v161;
-        [AKGeometryHelper verticalFlipTransformForRect:v150, v149, v153, v152];
+        objc_msgSend_verticalFlipTransformForRect_(AKGeometryHelper, v150, v149, v153, v152);
         *&t1.a = v163;
         *&t1.c = v162;
         *&t1.tx = v161;
@@ -375,23 +375,24 @@
   v23 = v8;
   v9 = v8;
   annotationCopy = annotation;
-  v11 = [AKGeometryHelper exifOrientationWithConversionBlock:v22];
+  [AKGeometryHelper exifOrientationWithConversionBlock:v22];
   *&retstr->a = 0u;
   *&retstr->c = 0u;
   *&retstr->tx = 0u;
   [annotationCopy frame];
   MidX = CGRectGetMidX(v24);
   [annotationCopy frame];
-  v14 = v13;
-  v16 = v15;
-  v18 = v17;
-  v20 = v19;
+  v13 = v12;
+  v15 = v14;
+  v17 = v16;
+  v19 = v18;
 
-  v25.origin.x = v14;
-  v25.origin.y = v16;
-  v25.size.width = v18;
-  v25.size.height = v20;
-  [AKGeometryHelper affineTransformForExifOrientation:v11 aboutCenter:MidX, CGRectGetMidY(v25)];
+  v25.origin.x = v13;
+  v25.origin.y = v15;
+  v25.size.width = v17;
+  v25.size.height = v19;
+  MidY = CGRectGetMidY(v25);
+  objc_msgSend_affineTransformForExifOrientation_aboutCenter_(AKGeometryHelper, MidX, MidY);
 
   return result;
 }

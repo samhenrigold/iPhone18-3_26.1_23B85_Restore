@@ -47,7 +47,7 @@ LABEL_7:
 
 - (LNConstraintContextUserDefaults)initWithIdentifier:(id)identifier
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   if (!identifierCopy)
   {
@@ -55,9 +55,9 @@ LABEL_7:
     [currentHandler handleFailureInMethod:a2 object:self file:@"LNActionConstraint+Evaluation.m" lineNumber:167 description:{@"Invalid parameter not satisfying: %@", @"identifier"}];
   }
 
-  v20.receiver = self;
-  v20.super_class = LNConstraintContextUserDefaults;
-  v6 = [(LNConstraintContextUserDefaults *)&v20 init];
+  v19.receiver = self;
+  v19.super_class = LNConstraintContextUserDefaults;
+  v6 = [(LNConstraintContextUserDefaults *)&v19 init];
   if (v6)
   {
     v7 = [identifierCopy copy];
@@ -93,9 +93,9 @@ LABEL_7:
           }
 
           *buf = 136315394;
-          v22 = uTF8String;
-          v23 = 2080;
-          v24 = v15;
+          v21 = uTF8String;
+          v22 = 2080;
+          v23 = v15;
           _os_log_impl(&dword_19763D000, v13, OS_LOG_TYPE_ERROR, "failed to lookup container for %s: %s\n", buf, 0x16u);
         }
 
@@ -111,7 +111,6 @@ LABEL_7:
     v6->_container = v11;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v6;
 }
 

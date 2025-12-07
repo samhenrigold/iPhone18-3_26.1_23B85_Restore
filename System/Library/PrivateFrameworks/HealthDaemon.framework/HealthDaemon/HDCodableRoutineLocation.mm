@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)locationOfInterestTypeAsString:(int)string;
 - (int)StringAsLocationOfInterestType:(id)type;
 - (int)locationOfInterestType;
 - (unint64_t)hash;
@@ -91,6 +92,21 @@
   *&self->_has = *&self->_has & 0xEF | v3;
 }
 
+- (id)locationOfInterestTypeAsString:(int)string
+{
+  if ((string + 1) >= 5)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278614810[string + 1];
+  }
+
+  return v4;
+}
+
 - (int)StringAsLocationOfInterestType:(id)type
 {
   typeCopy = type;
@@ -159,7 +175,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   has = self->_has;
   if ((has & 2) != 0)
@@ -243,30 +259,30 @@ LABEL_6:
   if ([(NSMutableArray *)self->_visits count])
   {
     v13 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSMutableArray count](self->_visits, "count")}];
+    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
     v14 = self->_visits;
-    v15 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v15 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v23;
+      v17 = *v22;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v23 != v17)
+          if (*v22 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          dictionaryRepresentation = [*(*(&v22 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v21 + 1) + 8 * i) dictionaryRepresentation];
           [v13 addObject:dictionaryRepresentation];
         }
 
-        v16 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v16 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
       while (v16);
@@ -275,19 +291,16 @@ LABEL_6:
     [dictionary setObject:v13 forKey:@"visits"];
   }
 
-  v20 = *MEMORY[0x277D85DE8];
-
   return dictionary;
 }
 
 - (void)writeTo:(id)to
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   toCopy = to;
   has = self->_has;
   if ((has & 2) != 0)
   {
-    latitude = self->_latitude;
     PBDataWriterWriteDoubleField();
     has = self->_has;
     if ((has & 4) == 0)
@@ -307,7 +320,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  longitude = self->_longitude;
   PBDataWriterWriteDoubleField();
   has = self->_has;
   if ((has & 8) == 0)
@@ -322,12 +334,10 @@ LABEL_4:
   }
 
 LABEL_22:
-  uncertainty = self->_uncertainty;
   PBDataWriterWriteDoubleField();
   if (*&self->_has)
   {
 LABEL_5:
-    confidence = self->_confidence;
     PBDataWriterWriteDoubleField();
   }
 
@@ -339,7 +349,6 @@ LABEL_6:
 
   if ((*&self->_has & 0x10) != 0)
   {
-    locationOfInterestType = self->_locationOfInterestType;
     PBDataWriterWriteInt32Field();
   }
 
@@ -348,36 +357,33 @@ LABEL_6:
     PBDataWriterWriteDataField();
   }
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
-  v19 = 0u;
-  v8 = self->_visits;
-  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
-  if (v9)
+  v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v6 = self->_visits;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v7)
   {
-    v10 = v9;
-    v11 = *v19;
+    v8 = v7;
+    v9 = *v12;
     do
     {
-      for (i = 0; i != v10; ++i)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v19 != v11)
+        if (*v12 != v9)
         {
-          objc_enumerationMutation(v8);
+          objc_enumerationMutation(v6);
         }
 
-        v13 = *(*(&v18 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
-    while (v10);
+    while (v8);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyTo:(id)to
@@ -467,7 +473,7 @@ LABEL_6:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = v5;
   has = self->_has;
@@ -532,36 +538,35 @@ LABEL_6:
   v11 = *(v6 + 40);
   *(v6 + 40) = v10;
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v12 = self->_visits;
-  v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v21;
+    v15 = *v20;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v21 != v15)
+        if (*v20 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = [*(*(&v20 + 1) + 8 * i) copyWithZone:{zone, v20}];
+        v17 = [*(*(&v19 + 1) + 8 * i) copyWithZone:{zone, v19}];
         [v6 addVisits:v17];
       }
 
-      v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v14);
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -831,7 +836,7 @@ LABEL_35:
 
 - (void)mergeFrom:(id)from
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   v5 = fromCopy;
   v6 = *(fromCopy + 72);
@@ -898,35 +903,33 @@ LABEL_6:
     [(HDCodableRoutineLocation *)self setGeoData:?];
   }
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v7 = *(v5 + 8);
-  v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v14;
+    v10 = *v13;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v14 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        [(HDCodableRoutineLocation *)self addVisits:*(*(&v13 + 1) + 8 * i), v13];
+        [(HDCodableRoutineLocation *)self addVisits:*(*(&v12 + 1) + 8 * i), v12];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v9);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 @end

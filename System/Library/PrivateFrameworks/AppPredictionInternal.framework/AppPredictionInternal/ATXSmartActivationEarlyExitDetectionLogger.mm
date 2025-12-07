@@ -55,7 +55,7 @@ void __60__ATXSmartActivationEarlyExitDetectionLogger_sharedInstance__block_invo
     self->_queue = v4;
   }
 
-  v6 = __atxlog_handle_modes();
+  v6 = __atxlog_handle_modes(self);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
@@ -89,7 +89,7 @@ void __81__ATXSmartActivationEarlyExitDetectionLogger__registerForModeChangeNoti
 {
   v2 = a2;
   v3 = [v2 state];
-  v4 = __atxlog_handle_modes();
+  v4 = __atxlog_handle_modes(v3);
   v5 = v4;
   if (v3)
   {
@@ -108,21 +108,19 @@ void __81__ATXSmartActivationEarlyExitDetectionLogger__registerForModeChangeNoti
 
 void __81__ATXSmartActivationEarlyExitDetectionLogger__registerForModeChangeNotifications__block_invoke_19(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = __atxlog_handle_modes();
+  v4 = __atxlog_handle_modes(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [v3 eventBody];
-    v8 = 138543362;
-    v9 = v5;
-    _os_log_impl(&dword_2263AA000, v4, OS_LOG_TYPE_DEFAULT, "ATXSmartActivationEarlyExitDetectionLogger: processing new userFocusComputedModeEvent: %{public}@", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v5;
+    _os_log_impl(&dword_2263AA000, v4, OS_LOG_TYPE_DEFAULT, "ATXSmartActivationEarlyExitDetectionLogger: processing new userFocusComputedModeEvent: %{public}@", &v7, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained _processNewUserFocusComputedModeEvent:v3];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_processNewUserFocusComputedModeEvent:(id)event
@@ -164,8 +162,8 @@ void __81__ATXSmartActivationEarlyExitDetectionLogger__registerForModeChangeNoti
         v10 = [MEMORY[0x277CBEAA8] now];
         v11 = [v9 initWithEventDate:v10 activity:modeIdentifier acceptedTriggers:MEMORY[0x277CBEBF8] eventType:5 suggestionType:1 location:2];
 
-        v12 = __atxlog_handle_modes();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+        v13 = __atxlog_handle_modes(v12);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
           modeIdentifier3 = [currentMode modeIdentifier];
           v18 = 138543874;
@@ -174,11 +172,11 @@ void __81__ATXSmartActivationEarlyExitDetectionLogger__registerForModeChangeNoti
           modeType = [currentMode modeType];
           v22 = 2112;
           v23 = v11;
-          _os_log_impl(&dword_2263AA000, v12, OS_LOG_TYPE_DEFAULT, "ATXSmartActivationEarlyExitDetectionLogger: Early exit detected for modeUUID: %{public}@, type:%ld. Sending feedback event to Biome: %@", &v18, 0x20u);
+          _os_log_impl(&dword_2263AA000, v13, OS_LOG_TYPE_DEFAULT, "ATXSmartActivationEarlyExitDetectionLogger: Early exit detected for modeUUID: %{public}@, type:%ld. Sending feedback event to Biome: %@", &v18, 0x20u);
         }
 
-        v14 = objc_opt_new();
-        source = [v14 source];
+        v15 = objc_opt_new();
+        source = [v15 source];
         [source sendEvent:v11];
 
         LOBYTE(modeIdentifier) = 1;
@@ -191,7 +189,6 @@ void __81__ATXSmartActivationEarlyExitDetectionLogger__registerForModeChangeNoti
     }
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return modeIdentifier;
 }
 
@@ -207,13 +204,11 @@ void __81__ATXSmartActivationEarlyExitDetectionLogger__registerForModeChangeNoti
 
 void __81__ATXSmartActivationEarlyExitDetectionLogger__registerForModeChangeNotifications__block_invoke_cold_1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 error];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXSmartActivationEarlyExitDetectionLogger: error listening to mode change events: %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXSmartActivationEarlyExitDetectionLogger: error listening to mode change events: %@", &v4, 0xCu);
 }
 
 @end

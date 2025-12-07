@@ -9,7 +9,7 @@
 {
   ObjectType = swift_getObjectType();
   v4 = OBJC_IVAR____TtC13CoreIDVShared15MetricsSequence__sequence;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D73DE68);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D73DE68, &qword_225CEFD00);
   v5 = swift_allocObject();
   *(v5 + 24) = 0;
   *(v5 + 16) = MEMORY[0x277D84F90];

@@ -110,55 +110,56 @@ LABEL_16:
 LABEL_17:
 }
 
-void sub_100001BB4(uint64_t a1, unsigned int a2, void *a3, void *a4)
+void sub_100001BB4(uint64_t a1, void *a2, void *a3, void *a4)
 {
+  v5 = a2;
   v7 = a3;
   v8 = a4;
-  if (v7 && a2)
+  if (v7 && v5)
   {
-    a2 = [*(a1 + 32) isEqualToString:v7];
+    v5 = [*(a1 + 32) isEqualToString:v7];
   }
 
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
   {
-    sub_100001F58(a1, a2, v7);
-    if (a2)
+    sub_100001F58(a1, v5, v7);
+    if (v5)
     {
       goto LABEL_6;
     }
   }
 
-  else if (a2)
+  else if (v5)
   {
 LABEL_6:
-    v9 = *(a1 + 40);
     (*(*(a1 + 56) + 16))();
     goto LABEL_11;
   }
 
-  v10 = *(a1 + 56);
-  v12 = *(a1 + 40);
-  v11 = *(a1 + 48);
+  v9 = *(a1 + 56);
+  v11 = *(a1 + 40);
+  v10 = *(a1 + 48);
   if (v8)
   {
-    v13 = [v8 localizedDescription];
-    v14 = [v11 _urlDecoderErrorWithCode:0 description:v13];
-    (*(v10 + 16))(v10, v12, v14);
+    v12 = [v8 localizedDescription];
+    v13 = [v10 _urlDecoderErrorWithCode:0 description:v12];
+    (*(v9 + 16))(v9, v11, v13);
   }
 
   else
   {
-    v15 = [v11 _urlDecoderErrorWithCode:4 description:@"URL is not registered as an app clip"];
-    (*(v10 + 16))(v10, v12, v15);
+    v14 = [v10 _urlDecoderErrorWithCode:4 description:@"URL is not registered as an app clip"];
+    (*(v9 + 16))(v9, v11, v14);
   }
 
 LABEL_11:
 }
 
-void sub_100001D54(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100001D54(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 2u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 2u);
 }
 
 uint64_t start()

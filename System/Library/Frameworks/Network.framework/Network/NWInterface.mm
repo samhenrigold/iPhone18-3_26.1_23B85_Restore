@@ -413,7 +413,7 @@
     v7 = gLogObj;
     *buf = 136446210;
     v22 = "[NWInterface initWithInterfaceIndex:]";
-    v8 = _os_log_send_and_compose_impl();
+    v8 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v7, 16, "%{public}s called with null interfaceIndex", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v19 = 0;
@@ -576,7 +576,7 @@ LABEL_20:
   v10 = __nwlog_obj();
   *buf = 136446210;
   v20 = "[NWInterface initWithInterfaceName:]";
-  v11 = _os_log_send_and_compose_impl();
+  v11 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v10, 16, "%{public}s called with null interfaceName", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v17 = 0;
@@ -675,7 +675,7 @@ LABEL_8:
     v14 = __nwlog_obj();
     *buf = 136446210;
     v27 = "[NWInterface initWithInterface:]";
-    v15 = _os_log_send_and_compose_impl();
+    v15 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v14, 16, "%{public}s [super init] failed", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v24 = 0;
@@ -754,7 +754,7 @@ LABEL_38:
   v9 = __nwlog_obj();
   *buf = 136446210;
   v27 = "[NWInterface initWithInterface:]";
-  v10 = _os_log_send_and_compose_impl();
+  v10 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v9, 16, "%{public}s called with null interface", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v24 = 0;
@@ -920,7 +920,7 @@ LABEL_37:
     v16 = gLogObj;
     *applier = 136446210;
     *&applier[4] = "[NWInterface encodeWithCoder:]";
-    v17 = _os_log_send_and_compose_impl();
+    v17 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v16, 16, "%{public}s NWUtilsCreateNSDictionaryFromXPCDictionary failed", applier, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v31 = 0;
@@ -1015,7 +1015,7 @@ LABEL_34:
   v11 = gLogObj;
   *applier = 136446210;
   *&applier[4] = "[NWInterface encodeWithCoder:]";
-  v12 = _os_log_send_and_compose_impl();
+  v12 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v11, 16, "%{public}s nw_interface_copy_dictionary failed", applier, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v31 = 0;
@@ -1113,11 +1113,11 @@ LABEL_38:
 
 - (NWInterface)initWithCoder:(id)coder
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v59 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v53.receiver = self;
-  v53.super_class = NWInterface;
-  v5 = [(NWInterface *)&v53 init];
+  v54.receiver = self;
+  v54.super_class = NWInterface;
+  v5 = [(NWInterface *)&v54 init];
   if (v5)
   {
     v6 = objc_alloc(MEMORY[0x1E695DFD8]);
@@ -1152,12 +1152,13 @@ LABEL_45:
         networkd_settings_init();
         v33 = gLogObj;
         *buf = 136446210;
-        v55 = "[NWInterface initWithCoder:]";
-        v26 = _os_log_send_and_compose_impl();
+        v56 = "[NWInterface initWithCoder:]";
+        LODWORD(v51) = 12;
+        v26 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v33, 16, "%{public}s nw_interface_create_from_dictionary failed", buf, v51);
 
         type = OS_LOG_TYPE_ERROR;
-        v51 = 0;
-        if (!__nwlog_fault(v26, &type, &v51))
+        v52 = 0;
+        if (!__nwlog_fault(v26, &type, &v52))
         {
 LABEL_42:
           if (!v26)
@@ -1184,12 +1185,12 @@ LABEL_43:
           }
 
           *buf = 136446210;
-          v55 = "[NWInterface initWithCoder:]";
+          v56 = "[NWInterface initWithCoder:]";
           v29 = "%{public}s nw_interface_create_from_dictionary failed";
           goto LABEL_52;
         }
 
-        if (v51 != 1)
+        if (v52 != 1)
         {
           pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
           networkd_settings_init();
@@ -1201,7 +1202,7 @@ LABEL_43:
           }
 
           *buf = 136446210;
-          v55 = "[NWInterface initWithCoder:]";
+          v56 = "[NWInterface initWithCoder:]";
           v29 = "%{public}s nw_interface_create_from_dictionary failed, backtrace limit exceeded";
           goto LABEL_52;
         }
@@ -1217,9 +1218,9 @@ LABEL_43:
           if (v40)
           {
             *buf = 136446466;
-            v55 = "[NWInterface initWithCoder:]";
-            v56 = 2082;
-            v57 = backtrace_string;
+            v56 = "[NWInterface initWithCoder:]";
+            v57 = 2082;
+            v58 = backtrace_string;
             v37 = "%{public}s nw_interface_create_from_dictionary failed, dumping backtrace:%{public}s";
             goto LABEL_40;
           }
@@ -1230,7 +1231,7 @@ LABEL_43:
         if (v40)
         {
           *buf = 136446210;
-          v55 = "[NWInterface initWithCoder:]";
+          v56 = "[NWInterface initWithCoder:]";
           v29 = "%{public}s nw_interface_create_from_dictionary failed, no backtrace";
           goto LABEL_62;
         }
@@ -1242,12 +1243,13 @@ LABEL_43:
         networkd_settings_init();
         v25 = gLogObj;
         *buf = 136446210;
-        v55 = "[NWInterface initWithCoder:]";
-        v26 = _os_log_send_and_compose_impl();
+        v56 = "[NWInterface initWithCoder:]";
+        LODWORD(v51) = 12;
+        v26 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v25, 16, "%{public}s NWUtilsCreateXPCDictionaryFromNSDictionary failed", buf, v51);
 
         type = OS_LOG_TYPE_ERROR;
-        v51 = 0;
-        if (!__nwlog_fault(v26, &type, &v51))
+        v52 = 0;
+        if (!__nwlog_fault(v26, &type, &v52))
         {
           goto LABEL_42;
         }
@@ -1264,7 +1266,7 @@ LABEL_43:
           }
 
           *buf = 136446210;
-          v55 = "[NWInterface initWithCoder:]";
+          v56 = "[NWInterface initWithCoder:]";
           v29 = "%{public}s NWUtilsCreateXPCDictionaryFromNSDictionary failed";
 LABEL_52:
           v42 = v27;
@@ -1274,7 +1276,7 @@ LABEL_53:
           goto LABEL_54;
         }
 
-        if (v51 != 1)
+        if (v52 != 1)
         {
           pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
           networkd_settings_init();
@@ -1286,7 +1288,7 @@ LABEL_53:
           }
 
           *buf = 136446210;
-          v55 = "[NWInterface initWithCoder:]";
+          v56 = "[NWInterface initWithCoder:]";
           v29 = "%{public}s NWUtilsCreateXPCDictionaryFromNSDictionary failed, backtrace limit exceeded";
           goto LABEL_52;
         }
@@ -1302,9 +1304,9 @@ LABEL_53:
           if (v36)
           {
             *buf = 136446466;
-            v55 = "[NWInterface initWithCoder:]";
-            v56 = 2082;
-            v57 = backtrace_string;
+            v56 = "[NWInterface initWithCoder:]";
+            v57 = 2082;
+            v58 = backtrace_string;
             v37 = "%{public}s NWUtilsCreateXPCDictionaryFromNSDictionary failed, dumping backtrace:%{public}s";
 LABEL_40:
             _os_log_impl(&dword_181A37000, v27, v35, v37, buf, 0x16u);
@@ -1319,7 +1321,7 @@ LABEL_41:
         if (v36)
         {
           *buf = 136446210;
-          v55 = "[NWInterface initWithCoder:]";
+          v56 = "[NWInterface initWithCoder:]";
           v29 = "%{public}s NWUtilsCreateXPCDictionaryFromNSDictionary failed, no backtrace";
 LABEL_62:
           v42 = v27;
@@ -1342,12 +1344,13 @@ LABEL_54:
     networkd_settings_init();
     v20 = gLogObj;
     *buf = 136446210;
-    v55 = "[NWInterface initWithCoder:]";
-    v21 = _os_log_send_and_compose_impl();
+    v56 = "[NWInterface initWithCoder:]";
+    LODWORD(v51) = 12;
+    v21 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v20, 16, "%{public}s decodeObjectOfClasses:forKey failed", buf, v51);
 
     type = OS_LOG_TYPE_ERROR;
-    v51 = 0;
-    if (__nwlog_fault(v21, &type, &v51))
+    v52 = 0;
+    if (__nwlog_fault(v21, &type, &v52))
     {
       if (type == OS_LOG_TYPE_FAULT)
       {
@@ -1361,7 +1364,7 @@ LABEL_54:
         }
 
         *buf = 136446210;
-        v55 = "[NWInterface initWithCoder:]";
+        v56 = "[NWInterface initWithCoder:]";
         v24 = "%{public}s decodeObjectOfClasses:forKey failed";
 LABEL_32:
         v38 = v22;
@@ -1369,7 +1372,7 @@ LABEL_32:
         goto LABEL_33;
       }
 
-      if (v51 != 1)
+      if (v52 != 1)
       {
         pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
         networkd_settings_init();
@@ -1381,7 +1384,7 @@ LABEL_32:
         }
 
         *buf = 136446210;
-        v55 = "[NWInterface initWithCoder:]";
+        v56 = "[NWInterface initWithCoder:]";
         v24 = "%{public}s decodeObjectOfClasses:forKey failed, backtrace limit exceeded";
         goto LABEL_32;
       }
@@ -1407,7 +1410,7 @@ LABEL_34:
         }
 
         *buf = 136446210;
-        v55 = "[NWInterface initWithCoder:]";
+        v56 = "[NWInterface initWithCoder:]";
         v24 = "%{public}s decodeObjectOfClasses:forKey failed, no backtrace";
         v38 = v22;
         v39 = v31;
@@ -1419,9 +1422,9 @@ LABEL_33:
       if (v32)
       {
         *buf = 136446466;
-        v55 = "[NWInterface initWithCoder:]";
-        v56 = 2082;
-        v57 = v30;
+        v56 = "[NWInterface initWithCoder:]";
+        v57 = 2082;
+        v58 = v30;
         _os_log_impl(&dword_181A37000, v22, v31, "%{public}s decodeObjectOfClasses:forKey failed, dumping backtrace:%{public}s", buf, 0x16u);
       }
 
@@ -1444,12 +1447,12 @@ LABEL_20:
 
   v44 = __nwlog_obj();
   *buf = 136446210;
-  v55 = "[NWInterface initWithCoder:]";
-  v45 = _os_log_send_and_compose_impl();
+  v56 = "[NWInterface initWithCoder:]";
+  v45 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v44, 16, "%{public}s [super init] failed", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
-  v51 = 0;
-  if (__nwlog_fault(v45, &type, &v51))
+  v52 = 0;
+  if (__nwlog_fault(v45, &type, &v52))
   {
     if (type == OS_LOG_TYPE_FAULT)
     {
@@ -1458,7 +1461,7 @@ LABEL_20:
       if (os_log_type_enabled(v46, type))
       {
         *buf = 136446210;
-        v55 = "[NWInterface initWithCoder:]";
+        v56 = "[NWInterface initWithCoder:]";
         v48 = "%{public}s [super init] failed";
 LABEL_76:
         _os_log_impl(&dword_181A37000, v46, v47, v48, buf, 0xCu);
@@ -1467,7 +1470,7 @@ LABEL_76:
 
     else
     {
-      if (v51 == 1)
+      if (v52 == 1)
       {
         v49 = __nw_create_backtrace_string();
         v46 = __nwlog_obj();
@@ -1478,9 +1481,9 @@ LABEL_76:
           if (v50)
           {
             *buf = 136446466;
-            v55 = "[NWInterface initWithCoder:]";
-            v56 = 2082;
-            v57 = v49;
+            v56 = "[NWInterface initWithCoder:]";
+            v57 = 2082;
+            v58 = v49;
             _os_log_impl(&dword_181A37000, v46, v47, "%{public}s [super init] failed, dumping backtrace:%{public}s", buf, 0x16u);
           }
 
@@ -1494,7 +1497,7 @@ LABEL_76:
         }
 
         *buf = 136446210;
-        v55 = "[NWInterface initWithCoder:]";
+        v56 = "[NWInterface initWithCoder:]";
         v48 = "%{public}s [super init] failed, no backtrace";
         goto LABEL_76;
       }
@@ -1504,7 +1507,7 @@ LABEL_76:
       if (os_log_type_enabled(v46, type))
       {
         *buf = 136446210;
-        v55 = "[NWInterface initWithCoder:]";
+        v56 = "[NWInterface initWithCoder:]";
         v48 = "%{public}s [super init] failed, backtrace limit exceeded";
         goto LABEL_76;
       }
@@ -1576,7 +1579,7 @@ LABEL_11:
   v9 = gLogObj;
   *buf = 136446210;
   v25 = "+[NWInterface interfaceWithProtocolBufferData:]";
-  v10 = _os_log_send_and_compose_impl();
+  v10 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v9, 16, "%{public}s [NWPBInterface initWithData:] failed", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v22 = 0;
@@ -1805,7 +1808,7 @@ LABEL_19:
       v11 = gLogObj;
       *buf = 136446210;
       v35 = "[NWInterface(Private) initWithInterfaceIndex:interfaceName:]";
-      v12 = _os_log_send_and_compose_impl();
+      v12 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v11, 16, "%{public}s nw_interface_create_with_index_and_name failed", buf, 12);
 
       type = OS_LOG_TYPE_ERROR;
       v32 = 0;
@@ -1905,7 +1908,7 @@ LABEL_17:
     v27 = __nwlog_obj();
     *buf = 136446210;
     v35 = "[NWInterface(Private) initWithInterfaceIndex:interfaceName:]";
-    v23 = _os_log_send_and_compose_impl();
+    v23 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v27, 16, "%{public}s called with null interfaceName", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v32 = 0;
@@ -1981,7 +1984,7 @@ LABEL_46:
     v22 = __nwlog_obj();
     *buf = 136446210;
     v35 = "[NWInterface(Private) initWithInterfaceIndex:interfaceName:]";
-    v23 = _os_log_send_and_compose_impl();
+    v23 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v22, 16, "%{public}s called with null interfaceIndex", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v32 = 0;

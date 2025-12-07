@@ -1433,11 +1433,12 @@ LABEL_9:
 LABEL_10:
 }
 
-void __92__CDPUIDeviceToDeviceEncryptionHelper__legacyRequestPermissionToContinueFlowWithCompletion___block_invoke_2(uint64_t a1, int a2)
+void __92__CDPUIDeviceToDeviceEncryptionHelper__legacyRequestPermissionToContinueFlowWithCompletion___block_invoke_2(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v4 = _CDPLogSystem();
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
-  if (a2)
+  if (v2)
   {
     if (v5)
     {
@@ -1700,19 +1701,19 @@ void __92__CDPUIDeviceToDeviceEncryptionHelper__legacyRequestPermissionToContinu
 LABEL_13:
 }
 
-void __69__CDPUIDeviceToDeviceEncryptionHelper__configureNavigationController__block_invoke()
+void __69__CDPUIDeviceToDeviceEncryptionHelper__configureNavigationController__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = _CDPLogSystem();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+  v2 = _CDPLogSystem();
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __69__CDPUIDeviceToDeviceEncryptionHelper__configureNavigationController__block_invoke_cold_1();
   }
 }
 
-void __69__CDPUIDeviceToDeviceEncryptionHelper__configureNavigationController__block_invoke_84()
+void __69__CDPUIDeviceToDeviceEncryptionHelper__configureNavigationController__block_invoke_84(uint64_t a1, uint64_t a2)
 {
-  v0 = _CDPLogSystem();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+  v2 = _CDPLogSystem();
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __69__CDPUIDeviceToDeviceEncryptionHelper__configureNavigationController__block_invoke_84_cold_1();
   }

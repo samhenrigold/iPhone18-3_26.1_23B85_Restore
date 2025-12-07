@@ -9,8 +9,10 @@
 - (id)imageForRouteType:(unint64_t)type;
 - (id)routeNameForRouteType:(unint64_t)type;
 - (unint64_t)_routeForVolumeController:(id)controller;
+- (void)_notifyVolumeChangedForVolumeController:(id)controller volumeControlAvailable:(BOOL)available effectiveVolume:(float)volume;
 - (void)routeDidChangeNotification;
 - (void)setVolume:(float)volume forRouteType:(unint64_t)type;
+- (void)volumeController:(id)controller volumeControlAvailableDidChange:(BOOL)change;
 - (void)volumeController:(id)controller volumeValueDidChange:(float)change;
 @end
 
@@ -206,39 +208,37 @@ LABEL_7:
 
 void __59__MediaControlsVolumeController_routeDidChangeNotification__block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _setupOutputDevicesAndVolumeControllersIfNeeded];
-  v11 = 0u;
-  v12 = 0u;
-  v9 = 0u;
   v10 = 0u;
+  v11 = 0u;
+  v8 = 0u;
+  v9 = 0u;
   v3 = [*(*(a1 + 32) + 32) copy];
-  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [*(*(&v9 + 1) + 8 * v7++) mediaControlsVolumeController:*(a1 + 32) didUpdateSplitRoute:v2];
+        [*(*(&v8 + 1) + 8 * v7++) mediaControlsVolumeController:*(a1 + 32) didUpdateSplitRoute:v2];
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)volumeController:(id)controller volumeValueDidChange:(float)change
@@ -247,6 +247,65 @@ void __59__MediaControlsVolumeController_routeDidChangeNotification__block_invok
   isVolumeControlAvailable = [controllerCopy isVolumeControlAvailable];
   *&v7 = change;
   [(MediaControlsVolumeController *)self _notifyVolumeChangedForVolumeController:controllerCopy volumeControlAvailable:isVolumeControlAvailable effectiveVolume:v7];
+}
+
+- (void)volumeController:(id)controller volumeControlAvailableDidChange:(BOOL)change
+{
+  changeCopy = change;
+  controllerCopy = controller;
+  v7 = controllerCopy;
+  LODWORD(v8) = 1.0;
+  v9 = controllerCopy;
+  if (changeCopy)
+  {
+    [controllerCopy volumeValue];
+    v7 = v9;
+  }
+
+  [(MediaControlsVolumeController *)self _notifyVolumeChangedForVolumeController:v7 volumeControlAvailable:changeCopy effectiveVolume:v8];
+}
+
+- (void)_notifyVolumeChangedForVolumeController:(id)controller volumeControlAvailable:(BOOL)available effectiveVolume:(float)volume
+{
+  availableCopy = available;
+  v21 = *MEMORY[0x277D85DE8];
+  v8 = [(MediaControlsVolumeController *)self _routeForVolumeController:controller];
+  v16 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  v9 = [(NSHashTable *)self->_observers copy];
+  v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  if (v10)
+  {
+    v11 = v10;
+    v12 = *v17;
+    do
+    {
+      v13 = 0;
+      do
+      {
+        if (*v17 != v12)
+        {
+          objc_enumerationMutation(v9);
+        }
+
+        v14 = *(*(&v16 + 1) + 8 * v13);
+        if (objc_opt_respondsToSelector())
+        {
+          *&v15 = volume;
+          [v14 mediaControlsVolumeController:self didChangeVolumeAvailable:availableCopy effectiveVolume:v8 forRoute:v15];
+        }
+
+        ++v13;
+      }
+
+      while (v11 != v13);
+      v11 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    }
+
+    while (v11);
+  }
 }
 
 - (unint64_t)_routeForVolumeController:(id)controller
@@ -264,7 +323,7 @@ void __59__MediaControlsVolumeController_routeDidChangeNotification__block_invok
 
 - (BOOL)_setupOutputDevicesAndVolumeControllersIfNeeded
 {
-  v42[1] = *MEMORY[0x277D85DE8];
+  v41[1] = *MEMORY[0x277D85DE8];
   endpointWrapper = [(MPAVEndpointRoute *)self->_systemRoute endpointWrapper];
   [endpointWrapper unwrappedValue];
   v4 = MRAVEndpointCopyOutputDevices();
@@ -284,8 +343,8 @@ void __59__MediaControlsVolumeController_routeDidChangeNotification__block_invok
 
       v10 = objc_alloc(MEMORY[0x277CD5D30]);
       v11 = [v4 objectAtIndexedSubscript:0];
-      v42[0] = v11;
-      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:1];
+      v41[0] = v11;
+      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:1];
       v13 = [v10 initWithOutputDevices:v12];
       primaryOutputDeviceRoute = self->_primaryOutputDeviceRoute;
       self->_primaryOutputDeviceRoute = v13;
@@ -312,8 +371,8 @@ void __59__MediaControlsVolumeController_routeDidChangeNotification__block_invok
 
       v23 = objc_alloc(MEMORY[0x277CD5D30]);
       v24 = [v4 objectAtIndexedSubscript:1];
-      v41 = v24;
-      v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v41 count:1];
+      v40 = v24;
+      v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v40 count:1];
       v26 = [v23 initWithOutputDevices:v25];
       secondaryOutputDeviceRoute = self->_secondaryOutputDeviceRoute;
       self->_secondaryOutputDeviceRoute = v26;
@@ -377,7 +436,6 @@ void __59__MediaControlsVolumeController_routeDidChangeNotification__block_invok
     LOBYTE(v28) = 0;
   }
 
-  v39 = *MEMORY[0x277D85DE8];
   return v28;
 }
 

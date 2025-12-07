@@ -20,19 +20,19 @@
   return v3;
 }
 
-uint64_t __30__HUNoiseSample_dateFormatter__block_invoke()
+uint64_t __30__HUNoiseSample_dateFormatter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_new();
-  v1 = dateFormatter__formatter;
-  dateFormatter__formatter = v0;
-
-  v2 = dateFormatter__formatter;
-  v3 = [MEMORY[0x1E695DF58] autoupdatingCurrentLocale];
-  [v2 setLocale:v3];
+  v2 = objc_opt_new();
+  v3 = dateFormatter__formatter;
+  dateFormatter__formatter = v2;
 
   v4 = dateFormatter__formatter;
+  v5 = [MEMORY[0x1E695DF58] autoupdatingCurrentLocale];
+  [v4 setLocale:v5];
 
-  return [v4 setDateFormat:@"yyyy-MM-dd HH:mm:ss:SS"];
+  v6 = dateFormatter__formatter;
+
+  return [v6 setDateFormat:@"yyyy-MM-dd HH:mm:ss:SS"];
 }
 
 - (HUNoiseSample)initWithSampleDate:(id)date splValue:(float)value andDuration:(float)duration
@@ -79,33 +79,31 @@ uint64_t __30__HUNoiseSample_dateFormatter__block_invoke()
 
 - (id)transportRepresentation
 {
-  v13[3] = *MEMORY[0x1E69E9840];
+  v12[3] = *MEMORY[0x1E69E9840];
   sampleDate = [(HUNoiseSample *)self sampleDate];
 
   if (sampleDate)
   {
-    v12[0] = @"HUNoiseSampleDateKey";
+    v11[0] = @"HUNoiseSampleDateKey";
     sampleDate2 = [(HUNoiseSample *)self sampleDate];
-    v13[0] = sampleDate2;
-    v12[1] = @"HUNoiseSampleSPLKey";
+    v12[0] = sampleDate2;
+    v11[1] = @"HUNoiseSampleSPLKey";
     v5 = MEMORY[0x1E696AD98];
     [(HUNoiseSample *)self splValue];
     v6 = [v5 numberWithFloat:?];
-    v13[1] = v6;
-    v12[2] = @"HUNoiseSampleDurationKey";
+    v12[1] = v6;
+    v11[2] = @"HUNoiseSampleDurationKey";
     v7 = MEMORY[0x1E696AD98];
     [(HUNoiseSample *)self sampleDuration];
     v8 = [v7 numberWithFloat:?];
-    v13[2] = v8;
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:3];
+    v12[2] = v8;
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:3];
   }
 
   else
   {
     v9 = 0;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }

@@ -363,22 +363,22 @@ uint64_t __75__PKPeerPaymentAssociatedAccountViewController__peerPaymentAccountC
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-void __79__PKPeerPaymentAssociatedAccountViewController__peerPaymentPreferencesChanged___block_invoke(uint64_t a1)
+void __79__PKPeerPaymentAssociatedAccountViewController__peerPaymentPreferencesChanged___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = PKLogFacilityTypeGetObject();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = PKLogFacilityTypeGetObject();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1BD026000, v2, OS_LOG_TYPE_DEFAULT, "PKPeerPaymentAssociatedAccountViewController preferences changed", buf, 2u);
+    _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "PKPeerPaymentAssociatedAccountViewController preferences changed", buf, 2u);
   }
 
-  v3 = *(a1 + 32);
-  if (v3[149])
+  v4 = *(a1 + 32);
+  if (v4[149])
   {
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      *v4 = 0;
-      _os_log_impl(&dword_1BD026000, v2, OS_LOG_TYPE_DEFAULT, "Not updating associated account preferences since another preferences update is in flight", v4, 2u);
+      *v5 = 0;
+      _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "Not updating associated account preferences since another preferences update is in flight", v5, 2u);
     }
 
     *(*(a1 + 32) + 1210) = 1;
@@ -386,7 +386,7 @@ void __79__PKPeerPaymentAssociatedAccountViewController__peerPaymentPreferencesC
 
   else
   {
-    [v3 _updatePreferencesFromPeerPaymentServiceAndReloadView];
+    [v4 _updatePreferencesFromPeerPaymentServiceAndReloadView];
   }
 }
 

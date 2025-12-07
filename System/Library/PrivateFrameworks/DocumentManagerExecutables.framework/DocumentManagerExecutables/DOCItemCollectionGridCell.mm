@@ -61,7 +61,7 @@
 
 - (void)touchesBegan:(id)began withEvent:(id)event
 {
-  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UITouch);
+  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UITouch, 0x277D75C68);
   lazy protocol witness table accessor for type UITouch and conformance NSObject();
   v6 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;

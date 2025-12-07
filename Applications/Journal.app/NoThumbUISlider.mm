@@ -45,7 +45,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_10080CB0C();
+  sub_10080CB0C(selfCopy);
 }
 
 - (_TtC7Journal15NoThumbUISlider)initWithFrame:(CGRect)frame

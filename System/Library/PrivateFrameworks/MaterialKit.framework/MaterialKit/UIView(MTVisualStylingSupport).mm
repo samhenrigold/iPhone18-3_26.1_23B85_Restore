@@ -16,7 +16,7 @@
 {
   v4 = a3;
   [self mt_removeAllVisualStyling];
-  [self mt_applyVisualStyling:v4];
+  [self mt_applyVisualStyling:?];
 }
 
 - (void)mt_applyVisualStyling:()MTVisualStylingSupport
@@ -27,17 +27,12 @@
   MethodImplementation = class_getMethodImplementation(v5, sel__mt_applyVisualStyling_);
   if (MethodImplementation == class_getMethodImplementation(v4, sel__mt_applyVisualStyling_))
   {
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __56__UIView_MTVisualStylingSupport__mt_applyVisualStyling___block_invoke;
-    v8[3] = &unk_27835D4F0;
-    v8[4] = self;
-    [v7 applyToView:self withColorBlock:v8];
+    [v7 applyToView:? withColorBlock:?];
   }
 
   else
   {
-    [self _mt_applyVisualStyling:v7];
+    [self _mt_applyVisualStyling:?];
   }
 }
 

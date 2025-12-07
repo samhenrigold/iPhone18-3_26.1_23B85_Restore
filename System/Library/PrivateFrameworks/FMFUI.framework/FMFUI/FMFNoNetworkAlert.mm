@@ -78,37 +78,38 @@ void __39__FMFNoNetworkAlert_newAlertController__block_invoke(uint64_t a1)
 + (id)alertInfoForInternetUnavailableReason:(unint64_t)reason
 {
   v4 = objc_opt_new();
+  v5 = v4;
   if (reason > 1)
   {
     if (reason == 2)
     {
-      v15 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v16 = [v15 localizedStringForKey:@"ALERT_NO_NETWORK_TITLE_CELLULAR_DISABLED" value:&stru_285D99658 table:@"LocalizableUI"];
-      fm_wifiToWLAN = [v16 fm_wifiToWLAN];
-      [v4 setTitle:fm_wifiToWLAN];
+      v16 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v17 = [v16 localizedStringForKey:@"ALERT_NO_NETWORK_TITLE_CELLULAR_DISABLED" value:&stru_285D99658 table:@"LocalizableUI"];
+      fm_wifiToWLAN = [v17 fm_wifiToWLAN];
+      [v5 setTitle:fm_wifiToWLAN];
 
-      v18 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v19 = [v18 localizedStringForKey:@"ALERT_NO_NETWORK_MESSAGE_CELLULAR_DISABLED" value:&stru_285D99658 table:@"LocalizableUI"];
-      fm_wifiToWLAN2 = [v19 fm_wifiToWLAN];
-      [v4 setMessage:fm_wifiToWLAN2];
+      v19 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v20 = [v19 localizedStringForKey:@"ALERT_NO_NETWORK_MESSAGE_CELLULAR_DISABLED" value:&stru_285D99658 table:@"LocalizableUI"];
+      fm_wifiToWLAN2 = [v20 fm_wifiToWLAN];
+      [v5 setMessage:fm_wifiToWLAN2];
 
-      v8 = MEMORY[0x277CBEBC0];
-      v9 = @"prefs:root=MOBILE_DATA_SETTINGS_ID";
+      v9 = MEMORY[0x277CBEBC0];
+      v10 = @"prefs:root=MOBILE_DATA_SETTINGS_ID";
       goto LABEL_12;
     }
 
     if (reason == 3)
     {
-      v10 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v11 = [v10 localizedStringForKey:@"ALERT_NO_NETWORK_TITLE_NO_INTERNET" value:&stru_285D99658 table:@"LocalizableUI"];
-      fm_wifiToWLAN3 = [v11 fm_wifiToWLAN];
-      [v4 setTitle:fm_wifiToWLAN3];
+      v11 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v12 = [v11 localizedStringForKey:@"ALERT_NO_NETWORK_TITLE_NO_INTERNET" value:&stru_285D99658 table:@"LocalizableUI"];
+      fm_wifiToWLAN3 = [v12 fm_wifiToWLAN];
+      [v5 setTitle:fm_wifiToWLAN3];
 
 LABEL_13:
     }
 
 LABEL_14:
-    v14 = v4;
+    v15 = v5;
     goto LABEL_15;
   }
 
@@ -116,43 +117,42 @@ LABEL_14:
   {
     if (reason == 1)
     {
-      v5 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v6 = [v5 localizedStringForKey:@"ALERT_NO_NETWORK_TITLE_AIRPLANE_MODE" value:&stru_285D99658 table:@"LocalizableUI"];
-      fm_wifiToWLAN4 = [v6 fm_wifiToWLAN];
-      [v4 setTitle:fm_wifiToWLAN4];
+      v6 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v7 = [v6 localizedStringForKey:@"ALERT_NO_NETWORK_TITLE_AIRPLANE_MODE" value:&stru_285D99658 table:@"LocalizableUI"];
+      fm_wifiToWLAN4 = [v7 fm_wifiToWLAN];
+      [v5 setTitle:fm_wifiToWLAN4];
 
-      v8 = MEMORY[0x277CBEBC0];
-      v9 = @"prefs:root=ROOT#AIRPLANE_MODE";
+      v9 = MEMORY[0x277CBEBC0];
+      v10 = @"prefs:root=ROOT#AIRPLANE_MODE";
 LABEL_12:
-      v10 = [v8 URLWithString:v9];
-      [v4 setActionURL:v10];
+      v11 = [v9 URLWithString:v10];
+      [v5 setActionURL:v11];
       goto LABEL_13;
     }
 
     goto LABEL_14;
   }
 
-  v13 = LogCategory_Daemon();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+  v14 = LogCategory_Daemon(v4);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
-    [FMFNoNetworkAlert alertInfoForInternetUnavailableReason:v13];
+    [FMFNoNetworkAlert alertInfoForInternetUnavailableReason:v14];
   }
 
-  v14 = 0;
+  v15 = 0;
 LABEL_15:
 
-  return v14;
+  return v15;
 }
 
 + (BOOL)isGlobalCellularEnabled
 {
-  v2 = *MEMORY[0x277CBECE8];
-  v3 = _CTServerConnectionCreateOnTargetQueue();
-  if (v3)
+  v2 = _CTServerConnectionCreateOnTargetQueue();
+  if (v2)
   {
     _CTServerConnectionCopyCellularUsagePolicy();
-    CFRelease(v3);
-    LOBYTE(v3) = 0;
+    CFRelease(v2);
+    LOBYTE(v2) = 0;
   }
 
   isEnabled = [MEMORY[0x277D3F9B0] isEnabled];
@@ -161,7 +161,7 @@ LABEL_15:
     LOBYTE(isEnabled) = [MEMORY[0x277D3F9B0] deviceSupportsCellularData];
   }
 
-  return v3 & isEnabled;
+  return v2 & isEnabled;
 }
 
 + (BOOL)isAirplaneModeEnabled

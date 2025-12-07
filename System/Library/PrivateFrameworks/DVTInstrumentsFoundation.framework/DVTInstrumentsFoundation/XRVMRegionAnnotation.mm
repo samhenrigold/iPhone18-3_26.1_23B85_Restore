@@ -189,13 +189,11 @@
   coderCopy = coder;
   if ([coderCopy allowsKeyedCoding])
   {
-    vpages = self->_vpages;
-    baseAddress = self->_baseAddress;
-    v20 = DTXPrimitiveArrayCreateWithTypesAndValues();
+    v18 = DTXPrimitiveArrayCreateWithTypesAndValues();
     pageMap = self->_pageMap;
     v6 = *pageMap;
-    v7 = self->_vpages;
-    if (v7 < 2)
+    vpages = self->_vpages;
+    if (vpages < 2)
     {
       v9 = 1;
     }
@@ -216,21 +214,21 @@
           DTXPrimitiveArrayAppendValues();
           pageMap = self->_pageMap;
           v6 = pageMap[v8];
-          v7 = self->_vpages;
+          vpages = self->_vpages;
           v9 = 1;
         }
 
         ++v8;
       }
 
-      while (v8 < v7);
+      while (v8 < vpages);
     }
 
-    v18 = v6;
-    v16 = v9;
+    v16 = v6;
+    v15 = v9;
     DTXPrimitiveArrayAppendValues();
-    v19 = 0;
-    [coderCopy encodeBytes:DTXPrimitiveArrayGetSerialized() length:0 forKey:{@"dataList", v16, 3, v18, 3, 0, 0}];
+    v17 = 0;
+    [coderCopy encodeBytes:DTXPrimitiveArrayGetSerialized() length:0 forKey:{@"dataList", v15, 3, v16, 3, 0, 0}];
     DTXPrimitiveArrayDestroy();
   }
 
@@ -238,10 +236,10 @@
   {
     [coderCopy encodeValueOfObjCType:"Q" at:&self->_baseAddress];
     [coderCopy encodeValueOfObjCType:"I" at:&self->_vpages];
-    LODWORD(v20) = 1;
+    LODWORD(v18) = 1;
     v10 = self->_pageMap;
     v11 = *v10;
-    v19 = *v10;
+    v17 = *v10;
     v12 = self->_vpages;
     if (v12 >= 2)
     {
@@ -255,23 +253,23 @@
 
         else
         {
-          [coderCopy encodeValueOfObjCType:"I" at:&v20];
-          [coderCopy encodeValueOfObjCType:"I" at:&v19];
+          [coderCopy encodeValueOfObjCType:"I" at:&v18];
+          [coderCopy encodeValueOfObjCType:"I" at:&v17];
           v10 = self->_pageMap;
           v11 = v10[i];
-          v19 = v11;
+          v17 = v11;
           v12 = self->_vpages;
           v13 = 1;
         }
 
-        LODWORD(v20) = v13;
+        LODWORD(v18) = v13;
       }
     }
 
-    [coderCopy encodeValueOfObjCType:"I" at:&v20];
-    [coderCopy encodeValueOfObjCType:"I" at:&v19];
-    v19 = 0;
-    [coderCopy encodeValueOfObjCType:"I" at:&v19];
+    [coderCopy encodeValueOfObjCType:"I" at:&v18];
+    [coderCopy encodeValueOfObjCType:"I" at:&v17];
+    v17 = 0;
+    [coderCopy encodeValueOfObjCType:"I" at:&v17];
   }
 }
 

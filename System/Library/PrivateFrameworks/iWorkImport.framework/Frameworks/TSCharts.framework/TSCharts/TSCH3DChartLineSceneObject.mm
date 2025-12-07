@@ -20,54 +20,54 @@
   v43 = objc_msgSend_nextSeries_(v33, v39, v40, v41, v42, v38);
   v44 = +[TSCH3DChartLineSceneObject chartSeriesDepth]_0();
   v45 = +[TSCH3DChartLineSceneObject chartSeriesDepth]_0();
-  v109 = 0;
-  v110 = v44 * -0.5;
+  v108 = 0;
+  v109 = v44 * -0.5;
   __asm { FMOV            V1.2S, #1.0 }
 
-  v111 = _D1;
-  v112 = v45 * 0.5;
+  v110 = _D1;
+  v111 = v45 * 0.5;
   v51 = [TSCH3DTexCoordGenerationCube alloc];
-  v56 = objc_msgSend_initWithBBox_(v51, v52, v53, v54, v55, &v109);
-  v107 = 0x400000003F800000;
-  LODWORD(v108) = 1092616192;
-  v60 = objc_msgSend_mapperWithNormalBias_(TSCH3DDefaultNormalDirectionMapper, v57, 2.00000047, v58, v59, &v107);
+  v56 = objc_msgSend_initWithBBox_(v51, v52, v53, v54, v55, &v108);
+  v106 = 0x400000003F800000;
+  LODWORD(v107) = 1092616192;
+  v60 = objc_msgSend_mapperWithNormalBias_(TSCH3DDefaultNormalDirectionMapper, v57, 2.00000047, v58, v59, &v106);
   objc_msgSend_setNormalDirectionMapper_(v56, v61, v62, v63, v64, v60);
 
   if (v43)
   {
-    objc_msgSend_size(v43, v65, v66, v67, v68);
-    v69 = v107;
+    objc_msgSend_size(v43, v65, v66, v67);
+    v68 = v106;
   }
 
   else
   {
-    v69 = 0;
+    v68 = 0;
   }
 
-  sub_2761864D4(&v107, v69);
-  sub_2761864D4(__p, v69);
-  v75 = objc_msgSend_elementEnumerator(v43, v70, v71, v72, v73);
+  sub_2761864D4(&v106, v68);
+  sub_2761864D4(__p, v68);
+  v74 = objc_msgSend_elementEnumerator(v43, v69, v70, v71, v72);
   while (1)
   {
-    v79 = objc_msgSend_nextElement(v75, v74, v76, v77, v78);
-    v84 = v79;
-    if (!v79)
+    v78 = objc_msgSend_nextElement(v74, v73, v75, v76, v77);
+    v83 = v78;
+    if (!v78)
     {
       break;
     }
 
-    objc_msgSend_position(v79, v80, v81, v82, v83);
-    objc_msgSend_unitSpaceValue(v84, v85, v86, v87, v88);
-    *&v89 = v89;
-    *(v107 + v105) = LODWORD(v89);
-    objc_msgSend_groupValue(v84, v90, v89, v91, v92);
-    *&v93 = v93;
-    *(__p[0] + v105) = LODWORD(v93);
+    objc_msgSend_position(v78, v80, v81, v82);
+    objc_msgSend_unitSpaceValue(v83, v84, v85, v86, v87);
+    *&v88 = v88;
+    *(v106 + v104) = LODWORD(v88);
+    objc_msgSend_groupValue(v83, v89, v88, v90, v91);
+    *&v92 = v92;
+    *(__p[0] + v104) = LODWORD(v92);
   }
 
-  v94 = objc_msgSend_lineFromXValues_yValues_(TSCH3DLineExtrusionGeometry, v80, v81, v82, v83, __p, &v107);
-  objc_msgSend_generateArrays(v94, v95, v96, v97, v98);
-  v103 = objc_msgSend_dataWithGeometry_texcoordGenerator_(TSCH3DMeshData, v99, v100, v101, v102, v94, v56);
+  v93 = objc_msgSend_lineFromXValues_yValues_(TSCH3DLineExtrusionGeometry, v79, v80, v81, v82, __p, &v106);
+  objc_msgSend_generateArrays(v93, v94, v95, v96, v97);
+  v102 = objc_msgSend_dataWithGeometry_texcoordGenerator_(TSCH3DMeshData, v98, v99, v100, v101, v93, v56);
 
   if (__p[0])
   {
@@ -75,13 +75,13 @@
     operator delete(__p[0]);
   }
 
-  if (v107)
+  if (v106)
   {
-    v108 = v107;
-    operator delete(v107);
+    v107 = v106;
+    operator delete(v106);
   }
 
-  return v103;
+  return v102;
 }
 
 - (void)updateTilingEffect:(void *)effect properties:(id)properties textureTiling:(id)tiling size:(void *)size
@@ -91,7 +91,7 @@
   v15 = tilingCopy;
   if (tilingCopy)
   {
-    objc_msgSend_scale(tilingCopy, v10, v11, v13, v14);
+    objc_msgSend_scale(tilingCopy, v11, v13, v14);
     v16 = COERCE_DOUBLE(vadd_f32(v37, v37));
     objc_msgSend_mode(v15, v17, v16, v19, v20, *&v16, v18);
   }

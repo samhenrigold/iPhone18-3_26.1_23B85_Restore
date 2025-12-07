@@ -1,10 +1,13 @@
 @interface NCCompanionCamera
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection;
 - (NCCompanionCamera)init;
+- (id)_fetchCurrentCameraStateIncludingSupportedCaptureModes:(BOOL)modes;
+- (id)makeRequest:(unsigned __int16)request;
 - (void)_cameraPreviewIDSSocketCreationFailed;
 - (void)_queue_setCompanionCameraOpenStatePreference:(BOOL)preference;
 - (void)_sendCameraStateChangedRequest:(id)request;
 - (void)_sendCurrentCameraState;
+- (void)_sendOpenStateChange:(int)change withInternalState:(id)state;
 - (void)_setCompanionCameraOpenStatePreference:(int)preference;
 - (void)beginBurstCapture:(id)capture;
 - (void)cancelCountdown:(id)countdown;
@@ -42,6 +45,7 @@
 - (void)xpc_didStopCapture;
 - (void)xpc_didUpdateShallowDepthOfFieldStatus:(int64_t)status;
 - (void)xpc_didUpdateStereoCaptureStatus:(int64_t)status;
+- (void)xpc_didUpdateThumbnailWithData:(id)data isVideo:(BOOL)video;
 - (void)xpc_flashModeDidChange:(int64_t)change;
 - (void)xpc_hdrModeDidChange:(int64_t)change;
 - (void)xpc_irisModeDidChange:(int64_t)change;
@@ -58,7 +62,7 @@
 
 - (NCCompanionCamera)init
 {
-  v3 = sub_1000145AC();
+  v3 = sub_1000145AC(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
@@ -193,12 +197,12 @@
 - (void)openCamera:(id)camera
 {
   cameraCopy = camera;
-  v5 = sub_1000145AC();
+  v5 = sub_1000145AC(cameraCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     idsIdentifier = [cameraCopy idsIdentifier];
     *buf = 138412290;
-    v41 = idsIdentifier;
+    v43 = idsIdentifier;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "openCamera. IDS ID %@", buf, 0xCu);
   }
 
@@ -234,10 +238,10 @@
 
   if (!self->_activeCamera)
   {
-    v19 = objc_alloc_init(NCOpenCameraResponse);
-    [(NCOpenCameraResponse *)v19 setOpenState:1];
+    v20 = objc_alloc_init(NCOpenCameraResponse);
+    [(NCOpenCameraResponse *)v20 setOpenState:1];
     response = [cameraCopy response];
-    [response setPbResponse:v19];
+    [response setPbResponse:v20];
 
     response2 = [cameraCopy response];
     [response2 setFireAndForget:1];
@@ -246,87 +250,88 @@
     [response3 send];
 
     self->_pendingSwitchToSupportedMode = 1;
-    v33 = 0;
-    v23 = SBSGetScreenLockStatus();
-    v24 = sub_1000145AC();
-    v25 = os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT);
-    if (v23)
+    v35 = 0;
+    v24 = SBSGetScreenLockStatus();
+    v25 = v24;
+    v26 = sub_1000145AC(v24);
+    v27 = os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT);
+    if (v25)
     {
-      if (v25)
+      if (v27)
       {
         *buf = 0;
-        v26 = "Attempting to open lock screen camera";
+        v28 = "Attempting to open lock screen camera";
 LABEL_17:
-        _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, v26, buf, 2u);
+        _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, v28, buf, 2u);
       }
     }
 
-    else if (v25)
+    else if (v27)
     {
       *buf = 0;
-      v26 = "Device unlocked. Attempting to launch Camera.app";
+      v28 = "Device unlocked. Attempting to launch Camera.app";
       goto LABEL_17;
     }
 
     Current = CFAbsoluteTimeGetCurrent();
-    v28 = SBSCreateOpenApplicationService();
-    v38 = FBSOpenApplicationOptionKeyUnlockDevice;
-    v39 = &__kCFBooleanTrue;
-    v29 = [NSDictionary dictionaryWithObjects:&v39 forKeys:&v38 count:1];
-    v30 = [FBSOpenApplicationOptions optionsWithDictionary:v29];
+    v30 = SBSCreateOpenApplicationService();
+    v40 = FBSOpenApplicationOptionKeyUnlockDevice;
+    v41 = &__kCFBooleanTrue;
+    v31 = [NSDictionary dictionaryWithObjects:&v41 forKeys:&v40 count:1];
+    v32 = [FBSOpenApplicationOptions optionsWithDictionary:v31];
 
-    v31 = +[ViewfinderReliability sharedInstance];
-    [v31 logEvent:2];
+    v33 = +[ViewfinderReliability sharedInstance];
+    [v33 logEvent:2];
 
-    v32[0] = _NSConcreteStackBlock;
-    v32[1] = 3221225472;
-    v32[2] = sub_100002204;
-    v32[3] = &unk_1000345D0;
-    v32[4] = self;
-    *&v32[5] = Current;
-    [v28 openApplication:@"com.apple.camera" withOptions:v30 completion:v32];
+    v34[0] = _NSConcreteStackBlock;
+    v34[1] = 3221225472;
+    v34[2] = sub_100002204;
+    v34[3] = &unk_1000345D0;
+    v34[4] = self;
+    *&v34[5] = Current;
+    [v30 openApplication:@"com.apple.camera" withOptions:v32 completion:v34];
 
     goto LABEL_19;
   }
 
-  v14 = sub_1000145AC();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v15 = sub_1000145AC(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Opening connection to already running Camera instance.", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Opening connection to already running Camera instance.", buf, 2u);
   }
 
   activeCamera = self->_activeCamera;
+  v38[0] = _NSConcreteStackBlock;
+  v38[1] = 3221225472;
+  v38[2] = sub_100001F40;
+  v38[3] = &unk_100034558;
+  v17 = cameraCopy;
+  v39 = v17;
+  v18 = [(NSXPCConnection *)activeCamera remoteObjectProxyWithErrorHandler:v38];
+  [v18 xpc_setPreviewEndpoint:@"proxy"];
+  v19 = self->_clientSupportedCaptureModes;
   v36[0] = _NSConcreteStackBlock;
   v36[1] = 3221225472;
-  v36[2] = sub_100001F40;
-  v36[3] = &unk_100034558;
-  v16 = cameraCopy;
-  v37 = v16;
-  v17 = [(NSXPCConnection *)activeCamera remoteObjectProxyWithErrorHandler:v36];
-  [v17 xpc_setPreviewEndpoint:@"proxy"];
-  v18 = self->_clientSupportedCaptureModes;
-  v34[0] = _NSConcreteStackBlock;
-  v34[1] = 3221225472;
-  v34[2] = sub_10000200C;
-  v34[3] = &unk_100034580;
-  v34[4] = self;
-  v35 = v16;
-  [v17 xpc_ensureSwitchedToOneOfSupportedCaptureModes:v18 reply:v34];
+  v36[2] = sub_10000200C;
+  v36[3] = &unk_100034580;
+  v36[4] = self;
+  v37 = v17;
+  [v18 xpc_ensureSwitchedToOneOfSupportedCaptureModes:v19 reply:v36];
 
-  v19 = v37;
+  v20 = v39;
 LABEL_19:
 }
 
 - (void)closeCamera:(id)camera
 {
   cameraCopy = camera;
-  v5 = sub_1000145AC();
+  v5 = sub_1000145AC(cameraCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     idsIdentifier = [cameraCopy idsIdentifier];
     *buf = 138412290;
-    v16 = idsIdentifier;
+    v17 = idsIdentifier;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "closeCamera. IDS ID %@", buf, 0xCu);
   }
 
@@ -343,28 +348,29 @@ LABEL_19:
     if (!self->_capturing)
     {
       v10 = SBSGetScreenLockStatus();
-      v11 = sub_1000145AC();
-      v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
-      if (v10)
+      v11 = v10;
+      v12 = sub_1000145AC(v10);
+      v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
+      if (v11)
       {
-        if (v12)
+        if (v13)
         {
           *buf = 0;
-          v13 = "Device locked";
+          v14 = "Device locked";
 LABEL_10:
-          _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, v13, buf, 2u);
+          _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, v14, buf, 2u);
         }
       }
 
-      else if (v12)
+      else if (v13)
       {
         *buf = 0;
-        v13 = "Device unlocked";
+        v14 = "Device unlocked";
         goto LABEL_10;
       }
 
-      v14 = [(NSXPCConnection *)self->_activeCamera remoteObjectProxyWithErrorHandler:&stru_100034630];
-      [v14 xpc_suspend];
+      v15 = [(NSXPCConnection *)self->_activeCamera remoteObjectProxyWithErrorHandler:&stru_100034630];
+      [v15 xpc_suspend];
     }
   }
 }
@@ -372,7 +378,7 @@ LABEL_10:
 - (void)pressShutter:(id)shutter
 {
   shutterCopy = shutter;
-  v5 = sub_1000145AC();
+  v5 = sub_1000145AC(shutterCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
@@ -406,7 +412,7 @@ LABEL_10:
 - (void)beginBurstCapture:(id)capture
 {
   captureCopy = capture;
-  v5 = sub_1000145AC();
+  v5 = sub_1000145AC(captureCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
@@ -453,7 +459,7 @@ LABEL_10:
 - (void)endBurstCapture:(id)capture
 {
   captureCopy = capture;
-  v5 = sub_1000145AC();
+  v5 = sub_1000145AC(captureCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
@@ -501,7 +507,7 @@ LABEL_10:
 
 - (void)cancelCountdown:(id)countdown
 {
-  v4 = sub_1000145AC();
+  v4 = sub_1000145AC(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 136315650;
@@ -520,7 +526,7 @@ LABEL_10:
 - (void)setCaptureDevice:(id)device
 {
   deviceCopy = device;
-  v5 = sub_1000145AC();
+  v5 = sub_1000145AC(deviceCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
@@ -571,7 +577,7 @@ LABEL_10:
 - (void)setCaptureMode:(id)mode
 {
   modeCopy = mode;
-  v5 = sub_1000145AC();
+  v5 = sub_1000145AC(modeCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
@@ -622,7 +628,7 @@ LABEL_10:
 - (void)startCapture:(id)capture
 {
   captureCopy = capture;
-  v5 = sub_1000145AC();
+  v5 = sub_1000145AC(captureCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
@@ -671,7 +677,7 @@ LABEL_10:
 - (void)pauseCapture:(id)capture
 {
   captureCopy = capture;
-  v5 = sub_1000145AC();
+  v5 = sub_1000145AC(captureCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
@@ -718,7 +724,7 @@ LABEL_10:
 - (void)resumeCapture:(id)capture
 {
   captureCopy = capture;
-  v5 = sub_1000145AC();
+  v5 = sub_1000145AC(captureCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
@@ -765,7 +771,7 @@ LABEL_10:
 - (void)stopCapture:(id)capture
 {
   captureCopy = capture;
-  v5 = sub_1000145AC();
+  v5 = sub_1000145AC(captureCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
@@ -812,7 +818,7 @@ LABEL_10:
 - (void)setFocusPoint:(id)point
 {
   pointCopy = point;
-  v5 = sub_1000145AC();
+  v5 = sub_1000145AC(pointCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v11 = 136315650;
@@ -841,7 +847,7 @@ LABEL_10:
 - (void)zoom:(id)zoom
 {
   zoomCopy = zoom;
-  v5 = sub_1000145AC();
+  v5 = sub_1000145AC(zoomCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
@@ -892,7 +898,7 @@ LABEL_10:
 - (void)setZoomMagnification:(id)magnification
 {
   magnificationCopy = magnification;
-  v5 = sub_1000145AC();
+  v5 = sub_1000145AC(magnificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
@@ -943,7 +949,7 @@ LABEL_10:
 - (void)setFlashMode:(id)mode
 {
   modeCopy = mode;
-  v5 = sub_1000145AC();
+  v5 = sub_1000145AC(modeCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
@@ -976,7 +982,7 @@ LABEL_10:
 - (void)setHDRMode:(id)mode
 {
   modeCopy = mode;
-  v5 = sub_1000145AC();
+  v5 = sub_1000145AC(modeCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
@@ -1009,7 +1015,7 @@ LABEL_10:
 - (void)setIrisMode:(id)mode
 {
   modeCopy = mode;
-  v5 = sub_1000145AC();
+  v5 = sub_1000145AC(modeCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
@@ -1042,7 +1048,7 @@ LABEL_10:
 - (void)setSharedLibraryMode:(id)mode
 {
   modeCopy = mode;
-  v5 = sub_1000145AC();
+  v5 = sub_1000145AC(modeCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
@@ -1074,7 +1080,7 @@ LABEL_10:
 
 - (void)toggleCameraDevice:(id)device
 {
-  v4 = sub_1000145AC();
+  v4 = sub_1000145AC(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
@@ -1102,7 +1108,7 @@ LABEL_10:
 - (void)userDidTakeScreenshot:(id)screenshot
 {
   screenshotCopy = screenshot;
-  v4 = sub_1000145AC();
+  v4 = sub_1000145AC(screenshotCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
@@ -1140,18 +1146,105 @@ LABEL_10:
   v5(1108);
 }
 
+- (id)makeRequest:(unsigned __int16)request
+{
+  requestCopy = request;
+  v4 = +[NMSOutgoingRequest request];
+  [v4 setMessageID:requestCopy];
+  [v4 setPriority:0];
+  [v4 setReplyTimeout:10.0];
+  [v4 setSendTimeout:10.0];
+  [v4 setFireAndForget:1];
+
+  return v4;
+}
+
 - (void)_cameraPreviewIDSSocketCreationFailed
 {
-  v2 = sub_100014634();
+  v2 = sub_100014634(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     sub_100024958();
   }
 }
 
+- (void)xpc_didUpdateThumbnailWithData:(id)data isVideo:(BOOL)video
+{
+  videoCopy = video;
+  dataCopy = data;
+  timeSinceLastDataReceived = [(NMSMessageCenter *)self->_messageCenter timeSinceLastDataReceived];
+  if (v8 > 240.0)
+  {
+    v9 = sub_1000145AC(timeSinceLastDataReceived);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    {
+      LOWORD(v18) = 0;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Too long since last message received, not sending photo", &v18, 2u);
+    }
+
+LABEL_14:
+
+    goto LABEL_15;
+  }
+
+  if (self->_remoteCameraState != 1)
+  {
+    v9 = sub_1000145AC(timeSinceLastDataReceived);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    {
+      sub_100024998();
+    }
+
+    goto LABEL_14;
+  }
+
+  v10 = CFAbsoluteTimeGetCurrent() - self->_shutterLastPressed;
+  v12 = sub_1000145AC(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  {
+    v18 = 134218240;
+    v19 = [dataCopy length];
+    v20 = 2048;
+    v21 = v10 * 1000.0;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "photoData length: %ld. Capture duration: %.0lfms", &v18, 0x16u);
+  }
+
+  if ([dataCopy length])
+  {
+    v9 = dataCopy;
+    v13 = [v9 length];
+    if (v13)
+    {
+      v14 = sub_1000145AC(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      {
+        v15 = [v9 length];
+        v18 = 134217984;
+        v19 = v15;
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Sending resized photo of size: %ld", &v18, 0xCu);
+      }
+
+      v16 = objc_alloc_init(NCUpdateThumbnailRequest);
+      [(NCUpdateThumbnailRequest *)v16 setJpegData:v9];
+      [(NCUpdateThumbnailRequest *)v16 setCaptureDuration:v10];
+      [(NCUpdateThumbnailRequest *)v16 setIsVideo:videoCopy];
+      v17 = [(NCCompanionCamera *)self makeRequest:9];
+      [v17 setPriority:1];
+      [v17 setPbRequest:v16];
+      [v17 setDoNotCompress:1];
+      [v17 setSendTimeout:30.0];
+      [(NMSMessageCenter *)self->_messageCenter sendRequest:v17];
+    }
+
+    goto LABEL_14;
+  }
+
+LABEL_15:
+}
+
 - (void)checkin
 {
-  v2 = sub_1000145AC();
+  v2 = sub_1000145AC(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = 136315650;
@@ -1166,7 +1259,7 @@ LABEL_10:
 
 - (void)xpc_willStartCapturing
 {
-  v3 = sub_1000145AC();
+  v3 = sub_1000145AC(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 136315650;
@@ -1188,7 +1281,7 @@ LABEL_10:
 - (void)xpc_didStartCaptureTimerWithDate:(id)date
 {
   dateCopy = date;
-  v5 = sub_1000145AC();
+  v5 = sub_1000145AC(dateCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 136315650;
@@ -1212,7 +1305,7 @@ LABEL_10:
 - (void)xpc_didPauseCaptureTimerWithDate:(id)date
 {
   dateCopy = date;
-  v5 = sub_1000145AC();
+  v5 = sub_1000145AC(dateCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 136315650;
@@ -1236,7 +1329,7 @@ LABEL_10:
 - (void)xpc_didResumeCaptureTimerWithDate:(id)date
 {
   dateCopy = date;
-  v5 = sub_1000145AC();
+  v5 = sub_1000145AC(dateCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 136315650;
@@ -1259,7 +1352,7 @@ LABEL_10:
 
 - (void)xpc_didStopCapture
 {
-  v3 = sub_1000145AC();
+  v3 = sub_1000145AC(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 136315650;
@@ -1280,7 +1373,7 @@ LABEL_10:
 
 - (void)xpc_burstCaptureWillStart
 {
-  v3 = sub_1000145AC();
+  v3 = sub_1000145AC(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 136315650;
@@ -1297,7 +1390,7 @@ LABEL_10:
 
 - (void)xpc_burstCaptureDidStop
 {
-  v3 = sub_1000145AC();
+  v3 = sub_1000145AC(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 136315650;
@@ -1314,7 +1407,7 @@ LABEL_10:
 
 - (void)xpc_captureDeviceDidChange:(int64_t)change
 {
-  v4 = sub_1000145AC();
+  v4 = sub_1000145AC(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 136315650;
@@ -1331,7 +1424,7 @@ LABEL_10:
 
 - (void)xpc_captureModeSelected:(int64_t)selected
 {
-  v4 = sub_1000145AC();
+  v4 = sub_1000145AC(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 136315650;
@@ -1348,7 +1441,7 @@ LABEL_10:
 
 - (void)xpc_orientationChanged:(int64_t)changed
 {
-  v5 = sub_1000145AC();
+  v5 = sub_1000145AC(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = sub_1000247F8(changed);
@@ -1374,49 +1467,49 @@ LABEL_10:
 
 - (void)xpc_countdownCanceled
 {
-  [(NMSMessageCenter *)self->_messageCenter timeSinceLastDataReceived];
-  v4 = v3;
-  v5 = sub_1000145AC();
-  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
-  if (v4 <= 240.0)
+  timeSinceLastDataReceived = [(NMSMessageCenter *)self->_messageCenter timeSinceLastDataReceived];
+  v5 = v4;
+  v6 = sub_1000145AC(timeSinceLastDataReceived);
+  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+  if (v5 <= 240.0)
   {
-    if (v6)
+    if (v7)
     {
-      v7 = 136315650;
-      v8 = "[NCCompanionCamera xpc_countdownCanceled]";
-      v9 = 2080;
-      v10 = "/Library/Caches/com.apple.xbs/Sources/NanoCamera/companioncamerad/NCCompanionCamera.m";
-      v11 = 1024;
-      v12 = 964;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%s (%s:%d)", &v7, 0x1Cu);
+      v9 = 136315650;
+      v10 = "[NCCompanionCamera xpc_countdownCanceled]";
+      v11 = 2080;
+      v12 = "/Library/Caches/com.apple.xbs/Sources/NanoCamera/companioncamerad/NCCompanionCamera.m";
+      v13 = 1024;
+      v14 = 964;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%s (%s:%d)", &v9, 0x1Cu);
     }
 
     if (self->_remoteCameraState == 1)
     {
-      v5 = [(NCCompanionCamera *)self makeRequest:12];
-      [(NMSMessageCenter *)self->_messageCenter sendRequest:v5];
+      v6 = [(NCCompanionCamera *)self makeRequest:12];
+      [(NMSMessageCenter *)self->_messageCenter sendRequest:v6];
     }
 
     else
     {
-      v5 = sub_1000145AC();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+      v6 = sub_1000145AC(v8);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
       {
         sub_100024998();
       }
     }
   }
 
-  else if (v6)
+  else if (v7)
   {
-    LOWORD(v7) = 0;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Too long since last message received, not sending cancel", &v7, 2u);
+    LOWORD(v9) = 0;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Too long since last message received, not sending cancel", &v9, 2u);
   }
 }
 
 - (void)xpc_zoomChanged:(float)changed
 {
-  v5 = sub_1000145AC();
+  v5 = sub_1000145AC(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 134217984;
@@ -1432,7 +1525,7 @@ LABEL_10:
 
 - (void)xpc_didUpdateShallowDepthOfFieldStatus:(int64_t)status
 {
-  v5 = sub_1000145AC();
+  v5 = sub_1000145AC(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = sub_1000247E0(status);
@@ -1459,7 +1552,7 @@ LABEL_10:
 - (void)xpc_didUpdateStereoCaptureStatus:(int64_t)status
 {
   statusCopy = status;
-  v5 = sub_1000145AC();
+  v5 = sub_1000145AC(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = sub_1000247F0(statusCopy);
@@ -1513,7 +1606,7 @@ LABEL_10:
   v5 = objc_alloc_init(NCCameraStateChangedRequest);
   [(NCCameraStateChangedRequest *)v5 setIrisMode:sub_1000247A0(change)];
   connectedDevice = [(NMSMessageCenter *)self->_messageCenter connectedDevice];
-  if (!connectedDevice || (v7 = connectedDevice, [connectedDevice operatingSystemVersion], v7, v8 <= 4))
+  if (!connectedDevice || (v7 = connectedDevice, objc_msgSend_operatingSystemVersion(connectedDevice), v7, v8 <= 4))
   {
     if ([(NCCameraStateChangedRequest *)v5 irisMode]== 2)
     {
@@ -1548,7 +1641,7 @@ LABEL_10:
   }
 
   connectedDevice = [(NMSMessageCenter *)self->_messageCenter connectedDevice];
-  if (!connectedDevice || (v8 = connectedDevice, [connectedDevice operatingSystemVersion], v8, v9 <= 11))
+  if (!connectedDevice || (v8 = connectedDevice, objc_msgSend_operatingSystemVersion(connectedDevice), v8, v9 <= 11))
   {
     if (![(NCCameraStateChangedRequest *)v6 hasViewfinderSessionActive])
     {
@@ -1573,6 +1666,92 @@ LABEL_10:
   dispatch_async(actionQ, v7);
 }
 
+- (void)_sendOpenStateChange:(int)change withInternalState:(id)state
+{
+  v4 = *&change;
+  stateCopy = state;
+  v7 = sub_1000145AC(stateCopy);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 67109120;
+    v17 = v4;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "newOpenState: %d", buf, 8u);
+  }
+
+  v8 = [(NCCompanionCamera *)self _setCompanionCameraOpenStatePreference:v4];
+  if (self->_remoteCameraState > 1)
+  {
+    v9 = sub_1000145AC(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    {
+      sub_100024998();
+    }
+  }
+
+  else
+  {
+    v9 = objc_alloc_init(NCCameraOpenStateChangeRequest);
+    [v9 setOpenState:v4];
+    [v9 setInternalState:stateCopy];
+    v10 = [(NCCompanionCamera *)self makeRequest:8];
+    [v10 setPbRequest:v9];
+    if (!self->_remoteCameraState)
+    {
+      if (v4 == 2)
+      {
+        v14[0] = _NSConcreteStackBlock;
+        v14[1] = 3221225472;
+        v14[2] = sub_100007C14;
+        v14[3] = &unk_100034558;
+        v14[4] = self;
+        [v10 setErrorHandler:v14];
+      }
+
+      else if (!v4)
+      {
+        v15[0] = _NSConcreteStackBlock;
+        v15[1] = 3221225472;
+        v15[2] = sub_100007B0C;
+        v15[3] = &unk_100034898;
+        v15[4] = self;
+        [v10 setDidSendHandler:v15];
+      }
+    }
+
+    [(NMSMessageCenter *)self->_messageCenter sendRequest:v10];
+    connectedDevice = [(NMSMessageCenter *)self->_messageCenter connectedDevice];
+    if (!connectedDevice || (v12 = connectedDevice, objc_msgSend_operatingSystemVersion(connectedDevice), v12, v13 <= 2))
+    {
+      [(NCCompanionCamera *)self _sendCurrentCameraState];
+    }
+  }
+}
+
+- (id)_fetchCurrentCameraStateIncludingSupportedCaptureModes:(BOOL)modes
+{
+  modesCopy = modes;
+  v10 = 0;
+  v11 = &v10;
+  v12 = 0x3032000000;
+  v13 = sub_100007DCC;
+  v14 = sub_100007DDC;
+  v15 = 0;
+  v5 = [(NSXPCConnection *)self->_activeCamera synchronousRemoteObjectProxyWithErrorHandler:&stru_1000348D8];
+  v8[0] = _NSConcreteStackBlock;
+  v8[1] = 3221225472;
+  v8[2] = sub_100007E38;
+  v8[3] = &unk_100034900;
+  v9 = modesCopy;
+  v8[4] = self;
+  v8[5] = &v10;
+  [v5 xpc_fetchCurrentStateIncludingSupportedCaptureModes:modesCopy reply:v8];
+  v6 = v11[5];
+
+  _Block_object_dispose(&v10, 8);
+
+  return v6;
+}
+
 - (void)_sendCurrentCameraState
 {
   if (self->_remoteCameraState == 1)
@@ -1585,7 +1764,7 @@ LABEL_10:
 
   else
   {
-    v4 = sub_1000145AC();
+    v4 = sub_1000145AC(self);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
       sub_100024998();
@@ -1595,7 +1774,7 @@ LABEL_10:
 
 - (void)_setCompanionCameraOpenStatePreference:(int)preference
 {
-  v5 = sub_1000145AC();
+  v5 = sub_1000145AC(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
@@ -1632,25 +1811,25 @@ LABEL_10:
 
   CFPreferencesAppSynchronize(@"com.apple.NanoCamera");
   npsManager = self->_npsManager;
-  v11[0] = @"CompanionCameraApplicationOpen";
-  v11[1] = @"CompanionCameraApplicationLastOpenDate";
-  v7 = [NSArray arrayWithObjects:v11 count:2];
+  v12[0] = @"CompanionCameraApplicationOpen";
+  v12[1] = @"CompanionCameraApplicationLastOpenDate";
+  v7 = [NSArray arrayWithObjects:v12 count:2];
   v8 = [NSSet setWithArray:v7];
   [(NPSManager *)npsManager synchronizeUserDefaultsDomain:@"com.apple.NanoCamera" keys:v8];
 
-  v9 = sub_1000145AC();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = sub_1000145AC(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v10[0] = 67109120;
-    v10[1] = preferenceCopy;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Completed setting NPS companion camera open state preference: %{BOOL}d", v10, 8u);
+    v11[0] = 67109120;
+    v11[1] = preferenceCopy;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Completed setting NPS companion camera open state preference: %{BOOL}d", v11, 8u);
   }
 }
 
 - (void)messageCenter:(id)center didChangeConnectedState:(BOOL)state
 {
   stateCopy = state;
-  v5 = sub_1000145AC();
+  v5 = sub_1000145AC(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v7[0] = 67109120;
@@ -1674,7 +1853,7 @@ LABEL_10:
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
   connectionCopy = connection;
-  v6 = sub_1000145AC();
+  v6 = sub_1000145AC(connectionCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
@@ -1708,7 +1887,7 @@ LABEL_10:
 - (void)connectionDidTearDown:(id)down
 {
   downCopy = down;
-  v5 = sub_1000145AC();
+  v5 = sub_1000145AC(downCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;

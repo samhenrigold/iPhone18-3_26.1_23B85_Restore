@@ -27,17 +27,17 @@
 
 - (NSDate)dateCreated
 {
-  v3 = _s8MetadataVMa();
+  v3 = _s8MetadataVMa(0);
   MEMORY[0x1EEE9AC00](v3);
   v5 = v17 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0) + 16;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EA9DB1B0);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EA9DB1B0, &qword_18BC51D18);
   MEMORY[0x1EEE9AC00](v6 - 8);
   v8 = v17 - v7 + 16;
   v9 = OBJC_IVAR___SFTabSnapshotMetadata__wrapped;
   swift_beginAccess();
   sub_18B7B193C(self + v9, v17);
   swift_dynamicCast();
-  sub_18B7CA054(v5, v8, &unk_1EA9DB1B0);
+  sub_18B7CA054(v5, v8, &unk_1EA9DB1B0, &qword_18BC51D18);
   sub_18BC13E34(v5);
   v10 = sub_18BC1EB88();
   v11 = *(v10 - 8);
@@ -55,10 +55,10 @@
 
 - (void)setDateCreated:(id)created
 {
-  v5 = _s8MetadataVMa();
+  v5 = _s8MetadataVMa(0);
   MEMORY[0x1EEE9AC00](v5);
   v7 = &v16[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EA9DB1B0);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EA9DB1B0, &qword_18BC51D18);
   MEMORY[0x1EEE9AC00](v8 - 8);
   v10 = &v16[-v9];
   if (created)
@@ -76,17 +76,17 @@
 
   v13 = OBJC_IVAR___SFTabSnapshotMetadata__wrapped;
   swift_beginAccess();
-  sub_18B7B193C(self + v13, v17);
+  sub_18B7B193C(self + v13, &v17);
   selfCopy = self;
   swift_dynamicCast();
-  sub_18B7EC8D0(v10, v7, &unk_1EA9DB1B0);
+  sub_18B7EC8D0(v10, v7, &unk_1EA9DB1B0, &qword_18BC51D18);
   v18 = v5;
-  boxed_opaque_existential_0Tm = __swift_allocate_boxed_opaque_existential_0Tm(v17);
+  boxed_opaque_existential_0Tm = __swift_allocate_boxed_opaque_existential_0Tm(&v17);
   sub_18BC13E90(v7, boxed_opaque_existential_0Tm);
-  sub_18B988BAC(v10, &unk_1EA9DB1B0);
+  sub_18B988BAC(v10, &unk_1EA9DB1B0, &qword_18BC51D18);
   swift_beginAccess();
-  __swift_destroy_boxed_opaque_existential_1Tm(self + v13);
-  sub_18B7B1AD4(v17, (self + v13));
+  __swift_destroy_boxed_opaque_existential_1Tm((&self->super.isa + v13));
+  sub_18B7B1AD4(&v17, (self + v13));
   swift_endAccess();
 }
 
@@ -102,7 +102,7 @@
 
 - (NSString)fileName
 {
-  v3 = _s8MetadataVMa();
+  v3 = _s8MetadataVMa(0);
   MEMORY[0x1EEE9AC00](v3);
   v5 = v11 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0) + 16;
   v6 = OBJC_IVAR___SFTabSnapshotMetadata__wrapped;
@@ -127,7 +127,7 @@
 
 - (void)setFileName:(id)name
 {
-  v5 = _s8MetadataVMa();
+  v5 = _s8MetadataVMa(0);
   MEMORY[0x1EEE9AC00](v5);
   v7 = &v15[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0)];
   if (name)
@@ -155,14 +155,14 @@
   boxed_opaque_existential_0Tm = __swift_allocate_boxed_opaque_existential_0Tm(&v16);
   sub_18BC13E90(v7, boxed_opaque_existential_0Tm);
   swift_beginAccess();
-  __swift_destroy_boxed_opaque_existential_1Tm(self + v11);
+  __swift_destroy_boxed_opaque_existential_1Tm((&self->super.isa + v11));
   sub_18B7B1AD4(&v16, (self + v11));
   swift_endAccess();
 }
 
 - (NSUUID)identifier
 {
-  v3 = _s8MetadataVMa();
+  v3 = _s8MetadataVMa(0);
   MEMORY[0x1EEE9AC00](v3);
   v5 = v14 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0) + 16;
   v6 = sub_18BC1EC08();
@@ -183,7 +183,7 @@
 
 - (UIEdgeInsets)horizontalObscuredInsets
 {
-  v3 = _s8MetadataVMa();
+  v3 = _s8MetadataVMa(0);
   MEMORY[0x1EEE9AC00](v3);
   v5 = v17 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0) + 16;
   v6 = OBJC_IVAR___SFTabSnapshotMetadata__wrapped;
@@ -213,7 +213,7 @@
   bottom = insets.bottom;
   left = insets.left;
   top = insets.top;
-  v8 = _s8MetadataVMa();
+  v8 = _s8MetadataVMa(0);
   MEMORY[0x1EEE9AC00](v8);
   v10 = &v15[-((v9 + 15) & 0xFFFFFFFFFFFFFFF0)];
   v11 = OBJC_IVAR___SFTabSnapshotMetadata__wrapped;
@@ -230,7 +230,7 @@
   boxed_opaque_existential_0Tm = __swift_allocate_boxed_opaque_existential_0Tm(&v16);
   sub_18BC13E90(v10, boxed_opaque_existential_0Tm);
   swift_beginAccess();
-  __swift_destroy_boxed_opaque_existential_1Tm(self + v11);
+  __swift_destroy_boxed_opaque_existential_1Tm((&self->super.isa + v11));
   sub_18B7B1AD4(&v16, (self + v11));
   swift_endAccess();
 }
@@ -291,7 +291,7 @@
 
 - (BOOL)includesTransparentBorderPadding
 {
-  v3 = _s8MetadataVMa();
+  v3 = _s8MetadataVMa(0);
   MEMORY[0x1EEE9AC00](v3);
   v5 = v9 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0) + 16;
   v6 = OBJC_IVAR___SFTabSnapshotMetadata__wrapped;
@@ -305,7 +305,7 @@
 
 - (void)setIncludesTransparentBorderPadding:(BOOL)padding
 {
-  v5 = _s8MetadataVMa();
+  v5 = _s8MetadataVMa(0);
   MEMORY[0x1EEE9AC00](v5);
   v7 = &v11[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0)];
   v8 = OBJC_IVAR___SFTabSnapshotMetadata__wrapped;
@@ -318,14 +318,14 @@
   boxed_opaque_existential_0Tm = __swift_allocate_boxed_opaque_existential_0Tm(&v12);
   sub_18BC13E90(v7, boxed_opaque_existential_0Tm);
   swift_beginAccess();
-  __swift_destroy_boxed_opaque_existential_1Tm(self + v8);
+  __swift_destroy_boxed_opaque_existential_1Tm((&self->super.isa + v8));
   sub_18B7B1AD4(&v12, (self + v8));
   swift_endAccess();
 }
 
 - (double)topBackdropHeight
 {
-  v3 = _s8MetadataVMa();
+  v3 = _s8MetadataVMa(0);
   MEMORY[0x1EEE9AC00](v3);
   v5 = v10 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0) + 16;
   v6 = OBJC_IVAR___SFTabSnapshotMetadata__wrapped;
@@ -339,7 +339,7 @@
 
 - (void)setTopBackdropHeight:(double)height
 {
-  v5 = _s8MetadataVMa();
+  v5 = _s8MetadataVMa(0);
   MEMORY[0x1EEE9AC00](v5);
   v7 = &v11[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0)];
   v8 = OBJC_IVAR___SFTabSnapshotMetadata__wrapped;
@@ -352,14 +352,14 @@
   boxed_opaque_existential_0Tm = __swift_allocate_boxed_opaque_existential_0Tm(&v12);
   sub_18BC13E90(v7, boxed_opaque_existential_0Tm);
   swift_beginAccess();
-  __swift_destroy_boxed_opaque_existential_1Tm(self + v8);
+  __swift_destroy_boxed_opaque_existential_1Tm((&self->super.isa + v8));
   sub_18B7B1AD4(&v12, (self + v8));
   swift_endAccess();
 }
 
 - (CGSize)windowSize
 {
-  v3 = _s8MetadataVMa();
+  v3 = _s8MetadataVMa(0);
   MEMORY[0x1EEE9AC00](v3);
   v5 = v13 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0) + 16;
   v6 = OBJC_IVAR___SFTabSnapshotMetadata__wrapped;
@@ -381,7 +381,7 @@
 {
   height = size.height;
   width = size.width;
-  v6 = _s8MetadataVMa();
+  v6 = _s8MetadataVMa(0);
   MEMORY[0x1EEE9AC00](v6);
   v8 = &v13[-((v7 + 15) & 0xFFFFFFFFFFFFFFF0)];
   v9 = OBJC_IVAR___SFTabSnapshotMetadata__wrapped;
@@ -396,24 +396,24 @@
   boxed_opaque_existential_0Tm = __swift_allocate_boxed_opaque_existential_0Tm(&v14);
   sub_18BC13E90(v8, boxed_opaque_existential_0Tm);
   swift_beginAccess();
-  __swift_destroy_boxed_opaque_existential_1Tm(self + v9);
+  __swift_destroy_boxed_opaque_existential_1Tm((&self->super.isa + v9));
   sub_18B7B1AD4(&v14, (self + v9));
   swift_endAccess();
 }
 
 - (NSUUID)windowUUID
 {
-  v3 = _s8MetadataVMa();
+  v3 = _s8MetadataVMa(0);
   MEMORY[0x1EEE9AC00](v3);
   v5 = v17 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0) + 16;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EA9D3AE0);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EA9D3AE0, &qword_18BC432A0);
   MEMORY[0x1EEE9AC00](v6 - 8);
   v8 = v17 - v7 + 16;
   v9 = OBJC_IVAR___SFTabSnapshotMetadata__wrapped;
   swift_beginAccess();
   sub_18B7B193C(self + v9, v17);
   swift_dynamicCast();
-  sub_18B7CA054(&v5[*(v3 + 48)], v8, &unk_1EA9D3AE0);
+  sub_18B7CA054(&v5[*(v3 + 48)], v8, &unk_1EA9D3AE0, &qword_18BC432A0);
   sub_18BC13E34(v5);
   v10 = sub_18BC1EC08();
   v11 = *(v10 - 8);
@@ -431,10 +431,10 @@
 
 - (void)setWindowUUID:(id)d
 {
-  v5 = _s8MetadataVMa();
+  v5 = _s8MetadataVMa(0);
   MEMORY[0x1EEE9AC00](v5);
   v7 = &v16[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EA9D3AE0);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EA9D3AE0, &qword_18BC432A0);
   MEMORY[0x1EEE9AC00](v8 - 8);
   v10 = &v16[-v9];
   if (d)
@@ -452,17 +452,17 @@
 
   v13 = OBJC_IVAR___SFTabSnapshotMetadata__wrapped;
   swift_beginAccess();
-  sub_18B7B193C(self + v13, v17);
+  sub_18B7B193C(self + v13, &v17);
   selfCopy = self;
   swift_dynamicCast();
-  sub_18B7EC8D0(v10, &v7[*(v5 + 48)], &unk_1EA9D3AE0);
+  sub_18B7EC8D0(v10, &v7[*(v5 + 48)], &unk_1EA9D3AE0, &qword_18BC432A0);
   v18 = v5;
-  boxed_opaque_existential_0Tm = __swift_allocate_boxed_opaque_existential_0Tm(v17);
+  boxed_opaque_existential_0Tm = __swift_allocate_boxed_opaque_existential_0Tm(&v17);
   sub_18BC13E90(v7, boxed_opaque_existential_0Tm);
-  sub_18B988BAC(v10, &unk_1EA9D3AE0);
+  sub_18B988BAC(v10, &unk_1EA9D3AE0, &qword_18BC432A0);
   swift_beginAccess();
-  __swift_destroy_boxed_opaque_existential_1Tm(self + v13);
-  sub_18B7B1AD4(v17, (self + v13));
+  __swift_destroy_boxed_opaque_existential_1Tm((&self->super.isa + v13));
+  sub_18B7B1AD4(&v17, (self + v13));
   swift_endAccess();
 }
 
@@ -474,7 +474,7 @@
   v7 = &v19 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_18BC1EBE8();
   v8 = (self + OBJC_IVAR___SFTabSnapshotMetadata__wrapped);
-  v9 = _s8MetadataVMa();
+  v9 = _s8MetadataVMa(0);
   v8[3] = v9;
   boxed_opaque_existential_0Tm = __swift_allocate_boxed_opaque_existential_0Tm(v8);
   v11 = sub_18BC1EB88();
@@ -505,7 +505,7 @@
 
 - (id)copyWithZone:(void *)zone
 {
-  v4 = _s8MetadataVMa();
+  v4 = _s8MetadataVMa(0);
   MEMORY[0x1EEE9AC00](v4);
   v6 = &v14 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   v7 = OBJC_IVAR___SFTabSnapshotMetadata__wrapped;

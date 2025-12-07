@@ -28,10 +28,10 @@
 - (id)_nss_URLByAppendingQueryItem:()NSSAdditions;
 - (id)_nss_valueForQueryParameterWithKey:()NSSAdditions;
 - (id)nss_URLWithCampaignID:()NSSAdditions;
-- (uint64_t)nss_hasRefreshParameter;
-- (uint64_t)nss_isAudioURL;
 - (uint64_t)nss_isNewsURL;
 - (uint64_t)nss_isSubscribeURL;
+- (void)nss_hasRefreshParameter;
+- (void)nss_isAudioURL;
 @end
 
 @implementation NSURL(NSSAdditions)
@@ -44,7 +44,7 @@
   return ([self fc_isNewsURL] | v3) & 1;
 }
 
-- (uint64_t)nss_isAudioURL
+- (void)nss_isAudioURL
 {
   result = [self nss_isNewsURL];
   if (result)
@@ -60,7 +60,7 @@
 
 + (id)nss_NewsURLForWebLinkURL:()NSSAdditions
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a3;
   if (!v3 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
@@ -82,9 +82,9 @@
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        v13 = 138412290;
-        v14 = scheme;
-        _os_log_impl(&dword_25BF0A000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Unsupported scheme: %@", &v13, 0xCu);
+        v12 = 138412290;
+        v13 = scheme;
+        _os_log_impl(&dword_25BF0A000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Unsupported scheme: %@", &v12, 0xCu);
       }
 
       goto LABEL_12;
@@ -109,14 +109,12 @@ LABEL_12:
   v10 = 0;
 LABEL_13:
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 + (id)nss_NewsURLForIssueID:()NSSAdditions
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v4 = a3;
   if (!v4 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
@@ -140,8 +138,8 @@ LABEL_13:
   else if (v4)
   {
 LABEL_10:
-    v9[0] = v4;
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+    v8[0] = v4;
+    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
     v6 = [self nss_NewsURLWithPathComponents:v5 internal:0];
 
     goto LABEL_13;
@@ -149,15 +147,13 @@ LABEL_10:
 
   v6 = 0;
 LABEL_13:
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 + (id)nss_NewsURLForPuzzleID:()NSSAdditions
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v4 = a3;
   if (!v4 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
@@ -181,8 +177,8 @@ LABEL_13:
   else if (v4)
   {
 LABEL_10:
-    v9[0] = v4;
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+    v8[0] = v4;
+    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
     v6 = [self nss_NewsURLWithPathComponents:v5 internal:0];
 
     goto LABEL_13;
@@ -190,15 +186,13 @@ LABEL_10:
 
   v6 = 0;
 LABEL_13:
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 + (id)nss_NewsURLForFullArchivePuzzleTypeID:()NSSAdditions
 {
-  v9[2] = *MEMORY[0x277D85DE8];
+  v8[2] = *MEMORY[0x277D85DE8];
   v4 = a3;
   if (!v4 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
@@ -222,9 +216,9 @@ LABEL_13:
   else if (v4)
   {
 LABEL_10:
-    v9[0] = v4;
-    v9[1] = @"archive";
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:2];
+    v8[0] = v4;
+    v8[1] = @"archive";
+    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:2];
     v6 = [self nss_NewsURLWithPathComponents:v5 internal:0];
 
     goto LABEL_13;
@@ -232,15 +226,13 @@ LABEL_10:
 
   v6 = 0;
 LABEL_13:
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 + (id)nss_NewsURLForPuzzleTypeID:()NSSAdditions
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v4 = a3;
   if (!v4 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
@@ -264,8 +256,8 @@ LABEL_13:
   else if (v4)
   {
 LABEL_10:
-    v9[0] = v4;
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+    v8[0] = v4;
+    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
     v6 = [self nss_NewsURLWithPathComponents:v5 internal:0];
 
     goto LABEL_13;
@@ -273,8 +265,6 @@ LABEL_10:
 
   v6 = 0;
 LABEL_13:
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -288,7 +278,7 @@ LABEL_13:
   return v7;
 }
 
-- (uint64_t)nss_hasRefreshParameter
+- (void)nss_hasRefreshParameter
 {
   result = [self nss_isNewsURL];
   if (result)
@@ -407,194 +397,162 @@ LABEL_24:
 
 + (id)nss_NewsURLForForYou
 {
-  v6[1] = *MEMORY[0x277D85DE8];
-  v6[0] = @"foryou";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
+  v5[1] = *MEMORY[0x277D85DE8];
+  v5[0] = @"foryou";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
   v3 = [self nss_NewsURLWithPathComponents:v2 internal:0];
-
-  v4 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 + (id)nss_NewsURLForMagazines
 {
-  v6[1] = *MEMORY[0x277D85DE8];
-  v6[0] = @"magazines";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
+  v5[1] = *MEMORY[0x277D85DE8];
+  v5[0] = @"magazines";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
   v3 = [self nss_NewsURLWithPathComponents:v2 internal:0];
-
-  v4 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 + (id)nss_NewsURLForMyMagazines
 {
-  v6[1] = *MEMORY[0x277D85DE8];
-  v6[0] = @"mymagazines";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
+  v5[1] = *MEMORY[0x277D85DE8];
+  v5[0] = @"mymagazines";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
   v3 = [self nss_NewsURLWithPathComponents:v2 internal:0];
-
-  v4 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 + (id)nss_NewsURLForPuzzleHub
 {
-  v6[1] = *MEMORY[0x277D85DE8];
-  v6[0] = @"puzzles";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
+  v5[1] = *MEMORY[0x277D85DE8];
+  v5[0] = @"puzzles";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
   v3 = [self nss_NewsURLWithPathComponents:v2 internal:0];
-
-  v4 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 + (id)nss_NewsURLForMySports
 {
-  v6[1] = *MEMORY[0x277D85DE8];
-  v6[0] = @"mysports";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
+  v5[1] = *MEMORY[0x277D85DE8];
+  v5[0] = @"mysports";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
   v3 = [self nss_NewsURLWithPathComponents:v2 internal:0];
-
-  v4 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 + (id)nss_NewsURLForMySportsScores
 {
-  v6[1] = *MEMORY[0x277D85DE8];
-  v6[0] = @"myscores";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
+  v5[1] = *MEMORY[0x277D85DE8];
+  v5[0] = @"myscores";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
   v3 = [self nss_NewsURLWithPathComponents:v2 internal:0];
-
-  v4 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 + (id)nss_NewsURLForMySportsHighlights
 {
-  v6[1] = *MEMORY[0x277D85DE8];
-  v6[0] = @"mysportshighlights";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
+  v5[1] = *MEMORY[0x277D85DE8];
+  v5[0] = @"mysportshighlights";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
   v3 = [self nss_NewsURLWithPathComponents:v2 internal:0];
-
-  v4 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 + (id)nss_NewsURLForSaved
 {
-  v6[1] = *MEMORY[0x277D85DE8];
-  v6[0] = @"saved";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
+  v5[1] = *MEMORY[0x277D85DE8];
+  v5[0] = @"saved";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
   v3 = [self nss_NewsURLWithPathComponents:v2 internal:0];
-
-  v4 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 + (id)nss_NewsURLForHistory
 {
-  v6[1] = *MEMORY[0x277D85DE8];
-  v6[0] = @"history";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
+  v5[1] = *MEMORY[0x277D85DE8];
+  v5[0] = @"history";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
   v3 = [self nss_NewsURLWithPathComponents:v2 internal:0];
-
-  v4 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 + (id)nss_NewsURLForFavoritesPicker
 {
-  v6[1] = *MEMORY[0x277D85DE8];
-  v6[0] = @"favoritespicker";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
+  v5[1] = *MEMORY[0x277D85DE8];
+  v5[0] = @"favoritespicker";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
   v3 = [self nss_NewsURLWithPathComponents:v2 internal:0];
-
-  v4 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 + (id)nss_NewsURLForManageNotifications
 {
-  v6[1] = *MEMORY[0x277D85DE8];
-  v6[0] = @"notifications";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
+  v5[1] = *MEMORY[0x277D85DE8];
+  v5[0] = @"notifications";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
   v3 = [self nss_NewsURLWithPathComponents:v2 internal:0];
-
-  v4 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 + (id)nss_NewsURLForPuzzle
 {
-  v6[1] = *MEMORY[0x277D85DE8];
-  v6[0] = @"puzzle";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
+  v5[1] = *MEMORY[0x277D85DE8];
+  v5[0] = @"puzzle";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
   v3 = [self nss_NewsURLWithPathComponents:v2 internal:0];
-
-  v4 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 + (id)nss_NewsURLForFood
 {
-  v6[1] = *MEMORY[0x277D85DE8];
-  v6[0] = @"food";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
+  v5[1] = *MEMORY[0x277D85DE8];
+  v5[0] = @"food";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
   v3 = [self nss_NewsURLWithPathComponents:v2 internal:0];
-
-  v4 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 + (id)nss_NewsURLForRecipeCatalog
 {
-  v6[1] = *MEMORY[0x277D85DE8];
-  v6[0] = @"recipes";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
+  v5[1] = *MEMORY[0x277D85DE8];
+  v5[0] = @"recipes";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
   v3 = [self nss_NewsURLWithPathComponents:v2 internal:0];
-
-  v4 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 + (id)nss_NewsURLForRecipeCatalog:()NSSAdditions
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v10 = @"recipes";
+  v10 = *MEMORY[0x277D85DE8];
+  v9 = @"recipes";
   v4 = MEMORY[0x277CBEA60];
   v5 = a3;
-  v6 = [v4 arrayWithObjects:&v10 count:1];
-  v7 = [self nss_NewsURLWithPathComponents:v6 queryItems:v5 internal:{0, v10, v11}];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v6 = [v4 arrayWithObjects:&v9 count:1];
+  v7 = [self nss_NewsURLWithPathComponents:v6 queryItems:v5 internal:{0, v9, v10}];
 
   return v7;
 }
 
 + (id)nss_NewsURLForRecipeBox
 {
-  v6[1] = *MEMORY[0x277D85DE8];
-  v6[0] = @"savedRecipes";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
+  v5[1] = *MEMORY[0x277D85DE8];
+  v5[0] = @"savedRecipes";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
   v3 = [self nss_NewsURLWithPathComponents:v2 internal:0];
-
-  v4 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -635,33 +593,33 @@ LABEL_24:
 
 - (id)_nss_valueForQueryParameterWithKey:()NSSAdditions
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v4 = a3;
   query = [self query];
   stringByRemovingPercentEncoding = [query stringByRemovingPercentEncoding];
   v7 = [stringByRemovingPercentEncoding componentsSeparatedByString:@"&"];
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   obj = v7;
-  v8 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v8 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v8)
   {
     v9 = v8;
     v10 = 0;
-    v11 = *v21;
+    v11 = *v20;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v21 != v11)
+        if (*v20 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = [*(*(&v20 + 1) + 8 * i) componentsSeparatedByString:@"="];
+        v13 = [*(*(&v19 + 1) + 8 * i) componentsSeparatedByString:@"="];
         firstObject = [v13 firstObject];
         lastObject = [v13 lastObject];
         if ([firstObject isEqualToString:v4])
@@ -672,7 +630,7 @@ LABEL_24:
         }
       }
 
-      v9 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v9 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v9);
@@ -682,8 +640,6 @@ LABEL_24:
   {
     v10 = 0;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -759,242 +715,188 @@ LABEL_24:
 
 + (void)nss_NewsURLForWebLinkURL:()NSSAdditions .cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "webLinkURL != nil"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF0A000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "webLinkURL != nil", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF0A000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 + (void)nss_NewsURLForIssueID:()NSSAdditions .cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "issueID != nil"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF0A000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "issueID != nil", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF0A000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 + (void)nss_NewsURLForIssueID:()NSSAdditions .cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "issueID.length != 0"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF0A000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "issueID.length != 0", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF0A000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 + (void)nss_NewsURLForIssueID:()NSSAdditions .cold.3()
 {
-  v7 = *MEMORY[0x277D85DE8];
   v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"issue IDs with slashes won't be handled properly"];
+  v6 = 136315906;
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_3_0();
-  OUTLINED_FUNCTION_7(&dword_25BF0A000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_25BF0A000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6);
 }
 
 + (void)nss_NewsURLForPuzzleID:()NSSAdditions .cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "puzzleID != nil"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF0A000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "puzzleID != nil", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF0A000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 + (void)nss_NewsURLForPuzzleID:()NSSAdditions .cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "puzzleID.length != 0"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF0A000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "puzzleID.length != 0", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF0A000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 + (void)nss_NewsURLForPuzzleID:()NSSAdditions .cold.3()
 {
-  v7 = *MEMORY[0x277D85DE8];
   v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"puzzle IDs with slashes won't be handled properly"];
+  v6 = 136315906;
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_3_0();
-  OUTLINED_FUNCTION_7(&dword_25BF0A000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_25BF0A000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6);
 }
 
 + (void)nss_NewsURLForFullArchivePuzzleTypeID:()NSSAdditions .cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "puzzleTypeID != nil"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF0A000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "puzzleTypeID != nil", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF0A000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 + (void)nss_NewsURLForFullArchivePuzzleTypeID:()NSSAdditions .cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "puzzleTypeID.length != 0"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF0A000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "puzzleTypeID.length != 0", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF0A000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 + (void)nss_NewsURLForFullArchivePuzzleTypeID:()NSSAdditions .cold.3()
 {
-  v7 = *MEMORY[0x277D85DE8];
   v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"puzzle type IDs with slashes won't be handled properly"];
+  v6 = 136315906;
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_3_0();
-  OUTLINED_FUNCTION_7(&dword_25BF0A000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_25BF0A000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6);
 }
 
 + (void)nss_NewsURLForPuzzleTypeID:()NSSAdditions .cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "puzzleTypeID != nil"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF0A000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "puzzleTypeID != nil", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF0A000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 + (void)nss_NewsURLForPuzzleTypeID:()NSSAdditions .cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "puzzleTypeID.length != 0"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF0A000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "puzzleTypeID.length != 0", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF0A000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 + (void)nss_NewsURLForPuzzleTypeID:()NSSAdditions .cold.3()
 {
-  v7 = *MEMORY[0x277D85DE8];
   v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"puzzle type IDs with slashes won't be handled properly"];
+  v6 = 136315906;
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_3_0();
-  OUTLINED_FUNCTION_7(&dword_25BF0A000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_25BF0A000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6);
 }
 
 + (void)nss_NewsURLForTagID:()NSSAdditions feedConfiguration:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "tagID != nil"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF0A000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "tagID != nil", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF0A000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 + (void)nss_NewsURLForTagID:()NSSAdditions feedConfiguration:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "tagID.length != 0"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF0A000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "tagID.length != 0", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF0A000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 + (void)nss_NewsURLForTagID:()NSSAdditions feedConfiguration:.cold.3()
 {
-  v7 = *MEMORY[0x277D85DE8];
   v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"tag IDs with slashes won't be handled properly"];
+  v6 = 136315906;
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_3_0();
-  OUTLINED_FUNCTION_7(&dword_25BF0A000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_25BF0A000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6);
 }
 
 + (void)nss_NewsURLForRecipeID:()NSSAdditions articleID:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "recipeID != nil"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF0A000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "recipeID != nil", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF0A000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 + (void)nss_NewsURLForRecipeID:()NSSAdditions articleID:.cold.2()
 {
-  v7 = *MEMORY[0x277D85DE8];
   v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"recipe IDs with slashes won't be handled properly"];
+  v6 = 136315906;
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_3_0();
-  OUTLINED_FUNCTION_7(&dword_25BF0A000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_25BF0A000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (void)nss_URLWithCampaignID:()NSSAdditions .cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "campaignID"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF0A000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "campaignID", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF0A000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)_nss_URLByAppendingQueryItem:()NSSAdditions .cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "queryItem"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF0A000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "queryItem", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF0A000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 @end

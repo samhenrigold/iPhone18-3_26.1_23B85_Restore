@@ -353,7 +353,7 @@
             v10 = 0;
 LABEL_22:
             v11 = [(SBDestroyDisplayItemSwitcherEventResponse *)v8 initWithDisplayItem:v9 destroyAllScenesMatchingBundleIdentifier:v10];
-            v26 = SBAppendSwitcherModifierResponse(v11, v5);
+            v26 = SBAppendSwitcherModifierResponse();
 LABEL_37:
 
             v5 = v26;
@@ -495,7 +495,7 @@ LABEL_25:
     v27 = [[SBAddModifierSwitcherEventResponse alloc] initWithModifier:v11 level:3];
 LABEL_36:
     v31 = v27;
-    v26 = SBAppendSwitcherModifierResponse(v27, v5);
+    v26 = SBAppendSwitcherModifierResponse();
 
     v5 = v31;
     goto LABEL_37;

@@ -3,6 +3,10 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)networkSelectionModeAsString:(int)string;
+- (id)ratAsString:(int)string;
+- (id)searchTypeAsString:(int)string;
+- (id)stateAsString:(int)string;
 - (int)StringAsNetworkSelectionMode:(id)mode;
 - (int)StringAsRat:(id)rat;
 - (int)StringAsSearchType:(id)type;
@@ -53,6 +57,29 @@
   *&self->_has = *&self->_has & 0xDF | v3;
 }
 
+- (id)stateAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"ABORTED";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"COMPLETED";
+  }
+
+  return v4;
+}
+
 - (int)StringAsState:(id)state
 {
   stateCopy = state;
@@ -95,6 +122,21 @@
   }
 
   *&self->_has = *&self->_has & 0xF7 | v3;
+}
+
+- (id)ratAsString:(int)string
+{
+  if (string >= 7)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278259DF0[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsRat:(id)rat
@@ -171,6 +213,21 @@
   *&self->_has = *&self->_has & 0xEF | v3;
 }
 
+- (id)searchTypeAsString:(int)string
+{
+  if (string >= 6)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278259E28[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsSearchType:(id)type
 {
   typeCopy = type;
@@ -238,6 +295,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFB | v3;
+}
+
+- (id)networkSelectionModeAsString:(int)string
+{
+  if (string >= 8)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278259E58[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsNetworkSelectionMode:(id)mode
@@ -493,7 +565,6 @@ LABEL_9:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 0x20) == 0)
@@ -513,7 +584,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  state = self->_state;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -528,7 +598,6 @@ LABEL_4:
   }
 
 LABEL_14:
-  rat = self->_rat;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -543,7 +612,6 @@ LABEL_5:
   }
 
 LABEL_15:
-  searchType = self->_searchType;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -558,7 +626,6 @@ LABEL_6:
   }
 
 LABEL_16:
-  networkSelectionMode = self->_networkSelectionMode;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -573,12 +640,10 @@ LABEL_7:
   }
 
 LABEL_17:
-  duration = self->_duration;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x40) != 0)
   {
 LABEL_8:
-    subsId = self->_subsId;
     PBDataWriterWriteUint32Field();
   }
 

@@ -89,8 +89,8 @@
     return 0;
   }
 
-  token = [(VCAudioCaptionsBufferInfo *)self token];
-  if (token != [equal token])
+  v5 = objc_msgSend_token(self);
+  if (v5 != objc_msgSend_token(equal))
   {
     return 0;
   }

@@ -536,7 +536,7 @@ void __65__ICCompatibilityController_devicesForAccount_completionHandler___block
 {
   v1 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(a1, "count")}];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_214D51000, v2, v3, "Returning compatibility cached devices {#devices: %@}", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_0(&dword_214D51000, v2, v3, "Returning compatibility cached devices {#devices: %@}", v4, v5, v6, v7);
 }
 
 void __65__ICCompatibilityController_devicesForAccount_completionHandler___block_invoke_2_cold_4(id *a1)
@@ -545,14 +545,14 @@ void __65__ICCompatibilityController_devicesForAccount_completionHandler___block
   v2 = [*a1 fakeDevices];
   v3 = [v1 numberWithUnsignedInteger:{objc_msgSend(v2, "count")}];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_214D51000, v4, v5, "Returning fake compatibility devices for debugging {#devices: %@}", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_0_0(&dword_214D51000, v4, v5, "Returning fake compatibility devices for debugging {#devices: %@}", v6, v7, v8, v9);
 }
 
 - (void)fetchDevicesForAccount:(void *)a1 .cold.1(void *a1)
 {
   v1 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(a1, "count")}];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_214D51000, v2, v3, "Fetched compatibility devices for account {#devices: %@}", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_0(&dword_214D51000, v2, v3, "Fetched compatibility devices for account {#devices: %@}", v4, v5, v6, v7);
 }
 
 void __52__ICCompatibilityController_fetchDevicesForAccount___block_invoke_cold_1()

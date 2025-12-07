@@ -53,7 +53,7 @@
 
 - (void)loadPossibleStatesForEnumeration:(id)enumeration searchTerm:(id)term completionHandler:(id)handler
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   allLists = [MEMORY[0x1E6996F38] allLists];
   v8 = objc_opt_new();
@@ -66,36 +66,36 @@
     [v8 addObject:v11];
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v12 = allLists;
-  v13 = [v12 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v23;
+    v15 = *v22;
     do
     {
       v16 = 0;
       do
       {
-        if (*v23 != v15)
+        if (*v22 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = *(*(&v22 + 1) + 8 * v16);
+        v17 = *(*(&v21 + 1) + 8 * v16);
         v18 = [WFCalendarSubstitutableState alloc];
-        v19 = [(WFCalendarSubstitutableState *)v18 initWithRemindersList:v17, v22];
+        v19 = [(WFCalendarSubstitutableState *)v18 initWithRemindersList:v17, v21];
         [v8 addObject:v19];
 
         ++v16;
       }
 
       while (v14 != v16);
-      v14 = [v12 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v14);
@@ -104,8 +104,6 @@
   [(WFDynamicEnumerationParameter *)self defaultSerializedRepresentationDidChange];
   v20 = [objc_alloc(MEMORY[0x1E696E918]) initWithItems:v8];
   handlerCopy[2](handlerCopy, v20, 0);
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (id)defaultSerializedRepresentationForEnumeration:(id)enumeration
@@ -133,7 +131,7 @@
 
 - (id)accessoryColorForPossibleState:(id)state
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   stateCopy = state;
   value = [stateCopy value];
   calendarRGBAValue = [value calendarRGBAValue];
@@ -149,30 +147,30 @@
   else
   {
     [MEMORY[0x1E6996F38] allLists];
+    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v24 = 0u;
-    v10 = v25 = 0u;
-    v9 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v10 = v24 = 0u;
+    v9 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v9)
     {
-      v11 = *v23;
+      v11 = *v22;
       while (2)
       {
         for (i = 0; i != v9; i = i + 1)
         {
-          if (*v23 != v11)
+          if (*v22 != v11)
           {
             objc_enumerationMutation(v10);
           }
 
-          v13 = *(*(&v22 + 1) + 8 * i);
+          v13 = *(*(&v21 + 1) + 8 * i);
           name = [v13 name];
           value3 = [stateCopy value];
           calendarTitle = [value3 calendarTitle];
-          v17 = [name isEqualToString:calendarTitle];
+          isEqualToString = objc_msgSend_isEqualToString_(name);
 
-          if (v17)
+          if (isEqualToString)
           {
             v18 = MEMORY[0x1E69E09E0];
             color = [v13 color];
@@ -182,7 +180,7 @@
           }
         }
 
-        v9 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v9 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
         if (v9)
         {
           continue;
@@ -194,8 +192,6 @@
 
 LABEL_13:
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -234,11 +230,11 @@ LABEL_13:
 
 - (WFRemindersListPickerParameter)initWithDefinition:(id)definition
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   definitionCopy = definition;
-  v16.receiver = self;
-  v16.super_class = WFRemindersListPickerParameter;
-  v5 = [(WFDynamicEnumerationParameter *)&v16 initWithDefinition:definitionCopy];
+  v15.receiver = self;
+  v15.super_class = WFRemindersListPickerParameter;
+  v5 = [(WFDynamicEnumerationParameter *)&v15 initWithDefinition:definitionCopy];
   if (v5)
   {
     v6 = [definitionCopy objectForKey:@"AllowsAllLists"];
@@ -251,13 +247,13 @@ LABEL_13:
       {
         v11 = objc_opt_class();
         *buf = 136315906;
-        v18 = "WFEnforceClass";
-        v19 = 2114;
-        v20 = v8;
-        v21 = 2114;
-        v22 = v11;
-        v23 = 2114;
-        v24 = v7;
+        v17 = "WFEnforceClass";
+        v18 = 2114;
+        v19 = v8;
+        v20 = 2114;
+        v21 = v11;
+        v22 = 2114;
+        v23 = v7;
         v12 = v11;
         _os_log_impl(&dword_1CA256000, v10, OS_LOG_TYPE_FAULT, "%s Warning: %{public}@ is of type %{public}@, not %{public}@! Falling back to nil.", buf, 0x2Au);
       }
@@ -275,7 +271,6 @@ LABEL_13:
     v13 = v5;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

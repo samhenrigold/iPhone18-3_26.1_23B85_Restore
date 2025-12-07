@@ -167,13 +167,13 @@ void __46__CNContactAsyncDataSource_reloadWithRequest___block_invoke_3(uint64_t 
 - (id)indexPathForContact:(id)contact
 {
   contactCopy = contact;
-  contacts = [(CNContactAsyncDataSource *)self contacts];
-  if ([contacts count])
+  v5 = objc_msgSend_contacts(self);
+  if ([v5 count])
   {
     v6 = 0;
     while (1)
     {
-      v7 = [contacts objectAtIndexedSubscript:v6];
+      v7 = [v5 objectAtIndexedSubscript:v6];
       identifier = [v7 identifier];
       identifier2 = [contactCopy identifier];
       v10 = [identifier isEqual:identifier2];
@@ -183,7 +183,7 @@ void __46__CNContactAsyncDataSource_reloadWithRequest___block_invoke_3(uint64_t 
         break;
       }
 
-      if (++v6 >= [contacts count])
+      if (++v6 >= [v5 count])
       {
         goto LABEL_5;
       }
@@ -230,7 +230,7 @@ LABEL_5:
 
   if (v15)
   {
-    _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNContactAsyncDataSource.m", 165, 3, @"Error completing contact: %@", v16, v17, v18, v19, v15);
+    _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNContactAsyncDataSource.m", 165, 3u, @"Error completing contact: %@", v16, v17, v18, v19, v15);
   }
 
 LABEL_8:

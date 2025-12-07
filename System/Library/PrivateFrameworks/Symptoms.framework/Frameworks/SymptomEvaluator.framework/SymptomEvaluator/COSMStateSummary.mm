@@ -1663,33 +1663,33 @@ LABEL_112:
 
 - (id)dictionaryForm
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   obj = gSortedKeys;
-  v4 = [obj countByEnumeratingWithState:&v23 objects:v31 count:16];
+  v4 = [obj countByEnumeratingWithState:&v22 objects:v30 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v24;
+    v6 = *v23;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v24 != v6)
+        if (*v23 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v23 + 1) + 8 * i);
+        v8 = *(*(&v22 + 1) + 8 * i);
         v9 = outrankLogHandle;
         if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v28 = v8;
+          v27 = v8;
           _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEBUG, "COSMStateSummary dictionaryForm: check key %@", buf, 0xCu);
         }
 
@@ -1703,9 +1703,9 @@ LABEL_112:
             v12 = v11;
             v13 = [v3 objectForKeyedSubscript:v8];
             *buf = 138412546;
-            v28 = v8;
-            v29 = 2112;
-            v30 = v13;
+            v27 = v8;
+            v28 = 2112;
+            v29 = v13;
             _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEBUG, "COSMStateSummary dictionaryForm added key %@ -> %@", buf, 0x16u);
           }
 
@@ -1716,9 +1716,9 @@ LABEL_112:
             v16 = objc_opt_class();
             v17 = NSStringFromClass(v16);
             *buf = 138412546;
-            v28 = v8;
-            v29 = 2112;
-            v30 = v17;
+            v27 = v8;
+            v28 = 2112;
+            v29 = v17;
             _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_DEBUG, "COSMStateSummary dictionaryForm key %@ class %@", buf, 0x16u);
           }
         }
@@ -1729,13 +1729,13 @@ LABEL_112:
           if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v28 = v8;
+            v27 = v8;
             _os_log_impl(&dword_23255B000, v18, OS_LOG_TYPE_ERROR, "COSMStateSummary dictionaryForm no object for key %@", buf, 0xCu);
           }
         }
       }
 
-      v5 = [obj countByEnumeratingWithState:&v23 objects:v31 count:16];
+      v5 = [obj countByEnumeratingWithState:&v22 objects:v30 count:16];
     }
 
     while (v5);
@@ -1745,60 +1745,56 @@ LABEL_112:
   if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v28 = v3;
+    v27 = v3;
     _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_DEBUG, "COSMStateSummary dictionaryForm return %@", buf, 0xCu);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (id)jsonRepresentation
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   dictionaryForm = [(COSMStateSummary *)self dictionaryForm];
   v3 = [MEMORY[0x277CCAAA0] dataWithJSONObject:dictionaryForm options:3 error:0];
   v4 = outrankLogHandle;
   if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEBUG))
   {
-    v7 = 138412290;
-    v8 = v3;
-    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEBUG, "COSMStateSummary jsonRepresentation return %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v3;
+    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEBUG, "COSMStateSummary jsonRepresentation return %@", &v6, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (BOOL)applyDictionary:(id)dictionary
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
-  v5 = [dictionaryCopy countByEnumeratingWithState:&v24 objects:v34 count:16];
+  v5 = [dictionaryCopy countByEnumeratingWithState:&v23 objects:v33 count:16];
   if (v5)
   {
     v7 = v5;
     v8 = &outrankLogHandle;
-    v9 = *v25;
+    v9 = *v24;
     *&v6 = 138412546;
-    v23 = v6;
+    v22 = v6;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v25 != v9)
+        if (*v24 != v9)
         {
           objc_enumerationMutation(dictionaryCopy);
         }
 
-        v11 = *(*(&v24 + 1) + 8 * i);
-        v12 = [dictionaryCopy objectForKeyedSubscript:{v11, v23}];
+        v11 = *(*(&v23 + 1) + 8 * i);
+        v12 = [dictionaryCopy objectForKeyedSubscript:{v11, v22}];
         v13 = *v8;
         if (os_log_type_enabled(*v8, OS_LOG_TYPE_DEBUG))
         {
@@ -1809,11 +1805,11 @@ LABEL_112:
           v17 = v8;
           v19 = v18 = self;
           *buf = 138412802;
-          v29 = v11;
-          v30 = 2112;
-          v31 = v12;
-          v32 = 2112;
-          v33 = v19;
+          v28 = v11;
+          v29 = 2112;
+          v30 = v12;
+          v31 = 2112;
+          v32 = v19;
           _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_DEBUG, "COSMStateSummary applyDictionary key %@ object %@ of class %@", buf, 0x20u);
 
           self = v18;
@@ -1825,21 +1821,20 @@ LABEL_112:
         v20 = *v8;
         if (os_log_type_enabled(*v8, OS_LOG_TYPE_DEBUG))
         {
-          *buf = v23;
-          v29 = v11;
-          v30 = 2112;
-          v31 = v12;
+          *buf = v22;
+          v28 = v11;
+          v29 = 2112;
+          v30 = v12;
           _os_log_impl(&dword_23255B000, v20, OS_LOG_TYPE_DEBUG, "COSMStateSummary applyDictionary success for key %@ object %@", buf, 0x16u);
         }
       }
 
-      v7 = [dictionaryCopy countByEnumeratingWithState:&v24 objects:v34 count:16];
+      v7 = [dictionaryCopy countByEnumeratingWithState:&v23 objects:v33 count:16];
     }
 
     while (v7);
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return 1;
 }
 

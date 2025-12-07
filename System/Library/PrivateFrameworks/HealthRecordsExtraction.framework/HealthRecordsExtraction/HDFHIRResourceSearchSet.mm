@@ -38,7 +38,7 @@
 
 + (id)searchSetWithFHIRJSONObject:(id)object serverBaseURL:(id)l error:(id *)error
 {
-  v104 = *MEMORY[0x277D85DE8];
+  v102 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   lCopy = l;
   if (!lCopy)
@@ -51,11 +51,11 @@
 
   if ((v11 & 1) == 0)
   {
-    v39 = MEMORY[0x277CCA9B8];
+    v38 = MEMORY[0x277CCA9B8];
     detectedResourceType2 = [objectCopy detectedResourceType];
-    [v39 hk_assignError:error code:3 format:{@"searchSetWithFHIRJSONObject needs Bundle resource, but got %@", detectedResourceType2}];
+    [v38 hk_assignError:error code:3 format:{@"searchSetWithFHIRJSONObject needs Bundle resource, but got %@", detectedResourceType2}];
 
-    v41 = 0;
+    v40 = 0;
     goto LABEL_67;
   }
 
@@ -65,21 +65,21 @@
   v14 = [jSONObject hk_safeArrayIfExistsForKeyPath:@"link" error:0];
 
   errorCopy = error;
-  v77 = objectCopy;
-  v72 = v14;
+  v75 = objectCopy;
+  v70 = v14;
   if (!v14)
   {
     v17 = 0;
     goto LABEL_29;
   }
 
-  v79 = sourceURL;
-  v96 = 0u;
-  v97 = 0u;
+  v77 = sourceURL;
   v94 = 0u;
   v95 = 0u;
+  v92 = 0u;
+  v93 = 0u;
   obj = v14;
-  v15 = [obj countByEnumeratingWithState:&v94 objects:v103 count:16];
+  v15 = [obj countByEnumeratingWithState:&v92 objects:v101 count:16];
   if (!v15)
   {
     v17 = 0;
@@ -88,72 +88,71 @@
 
   v16 = v15;
   v17 = 0;
-  v18 = *v95;
+  v18 = *v93;
   v19 = @"url";
   v20 = 0x277CCA000uLL;
   v21 = @"link.url";
   do
   {
     v22 = 0;
-    v81 = v16;
+    v79 = v16;
     do
     {
-      if (*v95 != v18)
+      if (*v93 != v18)
       {
         objc_enumerationMutation(obj);
       }
 
-      v23 = *(*(&v94 + 1) + 8 * v22);
+      v23 = *(*(&v92 + 1) + 8 * v22);
       v24 = [v23 objectForKeyedSubscript:v19];
-      v25 = *(v20 + 3240);
       objc_opt_class();
-      v26 = HKSafeObject();
+      v25 = HKSafeObject();
 
-      if (v26)
+      if (v25)
       {
-        v27 = [lCopy hrs_URLByExpandingReference:v26];
-        if (v27)
+        v26 = [lCopy hrs_URLByExpandingReference:v25];
+        if (v26)
         {
-          v28 = v18;
-          v29 = v21;
-          v30 = v19;
-          v31 = v20;
-          v32 = [v23 valueForKeyPath:@"relation"];
-          if ([v32 isEqual:@"self"])
+          v27 = v18;
+          v28 = v21;
+          v29 = v19;
+          v30 = v20;
+          v31 = [v23 valueForKeyPath:@"relation"];
+          if ([v31 isEqual:@"self"])
           {
-            v33 = v79;
-            v79 = v27;
+            v32 = v77;
+            v77 = v26;
             goto LABEL_19;
           }
 
-          v36 = [v32 isEqual:@"next"];
-          v37 = v17;
-          v33 = v17;
-          v17 = v27;
-          if (v36)
+          v35 = [v31 isEqual:@"next"];
+          v36 = v17;
+          v32 = v17;
+          v17 = v26;
+          if (v35)
           {
 LABEL_19:
-            v38 = v27;
+            v37 = v26;
 
-            v37 = v17;
+            v36 = v17;
           }
 
-          v17 = v37;
+          v17 = v36;
 
-          v20 = v31;
-          v19 = v30;
-          v21 = v29;
-          v18 = v28;
-          v16 = v81;
+          v20 = v30;
+          v19 = v29;
+          v21 = v28;
+          v18 = v27;
+          v16 = v79;
         }
 
         else
         {
           _HKInitializeLogging();
-          v35 = *MEMORY[0x277CCC2C0];
+          v34 = *MEMORY[0x277CCC2C0];
           if (os_log_type_enabled(*MEMORY[0x277CCC2C0], OS_LOG_TYPE_ERROR))
           {
-            [(HDFHIRResourceSearchSet *)v101 searchSetWithFHIRJSONObject:v35 serverBaseURL:v26 error:&v102];
+            [(HDFHIRResourceSearchSet *)v99 searchSetWithFHIRJSONObject:v34 serverBaseURL:v25 error:&v100];
           }
         }
 
@@ -161,11 +160,11 @@ LABEL_19:
       }
 
       _HKInitializeLogging();
-      v34 = *MEMORY[0x277CCC2C0];
+      v33 = *MEMORY[0x277CCC2C0];
       if (os_log_type_enabled(*MEMORY[0x277CCC2C0], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_251CC8000, v34, OS_LOG_TYPE_DEFAULT, "Ignoring link entry missing its url in Bundle", buf, 2u);
+        _os_log_impl(&dword_251CC8000, v33, OS_LOG_TYPE_DEFAULT, "Ignoring link entry missing its url in Bundle", buf, 2u);
       }
 
 LABEL_22:
@@ -174,136 +173,136 @@ LABEL_22:
     }
 
     while (v16 != v22);
-    v16 = [obj countByEnumeratingWithState:&v94 objects:v103 count:16];
+    v16 = [obj countByEnumeratingWithState:&v92 objects:v101 count:16];
   }
 
   while (v16);
 LABEL_28:
 
   error = errorCopy;
-  objectCopy = v77;
-  sourceURL = v79;
-  v14 = v72;
+  objectCopy = v75;
+  sourceURL = v77;
+  v14 = v70;
 LABEL_29:
   array = [MEMORY[0x277CBEB18] array];
   jSONObject2 = [objectCopy JSONObject];
-  v93 = 0;
-  v44 = [jSONObject2 hk_safeArrayForKeyPath:@"entry" error:&v93];
-  v71 = v93;
+  v91 = 0;
+  v43 = [jSONObject2 hk_safeArrayForKeyPath:@"entry" error:&v91];
+  v69 = v91;
 
-  if (v44)
+  if (v43)
   {
-    v73 = array;
-    v80 = sourceURL;
+    v71 = array;
+    v78 = sourceURL;
     date = [MEMORY[0x277CBEAA8] date];
+    v87 = 0u;
+    v88 = 0u;
     v89 = 0u;
     v90 = 0u;
-    v91 = 0u;
-    v92 = 0u;
-    v69 = v44;
-    v74 = v44;
-    v82 = [v74 countByEnumeratingWithState:&v89 objects:v100 count:16];
-    if (v82)
+    v67 = v43;
+    v72 = v43;
+    v80 = [v72 countByEnumeratingWithState:&v87 objects:v98 count:16];
+    if (v80)
     {
-      v78 = *v90;
+      v76 = *v88;
       while (2)
       {
-        for (i = 0; i != v82; ++i)
+        for (i = 0; i != v80; ++i)
         {
-          if (*v90 != v78)
+          if (*v88 != v76)
           {
-            objc_enumerationMutation(v74);
+            objc_enumerationMutation(v72);
           }
 
-          v46 = *(*(&v89 + 1) + 8 * i);
+          v45 = *(*(&v87 + 1) + 8 * i);
           objc_opt_class();
-          v47 = HKSafeObject();
+          v46 = HKSafeObject();
 
-          if (!v47)
+          if (!v46)
           {
 
-            v41 = 0;
-            sourceURL = v80;
-            v14 = v72;
-            array = v73;
-            v44 = v69;
+            v40 = 0;
+            sourceURL = v78;
+            v14 = v70;
+            array = v71;
+            v43 = v67;
             goto LABEL_66;
           }
 
-          v48 = [v46 hk_safeStringIfExistsForKeyPath:@"fullUrl" error:0];
-          if (v48)
+          v47 = [v45 hk_safeStringIfExistsForKeyPath:@"fullUrl" error:0];
+          if (v47)
           {
-            v49 = [MEMORY[0x277CBEBC0] URLWithString:v48];
+            v48 = [MEMORY[0x277CBEBC0] URLWithString:v47];
           }
 
           else
           {
-            v49 = 0;
+            v48 = 0;
           }
 
-          v88 = 0;
-          v50 = [v46 hk_safeDictionaryForKeyPath:@"resource" error:&v88];
-          v51 = v88;
-          if (v50)
+          v86 = 0;
+          v49 = [v45 hk_safeDictionaryForKeyPath:@"resource" error:&v86];
+          v50 = v86;
+          if (v49)
           {
-            v52 = MEMORY[0x277D12380];
+            v51 = MEMORY[0x277D12380];
             fHIRVersion = [objectCopy FHIRVersion];
-            obja = v49;
-            if (v49)
+            obja = v48;
+            if (v48)
             {
-              v87 = v51;
-              v54 = &v87;
-              [v52 resourceObjectWithJSONObject:v50 sourceURL:v49 FHIRVersion:fHIRVersion receivedDate:date extractionHints:0 error:&v87];
+              v85 = v50;
+              v53 = &v85;
+              [v51 resourceObjectWithJSONObject:v49 sourceURL:v48 FHIRVersion:fHIRVersion receivedDate:date extractionHints:0 error:&v85];
             }
 
             else
             {
-              v86 = v51;
-              v54 = &v86;
-              [v52 resourceObjectWithJSONObject:v50 serverBaseURL:lCopy FHIRVersion:fHIRVersion receivedDate:date error:&v86];
+              v84 = v50;
+              v53 = &v84;
+              [v51 resourceObjectWithJSONObject:v49 serverBaseURL:lCopy FHIRVersion:fHIRVersion receivedDate:date error:&v84];
             }
-            v57 = ;
-            v56 = *v54;
+            v56 = ;
+            v55 = *v53;
 
-            if (v57)
+            if (v56)
             {
-              [v73 addObject:v57];
-              objectCopy = v77;
+              [v71 addObject:v56];
+              objectCopy = v75;
             }
 
             else
             {
               _HKInitializeLogging();
-              v58 = *MEMORY[0x277CCC2C0];
-              objectCopy = v77;
+              v57 = *MEMORY[0x277CCC2C0];
+              objectCopy = v75;
               if (os_log_type_enabled(*MEMORY[0x277CCC2C0], OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412290;
-                v99 = v56;
-                _os_log_error_impl(&dword_251CC8000, v58, OS_LOG_TYPE_ERROR, "Failed to create resource object from search set entry: %@", buf, 0xCu);
+                v97 = v55;
+                _os_log_error_impl(&dword_251CC8000, v57, OS_LOG_TYPE_ERROR, "Failed to create resource object from search set entry: %@", buf, 0xCu);
               }
             }
 
-            v49 = obja;
+            v48 = obja;
           }
 
           else
           {
             _HKInitializeLogging();
-            v55 = *MEMORY[0x277CCC2C0];
+            v54 = *MEMORY[0x277CCC2C0];
             if (os_log_type_enabled(*MEMORY[0x277CCC2C0], OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v99 = v51;
-              _os_log_impl(&dword_251CC8000, v55, OS_LOG_TYPE_DEFAULT, "No resource in search set entry: %@", buf, 0xCu);
+              v97 = v50;
+              _os_log_impl(&dword_251CC8000, v54, OS_LOG_TYPE_DEFAULT, "No resource in search set entry: %@", buf, 0xCu);
             }
 
-            v56 = v51;
+            v55 = v50;
           }
         }
 
-        v82 = [v74 countByEnumeratingWithState:&v89 objects:v100 count:16];
-        if (v82)
+        v80 = [v72 countByEnumeratingWithState:&v87 objects:v98 count:16];
+        if (v80)
         {
           continue;
         }
@@ -312,48 +311,48 @@ LABEL_29:
       }
     }
 
-    sourceURL = v80;
-    v14 = v72;
-    array = v73;
-    v44 = v69;
+    sourceURL = v78;
+    v14 = v70;
+    array = v71;
+    v43 = v67;
 LABEL_63:
-    v41 = [[selfCopy alloc] _initWithEntries:array serverBaseURL:lCopy pageURL:sourceURL nextPageURL:v17];
+    v40 = [[selfCopy alloc] _initWithEntries:array serverBaseURL:lCopy pageURL:sourceURL nextPageURL:v17];
   }
 
   else
   {
     jSONObject3 = [objectCopy JSONObject];
-    v60 = [jSONObject3 objectForKeyedSubscript:@"entry"];
+    v59 = [jSONObject3 objectForKeyedSubscript:@"entry"];
 
     _HKInitializeLogging();
+    v60 = *MEMORY[0x277CCC2C0];
     v61 = *MEMORY[0x277CCC2C0];
-    v62 = *MEMORY[0x277CCC2C0];
-    if (!v60)
+    if (!v59)
     {
-      if (os_log_type_enabled(v62, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
       {
-        v65 = v61;
-        v66 = HKSensitiveLogItem();
+        v64 = v60;
+        v65 = HKSensitiveLogItem();
         *buf = 138412290;
-        v99 = v66;
-        _os_log_impl(&dword_251CC8000, v65, OS_LOG_TYPE_DEFAULT, "There's no entry key on Bundle obtained from %@", buf, 0xCu);
+        v97 = v65;
+        _os_log_impl(&dword_251CC8000, v64, OS_LOG_TYPE_DEFAULT, "There's no entry key on Bundle obtained from %@", buf, 0xCu);
       }
 
       goto LABEL_63;
     }
 
-    if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
     {
-      [HDFHIRResourceSearchSet searchSetWithFHIRJSONObject:v61 serverBaseURL:? error:?];
+      [HDFHIRResourceSearchSet searchSetWithFHIRJSONObject:v60 serverBaseURL:sourceURL error:?];
     }
 
-    v63 = v71;
-    if (v63)
+    v62 = v69;
+    if (v62)
     {
       if (error)
       {
-        v64 = v63;
-        *error = v63;
+        v63 = v62;
+        *error = v62;
       }
 
       else
@@ -362,15 +361,14 @@ LABEL_63:
       }
     }
 
-    v41 = 0;
+    v40 = 0;
   }
 
 LABEL_66:
 
 LABEL_67:
-  v67 = *MEMORY[0x277D85DE8];
 
-  return v41;
+  return v40;
 }
 
 @end

@@ -170,7 +170,7 @@ LABEL_8:
 
     else
     {
-      v8 = +[UIColor blackColor];
+      v8 = objc_msgSend_blackColor(UIColor);
     }
 
     [(_UILegibilitySettings *)self setPrimaryColor:v8];
@@ -189,7 +189,7 @@ LABEL_8:
 
     else
     {
-      v7 = +[UIColor blackColor];
+      v7 = objc_msgSend_blackColor(UIColor);
     }
   }
 

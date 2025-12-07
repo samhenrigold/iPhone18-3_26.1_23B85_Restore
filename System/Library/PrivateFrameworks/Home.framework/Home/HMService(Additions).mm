@@ -273,9 +273,9 @@
 {
   hf_fanServiceTypes = [objc_opt_class() hf_fanServiceTypes];
   serviceType = [self serviceType];
-  v4 = [hf_fanServiceTypes containsObject:serviceType];
+  v5 = [hf_fanServiceTypes containsObject:serviceType];
 
-  return v4;
+  return v5;
 }
 
 + (id)hf_fanServiceTypes
@@ -334,18 +334,18 @@
 {
   hf_sensorServiceTypes = [objc_opt_class() hf_sensorServiceTypes];
   serviceType = [self serviceType];
-  v4 = [hf_sensorServiceTypes containsObject:serviceType];
+  v5 = [hf_sensorServiceTypes containsObject:serviceType];
 
-  return v4;
+  return v5;
 }
 
 - (uint64_t)hf_isAlarmSensorService
 {
   hf_alarmSensorServiceTypes = [objc_opt_class() hf_alarmSensorServiceTypes];
   serviceType = [self serviceType];
-  v4 = [hf_alarmSensorServiceTypes containsObject:serviceType];
+  v5 = [hf_alarmSensorServiceTypes containsObject:serviceType];
 
-  return v4;
+  return v5;
 }
 
 - (uint64_t)hf_isCameraContainedMotionSensor
@@ -441,7 +441,7 @@
 
 - (uint64_t)_hf_isDirectlyOrIndirectlyLinkedToService:()Additions
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = [MEMORY[0x277CBEB58] setWithObject:self];
   v6 = [MEMORY[0x277CBEB18] arrayWithObject:self];
@@ -450,26 +450,26 @@
   {
     v8 = [v7 objectAtIndexedSubscript:0];
     [v7 removeObjectAtIndex:0];
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     linkedServices = [v8 linkedServices];
-    v10 = [linkedServices countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v10 = [linkedServices countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v19;
+      v12 = *v18;
       while (2)
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v19 != v12)
+          if (*v18 != v12)
           {
             objc_enumerationMutation(linkedServices);
           }
 
-          v14 = *(*(&v18 + 1) + 8 * i);
+          v14 = *(*(&v17 + 1) + 8 * i);
           if ([v14 isEqual:v4])
           {
 
@@ -484,7 +484,7 @@
           }
         }
 
-        v11 = [linkedServices countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v11 = [linkedServices countByEnumeratingWithState:&v17 objects:v21 count:16];
         if (v11)
         {
           continue;
@@ -500,7 +500,6 @@
   v15 = 0;
 LABEL_16:
 
-  v16 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -675,8 +674,8 @@ LABEL_16:
     return 1;
   }
 
-  home = [self home];
-  hf_enabledResidentsSupportsNaturalLight = [home hf_enabledResidentsSupportsNaturalLight];
+  v3 = objc_msgSend_home(self);
+  hf_enabledResidentsSupportsNaturalLight = [v3 hf_enabledResidentsSupportsNaturalLight];
 
   if (!hf_enabledResidentsSupportsNaturalLight)
   {
@@ -833,13 +832,13 @@ LABEL_16:
 
 - (id)hf_userFriendlyLocalizedCapitalizedDescription
 {
-  v2 = objc_opt_class();
+  v3 = objc_opt_class();
   serviceType = [self serviceType];
-  v4 = [v2 hf_userFriendlyLocalizedCapitalizedDescription:serviceType];
-  v5 = v4;
-  if (v4)
+  v5 = [v3 hf_userFriendlyLocalizedCapitalizedDescription:serviceType];
+  v6 = v5;
+  if (v5)
   {
-    localizedCapitalizedString = v4;
+    localizedCapitalizedString = v5;
   }
 
   else
@@ -853,13 +852,13 @@ LABEL_16:
 
 - (id)hf_userFriendlyLocalizedLowercaseDescription
 {
-  v2 = objc_opt_class();
+  v3 = objc_opt_class();
   serviceType = [self serviceType];
-  v4 = [v2 hf_userFriendlyLocalizedLowercaseDescription:serviceType];
-  v5 = v4;
-  if (v4)
+  v5 = [v3 hf_userFriendlyLocalizedLowercaseDescription:serviceType];
+  v6 = v5;
+  if (v5)
   {
-    localizedLowercaseString = v4;
+    localizedLowercaseString = v5;
   }
 
   else

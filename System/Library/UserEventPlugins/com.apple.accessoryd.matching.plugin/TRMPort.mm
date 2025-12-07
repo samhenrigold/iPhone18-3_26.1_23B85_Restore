@@ -8,6 +8,7 @@
 - (void)_handleNotificationForService:(unsigned int)service messageType:(unsigned int)type messageArgument:(void *)argument;
 - (void)_startInterestNotifications;
 - (void)_stopInterestNotifications;
+- (void)_updatePropertiesFromService;
 - (void)dealloc;
 - (void)setUserAuthorizationStatus:(int)status completionHandler:(id)handler;
 @end
@@ -651,6 +652,27 @@ LABEL_22:
   }
 
   return v6;
+}
+
+void __56__TRMPort_setUserAuthorizationStatus_completionHandler___block_invoke_cold_1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = a1;
+  OUTLINED_FUNCTION_0_1(&def_3A0E8, &_os_log_default, a3, "Failed to open user client! IOServiceOpen returned 0x%08x", a5, a6, a7, a8, v8);
+}
+
+void __56__TRMPort_setUserAuthorizationStatus_completionHandler___block_invoke_cold_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = a1;
+  OUTLINED_FUNCTION_0_1(&def_3A0E8, &_os_log_default, a3, "Failed to set user authorization status! IOConnectCallScalarMethod returned 0x%08x", a5, a6, a7, a8, v8);
+}
+
+- (void)_updatePropertiesFromService
+{
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = self;
+  OUTLINED_FUNCTION_0_1(&def_3A0E8, &_os_log_default, a3, "IORegistryEntryCreateCFProperties failed: %08x", a5, a6, a7, a8, v8);
 }
 
 - (void)_startInterestNotifications

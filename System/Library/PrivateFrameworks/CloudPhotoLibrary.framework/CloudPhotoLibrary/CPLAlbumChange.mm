@@ -13,18 +13,18 @@
 
 - (id)translateToClientChangeUsingIDMapping:(id)mapping error:(id *)error
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   mappingCopy = mapping;
-  v15.receiver = self;
-  v15.super_class = CPLAlbumChange;
-  v7 = [(CPLRecordChange *)&v15 translateToClientChangeUsingIDMapping:mappingCopy error:error];
+  v14.receiver = self;
+  v14.super_class = CPLAlbumChange;
+  v7 = [(CPLRecordChange *)&v14 translateToClientChangeUsingIDMapping:mappingCopy error:error];
   if (v7)
   {
-    v14 = 0;
+    v13 = 0;
     parentScopedIdentifier = [(CPLAlbumChange *)self parentScopedIdentifier];
     if (parentScopedIdentifier)
     {
-      v9 = [mappingCopy localScopedIdentifierForCloudScopedIdentifier:parentScopedIdentifier isFinal:&v14];
+      v9 = [mappingCopy localScopedIdentifierForCloudScopedIdentifier:parentScopedIdentifier isFinal:&v13];
       if (v9)
       {
         [v7 setParentScopedIdentifier:v9];
@@ -44,8 +44,8 @@
           if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412546;
-            v17 = parentScopedIdentifier;
-            v18 = 2112;
+            v16 = parentScopedIdentifier;
+            v17 = 2112;
             selfCopy = self;
             _os_log_impl(&dword_1DC05A000, v11, OS_LOG_TYPE_ERROR, "Can't map cloud parentScopedIdentifier (%@) of %@", buf, 0x16u);
           }
@@ -56,25 +56,23 @@
     }
   }
 
-  v12 = *MEMORY[0x1E69E9840];
-
   return v7;
 }
 
 - (id)translateToCloudChangeUsingIDMapping:(id)mapping error:(id *)error
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   mappingCopy = mapping;
-  v15.receiver = self;
-  v15.super_class = CPLAlbumChange;
-  v7 = [(CPLRecordChange *)&v15 translateToCloudChangeUsingIDMapping:mappingCopy error:error];
+  v14.receiver = self;
+  v14.super_class = CPLAlbumChange;
+  v7 = [(CPLRecordChange *)&v14 translateToCloudChangeUsingIDMapping:mappingCopy error:error];
   if (v7)
   {
-    v14 = 0;
+    v13 = 0;
     parentScopedIdentifier = [(CPLAlbumChange *)self parentScopedIdentifier];
     if (parentScopedIdentifier)
     {
-      v9 = [mappingCopy cloudScopedIdentifierForLocalScopedIdentifier:parentScopedIdentifier isFinal:&v14];
+      v9 = [mappingCopy cloudScopedIdentifierForLocalScopedIdentifier:parentScopedIdentifier isFinal:&v13];
       if (v9)
       {
         [v7 setParentScopedIdentifier:v9];
@@ -94,8 +92,8 @@
           if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412546;
-            v17 = parentScopedIdentifier;
-            v18 = 2112;
+            v16 = parentScopedIdentifier;
+            v17 = 2112;
             selfCopy = self;
             _os_log_impl(&dword_1DC05A000, v11, OS_LOG_TYPE_ERROR, "Can't map local parentScopedIdentifier (%@) of %@", buf, 0x16u);
           }
@@ -105,8 +103,6 @@
       }
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -130,11 +126,11 @@
 
 - (BOOL)validateRecordForTracker:(id)tracker
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   trackerCopy = tracker;
-  v11.receiver = self;
-  v11.super_class = CPLAlbumChange;
-  if ([(CPLRecordChange *)&v11 validateRecordForTracker:trackerCopy])
+  v10.receiver = self;
+  v10.super_class = CPLAlbumChange;
+  if ([(CPLRecordChange *)&v10 validateRecordForTracker:trackerCopy])
   {
     if ([(CPLRecordChange *)self hasChangeType:2])
     {
@@ -147,8 +143,8 @@
           if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412546;
-            v13 = parentScopedIdentifier;
-            v14 = 2112;
+            v12 = parentScopedIdentifier;
+            v13 = 2112;
             selfCopy = self;
             _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_DEFAULT, "Client pushed an album with missing parent album %@: %@", buf, 0x16u);
           }
@@ -177,7 +173,6 @@
     v6 = 0;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -241,7 +236,7 @@ BOOL __64__CPLAlbumChange_checkDefaultValueBlockForPropertyWithSelector___block_
 
 - (void)setParentScopedIdentifier:(id)identifier
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   scopeIdentifier = [identifierCopy scopeIdentifier];
   scopedIdentifier = [(CPLRecordChange *)self scopedIdentifier];
@@ -273,11 +268,11 @@ LABEL_4:
           scopeIdentifier3 = [scopedIdentifier2 scopeIdentifier];
           scopeIdentifier4 = [identifierCopy scopeIdentifier];
           *buf = 138412802;
-          v24 = v10;
-          v25 = 2112;
-          v26 = scopeIdentifier3;
-          v27 = 2112;
-          v28 = scopeIdentifier4;
+          v23 = v10;
+          v24 = 2112;
+          v25 = scopeIdentifier3;
+          v26 = 2112;
+          v27 = scopeIdentifier4;
           _os_log_impl(&dword_1DC05A000, v9, OS_LOG_TYPE_ERROR, "Invalid call to %@ with mismatched scope: %@ vs. %@", buf, 0x20u);
         }
       }
@@ -296,8 +291,6 @@ LABEL_4:
 
   identifier = [identifierCopy identifier];
   [(CPLAlbumChange *)self setParentIdentifier:identifier];
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (id)parentScopedIdentifier

@@ -1,68 +1,63 @@
 void sub_E10(uint64_t a1)
 {
-  v9 = 0;
-  v10 = &v9;
-  v11 = 0x2020000000;
-  v12 = 0;
+  v6[0] = 0;
+  v6[1] = v6;
+  v6[2] = 0x2020000000;
+  v7 = 0;
   v1 = *(a1 + 36);
   if ((v1 - 1) >= 2)
   {
     if (v1 == 4)
     {
-      v4 = *(a1 + 16);
-      v7[0] = _NSConcreteStackBlock;
-      v7[1] = 3221225472;
-      v7[2] = sub_1044;
-      v7[3] = &unk_8768;
-      v7[4] = &v9;
-      xpc_dictionary_apply(v4, v7);
+      v3 = *(a1 + 16);
+      v4[0] = _NSConcreteStackBlock;
+      v4[1] = 3221225472;
+      v4[2] = sub_1044;
+      v4[3] = &unk_8768;
+      v4[4] = v6;
+      xpc_dictionary_apply(v3, v4);
     }
 
     else if (v1 == 3)
     {
-      v3 = *(a1 + 16);
+      v2 = *(a1 + 16);
       applier[0] = _NSConcreteStackBlock;
       applier[1] = 3221225472;
       applier[2] = sub_10E4;
       applier[3] = &unk_8740;
-      applier[4] = &v9;
-      xpc_array_apply(v3, applier);
+      applier[4] = v6;
+      xpc_array_apply(v2, applier);
     }
 
-    v5 = *(a1 + 8);
-    v6 = *(v10 + 24);
     xpc_event_provider_token_set_state();
   }
 
-  _Block_object_dispose(&v9, 8);
+  _Block_object_dispose(v6, 8);
 }
 
 void sub_F70(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = *(v1 + 36);
-  if (v2 > 2)
+  v1 = *(*(a1 + 32) + 36);
+  if (v1 > 2)
   {
-    if (v2 == 3 || v2 == 4)
+    if (v1 == 3 || v1 == 4)
     {
-      v4 = *(a1 + 32);
+      v2 = *(a1 + 32);
 
-      sub_E10(v4);
+      sub_E10(v2);
     }
   }
 
   else
   {
-    if (v2 == 1)
+    if (v1 == 1)
     {
-      v5 = *(v1 + 8);
 
       xpc_event_provider_token_fire();
     }
 
-    if (v2 == 2)
+    if (v1 == 2)
     {
-      v3 = *(v1 + 8);
       xpc_event_provider_token_set_state();
     }
   }
@@ -432,9 +427,9 @@ LABEL_60:
 LABEL_62:
 }
 
-void sub_1A8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -574,7 +569,7 @@ uint64_t sub_1E10(uint64_t a1, uint64_t a2, void *a3)
   return 1;
 }
 
-uint64_t sub_1F0C(uint64_t a1, const char *a2, void *a3)
+uint64_t sub_1F0C(uint64_t a1, char *a2, void *a3)
 {
   v5 = a3;
   if (xpc_get_type(v5) == &_xpc_type_BOOL)
@@ -729,9 +724,9 @@ uint64_t sub_237C(uint64_t a1, const char *a2)
   return 1;
 }
 
-void sub_2714(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_2714(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -829,9 +824,9 @@ void sub_272C(uint64_t a1)
   }
 }
 
-void sub_2B00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2B00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -916,16 +911,18 @@ void sub_2B18(uint64_t a1)
   }
 }
 
-void sub_3718(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_3718(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
-void sub_3740(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_3740(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, v9, OS_LOG_TYPE_FAULT, a4, &a9, 8u);
+  _os_log_fault_impl(a1, v8, OS_LOG_TYPE_FAULT, a4, va, 8u);
 }
 
 void sub_3780(void *a1, void *a2)
@@ -941,6 +938,20 @@ void sub_3914(uint8_t *buf, _BYTE *a2, os_log_t log)
   *buf = 0;
   *a2 = 0;
   _os_log_error_impl(&dword_0, log, OS_LOG_TYPE_ERROR, "Received invalid path from FSEvents.", buf, 2u);
+}
+
+void sub_3954(void *a1)
+{
+  LODWORD(v7) = 67109120;
+  HIDWORD(v7) = [a1 eventStreamCreateFlags];
+  sub_3740(&dword_0, v1, v2, "Failed to start FSEventStream[flags=0x%08x].", v3, v4, v5, v6, v7);
+}
+
+void sub_39D0(void *a1)
+{
+  LODWORD(v7) = 67109120;
+  HIDWORD(v7) = [a1 eventStreamCreateFlags];
+  sub_3740(&dword_0, v1, v2, "Failed to create FSEventStream[flags=0x%08x].", v3, v4, v5, v6, v7);
 }
 
 void xpc_event_module_get_queue()

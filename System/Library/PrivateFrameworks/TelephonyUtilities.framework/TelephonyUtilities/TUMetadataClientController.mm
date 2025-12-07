@@ -225,15 +225,14 @@ LABEL_15:
 
 - (void)updateMetadataForDestinationID:(id)d completion:(id)completion
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   dCopy = d;
   metadataCache = [(TUMetadataClientController *)self metadataCache];
-  v11[0] = dCopy;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
+  v10[0] = dCopy;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
 
   [metadataCache updateCacheForEmptyDataProvidersWithDestinationIDs:v9 completion:completionCopy];
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 @end

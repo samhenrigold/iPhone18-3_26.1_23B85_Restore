@@ -47,44 +47,54 @@ void __74__BluetoothAddressMonitor_observeValueForKeyPath_ofObject_change_contex
     {
       if (gLogCategory_APReceiverSystemInfo <= 50 && (gLogCategory_APReceiverSystemInfo != -1 || _LogCategory_Initialize()))
       {
-        IsAppleInternalBuild();
-        IsAppleInternalBuild();
-        v6 = *(v2 + 720);
-        if (v6)
+        v6 = IsAppleInternalBuild();
+        v7 = IsAppleInternalBuild();
+        v8 = *(v2 + 720);
+        if (v8)
         {
-          CFDataGetBytePtr(v6);
+          BytePtr = CFDataGetBytePtr(v8);
         }
 
-        IsAppleInternalBuild();
-        IsAppleInternalBuild();
+        else
+        {
+          BytePtr = 0;
+        }
+
+        v10 = IsAppleInternalBuild();
+        v11 = IsAppleInternalBuild();
         if (v3)
         {
-          CFDataGetBytePtr(v3);
+          v12 = CFDataGetBytePtr(v3);
         }
 
-        LogPrintF();
+        else
+        {
+          v12 = 0;
+        }
+
+        LogPrintF(&gLogCategory_APReceiverSystemInfo, "void sysInfo_handleBluetoothAddressChange(APReceiverSystemInfoRef, CFDataRef)", 33554482, "Bluetooth address changed%?s%?.6a%?s%?.6a\n", v6, ": ", v7, BytePtr, v10, " -> ", v11, v12);
       }
 
-      v7 = *(v2 + 720);
+      v13 = *(v2 + 720);
       if (v3)
       {
         CFRetain(v3);
       }
 
       *(v2 + 720) = v3;
-      if (v7)
+      if (v13)
       {
-        CFRelease(v7);
+        CFRelease(v13);
       }
 
-      sysInfo_updateAdvertiserInfoAndNotify(v2, @"BluetoothAddressChanged");
+      sysInfo_updateAdvertiserInfoAndNotify(v2, @"BluetoothAddressChanged", 0);
       Mutable = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
       if (Mutable)
       {
-        v9 = Mutable;
+        v15 = Mutable;
         CFDictionarySetValue(Mutable, @"NonUrgent", *MEMORY[0x277CBED28]);
-        sysInfo_updateAdvertiserInfoAndNotify(v2, @"AdvertisingParameterChanged");
-        CFRelease(v9);
+        sysInfo_updateAdvertiserInfoAndNotify(v2, @"AdvertisingParameterChanged", v15);
+        CFRelease(v15);
       }
 
       else
@@ -95,7 +105,7 @@ void __74__BluetoothAddressMonitor_observeValueForKeyPath_ofObject_change_contex
   }
 
   CFRelease(*(a1 + 40));
-  v10 = *(a1 + 32);
+  v16 = *(a1 + 32);
 }
 
 - (BluetoothAddressMonitor)initWithSystemInfo:(OpaqueAPReceiverSystemInfo *)info queue:(id)queue

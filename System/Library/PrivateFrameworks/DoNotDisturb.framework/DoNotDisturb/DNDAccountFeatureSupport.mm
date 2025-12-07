@@ -1,4 +1,5 @@
 @interface DNDAccountFeatureSupport
++ (id)accountFeaturesWithCloud:(unint64_t)cloud hasCloudDevices:(BOOL)devices paired:(unint64_t)paired hasPairedDevices:(BOOL)pairedDevices;
 - (DNDAccountFeatureSupport)initWithCoder:(id)coder;
 - (id)_initWithCloud:(unint64_t)cloud hasCloud:(BOOL)hasCloud paired:(unint64_t)paired hasPaired:(BOOL)hasPaired;
 - (id)description;
@@ -21,6 +22,13 @@
   }
 
   return result;
+}
+
++ (id)accountFeaturesWithCloud:(unint64_t)cloud hasCloudDevices:(BOOL)devices paired:(unint64_t)paired hasPairedDevices:(BOOL)pairedDevices
+{
+  v6 = [[self alloc] _initWithCloud:cloud hasCloud:devices paired:paired hasPaired:pairedDevices];
+
+  return v6;
 }
 
 - (id)description

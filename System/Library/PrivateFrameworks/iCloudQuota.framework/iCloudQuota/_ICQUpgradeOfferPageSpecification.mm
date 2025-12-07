@@ -33,10 +33,10 @@
     objc_storeStrong(&v9->_serverDict, dictionary);
     [(_ICQPageSpecification *)v10 setPageIdentifier:identifierCopy];
     v11 = dictionaryCopy;
-    v12 = [v11 objectForKeyedSubscript:@"appId"];
+    v12 = objc_msgSend_objectForKeyedSubscript_(v11);
     if (!v12)
     {
-      v13 = [v11 objectForKeyedSubscript:@"icloudApps"];
+      v13 = objc_msgSend_objectForKeyedSubscript_(v11);
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) != 0 && [v13 count])
       {
@@ -45,7 +45,7 @@
         v12 = 0;
         if (objc_opt_isKindOfClass())
         {
-          v12 = [v14 objectForKeyedSubscript:@"appId"];
+          v12 = objc_msgSend_objectForKeyedSubscript_(v14);
         }
       }
 
@@ -56,10 +56,10 @@
     }
 
     [(_ICQUpgradeOfferPageSpecification *)v10 setIconBundleIdentifier:v12];
-    v15 = [v11 objectForKeyedSubscript:@"title"];
+    v15 = objc_msgSend_objectForKeyedSubscript_(v11);
     [(_ICQUpgradeOfferPageSpecification *)v10 setTitle:v15];
 
-    v16 = [v11 objectForKeyedSubscript:@"header"];
+    v16 = objc_msgSend_objectForKeyedSubscript_(v11);
     v46 = 0;
     v47 = 0;
     _ICQServerHeaderGetFormatAndLinks(v16, &v47, &v46);
@@ -68,11 +68,11 @@
 
     [(_ICQUpgradeOfferPageSpecification *)v10 setMessage:v17];
     [(_ICQUpgradeOfferPageSpecification *)v10 setMessageLinks:v18];
-    v19 = [v11 objectForKeyedSubscript:@"altHeader"];
+    v19 = objc_msgSend_objectForKeyedSubscript_(v11);
 
     if (v19)
     {
-      v20 = [v11 objectForKeyedSubscript:@"altHeader"];
+      v20 = objc_msgSend_objectForKeyedSubscript_(v11);
       v44 = v18;
       v45 = v17;
       _ICQServerHeaderGetFormatAndLinks(v20, &v45, &v44);
@@ -85,7 +85,7 @@
       v17 = v21;
     }
 
-    v23 = [v11 objectForKeyedSubscript:@"footer"];
+    v23 = objc_msgSend_objectForKeyedSubscript_(v11);
     v42 = v18;
     v43 = v17;
     _ICQServerHeaderGetFormatAndLinks(v23, &v43, &v42);
@@ -104,7 +104,7 @@
 
     else
     {
-      v29 = [v11 objectForKeyedSubscript:@"buyBtn"];
+      v29 = objc_msgSend_objectForKeyedSubscript_(v11);
       v30 = v29;
       if (v29)
       {
@@ -113,7 +113,7 @@
 
       else
       {
-        v31 = [v11 objectForKeyedSubscript:@"doneBtn"];
+        v31 = objc_msgSend_objectForKeyedSubscript_(v11);
       }
 
       v28 = v31;
@@ -204,7 +204,7 @@
   if (purchase2LinkVisibleKey)
   {
     purchase2LinkVisibleKey2 = [v5 purchase2LinkVisibleKey];
-    v8 = [bindingsCopy objectForKeyedSubscript:purchase2LinkVisibleKey2];
+    v8 = objc_msgSend_objectForKeyedSubscript_(bindingsCopy);
     v9 = _ICQBooleanForServerObjectDefault(v8, 0);
 
     if ((v9 & 1) == 0)
@@ -218,7 +218,7 @@
   if (bottomLinkVisibleKey)
   {
     bottomLinkVisibleKey2 = [v5 bottomLinkVisibleKey];
-    v12 = [bindingsCopy objectForKeyedSubscript:bottomLinkVisibleKey2];
+    v12 = objc_msgSend_objectForKeyedSubscript_(bindingsCopy);
     v13 = _ICQBooleanForServerObjectDefault(v12, 0);
 
     if ((v13 & 1) == 0)
@@ -232,7 +232,7 @@
 
 + (id)upgradeOfferPageSpecificationSampleForLevel:(int64_t)level
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   [v3 setTitle:@"Upgrade your iCloud Storage"];
   [v3 setMessage:@"Add more storage to continue using iCloud and keep the most important things on your iPhone safe."];
@@ -240,20 +240,20 @@
   v5 = [ICQLink linkWithText:8288 action:4 parameters:MEMORY[0x277CBEC10]];
   [v3 setPurchaseLink:v5];
 
-  v17 = @"URL";
-  v18[0] = @"http://www.apple.com/icloud/";
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+  v16 = @"URL";
+  v17[0] = @"http://www.apple.com/icloud/";
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
   v7 = [ICQLink linkWithText:@"Learn about managing storage" action:6 parameters:v6];
   [v3 setBottomLink:v7];
 
   [v3 setFineprintFormat:@"You will be charged $0.99 right now and each month. You can cancel at any time. Contact Apple within 15 days for a refund. Partial refunds are available where required. See %@."];
-  v15 = @"URL";
-  v16 = @"https://www.apple.com/legal/internet-services/icloud/en/terms.html";
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
+  v14 = @"URL";
+  v15 = @"https://www.apple.com/legal/internet-services/icloud/en/terms.html";
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
   v9 = [ICQLink linkWithText:@"Terms & Conditions" action:6 parameters:v8];
 
-  v14 = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v14 count:1];
+  v13 = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v13 count:1];
   [v3 setFineprintLinks:v10];
 
   [v3 setHasCancelButtonForBack:1];
@@ -263,8 +263,6 @@
   {
     [v3 setPageIdentifier:&stru_288431E38];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

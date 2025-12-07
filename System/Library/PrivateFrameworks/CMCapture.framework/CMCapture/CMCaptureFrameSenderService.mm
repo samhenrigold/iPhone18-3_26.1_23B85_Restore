@@ -366,28 +366,28 @@ void __46__CMCaptureFrameSenderService__addConnection___block_invoke(uint64_t a1
     v18 = v17;
   }
 
-  v79[0] = *MEMORY[0x1E6966208];
-  v80[0] = [MEMORY[0x1E696AD98] numberWithUnsignedLong:v18];
-  v79[1] = *MEMORY[0x1E69660B8];
-  v80[1] = [MEMORY[0x1E696AD98] numberWithUnsignedLong:Width];
-  v79[2] = *MEMORY[0x1E6966130];
+  v99[0] = *MEMORY[0x1E6966208];
+  v100[0] = [MEMORY[0x1E696AD98] numberWithUnsignedLong:v18];
+  v99[1] = *MEMORY[0x1E69660B8];
+  v100[1] = [MEMORY[0x1E696AD98] numberWithUnsignedLong:Width];
+  v99[2] = *MEMORY[0x1E6966130];
   v19 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->_sendingPixelBufferPixelFormatType];
-  v79[3] = *MEMORY[0x1E69660D8];
-  v80[2] = v19;
-  v80[3] = MEMORY[0x1E695E0F8];
-  v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v80 forKeys:v79 count:4];
-  v77[0] = *MEMORY[0x1E6966160];
+  v99[3] = *MEMORY[0x1E69660D8];
+  v100[2] = v19;
+  v100[3] = MEMORY[0x1E695E0F8];
+  v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v100 forKeys:v99 count:4];
+  v97[0] = *MEMORY[0x1E6966160];
   v21 = [MEMORY[0x1E696AD98] numberWithInt:self->_sendingPixelBufferPoolSize];
-  v77[1] = *MEMORY[0x1E6966158];
-  v78[0] = v21;
-  v78[1] = &unk_1F22424F0;
-  v22 = CVPixelBufferPoolCreate(*v14, [MEMORY[0x1E695DF20] dictionaryWithObjects:v78 forKeys:v77 count:2], v20, &self->_sendingPixelBufferPool);
+  v97[1] = *MEMORY[0x1E6966158];
+  v98[0] = v21;
+  v98[1] = &unk_1F22424F0;
+  v22 = CVPixelBufferPoolCreate(*v14, [MEMORY[0x1E695DF20] dictionaryWithObjects:v98 forKeys:v97 count:2], v20, &self->_sendingPixelBufferPool);
   v15 = &unk_1ED844000;
   v23 = v22;
   if (dword_1ED8441D0)
   {
-    v76 = 0;
-    v75 = OS_LOG_TYPE_DEFAULT;
+    v96 = 0;
+    v95 = OS_LOG_TYPE_DEFAULT;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -397,7 +397,7 @@ void __46__CMCaptureFrameSenderService__addConnection___block_invoke(uint64_t a1
 
   if (v23)
   {
-    [CMCaptureFrameSenderService _newSampleBufferToSendFromSampleBuffer:];
+    [CMCaptureFrameSenderService _newSampleBufferToSendFromSampleBuffer:v23];
     goto LABEL_89;
   }
 
@@ -408,11 +408,11 @@ void __46__CMCaptureFrameSenderService__addConnection___block_invoke(uint64_t a1
 LABEL_30:
     if (v15[116])
     {
-      v76 = 0;
-      v75 = OS_LOG_TYPE_DEFAULT;
+      v96 = 0;
+      v95 = OS_LOG_TYPE_DEFAULT;
       v26 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      v27 = v76;
-      if (os_log_type_enabled(v26, v75))
+      v27 = v96;
+      if (os_log_type_enabled(v26, v95))
       {
         v28 = v27;
       }
@@ -429,14 +429,14 @@ LABEL_30:
         sendingPixelBufferPixelFormatType = self->_sendingPixelBufferPixelFormatType;
         *timingArrayEntriesNeededOut = 136315906;
         *&timingArrayEntriesNeededOut[4] = "[CMCaptureFrameSenderService _newSampleBufferToSendFromSampleBuffer:]";
-        v68 = 1024;
-        v69 = sendingPixelBufferWidth;
-        v70 = 1024;
-        v71 = sendingPixelBufferHeight;
-        v72 = 1024;
-        v73 = sendingPixelBufferPixelFormatType;
-        LODWORD(v60) = 30;
-        v59 = timingArrayEntriesNeededOut;
+        v88 = 1024;
+        v89 = sendingPixelBufferWidth;
+        v90 = 1024;
+        v91 = sendingPixelBufferHeight;
+        v92 = 1024;
+        v93 = sendingPixelBufferPixelFormatType;
+        LODWORD(v80) = 30;
+        v79 = timingArrayEntriesNeededOut;
         _os_log_send_and_compose_impl();
       }
 
@@ -454,191 +454,210 @@ LABEL_37:
   v33 = *v14;
   if (!self->_crossPlatformRotationDegrees)
   {
-    if (VTPixelTransferSessionCreate(v33, &self->_sendingPixelTransferSession))
+    v41 = VTPixelTransferSessionCreate(v33, &self->_sendingPixelTransferSession);
+    if (v41)
     {
-      [CMCaptureFrameSenderService _newSampleBufferToSendFromSampleBuffer:];
+      [(CMCaptureFrameSenderService *)v41 _newSampleBufferToSendFromSampleBuffer:v42];
       goto LABEL_89;
     }
 
     goto LABEL_44;
   }
 
-  if (VTPixelRotationSessionCreate(v33, &self->_sendingPixelRotationSession))
+  v34 = VTPixelRotationSessionCreate(v33, &self->_sendingPixelRotationSession);
+  if (v34)
   {
-    [CMCaptureFrameSenderService _newSampleBufferToSendFromSampleBuffer:];
+    [(CMCaptureFrameSenderService *)v34 _newSampleBufferToSendFromSampleBuffer:v35];
     goto LABEL_89;
   }
 
   sendingPixelRotationSession = self->_sendingPixelRotationSession;
-  v35 = *MEMORY[0x1E6983D98];
-  v36 = FigCaptureVTRotationFromDegrees(360 - self->_crossPlatformRotationDegrees);
-  if (!VTSessionSetProperty(sendingPixelRotationSession, v35, v36))
+  v37 = *MEMORY[0x1E6983D98];
+  v38 = FigCaptureVTRotationFromDegrees(360 - self->_crossPlatformRotationDegrees);
+  v39 = VTSessionSetProperty(sendingPixelRotationSession, v37, v38);
+  if (!v39)
   {
 LABEL_44:
-    v37 = *v14;
-    if (CVPixelBufferPoolCreatePixelBuffer(*v14, self->_sendingPixelBufferPool, &pixelBufferOut))
+    v43 = *v14;
+    v44 = CVPixelBufferPoolCreatePixelBuffer(*v14, self->_sendingPixelBufferPool, &pixelBufferOut);
+    if (v44)
     {
-      [CMCaptureFrameSenderService _newSampleBufferToSendFromSampleBuffer:];
+      [(CMCaptureFrameSenderService *)v44 _newSampleBufferToSendFromSampleBuffer:v45];
       goto LABEL_77;
     }
 
     if (*p_sendingPixelTransferSession)
     {
-      if (!VTPixelTransferSessionTransferImage(*p_sendingPixelTransferSession, v6, pixelBufferOut))
+      v46 = VTPixelTransferSessionTransferImage(*p_sendingPixelTransferSession, v6, pixelBufferOut);
+      if (!v46)
       {
         goto LABEL_47;
       }
     }
 
-    else if (!VTPixelRotationSessionRotateImage(self->_sendingPixelRotationSession, v6, pixelBufferOut))
+    else
     {
+      v46 = VTPixelRotationSessionRotateImage(self->_sendingPixelRotationSession, v6, pixelBufferOut);
+      if (!v46)
+      {
 LABEL_47:
-      p_sendingSampleBufferFormatDescription = &self->_sendingSampleBufferFormatDescription;
-      if (!self->_sendingSampleBufferFormatDescription && CMVideoFormatDescriptionCreateForImageBuffer(v37, pixelBufferOut, &self->_sendingSampleBufferFormatDescription))
-      {
-        [CMCaptureFrameSenderService _newSampleBufferToSendFromSampleBuffer:];
-        goto LABEL_89;
-      }
-
-      *timingArrayEntriesNeededOut = 0;
-      v39 = *(MEMORY[0x1E6960CF0] + 48);
-      *&timingArrayOut.presentationTimeStamp.timescale = *(MEMORY[0x1E6960CF0] + 32);
-      *&timingArrayOut.decodeTimeStamp.value = v39;
-      timingArrayOut.decodeTimeStamp.epoch = *(MEMORY[0x1E6960CF0] + 64);
-      v40 = *(MEMORY[0x1E6960CF0] + 16);
-      *&timingArrayOut.duration.value = *MEMORY[0x1E6960CF0];
-      *&timingArrayOut.duration.epoch = v40;
-      if (CMSampleBufferGetSampleTimingInfoArray(buffer, 1, 0, timingArrayEntriesNeededOut))
-      {
-        [CMCaptureFrameSenderService _newSampleBufferToSendFromSampleBuffer:];
-        goto LABEL_77;
-      }
-
-      if (*timingArrayEntriesNeededOut && CMSampleBufferGetSampleTimingInfoArray(buffer, *timingArrayEntriesNeededOut, &timingArrayOut, timingArrayEntriesNeededOut))
-      {
-        [CMCaptureFrameSenderService _newSampleBufferToSendFromSampleBuffer:];
-        goto LABEL_77;
-      }
-
-      v41 = CMSampleBufferCreateForImageBuffer(v37, pixelBufferOut, 1u, 0, 0, *p_sendingSampleBufferFormatDescription, &timingArrayOut, &sampleBufferOut);
-      if (v41 == -12743)
-      {
-        if (*p_sendingSampleBufferFormatDescription)
+        p_sendingSampleBufferFormatDescription = &self->_sendingSampleBufferFormatDescription;
+        if (!self->_sendingSampleBufferFormatDescription)
         {
-          CFRelease(*p_sendingSampleBufferFormatDescription);
-          *p_sendingSampleBufferFormatDescription = 0;
+          v49 = CMVideoFormatDescriptionCreateForImageBuffer(v43, pixelBufferOut, &self->_sendingSampleBufferFormatDescription);
+          if (v49)
+          {
+            [(CMCaptureFrameSenderService *)v49 _newSampleBufferToSendFromSampleBuffer:v50];
+            goto LABEL_89;
+          }
         }
 
-        if (CMVideoFormatDescriptionCreateForImageBuffer(v37, pixelBufferOut, &self->_sendingSampleBufferFormatDescription))
+        *timingArrayEntriesNeededOut = 0;
+        v51 = *(MEMORY[0x1E6960CF0] + 48);
+        *&timingArrayOut.presentationTimeStamp.timescale = *(MEMORY[0x1E6960CF0] + 32);
+        *&timingArrayOut.decodeTimeStamp.value = v51;
+        timingArrayOut.decodeTimeStamp.epoch = *(MEMORY[0x1E6960CF0] + 64);
+        v52 = *(MEMORY[0x1E6960CF0] + 16);
+        *&timingArrayOut.duration.value = *MEMORY[0x1E6960CF0];
+        *&timingArrayOut.duration.epoch = v52;
+        SampleTimingInfoArray = CMSampleBufferGetSampleTimingInfoArray(buffer, 1, 0, timingArrayEntriesNeededOut);
+        if (SampleTimingInfoArray)
         {
-          [CMCaptureFrameSenderService _newSampleBufferToSendFromSampleBuffer:];
+          [(CMCaptureFrameSenderService *)SampleTimingInfoArray _newSampleBufferToSendFromSampleBuffer:v54];
           goto LABEL_77;
         }
 
-        v41 = CMSampleBufferCreateForImageBuffer(v37, pixelBufferOut, 1u, 0, 0, *p_sendingSampleBufferFormatDescription, &timingArrayOut, &sampleBufferOut);
-      }
-
-      if (v41)
-      {
-        [CMCaptureFrameSenderService _newSampleBufferToSendFromSampleBuffer:];
-        goto LABEL_77;
-      }
-
-      v42 = CMGetAttachment(buffer, *off_1E798A3C8, 0);
-      v43 = [v42 objectForKeyedSubscript:*off_1E798B540];
-      v44 = [v42 objectForKeyedSubscript:*off_1E798B238];
-      if ([v43 isEqualToString:*off_1E798A0F8])
-      {
-        LOBYTE(v45) = 0;
-      }
-
-      else
-      {
-        v45 = [v43 isEqualToString:*off_1E798A0E0] ^ 1;
-      }
-
-      IsExtensionDeviceType = BWDeviceTypeIsExtensionDeviceType([v44 integerValue]);
-      dictionary = [MEMORY[0x1E695DF90] dictionary];
-      [dictionary setObject:v43 forKeyedSubscript:@"PortType"];
-      [dictionary setObject:v44 forKeyedSubscript:@"DeviceType"];
-      [dictionary setObject:objc_msgSend(v42 forKeyedSubscript:{"objectForKeyedSubscript:", *off_1E798B220), @"DetectedObjectsInfo"}];
-      [dictionary setObject:objc_msgSend(MEMORY[0x1E696AD98] forKeyedSubscript:{"numberWithBool:", IsExtensionDeviceType), @"IsExternalCamera"}];
-      v66[0] = 0x1F216A8D0;
-      v66[1] = @"MirroredVertical";
-      v66[2] = @"MirroredHorizontal";
-      v48 = [MEMORY[0x1E695DEC8] arrayWithObjects:v66 count:3];
-      v62 = 0u;
-      v63 = 0u;
-      v64 = 0u;
-      v65 = 0u;
-      v49 = [v48 countByEnumeratingWithState:&v62 objects:v61 count:16];
-      if (!v49)
-      {
-LABEL_76:
-        CMSetAttachment(sampleBufferOut, @"MetadataDictionary", dictionary, 1u);
-        goto LABEL_77;
-      }
-
-      v50 = v49;
-      v51 = *v63;
-      v52 = v45 | IsExtensionDeviceType;
-LABEL_63:
-      v53 = 0;
-      while (1)
-      {
-        if (*v63 != v51)
+        if (*timingArrayEntriesNeededOut)
         {
-          objc_enumerationMutation(v48);
-        }
-
-        v54 = *(*(&v62 + 1) + 8 * v53);
-        v55 = CMGetAttachment(v6, v54, 0);
-        if (v52 || ![(__CFString *)v54 isEqualToString:0x1F216A8D0])
-        {
-          goto LABEL_74;
-        }
-
-        v56 = FigCaptureNormalizeAngle([v55 intValue]);
-        if (FigCaptureFrontCameraRotationAngle() == 90)
-        {
-          break;
-        }
-
-        if (!FigCaptureCameraRequires180DegreesRotation(1, 0))
-        {
-          v57 = 180;
-          goto LABEL_72;
-        }
-
-LABEL_73:
-        v55 = [MEMORY[0x1E696AD98] numberWithInt:v56];
-LABEL_74:
-        [dictionary setObject:v55 forKeyedSubscript:v54];
-        if (v50 == ++v53)
-        {
-          v50 = [v48 countByEnumeratingWithState:&v62 objects:v61 count:16];
-          if (!v50)
+          v55 = CMSampleBufferGetSampleTimingInfoArray(buffer, *timingArrayEntriesNeededOut, &timingArrayOut, timingArrayEntriesNeededOut);
+          if (v55)
           {
-            goto LABEL_76;
+            [(CMCaptureFrameSenderService *)v55 _newSampleBufferToSendFromSampleBuffer:v56];
+            goto LABEL_77;
+          }
+        }
+
+        v57 = CMSampleBufferCreateForImageBuffer(v43, pixelBufferOut, 1u, 0, 0, *p_sendingSampleBufferFormatDescription, &timingArrayOut, &sampleBufferOut);
+        if (v57 == -12743)
+        {
+          if (*p_sendingSampleBufferFormatDescription)
+          {
+            CFRelease(*p_sendingSampleBufferFormatDescription);
+            *p_sendingSampleBufferFormatDescription = 0;
           }
 
-          goto LABEL_63;
-        }
-      }
+          v59 = CMVideoFormatDescriptionCreateForImageBuffer(v43, pixelBufferOut, &self->_sendingSampleBufferFormatDescription);
+          if (v59)
+          {
+            [(CMCaptureFrameSenderService *)v59 _newSampleBufferToSendFromSampleBuffer:v60];
+            goto LABEL_77;
+          }
 
-      v57 = 90;
+          v57 = CMSampleBufferCreateForImageBuffer(v43, pixelBufferOut, 1u, 0, 0, *p_sendingSampleBufferFormatDescription, &timingArrayOut, &sampleBufferOut);
+        }
+
+        if (v57)
+        {
+          [(CMCaptureFrameSenderService *)v57 _newSampleBufferToSendFromSampleBuffer:v58];
+          goto LABEL_77;
+        }
+
+        v61 = CMGetAttachment(buffer, *off_1E798A3C8, 0);
+        v62 = [v61 objectForKeyedSubscript:*off_1E798B540];
+        v63 = [v61 objectForKeyedSubscript:*off_1E798B238];
+        if (objc_msgSend_isEqualToString_(v62))
+        {
+          LOBYTE(v64) = 0;
+        }
+
+        else
+        {
+          v64 = objc_msgSend_isEqualToString_(v62) ^ 1;
+        }
+
+        IsExtensionDeviceType = BWDeviceTypeIsExtensionDeviceType([v63 integerValue]);
+        dictionary = [MEMORY[0x1E695DF90] dictionary];
+        [dictionary setObject:v62 forKeyedSubscript:@"PortType"];
+        [dictionary setObject:v63 forKeyedSubscript:@"DeviceType"];
+        [dictionary setObject:objc_msgSend(v61 forKeyedSubscript:{"objectForKeyedSubscript:", *off_1E798B220), @"DetectedObjectsInfo"}];
+        [dictionary setObject:objc_msgSend(MEMORY[0x1E696AD98] forKeyedSubscript:{"numberWithBool:", IsExtensionDeviceType), @"IsExternalCamera"}];
+        v86[0] = 0x1F216A8D0;
+        v86[1] = @"MirroredVertical";
+        v86[2] = @"MirroredHorizontal";
+        v67 = [MEMORY[0x1E695DEC8] arrayWithObjects:v86 count:3];
+        v82 = 0u;
+        v83 = 0u;
+        v84 = 0u;
+        v85 = 0u;
+        v68 = [v67 countByEnumeratingWithState:&v82 objects:v81 count:16];
+        if (!v68)
+        {
+LABEL_76:
+          CMSetAttachment(sampleBufferOut, @"MetadataDictionary", dictionary, 1u);
+          goto LABEL_77;
+        }
+
+        v69 = v68;
+        v70 = *v83;
+        v71 = v64 | IsExtensionDeviceType;
+LABEL_63:
+        v72 = 0;
+        while (1)
+        {
+          if (*v83 != v70)
+          {
+            objc_enumerationMutation(v67);
+          }
+
+          v73 = *(*(&v82 + 1) + 8 * v72);
+          v74 = CMGetAttachment(v6, v73, 0);
+          if (v71 || !objc_msgSend_isEqualToString_(v73))
+          {
+            goto LABEL_74;
+          }
+
+          v75 = FigCaptureNormalizeAngle([v74 intValue]);
+          if (FigCaptureFrontCameraRotationAngle(v75, v76) == 90)
+          {
+            break;
+          }
+
+          if (!FigCaptureCameraRequires180DegreesRotation(1, 0))
+          {
+            v77 = 180;
+            goto LABEL_72;
+          }
+
+LABEL_73:
+          v74 = [MEMORY[0x1E696AD98] numberWithInt:v75];
+LABEL_74:
+          [dictionary setObject:v74 forKeyedSubscript:v73];
+          if (v69 == ++v72)
+          {
+            v69 = [v67 countByEnumeratingWithState:&v82 objects:v81 count:16];
+            if (!v69)
+            {
+              goto LABEL_76;
+            }
+
+            goto LABEL_63;
+          }
+        }
+
+        v77 = 90;
 LABEL_72:
-      v56 = FigCaptureNormalizeAngle(v56 + v57);
-      goto LABEL_73;
+        v75 = FigCaptureNormalizeAngle(v75 + v77);
+        goto LABEL_73;
+      }
     }
 
-    [CMCaptureFrameSenderService _newSampleBufferToSendFromSampleBuffer:];
+    [(CMCaptureFrameSenderService *)v46 _newSampleBufferToSendFromSampleBuffer:v47];
     goto LABEL_77;
   }
 
-  [CMCaptureFrameSenderService _newSampleBufferToSendFromSampleBuffer:];
+  [(CMCaptureFrameSenderService *)v39 _newSampleBufferToSendFromSampleBuffer:v40];
 LABEL_89:
-  [(CMCaptureFrameSenderService *)self _cleanupSendingPixelBufferMachinery:v59];
+  [(CMCaptureFrameSenderService *)self _cleanupSendingPixelBufferMachinery:v79];
 LABEL_77:
   if (pixelBufferOut)
   {
@@ -677,12 +696,12 @@ void __41__CMCaptureFrameSenderService_sendFrame___block_invoke(uint64_t a1)
   }
 
   v2 = WeakRetained;
-  v39 = 0u;
   v40 = 0u;
-  v37 = 0u;
+  v41 = 0u;
   v38 = 0u;
+  v39 = 0u;
   v3 = WeakRetained[10];
-  v4 = [v3 countByEnumeratingWithState:&v37 objects:v36 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v38 objects:v37 count:16];
   if (!v4)
   {
     v9 = 0;
@@ -694,20 +713,20 @@ void __41__CMCaptureFrameSenderService_sendFrame___block_invoke(uint64_t a1)
   v7 = 0;
   v8 = 0;
   v9 = 0;
-  v10 = *v38;
+  v10 = *v39;
   blockAllocator = *MEMORY[0x1E695E480];
-  v29 = v3;
+  v30 = v3;
   do
   {
     v11 = 0;
     do
     {
-      if (*v38 != v10)
+      if (*v39 != v10)
       {
         objc_enumerationMutation(v3);
       }
 
-      v12 = *(*(&v37 + 1) + 8 * v11);
+      v12 = *(*(&v38 + 1) + 8 * v11);
       if ([v12 connectionIsValid])
       {
         if (v8)
@@ -725,7 +744,7 @@ void __41__CMCaptureFrameSenderService_sendFrame___block_invoke(uint64_t a1)
         }
 
         dataPointerOut = 0;
-        v44 = 0;
+        v45[0] = 0;
         totalLengthOut = 0;
         v7 = xpc_dictionary_create(0, 0, 0);
         if (FigRemote_CreateSerializedAtomDataBlockBufferForSampleBuffer())
@@ -735,33 +754,34 @@ void __41__CMCaptureFrameSenderService_sendFrame___block_invoke(uint64_t a1)
 
         else
         {
-          IsRangeContiguous = CMBlockBufferIsRangeContiguous(v44, 0, 0);
-          v16 = v44;
+          IsRangeContiguous = CMBlockBufferIsRangeContiguous(v45[0], 0, 0);
+          v16 = v45[0];
           if (IsRangeContiguous)
           {
             goto LABEL_16;
           }
 
           blockBufferOut = 0;
-          if (CMBlockBufferCreateContiguous(blockAllocator, v44, blockAllocator, 0, 0, 0, 0, &blockBufferOut))
+          v17 = CMBlockBufferCreateContiguous(blockAllocator, v45[0], blockAllocator, 0, 0, 0, 0, &blockBufferOut);
+          if (v17)
           {
-            __41__CMCaptureFrameSenderService_sendFrame___block_invoke_cold_2();
+            __41__CMCaptureFrameSenderService_sendFrame___block_invoke_cold_2(v17, &blockBufferOut);
           }
 
           else
           {
-            if (v44)
+            if (v45[0])
             {
-              CFRelease(v44);
+              CFRelease(v45[0]);
             }
 
             v16 = blockBufferOut;
-            v44 = blockBufferOut;
+            v45[0] = blockBufferOut;
 LABEL_16:
             if (!CMBlockBufferGetDataPointer(v16, 0, 0, &totalLengthOut, &dataPointerOut))
             {
-              v17 = xpc_data_create(dataPointerOut, totalLengthOut);
-              xpc_dictionary_set_value(v7, "sample-buffer-basic-fields", v17);
+              v18 = xpc_data_create(dataPointerOut, totalLengthOut);
+              xpc_dictionary_set_value(v7, "sample-buffer-basic-fields", v18);
               ImageBuffer = CMSampleBufferGetImageBuffer(v6);
               if (ImageBuffer)
               {
@@ -774,36 +794,36 @@ LABEL_16:
                 }
               }
 
-              v21 = 0;
+              v22 = 0;
 LABEL_21:
-              if (v44)
+              if (v45[0])
               {
-                CFRelease(v44);
+                CFRelease(v45[0]);
               }
 
-              if (v17)
+              if (v18)
               {
-                xpc_release(v17);
+                xpc_release(v18);
               }
 
               if (v7)
               {
-                v22 = v21;
+                v23 = v22;
               }
 
               else
               {
-                v22 = 0;
+                v23 = 0;
               }
 
-              if (v22 == 1)
+              if (v23 == 1)
               {
                 xpc_release(v7);
                 v7 = 0;
               }
 
 LABEL_30:
-              v3 = v29;
+              v3 = v30;
 LABEL_31:
               if (v7)
               {
@@ -818,8 +838,8 @@ LABEL_31:
           }
         }
 
-        v17 = 0;
-        v21 = 1;
+        v18 = 0;
+        v22 = 1;
         goto LABEL_21;
       }
 
@@ -834,11 +854,11 @@ LABEL_37:
     }
 
     while (v5 != v11);
-    v23 = [v3 countByEnumeratingWithState:&v37 objects:v36 count:16];
-    v5 = v23;
+    v24 = [v3 countByEnumeratingWithState:&v38 objects:v37 count:16];
+    v5 = v24;
   }
 
-  while (v23);
+  while (v24);
   if (v6)
   {
     CFRelease(v6);
@@ -850,31 +870,31 @@ LABEL_37:
   }
 
 LABEL_49:
-  v34 = 0u;
   v35 = 0u;
-  v32 = 0u;
+  v36 = 0u;
   v33 = 0u;
-  v24 = [v9 countByEnumeratingWithState:&v32 objects:v31 count:16];
-  if (v24)
+  v34 = 0u;
+  v25 = [v9 countByEnumeratingWithState:&v33 objects:v32 count:16];
+  if (v25)
   {
-    v25 = v24;
-    v26 = *v33;
+    v26 = v25;
+    v27 = *v34;
     do
     {
-      for (i = 0; i != v25; ++i)
+      for (i = 0; i != v26; ++i)
       {
-        if (*v33 != v26)
+        if (*v34 != v27)
         {
           objc_enumerationMutation(v9);
         }
 
-        [*(v2 + 10) removeObject:*(*(&v32 + 1) + 8 * i)];
+        [*(v2 + 10) removeObject:*(*(&v33 + 1) + 8 * i)];
       }
 
-      v25 = [v9 countByEnumeratingWithState:&v32 objects:v31 count:16];
+      v26 = [v9 countByEnumeratingWithState:&v33 objects:v32 count:16];
     }
 
-    while (v25);
+    while (v26);
   }
 }
 

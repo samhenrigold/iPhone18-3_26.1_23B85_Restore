@@ -112,9 +112,7 @@
   path = self->_path;
   self->_path = v6;
 
-  v8 = [CDMAssetsUtils loadAssetMetadataFromAsset:self->_path];
-  assetMetadata = self->_assetMetadata;
-  self->_assetMetadata = v8;
+  self->_assetMetadata = [CDMAssetsUtils loadAssetMetadataFromAsset:self->_path];
 
   MEMORY[0x1EEE66BB8]();
 }

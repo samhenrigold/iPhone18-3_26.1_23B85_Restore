@@ -5,6 +5,7 @@
 - (id)specifiers;
 - (void)setGreyVisualIndicator:(id)indicator;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation ZoomHandGesturesActivationController
@@ -27,44 +28,44 @@
 
 - (id)specifiers
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v3 = *(&self->super.super.super.super.super.super.isa + *MEMORY[0x277D3FC48]);
   if (!v3)
   {
-    v31 = *MEMORY[0x277D3FC48];
+    v30 = *MEMORY[0x277D3FC48];
     array = [MEMORY[0x277CBEB18] array];
     emptyGroupSpecifier = [MEMORY[0x277D3FAD8] emptyGroupSpecifier];
     [emptyGroupSpecifier setProperty:MEMORY[0x277CBEC38] forKey:*MEMORY[0x277D3FFE8]];
     v6 = array;
-    v30 = emptyGroupSpecifier;
+    v29 = emptyGroupSpecifier;
     [array addObject:emptyGroupSpecifier];
     greyActivationGesture = [(ZoomHandGesturesActivationController *)self greyActivationGesture];
+    v34 = 0u;
     v35 = 0u;
     v36 = 0u;
     v37 = 0u;
-    v38 = 0u;
     mEMORY[0x277D7A910] = [MEMORY[0x277D7A910] sharedInstance];
     eligibleGreyActivationGestures = [mEMORY[0x277D7A910] eligibleGreyActivationGestures];
 
     obj = eligibleGreyActivationGestures;
-    v9 = [eligibleGreyActivationGestures countByEnumeratingWithState:&v35 objects:v39 count:16];
+    v9 = [eligibleGreyActivationGestures countByEnumeratingWithState:&v34 objects:v38 count:16];
     selfCopy = self;
     if (v9)
     {
       v10 = v9;
       v11 = 0;
-      v12 = *v36;
+      v12 = *v35;
       v13 = *MEMORY[0x277D401A8];
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v36 != v12)
+          if (*v35 != v12)
           {
             objc_enumerationMutation(obj);
           }
 
-          v15 = *(*(&v35 + 1) + 8 * i);
+          v15 = *(*(&v34 + 1) + 8 * i);
           integerValue = [v15 integerValue];
           v17 = MEMORY[0x277D3FAD8];
           v18 = WCNameForGreyEvent();
@@ -82,7 +83,7 @@
           }
         }
 
-        v10 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
+        v10 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
       }
 
       while (v10);
@@ -93,7 +94,7 @@
       v11 = 0;
     }
 
-    [v30 setProperty:v11 forKey:*MEMORY[0x277D40090]];
+    [v29 setProperty:v11 forKey:*MEMORY[0x277D40090]];
     emptyGroupSpecifier2 = [MEMORY[0x277D3FAD8] emptyGroupSpecifier];
     [v6 addObject:emptyGroupSpecifier2];
 
@@ -102,16 +103,50 @@
     v25 = [v23 preferenceSpecifierNamed:v24 target:selfCopy set:sel_setGreyVisualIndicator_ get:sel_greyVisualIndicator detail:0 cell:6 edit:0];
     [v6 addObject:v25];
 
-    v26 = *(&selfCopy->super.super.super.super.super.super.isa + v31);
-    *(&selfCopy->super.super.super.super.super.super.isa + v31) = v6;
+    v26 = *(&selfCopy->super.super.super.super.super.super.isa + v30);
+    *(&selfCopy->super.super.super.super.super.super.isa + v30) = v6;
     v27 = v6;
 
-    v3 = *(&selfCopy->super.super.super.super.super.super.isa + v31);
+    v3 = *(&selfCopy->super.super.super.super.super.super.isa + v30);
   }
 
-  v28 = *MEMORY[0x277D85DE8];
-
   return v3;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v24[3] = *MEMORY[0x277D85DE8];
+  v23.receiver = self;
+  v23.super_class = ZoomHandGesturesActivationController;
+  [(AccessibilityBridgeBaseController *)&v23 viewWillAppear:appear];
+  v3 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v4 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
+  bundleURL = [v3 bundleURL];
+  v7 = [v4 initWithKey:@"GREY_GESTURE_TO_START_TITLE" table:@"AccessibilitySettings-watchcontrol" locale:currentLocale bundleURL:bundleURL];
+
+  v8 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale2 = [MEMORY[0x277CBEAF8] currentLocale];
+  bundleURL2 = [v3 bundleURL];
+  v11 = [v8 initWithKey:@"HAND_GESTURES" table:@"ZoomSettings" locale:currentLocale2 bundleURL:bundleURL2];
+
+  v12 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale3 = [MEMORY[0x277CBEAF8] currentLocale];
+  bundleURL3 = [v3 bundleURL];
+  v15 = [v12 initWithKey:@"ZOOM_TITLE" table:@"AccessibilitySettings" locale:currentLocale3 bundleURL:bundleURL3];
+
+  v16 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale4 = [MEMORY[0x277CBEAF8] currentLocale];
+  bundleURL4 = [v3 bundleURL];
+  v19 = [v16 initWithKey:@"ACCESSIBILITY_TITLE" table:@"AccessibilitySettings" locale:currentLocale4 bundleURL:bundleURL4];
+
+  v20 = MEMORY[0x277CF3470];
+  v24[0] = v19;
+  v24[1] = v15;
+  v24[2] = v11;
+  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:3];
+  v22 = [MEMORY[0x277CBEBC0] URLWithString:@"bridge:root=ACCESSIBILITY_ID&path=ZOOM_ID/HandGestures/ACTIVATION_GESTURE_ID"];
+  [v20 emitNavigationEventForSystemSettingWithIconSpecifierIdentifier:@"ACCESSIBILITY_ID" title:v7 localizedNavigationComponents:v21 deepLink:v22];
 }
 
 - (id)greyActivationGesture

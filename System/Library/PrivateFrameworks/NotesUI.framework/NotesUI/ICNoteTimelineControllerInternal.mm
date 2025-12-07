@@ -12,14 +12,14 @@
   v8 = *(v7 - 8);
   MEMORY[0x1EEE9AC00](v7);
   v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_1D41766C0(0, &qword_1EDE32768);
+  sub_1D41766C0(0, &qword_1EDE32768, 0x1E695D630);
   v11 = sub_1D4419E44();
   v12 = sub_1D4419E44();
   sub_1D44173F4();
   _s7NotesUI32ICNoteTimelineControllerInternalC09ascendingD8Sections3for5dates13referenceDate9directionSaySo0cD7SectionCGSaySo17NSManagedObjectIDCG_Say10Foundation0L0VGAQSo35ICFolderCustomNoteSortTypeDirectionVtFZ_0(v11, v12, v10, direction);
 
   (*(v8 + 8))(v10, v7);
-  sub_1D41766C0(0, &qword_1EDE326C8);
+  sub_1D41766C0(0, &qword_1EDE326C8, off_1E84661F0);
   v13 = sub_1D4419E24();
 
   return v13;
@@ -27,7 +27,7 @@
 
 + (void)setTimeZone:(id)zone
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC7CC118);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC7CC118, &unk_1D443C300);
   MEMORY[0x1EEE9AC00](v3);
   v5 = &v16 - v4;
   v6 = sub_1D44175E4();

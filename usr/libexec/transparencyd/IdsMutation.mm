@@ -106,30 +106,14 @@ LABEL_19:
 
 - (id)getOptInOutWithExt
 {
-  if ([(IdsMutation *)self mutationType]!= 4)
+  if ([(IdsMutation *)self mutationType]== 4 && ([(IdsMutation *)self idsDeviceMutation], (v3 = objc_claimAutoreleasedReturnValue()) != 0) && (v4 = v3, [(IdsMutation *)self idsDeviceMutation], v5 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), v5, v4, (isKindOfClass & 1) != 0))
   {
-    goto LABEL_13;
-  }
-
-  idsDeviceMutation = [(IdsMutation *)self idsDeviceMutation];
-  if (!idsDeviceMutation)
-  {
-    goto LABEL_13;
-  }
-
-  v4 = idsDeviceMutation;
-  idsDeviceMutation2 = [(IdsMutation *)self idsDeviceMutation];
-  objc_opt_class();
-  isKindOfClass = objc_opt_isKindOfClass();
-
-  if (isKindOfClass)
-  {
-    idsDeviceMutation3 = [(IdsMutation *)self idsDeviceMutation];
+    idsDeviceMutation = [(IdsMutation *)self idsDeviceMutation];
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    extensions = [idsDeviceMutation3 extensions];
+    extensions = [idsDeviceMutation extensions];
     v9 = [extensions countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v9)
     {
@@ -168,7 +152,6 @@ LABEL_18:
 
   else
   {
-LABEL_13:
     v9 = 0;
   }
 
@@ -177,30 +160,14 @@ LABEL_13:
 
 - (BOOL)hasOptInExtension
 {
-  if ([(IdsMutation *)self mutationType]!= 4)
+  if ([(IdsMutation *)self mutationType]== 4 && ([(IdsMutation *)self idsDeviceMutation], (v3 = objc_claimAutoreleasedReturnValue()) != 0) && (v4 = v3, [(IdsMutation *)self idsDeviceMutation], v5 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), v5, v4, (isKindOfClass & 1) != 0))
   {
-    goto LABEL_13;
-  }
-
-  idsDeviceMutation = [(IdsMutation *)self idsDeviceMutation];
-  if (!idsDeviceMutation)
-  {
-    goto LABEL_13;
-  }
-
-  v4 = idsDeviceMutation;
-  idsDeviceMutation2 = [(IdsMutation *)self idsDeviceMutation];
-  objc_opt_class();
-  isKindOfClass = objc_opt_isKindOfClass();
-
-  if (isKindOfClass)
-  {
-    idsDeviceMutation3 = [(IdsMutation *)self idsDeviceMutation];
+    idsDeviceMutation = [(IdsMutation *)self idsDeviceMutation];
     v13 = 0u;
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    extensions = [idsDeviceMutation3 extensions];
+    extensions = [idsDeviceMutation extensions];
     v9 = [extensions countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v9)
     {
@@ -236,7 +203,6 @@ LABEL_16:
 
   else
   {
-LABEL_13:
     LOBYTE(v9) = 0;
   }
 

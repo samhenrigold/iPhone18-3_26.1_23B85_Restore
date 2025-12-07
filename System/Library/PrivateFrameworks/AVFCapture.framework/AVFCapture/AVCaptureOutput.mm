@@ -55,9 +55,9 @@
 
 - (id)initSubclass
 {
-  v8.receiver = self;
-  v8.super_class = AVCaptureOutput;
-  v2 = [(AVCaptureOutput *)&v8 init];
+  v9.receiver = self;
+  v9.super_class = AVCaptureOutput;
+  v2 = [(AVCaptureOutput *)&v9 init];
   if (v2)
   {
     v3 = objc_alloc_init(AVCaptureOutputInternal);
@@ -68,19 +68,19 @@
       v2 = 0;
     }
 
-    if (AVCaptureSessionIsLaunchPrewarmingEnabled())
+    if (AVCaptureSessionIsLaunchPrewarmingEnabled(v3, v4))
     {
-      v4 = MEMORY[0x1E696AEC0];
-      v5 = objc_opt_class();
-      v6 = [v4 stringWithFormat:@"<%@>", NSStringFromClass(v5)];
+      v5 = MEMORY[0x1E696AEC0];
+      v6 = objc_opt_class();
+      v7 = [v5 stringWithFormat:@"<%@>", NSStringFromClass(v6)];
     }
 
     else
     {
-      v6 = AVIdentifierForObject(v2);
+      v7 = AVIdentifierForObject(v2);
     }
 
-    [(AVCaptureOutput *)v2 setSinkID:v6];
+    [(AVCaptureOutput *)v2 setSinkID:v7];
   }
 
   return v2;
@@ -409,7 +409,7 @@ const void *__47__AVCaptureOutput_detachFromFigCaptureSession___block_invoke(uin
   if (![(NSArray *)[(AVCaptureOutput *)self connections] containsObject:connection])
   {
     v15 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D920] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v15, v16))
     {
       objc_exception_throw(v15);
     }
@@ -429,18 +429,18 @@ const void *__47__AVCaptureOutput_detachFromFigCaptureSession___block_invoke(uin
   objc_sync_enter(outputInternal);
   v10 = self->_outputInternal;
   v11 = *&v10->metadataTransform.c;
-  v19 = *&v10->metadataTransform.a;
-  v20 = v11;
-  v21 = *&v10->metadataTransform.tx;
+  v20 = *&v10->metadataTransform.a;
+  v21 = v11;
+  v22 = *&v10->metadataTransform.tx;
   isVideoMirrored = [(AVCaptureConnection *)connection isVideoMirrored];
   v13 = self->_outputInternal;
   v14 = isVideoMirrored && v13->physicallyMirrorsVideo;
   rollAdjustment = v13->rollAdjustment;
   objc_sync_exit(outputInternal);
-  v18[0] = v19;
-  v18[1] = v20;
-  v18[2] = v21;
-  return [AVMetadataObject derivedMetadataObjectFromMetadataObject:originalMetadataObject withTransform:v18 isVideoMirrored:v14 rollAdjustment:rollAdjustment];
+  v19[0] = v20;
+  v19[1] = v21;
+  v19[2] = v22;
+  return [AVMetadataObject derivedMetadataObjectFromMetadataObject:originalMetadataObject withTransform:v19 isVideoMirrored:v14 rollAdjustment:rollAdjustment];
 }
 
 - (CGRect)metadataOutputRectOfInterestForRect:(CGRect)rectInOutputCoordinates
@@ -495,10 +495,10 @@ const void *__47__AVCaptureOutput_detachFromFigCaptureSession___block_invoke(uin
   {
     outputInternal = self->_outputInternal;
     objc_sync_enter(outputInternal);
-    v7 = self->_outputInternal;
-    if (v7->deferredStartEnabled != enabledCopy)
+    v8 = self->_outputInternal;
+    if (v8->deferredStartEnabled != enabledCopy)
     {
-      v7->deferredStartEnabled = enabledCopy;
+      v8->deferredStartEnabled = enabledCopy;
       [(AVCaptureOutput *)self bumpChangeSeed];
     }
 
@@ -508,7 +508,7 @@ const void *__47__AVCaptureOutput_detachFromFigCaptureSession___block_invoke(uin
   else
   {
     v5 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v5, v6))
     {
       objc_exception_throw(v5);
     }
@@ -581,12 +581,12 @@ const void *__47__AVCaptureOutput_detachFromFigCaptureSession___block_invoke(uin
 
   v22 = firstObject;
   self->_outputInternal->physicallyMirrorsVideo = [(AVCaptureOutput *)self appliesMirroringWithPhysicalFlipForConnection:firstObject];
-  v41 = *(MEMORY[0x1E695EFD0] + 16);
-  v42 = *MEMORY[0x1E695EFD0];
-  *&v47.a = *MEMORY[0x1E695EFD0];
-  *&v47.c = v41;
-  v40 = *(MEMORY[0x1E695EFD0] + 32);
-  *&v47.tx = v40;
+  v43 = *(MEMORY[0x1E695EFD0] + 16);
+  v44 = *MEMORY[0x1E695EFD0];
+  *&v49.a = *MEMORY[0x1E695EFD0];
+  *&v49.c = v43;
+  v42 = *(MEMORY[0x1E695EFD0] + 32);
+  *&v49.tx = v42;
   if (ratio)
   {
     Dimensions = CMVideoFormatDescriptionGetDimensions([format formatDescription]);
@@ -610,41 +610,41 @@ const void *__47__AVCaptureOutput_detachFromFigCaptureSession___block_invoke(uin
 
         v31 = fmax(v30, 1.0);
         CGAffineTransformMakeTranslation(&t2, -0.5, -0.5);
-        *&t1.a = v42;
-        *&t1.c = v41;
-        *&t1.tx = v40;
-        CGAffineTransformConcat(&v47, &t1, &t2);
+        *&t1.a = v44;
+        *&t1.c = v43;
+        *&t1.tx = v42;
+        CGAffineTransformConcat(&v49, &t1, &t2);
         CGAffineTransformMakeScale(&t1, v31, v31);
-        v44 = v47;
-        CGAffineTransformConcat(&t2, &v44, &t1);
-        v47 = t2;
+        v46 = v49;
+        CGAffineTransformConcat(&t2, &v46, &t1);
+        v49 = t2;
         CGAffineTransformMakeTranslation(&t1, 0.5, 0.5);
-        v44 = v47;
-        CGAffineTransformConcat(&t2, &v44, &t1);
-        v47 = t2;
+        v46 = v49;
+        CGAffineTransformConcat(&t2, &v46, &t1);
+        v49 = t2;
         vtScalingMode = *MEMORY[0x1E69840E8];
       }
     }
   }
 
   memset(&t2, 0, sizeof(t2));
-  [(AVCaptureConnection *)v22 sourcesFromFrontFacingCamera];
-  [(AVCaptureConnection *)v22 sourcesFromExternalCamera];
-  v32 = [(AVCaptureOutput *)self appliesOrientationWithPhysicalRotationForConnection:v22];
+  sourcesFromFrontFacingCamera = [(AVCaptureConnection *)v22 sourcesFromFrontFacingCamera];
+  sourcesFromExternalCamera = [(AVCaptureConnection *)v22 sourcesFromExternalCamera];
+  v34 = [(AVCaptureOutput *)self appliesOrientationWithPhysicalRotationForConnection:v22];
   [(AVCaptureConnection *)v22 videoRotationAngle];
-  v34 = v33;
-  v35 = self->_outputInternal;
-  physicallyMirrorsVideo = v35->physicallyMirrorsVideo;
+  v36 = v35;
+  v37 = self->_outputInternal;
+  physicallyMirrorsVideo = v37->physicallyMirrorsVideo;
   isVideoMirrored = [(AVCaptureConnection *)v22 isVideoMirrored];
-  AVCaptureVideoTransformForCaptureDevice(vtScalingMode, v32, v34, &v35->rollAdjustment, 0, 0, &t2, v19, v18, v15, v14, *MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24), physicallyMirrorsVideo, isVideoMirrored);
-  v38 = self->_outputInternal;
-  v44 = v47;
-  v43 = t2;
-  CGAffineTransformConcat(&t1, &v44, &v43);
-  v39 = *&t1.c;
-  *&v38->metadataTransform.a = *&t1.a;
-  *&v38->metadataTransform.c = v39;
-  *&v38->metadataTransform.tx = *&t1.tx;
+  AVCaptureVideoTransformForCaptureDevice(vtScalingMode, sourcesFromFrontFacingCamera, sourcesFromExternalCamera, v34, v36, &v37->rollAdjustment, 0, 0, &t2, v19, v18, v15, v14, *MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24), physicallyMirrorsVideo, isVideoMirrored);
+  v40 = self->_outputInternal;
+  v46 = v49;
+  v45 = t2;
+  CGAffineTransformConcat(&t1, &v46, &v45);
+  v41 = *&t1.c;
+  *&v40->metadataTransform.a = *&t1.a;
+  *&v40->metadataTransform.c = v41;
+  *&v40->metadataTransform.tx = *&t1.tx;
   objc_sync_exit(outputInternal);
 }
 
@@ -923,14 +923,14 @@ LABEL_9:
   }
 
   dictionary2 = v14;
-  v16 = [-[AVCaptureOutput session](self "session")];
+  [-[AVCaptureOutput session](self "session")];
   if (activeFormat)
   {
-    [activeFormat defaultActiveMinFrameDurationForSessionPreset:v16];
+    objc_msgSend_defaultActiveMinFrameDurationForSessionPreset_(activeFormat);
     if (sourceDevice)
     {
 LABEL_6:
-      [sourceDevice activeVideoMinFrameDuration];
+      objc_msgSend_activeVideoMinFrameDuration(sourceDevice);
       goto LABEL_9;
     }
   }
@@ -960,13 +960,13 @@ LABEL_10:
     codec = *v13;
   }
 
-  v18 = [objc_msgSend(settings objectForKeyedSubscript:{*MEMORY[0x1E6966208]), "intValue"}];
-  settingsCopy = [objc_msgSend(settings objectForKeyedSubscript:{*MEMORY[0x1E69660B8]), "intValue"}];
+  intValue = [objc_msgSend_objectForKeyedSubscript_(settings) intValue];
+  settingsCopy = [objc_msgSend_objectForKeyedSubscript_(settings) intValue];
   if (sourceDevice)
   {
-    [sourceDevice activeVideoMinFrameDuration];
-    [sourceDevice activeVideoMinFrameDuration];
-    v20 = v165 / v161;
+    objc_msgSend_activeVideoMinFrameDuration(sourceDevice);
+    objc_msgSend_activeVideoMinFrameDuration(sourceDevice);
+    v19 = v165 / v161;
   }
 
   else
@@ -976,24 +976,24 @@ LABEL_10:
     v166 = 0;
     v162 = 0;
     v163 = 0;
-    v20 = NAN;
+    v19 = NAN;
     v161 = 0;
   }
 
-  v21 = *MEMORY[0x1E6987DC8];
-  v22 = [settings objectForKeyedSubscript:*MEMORY[0x1E6987DC8]];
-  if (v18)
+  v20 = *MEMORY[0x1E6987DC8];
+  v21 = objc_msgSend_objectForKeyedSubscript_(settings);
+  if (intValue)
   {
-    v23 = settingsCopy == 0;
+    v22 = settingsCopy == 0;
   }
 
   else
   {
-    v23 = 1;
+    v22 = 1;
   }
 
-  v147 = v22;
-  if (v23)
+  v147 = v21;
+  if (v22)
   {
     if ([activeFormat figCaptureSourceVideoFormat])
     {
@@ -1005,38 +1005,38 @@ LABEL_10:
       Dimensions = CMVideoFormatDescriptionGetDimensions([activeFormat formatDescription]);
     }
 
-    v25 = Dimensions;
+    v24 = Dimensions;
     if ([objc_msgSend(activeFormat "supportedDynamicAspectRatios")])
     {
       dynamicAspectRatio = [sourceDevice dynamicAspectRatio];
       v149 = dictionary;
-      v27 = sourceDevice;
+      v26 = sourceDevice;
       codecCopy = codec;
-      v29 = irisCopy;
-      v30 = v18;
-      v31 = settingsCopy;
+      v28 = irisCopy;
+      v29 = intValue;
+      v30 = settingsCopy;
       settingsCopy = settings;
-      v32 = dynamicAspectRatio;
+      v31 = dynamicAspectRatio;
       [objc_msgSend(activeFormat "figCaptureSourceVideoFormat")];
-      v33 = v32;
+      v32 = v31;
       settings = settingsCopy;
-      LODWORD(settingsCopy) = v31;
-      LODWORD(v18) = v30;
-      irisCopy = v29;
+      LODWORD(settingsCopy) = v30;
+      LODWORD(intValue) = v29;
+      irisCopy = v28;
       codec = codecCopy;
-      sourceDevice = v27;
+      sourceDevice = v26;
       dictionary = v149;
-      v25 = AVCaptureConvertDimensionsForAspectRatio(v25, v33, v34);
+      v24 = AVCaptureConvertDimensionsForAspectRatio(v24, v32, v33);
     }
 
-    if (v18)
+    if (intValue)
     {
-      v18 = v18;
+      intValue = intValue;
     }
 
     else
     {
-      v18 = v25;
+      intValue = v24;
     }
 
     if (settingsCopy)
@@ -1046,7 +1046,7 @@ LABEL_10:
 
     else
     {
-      settingsCopy = HIDWORD(v25);
+      settingsCopy = HIDWORD(v24);
     }
   }
 
@@ -1060,84 +1060,84 @@ LABEL_10:
     maxH264PhotoDimensions = [sourceDevice maxH264VideoDimensions];
   }
 
-  v36 = maxH264PhotoDimensions;
+  v35 = maxH264PhotoDimensions;
   [objc_msgSend(activeFormat "figCaptureSourceVideoFormat")];
-  v142 = v21;
+  v142 = v20;
   v141 = irisCopy;
   settingsCopy2 = settings;
-  if ((FigCapturePixelFormatIsPackedBayerRaw() & 1) == 0 && (v18 > v36 || settingsCopy > SHIDWORD(v36)))
+  if ((FigCapturePixelFormatIsPackedBayerRaw() & 1) == 0 && (intValue > v35 || settingsCopy > SHIDWORD(v35)))
   {
-    v169.width = v18;
+    v169.width = intValue;
     v169.height = settingsCopy;
-    v171.size.width = v36;
-    v171.size.height = SHIDWORD(v36);
+    v171.size.width = v35;
+    v171.size.height = SHIDWORD(v35);
     v171.origin.x = 0.0;
     v171.origin.y = 0.0;
     v170 = AVMakeRectWithAspectRatioInsideRect(v169, v171);
-    v18 = vcvtmd_s64_f64(v170.size.width) & 0xFFFFFFFE;
+    intValue = vcvtmd_s64_f64(v170.size.width) & 0xFFFFFFFE;
     settingsCopy = vcvtmd_s64_f64(v170.size.height) & 0xFFFFFFFE;
     v147 = *MEMORY[0x1E6987DE0];
   }
 
   [objc_msgSend(activeFormat "figCaptureSourceVideoFormat")];
   IsTenBit = FigCapturePixelFormatIsTenBit();
-  v150 = v18 * settingsCopy;
-  v38 = v20 <= 60.0 || (v18 * settingsCopy) < 0x7E9000;
-  v144 = v38;
-  v39 = FigCapturePlatformIdentifier() > 5;
-  v40 = [codec isEqualToString:v151];
-  v41 = MEMORY[0x1E6987CF0];
-  if ((v40 & 1) == 0)
+  v150 = intValue * settingsCopy;
+  v37 = v19 <= 60.0 || (intValue * settingsCopy) < 0x7E9000;
+  v144 = v37;
+  v38 = FigCapturePlatformIdentifier() > 5;
+  v39 = [codec isEqualToString:v151];
+  v40 = MEMORY[0x1E6987CF0];
+  if ((v39 & 1) == 0)
   {
-    v42 = *MEMORY[0x1E6987CF0];
+    v41 = *MEMORY[0x1E6987CF0];
     if (![codec isEqualToString:*MEMORY[0x1E6987CF0]])
     {
       goto LABEL_211;
     }
   }
 
-  v139 = v39 && v144;
-  v44 = v18 > 1919 && settingsCopy > 1079;
-  v46 = v18 > 640 && settingsCopy > 480;
-  v47 = v20 > 30.0 && v46;
-  v145 = ((v18 + 15) >> 4) * ((settingsCopy + 15) >> 4);
+  v139 = v38 && v144;
+  v43 = intValue > 1919 && settingsCopy > 1079;
+  v45 = intValue > 640 && settingsCopy > 480;
+  v46 = v19 > 30.0 && v45;
+  v145 = ((intValue + 15) >> 4) * ((settingsCopy + 15) >> 4);
   if ([sourceDevice minMacroblocksForHighProfileUpTo30fps] && objc_msgSend(sourceDevice, "minMacroblocksForHighProfileAbove30fps"))
   {
-    if (v145 >= [sourceDevice minMacroblocksForHighProfileUpTo30fps] && v20 <= 30.0)
+    if (v145 >= [sourceDevice minMacroblocksForHighProfileUpTo30fps] && v19 <= 30.0)
     {
-      v48 = v44 || v47;
-      v49 = 1;
+      v47 = v43 || v46;
+      v48 = 1;
       goto LABEL_75;
     }
 
     minMacroblocksForHighProfileAbove30fps = [sourceDevice minMacroblocksForHighProfileAbove30fps];
-    v49 = v20 > 30.0 && v145 >= minMacroblocksForHighProfileAbove30fps;
+    v48 = v19 > 30.0 && v145 >= minMacroblocksForHighProfileAbove30fps;
   }
 
   else
   {
-    v49 = 0;
+    v48 = 0;
   }
 
-  v48 = v44 || v47;
-  if (!v48 && !v49)
+  v47 = v43 || v46;
+  if (!v47 && !v48)
   {
 LABEL_87:
-    v60 = fmin(v20, 120.0) * 11.3999996 / 30.0;
-    if (v20 <= 120.0)
+    v59 = fmin(v19, 120.0) * 11.3999996 / 30.0;
+    if (v19 <= 120.0)
     {
-      v62 = v60;
+      v61 = v59;
     }
 
     else
     {
-      v61 = v60 + (v20 + -120.0) * 0.0900000254;
-      v62 = v61;
+      v60 = v59 + (v19 + -120.0) * 0.0900000254;
+      v61 = v60;
     }
 
-    if ([codec isEqualToString:*v41])
+    if ([codec isEqualToString:*v40])
     {
-      v62 = v62 * 0.8;
+      v61 = v61 * 0.8;
       [dictionary setObject:MEMORY[0x1E695E110] forKeyedSubscript:*MEMORY[0x1E6987C50]];
     }
 
@@ -1149,7 +1149,7 @@ LABEL_75:
   [dictionary setObject:*MEMORY[0x1E6987DB0] forKeyedSubscript:*MEMORY[0x1E6987DB8]];
   [dictionary setObject:*MEMORY[0x1E6987D60] forKeyedSubscript:*MEMORY[0x1E6987D68]];
   [dictionary setObject:MEMORY[0x1E695E110] forKeyedSubscript:*MEMORY[0x1E6987C50]];
-  if (v49)
+  if (v48)
   {
     LODWORD(time1.epoch) = 1110337126;
     *&time1.value = xmmword_1A92AB698;
@@ -1162,12 +1162,12 @@ LABEL_75:
       [dictionary setObject:&unk_1F1CE99F8 forKeyedSubscript:*MEMORY[0x1E69837E8]];
       for (i = 0; i != 20; i += 4)
       {
-        v53 = *(&time1.value + i) * 0.95;
-        *(&time1.value + i) = v53;
-        v54 = *(&time2.value + i) * 0.9;
-        *(&time2.value + i) = v54;
-        v55 = *(&v159 + i) * 0.9;
-        *(&v159 + i) = v55;
+        v52 = *(&time1.value + i) * 0.95;
+        *(&time1.value + i) = v52;
+        v53 = *(&time2.value + i) * 0.9;
+        *(&time2.value + i) = v53;
+        v54 = *(&v159 + i) * 0.9;
+        *(&v159 + i) = v54;
       }
     }
 
@@ -1177,8 +1177,8 @@ LABEL_75:
     v156 = 1100674499;
     if ([sourceDevice hevcTurboModeVersion] < 1)
     {
-      v57 = 959447.126;
-      LODWORD(v56) = 1100166726;
+      v56 = 959447.126;
+      LODWORD(v55) = 1100166726;
     }
 
     else
@@ -1186,19 +1186,19 @@ LABEL_75:
       v158 = 1103155219;
       *(&v155 + 1) = 0x412B74BC40C2511ALL;
       v156 = 1100065171;
-      v57 = 618764.626;
-      LODWORD(v56) = 1099587864;
+      v56 = 618764.626;
+      LODWORD(v55) = 1099587864;
     }
 
     if (v139)
     {
-      *(&v155 + 1) = v57;
-      v156 = LODWORD(v56);
+      *(&v155 + 1) = v56;
+      v156 = LODWORD(v55);
     }
 
-    v63 = [codec isEqualToString:{*v41, v57, v56}];
-    v64 = &unk_1A92AB6D4;
-    if (v63)
+    v62 = [codec isEqualToString:{*v40, v56, v55}];
+    v63 = &unk_1A92AB6D4;
+    if (v62)
     {
       p_time1 = &unk_1A92AB6D4;
     }
@@ -1209,65 +1209,75 @@ LABEL_75:
     }
 
     p_time2 = &time2;
-    if (v63)
+    if (v62)
     {
-      v67 = &v157;
+      v66 = &v157;
     }
 
     else
     {
-      v67 = &time2;
+      v66 = &time2;
     }
 
-    if (!v63)
+    if (!v62)
     {
-      v64 = &time1;
+      v63 = &time1;
     }
 
     if (v145 >= 3600)
     {
-      v68 = 8160;
+      v67 = 8160;
     }
 
     else
+    {
+      v67 = 3600;
+    }
+
+    if (v145 >= 3600)
     {
       v68 = 3600;
     }
 
-    if (v145 >= 3600)
-    {
-      v69 = 3600;
-    }
-
     else
     {
-      v69 = 0;
+      v68 = 0;
     }
 
     if (v145 >= 3600)
     {
-      p_time1 = v64;
+      p_time1 = v63;
     }
 
     else
     {
-      v67 = p_time1;
+      v66 = p_time1;
     }
 
-    v70 = &v155;
-    if (v63)
+    v69 = &v155;
+    if (v62)
     {
       p_time2 = &v157;
     }
 
     else
     {
-      v70 = &v159;
+      v69 = &v159;
     }
 
     if (v145 >= 8160)
     {
-      v71 = 32400;
+      v70 = 32400;
+    }
+
+    else
+    {
+      v70 = v67;
+    }
+
+    if (v145 >= 8160)
+    {
+      v71 = 8160;
     }
 
     else
@@ -1277,22 +1287,12 @@ LABEL_75:
 
     if (v145 >= 8160)
     {
-      v72 = 8160;
-    }
-
-    else
-    {
       v72 = v69;
     }
 
-    if (v145 >= 8160)
-    {
-      v73 = v70;
-    }
-
     else
     {
-      v73 = v67;
+      v72 = v66;
     }
 
     if (v145 >= 8160)
@@ -1300,58 +1300,58 @@ LABEL_75:
       p_time1 = p_time2;
     }
 
-    v74 = (v20 / 30.0);
-    if (v74)
+    v73 = (v19 / 30.0);
+    if (v73)
     {
-      if (v74 > 7)
+      if (v73 > 7)
       {
-        v78 = (v20 / 240.0) * *&p_time1->epoch;
-        v79 = (v20 / 240.0) * v73[4];
+        v77 = (v19 / 240.0) * *&p_time1->epoch;
+        v78 = (v19 / 240.0) * v72[4];
         goto LABEL_132;
       }
 
-      v74 = 32 - __clz(v74);
+      v73 = 32 - __clz(v73);
     }
 
-    v75 = flt_1A92AB710[v74];
-    v76 = flt_1A92AB710[v74 + 1] - v75;
-    v77 = v20 - v75;
-    v78 = *(&p_time1->value + v74) + (((*(&p_time1->value + v74 + 1) - *(&p_time1->value + v74)) / v76) * v77);
-    v79 = v73[v74] + (((v73[v74 + 1] - v73[v74]) / v76) * v77);
+    v74 = flt_1A92AB710[v73];
+    v75 = flt_1A92AB710[v73 + 1] - v74;
+    v76 = v19 - v74;
+    v77 = *(&p_time1->value + v73) + (((*(&p_time1->value + v73 + 1) - *(&p_time1->value + v73)) / v75) * v76);
+    v78 = v72[v73] + (((v72[v73 + 1] - v72[v73]) / v75) * v76);
 LABEL_132:
-    v62 = v78 + (((v79 - v78) / (v71 - v72)) * (v145 - v72));
+    v61 = v77 + (((v78 - v77) / (v70 - v71)) * (v145 - v71));
     goto LABEL_133;
   }
 
-  if (!v48)
+  if (!v47)
   {
     goto LABEL_87;
   }
 
-  if (v44)
+  if (v43)
   {
-    v58 = v20;
-    if (v20 > 60.0)
+    v57 = v19;
+    if (v19 > 60.0)
     {
-      v59 = (v58 + -60.0) * 0.193666681 + 12.5;
+      v58 = (v57 + -60.0) * 0.193666681 + 12.5;
     }
 
-    else if (v20 <= 30.0)
+    else if (v19 <= 30.0)
     {
-      v59 = fmin(v58, 30.0) * 8.19999981 / 30.0;
+      v58 = fmin(v57, 30.0) * 8.19999981 / 30.0;
     }
 
     else
     {
-      v59 = (v58 + -30.0) * 0.14333334 + 8.19999981;
+      v58 = (v57 + -30.0) * 0.14333334 + 8.19999981;
     }
 
-    v137 = v59;
-    v62 = (((v150 * -0.00000034899) + 8.9237) / 8.2) * v137;
+    v137 = v58;
+    v61 = (((v150 * -0.00000034899) + 8.9237) / 8.2) * v137;
     if ([sourceDevice usesQuantizationScalingMatrix_H264_Steep_16] && objc_msgSend(codec, "isEqualToString:", v151))
     {
       [dictionary setObject:&unk_1F1CE99F8 forKeyedSubscript:*MEMORY[0x1E69837E8]];
-      v135 = v62;
+      v135 = v61;
       v136 = 0.9;
       goto LABEL_265;
     }
@@ -1359,59 +1359,59 @@ LABEL_132:
 
   else
   {
-    v133 = fmin(v20, 120.0) * 8.19999981 / 30.0;
-    if (v20 <= 120.0)
+    v133 = fmin(v19, 120.0) * 8.19999981 / 30.0;
+    if (v19 <= 120.0)
     {
-      v62 = v133;
+      v61 = v133;
     }
 
     else
     {
-      v134 = v133 + (v20 + -120.0) * 0.0899999936;
-      v62 = v134;
+      v134 = v133 + (v19 + -120.0) * 0.0899999936;
+      v61 = v134;
     }
 
     if ([sourceDevice usesQuantizationScalingMatrix_H264_Steep_16] && objc_msgSend(codec, "isEqualToString:", v151))
     {
       [dictionary setObject:&unk_1F1CE99F8 forKeyedSubscript:*MEMORY[0x1E69837E8]];
-      v135 = v62;
+      v135 = v61;
       v136 = 0.95;
 LABEL_265:
-      v62 = v135 * v136;
+      v61 = v135 * v136;
     }
   }
 
 LABEL_133:
   if (IsTenBit)
   {
-    v80 = v62 * 1.1;
-    v81 = v80;
+    v79 = v61 * 1.1;
+    v80 = v79;
   }
 
   else
   {
-    v81 = v62;
+    v80 = v61;
   }
 
   if (sourceDevice)
   {
-    [sourceDevice activeVideoMaxFrameDuration];
-    [sourceDevice activeVideoMaxFrameDuration];
-    v82 = v154 / v153;
+    objc_msgSend_activeVideoMaxFrameDuration(sourceDevice);
+    objc_msgSend_activeVideoMaxFrameDuration(sourceDevice);
+    v81 = v154 / v153;
   }
 
   else
   {
-    v82 = NAN;
+    v81 = NAN;
   }
 
-  v83 = ((v81 * v18) * settingsCopy);
+  v82 = ((v80 * intValue) * settingsCopy);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     if ([(AVCaptureOutput *)selfCopy isSpatialVideoCaptureEnabled])
     {
-      v84 = v83 + v83;
+      v83 = v82 + v82;
     }
 
     else
@@ -1421,20 +1421,20 @@ LABEL_133:
         goto LABEL_145;
       }
 
-      v84 = v83 * 1.12;
+      v83 = v82 * 1.12;
     }
 
-    LODWORD(v83) = llround(v84);
+    LODWORD(v82) = llround(v83);
   }
 
 LABEL_145:
-  v85 = [MEMORY[0x1E696AD98] numberWithInt:v83];
-  v86 = *MEMORY[0x1E6987C60];
-  [dictionary setObject:v85 forKeyedSubscript:*MEMORY[0x1E6987C60]];
-  v87 = *MEMORY[0x1E6987D78];
+  v84 = [MEMORY[0x1E696AD98] numberWithInt:v82];
+  v85 = *MEMORY[0x1E6987C60];
+  [dictionary setObject:v84 forKeyedSubscript:*MEMORY[0x1E6987C60]];
+  v86 = *MEMORY[0x1E6987D78];
   [dictionary setObject:&unk_1F1CE9A10 forKeyedSubscript:*MEMORY[0x1E6987D78]];
-  v42 = *v41;
-  if (![codec isEqualToString:*v41])
+  v41 = *v40;
+  if (![codec isEqualToString:*v40])
   {
     goto LABEL_158;
   }
@@ -1443,7 +1443,7 @@ LABEL_145:
   {
     if ([sourceDevice hevcAllowBFramesForHighCTUCount])
     {
-      v98 = v20 <= 30.0 || v150 < 2073601;
+      v98 = v19 <= 30.0 || v150 < 2073601;
       v99 = [MEMORY[0x1E696AD98] numberWithBool:v98];
       [dictionary setObject:v99 forKeyedSubscript:*MEMORY[0x1E6987C50]];
       if (!v98)
@@ -1454,33 +1454,33 @@ LABEL_145:
       goto LABEL_148;
     }
 
-    if (v20 > 30.0 && (v20 > 120.0 || v150 >= 2073601))
+    if (v19 > 30.0 && (v19 > 120.0 || v150 >= 2073601))
     {
-      v90 = [MEMORY[0x1E696AD98] numberWithBool:0];
-      v89 = *MEMORY[0x1E6987C50];
+      v89 = [MEMORY[0x1E696AD98] numberWithBool:0];
+      v88 = *MEMORY[0x1E6987C50];
       goto LABEL_149;
     }
   }
 
-  v88 = [MEMORY[0x1E696AD98] numberWithBool:1];
-  [dictionary setObject:v88 forKeyedSubscript:*MEMORY[0x1E6987C50]];
+  v87 = [MEMORY[0x1E696AD98] numberWithBool:1];
+  [dictionary setObject:v87 forKeyedSubscript:*MEMORY[0x1E6987C50]];
 LABEL_148:
-  v89 = *MEMORY[0x1E6983520];
-  v90 = MEMORY[0x1E695E118];
+  v88 = *MEMORY[0x1E6983520];
+  v89 = MEMORY[0x1E695E118];
 LABEL_149:
-  [dictionary setObject:v90 forKeyedSubscript:v89];
+  [dictionary setObject:v89 forKeyedSubscript:v88];
 LABEL_150:
   if (FigCapturePlatformIdentifier() >= 6)
   {
     [dictionary setObject:MEMORY[0x1E695E118] forKeyedSubscript:*MEMORY[0x1E6983728]];
   }
 
-  if (![objc_msgSend(settingsCopy2 objectForKeyedSubscript:{*MEMORY[0x1E6966130]), "intValue"}])
+  if (![objc_msgSend_objectForKeyedSubscript_(settingsCopy2) intValue])
   {
     [objc_msgSend(activeFormat "figCaptureSourceVideoFormat")];
   }
 
-  if ([sourceDevice isMotionCompensatedTemporalFilteringSupported] && FigCapturePixelFormatIs420() && (v20 * v150) <= 290300000.0)
+  if ([sourceDevice isMotionCompensatedTemporalFilteringSupported] && FigCapturePixelFormatIs420() && (v19 * v150) <= 290300000.0)
   {
     [dictionary setObject:MEMORY[0x1E695E118] forKeyedSubscript:*MEMORY[0x1E6983858]];
   }
@@ -1488,10 +1488,11 @@ LABEL_150:
 LABEL_158:
   [dictionary setObject:&unk_1F1CE9A28 forKeyedSubscript:*MEMORY[0x1E6983710]];
   [dictionary setObject:&unk_1F1CE9A40 forKeyedSubscript:*MEMORY[0x1E69836F0]];
-  v138 = v86;
-  if ([codec isEqualToString:v42])
+  v90 = [codec isEqualToString:v41];
+  v138 = v85;
+  if (v90)
   {
-    if (v20 <= 30.0)
+    if (v19 <= 30.0)
     {
       if (v150 <= 2764800)
       {
@@ -1499,7 +1500,7 @@ LABEL_158:
       }
 
       v100 = MEMORY[0x1E696AD98];
-      *&v91 = v20;
+      *&v91 = v19;
     }
 
     else
@@ -1509,12 +1510,12 @@ LABEL_158:
         v92 = *MEMORY[0x1E6983570];
         v93 = &unk_1F1CE9A58;
 LABEL_184:
-        [dictionary setObject:v93 forKeyedSubscript:v92];
+        v90 = [dictionary setObject:v93 forKeyedSubscript:v92];
         goto LABEL_185;
       }
 
       v100 = MEMORY[0x1E696AD98];
-      *&v91 = v20 * 0.25;
+      *&v91 = v19 * 0.25;
     }
 
     v93 = [v100 numberWithFloat:v91];
@@ -1523,16 +1524,16 @@ LABEL_184:
   }
 
   v94 = MEMORY[0x1E6987C70];
-  if (v20 > 30.0)
+  if (v19 > 30.0)
   {
-    [dictionary setObject:&unk_1F1CE9A58 forKeyedSubscript:*MEMORY[0x1E6987C70]];
+    v90 = [dictionary setObject:&unk_1F1CE9A58 forKeyedSubscript:*MEMORY[0x1E6987C70]];
   }
 
   if (v150 > 2764800)
   {
-    v95 = llroundf(v20);
+    v95 = llroundf(v19);
     v92 = *v94;
-    if (vabds_f32(v20, v82) < 0.5 && v95 == 24)
+    if (vabds_f32(v19, v81) < 0.5 && v95 == 24)
     {
       v93 = &unk_1F1CE9A70;
     }
@@ -1553,12 +1554,12 @@ LABEL_185:
     goto LABEL_257;
   }
 
-  [activeFormat lowestSupportedVideoFrameDuration];
+  v90 = objc_msgSend_lowestSupportedVideoFrameDuration(activeFormat);
   v102 = time1.timescale / time1.value;
-  if (v102 < v20)
+  if (v102 < v19)
   {
 LABEL_257:
-    [AVCaptureOutput _recommendedVideoOutputSettingsForConnection:sourceSettings:videoCodec:isIris:outputFileURL:];
+    [AVCaptureOutput _recommendedVideoOutputSettingsForConnection:v90 sourceSettings:? videoCodec:? isIris:? outputFileURL:?];
   }
 
   *&v101 = v102;
@@ -1570,20 +1571,20 @@ LABEL_257:
     memset(&time2, 0, sizeof(time2));
     if (output)
     {
-      [output livePhotoMovieVideoFrameDuration];
+      objc_msgSend_livePhotoMovieVideoFrameDuration(output);
       v104 = time2.timescale / time2.value;
-      if (v104 >= v20)
+      if (v104 >= v19)
       {
 LABEL_191:
         v105 = MEMORY[0x1E695E118];
-        [dictionary setObject:objc_msgSend(MEMORY[0x1E696AD98] forKeyedSubscript:{"numberWithDouble:", 0.6), v87}];
+        [dictionary setObject:objc_msgSend(MEMORY[0x1E696AD98] forKeyedSubscript:{"numberWithDouble:", 0.6), v86}];
         [dictionary setObject:*MEMORY[0x1E6987DB0] forKeyedSubscript:*MEMORY[0x1E6987DB8]];
-        if ([codec isEqualToString:v42])
+        if ([codec isEqualToString:v41])
         {
           [dictionary removeObjectForKey:*MEMORY[0x1E6983520]];
         }
 
-        v106 = [codec isEqualToString:v42];
+        v106 = [codec isEqualToString:v41];
         v107 = MEMORY[0x1E695E110];
         if (v106)
         {
@@ -1616,7 +1617,7 @@ LABEL_191:
         }
 
         v112 = v111 * v145;
-        v113 = [codec isEqualToString:v42];
+        v113 = [codec isEqualToString:v41];
         v114 = vcvtpd_u64_f64(v112 * 0.75);
         if (!v113)
         {
@@ -1652,7 +1653,7 @@ LABEL_207:
   {
     if ([activeFormat isVariableFrameRateVideoCaptureSupported])
     {
-      *&v116 = v20;
+      *&v116 = v19;
       v117 = [MEMORY[0x1E696AD98] numberWithFloat:v116];
       [dictionary setObject:v117 forKeyedSubscript:*MEMORY[0x1E6983658]];
       if (v150 >= 0x7E9000)
@@ -1663,7 +1664,7 @@ LABEL_207:
   }
 
 LABEL_211:
-  if ([codec isEqualToString:v42])
+  if ([codec isEqualToString:v41])
   {
     [dictionary removeObjectForKey:*MEMORY[0x1E6987D68]];
     v118 = MEMORY[0x1E6983FA0];
@@ -1682,7 +1683,7 @@ LABEL_211:
   v119 = selfCopy;
   if ([objc_msgSend(objc_opt_class() "supportedProResCodecTypes")])
   {
-    v120 = (((flt_1A92AB668[v150 > 2073600] * v18) * settingsCopy) * v20);
+    v120 = (((flt_1A92AB668[v150 > 2073600] * intValue) * settingsCopy) * v19);
     output2 = [connection output];
     objc_opt_class();
     isKindOfClass = objc_opt_isKindOfClass();
@@ -1734,13 +1735,13 @@ LABEL_224:
     [dictionary setObject:MEMORY[0x1E695E118] forKeyedSubscript:*MEMORY[0x1E69837A8]];
   }
 
-  if (([codec isEqualToString:v42] & 1) != 0 || objc_msgSend(codec, "isEqualToString:", v151))
+  if (([codec isEqualToString:v41] & 1) != 0 || objc_msgSend(codec, "isEqualToString:", v151))
   {
     [dictionary setObject:&unk_1F1CE9A88 forKeyedSubscript:*MEMORY[0x1E69837C8]];
   }
 
   [dictionary setObject:MEMORY[0x1E695E118] forKeyedSubscript:*MEMORY[0x1E69837F0]];
-  *&v128 = v20;
+  *&v128 = v19;
   v129 = [MEMORY[0x1E696AD98] numberWithFloat:v128];
   [dictionary setObject:v129 forKeyedSubscript:*MEMORY[0x1E6987D40]];
   objc_opt_class();
@@ -1751,7 +1752,7 @@ LABEL_224:
 
   dictionary2 = [MEMORY[0x1E695DF90] dictionary];
   [dictionary2 setObject:codec forKeyedSubscript:*MEMORY[0x1E6987CB0]];
-  v130 = [MEMORY[0x1E696AD98] numberWithInt:v18];
+  v130 = [MEMORY[0x1E696AD98] numberWithInt:intValue];
   [dictionary2 setObject:v130 forKeyedSubscript:*MEMORY[0x1E6987E08]];
   v131 = [MEMORY[0x1E696AD98] numberWithInt:settingsCopy];
   [dictionary2 setObject:v131 forKeyedSubscript:*MEMORY[0x1E6987D70]];
@@ -1785,40 +1786,40 @@ LABEL_224:
     {
       if (v6 == 12451844)
       {
-        v30 = 1634754915;
+        v31 = 1634754915;
       }
 
       else
       {
-        v30 = 1633772320;
+        v31 = 1633772320;
       }
 
       if (v12)
       {
-        v31 = 1819304813;
+        v32 = 1819304813;
       }
 
       else
       {
-        v31 = v30;
+        v32 = v31;
       }
 
       memset(&sizeOut[4], 0, 28);
       *sizeOut = v6;
-      v32 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v31];
-      [dictionary setObject:v32 forKeyedSubscript:*MEMORY[0x1E69582B0]];
+      v33 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v32];
+      [dictionary setObject:v33 forKeyedSubscript:*MEMORY[0x1E69582B0]];
       [dictionary setObject:&unk_1F1CE9AA0 forKeyedSubscript:*MEMORY[0x1E6958348]];
-      v33 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v6];
-      [dictionary setObject:v33 forKeyedSubscript:*MEMORY[0x1E6958300]];
-      v34 = [MEMORY[0x1E695DEF0] dataWithBytes:sizeOut length:32];
-      [dictionary setObject:v34 forKeyedSubscript:*MEMORY[0x1E6958258]];
+      v34 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v6];
+      [dictionary setObject:v34 forKeyedSubscript:*MEMORY[0x1E6958300]];
+      v35 = [MEMORY[0x1E695DEF0] dataWithBytes:sizeOut length:32];
+      [dictionary setObject:v35 forKeyedSubscript:*MEMORY[0x1E6958258]];
       if (v13)
       {
         [dictionary setObject:MEMORY[0x1E695E118] forKeyedSubscript:*MEMORY[0x1E69582E8]];
         [dictionary setObject:&unk_1F1CE9AB8 forKeyedSubscript:*MEMORY[0x1E69582C8]];
-        v35 = MEMORY[0x1E695E110];
+        v36 = MEMORY[0x1E695E110];
         [dictionary setObject:MEMORY[0x1E695E110] forKeyedSubscript:*MEMORY[0x1E69582D0]];
-        [dictionary setObject:v35 forKeyedSubscript:*MEMORY[0x1E69582F0]];
+        [dictionary setObject:v36 forKeyedSubscript:*MEMORY[0x1E69582F0]];
         if (v6 != 12451844)
         {
           return dictionary;
@@ -1836,10 +1837,10 @@ LABEL_224:
         [dictionary setObject:&unk_1F1CE9AE8 forKeyedSubscript:*MEMORY[0x1E6958260]];
       }
 
-      v36 = [MEMORY[0x1E696AD98] numberWithInteger:2];
-      v37 = MEMORY[0x1E69582A0];
+      v37 = [MEMORY[0x1E696AD98] numberWithInteger:2];
+      v38 = MEMORY[0x1E69582A0];
 LABEL_58:
-      [dictionary setObject:v36 forKeyedSubscript:*v37];
+      [dictionary setObject:v37 forKeyedSubscript:*v38];
       return dictionary;
     }
 
@@ -1855,7 +1856,7 @@ LABEL_58:
     [MEMORY[0x1E696AEC0] stringWithFormat:@"Unexpected spatial audio channel layout tag 0x%08x", v6];
 LABEL_17:
     v29 = [v27 exceptionWithName:v28 reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v29, v30))
     {
       objc_exception_throw(v29);
     }
@@ -1866,7 +1867,7 @@ LABEL_17:
 
   v14 = [objc_msgSend(objc_msgSend(connection "inputPorts")];
   v15 = [objc_msgSend(connection "sourceDevice")];
-  [objc_msgSend(v15 objectForKeyedSubscript:{*MEMORY[0x1E6990300]), "doubleValue"}];
+  [objc_msgSend_objectForKeyedSubscript_(v15) doubleValue];
   if (v16 == 0.0)
   {
     dyld_get_program_sdk_version_token();
@@ -1875,9 +1876,9 @@ LABEL_17:
 
   v17 = v16;
   *sizeOut = 0;
-  [objc_msgSend(v15 objectForKeyedSubscript:{*MEMORY[0x1E6990318]), "doubleValue"}];
+  [objc_msgSend_objectForKeyedSubscript_(v15) doubleValue];
   v19 = v18;
-  LODWORD(v20) = [objc_msgSend(v15 objectForKeyedSubscript:{*MEMORY[0x1E6990310]), "intValue"}];
+  LODWORD(v20) = [objc_msgSend_objectForKeyedSubscript_(v15) intValue];
   if (v14)
   {
     StreamBasicDescription = CMAudioFormatDescriptionGetStreamBasicDescription(v14);
@@ -1916,7 +1917,7 @@ LABEL_17:
     if (([category isEqualToString:*MEMORY[0x1E6958060]] & 1) != 0 || objc_msgSend(category, "isEqualToString:", *MEMORY[0x1E6958078]))
     {
       inputNumberOfChannels = [mEMORY[0x1E6958460] inputNumberOfChannels];
-      v41 = 0;
+      v42 = 0;
       if (inputNumberOfChannels <= 1)
       {
         v25 = 1;
@@ -1930,11 +1931,11 @@ LABEL_17:
 
     else
     {
-      v41 = 1;
+      v42 = 1;
       v25 = 1;
     }
 
-    if (![-[AVCaptureOutput session](self "session")] || ((v41 | objc_msgSend(-[AVCaptureOutput session](self, "session"), "automaticallyConfiguresApplicationAudioSession")) & 1) != 0 || (objc_msgSend(mEMORY[0x1E6958460], "sampleRate"), v43 == 0.0))
+    if (![-[AVCaptureOutput session](self "session")] || ((v42 | objc_msgSend(-[AVCaptureOutput session](self, "session"), "automaticallyConfiguresApplicationAudioSession")) & 1) != 0 || (objc_msgSend(mEMORY[0x1E6958460], "sampleRate"), v44 == 0.0))
     {
       ChannelLayout = 0;
       mBitsPerChannel = 16;
@@ -1944,7 +1945,7 @@ LABEL_17:
     else
     {
       [mEMORY[0x1E6958460] sampleRate];
-      mSampleRate = v44;
+      mSampleRate = v45;
       ChannelLayout = 0;
       mBitsPerChannel = 16;
     }
@@ -1969,19 +1970,19 @@ LABEL_17:
   {
     v19 = 48000.0;
 LABEL_52:
-    v45 = 1819304813;
-    v46 = [MEMORY[0x1E696AD98] numberWithInt:mBitsPerChannel];
-    [dictionary setObject:v46 forKeyedSubscript:*MEMORY[0x1E69582C8]];
-    v47 = MEMORY[0x1E695E110];
+    v46 = 1819304813;
+    v47 = [MEMORY[0x1E696AD98] numberWithInt:mBitsPerChannel];
+    [dictionary setObject:v47 forKeyedSubscript:*MEMORY[0x1E69582C8]];
+    v48 = MEMORY[0x1E695E110];
     [dictionary setObject:MEMORY[0x1E695E110] forKeyedSubscript:*MEMORY[0x1E69582D0]];
-    v48 = *MEMORY[0x1E69582E8];
+    v49 = *MEMORY[0x1E69582E8];
 LABEL_53:
-    [dictionary setObject:v47 forKeyedSubscript:v48];
-    v49 = *MEMORY[0x1E69582F0];
-    v50 = dictionary;
-    v51 = v47;
+    [dictionary setObject:v48 forKeyedSubscript:v49];
+    v50 = *MEMORY[0x1E69582F0];
+    v51 = dictionary;
+    v52 = v48;
 LABEL_54:
-    [v50 setObject:v51 forKeyedSubscript:v49];
+    [v51 setObject:v52 forKeyedSubscript:v50];
     goto LABEL_55;
   }
 
@@ -1992,29 +1993,29 @@ LABEL_54:
 
   if (([type isEqualToString:*MEMORY[0x1E6987460]] & 1) != 0 || objc_msgSend(type, "isEqualToString:", *MEMORY[0x1E6987458]))
   {
-    v45 = 1819304813;
-    v56 = [MEMORY[0x1E696AD98] numberWithInt:mBitsPerChannel];
-    [dictionary setObject:v56 forKeyedSubscript:*MEMORY[0x1E69582C8]];
+    v46 = 1819304813;
+    v57 = [MEMORY[0x1E696AD98] numberWithInt:mBitsPerChannel];
+    [dictionary setObject:v57 forKeyedSubscript:*MEMORY[0x1E69582C8]];
     [dictionary setObject:MEMORY[0x1E695E118] forKeyedSubscript:*MEMORY[0x1E69582D0]];
-    v48 = *MEMORY[0x1E69582E8];
-    v47 = MEMORY[0x1E695E110];
+    v49 = *MEMORY[0x1E69582E8];
+    v48 = MEMORY[0x1E695E110];
     goto LABEL_53;
   }
 
-  v45 = 1633772320;
+  v46 = 1633772320;
   if (([type isEqualToString:*MEMORY[0x1E69874C0]] & 1) == 0 && (objc_msgSend(type, "isEqualToString:", *MEMORY[0x1E69874B8]) & 1) == 0 && (objc_msgSend(type, "isEqualToString:", *MEMORY[0x1E6987448]) & 1) == 0 && (objc_msgSend(type, "isEqualToString:", *MEMORY[0x1E6987480]) & 1) == 0 && (objc_msgSend(type, "isEqualToString:", *MEMORY[0x1E6987478]) & 1) == 0 && !objc_msgSend(type, "isEqualToString:", *MEMORY[0x1E6987488]))
   {
     if ([type isEqualToString:*MEMORY[0x1E6987468]])
     {
       v20 = 1;
-      v45 = 1935764850;
+      v46 = 1935764850;
       v19 = 8000.0;
     }
 
     goto LABEL_55;
   }
 
-  v57 = [objc_msgSend(v15 objectForKeyedSubscript:{*MEMORY[0x1E6990308]), "intValue"}];
+  intValue = [objc_msgSend_objectForKeyedSubscript_(v15) intValue];
   if (v20 >= 2)
   {
     v20 = 2;
@@ -2025,12 +2026,12 @@ LABEL_54:
     v20 = v20;
   }
 
-  if (v57)
+  if (intValue)
   {
-    v58 = v57;
-    v59 = 0;
+    intValue2 = intValue;
+    v60 = 0;
 LABEL_74:
-    intValue = 0xFFFFFFFFLL;
+    intValue3 = 0xFFFFFFFFLL;
     goto LABEL_75;
   }
 
@@ -2039,51 +2040,51 @@ LABEL_74:
     goto LABEL_55;
   }
 
-  v58 = [objc_msgSend(v15 objectForKeyedSubscript:{*MEMORY[0x1E69902F0]), "intValue"}];
-  v59 = [v15 objectForKeyedSubscript:*MEMORY[0x1E69902F8]];
-  if (![v59 isEqualToString:*MEMORY[0x1E6958018]])
+  intValue2 = [objc_msgSend_objectForKeyedSubscript_(v15) intValue];
+  v60 = objc_msgSend_objectForKeyedSubscript_(v15);
+  if (![v60 isEqualToString:*MEMORY[0x1E6958018]])
   {
     goto LABEL_74;
   }
 
-  v62 = [v15 objectForKeyedSubscript:*MEMORY[0x1E6990320]];
-  if (!v62)
+  v63 = objc_msgSend_objectForKeyedSubscript_(v15);
+  if (!v63)
   {
     goto LABEL_74;
   }
 
-  intValue = [v62 intValue];
+  intValue3 = [v63 intValue];
 LABEL_75:
-  if (v58 >= 1)
+  if (intValue2 >= 1)
   {
-    v61 = [MEMORY[0x1E696AD98] numberWithInt:v58];
-    [dictionary setObject:v61 forKeyedSubscript:*MEMORY[0x1E6958290]];
+    v62 = [MEMORY[0x1E696AD98] numberWithInt:intValue2];
+    [dictionary setObject:v62 forKeyedSubscript:*MEMORY[0x1E6958290]];
   }
 
-  if (v59)
+  if (v60)
   {
-    [dictionary setObject:v59 forKeyedSubscript:*MEMORY[0x1E6958298]];
+    [dictionary setObject:v60 forKeyedSubscript:*MEMORY[0x1E6958298]];
   }
 
-  if (intValue != -1)
+  if (intValue3 != -1)
   {
-    v51 = [MEMORY[0x1E696AD98] numberWithInt:intValue];
-    v49 = *MEMORY[0x1E6958268];
-    v50 = dictionary;
+    v52 = [MEMORY[0x1E696AD98] numberWithInt:intValue3];
+    v50 = *MEMORY[0x1E6958268];
+    v51 = dictionary;
     goto LABEL_54;
   }
 
 LABEL_55:
-  v52 = [MEMORY[0x1E696AD98] numberWithInt:v45];
-  [dictionary setObject:v52 forKeyedSubscript:*MEMORY[0x1E69582B0]];
-  v53 = [MEMORY[0x1E696AD98] numberWithDouble:v19];
-  [dictionary setObject:v53 forKeyedSubscript:*MEMORY[0x1E6958348]];
-  v54 = [MEMORY[0x1E696AD98] numberWithInt:v20];
-  [dictionary setObject:v54 forKeyedSubscript:*MEMORY[0x1E6958300]];
+  v53 = [MEMORY[0x1E696AD98] numberWithInt:v46];
+  [dictionary setObject:v53 forKeyedSubscript:*MEMORY[0x1E69582B0]];
+  v54 = [MEMORY[0x1E696AD98] numberWithDouble:v19];
+  [dictionary setObject:v54 forKeyedSubscript:*MEMORY[0x1E6958348]];
+  v55 = [MEMORY[0x1E696AD98] numberWithInt:v20];
+  [dictionary setObject:v55 forKeyedSubscript:*MEMORY[0x1E6958300]];
   if (v20 == v25 && ChannelLayout)
   {
-    v36 = [MEMORY[0x1E695DEF0] dataWithBytes:ChannelLayout length:*sizeOut];
-    v37 = MEMORY[0x1E6958258];
+    v37 = [MEMORY[0x1E695DEF0] dataWithBytes:ChannelLayout length:*sizeOut];
+    v38 = MEMORY[0x1E6958258];
     goto LABEL_58;
   }
 
@@ -2134,7 +2135,7 @@ LABEL_55:
 {
   if (!connection)
   {
-    [AVCaptureOutput recommendedOutputSettingsForConnection:sourceSettings:videoCodecType:fileType:isIris:outputFileURL:spatialAudioChannelLayoutTag:];
+    [(AVCaptureOutput *)self recommendedOutputSettingsForConnection:a2 sourceSettings:0 videoCodecType:settings fileType:type isIris:fileType outputFileURL:iris spatialAudioChannelLayoutTag:l];
     return 0;
   }
 
@@ -2233,7 +2234,7 @@ LABEL_55:
   if (([type isEqual:*MEMORY[0x1E69874C0]] & 1) == 0 && (objc_msgSend(type, "isEqual:", *MEMORY[0x1E69874B8]) & 1) == 0 && (objc_msgSend(type, "isEqual:", *MEMORY[0x1E6987480]) & 1) == 0)
   {
     OUTLINED_FUNCTION_1_1();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v48, v50, v52, v54, v56, v58, v60, v62);
     return array;
   }
 
@@ -2270,7 +2271,7 @@ LABEL_30:
           isProResSupported = [device activeFormat];
           if (isProResSupported)
           {
-            isProResSupported = [isProResSupported lowestSupportedVideoFrameDuration];
+            isProResSupported = objc_msgSend_lowestSupportedVideoFrameDuration(isProResSupported);
             if ((0 / 0) >= 120.0)
             {
               supportedProResRawCodecTypes = [supportedProResRawCodecTypes mutableCopy];
@@ -2284,7 +2285,7 @@ LABEL_30:
           supportedProResRawCodecTypes = 0;
         }
 
-        v34 = OUTLINED_FUNCTION_1_2(isProResSupported, v26, v27, v28, v29, v30, v31, v32, v48, v50, v52, v54, v56, v58, v60, v62, v64, v66, v68, v70, v72, v74, v76, v78, v80, v82, 0);
+        v34 = OUTLINED_FUNCTION_1_2(isProResSupported, v26, v27, v28, v29, v30, v31, v32, v48, v50, v52, v54, v56, v58, v60, v62, v64, v66, v68, v70, v72, v74, v76, v78, v80, v82);
         if (v34)
         {
           v35 = v34;
@@ -2311,7 +2312,7 @@ LABEL_30:
               v39 = [array insertObject:v38 atIndex:0];
             }
 
-            v35 = OUTLINED_FUNCTION_1_2(v39, v40, v41, v42, v43, v44, v45, v46, v49, v51, v53, v55, v57, v59, v61, v63, v65, v67, v69, v71, v73, v75, v77, v79, v81, v83, v84);
+            v35 = OUTLINED_FUNCTION_1_2(v39, v40, v41, v42, v43, v44, v45, v46, v49, v51, v53, v55, v57, v59, v61, v63, v65, v67, v69, v71, v73, v75, v77, v79, v81, v83);
           }
 
           while (v35);

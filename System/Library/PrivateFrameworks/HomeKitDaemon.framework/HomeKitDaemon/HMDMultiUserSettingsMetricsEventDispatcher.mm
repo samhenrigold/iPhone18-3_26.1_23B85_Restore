@@ -26,7 +26,7 @@
 
 - (void)submitMultiUserSettingsDailyEvent
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   dataSource = [(HMDMultiUserSettingsMetricsEventDispatcher *)self dataSource];
   v4 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -37,9 +37,9 @@
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       v8 = HMFGetLogIdentifier();
-      v22 = 138543362;
-      v23 = v8;
-      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Submitting multi user settings daily event", &v22, 0xCu);
+      v21 = 138543362;
+      v22 = v8;
+      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Submitting multi user settings daily event", &v21, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -72,11 +72,11 @@ LABEL_14:
     {
       v19 = HMFGetLogIdentifier();
       numSharedUsers3 = [multiUserSettingsForMultiUserSettingsMetricsEventDispatcherDataSource numSharedUsers];
-      v22 = 138543618;
-      v23 = v19;
-      v24 = 2112;
-      v25 = numSharedUsers3;
-      _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_INFO, "%{public}@numSharedUsers is %@. Don't submit logs", &v22, 0x16u);
+      v21 = 138543618;
+      v22 = v19;
+      v23 = 2112;
+      v24 = numSharedUsers3;
+      _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_INFO, "%{public}@numSharedUsers is %@. Don't submit logs", &v21, 0x16u);
     }
 
     objc_autoreleasePoolPop(v16);
@@ -86,15 +86,13 @@ LABEL_14:
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     v15 = HMFGetLogIdentifier();
-    v22 = 138543362;
-    v23 = v15;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@No DataSource is set for submitMultiUserSettingsDailyEvent", &v22, 0xCu);
+    v21 = 138543362;
+    v22 = v15;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@No DataSource is set for submitMultiUserSettingsDailyEvent", &v21, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
 LABEL_15:
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerForDailyMultiUserSettingsEvents
@@ -136,10 +134,9 @@ LABEL_15:
 
 void __57__HMDMultiUserSettingsMetricsEventDispatcher_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v4_35166;
-  logCategory__hmf_once_v4_35166 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v4_35166;
+  logCategory__hmf_once_v4_35166 = v0;
 }
 
 @end

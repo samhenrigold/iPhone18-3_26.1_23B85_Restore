@@ -45,7 +45,7 @@
 
 - (MXMProbe)_remoteProbe
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   _underlyingMetric = [(MXMProxyMetric *)self _underlyingMetric];
   _constructProbe = [_underlyingMetric _constructProbe];
 
@@ -53,19 +53,17 @@
   filter = [_underlyingMetric2 filter];
   [_constructProbe setFilter:filter];
 
-  v7 = _MXMGetLog();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  v9 = _MXMGetLog(v7, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     _underlyingMetric3 = [(MXMProxyMetric *)self _underlyingMetric];
     filter2 = [_underlyingMetric3 filter];
-    v12 = 138412546;
-    v13 = _constructProbe;
-    v14 = 2112;
-    v15 = filter2;
-    _os_log_impl(&dword_258DAA000, v7, OS_LOG_TYPE_INFO, "Created probe %@ for remote use using filter %@.", &v12, 0x16u);
+    v13 = 138412546;
+    v14 = _constructProbe;
+    v15 = 2112;
+    v16 = filter2;
+    _os_log_impl(&dword_258DAA000, v9, OS_LOG_TYPE_INFO, "Created probe %@ for remote use using filter %@.", &v13, 0x16u);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return _constructProbe;
 }

@@ -1,1073 +1,3 @@
-__CFString *SGNSTextCheckingTypeToString(uint64_t a1)
-{
-  v1 = @"NSTextCheckingTypeTransitInformation";
-  v2 = @"NSTextCheckingTypePhoneNumber";
-  v3 = @"NSTextCheckingTypeLink";
-  if (a1 != 32)
-  {
-    v3 = 0;
-  }
-
-  if (a1 != 2048)
-  {
-    v2 = v3;
-  }
-
-  if (a1 != 4096)
-  {
-    v1 = v2;
-  }
-
-  v4 = @"NSTextCheckingTypeDate";
-  v5 = @"NSTextCheckingTypeAddress";
-  if (a1 != 16)
-  {
-    v5 = 0;
-  }
-
-  if (a1 != 8)
-  {
-    v4 = v5;
-  }
-
-  if (a1 <= 31)
-  {
-    return v4;
-  }
-
-  else
-  {
-    return v1;
-  }
-}
-
-__CFString *SGDataDetectorMatchTypeToString(unsigned int a1)
-{
-  if (a1 > 8)
-  {
-    return @"SGDDMatchOther";
-  }
-
-  else
-  {
-    return off_27894F1C0[a1];
-  }
-}
-
-id SGDataDetectorsScanForPhone(void *a1)
-{
-  v1 = a1;
-  if ([v1 length])
-  {
-    v2 = [v1 length];
-    if (v2 >= 0x64)
-    {
-      v3 = 100;
-    }
-
-    else
-    {
-      v3 = v2;
-    }
-
-    v11 = 0;
-    v12 = &v11;
-    v13 = 0x3032000000;
-    v14 = __Block_byref_object_copy__22165;
-    v15 = __Block_byref_object_dispose__22166;
-    v16 = 0;
-    v6[0] = MEMORY[0x277D85DD0];
-    v6[1] = 3221225472;
-    v6[2] = __SGDataDetectorsScanForPhone_block_invoke;
-    v6[3] = &unk_27894F1A0;
-    v9 = 0;
-    v10 = v3;
-    v7 = v1;
-    v8 = &v11;
-    SGDataDetectorsRunWithSharedScanner(v6);
-    v4 = v12[5];
-
-    _Block_object_dispose(&v11, 8);
-  }
-
-  else
-  {
-    v4 = 0;
-  }
-
-  return v4;
-}
-
-void sub_231FCC710(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t __Block_byref_object_copy__22165(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-void __SGDataDetectorsScanForPhone_block_invoke(void *a1, uint64_t a2)
-{
-  v4 = *MEMORY[0x277D04200];
-  DDScannerSetScannerTimeout();
-  v5 = a1[4];
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __SGDataDetectorsScanForPhone_block_invoke_2;
-  v10[3] = &unk_27894F178;
-  v6 = v5;
-  v8 = a1[5];
-  v7 = a1[6];
-  v11 = v6;
-  v12 = v8;
-  SGDataDetectorsScanRange(a2, v6, v7, a1[7], 0, v10);
-  v9 = *MEMORY[0x277D041F8];
-  DDScannerSetScannerTimeout();
-}
-
-uint64_t __SGDataDetectorsScanForPhone_block_invoke_2(uint64_t a1)
-{
-  v2 = *MEMORY[0x277D04160];
-  HasType = DDResultHasType();
-  if (HasType)
-  {
-    if ([*(a1 + 32) length] < 0x65 || (Range = DDResultGetRange(), (Range + v5) <= 0x5A))
-    {
-      if (DDResultCopyPhoneValue())
-      {
-        v6 = *(*(a1 + 40) + 8);
-        v7 = *(v6 + 40);
-        *(v6 + 40) = 0;
-      }
-    }
-  }
-
-  return HasType ^ 1u;
-}
-
-id SGDataDetectorsScanForPhoneLessCarefully(void *a1)
-{
-  v1 = a1;
-  v2 = objc_autoreleasePoolPush();
-  v3 = [MEMORY[0x277CCA900] whitespaceCharacterSet];
-  v4 = [v1 stringByTrimmingCharactersInSet:v3];
-
-  objc_autoreleasePoolPop(v2);
-  if ([v4 length] < 5 || objc_msgSend(v4, "length") >= 0x15)
-  {
-    v5 = SGDataDetectorsScanForPhone(v4);
-LABEL_36:
-    v26 = v5;
-    goto LABEL_37;
-  }
-
-  v6 = v4;
-  v7 = objc_opt_self();
-
-  if (!v7)
-  {
-    goto LABEL_35;
-  }
-
-  memset(v28, 0, sizeof(v28));
-  Length = CFStringGetLength(v6);
-  theString = v6;
-  v32 = 0;
-  v33 = Length;
-  CharactersPtr = CFStringGetCharactersPtr(v6);
-  CStringPtr = 0;
-  v30 = CharactersPtr;
-  if (!CharactersPtr)
-  {
-    CStringPtr = CFStringGetCStringPtr(v6, 0x600u);
-  }
-
-  v34 = 0;
-  v35 = 0;
-  v31 = CStringPtr;
-  if (Length < 1)
-  {
-LABEL_35:
-
-    v5 = v6;
-    goto LABEL_36;
-  }
-
-  v11 = 0;
-  v12 = 0;
-  v13 = 0;
-  v14 = 64;
-  while (1)
-  {
-    v15 = v13 >= 4 ? 4 : v13;
-    v16 = v33;
-    if (v33 <= v13)
-    {
-      break;
-    }
-
-    if (v30)
-    {
-      v17 = &v30[v32];
-    }
-
-    else
-    {
-      if (v31)
-      {
-        v18 = v31[v32 + v13];
-        goto LABEL_18;
-      }
-
-      v21 = v35 > v13 && v12 <= v13;
-      if (!v21)
-      {
-        v22 = v15 + v11;
-        v23 = v14 - v15;
-        v24 = v13 - v15;
-        v25 = v24 + 64;
-        if (v24 + 64 >= v33)
-        {
-          v25 = v33;
-        }
-
-        v34 = v24;
-        v35 = v25;
-        if (v33 >= v23)
-        {
-          v16 = v23;
-        }
-
-        v37.location = v24 + v32;
-        v37.length = v16 + v22;
-        CFStringGetCharacters(theString, v37, v28);
-        v12 = v34;
-      }
-
-      v17 = v28 - v12;
-    }
-
-    v18 = v17[v13];
-LABEL_18:
-    if (v18 - 48 >= 0xA)
-    {
-      v21 = v18 > 0x2Du;
-      v19 = (1 << v18) & 0x2B0100000000;
-      if (v21 || v19 == 0)
-      {
-        break;
-      }
-    }
-
-    ++v13;
-    --v11;
-    ++v14;
-    if (Length == v13)
-    {
-      goto LABEL_35;
-    }
-  }
-
-  v26 = SGDataDetectorsScanForPhone(v6);
-
-LABEL_37:
-
-  return v26;
-}
-
-void sub_231FCE558(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, char a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, char a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, char a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, char a63)
-{
-  _Block_object_dispose(&a45, 8);
-  _Block_object_dispose(&a51, 8);
-  _Block_object_dispose(&a57, 8);
-  _Block_object_dispose(&a63, 8);
-  SGRecordMeasurementState(&a67);
-  _Unwind_Resume(a1);
-}
-
-uint64_t __Block_byref_object_copy__22534(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-void sub_231FD1878(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
-{
-  _Block_object_dispose(&a31, 8);
-  _Block_object_dispose((v31 - 160), 8);
-  _Block_object_dispose((v31 - 128), 8);
-  _Block_object_dispose((v31 - 96), 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_231FD2AB8(_Unwind_Exception *a1)
-{
-  _Block_object_dispose((v1 - 176), 8);
-  _Block_object_dispose((v1 - 144), 8);
-  _Block_object_dispose((v1 - 112), 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_231FD46F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
-{
-  va_start(va, a11);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_231FD4D58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_231FD6BA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
-{
-  va_start(va, a11);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_231FD7310(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46)
-{
-  _Block_object_dispose(&a25, 8);
-  SGRecordMeasurementState(&a46);
-  _Unwind_Resume(a1);
-}
-
-void SGEnumerateReplyAttributionCandidates(void *a1, void *a2)
-{
-  v3 = a1;
-  v4 = a2;
-  if (!callBlockOnFirstlineCandidate(v3, v4))
-  {
-    goto LABEL_10;
-  }
-
-  v5 = [(__CFString *)v3 length];
-  v64 = 0u;
-  v65 = 0u;
-  v62 = 0u;
-  v63 = 0u;
-  v60 = 0u;
-  v61 = 0u;
-  *buffer = 0u;
-  v59 = 0u;
-  theString = v3;
-  v69 = 0;
-  v70 = v5;
-  CharactersPtr = CFStringGetCharactersPtr(v3);
-  CStringPtr = 0;
-  v67 = CharactersPtr;
-  if (!CharactersPtr)
-  {
-    CStringPtr = CFStringGetCStringPtr(v3, 0x600u);
-  }
-
-  v57 = v3;
-  v8 = 0;
-  v9 = 0;
-  v71 = 0;
-  v72 = 0;
-  v68 = CStringPtr;
-  if (v5)
-  {
-    v10 = v5;
-    v11 = 0;
-    goto LABEL_64;
-  }
-
-  v12 = 7;
-  v11 = 0;
-LABEL_176:
-  while (2)
-  {
-    if (v12 > 4)
-    {
-      if ((v12 - 5) < 2)
-      {
-        goto LABEL_220;
-      }
-
-      v8 = v5;
-      if (v12 == 8)
-      {
-        goto LABEL_220;
-      }
-
-      if (v12 != 9)
-      {
-        goto LABEL_9;
-      }
-
-LABEL_59:
-      v15 = v8 - 1;
-      v13 = v8 - 2;
-      if (!(*(v4 + 2))(v4, v11, v8 - 1 - v11))
-      {
-        goto LABEL_9;
-      }
-
-      while (1)
-      {
-LABEL_60:
-        v11 = v13 + 1;
-        v12 = 7;
-        if (v13 + 1 == v5)
-        {
-          v11 = 0;
-          v8 = v15;
-          goto LABEL_176;
-        }
-
-        if ((v11 & 0x8000000000000000) == 0)
-        {
-          v10 = v70;
-LABEL_64:
-          if (v10 > v11)
-          {
-            if (v67)
-            {
-              v25 = v67[v69 + v11];
-            }
-
-            else if (v68)
-            {
-              v25 = v68[v69 + v11];
-            }
-
-            else
-            {
-              if (v72 <= v11 || (v26 = v71, v71 > v11))
-              {
-                v27 = v11 - 4;
-                if (v11 < 4)
-                {
-                  v27 = 0;
-                }
-
-                if (v27 + 64 < v10)
-                {
-                  v10 = v27 + 64;
-                }
-
-                v71 = v27;
-                v72 = v10;
-                v74.length = v10 - v27;
-                v74.location = v69 + v27;
-                CFStringGetCharacters(theString, v74, buffer);
-                v26 = v71;
-              }
-
-              v25 = buffer[v11 - v26];
-            }
-
-            if (v25 == 10)
-            {
-              break;
-            }
-          }
-        }
-
-        v15 = v11 + 1;
-        v13 = v11;
-      }
-
-      v8 = v11 + 1;
-      if (v11 + 1 == v5)
-      {
-        v12 = 8;
-        v9 = 2;
-LABEL_80:
-        v8 = v5;
-        continue;
-      }
-
-      v28 = v70;
-      if (v70 > v8)
-      {
-        if (v67)
-        {
-          v29 = v67[v69 + v8];
-        }
-
-        else if (v68)
-        {
-          v29 = v68[v69 + v8];
-        }
-
-        else
-        {
-          if (v72 <= v8 || (v30 = v71, v71 > v8))
-          {
-            v31 = v11 - 3;
-            if (v8 < 4)
-            {
-              v31 = 0;
-            }
-
-            if (v31 + 64 < v70)
-            {
-              v28 = v31 + 64;
-            }
-
-            v71 = v31;
-            v72 = v28;
-            v75.length = v28 - v31;
-            v75.location = v69 + v31;
-            CFStringGetCharacters(theString, v75, buffer);
-            v30 = v71;
-          }
-
-          v29 = buffer[v8 - v30];
-        }
-
-        if (v29 == 10)
-        {
-          v9 = 2;
-          goto LABEL_220;
-        }
-      }
-
-      v32 = v11 + 2;
-      if (v11 + 2 == v5)
-      {
-        v12 = 0;
-LABEL_175:
-        v9 = 2;
-        continue;
-      }
-
-      v33 = v11 + 1;
-      v9 = 2;
-      while (1)
-      {
-        if (v32 < 0 || (v34 = v70, v70 <= v32))
-        {
-          i = v32;
-          goto LABEL_105;
-        }
-
-        if (v67)
-        {
-          v35 = v67[v69 + v32];
-        }
-
-        else if (v68)
-        {
-          v35 = v68[v69 + v32];
-        }
-
-        else
-        {
-          if (v72 <= v32 || (v37 = v71, v71 > v32))
-          {
-            v38 = v32 - 4;
-            if (v32 < 4)
-            {
-              v38 = 0;
-            }
-
-            if (v38 + 64 < v70)
-            {
-              v34 = v38 + 64;
-            }
-
-            v71 = v38;
-            v72 = v34;
-            v76.length = v34 - v38;
-            v76.location = v69 + v38;
-            CFStringGetCharacters(theString, v76, buffer);
-            v37 = v71;
-          }
-
-          v35 = buffer[v32 - v37];
-        }
-
-        if (v35 == 58 || v35 == 65306)
-        {
-          break;
-        }
-
-        i = v32;
-        if (v35 == 10)
-        {
-          v50 = v33 + 2;
-          if (v33 + 2 == v5)
-          {
-            v12 = 1;
-            goto LABEL_175;
-          }
-
-          v9 = 2;
-          if (v50 < 0)
-          {
-            goto LABEL_206;
-          }
-
-          v51 = v70;
-          if (v70 <= v50)
-          {
-            goto LABEL_206;
-          }
-
-          if (v67)
-          {
-            v52 = v67[v69 + v50];
-          }
-
-          else if (v68)
-          {
-            v52 = v68[v69 + v50];
-          }
-
-          else
-          {
-            if (v72 <= v50 || (v55 = v71, v71 > v50))
-            {
-              v56 = v33 - 2;
-              if (v50 < 4)
-              {
-                v56 = 0;
-              }
-
-              if (v56 + 64 < v70)
-              {
-                v51 = v56 + 64;
-              }
-
-              v71 = v56;
-              v72 = v51;
-              v80.length = v51 - v56;
-              v80.location = v69 + v56;
-              CFStringGetCharacters(theString, v80, buffer);
-              v55 = v71;
-            }
-
-            v52 = buffer[v50 - v55];
-          }
-
-          if (v52 != 10)
-          {
-            goto LABEL_206;
-          }
-
-LABEL_220:
-          v13 = v8 - 1;
-LABEL_221:
-          v15 = v8;
-          goto LABEL_60;
-        }
-
-LABEL_105:
-        v32 = i + 1;
-        v33 = i;
-        if (i + 1 == v5)
-        {
-          v12 = 0;
-          goto LABEL_176;
-        }
-      }
-
-      for (i = v32 + 1; ; ++i)
-      {
-        if (i == v5)
-        {
-          v12 = 5;
-          goto LABEL_175;
-        }
-
-        if (i < 0)
-        {
-          goto LABEL_105;
-        }
-
-        v40 = v70;
-        if (v70 <= i)
-        {
-          goto LABEL_105;
-        }
-
-        if (v67)
-        {
-          LOWORD(v41) = v67[v69 + i];
-        }
-
-        else if (v68)
-        {
-          LOWORD(v41) = v68[v69 + i];
-        }
-
-        else
-        {
-          if (v72 <= i || (v42 = v71, v71 > i))
-          {
-            v43 = i - 4;
-            if (i < 4)
-            {
-              v43 = 0;
-            }
-
-            if (v43 + 64 < v70)
-            {
-              v40 = v43 + 64;
-            }
-
-            v71 = v43;
-            v72 = v40;
-            v77.length = v40 - v43;
-            v77.location = v69 + v43;
-            CFStringGetCharacters(theString, v77, buffer);
-            v42 = v71;
-          }
-
-          LOWORD(v41) = buffer[i - v42];
-        }
-
-        v41 = v41;
-        if (v41 > 0x39u)
-        {
-          v44 = v41 == 58 || v41 == 65306;
-          if (!v44 && v41 != 160)
-          {
-            goto LABEL_105;
-          }
-        }
-
-        else if (v41 <= 0xCu)
-        {
-          if (v41 != 9)
-          {
-            goto LABEL_171;
-          }
-        }
-
-        else if (v41 == 13)
-        {
-          i = v32 + 2;
-          if (v32 + 2 == v5)
-          {
-            v12 = 6;
-            goto LABEL_175;
-          }
-
-          if (i < 0)
-          {
-            goto LABEL_105;
-          }
-
-          v45 = v70;
-          if (v70 <= i)
-          {
-            goto LABEL_105;
-          }
-
-          if (v67)
-          {
-            LOWORD(v41) = v67[v69 + i];
-          }
-
-          else if (v68)
-          {
-            LOWORD(v41) = v68[v69 + i];
-          }
-
-          else
-          {
-            if (v72 <= i || (v46 = v71, v71 > i))
-            {
-              v47 = v32 - 2;
-              if (i < 4)
-              {
-                v47 = 0;
-              }
-
-              if (v47 + 64 < v70)
-              {
-                v45 = v47 + 64;
-              }
-
-              v71 = v47;
-              v72 = v45;
-              v78.length = v45 - v47;
-              v78.location = v69 + v47;
-              CFStringGetCharacters(theString, v78, buffer);
-              v46 = v71;
-            }
-
-            LOWORD(v41) = buffer[i - v46];
-          }
-
-          v41 = v41;
-          if (v41 != 58 && v41 != 65306)
-          {
-LABEL_171:
-            if (v41 != 10)
-            {
-              goto LABEL_105;
-            }
-
-            v8 = i + 1;
-            if (i + 1 == v5)
-            {
-              v12 = 9;
-              v9 = 1;
-              goto LABEL_80;
-            }
-
-            v48 = v70;
-            v9 = 1;
-            if (v70 <= v8)
-            {
-              goto LABEL_205;
-            }
-
-            if (v67)
-            {
-              v49 = v67[v69 + v8];
-            }
-
-            else if (v68)
-            {
-              v49 = v68[v69 + v8];
-            }
-
-            else
-            {
-              if (v72 <= v8 || (v53 = v71, v71 > v8))
-              {
-                v54 = i - 3;
-                if (v8 < 4)
-                {
-                  v54 = 0;
-                }
-
-                if (v54 + 64 < v70)
-                {
-                  v48 = v54 + 64;
-                }
-
-                v71 = v54;
-                v72 = v48;
-                v79.length = v48 - v54;
-                v79.location = v69 + v54;
-                CFStringGetCharacters(theString, v79, buffer);
-                v53 = v71;
-              }
-
-              v49 = buffer[v8 - v53];
-            }
-
-            if (v49 != 10)
-            {
-LABEL_205:
-              v50 = i + 1;
-LABEL_206:
-              v24 = v50 + 1;
-              if (v50 + 1 == v5)
-              {
-                v12 = 2;
-              }
-
-              else
-              {
-                while (1)
-                {
-                  CharacterFromInlineBuffer = CFStringGetCharacterFromInlineBuffer(buffer, v24);
-                  if (CharacterFromInlineBuffer == 58 || CharacterFromInlineBuffer == 65306)
-                  {
-                    break;
-                  }
-
-                  v15 = v24;
-                  if (CharacterFromInlineBuffer == 10)
-                  {
-                    goto LABEL_7;
-                  }
-
-LABEL_50:
-                  v24 = v15 + 1;
-                  v12 = 2;
-                  if (v15 + 1 == v5)
-                  {
-                    goto LABEL_176;
-                  }
-                }
-
-                v15 = v24 + 1;
-                if (v24 + 1 != v5)
-                {
-                  while (1)
-                  {
-                    if (v15 < 0)
-                    {
-                      goto LABEL_50;
-                    }
-
-                    v18 = v70;
-                    if (v70 <= v15)
-                    {
-                      goto LABEL_50;
-                    }
-
-                    if (v67)
-                    {
-                      v19 = v67[v69 + v15];
-                    }
-
-                    else if (v68)
-                    {
-                      v19 = v68[v69 + v15];
-                    }
-
-                    else
-                    {
-                      if (v72 <= v15 || (v20 = v71, v71 > v15))
-                      {
-                        v21 = v15 - 4;
-                        if (v15 < 4)
-                        {
-                          v21 = 0;
-                        }
-
-                        if (v21 + 64 < v70)
-                        {
-                          v18 = v21 + 64;
-                        }
-
-                        v71 = v21;
-                        v72 = v18;
-                        v73.length = v18 - v21;
-                        v73.location = v69 + v21;
-                        CFStringGetCharacters(theString, v73, buffer);
-                        v20 = v71;
-                      }
-
-                      v19 = buffer[v15 - v20];
-                    }
-
-                    if (v19 > 0x39u)
-                    {
-                      v22 = v19 == 58 || v19 == 65306;
-                      if (!v22 && v19 != 160)
-                      {
-                        goto LABEL_50;
-                      }
-                    }
-
-                    else if (v19 <= 0xCu)
-                    {
-                      if (v19 != 9)
-                      {
-                        if (v19 != 10)
-                        {
-                          goto LABEL_50;
-                        }
-
-LABEL_55:
-                        if (((*(v4 + 2))(v4, v11, v15 - v11) & 1) == 0)
-                        {
-                          goto LABEL_9;
-                        }
-
-                        v13 = v15 - 1;
-                        goto LABEL_60;
-                      }
-                    }
-
-                    else if (v19 == 13)
-                    {
-                      v15 = v24 + 2;
-                      if (v24 + 2 == v5)
-                      {
-                        v12 = 4;
-                        goto LABEL_176;
-                      }
-
-                      v23 = CFStringGetCharacterFromInlineBuffer(buffer, v24 + 2);
-                      if (v23 != 58 && v23 != 65306)
-                      {
-                        if (v23 != 10)
-                        {
-                          goto LABEL_50;
-                        }
-
-                        goto LABEL_55;
-                      }
-                    }
-
-                    else if (v19 != 32)
-                    {
-                      goto LABEL_50;
-                    }
-
-                    v24 = v15++;
-                    v12 = 3;
-                    if (v15 == v5)
-                    {
-                      goto LABEL_176;
-                    }
-                  }
-                }
-
-                v12 = 3;
-              }
-
-              goto LABEL_176;
-            }
-
-            goto LABEL_59;
-          }
-        }
-
-        else if (v41 != 32)
-        {
-          goto LABEL_105;
-        }
-
-        v32 = i;
-      }
-    }
-
-    break;
-  }
-
-  if ((v12 - 2) < 3)
-  {
-LABEL_7:
-    v13 = v8 - 1;
-    if (v9 != 1)
-    {
-      goto LABEL_221;
-    }
-
-    v14 = (*(v4 + 2))(v4, v11, v13 - v11);
-    v15 = v8 - 1;
-    v13 = v8 - 2;
-    if (v14)
-    {
-      goto LABEL_60;
-    }
-  }
-
-  else if (v12 < 2)
-  {
-    goto LABEL_220;
-  }
-
-LABEL_9:
-  v3 = v57;
-LABEL_10:
-}
-
 uint64_t callBlockOnFirstlineCandidate(void *a1, void *a2)
 {
   v3 = a1;
@@ -1885,9 +815,9 @@ void tokenize(void *a1, uint64_t a2, unint64_t a3, uint64_t a4, void *a5)
   _Block_object_dispose(v18, 8);
 }
 
-void sub_231FDE030(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_231FDE030(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1930,23 +860,23 @@ void __viterbi_block_invoke()
 
 void __viterbi_block_invoke_2(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = objc_autoreleasePoolPush();
   v4 = [v2 filesystemPathForAssetDataRelativePath:@"hmm.dat"];
   if (v4)
   {
-    v12 = 0;
-    v5 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:v4 options:1 error:&v12];
-    v6 = v12;
+    v11 = 0;
+    v5 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:v4 options:1 error:&v11];
+    v6 = v11;
     if (v5)
     {
       v7 = v5;
       if ([v7 length] != 336)
       {
-        v10 = [MEMORY[0x277CCA890] currentHandler];
-        v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:"void deserializeHmm(NSData *__strong)"];
-        [v10 handleFailureInFunction:v11 file:@"SGSignatureDissector.m" lineNumber:1353 description:{@"Wrong data length: %li", objc_msgSend(v7, "length")}];
+        v9 = [MEMORY[0x277CCA890] currentHandler];
+        v10 = [MEMORY[0x277CCACA8] stringWithUTF8String:"void deserializeHmm(NSData *__strong)"];
+        [v9 handleFailureInFunction:v10 file:@"SGSignatureDissector.m" lineNumber:1353 description:{@"Wrong data length: %li", objc_msgSend(v7, "length")}];
       }
 
       memcpy(hmm, [v7 bytes], 0x150uLL);
@@ -1960,7 +890,7 @@ void __viterbi_block_invoke_2(uint64_t a1, void *a2)
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v14 = v6;
+        v13 = v6;
         _os_log_error_impl(&dword_231E60000, v8, OS_LOG_TYPE_ERROR, "Could not load HMM data: %@", buf, 0xCu);
       }
     }
@@ -1977,7 +907,6 @@ void __viterbi_block_invoke_2(uint64_t a1, void *a2)
   }
 
   objc_autoreleasePoolPop(v3);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __tokenize_block_invoke_3(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5)
@@ -2437,9 +1366,9 @@ void __tokenize_block_invoke_2(uint64_t a1, void *a2)
   pthread_mutex_unlock(&tokenize_updateLock);
 }
 
-void sub_231FDF338(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_231FDF338(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2565,7 +1494,7 @@ uint64_t re2::StringPiece::find(re2::StringPiece *this, int a2, unint64_t a3)
   }
 
   v4 = *this;
-  v5 = (*this + v3);
+  v5 = *this + v3;
   v6 = memchr((*this + a3), a2, v3 - a3);
   if (v6)
   {
@@ -3215,30 +2144,30 @@ LABEL_131:
   return [a2 hasError] ^ 1;
 }
 
-void sub_231FE2AB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_231FE2AB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_231FE3C28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_231FE3C28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   SGRecordMeasurementState(va);
   _Unwind_Resume(a1);
 }
 
-void sub_231FE3EE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_231FE3EE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_231FE410C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_231FE410C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3295,7 +2224,7 @@ void sub_231FE4DE8(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint
 
 uint64_t SGUnarchiverZip(NSURL *a1, NSURL *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = a2;
   v5 = v4;
@@ -3316,18 +2245,18 @@ LABEL_13:
       goto LABEL_14;
     }
 
-    v20 = 138412290;
-    *v21 = v3;
+    v19 = 138412290;
+    *v20 = v3;
     v11 = "SGUnarchiver: unable to open non-file URL %@.";
     v12 = v10;
     v13 = 12;
 LABEL_16:
-    _os_log_error_impl(&dword_231E60000, v12, OS_LOG_TYPE_ERROR, v11, &v20, v13);
+    _os_log_error_impl(&dword_231E60000, v12, OS_LOG_TYPE_ERROR, v11, &v19, v13);
     goto LABEL_13;
   }
 
   v7 = open([(NSURL *)v3 fileSystemRepresentation], 4);
-  if (v7 < 0)
+  if ((v7 & 0x80000000) != 0)
   {
     v10 = sgLogHandle();
     if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
@@ -3335,12 +2264,12 @@ LABEL_16:
       goto LABEL_13;
     }
 
-    v18 = __error();
-    v19 = strerror(*v18);
-    v20 = 138412546;
-    *v21 = v3;
-    *&v21[8] = 2082;
-    *&v21[10] = v19;
+    v17 = __error();
+    v18 = strerror(*v17);
+    v19 = 138412546;
+    *v20 = v3;
+    *&v20[8] = 2082;
+    *&v20[10] = v18;
     v11 = "SGUnarchiver: unable to open file %@ - %{public}s.";
     v12 = v10;
     v13 = 22;
@@ -3354,15 +2283,15 @@ LABEL_16:
     v9 = sgLogHandle();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
-      v16 = __error();
-      v17 = strerror(*v16);
-      v20 = 67240706;
-      *v21 = v8;
-      *&v21[4] = 2112;
-      *&v21[6] = v3;
-      *&v21[14] = 2082;
-      *&v21[16] = v17;
-      _os_log_fault_impl(&dword_231E60000, v9, OS_LOG_TYPE_FAULT, "SGUnarchiver: unable to close file descriptor %{public}d for %@ (leaking) - %{public}s.", &v20, 0x1Cu);
+      v15 = __error();
+      v16 = strerror(*v15);
+      v19 = 67240706;
+      *v20 = v8;
+      *&v20[4] = 2112;
+      *&v20[6] = v3;
+      *&v20[14] = 2082;
+      *&v20[16] = v16;
+      _os_log_fault_impl(&dword_231E60000, v9, OS_LOG_TYPE_FAULT, "SGUnarchiver: unable to close file descriptor %{public}d for %@ (leaking) - %{public}s.", &v19, 0x1Cu);
     }
 
     if (_PASEvaluateLogFaultAndProbCrashCriteria())
@@ -3373,17 +2302,17 @@ LABEL_16:
 
 LABEL_14:
 
-  v14 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
-uint64_t SGUnarchiverZip(int a1, NSURL *a2)
+uint64_t SGUnarchiverZip(uint64_t a1, NSURL *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v2 = a1;
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3;
   v5 = 0;
-  if (a1 < 0 || !v3)
+  if (v2 < 0 || !v3)
   {
     goto LABEL_17;
   }
@@ -3402,9 +2331,9 @@ uint64_t SGUnarchiverZip(int a1, NSURL *a2)
     v8 = sgLogHandle();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v13 = 136446210;
-      v14 = archive_error_string();
-      _os_log_error_impl(&dword_231E60000, v8, OS_LOG_TYPE_ERROR, "SGUnarchiver: unable to open archive_read - %{public}s.", &v13, 0xCu);
+      v12 = 136446210;
+      v13 = archive_error_string();
+      _os_log_error_impl(&dword_231E60000, v8, OS_LOG_TYPE_ERROR, "SGUnarchiver: unable to open archive_read - %{public}s.", &v12, 0xCu);
     }
 
     v5 = 0;
@@ -3421,9 +2350,9 @@ uint64_t SGUnarchiverZip(int a1, NSURL *a2)
     v8 = sgLogHandle();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v13 = 136446210;
-      v14 = archive_error_string();
-      _os_log_error_impl(&dword_231E60000, v8, OS_LOG_TYPE_ERROR, "SGUnarchiver: unable to close archive_read - %{public}s.", &v13, 0xCu);
+      v12 = 136446210;
+      v13 = archive_error_string();
+      _os_log_error_impl(&dword_231E60000, v8, OS_LOG_TYPE_ERROR, "SGUnarchiver: unable to close archive_read - %{public}s.", &v12, 0xCu);
     }
   }
 
@@ -3433,10 +2362,10 @@ LABEL_13:
     v9 = sgLogHandle();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
-      v12 = archive_error_string();
-      v13 = 136446210;
-      v14 = v12;
-      _os_log_fault_impl(&dword_231E60000, v9, OS_LOG_TYPE_FAULT, "SGUnarchiver: unable to free archive_read (leaking) - %{public}s.", &v13, 0xCu);
+      v11 = archive_error_string();
+      v12 = 136446210;
+      v13 = v11;
+      _os_log_fault_impl(&dword_231E60000, v9, OS_LOG_TYPE_FAULT, "SGUnarchiver: unable to free archive_read (leaking) - %{public}s.", &v12, 0xCu);
     }
 
     if (_PASEvaluateLogFaultAndProbCrashCriteria())
@@ -3447,17 +2376,16 @@ LABEL_13:
 
 LABEL_17:
 
-  v10 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 uint64_t SGCreateReadArchive()
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v0 = archive_read_new();
   if (!v0)
   {
-    goto LABEL_11;
+    return v0;
   }
 
   if (archive_read_support_format_zip())
@@ -3465,9 +2393,9 @@ uint64_t SGCreateReadArchive()
     v1 = sgLogHandle();
     if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 136446210;
-      v10 = archive_error_string();
-      _os_log_impl(&dword_231E60000, v1, OS_LOG_TYPE_DEFAULT, "SGUnarchiver: archive_read unable to set supported formats - %{public}s.", &v9, 0xCu);
+      v8 = 136446210;
+      v9 = archive_error_string();
+      _os_log_impl(&dword_231E60000, v1, OS_LOG_TYPE_DEFAULT, "SGUnarchiver: archive_read unable to set supported formats - %{public}s.", &v8, 0xCu);
     }
 
 LABEL_6:
@@ -3476,54 +2404,51 @@ LABEL_6:
       v2 = sgLogHandle();
       if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
       {
-        v8 = archive_error_string();
-        v9 = 136446210;
-        v10 = v8;
-        _os_log_error_impl(&dword_231E60000, v2, OS_LOG_TYPE_ERROR, "SGUnarchiver: unable to free archive_read (leaking) - %{public}s.", &v9, 0xCu);
+        v7 = archive_error_string();
+        v8 = 136446210;
+        v9 = v7;
+        _os_log_error_impl(&dword_231E60000, v2, OS_LOG_TYPE_ERROR, "SGUnarchiver: unable to free archive_read (leaking) - %{public}s.", &v8, 0xCu);
       }
     }
 
-    v0 = 0;
-    goto LABEL_11;
+    return 0;
   }
 
   support_filter_all = archive_read_support_filter_all();
   if (support_filter_all != -20)
   {
-    v6 = support_filter_all;
+    v5 = support_filter_all;
     if (support_filter_all)
     {
-      v7 = sgLogHandle();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v6 = sgLogHandle();
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        v9 = 136446210;
-        v10 = archive_error_string();
-        _os_log_error_impl(&dword_231E60000, v7, OS_LOG_TYPE_ERROR, "SGUnarchiver: archive_read unable to set supported compression formats - %{public}s.", &v9, 0xCu);
+        v8 = 136446210;
+        v9 = archive_error_string();
+        _os_log_error_impl(&dword_231E60000, v6, OS_LOG_TYPE_ERROR, "SGUnarchiver: archive_read unable to set supported compression formats - %{public}s.", &v8, 0xCu);
       }
 
-      if (v6)
+      if (v5)
       {
         goto LABEL_6;
       }
     }
   }
 
-LABEL_11:
-  v3 = *MEMORY[0x277D85DE8];
   return v0;
 }
 
 uint64_t SGZipUnarchive(uint64_t a1, void *a2)
 {
-  v64[1] = *MEMORY[0x277D85DE8];
+  v63[1] = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = [MEMORY[0x277CCAA00] defaultManager];
-  v63 = *MEMORY[0x277CCA180];
-  v64[0] = &unk_284749B18;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v64 forKeys:&v63 count:1];
-  v58[0] = 0;
-  v5 = [v3 createDirectoryAtURL:v2 withIntermediateDirectories:0 attributes:v4 error:v58];
-  v6 = v58[0];
+  v62 = *MEMORY[0x277CCA180];
+  v63[0] = &unk_284749B18;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v63 forKeys:&v62 count:1];
+  v57[0] = 0;
+  v5 = [v3 createDirectoryAtURL:v2 withIntermediateDirectories:0 attributes:v4 error:v57];
+  v6 = v57[0];
 
   if ((v5 & 1) == 0)
   {
@@ -3546,9 +2471,9 @@ uint64_t SGZipUnarchive(uint64_t a1, void *a2)
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v60 = v2;
-      v61 = 2112;
-      v62 = v6;
+      v59 = v2;
+      v60 = 2112;
+      v61 = v6;
       _os_log_error_impl(&dword_231E60000, v12, OS_LOG_TYPE_ERROR, "SGUnarchiver: failed to create directory at %@ - %@.", buf, 0x16u);
     }
 
@@ -3574,45 +2499,45 @@ LABEL_20:
 
     v8 = archive_error_string();
     *buf = 136446210;
-    v60 = v8;
+    v59 = v8;
     v9 = "SGUnarchiver: archive_write_disk unable to set lookup functions - %{public}s.";
     goto LABEL_65;
   }
 
   if (!archive_write_disk_set_options())
   {
-    v16 = [v2 path];
-    v6 = v16;
-    if (v16)
+    v15 = [v2 path];
+    v6 = v15;
+    if (v15)
     {
-      v18 = realpath_DARWIN_EXTSN([v16 fileSystemRepresentation], 0);
-      if (v18)
+      v17 = realpath_DARWIN_EXTSN([v15 fileSystemRepresentation], 0);
+      if (v17)
       {
-        v19 = v18;
-        v20 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:v18];
+        v18 = v17;
+        v19 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:v17];
 
-        free(v19);
-        v6 = v20;
+        free(v18);
+        v6 = v19;
       }
 
       else
       {
-        v21 = sgLogHandle();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+        v20 = sgLogHandle();
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
         {
-          v55 = __error();
-          v56 = strerror(*v55);
+          v54 = __error();
+          v55 = strerror(*v54);
           *buf = 138412546;
-          v60 = v6;
-          v61 = 2080;
-          v62 = v56;
-          _os_log_error_impl(&dword_231E60000, v21, OS_LOG_TYPE_ERROR, "SGUnarchiver: unable to resolve physical path for destination path %@ - %s.", buf, 0x16u);
+          v59 = v6;
+          v60 = 2080;
+          v61 = v55;
+          _os_log_error_impl(&dword_231E60000, v20, OS_LOG_TYPE_ERROR, "SGUnarchiver: unable to resolve physical path for destination path %@ - %s.", buf, 0x16u);
         }
       }
     }
 
-    *&v17 = 134218240;
-    v57 = v17;
+    *&v16 = 134218240;
+    v56 = v16;
     while (1)
     {
       next_header = archive_read_next_header();
@@ -3621,79 +2546,79 @@ LABEL_20:
         break;
       }
 
-      v23 = archive_entry_filetype();
-      v24 = objc_autoreleasePoolPush();
-      v25 = archive_entry_pathname_utf8();
-      if (!v25)
+      v22 = archive_entry_filetype();
+      v23 = objc_autoreleasePoolPush();
+      v24 = archive_entry_pathname_utf8();
+      if (!v24)
+      {
+        v44 = sgLogHandle();
+        if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 0;
+          _os_log_error_impl(&dword_231E60000, v44, OS_LOG_TYPE_ERROR, "SGUnarchiver: archive_entry with no path encountered.", buf, 2u);
+        }
+
+LABEL_74:
+        objc_autoreleasePoolPop(v23);
+        goto LABEL_53;
+      }
+
+      v25 = v24;
+      v26 = 0;
+      do
+      {
+        v27 = v26;
+        v28 = (v26++)[v24];
+      }
+
+      while (v28 == 47);
+      if (v27)
+      {
+        v29 = sgLogHandle();
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+        {
+          v34 = strlen(v25);
+          *buf = v56;
+          v59 = v27;
+          v60 = 2048;
+          v61 = v34;
+          _os_log_error_impl(&dword_231E60000, v29, OS_LOG_TYPE_ERROR, "SGUnarchiver: archive_entry with absolute path encountered...ignoring leading %zu of %zu bytes.", buf, 0x16u);
+        }
+      }
+
+      v30 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:&v27[v25]];
+      v31 = [v30 length];
+      if (!v31 && v22 != 0x4000)
       {
         v45 = sgLogHandle();
         if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
         {
           *buf = 0;
-          _os_log_error_impl(&dword_231E60000, v45, OS_LOG_TYPE_ERROR, "SGUnarchiver: archive_entry with no path encountered.", buf, 2u);
-        }
-
-LABEL_74:
-        objc_autoreleasePoolPop(v24);
-        goto LABEL_53;
-      }
-
-      v26 = v25;
-      v27 = 0;
-      do
-      {
-        v28 = v27;
-        v29 = (v27++)[v25];
-      }
-
-      while (v29 == 47);
-      if (v28)
-      {
-        v30 = sgLogHandle();
-        if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
-        {
-          v35 = strlen(v26);
-          *buf = v57;
-          v60 = v28;
-          v61 = 2048;
-          v62 = v35;
-          _os_log_error_impl(&dword_231E60000, v30, OS_LOG_TYPE_ERROR, "SGUnarchiver: archive_entry with absolute path encountered...ignoring leading %zu of %zu bytes.", buf, 0x16u);
-        }
-      }
-
-      v31 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:&v28[v26]];
-      v32 = [v31 length];
-      if (!v32 && v23 != 0x4000)
-      {
-        v46 = sgLogHandle();
-        if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
-        {
-          *buf = 0;
-          _os_log_error_impl(&dword_231E60000, v46, OS_LOG_TYPE_ERROR, "SGUnarchiver: archive_entry with no path after sanitization encountered.", buf, 2u);
+          _os_log_error_impl(&dword_231E60000, v45, OS_LOG_TYPE_ERROR, "SGUnarchiver: archive_entry with no path after sanitization encountered.", buf, 2u);
         }
 
         goto LABEL_74;
       }
 
-      v33 = [v6 stringByAppendingPathComponent:v31, v57];
+      v32 = [v6 stringByAppendingPathComponent:v30, v56];
 
-      [v33 fileSystemRepresentation];
+      [v32 fileSystemRepresentation];
       archive_entry_update_pathname_utf8();
 
-      objc_autoreleasePoolPop(v24);
+      objc_autoreleasePoolPop(v23);
       archive_entry_perm();
       archive_entry_set_perm();
-      if (v32)
+      if (v31)
       {
         if (archive_write_header())
         {
-          v51 = sgLogHandle();
-          if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
+          v50 = sgLogHandle();
+          if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
           {
-            v47 = archive_error_string();
+            v46 = archive_error_string();
             *buf = 136446210;
-            v60 = v47;
-            v48 = "SGUnarchiver: archive_write_header failed - %{public}s.";
+            v59 = v46;
+            v47 = "SGUnarchiver: archive_write_header failed - %{public}s.";
             goto LABEL_79;
           }
 
@@ -3706,7 +2631,7 @@ LABEL_80:
         {
           do
           {
-            memset(&v58[1], 0, 24);
+            memset(&v57[1], 0, 24);
             data_block = archive_read_data_block();
             if (data_block)
             {
@@ -3715,13 +2640,13 @@ LABEL_80:
                 goto LABEL_47;
               }
 
-              v38 = sgLogHandle();
-              if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+              v37 = sgLogHandle();
+              if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
               {
-                v36 = archive_error_string();
+                v35 = archive_error_string();
                 *buf = 136446210;
-                v60 = v36;
-                v37 = "SGUnarchiver: archive_read_data_block failed - %{public}s.";
+                v59 = v35;
+                v36 = "SGUnarchiver: archive_read_data_block failed - %{public}s.";
                 goto LABEL_82;
               }
 
@@ -3730,13 +2655,13 @@ LABEL_80:
           }
 
           while ((archive_write_data_block() & 0x8000000000000000) == 0);
-          v38 = sgLogHandle();
-          if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+          v37 = sgLogHandle();
+          if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
           {
-            v54 = archive_error_string();
+            v53 = archive_error_string();
             *buf = 136446210;
-            v60 = v54;
-            v37 = "SGUnarchiver: archive_write_data_block failed - %{public}s.";
+            v59 = v53;
+            v36 = "SGUnarchiver: archive_write_data_block failed - %{public}s.";
             goto LABEL_82;
           }
 
@@ -3750,15 +2675,15 @@ LABEL_53:
 LABEL_47:
         if (archive_write_finish_entry())
         {
-          v51 = sgLogHandle();
-          if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
+          v50 = sgLogHandle();
+          if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
           {
-            v53 = archive_error_string();
+            v52 = archive_error_string();
             *buf = 136446210;
-            v60 = v53;
-            v48 = "SGUnarchiver: archive_write_finish_entry failed - %{public}s.";
+            v59 = v52;
+            v47 = "SGUnarchiver: archive_write_finish_entry failed - %{public}s.";
 LABEL_79:
-            _os_log_impl(&dword_231E60000, v51, OS_LOG_TYPE_DEFAULT, v48, buf, 0xCu);
+            _os_log_impl(&dword_231E60000, v50, OS_LOG_TYPE_DEFAULT, v47, buf, 0xCu);
           }
 
           goto LABEL_80;
@@ -3768,15 +2693,15 @@ LABEL_79:
 
     if (next_header != 1)
     {
-      v38 = sgLogHandle();
-      if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+      v37 = sgLogHandle();
+      if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
       {
-        v44 = archive_error_string();
+        v43 = archive_error_string();
         *buf = 136446210;
-        v60 = v44;
-        v37 = "SGUnarchiver: archive_read_next_header failed - %{public}s.";
+        v59 = v43;
+        v36 = "SGUnarchiver: archive_read_next_header failed - %{public}s.";
 LABEL_82:
-        _os_log_error_impl(&dword_231E60000, v38, OS_LOG_TYPE_ERROR, v37, buf, 0xCu);
+        _os_log_error_impl(&dword_231E60000, v37, OS_LOG_TYPE_ERROR, v36, buf, 0xCu);
       }
 
       goto LABEL_52;
@@ -3786,13 +2711,13 @@ LABEL_82:
 LABEL_54:
     if (archive_write_close())
     {
-      v40 = sgLogHandle();
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+      v39 = sgLogHandle();
+      if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
       {
-        v49 = archive_error_string();
+        v48 = archive_error_string();
         *buf = 136446210;
-        v60 = v49;
-        _os_log_error_impl(&dword_231E60000, v40, OS_LOG_TYPE_ERROR, "SGUnarchiver: unable to close archive_write_disk - %{public}s.", buf, 0xCu);
+        v59 = v48;
+        _os_log_error_impl(&dword_231E60000, v39, OS_LOG_TYPE_ERROR, "SGUnarchiver: unable to close archive_write_disk - %{public}s.", buf, 0xCu);
       }
 
       v13 = 0;
@@ -3800,13 +2725,13 @@ LABEL_54:
 
     if (archive_write_free())
     {
-      v41 = sgLogHandle();
-      if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+      v40 = sgLogHandle();
+      if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
       {
-        v50 = archive_error_string();
+        v49 = archive_error_string();
         *buf = 136446210;
-        v60 = v50;
-        _os_log_error_impl(&dword_231E60000, v41, OS_LOG_TYPE_ERROR, "SGUnarchiver: unable to free archive_write_disk (leaking) - %{public}s.", buf, 0xCu);
+        v59 = v49;
+        _os_log_error_impl(&dword_231E60000, v40, OS_LOG_TYPE_ERROR, "SGUnarchiver: unable to free archive_write_disk (leaking) - %{public}s.", buf, 0xCu);
       }
     }
 
@@ -3816,9 +2741,9 @@ LABEL_54:
   v7 = sgLogHandle();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    v43 = archive_error_string();
+    v42 = archive_error_string();
     *buf = 136446210;
-    v60 = v43;
+    v59 = v42;
     v9 = "SGUnarchiver: archive_write_disk unable to set options - %{public}s.";
 LABEL_65:
     _os_log_error_impl(&dword_231E60000, v7, OS_LOG_TYPE_ERROR, v9, buf, 0xCu);
@@ -3834,9 +2759,9 @@ LABEL_15:
   v6 = sgLogHandle();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    v42 = archive_error_string();
+    v41 = archive_error_string();
     *buf = 136446210;
-    v60 = v42;
+    v59 = v41;
     _os_log_error_impl(&dword_231E60000, v6, OS_LOG_TYPE_ERROR, "SGUnarchiver: unable to free archive_write_disk (leaking) - %{public}s.", buf, 0xCu);
   }
 
@@ -3845,7 +2770,6 @@ LABEL_18:
 LABEL_19:
 
 LABEL_21:
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -3866,9 +2790,9 @@ uint64_t SGUnarchiverZip(NSData *a1, NSURL *a2)
   return v9;
 }
 
-uint64_t SGUnarchiverZip(const void *a1, unint64_t a2, NSURL *a3)
+uint64_t SGUnarchiverZip(const void *a1, uint64_t a2, NSURL *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = v4;
   v6 = 0;
@@ -3890,9 +2814,9 @@ uint64_t SGUnarchiverZip(const void *a1, unint64_t a2, NSURL *a3)
     v9 = sgLogHandle();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v14 = 136446210;
-      v15 = archive_error_string();
-      _os_log_error_impl(&dword_231E60000, v9, OS_LOG_TYPE_ERROR, "SGUnarchiver: unable to open archive_read - %{public}s.", &v14, 0xCu);
+      v13 = 136446210;
+      v14 = archive_error_string();
+      _os_log_error_impl(&dword_231E60000, v9, OS_LOG_TYPE_ERROR, "SGUnarchiver: unable to open archive_read - %{public}s.", &v13, 0xCu);
     }
 
     v6 = 0;
@@ -3909,9 +2833,9 @@ uint64_t SGUnarchiverZip(const void *a1, unint64_t a2, NSURL *a3)
     v9 = sgLogHandle();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v14 = 136446210;
-      v15 = archive_error_string();
-      _os_log_error_impl(&dword_231E60000, v9, OS_LOG_TYPE_ERROR, "SGUnarchiver: unable to close archive_read - %{public}s.", &v14, 0xCu);
+      v13 = 136446210;
+      v14 = archive_error_string();
+      _os_log_error_impl(&dword_231E60000, v9, OS_LOG_TYPE_ERROR, "SGUnarchiver: unable to close archive_read - %{public}s.", &v13, 0xCu);
     }
   }
 
@@ -3921,10 +2845,10 @@ LABEL_13:
     v10 = sgLogHandle();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
-      v13 = archive_error_string();
-      v14 = 136446210;
-      v15 = v13;
-      _os_log_fault_impl(&dword_231E60000, v10, OS_LOG_TYPE_FAULT, "SGUnarchiver: unable to free archive_read (leaking) - %{public}s.", &v14, 0xCu);
+      v12 = archive_error_string();
+      v13 = 136446210;
+      v14 = v12;
+      _os_log_fault_impl(&dword_231E60000, v10, OS_LOG_TYPE_FAULT, "SGUnarchiver: unable to free archive_read (leaking) - %{public}s.", &v13, 0xCu);
     }
 
     if (_PASEvaluateLogFaultAndProbCrashCriteria())
@@ -3935,22 +2859,22 @@ LABEL_13:
 
 LABEL_17:
 
-  v11 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
-void sub_231FE98A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_231FE98A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_231FEA194(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37)
+void sub_231FEA194(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, ...)
 {
-  _Block_object_dispose(&a37, 8);
-  _Block_object_dispose((v37 - 192), 8);
-  _Block_object_dispose((v37 - 96), 8);
+  va_start(va, a36);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v36 - 192), 8);
+  _Block_object_dispose((v36 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -3982,23 +2906,23 @@ uint64_t __patterns_block_invoke_24222()
   return MEMORY[0x2821F96F8](v0, v1);
 }
 
-void sub_231FEA768(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_231FEA768(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_231FEA920(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_231FEA920(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_231FEAB80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_231FEAB80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4010,51 +2934,51 @@ uint64_t __Block_byref_object_copy__24277(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_231FEAD60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_231FEAD60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_231FEAF28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_231FEAF28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_231FEB0F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_231FEB0F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_231FEB298(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_231FEB298(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_231FEB414(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_231FEB414(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_231FEB590(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_231FEB590(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_231FEB70C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_231FEB70C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4097,15 +3021,13 @@ void ___createITSListForFTSQuery_block_invoke_3(uint64_t a1, void *a2)
 {
   tokenizer = a2;
   v3 = *(a1 + 40);
-  v8.length = [*(a1 + 32) length];
-  v8.location = 0;
-  CFStringTokenizerSetString(tokenizer, v3, v8);
-  v5 = *(a1 + 40);
-  v4 = *(a1 + 48);
+  v6.length = [*(a1 + 32) length];
+  v6.location = 0;
+  CFStringTokenizerSetString(tokenizer, v3, v6);
   ITSTokenListPopulateFromString();
-  v9.location = 0;
-  v9.length = 1;
-  CFStringTokenizerSetString(tokenizer, @"⌘", v9);
+  v7.location = 0;
+  v7.length = 1;
+  CFStringTokenizerSetString(tokenizer, @"⌘", v7);
   CFRelease(tokenizer);
 }
 
@@ -4136,6 +3058,13 @@ id ___createITSListForFTSQuery_block_invoke_2()
   return v1;
 }
 
+void sub_231FEF3A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, ...)
+{
+  va_start(va, a27);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 uint64_t __Block_byref_object_copy__24709(uint64_t result, uint64_t a2)
 {
   *(result + 40) = *(a2 + 40);
@@ -4143,117 +3072,113 @@ uint64_t __Block_byref_object_copy__24709(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_231FF087C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_231FF087C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_231FF0BF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_231FF0BF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_231FF13BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_231FF13BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_231FF1BD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_231FF1BD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_231FF2B10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_231FF2B10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_231FF2DC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_231FF2DC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_231FF3078(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_231FF3078(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 Class __getHKHealthStoreClass_block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v7[0] = 0;
+  v9 = *MEMORY[0x277D85DE8];
+  v6[0] = 0;
   if (!HealthKitLibraryCore_frameworkLibrary)
   {
-    v7[1] = MEMORY[0x277D85DD0];
-    v7[2] = 3221225472;
-    v7[3] = __HealthKitLibraryCore_block_invoke;
-    v7[4] = &__block_descriptor_40_e5_v8__0l;
-    v7[5] = v7;
-    v8 = xmmword_27894FDF0;
-    v9 = 0;
+    v6[1] = MEMORY[0x277D85DD0];
+    v6[2] = 3221225472;
+    v6[3] = __HealthKitLibraryCore_block_invoke;
+    v6[4] = &__block_descriptor_40_e5_v8__0l;
+    v6[5] = v6;
+    v7 = xmmword_27894FDF0;
+    v8 = 0;
     HealthKitLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
   if (!HealthKitLibraryCore_frameworkLibrary)
   {
-    v4 = [MEMORY[0x277CCA890] currentHandler];
-    v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"void *HealthKitLibrary(void)"];
-    [v4 handleFailureInFunction:v5 file:@"SGDetectedAttributeDissector.m" lineNumber:73 description:{@"%s", v7[0]}];
+    v3 = [MEMORY[0x277CCA890] currentHandler];
+    v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:"void *HealthKitLibrary(void)"];
+    [v3 handleFailureInFunction:v4 file:@"SGDetectedAttributeDissector.m" lineNumber:73 description:{@"%s", v6[0]}];
 
     goto LABEL_10;
   }
 
-  if (v7[0])
+  if (v6[0])
   {
-    free(v7[0]);
+    free(v6[0]);
   }
 
   result = objc_getClass("HKHealthStore");
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    v4 = [MEMORY[0x277CCA890] currentHandler];
-    v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Class getHKHealthStoreClass(void)_block_invoke"];
-    [v4 handleFailureInFunction:v6 file:@"SGDetectedAttributeDissector.m" lineNumber:74 description:{@"Unable to find class %s", "HKHealthStore"}];
+    v3 = [MEMORY[0x277CCA890] currentHandler];
+    v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Class getHKHealthStoreClass(void)_block_invoke"];
+    [v3 handleFailureInFunction:v5 file:@"SGDetectedAttributeDissector.m" lineNumber:74 description:{@"Unable to find class %s", "HKHealthStore"}];
 
 LABEL_10:
     __break(1u);
   }
 
   getHKHealthStoreClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __HealthKitLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   HealthKitLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void sub_231FF4340(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_231FF4340(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 96), 8);
+  _Block_object_dispose((v16 - 96), 8);
   _Unwind_Resume(a1);
 }
 

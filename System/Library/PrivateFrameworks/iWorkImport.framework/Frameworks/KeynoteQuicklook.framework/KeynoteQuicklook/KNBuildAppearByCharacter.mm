@@ -21,25 +21,25 @@
   v5[1] = &unk_2884F3BA0;
   v4[2] = @"KNBuildCustomAttributesDeliveryOption";
   v5[2] = &unk_2884F3BE8;
-  v2 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], a2, v5, v4, 3);
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:3];
 
   return v2;
 }
 
 + (id)customAttributes
 {
-  v2 = objc_msgSend_customAttributesArrayWithTextDeliveryOptions_(KNAnimationUtils, a2, &unk_2884F3EB0);
-  v4 = objc_msgSend_customAttributesArrayWithDeliveryOptions_(KNAnimationUtils, v3, &unk_2884F3EC8);
-  v6 = objc_msgSend_arrayByAddingObjectsFromArray_(v2, v5, v4);
+  v2 = [KNAnimationUtils customAttributesArrayWithTextDeliveryOptions:&unk_2884F3EB0];
+  v3 = [KNAnimationUtils customAttributesArrayWithDeliveryOptions:&unk_2884F3EC8];
+  v4 = [v2 arrayByAddingObjectsFromArray:v3];
 
-  return v6;
+  return v4;
 }
 
 + (NSArray)obsoleteAnimationNames
 {
   v4[1] = *MEMORY[0x277D85DE8];
   v4[0] = *MEMORY[0x277D80168];
-  v2 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], a2, v4, 1);
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
 
   return v2;
 }
@@ -73,7 +73,7 @@
 {
   if (classic)
   {
-    direction = objc_msgSend_p_legacyDirectionWithDirection_type_(self, a2, direction, type);
+    direction = [self p_legacyDirectionWithDirection:direction type:type];
   }
 
   if (direction > 113)
@@ -143,59 +143,59 @@
   v14 = animationNameCopy;
   if (version < 0xE94D0C4B44)
   {
-    v41 = animationNameCopy;
-    isEqualToString = objc_msgSend_isEqualToString_(animationNameCopy, animationNameCopy, *MEMORY[0x277D80138]);
-    v14 = v41;
-    if ((isEqualToString & 1) == 0)
+    v28 = animationNameCopy;
+    v15 = [animationNameCopy isEqualToString:*MEMORY[0x277D80138]];
+    v14 = v28;
+    if ((v15 & 1) == 0)
     {
-      v16 = objc_msgSend_isEqualToString_(v41, v41, *MEMORY[0x277D80168]);
-      v18 = objc_msgSend_objectForKeyedSubscript_(*attributes, v17, @"KNBuildAttributesDirection");
+      v16 = [v28 isEqualToString:*MEMORY[0x277D80168]];
+      v17 = [*attributes objectForKeyedSubscript:@"KNBuildAttributesDirection"];
 
-      if (v18)
+      if (v17)
       {
-        v20 = objc_msgSend_objectForKeyedSubscript_(*attributes, v19, @"KNBuildAttributesDirection");
-        v23 = objc_msgSend_unsignedIntegerValue(v20, v21, v22);
+        v18 = [*attributes objectForKeyedSubscript:@"KNBuildAttributesDirection"];
+        unsignedIntegerValue = [v18 unsignedIntegerValue];
       }
 
       else
       {
-        v23 = 111;
+        unsignedIntegerValue = 111;
       }
 
-      isClassic = objc_msgSend_p_textDeliveryOptionWithDirection_type_isClassic_(self, v19, v23, type, classicCopy);
+      v20 = [self p_textDeliveryOptionWithDirection:unsignedIntegerValue type:type isClassic:classicCopy];
       if (v16)
       {
-        v27 = 3;
+        unsignedIntegerValue2 = 3;
       }
 
       else
       {
-        v28 = objc_msgSend_objectForKeyedSubscript_(*attributes, v24, @"KNBuildCustomAttributesTextDelivery");
+        v22 = [*attributes objectForKeyedSubscript:@"KNBuildCustomAttributesTextDelivery"];
 
-        if (v28)
+        if (v22)
         {
-          v29 = objc_msgSend_objectForKeyedSubscript_(*attributes, v24, @"KNBuildCustomAttributesTextDelivery");
-          v27 = objc_msgSend_unsignedIntegerValue(v29, v30, v31);
+          v23 = [*attributes objectForKeyedSubscript:@"KNBuildCustomAttributesTextDelivery"];
+          unsignedIntegerValue2 = [v23 unsignedIntegerValue];
         }
 
         else
         {
-          v27 = 1;
+          unsignedIntegerValue2 = 1;
         }
       }
 
-      v32 = objc_msgSend_mutableCopy(*attributes, v24, v25);
-      v34 = objc_msgSend_numberWithUnsignedInteger_(MEMORY[0x277CCABB0], v33, v23);
-      objc_msgSend_setObject_forKey_(v32, v35, v34, @"KNBuildAttributesDirection");
+      v24 = [*attributes mutableCopy];
+      v25 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:unsignedIntegerValue];
+      [v24 setObject:v25 forKey:@"KNBuildAttributesDirection"];
 
-      v37 = objc_msgSend_numberWithInteger_(MEMORY[0x277CCABB0], v36, v27);
-      objc_msgSend_setObject_forKey_(v32, v38, v37, @"KNBuildCustomAttributesTextDelivery");
+      v26 = [MEMORY[0x277CCABB0] numberWithInteger:unsignedIntegerValue2];
+      [v24 setObject:v26 forKey:@"KNBuildCustomAttributesTextDelivery"];
 
-      v39 = v32;
-      *attributes = v32;
-      *attributes = objc_msgSend_updateDirectionAttributeValue_andCustomTextDirectionValue_turnOffBounce_turnOffMotionBlur_forAttributes_(self, v40, v23, isClassic, 1, 1, v32);
+      v27 = v24;
+      *attributes = v24;
+      *attributes = [self updateDirectionAttributeValue:unsignedIntegerValue andCustomTextDirectionValue:v20 turnOffBounce:1 turnOffMotionBlur:1 forAttributes:v24];
 
-      v14 = v41;
+      v14 = v28;
     }
   }
 }
@@ -204,30 +204,30 @@
 {
   if ((type - 1) <= 1 && version <= 0x174876E7FFLL && classic)
   {
-    v13 = objc_msgSend_objectForKeyedSubscript_(*attributes, a2, @"KNBuildCustomAttributesDeliveryOption", name, warning);
+    v13 = [*attributes objectForKeyedSubscript:{@"KNBuildCustomAttributesDeliveryOption", name, warning}];
 
     if (v13)
     {
-      v15 = objc_msgSend_objectForKeyedSubscript_(*attributes, v14, @"KNBuildCustomAttributesDeliveryOption");
-      v18 = objc_msgSend_unsignedIntegerValue(v15, v16, v17);
+      v14 = [*attributes objectForKeyedSubscript:@"KNBuildCustomAttributesDeliveryOption"];
+      unsignedIntegerValue = [v14 unsignedIntegerValue];
 
-      if ((v18 - 2) > 3)
+      if ((unsignedIntegerValue - 2) > 3)
       {
-        v20 = objc_msgSend_p_legacyDirectionWithDirection_type_(self, v19, 19, type);
+        v16 = 19;
       }
 
       else
       {
-        v20 = objc_msgSend_p_legacyDirectionWithDirection_type_(self, v19, qword_275E79210[v18 - 2], type);
+        v16 = qword_275E79210[unsignedIntegerValue - 2];
       }
 
-      v23 = v20;
-      v28 = objc_msgSend_mutableCopy(*attributes, v21, v22);
-      v25 = objc_msgSend_numberWithUnsignedInteger_(MEMORY[0x277CCABB0], v24, v23);
-      objc_msgSend_setObject_forKeyedSubscript_(v28, v26, v25, @"direction");
+      v17 = [self p_legacyDirectionWithDirection:v16 type:type];
+      v20 = [*attributes mutableCopy];
+      v18 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v17];
+      [v20 setObject:v18 forKeyedSubscript:@"direction"];
 
-      v27 = v28;
-      *attributes = v28;
+      v19 = v20;
+      *attributes = v20;
     }
   }
 }
@@ -235,28 +235,31 @@
 + (BOOL)shouldWarnOnUpgradeWithOldAnimationName:(id)name version:(unint64_t)version
 {
   nameCopy = name;
-  v7 = nameCopy;
-  v8 = version < 0xE94D0C4B44 && (objc_msgSend_isEqualToString_(nameCopy, v6, *MEMORY[0x277D80168]) & 1) != 0;
+  v6 = nameCopy;
+  v7 = version < 0xE94D0C4B44 && ([nameCopy isEqualToString:*MEMORY[0x277D80168]] & 1) != 0;
 
-  return v8;
+  return v7;
 }
 
 + (id)localizedAnimationStringForUpgradeWarning:(int64_t)warning
 {
-  v4 = sub_275DC204C();
-  v6 = v4;
+  v4 = sub_275DC204C(self);
+  v5 = v4;
   if (warning == 1)
   {
-    objc_msgSend_localizedStringForKey_value_table_(v4, v5, @"Appear by Character *AppearByCharacterBuild*", @"Appear by Character", @"Keynote");
+    v6 = @"Appear by Character *AppearByCharacterBuild*";
+    v7 = @"Appear by Character";
   }
 
   else
   {
-    objc_msgSend_localizedStringForKey_value_table_(v4, v5, @"Disappear by Character *AppearByCharacterBuild*", @"Disappear by Character", @"Keynote");
+    v6 = @"Disappear by Character *AppearByCharacterBuild*";
+    v7 = @"Disappear by Character";
   }
-  v7 = ;
 
-  return v7;
+  v8 = [v4 localizedStringForKey:v6 value:v7 table:@"Keynote"];
+
+  return v8;
 }
 
 @end

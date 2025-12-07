@@ -10,18 +10,18 @@
 - (id)indexPathsForCells;
 - (id)indexPathsForDecorationsOfKind:(uint64_t)kind;
 - (id)indexPathsForSupplementariesOfKind:(uint64_t)kind;
+- (id)setCell:(uint64_t)cell atIndexPath:;
 - (id)supplementariesOfKind:(uint64_t)kind;
 - (id)supplementaryOfKind:(uint64_t)kind atIndexPath:;
 - (id)viewOfKind:(uint64_t)kind inCategory:(uint64_t)category atIndexPath:;
-- (uint64_t)containsView:(uint64_t)view;
-- (uint64_t)enumerateCellsWithEnumerator:(uint64_t)result;
-- (uint64_t)enumerateDecorationsWithEnumerator:(uint64_t)result;
-- (uint64_t)enumerateSupplementariesWithEnumerator:(uint64_t)result;
-- (uint64_t)setCell:(uint64_t)cell atIndexPath:;
-- (void)enumerateAllViewsWithEnumerator:(uint64_t)enumerator;
-- (void)enumerateAuxillariesWithEnumerator:(uint64_t)enumerator;
+- (uint64_t)containsView:(void *)view;
+- (void)enumerateAllViewsWithEnumerator:(void *)enumerator;
+- (void)enumerateAuxillariesWithEnumerator:(void *)enumerator;
+- (void)enumerateCellsWithEnumerator:(void *)result;
 - (void)enumerateDecorationsOfElementKind:(uint64_t)kind enumerator:;
+- (void)enumerateDecorationsWithEnumerator:(void *)result;
 - (void)enumerateSupplementariesOfElementKind:(uint64_t)kind enumerator:;
+- (void)enumerateSupplementariesWithEnumerator:(void *)result;
 - (void)removeViewForDecorationOfKind:(uint64_t)kind atIndexPath:;
 - (void)removeViewForSupplementaryOfKind:(uint64_t)kind atIndexPath:;
 - (void)removeViewOfKind:(uint64_t)kind inCategory:(uint64_t)category atIndexPath:;
@@ -147,7 +147,7 @@
   return v3;
 }
 
-- (uint64_t)setCell:(uint64_t)cell atIndexPath:
+- (id)setCell:(uint64_t)cell atIndexPath:
 {
   if (result)
   {
@@ -193,12 +193,12 @@
       v9 = *(__UILogGetCategoryCachedImpl("Assert", &qword_1ED49D998) + 8);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        *v10 = 0;
+        v10[0] = 0;
         _os_log_impl(&dword_188A29000, v9, OS_LOG_TYPE_ERROR, "Index path cannot be nil", v10, 2u);
       }
     }
 
-    return [*(v5 + 8) setObject:a2 forKeyedSubscript:cell];
+    return [v5[1] setObject:a2 forKeyedSubscript:cell];
   }
 
   return result;
@@ -499,7 +499,7 @@
   return path;
 }
 
-- (uint64_t)enumerateCellsWithEnumerator:(uint64_t)result
+- (void)enumerateCellsWithEnumerator:(void *)result
 {
   if (result)
   {
@@ -510,7 +510,7 @@
       [currentHandler handleFailureInMethod:sel_enumerateCellsWithEnumerator_ object:v3 file:@"_UICollectionViewSubviewCollection.m" lineNumber:230 description:{@"Invalid parameter not satisfying: %@", @"enumerator != nil"}];
     }
 
-    v4 = *(v3 + 8);
+    v4 = v3[1];
     v6[0] = MEMORY[0x1E69E9820];
     v6[1] = 3221225472;
     v6[2] = __67___UICollectionViewSubviewCollection_enumerateCellsWithEnumerator___block_invoke;
@@ -686,7 +686,7 @@
   return v6;
 }
 
-- (uint64_t)enumerateSupplementariesWithEnumerator:(uint64_t)result
+- (void)enumerateSupplementariesWithEnumerator:(void *)result
 {
   if (result)
   {
@@ -697,7 +697,7 @@
       [currentHandler handleFailureInMethod:sel_enumerateSupplementariesWithEnumerator_ object:v3 file:@"_UICollectionViewSubviewCollection.m" lineNumber:238 description:{@"Invalid parameter not satisfying: %@", @"enumerator != nil"}];
     }
 
-    v4 = *(v3 + 16);
+    v4 = v3[2];
     v6[0] = MEMORY[0x1E69E9820];
     v6[1] = 3221225472;
     v6[2] = __77___UICollectionViewSubviewCollection_enumerateSupplementariesWithEnumerator___block_invoke;
@@ -748,7 +748,7 @@ LABEL_4:
   }
 }
 
-- (uint64_t)enumerateDecorationsWithEnumerator:(uint64_t)result
+- (void)enumerateDecorationsWithEnumerator:(void *)result
 {
   if (result)
   {
@@ -759,7 +759,7 @@ LABEL_4:
       [currentHandler handleFailureInMethod:sel_enumerateDecorationsWithEnumerator_ object:v3 file:@"_UICollectionViewSubviewCollection.m" lineNumber:259 description:{@"Invalid parameter not satisfying: %@", @"enumerator != nil"}];
     }
 
-    v4 = *(v3 + 24);
+    v4 = v3[3];
     v6[0] = MEMORY[0x1E69E9820];
     v6[1] = 3221225472;
     v6[2] = __73___UICollectionViewSubviewCollection_enumerateDecorationsWithEnumerator___block_invoke;
@@ -810,7 +810,7 @@ LABEL_4:
   }
 }
 
-- (void)enumerateAuxillariesWithEnumerator:(uint64_t)enumerator
+- (void)enumerateAuxillariesWithEnumerator:(void *)enumerator
 {
   if (enumerator)
   {
@@ -845,7 +845,7 @@ LABEL_4:
   }
 }
 
-- (void)enumerateAllViewsWithEnumerator:(uint64_t)enumerator
+- (void)enumerateAllViewsWithEnumerator:(void *)enumerator
 {
   if (enumerator)
   {
@@ -891,7 +891,7 @@ LABEL_4:
   }
 }
 
-- (uint64_t)containsView:(uint64_t)view
+- (uint64_t)containsView:(void *)view
 {
   if (view)
   {

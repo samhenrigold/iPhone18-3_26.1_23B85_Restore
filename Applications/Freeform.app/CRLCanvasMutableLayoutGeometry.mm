@@ -17,7 +17,7 @@
 
 - (void)transformBy:(CGAffineTransform *)by
 {
-  [(CRLCanvasLayoutGeometry *)self transform];
+  objc_msgSend_transform(self, a2);
   v5 = *&by->c;
   *&v6.a = *&by->a;
   *&v6.c = v5;
@@ -37,7 +37,7 @@
   [(CRLCanvasLayoutGeometry *)self i_setSize:sub_10011F334(v7, v9, v10)];
   memset(&v14, 0, sizeof(v14));
   CGAffineTransformMakeTranslation(&v14, -width, -height);
-  [(CRLCanvasLayoutGeometry *)self transform];
+  objc_msgSend_transform(self);
   v11 = v14;
   CGAffineTransformConcat(&v13, &v11, &t2);
   [(CRLCanvasLayoutGeometry *)self i_setTransform:&v13];

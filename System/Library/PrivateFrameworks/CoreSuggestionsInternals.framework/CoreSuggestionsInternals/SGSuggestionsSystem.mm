@@ -51,13 +51,13 @@
   +[SGTextUnderstandingObservationSystem start];
 }
 
-void __28__SGSuggestionsSystem_start__block_invoke_2()
+void __28__SGSuggestionsSystem_start__block_invoke_2(uint64_t a1)
 {
-  v0 = sgLogHandle();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+  v1 = sgLogHandle();
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
   {
-    *v1 = 0;
-    _os_log_debug_impl(&dword_231E60000, v0, OS_LOG_TYPE_DEBUG, "Preparing for queries", v1, 2u);
+    *v2 = 0;
+    _os_log_debug_impl(&dword_231E60000, v1, OS_LOG_TYPE_DEBUG, "Preparing for queries", v2, 2u);
   }
 }
 

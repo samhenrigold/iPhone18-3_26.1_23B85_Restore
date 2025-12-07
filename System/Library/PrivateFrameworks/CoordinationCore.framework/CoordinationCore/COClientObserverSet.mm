@@ -57,42 +57,40 @@
 
 void __38__COClientObserverSet_clientObservers__block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) observers];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v11;
+    v5 = *v10;
     do
     {
       v6 = 0;
       do
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
         v7 = *(a1 + 40);
-        v8 = [v2 objectForKey:*(*(&v10 + 1) + 8 * v6)];
+        v8 = [v2 objectForKey:*(*(&v9 + 1) + 8 * v6)];
         [v7 addObjectsFromArray:v8];
 
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v4);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)clientObserversForXPCConnection:(id)connection
@@ -240,14 +238,14 @@ void __61__COClientObserverSet_addClientObserver_forNotificationName___block_inv
 
 void __64__COClientObserverSet_removeClientObserver_forNotificationName___block_invoke(uint64_t a1)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) registrations];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   v3 = [v2 allKeys];
-  v4 = [v3 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (!v4)
   {
 
@@ -271,18 +269,18 @@ LABEL_17:
   }
 
   v5 = v4;
-  v22 = 0;
-  v6 = *v24;
+  v21 = 0;
+  v6 = *v23;
   do
   {
     for (i = 0; i != v5; ++i)
     {
-      if (*v24 != v6)
+      if (*v23 != v6)
       {
         objc_enumerationMutation(v3);
       }
 
-      v8 = *(*(&v23 + 1) + 8 * i);
+      v8 = *(*(&v22 + 1) + 8 * i);
       v9 = [v2 objectForKey:v8];
       v10 = [v9 indexOfObject:*(a1 + 40)];
       if (v10 != 0x7FFFFFFFFFFFFFFFLL)
@@ -291,7 +289,7 @@ LABEL_17:
         v12 = *(a1 + 48);
         if (v12 && ![v12 isEqualToString:v8])
         {
-          v22 = 1;
+          v21 = 1;
         }
 
         else
@@ -310,19 +308,17 @@ LABEL_17:
       }
     }
 
-    v5 = [v3 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v5 = [v3 countByEnumeratingWithState:&v22 objects:v26 count:16];
   }
 
   while (v5);
 
-  if ((v22 & 1) == 0 || !*(a1 + 48))
+  if ((v21 & 1) == 0 || !*(a1 + 48))
   {
     goto LABEL_17;
   }
 
 LABEL_21:
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 @end

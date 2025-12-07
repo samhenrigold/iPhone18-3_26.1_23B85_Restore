@@ -44,12 +44,12 @@
   os_unfair_lock_lock_with_options();
   v14 = [HMDDeviceSetupTrackingInfo alloc];
   identifier = [(HMDDeviceSetupSession *)self identifier];
-  v3 = [identifier copy];
+  v3 = objc_msgSend_copy(identifier);
   startTime = [(HMDDeviceSetupSession *)self startTime];
   endTime = [(HMDDeviceSetupSession *)self endTime];
   role = [(HMDDeviceSetupSession *)self role];
   accessoryUUID = [(HMDDeviceSetupSession *)self accessoryUUID];
-  v8 = [accessoryUUID copy];
+  v8 = objc_msgSend_copy(accessoryUUID);
   accessoryCategory = [(HMDDeviceSetupSession *)self accessoryCategory];
   accessoryIDSIdentifier = [(HMDDeviceSetupSession *)self accessoryIDSIdentifier];
   setupClientBundleID = [(HMDDeviceSetupSession *)self setupClientBundleID];
@@ -70,13 +70,13 @@
 
 - (void)_sendRequestData:(id)data
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   dataCopy = data;
   [(HMFActivity *)self->_activity markWithReason:@"Sending data"];
   [(HMFActivity *)self->_activity markWithReason:@"HMDDeviceSetupSession.sendRequestData"];
-  v19 = *MEMORY[0x277CCFC98];
-  v20[0] = dataCopy;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+  v18 = *MEMORY[0x277CCFC98];
+  v19[0] = dataCopy;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
   v6 = [MEMORY[0x277D0F818] entitledMessageWithName:*MEMORY[0x277CCFCB8] messagePayload:v5];
   messageDispatcher = [(HMDDeviceSetupSession *)self messageDispatcher];
   messageDestination = [(HMDDeviceSetupSession *)self messageDestination];
@@ -89,15 +89,14 @@
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     v13 = HMFGetLogIdentifier();
-    v15 = 138543618;
-    v16 = v13;
-    v17 = 2112;
-    v18 = v6;
-    _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@Sending data : %@", &v15, 0x16u);
+    v14 = 138543618;
+    v15 = v13;
+    v16 = 2112;
+    v17 = v6;
+    _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@Sending data : %@", &v14, 0x16u);
   }
 
   objc_autoreleasePoolPop(v10);
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleReceiveData:(id)data
@@ -116,7 +115,7 @@
 
 void __44__HMDDeviceSetupSession__handleReceiveData___block_invoke(uint64_t a1)
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   [*(*(a1 + 32) + 8) markWithReason:@"Received data"];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
@@ -126,9 +125,9 @@ void __44__HMDDeviceSetupSession__handleReceiveData___block_invoke(uint64_t a1)
     v5 = HMFGetLogIdentifier();
     v6 = *(a1 + 40);
     *buf = 138543618;
-    v45 = v5;
-    v46 = 2112;
-    v47 = v6;
+    v44 = v5;
+    v45 = 2112;
+    v46 = v6;
     _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Received receive data request : %@", buf, 0x16u);
   }
 
@@ -144,27 +143,27 @@ void __44__HMDDeviceSetupSession__handleReceiveData___block_invoke(uint64_t a1)
 
     os_unfair_lock_unlock(v9 + 4);
     v11 = [*(a1 + 32) internal];
-    v40 = 0;
-    v41 = 0;
-    v38 = 0;
     v39 = 0;
-    v12 = [v11 processSessionData:v8 outAccessoryUUID:&v41 outAccessoryCategory:&v40 outAccessoryIDSIdentifier:&v39 error:&v38];
-    v37 = v41;
-    v13 = v40;
-    v14 = v39;
-    v15 = v38;
+    v40 = 0;
+    v37 = 0;
+    v38 = 0;
+    v12 = [v11 processSessionData:v8 outAccessoryUUID:&v40 outAccessoryCategory:&v39 outAccessoryIDSIdentifier:&v38 error:&v37];
+    v36 = v40;
+    v13 = v39;
+    v14 = v38;
+    v15 = v37;
 
     if (v12)
     {
-      [*(a1 + 32) updateAccessoryUUIDAndNotifyDelegate:v37 accessoryIDSIdentifier:v14 accessoryCategory:v13];
+      [*(a1 + 32) updateAccessoryUUIDAndNotifyDelegate:v36 accessoryIDSIdentifier:v14 accessoryCategory:v13];
       v16 = [*(a1 + 32) internal];
       v17 = [v16 sessionData];
 
       if (v17)
       {
-        v42 = v7;
-        v43 = v17;
-        v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v43 forKeys:&v42 count:1];
+        v41 = v7;
+        v42 = v17;
+        v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
       }
 
       else
@@ -183,13 +182,13 @@ void __44__HMDDeviceSetupSession__handleReceiveData___block_invoke(uint64_t a1)
         v32 = HMFGetOSLogHandle();
         if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
         {
-          v35 = HMFGetLogIdentifier();
+          v34 = HMFGetLogIdentifier();
           [*(a1 + 32) isOpen];
           v33 = HMFBooleanToString();
           *buf = 138543618;
-          v45 = v35;
-          v46 = 2112;
-          v47 = v33;
+          v44 = v34;
+          v45 = 2112;
+          v46 = v33;
           _os_log_impl(&dword_2531F8000, v32, OS_LOG_TYPE_INFO, "%{public}@Going to close the session as the state is now complete: [isOpen : %@]", buf, 0x16u);
         }
 
@@ -207,9 +206,9 @@ void __44__HMDDeviceSetupSession__handleReceiveData___block_invoke(uint64_t a1)
       {
         v27 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v45 = v27;
-        v46 = 2112;
-        v47 = v15;
+        v44 = v27;
+        v45 = 2112;
+        v46 = v15;
         _os_log_impl(&dword_2531F8000, v26, OS_LOG_TYPE_DEFAULT, "%{public}@Failed to process session data with error: %@", buf, 0x16u);
       }
 
@@ -236,7 +235,7 @@ LABEL_21:
   {
     v22 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v45 = v22;
+    v44 = v22;
     _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_DEFAULT, "%{public}@Missing session data", buf, 0xCu);
   }
 
@@ -245,13 +244,11 @@ LABEL_21:
   v15 = [MEMORY[0x277CCA9B8] hmErrorWithCode:27];
   [v23 respondWithError:v15];
 LABEL_22:
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 - (void)close:(id)close
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   closeCopy = close;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -260,27 +257,25 @@ LABEL_22:
   {
     v8 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v15 = v8;
+    v14 = v8;
     _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Called to close session", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v5);
   clientQueue = [(HMDDeviceSetupSession *)selfCopy clientQueue];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __31__HMDDeviceSetupSession_close___block_invoke;
-  v12[3] = &unk_2797359B0;
-  v12[4] = selfCopy;
-  v13 = closeCopy;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __31__HMDDeviceSetupSession_close___block_invoke;
+  v11[3] = &unk_2797359B0;
+  v11[4] = selfCopy;
+  v12 = closeCopy;
   v10 = closeCopy;
-  dispatch_async(clientQueue, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  dispatch_async(clientQueue, v11);
 }
 
 - (void)_handleClose:(id)close
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   closeCopy = close;
   [(HMFActivity *)self->_activity begin];
   v5 = objc_autoreleasePoolPush();
@@ -291,13 +286,13 @@ LABEL_22:
     v8 = HMFGetLogIdentifier();
     [(HMDDeviceSetupSession *)selfCopy isOpen];
     v9 = HMFBooleanToString();
-    v12 = 138543874;
-    v13 = v8;
-    v14 = 2112;
-    v15 = closeCopy;
-    v16 = 2112;
-    v17 = v9;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@Received close request : %@, [isOpen = %@]", &v12, 0x20u);
+    v11 = 138543874;
+    v12 = v8;
+    v13 = 2112;
+    v14 = closeCopy;
+    v15 = 2112;
+    v16 = v9;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@Received close request : %@, [isOpen = %@]", &v11, 0x20u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -305,13 +300,11 @@ LABEL_22:
   [(HMDDeviceSetupSession *)selfCopy _closeWithError:v10];
   [closeCopy respondWithPayload:0];
   [(HMFActivity *)self->_activity end];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_closeWithError:(id)error
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -322,11 +315,11 @@ LABEL_22:
     [(HMDDeviceSetupSession *)selfCopy isOpen];
     v9 = HMFBooleanToString();
     *buf = 138543874;
-    v42 = v8;
-    v43 = 2112;
-    v44 = v9;
-    v45 = 2112;
-    v46 = errorCopy;
+    v41 = v8;
+    v42 = 2112;
+    v43 = v9;
+    v44 = 2112;
+    v45 = errorCopy;
     _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@CloseWithError: [isOpen: %@] [error: %@]", buf, 0x20u);
   }
 
@@ -340,30 +333,30 @@ LABEL_22:
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v42 = v13;
-      v43 = 2112;
-      v44 = errorCopy;
+      v41 = v13;
+      v42 = 2112;
+      v43 = errorCopy;
       _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@Closing the session with error:%@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v10);
     [(HMFActivity *)v11->_activity markWithReason:@"Closing"];
     activity = v11->_activity;
-    v39 = @"errorCode";
+    v38 = @"errorCode";
     v15 = MEMORY[0x277CCABB0];
     v16 = activity;
     v17 = [v15 numberWithInteger:{objc_msgSend(errorCopy, "code")}];
-    v40 = v17;
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
+    v39 = v17;
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
 
     [(HMFActivity *)v11->_activity markWithReason:@"HMDDeviceSetupSession.close"];
     [(HMDDeviceSetupSession *)v11 setOpen:0];
     if (errorCopy)
     {
       internal2 = encodeRootObjectForIncomingXPCMessage(errorCopy, 0);
-      v37 = *MEMORY[0x277CCFCA0];
-      v38 = internal2;
-      v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
+      v36 = *MEMORY[0x277CCFCA0];
+      v37 = internal2;
+      v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
     }
 
     else
@@ -379,8 +372,8 @@ LABEL_22:
 
       internal2 = [(HMDDeviceSetupSession *)v11 internal];
       userInfo2 = [internal2 userInfo];
-      v36 = userInfo2;
-      v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
+      v35 = userInfo2;
+      v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
     }
 
 LABEL_11:
@@ -403,11 +396,11 @@ LABEL_11:
     {
       v32 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v42 = v32;
-      v43 = 2112;
-      v44 = errorCopy;
-      v45 = 2112;
-      v46 = v25;
+      v41 = v32;
+      v42 = 2112;
+      v43 = errorCopy;
+      v44 = 2112;
+      v45 = v25;
       _os_log_impl(&dword_2531F8000, v31, OS_LOG_TYPE_INFO, "%{public}@Going to call the delegate with error:%@, Also sending the close message to client: %@", buf, 0x20u);
     }
 
@@ -415,8 +408,6 @@ LABEL_11:
     delegate = [(HMDDeviceSetupSession *)v30 delegate];
     [delegate setupSession:v30 didCloseWithError:errorCopy];
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateAccessoryUUIDAndNotifyDelegate:(id)delegate accessoryIDSIdentifier:(id)identifier accessoryCategory:(id)category
@@ -430,7 +421,7 @@ LABEL_11:
     accessoryUUID = [(HMDDeviceSetupSession *)self accessoryUUID];
     v11 = [delegateCopy hmf_isEqualToUUID:accessoryUUID];
 
-    v12 = [delegateCopy copy];
+    v12 = objc_msgSend_copy(delegateCopy);
     [(HMDDeviceSetupSession *)self setAccessoryUUID:v12];
     v13 = v11 ^ 1;
 
@@ -440,7 +431,7 @@ LABEL_11:
     }
 
 LABEL_6:
-    v14 = [identifierCopy copy];
+    v14 = objc_msgSend_copy(identifierCopy);
     [(HMDDeviceSetupSession *)self setAccessoryIDSIdentifier:v14];
 
     if (!categoryCopy)
@@ -461,7 +452,7 @@ LABEL_3:
   if (categoryCopy)
   {
 LABEL_7:
-    v15 = [categoryCopy copy];
+    v15 = objc_msgSend_copy(categoryCopy);
     [(HMDDeviceSetupSession *)self setAccessoryCategory:v15];
   }
 
@@ -491,7 +482,7 @@ LABEL_8:
 
 void __29__HMDDeviceSetupSession_open__block_invoke(uint64_t a1)
 {
-  v54[1] = *MEMORY[0x277D85DE8];
+  v53[1] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) homeManager];
   [*(a1 + 40) markWithReason:@"Opening"];
   v3 = objc_autoreleasePoolPush();
@@ -501,13 +492,13 @@ void __29__HMDDeviceSetupSession_open__block_invoke(uint64_t a1)
   {
     v6 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v50 = v6;
+    v49 = v6;
     _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@Opening", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
   v7 = *(a1 + 40);
-  v53 = @"HomeManagerUUID";
+  v52 = @"HomeManagerUUID";
   v8 = v7;
   v9 = [v2 uuid];
   v10 = HMDailyRotatedUUID();
@@ -519,8 +510,8 @@ void __29__HMDDeviceSetupSession_open__block_invoke(uint64_t a1)
     v13 = v11;
   }
 
-  v54[0] = v13;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v54 forKeys:&v53 count:1];
+  v53[0] = v13;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v53 forKeys:&v52 count:1];
 
   [*(a1 + 40) markWithReason:@"HMDDeviceSetupSession.open"];
   [*(a1 + 32) setOpen:1];
@@ -541,7 +532,7 @@ void __29__HMDDeviceSetupSession_open__block_invoke(uint64_t a1)
     {
       v20 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v50 = v20;
+      v49 = v20;
       _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_DEFAULT, "%{public}@Not supported if cloud decryption has failed", buf, 0xCu);
     }
 
@@ -553,15 +544,15 @@ void __29__HMDDeviceSetupSession_open__block_invoke(uint64_t a1)
   }
 
   v22 = [*(a1 + 32) internal];
-  v47 = 0;
-  v48 = 0;
-  v45 = 0;
   v46 = 0;
-  v23 = [v22 processSessionData:0 outAccessoryUUID:&v48 outAccessoryCategory:&v47 outAccessoryIDSIdentifier:&v46 error:&v45];
-  v24 = v48;
-  v25 = v47;
-  v26 = v46;
-  v27 = v45;
+  v47 = 0;
+  v44 = 0;
+  v45 = 0;
+  v23 = [v22 processSessionData:0 outAccessoryUUID:&v47 outAccessoryCategory:&v46 outAccessoryIDSIdentifier:&v45 error:&v44];
+  v24 = v47;
+  v25 = v46;
+  v26 = v45;
+  v27 = v44;
 
   if ((v23 & 1) == 0)
   {
@@ -572,9 +563,9 @@ void __29__HMDDeviceSetupSession_open__block_invoke(uint64_t a1)
     {
       v34 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v50 = v34;
-      v51 = 2112;
-      v52 = v27;
+      v49 = v34;
+      v50 = 2112;
+      v51 = v27;
       _os_log_impl(&dword_2531F8000, v33, OS_LOG_TYPE_DEFAULT, "%{public}@Failed to send initial session data with error: %@", buf, 0x16u);
     }
 
@@ -597,63 +588,59 @@ LABEL_17:
     goto LABEL_18;
   }
 
-  v36 = [v30 internal];
-  v37 = [v36 sessionData];
+  v35 = [v30 internal];
+  v36 = [v35 sessionData];
 
-  if (v37)
+  if (v36)
   {
-    [*(a1 + 32) _sendRequestData:v37];
+    [*(a1 + 32) _sendRequestData:v36];
   }
 
   else
   {
-    v38 = objc_autoreleasePoolPush();
-    v39 = *(a1 + 32);
-    v40 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+    v37 = objc_autoreleasePoolPush();
+    v38 = *(a1 + 32);
+    v39 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
     {
       HMFGetLogIdentifier();
-      v41 = v44 = v38;
+      v40 = v43 = v37;
       *buf = 138543362;
-      v50 = v41;
-      _os_log_impl(&dword_2531F8000, v40, OS_LOG_TYPE_DEFAULT, "%{public}@Missing session data", buf, 0xCu);
+      v49 = v40;
+      _os_log_impl(&dword_2531F8000, v39, OS_LOG_TYPE_DEFAULT, "%{public}@Missing session data", buf, 0xCu);
 
-      v38 = v44;
+      v37 = v43;
     }
 
-    objc_autoreleasePoolPop(v38);
-    v42 = *(a1 + 32);
-    v43 = [MEMORY[0x277CCA9B8] hmErrorWithCode:56];
-    [v42 _closeWithError:v43];
+    objc_autoreleasePoolPop(v37);
+    v41 = *(a1 + 32);
+    v42 = [MEMORY[0x277CCA9B8] hmErrorWithCode:56];
+    [v41 _closeWithError:v42];
   }
 
-  if (v37)
+  if (v36)
   {
 LABEL_6:
     [*(a1 + 40) end];
   }
 
 LABEL_18:
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (void)__registerForMessages
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   messageDispatcher = [(HMDDeviceSetupSession *)self messageDispatcher];
   v4 = [HMDXPCMessagePolicy policyWithEntitlements:5];
   v5 = *MEMORY[0x277CCFC90];
-  v11[0] = v4;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+  v10[0] = v4;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
   [messageDispatcher registerForMessage:v5 receiver:self policies:v6 selector:sel__handleClose_];
 
   v7 = *MEMORY[0x277CCFCB8];
-  v10 = v4;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v10 count:1];
+  v9 = v4;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v9 count:1];
   [messageDispatcher registerForMessage:v7 receiver:self policies:v8 selector:sel__handleReceiveData_];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)messageDispatcher
@@ -729,7 +716,7 @@ LABEL_18:
 
 - (HMDDeviceSetupSession)initWithIdentifier:(id)identifier role:(int64_t)role homeManager:(id)manager upSecondsFactory:(id)factory userDefaults:(id)defaults
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   managerCopy = manager;
   factoryCopy = factory;
@@ -742,7 +729,7 @@ LABEL_18:
     {
       v37 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v46 = v37;
+      v45 = v37;
       v38 = "%{public}@Identifier is a required parameter";
 LABEL_10:
       _os_log_impl(&dword_2531F8000, v36, OS_LOG_TYPE_INFO, v38, buf, 0xCu);
@@ -763,7 +750,7 @@ LABEL_11:
     {
       v37 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v46 = v37;
+      v45 = v37;
       v38 = "%{public}@Home manager is a required parameter";
       goto LABEL_10;
     }
@@ -771,14 +758,14 @@ LABEL_11:
     goto LABEL_11;
   }
 
-  v44.receiver = self;
-  v44.super_class = HMDDeviceSetupSession;
-  v16 = [(HMDDeviceSetupSession *)&v44 init];
+  v43.receiver = self;
+  v43.super_class = HMDDeviceSetupSession;
+  v16 = [(HMDDeviceSetupSession *)&v43 init];
   v17 = v16;
   if (v16)
   {
     v16->_lock._os_unfair_lock_opaque = 0;
-    v18 = [identifierCopy copy];
+    v18 = objc_msgSend_copy(identifierCopy);
     identifier = v17->_identifier;
     v17->_identifier = v18;
 
@@ -827,7 +814,6 @@ LABEL_11:
   selfCopy = self;
 LABEL_15:
 
-  v42 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -869,12 +855,11 @@ LABEL_15:
 
 uint64_t __36__HMDDeviceSetupSession_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v21;
-  logCategory__hmf_once_v21 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v21;
+  logCategory__hmf_once_v21 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (BOOL)isRoleSupported:(int64_t)supported

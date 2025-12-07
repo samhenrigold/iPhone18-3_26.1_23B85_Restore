@@ -54,7 +54,7 @@
 
 void __51__HMDIDSFirewallManagerContext_addFirewallEntries___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -65,19 +65,17 @@ void __51__HMDIDSFirewallManagerContext_addFirewallEntries___block_invoke(uint64
     {
       v7 = HMFGetLogIdentifier();
       v8 = *(a1 + 40);
-      v10 = 138543875;
-      v11 = v7;
-      v12 = 2117;
-      v13 = v8;
-      v14 = 2112;
-      v15 = v3;
-      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to add firewall entries: %{sensitive}@ with error: %@", &v10, 0x20u);
+      v9 = 138543875;
+      v10 = v7;
+      v11 = 2117;
+      v12 = v8;
+      v13 = 2112;
+      v14 = v3;
+      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to add firewall entries: %{sensitive}@ with error: %@", &v9, 0x20u);
     }
 
     objc_autoreleasePoolPop(v4);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)replaceFireWallEntries:(id)entries
@@ -96,7 +94,7 @@ void __51__HMDIDSFirewallManagerContext_addFirewallEntries___block_invoke(uint64
 
 void __55__HMDIDSFirewallManagerContext_replaceFireWallEntries___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -107,19 +105,17 @@ void __55__HMDIDSFirewallManagerContext_replaceFireWallEntries___block_invoke(ui
     {
       v7 = HMFGetLogIdentifier();
       v8 = *(a1 + 40);
-      v10 = 138543875;
-      v11 = v7;
-      v12 = 2117;
-      v13 = v8;
-      v14 = 2112;
-      v15 = v3;
-      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to replace firewall entries: %{sensitive}@ with error: %@", &v10, 0x20u);
+      v9 = 138543875;
+      v10 = v7;
+      v11 = 2117;
+      v12 = v8;
+      v13 = 2112;
+      v14 = v3;
+      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to replace firewall entries: %{sensitive}@ with error: %@", &v9, 0x20u);
     }
 
     objc_autoreleasePoolPop(v4);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleHomeUserRemovedNotification:(id)notification
@@ -138,7 +134,7 @@ void __55__HMDIDSFirewallManagerContext_replaceFireWallEntries___block_invoke(ui
 
 void __66__HMDIDSFirewallManagerContext_handleHomeUserRemovedNotification___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) userInfo];
   v3 = [v2 objectForKey:@"HMDUserNotificationKey"];
 
@@ -161,18 +157,16 @@ void __66__HMDIDSFirewallManagerContext_handleHomeUserRemovedNotification___bloc
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v12 = 138543619;
-    v13 = v9;
-    v14 = 2117;
-    v15 = v5;
-    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Handling removed user: %{sensitive}@", &v12, 0x16u);
+    v11 = 138543619;
+    v12 = v9;
+    v13 = 2117;
+    v14 = v5;
+    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Handling removed user: %{sensitive}@", &v11, 0x16u);
   }
 
   objc_autoreleasePoolPop(v6);
   v10 = [*(a1 + 40) firewallManager];
   [v10 handleDidRemoveUser];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleHomeUserAddedNotification:(id)notification
@@ -191,7 +185,7 @@ void __66__HMDIDSFirewallManagerContext_handleHomeUserRemovedNotification___bloc
 
 void __64__HMDIDSFirewallManagerContext_handleHomeUserAddedNotification___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) userInfo];
   v3 = [v2 objectForKey:@"HMDUserNotificationKey"];
 
@@ -214,11 +208,11 @@ void __64__HMDIDSFirewallManagerContext_handleHomeUserAddedNotification___block_
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v17 = 138543618;
-    v18 = v9;
-    v19 = 2112;
-    v20 = v5;
-    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Handling added user: %@", &v17, 0x16u);
+    v16 = 138543618;
+    v17 = v9;
+    v18 = 2112;
+    v19 = v5;
+    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Handling added user: %@", &v16, 0x16u);
   }
 
   objc_autoreleasePoolPop(v6);
@@ -237,17 +231,15 @@ void __64__HMDIDSFirewallManagerContext_handleHomeUserAddedNotification___block_
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       v15 = HMFGetLogIdentifier();
-      v17 = 138543619;
-      v18 = v15;
-      v19 = 2117;
-      v20 = v5;
-      _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_ERROR, "%{public}@User does not have userID. User: %{sensitive}@", &v17, 0x16u);
+      v16 = 138543619;
+      v17 = v15;
+      v18 = 2117;
+      v19 = v5;
+      _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_ERROR, "%{public}@User does not have userID. User: %{sensitive}@", &v16, 0x16u);
     }
 
     objc_autoreleasePoolPop(v12);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleHomeRemovedNotification:(id)notification
@@ -266,7 +258,7 @@ void __64__HMDIDSFirewallManagerContext_handleHomeUserAddedNotification___block_
 
 void __62__HMDIDSFirewallManagerContext_handleHomeRemovedNotification___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) userInfo];
   v3 = [v2 objectForKey:@"HMDHomeNotificationKey"];
 
@@ -289,18 +281,16 @@ void __62__HMDIDSFirewallManagerContext_handleHomeRemovedNotification___block_in
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v12 = 138543618;
-    v13 = v9;
-    v14 = 2112;
-    v15 = v5;
-    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Received notification home removed: %@", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = v9;
+    v13 = 2112;
+    v14 = v5;
+    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Received notification home removed: %@", &v11, 0x16u);
   }
 
   objc_autoreleasePoolPop(v6);
   v10 = [*(a1 + 40) firewallManager];
   [v10 handleDidRemoveHome];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleHomeAddedNotification:(id)notification
@@ -322,18 +312,18 @@ void __60__HMDIDSFirewallManagerContext_handleHomeAddedNotification___block_invo
 
 - (void)registerForHomeUserNotifications
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   homeManager = [(HMDIDSFirewallManagerContext *)self homeManager];
   v4 = homeManager;
   if (homeManager)
   {
     homes = [homeManager homes];
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __64__HMDIDSFirewallManagerContext_registerForHomeUserNotifications__block_invoke;
-    v11[3] = &unk_278682980;
-    v11[4] = self;
-    [homes na_each:v11];
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __64__HMDIDSFirewallManagerContext_registerForHomeUserNotifications__block_invoke;
+    v10[3] = &unk_278682980;
+    v10[4] = self;
+    [homes na_each:v10];
   }
 
   else
@@ -345,14 +335,12 @@ void __60__HMDIDSFirewallManagerContext_handleHomeAddedNotification___block_invo
     {
       v9 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v13 = v9;
+      v12 = v9;
       _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@Attempted to register for home user notifications for HMDIDSFirewallManagerContext with nil homeManager", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __64__HMDIDSFirewallManagerContext_registerForHomeUserNotifications__block_invoke(uint64_t a1, void *a2)
@@ -368,7 +356,7 @@ void __64__HMDIDSFirewallManagerContext_registerForHomeUserNotifications__block_
 
 - (void)configure
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   homeManager = [(HMDIDSFirewallManagerContext *)self homeManager];
   if (homeManager)
   {
@@ -389,15 +377,13 @@ void __64__HMDIDSFirewallManagerContext_registerForHomeUserNotifications__block_
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       v9 = HMFGetLogIdentifier();
-      v11 = 138543362;
-      v12 = v9;
-      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@Attempted to configure HMDIDSFirewallManagerContext with nil homeManager", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = v9;
+      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@Attempted to configure HMDIDSFirewallManagerContext with nil homeManager", &v10, 0xCu);
     }
 
     objc_autoreleasePoolPop(v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDIDSFirewallManagerContext)initWithHomeManager:(id)manager IDSFirewall:(id)firewall notificationCenter:(id)center workQueue:(id)queue
@@ -435,10 +421,9 @@ void __64__HMDIDSFirewallManagerContext_registerForHomeUserNotifications__block_
 
 void __43__HMDIDSFirewallManagerContext_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v12_157558;
-  logCategory__hmf_once_v12_157558 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v12_157558;
+  logCategory__hmf_once_v12_157558 = v0;
 }
 
 @end

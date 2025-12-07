@@ -1,12 +1,49 @@
 @interface MSCRODMain
+- (MSCRODMain)initWithArgc:(int)argc argv:(const char *)argv;
 - (id)_safeHandlerForType:(int *)type;
+- (int)getValue:(id *)value forKey:(int)key handlerType:(int)type trusted:(BOOL)trusted;
+- (int)getValue:(id *)value forKey:(int)key withObject:(id)object handlerType:(int)type trusted:(BOOL)trusted;
+- (int)handleEvent:(id)event handlerType:(int)type trusted:(BOOL)trusted;
+- (int)performActionForKey:(int)key handlerType:(int)type trusted:(BOOL)trusted;
+- (int)registerCallbackForKey:(int)key forClientIdentifier:(unsigned int)identifier handlerType:(int)type trusted:(BOOL)trusted;
 - (int)run;
+- (int)setValue:(id)value forKey:(int)key handlerType:(int)type trusted:(BOOL)trusted;
 - (void)_goDogGo:(id)go;
 - (void)dealloc;
 - (void)stop;
 @end
 
 @implementation MSCRODMain
+
+- (MSCRODMain)initWithArgc:(int)argc argv:(const char *)argv
+{
+  v12.receiver = self;
+  v12.super_class = MSCRODMain;
+  v4 = [(MSCRODMain *)&v12 initWithArgc:*&argc argv:argv];
+  if (v4)
+  {
+    v5 = +[SCROServer sharedServer];
+    registerWithMach = [v5 registerWithMach];
+
+    if (!registerWithMach)
+    {
+      v10 = 0;
+      goto LABEL_6;
+    }
+
+    objc_storeStrong(&qword_100019890, v4);
+    v4->_runLoops = malloc_type_calloc(1uLL, 8uLL, 0x2004093837F09uLL);
+    v7 = +[NSNotificationCenter defaultCenter];
+    v8 = kSCROServerTimeoutNotification;
+    v9 = +[SCROServer sharedServer];
+    [v7 addObserver:v4 selector:"_serverTimeoutNotificationHandler:" name:v8 object:v9];
+  }
+
+  v10 = v4;
+LABEL_6:
+
+  return v10;
+}
 
 - (void)dealloc
 {
@@ -150,6 +187,196 @@
   }
 
   CFRunLoopStop(self->_mainRunLoop);
+}
+
+- (int)handleEvent:(id)event handlerType:(int)type trusted:(BOOL)trusted
+{
+  trustedCopy = trusted;
+  eventCopy = event;
+  typeCopy = type;
+  v9 = [(MSCRODMain *)self _safeHandlerForType:&typeCopy];
+  v10 = v9;
+  if (v9)
+  {
+    [v9 lock];
+    if ((v10[OBJC_IVAR___SCROHandler_isInvalid] & 1) == 0)
+    {
+      [eventCopy performWithHandler:v10 trusted:trustedCopy];
+    }
+
+    v11 = 0;
+    [v10 unlock];
+  }
+
+  else
+  {
+    NSLog(@"Invalid handler type: %d sent from client.", typeCopy);
+    v11 = 1;
+  }
+
+  return v11;
+}
+
+- (int)registerCallbackForKey:(int)key forClientIdentifier:(unsigned int)identifier handlerType:(int)type trusted:(BOOL)trusted
+{
+  trustedCopy = trusted;
+  v7 = *&key;
+  typeCopy = type;
+  v8 = [(MSCRODMain *)self _safeHandlerForType:&typeCopy, *&identifier];
+  v9 = v8;
+  if (v8)
+  {
+    [v8 lock];
+    if (*(v9 + OBJC_IVAR___SCROHandler_isInvalid))
+    {
+      v10 = 1;
+    }
+
+    else
+    {
+      v10 = [v9 handleRegisterCallbackForKey:v7 trusted:trustedCopy];
+    }
+
+    [v9 unlock];
+  }
+
+  else
+  {
+    NSLog(@"Invalid handler type: %d sent from client.", typeCopy);
+    v10 = 1;
+  }
+
+  return v10;
+}
+
+- (int)setValue:(id)value forKey:(int)key handlerType:(int)type trusted:(BOOL)trusted
+{
+  trustedCopy = trusted;
+  v8 = *&key;
+  valueCopy = value;
+  typeCopy = type;
+  v11 = [(MSCRODMain *)self _safeHandlerForType:&typeCopy];
+  v12 = v11;
+  if (v11)
+  {
+    [v11 lock];
+    if (*(v12 + OBJC_IVAR___SCROHandler_isInvalid))
+    {
+      v13 = 1;
+    }
+
+    else
+    {
+      v13 = [v12 handleSetValue:valueCopy forKey:v8 trusted:trustedCopy];
+    }
+
+    [v12 unlock];
+  }
+
+  else
+  {
+    NSLog(@"Invalid handler type: %d sent from client.", typeCopy);
+    v13 = 1;
+  }
+
+  return v13;
+}
+
+- (int)getValue:(id *)value forKey:(int)key handlerType:(int)type trusted:(BOOL)trusted
+{
+  trustedCopy = trusted;
+  v7 = *&key;
+  typeCopy = type;
+  v9 = [(MSCRODMain *)self _safeHandlerForType:&typeCopy];
+  v10 = v9;
+  if (v9)
+  {
+    [v9 lock];
+    if (*(v10 + OBJC_IVAR___SCROHandler_isInvalid))
+    {
+      v11 = 1;
+    }
+
+    else
+    {
+      v11 = [v10 handleGetValue:value forKey:v7 trusted:trustedCopy];
+    }
+
+    [v10 unlock];
+  }
+
+  else
+  {
+    NSLog(@"Invalid handler type: %d sent from client.", typeCopy);
+    v11 = 1;
+  }
+
+  return v11;
+}
+
+- (int)getValue:(id *)value forKey:(int)key withObject:(id)object handlerType:(int)type trusted:(BOOL)trusted
+{
+  trustedCopy = trusted;
+  v9 = *&key;
+  objectCopy = object;
+  typeCopy = type;
+  v13 = [(MSCRODMain *)self _safeHandlerForType:&typeCopy];
+  v14 = v13;
+  if (v13)
+  {
+    [v13 lock];
+    if (*(v14 + OBJC_IVAR___SCROHandler_isInvalid))
+    {
+      v15 = 1;
+    }
+
+    else
+    {
+      v15 = [v14 handleGetValue:value forKey:v9 withObject:objectCopy trusted:trustedCopy];
+    }
+
+    [v14 unlock];
+  }
+
+  else
+  {
+    NSLog(@"Invalid handler type: %d sent from client.", typeCopy);
+    v15 = 1;
+  }
+
+  return v15;
+}
+
+- (int)performActionForKey:(int)key handlerType:(int)type trusted:(BOOL)trusted
+{
+  trustedCopy = trusted;
+  v6 = *&key;
+  typeCopy = type;
+  v7 = [(MSCRODMain *)self _safeHandlerForType:&typeCopy];
+  v8 = v7;
+  if (v7)
+  {
+    [v7 lock];
+    if (*(v8 + OBJC_IVAR___SCROHandler_isInvalid))
+    {
+      v9 = 1;
+    }
+
+    else
+    {
+      v9 = [v8 handlePerformActionForKey:v6 trusted:trustedCopy];
+    }
+
+    [v8 unlock];
+  }
+
+  else
+  {
+    NSLog(@"Invalid handler type: %d sent from client.", typeCopy);
+    v9 = 1;
+  }
+
+  return v9;
 }
 
 @end

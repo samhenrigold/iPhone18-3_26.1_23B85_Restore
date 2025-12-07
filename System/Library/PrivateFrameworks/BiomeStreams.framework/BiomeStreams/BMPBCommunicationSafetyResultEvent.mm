@@ -1,6 +1,9 @@
 @interface BMPBCommunicationSafetyResultEvent
 - (BMPBCommunicationSafetyResultEvent)initWithData:(id)data skipImage:(BOOL)image;
 - (BOOL)isEqual:(id)equal;
+- (id)communicationSafetyResultContentTypeAsString:(int)string;
+- (id)communicationSafetyResultEventDirectionAsString:(int)string;
+- (id)communicationSafetyResultEventTypeAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
@@ -58,6 +61,21 @@
   *&self->_has = *&self->_has & 0xFB | v3;
 }
 
+- (id)communicationSafetyResultEventDirectionAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E6E544F8[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsCommunicationSafetyResultEventDirection:(id)direction
 {
   directionCopy = direction;
@@ -110,6 +128,21 @@
   }
 
   *&self->_has = *&self->_has & 0xF7 | v3;
+}
+
+- (id)communicationSafetyResultEventTypeAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E6E54510[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsCommunicationSafetyResultEventType:(id)type
@@ -169,6 +202,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)communicationSafetyResultContentTypeAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E6E54530[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsCommunicationSafetyResultContentType:(id)type
@@ -366,11 +414,10 @@ LABEL_23:
 
 - (void)writeTo:(id)to
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if (*&self->_has)
   {
-    absoluteTimestamp = self->_absoluteTimestamp;
     PBDataWriterWriteDoubleField();
   }
 
@@ -387,7 +434,6 @@ LABEL_23:
   has = self->_has;
   if ((has & 4) != 0)
   {
-    communicationSafetyResultEventDirection = self->_communicationSafetyResultEventDirection;
     PBDataWriterWriteInt32Field();
     has = self->_has;
     if ((has & 8) == 0)
@@ -407,43 +453,40 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  communicationSafetyResultEventType = self->_communicationSafetyResultEventType;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 2) != 0)
   {
 LABEL_10:
-    communicationSafetyResultContentType = self->_communicationSafetyResultContentType;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_11:
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
-  v18 = 0u;
-  v8 = self->_contactHandles;
-  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
-  if (v9)
+  v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v6 = self->_contactHandles;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v7)
   {
-    v10 = v9;
-    v11 = *v18;
+    v8 = v7;
+    v9 = *v12;
     do
     {
-      for (i = 0; i != v10; ++i)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v18 != v11)
+        if (*v12 != v9)
         {
-          objc_enumerationMutation(v8);
+          objc_enumerationMutation(v6);
         }
 
-        v13 = *(*(&v17 + 1) + 8 * i);
         PBDataWriterWriteStringField();
       }
 
-      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
-    while (v10);
+    while (v8);
   }
 
   if (self->_contentId)
@@ -480,8 +523,6 @@ LABEL_11:
   {
     PBDataWriterWriteStringField();
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)copyTo:(id)to
@@ -602,7 +643,7 @@ LABEL_11:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = v5;
   if (*&self->_has)
@@ -652,30 +693,30 @@ LABEL_6:
   }
 
 LABEL_7:
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
   v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   v12 = self->_contactHandles;
-  v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v34 objects:v38 count:16];
+  v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v33 objects:v37 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v35;
+    v15 = *v34;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v35 != v15)
+        if (*v34 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = [*(*(&v34 + 1) + 8 * i) copyWithZone:{zone, v34}];
+        v17 = [*(*(&v33 + 1) + 8 * i) copyWithZone:{zone, v33}];
         [v6 addContactHandles:v17];
       }
 
-      v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v34 objects:v38 count:16];
+      v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v33 objects:v37 count:16];
     }
 
     while (v14);
@@ -709,7 +750,6 @@ LABEL_7:
   v31 = *(v6 + 72);
   *(v6 + 72) = v30;
 
-  v32 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -721,7 +761,6 @@ LABEL_7:
     goto LABEL_42;
   }
 
-  v5 = *(equalCopy + 112);
   if (*&self->_has)
   {
     if ((*(equalCopy + 112) & 1) == 0 || self->_absoluteTimestamp != *(equalCopy + 1))
@@ -733,7 +772,7 @@ LABEL_7:
   else if (*(equalCopy + 112))
   {
 LABEL_42:
-    v17 = 0;
+    v15 = 0;
     goto LABEL_43;
   }
 
@@ -752,7 +791,6 @@ LABEL_42:
     }
   }
 
-  v8 = *(equalCopy + 112);
   if ((*&self->_has & 4) != 0)
   {
     if ((*(equalCopy + 112) & 4) == 0 || self->_communicationSafetyResultEventDirection != *(equalCopy + 7))
@@ -855,17 +893,17 @@ LABEL_42:
   conversationURL = self->_conversationURL;
   if (conversationURL | *(equalCopy + 9))
   {
-    v17 = [(NSString *)conversationURL isEqual:?];
+    v15 = [(NSString *)conversationURL isEqual:?];
   }
 
   else
   {
-    v17 = 1;
+    v15 = 1;
   }
 
 LABEL_43:
 
-  return v17;
+  return v15;
 }
 
 - (unint64_t)hash
@@ -954,7 +992,7 @@ LABEL_16:
 
 - (void)mergeFrom:(id)from
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   fromCopy = from;
   v5 = fromCopy;
   if (fromCopy[14])
@@ -1006,29 +1044,29 @@ LABEL_10:
   }
 
 LABEL_11:
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v7 = *(v5 + 5);
-  v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v14;
+    v10 = *v13;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v14 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        [(BMPBCommunicationSafetyResultEvent *)self addContactHandles:*(*(&v13 + 1) + 8 * i), v13];
+        [(BMPBCommunicationSafetyResultEvent *)self addContactHandles:*(*(&v12 + 1) + 8 * i), v12];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v9);
@@ -1068,8 +1106,6 @@ LABEL_11:
   {
     [(BMPBCommunicationSafetyResultEvent *)self setConversationURL:?];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 @end

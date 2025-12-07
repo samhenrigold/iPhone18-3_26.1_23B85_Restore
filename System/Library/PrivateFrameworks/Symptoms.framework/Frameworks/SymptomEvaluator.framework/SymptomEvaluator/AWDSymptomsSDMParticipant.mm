@@ -162,7 +162,6 @@ LABEL_10:
   toCopy = to;
   if ((*&self->_has & 4) != 0)
   {
-    participationDelta = self->_participationDelta;
     PBDataWriterWriteUint64Field();
   }
 
@@ -174,7 +173,6 @@ LABEL_10:
   has = self->_has;
   if ((has & 8) != 0)
   {
-    periodDuration = self->_periodDuration;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 2) == 0)
@@ -194,7 +192,6 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  dlThroughputBytesPerSecond = self->_dlThroughputBytesPerSecond;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -209,12 +206,10 @@ LABEL_8:
   }
 
 LABEL_15:
-  ulThroughputBytesPerSecond = self->_ulThroughputBytesPerSecond;
   PBDataWriterWriteUint64Field();
   if (*&self->_has)
   {
 LABEL_9:
-    additionalFlags = self->_additionalFlags;
     PBDataWriterWriteUint64Field();
   }
 
@@ -360,7 +355,6 @@ LABEL_7:
   }
 
   has = self->_has;
-  v6 = *(equalCopy + 56);
   if ((has & 4) != 0)
   {
     if ((*(equalCopy + 56) & 4) == 0 || self->_participationDelta != *(equalCopy + 3))
@@ -380,7 +374,7 @@ LABEL_7:
     if (![(NSString *)name isEqual:?])
     {
 LABEL_29:
-      v8 = 0;
+      v7 = 0;
       goto LABEL_30;
     }
 
@@ -426,7 +420,7 @@ LABEL_29:
     goto LABEL_29;
   }
 
-  v8 = (*(equalCopy + 56) & 1) == 0;
+  v7 = (*(equalCopy + 56) & 1) == 0;
   if (has)
   {
     if ((*(equalCopy + 56) & 1) == 0 || self->_additionalFlags != *(equalCopy + 1))
@@ -434,12 +428,12 @@ LABEL_29:
       goto LABEL_29;
     }
 
-    v8 = 1;
+    v7 = 1;
   }
 
 LABEL_30:
 
-  return v8;
+  return v7;
 }
 
 - (unint64_t)hash

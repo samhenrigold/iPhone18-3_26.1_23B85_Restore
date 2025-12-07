@@ -1,13 +1,13 @@
-id MegaWiFiDELog()
+id MegaWiFiDELog(uint64_t a1)
 {
   if (qword_10000C358 != -1)
   {
     sub_1000032D0();
   }
 
-  v1 = qword_10000C350;
+  v2 = qword_10000C350;
 
-  return v1;
+  return v2;
 }
 
 void sub_100000E34(id a1)
@@ -17,9 +17,9 @@ void sub_100000E34(id a1)
   _objc_release_x1();
 }
 
-void sub_1000011B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000011B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -164,7 +164,7 @@ void sub_1000030A8()
   v0 = v1[0];
   if (!qword_10000C368)
   {
-    v0 = abort_report_np();
+    v0 = abort_report_np("%s", v1[0]);
     goto LABEL_7;
   }
 
@@ -177,7 +177,6 @@ LABEL_7:
 
 uint64_t sub_1000031A4(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_10000C368 = result;
   return result;
@@ -197,10 +196,11 @@ Class sub_100003218(uint64_t a1)
   return result;
 }
 
-void sub_100003294(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100003294(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0x1Cu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x1Cu);
 }
 
 void sub_1000032B0(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
@@ -220,9 +220,10 @@ void sub_1000032E4()
 
 void sub_100003368()
 {
+  v6 = 136446722;
   sub_100003284();
   sub_100003270();
-  sub_100003294(&_mh_execute_header, v0, v1, "%{public}s::%d: Not a plist, skipping: %@", v2, v3, v4, v5, 2u);
+  sub_100003294(&_mh_execute_header, v0, v1, "%{public}s::%d: Not a plist, skipping: %@", v2, v3, v4, v5, v6);
 }
 
 void sub_1000033E4()
@@ -237,16 +238,18 @@ void sub_1000033E4()
 
 void sub_100003478()
 {
+  v6 = 136446722;
   sub_100003284();
   sub_100003270();
-  sub_100003294(&_mh_execute_header, v0, v1, "%{public}s::%d: No filename for plist, skipping: %@", v2, v3, v4, v5, 2u);
+  sub_100003294(&_mh_execute_header, v0, v1, "%{public}s::%d: No filename for plist, skipping: %@", v2, v3, v4, v5, v6);
 }
 
 void sub_1000034F4()
 {
+  v6 = 136446722;
   sub_100003284();
   sub_100003270();
-  sub_100003294(&_mh_execute_header, v0, v1, "%{public}s::%d: No data in plist, skipping: %@", v2, v3, v4, v5, 2u);
+  sub_100003294(&_mh_execute_header, v0, v1, "%{public}s::%d: No data in plist, skipping: %@", v2, v3, v4, v5, v6);
 }
 
 void sub_100003570()

@@ -22,7 +22,7 @@
     v33 = v4;
     [v4 setImage:v34];
     v31 = [MEMORY[0x1E696AAB0] attributedStringWithAttachment:v4];
-    v7 = PRBundle();
+    v7 = PRBundle(v31);
     v8 = [v7 localizedStringForKey:@"EDIT_COMPLICATIONS_PROMPT" value:&stru_1F1C13D90 table:@"PosterKit"];
     localizedUppercaseString = [v8 localizedUppercaseString];
 

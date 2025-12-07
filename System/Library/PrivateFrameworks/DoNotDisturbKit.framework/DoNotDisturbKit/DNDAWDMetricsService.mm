@@ -84,10 +84,7 @@
 uint64_t __30__DNDAWDMetricsService_resume__block_invoke(uint64_t a1)
 {
   [*(*(a1 + 32) + 16) addStateUpdateListener:*(a1 + 32) withCompletionHandler:&__block_literal_global_2];
-  v2 = [*(*(a1 + 32) + 16) queryCurrentStateWithError:0];
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 24);
-  *(v3 + 24) = v2;
+  *(*(a1 + 32) + 24) = [*(*(a1 + 32) + 16) queryCurrentStateWithError:0];
 
   return MEMORY[0x2821F96F8]();
 }

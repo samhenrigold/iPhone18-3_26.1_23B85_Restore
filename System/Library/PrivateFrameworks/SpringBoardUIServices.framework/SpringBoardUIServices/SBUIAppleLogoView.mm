@@ -31,7 +31,7 @@
     v20 = layer2;
     if (layer2)
     {
-      [layer2 transform];
+      objc_msgSend_transform(layer2);
     }
 
     else

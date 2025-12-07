@@ -133,7 +133,7 @@ uint64_t __74__BWInferenceResultRingBuffers_retrieveInferencesForType_beginning_
       goto LABEL_8;
     }
 
-    [v11 firstTime];
+    objc_msgSend_firstTime(v11);
     *&out->var0 = v16;
     out->var3 = v17;
   }
@@ -152,7 +152,7 @@ LABEL_8:
     goto LABEL_9;
   }
 
-  [v12 lastTime];
+  objc_msgSend_lastTime(v12);
   *&lastOut->var0 = v16;
   v13 = v17;
 LABEL_9:
@@ -179,7 +179,7 @@ LABEL_10:
   FigSimpleMutexUnlock();
 }
 
-uint64_t __71__BWInferenceResultRingBuffers_insertInferenceResultsFromSampleBuffer___block_invoke(uint64_t a1, void *a2, void *a3)
+void *__71__BWInferenceResultRingBuffers_insertInferenceResultsFromSampleBuffer___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   result = BWInferenceGetAttachedInferenceResult(*(a1 + 32), [a2 longValue]);
   if (result)
@@ -189,7 +189,7 @@ uint64_t __71__BWInferenceResultRingBuffers_insertInferenceResultsFromSampleBuff
     {
       if (a3)
       {
-        [a3 lastTime];
+        objc_msgSend_lastTime(a3);
       }
 
       else
@@ -197,14 +197,14 @@ uint64_t __71__BWInferenceResultRingBuffers_insertInferenceResultsFromSampleBuff
         memset(&time1, 0, sizeof(time1));
       }
 
-      [v5 timestamp];
+      objc_msgSend_timestamp(v5);
       if ((CMTimeCompare(&time1, &v6) & 0x80000000) == 0)
       {
         [a3 clear];
       }
     }
 
-    [v5 timestamp];
+    objc_msgSend_timestamp(v5);
     return [a3 appendObject:v5 forTime:&time1];
   }
 

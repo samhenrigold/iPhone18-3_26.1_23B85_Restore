@@ -101,10 +101,7 @@ uint64_t __62__HUAccessoryTileCellAccessibility_accessibilityCustomActions__bloc
   v2 = *(a1 + 32);
   [v2 accessibilityActivationPoint];
   [v2 convertPoint:0 fromView:?];
-  v3 = [v2 tappableAreaForPoint:?];
-  v4 = *(*(a1 + 40) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  *(*(*(a1 + 40) + 8) + 40) = [v2 tappableAreaForPoint:?];
 
   return MEMORY[0x2A1C71028]();
 }

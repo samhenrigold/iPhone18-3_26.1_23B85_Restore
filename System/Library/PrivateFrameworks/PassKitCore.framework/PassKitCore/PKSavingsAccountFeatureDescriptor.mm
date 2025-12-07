@@ -125,7 +125,7 @@ PKAccountLocation *__56__PKSavingsAccountFeatureDescriptor_initWithDictionary___
   v3 = [MEMORY[0x1E696AD60] stringWithFormat:@"<%@: %p ", objc_opt_class(), self];;
   identifier = [(PKAccountFeatureDescriptor *)self identifier];
   [v3 appendFormat:@"identifier: '%@'; ", identifier];
-  if (([identifier isEqualToString:@"scheduleOneTimeDeposit"] & 1) != 0 || objc_msgSend(identifier, "isEqualToString:", @"scheduleOneTimeWithdrawal"))
+  if ((objc_msgSend_isEqualToString_(identifier) & 1) != 0 || objc_msgSend_isEqualToString_(identifier))
   {
     minimumAmount = [(PKAccountFeatureDescriptor *)self minimumAmount];
     [v3 appendFormat:@"minimumAmount: '%@'; ", minimumAmount];
@@ -149,7 +149,7 @@ PKAccountLocation *__56__PKSavingsAccountFeatureDescriptor_initWithDictionary___
     goto LABEL_4;
   }
 
-  if ([identifier isEqualToString:@"addFundingSource"])
+  if (objc_msgSend_isEqualToString_(identifier))
   {
     fundingSourceTermsIdentifier = [(PKAccountFeatureDescriptor *)self fundingSourceTermsIdentifier];
     [v3 appendFormat:@"fundingSourceTermsIdentifier: '%@'; ", fundingSourceTermsIdentifier];
@@ -158,21 +158,21 @@ LABEL_9:
     goto LABEL_4;
   }
 
-  if ([identifier isEqualToString:@"exportTransactionData"])
+  if (objc_msgSend_isEqualToString_(identifier))
   {
     [v3 appendFormat:@"supportedFileFormatsForTransactionData: '%@'; ", self->_supportedFileFormatsForTransactionData];
   }
 
   else
   {
-    if ([identifier isEqualToString:@"addBeneficiaries"])
+    if (objc_msgSend_isEqualToString_(identifier))
     {
       fundingSourceTermsIdentifier = PKAccountAddBeneficiariesContactMethodToString(self->_contactMethod);
       [v3 appendFormat:@"contactMethod: '%@'", fundingSourceTermsIdentifier];
       goto LABEL_9;
     }
 
-    if ([identifier isEqualToString:@"FDICBehaviors"])
+    if (objc_msgSend_isEqualToString_(identifier))
     {
       if (self->_showCreditRewardsHubBalance)
       {
@@ -232,7 +232,7 @@ LABEL_9:
       goto LABEL_4;
     }
 
-    if ([identifier isEqualToString:@"accountBalanceEventReporting"])
+    if (objc_msgSend_isEqualToString_(identifier))
     {
       fundingSourceTermsIdentifier = [(PKSavingsAccountFeatureDescriptor *)self accountLocations];
       [v3 appendFormat:@"accountLocations: '%@'", fundingSourceTermsIdentifier];

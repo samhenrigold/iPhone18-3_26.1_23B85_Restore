@@ -5,6 +5,7 @@
 + (id)_getAutoAssetSetInfo:(id)info entries:(id)entries includeAssetVersion:(BOOL)version;
 + (id)_getPersistAssetInfoPath;
 + (id)getPersistedAssetInfo;
++ (void)persistAssetSetInfoConfiguring:(id)configuring entries:(id)entries isEliminating:(BOOL)eliminating reason:(id)reason;
 + (void)persistAssetSetInfoLocked:(id)locked atomicEntries:(id)entries autoAssetSet:(id)set isEliminating:(BOOL)eliminating reason:(id)reason;
 @end
 
@@ -13,14 +14,14 @@
 + (id)_getAutoAssetSetInfo:(id)info entries:(id)entries includeAssetVersion:(BOOL)version
 {
   versionCopy = version;
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   infoCopy = info;
   entriesCopy = entries;
   v9 = 0x1E695D000uLL;
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   assetSetIdentifier = [infoCopy assetSetIdentifier];
-  v31 = dictionary;
-  v32 = infoCopy;
+  v30 = dictionary;
+  v31 = infoCopy;
   if (assetSetIdentifier)
   {
     assetSetIdentifier2 = [infoCopy assetSetIdentifier];
@@ -33,26 +34,26 @@
   }
 
   v13 = objc_opt_new();
+  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
   obj = entriesCopy;
-  v36 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
-  if (v36)
+  v35 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
+  if (v35)
   {
-    v35 = *v38;
-    v33 = versionCopy;
+    v34 = *v37;
+    v32 = versionCopy;
     do
     {
-      for (i = 0; i != v36; ++i)
+      for (i = 0; i != v35; ++i)
       {
-        if (*v38 != v35)
+        if (*v37 != v34)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v37 + 1) + 8 * i);
+        v15 = *(*(&v36 + 1) + 8 * i);
         dictionary2 = [*(v9 + 3984) dictionary];
         assetSelector = [v15 assetSelector];
         assetSpecifier = [assetSelector assetSpecifier];
@@ -91,7 +92,7 @@ LABEL_14:
           [dictionary3 setObject:v26 forKeyedSubscript:@"assetVersion"];
 
           v13 = v25;
-          versionCopy = v33;
+          versionCopy = v32;
           v9 = 0x1E695D000;
         }
 
@@ -122,84 +123,80 @@ LABEL_20:
         [v13 addObject:dictionary2];
       }
 
-      v36 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
+      v35 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
     }
 
-    while (v36);
+    while (v35);
   }
 
   if ([v13 count])
   {
-    [v31 setObject:v13 forKeyedSubscript:@"autoAssetEntries"];
+    [v30 setObject:v13 forKeyedSubscript:@"autoAssetEntries"];
   }
 
-  v29 = *MEMORY[0x1E69E9840];
-
-  return v31;
+  return v30;
 }
 
 + (id)_getPersistAssetInfoPath
 {
-  v8[2] = *MEMORY[0x1E69E9840];
+  v7[2] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696AEC0];
   v3 = +[UAFCommonUtilities getDefaultStoragePath];
-  v8[0] = v3;
-  v8[1] = @"history";
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:2];
+  v7[0] = v3;
+  v7[1] = @"history";
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
   v5 = [v2 pathWithComponents:v4];
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 + (id)getPersistedAssetInfo
 {
-  v42[1] = *MEMORY[0x1E69E9840];
+  v41[1] = *MEMORY[0x1E69E9840];
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   array = [MEMORY[0x1E695DF70] array];
   v4 = +[UAFAutoAssetHistory _getPersistAssetInfoPath];
   if ([defaultManager fileExistsAtPath:v4])
   {
-    v25 = v4;
+    v24 = v4;
     [MEMORY[0x1E695DFF8] fileURLWithPath:v4];
-    v37 = 0;
-    v24 = v26 = defaultManager;
+    v36 = 0;
+    v23 = v25 = defaultManager;
     v5 = [defaultManager contentsOfDirectoryAtURL:? includingPropertiesForKeys:? options:? error:?];
-    v6 = v37;
-    v29 = [MEMORY[0x1E696AEC0] stringWithFormat:@".%@.%@", @"cur", @"json"];
-    v27 = [MEMORY[0x1E696AEC0] stringWithFormat:@".%@.%@", @"prev", @"json"];
+    v6 = v36;
+    v28 = [MEMORY[0x1E696AEC0] stringWithFormat:@".%@.%@", @"cur", @"json"];
+    v26 = [MEMORY[0x1E696AEC0] stringWithFormat:@".%@.%@", @"prev", @"json"];
+    v32 = 0u;
     v33 = 0u;
     v34 = 0u;
     v35 = 0u;
-    v36 = 0u;
     obj = v5;
-    v7 = [obj countByEnumeratingWithState:&v33 objects:v40 count:16];
+    v7 = [obj countByEnumeratingWithState:&v32 objects:v39 count:16];
     if (v7)
     {
       v8 = v7;
-      v30 = *v34;
+      v29 = *v33;
       v9 = array;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v34 != v30)
+          if (*v33 != v29)
           {
             objc_enumerationMutation(obj);
           }
 
-          v11 = *(*(&v33 + 1) + 8 * i);
+          v11 = *(*(&v32 + 1) + 8 * i);
           lastPathComponent = [v11 lastPathComponent];
           if (lastPathComponent)
           {
             v13 = lastPathComponent;
-            if (([(__CFString *)lastPathComponent hasSuffix:v29]& 1) != 0)
+            if (([(__CFString *)lastPathComponent hasSuffix:v28]& 1) != 0)
             {
               v14 = @"cur";
             }
 
-            else if ([(__CFString *)v13 hasSuffix:v27])
+            else if ([(__CFString *)v13 hasSuffix:v26])
             {
               v14 = @"prev";
             }
@@ -216,9 +213,9 @@ LABEL_20:
             v13 = @"unknown";
           }
 
-          v32 = v6;
-          v15 = [MEMORY[0x1E695DEF0] dataWithContentsOfURL:v11 options:2 error:&v32];
-          v16 = v32;
+          v31 = v6;
+          v15 = [MEMORY[0x1E695DEF0] dataWithContentsOfURL:v11 options:2 error:&v31];
+          v16 = v31;
 
           if (v16 || !v15)
           {
@@ -234,9 +231,9 @@ LABEL_20:
 
           else
           {
-            v31 = 0;
-            v17 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v15 options:0 error:&v31];
-            v6 = v31;
+            v30 = 0;
+            v17 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v15 options:0 error:&v30];
+            v6 = v30;
             if (v6)
             {
               v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"failed to parse data from persisted info URL '%@', err = '%@'", v11, v6];
@@ -246,54 +243,52 @@ LABEL_20:
           }
 
           array = v9;
-          v38[0] = @"assetSetInfo";
-          v38[1] = @"filename";
-          v39[0] = v17;
-          v39[1] = v13;
-          v38[2] = @"history";
-          v39[2] = v14;
-          v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v39 forKeys:v38 count:3];
+          v37[0] = @"assetSetInfo";
+          v37[1] = @"filename";
+          v38[0] = v17;
+          v38[1] = v13;
+          v37[2] = @"history";
+          v38[2] = v14;
+          v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v38 forKeys:v37 count:3];
           [v9 addObject:v20];
         }
 
-        v8 = [obj countByEnumeratingWithState:&v33 objects:v40 count:16];
+        v8 = [obj countByEnumeratingWithState:&v32 objects:v39 count:16];
       }
 
       while (v8);
     }
 
-    v4 = v25;
-    defaultManager = v26;
-    v21 = v24;
+    v4 = v24;
+    defaultManager = v25;
+    v21 = v23;
   }
 
   else
   {
-    v41 = @"error";
+    v40 = @"error";
     v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"no info available, topdir '%@' does not exist", v4];
-    v42[0] = v6;
-    v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v42 forKeys:&v41 count:1];
+    v41[0] = v6;
+    v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v41 forKeys:&v40 count:1];
     [array addObject:v21];
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 
   return array;
 }
 
 + (BOOL)_createHistoryDirIfNeeded:(id)needed error:(id *)error
 {
-  v38[2] = *MEMORY[0x1E69E9840];
+  v35[2] = *MEMORY[0x1E69E9840];
   neededCopy = needed;
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v24 = 0;
-  if (![defaultManager fileExistsAtPath:neededCopy isDirectory:&v24])
+  v21 = 0;
+  if (![defaultManager fileExistsAtPath:neededCopy isDirectory:&v21])
   {
-    v29 = *MEMORY[0x1E696A370];
+    v26 = *MEMORY[0x1E696A370];
     v8 = [MEMORY[0x1E696AD98] numberWithShort:448];
-    v30 = v8;
+    v27 = v8;
     v7 = 1;
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
     v10 = [defaultManager createDirectoryAtPath:neededCopy withIntermediateDirectories:1 attributes:v9 error:error];
 
     if (v10)
@@ -305,34 +300,33 @@ LABEL_20:
     {
       v11 = MEMORY[0x1E696ABC0];
       v12 = UAFErrorCodeAssetHistoryFailedToCreateFile;
-      v13 = *MEMORY[0x1E696A578];
       if (*error)
       {
-        v27[0] = *MEMORY[0x1E696A578];
+        v24[0] = *MEMORY[0x1E696A578];
         neededCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"failed to create UAF history directory path at '%@'", neededCopy];
-        v27[1] = *MEMORY[0x1E696AA08];
-        v28[0] = neededCopy;
-        v28[1] = *error;
-        v15 = MEMORY[0x1E695DF20];
-        v16 = v28;
-        v17 = v27;
+        v24[1] = *MEMORY[0x1E696AA08];
+        v25[0] = neededCopy;
+        v25[1] = *error;
+        v14 = MEMORY[0x1E695DF20];
+        v15 = v25;
+        v16 = v24;
 LABEL_11:
-        v19 = 2;
+        v17 = 2;
 LABEL_20:
-        v21 = [v15 dictionaryWithObjects:v16 forKeys:v17 count:v19];
-        *error = [v11 errorWithDomain:@"com.apple.UnifiedAssetFramework" code:v12 userInfo:v21];
+        v19 = [v14 dictionaryWithObjects:v15 forKeys:v16 count:v17];
+        *error = [v11 errorWithDomain:@"com.apple.UnifiedAssetFramework" code:v12 userInfo:v19];
 
         goto LABEL_21;
       }
 
-      v25 = *MEMORY[0x1E696A578];
+      v22 = *MEMORY[0x1E696A578];
       neededCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"failed to create UAF history directory path at '%@'", neededCopy];
-      v26 = neededCopy;
-      v15 = MEMORY[0x1E695DF20];
-      v16 = &v26;
-      v17 = &v25;
+      v23 = neededCopy;
+      v14 = MEMORY[0x1E695DF20];
+      v15 = &v23;
+      v16 = &v22;
 LABEL_19:
-      v19 = 1;
+      v17 = 1;
       goto LABEL_20;
     }
 
@@ -340,12 +334,12 @@ LABEL_19:
     if (os_log_type_enabled(neededCopy, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v32 = "+[UAFAutoAssetHistory _createHistoryDirIfNeeded:error:]";
-      v33 = 2112;
-      v34 = neededCopy;
-      v20 = "%s failed to create UAF history directory path at '%@'";
+      v29 = "+[UAFAutoAssetHistory _createHistoryDirIfNeeded:error:]";
+      v30 = 2112;
+      v31 = neededCopy;
+      v18 = "%s failed to create UAF history directory path at '%@'";
 LABEL_16:
-      _os_log_error_impl(&dword_1BCF2C000, neededCopy, OS_LOG_TYPE_ERROR, v20, buf, 0x16u);
+      _os_log_error_impl(&dword_1BCF2C000, neededCopy, OS_LOG_TYPE_ERROR, v18, buf, 0x16u);
     }
 
 LABEL_21:
@@ -354,32 +348,31 @@ LABEL_21:
     goto LABEL_22;
   }
 
-  if ((v24 & 1) == 0)
+  if ((v21 & 1) == 0)
   {
     if (error)
     {
       v11 = MEMORY[0x1E696ABC0];
       v12 = UAFErrorCodeAssetHistoryPathExistsIsNotDir;
-      v18 = *MEMORY[0x1E696A578];
       if (*error)
       {
-        v37[0] = *MEMORY[0x1E696A578];
+        v34[0] = *MEMORY[0x1E696A578];
         neededCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"UAF history directory path exists but is not a directory, not preserving info, path is '%@'", neededCopy];
-        v38[0] = neededCopy;
-        v37[1] = *MEMORY[0x1E696AA08];
-        v38[1] = *error;
-        v15 = MEMORY[0x1E695DF20];
-        v16 = v38;
-        v17 = v37;
+        v35[0] = neededCopy;
+        v34[1] = *MEMORY[0x1E696AA08];
+        v35[1] = *error;
+        v14 = MEMORY[0x1E695DF20];
+        v15 = v35;
+        v16 = v34;
         goto LABEL_11;
       }
 
-      v35 = *MEMORY[0x1E696A578];
+      v32 = *MEMORY[0x1E696A578];
       neededCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"UAF history directory path exists but is not a directory, not preserving info, path is '%@'", neededCopy];
-      v36 = neededCopy;
-      v15 = MEMORY[0x1E695DF20];
-      v16 = &v36;
-      v17 = &v35;
+      v33 = neededCopy;
+      v14 = MEMORY[0x1E695DF20];
+      v15 = &v33;
+      v16 = &v32;
       goto LABEL_19;
     }
 
@@ -387,10 +380,10 @@ LABEL_21:
     if (os_log_type_enabled(neededCopy, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v32 = "+[UAFAutoAssetHistory _createHistoryDirIfNeeded:error:]";
-      v33 = 2112;
-      v34 = neededCopy;
-      v20 = "%s UAF history directory path exists but is not a directory, not preserving info, path is '%@'";
+      v29 = "+[UAFAutoAssetHistory _createHistoryDirIfNeeded:error:]";
+      v30 = 2112;
+      v31 = neededCopy;
+      v18 = "%s UAF history directory path exists but is not a directory, not preserving info, path is '%@'";
       goto LABEL_16;
     }
 
@@ -400,13 +393,12 @@ LABEL_21:
   v7 = 1;
 LABEL_22:
 
-  v22 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 + (BOOL)_writeAssetInfoToFile:(id)file data:(id)data filePath:(id)path error:(id *)error
 {
-  v48[2] = *MEMORY[0x1E69E9840];
+  v45[2] = *MEMORY[0x1E69E9840];
   fileCopy = file;
   dataCopy = data;
   pathCopy = path;
@@ -415,36 +407,35 @@ LABEL_22:
   {
     if (error)
     {
-      v23 = MEMORY[0x1E696ABC0];
-      v24 = UAFErrorCodeAssetHistoryFailedToCreateFile;
-      v25 = *MEMORY[0x1E696A578];
+      v22 = MEMORY[0x1E696ABC0];
+      v23 = UAFErrorCodeAssetHistoryFailedToCreateFile;
       if (*error)
       {
-        v47[0] = *MEMORY[0x1E696A578];
+        v44[0] = *MEMORY[0x1E696A578];
         pathCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"failed to open file for persisting info for assetSetIdentifier '%@' at path = '%@'", fileCopy, pathCopy];
-        v47[1] = *MEMORY[0x1E696AA08];
-        v26 = *error;
-        v48[0] = pathCopy;
-        v48[1] = v26;
-        v27 = MEMORY[0x1E695DF20];
-        v28 = v48;
-        v29 = v47;
-        v30 = 2;
+        v44[1] = *MEMORY[0x1E696AA08];
+        v24 = *error;
+        v45[0] = pathCopy;
+        v45[1] = v24;
+        v25 = MEMORY[0x1E695DF20];
+        v26 = v45;
+        v27 = v44;
+        v28 = 2;
       }
 
       else
       {
-        v45 = *MEMORY[0x1E696A578];
+        v42 = *MEMORY[0x1E696A578];
         pathCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"failed to open file for persisting info for assetSetIdentifier '%@' at path = '%@'", fileCopy, pathCopy];
-        v46 = pathCopy;
-        v27 = MEMORY[0x1E695DF20];
-        v28 = &v46;
-        v29 = &v45;
-        v30 = 1;
+        v43 = pathCopy;
+        v25 = MEMORY[0x1E695DF20];
+        v26 = &v43;
+        v27 = &v42;
+        v28 = 1;
       }
 
-      v31 = [v27 dictionaryWithObjects:v28 forKeys:v29 count:v30];
-      *error = [v23 errorWithDomain:@"com.apple.UnifiedAssetFramework" code:v24 userInfo:v31];
+      v29 = [v25 dictionaryWithObjects:v26 forKeys:v27 count:v28];
+      *error = [v22 errorWithDomain:@"com.apple.UnifiedAssetFramework" code:v23 userInfo:v29];
     }
 
     else
@@ -453,11 +444,11 @@ LABEL_22:
       if (os_log_type_enabled(pathCopy, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315650;
-        v40 = "+[UAFAutoAssetHistory _writeAssetInfoToFile:data:filePath:error:]";
-        v41 = 2112;
-        v42 = fileCopy;
-        v43 = 2112;
-        v44 = pathCopy;
+        v37 = "+[UAFAutoAssetHistory _writeAssetInfoToFile:data:filePath:error:]";
+        v38 = 2112;
+        v39 = fileCopy;
+        v40 = 2112;
+        v41 = pathCopy;
         _os_log_error_impl(&dword_1BCF2C000, pathCopy, OS_LOG_TYPE_ERROR, "%s failed to open file for persisting info for assetSetIdentifier '%@' at path = '%@'", buf, 0x20u);
       }
     }
@@ -473,32 +464,31 @@ LABEL_22:
     {
       v15 = MEMORY[0x1E696ABC0];
       v16 = UAFErrorCodeAssetHistoryFailedToCreateFile;
-      v17 = *MEMORY[0x1E696A578];
       if (*error)
       {
-        v37[0] = *MEMORY[0x1E696A578];
+        v34[0] = *MEMORY[0x1E696A578];
         pathCopy2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"failed to write to file for persisting info for assetSetIdentifier '%@' at path = '%@'", fileCopy, pathCopy];
-        v37[1] = *MEMORY[0x1E696AA08];
-        v38[0] = pathCopy2;
-        v38[1] = *error;
-        v19 = MEMORY[0x1E695DF20];
-        v20 = v38;
-        v21 = v37;
-        v22 = 2;
+        v34[1] = *MEMORY[0x1E696AA08];
+        v35[0] = pathCopy2;
+        v35[1] = *error;
+        v18 = MEMORY[0x1E695DF20];
+        v19 = v35;
+        v20 = v34;
+        v21 = 2;
       }
 
       else
       {
         pathCopy2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"failed to write to file for persisting info for assetSetIdentifier '%@' at path = '%@'", fileCopy, pathCopy, *MEMORY[0x1E696A578]];
-        v36 = pathCopy2;
-        v19 = MEMORY[0x1E695DF20];
-        v20 = &v36;
-        v21 = &v35;
-        v22 = 1;
+        v33 = pathCopy2;
+        v18 = MEMORY[0x1E695DF20];
+        v19 = &v33;
+        v20 = &v32;
+        v21 = 1;
       }
 
-      v32 = [v19 dictionaryWithObjects:v20 forKeys:v21 count:v22];
-      *error = [v15 errorWithDomain:@"com.apple.UnifiedAssetFramework" code:v16 userInfo:v32];
+      v30 = [v18 dictionaryWithObjects:v19 forKeys:v20 count:v21];
+      *error = [v15 errorWithDomain:@"com.apple.UnifiedAssetFramework" code:v16 userInfo:v30];
     }
 
     else
@@ -507,11 +497,11 @@ LABEL_22:
       if (os_log_type_enabled(pathCopy2, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315650;
-        v40 = "+[UAFAutoAssetHistory _writeAssetInfoToFile:data:filePath:error:]";
-        v41 = 2112;
-        v42 = fileCopy;
-        v43 = 2112;
-        v44 = pathCopy;
+        v37 = "+[UAFAutoAssetHistory _writeAssetInfoToFile:data:filePath:error:]";
+        v38 = 2112;
+        v39 = fileCopy;
+        v40 = 2112;
+        v41 = pathCopy;
         _os_log_error_impl(&dword_1BCF2C000, pathCopy2, OS_LOG_TYPE_ERROR, "%s failed to write to file for persisting info for assetSetIdentifier '%@' at path = '%@'", buf, 0x20u);
       }
     }
@@ -520,13 +510,12 @@ LABEL_18:
     v13 = 0;
   }
 
-  v33 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
 + (BOOL)_persistAssetSetInfo:(id)info assetSetIdentifier:(id)identifier isEliminating:(BOOL)eliminating jsonData:(id)data error:(id *)error
 {
-  v69[2] = *MEMORY[0x1E69E9840];
+  v66[2] = *MEMORY[0x1E69E9840];
   infoCopy = info;
   identifierCopy = identifier;
   dataCopy = data;
@@ -535,7 +524,7 @@ LABEL_18:
 
   if ([@"configuration" isEqualToString:infoCopy])
   {
-    v49 = infoCopy;
+    v46 = infoCopy;
     v14 = @"uafConfiguredLog";
   }
 
@@ -547,33 +536,32 @@ LABEL_18:
       {
         v25 = MEMORY[0x1E696ABC0];
         v26 = UAFErrorCodeAssetHistoryUnknownType;
-        v27 = *MEMORY[0x1E696A578];
         if (*error)
         {
-          v68[0] = *MEMORY[0x1E696A578];
+          v65[0] = *MEMORY[0x1E696A578];
           infoCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"unknown infoType '%@'", infoCopy];
-          v68[1] = *MEMORY[0x1E696AA08];
-          v69[0] = infoCopy;
-          v69[1] = *error;
-          v29 = MEMORY[0x1E695DF20];
-          v30 = v69;
-          v31 = v68;
-          v32 = 2;
+          v65[1] = *MEMORY[0x1E696AA08];
+          v66[0] = infoCopy;
+          v66[1] = *error;
+          v28 = MEMORY[0x1E695DF20];
+          v29 = v66;
+          v30 = v65;
+          v31 = 2;
         }
 
         else
         {
-          v66 = *MEMORY[0x1E696A578];
+          v63 = *MEMORY[0x1E696A578];
           infoCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"unknown infoType '%@'", infoCopy];
-          v67 = infoCopy;
-          v29 = MEMORY[0x1E695DF20];
-          v30 = &v67;
-          v31 = &v66;
-          v32 = 1;
+          v64 = infoCopy;
+          v28 = MEMORY[0x1E695DF20];
+          v29 = &v64;
+          v30 = &v63;
+          v31 = 1;
         }
 
-        v41 = [v29 dictionaryWithObjects:v30 forKeys:v31 count:v32];
-        *error = [v25 errorWithDomain:@"com.apple.UnifiedAssetFramework" code:v26 userInfo:v41];
+        v39 = [v28 dictionaryWithObjects:v29 forKeys:v30 count:v31];
+        *error = [v25 errorWithDomain:@"com.apple.UnifiedAssetFramework" code:v26 userInfo:v39];
       }
 
       else
@@ -582,9 +570,9 @@ LABEL_18:
         if (os_log_type_enabled(infoCopy, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315394;
-          v57 = "+[UAFAutoAssetHistory _persistAssetSetInfo:assetSetIdentifier:isEliminating:jsonData:error:]";
-          v58 = 2112;
-          v59 = infoCopy;
+          v54 = "+[UAFAutoAssetHistory _persistAssetSetInfo:assetSetIdentifier:isEliminating:jsonData:error:]";
+          v55 = 2112;
+          v56 = infoCopy;
           _os_log_error_impl(&dword_1BCF2C000, infoCopy, OS_LOG_TYPE_ERROR, "%s unknown infoType '%@'", buf, 0x16u);
         }
       }
@@ -597,7 +585,7 @@ LABEL_18:
       goto LABEL_29;
     }
 
-    v49 = infoCopy;
+    v46 = infoCopy;
     v14 = @"uafLockedLog";
   }
 
@@ -609,17 +597,17 @@ LABEL_18:
     v16 = 0;
     v17 = 0;
     v24 = 0;
-    infoCopy = v49;
+    infoCopy = v46;
     goto LABEL_31;
   }
 
-  v48 = identifierCopy;
+  v45 = identifierCopy;
   v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@/%@-%@", v15, identifierCopy, v14];
   v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@.%@.%@", v16, @"cur", @"json"];
   v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@.%@.%@", v16, @"prev", @"json"];
-  v51 = 0;
-  v19 = [UAFCommonUtilities rename:v17 toPath:v18 error:&v51];
-  v20 = v51;
+  v48 = 0;
+  v19 = [UAFCommonUtilities rename:v17 toPath:v18 error:&v48];
+  v20 = v48;
   v21 = v20;
   if (v19)
   {
@@ -631,15 +619,15 @@ LABEL_18:
       if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136316162;
-        v57 = "+[UAFAutoAssetHistory _persistAssetSetInfo:assetSetIdentifier:isEliminating:jsonData:error:]";
-        v58 = 2114;
-        v59 = v17;
-        v60 = 2114;
-        v61 = v18;
-        v62 = 2114;
-        v63 = domain;
-        v64 = 2048;
-        v65 = code;
+        v54 = "+[UAFAutoAssetHistory _persistAssetSetInfo:assetSetIdentifier:isEliminating:jsonData:error:]";
+        v55 = 2114;
+        v56 = v17;
+        v57 = 2114;
+        v58 = v18;
+        v59 = 2114;
+        v60 = domain;
+        v61 = 2048;
+        v62 = code;
         _os_log_impl(&dword_1BCF2C000, log, OS_LOG_TYPE_DEFAULT, "%s failed to rename current persisted info file '%{public}@' to previous '%{public}@', domain = '%{public}@', code = %ld", buf, 0x34u);
       }
     }
@@ -647,13 +635,13 @@ LABEL_18:
 
   if (!eliminating)
   {
-    v33 = [MEMORY[0x1E695DFF8] fileURLWithPath:v17 isDirectory:0];
-    identifierCopy = v48;
-    if (v33)
+    v32 = [MEMORY[0x1E695DFF8] fileURLWithPath:v17 isDirectory:0];
+    identifierCopy = v45;
+    if (v32)
     {
-      infoCopy = v33;
-      v24 = [UAFAutoAssetHistory _writeAssetInfoToFile:v48 data:dataCopy filePath:v17 error:error];
-      infoCopy = v49;
+      infoCopy = v32;
+      v24 = [UAFAutoAssetHistory _writeAssetInfoToFile:v45 data:dataCopy filePath:v17 error:error];
+      infoCopy = v46;
 LABEL_30:
 
       goto LABEL_31;
@@ -662,51 +650,50 @@ LABEL_30:
     if (error)
     {
       loga = MEMORY[0x1E696ABC0];
-      v34 = UAFErrorCodeAssetHistoryFailedToCreateObject;
-      v35 = *MEMORY[0x1E696A578];
-      infoCopy = v49;
+      v33 = UAFErrorCodeAssetHistoryFailedToCreateObject;
+      infoCopy = v46;
       if (*error)
       {
-        v54[0] = *MEMORY[0x1E696A578];
-        v36 = [MEMORY[0x1E696AEC0] stringWithFormat:@"unknown infoType '%@'", v49];
-        v54[1] = *MEMORY[0x1E696AA08];
-        v55[0] = v36;
-        v55[1] = *error;
-        v37 = MEMORY[0x1E695DF20];
-        v38 = v55;
-        v39 = v54;
-        v40 = 2;
+        v51[0] = *MEMORY[0x1E696A578];
+        v34 = [MEMORY[0x1E696AEC0] stringWithFormat:@"unknown infoType '%@'", v46];
+        v51[1] = *MEMORY[0x1E696AA08];
+        v52[0] = v34;
+        v52[1] = *error;
+        v35 = MEMORY[0x1E695DF20];
+        v36 = v52;
+        v37 = v51;
+        v38 = 2;
       }
 
       else
       {
-        v52 = *MEMORY[0x1E696A578];
-        v36 = [MEMORY[0x1E696AEC0] stringWithFormat:@"unknown infoType '%@'", v49];
-        v53 = v36;
-        v37 = MEMORY[0x1E695DF20];
-        v38 = &v53;
-        v39 = &v52;
-        v40 = 1;
+        v49 = *MEMORY[0x1E696A578];
+        v34 = [MEMORY[0x1E696AEC0] stringWithFormat:@"unknown infoType '%@'", v46];
+        v50 = v34;
+        v35 = MEMORY[0x1E695DF20];
+        v36 = &v50;
+        v37 = &v49;
+        v38 = 1;
       }
 
-      v45 = [v37 dictionaryWithObjects:v38 forKeys:v39 count:v40];
-      *error = [loga errorWithDomain:@"com.apple.UnifiedAssetFramework" code:v34 userInfo:v45];
+      v42 = [v35 dictionaryWithObjects:v36 forKeys:v37 count:v38];
+      *error = [loga errorWithDomain:@"com.apple.UnifiedAssetFramework" code:v33 userInfo:v42];
 
       infoCopy = 0;
       v24 = 0;
-      identifierCopy = v48;
+      identifierCopy = v45;
       goto LABEL_30;
     }
 
-    v44 = UAFGetLogCategory(&UAFLogContextMAConfig);
-    infoCopy = v49;
-    if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+    v41 = UAFGetLogCategory(&UAFLogContextMAConfig);
+    infoCopy = v46;
+    if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v57 = "+[UAFAutoAssetHistory _persistAssetSetInfo:assetSetIdentifier:isEliminating:jsonData:error:]";
-      v58 = 2112;
-      v59 = v49;
-      _os_log_error_impl(&dword_1BCF2C000, v44, OS_LOG_TYPE_ERROR, "%s unknown infoType '%@'", buf, 0x16u);
+      v54 = "+[UAFAutoAssetHistory _persistAssetSetInfo:assetSetIdentifier:isEliminating:jsonData:error:]";
+      v55 = 2112;
+      v56 = v46;
+      _os_log_error_impl(&dword_1BCF2C000, v41, OS_LOG_TYPE_ERROR, "%s unknown infoType '%@'", buf, 0x16u);
     }
 
     infoCopy = 0;
@@ -716,18 +703,111 @@ LABEL_29:
   }
 
   v24 = 1;
-  identifierCopy = v48;
-  infoCopy = v49;
+  identifierCopy = v45;
+  infoCopy = v46;
 LABEL_31:
 
-  v42 = *MEMORY[0x1E69E9840];
   return v24;
+}
+
++ (void)persistAssetSetInfoConfiguring:(id)configuring entries:(id)entries isEliminating:(BOOL)eliminating reason:(id)reason
+{
+  eliminatingCopy = eliminating;
+  v33[2] = *MEMORY[0x1E69E9840];
+  configuringCopy = configuring;
+  entriesCopy = entries;
+  reasonCopy = reason;
+  assetSetIdentifier = [configuringCopy assetSetIdentifier];
+  if (eliminatingCopy)
+  {
+    data = [MEMORY[0x1E695DEF0] data];
+    v14 = 0;
+    v15 = 0;
+  }
+
+  else
+  {
+    dictionary = [MEMORY[0x1E695DF90] dictionary];
+    if (!dictionary)
+    {
+      v23 = UAFGetLogCategory(&UAFLogContextMAConfig);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 136315394;
+        v27 = "+[UAFAutoAssetHistory persistAssetSetInfoConfiguring:entries:isEliminating:reason:]";
+        v28 = 2114;
+        v29 = assetSetIdentifier;
+        _os_log_error_impl(&dword_1BCF2C000, v23, OS_LOG_TYPE_ERROR, "%s failed to create output dictionary for persisting info about configuring asset set '%{public}@', not persisting information", buf, 0x16u);
+      }
+
+      v14 = 0;
+      data = 0;
+      v15 = 0;
+      goto LABEL_15;
+    }
+
+    v14 = dictionary;
+    v32[0] = @"reason";
+    v32[1] = @"timestamp";
+    v33[0] = reasonCopy;
+    date = [MEMORY[0x1E695DF00] date];
+    v18 = [UAFCommonUtilities getISO8601Timestamp:date withFractionalSeconds:1];
+    v33[1] = v18;
+    v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:v32 count:2];
+    [v14 setObject:v19 forKeyedSubscript:@"UAFHistoryMetadata"];
+
+    v20 = [UAFAutoAssetHistory _getAutoAssetSetInfo:configuringCopy entries:entriesCopy includeAssetVersion:0];
+    [v14 setObject:v20 forKeyedSubscript:@"autoAssetSet"];
+
+    v25 = 0;
+    data = [UAFCommonUtilities serializeDictToJSONData:v14 error:&v25];
+    v15 = v25;
+    if (!data)
+    {
+      v23 = UAFGetLogCategory(&UAFLogContextMAConfig);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 136315650;
+        v27 = "+[UAFAutoAssetHistory persistAssetSetInfoConfiguring:entries:isEliminating:reason:]";
+        v28 = 2114;
+        v29 = assetSetIdentifier;
+        v30 = 2114;
+        v31 = v15;
+        _os_log_error_impl(&dword_1BCF2C000, v23, OS_LOG_TYPE_ERROR, "%s could not serialize output dictionary to json, not persisting info about configuring asset set '%{public}@', error is '%{public}@'", buf, 0x20u);
+      }
+
+      data = 0;
+      goto LABEL_15;
+    }
+  }
+
+  v21 = v15;
+  v24 = v15;
+  v22 = [UAFAutoAssetHistory _persistAssetSetInfo:@"configuration" assetSetIdentifier:assetSetIdentifier isEliminating:eliminatingCopy jsonData:data error:&v24];
+  v15 = v24;
+
+  if (!v22 || v15)
+  {
+    v23 = UAFGetLogCategory(&UAFLogContextMAConfig);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136315650;
+      v27 = "+[UAFAutoAssetHistory persistAssetSetInfoConfiguring:entries:isEliminating:reason:]";
+      v28 = 2114;
+      v29 = assetSetIdentifier;
+      v30 = 2114;
+      v31 = v15;
+      _os_log_error_impl(&dword_1BCF2C000, v23, OS_LOG_TYPE_ERROR, "%s failed to persist info while configuring assetSetIdentifier '%{public}@', error is '%{public}@'", buf, 0x20u);
+    }
+
+LABEL_15:
+  }
 }
 
 + (void)persistAssetSetInfoLocked:(id)locked atomicEntries:(id)entries autoAssetSet:(id)set isEliminating:(BOOL)eliminating reason:(id)reason
 {
   eliminatingCopy = eliminating;
-  v82[2] = *MEMORY[0x1E69E9840];
+  v81[2] = *MEMORY[0x1E69E9840];
   lockedCopy = locked;
   entriesCopy = entries;
   setCopy = set;
@@ -735,9 +815,9 @@ LABEL_31:
   assetSetIdentifier = [setCopy assetSetIdentifier];
   if (eliminatingCopy)
   {
-    v51 = eliminatingCopy;
+    v50 = eliminatingCopy;
     data = [MEMORY[0x1E695DEF0] data];
-    v52 = 0;
+    v51 = 0;
     v17 = 0;
     array = 0;
   }
@@ -751,13 +831,13 @@ LABEL_31:
       if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v71 = "+[UAFAutoAssetHistory persistAssetSetInfoLocked:atomicEntries:autoAssetSet:isEliminating:reason:]";
-        v72 = 2114;
-        v73 = assetSetIdentifier;
+        v70 = "+[UAFAutoAssetHistory persistAssetSetInfoLocked:atomicEntries:autoAssetSet:isEliminating:reason:]";
+        v71 = 2114;
+        v72 = assetSetIdentifier;
         _os_log_error_impl(&dword_1BCF2C000, v20, OS_LOG_TYPE_ERROR, "%s failed to create array for atomic entries for persisting info about locked asset set '%{public}@', not persisting information", buf, 0x16u);
       }
 
-      v52 = 0;
+      v51 = 0;
       data = 0;
       v17 = 0;
       array = 0;
@@ -771,20 +851,20 @@ LABEL_31:
       if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v71 = "+[UAFAutoAssetHistory persistAssetSetInfoLocked:atomicEntries:autoAssetSet:isEliminating:reason:]";
-        v72 = 2114;
-        v73 = assetSetIdentifier;
+        v70 = "+[UAFAutoAssetHistory persistAssetSetInfoLocked:atomicEntries:autoAssetSet:isEliminating:reason:]";
+        v71 = 2114;
+        v72 = assetSetIdentifier;
         _os_log_error_impl(&dword_1BCF2C000, v20, OS_LOG_TYPE_ERROR, "%s failed to create output dictionary for persisting info about locked asset set '%{public}@', not persisting information", buf, 0x16u);
       }
 
-      v52 = 0;
+      v51 = 0;
       data = 0;
       v17 = 0;
       goto LABEL_53;
     }
 
-    v51 = 0;
-    v47 = reasonCopy;
+    v50 = 0;
+    v46 = reasonCopy;
     if (reasonCopy)
     {
       v22 = reasonCopy;
@@ -795,17 +875,17 @@ LABEL_31:
       v22 = @"<no reason provided>";
     }
 
-    v81[0] = @"reason";
-    v81[1] = @"timestamp";
-    v82[0] = v22;
+    v80[0] = @"reason";
+    v80[1] = @"timestamp";
+    v81[0] = v22;
     v23 = dictionary;
     date = [MEMORY[0x1E695DF00] date];
     v25 = [UAFCommonUtilities getISO8601Timestamp:date withFractionalSeconds:1];
-    v82[1] = v25;
-    v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v82 forKeys:v81 count:2];
+    v81[1] = v25;
+    v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v81 forKeys:v80 count:2];
     [v23 setObject:v26 forKeyedSubscript:@"UAFHistoryMetadata"];
 
-    v50 = lockedCopy;
+    v49 = lockedCopy;
     if (lockedCopy)
     {
       v27 = lockedCopy;
@@ -818,33 +898,33 @@ LABEL_31:
 
     [v23 setObject:v27 forKeyedSubscript:@"atomicInstance"];
     autoAssetEntries = [setCopy autoAssetEntries];
-    v48 = setCopy;
+    v47 = setCopy;
     v29 = [UAFAutoAssetHistory _getAutoAssetSetInfo:setCopy entries:autoAssetEntries includeAssetVersion:1];
-    v52 = v23;
+    v51 = v23;
     [v23 setObject:v29 forKeyedSubscript:@"autoAssetSet"];
 
-    v68 = 0u;
-    v69 = 0u;
-    v66 = 0u;
     v67 = 0u;
-    v49 = entriesCopy;
+    v68 = 0u;
+    v65 = 0u;
+    v66 = 0u;
+    v48 = entriesCopy;
     obj = entriesCopy;
-    v56 = [obj countByEnumeratingWithState:&v66 objects:v80 count:16];
-    if (v56)
+    v55 = [obj countByEnumeratingWithState:&v65 objects:v79 count:16];
+    if (v55)
     {
-      v54 = *v67;
+      v53 = *v66;
       do
       {
-        for (i = 0; i != v56; ++i)
+        for (i = 0; i != v55; ++i)
         {
-          if (*v67 != v54)
+          if (*v66 != v53)
           {
             objc_enumerationMutation(obj);
           }
 
-          v31 = *(*(&v66 + 1) + 8 * i);
-          v78[0] = @"fullAssetSelector";
-          v76[0] = @"assetSpecifier";
+          v31 = *(*(&v65 + 1) + 8 * i);
+          v77[0] = @"fullAssetSelector";
+          v75[0] = @"assetSpecifier";
           fullAssetSelector = [v31 fullAssetSelector];
           assetSpecifier = [fullAssetSelector assetSpecifier];
           if (assetSpecifier)
@@ -859,8 +939,8 @@ LABEL_31:
             v34 = &stru_1F3B6B510;
           }
 
-          v77[0] = v34;
-          v76[1] = @"assetVersion";
+          v76[0] = v34;
+          v75[1] = @"assetVersion";
           fullAssetSelector3 = [v31 fullAssetSelector];
           assetVersion = [fullAssetSelector3 assetVersion];
           if (assetVersion)
@@ -875,10 +955,10 @@ LABEL_31:
             v37 = &stru_1F3B6B510;
           }
 
-          v77[1] = v37;
-          v38 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v77 forKeys:v76 count:2];
-          v79[0] = v38;
-          v78[1] = @"assetID";
+          v76[1] = v37;
+          v38 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v76 forKeys:v75 count:2];
+          v78[0] = v38;
+          v77[1] = @"assetID";
           assetID = [v31 assetID];
           if (assetID)
           {
@@ -891,8 +971,8 @@ LABEL_31:
             v40 = &stru_1F3B6B510;
           }
 
-          v79[1] = v40;
-          v78[2] = @"localContentURL";
+          v78[1] = v40;
+          v77[2] = @"localContentURL";
           localContentURL = [v31 localContentURL];
           if (localContentURL)
           {
@@ -906,11 +986,11 @@ LABEL_31:
             v42 = &stru_1F3B6B510;
           }
 
-          v79[2] = v42;
-          v78[3] = @"inhibitedFromEmergencyRemoval";
+          v78[2] = v42;
+          v77[3] = @"inhibitedFromEmergencyRemoval";
           v43 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(v31, "inhibitedFromEmergencyRemoval")}];
-          v79[3] = v43;
-          v44 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v79 forKeys:v78 count:4];
+          v78[3] = v43;
+          v44 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v78 forKeys:v77 count:4];
 
           if (localContentURL)
           {
@@ -931,50 +1011,50 @@ LABEL_31:
           [array addObject:v44];
         }
 
-        v56 = [obj countByEnumeratingWithState:&v66 objects:v80 count:16];
+        v55 = [obj countByEnumeratingWithState:&v65 objects:v79 count:16];
       }
 
-      while (v56);
+      while (v55);
     }
 
-    [v52 setObject:array forKeyedSubscript:@"atomicEntries"];
-    v65 = 0;
-    data = [UAFCommonUtilities serializeDictToJSONData:v52 error:&v65];
-    v17 = v65;
+    [v51 setObject:array forKeyedSubscript:@"atomicEntries"];
+    v64 = 0;
+    data = [UAFCommonUtilities serializeDictToJSONData:v51 error:&v64];
+    v17 = v64;
     if (!data)
     {
       v20 = UAFGetLogCategory(&UAFLogContextMAConfig);
-      entriesCopy = v49;
-      lockedCopy = v50;
-      assetSetIdentifier = v46;
-      reasonCopy = v47;
+      entriesCopy = v48;
+      lockedCopy = v49;
+      assetSetIdentifier = v45;
+      reasonCopy = v46;
       if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315650;
-        v71 = "+[UAFAutoAssetHistory persistAssetSetInfoLocked:atomicEntries:autoAssetSet:isEliminating:reason:]";
-        v72 = 2114;
-        v73 = v46;
-        v74 = 2114;
-        v75 = v17;
+        v70 = "+[UAFAutoAssetHistory persistAssetSetInfoLocked:atomicEntries:autoAssetSet:isEliminating:reason:]";
+        v71 = 2114;
+        v72 = v45;
+        v73 = 2114;
+        v74 = v17;
         _os_log_error_impl(&dword_1BCF2C000, v20, OS_LOG_TYPE_ERROR, "%s could not serialize output dictionary to json, not persisting info about locked asset set '%{public}@', error is '%{public}@'", buf, 0x20u);
       }
 
       data = 0;
-      setCopy = v48;
+      setCopy = v47;
       goto LABEL_53;
     }
 
-    entriesCopy = v49;
-    lockedCopy = v50;
-    reasonCopy = v47;
-    setCopy = v48;
-    assetSetIdentifier = v46;
+    entriesCopy = v48;
+    lockedCopy = v49;
+    reasonCopy = v46;
+    setCopy = v47;
+    assetSetIdentifier = v45;
   }
 
   v18 = v17;
-  v64 = v17;
-  v19 = [UAFAutoAssetHistory _persistAssetSetInfo:@"locked" assetSetIdentifier:assetSetIdentifier isEliminating:v51 jsonData:data error:&v64];
-  v17 = v64;
+  v63 = v17;
+  v19 = [UAFAutoAssetHistory _persistAssetSetInfo:@"locked" assetSetIdentifier:assetSetIdentifier isEliminating:v50 jsonData:data error:&v63];
+  v17 = v63;
 
   if (!v19 || v17)
   {
@@ -982,18 +1062,16 @@ LABEL_31:
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v71 = "+[UAFAutoAssetHistory persistAssetSetInfoLocked:atomicEntries:autoAssetSet:isEliminating:reason:]";
-      v72 = 2114;
-      v73 = assetSetIdentifier;
-      v74 = 2114;
-      v75 = v17;
+      v70 = "+[UAFAutoAssetHistory persistAssetSetInfoLocked:atomicEntries:autoAssetSet:isEliminating:reason:]";
+      v71 = 2114;
+      v72 = assetSetIdentifier;
+      v73 = 2114;
+      v74 = v17;
       _os_log_error_impl(&dword_1BCF2C000, v20, OS_LOG_TYPE_ERROR, "%s failed to persist info for locked assetSetIdentifier '%{public}@', error is '%{public}@'", buf, 0x20u);
     }
 
 LABEL_53:
   }
-
-  v45 = *MEMORY[0x1E69E9840];
 }
 
 @end

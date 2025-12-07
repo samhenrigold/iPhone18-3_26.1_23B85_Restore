@@ -66,7 +66,7 @@ void __36__SASSignalConnectionListener__init__block_invoke(uint64_t a1, void *a2
 
 - (void)listener:(id)listener didReceiveConnection:(id)connection withContext:(id)context
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   remoteProcess = [connectionCopy remoteProcess];
   if (remoteProcess)
@@ -79,17 +79,15 @@ void __36__SASSignalConnectionListener__init__block_invoke(uint64_t a1, void *a2
     v8 = *MEMORY[0x1E698D0A0];
     if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 136315394;
-      v11 = "[SASSignalConnectionListener listener:didReceiveConnection:withContext:]";
-      v12 = 2112;
-      v13 = connectionCopy;
-      _os_log_impl(&dword_1C8137000, v8, OS_LOG_TYPE_DEFAULT, "%s SASSignalConnectionListener: Unable to assign new incoming connection to a process because the remote was unknown : connection=%@", &v10, 0x16u);
+      v9 = 136315394;
+      v10 = "[SASSignalConnectionListener listener:didReceiveConnection:withContext:]";
+      v11 = 2112;
+      v12 = connectionCopy;
+      _os_log_impl(&dword_1C8137000, v8, OS_LOG_TYPE_DEFAULT, "%s SASSignalConnectionListener: Unable to assign new incoming connection to a process because the remote was unknown : connection=%@", &v9, 0x16u);
     }
 
     [connectionCopy invalidate];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 @end

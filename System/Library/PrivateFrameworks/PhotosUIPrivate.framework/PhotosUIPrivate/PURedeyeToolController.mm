@@ -249,7 +249,7 @@ uint64_t __55__PURedeyeToolController__animateInstructionAppearance__block_invok
   return [v2 setAlpha:0.0];
 }
 
-uint64_t __55__PURedeyeToolController__animateInstructionAppearance__block_invoke_2(uint64_t a1)
+void *__55__PURedeyeToolController__animateInstructionAppearance__block_invoke_2(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 1232) setHidden:1];
   *(*(a1 + 32) + 1264) = 0;
@@ -285,7 +285,7 @@ uint64_t __51__PURedeyeToolController__animateFailureAppearance__block_invoke(ui
   return [v2 setAlpha:1.0];
 }
 
-uint64_t __51__PURedeyeToolController__animateFailureAppearance__block_invoke_2(uint64_t a1)
+void *__51__PURedeyeToolController__animateFailureAppearance__block_invoke_2(uint64_t a1)
 {
   [*(*(a1 + 32) + 1216) setHidden:1];
   result = [*(a1 + 32) performSelector:sel__animateInstructionAppearance withObject:0 afterDelay:3.0];

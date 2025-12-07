@@ -19,7 +19,7 @@
 {
   v3 = OBJC_IVAR____TtC8CameraUI17ChromeSwiftUIView_scenePhaseView;
   *(&self->super.super.super.isa + v3) = [objc_allocWithZone(type metadata accessor for ChromeScenePhaseView()) init];
-  result = sub_1A3A32070();
+  result = sub_1A3A32070("Fatal error", 11, 2, 0xD000000000000025, 0x80000001A3AA4060, "CameraUI/ChromeSwiftUIView.swift", 32, 2, 42, 0);
   __break(1u);
   return result;
 }

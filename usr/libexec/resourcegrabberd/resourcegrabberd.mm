@@ -590,10 +590,7 @@ uint64_t sub_1000047F8(uint64_t a1)
 
 uint64_t sub_1000048F8(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _readActiveIconVersions];
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 16);
-  *(v3 + 16) = v2;
+  *(*(a1 + 32) + 16) = [*(a1 + 32) _readActiveIconVersions];
 
   return _objc_release_x1();
 }
@@ -760,9 +757,9 @@ void sub_100005278(uint64_t a1)
   [v1 addObjectsFromArray:v2];
 }
 
-void sub_100005554(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100005554(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -806,11 +803,11 @@ void sub_100005AFC(_Unwind_Exception *exception_object, int a2)
 {
   if (a2 == 1)
   {
-    v4 = objc_begin_catch(exception_object);
-    v5 = nrg_daemon_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v2 = objc_begin_catch(exception_object);
+    v3 = nrg_daemon_log();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      sub_1000111AC(v2, v3);
+      sub_1000111AC();
     }
 
     objc_end_catch();
@@ -820,10 +817,11 @@ void sub_100005AFC(_Unwind_Exception *exception_object, int a2)
   _Unwind_Resume(exception_object);
 }
 
-void sub_100005D8C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100005D8C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 uint64_t start()
@@ -1118,14 +1116,13 @@ void sub_1000073D0(id a1)
   qword_100028380 = v1;
 }
 
-uint64_t sub_100007848(uint64_t a1)
+uint64_t sub_100007848(uint64_t a1, uint64_t a2)
 {
-  v2 = NRGGetActivePairedDevice();
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 48);
-  *(v3 + 48) = v2;
+  v3 = NRGGetActivePairedDevice();
+  v4 = *(a1 + 32);
+  v5 = *(v4 + 48);
+  *(v4 + 48) = v3;
 
-  v6 = *(a1 + 32);
   return loadGizmoBuild();
 }
 
@@ -1192,11 +1189,12 @@ void sub_100007CAC(uint64_t a1, void *a2)
   dispatch_async(v7, block);
 }
 
-void sub_100008198(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, id location, char a19)
+void sub_100008198(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, id location, ...)
 {
-  objc_destroyWeak((v19 + 56));
+  va_start(va, location);
+  objc_destroyWeak((v18 + 56));
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a19, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -1348,9 +1346,9 @@ void sub_100008DB8(uint64_t a1, void *a2)
   [WeakRetained _appViewListImageHandleResponse:v8 error:0];
 }
 
-void sub_1000090F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000090F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1387,16 +1385,16 @@ void sub_100009108(void *a1)
   }
 }
 
-void sub_1000099CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000099CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -1453,12 +1451,13 @@ void sub_100009A34(void *a1)
   }
 }
 
-void sub_100009F18(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id location, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
+void sub_100009F18(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id location, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
-  _Block_object_dispose((v32 - 144), 8);
-  objc_destroyWeak((v31 + 56));
+  va_start(va, a30);
+  _Block_object_dispose((v31 - 144), 8);
+  objc_destroyWeak((v30 + 56));
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a31, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -1493,11 +1492,11 @@ void sub_100009FEC(uint64_t a1, void *a2)
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = *(*(*(a1 + 48) + 8) + 40);
-    v8 = 138412546;
-    v9 = v6;
-    v10 = 2112;
-    v11 = v3;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "fullSyncIdentifier = %@, error = %@", &v8, 0x16u);
+    v7 = 138412546;
+    v8 = v6;
+    v9 = 2112;
+    v10 = v3;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "fullSyncIdentifier = %@, error = %@", &v7, 0x16u);
   }
 
   if (!*(*(*(a1 + 48) + 8) + 40))
@@ -1510,7 +1509,6 @@ void sub_100009FEC(uint64_t a1, void *a2)
     if (!v3)
     {
       v3 = [*(a1 + 32) requestUnsuccessfulError];
-      v7 = *(*(*(a1 + 48) + 8) + 40);
     }
   }
 
@@ -1525,7 +1523,7 @@ void sub_10000A11C(uint64_t a1)
   {
     v3 = *(*(*(a1 + 48) + 8) + 40);
     *buf = 138412290;
-    v15 = v3;
+    v14 = v3;
     _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "fullSyncIdentifier = %@", buf, 0xCu);
   }
 
@@ -1535,15 +1533,14 @@ void sub_10000A11C(uint64_t a1)
   *(v5 + 80) = v4;
 
   objc_storeStrong((*(a1 + 32) + 88), *(*(*(a1 + 48) + 8) + 40));
-  v7 = *(a1 + 32);
-  v8 = objc_opt_class();
-  v9 = NSStringFromClass(v8);
-  v10 = [NSString stringWithFormat:@"%@_fullSync", v9];
+  v7 = objc_opt_class();
+  v8 = NSStringFromClass(v7);
+  v9 = [NSString stringWithFormat:@"%@_fullSync", v8];
 
-  v11 = [[PCPersistentTimer alloc] initWithTimeInterval:v10 serviceIdentifier:*(a1 + 32) target:"fullSyncRequestTimedOut:" selector:*(*(*(a1 + 48) + 8) + 40) userInfo:540.0];
-  v12 = *(a1 + 32);
-  v13 = *(v12 + 96);
-  *(v12 + 96) = v11;
+  v10 = [[PCPersistentTimer alloc] initWithTimeInterval:v9 serviceIdentifier:*(a1 + 32) target:"fullSyncRequestTimedOut:" selector:*(*(*(a1 + 48) + 8) + 40) userInfo:540.0];
+  v11 = *(a1 + 32);
+  v12 = *(v11 + 96);
+  *(v11 + 96) = v10;
 
   [*(*(a1 + 32) + 96) setMinimumEarlyFireProportion:1.0];
   [*(*(a1 + 32) + 96) scheduleInQueue:&_dispatch_main_q];
@@ -1623,9 +1620,9 @@ void sub_10000AC18(uint64_t a1, void *a2, void *a3)
   }
 }
 
-void sub_10000AD7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10000AD7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1654,30 +1651,29 @@ void sub_10000AD94(uint64_t a1)
   {
     v8 = *(*(*(a1 + 48) + 8) + 24);
     *buf = 67109120;
-    v17 = v8;
+    v16 = v8;
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "appViewListImageResponseHandlers count %d", buf, 8u);
   }
 
   if (*(*(*(a1 + 48) + 8) + 24) == 1)
   {
-    v9 = *(a1 + 32);
-    v10 = objc_opt_class();
-    v11 = NSStringFromClass(v10);
-    v12 = [NSString stringWithFormat:@"%@_appListImage", v11];
+    v9 = objc_opt_class();
+    v10 = NSStringFromClass(v9);
+    v11 = [NSString stringWithFormat:@"%@_appListImage", v10];
 
-    v13 = [[PCPersistentTimer alloc] initWithTimeInterval:v12 serviceIdentifier:*(a1 + 32) target:"_appViewListImageRequestTimedOut:" selector:0 userInfo:31.0];
-    v14 = *(a1 + 32);
-    v15 = *(v14 + 112);
-    *(v14 + 112) = v13;
+    v12 = [[PCPersistentTimer alloc] initWithTimeInterval:v11 serviceIdentifier:*(a1 + 32) target:"_appViewListImageRequestTimedOut:" selector:0 userInfo:31.0];
+    v13 = *(a1 + 32);
+    v14 = *(v13 + 112);
+    *(v13 + 112) = v12;
 
     [*(*(a1 + 32) + 112) setMinimumEarlyFireProportion:0.0];
     [*(*(a1 + 32) + 112) scheduleInQueue:&_dispatch_main_q];
   }
 }
 
-void sub_10000B398(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_10000B398(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1703,7 +1699,7 @@ void sub_10000B3D0(uint64_t a1)
   *(v7 + 104) = 0;
 }
 
-uint64_t sub_10000B9D4(void *a1, void *a2)
+uint64_t sub_10000B9D4(char *a1, void *a2)
 {
   v4 = [a2 position];
   if (v4 < [a2 length])
@@ -2183,30 +2179,21 @@ LABEL_53:
 
 uint64_t sub_10000D93C(uint64_t a1)
 {
-  v2 = [*(a1 + 40) copy];
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 24);
-  *(v3 + 24) = v2;
+  *(*(a1 + 32) + 24) = [*(a1 + 40) copy];
 
   return _objc_release_x1();
 }
 
 uint64_t sub_10000DA1C(uint64_t a1)
 {
-  v2 = [*(a1 + 40) copy];
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 32);
-  *(v3 + 32) = v2;
+  *(*(a1 + 32) + 32) = [*(a1 + 40) copy];
 
   return _objc_release_x1();
 }
 
 uint64_t sub_10000DAFC(uint64_t a1)
 {
-  v2 = [*(a1 + 40) copy];
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(a1 + 32) + 40) = [*(a1 + 40) copy];
 
   return _objc_release_x1();
 }
@@ -2301,9 +2288,9 @@ void sub_10000DF14(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
   }
 }
 
-void sub_10000E2C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_10000E2C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2375,10 +2362,7 @@ uint64_t sub_10000EE60(uint64_t result, uint64_t a2)
 
 uint64_t sub_10000EE78(void *a1)
 {
-  v2 = [*(a1[4] + 16) objectForKey:a1[5]];
-  v3 = *(a1[6] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(a1[6] + 8) + 40) = [*(a1[4] + 16) objectForKey:a1[5]];
 
   return _objc_release_x1();
 }
@@ -2406,9 +2390,9 @@ void *sub_10000F1F8(uint64_t a1, void *a2)
   return &__NSDictionary0__struct;
 }
 
-void sub_100010904(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_100010904(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2474,13 +2458,6 @@ void sub_100010E70(void *a1, uint64_t a2, NSObject *a3)
   sub_10000424C(&_mh_execute_header, a2, a3, "could not remove %@ %@", *v3, *&v3[8], *&v3[16]);
 }
 
-void sub_1000111AC(uint64_t a1, uint64_t *a2)
-{
-  v2 = *a2;
-  sub_100005D80();
-  sub_10000424C(&_mh_execute_header, v3, v4, "could not create data for icon versions %@ %@");
-}
-
 void sub_100011350(uint64_t a1, NSObject *a2)
 {
   v2 = 138543362;
@@ -2519,11 +2496,25 @@ void sub_100011550(uint64_t a1, NSObject *a2)
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "full sync failed to complete -- error: %{public}@", &v2, 0xCu);
 }
 
+void sub_1000115C8(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(a1 + 40);
+  sub_100005D8C(&_mh_execute_header, a2, a3, "full sync request(s) pending, not adding request operation %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_100011904(uint64_t a1, NSObject *a2)
 {
   v2 = 138412290;
   v3 = a1;
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "no icons found in %@", &v2, 0xCu);
+}
+
+void sub_100011A4C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"com.apple.nano.nanoresourcegrabber";
+  sub_100005D8C(&_mh_execute_header, a1, a3, "No entitlement %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_100011BD8(void *a1, uint64_t a2, NSObject *a3)

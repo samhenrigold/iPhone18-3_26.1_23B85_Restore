@@ -34,9 +34,9 @@
   v12->_buttonViewType = SUUIButtonViewTypeForString(v13);
 
   v14 = [elementCopy getAttribute:@"sub-type"];
-  v15 = [v14 isEqualToString:@"toggle"];
+  isEqualToString = objc_msgSend_isEqualToString_(v14);
 
-  v12->_buttonViewSubType = v15;
+  v12->_buttonViewSubType = isEqualToString;
   v16 = [elementCopy getAttribute:@"size-variant"];
   sizeVariant = v12->_sizeVariant;
   v12->_sizeVariant = v16;
@@ -115,13 +115,13 @@
   if ([v33 length])
   {
     v68 = v33;
-    if (([(__CFString *)v68 isEqualToString:@"redownload"]& 1) != 0 || ([(__CFString *)v68 isEqualToString:@"get"]& 1) != 0 || ([(__CFString *)v68 isEqualToString:@"preorder"]& 1) != 0 || ([(__CFString *)v68 isEqualToString:@"purchased"]& 1) != 0)
+    if (objc_msgSend_isEqualToString_(v68) & 1) != 0 || (objc_msgSend_isEqualToString_(v68) & 1) != 0 || (objc_msgSend_isEqualToString_(v68) & 1) != 0 || (objc_msgSend_isEqualToString_(v68))
     {
     }
 
     else
     {
-      v60 = [(__CFString *)v68 isEqualToString:@"update"];
+      v60 = objc_msgSend_isEqualToString_(v68);
 
       if (!v60)
       {
@@ -138,7 +138,7 @@
   }
 
 LABEL_22:
-  if ([v67 length] && !objc_msgSend(v67, "isEqualToString:", @"PLUS"))
+  if ([v67 length] && !objc_msgSend_isEqualToString_(v67))
   {
     if (v68 && v67)
     {
@@ -192,21 +192,21 @@ LABEL_30:
   if ([v44 length])
   {
     lowercaseString = [v44 lowercaseString];
-    v12->_bigHitButton = [lowercaseString isEqualToString:@"true"];
+    v12->_bigHitButton = objc_msgSend_isEqualToString_(lowercaseString);
   }
 
   v46 = [elementCopy getAttribute:@"show-on-demand"];
   if ([v46 length])
   {
     lowercaseString2 = [v46 lowercaseString];
-    v12->_showOnDemand = [lowercaseString2 isEqualToString:@"true"];
+    v12->_showOnDemand = objc_msgSend_isEqualToString_(lowercaseString2);
   }
 
   v48 = [elementCopy getAttribute:@"toggled"];
   if ([v48 length])
   {
     lowercaseString3 = [v48 lowercaseString];
-    v12->_toggled = [lowercaseString3 isEqualToString:@"true"];
+    v12->_toggled = objc_msgSend_isEqualToString_(lowercaseString3);
   }
 
   v50 = [elementCopy getAttribute:@"toggle-id"];
@@ -221,21 +221,21 @@ LABEL_30:
   if ([v53 length])
   {
     lowercaseString4 = [v53 lowercaseString];
-    v12->_autoIncrementCount = [lowercaseString4 isEqualToString:@"true"];
+    v12->_autoIncrementCount = objc_msgSend_isEqualToString_(lowercaseString4);
   }
 
   v55 = [elementCopy getAttribute:@"disabled-but-selectable"];
   if ([v55 length])
   {
     lowercaseString5 = [v55 lowercaseString];
-    v12->_disabledButSelectable = [lowercaseString5 isEqualToString:@"true"];
+    v12->_disabledButSelectable = objc_msgSend_isEqualToString_(lowercaseString5);
   }
 
   v57 = [elementCopy getAttribute:@"suppress-cloud-restore"];
   if ([v57 length])
   {
     lowercaseString6 = [v57 lowercaseString];
-    v12->_suppressCloudRestore = [lowercaseString6 isEqualToString:@"true"];
+    v12->_suppressCloudRestore = objc_msgSend_isEqualToString_(lowercaseString6);
   }
 
   _Block_object_dispose(&v70, 8);
@@ -252,9 +252,9 @@ void __66__SUUIButtonViewElement_initWithDOMElement_parent_elementFactory___bloc
   if ([v7 elementType] == 138)
   {
     v5 = [v7 elementName];
-    v6 = [v5 isEqualToString:@"span"];
+    isEqualToString = objc_msgSend_isEqualToString_(v5);
 
-    if (v6)
+    if (isEqualToString)
     {
       *(*(*(a1 + 32) + 8) + 24) = 1;
       *a3 = 1;
@@ -343,7 +343,7 @@ void __46__SUUIButtonViewElement_additionalButtonImage__block_invoke(uint64_t a1
 {
   v2 = [(SUUIViewElement *)self firstChildForElementType:138];
   v3 = v2;
-  if (v2 && ([v2 elementName], v4 = objc_claimAutoreleasedReturnValue(), v5 = objc_msgSend(v4, "isEqualToString:", @"span"), v4, (v5 & 1) == 0))
+  if (v2 && ([v2 elementName], v4 = objc_claimAutoreleasedReturnValue(), isEqualToString = objc_msgSend_isEqualToString_(v4), v4, (isEqualToString & 1) == 0))
   {
     style = [v3 style];
   }

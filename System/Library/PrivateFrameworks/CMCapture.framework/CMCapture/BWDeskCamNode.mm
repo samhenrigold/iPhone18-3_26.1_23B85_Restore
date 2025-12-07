@@ -1,10 +1,10 @@
 @interface BWDeskCamNode
 + (void)initialize;
 - (BWDeskCamNode)initWithOutputDimensions:(id)dimensions cameraInfoByPortType:(id)type horizontalSensorBinningFactor:(int)factor verticalSensorBinningFactor:(int)binningFactor stillImageCaptureEnabled:(BOOL)enabled objectMetadataIdentifiers:(id)identifiers maxLossyCompressionLevel:(int)level portType:(id)self0 overheadCameraMode:(int)self1 captureDevice:(id)self2 downStreamRequires10BitPixelFormat:(BOOL)self3;
-- (uint64_t)_initDeskCamSession;
+- (id)_initDeskCamSession;
+- (id)_updateOutputRequirements;
+- (id)_updateTransportLayerAttachmentsForOutputSampleBuffer:(id *)result;
 - (uint64_t)_updateFocusIfNeededWithFocusPoint:(uint64_t)result;
-- (uint64_t)_updateOutputRequirements;
-- (uint64_t)_updateTransportLayerAttachmentsForOutputSampleBuffer:(uint64_t)result;
 - (void)_createMatchingPixelBufferFromSavedVideoBuffersWithTargetPts:(uint64_t)pts;
 - (void)_newStillImageOutputPixelBufferFromVideoPixelBuffer:(uint64_t)buffer;
 - (void)_savePixelBufferForStillImageCaptureRequests:(__int128 *)requests withPts:;
@@ -169,7 +169,7 @@
   v3.receiver = self;
   v3.super_class = BWDeskCamNode;
   [(BWNode *)&v3 prepareForCurrentConfigurationToBecomeLive];
-  [(BWDeskCamNode *)self _initDeskCamSession];
+  [(BWDeskCamNode *)&self->super.super.isa _initDeskCamSession];
   [(BWDeviceOrientationMonitor *)self->_deviceOrientationMonitor start];
   if (self->_stillImageCaptureEnabled)
   {
@@ -235,12 +235,12 @@ LABEL_8:
 
 - (void)renderSampleBuffer:(opaqueCMSampleBuffer *)buffer forInput:(id)input
 {
-  v4 = MEMORY[0x1EEE9AC00](self);
+  v4 = MEMORY[0x1EEE9AC00](self, a2, buffer, input);
   v6 = v5;
   v8 = v7;
   v9 = v4;
   os_unfair_lock_lock(v4 + 46);
-  v49 = 0;
+  v49[0] = 0;
   v10 = &OBJC_IVAR___BWBravoPortraitSceneMonitorV2__stageMostRecentFaces;
   if (*(v9 + 144) == v6)
   {
@@ -275,29 +275,29 @@ LABEL_8:
     if (!v15)
     {
       [BWDeskCamNode renderSampleBuffer:? forInput:?];
-      v37 = -12783;
+      LODWORD(v37) = -12783;
       goto LABEL_33;
     }
 
 LABEL_26:
     if (*(v9 + v10[865]) == v6)
     {
-      v37 = 0;
+      LODWORD(v37) = 0;
       v39 = v8;
     }
 
     else
     {
-      v37 = BWCMSampleBufferCreateCopyWithNewPixelBuffer(v8, v15, (v9 + 176), &v49);
-      if (!v49)
+      LODWORD(v37) = BWCMSampleBufferCreateCopyWithNewPixelBuffer(v8, v15, (v9 + 176), v49);
+      if (!v49[0])
       {
         goto LABEL_31;
       }
 
       ImageBuffer = CMSampleBufferGetImageBuffer(v8);
       CVBufferPropagateAttachments(ImageBuffer, v15);
-      [(BWDeskCamNode *)v9 _updateTransportLayerAttachmentsForOutputSampleBuffer:v49];
-      v39 = v49;
+      [(BWDeskCamNode *)v9 _updateTransportLayerAttachmentsForOutputSampleBuffer:?];
+      v39 = v49[0];
     }
 
     [v12 emitSampleBuffer:v39];
@@ -316,7 +316,7 @@ LABEL_31:
   {
     [BWDeskCamNode renderSampleBuffer:forInput:];
 LABEL_44:
-    v37 = 0;
+    LODWORD(v37) = 0;
     goto LABEL_46;
   }
 
@@ -407,13 +407,13 @@ LABEL_44:
         goto LABEL_26;
       }
 
-      [BWDeskCamNode renderSampleBuffer:forInput:];
+      [BWDeskCamNode renderSampleBuffer:v37 forInput:?];
     }
 
     else
     {
       [BWDeskCamNode renderSampleBuffer:forInput:];
-      v37 = -12784;
+      LODWORD(v37) = -12784;
     }
 
     os_unfair_lock_unlock((v9 + 184));
@@ -422,13 +422,13 @@ LABEL_32:
     goto LABEL_33;
   }
 
-  v37 = -12786;
+  LODWORD(v37) = -12786;
 LABEL_46:
   os_unfair_lock_unlock((v9 + 184));
 LABEL_33:
-  if (v49)
+  if (v49[0])
   {
-    CFRelease(v49);
+    CFRelease(v49[0]);
   }
 
   if (v37)
@@ -476,12 +476,12 @@ LABEL_33:
   return v2;
 }
 
-- (uint64_t)_updateOutputRequirements
+- (id)_updateOutputRequirements
 {
   if (result)
   {
     v1 = result;
-    v2 = [objc_msgSend(*(result + 128) "videoFormat")];
+    v2 = [objc_msgSend(result[16] "videoFormat")];
     if (v2)
     {
       v7 = [MEMORY[0x1E696AD98] numberWithInt:v2];
@@ -493,15 +493,15 @@ LABEL_33:
       v3 = 0;
     }
 
-    [objc_msgSend(*(v1 + 144) "videoFormat")];
+    [objc_msgSend(v1[18] "videoFormat")];
     _supportedOutputPixelFormats = [(BWDeskCamNode *)v1 _supportedOutputPixelFormats];
-    formatRequirements = [*(v1 + 136) formatRequirements];
-    [formatRequirements setWidth:*(v1 + 208)];
+    formatRequirements = [v1[17] formatRequirements];
+    [formatRequirements setWidth:*(v1 + 52)];
     OUTLINED_FUNCTION_3_50();
     [formatRequirements setSupportedColorSpaceProperties:v3];
     [formatRequirements setSupportedPixelFormats:_supportedOutputPixelFormats];
-    formatRequirements2 = [*(v1 + 152) formatRequirements];
-    [formatRequirements2 setWidth:*(v1 + 208)];
+    formatRequirements2 = [v1[19] formatRequirements];
+    [formatRequirements2 setWidth:*(v1 + 52)];
     OUTLINED_FUNCTION_3_50();
     [formatRequirements2 setSupportedColorSpaceProperties:v3];
     return [formatRequirements2 setSupportedPixelFormats:_supportedOutputPixelFormats];
@@ -510,19 +510,20 @@ LABEL_33:
   return result;
 }
 
-- (uint64_t)_initDeskCamSession
+- (id)_initDeskCamSession
 {
   if (result)
   {
     v1 = result;
 
-    v2 = [objc_alloc(MEMORY[0x1E6994570]) initWithOutputDimensions:*(v1 + 208) portType:*(v1 + 336) deviceModelName:FigCaptureGetModelSpecificName()];
-    *(v1 + 288) = v2;
-    [v2 setDelegate:v1];
-    v3 = *(v1 + 344);
-    v4 = *(v1 + 288);
+    v2 = objc_alloc(MEMORY[0x1E6994570]);
+    v4 = [v2 initWithOutputDimensions:v1[26] portType:v1[42] deviceModelName:{FigCaptureGetModelSpecificName(v2, v3)}];
+    v1[36] = v4;
+    [v4 setDelegate:v1];
+    v5 = *(v1 + 86);
+    v6 = v1[36];
 
-    return [v4 setOutputType:v3];
+    return [v6 setOutputType:v5];
   }
 
   return result;
@@ -653,7 +654,7 @@ LABEL_33:
   return [(BWDeskCamNode *)pts _newStillImageOutputPixelBufferFromVideoPixelBuffer:v4];
 }
 
-- (uint64_t)_updateTransportLayerAttachmentsForOutputSampleBuffer:(uint64_t)result
+- (id)_updateTransportLayerAttachmentsForOutputSampleBuffer:(id *)result
 {
   if (result)
   {
@@ -666,7 +667,7 @@ LABEL_33:
       CMSetAttachment(target, v4, dictionary, 1u);
     }
 
-    [*(v3 + 288) transformMatrix];
+    [v3[36] transformMatrix];
     [dictionary setObject:BWRowMajorArrayFrom3x3Matrix(v6 forKeyedSubscript:{v7, v8), *off_1E798CD70}];
     [OUTLINED_FUNCTION_0_53() transformIsValid];
     [dictionary setObject:objc_msgSend(OUTLINED_FUNCTION_8() forKeyedSubscript:{"numberWithBool:"), *off_1E798CD68}];
@@ -676,7 +677,7 @@ LABEL_33:
     [dictionary setObject:objc_msgSend(OUTLINED_FUNCTION_8() forKeyedSubscript:{"numberWithUnsignedInt:"), *MEMORY[0x1E696DE78]}];
     [OUTLINED_FUNCTION_0_53() outputType];
     [dictionary setObject:objc_msgSend(OUTLINED_FUNCTION_8() forKeyedSubscript:{"numberWithInt:"), *off_1E798CD60}];
-    result = [*(v3 + 288) autoZoomSupported];
+    result = [v3[36] autoZoomSupported];
     if (result)
     {
       [OUTLINED_FUNCTION_0_53() autoZoomValue];
@@ -715,13 +716,6 @@ LABEL_33:
   }
 
   return v3;
-}
-
-- (void)renderSampleBuffer:(os_unfair_lock_s *)a1 forInput:.cold.1(os_unfair_lock_s *a1)
-{
-  OUTLINED_FUNCTION_0();
-  FigDebugAssert3();
-  os_unfair_lock_unlock(a1);
 }
 
 @end

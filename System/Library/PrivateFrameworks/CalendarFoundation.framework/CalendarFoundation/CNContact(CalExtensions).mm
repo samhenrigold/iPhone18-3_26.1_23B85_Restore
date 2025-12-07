@@ -79,16 +79,7 @@
     goto LABEL_21;
   }
 
-  if (!v4)
-  {
-    goto LABEL_12;
-  }
-
-  birthday4 = [self birthday];
-  calendar = [birthday4 calendar];
-  v17 = [calendar components:30 fromDate:v4];
-
-  if (!v17)
+  if (!v4 || ([self birthday], v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v15, "calendar"), v16 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v16, "components:fromDate:", 30, v4), v17 = objc_claimAutoreleasedReturnValue(), v16, v15, !v17))
   {
 LABEL_12:
     nonGregorianBirthday3 = [self birthday];
@@ -98,16 +89,16 @@ LABEL_15:
   }
 
   v18 = [v17 day];
-  birthday5 = [self birthday];
-  if (v18 != [birthday5 day])
+  birthday4 = [self birthday];
+  if (v18 != [birthday4 day])
   {
 
     goto LABEL_25;
   }
 
   month = [v17 month];
-  birthday6 = [self birthday];
-  month2 = [birthday6 month];
+  birthday5 = [self birthday];
+  month2 = [birthday5 month];
 
   if (month != month2)
   {
@@ -121,17 +112,17 @@ LABEL_26:
   v26 = nonGregorianBirthday4;
 
 LABEL_16:
-  calendar2 = [v26 calendar];
-  calendarIdentifier = [calendar2 calendarIdentifier];
+  calendar = [v26 calendar];
+  calendarIdentifier = [calendar calendarIdentifier];
 
   v29 = [calDisplayName length];
   if (v26 && v29)
   {
-    calendar3 = [v26 calendar];
+    calendar2 = [v26 calendar];
     defaultTimeZone = [MEMORY[0x1E695DFE8] defaultTimeZone];
-    [calendar3 setTimeZone:defaultTimeZone];
+    [calendar2 setTimeZone:defaultTimeZone];
 
-    v32 = [calendar3 dateFromComponents:v26];
+    v32 = [calendar2 dateFromComponents:v26];
     calDefaultBirthdayString = [CalContactsProvider birthdayStringForContactName:calDisplayName eventDate:v4 birthDate:v32 lunarCalendar:calendarIdentifier];
   }
 
@@ -164,27 +155,27 @@ LABEL_21:
 
 - (id)CalValueForKey:()CalExtensions withLabel:
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v6 = a4;
   [self valueForKey:a3];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v7 = v19 = 0u;
-  value = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = v18 = 0u;
+  value = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (value)
   {
-    v9 = *v17;
+    v9 = *v16;
     while (2)
     {
       for (i = 0; i != value; i = i + 1)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * i);
+        v11 = *(*(&v15 + 1) + 8 * i);
         label = [v11 label];
         v13 = [label isEqualToString:v6];
 
@@ -195,7 +186,7 @@ LABEL_21:
         }
       }
 
-      value = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      value = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (value)
       {
         continue;
@@ -207,28 +198,24 @@ LABEL_21:
 
 LABEL_11:
 
-  v14 = *MEMORY[0x1E69E9840];
-
   return value;
 }
 
 + (id)CalKeys
 {
-  v7[7] = *MEMORY[0x1E69E9840];
+  v6[7] = *MEMORY[0x1E69E9840];
   v0 = [MEMORY[0x1E695CD80] descriptorForRequiredKeysForStyle:0];
   v1 = *MEMORY[0x1E695C208];
-  v7[0] = v0;
-  v7[1] = v1;
+  v6[0] = v0;
+  v6[1] = v1;
   v2 = *MEMORY[0x1E695C418];
-  v7[2] = *MEMORY[0x1E695C330];
-  v7[3] = v2;
+  v6[2] = *MEMORY[0x1E695C330];
+  v6[3] = v2;
   v3 = *MEMORY[0x1E695C1D0];
-  v7[4] = *MEMORY[0x1E695C1D8];
-  v7[5] = v3;
-  v7[6] = *MEMORY[0x1E695C318];
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:7];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v6[4] = *MEMORY[0x1E695C1D8];
+  v6[5] = v3;
+  v6[6] = *MEMORY[0x1E695C318];
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:7];
 
   return v4;
 }

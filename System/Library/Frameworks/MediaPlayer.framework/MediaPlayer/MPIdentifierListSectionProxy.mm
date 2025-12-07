@@ -27,10 +27,10 @@ void __62___MPIdentifierListSectionProxy_applyChanges_itemLookupBlock___block_in
   }
 }
 
-void __62___MPIdentifierListSectionProxy_applyChanges_itemLookupBlock___block_invoke_2(uint64_t a1, unint64_t a2, uint64_t a3)
+void __62___MPIdentifierListSectionProxy_applyChanges_itemLookupBlock___block_invoke_2(uint64_t a1, char *a2, uint64_t a3)
 {
   v13 = [MEMORY[0x1E695DF70] arrayWithCapacity:?];
-  if (a2 < a2 + a3)
+  if (a2 < &a2[a3])
   {
     v6 = a2;
     do

@@ -7,26 +7,26 @@
 
 - (uint64_t)hf_appendJSONLToURL:()HFAdditions error:
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v4 = a3;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   uRLByDeletingLastPathComponent = [v4 URLByDeletingLastPathComponent];
-  v30 = 0;
-  [defaultManager createDirectoryAtURL:uRLByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v30];
-  v7 = v30;
+  v29 = 0;
+  [defaultManager createDirectoryAtURL:uRLByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v29];
+  v7 = v29;
 
   if (!v7)
   {
-    v29 = 0;
-    v10 = [MEMORY[0x277CCAAA0] dataWithJSONObject:self options:0 error:&v29];
-    v8 = v29;
+    v28 = 0;
+    v10 = [MEMORY[0x277CCAAA0] dataWithJSONObject:self options:0 error:&v28];
+    v8 = v28;
     if (v8)
     {
       v11 = HFLogForCategory(0x17uLL);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v32 = v8;
+        v31 = v8;
         _os_log_error_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_ERROR, "Failed to serialize log entry to JSON: %@", buf, 0xCu);
       }
 
@@ -43,9 +43,9 @@
 
     if (v14)
     {
-      v28 = 0;
-      v15 = [MEMORY[0x277CCA9F8] fileHandleForWritingToURL:v4 error:&v28];
-      v16 = v28;
+      v27 = 0;
+      v15 = [MEMORY[0x277CCA9F8] fileHandleForWritingToURL:v4 error:&v27];
+      v16 = v27;
       if (v16)
       {
         v17 = v16;
@@ -60,7 +60,7 @@ LABEL_24:
         }
 
         *buf = 138412290;
-        v32 = v17;
+        v31 = v17;
         v19 = "Could not create file handle for existing file: %@";
 LABEL_29:
         _os_log_error_impl(&dword_20D9BF000, v18, OS_LOG_TYPE_ERROR, v19, buf, 0xCu);
@@ -75,9 +75,9 @@ LABEL_29:
       path2 = [v4 path];
       [defaultManager createFileAtPath:path2 contents:0 attributes:0];
 
-      v27 = 0;
-      v15 = [MEMORY[0x277CCA9F8] fileHandleForWritingToURL:v4 error:&v27];
-      v21 = v27;
+      v26 = 0;
+      v15 = [MEMORY[0x277CCA9F8] fileHandleForWritingToURL:v4 error:&v26];
+      v21 = v26;
       if (v21)
       {
         v17 = v21;
@@ -107,7 +107,7 @@ LABEL_26:
         }
 
         *buf = 138412290;
-        v32 = v17;
+        v31 = v17;
         v19 = "Could not create file handle for new file: %@";
         goto LABEL_29;
       }
@@ -120,7 +120,7 @@ LABEL_26:
     {
       path3 = [v4 path];
       *buf = 138412290;
-      v32 = path3;
+      v31 = path3;
       _os_log_error_impl(&dword_20D9BF000, v18, OS_LOG_TYPE_ERROR, "Appended JSONL to '%@'", buf, 0xCu);
     }
 
@@ -133,39 +133,38 @@ LABEL_26:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v32 = v7;
+    v31 = v7;
     _os_log_error_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_ERROR, "Failed to create debug log directory: %@", buf, 0xCu);
   }
 
   v9 = 0;
 LABEL_27:
 
-  v24 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (uint64_t)hf_writeJSONToURL:()HFAdditions error:
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v6 = a3;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   uRLByDeletingLastPathComponent = [v6 URLByDeletingLastPathComponent];
-  v26 = 0;
-  [defaultManager createDirectoryAtURL:uRLByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v26];
-  v9 = v26;
+  v25 = 0;
+  [defaultManager createDirectoryAtURL:uRLByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v25];
+  v9 = v25;
 
   if (!v9)
   {
-    v25 = 0;
-    v13 = [MEMORY[0x277CCAAA0] dataWithJSONObject:self options:1 error:&v25];
-    v14 = v25;
+    v24 = 0;
+    v13 = [MEMORY[0x277CCAAA0] dataWithJSONObject:self options:1 error:&v24];
+    v14 = v24;
     if (v14)
     {
       v15 = HFLogForCategory(0);
       if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v28 = v14;
+        v27 = v14;
         _os_log_error_impl(&dword_20D9BF000, v15, OS_LOG_TYPE_ERROR, "Failed to serialize log entry to JSON: %@", buf, 0xCu);
       }
 
@@ -184,9 +183,9 @@ LABEL_27:
       goto LABEL_21;
     }
 
-    v24 = 0;
-    v12 = [v13 writeToURL:v6 options:1 error:&v24];
-    v17 = v24;
+    v23 = 0;
+    v12 = [v13 writeToURL:v6 options:1 error:&v23];
+    v17 = v23;
     v18 = v17;
     if (v12)
     {
@@ -201,7 +200,7 @@ LABEL_21:
 
       path = [v6 path];
       *buf = 138412290;
-      v28 = path;
+      v27 = path;
       _os_log_impl(&dword_20D9BF000, v19, OS_LOG_TYPE_DEFAULT, "Wrote JSON to '%@'", buf, 0xCu);
     }
 
@@ -221,7 +220,7 @@ LABEL_21:
 
       path = [v18 localizedDescription];
       *buf = 138412290;
-      v28 = path;
+      v27 = path;
       _os_log_error_impl(&dword_20D9BF000, v19, OS_LOG_TYPE_ERROR, "Write failed: %@", buf, 0xCu);
     }
 
@@ -232,7 +231,7 @@ LABEL_21:
   if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v28 = v9;
+    v27 = v9;
     _os_log_error_impl(&dword_20D9BF000, v10, OS_LOG_TYPE_ERROR, "Failed to create debug log directory: %@", buf, 0xCu);
   }
 
@@ -250,7 +249,6 @@ LABEL_21:
 
 LABEL_22:
 
-  v22 = *MEMORY[0x277D85DE8];
   return v12;
 }
 

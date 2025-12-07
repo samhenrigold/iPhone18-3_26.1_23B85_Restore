@@ -485,14 +485,14 @@
 - (CGRect)scrollViewFrame
 {
   [(PLExpandedPlatterView *)self _boundsInsetHorizontallyFromDismissControlIfNecessary];
-  [(PLExpandedPlatterView *)self _dismissControlTotalOutset];
-  PLMainScreenScale();
+  _dismissControlTotalOutset = [(PLExpandedPlatterView *)self _dismissControlTotalOutset];
+  PLMainScreenScale(_dismissControlTotalOutset, v4);
 
   UIRectIntegralWithScale();
-  result.size.height = v6;
-  result.size.width = v5;
-  result.origin.y = v4;
-  result.origin.x = v3;
+  result.size.height = v8;
+  result.size.width = v7;
+  result.origin.y = v6;
+  result.origin.x = v5;
   return result;
 }
 
@@ -539,13 +539,13 @@
   _headerContentView = [(PLExpandedPlatterView *)self _headerContentView];
   [_headerContentView sizeThatFits:{v4, v6}];
 
-  PLMainScreenScale();
+  PLMainScreenScale(v8, v9);
 
   UIRectIntegralWithScale();
-  result.size.height = v11;
-  result.size.width = v10;
-  result.origin.y = v9;
-  result.origin.x = v8;
+  result.size.height = v13;
+  result.size.width = v12;
+  result.origin.y = v11;
+  result.origin.x = v10;
   return result;
 }
 
@@ -646,22 +646,22 @@
     v9 = v8;
     v11 = v10;
 
-    v18.origin.x = v5;
-    v18.origin.y = v7;
-    v18.size.width = v9;
-    v18.size.height = v11;
-    CGRectGetWidth(v18);
+    v20.origin.x = v5;
+    v20.origin.y = v7;
+    v20.size.width = v9;
+    v20.size.height = v11;
+    CGRectGetWidth(v20);
     [(PLExpandedPlatterView *)self customContentSize];
-    BSRectWithSize();
+    v12 = BSRectWithSize();
     if (self->_clipsVisibleContentToBounds)
     {
-      CGRectGetHeight(*&v12);
+      CGRectGetHeight(*&v14);
       [(PLExpandedPlatterView *)self bounds];
-      [(PLExpandedPlatterView *)self _flexibleAreaSizeForBounds:?];
+      v12 = [(PLExpandedPlatterView *)self _flexibleAreaSizeForBounds:?];
     }
 
     customContentView = self->_customContentView;
-    PLMainScreenScale();
+    PLMainScreenScale(v12, v13);
     UIRectIntegralWithScale();
 
     [(UIView *)customContentView setFrame:?];
@@ -701,8 +701,8 @@
   if ([(PLExpandedPlatterView *)self isHeaderEnabled])
   {
     [(UIScrollView *)self->_scrollView contentOffset];
-    [(UIScrollView *)self->_scrollView contentSize];
-    PLMainScreenScale();
+    contentSize = [(UIScrollView *)self->_scrollView contentSize];
+    PLMainScreenScale(contentSize, v4);
     UIRectIntegralWithScale();
     topRubberbandingView = self->_topRubberbandingView;
 
@@ -1495,25 +1495,25 @@ uint64_t __68__PLExpandedPlatterView__configureActionViewIfNecessaryWithActions_
       [(UIView *)self->_headerTintView setFrame:x, y, width, height];
       if (self->_headerKeyLineView)
       {
-        v15.origin.x = x;
-        v15.origin.y = y;
-        v15.size.width = width;
-        v15.size.height = height;
-        MinX = CGRectGetMinX(v15);
-        v16.origin.x = x;
-        v16.origin.y = y;
-        v16.size.width = width;
-        v16.size.height = height;
-        MaxY = CGRectGetMaxY(v16);
         v17.origin.x = x;
         v17.origin.y = y;
         v17.size.width = width;
         v17.size.height = height;
-        v11 = CGRectGetWidth(v17);
-        v12 = PLMainScreenScale();
+        MinX = CGRectGetMinX(v17);
+        v18.origin.x = x;
+        v18.origin.y = y;
+        v18.size.width = width;
+        v18.size.height = height;
+        MaxY = CGRectGetMaxY(v18);
+        v19.origin.x = x;
+        v19.origin.y = y;
+        v19.size.width = width;
+        v19.size.height = height;
+        v11 = CGRectGetWidth(v19);
+        v14 = PLMainScreenScale(v12, v13);
         headerKeyLineView = self->_headerKeyLineView;
 
-        [(UIView *)headerKeyLineView setFrame:MinX, MaxY, v11, 1.0 / v12];
+        [(UIView *)headerKeyLineView setFrame:MinX, MaxY, v11, 1.0 / v14];
       }
     }
   }
@@ -1695,34 +1695,34 @@ uint64_t __45__PLExpandedPlatterView_scrollViewDidScroll___block_invoke(uint64_t
   v14 = v13;
   v16 = v15;
   v18 = v17;
-  [(PLExpandedPlatterView *)self customContentSize];
-  v20 = v14 + v19 + 8.0;
+  customContentSize = [(PLExpandedPlatterView *)self customContentSize];
+  v22 = v14 + v21 + 8.0;
   if (self->_clipsVisibleContentToBounds)
   {
-    v26.origin.x = v12;
-    v26.origin.y = v20;
-    v26.size.width = v16;
-    v26.size.height = v18;
-    CGRectGetMinY(v26);
-    v27.origin.x = v4;
-    v27.origin.y = v6;
-    v27.size.width = v8;
-    v27.size.height = v10;
-    CGRectGetHeight(v27);
     v28.origin.x = v12;
-    v28.origin.y = v20;
+    v28.origin.y = v22;
     v28.size.width = v16;
     v28.size.height = v18;
-    CGRectGetHeight(v28);
+    CGRectGetMinY(v28);
+    v29.origin.x = v4;
+    v29.origin.y = v6;
+    v29.size.width = v8;
+    v29.size.height = v10;
+    CGRectGetHeight(v29);
+    v30.origin.x = v12;
+    v30.origin.y = v22;
+    v30.size.width = v16;
+    v30.size.height = v18;
+    CGRectGetHeight(v30);
   }
 
-  PLMainScreenScale();
+  PLMainScreenScale(customContentSize, v20);
 
   UIRectIntegralWithScale();
-  result.size.height = v24;
-  result.size.width = v23;
-  result.origin.y = v22;
-  result.origin.x = v21;
+  result.size.height = v26;
+  result.size.width = v25;
+  result.origin.y = v24;
+  result.origin.x = v23;
   return result;
 }
 

@@ -1,7 +1,9 @@
 @interface CPSearchMatcher
 - (BOOL)matches:(id)matches;
+- (BOOL)matches:(id)matches matchType:(int)type;
 - (BOOL)matchesASCIIString:(const char *)string matchType:(int)type;
 - (BOOL)matchesUTF8String:(const char *)string matchType:(int)type matchOptions:(int)options;
+- (CPSearchMatcher)initWithSearchString:(id)string andLocale:(id)locale andOptions:(int)options;
 - (void)dealloc;
 @end
 
@@ -9,7 +11,7 @@
 
 - (BOOL)matchesASCIIString:(const char *)string matchType:(int)type
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v59 = *MEMORY[0x1E69E9840];
   bytes = [(NSData *)self->_wholeSearchStringData bytes];
   v8 = [(NSData *)self->_wholeSearchStringData length];
   if ((self->_options & 2) != 0)
@@ -28,63 +30,63 @@
     v10 = MEMORY[0x1E69E9930];
   }
 
-  v40 = v10;
-  v41 = v9;
+  v39 = v10;
+  v40 = v9;
   typeCopy = type;
   if (type == 4)
   {
     v11 = v8;
     if (strlen(string) == v8)
     {
-      LOBYTE(v12) = v41(string, bytes, v11) == 0;
-      goto LABEL_47;
+      LOBYTE(v12) = v40(string, bytes, v11) == 0;
+      return v12;
     }
 
 LABEL_46:
     LOBYTE(v12) = 0;
-    goto LABEL_47;
+    return v12;
   }
 
-  v56 = 0u;
-  v57 = 0u;
-  v54 = 0u;
   v55 = 0u;
+  v56 = 0u;
+  v53 = 0u;
+  v54 = 0u;
   obj = self->_asciiComponents;
-  v39 = [(NSArray *)obj countByEnumeratingWithState:&v54 objects:v59 count:16];
-  if (!v39)
+  v38 = [(NSArray *)obj countByEnumeratingWithState:&v53 objects:v58 count:16];
+  if (!v38)
   {
     goto LABEL_46;
   }
 
-  v37 = *v55;
+  v36 = *v54;
 LABEL_11:
   v13 = 0;
 LABEL_12:
-  if (*v55 != v37)
+  if (*v54 != v36)
   {
     objc_enumerationMutation(obj);
   }
 
-  v14 = *(*(&v54 + 1) + 8 * v13);
+  v14 = *(*(&v53 + 1) + 8 * v13);
   bytes2 = [v14 bytes];
-  v12 = v40(string, bytes2);
+  v12 = v39(string, bytes2);
   if (v12)
   {
-    v50 = 0;
-    v51 = &v50;
-    v52 = 0x2020000000;
-    v53 = 0;
+    v49 = 0;
+    v50 = &v49;
+    v51 = 0x2020000000;
+    v52 = 0;
     v16 = [v14 length];
-    v42[0] = MEMORY[0x1E69E9820];
-    v42[1] = 3221225472;
-    v43 = __48__CPSearchMatcher_matchesASCIIString_matchType___block_invoke;
-    v44 = &unk_1E7450D70;
-    v49 = typeCopy;
-    v47 = v41;
-    v48 = bytes2;
-    v45 = &v50;
-    v46 = v16 - 1;
-    v58 = 0;
+    v41[0] = MEMORY[0x1E69E9820];
+    v41[1] = 3221225472;
+    v42 = __48__CPSearchMatcher_matchesASCIIString_matchType___block_invoke;
+    v43 = &unk_1E7450D70;
+    v48 = typeCopy;
+    v46 = v40;
+    v47 = bytes2;
+    v44 = &v49;
+    v45 = v16 - 1;
+    v57 = 0;
     if (!string)
     {
       goto LABEL_42;
@@ -163,8 +165,8 @@ LABEL_26:
 
       if ((v29 & 1) != 0 && v18)
       {
-        v43(v42, v18, &stringCopy2[-v18], &v58);
-        if (v58)
+        v42(v41, v18, &stringCopy2[-v18], &v57);
+        if (v57)
         {
           goto LABEL_42;
         }
@@ -184,24 +186,24 @@ LABEL_26:
       {
         if (v18)
         {
-          v43(v42, v18, &stringCopy2[-v18], &v58);
+          v42(v41, v18, &stringCopy2[-v18], &v57);
         }
 
 LABEL_42:
-        v33 = *(v51 + 24);
-        _Block_object_dispose(&v50, 8);
+        v33 = *(v50 + 24);
+        _Block_object_dispose(&v49, 8);
         if ((v33 & 1) == 0)
         {
           goto LABEL_46;
         }
 
-        if (++v13 == v39)
+        if (++v13 == v38)
         {
-          v39 = [(NSArray *)obj countByEnumeratingWithState:&v54 objects:v59 count:16];
+          v38 = [(NSArray *)obj countByEnumeratingWithState:&v53 objects:v58 count:16];
           LOBYTE(v12) = 1;
-          if (!v39)
+          if (!v38)
           {
-            break;
+            return v12;
           }
 
           goto LABEL_11;
@@ -212,8 +214,6 @@ LABEL_42:
     }
   }
 
-LABEL_47:
-  v34 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -229,14 +229,9 @@ uint64_t __48__CPSearchMatcher_matchesASCIIString_matchType___block_invoke(uint6
     }
   }
 
-  else
+  else if (v6 > a3)
   {
-    v7 = v6 > a3;
-    v8 = *(result + 40);
-    if (v7)
-    {
-      return result;
-    }
+    return result;
   }
 
   result = (*(result + 48))(a2, *(result + 56));
@@ -251,7 +246,7 @@ uint64_t __48__CPSearchMatcher_matchesASCIIString_matchType___block_invoke(uint6
 
 - (BOOL)matchesUTF8String:(const char *)string matchType:(int)type matchOptions:(int)options
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   if ((type & 0xFFFFFFFD) == 4)
   {
     typeCopy = type;
@@ -274,7 +269,6 @@ uint64_t __48__CPSearchMatcher_matchesASCIIString_matchType___block_invoke(uint6
 
       if (!v10)
       {
-        v11 = *MEMORY[0x1E69E9840];
 
         return [CPSearchMatcher matchesASCIIString:"matchesASCIIString:matchType:" matchType:?];
       }
@@ -283,37 +277,36 @@ uint64_t __48__CPSearchMatcher_matchesASCIIString_matchType___block_invoke(uint6
 
   if (typeCopy != 4)
   {
-    v18 = [(NSArray *)self->_components count]!= 0;
+    v16 = [(NSArray *)self->_components count]!= 0;
+    v23 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     v26 = 0u;
-    v27 = 0u;
-    v28 = 0u;
-    v29 = 0u;
     obj = self->_components;
-    v19 = [(NSArray *)obj countByEnumeratingWithState:&v26 objects:v30 count:16];
-    if (v19)
+    v17 = [(NSArray *)obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+    if (v17)
     {
-      v20 = v19;
-      v21 = *v27;
+      v18 = v17;
+      v19 = *v24;
       while (2)
       {
-        for (j = 0; j != v20; ++j)
+        for (j = 0; j != v18; ++j)
         {
-          if (*v27 != v21)
+          if (*v24 != v19)
           {
             objc_enumerationMutation(obj);
           }
 
-          v23 = _ICUSQLiteMatch(string, [*(*(&v26 + 1) + 8 * j) bytes], objc_msgSend(*(*(&v26 + 1) + 8 * j), "length"), typeCopy, -[NSData bytes](self->_context, "bytes"));
-          if ((options == 0) == v23)
+          v21 = _ICUSQLiteMatch(string, [*(*(&v23 + 1) + 8 * j) bytes], objc_msgSend(*(*(&v23 + 1) + 8 * j), "length"), typeCopy, -[NSData bytes](self->_context, "bytes"));
+          if ((options == 0) == v21)
           {
-            v18 = options == 0;
-            goto LABEL_28;
+            return options == 0;
           }
         }
 
-        v18 = v23;
-        v20 = [(NSArray *)obj countByEnumeratingWithState:&v26 objects:v30 count:16];
-        if (v20)
+        v16 = v21;
+        v18 = [(NSArray *)obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+        if (v18)
         {
           continue;
         }
@@ -322,24 +315,20 @@ uint64_t __48__CPSearchMatcher_matchesASCIIString_matchType___block_invoke(uint6
       }
     }
 
-    goto LABEL_28;
+    return v16;
   }
 
-  v13 = [(NSData *)self->_wholeSearchStringData length];
+  v12 = [(NSData *)self->_wholeSearchStringData length];
   wholeSearchStringData = self->_wholeSearchStringData;
   if (!wholeSearchStringData)
   {
-    v18 = 0;
-LABEL_28:
-    v24 = *MEMORY[0x1E69E9840];
-    return v18;
+    return 0;
   }
 
   bytes = [(NSData *)wholeSearchStringData bytes];
   bytes2 = [(NSData *)self->_context bytes];
-  v17 = *MEMORY[0x1E69E9840];
 
-  return _ICUSQLiteMatch(string, bytes, v13, 4, bytes2);
+  return _ICUSQLiteMatch(string, bytes, v12, 4, bytes2);
 }
 
 - (BOOL)matches:(id)matches
@@ -347,6 +336,61 @@ LABEL_28:
   uTF8String = [matches UTF8String];
 
   return [(CPSearchMatcher *)self matchesUTF8String:uTF8String];
+}
+
+- (BOOL)matches:(id)matches matchType:(int)type
+{
+  v4 = *&type;
+  uTF8String = [matches UTF8String];
+
+  return [(CPSearchMatcher *)self matchesUTF8String:uTF8String matchType:v4];
+}
+
+- (CPSearchMatcher)initWithSearchString:(id)string andLocale:(id)locale andOptions:(int)options
+{
+  v23 = *MEMORY[0x1E69E9840];
+  v21.receiver = self;
+  v21.super_class = CPSearchMatcher;
+  v8 = [(CPSearchMatcher *)&v21 init];
+  v9 = v8;
+  if (v8)
+  {
+    v8->_options = options;
+    v8->_components = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v9->_wholeSearchStringData = [string dataUsingEncoding:4];
+    v17 = 0u;
+    v18 = 0u;
+    v19 = 0u;
+    v20 = 0u;
+    v10 = [string componentsSeparatedByCharactersInSet:{objc_msgSend(MEMORY[0x1E696AB08], "whitespaceCharacterSet", 0)}];
+    v11 = [v10 countByEnumeratingWithState:&v17 objects:v22 count:16];
+    if (v11)
+    {
+      v12 = v11;
+      v13 = *v18;
+      do
+      {
+        for (i = 0; i != v12; ++i)
+        {
+          if (*v18 != v13)
+          {
+            objc_enumerationMutation(v10);
+          }
+
+          -[NSArray addObject:](v9->_components, "addObject:", [*(*(&v17 + 1) + 8 * i) dataUsingEncoding:4]);
+        }
+
+        v12 = [v10 countByEnumeratingWithState:&v17 objects:v22 count:16];
+      }
+
+      while (v12);
+    }
+
+    inited = initICUSearchContext([locale UTF8String], options);
+    v9->_context = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytesNoCopy:inited length:malloc_size(inited) freeWhenDone:0];
+  }
+
+  return v9;
 }
 
 - (void)dealloc

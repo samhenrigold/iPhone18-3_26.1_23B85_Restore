@@ -63,12 +63,11 @@
     swift_task_reportUnexpectedExecutor();
   }
 
-  v10.receiver = self;
-  v10.super_class = type metadata accessor for InstallConfirmationViewController();
+  v9.receiver = self;
+  v9.super_class = type metadata accessor for InstallConfirmationViewController(0);
   swift_unknownObjectRetain();
   selfCopy = self;
-  [(InstallConfirmationViewController *)&v10 viewWillTransitionToSize:coordinator withTransitionCoordinator:width, height];
-  v9 = *(&selfCopy->super.super.super.isa + OBJC_IVAR____TtC26AppDistributionLaunchAngel33InstallConfirmationViewController_installSheetConfirmationViewModel);
+  [(InstallConfirmationViewController *)&v9 viewWillTransitionToSize:coordinator withTransitionCoordinator:width, height];
   swift_getKeyPath();
   swift_getKeyPath();
 

@@ -1,9 +1,12 @@
 @interface SGM2EventBannerRejected
 - (BOOL)isEqual:(id)equal;
 - (NSString)key;
+- (id)appAsString:(int)string;
+- (id)categoryAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)extractedAsString:(int)string;
 - (int)StringAsApp:(id)app;
 - (int)StringAsCategory:(id)category;
 - (int)StringAsExtracted:(id)extracted;
@@ -260,19 +263,18 @@ LABEL_7:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v9 = toCopy;
+  v6 = toCopy;
   if (self->_key)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   has = self->_has;
   if (has)
   {
-    app = self->_app;
     PBDataWriterWriteInt32Field();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
     if ((has & 2) == 0)
     {
@@ -291,15 +293,13 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  category = self->_category;
   PBDataWriterWriteInt32Field();
-  toCopy = v9;
+  toCopy = v6;
   if ((*&self->_has & 4) != 0)
   {
 LABEL_6:
-    extracted = self->_extracted;
     PBDataWriterWriteInt32Field();
-    toCopy = v9;
+    toCopy = v6;
   }
 
 LABEL_7:
@@ -423,6 +423,29 @@ LABEL_21:
   return v4;
 }
 
+- (id)extractedAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"SGMEventExtractionTypeTemplate";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"SGMEventExtractionTypeICal";
+  }
+
+  return v4;
+}
+
 - (void)setHasExtracted:(BOOL)extracted
 {
   if (extracted)
@@ -522,6 +545,21 @@ LABEL_21:
   return v4;
 }
 
+- (id)categoryAsString:(int)string
+{
+  if (string >= 0xC)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7EFAE88[string];
+  }
+
+  return v4;
+}
+
 - (void)setHasCategory:(BOOL)category
 {
   if (category)
@@ -571,6 +609,21 @@ LABEL_21:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)appAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7EFAE70[string];
   }
 
   return v4;

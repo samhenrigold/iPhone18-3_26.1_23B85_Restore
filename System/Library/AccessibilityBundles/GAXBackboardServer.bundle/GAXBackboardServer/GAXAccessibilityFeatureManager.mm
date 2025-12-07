@@ -10,6 +10,7 @@
 - (void)_processNextUpdateBlockInQueue;
 - (void)_saveCurrentAXFeaturesAsUserPreferredSetIfNecessary;
 - (void)_saveCurrentFeatureSetAsUserPreferredSet;
+- (void)configureAXFeatures:(unint64_t)features enabled:(BOOL)enabled;
 - (void)overrideAccessibiltyFeaturesWithFeatureSet:(id)set;
 - (void)restoreAccessibilityFeatures;
 @end
@@ -107,6 +108,31 @@
       *v6 = 0;
       _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "No saved preferred features, no need to restore anything.", v6, 2u);
     }
+  }
+}
+
+- (void)configureAXFeatures:(unint64_t)features enabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  if (![(GAXAccessibilityFeatureManager *)self isRestoring])
+  {
+    [(GAXAccessibilityFeatureManager *)self _saveCurrentAXFeaturesAsUserPreferredSetIfNecessary];
+    v9 = [(GAXAccessibilityFeatureManager *)self _updateBlocksForFeatures:features setEnabled:enabledCopy];
+    updateQueue = [(GAXAccessibilityFeatureManager *)self updateQueue];
+
+    if (updateQueue)
+    {
+      updateQueue2 = [(GAXAccessibilityFeatureManager *)self updateQueue];
+      [updateQueue2 addObjectsFromArray:v9];
+    }
+
+    else
+    {
+      updateQueue2 = [v9 mutableCopy];
+      [(GAXAccessibilityFeatureManager *)self setUpdateQueue:updateQueue2];
+    }
+
+    [(GAXAccessibilityFeatureManager *)self _processNextUpdateBlockInQueue];
   }
 }
 

@@ -81,7 +81,7 @@
 
 - (void)refreshQueryWithRemoteConnection:(id)connection
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   v5 = +[EMMessageRepository log];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -89,27 +89,26 @@
     observationIdentifier = self->_observationIdentifier;
     query = self->_query;
     v8 = [(EMQuery *)query debugDescription];
-    v11 = 134218754;
+    v10 = 134218754;
     selfCopy = self;
-    v13 = 2114;
-    v14 = observationIdentifier;
-    v15 = 2048;
-    v16 = query;
-    v17 = 2112;
-    v18 = v8;
-    _os_log_impl(&dword_1C6655000, v5, OS_LOG_TYPE_DEFAULT, "<%p> Observer:%{public}@ refreshing query<%p>: %@", &v11, 0x2Au);
+    v12 = 2114;
+    v13 = observationIdentifier;
+    v14 = 2048;
+    v15 = query;
+    v16 = 2112;
+    v17 = v8;
+    _os_log_impl(&dword_1C6655000, v5, OS_LOG_TYPE_DEFAULT, "<%p> Observer:%{public}@ refreshing query<%p>: %@", &v10, 0x2Au);
   }
 
   remoteCancelable = [(_EMMessageRepositoryQueryObserver *)self remoteCancelable];
   [remoteCancelable cancel];
 
   [(_EMMessageRepositoryQueryObserver *)self _performQueryWithRemoteConnection:connectionCopy forRecovery:1];
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)recoverWithRemoteConnection:(id)connection
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   os_unfair_lock_lock(&self->_recoveryLock);
   recoveryAttempt = self->_recoveryAttempt;
@@ -124,14 +123,14 @@
       v9 = [(EMQuery *)query debugDescription];
       *buf = 134219010;
       selfCopy3 = self;
-      v27 = 2114;
-      v28 = observationIdentifier;
-      v29 = 2048;
-      v30 = recoveryAttempt;
-      v31 = 2048;
-      v32 = *&query;
-      v33 = 2112;
-      v34 = v9;
+      v26 = 2114;
+      v27 = observationIdentifier;
+      v28 = 2048;
+      v29 = recoveryAttempt;
+      v30 = 2048;
+      v31 = *&query;
+      v32 = 2112;
+      v33 = v9;
       _os_log_impl(&dword_1C6655000, v6, OS_LOG_TYPE_DEFAULT, "<%p> Observer:%{public}@ recovery attempt %ld already scheduled for query<%p>: %@", buf, 0x34u);
     }
   }
@@ -161,31 +160,31 @@
         v14 = [(EMQuery *)v13 debugDescription];
         *buf = 134219266;
         selfCopy3 = self;
-        v27 = 2114;
-        v28 = v12;
-        v29 = 2048;
-        v30 = recoveryAttempt;
-        v31 = 2048;
-        v32 = v10;
-        v33 = 2048;
-        v34 = v13;
-        v35 = 2112;
-        v36 = v14;
+        v26 = 2114;
+        v27 = v12;
+        v28 = 2048;
+        v29 = recoveryAttempt;
+        v30 = 2048;
+        v31 = v10;
+        v32 = 2048;
+        v33 = v13;
+        v34 = 2112;
+        v35 = v14;
         _os_log_impl(&dword_1C6655000, v11, OS_LOG_TYPE_DEFAULT, "<%p> Observer:%{public}@ scheduling recovery %ld with %fs delay for query<%p>: %@", buf, 0x3Eu);
       }
 
       objc_initWeak(buf, self);
       recoveryScheduler = self->_recoveryScheduler;
-      v22[0] = MEMORY[0x1E69E9820];
-      v22[1] = 3221225472;
-      v22[2] = __65___EMMessageRepositoryQueryObserver_recoverWithRemoteConnection___block_invoke;
-      v22[3] = &unk_1E826EE90;
-      objc_copyWeak(v24, buf);
-      v24[1] = recoveryAttempt;
-      v23 = connectionCopy;
-      v16 = [(EFScheduler *)recoveryScheduler afterDelay:v22 performBlock:v10];
+      v21[0] = MEMORY[0x1E69E9820];
+      v21[1] = 3221225472;
+      v21[2] = __65___EMMessageRepositoryQueryObserver_recoverWithRemoteConnection___block_invoke;
+      v21[3] = &unk_1E826EE90;
+      objc_copyWeak(v23, buf);
+      v23[1] = recoveryAttempt;
+      v22 = connectionCopy;
+      v16 = [(EFScheduler *)recoveryScheduler afterDelay:v21 performBlock:v10];
 
-      objc_destroyWeak(v24);
+      objc_destroyWeak(v23);
       objc_destroyWeak(buf);
     }
 
@@ -200,22 +199,20 @@
         v20 = [(EMQuery *)v19 debugDescription];
         *buf = 134219010;
         selfCopy3 = self;
-        v27 = 2114;
-        v28 = v18;
-        v29 = 2048;
-        v30 = 0;
-        v31 = 2048;
-        v32 = *&v19;
-        v33 = 2112;
-        v34 = v20;
+        v26 = 2114;
+        v27 = v18;
+        v28 = 2048;
+        v29 = 0;
+        v30 = 2048;
+        v31 = *&v19;
+        v32 = 2112;
+        v33 = v20;
         _os_log_impl(&dword_1C6655000, v17, OS_LOG_TYPE_DEFAULT, "<%p> Observer:%{public}@ attempting recovery %ld for query<%p>: %@", buf, 0x34u);
       }
 
       [(_EMMessageRepositoryQueryObserver *)self _performQueryWithRemoteConnection:connectionCopy forRecovery:1];
     }
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_performQueryWithRemoteConnection:(id)connection forRecovery:(BOOL)recovery
@@ -246,7 +243,7 @@
 
 - (void)observer:(id)observer wasUpdated:(id)updated
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   observerCopy = observer;
   updatedCopy = updated;
   if (([(EFManualCancelationToken *)self->_token isCanceled]& 1) == 0)
@@ -254,19 +251,17 @@
     v8 = +[EMMessageRepository log];
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 134218498;
+      v9 = 134218498;
       selfCopy = self;
-      v12 = 2114;
-      v13 = observerCopy;
-      v14 = 2114;
-      v15 = updatedCopy;
-      _os_log_impl(&dword_1C6655000, v8, OS_LOG_TYPE_DEFAULT, "<%p> Acknowledging update for %{public}@: %{public}@", &v10, 0x20u);
+      v11 = 2114;
+      v12 = observerCopy;
+      v13 = 2114;
+      v14 = updatedCopy;
+      _os_log_impl(&dword_1C6655000, v8, OS_LOG_TYPE_DEFAULT, "<%p> Acknowledging update for %{public}@: %{public}@", &v9, 0x20u);
     }
 
     [updatedCopy invoke];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)observer:(id)observer matchedAddedObjectIDs:(id)ds before:(id)before extraInfo:(id)info
@@ -343,14 +338,14 @@
 
 - (void)observer:(id)observer matchedChangesForObjectIDs:(id)ds
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   if (([(EFManualCancelationToken *)self->_token isCanceled]& 1) == 0)
   {
     [(EMMessageRepository *)self->_repository _applyChangesToCachedObjects:dsCopy];
-    v10 = @"changesByObjectID";
-    v11[0] = dsCopy;
-    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+    v9 = @"changesByObjectID";
+    v10[0] = dsCopy;
+    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
     trampoliningObserver = [(_EMMessageRepositoryQueryObserver *)self trampoliningObserver];
     if (trampoliningObserver)
     {
@@ -367,8 +362,6 @@
       }
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)observer:(id)observer matchedDeletedObjectIDs:(id)ds
@@ -459,11 +452,10 @@
 
 - (void)observer:(uint64_t)a1 matchedChangesForObjectIDs:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_1C6655000, a2, OS_LOG_TYPE_ERROR, "<%{public}@> dropping notification due to nil trampoliningObserver", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_1C6655000, a2, OS_LOG_TYPE_ERROR, "<%{public}@> dropping notification due to nil trampoliningObserver", &v2, 0xCu);
 }
 
 @end

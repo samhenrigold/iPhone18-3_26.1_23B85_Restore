@@ -132,7 +132,7 @@ LABEL_9:
       v5 = fp_current_or_default_log();
       if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
       {
-        [FPSpotlightIndexState stateWithData:v13];
+        +[FPSpotlightIndexState stateWithData:];
       }
 
       goto LABEL_13;
@@ -146,7 +146,7 @@ LABEL_9:
         v5 = fp_current_or_default_log();
         if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
         {
-          [FPSpotlightIndexState stateWithData:?];
+          +[FPSpotlightIndexState stateWithData:];
         }
 
         goto LABEL_13;
@@ -170,7 +170,7 @@ LABEL_9:
         v11 = fp_current_or_default_log();
         if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
         {
-          [FPSpotlightIndexState stateWithData:?];
+          +[FPSpotlightIndexState stateWithData:];
         }
 
         goto LABEL_13;
@@ -273,53 +273,24 @@ LABEL_15:
   return [v3 stringWithFormat:@"@<%@: %p, %@ from %@>", v4, self, v9, v8];
 }
 
-+ (void)stateWithData:(unsigned __int8 *)a1 .cold.1(unsigned __int8 *a1)
-{
-  v5 = *MEMORY[0x1E69E9840];
-  v1 = *a1;
-  OUTLINED_FUNCTION_0_14();
-  OUTLINED_FUNCTION_1_12(&dword_1AAAE1000, v2, v3, "[CRIT] unexpected data version (%u): %@");
-  v4 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)stateWithData:(unsigned __int16 *)a1 .cold.2(unsigned __int16 *a1)
-{
-  v5 = *MEMORY[0x1E69E9840];
-  v1 = *a1;
-  OUTLINED_FUNCTION_0_14();
-  OUTLINED_FUNCTION_1_12(&dword_1AAAE1000, v2, v3, "[CRIT] couldn't read page of size %u from data: %@");
-  v4 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)stateWithData:(unsigned __int16 *)a1 .cold.3(unsigned __int16 *a1)
-{
-  v5 = *MEMORY[0x1E69E9840];
-  v1 = *a1;
-  OUTLINED_FUNCTION_0_14();
-  OUTLINED_FUNCTION_1_12(&dword_1AAAE1000, v2, v3, "[CRIT] couldn't read change token of size %u from data: %@");
-  v4 = *MEMORY[0x1E69E9840];
-}
-
 + (void)stateWithData:(uint64_t)a1 .cold.5(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_fault_impl(&dword_1AAAE1000, a2, OS_LOG_TYPE_FAULT, "[CRIT] couldn't parse data header: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_fault_impl(&dword_1AAAE1000, a2, OS_LOG_TYPE_FAULT, "[CRIT] couldn't parse data header: %@", &v2, 0xCu);
 }
 
 - (void)dataRepresentation
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = *self;
   v4 = *a2;
-  v6 = 138412546;
-  v7 = v3;
-  v8 = 2112;
-  v9 = v4;
-  _os_log_error_impl(&dword_1AAAE1000, log, OS_LOG_TYPE_ERROR, "[ERROR] vendor token is too large! page:%@ change:%@", &v6, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
+  v5 = 138412546;
+  v6 = v3;
+  v7 = 2112;
+  v8 = v4;
+  _os_log_error_impl(&dword_1AAAE1000, log, OS_LOG_TYPE_ERROR, "[ERROR] vendor token is too large! page:%@ change:%@", &v5, 0x16u);
 }
 
 @end

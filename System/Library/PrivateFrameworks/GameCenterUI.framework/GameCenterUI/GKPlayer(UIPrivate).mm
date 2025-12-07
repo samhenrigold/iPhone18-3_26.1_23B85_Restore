@@ -276,9 +276,9 @@ LABEL_6:
     [GKPlayer(UIPrivate) avatarImageRenderer];
   }
 
-  v1 = avatarImageRenderer_sImageRenderer;
+  v2 = avatarImageRenderer_sImageRenderer;
 
-  return v1;
+  return v2;
 }
 
 - (void)renderMonogramImageWithPhotoSize:()UIPrivate monogramString:handler:
@@ -358,9 +358,9 @@ LABEL_7:
     +[GKPlayer(UIPrivate) monogramQueue];
   }
 
-  v1 = monogramQueue_sMonogramQueue;
+  v2 = monogramQueue_sMonogramQueue;
 
-  return v1;
+  return v2;
 }
 
 - (void)monogramImageWithPhotoSize:()UIPrivate handler:

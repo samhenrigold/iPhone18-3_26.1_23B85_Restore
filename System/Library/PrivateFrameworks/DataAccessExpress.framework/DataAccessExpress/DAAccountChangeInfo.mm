@@ -128,27 +128,25 @@ LABEL_12:
 
 void __37__DAAccountChangeInfo_initWithCoder___block_invoke()
 {
-  v10[5] = *MEMORY[0x277D85DE8];
+  v9[5] = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x277CBEB98];
-  v10[0] = objc_opt_class();
-  v10[1] = objc_opt_class();
-  v10[2] = objc_opt_class();
-  v10[3] = objc_opt_class();
-  v10[4] = objc_opt_class();
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:5];
+  v9[0] = objc_opt_class();
+  v9[1] = objc_opt_class();
+  v9[2] = objc_opt_class();
+  v9[3] = objc_opt_class();
+  v9[4] = objc_opt_class();
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:5];
   v2 = [v0 setWithArray:v1];
   v3 = initWithCoder__oldAccountPropertiesWhitelist;
   initWithCoder__oldAccountPropertiesWhitelist = v2;
 
   v4 = MEMORY[0x277CBEB98];
-  v9[0] = objc_opt_class();
-  v9[1] = objc_opt_class();
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:2];
-  v6 = [v4 setWithArray:{v5, v9[0]}];
+  v8[0] = objc_opt_class();
+  v8[1] = objc_opt_class();
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:2];
+  v6 = [v4 setWithArray:{v5, v8[0]}];
   v7 = initWithCoder__modifiedDataClassesWhitelist;
   initWithCoder__modifiedDataClassesWhitelist = v6;
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)encodeWithCoder:(id)coder

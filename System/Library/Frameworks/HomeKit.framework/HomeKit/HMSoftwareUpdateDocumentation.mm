@@ -65,43 +65,7 @@
     }
 
     v6 = v5;
-    if (!v6)
-    {
-      goto LABEL_11;
-    }
-
-    releaseNotesSummary = [(HMSoftwareUpdateDocumentation *)self releaseNotesSummary];
-    releaseNotesSummary2 = [(HMSoftwareUpdateDocumentation *)v6 releaseNotesSummary];
-    v9 = HMFEqualObjects();
-
-    if (!v9)
-    {
-      goto LABEL_11;
-    }
-
-    releaseNotes = [(HMSoftwareUpdateDocumentation *)self releaseNotes];
-    releaseNotes2 = [(HMSoftwareUpdateDocumentation *)v6 releaseNotes];
-    v12 = HMFEqualObjects();
-
-    if (!v12)
-    {
-      goto LABEL_11;
-    }
-
-    textReleaseNotes = [(HMSoftwareUpdateDocumentation *)self textReleaseNotes];
-    textReleaseNotes2 = [(HMSoftwareUpdateDocumentation *)v6 textReleaseNotes];
-    v15 = HMFEqualObjects();
-
-    if (!v15)
-    {
-      goto LABEL_11;
-    }
-
-    licenseAgreement = [(HMSoftwareUpdateDocumentation *)self licenseAgreement];
-    licenseAgreement2 = [(HMSoftwareUpdateDocumentation *)v6 licenseAgreement];
-    v18 = HMFEqualObjects();
-
-    if (v18)
+    if (v6 && ([(HMSoftwareUpdateDocumentation *)self releaseNotesSummary], v7 = objc_claimAutoreleasedReturnValue(), [(HMSoftwareUpdateDocumentation *)v6 releaseNotesSummary], v8 = objc_claimAutoreleasedReturnValue(), v9 = HMFEqualObjects(), v8, v7, v9) && ([(HMSoftwareUpdateDocumentation *)self releaseNotes], v10 = objc_claimAutoreleasedReturnValue(), [(HMSoftwareUpdateDocumentation *)v6 releaseNotes], v11 = objc_claimAutoreleasedReturnValue(), v12 = HMFEqualObjects(), v11, v10, v12) && ([(HMSoftwareUpdateDocumentation *)self textReleaseNotes], v13 = objc_claimAutoreleasedReturnValue(), [(HMSoftwareUpdateDocumentation *)v6 textReleaseNotes], v14 = objc_claimAutoreleasedReturnValue(), v15 = HMFEqualObjects(), v14, v13, v15) && ([(HMSoftwareUpdateDocumentation *)self licenseAgreement], v16 = objc_claimAutoreleasedReturnValue(), [(HMSoftwareUpdateDocumentation *)v6 licenseAgreement], v17 = objc_claimAutoreleasedReturnValue(), v18 = HMFEqualObjects(), v17, v16, v18))
     {
       licenseAgreementVersion = [(HMSoftwareUpdateDocumentation *)self licenseAgreementVersion];
       licenseAgreementVersion2 = [(HMSoftwareUpdateDocumentation *)v6 licenseAgreementVersion];
@@ -110,7 +74,6 @@
 
     else
     {
-LABEL_11:
       v21 = 0;
     }
   }
@@ -189,7 +152,7 @@ LABEL_11:
 
 - (HMSoftwareUpdateDocumentation)initWithBundle:(id)bundle
 {
-  v74 = *MEMORY[0x1E69E9840];
+  v73 = *MEMORY[0x1E69E9840];
   bundleCopy = bundle;
   v5 = bundleCopy;
   if (bundleCopy)
@@ -204,9 +167,9 @@ LABEL_11:
       {
         v32 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v71 = v32;
-        v72 = 2112;
-        v73 = v5;
+        v70 = v32;
+        v71 = 2112;
+        v72 = v5;
         _os_log_impl(&dword_19BB39000, v31, OS_LOG_TYPE_DEFAULT, "%{public}@Invalid bundle: %@", buf, 0x16u);
       }
 
@@ -232,69 +195,69 @@ LABEL_11:
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v71 = v14;
-      v72 = 2112;
-      v73 = v10;
+      v70 = v14;
+      v71 = 2112;
+      v72 = v10;
       _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_INFO, "%{public}@Parsing using preferred localizations: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v11);
     v15 = __htmlDocumentForResource(v7, v10, @"ReadMeSummary");
     v16 = __htmlDocumentForResource(v7, v10, @"ReadMe");
-    v55 = __htmlDocumentForResource(v7, v10, @"License");
+    v54 = __htmlDocumentForResource(v7, v10, @"License");
     v17 = v7;
+    v59 = 0u;
     v60 = 0u;
     v61 = 0u;
     v62 = 0u;
-    v63 = 0u;
     v18 = v10;
-    v19 = [v18 countByEnumeratingWithState:&v60 objects:buf count:16];
+    v19 = [v18 countByEnumeratingWithState:&v59 objects:buf count:16];
     if (v19)
     {
-      v56 = v16;
-      v52 = v15;
-      v53 = selfCopy;
-      v20 = *v61;
+      v55 = v16;
+      v51 = v15;
+      v52 = selfCopy;
+      v20 = *v60;
       while (2)
       {
         for (i = 0; i != v19; i = (i + 1))
         {
-          if (*v61 != v20)
+          if (*v60 != v20)
           {
             objc_enumerationMutation(v18);
           }
 
-          v22 = [v17 URLForResource:@"ReadMe" withExtension:@"txt" subdirectory:0 localization:*(*(&v60 + 1) + 8 * i)];
+          v22 = [v17 URLForResource:@"ReadMe" withExtension:@"txt" subdirectory:0 localization:*(*(&v59 + 1) + 8 * i)];
           if (v22)
           {
             v27 = v22;
-            v59 = 0;
-            v19 = [[HMPlainTextDocument alloc] initWithURL:v22 error:&v59];
-            v28 = v59;
+            v58 = 0;
+            v19 = [[HMPlainTextDocument alloc] initWithURL:v22 error:&v58];
+            v28 = v58;
             if (v19)
             {
               v29 = v19;
-              v15 = v52;
-              selfCopy = v53;
+              v15 = v51;
+              selfCopy = v52;
             }
 
             else
             {
               context = objc_autoreleasePoolPush();
               v33 = HMFGetOSLogHandle();
-              v15 = v52;
-              selfCopy = v53;
+              v15 = v51;
+              selfCopy = v52;
               if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
               {
-                v50 = HMFGetLogIdentifier();
+                v49 = HMFGetLogIdentifier();
                 path = [v27 path];
-                *v64 = 138543874;
-                v65 = v50;
-                v66 = 2112;
-                v67 = path;
-                v68 = 2112;
-                v69 = v28;
-                _os_log_impl(&dword_19BB39000, v33, OS_LOG_TYPE_INFO, "%{public}@Unable to load document, %@, with error: %@", v64, 0x20u);
+                *v63 = 138543874;
+                v64 = v49;
+                v65 = 2112;
+                v66 = path;
+                v67 = 2112;
+                v68 = v28;
+                _os_log_impl(&dword_19BB39000, v33, OS_LOG_TYPE_INFO, "%{public}@Unable to load document, %@, with error: %@", v63, 0x20u);
               }
 
               objc_autoreleasePoolPop(context);
@@ -304,7 +267,7 @@ LABEL_11:
           }
         }
 
-        v19 = [v18 countByEnumeratingWithState:&v60 objects:buf count:16];
+        v19 = [v18 countByEnumeratingWithState:&v59 objects:buf count:16];
         if (v19)
         {
           continue;
@@ -313,10 +276,10 @@ LABEL_11:
         break;
       }
 
-      v15 = v52;
-      selfCopy = v53;
+      v15 = v51;
+      selfCopy = v52;
 LABEL_28:
-      v16 = v56;
+      v16 = v55;
     }
 
     if (v16 && v19)
@@ -327,12 +290,12 @@ LABEL_28:
       if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
       {
         HMFGetLogIdentifier();
-        v37 = v57 = v16;
+        v37 = v56 = v16;
         *buf = 138543362;
-        v71 = v37;
+        v70 = v37;
         _os_log_impl(&dword_19BB39000, v36, OS_LOG_TYPE_DEFAULT, "%{public}@Both html and text release notes provided, using text notes", buf, 0xCu);
 
-        v16 = v57;
+        v16 = v56;
       }
 
       objc_autoreleasePoolPop(v34);
@@ -340,11 +303,11 @@ LABEL_28:
       v15 = 0;
     }
 
-    if (!v55)
+    if (!v54)
     {
       v41 = 0;
 LABEL_45:
-      self = [(HMSoftwareUpdateDocumentation *)selfCopy initWithReleaseNotesSummary:v15 releaseNotes:v16 textReleaseNotes:v19 licenseAgreement:v55 licenseAgreementVersion:v41, path];
+      self = [(HMSoftwareUpdateDocumentation *)selfCopy initWithReleaseNotesSummary:v15 releaseNotes:v16 textReleaseNotes:v19 licenseAgreement:v54 licenseAgreementVersion:v41, path];
 
       selfCopy2 = self;
 LABEL_46:
@@ -352,7 +315,7 @@ LABEL_46:
       goto LABEL_47;
     }
 
-    v58 = v16;
+    v57 = v16;
     infoDictionary = [v5 infoDictionary];
     v39 = [infoDictionary hmf_dictionaryForKey:@"MobileAssetProperties"];
     v40 = v39;
@@ -363,20 +326,20 @@ LABEL_46:
       {
 LABEL_44:
 
-        v16 = v58;
+        v16 = v57;
         goto LABEL_45;
       }
 
-      v54 = objc_autoreleasePoolPush();
+      v53 = objc_autoreleasePoolPush();
       v42 = selfCopy;
       v43 = HMFGetOSLogHandle();
       if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
       {
         v44 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v71 = v44;
-        v72 = 2112;
-        v73 = v40;
+        v70 = v44;
+        v71 = 2112;
+        v72 = v40;
         v45 = "%{public}@Missing SLA version from asset properties: %@";
 LABEL_42:
         _os_log_impl(&dword_19BB39000, v43, OS_LOG_TYPE_ERROR, v45, buf, 0x16u);
@@ -385,22 +348,22 @@ LABEL_42:
 
     else
     {
-      v54 = objc_autoreleasePoolPush();
+      v53 = objc_autoreleasePoolPush();
       v46 = selfCopy;
       v43 = HMFGetOSLogHandle();
       if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
       {
         v44 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v71 = v44;
-        v72 = 2112;
-        v73 = infoDictionary;
+        v70 = v44;
+        v71 = 2112;
+        v72 = infoDictionary;
         v45 = "%{public}@Missing asset properties from asset info: %@";
         goto LABEL_42;
       }
     }
 
-    objc_autoreleasePoolPop(v54);
+    objc_autoreleasePoolPop(v53);
     v41 = 0;
     goto LABEL_44;
   }
@@ -412,7 +375,7 @@ LABEL_42:
   {
     v25 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v71 = v25;
+    v70 = v25;
     _os_log_impl(&dword_19BB39000, v24, OS_LOG_TYPE_ERROR, "%{public}@The bundle parameter is required", buf, 0xCu);
   }
 
@@ -420,7 +383,6 @@ LABEL_42:
   selfCopy2 = 0;
 LABEL_47:
 
-  v47 = *MEMORY[0x1E69E9840];
   return selfCopy2;
 }
 

@@ -162,33 +162,34 @@
               [(ATXFocusModeContactsMetricLogger *)self populateContactModeAffinitySignalsForMode:v10 contactId:v27 metric:v28];
             }
 
-            if ([eventCopy modeConfigurationType] == 1)
+            modeConfigurationType = [eventCopy modeConfigurationType];
+            if (modeConfigurationType == 1)
             {
-              [(ATXFocusModeContactsMetricLogger *)self populateContactModeDenyListSignalsForMode:v10 contactId:v27 metric:v28];
+              modeConfigurationType = [(ATXFocusModeContactsMetricLogger *)self populateContactModeDenyListSignalsForMode:v10 contactId:v27 metric:v28];
             }
 
-            v32 = __atxlog_handle_modes();
-            if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
+            v33 = __atxlog_handle_modes(modeConfigurationType);
+            if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
             {
-              v33 = objc_opt_class();
-              v48 = v33;
-              v34 = NSStringFromSelector(a2);
+              v34 = objc_opt_class();
+              v48 = v34;
+              v35 = NSStringFromSelector(a2);
               [v28 coreAnalyticsDictionary];
               selfCopy = self;
-              v36 = eventCopy;
-              v37 = v14;
-              v39 = v38 = activityCopy;
+              v37 = eventCopy;
+              v38 = v14;
+              v40 = v39 = activityCopy;
               *buf = 138412802;
-              v60 = v33;
+              v60 = v34;
               v61 = 2112;
-              v62 = v34;
+              v62 = v35;
               v63 = 2112;
-              v64 = v39;
-              _os_log_impl(&dword_2263AA000, v32, OS_LOG_TYPE_INFO, "[%@][%@] Logging: %@", buf, 0x20u);
+              v64 = v40;
+              _os_log_impl(&dword_2263AA000, v33, OS_LOG_TYPE_INFO, "[%@][%@] Logging: %@", buf, 0x20u);
 
-              activityCopy = v38;
-              v14 = v37;
-              eventCopy = v36;
+              activityCopy = v39;
+              v14 = v38;
+              eventCopy = v37;
               self = selfCopy;
               v10 = v44;
 
@@ -226,13 +227,11 @@
 LABEL_35:
     }
   }
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 - (void)populateContactModeAffinitySignalsForMode:(unint64_t)mode contactId:(id)id metric:(id)metric
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   idCopy = id;
   metricCopy = metric;
   v10 = [(ATXFocusModeContactsMetricLogger *)self _contactScoresForMode:mode];
@@ -245,42 +244,42 @@ LABEL_35:
 
     if (v13)
     {
-      v34 = v10;
-      v35 = idCopy;
-      v33 = stableContactIdentifier;
+      v33 = v10;
+      v34 = idCopy;
+      v32 = stableContactIdentifier;
       v14 = [v10 objectForKeyedSubscript:stableContactIdentifier];
       scoreMetadata = [v14 scoreMetadata];
       featureVector = [scoreMetadata featureVector];
 
-      v31 = [[ATXModeEntityScoringFeatures alloc] initFromJSON:featureVector];
-      v32 = v14;
+      v30 = [[ATXModeEntityScoringFeatures alloc] initFromJSON:featureVector];
+      v31 = v14;
       v17 = MEMORY[0x277CCABB0];
       scoreMetadata2 = [v14 scoreMetadata];
       [scoreMetadata2 score];
       v19 = [v17 numberWithDouble:?];
       [metricCopy setEntityModeEntityScore:v19];
 
-      v38 = 0u;
-      v39 = 0u;
-      v36 = 0u;
       v37 = 0u;
+      v38 = 0u;
+      v35 = 0u;
+      v36 = 0u;
       metricFieldsToFeatureNames = [(ATXFocusModeContactsMetricLogger *)self metricFieldsToFeatureNames];
-      v21 = [metricFieldsToFeatureNames countByEnumeratingWithState:&v36 objects:v40 count:16];
+      v21 = [metricFieldsToFeatureNames countByEnumeratingWithState:&v35 objects:v39 count:16];
       if (v21)
       {
         v22 = v21;
-        v23 = *v37;
+        v23 = *v36;
         do
         {
           v24 = 0;
           do
           {
-            if (*v37 != v23)
+            if (*v36 != v23)
             {
               objc_enumerationMutation(metricFieldsToFeatureNames);
             }
 
-            v25 = *(*(&v36 + 1) + 8 * v24);
+            v25 = *(*(&v35 + 1) + 8 * v24);
             metricFieldsToFeatureNames2 = [(ATXFocusModeContactsMetricLogger *)self metricFieldsToFeatureNames];
             v27 = [metricFieldsToFeatureNames2 objectForKeyedSubscript:v25];
 
@@ -299,25 +298,23 @@ LABEL_35:
           }
 
           while (v22 != v24);
-          v22 = [metricFieldsToFeatureNames countByEnumeratingWithState:&v36 objects:v40 count:16];
+          v22 = [metricFieldsToFeatureNames countByEnumeratingWithState:&v35 objects:v39 count:16];
         }
 
         while (v22);
       }
 
-      [(ATXFocusModeContactsMetricLogger *)self addContactEntitySpecificFeatures:v31 toMetric:metricCopy];
-      v10 = v34;
-      idCopy = v35;
-      stableContactIdentifier = v33;
+      [(ATXFocusModeContactsMetricLogger *)self addContactEntitySpecificFeatures:v30 toMetric:metricCopy];
+      v10 = v33;
+      idCopy = v34;
+      stableContactIdentifier = v32;
     }
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)populateContactModeDenyListSignalsForMode:(unint64_t)mode contactId:(id)id metric:(id)metric
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   idCopy = id;
   metricCopy = metric;
   v10 = [(ATXFocusModeContactsMetricLogger *)self _contactScoresForDenyListForMode:mode];
@@ -330,42 +327,42 @@ LABEL_35:
 
     if (v13)
     {
-      v34 = v10;
-      v35 = idCopy;
-      v33 = stableContactIdentifier;
+      v33 = v10;
+      v34 = idCopy;
+      v32 = stableContactIdentifier;
       v14 = [v10 objectForKeyedSubscript:stableContactIdentifier];
       scoreMetadata = [v14 scoreMetadata];
       featureVector = [scoreMetadata featureVector];
 
-      v31 = [[ATXModeEntityScoringFeatures alloc] initFromJSON:featureVector];
-      v32 = v14;
+      v30 = [[ATXModeEntityScoringFeatures alloc] initFromJSON:featureVector];
+      v31 = v14;
       v17 = MEMORY[0x277CCABB0];
       scoreMetadata2 = [v14 scoreMetadata];
       [scoreMetadata2 score];
       v19 = [v17 numberWithDouble:?];
       [metricCopy setEntityModeEntityScore:v19];
 
-      v38 = 0u;
-      v39 = 0u;
-      v36 = 0u;
       v37 = 0u;
+      v38 = 0u;
+      v35 = 0u;
+      v36 = 0u;
       metricFieldsToFeatureNames = [(ATXFocusModeContactsMetricLogger *)self metricFieldsToFeatureNames];
-      v21 = [metricFieldsToFeatureNames countByEnumeratingWithState:&v36 objects:v40 count:16];
+      v21 = [metricFieldsToFeatureNames countByEnumeratingWithState:&v35 objects:v39 count:16];
       if (v21)
       {
         v22 = v21;
-        v23 = *v37;
+        v23 = *v36;
         do
         {
           v24 = 0;
           do
           {
-            if (*v37 != v23)
+            if (*v36 != v23)
             {
               objc_enumerationMutation(metricFieldsToFeatureNames);
             }
 
-            v25 = *(*(&v36 + 1) + 8 * v24);
+            v25 = *(*(&v35 + 1) + 8 * v24);
             metricFieldsToFeatureNames2 = [(ATXFocusModeContactsMetricLogger *)self metricFieldsToFeatureNames];
             v27 = [metricFieldsToFeatureNames2 objectForKeyedSubscript:v25];
 
@@ -384,20 +381,18 @@ LABEL_35:
           }
 
           while (v22 != v24);
-          v22 = [metricFieldsToFeatureNames countByEnumeratingWithState:&v36 objects:v40 count:16];
+          v22 = [metricFieldsToFeatureNames countByEnumeratingWithState:&v35 objects:v39 count:16];
         }
 
         while (v22);
       }
 
-      [(ATXFocusModeContactsMetricLogger *)self addContactEntitySpecificFeatures:v31 toMetric:metricCopy];
-      v10 = v34;
-      idCopy = v35;
-      stableContactIdentifier = v33;
+      [(ATXFocusModeContactsMetricLogger *)self addContactEntitySpecificFeatures:v30 toMetric:metricCopy];
+      v10 = v33;
+      idCopy = v34;
+      stableContactIdentifier = v32;
     }
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addContactEntitySpecificFeatures:(id)features toMetric:(id)metric

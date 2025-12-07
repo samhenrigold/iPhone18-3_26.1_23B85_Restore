@@ -56,28 +56,28 @@
 
 + (id)parseHeaderValue:(id)value forField:(id)field
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   valueCopy = value;
   fieldCopy = field;
-  v31 = +[EMMailDropMetadata mailDropMetadata];
+  v30 = +[EMMailDropMetadata mailDropMetadata];
   if ([fieldCopy isEqualToString:*MEMORY[0x1E699B100]])
   {
-    [v31 setMimeType:@"application/zip"];
-    v6 = [v31 flags] | 2;
+    [v30 setMimeType:@"application/zip"];
+    v6 = [v30 flags] | 2;
 LABEL_5:
-    [v31 setFlags:v6];
+    [v30 setFlags:v6];
     goto LABEL_6;
   }
 
   if ([fieldCopy isEqualToString:*MEMORY[0x1E699B148]])
   {
-    v6 = [v31 flags] | 4;
+    v6 = [v30 flags] | 4;
     goto LABEL_5;
   }
 
 LABEL_6:
-  v28 = [valueCopy componentsSeparatedByString:@""];;
-  if ([v28 count] < 2)
+  v27 = [valueCopy componentsSeparatedByString:@""];;
+  if ([v27 count] < 2)
   {
     v7 = [MEMORY[0x1E695DFF8] URLWithString:valueCopy];
     if (v7)
@@ -88,31 +88,31 @@ LABEL_6:
     goto LABEL_38;
   }
 
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
   v34 = 0u;
-  obj = v28;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
+  obj = v27;
   v7 = 0;
-  v8 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
+  v8 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
   if (!v8)
   {
     goto LABEL_34;
   }
 
-  v9 = *v34;
+  v9 = *v33;
   do
   {
     v10 = 0;
     v11 = lastObject;
     do
     {
-      if (*v34 != v9)
+      if (*v33 != v9)
       {
         objc_enumerationMutation(obj);
       }
 
-      v12 = *(*(&v33 + 1) + 8 * v10);
+      v12 = *(*(&v32 + 1) + 8 * v10);
       v13 = [v12 componentsSeparatedByString:@"="];
       firstObject = [v13 firstObject];
       whitespaceCharacterSet = [MEMORY[0x1E696AB08] whitespaceCharacterSet];
@@ -129,7 +129,7 @@ LABEL_6:
       {
         lastObject = [v13 lastObject];
         ef_sanitizedFileName = [lastObject ef_sanitizedFileName];
-        [v31 setFileName:ef_sanitizedFileName];
+        [v30 setFileName:ef_sanitizedFileName];
         goto LABEL_18;
       }
 
@@ -138,7 +138,7 @@ LABEL_6:
         lastObject = [v13 lastObject];
         ef_sanitizedFileName = [MEMORY[0x1E696AB08] characterSetWithCharactersInString:@""];
         v18 = [lastObject stringByTrimmingCharactersInSet:ef_sanitizedFileName];
-        [v31 setMimeType:v18];
+        [v30 setMimeType:v18];
 
 LABEL_18:
 LABEL_19:
@@ -149,7 +149,7 @@ LABEL_19:
       if ([v16 isEqualToString:@"filesize"])
       {
         lastObject = [v13 lastObject];
-        [v31 setFileSize:{objc_msgSend(lastObject, "integerValue")}];
+        [v30 setFileSize:{objc_msgSend(lastObject, "integerValue")}];
         goto LABEL_19;
       }
 
@@ -158,7 +158,7 @@ LABEL_19:
         if ([v16 isEqualToString:@"x-mac-auto-archive"])
         {
           lastObject = [v13 lastObject];
-          [v31 setAutoArchive:{objc_msgSend(lastObject, "BOOLValue")}];
+          [v30 setAutoArchive:{objc_msgSend(lastObject, "BOOLValue")}];
           goto LABEL_19;
         }
 
@@ -183,7 +183,7 @@ LABEL_20:
         v22 = lastObject;
       }
 
-      [v31 setExpiration:v22];
+      [v30 setExpiration:v22];
       v11 = lastObject;
       if (v21 != 0.0)
       {
@@ -197,7 +197,7 @@ LABEL_21:
     }
 
     while (v8 != v10);
-    v23 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
+    v23 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
     v8 = v23;
   }
 
@@ -210,12 +210,11 @@ LABEL_34:
   }
 
 LABEL_37:
-  [self parseURL:v7 intoMetadata:v31];
+  [self parseURL:v7 intoMetadata:v30];
 LABEL_38:
-  v24 = v31;
+  v24 = v30;
 
-  v25 = *MEMORY[0x1E69E9840];
-  return v31;
+  return v30;
 }
 
 + (void)parseURL:(id)l intoMetadata:(id)metadata
@@ -264,29 +263,29 @@ LABEL_38:
 
 + (id)_parseURLQuery:(id)query
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   queryCopy = query;
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   query = [queryCopy query];
   [query componentsSeparatedByString:@"&"];
+  v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
-  v5 = v17 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v15 = 0u;
+  v5 = v16 = 0u;
+  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
-    v7 = *v17;
+    v7 = *v16;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = [*(*(&v16 + 1) + 8 * i) componentsSeparatedByString:@"="];
+        v9 = [*(*(&v15 + 1) + 8 * i) componentsSeparatedByString:@"="];
         if ([v9 count])
         {
           if ([v9 count] == 2)
@@ -306,20 +305,18 @@ LABEL_38:
         }
       }
 
-      v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v6);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
 
 + (BOOL)_domainIsAllowed:(id)allowed
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   allowedCopy = allowed;
   scheme = [allowedCopy scheme];
   LODWORD(v6) = [scheme isEqualToString:@"https"];
@@ -337,32 +334,32 @@ LABEL_38:
       dispatch_once(&_domainIsAllowed__onceToken, block);
     }
 
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v8 = _allowedDownloadDomains;
-    v6 = [v8 countByEnumeratingWithState:&v13 objects:v18 count:16];
+    v6 = [v8 countByEnumeratingWithState:&v12 objects:v17 count:16];
     if (v6)
     {
-      v9 = *v14;
+      v9 = *v13;
       while (2)
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v14 != v9)
+          if (*v13 != v9)
           {
             objc_enumerationMutation(v8);
           }
 
-          if ([host hasSuffix:{*(*(&v13 + 1) + 8 * i), v13}])
+          if ([host hasSuffix:{*(*(&v12 + 1) + 8 * i), v12}])
           {
             LOBYTE(v6) = 1;
             goto LABEL_14;
           }
         }
 
-        v6 = [v8 countByEnumeratingWithState:&v13 objects:v18 count:16];
+        v6 = [v8 countByEnumeratingWithState:&v12 objects:v17 count:16];
         if (v6)
         {
           continue;
@@ -375,7 +372,6 @@ LABEL_38:
 LABEL_14:
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v6;
 }
 

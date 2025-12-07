@@ -16,7 +16,7 @@
 {
   changeCopy = change;
   selfCopy = self;
-  sub_100296680(change);
+  sub_100296680(change, v6);
 }
 
 @end

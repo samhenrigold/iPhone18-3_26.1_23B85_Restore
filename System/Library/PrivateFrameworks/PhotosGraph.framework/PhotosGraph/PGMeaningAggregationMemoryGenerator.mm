@@ -11,6 +11,7 @@
 - (PGMeaningAggregationMemoryGenerator)initWithMemoryGenerationContext:(id)context;
 - (id)curationOptionsWithRequiredAssetUUIDs:(id)ds eligibleAssetUUIDs:(id)iDs triggeredMemory:(id)memory;
 - (id)keyAssetCurationOptionsWithTriggeredMemory:(id)memory inGraph:(id)graph;
+- (id)relevantFeederForTriggeredMemory:(id)memory inGraph:(id)graph allowGuestAsset:(BOOL)asset progressReporter:(id)reporter;
 - (id)titleGeneratorForTriggeredMemory:(id)memory withKeyAsset:(id)asset curatedAssets:(id)assets extendedCuratedAssets:(id)curatedAssets titleGenerationContext:(id)context inGraph:(id)graph;
 - (unint64_t)memoryCategorySubcategoryForOverTimeType:(unint64_t)type;
 - (void)enumerateMomentNodesAndFeatureNodesInGraph:(id)graph usingBlock:(id)block;
@@ -104,6 +105,274 @@ LABEL_20:
   return v23;
 }
 
+- (id)relevantFeederForTriggeredMemory:(id)memory inGraph:(id)graph allowGuestAsset:(BOOL)asset progressReporter:(id)reporter
+{
+  assetCopy = asset;
+  v98 = *MEMORY[0x277D85DE8];
+  memoryCopy = memory;
+  graphCopy = graph;
+  reporterCopy = reporter;
+  if ([reporterCopy isCancelledWithProgress:0.0])
+  {
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
+    {
+      *buf = 67109378;
+      *v92 = 202;
+      *&v92[4] = 2080;
+      *&v92[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/Memory Generators/CurrentMemoryGenerators/MeaningMemoryGenerators/PGMeaningAggregationMemoryGenerator.m";
+      _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
+    }
+
+    v12 = 0;
+    goto LABEL_45;
+  }
+
+  v78 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  memoryFeatureNodes = [memoryCopy memoryFeatureNodes];
+  v14 = [(PGGraphNodeCollection *)PGGraphMeaningNodeCollection subsetInCollection:memoryFeatureNodes];
+  labels = [v14 labels];
+  anyObject = [labels anyObject];
+
+  v74 = [(PGGraphNodeCollection *)PGGraphAddressNodeCollection subsetInCollection:memoryFeatureNodes];
+  locations = [v74 locations];
+  v79 = [(PGGraphNodeCollection *)PGGraphLocationCityNodeCollection subsetInCollection:memoryFeatureNodes];
+  v80 = [(PGGraphNodeCollection *)PGGraphAreaNodeCollection subsetInCollection:memoryFeatureNodes];
+  memoryCurationSession = [(PGMemoryGenerator *)self memoryCurationSession];
+  curationManager = [memoryCurationSession curationManager];
+  curationCriteriaFactory = [curationManager curationCriteriaFactory];
+  v81 = anyObject;
+  v76 = [curationCriteriaFactory curationCriteriaWithMeaningLabel:anyObject featureNodes:memoryFeatureNodes inGraph:graphCopy client:1];
+
+  memoryMomentNodes = [memoryCopy memoryMomentNodes];
+  memoryCurationSession2 = [(PGMemoryGenerator *)self memoryCurationSession];
+  curationManager2 = [memoryCurationSession2 curationManager];
+  defaultAssetFetchOptionsForMemories = [curationManager2 defaultAssetFetchOptionsForMemories];
+
+  v84 = defaultAssetFetchOptionsForMemories;
+  [defaultAssetFetchOptionsForMemories setIncludeGuestAssets:assetCopy];
+  memoryCurationSession3 = [(PGMemoryGenerator *)self memoryCurationSession];
+  photoLibrary = [memoryCurationSession3 photoLibrary];
+  librarySpecificFetchOptions = [photoLibrary librarySpecificFetchOptions];
+
+  v27 = MEMORY[0x277CD97B8];
+  localIdentifiers = [memoryMomentNodes localIdentifiers];
+  allObjects = [localIdentifiers allObjects];
+  [v27 fetchAssetCollectionsWithLocalIdentifiers:allObjects options:librarySpecificFetchOptions];
+  v31 = v30 = graphCopy;
+
+  v32 = [v31 count];
+  v77 = memoryMomentNodes;
+  if (v32 < [memoryMomentNodes count])
+  {
+    v33 = v30;
+    log = [(PGMemoryGenerator *)self loggingConnection];
+    if (os_log_type_enabled(log, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 0;
+      _os_log_error_impl(&dword_22F0FC000, log, OS_LOG_TYPE_ERROR, "[PGMeaningAggregationMemoryGenerator] Failed to fetch all momentNodes, graph is out-of-sync with the photo library.", buf, 2u);
+    }
+
+    v12 = 0;
+    v34 = v74;
+    goto LABEL_44;
+  }
+
+  selfCopy = self;
+  v70 = librarySpecificFetchOptions;
+  v71 = memoryFeatureNodes;
+  v72 = v30;
+  v73 = memoryCopy;
+  v89 = 0u;
+  v90 = 0u;
+  v87 = 0u;
+  v88 = 0u;
+  v69 = v31;
+  v35 = v31;
+  v36 = [v35 countByEnumeratingWithState:&v87 objects:v97 count:16];
+  v37 = locations;
+  if (!v36)
+  {
+    goto LABEL_35;
+  }
+
+  v38 = v36;
+  v83 = *v88;
+  log = v35;
+  while (2)
+  {
+    for (i = 0; i != v38; ++i)
+    {
+      if (*v88 != v83)
+      {
+        objc_enumerationMutation(v35);
+      }
+
+      v40 = *(*(&v87 + 1) + 8 * i);
+      v41 = objc_autoreleasePoolPush();
+      v42 = [MEMORY[0x277CD97A8] fetchAssetsInAssetCollection:v40 options:v84];
+      v43 = MEMORY[0x277CD97A8];
+      memoryCurationSession4 = [(PGMemoryGenerator *)selfCopy memoryCurationSession];
+      curationContext = [memoryCurationSession4 curationContext];
+      v46 = [v43 clsAllAssetsFromFetchResult:v42 prefetchOptions:23 curationContext:curationContext];
+
+      v47 = v46;
+      if ([v37 count])
+      {
+        v48 = [PGCurationManager filterAssets:v47 withLocations:v37 maximumDistance:100.0];
+      }
+
+      else if ([v80 count])
+      {
+        v48 = [PGCurationManager filterAssets:v47 inMomentNodes:v77 forAreaNodes:v80 withMaximumDistance:500.0];
+      }
+
+      else
+      {
+        v49 = v47;
+        if (![v79 count])
+        {
+          goto LABEL_21;
+        }
+
+        v48 = [PGCurationManager filterAssets:v47 inMomentNodes:v77 forCityNodes:v79 withMaximumDistance:5000.0];
+      }
+
+      v49 = v48;
+
+LABEL_21:
+      if ([v49 count])
+      {
+        if (([v81 isEqualToString:@"HolidayEvent"] & 1) == 0)
+        {
+          v50 = [v76 passingAssetsInAssets:v49];
+
+          v49 = v50;
+        }
+
+        v51 = [v49 count];
+        if (v51 != [v47 count])
+        {
+          v52 = [PGMemoryGenerationHelper assetLocalIdentifiersFromAssets:v49];
+          v53 = [PGCurationManager filteredAssetsFromAssets:v47 withContextualAssetLocalIdentifiers:v52 approximateTimeDistance:300.0];
+
+          v49 = v53;
+        }
+
+        v37 = locations;
+        if ([v49 count] >= 3)
+        {
+          [v78 addObjectsFromArray:v47];
+        }
+
+        if ([reporterCopy isCancelledWithProgress:0.5])
+        {
+          if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
+          {
+            *buf = 67109378;
+            *v92 = 263;
+            *&v92[4] = 2080;
+            *&v92[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/Memory Generators/CurrentMemoryGenerators/MeaningMemoryGenerators/PGMeaningAggregationMemoryGenerator.m";
+            _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
+          }
+
+          objc_autoreleasePoolPop(v41);
+          v12 = 0;
+          v33 = v72;
+          memoryCopy = v73;
+          librarySpecificFetchOptions = v70;
+          memoryFeatureNodes = v71;
+          v34 = v74;
+          v31 = v69;
+          goto LABEL_44;
+        }
+      }
+
+      else
+      {
+        loggingConnection = [(PGMemoryGenerator *)selfCopy loggingConnection];
+        if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_INFO))
+        {
+          uuid = [v40 uuid];
+          anyNode = [v80 anyNode];
+          anyNode2 = [v79 anyNode];
+          *buf = 138413059;
+          *v92 = uuid;
+          *&v92[8] = 2113;
+          *&v92[10] = locations;
+          v93 = 2113;
+          v94 = anyNode;
+          v95 = 2113;
+          v96 = anyNode2;
+          _os_log_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_INFO, "[PGMeaningAggregationMemoryGenerator] No relevant assets found for moment (%@) at locations: %{private}@, aoi: %{private}@, city: %{private}@", buf, 0x2Au);
+
+          v35 = log;
+          v37 = locations;
+        }
+      }
+
+      objc_autoreleasePoolPop(v41);
+    }
+
+    v38 = [v35 countByEnumeratingWithState:&v87 objects:v97 count:16];
+    if (v38)
+    {
+      continue;
+    }
+
+    break;
+  }
+
+LABEL_35:
+
+  v58 = objc_alloc(MEMORY[0x277CD98D0]);
+  allObjects2 = [v78 allObjects];
+  photoLibrary2 = [v84 photoLibrary];
+  v61 = MEMORY[0x277CBEB98];
+  fetchPropertySets = [v84 fetchPropertySets];
+  v63 = [v61 setWithArray:fetchPropertySets];
+  v64 = [v58 initWithObjects:allObjects2 photoLibrary:photoLibrary2 fetchType:0 fetchPropertySets:v63 identifier:0 registerIfNeeded:0];
+
+  memoryCurationSession5 = [(PGMemoryGenerator *)selfCopy memoryCurationSession];
+  v66 = [PGMemoryGenerationHelper feederForMemoriesWithAssetFetchResult:v64 memoryCurationSession:memoryCurationSession5 graph:v72];
+
+  log = v64;
+  v33 = v72;
+  if ([reporterCopy isCancelledWithProgress:1.0])
+  {
+    librarySpecificFetchOptions = v70;
+    memoryFeatureNodes = v71;
+    v34 = v74;
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
+    {
+      *buf = 67109378;
+      *v92 = 269;
+      *&v92[4] = 2080;
+      *&v92[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/Memory Generators/CurrentMemoryGenerators/MeaningMemoryGenerators/PGMeaningAggregationMemoryGenerator.m";
+      _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
+    }
+
+    v12 = 0;
+    memoryCopy = v73;
+  }
+
+  else
+  {
+    v12 = v66;
+    memoryCopy = v73;
+    v34 = v74;
+    librarySpecificFetchOptions = v70;
+    memoryFeatureNodes = v71;
+  }
+
+  v31 = v69;
+
+LABEL_44:
+  graphCopy = v33;
+LABEL_45:
+
+  return v12;
+}
+
 - (id)keyAssetCurationOptionsWithTriggeredMemory:(id)memory inGraph:(id)graph
 {
   graphCopy = graph;
@@ -140,15 +409,15 @@ LABEL_20:
 
 - (void)enumerateMomentNodesAndFeatureNodesInGraph:(id)graph usingBlock:(id)block
 {
-  v27[2] = *MEMORY[0x277D85DE8];
+  v26[2] = *MEMORY[0x277D85DE8];
   blockCopy = block;
   graphCopy = graph;
   supportedMeaningLabels = [objc_opt_class() supportedMeaningLabels];
   v9 = [PGGraphMeaningNodeCollection meaningNodesWithMeaningLabels:supportedMeaningLabels inGraph:graphCopy];
 
-  v27[0] = @"Lunch";
-  v27[1] = @"Dinner";
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:2];
+  v26[0] = @"Lunch";
+  v26[1] = @"Dinner";
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
   v11 = [PGGraphMeaningNodeCollection meaningNodesWithMeaningLabels:v10 inGraph:graphCopy];
   v12 = [PGGraphBusinessNodeCollection restaurantBusinessNodesInGraph:graphCopy];
 
@@ -159,20 +428,18 @@ LABEL_20:
   v16 = +[PGGraphMeaningNode momentOfReliableMeaning];
   v17 = [v15 adjacencyWithSources:v9 relation:v16 targetsClass:objc_opt_class()];
 
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __93__PGMeaningAggregationMemoryGenerator_enumerateMomentNodesAndFeatureNodesInGraph_usingBlock___block_invoke;
-  v22[3] = &unk_27887FDF8;
-  v23 = v11;
-  v24 = v14;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __93__PGMeaningAggregationMemoryGenerator_enumerateMomentNodesAndFeatureNodesInGraph_usingBlock___block_invoke;
+  v21[3] = &unk_27887FDF8;
+  v22 = v11;
+  v23 = v14;
   selfCopy = self;
-  v26 = blockCopy;
+  v25 = blockCopy;
   v18 = blockCopy;
   v19 = v14;
   v20 = v11;
-  [v17 enumerateTargetsBySourceWithBlock:v22];
-
-  v21 = *MEMORY[0x277D85DE8];
+  [v17 enumerateTargetsBySourceWithBlock:v21];
 }
 
 void __93__PGMeaningAggregationMemoryGenerator_enumerateMomentNodesAndFeatureNodesInGraph_usingBlock___block_invoke(uint64_t a1, void *a2, void *a3, uint64_t a4)
@@ -181,78 +448,67 @@ void __93__PGMeaningAggregationMemoryGenerator_enumerateMomentNodesAndFeatureNod
   v8 = a3;
   if (![v7 intersectsCollection:*(a1 + 32)] || (objc_msgSend(v8, "collectionByIntersecting:", *(a1 + 40)), v9 = objc_claimAutoreleasedReturnValue(), v8, v8 = v9, objc_msgSend(v9, "count")))
   {
-    v10 = *(a1 + 48);
-    v11 = [objc_opt_class() requiredFeatureRelation];
-    if (v11)
+    v10 = [objc_opt_class() requiredFeatureRelation];
+    if (v10)
     {
-      v12 = [MEMORY[0x277D22BF8] adjacencyWithSources:v8 relation:v11 targetsClass:objc_opt_class()];
-      v13 = [v12 transposed];
-      v15[0] = MEMORY[0x277D85DD0];
-      v15[1] = 3221225472;
-      v15[2] = __93__PGMeaningAggregationMemoryGenerator_enumerateMomentNodesAndFeatureNodesInGraph_usingBlock___block_invoke_2;
-      v15[3] = &unk_27887FDD0;
-      v16 = v7;
-      v17 = *(a1 + 56);
-      v18 = a4;
-      [v13 enumerateTargetsBySourceWithBlock:v15];
+      v11 = [MEMORY[0x277D22BF8] adjacencyWithSources:v8 relation:v10 targetsClass:objc_opt_class()];
+      v12 = [v11 transposed];
+      v14[0] = MEMORY[0x277D85DD0];
+      v14[1] = 3221225472;
+      v14[2] = __93__PGMeaningAggregationMemoryGenerator_enumerateMomentNodesAndFeatureNodesInGraph_usingBlock___block_invoke_2;
+      v14[3] = &unk_27887FDD0;
+      v15 = v7;
+      v16 = *(a1 + 56);
+      v17 = a4;
+      [v12 enumerateTargetsBySourceWithBlock:v14];
     }
 
     else
     {
-      v14 = *(a1 + 56);
-      v12 = [v7 featureNodeCollection];
-      (*(v14 + 16))(v14, v8, v12, a4);
+      v13 = *(a1 + 56);
+      v11 = [v7 featureNodeCollection];
+      (*(v13 + 16))(v13, v8, v11, a4);
     }
   }
 }
 
-void __93__PGMeaningAggregationMemoryGenerator_enumerateMomentNodesAndFeatureNodesInGraph_usingBlock___block_invoke_2(void *a1, void *a2, void *a3, _BYTE *a4)
+void __93__PGMeaningAggregationMemoryGenerator_enumerateMomentNodesAndFeatureNodesInGraph_usingBlock___block_invoke_2(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 {
-  v7 = a1[4];
+  v7 = *(a1 + 32);
   v8 = a3;
-  v10 = [a2 collectionByFormingUnionWith:v7];
-  v9 = a1[6];
-  (*(a1[5] + 16))();
+  v9 = [a2 collectionByFormingUnionWith:v7];
+  (*(*(a1 + 40) + 16))();
 
-  *a4 = *a1[6];
+  *a4 = **(a1 + 48);
 }
 
 - (unint64_t)memoryCategorySubcategoryForOverTimeType:(unint64_t)type
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (type == 1)
   {
-    result = 11002;
+    return 11002;
   }
 
-  else
+  typeCopy = type;
+  if (type == 3)
   {
-    typeCopy = type;
-    if (type == 3)
-    {
-      result = 11003;
-    }
-
-    else
-    {
-      loggingConnection = [(PGMemoryGenerator *)self loggingConnection];
-      if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
-      {
-        v7 = objc_opt_class();
-        v8 = NSStringFromClass(v7);
-        v9 = 138412546;
-        v10 = v8;
-        v11 = 1024;
-        v12 = typeCopy;
-        _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "[%@] Returning PHMemoryCategorySubcategoryNone for PGOverTimeMemoryType %d, this should never happen", &v9, 0x12u);
-      }
-
-      result = 0;
-    }
+    return 11003;
   }
 
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  loggingConnection = [(PGMemoryGenerator *)self loggingConnection];
+  if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
+  {
+    v6 = objc_opt_class();
+    v7 = NSStringFromClass(v6);
+    v8 = 138412546;
+    v9 = v7;
+    v10 = 1024;
+    v11 = typeCopy;
+    _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "[%@] Returning PHMemoryCategorySubcategoryNone for PGOverTimeMemoryType %d, this should never happen", &v8, 0x12u);
+  }
+
+  return 0;
 }
 
 - (PGMeaningAggregationMemoryGenerator)initWithMemoryGenerationContext:(id)context
@@ -587,30 +843,30 @@ LABEL_7:
 
 + (id)featureRelationWithMeaningLabel:(id)label
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   labelCopy = label;
   allMeaningAggregationMemoryGeneratorClasses = [self allMeaningAggregationMemoryGeneratorClasses];
   v6 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v7 = allMeaningAggregationMemoryGeneratorClasses;
-  v8 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v20;
+    v10 = *v19;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v20 != v10)
+        if (*v19 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v19 + 1) + 8 * i);
+        v12 = *(*(&v18 + 1) + 8 * i);
         supportedMeaningLabels = [v12 supportedMeaningLabels];
         v14 = [supportedMeaningLabels containsObject:labelCopy];
 
@@ -624,7 +880,7 @@ LABEL_7:
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v9);
@@ -640,36 +896,32 @@ LABEL_7:
     v16 = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return v16;
 }
 
 + (id)allMeaningAggregationMemoryGeneratorClasses
 {
-  v5[6] = *MEMORY[0x277D85DE8];
-  v5[0] = objc_opt_class();
-  v5[1] = objc_opt_class();
-  v5[2] = objc_opt_class();
-  v5[3] = objc_opt_class();
-  v5[4] = objc_opt_class();
-  v5[5] = objc_opt_class();
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:6];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[6] = *MEMORY[0x277D85DE8];
+  v4[0] = objc_opt_class();
+  v4[1] = objc_opt_class();
+  v4[2] = objc_opt_class();
+  v4[3] = objc_opt_class();
+  v4[4] = objc_opt_class();
+  v4[5] = objc_opt_class();
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:6];
 
   return v2;
 }
 
 + (id)supportedMeaningLabels
 {
-  v5[5] = *MEMORY[0x277D85DE8];
-  v5[0] = @"Hiking";
-  v5[1] = @"Climbing";
-  v5[2] = @"Beaching";
-  v5[3] = @"Diving";
-  v5[4] = @"WinterSport";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:5];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[5] = *MEMORY[0x277D85DE8];
+  v4[0] = @"Hiking";
+  v4[1] = @"Climbing";
+  v4[2] = @"Beaching";
+  v4[3] = @"Diving";
+  v4[4] = @"WinterSport";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:5];
 
   return v2;
 }

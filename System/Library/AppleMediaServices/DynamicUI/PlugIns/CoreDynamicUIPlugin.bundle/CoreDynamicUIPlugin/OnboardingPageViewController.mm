@@ -8,7 +8,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_4EF70();
+  sub_4EF70(selfCopy);
 }
 
 - (_TtC19CoreDynamicUIPlugin28OnboardingPageViewController)initWithNibName:(id)name bundle:(id)bundle

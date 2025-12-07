@@ -5,7 +5,7 @@
 
 float _ZL27scoreFromSubtokenScoresProd_block_invoke_6(uint64_t a1, void *a2, uint64_t a3, int a4, uint64_t a5, int a6)
 {
-  v28[4] = *MEMORY[0x277D85DE8];
+  v27[4] = *MEMORY[0x277D85DE8];
   v9 = a2;
   v10 = [v9 shape];
   v11 = [v10 objectAtIndexedSubscript:2];
@@ -44,14 +44,14 @@ LABEL_8:
       }
     }
 
-    v28[0] = &unk_2873DCE38;
+    v27[0] = &unk_2873DCE38;
     v15 = [MEMORY[0x277CCABB0] numberWithInt:a3];
-    v28[1] = v15;
+    v27[1] = v15;
     v16 = [MEMORY[0x277CCABB0] numberWithInt:a5];
-    v28[2] = v16;
+    v27[2] = v16;
     v20 = [MEMORY[0x277CCABB0] numberWithInt:a4];
-    v28[3] = v20;
-    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:4];
+    v27[3] = v20;
+    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:4];
     v22 = [v9 objectForKeyedSubscript:v21];
     [v22 floatValue];
     v24 = v23;
@@ -65,7 +65,6 @@ LABEL_7:
   v14 = 1.0;
 LABEL_11:
 
-  v25 = *MEMORY[0x277D85DE8];
   return v14;
 }
 

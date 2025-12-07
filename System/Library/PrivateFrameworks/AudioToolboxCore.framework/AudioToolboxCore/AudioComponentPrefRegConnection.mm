@@ -25,7 +25,7 @@
 
 - (void)clearConfigurationInfoCache:(id)cache
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   cacheCopy = cache;
   v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"com.apple.audio.AudioComponentCache"];
   if (cacheCopy && [(__CFString *)cacheCopy length])
@@ -36,30 +36,30 @@
   else
   {
     v5 = CFPreferencesCopyKeyList(v4, *MEMORY[0x1E695E8B8], *MEMORY[0x1E695E898]);
-    v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
     v12 = 0u;
+    v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
     v6 = v5;
-    v7 = [(__CFArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
+    v7 = [(__CFArray *)v6 countByEnumeratingWithState:&v10 objects:v14 count:16];
     if (v7)
     {
-      v8 = *v12;
+      v8 = *v11;
       do
       {
         v9 = 0;
         do
         {
-          if (*v12 != v8)
+          if (*v11 != v8)
           {
             objc_enumerationMutation(v6);
           }
 
-          CFPreferencesSetAppValue(*(*(&v11 + 1) + 8 * v9++), 0, v4);
+          CFPreferencesSetAppValue(*(*(&v10 + 1) + 8 * v9++), 0, v4);
         }
 
         while (v7 != v9);
-        v7 = [(__CFArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v7 = [(__CFArray *)v6 countByEnumeratingWithState:&v10 objects:v14 count:16];
       }
 
       while (v7);
@@ -67,8 +67,6 @@
   }
 
   CFPreferencesAppSynchronize(v4);
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)writeConfigurationInfoToCache:(id)cache configurationInfo:(id)info
@@ -105,34 +103,34 @@
 
 - (void)getExtensionIcon:(id)icon reply:(id)reply
 {
-  v40[1] = *MEMORY[0x1E69E9840];
+  v39[1] = *MEMORY[0x1E69E9840];
   iconCopy = icon;
   replyCopy = reply;
   ISImageDescriptorClass = getISImageDescriptorClass();
-  v36 = 0;
-  v37 = &v36;
-  v38 = 0x2020000000;
+  v35 = 0;
+  v36 = &v35;
+  v37 = 0x2020000000;
   v9 = getkISImageDescriptorHomeScreenSymbolLoc(void)::ptr;
-  v39 = getkISImageDescriptorHomeScreenSymbolLoc(void)::ptr;
+  v38 = getkISImageDescriptorHomeScreenSymbolLoc(void)::ptr;
   if (!getkISImageDescriptorHomeScreenSymbolLoc(void)::ptr)
   {
-    v31 = MEMORY[0x1E69E9820];
-    v32 = 3221225472;
-    v33 = ___ZL40getkISImageDescriptorHomeScreenSymbolLocv_block_invoke;
-    v34 = &unk_1E72C2B68;
-    v35 = &v36;
+    v30 = MEMORY[0x1E69E9820];
+    v31 = 3221225472;
+    v32 = ___ZL40getkISImageDescriptorHomeScreenSymbolLocv_block_invoke;
+    v33 = &unk_1E72C2B68;
+    v34 = &v35;
     v10 = IconServicesLibrary();
-    v37[3] = dlsym(v10, "kISImageDescriptorHomeScreen");
-    getkISImageDescriptorHomeScreenSymbolLoc(void)::ptr = *(v35[1] + 24);
-    v9 = v37[3];
+    v36[3] = dlsym(v10, "kISImageDescriptorHomeScreen");
+    getkISImageDescriptorHomeScreenSymbolLoc(void)::ptr = *(v34[1] + 24);
+    v9 = v36[3];
   }
 
-  _Block_object_dispose(&v36, 8);
+  _Block_object_dispose(&v35, 8);
   if (!v9)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v30 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getkISImageDescriptorHomeScreen()"];
-    [currentHandler handleFailureInFunction:v30 file:@"AudioComponentRegistrar.mm" lineNumber:633 description:{@"%s", dlerror()}];
+    v29 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getkISImageDescriptorHomeScreen()"];
+    [currentHandler handleFailureInFunction:v29 file:@"AudioComponentRegistrar.mm" lineNumber:633 description:{@"%s", dlerror()}];
 
     __break(1u);
   }
@@ -143,32 +141,32 @@
   [v12 size];
   v14 = v13;
   v16 = v15;
-  v36 = 0;
-  v37 = &v36;
-  v38 = 0x2050000000;
+  v35 = 0;
+  v36 = &v35;
+  v37 = 0x2050000000;
   v17 = getUIScreenClass(void)::softClass;
-  v39 = getUIScreenClass(void)::softClass;
+  v38 = getUIScreenClass(void)::softClass;
   if (!getUIScreenClass(void)::softClass)
   {
-    v31 = MEMORY[0x1E69E9820];
-    v32 = 3221225472;
-    v33 = ___ZL16getUIScreenClassv_block_invoke;
-    v34 = &unk_1E72C2B68;
-    v35 = &v36;
-    ___ZL16getUIScreenClassv_block_invoke(&v31);
-    v17 = v37[3];
+    v30 = MEMORY[0x1E69E9820];
+    v31 = 3221225472;
+    v32 = ___ZL16getUIScreenClassv_block_invoke;
+    v33 = &unk_1E72C2B68;
+    v34 = &v35;
+    ___ZL16getUIScreenClassv_block_invoke(&v30);
+    v17 = v36[3];
   }
 
   v18 = v17;
-  _Block_object_dispose(&v36, 8);
+  _Block_object_dispose(&v35, 8);
   mainScreen = [v17 mainScreen];
   [mainScreen scale];
   v21 = v20;
 
   v22 = [objc_alloc(getISIconClass()) initWithBundleIdentifier:iconCopy];
   v23 = [objc_alloc(getISImageDescriptorClass()) initWithSize:v14 scale:{v16, v21}];
-  v40[0] = v23;
-  v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:v40 count:1];
+  v39[0] = v23;
+  v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:v39 count:1];
   [v22 prepareImagesForImageDescriptors:v24];
 
   v25 = [getUIImageClass() imageWithCGImage:objc_msgSend(v22 scale:"CGImageForDescriptor:" orientation:{v23), 0, v21}];
@@ -184,56 +182,51 @@
   }
 
   (replyCopy)[2](replyCopy, v27);
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isGenericAppIcon:(id)icon size:(CGSize)size scale:(double)scale
 {
   height = size.height;
   width = size.width;
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   iconCopy = icon;
   genericApplicationIcon = [getISIconClass() genericApplicationIcon];
   v10 = [objc_alloc(getISImageDescriptorClass()) initWithSize:width scale:{height, scale}];
-  v17[0] = v10;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
+  v16[0] = v10;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
   [genericApplicationIcon prepareImagesForImageDescriptors:v11];
 
   v12 = [getUIImageClass() imageWithCGImage:objc_msgSend(genericApplicationIcon scale:"CGImageForDescriptor:" orientation:{v10), 0, scale}];
   v13 = localUIImagePNGRepresentation(v12);
   v14 = [iconCopy isEqualToData:v13];
 
-  v15 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
 - (void)setComponentUserTags:(id)tags tags:(id)a4
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   mImpl = self->mImpl;
   tagsCopy = tags;
   v7 = a4;
   if ((*mImpl & 1) == 0)
   {
-    memset(&v13, 0, sizeof(v13));
-    dictionaryToComponentDescription(tagsCopy, &v13, &v12);
+    memset(&v12, 0, sizeof(v12));
+    dictionaryToComponentDescription(tagsCopy, &v12, &v11);
     v8 = MEMORY[0x1E696AEC0];
-    CAX4CCString::CAX4CCString(v16, v13.componentType);
-    CAX4CCString::CAX4CCString(v15, v13.componentSubType);
-    CAX4CCString::CAX4CCString(v14, v13.componentManufacturer);
-    v9 = [v8 stringWithFormat:@"2-%s-%s-%s", v16, v15, v14];
+    CAX4CCString::CAX4CCString(v15, v12.componentType);
+    CAX4CCString::CAX4CCString(v14, v12.componentSubType);
+    CAX4CCString::CAX4CCString(v13, v12.componentManufacturer);
+    v9 = [v8 stringWithFormat:@"2-%s-%s-%s", v15, v14, v13];
     v10 = [objc_alloc(MEMORY[0x1E695E000]) initWithSuiteName:@"com.apple.audio.UserComponentTags"];
     [v10 setObject:v7 forKey:v9];
     [v10 synchronize];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getComponentUserTags:(id)tags reply:(id)reply
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   replyCopy = reply;
   mImpl = self->mImpl;
   tagsCopy = tags;
@@ -245,17 +238,17 @@
 
   else
   {
-    memset(&v30, 0, sizeof(v30));
-    v29 = 0;
-    dictionaryToComponentDescription(tagsCopy, &v30, &v29);
+    memset(&v29, 0, sizeof(v29));
+    v28 = 0;
+    dictionaryToComponentDescription(tagsCopy, &v29, &v28);
     v10 = MEMORY[0x1E696AEC0];
-    componentType = v30.componentType;
-    CAX4CCString::CAX4CCString(&v35, v30.componentType);
-    componentSubType = v30.componentSubType;
-    CAX4CCString::CAX4CCString(&v33, v30.componentSubType);
-    componentManufacturer = v30.componentManufacturer;
-    CAX4CCString::CAX4CCString(&v31, v30.componentManufacturer);
-    v14 = [v10 stringWithFormat:@"2-%s-%s-%s", &v35, &v33, &v31];
+    componentType = v29.componentType;
+    CAX4CCString::CAX4CCString(&v34, v29.componentType);
+    componentSubType = v29.componentSubType;
+    CAX4CCString::CAX4CCString(&v32, v29.componentSubType);
+    componentManufacturer = v29.componentManufacturer;
+    CAX4CCString::CAX4CCString(&v30, v29.componentManufacturer);
+    v14 = [v10 stringWithFormat:@"2-%s-%s-%s", &v34, &v32, &v30];
     v15 = [objc_alloc(MEMORY[0x1E695E000]) initWithSuiteName:@"com.apple.audio.UserComponentTags"];
     [v15 synchronize];
     v9 = [v15 objectForKey:v14];
@@ -268,15 +261,15 @@
       v18.i32[0] = componentManufacturer;
       v21 = vzip1_s8(v18, v19);
       v22 = vrev64_s16(v19);
-      v35 = vuzp1_s8(v22, v22).u32[0];
-      v36 = 0;
+      v34 = vuzp1_s8(v22, v22).u32[0];
+      v35 = 0;
       v23 = vrev64_s16(v20);
-      v33 = vuzp1_s8(v23, v23).u32[0];
-      v34 = 0;
+      v32 = vuzp1_s8(v23, v23).u32[0];
+      v33 = 0;
       v24 = vrev64_s16(v21);
-      v31 = vuzp1_s8(v24, v24).u32[0];
-      v32 = 0;
-      v25 = [MEMORY[0x1E696AEC0] stringWithFormat:@"1-'%s'-'%s'-'%s'-0x%X", &v35, &v33, &v31, v29];
+      v30 = vuzp1_s8(v24, v24).u32[0];
+      v31 = 0;
+      v25 = [MEMORY[0x1E696AEC0] stringWithFormat:@"1-'%s'-'%s'-'%s'-0x%X", &v34, &v32, &v30, v28];
       v26 = [objc_alloc(MEMORY[0x1E695E000]) initWithSuiteName:@"com.apple.audio.ComponentTagHelper"];
       [v26 synchronize];
       v9 = [v26 objectForKey:v25];
@@ -289,7 +282,6 @@
   }
 
   replyCopy[2](replyCopy, v9);
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getExtensionComponentList:(id)list linkedSDKRequiresEntitlement:(BOOL)entitlement reply:(id)reply
@@ -340,10 +332,10 @@
     v15 = *(mImpl + 32);
     if (v15)
     {
-      memset(&v23, 0, 24);
-      v23.mSorted = 1;
       memset(&v22, 0, 24);
       v22.mSorted = 1;
+      memset(&v21, 0, 24);
+      v21.mSorted = 1;
       os_unfair_lock_lock(v15);
       v16 = listCopy;
       v17 = componentsCopy;
@@ -353,24 +345,23 @@
         v19 = [objc_alloc(MEMORY[0x1E695E000]) initWithSuiteName:@"com.apple.audio.ComponentRegistrationOverrides"];
         [v19 setObject:v17 forKey:v16];
         [v19 synchronize];
-        v21 = Extension[2];
         v20 = Extension[3];
         if (v20)
         {
           atomic_fetch_add_explicit(v20 + 1, 1uLL, memory_order_relaxed);
         }
 
-        AUExtensionScanner::componentsForExtension(&v25, (v15 + 8), *Extension);
+        AUExtensionScanner::componentsForExtension(&v24, (v15 + 8), *Extension);
       }
 
       v14 = 4294900552;
 
       os_unfair_lock_unlock(v15);
-      AudioComponentRegistrarImpl::addRemoveComponents(mImpl, &v23, &v22);
-      v24.__begin_ = &v22;
-      std::vector<std::shared_ptr<CA::ADMPackFormat>>::__destroy_vector::operator()[abi:ne200100](&v24);
-      v24.__begin_ = &v23;
-      std::vector<std::shared_ptr<CA::ADMPackFormat>>::__destroy_vector::operator()[abi:ne200100](&v24);
+      AudioComponentRegistrarImpl::addRemoveComponents(mImpl, &v22, &v21);
+      v23.__begin_ = &v21;
+      std::vector<std::shared_ptr<CA::ADMPackFormat>>::__destroy_vector::operator()[abi:ne200100](&v23);
+      v23.__begin_ = &v22;
+      std::vector<std::shared_ptr<CA::ADMPackFormat>>::__destroy_vector::operator()[abi:ne200100](&v23);
     }
 
     else

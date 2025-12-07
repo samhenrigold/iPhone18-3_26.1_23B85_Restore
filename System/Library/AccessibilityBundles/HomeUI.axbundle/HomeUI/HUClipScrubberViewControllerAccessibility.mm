@@ -86,12 +86,11 @@ id __87__HUClipScrubberViewControllerAccessibility__accessibilityLoadAccessibili
 
   v4 = v3;
 
-  v5 = *MEMORY[0x29EDC7378];
-  v6 = accessibilityHomeUILocalizedString(v4);
+  v5 = accessibilityHomeUILocalizedString(v4);
 
-  v7 = AXAttributedStringForBetterPronuciation();
+  v6 = AXAttributedStringForBetterPronuciation();
 
-  return v7;
+  return v6;
 }
 
 uint64_t __87__HUClipScrubberViewControllerAccessibility__accessibilityLoadAccessibilityInformation__block_invoke_2(uint64_t a1)
@@ -133,8 +132,7 @@ id __87__HUClipScrubberViewControllerAccessibility__accessibilityLoadAccessibili
 
     v6 = v5;
 
-    v7 = *MEMORY[0x29EDC7378];
-    v8 = accessibilityHomeUILocalizedString(v6);
+    v7 = accessibilityHomeUILocalizedString(v6);
 
     v2 = AXAttributedStringForBetterPronuciation();
   }

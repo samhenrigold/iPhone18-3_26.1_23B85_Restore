@@ -18,7 +18,7 @@
 
 - (uint64_t)initWithHMDHAPAccessory:()HMDHAPAccessory
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   v4 = a3;
   identityType = [v4 identityType];
   v6 = 0;
@@ -30,9 +30,9 @@
       {
         v7 = objc_alloc_init(MEMORY[0x277CCACA8]);
         productData = [v4 productData];
-        v54 = v7;
-        [HMDAccessory splitProductDataIntoProductGroupAndProductNumber:productData productGroup:0 productNumber:&v54];
-        vendorID2 = v54;
+        v53 = v7;
+        [HMDAccessory splitProductDataIntoProductGroupAndProductNumber:productData productGroup:0 productNumber:&v53];
+        vendorID2 = v53;
 
         v10 = objc_autoreleasePoolPush();
         selfCopy = self;
@@ -41,9 +41,9 @@
         {
           v13 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v56 = v13;
-          v57 = 2112;
-          v58 = v4;
+          v55 = v13;
+          v56 = 2112;
+          v57 = v4;
           _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_DEBUG, "%{public}@Initializing UARP ProductData accessory %@", buf, 0x16u);
         }
 
@@ -73,13 +73,13 @@ LABEL_25:
     {
       v35 = HMFGetLogIdentifier();
       *buf = 138544130;
-      v56 = v35;
-      v57 = 2112;
-      v58 = v4;
-      v59 = 2112;
-      v60 = vendorID;
-      v61 = 2112;
-      v62 = productID;
+      v55 = v35;
+      v56 = 2112;
+      v57 = v4;
+      v58 = 2112;
+      v59 = vendorID;
+      v60 = 2112;
+      v61 = productID;
       _os_log_impl(&dword_2531F8000, v34, OS_LOG_TYPE_ERROR, "%{public}@Not a valid AFU accessory: %@ vendorID: %@ productID: %@", buf, 0x2Au);
     }
 
@@ -109,13 +109,13 @@ LABEL_29:
         stringValue = [vendorID2 stringValue];
         stringValue2 = [productID2 stringValue];
         *buf = 138544130;
-        v56 = v43;
-        v57 = 2112;
-        v58 = stringValue;
-        v59 = 2112;
-        v60 = stringValue2;
-        v61 = 2112;
-        v62 = v4;
+        v55 = v43;
+        v56 = 2112;
+        v57 = stringValue;
+        v58 = 2112;
+        v59 = stringValue2;
+        v60 = 2112;
+        v61 = v4;
         _os_log_impl(&dword_2531F8000, v42, OS_LOG_TYPE_DEBUG, "%{public}@Initializing UARP VendorProductID (%@/%@) accessory %@", buf, 0x2Au);
       }
 
@@ -133,13 +133,13 @@ LABEL_29:
       {
         v50 = HMFGetLogIdentifier();
         *buf = 138544130;
-        v56 = v50;
-        v57 = 2112;
-        v58 = vendorID2;
-        v59 = 2112;
-        v60 = productID2;
-        v61 = 2112;
-        v62 = v4;
+        v55 = v50;
+        v56 = 2112;
+        v57 = vendorID2;
+        v58 = 2112;
+        v59 = productID2;
+        v60 = 2112;
+        v61 = v4;
         _os_log_impl(&dword_2531F8000, v42, OS_LOG_TYPE_ERROR, "%{public}@Matter Accessory has a nil vendorID(%@) or productID(%@), not a valid AFU accessory: %@", buf, 0x2Au);
       }
 
@@ -166,9 +166,9 @@ LABEL_29:
       {
         v24 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v56 = v24;
-        v57 = 2112;
-        v58 = v4;
+        v55 = v24;
+        v56 = 2112;
+        v57 = v4;
         _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_DEBUG, "%{public}@Initializing UARP ModelNumber accessory %@", buf, 0x16u);
       }
 
@@ -185,9 +185,9 @@ LABEL_29:
     {
       v51 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v56 = v51;
-      v57 = 2112;
-      v58 = v4;
+      v55 = v51;
+      v56 = 2112;
+      v57 = v4;
       _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_ERROR, "%{public}@Not a CoreUARP suppoorted accessory: %@", buf, 0x16u);
     }
 
@@ -197,7 +197,6 @@ LABEL_29:
 
 LABEL_30:
 
-  v52 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

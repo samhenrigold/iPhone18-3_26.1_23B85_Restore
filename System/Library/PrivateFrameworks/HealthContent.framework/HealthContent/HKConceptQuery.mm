@@ -101,11 +101,9 @@ void __51__HKConceptQuery_client_deliverConcepts_queryUUID___block_invoke(uint64
 
 void __56__HKConceptQuery__enumerateConceptsWithHandler_handler___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v9 = a2;
+  v6 = a2;
   if ([*(a1 + 32) deactivateCallCount] <= *(a1 + 48))
   {
-    v7 = *(a1 + 56) - 1 == a3;
-    v8 = *(a1 + 32);
     (*(*(a1 + 40) + 16))();
   }
 

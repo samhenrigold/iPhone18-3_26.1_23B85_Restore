@@ -42,7 +42,7 @@
 
 - (void)_timerDidFire:(id)fire
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   fireCopy = fire;
   v6 = fireCopy;
   if (self)
@@ -75,23 +75,21 @@
       {
         v12 = HMFGetLogIdentifier();
         v13 = NSStringFromSelector(a2);
-        v15 = 138543618;
-        v16 = v12;
-        v17 = 2112;
-        v18 = v13;
-        _os_log_impl(&dword_22AADC000, v11, OS_LOG_TYPE_ERROR, "%{public}@%@ timer should not be running in this state", &v15, 0x16u);
+        v14 = 138543618;
+        v15 = v12;
+        v16 = 2112;
+        v17 = v13;
+        _os_log_impl(&dword_22AADC000, v11, OS_LOG_TYPE_ERROR, "%{public}@%@ timer should not be running in this state", &v14, 0x16u);
       }
 
       objc_autoreleasePoolPop(v9);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)timerDidFire:(id)fire
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   fireCopy = fire;
   v6 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -102,11 +100,11 @@
     v10 = NSStringFromSelector(a2);
     identifier = selfCopy->_identifier;
     *buf = 138543874;
-    v20 = v9;
-    v21 = 2112;
-    v22 = v10;
-    v23 = 2112;
-    v24 = identifier;
+    v19 = v9;
+    v20 = 2112;
+    v21 = v10;
+    v22 = 2112;
+    v23 = identifier;
     _os_log_impl(&dword_22AADC000, v8, OS_LOG_TYPE_DEBUG, "%{public}@%@ id=%@", buf, 0x20u);
   }
 
@@ -123,19 +121,17 @@
   }
 
   v13 = operationQueue;
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __47__HAPAccessoryReachabilityClient_timerDidFire___block_invoke;
-  v16[3] = &unk_2786D6EB0;
-  objc_copyWeak(&v18, buf);
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __47__HAPAccessoryReachabilityClient_timerDidFire___block_invoke;
+  v15[3] = &unk_2786D6EB0;
+  objc_copyWeak(&v17, buf);
   v14 = fireCopy;
-  v17 = v14;
-  [(HAP2SerializedOperationQueue *)v13 addBlock:v16];
+  v16 = v14;
+  [(HAP2SerializedOperationQueue *)v13 addBlock:v15];
 
-  objc_destroyWeak(&v18);
+  objc_destroyWeak(&v17);
   objc_destroyWeak(buf);
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __47__HAPAccessoryReachabilityClient_timerDidFire___block_invoke(uint64_t a1)
@@ -220,7 +216,7 @@ void __47__HAPAccessoryReachabilityClient_timerDidFire___block_invoke(uint64_t a
 
 - (void)_processProfile
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   profile = [(HAPAccessoryReachabilityClient *)self profile];
   [profile sleepInterval];
   v6 = v5;
@@ -252,17 +248,16 @@ void __47__HAPAccessoryReachabilityClient_timerDidFire___block_invoke(uint64_t a
   {
     v17 = HMFGetLogIdentifier();
     v18 = NSStringFromSelector(a2);
-    v20 = 138543874;
-    v21 = v17;
-    v22 = 2112;
-    v23 = v18;
-    v24 = 2112;
-    v25 = selfCopy;
-    _os_log_impl(&dword_22AADC000, v16, OS_LOG_TYPE_DEBUG, "%{public}@%@: %@", &v20, 0x20u);
+    v19 = 138543874;
+    v20 = v17;
+    v21 = 2112;
+    v22 = v18;
+    v23 = 2112;
+    v24 = selfCopy;
+    _os_log_impl(&dword_22AADC000, v16, OS_LOG_TYPE_DEBUG, "%{public}@%@: %@", &v19, 0x20u);
   }
 
   objc_autoreleasePoolPop(v14);
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_enterState:(int64_t)state
@@ -282,7 +277,7 @@ void __47__HAPAccessoryReachabilityClient_timerDidFire___block_invoke(uint64_t a
 - (void)_runStateMachine
 {
   selfCopy = self;
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (self)
   {
     self = self->_operationQueue;
@@ -308,13 +303,13 @@ void __47__HAPAccessoryReachabilityClient_timerDidFire___block_invoke(uint64_t a
     }
 
     identifier = v4->_identifier;
-    v13 = 138543874;
-    v14 = v6;
-    v15 = 2112;
-    v16 = v9;
-    v17 = 2112;
-    v18 = identifier;
-    _os_log_impl(&dword_22AADC000, v5, OS_LOG_TYPE_INFO, "%{public}@state=%@ id=%@", &v13, 0x20u);
+    v12 = 138543874;
+    v13 = v6;
+    v14 = 2112;
+    v15 = v9;
+    v16 = 2112;
+    v17 = identifier;
+    _os_log_impl(&dword_22AADC000, v5, OS_LOG_TYPE_INFO, "%{public}@state=%@ id=%@", &v12, 0x20u);
   }
 
   objc_autoreleasePoolPop(v3);
@@ -333,13 +328,11 @@ void __47__HAPAccessoryReachabilityClient_timerDidFire___block_invoke(uint64_t a
   {
     [(HAPAccessoryReachabilityClient *)v4 _wait];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)confirm
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v4 = objc_autoreleasePoolPush();
   selfCopy = self;
   v6 = HMFGetOSLogHandle();
@@ -361,23 +354,23 @@ void __47__HAPAccessoryReachabilityClient_timerDidFire___block_invoke(uint64_t a
 
     identifier = selfCopy->_identifier;
     *buf = 138544130;
-    v18 = v7;
-    v19 = 2112;
-    v20 = v8;
-    v21 = 2112;
-    v22 = v11;
-    v23 = 2112;
-    v24 = identifier;
+    v17 = v7;
+    v18 = 2112;
+    v19 = v8;
+    v20 = 2112;
+    v21 = v11;
+    v22 = 2112;
+    v23 = identifier;
     _os_log_impl(&dword_22AADC000, v6, OS_LOG_TYPE_DEBUG, "%{public}@%@ state=%@ id=%@", buf, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v4);
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __41__HAPAccessoryReachabilityClient_confirm__block_invoke;
-  v16[3] = &unk_2786D6CA0;
-  v16[4] = selfCopy;
-  v13 = MEMORY[0x231885210](v16);
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __41__HAPAccessoryReachabilityClient_confirm__block_invoke;
+  v15[3] = &unk_2786D6CA0;
+  v15[4] = selfCopy;
+  v13 = MEMORY[0x231885210](v15);
   if (selfCopy)
   {
     operationQueue = selfCopy->_operationQueue;
@@ -389,11 +382,9 @@ void __47__HAPAccessoryReachabilityClient_timerDidFire___block_invoke(uint64_t a
   }
 
   [(HAP2SerializedOperationQueue *)operationQueue addBlock:v13];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __41__HAPAccessoryReachabilityClient_confirm__block_invoke(uint64_t a1)
+void *__41__HAPAccessoryReachabilityClient_confirm__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) state];
   if (result)
@@ -418,7 +409,7 @@ uint64_t __41__HAPAccessoryReachabilityClient_confirm__block_invoke(uint64_t a1)
 
 - (void)kick
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v4 = objc_autoreleasePoolPush();
   selfCopy = self;
   v6 = HMFGetOSLogHandle();
@@ -440,23 +431,23 @@ uint64_t __41__HAPAccessoryReachabilityClient_confirm__block_invoke(uint64_t a1)
 
     identifier = selfCopy->_identifier;
     *buf = 138544130;
-    v18 = v7;
-    v19 = 2112;
-    v20 = v8;
-    v21 = 2112;
-    v22 = v11;
-    v23 = 2112;
-    v24 = identifier;
+    v17 = v7;
+    v18 = 2112;
+    v19 = v8;
+    v20 = 2112;
+    v21 = v11;
+    v22 = 2112;
+    v23 = identifier;
     _os_log_impl(&dword_22AADC000, v6, OS_LOG_TYPE_DEBUG, "%{public}@%@ state=%@ id=%@", buf, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v4);
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __38__HAPAccessoryReachabilityClient_kick__block_invoke;
-  v16[3] = &unk_2786D6CA0;
-  v16[4] = selfCopy;
-  v13 = MEMORY[0x231885210](v16);
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __38__HAPAccessoryReachabilityClient_kick__block_invoke;
+  v15[3] = &unk_2786D6CA0;
+  v15[4] = selfCopy;
+  v13 = MEMORY[0x231885210](v15);
   if (selfCopy)
   {
     operationQueue = selfCopy->_operationQueue;
@@ -468,8 +459,6 @@ uint64_t __41__HAPAccessoryReachabilityClient_confirm__block_invoke(uint64_t a1)
   }
 
   [(HAP2SerializedOperationQueue *)operationQueue addBlock:v13];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 unint64_t __38__HAPAccessoryReachabilityClient_kick__block_invoke(uint64_t a1)
@@ -749,7 +738,6 @@ uint64_t __45__HAPAccessoryReachabilityClient_setProfile___block_invoke(uint64_t
 
 uint64_t __45__HAPAccessoryReachabilityClient_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
   logCategory__hmf_once_v7 = HMFCreateOSLogHandle();
 
   return MEMORY[0x2821F96F8]();

@@ -81,37 +81,35 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v7 = toCopy;
+  v5 = toCopy;
   if (self->_syncIdentifier)
   {
     PBDataWriterWriteDataField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    deletionDate = self->_deletionDate;
     PBDataWriterWriteDoubleField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_messageVersion)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    deletionReason = self->_deletionReason;
     PBDataWriterWriteInt64Field();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_syncIdentity)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v7;
+    toCopy = v5;
   }
 }
 

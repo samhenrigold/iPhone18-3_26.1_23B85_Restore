@@ -178,16 +178,16 @@ uint64_t __36__MKCompassButton__updateVisibility__block_invoke(uint64_t a1)
   return [v3 setAlpha:v2];
 }
 
-uint64_t __36__MKCompassButton__updateVisibility__block_invoke_2(uint64_t result, int a2)
+id *__36__MKCompassButton__updateVisibility__block_invoke_2(id *result, int a2)
 {
   if (a2)
   {
     v2 = result;
-    [*(result + 32) setHidden:(*(result + 40) & 1) == 0];
-    result = [*(v2 + 32) isHidden];
+    [result[4] setHidden:(result[5] & 1) == 0];
+    result = [v2[4] isHidden];
     if (result)
     {
-      v3 = *(v2 + 32);
+      v3 = v2[4];
 
       return [v3 invalidateIntrinsicContentSize];
     }

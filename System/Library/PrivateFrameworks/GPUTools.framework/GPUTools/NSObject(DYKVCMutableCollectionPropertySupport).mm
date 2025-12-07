@@ -33,16 +33,16 @@
 
 + (id)_dy_mutableCollectionPropertyInfo
 {
-  v0 = objc_opt_class();
+  v1 = objc_opt_class();
 
-  return [_DYNSKVCMutableCollectionPropertyInfo mutableCollectionPropertyInfoForClass:v0];
+  return [_DYNSKVCMutableCollectionPropertyInfo mutableCollectionPropertyInfoForClass:v1];
 }
 
 - (id)_dy_mutableCollectionPropertyInfo
 {
-  v0 = objc_opt_class();
+  v1 = objc_opt_class();
 
-  return [_DYNSKVCMutableCollectionPropertyInfo mutableCollectionPropertyInfoForClass:v0];
+  return [_DYNSKVCMutableCollectionPropertyInfo mutableCollectionPropertyInfoForClass:v1];
 }
 
 + (uint64_t)dy_synthesizeMutableArrayProperty:()DYKVCMutableCollectionPropertySupport withInstanceVariable:

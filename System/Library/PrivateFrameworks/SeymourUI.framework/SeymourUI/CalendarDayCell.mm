@@ -7,7 +7,7 @@
 - (void)prepareForReuse
 {
   selfCopy = self;
-  sub_20BC6B334();
+  sub_20BC6B334(selfCopy);
 }
 
 @end

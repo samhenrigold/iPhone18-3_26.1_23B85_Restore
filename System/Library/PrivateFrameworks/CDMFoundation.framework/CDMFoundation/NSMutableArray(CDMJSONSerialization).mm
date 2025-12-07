@@ -1,10 +1,10 @@
 @interface NSMutableArray(CDMJSONSerialization)
-- (unint64_t)_cdm_safeJSONTraverse;
+- (void)_cdm_safeJSONTraverse;
 @end
 
 @implementation NSMutableArray(CDMJSONSerialization)
 
-- (unint64_t)_cdm_safeJSONTraverse
+- (void)_cdm_safeJSONTraverse
 {
   result = [self count];
   if (result)

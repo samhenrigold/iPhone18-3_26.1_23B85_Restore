@@ -27,54 +27,42 @@
 
 - (void)setContentMatchMoveSource:(id)source
 {
-  v4 = [source copy];
-  contentMatchMoveSource = self->super._contentMatchMoveSource;
-  self->super._contentMatchMoveSource = v4;
+  self->super._contentMatchMoveSource = [source copy];
 
   MEMORY[0x2821F96F8]();
 }
 
 - (void)setContentSlipValue:(id)value
 {
-  v4 = [value copy];
-  contentSlipValue = self->super._contentSlipValue;
-  self->super._contentSlipValue = v4;
+  self->super._contentSlipValue = [value copy];
 
   MEMORY[0x2821F96F8]();
 }
 
 - (void)setPointerPortalSourceCollection:(id)collection
 {
-  v4 = [collection copy];
-  pointerPortalSourceCollection = self->super._pointerPortalSourceCollection;
-  self->super._pointerPortalSourceCollection = v4;
+  self->super._pointerPortalSourceCollection = [collection copy];
 
   MEMORY[0x2821F96F8]();
 }
 
 - (void)setPointerShape:(id)shape
 {
-  v4 = [shape copy];
-  pointerShape = self->super._pointerShape;
-  self->super._pointerShape = v4;
+  self->super._pointerShape = [shape copy];
 
   MEMORY[0x2821F96F8]();
 }
 
 - (void)setPointerSlipValue:(id)value
 {
-  v4 = [value copy];
-  pointerSlipValue = self->super._pointerSlipValue;
-  self->super._pointerSlipValue = v4;
+  self->super._pointerSlipValue = [value copy];
 
   MEMORY[0x2821F96F8]();
 }
 
 - (void)setAccessories:(id)accessories
 {
-  v4 = [accessories copy];
-  accessories = self->super._accessories;
-  self->super._accessories = v4;
+  self->super._accessories = [accessories copy];
 
   MEMORY[0x2821F96F8]();
 }

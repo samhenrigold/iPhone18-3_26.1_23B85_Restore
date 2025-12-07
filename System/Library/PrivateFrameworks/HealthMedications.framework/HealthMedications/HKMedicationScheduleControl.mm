@@ -6,6 +6,7 @@
 - (HKMedicationScheduleControl)initWithHealthStore:(id)store;
 - (id)exportedInterface;
 - (id)remoteInterface;
+- (void)_callUnitTestHookObserving:(BOOL)observing success:(BOOL)success error:(id)error;
 - (void)_handleAutomaticProxyReconnection;
 - (void)_observeMedicationScheduleChanges:(BOOL)changes completion:(id)completion;
 - (void)_registerFirstObserver;
@@ -139,7 +140,7 @@ void __105__HKMedicationScheduleControl_updateSchedulesToLocalTimeZoneAndMaintai
   v4 = HKLogMedication();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __105__HKMedicationScheduleControl_updateSchedulesToLocalTimeZoneAndMaintainCalendarDatesAndTimes_completion___block_invoke_2_cold_1(a1);
+    __105__HKMedicationScheduleControl_updateSchedulesToLocalTimeZoneAndMaintainCalendarDatesAndTimes_completion___block_invoke_2_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
@@ -171,7 +172,7 @@ void __71__HKMedicationScheduleControl_setTimeZoneTipAsDismissedWithCompletion__
   v4 = HKLogMedication();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __71__HKMedicationScheduleControl_setTimeZoneTipAsDismissedWithCompletion___block_invoke_2_cold_1(a1);
+    __71__HKMedicationScheduleControl_setTimeZoneTipAsDismissedWithCompletion___block_invoke_2_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
@@ -275,7 +276,7 @@ void __63__HKMedicationScheduleControl_fetchAllSchedulesWithCompletion___block_i
   v4 = HKLogMedication();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __63__HKMedicationScheduleControl_fetchAllSchedulesWithCompletion___block_invoke_2_cold_1(a1);
+    __63__HKMedicationScheduleControl_fetchAllSchedulesWithCompletion___block_invoke_2_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
@@ -416,7 +417,7 @@ void __67__HKMedicationScheduleControl_rescheduleMedicationsWithCompletion___blo
   v4 = HKLogMedication();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __67__HKMedicationScheduleControl_rescheduleMedicationsWithCompletion___block_invoke_2_cold_1(a1);
+    __67__HKMedicationScheduleControl_rescheduleMedicationsWithCompletion___block_invoke_2_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
@@ -455,7 +456,7 @@ void __105__HKMedicationScheduleControl_logUnloggedDoseEventsForScheduledItemIde
   v4 = HKLogMedication();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __105__HKMedicationScheduleControl_logUnloggedDoseEventsForScheduledItemIdentifier_status_logDate_completion___block_invoke_2_cold_1(a1);
+    __105__HKMedicationScheduleControl_logUnloggedDoseEventsForScheduledItemIdentifier_status_logDate_completion___block_invoke_2_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
@@ -485,12 +486,11 @@ void __105__HKMedicationScheduleControl_logUnloggedDoseEventsForScheduledItemIde
 
 - (void)_handleAutomaticProxyReconnection
 {
-  *v4 = 138543618;
-  *&v4[4] = self;
-  *&v4[12] = 2114;
-  *&v4[14] = a2;
-  OUTLINED_FUNCTION_2(&dword_2517E7000, a2, a3, "[%{public}@] Failed to resume observation on server reconnection: %{public}@", *v4, *&v4[8], *&v4[16], *MEMORY[0x277D85DE8]);
-  v3 = *MEMORY[0x277D85DE8];
+  *v3 = 138543618;
+  *&v3[4] = self;
+  *&v3[12] = 2114;
+  *&v3[14] = a2;
+  OUTLINED_FUNCTION_2(&dword_2517E7000, a2, a3, "[%{public}@] Failed to resume observation on server reconnection: %{public}@", *v3, *&v3[8], *&v3[16], *MEMORY[0x277D85DE8]);
 }
 
 - (void)_registerFirstObserver
@@ -512,7 +512,7 @@ void __53__HKMedicationScheduleControl__registerFirstObserver__block_invoke(uint
     v6 = HKLogMedication();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __53__HKMedicationScheduleControl__registerFirstObserver__block_invoke_cold_1(a1);
+      __53__HKMedicationScheduleControl__registerFirstObserver__block_invoke_cold_1();
     }
   }
 
@@ -531,7 +531,7 @@ void __53__HKMedicationScheduleControl__registerFirstObserver__block_invoke(uint
 
 void __54__HKMedicationScheduleControl__unregisterLastObserver__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if ((a2 & 1) == 0)
   {
@@ -545,18 +545,16 @@ void __54__HKMedicationScheduleControl__unregisterLastObserver__block_invoke(uin
       if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
         v9 = *(a1 + 32);
-        v11 = 138543618;
-        v12 = v9;
-        v13 = 2114;
-        v14 = v5;
-        _os_log_impl(&dword_2517E7000, v8, OS_LOG_TYPE_INFO, "%{public}@: Error unregistering observer: %{public}@", &v11, 0x16u);
+        v10 = 138543618;
+        v11 = v9;
+        v12 = 2114;
+        v13 = v5;
+        _os_log_impl(&dword_2517E7000, v8, OS_LOG_TYPE_INFO, "%{public}@: Error unregistering observer: %{public}@", &v10, 0x16u);
       }
     }
   }
 
   [*(a1 + 32) _callUnitTestHookObserving:0 success:a2 error:v5];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_observeMedicationScheduleChanges:(BOOL)changes completion:(id)completion
@@ -636,6 +634,19 @@ uint64_t __97__HKMedicationScheduleControl__synchronouslyRegisterToObserveMedica
   return [a2 remote_observeMedicationScheduleChanges:1 completion:v3];
 }
 
+- (void)_callUnitTestHookObserving:(BOOL)observing success:(BOOL)success error:(id)error
+{
+  successCopy = success;
+  observingCopy = observing;
+  errorCopy = error;
+  v8 = MEMORY[0x2530840C0](self->_unitTesting_didChangeObserverRegistration);
+  v9 = v8;
+  if (v8)
+  {
+    (*(v8 + 16))(v8, observingCopy, successCopy, errorCopy);
+  }
+}
+
 - (void)client_notifyForDidPruneSchduleItems:(id)items
 {
   itemsCopy = items;
@@ -651,14 +662,12 @@ uint64_t __97__HKMedicationScheduleControl__synchronouslyRegisterToObserveMedica
   [(HKMedicationScheduleControlObserver *)observers notifyObservers:v7];
 }
 
-void __68__HKMedicationScheduleControl_client_notifyForDidPruneSchduleItems___block_invoke(void *a1, void *a2)
+void __68__HKMedicationScheduleControl_client_notifyForDidPruneSchduleItems___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = a1[6];
-  v5 = v3;
   if (objc_opt_respondsToSelector())
   {
-    [v5 scheduleControl:a1[4] didDeleteScheduleItems:a1[5]];
+    [v3 scheduleControl:*(a1 + 32) didDeleteScheduleItems:*(a1 + 40)];
   }
 }
 
@@ -677,14 +686,12 @@ void __68__HKMedicationScheduleControl_client_notifyForDidPruneSchduleItems___bl
   [(HKMedicationScheduleControlObserver *)observers notifyObservers:v7];
 }
 
-void __68__HKMedicationScheduleControl_client_notifyForAddOrModifySchedules___block_invoke(void *a1, void *a2)
+void __68__HKMedicationScheduleControl_client_notifyForAddOrModifySchedules___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = a1[6];
-  v5 = v3;
   if (objc_opt_respondsToSelector())
   {
-    [v5 scheduleControl:a1[4] didAddOrModifySchedules:a1[5]];
+    [v3 scheduleControl:*(a1 + 32) didAddOrModifySchedules:*(a1 + 40)];
   }
 }
 
@@ -754,123 +761,111 @@ void __68__HKMedicationScheduleControl_client_notifyForAddOrModifySchedules___bl
 void __55__HKMedicationScheduleControl_saveSchedule_completion___block_invoke_2_cold_1()
 {
   OUTLINED_FUNCTION_5();
-  v11 = *MEMORY[0x277D85DE8];
   v1 = *(v0 + 32);
   v2 = [*(v0 + 40) medicationIdentifier];
   v3 = HKSensitiveLogItem();
+  LODWORD(v10) = 138543874;
+  *(&v10 + 4) = v1;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_2517E7000, v4, v5, "[%{public}@] Error when inserting schedule for medication with identifier %{public}@: %{public}@", v6, v7, v8, v9, 2u);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_2517E7000, v4, v5, "[%{public}@] Error when inserting schedule for medication with identifier %{public}@: %{public}@", v6, v7, v8, v9, v10, DWORD2(v10));
 }
 
-void __105__HKMedicationScheduleControl_updateSchedulesToLocalTimeZoneAndMaintainCalendarDatesAndTimes_completion___block_invoke_2_cold_1(uint64_t a1)
+void __105__HKMedicationScheduleControl_updateSchedulesToLocalTimeZoneAndMaintainCalendarDatesAndTimes_completion___block_invoke_2_cold_1()
 {
-  OUTLINED_FUNCTION_4(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_4(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2(&dword_2517E7000, v1, v2, "[%{public}@] Error when updating schedules to local time zone: %{public}@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_2517E7000, v0, v1, "[%{public}@] Error when updating schedules to local time zone: %{public}@");
 }
 
-void __71__HKMedicationScheduleControl_setTimeZoneTipAsDismissedWithCompletion___block_invoke_2_cold_1(uint64_t a1)
+void __71__HKMedicationScheduleControl_setTimeZoneTipAsDismissedWithCompletion___block_invoke_2_cold_1()
 {
-  OUTLINED_FUNCTION_4(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_4(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2(&dword_2517E7000, v1, v2, "[%{public}@] Error when dismissing timezone tile %{public}@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_2517E7000, v0, v1, "[%{public}@] Error when dismissing timezone tile %{public}@");
 }
 
 void __80__HKMedicationScheduleControl_fetchScheduleWithMedicationIdentifier_completion___block_invoke_2_cold_1()
 {
   OUTLINED_FUNCTION_5();
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_6(v1);
   v2 = HKSensitiveLogItem();
+  LODWORD(v9) = 138543874;
+  *(&v9 + 4) = v0;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_2517E7000, v3, v4, "[%{public}@] Error when querying schedule for medication with identifier %{public}@: %{public}@", v5, v6, v7, v8, 2u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_2517E7000, v3, v4, "[%{public}@] Error when querying schedule for medication with identifier %{public}@: %{public}@", v5, v6, v7, v8, v9, DWORD2(v9));
 }
 
 void __82__HKMedicationScheduleControl_fetchSchedulesWithMedicationIdentifiers_completion___block_invoke_2_cold_1()
 {
   OUTLINED_FUNCTION_5();
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_6(v1);
   v2 = HKSensitiveLogItem();
+  LODWORD(v9) = 138543874;
+  *(&v9 + 4) = v0;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_2517E7000, v3, v4, "[%{public}@] Error when querying schedules for medications with identifiers %{public}@: %{public}@", v5, v6, v7, v8, 2u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_2517E7000, v3, v4, "[%{public}@] Error when querying schedules for medications with identifiers %{public}@: %{public}@", v5, v6, v7, v8, v9, DWORD2(v9));
 }
 
-void __63__HKMedicationScheduleControl_fetchAllSchedulesWithCompletion___block_invoke_2_cold_1(uint64_t a1)
+void __63__HKMedicationScheduleControl_fetchAllSchedulesWithCompletion___block_invoke_2_cold_1()
 {
-  OUTLINED_FUNCTION_4(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_4(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2(&dword_2517E7000, v1, v2, "[%{public}@] Error when querying all schedules: %{public}@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_2517E7000, v0, v1, "[%{public}@] Error when querying all schedules: %{public}@");
 }
 
 void __57__HKMedicationScheduleControl_deleteSchedule_completion___block_invoke_2_cold_1()
 {
   OUTLINED_FUNCTION_5();
-  v11 = *MEMORY[0x277D85DE8];
   v1 = *(v0 + 32);
   v2 = [*(v0 + 40) medicationIdentifier];
   v3 = HKSensitiveLogItem();
+  LODWORD(v10) = 138543874;
+  *(&v10 + 4) = v1;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_2517E7000, v4, v5, "[%{public}@] Error when deleting schedule with medication identifier: %{public}@ error: %{public}@", v6, v7, v8, v9, 2u);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_2517E7000, v4, v5, "[%{public}@] Error when deleting schedule with medication identifier: %{public}@ error: %{public}@", v6, v7, v8, v9, v10, DWORD2(v10));
 }
 
 void __60__HKMedicationScheduleControl_saveScheduleItems_completion___block_invoke_2_cold_1()
 {
   OUTLINED_FUNCTION_5();
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_6(v1);
   v2 = HKSensitiveLogItem();
+  LODWORD(v9) = 138543874;
+  *(&v9 + 4) = v0;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_2517E7000, v3, v4, "[%{public}@] Error when inserting scheduleItems %{public}@ error %{public}@", v5, v6, v7, v8, 2u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_2517E7000, v3, v4, "[%{public}@] Error when inserting scheduleItems %{public}@ error %{public}@", v5, v6, v7, v8, v9, DWORD2(v9));
 }
 
 void __88__HKMedicationScheduleControl_updateNotificationSent_scheduleItemIdentifier_completion___block_invoke_2_cold_1()
 {
   OUTLINED_FUNCTION_5();
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_6(v1);
   v2 = HKSensitiveLogItem();
+  LODWORD(v9) = 138543874;
+  *(&v9 + 4) = v0;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_2517E7000, v3, v4, "[%{public}@] Error when updating scheduleItem with identifier %{public}@: %{public}@", v5, v6, v7, v8, 2u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_2517E7000, v3, v4, "[%{public}@] Error when updating scheduleItem with identifier %{public}@: %{public}@", v5, v6, v7, v8, v9, DWORD2(v9));
 }
 
-void __67__HKMedicationScheduleControl_rescheduleMedicationsWithCompletion___block_invoke_2_cold_1(uint64_t a1)
+void __67__HKMedicationScheduleControl_rescheduleMedicationsWithCompletion___block_invoke_2_cold_1()
 {
-  OUTLINED_FUNCTION_4(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_4(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2(&dword_2517E7000, v1, v2, "[%{public}@] Error when rescheduling medications: %{public}@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_2517E7000, v0, v1, "[%{public}@] Error when rescheduling medications: %{public}@");
 }
 
-void __105__HKMedicationScheduleControl_logUnloggedDoseEventsForScheduledItemIdentifier_status_logDate_completion___block_invoke_2_cold_1(uint64_t a1)
+void __105__HKMedicationScheduleControl_logUnloggedDoseEventsForScheduledItemIdentifier_status_logDate_completion___block_invoke_2_cold_1()
 {
-  OUTLINED_FUNCTION_4(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_4(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2(&dword_2517E7000, v1, v2, "[%{public}@] Error when logging scheduled unlogged medications: %{public}@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_2517E7000, v0, v1, "[%{public}@] Error when logging scheduled unlogged medications: %{public}@");
 }
 
-void __53__HKMedicationScheduleControl__registerFirstObserver__block_invoke_cold_1(uint64_t a1)
+void __53__HKMedicationScheduleControl__registerFirstObserver__block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_4(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_4(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2(&dword_2517E7000, v1, v2, "%{public}@: Error registering observer: %{public}@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_2517E7000, v0, v1, "%{public}@: Error registering observer: %{public}@");
 }
 
 @end

@@ -36,7 +36,7 @@
   *v6 = sub_1C1AFB3A0;
   v6[1] = v5;
   selfCopy = self;
-  sub_1C1AC0530(v7);
+  sub_1C1AC0530(v7, v8);
 }
 
 - (NSString)debugDescription
@@ -52,49 +52,47 @@
 - (NSDate)prefetchTimestamp
 {
   v3 = sub_1C1AC1F08(&qword_1EBF07F50, &qword_1C1B9A590);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x1EEE9AC00](v3 - 8);
-  v6 = &v14 - v5;
-  v7 = OBJC_IVAR___APPCContext_prefetchTimestamp;
+  v5 = &v13 - v4;
+  v6 = OBJC_IVAR___APPCContext_prefetchTimestamp;
   swift_beginAccess();
-  sub_1C1AA7E30(self + v7, v6, &qword_1EBF07F50, &qword_1C1B9A590);
-  v8 = sub_1C1B94588();
-  v9 = *(v8 - 8);
-  v10 = (*(v9 + 48))(v6, 1, v8);
-  v11 = 0;
-  if (v10 != 1)
+  sub_1C1AA7E30(self + v6, v5, &qword_1EBF07F50, &qword_1C1B9A590);
+  v7 = sub_1C1B94588();
+  v8 = *(v7 - 8);
+  v9 = (*(v8 + 48))(v5, 1, v7);
+  v10 = 0;
+  if (v9 != 1)
   {
-    v12 = sub_1C1B94538();
-    (*(v9 + 8))(v6, v8);
-    v11 = v12;
+    v11 = sub_1C1B94538();
+    (*(v8 + 8))(v5, v7);
+    v10 = v11;
   }
 
-  return v11;
+  return v10;
 }
 
 - (void)setPrefetchTimestamp:(id)timestamp
 {
   v5 = sub_1C1AC1F08(&qword_1EBF07F50, &qword_1C1B9A590);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = &v13 - v7;
+  v7 = &v12 - v6;
   if (timestamp)
   {
     sub_1C1B94558();
-    v9 = sub_1C1B94588();
-    (*(*(v9 - 8) + 56))(v8, 0, 1, v9);
+    v8 = sub_1C1B94588();
+    (*(*(v8 - 8) + 56))(v7, 0, 1, v8);
   }
 
   else
   {
-    v10 = sub_1C1B94588();
-    (*(*(v10 - 8) + 56))(v8, 1, 1, v10);
+    v9 = sub_1C1B94588();
+    (*(*(v9 - 8) + 56))(v7, 1, 1, v9);
   }
 
-  v11 = OBJC_IVAR___APPCContext_prefetchTimestamp;
+  v10 = OBJC_IVAR___APPCContext_prefetchTimestamp;
   swift_beginAccess();
   selfCopy = self;
-  sub_1C1AABE90(v8, self + v11);
+  sub_1C1AABE90(v7, self + v10);
   swift_endAccess();
 }
 

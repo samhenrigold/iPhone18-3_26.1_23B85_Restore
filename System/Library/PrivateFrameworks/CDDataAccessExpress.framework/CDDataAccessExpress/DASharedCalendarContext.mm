@@ -41,7 +41,7 @@
 
 - (void)finishedWithError:(id)error
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v5 = DALoggingwithCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
@@ -49,9 +49,9 @@
     calendarID = self->_calendarID;
     accountID = self->_accountID;
     *buf = 138412546;
-    v17 = calendarID;
-    v18 = 2112;
-    v19 = accountID;
+    v16 = calendarID;
+    v17 = 2112;
+    v18 = accountID;
     _os_log_impl(&dword_242505000, v5, OS_LOG_TYPE_DEBUG, "Share of calendar ID %@ for account %@ completed.", buf, 0x16u);
   }
 
@@ -80,36 +80,23 @@
     }
 
     v11 = v10;
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __45__DASharedCalendarContext_finishedWithError___block_invoke_2;
-    v13[3] = &unk_278D542B8;
-    v13[4] = self;
-    v14 = errorCopy;
-    dispatch_async(v11, v13);
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __45__DASharedCalendarContext_finishedWithError___block_invoke_2;
+    v12[3] = &unk_278D542B8;
+    v12[4] = self;
+    v13 = errorCopy;
+    dispatch_async(v11, v12);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __45__DASharedCalendarContext_finishedWithError___block_invoke(uint64_t a1)
 {
-  v5[1] = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
   v2 = +[CDDADConnection sharedConnection];
-  v5[0] = *(*(a1 + 32) + 16);
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
+  v4[0] = *(*(a1 + 32) + 16);
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
   [v2 updateContentsOfFoldersWithKeys:v3 forAccountID:*(*(a1 + 32) + 24) andDataclass:4 isUserRequested:1];
-
-  v4 = *MEMORY[0x277D85DE8];
-}
-
-uint64_t __45__DASharedCalendarContext_finishedWithError___block_invoke_2(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  v1 = *(a1 + 40);
-  v3 = v2[2];
-  v4 = v2[3];
-  return (*(v2[5] + 16))();
 }
 
 @end

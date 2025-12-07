@@ -110,7 +110,7 @@ void __45__SUScriptMediaItemCollection_initWithItems___block_invoke(uint64_t a1)
   return v2;
 }
 
-uint64_t __36__SUScriptMediaItemCollection_count__block_invoke(uint64_t a1)
+void *__36__SUScriptMediaItemCollection_count__block_invoke(uint64_t a1)
 {
   result = [objc_msgSend(objc_msgSend(*(a1 + 32) "nativeObject")];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -143,15 +143,15 @@ uint64_t __36__SUScriptMediaItemCollection_count__block_invoke(uint64_t a1)
   return v4;
 }
 
-uint64_t __36__SUScriptMediaItemCollection_items__block_invoke(uint64_t result)
+void *__36__SUScriptMediaItemCollection_items__block_invoke(void *result)
 {
   v14 = *MEMORY[0x1E69E9840];
-  *(*(*(result + 40) + 8) + 40) = *(*(result + 32) + 72);
-  if (!*(*(*(result + 40) + 8) + 40))
+  *(*(result[5] + 8) + 40) = *(result[4] + 72);
+  if (!*(*(result[5] + 8) + 40))
   {
     v1 = result;
-    *(*(*(result + 40) + 8) + 40) = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v2 = [objc_msgSend(objc_msgSend(*(v1 + 32) "nativeObject")];
+    *(*(result[5] + 8) + 40) = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v2 = [objc_msgSend(objc_msgSend(v1[4] "nativeObject")];
     v9 = 0u;
     v10 = 0u;
     v11 = 0u;
@@ -174,7 +174,7 @@ uint64_t __36__SUScriptMediaItemCollection_items__block_invoke(uint64_t result)
           v7 = *(*(&v9 + 1) + 8 * v6);
           v8 = objc_alloc_init(SUScriptMediaItem);
           [(SUScriptObject *)v8 setNativeObject:[SUScriptNativeObject objectWithNativeObject:v7]];
-          [*(*(*(v1 + 40) + 8) + 40) addObject:v8];
+          [*(*(v1[5] + 8) + 40) addObject:v8];
 
           ++v6;
         }
@@ -186,9 +186,9 @@ uint64_t __36__SUScriptMediaItemCollection_items__block_invoke(uint64_t result)
       while (v4);
     }
 
-    *(*(v1 + 32) + 72) = *(*(*(v1 + 40) + 8) + 40);
-    [*(v1 + 32) checkInScriptObjects:*(*(*(v1 + 40) + 8) + 40)];
-    return [*(v1 + 32) _beginWatchingLibraryIfNecessary];
+    *(v1[4] + 72) = *(*(v1[5] + 8) + 40);
+    [v1[4] checkInScriptObjects:*(*(v1[5] + 8) + 40)];
+    return [v1[4] _beginWatchingLibraryIfNecessary];
   }
 
   return result;

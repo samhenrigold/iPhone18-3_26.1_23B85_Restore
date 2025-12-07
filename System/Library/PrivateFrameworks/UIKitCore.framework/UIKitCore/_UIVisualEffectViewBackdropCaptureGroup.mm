@@ -210,9 +210,9 @@ LABEL_9:
     goto LABEL_8;
   }
 
-  v7 = [(NSString *)v5 isEqualToString:v6];
+  isEqualToString = objc_msgSend_isEqualToString_(v5, v6, v6);
 
-  if (!v7)
+  if ((isEqualToString & 1) == 0)
   {
 LABEL_8:
     v8 = [(NSString *)v10 copy];
@@ -268,7 +268,7 @@ LABEL_9:
   if (self->_groupName)
   {
     objc_msgSend(v4, "appendFormat:", @" grouped(name='%@'"), self->_groupName;
-    if ([(NSString *)self->_groupNamespace isEqualToString:*MEMORY[0x1E69795D0]])
+    if (objc_msgSend_isEqualToString_(self->_groupNamespace))
     {
       [v4 appendString:@""]);
     }

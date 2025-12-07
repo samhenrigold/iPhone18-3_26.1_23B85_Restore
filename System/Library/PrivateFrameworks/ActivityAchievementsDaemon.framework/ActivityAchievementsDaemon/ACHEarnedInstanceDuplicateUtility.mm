@@ -27,7 +27,7 @@
 
 - (id)earnedInstancesWithoutDuplicates:(id)duplicates
 {
-  v92 = *MEMORY[0x277D85DE8];
+  v91 = *MEMORY[0x277D85DE8];
   duplicatesCopy = duplicates;
   v5 = [duplicatesCopy hk_map:&__block_literal_global_16];
   if ([v5 count] != 1)
@@ -44,43 +44,43 @@
   templateUniqueName = [anyObject templateUniqueName];
   v10 = [templateStore templateForUniqueName:templateUniqueName];
 
-  v63 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v62 = objc_alloc_init(MEMORY[0x277CBEB58]);
   gregorianCalendar = [(ACHEarnedInstanceDuplicateUtility *)self gregorianCalendar];
-  v65 = HKFirstDayOfWeekForWeeklyGoalCalculations();
+  v64 = HKFirstDayOfWeekForWeeklyGoalCalculations();
   v12 = duplicatesCopy;
-  v62 = v12;
+  v61 = v12;
   if ([v12 count])
   {
-    v71 = v10;
-    v75 = gregorianCalendar;
+    v70 = v10;
+    v74 = gregorianCalendar;
     do
     {
       context = objc_autoreleasePoolPush();
       anyObject2 = [v12 anyObject];
-      v77 = objc_alloc_init(MEMORY[0x277CBEB58]);
+      v76 = objc_alloc_init(MEMORY[0x277CBEB58]);
+      v81 = 0u;
       v82 = 0u;
       v83 = 0u;
       v84 = 0u;
-      v85 = 0u;
       obj = v12;
-      v80 = [obj countByEnumeratingWithState:&v82 objects:v90 count:16];
-      if (!v80)
+      v79 = [obj countByEnumeratingWithState:&v81 objects:v89 count:16];
+      if (!v79)
       {
         goto LABEL_46;
       }
 
-      v78 = *v83;
+      v77 = *v82;
       do
       {
         v13 = 0;
         do
         {
-          if (*v83 != v78)
+          if (*v82 != v77)
           {
             objc_enumerationMutation(obj);
           }
 
-          v14 = *(*(&v82 + 1) + 8 * v13);
+          v14 = *(*(&v81 + 1) + 8 * v13);
           v15 = objc_autoreleasePoolPush();
           v16 = v10;
           v17 = gregorianCalendar;
@@ -91,7 +91,7 @@
 LABEL_13:
 
 LABEL_14:
-            [v77 addObject:v19];
+            [v76 addObject:v19];
             goto LABEL_42;
           }
 
@@ -113,18 +113,18 @@ LABEL_14:
           packedEarnedDateComponents2 = [v19 packedEarnedDateComponents];
           v26 = packedEarnedDateComponents & 0xFFFFFFFFFFLL;
           v27 = packedEarnedDateComponents2 & 0xFFFFFFFFFFLL;
-          v72 = (packedEarnedDateComponents >> 16) & 0xFFFFFF;
+          v71 = (packedEarnedDateComponents >> 16) & 0xFFFFFF;
           v28 = (packedEarnedDateComponents2 >> 16) & 0xFFFFFF;
           v29 = v17;
           if (duplicateRemovalCalendarUnit > 15)
           {
             if (duplicateRemovalCalendarUnit == 16)
             {
-              if (v27 != v26 || v28 != v72)
+              if (v27 != v26 || v28 != v71)
               {
 
-                v10 = v71;
-                gregorianCalendar = v75;
+                v10 = v70;
+                gregorianCalendar = v74;
 LABEL_41:
 
                 goto LABEL_42;
@@ -133,8 +133,8 @@ LABEL_41:
               v30 = (v27 ^ v26) & 0xFF000000;
 LABEL_24:
 
-              v10 = v71;
-              gregorianCalendar = v75;
+              v10 = v70;
+              gregorianCalendar = v74;
               if (v30)
               {
                 goto LABEL_41;
@@ -147,14 +147,14 @@ LABEL_24:
             {
 LABEL_30:
               v35 = v29;
-              v74 = ACHDateComponentsForPackedDateComponents(v26);
-              v67 = [v35 dateFromComponents:v74];
-              v70 = ACHDateComponentsForPackedDateComponents(v27);
-              v36 = [v35 dateFromComponents:v70];
-              v37 = [v35 isDate:v67 equalToDate:v36 toUnitGranularity:duplicateRemovalCalendarUnit];
+              v73 = ACHDateComponentsForPackedDateComponents(v26);
+              v66 = [v35 dateFromComponents:v73];
+              v69 = ACHDateComponentsForPackedDateComponents(v27);
+              v36 = [v35 dateFromComponents:v69];
+              v37 = [v35 isDate:v66 equalToDate:v36 toUnitGranularity:duplicateRemovalCalendarUnit];
 
-              v10 = v71;
-              gregorianCalendar = v75;
+              v10 = v70;
+              gregorianCalendar = v74;
               if ((v37 & 1) == 0)
               {
                 goto LABEL_41;
@@ -164,17 +164,17 @@ LABEL_30:
             }
 
             v31 = v29;
-            v73 = ACHDateComponentsForPackedDateComponents(v26);
-            v68 = v31;
-            v66 = [v31 dateFromComponents:v73];
-            v69 = ACHDateComponentsForPackedDateComponents(v27);
-            v32 = [v31 dateFromComponents:v69];
-            v33 = [v31 hk_startOfWeekWithFirstWeekday:v65 beforeDate:v66 addingWeeks:0];
-            v34 = [v31 hk_startOfWeekWithFirstWeekday:v65 beforeDate:v32 addingWeeks:0];
+            v72 = ACHDateComponentsForPackedDateComponents(v26);
+            v67 = v31;
+            v65 = [v31 dateFromComponents:v72];
+            v68 = ACHDateComponentsForPackedDateComponents(v27);
+            v32 = [v31 dateFromComponents:v68];
+            v33 = [v31 hk_startOfWeekWithFirstWeekday:v64 beforeDate:v65 addingWeeks:0];
+            v34 = [v31 hk_startOfWeekWithFirstWeekday:v64 beforeDate:v32 addingWeeks:0];
             LOBYTE(v31) = [v33 isEqual:v34];
 
-            v10 = v71;
-            gregorianCalendar = v75;
+            v10 = v70;
+            gregorianCalendar = v74;
             if ((v31 & 1) == 0)
             {
               goto LABEL_41;
@@ -190,12 +190,12 @@ LABEL_30:
                 goto LABEL_30;
               }
 
-              v30 = (v27 ^ v26) | (v28 ^ v72);
+              v30 = (v27 ^ v26) | (v28 ^ v71);
               goto LABEL_24;
             }
 
-            v10 = v71;
-            gregorianCalendar = v75;
+            v10 = v70;
+            gregorianCalendar = v74;
           }
 
 LABEL_33:
@@ -229,7 +229,7 @@ LABEL_33:
           v22 = [externalIdentifier compare:externalIdentifier2] == 0;
 LABEL_17:
 
-          gregorianCalendar = v75;
+          gregorianCalendar = v74;
           if (v22)
           {
             goto LABEL_14;
@@ -240,9 +240,9 @@ LABEL_42:
           v13 = v13 + 1;
         }
 
-        while (v80 != v13);
-        v42 = [obj countByEnumeratingWithState:&v82 objects:v90 count:16];
-        v80 = v42;
+        while (v79 != v13);
+        v42 = [obj countByEnumeratingWithState:&v81 objects:v89 count:16];
+        v79 = v42;
       }
 
       while (v42);
@@ -250,28 +250,28 @@ LABEL_46:
 
       v43 = v10;
       v44 = gregorianCalendar;
-      v45 = v77;
+      v45 = v76;
       anyObject3 = [v45 anyObject];
+      v85 = 0u;
       v86 = 0u;
       v87 = 0u;
       v88 = 0u;
-      v89 = 0u;
-      v81 = v45;
-      v47 = [v81 countByEnumeratingWithState:&v86 objects:v91 count:16];
+      v80 = v45;
+      v47 = [v80 countByEnumeratingWithState:&v85 objects:v90 count:16];
       if (v47)
       {
         v48 = v47;
-        v49 = *v87;
+        v49 = *v86;
         do
         {
           for (i = 0; i != v48; ++i)
           {
-            if (*v87 != v49)
+            if (*v86 != v49)
             {
-              objc_enumerationMutation(v81);
+              objc_enumerationMutation(v80);
             }
 
-            v51 = *(*(&v86 + 1) + 8 * i);
+            v51 = *(*(&v85 + 1) + 8 * i);
             v52 = v43;
             v53 = v44;
             v54 = anyObject3;
@@ -294,26 +294,24 @@ LABEL_46:
             anyObject3 = v57;
           }
 
-          v48 = [v81 countByEnumeratingWithState:&v86 objects:v91 count:16];
+          v48 = [v80 countByEnumeratingWithState:&v85 objects:v90 count:16];
         }
 
         while (v48);
       }
 
-      [v63 addObject:anyObject3];
-      v12 = [obj hk_minus:v81];
+      [v62 addObject:anyObject3];
+      v12 = [obj hk_minus:v80];
 
       objc_autoreleasePoolPop(context);
-      v10 = v71;
-      gregorianCalendar = v75;
+      v10 = v70;
+      gregorianCalendar = v74;
     }
 
     while ([v12 count]);
   }
 
-  v58 = [v63 copy];
-
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = [v62 copy];
 
   return v58;
 }
@@ -382,11 +380,10 @@ uint64_t __71__ACHEarnedInstanceDuplicateUtility_earnedInstancesLimitedByEarnLim
 
 - (void)earnedInstancesWithoutDuplicates:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_221DDC000, a2, OS_LOG_TYPE_ERROR, "-earnedInstancesWithoutDuplicates: called with instances of multiple templates, template names: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_221DDC000, a2, OS_LOG_TYPE_ERROR, "-earnedInstancesWithoutDuplicates: called with instances of multiple templates, template names: %@", &v2, 0xCu);
 }
 
 @end

@@ -265,7 +265,7 @@ LABEL_5:
 - (void)_openHelpLink
 {
   v11 = *MEMORY[0x1E69E9840];
-  v3 = _AAUILogSystem();
+  v3 = _AAUILogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     helpLinkURL = [(AAUIOBTableWelcomeControllerViewModelProtocol *)self->_viewModel helpLinkURL];

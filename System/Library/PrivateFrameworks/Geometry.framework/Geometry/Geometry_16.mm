@@ -1,8 +1,1686 @@
+void geom::straight_skeleton_evaluator<float>::for_each_wavefront_edge<geom::straight_skeleton_evaluator<float>::check_geometric_invariants(void)::{lambda(unsigned int,unsigned int)#1}>(uint64_t result, void *a2)
+{
+  v3 = *(result + 120);
+  v2 = *(result + 128);
+  if (v2 != v3)
+  {
+    v6 = 0;
+    v7 = 0;
+    do
+    {
+      if (v3)
+      {
+        v8 = v3 + 104 * v6;
+        if (!*(v8 + 96))
+        {
+          v9 = *(v8 + 36);
+          if (v7 != v9)
+          {
+            geom::straight_skeleton_evaluator<float>::check_geometric_invariants(void)const::{lambda(unsigned int,unsigned int)#1}::operator()(a2, v7, v9);
+            v3 = *(result + 120);
+            v2 = *(result + 128);
+          }
+        }
+      }
+
+      v6 = (v7 + 1);
+      v7 = v6;
+    }
+
+    while (0x4EC4EC4EC4EC4EC5 * ((v2 - v3) >> 3) > v6);
+  }
+}
+
+uint64_t geom::intersect_adjacent_spokes<float>(float32x2_t *a1, float32x2_t *a2)
+{
+  v3 = *a1;
+  v4 = a1[1];
+  v5 = a1[2].f32[0];
+  v6 = vmul_n_f32(v4, v5);
+  v7 = *a2;
+  v8 = a2[1];
+  v9 = a2[2].f32[0];
+  v10 = vmul_n_f32(v8, v9);
+  v11 = vmul_f32(v6, v6);
+  v12 = vmul_f32(v10, v10);
+  v13 = vadd_f32(vzip1_s32(v12, v11), vzip2_s32(v12, v11));
+  v14 = vabs_f32(v13);
+  v15 = vcge_f32(0x3400000034000000, v14);
+  v16 = v15.i8[4];
+  v17 = v15.i8[0];
+  if (v15.i32[1] & v15.i32[0])
+  {
+    v18 = vsub_f32(v3, v7);
+    v19 = sqrtf(vaddv_f32(vmul_f32(v18, v18)));
+    v20 = 0;
+    if (v19 <= 0.00001)
+    {
+      goto LABEL_41;
+    }
+
+    goto LABEL_19;
+  }
+
+  v21 = vsub_f32(v7, v3);
+  v22 = v16 | v17;
+  if (v16)
+  {
+    v23 = v13.f32[0];
+  }
+
+  else
+  {
+    v23 = v13.f32[1];
+  }
+
+  if (v16)
+  {
+    v24 = -1;
+  }
+
+  else
+  {
+    v24 = 0;
+  }
+
+  if (v22)
+  {
+    v25 = vbsl_s8(vdup_n_s32(v24), v10, v6);
+    if (v16)
+    {
+      v26 = -1;
+    }
+
+    else
+    {
+      v26 = 0;
+    }
+
+    v13 = vneg_f32(v21);
+    v27 = vbsl_s8(vdup_n_s32(v26), v13, v21);
+    if ((((-v25.f32[1] * v27.f32[0]) + (v25.f32[0] * v27.f32[1])) * ((-v25.f32[1] * v27.f32[0]) + (v25.f32[0] * v27.f32[1]))) <= (v23 * 1.0e-10))
+    {
+      v28 = 0;
+      v21 = vcge_f32(0x3400000034000000, v14);
+      v29 = vmul_f32(v25, v27);
+      v29.f32[0] = vaddv_f32(v29) / v23;
+      v30 = vbic_s8(vdup_lane_s32(v29, 0), v21);
+      goto LABEL_21;
+    }
+
+LABEL_19:
+    v31 = 0;
+    v32 = 0.0;
+    return v31 | LODWORD(v32);
+  }
+
+  *v2.i32 = (-v6.f32[1] * v10.f32[0]) + (v6.f32[0] * v10.f32[1]);
+  if (fabsf(*v2.i32 * *v2.i32) <= ((v13.f32[1] * v13.f32[0]) * 1.0e-10))
+  {
+    if (fabsf(((v21.f32[0] * v6.f32[1]) - (v21.f32[1] * v6.f32[0])) * ((v21.f32[0] * v6.f32[1]) - (v21.f32[1] * v6.f32[0]))) > ((vaddv_f32(vmul_f32(v21, v21)) * v13.f32[1]) * 1.0e-10))
+    {
+      goto LABEL_19;
+    }
+
+    v33 = vmul_f32(v21, v6);
+    v34 = vmul_f32(v10, vneg_f32(v21));
+    v21 = vzip1_s32(v34, v33);
+    v30 = vdiv_f32(vadd_f32(v21, vzip2_s32(v34, v33)), v13);
+    v28 = 1;
+  }
+
+  else
+  {
+    v28 = 0;
+    v13 = vmla_n_f32(vmul_n_f32(vzip1_s32(v6, v10), -v21.f32[1]), vzip2_s32(v6, v10), v21.f32[0]);
+    v30 = vdiv_f32(v13, vdup_lane_s32(v2, 0));
+  }
+
+LABEL_21:
+  v31 = 0;
+  v32 = 0.0;
+  v36 = v30.f32[1] <= -0.000005 && v30.f32[1] != 0.0;
+  v38 = v30.f32[0] <= -0.000005 && v30.f32[0] != 0.0;
+  if (!v36 && !v38)
+  {
+    if (v28)
+    {
+      v39 = a1[3].f32[0];
+      v40 = a2[3].f32[0];
+      v21.f32[0] = fabsf(v5);
+      v13.i32[0] = 916964780;
+      v41 = vdup_lane_s32(vmvn_s8(vcge_f32(v13, v21)), 0);
+      if (v39 >= v40)
+      {
+        v42 = a1[3].f32[0];
+      }
+
+      else
+      {
+        v42 = a2[3].f32[0];
+      }
+
+      v43 = vbsl_s8(v41, vmla_n_f32(v3, v4, v5 * (v42 - v39)), v3);
+      v4.f32[0] = fabsf(v9);
+      v44 = vsub_f32(v43, vbsl_s8(vdup_lane_s32(vmvn_s8(vcge_f32(v13, v4)), 0), vmla_n_f32(v7, v8, v9 * (v42 - v40)), v7));
+      v32 = v42 + (sqrtf(vaddv_f32(vmul_f32(v44, v44))) / (v5 + v9));
+      goto LABEL_48;
+    }
+
+    v20 = vbic_s8(v30, vcltz_f32(v30));
+LABEL_41:
+    if (fabsf(*&v20.i32[1]) <= 0.000005)
+    {
+      v32 = a1[3].f32[0];
+    }
+
+    else if (fabsf(*v20.i32) <= 0.000005)
+    {
+      v32 = a2[3].f32[0];
+    }
+
+    else
+    {
+      *v20.i32 = *v20.i32 + a2[3].f32[0];
+      if ((*&v20.i32[1] + a1[3].f32[0]) >= *v20.i32)
+      {
+        v32 = *&v20.i32[1] + a1[3].f32[0];
+      }
+
+      else
+      {
+        v32 = *v20.i32;
+      }
+    }
+
+LABEL_48:
+    v31 = 0x100000000;
+  }
+
+  return v31 | LODWORD(v32);
+}
+
+void geom::straight_skeleton_evaluator<float>::for_each_wavefront_edge<geom::straight_skeleton_evaluator<float>::best_split_event_for_vertex(unsigned int)::{lambda(unsigned int,unsigned int)#1}>(uint64_t result, uint64_t *a2, float32x2_t a3, double a4)
+{
+  v5 = *(result + 120);
+  v4 = *(result + 128);
+  if (v4 != v5)
+  {
+    v8 = 0;
+    v9 = 0;
+    do
+    {
+      if (v5)
+      {
+        v10 = v5 + 104 * v8;
+        if (!*(v10 + 96))
+        {
+          v11 = *(v10 + 36);
+          if (v9 != v11)
+          {
+            a3 = geom::straight_skeleton_evaluator<float>::best_split_event_for_vertex::{lambda(unsigned int,unsigned int)#1}::operator()(a2, v9, v11, a3, a4);
+            v5 = *(result + 120);
+            v4 = *(result + 128);
+          }
+        }
+      }
+
+      v8 = ++v9;
+    }
+
+    while (0x4EC4EC4EC4EC4EC5 * ((v4 - v5) >> 3) > v9);
+  }
+}
+
+float geom::straight_skeleton_evaluator<float>::time_of_joiner_vertex(void *a1, unsigned int a2)
+{
+  v2 = a1[9];
+  v3 = a1[10];
+  if (v3 != v2)
+  {
+    v4 = (v3 - v2) >> 2;
+    v3 = a1[9];
+    do
+    {
+      v5 = v4 >> 1;
+      v6 = &v3[4 * (v4 >> 1)];
+      v8 = *v6;
+      v7 = (v6 + 1);
+      v4 += ~(v4 >> 1);
+      if (v8 > a2)
+      {
+        v4 = v5;
+      }
+
+      else
+      {
+        v3 = v7;
+      }
+    }
+
+    while (v4);
+  }
+
+  return *(a1[12] + ((v3 - v2) & 0x3FFFFFFFCLL));
+}
+
+void geom::straight_skeleton_evaluator<float>::for_each_wavefront_vertex<geom::straight_skeleton_evaluator<float>::add_joiner_patch_to_time(float)::{lambda(unsigned int)#1},geom::straight_skeleton_evaluator<float>::add_joiner_patch_to_time(float)::{lambda(void)#1}>(uint64_t a1, void **a2)
+{
+  memset(__p, 0, sizeof(__p));
+  std::vector<BOOL>::resize(__p, 0x4EC4EC4EC4EC4EC5 * ((*(a1 + 128) - *(a1 + 120)) >> 3), 0);
+  v5 = *(a1 + 120);
+  v6 = *(a1 + 128);
+  v7 = __p[0];
+  if (v6 == v5)
+  {
+LABEL_13:
+    if (v7)
+    {
+      operator delete(v7);
+    }
+
+    return;
+  }
+
+  v8 = 0;
+  v9 = 0;
+  while (1)
+  {
+    v10 = *(v7 + (v8 >> 6));
+    if ((v10 & (1 << v8)) == 0 && !*(v5 + 104 * v8 + 96))
+    {
+      break;
+    }
+
+    *(v7 + (v8 >> 6)) = v10 | (1 << v8);
+LABEL_6:
+    v8 = ++v9;
+    if (0x4EC4EC4EC4EC4EC5 * ((v6 - v5) >> 3) <= v9)
+    {
+      goto LABEL_13;
+    }
+  }
+
+  v11 = v9;
+  v12 = v9 >> 6;
+  v13 = 1 << v9;
+  if (((1 << v9) & *(v7 + v12)) != 0)
+  {
+    goto LABEL_6;
+  }
+
+  v14 = v9;
+  while (1)
+  {
+    v4 = geom::straight_skeleton_evaluator<float>::add_joiner_patch_to_time(float)::{lambda#1}::operator()(a2, v14, v4);
+    v7 = __p[0];
+    *(__p[0] + v12) |= v13;
+    v5 = *(a1 + 120);
+    v15 = v5 + 104 * v11;
+    if (*(v15 + 96))
+    {
+      break;
+    }
+
+    v11 = *(v15 + 36);
+    v12 = v11 >> 6;
+    v13 = 1 << v11;
+    v14 = *(v15 + 36);
+    if (((1 << v11) & *(v7 + (v11 >> 6))) != 0)
+    {
+      v6 = *(a1 + 128);
+      goto LABEL_6;
+    }
+  }
+
+  v16 = std::__throw_bad_variant_access[abi:nn200100]();
+  geom::straight_skeleton_evaluator<float>::for_each_wavefront_edge<geom::straight_skeleton_evaluator<float>::add_joiner_patch_to_time(float)::{lambda(unsigned int,unsigned int)#1}>(v16, v17);
+}
+
+void geom::straight_skeleton_evaluator<float>::for_each_wavefront_edge<geom::straight_skeleton_evaluator<float>::add_joiner_patch_to_time(float)::{lambda(unsigned int,unsigned int)#1}>(uint64_t result, void *a2)
+{
+  v3 = *(result + 120);
+  v2 = *(result + 128);
+  if (v2 != v3)
+  {
+    v6 = 0;
+    v7 = 0;
+    do
+    {
+      if (v3)
+      {
+        v8 = v3 + 104 * v6;
+        if (!*(v8 + 96))
+        {
+          v9 = *(v8 + 36);
+          if (v7 != v9)
+          {
+            geom::straight_skeleton_evaluator<float>::add_joiner_patch_to_time(float)::{lambda(unsigned int,unsigned int)#1}::operator()(a2, v7, v9);
+            v3 = *(result + 120);
+            v2 = *(result + 128);
+          }
+        }
+      }
+
+      v6 = ++v7;
+    }
+
+    while (0x4EC4EC4EC4EC4EC5 * ((v2 - v3) >> 3) > v7);
+  }
+}
+
+uint64_t geom::straight_skeleton_evaluator<double>::straight_skeleton_evaluator(uint64_t a1, float64x2_t *a2, unint64_t a3, unsigned int *a4, uint64_t a5)
+{
+  v77 = *MEMORY[0x277D85DE8];
+  *(a1 + 96) = 0u;
+  v54 = (a1 + 96);
+  *(a1 + 160) = 0u;
+  *(a1 + 176) = 0u;
+  *(a1 + 112) = 0u;
+  *(a1 + 128) = 0u;
+  *(a1 + 64) = 0u;
+  *(a1 + 80) = 0u;
+  *(a1 + 32) = 0u;
+  *(a1 + 48) = 0u;
+  *a1 = 0u;
+  *(a1 + 16) = 0u;
+  *(a1 + 144) = 0u;
+  std::vector<std::optional<unsigned int>>::resize((a1 + 144), a3);
+  v55 = a2;
+  if (a3)
+  {
+    v10 = vdupq_n_s64(0x7FF0000000000000uLL);
+    v11 = vdupq_n_s64(0xFFF0000000000000);
+    v12 = 16 * a3;
+    do
+    {
+      v13 = *a2++;
+      v10 = vminnmq_f64(v13, v10);
+      v11 = vmaxnmq_f64(v13, v11);
+      v12 -= 16;
+    }
+
+    while (v12);
+  }
+
+  else
+  {
+    v11 = vdupq_n_s64(0xFFF0000000000000);
+    v10 = vdupq_n_s64(0x7FF0000000000000uLL);
+  }
+
+  __asm { FMOV            V3.2D, #0.5 }
+
+  *(a1 + 208) = vmulq_f64(vaddq_f64(v10, v11), _Q3);
+  v60 = vsubq_f64(v11, v10);
+  v19 = *(&v60 & 0xFFFFFFFFFFFFFFF7 | (8 * (*&vmovn_s64(vcgtq_f64(vdupq_laneq_s64(v60, 1), v60)) & 1)));
+  if (fabs(v19) <= 1.0e-10)
+  {
+    v19 = 1.0;
+  }
+
+  *(a1 + 224) = v19;
+  if (a5)
+  {
+    v20 = 0;
+    v56 = &a4[a5];
+    do
+    {
+      v57 = a4;
+      v58 = *a4;
+      if (v58 != v20)
+      {
+        v21 = 0;
+        v22 = &v55[v20];
+        v23 = v58 - v20;
+        v24 = 1;
+        do
+        {
+          v25 = v22[v21];
+          v26 = (v23 - 1 + v21) % v23;
+          v21 = v24;
+          v27 = v24 % v23;
+          v28 = (a1 + 224);
+          v29 = vld1q_dup_f64(v28);
+          geom::spoke<double>::spoke(&v69, vdivq_f64(vsubq_f64(v25, *(a1 + 208)), v29), vdivq_f64(vsubq_f64(v22[v26], *(a1 + 208)), v29), vdivq_f64(vsubq_f64(v22[v27], *(a1 + 208)), v29), 0.0);
+          *v73 = v20 + v26;
+          *&v73[4] = v20 + v27;
+          v30 = v20 + v24 - 1;
+          *&v73[8] = v30;
+          v73[12] = 0;
+          v73[16] = 0;
+          v73[20] = 0;
+          v73[24] = 0;
+          v62.n128_u32[0] = v30;
+          std::vector<unsigned int>::vector[abi:nn200100](&v74, &v62, 1uLL);
+          LOBYTE(v76) = 0;
+          BYTE4(v76) = 0;
+          v31 = *(a1 + 144) + 8 * v30;
+          *v31 = v30;
+          *(v31 + 4) = 1;
+          v33 = *(a1 + 8);
+          v32 = *(a1 + 16);
+          if (v33 >= v32)
+          {
+            v35 = (v33 - *a1) >> 4;
+            if ((v35 + 1) >> 60)
+            {
+              std::__throw_bad_array_new_length[abi:nn200100]();
+            }
+
+            v36 = v32 - *a1;
+            v37 = v36 >> 3;
+            if (v36 >> 3 <= (v35 + 1))
+            {
+              v37 = v35 + 1;
+            }
+
+            if (v36 >= 0x7FFFFFFFFFFFFFF0)
+            {
+              v38 = 0xFFFFFFFFFFFFFFFLL;
+            }
+
+            else
+            {
+              v38 = v37;
+            }
+
+            if (v38)
+            {
+              _ZNSt3__119__allocate_at_leastB8nn200100INS_9allocatorIDv3_fEEEENS_19__allocation_resultINS_16allocator_traitsIT_E7pointerEEERS6_m(a1, v38);
+            }
+
+            *(16 * v35) = v69;
+            v34 = 16 * v35 + 16;
+            v39 = *(a1 + 8) - *a1;
+            v40 = (16 * v35 - v39);
+            memcpy(v40, *a1, v39);
+            v41 = *a1;
+            *a1 = v40;
+            *(a1 + 8) = v34;
+            *(a1 + 16) = 0;
+            if (v41)
+            {
+              operator delete(v41);
+            }
+          }
+
+          else
+          {
+            *v33 = v69;
+            v34 = &v33[1];
+          }
+
+          *(a1 + 8) = v34;
+          v64 = v71;
+          v65 = v72;
+          v66[0] = *v73;
+          *(v66 + 9) = *&v73[9];
+          v62 = v69;
+          v63 = v70;
+          memset(v67, 0, 24);
+          if (v75 != v74)
+          {
+            std::vector<float>::__vallocate[abi:nn200100](v67, (v75 - v74) >> 2);
+          }
+
+          v67[3] = v76;
+          v68 = 0;
+          std::vector<geom::straight_skeleton_evaluator<double>::vertex_state,std::allocator<geom::straight_skeleton_evaluator<double>::vertex_state>>::push_back[abi:nn200100](a1 + 120, &v62);
+          if (v68 != -1)
+          {
+            (*(&off_286292FA8 + v68))(__p, &v62);
+          }
+
+          if (v74)
+          {
+            v75 = v74;
+            operator delete(v74);
+          }
+
+          v24 = v21 + 1;
+        }
+
+        while (v23 > v21);
+      }
+
+      a4 = v57 + 1;
+      v20 = v58;
+    }
+
+    while (v57 + 1 != v56);
+  }
+
+  v62.n128_u32[0] = (*(a1 + 8) - *a1) >> 4;
+  std::vector<unsigned int>::push_back[abi:nn200100]((a1 + 72), &v62);
+  v62.n128_u64[0] = 0;
+  std::vector<double>::push_back[abi:nn200100](v54, &v62);
+  v42 = 0uLL;
+  memset(__p, 0, sizeof(__p));
+  if (*(a1 + 128) == *(a1 + 120))
+  {
+    v47 = 0;
+  }
+
+  else
+  {
+    LODWORD(v43) = 0;
+    do
+    {
+      geom::straight_skeleton_evaluator<double>::edge_event_for_edge(a1, v43, &v62);
+      if (v64 == 1)
+      {
+        v69 = v62;
+        v70 = v63;
+        LODWORD(v71) = 0;
+        std::vector<std::variant<geom::straight_skeleton_evaluator<double>::edge_event,geom::straight_skeleton_evaluator<double>::split_event>>::push_back[abi:nn200100](__p, &v69);
+      }
+
+      geom::straight_skeleton_evaluator<double>::best_split_event_for_vertex(a1, v43, &v62, v44, v45, v46);
+      if (v64 == 1)
+      {
+        v69 = v62;
+        v70 = v63;
+        LODWORD(v71) = 1;
+        std::vector<std::variant<geom::straight_skeleton_evaluator<double>::edge_event,geom::straight_skeleton_evaluator<double>::split_event>>::push_back[abi:nn200100](__p, &v69);
+      }
+
+      v43 = (v43 + 1);
+    }
+
+    while (0x8E38E38E38E38E39 * ((*(a1 + 128) - *(a1 + 120)) >> 4) > v43);
+    v47 = __p[0];
+    v42 = *&__p[1];
+  }
+
+  memset(__p, 0, sizeof(__p));
+  v59 = v42;
+  if ((v42 - v47) >= 49)
+  {
+    v48 = 0xAAAAAAAAAAAAAAABLL * ((v42 - v47) >> 4);
+    v49 = (v48 - 2) >> 1;
+    v50 = v49 + 1;
+    v51 = &v47[48 * v49];
+    do
+    {
+      std::__sift_down[abi:nn200100]<std::_ClassicAlgPolicy,geom::straight_skeleton_evaluator<double>::event_time_comparator &,std::__wrap_iter<std::variant<geom::straight_skeleton_evaluator<double>::edge_event,geom::straight_skeleton_evaluator<double>::split_event> *>>(v47, &v62, v48, v51);
+      v51 -= 48;
+      --v50;
+    }
+
+    while (v50);
+  }
+
+  v52 = *(a1 + 168);
+  if (v52)
+  {
+    *(a1 + 176) = v52;
+    operator delete(v52);
+  }
+
+  *(a1 + 168) = v47;
+  *(a1 + 176) = v59;
+  if (__p[0])
+  {
+    __p[1] = __p[0];
+    operator delete(__p[0]);
+  }
+
+  return a1;
+}
+
+unint64_t std::vector<geom::straight_skeleton_evaluator<double>::vertex_state,std::allocator<geom::straight_skeleton_evaluator<double>::vertex_state>>::push_back[abi:nn200100](uint64_t a1, uint64_t a2)
+{
+  v3 = *(a1 + 8);
+  if (v3 >= *(a1 + 16))
+  {
+    result = std::vector<geom::straight_skeleton_evaluator<double>::vertex_state,std::allocator<geom::straight_skeleton_evaluator<double>::vertex_state>>::__emplace_back_slow_path<geom::straight_skeleton_evaluator<double>::vertex_state>(a1, a2);
+  }
+
+  else
+  {
+    *v3 = 0;
+    *(v3 + 128) = -1;
+    std::__variant_detail::__ctor<std::__variant_detail::__traits<geom::straight_skeleton_evaluator<double>::active_vertex,geom::straight_skeleton_evaluator<double>::inactive_vertex>>::__generic_construct[abi:nn200100]<std::__variant_detail::__move_constructor<std::__variant_detail::__traits<geom::straight_skeleton_evaluator<double>::active_vertex,geom::straight_skeleton_evaluator<double>::inactive_vertex>,(std::__variant_detail::_Trait)1>>(v3, a2);
+    result = v3 + 144;
+  }
+
+  *(a1 + 8) = result;
+  return result;
+}
+
+uint64_t geom::straight_skeleton_evaluator<double>::vertex_state::vertex_state(uint64_t a1, uint64_t a2)
+{
+  v4 = *(a2 + 16);
+  *a1 = *a2;
+  *(a1 + 16) = v4;
+  v5 = *(a2 + 32);
+  v6 = *(a2 + 48);
+  v7 = *(a2 + 64);
+  *(a1 + 73) = *(a2 + 73);
+  *(a1 + 48) = v6;
+  *(a1 + 64) = v7;
+  *(a1 + 32) = v5;
+  std::vector<float>::vector[abi:nn200100]((a1 + 96), (a2 + 96));
+  *(a1 + 120) = *(a2 + 120);
+  *(a1 + 128) = 0;
+  return a1;
+}
+
+void geom::straight_skeleton_evaluator<double>::edge_event_for_edge(uint64_t result@<X0>, unsigned int a2@<W1>, uint64_t a3@<X8>)
+{
+  v4 = *(result + 120);
+  v5 = v4 + 144 * a2;
+  if (!*(v5 + 128))
+  {
+    v7 = *(v5 + 68);
+    if (v7 == a2)
+    {
+      goto LABEL_7;
+    }
+
+    v8 = v4 + 144 * v7;
+    if (!*(v8 + 128))
+    {
+      v9 = COERCE_DOUBLE(geom::intersect_adjacent_spokes<double>(v5, v8));
+      if (v10)
+      {
+        v11 = *(v5 + 32);
+        if (fabs(v11) <= 1.0e-10)
+        {
+          v12 = *v5;
+        }
+
+        else
+        {
+          v12 = vmlaq_n_f64(*v5, *(v5 + 16), v11 * (v9 - *(v5 + 48)));
+        }
+
+        v14 = *(v8 + 32);
+        if (fabs(v14) <= 1.0e-10)
+        {
+          v15 = *v8;
+        }
+
+        else
+        {
+          v15 = vmlaq_n_f64(*v8, *(v8 + 16), v14 * (v9 - *(v8 + 48)));
+        }
+
+        v16 = vaddq_f64(v12, v15);
+        __asm { FMOV            V1.2D, #0.5 }
+
+        *a3 = v9;
+        *(a3 + 8) = a2;
+        *(a3 + 12) = v7;
+        *(a3 + 16) = vmulq_f64(v16, _Q1);
+        v13 = 1;
+        goto LABEL_13;
+      }
+
+LABEL_7:
+      v13 = 0;
+      *a3 = 0;
+LABEL_13:
+      *(a3 + 32) = v13;
+      return;
+    }
+  }
+
+  v22 = std::__throw_bad_variant_access[abi:nn200100]();
+  std::vector<std::variant<geom::straight_skeleton_evaluator<double>::edge_event,geom::straight_skeleton_evaluator<double>::split_event>>::push_back[abi:nn200100](v22, v23);
+}
+
+void std::vector<std::variant<geom::straight_skeleton_evaluator<double>::edge_event,geom::straight_skeleton_evaluator<double>::split_event>>::push_back[abi:nn200100](uint64_t a1, __int128 *a2)
+{
+  v4 = *(a1 + 8);
+  v5 = *(a1 + 16);
+  if (v4 >= v5)
+  {
+    v9 = 0xAAAAAAAAAAAAAAABLL * ((v4 - *a1) >> 4);
+    v10 = v9 + 1;
+    if (v9 + 1 > 0x555555555555555)
+    {
+      std::__throw_bad_array_new_length[abi:nn200100]();
+    }
+
+    v11 = 0xAAAAAAAAAAAAAAABLL * ((v5 - *a1) >> 4);
+    if (2 * v11 > v10)
+    {
+      v10 = 2 * v11;
+    }
+
+    if (v11 >= 0x2AAAAAAAAAAAAAALL)
+    {
+      v12 = 0x555555555555555;
+    }
+
+    else
+    {
+      v12 = v10;
+    }
+
+    if (v12)
+    {
+      std::__allocate_at_least[abi:nn200100]<std::allocator<std::variant<geom::straight_skeleton_evaluator<double>::edge_event,geom::straight_skeleton_evaluator<double>::split_event>>>(a1, v12);
+    }
+
+    v13 = 48 * v9;
+    v14 = *a2;
+    v15 = a2[2];
+    *(v13 + 16) = a2[1];
+    *(v13 + 32) = v15;
+    *v13 = v14;
+    v8 = 48 * v9 + 48;
+    v16 = *(a1 + 8) - *a1;
+    v17 = v13 - v16;
+    memcpy((v13 - v16), *a1, v16);
+    v18 = *a1;
+    *a1 = v17;
+    *(a1 + 8) = v8;
+    *(a1 + 16) = 0;
+    if (v18)
+    {
+      operator delete(v18);
+    }
+  }
+
+  else
+  {
+    v6 = *a2;
+    v7 = a2[2];
+    v4[1] = a2[1];
+    v4[2] = v7;
+    *v4 = v6;
+    v8 = (v4 + 3);
+  }
+
+  *(a1 + 8) = v8;
+}
+
+void geom::straight_skeleton_evaluator<double>::best_split_event_for_vertex(uint64_t result@<X0>, unsigned int a2@<W1>, _BYTE *a4@<X8>, __n128 q0_0@<Q0>, double a5@<D1>, float64x2_t a6@<Q2>)
+{
+  v15 = a2;
+  v7 = *(result + 120) + 144 * a2;
+  if (*(v7 + 128))
+  {
+    v9 = std::__throw_bad_variant_access[abi:nn200100]();
+    geom::straight_skeleton_evaluator<double>::straight_skeleton_evaluator(v9, v10, v11, v12, v13);
+  }
+
+  else
+  {
+    v8 = *(v7 + 40);
+    *a4 = 0;
+    a4[32] = 0;
+    if (v8 == 1)
+    {
+      v14[0] = result;
+      v14[1] = &v15;
+      v14[2] = a4;
+      geom::straight_skeleton_evaluator<double>::for_each_wavefront_edge<geom::straight_skeleton_evaluator<double>::best_split_event_for_vertex::{lambda(unsigned int,unsigned int)#1}>(result, v14, q0_0, a5, a6);
+    }
+  }
+}
+
+void geom::straight_skeleton_evaluator<double>::advance_to_inset_distance(uint64_t a1, __n128 a2)
+{
+  v3 = *(a1 + 224);
+  v4 = *(a1 + 168);
+  v5 = *(a1 + 176);
+  v6 = a2.n128_f64[0] / v3;
+  if (v4 == v5)
+  {
+    v8 = *(a1 + 120);
+    v7 = *(a1 + 128);
+    if (v7 == v8)
+    {
+      goto LABEL_18;
+    }
+
+    v9 = 0;
+    v10 = 0;
+    do
+    {
+      v11 = v8 + 144 * v9;
+      if (!*(v11 + 128) && *(v11 + 41) == 1)
+      {
+        geom::straight_skeleton_evaluator<double>::remove_vertex_from_face_neighbors(a1, v10, v11);
+        geom::straight_skeleton_evaluator<double>::vertex_state::make_inactive((*(a1 + 120) + 144 * v9));
+        v8 = *(a1 + 120);
+        v7 = *(a1 + 128);
+      }
+
+      v9 = (v10 + 1);
+      v10 = v9;
+    }
+
+    while (0x8E38E38E38E38E39 * ((v7 - v8) >> 4) > v9);
+    v4 = *(a1 + 168);
+    v5 = *(a1 + 176);
+  }
+
+  if (v4 != v5)
+  {
+    do
+    {
+      geom::straight_skeleton_evaluator<double>::event_time(v4);
+      if (v12 > v6)
+      {
+        break;
+      }
+
+      v14 = *(a1 + 120);
+      v13 = *(a1 + 128);
+      if (v13 != v14)
+      {
+        v15 = 0;
+        v16 = 0;
+        do
+        {
+          v17 = v14 + 144 * v15;
+          if (!*(v17 + 128) && *(v17 + 41) == 1)
+          {
+            geom::straight_skeleton_evaluator<double>::remove_vertex_from_face_neighbors(a1, v16, v17);
+            geom::straight_skeleton_evaluator<double>::vertex_state::make_inactive((*(a1 + 120) + 144 * v15));
+            v14 = *(a1 + 120);
+            v13 = *(a1 + 128);
+          }
+
+          v15 = (v16 + 1);
+          v16 = v15;
+        }
+
+        while (0x8E38E38E38E38E39 * ((v13 - v14) >> 4) > v15);
+      }
+
+      geom::straight_skeleton_evaluator<double>::process_next_event(a1);
+      v4 = *(a1 + 168);
+    }
+
+    while (v4 != *(a1 + 176));
+  }
+
+LABEL_18:
+
+  geom::straight_skeleton_evaluator<double>::add_joiner_patch_to_time(a1, v6);
+}
+
+uint64_t geom::straight_skeleton_evaluator<double>::event_time(uint64_t a1)
+{
+  v1 = *(a1 + 32);
+  if (v1 == -1)
+  {
+    v3 = std::__throw_bad_variant_access[abi:nn200100]();
+    return geom::straight_skeleton_evaluator<double>::process_next_event(v3);
+  }
+
+  else
+  {
+    v5 = &v4;
+    return (*(&off_286292FB8 + v1))(&v5, a1);
+  }
+}
+
+uint64_t geom::straight_skeleton_evaluator<double>::process_next_event(void *a1)
+{
+  geom::straight_skeleton_evaluator<double>::event_time(a1[21]);
+  v3 = v2;
+  v23 = 0u;
+  v21 = 0u;
+  memset(v22, 0, sizeof(v22));
+  memset(v20, 0, sizeof(v20));
+  geom::straight_skeleton_evaluator<double>::pop_coincident_events(a1, v22, v20, v2);
+  v4 = 0;
+  if ((v21.i64[1] + v23.i64[1]) << 6 <= 0x100uLL)
+  {
+    v5 = 256;
+  }
+
+  else
+  {
+    v5 = (v21.i64[1] + v23.i64[1]) << 6;
+  }
+
+  __p = 0;
+  v18 = 0;
+  v19 = 0;
+  v6 = v5 | 1;
+  while (v23.i64[1] | v21.i64[1])
+  {
+    if (v23.i64[1])
+    {
+      if (v4 + 1 > v6)
+      {
+        v7 = v4 + 1;
+      }
+
+      else
+      {
+        v7 = v5 | 1;
+      }
+
+      while (++v4 <= v5)
+      {
+        v8 = geom::straight_skeleton_evaluator<double>::apply_edge_event(a1, (*(*(&v22[0] + 1) + ((v23.i64[0] >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v23.i8[0] & 0x7F)));
+        if ((v8 & 0x100000000) != 0)
+        {
+          LODWORD(v15) = v8;
+          v16 = 0;
+          std::vector<std::variant<geom::straight_skeleton_evaluator<float>::edge_event_result,geom::straight_skeleton_evaluator<float>::split_event_result>>::push_back[abi:nn200100](&__p, &v15);
+        }
+
+        v9 = vaddq_s64(v23, xmmword_2500D1400);
+        v23 = v9;
+        if (v9.i64[0] >= 0x100uLL)
+        {
+          operator delete(**(&v22[0] + 1));
+          *(&v22[0] + 1) += 8;
+          v23.i64[0] -= 128;
+          v10 = v23.i64[1];
+        }
+
+        else
+        {
+          v10 = v9.i64[1];
+        }
+
+        if (!v10)
+        {
+          goto LABEL_31;
+        }
+      }
+
+LABEL_30:
+      v4 = v7;
+      goto LABEL_31;
+    }
+
+    if (v21.i64[1])
+    {
+      if (v4 + 1 > v6)
+      {
+        v7 = v4 + 1;
+      }
+
+      else
+      {
+        v7 = v5 | 1;
+      }
+
+      while (++v4 <= v5)
+      {
+        v11 = geom::straight_skeleton_evaluator<double>::apply_split_event(a1, (*(*(&v20[0] + 1) + ((v21.i64[0] >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v21.i8[0] & 0x7F)));
+        if (v12)
+        {
+          v15 = v11;
+          v16 = 1;
+          std::vector<std::variant<geom::straight_skeleton_evaluator<float>::edge_event_result,geom::straight_skeleton_evaluator<float>::split_event_result>>::push_back[abi:nn200100](&__p, &v15);
+        }
+
+        v13 = vaddq_s64(v21, xmmword_2500D1400);
+        v21 = v13;
+        if (v13.i64[0] >= 0x100uLL)
+        {
+          operator delete(**(&v20[0] + 1));
+          *(&v20[0] + 1) += 8;
+          v21.i64[0] -= 128;
+          if (!v21.i64[1])
+          {
+            goto LABEL_31;
+          }
+        }
+
+        else if (!v13.i64[1])
+        {
+          goto LABEL_31;
+        }
+      }
+
+      goto LABEL_30;
+    }
+
+LABEL_31:
+    geom::straight_skeleton_evaluator<double>::pop_coincident_events(a1, v22, v20, v3);
+    if (v4 > v5)
+    {
+      break;
+    }
+  }
+
+  geom::straight_skeleton_evaluator<double>::add_joiner_mesh_faces_for_events(a1, __p, 0xAAAAAAAAAAAAAAABLL * ((v18 - __p) >> 2), v3);
+  if (__p)
+  {
+    v18 = __p;
+    operator delete(__p);
+  }
+
+  std::deque<geom::straight_skeleton_evaluator<double>::split_event,std::allocator<geom::straight_skeleton_evaluator<double>::split_event>>::~deque[abi:nn200100](v20);
+  return std::deque<geom::straight_skeleton_evaluator<double>::split_event,std::allocator<geom::straight_skeleton_evaluator<double>::split_event>>::~deque[abi:nn200100](v22);
+}
+
+void geom::straight_skeleton_evaluator<double>::add_joiner_patch_to_time(uint64_t a1, double a2)
+{
+  v24 = *MEMORY[0x277D85DE8];
+  v20 = a2;
+  v23 = 0;
+  v21 = 0u;
+  v22 = 0u;
+  geom::hash_brown<unsigned int,unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>>::init(&v21, 1uLL);
+  v17 = a1;
+  v18 = &v20;
+  v19 = &v21;
+  geom::straight_skeleton_evaluator<double>::for_each_wavefront_vertex<geom::straight_skeleton_evaluator<double>::add_joiner_patch_to_time(double)::{lambda#1},geom::straight_skeleton_evaluator<double>::add_joiner_patch_to_time(double)::{lambda(void)#1}>(a1, &v17);
+  v3 = *(a1 + 8) - *a1;
+  v4 = *(a1 + 80);
+  if (*(v4 - 4) < (v3 >> 4))
+  {
+    v5 = *(*(a1 + 104) - 8);
+    if (v20 == v5 || v5 + 1.0e-10 > v20)
+    {
+      *(v4 - 4) = v3 >> 4;
+    }
+
+    else
+    {
+      std::vector<double>::push_back[abi:nn200100]((a1 + 96), &v20);
+      LODWORD(v17) = (*(a1 + 8) - *a1) >> 4;
+      std::vector<unsigned int>::push_back[abi:nn200100]((a1 + 72), &v17);
+    }
+  }
+
+  v17 = a1;
+  v18 = &v21;
+  geom::straight_skeleton_evaluator<double>::for_each_wavefront_edge<geom::straight_skeleton_evaluator<double>::add_joiner_patch_to_time(double)::{lambda(unsigned int,unsigned int)#1}>(a1, &v17);
+  v17 = &v21;
+  if (v22 >= 0x10)
+  {
+    v7 = 0;
+    v8 = v21;
+    v9 = v22 >> 4;
+    while (1)
+    {
+      v10 = vqtbl1_s8(vpaddlq_u32(vpaddlq_u16(vpaddlq_u8(vandq_s8(vcltzq_s8(*v8), xmmword_2500C4D40)))), 0x3830282018100800).u16[0];
+      v18 = (v10 ^ 0xFFFFLL);
+      if (v10 != 0xFFFFLL)
+      {
+        break;
+      }
+
+      v7 -= 16;
+      ++v8;
+      if (!--v9)
+      {
+        goto LABEL_16;
+      }
+    }
+
+    v11 = __clz(__rbit64(v10 ^ 0xFFFFLL));
+    v12 = (v11 - v7);
+    v19 = (v11 - v7);
+    if (v11 + 1 != v7)
+    {
+      do
+      {
+        v13 = (*(v17 + 1) + 8 * v12);
+        v14 = *v13;
+        __src = v13[1];
+        v15 = *(a1 + 120) + 144 * v14;
+        if (*(v15 + 128))
+        {
+          std::__throw_bad_variant_access[abi:nn200100]();
+        }
+
+        std::vector<unsigned int>::__assign_with_size[abi:nn200100]<unsigned int const*,unsigned int const*>((v15 + 96), &__src, &v17, 1uLL);
+        _ZN4geom10hash_brownIZNS_23marching_squares_2_implIfRKNSt3__18functionIFfDv2_fEEEEEvOT0_tNS_4bboxIT_Lh2EEERNS2_6vectorINS_11vector_typeISC_Lh2EvE5valueENS2_9allocatorISH_EEEERNSE_IjNSI_IjEEEEE16vertex_map_queryS4_ZNS1_IfS8_EEvSA_tSD_SL_SO_ENSP_4hashENS2_8equal_toISP_EEE19hash_brown_iteratorIRNS2_4pairIKSP_S4_EEEppEv(&v17);
+        v12 = v19;
+      }
+
+      while (v19 != -1);
+    }
+  }
+
+LABEL_16:
+  _ZN4geom10hash_brownIZNS_23marching_squares_2_implIfRKNSt3__18functionIFfDv2_fEEEEEvOT0_tNS_4bboxIT_Lh2EEERNS2_6vectorINS_11vector_typeISC_Lh2EvE5valueENS2_9allocatorISH_EEEERNSE_IjNSI_IjEEEEE16vertex_map_queryS4_ZNS1_IfS8_EEvSA_tSD_SL_SO_ENSP_4hashENS2_8equal_toISP_EEE6deinitEv(&v21);
+}
+
+void geom::straight_skeleton_evaluator<double>::pop_coincident_events(uint64_t result, unint64_t *a2, unint64_t *a3, double a4)
+{
+  v26 = *MEMORY[0x277D85DE8];
+  v4 = *(result + 168);
+  if (v4 != *(result + 176))
+  {
+    v9 = a4 + 1.0e-10;
+    do
+    {
+      geom::straight_skeleton_evaluator<double>::event_time(v4);
+      if (v10 != a4 && v9 < v10)
+      {
+        break;
+      }
+
+      v12 = *(result + 168);
+      v13 = *(v12 + 32);
+      if (v13 == 1)
+      {
+        std::deque<geom::straight_skeleton_evaluator<double>::edge_event,std::allocator<geom::straight_skeleton_evaluator<double>::edge_event>>::push_back(a3, v12);
+      }
+
+      else
+      {
+        if (v13)
+        {
+          std::__throw_bad_variant_access[abi:nn200100]();
+        }
+
+        std::deque<geom::straight_skeleton_evaluator<double>::edge_event,std::allocator<geom::straight_skeleton_evaluator<double>::edge_event>>::push_back(a2, v12);
+      }
+
+      v4 = *(result + 168);
+      v14 = *(result + 176);
+      if (v14 - v4 >= 49)
+      {
+        v15 = v4[1];
+        v23 = *v4;
+        v24 = v15;
+        v25 = v4[2];
+        v16 = std::__floyd_sift_down[abi:nn200100]<std::_ClassicAlgPolicy,geom::straight_skeleton_evaluator<double>::event_time_comparator &,std::__wrap_iter<std::variant<geom::straight_skeleton_evaluator<double>::edge_event,geom::straight_skeleton_evaluator<double>::split_event> *>>(v4, &v22, 0xAAAAAAAAAAAAAAABLL * ((v14 - v4) >> 4));
+        v17 = (v14 - 48);
+        if ((v14 - 48) == v16)
+        {
+          v21 = v24;
+          *v16 = v23;
+          v16[1] = v21;
+          v16[2] = v25;
+        }
+
+        else
+        {
+          v18 = *v17;
+          v19 = *(v14 - 16);
+          v16[1] = *(v14 - 32);
+          v16[2] = v19;
+          *v16 = v18;
+          v20 = v24;
+          *v17 = v23;
+          *(v14 - 32) = v20;
+          *(v14 - 16) = v25;
+          std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,geom::straight_skeleton_evaluator<double>::event_time_comparator &,std::__wrap_iter<std::variant<geom::straight_skeleton_evaluator<double>::edge_event,geom::straight_skeleton_evaluator<double>::split_event> *>>(v4, (v16 + 3), &v22, 0xAAAAAAAAAAAAAAABLL * (v16 + 3 - v4));
+        }
+
+        v4 = *(result + 168);
+        v14 = *(result + 176);
+      }
+
+      *(result + 176) = v14 - 48;
+    }
+
+    while (v4 != (v14 - 48));
+  }
+}
+
+uint64_t geom::straight_skeleton_evaluator<double>::apply_edge_event(void *a1, __n128 *a2)
+{
+  v84 = *MEMORY[0x277D85DE8];
+  v3 = a1 + 15;
+  v2 = a1[15];
+  v4 = v2 + 144 * a2->n128_u32[2];
+  if (*(v4 + 128) || *(v2 + 144 * a2->n128_u32[3] + 128))
+  {
+    v6 = 0;
+    v7 = 0;
+    v8 = 0;
+    return v8 | v7 | v6;
+  }
+
+  v11 = *(v4 + 16);
+  v79[0] = *v4;
+  v79[1] = v11;
+  v12 = *(v4 + 32);
+  v13 = *(v4 + 48);
+  v14 = *(v4 + 64);
+  *(v80 + 9) = *(v4 + 73);
+  v79[3] = v13;
+  v80[0] = v14;
+  v79[2] = v12;
+  std::vector<float>::vector[abi:nn200100](&v81, (v4 + 96));
+  v83 = *(v4 + 120);
+  v15 = *v3 + 144 * a2->n128_u32[3];
+  if (!*(v15 + 128))
+  {
+    v16 = *(v15 + 16);
+    v74[0] = *v15;
+    v74[1] = v16;
+    v17 = *(v15 + 32);
+    v18 = *(v15 + 48);
+    v19 = *(v15 + 64);
+    *(v75 + 9) = *(v15 + 73);
+    v74[3] = v18;
+    v75[0] = v19;
+    v74[2] = v17;
+    std::vector<float>::vector[abi:nn200100](&__p, (v15 + 96));
+    v78 = *(v15 + 120);
+    v20 = DWORD1(v80[0]);
+    v21 = DWORD1(v75[0]);
+    v22 = a2->n128_u32[2];
+    v23 = a2->n128_u32[3];
+    if (DWORD1(v80[0]) != v23 && DWORD1(v75[0]) != v22)
+    {
+      v6 = 0;
+      v7 = 0;
+      v8 = 0;
+LABEL_44:
+      if (__p)
+      {
+        v77 = __p;
+        operator delete(__p);
+      }
+
+      if (v81)
+      {
+        v82 = v81;
+        operator delete(v81);
+      }
+
+      return v8 | v7 | v6;
+    }
+
+    v24 = v80;
+    if (DWORD1(v80[0]) != v23)
+    {
+      v24 = v75;
+    }
+
+    v25 = *v24;
+    if (DWORD1(v80[0]) == v23)
+    {
+      v26 = DWORD1(v75[0]);
+    }
+
+    else
+    {
+      v26 = DWORD1(v80[0]);
+    }
+
+    v50 = v26;
+    v51 = v25;
+    geom::straight_skeleton_evaluator<double>::vertex_state::make_inactive((a1[15] + 144 * v22));
+    geom::straight_skeleton_evaluator<double>::vertex_state::make_inactive((a1[15] + 144 * a2->n128_u32[3]));
+    v27 = (a1[16] - a1[15]) >> 4;
+    geom::straight_skeleton_evaluator<double>::remove_vertex_from_face_neighbors(a1, a2->n128_u32[2], v79);
+    geom::straight_skeleton_evaluator<double>::remove_vertex_from_face_neighbors(a1, a2->n128_u32[3], v74);
+    __dst[0] = 0;
+    __dst[1] = 0;
+    v53 = 0;
+    if (v82 != v81)
+    {
+      std::vector<float>::__vallocate[abi:nn200100](__dst, (v82 - v81) >> 2);
+    }
+
+    v28 = 954437177 * v27;
+    v29 = __p;
+    v30 = v77;
+    while (v29 != v30)
+    {
+      std::vector<unsigned int>::push_back[abi:nn200100](__dst, v29++);
+    }
+
+    v31 = v74;
+    if (BYTE4(v83))
+    {
+      v31 = v79;
+    }
+
+    v32 = *(v31 + 30) | (*(v31 + 124) << 32);
+    if (v20 == v23 && v21 == v22)
+    {
+      v33 = a2[1];
+      v34 = a2->n128_u64[0];
+      v59 = 0uLL;
+      v60 = 0;
+      v35 = v53;
+      v36 = *__dst;
+      __dst[1] = 0;
+      v53 = 0;
+      __dst[0] = 0;
+      v58 = v33;
+      v61 = 256;
+      v62 = v34;
+      v63 = v28;
+      v64 = v28;
+      v65 = -1;
+      v66 = 0;
+      v67 = 0;
+      v68 = 0;
+      v69 = 0;
+      v70 = v36;
+      v71 = v35;
+      v72 = v32 & 0xFFFFFFFFFFLL;
+      v73 = 0;
+      std::vector<geom::straight_skeleton_evaluator<double>::vertex_state,std::allocator<geom::straight_skeleton_evaluator<double>::vertex_state>>::push_back[abi:nn200100](v3, &v58);
+      if (v73 != -1)
+      {
+        (*(&off_286292FA8 + v73))(&v55, &v58);
+      }
+
+LABEL_41:
+      v8 = v28 & 0xFFFFFF00;
+      if (__dst[0])
+      {
+        __dst[1] = __dst[0];
+        operator delete(__dst[0]);
+      }
+
+      v7 = v28;
+      v6 = 0x100000000;
+      goto LABEL_44;
+    }
+
+    geom::straight_skeleton_evaluator<double>::create_vertex_and_update_neighbors(a1, v51, v50, *(&v75[1] + 4), *(v75 + 12), __dst, v32 & 0xFFFFFFFFFFLL, DWORD2(v75[0]), a2->n128_f64[0], a2[1]);
+    if (v51 != v50)
+    {
+LABEL_35:
+      geom::straight_skeleton_evaluator<double>::edge_event_for_edge(a1, v28, &v58);
+      if (v60 == 1)
+      {
+        v55 = v58;
+        v56 = v59;
+        v57 = 0;
+        std::vector<std::variant<geom::straight_skeleton_evaluator<double>::edge_event,geom::straight_skeleton_evaluator<double>::split_event>>::push_back[abi:nn200100]((a1 + 21), &v55);
+        std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,geom::straight_skeleton_evaluator<double>::event_time_comparator &,std::__wrap_iter<std::variant<geom::straight_skeleton_evaluator<double>::edge_event,geom::straight_skeleton_evaluator<double>::split_event> *>>(a1[21], a1[22], &v54, 0xAAAAAAAAAAAAAAABLL * ((a1[22] - a1[21]) >> 4));
+      }
+
+      geom::straight_skeleton_evaluator<double>::edge_event_for_edge(a1, v51, &v58);
+      if (v60 == 1)
+      {
+        v55 = v58;
+        v56 = v59;
+        v57 = 0;
+        std::vector<std::variant<geom::straight_skeleton_evaluator<double>::edge_event,geom::straight_skeleton_evaluator<double>::split_event>>::push_back[abi:nn200100]((a1 + 21), &v55);
+        std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,geom::straight_skeleton_evaluator<double>::event_time_comparator &,std::__wrap_iter<std::variant<geom::straight_skeleton_evaluator<double>::edge_event,geom::straight_skeleton_evaluator<double>::split_event> *>>(a1[21], a1[22], &v54, 0xAAAAAAAAAAAAAAABLL * ((a1[22] - a1[21]) >> 4));
+      }
+
+      geom::straight_skeleton_evaluator<double>::best_split_event_for_vertex(a1, v28, &v58, v45, v46, v47);
+      if (v60 == 1)
+      {
+        v55 = v58;
+        v56 = v59;
+        v57 = v60;
+        std::vector<std::variant<geom::straight_skeleton_evaluator<double>::edge_event,geom::straight_skeleton_evaluator<double>::split_event>>::push_back[abi:nn200100]((a1 + 21), &v55);
+        std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,geom::straight_skeleton_evaluator<double>::event_time_comparator &,std::__wrap_iter<std::variant<geom::straight_skeleton_evaluator<double>::edge_event,geom::straight_skeleton_evaluator<double>::split_event> *>>(a1[21], a1[22], &v54, 0xAAAAAAAAAAAAAAABLL * ((a1[22] - a1[21]) >> 4));
+      }
+
+      goto LABEL_41;
+    }
+
+    v37 = *v3 + 144 * v51;
+    if (!*(v37 + 128))
+    {
+      v38 = a2->n128_f64[0];
+      v39 = *(v37 + 32);
+      v40 = fabs(v39) <= 1.0e-10 ? *v37 : vmlaq_n_f64(*v37, *(v37 + 16), v39 * (v38 - *(v37 + 48)));
+      *v37 = v40;
+      *(v37 + 48) = v38;
+      *(v37 + 32) = 0;
+      *(v37 + 40) = 256;
+      v41 = *v3 + 144 * v28;
+      if (!*(v41 + 128))
+      {
+        v42 = a2->n128_f64[0];
+        v43 = *(v41 + 32);
+        if (fabs(v43) <= 1.0e-10)
+        {
+          v44 = *v41;
+        }
+
+        else
+        {
+          v44 = vmlaq_n_f64(*v41, *(v41 + 16), v43 * (v42 - *(v41 + 48)));
+        }
+
+        *v41 = v44;
+        *(v41 + 48) = v42;
+        *(v41 + 32) = 0;
+        *(v41 + 40) = 256;
+        goto LABEL_35;
+      }
+    }
+  }
+
+  v48 = std::__throw_bad_variant_access[abi:nn200100]();
+  return geom::straight_skeleton_evaluator<double>::apply_split_event(v48, v49);
+}
+
+unint64_t geom::straight_skeleton_evaluator<double>::apply_split_event(void *a1, __n128 *a2)
+{
+  __p[5] = *MEMORY[0x277D85DE8];
+  v2 = a1[15] + 144 * a2->n128_u32[3];
+  if (*(v2 + 128))
+  {
+    return 0;
+  }
+
+  v6 = *(v2 + 16);
+  v64[0] = *v2;
+  v64[1] = v6;
+  v7 = *(v2 + 32);
+  v8 = *(v2 + 48);
+  v9 = *(v2 + 64);
+  *(&v65[2] + 1) = *(v2 + 73);
+  v64[3] = v8;
+  *v65 = v9;
+  v64[2] = v7;
+  std::vector<float>::vector[abi:nn200100](__p, (v2 + 96));
+  __p[3] = *(v2 + 120);
+  LOBYTE(v54) = 0;
+  v56 = 0;
+  v61[0] = a1;
+  v61[1] = v64;
+  *&v62 = &v54;
+  geom::straight_skeleton_evaluator<double>::for_each_wavefront_edge_on_face<geom::straight_skeleton_evaluator<double>::apply_split_event(geom::straight_skeleton_evaluator<double>::split_event const&)::{lambda(unsigned int,unsigned int)#1}>(a1, v61, a2->n128_u32[2], v10, v11, v12);
+  if (v56 != 1)
+  {
+    goto LABEL_8;
+  }
+
+  v13 = v54;
+  v14 = a1[15];
+  v15 = v14 + 144 * v54;
+  if (*(v15 + 128))
+  {
+    goto LABEL_47;
+  }
+
+  v16 = v55;
+  v17 = v14 + 144 * v55;
+  if (*(v17 + 128))
+  {
+    goto LABEL_47;
+  }
+
+  v18 = v65[0];
+  v19 = a2->n128_u32[3];
+  if (v65[0] != v19)
+  {
+    v20 = v65[1];
+    if (v65[1] != v19)
+    {
+      geom::straight_skeleton_evaluator<double>::add_triangle_fan_for_active_vertex(a1, v19, a2->n128_f64[0]);
+      v24 = v23;
+      geom::straight_skeleton_evaluator<float>::add_joiner_mesh_triangle(a1, *(*(v15 + 104) - 4), **(v17 + 96), v23);
+      v25 = a1[15];
+      v26 = v25 + 144 * v13;
+      if (!*(v26 + 128))
+      {
+        v27 = *(v26 + 72);
+        v53 = v65[2];
+        v28 = *(v26 + 76);
+        v52 = *&v65[5];
+        v29 = *&v65[3];
+        geom::straight_skeleton_evaluator<double>::vertex_state::make_inactive((v25 + 144 * a2->n128_u32[3]));
+        LODWORD(v58) = v24;
+        std::vector<unsigned int>::vector[abi:nn200100](v61, &v58, 1uLL);
+        vertex_and_update_neighbors = geom::straight_skeleton_evaluator<double>::create_vertex_and_update_neighbors(a1, v18, v16, v13 | 0x100000000, v28, v61, 0, v27, a2->n128_f64[0], a2[1]);
+        if (v61[0])
+        {
+          v61[1] = v61[0];
+          operator delete(v61[0]);
+        }
+
+        LODWORD(v58) = v24;
+        std::vector<unsigned int>::vector[abi:nn200100](v61, &v58, 1uLL);
+        v31 = geom::straight_skeleton_evaluator<double>::create_vertex_and_update_neighbors(a1, v13, v20, v52, v29, v61, 0, v53, a2->n128_f64[0], a2[1]);
+        if (v61[0])
+        {
+          v61[1] = v61[0];
+          operator delete(v61[0]);
+        }
+
+        if (v18 == v16)
+        {
+          v32 = a1[15] + 144 * v16;
+          if (*(v32 + 128))
+          {
+            goto LABEL_47;
+          }
+
+          v33 = a2->n128_f64[0];
+          v34 = *(v32 + 32);
+          v35 = fabs(v34) <= 1.0e-10 ? *v32 : vmlaq_n_f64(*v32, *(v32 + 16), v34 * (v33 - *(v32 + 48)));
+          *v32 = v35;
+          *(v32 + 48) = v33;
+          *(v32 + 32) = 0;
+          *(v32 + 40) = 256;
+          v36 = a1[15] + 144 * vertex_and_update_neighbors;
+          if (*(v36 + 128))
+          {
+            goto LABEL_47;
+          }
+
+          v37 = a2->n128_f64[0];
+          v38 = *(v36 + 32);
+          if (fabs(v38) <= 1.0e-10)
+          {
+            v39 = *v36;
+          }
+
+          else
+          {
+            v39 = vmlaq_n_f64(*v36, *(v36 + 16), v38 * (v37 - *(v36 + 48)));
+          }
+
+          *v36 = v39;
+          *(v36 + 48) = v37;
+          *(v36 + 32) = 0;
+          *(v36 + 40) = 256;
+        }
+
+        if (v13 != v20)
+        {
+LABEL_38:
+          geom::straight_skeleton_evaluator<double>::edge_event_for_edge(a1, vertex_and_update_neighbors, v61);
+          if (v63 == 1)
+          {
+            v58 = *v61;
+            v59 = v62;
+            v60 = 0;
+            std::vector<std::variant<geom::straight_skeleton_evaluator<double>::edge_event,geom::straight_skeleton_evaluator<double>::split_event>>::push_back[abi:nn200100]((a1 + 21), &v58);
+            std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,geom::straight_skeleton_evaluator<double>::event_time_comparator &,std::__wrap_iter<std::variant<geom::straight_skeleton_evaluator<double>::edge_event,geom::straight_skeleton_evaluator<double>::split_event> *>>(a1[21], a1[22], &v57, 0xAAAAAAAAAAAAAAABLL * ((a1[22] - a1[21]) >> 4));
+          }
+
+          geom::straight_skeleton_evaluator<double>::edge_event_for_edge(a1, v18, v61);
+          if (v63 == 1)
+          {
+            v58 = *v61;
+            v59 = v62;
+            v60 = 0;
+            std::vector<std::variant<geom::straight_skeleton_evaluator<double>::edge_event,geom::straight_skeleton_evaluator<double>::split_event>>::push_back[abi:nn200100]((a1 + 21), &v58);
+            std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,geom::straight_skeleton_evaluator<double>::event_time_comparator &,std::__wrap_iter<std::variant<geom::straight_skeleton_evaluator<double>::edge_event,geom::straight_skeleton_evaluator<double>::split_event> *>>(a1[21], a1[22], &v57, 0xAAAAAAAAAAAAAAABLL * ((a1[22] - a1[21]) >> 4));
+          }
+
+          geom::straight_skeleton_evaluator<double>::edge_event_for_edge(a1, v31, v61);
+          if (v63 == 1)
+          {
+            v58 = *v61;
+            v59 = v62;
+            v60 = 0;
+            std::vector<std::variant<geom::straight_skeleton_evaluator<double>::edge_event,geom::straight_skeleton_evaluator<double>::split_event>>::push_back[abi:nn200100]((a1 + 21), &v58);
+            std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,geom::straight_skeleton_evaluator<double>::event_time_comparator &,std::__wrap_iter<std::variant<geom::straight_skeleton_evaluator<double>::edge_event,geom::straight_skeleton_evaluator<double>::split_event> *>>(a1[21], a1[22], &v57, 0xAAAAAAAAAAAAAAABLL * ((a1[22] - a1[21]) >> 4));
+          }
+
+          geom::straight_skeleton_evaluator<double>::edge_event_for_edge(a1, v13, v61);
+          if (v63 == 1)
+          {
+            v58 = *v61;
+            v59 = v62;
+            v60 = 0;
+            std::vector<std::variant<geom::straight_skeleton_evaluator<double>::edge_event,geom::straight_skeleton_evaluator<double>::split_event>>::push_back[abi:nn200100]((a1 + 21), &v58);
+            std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,geom::straight_skeleton_evaluator<double>::event_time_comparator &,std::__wrap_iter<std::variant<geom::straight_skeleton_evaluator<double>::edge_event,geom::straight_skeleton_evaluator<double>::split_event> *>>(a1[21], a1[22], &v57, 0xAAAAAAAAAAAAAAABLL * ((a1[22] - a1[21]) >> 4));
+          }
+
+          v22 = vertex_and_update_neighbors & 0xFFFFFF00 | (v31 << 32);
+          v21 = vertex_and_update_neighbors;
+          goto LABEL_9;
+        }
+
+        v40 = a1[15] + 144 * v13;
+        if (!*(v40 + 128))
+        {
+          v41 = a2->n128_f64[0];
+          v42 = *(v40 + 32);
+          v43 = fabs(v42) <= 1.0e-10 ? *v40 : vmlaq_n_f64(*v40, *(v40 + 16), v42 * (v41 - *(v40 + 48)));
+          *v40 = v43;
+          *(v40 + 48) = v41;
+          *(v40 + 32) = 0;
+          *(v40 + 40) = 256;
+          v44 = a1[15] + 144 * v31;
+          if (!*(v44 + 128))
+          {
+            v45 = a2->n128_f64[0];
+            v46 = *(v44 + 32);
+            if (fabs(v46) <= 1.0e-10)
+            {
+              v47 = *v44;
+            }
+
+            else
+            {
+              v47 = vmlaq_n_f64(*v44, *(v44 + 16), v46 * (v45 - *(v44 + 48)));
+            }
+
+            *v44 = v47;
+            *(v44 + 48) = v45;
+            *(v44 + 32) = 0;
+            *(v44 + 40) = 256;
+            goto LABEL_38;
+          }
+        }
+      }
+
+LABEL_47:
+      v48 = std::__throw_bad_variant_access[abi:nn200100]();
+      return geom::straight_skeleton_evaluator<double>::add_joiner_mesh_faces_for_events(v48, v49, v50, v51);
+    }
+  }
+
+LABEL_8:
+  v21 = 0;
+  v22 = 0;
+LABEL_9:
+  if (__p[0])
+  {
+    __p[1] = __p[0];
+    operator delete(__p[0]);
+  }
+
+  return v22 | v21;
+}
+
 uint64_t geom::straight_skeleton_evaluator<double>::add_joiner_mesh_faces_for_events(uint64_t a1, uint64_t *a2, uint64_t a3, double a4)
 {
-  v19 = 0u;
-  v20 = 0u;
-  v21 = 1065353216;
+  v22 = 0u;
+  v23 = 0u;
+  v24 = 1065353216;
   if (a3)
   {
     v6 = a2;
@@ -20,28 +1698,29 @@ uint64_t geom::straight_skeleton_evaluator<double>::add_joiner_mesh_faces_for_ev
       if (!*(*(a1 + 120) + 144 * v8 + 128))
       {
         p_src = &__src;
+        v13 = &__src;
 LABEL_12:
-        std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int const&>(&v19, p_src);
+        std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int const&>(&v22, p_src, v13);
       }
 
 LABEL_13:
       v6 = (v6 + 12);
       if (v6 == v7)
       {
-        v13 = v20;
-        if (v20)
+        v14 = v23;
+        if (v23)
         {
           do
           {
-            geom::straight_skeleton_evaluator<double>::add_triangle_fan_for_active_vertex(a1, *(v13 + 4), a4);
-            v13 = *v13;
+            geom::straight_skeleton_evaluator<double>::add_triangle_fan_for_active_vertex(a1, *(v14 + 4), a4);
+            v14 = *v14;
           }
 
-          while (v13);
+          while (v14);
           goto LABEL_16;
         }
 
-        return std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::~__hash_table(&v19);
+        return std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::~__hash_table(&v22);
       }
     }
 
@@ -59,7 +1738,7 @@ LABEL_13:
 
     else
     {
-      std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int const&>(&v19, &__src);
+      std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int const&>(&v22, &__src, &__src);
       LODWORD(v11) = HIDWORD(__src);
       v10 = *(a1 + 120);
     }
@@ -70,41 +1749,42 @@ LABEL_13:
     }
 
     p_src = &__src + 1;
+    v13 = (&__src + 4);
     goto LABEL_12;
   }
 
 LABEL_16:
-  v14 = v20;
-  if (!v20)
+  v15 = v23;
+  if (!v23)
   {
-    return std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::~__hash_table(&v19);
+    return std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::~__hash_table(&v22);
   }
 
   while (1)
   {
-    v15 = *(a1 + 120) + 144 * *(v14 + 4);
-    if (*(v15 + 128))
+    v16 = *(a1 + 120) + 144 * *(v15 + 4);
+    if (*(v16 + 128))
     {
       break;
     }
 
-    LODWORD(__src) = *(v15 + 120);
-    std::vector<unsigned int>::__assign_with_size[abi:nn200100]<unsigned int const*,unsigned int const*>((v15 + 96), &__src, &__src + 4, 1uLL);
-    if (*(v15 + 124) == 1)
+    LODWORD(__src) = *(v16 + 120);
+    std::vector<unsigned int>::__assign_with_size[abi:nn200100]<unsigned int const*,unsigned int const*>((v16 + 96), &__src, &__src + 4, 1uLL);
+    if (*(v16 + 124) == 1)
     {
-      *(v15 + 124) = 0;
+      *(v16 + 124) = 0;
     }
 
-    v14 = *v14;
-    if (!v14)
+    v15 = *v15;
+    if (!v15)
     {
-      return std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::~__hash_table(&v19);
+      return std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::~__hash_table(&v22);
     }
   }
 
 LABEL_22:
-  v17 = std::__throw_bad_variant_access[abi:nn200100]();
-  return geom::straight_skeleton_evaluator<double>::extract_offset_curve(v17);
+  v18 = std::__throw_bad_variant_access[abi:nn200100]();
+  return geom::straight_skeleton_evaluator<double>::extract_offset_curve(v18, v19, v20);
 }
 
 void geom::straight_skeleton_evaluator<double>::extract_offset_curve(uint64_t a1, void *a2, void *a3)
@@ -162,8 +1842,8 @@ LABEL_6:
       if ((v13 & i) != 0)
       {
         v22 = *a3;
-        LODWORD(v25.f64[0]) = (*(*(a3 + 8) + 8) - **(a3 + 8)) >> 4;
-        std::vector<unsigned int>::push_back[abi:nn200100](v22, &v25);
+        LODWORD(v30.f64[0]) = (*(*(a3 + 8) + 8) - **(a3 + 8)) >> 4;
+        std::vector<unsigned int>::push_back[abi:nn200100](v22, &v30);
         v7 = *(a1 + 120);
         v6 = *(a1 + 128);
         goto LABEL_6;
@@ -188,8 +1868,8 @@ LABEL_6:
       }
 
       v19 = a2[1];
-      v25 = vmlaq_n_f64(*(v15 + 208), v18, *(v15 + 224));
-      _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(v19, &v25);
+      v30 = vmlaq_n_f64(*(v15 + 208), v18, *(v15 + 224));
+      _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(v19, &v30);
       v20 = __p[0];
       *(__p[0] + v12) |= v13;
       v21 = *(a1 + 120) + 144 * v11;
@@ -204,7 +1884,7 @@ LABEL_6:
     }
 
     v23 = std::__throw_bad_variant_access[abi:nn200100]();
-    geom::straight_skeleton_evaluator<double>::extract_joiner_mesh(v23);
+    geom::straight_skeleton_evaluator<double>::extract_joiner_mesh(v23, v24, v25, v26, v27, v28);
   }
 }
 
@@ -338,72 +2018,65 @@ uint64_t geom::straight_skeleton_evaluator<double>::vertex_state::get_inactive(u
   return result;
 }
 
-uint64_t geom::straight_skeleton_evaluator<double>::vertex_state::spoke(uint64_t result)
+void geom::straight_skeleton_evaluator<double>::vertex_state::spoke(uint64_t result)
 {
   if (*(result + 128) >= 2u)
   {
     v1 = std::__throw_bad_variant_access[abi:nn200100]();
-    return geom::straight_skeleton_evaluator<double>::vertex_state::make_inactive(v1);
+    geom::straight_skeleton_evaluator<double>::vertex_state::make_inactive(v1);
   }
-
-  return result;
 }
 
 void geom::straight_skeleton_evaluator<double>::vertex_state::make_inactive(__int128 *a1)
 {
-  v20[5] = *MEMORY[0x277D85DE8];
-  if (*(a1 + 32))
+  v19[5] = *MEMORY[0x277D85DE8];
+  if (!*(a1 + 32))
   {
-    goto LABEL_9;
-  }
-
-  v2 = a1[3];
-  v17 = a1[2];
-  v18 = v2;
-  v19[0] = a1[4];
-  *(v19 + 9) = *(a1 + 73);
-  v3 = a1[1];
-  v15 = *a1;
-  v16 = v3;
-  std::vector<float>::vector[abi:nn200100](v20, a1 + 12);
-  v20[3] = *(a1 + 15);
-  v11 = v15;
-  v12 = v16;
-  v13 = v17;
-  *&v14 = v18;
-  v4 = *(a1 + 32);
-  if (v4 != -1)
-  {
-    if (v4 == 1)
+    v2 = a1[3];
+    v16 = a1[2];
+    v17 = v2;
+    v18[0] = a1[4];
+    *(v18 + 9) = *(a1 + 73);
+    v3 = a1[1];
+    v14 = *a1;
+    v15 = v3;
+    std::vector<float>::vector[abi:nn200100](v19, a1 + 12);
+    v19[3] = *(a1 + 15);
+    v10 = v14;
+    v11 = v15;
+    v12 = v16;
+    *&v13 = v17;
+    v4 = *(a1 + 32);
+    if (v4 != -1)
     {
-      v5 = v12;
-      *a1 = v11;
-      a1[1] = v5;
-      v6 = v14;
-      a1[2] = v13;
-      a1[3] = v6;
-      goto LABEL_7;
+      if (v4 == 1)
+      {
+        v5 = v11;
+        *a1 = v10;
+        a1[1] = v5;
+        v6 = v13;
+        a1[2] = v12;
+        a1[3] = v6;
+        goto LABEL_7;
+      }
+
+      (*(&off_286292FA8 + v4))(&v9, a1);
     }
 
-    (*(&off_286292FA8 + v4))(&v10, a1);
-  }
-
-  v7 = v12;
-  *a1 = v11;
-  a1[1] = v7;
-  v8 = v14;
-  a1[2] = v13;
-  a1[3] = v8;
-  *(a1 + 32) = 1;
+    v7 = v11;
+    *a1 = v10;
+    a1[1] = v7;
+    v8 = v13;
+    a1[2] = v12;
+    a1[3] = v8;
+    *(a1 + 32) = 1;
 LABEL_7:
-  if (v20[0])
-  {
-    v20[1] = v20[0];
-    operator delete(v20[0]);
+    if (v19[0])
+    {
+      v19[1] = v19[0];
+      operator delete(v19[0]);
+    }
   }
-
-LABEL_9:
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t geom::straight_skeleton_evaluator<double>::remove_vertex_from_face_neighbors(uint64_t result, uint64_t a2, uint64_t a3)
@@ -443,7 +2116,7 @@ uint64_t geom::straight_skeleton_evaluator<double>::remove_vertex_from_face_neig
   {
 LABEL_10:
     v10 = std::__throw_bad_variant_access[abi:nn200100]();
-    return geom::straight_skeleton_evaluator<double>::create_vertex_and_update_neighbors(v10);
+    return geom::straight_skeleton_evaluator<double>::create_vertex_and_update_neighbors(v10, v11, v12, v13, v14, v15, v16, v17, v18, v19);
   }
 
   v9 = *(a3 + 84);
@@ -454,10 +2127,10 @@ LABEL_10:
 
 uint64_t geom::straight_skeleton_evaluator<double>::create_vertex_and_update_neighbors(uint64_t a1, unsigned int a2, unsigned int a3, unint64_t a4, uint64_t a5, __int128 *a6, uint64_t a7, unsigned int a8, double a9, float64x2_t a10)
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   v18 = (a1 + 120);
   v19 = *(a1 + 120);
-  v48 = *(a1 + 128);
+  v47 = *(a1 + 128);
   geom::straight_skeleton_evaluator<double>::find_distinct_neighbor(a1, a2, a3, 0, a10, a9);
   if ((v20 & 0x100000000) != 0)
   {
@@ -469,7 +2142,7 @@ uint64_t geom::straight_skeleton_evaluator<double>::create_vertex_and_update_nei
     v21 = a2;
   }
 
-  v46 = a1;
+  v45 = a1;
   geom::straight_skeleton_evaluator<double>::find_distinct_neighbor(a1, a3, a2, 1, a10, a9);
   if ((v22 & 0x100000000) != 0)
   {
@@ -505,7 +2178,7 @@ uint64_t geom::straight_skeleton_evaluator<double>::create_vertex_and_update_nei
   }
 
   v28 = *(v27 + 32);
-  v47 = v19;
+  v46 = v19;
   v29 = a7;
   if (fabs(v28) <= 1.0e-10)
   {
@@ -519,47 +2192,47 @@ uint64_t geom::straight_skeleton_evaluator<double>::create_vertex_and_update_nei
 
   v31 = a5;
   v32 = HIDWORD(a4);
-  geom::spoke<double>::spoke(v52, a10, v26, v30, a9);
-  *v53 = a2;
-  *&v53[4] = a3;
-  *&v53[8] = a8;
-  *&v53[12] = a5;
+  geom::spoke<double>::spoke(v51, a10, v26, v30, a9);
+  *v52 = a2;
+  *&v52[4] = a3;
+  *&v52[8] = a8;
+  *&v52[12] = a5;
   v33 = a4;
   v34 = a5;
-  v53[16] = BYTE4(a5);
+  v52[16] = BYTE4(a5);
   v35 = v33;
-  *&v53[20] = v33;
-  v53[24] = v32;
+  *&v52[20] = v33;
+  v52[24] = v32;
   v36 = *(a6 + 2);
   v37 = *a6;
   *(a6 + 1) = 0;
   *(a6 + 2) = 0;
   *a6 = 0;
-  BYTE4(v57) = BYTE4(v29);
-  LODWORD(v57) = v29;
-  v58[2] = v52[2];
-  v58[3] = v52[3];
-  v58[0] = v52[0];
-  v58[1] = v52[1];
-  v59[0] = *v53;
-  *(v59 + 9) = *&v53[9];
-  v59[2] = v37;
+  BYTE4(v56) = BYTE4(v29);
+  LODWORD(v56) = v29;
+  v57[2] = v51[2];
+  v57[3] = v51[3];
+  v57[0] = v51[0];
+  v57[1] = v51[1];
+  v58[0] = *v52;
+  *(v58 + 9) = *&v52[9];
+  v58[2] = v37;
   __p = 0;
+  v54 = 0;
   v55 = 0;
-  v56 = 0;
-  v60 = v36;
-  v61 = v57;
-  v62 = 0;
-  std::vector<geom::straight_skeleton_evaluator<double>::vertex_state,std::allocator<geom::straight_skeleton_evaluator<double>::vertex_state>>::push_back[abi:nn200100](v18, v58);
-  if (v62 != -1)
+  v59 = v36;
+  v60 = v56;
+  v61 = 0;
+  std::vector<geom::straight_skeleton_evaluator<double>::vertex_state,std::allocator<geom::straight_skeleton_evaluator<double>::vertex_state>>::push_back[abi:nn200100](v18, v57);
+  if (v61 != -1)
   {
-    (*(&off_286292FA8 + v62))(&v51, v58);
+    (*(&off_286292FA8 + v61))(&v50, v57);
   }
 
-  v62 = -1;
+  v61 = -1;
   if (__p)
   {
-    v55 = __p;
+    v54 = __p;
     operator delete(__p);
   }
 
@@ -570,7 +2243,7 @@ uint64_t geom::straight_skeleton_evaluator<double>::create_vertex_and_update_nei
     goto LABEL_31;
   }
 
-  result = 954437177 * ((v48 - v47) >> 4);
+  result = 954437177 * ((v47 - v46) >> 4);
   *(v39 + 68) = result;
   v41 = v38 + 144 * a3;
   if (*(v41 + 128))
@@ -591,33 +2264,32 @@ uint64_t geom::straight_skeleton_evaluator<double>::create_vertex_and_update_nei
     *(v42 + 80) = 1;
   }
 
-  if ((v34 & 0x100000000) != 0)
+  if ((v34 & 0x100000000) == 0)
   {
-    v43 = *v18 + 144 * v31;
-    if (!*(v43 + 128))
-    {
-      *(v43 + 84) = result;
-      *(v43 + 88) = 1;
-      goto LABEL_27;
-    }
+    goto LABEL_27;
+  }
 
+  v43 = *v18 + 144 * v31;
+  if (*(v43 + 128))
+  {
 LABEL_31:
     std::__throw_bad_variant_access[abi:nn200100]();
   }
 
+  *(v43 + 84) = result;
+  *(v43 + 88) = 1;
 LABEL_27:
   if (a8 != -1 && (v32 & 1) == 0)
   {
-    v44 = *(v46 + 144) + 8 * a8;
+    v44 = *(v45 + 144) + 8 * a8;
     *v44 = result;
     *(v44 + 4) = 1;
   }
 
-  v45 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-unint64_t geom::straight_skeleton_evaluator<double>::for_each_wavefront_edge_on_face<geom::straight_skeleton_evaluator<double>::apply_split_event(geom::straight_skeleton_evaluator<double>::split_event const&)::{lambda(unsigned int,unsigned int)#1}>(unint64_t result, uint64_t a2, unsigned int a3, double a4, double a5, float64x2_t a6)
+unint64_t geom::straight_skeleton_evaluator<double>::for_each_wavefront_edge_on_face<geom::straight_skeleton_evaluator<double>::apply_split_event(geom::straight_skeleton_evaluator<double>::split_event const&)::{lambda(unsigned int,unsigned int)#1}>(unint64_t result, void *a2, unsigned int a3, double a4, double a5, float64x2_t a6)
 {
   v6 = *(*(result + 144) + 8 * a3);
   if ((v6 & 0x100000000) != 0)
@@ -646,10 +2318,10 @@ unint64_t geom::straight_skeleton_evaluator<double>::for_each_wavefront_edge_on_
         break;
       }
 
-      result = geom::intersect_wavefront_edge_spoke<double>(v12, v14, *(a2 + 8), a4, a5, a6);
+      result = geom::intersect_wavefront_edge_spoke<double>(v12, v14, a2[1], a4, a5, a6);
       if (v15)
       {
-        v16 = *(a2 + 16);
+        v16 = a2[2];
         if (*(v16 + 8) == 1)
         {
           *v16 = v9;
@@ -671,7 +2343,7 @@ unint64_t geom::straight_skeleton_evaluator<double>::for_each_wavefront_edge_on_
     }
 
     v17 = std::__throw_bad_variant_access[abi:nn200100]();
-    return geom::straight_skeleton_evaluator<double>::add_triangle_fan_for_active_vertex(v17);
+    return geom::straight_skeleton_evaluator<double>::add_triangle_fan_for_active_vertex(v17, v18, v19);
   }
 
   return result;
@@ -1960,28 +3632,27 @@ void geom::straight_skeleton_evaluator<double>::check_geometric_invariants(uint6
   std::vector<std::string>::__destroy_vector::operator()[abi:nn200100](v47);
 }
 
-_DWORD **geom::straight_skeleton_evaluator<double>::for_each_wavefront_edge<geom::straight_skeleton_evaluator<double>::check_geometric_invariants(void)::{lambda(unsigned int,unsigned int)#1}>(_DWORD **result, _DWORD **a2)
+void geom::straight_skeleton_evaluator<double>::for_each_wavefront_edge<geom::straight_skeleton_evaluator<double>::check_geometric_invariants(void)::{lambda(unsigned int,unsigned int)#1}>(uint64_t result, void *a2)
 {
-  v3 = result[15];
-  v2 = result[16];
+  v3 = *(result + 120);
+  v2 = *(result + 128);
   if (v2 != v3)
   {
-    v5 = result;
     v6 = 0;
     v7 = 0;
     do
     {
       if (v3)
       {
-        v8 = &v3[144 * v6];
-        if (!*(v8 + 32))
+        v8 = v3 + 144 * v6;
+        if (!*(v8 + 128))
         {
-          v9 = *(v8 + 17);
+          v9 = *(v8 + 68);
           if (v7 != v9)
           {
-            result = geom::straight_skeleton_evaluator<double>::check_geometric_invariants(void)const::{lambda(unsigned int,unsigned int)#1}::operator()(a2, v7, v9);
-            v3 = v5[15];
-            v2 = v5[16];
+            geom::straight_skeleton_evaluator<double>::check_geometric_invariants(void)const::{lambda(unsigned int,unsigned int)#1}::operator()(a2, v7, v9);
+            v3 = *(result + 120);
+            v2 = *(result + 128);
           }
         }
       }
@@ -1992,19 +3663,17 @@ _DWORD **geom::straight_skeleton_evaluator<double>::for_each_wavefront_edge<geom
 
     while (0x8E38E38E38E38E39 * ((v2 - v3) >> 4) > v6);
   }
-
-  return result;
 }
 
-uint64_t geom::intersect_adjacent_spokes<double>(float64x2_t *a1, float64x2_t *a2)
+uint64_t geom::intersect_adjacent_spokes<double>(uint64_t a1, uint64_t a2)
 {
   v2 = *a1;
-  v3 = a1[1];
-  v4 = a1[2].f64[0];
+  v3 = *(a1 + 16);
+  v4 = *(a1 + 32);
   v5 = vmulq_n_f64(v3, v4);
   v6 = *a2;
-  v7 = a2[1];
-  v8 = a2[2].f64[0];
+  v7 = *(a2 + 16);
+  v8 = *(a2 + 32);
   v9 = vmulq_n_f64(v7, v8);
   v10 = vpaddq_f64(vmulq_f64(v9, v9), vmulq_f64(v5, v5));
   v11 = vabsq_f64(v10);
@@ -2021,20 +3690,20 @@ uint64_t geom::intersect_adjacent_spokes<double>(float64x2_t *a1, float64x2_t *a
 LABEL_35:
       if (fabs(*&v17.i64[1]) <= 1.0e-10)
       {
-        v28 = a1[3].f64[0];
+        v28 = *(a1 + 48);
       }
 
       else if (fabs(*v17.i64) <= 1.0e-10)
       {
-        v28 = a2[3].f64[0];
+        v28 = *(a2 + 48);
       }
 
       else
       {
-        *v17.i64 = *v17.i64 + a2[3].f64[0];
-        if (*&v17.i64[1] + a1[3].f64[0] >= *v17.i64)
+        *v17.i64 = *v17.i64 + *(a2 + 48);
+        if (*&v17.i64[1] + *(a1 + 48) >= *v17.i64)
         {
-          v28 = *&v17.i64[1] + a1[3].f64[0];
+          v28 = *&v17.i64[1] + *(a1 + 48);
         }
 
         else
@@ -2055,12 +3724,12 @@ LABEL_19:
   v19 = v13 | v14;
   if (v13)
   {
-    v20 = v10.f64[0];
+    v20 = *v10.i64;
   }
 
   else
   {
-    v20 = v10.f64[1];
+    v20 = *&v10.i64[1];
   }
 
   if (v13)
@@ -2100,10 +3769,10 @@ LABEL_19:
 
   else
   {
-    v27 = -v5.f64[1] * v9.f64[0] + v5.f64[0] * v9.f64[1];
-    if (fabs(v27 * v27) <= v10.f64[1] * v10.f64[0] * 1.0e-12)
+    v27 = -*&v5.i64[1] * *v9.i64 + *v5.i64 * *&v9.i64[1];
+    if (fabs(v27 * v27) <= *&v10.i64[1] * *v10.i64 * 1.0e-12)
     {
-      if (fabs((v18.f64[0] * v5.f64[1] - v18.f64[1] * v5.f64[0]) * (v18.f64[0] * v5.f64[1] - v18.f64[1] * v5.f64[0])) > vaddvq_f64(vmulq_f64(v18, v18)) * v10.f64[1] * 1.0e-12)
+      if (fabs((*v18.i64 * *&v5.i64[1] - *&v18.i64[1] * *v5.i64) * (*v18.i64 * *&v5.i64[1] - *&v18.i64[1] * *v5.i64)) > vaddvq_f64(vmulq_f64(v18, v18)) * *&v10.i64[1] * 1.0e-12)
       {
         goto LABEL_19;
       }
@@ -2117,19 +3786,19 @@ LABEL_19:
     else
     {
       v25 = 0;
-      v10 = vmlaq_n_f64(vmulq_n_f64(vzip1q_s64(v5, v9), -v18.f64[1]), vzip2q_s64(v5, v9), v18.f64[0]);
+      v10 = vmlaq_n_f64(vmulq_n_f64(vzip1q_s64(v5, v9), -*&v18.i64[1]), vzip2q_s64(v5, v9), *v18.i64);
       v26 = vdivq_f64(v10, vdupq_lane_s64(*&v27, 0));
     }
   }
 
-  v30 = v26.f64[0] != 0.0;
-  if (v26.f64[0] > -1.0e-10)
+  v30 = *v26.i64 != 0.0;
+  if (*v26.i64 > -1.0e-10)
   {
     v30 = 0;
   }
 
   v28 = 0.0;
-  v31 = v26.f64[1] > -1.0e-10 || v26.f64[1] == 0.0;
+  v31 = *&v26.i64[1] > -1.0e-10 || *&v26.i64[1] == 0.0;
   if (v31 && !v30)
   {
     if (!v25)
@@ -2138,19 +3807,19 @@ LABEL_19:
       goto LABEL_35;
     }
 
-    v32 = a1[3].f64[0];
-    v33 = a2[3].f64[0];
-    v18.f64[0] = fabs(v4);
-    v10.f64[0] = 1.0e-10;
+    v32 = *(a1 + 48);
+    v33 = *(a2 + 48);
+    *v18.i64 = fabs(v4);
+    v10.i64[0] = 0x3DDB7CDFD9D7BDBBLL;
     v34 = vdupq_lane_s64(vmvnq_s8(vcgeq_f64(v10, v18)).i64[0], 0);
     if (v32 >= v33)
     {
-      v35 = a1[3].f64[0];
+      v35 = *(a1 + 48);
     }
 
     else
     {
-      v35 = a2[3].f64[0];
+      v35 = *(a2 + 48);
     }
 
     v36 = vbslq_s8(v34, vmlaq_n_f64(v2, v3, v4 * (v35 - v32)), v2);
@@ -2162,28 +3831,27 @@ LABEL_19:
   return *&v28;
 }
 
-_DWORD **geom::straight_skeleton_evaluator<double>::for_each_wavefront_edge<geom::straight_skeleton_evaluator<double>::best_split_event_for_vertex(unsigned int)::{lambda(unsigned int,unsigned int)#1}>(_DWORD **result, _DWORD **a2, double a3, double a4, float64x2_t a5)
+void geom::straight_skeleton_evaluator<double>::for_each_wavefront_edge<geom::straight_skeleton_evaluator<double>::best_split_event_for_vertex(unsigned int)::{lambda(unsigned int,unsigned int)#1}>(uint64_t result, _DWORD **a2, __n128 a3, double a4, float64x2_t a5)
 {
-  v6 = result[15];
-  v5 = result[16];
+  v6 = *(result + 120);
+  v5 = *(result + 128);
   if (v5 != v6)
   {
-    v8 = result;
     v9 = 0;
     v10 = 0;
     do
     {
       if (v6)
       {
-        v11 = &v6[144 * v9];
-        if (!*(v11 + 32))
+        v11 = v6 + 144 * v9;
+        if (!*(v11 + 128))
         {
-          v12 = *(v11 + 17);
+          v12 = *(v11 + 68);
           if (v10 != v12)
           {
-            result = geom::straight_skeleton_evaluator<double>::best_split_event_for_vertex::{lambda(unsigned int,unsigned int)#1}::operator()(a2, v10, v12, a3, a4, a5);
-            v6 = v8[15];
-            v5 = v8[16];
+            a3.n128_f64[0] = geom::straight_skeleton_evaluator<double>::best_split_event_for_vertex::{lambda(unsigned int,unsigned int)#1}::operator()(a2, v10, v12, a3, a4, a5);
+            v6 = *(result + 120);
+            v5 = *(result + 128);
           }
         }
       }
@@ -2193,8 +3861,6 @@ _DWORD **geom::straight_skeleton_evaluator<double>::for_each_wavefront_edge<geom
 
     while (0x8E38E38E38E38E39 * ((v5 - v6) >> 4) > v10);
   }
-
-  return result;
 }
 
 double geom::straight_skeleton_evaluator<double>::time_of_joiner_vertex(void *a1, unsigned int a2)
@@ -2299,13 +3965,13 @@ LABEL_6:
   }
 
   v15 = std::__throw_bad_variant_access[abi:nn200100]();
-  geom::straight_skeleton_evaluator<double>::for_each_wavefront_edge<geom::straight_skeleton_evaluator<double>::add_joiner_patch_to_time(double)::{lambda(unsigned int,unsigned int)#1}>(v15);
+  geom::straight_skeleton_evaluator<double>::for_each_wavefront_edge<geom::straight_skeleton_evaluator<double>::add_joiner_patch_to_time(double)::{lambda(unsigned int,unsigned int)#1}>(v15, v16);
 }
 
-void geom::straight_skeleton_evaluator<double>::for_each_wavefront_edge<geom::straight_skeleton_evaluator<double>::add_joiner_patch_to_time(double)::{lambda(unsigned int,unsigned int)#1}>(uint64_t a1, void *a2)
+void geom::straight_skeleton_evaluator<double>::for_each_wavefront_edge<geom::straight_skeleton_evaluator<double>::add_joiner_patch_to_time(double)::{lambda(unsigned int,unsigned int)#1}>(uint64_t result, void *a2)
 {
-  v3 = *(a1 + 120);
-  v2 = *(a1 + 128);
+  v3 = *(result + 120);
+  v2 = *(result + 128);
   if (v2 != v3)
   {
     v6 = 0;
@@ -2321,8 +3987,8 @@ void geom::straight_skeleton_evaluator<double>::for_each_wavefront_edge<geom::st
           if (v7 != v9)
           {
             geom::straight_skeleton_evaluator<double>::add_joiner_patch_to_time(double)::{lambda(unsigned int,unsigned int)#1}::operator()(a2, v7, v9);
-            v3 = *(a1 + 120);
-            v2 = *(a1 + 128);
+            v3 = *(result + 120);
+            v2 = *(result + 128);
           }
         }
       }
@@ -2460,17 +4126,17 @@ void std::vector<std::optional<unsigned int>>::__append(uint64_t a1, unint64_t a
   }
 }
 
-void *std::vector<unsigned int>::vector[abi:nn200100](void *result, uint64_t a2, unint64_t a3)
+uint64_t *std::vector<unsigned int>::vector[abi:nn200100](uint64_t *a1, int *a2, unint64_t a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a3)
   {
-    std::vector<float>::__vallocate[abi:nn200100](result, a3);
+    std::vector<float>::__vallocate[abi:nn200100](a1, a3);
   }
 
-  return result;
+  return a1;
 }
 
 uint64_t std::vector<geom::straight_skeleton_evaluator<float>::vertex_state,std::allocator<geom::straight_skeleton_evaluator<float>::vertex_state>>::__emplace_back_slow_path<geom::straight_skeleton_evaluator<float>::vertex_state>(void **a1, uint64_t a2)
@@ -2561,8 +4227,7 @@ __n128 std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispatc
   result = a2[4];
   *(v2 + 64) = result;
   *(v2 + 80) = *(a2 + 10);
-  *(a2 + 8) = 0;
-  *(a2 + 9) = 0;
+  a2[4] = 0uLL;
   *(a2 + 10) = 0;
   *(v2 + 88) = *(a2 + 11);
   return result;
@@ -2889,40 +4554,7 @@ uint64_t geom::intersect_wavefront_edge_spoke<float>(float32x2_t *a1, float32x2_
         v25 = vmla_n_f32(v25, v26, v23 * (v34 - a3[3].f32[0]));
       }
 
-      v21.f32[0] = -v8.f32[1];
-      v35 = vzip1_s32(v21, v8);
-      v36 = vmul_f32(v35, v35);
-      v36.i32[0] = vadd_f32(v36, vdup_lane_s32(v36, 1)).u32[0];
-      v37 = vrsqrte_f32(v36.u32[0]);
-      v38 = vmul_f32(v37, vrsqrts_f32(v36.u32[0], vmul_f32(v37, v37)));
-      v39 = vmul_n_f32(v35, vmul_f32(v38, vrsqrts_f32(v36.u32[0], vmul_f32(v38, v38))).f32[0]);
-      v40 = vmul_f32(*a1, v39);
-      v41 = vmul_f32(v25, v39);
-      v42 = vadd_f32(vzip1_s32(v41, v40), vzip2_s32(v41, v40));
-      v43 = vsub_f32(v42, vdup_lane_s32(v42, 1)).f32[0];
-      if (v43 != 0.0 && v43 > 0.000005)
-      {
-        goto LABEL_21;
-      }
-
-      *&a5 = -v11.f32[1];
-      v44 = vzip1_s32(*&a5, v11);
-      v45 = vmul_f32(v44, v44);
-      v45.i32[0] = vadd_f32(v45, vdup_lane_s32(v45, 1)).u32[0];
-      v46 = vrsqrte_f32(v45.u32[0]);
-      v47 = vmul_f32(v46, vrsqrts_f32(v45.u32[0], vmul_f32(v46, v46)));
-      v48 = vmul_n_f32(v44, vmul_f32(v47, vrsqrts_f32(v45.u32[0], vmul_f32(v47, v47))).f32[0]);
-      v49 = vmul_f32(*a2, v48);
-      v50 = vmul_f32(v25, v48);
-      v51 = vadd_f32(vzip1_s32(v50, v49), vzip2_s32(v50, v49));
-      v52 = vsub_f32(v51, vdup_lane_s32(v51, 1)).f32[0];
-      if (v52 != 0.0 && v52 < -0.000005)
-      {
-        goto LABEL_21;
-      }
-
-      v53 = v20 + vaddv_f32(vmul_f32(v22, v25));
-      if (v53 == 0.0 || v53 >= -0.000005)
+      if (((v21.f32[0] = -v8.f32[1], v35 = vzip1_s32(v21, v8), v36 = vmul_f32(v35, v35), v36.i32[0] = vadd_f32(v36, vdup_lane_s32(v36, 1)).u32[0], v37 = vrsqrte_f32(v36.u32[0]), v38 = vmul_f32(v37, vrsqrts_f32(v36.u32[0], vmul_f32(v37, v37))), v39 = vmul_n_f32(v35, vmul_f32(v38, vrsqrts_f32(v36.u32[0], vmul_f32(v38, v38))).f32[0]), v40 = vmul_f32(*a1, v39), v41 = vmul_f32(v25, v39), v42 = vadd_f32(vzip1_s32(v41, v40), vzip2_s32(v41, v40)), v43 = vsub_f32(v42, vdup_lane_s32(v42, 1)).f32[0], v43 == 0.0) || v43 <= 0.000005) && ((*&a5 = -v11.f32[1], v44 = vzip1_s32(*&a5, v11), v45 = vmul_f32(v44, v44), v45.i32[0] = vadd_f32(v45, vdup_lane_s32(v45, 1)).u32[0], v46 = vrsqrte_f32(v45.u32[0]), v47 = vmul_f32(v46, vrsqrts_f32(v45.u32[0], vmul_f32(v46, v46))), v48 = vmul_n_f32(v44, vmul_f32(v47, vrsqrts_f32(v45.u32[0], vmul_f32(v47, v47))).f32[0]), v49 = vmul_f32(*a2, v48), v50 = vmul_f32(v25, v48), v51 = vadd_f32(vzip1_s32(v50, v49), vzip2_s32(v50, v49)), v52 = vsub_f32(v51, vdup_lane_s32(v51, 1)).f32[0], v52 == 0.0) || v52 >= -0.000005) && ((v53 = v20 + vaddv_f32(vmul_f32(v22, v25)), v53 == 0.0) || v53 >= -0.000005))
       {
         v32 = LODWORD(v34) & 0xFFFFFF00;
         v28 = LOBYTE(v34);
@@ -3080,80 +4712,79 @@ void std::__split_buffer<std::string>::__destruct_at_end[abi:nn200100](uint64_t 
   }
 }
 
-uint64_t geom::straight_skeleton_evaluator<float>::check_geometric_invariants(void)const::{lambda(unsigned int,unsigned int)#1}::operator()(uint64_t result, uint64_t a2, uint64_t a3)
+float32x2_t geom::straight_skeleton_evaluator<float>::check_geometric_invariants(void)const::{lambda(unsigned int,unsigned int)#1}::operator()(void *result, uint64_t a2, uint64_t a3)
 {
   v3 = *(*result + 120);
   v4 = (v3 + 104 * a2);
-  if (v4[12].i32[0] || ((v7 = result, v8 = *(*(*result + 104) - 4), v9 = v4[2].f32[0], fabsf(v9) <= 0.000005) ? (v10 = *v4) : (v10 = vmla_n_f32(*v4, v4[1], v9 * (v8 - v4[3].f32[0]))), v11 = (v3 + 104 * a3), v11[12].i32[0]))
+  if (v4[12].i32[0] || ((v8 = *(*(*result + 104) - 4), v9 = v4[2].f32[0], v10.i32[0] = 916964780, fabsf(v9) <= 0.000005) ? (v11 = *v4) : (v11 = vmla_n_f32(*v4, v4[1], v9 * (v8 - v4[3].f32[0]))), v12 = (v3 + 104 * a3), v12[12].i32[0]))
   {
-    v25 = std::__throw_bad_variant_access[abi:nn200100]();
-    return geom::straight_skeleton_evaluator<float>::best_split_event_for_vertex::{lambda(unsigned int,unsigned int)#1}::operator()(v25, v26, v27, v28, v29);
+    v26 = std::__throw_bad_variant_access[abi:nn200100]();
+    return geom::straight_skeleton_evaluator<float>::best_split_event_for_vertex::{lambda(unsigned int,unsigned int)#1}::operator()(v26, v27, v28, v29, v30);
   }
 
   else
   {
-    v12 = v11[2].f32[0];
-    if (fabsf(v12) <= 0.000005)
+    v13 = v12[2].f32[0];
+    if (fabsf(v13) <= 0.000005)
     {
-      v13 = *v11;
+      v14 = *v12;
     }
 
     else
     {
-      v13 = vmla_n_f32(*v11, v11[1], v12 * (v8 - v11[3].f32[0]));
+      v14 = vmla_n_f32(*v12, v12[1], v13 * (v8 - v12[3].f32[0]));
     }
 
-    v14 = vsub_f32(v10, v13);
-    if (sqrtf(vaddv_f32(vmul_f32(v14, v14))) <= 0.000005)
+    v15 = vsub_f32(v11, v14);
+    if (sqrtf(vaddv_f32(vmul_f32(v15, v15))) <= 0.000005)
     {
-      std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:nn200100](v32);
-      v15 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(&v33, "edge ", 5);
-      v16 = MEMORY[0x25305E2F0](v15, a2);
-      v17 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v16, " -> ", 4);
-      v18 = MEMORY[0x25305E2F0](v17, a3);
-      std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v18, " is zero length.  p0 = (", 24);
-      v19 = std::ostream::operator<<();
-      std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v19, ", ", 2);
+      std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:nn200100](v33);
+      v16 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(&v34, "edge ", 5);
+      v17 = MEMORY[0x25305E2F0](v16, a2);
+      v18 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v17, " -> ", 4);
+      v19 = MEMORY[0x25305E2F0](v18, a3);
+      std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v19, " is zero length.  p0 = (", 24);
       v20 = std::ostream::operator<<();
-      std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v20, ") p1 = (", 8);
+      std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v20, ", ", 2);
       v21 = std::ostream::operator<<();
-      std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v21, ", ", 2);
+      std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v21, ") p1 = (", 8);
       v22 = std::ostream::operator<<();
-      std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v22, ")", 1);
-      v23 = *(v7 + 8);
+      std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v22, ", ", 2);
+      v23 = std::ostream::operator<<();
+      std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v23, ")", 1);
+      v24 = result[1];
       std::stringbuf::str();
-      std::vector<std::string>::push_back[abi:nn200100](v23, &__p);
-      if (v31 < 0)
+      std::vector<std::string>::push_back[abi:nn200100](v24, &__p);
+      if (v32 < 0)
       {
         operator delete(__p);
       }
 
-      v32[0] = *MEMORY[0x277D82818];
-      v24 = *(MEMORY[0x277D82818] + 72);
-      *(v32 + *(v32[0] - 24)) = *(MEMORY[0x277D82818] + 64);
-      v33 = v24;
-      v34 = MEMORY[0x277D82878] + 16;
-      if (v36 < 0)
+      v33[0] = *MEMORY[0x277D82818];
+      v25 = *(MEMORY[0x277D82818] + 72);
+      *(v33 + *(v33[0] - 24)) = *(MEMORY[0x277D82818] + 64);
+      v34 = v25;
+      v35 = MEMORY[0x277D82878] + 16;
+      if (v37 < 0)
       {
-        operator delete(v35[7].__locale_);
+        operator delete(v36[7].__locale_);
       }
 
-      v34 = MEMORY[0x277D82868] + 16;
-      std::locale::~locale(v35);
+      v35 = MEMORY[0x277D82868] + 16;
+      std::locale::~locale(v36);
       std::iostream::~basic_iostream();
-      return MEMORY[0x25305E3C0](&v37);
+      MEMORY[0x25305E3C0](&v38);
     }
   }
 
-  return result;
+  return v10;
 }
 
-uint64_t geom::straight_skeleton_evaluator<float>::best_split_event_for_vertex(unsigned int)::{lambda(unsigned int,unsigned int)#1}::operator()(uint64_t result, unsigned int a2, unsigned int a3, double a4, double a5)
+float32x2_t geom::straight_skeleton_evaluator<float>::best_split_event_for_vertex(unsigned int)::{lambda(unsigned int,unsigned int)#1}::operator()(uint64_t *result, unsigned int a2, unsigned int a3, float32x2_t a4, double a5)
 {
-  v5 = **(result + 8);
+  v5 = *result[1];
   if (v5 != a2 && v5 != a3)
   {
-    v8 = result;
     v9 = *result;
     v10 = *(*result + 120);
     v11 = (v10 + 104 * a2);
@@ -3174,93 +4805,93 @@ uint64_t geom::straight_skeleton_evaluator<float>::best_split_event_for_vertex(u
       goto LABEL_19;
     }
 
-    result = geom::intersect_wavefront_edge_spoke<float>(v11, v12, v13, a4, a5);
-    if ((result & 0x100000000) == 0)
+    v14 = geom::intersect_wavefront_edge_spoke<float>(v11, v12, v13, *&a4, a5);
+    if ((v14 & 0x100000000) == 0)
     {
-      return result;
+      return a4;
     }
 
-    v14 = *(v8 + 16);
-    v15 = v14[3].u8[0];
-    if (v15 == 1 && v14->f32[0] <= *&result)
+    a4.i32[0] = v14;
+    v15 = result[2];
+    v16 = *(v15 + 24);
+    if (v16 == 1 && *v15 <= *&v14)
     {
-      return result;
+      return a4;
     }
 
-    v16 = *(v9 + 120);
-    v17 = v16 + 104 * a2;
-    if (*(v17 + 96) || (v18 = **(v8 + 8), v19 = (v16 + 104 * v18), v19[12].i32[0]))
+    v17 = *(v9 + 120);
+    v18 = v17 + 104 * a2;
+    if (*(v18 + 96) || (v19 = *result[1], v20 = (v17 + 104 * v19), v20[12].i32[0]))
     {
 LABEL_19:
       v23 = std::__throw_bad_variant_access[abi:nn200100]();
-      return std::deque<geom::straight_skeleton_evaluator<float>::edge_event,std::allocator<geom::straight_skeleton_evaluator<float>::edge_event>>::push_back(v23);
+      return std::deque<geom::straight_skeleton_evaluator<float>::edge_event,std::allocator<geom::straight_skeleton_evaluator<float>::edge_event>>::push_back(v23, v24).n128_u64[0];
     }
 
-    v20 = *(v17 + 40);
-    v21 = v19[2].f32[0];
-    if (fabsf(v21) <= 0.000005)
+    v21 = *(v18 + 40);
+    v22 = v20[2].f32[0];
+    if (fabsf(v22) <= 0.000005)
     {
-      v22 = *v19;
+      a4 = *v20;
     }
 
     else
     {
-      v22 = vmla_n_f32(*v19, v19[1], v21 * (*&result - v19[3].f32[0]));
+      a4 = vmla_n_f32(*v20, v20[1], v22 * (*&v14 - v20[3].f32[0]));
     }
 
-    v14->i32[0] = result;
-    v14->i32[1] = v20;
-    v14[1].i32[0] = v18;
-    v14[2] = v22;
-    if ((v15 & 1) == 0)
+    *v15 = v14;
+    *(v15 + 4) = v21;
+    *(v15 + 8) = v19;
+    *(v15 + 16) = *&a4;
+    if ((v16 & 1) == 0)
     {
-      v14[3].i8[0] = 1;
+      *(v15 + 24) = 1;
     }
   }
 
-  return result;
+  return a4;
 }
 
-__n128 std::deque<geom::straight_skeleton_evaluator<float>::edge_event,std::allocator<geom::straight_skeleton_evaluator<float>::edge_event>>::push_back(uint64_t a1, __n128 *a2)
+__n128 std::deque<geom::straight_skeleton_evaluator<float>::edge_event,std::allocator<geom::straight_skeleton_evaluator<float>::edge_event>>::push_back(unint64_t *a1, __n128 *a2)
 {
-  v4 = *(a1 + 8);
-  v5 = *(a1 + 16);
-  v6 = *(a1 + 8);
-  v7 = 170 * ((v5 - v6) >> 3) - 1;
-  if (v5 == v6)
+  v4 = a1[2];
+  v5 = a1[1];
+  v6 = 170 * ((v4 - v5) >> 3) - 1;
+  if (v4 == v5)
   {
-    v7 = 0;
+    v6 = 0;
   }
 
-  v8 = *(a1 + 40) + *(a1 + 32);
-  if (v7 == v8)
+  v7 = a1[5] + a1[4];
+  if (v6 == v7)
   {
     std::deque<geom::straight_skeleton_evaluator<float>::edge_event,std::allocator<geom::straight_skeleton_evaluator<float>::edge_event>>::__add_back_capacity(a1);
-    v6 = *(a1 + 8);
-    v8 = *(a1 + 40) + *(a1 + 32);
+    v5 = a1[1];
+    v7 = a1[5] + a1[4];
   }
 
-  v9 = (*(v6 + 8 * (v8 / 0xAA)) + 24 * (v8 % 0xAA));
+  v8 = (*(v5 + 8 * (v7 / 0xAA)) + 24 * (v7 % 0xAA));
   result = *a2;
-  v9[1].n128_u64[0] = a2[1].n128_u64[0];
-  *v9 = result;
-  ++*(a1 + 40);
+  v8[1].n128_u64[0] = a2[1].n128_u64[0];
+  *v8 = result;
+  ++a1[5];
   return result;
 }
 
-void *std::deque<geom::straight_skeleton_evaluator<float>::edge_event,std::allocator<geom::straight_skeleton_evaluator<float>::edge_event>>::__add_back_capacity(void *a1)
+void std::deque<geom::straight_skeleton_evaluator<float>::edge_event,std::allocator<geom::straight_skeleton_evaluator<float>::edge_event>>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0xAA;
   v3 = v1 - 170;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -3268,25 +4899,25 @@ void *std::deque<geom::straight_skeleton_evaluator<float>::edge_event,std::alloc
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    std::__allocate_at_least[abi:nn200100]<std::allocator<void geom::kd_tree<float,(unsigned char)2>::build<(geom_kd_tree_build_strategy)1>(void)::state *>>(a1, v9);
+    v10 = a1;
+    std::__allocate_at_least[abi:nn200100]<std::allocator<void geom::kd_tree<float,(unsigned char)2>::build<(geom_kd_tree_build_strategy)1>(void)::state *>>(a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<void geom::kd_tree<float,(unsigned char)2>::build<(geom_kd_tree_build_strategy)1>(void)::state *,std::allocator<void geom::kd_tree<float,(unsigned char)2>::build<(geom_kd_tree_build_strategy)1>(void)::state *>>::emplace_back<void geom::kd_tree<float,(unsigned char)2>::build<(geom_kd_tree_build_strategy)1>(void)::state *&>(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<void geom::kd_tree<float,(unsigned char)2>::build<(geom_kd_tree_build_strategy)1>(void)::state *,std::allocator<void geom::kd_tree<float,(unsigned char)2>::build<(geom_kd_tree_build_strategy)1>(void)::state *>>::emplace_back<void geom::kd_tree<float,(unsigned char)2>::build<(geom_kd_tree_build_strategy)1>(void)::state *&>(a1, &v9);
 }
 
 _OWORD *std::__floyd_sift_down[abi:nn200100]<std::_ClassicAlgPolicy,geom::straight_skeleton_evaluator<float>::event_time_comparator &,std::__wrap_iter<std::variant<geom::straight_skeleton_evaluator<float>::edge_event,geom::straight_skeleton_evaluator<float>::split_event> *>>(_OWORD *a1, uint64_t a2, uint64_t a3)
@@ -3321,33 +4952,33 @@ _OWORD *std::__floyd_sift_down[abi:nn200100]<std::_ClassicAlgPolicy,geom::straig
   return v7;
 }
 
-uint64_t *std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int const&>(void *a1, unsigned int *a2)
+uint64_t *std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int const&>(void *a1, unsigned int *a2, _DWORD *a3)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = *a2;
+  v4 = a1[1];
+  if (!*&v4)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v6 = *a2;
+    if (*&v4 <= v3)
     {
-      v5 = v2 % v3.i32[0];
+      v6 = v3 % v4.i32[0];
     }
   }
 
   else
   {
-    v5 = (v3.i32[0] - 1) & v2;
+    v6 = (v4.i32[0] - 1) & v3;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -3355,44 +4986,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v9 = v8[1];
+    if (v9 == v3)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v9 >= *&v4)
       {
-        v8 %= *&v3;
+        v9 %= *&v4;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v9 &= *&v4 - 1;
     }
 
-    if (v8 != v5)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 4) != v2)
+  if (*(v8 + 4) != v3)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v8;
 }
 
 void geom::hash_brown<unsigned int,unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>>::init(void **a1, unint64_t a2)
@@ -3467,21 +5098,21 @@ void geom::hash_brown<unsigned int,unsigned int,std::hash<unsigned int>,std::equ
   a1[4] = v11;
 }
 
-double geom::straight_skeleton_evaluator<float>::add_joiner_patch_to_time(float)::{lambda(unsigned int)#1}::operator()(void **a1, unsigned int a2, double result)
+double geom::straight_skeleton_evaluator<float>::add_joiner_patch_to_time(float)::{lambda(unsigned int)#1}::operator()(void **result, unsigned int a2, double a3)
 {
   v15 = a2;
-  v3 = *a1;
-  v4 = ((*a1)[15] + 104 * a2);
+  v3 = *result;
+  v4 = ((*result)[15] + 104 * a2);
   if (v4[12].i32[0])
   {
     v10 = std::__throw_bad_variant_access[abi:nn200100]();
-    *&result = geom::hash_brown<unsigned int,unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>>::internal_add<unsigned int>(v10, v11, v12).u64[0];
+    *&a3 = geom::hash_brown<unsigned int,unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>>::internal_add<unsigned int>(v10, v11, v12).u64[0];
   }
 
   else if (v4[4].i32[1] != a2)
   {
-    v6 = geom::straight_skeleton_evaluator<float>::time_of_joiner_vertex(*a1, **&v4[8]);
-    v7 = *a1[1];
+    v6 = geom::straight_skeleton_evaluator<float>::time_of_joiner_vertex(*result, **&v4[8]);
+    v7 = *result[1];
     if (v6 == v7 || vabds_f32(v6, v7) <= 0.000005)
     {
       v14 = **&v4[8];
@@ -3505,21 +5136,21 @@ double geom::straight_skeleton_evaluator<float>::add_joiner_patch_to_time(float)
       _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE9push_backB8nn200100ERKS1_(v3, v13);
     }
 
-    geom::hash_brown<unsigned int,unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>>::insert(a1[2], &v15, &v14, v13);
+    geom::hash_brown<unsigned int,unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>>::insert(result[2], &v15, &v14, v13);
   }
 
-  return result;
+  return a3;
 }
 
-int64x2_t geom::hash_brown<unsigned int,unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>>::internal_add<unsigned int>(uint64_t a1, _DWORD *a2, int a3)
+int64x2_t geom::hash_brown<unsigned int,unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>>::internal_add<unsigned int>(uint64_t *a1, _DWORD *a2, int a3)
 {
-  if (!*(a1 + 32))
+  if (!a1[4])
   {
     geom::hash_brown<unsigned int,unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>>::grow_to_count(a1);
   }
 
   v6 = *a2;
-  v7 = *(a1 + 16) >> 4;
+  v7 = a1[2] >> 4;
   v8 = v6 % v7;
   v9 = *a1;
   v10 = __clz(__rbit64(*&vqtbl1_s8(vpaddlq_u32(vpaddlq_u16(vpaddlq_u8(vandq_s8(vcltzq_s8(*(*a1 + 16 * (v6 % v7))), xmmword_2500C4D40)))), 0x3830282018100800)));
@@ -3546,7 +5177,7 @@ int64x2_t geom::hash_brown<unsigned int,unsigned int,std::hash<unsigned int>,std
   v11 = v9 + 16 * v8;
   v12 = *(v11 + v10);
   *(v11 + v10) = v6 & 0x7F;
-  v13 = (*(a1 + 8) + 8 * (v10 + 16 * v8));
+  v13 = (a1[1] + 8 * (v10 + 16 * v8));
   *v13 = *a2;
   v13[1] = a3;
   if (v12 == 255)
@@ -3561,15 +5192,15 @@ int64x2_t geom::hash_brown<unsigned int,unsigned int,std::hash<unsigned int>,std
 
   v15.i64[0] = vdupq_n_s64(1uLL).u64[0];
   v15.i64[1] = v14;
-  result = vaddq_s64(*(a1 + 24), v15);
-  *(a1 + 24) = result;
+  result = vaddq_s64(*(a1 + 3), v15);
+  *(a1 + 3) = result;
   return result;
 }
 
-void geom::hash_brown<unsigned int,unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>>::grow_to_count(uint64_t a1)
+void geom::hash_brown<unsigned int,unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>>::grow_to_count(__int128 *result)
 {
-  v2 = *(a1 + 16);
-  v1 = *(a1 + 24);
+  v2 = *(result + 2);
+  v1 = *(result + 3);
   v3 = (((151 * v1) >> 7) + 15) & 0x3FFFFFFFFFFFFF0;
   if (v3 != v2)
   {
@@ -3581,85 +5212,82 @@ void geom::hash_brown<unsigned int,unsigned int,std::hash<unsigned int>,std::equ
     goto LABEL_6;
   }
 
-  if (!*(a1 + 32))
+  if (!*(result + 4))
   {
 LABEL_6:
-    geom::hash_brown<unsigned int,unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>>::do_resize(a1, v1);
+    geom::hash_brown<unsigned int,unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>>::do_resize(result, v1);
   }
 }
 
 void geom::hash_brown<unsigned int,unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>>::do_resize(__int128 *a1, unint64_t a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (a2 <= 1)
   {
     a2 = 1;
   }
 
-  v22 = 0;
-  v20 = 0u;
-  v21 = 0u;
-  geom::hash_brown<unsigned int,unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>>::init(&v20, a2);
-  v18[0] = a1;
-  v4 = *(a1 + 2);
-  if (v4 >= 0x10)
+  v19 = 0;
+  v17 = 0u;
+  v18 = 0u;
+  geom::hash_brown<unsigned int,unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>>::init(&v17, a2);
+  v15[0] = a1;
+  v3 = *(a1 + 2);
+  if (v3 >= 0x10)
   {
-    v5 = 0;
-    v6 = *a1;
-    v7 = v4 >> 4;
-    v8 = xmmword_2500C4D40;
-    v3.n128_u64[0] = 0x3830282018100800;
+    v4 = 0;
+    v5 = *a1;
+    v6 = v3 >> 4;
     while (1)
     {
-      v9 = vqtbl1_s8(vpaddlq_u32(vpaddlq_u16(vpaddlq_u8(vandq_s8(vcltzq_s8(*v6), xmmword_2500C4D40)))), 0x3830282018100800).u16[0];
-      v18[1] = v9 ^ 0xFFFFLL;
-      if (v9 != 0xFFFFLL)
+      v7 = vqtbl1_s8(vpaddlq_u32(vpaddlq_u16(vpaddlq_u8(vandq_s8(vcltzq_s8(*v5), xmmword_2500C4D40)))), 0x3830282018100800).u16[0];
+      v15[1] = v7 ^ 0xFFFFLL;
+      if (v7 != 0xFFFFLL)
       {
         break;
       }
 
-      v5 -= 16;
-      ++v6;
-      if (!--v7)
+      v4 -= 16;
+      ++v5;
+      if (!--v6)
       {
         goto LABEL_10;
       }
     }
 
-    v10 = __clz(__rbit64(v9 ^ 0xFFFFLL));
-    v11 = v10 - v5;
-    v19 = v10 - v5;
-    if (v10 + 1 != v5)
+    v8 = __clz(__rbit64(v7 ^ 0xFFFFLL));
+    v9 = v8 - v4;
+    v16 = v8 - v4;
+    if (v8 + 1 != v4)
     {
       do
       {
-        v17 = *(*(v18[0] + 8) + 8 * v11);
-        geom::hash_brown<unsigned int,unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>>::internal_add<unsigned int>(&v20, &v17, HIDWORD(v17), v8, v3);
-        _ZN4geom10hash_brownIZNS_23marching_squares_2_implIfRKNSt3__18functionIFfDv2_fEEEEEvOT0_tNS_4bboxIT_Lh2EEERNS2_6vectorINS_11vector_typeISC_Lh2EvE5valueENS2_9allocatorISH_EEEERNSE_IjNSI_IjEEEEE16vertex_map_queryS4_ZNS1_IfS8_EEvSA_tSD_SL_SO_ENSP_4hashENS2_8equal_toISP_EEE19hash_brown_iteratorIRNS2_4pairIKSP_S4_EEEppEv(v18);
-        v11 = v19;
+        v14 = *(*(v15[0] + 8) + 8 * v9);
+        geom::hash_brown<unsigned int,unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>>::internal_add<unsigned int>(&v17, &v14, SHIDWORD(v14));
+        _ZN4geom10hash_brownIZNS_23marching_squares_2_implIfRKNSt3__18functionIFfDv2_fEEEEEvOT0_tNS_4bboxIT_Lh2EEERNS2_6vectorINS_11vector_typeISC_Lh2EvE5valueENS2_9allocatorISH_EEEERNSE_IjNSI_IjEEEEE16vertex_map_queryS4_ZNS1_IfS8_EEvSA_tSD_SL_SO_ENSP_4hashENS2_8equal_toISP_EEE19hash_brown_iteratorIRNS2_4pairIKSP_S4_EEEppEv(v15);
+        v9 = v16;
       }
 
-      while (v19 != -1);
+      while (v16 != -1);
     }
   }
 
 LABEL_10:
-  if (&v20 != a1)
+  if (&v17 != a1)
   {
-    v12 = v21;
-    v13 = *a1;
-    v14 = a1[1];
-    *a1 = v20;
-    a1[1] = v12;
-    v20 = v13;
-    v21 = v14;
-    v15 = *(a1 + 4);
-    *(a1 + 4) = v22;
-    v22 = v15;
+    v10 = v18;
+    v11 = *a1;
+    v12 = a1[1];
+    *a1 = v17;
+    a1[1] = v10;
+    v17 = v11;
+    v18 = v12;
+    v13 = *(a1 + 4);
+    *(a1 + 4) = v19;
+    v19 = v13;
   }
 
-  _ZN4geom10hash_brownIZNS_23marching_squares_2_implIfRKNSt3__18functionIFfDv2_fEEEEEvOT0_tNS_4bboxIT_Lh2EEERNS2_6vectorINS_11vector_typeISC_Lh2EvE5valueENS2_9allocatorISH_EEEERNSE_IjNSI_IjEEEEE16vertex_map_queryS4_ZNS1_IfS8_EEvSA_tSD_SL_SO_ENSP_4hashENS2_8equal_toISP_EEE6deinitEv(&v20);
-  v16 = *MEMORY[0x277D85DE8];
+  _ZN4geom10hash_brownIZNS_23marching_squares_2_implIfRKNSt3__18functionIFfDv2_fEEEEEvOT0_tNS_4bboxIT_Lh2EEERNS2_6vectorINS_11vector_typeISC_Lh2EvE5valueENS2_9allocatorISH_EEEERNSE_IjNSI_IjEEEEE16vertex_map_queryS4_ZNS1_IfS8_EEvSA_tSD_SL_SO_ENSP_4hashENS2_8equal_toISP_EEE6deinitEv(&v17);
 }
 
 void geom::straight_skeleton_evaluator<float>::add_joiner_patch_to_time(float)::{lambda(unsigned int,unsigned int)#1}::operator()(void *a1, unsigned int a2, unsigned int a3)
@@ -3705,7 +5333,7 @@ void geom::straight_skeleton_evaluator<float>::add_joiner_patch_to_time(float)::
   }
 }
 
-uint64_t std::vector<geom::straight_skeleton_evaluator<double>::vertex_state,std::allocator<geom::straight_skeleton_evaluator<double>::vertex_state>>::__emplace_back_slow_path<geom::straight_skeleton_evaluator<double>::vertex_state>(void **a1, uint64_t a2)
+unint64_t std::vector<geom::straight_skeleton_evaluator<double>::vertex_state,std::allocator<geom::straight_skeleton_evaluator<double>::vertex_state>>::__emplace_back_slow_path<geom::straight_skeleton_evaluator<double>::vertex_state>(void **a1, uint64_t a2)
 {
   v2 = 0x8E38E38E38E38E39 * ((a1[1] - *a1) >> 4);
   v3 = v2 + 1;
@@ -3910,7 +5538,7 @@ void std::__allocate_at_least[abi:nn200100]<std::allocator<std::variant<geom::st
 
 uint64_t std::__sift_down[abi:nn200100]<std::_ClassicAlgPolicy,geom::straight_skeleton_evaluator<double>::event_time_comparator &,std::__wrap_iter<std::variant<geom::straight_skeleton_evaluator<double>::edge_event,geom::straight_skeleton_evaluator<double>::split_event> *>>(uint64_t result, uint64_t a2, uint64_t a3, _OWORD *a4)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v4 = a3 - 2;
   if (a3 >= 2)
   {
@@ -3941,9 +5569,9 @@ uint64_t std::__sift_down[abi:nn200100]<std::_ClassicAlgPolicy,geom::straight_sk
       {
         v18 = *v5;
         v19 = v5[2];
-        v34 = v5[1];
-        v35 = v19;
-        v33 = v18;
+        v33 = v5[1];
+        v34 = v19;
+        v32 = v18;
         do
         {
           v20 = v5;
@@ -3984,26 +5612,25 @@ uint64_t std::__sift_down[abi:nn200100]<std::_ClassicAlgPolicy,geom::straight_sk
 
           geom::straight_skeleton_evaluator<double>::event_time(v10);
           v28 = v27;
-          result = geom::straight_skeleton_evaluator<double>::event_time(&v33);
+          result = geom::straight_skeleton_evaluator<double>::event_time(&v32);
         }
 
         while (v28 <= v29);
-        v30 = v33;
-        v31 = v35;
-        v5[1] = v34;
+        v30 = v32;
+        v31 = v34;
+        v5[1] = v33;
         v5[2] = v31;
         *v5 = v30;
       }
     }
   }
 
-  v32 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,geom::straight_skeleton_evaluator<double>::event_time_comparator &,std::__wrap_iter<std::variant<geom::straight_skeleton_evaluator<double>::edge_event,geom::straight_skeleton_evaluator<double>::split_event> *>>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (a4 >= 2)
   {
     v4 = result;
@@ -4017,9 +5644,9 @@ uint64_t std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,geom::straight_skel
     {
       v11 = *v7;
       v12 = v7[2];
-      v23 = v7[1];
-      v24 = v12;
-      v22 = v11;
+      v22 = v7[1];
+      v23 = v12;
+      v21 = v11;
       do
       {
         v13 = v6;
@@ -4037,20 +5664,19 @@ uint64_t std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,geom::straight_skel
         v6 = (v4 + 48 * v5);
         geom::straight_skeleton_evaluator<double>::event_time(v6);
         v17 = v16;
-        result = geom::straight_skeleton_evaluator<double>::event_time(&v22);
+        result = geom::straight_skeleton_evaluator<double>::event_time(&v21);
         v7 = v13;
       }
 
       while (v17 > v18);
-      v19 = v22;
-      v20 = v24;
-      v13[1] = v23;
+      v19 = v21;
+      v20 = v23;
+      v13[1] = v22;
       v13[2] = v20;
       *v13 = v19;
     }
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -4076,7 +5702,7 @@ unint64_t geom::intersect_wavefront_edge_spoke<double>(float64x2_t *a1, float64x
   v13 = vdupq_lane_s64(vmvnq_s8(vcgeq_f64(a6, v6)).i64[0], 0);
   v14 = vbslq_s8(v13, vmlaq_n_f64(*a1, v10, (v9 - v7) * v12), *a1);
   v15 = a2[2].f64[0];
-  v13.f64[0] = fabs(v15);
+  *v13.i64 = fabs(v15);
   v16 = vdupq_lane_s64(vmvnq_s8(vcgeq_f64(a6, v13)).i64[0], 0);
   v17 = vbslq_s8(v16, vmlaq_n_f64(*a2, v11, (v9 - v8) * v15), *a2);
   v18 = vsubq_f64(vextq_s8(v14, v17, 8uLL), vextq_s8(v17, v14, 8uLL));
@@ -4136,17 +5762,7 @@ unint64_t geom::intersect_wavefront_edge_spoke<double>(float64x2_t *a1, float64x
         v28 = vmlaq_n_f64(v28, v29, v26 * (v36 - a3[3].f64[0]));
       }
 
-      *v16.i64 = -v10.f64[1];
-      v37 = vzip1q_s64(v16, v10);
-      v38 = vmulq_n_f64(v37, 1.0 / sqrt(vaddvq_f64(vmulq_f64(v37, v37))));
-      v39 = vpaddq_f64(vmulq_f64(v38, v28), vmulq_f64(*a1, v38));
-      v40 = vsubq_f64(v39, vdupq_laneq_s64(v39, 1)).f64[0];
-      if (v40 != 0.0 && v40 > 1.0e-10)
-      {
-        goto LABEL_22;
-      }
-
-      if (((a6.f64[0] = -v11.f64[1], v41 = vzip1q_s64(a6, v11), v42 = vmulq_n_f64(v41, 1.0 / sqrt(vaddvq_f64(vmulq_f64(v41, v41)))), v43 = vpaddq_f64(vmulq_f64(v42, v28), vmulq_f64(*a2, v42)), v44 = vsubq_f64(v43, vdupq_laneq_s64(v43, 1)).f64[0], v44 == 0.0) || v44 >= -1.0e-10) && ((v45 = v25 + vaddvq_f64(vmulq_f64(v24, v28)), v45 == 0.0) || v45 >= -1.0e-10))
+      if (((*v16.i64 = -v10.f64[1], v37 = vzip1q_s64(v16, v10), v38 = vmulq_n_f64(v37, 1.0 / sqrt(vaddvq_f64(vmulq_f64(v37, v37)))), v39 = vpaddq_f64(vmulq_f64(v38, v28), vmulq_f64(*a1, v38)), v40 = vsubq_f64(v39, vdupq_laneq_s64(v39, 1)).f64[0], v40 == 0.0) || v40 <= 1.0e-10) && ((a6.f64[0] = -v11.f64[1], v41 = vzip1q_s64(a6, v11), v42 = vmulq_n_f64(v41, 1.0 / sqrt(vaddvq_f64(vmulq_f64(v41, v41)))), v43 = vpaddq_f64(vmulq_f64(v42, v28), vmulq_f64(*a2, v42)), v44 = vsubq_f64(v43, vdupq_laneq_s64(v43, 1)).f64[0], v44 == 0.0) || v44 >= -1.0e-10) && ((v45 = v25 + vaddvq_f64(vmulq_f64(v24, v28)), v45 == 0.0) || v45 >= -1.0e-10))
       {
         v34 = *&v36 & 0xFFFFFFFFFFFFFF00;
         v31 = LOBYTE(v36);
@@ -4164,82 +5780,81 @@ LABEL_22:
   return v34 | v31;
 }
 
-_DWORD **geom::straight_skeleton_evaluator<double>::check_geometric_invariants(void)const::{lambda(unsigned int,unsigned int)#1}::operator()(_DWORD **result, uint64_t a2, uint64_t a3)
+double geom::straight_skeleton_evaluator<double>::check_geometric_invariants(void)const::{lambda(unsigned int,unsigned int)#1}::operator()(void *result, uint64_t a2, uint64_t a3)
 {
-  v3 = *(*result + 15);
+  v3 = *(*result + 120);
   v4 = v3 + 144 * a2;
-  if (*(v4 + 128) || ((v7 = result, v8 = *(*(*result + 13) - 8), v9 = *(v4 + 32), fabs(v9) <= 1.0e-10) ? (v10 = *v4) : (v10 = vmlaq_n_f64(*v4, *(v4 + 16), v9 * (v8 - *(v4 + 48)))), v11 = v3 + 144 * a3, *(v11 + 128)))
+  if (*(v4 + 128) || ((v8 = *(*(*result + 104) - 8), v9 = *(v4 + 32), v10 = 1.0e-10, fabs(v9) <= 1.0e-10) ? (v11 = *v4) : (v11 = vmlaq_n_f64(*v4, *(v4 + 16), v9 * (v8 - *(v4 + 48)))), v12 = v3 + 144 * a3, *(v12 + 128)))
   {
-    v29 = std::__throw_bad_variant_access[abi:nn200100]();
-    return geom::straight_skeleton_evaluator<double>::best_split_event_for_vertex::{lambda(unsigned int,unsigned int)#1}::operator()(v29, v30, v31, v32, v33, v34);
+    v30 = std::__throw_bad_variant_access[abi:nn200100]();
+    return geom::straight_skeleton_evaluator<double>::best_split_event_for_vertex::{lambda(unsigned int,unsigned int)#1}::operator()(v30, v31, v32, v33, v34, v35);
   }
 
   else
   {
-    v12 = *(v11 + 32);
-    if (fabs(v12) <= 1.0e-10)
+    v13 = *(v12 + 32);
+    if (fabs(v13) <= 1.0e-10)
     {
-      v13 = *v11;
+      v14 = *v12;
     }
 
     else
     {
-      v13 = vmlaq_n_f64(*v11, *(v11 + 16), v12 * (v8 - *(v11 + 48)));
+      v14 = vmlaq_n_f64(*v12, *(v12 + 16), v13 * (v8 - *(v12 + 48)));
     }
 
-    v14 = vsubq_f64(v10, v13);
-    if (sqrt(vaddvq_f64(vmulq_f64(v14, v14))) <= 1.0e-10)
+    v15 = vsubq_f64(v11, v14);
+    if (sqrt(vaddvq_f64(vmulq_f64(v15, v15))) <= 1.0e-10)
     {
-      v35 = v10;
-      v36 = v13;
-      std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:nn200100](v39);
-      v15 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(&v40, "edge ", 5);
-      v16 = MEMORY[0x25305E2F0](v15, a2);
-      v17 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v16, " -> ", 4);
-      v18 = MEMORY[0x25305E2F0](v17, a3);
-      v19 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v18, " is zero length.  p0 = (", 24);
-      v20 = MEMORY[0x25305E2C0](v19, v35);
-      v21 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v20, ", ", 2);
-      v22 = MEMORY[0x25305E2C0](v21, v35.n128_f64[1]);
-      v23 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v22, ") p1 = (", 8);
-      v24 = MEMORY[0x25305E2C0](v23, v36);
-      v25 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v24, ", ", 2);
-      v26 = MEMORY[0x25305E2C0](v25, v36.n128_f64[1]);
-      std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v26, ")", 1);
-      v27 = v7[1];
+      v36 = v11;
+      v37 = v14;
+      std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:nn200100](v40);
+      v16 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(&v41, "edge ", 5);
+      v17 = MEMORY[0x25305E2F0](v16, a2);
+      v18 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v17, " -> ", 4);
+      v19 = MEMORY[0x25305E2F0](v18, a3);
+      v20 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v19, " is zero length.  p0 = (", 24);
+      v21 = MEMORY[0x25305E2C0](v20, v36);
+      v22 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v21, ", ", 2);
+      v23 = MEMORY[0x25305E2C0](v22, v36.n128_f64[1]);
+      v24 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v23, ") p1 = (", 8);
+      v25 = MEMORY[0x25305E2C0](v24, v37);
+      v26 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v25, ", ", 2);
+      v27 = MEMORY[0x25305E2C0](v26, v37.n128_f64[1]);
+      std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v27, ")", 1);
+      v28 = result[1];
       std::stringbuf::str();
-      std::vector<std::string>::push_back[abi:nn200100](v27, &__p);
-      if (v38 < 0)
+      std::vector<std::string>::push_back[abi:nn200100](v28, &__p);
+      if (v39 < 0)
       {
         operator delete(__p);
       }
 
-      v39[0] = *MEMORY[0x277D82818];
-      v28 = *(MEMORY[0x277D82818] + 72);
-      *(v39 + *(v39[0] - 24)) = *(MEMORY[0x277D82818] + 64);
-      v40 = v28;
-      v41 = MEMORY[0x277D82878] + 16;
-      if (v43 < 0)
+      v40[0] = *MEMORY[0x277D82818];
+      v29 = *(MEMORY[0x277D82818] + 72);
+      *(v40 + *(v40[0] - 24)) = *(MEMORY[0x277D82818] + 64);
+      v41 = v29;
+      v42 = MEMORY[0x277D82878] + 16;
+      if (v44 < 0)
       {
-        operator delete(v42[7].__locale_);
+        operator delete(v43[7].__locale_);
       }
 
-      v41 = MEMORY[0x277D82868] + 16;
-      std::locale::~locale(v42);
+      v42 = MEMORY[0x277D82868] + 16;
+      std::locale::~locale(v43);
       std::iostream::~basic_iostream();
-      return MEMORY[0x25305E3C0](&v44);
+      MEMORY[0x25305E3C0](&v45);
     }
   }
 
-  return result;
+  return v10;
 }
 
-_DWORD **geom::straight_skeleton_evaluator<double>::best_split_event_for_vertex(unsigned int)::{lambda(unsigned int,unsigned int)#1}::operator()(_DWORD **result, unsigned int a2, unsigned int a3, double a4, double a5, float64x2_t a6)
+double geom::straight_skeleton_evaluator<double>::best_split_event_for_vertex(unsigned int)::{lambda(unsigned int,unsigned int)#1}::operator()(_DWORD **result, unsigned int a2, unsigned int a3, __n128 a4, double a5, float64x2_t a6)
 {
   v6 = *result[1];
   if (v6 != a2 && v6 != a3)
   {
-    v9 = result;
     v10 = *result;
     v11 = *(*result + 15);
     v12 = v11 + 144 * a2;
@@ -4260,95 +5875,95 @@ _DWORD **geom::straight_skeleton_evaluator<double>::best_split_event_for_vertex(
       goto LABEL_19;
     }
 
-    *&result = COERCE_DOUBLE(geom::intersect_wavefront_edge_spoke<double>(v12, v13, v14, a4, a5, a6));
-    if ((v15 & 1) == 0)
+    v15 = COERCE_DOUBLE(geom::intersect_wavefront_edge_spoke<double>(v12, v13, v14, a4.n128_f64[0], a5, a6));
+    if ((v16 & 1) == 0)
     {
-      return result;
+      return a4.n128_f64[0];
     }
 
-    v16 = v9[2];
-    v17 = LOBYTE(v16[2].f64[0]);
-    if (v17 == 1 && v16->f64[0] <= *&result)
+    a4.n128_f64[0] = v15;
+    v17 = result[2];
+    v18 = v17[2].n128_u8[0];
+    if (v18 == 1 && v17->n128_f64[0] <= v15)
     {
-      return result;
+      return a4.n128_f64[0];
     }
 
-    v18 = v10[15];
-    v19 = v18 + 144 * a2;
-    if (*(v19 + 128) || (v20 = *v9[1], v21 = v18 + 144 * v20, *(v21 + 128)))
+    v19 = v10[15];
+    v20 = v19 + 144 * a2;
+    if (*(v20 + 128) || (v21 = *result[1], v22 = v19 + 144 * v21, *(v22 + 128)))
     {
 LABEL_19:
       v25 = std::__throw_bad_variant_access[abi:nn200100]();
-      *&result = COERCE_DOUBLE(std::deque<geom::straight_skeleton_evaluator<double>::edge_event,std::allocator<geom::straight_skeleton_evaluator<double>::edge_event>>::push_back(v25));
-      return result;
+      a4.n128_u64[0] = std::deque<geom::straight_skeleton_evaluator<double>::edge_event,std::allocator<geom::straight_skeleton_evaluator<double>::edge_event>>::push_back(v25, v26).n128_u64[0];
+      return a4.n128_f64[0];
     }
 
-    v22 = *(v19 + 72);
-    v23 = *(v21 + 32);
-    if (fabs(v23) <= 1.0e-10)
+    v23 = *(v20 + 72);
+    v24 = *(v22 + 32);
+    if (fabs(v24) <= 1.0e-10)
     {
-      v24 = *v21;
+      a4 = *v22;
     }
 
     else
     {
-      v24 = vmlaq_n_f64(*v21, *(v21 + 16), v23 * (*&result - *(v21 + 48)));
+      a4 = vmlaq_n_f64(*v22, *(v22 + 16), v24 * (v15 - *(v22 + 48)));
     }
 
-    v16->f64[0] = *&result;
-    LODWORD(v16->f64[1]) = v22;
-    HIDWORD(v16->f64[1]) = v20;
-    v16[1] = v24;
-    if ((v17 & 1) == 0)
+    v17->n128_f64[0] = v15;
+    v17->n128_u32[2] = v23;
+    v17->n128_u32[3] = v21;
+    v17[1] = a4;
+    if ((v18 & 1) == 0)
     {
-      LOBYTE(v16[2].f64[0]) = 1;
+      v17[2].n128_u8[0] = 1;
     }
   }
 
-  return result;
+  return a4.n128_f64[0];
 }
 
-__n128 std::deque<geom::straight_skeleton_evaluator<double>::edge_event,std::allocator<geom::straight_skeleton_evaluator<double>::edge_event>>::push_back(uint64_t a1, uint64_t a2)
+__n128 std::deque<geom::straight_skeleton_evaluator<double>::edge_event,std::allocator<geom::straight_skeleton_evaluator<double>::edge_event>>::push_back(unint64_t *a1, uint64_t a2)
 {
-  v4 = *(a1 + 8);
-  v5 = *(a1 + 16);
-  v6 = *(a1 + 8);
-  v7 = 16 * (v5 - v6) - 1;
-  if (v5 == v6)
+  v4 = a1[2];
+  v5 = a1[1];
+  v6 = 16 * (v4 - v5) - 1;
+  if (v4 == v5)
   {
-    v7 = 0;
+    v6 = 0;
   }
 
-  v8 = *(a1 + 40) + *(a1 + 32);
-  if (v7 == v8)
+  v7 = a1[5] + a1[4];
+  if (v6 == v7)
   {
     std::deque<geom::straight_skeleton_evaluator<double>::edge_event,std::allocator<geom::straight_skeleton_evaluator<double>::edge_event>>::__add_back_capacity(a1);
-    v6 = *(a1 + 8);
-    v8 = *(a1 + 40) + *(a1 + 32);
+    v5 = a1[1];
+    v7 = a1[5] + a1[4];
   }
 
-  v9 = (*(v6 + ((v8 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v8 & 0x7F));
+  v8 = (*(v5 + ((v7 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v7 & 0x7F));
   result = *a2;
-  v11 = *(a2 + 16);
-  *v9 = *a2;
-  v9[1] = v11;
-  ++*(a1 + 40);
+  v10 = *(a2 + 16);
+  *v8 = *a2;
+  v8[1] = v10;
+  ++a1[5];
   return result;
 }
 
-void *std::deque<geom::straight_skeleton_evaluator<double>::edge_event,std::allocator<geom::straight_skeleton_evaluator<double>::edge_event>>::__add_back_capacity(void *a1)
+void std::deque<geom::straight_skeleton_evaluator<double>::edge_event,std::allocator<geom::straight_skeleton_evaluator<double>::edge_event>>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x80;
   v3 = v1 - 128;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -4356,25 +5971,25 @@ void *std::deque<geom::straight_skeleton_evaluator<double>::edge_event,std::allo
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    std::__allocate_at_least[abi:nn200100]<std::allocator<void geom::kd_tree<float,(unsigned char)2>::build<(geom_kd_tree_build_strategy)1>(void)::state *>>(a1, v9);
+    v10 = a1;
+    std::__allocate_at_least[abi:nn200100]<std::allocator<void geom::kd_tree<float,(unsigned char)2>::build<(geom_kd_tree_build_strategy)1>(void)::state *>>(a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<void geom::kd_tree<float,(unsigned char)2>::build<(geom_kd_tree_build_strategy)1>(void)::state *,std::allocator<void geom::kd_tree<float,(unsigned char)2>::build<(geom_kd_tree_build_strategy)1>(void)::state *>>::emplace_back<void geom::kd_tree<float,(unsigned char)2>::build<(geom_kd_tree_build_strategy)1>(void)::state *&>(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<void geom::kd_tree<float,(unsigned char)2>::build<(geom_kd_tree_build_strategy)1>(void)::state *,std::allocator<void geom::kd_tree<float,(unsigned char)2>::build<(geom_kd_tree_build_strategy)1>(void)::state *>>::emplace_back<void geom::kd_tree<float,(unsigned char)2>::build<(geom_kd_tree_build_strategy)1>(void)::state *&>(a1, &v9);
 }
 
 _OWORD *std::__floyd_sift_down[abi:nn200100]<std::_ClassicAlgPolicy,geom::straight_skeleton_evaluator<double>::event_time_comparator &,std::__wrap_iter<std::variant<geom::straight_skeleton_evaluator<double>::edge_event,geom::straight_skeleton_evaluator<double>::split_event> *>>(_OWORD *a1, uint64_t a2, uint64_t a3)
@@ -4411,29 +6026,29 @@ _OWORD *std::__floyd_sift_down[abi:nn200100]<std::_ClassicAlgPolicy,geom::straig
   return v7;
 }
 
-void geom::straight_skeleton_evaluator<double>::add_joiner_patch_to_time(double)::{lambda(unsigned int)#1}::operator()(void **a1, unsigned int a2)
+void geom::straight_skeleton_evaluator<double>::add_joiner_patch_to_time(double)::{lambda(unsigned int)#1}::operator()(void **result, unsigned int a2)
 {
-  v12 = a2;
-  v2 = *a1;
-  v3 = (*a1)[15] + 144 * a2;
+  v14 = a2;
+  v2 = *result;
+  v3 = (*result)[15] + 144 * a2;
   if (*(v3 + 128))
   {
     v9 = std::__throw_bad_variant_access[abi:nn200100]();
-    geom::straight_skeleton_evaluator<double>::add_joiner_patch_to_time(double)::{lambda(unsigned int,unsigned int)#1}::operator()(v9);
+    geom::straight_skeleton_evaluator<double>::add_joiner_patch_to_time(double)::{lambda(unsigned int,unsigned int)#1}::operator()(v9, v10, v11);
   }
 
   else if (*(v3 + 68) != a2)
   {
-    v5 = geom::straight_skeleton_evaluator<double>::time_of_joiner_vertex(*a1, **(v3 + 96));
-    v6 = *a1[1];
+    v5 = geom::straight_skeleton_evaluator<double>::time_of_joiner_vertex(*result, **(v3 + 96));
+    v6 = *result[1];
     if (v5 == v6 || vabdd_f64(v5, v6) <= 1.0e-10)
     {
-      v11 = **(v3 + 96);
+      v13 = **(v3 + 96);
     }
 
     else
     {
-      v11 = (v2[1] - *v2) >> 4;
+      v13 = (v2[1] - *v2) >> 4;
       v7 = *(v3 + 32);
       if (fabs(v7) <= 1.0e-10)
       {
@@ -4445,11 +6060,11 @@ void geom::straight_skeleton_evaluator<double>::add_joiner_patch_to_time(double)
         v8 = vmlaq_n_f64(*v3, *(v3 + 16), v7 * (v6 - *(v3 + 48)));
       }
 
-      v10[0] = v8;
-      _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(v2, v10);
+      v12[0] = v8;
+      _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(v2, v12);
     }
 
-    geom::hash_brown<unsigned int,unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>>::insert(a1[2], &v12, &v11, v10);
+    geom::hash_brown<unsigned int,unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>>::insert(result[2], &v14, &v13, v12);
   }
 }
 
@@ -4592,12 +6207,12 @@ uint64_t _ZN4geom16custom_allocatorIDv3_dE8allocateEm(uint64_t (**a1)(uint64_t),
   }
 }
 
-void geom::refine_triangle_mesh<float>(uint64_t a1, _OWORD *a2, uint64_t a3, unsigned int *a4, void *a5, uint64_t a6, uint64_t *a7)
+void geom::refine_triangle_mesh<float>(uint64_t a1, _OWORD *a2, unint64_t a3, uint64_t a4, void *a5, const void **a6, uint64_t *a7)
 {
   v8 = a4;
   v9 = a3;
   a5[1] = *a5;
-  *(a6 + 8) = *a6;
+  a6[1] = *a6;
   v91 = 0;
   v92 = 0;
   v93 = 0;
@@ -4632,7 +6247,7 @@ void geom::refine_triangle_mesh<float>(uint64_t a1, _OWORD *a2, uint64_t a3, uns
 
   else if (a3)
   {
-    v18 = a4 + 2;
+    v18 = (a4 + 8);
     v19 = a3;
     do
     {
@@ -4863,7 +6478,8 @@ LABEL_75:
 
     v78 = geom::collection_to_vector<float>(a7[14]);
     *(v78 + 8) = *v78;
-    std::vector<BOOL>::vector(&__p, v74);
+    LOBYTE(v81) = 0;
+    std::vector<BOOL>::vector(&__p, v74, &v81);
     v81 = 0;
     v82 = 0;
     v83 = 0;
@@ -4995,7 +6611,7 @@ uint64_t geom::refine_triangle_mesh_options<float>::triangle_uv_indices_data(uin
   }
 }
 
-void geom::refine_triangle_with_uvs(unsigned int *a1, int a2, geom::_anonymous_namespace_::edge_vertex_map *this, uint64_t a4, uint64_t a5, unsigned int *a6, int a7, uint64_t a8, uint64_t a9, const void **a10, uint64_t a11, const void **a12)
+void geom::refine_triangle_with_uvs(unsigned int *a1, int a2, geom::_anonymous_namespace_::edge_vertex_map *this, uint64_t a4, uint64_t a5, int *a6, int a7, uint64_t a8, uint64_t a9, const void **a10, uint64_t a11, const void **a12)
 {
   v35[0] = a4;
   v35[1] = a5;
@@ -5010,7 +6626,7 @@ void geom::refine_triangle_with_uvs(unsigned int *a1, int a2, geom::_anonymous_n
   v30 = -1;
   v27 = -1;
   v28 = -1;
-  v17 = a1 + 1;
+  v17 = (a1 + 1);
   v16 = a1[1];
   {
     v32 += a2;
@@ -5025,7 +6641,7 @@ void geom::refine_triangle_with_uvs(unsigned int *a1, int a2, geom::_anonymous_n
   }
 
   v19 = a1[2];
-  v24 = a1 + 2;
+  v24 = (a1 + 2);
   {
     v31 += a2;
     v18 |= 2u;
@@ -5115,7 +6731,7 @@ LABEL_25:
       v25 = v23;
       std::vector<unsigned int>::push_back[abi:nn200100](a10, &v25);
       std::vector<unsigned int>::push_back[abi:nn200100](a12, a6 + 1);
-      v22 = (a6 + 2);
+      v22 = a6 + 2;
       goto LABEL_26;
     }
 
@@ -5181,7 +6797,7 @@ LABEL_25:
       v25 = v26 + 1;
       std::vector<unsigned int>::push_back[abi:nn200100](a10, &v25);
       std::vector<unsigned int>::push_back[abi:nn200100](a12, a6);
-      v22 = (a6 + 1);
+      v22 = a6 + 1;
       goto LABEL_26;
     }
 
@@ -5224,12 +6840,12 @@ LABEL_20:
   std::vector<unsigned int>::push_back[abi:nn200100](a10, &v26);
   std::vector<unsigned int>::push_back[abi:nn200100](a12, a6);
   std::vector<unsigned int>::push_back[abi:nn200100](a12, a6 + 1);
-  v20 = (a6 + 2);
+  v20 = a6 + 2;
 LABEL_27:
   std::vector<unsigned int>::push_back[abi:nn200100](a12, v20);
 }
 
-void geom::anonymous namespace::refine_triangle(unsigned int *a1, int a2, geom::_anonymous_namespace_::edge_vertex_map *this, const void **a4)
+void geom::anonymous namespace::refine_triangle(int *a1, int a2, geom::_anonymous_namespace_::edge_vertex_map *this, const void **a4)
 {
   v20 = -1;
   v21 = -1;
@@ -5373,7 +6989,7 @@ void geom::anonymous namespace::edge_vertex_map::~edge_vertex_map(geom::_anonymo
   }
 }
 
-void geom::refine_triangle_mesh<double>(uint64_t a1, _OWORD *a2, uint64_t a3, unsigned int *a4, size_t *a5, uint64_t a6, uint64_t *a7)
+void geom::refine_triangle_mesh<double>(uint64_t a1, _OWORD *a2, unint64_t a3, _DWORD *a4, size_t *a5, uint64_t a6, uint64_t *a7)
 {
   v8 = a4;
   v9 = a3;
@@ -5660,7 +7276,8 @@ LABEL_75:
 
     v91 = geom::collection_to_vector<float>(a7[14]);
     *(v91 + 8) = *v91;
-    std::vector<BOOL>::vector(&v100, v90);
+    LOBYTE(v94) = 0;
+    std::vector<BOOL>::vector(&v100, v90, &v94);
     v94 = 0;
     v95 = 0;
     v96 = 0;
@@ -5804,47 +7421,47 @@ LABEL_11:
   v11 = (*(this + 2) - *(this + 1)) >> 3;
   v13 = v4;
   v16 = &v13;
-  *(std::__tree<std::__value_type<unsigned long long,unsigned int>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,unsigned int>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,unsigned int>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(this + 32, &v13) + 10) = v11;
+  *(std::__tree<std::__value_type<unsigned long long,unsigned int>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,unsigned int>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,unsigned int>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(this + 32, &v13, &std::piecewise_construct, &v16) + 10) = v11;
   std::vector<unsigned int>::push_back[abi:nn200100](v10, &v15);
   std::vector<unsigned int>::push_back[abi:nn200100](v10, &v14);
   return v11;
 }
 
-void *std::__tree<std::__value_type<unsigned long long,unsigned int>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,unsigned int>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,unsigned int>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(uint64_t a1, unint64_t *a2)
+void *std::__tree<std::__value_type<unsigned long long,unsigned int>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,unsigned int>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,unsigned int>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(uint64_t a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = v4[4];
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
@@ -5985,50 +7602,50 @@ uint64_t geom_create_marching_squares_opt_2d()
   return result;
 }
 
-uint64_t geom_triangulate_by_ear_clipping_2f(uint64_t a1, uint64_t a2, uint64_t a3)
+void geom_triangulate_by_ear_clipping_2f(float32x2_t *a1, float32x2_t *a2, uint64_t a3)
 {
-  v4[0] = a2;
-  v4[1] = a1;
-  return geom::triangulate_by_ear_clipping<float>(v4, (a3 + 16));
+  v3[0] = a2;
+  v3[1] = a1;
+  geom::triangulate_by_ear_clipping<float>(v3, (a3 + 16));
 }
 
-float64x2_t **geom_triangulate_by_ear_clipping_2d(float64x2_t *a1, float64x2_t *a2, uint64_t a3)
+void geom_triangulate_by_ear_clipping_2d(float64x2_t *a1, float64x2_t *a2, uint64_t a3)
 {
-  v4[0] = a2;
-  v4[1] = a1;
-  return geom::triangulate_by_ear_clipping<double>(v4, (a3 + 16));
+  v3[0] = a2;
+  v3[1] = a1;
+  geom::triangulate_by_ear_clipping<double>(v3, (a3 + 16));
 }
 
-float32x2_t **geom_triangulate_by_ear_clipping_with_holes_2f(float32x2_t *a1, float32x2_t *a2, unsigned int *a3, unsigned int *a4, uint64_t a5)
+void geom_triangulate_by_ear_clipping_with_holes_2f(uint64_t a1, uint64_t a2, unsigned int *a3, unsigned int *a4, uint64_t a5)
 {
-  v7[0] = a2;
-  v7[1] = a1;
-  v6[0] = a4;
-  v6[1] = a3;
-  return geom::triangulate_by_ear_clipping<float>(v7, v6, (a5 + 16));
+  v6[0] = a2;
+  v6[1] = a1;
+  v5[0] = a4;
+  v5[1] = a3;
+  geom::triangulate_by_ear_clipping<float>(v6, v5, (a5 + 16));
 }
 
-float64x2_t **geom_triangulate_by_ear_clipping_with_holes_2d(float64x2_t *a1, float64x2_t *a2, unsigned int *a3, unsigned int *a4, uint64_t a5)
+void geom_triangulate_by_ear_clipping_with_holes_2d(uint64_t a1, uint64_t a2, unsigned int *a3, unsigned int *a4, uint64_t a5)
 {
-  v7[0] = a2;
-  v7[1] = a1;
-  v6[0] = a4;
-  v6[1] = a3;
-  return geom::triangulate_by_ear_clipping<double>(v7, v6, (a5 + 16));
+  v6[0] = a2;
+  v6[1] = a1;
+  v5[0] = a4;
+  v5[1] = a3;
+  geom::triangulate_by_ear_clipping<double>(v6, v5, (a5 + 16));
 }
 
-uint64_t geom_create_inset_evaluator_2f()
+uint64_t geom_create_inset_evaluator_2f(uint64_t a1, float32x2_t *a2, uint64_t a3, unsigned int *a4)
 {
-  v0 = geom_inset_evaluator_2f_obj_alloc();
-  geom::straight_skeleton_evaluator<float>::straight_skeleton_evaluator(v0 + 16);
-  return v0;
+  v8 = geom_inset_evaluator_2f_obj_alloc();
+  geom::straight_skeleton_evaluator<float>::straight_skeleton_evaluator(v8 + 16, a2, a1, a4, a3);
+  return v8;
 }
 
-uint64_t geom_create_inset_evaluator_2d()
+uint64_t geom_create_inset_evaluator_2d(unint64_t a1, float64x2_t *a2, uint64_t a3, unsigned int *a4)
 {
-  v0 = geom_inset_evaluator_2d_obj_alloc();
-  geom::straight_skeleton_evaluator<double>::straight_skeleton_evaluator(v0 + 16);
-  return v0;
+  v8 = geom_inset_evaluator_2d_obj_alloc();
+  geom::straight_skeleton_evaluator<double>::straight_skeleton_evaluator(v8 + 16, a2, a1, a4, a3);
+  return v8;
 }
 
 void geom::ddg_evaluator<float>::ddg_evaluator(uint64_t a1, const void *a2, unint64_t a3, const void *a4, std::vector<unsigned int>::size_type a5)
@@ -6044,22 +7661,18 @@ void geom::ddg_evaluator<float>::ddg_evaluator(uint64_t a1, const void *a2, unin
     memmove(*a1, a2, 16 * a3);
   }
 
-  v10 = *(a1 + 24);
   if (a5)
   {
-    memmove(v10, a4, 4 * a5);
-    v10 = *(a1 + 24);
+    memmove(*(a1 + 24), a4, 4 * a5);
   }
 
-  v11 = ((*(a1 + 32) - v10) >> 2) / 3uLL;
   operator new();
 }
 
-void geom::ddg_evaluator<float>::ddg_evaluator(void *a1, void *a2, void *a3)
+void geom::ddg_evaluator<float>::ddg_evaluator(uint64_t *a1, void *a2, void *a3)
 {
-  v5 = _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEEC2B8nn200100ERKS4_(a1, a2);
-  std::vector<float>::vector[abi:nn200100](v5 + 3, a3);
-  v6 = ((a1[4] - a1[3]) >> 2) / 3uLL;
+  v4 = _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEEC2B8nn200100ERKS4_(a1, a2);
+  std::vector<float>::vector[abi:nn200100](v4 + 3, a3);
   operator new();
 }
 
@@ -6236,15 +7849,16 @@ LABEL_10:
   return 6.28318531 - v18;
 }
 
-float geom::ddg_evaluator<float>::compute_vertex_mean_curvature(uint64_t *a1, unsigned int a2)
+float geom::ddg_evaluator<float>::compute_vertex_mean_curvature(uint64_t *a1, uint64_t a2)
 {
   *v2.i64 = geom::ddg_evaluator<float>::compute_vertex_mean_curvature_vector(a1, a2);
   v3 = vmulq_f32(v2, v2);
   return sqrtf(v3.f32[2] + vaddv_f32(*v3.f32)) * 0.5;
 }
 
-double geom::ddg_evaluator<float>::compute_vertex_mean_curvature_vector(uint64_t *a1, unsigned int a2)
+double geom::ddg_evaluator<float>::compute_vertex_mean_curvature_vector(uint64_t *a1, uint64_t a2)
 {
+  v2 = a2;
   v4.f32[0] = geom::ddg_evaluator<float>::compute_vertex_area(a1, a2);
   v5 = 0;
   if (v4.f32[0] == 0.0)
@@ -6253,7 +7867,7 @@ double geom::ddg_evaluator<float>::compute_vertex_mean_curvature_vector(uint64_t
   }
 
   v13 = v4;
-  geom::ddg_evaluator<float>::compute_laplacian_stencil(a1, a2, 1, &v16);
+  geom::ddg_evaluator<float>::compute_laplacian_stencil(a1, v2, 1, &v16);
   v6 = v16;
   if (v17 == v16)
   {
@@ -6452,10 +8066,10 @@ void geom::ddg_evaluator<float>::compute_laplacian_stencil(uint64_t *a1@<X0>, un
   }
 }
 
-void geom::ddg_evaluator<float>::compute_vertex_divergence(uint64_t a1, unsigned int a2)
+void geom::ddg_evaluator<float>::compute_vertex_divergence(uint64_t a1, unsigned int a2, uint64_t a3)
 {
-  memset(v2, 0, sizeof(v2));
-  geom::mesh_connectivity::get_incident_faces_to_vertex(*(a1 + 48), a2, v2);
+  memset(v3, 0, sizeof(v3));
+  geom::mesh_connectivity::get_incident_faces_to_vertex(*(a1 + 48), a2, v3);
   operator new();
 }
 
@@ -6472,22 +8086,18 @@ void geom::ddg_evaluator<double>::ddg_evaluator(uint64_t a1, const void *a2, uni
     memmove(*a1, a2, 32 * a3);
   }
 
-  v10 = *(a1 + 24);
   if (a5)
   {
-    memmove(v10, a4, 4 * a5);
-    v10 = *(a1 + 24);
+    memmove(*(a1 + 24), a4, 4 * a5);
   }
 
-  v11 = ((*(a1 + 32) - v10) >> 2) / 3uLL;
   operator new();
 }
 
-void geom::ddg_evaluator<double>::ddg_evaluator(void *a1, void *a2, void *a3)
+void geom::ddg_evaluator<double>::ddg_evaluator(uint64_t *a1, void *a2, void *a3)
 {
-  v5 = _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEEC2B8nn200100ERKS4_(a1, a2);
-  std::vector<float>::vector[abi:nn200100](v5 + 3, a3);
-  v6 = ((a1[4] - a1[3]) >> 2) / 3uLL;
+  v4 = _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEEC2B8nn200100ERKS4_(a1, a2);
+  std::vector<float>::vector[abi:nn200100](v4 + 3, a3);
   operator new();
 }
 
@@ -6680,8 +8290,9 @@ LABEL_10:
   return 6.28318531 - v10;
 }
 
-void geom::ddg_evaluator<double>::compute_vertex_mean_curvature_vector(uint64_t *a1@<X0>, unsigned int a2@<W1>, float64x2_t *a3@<X8>)
+void geom::ddg_evaluator<double>::compute_vertex_mean_curvature_vector(uint64_t *a1@<X0>, uint64_t a2@<X1>, float64x2_t *a3@<X8>)
 {
+  v3 = a2;
   v6.f64[0] = geom::ddg_evaluator<double>::compute_vertex_area(a1, a2);
   v7 = 0uLL;
   v8 = 0uLL;
@@ -6691,7 +8302,7 @@ void geom::ddg_evaluator<double>::compute_vertex_mean_curvature_vector(uint64_t 
   }
 
   v20 = v6;
-  geom::ddg_evaluator<double>::compute_laplacian_stencil(a1, a2, 1, &v23);
+  geom::ddg_evaluator<double>::compute_laplacian_stencil(a1, v3, 1, &v23);
   v10 = v23;
   v11 = v24 - v23;
   if (v24 != v23)
@@ -6914,7 +8525,7 @@ void geom::ddg_evaluator<double>::compute_laplacian_stencil(uint64_t *a1@<X0>, u
   }
 }
 
-void geom::ddg_evaluator<double>::compute_vertex_divergence(uint64_t a1, unsigned int a2)
+void geom::ddg_evaluator<double>::compute_vertex_divergence(uint64_t a1, unsigned int a2, uint64_t a3)
 {
   memset(__p, 0, sizeof(__p));
   geom::mesh_connectivity::get_incident_faces_to_vertex(*(a1 + 48), a2, __p);
@@ -6975,7 +8586,7 @@ uint64_t geom_point_cloud_laplacian_create_opt_3f()
   return result;
 }
 
-uint64_t geom_create_point_cloud_laplacian_with_options_3f(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t geom_create_point_cloud_laplacian_with_options_3f(unint64_t a1, const void *a2, uint64_t a3)
 {
   v6 = geom_point_cloud_laplacian_3f_obj_alloc();
   geom::point_cloud_laplacian<float>::point_cloud_laplacian(v6 + 16, a2, a1, *(a3 + 16));
@@ -7012,15 +8623,15 @@ void geom_point_cloud_laplacian_get_laplacian_stencil_3f(uint64_t a1, unsigned i
 
 uint64_t geom_point_cloud_compute_normals_and_areas_3f(unint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  geom::collection_to_vector<float>(a4);
-  geom::collection_to_vector<float>(a5);
+  v9 = geom::collection_to_vector<float>(a4);
+  v10 = geom::collection_to_vector<float>(a5);
 
-  return geom::compute_point_cloud_normals_and_areas<float>(a2, a1, a3);
+  return geom::compute_point_cloud_normals_and_areas<float>(a2, a1, a3, v9, v10);
 }
 
-double geom_point_cloud_compute_principal_component_plane_projection_3f(unint64_t a1, uint64_t a2, unint64_t a3, unsigned int *a4, uint64_t a5)
+double geom_point_cloud_compute_principal_component_plane_projection_3f(unint64_t a1, const void *a2, unint64_t a3, unsigned int *a4, uint64_t a5)
 {
-  geom::compute_principal_component_plane_projection<float>(a1, a4, a3, &v9);
+  geom::compute_principal_component_plane_projection<float>(a1, a3, &v9, a4);
   v6 = geom::collection_to_vector<float>(a5);
   v7 = *v6;
   if (*v6)
@@ -7055,7 +8666,7 @@ uint64_t geom_point_cloud_laplacian_create_opt_3d()
   return result;
 }
 
-uint64_t geom_create_point_cloud_laplacian_with_options_3d(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t geom_create_point_cloud_laplacian_with_options_3d(unint64_t a1, const void *a2, uint64_t a3)
 {
   v6 = geom_point_cloud_laplacian_3d_obj_alloc();
   geom::point_cloud_laplacian<double>::point_cloud_laplacian(v6 + 16, a2, a1, *(a3 + 16));
@@ -7092,13 +8703,13 @@ void geom_point_cloud_laplacian_get_laplacian_stencil_3d(uint64_t a1, unsigned i
 
 uint64_t geom_point_cloud_compute_normals_and_areas_3d(unint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  geom::collection_to_vector<float>(a4);
-  geom::collection_to_vector<float>(a5);
+  v9 = geom::collection_to_vector<float>(a4);
+  v10 = geom::collection_to_vector<float>(a5);
 
-  return geom::compute_point_cloud_normals_and_areas<double>(a2, a1, a3);
+  return geom::compute_point_cloud_normals_and_areas<double>(a2, a1, a3, v9, v10, v11, v12, v13);
 }
 
-double geom_point_cloud_compute_principal_component_plane_projection_3d(unint64_t a1, uint64_t a2, unint64_t a3, unsigned int *a4, uint64_t a5)
+double geom_point_cloud_compute_principal_component_plane_projection_3d(unint64_t a1, const void *a2, unint64_t a3, unsigned int *a4, uint64_t a5)
 {
   geom::compute_principal_component_plane_projection<double>(a1, a4, a3, &v9);
   v6 = geom::collection_to_vector<float>(a5);
@@ -7831,14 +9442,14 @@ uint64_t geom::sparse_linear_solver<float>::add_entry(uint64_t a1, unsigned int 
 {
   v11 = a4;
   v12 = __PAIR64__(a3, a2);
-  result = std::__tree<std::__value_type<geom::sparse_linear_solver<float>::entry,float>,std::__map_value_compare<geom::sparse_linear_solver<float>::entry,std::__value_type<geom::sparse_linear_solver<float>::entry,float>,std::less<geom::sparse_linear_solver<float>::entry>,true>,std::allocator<std::__value_type<geom::sparse_linear_solver<float>::entry,float>>>::__emplace_unique_key_args<geom::sparse_linear_solver<float>::entry,geom::sparse_linear_solver<float>::entry,float const&>(a1 + 8, &v12);
+  result = std::__tree<std::__value_type<geom::sparse_linear_solver<float>::entry,float>,std::__map_value_compare<geom::sparse_linear_solver<float>::entry,std::__value_type<geom::sparse_linear_solver<float>::entry,float>,std::less<geom::sparse_linear_solver<float>::entry>,true>,std::allocator<std::__value_type<geom::sparse_linear_solver<float>::entry,float>>>::__emplace_unique_key_args<geom::sparse_linear_solver<float>::entry,geom::sparse_linear_solver<float>::entry,float const&>((a1 + 8), &v12, &v12, &v11);
   if ((v8 & 1) == 0)
   {
     v9 = v11;
     v10[0] = a2;
     v10[1] = a3;
     v12 = v10;
-    result = std::__tree<std::__value_type<geom::sparse_linear_solver<float>::entry,float>,std::__map_value_compare<geom::sparse_linear_solver<float>::entry,std::__value_type<geom::sparse_linear_solver<float>::entry,float>,std::less<geom::sparse_linear_solver<float>::entry>,true>,std::allocator<std::__value_type<geom::sparse_linear_solver<float>::entry,float>>>::__emplace_unique_key_args<geom::sparse_linear_solver<float>::entry,std::piecewise_construct_t const&,std::tuple<geom::sparse_linear_solver<float>::entry&&>,std::tuple<>>(a1 + 8, v10);
+    result = std::__tree<std::__value_type<geom::sparse_linear_solver<float>::entry,float>,std::__map_value_compare<geom::sparse_linear_solver<float>::entry,std::__value_type<geom::sparse_linear_solver<float>::entry,float>,std::less<geom::sparse_linear_solver<float>::entry>,true>,std::allocator<std::__value_type<geom::sparse_linear_solver<float>::entry,float>>>::__emplace_unique_key_args<geom::sparse_linear_solver<float>::entry,std::piecewise_construct_t const&,std::tuple<geom::sparse_linear_solver<float>::entry&&>,std::tuple<>>((a1 + 8), v10, &std::piecewise_construct, &v12);
     *(result + 36) = v9;
   }
 
@@ -8097,7 +9708,7 @@ BOOL geom::sparse_linear_solver<float>::factor(unsigned int *a1, unsigned int a2
     v31 = a2;
   }
 
-  SparseFactor(v31, &v54, &sfoptions, &v52, __x);
+  SparseFactor(__x, v31, &v54, &sfoptions, &v52);
   v49 = v59;
   *(a1 + 38) = v58;
   *(a1 + 42) = v49;
@@ -8112,10 +9723,10 @@ BOOL geom::sparse_linear_solver<float>::factor(unsigned int *a1, unsigned int a2
   return result;
 }
 
-double SparseFactor@<D0>(SparseFactorization_t a1@<W0>, SparseMatrix_Float *a2@<X1>, SparseSymbolicFactorOptions *sfoptions@<X2>, SparseNumericFactorOptions *a4@<X3>, uint64_t a5@<X8>)
+double SparseFactor@<D0>(uint64_t *__return_ptr a1@<X8>, SparseFactorization_t a2@<W0>, SparseMatrix_Float *a3@<X1>, SparseSymbolicFactorOptions *sfoptions@<X2>, SparseNumericFactorOptions *a5@<X3>)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  if (a2->structure.rowCount <= 0)
+  v13 = *MEMORY[0x277D85DE8];
+  if (a3->structure.rowCount <= 0)
   {
     if (!sfoptions->reportError)
     {
@@ -8128,11 +9739,11 @@ double SparseFactor@<D0>(SparseFactorization_t a1@<W0>, SparseMatrix_Float *a2@<
     }
 
     memset(__str, 0, 256);
-    snprintf(__str, 0x100uLL, "%s.rowCount must be > 0, but is %d.\n", a4);
+    snprintf(__str, 0x100uLL, "%s.rowCount must be > 0, but is %d.\n", a5);
     goto LABEL_22;
   }
 
-  columnCount = a2->structure.columnCount;
+  columnCount = a3->structure.columnCount;
   if (columnCount <= 0)
   {
     if (!sfoptions->reportError)
@@ -8146,11 +9757,11 @@ double SparseFactor@<D0>(SparseFactorization_t a1@<W0>, SparseMatrix_Float *a2@<
     }
 
     memset(__str, 0, 256);
-    snprintf(__str, 0x100uLL, "%s.columnCount must be > 0, but is %d.\n", a4);
+    snprintf(__str, 0x100uLL, "%s.columnCount must be > 0, but is %d.\n", a5);
     goto LABEL_22;
   }
 
-  if (!*(&a2->structure.blockSize + 2))
+  if (!*(&a3->structure.blockSize + 2))
   {
     if (!sfoptions->reportError)
     {
@@ -8163,12 +9774,12 @@ double SparseFactor@<D0>(SparseFactorization_t a1@<W0>, SparseMatrix_Float *a2@<
     }
 
     memset(__str, 0, 256);
-    snprintf(__str, 0x100uLL, "%s.blockSize must be > 0, but is %d.]n", a4);
+    snprintf(__str, 0x100uLL, "%s.blockSize must be > 0, but is %d.]n", a5);
     goto LABEL_22;
   }
 
-  v8 = *&a2->structure.attributes & 0xC;
-  if (a2->structure.rowCount != columnCount && v8 == 12)
+  v8 = *&a3->structure.attributes & 0xC;
+  if (a3->structure.rowCount != columnCount && v8 == 12)
   {
     if (!sfoptions->reportError)
     {
@@ -8181,31 +9792,29 @@ double SparseFactor@<D0>(SparseFactorization_t a1@<W0>, SparseMatrix_Float *a2@<
     }
 
     memset(__str, 0, 256);
-    snprintf(__str, 0x100uLL, "%s.attributes.kind=SparseSymmetric, but %s.rowCount (%d) != %s.columnCount (%d).\n", a4);
+    snprintf(__str, 0x100uLL, "%s.attributes.kind=SparseSymmetric, but %s.rowCount (%d) != %s.columnCount (%d).\n", a5);
 LABEL_22:
     reportError = sfoptions->reportError;
 LABEL_23:
     (reportError)(__str);
 LABEL_35:
     result = 0.0;
-    *(a5 + 96) = 0;
-    *(a5 + 64) = 0u;
-    *(a5 + 80) = 0u;
-    *(a5 + 32) = 0u;
-    *(a5 + 48) = 0u;
-    *a5 = 0u;
-    *(a5 + 16) = 0u;
-    *a5 = -4;
-    *(a5 + 8) = -4;
-    v14 = *MEMORY[0x277D85DE8];
+    a1[12] = 0;
+    *(a1 + 4) = 0u;
+    *(a1 + 5) = 0u;
+    *(a1 + 2) = 0u;
+    *(a1 + 3) = 0u;
+    *a1 = 0u;
+    *(a1 + 1) = 0u;
+    *a1 = -4;
+    *(a1 + 2) = -4;
     return result;
   }
 
-  if ((a1 & 0xFE) == 0x28)
+  if ((a2 & 0xFE) == 0x28)
   {
-    v10 = *MEMORY[0x277D85DE8];
 
-    _SparseFactorQR_Float(a5, a1, a2, sfoptions, a4);
+    _SparseFactorQR_Float(a1, a2, a3, sfoptions, a5);
     return result;
   }
 
@@ -8229,1812 +9838,6 @@ LABEL_34:
     goto LABEL_35;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
-  _SparseFactorSymmetric_Float(a5, a1, a2, sfoptions, a4);
+  _SparseFactorSymmetric_Float(a1, a2, a3, sfoptions, a5);
   return result;
-}
-
-uint64_t geom::sparse_linear_solver<float>::solve(uint64_t a1, uint64_t a2, float *a3, uint64_t a4, float *a5)
-{
-  v40 = *MEMORY[0x277D85DE8];
-  if (*(a1 + 248) != 1 || (v5 = a2, *a1 != a2) || (v6 = a4, *(a1 + 4) != a4))
-  {
-    result = 0;
-    goto LABEL_10;
-  }
-
-  v7 = *(a1 + 104);
-  v8 = *(a1 + 152);
-  v9 = *(a1 + 184);
-  *&Factored.userFactorStorage = *(a1 + 168);
-  *&Factored.solveWorkspaceRequiredStatic = v9;
-  v23 = *(a1 + 200);
-  v10 = *(a1 + 120);
-  *&Factored.status = v7;
-  *&Factored.symbolicFactorization.columnCount = v10;
-  *&Factored.symbolicFactorization.workspaceSize_Float = *(a1 + 136);
-  *&Factored.symbolicFactorization.factorSize_Float = v8;
-  if (DWORD2(v7) || !Factored.symbolicFactorization.workspaceSize_Float)
-  {
-    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-    {
-      geom::sparse_linear_solver<float>::solve();
-    }
-
-    goto LABEL_7;
-  }
-
-  _SparseGetOptionsFromSymbolicFactor(&v26, &Factored.symbolicFactorization);
-  reportError = v26.reportError;
-  if (Factored.symbolicFactorization.status || !Factored.symbolicFactorization.workspaceSize_Float || Factored.status || !Factored.solveWorkspaceRequiredStatic)
-  {
-    if (!v26.reportError)
-    {
-      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-      {
-        geom::sparse_linear_solver<float>::solve();
-      }
-
-      goto LABEL_7;
-    }
-
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
-    v37 = 0u;
-    v34 = 0u;
-    v35 = 0u;
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
-    v29 = 0u;
-    v27 = 0u;
-    memset(&v26, 0, sizeof(v26));
-    snprintf(&v26, 0x100uLL, "%s does not hold a completed matrix factorization.\n");
-LABEL_37:
-    (reportError)(&v26);
-    goto LABEL_8;
-  }
-
-  if ((*&Factored.attributes ^ *&Factored.symbolicFactorization.attributes))
-  {
-    v16 = Factored.symbolicFactorization.columnCount * LOBYTE(Factored.symbolicFactorization.factorization);
-  }
-
-  else
-  {
-    v16 = Factored.symbolicFactorization.rowCount * LOBYTE(Factored.symbolicFactorization.factorization);
-  }
-
-  if ((*&Factored.attributes ^ *&Factored.symbolicFactorization.attributes))
-  {
-    v17 = Factored.symbolicFactorization.rowCount * LOBYTE(Factored.symbolicFactorization.factorization);
-  }
-
-  else
-  {
-    v17 = Factored.symbolicFactorization.columnCount * LOBYTE(Factored.symbolicFactorization.factorization);
-  }
-
-  if (BYTE1(Factored.symbolicFactorization.factorization) == 40)
-  {
-    v18 = v16;
-  }
-
-  else
-  {
-    v18 = v17;
-  }
-
-  if (v17 != v6)
-  {
-    if (!v26.reportError)
-    {
-      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-      {
-        geom::sparse_linear_solver<float>::solve();
-      }
-
-      goto LABEL_7;
-    }
-
-LABEL_36:
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
-    v37 = 0u;
-    v34 = 0u;
-    v35 = 0u;
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
-    v29 = 0u;
-    v27 = 0u;
-    memset(&v26, 0, sizeof(v26));
-    snprintf(&v26, 0x100uLL, "%s (size %dx1) does not match dimensions of matrix factorization %s (%d x %d).\n");
-    goto LABEL_37;
-  }
-
-  if (v18 != v5)
-  {
-    if (!v26.reportError)
-    {
-      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-      {
-        geom::sparse_linear_solver<float>::solve();
-      }
-
-      goto LABEL_7;
-    }
-
-    goto LABEL_36;
-  }
-
-  free = v26.free;
-  RHS.rowCount = v5;
-  RHS.columnCount = 1;
-  *&RHS.attributes = 0;
-  RHS.data = a3;
-  RHS.columnStride = v5;
-  *&Soln.attributes = 0;
-  Soln.data = a5;
-  Soln.rowCount = v6;
-  Soln.columnCount = 1;
-  Soln.columnStride = v6;
-  v20 = (v26.malloc)(v23 + Factored.solveWorkspaceRequiredPerRHS);
-  if (v20)
-  {
-    v21 = v20;
-    _SparseSolveOpaque_Float(&Factored, &RHS, &Soln, v20);
-    (free)(v21);
-    goto LABEL_8;
-  }
-
-  if (reportError)
-  {
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
-    v37 = 0u;
-    v34 = 0u;
-    v35 = 0u;
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
-    v29 = 0u;
-    v27 = 0u;
-    memset(&v26, 0, sizeof(v26));
-    snprintf(&v26, 0x100uLL, "Failed to allocate workspace of size %ld for SparseSolve().\n");
-    goto LABEL_37;
-  }
-
-  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-  {
-    geom::sparse_linear_solver<float>::solve();
-  }
-
-LABEL_7:
-  _SparseTrap();
-LABEL_8:
-  result = 1;
-LABEL_10:
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-uint64_t geom::sparse_linear_solver<float>::solve(uint64_t a1, uint64_t a2, float **a3, int16x4_t a4)
-{
-  v7 = *(a1 + 4);
-  v9 = 0;
-  std::vector<float>::resize(a3, v7, &v9, a4);
-  return geom::sparse_linear_solver<float>::solve(a1, (*(a2 + 8) - *a2) >> 2, *a2, a3[1] - *a3, *a3);
-}
-
-uint64_t geom::sparse_linear_solver<float>::solve(unsigned int *a1, uint64_t a2, float *a3)
-{
-  v35 = *MEMORY[0x277D85DE8];
-  if (*(a1 + 248) == 1)
-  {
-    v3 = a2;
-    v4 = *a1;
-    if (v4 == a1[1] && v4 == a2)
-    {
-      v7 = *(a1 + 26);
-      v8 = *(a1 + 38);
-      v9 = *(a1 + 46);
-      *&Factored.userFactorStorage = *(a1 + 42);
-      *&Factored.solveWorkspaceRequiredStatic = v9;
-      v19 = *(a1 + 25);
-      v10 = *(a1 + 30);
-      *&Factored.status = v7;
-      *&Factored.symbolicFactorization.columnCount = v10;
-      *&Factored.symbolicFactorization.workspaceSize_Float = *(a1 + 34);
-      *&Factored.symbolicFactorization.factorSize_Float = v8;
-      if (DWORD2(v7) || !Factored.symbolicFactorization.workspaceSize_Float)
-      {
-        if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-        {
-          geom::sparse_linear_solver<float>::solve();
-        }
-
-        goto LABEL_10;
-      }
-
-      _SparseGetOptionsFromSymbolicFactor(&v21, &Factored.symbolicFactorization);
-      reportError = v21.reportError;
-      if (Factored.symbolicFactorization.status || !Factored.symbolicFactorization.workspaceSize_Float || Factored.status || !Factored.solveWorkspaceRequiredStatic)
-      {
-        if (!v21.reportError)
-        {
-          if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-          {
-            geom::sparse_linear_solver<float>::solve();
-          }
-
-          goto LABEL_10;
-        }
-
-        v33 = 0u;
-        v34 = 0u;
-        v31 = 0u;
-        v32 = 0u;
-        v29 = 0u;
-        v30 = 0u;
-        v27 = 0u;
-        v28 = 0u;
-        v25 = 0u;
-        v26 = 0u;
-        v23 = 0u;
-        v24 = 0u;
-        v22 = 0u;
-        memset(&v21, 0, sizeof(v21));
-        snprintf(&v21, 0x100uLL, "%s does not hold a completed matrix factorization.\n");
-      }
-
-      else
-      {
-        v14 = Factored.symbolicFactorization.columnCount * LOBYTE(Factored.symbolicFactorization.factorization);
-        if (Factored.symbolicFactorization.rowCount * LOBYTE(Factored.symbolicFactorization.factorization) > v14)
-        {
-          v14 = Factored.symbolicFactorization.rowCount * LOBYTE(Factored.symbolicFactorization.factorization);
-        }
-
-        if (v14 == v3)
-        {
-          free = v21.free;
-          Soln.rowCount = v3;
-          Soln.columnCount = 1;
-          *&Soln.attributes = 0;
-          Soln.data = a3;
-          Soln.columnStride = v3;
-          v16 = (v21.malloc)(v19 + Factored.solveWorkspaceRequiredPerRHS);
-          if (v16)
-          {
-            v17 = v16;
-            _SparseSolveOpaque_Float(&Factored, 0, &Soln, v16);
-            (free)(v17);
-            goto LABEL_11;
-          }
-
-          if (reportError)
-          {
-            v33 = 0u;
-            v34 = 0u;
-            v31 = 0u;
-            v32 = 0u;
-            v29 = 0u;
-            v30 = 0u;
-            v27 = 0u;
-            v28 = 0u;
-            v25 = 0u;
-            v26 = 0u;
-            v23 = 0u;
-            v24 = 0u;
-            v22 = 0u;
-            memset(&v21, 0, sizeof(v21));
-            snprintf(&v21, 0x100uLL, "Failed to allocate workspace of size %ld for SparseSolve().\n");
-            goto LABEL_31;
-          }
-
-          if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-          {
-            geom::sparse_linear_solver<float>::solve();
-          }
-
-LABEL_10:
-          _SparseTrap();
-LABEL_11:
-          result = 1;
-          goto LABEL_12;
-        }
-
-        if (!v21.reportError)
-        {
-          if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-          {
-            geom::sparse_linear_solver<float>::solve();
-          }
-
-          goto LABEL_10;
-        }
-
-        v33 = 0u;
-        v34 = 0u;
-        v31 = 0u;
-        v32 = 0u;
-        v29 = 0u;
-        v30 = 0u;
-        v27 = 0u;
-        v28 = 0u;
-        v25 = 0u;
-        v26 = 0u;
-        v23 = 0u;
-        v24 = 0u;
-        v22 = 0u;
-        memset(&v21, 0, sizeof(v21));
-        snprintf(&v21, 0x100uLL, "%s.count (%d) is not equal to largest dimension of matrix factorization %s.\n");
-      }
-
-LABEL_31:
-      (reportError)(&v21);
-      goto LABEL_11;
-    }
-  }
-
-  result = 0;
-LABEL_12:
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-uint64_t geom::sparse_linear_solver<double>::add_entry(uint64_t a1, unsigned int a2, unsigned int a3, double a4)
-{
-  v11 = a4;
-  v12 = __PAIR64__(a3, a2);
-  result = std::__tree<std::__value_type<geom::sparse_linear_solver<double>::entry,double>,std::__map_value_compare<geom::sparse_linear_solver<double>::entry,std::__value_type<geom::sparse_linear_solver<double>::entry,double>,std::less<geom::sparse_linear_solver<double>::entry>,true>,std::allocator<std::__value_type<geom::sparse_linear_solver<double>::entry,double>>>::__emplace_unique_key_args<geom::sparse_linear_solver<double>::entry,geom::sparse_linear_solver<double>::entry,double const&>(a1 + 8, &v12);
-  if ((v8 & 1) == 0)
-  {
-    v9 = v11;
-    v10[0] = a2;
-    v10[1] = a3;
-    v12 = v10;
-    result = std::__tree<std::__value_type<geom::sparse_linear_solver<double>::entry,double>,std::__map_value_compare<geom::sparse_linear_solver<double>::entry,std::__value_type<geom::sparse_linear_solver<double>::entry,double>,std::less<geom::sparse_linear_solver<double>::entry>,true>,std::allocator<std::__value_type<geom::sparse_linear_solver<double>::entry,double>>>::__emplace_unique_key_args<geom::sparse_linear_solver<double>::entry,std::piecewise_construct_t const&,std::tuple<geom::sparse_linear_solver<double>::entry&&>,std::tuple<>>(a1 + 8, v10);
-    *(result + 40) = v9;
-  }
-
-  *(a1 + 248) = 0;
-  return result;
-}
-
-uint64_t geom::sparse_linear_solver<double>::get_entry(uint64_t a1, unsigned int a2, unsigned int a3)
-{
-  v5[0] = a2;
-  v5[1] = a3;
-  if ((a1 + 16) == std::__tree<std::__value_type<geom::sparse_linear_solver<double>::entry,double>,std::__map_value_compare<geom::sparse_linear_solver<double>::entry,std::__value_type<geom::sparse_linear_solver<double>::entry,double>,std::less<geom::sparse_linear_solver<double>::entry>,true>,std::allocator<std::__value_type<geom::sparse_linear_solver<double>::entry,double>>>::find<geom::sparse_linear_solver<double>::entry>(a1 + 8, v5))
-  {
-    return 0;
-  }
-
-  else
-  {
-    return *std::map<geom::sparse_linear_solver<double>::entry,double,std::less<geom::sparse_linear_solver<double>::entry>,std::allocator<std::pair<geom::sparse_linear_solver<double>::entry const,double>>>::at(a1 + 8, v5);
-  }
-}
-
-uint64_t std::map<geom::sparse_linear_solver<double>::entry,double,std::less<geom::sparse_linear_solver<double>::entry>,std::allocator<std::pair<geom::sparse_linear_solver<double>::entry const,double>>>::at(uint64_t a1, unsigned int *a2)
-{
-  v2 = *std::__tree<std::__value_type<geom::sparse_linear_solver<double>::entry,double>,std::__map_value_compare<geom::sparse_linear_solver<double>::entry,std::__value_type<geom::sparse_linear_solver<double>::entry,double>,std::less<geom::sparse_linear_solver<double>::entry>,true>,std::allocator<std::__value_type<geom::sparse_linear_solver<double>::entry,double>>>::__find_equal<geom::sparse_linear_solver<double>::entry>(a1, &v4, a2);
-  if (!v2)
-  {
-    abort();
-  }
-
-  return v2 + 40;
-}
-
-BOOL geom::sparse_linear_solver<double>::factor(unsigned int *a1, unsigned int a2)
-{
-  v5 = *(a1 + 4);
-  v4 = a1 + 8;
-  *(a1 + 5) = v5;
-  v6 = *(a1 + 7);
-  *(a1 + 8) = v6;
-  v7 = a1[1];
-  a1[52] = *a1;
-  v8 = a1 + 52;
-  *(a1 + 236) = 1;
-  v9 = *(a1 + 10);
-  *(a1 + 11) = v9;
-  a1[53] = v7;
-  *(a1 + 30) = v9;
-  *(a1 + 27) = v5;
-  *(a1 + 28) = v6;
-  v10 = v7 + 1;
-  if (a2 > 1)
-  {
-    *__x = 0;
-    std::vector<unsigned long long>::resize(v4, v10, __x);
-    v31 = *(a1 + 3);
-    __x[0] = 0;
-    std::vector<unsigned int>::resize((a1 + 14), v31, __x);
-    v32 = *(a1 + 3);
-    *__x = 0;
-    std::vector<double>::resize(a1 + 10, v32, __x);
-    *(a1 + 116) &= 0xFFF2u;
-    v33 = *(a1 + 4);
-    v34 = *(a1 + 7);
-    *(a1 + 27) = v33;
-    *(a1 + 28) = v34;
-    v35 = *(a1 + 10);
-    *(a1 + 30) = v35;
-    v36 = *(a1 + 1);
-    if (v36 != a1 + 4)
-    {
-      v37 = 0;
-      do
-      {
-        ++v33[v36[9] + 1];
-        *(v34 + 4 * v37) = v36[8];
-        *(v35 + 8 * v37) = *(v36 + 5);
-        v38 = *(v36 + 1);
-        if (v38)
-        {
-          do
-          {
-            v39 = v38;
-            v38 = *v38;
-          }
-
-          while (v38);
-        }
-
-        else
-        {
-          do
-          {
-            v39 = *(v36 + 2);
-            v22 = *v39 == v36;
-            v36 = v39;
-          }
-
-          while (!v22);
-        }
-
-        ++v37;
-        v36 = v39;
-      }
-
-      while (v39 != a1 + 4);
-    }
-
-    v40 = a1[53];
-    if (v40)
-    {
-      if (v40 + 1 > 2)
-      {
-        v41 = v40 + 1;
-      }
-
-      else
-      {
-        v41 = 2;
-      }
-
-      v44 = *v33;
-      v42 = v33 + 1;
-      v43 = v44;
-      v45 = v41 - 1;
-      do
-      {
-        v43 += *v42;
-        *v42++ = v43;
-        --v45;
-      }
-
-      while (v45);
-    }
-
-    v46 = *(a1 + 14);
-    *&v52.structure.rowCount = *v8;
-    *&v52.structure.rowIndices = v46;
-    v52.data = *(a1 + 30);
-    *&sfoptions.control = xmmword_286292FE8;
-    *&sfoptions.ignoreRowsAndColumns = *algn_286292FF8;
-    sfoptions.free = qword_286293008;
-    sfoptions.reportError = geom::sparse_linear_solver<double>::factor(geom_factorization_type)::{lambda(char const*)#1}::__invoke;
-    v50 = *ymmword_2500D1468;
-    v30 = SparseFactorizationQR;
-  }
-
-  else
-  {
-    *__x = 0;
-    std::vector<unsigned long long>::resize(v4, v10, __x);
-    v11 = *(a1 + 3);
-    __x[0] = 0;
-    std::vector<unsigned int>::resize((a1 + 14), v11, __x);
-    v12 = *a1 + ((*(a1 + 3) - *a1) >> 1);
-    *__x = 0;
-    std::vector<double>::resize(a1 + 10, v12, __x);
-    *(a1 + 116) = a1[58] & 0xFFF0 | 0xE;
-    v13 = *(a1 + 4);
-    v14 = *(a1 + 7);
-    *(a1 + 27) = v13;
-    *(a1 + 28) = v14;
-    v15 = *(a1 + 10);
-    *(a1 + 30) = v15;
-    v16 = *(a1 + 1);
-    if (v16 != a1 + 4)
-    {
-      v17 = 0;
-      do
-      {
-        v18 = v16[8];
-        v19 = v16[9];
-        if (v18 >= v19)
-        {
-          ++v13[v19 + 1];
-          *(v14 + 4 * v17) = v18;
-          *(v15 + 8 * v17++) = *(v16 + 5);
-        }
-
-        v20 = *(v16 + 1);
-        if (v20)
-        {
-          do
-          {
-            v21 = v20;
-            v20 = *v20;
-          }
-
-          while (v20);
-        }
-
-        else
-        {
-          do
-          {
-            v21 = *(v16 + 2);
-            v22 = *v21 == v16;
-            v16 = v21;
-          }
-
-          while (!v22);
-        }
-
-        v16 = v21;
-      }
-
-      while (v21 != a1 + 4);
-    }
-
-    v23 = a1[53];
-    if (v23)
-    {
-      if (v23 + 1 > 2)
-      {
-        v24 = v23 + 1;
-      }
-
-      else
-      {
-        v24 = 2;
-      }
-
-      v27 = *v13;
-      v25 = v13 + 1;
-      v26 = v27;
-      v28 = v24 - 1;
-      do
-      {
-        v26 += *v25;
-        *v25++ = v26;
-        --v28;
-      }
-
-      while (v28);
-    }
-
-    v29 = *(a1 + 14);
-    *&v52.structure.rowCount = *v8;
-    *&v52.structure.rowIndices = v29;
-    v52.data = *(a1 + 30);
-    *&sfoptions.control = xmmword_286292FE8;
-    *&sfoptions.ignoreRowsAndColumns = *algn_286292FF8;
-    sfoptions.free = qword_286293008;
-    sfoptions.reportError = geom::sparse_linear_solver<double>::factor(geom_factorization_type)::{lambda(char const*)#1}::__invoke;
-    v50 = *ymmword_2500D1468;
-    v30 = a2;
-  }
-
-  SparseFactor(v30, &v52, &sfoptions, &v50, __x);
-  v47 = v57;
-  *(a1 + 38) = v56;
-  *(a1 + 42) = v47;
-  *(a1 + 46) = v58;
-  *(a1 + 25) = v59;
-  *(a1 + 26) = *__x;
-  v48 = v55;
-  *(a1 + 30) = v54;
-  *(a1 + 34) = v48;
-  result = a1[26] == 0;
-  *(a1 + 248) = result;
-  return result;
-}
-
-double SparseFactor@<D0>(SparseFactorization_t a1@<W0>, SparseMatrix_Double *a2@<X1>, SparseSymbolicFactorOptions *sfoptions@<X2>, SparseNumericFactorOptions *a4@<X3>, uint64_t a5@<X8>)
-{
-  v16 = *MEMORY[0x277D85DE8];
-  if (a2->structure.rowCount <= 0)
-  {
-    if (!sfoptions->reportError)
-    {
-      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-      {
-        SparseFactor();
-      }
-
-      goto LABEL_34;
-    }
-
-    memset(__str, 0, 256);
-    snprintf(__str, 0x100uLL, "%s.rowCount must be > 0, but is %d.\n", a4);
-    goto LABEL_22;
-  }
-
-  columnCount = a2->structure.columnCount;
-  if (columnCount <= 0)
-  {
-    if (!sfoptions->reportError)
-    {
-      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-      {
-        SparseFactor();
-      }
-
-      goto LABEL_34;
-    }
-
-    memset(__str, 0, 256);
-    snprintf(__str, 0x100uLL, "%s.columnCount must be > 0, but is %d.\n", a4);
-    goto LABEL_22;
-  }
-
-  if (!*(&a2->structure.blockSize + 2))
-  {
-    if (!sfoptions->reportError)
-    {
-      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-      {
-        SparseFactor();
-      }
-
-      goto LABEL_34;
-    }
-
-    memset(__str, 0, 256);
-    snprintf(__str, 0x100uLL, "%s.blockSize must be > 0, but is %d.]n", a4);
-    goto LABEL_22;
-  }
-
-  v8 = *&a2->structure.attributes & 0xC;
-  if (a2->structure.rowCount != columnCount && v8 == 12)
-  {
-    if (!sfoptions->reportError)
-    {
-      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-      {
-        SparseFactor();
-      }
-
-      goto LABEL_34;
-    }
-
-    memset(__str, 0, 256);
-    snprintf(__str, 0x100uLL, "%s.attributes.kind=SparseSymmetric, but %s.rowCount (%d) != %s.columnCount (%d).\n", a4);
-LABEL_22:
-    reportError = sfoptions->reportError;
-LABEL_23:
-    (reportError)(__str);
-LABEL_35:
-    result = 0.0;
-    *(a5 + 96) = 0;
-    *(a5 + 64) = 0u;
-    *(a5 + 80) = 0u;
-    *(a5 + 32) = 0u;
-    *(a5 + 48) = 0u;
-    *a5 = 0u;
-    *(a5 + 16) = 0u;
-    *a5 = -4;
-    *(a5 + 8) = -4;
-    v14 = *MEMORY[0x277D85DE8];
-    return result;
-  }
-
-  if ((a1 & 0xFE) == 0x28)
-  {
-    v10 = *MEMORY[0x277D85DE8];
-
-    _SparseFactorQR_Double(a5, a1, a2, sfoptions, a4);
-    return result;
-  }
-
-  if (v8 != 12)
-  {
-    reportError = sfoptions->reportError;
-    if (reportError)
-    {
-      memset(&__str[72], 0, 184);
-      strcpy(__str, "Cannot perform symmetric matrix factorization of non-symmetric matrix.\n");
-      goto LABEL_23;
-    }
-
-    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-    {
-      SparseFactor();
-    }
-
-LABEL_34:
-    _SparseTrap();
-    goto LABEL_35;
-  }
-
-  v13 = *MEMORY[0x277D85DE8];
-
-  _SparseFactorSymmetric_Double(a5, a1, a2, sfoptions, a4);
-  return result;
-}
-
-uint64_t geom::sparse_linear_solver<double>::solve(uint64_t a1, uint64_t a2, double *a3, uint64_t a4, double *a5)
-{
-  v40 = *MEMORY[0x277D85DE8];
-  if (*(a1 + 248) != 1 || (v5 = a2, *a1 != a2) || (v6 = a4, *(a1 + 4) != a4))
-  {
-    result = 0;
-    goto LABEL_10;
-  }
-
-  v7 = *(a1 + 104);
-  v8 = *(a1 + 152);
-  v9 = *(a1 + 184);
-  *&Factored.userFactorStorage = *(a1 + 168);
-  *&Factored.solveWorkspaceRequiredStatic = v9;
-  v23 = *(a1 + 200);
-  v10 = *(a1 + 120);
-  *&Factored.status = v7;
-  *&Factored.symbolicFactorization.columnCount = v10;
-  *&Factored.symbolicFactorization.workspaceSize_Float = *(a1 + 136);
-  *&Factored.symbolicFactorization.factorSize_Float = v8;
-  if (DWORD2(v7) || !Factored.symbolicFactorization.workspaceSize_Float)
-  {
-    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-    {
-      geom::sparse_linear_solver<float>::solve();
-    }
-
-    goto LABEL_7;
-  }
-
-  _SparseGetOptionsFromSymbolicFactor(&v26, &Factored.symbolicFactorization);
-  reportError = v26.reportError;
-  if (Factored.symbolicFactorization.status || !Factored.symbolicFactorization.workspaceSize_Float || Factored.status || !Factored.solveWorkspaceRequiredStatic)
-  {
-    if (!v26.reportError)
-    {
-      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-      {
-        geom::sparse_linear_solver<float>::solve();
-      }
-
-      goto LABEL_7;
-    }
-
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
-    v37 = 0u;
-    v34 = 0u;
-    v35 = 0u;
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
-    v29 = 0u;
-    v27 = 0u;
-    memset(&v26, 0, sizeof(v26));
-    snprintf(&v26, 0x100uLL, "%s does not hold a completed matrix factorization.\n");
-LABEL_37:
-    (reportError)(&v26);
-    goto LABEL_8;
-  }
-
-  if ((*&Factored.attributes ^ *&Factored.symbolicFactorization.attributes))
-  {
-    v16 = Factored.symbolicFactorization.columnCount * LOBYTE(Factored.symbolicFactorization.factorization);
-  }
-
-  else
-  {
-    v16 = Factored.symbolicFactorization.rowCount * LOBYTE(Factored.symbolicFactorization.factorization);
-  }
-
-  if ((*&Factored.attributes ^ *&Factored.symbolicFactorization.attributes))
-  {
-    v17 = Factored.symbolicFactorization.rowCount * LOBYTE(Factored.symbolicFactorization.factorization);
-  }
-
-  else
-  {
-    v17 = Factored.symbolicFactorization.columnCount * LOBYTE(Factored.symbolicFactorization.factorization);
-  }
-
-  if (BYTE1(Factored.symbolicFactorization.factorization) == 40)
-  {
-    v18 = v16;
-  }
-
-  else
-  {
-    v18 = v17;
-  }
-
-  if (v17 != v6)
-  {
-    if (!v26.reportError)
-    {
-      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-      {
-        geom::sparse_linear_solver<float>::solve();
-      }
-
-      goto LABEL_7;
-    }
-
-LABEL_36:
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
-    v37 = 0u;
-    v34 = 0u;
-    v35 = 0u;
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
-    v29 = 0u;
-    v27 = 0u;
-    memset(&v26, 0, sizeof(v26));
-    snprintf(&v26, 0x100uLL, "%s (size %dx1) does not match dimensions of matrix factorization %s (%d x %d).\n");
-    goto LABEL_37;
-  }
-
-  if (v18 != v5)
-  {
-    if (!v26.reportError)
-    {
-      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-      {
-        geom::sparse_linear_solver<float>::solve();
-      }
-
-      goto LABEL_7;
-    }
-
-    goto LABEL_36;
-  }
-
-  free = v26.free;
-  RHS.rowCount = v5;
-  RHS.columnCount = 1;
-  *&RHS.attributes = 0;
-  RHS.data = a3;
-  RHS.columnStride = v5;
-  *&Soln.attributes = 0;
-  Soln.data = a5;
-  Soln.rowCount = v6;
-  Soln.columnCount = 1;
-  Soln.columnStride = v6;
-  v20 = (v26.malloc)(v23 + Factored.solveWorkspaceRequiredPerRHS);
-  if (v20)
-  {
-    v21 = v20;
-    _SparseSolveOpaque_Double(&Factored, &RHS, &Soln, v20);
-    (free)(v21);
-    goto LABEL_8;
-  }
-
-  if (reportError)
-  {
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
-    v37 = 0u;
-    v34 = 0u;
-    v35 = 0u;
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
-    v29 = 0u;
-    v27 = 0u;
-    memset(&v26, 0, sizeof(v26));
-    snprintf(&v26, 0x100uLL, "Failed to allocate workspace of size %ld for SparseSolve().\n");
-    goto LABEL_37;
-  }
-
-  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-  {
-    geom::sparse_linear_solver<float>::solve();
-  }
-
-LABEL_7:
-  _SparseTrap();
-LABEL_8:
-  result = 1;
-LABEL_10:
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-uint64_t geom::sparse_linear_solver<double>::solve(uint64_t a1, uint64_t a2, double **a3)
-{
-  v6 = *(a1 + 4);
-  v8 = 0;
-  std::vector<double>::resize(a3, v6, &v8);
-  return geom::sparse_linear_solver<double>::solve(a1, (*(a2 + 8) - *a2) >> 3, *a2, a3[1] - *a3, *a3);
-}
-
-uint64_t geom::sparse_linear_solver<double>::solve(unsigned int *a1, uint64_t a2, double *a3)
-{
-  v35 = *MEMORY[0x277D85DE8];
-  if (*(a1 + 248) == 1)
-  {
-    v3 = a2;
-    v4 = *a1;
-    if (v4 == a1[1] && v4 == a2)
-    {
-      v7 = *(a1 + 26);
-      v8 = *(a1 + 38);
-      v9 = *(a1 + 46);
-      *&Factored.userFactorStorage = *(a1 + 42);
-      *&Factored.solveWorkspaceRequiredStatic = v9;
-      v19 = *(a1 + 25);
-      v10 = *(a1 + 30);
-      *&Factored.status = v7;
-      *&Factored.symbolicFactorization.columnCount = v10;
-      *&Factored.symbolicFactorization.workspaceSize_Float = *(a1 + 34);
-      *&Factored.symbolicFactorization.factorSize_Float = v8;
-      if (DWORD2(v7) || !Factored.symbolicFactorization.workspaceSize_Float)
-      {
-        if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-        {
-          geom::sparse_linear_solver<float>::solve();
-        }
-
-        goto LABEL_10;
-      }
-
-      _SparseGetOptionsFromSymbolicFactor(&v21, &Factored.symbolicFactorization);
-      reportError = v21.reportError;
-      if (Factored.symbolicFactorization.status || !Factored.symbolicFactorization.workspaceSize_Float || Factored.status || !Factored.solveWorkspaceRequiredStatic)
-      {
-        if (!v21.reportError)
-        {
-          if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-          {
-            geom::sparse_linear_solver<float>::solve();
-          }
-
-          goto LABEL_10;
-        }
-
-        v33 = 0u;
-        v34 = 0u;
-        v31 = 0u;
-        v32 = 0u;
-        v29 = 0u;
-        v30 = 0u;
-        v27 = 0u;
-        v28 = 0u;
-        v25 = 0u;
-        v26 = 0u;
-        v23 = 0u;
-        v24 = 0u;
-        v22 = 0u;
-        memset(&v21, 0, sizeof(v21));
-        snprintf(&v21, 0x100uLL, "%s does not hold a completed matrix factorization.\n");
-      }
-
-      else
-      {
-        v14 = Factored.symbolicFactorization.columnCount * LOBYTE(Factored.symbolicFactorization.factorization);
-        if (Factored.symbolicFactorization.rowCount * LOBYTE(Factored.symbolicFactorization.factorization) > v14)
-        {
-          v14 = Factored.symbolicFactorization.rowCount * LOBYTE(Factored.symbolicFactorization.factorization);
-        }
-
-        if (v14 == v3)
-        {
-          free = v21.free;
-          Soln.rowCount = v3;
-          Soln.columnCount = 1;
-          *&Soln.attributes = 0;
-          Soln.data = a3;
-          Soln.columnStride = v3;
-          v16 = (v21.malloc)(v19 + Factored.solveWorkspaceRequiredPerRHS);
-          if (v16)
-          {
-            v17 = v16;
-            _SparseSolveOpaque_Double(&Factored, 0, &Soln, v16);
-            (free)(v17);
-            goto LABEL_11;
-          }
-
-          if (reportError)
-          {
-            v33 = 0u;
-            v34 = 0u;
-            v31 = 0u;
-            v32 = 0u;
-            v29 = 0u;
-            v30 = 0u;
-            v27 = 0u;
-            v28 = 0u;
-            v25 = 0u;
-            v26 = 0u;
-            v23 = 0u;
-            v24 = 0u;
-            v22 = 0u;
-            memset(&v21, 0, sizeof(v21));
-            snprintf(&v21, 0x100uLL, "Failed to allocate workspace of size %ld for SparseSolve().\n");
-            goto LABEL_31;
-          }
-
-          if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-          {
-            geom::sparse_linear_solver<float>::solve();
-          }
-
-LABEL_10:
-          _SparseTrap();
-LABEL_11:
-          result = 1;
-          goto LABEL_12;
-        }
-
-        if (!v21.reportError)
-        {
-          if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-          {
-            geom::sparse_linear_solver<float>::solve();
-          }
-
-          goto LABEL_10;
-        }
-
-        v33 = 0u;
-        v34 = 0u;
-        v31 = 0u;
-        v32 = 0u;
-        v29 = 0u;
-        v30 = 0u;
-        v27 = 0u;
-        v28 = 0u;
-        v25 = 0u;
-        v26 = 0u;
-        v23 = 0u;
-        v24 = 0u;
-        v22 = 0u;
-        memset(&v21, 0, sizeof(v21));
-        snprintf(&v21, 0x100uLL, "%s.count (%d) is not equal to largest dimension of matrix factorization %s.\n");
-      }
-
-LABEL_31:
-      (reportError)(&v21);
-      goto LABEL_11;
-    }
-  }
-
-  result = 0;
-LABEL_12:
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-uint64_t geom::compute_svd(geom *this, unsigned __int16 a2, unsigned __int16 a3, double *a4, double *a5, double *a6, double *a7)
-{
-  v11 = *MEMORY[0x277D85DE8];
-  v7 = dgesvd_NEWLAPACK();
-  MEMORY[0x28223BE20](v7, v8);
-  dgesvd_NEWLAPACK();
-  result = 1;
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-uint64_t geom::compute_svd(geom *this, unsigned __int16 a2, unsigned __int16 a3, float *a4, float *a5, float *a6, float *a7)
-{
-  v11 = *MEMORY[0x277D85DE8];
-  v7 = sgesvd_NEWLAPACK();
-  MEMORY[0x28223BE20](v7, v8);
-  sgesvd_NEWLAPACK();
-  result = 1;
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-uint64_t geom_compute_svd_3x3_f(_OWORD *a1, _OWORD *a2, _OWORD *a3, int8x16_t a4, int8x16_t a5, int8x16_t a6, uint64_t a7, uint64_t a8, uint64_t a9, float *a10)
-{
-  v11[0] = a4;
-  v11[1] = a5;
-  v11[2] = a6;
-  return geom::compute_svd_3x3<float>(v11, a1, a2, a3, a8, a9, a10);
-}
-
-uint64_t std::__tree<std::__value_type<geom::sparse_linear_solver<float>::entry,float>,std::__map_value_compare<geom::sparse_linear_solver<float>::entry,std::__value_type<geom::sparse_linear_solver<float>::entry,float>,std::less<geom::sparse_linear_solver<float>::entry>,true>,std::allocator<std::__value_type<geom::sparse_linear_solver<float>::entry,float>>>::__emplace_unique_key_args<geom::sparse_linear_solver<float>::entry,geom::sparse_linear_solver<float>::entry,float const&>(uint64_t a1, unsigned int *a2)
-{
-  v2 = *std::__tree<std::__value_type<geom::sparse_linear_solver<float>::entry,float>,std::__map_value_compare<geom::sparse_linear_solver<float>::entry,std::__value_type<geom::sparse_linear_solver<float>::entry,float>,std::less<geom::sparse_linear_solver<float>::entry>,true>,std::allocator<std::__value_type<geom::sparse_linear_solver<float>::entry,float>>>::__find_equal<geom::sparse_linear_solver<float>::entry>(a1, &v4, a2);
-  if (!v2)
-  {
-    operator new();
-  }
-
-  return v2;
-}
-
-uint64_t *std::__tree<std::__value_type<geom::sparse_linear_solver<float>::entry,float>,std::__map_value_compare<geom::sparse_linear_solver<float>::entry,std::__value_type<geom::sparse_linear_solver<float>::entry,float>,std::less<geom::sparse_linear_solver<float>::entry>,true>,std::allocator<std::__value_type<geom::sparse_linear_solver<float>::entry,float>>>::__find_equal<geom::sparse_linear_solver<float>::entry>(uint64_t a1, void *a2, unsigned int *a3)
-{
-  v5 = *(a1 + 8);
-  result = (a1 + 8);
-  v4 = v5;
-  if (v5)
-  {
-    v7 = *a3;
-    v6 = a3[1];
-    do
-    {
-      while (1)
-      {
-        v8 = v4;
-        v9 = *(v4 + 8);
-        if (__PAIR64__(v6, v7) >= __PAIR64__(v9, *(v8 + 7)))
-        {
-          break;
-        }
-
-        v4 = *v8;
-        result = v8;
-        if (!*v8)
-        {
-          goto LABEL_12;
-        }
-      }
-
-      if (v9 >= v6 && *(v8 + 7) >= v7)
-      {
-        break;
-      }
-
-      result = v8 + 1;
-      v4 = v8[1];
-    }
-
-    while (v4);
-  }
-
-  else
-  {
-    v8 = result;
-  }
-
-LABEL_12:
-  *a2 = v8;
-  return result;
-}
-
-uint64_t std::__tree<std::__value_type<geom::sparse_linear_solver<float>::entry,float>,std::__map_value_compare<geom::sparse_linear_solver<float>::entry,std::__value_type<geom::sparse_linear_solver<float>::entry,float>,std::less<geom::sparse_linear_solver<float>::entry>,true>,std::allocator<std::__value_type<geom::sparse_linear_solver<float>::entry,float>>>::__emplace_unique_key_args<geom::sparse_linear_solver<float>::entry,std::piecewise_construct_t const&,std::tuple<geom::sparse_linear_solver<float>::entry&&>,std::tuple<>>(uint64_t a1, unsigned int *a2)
-{
-  v2 = *std::__tree<std::__value_type<geom::sparse_linear_solver<float>::entry,float>,std::__map_value_compare<geom::sparse_linear_solver<float>::entry,std::__value_type<geom::sparse_linear_solver<float>::entry,float>,std::less<geom::sparse_linear_solver<float>::entry>,true>,std::allocator<std::__value_type<geom::sparse_linear_solver<float>::entry,float>>>::__find_equal<geom::sparse_linear_solver<float>::entry>(a1, &v4, a2);
-  if (!v2)
-  {
-    operator new();
-  }
-
-  return v2;
-}
-
-uint64_t *std::__tree<std::__value_type<geom::sparse_linear_solver<float>::entry,float>,std::__map_value_compare<geom::sparse_linear_solver<float>::entry,std::__value_type<geom::sparse_linear_solver<float>::entry,float>,std::less<geom::sparse_linear_solver<float>::entry>,true>,std::allocator<std::__value_type<geom::sparse_linear_solver<float>::entry,float>>>::find<geom::sparse_linear_solver<float>::entry>(uint64_t a1, unsigned int *a2)
-{
-  v4 = *(a1 + 8);
-  v2 = (a1 + 8);
-  v3 = v4;
-  if (!v4)
-  {
-    return v2;
-  }
-
-  v5 = *a2;
-  v6 = a2[1];
-  v7 = v2;
-  do
-  {
-    v8 = *(v3 + 8);
-    if (v8 >= v6)
-    {
-      if (v8 == v6)
-      {
-        v9 = *(v3 + 7);
-        v10 = v9 >= v5;
-        v11 = v9 < v5;
-        if (v10)
-        {
-          v7 = v3;
-        }
-
-        v3 += v11;
-      }
-
-      else
-      {
-        v7 = v3;
-      }
-    }
-
-    else
-    {
-      ++v3;
-    }
-
-    v3 = *v3;
-  }
-
-  while (v3);
-  if (v7 == v2 || __PAIR64__(v6, v5) < *(v7 + 28))
-  {
-    return v2;
-  }
-
-  return v7;
-}
-
-uint64_t std::__tree<std::__value_type<geom::sparse_linear_solver<double>::entry,double>,std::__map_value_compare<geom::sparse_linear_solver<double>::entry,std::__value_type<geom::sparse_linear_solver<double>::entry,double>,std::less<geom::sparse_linear_solver<double>::entry>,true>,std::allocator<std::__value_type<geom::sparse_linear_solver<double>::entry,double>>>::__emplace_unique_key_args<geom::sparse_linear_solver<double>::entry,geom::sparse_linear_solver<double>::entry,double const&>(uint64_t a1, unsigned int *a2)
-{
-  v2 = *std::__tree<std::__value_type<geom::sparse_linear_solver<double>::entry,double>,std::__map_value_compare<geom::sparse_linear_solver<double>::entry,std::__value_type<geom::sparse_linear_solver<double>::entry,double>,std::less<geom::sparse_linear_solver<double>::entry>,true>,std::allocator<std::__value_type<geom::sparse_linear_solver<double>::entry,double>>>::__find_equal<geom::sparse_linear_solver<double>::entry>(a1, &v4, a2);
-  if (!v2)
-  {
-    operator new();
-  }
-
-  return v2;
-}
-
-uint64_t *std::__tree<std::__value_type<geom::sparse_linear_solver<double>::entry,double>,std::__map_value_compare<geom::sparse_linear_solver<double>::entry,std::__value_type<geom::sparse_linear_solver<double>::entry,double>,std::less<geom::sparse_linear_solver<double>::entry>,true>,std::allocator<std::__value_type<geom::sparse_linear_solver<double>::entry,double>>>::__find_equal<geom::sparse_linear_solver<double>::entry>(uint64_t a1, void *a2, unsigned int *a3)
-{
-  v5 = *(a1 + 8);
-  result = (a1 + 8);
-  v4 = v5;
-  if (v5)
-  {
-    v7 = *a3;
-    v6 = a3[1];
-    do
-    {
-      while (1)
-      {
-        v8 = v4;
-        v9 = *(v4 + 9);
-        if (__PAIR64__(v6, v7) >= __PAIR64__(v9, *(v8 + 8)))
-        {
-          break;
-        }
-
-        v4 = *v8;
-        result = v8;
-        if (!*v8)
-        {
-          goto LABEL_12;
-        }
-      }
-
-      if (v9 >= v6 && *(v8 + 8) >= v7)
-      {
-        break;
-      }
-
-      result = v8 + 1;
-      v4 = v8[1];
-    }
-
-    while (v4);
-  }
-
-  else
-  {
-    v8 = result;
-  }
-
-LABEL_12:
-  *a2 = v8;
-  return result;
-}
-
-uint64_t std::__tree<std::__value_type<geom::sparse_linear_solver<double>::entry,double>,std::__map_value_compare<geom::sparse_linear_solver<double>::entry,std::__value_type<geom::sparse_linear_solver<double>::entry,double>,std::less<geom::sparse_linear_solver<double>::entry>,true>,std::allocator<std::__value_type<geom::sparse_linear_solver<double>::entry,double>>>::__emplace_unique_key_args<geom::sparse_linear_solver<double>::entry,std::piecewise_construct_t const&,std::tuple<geom::sparse_linear_solver<double>::entry&&>,std::tuple<>>(uint64_t a1, unsigned int *a2)
-{
-  v2 = *std::__tree<std::__value_type<geom::sparse_linear_solver<double>::entry,double>,std::__map_value_compare<geom::sparse_linear_solver<double>::entry,std::__value_type<geom::sparse_linear_solver<double>::entry,double>,std::less<geom::sparse_linear_solver<double>::entry>,true>,std::allocator<std::__value_type<geom::sparse_linear_solver<double>::entry,double>>>::__find_equal<geom::sparse_linear_solver<double>::entry>(a1, &v4, a2);
-  if (!v2)
-  {
-    operator new();
-  }
-
-  return v2;
-}
-
-uint64_t *std::__tree<std::__value_type<geom::sparse_linear_solver<double>::entry,double>,std::__map_value_compare<geom::sparse_linear_solver<double>::entry,std::__value_type<geom::sparse_linear_solver<double>::entry,double>,std::less<geom::sparse_linear_solver<double>::entry>,true>,std::allocator<std::__value_type<geom::sparse_linear_solver<double>::entry,double>>>::find<geom::sparse_linear_solver<double>::entry>(uint64_t a1, unsigned int *a2)
-{
-  v4 = *(a1 + 8);
-  v2 = (a1 + 8);
-  v3 = v4;
-  if (!v4)
-  {
-    return v2;
-  }
-
-  v5 = *a2;
-  v6 = a2[1];
-  v7 = v2;
-  do
-  {
-    v8 = *(v3 + 9);
-    if (v8 >= v6)
-    {
-      if (v8 == v6)
-      {
-        v9 = *(v3 + 8);
-        v10 = v9 >= v5;
-        v11 = v9 < v5;
-        if (v10)
-        {
-          v7 = v3;
-        }
-
-        v3 += v11;
-      }
-
-      else
-      {
-        v7 = v3;
-      }
-    }
-
-    else
-    {
-      ++v3;
-    }
-
-    v3 = *v3;
-  }
-
-  while (v3);
-  if (v7 == v2 || __PAIR64__(v6, v5) < v7[4])
-  {
-    return v2;
-  }
-
-  return v7;
-}
-
-double geom::triangle_mesh_atlas::copy_face_vertex_uvs(uint64_t a1, uint64_t a2, uint64_t *a3, void *a4, void *a5)
-{
-  v9 = *(a2 + 4);
-  v10 = ((*(a2 + 48) - *(a2 + 40)) >> 2);
-  v11 = *(a1 + 8) - *a1;
-  if (v10 <= v11)
-  {
-    if (v10 < v11)
-    {
-      *(a1 + 8) = *a1 + v10;
-    }
-  }
-
-  else
-  {
-    std::vector<unsigned char>::__append(a1, v10 - v11, geom::triangle_mesh_atlas::k_unassigned_vertex);
-  }
-
-  std::vector<BOOL>::resize(a5, v9, 0);
-  _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE6resizeEm((a1 + 24), (3 * v9));
-  v13 = *a3;
-  if (a3[1] != *a3)
-  {
-    v14 = 0;
-    v15 = 0;
-    do
-    {
-      v16 = *(v13 + 4 * v15);
-      *(*a5 + ((v16 >> 3) & 0x1FFFFFF8)) |= 1 << v16;
-      LODWORD(v16) = 3 * v16;
-      *(*(a1 + 24) + 8 * v16) = *(*a4 + v14);
-      *(*(a1 + 24) + 8 * (v16 + 1)) = *(*a4 + v14 + 8);
-      result = *(*a4 + v14 + 16);
-      *(*(a1 + 24) + 8 * (v16 + 2)) = result;
-      ++v15;
-      v13 = *a3;
-      v14 += 24;
-    }
-
-    while (v15 < (a3[1] - *a3) >> 2);
-  }
-
-  return result;
-}
-
-double geom::triangle_mesh_atlas::copy_face_vertex_uvs(uint64_t a1, uint64_t a2, uint64_t *a3, void *a4, void *a5, void *a6)
-{
-  v11 = *(a2 + 4);
-  v12 = ((*(a2 + 48) - *(a2 + 40)) >> 2);
-  v13 = *(a1 + 8) - *a1;
-  if (v12 <= v13)
-  {
-    if (v12 < v13)
-    {
-      *(a1 + 8) = *a1 + v12;
-    }
-  }
-
-  else
-  {
-    std::vector<unsigned char>::__append(a1, v12 - v13, geom::triangle_mesh_atlas::k_unassigned_vertex);
-  }
-
-  std::vector<BOOL>::resize(a6, v11, 0);
-  _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE6resizeEm((a1 + 24), (3 * v11));
-  v15 = *a3;
-  if (a3[1] != *a3)
-  {
-    v16 = 0;
-    v17 = 0;
-    do
-    {
-      v18 = *(v15 + 4 * v17);
-      *(*a6 + ((v18 >> 3) & 0x1FFFFFF8)) |= 1 << v18;
-      LODWORD(v18) = 3 * v18;
-      *(*(a1 + 24) + 8 * v18) = *(*a5 + 8 * *(*a4 + v16));
-      *(*(a1 + 24) + 8 * (v18 + 1)) = *(*a5 + 8 * *(*a4 + v16 + 4));
-      result = *(*a5 + 8 * *(*a4 + v16 + 8));
-      *(*(a1 + 24) + 8 * (v18 + 2)) = result;
-      ++v17;
-      v15 = *a3;
-      v16 += 12;
-    }
-
-    while (v17 < (a3[1] - *a3) >> 2);
-  }
-
-  return result;
-}
-
-double geom::triangle_mesh_atlas::find_face_vertex_uv(geom::triangle_mesh_atlas *this, const geom::triangle_mesh_connectivity *a2, int a3, int a4)
-{
-  v4 = (*(a2 + 2) + 4 * (3 * a3));
-  v5 = *v4;
-  if (v4[1] == a4)
-  {
-    v6 = 1;
-  }
-
-  else
-  {
-    v6 = 2;
-  }
-
-  if (v5 == a4)
-  {
-    v6 = 0;
-  }
-
-  return *(*(this + 3) + 8 * (v6 + 3 * a3));
-}
-
-BOOL geom::triangle_mesh_atlas::is_wedge_boundary_a_uv_corner(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, void *a5)
-{
-  v5 = *a5 >> 62;
-  v6 = 3 * (*a4 & 0x3FFFFFFF) + (*a4 >> 62);
-  v7 = *(a1 + 24);
-  if (v5)
-  {
-    v8 = -1;
-  }
-
-  else
-  {
-    v8 = 2;
-  }
-
-  v9 = *(v7 + 8 * v6);
-  v10 = vsub_f32(*(v7 + 8 * (v6 + ((*a4 >> 63) ^ 1))), v9);
-  v11 = vsub_f32(*(v7 + 8 * (v8 + v5 + 3 * (*a5 & 0x3FFFFFFF))), v9);
-  v12 = vmul_f32(v10, v11);
-  v13 = vmul_f32(v10, v10);
-  v14 = vmul_f32(v11, v11);
-  v15 = vsqrt_f32(vadd_f32(vzip1_s32(v13, v14), vzip2_s32(v13, v14)));
-  return vdiv_f32(vadd_f32(v12, vdup_lane_s32(v12, 1)), vmul_lane_f32(v15, v15, 1)).f32[0] > -0.5;
-}
-
-uint64_t geom::triangle_mesh_atlas::is_vertex_a_uv_corner(geom::triangle_mesh_atlas *this, const geom::triangle_mesh_connectivity *a2, unsigned int a3)
-{
-  v22 = 0;
-  v23 = 0;
-  v24 = 0;
-  __p = 0;
-  v20 = 0;
-  v21 = 0;
-  geom::triangle_mesh_atlas::vertex_incident_wedges(this, a2, a3, &v22, &__p);
-  v9 = v22;
-  v8 = v23;
-  v10 = (v23 - v22) >> 2;
-  if (v10 > 2 || v23 - v22 == 8 && geom::triangle_mesh_half_edge_connectivity::is_boundary_vertex(a2, a3))
-  {
-    v11 = 1;
-  }
-
-  else if (v8 == v9)
-  {
-    v11 = 0;
-  }
-
-  else
-  {
-    v13 = 0;
-    v14 = v22;
-    v15 = 1;
-    v16 = __p;
-    do
-    {
-      if (v15 == 1)
-      {
-        v17 = 0;
-      }
-
-      else
-      {
-        v17 = v14[v15 - 2];
-      }
-
-      is_wedge_boundary_a_uv_corner = geom::triangle_mesh_atlas::is_wedge_boundary_a_uv_corner(this, v6, v7, &v16[v17], &v16[v14[v13] - 1]);
-      v11 = is_wedge_boundary_a_uv_corner;
-      if (v10 <= v15)
-      {
-        break;
-      }
-
-      v13 = v15++;
-    }
-
-    while (!is_wedge_boundary_a_uv_corner);
-  }
-
-  if (__p)
-  {
-    v20 = __p;
-    operator delete(__p);
-  }
-
-  if (v22)
-  {
-    v23 = v22;
-    operator delete(v22);
-  }
-
-  return v11;
-}
-
-void geom::triangle_mesh_atlas::vertex_incident_wedges(uint64_t a1, geom::triangle_mesh_half_edge_connectivity *a2, unsigned int a3, uint64_t a4, void *a5)
-{
-  *(a4 + 8) = *a4;
-  a5[1] = *a5;
-  __p = 0;
-  v40 = 0;
-  v41 = 0;
-  geom::triangle_mesh_half_edge_connectivity::get_incident_faces_to_vertex(a2, a3, &__p);
-  v9 = __p;
-  v10 = (v40 - __p) >> 2;
-  if (v10)
-  {
-    v11 = 0;
-    v12 = (v40 - __p) >> 2;
-    while (*(*(a1 + 96) + 4 * *(__p + v11)) == -1)
-    {
-      ++v11;
-      LODWORD(v12) = v12 + 1;
-      if (((v40 - __p) >> 2) == v11)
-      {
-        goto LABEL_60;
-      }
-    }
-
-    if (!geom::triangle_mesh_half_edge_connectivity::is_boundary_vertex(a2, a3))
-    {
-      v13 = *(__p + v11);
-      v14 = *(a2 + 2);
-      v15 = 3 * v13;
-      v16 = (v14 + 4 * (3 * v13));
-      if (*v16 == a3)
-      {
-        v17 = 0;
-      }
-
-      else if (v16[1] == a3)
-      {
-        v17 = 1;
-      }
-
-      else
-      {
-        v17 = v16[2] == a3 ? 2 : 255;
-      }
-
-      if (v10 != 1)
-      {
-        v18 = *(a1 + 96);
-        v19 = *(v18 + 4 * v13);
-        v20 = v17 + v15;
-        if (v10 <= 2)
-        {
-          v21 = 2;
-        }
-
-        else
-        {
-          v21 = v10;
-        }
-
-        v22 = v21 - 1;
-        while (1)
-        {
-          v23 = *(__p + (v12 - 1) % v10);
-          v24 = (v14 + 4 * (3 * v23));
-          if (*v24 == a3)
-          {
-            v25 = 0;
-          }
-
-          else if (v24[1] == a3)
-          {
-            v25 = 1;
-          }
-
-          else
-          {
-            v25 = v24[2] == a3 ? 2 : 255;
-          }
-
-          if (*(v18 + 4 * v23) != v19)
-          {
-            break;
-          }
-
-          if (v19 != -1)
-          {
-            v26 = vsub_f32(*(*(a1 + 24) + 8 * v20), *(*(a1 + 24) + 8 * (v25 + 3 * v23)));
-            if (sqrtf(vaddv_f32(vmul_f32(v26, v26))) > 0.00001)
-            {
-              break;
-            }
-          }
-
-          LODWORD(v12) = v12 - 1;
-          if (!--v22)
-          {
-            goto LABEL_32;
-          }
-        }
-
-        LODWORD(v11) = v12 % v10;
-      }
-    }
-
-LABEL_32:
-    v27 = 0;
-    do
-    {
-      v28 = *(__p + (v27 + v11) % v10);
-      v29 = (*(a2 + 2) + 4 * (3 * v28));
-      if (*v29 == a3)
-      {
-        v30 = 0;
-      }
-
-      else if (v29[1] == a3)
-      {
-        v30 = 1;
-      }
-
-      else if (v29[2] == a3)
-      {
-        v30 = 2;
-      }
-
-      else
-      {
-        v30 = 0xFFFFFFFFLL;
-      }
-
-      v31 = *(*(a1 + 96) + 4 * v28);
-      v32 = *(*(a1 + 24) + 8 * (3 * v28 + v30));
-      if (v31 != -1)
-      {
-        v33 = v28 & 0x3FFFFFFF;
-LABEL_54:
-        v38 = v33 | (v30 << 62) | ((a3 & 0x3FFFFFFF) << 32);
-        std::vector<geom::triangle_mesh_atlas::face_vertex>::push_back[abi:nn200100](a5, &v38);
-        goto LABEL_42;
-      }
-
-      do
-      {
-LABEL_42:
-        if (++v27 < v10)
-        {
-          v34 = *(__p + (v11 + v27) % v10);
-          v35 = (*(a2 + 2) + 4 * (3 * v34));
-          if (*v35 == a3)
-          {
-            v30 = 0;
-          }
-
-          else if (v35[1] == a3)
-          {
-            v30 = 1;
-          }
-
-          else
-          {
-            v30 = v35[2] == a3 ? 2 : 0xFFFFFFFFLL;
-          }
-
-          if (*(*(a1 + 96) + 4 * v34) == v31)
-          {
-            continue;
-          }
-        }
-
-        goto LABEL_55;
-      }
-
-      while (v31 == -1);
-      v36 = vsub_f32(v32, *(*(a1 + 24) + 8 * (3 * v34 + v30)));
-      if (sqrtf(vaddv_f32(vmul_f32(v36, v36))) <= 0.00001)
-      {
-        v33 = v34 & 0x3FFFFFFF;
-        goto LABEL_54;
-      }
-
-LABEL_55:
-      if (v31 != -1)
-      {
-        LODWORD(v38) = (a5[1] - *a5) >> 3;
-        std::vector<unsigned int>::push_back[abi:nn200100](a4, &v38);
-      }
-    }
-
-    while (v27 < v10);
-    v9 = __p;
-  }
-
-  if (v9)
-  {
-LABEL_60:
-    v40 = v9;
-    operator delete(v9);
-  }
 }

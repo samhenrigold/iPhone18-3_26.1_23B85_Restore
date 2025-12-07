@@ -1,5 +1,5 @@
 @interface SBDisplayItemLayoutAttributes
-+ (double)normalizedPointForPoint:(CGFloat)point inBounds:(CGFloat)bounds;
++ (double)normalizedPointForPoint:(double)point inBounds:(CGFloat)bounds;
 + (id)layoutAttributesWithProtobufRepresentation:(uint64_t)representation;
 - (BOOL)isEqual:(id)equal;
 - (CGSize)_sizeForAttributedSize:(SBDisplayItemAttributedSize *)size inBounds:(CGRect)bounds defaultSize:(CGSize)defaultSize screenEdgePadding:(double)padding;
@@ -32,14 +32,14 @@
 - (id)initWithPlistRepresentation:(void *)representation;
 - (id)plistRepresentation;
 - (id)succinctDescription;
-- (uint64_t)initWithContentOrientation:(uint64_t)orientation lastInteractionTime:(uint64_t)time sizingPolicy:(uint64_t)policy attributedSize:(char)size normalizedCenter:(double)center cascaded:(double)cascaded;
-- (uint64_t)initWithContentOrientation:(uint64_t)result lastInteractionTime:sizingPolicy:attributedSize:tileConfiguration:slideOverConfiguration:normalizedCenter:cascaded:occlusionState:attributedUserSizeBeforeOverlapping:unoccludedPeekingCenter:positionIsSystemManaged:;
 - (uint64_t)isCascaded;
 - (uint64_t)isPositionSystemManaged;
 - (uint64_t)tileConfiguration;
 - (unsigned)attributesByModifyingCascaded:(unsigned __int8 *)cascaded;
 - (unsigned)attributesByModifyingPositionIsSystemManaged:(unsigned __int8 *)managed;
 - (void)_appendPropertiesToBuilder:(id)builder;
+- (void)initWithContentOrientation:(uint64_t)orientation lastInteractionTime:(uint64_t)time sizingPolicy:(uint64_t)policy attributedSize:(char)size normalizedCenter:(double)center cascaded:(double)cascaded;
+- (void)initWithContentOrientation:(void *)result lastInteractionTime:sizingPolicy:attributedSize:tileConfiguration:slideOverConfiguration:normalizedCenter:cascaded:occlusionState:attributedUserSizeBeforeOverlapping:unoccludedPeekingCenter:positionIsSystemManaged:;
 @end
 
 @implementation SBDisplayItemLayoutAttributes
@@ -119,20 +119,20 @@
   return *&v2;
 }
 
-+ (double)normalizedPointForPoint:(CGFloat)point inBounds:(CGFloat)bounds
++ (double)normalizedPointForPoint:(double)point inBounds:(CGFloat)bounds
 {
   objc_opt_self();
-  v13.origin.x = point;
-  v13.origin.y = bounds;
-  v13.size.width = a5;
-  v13.size.height = a6;
-  v11 = self / CGRectGetWidth(v13);
-  v14.origin.x = point;
-  v14.origin.y = bounds;
-  v14.size.width = a5;
-  v14.size.height = a6;
-  CGRectGetHeight(v14);
-  return v11;
+  v14.origin.x = bounds;
+  v14.origin.y = a5;
+  v14.size.width = a6;
+  v14.size.height = a7;
+  v12 = a2 / CGRectGetWidth(v14);
+  v15.origin.x = bounds;
+  v15.origin.y = a5;
+  v15.size.width = a6;
+  v15.size.height = a7;
+  CGRectGetHeight(v15);
+  return v12;
 }
 
 - (id)_initWithContentOrientation:(int64_t)orientation lastInteractionTime:(int64_t)time sizingPolicy:(int64_t)policy attributedSize:(SBDisplayItemAttributedSize *)size tileConfiguration:(SBDisplayItemTileConfiguration *)configuration slideOverConfiguration:(SBDisplayItemSlideOverConfiguration *)overConfiguration normalizedCenter:(CGPoint)center cascaded:(BOOL)self0 occlusionState:(int64_t)self1 attributedUserSizeBeforeOverlapping:(SBDisplayItemAttributedSize *)self2 unoccludedPeekingCenter:(CGPoint)self3 positionIsSystemManaged:(BOOL)self4 version:(int64_t)self5
@@ -803,7 +803,7 @@ LABEL_50:
   return *&v3;
 }
 
-- (uint64_t)initWithContentOrientation:(uint64_t)orientation lastInteractionTime:(uint64_t)time sizingPolicy:(uint64_t)policy attributedSize:(char)size normalizedCenter:(double)center cascaded:(double)cascaded
+- (void)initWithContentOrientation:(uint64_t)orientation lastInteractionTime:(uint64_t)time sizingPolicy:(uint64_t)policy attributedSize:(char)size normalizedCenter:(double)center cascaded:(double)cascaded
 {
   if (result)
   {
@@ -829,7 +829,7 @@ LABEL_50:
   return result;
 }
 
-- (uint64_t)initWithContentOrientation:(uint64_t)result lastInteractionTime:sizingPolicy:attributedSize:tileConfiguration:slideOverConfiguration:normalizedCenter:cascaded:occlusionState:attributedUserSizeBeforeOverlapping:unoccludedPeekingCenter:positionIsSystemManaged:
+- (void)initWithContentOrientation:(void *)result lastInteractionTime:sizingPolicy:attributedSize:tileConfiguration:slideOverConfiguration:normalizedCenter:cascaded:occlusionState:attributedUserSizeBeforeOverlapping:unoccludedPeekingCenter:positionIsSystemManaged:
 {
   if (result)
   {
@@ -999,11 +999,11 @@ LABEL_50:
   if (configuration)
   {
     OUTLINED_FUNCTION_19();
-    v31 = *v4;
-    v32 = *(v4 + 2);
+    v34 = *v4;
+    v35 = *(v4 + 2);
     v23 = *(v5 + 96);
     v24 = *(v5 + 112);
-    if (SBEqualDisplayItemTileConfigurations(&v31, &v23))
+    if (SBEqualDisplayItemTileConfigurations(&v34, &v23))
     {
       configuration = v1;
     }
@@ -1012,14 +1012,14 @@ LABEL_50:
     {
       v6 = [SBDisplayItemLayoutAttributes alloc];
       OUTLINED_FUNCTION_1_15();
-      v29 = *v2;
-      v30 = *(v2 + 2);
+      v32 = *v2;
+      v33 = *(v2 + 2);
       v7 = *(v1 + 136);
-      v27 = *(v1 + 120);
-      v28 = v7;
+      v30 = *(v1 + 120);
+      v31 = v7;
       OUTLINED_FUNCTION_6_1();
       OUTLINED_FUNCTION_12_1();
-      configuration = OUTLINED_FUNCTION_17(v8, v9, v10, v11, v12, v13, v14, v15, v17, v18, v19, v20, v21, v22, v23, *(&v23 + 1), v24, v25, v26);
+      configuration = OUTLINED_FUNCTION_17(v8, v9, v10, v11, v12, v13, v14, v15, v17, v18, v19, v20, v21, v22, v23, *(&v23 + 1), v24, v25, v26, v27, v28, v29);
     }
 
     v3 = vars8;
@@ -1034,14 +1034,14 @@ LABEL_50:
   {
     OUTLINED_FUNCTION_19();
     v5 = *(v4 + 16);
-    v32[0] = *v4;
-    v32[1] = v5;
-    v33 = *(v4 + 32);
+    v35[0] = *v4;
+    v35[1] = v5;
+    v36 = *(v4 + 32);
     v7 = *(v6 + 136);
     v25 = *(v6 + 120);
     v26 = v7;
     v27 = *(v6 + 152);
-    if (SBEqualDisplayItemSlideOverConfigurations(v32, &v25))
+    if (SBEqualDisplayItemSlideOverConfigurations(v35, &v25))
     {
       configuration = v1;
     }
@@ -1050,14 +1050,14 @@ LABEL_50:
     {
       v8 = [SBDisplayItemLayoutAttributes alloc];
       OUTLINED_FUNCTION_1_15();
-      v30 = *(v1 + 96);
-      v31 = *(v1 + 112);
+      v33 = *(v1 + 96);
+      v34 = *(v1 + 112);
       v9 = v2[1];
-      v28 = *v2;
-      v29 = v9;
+      v31 = *v2;
+      v32 = v9;
       OUTLINED_FUNCTION_6_1();
       OUTLINED_FUNCTION_12_1();
-      configuration = OUTLINED_FUNCTION_17(v10, v11, v12, v13, v14, v15, v16, v17, v19, v20, v21, v22, v23, v24, v25, *(&v25 + 1), v26, *(&v26 + 1), v27);
+      configuration = OUTLINED_FUNCTION_17(v10, v11, v12, v13, v14, v15, v16, v17, v19, v20, v21, v22, v23, v24, v25, *(&v25 + 1), v26, *(&v26 + 1), v27, v28, v29, v30);
     }
 
     v3 = vars8;

@@ -6,6 +6,7 @@
 - (double)computeTotalIntegrationTimeWithStatistics:(id)statistics forMode:(int)mode;
 - (float)_estimateSNRatShutterScale:(float)scale statistics:(id)statistics rawThumbnail:(float *)thumbnail thumbnailSorted:(BOOL)sorted clippingThreshold:(float)threshold numBrackets:(int)brackets;
 - (float)_getGroupExposureTime:(id)time;
+- (float)_getGroupSNR:(id)r statistics:(id)statistics rawThumbnail:(float *)thumbnail thumbnailSorted:(BOOL)sorted snrClippingThreshold:(float)threshold;
 - (float)evZeroTargetGain;
 - (float)evZeroTargetGainWithStatistics:(id)statistics maxNominalEVZeroIntegrationTime:(double)time;
 - (id)_lowLightFrameParametersWithStatistics:(id)statistics evRatio:(double)ratio maxEVZeroGain:(float)gain maxNominalEVZeroIntegrationTime:(double)time maxIntegrationTime:(double)integrationTime;
@@ -597,7 +598,7 @@ LABEL_35:
     v187 = size;
     if (!size)
     {
-      sub_2958B3414();
+      sub_2958B3414(v186);
       v234 = 0;
       v340 = 0;
       v235 = -1.0;
@@ -1183,6 +1184,57 @@ LABEL_15:
   *&v95 = v95 / exp2(v96);
 
   return *&v95;
+}
+
+- (float)_getGroupSNR:(id)r statistics:(id)statistics rawThumbnail:(float *)thumbnail thumbnailSorted:(BOOL)sorted snrClippingThreshold:(float)threshold
+{
+  sortedCopy = sorted;
+  rCopy = r;
+  statisticsCopy = statistics;
+  v37 = 0u;
+  v38 = 0u;
+  v39 = 0u;
+  v40 = 0u;
+  v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(rCopy, v14, &v37, v36, 16);
+  if (v15)
+  {
+    v19 = v15;
+    v20 = *v38;
+    v21 = 0.0;
+    do
+    {
+      for (i = 0; i != v19; ++i)
+      {
+        if (*v38 != v20)
+        {
+          objc_enumerationMutation(rCopy);
+        }
+
+        objc_msgSend_integrationTime(*(*(&v37 + 1) + 8 * i), v16, v17, v18);
+        v24 = v23;
+        objc_msgSend_integrationTime(statisticsCopy, v25, v26, v27);
+        *&v28 = v24 / v28;
+        v21 = v21 + *&v28;
+      }
+
+      v19 = objc_msgSend_countByEnumeratingWithState_objects_count_(rCopy, v16, &v37, v36, 16);
+    }
+
+    while (v19);
+  }
+
+  else
+  {
+    v21 = 0.0;
+  }
+
+  v29 = objc_msgSend_count(rCopy, v16, v17, v18);
+  *&v30 = v21;
+  *&v31 = threshold;
+  objc_msgSend__estimateSNRatShutterScale_statistics_rawThumbnail_thumbnailSorted_clippingThreshold_numBrackets_(self, v32, statisticsCopy, thumbnail, sortedCopy, v29, v30, v31);
+  v34 = v33;
+
+  return v34;
 }
 
 - (float)_getGroupExposureTime:(id)time

@@ -69,68 +69,66 @@
 
 - (id)zoneIDsToLock
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
   v6 = objc_msgSend_recordZonesToSave(self, v4, v5);
-  v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v7, &v34, v39, 16);
+  v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v7, &v33, v38, 16);
   if (v8)
   {
     v11 = v8;
-    v12 = *v35;
+    v12 = *v34;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v35 != v12)
+        if (*v34 != v12)
         {
           objc_enumerationMutation(v6);
         }
 
-        v14 = objc_msgSend_zoneID(*(*(&v34 + 1) + 8 * i), v9, v10);
+        v14 = objc_msgSend_zoneID(*(*(&v33 + 1) + 8 * i), v9, v10);
         objc_msgSend_addObject_(v3, v15, v14);
       }
 
-      v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v9, &v34, v39, 16);
+      v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v9, &v33, v38, 16);
     }
 
     while (v11);
   }
 
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   v18 = objc_msgSend_recordZoneIDsToDelete(self, v16, v17, 0);
-  v20 = objc_msgSend_countByEnumeratingWithState_objects_count_(v18, v19, &v30, v38, 16);
+  v20 = objc_msgSend_countByEnumeratingWithState_objects_count_(v18, v19, &v29, v37, 16);
   if (v20)
   {
     v22 = v20;
-    v23 = *v31;
+    v23 = *v30;
     do
     {
       for (j = 0; j != v22; ++j)
       {
-        if (*v31 != v23)
+        if (*v30 != v23)
         {
           objc_enumerationMutation(v18);
         }
 
-        objc_msgSend_addObject_(v3, v21, *(*(&v30 + 1) + 8 * j));
+        objc_msgSend_addObject_(v3, v21, *(*(&v29 + 1) + 8 * j));
       }
 
-      v22 = objc_msgSend_countByEnumeratingWithState_objects_count_(v18, v21, &v30, v38, 16);
+      v22 = objc_msgSend_countByEnumeratingWithState_objects_count_(v18, v21, &v29, v37, 16);
     }
 
     while (v22);
   }
 
   v27 = objc_msgSend_allObjects(v3, v25, v26);
-
-  v28 = *MEMORY[0x277D85DE8];
 
   return v27;
 }
@@ -161,38 +159,38 @@
 
 - (id)makeRequestOperations
 {
-  v227 = *MEMORY[0x277D85DE8];
+  v226 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
+  v214 = 0u;
   v215 = 0u;
   v216 = 0u;
   v217 = 0u;
-  v218 = 0u;
   obj = objc_msgSend_recordZonesToSave(self, v4, v5);
-  v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v6, &v215, v226, 16);
+  v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v6, &v214, v225, 16);
   if (!v7)
   {
     goto LABEL_41;
   }
 
   v10 = v7;
-  v208 = *v216;
-  v202 = *MEMORY[0x277CBC120];
+  v207 = *v215;
+  v201 = *MEMORY[0x277CBC120];
   *&v9 = 138543618;
-  v199 = v9;
-  v203 = v3;
+  v198 = v9;
+  v202 = v3;
   do
   {
     v11 = 0;
-    v204 = v10;
+    v203 = v10;
     do
     {
-      if (*v216 != v208)
+      if (*v215 != v207)
       {
         objc_enumerationMutation(obj);
       }
 
-      v12 = *(*(&v215 + 1) + 8 * v11);
-      v13 = objc_msgSend_operationRequestWithType_(self, v8, 200, v199);
+      v12 = *(*(&v214 + 1) + 8 * v11);
+      v13 = objc_msgSend_operationRequestWithType_(self, v8, 200, v198);
       v14 = objc_opt_new();
       objc_msgSend_setZoneSaveRequest_(v13, v15, v14);
 
@@ -218,7 +216,7 @@
       }
 
       v38 = *MEMORY[0x277CBC830];
-      v207 = v27;
+      v206 = v27;
       if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
       {
         v117 = v38;
@@ -226,11 +224,11 @@
         v123 = objc_msgSend_requiredFeatures(v12, v121, v122);
         v126 = objc_msgSend_originalRequiredFeatures(v12, v124, v125);
         *buf = 138412802;
-        v221 = v120;
-        v222 = 2112;
-        v223 = v123;
-        v224 = 2112;
-        v225 = v126;
+        v220 = v120;
+        v221 = 2112;
+        v222 = v123;
+        v223 = 2112;
+        v224 = v126;
         _os_log_debug_impl(&dword_22506F000, v117, OS_LOG_TYPE_DEBUG, "Saving updated required features for zone %@.\nUpdated: %@\nPrevious: %@", buf, 0x20u);
       }
 
@@ -262,13 +260,13 @@
         }
       }
 
-      v206 = v53;
+      v205 = v53;
       v61 = objc_msgSend_data(v53, v54, v55);
       v64 = objc_msgSend_container(self, v62, v63);
       v67 = objc_msgSend_pcsManager(v64, v65, v66);
-      v214 = 0;
-      v69 = objc_msgSend_createCloudKitFeaturesSignatureForData_forScope_error_(v67, v68, v61, 4, &v214);
-      v70 = v214;
+      v213 = 0;
+      v69 = objc_msgSend_createCloudKitFeaturesSignatureForData_forScope_error_(v67, v68, v61, 4, &v213);
+      v70 = v213;
 
       if (v69)
       {
@@ -287,15 +285,15 @@
           }
         }
 
-        v27 = v207;
-        objc_msgSend_setSignedCryptoRequirements_(v207, v75, v48);
+        v27 = v206;
+        objc_msgSend_setSignedCryptoRequirements_(v206, v75, v48);
         goto LABEL_36;
       }
 
       v83 = objc_msgSend_domain(v70, v71, v72);
       v86 = v83;
       v87 = v70;
-      if (v83 != v202)
+      if (v83 != v201)
       {
 
 LABEL_31:
@@ -310,25 +308,25 @@ LABEL_31:
           v127 = v87;
           v128 = v96;
           v131 = objc_msgSend_zoneID(v12, v129, v130);
-          *buf = v199;
-          v221 = v131;
-          v222 = 2114;
-          v223 = v127;
+          *buf = v198;
+          v220 = v131;
+          v221 = 2114;
+          v222 = v127;
           _os_log_error_impl(&dword_22506F000, v128, OS_LOG_TYPE_ERROR, "Failed to generate signature for required features when saving record zone %{public}@. Error: %{public}@", buf, 0x16u);
 
           v87 = v127;
-          objc_msgSend_errorWithDomain_code_error_format_(MEMORY[0x277CBC560], v132, v202, 5002, v127, @"Failed to create cryptographic signature when saving modified record zones.");
+          objc_msgSend_errorWithDomain_code_error_format_(MEMORY[0x277CBC560], v132, v201, 5002, v127, @"Failed to create cryptographic signature when saving modified record zones.");
         }
 
         else
         {
-          objc_msgSend_errorWithDomain_code_error_format_(MEMORY[0x277CBC560], v97, v202, 5002, v87, @"Failed to create cryptographic signature when saving modified record zones.");
+          objc_msgSend_errorWithDomain_code_error_format_(MEMORY[0x277CBC560], v97, v201, 5002, v87, @"Failed to create cryptographic signature when saving modified record zones.");
         }
 
         v98 = v70 = v87;
         objc_msgSend_finishWithError_(self, v99, v98);
 
-        v27 = v207;
+        v27 = v206;
         goto LABEL_36;
       }
 
@@ -341,8 +339,8 @@ LABEL_31:
         goto LABEL_31;
       }
 
-      v200 = objc_msgSend_zoneID(v12, v89, v90);
-      v27 = v207;
+      v199 = objc_msgSend_zoneID(v12, v89, v90);
+      v27 = v206;
       if (*MEMORY[0x277CBC880] != -1)
       {
         dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
@@ -352,17 +350,17 @@ LABEL_31:
       if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_INFO))
       {
         *buf = 138543362;
-        v221 = v200;
+        v220 = v199;
         _os_log_impl(&dword_22506F000, v92, OS_LOG_TYPE_INFO, "Missing identity for signing required features when saving record zone %{public}@.", buf, 0xCu);
       }
 
-      objc_msgSend_errorWithDomain_code_error_format_(MEMORY[0x277CBC560], v93, v202, 5000, v87, @"Failed to create cryptographic signature when saving modified record zones.");
+      objc_msgSend_errorWithDomain_code_error_format_(MEMORY[0x277CBC560], v93, v201, 5000, v87, @"Failed to create cryptographic signature when saving modified record zones.");
       v94 = v70 = v87;
       objc_msgSend_finishWithError_(self, v95, v94);
 
 LABEL_36:
-      v3 = v203;
-      v10 = v204;
+      v3 = v202;
+      v10 = v203;
       if (!v69)
       {
 
@@ -386,33 +384,33 @@ LABEL_37:
     }
 
     while (v10 != v11);
-    v133 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v8, &v215, v226, 16);
+    v133 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v8, &v214, v225, 16);
     v10 = v133;
   }
 
   while (v133);
 LABEL_41:
 
-  v212 = 0u;
-  v213 = 0u;
-  v210 = 0u;
   v211 = 0u;
-  v209 = objc_msgSend_recordZoneIDsToDelete(self, v134, v135);
-  v137 = objc_msgSend_countByEnumeratingWithState_objects_count_(v209, v136, &v210, v219, 16);
+  v212 = 0u;
+  v209 = 0u;
+  v210 = 0u;
+  v208 = objc_msgSend_recordZoneIDsToDelete(self, v134, v135);
+  v137 = objc_msgSend_countByEnumeratingWithState_objects_count_(v208, v136, &v209, v218, 16);
   if (v137)
   {
     v139 = v137;
-    v140 = *v211;
+    v140 = *v210;
     do
     {
       for (i = 0; i != v139; ++i)
       {
-        if (*v211 != v140)
+        if (*v210 != v140)
         {
-          objc_enumerationMutation(v209);
+          objc_enumerationMutation(v208);
         }
 
-        v142 = *(*(&v210 + 1) + 8 * i);
+        v142 = *(*(&v209 + 1) + 8 * i);
         v143 = objc_msgSend_operationRequestWithType_(self, v138, 202);
         v144 = objc_opt_new();
         objc_msgSend_setZoneDeleteRequest_(v143, v145, v144);
@@ -449,7 +447,7 @@ LABEL_41:
         objc_msgSend_setObject_forKeyedSubscript_(v188, v195, v142, v194);
       }
 
-      v139 = objc_msgSend_countByEnumeratingWithState_objects_count_(v209, v138, &v210, v219, 16);
+      v139 = objc_msgSend_countByEnumeratingWithState_objects_count_(v208, v138, &v209, v218, 16);
     }
 
     while (v139);
@@ -457,8 +455,6 @@ LABEL_41:
 
   v196 = v3;
 LABEL_52:
-
-  v197 = *MEMORY[0x277D85DE8];
 
   return v196;
 }

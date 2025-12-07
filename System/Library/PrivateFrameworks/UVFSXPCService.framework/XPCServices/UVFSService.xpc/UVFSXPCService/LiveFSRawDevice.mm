@@ -7,6 +7,7 @@
 - (id)initDeviceWithName:(id)name andError:(id *)error;
 - (void)cancelNotifications;
 - (void)close;
+- (void)sendAnalytics:(id)analytics loadStatus:(int)status loadErrorReason:(id)reason;
 - (void)terminate;
 - (void)terminateVolumesWithErrors;
 - (void)unloadVolume:(id)volume;
@@ -91,7 +92,7 @@
   }
 
   snprintf(buf, 0x20uLL, "/dev/r%s", [nameCopy UTF8String]);
-  v11 = sub_1000038C8(buf, 2u);
+  v11 = sub_1000038C8(buf, 2);
   v10->_deviceFD = v11;
   p_deviceFD = &v10->_deviceFD;
   if (v11 < 0)
@@ -158,7 +159,7 @@ LABEL_45:
 
   if (os_log_type_enabled(userfs_log_default, OS_LOG_TYPE_DEBUG))
   {
-    sub_10001F48C(&v10->_deviceFD);
+    sub_10001F48C();
   }
 
   if (!qword_10003FE00)
@@ -265,17 +266,17 @@ LABEL_52:
 
 - (id)getVolumeUUID:(void *)d fsOPs:(_UVFSFSOps *)ps
 {
+  v14 = 0;
   v15 = 0;
-  v16 = 0;
-  v7 = (ps->var8)(d, "_O_f_uuid", &v16, 0, &v15);
-  if (v7 == 45)
+  v6 = (ps->var8)(d, "_O_f_uuid", &v15, 0, &v14);
+  if (v6 == 45)
   {
     goto LABEL_4;
   }
 
-  if (v7 != 7)
+  if (v6 != 7)
   {
-    if (v7 != 2)
+    if (v6 != 2)
     {
       if (os_log_type_enabled(userfs_log_default, OS_LOG_TYPE_ERROR))
       {
@@ -288,7 +289,7 @@ LABEL_52:
 LABEL_4:
     if (os_log_type_enabled(userfs_log_default, OS_LOG_TYPE_ERROR))
     {
-      sub_10001FC00(self);
+      sub_10001FC00();
     }
 
 LABEL_12:
@@ -296,11 +297,11 @@ LABEL_12:
     goto LABEL_16;
   }
 
-  v8 = [NSMutableData alloc];
-  v9 = [v8 initWithLength:v15];
+  v7 = [NSMutableData alloc];
+  v8 = [v7 initWithLength:v14];
   var8 = ps->var8;
-  mutableBytes = [v9 mutableBytes];
-  if (var8(d, "_O_f_uuid", mutableBytes, v15, &v15))
+  mutableBytes = [v8 mutableBytes];
+  if (var8(d, "_O_f_uuid", mutableBytes, v14, &v14))
   {
     if (os_log_type_enabled(userfs_log_default, OS_LOG_TYPE_ERROR))
     {
@@ -312,8 +313,8 @@ LABEL_12:
 
   else
   {
-    v13 = [[NSUUID alloc] initWithUUIDBytes:{objc_msgSend(v9, "bytes")}];
-    uUIDString = [v13 UUIDString];
+    v12 = [[NSUUID alloc] initWithUUIDBytes:{objc_msgSend(v8, "bytes")}];
+    uUIDString = [v12 UUIDString];
 
     if (os_log_type_enabled(userfs_log_default, OS_LOG_TYPE_DEBUG))
     {
@@ -331,7 +332,7 @@ LABEL_16:
   systemCopy = system;
   if (os_log_type_enabled(userfs_log_default, OS_LOG_TYPE_DEBUG))
   {
-    sub_10001FD18(self);
+    sub_10001FD18();
   }
 
   v5 = +[UVFSPluginManager getSupportedFilesystems];
@@ -367,7 +368,7 @@ LABEL_16:
     {
       if (os_log_type_enabled(userfs_log_default, OS_LOG_TYPE_ERROR))
       {
-        sub_10001FE28(self);
+        sub_10001FE28();
       }
 
       v9 = 0;
@@ -381,7 +382,7 @@ LABEL_16:
     {
       if (os_log_type_enabled(userfs_log_default, OS_LOG_TYPE_DEBUG))
       {
-        sub_10001FEA0(self);
+        sub_10001FEA0();
       }
 
       [(UVFSPlugin *)self->_fsPlugin checkAndUnloadPlugin];
@@ -470,7 +471,7 @@ LABEL_24:
             v11 = v57;
             if (os_log_type_enabled(userfs_log_default, OS_LOG_TYPE_ERROR))
             {
-              sub_10001FF9C(&self->_deviceName);
+              sub_10001FF9C();
             }
 
             v49 = 2;
@@ -733,7 +734,7 @@ LABEL_52:
 
   if (os_log_type_enabled(userfs_log_default, OS_LOG_TYPE_ERROR))
   {
-    sub_10001FDA0(self);
+    sub_10001FDA0();
   }
 
   v10 = 0;
@@ -743,7 +744,7 @@ LABEL_52:
 LABEL_11:
   if (os_log_type_enabled(userfs_log_default, OS_LOG_TYPE_DEBUG))
   {
-    sub_10002001C(self);
+    sub_10002001C();
   }
 
   v9 = [NSArray arrayWithArray:self->_volumes];
@@ -1011,6 +1012,26 @@ LABEL_14:
   {
     sub_1000202FC();
   }
+}
+
+- (void)sendAnalytics:(id)analytics loadStatus:(int)status loadErrorReason:(id)reason
+{
+  v6 = *&status;
+  analyticsCopy = analytics;
+  reasonCopy = reason;
+  v10 = userfs_log_default;
+  if (os_log_type_enabled(userfs_log_default, OS_LOG_TYPE_INFO))
+  {
+    v13 = 136315138;
+    v14 = "[LiveFSRawDevice sendAnalytics:loadStatus:loadErrorReason:]";
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "%s: sending analytics", &v13, 0xCu);
+  }
+
+  v11 = [NSNumber numberWithUnsignedLong:[(NSMutableArray *)self->_volumes count]];
+  v12 = objc_alloc_init(UVFSAnalytics);
+  [(UVFSAnalytics *)v12 discoverTopology:self->_deviceName];
+  -[UVFSAnalytics addVolumeProperties:volumeCount:loadStatus:loadErrorReason:](v12, "addVolumeProperties:volumeCount:loadStatus:loadErrorReason:", analyticsCopy, [v11 intValue], v6, reasonCopy);
+  [(UVFSAnalytics *)v12 sendEvent];
 }
 
 @end

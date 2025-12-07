@@ -118,7 +118,7 @@
   v21 = v20;
   if (v20)
   {
-    [v20 CATransform3DValue];
+    objc_msgSend_CATransform3DValue(v20);
   }
 
   else

@@ -153,9 +153,7 @@ LABEL_8:
 
 - (void)setLnPropertyIdentifier:(id)identifier
 {
-  v4 = [identifier copy];
-  lnPropertyIdentifier = self->_lnPropertyIdentifier;
-  self->_lnPropertyIdentifier = v4;
+  self->_lnPropertyIdentifier = [identifier copy];
 
   MEMORY[0x1EEE66BB8]();
 }

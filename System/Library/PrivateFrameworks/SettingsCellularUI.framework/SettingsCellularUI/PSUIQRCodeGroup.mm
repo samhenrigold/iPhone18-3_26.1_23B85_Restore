@@ -47,12 +47,12 @@
 
 - (void)simSetupFlowCompleted:(unint64_t)completed
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   getLogger = [(PSUIQRCodeGroup *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v9 = "[PSUIQRCodeGroup simSetupFlowCompleted:]";
+    v8 = "[PSUIQRCodeGroup simSetupFlowCompleted:]";
     _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
   }
 
@@ -61,11 +61,10 @@
   block[1] = 3221225472;
   block[2] = __41__PSUIQRCodeGroup_simSetupFlowCompleted___block_invoke;
   block[3] = &unk_279BA9EA0;
-  objc_copyWeak(&v7, buf);
+  objc_copyWeak(&v6, buf);
   dispatch_async(MEMORY[0x277D85CD0], block);
-  objc_destroyWeak(&v7);
+  objc_destroyWeak(&v6);
   objc_destroyWeak(buf);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __41__PSUIQRCodeGroup_simSetupFlowCompleted___block_invoke(uint64_t a1)
@@ -86,16 +85,16 @@ void __41__PSUIQRCodeGroup_simSetupFlowCompleted___block_invoke(uint64_t a1)
 
 - (void)scanQRCodePressed:(id)pressed
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   pressedCopy = pressed;
   WeakRetained = objc_loadWeakRetained(&self->_listController);
   view = [WeakRetained view];
   [view setUserInteractionEnabled:0];
 
-  v16 = *MEMORY[0x277D49548];
+  v15 = *MEMORY[0x277D49548];
   v7 = [MEMORY[0x277CCABB0] numberWithInteger:22];
-  v17[0] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+  v16[0] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
 
   v9 = [MEMORY[0x277D49530] flowWithOptions:v8];
   flow = self->_flow;
@@ -104,17 +103,15 @@ void __41__PSUIQRCodeGroup_simSetupFlowCompleted___block_invoke(uint64_t a1)
   [(TSSIMSetupFlow *)self->_flow setDelegate:self];
   objc_initWeak(&location, self);
   v11 = self->_flow;
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __37__PSUIQRCodeGroup_scanQRCodePressed___block_invoke;
-  v13[3] = &unk_279BA9EC8;
-  objc_copyWeak(&v14, &location);
-  v13[4] = self;
-  [(TSSIMSetupFlow *)v11 firstViewController:v13];
-  objc_destroyWeak(&v14);
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __37__PSUIQRCodeGroup_scanQRCodePressed___block_invoke;
+  v12[3] = &unk_279BA9EC8;
+  objc_copyWeak(&v13, &location);
+  v12[4] = self;
+  [(TSSIMSetupFlow *)v11 firstViewController:v12];
+  objc_destroyWeak(&v13);
   objc_destroyWeak(&location);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __37__PSUIQRCodeGroup_scanQRCodePressed___block_invoke(uint64_t a1, void *a2)

@@ -33,33 +33,7 @@
   }
 
   v10->_root = root;
-  if (!verifyCopy)
-  {
-    goto LABEL_13;
-  }
-
-  bytes2 = [(NSData *)v10->_data bytes];
-  v13 = [(NSData *)v10->_data length];
-  root = v10->_root;
-  if (root < bytes2 || root > bytes2 + v13)
-  {
-    goto LABEL_14;
-  }
-
-  bytes3 = [(NSData *)v10->_data bytes];
-  v17 = [(NSData *)v10->_data length];
-  v21[0] = bytes3;
-  v21[1] = v17;
-  v22 = xmmword_233005E20;
-  v23 = 0;
-  v24 = 1;
-  v18 = v10->_root;
-  if (!v18)
-  {
-    goto LABEL_13;
-  }
-
-  if (!siri::speech::schema_fb::TextToSpeechRequestDebug::Verify(v18, v21))
+  if (verifyCopy && ((v12 = [(NSData *)v10->_data bytes], v13 = [(NSData *)v10->_data length], root = v10->_root, root >= v12) ? (v15 = root > v12 + v13) : (v15 = 1), v15 || (v16 = [(NSData *)v10->_data bytes], v17 = [(NSData *)v10->_data length], v21[0] = v16, v21[1] = v17, v22 = xmmword_233005E20, v23 = 0, v24 = 1, (v18 = v10->_root) != 0) && !siri::speech::schema_fb::TextToSpeechRequestDebug::Verify(v18, v21)))
   {
 LABEL_14:
     v19 = 0;
@@ -90,16 +64,15 @@ LABEL_13:
 
 - (Offset<siri::speech::schema_fb::TextToSpeechRequestDebug>)addObjectToBuffer:(void *)buffer
 {
-  selfCopy = self;
   force_use_tts_service = [(FTTextToSpeechRequestDebug *)self force_use_tts_service];
-  LODWORD(selfCopy) = [(FTTextToSpeechRequestDebug *)selfCopy disable_cache];
+  disable_cache = [(FTTextToSpeechRequestDebug *)self disable_cache];
   *(buffer + 70) = 1;
-  v6 = *(buffer + 10);
-  v7 = *(buffer + 8) - *(buffer + 12);
+  v7 = *(buffer + 10);
+  v8 = *(buffer + 8) - *(buffer + 12);
   apple::aiml::flatbuffers2::FlatBufferBuilder::AddElement<unsigned char>(buffer, 4, force_use_tts_service, 0);
-  apple::aiml::flatbuffers2::FlatBufferBuilder::AddElement<unsigned char>(buffer, 6, selfCopy, 0);
+  apple::aiml::flatbuffers2::FlatBufferBuilder::AddElement<unsigned char>(buffer, 6, disable_cache, 0);
 
-  return apple::aiml::flatbuffers2::FlatBufferBuilder::EndTable(buffer, v7 + v6);
+  return apple::aiml::flatbuffers2::FlatBufferBuilder::EndTable(buffer, v8 + v7);
 }
 
 - (id)flatbuffData

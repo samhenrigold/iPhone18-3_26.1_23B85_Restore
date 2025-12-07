@@ -1,10 +1,13 @@
 @interface FBKSLaunchConfiguration
 - (FBKSLaunchConfiguration)init;
+- (void)setAlwaysUseRemoteAlertController:(BOOL)controller;
 - (void)setLocalizedAlertViewDeclineButtonTitle:(id)title;
 - (void)setLocalizedAlertViewProceedButtonTitle:(id)title;
 - (void)setLocalizedPromptMessage:(id)message;
 - (void)setLocalizedPromptTitle:(id)title;
+- (void)setNotifyImmediately:(BOOL)immediately;
 - (void)setPromptStyle:(int64_t)style;
+- (void)setSkipsPrompt:(BOOL)prompt;
 @end
 
 @implementation FBKSLaunchConfiguration
@@ -60,6 +63,30 @@
   titleCopy = title;
   swiftObject = [(FBKSLaunchConfiguration *)self swiftObject];
   [swiftObject setLocalizedAlertViewDeclineButtonTitle:titleCopy];
+}
+
+- (void)setSkipsPrompt:(BOOL)prompt
+{
+  promptCopy = prompt;
+  self->_skipsPrompt = prompt;
+  swiftObject = [(FBKSLaunchConfiguration *)self swiftObject];
+  [swiftObject setToSkipPrompt:promptCopy];
+}
+
+- (void)setAlwaysUseRemoteAlertController:(BOOL)controller
+{
+  controllerCopy = controller;
+  self->_alwaysUseRemoteAlertController = controller;
+  swiftObject = [(FBKSLaunchConfiguration *)self swiftObject];
+  [swiftObject setAlwaysLaunchInRemoteAlert:controllerCopy];
+}
+
+- (void)setNotifyImmediately:(BOOL)immediately
+{
+  immediatelyCopy = immediately;
+  self->_notifyImmediately = immediately;
+  swiftObject = [(FBKSLaunchConfiguration *)self swiftObject];
+  [swiftObject setNotifyImmediately:immediatelyCopy];
 }
 
 @end

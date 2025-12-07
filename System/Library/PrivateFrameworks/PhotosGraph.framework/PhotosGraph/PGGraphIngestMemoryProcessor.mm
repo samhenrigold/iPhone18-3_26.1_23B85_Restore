@@ -17,7 +17,7 @@
 
 - (id)memoryGeneratorsForMemoryCategory:(unint64_t)category memoryGenerationContext:(id)context controller:(id)controller
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v9 = 1;
@@ -124,29 +124,29 @@ LABEL_29:
     case 0x11uLL:
 LABEL_5:
       v26 = +[PGMeaningAggregationMemoryGenerator allMeaningAggregationMemoryGeneratorClasses];
+      v58 = 0u;
       v59 = 0u;
       v60 = 0u;
       v61 = 0u;
-      v62 = 0u;
-      v27 = [v26 countByEnumeratingWithState:&v59 objects:v63 count:16];
+      v27 = [v26 countByEnumeratingWithState:&v58 objects:v62 count:16];
       if (v27)
       {
         v28 = v27;
-        v29 = *v60;
+        v29 = *v59;
         do
         {
           for (i = 0; i != v28; ++i)
           {
-            if (*v60 != v29)
+            if (*v59 != v29)
             {
               objc_enumerationMutation(v26);
             }
 
-            v31 = [objc_alloc(*(*(&v59 + 1) + 8 * i)) initWithMemoryGenerationContext:contextCopy];
+            v31 = [objc_alloc(*(*(&v58 + 1) + 8 * i)) initWithMemoryGenerationContext:contextCopy];
             [v8 addObject:v31];
           }
 
-          v28 = [v26 countByEnumeratingWithState:&v59 objects:v63 count:16];
+          v28 = [v26 countByEnumeratingWithState:&v58 objects:v62 count:16];
         }
 
         while (v28);
@@ -191,10 +191,10 @@ LABEL_5:
       v9 = 0;
 LABEL_14:
       v42 = +[PGTrendsMemoryGenerator trendsConfigurations];
-      v58 = [[PGTrendsMemoryGenerator alloc] initWithMemoryGenerationContext:contextCopy configurations:v42];
+      v57 = [[PGTrendsMemoryGenerator alloc] initWithMemoryGenerationContext:contextCopy configurations:v42];
       v43 = [[PGPersonTrendsMemoryGenerator alloc] initWithMemoryGenerationContext:contextCopy configurations:v42];
       v44 = [[PGLocationTrendsMemoryGenerator alloc] initWithMemoryGenerationContext:contextCopy configurations:v42];
-      [v8 addObject:v58];
+      [v8 addObject:v57];
       [v8 addObject:v43];
       [v8 addObject:v44];
       v45 = +[PGCLIPTrendsMemoryGenerator CLIPTrendsConfigurations];
@@ -223,8 +223,6 @@ LABEL_40:
       }
 
 LABEL_41:
-
-      v56 = *MEMORY[0x277D85DE8];
 
       return v8;
     case 0x12uLL:
@@ -316,7 +314,7 @@ LABEL_41:
 
 void __84__PGGraphIngestMemoryProcessor_existingMemoryNodeByUniqueMemoryIdentifierWithGraph___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 uniqueMemoryIdentifier];
   v5 = [*(*(a1 + 32) + 24) objectForKeyedSubscript:v4];
@@ -326,13 +324,13 @@ void __84__PGGraphIngestMemoryProcessor_existingMemoryNodeByUniqueMemoryIdentifi
     v7 = [*(v6 + 8) loggingConnection];
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v9 = 138412802;
-      v10 = v4;
-      v11 = 2112;
-      v12 = v5;
-      v13 = 2112;
-      v14 = v3;
-      _os_log_error_impl(&dword_22F0FC000, v7, OS_LOG_TYPE_ERROR, "Two memory nodes have the same unique identifier %@: %@, %@\n", &v9, 0x20u);
+      v8 = 138412802;
+      v9 = v4;
+      v10 = 2112;
+      v11 = v5;
+      v12 = 2112;
+      v13 = v3;
+      _os_log_error_impl(&dword_22F0FC000, v7, OS_LOG_TYPE_ERROR, "Two memory nodes have the same unique identifier %@: %@, %@\n", &v8, 0x20u);
     }
   }
 
@@ -340,13 +338,11 @@ void __84__PGGraphIngestMemoryProcessor_existingMemoryNodeByUniqueMemoryIdentifi
   {
     [*(v6 + 24) setObject:v3 forKeyedSubscript:v4];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)insertMemoriesForCategories:(id)categories processingWindow:(id)window loggingConnection:(id)connection progressBlock:(id)block
 {
-  v196 = *MEMORY[0x277D85DE8];
+  v195 = *MEMORY[0x277D85DE8];
   categoriesCopy = categories;
   windowCopy = window;
   connectionCopy = connection;
@@ -359,7 +355,7 @@ void __84__PGGraphIngestMemoryProcessor_existingMemoryNodeByUniqueMemoryIdentifi
     _os_log_impl(&dword_22F0FC000, v10, OS_LOG_TYPE_DEFAULT, "[PGGraphIngestMemoryProcessor] Starting to insert memories for %d categories", buf, 8u);
   }
 
-  v110 = v10;
+  v109 = v10;
 
   graph = [(PGGraphBuilder *)self->_graphBuilder graph];
   if (!windowCopy)
@@ -367,157 +363,157 @@ void __84__PGGraphIngestMemoryProcessor_existingMemoryNodeByUniqueMemoryIdentifi
     [(PGGraphIngestMemoryProcessor *)self deleteWithMemoryCategories:categoriesCopy];
   }
 
-  v115 = self->_memoryController;
+  v114 = self->_memoryController;
   v11 = [PGMemoryGenerationContext alloc];
-  photoLibrary = [(PGMemoryController *)v115 photoLibrary];
+  photoLibrary = [(PGMemoryController *)v114 photoLibrary];
   curationContext = [(PGGraphBuilder *)self->_graphBuilder curationContext];
   userFeedbackCalculator = [curationContext userFeedbackCalculator];
   serviceManager = [(PGGraphBuilder *)self->_graphBuilder serviceManager];
-  v114 = [(PGMemoryGenerationContext *)v11 initWithPhotoLibrary:photoLibrary userFeedbackCalculator:userFeedbackCalculator graph:graph serviceManager:serviceManager loggingConnection:v110];
+  v113 = [(PGMemoryGenerationContext *)v11 initWithPhotoLibrary:photoLibrary userFeedbackCalculator:userFeedbackCalculator graph:graph serviceManager:serviceManager loggingConnection:v109];
 
-  [(PGMemoryController *)v115 setMemoryGenerationContext:v114];
-  v111 = _Block_copy(aBlock);
-  v119 = [MEMORY[0x277CBEB98] set];
+  [(PGMemoryController *)v114 setMemoryGenerationContext:v113];
+  v110 = _Block_copy(aBlock);
+  v118 = [MEMORY[0x277CBEB98] set];
   *buf = 0;
-  v193 = buf;
-  v194 = 0x2020000000;
-  v195 = 0;
-  v180 = 0;
-  v181 = &v180;
-  v182 = 0x2020000000;
-  v183 = 0;
-  if (v111 && (v16 = CFAbsoluteTimeGetCurrent(), v16 - v181[3] >= 0.01) && (v181[3] = v16, LOBYTE(info.numer) = 0, (*(v111 + 2))(v111, &info, 0.0), v17 = v193[24] | LOBYTE(info.numer), v193[24] = v17, (v17 & 1) != 0))
+  v192 = buf;
+  v193 = 0x2020000000;
+  v194 = 0;
+  v179 = 0;
+  v180 = &v179;
+  v181 = 0x2020000000;
+  v182 = 0;
+  if (v110 && (v16 = CFAbsoluteTimeGetCurrent(), v16 - v180[3] >= 0.01) && (v180[3] = v16, LOBYTE(info.numer) = 0, (*(v110 + 2))(v110, &info, 0.0), v17 = v192[24] | LOBYTE(info.numer), v192[24] = v17, (v17 & 1) != 0))
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
-      *v186 = 67109378;
-      *v187 = 300;
-      *&v187[4] = 2080;
-      *&v187[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGGraphIngestMemoryProcessor.m";
-      _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v186, 0x12u);
+      *v185 = 67109378;
+      *v186 = 300;
+      *&v186[4] = 2080;
+      *&v186[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGGraphIngestMemoryProcessor.m";
+      _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v185, 0x12u);
     }
 
-    v18 = v119;
+    v18 = v118;
   }
 
   else
   {
-    v19 = v110;
+    v19 = v109;
     v20 = os_signpost_id_generate(v19);
     v21 = v19;
     v22 = v21;
-    v104 = v20 - 1;
+    v103 = v20 - 1;
     spid = v20;
     if (v20 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v21))
     {
-      *v186 = 0;
-      _os_signpost_emit_with_name_impl(&dword_22F0FC000, v22, OS_SIGNPOST_INTERVAL_BEGIN, v20, "InsertMemories", "", v186, 2u);
+      *v185 = 0;
+      _os_signpost_emit_with_name_impl(&dword_22F0FC000, v22, OS_SIGNPOST_INTERVAL_BEGIN, v20, "InsertMemories", "", v185, 2u);
     }
 
     oslog = v22;
 
     info = 0;
     mach_timebase_info(&info);
-    v103 = mach_absolute_time();
+    v102 = mach_absolute_time();
     v23 = MEMORY[0x277D22C80];
-    v174[0] = MEMORY[0x277D85DD0];
-    v174[1] = 3221225472;
-    v174[2] = __109__PGGraphIngestMemoryProcessor_insertMemoriesForCategories_processingWindow_loggingConnection_progressBlock___block_invoke;
-    v174[3] = &unk_27888A188;
-    v122 = v111;
-    v175 = v122;
-    v176 = &v180;
-    v178 = 0x3F847AE147AE147BLL;
-    v177 = buf;
-    v106 = [v23 progressReporterWithProgressBlock:v174];
-    momentNodesWithBlockedFeatureCache = [(PGMemoryGenerationContext *)v114 momentNodesWithBlockedFeatureCache];
-    [momentNodesWithBlockedFeatureCache prefetchMomentNodesWithBlockedFeatureIfNeededInGraph:graph progressReporter:v106];
+    v173[0] = MEMORY[0x277D85DD0];
+    v173[1] = 3221225472;
+    v173[2] = __109__PGGraphIngestMemoryProcessor_insertMemoriesForCategories_processingWindow_loggingConnection_progressBlock___block_invoke;
+    v173[3] = &unk_27888A188;
+    v121 = v110;
+    v174 = v121;
+    v175 = &v179;
+    v177 = 0x3F847AE147AE147BLL;
+    v176 = buf;
+    v105 = [v23 progressReporterWithProgressBlock:v173];
+    momentNodesWithBlockedFeatureCache = [(PGMemoryGenerationContext *)v113 momentNodesWithBlockedFeatureCache];
+    [momentNodesWithBlockedFeatureCache prefetchMomentNodesWithBlockedFeatureIfNeededInGraph:graph progressReporter:v105];
 
-    if (v193[24] == 1)
+    if (v192[24] == 1)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
-        *v186 = 67109378;
-        *v187 = 308;
-        *&v187[4] = 2080;
-        *&v187[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGGraphIngestMemoryProcessor.m";
-        _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v186, 0x12u);
+        *v185 = 67109378;
+        *v186 = 308;
+        *&v186[4] = 2080;
+        *&v186[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGGraphIngestMemoryProcessor.m";
+        _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v185, 0x12u);
       }
 
-      v18 = v119;
+      v18 = v118;
     }
 
     else
     {
       v25 = [MEMORY[0x277CBEB58] set];
-      v172 = 0u;
-      v173 = 0u;
-      v170 = 0u;
       v171 = 0u;
+      v172 = 0u;
+      v169 = 0u;
+      v170 = 0u;
       obj = categoriesCopy;
-      v26 = [obj countByEnumeratingWithState:&v170 objects:v191 count:16];
-      v143 = v25;
+      v26 = [obj countByEnumeratingWithState:&v169 objects:v190 count:16];
+      v142 = v25;
       if (v26)
       {
-        v113 = *v171;
+        v112 = *v170;
         while (2)
         {
-          v118 = 0;
-          v112 = v26;
+          v117 = 0;
+          v111 = v26;
           do
           {
-            if (*v171 != v113)
+            if (*v170 != v112)
             {
               objc_enumerationMutation(obj);
             }
 
-            v27 = *(*(&v170 + 1) + 8 * v118);
+            v27 = *(*(&v169 + 1) + 8 * v117);
             context = objc_autoreleasePoolPush();
             unsignedIntValue = [v27 unsignedIntValue];
-            v121 = [MEMORY[0x277CD98D8] stringForCategory:unsignedIntValue];
+            v120 = [MEMORY[0x277CD98D8] stringForCategory:unsignedIntValue];
             if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
             {
-              *v186 = 138412290;
-              *v187 = v121;
-              _os_log_impl(&dword_22F0FC000, oslog, OS_LOG_TYPE_DEFAULT, "[PGGraphIngestMemoryProcessor] Starting to insert memories for category %@", v186, 0xCu);
+              *v185 = 138412290;
+              *v186 = v120;
+              _os_log_impl(&dword_22F0FC000, oslog, OS_LOG_TYPE_DEFAULT, "[PGGraphIngestMemoryProcessor] Starting to insert memories for category %@", v185, 0xCu);
             }
 
-            v117 = [(PGGraphIngestMemoryProcessor *)self memoryGeneratorsForMemoryCategory:unsignedIntValue memoryGenerationContext:v114 controller:v115];
-            v29 = [v117 count];
+            v116 = [(PGGraphIngestMemoryProcessor *)self memoryGeneratorsForMemoryCategory:unsignedIntValue memoryGenerationContext:v113 controller:v114];
+            v29 = [v116 count];
             if (v29)
             {
-              v168 = 0u;
-              v169 = 0u;
-              v166 = 0u;
               v167 = 0u;
-              v120 = v117;
+              v168 = 0u;
+              v165 = 0u;
+              v166 = 0u;
+              v119 = v116;
               v30 = oslog;
-              v124 = [v120 countByEnumeratingWithState:&v166 objects:v190 count:16];
-              if (v124)
+              v123 = [v119 countByEnumeratingWithState:&v165 objects:v189 count:16];
+              if (v123)
               {
                 v31 = 0.9 / v29;
-                v123 = *v167;
+                v122 = *v166;
                 v32 = 0.1;
                 while (2)
                 {
-                  for (i = 0; i != v124; ++i)
+                  for (i = 0; i != v123; ++i)
                   {
-                    if (*v167 != v123)
+                    if (*v166 != v122)
                     {
-                      objc_enumerationMutation(v120);
+                      objc_enumerationMutation(v119);
                     }
 
-                    v130 = *(*(&v166 + 1) + 8 * i);
+                    v129 = *(*(&v165 + 1) + 8 * i);
                     v33 = v30;
                     if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
                     {
                       v34 = objc_opt_class();
                       v35 = NSStringFromClass(v34);
-                      *v186 = 138412546;
-                      *v187 = v35;
-                      *&v187[8] = 2112;
-                      *&v187[10] = v121;
-                      _os_log_impl(&dword_22F0FC000, v33, OS_LOG_TYPE_INFO, "[PGGraphIngestMemoryProcessor] Starting to generate memories with %@ for category %@", v186, 0x16u);
+                      *v185 = 138412546;
+                      *v186 = v35;
+                      *&v186[8] = 2112;
+                      *&v186[10] = v120;
+                      _os_log_impl(&dword_22F0FC000, v33, OS_LOG_TYPE_INFO, "[PGGraphIngestMemoryProcessor] Starting to generate memories with %@ for category %@", v185, 0x16u);
                     }
 
                     v36 = v33;
@@ -526,35 +522,35 @@ void __84__PGGraphIngestMemoryProcessor_existingMemoryNodeByUniqueMemoryIdentifi
                     v39 = v38;
                     if (v37 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v38))
                     {
-                      *v186 = 0;
-                      _os_signpost_emit_with_name_impl(&dword_22F0FC000, v39, OS_SIGNPOST_INTERVAL_BEGIN, v37, "MemoryGeneration", "", v186, 2u);
+                      *v185 = 0;
+                      _os_signpost_emit_with_name_impl(&dword_22F0FC000, v39, OS_SIGNPOST_INTERVAL_BEGIN, v37, "MemoryGeneration", "", v185, 2u);
                     }
 
-                    v165 = 0;
-                    mach_timebase_info(&v165);
+                    v164 = 0;
+                    mach_timebase_info(&v164);
                     v40 = mach_absolute_time();
-                    v158[0] = MEMORY[0x277D85DD0];
-                    v158[1] = 3221225472;
-                    v158[2] = __109__PGGraphIngestMemoryProcessor_insertMemoriesForCategories_processingWindow_loggingConnection_progressBlock___block_invoke_295;
-                    v158[3] = &unk_278886858;
-                    v162 = v32;
-                    v163 = v31;
-                    v159 = v122;
-                    v160 = &v180;
-                    v164 = 0x3F847AE147AE147BLL;
-                    v161 = buf;
-                    v129 = [v130 generatePotentialMemoriesForProcessingWindow:windowCopy graph:graph progressBlock:v158];
+                    v157[0] = MEMORY[0x277D85DD0];
+                    v157[1] = 3221225472;
+                    v157[2] = __109__PGGraphIngestMemoryProcessor_insertMemoriesForCategories_processingWindow_loggingConnection_progressBlock___block_invoke_295;
+                    v157[3] = &unk_278886858;
+                    v161 = v32;
+                    v162 = v31;
+                    v158 = v121;
+                    v159 = &v179;
+                    v163 = 0x3F847AE147AE147BLL;
+                    v160 = buf;
+                    v128 = [v129 generatePotentialMemoriesForProcessingWindow:windowCopy graph:graph progressBlock:v157];
                     v41 = mach_absolute_time();
-                    v42 = v165;
+                    v42 = v164;
                     v43 = v39;
                     v44 = v43;
                     if (v37 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v43))
                     {
                       v45 = objc_opt_class();
                       v46 = NSStringFromClass(v45);
-                      *v186 = 138412290;
-                      *v187 = v46;
-                      _os_signpost_emit_with_name_impl(&dword_22F0FC000, v44, OS_SIGNPOST_INTERVAL_END, v37, "MemoryGeneration", "Memory Generator: %@", v186, 0xCu);
+                      *v185 = 138412290;
+                      *v186 = v46;
+                      _os_signpost_emit_with_name_impl(&dword_22F0FC000, v44, OS_SIGNPOST_INTERVAL_END, v37, "MemoryGeneration", "Memory Generator: %@", v185, 0xCu);
                     }
 
                     log = v44;
@@ -564,157 +560,157 @@ void __84__PGGraphIngestMemoryProcessor_existingMemoryNodeByUniqueMemoryIdentifi
                       v48 = objc_opt_class();
                       v49 = NSStringFromClass(v48);
                       v50 = [v47 stringWithFormat:@"Memory Generator: %@", v49];
-                      *v186 = 136315650;
-                      *v187 = "MemoryGeneration";
-                      *&v187[8] = 2112;
-                      *&v187[10] = v50;
-                      v188 = 2048;
-                      v189 = ((((v41 - v40) * v42.numer) / v42.denom) / 1000000.0);
-                      _os_log_impl(&dword_22F0FC000, log, OS_LOG_TYPE_INFO, "[Performance] %s - %@: %f ms", v186, 0x20u);
+                      *v185 = 136315650;
+                      *v186 = "MemoryGeneration";
+                      *&v186[8] = 2112;
+                      *&v186[10] = v50;
+                      v187 = 2048;
+                      v188 = ((((v41 - v40) * v42.numer) / v42.denom) / 1000000.0);
+                      _os_log_impl(&dword_22F0FC000, log, OS_LOG_TYPE_INFO, "[Performance] %s - %@: %f ms", v185, 0x20u);
                     }
 
-                    v126 = v193[24];
-                    if (v126 == 1)
+                    v125 = v192[24];
+                    if (v125 == 1)
                     {
                       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
                       {
-                        *v186 = 67109378;
-                        *v187 = 334;
-                        *&v187[4] = 2080;
-                        *&v187[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGGraphIngestMemoryProcessor.m";
-                        _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v186, 0x12u);
+                        *v185 = 67109378;
+                        *v186 = 334;
+                        *&v186[4] = 2080;
+                        *&v186[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGGraphIngestMemoryProcessor.m";
+                        _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v185, 0x12u);
                       }
 
-                      v51 = v119;
+                      v51 = v118;
                     }
 
                     else
                     {
-                      v135 = log;
-                      if (os_log_type_enabled(v135, OS_LOG_TYPE_DEFAULT))
+                      v134 = log;
+                      if (os_log_type_enabled(v134, OS_LOG_TYPE_DEFAULT))
                       {
                         v52 = objc_opt_class();
                         v53 = NSStringFromClass(v52);
-                        v54 = [v129 count];
-                        *v186 = 138412546;
-                        *v187 = v53;
-                        *&v187[8] = 1024;
-                        *&v187[10] = v54;
-                        _os_log_impl(&dword_22F0FC000, v135, OS_LOG_TYPE_DEFAULT, "[PGGraphIngestMemoryProcessor] %@ generated %d potential Memories", v186, 0x12u);
+                        v54 = [v128 count];
+                        *v185 = 138412546;
+                        *v186 = v53;
+                        *&v186[8] = 1024;
+                        *&v186[10] = v54;
+                        _os_log_impl(&dword_22F0FC000, v134, OS_LOG_TYPE_DEFAULT, "[PGGraphIngestMemoryProcessor] %@ generated %d potential Memories", v185, 0x12u);
                       }
 
-                      v142 = objc_alloc_init(MEMORY[0x277D22C50]);
-                      v139 = objc_alloc_init(MEMORY[0x277CBEB58]);
-                      v133 = objc_alloc_init(MEMORY[0x277CBEB18]);
+                      v141 = objc_alloc_init(MEMORY[0x277D22C50]);
+                      v138 = objc_alloc_init(MEMORY[0x277CBEB58]);
                       v132 = objc_alloc_init(MEMORY[0x277CBEB18]);
+                      v131 = objc_alloc_init(MEMORY[0x277CBEB18]);
                       if (windowCopy)
                       {
-                        v137 = [(PGGraphIngestMemoryProcessor *)self existingMemoryNodeByUniqueMemoryIdentifierWithGraph:graph];
-                        v134 = [(PGGraphIngestMemoryProcessor *)self momentNodesByMemoryNodeAdjancyWithGraph:graph];
-                        v156 = 0u;
-                        v157 = 0u;
-                        v154 = 0u;
+                        v136 = [(PGGraphIngestMemoryProcessor *)self existingMemoryNodeByUniqueMemoryIdentifierWithGraph:graph];
+                        v133 = [(PGGraphIngestMemoryProcessor *)self momentNodesByMemoryNodeAdjancyWithGraph:graph];
                         v155 = 0u;
-                        v136 = v129;
-                        v55 = [v136 countByEnumeratingWithState:&v154 objects:v185 count:16];
+                        v156 = 0u;
+                        v153 = 0u;
+                        v154 = 0u;
+                        v135 = v128;
+                        v55 = [v135 countByEnumeratingWithState:&v153 objects:v184 count:16];
                         if (v55)
                         {
-                          v138 = *v155;
+                          v137 = *v154;
                           do
                           {
                             for (j = 0; j != v55; ++j)
                             {
-                              if (*v155 != v138)
+                              if (*v154 != v137)
                               {
-                                objc_enumerationMutation(v136);
+                                objc_enumerationMutation(v135);
                               }
 
-                              v57 = *(*(&v154 + 1) + 8 * j);
+                              v57 = *(*(&v153 + 1) + 8 * j);
                               memoryCategory = [v57 memoryCategory];
                               v59 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:memoryCategory];
-                              [v139 addObject:v59];
+                              [v138 addObject:v59];
 
                               v60 = [v57 memoryFeatureNodesInGraph:graph];
                               if ([v60 count])
                               {
                                 v61 = [PGGraphBuilder memoryLabelForCategory:memoryCategory];
                                 v62 = [PGGraphMemoryNode uniqueMemoryIdentifierWithMemoryLabel:v61 featureNodes:v60];
-                                v63 = [v137 objectForKeyedSubscript:v62];
+                                v63 = [v136 objectForKeyedSubscript:v62];
                                 v64 = v63;
                                 if (v63)
                                 {
                                   collection = [v63 collection];
-                                  v66 = [v134 targetsForSources:collection];
+                                  v66 = [v133 targetsForSources:collection];
 
                                   LODWORD(collection) = [v57 generatedWithFallbackRequirements];
                                   if (collection == [v64 generatedWithFallbackRequirements] && (objc_msgSend(v57, "memoryMomentNodes"), v67 = objc_claimAutoreleasedReturnValue(), v68 = objc_msgSend(v67, "isEqual:", v66), v67, v68))
                                   {
-                                    [v132 addObject:v57];
-                                    [v143 addObject:v62];
+                                    [v131 addObject:v57];
+                                    [v142 addObject:v62];
                                   }
 
                                   else
                                   {
-                                    [v133 addObject:v64];
+                                    [v132 addObject:v64];
                                   }
                                 }
                               }
 
-                              else if (os_log_type_enabled(v135, OS_LOG_TYPE_ERROR))
+                              else if (os_log_type_enabled(v134, OS_LOG_TYPE_ERROR))
                               {
-                                *v186 = 0;
-                                _os_log_error_impl(&dword_22F0FC000, v135, OS_LOG_TYPE_ERROR, "[PGGraphIngestMemoryProcessor] Attempting to insert memory with no feature nodes", v186, 2u);
+                                *v185 = 0;
+                                _os_log_error_impl(&dword_22F0FC000, v134, OS_LOG_TYPE_ERROR, "[PGGraphIngestMemoryProcessor] Attempting to insert memory with no feature nodes", v185, 2u);
                               }
                             }
 
-                            v55 = [v136 countByEnumeratingWithState:&v154 objects:v185 count:16];
+                            v55 = [v135 countByEnumeratingWithState:&v153 objects:v184 count:16];
                           }
 
                           while (v55);
                         }
 
-                        v69 = v135;
+                        v69 = v134;
                         if (os_log_type_enabled(v69, OS_LOG_TYPE_DEFAULT))
                         {
                           v70 = objc_opt_class();
                           v71 = NSStringFromClass(v70);
-                          v72 = [v132 count];
-                          *&v73 = COERCE_DOUBLE([v133 count]);
-                          *v186 = 138412802;
-                          *v187 = v71;
-                          *&v187[8] = 2048;
-                          *&v187[10] = v72;
-                          v188 = 2048;
-                          v189 = *&v73;
-                          _os_log_impl(&dword_22F0FC000, v69, OS_LOG_TYPE_DEFAULT, "[PGGraphIngestMemoryProcessor] %@: %tu potential Memories to skip ingest, %tu memory nodes to remove", v186, 0x20u);
+                          v72 = [v131 count];
+                          *&v73 = COERCE_DOUBLE([v132 count]);
+                          *v185 = 138412802;
+                          *v186 = v71;
+                          *&v186[8] = 2048;
+                          *&v186[10] = v72;
+                          v187 = 2048;
+                          v188 = *&v73;
+                          _os_log_impl(&dword_22F0FC000, v69, OS_LOG_TYPE_DEFAULT, "[PGGraphIngestMemoryProcessor] %@: %tu potential Memories to skip ingest, %tu memory nodes to remove", v185, 0x20u);
                         }
                       }
 
-                      v74 = [v129 arrayByExcludingObjectsInArray:v132];
-                      v152 = 0u;
-                      v153 = 0u;
-                      v150 = 0u;
+                      v74 = [v128 arrayByExcludingObjectsInArray:v131];
                       v151 = 0u;
+                      v152 = 0u;
+                      v149 = 0u;
+                      v150 = 0u;
                       v75 = v74;
-                      v76 = [v75 countByEnumeratingWithState:&v150 objects:v184 count:16];
+                      v76 = [v75 countByEnumeratingWithState:&v149 objects:v183 count:16];
                       if (v76)
                       {
-                        v77 = *v151;
+                        v77 = *v150;
                         do
                         {
                           for (k = 0; k != v76; ++k)
                           {
-                            if (*v151 != v77)
+                            if (*v150 != v77)
                             {
                               objc_enumerationMutation(v75);
                             }
 
-                            v79 = [(PGGraphBuilder *)self->_graphBuilder insertMemoryNodeFromMemory:*(*(&v150 + 1) + 8 * k) changeRequest:v142];
+                            v79 = [(PGGraphBuilder *)self->_graphBuilder insertMemoryNodeFromMemory:*(*(&v149 + 1) + 8 * k) changeRequest:v141];
                             uniqueMemoryIdentifier = [v79 uniqueMemoryIdentifier];
-                            [v143 addObject:uniqueMemoryIdentifier];
+                            [v142 addObject:uniqueMemoryIdentifier];
                           }
 
-                          v76 = [v75 countByEnumeratingWithState:&v150 objects:v184 count:16];
+                          v76 = [v75 countByEnumeratingWithState:&v149 objects:v183 count:16];
                         }
 
                         while (v76);
@@ -725,45 +721,45 @@ void __84__PGGraphIngestMemoryProcessor_existingMemoryNodeByUniqueMemoryIdentifi
                         v81 = [(PGGraphIngestMemoryProcessor *)self existingMemoryNodeByUniqueMemoryIdentifierWithGraph:graph];
                         v82 = objc_alloc_init(MEMORY[0x277CBEB18]);
                         v83 = [(PGGraphIngestMemoryProcessor *)self momentNodesByMemoryNodeAdjancyWithGraph:graph];
-                        v144[0] = MEMORY[0x277D85DD0];
-                        v144[1] = 3221225472;
-                        v144[2] = __109__PGGraphIngestMemoryProcessor_insertMemoriesForCategories_processingWindow_loggingConnection_progressBlock___block_invoke_305;
-                        v144[3] = &unk_2788822B8;
-                        v145 = v143;
-                        v146 = v139;
+                        v143[0] = MEMORY[0x277D85DD0];
+                        v143[1] = 3221225472;
+                        v143[2] = __109__PGGraphIngestMemoryProcessor_insertMemoriesForCategories_processingWindow_loggingConnection_progressBlock___block_invoke_305;
+                        v143[3] = &unk_2788822B8;
+                        v144 = v142;
+                        v145 = v138;
                         v84 = v83;
-                        v147 = v84;
-                        v148 = windowCopy;
+                        v146 = v84;
+                        v147 = windowCopy;
                         v85 = v82;
-                        v149 = v85;
-                        [v81 enumerateKeysAndObjectsUsingBlock:v144];
-                        [v133 addObjectsFromArray:v85];
-                        v86 = v135;
+                        v148 = v85;
+                        [v81 enumerateKeysAndObjectsUsingBlock:v143];
+                        [v132 addObjectsFromArray:v85];
+                        v86 = v134;
                         if (os_log_type_enabled(v86, OS_LOG_TYPE_DEFAULT))
                         {
                           v87 = objc_opt_class();
                           v88 = NSStringFromClass(v87);
                           v89 = [v85 count];
-                          *v186 = 138412546;
-                          *v187 = v88;
-                          *&v187[8] = 2048;
-                          *&v187[10] = v89;
-                          _os_log_impl(&dword_22F0FC000, v86, OS_LOG_TYPE_DEFAULT, "[PGGraphIngestMemoryProcessor] %@: %tu memory nodes to remove (not existing anymore)", v186, 0x16u);
+                          *v185 = 138412546;
+                          *v186 = v88;
+                          *&v186[8] = 2048;
+                          *&v186[10] = v89;
+                          _os_log_impl(&dword_22F0FC000, v86, OS_LOG_TYPE_DEFAULT, "[PGGraphIngestMemoryProcessor] %@: %tu memory nodes to remove (not existing anymore)", v185, 0x16u);
                         }
 
-                        if ([v133 count])
+                        if ([v132 count])
                         {
-                          v90 = [objc_alloc(MEMORY[0x277D22C70]) initWithArray:v133 graph:graph];
-                          [v142 removeNodes:v90];
+                          v90 = [objc_alloc(MEMORY[0x277D22C70]) initWithArray:v132 graph:graph];
+                          [v141 removeNodes:v90];
                         }
                       }
 
-                      [graph executeGraphChangeRequest:v142];
+                      [graph executeGraphChangeRequest:v141];
 
                       v32 = v31 + v32;
                     }
 
-                    if (v126)
+                    if (v125)
                     {
                       v91 = 1;
                       goto LABEL_90;
@@ -772,8 +768,8 @@ void __84__PGGraphIngestMemoryProcessor_existingMemoryNodeByUniqueMemoryIdentifi
                     v30 = oslog;
                   }
 
-                  v124 = [v120 countByEnumeratingWithState:&v166 objects:v190 count:16];
-                  if (v124)
+                  v123 = [v119 countByEnumeratingWithState:&v165 objects:v189 count:16];
+                  if (v123)
                   {
                     continue;
                   }
@@ -790,9 +786,9 @@ LABEL_90:
             {
               if (os_log_type_enabled(oslog, OS_LOG_TYPE_ERROR))
               {
-                *v186 = 134217984;
-                *v187 = unsignedIntValue;
-                _os_log_error_impl(&dword_22F0FC000, oslog, OS_LOG_TYPE_ERROR, "[PGGraphIngestMemoryProcessor] No memory generators found for memory category %lu", v186, 0xCu);
+                *v185 = 134217984;
+                *v186 = unsignedIntValue;
+                _os_log_error_impl(&dword_22F0FC000, oslog, OS_LOG_TYPE_ERROR, "[PGGraphIngestMemoryProcessor] No memory generators found for memory category %lu", v185, 0xCu);
               }
 
               v91 = 3;
@@ -802,16 +798,16 @@ LABEL_90:
             if (v91 != 3 && v91)
             {
 
-              v18 = v119;
-              v97 = v143;
+              v18 = v118;
+              v97 = v142;
               goto LABEL_109;
             }
 
-            ++v118;
+            ++v117;
           }
 
-          while (v118 != v112);
-          v26 = [obj countByEnumeratingWithState:&v170 objects:v191 count:16];
+          while (v117 != v111);
+          v26 = [obj countByEnumeratingWithState:&v169 objects:v190 count:16];
           if (v26)
           {
             continue;
@@ -826,39 +822,39 @@ LABEL_90:
       denom = info.denom;
       v95 = oslog;
       v96 = v95;
-      if (v104 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v95))
+      if (v103 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v95))
       {
-        *v186 = 0;
-        _os_signpost_emit_with_name_impl(&dword_22F0FC000, v96, OS_SIGNPOST_INTERVAL_END, spid, "InsertMemories", "", v186, 2u);
+        *v185 = 0;
+        _os_signpost_emit_with_name_impl(&dword_22F0FC000, v96, OS_SIGNPOST_INTERVAL_END, spid, "InsertMemories", "", v185, 2u);
       }
 
       if (os_log_type_enabled(v96, OS_LOG_TYPE_INFO))
       {
-        *v186 = 136315394;
-        *v187 = "InsertMemories";
-        *&v187[8] = 2048;
-        *&v187[10] = ((((v92 - v103) * numer) / denom) / 1000000.0);
-        _os_log_impl(&dword_22F0FC000, v96, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", v186, 0x16u);
+        *v185 = 136315394;
+        *v186 = "InsertMemories";
+        *&v186[8] = 2048;
+        *&v186[10] = ((((v92 - v102) * numer) / denom) / 1000000.0);
+        _os_log_impl(&dword_22F0FC000, v96, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", v185, 0x16u);
       }
 
-      v97 = v143;
-      if (v111 && (Current = CFAbsoluteTimeGetCurrent(), Current - v181[3] >= 0.01) && (v181[3] = Current, LOBYTE(v165.numer) = 0, (*(v122 + 2))(v122, &v165, 1.0), v99 = v193[24] | LOBYTE(v165.numer), v193[24] = v99, (v99 & 1) != 0))
+      v97 = v142;
+      if (v110 && (Current = CFAbsoluteTimeGetCurrent(), Current - v180[3] >= 0.01) && (v180[3] = Current, LOBYTE(v164.numer) = 0, (*(v121 + 2))(v121, &v164, 1.0), v99 = v192[24] | LOBYTE(v164.numer), v192[24] = v99, (v99 & 1) != 0))
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
         {
-          *v186 = 67109378;
-          *v187 = 423;
-          *&v187[4] = 2080;
-          *&v187[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGGraphIngestMemoryProcessor.m";
-          _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v186, 0x12u);
+          *v185 = 67109378;
+          *v186 = 423;
+          *&v186[4] = 2080;
+          *&v186[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGGraphIngestMemoryProcessor.m";
+          _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v185, 0x12u);
         }
 
-        v100 = v119;
+        v100 = v118;
       }
 
       else
       {
-        v100 = v143;
+        v100 = v142;
       }
 
       v18 = v100;
@@ -866,10 +862,8 @@ LABEL_109:
     }
   }
 
-  _Block_object_dispose(&v180, 8);
+  _Block_object_dispose(&v179, 8);
   _Block_object_dispose(buf, 8);
-
-  v101 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
@@ -959,7 +953,7 @@ void __109__PGGraphIngestMemoryProcessor_insertMemoriesForCategories_processingW
 
 - (void)deleteWithMemoryCategories:(id)categories
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   categoriesCopy = categories;
   if ([categoriesCopy containsObject:&unk_284483300])
   {
@@ -969,31 +963,31 @@ void __109__PGGraphIngestMemoryProcessor_insertMemoriesForCategories_processingW
   else
   {
     v5 = objc_alloc_init(MEMORY[0x277CCAB58]);
+    v11 = 0u;
     v12 = 0u;
     v13 = 0u;
     v14 = 0u;
-    v15 = 0u;
     v6 = categoriesCopy;
-    v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v13;
+      v9 = *v12;
       do
       {
         v10 = 0;
         do
         {
-          if (*v13 != v9)
+          if (*v12 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          [v5 addIndex:{objc_msgSend(*(*(&v12 + 1) + 8 * v10++), "unsignedIntValue", v12)}];
+          [v5 addIndex:{objc_msgSend(*(*(&v11 + 1) + 8 * v10++), "unsignedIntValue", v11)}];
         }
 
         while (v8 != v10);
-        v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v8);
@@ -1001,13 +995,11 @@ void __109__PGGraphIngestMemoryProcessor_insertMemoriesForCategories_processingW
 
     [(PGGraphBuilder *)self->_graphBuilder deleteAllMemoryNodesAndEdgesForMemoryCategories:v5];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)insertProcessorDependentMomentFeaturesForMomentNodes:(id)nodes featureProvider:(id)provider progressBlock:(id)block
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   nodesCopy = nodes;
   providerCopy = provider;
   blockCopy = block;
@@ -1015,27 +1007,27 @@ void __109__PGGraphIngestMemoryProcessor_insertMemoriesForCategories_processingW
   if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    v43 = [nodesCopy count];
+    v42 = [nodesCopy count];
     _os_log_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_DEFAULT, "[PGGraphIngestMemoryProcessor] Starting to insert processor-dependent features for %d moments", buf, 8u);
   }
 
   v11 = 0.0;
-  v36 = _Block_copy(blockCopy);
-  if (v36)
+  v35 = _Block_copy(blockCopy);
+  if (v35)
   {
     Current = CFAbsoluteTimeGetCurrent();
     if (Current >= 0.01)
     {
-      v41 = 0;
-      v36[2](v36, &v41, 0.0);
-      if (v41 == 1)
+      v40 = 0;
+      v35[2](v35, &v40, 0.0);
+      if (v40 == 1)
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
         {
           *buf = 67109378;
-          v43 = 158;
-          v44 = 2080;
-          v45[0] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGGraphIngestMemoryProcessor.m";
+          v42 = 158;
+          v43 = 2080;
+          v44[0] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGGraphIngestMemoryProcessor.m";
           v13 = MEMORY[0x277D86220];
 LABEL_29:
           _os_log_impl(&dword_22F0FC000, v13, OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
@@ -1052,53 +1044,53 @@ LABEL_29:
   oslog = loggingConnection;
   v14 = [nodesCopy count];
   v15 = CFAbsoluteTimeGetCurrent();
+  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
-  v32 = nodesCopy;
+  v31 = nodesCopy;
   obj = nodesCopy;
-  v16 = [obj countByEnumeratingWithState:&v37 objects:v46 count:16];
+  v16 = [obj countByEnumeratingWithState:&v36 objects:v45 count:16];
   if (v16)
   {
     v17 = v16;
     v18 = 0;
     v19 = 1.0 / v14;
-    v20 = *v38;
+    v20 = *v37;
     v21 = 0.0;
     while (2)
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v38 != v20)
+        if (*v37 != v20)
         {
           objc_enumerationMutation(obj);
         }
 
-        v23 = *(*(&v37 + 1) + 8 * i);
+        v23 = *(*(&v36 + 1) + 8 * i);
         v24 = objc_autoreleasePoolPush();
-        if (v36)
+        if (v35)
         {
           v25 = CFAbsoluteTimeGetCurrent();
           if (v25 - v11 >= 0.01)
           {
-            v41 = 0;
-            v36[2](v36, &v41, v21);
-            if (v41)
+            v40 = 0;
+            v35[2](v35, &v40, v21);
+            if (v40)
             {
               if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
               {
                 *buf = 67109378;
-                v43 = 166;
-                v44 = 2080;
-                v45[0] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGGraphIngestMemoryProcessor.m";
+                v42 = 166;
+                v43 = 2080;
+                v44[0] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGGraphIngestMemoryProcessor.m";
                 _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
               }
 
               objc_autoreleasePoolPop(v24);
 
-              blockCopy = v31;
-              nodesCopy = v32;
+              blockCopy = v30;
+              nodesCopy = v31;
               loggingConnection = oslog;
               goto LABEL_33;
             }
@@ -1113,11 +1105,11 @@ LABEL_29:
           if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEBUG))
           {
             *buf = 67109632;
-            v43 = v18;
-            v44 = 1024;
-            LODWORD(v45[0]) = 25;
-            WORD2(v45[0]) = 2048;
-            *(v45 + 6) = v26 - v15;
+            v42 = v18;
+            v43 = 1024;
+            LODWORD(v44[0]) = 25;
+            WORD2(v44[0]) = 2048;
+            *(v44 + 6) = v26 - v15;
             _os_log_debug_impl(&dword_22F0FC000, oslog, OS_LOG_TYPE_DEBUG, "[PGGraphIngestMemoryProcessor] Processed %d moments, batch of %d took %.2f seconds", buf, 0x18u);
           }
 
@@ -1134,7 +1126,7 @@ LABEL_29:
         objc_autoreleasePoolPop(v24);
       }
 
-      v17 = [obj countByEnumeratingWithState:&v37 objects:v46 count:16];
+      v17 = [obj countByEnumeratingWithState:&v36 objects:v45 count:16];
       if (v17)
       {
         continue;
@@ -1144,23 +1136,23 @@ LABEL_29:
     }
   }
 
-  blockCopy = v31;
-  nodesCopy = v32;
+  blockCopy = v30;
+  nodesCopy = v31;
   loggingConnection = oslog;
-  if (v36)
+  if (v35)
   {
     if (CFAbsoluteTimeGetCurrent() - v11 >= 0.01)
     {
-      v41 = 0;
-      v36[2](v36, &v41, 1.0);
-      if (v41)
+      v40 = 0;
+      v35[2](v35, &v40, 1.0);
+      if (v40)
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
         {
           *buf = 67109378;
-          v43 = 179;
-          v44 = 2080;
-          v45[0] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGGraphIngestMemoryProcessor.m";
+          v42 = 179;
+          v43 = 2080;
+          v44[0] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGGraphIngestMemoryProcessor.m";
           v13 = MEMORY[0x277D86220];
           goto LABEL_29;
         }
@@ -1169,28 +1161,26 @@ LABEL_29:
   }
 
 LABEL_33:
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)runWithGraphUpdate:(id)update progressBlock:(id)block
 {
-  *(&v66[2] + 4) = *MEMORY[0x277D85DE8];
+  *(&v65[2] + 4) = *MEMORY[0x277D85DE8];
   updateCopy = update;
   blockCopy = block;
-  v61 = 0;
-  v62 = &v61;
-  v63 = 0x2020000000;
-  v64 = 0;
-  v57 = 0;
-  v58 = &v57;
-  v59 = 0x2020000000;
   v60 = 0;
-  v38 = _Block_copy(blockCopy);
-  if (!v38 || (v7 = CFAbsoluteTimeGetCurrent(), v7 - v58[3] < 0.01) || (v58[3] = v7, LOBYTE(info.numer) = 0, (*(v38 + 2))(v38, &info, 0.0), v8 = *(v62 + 24) | LOBYTE(info.numer), *(v62 + 24) = v8, (v8 & 1) == 0))
+  v61 = &v60;
+  v62 = 0x2020000000;
+  v63 = 0;
+  v56 = 0;
+  v57 = &v56;
+  v58 = 0x2020000000;
+  v59 = 0;
+  v37 = _Block_copy(blockCopy);
+  if (!v37 || (v7 = CFAbsoluteTimeGetCurrent(), v7 - v57[3] < 0.01) || (v57[3] = v7, LOBYTE(info.numer) = 0, (*(v37 + 2))(v37, &info, 0.0), v8 = *(v61 + 24) | LOBYTE(info.numer), *(v61 + 24) = v8, (v8 & 1) == 0))
   {
     graph = [(PGGraphBuilder *)self->_graphBuilder graph];
-    v35 = [objc_opt_class() memoryCategoriesWithGraphUpdate:updateCopy];
+    v34 = [objc_opt_class() memoryCategoriesWithGraphUpdate:updateCopy];
     if (updateCopy && ([updateCopy isResumingFullAnalysis] & 1) == 0)
     {
       momentChangesDateInterval = [updateCopy momentChangesDateInterval];
@@ -1216,26 +1206,26 @@ LABEL_33:
 
     info = 0;
     mach_timebase_info(&info);
-    v32 = mach_absolute_time();
+    v31 = mach_absolute_time();
     graphBuilder = self->_graphBuilder;
-    v51[0] = MEMORY[0x277D85DD0];
-    v51[1] = 3221225472;
-    v51[2] = __65__PGGraphIngestMemoryProcessor_runWithGraphUpdate_progressBlock___block_invoke;
-    v51[3] = &unk_27888A188;
-    v15 = v38;
-    v52 = v15;
-    v53 = &v57;
-    v54 = &v61;
-    v55 = 0x3F847AE147AE147BLL;
-    v37 = [(PGGraphBuilder *)graphBuilder featureProviderWithProgressBlock:v51];
-    if (*(v62 + 24) == 1)
+    v50[0] = MEMORY[0x277D85DD0];
+    v50[1] = 3221225472;
+    v50[2] = __65__PGGraphIngestMemoryProcessor_runWithGraphUpdate_progressBlock___block_invoke;
+    v50[3] = &unk_27888A188;
+    v15 = v37;
+    v51 = v15;
+    v52 = &v56;
+    v53 = &v60;
+    v54 = 0x3F847AE147AE147BLL;
+    v36 = [(PGGraphBuilder *)graphBuilder featureProviderWithProgressBlock:v50];
+    if (*(v61 + 24) == 1)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
         buf = 67109378;
-        LODWORD(v66[0]) = 120;
-        WORD2(v66[0]) = 2080;
-        *(v66 + 6) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGGraphIngestMemoryProcessor.m";
+        LODWORD(v65[0]) = 120;
+        WORD2(v65[0]) = 2080;
+        *(v65 + 6) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGGraphIngestMemoryProcessor.m";
         _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", &buf, 0x12u);
       }
 
@@ -1243,44 +1233,44 @@ LABEL_33:
     }
 
     insertedMomentNodes = [updateCopy insertedMomentNodes];
-    v46[0] = MEMORY[0x277D85DD0];
-    v46[1] = 3221225472;
-    v46[2] = __65__PGGraphIngestMemoryProcessor_runWithGraphUpdate_progressBlock___block_invoke_226;
-    v46[3] = &unk_27888A188;
+    v45[0] = MEMORY[0x277D85DD0];
+    v45[1] = 3221225472;
+    v45[2] = __65__PGGraphIngestMemoryProcessor_runWithGraphUpdate_progressBlock___block_invoke_226;
+    v45[3] = &unk_27888A188;
     v17 = v15;
-    v47 = v17;
-    v48 = &v57;
-    v50 = 0x3F847AE147AE147BLL;
-    v49 = &v61;
-    [(PGGraphIngestMemoryProcessor *)self insertProcessorDependentMomentFeaturesForMomentNodes:insertedMomentNodes featureProvider:v37 progressBlock:v46];
+    v46 = v17;
+    v47 = &v56;
+    v49 = 0x3F847AE147AE147BLL;
+    v48 = &v60;
+    [(PGGraphIngestMemoryProcessor *)self insertProcessorDependentMomentFeaturesForMomentNodes:insertedMomentNodes featureProvider:v36 progressBlock:v45];
 
-    if (*(v62 + 24) == 1)
+    if (*(v61 + 24) == 1)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
         buf = 67109378;
-        LODWORD(v66[0]) = 126;
-        WORD2(v66[0]) = 2080;
-        *(v66 + 6) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGGraphIngestMemoryProcessor.m";
+        LODWORD(v65[0]) = 126;
+        WORD2(v65[0]) = 2080;
+        *(v65 + 6) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGGraphIngestMemoryProcessor.m";
         _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", &buf, 0x12u);
       }
 
       goto LABEL_38;
     }
 
-    v18 = [v35 count];
-    v40[0] = MEMORY[0x277D85DD0];
-    v40[1] = 3221225472;
-    v40[2] = __65__PGGraphIngestMemoryProcessor_runWithGraphUpdate_progressBlock___block_invoke_227;
-    v40[3] = &unk_27888A1B0;
-    v44 = 0.6 / v18;
-    v31 = v17;
-    v41 = v31;
-    v42 = &v57;
-    v45 = 0x3F847AE147AE147BLL;
-    v43 = &v61;
-    v19 = [(PGGraphIngestMemoryProcessor *)self insertMemoriesForCategories:v35 processingWindow:momentChangesDateInterval loggingConnection:v13 progressBlock:v40];
-    if (*(v62 + 24) == 1)
+    v18 = [v34 count];
+    v39[0] = MEMORY[0x277D85DD0];
+    v39[1] = 3221225472;
+    v39[2] = __65__PGGraphIngestMemoryProcessor_runWithGraphUpdate_progressBlock___block_invoke_227;
+    v39[3] = &unk_27888A1B0;
+    v43 = 0.6 / v18;
+    v30 = v17;
+    v40 = v30;
+    v41 = &v56;
+    v44 = 0x3F847AE147AE147BLL;
+    v42 = &v60;
+    v19 = [(PGGraphIngestMemoryProcessor *)self insertMemoriesForCategories:v34 processingWindow:momentChangesDateInterval loggingConnection:v13 progressBlock:v39];
+    if (*(v61 + 24) == 1)
     {
       if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
@@ -1293,9 +1283,9 @@ LABEL_39:
       }
 
       buf = 67109378;
-      LODWORD(v66[0]) = 133;
-      WORD2(v66[0]) = 2080;
-      *(v66 + 6) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGGraphIngestMemoryProcessor.m";
+      LODWORD(v65[0]) = 133;
+      WORD2(v65[0]) = 2080;
+      *(v65 + 6) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGGraphIngestMemoryProcessor.m";
       v20 = MEMORY[0x277D86220];
     }
 
@@ -1327,37 +1317,37 @@ LABEL_39:
       if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
       {
         buf = 136315394;
-        v66[0] = "PGGraphIngestMemoryProcessor";
-        LOWORD(v66[1]) = 2048;
-        *(&v66[1] + 2) = ((((v23 - v32) * numer) / denom) / 1000000.0);
+        v65[0] = "PGGraphIngestMemoryProcessor";
+        LOWORD(v65[1]) = 2048;
+        *(&v65[1] + 2) = ((((v23 - v31) * numer) / denom) / 1000000.0);
         _os_log_impl(&dword_22F0FC000, v27, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", &buf, 0x16u);
       }
 
-      if (!v38)
+      if (!v37)
       {
         goto LABEL_37;
       }
 
       Current = CFAbsoluteTimeGetCurrent();
-      if (Current - v58[3] < 0.01)
+      if (Current - v57[3] < 0.01)
       {
         goto LABEL_37;
       }
 
-      v58[3] = Current;
-      v39 = 0;
-      (*(v31 + 2))(v31, &v39, 1.0);
-      v29 = *(v62 + 24) | v39;
-      *(v62 + 24) = v29;
+      v57[3] = Current;
+      v38 = 0;
+      (*(v30 + 2))(v30, &v38, 1.0);
+      v29 = *(v61 + 24) | v38;
+      *(v61 + 24) = v29;
       if ((v29 & 1) == 0 || !os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
         goto LABEL_37;
       }
 
       buf = 67109378;
-      LODWORD(v66[0]) = 146;
-      WORD2(v66[0]) = 2080;
-      *(v66 + 6) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGGraphIngestMemoryProcessor.m";
+      LODWORD(v65[0]) = 146;
+      WORD2(v65[0]) = 2080;
+      *(v65 + 6) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGGraphIngestMemoryProcessor.m";
       v20 = MEMORY[0x277D86220];
     }
 
@@ -1368,17 +1358,15 @@ LABEL_39:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     buf = 67109378;
-    LODWORD(v66[0]) = 97;
-    WORD2(v66[0]) = 2080;
-    *(v66 + 6) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGGraphIngestMemoryProcessor.m";
+    LODWORD(v65[0]) = 97;
+    WORD2(v65[0]) = 2080;
+    *(v65 + 6) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGGraphIngestMemoryProcessor.m";
     _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", &buf, 0x12u);
   }
 
 LABEL_40:
-  _Block_object_dispose(&v57, 8);
-  _Block_object_dispose(&v61, 8);
-
-  v30 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v56, 8);
+  _Block_object_dispose(&v60, 8);
 }
 
 void __65__PGGraphIngestMemoryProcessor_runWithGraphUpdate_progressBlock___block_invoke(uint64_t a1, _BYTE *a2, double a3)
@@ -1483,29 +1471,28 @@ void __65__PGGraphIngestMemoryProcessor_runWithGraphUpdate_progressBlock___block
 
 + (void)regenerateMemoriesOfCategory:(unint64_t)category withGraphBuilder:(id)builder progressReporter:(id)reporter
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   builderCopy = builder;
   reporterCopy = reporter;
-  v19[0] = 0;
-  v19[1] = v19;
-  v19[2] = 0x2020000000;
-  v20 = 0;
+  v18[0] = 0;
+  v18[1] = v18;
+  v18[2] = 0x2020000000;
+  v19 = 0;
   v9 = [[PGGraphIngestMemoryProcessor alloc] initWithGraphBuilder:builderCopy];
   v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:category];
-  v21[0] = v10;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
+  v20[0] = v10;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
   loggingConnection = [builderCopy loggingConnection];
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __95__PGGraphIngestMemoryProcessor_regenerateMemoriesOfCategory_withGraphBuilder_progressReporter___block_invoke;
-  v16[3] = &unk_278889448;
-  v18 = v19;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __95__PGGraphIngestMemoryProcessor_regenerateMemoriesOfCategory_withGraphBuilder_progressReporter___block_invoke;
+  v15[3] = &unk_278889448;
+  v17 = v18;
   v13 = reporterCopy;
-  v17 = v13;
-  v14 = [(PGGraphIngestMemoryProcessor *)v9 insertMemoriesForCategories:v11 processingWindow:0 loggingConnection:loggingConnection progressBlock:v16];
+  v16 = v13;
+  v14 = [(PGGraphIngestMemoryProcessor *)v9 insertMemoriesForCategories:v11 processingWindow:0 loggingConnection:loggingConnection progressBlock:v15];
 
-  _Block_object_dispose(v19, 8);
-  v15 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v18, 8);
 }
 
 uint64_t __95__PGGraphIngestMemoryProcessor_regenerateMemoriesOfCategory_withGraphBuilder_progressReporter___block_invoke(uint64_t a1, _BYTE *a2)

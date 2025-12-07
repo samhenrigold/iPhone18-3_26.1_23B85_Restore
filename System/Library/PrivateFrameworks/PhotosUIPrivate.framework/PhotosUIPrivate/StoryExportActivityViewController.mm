@@ -15,7 +15,7 @@
   sub_1B3C9C788();
   if (activities)
   {
-    sub_1B3710718(0, &unk_1EB854EC0);
+    sub_1B3710718(0, &unk_1EB854EC0, 0x1E69CD9E8);
     sub_1B3C9C788();
   }
 
@@ -25,7 +25,7 @@
 - (int64_t)modalPresentationStyle
 {
   selfCopy = self;
-  v3 = sub_1B37D0E74();
+  v3 = sub_1B37D0E74(selfCopy);
 
   return v3;
 }
@@ -39,7 +39,7 @@
 - (id)completionWithItemsHandler
 {
   selfCopy = self;
-  v3 = sub_1B37D1DA0();
+  v3 = sub_1B37D1DA0(selfCopy);
   v5 = v4;
 
   if (v3)
@@ -81,7 +81,7 @@
   selfCopy = self;
   sub_1B37D2428();
 
-  sub_1B3710718(0, &qword_1EB854E30);
+  sub_1B3710718(0, &qword_1EB854E30, 0x1E69CDA50);
   v6 = sub_1B3C9C778();
 
   return v6;

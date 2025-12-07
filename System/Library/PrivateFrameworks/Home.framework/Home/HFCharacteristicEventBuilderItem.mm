@@ -181,13 +181,12 @@ void *__68__HFCharacteristicEventBuilderItem_setCharacteristics_triggerValue___b
   return v11;
 }
 
-uint64_t __68__HFCharacteristicEventBuilderItem_setCharacteristics_triggerValue___block_invoke_4(uint64_t a1)
+uint64_t __68__HFCharacteristicEventBuilderItem_setCharacteristics_triggerValue___block_invoke_4(uint64_t a1, uint64_t a2)
 {
   v2 = objc_opt_class();
-  v3 = *(a1 + 32);
-  v4 = objc_opt_class();
+  v3 = objc_opt_class();
 
-  return [v2 isEqual:v4];
+  return [v2 isEqual:v3];
 }
 
 - (BOOL)wouldFireForCharacteristic:(id)characteristic value:(id)value

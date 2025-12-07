@@ -36,10 +36,10 @@ uint64_t __32__TapToRadarKitHelper_getLogger__block_invoke()
   dsCopy = ds;
   iDsCopy = iDs;
   reasonCopy = reason;
-  v37 = 0;
-  v38 = &v37;
-  v39 = 0x2020000000;
-  v40 = 0;
+  v38 = 0;
+  v39 = &v38;
+  v40 = 0x2020000000;
+  v41 = 0;
   v22 = dispatch_semaphore_create(0);
   v23 = +[TapToRadarKitHelper getLogger];
   if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
@@ -54,30 +54,30 @@ uint64_t __32__TapToRadarKitHelper_getLogger__block_invoke()
   }
 
   v25 = [TapToRadarKitHelper createDraft:titleCopy description:descriptionCopy attachmentURLs:lsCopy extensionIDs:dsCopy deviceIDs:iDsCopy component:v24];
-  [v25 setRemoteDeviceSelections:6];
-  shared = [(objc_class *)getTapToRadarServiceClass() shared];
-  v34[0] = MEMORY[0x1E69E9820];
-  v34[1] = 3221225472;
-  v34[2] = __136__TapToRadarKitHelper_createProblem_componentVersion_componentID_title_description_attachmentURLs_extensionIDs_deviceIDs_displayReason___block_invoke;
-  v34[3] = &unk_1E8652E28;
-  v36 = &v37;
-  v27 = v22;
-  v35 = v27;
-  [shared createDraft:v25 forProcessNamed:@"Siri" withDisplayReason:reasonCopy completionHandler:v34];
+  v26 = [v25 setRemoteDeviceSelections:6];
+  shared = [getTapToRadarServiceClass(v26) shared];
+  v35[0] = MEMORY[0x1E69E9820];
+  v35[1] = 3221225472;
+  v35[2] = __136__TapToRadarKitHelper_createProblem_componentVersion_componentID_title_description_attachmentURLs_extensionIDs_deviceIDs_displayReason___block_invoke;
+  v35[3] = &unk_1E8652E28;
+  v37 = &v38;
+  v28 = v22;
+  v36 = v28;
+  [shared createDraft:v25 forProcessNamed:@"Siri" withDisplayReason:reasonCopy completionHandler:v35];
 
-  v28 = dispatch_time(0, 1000000000 * TapToRadarCreateDraftTimeoutSeconds);
-  if (dispatch_semaphore_wait(v27, v28))
+  v29 = dispatch_time(0, 1000000000 * TapToRadarCreateDraftTimeoutSeconds);
+  if (dispatch_semaphore_wait(v28, v29))
   {
-    v29 = 0;
+    v30 = 0;
   }
 
   else
   {
-    v29 = *(v38 + 24);
+    v30 = *(v39 + 24);
   }
 
-  _Block_object_dispose(&v37, 8);
-  return v29;
+  _Block_object_dispose(&v38, 8);
+  return v30;
 }
 
 void __136__TapToRadarKitHelper_createProblem_componentVersion_componentID_title_description_attachmentURLs_extensionIDs_deviceIDs_displayReason___block_invoke(uint64_t a1, void *a2)
@@ -133,13 +133,11 @@ void __136__TapToRadarKitHelper_createProblem_componentVersion_componentID_title
 
 void __136__TapToRadarKitHelper_createProblem_componentVersion_componentID_title_description_attachmentURLs_extensionIDs_deviceIDs_displayReason___block_invoke_cold_1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = [a1 localizedDescription];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_1DD354000, a2, OS_LOG_TYPE_ERROR, "TapToRadarKitHelper#createProblem error: %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_1DD354000, a2, OS_LOG_TYPE_ERROR, "TapToRadarKitHelper#createProblem error: %@", &v4, 0xCu);
 }
 
 @end

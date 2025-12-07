@@ -84,7 +84,7 @@
 
     if (v11 & 1) != 0 || [v12 code] == 4 && (objc_msgSend(v12, "domain"), v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v14, "isEqualToString:", *MEMORY[0x1E696A250]), v14, (v15))
     {
-      [(PFCachingArchiveIndex *)self archiveLineParserForIndexPath:indexFileCopy];
+      objc_msgSend_archiveLineParserForIndexPath_(self);
       indexLabel2 = [(PFCachingArchiveIndex *)self indexLabel];
       do
       {

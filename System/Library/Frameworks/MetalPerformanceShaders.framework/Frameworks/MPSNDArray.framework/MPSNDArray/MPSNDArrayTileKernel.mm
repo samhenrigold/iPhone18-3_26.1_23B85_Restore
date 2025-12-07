@@ -23,9 +23,9 @@
 
 - (id)destinationArrayDescriptorForSourceArrays:(id)arrays sourceState:(id)state
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v6 = [arrays objectAtIndexedSubscript:{0, state}];
-  v19 = *(v6 + *MEMORY[0x277CD73D8]);
+  v18 = *(v6 + *MEMORY[0x277CD73D8]);
   v7 = [arrays objectAtIndexedSubscript:0];
   v8 = *(v7 + *MEMORY[0x277CD73F0]);
   v9 = [arrays objectAtIndexedSubscript:0];
@@ -34,24 +34,22 @@
   v11 = v10[3];
   v14 = *v10;
   v13 = v10[1];
-  memset(v22, 0, sizeof(v22));
+  memset(v21, 0, sizeof(v21));
   if (v8)
   {
     for (i = 0; i != v8; ++i)
     {
       v16 = self->_multiples.dimensions[i];
-      v20 = v19;
-      v21[0] = v14;
-      v21[1] = v13;
-      v21[2] = v12;
-      v21[3] = v11;
-      *(v22 + i) = v16 * *(v21 + (*(&v20 | i & 0xF) & 0xF));
+      v19 = v18;
+      v20[0] = v14;
+      v20[1] = v13;
+      v20[2] = v12;
+      v20[3] = v11;
+      *(v21 + i) = v16 * *(v20 + (*(&v19 | i & 0xF) & 0xF));
     }
   }
 
-  result = [MEMORY[0x277CD7268] descriptorWithDataType:objc_msgSend(objc_msgSend(arrays dimensionCount:"objectAtIndexedSubscript:" dimensionSizes:{0, *&v11, *&v12, *&v13, *&v14, *&v19), "dataType"), v8, v22}];
-  v18 = *MEMORY[0x277D85DE8];
-  return result;
+  return [MEMORY[0x277CD7268] descriptorWithDataType:objc_msgSend(objc_msgSend(arrays dimensionCount:"objectAtIndexedSubscript:" dimensionSizes:{0, *&v11, *&v12, *&v13, *&v14, *&v18), "dataType"), v8, v21}];
 }
 
 - (MPSNDArrayTileKernel)initWithCoder:(id)coder device:(id)device

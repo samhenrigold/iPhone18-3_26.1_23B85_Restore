@@ -227,7 +227,7 @@
     v15 = 0uLL;
     if (self)
     {
-      [(TSDTransformGradient *)self transformForSize:width, height, 0.0];
+      objc_msgSend_transformForSize_(self, width, height, 0.0);
       v12 = 0uLL;
       v14 = *&v54.a;
       v15 = *&v54.c;
@@ -240,7 +240,7 @@
     if (self)
     {
       v48 = v16;
-      [(TSDTransformGradient *)self transformForSize:width, height];
+      objc_msgSend_transformForSize_(self, width, height);
       v16 = v48;
       v17 = *&v54.a;
       v18 = *&v54.c;
@@ -258,7 +258,7 @@
     memset(&v54, 0, sizeof(v54));
     if (self)
     {
-      [(TSDTransformGradient *)self transformForSize:width, height];
+      objc_msgSend_transformForSize_(self, width, height);
       v22 = 0uLL;
     }
 
@@ -333,7 +333,7 @@
   {
     if (self)
     {
-      [(TSDGradient *)self centeredRadialTransformInRect:x, y, width, height];
+      objc_msgSend_centeredRadialTransformInRect_(self, x, y, width, height);
     }
 
     else
@@ -562,12 +562,12 @@ TSDMutableTransformGradient *__57__TSDTransformGradient_mixedObjectWithFraction_
 - (void)p_setDefaultValues
 {
   p_mStart = &self->mStart;
-  v4 = TSDRoundedPoint();
+  v4 = TSDRoundedPoint(self, 50.0, 50.0);
   p_mStart->x = v4;
   p_mStart->y = v5;
-  TSDAddPoints(v4, v5, 0.0);
-  self->mEnd.x = TSDRoundedPoint();
-  self->mEnd.y = v6;
+  v6 = TSDAddPoints(v4, v5, 0.0);
+  self->mEnd.x = TSDRoundedPoint(v7, v6, v8);
+  self->mEnd.y = v9;
   self->mBaseNaturalSize = vdupq_n_s64(0x4059000000000000uLL);
 }
 
@@ -597,7 +597,7 @@ TSDMutableTransformGradient *__57__TSDTransformGradient_mixedObjectWithFraction_
   v10 = start.x;
   if (self)
   {
-    [(TSDTransformGradient *)self transformForSize:size.width, size.height, naturalSize.width, naturalSize.height];
+    objc_msgSend_transformForSize_(self, a2, size.width, size.height, naturalSize.width, naturalSize.height);
   }
 
   else

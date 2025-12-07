@@ -23,7 +23,7 @@
     return;
   }
 
-  v2 = &kFigCaptureFlatDictionaryAppleMakerNote_ModuleAndCalibrationValidationStatuses_opaque;
+  v3 = &kFigCaptureFlatDictionaryAppleMakerNote_ModuleAndCalibrationValidationStatuses_opaque;
   if ((dword_1ED843FF0 & 4) != 0)
   {
     ContinuousUpTimeNanoseconds = FigGetContinuousUpTimeNanoseconds();
@@ -34,8 +34,8 @@
     ContinuousUpTimeNanoseconds = -1;
   }
 
-  v47 = *(self + 40);
-  if (v47 == 1)
+  LODWORD(v120) = *(self + 40);
+  if (v120 == 1)
   {
     *(self + 40) = 0;
   }
@@ -44,65 +44,65 @@
   if (proc_pid_rusage(*(self + 64), 6, buffer))
   {
     OUTLINED_FUNCTION_1_5();
-LABEL_91:
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     return;
   }
 
-  v3 = v105;
-  v4 = (self + 128);
-  v5 = atomic_load((self + 128));
-  v6 = v3;
-  if (v5 > v3)
+  v115 = v1;
+  v4 = v188;
+  v5 = (self + 128);
+  v6 = atomic_load((self + 128));
+  v7 = v4;
+  if (v6 > v4)
   {
-    v6 = atomic_load(v4);
+    v7 = atomic_load(v5);
   }
 
-  atomic_store(v6, v4);
-  v7 = v104;
-  *(self + 120) = v104;
-  v8 = v7 >> 10;
-  v45 = v3 >> 10;
-  if (*(self + 44) > 0 || (*(self + 70) & 1) != 0 || *(self + 80) < v8)
+  atomic_store(v7, v5);
+  v8 = v187;
+  *(self + 120) = v187;
+  v9 = v8 >> 10;
+  v117 = v4 >> 10;
+  if (*(self + 44) > 0 || (*(self + 70) & 1) != 0 || *(self + 80) < v9)
   {
-    v101 = 0;
-    v102 = 0;
+    v184 = 0;
+    v185 = 0;
   }
 
   else
   {
-    v21 = *(self + 84);
-    v101 = 0;
-    v102 = 0;
-    if (v21 <= v8)
+    v55 = *(self + 84);
+    v184 = 0;
+    v185 = 0;
+    if (v55 <= v9)
     {
-      v22 = 0;
+      v56 = 0;
       goto LABEL_43;
     }
   }
 
-  v9 = *(self + 144);
-  if (v9 && (dword_1ED843FF0 & 0x40) != 0)
+  v10 = *(self + 144);
+  if (v10 && (dword_1ED843FF0 & 0x40) != 0)
   {
-    [v9 getInUseFootprint:&v102 andOutOfUseFootprint:&v101];
+    [v10 getInUseFootprint:&v185 andOutOfUseFootprint:&v184];
   }
 
   proc_reset_footprint_interval();
-  if (v8 <= 0x100000)
+  if (v9 <= 0x100000)
   {
-    v10 = v8 + (v8 >> 4);
-    v11 = v8 - (v8 >> 4);
+    v11 = v9 + (v9 >> 4);
+    v12 = v9 - (v9 >> 4);
   }
 
   else
   {
-    v10 = v8 + 0x10000;
-    v11 = v8 - 0x10000;
+    v11 = v9 + 0x10000;
+    v12 = v9 - 0x10000;
   }
 
-  *(self + 80) = v10;
-  *(self + 84) = v11;
-  v12 = dword_1ED843FF0;
+  *(self + 80) = v11;
+  *(self + 84) = v12;
+  v13 = dword_1ED843FF0;
   if ((dword_1ED843FF0 & 1) == 0)
   {
     if ((dword_1ED843FF0 & 0x40) == 0)
@@ -112,23 +112,23 @@ LABEL_91:
 
 LABEL_29:
     OUTLINED_FUNCTION_14_40();
-    v17 = OUTLINED_FUNCTION_8_59();
-    v18 = OUTLINED_FUNCTION_7_75(v17);
-    if (OUTLINED_FUNCTION_4_91(v18))
+    v40 = OUTLINED_FUNCTION_8_59(qword_1ED843FE8, v33, v34, v35, v36, v37, v38, v39, v106, v107, v108, v109, v111, v113, v115, v117, ContinuousUpTimeNanoseconds, v120, host_info64_out, v122, v123, v124, v125, v126, v127, v128, v129, v130, v131, v132, v133, v134, v135, v136, v137, v138, v139, v140, *v141, *&v141[8], *&v141[16], *&v141[24], *&v141[32], *&v141[40], *&v141[48], *&v141[56], *&v141[64], *&v141[72], *&v141[80], *&v141[88], *&v141[96], *&v141[104], *&v141[112], *&v141[120], *&v141[128], *&v141[136], *&v141[144], *&v141[152], *&v141[160], *&v141[168], *&v141[176], v142, *v143);
+    v41 = OUTLINED_FUNCTION_7_75(v40);
+    if (OUTLINED_FUNCTION_4_91(v41))
     {
-      v51 = 136315650;
-      v52 = "[FigCaptureMemoryReporter _reportMemoryStatus]";
-      v53 = 1024;
-      *v54 = v102 >> 10;
-      *&v54[4] = 1024;
-      *&v54[6] = v101 >> 10;
+      *v141 = 136315650;
+      *&v141[4] = "[FigCaptureMemoryReporter _reportMemoryStatus]";
+      *&v141[12] = 1024;
+      *&v141[14] = v185 >> 10;
+      *&v141[18] = 1024;
+      *&v141[20] = v184 >> 10;
       OUTLINED_FUNCTION_5_29();
-      OUTLINED_FUNCTION_2_117();
+      OUTLINED_FUNCTION_2_117(v42, v43, task_info_out, v44, &dword_1AC90E000);
     }
 
     OUTLINED_FUNCTION_2_4();
-    OUTLINED_FUNCTION_128();
-    v2 = &kFigCaptureFlatDictionaryAppleMakerNote_ModuleAndCalibrationValidationStatuses_opaque;
+    OUTLINED_FUNCTION_128(v45, v46, v47, v48, v49);
+    v3 = &kFigCaptureFlatDictionaryAppleMakerNote_ModuleAndCalibrationValidationStatuses_opaque;
     if ((dword_1ED843FF0 & 2) == 0)
     {
       goto LABEL_42;
@@ -140,113 +140,114 @@ LABEL_32:
     if (task_info(*MEMORY[0x1E69E9A60], 0x16u, task_info_out, &task_info_outCnt))
     {
       OUTLINED_FUNCTION_1_5();
-      goto LABEL_91;
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
+      return;
     }
 
-    if ((v2[4080] & 2) != 0)
+    if ((v3[4080] & 2) != 0)
     {
-      v19 = OUTLINED_FUNCTION_11_50();
-      v20 = OUTLINED_FUNCTION_18_35(v19);
-      if (OUTLINED_FUNCTION_4_91(v20))
+      v50 = OUTLINED_FUNCTION_11_50();
+      v51 = OUTLINED_FUNCTION_18_35(v50);
+      if (OUTLINED_FUNCTION_4_91(v51))
       {
-        v51 = 136319234;
-        v52 = "[FigCaptureMemoryReporter _reportMemoryStatus]";
-        v53 = 1024;
-        *v54 = *&task_info_out[8];
-        *&v54[4] = 2048;
-        *&v54[6] = *task_info_out >> 10;
-        *&v54[14] = 2048;
-        *&v54[16] = v78 >> 10;
-        *&v54[24] = 2048;
-        *&v54[26] = v100 >> 10;
-        *&v54[34] = 2048;
-        *&v54[36] = *&v69[2] >> 10;
-        *&v54[44] = 2048;
-        *&v54[46] = *v71 >> 10;
-        *&v54[54] = 2048;
-        *&v54[56] = *&v71[16] >> 10;
-        *&v54[64] = 2048;
-        *&v54[66] = v72 >> 10;
-        *&v54[74] = 2048;
-        *&v54[76] = v74 >> 10;
-        *&v54[84] = 2048;
-        *&v54[86] = v76 >> 10;
-        *&v54[94] = 2048;
-        *&v54[96] = v70 >> 10;
-        *&v54[104] = 2048;
-        *&v54[106] = *&v71[8] >> 10;
-        *&v54[114] = 2048;
-        *&v54[116] = *&v71[24] >> 10;
-        *&v54[124] = 2048;
-        *&v54[126] = v73 >> 10;
-        *&v54[134] = 2048;
-        *&v54[136] = v75 >> 10;
-        *&v54[144] = 2048;
-        *&v54[146] = v77 >> 10;
+        *v141 = 136319234;
+        *&v141[4] = "[FigCaptureMemoryReporter _reportMemoryStatus]";
+        *&v141[12] = 1024;
+        *&v141[14] = *&task_info_out[8];
+        *&v141[18] = 2048;
+        *&v141[20] = *task_info_out >> 10;
+        *&v141[28] = 2048;
+        *&v141[30] = v161 >> 10;
+        *&v141[38] = 2048;
+        *&v141[40] = v183 >> 10;
+        *&v141[48] = 2048;
+        *&v141[50] = *&v152[2] >> 10;
+        *&v141[58] = 2048;
+        *&v141[60] = *v154 >> 10;
+        *&v141[68] = 2048;
+        *&v141[70] = *&v154[16] >> 10;
+        *&v141[78] = 2048;
+        *&v141[80] = v155 >> 10;
+        *&v141[88] = 2048;
+        *&v141[90] = v157 >> 10;
+        *&v141[98] = 2048;
+        *&v141[100] = v159 >> 10;
+        *&v141[108] = 2048;
+        *&v141[110] = v153 >> 10;
+        *&v141[118] = 2048;
+        *&v141[120] = *&v154[8] >> 10;
+        *&v141[128] = 2048;
+        *&v141[130] = *&v154[24] >> 10;
+        *&v141[138] = 2048;
+        *&v141[140] = v156 >> 10;
+        *&v141[148] = 2048;
+        *&v141[150] = v158 >> 10;
+        *&v141[158] = 2048;
+        *&v141[160] = v160 >> 10;
         OUTLINED_FUNCTION_5_29();
-        OUTLINED_FUNCTION_2_117();
+        OUTLINED_FUNCTION_2_117(v52, v53, v148, v54, &dword_1AC90E000);
       }
 
       OUTLINED_FUNCTION_2_4();
-      OUTLINED_FUNCTION_128();
-      v2 = &kFigCaptureFlatDictionaryAppleMakerNote_ModuleAndCalibrationValidationStatuses_opaque;
+      OUTLINED_FUNCTION_128(v57, v58, v59, v60, v61);
+      v3 = &kFigCaptureFlatDictionaryAppleMakerNote_ModuleAndCalibrationValidationStatuses_opaque;
       if ((dword_1ED843FF0 & 2) != 0)
       {
-        v23 = OUTLINED_FUNCTION_11_50();
-        v24 = OUTLINED_FUNCTION_18_35(v23);
-        if (OUTLINED_FUNCTION_4_91(v24))
+        v62 = OUTLINED_FUNCTION_11_50();
+        v63 = OUTLINED_FUNCTION_18_35(v62);
+        if (OUTLINED_FUNCTION_4_91(v63))
         {
-          v51 = 136320514;
-          v52 = "[FigCaptureMemoryReporter _reportMemoryStatus]";
-          *v54 = v79 / 1024;
-          v53 = 2048;
-          *&v54[8] = 2048;
-          *&v54[10] = v80 / 1024;
-          *&v54[18] = 2048;
-          *&v54[20] = v82 / 1024;
-          *&v54[28] = 2048;
-          *&v54[30] = v84 / 1024;
-          *&v54[38] = 2048;
-          *&v54[40] = v86 / 1024;
-          *&v54[48] = 2048;
-          *&v54[50] = v88 / 1024;
-          *&v54[58] = 2048;
-          *&v54[60] = v90 / 1024;
-          *&v54[68] = 2048;
-          *&v54[70] = v92 / 1024;
-          *&v54[78] = 2048;
-          *&v54[80] = v94 / 1024;
-          *&v54[88] = 2048;
-          *&v54[90] = v96 / 1024;
-          *&v54[98] = 2048;
-          *&v54[100] = v98 / 1024;
-          *&v54[108] = 2048;
-          *&v54[110] = v81 / 1024;
-          *&v54[118] = 2048;
-          *&v54[120] = v83 / 1024;
-          *&v54[128] = 2048;
-          *&v54[130] = v85 / 1024;
-          *&v54[138] = 2048;
-          *&v54[140] = v87 / 1024;
-          *&v54[148] = 2048;
-          *&v54[150] = v89 / 1024;
-          v55 = 2048;
-          v56 = v91 / 1024;
-          v57 = 2048;
-          v58 = v93 / 1024;
-          v59 = 2048;
-          v60 = v95 / 1024;
-          v61 = 2048;
-          v62 = v97 / 1024;
-          v63 = 2048;
-          v64 = v99 / 1024;
+          *v141 = 136320514;
+          *&v141[4] = "[FigCaptureMemoryReporter _reportMemoryStatus]";
+          *&v141[14] = v162 / 1024;
+          *&v141[12] = 2048;
+          *&v141[22] = 2048;
+          *&v141[24] = v163 / 1024;
+          *&v141[32] = 2048;
+          *&v141[34] = v165 / 1024;
+          *&v141[42] = 2048;
+          *&v141[44] = v167 / 1024;
+          *&v141[52] = 2048;
+          *&v141[54] = v169 / 1024;
+          *&v141[62] = 2048;
+          *&v141[64] = v171 / 1024;
+          *&v141[72] = 2048;
+          *&v141[74] = v173 / 1024;
+          *&v141[82] = 2048;
+          *&v141[84] = v175 / 1024;
+          *&v141[92] = 2048;
+          *&v141[94] = v177 / 1024;
+          *&v141[102] = 2048;
+          *&v141[104] = v179 / 1024;
+          *&v141[112] = 2048;
+          *&v141[114] = v181 / 1024;
+          *&v141[122] = 2048;
+          *&v141[124] = v164 / 1024;
+          *&v141[132] = 2048;
+          *&v141[134] = v166 / 1024;
+          *&v141[142] = 2048;
+          *&v141[144] = v168 / 1024;
+          *&v141[152] = 2048;
+          *&v141[154] = v170 / 1024;
+          *&v141[162] = 2048;
+          *&v141[164] = v172 / 1024;
+          *&v141[172] = 2048;
+          *&v141[174] = v174 / 1024;
+          *&v141[182] = 2048;
+          v142 = v176 / 1024;
+          *v143 = 2048;
+          *&v143[2] = v178 / 1024;
+          v144 = 2048;
+          v145 = v180 / 1024;
+          v146 = 2048;
+          v147 = v182 / 1024;
           OUTLINED_FUNCTION_5_29();
-          OUTLINED_FUNCTION_2_117();
+          OUTLINED_FUNCTION_2_117(v64, v65, v148, v66, &dword_1AC90E000);
         }
 
         OUTLINED_FUNCTION_2_4();
-        OUTLINED_FUNCTION_128();
-        v2 = &kFigCaptureFlatDictionaryAppleMakerNote_ModuleAndCalibrationValidationStatuses_opaque;
+        OUTLINED_FUNCTION_128(v67, v68, v69, v70, v71);
+        v3 = &kFigCaptureFlatDictionaryAppleMakerNote_ModuleAndCalibrationValidationStatuses_opaque;
       }
     }
 
@@ -254,205 +255,211 @@ LABEL_32:
   }
 
   OUTLINED_FUNCTION_14_40();
-  v13 = OUTLINED_FUNCTION_8_59();
-  v14 = OUTLINED_FUNCTION_7_75(v13);
-  if (OUTLINED_FUNCTION_4_91(v14))
+  v21 = OUTLINED_FUNCTION_8_59(qword_1ED843FE8, v14, v15, v16, v17, v18, v19, v20, v106, v107, v108, v109, v111, v113, v1, v117, ContinuousUpTimeNanoseconds, v120, host_info64_out, v122, v123, v124, v125, v126, v127, v128, v129, v130, v131, v132, v133, v134, v135, v136, v137, v138, v139, v140, *v141, *&v141[8], *&v141[16], *&v141[24], *&v141[32], *&v141[40], *&v141[48], *&v141[56], *&v141[64], *&v141[72], *&v141[80], *&v141[88], *&v141[96], *&v141[104], *&v141[112], *&v141[120], *&v141[128], *&v141[136], *&v141[144], *&v141[152], *&v141[160], *&v141[168], *&v141[176], v142, *v143);
+  v22 = OUTLINED_FUNCTION_7_75(v21);
+  if (OUTLINED_FUNCTION_4_91(v22))
   {
-    v15 = *(self + 120) >> 10;
-    v16 = @"false";
-    if (v47)
+    v23 = *(self + 120) >> 10;
+    v24 = @"false";
+    if (v120)
     {
-      v16 = @"true";
+      v24 = @"true";
     }
 
-    v51 = 136316674;
-    v52 = "[FigCaptureMemoryReporter _reportMemoryStatus]";
-    v53 = 2048;
-    *v54 = buffer[2];
-    *&v54[8] = 2048;
-    *&v54[10] = buffer[3];
-    *&v54[18] = 2048;
-    *&v54[20] = buffer[7] >> 10;
-    *&v54[28] = 2048;
-    *&v54[30] = v15;
-    *&v54[38] = 2048;
-    *&v54[40] = v3 >> 10;
-    *&v54[48] = 2112;
-    *&v54[50] = v16;
+    *v141 = 136316674;
+    *&v141[4] = "[FigCaptureMemoryReporter _reportMemoryStatus]";
+    *&v141[12] = 2048;
+    *&v141[14] = buffer[2];
+    *&v141[22] = 2048;
+    *&v141[24] = buffer[3];
+    *&v141[32] = 2048;
+    *&v141[34] = buffer[7] >> 10;
+    *&v141[42] = 2048;
+    *&v141[44] = v23;
+    *&v141[52] = 2048;
+    *&v141[54] = v117;
+    *&v141[62] = 2112;
+    *&v141[64] = v24;
     OUTLINED_FUNCTION_5_29();
-    OUTLINED_FUNCTION_2_117();
+    OUTLINED_FUNCTION_2_117(v25, v26, task_info_out, v27, &dword_1AC90E000);
   }
 
   OUTLINED_FUNCTION_2_4();
-  OUTLINED_FUNCTION_128();
-  v12 = dword_1ED843FF0;
-  v2 = &kFigCaptureFlatDictionaryAppleMakerNote_ModuleAndCalibrationValidationStatuses_opaque;
+  OUTLINED_FUNCTION_128(v28, v29, v30, v31, v32);
+  v13 = dword_1ED843FF0;
+  v3 = &kFigCaptureFlatDictionaryAppleMakerNote_ModuleAndCalibrationValidationStatuses_opaque;
   if ((dword_1ED843FF0 & 0x40) != 0)
   {
     goto LABEL_29;
   }
 
 LABEL_22:
-  if ((v12 & 2) != 0)
+  if ((v13 & 2) != 0)
   {
     goto LABEL_32;
   }
 
 LABEL_42:
-  v22 = 1;
+  v56 = 1;
 LABEL_43:
-  bzero(host_info64_out, 0xA0uLL);
-  v48 = 40;
-  if (host_statistics64(*(self + 52), 4, host_info64_out, &v48))
+  bzero(&host_info64_out, 0xA0uLL);
+  HIDWORD(v120) = 40;
+  if (host_statistics64(*(self + 52), 4, &host_info64_out, &v120 + 1))
   {
     OUTLINED_FUNCTION_1_5();
-    goto LABEL_91;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
+    return;
   }
 
-  v25 = *(self + 56);
-  v26 = v25 * host_info64_out[3];
-  v27 = v26 >> 10;
-  v44 = (16 * v50);
-  v42 = (v25 * host_info64_out[0]) >> 10;
-  v41 = (v25 * host_info64_out[1]) >> 10;
-  v43 = (v25 * host_info64_out[2]) >> 10;
-  if (*(self + 44) > 0 || (*(self + 70) & 1) != 0 || *(self + 88) < v27 || *(self + 92) > v27)
+  v72 = *(self + 56);
+  v73 = v72 * HIDWORD(v122);
+  v74 = v73 >> 10;
+  v116 = (16 * v137);
+  v112 = (v72 * host_info64_out) >> 10;
+  v110 = (v72 * HIDWORD(host_info64_out)) >> 10;
+  v114 = (v72 * v122) >> 10;
+  if (*(self + 44) > 0 || (*(self + 70) & 1) != 0 || *(self + 88) < v74 || *(self + 92) > v74)
   {
-    if (v27 <= 0x100000)
+    if (v74 <= 0x100000)
     {
-      v28 = v27 + (v27 >> 4);
-      v29 = v27 - (v27 >> 4);
+      v75 = v74 + (v74 >> 4);
+      v76 = v74 - (v74 >> 4);
     }
 
     else
     {
-      v28 = v27 + 0x10000;
-      v29 = v27 - 0x10000;
+      v75 = v74 + 0x10000;
+      v76 = v74 - 0x10000;
     }
 
-    *(self + 88) = v28;
-    *(self + 92) = v29;
-    if (v2[4080])
+    *(self + 88) = v75;
+    *(self + 92) = v76;
+    if (v3[4080])
     {
       OUTLINED_FUNCTION_14_40();
-      v31 = OUTLINED_FUNCTION_8_59();
-      v32 = OUTLINED_FUNCTION_7_75(v31);
-      if (OUTLINED_FUNCTION_4_91(v32))
+      v85 = OUTLINED_FUNCTION_8_59(qword_1ED843FE8, v78, v79, v80, v81, v82, v83, v84, v106, v107, v108, v110, v112, v114, v116, v117, ContinuousUpTimeNanoseconds, v120, host_info64_out, v122, v123, v124, v125, v126, v127, v128, v129, v130, v131, v132, v133, v134, v135, v136, v137, v138, v139, v140, *v141, *&v141[8], *&v141[16], *&v141[24], *&v141[32], *&v141[40], *&v141[48], *&v141[56], *&v141[64], *&v141[72], *&v141[80], *&v141[88], *&v141[96], *&v141[104], *&v141[112], *&v141[120], *&v141[128], *&v141[136], *&v141[144], *&v141[152], *&v141[160], *&v141[168], *&v141[176], v142, *v143);
+      v86 = OUTLINED_FUNCTION_7_75(v85);
+      if (OUTLINED_FUNCTION_4_91(v86))
       {
-        v51 = 136316418;
-        v52 = "[FigCaptureMemoryReporter _reportMemoryStatus]";
-        v53 = 2048;
-        *v54 = v26 >> 10;
-        *&v54[8] = 2048;
-        *&v54[10] = v42;
-        *&v54[18] = 2048;
-        *&v54[20] = v41;
-        *&v54[28] = 2048;
-        *&v54[30] = v43;
-        *&v54[38] = 2048;
-        *&v54[40] = v44;
+        *v141 = 136316418;
+        *&v141[4] = "[FigCaptureMemoryReporter _reportMemoryStatus]";
+        *&v141[12] = 2048;
+        *&v141[14] = v73 >> 10;
+        *&v141[22] = 2048;
+        *&v141[24] = v112;
+        *&v141[32] = 2048;
+        *&v141[34] = v110;
+        *&v141[42] = 2048;
+        *&v141[44] = v114;
+        *&v141[52] = 2048;
+        *&v141[54] = v116;
         OUTLINED_FUNCTION_5_29();
-        OUTLINED_FUNCTION_2_117();
+        v90 = OUTLINED_FUNCTION_2_117(v87, v88, task_info_out, v89, &dword_1AC90E000);
       }
 
-      v30 = 1;
-      OUTLINED_FUNCTION_128();
-      v2 = &kFigCaptureFlatDictionaryAppleMakerNote_ModuleAndCalibrationValidationStatuses_opaque;
+      else
+      {
+        v90 = 0;
+      }
+
+      v77 = 1;
+      OUTLINED_FUNCTION_128(qword_1ED843FE8, 1, 1, v90, v90 != task_info_out);
+      v3 = &kFigCaptureFlatDictionaryAppleMakerNote_ModuleAndCalibrationValidationStatuses_opaque;
     }
 
     else
     {
-      v30 = 1;
+      v77 = 1;
     }
   }
 
   else
   {
-    v30 = 0;
+    v77 = 0;
   }
 
-  if ((!v47 || *(self + 44) < 1 || (*(self + 48) & 1) == 0 && (*(self + 49) & 1) == 0) && (*(self + 69) & 1) == 0 && *(self + 68) != 1)
+  if ((!v120 || *(self + 44) < 1 || (*(self + 48) & 1) == 0 && (*(self + 49) & 1) == 0) && (*(self + 69) & 1) == 0 && *(self + 68) != 1)
   {
-    goto LABEL_69;
+    goto LABEL_70;
   }
 
-  v33 = *(v2 + 1020);
-  if ((v33 & 0x20) != 0 && (*(self + 76) <= v8 || *(self + 69) == 1))
+  v91 = *(v3 + 1020);
+  if ((v91 & 0x20) != 0 && (*(self + 76) <= v9 || *(self + 69) == 1))
   {
     [(FigCaptureMemoryReporter *)self _logCurrentTransactions];
-    if ((*(v2 + 1020) & 8) != 0)
+    if ((*(v3 + 1020) & 8) != 0)
     {
-      goto LABEL_66;
+      goto LABEL_67;
     }
   }
 
-  else if ((v33 & 8) != 0)
+  else if ((v91 & 8) != 0)
   {
-LABEL_66:
-    if (*(self + 72) <= v8 || *(self + 68) == 1)
+LABEL_67:
+    if (*(self + 72) <= v9 || *(self + 68) == 1)
     {
-      [FigCaptureMemoryReporter _generateMemgraph:self];
+      [(FigCaptureMemoryReporter *)self _generateMemgraph:v9];
     }
   }
 
-LABEL_69:
-  if ((v22 | v30) == 1)
+LABEL_70:
+  if ((v56 | v77) == 1)
   {
     if (*MEMORY[0x1E695FF58] == 1)
     {
       kdebug_trace();
     }
 
-    if ((v2[4080] & 0x11) != 0)
+    if ((v3[4080] & 0x11) != 0)
     {
-      v34 = *(self + 136);
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+      v92 = *(self + 136);
+      if (os_log_type_enabled(v92, OS_LOG_TYPE_DEFAULT))
       {
-        v35 = *(self + 120) >> 10;
+        v93 = *(self + 120) >> 10;
         *task_info_out = 134219520;
-        *&task_info_out[4] = v35;
-        v68 = 2048;
-        *v69 = v45;
-        *&v69[8] = 2048;
-        v70 = v26 >> 10;
-        *v71 = 2048;
-        *&v71[2] = v42;
-        *&v71[10] = 2048;
-        *&v71[12] = v41;
-        *&v71[20] = 2048;
-        *&v71[22] = v43;
-        *&v71[30] = 2048;
-        v72 = v44;
-        _os_log_impl(&dword_1AC90E000, v34, OS_LOG_TYPE_DEFAULT, "m11:%lld, m12:%lld, m21:%lld, m22:%lld, m23:%lld, m24:%lld, m25:%lld", task_info_out, 0x48u);
+        *&task_info_out[4] = v93;
+        v151 = 2048;
+        *v152 = v117;
+        *&v152[8] = 2048;
+        v153 = v73 >> 10;
+        *v154 = 2048;
+        *&v154[2] = v112;
+        *&v154[10] = 2048;
+        *&v154[12] = v110;
+        *&v154[20] = 2048;
+        *&v154[22] = v114;
+        *&v154[30] = 2048;
+        v155 = v116;
+        _os_log_impl(&dword_1AC90E000, v92, OS_LOG_TYPE_DEFAULT, "m11:%lld, m12:%lld, m21:%lld, m22:%lld, m23:%lld, m24:%lld, m25:%lld", task_info_out, 0x48u);
       }
     }
   }
 
-  if ((v2[4080] & 4) != 0 && (ContinuousUpTimeNanoseconds & 0x8000000000000000) == 0)
+  if ((v3[4080] & 4) != 0 && (ContinuousUpTimeNanoseconds & 0x8000000000000000) == 0)
   {
-    v36 = FigGetContinuousUpTimeNanoseconds();
-    if ((v2[4080] & 4) != 0)
+    v94 = FigGetContinuousUpTimeNanoseconds();
+    if ((v3[4080] & 4) != 0)
     {
-      v37 = v36;
+      v95 = v94;
       OUTLINED_FUNCTION_14_40();
-      v38 = OUTLINED_FUNCTION_8_59();
-      v39 = v65;
-      if (os_log_type_enabled(v38, task_info_outCnt))
+      v103 = OUTLINED_FUNCTION_8_59(qword_1ED843FE8, v96, v97, v98, v99, v100, v101, v102, v106, v107, v108, v110, v112, v114, v116, v117, ContinuousUpTimeNanoseconds, v120, host_info64_out, v122, v123, v124, v125, v126, v127, v128, v129, v130, v131, v132, v133, v134, v135, v136, v137, v138, v139, v140, *v141, *&v141[8], *&v141[16], *&v141[24], *&v141[32], *&v141[40], *&v141[48], *&v141[56], *&v141[64], *&v141[72], *&v141[80], *&v141[88], *&v141[96], *&v141[104], *&v141[112], *&v141[120], *&v141[128], *&v141[136], *&v141[144], *&v141[152], *&v141[160], *&v141[168], *&v141[176], v142, *v143);
+      v104 = v148[0];
+      if (os_log_type_enabled(v103, task_info_outCnt))
       {
-        v40 = v39;
+        v105 = v104;
       }
 
       else
       {
-        v40 = v39 & 0xFFFFFFFE;
+        v105 = v104 & 0xFFFFFFFE;
       }
 
-      if (v40)
+      if (v105)
       {
-        v51 = 136315394;
-        v52 = "[FigCaptureMemoryReporter _reportMemoryStatus]";
-        v53 = 2048;
-        *v54 = (v37 - ContinuousUpTimeNanoseconds) / 0x3E8uLL;
+        *v141 = 136315394;
+        *&v141[4] = "[FigCaptureMemoryReporter _reportMemoryStatus]";
+        *&v141[12] = 2048;
+        *&v141[14] = (v95 - v119) / 0x3E8uLL;
         OUTLINED_FUNCTION_5_29();
         OUTLINED_FUNCTION_13();
         _os_log_send_and_compose_impl();
@@ -521,48 +528,55 @@ FigCaptureMemoryReporter *__42__FigCaptureMemoryReporter_sharedInstance__block_i
 {
   if (dword_1ED843FF0)
   {
-    v35 = 0;
-    v34 = 0;
+    v38 = 0;
+    v37 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v32 = 0u;
+  v35 = 0u;
+  v36 = 0u;
   v33 = 0u;
-  v30 = 0u;
+  v34 = 0u;
   v31 = 0u;
-  v28 = 0u;
+  v32 = 0u;
   v29 = 0u;
-  v26 = 0u;
+  v30 = 0u;
   v27 = 0u;
-  v24 = 0u;
+  v28 = 0u;
   v25 = 0u;
-  v22 = 0u;
+  v26 = 0u;
   v23 = 0u;
-  v20 = 0u;
+  v24 = 0u;
   v21 = 0u;
-  v18 = 0u;
+  v22 = 0u;
   v19 = 0u;
-  v16 = 0u;
+  v20 = 0u;
   v17 = 0u;
-  v14 = 0u;
+  v18 = 0u;
   v15 = 0u;
-  v12 = 0u;
+  v16 = 0u;
   v13 = 0u;
-  v10 = 0u;
+  v14 = 0u;
   v11 = 0u;
-  v8 = 0u;
+  v12 = 0u;
   v9 = 0u;
-  v6 = 0u;
-  v7 = 0u;
+  v10 = 0u;
   *buffer = 0u;
-  if (proc_pid_rusage(self->_my_pid, 6, buffer))
+  v5 = proc_pid_rusage(self->_my_pid, 6, buffer);
+  if (v5)
   {
-    [FigCaptureMemoryReporter generateMemgraphWithReason:];
+    [(FigCaptureMemoryReporter *)v5 generateMemgraphWithReason:v6];
+    LODWORD(v7) = 0;
   }
 
-  [FigCaptureMemoryReporter _generateMemgraph:?];
+  else
+  {
+    v7 = *(&v12 + 1) >> 10;
+  }
+
+  [(FigCaptureMemoryReporter *)self _generateMemgraph:v7];
 }
 
 - (void)_generateMemgraph:(uint64_t)memgraph
@@ -570,7 +584,7 @@ FigCaptureMemoryReporter *__42__FigCaptureMemoryReporter_sharedInstance__block_i
   if (memgraph)
   {
     os_unfair_lock_lock((memgraph + 36));
-    v2 = *(memgraph + 24);
+    v3 = *(memgraph + 24);
     os_unfair_lock_unlock((memgraph + 36));
     if (dword_1ED843FF0)
     {
@@ -580,55 +594,55 @@ FigCaptureMemoryReporter *__42__FigCaptureMemoryReporter_sharedInstance__block_i
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    if (!v2)
+    if (!v3)
     {
-      v4 = MEMORY[0x1E69E9A60];
-      v5 = *MEMORY[0x1E69E9A60];
+      v5 = MEMORY[0x1E69E9A60];
+      v6 = *MEMORY[0x1E69E9A60];
       corpse_task_port = 0;
-      v6 = task_generate_corpse(v5, &corpse_task_port);
+      v7 = task_generate_corpse(v6, &corpse_task_port);
       if (dword_1ED843FF0)
       {
-        v7 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-        os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+        v9 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+        os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
         fig_log_call_emit_and_clean_up_after_send_and_compose();
       }
 
-      if (v6)
+      if (v7)
       {
-        [FigCaptureMemoryReporter _generateMemgraph:];
+        [(FigCaptureMemoryReporter *)v7 _generateMemgraph:v8];
       }
 
       else
       {
-        v8 = corpse_task_port;
-        v11 = 0;
-        v12[0] = &v11;
-        v12[1] = 0x2020000000;
-        v9 = getReportMemoryExceptionFromTaskSymbolLoc_ptr;
-        v12[2] = getReportMemoryExceptionFromTaskSymbolLoc_ptr;
+        v10 = corpse_task_port;
+        v13 = 0;
+        v14[0] = &v13;
+        v14[1] = 0x2020000000;
+        v11 = getReportMemoryExceptionFromTaskSymbolLoc_ptr;
+        v14[2] = getReportMemoryExceptionFromTaskSymbolLoc_ptr;
         if (!getReportMemoryExceptionFromTaskSymbolLoc_ptr)
         {
-          v13[0] = MEMORY[0x1E69E9820];
-          v13[1] = 3221225472;
-          v13[2] = __getReportMemoryExceptionFromTaskSymbolLoc_block_invoke;
-          v13[3] = &unk_1E798FC38;
-          v13[4] = &v11;
-          __getReportMemoryExceptionFromTaskSymbolLoc_block_invoke(v13);
-          v9 = *(v12[0] + 24);
+          v15[0] = MEMORY[0x1E69E9820];
+          v15[1] = 3221225472;
+          v15[2] = __getReportMemoryExceptionFromTaskSymbolLoc_block_invoke;
+          v15[3] = &unk_1E798FC38;
+          v15[4] = &v13;
+          __getReportMemoryExceptionFromTaskSymbolLoc_block_invoke(v15);
+          v11 = *(v14[0] + 24);
         }
 
-        _Block_object_dispose(&v11, 8);
-        if (!v9)
+        _Block_object_dispose(&v13, 8);
+        if (!v11)
         {
           [FigCaptureMemoryReporter _generateMemgraph:];
         }
 
-        (v9)(v8, 1, 0, 0, 0);
-        mach_port_deallocate(*v4, corpse_task_port);
+        (v11)(v10, 1, 0, 0, 0);
+        mach_port_deallocate(*v5, corpse_task_port);
         if (dword_1ED843FF0)
         {
-          v10 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-          os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+          v12 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+          os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
           fig_log_call_emit_and_clean_up_after_send_and_compose();
         }
 
@@ -658,7 +672,7 @@ void __51__FigCaptureMemoryReporter__startMemgraphCoolDown___block_invoke(uint64
     if ((dword_1ED843FF0 & 4) != 0)
     {
       OUTLINED_FUNCTION_112();
-      v9 = OUTLINED_FUNCTION_77();
+      v9 = OUTLINED_FUNCTION_77(qword_1ED843FE8);
       if (os_log_type_enabled(v9, v11))
       {
         v10 = v12;
@@ -729,7 +743,7 @@ void __51__FigCaptureMemoryReporter__startMemgraphCoolDown___block_invoke(uint64
     if ((dword_1ED843FF0 & 4) != 0)
     {
       OUTLINED_FUNCTION_112();
-      v7 = OUTLINED_FUNCTION_77();
+      v7 = OUTLINED_FUNCTION_77(qword_1ED843FE8);
       v8 = OUTLINED_FUNCTION_15_1(v7);
       if (OUTLINED_FUNCTION_12(v8))
       {
@@ -798,7 +812,7 @@ void __51__FigCaptureMemoryReporter__startMemgraphCoolDown___block_invoke(uint64
       if ((dword_1ED843FF0 & 4) != 0)
       {
         OUTLINED_FUNCTION_112();
-        v5 = OUTLINED_FUNCTION_77();
+        v5 = OUTLINED_FUNCTION_77(qword_1ED843FE8);
         if (os_log_type_enabled(v5, v16))
         {
           v6 = v17;
@@ -830,7 +844,7 @@ void __51__FigCaptureMemoryReporter__startMemgraphCoolDown___block_invoke(uint64
     if ((dword_1ED843FF0 & 4) != 0)
     {
       OUTLINED_FUNCTION_112();
-      v7 = OUTLINED_FUNCTION_77();
+      v7 = OUTLINED_FUNCTION_77(qword_1ED843FE8);
       v8 = OUTLINED_FUNCTION_15_1(v7);
       if (OUTLINED_FUNCTION_12(v8))
       {
@@ -881,7 +895,7 @@ void __51__FigCaptureMemoryReporter__startMemgraphCoolDown___block_invoke(uint64
     if (dword_1ED843FF0)
     {
       v9 = OUTLINED_FUNCTION_12_49();
-      v10 = os_log_type_enabled(v9, v71);
+      v10 = os_log_type_enabled(v9, v70);
       if (OUTLINED_FUNCTION_12(v10))
       {
         OUTLINED_FUNCTION_5_29();
@@ -893,7 +907,7 @@ void __51__FigCaptureMemoryReporter__startMemgraphCoolDown___block_invoke(uint64
       v1 = fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    v11 = OUTLINED_FUNCTION_16_41(v1, v2, v3, v4, v5, v6, v7, v8, v27, v29, v31, v33, v34, obj, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, v60, v62, v64, v66, v68, 0);
+    v11 = OUTLINED_FUNCTION_16_41(v1, v2, v3, v4, v5, v6, v7, v8, v27, v29, v31, v33, v34, obj, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, v60, v62, v64, v66, v68);
     if (v11)
     {
       v13 = v11;
@@ -919,14 +933,14 @@ void __51__FigCaptureMemoryReporter__startMemgraphCoolDown___block_invoke(uint64
           if (dword_1ED843FF0)
           {
             v25 = OUTLINED_FUNCTION_12_49();
-            if (os_log_type_enabled(v25, v71))
+            if (os_log_type_enabled(v25, v70))
             {
-              v26 = v72;
+              v26 = v71;
             }
 
             else
             {
-              v26 = v72 & 0xFFFFFFFE;
+              v26 = v71 & 0xFFFFFFFE;
             }
 
             if (v26)
@@ -941,7 +955,7 @@ void __51__FigCaptureMemoryReporter__startMemgraphCoolDown___block_invoke(uint64
           }
         }
 
-        v13 = OUTLINED_FUNCTION_16_41(v17, v18, v19, v20, v21, v22, v23, v24, v28, v30, v32, *(&v32 + 1), v35, obja, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59, v61, v63, v65, v67, v69, v70);
+        v13 = OUTLINED_FUNCTION_16_41(v17, v18, v19, v20, v21, v22, v23, v24, v28, v30, v32, *(&v32 + 1), v35, obja, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59, v61, v63, v65, v67, v69);
       }
 
       while (v13);

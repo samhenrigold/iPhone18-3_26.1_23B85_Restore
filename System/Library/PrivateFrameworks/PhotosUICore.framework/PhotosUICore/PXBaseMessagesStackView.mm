@@ -165,19 +165,19 @@ LABEL_6:
     goto LABEL_9;
   }
 
-  layout = [(PXBaseMessagesStackView *)self layout];
+  v7 = objc_msgSend_layout(self);
 
-  layout2 = [(PXBaseMessagesStackView *)self layout];
-  v9 = layout2;
-  if (layout != layoutCopy)
+  v8 = objc_msgSend_layout(self);
+  v9 = v8;
+  if (v7 != layoutCopy)
   {
-    v10 = [layout2 convertSpriteIndex:v4 fromDescendantLayout:layoutCopy];
+    v10 = [v8 convertSpriteIndex:v4 fromDescendantLayout:layoutCopy];
 
-    layout3 = [(PXBaseMessagesStackView *)self layout];
-    v12 = [layout3 accessoryItemForSpriteIndex:v10];
+    v11 = objc_msgSend_layout(self);
+    v12 = [v11 accessoryItemForSpriteIndex:v10];
 
-    layout4 = [(PXBaseMessagesStackView *)self layout];
-    numberOfAccessoryItems = [layout4 numberOfAccessoryItems];
+    v13 = objc_msgSend_layout(self);
+    numberOfAccessoryItems = [v13 numberOfAccessoryItems];
 
     if (v12 >= numberOfAccessoryItems)
     {
@@ -188,10 +188,10 @@ LABEL_6:
     goto LABEL_6;
   }
 
-  v17 = [layout2 itemForSpriteIndex:v4];
+  v17 = [v8 itemForSpriteIndex:v4];
 
-  layout5 = [(PXBaseMessagesStackView *)self layout];
-  v16 = [(PXBaseMessagesStackView *)self viewUserDataForItemAtIndex:v17 inStackLayout:layout5];
+  v18 = objc_msgSend_layout(self);
+  v16 = [(PXBaseMessagesStackView *)self viewUserDataForItemAtIndex:v17 inStackLayout:v18];
 
 LABEL_9:
 
@@ -224,19 +224,19 @@ LABEL_6:
     goto LABEL_9;
   }
 
-  layout = [(PXBaseMessagesStackView *)self layout];
+  v7 = objc_msgSend_layout(self);
 
-  layout2 = [(PXBaseMessagesStackView *)self layout];
-  v9 = layout2;
-  if (layout != layoutCopy)
+  v8 = objc_msgSend_layout(self);
+  v9 = v8;
+  if (v7 != layoutCopy)
   {
-    v10 = [layout2 convertSpriteIndex:v4 fromDescendantLayout:layoutCopy];
+    v10 = [v8 convertSpriteIndex:v4 fromDescendantLayout:layoutCopy];
 
-    layout3 = [(PXBaseMessagesStackView *)self layout];
-    v12 = [layout3 accessoryItemForSpriteIndex:v10];
+    v11 = objc_msgSend_layout(self);
+    v12 = [v11 accessoryItemForSpriteIndex:v10];
 
-    layout4 = [(PXBaseMessagesStackView *)self layout];
-    numberOfAccessoryItems = [layout4 numberOfAccessoryItems];
+    v13 = objc_msgSend_layout(self);
+    numberOfAccessoryItems = [v13 numberOfAccessoryItems];
 
     if (v12 >= numberOfAccessoryItems)
     {
@@ -247,10 +247,10 @@ LABEL_6:
     goto LABEL_6;
   }
 
-  v17 = [layout2 itemForSpriteIndex:v4];
+  v17 = [v8 itemForSpriteIndex:v4];
 
-  layout5 = [(PXBaseMessagesStackView *)self layout];
-  v16 = [(PXBaseMessagesStackView *)self viewClassForItemAtIndex:v17 inStackLayout:layout5];
+  v18 = objc_msgSend_layout(self);
+  v16 = [(PXBaseMessagesStackView *)self viewClassForItemAtIndex:v17 inStackLayout:v18];
 
 LABEL_9:
 
@@ -426,11 +426,11 @@ void __49__PXBaseMessagesStackView_colorAtIndex_inLayout___block_invoke()
     v7 = [dataSourceManager2 allChangeDetailsFromDataSource:currentDataSource toDataSource:dataSource];
 
     v8 = *&self->_lastKnownPrimaryIndex.item;
-    v23 = *&self->_lastKnownPrimaryIndex.dataSourceIdentifier;
-    v24 = v8;
-    [off_1E77218B0 indexPathAfterApplyingChanges:v7 toIndexPath:&v23 hasIncrementalChanges:0 objectChanged:0];
-    v9 = v26;
-    *&self->_lastKnownPrimaryIndex.dataSourceIdentifier = v25;
+    identifier = *&self->_lastKnownPrimaryIndex.dataSourceIdentifier;
+    v23 = v8;
+    objc_msgSend_indexPathAfterApplyingChanges_toIndexPath_hasIncrementalChanges_objectChanged_(off_1E77218B0);
+    v9 = v25;
+    *&self->_lastKnownPrimaryIndex.dataSourceIdentifier = v24;
     *&self->_lastKnownPrimaryIndex.item = v9;
     v10 = [currentDataSource numberOfItemsInSection:0];
     indexToRestore = self->_indexToRestore;
@@ -456,31 +456,30 @@ void __49__PXBaseMessagesStackView_colorAtIndex_inLayout___block_invoke()
 
       else
       {
-        identifier = [currentDataSource identifier];
+        v24 = 0u;
         v25 = 0u;
-        v26 = 0u;
-        v23 = identifier;
-        *&v24 = indexToRestore;
-        *(&v24 + 1) = 0x7FFFFFFFFFFFFFFFLL;
-        [off_1E77218B0 indexPathAfterApplyingChanges:v7 toIndexPath:&v23 hasIncrementalChanges:0 objectChanged:0];
-        if (v25 == *off_1E7721F68)
+        identifier = [currentDataSource identifier];
+        *&v23 = indexToRestore;
+        *(&v23 + 1) = 0x7FFFFFFFFFFFFFFFLL;
+        objc_msgSend_indexPathAfterApplyingChanges_toIndexPath_hasIncrementalChanges_objectChanged_(off_1E77218B0);
+        if (*off_1E7721F68)
         {
-          v19 = [dataSource numberOfItemsInSection:0];
-          v13 = v19 - 1;
-          if (v19 <= 0)
-          {
-            v13 = 0x7FFFFFFFFFFFFFFFLL;
-          }
-
-          if (indexToRestore < v19)
-          {
-            v13 = indexToRestore;
-          }
+          v13 = v25;
         }
 
         else
         {
-          v13 = v26;
+          v18 = [dataSource numberOfItemsInSection:0];
+          v13 = v18 - 1;
+          if (v18 <= 0)
+          {
+            v13 = 0x7FFFFFFFFFFFFFFFLL;
+          }
+
+          if (indexToRestore < v18)
+          {
+            v13 = indexToRestore;
+          }
         }
       }
     }
@@ -500,15 +499,15 @@ void __49__PXBaseMessagesStackView_colorAtIndex_inLayout___block_invoke()
     }
 
     layout = self->_layout;
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __44__PXBaseMessagesStackView__updateDataSource__block_invoke;
-    v20[3] = &unk_1E7733948;
-    v20[4] = self;
-    v21 = currentDataSource;
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __44__PXBaseMessagesStackView__updateDataSource__block_invoke;
+    v19[3] = &unk_1E7733948;
+    v19[4] = self;
+    v20 = currentDataSource;
     v17 = dataSource;
-    v22 = v17;
-    [(PXMessagesStackItemsLayout *)layout applySectionedChangeDetailsForSingleSection:v7 dataSourceBeforeChanges:v21 dataSourceAfterChanges:v17 changeMediaVersionHandler:v20];
+    v21 = v17;
+    [(PXMessagesStackItemsLayout *)layout applySectionedChangeDetailsForSingleSection:v7 dataSourceBeforeChanges:v20 dataSourceAfterChanges:v17 changeMediaVersionHandler:v19];
     [(PXBaseMessagesStackView *)self setCurrentDataSource:v17];
   }
 }
@@ -562,24 +561,24 @@ uint64_t __44__PXBaseMessagesStackView__updateDataSource__block_invoke(void *a1,
 
 - (void)reloadAccessoryItems
 {
-  layout = [(PXBaseMessagesStackView *)self layout];
-  [layout reloadAccessoryItems];
+  v2 = objc_msgSend_layout(self, a2);
+  [v2 reloadAccessoryItems];
 }
 
 - (int64_t)numberOfAccessoryItems
 {
-  layout = [(PXBaseMessagesStackView *)self layout];
-  numberOfAccessoryItems = [layout numberOfAccessoryItems];
+  v2 = objc_msgSend_layout(self, a2);
+  numberOfAccessoryItems = [v2 numberOfAccessoryItems];
 
   return numberOfAccessoryItems;
 }
 
 - (void)setNumberOfAccessoryItems:(int64_t)items
 {
-  layout = [(PXBaseMessagesStackView *)self layout];
-  if ([layout numberOfAccessoryItems] != items)
+  v9 = objc_msgSend_layout(self, a2);
+  if ([v9 numberOfAccessoryItems] != items)
   {
-    numberOfItems = [layout numberOfItems];
+    numberOfItems = [v9 numberOfItems];
     v6 = 0x7FFFFFFFFFFFFFFFLL;
     v7 = numberOfItems + items - 1;
     if (numberOfItems + items >= 1)
@@ -587,7 +586,7 @@ uint64_t __44__PXBaseMessagesStackView__updateDataSource__block_invoke(void *a1,
       indexToRestore = self->_indexToRestore;
       if (indexToRestore == 0x7FFFFFFFFFFFFFFFLL)
       {
-        indexToRestore = [layout primaryItemIndex];
+        indexToRestore = [v9 primaryItemIndex];
       }
 
       if (v7 >= indexToRestore)
@@ -602,7 +601,7 @@ uint64_t __44__PXBaseMessagesStackView__updateDataSource__block_invoke(void *a1,
     }
 
     self->_indexToRestore = v6;
-    [layout setNumberOfAccessoryItems:items];
+    [v9 setNumberOfAccessoryItems:items];
     [(PXBaseMessagesStackView *)self reloadAccessoryItems];
   }
 }
@@ -621,8 +620,8 @@ uint64_t __44__PXBaseMessagesStackView__updateDataSource__block_invoke(void *a1,
   if (self->_selectionOverlayEnabled != enabled)
   {
     self->_selectionOverlayEnabled = enabled;
-    layout = [(PXBaseMessagesStackView *)self layout];
-    [layout invalidateDecorationAndSprites];
+    v4 = objc_msgSend_layout(self, a2);
+    [v4 invalidateDecorationAndSprites];
   }
 }
 
@@ -692,8 +691,8 @@ uint64_t __44__PXBaseMessagesStackView__updateDataSource__block_invoke(void *a1,
 
 - (unint64_t)currentIndex
 {
-  layout = [(PXBaseMessagesStackView *)self layout];
-  primaryItemIndex = [layout primaryItemIndex];
+  v2 = objc_msgSend_layout(self, a2);
+  primaryItemIndex = [v2 primaryItemIndex];
 
   return primaryItemIndex;
 }
@@ -763,22 +762,22 @@ uint64_t __44__PXBaseMessagesStackView__updateDataSource__block_invoke(void *a1,
     self->_debugColorModeEnabled = enabled;
     if (enabled)
     {
-      layout = [(PXBaseMessagesStackView *)self layout];
+      v5 = objc_msgSend_layout(self, a2);
       accessoryMediaKind = 5;
-      [layout setMediaKind:5];
+      [v5 setMediaKind:5];
     }
 
     else
     {
       itemMediaKind = [objc_opt_class() itemMediaKind];
-      layout2 = [(PXBaseMessagesStackView *)self layout];
-      [layout2 setMediaKind:itemMediaKind];
+      v8 = objc_msgSend_layout(self);
+      [v8 setMediaKind:itemMediaKind];
 
       accessoryMediaKind = [objc_opt_class() accessoryMediaKind];
     }
 
-    layout3 = [(PXBaseMessagesStackView *)self layout];
-    [layout3 setAccessoryMediaKind:accessoryMediaKind];
+    v9 = objc_msgSend_layout(self);
+    [v9 setAccessoryMediaKind:accessoryMediaKind];
   }
 }
 

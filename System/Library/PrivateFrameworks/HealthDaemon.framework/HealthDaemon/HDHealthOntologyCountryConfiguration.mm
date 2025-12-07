@@ -13,11 +13,11 @@
   v10 = [(HDHealthOntologyCountryConfiguration *)&v16 init];
   if (v10)
   {
-    v11 = [codeCopy copy];
+    v11 = objc_msgSend_copy(codeCopy);
     countryCode = v10->_countryCode;
     v10->_countryCode = v11;
 
-    v13 = [systemsCopy copy];
+    v13 = objc_msgSend_copy(systemsCopy);
     supportedCodingSystems = v10->_supportedCodingSystems;
     v10->_supportedCodingSystems = v13;
 

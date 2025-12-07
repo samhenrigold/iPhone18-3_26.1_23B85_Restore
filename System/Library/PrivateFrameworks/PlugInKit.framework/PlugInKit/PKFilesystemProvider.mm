@@ -1,4 +1,5 @@
 @interface PKFilesystemProvider
+- (BOOL)createDirectoryAtURL:(id)l withIntermediateDirectories:(BOOL)directories attributes:(id)attributes error:(id *)error;
 - (PKNSBundleProxy)mainBundle;
 - (id)bundleWithURL:(id)l;
 - (id)contentsOfDirectoryAtURL:(id)l includingPropertiesForKeys:(id)keys options:(unint64_t)options error:(id *)error;
@@ -34,6 +35,18 @@
   v9 = [[v7 alloc] initWithContentsOfURL:lCopy options:options error:error];
 
   return v9;
+}
+
+- (BOOL)createDirectoryAtURL:(id)l withIntermediateDirectories:(BOOL)directories attributes:(id)attributes error:(id *)error
+{
+  directoriesCopy = directories;
+  v9 = MEMORY[0x1E696AC08];
+  attributesCopy = attributes;
+  lCopy = l;
+  defaultManager = [v9 defaultManager];
+  LOBYTE(error) = [defaultManager createDirectoryAtURL:lCopy withIntermediateDirectories:directoriesCopy attributes:attributesCopy error:error];
+
+  return error;
 }
 
 - (id)contentsOfDirectoryAtURL:(id)l includingPropertiesForKeys:(id)keys options:(unint64_t)options error:(id *)error

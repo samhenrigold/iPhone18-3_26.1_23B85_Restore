@@ -11,43 +11,41 @@
 
 - (void)session:(id)session didNotFindMatchForSignature:(id)signature error:(id)error
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v7 = getWFActionsLogObject();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 136315394;
-    v10 = "[WFShazamMediaAction session:didNotFindMatchForSignature:error:]";
-    v11 = 2114;
-    v12 = errorCopy;
-    _os_log_impl(&dword_23DE30000, v7, OS_LOG_TYPE_DEFAULT, "%s Shazam session did not match for signature with error: %{public}@", &v9, 0x16u);
+    v8 = 136315394;
+    v9 = "[WFShazamMediaAction session:didNotFindMatchForSignature:error:]";
+    v10 = 2114;
+    v11 = errorCopy;
+    _os_log_impl(&dword_23DE30000, v7, OS_LOG_TYPE_DEFAULT, "%s Shazam session did not match for signature with error: %{public}@", &v8, 0x16u);
   }
 
   [(WFShazamMediaAction *)self finishRunningWithError:errorCopy];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)session:(id)session didFindMatch:(id)match
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   matchCopy = match;
   v6 = getWFActionsLogObject();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315394;
-    v9 = "[WFShazamMediaAction session:didFindMatch:]";
-    v10 = 2112;
-    v11 = matchCopy;
-    _os_log_impl(&dword_23DE30000, v6, OS_LOG_TYPE_DEFAULT, "%s Shazam action session did find match: %@", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "[WFShazamMediaAction session:didFindMatch:]";
+    v9 = 2112;
+    v10 = matchCopy;
+    _os_log_impl(&dword_23DE30000, v6, OS_LOG_TYPE_DEFAULT, "%s Shazam action session did find match: %@", &v7, 0x16u);
   }
 
   [(WFShazamMediaAction *)self finishRunningWithMatch:matchCopy error:0];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)finishRunningWithError:(id)error
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   if (errorCopy)
   {
@@ -77,31 +75,31 @@
   if (([errorCopy wf_isUserCancelledError] & 1) == 0 && (objc_msgSend(errorCopy, "wf_isUnsupportedUserInterfaceError") & 1) == 0)
   {
     domain = [errorCopy domain];
-    v37 = 0;
-    v38 = &v37;
-    v39 = 0x2020000000;
+    v36 = 0;
+    v37 = &v36;
+    v38 = 0x2020000000;
     v9 = getSHErrorDomainSymbolLoc_ptr;
-    v40 = getSHErrorDomainSymbolLoc_ptr;
+    v39 = getSHErrorDomainSymbolLoc_ptr;
     if (!getSHErrorDomainSymbolLoc_ptr)
     {
       *buf = MEMORY[0x277D85DD0];
       *&buf[8] = 3221225472;
       *&buf[16] = __getSHErrorDomainSymbolLoc_block_invoke;
-      v48 = &unk_278C222B8;
-      v49 = &v37;
+      v47 = &unk_278C222B8;
+      v48 = &v36;
       v10 = ShazamKitLibrary();
       v11 = dlsym(v10, "SHErrorDomain");
-      *(v49[1] + 24) = v11;
-      getSHErrorDomainSymbolLoc_ptr = *(v49[1] + 24);
-      v9 = v38[3];
+      *(v48[1] + 24) = v11;
+      getSHErrorDomainSymbolLoc_ptr = *(v48[1] + 24);
+      v9 = v37[3];
     }
 
-    _Block_object_dispose(&v37, 8);
+    _Block_object_dispose(&v36, 8);
     if (!v9)
     {
       currentHandler = [MEMORY[0x277CCA890] currentHandler];
-      v35 = [MEMORY[0x277CCACA8] stringWithUTF8String:"NSString *getSHErrorDomain(void)"];
-      [currentHandler handleFailureInFunction:v35 file:@"WFShazamMediaAction.m" lineNumber:23 description:{@"%s", dlerror()}];
+      v34 = [MEMORY[0x277CCACA8] stringWithUTF8String:"NSString *getSHErrorDomain(void)"];
+      [currentHandler handleFailureInFunction:v34 file:@"WFShazamMediaAction.m" lineNumber:23 description:{@"%s", dlerror()}];
 
       __break(1u);
     }
@@ -117,11 +115,11 @@
         v15 = WFLocalizedString(@"Try again when network conditions improve.");
         v16 = MEMORY[0x277CCA9B8];
         v17 = *MEMORY[0x277CCA450];
-        v45[0] = *MEMORY[0x277CCA470];
-        v45[1] = v17;
-        v46[0] = v14;
-        v46[1] = v15;
-        v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v46 forKeys:v45 count:2];
+        v44[0] = *MEMORY[0x277CCA470];
+        v44[1] = v17;
+        v45[0] = v14;
+        v45[1] = v15;
+        v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v45 forKeys:v44 count:2];
         v19 = [v16 errorWithDomain:@"WFShazamMediaActionErrorDomain" code:-2 userInfo:v18];
 LABEL_20:
         v7 = v19;
@@ -138,11 +136,11 @@ LABEL_20:
     v15 = WFLocalizedString(@"Please try again.");
     v20 = MEMORY[0x277CCA9B8];
     v21 = *MEMORY[0x277CCA450];
-    v43[0] = *MEMORY[0x277CCA470];
-    v43[1] = v21;
-    v44[0] = v14;
-    v44[1] = v15;
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:v43 count:2];
+    v42[0] = *MEMORY[0x277CCA470];
+    v42[1] = v21;
+    v43[0] = v14;
+    v43[1] = v15;
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v43 forKeys:v42 count:2];
     v19 = [v20 errorWithDomain:@"WFShazamMediaActionErrorDomain" code:0 userInfo:v18];
     goto LABEL_20;
   }
@@ -163,11 +161,11 @@ LABEL_21:
       v27 = WFLocalizedString(@"Shazam didn't recognize any media.");
       v28 = MEMORY[0x277CCA9B8];
       v29 = *MEMORY[0x277CCA450];
-      v41[0] = *MEMORY[0x277CCA470];
-      v41[1] = v29;
-      v42[0] = v26;
-      v42[1] = v27;
-      v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:v41 count:2];
+      v40[0] = *MEMORY[0x277CCA470];
+      v40[1] = v29;
+      v41[0] = v26;
+      v41[1] = v27;
+      v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v41 forKeys:v40 count:2];
       v7 = [v28 errorWithDomain:@"WFShazamMediaActionErrorDomain" code:-1 userInfo:v30];
     }
   }
@@ -188,16 +186,14 @@ LABEL_21:
   v32 = +[WFRecordingStatusManager sharedManager];
   [v32 setRecording:0];
 
-  v36.receiver = self;
-  v36.super_class = WFShazamMediaAction;
-  [(WFShazamMediaAction *)&v36 finishRunningWithError:v7];
-
-  v33 = *MEMORY[0x277D85DE8];
+  v35.receiver = self;
+  v35.super_class = WFShazamMediaAction;
+  [(WFShazamMediaAction *)&v35 finishRunningWithError:v7];
 }
 
 - (void)finishRunningWithMatch:(id)match error:(id)error
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   mediaItems = [match mediaItems];
   firstObject = [mediaItems firstObject];
@@ -211,11 +207,11 @@ LABEL_21:
       v11 = getWFActionsLogObject();
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = 136315394;
-        v15 = "[WFShazamMediaAction finishRunningWithMatch:error:]";
-        v16 = 2112;
-        v17 = v10;
-        _os_log_impl(&dword_23DE30000, v11, OS_LOG_TYPE_DEFAULT, "%s Shazam action found match: %@", &v14, 0x16u);
+        v13 = 136315394;
+        v14 = "[WFShazamMediaAction finishRunningWithMatch:error:]";
+        v15 = 2112;
+        v16 = v10;
+        _os_log_impl(&dword_23DE30000, v11, OS_LOG_TYPE_DEFAULT, "%s Shazam action found match: %@", &v13, 0x16u);
       }
 
       output = [(WFShazamMediaAction *)self output];
@@ -224,8 +220,6 @@ LABEL_21:
   }
 
   [(WFShazamMediaAction *)self finishRunningWithError:errorCopy];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startShazam
@@ -297,11 +291,11 @@ uint64_t __50__WFShazamMediaAction_runAsynchronouslyWithInput___block_invoke(uin
   return [a2 showWithCompletionHandler:v3];
 }
 
-uint64_t __50__WFShazamMediaAction_runAsynchronouslyWithInput___block_invoke_2(uint64_t result, uint64_t a2)
+id *__50__WFShazamMediaAction_runAsynchronouslyWithInput___block_invoke_2(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) finishRunningWithError:a2];
+    return [result[4] finishRunningWithError:a2];
   }
 
   return result;

@@ -51,16 +51,14 @@ void __21__DERLogContext_init__block_invoke(uint64_t a1, const char *a2)
 
 void __25__DERLogContext_dumpLogs__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = ATLLogObject();
+  v7 = *MEMORY[0x277D85DE8];
+  v4 = ATLLogObject(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = 136315138;
-    v7 = a3;
-    _os_log_impl(&dword_22EEF5000, v4, OS_LOG_TYPE_ERROR, "%s", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = a3;
+    _os_log_impl(&dword_22EEF5000, v4, OS_LOG_TYPE_ERROR, "%s", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

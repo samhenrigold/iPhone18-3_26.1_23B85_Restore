@@ -38,7 +38,7 @@
 
 - (void)render
 {
-  v27[3] = *MEMORY[0x277D85DE8];
+  v26[3] = *MEMORY[0x277D85DE8];
   subviews = [(SFAlertMarkView *)self subviews];
   v4 = [subviews count];
 
@@ -47,40 +47,38 @@
     [(SFAlertMarkView *)self setTranslatesAutoresizingMaskIntoConstraints:0];
     v5 = objc_alloc(MEMORY[0x277D75A68]);
     alertImage = [(SFAlertMarkView *)self alertImage];
-    v27[0] = alertImage;
+    v26[0] = alertImage;
     v7 = [(SFAlertMarkView *)self labelForString:@"Lihat Panduan Pengguna untuk"];
-    v27[1] = v7;
+    v26[1] = v7;
     v8 = [(SFAlertMarkView *)self labelForString:@"Penggunaan Yang Tepat"];
-    v27[2] = v8;
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:3];
+    v26[2] = v8;
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:3];
     v10 = [v5 initWithArrangedSubviews:v9];
 
     [v10 setTranslatesAutoresizingMaskIntoConstraints:0];
     [v10 setAxis:1];
     [v10 setAlignment:3];
     [(SFAlertMarkView *)self addSubview:v10];
-    v21 = MEMORY[0x277CCAAD0];
+    v20 = MEMORY[0x277CCAAD0];
     leadingAnchor = [(SFAlertMarkView *)self leadingAnchor];
     leadingAnchor2 = [v10 leadingAnchor];
-    v23 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-    v26[0] = v23;
+    v22 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+    v25[0] = v22;
     trailingAnchor = [(SFAlertMarkView *)self trailingAnchor];
     trailingAnchor2 = [v10 trailingAnchor];
     v12 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-    v26[1] = v12;
+    v25[1] = v12;
     topAnchor = [v10 topAnchor];
     topAnchor2 = [(SFAlertMarkView *)self topAnchor];
     v15 = [topAnchor constraintGreaterThanOrEqualToSystemSpacingBelowAnchor:topAnchor2 multiplier:1.0];
-    v26[2] = v15;
+    v25[2] = v15;
     bottomAnchor = [(SFAlertMarkView *)self bottomAnchor];
     bottomAnchor2 = [v10 bottomAnchor];
     v18 = [bottomAnchor constraintGreaterThanOrEqualToSystemSpacingBelowAnchor:bottomAnchor2 multiplier:1.0];
-    v26[3] = v18;
-    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:4];
-    [v21 activateConstraints:v19];
+    v25[3] = v18;
+    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:4];
+    [v20 activateConstraints:v19];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (id)alertImage

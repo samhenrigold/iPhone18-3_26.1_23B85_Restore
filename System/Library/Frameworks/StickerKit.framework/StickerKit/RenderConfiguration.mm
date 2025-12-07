@@ -45,14 +45,14 @@
 
   else
   {
-    memset(v8, 0, sizeof(v8));
+    memset(v9, 0, sizeof(v9));
     selfCopy2 = self;
   }
 
-  v6 = sub_19A6A2FEC(v8);
+  v7 = sub_19A6A2FEC(v9, v5);
 
-  sub_19A612E20(v8);
-  return v6 & 1;
+  sub_19A612E20(v9);
+  return v7 & 1;
 }
 
 - (_TtC10StickerKit19RenderConfiguration)init

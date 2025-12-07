@@ -170,7 +170,7 @@ LABEL_14:
   }
 
   v40 = objc_msgSend_computeCommandEncoder(v36, v37, v38, v39);
-  objc_msgSend_setComputePipelineState_(v40, v41, v28[2], v42);
+  objc_msgSend_setComputePipelineState_(v40, v41, *(v28 + 16), v42);
   objc_msgSend_setImageblockWidth_height_(v40, v43, 32, 32);
   objc_msgSend_setBytes_length_atIndex_(v40, v44, v67, 48, 0);
   objc_msgSend_setBytes_length_atIndex_(v40, v45, chromaTex, 208, 1);

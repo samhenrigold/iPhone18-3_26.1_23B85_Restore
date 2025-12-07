@@ -12,28 +12,28 @@
 
 - (id)hk_valueForFirstInstanceOfParameterNamed:()HealthKit
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v4 = a3;
   v5 = [MEMORY[0x1E696AF20] componentsWithURL:self resolvingAgainstBaseURL:1];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   queryItems = [v5 queryItems];
-  value = [queryItems countByEnumeratingWithState:&v15 objects:v19 count:16];
+  value = [queryItems countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (value)
   {
-    v8 = *v16;
+    v8 = *v15;
     while (2)
     {
       for (i = 0; i != value; i = i + 1)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(queryItems);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         name = [v10 name];
         v12 = [name isEqualToString:v4];
 
@@ -44,7 +44,7 @@
         }
       }
 
-      value = [queryItems countByEnumeratingWithState:&v15 objects:v19 count:16];
+      value = [queryItems countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (value)
       {
         continue;
@@ -55,8 +55,6 @@
   }
 
 LABEL_11:
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return value;
 }
@@ -162,23 +160,23 @@ LABEL_6:
 
 - (id)hk_fileSizeWithError:()HealthKit
 {
-  v20[1] = *MEMORY[0x1E69E9840];
+  v19[1] = *MEMORY[0x1E69E9840];
   if (([self isFileURL] & 1) == 0)
   {
     [(NSURL(HealthKit) *)a2 hk_fileSizeWithError:self];
   }
 
-  memset(&v18, 0, sizeof(v18));
-  if (stat([self fileSystemRepresentation], &v18))
+  memset(&v17, 0, sizeof(v17));
+  if (stat([self fileSystemRepresentation], &v17))
   {
     v6 = __error();
     v7 = MEMORY[0x1E696ABC0];
     if (*v6 == 2)
     {
       v8 = *MEMORY[0x1E696A250];
-      v19 = *MEMORY[0x1E696A998];
-      v20[0] = self;
-      v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+      v18 = *MEMORY[0x1E696A998];
+      v19[0] = self;
+      v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
       v10 = [v7 errorWithDomain:v8 code:4 userInfo:v9];
       v11 = v10;
       if (v10)
@@ -200,7 +198,7 @@ LABEL_6:
     {
       v14 = __error();
       v15 = strerror(*v14);
-      [v7 hk_assignError:a3 code:102 format:{@"Failed to retrieve size for file at '%@': %s", self, v15, *&v18.st_dev, v18.st_ino, *&v18.st_uid, *&v18.st_rdev, v18.st_atimespec.tv_sec, v18.st_atimespec.tv_nsec, v18.st_mtimespec.tv_sec, v18.st_mtimespec.tv_nsec, v18.st_ctimespec.tv_sec, v18.st_ctimespec.tv_nsec, v18.st_birthtimespec.tv_sec, v18.st_birthtimespec.tv_nsec}];
+      [v7 hk_assignError:a3 code:102 format:{@"Failed to retrieve size for file at '%@': %s", self, v15, *&v17.st_dev, v17.st_ino, *&v17.st_uid, *&v17.st_rdev, v17.st_atimespec.tv_sec, v17.st_atimespec.tv_nsec, v17.st_mtimespec.tv_sec, v17.st_mtimespec.tv_nsec, v17.st_ctimespec.tv_sec, v17.st_ctimespec.tv_nsec, v17.st_birthtimespec.tv_sec, v17.st_birthtimespec.tv_nsec}];
     }
 
     v13 = 0;
@@ -208,10 +206,8 @@ LABEL_6:
 
   else
   {
-    v13 = [MEMORY[0x1E696AD98] numberWithLongLong:v18.st_size];
+    v13 = [MEMORY[0x1E696AD98] numberWithLongLong:v17.st_size];
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v13;
 }

@@ -25,7 +25,7 @@
       {
         image = [resultCopy image];
         videoAsset = [resultCopy videoAsset];
-        [resultCopy photoTime];
+        objc_msgSend_photoTime(resultCopy);
         Seconds = CMTimeGetSeconds(&time);
         [image imageOrientation];
         v17 = PLExifOrientationFromImageOrientation();

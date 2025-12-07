@@ -57,7 +57,7 @@
 {
   if (dword_1001BEA68 <= 30 && (dword_1001BEA68 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEA68, "[TVLatencyColorimeterSetupProgressViewController _handleDismissButton]", 30, "Progress Dismiss button\n");
   }
 
   mainController = [(TVLatencyColorimeterSetupBaseViewController *)self mainController];
@@ -69,7 +69,7 @@
   disappearCopy = disappear;
   if (dword_1001BEA68 <= 30 && (dword_1001BEA68 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEA68, "[TVLatencyColorimeterSetupProgressViewController viewDidDisappear:]", 30, "Progress ViewDidDisappear\n");
   }
 
   v5.receiver = self;
@@ -82,7 +82,7 @@
   appearCopy = appear;
   if (dword_1001BEA68 <= 30 && (dword_1001BEA68 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEA68, "[TVLatencyColorimeterSetupProgressViewController viewWillAppear:]", 30, "Progress ViewWillAppear\n");
   }
 
   v9.receiver = self;

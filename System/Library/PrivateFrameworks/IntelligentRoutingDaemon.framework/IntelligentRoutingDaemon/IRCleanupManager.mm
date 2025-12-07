@@ -46,7 +46,7 @@
 
 void __45__IRCleanupManager__handleCleanupXPCActivity__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = os_transaction_create();
@@ -83,9 +83,9 @@ void __45__IRCleanupManager__handleCleanupXPCActivity__block_invoke(uint64_t a1,
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x3032000000;
-      v38 = __Block_byref_object_copy__1;
-      v39 = __Block_byref_object_dispose__1;
-      v40 = 0;
+      v37 = __Block_byref_object_copy__1;
+      v38 = __Block_byref_object_dispose__1;
+      v39 = 0;
       if (+[IRPlatformInfo isInternalInstall])
       {
         block[0] = MEMORY[0x277D85DD0];
@@ -100,16 +100,16 @@ void __45__IRCleanupManager__handleCleanupXPCActivity__block_invoke(uint64_t a1,
         }
       }
 
-      v30[0] = MEMORY[0x277D85DD0];
-      v30[1] = 3221225472;
-      v30[2] = __45__IRCleanupManager__handleCleanupXPCActivity__block_invoke_2;
-      v30[3] = &unk_2797E12C0;
+      v29[0] = MEMORY[0x277D85DD0];
+      v29[1] = 3221225472;
+      v29[2] = __45__IRCleanupManager__handleCleanupXPCActivity__block_invoke_2;
+      v29[3] = &unk_2797E12C0;
       v19 = v6;
-      v31 = v19;
-      v33 = buf;
+      v30 = v19;
+      v32 = buf;
       v20 = v5;
-      v32 = v20;
-      [v10 enumerateObjectsUsingBlock:v30];
+      v31 = v20;
+      [v10 enumerateObjectsUsingBlock:v29];
       v21 = [IRSessionServer isGlobalLowLatencyMiLoWithPersistenceManager:v20];
       v22 = *v11;
       if (os_log_type_enabled(*v11, OS_LOG_TYPE_DEFAULT))
@@ -120,18 +120,18 @@ void __45__IRCleanupManager__handleCleanupXPCActivity__block_invoke(uint64_t a1,
           v23 = @"YES";
         }
 
-        *v35 = 138412290;
-        v36 = v23;
-        _os_log_impl(&dword_25543D000, v22, OS_LOG_TYPE_DEFAULT, "#db-cleanup-manager, Restarting isLowLatencyMiLo: %@", v35, 0xCu);
+        *v34 = 138412290;
+        v35 = v23;
+        _os_log_impl(&dword_25543D000, v22, OS_LOG_TYPE_DEFAULT, "#db-cleanup-manager, Restarting isLowLatencyMiLo: %@", v34, 0xCu);
       }
 
       v24 = [v19 allValues];
-      v28[0] = MEMORY[0x277D85DD0];
-      v28[1] = 3221225472;
-      v28[2] = __45__IRCleanupManager__handleCleanupXPCActivity__block_invoke_42;
-      v28[3] = &__block_descriptor_33_e35_v32__0__IRServiceContainer_8Q16_B24l;
-      v29 = v21;
-      [v24 enumerateObjectsUsingBlock:v28];
+      v27[0] = MEMORY[0x277D85DD0];
+      v27[1] = 3221225472;
+      v27[2] = __45__IRCleanupManager__handleCleanupXPCActivity__block_invoke_42;
+      v27[3] = &__block_descriptor_33_e35_v32__0__IRServiceContainer_8Q16_B24l;
+      v28 = v21;
+      [v24 enumerateObjectsUsingBlock:v27];
 
       _Block_object_dispose(buf, 8);
     }
@@ -155,23 +155,18 @@ void __45__IRCleanupManager__handleCleanupXPCActivity__block_invoke(uint64_t a1,
       __45__IRCleanupManager__handleCleanupXPCActivity__block_invoke_cold_1(v25);
     }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __45__IRCleanupManager__handleCleanupXPCActivity__block_invoke_24(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _getDateIntervalOfBuildsToDiscard];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) _getDateIntervalOfBuildsToDiscard];
 
   return MEMORY[0x2821F96F8]();
 }
 
 void __45__IRCleanupManager__handleCleanupXPCActivity__block_invoke_2(void *a1, void *a2)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = a1[4];
   v5 = [v3 serviceIdentifier];
@@ -200,9 +195,9 @@ void __45__IRCleanupManager__handleCleanupXPCActivity__block_invoke_2(void *a1, 
       v16 = *MEMORY[0x277D21260];
       if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_DEFAULT))
       {
-        v33 = 138412290;
-        v34 = v3;
-        _os_log_impl(&dword_25543D000, v16, OS_LOG_TYPE_DEFAULT, "#db-cleanup-manager, Deleting service: %@", &v33, 0xCu);
+        v32 = 138412290;
+        v33 = v3;
+        _os_log_impl(&dword_25543D000, v16, OS_LOG_TYPE_DEFAULT, "#db-cleanup-manager, Deleting service: %@", &v32, 0xCu);
       }
 
       v17 = objc_alloc(MEMORY[0x277D212E0]);
@@ -224,35 +219,33 @@ void __45__IRCleanupManager__handleCleanupXPCActivity__block_invoke_2(void *a1, 
       if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_DEFAULT))
       {
         v25 = v24;
-        v26 = [v3 clientIdentifier];
+        v26 = objc_msgSend_clientIdentifier(v3);
         v27 = MEMORY[0x277CCABB0];
         v28 = [MEMORY[0x277CBEAA8] date];
         [v28 timeIntervalSinceDate:v10];
         v29 = [v27 numberWithDouble:?];
         v30 = v29;
         v31 = @"Fail";
-        v33 = 138412802;
-        v34 = v26;
-        v35 = 2112;
+        v32 = 138412802;
+        v33 = v26;
+        v34 = 2112;
         if (v23)
         {
           v31 = @"Ok";
         }
 
-        v36 = v29;
-        v37 = 2112;
-        v38 = v31;
-        _os_log_impl(&dword_25543D000, v25, OS_LOG_TYPE_DEFAULT, "#db-cleanup-manager, Finished DB cleanup for non active service: %@, in %@ seconds with status: %@", &v33, 0x20u);
+        v35 = v29;
+        v36 = 2112;
+        v37 = v31;
+        _os_log_impl(&dword_25543D000, v25, OS_LOG_TYPE_DEFAULT, "#db-cleanup-manager, Finished DB cleanup for non active service: %@, in %@ seconds with status: %@", &v32, 0x20u);
       }
     }
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_getDateIntervalOfBuildsToDiscard
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   _getListOfBuildsToDiscard = [(IRCleanupManager *)self _getListOfBuildsToDiscard];
   v4 = MEMORY[0x277D21260];
   v5 = *MEMORY[0x277D21260];
@@ -269,26 +262,26 @@ void __45__IRCleanupManager__handleCleanupXPCActivity__block_invoke_2(void *a1, 
   v10 = [biomeProvider fetchLatestEventsOfEventType:3 numEvents:0];
 
   *buf = 0;
-  v41 = buf;
-  v42 = 0x2020000000;
-  v43 = 0;
-  v36[0] = MEMORY[0x277D85DD0];
-  v36[1] = 3221225472;
-  v36[2] = __53__IRCleanupManager__getDateIntervalOfBuildsToDiscard__block_invoke;
-  v36[3] = &unk_2797E1330;
+  v40 = buf;
+  v41 = 0x2020000000;
+  v42 = 0;
+  v35[0] = MEMORY[0x277D85DD0];
+  v35[1] = 3221225472;
+  v35[2] = __53__IRCleanupManager__getDateIntervalOfBuildsToDiscard__block_invoke;
+  v35[3] = &unk_2797E1330;
   v11 = _getListOfBuildsToDiscard;
-  v37 = v11;
+  v36 = v11;
   v12 = v6;
-  v38 = v12;
-  v39 = buf;
-  [v10 enumerateObjectsUsingBlock:v36];
+  v37 = v12;
+  v38 = buf;
+  [v10 enumerateObjectsUsingBlock:v35];
   if ([v12 count])
   {
-    v13 = *(v41 + 3);
+    v13 = *(v40 + 3);
     if (v13 < [v10 count] - 1)
     {
       v14 = MEMORY[0x277CCABB0];
-      v15 = [v10 objectAtIndex:*(v41 + 3) + 1];
+      v15 = [v10 objectAtIndex:*(v40 + 3) + 1];
       [v15 timestamp];
       v16 = [v14 numberWithDouble:?];
       [v12 addObject:v16];
@@ -317,11 +310,11 @@ void __45__IRCleanupManager__handleCleanupXPCActivity__block_invoke_2(void *a1, 
       v30 = v29;
       lastObject2 = [v19 lastObject];
       [lastObject2 doubleValue];
-      *v44 = 134218240;
-      v45 = v30;
-      v46 = 2048;
-      v47 = v32;
-      _os_log_impl(&dword_25543D000, v27, OS_LOG_TYPE_INFO, "#db-cleanup-manager, Found matching builds for discarding events with date range: (%f, %f)", v44, 0x16u);
+      *v43 = 134218240;
+      v44 = v30;
+      v45 = 2048;
+      v46 = v32;
+      _os_log_impl(&dword_25543D000, v27, OS_LOG_TYPE_INFO, "#db-cleanup-manager, Found matching builds for discarding events with date range: (%f, %f)", v43, 0x16u);
     }
   }
 
@@ -330,8 +323,8 @@ void __45__IRCleanupManager__handleCleanupXPCActivity__block_invoke_2(void *a1, 
     v33 = *v4;
     if (os_log_type_enabled(*v4, OS_LOG_TYPE_INFO))
     {
-      *v44 = 0;
-      _os_log_impl(&dword_25543D000, v33, OS_LOG_TYPE_INFO, "#db-cleanup-manager, Found no matching builds for which to discard events", v44, 2u);
+      *v43 = 0;
+      _os_log_impl(&dword_25543D000, v33, OS_LOG_TYPE_INFO, "#db-cleanup-manager, Found no matching builds for which to discard events", v43, 2u);
     }
 
     v26 = 0;
@@ -339,7 +332,6 @@ void __45__IRCleanupManager__handleCleanupXPCActivity__block_invoke_2(void *a1, 
   }
 
   _Block_object_dispose(buf, 8);
-  v34 = *MEMORY[0x277D85DE8];
 
   return v26;
 }

@@ -16,13 +16,12 @@
 {
   v3 = sub_1AE23BFEC();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x1EEE9AC00](v3);
-  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1AE23BF9C();
-  v8 = sub_1ADDED2C8(v7);
-  (*(v4 + 8))(v7, v3);
-  return v8;
+  v7 = sub_1ADDED2C8(v6);
+  (*(v4 + 8))(v6, v3);
+  return v7;
 }
 
 + (id)objCRenames
@@ -32,21 +31,20 @@
     swift_once();
   }
 
-  v2 = *(qword_1ED96F2F8 + 40);
   sub_1AE23D6AC();
+  v2 = v11;
   v3 = v12;
-  v4 = v13;
-  v5 = type metadata accessor for ObjCRenames();
-  v6 = objc_allocWithZone(v5);
-  v7 = &v6[OBJC_IVAR____TtC9Coherence11ObjCRenames_renames];
-  *v7 = v11;
-  v7[8] = v3;
-  *(v7 + 2) = v4;
-  v10.receiver = v6;
-  v10.super_class = v5;
-  v8 = objc_msgSendSuper2(&v10, sel_init);
+  v4 = type metadata accessor for ObjCRenames();
+  v5 = objc_allocWithZone(v4);
+  v6 = &v5[OBJC_IVAR____TtC9Coherence11ObjCRenames_renames];
+  *v6 = v10;
+  v6[8] = v2;
+  *(v6 + 2) = v3;
+  v9.receiver = v5;
+  v9.super_class = v4;
+  v7 = objc_msgSendSuper2(&v9, sel_init);
 
-  return v8;
+  return v7;
 }
 
 + (void)releaseObjCSequence:(id)sequence
@@ -62,16 +60,15 @@
     swift_once();
   }
 
-  v2 = *(qword_1ED96F2F8 + 40);
   sub_1AE23D6AC();
-  return v4;
+  return v3;
 }
 
 + (id)renameObjCSequence:(id)sequence after:(int64_t)after in:(id)in
 {
   sequenceCopy = sequence;
   inCopy = in;
-  v9 = sub_1ADE419F0(sequenceCopy, after);
+  v9 = sub_1ADE419F0(sequenceCopy, after, inCopy);
 
   return v9;
 }

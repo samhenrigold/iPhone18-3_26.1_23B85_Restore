@@ -71,7 +71,7 @@
       v25 = 2112;
       v26 = v15;
       _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_INFO, "Sending to PowerLog: %@ %@", buf, 0x16u);
-      _MBLog();
+      _MBLog(@"I ", "Sending to PowerLog: %@ %@", @"BackupEvents", v15);
     }
 
     PLLogRegisteredEvent();

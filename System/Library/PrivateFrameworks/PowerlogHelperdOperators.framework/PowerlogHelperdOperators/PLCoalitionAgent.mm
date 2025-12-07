@@ -16,7 +16,9 @@
 - (double)getGPUEnergyFromEntry:(id)entry;
 - (double)getGPUTimeFromEntry:(id)entry;
 - (double)getGPUWeightFromEntry:(id)entry;
+- (id)buildPLCoalitionDataObject:(coalition_resource_usage *)object withBundleId:(id)id withLaunchdName:(id)name withDate:(id)date withCoalitionId:(unint64_t)coalitionId isApp:(BOOL)app;
 - (id)buildPLEntryDiffWithStartObject:(id)object withEndObject:(id)endObject withStartDate:(id)date withEndDate:(id)endDate;
+- (id)processMemoryUsageWithPid:(int)pid withLaunchdName:(id)name withRusage:(void *)rusage withJetsamInfo:(void *)info withLimitInfo:(process_memory_limit_info *)limitInfo;
 - (id)processPerAppLogicalWritesWithInfo:(id)info;
 - (unint64_t)readPropertyFromRegistry:(__CFString *)registry;
 - (void)addAccountingEventsFromCoalitions:(id)coalitions;
@@ -30,6 +32,7 @@
 - (void)logCoalitionObjectDifference:(id)difference;
 - (void)logCoalitionObjectMemory:(id)memory;
 - (void)logToAggd:(id)aggd;
+- (void)logToCAProcessMemory:(id)memory andAccumulatedMemory:(id)accumulatedMemory dailyReport:(BOOL)report systemUptime:(unint64_t)uptime;
 @end
 
 @implementation PLCoalitionAgent
@@ -43,359 +46,345 @@
 
 + (id)entryAggregateDefinitions
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"NANDStats";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"NANDStats";
   v2 = +[PLCoalitionAgent entryAggregateDefinitionNANDStats];
-  v7[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
 
 + (id)entryAggregateDefinitionNANDStats
 {
-  v23[4] = *MEMORY[0x277D85DE8];
-  v22[0] = *MEMORY[0x277D3F4E8];
+  v22[4] = *MEMORY[0x277D85DE8];
+  v21[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F490];
-  v20[0] = *MEMORY[0x277D3F568];
-  v20[1] = v2;
-  v21[0] = &unk_28714B0B8;
-  v21[1] = MEMORY[0x277CBEC38];
-  v20[2] = *MEMORY[0x277D3F4A0];
-  v21[2] = MEMORY[0x277CBEC38];
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:3];
-  v23[0] = v3;
-  v22[1] = *MEMORY[0x277D3F540];
-  v18[0] = @"BundleId";
+  v19[0] = *MEMORY[0x277D3F568];
+  v19[1] = v2;
+  v20[0] = &unk_28714B0B8;
+  v20[1] = MEMORY[0x277CBEC38];
+  v19[2] = *MEMORY[0x277D3F4A0];
+  v20[2] = MEMORY[0x277CBEC38];
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:3];
+  v22[0] = v3;
+  v21[1] = *MEMORY[0x277D3F540];
+  v17[0] = @"BundleId";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat_withBundleID = [mEMORY[0x277D3F198] commonTypeDict_StringFormat_withBundleID];
-  v18[1] = @"LogicalWrites";
-  v19[0] = commonTypeDict_StringFormat_withBundleID;
+  v17[1] = @"LogicalWrites";
+  v18[0] = commonTypeDict_StringFormat_withBundleID;
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_aggregateFunction_sum = [mEMORY[0x277D3F198]2 commonTypeDict_IntegerFormat_aggregateFunction_sum];
-  v19[1] = commonTypeDict_IntegerFormat_aggregateFunction_sum;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:2];
-  v23[1] = v8;
-  v22[2] = *MEMORY[0x277D3F478];
-  v16 = &unk_28714B0C8;
-  v14 = *MEMORY[0x277D3F470];
-  v15 = &unk_28714B0D8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
-  v17 = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
-  v22[3] = *MEMORY[0x277D3F488];
-  v23[2] = v10;
-  v23[3] = &unk_28714BC18;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:4];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v18[1] = commonTypeDict_IntegerFormat_aggregateFunction_sum;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
+  v22[1] = v8;
+  v21[2] = *MEMORY[0x277D3F478];
+  v15 = &unk_28714B0C8;
+  v13 = *MEMORY[0x277D3F470];
+  v14 = &unk_28714B0D8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
+  v16 = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
+  v21[3] = *MEMORY[0x277D3F488];
+  v22[2] = v10;
+  v22[3] = &unk_28714BC18;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:4];
 
   return v11;
 }
 
 + (id)entryEventPointDefinitions
 {
-  v8[2] = *MEMORY[0x277D85DE8];
-  v7[0] = @"CoalitionDrops";
+  v7[2] = *MEMORY[0x277D85DE8];
+  v6[0] = @"CoalitionDrops";
   v2 = +[PLCoalitionAgent entryEventPointDefinitionCoalitionDrop];
-  v7[1] = @"CoalitionMemory";
-  v8[0] = v2;
+  v6[1] = @"CoalitionMemory";
+  v7[0] = v2;
   v3 = +[PLCoalitionAgent entryEventPointDefinitionCoalitionMemory];
-  v8[1] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v7[1] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
 
   return v4;
 }
 
 + (id)entryEventPointDefinitionCoalitionDrop
 {
-  v16[2] = *MEMORY[0x277D85DE8];
-  v15[0] = *MEMORY[0x277D3F4E8];
-  v13 = *MEMORY[0x277D3F568];
-  v14 = &unk_28714B0B8;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
-  v16[0] = v2;
-  v15[1] = *MEMORY[0x277D3F540];
-  v11[0] = @"bufferSize";
+  v15[2] = *MEMORY[0x277D85DE8];
+  v14[0] = *MEMORY[0x277D3F4E8];
+  v12 = *MEMORY[0x277D3F568];
+  v13 = &unk_28714B0B8;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v13 forKeys:&v12 count:1];
+  v15[0] = v2;
+  v14[1] = *MEMORY[0x277D3F540];
+  v10[0] = @"bufferSize";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat];
-  v11[1] = @"finalSize";
-  v12[0] = commonTypeDict_IntegerFormat;
+  v10[1] = @"finalSize";
+  v11[0] = commonTypeDict_IntegerFormat;
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]2 commonTypeDict_IntegerFormat];
-  v12[1] = commonTypeDict_IntegerFormat2;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
-  v16[1] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v11[1] = commonTypeDict_IntegerFormat2;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v15[1] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
 
   return v8;
 }
 
 + (id)entryEventPointDefinitionCoalitionMemory
 {
-  v31[2] = *MEMORY[0x277D85DE8];
-  v30[0] = *MEMORY[0x277D3F4E8];
+  v30[2] = *MEMORY[0x277D85DE8];
+  v29[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F4D8];
-  v28[0] = *MEMORY[0x277D3F568];
-  v28[1] = v2;
-  v29[0] = &unk_28714B0E8;
-  v29[1] = MEMORY[0x277CBEC38];
-  v28[2] = *MEMORY[0x277D3F4A0];
-  v29[2] = MEMORY[0x277CBEC38];
-  v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:3];
-  v31[0] = v25;
-  v30[1] = *MEMORY[0x277D3F540];
-  v26[0] = @"LaunchdCoalitionId";
+  v27[0] = *MEMORY[0x277D3F568];
+  v27[1] = v2;
+  v28[0] = &unk_28714B0E8;
+  v28[1] = MEMORY[0x277CBEC38];
+  v27[2] = *MEMORY[0x277D3F4A0];
+  v28[2] = MEMORY[0x277CBEC38];
+  v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:3];
+  v30[0] = v24;
+  v29[1] = *MEMORY[0x277D3F540];
+  v25[0] = @"LaunchdCoalitionId";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat];
-  v27[0] = commonTypeDict_IntegerFormat;
-  v26[1] = @"LaunchdName";
+  v26[0] = commonTypeDict_IntegerFormat;
+  v25[1] = @"LaunchdName";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat_withBundleID = [mEMORY[0x277D3F198]2 commonTypeDict_StringFormat_withBundleID];
-  v27[1] = commonTypeDict_StringFormat_withBundleID;
-  v26[2] = @"memory_wired_size";
+  v26[1] = commonTypeDict_StringFormat_withBundleID;
+  v25[2] = @"memory_wired_size";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]3 commonTypeDict_IntegerFormat];
-  v27[2] = commonTypeDict_IntegerFormat2;
-  v26[3] = @"memory_purgeable_size";
+  v26[2] = commonTypeDict_IntegerFormat2;
+  v25[3] = @"memory_purgeable_size";
   mEMORY[0x277D3F198]4 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat3 = [mEMORY[0x277D3F198]4 commonTypeDict_IntegerFormat];
-  v27[3] = commonTypeDict_IntegerFormat3;
-  v26[4] = @"memory_anonmem_size";
+  v26[3] = commonTypeDict_IntegerFormat3;
+  v25[4] = @"memory_anonmem_size";
   mEMORY[0x277D3F198]5 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat4 = [mEMORY[0x277D3F198]5 commonTypeDict_IntegerFormat];
-  v27[4] = commonTypeDict_IntegerFormat4;
-  v26[5] = @"memory_compressed_size";
+  v26[4] = commonTypeDict_IntegerFormat4;
+  v25[5] = @"memory_compressed_size";
   mEMORY[0x277D3F198]6 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat5 = [mEMORY[0x277D3F198]6 commonTypeDict_IntegerFormat];
-  v27[5] = commonTypeDict_IntegerFormat5;
-  v26[6] = @"process_count";
+  v26[5] = commonTypeDict_IntegerFormat5;
+  v25[6] = @"process_count";
   mEMORY[0x277D3F198]7 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat6 = [mEMORY[0x277D3F198]7 commonTypeDict_IntegerFormat];
-  v27[6] = commonTypeDict_IntegerFormat6;
-  v26[7] = @"CompressedLifetime";
+  v26[6] = commonTypeDict_IntegerFormat6;
+  v25[7] = @"CompressedLifetime";
   mEMORY[0x277D3F198]8 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat7 = [mEMORY[0x277D3F198]8 commonTypeDict_IntegerFormat];
-  v27[7] = commonTypeDict_IntegerFormat7;
-  v26[8] = @"Swapins";
+  v26[7] = commonTypeDict_IntegerFormat7;
+  v25[8] = @"Swapins";
   mEMORY[0x277D3F198]9 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat8 = [mEMORY[0x277D3F198]9 commonTypeDict_IntegerFormat];
-  v27[8] = commonTypeDict_IntegerFormat8;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:9];
-  v31[1] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:2];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v26[8] = commonTypeDict_IntegerFormat8;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:9];
+  v30[1] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:2];
 
   return v12;
 }
 
 + (id)entryEventIntervalDefinitions
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"CoalitionInterval";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"CoalitionInterval";
   v2 = +[PLCoalitionAgent entryEventIntervalDefinitionCoalitionUsage];
-  v7[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
 
 + (id)entryEventIntervalDefinitionCoalitionUsage
 {
-  v92[2] = *MEMORY[0x277D85DE8];
-  v91[0] = *MEMORY[0x277D3F4E8];
+  v91[2] = *MEMORY[0x277D85DE8];
+  v90[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F4D8];
-  v89[0] = *MEMORY[0x277D3F568];
-  v89[1] = v2;
-  v90[0] = &unk_28714B0F8;
-  v90[1] = MEMORY[0x277CBEC38];
+  v88[0] = *MEMORY[0x277D3F568];
+  v88[1] = v2;
+  v89[0] = &unk_28714B0F8;
+  v89[1] = MEMORY[0x277CBEC38];
   v3 = *MEMORY[0x277D3F548];
-  v89[2] = *MEMORY[0x277D3F4A0];
-  v89[3] = v3;
-  v90[2] = MEMORY[0x277CBEC38];
-  v90[3] = @"logEventIntervalCoalitionIntervalWithoutHighFreqLogging";
-  v86 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v90 forKeys:v89 count:4];
-  v92[0] = v86;
-  v91[1] = *MEMORY[0x277D3F540];
-  v87[0] = @"LaunchdCoalitionId";
+  v88[2] = *MEMORY[0x277D3F4A0];
+  v88[3] = v3;
+  v89[2] = MEMORY[0x277CBEC38];
+  v89[3] = @"logEventIntervalCoalitionIntervalWithoutHighFreqLogging";
+  v85 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v89 forKeys:v88 count:4];
+  v91[0] = v85;
+  v90[1] = *MEMORY[0x277D3F540];
+  v86[0] = @"LaunchdCoalitionId";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat];
-  v88[0] = commonTypeDict_IntegerFormat;
-  v87[1] = @"LaunchdName";
+  v87[0] = commonTypeDict_IntegerFormat;
+  v86[1] = @"LaunchdName";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat_withBundleID = [mEMORY[0x277D3F198]2 commonTypeDict_StringFormat_withBundleID];
-  v88[1] = commonTypeDict_StringFormat_withBundleID;
-  v87[2] = @"BundleId";
+  v87[1] = commonTypeDict_StringFormat_withBundleID;
+  v86[2] = @"BundleId";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat_withBundleID2 = [mEMORY[0x277D3F198]3 commonTypeDict_StringFormat_withBundleID];
-  v88[2] = commonTypeDict_StringFormat_withBundleID2;
-  v87[3] = @"tasks_started";
+  v87[2] = commonTypeDict_StringFormat_withBundleID2;
+  v86[3] = @"tasks_started";
   mEMORY[0x277D3F198]4 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_RealFormat = [mEMORY[0x277D3F198]4 commonTypeDict_RealFormat];
-  v88[3] = commonTypeDict_RealFormat;
-  v87[4] = @"tasks_exited";
+  v87[3] = commonTypeDict_RealFormat;
+  v86[4] = @"tasks_exited";
   mEMORY[0x277D3F198]5 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_RealFormat2 = [mEMORY[0x277D3F198]5 commonTypeDict_RealFormat];
-  v88[4] = commonTypeDict_RealFormat2;
-  v87[5] = @"time_nonempty";
+  v87[4] = commonTypeDict_RealFormat2;
+  v86[5] = @"time_nonempty";
   mEMORY[0x277D3F198]6 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_RealFormat3 = [mEMORY[0x277D3F198]6 commonTypeDict_RealFormat];
-  v88[5] = commonTypeDict_RealFormat3;
-  v87[6] = @"cpu_time";
+  v87[5] = commonTypeDict_RealFormat3;
+  v86[6] = @"cpu_time";
   mEMORY[0x277D3F198]7 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_RealFormat4 = [mEMORY[0x277D3F198]7 commonTypeDict_RealFormat];
-  v88[6] = commonTypeDict_RealFormat4;
-  v87[7] = @"cpu_instructions";
+  v87[6] = commonTypeDict_RealFormat4;
+  v86[7] = @"cpu_instructions";
   mEMORY[0x277D3F198]8 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]8 commonTypeDict_IntegerFormat];
-  v88[7] = commonTypeDict_IntegerFormat2;
-  v87[8] = @"interrupt_wakeups";
+  v87[7] = commonTypeDict_IntegerFormat2;
+  v86[8] = @"interrupt_wakeups";
   mEMORY[0x277D3F198]9 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_RealFormat5 = [mEMORY[0x277D3F198]9 commonTypeDict_RealFormat];
-  v88[8] = commonTypeDict_RealFormat5;
-  v87[9] = @"platform_idle_wakeups";
+  v87[8] = commonTypeDict_RealFormat5;
+  v86[9] = @"platform_idle_wakeups";
   mEMORY[0x277D3F198]10 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_RealFormat6 = [mEMORY[0x277D3F198]10 commonTypeDict_RealFormat];
-  v88[9] = commonTypeDict_RealFormat6;
-  v87[10] = @"bytesread";
+  v87[9] = commonTypeDict_RealFormat6;
+  v86[10] = @"bytesread";
   mEMORY[0x277D3F198]11 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_RealFormat7 = [mEMORY[0x277D3F198]11 commonTypeDict_RealFormat];
-  v88[10] = commonTypeDict_RealFormat7;
-  v87[11] = @"byteswritten";
+  v87[10] = commonTypeDict_RealFormat7;
+  v86[11] = @"byteswritten";
   mEMORY[0x277D3F198]12 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_RealFormat8 = [mEMORY[0x277D3F198]12 commonTypeDict_RealFormat];
-  v88[11] = commonTypeDict_RealFormat8;
-  v87[12] = @"logical_immediate_writes";
+  v87[11] = commonTypeDict_RealFormat8;
+  v86[12] = @"logical_immediate_writes";
   mEMORY[0x277D3F198]13 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_RealFormat9 = [mEMORY[0x277D3F198]13 commonTypeDict_RealFormat];
-  v88[12] = commonTypeDict_RealFormat9;
-  v87[13] = @"logical_deferred_writes";
+  v87[12] = commonTypeDict_RealFormat9;
+  v86[13] = @"logical_deferred_writes";
   mEMORY[0x277D3F198]14 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_RealFormat10 = [mEMORY[0x277D3F198]14 commonTypeDict_RealFormat];
-  v88[13] = commonTypeDict_RealFormat10;
-  v87[14] = @"logical_invalidated_writes";
+  v87[13] = commonTypeDict_RealFormat10;
+  v86[14] = @"logical_invalidated_writes";
   mEMORY[0x277D3F198]15 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_RealFormat11 = [mEMORY[0x277D3F198]15 commonTypeDict_RealFormat];
-  v88[14] = commonTypeDict_RealFormat11;
-  v87[15] = @"logical_metadata_writes";
+  v87[14] = commonTypeDict_RealFormat11;
+  v86[15] = @"logical_metadata_writes";
   mEMORY[0x277D3F198]16 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_RealFormat12 = [mEMORY[0x277D3F198]16 commonTypeDict_RealFormat];
-  v88[15] = commonTypeDict_RealFormat12;
-  v87[16] = @"gpu_time";
+  v87[15] = commonTypeDict_RealFormat12;
+  v86[16] = @"gpu_time";
   mEMORY[0x277D3F198]17 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_RealFormat13 = [mEMORY[0x277D3F198]17 commonTypeDict_RealFormat];
-  v88[16] = commonTypeDict_RealFormat13;
-  v87[17] = @"gpu_energy_nj";
+  v87[16] = commonTypeDict_RealFormat13;
+  v86[17] = @"gpu_energy_nj";
   mEMORY[0x277D3F198]18 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat3 = [mEMORY[0x277D3F198]18 commonTypeDict_IntegerFormat];
-  v88[17] = commonTypeDict_IntegerFormat3;
-  v87[18] = @"gpu_energy_nj_billed_to_me";
+  v87[17] = commonTypeDict_IntegerFormat3;
+  v86[18] = @"gpu_energy_nj_billed_to_me";
   mEMORY[0x277D3F198]19 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat4 = [mEMORY[0x277D3F198]19 commonTypeDict_IntegerFormat];
-  v88[18] = commonTypeDict_IntegerFormat4;
-  v87[19] = @"gpu_energy_nj_billed_to_others";
+  v87[18] = commonTypeDict_IntegerFormat4;
+  v86[19] = @"gpu_energy_nj_billed_to_others";
   mEMORY[0x277D3F198]20 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat5 = [mEMORY[0x277D3F198]20 commonTypeDict_IntegerFormat];
-  v88[19] = commonTypeDict_IntegerFormat5;
-  v87[20] = @"cpu_time_billed_to_me";
+  v87[19] = commonTypeDict_IntegerFormat5;
+  v86[20] = @"cpu_time_billed_to_me";
   mEMORY[0x277D3F198]21 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_RealFormat14 = [mEMORY[0x277D3F198]21 commonTypeDict_RealFormat];
-  v88[20] = commonTypeDict_RealFormat14;
-  v87[21] = @"cpu_time_billed_to_others";
+  v87[20] = commonTypeDict_RealFormat14;
+  v86[21] = @"cpu_time_billed_to_others";
   mEMORY[0x277D3F198]22 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_RealFormat15 = [mEMORY[0x277D3F198]22 commonTypeDict_RealFormat];
-  v88[21] = commonTypeDict_RealFormat15;
-  v87[22] = @"timestampEnd";
+  v87[21] = commonTypeDict_RealFormat15;
+  v86[22] = @"timestampEnd";
   mEMORY[0x277D3F198]23 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_DateFormat = [mEMORY[0x277D3F198]23 commonTypeDict_DateFormat];
-  v88[22] = commonTypeDict_DateFormat;
-  v87[23] = @"energy";
+  v87[22] = commonTypeDict_DateFormat;
+  v86[23] = @"energy";
   mEMORY[0x277D3F198]24 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat6 = [mEMORY[0x277D3F198]24 commonTypeDict_IntegerFormat];
-  v88[23] = commonTypeDict_IntegerFormat6;
-  v87[24] = @"energy_billed_to_me";
+  v87[23] = commonTypeDict_IntegerFormat6;
+  v86[24] = @"energy_billed_to_me";
   mEMORY[0x277D3F198]25 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat7 = [mEMORY[0x277D3F198]25 commonTypeDict_IntegerFormat];
-  v88[24] = commonTypeDict_IntegerFormat7;
-  v87[25] = @"energy_billed_to_others";
+  v87[24] = commonTypeDict_IntegerFormat7;
+  v86[25] = @"energy_billed_to_others";
   mEMORY[0x277D3F198]26 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat8 = [mEMORY[0x277D3F198]26 commonTypeDict_IntegerFormat];
-  v88[25] = commonTypeDict_IntegerFormat8;
-  v87[26] = @"cpu_time_eqos_0";
+  v87[25] = commonTypeDict_IntegerFormat8;
+  v86[26] = @"cpu_time_eqos_0";
   mEMORY[0x277D3F198]27 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_RealFormat16 = [mEMORY[0x277D3F198]27 commonTypeDict_RealFormat];
-  v88[26] = commonTypeDict_RealFormat16;
-  v87[27] = @"cpu_time_eqos_1";
+  v87[26] = commonTypeDict_RealFormat16;
+  v86[27] = @"cpu_time_eqos_1";
   mEMORY[0x277D3F198]28 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_RealFormat17 = [mEMORY[0x277D3F198]28 commonTypeDict_RealFormat];
-  v88[27] = commonTypeDict_RealFormat17;
-  v87[28] = @"cpu_time_eqos_2";
+  v87[27] = commonTypeDict_RealFormat17;
+  v86[28] = @"cpu_time_eqos_2";
   mEMORY[0x277D3F198]29 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_RealFormat18 = [mEMORY[0x277D3F198]29 commonTypeDict_RealFormat];
-  v88[28] = commonTypeDict_RealFormat18;
-  v87[29] = @"cpu_time_eqos_3";
+  v87[28] = commonTypeDict_RealFormat18;
+  v86[29] = @"cpu_time_eqos_3";
   mEMORY[0x277D3F198]30 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_RealFormat19 = [mEMORY[0x277D3F198]30 commonTypeDict_RealFormat];
-  v88[29] = commonTypeDict_RealFormat19;
-  v87[30] = @"cpu_time_eqos_4";
+  v87[29] = commonTypeDict_RealFormat19;
+  v86[30] = @"cpu_time_eqos_4";
   mEMORY[0x277D3F198]31 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_RealFormat20 = [mEMORY[0x277D3F198]31 commonTypeDict_RealFormat];
-  v88[30] = commonTypeDict_RealFormat20;
-  v87[31] = @"cpu_time_eqos_5";
+  v87[30] = commonTypeDict_RealFormat20;
+  v86[31] = @"cpu_time_eqos_5";
   mEMORY[0x277D3F198]32 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_RealFormat21 = [mEMORY[0x277D3F198]32 commonTypeDict_RealFormat];
-  v88[31] = commonTypeDict_RealFormat21;
-  v87[32] = @"cpu_time_eqos_6";
+  v87[31] = commonTypeDict_RealFormat21;
+  v86[32] = @"cpu_time_eqos_6";
   mEMORY[0x277D3F198]33 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_RealFormat22 = [mEMORY[0x277D3F198]33 commonTypeDict_RealFormat];
-  v88[32] = commonTypeDict_RealFormat22;
-  v87[33] = @"ane_time";
+  v87[32] = commonTypeDict_RealFormat22;
+  v86[33] = @"ane_time";
   mEMORY[0x277D3F198]34 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_RealFormat23 = [mEMORY[0x277D3F198]34 commonTypeDict_RealFormat];
-  v88[33] = commonTypeDict_RealFormat23;
-  v87[34] = @"ane_energy_nj";
+  v87[33] = commonTypeDict_RealFormat23;
+  v86[34] = @"ane_energy_nj";
   mEMORY[0x277D3F198]35 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat9 = [mEMORY[0x277D3F198]35 commonTypeDict_IntegerFormat];
-  v88[34] = commonTypeDict_IntegerFormat9;
-  v87[35] = @"cpu_ptime";
+  v87[34] = commonTypeDict_IntegerFormat9;
+  v86[35] = @"cpu_ptime";
   mEMORY[0x277D3F198]36 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_RealFormat24 = [mEMORY[0x277D3F198]36 commonTypeDict_RealFormat];
-  v88[35] = commonTypeDict_RealFormat24;
-  v87[36] = @"cpu_pinstructions";
+  v87[35] = commonTypeDict_RealFormat24;
+  v86[36] = @"cpu_pinstructions";
   mEMORY[0x277D3F198]37 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat10 = [mEMORY[0x277D3F198]37 commonTypeDict_IntegerFormat];
-  v88[36] = commonTypeDict_IntegerFormat10;
-  v87[37] = @"cpu_pcycles";
+  v87[36] = commonTypeDict_IntegerFormat10;
+  v86[37] = @"cpu_pcycles";
   mEMORY[0x277D3F198]38 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat11 = [mEMORY[0x277D3F198]38 commonTypeDict_IntegerFormat];
-  v88[37] = commonTypeDict_IntegerFormat11;
-  v87[38] = @"cpu_cycles";
+  v87[37] = commonTypeDict_IntegerFormat11;
+  v86[38] = @"cpu_cycles";
   mEMORY[0x277D3F198]39 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat12 = [mEMORY[0x277D3F198]39 commonTypeDict_IntegerFormat];
-  v88[38] = commonTypeDict_IntegerFormat12;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v88 forKeys:v87 count:39];
-  v92[1] = v12;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v92 forKeys:v91 count:2];
-
-  v14 = *MEMORY[0x277D85DE8];
+  v87[38] = commonTypeDict_IntegerFormat12;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v87 forKeys:v86 count:39];
+  v91[1] = v12;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v91 forKeys:v90 count:2];
 
   return v13;
 }
 
 - (PLCoalitionAgent)init
 {
-  v26.receiver = self;
-  v26.super_class = PLCoalitionAgent;
-  v2 = [(PLAgent *)&v26 init];
+  v28.receiver = self;
+  v28.super_class = PLCoalitionAgent;
+  v2 = [(PLAgent *)&v28 init];
   v3 = v2;
   if (v2)
   {
@@ -407,21 +396,21 @@
     reportMemoryStatsAfterTime = v3->_reportMemoryStatsAfterTime;
     v3->_reportMemoryStatsAfterTime = v6;
 
-    v8 = PLLogCommon();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v9 = PLLogCommon(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      [(PLCoalitionAgent *)&v3->_reportMemoryStatsAfterTime init:v8];
+      [(PLCoalitionAgent *)&v3->_reportMemoryStatsAfterTime init:v9];
     }
 
     monotonicDate2 = [MEMORY[0x277CBEAA8] monotonicDate];
-    v16 = [monotonicDate2 dateByAddingTimeInterval:arc4random_uniform(0xE10u)];
+    v17 = [monotonicDate2 dateByAddingTimeInterval:arc4random_uniform(0xE10u)];
     reportHighFrequencyMemoryStatsAfterTime = v3->_reportHighFrequencyMemoryStatsAfterTime;
-    v3->_reportHighFrequencyMemoryStatsAfterTime = v16;
+    v3->_reportHighFrequencyMemoryStatsAfterTime = v17;
 
-    v18 = PLLogCommon();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+    v20 = PLLogCommon(v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
     {
-      [(PLCoalitionAgent *)&v3->_reportHighFrequencyMemoryStatsAfterTime init:v18];
+      [(PLCoalitionAgent *)&v3->_reportHighFrequencyMemoryStatsAfterTime init:v20];
     }
   }
 
@@ -478,7 +467,7 @@
 
 void __44__PLCoalitionAgent_initOperatorDependancies__block_invoke(uint64_t a1)
 {
-  v2 = PLLogCoalition();
+  v2 = PLLogCoalition(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -500,7 +489,7 @@ void __44__PLCoalitionAgent_initOperatorDependancies__block_invoke_440(uint64_t 
 void __44__PLCoalitionAgent_initOperatorDependancies__block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PLLogCoalition();
+  v4 = PLLogCoalition(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     __41__PLCameraAgent_initOperatorDependancies__block_invoke_172_cold_1();
@@ -533,14 +522,14 @@ LABEL_8:
 
 id __44__PLCoalitionAgent_initOperatorDependancies__block_invoke_467(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v6 = a5;
-  v7 = PLLogCommon();
+  v7 = PLLogCommon(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
-    v14 = 138412290;
-    v15 = v6;
-    _os_log_impl(&dword_25EE51000, v7, OS_LOG_TYPE_INFO, "LogicalWritesPerApp query received with info: %@", &v14, 0xCu);
+    v13 = 138412290;
+    v14 = v6;
+    _os_log_impl(&dword_25EE51000, v7, OS_LOG_TYPE_INFO, "LogicalWritesPerApp query received with info: %@", &v13, 0xCu);
   }
 
   v8 = [*(a1 + 32) processPerAppLogicalWritesWithInfo:v6];
@@ -549,8 +538,6 @@ id __44__PLCoalitionAgent_initOperatorDependancies__block_invoke_467(uint64_t a1
   [MEMORY[0x277D3F180] doubleForKey:@"LastUpgradeSystemTimestamp"];
   v11 = [v10 numberWithDouble:?];
   [v9 setObject:v11 forKeyedSubscript:@"lastUpgradeTimestamp"];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -564,11 +551,11 @@ id __44__PLCoalitionAgent_initOperatorDependancies__block_invoke_467(uint64_t a1
 
   if (v6 <= 300.0)
   {
-    v7 = PLLogCommon();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v8 = PLLogCommon(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      *v8 = 0;
-      _os_log_impl(&dword_25EE51000, v7, OS_LOG_TYPE_INFO, "Frequent Plugged / Unplugged events, not logging to Coalitions", v8, 2u);
+      *v9 = 0;
+      _os_log_impl(&dword_25EE51000, v8, OS_LOG_TYPE_INFO, "Frequent Plugged / Unplugged events, not logging to Coalitions", v9, 2u);
     }
   }
 
@@ -606,14 +593,13 @@ id __44__PLCoalitionAgent_initOperatorDependancies__block_invoke_467(uint64_t a1
   if (MatchingServices)
   {
     v7 = MatchingServices;
-    v8 = PLLogCommon();
+    v8 = PLLogCommon(MatchingServices);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [(PLCoalitionAgent *)v7 readPropertyFromRegistry:v8];
     }
 
-    result = 0;
-    goto LABEL_23;
+    return 0;
   }
 
   v10 = IOIteratorNext(existing);
@@ -636,16 +622,17 @@ id __44__PLCoalitionAgent_initOperatorDependancies__block_invoke_467(uint64_t a1
       if (v14 != TypeID)
       {
         v17 = CFGetTypeID(v13);
-        if (v17 != CFArrayGetTypeID())
+        v18 = CFArrayGetTypeID();
+        if (v17 != v18)
         {
-          v21 = PLLogCommon();
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+          v22 = PLLogCommon(v18);
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412546;
             registryCopy = registry;
             v27 = 2112;
             v28 = v13;
-            _os_log_error_impl(&dword_25EE51000, v21, OS_LOG_TYPE_ERROR, "Unknown datatype for property: %@ data : %@", buf, 0x16u);
+            _os_log_error_impl(&dword_25EE51000, v22, OS_LOG_TYPE_ERROR, "Unknown datatype for property: %@ data : %@", buf, 0x16u);
           }
 
           goto LABEL_17;
@@ -657,11 +644,11 @@ id __44__PLCoalitionAgent_initOperatorDependancies__block_invoke_467(uint64_t a1
       Value = CFDictionaryGetValue(ValueAtIndex, @"capacity");
       if (Value)
       {
-        v19 = Value;
-        v20 = CFGetTypeID(Value);
-        if (v20 == CFNumberGetTypeID())
+        v20 = Value;
+        v21 = CFGetTypeID(Value);
+        if (v21 == CFNumberGetTypeID())
         {
-          CFNumberGetValue(v19, kCFNumberSInt64Type, &valuePtr);
+          CFNumberGetValue(v20, kCFNumberSInt64Type, &valuePtr);
           CFRelease(v13);
           break;
         }
@@ -680,10 +667,315 @@ LABEL_17:
     IOObjectRelease(existing);
   }
 
-  result = valuePtr;
-LABEL_23:
-  v22 = *MEMORY[0x277D85DE8];
-  return result;
+  return valuePtr;
+}
+
+- (void)logToCAProcessMemory:(id)memory andAccumulatedMemory:(id)accumulatedMemory dailyReport:(BOOL)report systemUptime:(unint64_t)uptime
+{
+  reportCopy = report;
+  v147 = *MEMORY[0x277D85DE8];
+  memoryCopy = memory;
+  accumulatedMemoryCopy = accumulatedMemory;
+  v64 = accumulatedMemoryCopy;
+  if (!reportCopy)
+  {
+    goto LABEL_7;
+  }
+
+  date = [MEMORY[0x277CBEAA8] date];
+  [date timeIntervalSinceReferenceDate];
+  v13 = (v12 / 86400.0);
+
+  v14 = [MEMORY[0x277D3F180] objectExistsForKey:@"MemoryCoreAnalyticsLastReportedDayNumber"];
+  if (v14)
+  {
+    v15 = [MEMORY[0x277D3F180] objectForKey:@"MemoryCoreAnalyticsLastReportedDayNumber" synchronize:1];
+    unsignedLongLongValue = [v15 unsignedLongLongValue];
+  }
+
+  else
+  {
+    unsignedLongLongValue = 0;
+  }
+
+  if (unsignedLongLongValue < v13)
+  {
+    v17 = MEMORY[0x277D3F180];
+    v18 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v13];
+    [v17 setObject:v18 forKey:@"MemoryCoreAnalyticsLastReportedDayNumber" saveToDisk:1];
+
+    accumulatedMemoryCopy = AnalyticsSendEventLazy();
+LABEL_7:
+    uptimeCopy = uptime;
+    v19 = PLLogCommon(accumulatedMemoryCopy);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+    {
+      [PLCoalitionAgent logToCAProcessMemory:memoryCopy andAccumulatedMemory:v19 dailyReport:? systemUptime:?];
+    }
+
+    v20 = arc4random_uniform([memoryCopy count]);
+    v63 = memoryCopy;
+    if ([memoryCopy count])
+    {
+      v21 = 0;
+      v22 = v20;
+      do
+      {
+        v23 = [memoryCopy objectAtIndexedSubscript:{(v22 % objc_msgSend(memoryCopy, "count", uptimeCopy))}];
+        phys_footprint_size = [v23 phys_footprint_size];
+        v25 = phys_footprint_size > ([v23 memoryLimitMB] << 20);
+        if (reportCopy)
+        {
+          v137 = MEMORY[0x277D85DD0];
+          v138 = 3221225472;
+          v139 = __87__PLCoalitionAgent_logToCAProcessMemory_andAccumulatedMemory_dailyReport_systemUptime___block_invoke_503;
+          v140 = &unk_279A5BF10;
+          v141 = v23;
+          v142 = v25;
+          AnalyticsSendEventLazy();
+          v132 = MEMORY[0x277D85DD0];
+          v133 = 3221225472;
+          v134 = __87__PLCoalitionAgent_logToCAProcessMemory_andAccumulatedMemory_dailyReport_systemUptime___block_invoke_2;
+          v135 = &unk_279A5BF38;
+          v136 = v141;
+          AnalyticsSendEventLazy();
+          v127 = MEMORY[0x277D85DD0];
+          v128 = 3221225472;
+          v129 = __87__PLCoalitionAgent_logToCAProcessMemory_andAccumulatedMemory_dailyReport_systemUptime___block_invoke_3;
+          v130 = &unk_279A5BF38;
+          v131 = v136;
+          AnalyticsSendEventLazy();
+        }
+
+        v121 = MEMORY[0x277D85DD0];
+        v122 = 3221225472;
+        v123 = __87__PLCoalitionAgent_logToCAProcessMemory_andAccumulatedMemory_dailyReport_systemUptime___block_invoke_4;
+        v124 = &unk_279A5BF10;
+        v26 = v23;
+        v125 = v26;
+        v126 = v25;
+        AnalyticsSendEventLazy();
+        if ([v26 isDaemonXPCService])
+        {
+          v27 = reportCopy;
+          processName = [v26 processName];
+          if ([processName isEqualToString:@"notifyd"])
+          {
+            v29 = 1;
+          }
+
+          else
+          {
+            processName2 = [v26 processName];
+            if ([processName2 isEqualToString:@"configd"])
+            {
+              v29 = 1;
+            }
+
+            else
+            {
+              processName3 = [v26 processName];
+              v29 = [processName3 isEqualToString:@"logd"];
+
+              memoryCopy = v63;
+            }
+          }
+
+          reportCopy = v27;
+        }
+
+        else
+        {
+          v29 = 0;
+        }
+
+        if ([v26 neural_footprint] > 0x400 || v29 != 0)
+        {
+          v116 = MEMORY[0x277D85DD0];
+          v117 = 3221225472;
+          v118 = __87__PLCoalitionAgent_logToCAProcessMemory_andAccumulatedMemory_dailyReport_systemUptime___block_invoke_5;
+          v119 = &unk_279A5BF38;
+          v120 = v26;
+          AnalyticsSendEventLazy();
+        }
+
+        ++v21;
+        ++v22;
+      }
+
+      while ([memoryCopy count] > v21);
+    }
+
+    [PLUtilities roundToSigFigDouble:2 withSigFig:uptimeCopy / 3.6e12, uptimeCopy];
+    v34 = v33;
+    [v64 memoryUsageAtEachPriority];
+    v112 = 0u;
+    v113 = 0u;
+    v114 = 0u;
+    obj = v115 = 0u;
+    v35 = [obj countByEnumeratingWithState:&v112 objects:v146 count:16];
+    if (v35)
+    {
+      v36 = v35;
+      v37 = *v113;
+      do
+      {
+        for (i = 0; i != v36; ++i)
+        {
+          if (*v113 != v37)
+          {
+            objc_enumerationMutation(obj);
+          }
+
+          v39 = *(*(&v112 + 1) + 8 * i);
+          v105 = MEMORY[0x277D85DD0];
+          v106 = 3221225472;
+          v107 = __87__PLCoalitionAgent_logToCAProcessMemory_andAccumulatedMemory_dailyReport_systemUptime___block_invoke_6;
+          v108 = &unk_279A5BF60;
+          v109 = obj;
+          v110 = v39;
+          v111 = v34;
+          AnalyticsSendEventLazy();
+          v98 = MEMORY[0x277D85DD0];
+          v99 = 3221225472;
+          v100 = __87__PLCoalitionAgent_logToCAProcessMemory_andAccumulatedMemory_dailyReport_systemUptime___block_invoke_7;
+          v101 = &unk_279A5BF60;
+          v40 = v109;
+          v102 = v40;
+          v103 = v39;
+          v104 = v34;
+          AnalyticsSendEventLazy();
+        }
+
+        v36 = [v40 countByEnumeratingWithState:&v112 objects:v146 count:16];
+      }
+
+      while (v36);
+    }
+
+    [v64 memoryUsedAtOrAboveEachPriority];
+    v94 = 0u;
+    v95 = 0u;
+    v96 = 0u;
+    v41 = v97 = 0u;
+    v42 = [v41 countByEnumeratingWithState:&v94 objects:v145 count:16];
+    if (v42)
+    {
+      v43 = v42;
+      v44 = *v95;
+      do
+      {
+        for (j = 0; j != v43; ++j)
+        {
+          if (*v95 != v44)
+          {
+            objc_enumerationMutation(v41);
+          }
+
+          v46 = *(*(&v94 + 1) + 8 * j);
+          v87 = MEMORY[0x277D85DD0];
+          v88 = 3221225472;
+          v89 = __87__PLCoalitionAgent_logToCAProcessMemory_andAccumulatedMemory_dailyReport_systemUptime___block_invoke_8;
+          v90 = &unk_279A5BF60;
+          v47 = v41;
+          v91 = v47;
+          v92 = v46;
+          v93 = v34;
+          AnalyticsSendEventLazy();
+        }
+
+        v43 = [v47 countByEnumeratingWithState:&v94 objects:v145 count:16];
+      }
+
+      while (v43);
+    }
+
+    v65 = v41;
+
+    [v64 memoryAvailableAtOrBelowEachPriority];
+    v83 = 0u;
+    v84 = 0u;
+    v85 = 0u;
+    v48 = v86 = 0u;
+    v49 = [v48 countByEnumeratingWithState:&v83 objects:v144 count:16];
+    if (v49)
+    {
+      v50 = v49;
+      v51 = *v84;
+      do
+      {
+        for (k = 0; k != v50; ++k)
+        {
+          if (*v84 != v51)
+          {
+            objc_enumerationMutation(v48);
+          }
+
+          v53 = *(*(&v83 + 1) + 8 * k);
+          v76 = MEMORY[0x277D85DD0];
+          v77 = 3221225472;
+          v78 = __87__PLCoalitionAgent_logToCAProcessMemory_andAccumulatedMemory_dailyReport_systemUptime___block_invoke_9;
+          v79 = &unk_279A5BF60;
+          v54 = v48;
+          v80 = v54;
+          v81 = v53;
+          v82 = v34;
+          AnalyticsSendEventLazy();
+        }
+
+        v50 = [v54 countByEnumeratingWithState:&v83 objects:v144 count:16];
+      }
+
+      while (v50);
+    }
+
+    systemMemoryStatsDictionary = [v64 systemMemoryStatsDictionary];
+    v71 = MEMORY[0x277D85DD0];
+    v72 = 3221225472;
+    v73 = __87__PLCoalitionAgent_logToCAProcessMemory_andAccumulatedMemory_dailyReport_systemUptime___block_invoke_10;
+    v74 = &unk_279A5BF38;
+    v75 = systemMemoryStatsDictionary;
+    AnalyticsSendEventLazy();
+    v67 = 0u;
+    v68 = 0u;
+    v69 = 0u;
+    v70 = 0u;
+    v56 = v75;
+    v57 = [v56 countByEnumeratingWithState:&v67 objects:v143 count:16];
+    if (v57)
+    {
+      v58 = v57;
+      v59 = *v68;
+      do
+      {
+        for (m = 0; m != v58; ++m)
+        {
+          if (*v68 != v59)
+          {
+            objc_enumerationMutation(v56);
+          }
+
+          v61 = v56;
+          AnalyticsSendEventLazy();
+        }
+
+        v58 = [v61 countByEnumeratingWithState:&v67 objects:v143 count:16];
+      }
+
+      while (v58);
+    }
+
+    memoryCopy = v63;
+    goto LABEL_59;
+  }
+
+  obj = PLLogCommon(v14);
+  if (os_log_type_enabled(obj, OS_LOG_TYPE_DEBUG))
+  {
+    [PLCoalitionAgent logToCAProcessMemory:andAccumulatedMemory:dailyReport:systemUptime:];
+  }
+
+LABEL_59:
 }
 
 id __87__PLCoalitionAgent_logToCAProcessMemory_andAccumulatedMemory_dailyReport_systemUptime___block_invoke_503(uint64_t a1)
@@ -815,8 +1107,8 @@ id __87__PLCoalitionAgent_logToCAProcessMemory_andAccumulatedMemory_dailyReport_
 
 id __87__PLCoalitionAgent_logToCAProcessMemory_andAccumulatedMemory_dailyReport_systemUptime___block_invoke_3(uint64_t a1)
 {
-  v16[4] = *MEMORY[0x277D85DE8];
-  v15[0] = @"launchd_name";
+  v15[4] = *MEMORY[0x277D85DE8];
+  v14[0] = @"launchd_name";
   v2 = [*(a1 + 32) processLaunchdName];
   v3 = v2;
   if (v2)
@@ -829,8 +1121,8 @@ id __87__PLCoalitionAgent_logToCAProcessMemory_andAccumulatedMemory_dailyReport_
     v4 = @"UNKNOWN";
   }
 
-  v16[0] = v4;
-  v15[1] = @"procname";
+  v15[0] = v4;
+  v14[1] = @"procname";
   v5 = [*(a1 + 32) processName];
   v6 = v5;
   if (v5)
@@ -843,8 +1135,8 @@ id __87__PLCoalitionAgent_logToCAProcessMemory_andAccumulatedMemory_dailyReport_
     v7 = @"UNKNOWN";
   }
 
-  v16[1] = v7;
-  v15[2] = @"bundleid";
+  v15[1] = v7;
+  v14[2] = @"bundleid";
   v8 = [*(a1 + 32) bundleId];
   v9 = v8;
   if (v8)
@@ -857,13 +1149,11 @@ id __87__PLCoalitionAgent_logToCAProcessMemory_andAccumulatedMemory_dailyReport_
     v10 = @"UNKNOWN";
   }
 
-  v16[2] = v10;
-  v15[3] = @"is_daemon_or_xpc_service";
+  v15[2] = v10;
+  v14[3] = @"is_daemon_or_xpc_service";
   v11 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(*(a1 + 32), "isDaemonXPCService")}];
-  v16[3] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:4];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v15[3] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:4];
 
   return v12;
 }
@@ -1003,84 +1293,76 @@ id __87__PLCoalitionAgent_logToCAProcessMemory_andAccumulatedMemory_dailyReport_
 
 id __87__PLCoalitionAgent_logToCAProcessMemory_andAccumulatedMemory_dailyReport_systemUptime___block_invoke_6(uint64_t a1)
 {
-  v10[3] = *MEMORY[0x277D85DE8];
+  v9[3] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) objectForKeyedSubscript:*(a1 + 40)];
   v3 = [v2 unsignedLongValue];
 
-  v10[0] = *(a1 + 40);
-  v9[0] = @"at_priority";
-  v9[1] = @"footprint_sum_kb";
+  v9[0] = *(a1 + 40);
+  v8[0] = @"at_priority";
+  v8[1] = @"footprint_sum_kb";
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v3 >> 10];
-  v10[1] = v4;
-  v9[2] = @"system_uptime_hours";
+  v9[1] = v4;
+  v8[2] = @"system_uptime_hours";
   v5 = [MEMORY[0x277CCABB0] numberWithInt:*(a1 + 48)];
-  v10[2] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:3];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9[2] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
 
   return v6;
 }
 
 id __87__PLCoalitionAgent_logToCAProcessMemory_andAccumulatedMemory_dailyReport_systemUptime___block_invoke_7(uint64_t a1)
 {
-  v11[3] = *MEMORY[0x277D85DE8];
+  v10[3] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) objectForKeyedSubscript:*(a1 + 40)];
   v3 = [v2 unsignedLongValue];
 
   v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"priority%@", *(a1 + 40), @"memory_type"];
-  v11[0] = v4;
-  v10[1] = @"memory_kb";
+  v10[0] = v4;
+  v9[1] = @"memory_kb";
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v3 >> 10];
-  v11[1] = v5;
-  v10[2] = @"system_uptime_hours";
+  v10[1] = v5;
+  v9[2] = @"system_uptime_hours";
   v6 = [MEMORY[0x277CCABB0] numberWithInt:*(a1 + 48)];
-  v11[2] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:3];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v10[2] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:3];
 
   return v7;
 }
 
 id __87__PLCoalitionAgent_logToCAProcessMemory_andAccumulatedMemory_dailyReport_systemUptime___block_invoke_8(uint64_t a1)
 {
-  v10[3] = *MEMORY[0x277D85DE8];
+  v9[3] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) objectForKeyedSubscript:*(a1 + 40)];
   v3 = [v2 unsignedLongValue];
 
-  v10[0] = *(a1 + 40);
-  v9[0] = @"at_or_above_priority";
-  v9[1] = @"footprint_sum_kb";
+  v9[0] = *(a1 + 40);
+  v8[0] = @"at_or_above_priority";
+  v8[1] = @"footprint_sum_kb";
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v3 >> 10];
-  v10[1] = v4;
-  v9[2] = @"system_uptime_hours";
+  v9[1] = v4;
+  v8[2] = @"system_uptime_hours";
   v5 = [MEMORY[0x277CCABB0] numberWithInt:*(a1 + 48)];
-  v10[2] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:3];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9[2] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
 
   return v6;
 }
 
 id __87__PLCoalitionAgent_logToCAProcessMemory_andAccumulatedMemory_dailyReport_systemUptime___block_invoke_9(uint64_t a1)
 {
-  v10[3] = *MEMORY[0x277D85DE8];
+  v9[3] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) objectForKeyedSubscript:*(a1 + 40)];
   v3 = [v2 unsignedLongValue];
 
-  v10[0] = *(a1 + 40);
-  v9[0] = @"at_or_below_priority";
-  v9[1] = @"footprint_sum_kb";
+  v9[0] = *(a1 + 40);
+  v8[0] = @"at_or_below_priority";
+  v8[1] = @"footprint_sum_kb";
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v3 >> 10];
-  v10[1] = v4;
-  v9[2] = @"system_uptime_hours";
+  v9[1] = v4;
+  v8[2] = @"system_uptime_hours";
   v5 = [MEMORY[0x277CCABB0] numberWithInt:*(a1 + 48)];
-  v10[2] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:3];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9[2] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
 
   return v6;
 }
@@ -1095,22 +1377,85 @@ id __87__PLCoalitionAgent_logToCAProcessMemory_andAccumulatedMemory_dailyReport_
 
 id __87__PLCoalitionAgent_logToCAProcessMemory_andAccumulatedMemory_dailyReport_systemUptime___block_invoke_11(uint64_t a1)
 {
-  v10[3] = *MEMORY[0x277D85DE8];
+  v9[3] = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
   v2 = *(a1 + 40);
-  v10[0] = v3;
-  v9[0] = @"memory_type";
-  v9[1] = @"memory_kb";
+  v9[0] = v3;
+  v8[0] = @"memory_type";
+  v8[1] = @"memory_kb";
   v4 = [v2 objectForKeyedSubscript:?];
-  v10[1] = v4;
-  v9[2] = @"system_uptime_hours";
+  v9[1] = v4;
+  v8[2] = @"system_uptime_hours";
   v5 = [MEMORY[0x277CCABB0] numberWithInt:*(a1 + 48)];
-  v10[2] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:3];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9[2] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
 
   return v6;
+}
+
+- (id)processMemoryUsageWithPid:(int)pid withLaunchdName:(id)name withRusage:(void *)rusage withJetsamInfo:(void *)info withLimitInfo:(process_memory_limit_info *)limitInfo
+{
+  v10 = *&pid;
+  nameCopy = name;
+  v12 = objc_alloc_init(ProcessMemoryUsage);
+  [(ProcessMemoryUsage *)v12 setPhys_footprint_size:*(rusage + 9)];
+  [(ProcessMemoryUsage *)v12 setPeak_phys_footprint:*(rusage + 30)];
+  [(ProcessMemoryUsage *)v12 setInterval_peak_phys_footprint:*(rusage + 35)];
+  [(ProcessMemoryUsage *)v12 setNeural_footprint:*(rusage + 46)];
+  [(ProcessMemoryUsage *)v12 setInterval_peak_neural_footprint:*(rusage + 48)];
+  [(ProcessMemoryUsage *)v12 setJetsam_priority:*info];
+  [(ProcessMemoryUsage *)v12 setTimeAtPriorityMATU:*(info + 1)];
+  [(ProcessMemoryUsage *)v12 setProcess_active:*(info + 4)];
+  [(ProcessMemoryUsage *)v12 setMemoryLimitMB:limitInfo->var0];
+  [(ProcessMemoryUsage *)v12 setIsLimitHard:limitInfo->var1];
+  [(ProcessMemoryUsage *)v12 setIsActiveLimit:limitInfo->var2];
+  [(ProcessMemoryUsage *)v12 setIsLimitIncreased:limitInfo->var3];
+  [(ProcessMemoryUsage *)v12 setIsDaemonXPCService:[PLUtilities isDaemonOrAppleXPCService:v10]];
+  if ([(ProcessMemoryUsage *)v12 isDaemonXPCService])
+  {
+    v13 = [PLUtilities binaryPathForPid:v10];
+    lastPathComponent = [v13 lastPathComponent];
+    [(ProcessMemoryUsage *)v12 setProcessName:lastPathComponent];
+  }
+
+  else
+  {
+    v15 = [PLUtilities bundleIDFromPid:v10];
+    [(ProcessMemoryUsage *)v12 setBundleId:v15];
+
+    bundleId = [(ProcessMemoryUsage *)v12 bundleId];
+
+    if (bundleId)
+    {
+      [(ProcessMemoryUsage *)v12 setBundleVersion:0];
+      bundleId2 = [(ProcessMemoryUsage *)v12 bundleId];
+      v18 = [PLApplicationAgent appVersionForBundle:bundleId2];
+      [(ProcessMemoryUsage *)v12 setBundleVersion:v18];
+
+      bundleVersion = [(ProcessMemoryUsage *)v12 bundleVersion];
+
+      if (bundleVersion)
+      {
+        goto LABEL_8;
+      }
+
+      v13 = [PLUtilities binaryPathForPid:v10];
+      lastPathComponent = [PLUtilities bundleVersionFromURL:v13];
+      [(ProcessMemoryUsage *)v12 setBundleVersion:lastPathComponent];
+    }
+
+    else
+    {
+      v13 = [PLUtilities binaryPathForPid:v10];
+      lastPathComponent = [v13 lastPathComponent];
+      [(ProcessMemoryUsage *)v12 setBundleId:lastPathComponent];
+    }
+  }
+
+LABEL_8:
+  [(ProcessMemoryUsage *)v12 setProcessLaunchdName:nameCopy];
+
+  return v12;
 }
 
 - (void)logCoalitionObjectMemory:(id)memory
@@ -1121,7 +1466,7 @@ id __87__PLCoalitionAgent_logToCAProcessMemory_andAccumulatedMemory_dailyReport_
   v5 = [(NSDate *)self->_reportMemoryStatsAfterTime compare:monotonicDate];
   selfCopy = self;
   v6 = [(NSDate *)self->_reportHighFrequencyMemoryStatsAfterTime compare:monotonicDate];
-  v7 = PLLogCommon();
+  v7 = PLLogCommon(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     v82 = @"Not";
@@ -1140,8 +1485,8 @@ id __87__PLCoalitionAgent_logToCAProcessMemory_andAccumulatedMemory_dailyReport_
     _os_log_debug_impl(&dword_25EE51000, v7, OS_LOG_TYPE_DEBUG, "Should %@ Log to CoreAnalytics (current_time=%@ is greater than report_stats_time=%@)", buf, 0x20u);
   }
 
-  v8 = PLLogCommon();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v9 = PLLogCommon(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     v84 = @"Not";
     reportHighFrequencyMemoryStatsAfterTime = selfCopy->_reportHighFrequencyMemoryStatsAfterTime;
@@ -1156,41 +1501,41 @@ id __87__PLCoalitionAgent_logToCAProcessMemory_andAccumulatedMemory_dailyReport_
     *&buf[14] = monotonicDate;
     *&buf[22] = 2112;
     *&buf[24] = reportHighFrequencyMemoryStatsAfterTime;
-    _os_log_debug_impl(&dword_25EE51000, v8, OS_LOG_TYPE_DEBUG, "Should %@ Log to High Frequency CoreAnalytics (current_time=%@ is greater than high_freq_report_stats_time=%@)", buf, 0x20u);
+    _os_log_debug_impl(&dword_25EE51000, v9, OS_LOG_TYPE_DEBUG, "Should %@ Log to High Frequency CoreAnalytics (current_time=%@ is greater than high_freq_report_stats_time=%@)", buf, 0x20u);
   }
 
-  if (([MEMORY[0x277D3F180] isTaskFullEPLMode] & 1) != 0 || (objc_msgSend(MEMORY[0x277D3F208], "hasGenerativeModelSystems") & 1) != 0 || (v5 != NSOrderedAscending ? (v9 = v6 == NSOrderedAscending) : (v9 = 1), v9))
+  if (([MEMORY[0x277D3F180] isTaskFullEPLMode] & 1) != 0 || (objc_msgSend(MEMORY[0x277D3F208], "hasGenerativeModelSystems") & 1) != 0 || (v5 != NSOrderedAscending ? (v10 = v6 == NSOrderedAscending) : (v10 = 1), v10))
   {
-    v10 = proc_listpids(1u, 0, 0, 0);
-    if ((v10 & 0x80000000) == 0)
+    v11 = proc_listpids(1u, 0, 0, 0);
+    if ((v11 & 0x80000000) == 0)
     {
-      v11 = v10;
-      v12 = v10;
-      v13 = malloc_type_malloc(v10, 0x100004052888210uLL);
-      if (v13)
+      v12 = v11;
+      v13 = v11;
+      v14 = malloc_type_malloc(v11, 0x100004052888210uLL);
+      if (v14)
       {
-        v14 = v13;
+        v15 = v14;
         v90 = v6;
         v88 = monotonicDate;
-        memset(v13, 255, v12);
+        memset(v14, 255, v13);
         v98 = objc_alloc_init(MEMORY[0x277CBEB38]);
         v92 = objc_alloc_init(MEMORY[0x277CBEB18]);
         v86 = clock_gettime_nsec_np(_CLOCK_UPTIME_RAW);
         v91 = objc_alloc_init(OverallMemoryUsage);
-        v89 = v14;
-        v15 = proc_listpids(1u, 0, v14, v11);
-        if (v15 >= 4)
+        v89 = v15;
+        v16 = proc_listpids(1u, 0, v15, v12);
+        if (v16 >= 4)
         {
-          v50 = v14;
+          v50 = v15;
           v52 = v5 == NSOrderedAscending || v6 == NSOrderedAscending;
-          if (v15 >> 2 <= 1)
+          if (v16 >> 2 <= 1)
           {
             v53 = 1;
           }
 
           else
           {
-            v53 = v15 >> 2;
+            v53 = v16 >> 2;
           }
 
           do
@@ -1246,7 +1591,7 @@ id __87__PLCoalitionAgent_logToCAProcessMemory_andAccumulatedMemory_dailyReport_
                   if (v60)
                   {
                     v61 = v60;
-                    v62 = PLLogCommon();
+                    v62 = PLLogCommon(v60);
                     if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
                     {
                       *buf = 67109376;
@@ -1278,7 +1623,7 @@ id __87__PLCoalitionAgent_logToCAProcessMemory_andAccumulatedMemory_dailyReport_
                       if (v65)
                       {
                         v66 = v65;
-                        v67 = PLLogCommon();
+                        v67 = PLLogCommon(v65);
                         if (os_log_type_enabled(v67, OS_LOG_TYPE_DEBUG))
                         {
                           *buf = 67109376;
@@ -1329,7 +1674,7 @@ id __87__PLCoalitionAgent_logToCAProcessMemory_andAccumulatedMemory_dailyReport_
                     if (v70)
                     {
                       v71 = v70;
-                      v72 = PLLogCommon();
+                      v72 = PLLogCommon(v70);
                       if (os_log_type_enabled(v72, OS_LOG_TYPE_ERROR))
                       {
                         *v110 = 67109376;
@@ -1347,7 +1692,7 @@ id __87__PLCoalitionAgent_logToCAProcessMemory_andAccumulatedMemory_dailyReport_
                       if (v73)
                       {
                         v74 = v73;
-                        v75 = PLLogCommon();
+                        v75 = PLLogCommon(v73);
                         if (os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
                         {
                           *v110 = 67109376;
@@ -1397,112 +1742,112 @@ id __87__PLCoalitionAgent_logToCAProcessMemory_andAccumulatedMemory_dailyReport_
         }
 
         v87 = v5;
-        v16 = objc_opt_new();
+        v17 = objc_opt_new();
         v99 = 0u;
         v100 = 0u;
         v101 = 0u;
         v102 = 0u;
         obj = [v98 allKeys];
-        v17 = [obj countByEnumeratingWithState:&v99 objects:v109 count:16];
-        if (v17)
+        v18 = [obj countByEnumeratingWithState:&v99 objects:v109 count:16];
+        if (v18)
         {
-          v18 = v17;
-          v19 = *v100;
+          v19 = v18;
+          v20 = *v100;
           v93 = *MEMORY[0x277D3F5E8];
           do
           {
-            v20 = 0;
-            v96 = v18;
+            v21 = 0;
+            v96 = v19;
             do
             {
-              if (*v100 != v19)
+              if (*v100 != v20)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v21 = *(*(&v99 + 1) + 8 * v20);
-              v22 = [v98 objectForKeyedSubscript:v21];
-              if ([v22 phys_footprint_size] >= 0xE4E1C0)
+              v22 = *(*(&v99 + 1) + 8 * v21);
+              v23 = [v98 objectForKeyedSubscript:v22];
+              if ([v23 phys_footprint_size] >= 0xE4E1C0)
               {
-                v23 = v16;
-                v24 = [memoryCopy objectForKeyedSubscript:v21];
-                v25 = objc_alloc(MEMORY[0x277D3F190]);
-                v26 = [(PLOperator *)PLCoalitionAgent entryKeyForType:v93 andName:@"CoalitionMemory"];
+                v24 = v17;
+                v25 = [memoryCopy objectForKeyedSubscript:v22];
+                v26 = objc_alloc(MEMORY[0x277D3F190]);
+                v27 = [(PLOperator *)PLCoalitionAgent entryKeyForType:v93 andName:@"CoalitionMemory"];
                 currentDate = [(PLCoalitionAgent *)selfCopy currentDate];
-                v28 = [v25 initWithEntryKey:v26 withDate:currentDate];
+                v29 = [v26 initWithEntryKey:v27 withDate:currentDate];
 
-                bundleID = [v24 bundleID];
-                LODWORD(v26) = [bundleID isEqualToString:&stru_287103958];
+                bundleID = [v25 bundleID];
+                LODWORD(v27) = [bundleID isEqualToString:&stru_287103958];
 
-                if (v26)
+                if (v27)
                 {
-                  launchdName = [v24 launchdName];
+                  launchdName = [v25 launchdName];
                   if (launchdName)
                   {
-                    launchdName2 = [v24 launchdName];
-                    [v28 setObject:launchdName2 forKeyedSubscript:@"LaunchdName"];
+                    launchdName2 = [v25 launchdName];
+                    [v29 setObject:launchdName2 forKeyedSubscript:@"LaunchdName"];
 
 LABEL_25:
-                    [v28 setObject:v21 forKeyedSubscript:@"LaunchdCoalitionId"];
-                    v34 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v22, "wired_size")}];
-                    [v28 setObject:v34 forKeyedSubscript:@"memory_wired_size"];
+                    [v29 setObject:v22 forKeyedSubscript:@"LaunchdCoalitionId"];
+                    v35 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v23, "wired_size")}];
+                    [v29 setObject:v35 forKeyedSubscript:@"memory_wired_size"];
 
-                    v35 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v22, "purgeable_size")}];
-                    [v28 setObject:v35 forKeyedSubscript:@"memory_purgeable_size"];
+                    v36 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v23, "purgeable_size")}];
+                    [v29 setObject:v36 forKeyedSubscript:@"memory_purgeable_size"];
 
-                    v36 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v22, "phys_footprint_size")}];
-                    [v28 setObject:v36 forKeyedSubscript:@"memory_anonmem_size"];
+                    v37 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v23, "phys_footprint_size")}];
+                    [v29 setObject:v37 forKeyedSubscript:@"memory_anonmem_size"];
 
-                    v37 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v22, "compressed_size")}];
-                    [v28 setObject:v37 forKeyedSubscript:@"memory_compressed_size"];
+                    v38 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v23, "compressed_size")}];
+                    [v29 setObject:v38 forKeyedSubscript:@"memory_compressed_size"];
 
-                    v38 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v22, "process_count")}];
-                    [v28 setObject:v38 forKeyedSubscript:@"process_count"];
+                    v39 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v23, "process_count")}];
+                    [v29 setObject:v39 forKeyedSubscript:@"process_count"];
 
-                    v39 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v22, "process_phys_footprint_size")}];
-                    [v28 setObject:v39 forKeyedSubscript:@"process_phys_footprint"];
+                    v40 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v23, "process_phys_footprint_size")}];
+                    [v29 setObject:v40 forKeyedSubscript:@"process_phys_footprint"];
 
-                    v40 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v22, "process_peak_phys_footprint")}];
-                    [v28 setObject:v40 forKeyedSubscript:@"peak_phys_footprint"];
+                    v41 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v23, "process_peak_phys_footprint")}];
+                    [v29 setObject:v41 forKeyedSubscript:@"peak_phys_footprint"];
 
-                    v41 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v22, "compressed_lifetime")}];
-                    [v28 setObject:v41 forKeyedSubscript:@"CompressedLifetime"];
+                    v42 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v23, "compressed_lifetime")}];
+                    [v29 setObject:v42 forKeyedSubscript:@"CompressedLifetime"];
 
-                    v42 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(v22, "ledger_swapins")}];
-                    [v28 setObject:v42 forKeyedSubscript:@"Swapins"];
+                    v43 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(v23, "ledger_swapins")}];
+                    [v29 setObject:v43 forKeyedSubscript:@"Swapins"];
 
-                    v16 = v23;
-                    [v23 addObject:v28];
+                    v17 = v24;
+                    [v24 addObject:v29];
 
-                    v18 = v96;
+                    v19 = v96;
                     goto LABEL_26;
                   }
 
-                  v32 = v28;
-                  v33 = @"Unnamed_launchdName";
+                  v33 = v29;
+                  v34 = @"Unnamed_launchdName";
                 }
 
                 else
                 {
-                  launchdName = [v24 bundleID];
-                  v32 = v28;
-                  v33 = launchdName;
+                  launchdName = [v25 bundleID];
+                  v33 = v29;
+                  v34 = launchdName;
                 }
 
-                [v32 setObject:v33 forKeyedSubscript:@"LaunchdName"];
+                [v33 setObject:v34 forKeyedSubscript:@"LaunchdName"];
                 goto LABEL_25;
               }
 
 LABEL_26:
 
-              ++v20;
+              ++v21;
             }
 
-            while (v18 != v20);
-            v18 = [obj countByEnumeratingWithState:&v99 objects:v109 count:16];
+            while (v19 != v21);
+            v19 = [obj countByEnumeratingWithState:&v99 objects:v109 count:16];
           }
 
-          while (v18);
+          while (v19);
         }
 
         monotonicDate = v88;
@@ -1511,32 +1856,48 @@ LABEL_26:
           if (v87 == NSOrderedAscending)
           {
             distantFuture = [MEMORY[0x277CBEAA8] distantFuture];
-            v44 = selfCopy->_reportMemoryStatsAfterTime;
+            v45 = selfCopy->_reportMemoryStatsAfterTime;
             selfCopy->_reportMemoryStatsAfterTime = distantFuture;
           }
 
-          v45 = [v88 dateByAddingTimeInterval:arc4random_uniform(0xE10u) + 1800.0];
-          v46 = selfCopy->_reportHighFrequencyMemoryStatsAfterTime;
-          selfCopy->_reportHighFrequencyMemoryStatsAfterTime = v45;
+          v46 = [v88 dateByAddingTimeInterval:arc4random_uniform(0xE10u) + 1800.0];
+          v47 = selfCopy->_reportHighFrequencyMemoryStatsAfterTime;
+          selfCopy->_reportHighFrequencyMemoryStatsAfterTime = v46;
 
           [(PLCoalitionAgent *)selfCopy logToCAProcessMemory:v92 andAccumulatedMemory:v91 dailyReport:v87 == NSOrderedAscending systemUptime:v86];
         }
 
-        v47 = [(PLOperator *)PLCoalitionAgent entryKeyForType:*MEMORY[0x277D3F5E8] andName:@"CoalitionMemory"];
-        if ([v16 count])
+        v48 = [(PLOperator *)PLCoalitionAgent entryKeyForType:*MEMORY[0x277D3F5E8] andName:@"CoalitionMemory"];
+        if ([v17 count])
         {
-          v107 = v47;
-          v108 = v16;
-          v48 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v108 forKeys:&v107 count:1];
-          [(PLOperator *)selfCopy logEntries:v48 withGroupID:v47];
+          v107 = v48;
+          v108 = v17;
+          v49 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v108 forKeys:&v107 count:1];
+          [(PLOperator *)selfCopy logEntries:v49 withGroupID:v48];
         }
 
         free(v89);
       }
     }
   }
+}
 
-  v49 = *MEMORY[0x277D85DE8];
+- (id)buildPLCoalitionDataObject:(coalition_resource_usage *)object withBundleId:(id)id withLaunchdName:(id)name withDate:(id)date withCoalitionId:(unint64_t)coalitionId isApp:(BOOL)app
+{
+  appCopy = app;
+  nameCopy = name;
+  idCopy = id;
+  v14 = objc_opt_new();
+  v15 = [MEMORY[0x277CCAE60] valueWithPointer:object];
+  [v14 setCoalStruct:v15];
+
+  [v14 setBundleID:idCopy];
+  [v14 setLaunchdName:nameCopy];
+
+  [v14 setCoalitionID:coalitionId];
+  [v14 setIsUIKitApp:appCopy];
+
+  return v14;
 }
 
 - (BOOL)shouldLogCoalitionObject:(id)object withEndObject:(id)endObject
@@ -1544,33 +1905,14 @@ LABEL_26:
   objectCopy = object;
   endObjectCopy = endObject;
   v7 = endObjectCopy;
-  if (!objectCopy)
+  if (objectCopy && ([endObjectCopy coalStruct], v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v8, "pointerValue"), v8, objc_msgSend(objectCopy, "coalStruct"), v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v10, "pointerValue"), v10, +[PLUtilities secondsFromMachTime:](PLUtilities, "secondsFromMachTime:", v9[3] - v11[3]), v12 <= 1.0) && (+[PLUtilities secondsFromMachTime:](PLUtilities, "secondsFromMachTime:", v9[9] - v11[9]), v13 <= 1.0) && (+[PLUtilities secondsFromMachTime:](PLUtilities, "secondsFromMachTime:", v9[10] - v11[10]), v14 <= 1.0) && (+[PLUtilities secondsFromMachTime:](PLUtilities, "secondsFromMachTime:", v9[8] - v11[8]), v15 <= 1.0))
   {
-    goto LABEL_6;
-  }
-
-  coalStruct = [endObjectCopy coalStruct];
-  pointerValue = [coalStruct pointerValue];
-
-  coalStruct2 = [objectCopy coalStruct];
-  pointerValue2 = [coalStruct2 pointerValue];
-
-  [PLUtilities secondsFromMachTime:pointerValue[3] - pointerValue2[3]];
-  if (v12 > 1.0)
-  {
-    goto LABEL_6;
-  }
-
-  [PLUtilities secondsFromMachTime:pointerValue[9] - pointerValue2[9]];
-  if (v13 <= 1.0 && ([PLUtilities secondsFromMachTime:pointerValue[10] - pointerValue2[10]], v14 <= 1.0) && ([PLUtilities secondsFromMachTime:pointerValue[8] - pointerValue2[8]], v15 <= 1.0))
-  {
-    [PLUtilities secondsFromMachTime:pointerValue[38] - pointerValue2[38]];
+    [PLUtilities secondsFromMachTime:v9[38] - v11[38]];
     v16 = v18 > 1.0;
   }
 
   else
   {
-LABEL_6:
     v16 = 1;
   }
 
@@ -2075,7 +2417,7 @@ id __30__PLCoalitionAgent_logToAggd___block_invoke_2(void *a1)
 
 - (void)logCoalitionObjectDifference:(id)difference
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   differenceCopy = difference;
   lastCoalitionObjectDictionary = [(PLCoalitionAgent *)self lastCoalitionObjectDictionary];
   if (lastCoalitionObjectDictionary)
@@ -2112,103 +2454,103 @@ id __30__PLCoalitionAgent_logToAggd___block_invoke_2(void *a1)
           v17 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLCoalitionAgent logCoalitionObjectDifference:]"];
           [v14 logMessage:v13 fromFile:lastPathComponent fromFunction:v17 fromLineNumber:1358];
 
-          v18 = PLLogCommon();
-          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+          v19 = PLLogCommon(v18);
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
           {
             __111__PLProcessPortMap_pidAndProcessNameForDestAddress_withDestPort_withSourceAddress_withSourcePort_withProtocol___block_invoke_cold_1();
           }
         }
       }
 
-      v50 = array;
-      v54 = 0u;
+      v51 = array;
       v55 = 0u;
-      v52 = 0u;
+      v56 = 0u;
       v53 = 0u;
-      v48 = differenceCopy;
-      v19 = differenceCopy;
-      v20 = [v19 countByEnumeratingWithState:&v52 objects:v59 count:16];
-      if (v20)
+      v54 = 0u;
+      v49 = differenceCopy;
+      v20 = differenceCopy;
+      v21 = [v20 countByEnumeratingWithState:&v53 objects:v60 count:16];
+      if (v21)
       {
-        v21 = v20;
-        v22 = *v53;
-        v49 = v19;
+        v22 = v21;
+        v23 = *v54;
+        v50 = v20;
         do
         {
-          for (i = 0; i != v21; ++i)
+          for (i = 0; i != v22; ++i)
           {
-            if (*v53 != v22)
+            if (*v54 != v23)
             {
-              objc_enumerationMutation(v19);
+              objc_enumerationMutation(v20);
             }
 
-            v24 = *(*(&v52 + 1) + 8 * i);
+            v25 = *(*(&v53 + 1) + 8 * i);
             lastCoalitionObjectDictionary4 = [(PLCoalitionAgent *)self lastCoalitionObjectDictionary];
-            v26 = [lastCoalitionObjectDictionary4 objectForKeyedSubscript:v24];
-            v27 = [v19 objectForKeyedSubscript:v24];
-            v28 = [(PLCoalitionAgent *)self shouldLogCoalitionObject:v26 withEndObject:v27];
+            v27 = [lastCoalitionObjectDictionary4 objectForKeyedSubscript:v25];
+            v28 = [v20 objectForKeyedSubscript:v25];
+            v29 = [(PLCoalitionAgent *)self shouldLogCoalitionObject:v27 withEndObject:v28];
 
-            if (v28)
+            if (v29)
             {
               lastCoalitionObjectDictionary5 = [(PLCoalitionAgent *)self lastCoalitionObjectDictionary];
-              v30 = [lastCoalitionObjectDictionary5 objectForKeyedSubscript:v24];
-              v31 = [v19 objectForKeyedSubscript:v24];
+              v31 = [lastCoalitionObjectDictionary5 objectForKeyedSubscript:v25];
+              v32 = [v20 objectForKeyedSubscript:v25];
               lastDate = [(PLCoalitionAgent *)self lastDate];
               currentDate = [(PLCoalitionAgent *)self currentDate];
-              [(PLCoalitionAgent *)self buildPLEntryDiffWithStartObject:v30 withEndObject:v31 withStartDate:lastDate withEndDate:currentDate];
+              [(PLCoalitionAgent *)self buildPLEntryDiffWithStartObject:v31 withEndObject:v32 withStartDate:lastDate withEndDate:currentDate];
               selfCopy = self;
-              v35 = v21;
-              v37 = v36 = v22;
+              v36 = v22;
+              v38 = v37 = v23;
 
-              [v50 addObject:v37];
+              [v51 addObject:v38];
+              v23 = v37;
               v22 = v36;
-              v21 = v35;
               self = selfCopy;
-              v19 = v49;
+              v20 = v50;
             }
           }
 
-          v21 = [v19 countByEnumeratingWithState:&v52 objects:v59 count:16];
+          v22 = [v20 countByEnumeratingWithState:&v53 objects:v60 count:16];
         }
 
-        while (v21);
+        while (v22);
       }
 
-      if ([v50 count])
+      if ([v51 count])
       {
-        v38 = [(PLOperator *)PLCoalitionAgent entryKeyForType:*MEMORY[0x277D3F5D8] andName:@"CoalitionInterval"];
-        v57 = v38;
-        v58 = v50;
-        v39 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v58 forKeys:&v57 count:1];
-        [(PLOperator *)self logEntries:v39 withGroupID:v38];
+        v39 = [(PLOperator *)PLCoalitionAgent entryKeyForType:*MEMORY[0x277D3F5D8] andName:@"CoalitionInterval"];
+        v58 = v39;
+        v59 = v51;
+        v40 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v59 forKeys:&v58 count:1];
+        [(PLOperator *)self logEntries:v40 withGroupID:v39];
       }
 
-      [(PLCoalitionAgent *)self addAccountingEventsFromCoalitions:v50];
-      differenceCopy = v48;
+      [(PLCoalitionAgent *)self addAccountingEventsFromCoalitions:v51];
+      differenceCopy = v49;
       if ([MEMORY[0x277D3F180] debugEnabled])
       {
-        v40 = objc_opt_class();
-        v51[0] = MEMORY[0x277D85DD0];
-        v51[1] = 3221225472;
-        v51[2] = __49__PLCoalitionAgent_logCoalitionObjectDifference___block_invoke_776;
-        v51[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-        v51[4] = v40;
+        v41 = objc_opt_class();
+        v52[0] = MEMORY[0x277D85DD0];
+        v52[1] = 3221225472;
+        v52[2] = __49__PLCoalitionAgent_logCoalitionObjectDifference___block_invoke_776;
+        v52[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+        v52[4] = v41;
         if (logCoalitionObjectDifference__defaultOnce_774 != -1)
         {
-          dispatch_once(&logCoalitionObjectDifference__defaultOnce_774, v51);
+          dispatch_once(&logCoalitionObjectDifference__defaultOnce_774, v52);
         }
 
         if (logCoalitionObjectDifference__classDebugEnabled_775 == 1)
         {
-          v41 = [MEMORY[0x277CCACA8] stringWithFormat:@"New way %@", v50];
-          v42 = MEMORY[0x277D3F178];
-          v43 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLCoalitionAgent.m"];
-          lastPathComponent2 = [v43 lastPathComponent];
-          v45 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLCoalitionAgent logCoalitionObjectDifference:]"];
-          [v42 logMessage:v41 fromFile:lastPathComponent2 fromFunction:v45 fromLineNumber:1375];
+          v42 = [MEMORY[0x277CCACA8] stringWithFormat:@"New way %@", v51];
+          v43 = MEMORY[0x277D3F178];
+          v44 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLCoalitionAgent.m"];
+          lastPathComponent2 = [v44 lastPathComponent];
+          v46 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLCoalitionAgent logCoalitionObjectDifference:]"];
+          [v43 logMessage:v42 fromFile:lastPathComponent2 fromFunction:v46 fromLineNumber:1375];
 
-          v46 = PLLogCommon();
-          if (os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG))
+          v48 = PLLogCommon(v47);
+          if (os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG))
           {
             __111__PLProcessPortMap_pidAndProcessNameForDestAddress_withDestPort_withSourceAddress_withSourcePort_withProtocol___block_invoke_cold_1();
           }
@@ -2216,18 +2558,16 @@ id __30__PLCoalitionAgent_logToAggd___block_invoke_2(void *a1)
       }
     }
   }
-
-  v47 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __49__PLCoalitionAgent_logCoalitionObjectDifference___block_invoke(uint64_t a1)
+void *__49__PLCoalitionAgent_logCoalitionObjectDifference___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   logCoalitionObjectDifference__classDebugEnabled = result;
   return result;
 }
 
-uint64_t __49__PLCoalitionAgent_logCoalitionObjectDifference___block_invoke_776(uint64_t a1)
+void *__49__PLCoalitionAgent_logCoalitionObjectDifference___block_invoke_776(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   logCoalitionObjectDifference__classDebugEnabled_775 = result;
@@ -2236,24 +2576,24 @@ uint64_t __49__PLCoalitionAgent_logCoalitionObjectDifference___block_invoke_776(
 
 - (void)addAccountingEventsFromCoalitions:(id)coalitions
 {
-  v71 = *MEMORY[0x277D85DE8];
+  v70 = *MEMORY[0x277D85DE8];
   coalitionsCopy = coalitions;
   if (([MEMORY[0x277D3F208] isHomePod] & 1) == 0)
   {
-    v59 = objc_opt_new();
     v58 = objc_opt_new();
+    v57 = objc_opt_new();
     v5 = objc_opt_new();
+    v64 = 0u;
     v65 = 0u;
     v66 = 0u;
     v67 = 0u;
-    v68 = 0u;
-    v57 = coalitionsCopy;
+    v56 = coalitionsCopy;
     v6 = coalitionsCopy;
-    v7 = [v6 countByEnumeratingWithState:&v65 objects:v70 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v64 objects:v69 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v66;
+      v9 = *v65;
       v10 = 0.0;
       v11 = 0.0;
       v12 = 0.0;
@@ -2261,13 +2601,13 @@ uint64_t __49__PLCoalitionAgent_logCoalitionObjectDifference___block_invoke_776(
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v66 != v9)
+          if (*v65 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v14 = *(*(&v65 + 1) + 8 * i);
-          [(PLCoalitionAgent *)self getCPUWeightFromEntry:v14, v57];
+          v14 = *(*(&v64 + 1) + 8 * i);
+          [(PLCoalitionAgent *)self getCPUWeightFromEntry:v14, v56];
           v12 = v12 + v15;
           [(PLCoalitionAgent *)self getGPUWeightFromEntry:v14];
           v11 = v11 + v16;
@@ -2275,7 +2615,7 @@ uint64_t __49__PLCoalitionAgent_logCoalitionObjectDifference___block_invoke_776(
           v10 = v10 + v17;
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v65 objects:v70 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v64 objects:v69 count:16];
       }
 
       while (v8);
@@ -2288,54 +2628,54 @@ uint64_t __49__PLCoalitionAgent_logCoalitionObjectDifference___block_invoke_776(
       v12 = 0.0;
     }
 
-    v63 = 0u;
-    v64 = 0u;
-    v61 = 0u;
     v62 = 0u;
+    v63 = 0u;
+    v60 = 0u;
+    v61 = 0u;
     v18 = v6;
-    v19 = [v18 countByEnumeratingWithState:&v61 objects:v69 count:16];
-    v20 = v58;
+    v19 = [v18 countByEnumeratingWithState:&v60 objects:v68 count:16];
+    v20 = v57;
     if (v19)
     {
       v21 = v19;
-      v22 = *v62;
-      v60 = v5;
+      v22 = *v61;
+      v59 = v5;
       do
       {
         for (j = 0; j != v21; ++j)
         {
-          if (*v62 != v22)
+          if (*v61 != v22)
           {
             objc_enumerationMutation(v18);
           }
 
-          v24 = *(*(&v61 + 1) + 8 * j);
-          v25 = [PLUtilities getIdentifierFromEntry:v24, v57];
+          v24 = *(*(&v60 + 1) + 8 * j);
+          v25 = [PLUtilities getIdentifierFromEntry:v24, v56];
           if (v12 > 0.0)
           {
             [(PLCoalitionAgent *)self getCPUWeightFromEntry:v24];
             if (v26 > 0.0)
             {
               v27 = v26 / v12;
-              v28 = [v59 objectForKey:v25];
+              v28 = [v58 objectForKey:v25];
 
               v29 = MEMORY[0x277CCABB0];
               if (v28)
               {
-                v30 = [v59 objectForKeyedSubscript:v25];
+                v30 = [v58 objectForKeyedSubscript:v25];
                 [v30 doubleValue];
                 v32 = [v29 numberWithDouble:v27 + v31];
-                [v59 setObject:v32 forKeyedSubscript:v25];
+                [v58 setObject:v32 forKeyedSubscript:v25];
               }
 
               else
               {
                 v30 = [MEMORY[0x277CCABB0] numberWithDouble:v27];
-                [v59 setObject:v30 forKeyedSubscript:v25];
+                [v58 setObject:v30 forKeyedSubscript:v25];
               }
 
-              v20 = v58;
-              v5 = v60;
+              v20 = v57;
+              v5 = v59;
             }
           }
 
@@ -2362,7 +2702,7 @@ uint64_t __49__PLCoalitionAgent_logCoalitionObjectDifference___block_invoke_776(
                 [v20 setObject:v37 forKeyedSubscript:v25];
               }
 
-              v5 = v60;
+              v5 = v59;
             }
           }
 
@@ -2392,7 +2732,7 @@ uint64_t __49__PLCoalitionAgent_logCoalitionObjectDifference___block_invoke_776(
           }
         }
 
-        v21 = [v18 countByEnumeratingWithState:&v61 objects:v69 count:16];
+        v21 = [v18 countByEnumeratingWithState:&v60 objects:v68 count:16];
       }
 
       while (v21);
@@ -2400,7 +2740,7 @@ uint64_t __49__PLCoalitionAgent_logCoalitionObjectDifference___block_invoke_776(
 
     mEMORY[0x277D3F0C0] = [MEMORY[0x277D3F0C0] sharedInstance];
     currentDate = [(PLCoalitionAgent *)self currentDate];
-    [mEMORY[0x277D3F0C0] createDistributionEventBackwardWithDistributionID:33 withChildNodeNameToWeight:v59 withEndDate:currentDate];
+    [mEMORY[0x277D3F0C0] createDistributionEventBackwardWithDistributionID:33 withChildNodeNameToWeight:v58 withEndDate:currentDate];
 
     mEMORY[0x277D3F0C0]2 = [MEMORY[0x277D3F0C0] sharedInstance];
     currentDate2 = [(PLCoalitionAgent *)self currentDate];
@@ -2416,10 +2756,8 @@ uint64_t __49__PLCoalitionAgent_logCoalitionObjectDifference___block_invoke_776(
     currentDate4 = [(PLCoalitionAgent *)self currentDate];
     [mEMORY[0x277D3F0C0]4 createDistributionEventBackwardWithDistributionID:52 withChildNodeNameToWeight:MEMORY[0x277CBEC10] withEndDate:currentDate4];
 
-    coalitionsCopy = v57;
+    coalitionsCopy = v56;
   }
-
-  v56 = *MEMORY[0x277D85DE8];
 }
 
 - (double)getCPUEnergyFromEntry:(id)entry
@@ -2523,7 +2861,7 @@ uint64_t __49__PLCoalitionAgent_logCoalitionObjectDifference___block_invoke_776(
   return v6;
 }
 
-uint64_t __42__PLCoalitionAgent_getCPUWeightFromEntry___block_invoke()
+void *__42__PLCoalitionAgent_getCPUWeightFromEntry___block_invoke()
 {
   result = [MEMORY[0x277D3F208] kPLSoCClassIsOneOf:{1001003, 1001004, 1001005, 1001006, 1001007, 1001008, 1001009, 0}];
   if (result)
@@ -2557,7 +2895,7 @@ uint64_t __42__PLCoalitionAgent_getCPUWeightFromEntry___block_invoke()
   return v6;
 }
 
-uint64_t __42__PLCoalitionAgent_getGPUWeightFromEntry___block_invoke()
+void *__42__PLCoalitionAgent_getGPUWeightFromEntry___block_invoke()
 {
   result = [MEMORY[0x277D3F208] kPLSoCClassOfDevice];
   if (result > 1001018)
@@ -2578,8 +2916,8 @@ uint64_t __42__PLCoalitionAgent_getGPUWeightFromEntry___block_invoke()
 
 - (void)getCoalitionInfoWithHFLFlag:(BOOL)flag
 {
-  v58 = *MEMORY[0x277D85DE8];
-  v54 = objc_opt_new();
+  v56 = *MEMORY[0x277D85DE8];
+  v52 = objc_opt_new();
   monotonicDate = [MEMORY[0x277CBEAA8] monotonicDate];
   [(PLCoalitionAgent *)self setCurrentDate:monotonicDate];
 
@@ -2609,29 +2947,28 @@ uint64_t __42__PLCoalitionAgent_getGPUWeightFromEntry___block_invoke()
       free(v12);
     }
 
-    v17 = v54;
+    v17 = v52;
     goto LABEL_41;
   }
 
   v18 = (v8 >> 4);
-  v53 = v7;
+  v51 = v7;
   if (v18 >= 1)
   {
-    v51 = *MEMORY[0x277D863D8];
+    v49 = *MEMORY[0x277D863D8];
     key = *MEMORY[0x277D863D0];
     v19 = v7;
     while (1)
     {
       v20 = objc_autoreleasePoolPush();
       v21 = malloc_type_malloc(0x168uLL, 0x1000040DAE56E47uLL);
-      v22 = *v19;
-      v23 = coalition_info_resource_usage();
-      if (!v23)
+      v22 = coalition_info_resource_usage();
+      if (!v22)
       {
         break;
       }
 
-      v24 = v23;
+      v23 = v22;
       if (v21)
       {
         free(v21);
@@ -2642,12 +2979,12 @@ uint64_t __42__PLCoalitionAgent_getGPUWeightFromEntry___block_invoke()
         goto LABEL_26;
       }
 
-      v25 = objc_opt_class();
+      v24 = objc_opt_class();
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __48__PLCoalitionAgent_getCoalitionInfoWithHFLFlag___block_invoke;
       block[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      block[4] = v25;
+      block[4] = v24;
       if (getCoalitionInfoWithHFLFlag__defaultOnce != -1)
       {
         dispatch_once(&getCoalitionInfoWithHFLFlag__defaultOnce, block);
@@ -2658,18 +2995,18 @@ uint64_t __42__PLCoalitionAgent_getGPUWeightFromEntry___block_invoke()
         goto LABEL_26;
       }
 
-      launchdName = [MEMORY[0x277CCACA8] stringWithFormat:@"Cannot retrieve coalition information returnVal=%d", v24];;
-      v27 = MEMORY[0x277D3F178];
-      v28 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLCoalitionAgent.m"];
-      lastPathComponent = [v28 lastPathComponent];
-      v30 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLCoalitionAgent getCoalitionInfoWithHFLFlag:]"];
-      [v27 logMessage:launchdName fromFile:lastPathComponent fromFunction:v30 fromLineNumber:1579];
+      launchdName = [MEMORY[0x277CCACA8] stringWithFormat:@"Cannot retrieve coalition information returnVal=%d", v23];;
+      v26 = MEMORY[0x277D3F178];
+      v27 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLCoalitionAgent.m"];
+      lastPathComponent = [v27 lastPathComponent];
+      v29 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLCoalitionAgent getCoalitionInfoWithHFLFlag:]"];
+      [v26 logMessage:launchdName fromFile:lastPathComponent fromFunction:v29 fromLineNumber:1579];
 
-      bundleID = PLLogCommon();
+      bundleID = PLLogCommon(v30);
       if (os_log_type_enabled(bundleID, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v57 = launchdName;
+        v55 = launchdName;
         _os_log_debug_impl(&dword_25EE51000, bundleID, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
 
@@ -2695,17 +3032,16 @@ LABEL_26:
       isUIKitApp = [v34 isUIKitApp];
 LABEL_24:
       currentDate = [(PLCoalitionAgent *)self currentDate];
-      v40 = [(PLCoalitionAgent *)self buildPLCoalitionDataObject:v21 withBundleId:bundleID withLaunchdName:launchdName withDate:currentDate withCoalitionId:*v19 isApp:isUIKitApp];
-      v41 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:*v19];
-      [v54 setObject:v40 forKeyedSubscript:v41];
+      v39 = [(PLCoalitionAgent *)self buildPLCoalitionDataObject:v21 withBundleId:bundleID withLaunchdName:launchdName withDate:currentDate withCoalitionId:*v19 isApp:isUIKitApp];
+      v40 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:*v19];
+      [v52 setObject:v39 forKeyedSubscript:v40];
 
       goto LABEL_25;
     }
 
-    v36 = *v19;
-    v37 = xpc_coalition_copy_info();
-    v38 = v37;
-    if (!v37 || MEMORY[0x25F8D2C50](v37) != MEMORY[0x277D86468])
+    v36 = xpc_coalition_copy_info();
+    v37 = v36;
+    if (!v36 || MEMORY[0x25F8D2C50](v36) != MEMORY[0x277D86468])
     {
       isUIKitApp = 0;
       bundleID = &stru_287103958;
@@ -2722,8 +3058,8 @@ LABEL_24:
       goto LABEL_23;
     }
 
-    string = xpc_dictionary_get_string(v38, key);
-    v43 = string;
+    string = xpc_dictionary_get_string(v37, key);
+    v42 = string;
     if (*v19 == 1)
     {
       isUIKitApp = 0;
@@ -2731,7 +3067,7 @@ LABEL_24:
       if (string)
       {
 LABEL_30:
-        bundleID = [MEMORY[0x277CCACA8] stringWithUTF8String:v43];
+        bundleID = [MEMORY[0x277CCACA8] stringWithUTF8String:v42];
 LABEL_23:
 
         goto LABEL_24;
@@ -2740,31 +3076,31 @@ LABEL_23:
 
     else
     {
-      v50 = string;
-      v44 = xpc_dictionary_get_string(v38, v51);
-      if (v44)
+      v48 = string;
+      v43 = xpc_dictionary_get_string(v37, v49);
+      if (v43)
       {
-        v45 = [MEMORY[0x277CCACA8] stringWithUTF8String:v44];
+        v44 = [MEMORY[0x277CCACA8] stringWithUTF8String:v43];
       }
 
       else
       {
-        v45 = @"Unnamed_launchdName";
+        v44 = @"Unnamed_launchdName";
       }
 
-      isUIKitApp = [(__CFString *)v45 hasPrefix:@"UIKitApplication:"];
-      launchdName = [(__CFString *)v45 stringByReplacingOccurrencesOfString:@"UIKitApplication:" withString:&stru_287103958];
+      isUIKitApp = [(__CFString *)v44 hasPrefix:@"UIKitApplication:"];
+      launchdName = [(__CFString *)v44 stringByReplacingOccurrencesOfString:@"UIKitApplication:" withString:&stru_287103958];
 
-      v46 = [(__CFString *)launchdName rangeOfString:@"["];
-      if (v46 != 0x7FFFFFFFFFFFFFFFLL)
+      v45 = [(__CFString *)launchdName rangeOfString:@"["];
+      if (v45 != 0x7FFFFFFFFFFFFFFFLL)
       {
-        v47 = [(__CFString *)launchdName substringToIndex:v46];
+        v46 = [(__CFString *)launchdName substringToIndex:v45];
 
-        launchdName = v47;
+        launchdName = v46;
       }
 
-      v43 = v50;
-      if (v50)
+      v42 = v48;
+      if (v48)
       {
         goto LABEL_30;
       }
@@ -2777,20 +3113,19 @@ LABEL_23:
   if (v7)
   {
 LABEL_39:
-    free(v53);
+    free(v51);
   }
 
-  v17 = v54;
-  [(PLCoalitionAgent *)self logCoalitionObjectDifference:v54];
-  [(PLCoalitionAgent *)self setLastCoalitionObjectDictionary:v54];
+  v17 = v52;
+  [(PLCoalitionAgent *)self logCoalitionObjectDifference:v52];
+  [(PLCoalitionAgent *)self setLastCoalitionObjectDictionary:v52];
   currentDate2 = [(PLCoalitionAgent *)self currentDate];
   [(PLCoalitionAgent *)self setLastDate:currentDate2];
 
 LABEL_41:
-  v49 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __48__PLCoalitionAgent_getCoalitionInfoWithHFLFlag___block_invoke(uint64_t a1)
+void *__48__PLCoalitionAgent_getCoalitionInfoWithHFLFlag___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   getCoalitionInfoWithHFLFlag__classDebugEnabled = result;
@@ -2820,8 +3155,8 @@ uint64_t __48__PLCoalitionAgent_getCoalitionInfoWithHFLFlag___block_invoke(uint6
   v11 = v10;
 
   v12 = [(PLOperator *)PLCoalitionAgent entryKeyForType:*MEMORY[0x277D3F5B8] andName:@"NANDStats"];
-  storage = [(PLOperator *)self storage];
-  v14 = [storage aggregateEntriesForKey:v12 withBucketLength:86400.0 inTimeIntervalRange:{v9, v11 - v9}];
+  v13 = objc_msgSend_storage(self);
+  v14 = [v13 aggregateEntriesForKey:v12 withBucketLength:86400.0 inTimeIntervalRange:{v9, v11 - v9}];
 
   v15 = [infoCopy objectForKeyedSubscript:@"LogicalWriteThresholdPerDay"];
   unsignedIntegerValue = [v15 unsignedIntegerValue];
@@ -2835,32 +3170,32 @@ uint64_t __48__PLCoalitionAgent_getCoalitionInfoWithHFLFlag___block_invoke(uint6
     v17 = 104857600;
   }
 
-  v18 = PLLogCommon();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+  v19 = PLLogCommon(v18);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
   {
     [PLCoalitionAgent processPerAppLogicalWritesWithInfo:];
   }
 
-  v19 = [MEMORY[0x277CBEB58] set];
+  v20 = [MEMORY[0x277CBEB58] set];
   v43[0] = MEMORY[0x277D85DD0];
   v43[1] = 3221225472;
   v43[2] = __55__PLCoalitionAgent_processPerAppLogicalWritesWithInfo___block_invoke;
   v43[3] = &unk_279A5BFD8;
   v45 = v17;
-  v20 = v19;
-  v44 = v20;
+  v21 = v20;
+  v44 = v21;
   [v14 enumerateObjectsUsingBlock:v43];
   array = [MEMORY[0x277CBEB18] array];
-  v22 = 14;
+  v23 = 14;
   do
   {
     dictionary = [MEMORY[0x277CBEB38] dictionary];
     [array addObject:dictionary];
 
-    --v22;
+    --v23;
   }
 
-  while (v22);
+  while (v23);
   v41[0] = 0;
   v41[1] = v41;
   v41[2] = 0x2020000000;
@@ -2875,30 +3210,28 @@ uint64_t __48__PLCoalitionAgent_getCoalitionInfoWithHFLFlag___block_invoke(uint6
   v33[1] = 3221225472;
   v33[2] = __55__PLCoalitionAgent_processPerAppLogicalWritesWithInfo___block_invoke_805;
   v33[3] = &unk_279A5C000;
-  v24 = v20;
-  v34 = v24;
+  v25 = v21;
+  v34 = v25;
   v37 = v39;
   v38 = v41;
-  v25 = v6;
-  v35 = v25;
-  v26 = array;
-  v36 = v26;
+  v26 = v6;
+  v35 = v26;
+  v27 = array;
+  v36 = v27;
   [v14 enumerateObjectsUsingBlock:v33];
   v46[0] = @"responseStartTimestamp";
-  v27 = MEMORY[0x277CCABB0];
-  [v25 timeIntervalSince1970];
-  v28 = [v27 numberWithDouble:?];
+  v28 = MEMORY[0x277CCABB0];
+  [v26 timeIntervalSince1970];
+  v29 = [v28 numberWithDouble:?];
   v46[1] = @"queryResultsPerDay";
-  v47[0] = v28;
-  v47[1] = v26;
-  v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v47 forKeys:v46 count:2];
+  v47[0] = v29;
+  v47[1] = v27;
+  v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v47 forKeys:v46 count:2];
 
   _Block_object_dispose(v39, 8);
   _Block_object_dispose(v41, 8);
 
-  v30 = *MEMORY[0x277D85DE8];
-
-  return v29;
+  return v30;
 }
 
 void __55__PLCoalitionAgent_processPerAppLogicalWritesWithInfo___block_invoke(uint64_t a1, void *a2)
@@ -3004,46 +3337,34 @@ LABEL_7:
 
 - (void)init
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*self);
-  OUTLINED_FUNCTION_0(&dword_25EE51000, a2, a3, "Picked random time in next hour for sending high frequency stats to CA: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *self;
+  OUTLINED_FUNCTION_0(&dword_25EE51000, a2, a3, "Picked random time in next hour for sending high frequency stats to CA: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)readPropertyFromRegistry:(int)a1 .cold.1(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_error_impl(&dword_25EE51000, a2, OS_LOG_TYPE_ERROR, "IOServiceGetMatchingServices kernResult %x\n", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_error_impl(&dword_25EE51000, a2, OS_LOG_TYPE_ERROR, "IOServiceGetMatchingServices kernResult %x\n", v2, 8u);
 }
 
 - (void)logToCAProcessMemory:andAccumulatedMemory:dailyReport:systemUptime:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  v4 = 2048;
-  v5 = v0;
-  _os_log_debug_impl(&dword_25EE51000, v1, OS_LOG_TYPE_DEBUG, "Don't Log Coalition Memory Stats to CA, since same day as most recent logging (current_day=%llu is less then or equal to most_recent_day=%llu)", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = 2048;
+  v4 = v0;
+  _os_log_debug_impl(&dword_25EE51000, v1, OS_LOG_TYPE_DEBUG, "Don't Log Coalition Memory Stats to CA, since same day as most recent logging (current_day=%llu is less then or equal to most_recent_day=%llu)", v2, 0x16u);
 }
 
 - (void)logToCAProcessMemory:(void *)a1 andAccumulatedMemory:(NSObject *)a2 dailyReport:systemUptime:.cold.2(void *a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   [a1 count];
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(&dword_25EE51000, a2, OS_LOG_TYPE_DEBUG, "Log Process Memory Stats to CA  count %lu", v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-- (void)processPerAppLogicalWritesWithInfo:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_25EE51000, v0, v1, "LogicalWriteThresholdPerDay: %lu", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_25EE51000, a2, OS_LOG_TYPE_DEBUG, "Log Process Memory Stats to CA  count %lu", v3, 0xCu);
 }
 
 @end

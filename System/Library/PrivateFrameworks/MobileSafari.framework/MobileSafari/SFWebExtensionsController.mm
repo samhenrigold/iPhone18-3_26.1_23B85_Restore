@@ -166,41 +166,41 @@
 
 void __78__SFWebExtensionsController__isExtensionBlockedByBlocklist_completionHandler___block_invoke(uint64_t a1)
 {
-  v15[4] = *MEMORY[0x1E69E9840];
+  v18[4] = *MEMORY[0x1E69E9840];
   v2 = *MEMORY[0x1E69E5818];
-  v14[0] = *MEMORY[0x1E69E5800];
-  v14[1] = v2;
-  v15[0] = MEMORY[0x1E695E118];
-  v15[1] = MEMORY[0x1E695E118];
+  v17[0] = *MEMORY[0x1E69E5800];
+  v17[1] = v2;
+  v18[0] = MEMORY[0x1E695E118];
+  v18[1] = MEMORY[0x1E695E118];
   v3 = *MEMORY[0x1E69E57E0];
-  v14[2] = *MEMORY[0x1E69E57F0];
-  v14[3] = v3;
-  v15[2] = MEMORY[0x1E695E118];
-  v15[3] = MEMORY[0x1E695E118];
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:4];
+  v17[2] = *MEMORY[0x1E69E57F0];
+  v17[3] = v3;
+  v18[2] = MEMORY[0x1E695E118];
+  v18[3] = MEMORY[0x1E695E118];
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:4];
   v5 = [*(a1 + 32) URL];
   v6 = [v5 path];
   v7 = MISValidateSignature();
 
   if (v7)
   {
-    v8 = MISCopyErrorStringForErrorCode();
-    v9 = WBS_LOG_CHANNEL_PREFIXWebExtensions();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = MISCopyErrorStringForErrorCode();
+    v12 = WBS_LOG_CHANNEL_PREFIXWebExtensions(v10, v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      __78__SFWebExtensionsController__isExtensionBlockedByBlocklist_completionHandler___block_invoke_cold_1(a1, v8, v9);
+      __78__SFWebExtensionsController__isExtensionBlockedByBlocklist_completionHandler___block_invoke_cold_1(a1, v10, v12);
     }
   }
 
   else
   {
-    v10 = WBS_LOG_CHANNEL_PREFIXWebExtensions();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    v13 = WBS_LOG_CHANNEL_PREFIXWebExtensions(v8, v9);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
-      v11 = *(a1 + 40);
-      v12 = 138477827;
-      v13 = v11;
-      _os_log_impl(&dword_18B7AC000, v10, OS_LOG_TYPE_INFO, "Parent app for web extension with identifier %{private}@ is a trusted app", &v12, 0xCu);
+      v14 = *(a1 + 40);
+      v15 = 138477827;
+      v16 = v14;
+      _os_log_impl(&dword_18B7AC000, v13, OS_LOG_TYPE_INFO, "Parent app for web extension with identifier %{private}@ is a trusted app", &v15, 0xCu);
     }
   }
 
@@ -356,39 +356,40 @@ void __143__SFWebExtensionsController__updateExtensionsStateAfterExtensionSettin
 - (void)_extensionWithComposedIdentifier:(id)identifier wasEnabledOrDisabledByExtensionSettings:(BOOL)settings
 {
   settingsCopy = settings;
-  v18 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v7 = [(WBSExtensionsController *)self extensionWithComposedIdentifier:identifierCopy];
   if (v7)
   {
-    if ([*(&self->super.super.super.isa + *MEMORY[0x1E69C98F8]) containsObject:v7] == settingsCopy)
+    v8 = [*(&self->super.super.super.isa + *MEMORY[0x1E69C98F8]) containsObject:v7];
+    if (v8 == settingsCopy)
     {
-      v12 = WBS_LOG_CHANNEL_PREFIXWebExtensions();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+      v14 = WBS_LOG_CHANNEL_PREFIXWebExtensions(v8, v9);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
         identifier = [v7 identifier];
-        [(SFWebExtensionsController *)identifier _extensionWithComposedIdentifier:settingsCopy wasEnabledOrDisabledByExtensionSettings:&v14, v12];
+        [(SFWebExtensionsController *)identifier _extensionWithComposedIdentifier:settingsCopy wasEnabledOrDisabledByExtensionSettings:&v16, v14];
       }
     }
 
     else
     {
-      v8 = WBS_LOG_CHANNEL_PREFIXWebExtensions();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+      v10 = WBS_LOG_CHANNEL_PREFIXWebExtensions(v8, v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
         identifier2 = [v7 identifier];
-        v10 = identifier2;
-        v11 = @"disabled";
+        v12 = identifier2;
+        v13 = @"disabled";
         if (settingsCopy)
         {
-          v11 = @"enabled";
+          v13 = @"enabled";
         }
 
-        v14 = 138478083;
-        v15 = identifier2;
-        v16 = 2114;
-        v17 = v11;
-        _os_log_impl(&dword_18B7AC000, v8, OS_LOG_TYPE_INFO, "Extension with identifier %{private}@ was %{public}@ by Settings", &v14, 0x16u);
+        v16 = 138478083;
+        v17 = identifier2;
+        v18 = 2114;
+        v19 = v13;
+        _os_log_impl(&dword_18B7AC000, v10, OS_LOG_TYPE_INFO, "Extension with identifier %{private}@ was %{public}@ by Settings", &v16, 0x16u);
       }
 
       [(WBSExtensionsController *)self setExtension:v7 isEnabled:settingsCopy skipSavingToStorage:1];
@@ -693,7 +694,7 @@ BOOL __60__SFWebExtensionsController_recentlyInstalledExtensionCount__block_invo
 
 - (id)_developerIdentifierForExtension:(id)extension untrustedCodeSigningDictionary:(id)dictionary
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   extensionCopy = extension;
   v5 = objc_getAssociatedObject(extensionCopy, &developerIdentifierRepresentedObjectKey);
   if (v5)
@@ -718,18 +719,18 @@ BOOL __60__SFWebExtensionsController_recentlyInstalledExtensionCount__block_invo
   v9 = objc_alloc(MEMORY[0x1E69635D0]);
   _plugIn = [extensionCopy _plugIn];
   uuid = [_plugIn uuid];
-  v23 = 0;
-  v12 = [v9 initWithUUID:uuid error:&v23];
-  v13 = v23;
+  v27 = 0;
+  v12 = [v9 initWithUUID:uuid error:&v27];
+  v13 = v27;
 
   if (!v12)
   {
-    v16 = WBS_LOG_CHANNEL_PREFIXWebExtensions();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v20 = WBS_LOG_CHANNEL_PREFIXWebExtensions(v14, v15);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       identifier = [extensionCopy identifier];
       safari_privacyPreservingDescription = [v13 safari_privacyPreservingDescription];
-      [(SFWebExtensionsController *)identifier _developerIdentifierForExtension:safari_privacyPreservingDescription untrustedCodeSigningDictionary:buf, v16];
+      [(SFWebExtensionsController *)identifier _developerIdentifierForExtension:safari_privacyPreservingDescription untrustedCodeSigningDictionary:buf, v20];
     }
 
     null = [MEMORY[0x1E695DFB0] null];
@@ -740,13 +741,14 @@ BOOL __60__SFWebExtensionsController_recentlyInstalledExtensionCount__block_invo
 
   null = [v12 containingBundleRecord];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v19 = WBS_LOG_CHANNEL_PREFIXWebExtensions();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v23 = WBS_LOG_CHANNEL_PREFIXWebExtensions(isKindOfClass, v18);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       identifier2 = [extensionCopy identifier];
-      [(SFWebExtensionsController *)identifier2 _developerIdentifierForExtension:buf untrustedCodeSigningDictionary:v19];
+      [(SFWebExtensionsController *)identifier2 _developerIdentifierForExtension:buf untrustedCodeSigningDictionary:v23];
     }
 
     null2 = [MEMORY[0x1E695DFB0] null];
@@ -759,7 +761,7 @@ BOOL __60__SFWebExtensionsController_recentlyInstalledExtensionCount__block_invo
   if ([(__CFString *)teamIdentifier isEqualToString:@"0000000000"])
   {
 
-    v15 = 0;
+    v19 = 0;
     teamIdentifier = @"UNSIGNED";
 LABEL_18:
     null2 = teamIdentifier;
@@ -768,15 +770,15 @@ LABEL_18:
 
   if (teamIdentifier)
   {
-    v15 = 0;
+    v19 = 0;
     goto LABEL_18;
   }
 
   null2 = [MEMORY[0x1E695DFB0] null];
-  v15 = 1;
+  v19 = 1;
 LABEL_19:
   objc_setAssociatedObject(extensionCopy, &developerIdentifierRepresentedObjectKey, null2, 1);
-  if (v15)
+  if (v19)
   {
 LABEL_20:
   }

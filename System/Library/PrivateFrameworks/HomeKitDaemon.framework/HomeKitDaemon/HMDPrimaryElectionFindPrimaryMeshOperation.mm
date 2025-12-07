@@ -43,7 +43,7 @@
 
 - (void)main
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   context = [(HMDPrimaryElectionFindPrimaryMeshOperation *)&self->super.super.super.isa context];
   if (([(HMDPrimaryElectionFindPrimaryMeshOperation *)self isCancelled]& 1) == 0 && context)
   {
@@ -58,7 +58,7 @@
     {
       v10 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v37 = v10;
+      v36 = v10;
       _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Querying residents to see if we're in the primary mesh", buf, 0xCu);
     }
 
@@ -87,20 +87,20 @@
       v15 = 0;
     }
 
-    v31[0] = MEMORY[0x277D85DD0];
-    v31[1] = 3221225472;
-    v31[2] = __50__HMDPrimaryElectionFindPrimaryMeshOperation_main__block_invoke;
-    v31[3] = &unk_27867CC78;
+    v30[0] = MEMORY[0x277D85DD0];
+    v30[1] = 3221225472;
+    v30[2] = __50__HMDPrimaryElectionFindPrimaryMeshOperation_main__block_invoke;
+    v30[3] = &unk_27867CC78;
     v16 = context;
-    v32 = v16;
+    v31 = v16;
     v17 = v6;
-    v33 = v17;
-    v34 = selfCopy;
+    v32 = v17;
+    v33 = selfCopy;
     v18 = v14;
-    v35 = v18;
-    [(NSSet *)v15 hmf_enumerateWithAutoreleasePoolUsingBlock:v31];
+    v34 = v18;
+    [(NSSet *)v15 hmf_enumerateWithAutoreleasePoolUsingBlock:v30];
     v19 = MEMORY[0x277D0F7C0];
-    v20 = [v18 copy];
+    v20 = objc_msgSend_copy(v18);
     v21 = [v19 allSettled:v20];
     v22 = v21;
     if (selfCopy)
@@ -121,26 +121,24 @@
     }
 
     v24 = messagesFuture;
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __50__HMDPrimaryElectionFindPrimaryMeshOperation_main__block_invoke_56;
-    v27[3] = &unk_278686F60;
-    objc_copyWeak(&v28, buf);
-    objc_copyWeak(&v29, &location);
-    v25 = [(HMFFuture *)v24 inContext:v17 then:v27];
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __50__HMDPrimaryElectionFindPrimaryMeshOperation_main__block_invoke_56;
+    v26[3] = &unk_278686F60;
+    objc_copyWeak(&v27, buf);
+    objc_copyWeak(&v28, &location);
+    v25 = [(HMFFuture *)v24 inContext:v17 then:v26];
 
-    objc_destroyWeak(&v29);
     objc_destroyWeak(&v28);
+    objc_destroyWeak(&v27);
     objc_destroyWeak(&location);
     objc_destroyWeak(buf);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __50__HMDPrimaryElectionFindPrimaryMeshOperation_main__block_invoke(uint64_t a1, void *a2)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [HMDRemoteDeviceMessageDestination alloc];
   v5 = [*(a1 + 32) home];
@@ -153,24 +151,24 @@ void __50__HMDPrimaryElectionFindPrimaryMeshOperation_main__block_invoke(uint64_
   [v9 setSecureRemote:1];
   [v9 setRemoteRestriction:9];
   v10 = [*(a1 + 32) messageDispatcher];
-  v11 = [v9 copy];
+  v11 = objc_msgSend_copy(v9);
   v12 = [v10 sendMessageExpectingResponse:v11];
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __50__HMDPrimaryElectionFindPrimaryMeshOperation_main__block_invoke_2;
-  v27[3] = &unk_27867CF60;
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __50__HMDPrimaryElectionFindPrimaryMeshOperation_main__block_invoke_2;
+  v26[3] = &unk_27867CF60;
   v13 = *(a1 + 40);
-  v27[4] = *(a1 + 48);
-  v28 = v3;
-  v29 = *(a1 + 32);
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __50__HMDPrimaryElectionFindPrimaryMeshOperation_main__block_invoke_52;
-  v25[3] = &unk_2786882F0;
-  v25[4] = *(a1 + 48);
-  v14 = v28;
-  v26 = v14;
-  v15 = [v12 inContext:v13 then:v27 orRecover:v25];
+  v26[4] = *(a1 + 48);
+  v27 = v3;
+  v28 = *(a1 + 32);
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __50__HMDPrimaryElectionFindPrimaryMeshOperation_main__block_invoke_52;
+  v24[3] = &unk_2786882F0;
+  v24[4] = *(a1 + 48);
+  v14 = v27;
+  v25 = v14;
+  v15 = [v12 inContext:v13 then:v26 orRecover:v24];
 
   v16 = objc_autoreleasePoolPush();
   v17 = *(a1 + 48);
@@ -180,29 +178,27 @@ void __50__HMDPrimaryElectionFindPrimaryMeshOperation_main__block_invoke(uint64_
     v19 = HMFGetLogIdentifier();
     v20 = [v14 shortDescription];
     [v9 identifier];
-    v24 = v16;
+    v23 = v16;
     v22 = v21 = v8;
     *buf = 138543874;
-    v31 = v19;
-    v32 = 2114;
-    v33 = v20;
-    v34 = 2114;
-    v35 = v22;
+    v30 = v19;
+    v31 = 2114;
+    v32 = v20;
+    v33 = 2114;
+    v34 = v22;
     _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_INFO, "%{public}@Querying resident %{public}@ with message %{public}@", buf, 0x20u);
 
     v8 = v21;
-    v16 = v24;
+    v16 = v23;
   }
 
   objc_autoreleasePoolPop(v16);
   [*(a1 + 56) addObject:v15];
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __50__HMDPrimaryElectionFindPrimaryMeshOperation_main__block_invoke_56(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = objc_loadWeakRetained((a1 + 40));
@@ -220,11 +216,11 @@ uint64_t __50__HMDPrimaryElectionFindPrimaryMeshOperation_main__block_invoke_56(
     {
       v12 = HMFGetLogIdentifier();
       v13 = [v10 results];
-      v16 = 138543618;
-      v17 = v12;
-      v18 = 2112;
-      v19 = v13;
-      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Got results: %@", &v16, 0x16u);
+      v15 = 138543618;
+      v16 = v12;
+      v17 = 2112;
+      v18 = v13;
+      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Got results: %@", &v15, 0x16u);
     }
 
     objc_autoreleasePoolPop(v9);
@@ -236,7 +232,6 @@ uint64_t __50__HMDPrimaryElectionFindPrimaryMeshOperation_main__block_invoke_56(
     [WeakRetained cancel];
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -272,7 +267,7 @@ id __50__HMDPrimaryElectionFindPrimaryMeshOperation_main__block_invoke_2_57(uint
 
 uint64_t __50__HMDPrimaryElectionFindPrimaryMeshOperation_main__block_invoke_2(id *a1, void *a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -293,13 +288,13 @@ uint64_t __50__HMDPrimaryElectionFindPrimaryMeshOperation_main__block_invoke_2(i
       {
         v14 = HMFGetLogIdentifier();
         v15 = [a1[5] shortDescription];
-        v18 = 138543874;
-        v19 = v14;
-        v20 = 2114;
-        v21 = v15;
-        v22 = 2112;
-        v23 = v3;
-        _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Unable to parse message payload for resident %{public}@: %@", &v18, 0x20u);
+        v17 = 138543874;
+        v18 = v14;
+        v19 = 2114;
+        v20 = v15;
+        v21 = 2112;
+        v22 = v3;
+        _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Unable to parse message payload for resident %{public}@: %@", &v17, 0x20u);
       }
 
       objc_autoreleasePoolPop(v11);
@@ -315,23 +310,22 @@ uint64_t __50__HMDPrimaryElectionFindPrimaryMeshOperation_main__block_invoke_2(i
     {
       v9 = HMFGetLogIdentifier();
       v10 = [a1[5] shortDescription];
-      v18 = 138543618;
-      v19 = v9;
-      v20 = 2114;
-      v21 = v10;
-      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@nil result for resident: %{public}@", &v18, 0x16u);
+      v17 = 138543618;
+      v18 = v9;
+      v19 = 2114;
+      v20 = v10;
+      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@nil result for resident: %{public}@", &v17, 0x16u);
     }
 
     objc_autoreleasePoolPop(v6);
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 uint64_t __50__HMDPrimaryElectionFindPrimaryMeshOperation_main__block_invoke_52(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -340,17 +334,16 @@ uint64_t __50__HMDPrimaryElectionFindPrimaryMeshOperation_main__block_invoke_52(
   {
     v7 = HMFGetLogIdentifier();
     v8 = [*(a1 + 40) shortDescription];
-    v11 = 138543874;
-    v12 = v7;
-    v13 = 2114;
-    v14 = v8;
-    v15 = 2112;
-    v16 = v3;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Got error result for resident %{public}@: %@", &v11, 0x20u);
+    v10 = 138543874;
+    v11 = v7;
+    v12 = 2114;
+    v13 = v8;
+    v14 = 2112;
+    v15 = v3;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Got error result for resident %{public}@: %@", &v10, 0x20u);
   }
 
   objc_autoreleasePoolPop(v4);
-  v9 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -383,10 +376,9 @@ uint64_t __50__HMDPrimaryElectionFindPrimaryMeshOperation_main__block_invoke_52(
 
 void __57__HMDPrimaryElectionFindPrimaryMeshOperation_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v15_171168;
-  logCategory__hmf_once_v15_171168 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v15_171168;
+  logCategory__hmf_once_v15_171168 = v0;
 }
 
 @end

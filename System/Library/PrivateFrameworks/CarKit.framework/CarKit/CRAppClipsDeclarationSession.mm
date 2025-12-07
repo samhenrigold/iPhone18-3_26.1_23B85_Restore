@@ -9,7 +9,7 @@
 {
   identifierCopy = identifier;
   completionCopy = completion;
-  v8 = CarGeneralLogging();
+  v8 = CarGeneralLogging(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *v11 = 0;

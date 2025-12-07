@@ -1,4 +1,4 @@
-uint64_t ___ZN12_GLOBAL__N_112_GLOBAL__N_114HeapUsageTable5applyERNS0_16BufferUsageTableES3_S3_S3_RNS0_17TextureUsageTableES5_S5_S5__block_invoke_7(uint64_t result, unsigned int *a2, int a3)
+_BYTE *___ZN12_GLOBAL__N_112_GLOBAL__N_114HeapUsageTable5applyERNS0_16BufferUsageTableES3_S3_S3_RNS0_17TextureUsageTableES5_S5_S5__block_invoke_9(_BYTE *result, unsigned int *a2, int a3)
 {
   if (a3)
   {
@@ -9,7 +9,7 @@ uint64_t ___ZN12_GLOBAL__N_112_GLOBAL__N_114HeapUsageTable5applyERNS0_16BufferUs
       v6 = *a2;
       if (v6)
       {
-        v7 = *(*(v5 + 40) + 16);
+        v7 = *(*(v5 + 5) + 16);
         if ((v7 & 4) != 0)
         {
           LOBYTE(v8) = v7 & 2 | 1;
@@ -17,11 +17,11 @@ uint64_t ___ZN12_GLOBAL__N_112_GLOBAL__N_114HeapUsageTable5applyERNS0_16BufferUs
 
         else
         {
-          v8 = *(*(v5 + 40) + 16);
+          v8 = *(*(v5 + 5) + 16);
         }
 
-        result = [**(v5 + 32) contents];
-        *(result + (v6 >> 2)) |= v8 << (2 * (v6 & 3));
+        result = [**(v5 + 4) contents];
+        result[v6 >> 2] |= v8 << (2 * (v6 & 3));
       }
 
       ++a2;
@@ -34,7 +34,7 @@ uint64_t ___ZN12_GLOBAL__N_112_GLOBAL__N_114HeapUsageTable5applyERNS0_16BufferUs
   return result;
 }
 
-uint64_t ___ZN12_GLOBAL__N_112_GLOBAL__N_114HeapUsageTable5applyERNS0_16BufferUsageTableES3_S3_S3_RNS0_17TextureUsageTableES5_S5_S5__block_invoke_8(uint64_t result, unsigned int *a2, int a3)
+_BYTE *___ZN12_GLOBAL__N_112_GLOBAL__N_114HeapUsageTable5applyERNS0_16BufferUsageTableES3_S3_S3_RNS0_17TextureUsageTableES5_S5_S5__block_invoke_10(_BYTE *result, unsigned int *a2, int a3)
 {
   if (a3)
   {
@@ -45,7 +45,7 @@ uint64_t ___ZN12_GLOBAL__N_112_GLOBAL__N_114HeapUsageTable5applyERNS0_16BufferUs
       v6 = *a2;
       if (v6)
       {
-        v7 = *(*(v5 + 40) + 16);
+        v7 = *(*(v5 + 5) + 16);
         if ((v7 & 4) != 0)
         {
           LOBYTE(v8) = v7 & 2 | 1;
@@ -53,11 +53,11 @@ uint64_t ___ZN12_GLOBAL__N_112_GLOBAL__N_114HeapUsageTable5applyERNS0_16BufferUs
 
         else
         {
-          v8 = *(*(v5 + 40) + 16);
+          v8 = *(*(v5 + 5) + 16);
         }
 
-        result = [**(v5 + 32) contents];
-        *(result + (v6 >> 2)) |= v8 << (2 * (v6 & 3));
+        result = [**(v5 + 4) contents];
+        result[v6 >> 2] |= v8 << (2 * (v6 & 3));
       }
 
       ++a2;
@@ -70,7 +70,7 @@ uint64_t ___ZN12_GLOBAL__N_112_GLOBAL__N_114HeapUsageTable5applyERNS0_16BufferUs
   return result;
 }
 
-uint64_t ___ZN12_GLOBAL__N_112_GLOBAL__N_114HeapUsageTable5applyERNS0_16BufferUsageTableES3_S3_S3_RNS0_17TextureUsageTableES5_S5_S5__block_invoke_9(uint64_t result, unsigned int *a2, int a3)
+_BYTE *___ZN12_GLOBAL__N_112_GLOBAL__N_114HeapUsageTable5applyERNS0_16BufferUsageTableES3_S3_S3_RNS0_17TextureUsageTableES5_S5_S5__block_invoke_11(_BYTE *result, unsigned int *a2, int a3)
 {
   if (a3)
   {
@@ -81,7 +81,7 @@ uint64_t ___ZN12_GLOBAL__N_112_GLOBAL__N_114HeapUsageTable5applyERNS0_16BufferUs
       v6 = *a2;
       if (v6)
       {
-        v7 = *(*(v5 + 40) + 16);
+        v7 = *(*(v5 + 5) + 16);
         if ((v7 & 4) != 0)
         {
           LOBYTE(v8) = v7 & 2 | 1;
@@ -89,11 +89,11 @@ uint64_t ___ZN12_GLOBAL__N_112_GLOBAL__N_114HeapUsageTable5applyERNS0_16BufferUs
 
         else
         {
-          v8 = *(*(v5 + 40) + 16);
+          v8 = *(*(v5 + 5) + 16);
         }
 
-        result = [**(v5 + 32) contents];
-        *(result + (v6 >> 2)) |= v8 << (2 * (v6 & 3));
+        result = [**(v5 + 4) contents];
+        result[v6 >> 2] |= v8 << (2 * (v6 & 3));
       }
 
       ++a2;
@@ -106,7 +106,7 @@ uint64_t ___ZN12_GLOBAL__N_112_GLOBAL__N_114HeapUsageTable5applyERNS0_16BufferUs
   return result;
 }
 
-uint64_t ___ZN12_GLOBAL__N_112_GLOBAL__N_114HeapUsageTable5applyERNS0_16BufferUsageTableES3_S3_S3_RNS0_17TextureUsageTableES5_S5_S5__block_invoke_10(uint64_t result, unsigned int *a2, int a3)
+_BYTE *___ZN12_GLOBAL__N_112_GLOBAL__N_114HeapUsageTable5applyERNS0_16BufferUsageTableES3_S3_S3_RNS0_17TextureUsageTableES5_S5_S5__block_invoke_12(_BYTE *result, unsigned int *a2, int a3)
 {
   if (a3)
   {
@@ -117,7 +117,7 @@ uint64_t ___ZN12_GLOBAL__N_112_GLOBAL__N_114HeapUsageTable5applyERNS0_16BufferUs
       v6 = *a2;
       if (v6)
       {
-        v7 = *(*(v5 + 40) + 16);
+        v7 = *(*(v5 + 5) + 16);
         if ((v7 & 4) != 0)
         {
           LOBYTE(v8) = v7 & 2 | 1;
@@ -125,83 +125,11 @@ uint64_t ___ZN12_GLOBAL__N_112_GLOBAL__N_114HeapUsageTable5applyERNS0_16BufferUs
 
         else
         {
-          v8 = *(*(v5 + 40) + 16);
+          v8 = *(*(v5 + 5) + 16);
         }
 
-        result = [**(v5 + 32) contents];
-        *(result + (v6 >> 2)) |= v8 << (2 * (v6 & 3));
-      }
-
-      ++a2;
-      --v3;
-    }
-
-    while (v3);
-  }
-
-  return result;
-}
-
-uint64_t ___ZN12_GLOBAL__N_112_GLOBAL__N_114HeapUsageTable5applyERNS0_16BufferUsageTableES3_S3_S3_RNS0_17TextureUsageTableES5_S5_S5__block_invoke_11(uint64_t result, unsigned int *a2, int a3)
-{
-  if (a3)
-  {
-    v3 = a3;
-    v5 = result;
-    do
-    {
-      v6 = *a2;
-      if (v6)
-      {
-        v7 = *(*(v5 + 40) + 16);
-        if ((v7 & 4) != 0)
-        {
-          LOBYTE(v8) = v7 & 2 | 1;
-        }
-
-        else
-        {
-          v8 = *(*(v5 + 40) + 16);
-        }
-
-        result = [**(v5 + 32) contents];
-        *(result + (v6 >> 2)) |= v8 << (2 * (v6 & 3));
-      }
-
-      ++a2;
-      --v3;
-    }
-
-    while (v3);
-  }
-
-  return result;
-}
-
-uint64_t ___ZN12_GLOBAL__N_112_GLOBAL__N_114HeapUsageTable5applyERNS0_16BufferUsageTableES3_S3_S3_RNS0_17TextureUsageTableES5_S5_S5__block_invoke_12(uint64_t result, unsigned int *a2, int a3)
-{
-  if (a3)
-  {
-    v3 = a3;
-    v5 = result;
-    do
-    {
-      v6 = *a2;
-      if (v6)
-      {
-        v7 = *(*(v5 + 40) + 16);
-        if ((v7 & 4) != 0)
-        {
-          LOBYTE(v8) = v7 & 2 | 1;
-        }
-
-        else
-        {
-          v8 = *(*(v5 + 40) + 16);
-        }
-
-        result = [**(v5 + 32) contents];
-        *(result + (v6 >> 2)) |= v8 << (2 * (v6 & 3));
+        result = [**(v5 + 4) contents];
+        result[v6 >> 2] |= v8 << (2 * (v6 & 3));
       }
 
       ++a2;
@@ -316,45 +244,37 @@ void *std::__hash_table<std::__hash_value_type<unsigned long long,MTLLegacySVRes
     return 0;
   }
 
-  result = *v6;
-  if (*v6)
+  for (result = *v6; result; result = *result)
   {
-    do
+    v8 = result[1];
+    if (v3 == v8)
     {
-      v8 = result[1];
-      if (v3 == v8)
+      if (result[2] == v3)
       {
-        if (result[2] == v3)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v4.u32[0] > 1uLL)
+      {
+        if (v8 >= *&v2)
         {
-          return result;
+          v8 %= *&v2;
         }
       }
 
       else
       {
-        if (v4.u32[0] > 1uLL)
-        {
-          if (v8 >= *&v2)
-          {
-            v8 %= *&v2;
-          }
-        }
-
-        else
-        {
-          v8 &= *&v2 - 1;
-        }
-
-        if (v8 != v5)
-        {
-          return 0;
-        }
+        v8 &= *&v2 - 1;
       }
 
-      result = *result;
+      if (v8 != v5)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
@@ -512,159 +432,9 @@ LABEL_14:
   return result;
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned long,MTLLegacySVResidencySet *>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,MTLLegacySVResidencySet *>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,MTLLegacySVResidencySet *>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,MTLLegacySVResidencySet *>>>::__emplace_unique_key_args<unsigned long,unsigned long,MTLLegacySVResidencySet *>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<unsigned long,MTLLegacySVResidencySet *>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,MTLLegacySVResidencySet *>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,MTLLegacySVResidencySet *>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,MTLLegacySVResidencySet *>>>::__emplace_unique_key_args<unsigned long,unsigned long,MTLLegacySVResidencySet *>(void *a1, unint64_t *a2, void *a3, uint64_t *a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
-  {
-    goto LABEL_18;
-  }
-
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
-  {
-    v5 = *a2;
-    if (v2 >= *&v3)
-    {
-      v5 = v2 % *&v3;
-    }
-  }
-
-  else
-  {
-    v5 = (*&v3 - 1) & v2;
-  }
-
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
-  {
-LABEL_18:
-    operator new();
-  }
-
-  while (1)
-  {
-    v8 = v7[1];
-    if (v8 == v2)
-    {
-      break;
-    }
-
-    if (v4.u32[0] > 1uLL)
-    {
-      if (v8 >= *&v3)
-      {
-        v8 %= *&v3;
-      }
-    }
-
-    else
-    {
-      v8 &= *&v3 - 1;
-    }
-
-    if (v8 != v5)
-    {
-      goto LABEL_18;
-    }
-
-LABEL_17:
-    v7 = *v7;
-    if (!v7)
-    {
-      goto LABEL_18;
-    }
-  }
-
-  if (v7[2] != v2)
-  {
-    goto LABEL_17;
-  }
-
-  return v7;
-}
-
-void *std::__hash_table<std::__hash_value_type<unsigned long,MTLLegacySVResidencySet *>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,MTLLegacySVResidencySet *>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,MTLLegacySVResidencySet *>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,MTLLegacySVResidencySet *>>>::__emplace_unique_key_args<unsigned long,unsigned long,MTLLegacySVResidencySet *&>(void *a1, unint64_t *a2)
-{
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
-  {
-    goto LABEL_18;
-  }
-
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
-  {
-    v5 = *a2;
-    if (v2 >= *&v3)
-    {
-      v5 = v2 % *&v3;
-    }
-  }
-
-  else
-  {
-    v5 = (*&v3 - 1) & v2;
-  }
-
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
-  {
-LABEL_18:
-    operator new();
-  }
-
-  while (1)
-  {
-    v8 = v7[1];
-    if (v8 == v2)
-    {
-      break;
-    }
-
-    if (v4.u32[0] > 1uLL)
-    {
-      if (v8 >= *&v3)
-      {
-        v8 %= *&v3;
-      }
-    }
-
-    else
-    {
-      v8 &= *&v3 - 1;
-    }
-
-    if (v8 != v5)
-    {
-      goto LABEL_18;
-    }
-
-LABEL_17:
-    v7 = *v7;
-    if (!v7)
-    {
-      goto LABEL_18;
-    }
-  }
-
-  if (v7[2] != v2)
-  {
-    goto LABEL_17;
-  }
-
-  return v7;
-}
-
-void *std::__hash_table<_MTLResource *,std::hash<_MTLResource *>,std::equal_to<_MTLResource *>,std::allocator<_MTLResource *>>::__emplace_unique_key_args<_MTLResource *,_MTLResource *>(void *a1, void *a2)
-{
-  v2 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
-  v3 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v2 >> 47) ^ v2);
-  v4 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
+  v4 = *a2;
   v5 = a1[1];
   if (!*&v5)
   {
@@ -675,7 +445,7 @@ void *std::__hash_table<_MTLResource *,std::hash<_MTLResource *>,std::equal_to<_
   v6.i16[0] = vaddlv_u8(v6);
   if (v6.u32[0] > 1uLL)
   {
-    v7 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
+    v7 = *a2;
     if (v4 >= *&v5)
     {
       v7 = v4 % *&v5;
@@ -684,7 +454,7 @@ void *std::__hash_table<_MTLResource *,std::hash<_MTLResource *>,std::equal_to<_
 
   else
   {
-    v7 = v4 & (*&v5 - 1);
+    v7 = (*&v5 - 1) & v4;
   }
 
   v8 = *(*a1 + 8 * v7);
@@ -728,7 +498,7 @@ LABEL_17:
     }
   }
 
-  if (v9[2] != *a2)
+  if (v9[2] != v4)
   {
     goto LABEL_17;
   }
@@ -736,11 +506,9 @@ LABEL_17:
   return v9;
 }
 
-void *std::__hash_table<_MTLHeap *,std::hash<_MTLHeap *>,std::equal_to<_MTLHeap *>,std::allocator<_MTLHeap *>>::__emplace_unique_key_args<_MTLHeap *,_MTLHeap *>(void *a1, void *a2)
+void *std::__hash_table<std::__hash_value_type<unsigned long,MTLLegacySVResidencySet *>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,MTLLegacySVResidencySet *>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,MTLLegacySVResidencySet *>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,MTLLegacySVResidencySet *>>>::__emplace_unique_key_args<unsigned long,unsigned long,MTLLegacySVResidencySet *&>(void *a1, unint64_t *a2, void *a3, uint64_t *a4)
 {
-  v2 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
-  v3 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v2 >> 47) ^ v2);
-  v4 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
+  v4 = *a2;
   v5 = a1[1];
   if (!*&v5)
   {
@@ -751,7 +519,7 @@ void *std::__hash_table<_MTLHeap *,std::hash<_MTLHeap *>,std::equal_to<_MTLHeap 
   v6.i16[0] = vaddlv_u8(v6);
   if (v6.u32[0] > 1uLL)
   {
-    v7 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
+    v7 = *a2;
     if (v4 >= *&v5)
     {
       v7 = v4 % *&v5;
@@ -760,7 +528,7 @@ void *std::__hash_table<_MTLHeap *,std::hash<_MTLHeap *>,std::equal_to<_MTLHeap 
 
   else
   {
-    v7 = v4 & (*&v5 - 1);
+    v7 = (*&v5 - 1) & v4;
   }
 
   v8 = *(*a1 + 8 * v7);
@@ -804,38 +572,188 @@ LABEL_17:
     }
   }
 
-  if (v9[2] != *a2)
+  if (v9[2] != v4)
   {
     goto LABEL_17;
   }
 
   return v9;
+}
+
+void *std::__hash_table<_MTLResource *,std::hash<_MTLResource *>,std::equal_to<_MTLResource *>,std::allocator<_MTLResource *>>::__emplace_unique_key_args<_MTLResource *,_MTLResource *>(void *a1, void *a2, void *a3)
+{
+  v3 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
+  v4 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v3 >> 47) ^ v3);
+  v5 = 0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47));
+  v6 = a1[1];
+  if (!*&v6)
+  {
+    goto LABEL_18;
+  }
+
+  v7 = vcnt_s8(v6);
+  v7.i16[0] = vaddlv_u8(v7);
+  if (v7.u32[0] > 1uLL)
+  {
+    v8 = 0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47));
+    if (v5 >= *&v6)
+    {
+      v8 = v5 % *&v6;
+    }
+  }
+
+  else
+  {
+    v8 = v5 & (*&v6 - 1);
+  }
+
+  v9 = *(*a1 + 8 * v8);
+  if (!v9 || (v10 = *v9) == 0)
+  {
+LABEL_18:
+    operator new();
+  }
+
+  while (1)
+  {
+    v11 = v10[1];
+    if (v11 == v5)
+    {
+      break;
+    }
+
+    if (v7.u32[0] > 1uLL)
+    {
+      if (v11 >= *&v6)
+      {
+        v11 %= *&v6;
+      }
+    }
+
+    else
+    {
+      v11 &= *&v6 - 1;
+    }
+
+    if (v11 != v8)
+    {
+      goto LABEL_18;
+    }
+
+LABEL_17:
+    v10 = *v10;
+    if (!v10)
+    {
+      goto LABEL_18;
+    }
+  }
+
+  if (v10[2] != *a2)
+  {
+    goto LABEL_17;
+  }
+
+  return v10;
+}
+
+void *std::__hash_table<_MTLHeap *,std::hash<_MTLHeap *>,std::equal_to<_MTLHeap *>,std::allocator<_MTLHeap *>>::__emplace_unique_key_args<_MTLHeap *,_MTLHeap *>(void *a1, void *a2, void *a3)
+{
+  v3 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
+  v4 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v3 >> 47) ^ v3);
+  v5 = 0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47));
+  v6 = a1[1];
+  if (!*&v6)
+  {
+    goto LABEL_18;
+  }
+
+  v7 = vcnt_s8(v6);
+  v7.i16[0] = vaddlv_u8(v7);
+  if (v7.u32[0] > 1uLL)
+  {
+    v8 = 0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47));
+    if (v5 >= *&v6)
+    {
+      v8 = v5 % *&v6;
+    }
+  }
+
+  else
+  {
+    v8 = v5 & (*&v6 - 1);
+  }
+
+  v9 = *(*a1 + 8 * v8);
+  if (!v9 || (v10 = *v9) == 0)
+  {
+LABEL_18:
+    operator new();
+  }
+
+  while (1)
+  {
+    v11 = v10[1];
+    if (v11 == v5)
+    {
+      break;
+    }
+
+    if (v7.u32[0] > 1uLL)
+    {
+      if (v11 >= *&v6)
+      {
+        v11 %= *&v6;
+      }
+    }
+
+    else
+    {
+      v11 &= *&v6 - 1;
+    }
+
+    if (v11 != v8)
+    {
+      goto LABEL_18;
+    }
+
+LABEL_17:
+    v10 = *v10;
+    if (!v10)
+    {
+      goto LABEL_18;
+    }
+  }
+
+  if (v10[2] != *a2)
+  {
+    goto LABEL_17;
+  }
+
+  return v10;
 }
 
 void emitTextureDistribution(void *a1, uint64_t a2)
 {
-  v166 = *MEMORY[0x277D85DE8];
-  for (i = *(a2 + 16); i; i = *(v61 - 104))
+  v163 = *MEMORY[0x277D85DE8];
+  for (i = *(a2 + 16); i; i = *(v59 - 104))
   {
-    v78 = i;
-    v79 = 0;
+    v76 = 0;
     v3 = i + 104;
-    v61 = i + 104;
+    v59 = i + 104;
     do
     {
       v4 = MTLTextureType1D;
-      v62 = v3;
+      v60 = v3;
       do
       {
-        v5 = *(i + 16);
         Name = MTLPixelFormatGetName();
-        v7 = *(v3 - 80);
-        if (!v7)
+        v6 = *(v3 - 80);
+        if (!v6)
         {
           goto LABEL_40;
         }
 
-        v8 = Name;
+        v7 = Name;
         if (*MEMORY[0x277CD7168])
         {
           if (*MEMORY[0x277CD7168] != 1)
@@ -843,244 +761,242 @@ void emitTextureDistribution(void *a1, uint64_t a2)
             goto LABEL_40;
           }
 
-          v75 = off_2787B3F40[v79];
-          v73 = MTLTelemetryStringifyTextureType(v4);
-          v9 = *(v3 - 40);
-          v10 = *(v3 - 48);
+          v73 = off_2787B3F40[v76];
+          v71 = MTLTelemetryStringifyTextureType(v4);
+          v8 = *(v3 - 40);
+          v9 = *(v3 - 48);
+          v10 = 0.0;
           v11 = 0.0;
-          v12 = 0.0;
-          if (v9)
+          if (v8)
           {
-            v12 = (v10 / v9);
+            v11 = (v9 / v8);
           }
 
-          v13 = *(v3 - 16);
-          v14 = *(v3 - 24);
-          if (v13)
+          v12 = *(v3 - 16);
+          v13 = *(v3 - 24);
+          if (v12)
           {
-            v11 = (v14 / v13);
+            v10 = (v13 / v12);
           }
 
-          v15 = *(v3 + 8);
+          v14 = *(v3 + 8);
+          v15 = 0.0;
           v16 = 0.0;
-          v17 = 0.0;
-          v18 = *v3;
-          if (v15)
+          v17 = *v3;
+          if (v14)
           {
-            v17 = (v18 / v15);
+            v16 = (v17 / v14);
           }
 
-          v19 = *(v3 + 32);
-          v20 = *(v3 + 24);
-          if (v19)
+          v18 = *(v3 + 32);
+          v19 = *(v3 + 24);
+          if (v18)
           {
-            v16 = (v20 / v19);
+            v15 = (v19 / v18);
           }
 
-          v21 = *(v3 + 56);
+          v20 = *(v3 + 56);
+          v21 = 0.0;
           v22 = 0.0;
-          v23 = 0.0;
-          v24 = *(v3 + 48);
-          if (v21)
+          v23 = *(v3 + 48);
+          if (v20)
           {
-            v23 = (v24 / v21);
+            v22 = (v23 / v20);
           }
 
-          v25 = *(v3 + 80);
-          v26 = *(v3 + 72);
-          if (v25)
+          v24 = *(v3 + 80);
+          v25 = *(v3 + 72);
+          if (v24)
           {
-            v22 = (v26 / v25);
+            v21 = (v25 / v24);
           }
 
-          v27 = *(v3 + 104);
-          v28 = *(v3 + 96);
-          if (v27)
+          v26 = *(v3 + 104);
+          v27 = *(v3 + 96);
+          if (v26)
           {
-            v29 = (v28 / v27);
+            v28 = (v27 / v26);
           }
 
           else
           {
-            v29 = 0.0;
+            v28 = 0.0;
           }
 
-          printf("\n\nTexture, category=%s, format=%s, type=%s, total=%u, minWidth=%u, maxWidth=%u, avgWidth=%f, totalWidth=%llu, countWidth=%u, minHeight=%u, maxHeight=%u, avgHeight=%f, totalHeight=%llu, countHeight=%u, minDepth=%u, maxDepth=%u, avgDepth=%f, totalDepth=%llu, countDepth=%u, minMipLevels=%u, maxMipLevels=%u, avgMipLevels=%f, totalMipLevels=%llu, countMipLevels=%u, minSamples=%u, maxSamples=%u, avgSamples=%f, totalSamples=%llu, countSamples=%u, minArrayLength=%u, maxArrayLength=%u, avgArrayLength=%f, totalArrayLength=%llu, countArrayLength=%u, minBytesPerRow=%u, maxBytesPerRow=%u, avgBytesPerRow=%f, totalBytesPerRow=%llu, countBytesPerRow=%u, frameBufferCount=%u, renderTargetCount=%u, shaderWriteCount=%u, linearAlignLess64Count=%u", v75, v8, v73, v7, *(v3 - 56), *(v3 - 52), v12, v10, v9, *(v3 - 32), *(v3 - 28), v11, v14, v13, *(v3 - 8), *(v3 - 4), v17, v18, v15, *(v3 + 16), *(v3 + 20), v16, v20, v19, *(v3 + 40), *(v3 + 44), v23, v24, v21, *(v3 + 64), *(v3 + 68), v22, v26, v25, *(v3 + 88), *(v3 + 92), v29, v28, v27, *(v3 - 76), *(v3 - 68), *(v3 - 72), *(v3 - 64));
-          i = v78;
+          printf("\n\nTexture, category=%s, format=%s, type=%s, total=%u, minWidth=%u, maxWidth=%u, avgWidth=%f, totalWidth=%llu, countWidth=%u, minHeight=%u, maxHeight=%u, avgHeight=%f, totalHeight=%llu, countHeight=%u, minDepth=%u, maxDepth=%u, avgDepth=%f, totalDepth=%llu, countDepth=%u, minMipLevels=%u, maxMipLevels=%u, avgMipLevels=%f, totalMipLevels=%llu, countMipLevels=%u, minSamples=%u, maxSamples=%u, avgSamples=%f, totalSamples=%llu, countSamples=%u, minArrayLength=%u, maxArrayLength=%u, avgArrayLength=%f, totalArrayLength=%llu, countArrayLength=%u, minBytesPerRow=%u, maxBytesPerRow=%u, avgBytesPerRow=%f, totalBytesPerRow=%llu, countBytesPerRow=%u, frameBufferCount=%u, renderTargetCount=%u, shaderWriteCount=%u, linearAlignLess64Count=%u", v73, v7, v71, v6, *(v3 - 56), *(v3 - 52), v11, v9, v8, *(v3 - 32), *(v3 - 28), v10, v13, v12, *(v3 - 8), *(v3 - 4), v16, v17, v14, *(v3 + 16), *(v3 + 20), v15, v19, v18, *(v3 + 40), *(v3 + 44), v22, v23, v20, *(v3 + 64), *(v3 + 68), v21, v25, v24, *(v3 + 88), *(v3 + 92), v28, v27, v26, *(v3 - 76), *(v3 - 68), *(v3 - 72), *(v3 - 64));
         }
 
-        v30 = [a1 telemetryLog];
-        if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+        v29 = [a1 telemetryLog];
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
         {
-          v76 = off_2787B3F40[v79];
-          v74 = MTLTelemetryStringifyTextureType(v4);
-          v31 = *(v3 - 40);
-          v32 = *(v3 - 48);
+          v74 = off_2787B3F40[v76];
+          v72 = MTLTelemetryStringifyTextureType(v4);
+          v30 = *(v3 - 40);
+          v31 = *(v3 - 48);
+          v32 = 0.0;
           v33 = 0.0;
-          v34 = 0.0;
-          if (v31)
+          if (v30)
           {
-            v34 = (v32 / v31);
+            v33 = (v31 / v30);
           }
 
-          v66 = *(v3 - 80);
-          v67 = *(v3 - 56);
-          v68 = *(v3 - 52);
-          v71 = *(v3 - 32);
-          v72 = *(v3 - 28);
-          v35 = *(v3 - 16);
-          v36 = *(v3 - 24);
-          if (v35)
+          v64 = *(v3 - 80);
+          v65 = *(v3 - 56);
+          v66 = *(v3 - 52);
+          v69 = *(v3 - 32);
+          v70 = *(v3 - 28);
+          v34 = *(v3 - 16);
+          v35 = *(v3 - 24);
+          if (v34)
           {
-            v33 = (v36 / v35);
+            v32 = (v35 / v34);
           }
 
-          v69 = *(v3 - 8);
-          v70 = *(v3 - 4);
-          v37 = *(v3 + 8);
+          v67 = *(v3 - 8);
+          v68 = *(v3 - 4);
+          v36 = *(v3 + 8);
+          v37 = 0.0;
           v38 = 0.0;
-          v39 = 0.0;
-          v40 = *v3;
-          if (v37)
+          v39 = *v3;
+          if (v36)
           {
-            v39 = (v40 / v37);
+            v38 = (v39 / v36);
           }
 
-          v64 = *(v3 + 16);
-          v65 = *(v3 + 20);
-          v41 = *(v3 + 32);
-          v42 = *(v3 + 24);
-          if (v41)
+          v62 = *(v3 + 16);
+          v63 = *(v3 + 20);
+          v40 = *(v3 + 32);
+          v41 = *(v3 + 24);
+          if (v40)
           {
-            v38 = (v42 / v41);
+            v37 = (v41 / v40);
           }
 
-          v43 = *(v3 + 40);
-          v63 = *(v3 + 44);
-          v44 = *(v3 + 56);
+          v42 = *(v3 + 40);
+          v61 = *(v3 + 44);
+          v43 = *(v3 + 56);
+          v44 = 0.0;
           v45 = 0.0;
-          v46 = 0.0;
-          v47 = *(v3 + 48);
-          if (v44)
+          v46 = *(v3 + 48);
+          if (v43)
           {
-            v46 = (v47 / v44);
+            v45 = (v46 / v43);
           }
 
-          v48 = *(v3 + 64);
-          v49 = *(v3 + 80);
-          v50 = *(v3 + 72);
-          if (v49)
+          v47 = *(v3 + 64);
+          v48 = *(v3 + 80);
+          v49 = *(v3 + 72);
+          if (v48)
           {
-            v45 = (v50 / v49);
+            v44 = (v49 / v48);
           }
 
-          v51 = *(v3 + 88);
-          v52 = *(v3 + 92);
-          v53 = *(v3 + 104);
-          v54 = *(v3 + 96);
-          if (v53)
+          v50 = *(v3 + 88);
+          v51 = *(v3 + 92);
+          v52 = *(v3 + 104);
+          v53 = *(v3 + 96);
+          if (v52)
           {
-            v55 = (v54 / v53);
+            v54 = (v53 / v52);
           }
 
           else
           {
-            v55 = 0.0;
+            v54 = 0.0;
           }
 
-          v57 = *(v3 - 76);
-          v56 = *(v3 - 72);
-          v59 = *(v3 - 68);
-          v58 = *(v3 - 64);
-          v167 = *(v3 + 68);
-          v81 = v76;
-          v83 = v8;
-          v85 = v74;
-          v87 = v66;
-          v89 = v67;
-          v91 = v68;
-          v95 = v32;
-          v97 = v31;
-          v99 = v71;
-          v101 = v72;
-          v105 = v36;
-          v107 = v35;
-          v109 = v69;
-          v111 = v70;
-          v115 = v40;
-          v117 = v37;
-          v119 = v64;
-          v121 = v65;
-          v125 = v42;
-          v127 = v41;
-          v129 = v43;
-          v131 = v63;
-          v135 = v47;
-          v137 = v44;
-          v139 = v48;
-          v141 = v167;
-          v145 = v50;
-          v147 = v49;
-          v149 = v51;
-          v151 = v52;
-          v155 = v54;
-          v157 = v53;
-          v159 = v57;
-          v161 = v59;
-          v163 = v56;
-          v165 = v58;
+          v56 = *(v3 - 76);
+          v55 = *(v3 - 72);
+          v58 = *(v3 - 68);
+          v57 = *(v3 - 64);
+          v164 = *(v3 + 68);
+          v78 = v74;
+          v80 = v7;
+          v82 = v72;
+          v84 = v64;
+          v86 = v65;
+          v88 = v66;
+          v92 = v31;
+          v94 = v30;
+          v96 = v69;
+          v98 = v70;
+          v102 = v35;
+          v104 = v34;
+          v106 = v67;
+          v108 = v68;
+          v112 = v39;
+          v114 = v36;
+          v116 = v62;
+          v118 = v63;
+          v122 = v41;
+          v124 = v40;
+          v126 = v42;
+          v128 = v61;
+          v132 = v46;
+          v134 = v43;
+          v136 = v47;
+          v138 = v164;
+          v142 = v49;
+          v144 = v48;
+          v146 = v50;
+          v148 = v51;
+          v152 = v53;
+          v154 = v52;
+          v156 = v56;
+          v158 = v58;
+          v160 = v55;
+          v162 = v57;
           *buf = 136325890;
-          v82 = 2080;
-          v84 = 2080;
-          v86 = 1024;
-          v88 = 1024;
-          v90 = 1024;
-          v92 = 2048;
-          v93 = v34;
-          v94 = 2048;
-          v96 = 1024;
-          v98 = 1024;
-          v100 = 1024;
-          v102 = 2048;
-          v103 = v33;
-          v104 = 2048;
-          v106 = 1024;
-          v108 = 1024;
-          v110 = 1024;
-          v112 = 2048;
-          v113 = v39;
-          v114 = 2048;
-          v116 = 1024;
-          v118 = 1024;
-          v120 = 1024;
-          v122 = 2048;
-          v123 = v38;
-          v124 = 2048;
-          v126 = 1024;
-          v128 = 1024;
-          v130 = 1024;
-          v132 = 2048;
-          v133 = v46;
-          v134 = 2048;
-          v136 = 1024;
-          v138 = 1024;
-          v140 = 1024;
-          v142 = 2048;
-          v143 = v45;
-          v144 = 2048;
-          v146 = 1024;
-          v148 = 1024;
-          v150 = 1024;
-          v152 = 2048;
-          v153 = v55;
-          v154 = 2048;
-          v156 = 1024;
-          v158 = 1024;
-          v160 = 1024;
-          v162 = 1024;
-          v164 = 1024;
-          _os_log_impl(&dword_22E0FF000, v30, OS_LOG_TYPE_DEFAULT, "Texture, category=%s, format=%s, type=%s, total=%u, minWidth=%u, maxWidth=%u, avgWidth=%f, totalWidth=%llu, countWidth=%u, minHeight=%u, maxHeight=%u, avgHeight=%f, totalHeight=%llu, countHeight=%u, minDepth=%u, maxDepth=%u, avgDepth=%f, totalDepth=%llu, countDepth=%u, minMipLevels=%u, maxMipLevels=%u, avgMipLevels=%f, totalMipLevels=%llu, countMipLevels=%u, minSamples=%u, maxSamples=%u, avgSamples=%f, totalSamples=%llu, countSamples=%u, minArrayLength=%u, maxArrayLength=%u, avgArrayLength=%f, totalArrayLength=%llu, countArrayLength=%u, minBytesPerRow=%u, maxBytesPerRow=%u, avgBytesPerRow=%f, totalBytesPerRow=%llu, countBytesPerRow=%u, frameBufferCount=%u, renderTargetCount=%u, shaderWriteCount=%u, linearAlignLess64Count=%u", buf, 0x148u);
-          i = v78;
+          v79 = 2080;
+          v81 = 2080;
+          v83 = 1024;
+          v85 = 1024;
+          v87 = 1024;
+          v89 = 2048;
+          v90 = v33;
+          v91 = 2048;
+          v93 = 1024;
+          v95 = 1024;
+          v97 = 1024;
+          v99 = 2048;
+          v100 = v32;
+          v101 = 2048;
+          v103 = 1024;
+          v105 = 1024;
+          v107 = 1024;
+          v109 = 2048;
+          v110 = v38;
+          v111 = 2048;
+          v113 = 1024;
+          v115 = 1024;
+          v117 = 1024;
+          v119 = 2048;
+          v120 = v37;
+          v121 = 2048;
+          v123 = 1024;
+          v125 = 1024;
+          v127 = 1024;
+          v129 = 2048;
+          v130 = v45;
+          v131 = 2048;
+          v133 = 1024;
+          v135 = 1024;
+          v137 = 1024;
+          v139 = 2048;
+          v140 = v44;
+          v141 = 2048;
+          v143 = 1024;
+          v145 = 1024;
+          v147 = 1024;
+          v149 = 2048;
+          v150 = v54;
+          v151 = 2048;
+          v153 = 1024;
+          v155 = 1024;
+          v157 = 1024;
+          v159 = 1024;
+          v161 = 1024;
+          _os_log_impl(&dword_22E0FF000, v29, OS_LOG_TYPE_DEFAULT, "Texture, category=%s, format=%s, type=%s, total=%u, minWidth=%u, maxWidth=%u, avgWidth=%f, totalWidth=%llu, countWidth=%u, minHeight=%u, maxHeight=%u, avgHeight=%f, totalHeight=%llu, countHeight=%u, minDepth=%u, maxDepth=%u, avgDepth=%f, totalDepth=%llu, countDepth=%u, minMipLevels=%u, maxMipLevels=%u, avgMipLevels=%f, totalMipLevels=%llu, countMipLevels=%u, minSamples=%u, maxSamples=%u, avgSamples=%f, totalSamples=%llu, countSamples=%u, minArrayLength=%u, maxArrayLength=%u, avgArrayLength=%f, totalArrayLength=%llu, countArrayLength=%u, minBytesPerRow=%u, maxBytesPerRow=%u, avgBytesPerRow=%f, totalBytesPerRow=%llu, countBytesPerRow=%u, frameBufferCount=%u, renderTargetCount=%u, shaderWriteCount=%u, linearAlignLess64Count=%u", buf, 0x148u);
         }
 
 LABEL_40:
@@ -1089,43 +1005,41 @@ LABEL_40:
       }
 
       while (v4 != MTLTextureType2DMultisampleArray);
-      v3 = v62 + 1536;
-      ++v79;
+      v3 = v60 + 1536;
+      ++v76;
     }
 
-    while (v79 != 4);
+    while (v76 != 4);
   }
-
-  v60 = *MEMORY[0x277D85DE8];
 }
 
-void *std::__hash_table<std::__hash_value_type<MTLPixelFormat,MTLTelemetryTextureDistribution>,std::__unordered_map_hasher<MTLPixelFormat,std::__hash_value_type<MTLPixelFormat,MTLTelemetryTextureDistribution>,std::hash<unsigned long long>,std::equal_to<MTLPixelFormat>,true>,std::__unordered_map_equal<MTLPixelFormat,std::__hash_value_type<MTLPixelFormat,MTLTelemetryTextureDistribution>,std::equal_to<MTLPixelFormat>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<MTLPixelFormat,MTLTelemetryTextureDistribution>>>::__emplace_unique_key_args<MTLPixelFormat,std::piecewise_construct_t const&,std::tuple<MTLPixelFormat const&>,std::tuple<>>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<MTLPixelFormat,MTLTelemetryTextureDistribution>,std::__unordered_map_hasher<MTLPixelFormat,std::__hash_value_type<MTLPixelFormat,MTLTelemetryTextureDistribution>,std::hash<unsigned long long>,std::equal_to<MTLPixelFormat>,true>,std::__unordered_map_equal<MTLPixelFormat,std::__hash_value_type<MTLPixelFormat,MTLTelemetryTextureDistribution>,std::equal_to<MTLPixelFormat>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<MTLPixelFormat,MTLTelemetryTextureDistribution>>>::__emplace_unique_key_args<MTLPixelFormat,std::piecewise_construct_t const&,std::tuple<MTLPixelFormat const&>,std::tuple<>>(void *a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v7 = *a2;
+    if (v4 >= *&v5)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -1133,64 +1047,64 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v9[2] != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
 void *BinaryBuffer::Append<NSString *>(AppendBuffer *a1, char a2, id *a3)
 {
-  v31 = *MEMORY[0x277D85DE8];
-  v24 = a2;
-  v30 = &v29;
-  v27[0] = 1;
-  v27[1] = a2;
-  v29 = v28;
+  v30 = *MEMORY[0x277D85DE8];
+  v23 = a2;
+  v29 = &v28;
+  v26[0] = 1;
+  v26[1] = a2;
+  v28 = v27;
   v5 = *a3;
   v6 = [*a3 lengthOfBytesUsingEncoding:4];
   v7 = v6;
-  v8 = v29;
-  v9 = (v29 + 1);
-  v10 = v30;
-  if (v29 + 1 <= v30)
+  v8 = v28;
+  v9 = (v28 + 1);
+  v10 = v29;
+  if (v28 + 1 <= v29)
   {
-    *v29 = 116;
-    v10 = v30;
+    *v28 = 116;
+    v10 = v29;
   }
 
   v11 = v8 + 9;
@@ -1199,29 +1113,29 @@ void *BinaryBuffer::Append<NSString *>(AppendBuffer *a1, char a2, id *a3)
     *v9 = v6;
   }
 
-  v29 = v11;
+  v28 = v11;
   v12 = [v5 UTF8String];
-  v13 = &v29[v7];
-  v14 = v30;
-  if (&v29[v7] <= v30)
+  v13 = &v28[v7];
+  v14 = v29;
+  if (&v28[v7] <= v29)
   {
-    memcpy(v29, v12, v7);
-    v14 = v30;
+    memcpy(v28, v12, v7);
+    v14 = v29;
   }
 
   v15 = v13 + 1;
   if ((v13 + 1) <= v14)
   {
     *v13 = 16;
-    v14 = v30;
+    v14 = v29;
   }
 
-  v29 = v13 + 1;
+  v28 = v13 + 1;
   if (v15 <= v14)
   {
-    v21 = v15 - v27;
+    v21 = v15 - v26;
     p_stream = &a1->stream;
-    p_src = v27;
+    p_src = v26;
     v20 = a1;
   }
 
@@ -1229,11 +1143,11 @@ void *BinaryBuffer::Append<NSString *>(AppendBuffer *a1, char a2, id *a3)
   {
     LOBYTE(__src) = 1;
     AppendBuffer::WriteBytes(a1, &a1->stream, &__src, 1uLL);
-    AppendBuffer::WriteBytes(a1, &a1->stream, &v24, 1uLL);
+    AppendBuffer::WriteBytes(a1, &a1->stream, &v23, 1uLL);
     v16 = *a3;
     __src = [v16 lengthOfBytesUsingEncoding:4];
-    v26 = 116;
-    AppendBuffer::WriteBytes(a1, &a1->stream, &v26, 1uLL);
+    v25 = 116;
+    AppendBuffer::WriteBytes(a1, &a1->stream, &v25, 1uLL);
     AppendBuffer::WriteBytes(a1, &a1->stream, &__src, 8uLL);
     v17 = [v16 UTF8String];
     AppendBuffer::WriteBytes(a1, &a1->stream, v17, __src);
@@ -1244,226 +1158,92 @@ void *BinaryBuffer::Append<NSString *>(AppendBuffer *a1, char a2, id *a3)
     v21 = 1;
   }
 
-  result = AppendBuffer::WriteBytes(v20, p_stream, p_src, v21);
-  v23 = *MEMORY[0x277D85DE8];
-  return result;
+  return AppendBuffer::WriteBytes(v20, p_stream, p_src, v21);
 }
 
 void *BinaryBuffer::Append<objc_object  {objcproto9MTLBuffer}*,unsigned long,unsigned long,unsigned long,MTLSize,objc_object  {objcproto10MTLTexture}*,unsigned long,unsigned long,MTLOrigin>(AppendBuffer *a1, char a2, uint64_t *a3, uint64_t *a4, uint64_t *a5, uint64_t *a6, uint64_t *a7, uint64_t *a8, uint64_t *a9, uint64_t *a10, uint64_t *a11)
 {
-  v51[2] = *MEMORY[0x277D85DE8];
-  v51[1] = v51;
+  v50[2] = *MEMORY[0x277D85DE8];
+  v50[1] = v50;
   __src[0] = 1;
   __src[1] = a2;
   v11 = *a3;
   __src[2] = 109;
-  v24 = v11;
+  v23 = v11;
   v12 = *a4;
-  v25 = 100;
-  v26 = v12;
+  v24 = 100;
+  v25 = v12;
   v13 = *a5;
-  v27 = 100;
-  v28 = v13;
+  v26 = 100;
+  v27 = v13;
   v14 = *a6;
-  v29 = 100;
-  v30 = v14;
-  v31 = 25664;
+  v28 = 100;
+  v29 = v14;
+  v30 = 25664;
   v15 = a7[1];
-  v32 = *a7;
-  v33 = 100;
-  v34 = v15;
+  v31 = *a7;
+  v32 = 100;
+  v33 = v15;
   v16 = a7[2];
-  v35 = 100;
-  v36 = v16;
-  v37 = 27984;
-  v38 = *a8;
+  v34 = 100;
+  v35 = v16;
+  v36 = 27984;
+  v37 = *a8;
   v17 = *a9;
-  v39 = 100;
-  v40 = v17;
+  v38 = 100;
+  v39 = v17;
   v18 = *a10;
-  v41 = 100;
-  v42 = v18;
-  v43 = 25664;
+  v40 = 100;
+  v41 = v18;
+  v42 = 25664;
   v19 = a11[1];
-  v44 = *a11;
-  v45 = 100;
-  v46 = v19;
+  v43 = *a11;
+  v44 = 100;
+  v45 = v19;
   v20 = a11[2];
-  v47 = 100;
-  v48 = v20;
-  v49 = 4176;
-  v51[0] = &v50;
-  result = AppendBuffer::WriteBytes(a1, &a1->stream, __src, 0x7CuLL);
-  v22 = *MEMORY[0x277D85DE8];
-  return result;
+  v46 = 100;
+  v47 = v20;
+  v48 = 4176;
+  v50[0] = &v49;
+  return AppendBuffer::WriteBytes(a1, &a1->stream, __src, 0x7CuLL);
 }
 
 void *BinaryBuffer::Append<objc_object  {objcproto9MTLBuffer}*,unsigned long,unsigned long,unsigned long,MTLSize,objc_object  {objcproto10MTLTexture}*,unsigned long,unsigned long,MTLOrigin,unsigned long>(AppendBuffer *a1, char a2, uint64_t *a3, uint64_t *a4, uint64_t *a5, uint64_t *a6, uint64_t *a7, uint64_t *a8, uint64_t *a9, uint64_t *a10, uint64_t *a11, uint64_t *a12)
 {
-  v45 = *MEMORY[0x277D85DE8];
-  v31 = a2;
-  v44 = &v43;
-  v34[0] = 1;
-  v34[1] = a2;
-  v17 = *a3;
-  v34[2] = 109;
-  v35 = v17;
-  v18 = *a4;
-  v36 = 100;
-  v37 = v18;
-  v19 = *a5;
-  v38 = 100;
-  v39 = v19;
-  v20 = *a6;
-  v40 = 100;
-  v41 = v20;
-  v43 = &v42;
-  BinaryBuffer::WriteArguments<BinaryBuffer::ScratchBuffer,MTLSize,objc_object  {objcproto10MTLTexture}*,unsigned long,unsigned long,MTLOrigin,unsigned long>(a1, v34, a7, a8, a9, a10, a11, a12);
-  v21 = (v43 + 1);
-  v22 = v44;
-  if (v43 + 1 <= v44)
-  {
-    *v43 = 16;
-    v22 = v44;
-  }
-
-  v43 = v21;
-  if (v21 <= v22)
-  {
-    v26 = v21 - v34;
-    p_stream = &a1->stream;
-    p_src = v34;
-    v25 = a1;
-  }
-
-  else
-  {
-    LOBYTE(__src) = 1;
-    AppendBuffer::WriteBytes(a1, &a1->stream, &__src, 1uLL);
-    AppendBuffer::WriteBytes(a1, &a1->stream, &v31, 1uLL);
-    __src = *a3;
-    v33 = 109;
-    AppendBuffer::WriteBytes(a1, &a1->stream, &v33, 1uLL);
-    AppendBuffer::WriteBytes(a1, &a1->stream, &__src, 8uLL);
-    __src = *a4;
-    v33 = 100;
-    AppendBuffer::WriteBytes(a1, &a1->stream, &v33, 1uLL);
-    AppendBuffer::WriteBytes(a1, &a1->stream, &__src, 8uLL);
-    __src = *a5;
-    v33 = 100;
-    AppendBuffer::WriteBytes(a1, &a1->stream, &v33, 1uLL);
-    AppendBuffer::WriteBytes(a1, &a1->stream, &__src, 8uLL);
-    __src = *a6;
-    v33 = 100;
-    AppendBuffer::WriteBytes(a1, &a1->stream, &v33, 1uLL);
-    AppendBuffer::WriteBytes(a1, &a1->stream, &__src, 8uLL);
-    BinaryBuffer::WriteArguments<AppendBuffer::StreamBuffer,MTLSize,objc_object  {objcproto10MTLTexture}*,unsigned long,unsigned long,MTLOrigin,unsigned long>(a1, &a1->stream, a7, a8, a9, a10, a11, a12);
-    LOBYTE(__src) = 16;
-    p_stream = &a1->stream;
-    p_src = &__src;
-    v25 = a1;
-    v26 = 1;
-  }
-
-  result = AppendBuffer::WriteBytes(v25, p_stream, p_src, v26);
-  v28 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-void *BinaryBuffer::Append<objc_object  {objcproto10MTLTexture}*,unsigned long,unsigned long,MTLOrigin,MTLSize,objc_object  {objcproto10MTLTexture},unsigned long,unsigned long,objc_object  {objcproto10MTLTexture}*>(AppendBuffer *a1, char a2, uint64_t *a3, uint64_t *a4, uint64_t *a5, uint64_t *a6, uint64_t *a7, uint64_t *a8, uint64_t *a9, uint64_t *a10, uint64_t *a11)
-{
-  v56[2] = *MEMORY[0x277D85DE8];
-  v56[1] = v56;
-  __src[0] = 1;
-  __src[1] = a2;
-  v11 = *a3;
-  __src[2] = 109;
-  v25 = v11;
-  v12 = *a4;
-  v26 = 100;
-  v27 = v12;
-  v13 = *a5;
-  v28 = 100;
-  v29 = v13;
-  v30 = 25664;
-  v14 = a6[1];
-  v31 = *a6;
-  v32 = 100;
-  v33 = v14;
-  v15 = a6[2];
-  v34 = 100;
-  v35 = v15;
-  qmemcpy(v36, "P@d", sizeof(v36));
-  v16 = a7[1];
-  v37 = *a7;
-  v38 = 100;
-  v39 = v16;
-  v17 = a7[2];
-  v40 = 100;
-  v41 = v17;
-  v42 = 27984;
-  v43 = *a8;
-  v18 = *a9;
-  v44 = 100;
-  v45 = v18;
-  v19 = *a10;
-  v46 = 100;
-  v47 = v19;
-  v48 = 25664;
-  v20 = a11[1];
-  v49 = *a11;
-  v50 = 100;
-  v51 = v20;
-  v21 = a11[2];
-  v52 = 100;
-  v53 = v21;
-  v54 = 4176;
-  v56[0] = &v55;
-  result = AppendBuffer::WriteBytes(a1, &a1->stream, __src, 0x90uLL);
-  v23 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-void *BinaryBuffer::Append<objc_object  {objcproto10MTLTexture}*,unsigned long,unsigned long,MTLOrigin,MTLSize,objc_object  {objcproto10MTLTexture},unsigned long,unsigned long,objc_object  {objcproto10MTLTexture}*,unsigned long>(AppendBuffer *a1, char a2, uint64_t *a3, uint64_t *a4, uint64_t *a5, uint64_t *a6, uint64_t *a7, uint64_t *a8, uint64_t *a9, uint64_t *a10, uint64_t *a11, uint64_t *a12)
-{
-  v49 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   v30 = a2;
-  v48 = &v47;
+  v43 = &v42;
   v33[0] = 1;
   v33[1] = a2;
   v17 = *a3;
   v33[2] = 109;
   v34 = v17;
-  v36 = *a4;
-  v38 = *a5;
-  v39 = 25664;
-  v18 = a6[1];
-  v40 = *a6;
+  v18 = *a4;
   v35 = 100;
+  v36 = v18;
+  v19 = *a5;
   v37 = 100;
-  v41 = 100;
-  v42 = v18;
-  v19 = a6[2];
-  v43 = 100;
-  v44 = v19;
-  v45 = 80;
-  v47 = v46;
+  v38 = v19;
+  v20 = *a6;
+  v39 = 100;
+  v40 = v20;
+  v42 = &v41;
   BinaryBuffer::WriteArguments<BinaryBuffer::ScratchBuffer,MTLSize,objc_object  {objcproto10MTLTexture}*,unsigned long,unsigned long,MTLOrigin,unsigned long>(a1, v33, a7, a8, a9, a10, a11, a12);
-  v20 = v47 + 1;
-  v21 = v48;
-  if (v47 + 1 <= v48)
+  v21 = (v42 + 1);
+  v22 = v43;
+  if (v42 + 1 <= v43)
   {
-    *v47 = 16;
-    v21 = v48;
+    *v42 = 16;
+    v22 = v43;
   }
 
-  v47 = v20;
-  if (v20 <= v21)
+  v42 = v21;
+  if (v21 <= v22)
   {
-    v25 = v20 - v33;
+    v26 = v21 - v33;
     p_stream = &a1->stream;
     p_src = v33;
-    v24 = a1;
+    v25 = a1;
   }
 
   else
@@ -1483,19 +1263,145 @@ void *BinaryBuffer::Append<objc_object  {objcproto10MTLTexture}*,unsigned long,u
     v32 = 100;
     AppendBuffer::WriteBytes(a1, &a1->stream, &v32, 1uLL);
     AppendBuffer::WriteBytes(a1, &a1->stream, &__src, 8uLL);
-    LOBYTE(__src) = 64;
-    AppendBuffer::WriteBytes(a1, &a1->stream, &__src, 1uLL);
     __src = *a6;
     v32 = 100;
     AppendBuffer::WriteBytes(a1, &a1->stream, &v32, 1uLL);
     AppendBuffer::WriteBytes(a1, &a1->stream, &__src, 8uLL);
+    BinaryBuffer::WriteArguments<AppendBuffer::StreamBuffer,MTLSize,objc_object  {objcproto10MTLTexture}*,unsigned long,unsigned long,MTLOrigin,unsigned long>(a1, &a1->stream, a7, a8, a9, a10, a11, a12);
+    LOBYTE(__src) = 16;
+    p_stream = &a1->stream;
+    p_src = &__src;
+    v25 = a1;
+    v26 = 1;
+  }
+
+  return AppendBuffer::WriteBytes(v25, p_stream, p_src, v26);
+}
+
+void *BinaryBuffer::Append<objc_object  {objcproto10MTLTexture}*,unsigned long,unsigned long,MTLOrigin,MTLSize,objc_object  {objcproto10MTLTexture},unsigned long,unsigned long,objc_object  {objcproto10MTLTexture}*>(AppendBuffer *a1, char a2, uint64_t *a3, uint64_t *a4, uint64_t *a5, uint64_t *a6, uint64_t *a7, uint64_t *a8, uint64_t *a9, uint64_t *a10, uint64_t *a11)
+{
+  v55[2] = *MEMORY[0x277D85DE8];
+  v55[1] = v55;
+  __src[0] = 1;
+  __src[1] = a2;
+  v11 = *a3;
+  __src[2] = 109;
+  v24 = v11;
+  v12 = *a4;
+  v25 = 100;
+  v26 = v12;
+  v13 = *a5;
+  v27 = 100;
+  v28 = v13;
+  v29 = 25664;
+  v14 = a6[1];
+  v30 = *a6;
+  v31 = 100;
+  v32 = v14;
+  v15 = a6[2];
+  v33 = 100;
+  v34 = v15;
+  qmemcpy(v35, "P@d", sizeof(v35));
+  v16 = a7[1];
+  v36 = *a7;
+  v37 = 100;
+  v38 = v16;
+  v17 = a7[2];
+  v39 = 100;
+  v40 = v17;
+  v41 = 27984;
+  v42 = *a8;
+  v18 = *a9;
+  v43 = 100;
+  v44 = v18;
+  v19 = *a10;
+  v45 = 100;
+  v46 = v19;
+  v47 = 25664;
+  v20 = a11[1];
+  v48 = *a11;
+  v49 = 100;
+  v50 = v20;
+  v21 = a11[2];
+  v51 = 100;
+  v52 = v21;
+  v53 = 4176;
+  v55[0] = &v54;
+  return AppendBuffer::WriteBytes(a1, &a1->stream, __src, 0x90uLL);
+}
+
+void *BinaryBuffer::Append<objc_object  {objcproto10MTLTexture}*,unsigned long,unsigned long,MTLOrigin,MTLSize,objc_object  {objcproto10MTLTexture},unsigned long,unsigned long,objc_object  {objcproto10MTLTexture}*,unsigned long>(AppendBuffer *a1, char a2, uint64_t *a3, uint64_t *a4, uint64_t *a5, uint64_t *a6, uint64_t *a7, uint64_t *a8, uint64_t *a9, uint64_t *a10, uint64_t *a11, uint64_t *a12)
+{
+  v48 = *MEMORY[0x277D85DE8];
+  v29 = a2;
+  v47 = &v46;
+  v32[0] = 1;
+  v32[1] = a2;
+  v17 = *a3;
+  v32[2] = 109;
+  v33 = v17;
+  v35 = *a4;
+  v37 = *a5;
+  v38 = 25664;
+  v18 = a6[1];
+  v39 = *a6;
+  v34 = 100;
+  v36 = 100;
+  v40 = 100;
+  v41 = v18;
+  v19 = a6[2];
+  v42 = 100;
+  v43 = v19;
+  v44 = 80;
+  v46 = v45;
+  BinaryBuffer::WriteArguments<BinaryBuffer::ScratchBuffer,MTLSize,objc_object  {objcproto10MTLTexture}*,unsigned long,unsigned long,MTLOrigin,unsigned long>(a1, v32, a7, a8, a9, a10, a11, a12);
+  v20 = v46 + 1;
+  v21 = v47;
+  if (v46 + 1 <= v47)
+  {
+    *v46 = 16;
+    v21 = v47;
+  }
+
+  v46 = v20;
+  if (v20 <= v21)
+  {
+    v25 = v20 - v32;
+    p_stream = &a1->stream;
+    p_src = v32;
+    v24 = a1;
+  }
+
+  else
+  {
+    LOBYTE(__src) = 1;
+    AppendBuffer::WriteBytes(a1, &a1->stream, &__src, 1uLL);
+    AppendBuffer::WriteBytes(a1, &a1->stream, &v29, 1uLL);
+    __src = *a3;
+    v31 = 109;
+    AppendBuffer::WriteBytes(a1, &a1->stream, &v31, 1uLL);
+    AppendBuffer::WriteBytes(a1, &a1->stream, &__src, 8uLL);
+    __src = *a4;
+    v31 = 100;
+    AppendBuffer::WriteBytes(a1, &a1->stream, &v31, 1uLL);
+    AppendBuffer::WriteBytes(a1, &a1->stream, &__src, 8uLL);
+    __src = *a5;
+    v31 = 100;
+    AppendBuffer::WriteBytes(a1, &a1->stream, &v31, 1uLL);
+    AppendBuffer::WriteBytes(a1, &a1->stream, &__src, 8uLL);
+    LOBYTE(__src) = 64;
+    AppendBuffer::WriteBytes(a1, &a1->stream, &__src, 1uLL);
+    __src = *a6;
+    v31 = 100;
+    AppendBuffer::WriteBytes(a1, &a1->stream, &v31, 1uLL);
+    AppendBuffer::WriteBytes(a1, &a1->stream, &__src, 8uLL);
     __src = a6[1];
-    v32 = 100;
-    AppendBuffer::WriteBytes(a1, &a1->stream, &v32, 1uLL);
+    v31 = 100;
+    AppendBuffer::WriteBytes(a1, &a1->stream, &v31, 1uLL);
     AppendBuffer::WriteBytes(a1, &a1->stream, &__src, 8uLL);
     __src = a6[2];
-    v32 = 100;
-    AppendBuffer::WriteBytes(a1, &a1->stream, &v32, 1uLL);
+    v31 = 100;
+    AppendBuffer::WriteBytes(a1, &a1->stream, &v31, 1uLL);
     AppendBuffer::WriteBytes(a1, &a1->stream, &__src, 8uLL);
     LOBYTE(__src) = 80;
     AppendBuffer::WriteBytes(a1, &a1->stream, &__src, 1uLL);
@@ -1507,34 +1413,32 @@ void *BinaryBuffer::Append<objc_object  {objcproto10MTLTexture}*,unsigned long,u
     v25 = 1;
   }
 
-  result = AppendBuffer::WriteBytes(v24, p_stream, p_src, v25);
-  v27 = *MEMORY[0x277D85DE8];
-  return result;
+  return AppendBuffer::WriteBytes(v24, p_stream, p_src, v25);
 }
 
 void *BinaryBuffer::Append<objc_object  {objcproto10MTLTexture}*,unsigned long,unsigned long,MTLOrigin,MTLSize,objc_object  {objcproto9MTLBuffer}*,unsigned long,unsigned long,unsigned long>(AppendBuffer *a1, char a2, uint64_t *a3, uint64_t *a4, uint64_t *a5, uint64_t *a6, uint64_t *a7, uint64_t *a8, uint64_t *a9, uint64_t *a10, uint64_t *a11)
 {
-  v33 = *MEMORY[0x277D85DE8];
-  v26 = a2;
-  v32 = &v31;
-  v29[0] = 1;
-  v29[1] = a2;
-  v31 = v30;
-  BinaryBuffer::WriteArguments<BinaryBuffer::ScratchBuffer,objc_object  {objcproto10MTLTexture}*,unsigned long,unsigned long,MTLOrigin,MTLSize,objc_object  {objcproto9MTLBuffer}*,unsigned long,unsigned long,unsigned long>(a1, v29, a3, a4, a5, a6, a7, a8, a9, a10, a11);
-  v18 = v31 + 1;
-  v19 = v32;
-  if (v31 + 1 <= v32)
+  v32 = *MEMORY[0x277D85DE8];
+  v25 = a2;
+  v31 = &v30;
+  v28[0] = 1;
+  v28[1] = a2;
+  v30 = v29;
+  BinaryBuffer::WriteArguments<BinaryBuffer::ScratchBuffer,objc_object  {objcproto10MTLTexture}*,unsigned long,unsigned long,MTLOrigin,MTLSize,objc_object  {objcproto9MTLBuffer}*,unsigned long,unsigned long,unsigned long>(a1, v28, a3, a4, a5, a6, a7, a8, a9, a10, a11);
+  v18 = v30 + 1;
+  v19 = v31;
+  if (v30 + 1 <= v31)
   {
-    *v31 = 16;
-    v19 = v32;
+    *v30 = 16;
+    v19 = v31;
   }
 
-  v31 = v18;
+  v30 = v18;
   if (v18 <= v19)
   {
-    v23 = v18 - v29;
+    v23 = v18 - v28;
     p_stream = &a1->stream;
-    p_src = v29;
+    p_src = v28;
     v22 = a1;
   }
 
@@ -1542,66 +1446,66 @@ void *BinaryBuffer::Append<objc_object  {objcproto10MTLTexture}*,unsigned long,u
   {
     LOBYTE(__src) = 1;
     AppendBuffer::WriteBytes(a1, &a1->stream, &__src, 1uLL);
-    AppendBuffer::WriteBytes(a1, &a1->stream, &v26, 1uLL);
+    AppendBuffer::WriteBytes(a1, &a1->stream, &v25, 1uLL);
     __src = *a3;
-    v28 = 109;
-    AppendBuffer::WriteBytes(a1, &a1->stream, &v28, 1uLL);
+    v27 = 109;
+    AppendBuffer::WriteBytes(a1, &a1->stream, &v27, 1uLL);
     AppendBuffer::WriteBytes(a1, &a1->stream, &__src, 8uLL);
     __src = *a4;
-    v28 = 100;
-    AppendBuffer::WriteBytes(a1, &a1->stream, &v28, 1uLL);
+    v27 = 100;
+    AppendBuffer::WriteBytes(a1, &a1->stream, &v27, 1uLL);
     AppendBuffer::WriteBytes(a1, &a1->stream, &__src, 8uLL);
     __src = *a5;
-    v28 = 100;
-    AppendBuffer::WriteBytes(a1, &a1->stream, &v28, 1uLL);
+    v27 = 100;
+    AppendBuffer::WriteBytes(a1, &a1->stream, &v27, 1uLL);
     AppendBuffer::WriteBytes(a1, &a1->stream, &__src, 8uLL);
     LOBYTE(__src) = 64;
     AppendBuffer::WriteBytes(a1, &a1->stream, &__src, 1uLL);
     __src = *a6;
-    v28 = 100;
-    AppendBuffer::WriteBytes(a1, &a1->stream, &v28, 1uLL);
+    v27 = 100;
+    AppendBuffer::WriteBytes(a1, &a1->stream, &v27, 1uLL);
     AppendBuffer::WriteBytes(a1, &a1->stream, &__src, 8uLL);
     __src = a6[1];
-    v28 = 100;
-    AppendBuffer::WriteBytes(a1, &a1->stream, &v28, 1uLL);
+    v27 = 100;
+    AppendBuffer::WriteBytes(a1, &a1->stream, &v27, 1uLL);
     AppendBuffer::WriteBytes(a1, &a1->stream, &__src, 8uLL);
     __src = a6[2];
-    v28 = 100;
-    AppendBuffer::WriteBytes(a1, &a1->stream, &v28, 1uLL);
+    v27 = 100;
+    AppendBuffer::WriteBytes(a1, &a1->stream, &v27, 1uLL);
     AppendBuffer::WriteBytes(a1, &a1->stream, &__src, 8uLL);
     LOBYTE(__src) = 80;
     AppendBuffer::WriteBytes(a1, &a1->stream, &__src, 1uLL);
     LOBYTE(__src) = 64;
     AppendBuffer::WriteBytes(a1, &a1->stream, &__src, 1uLL);
     __src = *a7;
-    v28 = 100;
-    AppendBuffer::WriteBytes(a1, &a1->stream, &v28, 1uLL);
+    v27 = 100;
+    AppendBuffer::WriteBytes(a1, &a1->stream, &v27, 1uLL);
     AppendBuffer::WriteBytes(a1, &a1->stream, &__src, 8uLL);
     __src = a7[1];
-    v28 = 100;
-    AppendBuffer::WriteBytes(a1, &a1->stream, &v28, 1uLL);
+    v27 = 100;
+    AppendBuffer::WriteBytes(a1, &a1->stream, &v27, 1uLL);
     AppendBuffer::WriteBytes(a1, &a1->stream, &__src, 8uLL);
     __src = a7[2];
-    v28 = 100;
-    AppendBuffer::WriteBytes(a1, &a1->stream, &v28, 1uLL);
+    v27 = 100;
+    AppendBuffer::WriteBytes(a1, &a1->stream, &v27, 1uLL);
     AppendBuffer::WriteBytes(a1, &a1->stream, &__src, 8uLL);
     LOBYTE(__src) = 80;
     AppendBuffer::WriteBytes(a1, &a1->stream, &__src, 1uLL);
     __src = *a8;
-    v28 = 109;
-    AppendBuffer::WriteBytes(a1, &a1->stream, &v28, 1uLL);
+    v27 = 109;
+    AppendBuffer::WriteBytes(a1, &a1->stream, &v27, 1uLL);
     AppendBuffer::WriteBytes(a1, &a1->stream, &__src, 8uLL);
     __src = *a9;
-    v28 = 100;
-    AppendBuffer::WriteBytes(a1, &a1->stream, &v28, 1uLL);
+    v27 = 100;
+    AppendBuffer::WriteBytes(a1, &a1->stream, &v27, 1uLL);
     AppendBuffer::WriteBytes(a1, &a1->stream, &__src, 8uLL);
     __src = *a10;
-    v28 = 100;
-    AppendBuffer::WriteBytes(a1, &a1->stream, &v28, 1uLL);
+    v27 = 100;
+    AppendBuffer::WriteBytes(a1, &a1->stream, &v27, 1uLL);
     AppendBuffer::WriteBytes(a1, &a1->stream, &__src, 8uLL);
     __src = *a11;
-    v28 = 100;
-    AppendBuffer::WriteBytes(a1, &a1->stream, &v28, 1uLL);
+    v27 = 100;
+    AppendBuffer::WriteBytes(a1, &a1->stream, &v27, 1uLL);
     AppendBuffer::WriteBytes(a1, &a1->stream, &__src, 8uLL);
     LOBYTE(__src) = 16;
     p_stream = &a1->stream;
@@ -1610,113 +1514,190 @@ void *BinaryBuffer::Append<objc_object  {objcproto10MTLTexture}*,unsigned long,u
     v23 = 1;
   }
 
-  result = AppendBuffer::WriteBytes(v22, p_stream, p_src, v23);
-  v25 = *MEMORY[0x277D85DE8];
-  return result;
+  return AppendBuffer::WriteBytes(v22, p_stream, p_src, v23);
 }
 
 void *BinaryBuffer::Append<objc_object  {objcproto10MTLTexture}*,unsigned long,unsigned long,MTLOrigin,MTLSize,objc_object  {objcproto9MTLBuffer}*,unsigned long,unsigned long,unsigned long,unsigned long>(AppendBuffer *a1, char a2, uint64_t *a3, uint64_t *a4, uint64_t *a5, uint64_t *a6, uint64_t *a7, uint64_t *a8, uint64_t *a9, uint64_t *a10, uint64_t *a11, uint64_t *a12)
 {
-  v55[2] = *MEMORY[0x277D85DE8];
-  v55[1] = v55;
+  v54[2] = *MEMORY[0x277D85DE8];
+  v54[1] = v54;
   __src[0] = 1;
   __src[1] = a2;
   v12 = *a3;
   __src[2] = 109;
-  v26 = v12;
+  v25 = v12;
   v13 = *a4;
-  v27 = 100;
-  v28 = v13;
+  v26 = 100;
+  v27 = v13;
   v14 = *a5;
-  v29 = 100;
-  v30 = v14;
-  v31 = 25664;
+  v28 = 100;
+  v29 = v14;
+  v30 = 25664;
   v15 = a6[1];
-  v32 = *a6;
-  v33 = 100;
-  v34 = v15;
+  v31 = *a6;
+  v32 = 100;
+  v33 = v15;
   v16 = a6[2];
-  v35 = 100;
-  v36 = v16;
-  qmemcpy(v37, "P@d", sizeof(v37));
+  v34 = 100;
+  v35 = v16;
+  qmemcpy(v36, "P@d", sizeof(v36));
   v17 = a7[1];
-  v38 = *a7;
-  v39 = 100;
-  v40 = v17;
+  v37 = *a7;
+  v38 = 100;
+  v39 = v17;
   v18 = a7[2];
-  v41 = 100;
-  v42 = v18;
-  v43 = 27984;
-  v44 = *a8;
+  v40 = 100;
+  v41 = v18;
+  v42 = 27984;
+  v43 = *a8;
   v19 = *a9;
-  v45 = 100;
-  v46 = v19;
+  v44 = 100;
+  v45 = v19;
   v20 = *a10;
-  v47 = 100;
-  v48 = v20;
+  v46 = 100;
+  v47 = v20;
   v21 = *a11;
-  v49 = 100;
-  v50 = v21;
+  v48 = 100;
+  v49 = v21;
   v22 = *a12;
-  v51 = 100;
-  v52 = v22;
-  v53 = 16;
-  v55[0] = v54;
-  result = AppendBuffer::WriteBytes(a1, &a1->stream, __src, 0x85uLL);
-  v24 = *MEMORY[0x277D85DE8];
-  return result;
+  v50 = 100;
+  v51 = v22;
+  v52 = 16;
+  v54[0] = v53;
+  return AppendBuffer::WriteBytes(a1, &a1->stream, __src, 0x85uLL);
 }
 
 void *BinaryBuffer::Append<objc_object  {objcproto9MTLBuffer}*,_NSRange,unsigned char>(AppendBuffer *a1, char a2, uint64_t *a3, uint64_t *a4, char *a5)
 {
-  v19[2] = *MEMORY[0x277D85DE8];
-  v19[1] = v19;
+  v18[2] = *MEMORY[0x277D85DE8];
+  v18[1] = v18;
   __src[0] = 1;
   __src[1] = a2;
   v5 = *a3;
   __src[2] = 109;
-  v10 = v5;
-  v11 = 25664;
+  v9 = v5;
+  v10 = 25664;
   v6 = a4[1];
-  v12 = *a4;
-  v13 = 100;
-  v14 = v6;
-  v15 = 24912;
-  v16 = *a5;
-  v17 = 16;
-  v19[0] = v18;
-  result = AppendBuffer::WriteBytes(a1, &a1->stream, __src, 0x22uLL);
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  v11 = *a4;
+  v12 = 100;
+  v13 = v6;
+  v14 = 24912;
+  v15 = *a5;
+  v16 = 16;
+  v18[0] = v17;
+  return AppendBuffer::WriteBytes(a1, &a1->stream, __src, 0x22uLL);
 }
 
 void *BinaryBuffer::Append<objc_object  {objcproto9MTLBuffer}*,_NSRange,unsigned int>(AppendBuffer *a1, char a2, uint64_t *a3, uint64_t *a4, int *a5)
 {
-  v19[2] = *MEMORY[0x277D85DE8];
-  v19[1] = v19;
+  v18[2] = *MEMORY[0x277D85DE8];
+  v18[1] = v18;
   __src[0] = 1;
   __src[1] = a2;
   v5 = *a3;
   __src[2] = 109;
-  v10 = v5;
-  v11 = 25664;
+  v9 = v5;
+  v10 = 25664;
   v6 = a4[1];
-  v12 = *a4;
-  v13 = 100;
-  v14 = v6;
-  v15 = 25424;
-  v16 = *a5;
-  v17 = 16;
-  v19[0] = v18;
-  result = AppendBuffer::WriteBytes(a1, &a1->stream, __src, 0x25uLL);
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  v11 = *a4;
+  v12 = 100;
+  v13 = v6;
+  v14 = 25424;
+  v15 = *a5;
+  v16 = 16;
+  v18[0] = v17;
+  return AppendBuffer::WriteBytes(a1, &a1->stream, __src, 0x25uLL);
 }
 
 void *BinaryBuffer::Append<objc_object  {objcproto10MTLTexture}*,unsigned long,unsigned long,MTLRegion,void const*,unsigned long>(AppendBuffer *a1, char a2, uint64_t *a3, uint64_t *a4, uint64_t *a5, uint64_t *a6, uint64_t *a7, uint64_t *a8)
 {
-  v41[2] = *MEMORY[0x277D85DE8];
-  v41[1] = v41;
+  v40[2] = *MEMORY[0x277D85DE8];
+  v40[1] = v40;
+  __src[0] = 1;
+  __src[1] = a2;
+  v8 = *a3;
+  __src[2] = 109;
+  v17 = v8;
+  v9 = *a4;
+  v18 = 100;
+  v19 = v9;
+  v10 = *a5;
+  v20 = 100;
+  v21 = v10;
+  qmemcpy(v22, "@@d", sizeof(v22));
+  v11 = a6[1];
+  v23 = *a6;
+  v24 = 100;
+  v25 = v11;
+  v26 = 100;
+  v12 = a6[3];
+  v27 = a6[2];
+  qmemcpy(v28, "P@d", sizeof(v28));
+  v29 = v12;
+  v30 = 100;
+  v13 = a6[5];
+  v31 = a6[4];
+  v32 = 100;
+  v33 = v13;
+  qmemcpy(v34, "PPm", sizeof(v34));
+  v35 = *a7;
+  v14 = *a8;
+  v36 = 100;
+  v37 = v14;
+  v38 = 16;
+  v40[0] = &v39;
+  return AppendBuffer::WriteBytes(a1, &a1->stream, __src, 0x6CuLL);
+}
+
+void *BinaryBuffer::Append<objc_object  {objcproto10MTLTexture}*,unsigned long,unsigned long,MTLRegion,MTLClearColor>(AppendBuffer *a1, char a2, uint64_t *a3, uint64_t *a4, uint64_t *a5, uint64_t *a6, uint64_t *a7)
+{
+  v44[2] = *MEMORY[0x277D85DE8];
+  v44[1] = v44;
+  __src[0] = 1;
+  __src[1] = a2;
+  v7 = *a3;
+  __src[2] = 109;
+  v17 = v7;
+  v8 = *a4;
+  v18 = 100;
+  v19 = v8;
+  v9 = *a5;
+  v20 = 100;
+  v21 = v9;
+  qmemcpy(v22, "@@d", sizeof(v22));
+  v10 = a6[1];
+  v23 = *a6;
+  v24 = 100;
+  v25 = v10;
+  v26 = 100;
+  v11 = a6[3];
+  v27 = a6[2];
+  qmemcpy(v28, "P@d", sizeof(v28));
+  v29 = v11;
+  v30 = 100;
+  v12 = a6[5];
+  v31 = a6[4];
+  v32 = 100;
+  v33 = v12;
+  v34 = 1799376976;
+  v13 = a7[1];
+  v35 = *a7;
+  v36 = 107;
+  v37 = v13;
+  v38 = 107;
+  v14 = a7[3];
+  v39 = a7[2];
+  v40 = 107;
+  v41 = v14;
+  v42 = 4176;
+  v44[0] = &v43;
+  return AppendBuffer::WriteBytes(a1, &a1->stream, __src, 0x80uLL);
+}
+
+void *BinaryBuffer::Append<objc_object  {objcproto10MTLTexture}*,unsigned long,unsigned long,MTLRegion,MTLClearColor,MTLPixelFormat>(AppendBuffer *a1, char a2, uint64_t *a3, uint64_t *a4, uint64_t *a5, uint64_t *a6, uint64_t *a7, uint64_t *a8)
+{
+  v47[2] = *MEMORY[0x277D85DE8];
+  v47[1] = v47;
   __src[0] = 1;
   __src[1] = a2;
   v8 = *a3;
@@ -1743,283 +1724,131 @@ void *BinaryBuffer::Append<objc_object  {objcproto10MTLTexture}*,unsigned long,u
   v32 = a6[4];
   v33 = 100;
   v34 = v13;
-  qmemcpy(v35, "PPm", sizeof(v35));
-  v36 = *a7;
-  v14 = *a8;
-  v37 = 100;
-  v38 = v14;
-  v39 = 16;
-  v41[0] = &v40;
-  result = AppendBuffer::WriteBytes(a1, &a1->stream, __src, 0x6CuLL);
-  v16 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-void *BinaryBuffer::Append<objc_object  {objcproto10MTLTexture}*,unsigned long,unsigned long,MTLRegion,MTLClearColor>(AppendBuffer *a1, char a2, uint64_t *a3, uint64_t *a4, uint64_t *a5, uint64_t *a6, uint64_t *a7)
-{
-  v45[2] = *MEMORY[0x277D85DE8];
-  v45[1] = v45;
-  __src[0] = 1;
-  __src[1] = a2;
-  v7 = *a3;
-  __src[2] = 109;
-  v18 = v7;
-  v8 = *a4;
-  v19 = 100;
-  v20 = v8;
-  v9 = *a5;
-  v21 = 100;
-  v22 = v9;
-  qmemcpy(v23, "@@d", sizeof(v23));
-  v10 = a6[1];
-  v24 = *a6;
-  v25 = 100;
-  v26 = v10;
-  v27 = 100;
-  v11 = a6[3];
-  v28 = a6[2];
-  qmemcpy(v29, "P@d", sizeof(v29));
-  v30 = v11;
-  v31 = 100;
-  v12 = a6[5];
-  v32 = a6[4];
-  v33 = 100;
-  v34 = v12;
   v35 = 1799376976;
-  v13 = a7[1];
+  v14 = a7[1];
   v36 = *a7;
   v37 = 107;
-  v38 = v13;
+  v38 = v14;
   v39 = 107;
-  v14 = a7[3];
+  v15 = a7[3];
   v40 = a7[2];
   v41 = 107;
-  v42 = v14;
-  v43 = 4176;
-  v45[0] = &v44;
-  result = AppendBuffer::WriteBytes(a1, &a1->stream, __src, 0x80uLL);
-  v16 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-void *BinaryBuffer::Append<objc_object  {objcproto10MTLTexture}*,unsigned long,unsigned long,MTLRegion,MTLClearColor,MTLPixelFormat>(AppendBuffer *a1, char a2, uint64_t *a3, uint64_t *a4, uint64_t *a5, uint64_t *a6, uint64_t *a7, uint64_t *a8)
-{
-  v48[2] = *MEMORY[0x277D85DE8];
-  v48[1] = v48;
-  __src[0] = 1;
-  __src[1] = a2;
-  v8 = *a3;
-  __src[2] = 109;
-  v19 = v8;
-  v9 = *a4;
-  v20 = 100;
-  v21 = v9;
-  v10 = *a5;
-  v22 = 100;
-  v23 = v10;
-  qmemcpy(v24, "@@d", sizeof(v24));
-  v11 = a6[1];
-  v25 = *a6;
-  v26 = 100;
-  v27 = v11;
-  v28 = 100;
-  v12 = a6[3];
-  v29 = a6[2];
-  qmemcpy(v30, "P@d", sizeof(v30));
-  v31 = v12;
-  v32 = 100;
-  v13 = a6[5];
-  v33 = a6[4];
-  v34 = 100;
-  v35 = v13;
-  v36 = 1799376976;
-  v14 = a7[1];
-  v37 = *a7;
-  v38 = 107;
-  v39 = v14;
-  v40 = 107;
-  v15 = a7[3];
-  v41 = a7[2];
-  v42 = 107;
-  v43 = v15;
-  v44 = 25680;
-  v45 = *a8;
-  v46 = 16;
-  v48[0] = v47;
-  result = AppendBuffer::WriteBytes(a1, &a1->stream, __src, 0x89uLL);
-  v17 = *MEMORY[0x277D85DE8];
-  return result;
+  v42 = v15;
+  v43 = 25680;
+  v44 = *a8;
+  v45 = 16;
+  v47[0] = v46;
+  return AppendBuffer::WriteBytes(a1, &a1->stream, __src, 0x89uLL);
 }
 
 void *BinaryBuffer::Append<objc_object  {objcproto10MTLTexture}*,unsigned long,unsigned long,objc_object  {objcproto10MTLTexture},unsigned long,unsigned long,unsigned long,unsigned long>(AppendBuffer *a1, char a2, uint64_t *a3, uint64_t *a4, uint64_t *a5, uint64_t *a6, uint64_t *a7, uint64_t *a8, uint64_t *a9, uint64_t *a10)
 {
-  v38[2] = *MEMORY[0x277D85DE8];
-  v38[1] = v38;
+  v37[2] = *MEMORY[0x277D85DE8];
+  v37[1] = v37;
   __src[0] = 1;
   __src[1] = a2;
   v10 = *a3;
   __src[2] = 109;
-  v21 = v10;
+  v20 = v10;
   v11 = *a4;
-  v22 = 100;
-  v23 = v11;
+  v21 = 100;
+  v22 = v11;
   v12 = *a5;
-  v24 = 100;
-  v25 = v12;
+  v23 = 100;
+  v24 = v12;
   v13 = *a6;
-  v26 = 109;
-  v27 = v13;
+  v25 = 109;
+  v26 = v13;
   v14 = *a7;
-  v28 = 100;
-  v29 = v14;
+  v27 = 100;
+  v28 = v14;
   v15 = *a8;
-  v30 = 100;
-  v31 = v15;
+  v29 = 100;
+  v30 = v15;
   v16 = *a9;
-  v32 = 100;
-  v33 = v16;
+  v31 = 100;
+  v32 = v16;
   v17 = *a10;
-  v34 = 100;
-  v35 = v17;
-  v36 = 16;
-  v38[0] = v37;
-  result = AppendBuffer::WriteBytes(a1, &a1->stream, __src, 0x4BuLL);
-  v19 = *MEMORY[0x277D85DE8];
-  return result;
+  v33 = 100;
+  v34 = v17;
+  v35 = 16;
+  v37[0] = v36;
+  return AppendBuffer::WriteBytes(a1, &a1->stream, __src, 0x4BuLL);
 }
 
 void *BinaryBuffer::Append<MTLRegion,unsigned long,unsigned long,BOOL,objc_object  {objcproto9MTLBuffer}*,unsigned long>(AppendBuffer *a1, char a2, uint64_t *a3, uint64_t *a4, uint64_t *a5, _BYTE *a6, uint64_t *a7, uint64_t *a8)
 {
-  v41[2] = *MEMORY[0x277D85DE8];
-  v41[1] = v41;
+  v40[2] = *MEMORY[0x277D85DE8];
+  v40[1] = v40;
   __src[0] = 1;
   __src[1] = a2;
-  qmemcpy(v17, "@@d", sizeof(v17));
+  qmemcpy(v16, "@@d", sizeof(v16));
   v8 = a3[1];
-  v18 = *a3;
-  v20 = v8;
+  v17 = *a3;
+  v19 = v8;
   v9 = a3[3];
-  v22 = a3[2];
-  qmemcpy(v23, "P@d", sizeof(v23));
-  v19 = 100;
-  v21 = 100;
-  v24 = v9;
-  v25 = 100;
+  v21 = a3[2];
+  qmemcpy(v22, "P@d", sizeof(v22));
+  v18 = 100;
+  v20 = 100;
+  v23 = v9;
+  v24 = 100;
   v10 = a3[5];
-  v26 = a3[4];
-  v27 = 100;
-  v28 = v10;
-  qmemcpy(v29, "PPd", sizeof(v29));
-  v30 = *a4;
+  v25 = a3[4];
+  v26 = 100;
+  v27 = v10;
+  qmemcpy(v28, "PPd", sizeof(v28));
+  v29 = *a4;
   v11 = *a5;
-  v31 = 100;
-  v32 = v11;
+  v30 = 100;
+  v31 = v11;
   LOBYTE(v11) = *a6;
-  v33 = 97;
-  v34 = v11;
+  v32 = 97;
+  v33 = v11;
   v12 = *a7;
-  v35 = 109;
-  v36 = v12;
+  v34 = 109;
+  v35 = v12;
   v13 = *a8;
-  v37 = 100;
-  v38 = v13;
-  v39 = 16;
-  v41[0] = v40;
-  result = AppendBuffer::WriteBytes(a1, &a1->stream, __src, 0x65uLL);
-  v15 = *MEMORY[0x277D85DE8];
-  return result;
+  v36 = 100;
+  v37 = v13;
+  v38 = 16;
+  v40[0] = v39;
+  return AppendBuffer::WriteBytes(a1, &a1->stream, __src, 0x65uLL);
 }
 
 void *BinaryBuffer::Append<MTLSize,MTLSize>(uint64_t a1, char a2, uint64_t a3, uint64_t *a4, uint64_t *a5)
 {
-  v28[2] = *MEMORY[0x277D85DE8];
-  v28[1] = v28;
+  v27[2] = *MEMORY[0x277D85DE8];
+  v27[1] = v27;
   __src[0] = 1;
   __src[1] = a2;
-  v12 = 25664;
+  v11 = 25664;
   v5 = a4[1];
-  v13 = *a4;
-  v14 = 100;
-  v15 = v5;
+  v12 = *a4;
+  v13 = 100;
+  v14 = v5;
   v6 = a4[2];
-  v16 = 100;
-  v17 = v6;
-  qmemcpy(v18, "P@d", sizeof(v18));
+  v15 = 100;
+  v16 = v6;
+  qmemcpy(v17, "P@d", sizeof(v17));
   v7 = a5[1];
-  v19 = *a5;
-  v20 = 100;
-  v21 = v7;
+  v18 = *a5;
+  v19 = 100;
+  v20 = v7;
   v8 = a5[2];
-  v22 = 100;
-  v23 = v8;
-  v24 = -27568;
-  v25 = *(a1 + 32) * a3 / *(a1 + 36);
-  v26 = 16;
-  v28[0] = &v27;
-  result = AppendBuffer::WriteBytes(a1, (a1 + 8), __src, 0x46uLL);
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  v21 = 100;
+  v22 = v8;
+  v23 = -27568;
+  v24 = *(a1 + 32) * a3 / *(a1 + 36);
+  v25 = 16;
+  v27[0] = &v26;
+  return AppendBuffer::WriteBytes(a1, (a1 + 8), __src, 0x46uLL);
 }
 
 void *BinaryBuffer::Append<objc_object  {objcproto9MTLBuffer}*,unsigned long,MTLSize>(uint64_t a1, char a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t *a6)
 {
-  v29[2] = *MEMORY[0x277D85DE8];
-  v29[1] = v29;
-  __src[0] = 1;
-  __src[1] = a2;
-  v6 = *a4;
-  __src[2] = 109;
-  v15 = v6;
-  v7 = *a5;
-  v16 = 100;
-  v17 = v7;
-  v18 = 25664;
-  v8 = a6[1];
-  v19 = *a6;
-  v20 = 100;
-  v21 = v8;
-  v9 = a6[2];
-  v22 = 100;
-  v23 = v9;
-  v24 = 80;
-  v10 = *(a1 + 32);
-  v11 = *(a1 + 36);
-  v25 = -108;
-  v26 = v10 * a3 / v11;
-  v27 = 16;
-  v29[0] = v28;
-  result = AppendBuffer::WriteBytes(a1, (a1 + 8), __src, 0x3BuLL);
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-void *BinaryBuffer::Append<objc_object  {objcproto9MTLBuffer}*,unsigned long>(uint64_t a1, char a2, uint64_t a3, uint64_t *a4, uint64_t *a5)
-{
-  v19[2] = *MEMORY[0x277D85DE8];
-  v19[1] = v19;
-  __src[0] = 1;
-  __src[1] = a2;
-  v5 = *a4;
-  __src[2] = 109;
-  v12 = v5;
-  v6 = *a5;
-  v13 = 100;
-  v14 = v6;
-  v7 = *(a1 + 32);
-  v8 = *(a1 + 36);
-  v15 = -108;
-  v16 = v7 * a3 / v8;
-  v17 = 16;
-  v19[0] = &v18;
-  result = AppendBuffer::WriteBytes(a1, (a1 + 8), __src, 0x1EuLL);
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-void *BinaryBuffer::Append<objc_object  {objcproto9MTLBuffer}*,unsigned long,unsigned long>(uint64_t a1, char a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t *a6)
-{
-  v23[2] = *MEMORY[0x277D85DE8];
-  v23[1] = v23;
+  v28[2] = *MEMORY[0x277D85DE8];
+  v28[1] = v28;
   __src[0] = 1;
   __src[1] = a2;
   v6 = *a4;
@@ -2028,68 +1857,115 @@ void *BinaryBuffer::Append<objc_object  {objcproto9MTLBuffer}*,unsigned long,uns
   v7 = *a5;
   v15 = 100;
   v16 = v7;
+  v17 = 25664;
+  v8 = a6[1];
+  v18 = *a6;
+  v19 = 100;
+  v20 = v8;
+  v9 = a6[2];
+  v21 = 100;
+  v22 = v9;
+  v23 = 80;
+  v10 = *(a1 + 32);
+  v11 = *(a1 + 36);
+  v24 = -108;
+  v25 = v10 * a3 / v11;
+  v26 = 16;
+  v28[0] = v27;
+  return AppendBuffer::WriteBytes(a1, (a1 + 8), __src, 0x3BuLL);
+}
+
+void *BinaryBuffer::Append<objc_object  {objcproto9MTLBuffer}*,unsigned long>(uint64_t a1, char a2, uint64_t a3, uint64_t *a4, uint64_t *a5)
+{
+  v18[2] = *MEMORY[0x277D85DE8];
+  v18[1] = v18;
+  __src[0] = 1;
+  __src[1] = a2;
+  v5 = *a4;
+  __src[2] = 109;
+  v11 = v5;
+  v6 = *a5;
+  v12 = 100;
+  v13 = v6;
+  v7 = *(a1 + 32);
+  v8 = *(a1 + 36);
+  v14 = -108;
+  v15 = v7 * a3 / v8;
+  v16 = 16;
+  v18[0] = &v17;
+  return AppendBuffer::WriteBytes(a1, (a1 + 8), __src, 0x1EuLL);
+}
+
+void *BinaryBuffer::Append<objc_object  {objcproto9MTLBuffer}*,unsigned long,unsigned long>(uint64_t a1, char a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t *a6)
+{
+  v22[2] = *MEMORY[0x277D85DE8];
+  v22[1] = v22;
+  __src[0] = 1;
+  __src[1] = a2;
+  v6 = *a4;
+  __src[2] = 109;
+  v13 = v6;
+  v7 = *a5;
+  v14 = 100;
+  v15 = v7;
   v8 = *a6;
-  v17 = 100;
-  v18 = v8;
+  v16 = 100;
+  v17 = v8;
   v9 = *(a1 + 32);
   v10 = *(a1 + 36);
-  v19 = -108;
-  v20 = v9 * a3 / v10;
-  v21 = 16;
-  v23[0] = &v22;
-  result = AppendBuffer::WriteBytes(a1, (a1 + 8), __src, 0x27uLL);
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  v18 = -108;
+  v19 = v9 * a3 / v10;
+  v20 = 16;
+  v22[0] = &v21;
+  return AppendBuffer::WriteBytes(a1, (a1 + 8), __src, 0x27uLL);
 }
 
 void *BinaryBuffer::Append<unsigned long,unsigned long>(uint64_t a1, char a2, uint64_t a3, uint64_t *a4, uint64_t *a5)
 {
-  v19[2] = *MEMORY[0x277D85DE8];
-  v19[1] = v19;
+  v18[2] = *MEMORY[0x277D85DE8];
+  v18[1] = v18;
   __src[0] = 1;
   __src[1] = a2;
   v5 = *a4;
   __src[2] = 100;
-  v12 = v5;
+  v11 = v5;
   v6 = *a5;
-  v13 = 100;
-  v14 = v6;
+  v12 = 100;
+  v13 = v6;
   v7 = *(a1 + 32);
   v8 = *(a1 + 36);
-  v15 = -108;
-  v16 = v7 * a3 / v8;
-  v17 = 16;
-  v19[0] = &v18;
-  result = AppendBuffer::WriteBytes(a1, (a1 + 8), __src, 0x1EuLL);
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  v14 = -108;
+  v15 = v7 * a3 / v8;
+  v16 = 16;
+  v18[0] = &v17;
+  return AppendBuffer::WriteBytes(a1, (a1 + 8), __src, 0x1EuLL);
 }
 
 void *BinaryBuffer::Append<BinaryBuffer::Array<objc_object  {objcproto9MTLBuffer}* const>,BinaryBuffer::Array<unsigned long const>,_NSRange>(AppendBuffer *this, char a2, uint64_t a3, uint64_t a4, void *a5, uint64_t *a6)
 {
   v10 = this;
-  v50 = *MEMORY[0x277D85DE8];
-  v42 = a2;
-  v11 = &v48;
-  v49 = &v48;
-  v45[0] = 1;
-  v45[1] = a2;
-  v12 = v46;
-  v45[2] = 32;
-  v48 = v46;
+  v49 = *MEMORY[0x277D85DE8];
+  v41 = a2;
+  v11 = &v47;
+  v48 = &v47;
+  v44[0] = 1;
+  v44[1] = a2;
+  v12 = v45;
+  v44[2] = 32;
+  v47 = v45;
   v13 = *(a4 + 8);
   if (v13)
   {
     v14 = *a4;
-    v15 = &v47;
+    v15 = &v46;
     do
     {
       v16 = *v14;
-      v17 = v49;
-      if (v15 - 2 <= v49)
+      v17 = v48;
+      if (v15 - 2 <= v48)
       {
         *(v15 - 9) = 109;
-        v17 = v49;
+        v17 = v48;
       }
 
       if (v15 <= v17)
@@ -2097,24 +1973,24 @@ void *BinaryBuffer::Append<BinaryBuffer::Array<objc_object  {objcproto9MTLBuffer
         *(v15 - 1) = v16;
       }
 
-      v48 = v15;
+      v47 = v15;
       v15 = (v15 + 9);
       ++v14;
       --v13;
     }
 
     while (v13);
-    v11 = v49;
+    v11 = v48;
     v12 = v15 - 9;
   }
 
   if (v12 + 1 <= v11)
   {
     *v12 = 48;
-    v11 = v49;
+    v11 = v48;
   }
 
-  v48 = (v12 + 1);
+  v47 = (v12 + 1);
   v18 = v12 + 2;
   if (v12 + 2 <= v11)
   {
@@ -2128,11 +2004,11 @@ void *BinaryBuffer::Append<BinaryBuffer::Array<objc_object  {objcproto9MTLBuffer
     do
     {
       v21 = *(*a5 + 8 * v19);
-      v22 = v49;
-      if (v20 - 2 <= v49)
+      v22 = v48;
+      if (v20 - 2 <= v48)
       {
         *(v20 - 9) = 100;
-        v22 = v49;
+        v22 = v48;
       }
 
       if (v20 <= v22)
@@ -2148,49 +2024,49 @@ void *BinaryBuffer::Append<BinaryBuffer::Array<objc_object  {objcproto9MTLBuffer
     v18 = v20 - 9;
   }
 
-  v23 = v49;
-  if (v18 + 1 <= v49)
+  v23 = v48;
+  if (v18 + 1 <= v48)
   {
     *v18 = 48;
-    v23 = v49;
+    v23 = v48;
   }
 
   if ((v18 + 2) <= v23)
   {
     v18[1] = 64;
-    v23 = v49;
+    v23 = v48;
   }
 
   v24 = *a6;
   if ((v18 + 3) <= v23)
   {
     v18[2] = 100;
-    v23 = v49;
+    v23 = v48;
   }
 
   if ((v18 + 11) <= v23)
   {
     *(v18 + 3) = v24;
-    v23 = v49;
+    v23 = v48;
   }
 
   v25 = a6[1];
   if ((v18 + 12) <= v23)
   {
     v18[11] = 100;
-    v23 = v49;
+    v23 = v48;
   }
 
   if ((v18 + 20) <= v23)
   {
     *(v18 + 12) = v25;
-    v23 = v49;
+    v23 = v48;
   }
 
   if ((v18 + 21) <= v23)
   {
     v18[20] = 80;
-    v23 = v49;
+    v23 = v48;
   }
 
   v27 = LODWORD(this[1]._vptr$AppendBuffer);
@@ -2198,36 +2074,36 @@ void *BinaryBuffer::Append<BinaryBuffer::Array<objc_object  {objcproto9MTLBuffer
   if ((v18 + 22) <= v23)
   {
     v18[21] = -108;
-    v23 = v49;
+    v23 = v48;
   }
 
   v28 = v18 + 30;
   if ((v18 + 30) <= v23)
   {
     *(v18 + 22) = v27 * a3 / v26;
-    v23 = v49;
+    v23 = v48;
   }
 
   v29 = (v18 + 31);
   if (v29 <= v23)
   {
     *v28 = 16;
-    v23 = v49;
+    v23 = v48;
   }
 
-  v48 = v29;
+  v47 = v29;
   if (v29 <= v23)
   {
-    v39 = v29 - v45;
+    v39 = v29 - v44;
     p_stream = &this->stream;
-    p_src = v45;
+    p_src = v44;
   }
 
   else
   {
     LOBYTE(__src) = 1;
     AppendBuffer::WriteBytes(this, &this->stream, &__src, 1uLL);
-    AppendBuffer::WriteBytes(v10, &v10->stream, &v42, 1uLL);
+    AppendBuffer::WriteBytes(v10, &v10->stream, &v41, 1uLL);
     LOBYTE(__src) = 32;
     AppendBuffer::WriteBytes(v10, &v10->stream, &__src, 1uLL);
     if (*(a4 + 8))
@@ -2236,8 +2112,8 @@ void *BinaryBuffer::Append<BinaryBuffer::Array<objc_object  {objcproto9MTLBuffer
       do
       {
         __src = *(*a4 + 8 * v30);
-        v44 = 109;
-        AppendBuffer::WriteBytes(v10, &v10->stream, &v44, 1uLL);
+        v43 = 109;
+        AppendBuffer::WriteBytes(v10, &v10->stream, &v43, 1uLL);
         AppendBuffer::WriteBytes(v10, &v10->stream, &__src, 8uLL);
         ++v30;
       }
@@ -2250,13 +2126,13 @@ void *BinaryBuffer::Append<BinaryBuffer::Array<objc_object  {objcproto9MTLBuffer
     BinaryBuffer::WriteArguments<AppendBuffer::StreamBuffer,BinaryBuffer::Array<unsigned long const>,_NSRange>(v10, &v10->stream, a5, a6);
     v32 = LODWORD(v10[1]._vptr$AppendBuffer);
     v31 = HIDWORD(v10[1]._vptr$AppendBuffer);
-    v33 = v48;
-    v34 = (v48 + 1);
-    v35 = v49;
-    if ((v48 + 1) <= v49)
+    v33 = v47;
+    v34 = (v47 + 1);
+    v35 = v48;
+    if ((v47 + 1) <= v48)
     {
-      *v48 = -108;
-      v35 = v49;
+      *v47 = -108;
+      v35 = v48;
     }
 
     v36 = (v33 + 9);
@@ -2265,7 +2141,7 @@ void *BinaryBuffer::Append<BinaryBuffer::Array<objc_object  {objcproto9MTLBuffer
       *v34 = v32 * a3 / v31;
     }
 
-    v48 = v36;
+    v47 = v36;
     LOBYTE(__src) = 16;
     p_stream = &v10->stream;
     p_src = &__src;
@@ -2273,65 +2149,61 @@ void *BinaryBuffer::Append<BinaryBuffer::Array<objc_object  {objcproto9MTLBuffer
     v39 = 1;
   }
 
-  result = AppendBuffer::WriteBytes(this, p_stream, p_src, v39);
-  v41 = *MEMORY[0x277D85DE8];
-  return result;
+  return AppendBuffer::WriteBytes(this, p_stream, p_src, v39);
 }
 
 void *BinaryBuffer::Append<objc_object  {objcproto15MTLSamplerState}*,float,float,unsigned long>(uint64_t a1, char a2, uint64_t a3, uint64_t *a4, int *a5, int *a6, uint64_t *a7)
 {
-  v27[2] = *MEMORY[0x277D85DE8];
-  v27[1] = v27;
+  v26[2] = *MEMORY[0x277D85DE8];
+  v26[1] = v26;
   __src[0] = 1;
   __src[1] = a2;
   v7 = *a4;
   __src[2] = 109;
-  v16 = v7;
+  v15 = v7;
   v8 = *a5;
-  v17 = 106;
-  v18 = v8;
+  v16 = 106;
+  v17 = v8;
   v9 = *a6;
-  v19 = 106;
-  v20 = v9;
+  v18 = 106;
+  v19 = v9;
   v10 = *a7;
-  v21 = 100;
-  v22 = v10;
+  v20 = 100;
+  v21 = v10;
   v11 = *(a1 + 32);
   v12 = *(a1 + 36);
-  v23 = -108;
-  v24 = v11 * a3 / v12;
-  v25 = 16;
-  v27[0] = &v26;
-  result = AppendBuffer::WriteBytes(a1, (a1 + 8), __src, 0x28uLL);
-  v14 = *MEMORY[0x277D85DE8];
-  return result;
+  v22 = -108;
+  v23 = v11 * a3 / v12;
+  v24 = 16;
+  v26[0] = &v25;
+  return AppendBuffer::WriteBytes(a1, (a1 + 8), __src, 0x28uLL);
 }
 
 void *BinaryBuffer::Append<BinaryBuffer::Array<objc_object  {objcproto15MTLSamplerState}* const>,_NSRange>(AppendBuffer *this, char a2, uint64_t a3, uint64_t a4, uint64_t *a5)
 {
   v8 = this;
-  v42 = *MEMORY[0x277D85DE8];
-  v34 = a2;
-  v9 = &v40;
-  v41 = &v40;
-  v37[0] = 1;
-  v37[1] = a2;
-  v10 = v38;
-  v37[2] = 32;
-  v40 = v38;
+  v41 = *MEMORY[0x277D85DE8];
+  v33 = a2;
+  v9 = &v39;
+  v40 = &v39;
+  v36[0] = 1;
+  v36[1] = a2;
+  v10 = v37;
+  v36[2] = 32;
+  v39 = v37;
   v11 = *(a4 + 8);
   if (v11)
   {
     v12 = *a4;
-    v13 = &v39;
+    v13 = &v38;
     do
     {
       v14 = *v12;
-      v15 = v41;
-      if (v13 - 2 <= v41)
+      v15 = v40;
+      if (v13 - 2 <= v40)
       {
         *(v13 - 9) = 109;
-        v15 = v41;
+        v15 = v40;
       }
 
       if (v13 <= v15)
@@ -2339,59 +2211,59 @@ void *BinaryBuffer::Append<BinaryBuffer::Array<objc_object  {objcproto15MTLSampl
         *(v13 - 1) = v14;
       }
 
-      v40 = v13;
+      v39 = v13;
       v13 = (v13 + 9);
       ++v12;
       --v11;
     }
 
     while (v11);
-    v9 = v41;
+    v9 = v40;
     v10 = v13 - 9;
   }
 
   if (v10 + 1 <= v9)
   {
     *v10 = 48;
-    v9 = v41;
+    v9 = v40;
   }
 
   if (v10 + 2 <= v9)
   {
     v10[1] = 64;
-    v9 = v41;
+    v9 = v40;
   }
 
   v16 = *a5;
   if (v10 + 3 <= v9)
   {
     v10[2] = 100;
-    v9 = v41;
+    v9 = v40;
   }
 
   if (v10 + 11 <= v9)
   {
     *(v10 + 3) = v16;
-    v9 = v41;
+    v9 = v40;
   }
 
   v17 = a5[1];
   if (v10 + 12 <= v9)
   {
     v10[11] = 100;
-    v9 = v41;
+    v9 = v40;
   }
 
   if (v10 + 20 <= v9)
   {
     *(v10 + 12) = v17;
-    v9 = v41;
+    v9 = v40;
   }
 
   if (v10 + 21 <= v9)
   {
     v10[20] = 80;
-    v9 = v41;
+    v9 = v40;
   }
 
   v19 = LODWORD(this[1]._vptr$AppendBuffer);
@@ -2399,36 +2271,36 @@ void *BinaryBuffer::Append<BinaryBuffer::Array<objc_object  {objcproto15MTLSampl
   if (v10 + 22 <= v9)
   {
     v10[21] = -108;
-    v9 = v41;
+    v9 = v40;
   }
 
   v20 = v10 + 30;
   if (v10 + 30 <= v9)
   {
     *(v10 + 22) = v19 * a3 / v18;
-    v9 = v41;
+    v9 = v40;
   }
 
   v21 = (v10 + 31);
   if (v21 <= v9)
   {
     *v20 = 16;
-    v9 = v41;
+    v9 = v40;
   }
 
-  v40 = v21;
+  v39 = v21;
   if (v21 <= v9)
   {
-    v31 = v21 - v37;
+    v31 = v21 - v36;
     p_stream = &this->stream;
-    p_src = v37;
+    p_src = v36;
   }
 
   else
   {
     LOBYTE(__src) = 1;
     AppendBuffer::WriteBytes(this, &this->stream, &__src, 1uLL);
-    AppendBuffer::WriteBytes(v8, &v8->stream, &v34, 1uLL);
+    AppendBuffer::WriteBytes(v8, &v8->stream, &v33, 1uLL);
     LOBYTE(__src) = 32;
     AppendBuffer::WriteBytes(v8, &v8->stream, &__src, 1uLL);
     if (*(a4 + 8))
@@ -2437,8 +2309,8 @@ void *BinaryBuffer::Append<BinaryBuffer::Array<objc_object  {objcproto15MTLSampl
       do
       {
         __src = *(*a4 + 8 * v22);
-        v36 = 109;
-        AppendBuffer::WriteBytes(v8, &v8->stream, &v36, 1uLL);
+        v35 = 109;
+        AppendBuffer::WriteBytes(v8, &v8->stream, &v35, 1uLL);
         AppendBuffer::WriteBytes(v8, &v8->stream, &__src, 8uLL);
         ++v22;
       }
@@ -2451,24 +2323,24 @@ void *BinaryBuffer::Append<BinaryBuffer::Array<objc_object  {objcproto15MTLSampl
     LOBYTE(__src) = 64;
     AppendBuffer::WriteBytes(v8, &v8->stream, &__src, 1uLL);
     __src = *a5;
-    v36 = 100;
-    AppendBuffer::WriteBytes(v8, &v8->stream, &v36, 1uLL);
+    v35 = 100;
+    AppendBuffer::WriteBytes(v8, &v8->stream, &v35, 1uLL);
     AppendBuffer::WriteBytes(v8, &v8->stream, &__src, 8uLL);
     __src = a5[1];
-    v36 = 100;
-    AppendBuffer::WriteBytes(v8, &v8->stream, &v36, 1uLL);
+    v35 = 100;
+    AppendBuffer::WriteBytes(v8, &v8->stream, &v35, 1uLL);
     AppendBuffer::WriteBytes(v8, &v8->stream, &__src, 8uLL);
     LOBYTE(__src) = 80;
     AppendBuffer::WriteBytes(v8, &v8->stream, &__src, 1uLL);
     v24 = LODWORD(v8[1]._vptr$AppendBuffer);
     v23 = HIDWORD(v8[1]._vptr$AppendBuffer);
-    v25 = v40;
-    v26 = (v40 + 1);
-    v27 = v41;
-    if ((v40 + 1) <= v41)
+    v25 = v39;
+    v26 = (v39 + 1);
+    v27 = v40;
+    if ((v39 + 1) <= v40)
     {
-      *v40 = -108;
-      v27 = v41;
+      *v39 = -108;
+      v27 = v40;
     }
 
     v28 = (v25 + 9);
@@ -2477,7 +2349,7 @@ void *BinaryBuffer::Append<BinaryBuffer::Array<objc_object  {objcproto15MTLSampl
       *v26 = v24 * a3 / v23;
     }
 
-    v40 = v28;
+    v39 = v28;
     LOBYTE(__src) = 16;
     p_stream = &v8->stream;
     p_src = &__src;
@@ -2485,16 +2357,1426 @@ void *BinaryBuffer::Append<BinaryBuffer::Array<objc_object  {objcproto15MTLSampl
     v31 = 1;
   }
 
-  result = AppendBuffer::WriteBytes(this, p_stream, p_src, v31);
-  v33 = *MEMORY[0x277D85DE8];
-  return result;
+  return AppendBuffer::WriteBytes(this, p_stream, p_src, v31);
 }
 
 void *BinaryBuffer::Append<BinaryBuffer::Array<objc_object  {objcproto15MTLSamplerState}* const>,float const*,float const,_NSRange>(AppendBuffer *this, char a2, uint64_t a3, uint64_t **a4, uint64_t *a5, uint64_t *a6, uint64_t *a7)
 {
   v12 = this;
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
+  v38 = a2;
+  v13 = &v43;
+  v44 = &v43;
+  v40[0] = 1;
+  v40[1] = a2;
+  v14 = v41;
+  v40[2] = 32;
+  v43 = v41;
+  v15 = a4[1];
+  if (v15)
+  {
+    v16 = *a4;
+    v17 = &v42;
+    do
+    {
+      v18 = *v16;
+      v19 = v44;
+      if (v17 - 2 <= v44)
+      {
+        *(v17 - 9) = 109;
+        v19 = v44;
+      }
+
+      if (v17 <= v19)
+      {
+        *(v17 - 1) = v18;
+      }
+
+      v43 = v17;
+      v17 = (v17 + 9);
+      ++v16;
+      v15 = (v15 - 1);
+    }
+
+    while (v15);
+    v13 = v44;
+    v14 = v17 - 9;
+  }
+
+  if (v14 + 1 <= v13)
+  {
+    *v14 = 48;
+    v13 = v44;
+  }
+
+  v20 = *a5;
+  if (v14 + 2 <= v13)
+  {
+    v14[1] = 109;
+    v13 = v44;
+  }
+
+  if (v14 + 10 <= v13)
+  {
+    *(v14 + 2) = v20;
+    v13 = v44;
+  }
+
+  v43 = (v14 + 10);
+  v21 = *a6;
+  if (v14 + 11 <= v13)
+  {
+    v14[10] = 109;
+    v13 = v44;
+  }
+
+  if (v14 + 19 <= v13)
+  {
+    *(v14 + 11) = v21;
+    v13 = v44;
+  }
+
+  if (v14 + 20 <= v13)
+  {
+    v14[19] = 64;
+    v13 = v44;
+  }
+
+  v22 = *a7;
+  if (v14 + 21 <= v13)
+  {
+    v14[20] = 100;
+    v13 = v44;
+  }
+
+  if (v14 + 29 <= v13)
+  {
+    *(v14 + 21) = v22;
+    v13 = v44;
+  }
+
+  v23 = a7[1];
+  if (v14 + 30 <= v13)
+  {
+    v14[29] = 100;
+    v13 = v44;
+  }
+
+  if (v14 + 38 <= v13)
+  {
+    *(v14 + 30) = v23;
+    v13 = v44;
+  }
+
+  if (v14 + 39 <= v13)
+  {
+    v14[38] = 80;
+    v13 = v44;
+  }
+
+  v25 = LODWORD(this[1]._vptr$AppendBuffer);
+  v24 = HIDWORD(this[1]._vptr$AppendBuffer);
+  if (v14 + 40 <= v13)
+  {
+    v14[39] = -108;
+    v13 = v44;
+  }
+
+  v26 = v14 + 48;
+  if (v14 + 48 <= v13)
+  {
+    *(v14 + 5) = v25 * a3 / v24;
+    v13 = v44;
+  }
+
+  v27 = (v14 + 49);
+  if (v27 <= v13)
+  {
+    *v26 = 16;
+    v13 = v44;
+  }
+
+  v43 = v27;
+  if (v27 <= v13)
+  {
+    v36 = v27 - v40;
+    p_stream = &this->stream;
+    p_src = v40;
+  }
+
+  else
+  {
+    __src = 1;
+    AppendBuffer::WriteBytes(this, &this->stream, &__src, 1uLL);
+    AppendBuffer::WriteBytes(v12, &v12->stream, &v38, 1uLL);
+    BinaryBuffer::WriteArguments<AppendBuffer::StreamBuffer,BinaryBuffer::Array<objc_object  {objcproto15MTLSamplerState}* const>,float const*,float const,_NSRange>(v12, &v12->stream, a4, a5, a6, a7);
+    v29 = LODWORD(v12[1]._vptr$AppendBuffer);
+    v28 = HIDWORD(v12[1]._vptr$AppendBuffer);
+    v30 = v43;
+    v31 = (v43 + 1);
+    v32 = v44;
+    if ((v43 + 1) <= v44)
+    {
+      *v43 = -108;
+      v32 = v44;
+    }
+
+    v33 = (v30 + 9);
+    if (v33 <= v32)
+    {
+      *v31 = v29 * a3 / v28;
+    }
+
+    v43 = v33;
+    __src = 16;
+    p_stream = &v12->stream;
+    p_src = &__src;
+    this = v12;
+    v36 = 1;
+  }
+
+  return AppendBuffer::WriteBytes(this, p_stream, p_src, v36);
+}
+
+void *BinaryBuffer::Append<MTLRegion>(uint64_t a1, char a2, uint64_t a3, uint64_t *a4)
+{
+  v28[2] = *MEMORY[0x277D85DE8];
+  v28[1] = v28;
+  __src[0] = 1;
+  __src[1] = a2;
+  qmemcpy(v11, "@@d", sizeof(v11));
+  v4 = a4[1];
+  v12 = *a4;
+  v14 = v4;
+  v5 = a4[3];
+  v16 = a4[2];
+  qmemcpy(v17, "P@d", sizeof(v17));
+  v13 = 100;
+  v15 = 100;
+  v18 = v5;
+  v19 = 100;
+  v6 = a4[5];
+  v20 = a4[4];
+  v21 = 100;
+  v22 = v6;
+  v23 = 20560;
+  v7 = *(a1 + 32);
+  v8 = *(a1 + 36);
+  v24 = -108;
+  v25 = v7 * a3 / v8;
+  v26 = 16;
+  v28[0] = &v27;
+  return AppendBuffer::WriteBytes(a1, (a1 + 8), __src, 0x48uLL);
+}
+
+void *BinaryBuffer::Append<BinaryBuffer::Array<objc_object  {objcproto7MTLHeap}* const>,unsigned long>(AppendBuffer *this, char a2, uint64_t a3, uint64_t **a4, uint64_t *a5)
+{
+  v8 = this;
+  v38 = *MEMORY[0x277D85DE8];
+  v31 = a2;
+  v9 = &v36;
+  v37 = &v36;
+  v33[0] = 1;
+  v33[1] = a2;
+  v10 = v34;
+  v33[2] = 32;
+  v36 = v34;
+  v11 = a4[1];
+  if (v11)
+  {
+    v12 = *a4;
+    v13 = &v35;
+    do
+    {
+      v14 = *v12;
+      v15 = v37;
+      if (v13 - 2 <= v37)
+      {
+        *(v13 - 9) = 109;
+        v15 = v37;
+      }
+
+      if (v13 <= v15)
+      {
+        *(v13 - 1) = v14;
+      }
+
+      v36 = v13;
+      v13 = (v13 + 9);
+      ++v12;
+      v11 = (v11 - 1);
+    }
+
+    while (v11);
+    v9 = v37;
+    v10 = v13 - 9;
+  }
+
+  if (v10 + 1 <= v9)
+  {
+    *v10 = 48;
+    v9 = v37;
+  }
+
+  v16 = *a5;
+  if (v10 + 2 <= v9)
+  {
+    v10[1] = 100;
+    v9 = v37;
+  }
+
+  if (v10 + 10 <= v9)
+  {
+    *(v10 + 2) = v16;
+    v9 = v37;
+  }
+
+  v18 = LODWORD(this[1]._vptr$AppendBuffer);
+  v17 = HIDWORD(this[1]._vptr$AppendBuffer);
+  if (v10 + 11 <= v9)
+  {
+    v10[10] = -108;
+    v9 = v37;
+  }
+
+  v19 = v10 + 19;
+  if (v10 + 19 <= v9)
+  {
+    *(v10 + 11) = v18 * a3 / v17;
+    v9 = v37;
+  }
+
+  v20 = (v10 + 20);
+  if (v20 <= v9)
+  {
+    *v19 = 16;
+    v9 = v37;
+  }
+
+  v36 = v20;
+  if (v20 <= v9)
+  {
+    v29 = v20 - v33;
+    p_stream = &this->stream;
+    p_src = v33;
+  }
+
+  else
+  {
+    __src = 1;
+    AppendBuffer::WriteBytes(this, &this->stream, &__src, 1uLL);
+    AppendBuffer::WriteBytes(v8, &v8->stream, &v31, 1uLL);
+    BinaryBuffer::WriteArguments<AppendBuffer::StreamBuffer,BinaryBuffer::Array<objc_object  {objcproto7MTLHeap}* const>,unsigned long>(v8, &v8->stream, a4, a5);
+    v22 = LODWORD(v8[1]._vptr$AppendBuffer);
+    v21 = HIDWORD(v8[1]._vptr$AppendBuffer);
+    v23 = v36;
+    v24 = (v36 + 1);
+    v25 = v37;
+    if ((v36 + 1) <= v37)
+    {
+      *v36 = -108;
+      v25 = v37;
+    }
+
+    v26 = (v23 + 9);
+    if (v26 <= v25)
+    {
+      *v24 = v22 * a3 / v21;
+    }
+
+    v36 = v26;
+    __src = 16;
+    p_stream = &v8->stream;
+    p_src = &__src;
+    this = v8;
+    v29 = 1;
+  }
+
+  return AppendBuffer::WriteBytes(this, p_stream, p_src, v29);
+}
+
+void *BinaryBuffer::Append<BinaryBuffer::Array<objc_object  {objcproto11MTLResource}* const>,unsigned long,unsigned long>(AppendBuffer *this, char a2, uint64_t a3, uint64_t **a4, uint64_t *a5, uint64_t *a6)
+{
+  v10 = this;
+  v41 = *MEMORY[0x277D85DE8];
+  v34 = a2;
+  v11 = &v39;
+  v40 = &v39;
+  v36[0] = 1;
+  v36[1] = a2;
+  v12 = v37;
+  v36[2] = 32;
+  v39 = v37;
+  v13 = a4[1];
+  if (v13)
+  {
+    v14 = *a4;
+    v15 = &v38;
+    do
+    {
+      v16 = *v14;
+      v17 = v40;
+      if (v15 - 2 <= v40)
+      {
+        *(v15 - 9) = 109;
+        v17 = v40;
+      }
+
+      if (v15 <= v17)
+      {
+        *(v15 - 1) = v16;
+      }
+
+      v39 = v15;
+      v15 = (v15 + 9);
+      ++v14;
+      v13 = (v13 - 1);
+    }
+
+    while (v13);
+    v11 = v40;
+    v12 = v15 - 9;
+  }
+
+  if (v12 + 1 <= v11)
+  {
+    *v12 = 48;
+    v11 = v40;
+  }
+
+  v18 = *a5;
+  if (v12 + 2 <= v11)
+  {
+    v12[1] = 100;
+    v11 = v40;
+  }
+
+  if (v12 + 10 <= v11)
+  {
+    *(v12 + 2) = v18;
+    v11 = v40;
+  }
+
+  v19 = *a6;
+  if (v12 + 11 <= v11)
+  {
+    v12[10] = 100;
+    v11 = v40;
+  }
+
+  if (v12 + 19 <= v11)
+  {
+    *(v12 + 11) = v19;
+    v11 = v40;
+  }
+
+  v21 = LODWORD(this[1]._vptr$AppendBuffer);
+  v20 = HIDWORD(this[1]._vptr$AppendBuffer);
+  if (v12 + 20 <= v11)
+  {
+    v12[19] = -108;
+    v11 = v40;
+  }
+
+  v22 = v12 + 28;
+  if (v12 + 28 <= v11)
+  {
+    *(v12 + 20) = v21 * a3 / v20;
+    v11 = v40;
+  }
+
+  v23 = (v12 + 29);
+  if (v23 <= v11)
+  {
+    *v22 = 16;
+    v11 = v40;
+  }
+
+  v39 = v23;
+  if (v23 <= v11)
+  {
+    v32 = v23 - v36;
+    p_stream = &this->stream;
+    p_src = v36;
+  }
+
+  else
+  {
+    __src = 1;
+    AppendBuffer::WriteBytes(this, &this->stream, &__src, 1uLL);
+    AppendBuffer::WriteBytes(v10, &v10->stream, &v34, 1uLL);
+    BinaryBuffer::WriteArguments<AppendBuffer::StreamBuffer,BinaryBuffer::Array<objc_object  {objcproto11MTLResource}* const>,unsigned long,unsigned long>(v10, &v10->stream, a4, a5, a6);
+    v25 = LODWORD(v10[1]._vptr$AppendBuffer);
+    v24 = HIDWORD(v10[1]._vptr$AppendBuffer);
+    v26 = v39;
+    v27 = (v39 + 1);
+    v28 = v40;
+    if ((v39 + 1) <= v40)
+    {
+      *v39 = -108;
+      v28 = v40;
+    }
+
+    v29 = (v26 + 9);
+    if (v29 <= v28)
+    {
+      *v27 = v25 * a3 / v24;
+    }
+
+    v39 = v29;
+    __src = 16;
+    p_stream = &v10->stream;
+    p_src = &__src;
+    this = v10;
+    v32 = 1;
+  }
+
+  return AppendBuffer::WriteBytes(this, p_stream, p_src, v32);
+}
+
+void *BinaryBuffer::Append<MTLPrimitiveType,unsigned long,unsigned long>(uint64_t a1, char a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t *a6)
+{
+  v22[2] = *MEMORY[0x277D85DE8];
+  v22[1] = v22;
+  __src[0] = 1;
+  __src[1] = a2;
+  v6 = *a4;
+  __src[2] = 100;
+  v13 = v6;
+  v7 = *a5;
+  v14 = 100;
+  v15 = v7;
+  v8 = *a6;
+  v16 = 100;
+  v17 = v8;
+  v9 = *(a1 + 32);
+  v10 = *(a1 + 36);
+  v18 = -108;
+  v19 = v9 * a3 / v10;
+  v20 = 16;
+  v22[0] = &v21;
+  return AppendBuffer::WriteBytes(a1, (a1 + 8), __src, 0x27uLL);
+}
+
+void *BinaryBuffer::Append<MTLPrimitiveType,unsigned long,unsigned long,unsigned long>(uint64_t a1, char a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t *a6, uint64_t *a7)
+{
+  v26[2] = *MEMORY[0x277D85DE8];
+  v26[1] = v26;
+  __src[0] = 1;
+  __src[1] = a2;
+  v7 = *a4;
+  __src[2] = 100;
+  v15 = v7;
+  v8 = *a5;
+  v16 = 100;
+  v17 = v8;
+  v9 = *a6;
+  v18 = 100;
+  v19 = v9;
+  v10 = *a7;
+  v20 = 100;
+  v21 = v10;
+  v11 = *(a1 + 32);
+  v12 = *(a1 + 36);
+  v22 = -108;
+  v23 = v11 * a3 / v12;
+  v24 = 16;
+  v26[0] = &v25;
+  return AppendBuffer::WriteBytes(a1, (a1 + 8), __src, 0x30uLL);
+}
+
+void *BinaryBuffer::Append<MTLPrimitiveType,unsigned long,unsigned long,unsigned long,unsigned long>(uint64_t a1, char a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t *a6, uint64_t *a7, uint64_t *a8)
+{
+  v30[2] = *MEMORY[0x277D85DE8];
+  v30[1] = v30;
+  __src[0] = 1;
+  __src[1] = a2;
+  v8 = *a4;
+  __src[2] = 100;
+  v17 = v8;
+  v9 = *a5;
+  v18 = 100;
+  v19 = v9;
+  v10 = *a6;
+  v20 = 100;
+  v21 = v10;
+  v11 = *a7;
+  v22 = 100;
+  v23 = v11;
+  v12 = *a8;
+  v24 = 100;
+  v25 = v12;
+  v13 = *(a1 + 32);
+  v14 = *(a1 + 36);
+  v26 = -108;
+  v27 = v13 * a3 / v14;
+  v28 = 16;
+  v30[0] = v29;
+  return AppendBuffer::WriteBytes(a1, (a1 + 8), __src, 0x39uLL);
+}
+
+void *BinaryBuffer::Append<MTLPrimitiveType,objc_object  {objcproto9MTLBuffer}*,unsigned long>(uint64_t a1, char a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t *a6)
+{
+  v22[2] = *MEMORY[0x277D85DE8];
+  v22[1] = v22;
+  __src[0] = 1;
+  __src[1] = a2;
+  v6 = *a4;
+  __src[2] = 100;
+  v13 = v6;
+  v7 = *a5;
+  v14 = 109;
+  v15 = v7;
+  v8 = *a6;
+  v16 = 100;
+  v17 = v8;
+  v9 = *(a1 + 32);
+  v10 = *(a1 + 36);
+  v18 = -108;
+  v19 = v9 * a3 / v10;
+  v20 = 16;
+  v22[0] = &v21;
+  return AppendBuffer::WriteBytes(a1, (a1 + 8), __src, 0x27uLL);
+}
+
+void *BinaryBuffer::Append<MTLPrimitiveType,unsigned long,MTLIndexType,objc_object  {objcproto9MTLBuffer}*,unsigned long>(uint64_t a1, char a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t *a6, uint64_t *a7, uint64_t *a8)
+{
+  v30[2] = *MEMORY[0x277D85DE8];
+  v30[1] = v30;
+  __src[0] = 1;
+  __src[1] = a2;
+  v8 = *a4;
+  __src[2] = 100;
+  v17 = v8;
+  v9 = *a5;
+  v18 = 100;
+  v19 = v9;
+  v10 = *a6;
+  v20 = 100;
+  v21 = v10;
+  v11 = *a7;
+  v22 = 109;
+  v23 = v11;
+  v12 = *a8;
+  v24 = 100;
+  v25 = v12;
+  v13 = *(a1 + 32);
+  v14 = *(a1 + 36);
+  v26 = -108;
+  v27 = v13 * a3 / v14;
+  v28 = 16;
+  v30[0] = v29;
+  return AppendBuffer::WriteBytes(a1, (a1 + 8), __src, 0x39uLL);
+}
+
+void *BinaryBuffer::Append<MTLPrimitiveType,unsigned long,MTLIndexType,objc_object  {objcproto9MTLBuffer}*,unsigned long,unsigned long>(uint64_t a1, char a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t *a6, uint64_t *a7, uint64_t *a8, uint64_t *a9)
+{
+  v34[2] = *MEMORY[0x277D85DE8];
+  v34[1] = v34;
+  __src[0] = 1;
+  __src[1] = a2;
+  v9 = *a4;
+  __src[2] = 100;
+  v19 = v9;
+  v10 = *a5;
+  v20 = 100;
+  v21 = v10;
+  v11 = *a6;
+  v22 = 100;
+  v23 = v11;
+  v12 = *a7;
+  v24 = 109;
+  v25 = v12;
+  v13 = *a8;
+  v26 = 100;
+  v27 = v13;
+  v14 = *a9;
+  v28 = 100;
+  v29 = v14;
+  v15 = *(a1 + 32);
+  v16 = *(a1 + 36);
+  v30 = -108;
+  v31 = v15 * a3 / v16;
+  v32 = 16;
+  v34[0] = v33;
+  return AppendBuffer::WriteBytes(a1, (a1 + 8), __src, 0x42uLL);
+}
+
+void *BinaryBuffer::Append<MTLPrimitiveType,unsigned long,MTLIndexType,objc_object  {objcproto9MTLBuffer}*,unsigned long,unsigned long,unsigned long,unsigned long>(uint64_t a1, char a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t *a6, uint64_t *a7, uint64_t *a8, uint64_t *a9, uint64_t *a10, uint64_t *a11)
+{
+  v42[2] = *MEMORY[0x277D85DE8];
+  v42[1] = v42;
+  __src[0] = 1;
+  __src[1] = a2;
+  v11 = *a4;
+  __src[2] = 100;
+  v23 = v11;
+  v12 = *a5;
+  v24 = 100;
+  v25 = v12;
+  v13 = *a6;
+  v26 = 100;
+  v27 = v13;
+  v14 = *a7;
+  v28 = 109;
+  v29 = v14;
+  v15 = *a8;
+  v30 = 100;
+  v31 = v15;
+  v16 = *a9;
+  v32 = 100;
+  v33 = v16;
+  v17 = *a10;
+  v34 = 100;
+  v35 = v17;
+  v18 = *a11;
+  v36 = 100;
+  v37 = v18;
+  v19 = *(a1 + 32);
+  v20 = *(a1 + 36);
+  v38 = -108;
+  v39 = v19 * a3 / v20;
+  v40 = 16;
+  v42[0] = &v41;
+  return AppendBuffer::WriteBytes(a1, (a1 + 8), __src, 0x54uLL);
+}
+
+void *BinaryBuffer::Append<MTLPrimitiveType,MTLIndexType,objc_object  {objcproto9MTLBuffer}*,unsigned long,objc_object  {objcproto9MTLBuffer},unsigned long>(uint64_t a1, char a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t *a6, uint64_t *a7, uint64_t *a8, uint64_t *a9)
+{
+  v34[2] = *MEMORY[0x277D85DE8];
+  v34[1] = v34;
+  __src[0] = 1;
+  __src[1] = a2;
+  v9 = *a4;
+  __src[2] = 100;
+  v19 = v9;
+  v10 = *a5;
+  v20 = 100;
+  v21 = v10;
+  v11 = *a6;
+  v22 = 109;
+  v23 = v11;
+  v12 = *a7;
+  v24 = 100;
+  v25 = v12;
+  v13 = *a8;
+  v26 = 109;
+  v27 = v13;
+  v14 = *a9;
+  v28 = 100;
+  v29 = v14;
+  v15 = *(a1 + 32);
+  v16 = *(a1 + 36);
+  v30 = -108;
+  v31 = v15 * a3 / v16;
+  v32 = 16;
+  v34[0] = v33;
+  return AppendBuffer::WriteBytes(a1, (a1 + 8), __src, 0x42uLL);
+}
+
+void *BinaryBuffer::Append<unsigned long,unsigned long,unsigned long,objc_object  {objcproto9MTLBuffer}*,unsigned long,unsigned long,unsigned long>(uint64_t a1, char a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t *a6, uint64_t *a7, uint64_t *a8, uint64_t *a9, uint64_t *a10)
+{
+  v38[2] = *MEMORY[0x277D85DE8];
+  v38[1] = v38;
+  __src[0] = 1;
+  __src[1] = a2;
+  v10 = *a4;
+  __src[2] = 100;
+  v21 = v10;
+  v11 = *a5;
+  v22 = 100;
+  v23 = v11;
+  v12 = *a6;
+  v24 = 100;
+  v25 = v12;
+  v13 = *a7;
+  v26 = 109;
+  v27 = v13;
+  v14 = *a8;
+  v28 = 100;
+  v29 = v14;
+  v15 = *a9;
+  v30 = 100;
+  v31 = v15;
+  v16 = *a10;
+  v32 = 100;
+  v33 = v16;
+  v17 = *(a1 + 32);
+  v18 = *(a1 + 36);
+  v34 = -108;
+  v35 = v17 * a3 / v18;
+  v36 = 16;
+  v38[0] = v37;
+  return AppendBuffer::WriteBytes(a1, (a1 + 8), __src, 0x4BuLL);
+}
+
+void *BinaryBuffer::Append<unsigned long,unsigned long,unsigned long,objc_object  {objcproto9MTLBuffer}*,unsigned long,objc_object  {objcproto9MTLBuffer},unsigned long,unsigned long,unsigned long>(uint64_t a1, char a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t *a6, uint64_t *a7, uint64_t *a8, uint64_t *a9, uint64_t *a10, uint64_t *a11, uint64_t *a12)
+{
+  v46[2] = *MEMORY[0x277D85DE8];
+  v46[1] = v46;
+  __src[0] = 1;
+  __src[1] = a2;
+  v12 = *a4;
+  __src[2] = 100;
+  v25 = v12;
+  v13 = *a5;
+  v26 = 100;
+  v27 = v13;
+  v14 = *a6;
+  v28 = 100;
+  v29 = v14;
+  v15 = *a7;
+  v30 = 109;
+  v31 = v15;
+  v16 = *a8;
+  v32 = 100;
+  v33 = v16;
+  v17 = *a9;
+  v34 = 109;
+  v35 = v17;
+  v18 = *a10;
+  v36 = 100;
+  v37 = v18;
+  v19 = *a11;
+  v38 = 100;
+  v39 = v19;
+  v20 = *a12;
+  v40 = 100;
+  v41 = v20;
+  v21 = *(a1 + 32);
+  v22 = *(a1 + 36);
+  v42 = -108;
+  v43 = v21 * a3 / v22;
+  v44 = 16;
+  v46[0] = v45;
+  return AppendBuffer::WriteBytes(a1, (a1 + 8), __src, 0x5DuLL);
+}
+
+void *BinaryBuffer::Append<unsigned long,objc_object  {objcproto9MTLBuffer}*,unsigned long,objc_object  {objcproto9MTLBuffer},unsigned long>(uint64_t a1, char a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t *a6, uint64_t *a7, uint64_t *a8)
+{
+  v30[2] = *MEMORY[0x277D85DE8];
+  v30[1] = v30;
+  __src[0] = 1;
+  __src[1] = a2;
+  v8 = *a4;
+  __src[2] = 100;
+  v17 = v8;
+  v9 = *a5;
+  v18 = 109;
+  v19 = v9;
+  v10 = *a6;
+  v20 = 100;
+  v21 = v10;
+  v11 = *a7;
+  v22 = 109;
+  v23 = v11;
+  v12 = *a8;
+  v24 = 100;
+  v25 = v12;
+  v13 = *(a1 + 32);
+  v14 = *(a1 + 36);
+  v26 = -108;
+  v27 = v13 * a3 / v14;
+  v28 = 16;
+  v30[0] = v29;
+  return AppendBuffer::WriteBytes(a1, (a1 + 8), __src, 0x39uLL);
+}
+
+void *BinaryBuffer::Append<unsigned long,objc_object  {objcproto9MTLBuffer}*,unsigned long,objc_object  {objcproto9MTLBuffer},unsigned long,objc_object  {objcproto9MTLBuffer},unsigned long>(uint64_t a1, char a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t *a6, uint64_t *a7, uint64_t *a8, uint64_t *a9, uint64_t *a10)
+{
+  v38[2] = *MEMORY[0x277D85DE8];
+  v38[1] = v38;
+  __src[0] = 1;
+  __src[1] = a2;
+  v10 = *a4;
+  __src[2] = 100;
+  v21 = v10;
+  v11 = *a5;
+  v22 = 109;
+  v23 = v11;
+  v12 = *a6;
+  v24 = 100;
+  v25 = v12;
+  v13 = *a7;
+  v26 = 109;
+  v27 = v13;
+  v14 = *a8;
+  v28 = 100;
+  v29 = v14;
+  v15 = *a9;
+  v30 = 109;
+  v31 = v15;
+  v16 = *a10;
+  v32 = 100;
+  v33 = v16;
+  v17 = *(a1 + 32);
+  v18 = *(a1 + 36);
+  v34 = -108;
+  v35 = v17 * a3 / v18;
+  v36 = 16;
+  v38[0] = v37;
+  return AppendBuffer::WriteBytes(a1, (a1 + 8), __src, 0x4BuLL);
+}
+
+void *BinaryBuffer::Append<float,float,float,float>(uint64_t a1, char a2, uint64_t a3, int *a4, int *a5, int *a6, int *a7)
+{
+  v26[2] = *MEMORY[0x277D85DE8];
+  v26[1] = v26;
+  __src[0] = 1;
+  __src[1] = a2;
+  v7 = *a4;
+  __src[2] = 106;
+  v15 = v7;
+  v8 = *a5;
+  v16 = 106;
+  v17 = v8;
+  v9 = *a6;
+  v18 = 106;
+  v19 = v9;
+  v10 = *a7;
+  v20 = 106;
+  v21 = v10;
+  v11 = *(a1 + 32);
+  v12 = *(a1 + 36);
+  v22 = -108;
+  v23 = v11 * a3 / v12;
+  v24 = 16;
+  v26[0] = &v25;
+  return AppendBuffer::WriteBytes(a1, (a1 + 8), __src, 0x20uLL);
+}
+
+void *BinaryBuffer::Append<float,float,float>(uint64_t a1, char a2, uint64_t a3, int *a4, int *a5, int *a6)
+{
+  v22[2] = *MEMORY[0x277D85DE8];
+  v22[1] = v22;
+  __src[0] = 1;
+  __src[1] = a2;
+  v6 = *a4;
+  __src[2] = 106;
+  v13 = v6;
+  v7 = *a5;
+  v14 = 106;
+  v15 = v7;
+  v8 = *a6;
+  v16 = 106;
+  v17 = v8;
+  v9 = *(a1 + 32);
+  v10 = *(a1 + 36);
+  v18 = -108;
+  v19 = v9 * a3 / v10;
+  v20 = 16;
+  v22[0] = v21;
+  return AppendBuffer::WriteBytes(a1, (a1 + 8), __src, 0x1BuLL);
+}
+
+void *BinaryBuffer::Append<MTLScissorRect>(uint64_t a1, char a2, uint64_t a3, uint64_t *a4)
+{
+  v23[2] = *MEMORY[0x277D85DE8];
+  v23[1] = v23;
+  __src[0] = 1;
+  __src[1] = a2;
+  v10 = 25664;
+  v4 = a4[1];
+  v11 = *a4;
+  v12 = 100;
+  v13 = v4;
+  v14 = 100;
+  v5 = a4[3];
+  v15 = a4[2];
+  v16 = 100;
+  v17 = v5;
+  v18 = 80;
+  v6 = *(a1 + 32);
+  v7 = *(a1 + 36);
+  v19 = -108;
+  v20 = v6 * a3 / v7;
+  v21 = 16;
+  v23[0] = v22;
+  return AppendBuffer::WriteBytes(a1, (a1 + 8), __src, 0x32uLL);
+}
+
+void *BinaryBuffer::Append<unsigned int,unsigned int>(uint64_t a1, char a2, uint64_t a3, int *a4, int *a5)
+{
+  v18[2] = *MEMORY[0x277D85DE8];
+  v18[1] = v18;
+  __src[0] = 1;
+  __src[1] = a2;
+  v5 = *a4;
+  __src[2] = 99;
+  v11 = v5;
+  v6 = *a5;
+  v12 = 99;
+  v13 = v6;
+  v7 = *(a1 + 32);
+  v8 = *(a1 + 36);
+  v14 = -108;
+  v15 = v7 * a3 / v8;
+  v16 = 16;
+  v18[0] = &v17;
+  return AppendBuffer::WriteBytes(a1, (a1 + 8), __src, 0x16uLL);
+}
+
+void *BinaryBuffer::Append<MTLViewport>(uint64_t a1, char a2, uint64_t a3, uint64_t *a4)
+{
+  v25[2] = *MEMORY[0x277D85DE8];
+  v4 = a4[1];
+  v10 = *a4;
+  v12 = v4;
+  v5 = a4[3];
+  v14 = a4[2];
+  v16 = v5;
+  v6 = a4[5];
+  v18 = a4[4];
+  v25[1] = v25;
+  __src[0] = 1;
+  __src[1] = a2;
+  v9 = 27456;
+  v11 = 107;
+  v13 = 107;
+  v15 = 107;
+  v17 = 107;
+  v19 = 107;
+  v20 = v6;
+  v21 = -27568;
+  v22 = *(a1 + 32) * a3 / *(a1 + 36);
+  v23 = 16;
+  v25[0] = &v24;
+  return AppendBuffer::WriteBytes(a1, (a1 + 8), __src, 0x44uLL);
+}
+
+void *BinaryBuffer::Append<BinaryBuffer::Array<MTLViewport const>,unsigned long>(AppendBuffer *this, char a2, uint64_t a3, void *a4, uint64_t *a5)
+{
+  v8 = this;
+  v47 = *MEMORY[0x277D85DE8];
   v39 = a2;
+  v9 = &v45;
+  v46 = &v45;
+  v42[0] = 1;
+  v42[1] = a2;
+  v10 = v43;
+  v42[2] = 32;
+  v45 = v43;
+  v11 = a4[1];
+  if (v11)
+  {
+    v12 = 0;
+    v13 = (*a4 + 24);
+    v14 = &v44;
+    do
+    {
+      v15 = v46;
+      if (v14 - 27 <= v46)
+      {
+        *(v14 - 28) = 64;
+        v15 = v46;
+      }
+
+      v16 = *(v13 - 3);
+      if ((v14 - 26) <= v15)
+      {
+        *(v14 - 27) = 107;
+        v15 = v46;
+      }
+
+      if ((v14 - 18) <= v15)
+      {
+        *(v14 - 26) = v16;
+        v15 = v46;
+      }
+
+      v17 = *(v13 - 2);
+      if ((v14 - 17) <= v15)
+      {
+        *(v14 - 18) = 107;
+        v15 = v46;
+      }
+
+      if ((v14 - 9) <= v15)
+      {
+        *(v14 - 17) = v17;
+        v15 = v46;
+      }
+
+      v18 = *(v13 - 1);
+      if ((v14 - 8) <= v15)
+      {
+        *(v14 - 9) = 107;
+        v15 = v46;
+      }
+
+      if (v14 <= v15)
+      {
+        *(v14 - 1) = v18;
+        v15 = v46;
+      }
+
+      v45 = v14;
+      v19 = *v13;
+      if ((v14 + 1) <= v15)
+      {
+        *v14 = 107;
+        v15 = v46;
+      }
+
+      if ((v14 + 9) <= v15)
+      {
+        *(v14 + 1) = v19;
+        v15 = v46;
+      }
+
+      v20 = v13[1];
+      if ((v14 + 10) <= v15)
+      {
+        v14[9] = 107;
+        v15 = v46;
+      }
+
+      if ((v14 + 18) <= v15)
+      {
+        *(v14 + 10) = v20;
+        v15 = v46;
+      }
+
+      v21 = v13[2];
+      if ((v14 + 19) <= v15)
+      {
+        v14[18] = 107;
+        v15 = v46;
+      }
+
+      if ((v14 + 27) <= v15)
+      {
+        *(v14 + 19) = v21;
+        v15 = v46;
+      }
+
+      if ((v14 + 28) <= v15)
+      {
+        v14[27] = 80;
+      }
+
+      v45 = v14 + 28;
+      ++v12;
+      v13 += 6;
+      v14 += 56;
+    }
+
+    while (v11 > v12);
+    v9 = v46;
+    v10 = v14 - 28;
+  }
+
+  if (v10 + 1 <= v9)
+  {
+    *v10 = 48;
+    v9 = v46;
+  }
+
+  v22 = *a5;
+  if (v10 + 2 <= v9)
+  {
+    v10[1] = 100;
+    v9 = v46;
+  }
+
+  if (v10 + 10 <= v9)
+  {
+    *(v10 + 2) = v22;
+    v9 = v46;
+  }
+
+  v24 = LODWORD(this[1]._vptr$AppendBuffer);
+  v23 = HIDWORD(this[1]._vptr$AppendBuffer);
+  if (v10 + 11 <= v9)
+  {
+    v10[10] = -108;
+    v9 = v46;
+  }
+
+  v25 = v10 + 19;
+  if (v10 + 19 <= v9)
+  {
+    *(v10 + 11) = v24 * a3 / v23;
+    v9 = v46;
+  }
+
+  v26 = v10 + 20;
+  if (v26 <= v9)
+  {
+    *v25 = 16;
+    v9 = v46;
+  }
+
+  v45 = v26;
+  if (v26 <= v9)
+  {
+    v37 = v26 - v42;
+    p_stream = &this->stream;
+    p_src = v42;
+  }
+
+  else
+  {
+    LOBYTE(__src) = 1;
+    AppendBuffer::WriteBytes(this, &this->stream, &__src, 1uLL);
+    AppendBuffer::WriteBytes(v8, &v8->stream, &v39, 1uLL);
+    LOBYTE(__src) = 32;
+    AppendBuffer::WriteBytes(v8, &v8->stream, &__src, 1uLL);
+    if (a4[1])
+    {
+      v27 = 0;
+      v28 = 0;
+      do
+      {
+        BinaryBuffer::WriteValue<AppendBuffer::StreamBuffer>(v8, &v8->stream, (*a4 + v27));
+        ++v28;
+        v27 += 48;
+      }
+
+      while (a4[1] > v28);
+    }
+
+    LOBYTE(__src) = 48;
+    AppendBuffer::WriteBytes(v8, &v8->stream, &__src, 1uLL);
+    __src = *a5;
+    v41 = 100;
+    AppendBuffer::WriteBytes(v8, &v8->stream, &v41, 1uLL);
+    AppendBuffer::WriteBytes(v8, &v8->stream, &__src, 8uLL);
+    v30 = LODWORD(v8[1]._vptr$AppendBuffer);
+    v29 = HIDWORD(v8[1]._vptr$AppendBuffer);
+    v31 = v45;
+    v32 = (v45 + 1);
+    v33 = v46;
+    if (v45 + 1 <= v46)
+    {
+      *v45 = -108;
+      v33 = v46;
+    }
+
+    v34 = v31 + 9;
+    if (v34 <= v33)
+    {
+      *v32 = v30 * a3 / v29;
+    }
+
+    v45 = v34;
+    LOBYTE(__src) = 16;
+    p_stream = &v8->stream;
+    p_src = &__src;
+    this = v8;
+    v37 = 1;
+  }
+
+  return AppendBuffer::WriteBytes(this, p_stream, p_src, v37);
+}
+
+void *BinaryBuffer::Append<BinaryBuffer::Array<MTLScissorRect const>,unsigned long>(AppendBuffer *this, char a2, uint64_t a3, void *a4, uint64_t *a5)
+{
+  v8 = this;
+  v44 = *MEMORY[0x277D85DE8];
+  v36 = a2;
+  v9 = &v42;
+  v43 = &v42;
+  v39[0] = 1;
+  v39[1] = a2;
+  v39[2] = 32;
+  v10 = a4[1];
+  if (v10)
+  {
+    v11 = v41;
+    v12 = (*a4 + 16);
+    do
+    {
+      v13 = v43;
+      if (v11 - 37 <= v43)
+      {
+        *(v11 - 38) = 64;
+        v13 = v43;
+      }
+
+      v14 = *(v12 - 2);
+      if ((v11 - 36) <= v13)
+      {
+        *(v11 - 37) = 100;
+        v13 = v43;
+      }
+
+      if ((v11 - 28) <= v13)
+      {
+        *(v11 - 36) = v14;
+        v13 = v43;
+      }
+
+      v42 = v11 - 28;
+      v15 = *(v12 - 1);
+      if ((v11 - 27) <= v13)
+      {
+        *(v11 - 28) = 100;
+        v13 = v43;
+      }
+
+      if ((v11 - 19) <= v13)
+      {
+        *(v11 - 27) = v15;
+        v13 = v43;
+      }
+
+      v16 = *v12;
+      if ((v11 - 18) <= v13)
+      {
+        *(v11 - 19) = 100;
+        v13 = v43;
+      }
+
+      if ((v11 - 10) <= v13)
+      {
+        *(v11 - 18) = v16;
+        v13 = v43;
+      }
+
+      v17 = v12[1];
+      if ((v11 - 9) <= v13)
+      {
+        *(v11 - 10) = 100;
+        v13 = v43;
+      }
+
+      if ((v11 - 1) <= v13)
+      {
+        *(v11 - 9) = v17;
+        v13 = v43;
+      }
+
+      if (v11 <= v13)
+      {
+        *(v11 - 1) = 80;
+      }
+
+      v42 = v11;
+      v11 += 38;
+      v12 += 4;
+      --v10;
+    }
+
+    while (v10);
+    v9 = v43;
+    v18 = v11 - 38;
+  }
+
+  else
+  {
+    v18 = v40;
+  }
+
+  if (v18 + 1 <= v9)
+  {
+    *v18 = 48;
+    v9 = v43;
+  }
+
+  v19 = *a5;
+  if (v18 + 2 <= v9)
+  {
+    v18[1] = 100;
+    v9 = v43;
+  }
+
+  if (v18 + 10 <= v9)
+  {
+    *(v18 + 2) = v19;
+    v9 = v43;
+  }
+
+  v21 = LODWORD(this[1]._vptr$AppendBuffer);
+  v20 = HIDWORD(this[1]._vptr$AppendBuffer);
+  if (v18 + 11 <= v9)
+  {
+    v18[10] = -108;
+    v9 = v43;
+  }
+
+  v22 = v18 + 19;
+  if (v18 + 19 <= v9)
+  {
+    *(v18 + 11) = v21 * a3 / v20;
+    v9 = v43;
+  }
+
+  v23 = v18 + 20;
+  if (v23 <= v9)
+  {
+    *v22 = 16;
+    v9 = v43;
+  }
+
+  v42 = v23;
+  if (v23 <= v9)
+  {
+    v34 = v23 - v39;
+    p_stream = &this->stream;
+    p_src = v39;
+  }
+
+  else
+  {
+    LOBYTE(__src) = 1;
+    AppendBuffer::WriteBytes(this, &this->stream, &__src, 1uLL);
+    AppendBuffer::WriteBytes(v8, &v8->stream, &v36, 1uLL);
+    LOBYTE(__src) = 32;
+    AppendBuffer::WriteBytes(v8, &v8->stream, &__src, 1uLL);
+    if (a4[1])
+    {
+      v24 = 0;
+      v25 = 0;
+      do
+      {
+        BinaryBuffer::WriteValue<AppendBuffer::StreamBuffer>(v8, &v8->stream, (*a4 + v24));
+        ++v25;
+        v24 += 32;
+      }
+
+      while (a4[1] > v25);
+    }
+
+    LOBYTE(__src) = 48;
+    AppendBuffer::WriteBytes(v8, &v8->stream, &__src, 1uLL);
+    __src = *a5;
+    v38 = 100;
+    AppendBuffer::WriteBytes(v8, &v8->stream, &v38, 1uLL);
+    AppendBuffer::WriteBytes(v8, &v8->stream, &__src, 8uLL);
+    v27 = LODWORD(v8[1]._vptr$AppendBuffer);
+    v26 = HIDWORD(v8[1]._vptr$AppendBuffer);
+    v28 = v42;
+    v29 = (v42 + 1);
+    v30 = v43;
+    if (v42 + 1 <= v43)
+    {
+      *v42 = -108;
+      v30 = v43;
+    }
+
+    v31 = v28 + 9;
+    if (v31 <= v30)
+    {
+      *v29 = v27 * a3 / v26;
+    }
+
+    v42 = v31;
+    LOBYTE(__src) = 16;
+    p_stream = &v8->stream;
+    p_src = &__src;
+    this = v8;
+    v34 = 1;
+  }
+
+  return AppendBuffer::WriteBytes(this, p_stream, p_src, v34);
+}
+
+void *BinaryBuffer::Append<BinaryBuffer::Array<objc_object  {objcproto11MTLResource}* const>,unsigned long,unsigned long,unsigned long>(AppendBuffer *this, char a2, uint64_t a3, uint64_t a4, uint64_t *a5, uint64_t *a6, uint64_t *a7)
+{
+  v12 = this;
+  v46 = *MEMORY[0x277D85DE8];
+  v38 = a2;
   v13 = &v44;
   v45 = &v44;
   v41[0] = 1;
@@ -2502,7 +3784,7 @@ void *BinaryBuffer::Append<BinaryBuffer::Array<objc_object  {objcproto15MTLSampl
   v14 = v42;
   v41[2] = 32;
   v44 = v42;
-  v15 = a4[1];
+  v15 = *(a4 + 8);
   if (v15)
   {
     v16 = *a4;
@@ -2525,7 +3807,7 @@ void *BinaryBuffer::Append<BinaryBuffer::Array<objc_object  {objcproto15MTLSampl
       v44 = v17;
       v17 = (v17 + 9);
       ++v16;
-      v15 = (v15 - 1);
+      --v15;
     }
 
     while (v15);
@@ -2542,7 +3824,7 @@ void *BinaryBuffer::Append<BinaryBuffer::Array<objc_object  {objcproto15MTLSampl
   v20 = *a5;
   if (v14 + 2 <= v13)
   {
-    v14[1] = 109;
+    v14[1] = 100;
     v13 = v45;
   }
 
@@ -2552,11 +3834,10 @@ void *BinaryBuffer::Append<BinaryBuffer::Array<objc_object  {objcproto15MTLSampl
     v13 = v45;
   }
 
-  v44 = (v14 + 10);
   v21 = *a6;
   if (v14 + 11 <= v13)
   {
-    v14[10] = 109;
+    v14[10] = 100;
     v13 = v45;
   }
 
@@ -2566,80 +3847,85 @@ void *BinaryBuffer::Append<BinaryBuffer::Array<objc_object  {objcproto15MTLSampl
     v13 = v45;
   }
 
+  v22 = *a7;
   if (v14 + 20 <= v13)
   {
-    v14[19] = 64;
+    v14[19] = 100;
     v13 = v45;
   }
 
-  v22 = *a7;
-  if (v14 + 21 <= v13)
+  if (v14 + 28 <= v13)
   {
-    v14[20] = 100;
+    *(v14 + 20) = v22;
     v13 = v45;
   }
 
+  v24 = LODWORD(this[1]._vptr$AppendBuffer);
+  v23 = HIDWORD(this[1]._vptr$AppendBuffer);
   if (v14 + 29 <= v13)
   {
-    *(v14 + 21) = v22;
+    v14[28] = -108;
     v13 = v45;
   }
 
-  v23 = a7[1];
-  if (v14 + 30 <= v13)
+  v25 = v14 + 37;
+  if (v14 + 37 <= v13)
   {
-    v14[29] = 100;
+    *(v14 + 29) = v24 * a3 / v23;
     v13 = v45;
   }
 
-  if (v14 + 38 <= v13)
+  v26 = (v14 + 38);
+  if (v26 <= v13)
   {
-    *(v14 + 30) = v23;
+    *v25 = 16;
     v13 = v45;
   }
 
-  if (v14 + 39 <= v13)
+  v44 = v26;
+  if (v26 <= v13)
   {
-    v14[38] = 80;
-    v13 = v45;
-  }
-
-  v25 = LODWORD(this[1]._vptr$AppendBuffer);
-  v24 = HIDWORD(this[1]._vptr$AppendBuffer);
-  if (v14 + 40 <= v13)
-  {
-    v14[39] = -108;
-    v13 = v45;
-  }
-
-  v26 = v14 + 48;
-  if (v14 + 48 <= v13)
-  {
-    *(v14 + 5) = v25 * a3 / v24;
-    v13 = v45;
-  }
-
-  v27 = (v14 + 49);
-  if (v27 <= v13)
-  {
-    *v26 = 16;
-    v13 = v45;
-  }
-
-  v44 = v27;
-  if (v27 <= v13)
-  {
-    v36 = v27 - v41;
+    v36 = v26 - v41;
     p_stream = &this->stream;
     p_src = v41;
   }
 
   else
   {
-    __src = 1;
+    LOBYTE(__src) = 1;
     AppendBuffer::WriteBytes(this, &this->stream, &__src, 1uLL);
-    AppendBuffer::WriteBytes(v12, &v12->stream, &v39, 1uLL);
-    BinaryBuffer::WriteArguments<AppendBuffer::StreamBuffer,BinaryBuffer::Array<objc_object  {objcproto15MTLSamplerState}* const>,float const*,float const,_NSRange>(v12, &v12->stream, a4, a5, a6, a7);
+    AppendBuffer::WriteBytes(v12, &v12->stream, &v38, 1uLL);
+    LOBYTE(__src) = 32;
+    AppendBuffer::WriteBytes(v12, &v12->stream, &__src, 1uLL);
+    if (*(a4 + 8))
+    {
+      v27 = 0;
+      do
+      {
+        __src = *(*a4 + 8 * v27);
+        v40 = 109;
+        AppendBuffer::WriteBytes(v12, &v12->stream, &v40, 1uLL);
+        AppendBuffer::WriteBytes(v12, &v12->stream, &__src, 8uLL);
+        ++v27;
+      }
+
+      while (*(a4 + 8) > v27);
+    }
+
+    LOBYTE(__src) = 48;
+    AppendBuffer::WriteBytes(v12, &v12->stream, &__src, 1uLL);
+    __src = *a5;
+    v40 = 100;
+    AppendBuffer::WriteBytes(v12, &v12->stream, &v40, 1uLL);
+    AppendBuffer::WriteBytes(v12, &v12->stream, &__src, 8uLL);
+    __src = *a6;
+    v40 = 100;
+    AppendBuffer::WriteBytes(v12, &v12->stream, &v40, 1uLL);
+    AppendBuffer::WriteBytes(v12, &v12->stream, &__src, 8uLL);
+    __src = *a7;
+    v40 = 100;
+    AppendBuffer::WriteBytes(v12, &v12->stream, &v40, 1uLL);
+    AppendBuffer::WriteBytes(v12, &v12->stream, &__src, 8uLL);
     v29 = LODWORD(v12[1]._vptr$AppendBuffer);
     v28 = HIDWORD(v12[1]._vptr$AppendBuffer);
     v30 = v44;
@@ -2658,1468 +3944,6 @@ void *BinaryBuffer::Append<BinaryBuffer::Array<objc_object  {objcproto15MTLSampl
     }
 
     v44 = v33;
-    __src = 16;
-    p_stream = &v12->stream;
-    p_src = &__src;
-    this = v12;
-    v36 = 1;
-  }
-
-  result = AppendBuffer::WriteBytes(this, p_stream, p_src, v36);
-  v38 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-void *BinaryBuffer::Append<MTLRegion>(uint64_t a1, char a2, uint64_t a3, uint64_t *a4)
-{
-  v29[2] = *MEMORY[0x277D85DE8];
-  v29[1] = v29;
-  __src[0] = 1;
-  __src[1] = a2;
-  qmemcpy(v12, "@@d", sizeof(v12));
-  v4 = a4[1];
-  v13 = *a4;
-  v15 = v4;
-  v5 = a4[3];
-  v17 = a4[2];
-  qmemcpy(v18, "P@d", sizeof(v18));
-  v14 = 100;
-  v16 = 100;
-  v19 = v5;
-  v20 = 100;
-  v6 = a4[5];
-  v21 = a4[4];
-  v22 = 100;
-  v23 = v6;
-  v24 = 20560;
-  v7 = *(a1 + 32);
-  v8 = *(a1 + 36);
-  v25 = -108;
-  v26 = v7 * a3 / v8;
-  v27 = 16;
-  v29[0] = &v28;
-  result = AppendBuffer::WriteBytes(a1, (a1 + 8), __src, 0x48uLL);
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-void *BinaryBuffer::Append<BinaryBuffer::Array<objc_object  {objcproto7MTLHeap}* const>,unsigned long>(AppendBuffer *this, char a2, uint64_t a3, uint64_t **a4, uint64_t *a5)
-{
-  v8 = this;
-  v39 = *MEMORY[0x277D85DE8];
-  v32 = a2;
-  v9 = &v37;
-  v38 = &v37;
-  v34[0] = 1;
-  v34[1] = a2;
-  v10 = v35;
-  v34[2] = 32;
-  v37 = v35;
-  v11 = a4[1];
-  if (v11)
-  {
-    v12 = *a4;
-    v13 = &v36;
-    do
-    {
-      v14 = *v12;
-      v15 = v38;
-      if (v13 - 2 <= v38)
-      {
-        *(v13 - 9) = 109;
-        v15 = v38;
-      }
-
-      if (v13 <= v15)
-      {
-        *(v13 - 1) = v14;
-      }
-
-      v37 = v13;
-      v13 = (v13 + 9);
-      ++v12;
-      v11 = (v11 - 1);
-    }
-
-    while (v11);
-    v9 = v38;
-    v10 = v13 - 9;
-  }
-
-  if (v10 + 1 <= v9)
-  {
-    *v10 = 48;
-    v9 = v38;
-  }
-
-  v16 = *a5;
-  if (v10 + 2 <= v9)
-  {
-    v10[1] = 100;
-    v9 = v38;
-  }
-
-  if (v10 + 10 <= v9)
-  {
-    *(v10 + 2) = v16;
-    v9 = v38;
-  }
-
-  v18 = LODWORD(this[1]._vptr$AppendBuffer);
-  v17 = HIDWORD(this[1]._vptr$AppendBuffer);
-  if (v10 + 11 <= v9)
-  {
-    v10[10] = -108;
-    v9 = v38;
-  }
-
-  v19 = v10 + 19;
-  if (v10 + 19 <= v9)
-  {
-    *(v10 + 11) = v18 * a3 / v17;
-    v9 = v38;
-  }
-
-  v20 = (v10 + 20);
-  if (v20 <= v9)
-  {
-    *v19 = 16;
-    v9 = v38;
-  }
-
-  v37 = v20;
-  if (v20 <= v9)
-  {
-    v29 = v20 - v34;
-    p_stream = &this->stream;
-    p_src = v34;
-  }
-
-  else
-  {
-    __src = 1;
-    AppendBuffer::WriteBytes(this, &this->stream, &__src, 1uLL);
-    AppendBuffer::WriteBytes(v8, &v8->stream, &v32, 1uLL);
-    BinaryBuffer::WriteArguments<AppendBuffer::StreamBuffer,BinaryBuffer::Array<objc_object  {objcproto7MTLHeap}* const>,unsigned long>(v8, &v8->stream, a4, a5);
-    v22 = LODWORD(v8[1]._vptr$AppendBuffer);
-    v21 = HIDWORD(v8[1]._vptr$AppendBuffer);
-    v23 = v37;
-    v24 = (v37 + 1);
-    v25 = v38;
-    if ((v37 + 1) <= v38)
-    {
-      *v37 = -108;
-      v25 = v38;
-    }
-
-    v26 = (v23 + 9);
-    if (v26 <= v25)
-    {
-      *v24 = v22 * a3 / v21;
-    }
-
-    v37 = v26;
-    __src = 16;
-    p_stream = &v8->stream;
-    p_src = &__src;
-    this = v8;
-    v29 = 1;
-  }
-
-  result = AppendBuffer::WriteBytes(this, p_stream, p_src, v29);
-  v31 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-void *BinaryBuffer::Append<BinaryBuffer::Array<objc_object  {objcproto11MTLResource}* const>,unsigned long,unsigned long>(AppendBuffer *this, char a2, uint64_t a3, uint64_t **a4, uint64_t *a5, uint64_t *a6)
-{
-  v10 = this;
-  v42 = *MEMORY[0x277D85DE8];
-  v35 = a2;
-  v11 = &v40;
-  v41 = &v40;
-  v37[0] = 1;
-  v37[1] = a2;
-  v12 = v38;
-  v37[2] = 32;
-  v40 = v38;
-  v13 = a4[1];
-  if (v13)
-  {
-    v14 = *a4;
-    v15 = &v39;
-    do
-    {
-      v16 = *v14;
-      v17 = v41;
-      if (v15 - 2 <= v41)
-      {
-        *(v15 - 9) = 109;
-        v17 = v41;
-      }
-
-      if (v15 <= v17)
-      {
-        *(v15 - 1) = v16;
-      }
-
-      v40 = v15;
-      v15 = (v15 + 9);
-      ++v14;
-      v13 = (v13 - 1);
-    }
-
-    while (v13);
-    v11 = v41;
-    v12 = v15 - 9;
-  }
-
-  if (v12 + 1 <= v11)
-  {
-    *v12 = 48;
-    v11 = v41;
-  }
-
-  v18 = *a5;
-  if (v12 + 2 <= v11)
-  {
-    v12[1] = 100;
-    v11 = v41;
-  }
-
-  if (v12 + 10 <= v11)
-  {
-    *(v12 + 2) = v18;
-    v11 = v41;
-  }
-
-  v19 = *a6;
-  if (v12 + 11 <= v11)
-  {
-    v12[10] = 100;
-    v11 = v41;
-  }
-
-  if (v12 + 19 <= v11)
-  {
-    *(v12 + 11) = v19;
-    v11 = v41;
-  }
-
-  v21 = LODWORD(this[1]._vptr$AppendBuffer);
-  v20 = HIDWORD(this[1]._vptr$AppendBuffer);
-  if (v12 + 20 <= v11)
-  {
-    v12[19] = -108;
-    v11 = v41;
-  }
-
-  v22 = v12 + 28;
-  if (v12 + 28 <= v11)
-  {
-    *(v12 + 20) = v21 * a3 / v20;
-    v11 = v41;
-  }
-
-  v23 = (v12 + 29);
-  if (v23 <= v11)
-  {
-    *v22 = 16;
-    v11 = v41;
-  }
-
-  v40 = v23;
-  if (v23 <= v11)
-  {
-    v32 = v23 - v37;
-    p_stream = &this->stream;
-    p_src = v37;
-  }
-
-  else
-  {
-    __src = 1;
-    AppendBuffer::WriteBytes(this, &this->stream, &__src, 1uLL);
-    AppendBuffer::WriteBytes(v10, &v10->stream, &v35, 1uLL);
-    BinaryBuffer::WriteArguments<AppendBuffer::StreamBuffer,BinaryBuffer::Array<objc_object  {objcproto11MTLResource}* const>,unsigned long,unsigned long>(v10, &v10->stream, a4, a5, a6);
-    v25 = LODWORD(v10[1]._vptr$AppendBuffer);
-    v24 = HIDWORD(v10[1]._vptr$AppendBuffer);
-    v26 = v40;
-    v27 = (v40 + 1);
-    v28 = v41;
-    if ((v40 + 1) <= v41)
-    {
-      *v40 = -108;
-      v28 = v41;
-    }
-
-    v29 = (v26 + 9);
-    if (v29 <= v28)
-    {
-      *v27 = v25 * a3 / v24;
-    }
-
-    v40 = v29;
-    __src = 16;
-    p_stream = &v10->stream;
-    p_src = &__src;
-    this = v10;
-    v32 = 1;
-  }
-
-  result = AppendBuffer::WriteBytes(this, p_stream, p_src, v32);
-  v34 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-void *BinaryBuffer::Append<MTLPrimitiveType,unsigned long,unsigned long>(uint64_t a1, char a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t *a6)
-{
-  v23[2] = *MEMORY[0x277D85DE8];
-  v23[1] = v23;
-  __src[0] = 1;
-  __src[1] = a2;
-  v6 = *a4;
-  __src[2] = 100;
-  v14 = v6;
-  v7 = *a5;
-  v15 = 100;
-  v16 = v7;
-  v8 = *a6;
-  v17 = 100;
-  v18 = v8;
-  v9 = *(a1 + 32);
-  v10 = *(a1 + 36);
-  v19 = -108;
-  v20 = v9 * a3 / v10;
-  v21 = 16;
-  v23[0] = &v22;
-  result = AppendBuffer::WriteBytes(a1, (a1 + 8), __src, 0x27uLL);
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-void *BinaryBuffer::Append<MTLPrimitiveType,unsigned long,unsigned long,unsigned long>(uint64_t a1, char a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t *a6, uint64_t *a7)
-{
-  v27[2] = *MEMORY[0x277D85DE8];
-  v27[1] = v27;
-  __src[0] = 1;
-  __src[1] = a2;
-  v7 = *a4;
-  __src[2] = 100;
-  v16 = v7;
-  v8 = *a5;
-  v17 = 100;
-  v18 = v8;
-  v9 = *a6;
-  v19 = 100;
-  v20 = v9;
-  v10 = *a7;
-  v21 = 100;
-  v22 = v10;
-  v11 = *(a1 + 32);
-  v12 = *(a1 + 36);
-  v23 = -108;
-  v24 = v11 * a3 / v12;
-  v25 = 16;
-  v27[0] = &v26;
-  result = AppendBuffer::WriteBytes(a1, (a1 + 8), __src, 0x30uLL);
-  v14 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-void *BinaryBuffer::Append<MTLPrimitiveType,unsigned long,unsigned long,unsigned long,unsigned long>(uint64_t a1, char a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t *a6, uint64_t *a7, uint64_t *a8)
-{
-  v31[2] = *MEMORY[0x277D85DE8];
-  v31[1] = v31;
-  __src[0] = 1;
-  __src[1] = a2;
-  v8 = *a4;
-  __src[2] = 100;
-  v18 = v8;
-  v9 = *a5;
-  v19 = 100;
-  v20 = v9;
-  v10 = *a6;
-  v21 = 100;
-  v22 = v10;
-  v11 = *a7;
-  v23 = 100;
-  v24 = v11;
-  v12 = *a8;
-  v25 = 100;
-  v26 = v12;
-  v13 = *(a1 + 32);
-  v14 = *(a1 + 36);
-  v27 = -108;
-  v28 = v13 * a3 / v14;
-  v29 = 16;
-  v31[0] = v30;
-  result = AppendBuffer::WriteBytes(a1, (a1 + 8), __src, 0x39uLL);
-  v16 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-void *BinaryBuffer::Append<MTLPrimitiveType,objc_object  {objcproto9MTLBuffer}*,unsigned long>(uint64_t a1, char a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t *a6)
-{
-  v23[2] = *MEMORY[0x277D85DE8];
-  v23[1] = v23;
-  __src[0] = 1;
-  __src[1] = a2;
-  v6 = *a4;
-  __src[2] = 100;
-  v14 = v6;
-  v7 = *a5;
-  v15 = 109;
-  v16 = v7;
-  v8 = *a6;
-  v17 = 100;
-  v18 = v8;
-  v9 = *(a1 + 32);
-  v10 = *(a1 + 36);
-  v19 = -108;
-  v20 = v9 * a3 / v10;
-  v21 = 16;
-  v23[0] = &v22;
-  result = AppendBuffer::WriteBytes(a1, (a1 + 8), __src, 0x27uLL);
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-void *BinaryBuffer::Append<MTLPrimitiveType,unsigned long,MTLIndexType,objc_object  {objcproto9MTLBuffer}*,unsigned long>(uint64_t a1, char a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t *a6, uint64_t *a7, uint64_t *a8)
-{
-  v31[2] = *MEMORY[0x277D85DE8];
-  v31[1] = v31;
-  __src[0] = 1;
-  __src[1] = a2;
-  v8 = *a4;
-  __src[2] = 100;
-  v18 = v8;
-  v9 = *a5;
-  v19 = 100;
-  v20 = v9;
-  v10 = *a6;
-  v21 = 100;
-  v22 = v10;
-  v11 = *a7;
-  v23 = 109;
-  v24 = v11;
-  v12 = *a8;
-  v25 = 100;
-  v26 = v12;
-  v13 = *(a1 + 32);
-  v14 = *(a1 + 36);
-  v27 = -108;
-  v28 = v13 * a3 / v14;
-  v29 = 16;
-  v31[0] = v30;
-  result = AppendBuffer::WriteBytes(a1, (a1 + 8), __src, 0x39uLL);
-  v16 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-void *BinaryBuffer::Append<MTLPrimitiveType,unsigned long,MTLIndexType,objc_object  {objcproto9MTLBuffer}*,unsigned long,unsigned long>(uint64_t a1, char a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t *a6, uint64_t *a7, uint64_t *a8, uint64_t *a9)
-{
-  v35[2] = *MEMORY[0x277D85DE8];
-  v35[1] = v35;
-  __src[0] = 1;
-  __src[1] = a2;
-  v9 = *a4;
-  __src[2] = 100;
-  v20 = v9;
-  v10 = *a5;
-  v21 = 100;
-  v22 = v10;
-  v11 = *a6;
-  v23 = 100;
-  v24 = v11;
-  v12 = *a7;
-  v25 = 109;
-  v26 = v12;
-  v13 = *a8;
-  v27 = 100;
-  v28 = v13;
-  v14 = *a9;
-  v29 = 100;
-  v30 = v14;
-  v15 = *(a1 + 32);
-  v16 = *(a1 + 36);
-  v31 = -108;
-  v32 = v15 * a3 / v16;
-  v33 = 16;
-  v35[0] = v34;
-  result = AppendBuffer::WriteBytes(a1, (a1 + 8), __src, 0x42uLL);
-  v18 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-void *BinaryBuffer::Append<MTLPrimitiveType,unsigned long,MTLIndexType,objc_object  {objcproto9MTLBuffer}*,unsigned long,unsigned long,unsigned long,unsigned long>(uint64_t a1, char a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t *a6, uint64_t *a7, uint64_t *a8, uint64_t *a9, uint64_t *a10, uint64_t *a11)
-{
-  v43[2] = *MEMORY[0x277D85DE8];
-  v43[1] = v43;
-  __src[0] = 1;
-  __src[1] = a2;
-  v11 = *a4;
-  __src[2] = 100;
-  v24 = v11;
-  v12 = *a5;
-  v25 = 100;
-  v26 = v12;
-  v13 = *a6;
-  v27 = 100;
-  v28 = v13;
-  v14 = *a7;
-  v29 = 109;
-  v30 = v14;
-  v15 = *a8;
-  v31 = 100;
-  v32 = v15;
-  v16 = *a9;
-  v33 = 100;
-  v34 = v16;
-  v17 = *a10;
-  v35 = 100;
-  v36 = v17;
-  v18 = *a11;
-  v37 = 100;
-  v38 = v18;
-  v19 = *(a1 + 32);
-  v20 = *(a1 + 36);
-  v39 = -108;
-  v40 = v19 * a3 / v20;
-  v41 = 16;
-  v43[0] = &v42;
-  result = AppendBuffer::WriteBytes(a1, (a1 + 8), __src, 0x54uLL);
-  v22 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-void *BinaryBuffer::Append<MTLPrimitiveType,MTLIndexType,objc_object  {objcproto9MTLBuffer}*,unsigned long,objc_object  {objcproto9MTLBuffer},unsigned long>(uint64_t a1, char a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t *a6, uint64_t *a7, uint64_t *a8, uint64_t *a9)
-{
-  v35[2] = *MEMORY[0x277D85DE8];
-  v35[1] = v35;
-  __src[0] = 1;
-  __src[1] = a2;
-  v9 = *a4;
-  __src[2] = 100;
-  v20 = v9;
-  v10 = *a5;
-  v21 = 100;
-  v22 = v10;
-  v11 = *a6;
-  v23 = 109;
-  v24 = v11;
-  v12 = *a7;
-  v25 = 100;
-  v26 = v12;
-  v13 = *a8;
-  v27 = 109;
-  v28 = v13;
-  v14 = *a9;
-  v29 = 100;
-  v30 = v14;
-  v15 = *(a1 + 32);
-  v16 = *(a1 + 36);
-  v31 = -108;
-  v32 = v15 * a3 / v16;
-  v33 = 16;
-  v35[0] = v34;
-  result = AppendBuffer::WriteBytes(a1, (a1 + 8), __src, 0x42uLL);
-  v18 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-void *BinaryBuffer::Append<unsigned long,unsigned long,unsigned long,objc_object  {objcproto9MTLBuffer}*,unsigned long,unsigned long,unsigned long>(uint64_t a1, char a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t *a6, uint64_t *a7, uint64_t *a8, uint64_t *a9, uint64_t *a10)
-{
-  v39[2] = *MEMORY[0x277D85DE8];
-  v39[1] = v39;
-  __src[0] = 1;
-  __src[1] = a2;
-  v10 = *a4;
-  __src[2] = 100;
-  v22 = v10;
-  v11 = *a5;
-  v23 = 100;
-  v24 = v11;
-  v12 = *a6;
-  v25 = 100;
-  v26 = v12;
-  v13 = *a7;
-  v27 = 109;
-  v28 = v13;
-  v14 = *a8;
-  v29 = 100;
-  v30 = v14;
-  v15 = *a9;
-  v31 = 100;
-  v32 = v15;
-  v16 = *a10;
-  v33 = 100;
-  v34 = v16;
-  v17 = *(a1 + 32);
-  v18 = *(a1 + 36);
-  v35 = -108;
-  v36 = v17 * a3 / v18;
-  v37 = 16;
-  v39[0] = v38;
-  result = AppendBuffer::WriteBytes(a1, (a1 + 8), __src, 0x4BuLL);
-  v20 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-void *BinaryBuffer::Append<unsigned long,unsigned long,unsigned long,objc_object  {objcproto9MTLBuffer}*,unsigned long,objc_object  {objcproto9MTLBuffer},unsigned long,unsigned long,unsigned long>(uint64_t a1, char a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t *a6, uint64_t *a7, uint64_t *a8, uint64_t *a9, uint64_t *a10, uint64_t *a11, uint64_t *a12)
-{
-  v47[2] = *MEMORY[0x277D85DE8];
-  v47[1] = v47;
-  __src[0] = 1;
-  __src[1] = a2;
-  v12 = *a4;
-  __src[2] = 100;
-  v26 = v12;
-  v13 = *a5;
-  v27 = 100;
-  v28 = v13;
-  v14 = *a6;
-  v29 = 100;
-  v30 = v14;
-  v15 = *a7;
-  v31 = 109;
-  v32 = v15;
-  v16 = *a8;
-  v33 = 100;
-  v34 = v16;
-  v17 = *a9;
-  v35 = 109;
-  v36 = v17;
-  v18 = *a10;
-  v37 = 100;
-  v38 = v18;
-  v19 = *a11;
-  v39 = 100;
-  v40 = v19;
-  v20 = *a12;
-  v41 = 100;
-  v42 = v20;
-  v21 = *(a1 + 32);
-  v22 = *(a1 + 36);
-  v43 = -108;
-  v44 = v21 * a3 / v22;
-  v45 = 16;
-  v47[0] = v46;
-  result = AppendBuffer::WriteBytes(a1, (a1 + 8), __src, 0x5DuLL);
-  v24 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-void *BinaryBuffer::Append<unsigned long,objc_object  {objcproto9MTLBuffer}*,unsigned long,objc_object  {objcproto9MTLBuffer},unsigned long>(uint64_t a1, char a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t *a6, uint64_t *a7, uint64_t *a8)
-{
-  v31[2] = *MEMORY[0x277D85DE8];
-  v31[1] = v31;
-  __src[0] = 1;
-  __src[1] = a2;
-  v8 = *a4;
-  __src[2] = 100;
-  v18 = v8;
-  v9 = *a5;
-  v19 = 109;
-  v20 = v9;
-  v10 = *a6;
-  v21 = 100;
-  v22 = v10;
-  v11 = *a7;
-  v23 = 109;
-  v24 = v11;
-  v12 = *a8;
-  v25 = 100;
-  v26 = v12;
-  v13 = *(a1 + 32);
-  v14 = *(a1 + 36);
-  v27 = -108;
-  v28 = v13 * a3 / v14;
-  v29 = 16;
-  v31[0] = v30;
-  result = AppendBuffer::WriteBytes(a1, (a1 + 8), __src, 0x39uLL);
-  v16 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-void *BinaryBuffer::Append<unsigned long,objc_object  {objcproto9MTLBuffer}*,unsigned long,objc_object  {objcproto9MTLBuffer},unsigned long,objc_object  {objcproto9MTLBuffer},unsigned long>(uint64_t a1, char a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t *a6, uint64_t *a7, uint64_t *a8, uint64_t *a9, uint64_t *a10)
-{
-  v39[2] = *MEMORY[0x277D85DE8];
-  v39[1] = v39;
-  __src[0] = 1;
-  __src[1] = a2;
-  v10 = *a4;
-  __src[2] = 100;
-  v22 = v10;
-  v11 = *a5;
-  v23 = 109;
-  v24 = v11;
-  v12 = *a6;
-  v25 = 100;
-  v26 = v12;
-  v13 = *a7;
-  v27 = 109;
-  v28 = v13;
-  v14 = *a8;
-  v29 = 100;
-  v30 = v14;
-  v15 = *a9;
-  v31 = 109;
-  v32 = v15;
-  v16 = *a10;
-  v33 = 100;
-  v34 = v16;
-  v17 = *(a1 + 32);
-  v18 = *(a1 + 36);
-  v35 = -108;
-  v36 = v17 * a3 / v18;
-  v37 = 16;
-  v39[0] = v38;
-  result = AppendBuffer::WriteBytes(a1, (a1 + 8), __src, 0x4BuLL);
-  v20 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-void *BinaryBuffer::Append<float,float,float,float>(uint64_t a1, char a2, uint64_t a3, int *a4, int *a5, int *a6, int *a7)
-{
-  v27[2] = *MEMORY[0x277D85DE8];
-  v27[1] = v27;
-  __src[0] = 1;
-  __src[1] = a2;
-  v7 = *a4;
-  __src[2] = 106;
-  v16 = v7;
-  v8 = *a5;
-  v17 = 106;
-  v18 = v8;
-  v9 = *a6;
-  v19 = 106;
-  v20 = v9;
-  v10 = *a7;
-  v21 = 106;
-  v22 = v10;
-  v11 = *(a1 + 32);
-  v12 = *(a1 + 36);
-  v23 = -108;
-  v24 = v11 * a3 / v12;
-  v25 = 16;
-  v27[0] = &v26;
-  result = AppendBuffer::WriteBytes(a1, (a1 + 8), __src, 0x20uLL);
-  v14 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-void *BinaryBuffer::Append<float,float,float>(uint64_t a1, char a2, uint64_t a3, int *a4, int *a5, int *a6)
-{
-  v23[2] = *MEMORY[0x277D85DE8];
-  v23[1] = v23;
-  __src[0] = 1;
-  __src[1] = a2;
-  v6 = *a4;
-  __src[2] = 106;
-  v14 = v6;
-  v7 = *a5;
-  v15 = 106;
-  v16 = v7;
-  v8 = *a6;
-  v17 = 106;
-  v18 = v8;
-  v9 = *(a1 + 32);
-  v10 = *(a1 + 36);
-  v19 = -108;
-  v20 = v9 * a3 / v10;
-  v21 = 16;
-  v23[0] = v22;
-  result = AppendBuffer::WriteBytes(a1, (a1 + 8), __src, 0x1BuLL);
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-void *BinaryBuffer::Append<MTLScissorRect>(uint64_t a1, char a2, uint64_t a3, uint64_t *a4)
-{
-  v24[2] = *MEMORY[0x277D85DE8];
-  v24[1] = v24;
-  __src[0] = 1;
-  __src[1] = a2;
-  v11 = 25664;
-  v4 = a4[1];
-  v12 = *a4;
-  v13 = 100;
-  v14 = v4;
-  v15 = 100;
-  v5 = a4[3];
-  v16 = a4[2];
-  v17 = 100;
-  v18 = v5;
-  v19 = 80;
-  v6 = *(a1 + 32);
-  v7 = *(a1 + 36);
-  v20 = -108;
-  v21 = v6 * a3 / v7;
-  v22 = 16;
-  v24[0] = v23;
-  result = AppendBuffer::WriteBytes(a1, (a1 + 8), __src, 0x32uLL);
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-void *BinaryBuffer::Append<unsigned int,unsigned int>(uint64_t a1, char a2, uint64_t a3, int *a4, int *a5)
-{
-  v19[2] = *MEMORY[0x277D85DE8];
-  v19[1] = v19;
-  __src[0] = 1;
-  __src[1] = a2;
-  v5 = *a4;
-  __src[2] = 99;
-  v12 = v5;
-  v6 = *a5;
-  v13 = 99;
-  v14 = v6;
-  v7 = *(a1 + 32);
-  v8 = *(a1 + 36);
-  v15 = -108;
-  v16 = v7 * a3 / v8;
-  v17 = 16;
-  v19[0] = &v18;
-  result = AppendBuffer::WriteBytes(a1, (a1 + 8), __src, 0x16uLL);
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-void *BinaryBuffer::Append<MTLViewport>(uint64_t a1, char a2, uint64_t a3, uint64_t *a4)
-{
-  v26[2] = *MEMORY[0x277D85DE8];
-  v4 = a4[1];
-  v11 = *a4;
-  v13 = v4;
-  v5 = a4[3];
-  v15 = a4[2];
-  v17 = v5;
-  v6 = a4[5];
-  v19 = a4[4];
-  v26[1] = v26;
-  __src[0] = 1;
-  __src[1] = a2;
-  v10 = 27456;
-  v12 = 107;
-  v14 = 107;
-  v16 = 107;
-  v18 = 107;
-  v20 = 107;
-  v21 = v6;
-  v22 = -27568;
-  v23 = *(a1 + 32) * a3 / *(a1 + 36);
-  v24 = 16;
-  v26[0] = &v25;
-  result = AppendBuffer::WriteBytes(a1, (a1 + 8), __src, 0x44uLL);
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-void *BinaryBuffer::Append<BinaryBuffer::Array<MTLViewport const>,unsigned long>(AppendBuffer *this, char a2, uint64_t a3, void *a4, uint64_t *a5)
-{
-  v8 = this;
-  v48 = *MEMORY[0x277D85DE8];
-  v40 = a2;
-  v9 = &v46;
-  v47 = &v46;
-  v43[0] = 1;
-  v43[1] = a2;
-  v10 = v44;
-  v43[2] = 32;
-  v46 = v44;
-  v11 = a4[1];
-  if (v11)
-  {
-    v12 = 0;
-    v13 = (*a4 + 24);
-    v14 = &v45;
-    do
-    {
-      v15 = v47;
-      if (v14 - 27 <= v47)
-      {
-        *(v14 - 28) = 64;
-        v15 = v47;
-      }
-
-      v16 = *(v13 - 3);
-      if ((v14 - 26) <= v15)
-      {
-        *(v14 - 27) = 107;
-        v15 = v47;
-      }
-
-      if ((v14 - 18) <= v15)
-      {
-        *(v14 - 26) = v16;
-        v15 = v47;
-      }
-
-      v17 = *(v13 - 2);
-      if ((v14 - 17) <= v15)
-      {
-        *(v14 - 18) = 107;
-        v15 = v47;
-      }
-
-      if ((v14 - 9) <= v15)
-      {
-        *(v14 - 17) = v17;
-        v15 = v47;
-      }
-
-      v18 = *(v13 - 1);
-      if ((v14 - 8) <= v15)
-      {
-        *(v14 - 9) = 107;
-        v15 = v47;
-      }
-
-      if (v14 <= v15)
-      {
-        *(v14 - 1) = v18;
-        v15 = v47;
-      }
-
-      v46 = v14;
-      v19 = *v13;
-      if ((v14 + 1) <= v15)
-      {
-        *v14 = 107;
-        v15 = v47;
-      }
-
-      if ((v14 + 9) <= v15)
-      {
-        *(v14 + 1) = v19;
-        v15 = v47;
-      }
-
-      v20 = v13[1];
-      if ((v14 + 10) <= v15)
-      {
-        v14[9] = 107;
-        v15 = v47;
-      }
-
-      if ((v14 + 18) <= v15)
-      {
-        *(v14 + 10) = v20;
-        v15 = v47;
-      }
-
-      v21 = v13[2];
-      if ((v14 + 19) <= v15)
-      {
-        v14[18] = 107;
-        v15 = v47;
-      }
-
-      if ((v14 + 27) <= v15)
-      {
-        *(v14 + 19) = v21;
-        v15 = v47;
-      }
-
-      if ((v14 + 28) <= v15)
-      {
-        v14[27] = 80;
-      }
-
-      v46 = v14 + 28;
-      ++v12;
-      v13 += 6;
-      v14 += 56;
-    }
-
-    while (v11 > v12);
-    v9 = v47;
-    v10 = v14 - 28;
-  }
-
-  if (v10 + 1 <= v9)
-  {
-    *v10 = 48;
-    v9 = v47;
-  }
-
-  v22 = *a5;
-  if (v10 + 2 <= v9)
-  {
-    v10[1] = 100;
-    v9 = v47;
-  }
-
-  if (v10 + 10 <= v9)
-  {
-    *(v10 + 2) = v22;
-    v9 = v47;
-  }
-
-  v24 = LODWORD(this[1]._vptr$AppendBuffer);
-  v23 = HIDWORD(this[1]._vptr$AppendBuffer);
-  if (v10 + 11 <= v9)
-  {
-    v10[10] = -108;
-    v9 = v47;
-  }
-
-  v25 = v10 + 19;
-  if (v10 + 19 <= v9)
-  {
-    *(v10 + 11) = v24 * a3 / v23;
-    v9 = v47;
-  }
-
-  v26 = v10 + 20;
-  if (v26 <= v9)
-  {
-    *v25 = 16;
-    v9 = v47;
-  }
-
-  v46 = v26;
-  if (v26 <= v9)
-  {
-    v37 = v26 - v43;
-    p_stream = &this->stream;
-    p_src = v43;
-  }
-
-  else
-  {
-    LOBYTE(__src) = 1;
-    AppendBuffer::WriteBytes(this, &this->stream, &__src, 1uLL);
-    AppendBuffer::WriteBytes(v8, &v8->stream, &v40, 1uLL);
-    LOBYTE(__src) = 32;
-    AppendBuffer::WriteBytes(v8, &v8->stream, &__src, 1uLL);
-    if (a4[1])
-    {
-      v27 = 0;
-      v28 = 0;
-      do
-      {
-        BinaryBuffer::WriteValue<AppendBuffer::StreamBuffer>(v8, &v8->stream, (*a4 + v27));
-        ++v28;
-        v27 += 48;
-      }
-
-      while (a4[1] > v28);
-    }
-
-    LOBYTE(__src) = 48;
-    AppendBuffer::WriteBytes(v8, &v8->stream, &__src, 1uLL);
-    __src = *a5;
-    v42 = 100;
-    AppendBuffer::WriteBytes(v8, &v8->stream, &v42, 1uLL);
-    AppendBuffer::WriteBytes(v8, &v8->stream, &__src, 8uLL);
-    v30 = LODWORD(v8[1]._vptr$AppendBuffer);
-    v29 = HIDWORD(v8[1]._vptr$AppendBuffer);
-    v31 = v46;
-    v32 = (v46 + 1);
-    v33 = v47;
-    if (v46 + 1 <= v47)
-    {
-      *v46 = -108;
-      v33 = v47;
-    }
-
-    v34 = v31 + 9;
-    if (v34 <= v33)
-    {
-      *v32 = v30 * a3 / v29;
-    }
-
-    v46 = v34;
-    LOBYTE(__src) = 16;
-    p_stream = &v8->stream;
-    p_src = &__src;
-    this = v8;
-    v37 = 1;
-  }
-
-  result = AppendBuffer::WriteBytes(this, p_stream, p_src, v37);
-  v39 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-void *BinaryBuffer::Append<BinaryBuffer::Array<MTLScissorRect const>,unsigned long>(AppendBuffer *this, char a2, uint64_t a3, void *a4, uint64_t *a5)
-{
-  v8 = this;
-  v45 = *MEMORY[0x277D85DE8];
-  v37 = a2;
-  v9 = &v43;
-  v44 = &v43;
-  v40[0] = 1;
-  v40[1] = a2;
-  v40[2] = 32;
-  v10 = a4[1];
-  if (v10)
-  {
-    v11 = v42;
-    v12 = (*a4 + 16);
-    do
-    {
-      v13 = v44;
-      if (v11 - 37 <= v44)
-      {
-        *(v11 - 38) = 64;
-        v13 = v44;
-      }
-
-      v14 = *(v12 - 2);
-      if ((v11 - 36) <= v13)
-      {
-        *(v11 - 37) = 100;
-        v13 = v44;
-      }
-
-      if ((v11 - 28) <= v13)
-      {
-        *(v11 - 36) = v14;
-        v13 = v44;
-      }
-
-      v43 = v11 - 28;
-      v15 = *(v12 - 1);
-      if ((v11 - 27) <= v13)
-      {
-        *(v11 - 28) = 100;
-        v13 = v44;
-      }
-
-      if ((v11 - 19) <= v13)
-      {
-        *(v11 - 27) = v15;
-        v13 = v44;
-      }
-
-      v16 = *v12;
-      if ((v11 - 18) <= v13)
-      {
-        *(v11 - 19) = 100;
-        v13 = v44;
-      }
-
-      if ((v11 - 10) <= v13)
-      {
-        *(v11 - 18) = v16;
-        v13 = v44;
-      }
-
-      v17 = v12[1];
-      if ((v11 - 9) <= v13)
-      {
-        *(v11 - 10) = 100;
-        v13 = v44;
-      }
-
-      if ((v11 - 1) <= v13)
-      {
-        *(v11 - 9) = v17;
-        v13 = v44;
-      }
-
-      if (v11 <= v13)
-      {
-        *(v11 - 1) = 80;
-      }
-
-      v43 = v11;
-      v11 += 38;
-      v12 += 4;
-      --v10;
-    }
-
-    while (v10);
-    v9 = v44;
-    v18 = v11 - 38;
-  }
-
-  else
-  {
-    v18 = v41;
-  }
-
-  if (v18 + 1 <= v9)
-  {
-    *v18 = 48;
-    v9 = v44;
-  }
-
-  v19 = *a5;
-  if (v18 + 2 <= v9)
-  {
-    v18[1] = 100;
-    v9 = v44;
-  }
-
-  if (v18 + 10 <= v9)
-  {
-    *(v18 + 2) = v19;
-    v9 = v44;
-  }
-
-  v21 = LODWORD(this[1]._vptr$AppendBuffer);
-  v20 = HIDWORD(this[1]._vptr$AppendBuffer);
-  if (v18 + 11 <= v9)
-  {
-    v18[10] = -108;
-    v9 = v44;
-  }
-
-  v22 = v18 + 19;
-  if (v18 + 19 <= v9)
-  {
-    *(v18 + 11) = v21 * a3 / v20;
-    v9 = v44;
-  }
-
-  v23 = v18 + 20;
-  if (v23 <= v9)
-  {
-    *v22 = 16;
-    v9 = v44;
-  }
-
-  v43 = v23;
-  if (v23 <= v9)
-  {
-    v34 = v23 - v40;
-    p_stream = &this->stream;
-    p_src = v40;
-  }
-
-  else
-  {
-    LOBYTE(__src) = 1;
-    AppendBuffer::WriteBytes(this, &this->stream, &__src, 1uLL);
-    AppendBuffer::WriteBytes(v8, &v8->stream, &v37, 1uLL);
-    LOBYTE(__src) = 32;
-    AppendBuffer::WriteBytes(v8, &v8->stream, &__src, 1uLL);
-    if (a4[1])
-    {
-      v24 = 0;
-      v25 = 0;
-      do
-      {
-        BinaryBuffer::WriteValue<AppendBuffer::StreamBuffer>(v8, &v8->stream, (*a4 + v24));
-        ++v25;
-        v24 += 32;
-      }
-
-      while (a4[1] > v25);
-    }
-
-    LOBYTE(__src) = 48;
-    AppendBuffer::WriteBytes(v8, &v8->stream, &__src, 1uLL);
-    __src = *a5;
-    v39 = 100;
-    AppendBuffer::WriteBytes(v8, &v8->stream, &v39, 1uLL);
-    AppendBuffer::WriteBytes(v8, &v8->stream, &__src, 8uLL);
-    v27 = LODWORD(v8[1]._vptr$AppendBuffer);
-    v26 = HIDWORD(v8[1]._vptr$AppendBuffer);
-    v28 = v43;
-    v29 = (v43 + 1);
-    v30 = v44;
-    if (v43 + 1 <= v44)
-    {
-      *v43 = -108;
-      v30 = v44;
-    }
-
-    v31 = v28 + 9;
-    if (v31 <= v30)
-    {
-      *v29 = v27 * a3 / v26;
-    }
-
-    v43 = v31;
-    LOBYTE(__src) = 16;
-    p_stream = &v8->stream;
-    p_src = &__src;
-    this = v8;
-    v34 = 1;
-  }
-
-  result = AppendBuffer::WriteBytes(this, p_stream, p_src, v34);
-  v36 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-void *BinaryBuffer::Append<BinaryBuffer::Array<objc_object  {objcproto11MTLResource}* const>,unsigned long,unsigned long,unsigned long>(AppendBuffer *this, char a2, uint64_t a3, uint64_t a4, uint64_t *a5, uint64_t *a6, uint64_t *a7)
-{
-  v12 = this;
-  v47 = *MEMORY[0x277D85DE8];
-  v39 = a2;
-  v13 = &v45;
-  v46 = &v45;
-  v42[0] = 1;
-  v42[1] = a2;
-  v14 = v43;
-  v42[2] = 32;
-  v45 = v43;
-  v15 = *(a4 + 8);
-  if (v15)
-  {
-    v16 = *a4;
-    v17 = &v44;
-    do
-    {
-      v18 = *v16;
-      v19 = v46;
-      if (v17 - 2 <= v46)
-      {
-        *(v17 - 9) = 109;
-        v19 = v46;
-      }
-
-      if (v17 <= v19)
-      {
-        *(v17 - 1) = v18;
-      }
-
-      v45 = v17;
-      v17 = (v17 + 9);
-      ++v16;
-      --v15;
-    }
-
-    while (v15);
-    v13 = v46;
-    v14 = v17 - 9;
-  }
-
-  if (v14 + 1 <= v13)
-  {
-    *v14 = 48;
-    v13 = v46;
-  }
-
-  v20 = *a5;
-  if (v14 + 2 <= v13)
-  {
-    v14[1] = 100;
-    v13 = v46;
-  }
-
-  if (v14 + 10 <= v13)
-  {
-    *(v14 + 2) = v20;
-    v13 = v46;
-  }
-
-  v21 = *a6;
-  if (v14 + 11 <= v13)
-  {
-    v14[10] = 100;
-    v13 = v46;
-  }
-
-  if (v14 + 19 <= v13)
-  {
-    *(v14 + 11) = v21;
-    v13 = v46;
-  }
-
-  v22 = *a7;
-  if (v14 + 20 <= v13)
-  {
-    v14[19] = 100;
-    v13 = v46;
-  }
-
-  if (v14 + 28 <= v13)
-  {
-    *(v14 + 20) = v22;
-    v13 = v46;
-  }
-
-  v24 = LODWORD(this[1]._vptr$AppendBuffer);
-  v23 = HIDWORD(this[1]._vptr$AppendBuffer);
-  if (v14 + 29 <= v13)
-  {
-    v14[28] = -108;
-    v13 = v46;
-  }
-
-  v25 = v14 + 37;
-  if (v14 + 37 <= v13)
-  {
-    *(v14 + 29) = v24 * a3 / v23;
-    v13 = v46;
-  }
-
-  v26 = (v14 + 38);
-  if (v26 <= v13)
-  {
-    *v25 = 16;
-    v13 = v46;
-  }
-
-  v45 = v26;
-  if (v26 <= v13)
-  {
-    v36 = v26 - v42;
-    p_stream = &this->stream;
-    p_src = v42;
-  }
-
-  else
-  {
-    LOBYTE(__src) = 1;
-    AppendBuffer::WriteBytes(this, &this->stream, &__src, 1uLL);
-    AppendBuffer::WriteBytes(v12, &v12->stream, &v39, 1uLL);
-    LOBYTE(__src) = 32;
-    AppendBuffer::WriteBytes(v12, &v12->stream, &__src, 1uLL);
-    if (*(a4 + 8))
-    {
-      v27 = 0;
-      do
-      {
-        __src = *(*a4 + 8 * v27);
-        v41 = 109;
-        AppendBuffer::WriteBytes(v12, &v12->stream, &v41, 1uLL);
-        AppendBuffer::WriteBytes(v12, &v12->stream, &__src, 8uLL);
-        ++v27;
-      }
-
-      while (*(a4 + 8) > v27);
-    }
-
-    LOBYTE(__src) = 48;
-    AppendBuffer::WriteBytes(v12, &v12->stream, &__src, 1uLL);
-    __src = *a5;
-    v41 = 100;
-    AppendBuffer::WriteBytes(v12, &v12->stream, &v41, 1uLL);
-    AppendBuffer::WriteBytes(v12, &v12->stream, &__src, 8uLL);
-    __src = *a6;
-    v41 = 100;
-    AppendBuffer::WriteBytes(v12, &v12->stream, &v41, 1uLL);
-    AppendBuffer::WriteBytes(v12, &v12->stream, &__src, 8uLL);
-    __src = *a7;
-    v41 = 100;
-    AppendBuffer::WriteBytes(v12, &v12->stream, &v41, 1uLL);
-    AppendBuffer::WriteBytes(v12, &v12->stream, &__src, 8uLL);
-    v29 = LODWORD(v12[1]._vptr$AppendBuffer);
-    v28 = HIDWORD(v12[1]._vptr$AppendBuffer);
-    v30 = v45;
-    v31 = (v45 + 1);
-    v32 = v46;
-    if ((v45 + 1) <= v46)
-    {
-      *v45 = -108;
-      v32 = v46;
-    }
-
-    v33 = (v30 + 9);
-    if (v33 <= v32)
-    {
-      *v31 = v29 * a3 / v28;
-    }
-
-    v45 = v33;
     LOBYTE(__src) = 16;
     p_stream = &v12->stream;
     p_src = &__src;
@@ -4127,79 +3951,75 @@ void *BinaryBuffer::Append<BinaryBuffer::Array<objc_object  {objcproto11MTLResou
     v36 = 1;
   }
 
-  result = AppendBuffer::WriteBytes(this, p_stream, p_src, v36);
-  v38 = *MEMORY[0x277D85DE8];
-  return result;
+  return AppendBuffer::WriteBytes(this, p_stream, p_src, v36);
 }
 
 void *BinaryBuffer::Append<objc_object  {objcproto9MTLBuffer}*,unsigned long,unsigned long,unsigned long>(uint64_t a1, char a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t *a6, uint64_t *a7)
 {
-  v27[2] = *MEMORY[0x277D85DE8];
-  v27[1] = v27;
+  v26[2] = *MEMORY[0x277D85DE8];
+  v26[1] = v26;
   __src[0] = 1;
   __src[1] = a2;
   v7 = *a4;
   __src[2] = 109;
-  v16 = v7;
+  v15 = v7;
   v8 = *a5;
-  v17 = 100;
-  v18 = v8;
+  v16 = 100;
+  v17 = v8;
   v9 = *a6;
-  v19 = 100;
-  v20 = v9;
+  v18 = 100;
+  v19 = v9;
   v10 = *a7;
-  v21 = 100;
-  v22 = v10;
+  v20 = 100;
+  v21 = v10;
   v11 = *(a1 + 32);
   v12 = *(a1 + 36);
-  v23 = -108;
-  v24 = v11 * a3 / v12;
-  v25 = 16;
-  v27[0] = &v26;
-  result = AppendBuffer::WriteBytes(a1, (a1 + 8), __src, 0x30uLL);
-  v14 = *MEMORY[0x277D85DE8];
-  return result;
+  v22 = -108;
+  v23 = v11 * a3 / v12;
+  v24 = 16;
+  v26[0] = &v25;
+  return AppendBuffer::WriteBytes(a1, (a1 + 8), __src, 0x30uLL);
 }
 
 void *BinaryBuffer::Append<BinaryBuffer::Array<objc_object  {objcproto9MTLBuffer}* const>,BinaryBuffer::Array<unsigned long const>,unsigned long const,_NSRange>(uint64_t a1, char a2, uint64_t a3, void *a4, void *a5, void *a6, uint64_t *a7)
 {
-  v37 = *MEMORY[0x277D85DE8];
-  v31 = a2;
-  v36 = &v35;
-  v33[0] = 1;
-  v33[1] = a2;
-  v35 = v34;
-  BinaryBuffer::WriteArguments<BinaryBuffer::ScratchBuffer,BinaryBuffer::Array<objc_object  {objcproto9MTLBuffer}* const>,BinaryBuffer::Array<unsigned long const>,unsigned long const,_NSRange>(a1, v33, a4, a5, a6, a7);
+  v36 = *MEMORY[0x277D85DE8];
+  v30 = a2;
+  v35 = &v34;
+  v32[0] = 1;
+  v32[1] = a2;
+  v34 = v33;
+  BinaryBuffer::WriteArguments<BinaryBuffer::ScratchBuffer,BinaryBuffer::Array<objc_object  {objcproto9MTLBuffer}* const>,BinaryBuffer::Array<unsigned long const>,unsigned long const,_NSRange>(a1, v32, a4, a5, a6, a7);
   v14 = *(a1 + 32);
   v13 = *(a1 + 36);
-  v15 = v35;
-  v16 = v36;
-  if (v35 + 1 <= v36)
+  v15 = v34;
+  v16 = v35;
+  if (v34 + 1 <= v35)
   {
-    *v35 = -108;
-    v16 = v36;
+    *v34 = -108;
+    v16 = v35;
   }
 
   v17 = v15 + 9;
   if ((v15 + 9) <= v16)
   {
     *(v15 + 1) = v14 * a3 / v13;
-    v16 = v36;
+    v16 = v35;
   }
 
   v18 = v15 + 10;
   if (v18 <= v16)
   {
     *v17 = 16;
-    v16 = v36;
+    v16 = v35;
   }
 
-  v35 = v18;
+  v34 = v18;
   if (v18 <= v16)
   {
-    v28 = v18 - v33;
+    v28 = v18 - v32;
     v25 = (a1 + 8);
-    p_src = v33;
+    p_src = v32;
     v27 = a1;
   }
 
@@ -4207,17 +4027,17 @@ void *BinaryBuffer::Append<BinaryBuffer::Array<objc_object  {objcproto9MTLBuffer
   {
     __src = 1;
     AppendBuffer::WriteBytes(a1, (a1 + 8), &__src, 1uLL);
-    AppendBuffer::WriteBytes(a1, (a1 + 8), &v31, 1uLL);
+    AppendBuffer::WriteBytes(a1, (a1 + 8), &v30, 1uLL);
     BinaryBuffer::WriteArguments<AppendBuffer::StreamBuffer,BinaryBuffer::Array<objc_object  {objcproto9MTLBuffer}* const>,BinaryBuffer::Array<unsigned long const>,unsigned long const,_NSRange>(a1, (a1 + 8), a4, a5, a6, a7);
     v20 = *(a1 + 32);
     v19 = *(a1 + 36);
-    v21 = v35;
-    v22 = (v35 + 1);
-    v23 = v36;
-    if (v35 + 1 <= v36)
+    v21 = v34;
+    v22 = (v34 + 1);
+    v23 = v35;
+    if (v34 + 1 <= v35)
     {
-      *v35 = -108;
-      v23 = v36;
+      *v34 = -108;
+      v23 = v35;
     }
 
     v24 = v21 + 9;
@@ -4226,7 +4046,7 @@ void *BinaryBuffer::Append<BinaryBuffer::Array<objc_object  {objcproto9MTLBuffer
       *v22 = v20 * a3 / v19;
     }
 
-    v35 = v24;
+    v34 = v24;
     __src = 16;
     v25 = (a1 + 8);
     p_src = &__src;
@@ -4234,50 +4054,48 @@ void *BinaryBuffer::Append<BinaryBuffer::Array<objc_object  {objcproto9MTLBuffer
     v28 = 1;
   }
 
-  result = AppendBuffer::WriteBytes(v27, v25, p_src, v28);
-  v30 = *MEMORY[0x277D85DE8];
-  return result;
+  return AppendBuffer::WriteBytes(v27, v25, p_src, v28);
 }
 
 void *BinaryBuffer::Append<BinaryBuffer::Array<objc_object  {objcproto15MTLSamplerState}* const>,BinaryBuffer::Array<float const>,float const,_NSRange>(uint64_t a1, char a2, uint64_t a3, void *a4, void *a5, void *a6, uint64_t *a7)
 {
-  v39 = *MEMORY[0x277D85DE8];
-  v32 = a2;
-  v38 = &v37;
-  v35[0] = 1;
-  v35[1] = a2;
-  v37 = v36;
-  BinaryBuffer::WriteArguments<BinaryBuffer::ScratchBuffer,BinaryBuffer::Array<objc_object  {objcproto15MTLSamplerState}* const>,BinaryBuffer::Array<float const>,float const,_NSRange>(a1, v35, a4, a5, a6, a7);
+  v38 = *MEMORY[0x277D85DE8];
+  v31 = a2;
+  v37 = &v36;
+  v34[0] = 1;
+  v34[1] = a2;
+  v36 = v35;
+  BinaryBuffer::WriteArguments<BinaryBuffer::ScratchBuffer,BinaryBuffer::Array<objc_object  {objcproto15MTLSamplerState}* const>,BinaryBuffer::Array<float const>,float const,_NSRange>(a1, v34, a4, a5, a6, a7);
   v14 = *(a1 + 32);
   v13 = *(a1 + 36);
-  v15 = v37;
-  v16 = v38;
-  if (v37 + 1 <= v38)
+  v15 = v36;
+  v16 = v37;
+  if (v36 + 1 <= v37)
   {
-    *v37 = -108;
-    v16 = v38;
+    *v36 = -108;
+    v16 = v37;
   }
 
   v17 = v15 + 9;
   if ((v15 + 9) <= v16)
   {
     *(v15 + 1) = v14 * a3 / v13;
-    v16 = v38;
+    v16 = v37;
   }
 
   v18 = v15 + 10;
   if (v18 <= v16)
   {
     *v17 = 16;
-    v16 = v38;
+    v16 = v37;
   }
 
-  v37 = v18;
+  v36 = v18;
   if (v18 <= v16)
   {
-    v29 = v18 - v35;
+    v29 = v18 - v34;
     v26 = (a1 + 8);
-    p_src = v35;
+    p_src = v34;
     v28 = a1;
   }
 
@@ -4285,7 +4103,7 @@ void *BinaryBuffer::Append<BinaryBuffer::Array<objc_object  {objcproto15MTLSampl
   {
     LOBYTE(__src) = 1;
     AppendBuffer::WriteBytes(a1, (a1 + 8), &__src, 1uLL);
-    AppendBuffer::WriteBytes(a1, (a1 + 8), &v32, 1uLL);
+    AppendBuffer::WriteBytes(a1, (a1 + 8), &v31, 1uLL);
     LOBYTE(__src) = 32;
     AppendBuffer::WriteBytes(a1, (a1 + 8), &__src, 1uLL);
     if (a4[1])
@@ -4294,8 +4112,8 @@ void *BinaryBuffer::Append<BinaryBuffer::Array<objc_object  {objcproto15MTLSampl
       do
       {
         __src = *(*a4 + 8 * v19);
-        v34 = 109;
-        AppendBuffer::WriteBytes(a1, (a1 + 8), &v34, 1uLL);
+        v33 = 109;
+        AppendBuffer::WriteBytes(a1, (a1 + 8), &v33, 1uLL);
         AppendBuffer::WriteBytes(a1, (a1 + 8), &__src, 8uLL);
         ++v19;
       }
@@ -4308,13 +4126,13 @@ void *BinaryBuffer::Append<BinaryBuffer::Array<objc_object  {objcproto15MTLSampl
     BinaryBuffer::WriteArguments<AppendBuffer::StreamBuffer,BinaryBuffer::Array<float const>,BinaryBuffer::Array<float const>,_NSRange>(a1, (a1 + 8), a5, a6, a7);
     v21 = *(a1 + 32);
     v20 = *(a1 + 36);
-    v22 = v37;
-    v23 = (v37 + 1);
-    v24 = v38;
-    if (v37 + 1 <= v38)
+    v22 = v36;
+    v23 = (v36 + 1);
+    v24 = v37;
+    if (v36 + 1 <= v37)
     {
-      *v37 = -108;
-      v24 = v38;
+      *v36 = -108;
+      v24 = v37;
     }
 
     v25 = v22 + 9;
@@ -4323,7 +4141,7 @@ void *BinaryBuffer::Append<BinaryBuffer::Array<objc_object  {objcproto15MTLSampl
       *v23 = v21 * a3 / v20;
     }
 
-    v37 = v25;
+    v36 = v25;
     LOBYTE(__src) = 16;
     v26 = (a1 + 8);
     p_src = &__src;
@@ -4331,56 +4149,50 @@ void *BinaryBuffer::Append<BinaryBuffer::Array<objc_object  {objcproto15MTLSampl
     v29 = 1;
   }
 
-  result = AppendBuffer::WriteBytes(v28, v26, p_src, v29);
-  v31 = *MEMORY[0x277D85DE8];
-  return result;
+  return AppendBuffer::WriteBytes(v28, v26, p_src, v29);
 }
 
 void *BinaryBuffer::Append<MTLSparseTextureMappingMode,MTLRegion,unsigned long,unsigned long>(AppendBuffer *a1, char a2, uint64_t *a3, uint64_t *a4, uint64_t *a5, uint64_t *a6)
 {
-  v33[2] = *MEMORY[0x277D85DE8];
-  v33[1] = v33;
+  v32[2] = *MEMORY[0x277D85DE8];
+  v32[1] = v32;
   __src[0] = 1;
   __src[1] = a2;
   v6 = *a3;
   __src[2] = 100;
-  v14 = v6;
-  qmemcpy(v15, "@@d", sizeof(v15));
+  v13 = v6;
+  qmemcpy(v14, "@@d", sizeof(v14));
   v7 = a4[1];
-  v16 = *a4;
-  v17 = 100;
-  v18 = v7;
-  v19 = 100;
+  v15 = *a4;
+  v16 = 100;
+  v17 = v7;
+  v18 = 100;
   v8 = a4[3];
-  v20 = a4[2];
-  qmemcpy(v21, "P@d", sizeof(v21));
-  v22 = v8;
-  v23 = 100;
+  v19 = a4[2];
+  qmemcpy(v20, "P@d", sizeof(v20));
+  v21 = v8;
+  v22 = 100;
   v9 = a4[5];
-  v24 = a4[4];
-  v25 = 100;
-  v26 = v9;
-  qmemcpy(v27, "PPd", sizeof(v27));
-  v28 = *a5;
+  v23 = a4[4];
+  v24 = 100;
+  v25 = v9;
+  qmemcpy(v26, "PPd", sizeof(v26));
+  v27 = *a5;
   v10 = *a6;
-  v29 = 100;
-  v30 = v10;
-  v31 = 16;
-  v33[0] = v32;
-  result = AppendBuffer::WriteBytes(a1, &a1->stream, __src, 0x5AuLL);
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  v28 = 100;
+  v29 = v10;
+  v30 = 16;
+  v32[0] = v31;
+  return AppendBuffer::WriteBytes(a1, &a1->stream, __src, 0x5AuLL);
 }
 
 void *StringBuffer::Append<char [10],unsigned long long>(AppendBuffer *a1, char *__s, void *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v6 = strlen(__s);
   AppendBuffer::WriteBytes(a1, &a1->stream, __s, v6);
   v7 = snprintf(__str, 0x20uLL, "%llu", *a3);
-  result = AppendBuffer::WriteBytes(a1, &a1->stream, __str, v7);
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return AppendBuffer::WriteBytes(a1, &a1->stream, __str, v7);
 }
 
 void *StringBuffer::Append<char [14],NSData *,char [2]>(AppendBuffer *a1, char *__s, id *a3, const char *a4)
@@ -4393,7 +4205,7 @@ void *StringBuffer::Append<char [14],NSData *,char [2]>(AppendBuffer *a1, char *
   return AppendBuffer::WriteBytes(a1, &a1->stream, a4, v9);
 }
 
-uint64_t AppendBuffer::Flush(AppendBuffer *this)
+void *AppendBuffer::Flush(AppendBuffer *this)
 {
   result = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:this->stream.bytes length:this->stream.pWrite - this->stream.bytes freeWhenDone:1];
   this->stream.pWrite = 0;
@@ -5560,39 +5372,40 @@ void sub_22E184400(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_22E1855E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16)
+void sub_22E1855E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
+  va_start(va, a15);
   std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(&a9);
   _Unwind_Resume(a1);
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,NSString *>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,NSString *>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,NSString *>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,NSString *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(void *a1, unsigned int *a2)
+uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,NSString *>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,NSString *>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,NSString *>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,NSString *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(void *a1, unsigned int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v7 = *a2;
+    if (*&v5 <= v4)
     {
-      v5 = v2 % v3.i32[0];
+      v7 = v4 % v5.i32[0];
     }
   }
 
   else
   {
-    v5 = (v3.i32[0] - 1) & v2;
+    v7 = (v5.i32[0] - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -5600,73 +5413,73 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 4) != v2)
+  if (*(v9 + 4) != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned long,MTLGPUDebugResidencySet *>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,MTLGPUDebugResidencySet *>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,MTLGPUDebugResidencySet *>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,MTLGPUDebugResidencySet *>>>::__emplace_unique_key_args<unsigned long,unsigned long,MTLGPUDebugResidencySet *>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<unsigned long,MTLGPUDebugResidencySet *>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,MTLGPUDebugResidencySet *>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,MTLGPUDebugResidencySet *>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,MTLGPUDebugResidencySet *>>>::__emplace_unique_key_args<unsigned long,unsigned long,MTLGPUDebugResidencySet *>(void *a1, unint64_t *a2, void *a3, uint64_t *a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v7 = *a2;
+    if (v4 >= *&v5)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -5674,73 +5487,73 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v9[2] != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned long,MTLGPUDebugResidencySet *>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,MTLGPUDebugResidencySet *>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,MTLGPUDebugResidencySet *>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,MTLGPUDebugResidencySet *>>>::__emplace_unique_key_args<unsigned long,unsigned long,MTLGPUDebugResidencySet *&>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<unsigned long,MTLGPUDebugResidencySet *>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,MTLGPUDebugResidencySet *>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,MTLGPUDebugResidencySet *>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,MTLGPUDebugResidencySet *>>>::__emplace_unique_key_args<unsigned long,unsigned long,MTLGPUDebugResidencySet *&>(void *a1, unint64_t *a2, void *a3, uint64_t *a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v7 = *a2;
+    if (v4 >= *&v5)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -5748,47 +5561,47 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v9[2] != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
-uint64_t MTLLegacySVLog(void)
+uint64_t MTLLegacySVLog(uint64_t a1, uint64_t a2)
 {
   if (MTLLegacySVLog(void)::onceToken != -1)
   {
@@ -5838,7 +5651,7 @@ uint64_t LegacySVMetalBufferHeap::init(uint64_t this, MTLLegacySVDevice *a2, uin
 
 void LegacySVMetalBufferHeap::grow(LegacySVMetalBufferHeap *this, unsigned int a2)
 {
-  *&v13[5] = *MEMORY[0x277D85DE8];
+  *&v12[5] = *MEMORY[0x277D85DE8];
   v4 = *(this + 8);
   v5 = *(this + 9);
   v3 = (this + 64);
@@ -5863,7 +5676,7 @@ void LegacySVMetalBufferHeap::grow(LegacySVMetalBufferHeap *this, unsigned int a
         v9 = MTLLegacySVLog(void)::logObject;
         if (os_log_type_enabled(MTLLegacySVLog(void)::logObject, OS_LOG_TYPE_DEBUG))
         {
-          LegacySVMetalBufferHeap::grow(v12, this + 15, v13, v9);
+          LegacySVMetalBufferHeap::grow(v11, this + 15, v12, v9);
         }
 
         v10 = *(this + 28) + 1;
@@ -5874,8 +5687,6 @@ void LegacySVMetalBufferHeap::grow(LegacySVMetalBufferHeap *this, unsigned int a
       while (v7 < (*(this + 9) - *(this + 8)) >> 3);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void std::vector<unsigned int>::resize(std::vector<unsigned int> *this, std::vector<unsigned int>::size_type __sz)
@@ -5915,9 +5726,7 @@ std::mutex *LegacySVMetalBufferHeap::allocBuffer(std::mutex *this)
     LegacySVMetalBufferHeap::allocBuffer(&this[2], this, v2);
   }
 
-  v3 = *&this[1].__m_.__opaque[40];
-  *&this[1].__m_.__opaque[40] = v3 - 1;
-  v4 = *(*&this[1].__m_.__opaque[16] + 4 * v3);
+  --*&this[1].__m_.__opaque[40];
   std::mutex::unlock(this);
   return this;
 }
@@ -6090,10 +5899,10 @@ void LegacySVBufferDescriptorHeap::freeBufferHandle(std::mutex *this, uint64_t a
   std::mutex::unlock(this);
 }
 
-void LegacySVConstantBufferCache::getOrCreateBuffer(LegacySVConstantBufferCache *this@<X0>, NSData *a2@<X1>, uint64_t a3@<X8>)
+void LegacySVConstantBufferCache::getOrCreateBuffer(uint64_t *__return_ptr a1@<X8>, LegacySVConstantBufferCache *this@<X0>, NSData *a3@<X1>)
 {
   std::mutex::lock((this + 8));
-  *this += [(NSData *)a2 length];
+  *this += [(NSData *)a3 length];
   if (MTLLegacySVLog(void)::onceToken != -1)
   {
     MTLLegacySVLog();
@@ -6101,18 +5910,18 @@ void LegacySVConstantBufferCache::getOrCreateBuffer(LegacySVConstantBufferCache 
 
   if (os_log_type_enabled(MTLLegacySVLog(void)::logObject, OS_LOG_TYPE_DEBUG))
   {
-    GPUDebugConstantBufferCache::getOrCreateBuffer(this);
+    GPUDebugConstantBufferCache::getOrCreateBuffer();
   }
 
   v6 = *(this + 14);
   if ((v6[286] & 0x80) != 0)
   {
-    v7 = [v6 newBufferWithLength:-[NSData length](a2 options:{"length"), 0}];
+    v7 = [v6 newBufferWithLength:-[NSData length](a3 options:{"length"), 0}];
   }
 
   else
   {
-    v7 = [v6 newInternalBufferWithLength:-[NSData length](a2 options:{"length"), 0}];
+    v7 = [v6 newInternalBufferWithLength:-[NSData length](a3 options:{"length"), 0}];
   }
 
   v8 = v7;
@@ -6121,9 +5930,9 @@ void LegacySVConstantBufferCache::getOrCreateBuffer(LegacySVConstantBufferCache 
   v9[2] = ___ZN27LegacySVConstantBufferCache17getOrCreateBufferEP6NSData_block_invoke;
   v9[3] = &unk_2787B3AB8;
   v9[4] = v7;
-  [(NSData *)a2 enumerateByteRangesUsingBlock:v9];
-  *(a3 + 32) = 0;
-  *(a3 + 40) = v8;
+  [(NSData *)a3 enumerateByteRangesUsingBlock:v9];
+  a1[4] = 0;
+  a1[5] = v8;
   std::mutex::unlock((this + 8));
 }
 
@@ -6183,7 +5992,7 @@ void LegacySVGlobalResidentBufferList::useBuffers(LegacySVGlobalResidentBufferLi
   }
 }
 
-void LegacySVGlobalResidentBufferList::addBuffer(uint64_t a1)
+void LegacySVGlobalResidentBufferList::addBuffer(uint64_t a1, uint64_t a2)
 {
   std::mutex::lock((a1 + 8));
   ++*a1;
@@ -6194,7 +6003,7 @@ void LegacySVGlobalResidentBufferList::removeBuffer(uint64_t a1, uint64_t a2)
 {
   v3 = a2;
   std::mutex::lock((a1 + 8));
-  std::list<objc_object  {objcproto9MTLBuffer}*>::remove(a1 + 72, &v3);
+  std::list<objc_object  {objcproto9MTLBuffer}*>::remove((a1 + 72), &v3);
   std::mutex::unlock((a1 + 8));
 }
 
@@ -6235,7 +6044,7 @@ void indirectCommandBufferPipelineInit(MTLLegacySVDevice *a1)
 
 void LogInstrumentationFailures(MTLLegacySVImageData *a1, MTLDebugInstrumentationData *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if (a1 && a2)
   {
     [(MTLLegacySVImageData *)a1 functionType];
@@ -6250,15 +6059,15 @@ void LogInstrumentationFailures(MTLLegacySVImageData *a1, MTLDebugInstrumentatio
       v5 = MTLLegacySVLog(void)::logObject;
       if (os_log_type_enabled(MTLLegacySVLog(void)::logObject, OS_LOG_TYPE_INFO))
       {
-        v15 = 136315394;
-        v16 = v4;
-        v17 = 2080;
-        v18 = [(NSString *)[(MTLLegacySVImageData *)a1 loadedImageName] UTF8String];
+        v14 = 136315394;
+        v15 = v4;
+        v16 = 2080;
+        v17 = [(NSString *)[(MTLLegacySVImageData *)a1 loadedImageName] UTF8String];
         v6 = "Fatal failure when instrumenting %s %s:\n\tFunction is not instrumented and faults will not be detected.";
         v7 = v5;
         v8 = 22;
 LABEL_19:
-        _os_log_impl(&dword_22E0FF000, v7, OS_LOG_TYPE_INFO, v6, &v15, v8);
+        _os_log_impl(&dword_22E0FF000, v7, OS_LOG_TYPE_INFO, v6, &v14, v8);
       }
     }
 
@@ -6284,20 +6093,20 @@ LABEL_19:
         }
 
         v12 = [(MTLDebugInstrumentationData *)a2 hasGlobalConstantsInstrumentationFailures];
-        v15 = 136315906;
+        v14 = 136315906;
         v13 = "\n\tFaults from reading global constant variables will not be detected.";
-        v16 = v4;
+        v15 = v4;
         if (!v12)
         {
           v13 = "";
         }
 
-        v17 = 2080;
-        v18 = v10;
-        v19 = 2080;
-        v20 = v11;
-        v21 = 2080;
-        v22 = v13;
+        v16 = 2080;
+        v17 = v10;
+        v18 = 2080;
+        v19 = v11;
+        v20 = 2080;
+        v21 = v13;
         v6 = "Partial failure when instrumenting %s %s:%s%s";
         v7 = v9;
         v8 = 42;
@@ -6305,22 +6114,20 @@ LABEL_19:
       }
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void MTLLegacySVSetValidationChecksOptions(uint64_t a1, void *a2, void *a3, void *a4, uint64_t a5, uint64_t a6, void *a7)
 {
-  v42 = *MEMORY[0x277D85DE8];
-  v36 = 1;
+  v41 = *MEMORY[0x277D85DE8];
+  v35 = 1;
   *c.count = "all";
   *c.hash = 1;
   *&c.hash[2] = "none";
   *&c.hash[4] = 2;
-  *&v41 = 0;
+  *&v40 = 0;
   md = 0uLL;
   std::vector<std::pair<char const*,MTLLegacySVValidationState>>::__init_with_size[abi:ne200100]<std::pair<char const*,MTLLegacySVValidationState> const*,std::pair<char const*,MTLLegacySVValidationState> const*>(&md, &c, &c.hash[6], 2uLL);
-  v11 = MTLGetEnvCase<MTLShaderValidationState>("MTL_SHADER_VALIDATION_DEFAULT_STATE", &v36, &md);
+  v11 = MTLGetEnvCase<MTLShaderValidationState>("MTL_SHADER_VALIDATION_DEFAULT_STATE", &v35, &md);
   if (md)
   {
     *(&md + 1) = md;
@@ -6329,7 +6136,7 @@ void MTLLegacySVSetValidationChecksOptions(uint64_t a1, void *a2, void *a3, void
 
   if ((v11 & 1) == 0)
   {
-    v36 = 1;
+    v35 = 1;
   }
 
   v12 = objc_opt_new();
@@ -6364,8 +6171,8 @@ void MTLLegacySVSetValidationChecksOptions(uint64_t a1, void *a2, void *a3, void
     }
 
     CC_SHA256_Final(&md, &c);
-    v37 = md;
-    v38 = v41;
+    v36 = md;
+    v37 = v40;
     v19 = _MTLRequestHashToString();
     if (a5)
     {
@@ -6391,16 +6198,16 @@ void MTLLegacySVSetValidationChecksOptions(uint64_t a1, void *a2, void *a3, void
     v19 = 0;
   }
 
-  v30 = v12;
-  v31[0] = MEMORY[0x277D85DD0];
-  v31[1] = 3221225472;
-  v32 = ___ZL37MTLLegacySVSetValidationChecksOptionsP17MTLLegacySVDevicePU22objcproto11MTLFunction11objc_objectS2_S2_P8NSString19MTLShaderValidationS5_Rm_block_invoke_2;
-  v33 = &unk_2787B3BF8;
-  v34 = v12;
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v28 = ___ZL37MTLLegacySVSetValidationChecksOptionsP17MTLLegacySVDevicePU22objcproto11MTLFunction11objc_objectS2_S2_P8NSString19MTLShaderValidationS5_Rm_block_invoke_3;
-  v29 = &unk_2787B3BF8;
+  v29 = v12;
+  v30[0] = MEMORY[0x277D85DD0];
+  v30[1] = 3221225472;
+  v31 = ___ZL37MTLLegacySVSetValidationChecksOptionsP17MTLLegacySVDevicePU22objcproto11MTLFunction11objc_objectS2_S2_P8NSString19MTLShaderValidationS5_Rm_block_invoke_2;
+  v32 = &unk_2787B3BF8;
+  v33 = v12;
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v27 = ___ZL37MTLLegacySVSetValidationChecksOptionsP17MTLLegacySVDevicePU22objcproto11MTLFunction11objc_objectS2_S2_P8NSString19MTLShaderValidationS5_Rm_block_invoke_3;
+  v28 = &unk_2787B3BF8;
   v20 = *(a1 + 656);
   if (v20)
   {
@@ -6448,9 +6255,9 @@ LABEL_31:
   if ((v20 & v22) == 1)
   {
     [v12 appendString:@"\nWarning: Pipeline requested to have shader validation checks both enabled and disabled."];
-    if (v36 != 2)
+    if (v35 != 2)
     {
-      if (v36 == 1)
+      if (v35 == 1)
       {
         goto LABEL_58;
       }
@@ -6471,7 +6278,7 @@ LABEL_42:
       [v12 appendString:@"\nWarning: Pipeline requested to have shader validation checks both enabled and disabled."];
     }
 
-    if (v36 == 1)
+    if (v35 == 1)
     {
     }
 
@@ -6485,7 +6292,7 @@ LABEL_42:
       [v12 appendString:@"\nWarning: Pipeline requested to have shader validation checks both enabled and disabled."];
     }
 
-    if (v36 == 2)
+    if (v35 == 2)
     {
     }
 
@@ -6495,7 +6302,7 @@ LABEL_42:
 LABEL_36:
   if (a6 == 2)
   {
-    if (v36 == 2)
+    if (v35 == 2)
     {
     }
   }
@@ -6504,19 +6311,19 @@ LABEL_36:
   {
     if (a6 == 1)
     {
-      if (v36 == 1)
+      if (v35 == 1)
       {
       }
 
       goto LABEL_58;
     }
 
-    if (v36 != 2)
+    if (v35 != 2)
     {
-      if (v36 == 1)
+      if (v35 == 1)
       {
 LABEL_58:
-        v32(v31, a7);
+        v31(v30, a7);
         goto LABEL_61;
       }
 
@@ -6525,7 +6332,7 @@ LABEL_58:
   }
 
 LABEL_60:
-  v28(v27, a7);
+  v27(v26, a7);
 LABEL_61:
   if (MTLLegacySVLog(void)::onceToken != -1)
   {
@@ -6536,8 +6343,6 @@ LABEL_61:
   {
     MTLLegacySVSetValidationChecksOptions(v12);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void sub_22E189E5C(_Unwind_Exception *exception_object)
@@ -6579,18 +6384,18 @@ void *DebugCompileOptions(MTLLegacySVDevice *a1, MTLCompileOptions *a2)
   return v3;
 }
 
-uint64_t MTLLegacySVParsePerPSOList(const std::string *a1)
+uint64_t MTLLegacySVParsePerPSOList(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277CBEB58]);
-  if ((a1->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if (*(a1 + 23) >= 0)
   {
     v3 = a1;
   }
 
   else
   {
-    v3 = a1->__r_.__value_.__r.__words[0];
+    v3 = *a1;
   }
 
   [MEMORY[0x277CCACA8] stringWithUTF8String:v3];
@@ -6605,46 +6410,46 @@ uint64_t MTLLegacySVParsePerPSOList(const std::string *a1)
     MTLGPUDebugParsePerPSOList();
   }
 
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v17, a1, 24);
-  if (!*(&v19[0].__locale_ + *(v17[0] - 24)))
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v16, a1, 24);
+  if (!*(&v18[0].__locale_ + *(v16[0] - 24)))
   {
     *&v5 = 138412290;
-    v13 = v5;
+    v12 = v5;
     while (1)
     {
+      v13 = 0;
       v14 = 0;
       v15 = 0;
-      v16 = 0;
-      std::getline[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v17, &v14, 0x2Cu);
-      if (SHIBYTE(v16) < 0)
+      std::getline[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v16, &v13, 0x2Cu);
+      if (SHIBYTE(v15) < 0)
       {
         break;
       }
 
-      if (HIBYTE(v16))
+      if (HIBYTE(v15))
       {
-        v10 = &v14;
+        v9 = &v13;
 LABEL_18:
-        v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:{v10, v13}];
+        v10 = [MEMORY[0x277CCACA8] stringWithUTF8String:{v9, v12}];
         if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
         {
-          *buf = v13;
-          v23 = v11;
+          *buf = v12;
+          v22 = v10;
           _os_log_debug_impl(&dword_22E0FF000, v4, OS_LOG_TYPE_DEBUG, "[METAL SHADER VALIDATION] Storing PSO: %@", buf, 0xCu);
         }
 
-        if (v16 >= 0)
+        if (v15 >= 0)
         {
-          v12 = &v14;
+          v11 = &v13;
         }
 
         else
         {
-          v12 = v14;
+          v11 = v13;
         }
 
-        [v2 addObject:{objc_msgSend(MEMORY[0x277CCACA8], "stringWithUTF8String:", v12)}];
-        if ((SHIBYTE(v16) & 0x80000000) == 0)
+        [v2 addObject:{objc_msgSend(MEMORY[0x277CCACA8], "stringWithUTF8String:", v11)}];
+        if ((SHIBYTE(v15) & 0x80000000) == 0)
         {
           goto LABEL_25;
         }
@@ -6653,47 +6458,46 @@ LABEL_18:
       }
 
 LABEL_25:
-      if (*(&v19[0].__locale_ + *(v17[0] - 24)))
+      if (*(&v18[0].__locale_ + *(v16[0] - 24)))
       {
         goto LABEL_9;
       }
     }
 
-    if (v15)
+    if (v14)
     {
-      v10 = v14;
+      v9 = v13;
       goto LABEL_18;
     }
 
 LABEL_24:
-    operator delete(v14);
+    operator delete(v13);
     goto LABEL_25;
   }
 
 LABEL_9:
   v6 = [v2 copy];
-  v17[0] = *MEMORY[0x277D82818];
+  v16[0] = *MEMORY[0x277D82818];
   v7 = *(MEMORY[0x277D82818] + 72);
-  *(v17 + *(v17[0] - 24)) = *(MEMORY[0x277D82818] + 64);
-  v17[2] = v7;
-  v18 = MEMORY[0x277D82878] + 16;
-  if (v20 < 0)
+  *(v16 + *(v16[0] - 24)) = *(MEMORY[0x277D82818] + 64);
+  v16[2] = v7;
+  v17 = MEMORY[0x277D82878] + 16;
+  if (v19 < 0)
   {
-    operator delete(v19[7].__locale_);
+    operator delete(v18[7].__locale_);
   }
 
-  v18 = MEMORY[0x277D82868] + 16;
-  std::locale::~locale(v19);
+  v17 = MEMORY[0x277D82868] + 16;
+  std::locale::~locale(v18);
   std::iostream::~basic_iostream();
-  MEMORY[0x2318E4900](&v21);
-  v8 = *MEMORY[0x277D85DE8];
+  MEMORY[0x2318E4900](&v20);
   return v6;
 }
 
-void sub_22E18DEC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, void *__p, uint64_t a5, int a6, __int16 a7, char a8, char a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
+void sub_22E18DEC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, void *__p, uint64_t a5, int a6, __int16 a7, char a8, char a9, char a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
-  va_start(va, a25);
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(&a10, MEMORY[0x277D82818]);
+  va_start(va, a30);
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(&a15, MEMORY[0x277D82818]);
   MEMORY[0x2318E4900](va);
   _Unwind_Resume(a1);
 }
@@ -6756,7 +6560,7 @@ void std::__call_once_proxy[abi:ne200100]<std::tuple<indirectCommandBufferPipeli
   *(**v1 + 91) = [v2 newDepthStencilStateWithDescriptor:v13];
 }
 
-uint64_t std::vector<std::pair<char const*,MTLLegacySVValidationState>>::__init_with_size[abi:ne200100]<std::pair<char const*,MTLLegacySVValidationState> const*,std::pair<char const*,MTLLegacySVValidationState> const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::pair<char const*,MTLLegacySVValidationState>>::__init_with_size[abi:ne200100]<std::pair<char const*,MTLLegacySVValidationState> const*,std::pair<char const*,MTLLegacySVValidationState> const*>(uint64_t *result, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -6839,7 +6643,7 @@ void std::vector<unsigned int>::__append(std::vector<unsigned int> *this, std::v
   }
 }
 
-uint64_t ___ZZL18WrapDynamicLibraryIZ60__MTLLegacySVDevice_newDynamicLibraryWithURL_options_error__E4__13EP25MTLLegacySVDynamicLibraryP17MTLLegacySVDeviceT_ENKUlS5_E_clIPU28objcproto17MTLDynamicLibrary11objc_objectEEDaS5__block_invoke(uint64_t a1)
+MTLLegacySVDynamicLibrary *___ZZL18WrapDynamicLibraryIZ60__MTLLegacySVDevice_newDynamicLibraryWithURL_options_error__E4__13EP25MTLLegacySVDynamicLibraryP17MTLLegacySVDeviceT_ENKUlS5_E_clIPU28objcproto17MTLDynamicLibrary11objc_objectEEDaS5__block_invoke(uint64_t a1)
 {
   v2 = [MTLLegacySVDynamicLibrary alloc];
   v3 = *(a1 + 32);
@@ -6848,7 +6652,7 @@ uint64_t ___ZZL18WrapDynamicLibraryIZ60__MTLLegacySVDevice_newDynamicLibraryWith
   return [(MTLLegacySVDynamicLibrary *)v2 initWithDynamicLibrary:v3 device:v4];
 }
 
-uint64_t ___ZZL18WrapDynamicLibraryIZ45__MTLLegacySVDevice_newDynamicLibrary_error__E4__14EP25MTLLegacySVDynamicLibraryP17MTLLegacySVDeviceT_ENKUlS5_E_clIPU28objcproto17MTLDynamicLibrary11objc_objectEEDaS5__block_invoke(uint64_t a1)
+MTLLegacySVDynamicLibrary *___ZZL18WrapDynamicLibraryIZ45__MTLLegacySVDevice_newDynamicLibrary_error__E4__14EP25MTLLegacySVDynamicLibraryP17MTLLegacySVDeviceT_ENKUlS5_E_clIPU28objcproto17MTLDynamicLibrary11objc_objectEEDaS5__block_invoke(uint64_t a1)
 {
   v2 = [MTLLegacySVDynamicLibrary alloc];
   v3 = *(a1 + 32);
@@ -6857,7 +6661,7 @@ uint64_t ___ZZL18WrapDynamicLibraryIZ45__MTLLegacySVDevice_newDynamicLibrary_err
   return [(MTLLegacySVDynamicLibrary *)v2 initWithDynamicLibrary:v3 device:v4];
 }
 
-uint64_t ___ZZL18WrapDynamicLibraryIZ63__MTLLegacySVDevice_newDynamicLibrary_computeDescriptor_error__E4__15EP25MTLLegacySVDynamicLibraryP17MTLLegacySVDeviceT_ENKUlS5_E_clIPU28objcproto17MTLDynamicLibrary11objc_objectEEDaS5__block_invoke(uint64_t a1)
+MTLLegacySVDynamicLibrary *___ZZL18WrapDynamicLibraryIZ63__MTLLegacySVDevice_newDynamicLibrary_computeDescriptor_error__E4__15EP25MTLLegacySVDynamicLibraryP17MTLLegacySVDeviceT_ENKUlS5_E_clIPU28objcproto17MTLDynamicLibrary11objc_objectEEDaS5__block_invoke(uint64_t a1)
 {
   v2 = [MTLLegacySVDynamicLibrary alloc];
   v3 = *(a1 + 32);
@@ -6866,7 +6670,7 @@ uint64_t ___ZZL18WrapDynamicLibraryIZ63__MTLLegacySVDevice_newDynamicLibrary_com
   return [(MTLLegacySVDynamicLibrary *)v2 initWithDynamicLibrary:v3 device:v4];
 }
 
-uint64_t ___ZZL18WrapDynamicLibraryIZ83__MTLLegacySVDevice_loadDynamicLibrariesForFunction_insertLibraries_options_error__E4__16EP25MTLLegacySVDynamicLibraryP17MTLLegacySVDeviceT_ENKUlS5_E_clIPU28objcproto17MTLDynamicLibrary11objc_objectEEDaS5__block_invoke(uint64_t a1)
+MTLLegacySVDynamicLibrary *___ZZL18WrapDynamicLibraryIZ83__MTLLegacySVDevice_loadDynamicLibrariesForFunction_insertLibraries_options_error__E4__16EP25MTLLegacySVDynamicLibraryP17MTLLegacySVDeviceT_ENKUlS5_E_clIPU28objcproto17MTLDynamicLibrary11objc_objectEEDaS5__block_invoke(uint64_t a1)
 {
   v2 = [MTLLegacySVDynamicLibrary alloc];
   v3 = *(a1 + 32);
@@ -6877,12 +6681,12 @@ uint64_t ___ZZL18WrapDynamicLibraryIZ83__MTLLegacySVDevice_loadDynamicLibrariesF
 
 void emitParallellRenderEncoderDistribution(MTLTelemetryDevice *a1, MTLTelemetryStatisticUIRec *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if (*MEMORY[0x277CD7168])
   {
     if (*MEMORY[0x277CD7168] != 1)
     {
-      goto LABEL_12;
+      return;
     }
 
     count = a2->count;
@@ -6917,23 +6721,20 @@ void emitParallellRenderEncoderDistribution(MTLTelemetryDevice *a1, MTLTelemetry
     }
 
     *buf = 67110144;
-    v14 = min;
-    v15 = 1024;
-    v16 = max;
-    v17 = 2048;
-    v18 = v11;
-    v19 = 2048;
-    v20 = total;
-    v21 = 1024;
-    v22 = v9;
+    v13 = min;
+    v14 = 1024;
+    v15 = max;
+    v16 = 2048;
+    v17 = v11;
+    v18 = 2048;
+    v19 = total;
+    v20 = 1024;
+    v21 = v9;
     _os_log_impl(&dword_22E0FF000, v6, OS_LOG_TYPE_DEFAULT, "ParallellRenderEncoder, minEncodersPerParallellRender=%u, maxEncodersPerParallellRender=%u, avgEncodersPerParallellRender=%f, totalEncodersPerParallellRender=%llu, countEncodersPerParallellRender=%u", buf, 0x28u);
   }
-
-LABEL_12:
-  v12 = *MEMORY[0x277D85DE8];
 }
 
-unint64_t _MTLDebugValidateBlitOption(unint64_t result)
+unint64_t _MTLDebugValidateBlitOption(unint64_t result, uint64_t a2)
 {
   if ((result > 4 || result == 3) && result != 0x20000000)
   {
@@ -7110,29 +6911,26 @@ LABEL_17:
   }
 }
 
-void *std::deque<objc_object *>::push_back(void *result, void *a2)
+void std::deque<objc_object *>::push_back(unint64_t *result, void *a2)
 {
-  v3 = result;
-  v4 = *(result + 1);
-  v5 = result[2];
-  v6 = result[1];
-  v7 = ((v5 - v6) << 6) - 1;
-  if (v5 == v6)
+  v4 = result[2];
+  v5 = result[1];
+  v6 = ((v4 - v5) << 6) - 1;
+  if (v4 == v5)
   {
-    v7 = 0;
+    v6 = 0;
   }
 
-  v8 = result[5] + result[4];
-  if (v7 == v8)
+  v7 = result[5] + result[4];
+  if (v6 == v7)
   {
-    result = std::deque<objc_object *>::__add_back_capacity(result);
-    v6 = v3[1];
-    v8 = v3[5] + v3[4];
+    std::deque<objc_object *>::__add_back_capacity(result);
+    v5 = result[1];
+    v7 = result[5] + result[4];
   }
 
-  *(*(v6 + ((v8 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v8 & 0x1FF)) = *a2;
-  ++v3[5];
-  return result;
+  *(*(v5 + ((v7 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v7 & 0x1FF)) = *a2;
+  ++result[5];
 }
 
 void sub_22E194730(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, void *a18, uint64_t a19)
@@ -7150,7 +6948,7 @@ void sub_22E194730(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<unsigned long long>::push_back[abi:ne200100](const void **a1, void *a2)
+void std::vector<unsigned long long>::push_back[abi:ne200100](const void **a1, uint64_t *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -7199,13 +6997,13 @@ void std::vector<unsigned long long>::push_back[abi:ne200100](const void **a1, v
   else
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 8;
   }
 
   a1[1] = v6;
 }
 
-uint64_t validateTextureRegion@<X0>(void *a1@<X0>, void *a2@<X1>, unint64_t a3@<X2>, unint64_t a4@<X3>, __int128 *a5@<X4>, __int128 *a6@<X8>)
+double validateTextureRegion@<D0>(void *a1@<X0>, void *a2@<X1>, unint64_t a3@<X2>, unint64_t a4@<X3>, __int128 *a5@<X4>, uint64_t a6@<X8>)
 {
   _MTLMessageContextBegin_();
   if (!a2)
@@ -7226,7 +7024,7 @@ uint64_t validateTextureRegion@<X0>(void *a1@<X0>, void *a2@<X1>, unint64_t a3@<
   if ([a2 mipmapLevelCount] <= a3)
   {
     v14 = a3;
-    v18 = [a2 mipmapLevelCount];
+    v15 = [a2 mipmapLevelCount];
     _MTLMessageContextPush_();
   }
 
@@ -7238,14 +7036,13 @@ uint64_t validateTextureRegion@<X0>(void *a1@<X0>, void *a2@<X1>, unint64_t a3@<
 
   if (!(*(a5 + 4) * *(a5 + 3) * *(a5 + 5)))
   {
-    v19 = *(a5 + 4);
     _MTLMessageContextPush_();
   }
 
   _MTLMessageContextEnd();
-  *(a6 + 6) = 0;
-  a6[1] = 0u;
-  a6[2] = 0u;
+  *(a6 + 48) = 0;
+  *(a6 + 16) = 0u;
+  *(a6 + 32) = 0u;
   *a6 = 0u;
   [a1 baseObject];
   [a2 pixelFormat];
@@ -7256,83 +7053,67 @@ uint64_t validateTextureRegion@<X0>(void *a1@<X0>, void *a2@<X1>, unint64_t a3@<
   [a2 depth];
   [a2 sampleCount];
   MTLGetTextureLevelInfoForDeviceWithOptions();
-  v32 = *a5;
-  v33 = *(a5 + 2);
-  v30 = *(a5 + 24);
-  v31 = *(a5 + 5);
-  v26 = *a6;
-  v27 = a6[1];
-  v28 = a6[2];
-  v29 = *(a6 + 6);
   _MTLAdjustMTLSize();
   _MTLMessageContextBegin_();
   if (*a5)
   {
-    v15 = *a5;
     _MTLMessageContextPush_();
   }
 
   if (*(a5 + 1))
   {
-    v16 = *(a5 + 1);
     _MTLMessageContextPush_();
   }
 
   if (*(a5 + 2))
   {
-    v17 = *(a5 + 2);
     _MTLMessageContextPush_();
   }
 
   if ((*(a6 + 9) & 4) != 0)
   {
-    if (*a5 % *(a6 + 4))
+    if (*a5 % *(a6 + 32))
     {
-      v20 = *a6;
       _MTLMessageContextPush_();
     }
 
-    if (*(a5 + 1) % *(a6 + 5))
+    if (*(a5 + 1) % *(a6 + 40))
     {
-      v21 = *a6;
       _MTLMessageContextPush_();
     }
 
-    if (*(a5 + 2) % *(a6 + 6))
+    if (*(a5 + 2) % *(a6 + 48))
     {
-      v22 = *a6;
       _MTLMessageContextPush_();
     }
 
-    if (0uLL % *(a6 + 4))
+    if (0uLL % *(a6 + 32))
     {
-      v23 = *a6;
       _MTLMessageContextPush_();
     }
 
-    if (0uLL % *(a6 + 5))
+    if (0uLL % *(a6 + 40))
     {
-      v24 = *a6;
       _MTLMessageContextPush_();
     }
 
-    if (0uLL % *(a6 + 6))
+    if (0uLL % *(a6 + 48))
     {
-      v25 = *a6;
       _MTLMessageContextPush_();
     }
   }
 
-  return _MTLMessageContextEnd();
+  _MTLMessageContextEnd();
+  return result;
 }
 
-uint64_t validateBlitProtectionOptions(uint64_t a1, void *a2, void *a3, uint64_t a4)
+uint64_t validateBlitProtectionOptions(uint64_t a1, void *a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   if (([a2 protectionOptions] & ~a1) != 0)
   {
-    v10 = [a2 protectionOptions];
-    v11 = a1;
-    v9 = a4;
+    v12 = [a2 protectionOptions];
+    v13 = a1;
+    v11 = a4;
     _MTLMessageContextPush_();
   }
 
@@ -7346,8 +7127,11 @@ uint64_t validateBlitProtectionOptions(uint64_t a1, void *a2, void *a3, uint64_t
   return result;
 }
 
-void *ResourceIdentity::UnwindTexture(void *a1, MTLTextureType a2, int a3, char a4, int a5, _DWORD *a6, int *a7)
+void *ResourceIdentity::UnwindTexture(void *a1, MTLTextureType a2, unint64_t a3, unint64_t a4, unint64_t a5, _DWORD *a6, unsigned int *a7)
 {
+  v9 = a5;
+  v10 = a4;
+  v11 = a3;
   v13 = a1;
   v14 = [a1 textureType];
   v15 = [v13 parentTexture];
@@ -7356,7 +7140,7 @@ void *ResourceIdentity::UnwindTexture(void *a1, MTLTextureType a2, int a3, char 
     do
     {
       v16 = v15;
-      a4 += [v13 parentRelativeLevel];
+      v10 += [v13 parentRelativeLevel];
       a2 += [v13 parentRelativeSlice];
       v15 = [v16 parentTexture];
       v13 = v16;
@@ -7370,7 +7154,7 @@ void *ResourceIdentity::UnwindTexture(void *a1, MTLTextureType a2, int a3, char 
     v16 = v13;
   }
 
-  *a6 = ResourceIdentity::PackViewInformation(v14, a2, a3, a4, a5, 0);
+  *a6 = ResourceIdentity::PackViewInformation(v14, a2, v11, v10, v9, 0);
   v17 = [v16 textureType];
   v18 = [v16 arrayLength];
   v19 = [v16 mipmapLevelCount];
@@ -7425,19 +7209,19 @@ unint64_t ResourceIdentity::PackViewInformation(ResourceIdentity *this, MTLTextu
   return v8 & 0xC007FF00 | ((a2 & 0x7FF) << 19) | (16 * (a4 & 0xFu)) | (a5 - 1) & 0xF | v6 | (((a3 * v9) << 8) + 524032) & 0x7FF00;
 }
 
-void *std::deque<objc_object *>::__add_back_capacity(void *a1)
+void std::deque<objc_object *>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x200;
   v3 = v1 - 512;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -7445,25 +7229,25 @@ void *std::deque<objc_object *>::__add_back_capacity(void *a1)
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    std::__allocate_at_least[abi:ne200100]<std::allocator<objc_object  {objcproto19MTLGPUDebugViewable}*>>(a1, v9);
+    v10 = a1;
+    std::__allocate_at_least[abi:ne200100]<std::allocator<objc_object  {objcproto19MTLGPUDebugViewable}*>>(a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<objc_object **>::emplace_back<objc_object **&>(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<objc_object **>::emplace_back<objc_object **&>(a1, &v9);
 }
 
 void sub_22E197070(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -7477,27 +7261,26 @@ void sub_22E197070(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::__split_buffer<objc_object **>::emplace_back<objc_object **&>(void *result, void *a2)
+void std::__split_buffer<objc_object **>::emplace_back<objc_object **&>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<objc_object  {objcproto19MTLGPUDebugViewable}*>>(result, v11);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<objc_object  {objcproto19MTLGPUDebugViewable}*>>(a1, v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -7506,28 +7289,26 @@ void *std::__split_buffer<objc_object **>::emplace_back<objc_object **&>(void *r
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
-const void **std::__split_buffer<objc_object **>::emplace_front<objc_object **>(const void **result, void *a2)
+void std::__split_buffer<objc_object **>::emplace_front<objc_object **>(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -7540,52 +7321,50 @@ const void **std::__split_buffer<objc_object **>::emplace_front<objc_object **>(
         v9 = (v7 - v4) >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<objc_object  {objcproto19MTLGPUDebugViewable}*>>(result, v9);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<objc_object  {objcproto19MTLGPUDebugViewable}*>>(a1, v9);
     }
 
     v8 = (((v7 - v6) >> 3) + 1) / 2;
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = (v6 + 8 * v8);
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
-  *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  *(v5 - 8) = *a2;
+  a1[1] = a1[1] - 8;
 }
 
-void *std::__split_buffer<objc_object **>::emplace_back<objc_object **>(void *result, void *a2)
+void std::__split_buffer<objc_object **>::emplace_back<objc_object **>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<objc_object  {objcproto19MTLGPUDebugViewable}*>>(result[4], v11);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<objc_object  {objcproto19MTLGPUDebugViewable}*>>(a1[4], v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -7594,28 +7373,26 @@ void *std::__split_buffer<objc_object **>::emplace_back<objc_object **>(void *re
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
-const void **std::__split_buffer<objc_object **>::emplace_front<objc_object **&>(const void **result, void *a2)
+void std::__split_buffer<objc_object **>::emplace_front<objc_object **&>(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -7628,29 +7405,28 @@ const void **std::__split_buffer<objc_object **>::emplace_front<objc_object **&>
         v9 = (v7 - v4) >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<objc_object  {objcproto19MTLGPUDebugViewable}*>>(result[4], v9);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<objc_object  {objcproto19MTLGPUDebugViewable}*>>(a1[4], v9);
     }
 
     v8 = (((v7 - v6) >> 3) + 1) / 2;
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = &v6[8 * v8];
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
   *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  a1[1] = a1[1] - 8;
 }
 
 void std::__allocate_at_least[abi:ne200100]<std::allocator<_NSRange>>(uint64_t a1, unint64_t a2)
@@ -7727,7 +7503,7 @@ uint64_t std::__split_buffer<objc_object **>::~__split_buffer(uint64_t a1)
   return a1;
 }
 
-uint64_t OUTLINED_FUNCTION_4_0()
+uint64_t OUTLINED_FUNCTION_4_0(uint64_t a1, uint64_t a2, uint64_t a3)
 {
 
   return _MTLMessageContextPush_();
@@ -7836,7 +7612,7 @@ uint64_t validateNewTexture(MTLDebugBuffer *a1, MTLTextureDescriptor *a2, uint64
 
 void emitBufferDistribution(MTLTelemetryDevice *a1, MTLTelemetryBufferDistributionRec *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   count = a2->var0.var0.count;
   if (count)
   {
@@ -7844,7 +7620,7 @@ void emitBufferDistribution(MTLTelemetryDevice *a1, MTLTelemetryBufferDistributi
     {
       if (*MEMORY[0x277CD7168] != 1)
       {
-        goto LABEL_10;
+        return;
       }
 
       printf("\n\nBuffer, minLength=%u, maxLength=%u, avgLength=%f, totalLength=%llu, countLength=%u", a2->var0.var0.min, a2->var0.var0.max, (a2->var0.var0.total / count), a2->var0.var0.total, count);
@@ -7868,24 +7644,21 @@ void emitBufferDistribution(MTLTelemetryDevice *a1, MTLTelemetryBufferDistributi
       }
 
       *buf = 67110144;
-      v13 = min;
-      v14 = 1024;
-      v15 = max;
-      v16 = 2048;
-      v17 = v10;
-      v18 = 2048;
-      v19 = total;
-      v20 = 1024;
-      v21 = v8;
+      v12 = min;
+      v13 = 1024;
+      v14 = max;
+      v15 = 2048;
+      v16 = v10;
+      v17 = 2048;
+      v18 = total;
+      v19 = 1024;
+      v20 = v8;
       _os_log_impl(&dword_22E0FF000, v5, OS_LOG_TYPE_DEFAULT, "Buffer, minLength=%u, maxLength=%u, avgLength=%f, totalLength=%llu, countLength=%u", buf, 0x28u);
     }
   }
-
-LABEL_10:
-  v11 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t _MTLValidateResolveTexture(void *a1, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, uint64_t a7, unint64_t a8, uint64_t *a9, char a10)
+uint64_t _MTLValidateResolveTexture(void *a1, _BYTE *a2, unint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, unint64_t a7, unint64_t a8, char *a9, char a10)
 {
   if (a3 >= 0xA)
   {
@@ -7930,7 +7703,7 @@ uint64_t _MTLValidateResolveTexture(void *a1, uint64_t a2, unint64_t a3, uint64_
 
   v16 = [a2 pixelFormat];
   v17 = [a9 pixelFormat];
-  if ((*(a2 + 80) & 0x80) != 0 || v16 == 253)
+  if ((a2[80] & 0x80) != 0 || v16 == 253)
   {
     if (a10)
     {
@@ -7940,7 +7713,7 @@ uint64_t _MTLValidateResolveTexture(void *a1, uint64_t a2, unint64_t a3, uint64_
 
   else
   {
-    _MTLValidateResolveTexture_cold_9((a2 + 72));
+    _MTLValidateResolveTexture_cold_9();
     if (a10)
     {
       goto LABEL_22;
@@ -7949,7 +7722,7 @@ uint64_t _MTLValidateResolveTexture(void *a1, uint64_t a2, unint64_t a3, uint64_
 
   if (v17 != v16)
   {
-    _MTLValidateResolveTexture_cold_10(a9 + 9, (a2 + 72));
+    _MTLValidateResolveTexture_cold_10();
   }
 
 LABEL_22:
@@ -7992,7 +7765,7 @@ LABEL_22:
   return result;
 }
 
-uint64_t _MTLValidateResolveTextureWithContext(void *a1, uint64_t *a2, unint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, uint64_t a7, unint64_t a8, void *a9, char a10)
+uint64_t _MTLValidateResolveTextureWithContext(void *a1, uint64_t *a2, unint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, unint64_t a7, unint64_t a8, void *a9, char a10, uint64_t a11)
 {
   if (a3 >= 0xA)
   {
@@ -8035,10 +7808,10 @@ uint64_t _MTLValidateResolveTextureWithContext(void *a1, uint64_t *a2, unint64_t
     _MTLMessageContextPush_();
   }
 
-  v16 = [a2 pixelFormat];
-  v17 = [a9 pixelFormat];
-  v18 = a2 + 9;
-  if ((a2[10] & 0x80) != 0 || v16 == 253)
+  v17 = [a2 pixelFormat];
+  v18 = [a9 pixelFormat];
+  v19 = a2 + 9;
+  if ((a2[10] & 0x80) != 0 || v17 == 253)
   {
     if (a10)
     {
@@ -8048,7 +7821,7 @@ uint64_t _MTLValidateResolveTextureWithContext(void *a1, uint64_t *a2, unint64_t
 
   else
   {
-    v22 = *v18;
+    v23 = *v19;
     _MTLMessageContextPush_();
     if (a10)
     {
@@ -8056,27 +7829,27 @@ uint64_t _MTLValidateResolveTextureWithContext(void *a1, uint64_t *a2, unint64_t
     }
   }
 
-  if (v17 != v16)
+  if (v18 != v17)
   {
-    v22 = a9[9];
-    v25 = *v18;
+    v23 = a9[9];
+    v26 = *v19;
     _MTLMessageContextPush_();
   }
 
 LABEL_22:
-  v19 = [a2 numFaces];
-  v20 = [a2 arrayLength];
-  if (v20 * v19 <= a6)
+  v20 = [a2 numFaces];
+  v21 = [a2 arrayLength];
+  if (v21 * v20 <= a6)
   {
-    v23 = a6;
-    v26 = v20 * v19;
+    v24 = a6;
+    v27 = v21 * v20;
     _MTLMessageContextPush_();
   }
 
   if ([a2 mipmapLevelCount] <= a8)
   {
-    v24 = a8;
-    v27 = [a2 mipmapLevelCount];
+    v25 = a8;
+    v28 = [a2 mipmapLevelCount];
     _MTLMessageContextPush_();
   }
 
@@ -8089,7 +7862,7 @@ LABEL_22:
   _MTLMessageContextPush_();
   if ([a2 sampleCount] != 1)
   {
-    _MTLValidateResolveTextureWithContext_cold_1(a2);
+    _MTLValidateResolveTextureWithContext_cold_1(a2, a11);
   }
 
   result = [a1 supportsRenderToLinearTextures];
@@ -8105,54 +7878,7 @@ LABEL_22:
   return result;
 }
 
-unint64_t _MTLValidateDepthStencilStoreState(unint64_t result, unint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v6 = result;
-  if (a4 && (result == 4 || a2 == 4))
-  {
-    return result;
-  }
-
-  if (!result || !a2)
-  {
-    goto LABEL_14;
-  }
-
-  v7 = 0;
-  for (i = &qword_22E27C200; *(i - 1) != result; i += 2)
-  {
-    if (v7 >= 4)
-    {
-      goto LABEL_18;
-    }
-
-LABEL_12:
-    ++v7;
-  }
-
-  v9 = *i;
-  if (v7 <= 3 && v9 != a2)
-  {
-    goto LABEL_12;
-  }
-
-  if (v9 == a2)
-  {
-    goto LABEL_14;
-  }
-
-LABEL_18:
-  result = _MTLValidateDepthStencilStoreState_cold_1(a4, result, a2);
-LABEL_14:
-  if ((v6 & 0xFFFFFFFFFFFFFFFELL) != 2 && a3 == 1)
-  {
-    return _MTLValidateDepthStencilStoreState_cold_2(a4, v6);
-  }
-
-  return result;
-}
-
-unint64_t _MTLValidateDepthStencilStoreStateWithContext(unint64_t result, unint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t _MTLValidateDepthStencilStoreState(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v5 = result;
   if (a4 && (result == 4 || a2 == 4))
@@ -8170,7 +7896,7 @@ unint64_t _MTLValidateDepthStencilStoreStateWithContext(unint64_t result, unint6
   {
     if (v6 >= 4)
     {
-      goto LABEL_17;
+      goto LABEL_18;
     }
 
 LABEL_12:
@@ -8188,28 +7914,70 @@ LABEL_12:
     goto LABEL_14;
   }
 
-LABEL_17:
-  result = _MTLValidateDepthStencilStoreStateWithContext_cold_1(a4, result, a2);
+LABEL_18:
+  result = _MTLValidateDepthStencilStoreState_cold_1();
 LABEL_14:
   if ((v5 & 0xFFFFFFFFFFFFFFFELL) != 2 && a3 == 1)
   {
-    if (v5 <= 4)
+    return _MTLValidateDepthStencilStoreState_cold_2();
+  }
+
+  return result;
+}
+
+uint64_t _MTLValidateDepthStencilStoreStateWithContext(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v6 = result;
+  if (a4 && (result == 4 || a2 == 4))
+  {
+    return result;
+  }
+
+  if (!result || !a2)
+  {
+    goto LABEL_14;
+  }
+
+  v7 = 0;
+  for (i = &qword_22E27C200; *(i - 1) != result; i += 2)
+  {
+    if (v7 >= 4)
     {
-      v9 = off_2787B4970[v5];
+      goto LABEL_17;
     }
 
+LABEL_12:
+    ++v7;
+  }
+
+  v9 = *i;
+  if (v7 <= 3 && v9 != a2)
+  {
+    goto LABEL_12;
+  }
+
+  if (v9 == a2)
+  {
+    goto LABEL_14;
+  }
+
+LABEL_17:
+  result = _MTLValidateDepthStencilStoreStateWithContext_cold_1(a4, result, a2, a5);
+LABEL_14:
+  if ((v6 & 0xFFFFFFFFFFFFFFFELL) != 2 && a3 == 1)
+  {
     return _MTLMessageContextPush_();
   }
 
   return result;
 }
 
-unint64_t validateComputePassDescriptor(void *a1, void *a2)
+void *validateComputePassDescriptor(void *a1, void *a2, uint64_t a3)
 {
   for (i = 0; i != 4; ++i)
   {
-    v5 = [objc_msgSend(a1 sampleBufferAttachments];
-    result = [v5 sampleBuffer];
+    v6 = [objc_msgSend(a1 sampleBufferAttachments];
+    result = [v6 sampleBuffer];
     if (!result)
     {
       continue;
@@ -8217,22 +7985,22 @@ unint64_t validateComputePassDescriptor(void *a1, void *a2)
 
     if ([a2 supportsCounterSampling:0])
     {
-      v7 = [objc_msgSend(v5 "sampleBuffer")];
-      if ([v5 startOfEncoderSampleIndex] != -1 && objc_msgSend(v5, "startOfEncoderSampleIndex") >= v7)
+      v8 = [objc_msgSend(v6 "sampleBuffer")];
+      if ([v6 startOfEncoderSampleIndex] != -1 && objc_msgSend(v6, "startOfEncoderSampleIndex") >= v8)
       {
-        v8 = [v5 startOfEncoderSampleIndex];
-        v9 = v7;
+        v9 = [v6 startOfEncoderSampleIndex];
+        v10 = v8;
         _MTLMessageContextPush_();
       }
 
-      result = [v5 endOfEncoderSampleIndex];
+      result = [v6 endOfEncoderSampleIndex];
       if (result != -1)
       {
-        result = [v5 endOfEncoderSampleIndex];
-        if (result >= v7)
+        result = [v6 endOfEncoderSampleIndex];
+        if (result >= v8)
         {
-          v8 = [v5 endOfEncoderSampleIndex];
-          v9 = v7;
+          v9 = [v6 endOfEncoderSampleIndex];
+          v10 = v8;
 LABEL_15:
           result = _MTLMessageContextPush_();
           continue;
@@ -8242,12 +8010,12 @@ LABEL_15:
 
     else
     {
-      if ([v5 startOfEncoderSampleIndex] != -1)
+      if ([v6 startOfEncoderSampleIndex] != -1)
       {
         _MTLMessageContextPush_();
       }
 
-      result = [v5 endOfEncoderSampleIndex];
+      result = [v6 endOfEncoderSampleIndex];
       if (result != -1)
       {
         goto LABEL_15;
@@ -8272,35 +8040,35 @@ const char *initLifetimeOptions(void)::$_0::__invoke()
   return result;
 }
 
-void *std::__hash_table<objc_object  {objcproto25MTLDebugResourcePurgeable}*,std::hash<objc_object  {objcproto25MTLDebugResourcePurgeable}>,std::equal_to<objc_object  {objcproto25MTLDebugResourcePurgeable}>,std::allocator<objc_object  {objcproto25MTLDebugResourcePurgeable}>>::__emplace_unique_key_args<objc_object  {objcproto25MTLDebugResourcePurgeable},objc_object  {objcproto25MTLDebugResourcePurgeable}>(void *a1, void *a2)
+void *std::__hash_table<objc_object  {objcproto25MTLDebugResourcePurgeable}*,std::hash<objc_object  {objcproto25MTLDebugResourcePurgeable}>,std::equal_to<objc_object  {objcproto25MTLDebugResourcePurgeable}>,std::allocator<objc_object  {objcproto25MTLDebugResourcePurgeable}>>::__emplace_unique_key_args<objc_object  {objcproto25MTLDebugResourcePurgeable},objc_object  {objcproto25MTLDebugResourcePurgeable}>(void *a1, void *a2, void *a3)
 {
-  v2 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
-  v3 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v2 >> 47) ^ v2);
-  v4 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-  v5 = a1[1];
-  if (!*&v5)
+  v3 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
+  v4 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v3 >> 47) ^ v3);
+  v5 = 0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47));
+  v6 = a1[1];
+  if (!*&v6)
   {
     goto LABEL_18;
   }
 
-  v6 = vcnt_s8(v5);
-  v6.i16[0] = vaddlv_u8(v6);
-  if (v6.u32[0] > 1uLL)
+  v7 = vcnt_s8(v6);
+  v7.i16[0] = vaddlv_u8(v7);
+  if (v7.u32[0] > 1uLL)
   {
-    v7 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-    if (v4 >= *&v5)
+    v8 = 0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47));
+    if (v5 >= *&v6)
     {
-      v7 = v4 % *&v5;
+      v8 = v5 % *&v6;
     }
   }
 
   else
   {
-    v7 = v4 & (*&v5 - 1);
+    v8 = v5 & (*&v6 - 1);
   }
 
-  v8 = *(*a1 + 8 * v7);
-  if (!v8 || (v9 = *v8) == 0)
+  v9 = *(*a1 + 8 * v8);
+  if (!v9 || (v10 = *v9) == 0)
   {
 LABEL_18:
     operator new();
@@ -8308,75 +8076,75 @@ LABEL_18:
 
   while (1)
   {
-    v10 = v9[1];
-    if (v10 == v4)
+    v11 = v10[1];
+    if (v11 == v5)
     {
       break;
     }
 
-    if (v6.u32[0] > 1uLL)
+    if (v7.u32[0] > 1uLL)
     {
-      if (v10 >= *&v5)
+      if (v11 >= *&v6)
       {
-        v10 %= *&v5;
+        v11 %= *&v6;
       }
     }
 
     else
     {
-      v10 &= *&v5 - 1;
+      v11 &= *&v6 - 1;
     }
 
-    if (v10 != v7)
+    if (v11 != v8)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v9 = *v9;
-    if (!v9)
+    v10 = *v10;
+    if (!v10)
     {
       goto LABEL_18;
     }
   }
 
-  if (v9[2] != *a2)
+  if (v10[2] != *a2)
   {
     goto LABEL_17;
   }
 
-  return v9;
+  return v10;
 }
 
-void *std::__hash_table<MTLToolsObject *,std::hash<MTLToolsObject *>,std::equal_to<MTLToolsObject *>,std::allocator<MTLToolsObject *>>::__emplace_unique_key_args<MTLToolsObject *,MTLToolsObject * const&>(void *a1, void *a2)
+void *std::__hash_table<MTLToolsObject *,std::hash<MTLToolsObject *>,std::equal_to<MTLToolsObject *>,std::allocator<MTLToolsObject *>>::__emplace_unique_key_args<MTLToolsObject *,MTLToolsObject * const&>(void *a1, void *a2, void *a3)
 {
-  v2 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
-  v3 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v2 >> 47) ^ v2);
-  v4 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-  v5 = a1[1];
-  if (!*&v5)
+  v3 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
+  v4 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v3 >> 47) ^ v3);
+  v5 = 0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47));
+  v6 = a1[1];
+  if (!*&v6)
   {
     goto LABEL_18;
   }
 
-  v6 = vcnt_s8(v5);
-  v6.i16[0] = vaddlv_u8(v6);
-  if (v6.u32[0] > 1uLL)
+  v7 = vcnt_s8(v6);
+  v7.i16[0] = vaddlv_u8(v7);
+  if (v7.u32[0] > 1uLL)
   {
-    v7 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-    if (v4 >= *&v5)
+    v8 = 0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47));
+    if (v5 >= *&v6)
     {
-      v7 = v4 % *&v5;
+      v8 = v5 % *&v6;
     }
   }
 
   else
   {
-    v7 = v4 & (*&v5 - 1);
+    v8 = v5 & (*&v6 - 1);
   }
 
-  v8 = *(*a1 + 8 * v7);
-  if (!v8 || (v9 = *v8) == 0)
+  v9 = *(*a1 + 8 * v8);
+  if (!v9 || (v10 = *v9) == 0)
   {
 LABEL_18:
     operator new();
@@ -8384,44 +8152,44 @@ LABEL_18:
 
   while (1)
   {
-    v10 = v9[1];
-    if (v10 == v4)
+    v11 = v10[1];
+    if (v11 == v5)
     {
       break;
     }
 
-    if (v6.u32[0] > 1uLL)
+    if (v7.u32[0] > 1uLL)
     {
-      if (v10 >= *&v5)
+      if (v11 >= *&v6)
       {
-        v10 %= *&v5;
+        v11 %= *&v6;
       }
     }
 
     else
     {
-      v10 &= *&v5 - 1;
+      v11 &= *&v6 - 1;
     }
 
-    if (v10 != v7)
+    if (v11 != v8)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v9 = *v9;
-    if (!v9)
+    v10 = *v10;
+    if (!v10)
     {
       goto LABEL_18;
     }
   }
 
-  if (v9[2] != *a2)
+  if (v10[2] != *a2)
   {
     goto LABEL_17;
   }
 
-  return v9;
+  return v10;
 }
 
 void std::__hash_table<MTLToolsObject *,std::hash<MTLToolsObject *>,std::equal_to<MTLToolsObject *>,std::allocator<MTLToolsObject *>>::swap(uint64_t a1, uint64_t a2)
@@ -8532,7 +8300,7 @@ LABEL_3:
     result = [a3 currentCommandBuffer];
     if (result)
     {
-      return validateBeginCommandBufferWithAllocatorCommon(a2, a3, result);
+      return validateBeginCommandBufferWithAllocatorCommon(a2, a3, result, a1);
     }
 
     return result;
@@ -8549,7 +8317,7 @@ void AttachmentDescriptorSimple::AttachmentDescriptorSimple(AttachmentDescriptor
   this->storeAction = 4;
 }
 
-void AttachmentDescriptorSimple::AttachmentDescriptorSimple(AttachmentDescriptorSimple *this, const MTLRenderPassAttachmentDescriptorPrivate *a2, unint64_t a3, unint64_t a4)
+void AttachmentDescriptorSimple::AttachmentDescriptorSimple(AttachmentDescriptorSimple *this, const MTLRenderPassAttachmentDescriptorPrivate *a2, unint64_t a3, NSUInteger a4)
 {
   var1 = a2->var1;
   var2 = a2->var2;
@@ -8656,7 +8424,7 @@ __CFString *_MTLMultisampleDepthResolveFilterString(unint64_t a1)
   }
 }
 
-MTLRenderPassAttachmentDescriptorPrivate *_MTLDebugValidateStoreLoadTransitionAndTrackAttachments(void *a1, uint64_t a2, int a3, int a4, int a5, unint64_t a6)
+MTLRenderPassAttachmentDescriptorPrivate *_MTLDebugValidateStoreLoadTransitionAndTrackAttachments(void *a1, int8x8_t *a2, NSRange *a3, uint64_t a4, uint64_t a5, NSUInteger a6)
 {
   result = [a1 _descriptorPrivate];
   if (result)
@@ -8668,7 +8436,7 @@ MTLRenderPassAttachmentDescriptorPrivate *_MTLDebugValidateStoreLoadTransitionAn
   return result;
 }
 
-void validateStoreLoadTransition(int a1, uint64_t a2, MTLRenderPassAttachmentDescriptorPrivate *a3, int a4, int a5, unint64_t a6)
+void validateStoreLoadTransition(uint64_t a1, int8x8_t *a2, MTLRenderPassAttachmentDescriptorPrivate *a3, NSRange *a4, uint64_t a5, NSUInteger a6)
 {
   AttachmentDescriptorSimple::AttachmentDescriptorSimple(&v13, a3, a3->var5, a6);
   v8 = std::__hash_table<AttachmentDescriptorSimple,AttachmentDescriptorSimple::hash_t,AttachmentDescriptorSimple::equal_t,std::allocator<AttachmentDescriptorSimple>>::__equal_range_multi<AttachmentDescriptorSimple>(a2, &v13);
@@ -8699,12 +8467,12 @@ void validateStoreLoadTransition(int a1, uint64_t a2, MTLRenderPassAttachmentDes
     while (v10 != v11);
   }
 
-  std::__hash_table<AttachmentDescriptorSimple,AttachmentDescriptorSimple::hash_t,AttachmentDescriptorSimple::equal_t,std::allocator<AttachmentDescriptorSimple>>::__emplace_multi<AttachmentDescriptorSimple const&>();
+  std::__hash_table<AttachmentDescriptorSimple,AttachmentDescriptorSimple::hash_t,AttachmentDescriptorSimple::equal_t,std::allocator<AttachmentDescriptorSimple>>::__emplace_multi<AttachmentDescriptorSimple const&>(a2, &v13);
 }
 
-uint64_t _MTLDebugValidateRenderPassDescriptorAndTrackAttachments(uint64_t a1, void *a2, uint64_t a3, void *a4, void *a5)
+uint64_t _MTLDebugValidateRenderPassDescriptorAndTrackAttachments(uint64_t a1, void *a2, int8x8_t *a3, NSRange *a4, void *a5)
 {
-  v128 = *MEMORY[0x277D85DE8];
+  v124 = *MEMORY[0x277D85DE8];
   if (MTLReportFailureTypeEnabled())
   {
     memcpy(a4, a5, 0x1C0uLL);
@@ -8724,22 +8492,22 @@ uint64_t _MTLDebugValidateRenderPassDescriptorAndTrackAttachments(uint64_t a1, v
     memcpy(a5, __src, 0x1C0uLL);
   }
 
-  v124 = 0;
-  v122 = 0u;
-  v123 = 0u;
-  v121 = 0u;
+  v121 = 0;
+  v119 = 0u;
+  v120 = 0u;
+  v118 = 0u;
   _MTLMessageContextBegin_();
   v9 = 0;
   v10 = 0;
-  v119 = 0;
-  v120 = 0;
+  v116 = 0;
+  v117 = 0;
   v11 = *(a1 + 48);
-  v111 = -1;
-  v113 = 0;
-  v118 = 0;
-  v117 = 1;
-  memset(v115, 0, sizeof(v115));
-  v116 = 1065353216;
+  v108 = -1;
+  v110 = 0;
+  v115 = 0;
+  v114 = 1;
+  memset(v112, 0, sizeof(v112));
+  v113 = 1065353216;
   v12 = -1;
   do
   {
@@ -8755,15 +8523,14 @@ uint64_t _MTLDebugValidateRenderPassDescriptorAndTrackAttachments(uint64_t a1, v
           _MTLMessageContextPush_();
         }
 
-        v15 = *v14;
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v16 = *v14;
+          v15 = *v14;
           if (([*v14 requireUsage:4] & 1) == 0)
           {
-            [v16 usage];
-            v102 = 4;
+            [v15 usage];
+            v99 = 4;
             _MTLMessageContextPush_();
           }
 
@@ -8772,44 +8539,43 @@ uint64_t _MTLDebugValidateRenderPassDescriptorAndTrackAttachments(uint64_t a1, v
             _MTLMessageContextPush_();
           }
 
-          v96 = &v121;
-          validateAttachmentOnDevice(a2, v14, v9, &v120, v11, &v118 + 1, &v118, *(a1 + 43), &v117);
+          validateAttachmentOnDevice(a2, v14, v9, &v117, v11, &v115 + 1, &v115, *(a1 + 43), &v114, &v118);
           if (MTLReportFailureTypeEnabled())
           {
             validateStoreLoadTransition(v9, a3, v14, a4, a5, v11);
           }
 
-          AttachmentDescriptorSimple::AttachmentDescriptorSimple(&v114, v14, *(v14 + 40), v11);
-          v17 = std::__hash_table<AttachmentDescriptorSimple,AttachmentDescriptorSimple::hash_t,AttachmentDescriptorSimple::equal_t,std::allocator<AttachmentDescriptorSimple>>::find<AttachmentDescriptorSimple>(v115, &v114);
-          if (v17)
+          AttachmentDescriptorSimple::AttachmentDescriptorSimple(&v111, v14, *(v14 + 40), v11);
+          v16 = std::__hash_table<AttachmentDescriptorSimple,AttachmentDescriptorSimple::hash_t,AttachmentDescriptorSimple::equal_t,std::allocator<AttachmentDescriptorSimple>>::find<AttachmentDescriptorSimple>(v112, &v111);
+          if (v16)
           {
-            length_low = LODWORD(v17[4].length);
-            v96 = v9;
+            length_low = LODWORD(v16[4].length);
+            v94 = v9;
             _MTLMessageContextPush_();
           }
 
-          v125 = &v114;
-          LODWORD(std::__hash_table<std::__hash_value_type<AttachmentDescriptorSimple,unsigned int>,std::__unordered_map_hasher<AttachmentDescriptorSimple,std::__hash_value_type<AttachmentDescriptorSimple,unsigned int>,AttachmentDescriptorSimple::hash_t,AttachmentDescriptorSimple::equal_t,true>,std::__unordered_map_equal<AttachmentDescriptorSimple,std::__hash_value_type<AttachmentDescriptorSimple,unsigned int>,AttachmentDescriptorSimple::equal_t,AttachmentDescriptorSimple::hash_t,true>,std::allocator<std::__hash_value_type<AttachmentDescriptorSimple,unsigned int>>>::__emplace_unique_key_args<AttachmentDescriptorSimple,std::piecewise_construct_t const&,std::tuple<AttachmentDescriptorSimple const&>,std::tuple<>>(v115, &v114)[4].length) = v9;
-          v126[v10] = [*v14 pixelFormat];
-          v18 = &__src[56 * v10];
-          v19 = *(v16 + 72);
-          v20 = *(v16 + 88);
-          v21 = *(v16 + 104);
-          *(v18 + 6) = *(v16 + 15);
-          *(v18 + 1) = v20;
-          *(v18 + 2) = v21;
-          *v18 = v19;
+          v122[0] = &v111;
+          LODWORD(std::__hash_table<std::__hash_value_type<AttachmentDescriptorSimple,unsigned int>,std::__unordered_map_hasher<AttachmentDescriptorSimple,std::__hash_value_type<AttachmentDescriptorSimple,unsigned int>,AttachmentDescriptorSimple::hash_t,AttachmentDescriptorSimple::equal_t,true>,std::__unordered_map_equal<AttachmentDescriptorSimple,std::__hash_value_type<AttachmentDescriptorSimple,unsigned int>,AttachmentDescriptorSimple::equal_t,AttachmentDescriptorSimple::hash_t,true>,std::allocator<std::__hash_value_type<AttachmentDescriptorSimple,unsigned int>>>::__emplace_unique_key_args<AttachmentDescriptorSimple,std::piecewise_construct_t const&,std::tuple<AttachmentDescriptorSimple const&>,std::tuple<>>(v112, &v111, &std::piecewise_construct, v122)[4].length) = v9;
+          v122[v10 + 1] = [*v14 pixelFormat];
+          v17 = &__src[56 * v10];
+          v18 = *(v15 + 72);
+          v19 = *(v15 + 88);
+          v20 = *(v15 + 104);
+          *(v17 + 6) = *(v15 + 15);
+          *(v17 + 1) = v19;
+          *(v17 + 2) = v20;
+          *v17 = v18;
           [*v14 sampleCount];
-          if (v111 >= [v16 width] >> *(v14 + 8))
+          if (v108 >= [v15 width] >> *(v14 + 8))
           {
-            v111 = [v16 width] >> *(v14 + 8);
+            v108 = [v15 width] >> *(v14 + 8);
           }
 
-          ++v113;
+          ++v110;
           ++v10;
-          if (v12 >= [v16 height] >> *(v14 + 8))
+          if (v12 >= [v15 height] >> *(v14 + 8))
           {
-            v12 = [v16 height] >> *(v14 + 8);
+            v12 = [v15 height] >> *(v14 + 8);
           }
         }
       }
@@ -8819,78 +8585,77 @@ uint64_t _MTLDebugValidateRenderPassDescriptorAndTrackAttachments(uint64_t a1, v
   }
 
   while (v9 != 8);
-  if (!v117)
+  if (!v114)
   {
     _MTLMessageContextPush_();
   }
 
-  if (HIBYTE(v118) == 1 && v118)
+  if (HIBYTE(v115) == 1 && v115)
   {
     _MTLMessageContextPush_();
   }
 
   _MTLMessageContextEnd();
-  v22 = [a2 maxFramebufferStorageBits];
-  v23 = MTLPixelFormatComputeTotalSizeUsed();
-  v24 = [a2 isLargeMRTSupported];
-  if (8 * v23 <= v22)
+  v21 = [a2 maxFramebufferStorageBits];
+  v22 = MTLPixelFormatComputeTotalSizeUsed();
+  v23 = [a2 isLargeMRTSupported];
+  if (8 * v22 <= v21)
   {
-    v25 = 1;
+    v24 = 1;
   }
 
   else
   {
-    v25 = v24;
+    v24 = v23;
   }
 
-  if ((v25 & 1) == 0)
+  if ((v24 & 1) == 0)
   {
-    v86 = v23 & 0x1FFFFFFFFFFFFFFFLL;
-    v95 = v22 >> 3;
+    v84 = v22 & 0x1FFFFFFFFFFFFFFFLL;
+    v93 = v21 >> 3;
     MTLReportFailure();
   }
 
   if (([a2 supportsSeparateVisibilityAndShadingRate] & 1) == 0)
   {
-    v119 = v120;
+    v116 = v117;
   }
 
-  v124 = 0;
-  v122 = 0u;
-  v123 = 0u;
-  v121 = 0u;
+  v121 = 0;
+  v119 = 0u;
+  v120 = 0u;
+  v118 = 0u;
   _MTLMessageContextBegin_();
-  v26 = [*a1 _descriptorAtIndex:8];
-  v27 = v26;
-  if (v26)
+  v25 = [*a1 _descriptorAtIndex:8];
+  v26 = v25;
+  if (v25)
   {
-    v28 = [v26 _descriptorPrivate];
-    v29 = *v28;
-    if (*v28)
+    v27 = [v25 _descriptorPrivate];
+    v28 = *v27;
+    if (*v27)
     {
-      __dsta = *(v29 + 20);
-      if (([v29 requireUsage:4] & 1) == 0)
+      __dsta = v28[20];
+      if (([v28 requireUsage:4] & 1) == 0)
       {
-        [v29 usage];
+        [v28 usage];
         _MTLMessageContextPush_();
       }
 
-      if (!*(a1 + 160) && (*(v28 + 48) & 1) != 0)
+      if (!*(a1 + 160) && (*(v27 + 48) & 1) != 0)
       {
         _MTLMessageContextPush_();
       }
 
-      v97 = &v121;
-      validateAttachmentOnDevice(a2, v28, 8uLL, &v119, v11, &v118 + 1, &v118, *(a1 + 43), &v117);
-      if (v111 >= [v29 width] >> *(v28 + 8))
+      validateAttachmentOnDevice(a2, v27, 8uLL, &v116, v11, &v115 + 1, &v115, *(a1 + 43), &v114, &v118);
+      if (v108 >= [v28 width] >> *(v27 + 8))
       {
-        v111 = [v29 width] >> *(v28 + 8);
+        v108 = [v28 width] >> *(v27 + 8);
       }
 
-      ++v113;
-      if (v12 >= [v29 height] >> *(v28 + 8))
+      ++v110;
+      if (v12 >= [v28 height] >> *(v27 + 8))
       {
-        v12 = [v29 height] >> *(v28 + 8);
+        v12 = [v28 height] >> *(v27 + 8);
       }
     }
 
@@ -8899,100 +8664,99 @@ uint64_t _MTLDebugValidateRenderPassDescriptorAndTrackAttachments(uint64_t a1, v
       __dsta = 0;
     }
 
-    [v27 clearDepth];
-    if (v30 < 0.0 || ([v27 clearDepth], v31 > 1.0))
+    [v26 clearDepth];
+    if (v29 < 0.0 || ([v26 clearDepth], v30 > 1.0))
     {
-      [v27 clearDepth];
-      v88 = v85;
+      [v26 clearDepth];
+      v86 = v83;
       _MTLMessageContextPush_();
     }
   }
 
   else
   {
-    v29 = 0;
     v28 = 0;
+    v27 = 0;
     __dsta = 0;
   }
 
-  v32 = [*a1 _descriptorAtIndex:{9, v88, v97}];
-  if (!v32)
+  v31 = [*a1 _descriptorAtIndex:{9, v86}];
+  if (!v31)
   {
-    v35 = 0;
     v34 = 0;
+    v33 = 0;
     goto LABEL_62;
   }
 
-  v33 = [v32 _descriptorPrivate];
-  v34 = v33;
-  v35 = *v33;
-  if (!*v33)
+  v32 = [v31 _descriptorPrivate];
+  v33 = v32;
+  v34 = *v32;
+  if (!*v32)
   {
 LABEL_62:
-    v108 = 0;
+    v105 = 0;
     goto LABEL_63;
   }
 
-  v36 = v35[20];
-  if (([*v33 requireUsage:4] & 1) == 0)
+  v35 = v34[20];
+  if (([*v32 requireUsage:4] & 1) == 0)
   {
-    [v35 usage];
+    [v34 usage];
     _MTLMessageContextPush_();
   }
 
-  texture = &v121;
-  validateAttachmentOnDevice(a2, v34, 9uLL, &v119, v11, &v118 + 1, &v118, *(a1 + 43), &v117);
-  if (v111 >= [v35 width] >> v34[1])
+  validateAttachmentOnDevice(a2, v33, 9uLL, &v116, v11, &v115 + 1, &v115, *(a1 + 43), &v114, &v118);
+  if (v108 >= [v34 width] >> v33[1])
   {
-    v111 = [v35 width] >> v34[1];
+    v108 = [v34 width] >> v33[1];
   }
 
-  if (v12 >= [v35 height] >> v34[1])
+  if (v12 >= [v34 height] >> v33[1])
   {
-    v12 = [v35 height] >> v34[1];
+    v12 = [v34 height] >> v33[1];
   }
 
-  ++v113;
-  v108 = (v36 >> 5) & 1;
+  ++v110;
+  v105 = (v35 >> 5) & 1;
 LABEL_63:
-  if ((v117 & 1) == 0)
+  if ((v114 & 1) == 0)
   {
     _MTLMessageContextPush_();
   }
 
-  if (HIBYTE(v118) == 1 && v118)
+  if (HIBYTE(v115) == 1 && v115)
   {
     _MTLMessageContextPush_();
   }
 
   _MTLMessageContextEnd();
-  v37 = v111;
-  if (v111 <= 1)
+  v36 = v108;
+  if (v108 <= 1)
+  {
+    v36 = 1;
+  }
+
+  v102 = v36;
+  if (v12 <= 1)
   {
     v37 = 1;
   }
 
-  v105 = v37;
-  if (v12 <= 1)
-  {
-    v38 = 1;
-  }
-
   else
   {
-    v38 = v12;
+    v37 = v12;
   }
 
-  v112 = v38;
-  v39 = *(a1 + 16);
-  v40 = *(a1 + 24);
-  v121 = 0u;
-  v122 = 0u;
-  v123 = 0u;
-  v124 = 0;
+  v109 = v37;
+  v38 = *(a1 + 16);
+  v39 = *(a1 + 24);
+  v118 = 0u;
+  v119 = 0u;
+  v120 = 0u;
+  v121 = 0;
   _MTLMessageContextBegin_();
-  v41 = *(a1 + 168);
-  if (v41)
+  v40 = *(a1 + 168);
+  if (v40)
   {
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -9000,88 +8764,88 @@ LABEL_63:
       _MTLMessageContextPush_();
     }
 
-    if (!v121)
+    if (!v118)
     {
-      if ([v41 device] != a2)
+      if ([v40 device] != a2)
       {
         _MTLMessageContextPush_();
       }
 
-      [v41 screenSize];
-      if (v39 > v114.texture)
+      objc_msgSend_screenSize(v40);
+      if (v38 > v111.texture)
       {
-        [v41 screenSize];
-        v89 = v39;
-        texture = v114.texture;
+        objc_msgSend_screenSize(v40);
+        v87 = v38;
+        texture = v111.texture;
         _MTLMessageContextPush_();
       }
 
-      [v41 screenSize];
-      if (v40 > v114.level)
+      objc_msgSend_screenSize(v40, v87, texture);
+      if (v39 > v111.level)
       {
-        [v41 screenSize];
-        v90 = v40;
-        level = v114.level;
+        objc_msgSend_screenSize(v40);
+        v88 = v39;
+        level = v111.level;
         _MTLMessageContextPush_();
       }
 
-      if (v11 > [v41 layerCount])
+      if (v11 > [v40 layerCount])
       {
-        v89 = v11;
-        texture = [v41 layerCount];
+        v87 = v11;
+        texture = [v40 layerCount];
         _MTLMessageContextPush_();
       }
 
-      if (!v121)
+      if (!v118)
       {
-        memset(&v114, 0, 24);
-        [v41 screenSize];
-        v42 = v39 ? v39 : v114.texture;
-        v43 = v40 ? v40 : v114.level;
-        v104 = v43;
-        if ([v41 mutability] != 1)
+        memset(&v111, 0, 24);
+        objc_msgSend_screenSize(v40);
+        v41 = v38 ? v38 : v111.texture;
+        v42 = v39 ? v39 : v111.level;
+        v101 = v42;
+        if ([v40 mutability] != 1)
         {
-          v44 = v42;
-          v45 = 0;
-          v46 = v44;
+          v43 = v41;
+          v44 = 0;
+          v45 = v43;
+          v46 = 0.0;
           v47 = 0.0;
-          v48 = 0.0;
-          while (v45 < [v41 layerCount])
+          while (v44 < [v40 layerCount])
           {
-            *&v49 = v46;
-            *&v50 = v104;
-            [v41 mapScreenToPhysicalCoordinates:v45 forLayer:{v49, v50}];
+            *&v48 = v45;
+            *&v49 = v101;
+            [v40 mapScreenToPhysicalCoordinates:v44 forLayer:{v48, v49}];
+            if (v46 <= v50)
+            {
+              v46 = v50;
+            }
+
             if (v47 <= v51)
             {
               v47 = v51;
             }
 
-            if (v48 <= v52)
-            {
-              v48 = v52;
-            }
-
-            ++v45;
+            ++v44;
           }
 
-          if (v113)
+          if (v110)
           {
-            v83 = vcvtas_u32_f32(v47);
-            if (v105 < v83)
+            v81 = vcvtas_u32_f32(v46);
+            if (v102 < v81)
             {
-              v89 = v83;
-              texture = v105;
+              v87 = v81;
+              texture = v102;
               _MTLMessageContextPush_();
             }
           }
 
-          if (v113)
+          if (v110)
           {
-            v84 = vcvtas_u32_f32(v48);
-            if (v112 < v84)
+            v82 = vcvtas_u32_f32(v47);
+            if (v109 < v82)
             {
-              v89 = v84;
-              texture = v112;
+              v87 = v82;
+              texture = v109;
               _MTLMessageContextPush_();
             }
           }
@@ -9092,25 +8856,25 @@ LABEL_63:
 
   else
   {
-    if (v39 > v105)
+    if (v38 > v102)
     {
-      v89 = v39;
-      texture = v105;
+      v87 = v38;
+      texture = v102;
       _MTLMessageContextPush_();
     }
 
-    if (v40 > v112)
+    if (v39 > v109)
     {
-      v89 = v40;
-      texture = v112;
+      v87 = v39;
+      texture = v109;
       _MTLMessageContextPush_();
     }
   }
 
-  v53 = [a2 supportsRenderPassWithoutRenderTarget];
-  if ((v53 & 1) == 0)
+  v52 = [a2 supportsRenderPassWithoutRenderTarget];
+  if ((v52 & 1) == 0)
   {
-    if (v113)
+    if (v110)
     {
       goto LABEL_110;
     }
@@ -9118,7 +8882,7 @@ LABEL_63:
     goto LABEL_247;
   }
 
-  if (!v113 && (!v40 || !v39))
+  if (!v110 && (!v39 || !v38))
   {
 LABEL_247:
     _MTLMessageContextPush_();
@@ -9132,14 +8896,14 @@ LABEL_110:
 
   if ([a2 supportsMTL4PlacementSparse])
   {
-    if (v29 && [v29 isSparse] && objc_msgSend(v29, "sparseTextureTier") <= 0)
+    if (v28 && [v28 isSparse] && objc_msgSend(v28, "sparseTextureTier") <= 0)
     {
       _MTLMessageContextPush_();
     }
 
-    if (v35)
+    if (v34)
     {
-      if ([v35 isSparse] && objc_msgSend(v35, "sparseTextureTier") < 1)
+      if ([v34 isSparse] && objc_msgSend(v34, "sparseTextureTier") < 1)
       {
         goto LABEL_251;
       }
@@ -9148,8 +8912,8 @@ LABEL_110:
     }
 
 LABEL_238:
-    v54 = 0;
-    if (!v28)
+    v53 = 0;
+    if (!v27)
     {
       goto LABEL_134;
     }
@@ -9157,65 +8921,65 @@ LABEL_238:
     goto LABEL_132;
   }
 
-  if (v29 && [v29 isSparse])
+  if (v28 && [v28 isSparse])
   {
     _MTLMessageContextPush_();
   }
 
-  if (!v35)
+  if (!v34)
   {
     goto LABEL_238;
   }
 
-  if ([v35 isSparse])
+  if ([v34 isSparse])
   {
 LABEL_251:
     _MTLMessageContextPush_();
   }
 
 LABEL_125:
-  v54 = 0;
-  if (v29 && v35)
+  v53 = 0;
+  if (v28 && v34)
   {
-    if (([a2 supportsSeparateDepthStencil] & 1) == 0 && (v108 & ((__dsta & 0x40) >> 6) & 1) == 0)
+    if (([a2 supportsSeparateDepthStencil] & 1) == 0 && (v105 & ((__dsta & 0x40) >> 6) & 1) == 0)
     {
       _MTLMessageContextPush_();
     }
 
-    v54 = 1;
+    v53 = 1;
   }
 
-  if (v28)
+  if (v27)
   {
 LABEL_132:
-    if (v34)
+    if (v33)
     {
-      _MTLValidateDepthStencilStoreStateWithContext(*(v28 + 40), v34[5], v34[13], 1);
+      _MTLValidateDepthStencilStoreStateWithContext(*(v27 + 40), v33[5], v33[13], 1, &v118);
     }
   }
 
 LABEL_134:
-  if ((v108 | (__dsta >> 6)))
+  if ((v105 | (__dsta >> 6)))
   {
-    if (v54)
+    if (v53)
     {
-      if (v29 != v35)
+      if (v28 != v34)
       {
         _MTLMessageContextPush_();
       }
 
-      if (*(v28 + 8) != v34[1] || *(v28 + 16) != v34[2])
+      if (*(v27 + 8) != v33[1] || *(v27 + 16) != v33[2])
       {
         _MTLMessageContextPush_();
       }
 
-      v55 = *(v28 + 112);
-      if (v55)
+      v54 = *(v27 + 112);
+      if (v54)
       {
-        v56 = v34[14];
-        if (v56)
+        v55 = v33[14];
+        if (v55)
         {
-          if (v55 != v56)
+          if (v54 != v55)
           {
             _MTLMessageContextPush_();
           }
@@ -9224,113 +8988,113 @@ LABEL_134:
     }
   }
 
-  else if (v54)
+  else if (v53)
   {
-    v57 = *(v28 + 8);
-    v58 = v34[1];
-    v59 = [v29 width];
-    if (v59 >> v57 <= 1)
+    v56 = *(v27 + 8);
+    v57 = v33[1];
+    v58 = [v28 width];
+    if (v58 >> v56 <= 1)
     {
-      v60 = 1;
+      v59 = 1;
     }
 
     else
     {
-      v60 = v59 >> v57;
+      v59 = v58 >> v56;
     }
 
-    v61 = [v29 height];
-    if (v61 >> v57 <= 1)
+    v60 = [v28 height];
+    if (v60 >> v56 <= 1)
     {
-      v62 = 1;
+      v61 = 1;
     }
 
     else
     {
-      v62 = v61 >> v57;
+      v61 = v60 >> v56;
     }
 
-    v63 = [v35 width];
-    if (v63 >> v58 <= 1)
+    v62 = [v34 width];
+    if (v62 >> v57 <= 1)
+    {
+      v63 = 1;
+    }
+
+    else
+    {
+      v63 = v62 >> v57;
+    }
+
+    v64 = [v34 height] >> v57;
+    if (v64 <= 1)
     {
       v64 = 1;
     }
 
-    else
+    if (v59 != v63 || v61 != v64)
     {
-      v64 = v63 >> v58;
-    }
-
-    v65 = [v35 height] >> v58;
-    if (v65 <= 1)
-    {
-      v65 = 1;
-    }
-
-    if (v60 != v64 || v62 != v65)
-    {
-      v102 = v64;
-      v103 = v65;
-      v91 = v60;
-      v100 = v62;
+      v99 = v63;
+      v100 = v64;
+      v89 = v59;
+      v97 = v61;
       _MTLMessageContextPush_();
     }
   }
 
-  v66 = v120;
-  if (v119)
+  v65 = v117;
+  if (v116)
   {
-    v67 = v119;
+    v66 = v116;
   }
 
   else
   {
-    v67 = v120;
+    v66 = v117;
   }
 
-  v68 = [a2 supportsSeparateVisibilityAndShadingRate];
-  v69 = *(a1 + 32);
-  if (v68)
+  v67 = [a2 supportsSeparateVisibilityAndShadingRate];
+  v68 = *(a1 + 32);
+  if (v67)
   {
-    v70 = *(a1 + 72);
-    v71 = v121;
-    if (v69 && ([a2 supportsTextureSampleCount:*(a1 + 32)] & 1) == 0)
+    v69 = *(a1 + 72);
+    v70 = v118;
+    if (v68 && ([a2 supportsTextureSampleCount:*(a1 + 32)] & 1) == 0)
     {
-      v92 = v69;
+      v90 = v68;
       _MTLMessageContextPush_();
     }
 
-    if (v70 && ([a2 supportsTextureSampleCount:v70] & 1) == 0)
+    if (v69 && ([a2 supportsTextureSampleCount:v69] & 1) == 0)
     {
-      v92 = v70;
+      v90 = v69;
       _MTLMessageContextPush_();
     }
 
-    if (v71 == v121)
+    if (v70 == v118)
     {
-      if (v69)
+      if (v68)
       {
-        v72 = v69;
+        v71 = v68;
       }
 
       else
       {
-        v72 = v70;
+        v71 = v69;
+      }
+
+      if (!v65)
+      {
+        v65 = v71;
       }
 
       if (!v66)
       {
-        v66 = v72;
+        v66 = v69;
       }
 
-      if (!v67)
+      if (v65 | v66)
       {
-        v67 = v70;
-      }
-
-      if (v66 | v67)
-      {
-        if (v66 && v67 && v67 < v66)
+        if (v65 && v66 && v66 < v65)
         {
           _MTLMessageContextPush_();
         }
@@ -9340,57 +9104,57 @@ LABEL_134:
 
 LABEL_249:
       _MTLMessageContextPush_();
+      v65 = 0;
       v66 = 0;
-      v67 = 0;
     }
   }
 
   else
   {
-    if (v69)
+    if (v68)
     {
       _MTLMessageContextPush_();
     }
 
-    if (v113)
+    if (v110)
     {
-      v73 = 0;
+      v72 = 0;
     }
 
     else
     {
-      v73 = v53;
+      v72 = v52;
     }
 
-    if (v73 == 1)
+    if (v72 == 1)
     {
-      v66 = *(a1 + 72);
-      if (!v66)
+      v65 = *(a1 + 72);
+      if (!v65)
       {
         goto LABEL_249;
       }
 
       if (([a2 supportsTextureSampleCount:*(a1 + 72)] & 1) == 0)
       {
-        v92 = v66;
+        v90 = v65;
         _MTLMessageContextPush_();
       }
 
-      v67 = v66;
+      v66 = v65;
     }
   }
 
 LABEL_191:
-  if ((v53 & 1) == 0 && *(a1 + 72))
+  if ((v52 & 1) == 0 && *(a1 + 72))
   {
     _MTLMessageContextPush_();
   }
 
   _MTLMessageContextEnd();
-  v124 = 0;
-  v122 = 0u;
-  v123 = 0u;
-  v121 = 0u;
+  v121 = 0;
+  v119 = 0u;
+  v120 = 0u;
+  v118 = 0u;
   _MTLMessageContextBegin_();
   {
     _MTLDebugValidateRenderPassDescriptorAndTrackAttachments::is_dyld_program_sdk_at_least_fall_2025_os_versions = dyld_program_sdk_at_least();
@@ -9401,87 +9165,87 @@ LABEL_191:
     _MTLValidateRenderPassDescriptorTileProperties();
   }
 
-  if (v66 == 4 && *(a1 + 56) == 32 && *(a1 + 64) == 32)
+  if (v65 == 4 && *(a1 + 56) == 32 && *(a1 + 64) == 32)
   {
     _MTLMessageContextPush_();
   }
 
-  v74 = *(a1 + 56);
-  v75 = (v74 | 0x10) == 0x10 && v74 == *(a1 + 64);
-  if (v66 == 8 && !v75)
+  v73 = *(a1 + 56);
+  v74 = (v73 | 0x10) == 0x10 && v73 == *(a1 + 64);
+  if (v65 == 8 && !v74)
   {
     _MTLMessageContextPush_();
   }
 
-  v76 = *(a1 + 8);
-  if (v76 && [v76 device] != a2)
+  v75 = *(a1 + 8);
+  if (v75 && [v75 device] != a2)
   {
     _MTLMessageContextPush_();
   }
 
-  v77 = *(a1 + 160);
-  if (v77 && v77 != v67)
+  v76 = *(a1 + 160);
+  if (v76 && v76 != v66)
   {
-    v92 = *(a1 + 160);
-    v101 = v67;
+    v90 = *(a1 + 160);
+    v98 = v66;
     _MTLMessageContextPush_();
   }
 
   for (i = 0; i != 4; ++i)
   {
-    v79 = [*(a1 + 176) objectAtIndexedSubscript:{i, v92, v101}];
-    if ([v79 sampleBuffer])
+    v78 = [*(a1 + 176) objectAtIndexedSubscript:{i, v90, v98}];
+    if ([v78 sampleBuffer])
     {
       if ([a2 supportsCounterSampling:0])
       {
-        v80 = [objc_msgSend(v79 "sampleBuffer")];
-        if ([v79 startOfVertexSampleIndex] != -1 && objc_msgSend(v79, "startOfVertexSampleIndex") >= v80)
+        v79 = [objc_msgSend(v78 "sampleBuffer")];
+        if ([v78 startOfVertexSampleIndex] != -1 && objc_msgSend(v78, "startOfVertexSampleIndex") >= v79)
         {
-          v92 = [v79 startOfVertexSampleIndex];
-          v101 = v80;
+          v90 = [v78 startOfVertexSampleIndex];
+          v98 = v79;
           _MTLMessageContextPush_();
         }
 
-        if ([v79 endOfVertexSampleIndex] != -1 && objc_msgSend(v79, "endOfVertexSampleIndex") >= v80)
+        if ([v78 endOfVertexSampleIndex] != -1 && objc_msgSend(v78, "endOfVertexSampleIndex") >= v79)
         {
-          v93 = [v79 endOfVertexSampleIndex];
-          v101 = v80;
+          v91 = [v78 endOfVertexSampleIndex];
+          v98 = v79;
           _MTLMessageContextPush_();
         }
 
-        if ([v79 startOfFragmentSampleIndex] != -1 && objc_msgSend(v79, "startOfFragmentSampleIndex") >= v80)
+        if ([v78 startOfFragmentSampleIndex] != -1 && objc_msgSend(v78, "startOfFragmentSampleIndex") >= v79)
         {
-          v94 = [v79 startOfFragmentSampleIndex];
-          v101 = v80;
+          v92 = [v78 startOfFragmentSampleIndex];
+          v98 = v79;
           _MTLMessageContextPush_();
         }
 
-        if ([v79 endOfFragmentSampleIndex] != -1 && objc_msgSend(v79, "endOfFragmentSampleIndex") >= v80)
+        if ([v78 endOfFragmentSampleIndex] != -1 && objc_msgSend(v78, "endOfFragmentSampleIndex") >= v79)
         {
-          v92 = [v79 endOfFragmentSampleIndex];
-          v101 = v80;
+          v90 = [v78 endOfFragmentSampleIndex];
+          v98 = v79;
           _MTLMessageContextPush_();
         }
       }
 
       else
       {
-        if ([v79 startOfVertexSampleIndex] != -1)
+        if ([v78 startOfVertexSampleIndex] != -1)
         {
           _MTLMessageContextPush_();
         }
 
-        if ([v79 endOfVertexSampleIndex] != -1)
+        if ([v78 endOfVertexSampleIndex] != -1)
         {
           _MTLMessageContextPush_();
         }
 
-        if ([v79 startOfFragmentSampleIndex] != -1)
+        if ([v78 startOfFragmentSampleIndex] != -1)
         {
           _MTLMessageContextPush_();
         }
 
-        if ([v79 endOfFragmentSampleIndex] != -1)
+        if ([v78 endOfFragmentSampleIndex] != -1)
         {
           _MTLMessageContextPush_();
         }
@@ -9490,18 +9254,17 @@ LABEL_191:
   }
 
   _MTLMessageContextEnd();
-  result = std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(v115);
-  v82 = *MEMORY[0x277D85DE8];
-  return result;
+  return std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(v112);
 }
 
-void sub_22E1A52BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_22E1A52BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
-  std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(&a27);
+  va_start(va, a26);
+  std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
 
-void validateAttachmentOnDevice(void *a1, void **a2, unint64_t a3, uint64_t *a4, uint64_t a5, _BYTE *a6, _BYTE *a7, char a8, _BYTE *a9)
+void validateAttachmentOnDevice(void *a1, id *a2, unint64_t a3, void **a4, uint64_t a5, _BYTE *a6, _BYTE *a7, char a8, _BYTE *a9, uint64_t a10)
 {
   if ([*a2 device] != a1)
   {
@@ -9522,8 +9285,8 @@ void validateAttachmentOnDevice(void *a1, void **a2, unint64_t a3, uint64_t *a4,
       _MTLMessageContextPush_();
     }
 
-    v13 = a2[5];
-    if (v13 > 4 || ((1 << v13) & 0x15) == 0)
+    v14 = a2[5];
+    if (v14 > 4 || ((1 << v14) & 0x15) == 0)
     {
       _MTLMessageContextPush_();
     }
@@ -9531,7 +9294,7 @@ void validateAttachmentOnDevice(void *a1, void **a2, unint64_t a3, uint64_t *a4,
 
   if (a3 <= 7)
   {
-    v33 = a3;
+    v31 = a3;
   }
 
   _MTLMessageContextPush_();
@@ -9550,24 +9313,24 @@ void validateAttachmentOnDevice(void *a1, void **a2, unint64_t a3, uint64_t *a4,
     _MTLMessageContextPush_();
   }
 
-  v14 = [*a2 numFaces];
-  v15 = [*a2 arrayLength];
-  v16 = v15 * v14;
-  if (a2[2] >= v15 * v14)
+  v15 = [*a2 numFaces];
+  v16 = [*a2 arrayLength];
+  v17 = v16 * v15;
+  if (a2[2] >= v16 * v15)
   {
-    v34 = a3;
-    v37 = v15 * v14;
-    v29 = a2[2];
+    v32 = a3;
+    v35 = v16 * v15;
+    v27 = a2[2];
     _MTLMessageContextPush_();
   }
 
-  v17 = a2[1];
-  if (v17 >= [*a2 mipmapLevelCount])
+  v18 = a2[1];
+  if (v18 >= [*a2 mipmapLevelCount])
   {
-    v28 = a2[1];
-    v35 = a3;
-    v38 = [*a2 mipmapLevelCount];
-    v30 = v28;
+    v26 = a2[1];
+    v33 = a3;
+    v36 = [*a2 mipmapLevelCount];
+    v28 = v26;
     _MTLMessageContextPush_();
   }
 
@@ -9576,21 +9339,20 @@ void validateAttachmentOnDevice(void *a1, void **a2, unint64_t a3, uint64_t *a4,
   [*a2 height];
   [*a2 depth];
   [*a2 sampleCount];
-  v18 = a2[1];
   MTLGetTextureLevelInfoForDeviceWithOptions();
-  v36 = 0;
-  v39 = a2[1];
-  v31 = a2[3];
+  v34 = 0;
+  v37 = a2[1];
+  v29 = a2[3];
   _MTLMessageContextPush_();
   if (a5)
   {
     if ([*a2 textureType] == 7)
     {
-      if ((a2[3] + a5))
+      if (a2[3] + a5)
       {
-        v36 = 0;
-        v39 = a2[1];
-        v31 = a2[3] + a5;
+        v34 = 0;
+        v37 = a2[1];
+        v29 = a2[3] + a5;
         _MTLMessageContextPush_();
       }
 
@@ -9599,10 +9361,10 @@ void validateAttachmentOnDevice(void *a1, void **a2, unint64_t a3, uint64_t *a4,
 
     else
     {
-      if (a2[2] + a5 > v16)
+      if (a2[2] + a5 > v17)
       {
-        v31 = a2[2] + a5;
-        v36 = v16;
+        v29 = a2[2] + a5;
+        v34 = v17;
         _MTLMessageContextPush_();
       }
 
@@ -9628,7 +9390,7 @@ void validateAttachmentOnDevice(void *a1, void **a2, unint64_t a3, uint64_t *a4,
 LABEL_41:
         v22 = off_2787B49B0[v21];
 LABEL_89:
-        v31 = [(__CFString *)v22 UTF8String:v31];
+        v29 = [(__CFString *)v22 UTF8String:v29];
         _MTLMessageContextPush_();
         goto LABEL_43;
       }
@@ -9641,7 +9403,7 @@ LABEL_89:
 LABEL_43:
         if (!a2[14])
         {
-          validateAttachmentOnDevice(a2 + 5);
+          validateAttachmentOnDevice(a2 + 5, a10);
         }
 
         goto LABEL_45;
@@ -9663,7 +9425,7 @@ LABEL_45:
   {
     if (a2[18] && ([a1 supportsMSAADepthResolveFilter] & 1) == 0)
     {
-      validateAttachmentOnDevice(a2 + 18);
+      validateAttachmentOnDevice(a2 + 18, a10);
     }
   }
 
@@ -9672,13 +9434,11 @@ LABEL_45:
     _MTLMessageContextPush_();
   }
 
-  v23 = *a2;
-  v24 = a2[1];
   _MTLGetAttachmentSize();
-  v25 = [*a2 sampleCount];
-  if (!*a4 || v25 == *a4)
+  v23 = [*a2 sampleCount];
+  if (!*a4 || v23 == *a4)
   {
-    *a4 = v25;
+    *a4 = v23;
   }
 
   else
@@ -9688,7 +9448,7 @@ LABEL_45:
 
   if (([a1 supportsRenderToLinearTextures] & 1) == 0 && objc_msgSend(*a2, "buffer"))
   {
-    v32 = a3;
+    v30 = a3;
     _MTLMessageContextPush_();
   }
 
@@ -9706,27 +9466,27 @@ LABEL_45:
 
     if ([*a2 sampleCount] <= 1)
     {
-      validateAttachmentOnDevice(a2);
+      validateAttachmentOnDevice(a2, a10);
     }
 
-    _MTLValidateResolveTextureWithContext(a1, a2[14], a3, 0, 0, a2[16], a2[17], a2[15], *a2, a8);
+    _MTLValidateResolveTextureWithContext(a1, a2[14], a3, 0, 0, a2[16], a2[17], a2[15], *a2, a8, a10);
   }
 
   if (a2[6])
   {
     if (a3 == 8)
     {
-      v26 = @"the depth attachment";
+      v24 = @"the depth attachment";
     }
 
     else
     {
-      v26 = @"the stencil attachment";
+      v24 = @"the stencil attachment";
     }
 
     if ((a3 & 0xFFFFFFFFFFFFFFFELL) != 8)
     {
-      v26 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"color attachment %lu", a3];
+      v24 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"color attachment %lu", a3];
     }
 
     if (([a1 areProgrammableSamplePositionsSupported] & 1) == 0)
@@ -9734,24 +9494,24 @@ LABEL_45:
       _MTLMessageContextPush_();
     }
 
-    v27 = *v20;
+    v25 = *v20;
     if (*v20 > 2)
     {
-      if ((v27 - 3) >= 2)
+      if ((v25 - 3) >= 2)
       {
 LABEL_81:
         _MTLMessageContextPush_();
       }
     }
 
-    else if (v27 != 1)
+    else if (v25 != 1)
     {
       goto LABEL_81;
     }
   }
 }
 
-uint64_t std::__hash_table<AttachmentDescriptorSimple,AttachmentDescriptorSimple::hash_t,AttachmentDescriptorSimple::equal_t,std::allocator<AttachmentDescriptorSimple>>::__equal_range_multi<AttachmentDescriptorSimple>(uint64_t a1, NSRange *a2)
+uint64_t std::__hash_table<AttachmentDescriptorSimple,AttachmentDescriptorSimple::hash_t,AttachmentDescriptorSimple::equal_t,std::allocator<AttachmentDescriptorSimple>>::__equal_range_multi<AttachmentDescriptorSimple>(int8x8_t *a1, NSRange *a2)
 {
   v3 = std::__hash_table<AttachmentDescriptorSimple,AttachmentDescriptorSimple::hash_t,AttachmentDescriptorSimple::equal_t,std::allocator<AttachmentDescriptorSimple>>::find<AttachmentDescriptorSimple>(a1, a2);
   v4 = v3;
@@ -9775,9 +9535,9 @@ uint64_t std::__hash_table<AttachmentDescriptorSimple,AttachmentDescriptorSimple
   return v4;
 }
 
-NSRange *std::__hash_table<AttachmentDescriptorSimple,AttachmentDescriptorSimple::hash_t,AttachmentDescriptorSimple::equal_t,std::allocator<AttachmentDescriptorSimple>>::find<AttachmentDescriptorSimple>(uint64_t a1, NSRange *a2)
+NSRange *std::__hash_table<AttachmentDescriptorSimple,AttachmentDescriptorSimple::hash_t,AttachmentDescriptorSimple::equal_t,std::allocator<AttachmentDescriptorSimple>>::find<AttachmentDescriptorSimple>(int8x8_t *a1, NSRange *a2)
 {
-  v2 = *(a1 + 8);
+  v2 = a1[1];
   if (!*&v2)
   {
     return 0;
@@ -9945,4 +9705,155 @@ NSRange *std::__hash_table<AttachmentDescriptorSimple,AttachmentDescriptorSimple
   }
 
   return v16;
+}
+
+void std::__hash_table<AttachmentDescriptorSimple,AttachmentDescriptorSimple::hash_t,AttachmentDescriptorSimple::equal_t,std::allocator<AttachmentDescriptorSimple>>::__rehash<false>(uint64_t result, size_t __n)
+{
+  if (__n == 1)
+  {
+    prime = 2;
+  }
+
+  else
+  {
+    prime = __n;
+    if ((__n & (__n - 1)) != 0)
+    {
+      prime = std::__next_prime(__n);
+    }
+  }
+
+  v4 = *(result + 8);
+  if (prime > *&v4)
+  {
+    goto LABEL_6;
+  }
+
+  if (prime < *&v4)
+  {
+    v5 = vcvtps_u32_f32(*(result + 24) / *(result + 32));
+    if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
+    {
+      v5 = std::__next_prime(v5);
+    }
+
+    else
+    {
+      v7 = 1 << -__clz(v5 - 1);
+      if (v5 >= 2)
+      {
+        v5 = v7;
+      }
+    }
+
+    if (prime <= v5)
+    {
+      prime = v5;
+    }
+
+    if (prime < *&v4)
+    {
+LABEL_6:
+
+      std::__hash_table<AttachmentDescriptorSimple,AttachmentDescriptorSimple::hash_t,AttachmentDescriptorSimple::equal_t,std::allocator<AttachmentDescriptorSimple>>::__do_rehash<false>(result, prime);
+    }
+  }
+}
+
+void std::__hash_table<AttachmentDescriptorSimple,AttachmentDescriptorSimple::hash_t,AttachmentDescriptorSimple::equal_t,std::allocator<AttachmentDescriptorSimple>>::__do_rehash<false>(uint64_t a1, NSUInteger a2)
+{
+  if (a2)
+  {
+    if (!(a2 >> 61))
+    {
+      operator new();
+    }
+
+    std::__throw_bad_array_new_length[abi:ne200100]();
+  }
+
+  v3 = *a1;
+  *a1 = 0;
+  if (v3)
+  {
+    operator delete(v3);
+  }
+
+  *(a1 + 8) = 0;
+}
+
+NSRange *std::__hash_table<std::__hash_value_type<AttachmentDescriptorSimple,unsigned int>,std::__unordered_map_hasher<AttachmentDescriptorSimple,std::__hash_value_type<AttachmentDescriptorSimple,unsigned int>,AttachmentDescriptorSimple::hash_t,AttachmentDescriptorSimple::equal_t,true>,std::__unordered_map_equal<AttachmentDescriptorSimple,std::__hash_value_type<AttachmentDescriptorSimple,unsigned int>,AttachmentDescriptorSimple::equal_t,AttachmentDescriptorSimple::hash_t,true>,std::allocator<std::__hash_value_type<AttachmentDescriptorSimple,unsigned int>>>::__emplace_unique_key_args<AttachmentDescriptorSimple,std::piecewise_construct_t const&,std::tuple<AttachmentDescriptorSimple const&>,std::tuple<>>(int8x8_t *a1, NSRange *a2, uint64_t a3, __int128 **a4)
+{
+  v4 = a2->length ^ a2->location;
+  v5 = a1[1];
+  if (!*&v5)
+  {
+    goto LABEL_18;
+  }
+
+  v7 = vcnt_s8(v5);
+  v7.i16[0] = vaddlv_u8(v7);
+  v8 = v7.u32[0];
+  if (v7.u32[0] > 1uLL)
+  {
+    v9 = a2->length ^ a2->location;
+    if (v4 >= *&v5)
+    {
+      v9 = v4 % *&v5;
+    }
+  }
+
+  else
+  {
+    v9 = (*&v5 - 1) & v4;
+  }
+
+  v10 = *(*a1 + 8 * v9);
+  if (!v10 || (v11 = *v10) == 0)
+  {
+LABEL_18:
+    operator new();
+  }
+
+  while (1)
+  {
+    length = v11->length;
+    if (length == v4)
+    {
+      break;
+    }
+
+    if (v8 > 1)
+    {
+      if (length >= *&v5)
+      {
+        length %= *&v5;
+      }
+    }
+
+    else
+    {
+      length &= *&v5 - 1;
+    }
+
+    if (length != v9)
+    {
+      goto LABEL_18;
+    }
+
+LABEL_17:
+    v11 = v11->location;
+    if (!v11)
+    {
+      goto LABEL_18;
+    }
+  }
+
+  LOBYTE(a1) = AttachmentDescriptorSimple::equal_t::operator()(a1, v11 + 1, a2);
+  if ((a1 & 1) == 0)
+  {
+    goto LABEL_17;
+  }
+
+  return v11;
 }

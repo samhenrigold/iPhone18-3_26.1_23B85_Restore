@@ -453,7 +453,7 @@ void __75__UIPreviewInteractionController_startInteractivePreviewAtLocation_inVi
       if (v7)
       {
 LABEL_4:
-        if ([_currentInteractionController conformsToProtocol:{&unk_1EFEC1100, *v17}])
+        if ([_currentInteractionController conformsToProtocol:{&unk_1EFEC1100, *v17, *&v17[8]}])
         {
           if (objc_opt_respondsToSelector())
           {

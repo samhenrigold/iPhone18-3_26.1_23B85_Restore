@@ -15,7 +15,7 @@
   if (v15)
   {
     v15->_removeAllParticipants = participants;
-    v17 = [removeCopy copy];
+    v17 = objc_msgSend_copy(removeCopy);
     participantsToRemove = v16->_participantsToRemove;
     v16->_participantsToRemove = v17;
   }

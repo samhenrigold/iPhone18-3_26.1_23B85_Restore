@@ -75,9 +75,9 @@ LABEL_17:
 
 - (uint64_t)_canSupportIntent:()MapsExtension
 {
-  v2 = objc_opt_class();
+  v4 = objc_opt_class();
 
-  return [self _canSupportIntentClass:v2];
+  return [self _canSupportIntentClass:v4];
 }
 
 - (id)_iconWithFormat:()MapsExtension

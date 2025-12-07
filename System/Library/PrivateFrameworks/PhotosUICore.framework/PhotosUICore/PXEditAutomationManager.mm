@@ -13,17 +13,17 @@
   v5 = v3();
   if (v5)
   {
-    v6 = v5;
+    v7 = v5;
     defaultCenter = [objc_opt_self() defaultCenter];
     [defaultCenter removeObserver_];
 
     (*((*v2 & selfCopy->super.isa) + 0x68))(0);
-    swift_unknownObjectRelease();
+    v5 = swift_unknownObjectRelease();
   }
 
-  v8.receiver = selfCopy;
-  v8.super_class = type metadata accessor for PXEditAutomationManager();
-  [(PXEditAutomationManager *)&v8 dealloc];
+  v9.receiver = selfCopy;
+  v9.super_class = type metadata accessor for PXEditAutomationManager(v5, v6);
+  [(PXEditAutomationManager *)&v9 dealloc];
 }
 
 - (_TtC12PhotosUICore23PXEditAutomationManager)init

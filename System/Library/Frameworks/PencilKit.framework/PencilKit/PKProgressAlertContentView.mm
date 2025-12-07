@@ -70,9 +70,9 @@
   [MEMORY[0x1E69DD250] animateKeyframesWithDuration:4 delay:v4 options:0 animations:? completion:?];
 }
 
-uint64_t __42__PKProgressAlertContentView_setProgress___block_invoke(uint64_t result)
+double *__42__PKProgressAlertContentView_setProgress___block_invoke(double *result)
 {
-  v5 = *(result + 40);
+  v5 = *(result + 5);
   if (v5 >= 1)
   {
     v10[6] = v4;
@@ -84,15 +84,15 @@ uint64_t __42__PKProgressAlertContentView_setProgress___block_invoke(uint64_t re
     v8 = MEMORY[0x1E69E9820];
     do
     {
-      v9 = *(v6 + 48) + v7 * *(v6 + 56);
+      v9 = v6[6] + v7 * v6[7];
       v10[0] = v8;
       v10[1] = 3221225472;
       v10[2] = __42__PKProgressAlertContentView_setProgress___block_invoke_2;
       v10[3] = &unk_1E82D7170;
-      v10[4] = *(v6 + 32);
+      *&v10[4] = v6[4];
       *&v10[5] = v9;
       result = [MEMORY[0x1E69DD250] addKeyframeWithRelativeStartTime:v10 relativeDuration:v7++ / v5 animations:1.0 / v5];
-      v5 = *(v6 + 40);
+      v5 = *(v6 + 5);
     }
 
     while (v7 < v5);

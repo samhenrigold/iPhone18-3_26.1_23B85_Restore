@@ -1,4 +1,5 @@
 @interface HMDRemoteMessageTxReportLogEvent
++ (id)txReportForTransport:(int)transport latency:(double)latency retriesUsed:(unint64_t)used;
 - (HMDRemoteMessageTxReportLogEvent)initWithTransport:(int)transport latency:(double)latency retriesUsed:(unint64_t)used;
 @end
 
@@ -17,6 +18,13 @@
   }
 
   return result;
+}
+
++ (id)txReportForTransport:(int)transport latency:(double)latency retriesUsed:(unint64_t)used
+{
+  v5 = [[HMDRemoteMessageTxReportLogEvent alloc] initWithTransport:*&transport latency:used retriesUsed:latency];
+
+  return v5;
 }
 
 @end

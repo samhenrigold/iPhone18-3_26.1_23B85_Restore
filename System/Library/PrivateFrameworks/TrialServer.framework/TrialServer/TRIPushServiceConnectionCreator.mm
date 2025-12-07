@@ -6,7 +6,7 @@
 
 - (id)connectionWithDelegate:(id)delegate environment:(unsigned __int8)environment
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   delegateCopy = delegate;
   standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
   v6 = [standardUserDefaults BOOLForKey:@"com.apple.triald.aps.sandbox-environment"];
@@ -14,9 +14,9 @@
   v7 = TRILogCategory_Server();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v12[0] = 67109120;
-    v12[1] = v6;
-    _os_log_impl(&dword_26F567000, v7, OS_LOG_TYPE_DEFAULT, "Sandbox mode enabled for APS: %d", v12, 8u);
+    v11[0] = 67109120;
+    v11[1] = v6;
+    _os_log_impl(&dword_26F567000, v7, OS_LOG_TYPE_DEFAULT, "Sandbox mode enabled for APS: %d", v11, 8u);
   }
 
   if (v6)
@@ -30,8 +30,6 @@
   }
 
   v9 = v8;
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

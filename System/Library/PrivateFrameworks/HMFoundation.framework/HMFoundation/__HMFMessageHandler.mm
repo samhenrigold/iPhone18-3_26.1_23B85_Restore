@@ -148,22 +148,21 @@
   {
     v21 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v22 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v23 = HMFGetOSLogHandle(selfCopy, v22);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
-      v23 = HMFGetLogIdentifier(selfCopy);
+      v24 = HMFGetLogIdentifier(selfCopy);
       *buf = 138543618;
-      v28 = v23;
+      v28 = v24;
       v29 = 2112;
       v30 = 0;
-      _os_log_impl(&dword_22ADEC000, v22, OS_LOG_TYPE_ERROR, "%{public}@Invalid receiver: %@", buf, 0x16u);
+      _os_log_impl(&dword_22ADEC000, v23, OS_LOG_TYPE_ERROR, "%{public}@Invalid receiver: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v21);
     v20 = 0;
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
@@ -181,27 +180,25 @@
 
 - (NSArray)attributeDescriptions
 {
-  v19[4] = *MEMORY[0x277D85DE8];
+  v18[4] = *MEMORY[0x277D85DE8];
   v3 = [HMFAttributeDescription alloc];
   name = [(__HMFMessageHandler *)self name];
   v5 = [(HMFAttributeDescription *)v3 initWithName:@"Name" value:name];
-  v19[0] = v5;
+  v18[0] = v5;
   v6 = [HMFAttributeDescription alloc];
   target = [(__HMFMessageHandler *)self target];
   uUIDString = [target UUIDString];
   v9 = [(HMFAttributeDescription *)v6 initWithName:@"Target" value:uUIDString];
-  v19[1] = v9;
+  v18[1] = v9;
   v10 = [HMFAttributeDescription alloc];
   policies = [(__HMFMessageHandler *)self policies];
   v12 = [(HMFAttributeDescription *)v10 initWithName:@"Policies" value:policies];
-  v19[2] = v12;
+  v18[2] = v12;
   v13 = [HMFAttributeDescription alloc];
   receiver = [(__HMFMessageHandler *)self receiver];
   v15 = [(HMFAttributeDescription *)v13 initWithName:@"Receiver" value:receiver options:1 formatter:0];
-  v19[3] = v15;
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:4];
-
-  v17 = *MEMORY[0x277D85DE8];
+  v18[3] = v15;
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:4];
 
   return v16;
 }

@@ -1,5 +1,6 @@
 @interface LNInProcessConnection
 - (BOOL)refreshWithOptions:(id)options;
+- (LNInProcessConnection)initWithEffectiveBundleIdentifier:(id)identifier appBundleIdentifier:(id)bundleIdentifier processInstanceIdentifier:(id)instanceIdentifier appIntentsEnabledOnly:(BOOL)only userIdentity:(id)identity error:(id *)error;
 - (id)connectionInterface;
 - (void)acquireAssertionsForConnectionOperation:(id)operation;
 - (void)connectWithOptions:(id)options;
@@ -37,7 +38,7 @@ uint64_t __64__LNInProcessConnection_allowsExtendingTimeoutOnProgressUpdates__bl
 
 - (void)acquireAssertionsForConnectionOperation:(id)operation
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   queue = [(LNConnection *)self queue];
   dispatch_assert_queue_V2(queue);
 
@@ -45,12 +46,10 @@ uint64_t __64__LNInProcessConnection_allowsExtendingTimeoutOnProgressUpdates__bl
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     logPrefix = [(LNConnection *)self logPrefix];
-    v8 = 138543362;
-    v9 = logPrefix;
-    _os_log_impl(&dword_19763D000, v5, OS_LOG_TYPE_INFO, "%{public}@ Assertion is not required for in-process connection", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = logPrefix;
+    _os_log_impl(&dword_19763D000, v5, OS_LOG_TYPE_INFO, "%{public}@ Assertion is not required for in-process connection", &v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (id)connectionInterface
@@ -131,6 +130,36 @@ uint64_t __64__LNInProcessConnection_allowsExtendingTimeoutOnProgressUpdates__bl
   v4.super_class = LNInProcessConnection;
   [(LNConnection *)&v4 connectWithOptions:options];
   [(LNConnection *)self setConnected];
+}
+
+- (LNInProcessConnection)initWithEffectiveBundleIdentifier:(id)identifier appBundleIdentifier:(id)bundleIdentifier processInstanceIdentifier:(id)instanceIdentifier appIntentsEnabledOnly:(BOOL)only userIdentity:(id)identity error:(id *)error
+{
+  v16.receiver = self;
+  v16.super_class = LNInProcessConnection;
+  v8 = [(LNConnection *)&v16 initWithEffectiveBundleIdentifier:identifier appBundleIdentifier:bundleIdentifier processInstanceIdentifier:instanceIdentifier appIntentsEnabledOnly:only userIdentity:identity error:error];
+  if (v8)
+  {
+    processInfo = [MEMORY[0x1E696AE30] processInfo];
+    v10 = processInfo;
+    if (processInfo)
+    {
+      objc_msgSend_if_auditToken(processInfo);
+    }
+
+    else
+    {
+      v14 = 0u;
+      v15 = 0u;
+    }
+
+    v13[0] = v14;
+    v13[1] = v15;
+    [(LNConnection *)v8 setAuditToken:v13];
+
+    v11 = v8;
+  }
+
+  return v8;
 }
 
 @end

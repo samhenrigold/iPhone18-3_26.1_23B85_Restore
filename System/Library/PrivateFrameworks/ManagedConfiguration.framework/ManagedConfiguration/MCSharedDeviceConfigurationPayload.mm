@@ -10,57 +10,30 @@
 
 + (id)typeStrings
 {
-  v5[1] = *MEMORY[0x1E69E9840];
-  v5[0] = @"com.apple.shareddeviceconfiguration";
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x1E69E9840];
+  v4[1] = *MEMORY[0x1E69E9840];
+  v4[0] = @"com.apple.shareddeviceconfiguration";
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:1];
 
   return v2;
 }
 
 - (MCSharedDeviceConfigurationPayload)initWithDictionary:(id)dictionary profile:(id)profile outError:(id *)error
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v33.receiver = self;
-  v33.super_class = MCSharedDeviceConfigurationPayload;
-  v9 = [(MCPayload *)&v33 initWithDictionary:dictionaryCopy profile:profile outError:error];
+  v32.receiver = self;
+  v32.super_class = MCSharedDeviceConfigurationPayload;
+  v9 = [(MCPayload *)&v32 initWithDictionary:dictionaryCopy profile:profile outError:error];
   if (v9)
   {
-    v32 = 0;
-    v10 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"LockScreenFootnote" isRequired:0 outError:&v32];
-    v11 = v32;
+    v31 = 0;
+    v10 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"LockScreenFootnote" isRequired:0 outError:&v31];
+    v11 = v31;
     lockScreenFootnote = v9->_lockScreenFootnote;
     v9->_lockScreenFootnote = v10;
 
-    if (v11)
+    if (v11 || !v9->_lockScreenFootnote && (v30 = 0, [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"IfLostReturnToMessage" isRequired:0 outError:&v30], v15 = objc_claimAutoreleasedReturnValue(), v11 = v30, v16 = v9->_lockScreenFootnote, v9->_lockScreenFootnote = v15, v16, v11) || (v29 = 0, objc_msgSend(dictionaryCopy, "MCValidateAndRemoveNonZeroLengthStringWithKey:isRequired:outError:", @"AssetTagInformation", 0, &v29), v13 = objc_claimAutoreleasedReturnValue(), v11 = v29, assetTagInformation = v9->_assetTagInformation, v9->_assetTagInformation = v13, assetTagInformation, v11))
     {
-      goto LABEL_7;
-    }
-
-    if (!v9->_lockScreenFootnote)
-    {
-      v31 = 0;
-      v15 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"IfLostReturnToMessage" isRequired:0 outError:&v31];
-      v11 = v31;
-      v16 = v9->_lockScreenFootnote;
-      v9->_lockScreenFootnote = v15;
-
-      if (v11)
-      {
-        goto LABEL_7;
-      }
-    }
-
-    v30 = 0;
-    v13 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"AssetTagInformation" isRequired:0 outError:&v30];
-    v11 = v30;
-    assetTagInformation = v9->_assetTagInformation;
-    v9->_assetTagInformation = v13;
-
-    if (v11)
-    {
-LABEL_7:
       v17 = [(MCPayload *)v9 malformedPayloadErrorWithError:v11];
       v18 = v17;
       if (error)
@@ -77,9 +50,9 @@ LABEL_7:
         v23 = v22;
         mCVerboseDescription = [v18 MCVerboseDescription];
         *buf = 138543618;
-        v35 = v22;
-        v36 = 2114;
-        v37 = mCVerboseDescription;
+        v34 = v22;
+        v35 = 2114;
+        v36 = mCVerboseDescription;
         _os_log_impl(&dword_1A795B000, v21, OS_LOG_TYPE_ERROR, "%{public}@ Can't parse payload: %{public}@", buf, 0x16u);
       }
 
@@ -94,15 +67,14 @@ LABEL_7:
         v26 = v25;
         friendlyName = [(MCPayload *)v9 friendlyName];
         *buf = 138543618;
-        v35 = friendlyName;
-        v36 = 2114;
-        v37 = dictionaryCopy;
+        v34 = friendlyName;
+        v35 = 2114;
+        v36 = dictionaryCopy;
         _os_log_impl(&dword_1A795B000, v26, OS_LOG_TYPE_INFO, "Payload “%{public}@” contains ignored fields. They are: %{public}@", buf, 0x16u);
       }
     }
   }
 
-  v28 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -131,7 +103,7 @@ LABEL_7:
 
 - (id)payloadDescriptionKeyValueSections
 {
-  v20[1] = *MEMORY[0x1E69E9840];
+  v19[1] = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
   lockScreenFootnote = [(MCSharedDeviceConfigurationPayload *)self lockScreenFootnote];
   v5 = [lockScreenFootnote length];
@@ -162,16 +134,14 @@ LABEL_7:
   if ([v3 count])
   {
     v16 = [MCKeyValueSection sectionWithKeyValues:v3];
-    v20[0] = v16;
-    v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:1];
+    v19[0] = v16;
+    v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:1];
   }
 
   else
   {
     v17 = 0;
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v17;
 }

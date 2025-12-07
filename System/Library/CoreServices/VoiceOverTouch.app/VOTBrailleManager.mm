@@ -1867,7 +1867,7 @@ LABEL_22:
           else
           {
             v33 = NSStringFromRange(self->_brailleLineRange);
-            _AXLogWithFacility();
+            _AXLogWithFacility(2, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Could not get tree position for router location %lu, braille line range %@, in braille description %@");
           }
 
           goto LABEL_22;

@@ -140,7 +140,7 @@ LABEL_21:
     goto LABEL_22;
   }
 
-  [(AVTimedMetadataGroup *)timedMetadataGroup timeRange];
+  objc_msgSend_timeRange(timedMetadataGroup);
   if ((v35 & 0x1D) != 1)
   {
     v17 = MEMORY[0x1E695DF30];
@@ -149,10 +149,10 @@ LABEL_21:
     goto LABEL_21;
   }
 
-  [(AVTimedMetadataGroup *)timedMetadataGroup timeRange];
+  objc_msgSend_timeRange(timedMetadataGroup);
   if (v34)
   {
-    [(AVTimedMetadataGroup *)timedMetadataGroup timeRange];
+    objc_msgSend_timeRange(timedMetadataGroup);
     if ((v33 & 8) != 0)
     {
       v17 = MEMORY[0x1E695DF30];

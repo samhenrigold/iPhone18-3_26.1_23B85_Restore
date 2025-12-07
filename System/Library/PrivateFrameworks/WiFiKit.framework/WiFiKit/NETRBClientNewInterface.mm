@@ -7,25 +7,24 @@ _BYTE *___NETRBClientNewInterface_block_invoke(uint64_t a1)
 {
   if (__NETRBClientValidateClient(*(a1 + 48)))
   {
-    v9 = *(a1 + 48);
-    return NETRBErrorLog();
+    return NETRBErrorLog("invalid client %p", *(a1 + 48));
   }
 
-  else if (*(*(a1 + 48) + 545) == 1)
+  if (*(*(a1 + 48) + 545) == 1)
   {
 
-    return NETRBErrorLog();
+    return NETRBErrorLog("client already requested interface");
   }
 
   else
   {
-    NETRBDebugLog();
+    NETRBDebugLog("building xpc request", v2, v3, v4, v5, v6, v7, v8, v20);
     xpc_dictionary_set_uint64(*(*(*(a1 + 32) + 8) + 24), netrbXPCKey, 0x3F6uLL);
     xpc_dictionary_set_uint64(*(*(*(a1 + 32) + 8) + 24), netrbXPCOpMode, *(a1 + 80));
-    v3 = *(a1 + 56);
-    if (v3)
+    v10 = *(a1 + 56);
+    if (v10)
     {
-      xpc_dictionary_set_string(*(*(*(a1 + 32) + 8) + 24), netrbXPCExtName, v3);
+      xpc_dictionary_set_string(*(*(*(a1 + 32) + 8) + 24), netrbXPCExtName, v10);
     }
 
     xpc_dictionary_set_string(*(*(*(a1 + 32) + 8) + 24), netrbXPCClientID, (*(a1 + 48) + 32));
@@ -67,30 +66,57 @@ _BYTE *___NETRBClientNewInterface_block_invoke(uint64_t a1)
       xpc_dictionary_set_BOOL(*(*(*(a1 + 32) + 8) + 24), netrbXPCEnableChecksumOffload, 1);
     }
 
-    v4 = *(a1 + 84);
-    if (v4)
+    v11 = *(a1 + 84);
+    if (v11)
     {
-      xpc_dictionary_set_uint64(*(*(*(a1 + 32) + 8) + 24), netrbXPCInterfaceMTU, v4);
+      xpc_dictionary_set_uint64(*(*(*(a1 + 32) + 8) + 24), netrbXPCInterfaceMTU, v11);
     }
 
-    *(a1 + 89);
-    *(a1 + 92);
-    *(a1 + 93);
-    *(a1 + 91);
-    v10 = *(a1 + 48);
-    NETRBInfoLog();
-    v5 = *(a1 + 48);
-    *(v5 + 545) = 1;
-    v6 = *(a1 + 72);
-    v7 = *(*(*(a1 + 32) + 8) + 24);
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 0x40000000;
-    v11[2] = ___NETRBClientNewInterface_block_invoke_2;
-    v11[3] = &__block_descriptor_tmp_160;
-    v11[4] = v5;
-    v8 = NETRBXPCSetupAndSend(v6, v7, v11);
+    v12 = "";
+    v13 = " TSO";
+    if (!*(a1 + 89))
+    {
+      v13 = "";
+    }
+
+    if (*(a1 + 92))
+    {
+      v14 = " Isolated";
+    }
+
+    else
+    {
+      v14 = "";
+    }
+
+    if (*(a1 + 93))
+    {
+      v15 = " CSUM";
+    }
+
+    else
+    {
+      v15 = "";
+    }
+
+    if (*(a1 + 91))
+    {
+      v12 = " MAC-NAT";
+    }
+
+    NETRBInfoLog("client %p xpc send -> create interface [%s%s%s%s ]", *(a1 + 48), v13, v14, v15, v12);
+    v16 = *(a1 + 48);
+    *(v16 + 545) = 1;
+    v17 = *(a1 + 72);
+    v18 = *(*(*(a1 + 32) + 8) + 24);
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 0x40000000;
+    v21[2] = ___NETRBClientNewInterface_block_invoke_2;
+    v21[3] = &__block_descriptor_tmp_160;
+    v21[4] = v16;
+    v19 = NETRBXPCSetupAndSend(v17, v18, v21);
     result = *(a1 + 48);
-    *(*(*(a1 + 40) + 8) + 24) = v8;
+    *(*(*(a1 + 40) + 8) + 24) = v19;
     if (*(*(*(a1 + 40) + 8) + 24) == 1)
     {
       return CFRetain(result);

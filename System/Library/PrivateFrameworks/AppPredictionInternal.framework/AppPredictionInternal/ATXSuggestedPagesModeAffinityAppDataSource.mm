@@ -48,40 +48,38 @@ id __90__ATXSuggestedPagesModeAffinityAppDataSource_provideAppsForSuggestedPageT
 
   if (v5 <= v11)
   {
-    v16 = 0;
+    v17 = 0;
   }
 
   else
   {
-    v12 = __atxlog_handle_modes();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v13 = __atxlog_handle_modes(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
-      __90__ATXSuggestedPagesModeAffinityAppDataSource_provideAppsForSuggestedPageType_environment___block_invoke_cold_1(v2, v12);
+      __90__ATXSuggestedPagesModeAffinityAppDataSource_provideAppsForSuggestedPageType_environment___block_invoke_cold_1(v2, v13);
     }
 
-    v13 = objc_alloc(MEMORY[0x277CEB560]);
-    v14 = [v2 bundleId];
-    v15 = [v2 scoreMetadata];
-    [v15 score];
-    v16 = [v13 initWithBundleId:v14 predictionSource:@"Mode Entity" score:?];
+    v14 = objc_alloc(MEMORY[0x277CEB560]);
+    v15 = [v2 bundleId];
+    v16 = [v2 scoreMetadata];
+    [v16 score];
+    v17 = [v14 initWithBundleId:v15 predictionSource:@"Mode Entity" score:?];
   }
 
-  return v16;
+  return v17;
 }
 
 void __90__ATXSuggestedPagesModeAffinityAppDataSource_provideAppsForSuggestedPageType_environment___block_invoke_cold_1(void *a1, NSObject *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v4 = [a1 bundleId];
   v5 = [a1 scoreMetadata];
   [v5 score];
-  v8 = 138412546;
-  v9 = v4;
-  v10 = 2048;
-  v11 = v6;
-  _os_log_debug_impl(&dword_2263AA000, a2, OS_LOG_TYPE_DEBUG, "ATXSuggestedPagesModeAffinityAppDataSource: %@ passes threshold with score: %f", &v8, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = 138412546;
+  v8 = v4;
+  v9 = 2048;
+  v10 = v6;
+  _os_log_debug_impl(&dword_2263AA000, a2, OS_LOG_TYPE_DEBUG, "ATXSuggestedPagesModeAffinityAppDataSource: %@ passes threshold with score: %f", &v7, 0x16u);
 }
 
 @end

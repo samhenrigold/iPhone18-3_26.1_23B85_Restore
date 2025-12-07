@@ -1,5 +1,7 @@
 @interface CVNLPDecodingLanguageModel
 + (id)_decodingLanguageModelForLocale:(id)locale modelType:(int)type decodingWeight:(id)weight lowerBoundLogProbability:(id)probability type:(int)a7;
++ (id)decodingCVNLPLanguageModelForLocale:(id)locale modelType:(int)type decodingWeight:(id)weight;
++ (id)decodingLMLanguageModelForLocale:(id)locale modelType:(int)type decodingWeight:(id)weight;
 + (id)pathForLanguageModelForLocale:(id)locale modelType:(int)type resourceType:(int)resourceType;
 + (unsigned)_normalizedLMTokenIDForWord:(id)word withTokenID:(unsigned int)TokenIDForString sourceLanguageModel:(id)model outScore:(double *)score;
 - (CVNLPDecodingLanguageModel)initWithCVNLPLanguageModel:(CVNLPLanguageModel *)model locale:(id)locale decodingWeight:(id)weight;
@@ -78,7 +80,6 @@
 
   else if (lmSPIType == 1)
   {
-    languageModel = self->_languageModel;
     LMLanguageModelRelease();
   }
 
@@ -87,20 +88,20 @@
     LMStreamTokenizerRelease();
   }
 
-  v5.receiver = self;
-  v5.super_class = CVNLPDecodingLanguageModel;
-  [(CVNLPDecodingLanguageModel *)&v5 dealloc];
+  v4.receiver = self;
+  v4.super_class = CVNLPDecodingLanguageModel;
+  [(CVNLPDecodingLanguageModel *)&v4 dealloc];
 }
 
 + (id)_decodingLanguageModelForLocale:(id)locale modelType:(int)type decodingWeight:(id)weight lowerBoundLogProbability:(id)probability type:(int)a7
 {
-  v72[1] = *MEMORY[0x1E69E9840];
+  v71[1] = *MEMORY[0x1E69E9840];
   localeCopy = locale;
   weightCopy = weight;
   probabilityCopy = probability;
   if (a7 == 2)
   {
-    v67[0] = @"CVNLPLocaleKey";
+    v66[0] = @"CVNLPLocaleKey";
     v24 = objc_msgSend_localeIdentifier(localeCopy, v13, v14, v15);
     v27 = v24;
     if (type == 2)
@@ -113,11 +114,11 @@
       v28 = 1;
     }
 
-    v68[0] = v24;
-    v67[1] = @"CVNLPTokenTypeKey";
+    v67[0] = v24;
+    v66[1] = @"CVNLPTokenTypeKey";
     v29 = objc_msgSend_numberWithInt_(MEMORY[0x1E696AD98], v25, v28, v26);
-    v68[1] = v29;
-    v31 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v30, v68, v67, 2);
+    v67[1] = v29;
+    v31 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v30, v67, v66, 2);
 
     CVNLPLanguageModelCreate(v31);
   }
@@ -133,10 +134,10 @@ LABEL_7:
   {
     if (type == 2)
     {
-      v71 = *MEMORY[0x1E69ABF90];
+      v70 = *MEMORY[0x1E69ABF90];
       v17 = objc_msgSend_localeIdentifier(localeCopy, v13, v14, v15);
-      v72[0] = v17;
-      v19 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v18, v72, &v71, 1);
+      v71[0] = v17;
+      v19 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v18, v71, &v70, 1);
 
       v20 = LMLanguageModelCreate();
       if (v20)
@@ -157,14 +158,14 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  v61 = 0;
-  v62 = &v61;
-  v63 = 0x3032000000;
-  v64 = sub_1D9D9E010;
-  v65 = sub_1D9D9E020;
-  v66 = 0;
+  v60 = 0;
+  v61 = &v60;
+  v62 = 0x3032000000;
+  v63 = sub_1D9D9E010;
+  v64 = sub_1D9D9E020;
+  v65 = 0;
   LDEnumerateAssetDataItems();
-  v35 = v62[5];
+  v35 = v61[5];
   if (v35)
   {
     v36 = objc_msgSend_path(v35, v32, v33, v34);
@@ -172,17 +173,17 @@ LABEL_7:
     v44 = objc_msgSend_stringByDeletingPathExtension(v40, v41, v42, v43);
 
     v48 = objc_msgSend_stringByDeletingLastPathComponent(v36, v45, v46, v47);
-    v69[0] = *MEMORY[0x1E69ABF90];
+    v68[0] = *MEMORY[0x1E69ABF90];
     v52 = objc_msgSend_languageCode(localeCopy, v49, v50, v51);
-    v70[0] = v52;
-    v70[1] = MEMORY[0x1E695E110];
+    v69[0] = v52;
+    v69[1] = MEMORY[0x1E695E110];
     v53 = *MEMORY[0x1E69ABF70];
-    v69[1] = *MEMORY[0x1E69ABF50];
-    v69[2] = v53;
-    v69[3] = *MEMORY[0x1E69ABF68];
-    v70[2] = v48;
-    v70[3] = v44;
-    v55 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v54, v70, v69, 4);
+    v68[1] = *MEMORY[0x1E69ABF50];
+    v68[2] = v53;
+    v68[3] = *MEMORY[0x1E69ABF68];
+    v69[2] = v48;
+    v69[3] = v44;
+    v55 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v54, v69, v68, 4);
 
     v56 = LMLanguageModelCreate();
     if (v56)
@@ -203,12 +204,35 @@ LABEL_7:
     v23 = 0;
   }
 
-  _Block_object_dispose(&v61, 8);
+  _Block_object_dispose(&v60, 8);
 
 LABEL_21:
-  v59 = *MEMORY[0x1E69E9840];
 
   return v23;
+}
+
++ (id)decodingLMLanguageModelForLocale:(id)locale modelType:(int)type decodingWeight:(id)weight
+{
+  v6 = *&type;
+  localeCopy = locale;
+  weightCopy = weight;
+  v9 = objc_opt_class();
+  v13 = objc_msgSend_defaultLowerBoundLogProbability(CVNLPInformationStream, v10, v11, v12);
+  v15 = objc_msgSend__decodingLanguageModelForLocale_modelType_decodingWeight_lowerBoundLogProbability_type_(v9, v14, localeCopy, v6, weightCopy, v13, 1);
+
+  return v15;
+}
+
++ (id)decodingCVNLPLanguageModelForLocale:(id)locale modelType:(int)type decodingWeight:(id)weight
+{
+  v6 = *&type;
+  localeCopy = locale;
+  weightCopy = weight;
+  v9 = objc_opt_class();
+  v13 = objc_msgSend_defaultLowerBoundLogProbability(CVNLPInformationStream, v10, v11, v12);
+  v15 = objc_msgSend__decodingLanguageModelForLocale_modelType_decodingWeight_lowerBoundLogProbability_type_(v9, v14, localeCopy, v6, weightCopy, v13, 2);
+
+  return v15;
 }
 
 + (id)pathForLanguageModelForLocale:(id)locale modelType:(int)type resourceType:(int)resourceType

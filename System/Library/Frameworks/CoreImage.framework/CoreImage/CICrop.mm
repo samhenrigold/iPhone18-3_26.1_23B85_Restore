@@ -65,10 +65,10 @@
   y = v8.origin.y;
   width = v8.size.width;
   height = v8.size.height;
-  v6[0] = metadataPropertyWithDouble(v8.origin.x);
-  v6[1] = metadataPropertyWithDouble(y);
-  v6[2] = metadataPropertyWithDouble(width);
-  v6[3] = metadataPropertyWithDouble(height);
+  v6[0] = metadataPropertyWithDouble(@"http://ns.apple.com/adjustment-settings/1.0/", @"aas", @"CropX", v8.origin.x);
+  v6[1] = metadataPropertyWithDouble(@"http://ns.apple.com/adjustment-settings/1.0/", @"aas", @"CropY", y);
+  v6[2] = metadataPropertyWithDouble(@"http://ns.apple.com/adjustment-settings/1.0/", @"aas", @"CropW", width);
+  v6[3] = metadataPropertyWithDouble(@"http://ns.apple.com/adjustment-settings/1.0/", @"aas", @"CropH", height);
   return [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:4];
 }
 

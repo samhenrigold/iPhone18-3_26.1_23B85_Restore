@@ -11,7 +11,7 @@
   v2 = +[ODXLayoutVariablePropertySet directionMap]::directionMap;
   if (!+[ODXLayoutVariablePropertySet directionMap]::directionMap)
   {
-    if ((atomic_load_explicit(&_MergedGlobals_56, memory_order_acquire) & 1) == 0)
+    if ((atomic_load_explicit(_MergedGlobals_56, memory_order_acquire) & 1) == 0)
     {
       +[ODXLayoutVariablePropertySet directionMap];
     }
@@ -42,7 +42,7 @@
 
 + (void)directionMap
 {
-  if (__cxa_guard_acquire(&_MergedGlobals_56))
+  if (__cxa_guard_acquire(_MergedGlobals_56))
   {
     dword_27FC3F4F0 = 0;
     qword_27FC3F4F8 = "norm";
@@ -50,7 +50,7 @@
     qword_27FC3F508 = "rev";
     *algn_27FC3F510 = TCXmlEnumSentinel;
 
-    __cxa_guard_release(&_MergedGlobals_56);
+    __cxa_guard_release(_MergedGlobals_56);
   }
 }
 

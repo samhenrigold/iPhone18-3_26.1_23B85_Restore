@@ -14,6 +14,8 @@
 - (id)reader:(id)reader wantsDataForIdentifier:(int64_t)identifier;
 - (void)readComponent:(id)component completionQueue:(id)queue completion:(id)completion;
 - (void)readRootObjectWithCompletionQueue:(id)queue completion:(id)completion;
+- (void)reader:(id)reader didFindExternalReferenceToObjectIdentifier:(int64_t)identifier componentIdentifier:(int64_t)componentIdentifier isWeak:(BOOL)weak allowUnknownObject:(BOOL)object objectClass:(id)class objectProtocol:(id)protocol fromParentObject:(id)self0 completion:(id)self1;
+- (void)reader:(id)reader didFindExternalRepeatedReference:(id)reference isWeak:(BOOL)weak allowUnknownObject:(BOOL)object objectClass:(Class)class objectProtocol:(id)protocol fromParentObject:(id)parentObject completion:(id)self0;
 - (void)reader:(id)reader didUnarchiveObject:(id)object;
 @end
 
@@ -535,6 +537,30 @@ LABEL_20:
   _Block_object_dispose(&v18, 8);
 
   return v12;
+}
+
+- (void)reader:(id)reader didFindExternalReferenceToObjectIdentifier:(int64_t)identifier componentIdentifier:(int64_t)componentIdentifier isWeak:(BOOL)weak allowUnknownObject:(BOOL)object objectClass:(id)class objectProtocol:(id)protocol fromParentObject:(id)self0 completion:(id)self1
+{
+  v11 = MEMORY[0x277D81150];
+  v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSPDatabaseReadCoordinator reader:didFindExternalReferenceToObjectIdentifier:componentIdentifier:isWeak:allowUnknownObject:objectClass:objectProtocol:fromParentObject:completion:]", identifier, componentIdentifier, weak, object, class);
+  v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPDatabaseReadCoordinator.mm");
+  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v11, v15, v12, v14, 518, 0, "External references are not supported when reading from the database.");
+
+  v18 = MEMORY[0x277D81150];
+
+  objc_msgSend_logBacktraceThrottled(v18, v16, v17);
+}
+
+- (void)reader:(id)reader didFindExternalRepeatedReference:(id)reference isWeak:(BOOL)weak allowUnknownObject:(BOOL)object objectClass:(Class)class objectProtocol:(id)protocol fromParentObject:(id)parentObject completion:(id)self0
+{
+  v10 = MEMORY[0x277D81150];
+  v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSPDatabaseReadCoordinator reader:didFindExternalRepeatedReference:isWeak:allowUnknownObject:objectClass:objectProtocol:fromParentObject:completion:]", reference, weak, object, class, protocol);
+  v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPDatabaseReadCoordinator.mm");
+  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v10, v14, v11, v13, 522, 0, "External references are not supported when reading from the database.");
+
+  v17 = MEMORY[0x277D81150];
+
+  objc_msgSend_logBacktraceThrottled(v17, v15, v16);
 }
 
 - (void)reader:(id)reader didUnarchiveObject:(id)object

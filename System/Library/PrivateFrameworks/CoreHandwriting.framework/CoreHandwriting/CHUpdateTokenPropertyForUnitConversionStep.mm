@@ -29,7 +29,7 @@
 
   v31 = objc_msgSend_stringByReplacingOccurrencesOfString_withString_(v27, v28, @"\\$", @"$", v29, v30);
 
-  v35 = objc_msgSend_stringByReplacingOccurrencesOfString_withString_(v31, v32, @"\\,", @"\\"", v33, v34);
+  v35 = objc_msgSend_stringByReplacingOccurrencesOfString_withString_(v31, v32, @"\\,", @"\", v33, v34);
 
   v41 = objc_msgSend_length(v35, v36, v37, v38, v39, v40);
   v46 = objc_msgSend_unitConversionKeywordsFromOptions_(self, v42, optionsCopy, v43, v44, v45);
@@ -72,10 +72,10 @@ LABEL_7:
         v52 = &v49[v54];
         v61 = v54 >= 2 && v52 <= objc_msgSend_length(v35, v49, v55, v56, v57, v58) - 2;
         v62 = objc_msgSend_substringWithRange_(v35, v49, v59 - 1, 1, v57, v58);
-        isEqualToString = objc_msgSend_isEqualToString_(v62, v63, @"\\"", v64, v65, v66);
+        isEqualToString = objc_msgSend_isEqualToString_(v62, v63, @"\", v64, v65, v66);
 
         v71 = objc_msgSend_substringWithRange_(v35, v68, v52, 1, v69, v70);
-        v76 = objc_msgSend_isEqualToString_(v71, v72, @"\\"", v73, v74, v75);
+        v76 = objc_msgSend_isEqualToString_(v71, v72, @"\", v73, v74, v75);
 
         if (v61 & isEqualToString & v76)
         {

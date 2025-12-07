@@ -132,10 +132,10 @@
 
 - (WFContentAttributionTableViewCell)initWithStyle:(int64_t)style reuseIdentifier:(id)identifier
 {
-  v86[3] = *MEMORY[0x277D85DE8];
-  v82.receiver = self;
-  v82.super_class = WFContentAttributionTableViewCell;
-  v4 = [(WFContentAttributionTableViewCell *)&v82 initWithStyle:style reuseIdentifier:identifier];
+  v85[3] = *MEMORY[0x277D85DE8];
+  v81.receiver = self;
+  v81.super_class = WFContentAttributionTableViewCell;
+  v4 = [(WFContentAttributionTableViewCell *)&v81 initWithStyle:style reuseIdentifier:identifier];
   if (v4)
   {
     v5 = objc_alloc_init(MEMORY[0x277D756B8]);
@@ -181,10 +181,10 @@
     [(UILabel *)v4->_contentItemsCountLabel setFont:v21];
 
     v22 = objc_alloc(MEMORY[0x277D75A68]);
-    v86[0] = v4->_bundleNameLabel;
-    v86[1] = v4->_accountIdentifierLabel;
-    v86[2] = v4->_contentItemsCountLabel;
-    v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v86 count:3];
+    v85[0] = v4->_bundleNameLabel;
+    v85[1] = v4->_accountIdentifierLabel;
+    v85[2] = v4->_contentItemsCountLabel;
+    v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v85 count:3];
     v24 = [v22 initWithArrangedSubviews:v23];
 
     [v24 setTranslatesAutoresizingMaskIntoConstraints:0];
@@ -192,12 +192,12 @@
     [v24 setSpacing:8.0];
     [v24 setAlignment:1];
     v25 = v24;
-    v81 = v24;
+    v80 = v24;
     [v24 setDistribution:1];
     v26 = objc_alloc(MEMORY[0x277D75A68]);
-    v85[0] = v4->_disclosureLevelLabel;
-    v85[1] = v4->_managedLevelLabel;
-    v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v85 count:2];
+    v84[0] = v4->_disclosureLevelLabel;
+    v84[1] = v4->_managedLevelLabel;
+    v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v84 count:2];
     v28 = [v26 initWithArrangedSubviews:v27];
 
     [v28 setTranslatesAutoresizingMaskIntoConstraints:0];
@@ -205,12 +205,12 @@
     [v28 setSpacing:8.0];
     [v28 setAlignment:4];
     v29 = v28;
-    v80 = v28;
+    v79 = v28;
     [v28 setDistribution:1];
     v30 = objc_alloc(MEMORY[0x277D75A68]);
-    v84[0] = v25;
-    v84[1] = v29;
-    v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v84 count:2];
+    v83[0] = v25;
+    v83[1] = v29;
+    v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v83 count:2];
     v32 = [v30 initWithArrangedSubviews:v31];
     [(WFContentAttributionTableViewCell *)v4 setContentStackView:v32];
 
@@ -230,23 +230,23 @@
     contentStackView5 = [(WFContentAttributionTableViewCell *)v4 contentStackView];
     [contentView addSubview:contentStackView5];
 
-    v67 = MEMORY[0x277CCAAD0];
+    v66 = MEMORY[0x277CCAAD0];
     contentView2 = [(WFContentAttributionTableViewCell *)v4 contentView];
     layoutMarginsGuide = [contentView2 layoutMarginsGuide];
     topAnchor = [layoutMarginsGuide topAnchor];
     contentStackView6 = [(WFContentAttributionTableViewCell *)v4 contentStackView];
     layoutMarginsGuide2 = [contentStackView6 layoutMarginsGuide];
     topAnchor2 = [layoutMarginsGuide2 topAnchor];
-    v73 = [topAnchor constraintEqualToAnchor:topAnchor2];
-    v83[0] = v73;
+    v72 = [topAnchor constraintEqualToAnchor:topAnchor2];
+    v82[0] = v72;
     contentView3 = [(WFContentAttributionTableViewCell *)v4 contentView];
     layoutMarginsGuide3 = [contentView3 layoutMarginsGuide];
     bottomAnchor = [layoutMarginsGuide3 bottomAnchor];
     contentStackView7 = [(WFContentAttributionTableViewCell *)v4 contentStackView];
     layoutMarginsGuide4 = [contentStackView7 layoutMarginsGuide];
     bottomAnchor2 = [layoutMarginsGuide4 bottomAnchor];
-    v65 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-    v83[1] = v65;
+    v64 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
+    v82[1] = v64;
     contentView4 = [(WFContentAttributionTableViewCell *)v4 contentView];
     layoutMarginsGuide5 = [contentView4 layoutMarginsGuide];
     leadingAnchor = [layoutMarginsGuide5 leadingAnchor];
@@ -254,7 +254,7 @@
     layoutMarginsGuide6 = [contentStackView8 layoutMarginsGuide];
     leadingAnchor2 = [layoutMarginsGuide6 leadingAnchor];
     v39 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-    v83[2] = v39;
+    v82[2] = v39;
     contentView5 = [(WFContentAttributionTableViewCell *)v4 contentView];
     layoutMarginsGuide7 = [contentView5 layoutMarginsGuide];
     trailingAnchor = [layoutMarginsGuide7 trailingAnchor];
@@ -262,9 +262,9 @@
     layoutMarginsGuide8 = [contentStackView9 layoutMarginsGuide];
     trailingAnchor2 = [layoutMarginsGuide8 trailingAnchor];
     v46 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-    v83[3] = v46;
-    v47 = [MEMORY[0x277CBEA60] arrayWithObjects:v83 count:4];
-    [v67 activateConstraints:v47];
+    v82[3] = v46;
+    v47 = [MEMORY[0x277CBEA60] arrayWithObjects:v82 count:4];
+    [v66 activateConstraints:v47];
 
     firstBaselineAnchor = [(UILabel *)v4->_bundleNameLabel firstBaselineAnchor];
     firstBaselineAnchor2 = [(UILabel *)v4->_disclosureLevelLabel firstBaselineAnchor];
@@ -281,7 +281,6 @@
     v56 = v4;
   }
 
-  v57 = *MEMORY[0x277D85DE8];
   return v4;
 }
 

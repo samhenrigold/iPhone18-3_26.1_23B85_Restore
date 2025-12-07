@@ -687,11 +687,11 @@ LABEL_27:
   return v20;
 }
 
-NSString *__108__VNDetectBarcodesRequest__barcodesDetectedInImageBuffer_usingACBSConfig_originatingRequestSpecifier_error___block_invoke()
+NSString *__108__VNDetectBarcodesRequest__barcodesDetectedInImageBuffer_usingACBSConfig_originatingRequestSpecifier_error___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
+  v2 = objc_opt_class();
 
-  return NSStringFromClass(v0);
+  return NSStringFromClass(v2);
 }
 
 - (id)newBarcodeObservationForACBSBarcodeInfo:(id)info imageWidth:(unint64_t)width imageHeight:(unint64_t)height roiCroppingPixelRect:(CGRect)rect originatingRequestSpecifier:(id)specifier error:(id *)error
@@ -1135,11 +1135,11 @@ LABEL_53:
   return v30;
 }
 
-NSString *__126__VNDetectBarcodesRequest__machineReadableCodesDetectedInImageBuffer_originatingRequestSpecifier_inContext_mrcDetector_error___block_invoke()
+NSString *__126__VNDetectBarcodesRequest__machineReadableCodesDetectedInImageBuffer_originatingRequestSpecifier_inContext_mrcDetector_error___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
+  v2 = objc_opt_class();
 
-  return NSStringFromClass(v0);
+  return NSStringFromClass(v2);
 }
 
 - (id)newBarcodeObservationForMRCDescriptor:(__MRCDescriptor *)descriptor roiCroppingPixelRect:(CGRect)rect originatingRequestSpecifier:(id)specifier error:(id *)error

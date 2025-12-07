@@ -59,9 +59,9 @@
   v3 = MEMORY[0x277CCACA8];
   v4 = objc_opt_class();
   v5 = TSKUIDStructMap::description(&self->_tableUIDMap);
-  v9 = objc_msgSend_stringWithFormat_(v3, v6, @"<%@: %p>:\n%@", v7, v8, v4, self, v5);
+  v8 = objc_msgSend_stringWithFormat_(v3, v6, @"<%@: %p>:\n%@", v7, v4, self, v5);
 
-  return v9;
+  return v8;
 }
 
 - (id)initFromMessage:(const void *)message
@@ -106,7 +106,7 @@
         v13 = TSKUIDStruct::loadFromMessage(v12, v11);
         v15 = v14;
         v21 = &v18;
-        v16 = sub_221230440(&v5->_tableUIDMap.__table_.__bucket_list_.__ptr_, &v18);
+        v16 = sub_221230440(&v5->_tableUIDMap.__table_.__bucket_list_.__ptr_, &v18, &unk_2217E1BE9, &v21);
         v16[4] = v13;
         v16[5] = v15;
         v7 += 8;
@@ -131,7 +131,7 @@
     do
     {
       v21._lower = (next + 2);
-      *(sub_221418008(&v22, next + 2) + 48) = *(next + 2);
+      *(sub_221418008(&v22, next + 2, &unk_2217E1BE9, &v21) + 48) = *(next + 2);
       next = *next;
     }
 
@@ -246,15 +246,15 @@ LABEL_25:
 - (id)extendMappingWithTableUIDs:(const void *)ds calcEngine:(id)engine
 {
   engineCopy = engine;
-  v40 = 0u;
-  v41 = 0u;
-  v42 = 1065353216;
+  v37 = 0u;
+  v38 = 0u;
+  v39 = 1065353216;
   __p = 0;
-  v38 = 0;
-  v39 = 0;
-  v34 = 0u;
-  v35 = 0u;
-  v36 = 1065353216;
+  v35 = 0;
+  v36 = 0;
+  v31 = 0u;
+  v32 = 0u;
+  v33 = 1065353216;
   next = self->_tableUIDMap.__table_.__first_node_.__next_;
   if (!next)
   {
@@ -263,45 +263,45 @@ LABEL_25:
 
   do
   {
-    v10 = next + 4;
-    if (next[2] == next[4] && next[3] == next[5])
+    v9 = (next + 32);
+    if (*(next + 2) == *(next + 4) && *(next + 3) == *(next + 5))
     {
       goto LABEL_15;
     }
 
-    v11 = sub_221119F90(ds, next + 2);
-    if (v11)
+    v10 = sub_221119F90(ds, next + 2);
+    if (v10)
     {
-      v14 = v11 + 4;
-      if (v11[4] != *v10)
+      v12 = v10 + 4;
+      if (v10[4] != *v9)
       {
-        v15 = next[5];
+        v13 = *(next + 5);
 LABEL_9:
-        if ((objc_msgSend_ownerIsRegistered_(engineCopy, v12, *v10, v15, v13, v34) & 1) == 0)
+        if ((objc_msgSend_ownerIsRegistered_(engineCopy, v11, *v9, v13, v31) & 1) == 0)
         {
-          v43 = next + 4;
-          *(sub_221230440(&v34, next + 4) + 2) = *v14;
+          v40 = next + 32;
+          *(sub_221230440(&v31, next + 4, &unk_2217E1BE9, &v40) + 2) = *v12;
         }
 
         goto LABEL_11;
       }
 
-      v15 = next[5];
-      if (v11[5] != v15)
+      v13 = *(next + 5);
+      if (v10[5] != v13)
       {
         goto LABEL_9;
       }
     }
 
 LABEL_11:
-    v16 = sub_221119F90(ds, next + 4);
-    if (v16)
+    v14 = sub_221119F90(ds, next + 4);
+    if (v14)
     {
-      v43 = next + 2;
-      *(sub_221230440(&v40, next + 2) + 2) = *v10;
-      v43 = next + 2;
-      *(sub_221230440(&self->_tableUIDMap.__table_.__bucket_list_.__ptr_, next + 2) + 2) = *(v16 + 2);
-      if (next[2] == v16[4] && next[3] == v16[5])
+      v40 = next + 16;
+      *(sub_221230440(&v37, next + 2, &unk_2217E1BE9, &v40) + 2) = *v9;
+      v40 = next + 16;
+      *(sub_221230440(&self->_tableUIDMap.__table_.__bucket_list_.__ptr_, next + 2, &unk_2217E1BE9, &v40) + 2) = *(v14 + 2);
+      if (*(next + 2) == v14[4] && *(next + 3) == v14[5])
       {
         sub_221083454(&__p, next + 1);
       }
@@ -312,82 +312,82 @@ LABEL_15:
   }
 
   while (next);
-  for (i = v35; i; i = *i)
+  for (i = v32; i; i = *i)
   {
-    v18 = sub_2210875C4(&self->_tableUIDMap.__table_.__bucket_list_.__ptr_, i + 2);
-    v43 = i + 2;
-    if (v18)
+    v16 = sub_2210875C4(&self->_tableUIDMap.__table_.__bucket_list_.__ptr_, i + 2);
+    v40 = i + 2;
+    if (v16)
     {
-      *(sub_221230440(&v40, i + 2) + 2) = *(v18 + 2);
+      *(sub_221230440(&v37, i + 2, &unk_2217E1BE9, &v40) + 2) = *(v16 + 2);
     }
 
     else
     {
-      v19 = sub_221230440(&v40, i + 2);
-      v19[4] = 0;
-      v19[5] = 0;
+      v17 = sub_221230440(&v37, i + 2, &unk_2217E1BE9, &v40);
+      v17[4] = 0;
+      v17[5] = 0;
     }
 
-    v43 = i + 2;
-    *(sub_221230440(&self->_tableUIDMap.__table_.__bucket_list_.__ptr_, i + 2) + 2) = *(i + 2);
+    v40 = i + 2;
+    *(sub_221230440(&self->_tableUIDMap.__table_.__bucket_list_.__ptr_, i + 2, &unk_2217E1BE9, &v40) + 2) = *(i + 2);
   }
 
 LABEL_21:
-  v20 = __p;
-  v21 = v38;
-  while (v20 != v21)
+  v18 = __p;
+  v19 = v35;
+  while (v18 != v19)
   {
-    v22 = sub_2210875C4(&self->_tableUIDMap.__table_.__bucket_list_.__ptr_, v20);
-    sub_2210CDD3C(&self->_tableUIDMap.__table_.__bucket_list_.__ptr_, v22);
-    v20 += 2;
+    v20 = sub_2210875C4(&self->_tableUIDMap.__table_.__bucket_list_.__ptr_, v18);
+    sub_2210CDD3C(&self->_tableUIDMap.__table_.__bucket_list_.__ptr_, v20);
+    v18 += 2;
   }
 
   for (j = *(ds + 2); j; j = *j)
   {
-    v24 = j[2];
-    v25 = j[3];
-    if ((v24 != j[4] || v25 != j[5]) && (objc_msgSend_ownerIsRegistered_(engineCopy, v6, v24, v25, v7, v34) & 1) == 0)
+    v22 = j[2];
+    v23 = j[3];
+    if ((v22 != j[4] || v23 != j[5]) && (objc_msgSend_ownerIsRegistered_(engineCopy, v6, v22, v23, v31) & 1) == 0)
     {
-      v26 = sub_2210875C4(&self->_tableUIDMap.__table_.__bucket_list_.__ptr_, j + 2);
-      v43 = j + 2;
-      if (v26)
+      v24 = sub_2210875C4(&self->_tableUIDMap.__table_.__bucket_list_.__ptr_, j + 2);
+      v40 = j + 2;
+      if (v24)
       {
-        *(sub_221230440(&v40, j + 2) + 2) = *(v26 + 2);
+        *(sub_221230440(&v37, j + 2, &unk_2217E1BE9, &v40) + 2) = *(v24 + 2);
       }
 
       else
       {
-        v27 = sub_221230440(&v40, j + 2);
-        v27[4] = 0;
-        v27[5] = 0;
+        v25 = sub_221230440(&v37, j + 2, &unk_2217E1BE9, &v40);
+        v25[4] = 0;
+        v25[5] = 0;
       }
 
-      v43 = j + 2;
-      *(sub_221230440(&self->_tableUIDMap.__table_.__bucket_list_.__ptr_, j + 2) + 2) = *(j + 2);
+      v40 = j + 2;
+      *(sub_221230440(&self->_tableUIDMap.__table_.__bucket_list_.__ptr_, j + 2, &unk_2217E1BE9, &v40) + 2) = *(j + 2);
     }
   }
 
-  if (*(&v41 + 1))
+  if (*(&v38 + 1))
   {
-    v28 = [TSCERewriteTableUIDInfo alloc];
-    v32 = objc_msgSend_initWithTableUIDMap_(v28, v29, &v40, v30, v31);
+    v26 = [TSCERewriteTableUIDInfo alloc];
+    v29 = objc_msgSend_initWithTableUIDMap_(v26, v27, &v37, v28);
   }
 
   else
   {
-    v32 = 0;
+    v29 = 0;
   }
 
-  sub_2210BDEC0(&v34);
+  sub_2210BDEC0(&v31);
   if (__p)
   {
-    v38 = __p;
+    v35 = __p;
     operator delete(__p);
   }
 
-  sub_2210BDEC0(&v40);
+  sub_2210BDEC0(&v37);
 
-  return v32;
+  return v29;
 }
 
 - (void)tableWasAdded:(const TSKUIDStruct *)added
@@ -403,20 +403,21 @@ LABEL_21:
 - (void)rollbackMappings:(id)mappings
 {
   mappingsCopy = mappings;
-  v9 = mappingsCopy;
+  v8 = mappingsCopy;
   if (mappingsCopy)
   {
-    for (i = *(objc_msgSend_tableUIDMap(mappingsCopy, v5, v6, v7, v8) + 16); i; i = *i)
+    for (i = *(objc_msgSend_tableUIDMap(mappingsCopy, v5, v6, v7) + 16); i; i = *i)
     {
-      v11 = i + 2;
+      v10 = i + 2;
       if (i[4] || i[5])
       {
-        *(sub_221230440(&self->_tableUIDMap.__table_.__bucket_list_.__ptr_, v11) + 2) = *(i + 2);
+        v11 = i + 2;
+        *(sub_221230440(&self->_tableUIDMap.__table_.__bucket_list_.__ptr_, v10, &unk_2217E1BE9, &v11) + 2) = *(i + 2);
       }
 
       else
       {
-        sub_2211F2EF4(&self->_tableUIDMap.__table_.__bucket_list_.__ptr_, v11);
+        sub_2211F2EF4(&self->_tableUIDMap.__table_.__bucket_list_.__ptr_, v10);
       }
     }
   }

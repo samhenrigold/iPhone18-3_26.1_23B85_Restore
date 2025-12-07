@@ -42,16 +42,8 @@
     v14 = NSStringFromSelector(sel_sourceType);
     v15 = [v12 robustDecodeObjectOfClass:v13 forKey:v14 withCoder:coderCopy expectNonNull:1 errorDomain:@"GDViewUpdateSourceKeyError" errorCode:9 logHandle:0];
 
-    if (!v15)
+    if (!v15 || ([coderCopy error], v16 = objc_claimAutoreleasedReturnValue(), v16, v16) || (NSStringFromSelector(sel_index), v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(coderCopy, "decodeIntForKey:", v17), v17, objc_msgSend(coderCopy, "error"), v19 = objc_claimAutoreleasedReturnValue(), v19, v19))
     {
-      goto LABEL_7;
-    }
-
-    error = [coderCopy error];
-
-    if (error || (NSStringFromSelector(sel_index), v17 = objc_claimAutoreleasedReturnValue(), v18 = [coderCopy decodeIntForKey:v17], v17, objc_msgSend(coderCopy, "error"), v19 = objc_claimAutoreleasedReturnValue(), v19, v19))
-    {
-LABEL_7:
       selfCopy = 0;
     }
 

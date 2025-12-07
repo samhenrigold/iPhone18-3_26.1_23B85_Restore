@@ -6,41 +6,42 @@
 void ___FAUICreatePDFFromDocumentURLs_block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = v3;
+  v5 = v3;
   if (*(a1 + 32))
   {
-    v5 = fauiLogHandle;
+    v6 = fauiLogHandle;
     if (!fauiLogHandle)
     {
-      FAUIInitLogging();
-      v5 = fauiLogHandle;
+      FAUIInitLogging(v3, v4);
+      v6 = fauiLogHandle;
     }
 
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      ___FAUICreatePDFFromDocumentURLs_block_invoke_cold_1(a1, (a1 + 32));
+      ___FAUICreatePDFFromDocumentURLs_block_invoke_cold_1(a1);
     }
 
     goto LABEL_20;
   }
 
-  v6 = [v3 startAccessingSecurityScopedResource];
-  v15 = 0;
-  v7 = *MEMORY[0x277CBE918];
-  v14 = 0;
-  v8 = [v4 getResourceValue:&v15 forKey:v7 error:&v14];
-  v9 = v15;
-  v10 = v14;
-  if (!v8)
+  v7 = [v3 startAccessingSecurityScopedResource];
+  v20 = 0;
+  v8 = *MEMORY[0x277CBE918];
+  v19 = 0;
+  v9 = [v5 getResourceValue:&v20 forKey:v8 error:&v19];
+  v10 = v20;
+  v11 = v19;
+  v13 = v11;
+  if (!v9)
   {
-    v12 = fauiLogHandle;
+    v15 = fauiLogHandle;
     if (!fauiLogHandle)
     {
-      FAUIInitLogging();
-      v12 = fauiLogHandle;
+      FAUIInitLogging(v11, v12);
+      v15 = fauiLogHandle;
     }
 
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       ___FAUICreatePDFFromDocumentURLs_block_invoke_cold_2();
     }
@@ -48,27 +49,28 @@ void ___FAUICreatePDFFromDocumentURLs_block_invoke(uint64_t a1, void *a2)
     goto LABEL_17;
   }
 
-  if (UTTypeConformsTo(v9, *MEMORY[0x277CC20B0]))
+  if (UTTypeConformsTo(v10, *MEMORY[0x277CC20B0]))
   {
-    v11 = _AppendImageToDocument(v4, *(a1 + 48));
-    if (v11)
+    v14 = _AppendImageToDocument(v5, *(a1 + 48));
+    if (v14)
     {
-      [*(a1 + 56) addObject:v11];
+      [*(a1 + 56) addObject:v14];
     }
   }
 
   else
   {
-    if (!UTTypeConformsTo(v9, *MEMORY[0x277CC2108]))
+    v16 = UTTypeConformsTo(v10, *MEMORY[0x277CC2108]);
+    if (!v16)
     {
-      v13 = fauiLogHandle;
+      v18 = fauiLogHandle;
       if (!fauiLogHandle)
       {
-        FAUIInitLogging();
-        v13 = fauiLogHandle;
+        FAUIInitLogging(v16, v17);
+        v18 = fauiLogHandle;
       }
 
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         ___FAUICreatePDFFromDocumentURLs_block_invoke_cold_3();
       }
@@ -76,14 +78,14 @@ void ___FAUICreatePDFFromDocumentURLs_block_invoke(uint64_t a1, void *a2)
       goto LABEL_17;
     }
 
-    v11 = [objc_alloc(getPDFDocumentClass()) initWithURL:v4];
-    _AppendDocumentToDocument(v11, *(a1 + 48));
+    v14 = [objc_alloc(getPDFDocumentClass()) initWithURL:v5];
+    _AppendDocumentToDocument(v14, *(a1 + 48));
   }
 
 LABEL_17:
-  if (v6)
+  if (v7)
   {
-    [v4 stopAccessingSecurityScopedResource];
+    [v5 stopAccessingSecurityScopedResource];
   }
 
 LABEL_20:
@@ -100,34 +102,28 @@ uint64_t ___FAUICreatePDFFromDocumentURLs_block_invoke_4(uint64_t a1)
   return result;
 }
 
-void ___FAUICreatePDFFromDocumentURLs_block_invoke_cold_1(uint64_t a1, uint64_t *a2)
+void ___FAUICreatePDFFromDocumentURLs_block_invoke_cold_1(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  LODWORD(v7) = 138412546;
-  *(&v7 + 4) = *(a1 + 40);
-  OUTLINED_FUNCTION_3();
-  *v8 = v3;
-  OUTLINED_FUNCTION_2(&dword_24ABD1000, v4, v5, "Failed to take a coordinated read on url: %@ error: %@", v7, DWORD2(v7), *&v8[2], v9);
   v6 = *MEMORY[0x277D85DE8];
+  LODWORD(v4) = 138412546;
+  *(&v4 + 4) = *(a1 + 40);
+  OUTLINED_FUNCTION_3();
+  *v5 = v1;
+  OUTLINED_FUNCTION_2(&dword_24ABD1000, v2, v3, "Failed to take a coordinated read on url: %@ error: %@", v4, DWORD2(v4), *&v5[2], v6);
 }
 
 void ___FAUICreatePDFFromDocumentURLs_block_invoke_cold_2()
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2(&dword_24ABD1000, v0, v1, "Error: Unable to determine UTI for file: %@ error: %@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 void ___FAUICreatePDFFromDocumentURLs_block_invoke_cold_3()
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2(&dword_24ABD1000, v0, v1, "Error: Unexpected UTI: %@ for file: %@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 @end

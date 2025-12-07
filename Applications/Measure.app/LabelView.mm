@@ -12,7 +12,7 @@
 - (NSDictionary)labels
 {
   swift_beginAccess();
-  type metadata accessor for LabelRender();
+  type metadata accessor for LabelRender(0);
 
   v2.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
 
@@ -21,7 +21,7 @@
 
 - (void)setLabels:(id)labels
 {
-  type metadata accessor for LabelRender();
+  type metadata accessor for LabelRender(0);
   v4 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   v5 = OBJC_IVAR____TtC7Measure9LabelView_labels;
   swift_beginAccess();
@@ -68,7 +68,7 @@ LABEL_3:
   {
 LABEL_4:
     type metadata accessor for NSKeyValueChangeKey(0);
-    sub_1000C90B8(&qword_1004A0C40, type metadata accessor for NSKeyValueChangeKey);
+    sub_1000C90B8(&qword_1004A0C40, type metadata accessor for NSKeyValueChangeKey, &unk_1003D4E44);
     static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   }
 

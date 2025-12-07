@@ -158,66 +158,66 @@
     v16 = objc_msgSend_geometry(self->super._chartInfo, v12, v13, v14, v15);
     v21 = objc_msgSend_mutableCopy(v16, v17, v18, v19, v20);
 
-    objc_msgSend_position(v21, v22, v23, v24, v25);
-    objc_msgSend_setPosition_(v21, v28, v9 + v26, v11 + v27, v29);
+    objc_msgSend_position(v21, v22, v23, v24);
+    objc_msgSend_setPosition_(v21, v27, v9 + v25, v11 + v26, v28);
     if (!self->_chartLayout)
     {
-      v34 = MEMORY[0x277D81150];
-      v35 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v30, v31, v32, v33, "[TSCH3DChartLayoutSceneSettingsUpgrader updateInfoGeometryIfNecessary]");
-      v40 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v36, v37, v38, v39, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DChartLayout.mm");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v34, v41, v42, v43, v44, v35, v40, 120, 0, "invalid nil value for '%{public}s'", "_chartLayout");
+      v33 = MEMORY[0x277D81150];
+      v34 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v29, v30, v31, v32, "[TSCH3DChartLayoutSceneSettingsUpgrader updateInfoGeometryIfNecessary]");
+      v39 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v35, v36, v37, v38, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DChartLayout.mm");
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v33, v40, v41, v42, v43, v34, v39, 120, 0, "invalid nil value for '%{public}s'", "_chartLayout");
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v45, v46, v47, v48);
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v44, v45, v46, v47);
     }
 
-    if (objc_msgSend_intValueForProperty_defaultValue_(self->super._chartInfo, v30, v31, v32, v33, 1113, 1))
+    if (objc_msgSend_intValueForProperty_defaultValue_(self->super._chartInfo, v29, v30, v31, v32, 1113, 1))
     {
-      v53 = objc_msgSend_legend(self->super._chartInfo, v49, v50, v51, v52);
+      v52 = objc_msgSend_legend(self->super._chartInfo, v48, v49, v50, v51);
 
-      if (!v53)
+      if (!v52)
       {
-        v58 = MEMORY[0x277D81150];
-        v59 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v54, v55, v56, v57, "[TSCH3DChartLayoutSceneSettingsUpgrader updateInfoGeometryIfNecessary]");
-        v64 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v60, v61, v62, v63, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DChartLayout.mm");
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v58, v65, v66, v67, v68, v59, v64, 124, 0, "invalid nil value for '%{public}s'", "_chartInfo.legend");
+        v57 = MEMORY[0x277D81150];
+        v58 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v53, v54, v55, v56, "[TSCH3DChartLayoutSceneSettingsUpgrader updateInfoGeometryIfNecessary]");
+        v63 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v59, v60, v61, v62, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DChartLayout.mm");
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v57, v64, v65, v66, v67, v58, v63, 124, 0, "invalid nil value for '%{public}s'", "_chartInfo.legend");
 
-        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v69, v70, v71, v72);
+        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v68, v69, v70, v71);
       }
 
-      v73 = objc_msgSend_legend(self->super._chartInfo, v54, v55, v56, v57);
-      objc_msgSend_legendOffset(v73, v74, v75, v76, v77);
+      v72 = objc_msgSend_legend(self->super._chartInfo, v53, v54, v55, v56);
+      objc_msgSend_legendOffset(v72, v73, v74, v75, v76);
 
-      v82 = objc_msgSend_legend(self->super._chartInfo, v78, v79, v80, v81);
-      objc_msgSend_legendSize(v82, v83, v84, v85, v86);
+      v81 = objc_msgSend_legend(self->super._chartInfo, v77, v78, v79, v80);
+      objc_msgSend_legendSize(v81, v82, v83, v84, v85);
 
-      objc_msgSend_legendFrame(self->_chartLayout, v87, v88, v89, v90);
-      v92 = *&v91;
-      v94 = *&v93;
-      v96 = *&v95;
-      v98 = v97;
-      objc_msgSend_chartBodyFrame(self->_chartLayout, v99, v91, v93, v95);
-      v120 = *v7;
-      v119 = *MEMORY[0x277CBF3A8];
-      sub_27628348C(&v120, &v119, v100, v101, v102, v103, v104, v105, v92, v94, v96, v98);
-      v106 = v120;
+      objc_msgSend_legendFrame(self->_chartLayout, v86, v87, v88, v89);
+      v91 = v90;
+      v93 = *&v92;
+      v95 = *&v94;
+      v97 = v96;
+      objc_msgSend_chartBodyFrame(self->_chartLayout, v98, v90, v92, v94);
+      v123 = *v7;
+      v122 = *MEMORY[0x277CBF3A8];
+      sub_27628348C(&v123, &v122, v99, v100, v101, v102, v103, v104, *MEMORY[0x277CBF398], *(MEMORY[0x277CBF398] + 8), *(MEMORY[0x277CBF398] + 16), *(MEMORY[0x277CBF398] + 24), v105, v106, v107, v108, v91, v93, v95, v97);
+      v109 = v123;
       if ((TSUNearlyEqualPoints() & 1) == 0)
       {
-        v111 = objc_msgSend_legend(self->super._chartInfo, v107, v108, v109, v110);
-        objc_msgSend_setLegendOffset_(v111, v112, *&v106, *(&v106 + 1), v113);
+        v114 = objc_msgSend_legend(self->super._chartInfo, v110, v111, v112, v113);
+        objc_msgSend_setLegendOffset_(v114, v115, *&v109, *(&v109 + 1), v116);
       }
 
-      v114 = v119;
+      v117 = v122;
       if ((TSUNearlyEqualSizes() & 1) == 0)
       {
-        v115 = objc_msgSend_legend(self->super._chartInfo, v49, v50, v51, v52);
-        objc_msgSend_setLegendSize_(v115, v116, *&v114, *(&v114 + 1), v117);
+        v118 = objc_msgSend_legend(self->super._chartInfo, v48, v49, v50, v51);
+        objc_msgSend_setLegendSize_(v118, v119, *&v117, *(&v117 + 1), v120);
       }
     }
 
-    objc_msgSend_setGeometry_clearObjectPlaceholderFlag_(self->super._chartInfo, v49, v50, v51, v52, v21, 0);
+    objc_msgSend_setGeometry_clearObjectPlaceholderFlag_(self->super._chartInfo, v48, v49, v50, v51, v21, 0);
   }
 
-  v118 = self->_infoGeometryOffset;
+  v121 = self->_infoGeometryOffset;
   self->_infoGeometryOffset = 0;
 }
 

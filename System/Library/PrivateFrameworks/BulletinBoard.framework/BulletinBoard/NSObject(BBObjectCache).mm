@@ -7,9 +7,9 @@
 
 - (uint64_t)bb_objectCache
 {
-  v0 = objc_opt_class();
+  v1 = objc_opt_class();
 
-  return [v0 bb_objectCache];
+  return [v1 bb_objectCache];
 }
 
 + (BBObjectCache)bb_objectCache

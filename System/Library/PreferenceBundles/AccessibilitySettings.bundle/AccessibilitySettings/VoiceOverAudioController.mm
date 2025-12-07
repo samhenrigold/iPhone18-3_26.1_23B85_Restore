@@ -762,7 +762,7 @@ LABEL_20:
       v7 = v6;
       v8 = *v35;
       v9 = &_s7SwiftUI5ColorV4blueACvgZ_ptr;
-      v10 = &unk_2BA000;
+      v10 = &qword_2BA000;
       v31 = *v35;
       do
       {

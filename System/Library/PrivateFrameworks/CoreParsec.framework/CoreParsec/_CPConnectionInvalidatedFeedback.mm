@@ -28,7 +28,6 @@
   toCopy = to;
   if ([(_CPConnectionInvalidatedFeedback *)self timestamp])
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 }

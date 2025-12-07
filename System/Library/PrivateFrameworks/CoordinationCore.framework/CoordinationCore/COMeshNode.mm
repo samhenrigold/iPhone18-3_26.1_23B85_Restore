@@ -176,7 +176,7 @@
 
 - (NSUUID)HomeKitIdentifier
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277CFD0B8] isGlobalMessagingEnabled])
   {
     underlyingNode = [(COMeshNode *)self underlyingNode];
@@ -192,28 +192,28 @@
     if (!homeKitIdentifier)
     {
       iDSIdentifier = [(COMeshNode *)self IDSIdentifier];
+      v17 = 0u;
       v18 = 0u;
       v19 = 0u;
       v20 = 0u;
-      v21 = 0u;
       parent = [(COMeshNode *)self parent];
       client2 = [parent client];
       activeDevices = [client2 activeDevices];
 
-      homeKitIdentifier = [activeDevices countByEnumeratingWithState:&v18 objects:v22 count:16];
+      homeKitIdentifier = [activeDevices countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (homeKitIdentifier)
       {
-        v11 = *v19;
+        v11 = *v18;
         while (2)
         {
           for (i = 0; i != homeKitIdentifier; i = i + 1)
           {
-            if (*v19 != v11)
+            if (*v18 != v11)
             {
               objc_enumerationMutation(activeDevices);
             }
 
-            v13 = *(*(&v18 + 1) + 8 * i);
+            v13 = *(*(&v17 + 1) + 8 * i);
             idsDeviceIdentifier = [v13 idsDeviceIdentifier];
             if (idsDeviceIdentifier && ![iDSIdentifier compare:idsDeviceIdentifier options:1])
             {
@@ -228,7 +228,7 @@
             }
           }
 
-          homeKitIdentifier = [activeDevices countByEnumeratingWithState:&v18 objects:v22 count:16];
+          homeKitIdentifier = [activeDevices countByEnumeratingWithState:&v17 objects:v21 count:16];
           if (homeKitIdentifier)
           {
             continue;
@@ -241,8 +241,6 @@
 LABEL_17:
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return homeKitIdentifier;
 }
@@ -618,7 +616,7 @@ LABEL_15:
 
 - (void)_validateDiscoveryRecord
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   remote = [(COMeshNode *)self remote];
   v4 = self->_discoveryRecord;
   constituent = [(CODiscoveryRecord *)v4 constituent];
@@ -632,19 +630,17 @@ LABEL_15:
     v9 = COCoreLogForCategory(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138413058;
+      v10 = 138413058;
       selfCopy = self;
-      v13 = 2112;
-      v14 = remote;
-      v15 = 2112;
-      v16 = v6;
-      v17 = 2112;
-      v18 = v8;
-      _os_log_impl(&dword_244378000, v9, OS_LOG_TYPE_DEFAULT, "%@ updated discovery constituent to %@ from %@ with record %@", &v11, 0x2Au);
+      v12 = 2112;
+      v13 = remote;
+      v14 = 2112;
+      v15 = v6;
+      v16 = 2112;
+      v17 = v8;
+      _os_log_impl(&dword_244378000, v9, OS_LOG_TYPE_DEFAULT, "%@ updated discovery constituent to %@ from %@ with record %@", &v10, 0x2Au);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_commandPayloadFromRapportRepresentation:(id)representation
@@ -792,51 +788,47 @@ LABEL_7:
 
 id __40__COMeshNode__serializedDataForCommand___block_invoke_2(void *a1)
 {
-  v10[4] = *MEMORY[0x277D85DE8];
-  v9[0] = 0x2857B6008;
+  v9[4] = *MEMORY[0x277D85DE8];
+  v8[0] = 0x2857B6008;
   v2 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:a1[6]];
-  v10[0] = v2;
-  v9[1] = 0x2857B5FC8;
+  v9[0] = v2;
+  v8[1] = 0x2857B5FC8;
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:a1[7]];
   v4 = a1[4];
   v5 = a1[5];
-  v10[1] = v3;
-  v10[2] = v4;
-  v9[2] = 0x2857B6028;
-  v9[3] = 0x2857B5DC8;
-  v10[3] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:4];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9[1] = v3;
+  v9[2] = v4;
+  v8[2] = 0x2857B6028;
+  v8[3] = 0x2857B5DC8;
+  v9[3] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:4];
 
   return v6;
 }
 
 id __40__COMeshNode__serializedDataForCommand___block_invoke_3(uint64_t a1)
 {
-  v10[4] = *MEMORY[0x277D85DE8];
-  v9[0] = 0x2857B6008;
+  v9[4] = *MEMORY[0x277D85DE8];
+  v8[0] = 0x2857B6008;
   v2 = [MEMORY[0x277CCABB0] numberWithDouble:*(a1 + 48)];
-  v10[0] = v2;
-  v9[1] = 0x2857B5FC8;
+  v9[0] = v2;
+  v8[1] = 0x2857B5FC8;
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:*(a1 + 56)];
   v4 = *(a1 + 32);
   v5 = *(a1 + 40);
-  v10[1] = v3;
-  v10[2] = v4;
-  v9[2] = 0x2857B6028;
-  v9[3] = 0x2857B5DC8;
-  v10[3] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:4];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9[1] = v3;
+  v9[2] = v4;
+  v8[2] = 0x2857B6028;
+  v8[3] = 0x2857B5DC8;
+  v9[3] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:4];
 
   return v6;
 }
 
 - (void)_handleResponseToRequest:(id)request rapportRepresentation:(id)representation options:(id)options error:(id)error responseCallback:(id)callback at:(unint64_t)at
 {
-  v90 = *MEMORY[0x277D85DE8];
+  v89 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   representationCopy = representation;
   optionsCopy = options;
@@ -855,15 +847,15 @@ id __40__COMeshNode__serializedDataForCommand___block_invoke_3(uint64_t a1)
   if ((objc_opt_isKindOfClass() & 1) != 0 && [v22 length])
   {
     acceptableResponses = [objc_opt_class() acceptableResponses];
-    v78[0] = MEMORY[0x277D85DD0];
-    v78[1] = 3221225472;
-    v78[2] = __95__COMeshNode__handleResponseToRequest_rapportRepresentation_options_error_responseCallback_at___block_invoke;
-    v78[3] = &unk_278E15EE0;
-    v78[4] = self;
-    v67 = v22;
-    v79 = v67;
-    v69 = acceptableResponses;
-    v24 = [acceptableResponses objectsPassingTest:v78];
+    v77[0] = MEMORY[0x277D85DD0];
+    v77[1] = 3221225472;
+    v77[2] = __95__COMeshNode__handleResponseToRequest_rapportRepresentation_options_error_responseCallback_at___block_invoke;
+    v77[3] = &unk_278E15EE0;
+    v77[4] = self;
+    v66 = v22;
+    v78 = v66;
+    v68 = acceptableResponses;
+    v24 = [acceptableResponses objectsPassingTest:v77];
     anyObject = [v24 anyObject];
 
     if (!anyObject)
@@ -875,60 +867,60 @@ LABEL_22:
       goto LABEL_23;
     }
 
-    v68 = [(COMeshNode *)self _commandPayloadFromRapportRepresentation:representationCopy];
-    if (v68)
+    v67 = [(COMeshNode *)self _commandPayloadFromRapportRepresentation:representationCopy];
+    if (v67)
     {
-      v26 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:anyObject fromData:v68 error:0];
+      v26 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:anyObject fromData:v67 error:0];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
         if (v26)
         {
-          v66 = [representationCopy objectForKey:@"overhead"];
-          if (v66)
+          v65 = [representationCopy objectForKey:@"overhead"];
+          if (v65)
           {
-            v64 = v26;
+            v63 = v26;
             v27 = [(COMeshNode *)self requestCount]+ 1;
             if (v27 > 0x3E7)
             {
               [(COMeshNode *)self averageRequestTime];
-              v48 = v47;
+              v47 = v46;
               label = [(COMeshNode *)self label];
               recorder = [(COMeshNode *)self recorder];
-              v70[0] = MEMORY[0x277D85DD0];
-              v70[1] = 3221225472;
-              v70[2] = __95__COMeshNode__handleResponseToRequest_rapportRepresentation_options_error_responseCallback_at___block_invoke_2;
-              v70[3] = &unk_278E15F30;
-              v72 = v48;
-              v73 = v27;
-              v71 = label;
-              v51 = recorder[2];
-              v63 = label;
-              v51(recorder, 0x2857B5D88, v70);
+              v69[0] = MEMORY[0x277D85DD0];
+              v69[1] = 3221225472;
+              v69[2] = __95__COMeshNode__handleResponseToRequest_rapportRepresentation_options_error_responseCallback_at___block_invoke_2;
+              v69[3] = &unk_278E15F30;
+              v71 = v47;
+              v72 = v27;
+              v70 = label;
+              v50 = recorder[2];
+              v62 = label;
+              v50(recorder, 0x2857B5D88, v69);
 
               [(COMeshNode *)self setRequestCount:0];
               [(COMeshNode *)self setAverageRequestTime:0.0];
-              v52 = COCoreLogForCategory(0);
-              if (os_log_type_enabled(v52, OS_LOG_TYPE_DEBUG))
+              v51 = COCoreLogForCategory(0);
+              if (os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
               {
-                v58 = objc_opt_class();
+                v57 = objc_opt_class();
                 *buf = 138412802;
                 selfCopy4 = self;
-                v82 = 2112;
-                v83 = v67;
-                v84 = 2112;
-                v85 = v58;
-                v59 = v58;
-                _os_log_debug_impl(&dword_244378000, v52, OS_LOG_TYPE_DEBUG, "%@ received %@ (reset timings) for %@", buf, 0x20u);
+                v81 = 2112;
+                v82 = v66;
+                v83 = 2112;
+                v84 = v57;
+                v58 = v57;
+                _os_log_debug_impl(&dword_244378000, v51, OS_LOG_TYPE_DEBUG, "%@ received %@ (reset timings) for %@", buf, 0x20u);
               }
 
-              v43 = v63;
-              v26 = v64;
+              v42 = v62;
+              v26 = v63;
             }
 
             else
             {
-              [v66 doubleValue];
+              [v65 doubleValue];
               v29 = ((v21 - at) - v28) / 1000000.0;
               [(COMeshNode *)self averageRequestTime];
               v31 = v30 * 1000.0;
@@ -943,71 +935,71 @@ LABEL_22:
                 v32 = 1;
               }
 
-              v26 = v64;
+              v26 = v63;
               [(COMeshNode *)self setRequestCount:v32];
-              v53 = v29 / 1000.0;
-              [(COMeshNode *)self setAverageRequestTime:v53];
-              v54 = COCoreLogForCategory(0);
-              if (os_log_type_enabled(v54, OS_LOG_TYPE_DEBUG))
+              v52 = v29 / 1000.0;
+              [(COMeshNode *)self setAverageRequestTime:v52];
+              v53 = COCoreLogForCategory(0);
+              if (os_log_type_enabled(v53, OS_LOG_TYPE_DEBUG))
               {
-                v60 = objc_opt_class();
+                v59 = objc_opt_class();
                 *buf = 138413314;
                 selfCopy4 = self;
-                v82 = 2112;
-                v83 = v67;
-                v84 = 2048;
-                v85 = v32;
-                v86 = 2048;
-                v87 = v53;
-                v88 = 2112;
-                v89 = v60;
-                v61 = v32;
-                v62 = v60;
-                _os_log_debug_impl(&dword_244378000, v54, OS_LOG_TYPE_DEBUG, "%@ received %@ (%llu at %g ms) for %@", buf, 0x34u);
+                v81 = 2112;
+                v82 = v66;
+                v83 = 2048;
+                v84 = v32;
+                v85 = 2048;
+                v86 = v52;
+                v87 = 2112;
+                v88 = v59;
+                v60 = v32;
+                v61 = v59;
+                _os_log_debug_impl(&dword_244378000, v53, OS_LOG_TYPE_DEBUG, "%@ received %@ (%llu at %g ms) for %@", buf, 0x34u);
 
-                v32 = v61;
-                v26 = v64;
+                v32 = v60;
+                v26 = v63;
               }
 
-              HIDWORD(v55) = -1030792151 * v32;
-              LODWORD(v55) = HIDWORD(v55);
-              if ((v55 >> 2) > 0x28F5C28)
+              HIDWORD(v54) = -1030792151 * v32;
+              LODWORD(v54) = HIDWORD(v54);
+              if ((v54 >> 2) > 0x28F5C28)
               {
                 goto LABEL_46;
               }
 
               label2 = [(COMeshNode *)self label];
               recorder2 = [(COMeshNode *)self recorder];
-              v74[0] = MEMORY[0x277D85DD0];
-              v74[1] = 3221225472;
-              v74[2] = __95__COMeshNode__handleResponseToRequest_rapportRepresentation_options_error_responseCallback_at___block_invoke_59;
-              v74[3] = &unk_278E15F30;
-              v76 = v53;
-              v77 = v32;
-              v75 = label2;
-              v65 = recorder2[2];
-              v43 = label2;
-              v65(recorder2, 0x2857B5D88, v74);
+              v73[0] = MEMORY[0x277D85DD0];
+              v73[1] = 3221225472;
+              v73[2] = __95__COMeshNode__handleResponseToRequest_rapportRepresentation_options_error_responseCallback_at___block_invoke_59;
+              v73[3] = &unk_278E15F30;
+              v75 = v52;
+              v76 = v32;
+              v74 = label2;
+              v64 = recorder2[2];
+              v42 = label2;
+              v64(recorder2, 0x2857B5D88, v73);
             }
           }
 
           else
           {
-            v43 = COCoreLogForCategory(0);
-            if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
+            v42 = COCoreLogForCategory(0);
+            if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
             {
-              v44 = objc_opt_class();
+              v43 = objc_opt_class();
               *buf = 138412802;
               selfCopy4 = self;
-              v82 = 2112;
-              v83 = v67;
-              v84 = 2112;
-              v85 = v44;
+              v81 = 2112;
+              v82 = v66;
+              v83 = 2112;
+              v84 = v43;
+              v44 = v42;
               v45 = v43;
-              v46 = v44;
-              _os_log_debug_impl(&dword_244378000, v45, OS_LOG_TYPE_DEBUG, "%@ received %@ for %@", buf, 0x20u);
+              _os_log_debug_impl(&dword_244378000, v44, OS_LOG_TYPE_DEBUG, "%@ received %@ for %@", buf, 0x20u);
 
-              v43 = v45;
+              v42 = v44;
             }
           }
 
@@ -1073,14 +1065,14 @@ LABEL_29:
     v38 = COCoreLogForCategory(0);
     if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
     {
-      v41 = objc_opt_class();
+      v40 = objc_opt_class();
       *buf = 138412802;
       selfCopy4 = self;
-      v82 = 2112;
-      v83 = errorCopy;
-      v84 = 2112;
-      v85 = v41;
-      v42 = v41;
+      v81 = 2112;
+      v82 = errorCopy;
+      v83 = 2112;
+      v84 = v40;
+      v41 = v40;
       _os_log_error_impl(&dword_244378000, v38, OS_LOG_TYPE_ERROR, "%@ received %@ for %@", buf, 0x20u);
     }
   }
@@ -1093,8 +1085,6 @@ LABEL_29:
   }
 
 LABEL_34:
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __95__COMeshNode__handleResponseToRequest_rapportRepresentation_options_error_responseCallback_at___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
@@ -1108,48 +1098,43 @@ uint64_t __95__COMeshNode__handleResponseToRequest_rapportRepresentation_options
 
 id __95__COMeshNode__handleResponseToRequest_rapportRepresentation_options_error_responseCallback_at___block_invoke_59(uint64_t a1)
 {
-  v9[3] = *MEMORY[0x277D85DE8];
-  v8[0] = 0x2857B5FE8;
+  v8[3] = *MEMORY[0x277D85DE8];
+  v7[0] = 0x2857B5FE8;
   v2 = [MEMORY[0x277CCABB0] numberWithDouble:*(a1 + 40)];
-  v9[0] = v2;
-  v8[1] = 0x2857B5FC8;
+  v8[0] = v2;
+  v7[1] = 0x2857B5FC8;
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:*(a1 + 48)];
-  v8[2] = 0x2857B5DC8;
+  v7[2] = 0x2857B5DC8;
   v4 = *(a1 + 32);
-  v9[1] = v3;
-  v9[2] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v8[1] = v3;
+  v8[2] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
 
   return v5;
 }
 
 id __95__COMeshNode__handleResponseToRequest_rapportRepresentation_options_error_responseCallback_at___block_invoke_2(uint64_t a1)
 {
-  v9[3] = *MEMORY[0x277D85DE8];
-  v8[0] = 0x2857B5FE8;
+  v8[3] = *MEMORY[0x277D85DE8];
+  v7[0] = 0x2857B5FE8;
   v2 = [MEMORY[0x277CCABB0] numberWithDouble:*(a1 + 40)];
-  v9[0] = v2;
-  v8[1] = 0x2857B5FC8;
+  v8[0] = v2;
+  v7[1] = 0x2857B5FC8;
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:*(a1 + 48)];
-  v8[2] = 0x2857B5DC8;
+  v7[2] = 0x2857B5DC8;
   v4 = *(a1 + 32);
-  v9[1] = v3;
-  v9[2] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v8[1] = v3;
+  v8[2] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
 
   return v5;
 }
 
 - (void)activate
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(&dword_244378000, v0, OS_LOG_TYPE_DEBUG, "%@ activating", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_244378000, v0, OS_LOG_TYPE_DEBUG, "%@ activating", v1, 0xCu);
 }
 
 void __22__COMeshNode_activate__block_invoke(uint64_t a1)
@@ -1303,17 +1288,16 @@ LABEL_14:
 
 - (void)_handleRPIsUsingOnDemandConnection
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = COCoreLogForCategory(0);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
+    v4 = 138412290;
     selfCopy = self;
-    _os_log_impl(&dword_244378000, v3, OS_LOG_TYPE_DEFAULT, "%@ link (IP) connected", &v5, 0xCu);
+    _os_log_impl(&dword_244378000, v3, OS_LOG_TYPE_DEFAULT, "%@ link (IP) connected", &v4, 0xCu);
   }
 
   [(COMeshNode *)self setConnectionType:2];
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleErrorFlagsUpdate
@@ -1330,11 +1314,9 @@ LABEL_14:
 
 - (void)_handleDisconnect
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invalidate
@@ -1385,51 +1367,49 @@ LABEL_14:
 
 - (void)sendMeshCommand:(id)command
 {
-  v25[2] = *MEMORY[0x277D85DE8];
+  v24[2] = *MEMORY[0x277D85DE8];
   commandCopy = command;
   v5 = [(COMeshNode *)self _eventIDForClass:objc_opt_class()];
   v6 = [(COMeshNode *)self _serializedDataForCommand:commandCopy];
-  v24[0] = @"source";
+  v23[0] = @"source";
   v7 = MEMORY[0x277CCAAB0];
   source = [(COMeshNode *)self source];
   v9 = [v7 archivedDataWithRootObject:source requiringSecureCoding:1 error:0];
-  v24[1] = @"command";
-  v25[0] = v9;
-  v25[1] = v6;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:2];
+  v23[1] = @"command";
+  v24[0] = v9;
+  v24[1] = v6;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:2];
 
   v11 = COCoreLogForCategory(0);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
     selfCopy = self;
-    v22 = 2112;
-    v23 = v5;
+    v21 = 2112;
+    v22 = v5;
     _os_log_impl(&dword_244378000, v11, OS_LOG_TYPE_DEFAULT, "%@ sending %@", buf, 0x16u);
   }
 
   objc_initWeak(buf, self);
   client = [(COMeshNode *)self client];
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __30__COMeshNode_sendMeshCommand___block_invoke;
-  v16[3] = &unk_278E179A0;
-  objc_copyWeak(&v19, buf);
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __30__COMeshNode_sendMeshCommand___block_invoke;
+  v15[3] = &unk_278E179A0;
+  objc_copyWeak(&v18, buf);
   v13 = v5;
-  v17 = v13;
+  v16 = v13;
   v14 = commandCopy;
-  v18 = v14;
-  [client sendEventID:v13 event:v10 options:0 completion:v16];
+  v17 = v14;
+  [client sendEventID:v13 event:v10 options:0 completion:v15];
 
-  objc_destroyWeak(&v19);
+  objc_destroyWeak(&v18);
   objc_destroyWeak(buf);
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __30__COMeshNode_sendMeshCommand___block_invoke(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (!WeakRetained)
@@ -1440,15 +1420,15 @@ void __30__COMeshNode_sendMeshCommand___block_invoke(uint64_t a1, void *a2)
   v5 = COCoreLogForCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v14 = objc_loadWeakRetained((a1 + 48));
-    v15 = *(a1 + 32);
-    v16 = 138412802;
-    v17 = v14;
-    v18 = 2112;
-    v19 = v15;
-    v20 = 2112;
-    v21 = v3;
-    _os_log_debug_impl(&dword_244378000, v5, OS_LOG_TYPE_DEBUG, "%@ sent %@ (%@)", &v16, 0x20u);
+    v13 = objc_loadWeakRetained((a1 + 48));
+    v14 = *(a1 + 32);
+    v15 = 138412802;
+    v16 = v13;
+    v17 = 2112;
+    v18 = v14;
+    v19 = 2112;
+    v20 = v3;
+    _os_log_debug_impl(&dword_244378000, v5, OS_LOG_TYPE_DEBUG, "%@ sent %@ (%@)", &v15, 0x20u);
   }
 
   v6 = *MEMORY[0x277D44250];
@@ -1462,7 +1442,7 @@ void __30__COMeshNode_sendMeshCommand___block_invoke(uint64_t a1, void *a2)
       v9 = COCoreLogForCategory(0);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        __30__COMeshNode_sendMeshCommand___block_invoke_cold_1(WeakRetained, a1);
+        __30__COMeshNode_sendMeshCommand___block_invoke_cold_1();
       }
 
       [WeakRetained invalidate];
@@ -1497,18 +1477,17 @@ void __30__COMeshNode_sendMeshCommand___block_invoke(uint64_t a1, void *a2)
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       v12 = *(a1 + 40);
-      v16 = 138412802;
-      v17 = WeakRetained;
-      v18 = 2112;
-      v19 = v3;
-      v20 = 2112;
-      v21 = v12;
-      _os_log_impl(&dword_244378000, v11, OS_LOG_TYPE_DEFAULT, "%@ received an error %@ for command %@ but no delegate to deliver", &v16, 0x20u);
+      v15 = 138412802;
+      v16 = WeakRetained;
+      v17 = 2112;
+      v18 = v3;
+      v19 = 2112;
+      v20 = v12;
+      _os_log_impl(&dword_244378000, v11, OS_LOG_TYPE_DEFAULT, "%@ received an error %@ for command %@ but no delegate to deliver", &v15, 0x20u);
     }
   }
 
 LABEL_20:
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendMeshRequest:(id)request
@@ -1531,7 +1510,7 @@ LABEL_20:
 
 void __30__COMeshNode_sendMeshRequest___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
@@ -1572,34 +1551,32 @@ void __30__COMeshNode_sendMeshRequest___block_invoke(uint64_t a1, void *a2, void
         }
 
         v12 = *(a1 + 32);
-        v14 = 138412802;
-        v15 = v8;
-        v16 = 2112;
-        v17 = v11;
-        v18 = 2112;
-        v19 = v12;
-        _os_log_impl(&dword_244378000, v10, OS_LOG_TYPE_DEFAULT, "%@ received %@ for request %@ but no delegate to deliver", &v14, 0x20u);
+        v13 = 138412802;
+        v14 = v8;
+        v15 = 2112;
+        v16 = v11;
+        v17 = 2112;
+        v18 = v12;
+        _os_log_impl(&dword_244378000, v10, OS_LOG_TYPE_DEFAULT, "%@ received %@ for request %@ but no delegate to deliver", &v13, 0x20u);
       }
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendMeshRequest:(id)request responseCallback:(id)callback
 {
-  v40[2] = *MEMORY[0x277D85DE8];
+  v39[2] = *MEMORY[0x277D85DE8];
   requestCopy = request;
   callbackCopy = callback;
-  v27 = [(COMeshNode *)self _serializedDataForCommand:requestCopy];
-  v39[0] = @"source";
+  v26 = [(COMeshNode *)self _serializedDataForCommand:requestCopy];
+  v38[0] = @"source";
   v8 = MEMORY[0x277CCAAB0];
   source = [(COMeshNode *)self source];
   v10 = [v8 archivedDataWithRootObject:source requiringSecureCoding:1 error:0];
-  v39[1] = @"command";
-  v40[0] = v10;
-  v40[1] = v27;
-  v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:v39 count:2];
+  v38[1] = @"command";
+  v39[0] = v10;
+  v39[1] = v26;
+  v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:v38 count:2];
 
   v11 = [(COMeshNode *)self _eventIDForClass:objc_opt_class()];
   client = [(COMeshNode *)self client];
@@ -1621,8 +1598,8 @@ void __30__COMeshNode_sendMeshRequest___block_invoke(uint64_t a1, void *a2, void
     {
       *buf = 138543618;
       selfCopy2 = self;
-      v35 = 2114;
-      v36 = v11;
+      v34 = 2114;
+      v35 = v11;
       _os_log_impl(&dword_244378000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@ requesting %{public}@", buf, 0x16u);
     }
 
@@ -1640,10 +1617,10 @@ void __30__COMeshNode_sendMeshRequest___block_invoke(uint64_t a1, void *a2, void
     {
       *buf = 138543874;
       selfCopy2 = self;
-      v35 = 2114;
-      v36 = v11;
-      v37 = 2048;
-      v38 = v14;
+      v34 = 2114;
+      v35 = v11;
+      v36 = 2048;
+      v37 = v14;
       _os_log_impl(&dword_244378000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@ requesting %{public}@ with timeout of %g", buf, 0x20u);
     }
   }
@@ -1657,24 +1634,22 @@ void __30__COMeshNode_sendMeshRequest___block_invoke(uint64_t a1, void *a2, void
 
   v21 = clock_gettime_nsec_np(_CLOCK_UPTIME_RAW);
   objc_initWeak(buf, self);
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __47__COMeshNode_sendMeshRequest_responseCallback___block_invoke;
-  v28[3] = &unk_278E15DC8;
-  objc_copyWeak(v32, buf);
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __47__COMeshNode_sendMeshRequest_responseCallback___block_invoke;
+  v27[3] = &unk_278E15DC8;
+  objc_copyWeak(v31, buf);
   v22 = v20;
-  v29 = v22;
+  v28 = v22;
   v23 = requestCopy;
-  v30 = v23;
+  v29 = v23;
   v24 = callbackCopy;
-  v31 = v24;
-  v32[1] = v21;
-  [client sendRequestID:v11 request:v26 options:v17 responseHandler:v28];
+  v30 = v24;
+  v31[1] = v21;
+  [client sendRequestID:v11 request:v25 options:v17 responseHandler:v27];
 
-  objc_destroyWeak(v32);
+  objc_destroyWeak(v31);
   objc_destroyWeak(buf);
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __47__COMeshNode_sendMeshRequest_responseCallback___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
@@ -1695,23 +1670,22 @@ void __47__COMeshNode_sendMeshRequest_responseCallback___block_invoke(uint64_t a
     if (v11)
     {
       xpc_dictionary_set_uint64(v11, "transport_type", 0);
-      v13 = *(a1 + 32);
       nw_activity_submit_metrics();
     }
   }
 
-  v14 = *MEMORY[0x277D44250];
-  v15 = [v9 domain];
-  if ([v14 isEqualToString:v15])
+  v13 = *MEMORY[0x277D44250];
+  v14 = [v9 domain];
+  if ([v13 isEqualToString:v14])
   {
-    v16 = [v9 code];
+    v15 = [v9 code];
 
-    if (v16 == -71148)
+    if (v15 == -71148)
     {
-      v17 = COCoreLogForCategory(0);
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v16 = COCoreLogForCategory(0);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        __47__COMeshNode_sendMeshRequest_responseCallback___block_invoke_cold_1(WeakRetained, a1);
+        __47__COMeshNode_sendMeshRequest_responseCallback___block_invoke_cold_1();
       }
 
       [WeakRetained invalidate];
@@ -1753,127 +1727,96 @@ LABEL_16:
 
 - (void)HomeKitIdentifier
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3_1();
   OUTLINED_FUNCTION_7_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_serializedDataForCommand:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
-  _os_log_fault_impl(&dword_244378000, v0, OS_LOG_TYPE_FAULT, "Failed to properly archive for sending: %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_244378000, v0, OS_LOG_TYPE_FAULT, "Failed to properly archive for sending: %@", v1, 0xCu);
 }
 
 - (void)_serializedDataForCommand:(objc_class *)a1 .cold.2(objc_class *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v3 = NSStringFromClass(a1);
   OUTLINED_FUNCTION_3();
-  _os_log_fault_impl(&dword_244378000, a2, OS_LOG_TYPE_FAULT, "%@ does not appear to properly support secure coding which is required for all commands!", v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_244378000, a2, OS_LOG_TYPE_FAULT, "%@ does not appear to properly support secure coding which is required for all commands!", v4, 0xCu);
 }
 
 - (void)_handleResponseToRequest:rapportRepresentation:options:error:responseCallback:at:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleResponseToRequest:rapportRepresentation:options:error:responseCallback:at:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3_1();
   OUTLINED_FUNCTION_1_6();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __22__COMeshNode_activate__block_invoke_cold_1(uint64_t a1)
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v2 = OUTLINED_FUNCTION_10_2(a1);
+  v1 = OUTLINED_FUNCTION_10_2(a1);
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_5_1(&dword_244378000, v3, v4, "%@ invalidated", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5_1(&dword_244378000, v2, v3, "%@ invalidated", v4, v5, v6, v7);
 }
 
 void __22__COMeshNode_activate__block_invoke_62_cold_1(uint64_t a1)
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v2 = OUTLINED_FUNCTION_10_2(a1);
+  v1 = OUTLINED_FUNCTION_10_2(a1);
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_5_1(&dword_244378000, v3, v4, "%@ link state updated", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5_1(&dword_244378000, v2, v3, "%@ link state updated", v4, v5, v6, v7);
 }
 
 void __22__COMeshNode_activate__block_invoke_63_cold_1(uint64_t a1)
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v2 = OUTLINED_FUNCTION_10_2(a1);
+  v1 = OUTLINED_FUNCTION_10_2(a1);
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_5_1(&dword_244378000, v3, v4, "%@ link error flags updated", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5_1(&dword_244378000, v2, v3, "%@ link error flags updated", v4, v5, v6, v7);
 }
 
 void __22__COMeshNode_activate__block_invoke_64_cold_1(uint64_t a1, NSObject *a2)
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v4 = OUTLINED_FUNCTION_10_2(a1);
+  v3 = OUTLINED_FUNCTION_10_2(a1);
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(&dword_244378000, a2, OS_LOG_TYPE_ERROR, "%@ link (IP) disconnected", v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_244378000, a2, OS_LOG_TYPE_ERROR, "%@ link (IP) disconnected", v4, 0xCu);
 }
 
 void __22__COMeshNode_activate__block_invoke_65_cold_1(uint64_t a1)
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v2 = OUTLINED_FUNCTION_10_2(a1);
+  v1 = OUTLINED_FUNCTION_10_2(a1);
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_5_1(&dword_244378000, v3, v4, "%@ link activated", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5_1(&dword_244378000, v2, v3, "%@ link activated", v4, v5, v6, v7);
 }
 
 - (void)_handleActivation:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(&dword_244378000, v0, OS_LOG_TYPE_DEBUG, "%@ finishing activation", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_244378000, v0, OS_LOG_TYPE_DEBUG, "%@ finishing activation", v1, 0xCu);
 }
 
-void __30__COMeshNode_sendMeshCommand___block_invoke_cold_1(uint64_t a1, uint64_t a2)
+void __30__COMeshNode_sendMeshCommand___block_invoke_cold_1()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = *(a2 + 40);
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_6_0();
   OUTLINED_FUNCTION_1_6();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __47__COMeshNode_sendMeshRequest_responseCallback___block_invoke_cold_1(uint64_t a1, uint64_t a2)
+void __47__COMeshNode_sendMeshRequest_responseCallback___block_invoke_cold_1()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = *(a2 + 40);
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_6_0();
   OUTLINED_FUNCTION_1_6();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 @end

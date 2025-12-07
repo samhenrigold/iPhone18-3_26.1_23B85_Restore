@@ -5,6 +5,7 @@
 - (BOOL)invalidate;
 - (RTXPCTimerAlarm)initWithIdentifier:(id)identifier queue:(id)queue handler:(id)handler;
 - (void)_deregisterAlarm;
+- (void)_fireWithDate:(id)date shouldWake:(BOOL)wake;
 - (void)_handleDurationExpiry;
 - (void)_invalidate;
 - (void)_setAlarmWithEndDate:(id)date shouldWake:(BOOL)wake userVisible:(BOOL)visible;
@@ -165,6 +166,32 @@
   dispatch_async(queue, block);
 
   return 1;
+}
+
+- (void)_fireWithDate:(id)date shouldWake:(BOOL)wake
+{
+  wakeCopy = wake;
+  dateCopy = date;
+  if (dateCopy)
+  {
+    [(RTXPCTimerAlarm *)self _deregisterAlarm];
+    [(RTXPCTimerAlarm *)self _resetState];
+    if ([(RTXPCTimerAlarm *)self _isEndDateValid:dateCopy])
+    {
+      [(RTXPCTimerAlarm *)self setState:2];
+      [(RTXPCTimerAlarm *)self _setAlarmWithEndDate:dateCopy shouldWake:wakeCopy userVisible:1];
+    }
+  }
+
+  else
+  {
+    v7 = sub_1000011A0(&qword_1000B2958);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    {
+      *v8 = 0;
+      _os_log_error_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: endDate", v8, 2u);
+    }
+  }
 }
 
 - (void)_handleDurationExpiry

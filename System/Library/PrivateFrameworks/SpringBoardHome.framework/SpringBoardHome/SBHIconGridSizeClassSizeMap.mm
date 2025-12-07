@@ -401,41 +401,41 @@ void __85__SBHIconGridSizeClassSizeMap_shortestGridSizeClassWithWidth_allowedGri
 
 - (id)gridSizeClassLargerThanGridSizeClass:(id)class allowedGridSizeClasses:(id)classes
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   classCopy = class;
   v7 = [(SBHIconGridSizeClassSizeMap *)self gridSizeClassesSortedByGridAreaWithAllowedGridSizeClasses:classes];
   v8 = [v7 indexOfObject:classCopy];
   if (v8 == 0x7FFFFFFFFFFFFFFFLL)
   {
     v9 = [(SBHIconGridSizeClassSizeMap *)self gridSizeAreaForGridSizeClass:classCopy];
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
     v10 = v7;
-    v11 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v20;
+      v13 = *v19;
       while (2)
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v20 != v13)
+          if (*v19 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v19 + 1) + 8 * i);
-          if ([(SBHIconGridSizeClassSizeMap *)self gridSizeAreaForGridSizeClass:v15, v19]> v9)
+          v15 = *(*(&v18 + 1) + 8 * i);
+          if ([(SBHIconGridSizeClassSizeMap *)self gridSizeAreaForGridSizeClass:v15, v18]> v9)
           {
             v16 = v15;
             goto LABEL_14;
           }
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
         if (v12)
         {
           continue;
@@ -449,18 +449,14 @@ void __85__SBHIconGridSizeClassSizeMap_shortestGridSizeClassWithWidth_allowedGri
 LABEL_14:
   }
 
+  else if (v8 + 1 >= [v7 count])
+  {
+    v16 = 0;
+  }
+
   else
   {
-    v17 = v8 + 1;
-    if (v8 + 1 >= [v7 count])
-    {
-      v16 = 0;
-    }
-
-    else
-    {
-      v16 = [v7 objectAtIndex:v17];
-    }
+    v16 = objc_msgSend_objectAtIndex_(v7);
   }
 
   return v16;
@@ -495,7 +491,7 @@ LABEL_14:
 
     else
     {
-      v11 = [v8 objectAtIndex:v9 - 1];
+      v11 = objc_msgSend_objectAtIndex_(v8);
       v12 = v18[5];
       v18[5] = v11;
     }

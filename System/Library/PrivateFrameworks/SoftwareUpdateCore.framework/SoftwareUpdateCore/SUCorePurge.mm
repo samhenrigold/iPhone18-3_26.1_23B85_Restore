@@ -16,7 +16,7 @@
 + (void)previousUpdateState:(BOOL *)state tetheredRestore:(BOOL *)restore failedBackward:(BOOL *)backward failedForward:(BOOL *)forward
 {
   v10 = [MEMORY[0x277D643F8] beginTransactionWithName:@"purge.PreviousUpdateState"];
-  v26 = 0;
+  v27 = 0;
   if (state)
   {
     *state = 0;
@@ -38,7 +38,7 @@
   }
 
   [SUCorePurge _trackPurgeBegin:@"MSURetrievePreviousUpdateState"];
-  if (!SUCoreBorder_MSURetrievePreviousUpdateState())
+  if (!SUCoreBorder_MSURetrievePreviousUpdateState(&v27))
   {
     mEMORY[0x277D643F8] = [MEMORY[0x277D643F8] sharedCore];
     v13 = [mEMORY[0x277D643F8] buildError:8802 underlying:0 description:@"MSURetrievePreviousUpdateState failed to provide state"];
@@ -47,17 +47,17 @@ LABEL_18:
     goto LABEL_19;
   }
 
-  if (v26 > 1)
+  if (v27 > 1)
   {
-    if (v26 == 2)
+    if (v27 == 2)
     {
       mEMORY[0x277D64460] = [MEMORY[0x277D64460] sharedLogger];
       oslog = [mEMORY[0x277D64460] oslog];
 
       if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
       {
-        *v23 = 0;
-        _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "[PURGE] MSU previous update state:kMSUUpdateStateFailedBackward [OTA attempt failed back to previous OS]", v23, 2u);
+        *v24 = 0;
+        _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "[PURGE] MSU previous update state:kMSUUpdateStateFailedBackward [OTA attempt failed back to previous OS]", v24, 2u);
       }
 
       if (backward)
@@ -70,7 +70,7 @@ LABEL_18:
 
     else
     {
-      if (v26 != 3)
+      if (v27 != 3)
       {
         goto LABEL_26;
       }
@@ -80,8 +80,8 @@ LABEL_18:
 
       if (os_log_type_enabled(oslog2, OS_LOG_TYPE_DEFAULT))
       {
-        *v22 = 0;
-        _os_log_impl(&dword_23193C000, oslog2, OS_LOG_TYPE_DEFAULT, "[PURGE] MSU previous update state:kMSUUpdateStateFailedForward [OTA attempt encountered failure but continued to the new OS]", v22, 2u);
+        *v23 = 0;
+        _os_log_impl(&dword_23193C000, oslog2, OS_LOG_TYPE_DEFAULT, "[PURGE] MSU previous update state:kMSUUpdateStateFailedForward [OTA attempt encountered failure but continued to the new OS]", v23, 2u);
       }
 
       if (forward)
@@ -97,15 +97,15 @@ LABEL_35:
     goto LABEL_19;
   }
 
-  if (!v26)
+  if (!v27)
   {
     mEMORY[0x277D64460]3 = [MEMORY[0x277D64460] sharedLogger];
     oslog3 = [mEMORY[0x277D64460]3 oslog];
 
     if (os_log_type_enabled(oslog3, OS_LOG_TYPE_DEFAULT))
     {
-      *v25 = 0;
-      _os_log_impl(&dword_23193C000, oslog3, OS_LOG_TYPE_DEFAULT, "[PURGE] MSU previous update state:kMSUUpdateStateNone [tethered restore]", v25, 2u);
+      *v26 = 0;
+      _os_log_impl(&dword_23193C000, oslog3, OS_LOG_TYPE_DEFAULT, "[PURGE] MSU previous update state:kMSUUpdateStateNone [tethered restore]", v26, 2u);
     }
 
     if (restore)
@@ -118,12 +118,13 @@ LABEL_35:
     goto LABEL_35;
   }
 
-  if (v26 != 1)
+  if (v27 != 1)
   {
 LABEL_26:
     mEMORY[0x277D643F8] = [MEMORY[0x277D643F8] sharedCore];
-    v17 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unknown previous update state: %d", v26];
-    v13 = [mEMORY[0x277D643F8] buildError:8116 underlying:0 description:v17];
+    v17 = objc_alloc(MEMORY[0x277CCACA8]);
+    v18 = [v17 initWithFormat:@"Unknown previous update state: %d", v27];
+    v13 = [mEMORY[0x277D643F8] buildError:8116 underlying:0 description:v18];
 
     goto LABEL_18;
   }
@@ -180,14 +181,13 @@ LABEL_19:
   }
 }
 
-uint64_t __69__SUCorePurge_checkForExistingPrepareWithCompletionQueue_completion___block_invoke(void *a1)
+uint64_t __69__SUCorePurge_checkForExistingPrepareWithCompletionQueue_completion___block_invoke(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[6] + 16))();
-  v3 = MEMORY[0x277D643F8];
-  v4 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = MEMORY[0x277D643F8];
+  v3 = *(a1 + 40);
 
-  return [v3 endTransaction:v4 withName:@"purge.CheckForExistingPrepare"];
+  return [v2 endTransaction:v3 withName:@"purge.CheckForExistingPrepare"];
 }
 
 + (void)checkForExistingAssetsWithPolicy:(id)policy withCompletionQueue:(id)queue completion:(id)completion
@@ -268,16 +268,13 @@ void __79__SUCorePurge_checkForExistingAssetsWithPolicy_withCompletionQueue_comp
   }
 }
 
-uint64_t __79__SUCorePurge_checkForExistingAssetsWithPolicy_withCompletionQueue_completion___block_invoke_3(void *a1)
+uint64_t __79__SUCorePurge_checkForExistingAssetsWithPolicy_withCompletionQueue_completion___block_invoke_3(uint64_t a1)
 {
-  v2 = a1[4];
-  v3 = a1[5];
-  v4 = a1[6];
-  (*(a1[8] + 16))();
-  v5 = MEMORY[0x277D643F8];
-  v6 = a1[7];
+  (*(*(a1 + 64) + 16))();
+  v2 = MEMORY[0x277D643F8];
+  v3 = *(a1 + 56);
 
-  return [v5 endTransaction:v6 withName:@"purge.CheckForExistingAssets"];
+  return [v2 endTransaction:v3 withName:@"purge.CheckForExistingAssets"];
 }
 
 + (void)checkForAssetsOfType:(id)type withCompletionQueue:(id)queue completion:(id)completion
@@ -302,7 +299,7 @@ uint64_t __79__SUCorePurge_checkForExistingAssetsWithPolicy_withCompletionQueue_
 
 void __67__SUCorePurge_checkForAssetsOfType_withCompletionQueue_completion___block_invoke(uint64_t a1)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v2 = [objc_alloc(MEMORY[0x277D289D8]) initWithType:*(a1 + 32)];
   [v2 setDoNotBlockBeforeFirstUnlock:1];
   [v2 returnTypes:1];
@@ -337,18 +334,18 @@ void __67__SUCorePurge_checkForAssetsOfType_withCompletionQueue_completion___blo
     v14 = [v9 count];
     v15 = @"s";
     *buf = 134218754;
-    v24 = v12;
-    v25 = 2114;
+    v23 = v12;
+    v24 = 2114;
     if (v14 == 1)
     {
       v15 = &stru_28469CC48;
     }
 
-    v26 = v13;
-    v27 = 2114;
-    v28 = v15;
-    v29 = 2114;
-    v30 = v9;
+    v25 = v13;
+    v26 = 2114;
+    v27 = v15;
+    v28 = 2114;
+    v29 = v9;
     _os_log_impl(&dword_23193C000, v11, OS_LOG_TYPE_DEFAULT, "[PURGE] MobileAsset found %ld installed %{public}@ asset%{public}@, assetIDs: %{public}@", buf, 0x2Au);
   }
 
@@ -373,11 +370,11 @@ LABEL_14:
     block[1] = 3221225472;
     block[2] = __67__SUCorePurge_checkForAssetsOfType_withCompletionQueue_completion___block_invoke_335;
     block[3] = &unk_27892C830;
-    v22 = *(a1 + 48);
+    v21 = *(a1 + 48);
     v9 = v9;
-    v20 = v9;
+    v19 = v9;
     v7 = v7;
-    v21 = v7;
+    v20 = v7;
     dispatch_async(v17, block);
 
     goto LABEL_15;
@@ -385,8 +382,6 @@ LABEL_14:
 
   v7 = 0;
 LABEL_15:
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 + (void)removeAllUpdateContentWithCompletionQueue:(id)queue completion:(id)completion
@@ -438,28 +433,28 @@ LABEL_15:
 
 void __75__SUCorePurge_removeAllUpdateContentWithPolicy_completionQueue_completion___block_invoke(id *a1)
 {
-  v34 = *MEMORY[0x277D85DE8];
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x3032000000;
-  v29 = __Block_byref_object_copy__8;
-  v30 = __Block_byref_object_dispose__8;
-  v31 = 0;
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __75__SUCorePurge_removeAllUpdateContentWithPolicy_completionQueue_completion___block_invoke_342;
-  v22[3] = &unk_27892DEC0;
-  v25 = a1[7];
-  v23 = a1[4];
-  v24 = a1[5];
-  v2 = MEMORY[0x2383746D0](v22);
+  v33 = *MEMORY[0x277D85DE8];
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x3032000000;
+  v28 = __Block_byref_object_copy__8;
+  v29 = __Block_byref_object_dispose__8;
+  v30 = 0;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __75__SUCorePurge_removeAllUpdateContentWithPolicy_completionQueue_completion___block_invoke_342;
+  v21[3] = &unk_27892DEC0;
+  v24 = a1[7];
+  v22 = a1[4];
+  v23 = a1[5];
+  v2 = MEMORY[0x2383746D0](v21);
   [SUCorePurge _trackPurgeBegin:@"MSUPurgeSuspendedUpdate"];
   v3 = SUCoreBorder_MSUPurgeSuspendedUpdate();
-  v4 = v27[5];
-  v27[5] = v3;
+  v4 = v26[5];
+  v26[5] = v3;
 
-  v5 = [v27[5] code];
-  [SUCorePurge _trackPurgeEnd:@"MSUPurgeSuspendedUpdate" withResult:v5 withError:v27[5]];
+  v5 = [v26[5] code];
+  [SUCorePurge _trackPurgeEnd:@"MSUPurgeSuspendedUpdate" withResult:v5 withError:v26[5]];
   v6 = [MEMORY[0x277D64460] sharedLogger];
   v7 = [v6 oslog];
 
@@ -467,7 +462,7 @@ void __75__SUCorePurge_removeAllUpdateContentWithPolicy_completionQueue_completi
   {
     v8 = [a1[6] assetTypeSummary];
     *buf = 138543362;
-    v33 = v8;
+    v32 = v8;
     _os_log_impl(&dword_23193C000, v7, OS_LOG_TYPE_DEFAULT, "[PURGE] removeAllUpdateContentWithPolicy is using provided policy asset types: %{public}@", buf, 0xCu);
   }
 
@@ -494,23 +489,22 @@ void __75__SUCorePurge_removeAllUpdateContentWithPolicy_completionQueue_completi
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v33 = v9;
+    v32 = v9;
     _os_log_impl(&dword_23193C000, v15, OS_LOG_TYPE_DEFAULT, "[PURGE] removing all assets with types: %{public}@", buf, 0xCu);
   }
 
   [SUCorePurge _trackPurgeBegin:@"MAPurgeAll"];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __75__SUCorePurge_removeAllUpdateContentWithPolicy_completionQueue_completion___block_invoke_345;
-  v18[3] = &unk_27892DEE8;
-  v21 = &v26;
-  v19 = a1[6];
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __75__SUCorePurge_removeAllUpdateContentWithPolicy_completionQueue_completion___block_invoke_345;
+  v17[3] = &unk_27892DEE8;
+  v20 = &v25;
+  v18 = a1[6];
   v16 = v2;
-  v20 = v16;
-  SUCoreBorder_MAPurgeAll(v9, v18);
+  v19 = v16;
+  SUCoreBorder_MAPurgeAll(v9, v17);
 
-  _Block_object_dispose(&v26, 8);
-  v17 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v25, 8);
 }
 
 void __75__SUCorePurge_removeAllUpdateContentWithPolicy_completionQueue_completion___block_invoke_342(uint64_t a1, void *a2)
@@ -536,14 +530,13 @@ void __75__SUCorePurge_removeAllUpdateContentWithPolicy_completionQueue_completi
   }
 }
 
-uint64_t __75__SUCorePurge_removeAllUpdateContentWithPolicy_completionQueue_completion___block_invoke_2(void *a1)
+uint64_t __75__SUCorePurge_removeAllUpdateContentWithPolicy_completionQueue_completion___block_invoke_2(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[6] + 16))();
-  v3 = MEMORY[0x277D643F8];
-  v4 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = MEMORY[0x277D643F8];
+  v3 = *(a1 + 40);
 
-  return [v3 endTransaction:v4 withName:@"purge.RemoveAllUpdateContentWithPolicy"];
+  return [v2 endTransaction:v3 withName:@"purge.RemoveAllUpdateContentWithPolicy"];
 }
 
 void __75__SUCorePurge_removeAllUpdateContentWithPolicy_completionQueue_completion___block_invoke_345(uint64_t a1, void *a2)
@@ -573,14 +566,14 @@ void __75__SUCorePurge_removeAllUpdateContentWithPolicy_completionQueue_completi
 
     [SUCorePurge _trackPurgeBegin:@"stagePurgeAll"];
     v12 = MEMORY[0x277D289E0];
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __75__SUCorePurge_removeAllUpdateContentWithPolicy_completionQueue_completion___block_invoke_347;
-    v16[3] = &unk_27892C920;
-    v15 = *(a1 + 40);
-    v13 = v15;
-    v17 = v15;
-    [v12 SUCoreBorder_stagePurgeAll:v16];
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __75__SUCorePurge_removeAllUpdateContentWithPolicy_completionQueue_completion___block_invoke_347;
+    v15[3] = &unk_27892C920;
+    v14 = *(a1 + 40);
+    v13 = v14;
+    v16 = v14;
+    [v12 SUCoreBorder_stagePurgeAll:v15];
   }
 
   else
@@ -591,22 +584,20 @@ void __75__SUCorePurge_removeAllUpdateContentWithPolicy_completionQueue_completi
       _os_log_impl(&dword_23193C000, v10, OS_LOG_TYPE_DEFAULT, "[PURGE] PreSUStaging: disabled by policy; nothing to purge", buf, 2u);
     }
 
-    v14 = *(*(*(a1 + 48) + 8) + 40);
     (*(*(a1 + 40) + 16))();
   }
 }
 
 void __75__SUCorePurge_removeAllUpdateContentWithPolicy_completionQueue_completion___block_invoke_347(uint64_t a1, void *a2)
 {
-  v8 = a2;
-  +[SUCorePurge _trackPurgeEnd:withResult:withError:](SUCorePurge, "_trackPurgeEnd:withResult:withError:", @"stagePurgeAll", [v8 code], v8);
+  v7 = a2;
+  +[SUCorePurge _trackPurgeEnd:withResult:withError:](SUCorePurge, "_trackPurgeEnd:withResult:withError:", @"stagePurgeAll", [v7 code], v7);
   v4 = *(*(a1 + 40) + 8);
   v6 = *(v4 + 40);
   v5 = (v4 + 40);
   if (!v6)
   {
     objc_storeStrong(v5, a2);
-    v7 = *(*(*(a1 + 40) + 8) + 40);
   }
 
   (*(*(a1 + 32) + 16))();
@@ -625,7 +616,7 @@ void __75__SUCorePurge_removeAllUpdateContentWithPolicy_completionQueue_completi
 
 + (void)removeAllAssetsOfTypes:(id)types withCompletionQueue:(id)queue completion:(id)completion
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   typesCopy = types;
   queueCopy = queue;
   completionCopy = completion;
@@ -636,24 +627,22 @@ void __75__SUCorePurge_removeAllUpdateContentWithPolicy_completionQueue_completi
   if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v22 = typesCopy;
+    v21 = typesCopy;
     _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "[PURGE] removing all assets with types: %{public}@", buf, 0xCu);
   }
 
   [SUCorePurge _trackPurgeBegin:@"MAPurgeAll"];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __69__SUCorePurge_removeAllAssetsOfTypes_withCompletionQueue_completion___block_invoke;
-  v17[3] = &unk_27892DEC0;
-  v19 = v10;
-  v20 = completionCopy;
-  v18 = queueCopy;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __69__SUCorePurge_removeAllAssetsOfTypes_withCompletionQueue_completion___block_invoke;
+  v16[3] = &unk_27892DEC0;
+  v18 = v10;
+  v19 = completionCopy;
+  v17 = queueCopy;
   v13 = v10;
   v14 = queueCopy;
   v15 = completionCopy;
-  SUCoreBorder_MAPurgeAll(typesCopy, v17);
-
-  v16 = *MEMORY[0x277D85DE8];
+  SUCoreBorder_MAPurgeAll(typesCopy, v16);
 }
 
 void __69__SUCorePurge_removeAllAssetsOfTypes_withCompletionQueue_completion___block_invoke(uint64_t a1, void *a2)
@@ -680,14 +669,13 @@ void __69__SUCorePurge_removeAllAssetsOfTypes_withCompletionQueue_completion___b
   }
 }
 
-uint64_t __69__SUCorePurge_removeAllAssetsOfTypes_withCompletionQueue_completion___block_invoke_2(void *a1)
+uint64_t __69__SUCorePurge_removeAllAssetsOfTypes_withCompletionQueue_completion___block_invoke_2(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[6] + 16))();
-  v3 = MEMORY[0x277D643F8];
-  v4 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = MEMORY[0x277D643F8];
+  v3 = *(a1 + 40);
 
-  return [v3 endTransaction:v4 withName:@"purge.RemoveAssetsOfType"];
+  return [v2 endTransaction:v3 withName:@"purge.RemoveAssetsOfType"];
 }
 
 + (void)_trackPurgeBegin:(id)begin withIdentifier:(id)identifier

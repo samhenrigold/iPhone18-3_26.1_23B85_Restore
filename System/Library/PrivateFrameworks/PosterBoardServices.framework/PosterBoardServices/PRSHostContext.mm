@@ -32,14 +32,14 @@ void __44__PRSHostContext_hostContextWithCompletion___block_invoke(uint64_t a1)
 
 - (PRSHostContext)init
 {
-  v86 = *MEMORY[0x1E69E9840];
+  v85 = *MEMORY[0x1E69E9840];
   BSDispatchQueueAssertMain();
   mainBundle = [MEMORY[0x1E696AAE8] mainBundle];
   bundleIdentifier = [mainBundle bundleIdentifier];
   v4 = bundleIdentifier;
   if (bundleIdentifier)
   {
-    v54 = bundleIdentifier;
+    v53 = bundleIdentifier;
   }
 
   else
@@ -47,12 +47,12 @@ void __44__PRSHostContext_hostContextWithCompletion___block_invoke(uint64_t a1)
     processInfo = [MEMORY[0x1E696AE30] processInfo];
     processName = [processInfo processName];
 
-    v54 = processName;
+    v53 = processName;
   }
 
   if (!NSClassFromString(&cfstr_Uiapplication.isa))
   {
-    v16 = PRSLogCommon();
+    v16 = PRSLogCommon(0);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -64,85 +64,85 @@ void __44__PRSHostContext_hostContextWithCompletion___block_invoke(uint64_t a1)
   }
 
   array = [MEMORY[0x1E695DF70] array];
-  v79 = 0;
-  v80 = &v79;
-  v81 = 0x2050000000;
+  v78 = 0;
+  v79 = &v78;
+  v80 = 0x2050000000;
   v7 = getUIApplicationClass_softClass;
-  v82 = getUIApplicationClass_softClass;
+  v81 = getUIApplicationClass_softClass;
   if (!getUIApplicationClass_softClass)
   {
     *buf = MEMORY[0x1E69E9820];
-    v75 = 3221225472;
-    v76 = __getUIApplicationClass_block_invoke;
-    v77 = &unk_1E818CC28;
-    v78 = &v79;
+    v74 = 3221225472;
+    v75 = __getUIApplicationClass_block_invoke;
+    v76 = &unk_1E818CC28;
+    v77 = &v78;
     __getUIApplicationClass_block_invoke(buf);
-    v7 = v80[3];
+    v7 = v79[3];
   }
 
   v8 = v7;
-  _Block_object_dispose(&v79, 8);
-  v79 = 0;
-  v80 = &v79;
-  v81 = 0x2050000000;
+  _Block_object_dispose(&v78, 8);
+  v78 = 0;
+  v79 = &v78;
+  v80 = 0x2050000000;
   v9 = getUIScreenClass_softClass;
-  v82 = getUIScreenClass_softClass;
+  v81 = getUIScreenClass_softClass;
   if (!getUIScreenClass_softClass)
   {
     *buf = MEMORY[0x1E69E9820];
-    v75 = 3221225472;
-    v76 = __getUIScreenClass_block_invoke;
-    v77 = &unk_1E818CC28;
-    v78 = &v79;
+    v74 = 3221225472;
+    v75 = __getUIScreenClass_block_invoke;
+    v76 = &unk_1E818CC28;
+    v77 = &v78;
     __getUIScreenClass_block_invoke(buf);
-    v9 = v80[3];
+    v9 = v79[3];
   }
 
-  v60 = v9;
+  v59 = v9;
   v10 = v9;
-  _Block_object_dispose(&v79, 8);
-  v79 = 0;
-  v80 = &v79;
-  v81 = 0x2050000000;
+  _Block_object_dispose(&v78, 8);
+  v78 = 0;
+  v79 = &v78;
+  v80 = 0x2050000000;
   v11 = getUIWindowSceneClass_softClass;
-  v82 = getUIWindowSceneClass_softClass;
+  v81 = getUIWindowSceneClass_softClass;
   if (!getUIWindowSceneClass_softClass)
   {
     *buf = MEMORY[0x1E69E9820];
-    v75 = 3221225472;
-    v76 = __getUIWindowSceneClass_block_invoke;
-    v77 = &unk_1E818CC28;
-    v78 = &v79;
+    v74 = 3221225472;
+    v75 = __getUIWindowSceneClass_block_invoke;
+    v76 = &unk_1E818CC28;
+    v77 = &v78;
     __getUIWindowSceneClass_block_invoke(buf);
-    v11 = v80[3];
+    v11 = v79[3];
   }
 
   v12 = v11;
-  _Block_object_dispose(&v79, 8);
+  _Block_object_dispose(&v78, 8);
   if (!v7 || ([v7 performSelector:sel_sharedApplication], v13 = objc_claimAutoreleasedReturnValue(), (v14 = v13) == 0))
   {
-    v51 = 0;
+    v50 = 0;
     goto LABEL_19;
   }
 
   connectedScenes = [v13 connectedScenes];
-  v51 = v14;
+  v50 = v14;
 
   if (!connectedScenes)
   {
 LABEL_19:
-    v55 = 0;
+    v54 = 0;
     goto LABEL_20;
   }
 
-  v55 = [v14 valueForKey:@"connectedScenes"];
+  v54 = [v14 valueForKey:@"connectedScenes"];
 LABEL_20:
-  v17 = v60;
-  if (v60)
+  v17 = v59;
+  if (v59)
   {
     if (objc_opt_respondsToSelector())
     {
-      v17 = [v60 performSelector:sel_screens];
+      v17 = [v59 performSelector:sel_screens];
     }
 
     else
@@ -151,27 +151,27 @@ LABEL_20:
     }
   }
 
-  v52 = v17;
+  v51 = v17;
   if (![v17 count])
   {
-    v57 = 0;
+    v56 = 0;
     goto LABEL_73;
   }
 
-  v72 = 0u;
-  v73 = 0u;
-  v70 = 0u;
   v71 = 0u;
-  obj = v52;
-  v61 = [obj countByEnumeratingWithState:&v70 objects:v85 count:16];
-  if (!v61)
+  v72 = 0u;
+  v69 = 0u;
+  v70 = 0u;
+  obj = v51;
+  v60 = [obj countByEnumeratingWithState:&v69 objects:v84 count:16];
+  if (!v60)
   {
-    v57 = 0;
+    v56 = 0;
     goto LABEL_72;
   }
 
-  v57 = 0;
-  if (v55)
+  v56 = 0;
+  if (v54)
   {
     v18 = v11 == 0;
   }
@@ -182,18 +182,18 @@ LABEL_20:
   }
 
   v19 = !v18;
-  v58 = v19;
-  v59 = *v71;
+  v57 = v19;
+  v58 = *v70;
   do
   {
-    for (i = 0; i != v61; ++i)
+    for (i = 0; i != v60; ++i)
     {
-      if (*v71 != v59)
+      if (*v70 != v58)
       {
         objc_enumerationMutation(obj);
       }
 
-      v20 = *(*(&v70 + 1) + 8 * i);
+      v20 = *(*(&v69 + 1) + 8 * i);
       [v20 bounds];
       v22 = v21;
       v24 = v23;
@@ -211,7 +211,7 @@ LABEL_20:
         }
       }
 
-      if (v60 && (objc_opt_respondsToSelector() & 1) != 0)
+      if (v59 && (objc_opt_respondsToSelector() & 1) != 0)
       {
         displayConfiguration = [v20 displayConfiguration];
         hardwareIdentifier = [displayConfiguration hardwareIdentifier];
@@ -219,8 +219,8 @@ LABEL_20:
 
         if (isMainDisplay)
         {
-          v63 = 1;
-          v64 = @"main";
+          v62 = 1;
+          v63 = @"main";
           goto LABEL_46;
         }
       }
@@ -230,32 +230,32 @@ LABEL_20:
         hardwareIdentifier = 0;
       }
 
-      v64 = [MEMORY[0x1E696AEC0] stringWithFormat:@"display-%lu", objc_msgSend(obj, "indexOfObject:", v20)];
-      v63 = 0;
+      v63 = [MEMORY[0x1E696AEC0] stringWithFormat:@"display-%lu", objc_msgSend(obj, "indexOfObject:", v20)];
+      v62 = 0;
 LABEL_46:
 
-      if (v58)
+      if (v57)
       {
-        v68 = 0u;
-        v69 = 0u;
-        v66 = 0u;
         v67 = 0u;
-        v36 = v55;
+        v68 = 0u;
+        v65 = 0u;
+        v66 = 0u;
+        v36 = v54;
         interfaceOrientation = 0;
-        v38 = [v36 countByEnumeratingWithState:&v66 objects:v84 count:16];
+        v38 = [v36 countByEnumeratingWithState:&v65 objects:v83 count:16];
         if (v38)
         {
-          v39 = *v67;
+          v39 = *v66;
           do
           {
             for (j = 0; j != v38; ++j)
             {
-              if (*v67 != v39)
+              if (*v66 != v39)
               {
                 objc_enumerationMutation(v36);
               }
 
-              v41 = *(*(&v66 + 1) + 8 * j);
+              v41 = *(*(&v65 + 1) + 8 * j);
               if (objc_opt_isKindOfClass())
               {
                 if (objc_opt_respondsToSelector())
@@ -275,7 +275,7 @@ LABEL_46:
               }
             }
 
-            v38 = [v36 countByEnumeratingWithState:&v66 objects:v84 count:16];
+            v38 = [v36 countByEnumeratingWithState:&v65 objects:v83 count:16];
           }
 
           while (v38);
@@ -289,21 +289,21 @@ LABEL_46:
 
       if (BSInterfaceOrientationIsValid())
       {
-        v43 = [[PRSDisplayInfo alloc] initWithHardwareIdentifier:v64 interfaceOrientation:interfaceOrientation bounds:v63 pointScale:v22 isMainDisplay:v24, v26, v28, v29];
+        v43 = [[PRSDisplayInfo alloc] initWithHardwareIdentifier:v63 interfaceOrientation:interfaceOrientation bounds:v62 pointScale:v22 isMainDisplay:v24, v26, v28, v29];
         [array addObject:v43];
-        if (v63)
+        if (v62)
         {
           v44 = v43;
 
-          v57 = v44;
+          v56 = v44;
         }
       }
     }
 
-    v61 = [obj countByEnumeratingWithState:&v70 objects:v85 count:16];
+    v60 = [obj countByEnumeratingWithState:&v69 objects:v84 count:16];
   }
 
-  while (v61);
+  while (v60);
 LABEL_72:
 
 LABEL_73:
@@ -311,20 +311,19 @@ LABEL_73:
 
   if (!v45)
   {
-    v47 = v57;
+    v47 = v56;
 LABEL_76:
-    v57 = v47;
-    v83 = v47;
-    v45 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v83 count:1];
-    v46 = [(PRSHostContext *)self initWithAuditToken:0 primaryDisplay:v57 connectedDisplays:v45 hostApplicationIdentifier:v54 userInterfaceStyle:0];
+    v56 = v47;
+    v82 = v47;
+    v45 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v82 count:1];
+    v46 = [(PRSHostContext *)self initWithAuditToken:0 primaryDisplay:v56 connectedDisplays:v45 hostApplicationIdentifier:v53 userInterfaceStyle:0];
     goto LABEL_77;
   }
 
-  v46 = [(PRSHostContext *)self initWithAuditToken:0 primaryDisplay:v57 connectedDisplays:v45 hostApplicationIdentifier:v54 userInterfaceStyle:0];
+  v46 = [(PRSHostContext *)self initWithAuditToken:0 primaryDisplay:v56 connectedDisplays:v45 hostApplicationIdentifier:v53 userInterfaceStyle:0];
 LABEL_77:
   v48 = v46;
 
-  v49 = *MEMORY[0x1E69E9840];
   return v48;
 }
 
@@ -420,10 +419,8 @@ LABEL_77:
 
     v9 = v7;
 
-    if (v9 && (auditToken = self->_auditToken, v11 = v9->_auditToken, BSEqualObjects()) && (primaryDisplayInfo = self->_primaryDisplayInfo, v13 = v9->_primaryDisplayInfo, BSEqualObjects()) && (connectedDisplays = self->_connectedDisplays, v15 = v9->_connectedDisplays, BSEqualObjects()))
+    if (v9 && BSEqualObjects() && BSEqualObjects() && BSEqualObjects())
     {
-      hostApplicationIdentifier = self->_hostApplicationIdentifier;
-      v17 = v9->_hostApplicationIdentifier;
       v8 = BSEqualObjects();
     }
 

@@ -28,9 +28,9 @@
 
 - (void)applyToSet:(id)set
 {
-  objc_opt_class();
+  v4 = objc_opt_class();
 
-  NSRequestConcreteImplementation();
+  NSRequestConcreteImplementation(self, sel_applyToSet_, v4, v5, v6, v7, v8, v9);
 }
 
 @end

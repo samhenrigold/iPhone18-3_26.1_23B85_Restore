@@ -31,29 +31,29 @@
 
 - (id)_transformFloatVector:(id)vector error:(id *)error
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   vectorCopy = vector;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   featureTransformers = [(PGSequentialFeatureExtractor *)self featureTransformers];
-  v8 = [featureTransformers countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [featureTransformers countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v16;
+    v10 = *v15;
 LABEL_3:
     v11 = 0;
     v12 = vectorCopy;
     while (1)
     {
-      if (*v16 != v10)
+      if (*v15 != v10)
       {
         objc_enumerationMutation(featureTransformers);
       }
 
-      vectorCopy = [*(*(&v15 + 1) + 8 * v11) floatVectorWithFloatVector:v12 error:error];
+      vectorCopy = [*(*(&v14 + 1) + 8 * v11) floatVectorWithFloatVector:v12 error:error];
 
       if (!vectorCopy)
       {
@@ -64,7 +64,7 @@ LABEL_3:
       v12 = vectorCopy;
       if (v9 == v11)
       {
-        v9 = [featureTransformers countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v9 = [featureTransformers countByEnumeratingWithState:&v14 objects:v18 count:16];
         if (v9)
         {
           goto LABEL_3;
@@ -74,8 +74,6 @@ LABEL_3:
       }
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return vectorCopy;
 }

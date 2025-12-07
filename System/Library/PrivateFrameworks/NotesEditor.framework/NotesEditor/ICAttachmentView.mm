@@ -1454,11 +1454,11 @@ void __24__ICAttachmentView_cut___block_invoke(uint64_t a1)
   [v1 copyWithCompletionBlock:v2];
 }
 
-uint64_t __24__ICAttachmentView_cut___block_invoke_2(uint64_t result, int a2)
+id *__24__ICAttachmentView_cut___block_invoke_2(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) delete:*(result + 40)];
+    return [result[4] delete:result[5]];
   }
 
   return result;

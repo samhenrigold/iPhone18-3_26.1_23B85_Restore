@@ -1,13 +1,13 @@
 @interface NSURL(NSURLExtensions)
++ (int64_t)isHostnameReachable:()NSURLExtensions;
 + (uint64_t)_contentModificationDate:()NSURLExtensions;
 + (uint64_t)_displayName:()NSURLExtensions;
-+ (uint64_t)_hasUnresolvedConflict:()NSURLExtensions;
 + (uint64_t)_isDownloaded:()NSURLExtensions;
-+ (uint64_t)_isDownloading:()NSURLExtensions;
 + (uint64_t)_isInCloud:()NSURLExtensions;
-+ (uint64_t)_isUploaded:()NSURLExtensions;
-+ (uint64_t)_isUploading:()NSURLExtensions;
-+ (uint64_t)isHostnameReachable:()NSURLExtensions;
++ (void)_hasUnresolvedConflict:()NSURLExtensions;
++ (void)_isDownloading:()NSURLExtensions;
++ (void)_isUploaded:()NSURLExtensions;
++ (void)_isUploading:()NSURLExtensions;
 + (void)parseURLParams:()NSURLExtensions;
 - (uint64_t)contentModificationDate;
 - (uint64_t)displayName;
@@ -21,7 +21,7 @@
 
 @implementation NSURL(NSURLExtensions)
 
-+ (uint64_t)isHostnameReachable:()NSURLExtensions
++ (int64_t)isHostnameReachable:()NSURLExtensions
 {
   if (!a3 || ![a3 length])
   {
@@ -92,9 +92,9 @@
 
 - (uint64_t)displayName
 {
-  v2 = objc_opt_class();
+  v3 = objc_opt_class();
 
-  return [v2 _displayName:self];
+  return [v3 _displayName:self];
 }
 
 + (uint64_t)_contentModificationDate:()NSURLExtensions
@@ -116,9 +116,9 @@
 
 - (uint64_t)contentModificationDate
 {
-  v2 = objc_opt_class();
+  v3 = objc_opt_class();
 
-  return [v2 _contentModificationDate:self];
+  return [v3 _contentModificationDate:self];
 }
 
 + (uint64_t)_isInCloud:()NSURLExtensions
@@ -140,12 +140,12 @@
 
 - (uint64_t)isInCloud
 {
-  v2 = objc_opt_class();
+  v3 = objc_opt_class();
 
-  return [v2 _isInCloud:self];
+  return [v3 _isInCloud:self];
 }
 
-+ (uint64_t)_isDownloading:()NSURLExtensions
++ (void)_isDownloading:()NSURLExtensions
 {
   result = [self _isInCloud:?];
   if (result)
@@ -173,9 +173,9 @@
 
 - (uint64_t)isDownloading
 {
-  v2 = objc_opt_class();
+  v3 = objc_opt_class();
 
-  return [v2 _isDownloading:self];
+  return [v3 _isDownloading:self];
 }
 
 + (uint64_t)_isDownloaded:()NSURLExtensions
@@ -202,12 +202,12 @@
 
 - (uint64_t)isDownloaded
 {
-  v2 = objc_opt_class();
+  v3 = objc_opt_class();
 
-  return [v2 _isDownloaded:self];
+  return [v3 _isDownloaded:self];
 }
 
-+ (uint64_t)_isUploading:()NSURLExtensions
++ (void)_isUploading:()NSURLExtensions
 {
   result = [self _isInCloud:?];
   if (result)
@@ -235,12 +235,12 @@
 
 - (uint64_t)isUploading
 {
-  v2 = objc_opt_class();
+  v3 = objc_opt_class();
 
-  return [v2 _isUploading:self];
+  return [v3 _isUploading:self];
 }
 
-+ (uint64_t)_isUploaded:()NSURLExtensions
++ (void)_isUploaded:()NSURLExtensions
 {
   result = [self _isInCloud:?];
   if (result)
@@ -268,12 +268,12 @@
 
 - (uint64_t)isUploaded
 {
-  v2 = objc_opt_class();
+  v3 = objc_opt_class();
 
-  return [v2 _isUploaded:self];
+  return [v3 _isUploaded:self];
 }
 
-+ (uint64_t)_hasUnresolvedConflict:()NSURLExtensions
++ (void)_hasUnresolvedConflict:()NSURLExtensions
 {
   result = [self _isInCloud:?];
   if (result)
@@ -301,9 +301,9 @@
 
 - (uint64_t)hasUnresolvedConflict
 {
-  v2 = objc_opt_class();
+  v3 = objc_opt_class();
 
-  return [v2 _hasUnresolvedConflict:self];
+  return [v3 _hasUnresolvedConflict:self];
 }
 
 @end

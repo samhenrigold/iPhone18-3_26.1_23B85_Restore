@@ -14,7 +14,7 @@
 
 - (id)_startQueryForSuggester:(dispatch_queue_t *)suggester
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (suggester)
   {
@@ -22,62 +22,63 @@
     v4 = suggester[7];
     suggesterCopy = suggester;
     v6 = v3;
-    v7 = signpostLog();
+    v7 = signpostLog(v6);
     v8 = os_signpost_enabled(v7);
 
     if (v8)
     {
-      v9 = signpostLog();
-      v10 = os_signpost_id_generate(v9);
+      v10 = signpostLog(v9);
+      v11 = os_signpost_id_generate(v10);
 
       phraseKind = [suggesterCopy[4] phraseKind];
-      v12 = signpostLog();
-      v13 = v12;
-      if (phraseKind)
+      v13 = phraseKind;
+      v14 = signpostLog(phraseKind);
+      v15 = v14;
+      if (v13)
       {
-        if ((v10 - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
+        if ((v11 - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
         {
-          v14 = suggesterCopy[3];
-          if (v14)
+          v16 = suggesterCopy[3];
+          if (v16)
           {
-            v15 = v14[2];
+            v17 = v16[2];
           }
 
           else
           {
-            v15 = 0;
+            v17 = 0;
           }
 
-          v16 = v14;
+          v18 = v16;
           logIdentifier = [v6 logIdentifier];
           LODWORD(buf) = 67109378;
-          HIDWORD(buf) = v15;
-          v33 = 2114;
-          v34 = logIdentifier;
-          _os_signpost_emit_with_name_impl(&dword_214A5E000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v10, "com.apple.mail.search.suggestion.zkw.suggester", "id=%{signpost.description:attribute}u suggester=%{signpost.description:attribute,public}@", &buf, 0x12u);
+          HIDWORD(buf) = v17;
+          v35 = 2114;
+          v36 = logIdentifier;
+          _os_signpost_emit_with_name_impl(&dword_214A5E000, v15, OS_SIGNPOST_INTERVAL_BEGIN, v11, "com.apple.mail.search.suggestion.zkw.suggester", "id=%{signpost.description:attribute}u suggester=%{signpost.description:attribute,public}@", &buf, 0x12u);
         }
       }
 
-      else if ((v10 - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
+      else if ((v11 - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
       {
-        v19 = suggesterCopy[3];
-        if (v19)
+        v21 = suggesterCopy[3];
+        if (v21)
         {
-          v20 = v19[2];
+          v22 = v21[2];
         }
 
         else
         {
-          v20 = 0;
+          v22 = 0;
         }
 
-        v21 = v19;
+        v23 = v21;
         logIdentifier2 = [v6 logIdentifier];
         LODWORD(buf) = 67109378;
-        HIDWORD(buf) = v20;
-        v33 = 2114;
-        v34 = logIdentifier2;
-        _os_signpost_emit_with_name_impl(&dword_214A5E000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v10, "com.apple.mail.search.suggestion.ayt.suggester", "id=%{signpost.description:attribute}u suggester=%{signpost.description:attribute,public}@", &buf, 0x12u);
+        HIDWORD(buf) = v22;
+        v35 = 2114;
+        v36 = logIdentifier2;
+        _os_signpost_emit_with_name_impl(&dword_214A5E000, v15, OS_SIGNPOST_INTERVAL_BEGIN, v11, "com.apple.mail.search.suggestion.ayt.suggester", "id=%{signpost.description:attribute}u suggester=%{signpost.description:attribute,public}@", &buf, 0x12u);
       }
 
       phraseKind2 = [suggesterCopy[4] phraseKind];
@@ -86,37 +87,37 @@
     else
     {
       phraseKind2 = 0;
-      v10 = 0;
+      v11 = 0;
     }
 
     objc_initWeak(&buf, suggesterCopy);
-    v23 = suggesterCopy[4];
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = __58___MUISearchSuggestionsOperation__startQueryForSuggester___block_invoke;
-    v29[3] = &unk_27818B1B0;
-    v31[1] = phraseKind2;
-    v31[2] = v10;
-    v29[4] = v4;
-    objc_copyWeak(v31, &buf);
-    v24 = v6;
-    v30 = v24;
-    v25 = [v24 generateSuggestionsUsingPhraseManager:v23 handler:v29];
+    v25 = suggesterCopy[4];
+    v31[0] = MEMORY[0x277D85DD0];
+    v31[1] = 3221225472;
+    v31[2] = __58___MUISearchSuggestionsOperation__startQueryForSuggester___block_invoke;
+    v31[3] = &unk_27818B1B0;
+    v33[1] = phraseKind2;
+    v33[2] = v11;
+    v31[4] = v4;
+    objc_copyWeak(v33, &buf);
+    v26 = v6;
+    v32 = v26;
+    v27 = [v26 generateSuggestionsUsingPhraseManager:v25 handler:v31];
 
-    v26 = suggesterCopy[6];
-    v27 = [MEMORY[0x277D07190] pairWithFirst:v24 second:v25];
-    [v26 addObject:v27];
+    v28 = suggesterCopy[6];
+    v29 = [MEMORY[0x277D07190] pairWithFirst:v26 second:v27];
+    [v28 addObject:v29];
 
-    objc_destroyWeak(v31);
+    objc_destroyWeak(v33);
     objc_destroyWeak(&buf);
   }
 
   else
   {
-    v25 = 0;
+    v27 = 0;
   }
 
-  return v25;
+  return v27;
 }
 
 - (id)initWithRequestID:(void *)d phraseManager:(void *)manager suggestionsGenerator:
@@ -173,7 +174,7 @@
 
 - (void)start
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   if (!self)
   {
     return;
@@ -181,148 +182,149 @@
 
   dispatch_assert_queue_V2(self[7]);
   selfCopy = self;
-  v3 = signpostLog();
+  v3 = signpostLog(selfCopy);
   v4 = os_signpost_enabled(v3);
 
   if (v4)
   {
     phraseKind = [selfCopy[4] phraseKind];
-    v6 = signpostLog();
+    v6 = phraseKind;
+    v7 = signpostLog(phraseKind);
     signpostID = [selfCopy[4] signpostID];
     OUTLINED_FUNCTION_5_0();
-    if (phraseKind)
+    if (v6)
     {
-      if (!v9 & v8 || !os_signpost_enabled(v6))
+      if (!v10 & v9 || !os_signpost_enabled(v7))
       {
         goto LABEL_11;
       }
 
-      v10 = selfCopy[3];
-      v11 = selfCopy[4];
-      v12 = v10;
-      phrase = [v11 phrase];
+      v11 = selfCopy[3];
+      v12 = selfCopy[4];
+      v13 = v11;
+      phrase = [v12 phrase];
       OUTLINED_FUNCTION_3_2();
-      v14 = "com.apple.mail.search.suggestion.zkw.run";
+      v15 = "com.apple.mail.search.suggestion.zkw.run";
     }
 
     else
     {
-      if (!v9 & v8 || !os_signpost_enabled(v6))
+      if (!v10 & v9 || !os_signpost_enabled(v7))
       {
         goto LABEL_11;
       }
 
-      v15 = selfCopy[3];
-      v11 = selfCopy[4];
-      v12 = v15;
-      phrase = [v11 phrase];
+      v16 = selfCopy[3];
+      v12 = selfCopy[4];
+      v13 = v16;
+      phrase = [v12 phrase];
       OUTLINED_FUNCTION_3_2();
-      v14 = "com.apple.mail.search.suggestion.ayt.run";
+      v15 = "com.apple.mail.search.suggestion.ayt.run";
     }
 
-    _os_signpost_emit_with_name_impl(&dword_214A5E000, v6, OS_SIGNPOST_INTERVAL_BEGIN, signpostID, v14, "id=%{signpost.description:attribute}u text=%{sensitive}@", buf, 0x12u);
+    _os_signpost_emit_with_name_impl(&dword_214A5E000, v7, OS_SIGNPOST_INTERVAL_BEGIN, signpostID, v15, "id=%{signpost.description:attribute}u text=%{sensitive}@", buf, 0x12u);
 
 LABEL_11:
   }
 
-  v45 = 0u;
   v46 = 0u;
-  v43 = 0u;
+  v47 = 0u;
   v44 = 0u;
-  v16 = selfCopy[5];
-  v17 = [v16 countByEnumeratingWithState:&v43 objects:v49 count:16];
-  v18 = off_278187000;
-  if (v17)
+  v45 = 0u;
+  v17 = selfCopy[5];
+  v18 = [v17 countByEnumeratingWithState:&v44 objects:v50 count:16];
+  v19 = off_278187000;
+  if (v18)
   {
-    v19 = v17;
-    v20 = *v44;
+    v20 = v18;
+    v21 = *v45;
 LABEL_14:
-    v21 = 0;
+    v22 = 0;
     while (1)
     {
-      if (*v44 != v20)
+      if (*v45 != v21)
       {
-        objc_enumerationMutation(v16);
+        objc_enumerationMutation(v17);
       }
 
-      v22 = *(*(&v43 + 1) + 8 * v21);
-      v23 = atomic_load(selfCopy + 8);
-      if (v23)
+      v23 = *(*(&v44 + 1) + 8 * v22);
+      v24 = atomic_load(selfCopy + 8);
+      if (v24)
       {
         break;
       }
 
-      v24 = selfCopy[4];
-      if ([v24 phraseKind])
+      v25 = selfCopy[4];
+      if ([v25 phraseKind])
       {
       }
 
       else
       {
-        shouldQueryForAsYouType = [v22 shouldQueryForAsYouType];
+        shouldQueryForAsYouType = [v23 shouldQueryForAsYouType];
 
         if ((shouldQueryForAsYouType & 1) == 0)
         {
-          v26 = [(__objc2_class *)v18[34] log];
-          if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+          v27 = [(__objc2_class *)v19[34] log];
+          if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
           {
-            logIdentifier = [v22 logIdentifier];
-            v28 = logIdentifier;
-            v29 = selfCopy[3];
-            if (v29)
+            logIdentifier = [v23 logIdentifier];
+            v29 = logIdentifier;
+            v30 = selfCopy[3];
+            if (v30)
             {
-              LODWORD(v29) = v29[1].isa;
+              LODWORD(v30) = v30[1].isa;
             }
 
             *buf = 138543618;
-            *v48 = logIdentifier;
-            *&v48[8] = 1024;
-            *&v48[10] = v29;
-            _os_log_debug_impl(&dword_214A5E000, v26, OS_LOG_TYPE_DEBUG, "AsYouType detected. Ignoring suggester '%{public}@' for search #%u", buf, 0x12u);
+            *v49 = logIdentifier;
+            *&v49[8] = 1024;
+            *&v49[10] = v30;
+            _os_log_debug_impl(&dword_214A5E000, v27, OS_LOG_TYPE_DEBUG, "AsYouType detected. Ignoring suggester '%{public}@' for search #%u", buf, 0x12u);
           }
 
           goto LABEL_22;
         }
       }
 
-      v26 = [(_MUISearchSuggestionsOperation *)selfCopy _startQueryForSuggester:v22];
-      if (!v26)
+      v27 = [(_MUISearchSuggestionsOperation *)selfCopy _startQueryForSuggester:v23];
+      if (!v27)
       {
-        v30 = [(__objc2_class *)v18[34] log];
-        if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
+        v31 = [(__objc2_class *)v19[34] log];
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
         {
-          v31 = selfCopy[3];
-          if (v31)
+          v32 = selfCopy[3];
+          if (v32)
           {
-            v32 = v31[2];
+            v33 = v32[2];
           }
 
           else
           {
-            v32 = 0;
+            v33 = 0;
           }
 
-          v42 = v31;
-          logIdentifier2 = [v22 logIdentifier];
+          v43 = v32;
+          logIdentifier2 = [v23 logIdentifier];
           *buf = 67109378;
-          *v48 = v32;
-          *&v48[4] = 2114;
-          *&v48[6] = logIdentifier2;
-          _os_log_debug_impl(&dword_214A5E000, v30, OS_LOG_TYPE_DEBUG, "Search #%u, suggester '%{public}@' completed synchronously.", buf, 0x12u);
+          *v49 = v33;
+          *&v49[4] = 2114;
+          *&v49[6] = logIdentifier2;
+          _os_log_debug_impl(&dword_214A5E000, v31, OS_LOG_TYPE_DEBUG, "Search #%u, suggester '%{public}@' completed synchronously.", buf, 0x12u);
 
-          v18 = off_278187000;
+          v19 = off_278187000;
         }
 
-        [(_MUISearchSuggestionsOperation *)selfCopy _asyncCompleteSuggester:v22];
+        [(_MUISearchSuggestionsOperation *)selfCopy _asyncCompleteSuggester:v23];
       }
 
 LABEL_22:
 
-      if (v19 == ++v21)
+      if (v20 == ++v22)
       {
-        v34 = [v16 countByEnumeratingWithState:&v43 objects:v49 count:16];
-        v19 = v34;
-        if (v34)
+        v35 = [v17 countByEnumeratingWithState:&v44 objects:v50 count:16];
+        v20 = v35;
+        if (v35)
         {
           goto LABEL_14;
         }
@@ -332,41 +334,41 @@ LABEL_22:
     }
   }
 
-  v35 = [(__objc2_class *)v18[34] log];
-  if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
+  v36 = [(__objc2_class *)v19[34] log];
+  if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
   {
-    v36 = selfCopy[3];
-    if (v36)
+    v37 = selfCopy[3];
+    if (v37)
     {
-      v37 = v36[2];
+      v38 = v37[2];
     }
 
     else
     {
-      v37 = 0;
+      v38 = 0;
     }
 
-    v38 = selfCopy[6];
-    v39 = v36;
-    v40 = [v38 count];
+    v39 = selfCopy[6];
+    v40 = v37;
+    v41 = [v39 count];
     _runningSuggesterNames = [(_MUISearchSuggestionsOperation *)selfCopy _runningSuggesterNames];
     *buf = 67109634;
-    *v48 = v37;
-    *&v48[4] = 1024;
-    *&v48[6] = v40;
-    *&v48[10] = 2114;
-    *&v48[12] = _runningSuggesterNames;
-    _os_log_debug_impl(&dword_214A5E000, v35, OS_LOG_TYPE_DEBUG, "Search #%u, %u suggester(s) ('%{public}@') running async.", buf, 0x18u);
+    *v49 = v38;
+    *&v49[4] = 1024;
+    *&v49[6] = v41;
+    *&v49[10] = 2114;
+    *&v49[12] = _runningSuggesterNames;
+    _os_log_debug_impl(&dword_214A5E000, v36, OS_LOG_TYPE_DEBUG, "Search #%u, %u suggester(s) ('%{public}@') running async.", buf, 0x18u);
   }
 }
 
 - (void)cancel
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if (self && (atomic_fetch_or(self + 8, 1u) & 1) == 0)
   {
     selfCopy = self;
-    v2 = signpostLog();
+    v2 = signpostLog(selfCopy);
     v3 = os_signpost_enabled(v2);
 
     if (!v3)
@@ -375,64 +377,65 @@ LABEL_17:
 
       OUTLINED_FUNCTION_0_3();
       OUTLINED_FUNCTION_6_0();
-      v16 = __40___MUISearchSuggestionsOperation_cancel__block_invoke;
-      v17 = &unk_278188BB0;
-      v18 = selfCopy;
-      dispatch_async(v14, block);
+      v17 = __40___MUISearchSuggestionsOperation_cancel__block_invoke;
+      v18 = &unk_278188BB0;
+      v19 = selfCopy;
+      dispatch_async(v15, block);
       return;
     }
 
-    phraseKind = [selfCopy[4] phraseKind];
-    v5 = signpostLog();
-    signpostID = [selfCopy[4] signpostID];
+    phraseKind = [*(selfCopy + 4) phraseKind];
+    v5 = phraseKind;
+    v6 = signpostLog(phraseKind);
+    signpostID = [*(selfCopy + 4) signpostID];
     OUTLINED_FUNCTION_5_0();
-    if (phraseKind)
+    if (v5)
     {
-      if (!v8 & v7 || !os_signpost_enabled(v5))
+      if (!v9 & v8 || !os_signpost_enabled(v6))
       {
         goto LABEL_16;
       }
 
-      v9 = selfCopy[3];
-      if (v9)
+      v10 = *(selfCopy + 3);
+      if (v10)
       {
-        v10 = v9[2];
+        v11 = v10[2];
       }
 
       else
       {
-        v10 = 0;
+        v11 = 0;
       }
 
       *buf = 67109120;
-      v20 = v10;
-      v11 = "com.apple.mail.search.suggestion.zkw.cancel";
+      v21 = v11;
+      v12 = "com.apple.mail.search.suggestion.zkw.cancel";
     }
 
     else
     {
-      if (!v8 & v7 || !os_signpost_enabled(v5))
+      if (!v9 & v8 || !os_signpost_enabled(v6))
       {
         goto LABEL_16;
       }
 
-      v12 = selfCopy[3];
-      if (v12)
+      v13 = *(selfCopy + 3);
+      if (v13)
       {
-        v13 = v12[2];
+        v14 = v13[2];
       }
 
       else
       {
-        v13 = 0;
+        v14 = 0;
       }
 
       *buf = 67109120;
-      v20 = v13;
-      v11 = "com.apple.mail.search.suggestion.ayt.cancel";
+      v21 = v14;
+      v12 = "com.apple.mail.search.suggestion.ayt.cancel";
     }
 
-    _os_signpost_emit_with_name_impl(&dword_214A5E000, v5, OS_SIGNPOST_EVENT, signpostID, v11, "Cancelled id=%{signpost.description:attribute}u", buf, 8u);
+    _os_signpost_emit_with_name_impl(&dword_214A5E000, v6, OS_SIGNPOST_EVENT, signpostID, v12, "Cancelled id=%{signpost.description:attribute}u", buf, 8u);
 LABEL_16:
 
     goto LABEL_17;
@@ -697,7 +700,7 @@ LABEL_6:
       _os_log_impl(v6, v7, v8, v9, v10, 8u);
     }
 
-    signpostEndRunInterval(self);
+    signpostEndRunInterval(self, v3 & 1);
     WeakRetained = objc_loadWeakRetained((self + 16));
     [(MUISearchSuggestionsGenerator *)WeakRetained _operationDidComplete:self];
   }

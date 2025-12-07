@@ -45,7 +45,7 @@
 
   else
   {
-    sub_21E424BC0(v4, &qword_27CEC5370);
+    sub_21E424BC0(v4, &qword_27CEC5370, &qword_21E4E68B8);
   }
 
   v2 = sub_21E4DCF68();

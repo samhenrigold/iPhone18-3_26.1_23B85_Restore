@@ -11,78 +11,119 @@
   v4 = stringCopy;
   if (stringCopy)
   {
-    if ([stringCopy isEqualToString:*MEMORY[0x277D06810]] & 1) != 0 || (objc_msgSend(v4, "lowercaseString"), v5 = objc_claimAutoreleasedReturnValue(), v6 = objc_msgSend(v5, "containsString:", @"appointment"), v5, (v6))
+    if ([stringCopy isEqualToString:*MEMORY[0x277D06810]])
     {
-      v7 = off_278948878;
-LABEL_5:
-      v8 = *v7;
-      v9 = objc_opt_new();
-      goto LABEL_30;
-    }
-
-    if ([v4 isEqualToString:*MEMORY[0x277D06818]] & 1) != 0 || (objc_msgSend(v4, "lowercaseString"), v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v10, "containsString:", @"car"), v10, (v11))
-    {
-      v7 = off_2789488D8;
-      goto LABEL_5;
-    }
-
-    if ([v4 isEqualToString:*MEMORY[0x277D06820]] & 1) != 0 || (objc_msgSend(v4, "lowercaseString"), v12 = objc_claimAutoreleasedReturnValue(), v13 = objc_msgSend(v12, "containsString:", @"flight"), v12, (v13))
-    {
-      v7 = off_278948B20;
-      goto LABEL_5;
-    }
-
-    if ([v4 isEqualToString:*MEMORY[0x277D06830]] & 1) != 0 || (objc_msgSend(v4, "lowercaseString"), v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v14, "containsString:", @"hotel"), v14, (v15))
-    {
-      v7 = off_278948B58;
-      goto LABEL_5;
-    }
-
-    if ([v4 isEqualToString:*MEMORY[0x277D06840]] & 1) != 0 || (objc_msgSend(v4, "lowercaseString"), v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v16, "containsString:", @"social"), v16, (v17))
-    {
-      v7 = off_278948B90;
-      goto LABEL_5;
-    }
-
-    if ([v4 isEqualToString:*MEMORY[0x277D06848]] & 1) != 0 || (objc_msgSend(v4, "lowercaseString"), v18 = objc_claimAutoreleasedReturnValue(), v19 = objc_msgSend(v18, "containsString:", @"food"), v18, (v19))
-    {
-      v7 = off_278949068;
-      goto LABEL_5;
-    }
-
-    if ([v4 isEqualToString:*MEMORY[0x277D06858]])
-    {
-LABEL_25:
-      v7 = off_278949210;
-      goto LABEL_5;
+      goto LABEL_4;
     }
 
     lowercaseString = [v4 lowercaseString];
-    if ([lowercaseString isEqualToString:@"ticket"])
-    {
+    v6 = [lowercaseString containsString:@"appointment"];
 
-      goto LABEL_25;
+    if (v6)
+    {
+      goto LABEL_4;
+    }
+
+    if ([v4 isEqualToString:*MEMORY[0x277D06818]])
+    {
+      goto LABEL_4;
     }
 
     lowercaseString2 = [v4 lowercaseString];
-    v22 = [lowercaseString2 isEqualToString:@"movie"];
+    v9 = [lowercaseString2 containsString:@"car"];
+
+    if (v9)
+    {
+      goto LABEL_4;
+    }
+
+    if ([v4 isEqualToString:*MEMORY[0x277D06820]])
+    {
+      goto LABEL_4;
+    }
+
+    lowercaseString3 = [v4 lowercaseString];
+    v11 = [lowercaseString3 containsString:@"flight"];
+
+    if (v11)
+    {
+      goto LABEL_4;
+    }
+
+    if ([v4 isEqualToString:*MEMORY[0x277D06830]])
+    {
+      goto LABEL_4;
+    }
+
+    lowercaseString4 = [v4 lowercaseString];
+    v13 = [lowercaseString4 containsString:@"hotel"];
+
+    if (v13)
+    {
+      goto LABEL_4;
+    }
+
+    if ([v4 isEqualToString:*MEMORY[0x277D06840]])
+    {
+      goto LABEL_4;
+    }
+
+    lowercaseString5 = [v4 lowercaseString];
+    v15 = [lowercaseString5 containsString:@"social"];
+
+    if (v15)
+    {
+      goto LABEL_4;
+    }
+
+    if ([v4 isEqualToString:*MEMORY[0x277D06848]])
+    {
+      goto LABEL_4;
+    }
+
+    lowercaseString6 = [v4 lowercaseString];
+    v17 = [lowercaseString6 containsString:@"food"];
+
+    if (v17 & 1) != 0 || ([v4 isEqualToString:*MEMORY[0x277D06858]])
+    {
+      goto LABEL_4;
+    }
+
+    lowercaseString7 = [v4 lowercaseString];
+    if ([lowercaseString7 isEqualToString:@"ticket"])
+    {
+
+LABEL_4:
+      v7 = objc_opt_new();
+      goto LABEL_29;
+    }
+
+    lowercaseString8 = [v4 lowercaseString];
+    v20 = [lowercaseString8 isEqualToString:@"movie"];
+
+    if (v20)
+    {
+      goto LABEL_4;
+    }
+
+    if ([v4 isEqualToString:*MEMORY[0x277D06860]])
+    {
+      goto LABEL_4;
+    }
+
+    lowercaseString9 = [v4 lowercaseString];
+    v22 = [&unk_28474A7B0 containsObject:lowercaseString9];
 
     if (v22)
     {
-      goto LABEL_25;
-    }
-
-    if (([v4 isEqualToString:*MEMORY[0x277D06860]] & 1) != 0 || (objc_msgSend(v4, "lowercaseString"), v23 = objc_claimAutoreleasedReturnValue(), v24 = objc_msgSend(&unk_28474A7B0, "containsObject:", v23), v23, v24))
-    {
-      v7 = off_278949218;
-      goto LABEL_5;
+      goto LABEL_4;
     }
   }
 
-  v9 = 0;
-LABEL_30:
+  v7 = 0;
+LABEL_29:
 
-  return v9;
+  return v7;
 }
 
 - (id)getSchemaCreatorForEvent:(id)event

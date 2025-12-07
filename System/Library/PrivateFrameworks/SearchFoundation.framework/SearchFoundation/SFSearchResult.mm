@@ -55,7 +55,7 @@ LABEL_6:
 
 - (NSDictionary)dictionaryRepresentation
 {
-  v95 = *MEMORY[0x1E69E9840];
+  v94 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   action = [(SFSearchResult *)self action];
   dictionaryRepresentation = [action dictionaryRepresentation];
@@ -94,30 +94,30 @@ LABEL_6:
   if (v16)
   {
     array = [MEMORY[0x1E695DF70] array];
+    v88 = 0u;
     v89 = 0u;
     v90 = 0u;
     v91 = 0u;
-    v92 = 0u;
     descriptions2 = [(SFSearchResult *)self descriptions];
-    v19 = [descriptions2 countByEnumeratingWithState:&v89 objects:v94 count:16];
+    v19 = [descriptions2 countByEnumeratingWithState:&v88 objects:v93 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v90;
+      v21 = *v89;
       do
       {
         for (i = 0; i != v20; ++i)
         {
-          if (*v90 != v21)
+          if (*v89 != v21)
           {
             objc_enumerationMutation(descriptions2);
           }
 
-          dictionaryRepresentation2 = [*(*(&v89 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation2 = [*(*(&v88 + 1) + 8 * i) dictionaryRepresentation];
           [array addObject:dictionaryRepresentation2];
         }
 
-        v20 = [descriptions2 countByEnumeratingWithState:&v89 objects:v94 count:16];
+        v20 = [descriptions2 countByEnumeratingWithState:&v88 objects:v93 count:16];
       }
 
       while (v20);
@@ -163,32 +163,32 @@ LABEL_6:
   [dictionary setObject:v35 forKeyedSubscript:@"isFuzzyMatch"];
 
   dictionary2 = [MEMORY[0x1E695DF90] dictionary];
+  v84 = 0u;
   v85 = 0u;
   v86 = 0u;
   v87 = 0u;
-  v88 = 0u;
   localFeatures = [(SFSearchResult *)self localFeatures];
-  v38 = [localFeatures countByEnumeratingWithState:&v85 objects:v93 count:16];
+  v38 = [localFeatures countByEnumeratingWithState:&v84 objects:v92 count:16];
   if (v38)
   {
     v39 = v38;
-    v40 = *v86;
+    v40 = *v85;
     do
     {
       for (j = 0; j != v39; ++j)
       {
-        if (*v86 != v40)
+        if (*v85 != v40)
         {
           objc_enumerationMutation(localFeatures);
         }
 
-        v42 = *(*(&v85 + 1) + 8 * j);
+        v42 = *(*(&v84 + 1) + 8 * j);
         localFeatures2 = [(SFSearchResult *)self localFeatures];
         v44 = [localFeatures2 objectForKeyedSubscript:v42];
         [dictionary2 setObject:v44 forKeyedSubscript:v42];
       }
 
-      v39 = [localFeatures countByEnumeratingWithState:&v85 objects:v93 count:16];
+      v39 = [localFeatures countByEnumeratingWithState:&v84 objects:v92 count:16];
     }
 
     while (v39);
@@ -307,8 +307,6 @@ LABEL_6:
     v82 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:{-[SFSearchResult blockId](self, "blockId")}];
     [dictionary setObject:v82 forKeyedSubscript:@"blockId"];
   }
-
-  v83 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -1174,11 +1172,11 @@ LABEL_6:
 
 - (SFSearchResult)initWithQueryTopic:(id)topic
 {
-  v29[1] = *MEMORY[0x1E69E9840];
+  v28[1] = *MEMORY[0x1E69E9840];
   topicCopy = topic;
-  v27.receiver = self;
-  v27.super_class = SFSearchResult;
-  v5 = [(SFSearchResult *)&v27 init];
+  v26.receiver = self;
+  v26.super_class = SFSearchResult;
+  v5 = [(SFSearchResult *)&v26 init];
   if (v5)
   {
     v6 = objc_alloc_init(SFText);
@@ -1214,8 +1212,8 @@ LABEL_6:
     [suggestionText setMaxLines:1];
 
     [(SFSuggestionCardSection *)v15 setSuggestionType:0];
-    v29[0] = v13;
-    v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:1];
+    v28[0] = v13;
+    v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:1];
     [(SFCardSection *)v15 setPunchoutOptions:v19];
 
     [(SFSuggestionCardSection *)v15 setThumbnail:v11];
@@ -1226,15 +1224,14 @@ LABEL_6:
     [(SFUpdateSearchQueryCommand *)v20 setQuerySource:1];
     [(SFCardSection *)v15 setCommand:v20];
     v22 = objc_alloc_init(SFCard);
-    v28 = v15;
-    v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v28 count:1];
+    v27 = v15;
+    v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v27 count:1];
     [(SFCard *)v22 setCardSections:v23];
 
     [(SFSearchResult *)v5 setInlineCard:v22];
     v24 = v5;
   }
 
-  v25 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

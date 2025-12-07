@@ -375,7 +375,7 @@
 
 - (void)setupConstraints
 {
-  v44[4] = *MEMORY[0x277D85DE8];
+  v43[4] = *MEMORY[0x277D85DE8];
   constraints = [(WAWeatherPlatterViewController *)self constraints];
 
   if (constraints)
@@ -388,25 +388,25 @@
   }
 
   v6 = _NSDictionaryOfVariableBindings(&cfstr_HeaderviewAfte.isa, self->_headerView, self->_afterHeaderDividerLineView, self->_aqiView, self->_afterAQIDividerLineView, self->_hourlyBeltView, 0);
-  v44[0] = &unk_288235718;
-  v43[0] = @"DividerLineGap";
-  v43[1] = @"DividerLineHeight";
+  v43[0] = &unk_288235718;
+  v42[0] = @"DividerLineGap";
+  v42[1] = @"DividerLineHeight";
   v7 = MEMORY[0x277CCABB0];
   traitCollection = [(WAWeatherPlatterViewController *)self traitCollection];
   [traitCollection displayScale];
   v10 = [v7 numberWithDouble:1.0 / v9];
-  v44[1] = v10;
-  v43[2] = @"AQIViewHeight";
+  v43[1] = v10;
+  v42[2] = @"AQIViewHeight";
   v11 = MEMORY[0x277CCABB0];
   aqiView = [(WAWeatherPlatterViewController *)self aqiView];
   view = [(WAWeatherPlatterViewController *)self view];
   [view bounds];
   [aqiView sizeThatFits:{v14, v15}];
   v17 = [v11 numberWithDouble:v16];
-  v43[3] = @"AQIViewXMargin";
-  v44[2] = v17;
-  v44[3] = &unk_288235718;
-  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:v43 count:4];
+  v42[3] = @"AQIViewXMargin";
+  v43[2] = v17;
+  v43[3] = &unk_288235718;
+  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v43 forKeys:v42 count:4];
 
   v19 = objc_opt_new();
   [(WAWeatherPlatterViewController *)self setConstraints:v19];
@@ -466,8 +466,6 @@
   v40 = MEMORY[0x277CCAAD0];
   constraints11 = [(WAWeatherPlatterViewController *)self constraints];
   [v40 activateConstraints:constraints11];
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 - (void)viewDidLayoutSubviews
@@ -511,7 +509,7 @@
 
 - (void)_updateViewContent
 {
-  v144 = *MEMORY[0x277D85DE8];
+  v143 = *MEMORY[0x277D85DE8];
   headerView = [(WAWeatherPlatterViewController *)self headerView];
   if (headerView)
   {
@@ -546,8 +544,8 @@
 LABEL_6:
         if (dailyForecasts && currentConditions)
         {
-          v105 = hourlyForecasts;
-          v106 = forecastModel;
+          v104 = hourlyForecasts;
+          v105 = forecastModel;
           selfCopy = self;
           if (_updateViewContent_onceToken != -1)
           {
@@ -574,11 +572,11 @@ LABEL_6:
           high = [firstObject2 high];
           v27 = [v24 stringForObjectValue:high];
 
-          v103 = v21;
+          v102 = v21;
           v28 = WAConditionsLineStringFromCurrentForecasts(v21);
           v29 = WAAirQualityCategoryFromConditions(airQualityConditions);
           countryAbbreviation = [location countryAbbreviation];
-          v104 = headerView;
+          v103 = headerView;
           if (WAAirQualityIsSignificantForCategory(v29, countryAbbreviation))
           {
             countryAbbreviation2 = [location countryAbbreviation];
@@ -587,16 +585,16 @@ LABEL_6:
 
           else
           {
-            v32 = WAConditionsLine2StringFromHourlyForecasts(v105);
+            v32 = WAConditionsLine2StringFromHourlyForecasts(v104);
           }
 
           v33 = +[WeatherInternalPreferences sharedInternalPreferences];
           isV3Enabled = [v33 isV3Enabled];
 
-          v101 = v13;
+          v100 = v13;
           if (isV3Enabled)
           {
-            city = [v106 city];
+            city = [v105 city];
             airQualityScaleCategory = [city airQualityScaleCategory];
 
             longDescription = [airQualityScaleCategory longDescription];
@@ -615,82 +613,82 @@ LABEL_6:
             }
           }
 
-          v42 = RemapSmallIconForDayOrNight([v103 conditionCode], objc_msgSend(location, "isDay"));
+          v42 = RemapSmallIconForDayOrNight([v102 conditionCode], objc_msgSend(location, "isDay"));
           v43 = WAImageForLegacyConditionCode(v42, 2uLL);
           v44 = MEMORY[0x277D75D18];
-          v128[0] = MEMORY[0x277D85DD0];
-          v128[1] = 3221225472;
-          v128[2] = __52__WAWeatherPlatterViewController__updateViewContent__block_invoke_4;
-          v128[3] = &unk_279E68A78;
-          v129 = v104;
-          v100 = v18;
-          v130 = v100;
-          v99 = v23;
-          v131 = v99;
-          v98 = v27;
-          v132 = v98;
-          v97 = v28;
-          v133 = v97;
-          v96 = v32;
-          v134 = v96;
-          v95 = v43;
-          v135 = v95;
-          [v44 performWithoutAnimation:v128];
+          v127[0] = MEMORY[0x277D85DD0];
+          v127[1] = 3221225472;
+          v127[2] = __52__WAWeatherPlatterViewController__updateViewContent__block_invoke_4;
+          v127[3] = &unk_279E68A78;
+          v128 = v103;
+          v99 = v18;
+          v129 = v99;
+          v98 = v23;
+          v130 = v98;
+          v97 = v27;
+          v131 = v97;
+          v96 = v28;
+          v132 = v96;
+          v95 = v32;
+          v133 = v95;
+          v94 = v43;
+          v134 = v94;
+          [v44 performWithoutAnimation:v127];
           v45 = _updateViewContent_ISO6801Calendar;
           timeZone = [location timeZone];
           [v45 setTimeZone:timeZone];
 
           v47 = _updateViewContent_ISO6801Calendar;
-          sunrise = [v106 sunrise];
+          sunrise = [v105 sunrise];
           v49 = [v47 components:96 fromDate:sunrise];
 
           minute = [v49 minute];
           v51 = minute + 100 * [v49 hour];
           v52 = _updateViewContent_ISO6801Calendar;
-          sunset = [v106 sunset];
+          sunset = [v105 sunset];
           v54 = [v52 components:96 fromDate:sunset];
 
           minute2 = [v54 minute];
-          v94 = v54;
+          v93 = v54;
           v56 = minute2 + 100 * [v54 hour];
-          v102 = location;
+          v101 = location;
           timeZone2 = [location timeZone];
           v58 = CityTimeDigitForTimeZone(timeZone2);
 
           [_updateViewContent_temperatureFormatter setSymbolType:0];
-          temperature2 = [v103 temperature];
-          *&v109 = v56;
-          *(&v109 + 1) = v51;
-          v115 = +[WAHourlyForecastParser parseForecasts:temperature:currentTime:condition:sunrise:sunset:](WAHourlyForecastParser, "parseForecasts:temperature:currentTime:condition:sunrise:sunset:", v105, temperature2, v58, [v103 conditionCode], v51, v56);
+          temperature2 = [v102 temperature];
+          *&v108 = v56;
+          *(&v108 + 1) = v51;
+          v114 = +[WAHourlyForecastParser parseForecasts:temperature:currentTime:condition:sunrise:sunset:](WAHourlyForecastParser, "parseForecasts:temperature:currentTime:condition:sunrise:sunset:", v104, temperature2, v58, [v102 conditionCode], v51, v56);
 
-          v126 = 0u;
-          v127 = 0u;
-          v124 = 0u;
           v125 = 0u;
+          v126 = 0u;
+          v123 = 0u;
+          v124 = 0u;
           obj = [(WAWeatherPlatterViewController *)selfCopy hourlyForecastViews];
-          v116 = [obj countByEnumeratingWithState:&v124 objects:v143 count:16];
-          if (v116)
+          v115 = [obj countByEnumeratingWithState:&v123 objects:v142 count:16];
+          if (v115)
           {
             v60 = 0;
-            v114 = *v125;
-            v110 = *MEMORY[0x277D740A8];
-            v113 = *MEMORY[0x277D740C0];
+            v113 = *v124;
+            v109 = *MEMORY[0x277D740A8];
+            v112 = *MEMORY[0x277D740C0];
             do
             {
-              for (i = 0; i != v116; ++i)
+              for (i = 0; i != v115; ++i)
               {
-                if (*v125 != v114)
+                if (*v124 != v113)
                 {
                   objc_enumerationMutation(obj);
                 }
 
-                v118 = *(*(&v124 + 1) + 8 * i);
-                v62 = [v115 objectAtIndexedSubscript:v60];
+                v117 = *(*(&v123 + 1) + 8 * i);
+                v62 = [v114 objectAtIndexedSubscript:v60];
                 eventType = [v62 eventType];
                 time = [v62 time];
                 v65 = Time24StringToInt(time);
 
-                if (v109 == 0)
+                if (v108 == 0)
                 {
                   v66 = 1;
                 }
@@ -700,9 +698,9 @@ LABEL_6:
                   v66 = isDay;
                   if (!eventType)
                   {
-                    v68 = *(&v109 + 1) < v65 || v109 > v65;
-                    v70 = *(&v109 + 1) < v65 && v109 > v65;
-                    if (*(&v109 + 1) < v109)
+                    v68 = *(&v108 + 1) < v65 || v108 > v65;
+                    v70 = *(&v108 + 1) < v65 && v108 > v65;
+                    if (*(&v108 + 1) < v108)
                     {
                       v66 = v70;
                     }
@@ -727,9 +725,9 @@ LABEL_6:
                     v76 = WAImageForLegacyConditionCode(v73, 3uLL);
                     v77 = objc_alloc(MEMORY[0x277CCA898]);
                     time2 = [v62 time];
-                    v141 = v110;
-                    v142 = v71;
-                    v79 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v142 forKeys:&v141 count:1];
+                    v140 = v109;
+                    v141 = v71;
+                    v79 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v141 forKeys:&v140 count:1];
                     v80 = [v77 initWithString:time2 attributes:v79];
 
                     break;
@@ -764,51 +762,51 @@ LABEL_50:
                   WAContentColor();
                 }
                 v85 = ;
-                [v84 addAttribute:v113 value:v85 range:{0, objc_msgSend(v80, "length")}];
+                [v84 addAttribute:v112 value:v85 range:{0, objc_msgSend(v80, "length")}];
 
                 v86 = MEMORY[0x277D75D18];
-                v119[0] = MEMORY[0x277D85DD0];
-                v119[1] = 3221225472;
-                v119[2] = __52__WAWeatherPlatterViewController__updateViewContent__block_invoke_5;
-                v119[3] = &unk_279E68AA0;
-                v119[4] = v118;
-                v120 = v84;
-                v121 = forecastDetail;
-                v122 = v72;
-                v123 = v76;
+                v118[0] = MEMORY[0x277D85DD0];
+                v118[1] = 3221225472;
+                v118[2] = __52__WAWeatherPlatterViewController__updateViewContent__block_invoke_5;
+                v118[3] = &unk_279E68AA0;
+                v118[4] = v117;
+                v119 = v84;
+                v120 = forecastDetail;
+                v121 = v72;
+                v122 = v76;
                 v87 = v76;
                 v88 = v72;
                 v89 = forecastDetail;
                 v90 = v84;
-                [v86 performWithoutAnimation:v119];
+                [v86 performWithoutAnimation:v118];
                 ++v60;
               }
 
-              v116 = [obj countByEnumeratingWithState:&v124 objects:v143 count:16];
+              v115 = [obj countByEnumeratingWithState:&v123 objects:v142 count:16];
             }
 
-            while (v116);
+            while (v115);
           }
 
-          currentConditions = v103;
-          headerView = v104;
-          hourlyForecasts = v105;
-          forecastModel = v106;
-          v13 = v101;
-          location = v102;
-          v91 = v100;
+          currentConditions = v102;
+          headerView = v103;
+          hourlyForecasts = v104;
+          forecastModel = v105;
+          v13 = v100;
+          location = v101;
+          v91 = v99;
           goto LABEL_58;
         }
 
 LABEL_57:
         v92 = MEMORY[0x277D75D18];
-        v136[0] = MEMORY[0x277D85DD0];
-        v136[1] = 3221225472;
-        v136[2] = __52__WAWeatherPlatterViewController__updateViewContent__block_invoke_2;
-        v136[3] = &unk_279E67C98;
-        v137 = headerView;
-        [v92 performWithoutAnimation:v136];
-        v91 = v137;
+        v135[0] = MEMORY[0x277D85DD0];
+        v135[1] = 3221225472;
+        v135[2] = __52__WAWeatherPlatterViewController__updateViewContent__block_invoke_2;
+        v135[3] = &unk_279E67C98;
+        v136 = headerView;
+        [v92 performWithoutAnimation:v135];
+        v91 = v136;
 LABEL_58:
 
         goto LABEL_59;
@@ -816,14 +814,14 @@ LABEL_58:
     }
 
     v12 = MEMORY[0x277D75D18];
-    v138[0] = MEMORY[0x277D85DD0];
-    v138[1] = 3221225472;
-    v138[2] = __52__WAWeatherPlatterViewController__updateViewContent__block_invoke;
-    v138[3] = &unk_279E67CC0;
-    v139 = headerView;
+    v137[0] = MEMORY[0x277D85DD0];
+    v137[1] = 3221225472;
+    v137[2] = __52__WAWeatherPlatterViewController__updateViewContent__block_invoke;
+    v137[3] = &unk_279E67CC0;
+    v138 = headerView;
     v13 = displayName;
-    v140 = v13;
-    [v12 performWithoutAnimation:v138];
+    v139 = v13;
+    [v12 performWithoutAnimation:v137];
 
     if (!hourlyForecasts)
     {
@@ -834,8 +832,6 @@ LABEL_58:
   }
 
 LABEL_59:
-
-  v93 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __52__WAWeatherPlatterViewController__updateViewContent__block_invoke_2(uint64_t a1)
@@ -953,7 +949,7 @@ void __87__WAWeatherPlatterViewController__kickoffLoadingWithLocation_orPerhapsA
     v7 = WALogForCategory(8);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __87__WAWeatherPlatterViewController__kickoffLoadingWithLocation_orPerhapsALocationString___block_invoke_cold_1(a1);
+      __87__WAWeatherPlatterViewController__kickoffLoadingWithLocation_orPerhapsALocationString___block_invoke_cold_1();
     }
 
     WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -1003,7 +999,7 @@ void __57__WAWeatherPlatterViewController__buildModelForLocation___block_invoke(
     v5 = WALogForCategory(8);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __57__WAWeatherPlatterViewController__buildModelForLocation___block_invoke_cold_1(a1);
+      __57__WAWeatherPlatterViewController__buildModelForLocation___block_invoke_cold_1();
     }
 
     WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -1059,7 +1055,7 @@ void __57__WAWeatherPlatterViewController__buildModelForLocation___block_invoke_
 
 - (void)_loadAQIDataForLocation:(id)location
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   locationCopy = location;
   v5 = objc_alloc_init(City);
   displayName = [locationCopy displayName];
@@ -1070,18 +1066,16 @@ void __57__WAWeatherPlatterViewController__buildModelForLocation___block_invoke_
 
   [(City *)v5 setWfLocation:locationCopy];
   v8 = +[TWCCityUpdater sharedCityUpdater];
-  v14[0] = v5;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __58__WAWeatherPlatterViewController__loadAQIDataForLocation___block_invoke;
-  v12[3] = &unk_279E68B68;
-  v12[4] = self;
-  v13 = v5;
+  v13[0] = v5;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __58__WAWeatherPlatterViewController__loadAQIDataForLocation___block_invoke;
+  v11[3] = &unk_279E68B68;
+  v11[4] = self;
+  v12 = v5;
   v10 = v5;
-  [v8 updateWeatherForCities:v9 withCompletionHandler:v12];
-
-  v11 = *MEMORY[0x277D85DE8];
+  [v8 updateWeatherForCities:v9 withCompletionHandler:v11];
 }
 
 void __58__WAWeatherPlatterViewController__loadAQIDataForLocation___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -1222,28 +1216,10 @@ void __58__WAWeatherPlatterViewController__loadAQIDataForLocation___block_invoke
   return result;
 }
 
-void __87__WAWeatherPlatterViewController__kickoffLoadingWithLocation_orPerhapsALocationString___block_invoke_cold_1(uint64_t a1)
-{
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_272ACF000, v2, v3, "Error geocoding location '%@': %@");
-  v4 = *MEMORY[0x277D85DE8];
-}
-
 - (void)_buildModelForLocation:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)
 {
   v4 = [MEMORY[0x277CCA890] currentHandler];
   [v4 handleFailureInMethod:a1 object:a2 file:@"WAWeatherPlatterViewController.m" lineNumber:498 description:{@"Invalid parameter not satisfying: %@", @"location"}];
-}
-
-void __57__WAWeatherPlatterViewController__buildModelForLocation___block_invoke_cold_1(uint64_t a1)
-{
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_272ACF000, v2, v3, "Error executing model update for location'%@': %@");
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 @end

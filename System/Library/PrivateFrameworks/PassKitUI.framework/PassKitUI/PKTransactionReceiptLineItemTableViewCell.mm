@@ -208,9 +208,9 @@
 
 - (void)layoutSubviews
 {
-  v32.receiver = self;
-  v32.super_class = PKTransactionReceiptLineItemTableViewCell;
-  [(PKTransactionReceiptLineItemTableViewCell *)&v32 layoutSubviews];
+  v55.receiver = self;
+  v55.super_class = PKTransactionReceiptLineItemTableViewCell;
+  [(PKTransactionReceiptLineItemTableViewCell *)&v55 layoutSubviews];
   [(UITableViewCell *)self pkui_effectiveLayoutMargins];
   v4 = v3;
   v6 = v5;
@@ -248,18 +248,26 @@
 
   if (self->_image || !self->_suppressImage)
   {
-    v33.origin.x = v16;
-    v33.origin.y = v18;
-    v33.size.width = v19;
-    v33.size.height = v20;
-    CGRectDivide(v33, &v30, &remainder, 45.0, v22);
+    v56.origin.x = v16;
+    v56.origin.y = v18;
+    v56.size.width = v19;
+    v56.size.height = v20;
+    CGRectDivide(v56, &v53, &remainder, 45.0, v22);
     [(UIImage *)self->_image size];
     imageView = self->_imageView;
     PKSizeAspectFit();
-    PKContentAlignmentMake();
-    PKSizeAlignedInRect();
+    v25 = v24;
+    v27 = v26;
+    v28 = PKContentAlignmentMake();
+    v30.n128_u64[0] = *&v53.origin.y;
+    v29.n128_u64[0] = *&v53.origin.x;
+    v32.n128_u64[0] = *&v53.size.height;
+    v31.n128_u64[0] = *&v53.size.width;
+    v33.n128_u64[0] = v25;
+    v34.n128_u64[0] = v27;
+    PKSizeAlignedInRect(v28, v33, v34, v29, v30, v31, v32, v35);
     [(UIImageView *)imageView setFrame:?];
-    CGRectDivide(remainder, &v30, &remainder, 16.0, v22);
+    CGRectDivide(remainder, &v53, &remainder, 16.0, v22);
   }
 
   else
@@ -269,32 +277,40 @@
 
   if (v21)
   {
-    v24 = CGRectMinXEdge;
+    v36 = CGRectMinXEdge;
   }
 
   else
   {
-    v24 = CGRectMaxXEdge;
+    v36 = CGRectMaxXEdge;
   }
 
   [(UILabel *)self->_amountLabel pkui_sizeThatFits:remainder.size.width, remainder.size.height];
-  CGRectDivide(remainder, &v30, &remainder, v25, v24);
+  v38 = *&v37;
+  v40 = v39;
+  CGRectDivide(remainder, &v53, &remainder, v37, v36);
   amountLabel = self->_amountLabel;
-  PKContentAlignmentMake();
-  PKSizeAlignedInRect();
+  v42 = PKContentAlignmentMake();
+  v44.n128_u64[0] = *&v53.origin.y;
+  v43.n128_u64[0] = *&v53.origin.x;
+  v46.n128_u64[0] = *&v53.size.height;
+  v45.n128_u64[0] = *&v53.size.width;
+  v47.n128_u64[0] = v38;
+  v48.n128_u64[0] = v40;
+  PKSizeAlignedInRect(v42, v47, v48, v43, v44, v45, v46, v49);
   [(UILabel *)amountLabel setFrame:?];
-  CGRectDivide(remainder, &v30, &remainder, 16.0, v24);
+  CGRectDivide(remainder, &v53, &remainder, 16.0, v36);
   [(UILabel *)self->_primaryLabel pkui_sizeThatFits:1 forceWordWrap:remainder.size.width, remainder.size.height];
-  CGRectDivide(remainder, &v30, &remainder, v27, CGRectMinYEdge);
-  [(UILabel *)self->_primaryLabel setFrame:*&v30.origin, *&v30.size];
-  CGRectDivide(remainder, &v30, &remainder, 2.0, CGRectMinYEdge);
+  CGRectDivide(remainder, &v53, &remainder, v50, CGRectMinYEdge);
+  [(UILabel *)self->_primaryLabel setFrame:*&v53.origin, *&v53.size];
+  CGRectDivide(remainder, &v53, &remainder, 2.0, CGRectMinYEdge);
   [(UILabel *)self->_secondaryLabel pkui_sizeThatFits:1 forceWordWrap:remainder.size.width, remainder.size.height];
-  CGRectDivide(remainder, &v30, &remainder, v28, CGRectMinYEdge);
-  [(UILabel *)self->_secondaryLabel setFrame:*&v30.origin, *&v30.size];
-  CGRectDivide(remainder, &v30, &remainder, 2.0, CGRectMinYEdge);
+  CGRectDivide(remainder, &v53, &remainder, v51, CGRectMinYEdge);
+  [(UILabel *)self->_secondaryLabel setFrame:*&v53.origin, *&v53.size];
+  CGRectDivide(remainder, &v53, &remainder, 2.0, CGRectMinYEdge);
   [(UILabel *)self->_tertiaryLabel pkui_sizeThatFits:1 forceWordWrap:remainder.size.width, remainder.size.height];
-  CGRectDivide(remainder, &v30, &remainder, v29, CGRectMinYEdge);
-  [(UILabel *)self->_tertiaryLabel setFrame:*&v30.origin, *&v30.size];
+  CGRectDivide(remainder, &v53, &remainder, v52, CGRectMinYEdge);
+  [(UILabel *)self->_tertiaryLabel setFrame:*&v53.origin, *&v53.size];
 }
 
 - (void)setImage:(id)image

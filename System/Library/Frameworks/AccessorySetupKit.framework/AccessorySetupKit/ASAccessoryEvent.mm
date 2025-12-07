@@ -39,35 +39,48 @@
 {
   if ((level & 0x8000000) != 0)
   {
-    v4 = 0;
+    v4 = 8;
   }
 
   else
   {
-    objc_opt_class();
-    CUAppendF();
-    v4 = 0;
+    v4 = 12;
+  }
+
+  v15 = v4;
+  if ((level & 0x8000000) != 0)
+  {
+    v6 = 0;
+  }
+
+  else
+  {
+    v14 = 0;
+    v5 = objc_opt_class();
+    CUAppendF(&v14, &v15, "%@", v5);
+    v6 = v14;
   }
 
   eventType = self->_eventType;
   if (eventType)
   {
-    v10 = ASAccessoryEventTypeToString(eventType);
-    CUAppendF();
-    v6 = v4;
+    v13 = v6;
+    v8 = ASAccessoryEventTypeToString(eventType);
+    CUAppendF(&v13, &v15, "type %@", v8);
+    v9 = v13;
 
-    v4 = v6;
+    v6 = v9;
   }
 
-  v7 = &stru_28499D698;
-  if (v4)
+  v10 = &stru_28499D698;
+  if (v6)
   {
-    v7 = v4;
+    v10 = v6;
   }
 
-  v8 = v7;
+  v11 = v10;
 
-  return v8;
+  return v11;
 }
 
 @end

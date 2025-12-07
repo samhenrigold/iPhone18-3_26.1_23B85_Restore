@@ -24,7 +24,7 @@
   equalCopy = equal;
   if (equalCopy == self)
   {
-    v12 = 1;
+    isEqual = 1;
   }
 
   else
@@ -41,26 +41,26 @@
       v11 = v10;
       if (v9 == v10)
       {
-        v12 = 1;
+        isEqual = 1;
       }
 
       else
       {
-        v12 = 0;
+        isEqual = 0;
         if (v9 && v10)
         {
-          v12 = [(_UIMainMenuCommandKeyboardShortcut *)v9 isEqual:v10];
+          isEqual = objc_msgSend_isEqual_(v9);
         }
       }
     }
 
     else
     {
-      v12 = 0;
+      isEqual = 0;
     }
   }
 
-  return v12;
+  return isEqual;
 }
 
 - (id)description

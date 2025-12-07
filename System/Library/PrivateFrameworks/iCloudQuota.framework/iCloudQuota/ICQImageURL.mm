@@ -15,7 +15,7 @@
   v5 = [(ICQImageURL *)&v13 init];
   if (v5)
   {
-    v6 = [dictionaryCopy objectForKeyedSubscript:@"1x"];
+    v6 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -23,7 +23,7 @@
       [(ICQImageURL *)v5 setURL1x:v7];
     }
 
-    v8 = [dictionaryCopy objectForKeyedSubscript:@"2x"];
+    v8 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -31,7 +31,7 @@
       [(ICQImageURL *)v5 setURL2x:v9];
     }
 
-    v10 = [dictionaryCopy objectForKeyedSubscript:@"3x"];
+    v10 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {

@@ -107,36 +107,34 @@ LABEL_12:
 
 void __32__HMDSettingModel_hmbProperties__block_invoke()
 {
-  v12[8] = *MEMORY[0x277D85DE8];
-  v11[0] = @"type";
+  v11[8] = *MEMORY[0x277D85DE8];
+  v10[0] = @"type";
   v0 = [MEMORY[0x277D170B8] fieldWithClass:objc_opt_class()];
-  v12[0] = v0;
-  v11[1] = @"properties";
+  v11[0] = v0;
+  v10[1] = @"properties";
   v1 = [MEMORY[0x277D170B8] fieldWithClass:objc_opt_class()];
-  v12[1] = v1;
-  v11[2] = @"name";
+  v11[1] = v1;
+  v10[2] = @"name";
   v2 = [MEMORY[0x277D170B8] fieldWithClass:objc_opt_class()];
-  v12[2] = v2;
-  v11[3] = @"numberValue";
+  v11[2] = v2;
+  v10[3] = @"numberValue";
   v3 = [MEMORY[0x277D170B8] fieldWithClass:objc_opt_class()];
-  v12[3] = v3;
-  v11[4] = @"stringValue";
+  v11[3] = v3;
+  v10[4] = @"stringValue";
   v4 = [MEMORY[0x277D170B8] fieldWithClass:objc_opt_class()];
-  v12[4] = v4;
-  v11[5] = @"dataValue";
+  v11[4] = v4;
+  v10[5] = @"dataValue";
   v5 = [MEMORY[0x277D170B8] fieldWithClass:objc_opt_class()];
-  v12[5] = v5;
-  v11[6] = @"selectionIdentifier";
+  v11[5] = v5;
+  v10[6] = @"selectionIdentifier";
   v6 = [MEMORY[0x277D170B8] fieldWithClass:objc_opt_class()];
-  v12[6] = v6;
-  v11[7] = @"selectionValue";
+  v11[6] = v6;
+  v10[7] = @"selectionValue";
   v7 = [MEMORY[0x277D170B8] fieldWithClass:objc_opt_class()];
-  v12[7] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:8];
+  v11[7] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:8];
   v9 = hmbProperties__properties_38916;
   hmbProperties__properties_38916 = v8;
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 @end

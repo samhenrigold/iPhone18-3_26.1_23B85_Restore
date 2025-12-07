@@ -34,13 +34,13 @@
 
 - (CMIOExtensionSessionDualStream)initWithPrimaryStream:(id)stream secondaryStream:(id)secondaryStream
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   if (stream && secondaryStream)
   {
     v6 = *(stream + 3);
-    v16.receiver = self;
-    v16.super_class = CMIOExtensionSessionDualStream;
-    v7 = -[CMIOExtensionSessionStream initWithPropertyStates:provider:](&v16, sel_initWithPropertyStates_provider_, v6, [stream provider]);
+    v17.receiver = self;
+    v17.super_class = CMIOExtensionSessionDualStream;
+    v7 = -[CMIOExtensionSessionStream initWithPropertyStates:provider:](&v17, sel_initWithPropertyStates_provider_, v6, [stream provider]);
     if (v7)
     {
       v7->_primaryStream = stream;
@@ -57,7 +57,8 @@
       v7->super._availableProperties = [v10 copy];
       v7->super._streamID = [MEMORY[0x277CCAD78] UUID];
 
-      v7->super._description = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"<CMIOExtensionSessionDualStream: ID %@>", v7->super._streamID];
+      v11 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"<CMIOExtensionSessionDualStream: ID %@>", v7->super._streamID];
+      v7->super._description = v11;
       if (CMIOModuleLogLevel_once != -1)
       {
         [CMIOExtensionSessionStream initWithPropertyStates:provider:];
@@ -65,22 +66,22 @@
 
       if (CMIOModuleLogLevel_cmioLevel >= 1)
       {
-        v11 = CMIOLog();
-        if (v11)
+        v13 = CMIOLog(v11, v12);
+        if (v13)
         {
-          v12 = v11;
-          if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+          v14 = v13;
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
           {
-            v13 = CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionSession.m");
+            v15 = CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionSession.m");
             *buf = 136315906;
-            v18 = v13;
-            v19 = 1024;
-            v20 = 485;
-            v21 = 2080;
-            v22 = "[CMIOExtensionSessionDualStream initWithPrimaryStream:secondaryStream:]";
-            v23 = 2112;
-            v24 = v7;
-            _os_log_impl(&dword_22EA08000, v12, OS_LOG_TYPE_DEFAULT, "%s:%d:%s %@", buf, 0x26u);
+            v19 = v15;
+            v20 = 1024;
+            v21 = 485;
+            v22 = 2080;
+            v23 = "[CMIOExtensionSessionDualStream initWithPrimaryStream:secondaryStream:]";
+            v24 = 2112;
+            v25 = v7;
+            _os_log_impl(&dword_22EA08000, v14, OS_LOG_TYPE_DEFAULT, "%s:%d:%s %@", buf, 0x26u);
           }
         }
       }
@@ -91,10 +92,9 @@
   {
 
     [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:@"Invalid argument"];
-    v7 = 0;
+    return 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -163,11 +163,11 @@ LABEL_7:
   os_unfair_lock_unlock(&self->super._lock);
 }
 
-void __47__CMIOExtensionSessionDualStream_selectStream___block_invoke(uint64_t a1, uint64_t a2)
+void __47__CMIOExtensionSessionDualStream_selectStream___block_invoke(uint64_t result, uint64_t a2)
 {
   if (a2)
   {
-    v2 = CMIOLog();
+    v2 = CMIOLog(result, a2);
     if (v2)
     {
       if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
@@ -178,11 +178,11 @@ void __47__CMIOExtensionSessionDualStream_selectStream___block_invoke(uint64_t a
   }
 }
 
-void __47__CMIOExtensionSessionDualStream_selectStream___block_invoke_134(uint64_t a1, uint64_t a2)
+void __47__CMIOExtensionSessionDualStream_selectStream___block_invoke_134(uint64_t result, uint64_t a2)
 {
   if (a2)
   {
-    v2 = CMIOLog();
+    v2 = CMIOLog(result, a2);
     if (v2)
     {
       if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
@@ -195,7 +195,7 @@ void __47__CMIOExtensionSessionDualStream_selectStream___block_invoke_134(uint64
 
 - (void)updatePropertyStates:(id)states streamID:(id)d
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (CMIOModuleLogLevel_once != -1)
   {
     [CMIOExtensionSessionStream dealloc];
@@ -203,21 +203,21 @@ void __47__CMIOExtensionSessionDualStream_selectStream___block_invoke_134(uint64
 
   if (CMIOModuleLogLevel_cmioLevel >= 1)
   {
-    v7 = CMIOLog();
+    v7 = CMIOLog(self, a2);
     if (v7)
     {
       v8 = v7;
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = 136315906;
-        v12 = CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionSession.m");
-        v13 = 1024;
-        v14 = 579;
-        v15 = 2080;
-        v16 = "[CMIOExtensionSessionDualStream updatePropertyStates:streamID:]";
-        v17 = 2112;
+        v10 = 136315906;
+        v11 = CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionSession.m");
+        v12 = 1024;
+        v13 = 579;
+        v14 = 2080;
+        v15 = "[CMIOExtensionSessionDualStream updatePropertyStates:streamID:]";
+        v16 = 2112;
         selfCopy = self;
-        _os_log_impl(&dword_22EA08000, v8, OS_LOG_TYPE_DEFAULT, "%s:%d:%s %@", &v11, 0x26u);
+        _os_log_impl(&dword_22EA08000, v8, OS_LOG_TYPE_DEFAULT, "%s:%d:%s %@", &v10, 0x26u);
       }
     }
   }
@@ -227,13 +227,11 @@ void __47__CMIOExtensionSessionDualStream_selectStream___block_invoke_134(uint64
   {
     [(CMIOExtensionSessionStream *)*p_primaryStream updatePropertyStates:states streamID:d];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)receivedSample:(id)sample streamID:(id)d
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (CMIOModuleLogLevel_once != -1)
   {
     [CMIOExtensionSessionStream dealloc];
@@ -241,23 +239,23 @@ void __47__CMIOExtensionSessionDualStream_selectStream___block_invoke_134(uint64
 
   if (CMIOModuleLogLevel_cmioLevel >= 1)
   {
-    v7 = CMIOLog();
+    v7 = CMIOLog(self, a2);
     if (v7)
     {
       v8 = v7;
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = 136316162;
-        v12 = CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionSession.m");
-        v13 = 1024;
-        v14 = 591;
-        v15 = 2080;
-        v16 = "[CMIOExtensionSessionDualStream receivedSample:streamID:]";
-        v17 = 2112;
+        v10 = 136316162;
+        v11 = CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionSession.m");
+        v12 = 1024;
+        v13 = 591;
+        v14 = 2080;
+        v15 = "[CMIOExtensionSessionDualStream receivedSample:streamID:]";
+        v16 = 2112;
         selfCopy = self;
-        v19 = 2112;
+        v18 = 2112;
         sampleCopy = sample;
-        _os_log_impl(&dword_22EA08000, v8, OS_LOG_TYPE_DEFAULT, "%s:%d:%s %@, sample %@", &v11, 0x30u);
+        _os_log_impl(&dword_22EA08000, v8, OS_LOG_TYPE_DEFAULT, "%s:%d:%s %@, sample %@", &v10, 0x30u);
       }
     }
   }
@@ -267,13 +265,11 @@ void __47__CMIOExtensionSessionDualStream_selectStream___block_invoke_134(uint64
   {
     [(CMIOExtensionSessionStream *)*p_primaryStream receivedSample:sample streamID:d];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)copySample:(BOOL *)sample streamID:(id)d error:(id *)error
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (CMIOModuleLogLevel_once != -1)
   {
     [CMIOExtensionSessionStream dealloc];
@@ -281,21 +277,21 @@ void __47__CMIOExtensionSessionDualStream_selectStream___block_invoke_134(uint64
 
   if (CMIOModuleLogLevel_cmioLevel >= 1)
   {
-    v9 = CMIOLog();
+    v9 = CMIOLog(self, a2);
     if (v9)
     {
       v10 = v9;
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = 136315906;
-        v15 = CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionSession.m");
-        v16 = 1024;
-        v17 = 603;
-        v18 = 2080;
-        v19 = "[CMIOExtensionSessionDualStream copySample:streamID:error:]";
-        v20 = 2112;
+        v13 = 136315906;
+        v14 = CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionSession.m");
+        v15 = 1024;
+        v16 = 603;
+        v17 = 2080;
+        v18 = "[CMIOExtensionSessionDualStream copySample:streamID:error:]";
+        v19 = 2112;
         selfCopy = self;
-        _os_log_impl(&dword_22EA08000, v10, OS_LOG_TYPE_DEFAULT, "%s:%d:%s %@", &v14, 0x26u);
+        _os_log_impl(&dword_22EA08000, v10, OS_LOG_TYPE_DEFAULT, "%s:%d:%s %@", &v13, 0x26u);
       }
     }
   }
@@ -303,23 +299,26 @@ void __47__CMIOExtensionSessionDualStream_selectStream___block_invoke_134(uint64
   *sample = 0;
   *error = 0;
   p_primaryStream = &self->_primaryStream;
-  if (([(NSString *)[(NSUUID *)[(CMIOExtensionSessionStream *)self->_primaryStream streamID] UUIDString] isEqual:d]& 1) != 0 || (p_primaryStream = &self->_secondaryStream, [(NSString *)[(NSUUID *)[(CMIOExtensionSessionStream *)self->_secondaryStream streamID] UUIDString] isEqual:d]))
+  if (([(NSString *)[(NSUUID *)[(CMIOExtensionSessionStream *)self->_primaryStream streamID] UUIDString] isEqual:d]& 1) != 0)
   {
-    result = [(CMIOExtensionSessionStream *)*p_primaryStream copySample:sample streamID:d error:error];
+    return [(CMIOExtensionSessionStream *)*p_primaryStream copySample:sample streamID:d error:error];
+  }
+
+  p_primaryStream = &self->_secondaryStream;
+  if ([(NSString *)[(NSUUID *)[(CMIOExtensionSessionStream *)self->_secondaryStream streamID] UUIDString] isEqual:d])
+  {
+    return [(CMIOExtensionSessionStream *)*p_primaryStream copySample:sample streamID:d error:error];
   }
 
   else
   {
-    result = 0;
+    return 0;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 - (void)receivedScheduledOutput:(id)output streamID:(id)d
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (CMIOModuleLogLevel_once != -1)
   {
     [CMIOExtensionSessionStream dealloc];
@@ -327,21 +326,21 @@ void __47__CMIOExtensionSessionDualStream_selectStream___block_invoke_134(uint64
 
   if (CMIOModuleLogLevel_cmioLevel >= 1)
   {
-    v7 = CMIOLog();
+    v7 = CMIOLog(self, a2);
     if (v7)
     {
       v8 = v7;
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = 136315906;
-        v12 = CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionSession.m");
-        v13 = 1024;
-        v14 = 619;
-        v15 = 2080;
-        v16 = "[CMIOExtensionSessionDualStream receivedScheduledOutput:streamID:]";
-        v17 = 2112;
+        v10 = 136315906;
+        v11 = CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionSession.m");
+        v12 = 1024;
+        v13 = 619;
+        v14 = 2080;
+        v15 = "[CMIOExtensionSessionDualStream receivedScheduledOutput:streamID:]";
+        v16 = 2112;
         selfCopy = self;
-        _os_log_impl(&dword_22EA08000, v8, OS_LOG_TYPE_DEFAULT, "%s:%d:%s %@", &v11, 0x26u);
+        _os_log_impl(&dword_22EA08000, v8, OS_LOG_TYPE_DEFAULT, "%s:%d:%s %@", &v10, 0x26u);
       }
     }
   }
@@ -351,8 +350,6 @@ void __47__CMIOExtensionSessionDualStream_selectStream___block_invoke_134(uint64
   {
     [(CMIOExtensionSessionStream *)*p_primaryStream receivedScheduledOutput:output streamID:d];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)delegate
@@ -380,6 +377,38 @@ void __47__CMIOExtensionSessionDualStream_selectStream___block_invoke_134(uint64
 
 - (id)cachedPropertyStatesForProperties:(id)properties
 {
+  v16 = *MEMORY[0x277D85DE8];
+  if (CMIOModuleLogLevel_once != -1)
+  {
+    [CMIOExtensionSessionStream dealloc];
+  }
+
+  if (CMIOModuleLogLevel_cmioLevel >= 1)
+  {
+    v5 = CMIOLog(self, a2);
+    if (v5)
+    {
+      v6 = v5;
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      {
+        v8 = 136315906;
+        v9 = CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionSession.m");
+        v10 = 1024;
+        v11 = 656;
+        v12 = 2080;
+        v13 = "[CMIOExtensionSessionDualStream cachedPropertyStatesForProperties:]";
+        v14 = 2112;
+        selfCopy = self;
+        _os_log_impl(&dword_22EA08000, v6, OS_LOG_TYPE_DEFAULT, "%s:%d:%s %@", &v8, 0x26u);
+      }
+    }
+  }
+
+  return [(CMIOExtensionSessionStream *)[(CMIOExtensionSessionDualStream *)self activeStream] cachedPropertyStatesForProperties:properties];
+}
+
+- (void)propertyStatesForProperties:(id)properties reply:(id)reply
+{
   v17 = *MEMORY[0x277D85DE8];
   if (CMIOModuleLogLevel_once != -1)
   {
@@ -388,66 +417,31 @@ void __47__CMIOExtensionSessionDualStream_selectStream___block_invoke_134(uint64
 
   if (CMIOModuleLogLevel_cmioLevel >= 1)
   {
-    v5 = CMIOLog();
-    if (v5)
-    {
-      v6 = v5;
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
-      {
-        v9 = 136315906;
-        v10 = CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionSession.m");
-        v11 = 1024;
-        v12 = 656;
-        v13 = 2080;
-        v14 = "[CMIOExtensionSessionDualStream cachedPropertyStatesForProperties:]";
-        v15 = 2112;
-        selfCopy = self;
-        _os_log_impl(&dword_22EA08000, v6, OS_LOG_TYPE_DEFAULT, "%s:%d:%s %@", &v9, 0x26u);
-      }
-    }
-  }
-
-  result = [(CMIOExtensionSessionStream *)[(CMIOExtensionSessionDualStream *)self activeStream] cachedPropertyStatesForProperties:properties];
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-- (void)propertyStatesForProperties:(id)properties reply:(id)reply
-{
-  v18 = *MEMORY[0x277D85DE8];
-  if (CMIOModuleLogLevel_once != -1)
-  {
-    [CMIOExtensionSessionStream dealloc];
-  }
-
-  if (CMIOModuleLogLevel_cmioLevel >= 1)
-  {
-    v7 = CMIOLog();
+    v7 = CMIOLog(self, a2);
     if (v7)
     {
       v8 = v7;
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = 136315906;
-        v11 = CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionSession.m");
-        v12 = 1024;
-        v13 = 663;
-        v14 = 2080;
-        v15 = "[CMIOExtensionSessionDualStream propertyStatesForProperties:reply:]";
-        v16 = 2112;
+        v9 = 136315906;
+        v10 = CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionSession.m");
+        v11 = 1024;
+        v12 = 663;
+        v13 = 2080;
+        v14 = "[CMIOExtensionSessionDualStream propertyStatesForProperties:reply:]";
+        v15 = 2112;
         selfCopy = self;
-        _os_log_impl(&dword_22EA08000, v8, OS_LOG_TYPE_DEFAULT, "%s:%d:%s %@", &v10, 0x26u);
+        _os_log_impl(&dword_22EA08000, v8, OS_LOG_TYPE_DEFAULT, "%s:%d:%s %@", &v9, 0x26u);
       }
     }
   }
 
   [(CMIOExtensionSessionStream *)[(CMIOExtensionSessionDualStream *)self activeStream] propertyStatesForProperties:properties reply:reply];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setPropertyValues:(id)values reply:(id)reply
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if (CMIOModuleLogLevel_once != -1)
   {
     [CMIOExtensionSessionStream dealloc];
@@ -455,23 +449,23 @@ void __47__CMIOExtensionSessionDualStream_selectStream___block_invoke_134(uint64
 
   if (CMIOModuleLogLevel_cmioLevel >= 1)
   {
-    v7 = CMIOLog();
+    v7 = CMIOLog(self, a2);
     if (v7)
     {
       v8 = v7;
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = 136316162;
-        v15 = CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionSession.m");
-        v16 = 1024;
-        v17 = 670;
-        v18 = 2080;
-        v19 = "[CMIOExtensionSessionDualStream setPropertyValues:reply:]";
-        v20 = 2112;
+        v13 = 136316162;
+        v14 = CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionSession.m");
+        v15 = 1024;
+        v16 = 670;
+        v17 = 2080;
+        v18 = "[CMIOExtensionSessionDualStream setPropertyValues:reply:]";
+        v19 = 2112;
         selfCopy = self;
-        v22 = 2112;
+        v21 = 2112;
         valuesCopy = values;
-        _os_log_impl(&dword_22EA08000, v8, OS_LOG_TYPE_DEFAULT, "%s:%d:%s %@, propertyValues %@", &v14, 0x30u);
+        _os_log_impl(&dword_22EA08000, v8, OS_LOG_TYPE_DEFAULT, "%s:%d:%s %@, propertyValues %@", &v13, 0x30u);
       }
     }
   }
@@ -496,17 +490,17 @@ void __47__CMIOExtensionSessionDualStream_selectStream___block_invoke_134(uint64
 
     if ([v11 length] == 1)
     {
-      LOBYTE(v14) = 0;
-      [v11 getBytes:&v14 length:1];
-      unsignedIntegerValue = v14;
+      LOBYTE(v13) = 0;
+      [v11 getBytes:&v13 length:1];
+      unsignedIntegerValue = v13;
       goto LABEL_16;
     }
 
     if ([v11 length] == 4)
     {
-      v14 = 0;
-      [v11 getBytes:&v14 length:4];
-      unsignedIntegerValue = v14;
+      v13 = 0;
+      [v11 getBytes:&v13 length:4];
+      unsignedIntegerValue = v13;
     }
 
     else
@@ -525,7 +519,6 @@ LABEL_16:
   }
 
   [(CMIOExtensionSessionStream *)activeStream setPropertyValues:values reply:reply];
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)formats
@@ -551,7 +544,7 @@ LABEL_16:
 
 - (void)setActiveFormatIndex:(unint64_t)index reply:(id)reply
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (CMIOModuleLogLevel_once != -1)
   {
     [CMIOExtensionSessionStream dealloc];
@@ -559,34 +552,33 @@ LABEL_16:
 
   if (CMIOModuleLogLevel_cmioLevel >= 1)
   {
-    v7 = CMIOLog();
+    v7 = CMIOLog(self, a2);
     if (v7)
     {
       v8 = v7;
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = 136316162;
-        v11 = CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionSession.m");
-        v12 = 1024;
-        v13 = 722;
-        v14 = 2080;
-        v15 = "[CMIOExtensionSessionDualStream setActiveFormatIndex:reply:]";
-        v16 = 2112;
+        v9 = 136316162;
+        v10 = CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionSession.m");
+        v11 = 1024;
+        v12 = 722;
+        v13 = 2080;
+        v14 = "[CMIOExtensionSessionDualStream setActiveFormatIndex:reply:]";
+        v15 = 2112;
         selfCopy = self;
-        v18 = 1024;
+        v17 = 1024;
         indexCopy = index;
-        _os_log_impl(&dword_22EA08000, v8, OS_LOG_TYPE_DEFAULT, "%s:%d:%s %@, %d", &v10, 0x2Cu);
+        _os_log_impl(&dword_22EA08000, v8, OS_LOG_TYPE_DEFAULT, "%s:%d:%s %@, %d", &v9, 0x2Cu);
       }
     }
   }
 
   [(CMIOExtensionSessionStream *)[(CMIOExtensionSessionDualStream *)self activeStream] setActiveFormatIndex:index reply:reply];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startStream:(id)stream
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (CMIOModuleLogLevel_once != -1)
   {
     [CMIOExtensionSessionStream dealloc];
@@ -594,32 +586,31 @@ LABEL_16:
 
   if (CMIOModuleLogLevel_cmioLevel >= 1)
   {
-    v5 = CMIOLog();
+    v5 = CMIOLog(self, a2);
     if (v5)
     {
       v6 = v5;
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
-        v8 = 136315906;
-        v9 = CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionSession.m");
-        v10 = 1024;
-        v11 = 729;
-        v12 = 2080;
-        v13 = "[CMIOExtensionSessionDualStream startStream:]";
-        v14 = 2112;
+        v7 = 136315906;
+        v8 = CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionSession.m");
+        v9 = 1024;
+        v10 = 729;
+        v11 = 2080;
+        v12 = "[CMIOExtensionSessionDualStream startStream:]";
+        v13 = 2112;
         selfCopy = self;
-        _os_log_impl(&dword_22EA08000, v6, OS_LOG_TYPE_DEFAULT, "%s:%d:%s %@", &v8, 0x26u);
+        _os_log_impl(&dword_22EA08000, v6, OS_LOG_TYPE_DEFAULT, "%s:%d:%s %@", &v7, 0x26u);
       }
     }
   }
 
   [(CMIOExtensionSessionStream *)[(CMIOExtensionSessionDualStream *)self activeStream] startStream:stream];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopStream:(id)stream
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (CMIOModuleLogLevel_once != -1)
   {
     [CMIOExtensionSessionStream dealloc];
@@ -627,27 +618,26 @@ LABEL_16:
 
   if (CMIOModuleLogLevel_cmioLevel >= 1)
   {
-    v5 = CMIOLog();
+    v5 = CMIOLog(self, a2);
     if (v5)
     {
       v6 = v5;
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
-        v8 = 136315906;
-        v9 = CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionSession.m");
-        v10 = 1024;
-        v11 = 736;
-        v12 = 2080;
-        v13 = "[CMIOExtensionSessionDualStream stopStream:]";
-        v14 = 2112;
+        v7 = 136315906;
+        v8 = CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionSession.m");
+        v9 = 1024;
+        v10 = 736;
+        v11 = 2080;
+        v12 = "[CMIOExtensionSessionDualStream stopStream:]";
+        v13 = 2112;
         selfCopy = self;
-        _os_log_impl(&dword_22EA08000, v6, OS_LOG_TYPE_DEFAULT, "%s:%d:%s %@", &v8, 0x26u);
+        _os_log_impl(&dword_22EA08000, v6, OS_LOG_TYPE_DEFAULT, "%s:%d:%s %@", &v7, 0x26u);
       }
     }
   }
 
   [(CMIOExtensionSessionStream *)[(CMIOExtensionSessionDualStream *)self activeStream] stopStream:stream];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)completeTransaction
@@ -660,27 +650,23 @@ LABEL_16:
 void __47__CMIOExtensionSessionDualStream_selectStream___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionSession.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __47__CMIOExtensionSessionDualStream_selectStream___block_invoke_134_cold_1()
 {
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionSession.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

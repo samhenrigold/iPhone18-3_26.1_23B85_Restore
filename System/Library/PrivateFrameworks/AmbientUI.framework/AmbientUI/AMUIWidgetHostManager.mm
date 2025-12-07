@@ -57,59 +57,57 @@
 
 - (void)homeScreenUsageAggregator:(id)aggregator didNoteWidgetIconAdded:(id)added
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   addedCopy = added;
   aggregatorCopy = aggregator;
-  v8 = AMUILogWidgets();
+  v8 = AMUILogWidgets(aggregatorCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     widgets = [addedCopy widgets];
-    v12 = 138412290;
-    v13 = widgets;
-    _os_log_impl(&dword_23F38B000, v8, OS_LOG_TYPE_DEFAULT, "Widget icon added: %@", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = widgets;
+    _os_log_impl(&dword_23F38B000, v8, OS_LOG_TYPE_DEFAULT, "Widget icon added: %@", &v11, 0xCu);
   }
 
   iconManager = [aggregatorCopy iconManager];
 
   [(AMUIWidgetHostManager *)self _rebuildAndTransmitConfiguredWidgetData:iconManager];
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)homeScreenUsageAggregator:(id)aggregator didNoteWidgetIconRemoved:(id)removed
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   removedCopy = removed;
   aggregatorCopy = aggregator;
-  v8 = AMUILogWidgets();
+  v8 = AMUILogWidgets(aggregatorCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     widgets = [removedCopy widgets];
-    v12 = 138412290;
-    v13 = widgets;
-    _os_log_impl(&dword_23F38B000, v8, OS_LOG_TYPE_DEFAULT, "Widget icon removed: %@", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = widgets;
+    _os_log_impl(&dword_23F38B000, v8, OS_LOG_TYPE_DEFAULT, "Widget icon removed: %@", &v11, 0xCu);
   }
 
   iconManager = [aggregatorCopy iconManager];
 
   [(AMUIWidgetHostManager *)self _rebuildAndTransmitConfiguredWidgetData:iconManager];
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)homeScreenUsageAggregator:(id)aggregator didNoteWidgetIconStackChangedActiveWidget:(id)widget
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   widgetCopy = widget;
   aggregatorCopy = aggregator;
-  v8 = AMUILogWidgets();
+  v8 = AMUILogWidgets(aggregatorCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     activeDataSource = [widgetCopy activeDataSource];
     widgets = [widgetCopy widgets];
-    v14 = 138412546;
-    v15 = activeDataSource;
-    v16 = 2112;
-    v17 = widgets;
-    _os_log_impl(&dword_23F38B000, v8, OS_LOG_TYPE_DEFAULT, "Widget icon stack changed active widget: %@ all widgets: %@", &v14, 0x16u);
+    v13 = 138412546;
+    v14 = activeDataSource;
+    v15 = 2112;
+    v16 = widgets;
+    _os_log_impl(&dword_23F38B000, v8, OS_LOG_TYPE_DEFAULT, "Widget icon stack changed active widget: %@ all widgets: %@", &v13, 0x16u);
   }
 
   iconManager = [aggregatorCopy iconManager];
@@ -117,77 +115,67 @@
   [(AMUIWidgetHostManager *)self _rebuildAndTransmitConfiguredWidgetData:iconManager];
   delegate = [(AMUIWidgetHostManager *)self delegate];
   [delegate widgetHostManager:self didNoteStackChangedActiveWidget:widgetCopy];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)homeScreenUsageAggregator:(id)aggregator didNoteUserAddedWidgetIconStackSuggestion:(id)suggestion
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   suggestionCopy = suggestion;
-  v5 = AMUILogWidgets();
+  v5 = AMUILogWidgets(suggestionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     widgets = [suggestionCopy widgets];
-    v8 = 138412290;
-    v9 = widgets;
-    _os_log_impl(&dword_23F38B000, v5, OS_LOG_TYPE_DEFAULT, "Widget icon stack noted user added suggestion: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = widgets;
+    _os_log_impl(&dword_23F38B000, v5, OS_LOG_TYPE_DEFAULT, "Widget icon stack noted user added suggestion: %@", &v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)homeScreenUsageAggregator:(id)aggregator didNoteUserDislikedWidgetIconStackSuggestion:(id)suggestion
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   suggestionCopy = suggestion;
-  v5 = AMUILogWidgets();
+  v5 = AMUILogWidgets(suggestionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     widgets = [suggestionCopy widgets];
-    v8 = 138412290;
-    v9 = widgets;
-    _os_log_impl(&dword_23F38B000, v5, OS_LOG_TYPE_DEFAULT, "Widget icon stack noted user dislike of suggestion: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = widgets;
+    _os_log_impl(&dword_23F38B000, v5, OS_LOG_TYPE_DEFAULT, "Widget icon stack noted user dislike of suggestion: %@", &v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)homeScreenUsageAggregator:(id)aggregator didNoteUserDislikedSiriSuggestionOnWidgetIconStackSuggestion:(id)suggestion
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   suggestionCopy = suggestion;
-  v5 = AMUILogWidgets();
+  v5 = AMUILogWidgets(suggestionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     widgets = [suggestionCopy widgets];
-    v8 = 138412290;
-    v9 = widgets;
-    _os_log_impl(&dword_23F38B000, v5, OS_LOG_TYPE_DEFAULT, "Widget icon stack noted dislike of Siri Suggestion on suggestion: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = widgets;
+    _os_log_impl(&dword_23F38B000, v5, OS_LOG_TYPE_DEFAULT, "Widget icon stack noted dislike of Siri Suggestion on suggestion: %@", &v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)homeScreenUsageAggregator:(id)aggregator didNoteUserTappedWidgetIcon:(id)icon withURL:(id)l
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   iconCopy = icon;
-  v6 = AMUILogWidgets();
+  v6 = AMUILogWidgets(iconCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     widgets = [iconCopy widgets];
-    v9 = 138412290;
-    v10 = widgets;
-    _os_log_impl(&dword_23F38B000, v6, OS_LOG_TYPE_DEFAULT, "Widget icon tapped: %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = widgets;
+    _os_log_impl(&dword_23F38B000, v6, OS_LOG_TYPE_DEFAULT, "Widget icon tapped: %@", &v8, 0xCu);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)homeScreenUsageAggregatorAddWidgetSheetWillPresent:(id)present
 {
-  v4 = AMUILogWidgets();
+  v4 = AMUILogWidgets(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v8 = 0;
@@ -218,29 +206,28 @@
 
 void __65__AMUIWidgetHostManager__rebuildAndTransmitConfiguredWidgetData___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 48);
   if (v2 == [*(a1 + 32) widgetDataGeneration])
   {
     v3 = [MEMORY[0x277CBEB18] array];
     v4 = [*(a1 + 40) rootFolder];
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __65__AMUIWidgetHostManager__rebuildAndTransmitConfiguredWidgetData___block_invoke_2;
-    v16[3] = &unk_278C76248;
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __65__AMUIWidgetHostManager__rebuildAndTransmitConfiguredWidgetData___block_invoke_2;
+    v15[3] = &unk_278C76248;
     v5 = v4;
     v6 = *(a1 + 32);
-    v17 = v5;
-    v18 = v6;
+    v16 = v5;
+    v17 = v6;
     v7 = v3;
-    v19 = v7;
-    [v5 enumerateAllIconsWithOptions:2 usingBlock:v16];
-    v8 = AMUILogWidgets();
+    v18 = v7;
+    v8 = AMUILogWidgets([v5 enumerateAllIconsWithOptions:2 usingBlock:v15]);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9 = [*(a1 + 32) _descriptionForArray:v7 name:@"containers"];
       *buf = 138412290;
-      v21 = v9;
+      v20 = v9;
       _os_log_impl(&dword_23F38B000, v8, OS_LOG_TYPE_DEFAULT, "Configured widgets changed: %@", buf, 0xCu);
     }
 
@@ -263,8 +250,6 @@ void __65__AMUIWidgetHostManager__rebuildAndTransmitConfiguredWidgetData___block
 
     [*(*(a1 + 32) + 16) setConfiguration:v13];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __65__AMUIWidgetHostManager__rebuildAndTransmitConfiguredWidgetData___block_invoke_2(id *a1, void *a2, void *a3)
@@ -322,35 +307,35 @@ void __65__AMUIWidgetHostManager__rebuildAndTransmitConfiguredWidgetData___block
 
 - (id)_containerDescriptorForWidgetIcon:(id)icon atLocation:(int64_t)location page:(unint64_t)page
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   iconCopy = icon;
   array = [MEMORY[0x277CBEB18] array];
   gridSizeClass = [iconCopy gridSizeClass];
-  v42 = CHSWidgetFamilyForSBHIconGridSizeClass();
+  v41 = CHSWidgetFamilyForSBHIconGridSizeClass();
   widgets = [iconCopy widgets];
   activeWidget = [iconCopy activeWidget];
   uniqueIdentifier = [activeWidget uniqueIdentifier];
 
-  v47 = 0u;
-  v48 = 0u;
-  v45 = 0u;
   v46 = 0u;
+  v47 = 0u;
+  v44 = 0u;
+  v45 = 0u;
   obj = widgets;
-  v44 = [obj countByEnumeratingWithState:&v45 objects:v52 count:16];
-  if (v44)
+  v43 = [obj countByEnumeratingWithState:&v44 objects:v51 count:16];
+  if (v43)
   {
-    v40 = *v46;
-    v41 = iconCopy;
+    v39 = *v45;
+    v40 = iconCopy;
     do
     {
-      for (i = 0; i != v44; ++i)
+      for (i = 0; i != v43; ++i)
       {
-        if (*v46 != v40)
+        if (*v45 != v39)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v45 + 1) + 8 * i);
+        v10 = *(*(&v44 + 1) + 8 * i);
         iconManager = [(AMUIWidgetHostManager *)self iconManager];
         v12 = [iconManager intentForWidget:v10 ofIcon:iconCopy];
 
@@ -358,7 +343,7 @@ void __65__AMUIWidgetHostManager__rebuildAndTransmitConfiguredWidgetData___block
         extensionBundleIdentifier = [v10 extensionBundleIdentifier];
         containerBundleIdentifier = [v10 containerBundleIdentifier];
         kind = [v10 kind];
-        v17 = [v13 initWithExtensionBundleIdentifier:extensionBundleIdentifier containerBundleIdentifier:containerBundleIdentifier kind:kind family:v42 intent:v12];
+        v17 = [v13 initWithExtensionBundleIdentifier:extensionBundleIdentifier containerBundleIdentifier:containerBundleIdentifier kind:kind family:v41 intent:v12];
 
         iconManager2 = [(AMUIWidgetHostManager *)self iconManager];
         widgetMetricsProvider = [iconManager2 widgetMetricsProvider];
@@ -373,9 +358,9 @@ void __65__AMUIWidgetHostManager__rebuildAndTransmitConfiguredWidgetData___block
         [v23 setSupportedColorSchemes:2];
         v24 = [objc_alloc(MEMORY[0x277CFA430]) initWithRenderingMode:1 backgroundViewPolicy:1];
         v25 = [objc_alloc(MEMORY[0x277CFA430]) initWithRenderingMode:0 backgroundViewPolicy:1];
-        v51[0] = v24;
-        v51[1] = v25;
-        v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v51 count:2];
+        v50[0] = v24;
+        v50[1] = v25;
+        v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v50 count:2];
         [v23 setSupportedRenderSchemes:v26];
 
         uniqueIdentifier3 = [v10 uniqueIdentifier];
@@ -395,23 +380,22 @@ void __65__AMUIWidgetHostManager__rebuildAndTransmitConfiguredWidgetData___block
         [v23 setRefreshStrategy:v29];
         if (v23)
         {
-          [array addObject:v23];
-          v30 = AMUILogWidgets();
+          v30 = AMUILogWidgets([array addObject:v23]);
           if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v50 = v23;
+            v49 = v23;
             _os_log_impl(&dword_23F38B000, v30, OS_LOG_TYPE_DEFAULT, "Found configured widget: %@", buf, 0xCu);
           }
         }
 
-        iconCopy = v41;
+        iconCopy = v40;
       }
 
-      v44 = [obj countByEnumeratingWithState:&v45 objects:v52 count:16];
+      v43 = [obj countByEnumeratingWithState:&v44 objects:v51 count:16];
     }
 
-    while (v44);
+    while (v43);
   }
 
   if ([array count])
@@ -427,8 +411,6 @@ void __65__AMUIWidgetHostManager__rebuildAndTransmitConfiguredWidgetData___block
     v34 = 0;
     v33 = uniqueIdentifier;
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 
   return v34;
 }

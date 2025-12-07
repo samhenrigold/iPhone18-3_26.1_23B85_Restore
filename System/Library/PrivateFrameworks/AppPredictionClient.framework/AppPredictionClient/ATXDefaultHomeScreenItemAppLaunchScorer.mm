@@ -94,40 +94,40 @@
     dispatch_once(&_appLaunchScoreForSleepWidget_onceToken, block);
   }
 
-  v10 = __atxlog_handle_home_screen();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  v11 = __atxlog_handle_home_screen(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
-    [(ATXDefaultHomeScreenItemAppLaunchScorer *)v10 _appLaunchScoreForSleepWidget];
+    [(ATXDefaultHomeScreenItemAppLaunchScorer *)v11 _appLaunchScoreForSleepWidget];
   }
 
-  v11 = _appLaunchScoreForSleepWidget_dateOfSleepOnboardingCompletion;
-  v12 = [ATXAggregatedAppLaunchData alloc];
-  if (v11)
+  v12 = _appLaunchScoreForSleepWidget_dateOfSleepOnboardingCompletion;
+  v13 = [ATXAggregatedAppLaunchData alloc];
+  if (v12)
   {
-    v13 = [(ATXAggregatedAppLaunchData *)v12 initWithRawLaunchCount:5 uniqueDaysLaunched:5];
+    v14 = [(ATXAggregatedAppLaunchData *)v13 initWithRawLaunchCount:5 uniqueDaysLaunched:5];
     currentCalendar = [MEMORY[0x1E695DEE8] currentCalendar];
-    v15 = [MEMORY[0x1E695DF00] now];
-    v16 = [currentCalendar dateByAddingUnit:16 value:-7 toDate:v15 options:0];
+    v16 = [MEMORY[0x1E695DF00] now];
+    v17 = [currentCalendar dateByAddingUnit:16 value:-7 toDate:v16 options:0];
 
-    if ([v16 compare:_appLaunchScoreForSleepWidget_dateOfSleepOnboardingCompletion] == -1)
+    if ([v17 compare:_appLaunchScoreForSleepWidget_dateOfSleepOnboardingCompletion] == -1)
     {
-      v17 = [[ATXAggregatedAppLaunchData alloc] initWithRawLaunchCount:2 * [(ATXAggregatedAppLaunchData *)v13 rawLaunchCount] uniqueDaysLaunched:2 * [(ATXAggregatedAppLaunchData *)v13 uniqueDaysLaunched]];
+      v18 = [[ATXAggregatedAppLaunchData alloc] initWithRawLaunchCount:2 * [(ATXAggregatedAppLaunchData *)v14 rawLaunchCount] uniqueDaysLaunched:2 * [(ATXAggregatedAppLaunchData *)v14 uniqueDaysLaunched]];
     }
 
     else
     {
-      v17 = v13;
+      v18 = v14;
     }
 
-    v18 = v17;
+    v19 = v18;
   }
 
   else
   {
-    v18 = [(ATXAggregatedAppLaunchData *)v12 initWithRawLaunchCount:0 uniqueDaysLaunched:0];
+    v19 = [(ATXAggregatedAppLaunchData *)v13 initWithRawLaunchCount:0 uniqueDaysLaunched:0];
   }
 
-  return v18;
+  return v19;
 }
 
 uint64_t __72__ATXDefaultHomeScreenItemAppLaunchScorer__appLaunchScoreForSleepWidget__block_invoke(uint64_t a1)
@@ -188,7 +188,7 @@ LABEL_8:
   return v13;
 }
 
-uint64_t __75__ATXDefaultHomeScreenItemAppLaunchScorer__appLaunchScoreForContactsWidget__block_invoke(uint64_t a1)
+void *__75__ATXDefaultHomeScreenItemAppLaunchScorer__appLaunchScoreForContactsWidget__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _contactsWidgetiCloudFamilyScore];
   _appLaunchScoreForContactsWidget_iCloudScore = v2;
@@ -197,39 +197,39 @@ uint64_t __75__ATXDefaultHomeScreenItemAppLaunchScorer__appLaunchScoreForContact
 
 - (double)_contactsWidgetiCloudFamilyScore
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v2 = objc_autoreleasePoolPush();
   v3 = objc_opt_new();
   fetchFamilyCircle = [v3 fetchFamilyCircle];
-  v5 = __atxlog_handle_home_screen();
+  v5 = __atxlog_handle_home_screen(fetchFamilyCircle);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v21 = *&fetchFamilyCircle;
+    v22 = *&fetchFamilyCircle;
     _os_log_impl(&dword_1BF549000, v5, OS_LOG_TYPE_DEFAULT, "Fetched family circle during scoring: %@", buf, 0xCu);
   }
 
-  v17 = 0u;
   v18 = 0u;
-  v15 = 0u;
+  v19 = 0u;
   v16 = 0u;
+  v17 = 0u;
   members = [fetchFamilyCircle members];
-  v7 = [members countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [members countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v17;
     v10 = 0.0;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(members);
         }
 
-        v12 = *(*(&v15 + 1) + 8 * i);
+        v12 = *(*(&v16 + 1) + 8 * i);
         if (([v12 isMe] & 1) == 0)
         {
           v10 = v10 + 5.0;
@@ -240,7 +240,7 @@ uint64_t __75__ATXDefaultHomeScreenItemAppLaunchScorer__appLaunchScoreForContact
         }
       }
 
-      v8 = [members countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [members countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v8);
@@ -251,12 +251,12 @@ uint64_t __75__ATXDefaultHomeScreenItemAppLaunchScorer__appLaunchScoreForContact
     v10 = 0.0;
   }
 
-  v13 = __atxlog_handle_home_screen();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v14 = __atxlog_handle_home_screen(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v21 = v10;
-    _os_log_impl(&dword_1BF549000, v13, OS_LOG_TYPE_DEFAULT, "Scored family circle: %f", buf, 0xCu);
+    v22 = v10;
+    _os_log_impl(&dword_1BF549000, v14, OS_LOG_TYPE_DEFAULT, "Scored family circle: %f", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
@@ -316,7 +316,7 @@ uint64_t __75__ATXDefaultHomeScreenItemAppLaunchScorer__appLaunchScoreForContact
 
           else
           {
-            v19 = __atxlog_handle_home_screen();
+            v19 = __atxlog_handle_home_screen(0);
             if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
             {
               *buf = v23;
@@ -442,10 +442,10 @@ uint64_t __75__ATXDefaultHomeScreenItemAppLaunchScorer__appLaunchScoreForContact
 
       if (v14)
       {
-        v15 = __atxlog_handle_home_screen();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+        v16 = __atxlog_handle_home_screen(v15);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
         {
-          [ATXDefaultHomeScreenItemAppLaunchScorer scoreWithCachedAppLaunchData:v15];
+          [ATXDefaultHomeScreenItemAppLaunchScorer scoreWithCachedAppLaunchData:v16];
         }
       }
 
@@ -476,9 +476,9 @@ uint64_t __75__ATXDefaultHomeScreenItemAppLaunchScorer__appLaunchScoreForContact
     _appLaunchScoreForSleepWidget = ;
   }
 
-  v16 = _appLaunchScoreForSleepWidget;
+  v17 = _appLaunchScoreForSleepWidget;
 
-  return v16;
+  return v17;
 }
 
 - (BOOL)isWidgetSpecialCase

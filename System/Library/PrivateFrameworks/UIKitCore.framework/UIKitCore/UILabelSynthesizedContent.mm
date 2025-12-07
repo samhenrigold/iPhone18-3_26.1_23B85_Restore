@@ -3,29 +3,29 @@
 
 @implementation UILabelSynthesizedContent
 
-uint64_t __58___UILabelSynthesizedContent__synthesizedAttributedString__block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
+void *__58___UILabelSynthesizedContent__synthesizedAttributedString__block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  result = [a2 isEqual:*(a1 + 32)];
+  result = objc_msgSend_isEqual_(a2, a2, *(a1 + 32));
   if (result)
   {
-    v8 = *(a1 + 40);
-    v9 = *off_1E70EC920;
+    v9 = *(a1 + 40);
+    v10 = *off_1E70EC920;
 
-    return [v8 removeAttribute:v9 range:{a3, a4}];
+    return [v9 removeAttribute:v10 range:{a3, a4}];
   }
 
   return result;
 }
 
-uint64_t __58___UILabelSynthesizedContent__synthesizedAttributedString__block_invoke_2(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
+void *__58___UILabelSynthesizedContent__synthesizedAttributedString__block_invoke_2(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  result = [a2 isEqual:*(a1 + 32)];
+  result = objc_msgSend_isEqual_(a2, a2, *(a1 + 32));
   if (result)
   {
-    v8 = *(a1 + 40);
-    v9 = *off_1E70EC9B0;
+    v9 = *(a1 + 40);
+    v10 = *off_1E70EC9B0;
 
-    return [v8 removeAttribute:v9 range:{a3, a4}];
+    return [v9 removeAttribute:v10 range:{a3, a4}];
   }
 
   return result;

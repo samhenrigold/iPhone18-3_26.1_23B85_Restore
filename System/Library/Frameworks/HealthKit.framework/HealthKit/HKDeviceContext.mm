@@ -135,7 +135,7 @@ LABEL_24:
 
       if (v8)
       {
-        [(HKDeviceContext *)v8 currentOSVersion];
+        objc_msgSend_currentOSVersion(v8);
       }
 
       else

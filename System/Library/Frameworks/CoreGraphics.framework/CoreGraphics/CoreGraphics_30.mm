@@ -1204,7 +1204,7 @@ LABEL_33:
             a7 = a6;
           }
 
-          v133 = v13 + 1;
+          v133 = (v13 + 1);
           do
           {
             v15 = v133;
@@ -1250,7 +1250,7 @@ LABEL_33:
               a8 = v136;
             }
 
-            v133 = v15 + 1;
+            v133 = (v15 + 1);
           }
 
           while (v9 != v19 || a7 >= a8);
@@ -1701,7 +1701,7 @@ LABEL_42:
     while (1)
     {
       v9 = v54;
-      v55 = (v54 + 1);
+      v55 = v54 + 1;
       if (i >= v55)
       {
         break;
@@ -1930,7 +1930,7 @@ LABEL_205:
     if (i < v9)
     {
 LABEL_210:
-      result = std::__introsort<std::_ClassicAlgPolicy,pathCreateCopyByClippingLineWithPath(ClipperLib::ClipType,CGPath const*,CGPath const*,BOOL)::$_0 &,ClipperLib::PolyNode **,false>(v13, v15 - 1, a3, a4 & 1);
+      result = std::__introsort<std::_ClassicAlgPolicy,pathCreateCopyByClippingLineWithPath(ClipperLib::ClipType,CGPath const*,CGPath const*,BOOL)::$_0 &,ClipperLib::PolyNode **,false>(v13, v15 - 1, a3, a4 & 1, a5, a6, a7, a8);
       a4 = 0;
     }
 
@@ -2070,45 +2070,37 @@ void *std::__hash_table<ClipperLib::PolyNode *,std::hash<ClipperLib::PolyNode *>
     return 0;
   }
 
-  result = *v8;
-  if (*v8)
+  for (result = *v8; result; result = *result)
   {
-    do
+    v10 = result[1];
+    if (v10 == v5)
     {
-      v10 = result[1];
-      if (v10 == v5)
+      if (result[2] == a3)
       {
-        if (result[2] == a3)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v6.u32[0] > 1uLL)
+      {
+        if (v10 >= a2)
         {
-          return result;
+          v10 %= a2;
         }
       }
 
       else
       {
-        if (v6.u32[0] > 1uLL)
-        {
-          if (v10 >= a2)
-          {
-            v10 %= a2;
-          }
-        }
-
-        else
-        {
-          v10 &= a2 - 1;
-        }
-
-        if (v10 != v7)
-        {
-          return 0;
-        }
+        v10 &= a2 - 1;
       }
 
-      result = *result;
+      if (v10 != v7)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
@@ -3010,10 +3002,10 @@ uint64_t std::__insertion_sort_incomplete[abi:fe200100]<std::_ClassicAlgPolicy,p
   if (v4 != 2)
   {
 LABEL_16:
-    v12 = result + 16;
+    v12 = (result + 16);
     result = std::__sort3[abi:fe200100]<std::_ClassicAlgPolicy,pathCreateCopyByClippingLineWithPath(ClipperLib::ClipType,CGPath const*,CGPath const*,BOOL)::$_0 &,ClipperLib::PolyNode **,0>(result, (result + 8), (result + 16));
-    v13 = v3 + 3;
-    if (v3 + 3 != a2)
+    v13 = (v3 + 24);
+    if ((v3 + 24) != a2)
     {
       v14 = 0;
       v15 = 0;
@@ -3297,8 +3289,10 @@ CFArrayRef CGPathCreateSeparateComponents(CGPathRef path, BOOL evenOddFillRule)
   {
     v8 = *v6;
     v12 = v14;
-    v11 = v13;
-    append_tree_path_component(v8, v19, &v12, &v11, Mutable);
+    v11[0] = *&v13.a;
+    v11[1] = *&v13.c;
+    v11[2] = *&v13.tx;
+    append_tree_path_component(v8, v19, &v12, v11, Mutable);
     ++v6;
   }
 
@@ -3589,7 +3583,7 @@ uint64_t rewind(void *a1)
   return result;
 }
 
-uint64_t read_bytes(void *a1, _BYTE *a2, uint64_t a3)
+uint64_t read_bytes(uint64_t *a1, _BYTE *a2, uint64_t a3)
 {
   v5 = a1[2];
   if (!v5)
@@ -3661,7 +3655,7 @@ uint64_t release_state(uint64_t result)
   return result;
 }
 
-uint64_t create_state(uint64_t a1)
+void *create_state(const void *a1, const void *a2)
 {
   if (a1)
   {
@@ -3724,31 +3718,31 @@ char *CGBufferStorage::Create(size_t a1, uint64_t a2)
       return result;
     }
 
-    v17 = result;
-    v22 = CGBufferStorage::FreeStorageExternalBuffer;
+    v10 = result;
+    v15 = CGBufferStorage::FreeStorageExternalBuffer;
     if ((v2 & 0x1000) != 0)
     {
-      v19 = 0;
-      LOBYTE(v18) = 0;
-      v21 = 0;
+      v12 = 0;
+      LOBYTE(v11) = 0;
+      v14 = 0;
     }
 
     else
     {
-      v21 = (a1 + v4 - 1) & -v4;
-      if (malloc_type_posix_memalign(&memptr, v4, v21, 0xAE694F5BuLL))
+      v14 = (a1 + v4 - 1) & -v4;
+      if (malloc_type_posix_memalign(&memptr, v4, v14, 0xAE694F5BuLL))
       {
-        free(v17);
+        free(v10);
         return 0;
       }
 
-      LOBYTE(v18) = 0;
-      v22 = CGBufferStorage::FreeStorage;
-      v19 = memptr;
+      LOBYTE(v11) = 0;
+      v15 = CGBufferStorage::FreeStorage;
+      v12 = memptr;
     }
 
     v8 = 96;
-    result = v17;
+    result = v10;
     goto LABEL_20;
   }
 
@@ -3761,12 +3755,12 @@ char *CGBufferStorage::Create(size_t a1, uint64_t a2)
     return 0;
   }
 
-  v17 = v9;
-  v18 = (v2 & 0x200) >> 9;
-  v19 = &v9[(v6 >> 1) + 96];
+  v10 = v9;
+  v11 = (v2 & 0x200) >> 9;
+  v12 = &v9[(v6 >> 1) + 96];
   if ((v2 & 0x200) != 0)
   {
-    v19 = &v9[v6 >> 1];
+    v12 = &v9[v6 >> 1];
     result = &v9[v8 - (v6 >> 1) - 96];
   }
 
@@ -3775,9 +3769,9 @@ char *CGBufferStorage::Create(size_t a1, uint64_t a2)
     result = &v9[v6 >> 1];
   }
 
-  memptr = v19;
-  v21 = v7 - 96;
-  v22 = CGBufferStorage::UnMapStorage;
+  memptr = v12;
+  v14 = v7 - 96;
+  v15 = CGBufferStorage::UnMapStorage;
 LABEL_20:
   *(result + 10) = 0;
   *(result + 3) = 0u;
@@ -3786,53 +3780,53 @@ LABEL_20:
   *(result + 2) = 0u;
   *result = 0u;
   atomic_store(1uLL, result);
-  *(result + 6) = v17;
+  *(result + 6) = v10;
   *(result + 7) = v8;
   *(result + 1) = v5;
-  *(result + 2) = v19;
-  *(result + 3) = v21;
+  *(result + 2) = v12;
+  *(result + 3) = v14;
   *(result + 9) = 0;
   *(result + 10) = 0;
-  *(result + 8) = v22;
-  result[88] = v18 & 1;
-  if (v21 < a1 || (v18 & 1) == 0 && (v24 = v19 > (&v19[v21 - a1] & -v5), v19 = (&v19[v21 - a1] & -v5), v24))
+  *(result + 8) = v15;
+  result[88] = v11 & 1;
+  if (v14 < a1 || (v11 & 1) == 0 && (v17 = v12 > (&v12[v14 - a1] & -v5), v12 = (&v12[v14 - a1] & -v5), v17))
   {
     add = atomic_fetch_add(result, 0xFFFFFFFFFFFFFFFFLL);
     if (add <= 0)
     {
-      _CGHandleAssert("Release", 252, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/CGBlit/CGBuf.h", "oldVal >= 1", "CGBuf released with zero refcount", v14, v15, v16, v25);
+      _CGHandleAssert("Release", 252, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/CGBlit/CGBuf.h", "oldVal >= 1", "CGBuf released with zero refcount");
     }
 
     if (add == 1)
     {
-      CGBufferStorage::~CGBufferStorage(result, v10, v11, v12, v13, v14, v15, v16);
+      CGBufferStorage::~CGBufferStorage(result);
     }
 
     return 0;
   }
 
-  *(result + 4) = v19;
+  *(result + 4) = v12;
   *(result + 5) = a1;
   return result;
 }
 
-void CGBufferStorage::~CGBufferStorage(atomic_ullong *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void CGBufferStorage::~CGBufferStorage(atomic_ullong *this)
 {
   if (atomic_load_explicit(this, memory_order_acquire))
   {
-    _CGHandleAssert("~CGBufferStorage", 208, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/CGBlit/CGBuf.h", "0 == atomic_load_explicit(&refCount, std::memory_order_acquire)", "CGBufferStorage destructed with non-zero reference count", a6, a7, a8, v11);
+    _CGHandleAssert("~CGBufferStorage", 208, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/CGBlit/CGBuf.h", "0 == atomic_load_explicit(&refCount, std::memory_order_acquire)", "CGBufferStorage destructed with non-zero reference count");
   }
 
-  v9 = this[9];
-  if (v9)
+  v2 = this[9];
+  if (v2)
   {
-    v9(this[10], this[2]);
+    v2(this[10], this[2]);
   }
 
-  v10 = this[8];
-  if (v10)
+  v3 = this[8];
+  if (v3)
   {
-    v10(this, this[6]);
+    v3(this, this[6]);
   }
 }
 
@@ -3964,43 +3958,43 @@ uint64_t CGBufferStorage::Resize(CGBufferStorage *this, unint64_t a2)
   return 1;
 }
 
-void CGBufferStorage::DataProviderReleaseInfoCallback(atomic_ullong *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void CGBufferStorage::DataProviderReleaseInfoCallback(atomic_ullong *this, void *a2, const void *a3)
 {
   if (this)
   {
     add = atomic_fetch_add(this, 0xFFFFFFFFFFFFFFFFLL);
     if (add <= 0)
     {
-      _CGHandleAssert("Release", 252, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/CGBlit/CGBuf.h", "oldVal >= 1", "CGBuf released with zero refcount", a6, a7, a8, v8);
+      _CGHandleAssert("Release", 252, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/CGBlit/CGBuf.h", "oldVal >= 1", "CGBuf released with zero refcount", v3, v4);
     }
 
     if (add == 1)
     {
 
-      CGBufferStorage::~CGBufferStorage(this, a2, a3, a4, a5, a6, a7, a8);
+      CGBufferStorage::~CGBufferStorage(this);
     }
   }
 }
 
-void CGBufferStorage::BitmapContextReleaseDataCallback(atomic_ullong *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void CGBufferStorage::BitmapContextReleaseDataCallback(atomic_ullong *this, void *a2, void *a3)
 {
   if (this)
   {
     add = atomic_fetch_add(this, 0xFFFFFFFFFFFFFFFFLL);
     if (add <= 0)
     {
-      _CGHandleAssert("Release", 252, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/CGBlit/CGBuf.h", "oldVal >= 1", "CGBuf released with zero refcount", a6, a7, a8, v8);
+      _CGHandleAssert("Release", 252, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/CGBlit/CGBuf.h", "oldVal >= 1", "CGBuf released with zero refcount", v3, v4);
     }
 
     if (add == 1)
     {
 
-      CGBufferStorage::~CGBufferStorage(this, a2, a3, a4, a5, a6, a7, a8);
+      CGBufferStorage::~CGBufferStorage(this);
     }
   }
 }
 
-void CGBuf::CGBuf(CGBuf *this, CGContext *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void CGBuf::CGBuf(CGBuf *this, CGContext *a2)
 {
   *(this + 40) = 0;
   *(this + 18) = 0u;
@@ -4030,13 +4024,13 @@ void CGBuf::CGBuf(CGBuf *this, CGContext *a2, uint64_t a3, uint64_t a4, uint64_t
 
   if (*(a2 + 4) == 1129601108 && *(a2 + 6) == 4)
   {
-    v10 = *(*(a2 + 4) + 8);
+    v4 = *(*(a2 + 4) + 8);
   }
 
   else
   {
-    handle_invalid_context("CGBitmapContextGetWidth", a2, a3, a4, a5, a6, a7, a8);
-    v10 = 0;
+    handle_invalid_context("CGBitmapContextGetWidth", a2);
+    v4 = 0;
     if (*(a2 + 4) != 1129601108)
     {
       goto LABEL_8;
@@ -4045,13 +4039,13 @@ void CGBuf::CGBuf(CGBuf *this, CGContext *a2, uint64_t a3, uint64_t a4, uint64_t
 
   if (*(a2 + 6) == 4)
   {
-    v11 = *(*(a2 + 4) + 16);
+    v5 = *(*(a2 + 4) + 16);
     goto LABEL_9;
   }
 
 LABEL_8:
-  handle_invalid_context("CGBitmapContextGetHeight", a2, a3, a4, a5, a6, a7, a8);
-  v11 = 0;
+  handle_invalid_context("CGBitmapContextGetHeight", a2);
+  v5 = 0;
   if (*(a2 + 4) != 1129601108)
   {
     goto LABEL_11;
@@ -4061,8 +4055,8 @@ LABEL_9:
   if (*(a2 + 6) != 4)
   {
 LABEL_11:
-    handle_invalid_context("CGBitmapContextGetBitmapInfo", a2, a3, a4, a5, a6, a7, a8);
-    v12 = 0;
+    handle_invalid_context("CGBitmapContextGetBitmapInfo", a2);
+    v6 = 0;
     if (*(a2 + 4) != 1129601108)
     {
       goto LABEL_14;
@@ -4071,17 +4065,17 @@ LABEL_11:
     goto LABEL_12;
   }
 
-  v12 = *(*(a2 + 4) + 40);
+  v6 = *(*(a2 + 4) + 40);
 LABEL_12:
   if (*(a2 + 6) == 4)
   {
-    v13 = *(*(a2 + 4) + 72);
+    v7 = *(*(a2 + 4) + 72);
     goto LABEL_15;
   }
 
 LABEL_14:
-  handle_invalid_context("CGBitmapContextGetBitsPerPixel", a2, a3, a4, a5, a6, a7, a8);
-  v13 = 0;
+  handle_invalid_context("CGBitmapContextGetBitsPerPixel", a2);
+  v7 = 0;
   if (*(a2 + 4) != 1129601108)
   {
     goto LABEL_17;
@@ -4091,8 +4085,8 @@ LABEL_15:
   if (*(a2 + 6) != 4)
   {
 LABEL_17:
-    handle_invalid_context("CGBitmapContextGetBitsPerComponent", a2, a3, a4, a5, a6, a7, a8);
-    v14 = 0;
+    handle_invalid_context("CGBitmapContextGetBitsPerComponent", a2);
+    v8 = 0;
     if (*(a2 + 4) != 1129601108)
     {
       goto LABEL_20;
@@ -4101,48 +4095,48 @@ LABEL_17:
     goto LABEL_18;
   }
 
-  v14 = *(*(a2 + 4) + 80);
+  v8 = *(*(a2 + 4) + 80);
 LABEL_18:
   if (*(a2 + 6) == 4)
   {
-    v15 = *(*(a2 + 4) + 32);
+    v9 = *(*(a2 + 4) + 32);
     goto LABEL_21;
   }
 
 LABEL_20:
-  handle_invalid_context("CGBitmapContextGetColorSpace", a2, a3, a4, a5, a6, a7, a8);
-  v15 = 0;
+  handle_invalid_context("CGBitmapContextGetColorSpace", a2);
+  v9 = 0;
 LABEL_21:
-  CGBuf::Init(this, v10, v11, v12, v13, v14, v15, 0, 0, 4);
+  CGBuf::Init(this, v4, v5, v6, v7, v8, v9, 0, 0, 4);
   if (*(a2 + 4) == 1129601108 && *(a2 + 6) == 4)
   {
-    v22 = *(*(a2 + 4) + 64);
+    v10 = *(*(a2 + 4) + 64);
   }
 
   else
   {
-    handle_invalid_context("CGBitmapContextGetData", a2, v16, v17, v18, v19, v20, v21);
-    v22 = 0;
+    handle_invalid_context("CGBitmapContextGetData", a2);
+    v10 = 0;
   }
 
-  v24 = *(this + 4);
-  v23 = *(this + 5);
-  v25 = *(this + 3);
-  v26 = *(this + 324);
-  v27 = CGBufferStorage::Create(0, 4101);
-  if (v27)
+  v12 = *(this + 4);
+  v11 = *(this + 5);
+  v13 = *(this + 3);
+  v14 = *(this + 324);
+  v15 = CGBufferStorage::Create(0, 4101);
+  if (v15)
   {
-    v28 = (v24 - 1) * v23 + ((v25 * v26 + 7) >> 3);
-    *(v27 + 1) = -v22 & v22;
-    *(v27 + 2) = v22;
-    *(v27 + 4) = v22;
-    *(v27 + 5) = v28;
-    *(v27 + 3) = v28;
-    *(v27 + 9) = ReleaseCGContext;
-    *(v27 + 10) = a2;
+    v16 = (v12 - 1) * v11 + ((v13 * v14 + 7) >> 3);
+    *(v15 + 1) = -v10 & v10;
+    *(v15 + 2) = v10;
+    *(v15 + 4) = v10;
+    *(v15 + 5) = v16;
+    *(v15 + 3) = v16;
+    *(v15 + 9) = ReleaseCGContext;
+    *(v15 + 10) = a2;
   }
 
-  *this = v27;
+  *this = v15;
   CFRetain(a2);
   *(this + 2) = a2;
 }
@@ -4176,13 +4170,13 @@ LABEL_21:
 
   if (*(a2 + 4) == 1129601108 && *(a2 + 6) == 4)
   {
-    v10 = *(*(a2 + 4) + 8);
+    v4 = *(*(a2 + 4) + 8);
   }
 
   else
   {
-    handle_invalid_context("CGBitmapContextGetWidth", a2, a3, a4, a5, a6, a7, a8);
-    v10 = 0;
+    handle_invalid_context("CGBitmapContextGetWidth", a2);
+    v4 = 0;
     if (*(a2 + 4) != 1129601108)
     {
       goto LABEL_8;
@@ -4191,13 +4185,13 @@ LABEL_21:
 
   if (*(a2 + 6) == 4)
   {
-    v11 = *(*(a2 + 4) + 16);
+    v5 = *(*(a2 + 4) + 16);
     goto LABEL_9;
   }
 
 LABEL_8:
-  handle_invalid_context("CGBitmapContextGetHeight", a2, a3, a4, a5, a6, a7, a8);
-  v11 = 0;
+  handle_invalid_context("CGBitmapContextGetHeight", a2);
+  v5 = 0;
   if (*(a2 + 4) != 1129601108)
   {
     goto LABEL_11;
@@ -4207,8 +4201,8 @@ LABEL_9:
   if (*(a2 + 6) != 4)
   {
 LABEL_11:
-    handle_invalid_context("CGBitmapContextGetBitmapInfo", a2, a3, a4, a5, a6, a7, a8);
-    v12 = 0;
+    handle_invalid_context("CGBitmapContextGetBitmapInfo", a2);
+    v6 = 0;
     if (*(a2 + 4) != 1129601108)
     {
       goto LABEL_14;
@@ -4217,17 +4211,17 @@ LABEL_11:
     goto LABEL_12;
   }
 
-  v12 = *(*(a2 + 4) + 40);
+  v6 = *(*(a2 + 4) + 40);
 LABEL_12:
   if (*(a2 + 6) == 4)
   {
-    v13 = *(*(a2 + 4) + 72);
+    v7 = *(*(a2 + 4) + 72);
     goto LABEL_15;
   }
 
 LABEL_14:
-  handle_invalid_context("CGBitmapContextGetBitsPerPixel", a2, a3, a4, a5, a6, a7, a8);
-  v13 = 0;
+  handle_invalid_context("CGBitmapContextGetBitsPerPixel", a2);
+  v7 = 0;
   if (*(a2 + 4) != 1129601108)
   {
     goto LABEL_17;
@@ -4237,8 +4231,8 @@ LABEL_15:
   if (*(a2 + 6) != 4)
   {
 LABEL_17:
-    handle_invalid_context("CGBitmapContextGetBitsPerComponent", a2, a3, a4, a5, a6, a7, a8);
-    v14 = 0;
+    handle_invalid_context("CGBitmapContextGetBitsPerComponent", a2);
+    v8 = 0;
     if (*(a2 + 4) != 1129601108)
     {
       goto LABEL_20;
@@ -4247,53 +4241,53 @@ LABEL_17:
     goto LABEL_18;
   }
 
-  v14 = *(*(a2 + 4) + 80);
+  v8 = *(*(a2 + 4) + 80);
 LABEL_18:
   if (*(a2 + 6) == 4)
   {
-    v15 = *(*(a2 + 4) + 32);
+    v9 = *(*(a2 + 4) + 32);
     goto LABEL_21;
   }
 
 LABEL_20:
-  handle_invalid_context("CGBitmapContextGetColorSpace", a2, a3, a4, a5, a6, a7, a8);
-  v15 = 0;
+  handle_invalid_context("CGBitmapContextGetColorSpace", a2);
+  v9 = 0;
 LABEL_21:
-  CGBuf::Init(this, v10, v11, v12, v13, v14, v15, 0, 0, 4);
+  CGBuf::Init(this, v4, v5, v6, v7, v8, v9, 0, 0, 4);
   if (*(a2 + 4) == 1129601108 && *(a2 + 6) == 4)
   {
-    v22 = *(*(a2 + 4) + 64);
+    v10 = *(*(a2 + 4) + 64);
   }
 
   else
   {
-    handle_invalid_context("CGBitmapContextGetData", a2, v16, v17, v18, v19, v20, v21);
-    v22 = 0;
+    handle_invalid_context("CGBitmapContextGetData", a2);
+    v10 = 0;
   }
 
-  v24 = *(this + 4);
-  v23 = *(this + 5);
-  v25 = *(this + 3);
-  v26 = *(this + 324);
-  v27 = CGBufferStorage::Create(0, 4101);
-  if (v27)
+  v12 = *(this + 4);
+  v11 = *(this + 5);
+  v13 = *(this + 3);
+  v14 = *(this + 324);
+  v15 = CGBufferStorage::Create(0, 4101);
+  if (v15)
   {
-    v28 = (v24 - 1) * v23 + ((v25 * v26 + 7) >> 3);
-    *(v27 + 1) = -v22 & v22;
-    *(v27 + 2) = v22;
-    *(v27 + 4) = v22;
-    *(v27 + 5) = v28;
-    *(v27 + 3) = v28;
-    *(v27 + 9) = ReleaseCGContext;
-    *(v27 + 10) = a2;
+    v16 = (v12 - 1) * v11 + ((v13 * v14 + 7) >> 3);
+    *(v15 + 1) = -v10 & v10;
+    *(v15 + 2) = v10;
+    *(v15 + 4) = v10;
+    *(v15 + 5) = v16;
+    *(v15 + 3) = v16;
+    *(v15 + 9) = ReleaseCGContext;
+    *(v15 + 10) = a2;
   }
 
-  *this = v27;
+  *this = v15;
   CFRetain(a2);
   *(this + 2) = a2;
 }
 
-void CGBuf::Init(int8x8_t *a1, uint64_t a2, uint64_t a3, unsigned int a4, unsigned int a5, unsigned int a6, CGColorSpace *cf, const void *a8, __int8 a9, uint64_t a10)
+void CGBuf::Init(int8x8_t *a1, uint64_t a2, uint64_t a3, __int32 a4, unsigned int a5, unsigned int a6, CGColorSpace *cf, const void *a8, __int8 a9, uint64_t a10)
 {
   v11 = cf;
   v34 = a5;
@@ -4471,42 +4465,42 @@ LABEL_46:
   }
 }
 
-void CGBuf::~CGBuf(CGBuf *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void CGBuf::~CGBuf(CGBuf *this)
 {
-  v9 = *(this + 6);
-  if (v9)
+  v2 = *(this + 6);
+  if (v2)
   {
-    CGColorSpaceRelease(v9);
+    CGColorSpaceRelease(v2);
   }
 
   *(this + 6) = 0;
-  v10 = *this;
+  v3 = *this;
   if (*this)
   {
-    add = atomic_fetch_add(v10, 0xFFFFFFFFFFFFFFFFLL);
+    add = atomic_fetch_add(v3, 0xFFFFFFFFFFFFFFFFLL);
     if (add <= 0)
     {
-      _CGHandleAssert("Release", 252, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/CGBlit/CGBuf.h", "oldVal >= 1", "CGBuf released with zero refcount", a6, a7, a8, v14);
+      _CGHandleAssert("Release", 252, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/CGBlit/CGBuf.h", "oldVal >= 1", "CGBuf released with zero refcount");
     }
 
     if (add == 1)
     {
-      CGBufferStorage::~CGBufferStorage(v10, a2, a3, a4, a5, a6, a7, a8);
+      CGBufferStorage::~CGBufferStorage(v3);
     }
   }
 
   *this = 0;
-  v12 = *(this + 1);
-  if (v12)
+  v5 = *(this + 1);
+  if (v5)
   {
-    CFRelease(v12);
+    CFRelease(v5);
   }
 
   *(this + 1) = 0;
-  v13 = *(this + 2);
-  if (v13)
+  v6 = *(this + 2);
+  if (v6)
   {
-    CFRelease(v13);
+    CFRelease(v6);
   }
 
   *(this + 2) = 0;
@@ -4813,11 +4807,11 @@ LABEL_10:
   return (v6)(*(*a1 + 32), *(*a1 + 40), &v9);
 }
 
-float *_SwapBuffer<float>(float *a1, unint64_t a2, unsigned int *a3)
+float *_SwapBuffer<float>(int8x16_t *a1, size_t a2, unsigned int *a3)
 {
   v3 = a2;
   v4 = a1;
-  result = _FillBuffer<float>(a1, a2, a3);
+  result = _FillBuffer<float>(a1->i32, a2, a3);
   if (v3 >= 0x10)
   {
     do
@@ -4841,7 +4835,7 @@ float *_SwapBuffer<float>(float *a1, unint64_t a2, unsigned int *a3)
   return result;
 }
 
-void *_SwapBuffer<half>(uint64_t a1, unint64_t a2, unsigned int *a3, double a4, double a5, float a6)
+void *_SwapBuffer<half>(int8x16_t *a1, size_t a2, unsigned int *a3, double a4, double a5, float a6)
 {
   v6 = a2;
   v7 = a1;
@@ -4896,13 +4890,13 @@ int *_FillBuffer<unsigned char>(int *result, unint64_t a2, unsigned int *a3)
   return result;
 }
 
-char *CGBuf::CreateBuffer(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+char *CGBuf::CreateBuffer(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v8 = *(a1 + 40);
-  v9 = *(a1 + 24) * *(a1 + 324) + 7;
-  if (v8 >= v9 >> 3)
+  v3 = *(a1 + 40);
+  v4 = *(a1 + 24) * *(a1 + 324) + 7;
+  if (v3 >= v4 >> 3)
   {
-    result = CGBufferStorage::Create((v9 >> 3) + a3 + (*(a1 + 32) - 1) * v8, a2);
+    result = CGBufferStorage::Create((v4 >> 3) + a3 + (*(a1 + 32) - 1) * v3, a2);
     *a1 = result;
     if (result)
     {
@@ -4917,29 +4911,29 @@ char *CGBuf::CreateBuffer(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, ui
 
   else
   {
-    CGPostError("%s: rowBytes is too small", a2, a3, a4, a5, a6, a7, a8, "CreateBuffer");
+    CGPostError("%s: rowBytes is too small", "CreateBuffer");
     return 0;
   }
 
   return result;
 }
 
-char *CGBuf::CreateBufferWithData(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+char *CGBuf::CreateBufferWithData(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v8 = *(a1 + 40);
-  v9 = *(a1 + 24) * *(a1 + 324) + 7;
-  if (v8 >= v9 >> 3)
+  v5 = *(a1 + 40);
+  v6 = *(a1 + 24) * *(a1 + 324) + 7;
+  if (v5 >= v6 >> 3)
   {
-    v16 = *(a1 + 32);
+    v13 = *(a1 + 32);
     result = CGBufferStorage::Create(0, 4101);
     if (result)
     {
       *(result + 1) = -a2 & a2;
       *(result + 2) = a2;
-      v17 = (v9 >> 3) + (v16 - 1) * v8;
+      v14 = (v6 >> 3) + (v13 - 1) * v5;
       *(result + 4) = a2;
-      *(result + 5) = v17;
-      *(result + 3) = v17;
+      *(result + 5) = v14;
+      *(result + 3) = v14;
       *(result + 9) = a3;
       *(result + 10) = a4;
       *a1 = result;
@@ -4959,14 +4953,14 @@ char *CGBuf::CreateBufferWithData(uint64_t a1, uint64_t a2, uint64_t a3, uint64_
 
   else
   {
-    CGPostError("%s: rowBytes is too small", a2, a3, a4, a5, a6, a7, a8, "CreateBufferWithData");
+    CGPostError("%s: rowBytes is too small", "CreateBufferWithData");
     return 0;
   }
 
   return result;
 }
 
-uint64_t CGBuf::CGBuf(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4, unsigned int a5, unsigned int a6, CGColorSpace *a7, const void *a8, __int8 a9, uint64_t a10)
+uint64_t CGBuf::CGBuf(uint64_t a1, uint64_t a2, uint64_t a3, __int32 a4, unsigned int a5, unsigned int a6, CGColorSpace *a7, const void *a8, __int8 a9, uint64_t a10)
 {
   *(a1 + 320) = 0;
   *(a1 + 288) = 0u;
@@ -4990,11 +4984,11 @@ uint64_t CGBuf::CGBuf(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4, un
   *a1 = 0u;
   *(a1 + 16) = 0u;
   CGBuf::Init(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10);
-  if ((CGBuf::CreateBuffer(a1, a10, 0, v11, v12, v13, v14, v15) & 1) == 0)
+  if ((CGBuf::CreateBuffer(a1, a10, 0) & 1) == 0)
   {
-    CGBuf::~CGBuf(a1, v16, v17, v18, v19, v20, v21, v22);
-    v32 = 0;
-    memset(v31, 0, sizeof(v31));
+    CGBuf::~CGBuf(a1);
+    v13 = 0;
+    memset(v12, 0, sizeof(v12));
     *(a1 + 320) = 0;
     *(a1 + 288) = 0u;
     *(a1 + 304) = 0u;
@@ -5016,7 +5010,7 @@ uint64_t CGBuf::CGBuf(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4, un
     *(a1 + 48) = 0u;
     *a1 = 0u;
     *(a1 + 16) = 0u;
-    CGBuf::~CGBuf(v31, v23, v24, v25, v26, v27, v28, v29);
+    CGBuf::~CGBuf(v12);
   }
 
   return a1;
@@ -5045,11 +5039,11 @@ uint64_t CGBuf::CGBuf(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4, un
   *a1 = 0u;
   *(a1 + 16) = 0u;
   CGBuf::Init(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10);
-  if ((CGBuf::CreateBuffer(a1, a10, 0, v11, v12, v13, v14, v15) & 1) == 0)
+  if ((CGBuf::CreateBuffer(a1, a10, 0) & 1) == 0)
   {
-    CGBuf::~CGBuf(a1, v16, v17, v18, v19, v20, v21, v22);
-    v32 = 0;
-    memset(v31, 0, sizeof(v31));
+    CGBuf::~CGBuf(a1);
+    v13 = 0;
+    memset(v12, 0, sizeof(v12));
     *(a1 + 320) = 0;
     *(a1 + 288) = 0u;
     *(a1 + 304) = 0u;
@@ -5071,13 +5065,13 @@ uint64_t CGBuf::CGBuf(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4, un
     *(a1 + 48) = 0u;
     *a1 = 0u;
     *(a1 + 16) = 0u;
-    CGBuf::~CGBuf(v31, v23, v24, v25, v26, v27, v28, v29);
+    CGBuf::~CGBuf(v12);
   }
 
   return a1;
 }
 
-uint64_t CGBuf::CGBuf(uint64_t a1, uint64_t *a2, unsigned int a3, unsigned int a4, unsigned int a5, uint64_t a6, uint64_t a7, CGColorSpace *cf, const void *a9, __int8 a10, uint64_t a11)
+uint64_t CGBuf::CGBuf(uint64_t a1, uint64_t *a2, __int32 a3, unsigned int a4, unsigned int a5, uint64_t a6, uint64_t a7, CGColorSpace *cf, const void *a9, __int8 a10, uint64_t a11)
 {
   *(a1 + 320) = 0;
   *(a1 + 288) = 0u;
@@ -5104,19 +5098,19 @@ uint64_t CGBuf::CGBuf(uint64_t a1, uint64_t *a2, unsigned int a3, unsigned int a
   *(a1 + 40) = a2[3];
   if (*a2)
   {
-    BufferWithData = CGBuf::CreateBufferWithData(a1, *a2, a6, a7, a11, v17, v18, v19);
+    BufferWithData = CGBuf::CreateBufferWithData(a1, *a2, a6, a7, a11);
   }
 
   else
   {
-    BufferWithData = CGBuf::CreateBuffer(a1, a11, 0, v15, v16, v17, v18, v19);
+    BufferWithData = CGBuf::CreateBuffer(a1, a11, 0);
   }
 
   if ((BufferWithData & 1) == 0)
   {
-    CGBuf::~CGBuf(a1, v21, v22, v23, v24, v25, v26, v27);
-    v37 = 0;
-    memset(v36, 0, sizeof(v36));
+    CGBuf::~CGBuf(a1);
+    v18 = 0;
+    memset(v17, 0, sizeof(v17));
     *(a1 + 320) = 0;
     *(a1 + 288) = 0u;
     *(a1 + 304) = 0u;
@@ -5138,7 +5132,7 @@ uint64_t CGBuf::CGBuf(uint64_t a1, uint64_t *a2, unsigned int a3, unsigned int a
     *(a1 + 48) = 0u;
     *a1 = 0u;
     *(a1 + 16) = 0u;
-    CGBuf::~CGBuf(v36, v28, v29, v30, v31, v32, v33, v34);
+    CGBuf::~CGBuf(v17);
   }
 
   return a1;
@@ -5170,19 +5164,19 @@ uint64_t CGBuf::CGBuf(uint64_t a1, uint64_t *a2, unsigned int a3, unsigned int a
   *(a1 + 40) = a2[3];
   if (*a2)
   {
-    BufferWithData = CGBuf::CreateBufferWithData(a1, *a2, a6, a7, a11, v17, v18, v19);
+    BufferWithData = CGBuf::CreateBufferWithData(a1, *a2, a6, a7, a11);
   }
 
   else
   {
-    BufferWithData = CGBuf::CreateBuffer(a1, a11, 0, v15, v16, v17, v18, v19);
+    BufferWithData = CGBuf::CreateBuffer(a1, a11, 0);
   }
 
   if ((BufferWithData & 1) == 0)
   {
-    CGBuf::~CGBuf(a1, v21, v22, v23, v24, v25, v26, v27);
-    v37 = 0;
-    memset(v36, 0, sizeof(v36));
+    CGBuf::~CGBuf(a1);
+    v18 = 0;
+    memset(v17, 0, sizeof(v17));
     *(a1 + 320) = 0;
     *(a1 + 288) = 0u;
     *(a1 + 304) = 0u;
@@ -5204,7 +5198,7 @@ uint64_t CGBuf::CGBuf(uint64_t a1, uint64_t *a2, unsigned int a3, unsigned int a
     *(a1 + 48) = 0u;
     *a1 = 0u;
     *(a1 + 16) = 0u;
-    CGBuf::~CGBuf(v36, v28, v29, v30, v31, v32, v33, v34);
+    CGBuf::~CGBuf(v17);
   }
 
   return a1;
@@ -5246,7 +5240,7 @@ void CGBuf::CGBuf(CGBuf *this, unsigned int *cf)
     goto LABEL_57;
   }
 
-  v12 = ImageProvider;
+  v5 = ImageProvider;
   {
     CGBuf::CGBuf(CGImage *)::keys = @"kCGImageBlockSingletonRequest";
   }
@@ -5255,63 +5249,63 @@ void CGBuf::CGBuf(CGBuf *this, unsigned int *cf)
     CGBuf::CGBuf(CGImage *)::values = *MEMORY[0x1E695E4D0];
   }
 
-  *(this + 324) = 8 * *(v12 + 48);
-  *(this + 80) = *(v12 + 36) & 0x1F;
-  v13 = *(v12 + 120);
-  if (!v13 || (Property = CGPropertiesGetProperty(v13, @"kCGImageProviderColorSpaceChangedOnImageCopy")) == 0)
+  *(this + 324) = 8 * *(v5 + 48);
+  *(this + 80) = *(v5 + 36) & 0x1F;
+  v6 = *(v5 + 120);
+  if (!v6 || (Property = CGPropertiesGetProperty(v6, @"kCGImageProviderColorSpaceChangedOnImageCopy")) == 0)
   {
-    Property = *(v12 + 40);
+    Property = *(v5 + 40);
   }
 
   *(this + 6) = Property;
-  v15 = *(v12 + 32);
-  if (v15 > 2)
+  v8 = *(v5 + 32);
+  if (v8 > 2)
   {
-    if (v15 != 3)
+    if (v8 != 3)
     {
-      if (v15 == 4)
+      if (v8 == 4)
       {
-        v16 = 32;
+        v9 = 32;
         *(this + 325) = 32;
-        v17 = *(this + 80);
-        v18 = 8448;
+        v10 = *(this + 80);
+        v11 = 8448;
         goto LABEL_18;
       }
 
-      if (v15 == 5)
+      if (v8 == 5)
       {
-        v16 = 16;
+        v9 = 16;
         *(this + 325) = 16;
-        v17 = *(this + 80);
-        v18 = 4352;
+        v10 = *(this + 80);
+        v11 = 4352;
 LABEL_18:
-        v19 = v17 | v18;
+        v12 = v10 | v11;
         goto LABEL_19;
       }
 
 LABEL_56:
-      CGBuf::~CGBuf(this, v5, v6, v7, v8, v9, v10, v11);
-      v103 = 0;
-      v101 = 0u;
-      v102 = 0u;
-      v99 = 0u;
-      v100 = 0u;
-      v97 = 0u;
-      v98 = 0u;
-      v95 = 0u;
-      v96 = 0u;
-      v93 = 0u;
-      v94 = 0u;
-      v91 = 0u;
-      v92 = 0u;
-      v89 = 0u;
-      v90 = 0u;
-      v87 = 0u;
-      v88 = 0u;
-      v85 = 0u;
-      v86 = 0u;
-      v83 = 0u;
-      v84 = 0u;
+      CGBuf::~CGBuf(this);
+      v76 = 0;
+      v74 = 0u;
+      v75 = 0u;
+      v72 = 0u;
+      v73 = 0u;
+      v70 = 0u;
+      v71 = 0u;
+      v68 = 0u;
+      v69 = 0u;
+      v66 = 0u;
+      v67 = 0u;
+      v64 = 0u;
+      v65 = 0u;
+      v62 = 0u;
+      v63 = 0u;
+      v60 = 0u;
+      v61 = 0u;
+      v58 = 0u;
+      v59 = 0u;
+      v56 = 0u;
+      v57 = 0u;
       *(this + 40) = 0;
       *(this + 18) = 0u;
       *(this + 19) = 0u;
@@ -5333,42 +5327,42 @@ LABEL_56:
       *(this + 3) = 0u;
       *this = 0u;
       *(this + 1) = 0u;
-      CGBuf::~CGBuf(&v83, v50, v51, v52, v53, v54, v55, v56);
+      CGBuf::~CGBuf(&v56);
 LABEL_57:
-      v57 = *(cf + 5);
-      v58 = *(cf + 6);
+      v43 = *(cf + 5);
+      v44 = *(cf + 6);
       BitmapInfo = CGImageGetBitmapInfo(cf);
-      v60 = cf[16];
-      v61 = cf[14];
+      v46 = cf[16];
+      v47 = cf[14];
       ColorSpace = CGImageGetColorSpace(cf);
       Decode = CGImageGetDecode(cf);
       RenderingIntent = CGImageGetRenderingIntent(cf);
-      CGBuf::Init(this, v57, v58, BitmapInfo, v60, v61, ColorSpace, Decode, RenderingIntent, 4);
+      CGBuf::Init(this, v43, v44, BitmapInfo, v46, v47, ColorSpace, Decode, RenderingIntent, 4);
       DataProviderInternal = CGImageGetDataProviderInternal(cf, 0);
-      if (!DataProviderInternal || (v73 = CGDataProviderCopyData(DataProviderInternal)) == 0 || (v74 = v73, *this = CGBufferStorage::CreateWithCFData(v73, v66), *(this + 5) = *(cf + 9), CFRelease(v74), !*this))
+      if (!DataProviderInternal || (v52 = CGDataProviderCopyData(DataProviderInternal)) == 0 || (v54 = v52, *this = CGBufferStorage::CreateWithCFData(v52, v53), *(this + 5) = *(cf + 9), CFRelease(v54), !*this))
       {
-        CGBuf::~CGBuf(this, v66, v67, v68, v69, v70, v71, v72);
-        v103 = 0;
-        v101 = 0u;
-        v102 = 0u;
-        v99 = 0u;
-        v100 = 0u;
-        v97 = 0u;
-        v98 = 0u;
-        v95 = 0u;
-        v96 = 0u;
-        v93 = 0u;
-        v94 = 0u;
-        v91 = 0u;
-        v92 = 0u;
-        v89 = 0u;
-        v90 = 0u;
-        v87 = 0u;
-        v88 = 0u;
-        v85 = 0u;
-        v86 = 0u;
-        v83 = 0u;
-        v84 = 0u;
+        CGBuf::~CGBuf(this);
+        v76 = 0;
+        v74 = 0u;
+        v75 = 0u;
+        v72 = 0u;
+        v73 = 0u;
+        v70 = 0u;
+        v71 = 0u;
+        v68 = 0u;
+        v69 = 0u;
+        v66 = 0u;
+        v67 = 0u;
+        v64 = 0u;
+        v65 = 0u;
+        v62 = 0u;
+        v63 = 0u;
+        v60 = 0u;
+        v61 = 0u;
+        v58 = 0u;
+        v59 = 0u;
+        v56 = 0u;
+        v57 = 0u;
         *(this + 40) = 0;
         *(this + 18) = 0u;
         *(this + 19) = 0u;
@@ -5390,168 +5384,168 @@ LABEL_57:
         *(this + 3) = 0u;
         *this = 0u;
         *(this + 1) = 0u;
-        CGBuf::~CGBuf(&v83, v75, v76, v77, v78, v79, v80, v81);
+        CGBuf::~CGBuf(&v56);
       }
 
       return;
     }
 
-    v16 = 32;
+    v9 = 32;
     *(this + 325) = 32;
-    v19 = *(this + 80) | 0x2000;
+    v12 = *(this + 80) | 0x2000;
 LABEL_19:
-    *(this + 80) = v19;
+    *(this + 80) = v12;
     goto LABEL_20;
   }
 
-  if (v15 != 1)
+  if (v8 != 1)
   {
-    if (v15 != 2)
+    if (v8 != 2)
     {
       goto LABEL_56;
     }
 
-    v16 = 16;
+    v9 = 16;
     *(this + 325) = 16;
-    v19 = *(this + 80) | 0x1000;
+    v12 = *(this + 80) | 0x1000;
     goto LABEL_19;
   }
 
-  v16 = 8;
+  v9 = 8;
   *(this + 325) = 8;
-  v19 = *(this + 80);
+  v12 = *(this + 80);
 LABEL_20:
-  v20 = *(cf + 5);
-  v21 = *(cf + 6);
-  v22 = *(this + 324);
-  v23 = CGImageGetDecode(cf);
-  v24 = CGImageGetRenderingIntent(cf);
-  CGBuf::Init(this, v20, v21, v19, v22, v16, Property, v23, v24, 4);
-  v25 = CFDictionaryCreate(0, &CGBuf::CGBuf(CGImage *)::keys, &CGBuf::CGBuf(CGImage *)::values, 1, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-  v26 = CGImageProviderCopyImageBlockSetWithOptions(v12, v25);
-  if (v25)
+  v13 = *(cf + 5);
+  v14 = *(cf + 6);
+  v15 = *(this + 324);
+  v16 = CGImageGetDecode(cf);
+  v17 = CGImageGetRenderingIntent(cf);
+  CGBuf::Init(this, v13, v14, v12, v15, v9, Property, v16, v17, 4);
+  v18 = CFDictionaryCreate(0, &CGBuf::CGBuf(CGImage *)::keys, &CGBuf::CGBuf(CGImage *)::values, 1, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+  v19 = CGImageProviderCopyImageBlockSetWithOptions(v5, v18);
+  if (v18)
   {
-    CFRelease(v25);
+    CFRelease(v18);
   }
 
-  if (!v26)
+  if (!v19)
   {
     goto LABEL_56;
   }
 
   *this = 0;
-  if (*(v26 + 120) != 1 || (v27 = *(v26 + 128)) == 0 || (v28 = CGBufferStorage::CreateWithImageBlockSet(v26, 0), *this = v28, *(this + 5) = *(v27 + 40), !v28))
+  if (*(v19 + 120) != 1 || (v20 = *(v19 + 128)) == 0 || (v21 = CGBufferStorage::CreateWithImageBlockSet(v19, 0), *this = v21, *(this + 5) = *(v20 + 40), !v21))
   {
-    v29 = CGBufferStorage::Create((*(this + 4) - 1) * *(this + 5) + ((*(this + 3) * *(this + 324) + 7) >> 3), 4);
-    *this = v29;
-    if (v29)
+    v22 = CGBufferStorage::Create((*(this + 4) - 1) * *(this + 5) + ((*(this + 3) * *(this + 324) + 7) >> 3), 4);
+    *this = v22;
+    if (v22)
     {
-      v30 = *(v26 + 120);
-      if (v30)
+      v23 = *(v19 + 120);
+      if (v23)
       {
-        v31 = 0;
-        v82 = *(v26 + 72);
+        v24 = 0;
+        v55 = *(v19 + 72);
         do
         {
-          if (*(v26 + 120) > v31)
+          if (*(v19 + 120) > v24)
           {
-            v32 = *(v26 + 128 + 8 * v31);
-            if (v32)
+            v25 = *(v19 + 128 + 8 * v24);
+            if (v25)
             {
-              v33 = 0;
-              v34 = fmax(v32[1], 0.0);
-              v35 = fmax(v32[2], 0.0);
-              v36 = fmax(v32[3], 0.0);
-              v38 = *(this + 3);
-              v37 = *(this + 4);
-              v39 = v38 - v34;
-              if (v38 < v34)
+              v26 = 0;
+              v27 = fmax(v25[1], 0.0);
+              v28 = fmax(v25[2], 0.0);
+              v29 = fmax(v25[3], 0.0);
+              v31 = *(this + 3);
+              v30 = *(this + 4);
+              v32 = v31 - v27;
+              if (v31 < v27)
               {
-                v39 = 0;
+                v32 = 0;
               }
 
-              if (v36 + v34 > v38)
+              if (v29 + v27 > v31)
               {
-                v36 = v39;
+                v29 = v32;
               }
 
-              v40 = fmax(v32[4], 0.0);
-              v41 = v37 - v35;
-              if (v37 < v35)
+              v33 = fmax(v25[4], 0.0);
+              v34 = v30 - v28;
+              if (v30 < v28)
               {
-                v41 = 0;
+                v34 = 0;
               }
 
-              if (v40 + v35 <= v37)
+              if (v33 + v28 <= v30)
               {
-                v42 = v40;
+                v35 = v33;
               }
 
               else
               {
-                v42 = v41;
+                v35 = v34;
               }
 
-              if (v38 > v34)
+              if (v31 > v27)
               {
-                if (v37 <= v35)
+                if (v30 <= v28)
                 {
-                  v45 = 0;
+                  v38 = 0;
                 }
 
                 else
                 {
-                  v43 = *this;
+                  v36 = *this;
                   if (*this)
                   {
-                    v43 = *(*&v43 + 32);
+                    v36 = *(*&v36 + 32);
                   }
 
-                  v44 = *(this + 5) * v35;
-                  if (!*&v43)
+                  v37 = *(this + 5) * v28;
+                  if (!*&v36)
                   {
-                    v44 = 0;
+                    v37 = 0;
                   }
 
-                  v45 = v44 + *&v43;
+                  v38 = v37 + *&v36;
                 }
 
-                v46 = (*(this + 324) * v34) >> 3;
-                if (!v45)
+                v39 = (*(this + 324) * v27) >> 3;
+                if (!v38)
                 {
-                  v46 = 0;
+                  v39 = 0;
                 }
 
-                v33 = (v46 + v45);
+                v26 = (v39 + v38);
               }
 
-              if (v42)
+              if (v35)
               {
-                v47 = *v32;
-                v48 = *(v32 + 5);
-                v49 = v36 * v82;
+                v40 = *v25;
+                v41 = *(v25 + 5);
+                v42 = v29 * v55;
                 do
                 {
-                  memcpy(v33, v47, v49);
-                  v47 = &v47[v48];
-                  v33 += *(this + 5);
-                  --v42;
+                  memcpy(v26, v40, v42);
+                  v40 = &v40[v41];
+                  v26 += *(this + 5);
+                  --v35;
                 }
 
-                while (v42);
+                while (v35);
               }
             }
           }
 
-          ++v31;
+          ++v24;
         }
 
-        while (v31 != v30);
+        while (v24 != v23);
       }
     }
   }
 
-  CGImageBlockSetRelease(v26);
+  CGImageBlockSetRelease(v19);
   if (!*this)
   {
     goto LABEL_56;
@@ -5593,7 +5587,7 @@ LABEL_20:
     goto LABEL_57;
   }
 
-  v12 = ImageProvider;
+  v5 = ImageProvider;
   {
     CGBuf::CGBuf(CGImage *)::keys = @"kCGImageBlockSingletonRequest";
   }
@@ -5602,63 +5596,63 @@ LABEL_20:
     CGBuf::CGBuf(CGImage *)::values = *MEMORY[0x1E695E4D0];
   }
 
-  *(this + 324) = 8 * *(v12 + 48);
-  *(this + 80) = *(v12 + 36) & 0x1F;
-  v13 = *(v12 + 120);
-  if (!v13 || (Property = CGPropertiesGetProperty(v13, @"kCGImageProviderColorSpaceChangedOnImageCopy")) == 0)
+  *(this + 324) = 8 * *(v5 + 48);
+  *(this + 80) = *(v5 + 36) & 0x1F;
+  v6 = *(v5 + 120);
+  if (!v6 || (Property = CGPropertiesGetProperty(v6, @"kCGImageProviderColorSpaceChangedOnImageCopy")) == 0)
   {
-    Property = *(v12 + 40);
+    Property = *(v5 + 40);
   }
 
   *(this + 6) = Property;
-  v15 = *(v12 + 32);
-  if (v15 > 2)
+  v8 = *(v5 + 32);
+  if (v8 > 2)
   {
-    if (v15 != 3)
+    if (v8 != 3)
     {
-      if (v15 == 4)
+      if (v8 == 4)
       {
-        v16 = 32;
+        v9 = 32;
         *(this + 325) = 32;
-        v17 = *(this + 80);
-        v18 = 8448;
+        v10 = *(this + 80);
+        v11 = 8448;
         goto LABEL_18;
       }
 
-      if (v15 == 5)
+      if (v8 == 5)
       {
-        v16 = 16;
+        v9 = 16;
         *(this + 325) = 16;
-        v17 = *(this + 80);
-        v18 = 4352;
+        v10 = *(this + 80);
+        v11 = 4352;
 LABEL_18:
-        v19 = v17 | v18;
+        v12 = v10 | v11;
         goto LABEL_19;
       }
 
 LABEL_56:
-      CGBuf::~CGBuf(this, v5, v6, v7, v8, v9, v10, v11);
-      v103 = 0;
-      v101 = 0u;
-      v102 = 0u;
-      v99 = 0u;
-      v100 = 0u;
-      v97 = 0u;
-      v98 = 0u;
-      v95 = 0u;
-      v96 = 0u;
-      v93 = 0u;
-      v94 = 0u;
-      v91 = 0u;
-      v92 = 0u;
-      v89 = 0u;
-      v90 = 0u;
-      v87 = 0u;
-      v88 = 0u;
-      v85 = 0u;
-      v86 = 0u;
-      v83 = 0u;
-      v84 = 0u;
+      CGBuf::~CGBuf(this);
+      v76 = 0;
+      v74 = 0u;
+      v75 = 0u;
+      v72 = 0u;
+      v73 = 0u;
+      v70 = 0u;
+      v71 = 0u;
+      v68 = 0u;
+      v69 = 0u;
+      v66 = 0u;
+      v67 = 0u;
+      v64 = 0u;
+      v65 = 0u;
+      v62 = 0u;
+      v63 = 0u;
+      v60 = 0u;
+      v61 = 0u;
+      v58 = 0u;
+      v59 = 0u;
+      v56 = 0u;
+      v57 = 0u;
       *(this + 40) = 0;
       *(this + 18) = 0u;
       *(this + 19) = 0u;
@@ -5680,42 +5674,42 @@ LABEL_56:
       *(this + 3) = 0u;
       *this = 0u;
       *(this + 1) = 0u;
-      CGBuf::~CGBuf(&v83, v50, v51, v52, v53, v54, v55, v56);
+      CGBuf::~CGBuf(&v56);
 LABEL_57:
-      v57 = *(cf + 5);
-      v58 = *(cf + 6);
+      v43 = *(cf + 5);
+      v44 = *(cf + 6);
       BitmapInfo = CGImageGetBitmapInfo(cf);
-      v60 = cf[16];
-      v61 = cf[14];
+      v46 = cf[16];
+      v47 = cf[14];
       ColorSpace = CGImageGetColorSpace(cf);
       Decode = CGImageGetDecode(cf);
       RenderingIntent = CGImageGetRenderingIntent(cf);
-      CGBuf::Init(this, v57, v58, BitmapInfo, v60, v61, ColorSpace, Decode, RenderingIntent, 4);
+      CGBuf::Init(this, v43, v44, BitmapInfo, v46, v47, ColorSpace, Decode, RenderingIntent, 4);
       DataProviderInternal = CGImageGetDataProviderInternal(cf, 0);
-      if (!DataProviderInternal || (v73 = CGDataProviderCopyData(DataProviderInternal)) == 0 || (v74 = v73, *this = CGBufferStorage::CreateWithCFData(v73, v66), *(this + 5) = *(cf + 9), CFRelease(v74), !*this))
+      if (!DataProviderInternal || (v52 = CGDataProviderCopyData(DataProviderInternal)) == 0 || (v54 = v52, *this = CGBufferStorage::CreateWithCFData(v52, v53), *(this + 5) = *(cf + 9), CFRelease(v54), !*this))
       {
-        CGBuf::~CGBuf(this, v66, v67, v68, v69, v70, v71, v72);
-        v103 = 0;
-        v101 = 0u;
-        v102 = 0u;
-        v99 = 0u;
-        v100 = 0u;
-        v97 = 0u;
-        v98 = 0u;
-        v95 = 0u;
-        v96 = 0u;
-        v93 = 0u;
-        v94 = 0u;
-        v91 = 0u;
-        v92 = 0u;
-        v89 = 0u;
-        v90 = 0u;
-        v87 = 0u;
-        v88 = 0u;
-        v85 = 0u;
-        v86 = 0u;
-        v83 = 0u;
-        v84 = 0u;
+        CGBuf::~CGBuf(this);
+        v76 = 0;
+        v74 = 0u;
+        v75 = 0u;
+        v72 = 0u;
+        v73 = 0u;
+        v70 = 0u;
+        v71 = 0u;
+        v68 = 0u;
+        v69 = 0u;
+        v66 = 0u;
+        v67 = 0u;
+        v64 = 0u;
+        v65 = 0u;
+        v62 = 0u;
+        v63 = 0u;
+        v60 = 0u;
+        v61 = 0u;
+        v58 = 0u;
+        v59 = 0u;
+        v56 = 0u;
+        v57 = 0u;
         *(this + 40) = 0;
         *(this + 18) = 0u;
         *(this + 19) = 0u;
@@ -5737,168 +5731,168 @@ LABEL_57:
         *(this + 3) = 0u;
         *this = 0u;
         *(this + 1) = 0u;
-        CGBuf::~CGBuf(&v83, v75, v76, v77, v78, v79, v80, v81);
+        CGBuf::~CGBuf(&v56);
       }
 
       return;
     }
 
-    v16 = 32;
+    v9 = 32;
     *(this + 325) = 32;
-    v19 = *(this + 80) | 0x2000;
+    v12 = *(this + 80) | 0x2000;
 LABEL_19:
-    *(this + 80) = v19;
+    *(this + 80) = v12;
     goto LABEL_20;
   }
 
-  if (v15 != 1)
+  if (v8 != 1)
   {
-    if (v15 != 2)
+    if (v8 != 2)
     {
       goto LABEL_56;
     }
 
-    v16 = 16;
+    v9 = 16;
     *(this + 325) = 16;
-    v19 = *(this + 80) | 0x1000;
+    v12 = *(this + 80) | 0x1000;
     goto LABEL_19;
   }
 
-  v16 = 8;
+  v9 = 8;
   *(this + 325) = 8;
-  v19 = *(this + 80);
+  v12 = *(this + 80);
 LABEL_20:
-  v20 = *(cf + 5);
-  v21 = *(cf + 6);
-  v22 = *(this + 324);
-  v23 = CGImageGetDecode(cf);
-  v24 = CGImageGetRenderingIntent(cf);
-  CGBuf::Init(this, v20, v21, v19, v22, v16, Property, v23, v24, 4);
-  v25 = CFDictionaryCreate(0, &CGBuf::CGBuf(CGImage *)::keys, &CGBuf::CGBuf(CGImage *)::values, 1, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-  v26 = CGImageProviderCopyImageBlockSetWithOptions(v12, v25);
-  if (v25)
+  v13 = *(cf + 5);
+  v14 = *(cf + 6);
+  v15 = *(this + 324);
+  v16 = CGImageGetDecode(cf);
+  v17 = CGImageGetRenderingIntent(cf);
+  CGBuf::Init(this, v13, v14, v12, v15, v9, Property, v16, v17, 4);
+  v18 = CFDictionaryCreate(0, &CGBuf::CGBuf(CGImage *)::keys, &CGBuf::CGBuf(CGImage *)::values, 1, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+  v19 = CGImageProviderCopyImageBlockSetWithOptions(v5, v18);
+  if (v18)
   {
-    CFRelease(v25);
+    CFRelease(v18);
   }
 
-  if (!v26)
+  if (!v19)
   {
     goto LABEL_56;
   }
 
   *this = 0;
-  if (*(v26 + 120) != 1 || (v27 = *(v26 + 128)) == 0 || (v28 = CGBufferStorage::CreateWithImageBlockSet(v26, 0), *this = v28, *(this + 5) = *(v27 + 40), !v28))
+  if (*(v19 + 120) != 1 || (v20 = *(v19 + 128)) == 0 || (v21 = CGBufferStorage::CreateWithImageBlockSet(v19, 0), *this = v21, *(this + 5) = *(v20 + 40), !v21))
   {
-    v29 = CGBufferStorage::Create((*(this + 4) - 1) * *(this + 5) + ((*(this + 3) * *(this + 324) + 7) >> 3), 4);
-    *this = v29;
-    if (v29)
+    v22 = CGBufferStorage::Create((*(this + 4) - 1) * *(this + 5) + ((*(this + 3) * *(this + 324) + 7) >> 3), 4);
+    *this = v22;
+    if (v22)
     {
-      v30 = *(v26 + 120);
-      if (v30)
+      v23 = *(v19 + 120);
+      if (v23)
       {
-        v31 = 0;
-        v82 = *(v26 + 72);
+        v24 = 0;
+        v55 = *(v19 + 72);
         do
         {
-          if (*(v26 + 120) > v31)
+          if (*(v19 + 120) > v24)
           {
-            v32 = *(v26 + 128 + 8 * v31);
-            if (v32)
+            v25 = *(v19 + 128 + 8 * v24);
+            if (v25)
             {
-              v33 = 0;
-              v34 = fmax(v32[1], 0.0);
-              v35 = fmax(v32[2], 0.0);
-              v36 = fmax(v32[3], 0.0);
-              v38 = *(this + 3);
-              v37 = *(this + 4);
-              v39 = v38 - v34;
-              if (v38 < v34)
+              v26 = 0;
+              v27 = fmax(v25[1], 0.0);
+              v28 = fmax(v25[2], 0.0);
+              v29 = fmax(v25[3], 0.0);
+              v31 = *(this + 3);
+              v30 = *(this + 4);
+              v32 = v31 - v27;
+              if (v31 < v27)
               {
-                v39 = 0;
+                v32 = 0;
               }
 
-              if (v36 + v34 > v38)
+              if (v29 + v27 > v31)
               {
-                v36 = v39;
+                v29 = v32;
               }
 
-              v40 = fmax(v32[4], 0.0);
-              v41 = v37 - v35;
-              if (v37 < v35)
+              v33 = fmax(v25[4], 0.0);
+              v34 = v30 - v28;
+              if (v30 < v28)
               {
-                v41 = 0;
+                v34 = 0;
               }
 
-              if (v40 + v35 <= v37)
+              if (v33 + v28 <= v30)
               {
-                v42 = v40;
+                v35 = v33;
               }
 
               else
               {
-                v42 = v41;
+                v35 = v34;
               }
 
-              if (v38 > v34)
+              if (v31 > v27)
               {
-                if (v37 <= v35)
+                if (v30 <= v28)
                 {
-                  v45 = 0;
+                  v38 = 0;
                 }
 
                 else
                 {
-                  v43 = *this;
+                  v36 = *this;
                   if (*this)
                   {
-                    v43 = *(*&v43 + 32);
+                    v36 = *(*&v36 + 32);
                   }
 
-                  v44 = *(this + 5) * v35;
-                  if (!*&v43)
+                  v37 = *(this + 5) * v28;
+                  if (!*&v36)
                   {
-                    v44 = 0;
+                    v37 = 0;
                   }
 
-                  v45 = v44 + *&v43;
+                  v38 = v37 + *&v36;
                 }
 
-                v46 = (*(this + 324) * v34) >> 3;
-                if (!v45)
+                v39 = (*(this + 324) * v27) >> 3;
+                if (!v38)
                 {
-                  v46 = 0;
+                  v39 = 0;
                 }
 
-                v33 = (v46 + v45);
+                v26 = (v39 + v38);
               }
 
-              if (v42)
+              if (v35)
               {
-                v47 = *v32;
-                v48 = *(v32 + 5);
-                v49 = v36 * v82;
+                v40 = *v25;
+                v41 = *(v25 + 5);
+                v42 = v29 * v55;
                 do
                 {
-                  memcpy(v33, v47, v49);
-                  v47 = &v47[v48];
-                  v33 += *(this + 5);
-                  --v42;
+                  memcpy(v26, v40, v42);
+                  v40 = &v40[v41];
+                  v26 += *(this + 5);
+                  --v35;
                 }
 
-                while (v42);
+                while (v35);
               }
             }
           }
 
-          ++v31;
+          ++v24;
         }
 
-        while (v31 != v30);
+        while (v24 != v23);
       }
     }
   }
 
-  CGImageBlockSetRelease(v26);
+  CGImageBlockSetRelease(v19);
   if (!*this)
   {
     goto LABEL_56;
@@ -5922,96 +5916,96 @@ CGImageRef CGBuf::CreateCGImage(CGBuf *this, BOOL a2)
     return 0;
   }
 
-  v11 = *this;
+  v8 = *this;
   if (atomic_load_explicit(*this, memory_order_acquire) <= 0)
   {
-    _CGHandleAssert("Retain", 246, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/CGBlit/CGBuf.h", "0 < atomic_load_explicit(&refCount, std::memory_order_acquire)", "CGBuf retained with 0 refcount", v8, v9, v10, decode);
+    _CGHandleAssert("Retain", 246, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/CGBlit/CGBuf.h", "0 < atomic_load_explicit(&refCount, std::memory_order_acquire)", "CGBuf retained with 0 refcount");
   }
 
-  v12 = v7;
-  atomic_fetch_add(v11, 1uLL);
-  v13 = CGImageCreate(*(this + 3), *(this + 4), *(this + 325), *(this + 324), *(this + 5), *(this + 6), *(this + 80), v7, *(this + 7), a2, *(this + 327));
-  CGDataProviderRelease(v12);
-  return v13;
+  v9 = v7;
+  atomic_fetch_add(v8, 1uLL);
+  v10 = CGImageCreate(*(this + 3), *(this + 4), *(this + 325), *(this + 324), *(this + 5), *(this + 6), *(this + 80), v7, *(this + 7), a2, *(this + 327));
+  CGDataProviderRelease(v9);
+  return v10;
 }
 
-CGContextRef CGBuf::CreateCGBitmapContext(size_t *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+CGContextRef CGBuf::CreateCGBitmapContext(uint32_t *this)
 {
-  v8 = *this;
+  v1 = *this;
   if (!*this)
   {
     return 0;
   }
 
-  if (atomic_load_explicit(v8, memory_order_acquire) <= 0)
+  if (atomic_load_explicit(v1, memory_order_acquire) <= 0)
   {
-    _CGHandleAssert("Retain", 246, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/CGBlit/CGBuf.h", "0 < atomic_load_explicit(&refCount, std::memory_order_acquire)", "CGBuf retained with 0 refcount", a6, a7, a8, releaseInfo);
+    _CGHandleAssert("Retain", 246, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/CGBlit/CGBuf.h", "0 < atomic_load_explicit(&refCount, std::memory_order_acquire)", "CGBuf retained with 0 refcount");
   }
 
-  atomic_fetch_add(v8, 1uLL);
-  return CGBitmapContextCreateWithData(*(*this + 32), this[3], this[4], *(this + 325), this[5], this[6], *(this + 80), CGBufferStorage::BitmapContextReleaseDataCallback, *this);
+  atomic_fetch_add(v1, 1uLL);
+  return CGBitmapContextCreateWithData(*(*this + 32), *(this + 3), *(this + 4), *(this + 325), *(this + 5), *(this + 6), this[80], CGBufferStorage::BitmapContextReleaseDataCallback, *this);
 }
 
-uint64_t CGBuf::_GetAlphaData(CGBuf *this, unint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CGBuf::_GetAlphaData(CGBuf *this, unint64_t *a2)
 {
   *a2 = 0;
-  v9 = *(this + 2);
-  if (!v9)
+  v3 = *(this + 2);
+  if (!v3)
   {
     return 0;
   }
 
-  if (*(v9 + 16) == 1129601108 && *(v9 + 24) == 4)
+  if (*(v3 + 16) == 1129601108 && *(v3 + 24) == 4)
   {
-    v11 = *(*(v9 + 32) + 136);
+    v5 = *(*(v3 + 32) + 136);
   }
 
   else
   {
-    handle_invalid_context("CGBitmapContextGetAlphaBytesPerRow", v9, a3, a4, a5, a6, a7, a8);
-    v11 = 0;
-    v9 = *(this + 2);
+    handle_invalid_context("CGBitmapContextGetAlphaBytesPerRow", v3);
+    v5 = 0;
+    v3 = *(this + 2);
   }
 
-  *a2 = v11;
+  *a2 = v5;
 
-  return CGBitmapContextGetAlphaData(v9, v9, a3, a4, a5, a6, a7, a8);
+  return CGBitmapContextGetAlphaData(v3);
 }
 
-void CGBuf::ReInit(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4, unsigned int a5, unsigned int a6, int a7, uint64_t a8, CGColorSpace *cf1, const void *a10, __int8 a11, uint64_t a12)
+void CGBuf::ReInit(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4, unsigned int a5, unsigned int a6, int a7, uint64_t a8, CGColorSpace *cf1, uint64_t a10, uint64_t a11, uint64_t a12)
 {
   v16 = a12;
   v17 = cf1;
-  v85 = a5;
-  v86 = a4;
+  v64 = a5;
+  v65 = a4;
   v18 = *(a1 + 320);
-  v83 = *(a1 + 325);
-  v84 = a6;
-  v81 = *(a1 + 324);
-  v82 = v18;
+  v62 = *(a1 + 325);
+  v63 = a6;
+  v60 = *(a1 + 324);
+  v61 = v18;
   if ((a12 & 0x800) != 0)
   {
-    LegalizeForContext(&v86, &v85, &v84, &cf1);
+    LegalizeForContext(&v65, &v64, &v63, &cf1);
     v17 = cf1;
   }
 
   if (!v17)
   {
-    v20 = v86;
-    v22 = v85 / v84;
-    v21 = v86 & 0x1F;
-    v25 = v85 != 16 || v84 != 5 || v21 != 0;
-    if ((v86 & 0xF0000) == 0x20000)
+    v20 = v65;
+    v22 = v64 / v63;
+    v21 = v65 & 0x1F;
+    v25 = v64 != 16 || v63 != 5 || v21 != 0;
+    if ((v65 & 0xF0000) == 0x20000)
     {
       v25 = 0;
     }
 
-    if (v85 % v84 != 1)
+    if (v64 % v63 != 1)
     {
-      v25 = v85 % v84;
+      v25 = v64 % v63;
     }
 
-    v27 = (v86 & 0x1F) != 0 && v25 == 0;
+    v27 = (v65 & 0x1F) != 0 && v25 == 0;
     v28 = v22 - v27;
     v29 = (v22 - v27);
     switch(v29)
@@ -6043,8 +6037,8 @@ LABEL_34:
     v19 = *(*(v19 + 24) + 48);
   }
 
-  v20 = v86;
-  LOBYTE(v21) = v86 & 0x1F;
+  v20 = v65;
+  LOBYTE(v21) = v65 & 0x1F;
 LABEL_35:
   v31 = a10;
   if (((1 << v21) & 0x9E) != 0)
@@ -6059,61 +6053,61 @@ LABEL_35:
 
   if (*(a1 + 24) != a2)
   {
-    v33 = v84;
+    v33 = v63;
 LABEL_56:
-    v43 = *(a1 + 8);
-    if (v43)
+    v37 = *(a1 + 8);
+    if (v37)
     {
-      CFRelease(v43);
+      CFRelease(v37);
     }
 
-    v44 = a11;
+    v38 = a11;
     *(a1 + 8) = 0;
-    v45 = *(a1 + 16);
-    if (v45)
+    v39 = *(a1 + 16);
+    if (v39)
     {
-      CFRelease(v45);
+      CFRelease(v39);
     }
 
     *(a1 + 16) = 0;
     CGColorSpaceRelease(*(a1 + 48));
     *(a1 + 48) = 0;
-    CGBuf::Init(a1, a2, a3, v20, v85, v33, v17, v31, v44, v16);
+    CGBuf::Init(a1, a2, a3, v20, v64, v33, v17, v31, v38, v16);
     goto LABEL_61;
   }
 
-  v33 = v84;
-  if (*(a1 + 32) != a3 || v84 != *(a1 + 325) || *(a1 + 320) != v20 || v85 != *(a1 + 324) || !CFEqual(v17, *(a1 + 48)))
+  v33 = v63;
+  if (*(a1 + 32) != a3 || v63 != *(a1 + 325) || *(a1 + 320) != v20 || v64 != *(a1 + 324) || !CFEqual(v17, *(a1 + 48)))
   {
     goto LABEL_56;
   }
 
-  v40 = v31 ? v31 : &CompareDecodes(double const*,double const*,unsigned long)::kDefaultDecode;
-  v41 = *(a1 + 56) ? *(a1 + 56) : &CompareDecodes(double const*,double const*,unsigned long)::kDefaultDecode;
-  if (v40 != v41)
+  v34 = v31 ? v31 : &CompareDecodes(double const*,double const*,unsigned long)::kDefaultDecode;
+  v35 = *(a1 + 56) ? *(a1 + 56) : &CompareDecodes(double const*,double const*,unsigned long)::kDefaultDecode;
+  if (v34 != v35)
   {
-    v42 = 16;
+    v36 = 16;
     if (v32 < 0x10)
     {
-      v42 = v32;
+      v36 = v32;
     }
 
-    if (memcmp(v40, v41, 16 * v42))
+    if (memcmp(v34, v35, 16 * v36))
     {
       goto LABEL_56;
     }
   }
 
 LABEL_61:
-  v46 = *a1;
+  v40 = *a1;
   if (!*a1)
   {
 LABEL_69:
-    if ((CGBuf::CreateBuffer(a1, v16, a8, v35, v36, v37, v38, v39) & 1) == 0)
+    if ((CGBuf::CreateBuffer(a1, v16, a8) & 1) == 0)
     {
-      CGBuf::~CGBuf(a1, v52, v53, v54, v55, v56, v57, v58);
-      v88 = 0;
-      memset(v87, 0, sizeof(v87));
+      CGBuf::~CGBuf(a1);
+      v67 = 0;
+      memset(v66, 0, sizeof(v66));
       *(a1 + 320) = 0;
       *(a1 + 288) = 0u;
       *(a1 + 304) = 0u;
@@ -6135,44 +6129,44 @@ LABEL_69:
       *(a1 + 48) = 0u;
       *a1 = 0u;
       *(a1 + 16) = 0u;
-      CGBuf::~CGBuf(v87, v59, v60, v61, v62, v63, v64, v65);
+      CGBuf::~CGBuf(v66);
     }
 
     return;
   }
 
-  if (*(a1 + 325) != v83 || ((*(a1 + 320) ^ v82) & 0x100) != 0 || (v47 = a8 + (*(a1 + 32) - 1) * *(a1 + 40) + ((*(a1 + 24) * *(a1 + 324) + 7) >> 3), v48 = *(*&v46 + 24), v49 = v48 >= v47, v50 = v48 - v47, !v49) || (v67 = *(*&v46 + 32), v66 = *(*&v46 + 40), v68 = *(*&v46 + 16), (*(*&v46 + 88) & 1) == 0) && (v69 = (v50 + v68) & -*(*&v46 + 8), v70 = v68 > v69, v68 = v69, v70))
+  if (*(a1 + 325) != v62 || ((*(a1 + 320) ^ v61) & 0x100) != 0 || (v41 = a8 + (*(a1 + 32) - 1) * *(a1 + 40) + ((*(a1 + 24) * *(a1 + 324) + 7) >> 3), v42 = *(*&v40 + 24), v43 = v42 >= v41, v44 = v42 - v41, !v43) || (v47 = *(*&v40 + 32), v46 = *(*&v40 + 40), v48 = *(*&v40 + 16), (*(*&v40 + 88) & 1) == 0) && (v49 = (v44 + v48) & -*(*&v40 + 8), v50 = v48 > v49, v48 = v49, v50))
   {
-    add = atomic_fetch_add(*&v46, 0xFFFFFFFFFFFFFFFFLL);
+    add = atomic_fetch_add(*&v40, 0xFFFFFFFFFFFFFFFFLL);
     if (add <= 0)
     {
-      _CGHandleAssert("Release", 252, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/CGBlit/CGBuf.h", "oldVal >= 1", "CGBuf released with zero refcount", v37, v38, v39, v80);
+      _CGHandleAssert("Release", 252, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/CGBlit/CGBuf.h", "oldVal >= 1", "CGBuf released with zero refcount");
     }
 
     if (add == 1)
     {
-      CGBufferStorage::~CGBufferStorage(*&v46, v41, v34, v35, v36, v37, v38, v39);
+      CGBufferStorage::~CGBufferStorage(*&v40);
     }
 
     *a1 = 0;
     goto LABEL_69;
   }
 
-  *(*&v46 + 32) = v68;
-  *(*&v46 + 40) = v47;
-  if (v67 != v68)
+  *(*&v40 + 32) = v48;
+  *(*&v40 + 40) = v41;
+  if (v47 != v48)
   {
-    v71 = *(a1 + 8);
-    if (v71)
+    v51 = *(a1 + 8);
+    if (v51)
     {
-      CFRelease(v71);
+      CFRelease(v51);
     }
 
     *(a1 + 8) = 0;
-    v72 = *(a1 + 16);
-    if (v72)
+    v52 = *(a1 + 16);
+    if (v52)
     {
-      CFRelease(v72);
+      CFRelease(v52);
     }
 
     *(a1 + 16) = 0;
@@ -6183,39 +6177,39 @@ LABEL_69:
     return;
   }
 
-  if (v67 != v68 || v66 != *(*a1 + 40))
+  if (v47 != v48 || v46 != *(*a1 + 40))
   {
     goto LABEL_123;
   }
 
-  v73 = v82 & 0x7000;
-  v74 = (v82 >> 12) & 7;
-  if (v74 > 1)
+  v53 = v61 & 0x7000;
+  v54 = (v61 >> 12) & 7;
+  if (v54 > 1)
   {
-    if (v74 == 2)
+    if (v54 == 2)
     {
 LABEL_87:
-      if (v83 == 32)
+      if (v62 == 32)
       {
-        v75 = v73 == 0x2000;
+        v55 = v53 == 0x2000;
 LABEL_92:
-        v76 = v75;
+        v56 = v55;
         goto LABEL_103;
       }
 
-      if (v83 != 8 || v81 != 32)
+      if (v62 != 8 || v60 != 32)
       {
         goto LABEL_116;
       }
 
 LABEL_102:
-      v76 = 1;
+      v56 = 1;
       goto LABEL_103;
     }
 
-    if (v74 != 3)
+    if (v54 != 3)
     {
-      if (v74 != 4)
+      if (v54 != 4)
       {
         goto LABEL_125;
       }
@@ -6224,46 +6218,46 @@ LABEL_102:
     }
 
 LABEL_90:
-    if (v83 != 16)
+    if (v62 != 16)
     {
       goto LABEL_125;
     }
 
-    v75 = v73 == 4096;
+    v55 = v53 == 4096;
     goto LABEL_92;
   }
 
-  if (v74)
+  if (v54)
   {
     goto LABEL_90;
   }
 
-  if (v83 == 8)
+  if (v62 == 8)
   {
     goto LABEL_102;
   }
 
-  if (v83 != 32 && v83 != 16)
+  if (v62 != 32 && v62 != 16)
   {
     goto LABEL_125;
   }
 
-  v76 = 0;
+  v56 = 0;
 LABEL_103:
-  v77 = *(a1 + 325);
-  v78 = (*(a1 + 320) >> 12) & 7;
-  if (v78 <= 1)
+  v57 = *(a1 + 325);
+  v58 = (*(a1 + 320) >> 12) & 7;
+  if (v58 <= 1)
   {
-    if (!v78)
+    if (!v58)
     {
-      if (v77 == 8)
+      if (v57 == 8)
       {
         goto LABEL_122;
       }
 
-      if (v77 == 16 || v77 == 32)
+      if (v57 == 16 || v57 == 32)
       {
-        if (v76)
+        if (v56)
         {
           goto LABEL_123;
         }
@@ -6277,11 +6271,11 @@ LABEL_125:
     }
 
 LABEL_110:
-    if (v77 == 16)
+    if (v57 == 16)
     {
-      v79 = 4096;
+      v59 = 4096;
 LABEL_112:
-      if (v76 != ((*(a1 + 320) & 0x7000) == v79))
+      if (v56 != ((*(a1 + 320) & 0x7000) == v59))
       {
         goto LABEL_123;
       }
@@ -6292,36 +6286,36 @@ LABEL_112:
     goto LABEL_125;
   }
 
-  if (v78 == 2)
+  if (v58 == 2)
   {
     goto LABEL_107;
   }
 
-  if (v78 == 3)
+  if (v58 == 3)
   {
     goto LABEL_110;
   }
 
-  if (v78 != 4)
+  if (v58 != 4)
   {
     goto LABEL_125;
   }
 
 LABEL_107:
-  if (v77 == 32)
+  if (v57 == 32)
   {
-    v79 = 0x2000;
+    v59 = 0x2000;
     goto LABEL_112;
   }
 
-  if (v77 != 8 || *(a1 + 324) != 32)
+  if (v57 != 8 || *(a1 + 324) != 32)
   {
 LABEL_116:
     __assert_rtn("IsFormatHostEndian", "CGBuf.cpp", 1100, "bitsPerComponent == 8 && bitsPerPixel == 32");
   }
 
 LABEL_122:
-  if ((v76 & 1) == 0)
+  if ((v56 & 1) == 0)
   {
 LABEL_123:
     CGBuf::FillBuffer(a1, v16);
@@ -6540,16 +6534,16 @@ uint64_t CGBuf::Print(CGBuf *this, char **a2, unint64_t *a3, const char *a4)
   return StringPrint(a2, a3, "%s%p CGBuf:\n%s\tbuffer:             %p  (%lu bytes)\n%s\tsize:               {%lu x %lu}\n%s\tbits per pixel:     %u\n%s\tcomponent type:     %s%u\n%s\talpha:              %s\n%s\tbyteOrder:          %s\n%s\trowBytes:           %lu\n%s\tcolorSpace:         %p\n%s\tCGImage:            %p\n%s\tcontext:            %p\n%s\tdecode:             %p\n%s\trendering intent:   %s\n", a4, this, a4, v5, v4, a4, *(this + 3), *(this + 4), a4, *(this + 324), a4, v11, *(this + 325), a4, v7, a4, v8, a4, *(this + 5), a4, *(this + 6), a4, *(this + 1), a4, *(this + 2), a4, *(this + 7), a4, v10);
 }
 
-uint64_t CGBuf::Print(CGBuf *this, const CGBuf *a2, __n128 a3)
+uint64_t CGBuf::Print(CGBuf *this, const CGBuf *a2)
 {
-  v3 = MEMORY[0x1EEE9AC00](this, a3);
-  v8 = *MEMORY[0x1E69E9840];
-  if (v3)
+  v2 = MEMORY[0x1EEE9AC00](this);
+  v7 = *MEMORY[0x1E69E9840];
+  if (v2)
   {
-    v5 = 4096;
-    v6 = v7;
-    CGBuf::Print(v3, &v6, &v5, "");
-    return printf("%s", v7);
+    v4 = 4096;
+    v5 = v6;
+    CGBuf::Print(v2, &v5, &v4, "");
+    return printf("%s", v6);
   }
 
   else
@@ -6659,143 +6653,140 @@ LABEL_15:
   return result;
 }
 
-void *skip_comment(void *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void skip_comment(uint64_t a1)
 {
-  v8 = result;
   while (1)
   {
-    v9 = v8[2];
-    v10 = *(v9 + 120);
-    if (!v10)
+    v2 = *(a1 + 16);
+    v3 = *(v2 + 120);
+    if (!v3)
     {
-      result = CGPDFSourceRefill(v8[2], a2, a3, a4, a5, a6, a7, a8);
-      if (!result)
+      if (!CGPDFSourceRefill(*(a1 + 16)))
       {
-        return result;
+        return;
       }
 
-      v10 = *(v9 + 120);
+      v3 = *(v2 + 120);
     }
 
-    v11 = *(v9 + 128);
-    *(v9 + 120) = v10 - 1;
-    *(v9 + 128) = v11 + 1;
-    v12 = *v11;
-    if (v12 == 10)
+    v4 = *(v2 + 128);
+    *(v2 + 120) = v3 - 1;
+    *(v2 + 128) = v4 + 1;
+    v5 = *v4;
+    if (v5 == 10)
     {
-      return result;
+      break;
     }
 
-    if (v12 == 13)
+    if (v5 == 13)
     {
-      v13 = v8[2];
-      v14 = *(v13 + 120);
-      if (v14)
+      v6 = *(a1 + 16);
+      v7 = *(v6 + 120);
+      if (v7)
       {
-LABEL_10:
-        v15 = *(v13 + 128);
-        *(v13 + 120) = v14 - 1;
-        *(v13 + 128) = v15 + 1;
-        v16 = *v15;
-        if (v16 == 10)
+LABEL_9:
+        v8 = *(v6 + 128);
+        *(v6 + 120) = v7 - 1;
+        *(v6 + 128) = v8 + 1;
+        v9 = *v8;
+        if (v9 == 10)
         {
-          return result;
+          return;
         }
       }
 
       else
       {
-        result = CGPDFSourceRefill(v8[2], a2, a3, a4, a5, a6, a7, a8);
-        if (result)
+        if (CGPDFSourceRefill(*(a1 + 16)))
         {
-          v14 = *(v13 + 120);
-          goto LABEL_10;
+          v7 = *(v6 + 120);
+          goto LABEL_9;
         }
 
-        v16 = -1;
+        v9 = -1;
       }
 
-      v17 = v8[2];
+      v10 = *(a1 + 16);
 
-      return CGPDFSourceUngetc(v17, v16);
+      CGPDFSourceUngetc(v10, v9);
+      return;
     }
   }
 }
 
-void *skip_to_delimiter(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void skip_to_delimiter(uint64_t *a1)
 {
   while (1)
   {
-    v9 = a1[2];
-    v10 = *(v9 + 120);
-    if (!v10)
+    v2 = a1[2];
+    v3 = *(v2 + 120);
+    if (!v3)
     {
-      result = CGPDFSourceRefill(a1[2], a2, a3, a4, a5, a6, a7, a8);
-      if (!result)
+      if (!CGPDFSourceRefill(a1[2]))
       {
-        return result;
+        return;
       }
 
-      v10 = *(v9 + 120);
+      v3 = *(v2 + 120);
     }
 
-    v12 = *(v9 + 128);
-    *(v9 + 120) = v10 - 1;
-    *(v9 + 128) = v12 + 1;
-    v13 = *v12;
-    if (v13 <= 0x3E && ((1 << v13) & 0x5000832100003601) != 0)
+    v4 = *(v2 + 128);
+    *(v2 + 120) = v3 - 1;
+    *(v2 + 128) = v4 + 1;
+    v5 = *v4;
+    if (v5 <= 0x3E && ((1 << v5) & 0x5000832100003601) != 0)
     {
       break;
     }
 
-    if (v13 - 91 <= 0x22 && ((1 << (v13 - 91)) & 0x500000005) != 0)
+    if (v5 - 91 <= 0x22 && ((1 << (v5 - 91)) & 0x500000005) != 0)
     {
       break;
     }
 
-    v16 = a1[3];
-    v17 = a1[4];
-    v18 = a1[5];
-    if (v16 >= v17)
+    v8 = a1[3];
+    v9 = a1[4];
+    v10 = a1[5];
+    if (v8 >= v9)
     {
-      v19 = 2 * v17 + 128;
-      a1[4] = v19;
-      v18 = malloc_type_realloc(v18, v19, 0x9E65F011uLL);
-      a1[5] = v18;
-      if (!v18)
+      v11 = 2 * v9 + 128;
+      a1[4] = v11;
+      v10 = malloc_type_realloc(v10, v11, 0x9E65F011uLL);
+      a1[5] = v10;
+      if (!v10)
       {
-        _CGHandleAssert("lex_grow_buffer", 55, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/PDF/Reader/CGPDFLexer.c", "lexer->buffer != NULL", "lexer buffer missing", a6, a7, a8, v22);
+        _CGHandleAssert("lex_grow_buffer", 55, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/PDF/Reader/CGPDFLexer.c", "lexer->buffer != NULL", "lexer buffer missing");
       }
 
-      v16 = a1[3];
+      v8 = a1[3];
     }
 
-    a1[3] = v16 + 1;
-    *(v18 + v16) = v13;
+    a1[3] = v8 + 1;
+    *(v10 + v8) = v5;
   }
 
-  v20 = a1[2];
-  v21 = *v12;
+  v12 = a1[2];
+  v13 = *v4;
 
-  return CGPDFSourceUngetc(v20, v21);
+  CGPDFSourceUngetc(v12, v13);
 }
 
 char *create_image_stream(const void *a1, uint64_t a2, char a3, uint64_t a4, uint64_t a5, unint64_t a6, unint64_t a7, unint64_t a8, unint64_t a9, uint64_t a10, uint64_t a11, CGDataProvider *a12, CGDataProvider *a13, uint64_t *a14)
 {
   if (a8 < a6)
   {
-    _CGHandleAssert("create_image_stream", 145, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/Images/CGImageStream.c", "src_image_bytes_per_row >= image_data_bytes_per_row", "src image bpr: %lu  image bpr: %lu", a6, a7, a8, a8);
+    _CGHandleAssert("create_image_stream", 145, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/Images/CGImageStream.c", "src_image_bytes_per_row >= image_data_bytes_per_row", "src image bpr: %lu  image bpr: %lu", a8, a6);
   }
 
   if (a9 < a7)
   {
-    _CGHandleAssert("create_image_stream", 146, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/Images/CGImageStream.c", "src_smask_bytes_per_row >= smask_data_bytes_per_row", "src mask bpr: %lu  mask bpr: %lu", a6, a7, a8, a9);
+    _CGHandleAssert("create_image_stream", 146, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/Images/CGImageStream.c", "src_smask_bytes_per_row >= smask_data_bytes_per_row", "src mask bpr: %lu  mask bpr: %lu", a9, a7);
   }
 
   v18 = *(a2 + 24);
   if (v18 >= 2 && v18 != 3)
   {
-    _CGHandleAssert("create_image_stream", 149, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/Images/CGImageStream.c", "pixel_info.alpha_info == kCGImageAlphaNone || pixel_info.alpha_info == kCGImageAlphaLast || pixel_info.alpha_info == kCGImageAlphaPremultipliedLast", "alpha unsupported (%d)", a6, a7, a8, *(a2 + 24));
+    _CGHandleAssert("create_image_stream", 149, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/Images/CGImageStream.c", "pixel_info.alpha_info == kCGImageAlphaNone || pixel_info.alpha_info == kCGImageAlphaLast || pixel_info.alpha_info == kCGImageAlphaPremultipliedLast", "alpha unsupported (%d)", *(a2 + 24));
   }
 
   v24 = malloc_type_calloc(1uLL, 0x518uLL, 0x10B0040ABF645E3uLL);
@@ -6858,122 +6849,122 @@ char *create_image_stream(const void *a1, uint64_t a2, char a3, uint64_t a4, uin
   *(v24 + 67) = a13;
   if (a13)
   {
-    v35 = a14 == 0;
+    v32 = a14 == 0;
   }
 
   else
   {
-    v35 = 1;
+    v32 = 1;
   }
 
-  v36 = !v35;
+  v33 = !v32;
   if (a3)
   {
-    v37 = 0;
+    v34 = 0;
   }
 
   else
   {
-    v37 = v36;
+    v34 = v33;
   }
 
-  v24[520] = v37;
+  v24[520] = v34;
   if (a14)
   {
-    v38 = *(a2 + 16);
-    if (v38)
+    v35 = *(a2 + 16);
+    if (v35)
     {
-      v39 = v24 + 544;
-      v40 = a14;
+      v36 = v24 + 544;
+      v37 = a14;
       do
       {
-        v41 = *v40++;
-        *v39++ = v41;
-        --v38;
+        v38 = *v37++;
+        *v36++ = v38;
+        --v35;
       }
 
-      while (v38);
+      while (v35);
     }
   }
 
   if (*(a2 + 24))
   {
-    v42 = v24 + 521;
-    v43 = 1;
+    v39 = v24 + 521;
+    v40 = 1;
     v24[521] = 1;
   }
 
   else
   {
-    v43 = a13 != 0;
-    v42 = v24 + 521;
-    v24[521] = v43;
+    v40 = a13 != 0;
+    v39 = v24 + 521;
+    v24[521] = v40;
     if (!a13)
     {
       goto LABEL_41;
     }
   }
 
-  if (v37)
+  if (v34)
   {
     if (!a13 || !a14)
     {
-      _CGHandleAssert("create_image_stream", 187, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/Images/CGImageStream.c", "src_image_matte != NULL && src_smask_data_provider != NULL", "matte %p  provider %p", v32, v33, v34, a14);
+      _CGHandleAssert("create_image_stream", 187, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/Images/CGImageStream.c", "src_image_matte != NULL && src_smask_data_provider != NULL", "matte %p  provider %p", a14, a13);
     }
 
-    v44 = *(a2 + 16);
-    if (v44)
+    v41 = *(a2 + 16);
+    if (v41)
     {
-      v45 = v24 + 392;
+      v42 = v24 + 392;
       do
       {
-        v46 = *v25++;
-        *v45++ = v46;
-        --v44;
+        v43 = *v25++;
+        *v42++ = v43;
+        --v41;
       }
 
-      while (v44);
+      while (v41);
     }
   }
 
 LABEL_41:
   if (a13)
   {
-    v47 = 0;
+    v44 = 0;
   }
 
   else
   {
-    v47 = v43;
+    v44 = v40;
   }
 
-  v48 = CGAccessSessionCreate(a12);
-  *(v24 + 84) = v48;
+  v45 = CGAccessSessionCreate(a12);
+  *(v24 + 84) = v45;
+  if (!v45)
+  {
+    goto LABEL_58;
+  }
+
+  v46 = a6 > 0x10000 ? 1 : 0x10000 / a6;
+  *(v24 + 43) = v46;
+  v47 = a10 + v46 * a6;
+  v48 = malloc_type_calloc(1uLL, v47, 0xF803A1DEuLL);
+  *(v24 + 46) = v48;
   if (!v48)
   {
     goto LABEL_58;
   }
 
-  v49 = a6 > 0x10000 ? 1 : 0x10000 / a6;
-  *(v24 + 43) = v49;
-  v50 = a10 + v49 * a6;
-  v51 = malloc_type_calloc(1uLL, v50, 0xF803A1DEuLL);
-  *(v24 + 46) = v51;
-  if (!v51)
-  {
-    goto LABEL_58;
-  }
-
-  if (*v42 == 1)
+  if (*v39 == 1)
   {
     if (!a9)
     {
-      _CGHandleAssert("create_image_stream", 218, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/Images/CGImageStream.c", "src_smask_bytes_per_row > 0", "bpr %lu", v52, v53, v54, 0);
+      _CGHandleAssert("create_image_stream", 218, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/Images/CGImageStream.c", "src_smask_bytes_per_row > 0", "bpr %lu", 0);
     }
 
-    v55 = malloc_type_calloc(1uLL, a11 + v49 * a7, 0x3B22438DuLL);
-    *(v24 + 47) = v55;
-    if (!v55)
+    v49 = malloc_type_calloc(1uLL, a11 + v46 * a7, 0x3B22438DuLL);
+    *(v24 + 47) = v49;
+    if (!v49)
     {
       goto LABEL_58;
     }
@@ -6981,9 +6972,9 @@ LABEL_41:
 
   if (a13)
   {
-    v56 = CGAccessSessionCreate(a13);
-    *(v24 + 85) = v56;
-    if (!v56)
+    v50 = CGAccessSessionCreate(a13);
+    *(v24 + 85) = v50;
+    if (!v50)
     {
 LABEL_58:
       CGImageStreamRelease(v24);
@@ -6991,11 +6982,11 @@ LABEL_58:
     }
   }
 
-  else if (v47)
+  else if (v44)
   {
-    v57 = malloc_type_calloc(1uLL, v50, 0x1DDFFADAuLL);
-    *(v24 + 48) = v57;
-    if (!v57)
+    v51 = malloc_type_calloc(1uLL, v47, 0x1DDFFADAuLL);
+    *(v24 + 48) = v51;
+    if (!v51)
     {
       goto LABEL_58;
     }
@@ -7006,13 +6997,13 @@ LABEL_58:
     *(v24 + 256) = 0;
     memset(&srcFormat, 0, sizeof(srcFormat));
     memcpy(__dst, v24 + 696, sizeof(__dst));
-    CGBitmapPixelInfoGet_vImageFormat(&srcFormat, __dst, v58, v59, v60, v61, v62, v63);
+    CGBitmapPixelInfoGet_vImageFormat(&srcFormat, __dst);
     memset(&destFormat, 0, sizeof(destFormat));
     memcpy(__dst, v24 + 1000, sizeof(__dst));
-    CGBitmapPixelInfoGet_vImageFormat(&destFormat, __dst, v64, v65, v66, v67, v68, v69);
-    v70 = vImageConverter_CreateWithCGImageFormat(&srcFormat, &destFormat, 0, 0x100u, 0);
-    *(v24 + 86) = v70;
-    if (!v70)
+    CGBitmapPixelInfoGet_vImageFormat(&destFormat, __dst);
+    v52 = vImageConverter_CreateWithCGImageFormat(&srcFormat, &destFormat, 0, 0x100u, 0);
+    *(v24 + 86) = v52;
+    if (!v52)
     {
       goto LABEL_58;
     }
@@ -7269,7 +7260,7 @@ uint64_t (*__nxm_get_output_range_block_invoke())()
   return result;
 }
 
-uint64_t CGColorConversionInfoIterateColorSpaceFunctionsWithCallbacks(CGColorSpace *a1, CGColorSpace *a2, unsigned int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, unsigned int a8, int a9)
+uint64_t CGColorConversionInfoIterateColorSpaceFunctionsWithCallbacks(CGColorSpace *a1, CGColorSpace *a2, unsigned int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, unsigned int a8, uint64_t a9)
 {
   if (!CGColorSpaceSupportsOutput(a1))
   {
@@ -7489,42 +7480,42 @@ uint64_t CGFontDBPurgeAllFonts(uint64_t result)
   return result;
 }
 
-void CGFontDBAddFontReferencesAtPath(uint64_t a1, const void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void CGFontDBAddFontReferencesAtPath(uint64_t a1, const void *a2)
 {
   if (a1)
   {
     if (a2)
     {
-      FontsWithPath = CGFontCreateFontsWithPath(a2, a2, a3, a4, a5, a6, a7, a8);
+      FontsWithPath = CGFontCreateFontsWithPath(a2);
       if (FontsWithPath)
       {
-        v11 = FontsWithPath;
+        v5 = FontsWithPath;
         pthread_mutex_lock((a1 + 32));
         ValueAtIndex = CFArrayGetValueAtIndex(*a1, 0);
-        Count = CFArrayGetCount(v11);
+        Count = CFArrayGetCount(v5);
         if (Count)
         {
-          v14 = Count;
-          for (i = 0; i != v14; ++i)
+          v8 = Count;
+          for (i = 0; i != v8; ++i)
           {
-            v16 = CFArrayGetValueAtIndex(v11, i);
-            if (v16)
+            v10 = CFArrayGetValueAtIndex(v5, i);
+            if (v10)
             {
-              v17 = v16;
-              v18 = (*(v16[2] + 160))(v16[14]);
-              if (v18)
+              v11 = v10;
+              v12 = (*(v10[2] + 160))(v10[14]);
+              if (v12)
               {
-                v19 = v18;
-                CFDictionarySetValue(ValueAtIndex, v18, a2);
-                CFRelease(v19);
+                v13 = v12;
+                CFDictionarySetValue(ValueAtIndex, v12, a2);
+                CFRelease(v13);
               }
 
-              v20 = (*(v17[2] + 176))(v17[14]);
-              if (v20)
+              v14 = (*(v11[2] + 176))(v11[14]);
+              if (v14)
               {
-                v21 = v20;
-                CFDictionarySetValue(ValueAtIndex, v20, a2);
-                CFRelease(v21);
+                v15 = v14;
+                CFDictionarySetValue(ValueAtIndex, v14, a2);
+                CFRelease(v15);
               }
             }
           }
@@ -7532,14 +7523,15 @@ void CGFontDBAddFontReferencesAtPath(uint64_t a1, const void *a2, uint64_t a3, u
 
         pthread_mutex_unlock((a1 + 32));
 
-        CFRelease(v11);
+        CFRelease(v5);
       }
     }
   }
 }
 
-DIR *CGFontDBAddFontsInDirectory(uint64_t a1, CFStringRef string, int a3)
+DIR *CGFontDBAddFontsInDirectory(uint64_t a1, CFStringRef string, uint64_t a3)
 {
+  v3 = a3;
   v8 = *MEMORY[0x1E69E9840];
   memset(&v6, 0, sizeof(v6));
   result = CFStringGetFileSystemRepresentation(string, buffer, 1025);
@@ -7548,7 +7540,7 @@ DIR *CGFontDBAddFontsInDirectory(uint64_t a1, CFStringRef string, int a3)
     result = stat(buffer, &v6);
     if (!result && (v6.st_mode & 0xF000) == 0x4000)
     {
-      return activate_directory(a1, buffer, a3);
+      return activate_directory(a1, buffer, v3);
     }
   }
 
@@ -7557,7 +7549,7 @@ DIR *CGFontDBAddFontsInDirectory(uint64_t a1, CFStringRef string, int a3)
 
 DIR *activate_directory(uint64_t a1, uint64_t a2, int a3)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   __strcpy_chk();
   v5 = strlen(__s);
   v6 = v5;
@@ -7589,9 +7581,9 @@ DIR *activate_directory(uint64_t a1, uint64_t a2, int a3)
           v13 = CFStringCreateWithFileSystemRepresentation(0, __s);
           if (v13)
           {
-            v20 = v13;
-            CGFontDBAddFontReferencesAtPath(a1, v13, v14, v15, v16, v17, v18, v19);
-            CFRelease(v20);
+            v14 = v13;
+            CGFontDBAddFontReferencesAtPath(a1, v13);
+            CFRelease(v14);
           }
         }
 
@@ -7651,38 +7643,38 @@ __CFDictionary *CGFontDBCreatePlist(CFArrayRef *a1)
 
 void get_names_and_paths(const void *a1, CFTypeRef cf, __CFDictionary *a3)
 {
-  v9 = CFGetTypeID(cf);
+  v6 = CFGetTypeID(cf);
   if (_block_invoke_once_3400 != -1)
   {
     dispatch_once(&_block_invoke_once_3400, &__block_literal_global_8_3401);
   }
 
-  if (v9 != CGFontGetTypeID_font_type_id)
+  if (v6 != CGFontGetTypeID_font_type_id)
   {
     if (cf)
     {
-      v13 = CFGetTypeID(cf);
-      v14 = CFCopyTypeIDDescription(v13);
-      LOBYTE(v12) = CFStringGetCStringPtr(v14, 0x8000100u);
+      v10 = CFGetTypeID(cf);
+      v11 = CFCopyTypeIDDescription(v10);
+      CStringPtr = CFStringGetCStringPtr(v11, 0x8000100u);
     }
 
     else
     {
-      v12 = "<NULL>";
+      CStringPtr = "<NULL>";
     }
 
-    _CGHandleAssert("get_names_and_paths", 460, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/Fonts/CGFontDB.c", "CFGetTypeID(value) == CGFontGetTypeID()", "value is a %s", v6, v7, v8, v12);
+    _CGHandleAssert("get_names_and_paths", 460, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/Fonts/CGFontDB.c", "CFGetTypeID(value) == CGFontGetTypeID()", "value is a %s", CStringPtr);
   }
 
   if (cf)
   {
-    v10 = (*(*(cf + 2) + 232))(*(cf + 14));
-    if (v10)
+    v7 = (*(*(cf + 2) + 232))(*(cf + 14));
+    if (v7)
     {
-      v11 = v10;
-      CFDictionarySetValue(a3, a1, v10);
+      v8 = v7;
+      CFDictionarySetValue(a3, a1, v7);
 
-      CFRelease(v11);
+      CFRelease(v8);
     }
   }
 }
@@ -7801,31 +7793,31 @@ LABEL_4:
       }
     }
 
-    add_fonts_at_path_locked(v3, v10, a2, v11, v12, v13, v14, v15);
-    v19 = CFDictionaryGetValue(*(v3 + 8), a2);
-    Value = v19;
-    if (v19)
+    add_fonts_at_path_locked(v3, v10, a2);
+    v14 = CFDictionaryGetValue(*(v3 + 8), a2);
+    Value = v14;
+    if (v14)
     {
-      v20 = CFRetain(v19);
-      CFAutorelease(v20);
+      v15 = CFRetain(v14);
+      CFAutorelease(v15);
     }
 
     goto LABEL_4;
   }
 
 LABEL_14:
-  v16 = copy_aliased_font_name_locked(v3, a2);
-  if (!v16)
+  v11 = copy_aliased_font_name_locked(v3, a2);
+  if (!v11)
   {
     Value = 0;
     goto LABEL_4;
   }
 
-  v17 = v16;
+  v12 = v11;
   pthread_mutex_unlock((v3 + 32));
-  v18 = CGFontDBGetFontWithName(v3, v17);
-  CFRelease(v17);
-  return v18;
+  v13 = CGFontDBGetFontWithName(v3, v12);
+  CFRelease(v12);
+  return v13;
 }
 
 CFTypeRef copy_aliased_font_name_locked(uint64_t a1, const void *a2)
@@ -7947,11 +7939,11 @@ LABEL_5:
       }
     }
 
-    add_fonts_at_path_locked(v3, v11, a2, v12, v13, v14, v15, v16);
-    v20 = CFDictionaryGetValue(*(v3 + 8), a2);
-    if (v20)
+    add_fonts_at_path_locked(v3, v11, a2);
+    v15 = CFDictionaryGetValue(*(v3 + 8), a2);
+    if (v15)
     {
-      v5 = CFRetain(v20);
+      v5 = CFRetain(v15);
       goto LABEL_5;
     }
 
@@ -7961,17 +7953,17 @@ LABEL_19:
   }
 
 LABEL_15:
-  v17 = copy_aliased_font_name_locked(v3, a2);
-  if (!v17)
+  v12 = copy_aliased_font_name_locked(v3, a2);
+  if (!v12)
   {
     goto LABEL_19;
   }
 
-  v18 = v17;
+  v13 = v12;
   pthread_mutex_unlock((v3 + 32));
-  v19 = CGFontDBCopyFontWithName(v3, v18);
-  CFRelease(v18);
-  return v19;
+  v14 = CGFontDBCopyFontWithName(v3, v13);
+  CFRelease(v13);
+  return v14;
 }
 
 void CGFontDBApplyFunction(uint64_t a1, unsigned int (*a2)(const void *, uint64_t), uint64_t a3)
@@ -8003,7 +7995,7 @@ LABEL_6:
 
 void apply_function_locked(CFArrayRef *a1, unsigned int (*a2)(const void *, uint64_t), uint64_t a3)
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   Count = CFArrayGetCount(*a1);
   if (Count >= 1)
   {
@@ -8016,103 +8008,103 @@ void apply_function_locked(CFArrayRef *a1, unsigned int (*a2)(const void *, uint
   }
 
   v10 = CFDictionaryGetCount(a1[1]);
-  v12 = MEMORY[0x1EEE9AC00](8 * v10, v11);
-  v15 = (v21 - v14);
-  if (v13 <= 0x1FFFFFFFFFFFFFFELL)
+  v11 = MEMORY[0x1EEE9AC00](8 * v10);
+  v14 = (v20 - v13);
+  if (v12 <= 0x1FFFFFFFFFFFFFFELL)
   {
-    v16 = (v21 - v14);
+    v15 = (v20 - v13);
   }
 
   else
   {
-    v16 = 0;
+    v15 = 0;
   }
 
-  if (v13 - 0x1FFFFFFFFFFFFFFFLL >= 0xE00000000000007ALL)
+  if (v12 - 0x1FFFFFFFFFFFFFFFLL >= 0xE00000000000007ALL)
   {
-    v16 = malloc_type_malloc(v12, 0x3FDBC428uLL);
+    v15 = malloc_type_malloc(v11, 0x3FDBC428uLL);
   }
 
-  if (v16)
+  if (v15)
   {
-    CFDictionaryGetKeysAndValues(a1[1], 0, v16);
+    CFDictionaryGetKeysAndValues(a1[1], 0, v15);
     Mutable = CFSetCreateMutable(0, v10, MEMORY[0x1E695E9F8]);
     if (Mutable)
     {
-      v18 = Mutable;
+      v17 = Mutable;
       if (v10)
       {
-        v19 = v16;
+        v18 = v15;
         do
         {
-          v20 = *v19;
-          if (!CFSetContainsValue(v18, *v19))
+          v19 = *v18;
+          if (!CFSetContainsValue(v17, *v18))
           {
-            if (a2(v20, a3))
+            if (a2(v19, a3))
             {
               break;
             }
 
-            CFSetAddValue(v18, v20);
+            CFSetAddValue(v17, v19);
           }
 
-          ++v19;
+          ++v18;
           --v10;
         }
 
         while (v10);
       }
 
-      CFRelease(v18);
+      CFRelease(v17);
     }
 
-    if (v16 != v15)
+    if (v15 != v14)
     {
-      free(v16);
+      free(v15);
     }
   }
 }
 
 void fault_all_in_map_locked(uint64_t a1, CFDictionaryRef theDict)
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   if (theDict)
   {
     Count = CFDictionaryGetCount(theDict);
     if (Count)
     {
-      v6 = Count;
-      v7 = MEMORY[0x1EEE9AC00](16 * Count, v5);
-      v10 = (&v18[-1] - v8 - 7);
-      if (v9 <= 0x1FFFFFFFFFFFFFFELL)
+      v5 = Count;
+      v6 = MEMORY[0x1EEE9AC00](16 * Count);
+      v9 = (&v12[-1] - v7 - 7);
+      if (v8 <= 0x1FFFFFFFFFFFFFFELL)
       {
-        v11 = (&v18[-1] - v8 - 7);
+        v10 = (&v12[-1] - v7 - 7);
       }
 
       else
       {
-        v11 = 0;
+        v10 = 0;
       }
 
-      if (v9 - 0x1FFFFFFFFFFFFFFFLL >= 0xE00000000000007ALL)
+      if (v8 - 0x1FFFFFFFFFFFFFFFLL >= 0xE00000000000007ALL)
       {
-        v11 = malloc_type_malloc(v7, 0x3AF39A6DuLL);
+        v10 = malloc_type_malloc(v6, 0x3AF39A6DuLL);
       }
 
-      if (v11)
+      if (v10)
       {
-        CFDictionaryGetKeysAndValues(theDict, v11, &v11[v6]);
-        for (i = 0; i != v6; ++i)
+        CFDictionaryGetKeysAndValues(theDict, v10, &v10[v5]);
+        for (i = 0; i != v5; ++i)
         {
-          if (!CFDictionaryGetValue(*(a1 + 8), v11[i]))
+          if (!CFDictionaryGetValue(*(a1 + 8), v10[i]))
           {
-            add_fonts_at_path_locked(a1, *(&v11[v6] + i), v11[i], v13, v14, v15, v16, v17);
+            add_fonts_at_path_locked(a1, *(&v10[v5] + i), v10[i]);
           }
         }
 
-        if (v11 != v10)
+        if (v10 != v9)
         {
-          free(v11);
+          free(v10);
         }
       }
     }
@@ -8162,8 +8154,7 @@ LABEL_7:
 
   v31 = @"filterName";
   v32[0] = v7;
-  [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:&v31 count:1];
-  send_analytics_event("com.apple.CoreGraphics.CreatePDFImage");
+  send_analytics_event("com.apple.CoreGraphics.CreatePDFImage", [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:&v31 count:1]);
   objc_autoreleasePoolPop(v5);
   if (value)
   {
@@ -8177,7 +8168,7 @@ LABEL_7:
     dispatch_once(&CGPDFImageGetTypeID_onceToken, &__block_literal_global_835);
   }
 
-  cftype = pdf_create_cftype();
+  cftype = pdf_create_cftype(CGPDFImageGetTypeID_id, 224);
   mask = cftype;
   if (!cftype)
   {
@@ -8406,14 +8397,14 @@ char *get_image_filter_name(CGPDFDictionary *a1)
   return 0;
 }
 
-uint64_t create_mask(void *a1)
+uint64_t create_mask(CGPDFDictionary *a1)
 {
   if (CGPDFImageGetTypeID_onceToken != -1)
   {
     dispatch_once(&CGPDFImageGetTypeID_onceToken, &__block_literal_global_835);
   }
 
-  cftype = pdf_create_cftype();
+  cftype = pdf_create_cftype(CGPDFImageGetTypeID_id, 224);
   v3 = cftype;
   if (cftype)
   {
@@ -8433,7 +8424,7 @@ LABEL_22:
     *value = 0;
     if (a1)
     {
-      a1 = a1[6];
+      a1 = *(a1 + 6);
     }
 
     if (!CGPDFDictionaryGetBoolean(a1, "ImageMask", &value[1]) || !value[1])
@@ -8565,14 +8556,14 @@ CGPDFReal set_image_decode_array(uint64_t a1, CGPDFDictionaryRef dict, uint64_t 
   return result;
 }
 
-uint64_t create_smask(void *a1, uint64_t a2)
+uint64_t create_smask(CGPDFDictionary *a1, uint64_t a2)
 {
   if (CGPDFImageGetTypeID_onceToken != -1)
   {
     dispatch_once(&CGPDFImageGetTypeID_onceToken, &__block_literal_global_835);
   }
 
-  cftype = pdf_create_cftype();
+  cftype = pdf_create_cftype(CGPDFImageGetTypeID_id, 224);
   v5 = cftype;
   if (cftype)
   {
@@ -8589,7 +8580,7 @@ uint64_t create_smask(void *a1, uint64_t a2)
       *value = 0;
       if (a1)
       {
-        a1 = a1[6];
+        a1 = *(a1 + 6);
       }
 
       if (CGPDFDictionaryGetBoolean(a1, "ImageMask", &value[1]) && value[1])
@@ -8737,12 +8728,12 @@ uint64_t CGPDFImageFinalize(uint64_t a1)
   return pthread_mutex_destroy((a1 + 152));
 }
 
-uint64_t CGPDFImageCreateInline(uint64_t a1, uint64_t a2)
+uint64_t CGPDFImageCreateInline(uint64_t a1, CGPDFDictionary **a2)
 {
   v2 = a2;
   if (a2)
   {
-    v4 = *(a2 + 48);
+    v4 = a2[6];
   }
 
   else
@@ -8760,7 +8751,7 @@ LABEL_24:
       dispatch_once(&CGPDFImageGetTypeID_onceToken, &__block_literal_global_835);
     }
 
-    cftype = pdf_create_cftype();
+    cftype = pdf_create_cftype(CGPDFImageGetTypeID_id, 224);
     v6 = cftype;
     if (!cftype)
     {
@@ -8997,7 +8988,7 @@ LABEL_105:
     dispatch_once(&CGPDFImageGetTypeID_onceToken, &__block_literal_global_835);
   }
 
-  v5 = pdf_create_cftype();
+  v5 = pdf_create_cftype(CGPDFImageGetTypeID_id, 224);
   v6 = v5;
   if (!v5)
   {
@@ -9110,7 +9101,7 @@ CGColorSpaceRef create_inline_device_color_space(char *__s1)
   }
 }
 
-CGImageRef CGPDFImageCreateImageForRenderingSize(CGImageRef result, uint64_t a2, double a3, double a4)
+char *CGPDFImageCreateImageForRenderingSize(char *result, uint64_t a2, double a3, double a4)
 {
   if (result)
   {
@@ -9121,10 +9112,10 @@ CGImageRef CGPDFImageCreateImageForRenderingSize(CGImageRef result, uint64_t a2,
       goto LABEL_4;
     }
 
-    v9 = *(v7 + 48) / a3;
-    if (v9 >= *(v7 + 56) / a4)
+    v9 = *(v7 + 6) / a3;
+    if (v9 >= *(v7 + 7) / a4)
     {
-      v9 = *(v7 + 56) / a4;
+      v9 = *(v7 + 7) / a4;
     }
 
     if (v9 >= 16.0)
@@ -9155,10 +9146,10 @@ LABEL_4:
     }
 
 LABEL_15:
-    if ((*(v7 + 16) & 1) == 0)
+    if ((v7[16] & 1) == 0)
     {
-      ResolvedColorSpace = CGPDFContentStreamCreateResolvedColorSpace(a2, *(v7 + 72));
-      if (!CGColorSpaceEqualToColorSpace(ResolvedColorSpace, *(v7 + 72)))
+      ResolvedColorSpace = CGPDFContentStreamCreateResolvedColorSpace(a2, *(v7 + 9));
+      if (!CGColorSpaceEqualToColorSpace(ResolvedColorSpace, *(v7 + 9)))
       {
         image_for_image = create_image_for_image(v7, ResolvedColorSpace, v8);
         CGColorSpaceRelease(ResolvedColorSpace);
@@ -9170,7 +9161,7 @@ LABEL_15:
     }
 
     pthread_mutex_lock((v7 + 152));
-    v11 = *(v7 + 216);
+    v11 = *(v7 + 27);
     if (!v11)
     {
       goto LABEL_25;
@@ -9187,8 +9178,8 @@ LABEL_15:
         if (v8 < valuePtr)
         {
           pdf_log("CGPDFImage(%p): subsample_factor MISMATCH. existing = %d, requested = %d\n", v7, valuePtr, v8);
-          v14 = *(v7 + 216);
-          *(v7 + 216) = 0;
+          v14 = *(v7 + 27);
+          *(v7 + 27) = 0;
           if (v14)
           {
             CFRelease(v14);
@@ -9197,46 +9188,46 @@ LABEL_15:
       }
     }
 
-    v15 = *(v7 + 216);
+    v15 = *(v7 + 27);
     if (!v15)
     {
 LABEL_25:
-      if (*(v7 + 16) == 1)
+      if (v7[16] == 1)
       {
-        if (*(v7 + 40))
+        if (*(v7 + 10))
         {
-          *(v7 + 216) = 0;
+          *(v7 + 27) = 0;
 LABEL_36:
           pthread_mutex_unlock((v7 + 152));
           CFRelease(v7);
-          return *(v7 + 216);
+          return *(v7 + 27);
         }
 
-        v17 = mask_create(*(v7 + 48), *(v7 + 56), *(v7 + 64), *(v7 + 64), (*(v7 + 48) * *(v7 + 64) + 7) >> 3, *(v7 + 32), *(v7 + 136), *(v7 + 84), 4);
+        v17 = mask_create(*(v7 + 6), *(v7 + 7), *(v7 + 8), *(v7 + 8), (*(v7 + 6) * *(v7 + 8) + 7) >> 3, *(v7 + 4), *(v7 + 17), v7[84], 4);
       }
 
       else
       {
         pdf_log("CGPDFImage(%p): Creating image with subsample_factor = %d\n", v7, v8);
-        v17 = create_image_for_image(v7, *(v7 + 72), v8);
+        v17 = create_image_for_image(v7, *(v7 + 9), v8);
       }
 
-      *(v7 + 216) = v17;
+      *(v7 + 27) = v17;
       if (!v17)
       {
         goto LABEL_36;
       }
 
-      v20 = *(v7 + 48) / *(v17 + 40);
+      v20 = *(v7 + 6) / *(v17 + 40);
       v18 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberIntType, &v20);
       if (v18)
       {
         v19 = v18;
-        CGImageSetProperty(*(v7 + 216), @"com.apple.CoreGraphics.SubsampleFactor", v18);
+        CGImageSetProperty(*(v7 + 27), @"com.apple.CoreGraphics.SubsampleFactor", v18);
         CFRelease(v19);
       }
 
-      v15 = *(v7 + 216);
+      v15 = *(v7 + 27);
       if (!v15)
       {
         goto LABEL_36;
@@ -9529,12 +9520,12 @@ LABEL_67:
         CopyWithColorSpace = v44;
         if (v44)
         {
-          CopyByApplyingSoftMask = CGImageCreateCopyByApplyingSoftMask(v44, v45, v46, v47, v48, v49, v50, v51);
+          CopyByApplyingSoftMask = CGImageCreateCopyByApplyingSoftMask(v44);
           if (CopyByApplyingSoftMask)
           {
-            v53 = CopyByApplyingSoftMask;
+            v46 = CopyByApplyingSoftMask;
             CFRelease(CopyWithColorSpace);
-            CopyWithColorSpace = v53;
+            CopyWithColorSpace = v46;
           }
         }
       }
@@ -9569,10 +9560,10 @@ LABEL_87:
 
   CFRelease(v9);
 LABEL_90:
-  v54 = *(a1 + 96);
-  if (v54)
+  v47 = *(a1 + 96);
+  if (v47)
   {
-    v34 = CGImageCreateWithEPSDataProvider(v54, CopyWithColorSpace);
+    v34 = CGImageCreateWithEPSDataProvider(v47, CopyWithColorSpace);
     if (v34)
     {
       goto LABEL_92;
@@ -9590,17 +9581,17 @@ void CGContextDrawConicGradient(CGContextRef c, CGGradientRef gradient, CGPoint 
     {
       if (gradient)
       {
-        v12 = *(c + 5);
-        if (v12)
+        v6 = *(c + 5);
+        if (v6)
         {
           y = center.y;
           x = center.x;
-          v16 = *(v12 + 120);
-          if (!v16 || v16(center, *&center.y, angle) == 1006)
+          v10 = *(v6 + 120);
+          if (!v10 || v10(center, *&center.y, angle) == 1006)
           {
-            v17 = *(gradient + 3);
-            Function = CGGradientGetFunction(gradient, gradient, v4, v5, v6, v7, v8, v9);
-            Conic = CGShadingCreateConic(v17, Function, x, y, angle, v19, v20, v21, v22, v23, v24);
+            v11 = *(gradient + 3);
+            Function = CGGradientGetFunction(gradient);
+            Conic = CGShadingCreateConic(v11, Function, x, y, angle);
             CGContextDrawShading(c, Conic);
             if (Conic)
             {
@@ -9614,74 +9605,74 @@ void CGContextDrawConicGradient(CGContextRef c, CGGradientRef gradient, CGPoint 
       return;
     }
 
-    v26 = c;
+    v14 = c;
   }
 
   else
   {
-    v26 = 0;
+    v14 = 0;
   }
 
-  handle_invalid_context("CGContextDrawConicGradient", v26, v4, v5, v6, v7, v8, v9);
+  handle_invalid_context("CGContextDrawConicGradient", v14);
 }
 
-float64x2_t CGSScanconverterAddLineToPoint(uint64_t a1, float64x2_t result, double a3)
+__n128 CGSScanconverterAddLineToPoint(uint64_t a1, __n128 result, __n128 a3, __n128 a4, double a5, __n128 a6, float64x2_t a7)
 {
-  v3 = a3;
-  v4.f64[0] = result.f64[0];
-  if ((*&result.f64[0] & 0x7FFFFFFFFFFFFFFFuLL) <= 0x7FEFFFFFFFFFFFFFLL && (*&a3 & 0x7FFFFFFFFFFFFFFFuLL) <= 0x7FEFFFFFFFFFFFFFLL)
+  v7 = a3.n128_f64[0];
+  *&v8.f64[0] = result.n128_u64[0];
+  if ((result.n128_u64[0] & 0x7FFFFFFFFFFFFFFFLL) <= 0x7FEFFFFFFFFFFFFFLL && (a3.n128_u64[0] & 0x7FFFFFFFFFFFFFFFLL) <= 0x7FEFFFFFFFFFFFFFLL)
   {
-    v6 = *(a1 + 8);
-    v7 = *(a1 + 16);
-    if (v6 != result.f64[0] || v7 != v3)
+    v10 = *(a1 + 8);
+    v11 = *(a1 + 16);
+    if (v10 != result.n128_f64[0] || v11 != v7)
     {
-      if (v6 >= result.f64[0])
+      if (v10 >= result.n128_f64[0])
       {
-        if (v6 <= result.f64[0])
+        if (v10 <= result.n128_f64[0])
         {
 LABEL_16:
-          *(a1 + 8) = v4.f64[0];
-          *(a1 + 16) = v3;
-          v4.f64[1] = v3;
-          *(a1 + 40) = vminnmq_f64(*(a1 + 40), v4);
-          result = vmaxnmq_f64(*(a1 + 56), v4);
+          *(a1 + 8) = v8.f64[0];
+          *(a1 + 16) = v7;
+          v8.f64[1] = v7;
+          *(a1 + 40) = vminnmq_f64(*(a1 + 40), v8);
+          result = vmaxnmq_f64(*(a1 + 56), v8);
           *(a1 + 56) = result;
           return result;
         }
 
-        v10 = 0.0;
-        if (v6 - result.f64[0] >= 0.00001)
+        v14 = 0.0;
+        if (v10 - result.n128_f64[0] >= 0.00001)
         {
-          v10 = (v3 - v7) / (result.f64[0] - v6);
+          v14 = (v7 - v11) / (result.n128_f64[0] - v10);
         }
 
-        v11 = result.f64[0];
-        v12 = v6;
-        v16 = v4.f64[0];
-        v13 = v3;
-        v14 = -1.0;
+        v15 = result.n128_f64[0];
+        v16 = v10;
+        v20 = v8.f64[0];
+        v17 = v7;
+        v18 = -1.0;
       }
 
       else
       {
-        v9 = result.f64[0] - v6;
-        v10 = 0.0;
-        if (v4.f64[0] - v6 >= 0.00001)
+        v13 = result.n128_f64[0] - v10;
+        v14 = 0.0;
+        if (v8.f64[0] - v10 >= 0.00001)
         {
-          v10 = (v3 - v7) / v9;
+          v14 = (v7 - v11) / v13;
         }
 
-        v11 = v6;
-        v12 = v4.f64[0];
-        v16 = v4.f64[0];
-        v13 = v7;
-        v14 = 1.0;
+        v15 = v10;
+        v16 = v8.f64[0];
+        v20 = v8.f64[0];
+        v17 = v11;
+        v18 = 1.0;
       }
 
-      v15 = v3;
-      add_quadratic(a1, v11, v12, v14, 0.0, v10, v13);
-      v3 = v15;
-      v4.f64[0] = v16;
+      v19 = v7;
+      add_quadratic(a1, v15, v16, v18, 0.0, v14, v17);
+      v7 = v19;
+      v8.f64[0] = v20;
       goto LABEL_16;
     }
   }
@@ -9693,40 +9684,40 @@ char *add_quadratic(char **a1, float a2, float a3, float a4, float a5, float a6,
 {
   v14 = a1[10];
   v15 = a1[11];
-  v16 = (v14 + 1);
+  v16 = v14 + 1;
   result = *a1;
   if (v15 < (v14 + 1))
   {
     if (2 * v15 <= v16)
     {
-      v18 = (v14 + 1);
+      v18 = v14 + 1;
     }
 
     else
     {
-      v18 = 2 * v15;
+      v18 = (2 * v15);
     }
 
     result = malloc_type_realloc(result, 24 * v18, 0x1000040504FFAC1uLL);
     *a1 = result;
     if (!result)
     {
-      _CGHandleAssert("grow", 98, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/Fonts/CGSScanConverter.c", "sc->quadratics != NULL", "quadratics missing", v19, v20, v21, v23);
+      _CGHandleAssert("grow", 98, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/Fonts/CGSScanConverter.c", "sc->quadratics != NULL", "quadratics missing");
     }
 
     a1[11] = v18;
     v14 = a1[10];
-    v16 = (v14 + 1);
+    v16 = v14 + 1;
   }
 
   a1[10] = v16;
-  v22 = &result[24 * v14];
-  *v22 = a2;
-  v22[1] = a3;
-  v22[2] = a4;
-  v22[3] = a5;
-  v22[4] = a6;
-  v22[5] = a7;
+  v19 = &result[24 * v14];
+  *v19 = a2;
+  v19[1] = a3;
+  v19[2] = a4;
+  v19[3] = a5;
+  v19[4] = a6;
+  v19[5] = a7;
   return result;
 }
 
@@ -9743,7 +9734,7 @@ char *approximateMonotonicCube(char *result, int a2, double a3, double a4, __n12
     v117 = a9 * a9;
     v116 = vdupq_lane_s64(*&a10, 0);
     v115 = vdupq_lane_s64(*&a9, 0);
-    v18 = (a2 + 1);
+    v18 = a2 + 1;
     v19 = -2.0;
     v20 = 0.5;
     v21 = 2.0;
@@ -9953,7 +9944,7 @@ char *approximateMonotonicCube(char *result, int a2, double a3, double a4, __n12
         }
       }
 
-      v18 = (v18 + 1);
+      ++v18;
       v12 = v38;
       *&v10 = v36;
       v13 = v37;

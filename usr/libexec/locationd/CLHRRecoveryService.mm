@@ -115,6 +115,7 @@
 
 - (void)setUpAggregationOnTimer
 {
+  selfCopy = self;
   ptr = self->fInputHRAggregator.__ptr_;
   v5 = ptr[1];
   v4 = ptr[2];
@@ -151,165 +152,165 @@
     v11 = 24 * v7;
     *v11 = xmmword_101C79F40;
     *(v11 + 16) = 0;
-    v6 = 24 * v7 + 24;
+    p_fInputHRAggregator = 24 * v7 + 24;
     v12 = ptr[1] - *ptr;
     v13 = 24 * v7 - v12;
     memcpy((v11 - v12), *ptr, v12);
-    v14 = *ptr;
+    self = *ptr;
     *ptr = v13;
-    ptr[1] = v6;
+    ptr[1] = p_fInputHRAggregator;
     ptr[2] = 0;
-    if (v14)
+    if (self)
     {
-      operator delete(v14);
+      operator delete(self);
     }
   }
 
   else
   {
-    *v5 = xmmword_101C79F40;
-    v5[16] = 0;
-    v6 = (v5 + 24);
+    *v5->CLIntersiloService_opaque = xmmword_101C79F40;
+    LOBYTE(v5->fInputHRDb.__cntrl_) = 0;
+    p_fInputHRAggregator = &v5->fInputHRAggregator;
   }
 
-  ptr[1] = v6;
-  v15 = self->fInputWRAggregator.__ptr_;
-  v17 = v15[1];
-  v16 = v15[2];
-  if (v17 >= v16)
+  ptr[1] = p_fInputHRAggregator;
+  v14 = selfCopy->fInputWRAggregator.__ptr_;
+  v16 = v14[1];
+  v15 = v14[2];
+  if (v16 >= v15)
   {
-    v19 = 0xAAAAAAAAAAAAAAABLL * ((v17 - *v15) >> 3);
-    v20 = v19 + 1;
-    if (v19 + 1 > 0xAAAAAAAAAAAAAAALL)
+    v18 = 0xAAAAAAAAAAAAAAABLL * ((v16 - *v14) >> 3);
+    v19 = v18 + 1;
+    if (v18 + 1 > 0xAAAAAAAAAAAAAAALL)
     {
       goto LABEL_40;
     }
 
-    v21 = 0xAAAAAAAAAAAAAAABLL * ((v16 - *v15) >> 3);
-    if (2 * v21 > v20)
+    v20 = 0xAAAAAAAAAAAAAAABLL * ((v15 - *v14) >> 3);
+    if (2 * v20 > v19)
     {
-      v20 = 2 * v21;
+      v19 = 2 * v20;
     }
 
-    if (v21 >= 0x555555555555555)
+    if (v20 >= 0x555555555555555)
     {
-      v22 = 0xAAAAAAAAAAAAAAALL;
+      v21 = 0xAAAAAAAAAAAAAAALL;
     }
 
     else
     {
-      v22 = v20;
+      v21 = v19;
     }
 
-    if (v22)
+    if (v21)
     {
-      sub_10013E290(self->fInputWRAggregator.__ptr_, v22);
+      sub_10013E290(selfCopy->fInputWRAggregator.__ptr_, v21);
     }
 
-    v23 = 24 * v19;
-    *v23 = xmmword_101C79F40;
-    *(v23 + 16) = 0;
-    v18 = 24 * v19 + 24;
-    v24 = v15[1] - *v15;
-    v25 = 24 * v19 - v24;
-    memcpy((v23 - v24), *v15, v24);
-    v26 = *v15;
-    *v15 = v25;
-    v15[1] = v18;
-    v15[2] = 0;
-    if (v26)
+    v22 = 24 * v18;
+    *v22 = xmmword_101C79F40;
+    *(v22 + 16) = 0;
+    v17 = 24 * v18 + 24;
+    v23 = v14[1] - *v14;
+    v24 = 24 * v18 - v23;
+    memcpy((v22 - v23), *v14, v23);
+    self = *v14;
+    *v14 = v24;
+    v14[1] = v17;
+    v14[2] = 0;
+    if (self)
     {
-      operator delete(v26);
+      operator delete(self);
     }
   }
 
   else
   {
-    *v17 = xmmword_101C79F40;
-    v17[16] = 0;
-    v18 = (v17 + 24);
+    *v16 = xmmword_101C79F40;
+    *(v16 + 16) = 0;
+    v17 = v16 + 24;
   }
 
-  v15[1] = v18;
-  v27 = self->fSessionAggregator.__ptr_;
-  v29 = v27[1];
-  v28 = v27[2];
-  if (v29 < v28)
+  v14[1] = v17;
+  v25 = selfCopy->fSessionAggregator.__ptr_;
+  v27 = v25[1];
+  v26 = v25[2];
+  if (v27 < v26)
   {
-    *v29 = xmmword_101C79F50;
-    v29[16] = 0;
-    v30 = (v29 + 24);
+    *v27 = xmmword_101C79F50;
+    *(v27 + 16) = 0;
+    v28 = v27 + 24;
     goto LABEL_37;
   }
 
-  v31 = 0xAAAAAAAAAAAAAAABLL * ((v29 - *v27) >> 3);
-  v32 = v31 + 1;
-  if (v31 + 1 > 0xAAAAAAAAAAAAAAALL)
+  v29 = 0xAAAAAAAAAAAAAAABLL * ((v27 - *v25) >> 3);
+  v30 = v29 + 1;
+  if (v29 + 1 > 0xAAAAAAAAAAAAAAALL)
   {
 LABEL_40:
     sub_10028C64C();
   }
 
-  v33 = 0xAAAAAAAAAAAAAAABLL * ((v28 - *v27) >> 3);
-  if (2 * v33 > v32)
+  v31 = 0xAAAAAAAAAAAAAAABLL * ((v26 - *v25) >> 3);
+  if (2 * v31 > v30)
   {
-    v32 = 2 * v33;
+    v30 = 2 * v31;
   }
 
-  if (v33 >= 0x555555555555555)
+  if (v31 >= 0x555555555555555)
   {
-    v34 = 0xAAAAAAAAAAAAAAALL;
+    v32 = 0xAAAAAAAAAAAAAAALL;
   }
 
   else
   {
-    v34 = v32;
+    v32 = v30;
   }
 
-  if (v34)
+  if (v32)
   {
-    sub_10013E290(self->fSessionAggregator.__ptr_, v34);
+    sub_10013E290(selfCopy->fSessionAggregator.__ptr_, v32);
   }
 
-  v35 = 24 * v31;
-  *v35 = xmmword_101C79F50;
-  *(v35 + 16) = 0;
-  v30 = 24 * v31 + 24;
-  v36 = v27[1] - *v27;
-  v37 = 24 * v31 - v36;
-  memcpy((v35 - v36), *v27, v36);
-  v38 = *v27;
-  *v27 = v37;
-  v27[1] = v30;
-  v27[2] = 0;
-  if (v38)
+  v33 = 24 * v29;
+  *v33 = xmmword_101C79F50;
+  *(v33 + 16) = 0;
+  v28 = 24 * v29 + 24;
+  v34 = v25[1] - *v25;
+  v35 = 24 * v29 - v34;
+  memcpy((v33 - v34), *v25, v34);
+  self = *v25;
+  *v25 = v35;
+  v25[1] = v28;
+  v25[2] = 0;
+  if (self)
   {
-    operator delete(v38);
+    operator delete(self);
   }
 
 LABEL_37:
-  v27[1] = v30;
-  v46 = 86400;
-  v39 = sub_100011660();
-  sub_100185AC0(v39, &v44);
-  sub_10005BBE4(v44, "HRRecoveryAggregationTimeInterval", &v46);
-  if (v45)
+  v25[1] = v28;
+  v43 = 86400;
+  v36 = sub_100011660(self, a2);
+  sub_100185AC0(v36, &v41);
+  sub_10005BBE4(v41, "HRRecoveryAggregationTimeInterval", &v43);
+  if (v42)
   {
-    sub_100008080(v45);
+    sub_100008080(v42);
   }
 
-  v40 = 1000000000 * v46;
-  v41 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, [objc_msgSend(-[CLHRRecoveryService universe](self "universe")]);
-  self->fAggregationTimer = v41;
-  dispatch_source_set_timer(v41, 0, v40, 0xDF8475800uLL);
-  fAggregationTimer = self->fAggregationTimer;
-  v43[0] = _NSConcreteStackBlock;
-  v43[1] = 3221225472;
-  v43[2] = sub_1004C23D0;
-  v43[3] = &unk_102447418;
-  v43[4] = self;
-  dispatch_source_set_event_handler(fAggregationTimer, v43);
-  dispatch_resume(self->fAggregationTimer);
+  v37 = 1000000000 * v43;
+  v38 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, [objc_msgSend(-[CLHRRecoveryService universe](selfCopy "universe")]);
+  selfCopy->fAggregationTimer = v38;
+  dispatch_source_set_timer(v38, 0, v37, 0xDF8475800uLL);
+  fAggregationTimer = selfCopy->fAggregationTimer;
+  v40[0] = _NSConcreteStackBlock;
+  v40[1] = 3221225472;
+  v40[2] = sub_1004C23D0;
+  v40[3] = &unk_102447418;
+  v40[4] = selfCopy;
+  dispatch_source_set_event_handler(fAggregationTimer, v40);
+  dispatch_resume(selfCopy->fAggregationTimer);
 }
 
 - (void)onCatherineNotification:(const int *)notification data:(const NotificationData *)data
@@ -577,94 +578,97 @@ LABEL_37:
 
 - (BOOL)shouldForceWriteSampleToHealthKit
 {
-  v6 = 0;
-  v2 = sub_100011660();
-  sub_100185AC0(v2, &v4);
-  sub_10001CB4C(v4, "ForceWriteHRRToHealthKit", &v6);
-  if (v5)
+  v11 = 0;
+  v2 = sub_100011660(self, a2);
+  sub_100185AC0(v2, &v9);
+  sub_10001CB4C(v9, "ForceWriteHRRToHealthKit", &v11, 0xFFFFFFFFLL);
+  v4 = v10;
+  if (v10)
   {
-    sub_100008080(v5);
+    sub_100008080(v10);
   }
 
-  sub_10001A3E8();
-  return sub_100328630() & v6;
+  v5 = sub_10001A3E8(v4, v3);
+  v7 = sub_100328630(v5, v6);
+  return v7 & v11;
 }
 
 - (void)forceWriteSampleToHealthKit:(const WorkoutEvent *)kit
 {
-  v47 = 0x4039000000000000;
-  v5 = sub_100011660();
+  v50 = 0x4039000000000000;
+  v5 = sub_100011660(self, a2);
   sub_100185AC0(v5, buf);
-  sub_1000B9370(*buf, "FakeHRRValue", &v47);
+  sub_1000B9370(*buf, "FakeHRRValue", &v50);
+  v7 = *&buf[8];
   if (*&buf[8])
   {
     sub_100008080(*&buf[8]);
   }
 
-  v46 = 0x4057C00000000000;
-  v6 = sub_100011660();
-  sub_100185AC0(v6, buf);
-  sub_1000B9370(*buf, "FakeHRRMaxObservedRecoveryHR", &v46);
+  v49 = 0x4057C00000000000;
+  v8 = sub_100011660(v7, v6);
+  sub_100185AC0(v8, buf);
+  sub_1000B9370(*buf, "FakeHRRMaxObservedRecoveryHR", &v49);
   if (*&buf[8])
   {
     sub_100008080(*&buf[8]);
   }
 
   ptr = self->fHRRecoveryEstimator.__ptr_;
-  v21 = 0;
+  v24 = 0;
   Current = CFAbsoluteTimeGetCurrent();
-  v22 = Current;
-  v10 = v46;
-  v9 = v47;
-  v11 = kit->var1 - kit->var0;
-  v23 = v47;
-  v24 = v11;
+  v25 = Current;
+  v12 = v49;
+  v11 = v50;
+  v13 = kit->var1 - kit->var0;
+  v26 = v50;
+  v27 = v13;
   var2 = kit->var5.var2;
-  v25 = var2;
-  v13 = *(ptr + 144);
-  v26 = v13;
-  v27 = 0u;
-  v28 = 0u;
-  v29 = 0;
+  v28 = var2;
+  v15 = *(ptr + 144);
+  v29 = v15;
+  v30 = 0u;
+  v31 = 0u;
+  v32 = 0;
   __asm { FMOV            V1.2D, #-1.0 }
 
-  v30 = _Q1;
-  v31 = 0u;
-  v32 = 0u;
-  v33 = v46;
-  v45 = 0;
-  v35 = 0;
-  v36 = 0;
-  v34 = 0;
+  v33 = _Q1;
+  v34 = 0u;
+  v35 = 0u;
+  v36 = v49;
+  v48 = 0;
+  v38 = 0;
+  v39 = 0;
   v37 = 0;
-  v38 = 0u;
-  v39 = 0u;
   v40 = 0;
-  v44 = 0;
-  v43 = 0u;
-  v42 = 0u;
   v41 = 0u;
+  v42 = 0u;
+  v43 = 0;
+  v47 = 0;
+  v46 = 0u;
+  v45 = 0u;
+  v44 = 0u;
   if (qword_1025D44F0 != -1)
   {
     sub_101897DF0();
   }
 
-  v19 = qword_1025D44F8;
+  v21 = qword_1025D44F8;
   if (os_log_type_enabled(qword_1025D44F8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134284801;
     *&buf[4] = Current;
     *&buf[12] = 2049;
-    *&buf[14] = v9;
-    v61 = 2050;
-    v62 = var2;
-    v63 = 2050;
-    v64 = v11;
-    v65 = 2049;
-    v66 = v10;
-    v67 = 1025;
-    v68 = v13;
-    _os_log_impl(dword_100000000, v19, OS_LOG_TYPE_DEFAULT, "Forcing a fake HR Recovery sample to HealthKit: timeOfEstimate, %{private}f, hrRecovery, %{private}f, workoutType, %{public}ld, activityDuration, %{public}f, maxRecoveryHR, %{private}f, betaBlockerUse, %{private}d", buf, 0x3Au);
+    *&buf[14] = v11;
+    v64 = 2050;
+    v65 = var2;
+    v66 = 2050;
+    v67 = v13;
+    v68 = 2049;
+    v69 = v12;
+    v70 = 1025;
+    v71 = v15;
+    _os_log_impl(dword_100000000, v21, OS_LOG_TYPE_DEFAULT, "Forcing a fake HR Recovery sample to HealthKit: timeOfEstimate, %{private}f, hrRecovery, %{private}f, workoutType, %{public}ld, activityDuration, %{public}f, maxRecoveryHR, %{private}f, betaBlockerUse, %{private}d", buf, 0x3Au);
   }
 
   if (sub_10000A100(121, 2))
@@ -675,27 +679,28 @@ LABEL_37:
       sub_101897DF0();
     }
 
-    v48 = 134284801;
-    v49 = Current;
-    v50 = 2049;
-    v51 = v9;
-    v52 = 2050;
-    v53 = var2;
-    v54 = 2050;
-    v55 = v11;
-    v56 = 2049;
-    v57 = v10;
-    v58 = 1025;
-    v59 = v13;
-    v20 = _os_log_send_and_compose_impl();
-    sub_100152C7C("Generic", 1, 0, 2, "[CLHRRecoveryService forceWriteSampleToHealthKit:]", "%s\n", v20);
-    if (v20 != buf)
+    v51 = 134284801;
+    v52 = Current;
+    v53 = 2049;
+    v54 = v11;
+    v55 = 2050;
+    v56 = var2;
+    v57 = 2050;
+    v58 = v13;
+    v59 = 2049;
+    v60 = v12;
+    v61 = 1025;
+    v62 = v15;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D44F8, 0, "Forcing a fake HR Recovery sample to HealthKit: timeOfEstimate, %{private}f, hrRecovery, %{private}f, workoutType, %{public}ld, activityDuration, %{public}f, maxRecoveryHR, %{private}f, betaBlockerUse, %{private}d", &v51, 58);
+    v23 = v22;
+    sub_100152C7C("Generic", 1, 0, 2, "[CLHRRecoveryService forceWriteSampleToHealthKit:]", "%s\n", v22);
+    if (v23 != buf)
     {
-      free(v20);
+      free(v23);
     }
   }
 
-  [(CLHRRecoveryService *)self storeHRRecoveryToHealthKit:&v21];
+  [(CLHRRecoveryService *)self storeHRRecoveryToHealthKit:&v24];
 }
 
 - (void)logBodyMetrics:(const CLBodyMetrics *)metrics
@@ -730,6 +735,7 @@ LABEL_37:
 - (void)logSessionStats:(const HRRecoveryResult *)stats
 {
   [-[CLHRRecoveryService universe](self "universe")];
+  p_fSessionStats = &self->fSessionStats;
   self->fSessionStats.status = stats->var0;
   var3 = stats->var3;
   self->fSessionStats.sessionDuration = var3;
@@ -740,28 +746,28 @@ LABEL_37:
   self->fSessionStats.hrRecovery = llround(stats->var2);
   self->fSessionStats.hrRecoverySession = llround(stats->var22);
   var29 = stats->var29;
-  v8.f64[0] = stats->var14;
+  v9.f64[0] = stats->var14;
   var15 = stats->var15;
-  v8.f64[1] = var29 - var15;
-  *&self->fSessionStats.peakHR = vcvt_hight_f32_f64(vcvt_f32_f64(*&stats->var8), v8);
+  v9.f64[1] = var29 - var15;
+  *&self->fSessionStats.peakHR = vcvt_hight_f32_f64(vcvt_f32_f64(*&stats->var8), v9);
   *&self->fSessionStats.recoveryLoad = vcvt_hight_f32_f64(vcvt_f32_f64(*&stats->var16), *&stats->var18);
   var20 = stats->var20;
   self->fSessionStats.recoveryMetsStdDev = var20;
   var24 = stats->var24;
   self->fSessionStats.biasAdjustment = var24;
   self->fSessionStats.isOtherwiseEligibleForLongitudinal = stats->var34;
-  v12 = var15;
+  v13 = var15;
   *&var29 = var29;
-  self->fSessionStats.hrRecoveryReference = v12;
+  self->fSessionStats.hrRecoveryReference = v13;
   self->fSessionStats.hrRecoveryReferencePeak = *&var29;
   var28 = stats->var28;
   self->fSessionStats.hrOneMinPostRecovery = var28;
   var30 = stats->var30;
   self->fSessionStats.hrOneMinExponential = var30;
   self->fSessionStats.isEligibleForHK = stats->var27;
-  v15.f64[0] = stats->var33;
-  v15.f64[1] = stats->var35;
-  *&self->fSessionStats.minHRAfterWorkoutEnd = vcvt_hight_f32_f64(vcvt_f32_f64(*&stats->var31), v15);
+  v16.f64[0] = stats->var33;
+  v16.f64[1] = stats->var35;
+  *&self->fSessionStats.minHRAfterWorkoutEnd = vcvt_hight_f32_f64(vcvt_f32_f64(*&stats->var31), v16);
   var23 = stats->var23;
   self->fSessionStats.peakHrOneMinusFhr = var23;
   *&self->fSessionStats.lambda = vcvt_f32_f64(*&stats->var10);
@@ -772,11 +778,11 @@ LABEL_37:
     sub_101896D48();
   }
 
-  v18 = qword_1025D44F8;
+  v19 = qword_1025D44F8;
   if (os_log_type_enabled(qword_1025D44F8, OS_LOG_TYPE_DEBUG))
   {
     age = self->fSessionStats.age;
-    biologicalSex = self->fSessionStats.biologicalSex;
+    biologicalSex = p_fSessionStats->biologicalSex;
     betaBlockerUse = self->fSessionStats.betaBlockerUse;
     userBMI = self->fSessionStats.userBMI;
     sevenDayRestingHR = self->fSessionStats.sevenDayRestingHR;
@@ -816,86 +822,86 @@ LABEL_37:
     sessionDuration = self->fSessionStats.sessionDuration;
     hrRecoveryAlgorithmVersion = self->fSessionStats.hrRecoveryAlgorithmVersion;
     *buf = 134227968;
-    v61 = age;
-    v62 = 1024;
-    v63 = biologicalSex;
-    v64 = 1024;
-    v65 = betaBlockerUse;
-    v66 = 2048;
-    v67 = userBMI;
-    v68 = 2048;
-    v69 = sevenDayRestingHR;
-    v70 = 2048;
-    v71 = hrmax;
-    v72 = 1024;
-    v73 = status;
-    v74 = 2048;
-    v75 = diffTimeRecoveryOnsetWorkout;
-    v76 = 2048;
-    v77 = diffTimeTDropWorkoutEnd;
-    v78 = 1024;
-    v79 = hrRecovery;
-    v80 = 1024;
-    v81 = hrRecoverySession;
-    v82 = 2048;
-    v83 = peakHR;
-    v84 = 2048;
-    v85 = steadyStateHR;
-    v86 = 2048;
-    v87 = hrMinAdjusted;
-    v88 = 2048;
-    v89 = observedHRRecovery;
-    v90 = 2048;
-    v91 = recoveryLoad;
-    v92 = 2048;
-    v93 = maxRecoveryHR;
-    v94 = 2048;
-    v95 = minRecoveryHR;
-    v96 = 2048;
-    v97 = recoveryMetsMean;
-    v98 = 2048;
-    v99 = recoveryMetsStdDev;
-    v100 = 2048;
-    v101 = biasAdjustment;
-    v102 = 1024;
-    v103 = isOtherwiseEligibleForLongitudinal;
-    v104 = 2048;
-    v105 = hrRecoveryReference;
-    v106 = 2048;
-    v107 = hrRecoveryReferencePeak;
-    v108 = 2048;
-    v109 = hrOneMinPostRecovery;
-    v110 = 2048;
-    v111 = hrOneMinExponential;
-    v112 = 1024;
-    v113 = isEligibleForHK;
-    v114 = 2048;
-    v115 = minHRAfterWorkoutEnd;
-    v116 = 2048;
-    v117 = maxHRAfterWorkoutEnd;
-    v118 = 2048;
-    v119 = oneMinusFHRAfterWorkoutEnd;
-    v120 = 2048;
-    v121 = peakHrOneMinusFhr;
-    v122 = 1024;
-    v123 = estimationStatus;
-    v124 = 1024;
-    v125 = vo2MaxValue;
-    v126 = 2048;
-    v127 = lambda;
-    v128 = 2048;
-    v129 = meanSquaredError;
-    v130 = 2048;
-    v131 = explainedVarianceScore;
-    v132 = 1024;
-    v133 = sessionType;
-    v134 = 1024;
-    v135 = workoutType;
-    v136 = 2048;
-    v137 = sessionDuration;
-    v138 = 1024;
-    v139 = hrRecoveryAlgorithmVersion;
-    _os_log_impl(dword_100000000, v18, OS_LOG_TYPE_DEBUG, "HRRecovery Analytics,age,%.2f,biologicalSex,%d,useBetaBlocker,%d,userBMI,%.2f,sevenDayRestingHR,%.2f,hrmax,%.2f,status,%d,diffTimeRecoveryOnsetWorkout,%.2f,diffTimeTDropWorkoutEnd,%.2f,hrRecovery,%d,hrRecoverySession,%d,peakHR,%.2f,steadyStateHR,%.2f,hrMinAdjusted,%.2f,observedHRRecovery,%.2f,recoveryLoad,%.2f,maxRecoveryHR,%.2f,minRecoveryHR,%.2f,recoveryMetsMean,%.2f,recoveryMetsStdDev,%.2f,biasAdjustment,%.2f,isOtherwiseEligibleForLongitudinal,%d,hrRecoveryReference,%.2f,hrRecoveryReferencePeak,%.2f,hrOneMinPostRecovery,%.2f,hrOneMinExponential,%.2f,isEligibleForHK,%d,minHRAfterWorkoutEnd,%.2f,maxHRAfterWorkoutEnd,%.2f,oneMinusFHRAfterWorkoutEnd,%.2f,peakHrOneMinusFhr,%.2f,vo2MaxestimationStatus,%d,vo2MaxValue,%d,lambda,%.2f,mse,%.2f,evs,%.2f,sessionType,%d,workoutType,%d,sessionDuration,%.2f,hrRecoveryAlgorithmVersion,%d", buf, 0x162u);
+    v183 = age;
+    v184 = 1024;
+    v185 = biologicalSex;
+    v186 = 1024;
+    v187 = betaBlockerUse;
+    v188 = 2048;
+    v189 = userBMI;
+    v190 = 2048;
+    v191 = sevenDayRestingHR;
+    v192 = 2048;
+    v193 = hrmax;
+    v194 = 1024;
+    v195 = status;
+    v196 = 2048;
+    v197 = diffTimeRecoveryOnsetWorkout;
+    v198 = 2048;
+    v199 = diffTimeTDropWorkoutEnd;
+    v200 = 1024;
+    v201 = hrRecovery;
+    v202 = 1024;
+    v203 = hrRecoverySession;
+    v204 = 2048;
+    v205 = peakHR;
+    v206 = 2048;
+    v207 = steadyStateHR;
+    v208 = 2048;
+    v209 = hrMinAdjusted;
+    v210 = 2048;
+    v211 = observedHRRecovery;
+    v212 = 2048;
+    v213 = recoveryLoad;
+    v214 = 2048;
+    v215 = maxRecoveryHR;
+    v216 = 2048;
+    v217 = minRecoveryHR;
+    v218 = 2048;
+    v219 = recoveryMetsMean;
+    v220 = 2048;
+    v221 = recoveryMetsStdDev;
+    v222 = 2048;
+    v223 = biasAdjustment;
+    v224 = 1024;
+    v225 = isOtherwiseEligibleForLongitudinal;
+    v226 = 2048;
+    v227 = hrRecoveryReference;
+    v228 = 2048;
+    v229 = hrRecoveryReferencePeak;
+    v230 = 2048;
+    v231 = hrOneMinPostRecovery;
+    v232 = 2048;
+    v233 = hrOneMinExponential;
+    v234 = 1024;
+    v235 = isEligibleForHK;
+    v236 = 2048;
+    v237 = minHRAfterWorkoutEnd;
+    v238 = 2048;
+    v239 = maxHRAfterWorkoutEnd;
+    v240 = 2048;
+    v241 = oneMinusFHRAfterWorkoutEnd;
+    v242 = 2048;
+    v243 = peakHrOneMinusFhr;
+    v244 = 1024;
+    v245 = estimationStatus;
+    v246 = 1024;
+    v247 = vo2MaxValue;
+    v248 = 2048;
+    v249 = lambda;
+    v250 = 2048;
+    v251 = meanSquaredError;
+    v252 = 2048;
+    v253 = explainedVarianceScore;
+    v254 = 1024;
+    v255 = sessionType;
+    v256 = 1024;
+    v257 = workoutType;
+    v258 = 2048;
+    v259 = sessionDuration;
+    v260 = 1024;
+    v261 = hrRecoveryAlgorithmVersion;
+    _os_log_impl(dword_100000000, v19, OS_LOG_TYPE_DEBUG, "HRRecovery Analytics,age,%.2f,biologicalSex,%d,useBetaBlocker,%d,userBMI,%.2f,sevenDayRestingHR,%.2f,hrmax,%.2f,status,%d,diffTimeRecoveryOnsetWorkout,%.2f,diffTimeTDropWorkoutEnd,%.2f,hrRecovery,%d,hrRecoverySession,%d,peakHR,%.2f,steadyStateHR,%.2f,hrMinAdjusted,%.2f,observedHRRecovery,%.2f,recoveryLoad,%.2f,maxRecoveryHR,%.2f,minRecoveryHR,%.2f,recoveryMetsMean,%.2f,recoveryMetsStdDev,%.2f,biasAdjustment,%.2f,isOtherwiseEligibleForLongitudinal,%d,hrRecoveryReference,%.2f,hrRecoveryReferencePeak,%.2f,hrOneMinPostRecovery,%.2f,hrOneMinExponential,%.2f,isEligibleForHK,%d,minHRAfterWorkoutEnd,%.2f,maxHRAfterWorkoutEnd,%.2f,oneMinusFHRAfterWorkoutEnd,%.2f,peakHrOneMinusFhr,%.2f,vo2MaxestimationStatus,%d,vo2MaxValue,%d,lambda,%.2f,mse,%.2f,evs,%.2f,sessionType,%d,workoutType,%d,sessionDuration,%.2f,hrRecoveryAlgorithmVersion,%d", buf, 0x162u);
   }
 
   if (sub_10000A100(121, 2))
@@ -906,11 +912,132 @@ LABEL_37:
       sub_101897DF0();
     }
 
-    v59 = _os_log_send_and_compose_impl();
-    sub_100152C7C("Generic", 1, 0, 2, "[CLHRRecoveryService logSessionStats:]", "%s\n", v59);
-    if (v59 != buf)
+    v60 = self->fSessionStats.age;
+    v61 = p_fSessionStats->biologicalSex;
+    v62 = self->fSessionStats.betaBlockerUse;
+    v63 = self->fSessionStats.userBMI;
+    v64 = self->fSessionStats.sevenDayRestingHR;
+    v65 = self->fSessionStats.hrmax;
+    v66 = self->fSessionStats.status;
+    v68 = self->fSessionStats.diffTimeRecoveryOnsetWorkout;
+    v67 = self->fSessionStats.diffTimeTDropWorkoutEnd;
+    v70 = self->fSessionStats.hrRecovery;
+    v69 = self->fSessionStats.hrRecoverySession;
+    v71 = self->fSessionStats.peakHR;
+    v72 = self->fSessionStats.steadyStateHR;
+    v73 = self->fSessionStats.hrMinAdjusted;
+    v74 = self->fSessionStats.observedHRRecovery;
+    v75 = self->fSessionStats.recoveryLoad;
+    v76 = self->fSessionStats.maxRecoveryHR;
+    v77 = self->fSessionStats.minRecoveryHR;
+    v78 = self->fSessionStats.recoveryMetsMean;
+    v79 = self->fSessionStats.recoveryMetsStdDev;
+    v80 = self->fSessionStats.biasAdjustment;
+    v81 = self->fSessionStats.isOtherwiseEligibleForLongitudinal;
+    v82 = self->fSessionStats.hrRecoveryReference;
+    v83 = self->fSessionStats.hrRecoveryReferencePeak;
+    v84 = self->fSessionStats.hrOneMinPostRecovery;
+    v85 = self->fSessionStats.hrOneMinExponential;
+    v86 = self->fSessionStats.isEligibleForHK;
+    v87 = self->fSessionStats.minHRAfterWorkoutEnd;
+    v88 = self->fSessionStats.maxHRAfterWorkoutEnd;
+    v89 = self->fSessionStats.oneMinusFHRAfterWorkoutEnd;
+    v90 = self->fSessionStats.peakHrOneMinusFhr;
+    v92 = self->fSessionStats.estimationStatus;
+    v91 = self->fSessionStats.vo2MaxValue;
+    v93 = self->fSessionStats.lambda;
+    v94 = self->fSessionStats.meanSquaredError;
+    v95 = self->fSessionStats.explainedVarianceScore;
+    v96 = self->fSessionStats.sessionType;
+    v97 = self->fSessionStats.workoutType;
+    v98 = self->fSessionStats.sessionDuration;
+    v99 = self->fSessionStats.hrRecoveryAlgorithmVersion;
+    v102 = 134227968;
+    v103 = v60;
+    v104 = 1024;
+    v105 = v61;
+    v106 = 1024;
+    v107 = v62;
+    v108 = 2048;
+    v109 = v63;
+    v110 = 2048;
+    v111 = v64;
+    v112 = 2048;
+    v113 = v65;
+    v114 = 1024;
+    v115 = v66;
+    v116 = 2048;
+    v117 = v68;
+    v118 = 2048;
+    v119 = v67;
+    v120 = 1024;
+    v121 = v70;
+    v122 = 1024;
+    v123 = v69;
+    v124 = 2048;
+    v125 = v71;
+    v126 = 2048;
+    v127 = v72;
+    v128 = 2048;
+    v129 = v73;
+    v130 = 2048;
+    v131 = v74;
+    v132 = 2048;
+    v133 = v75;
+    v134 = 2048;
+    v135 = v76;
+    v136 = 2048;
+    v137 = v77;
+    v138 = 2048;
+    v139 = v78;
+    v140 = 2048;
+    v141 = v79;
+    v142 = 2048;
+    v143 = v80;
+    v144 = 1024;
+    v145 = v81;
+    v146 = 2048;
+    v147 = v82;
+    v148 = 2048;
+    v149 = v83;
+    v150 = 2048;
+    v151 = v84;
+    v152 = 2048;
+    v153 = v85;
+    v154 = 1024;
+    v155 = v86;
+    v156 = 2048;
+    v157 = v87;
+    v158 = 2048;
+    v159 = v88;
+    v160 = 2048;
+    v161 = v89;
+    v162 = 2048;
+    v163 = v90;
+    v164 = 1024;
+    v165 = v92;
+    v166 = 1024;
+    v167 = v91;
+    v168 = 2048;
+    v169 = v93;
+    v170 = 2048;
+    v171 = v94;
+    v172 = 2048;
+    v173 = v95;
+    v174 = 1024;
+    v175 = v96;
+    v176 = 1024;
+    v177 = v97;
+    v178 = 2048;
+    v179 = v98;
+    v180 = 1024;
+    v181 = v99;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D44F8, 2, "HRRecovery Analytics,age,%.2f,biologicalSex,%d,useBetaBlocker,%d,userBMI,%.2f,sevenDayRestingHR,%.2f,hrmax,%.2f,status,%d,diffTimeRecoveryOnsetWorkout,%.2f,diffTimeTDropWorkoutEnd,%.2f,hrRecovery,%d,hrRecoverySession,%d,peakHR,%.2f,steadyStateHR,%.2f,hrMinAdjusted,%.2f,observedHRRecovery,%.2f,recoveryLoad,%.2f,maxRecoveryHR,%.2f,minRecoveryHR,%.2f,recoveryMetsMean,%.2f,recoveryMetsStdDev,%.2f,biasAdjustment,%.2f,isOtherwiseEligibleForLongitudinal,%d,hrRecoveryReference,%.2f,hrRecoveryReferencePeak,%.2f,hrOneMinPostRecovery,%.2f,hrOneMinExponential,%.2f,isEligibleForHK,%d,minHRAfterWorkoutEnd,%.2f,maxHRAfterWorkoutEnd,%.2f,oneMinusFHRAfterWorkoutEnd,%.2f,peakHrOneMinusFhr,%.2f,vo2MaxestimationStatus,%d,vo2MaxValue,%d,lambda,%.2f,mse,%.2f,evs,%.2f,sessionType,%d,workoutType,%d,sessionDuration,%.2f,hrRecoveryAlgorithmVersion,%d", COERCE_DOUBLE(&v102), 354);
+    v101 = v100;
+    sub_100152C7C("Generic", 1, 0, 2, "[CLHRRecoveryService logSessionStats:]", "%s\n", v100);
+    if (v101 != buf)
     {
-      free(v59);
+      free(v101);
     }
   }
 
@@ -929,7 +1056,7 @@ LABEL_37:
       qword_102656488 = 0;
       unk_102656490 = 0;
       qword_102656480 = 0;
-      sub_1003F6D44(&qword_102656480, buf, &v5 + 4, 5uLL);
+      sub_1003F6D44(&qword_102656480, buf, &v5 + 1, 5uLL);
       __cxa_atexit(sub_1003F5F88, &qword_102656480, dword_100000000);
       __cxa_guard_release(&qword_102656498);
     }
@@ -954,7 +1081,7 @@ LABEL_37:
       qword_1026564C8 = 0;
       unk_1026564D0 = 0;
       qword_1026564C0 = 0;
-      sub_1003F6D44(&qword_1026564C0, buf, &v5 + 4, 5uLL);
+      sub_1003F6D44(&qword_1026564C0, buf, &v5 + 1, 5uLL);
       __cxa_atexit(sub_1003F5F88, &qword_1026564C0, dword_100000000);
       __cxa_guard_release(&qword_1026564D8);
     }

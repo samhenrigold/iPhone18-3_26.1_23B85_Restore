@@ -39,9 +39,9 @@ void __48__WFOpenAppPosterBoardMigration_migrateWorkflow__block_invoke(uint64_t 
   v23 = a2;
   v3 = [*(a1 + 32) actionIdentifierKey];
   v4 = [v23 objectForKeyedSubscript:v3];
-  v5 = [v4 isEqualToString:@"is.workflow.actions.openapp"];
+  isEqualToString = objc_msgSend_isEqualToString_(v4);
 
-  if (v5)
+  if (isEqualToString)
   {
     v6 = [*(a1 + 32) actionParametersKey];
     v7 = [v23 objectForKeyedSubscript:v6];
@@ -66,7 +66,7 @@ void __48__WFOpenAppPosterBoardMigration_migrateWorkflow__block_invoke(uint64_t 
 
         v11 = v10;
 
-        v12 = [v11 isEqualToString:@"com.apple.PosterBoard"];
+        v12 = objc_msgSend_isEqualToString_(v11);
         if (v12)
         {
           v13 = [*(a1 + 32) actionParametersKey];
@@ -101,7 +101,7 @@ void __48__WFOpenAppPosterBoardMigration_migrateWorkflow__block_invoke(uint64_t 
 
     v19 = v18;
 
-    v20 = [v19 isEqualToString:@"com.apple.PosterBoard"];
+    v20 = objc_msgSend_isEqualToString_(v19);
     if (v20)
     {
       v21 = [*(a1 + 32) actionParametersKey];

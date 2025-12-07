@@ -31,26 +31,25 @@
 
 - (SHMatchedMediaItem)initWithCoder:(id)coder
 {
-  v13[3] = *MEMORY[0x277D85DE8];
+  v12[3] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CBEB98];
   coderCopy = coder;
-  v13[0] = objc_opt_class();
-  v13[1] = objc_opt_class();
-  v13[2] = objc_opt_class();
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:3];
+  v12[0] = objc_opt_class();
+  v12[1] = objc_opt_class();
+  v12[2] = objc_opt_class();
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:3];
   v7 = [v4 setWithArray:v6];
 
   v8 = [coderCopy decodeObjectOfClasses:v7 forKey:@"SHMatchedMediaItemSyncedLyrics"];
-  v12.receiver = self;
-  v12.super_class = SHMatchedMediaItem;
-  v9 = [(SHMediaItem *)&v12 initWithCoder:coderCopy];
+  v11.receiver = self;
+  v11.super_class = SHMatchedMediaItem;
+  v9 = [(SHMediaItem *)&v11 initWithCoder:coderCopy];
 
   if (v9)
   {
     objc_storeStrong(&v9->_syncedLyrics, v8);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 

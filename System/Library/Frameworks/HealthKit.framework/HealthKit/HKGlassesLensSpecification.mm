@@ -44,11 +44,9 @@
   v3 = MEMORY[0x1E696AEC0];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  vertexDistance = self->_vertexDistance;
-  farPupillaryDistance = self->_farPupillaryDistance;
-  v8 = [v3 stringWithFormat:@"<%@:%p Vertex=%@, Prism=%@, FarPupillaryDistance=%@, NearPupillaryDistance=%@>", v5, self, vertexDistance, self->_prism, farPupillaryDistance, self->_nearPupillaryDistance];
+  v6 = [v3 stringWithFormat:@"<%@:%p Vertex=%@, Prism=%@, FarPupillaryDistance=%@, NearPupillaryDistance=%@>", v5, self, self->_vertexDistance, self->_prism, self->_farPupillaryDistance, self->_nearPupillaryDistance];
 
-  return v8;
+  return v6;
 }
 
 - (BOOL)isEqual:(id)equal

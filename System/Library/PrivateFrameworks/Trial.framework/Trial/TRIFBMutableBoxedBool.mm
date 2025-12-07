@@ -1,4 +1,5 @@
 @interface TRIFBMutableBoxedBool
+- (TRIFBMutableBoxedBool)initWithVal:(BOOL)val;
 - (void)dealloc;
 - (void)setVal:(BOOL)val;
 @end
@@ -34,6 +35,19 @@
   v4.receiver = self;
   v4.super_class = TRIFBMutableBoxedBool;
   [(TRIFBMutableBoxedBool *)&v4 dealloc];
+}
+
+- (TRIFBMutableBoxedBool)initWithVal:(BOOL)val
+{
+  valCopy = val;
+  v4 = [(TRIFBMutableBoxedBool *)self init];
+  v5 = v4;
+  if (v4)
+  {
+    [(TRIFBMutableBoxedBool *)v4 setVal:valCopy];
+  }
+
+  return v5;
 }
 
 @end

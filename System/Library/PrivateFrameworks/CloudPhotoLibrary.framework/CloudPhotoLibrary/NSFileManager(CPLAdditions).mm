@@ -97,7 +97,7 @@ LABEL_9:
 
 - (uint64_t)cplMoveItemAtURL:()CPLAdditions toURL:error:
 {
-  v28[1] = *MEMORY[0x1E69E9840];
+  v27[1] = *MEMORY[0x1E69E9840];
   v8 = a3;
   v9 = a4;
   fileSystemRepresentation = [v8 fileSystemRepresentation];
@@ -129,13 +129,13 @@ LABEL_13:
 
   [self removeItemAtURL:v8 error:0];
 LABEL_5:
-  v27 = *MEMORY[0x1E696A3A0];
-  v28[0] = *MEMORY[0x1E696A388];
-  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:&v27 count:1];
+  v26 = *MEMORY[0x1E696A3A0];
+  v27[0] = *MEMORY[0x1E696A388];
+  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:&v26 count:1];
   path = [v9 path];
-  v22 = 0;
-  v16 = [self setAttributes:v14 ofItemAtPath:path error:&v22];
-  v17 = v22;
+  v21 = 0;
+  v16 = [self setAttributes:v14 ofItemAtPath:path error:&v21];
+  v17 = v21;
 
   if ((v16 & 1) == 0 && (_CPLSilentLogging & 1) == 0)
   {
@@ -143,9 +143,9 @@ LABEL_5:
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v24 = v9;
-      v25 = 2112;
-      v26 = v17;
+      v23 = v9;
+      v24 = 2112;
+      v25 = v17;
       _os_log_impl(&dword_1DC05A000, v18, OS_LOG_TYPE_ERROR, "Unable to assign data protection to %@: %@", buf, 0x16u);
     }
   }
@@ -153,13 +153,12 @@ LABEL_5:
   v19 = 1;
 LABEL_14:
 
-  v20 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
 - (BOOL)cplCopyItemAtURL:()CPLAdditions toURL:error:
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   v8 = a4;
   v9 = copyfile([a3 fileSystemRepresentation], objc_msgSend(v8, "fileSystemRepresentation"), 0, 0x1200008u);
   if (v9)
@@ -172,13 +171,13 @@ LABEL_14:
 
   else
   {
-    v22 = *MEMORY[0x1E696A3A0];
-    v23[0] = *MEMORY[0x1E696A388];
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+    v21 = *MEMORY[0x1E696A3A0];
+    v22[0] = *MEMORY[0x1E696A388];
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
     path = [v8 path];
-    v17 = 0;
-    v12 = [self setAttributes:v10 ofItemAtPath:path error:&v17];
-    v13 = v17;
+    v16 = 0;
+    v12 = [self setAttributes:v10 ofItemAtPath:path error:&v16];
+    v13 = v16;
 
     if ((v12 & 1) == 0 && (_CPLSilentLogging & 1) == 0)
     {
@@ -186,15 +185,14 @@ LABEL_14:
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v19 = v8;
-        v20 = 2112;
-        v21 = v13;
+        v18 = v8;
+        v19 = 2112;
+        v20 = v13;
         _os_log_impl(&dword_1DC05A000, v14, OS_LOG_TYPE_ERROR, "Unable to assign data protection to %@: %@", buf, 0x16u);
       }
     }
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v9 == 0;
 }
 

@@ -14,7 +14,7 @@
 
 - (id)clockElementListForReplicaUUID:(id)d
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   dCopy = d;
   mergeableString = [(TTMergeableStringVersionedDocument *)self mergeableString];
   [mergeableString generateIdsForLocalChanges];
@@ -26,28 +26,28 @@
   timestamps = [timestamp timestamps];
   v10 = [v8 arrayWithCapacity:{objc_msgSend(timestamps, "count")}];
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   timestamps2 = [timestamp timestamps];
-  v12 = [timestamps2 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v12 = [timestamps2 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v12)
   {
     v13 = v12;
-    v22 = timestamp;
+    v21 = timestamp;
     v14 = 0;
-    v15 = *v24;
+    v15 = *v23;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v24 != v15)
+        if (*v23 != v15)
         {
           objc_enumerationMutation(timestamps2);
         }
 
-        v17 = [*(*(&v23 + 1) + 8 * i) clockElementForUUID:dCopy];
+        v17 = [*(*(&v22 + 1) + 8 * i) clockElementForUUID:dCopy];
         v18 = v17 != 0;
         if (!v17)
         {
@@ -58,7 +58,7 @@
         [v10 addObject:v17];
       }
 
-      v13 = [timestamps2 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v13 = [timestamps2 countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v13);
@@ -73,7 +73,7 @@
       v19 = 0;
     }
 
-    timestamp = v22;
+    timestamp = v21;
   }
 
   else
@@ -81,8 +81,6 @@
 
     v19 = 0;
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v19;
 }

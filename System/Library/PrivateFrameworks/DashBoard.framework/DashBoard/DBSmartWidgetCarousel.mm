@@ -39,10 +39,11 @@
   v8 = v6();
   if (v8)
   {
-    v9 = v8;
+    v10 = v8;
+    v11 = v9;
     v8(*(self + v5));
 
-    sub_248167864(v9);
+    sub_248167864(v10, v11);
   }
 
   else
@@ -92,10 +93,11 @@
   v6 = (self + OBJC_IVAR____TtC9DashBoard21DBSmartWidgetCarousel_decorationsStateChanged);
   swift_beginAccess();
   v7 = *v6;
+  v8 = v6[1];
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_248167864(v7);
+  sub_248167864(v7, v8);
 }
 
 - (_TtC9DashBoard21DBSmartWidgetCarousel)initWithEnvironment:(id)environment engine:(id)engine predictedSmartSize:(CGSize)size
@@ -103,7 +105,7 @@
   height = size.height;
   width = size.width;
   swift_unknownObjectRetain();
-  return DBSmartWidgetCarousel.init(environment:engine:predictedSmartSize:)(width, height, environment, engine);
+  return DBSmartWidgetCarousel.init(environment:engine:predictedSmartSize:)(environment, engine, width, height);
 }
 
 - (void)prepareInitialPredictionsWithCompletion:(id)completion
@@ -113,11 +115,12 @@
   *(v5 + 16) = v4;
   v6 = (self + OBJC_IVAR____TtC9DashBoard21DBSmartWidgetCarousel_readyCompletion);
   v7 = *(self + OBJC_IVAR____TtC9DashBoard21DBSmartWidgetCarousel_readyCompletion);
+  v8 = *(self + OBJC_IVAR____TtC9DashBoard21DBSmartWidgetCarousel_readyCompletion + 8);
   *v6 = sub_24825D51C;
   v6[1] = v5;
   selfCopy = self;
 
-  sub_248167864(v7);
+  sub_248167864(v7, v8);
   sub_2483682F8();
 }
 

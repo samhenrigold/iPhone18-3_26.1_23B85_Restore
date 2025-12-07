@@ -53,10 +53,10 @@
 
 + (void)resetRootDirectoryIfNecessary
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
+  allKeys = [self allKeys];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_1B6DB2000, v0, v1, "Failed to resolve container for legacySetsRootDirectoryURL: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1B6DB2000, a2, OS_LOG_TYPE_ERROR, "resetRootDirectoryIfNecessary failed to find NSFileOwnerAccountID attribute from existing attributes: %@", v4, 0xCu);
 }
 
 void __41__CCDaemon_resetRootDirectoryIfNecessary__block_invoke()

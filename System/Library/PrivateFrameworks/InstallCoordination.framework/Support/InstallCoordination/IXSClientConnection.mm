@@ -129,6 +129,7 @@
 - (void)_remote_cancelCoordinatorForAppWithIdentity:(id)identity reason:(id)reason client:(unint64_t)client completion:(id)completion;
 - (void)_remote_cancelCoordinatorsForAppsWithIdentities:(id)identities reason:(id)reason client:(unint64_t)client completion:(id)completion;
 - (void)_remote_checkIfDataPromiseExistsForUUID:(id)d completion:(id)completion;
+- (void)_remote_createAppInstallCoordinatorWithSeed:(id)seed createIfNotExisting:(BOOL)existing requireMatchingIntent:(BOOL)intent scopeRequirement:(unsigned __int8)requirement completion:(id)completion;
 - (void)_remote_createAppReferenceDataPromiseWithSeed:(id)seed ifMatchingPredicate:(id)predicate completion:(id)completion;
 - (void)_remote_createInMemoryDataPromiseWithSeed:(id)seed data:(id)data completion:(id)completion;
 - (void)_remote_createInMemoryDictionaryPromiseWithSeed:(id)seed dictionary:(id)dictionary completion:(id)completion;
@@ -160,6 +161,7 @@
 - (void)_remote_removabilityForAppWithIdentity:(id)identity completion:(id)completion;
 - (void)_remote_removeBundleIDs:(id)ds fromMappingsForPersona:(id)persona completion:(id)completion;
 - (void)_remote_revertAppWithIdentity:(id)identity completion:(id)completion;
+- (void)_remote_setIsPaused:(BOOL)paused forCoordinatorForAppWithIdentity:(id)identity completion:(id)completion;
 - (void)_remote_setKnownOSModuleURLs:(id)ls options:(id)options completion:(id)completion;
 - (void)_remote_setRemovability:(unint64_t)removability forAppWithIdentity:(id)identity byClient:(unint64_t)client completion:(id)completion;
 - (void)_remote_setTestModeForIdentifierPrefix:(id)prefix testMode:(unint64_t)mode testSpecificValidationData:(id)data completion:(id)completion;
@@ -217,7 +219,7 @@
     [(IXSClientConnection *)v5 setXpcConnection:connectionCopy];
     if (connectionCopy)
     {
-      [connectionCopy auditToken];
+      objc_msgSend_auditToken(connectionCopy);
     }
 
     else
@@ -242,7 +244,7 @@
     return 0;
   }
 
-  [(IXSClientConnection *)self clientAuditToken:0];
+  objc_msgSend_clientAuditToken(self, 0, 0, 0, 0);
   return proc_pidpath_audittoken(&v4, buffer, 0x1000u) > 0;
 }
 
@@ -894,6 +896,328 @@
   }
 }
 
+- (void)_remote_createAppInstallCoordinatorWithSeed:(id)seed createIfNotExisting:(BOOL)existing requireMatchingIntent:(BOOL)intent scopeRequirement:(unsigned __int8)requirement completion:(id)completion
+{
+  requirementCopy = requirement;
+  intentCopy = intent;
+  existingCopy = existing;
+  seedCopy = seed;
+  completionCopy = completion;
+  v88 = 0;
+  v89 = &v88;
+  v90 = 0x2020000000;
+  v91 = 0;
+  identity = [seedCopy identity];
+  v15 = identity;
+  if (identity)
+  {
+    v87 = 0;
+    v16 = [identity resolvePersonaWithError:&v87];
+    v17 = v87;
+    if (v16)
+    {
+      bundleID = [v15 bundleID];
+      v81 = bundleID;
+      if (!bundleID)
+      {
+        v27 = sub_1000031B0(off_100121958);
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+        {
+          clientName = [(IXSClientConnection *)self clientName];
+          sub_1000A45F4(clientName, buf);
+        }
+
+        clientName2 = [(IXSClientConnection *)self clientName];
+        v21 = sub_1000405FC("[IXSClientConnection _remote_createAppInstallCoordinatorWithSeed:createIfNotExisting:requireMatchingIntent:scopeRequirement:completion:]", 576, @"IXErrorDomain", 0xDuLL, 0, 0, @"Expected a non-nil bundleID from client: %@", v30, clientName2);
+
+        (*(completionCopy + 2))(completionCopy, 0, 0, v21);
+        goto LABEL_30;
+      }
+
+      if ([bundleID containsString:@"/"])
+      {
+        v19 = sub_1000031B0(off_100121958);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+        {
+          sub_1000A4580();
+        }
+
+        v21 = sub_1000405FC("[IXSClientConnection _remote_createAppInstallCoordinatorWithSeed:createIfNotExisting:requireMatchingIntent:scopeRequirement:completion:]", 582, @"IXErrorDomain", 0x2CuLL, 0, 0, @"Bundle identifier %@ contains /, which is not allowed", v20, v81);
+
+        (*(completionCopy + 2))(completionCopy, 0, 0, v21);
+LABEL_30:
+        v26 = 0;
+LABEL_31:
+
+        v17 = v21;
+        goto LABEL_32;
+      }
+
+      if (![v81 length])
+      {
+        v32 = sub_1000031B0(off_100121958);
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+        {
+          sub_1000A44FC();
+        }
+
+        v21 = sub_1000405FC("[IXSClientConnection _remote_createAppInstallCoordinatorWithSeed:createIfNotExisting:requireMatchingIntent:scopeRequirement:completion:]", 588, @"IXErrorDomain", 0x2CuLL, 0, 0, @"Bundle identifier is an empty string, which is not allowed", v33, v74);
+
+        (*(completionCopy + 2))(completionCopy, 0, 0, v21);
+        goto LABEL_30;
+      }
+
+      if (!sub_10003AE84(requirementCopy))
+      {
+        v34 = sub_1000031B0(off_100121958);
+        if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+        {
+          sub_1000A43D4(requirementCopy, v34, buf);
+          requirementCopy = *buf;
+        }
+
+        v21 = sub_1000405FC("[IXSClientConnection _remote_createAppInstallCoordinatorWithSeed:createIfNotExisting:requireMatchingIntent:scopeRequirement:completion:]", 594, @"IXErrorDomain", 4uLL, 0, 0, @"Scope requirement parameter value was not a known value: %hhu", v35, requirementCopy);
+
+        (*(completionCopy + 2))(completionCopy, 0, 0, v21);
+        goto LABEL_30;
+      }
+
+      installationDomain = [seedCopy installationDomain];
+      if ((MIIsValidInstallationDomain() & 1) == 0)
+      {
+        v36 = sub_1000031B0(off_100121958);
+        if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+        {
+          sub_1000A4470(installationDomain, v36, v37, v38, v39, v40, v41, v42);
+        }
+
+        v21 = sub_1000405FC("[IXSClientConnection _remote_createAppInstallCoordinatorWithSeed:createIfNotExisting:requireMatchingIntent:scopeRequirement:completion:]", 601, @"IXErrorDomain", 4uLL, 0, 0, @"Installation domain in seed was not a known value: %lu", v43, installationDomain);
+
+        (*(completionCopy + 2))(completionCopy, 0, 0, v21);
+        goto LABEL_30;
+      }
+
+      if (existingCopy)
+      {
+        v83[0] = _NSConcreteStackBlock;
+        v83[1] = 3221225472;
+        v83[2] = sub_1000788C8;
+        v83[3] = &unk_100103268;
+        v86 = requirementCopy;
+        v83[4] = self;
+        v84 = seedCopy;
+        v85 = &v88;
+        v26 = objc_retainBlock(v83);
+      }
+
+      else
+      {
+        v26 = 0;
+      }
+
+      v44 = +[IXSCoordinatorManager sharedInstance];
+      v82 = v17;
+      v80 = [v44 coordinatorForIdentity:v15 connection:self error:&v82 creatingIfNotExisting:v26];
+      v21 = v82;
+
+      if (!v80)
+      {
+        v49 = sub_1000031B0(off_100121958);
+        if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 136315650;
+          v93 = "[IXSClientConnection _remote_createAppInstallCoordinatorWithSeed:createIfNotExisting:requireMatchingIntent:scopeRequirement:completion:]";
+          v94 = 2112;
+          v95 = v15;
+          v96 = 2112;
+          v97 = v21;
+          _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_DEFAULT, "%s: Failed to create/get coordinator for %@ : %@", buf, 0x20u);
+        }
+
+        (*(completionCopy + 2))(completionCopy, 0, 0, v21);
+        goto LABEL_56;
+      }
+
+      if (sub_1000789BC(v80, requirementCopy))
+      {
+        if (!intentCopy)
+        {
+          goto LABEL_55;
+        }
+
+        intent = [seedCopy intent];
+        if (intent == [v80 originalIntent])
+        {
+          goto LABEL_55;
+        }
+
+        if (*(v89 + 24) == 1)
+        {
+          v46 = sub_1000031B0(off_100121958);
+          if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+          {
+            v69 = sub_100078A18([seedCopy intent]);
+            v70 = sub_100078A18([v80 originalIntent]);
+            *buf = 136316162;
+            v93 = "[IXSClientConnection _remote_createAppInstallCoordinatorWithSeed:createIfNotExisting:requireMatchingIntent:scopeRequirement:completion:]";
+            v94 = 2112;
+            v95 = v15;
+            v96 = 2112;
+            v97 = v69;
+            v98 = 2112;
+            v99 = v70;
+            v100 = 2112;
+            v101 = 0;
+            _os_log_error_impl(&_mh_execute_header, v46, OS_LOG_TYPE_ERROR, "%s: Created an IXCoordinatedAppInstall object for %@ expecting it to have intent %@ but it had %@ : %@", buf, 0x34u);
+          }
+
+          v47 = sub_100078A18([seedCopy intent]);
+          v75 = sub_100078A18([v80 originalIntent]);
+          v21 = sub_1000405FC("[IXSClientConnection _remote_createAppInstallCoordinatorWithSeed:createIfNotExisting:requireMatchingIntent:scopeRequirement:completion:]", 639, @"IXErrorDomain", 1uLL, 0, 0, @"Created an IXCoordinatedAppInstall object for %@ expecting it to have intent %@ but it had %@", v48, v15);
+
+          [v80 cancelForReason:v21 client:15 error:0];
+          goto LABEL_53;
+        }
+
+        v62 = sub_1000031B0(off_100121958);
+        if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
+        {
+          v79 = sub_100078A18([v80 originalIntent]);
+          v71 = IXStringForClientID([v80 creator]);
+          clientName3 = [(IXSClientConnection *)self clientName];
+          v73 = sub_100078A18([seedCopy intent]);
+          *buf = 136316674;
+          v93 = "[IXSClientConnection _remote_createAppInstallCoordinatorWithSeed:createIfNotExisting:requireMatchingIntent:scopeRequirement:completion:]";
+          v94 = 2112;
+          v95 = v15;
+          v96 = 2112;
+          v97 = v79;
+          v98 = 2112;
+          v99 = v71;
+          v100 = 2112;
+          v101 = clientName3;
+          v102 = 2112;
+          v103 = v73;
+          v104 = 2112;
+          v105 = 0;
+          _os_log_error_impl(&_mh_execute_header, v62, OS_LOG_TYPE_ERROR, "%s: A coordinated app install already exists for %@ with intent %@ (creator %@) but request by %@ was for intent %@ : %@", buf, 0x48u);
+        }
+
+        v54 = sub_100078A18([v80 originalIntent]);
+        v55 = IXStringForClientID([v80 creator]);
+        clientName4 = [(IXSClientConnection *)self clientName];
+        v57 = sub_100078A18([seedCopy intent]);
+        v59 = sub_1000405FC("[IXSClientConnection _remote_createAppInstallCoordinatorWithSeed:createIfNotExisting:requireMatchingIntent:scopeRequirement:completion:]", 643, @"IXErrorDomain", 5uLL, 0, 0, @"A coordinated app install already exists for %@ with intent %@ (creator %@) but request by %@ was for intent %@", v63, v15);
+      }
+
+      else
+      {
+        if (*(v89 + 24) == 1)
+        {
+          v50 = sub_1000031B0(off_100121958);
+          if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
+          {
+            v64 = sub_10003AE14(requirementCopy);
+            v65 = IXStringForCoordinatorScope([v80 coordinatorScope]);
+            *buf = 136316162;
+            v93 = "[IXSClientConnection _remote_createAppInstallCoordinatorWithSeed:createIfNotExisting:requireMatchingIntent:scopeRequirement:completion:]";
+            v94 = 2112;
+            v95 = v15;
+            v96 = 2112;
+            v97 = v64;
+            v98 = 2112;
+            v99 = v65;
+            v100 = 2112;
+            v101 = 0;
+            _os_log_error_impl(&_mh_execute_header, v50, OS_LOG_TYPE_ERROR, "%s: Created an IXCoordinatedAppInstall object for %@ expecting it to have scope requirement %@ but it had scope %@ : %@", buf, 0x34u);
+          }
+
+          v51 = sub_10003AE14(requirementCopy);
+          v76 = IXStringForCoordinatorScope([v80 coordinatorScope]);
+          v21 = sub_1000405FC("[IXSClientConnection _remote_createAppInstallCoordinatorWithSeed:createIfNotExisting:requireMatchingIntent:scopeRequirement:completion:]", 630, @"IXErrorDomain", 1uLL, 0, 0, @"Created an IXCoordinatedAppInstall object for %@ expecting it to have scope requirement %@ but it had scope %@", v52, v15);
+
+          [v80 cancelForReason:v21 client:15 error:0];
+LABEL_53:
+          if (v21)
+          {
+            (*(completionCopy + 2))(completionCopy, 0, 0, v21);
+LABEL_56:
+
+            goto LABEL_31;
+          }
+
+LABEL_55:
+          uniqueIdentifier = [v80 uniqueIdentifier];
+          [(IXSClientConnection *)self addInterestedCoordinatorUUID:uniqueIdentifier];
+
+          seed = [v80 seed];
+          (*(completionCopy + 2))(completionCopy, seed, *(v89 + 24), 0);
+
+          v21 = 0;
+          goto LABEL_56;
+        }
+
+        v53 = sub_1000031B0(off_100121958);
+        if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
+        {
+          v78 = IXStringForCoordinatorScope([v80 coordinatorScope]);
+          v66 = IXStringForClientID([v80 creator]);
+          clientName5 = [(IXSClientConnection *)self clientName];
+          v68 = sub_10003AE14(requirementCopy);
+          *buf = 136316674;
+          v93 = "[IXSClientConnection _remote_createAppInstallCoordinatorWithSeed:createIfNotExisting:requireMatchingIntent:scopeRequirement:completion:]";
+          v94 = 2112;
+          v95 = v15;
+          v96 = 2112;
+          v97 = v78;
+          v98 = 2112;
+          v99 = v66;
+          v100 = 2112;
+          v101 = clientName5;
+          v102 = 2112;
+          v77 = v68;
+          v103 = v68;
+          v104 = 2112;
+          v105 = 0;
+          _os_log_error_impl(&_mh_execute_header, v53, OS_LOG_TYPE_ERROR, "%s: A coordinated app install already exists for %@ with scope %@ (creator %@) but request by %@ had scope requirement %@ : %@", buf, 0x48u);
+        }
+
+        v54 = IXStringForCoordinatorScope([v80 coordinatorScope]);
+        v55 = IXStringForClientID([v80 creator]);
+        clientName4 = [(IXSClientConnection *)self clientName];
+        v57 = sub_10003AE14(requirementCopy);
+        v59 = sub_1000405FC("[IXSClientConnection _remote_createAppInstallCoordinatorWithSeed:createIfNotExisting:requireMatchingIntent:scopeRequirement:completion:]", 634, @"IXErrorDomain", 0x2EuLL, 0, 0, @"A coordinated app install already exists for %@ with scope %@ (creator %@) but request by %@ had scope requirement %@", v58, v15);
+      }
+
+      v21 = v59;
+
+      goto LABEL_53;
+    }
+
+    (*(completionCopy + 2))(completionCopy, 0, 0, v17);
+  }
+
+  else
+  {
+    v22 = sub_1000031B0(off_100121958);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    {
+      clientName6 = [(IXSClientConnection *)self clientName];
+      sub_1000A4654(clientName6, buf);
+    }
+
+    clientName7 = [(IXSClientConnection *)self clientName];
+    v17 = sub_1000405FC("[IXSClientConnection _remote_createAppInstallCoordinatorWithSeed:createIfNotExisting:requireMatchingIntent:scopeRequirement:completion:]", 563, @"IXErrorDomain", 0x2DuLL, 0, 0, @"Expected a non-nil identity from client: %@", v25, clientName7);
+
+    (*(completionCopy + 2))(completionCopy, 0, 0, v17);
+  }
+
+  v26 = 0;
+LABEL_32:
+
+  _Block_object_dispose(&v88, 8);
+}
+
 - (void)_remote_fetchSeedsForCoordinatorsWithIntent:(unint64_t)intent completion:(id)completion
 {
   completionCopy = completion;
@@ -1244,6 +1568,70 @@ LABEL_18:
 
 LABEL_26:
   _Block_object_dispose(buf, 8);
+}
+
+- (void)_remote_setIsPaused:(BOOL)paused forCoordinatorForAppWithIdentity:(id)identity completion:(id)completion
+{
+  pausedCopy = paused;
+  identityCopy = identity;
+  completionCopy = completion;
+  v20 = 0;
+  v10 = [identityCopy resolvePersonaWithError:&v20];
+  v11 = v20;
+  if (v10)
+  {
+    v12 = sub_1000031B0(off_100121958);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    {
+      if (pausedCopy)
+      {
+        v13 = 89;
+      }
+
+      else
+      {
+        v13 = 78;
+      }
+
+      clientName = [(IXSClientConnection *)self clientName];
+      *buf = 136315906;
+      v22 = "[IXSClientConnection _remote_setIsPaused:forCoordinatorForAppWithIdentity:completion:]";
+      v23 = 1024;
+      v24 = v13;
+      v25 = 2112;
+      v26 = identityCopy;
+      v27 = 2112;
+      v28 = clientName;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%s: Setting isPaused to %c for %@ requested by %@", buf, 0x26u);
+    }
+
+    v15 = +[IXSCoordinatorManager sharedInstance];
+    v16 = [v15 coordinatorForIdentity:identityCopy];
+
+    if (v16)
+    {
+      [v16 externalSetIsPaused:pausedCopy completion:completionCopy];
+    }
+
+    else
+    {
+      v17 = sub_1000031B0(off_100121958);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      {
+        sub_1000A4728();
+      }
+
+      v19 = sub_1000405FC("[IXSClientConnection _remote_setIsPaused:forCoordinatorForAppWithIdentity:completion:]", 829, @"IXErrorDomain", 6uLL, 0, 0, @"Coordinator did not exist for bundle ID %@", v18, identityCopy);
+
+      completionCopy[2](completionCopy, v19);
+      v11 = v19;
+    }
+  }
+
+  else
+  {
+    completionCopy[2](completionCopy, v11);
+  }
 }
 
 - (void)_remote_prioritizeCoordinatorForAppWithIdentity:(id)identity completion:(id)completion
@@ -1839,11 +2227,11 @@ LABEL_76:
 
       clientName = [(IXSClientConnection *)self clientName];
       *buf = 136315650;
-      v17 = "[IXSClientConnection _remote_setTestingEnabled:completion:]";
-      v18 = 1024;
-      v19 = v11;
-      v20 = 2112;
-      v21 = clientName;
+      v18 = "[IXSClientConnection _remote_setTestingEnabled:completion:]";
+      v19 = 1024;
+      v20 = v11;
+      v21 = 2112;
+      v22 = clientName;
       _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%s: Setting testing enabled to %c by client %@", buf, 0x1Cu);
     }
 
@@ -1854,7 +2242,7 @@ LABEL_76:
 
     else
     {
-      sub_10003B494();
+      sub_10003B494(v13);
     }
 
     completionCopy[2](completionCopy, 0);
@@ -1868,10 +2256,10 @@ LABEL_76:
     }
 
     clientName2 = [(IXSClientConnection *)self clientName];
-    v15 = sub_1000405FC("[IXSClientConnection _remote_setTestingEnabled:completion:]", 1093, @"IXErrorDomain", 0x19uLL, 0, 0, @"Client %@ is missing test runner entitlement.", v14, clientName2);
+    v16 = sub_1000405FC("[IXSClientConnection _remote_setTestingEnabled:completion:]", 1093, @"IXErrorDomain", 0x19uLL, 0, 0, @"Client %@ is missing test runner entitlement.", v15, clientName2);
 
-    completionCopy[2](completionCopy, v15);
-    completionCopy = v15;
+    completionCopy[2](completionCopy, v16);
+    completionCopy = v16;
   }
 }
 

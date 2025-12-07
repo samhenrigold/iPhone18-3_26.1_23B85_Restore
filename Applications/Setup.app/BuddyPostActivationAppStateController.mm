@@ -19,7 +19,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_1000664B4();
+  sub_1000664B4(selfCopy);
 }
 
 - (void)continueSetupTapped
@@ -107,7 +107,7 @@
 
 - (void)performExtendedInitializationWithCompletion:(id)completion
 {
-  v5 = sub_100006410(&qword_1003A0110);
+  v5 = sub_100006410(&qword_1003A0110, &qword_100297980);
   __chkstk_darwin(v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(completion);

@@ -10,7 +10,7 @@
 + (NSURL)defaultPersistenceURL
 {
   v2 = MEMORY[0x277CBEBC0];
-  v3 = SBHomeDirectory();
+  v3 = SBHomeDirectory(self);
   v4 = [v3 stringByAppendingPathComponent:@"HeartbeatMetrics"];
   v5 = [v4 stringByAppendingPathExtension:@"plist"];
   v6 = [v2 fileURLWithPath:v5 isDirectory:0];

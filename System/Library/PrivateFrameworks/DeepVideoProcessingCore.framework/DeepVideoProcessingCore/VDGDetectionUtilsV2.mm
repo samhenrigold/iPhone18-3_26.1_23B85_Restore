@@ -122,7 +122,7 @@
     v33 = 0u;
     v30 = 0u;
     v31 = 0u;
-    [v8 descriptor];
+    objc_msgSend_descriptor(v8);
     v39[1] = v17;
     v26 = v36;
     v27 = v37;
@@ -154,7 +154,7 @@
   v31 = 0u;
   if (v6)
   {
-    [v6 descriptor];
+    objc_msgSend_descriptor(v6);
   }
 
   v39[0] = v17;
@@ -213,7 +213,7 @@
   matchedLS = [gCopy matchedLS];
   if (gCopy)
   {
-    [gCopy descriptor];
+    objc_msgSend_descriptor(gCopy);
     v6 = v62;
   }
 
@@ -271,7 +271,7 @@
             v21 = *(*(&v38 + 1) + 8 * i);
             if (v21)
             {
-              [v21 descriptor];
+              objc_msgSend_descriptor(v21);
               v22 = v51;
             }
 
@@ -429,7 +429,7 @@
         v9 = *(*(&v16 + 1) + 8 * i);
         if (v9)
         {
-          [*(*(&v16 + 1) + 8 * i) descriptor];
+          objc_msgSend_descriptor(*(*(&v16 + 1) + 8 * i));
           v10 = v29;
         }
 
@@ -577,11 +577,11 @@
         goto LABEL_11;
       }
 
-      [*(*(&v25 + 1) + 8 * v14) descriptor];
+      objc_msgSend_descriptor(*(*(&v25 + 1) + 8 * v14));
       v17 = vceq_f32(*(&v48 + 8), v13);
       if ((vpmin_u32(v17, v17).u32[0] & 0x80000000) == 0)
       {
-        [v16 descriptor];
+        objc_msgSend_descriptor(v16);
         v18 = *(&v38 + 8);
         v15 = 0uLL;
 LABEL_11:
@@ -789,9 +789,9 @@ LABEL_28:
     locationCopy = location;
     selfCopy = self;
     v6 = a6;
-    [v6 descriptor];
+    objc_msgSend_descriptor(v6);
     v14 = v16;
-    [v6 descriptor];
+    objc_msgSend_descriptor(v6);
 
     self = selfCopy;
     a2 = v12;
@@ -853,7 +853,7 @@ LABEL_28:
 
               if (v12)
               {
-                [v12 descriptor];
+                objc_msgSend_descriptor(v12);
                 v20 = vcvt_s32_f32(*&v59);
               }
 
@@ -937,7 +937,7 @@ LABEL_43:
 
         if (v12)
         {
-          [v12 descriptor];
+          objc_msgSend_descriptor(v12);
           v44 = vcvt_s32_f32(*&v49);
         }
 
@@ -1048,7 +1048,7 @@ LABEL_38:
 
         if (v14)
         {
-          [v14 descriptor];
+          objc_msgSend_descriptor(v14);
           v15 = *(&v39 + 8);
           if (iCopy)
           {
@@ -1070,16 +1070,16 @@ LABEL_11:
           }
 
 LABEL_6:
-          [iCopy descriptor];
+          objc_msgSend_descriptor(iCopy);
           v16 = v38;
         }
 
         v19 = vaddv_f32(vabd_f32(v15, v16));
         if (v14)
         {
-          [v14 descriptor];
+          objc_msgSend_descriptor(v14);
           v13 = v37;
-          [v14 descriptor];
+          objc_msgSend_descriptor(v14);
           v12 = v36;
         }
 
@@ -1098,7 +1098,7 @@ LABEL_6:
 
       if (v14)
       {
-        [v14 descriptor];
+        objc_msgSend_descriptor(v14);
         v17 = *(&v35 + 8);
         if (iCopy)
         {
@@ -1113,7 +1113,7 @@ LABEL_6:
         if (iCopy)
         {
 LABEL_9:
-          [iCopy descriptor];
+          objc_msgSend_descriptor(iCopy);
           v18 = *(&v34 + 8);
           goto LABEL_16;
         }
@@ -1137,9 +1137,9 @@ LABEL_16:
           goto LABEL_30;
         }
 
-        [v9 descriptor];
+        objc_msgSend_descriptor(v9);
         v13 = *(&v33 + 3);
-        [v9 descriptor];
+        objc_msgSend_descriptor(v9);
         v12 = v32;
         goto LABEL_22;
       }
@@ -1184,28 +1184,28 @@ LABEL_16:
           goto LABEL_19;
         }
 
-        [v14 descriptor];
+        objc_msgSend_descriptor(v14);
         LODWORD(v20) = HIDWORD(v31);
         if (*(&v31 + 3) >= (v13 + 0.03))
         {
           v9 = v14;
 
-          [v9 descriptor];
+          objc_msgSend_descriptor(v9);
           v13 = *(&v30 + 3);
-          [v9 descriptor];
+          objc_msgSend_descriptor(v9);
           v12 = v29;
           goto LABEL_22;
         }
 
-        [v14 descriptor];
+        objc_msgSend_descriptor(v14, v20);
         if (vabds_f32(v28, v13) <= 0.03)
         {
-          [v14 descriptor];
+          objc_msgSend_descriptor(v14);
           if (v27 >= v12)
           {
             v9 = v14;
 
-            [v9 descriptor];
+            objc_msgSend_descriptor(v9);
             v12 = v26;
 LABEL_22:
             v14 = v9;
@@ -1458,7 +1458,7 @@ LABEL_40:
       v11 = v10;
       if (v10)
       {
-        [v10 descriptor];
+        objc_msgSend_descriptor(v10);
         v12 = v30;
       }
 
@@ -1896,7 +1896,7 @@ LABEL_54:
       HIDWORD(v32) = [v12 predictedFromPastCnt];
       if (v12)
       {
-        [v12 descriptor];
+        objc_msgSend_descriptor(v12);
         v21 = v36;
       }
 
@@ -1915,7 +1915,7 @@ LABEL_54:
       v22 = [DetectedROI alloc];
       if (v12)
       {
-        [v12 descriptor];
+        objc_msgSend_descriptor(v12);
       }
 
       else
@@ -2691,7 +2691,7 @@ LABEL_16:
 
         if (v8)
         {
-          [v8 descriptor];
+          objc_msgSend_descriptor(v8);
           LODWORD(v12) = DWORD1(v20);
           if (*(&v20 + 1) > 0.99)
           {
@@ -3139,7 +3139,7 @@ LABEL_16:
           v47 = 0u;
           if (v12)
           {
-            [v12 descriptor];
+            objc_msgSend_descriptor(v12);
           }
 
           v50 = v37;
@@ -3303,7 +3303,7 @@ LABEL_16:
         v46 = 0u;
         if (v10)
         {
-          [v10 descriptor];
+          objc_msgSend_descriptor(v10);
         }
 
         v49 = v36;
@@ -3694,7 +3694,9 @@ LABEL_32:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "currRoi in %s fail", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[VDGDetectionUtilsV2 getDetectionRoiListFromMeta:outputArray:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "currRoi in %s fail", v3, v4, v5, v6, v7, "[VDGDetectionUtilsV2 getDetectionRoiListFromMeta:outputArray:]" >> 32);
   }
 
   OUTLINED_FUNCTION_3_13(6);
@@ -3720,7 +3722,9 @@ LABEL_32:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s: Invaild array roiList", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[VDGDetectionUtilsV2 getDetectionRoiListFromMeta:outputArray:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s: Invaild array roiList", v3, v4, v5, v6, v7, "[VDGDetectionUtilsV2 getDetectionRoiListFromMeta:outputArray:]" >> 32);
   }
 
   OUTLINED_FUNCTION_3_13(5);
@@ -3731,7 +3735,9 @@ LABEL_32:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "currRoi in %s fail", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[VDGDetectionUtilsV2 getReflLsListFromMeta:outputArray:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "currRoi in %s fail", v3, v4, v5, v6, v7, "[VDGDetectionUtilsV2 getReflLsListFromMeta:outputArray:]" >> 32);
   }
 
   OUTLINED_FUNCTION_3_13(6);
@@ -3742,7 +3748,9 @@ LABEL_32:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s: Invaild array roiList", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[VDGDetectionUtilsV2 getReflLsListFromMeta:outputArray:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s: Invaild array roiList", v3, v4, v5, v6, v7, "[VDGDetectionUtilsV2 getReflLsListFromMeta:outputArray:]" >> 32);
   }
 
   OUTLINED_FUNCTION_3_13(5);

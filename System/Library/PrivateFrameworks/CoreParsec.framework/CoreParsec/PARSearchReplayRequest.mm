@@ -7,11 +7,11 @@
 
 - (PARSearchReplayRequest)initWithCoder:(id)coder
 {
-  v16[3] = *MEMORY[0x1E69E9840];
+  v15[3] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v15.receiver = self;
-  v15.super_class = PARSearchReplayRequest;
-  v5 = [(PARSearchRequest *)&v15 initWithCoder:coderCopy];
+  v14.receiver = self;
+  v14.super_class = PARSearchReplayRequest;
+  v5 = [(PARSearchRequest *)&v14 initWithCoder:coderCopy];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"replaySearchUrl"];
@@ -19,17 +19,16 @@
     v5->_replaySearchURL = v6;
 
     v8 = MEMORY[0x1E695DFD8];
-    v16[0] = objc_opt_class();
-    v16[1] = objc_opt_class();
-    v16[2] = objc_opt_class();
-    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:3];
+    v15[0] = objc_opt_class();
+    v15[1] = objc_opt_class();
+    v15[2] = objc_opt_class();
+    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:3];
     v10 = [v8 setWithArray:v9];
     v11 = [coderCopy decodeObjectOfClasses:v10 forKey:@"replayHeaderItems"];
     replayHeaderItems = v5->_replayHeaderItems;
     v5->_replayHeaderItems = v11;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

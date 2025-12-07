@@ -6,6 +6,7 @@
 - (id)isPlanEnabled:(id)enabled;
 - (void)_showPromptFor:(id)for;
 - (void)_turnItOff;
+- (void)_useLine:(BOOL)line forPlan:(id)plan;
 - (void)callObserver:(id)observer callChanged:(id)changed;
 - (void)setPlanEnabled:(id)enabled specifier:(id)specifier;
 - (void)setSwitchEnabled;
@@ -16,7 +17,7 @@
 - (PSUITurnOnThisLineSpecifier)initWithPlanUniversalReference:(id)reference cellularPlanManager:(id)manager planManagerCache:(id)cache callCache:(id)callCache hostController:(id)controller isActivating:(BOOL)activating
 {
   activatingCopy = activating;
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   referenceCopy = reference;
   managerCopy = manager;
   cacheCopy = cache;
@@ -32,7 +33,7 @@
     }
 
     *buf = 138412290;
-    v39 = v19;
+    v38 = v19;
     _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "Activating: %@", buf, 0xCu);
   }
 
@@ -40,17 +41,17 @@
   {
     v20 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
     v21 = [v20 localizedStringForKey:@"TURN_ON_THIS_LINE" value:&stru_287733598 table:@"Gemini-Gemini"];
-    v37.receiver = self;
-    v37.super_class = PSUITurnOnThisLineSpecifier;
-    v22 = [(PSUITurnOnThisLineSpecifier *)&v37 initWithName:v21 target:self set:0 get:0 detail:0 cell:3 edit:0];
+    v36.receiver = self;
+    v36.super_class = PSUITurnOnThisLineSpecifier;
+    v22 = [(PSUITurnOnThisLineSpecifier *)&v36 initWithName:v21 target:self set:0 get:0 detail:0 cell:3 edit:0];
 
     [(PSUITurnOnThisLineSpecifier *)v22 setProperty:objc_opt_class() forKey:*MEMORY[0x277D3FE58]];
   }
 
   else
   {
-    v32 = cacheCopy;
-    v33 = managerCopy;
+    v31 = cacheCopy;
+    v32 = managerCopy;
     v23 = [cacheCopy planFromReference:referenceCopy];
     v24 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
     v25 = [v24 localizedStringForKey:@"TURN_ON_THIS_LINE" value:&stru_287733598 table:@"Gemini-Gemini"];
@@ -63,12 +64,12 @@
       v25 = v27;
     }
 
-    v36.receiver = self;
-    v36.super_class = PSUITurnOnThisLineSpecifier;
-    v22 = [(PSUITurnOnThisLineSpecifier *)&v36 initWithName:v25 target:self set:sel_setPlanEnabled_specifier_ get:sel_isPlanEnabled_ detail:0 cell:6 edit:0];
+    v35.receiver = self;
+    v35.super_class = PSUITurnOnThisLineSpecifier;
+    v22 = [(PSUITurnOnThisLineSpecifier *)&v35 initWithName:v25 target:self set:sel_setPlanEnabled_specifier_ get:sel_isPlanEnabled_ detail:0 cell:6 edit:0];
 
-    cacheCopy = v32;
-    managerCopy = v33;
+    cacheCopy = v31;
+    managerCopy = v32;
   }
 
   if (v22)
@@ -87,7 +88,6 @@
     [(PSUITurnOnThisLineSpecifier *)v22 setSwitchEnabled];
   }
 
-  v30 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
@@ -326,6 +326,49 @@ void __46__PSUITurnOnThisLineSpecifier__showPromptFor___block_invoke_3(uint64_t 
   [(PSUITurnOnThisLineSpecifier *)self setProperty:MEMORY[0x277CBEC28] forKey:*MEMORY[0x277D3FF38]];
   WeakRetained = objc_loadWeakRetained(&self->_hostController);
   [WeakRetained reloadSpecifiers];
+}
+
+- (void)_useLine:(BOOL)line forPlan:(id)plan
+{
+  lineCopy = line;
+  v16 = *MEMORY[0x277D85DE8];
+  planCopy = plan;
+  getLogger = [(PSUITurnOnThisLineSpecifier *)self getLogger];
+  if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = @"deselected";
+    if (lineCopy)
+    {
+      v8 = @"selected";
+    }
+
+    *buf = 138412546;
+    v13 = v8;
+    v14 = 2112;
+    v15 = planCopy;
+    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "%@ plan %@", buf, 0x16u);
+  }
+
+  v9 = [(CTCellularPlanManager *)self->_cellularPlanManager didSelectPlanItem:planCopy isEnable:lineCopy];
+  if (v9)
+  {
+    getLogger2 = [(PSUITurnOnThisLineSpecifier *)self getLogger];
+    if (os_log_type_enabled(getLogger2, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 138412546;
+      v13 = planCopy;
+      v14 = 2112;
+      v15 = v9;
+      _os_log_error_impl(&dword_2658DE000, getLogger2, OS_LOG_TYPE_ERROR, "Failed to select plan: %@, error: %@", buf, 0x16u);
+    }
+
+    block[0] = MEMORY[0x277D85DD0];
+    block[1] = 3221225472;
+    block[2] = __48__PSUITurnOnThisLineSpecifier__useLine_forPlan___block_invoke;
+    block[3] = &unk_279BA9D58;
+    block[4] = self;
+    dispatch_async(MEMORY[0x277D85CD0], block);
+  }
 }
 
 void __48__PSUITurnOnThisLineSpecifier__useLine_forPlan___block_invoke(uint64_t a1)

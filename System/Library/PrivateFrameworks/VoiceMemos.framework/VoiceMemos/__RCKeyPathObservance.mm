@@ -17,38 +17,38 @@
 
 - (void)remove
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained(&self->_object);
   if (WeakRetained)
   {
     keyPaths = self->_keyPaths;
     if (keyPaths)
     {
-      v15 = 0u;
-      v16 = 0u;
-      v13 = 0u;
       v14 = 0u;
+      v15 = 0u;
+      v12 = 0u;
+      v13 = 0u;
       v5 = keyPaths;
-      v6 = [(NSArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [(NSArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v6)
       {
         v7 = v6;
-        v8 = *v14;
+        v8 = *v13;
         do
         {
           v9 = 0;
           do
           {
-            if (*v14 != v8)
+            if (*v13 != v8)
             {
               objc_enumerationMutation(v5);
             }
 
-            [WeakRetained removeObserver:self forKeyPath:*(*(&v13 + 1) + 8 * v9++) context:{&__keyPathObserverContext, v13}];
+            [WeakRetained removeObserver:self forKeyPath:*(*(&v12 + 1) + 8 * v9++) context:{&__keyPathObserverContext, v12}];
           }
 
           while (v7 != v9);
-          v7 = [(NSArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+          v7 = [(NSArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
         }
 
         while (v7);
@@ -61,8 +61,6 @@
       self->_observer = 0;
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc

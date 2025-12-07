@@ -98,39 +98,37 @@
 
 - (void)copyAssociationsForObject:(id)object toObject:(id)toObject
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   toObjectCopy = toObject;
   v7 = [(BBAssociationSet *)self associatedObjectsForObject:object];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v14;
+    v10 = *v13;
     do
     {
       v11 = 0;
       do
       {
-        if (*v14 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        [(BBAssociationSet *)self associateObject:*(*(&v13 + 1) + 8 * v11++) withObject:toObjectCopy];
+        [(BBAssociationSet *)self associateObject:*(*(&v12 + 1) + 8 * v11++) withObject:toObjectCopy];
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v9);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 @end

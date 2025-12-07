@@ -14,38 +14,38 @@
 
 + (id)CTSIMSFromPhoneSubscriptions:(id)subscriptions
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   subscriptionsCopy = subscriptions;
   if ([subscriptionsCopy count])
   {
     v4 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
     v5 = subscriptionsCopy;
-    v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v15;
+      v8 = *v14;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v15 != v8)
+          if (*v14 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = sub_195A4A460(*(*(&v14 + 1) + 8 * i));
+          v10 = sub_195A4A460(*(*(&v13 + 1) + 8 * i));
           if (v10)
           {
-            [v4 addObject:{v10, v14}];
+            [v4 addObject:{v10, v13}];
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v7);
@@ -58,46 +58,44 @@
   {
     v11 = MEMORY[0x1E695E0F0];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
 
 + (id)phoneSubscriptionsFromCTSIMs:(id)ms
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   msCopy = ms;
   if ([msCopy count])
   {
     v4 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
     v5 = msCopy;
-    v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v15;
+      v8 = *v14;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v15 != v8)
+          if (*v14 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = [IDSPhoneSubscription phoneSubscriptionWithSIM:*(*(&v14 + 1) + 8 * i), v14];
+          v10 = [IDSPhoneSubscription phoneSubscriptionWithSIM:*(*(&v13 + 1) + 8 * i), v13];
           if (v10)
           {
             [v4 addObject:v10];
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v7);
@@ -110,8 +108,6 @@
   {
     v11 = MEMORY[0x1E695E0F0];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }

@@ -2,6 +2,7 @@
 + (id)logCategory;
 + (unint64_t)__integerForPreferenceKey:(id)key defaultValue:(unint64_t)value;
 - (BOOL)shouldRetry;
+- (HMDNetworkRouterFirewallRuleManagerBackingStoreFetchHelper)initWithActivity:(id)activity options:(id)options container:(id)container useAnonymousRequests:(BOOL)requests promise:(id)promise;
 - (void)dealloc;
 - (void)finishWithResult:(id)result error:(id)error;
 - (void)setRetryIntervalSeconds:(double)seconds;
@@ -12,26 +13,26 @@
 
 - (void)finishWithResult:(id)result error:(id)error
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   resultCopy = result;
   errorCopy = error;
   if (self->_finished)
   {
-    v19 = objc_autoreleasePoolPush();
+    v18 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v21 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
+    v20 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
     {
-      v22 = HMFGetLogIdentifier();
+      v21 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v26 = v22;
-      _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_FAULT, "%{public}@Submitting ABC event for failure: Finished more than once!", buf, 0xCu);
+      v25 = v21;
+      _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_FAULT, "%{public}@Submitting ABC event for failure: Finished more than once!", buf, 0xCu);
     }
 
-    objc_autoreleasePoolPop(v19);
-    v23 = [[HMDAssertionLogEvent alloc] initWithReason:@"Finished more than once!"];
-    v24 = +[HMDMetricsManager sharedLogEventSubmitter];
-    [v24 submitLogEvent:v23];
+    objc_autoreleasePoolPop(v18);
+    v22 = [[HMDAssertionLogEvent alloc] initWithReason:@"Finished more than once!"];
+    v23 = +[HMDMetricsManager sharedLogEventSubmitter];
+    [v23 submitLogEvent:v22];
   }
 
   self->_finished = 1;
@@ -48,9 +49,9 @@
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v26 = v13;
-      v27 = 2112;
-      v28 = errorCopy;
+      v25 = v13;
+      v26 = 2112;
+      v27 = errorCopy;
       _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Fetch failed with error: %@", buf, 0x16u);
     }
 
@@ -69,15 +70,13 @@
     {
       v17 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v26 = v17;
+      v25 = v17;
       _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@Fetch succeeded", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v14);
     [(NAPromise *)selfCopy3->_promise finishWithResult:resultCopy];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setRetryIntervalSeconds:(double)seconds
@@ -108,12 +107,30 @@
 
 - (BOOL)shouldRetry
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   maxRetryCount = [objc_opt_class() maxRetryCount];
-  if ([(HMDNetworkRouterFirewallRuleManagerBackingStoreFetchHelper *)self retryCount]> maxRetryCount)
+  if ([(HMDNetworkRouterFirewallRuleManagerBackingStoreFetchHelper *)self retryCount]<= maxRetryCount)
   {
+    operationStartTime = [(HMDNetworkRouterFirewallRuleManagerBackingStoreFetchHelper *)self operationStartTime];
+
+    if (!operationStartTime)
+    {
+      return self->_retryIntervalSeconds != *MEMORY[0x277D17040];
+    }
+
+    maxOperationDurationSeconds = [objc_opt_class() maxOperationDurationSeconds];
+    v12 = [MEMORY[0x277CBEAA8] now];
+    operationStartTime2 = [(HMDNetworkRouterFirewallRuleManagerBackingStoreFetchHelper *)self operationStartTime];
+    [v12 timeIntervalSinceDate:operationStartTime2];
+    v15 = llround(v14);
+
+    if (v15 < maxOperationDurationSeconds)
+    {
+      return self->_retryIntervalSeconds != *MEMORY[0x277D17040];
+    }
+
     activity = [(HMDNetworkRouterFirewallRuleManagerBackingStoreFetchHelper *)self activity];
-    [activity markWithFormat:@"Cannot retry because we've exceeded the maximum number of retries (%lu)", maxRetryCount];
+    [activity markWithFormat:@"Cannot retry because we've exceeded the maximum operation duration (%ld)", maxOperationDurationSeconds];
 
     v5 = objc_autoreleasePoolPush();
     selfCopy2 = self;
@@ -122,88 +139,104 @@
     {
       v8 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v20 = v8;
-      v21 = 2048;
-      v22 = maxRetryCount;
+      v19 = v8;
+      v20 = 2048;
+      v21 = maxOperationDurationSeconds;
+      v9 = "%{public}@Cannot retry because we've exceeded the maximum operation duration (%ld)";
+      goto LABEL_9;
+    }
+  }
+
+  else
+  {
+    activity2 = [(HMDNetworkRouterFirewallRuleManagerBackingStoreFetchHelper *)self activity];
+    [activity2 markWithFormat:@"Cannot retry because we've exceeded the maximum number of retries (%lu)", maxRetryCount];
+
+    v5 = objc_autoreleasePoolPush();
+    selfCopy2 = self;
+    v7 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    {
+      v8 = HMFGetLogIdentifier();
+      *buf = 138543618;
+      v19 = v8;
+      v20 = 2048;
+      v21 = maxRetryCount;
       v9 = "%{public}@Cannot retry because we've exceeded the maximum number of retries (%lu)";
 LABEL_9:
       _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, v9, buf, 0x16u);
-
-      goto LABEL_10;
-    }
-
-    goto LABEL_10;
-  }
-
-  operationStartTime = [(HMDNetworkRouterFirewallRuleManagerBackingStoreFetchHelper *)self operationStartTime];
-
-  if (operationStartTime)
-  {
-    maxOperationDurationSeconds = [objc_opt_class() maxOperationDurationSeconds];
-    v12 = [MEMORY[0x277CBEAA8] now];
-    operationStartTime2 = [(HMDNetworkRouterFirewallRuleManagerBackingStoreFetchHelper *)self operationStartTime];
-    [v12 timeIntervalSinceDate:operationStartTime2];
-    v15 = llround(v14);
-
-    if (v15 >= maxOperationDurationSeconds)
-    {
-      activity2 = [(HMDNetworkRouterFirewallRuleManagerBackingStoreFetchHelper *)self activity];
-      [activity2 markWithFormat:@"Cannot retry because we've exceeded the maximum operation duration (%ld)", maxOperationDurationSeconds];
-
-      v5 = objc_autoreleasePoolPush();
-      selfCopy2 = self;
-      v7 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
-      {
-        v8 = HMFGetLogIdentifier();
-        *buf = 138543618;
-        v20 = v8;
-        v21 = 2048;
-        v22 = maxOperationDurationSeconds;
-        v9 = "%{public}@Cannot retry because we've exceeded the maximum operation duration (%ld)";
-        goto LABEL_9;
-      }
-
-LABEL_10:
-
-      objc_autoreleasePoolPop(v5);
-      result = 0;
-      goto LABEL_11;
     }
   }
 
-  result = self->_retryIntervalSeconds != *MEMORY[0x277D17040];
-LABEL_11:
-  v18 = *MEMORY[0x277D85DE8];
-  return result;
+  objc_autoreleasePoolPop(v5);
+  return 0;
 }
 
 - (void)dealloc
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (!self->_finished)
   {
-    v4 = objc_autoreleasePoolPush();
+    v3 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v6 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+    v5 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      v7 = HMFGetLogIdentifier();
+      v6 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v12 = v7;
-      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_FAULT, "%{public}@Submitting ABC event for failure: Forgot to call finishWithError", buf, 0xCu);
+      v11 = v6;
+      _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_FAULT, "%{public}@Submitting ABC event for failure: Forgot to call finishWithError", buf, 0xCu);
     }
 
-    objc_autoreleasePoolPop(v4);
-    v8 = [[HMDAssertionLogEvent alloc] initWithReason:@"Forgot to call finishWithError"];
-    v9 = +[HMDMetricsManager sharedLogEventSubmitter];
-    [v9 submitLogEvent:v8];
+    objc_autoreleasePoolPop(v3);
+    v7 = [[HMDAssertionLogEvent alloc] initWithReason:@"Forgot to call finishWithError"];
+    v8 = +[HMDMetricsManager sharedLogEventSubmitter];
+    [v8 submitLogEvent:v7];
   }
 
-  v10.receiver = self;
-  v10.super_class = HMDNetworkRouterFirewallRuleManagerBackingStoreFetchHelper;
-  [(HMDNetworkRouterFirewallRuleManagerBackingStoreFetchHelper *)&v10 dealloc];
-  v3 = *MEMORY[0x277D85DE8];
+  v9.receiver = self;
+  v9.super_class = HMDNetworkRouterFirewallRuleManagerBackingStoreFetchHelper;
+  [(HMDNetworkRouterFirewallRuleManagerBackingStoreFetchHelper *)&v9 dealloc];
+}
+
+- (HMDNetworkRouterFirewallRuleManagerBackingStoreFetchHelper)initWithActivity:(id)activity options:(id)options container:(id)container useAnonymousRequests:(BOOL)requests promise:(id)promise
+{
+  requestsCopy = requests;
+  activityCopy = activity;
+  optionsCopy = options;
+  promiseCopy = promise;
+  v15 = MEMORY[0x277CBC4F0];
+  containerCopy = container;
+  v17 = objc_alloc_init(v15);
+  [v17 setContainer:containerCopy];
+
+  [v17 setPreferAnonymousRequests:requestsCopy];
+  if ([optionsCopy qualityOfService] != -1)
+  {
+    [v17 setQualityOfService:{objc_msgSend(optionsCopy, "qualityOfService")}];
+  }
+
+  v18 = objc_alloc_init(MEMORY[0x277CBC4F8]);
+  label = [optionsCopy label];
+  [v18 setName:label];
+
+  [v18 setDefaultConfiguration:v17];
+  v25.receiver = self;
+  v25.super_class = HMDNetworkRouterFirewallRuleManagerBackingStoreFetchHelper;
+  v20 = [(HMDNetworkRouterFirewallRuleManagerBackingStoreFetchHelper *)&v25 init];
+  v21 = v20;
+  if (v20)
+  {
+    objc_storeStrong(&v20->_activity, activity);
+    objc_storeStrong(&v21->_options, options);
+    objc_storeStrong(&v21->_operationGroup, v18);
+    v21->_retryIntervalSeconds = *MEMORY[0x277D17040];
+    objc_storeStrong(&v21->_promise, promise);
+    v21->_finished = 0;
+    v22 = v21;
+  }
+
+  return v21;
 }
 
 + (unint64_t)__integerForPreferenceKey:(id)key defaultValue:(unint64_t)value
@@ -238,10 +271,9 @@ LABEL_11:
 
 void __73__HMDNetworkRouterFirewallRuleManagerBackingStoreFetchHelper_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v1;
-  logCategory__hmf_once_v1 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v1;
+  logCategory__hmf_once_v1 = v0;
 }
 
 @end

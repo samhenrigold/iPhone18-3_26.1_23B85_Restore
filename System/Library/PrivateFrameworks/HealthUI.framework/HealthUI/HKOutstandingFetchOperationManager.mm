@@ -360,7 +360,7 @@ uint64_t __61__HKOutstandingFetchOperationManager__executeFetchOperation___block
 
 - (void)_logOperationStart:(id)start
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   startCopy = start;
   if ([MEMORY[0x1E696C608] isAppleInternalInstall])
   {
@@ -372,21 +372,21 @@ uint64_t __61__HKOutstandingFetchOperationManager__executeFetchOperation___block
     operationDescription = @"Redacted Description";
   }
 
-  _HKInitializeLogging();
-  v5 = HKUILogCharting();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v5 = _HKInitializeLogging();
+  v6 = HKUILogCharting(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v6[0] = 67109378;
-    v6[1] = [startCopy highPriority];
-    v7 = 2112;
-    v8 = operationDescription;
-    _os_log_impl(&dword_1C3942000, v5, OS_LOG_TYPE_DEFAULT, "ChartQuery: highpriority %d for %@", v6, 0x12u);
+    v7[0] = 67109378;
+    v7[1] = [startCopy highPriority];
+    v8 = 2112;
+    v9 = operationDescription;
+    _os_log_impl(&dword_1C3942000, v6, OS_LOG_TYPE_DEFAULT, "ChartQuery: highpriority %d for %@", v7, 0x12u);
   }
 }
 
 - (void)_logOperationCompletion:(id)completion
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   [MEMORY[0x1E695DF00] timeIntervalSinceReferenceDate];
   v5 = v4;
@@ -400,22 +400,22 @@ uint64_t __61__HKOutstandingFetchOperationManager__executeFetchOperation___block
     operationDescription = @"Redacted Description";
   }
 
-  _HKInitializeLogging();
-  v7 = HKUILogCharting();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v7 = _HKInitializeLogging();
+  v8 = HKUILogCharting(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     [completionCopy executionTime];
-    v9 = v5 - v8;
+    v10 = v5 - v9;
     [completionCopy executionTime];
-    v11 = v10;
+    v12 = v11;
     [completionCopy queueTime];
-    v13 = 134218498;
-    v14 = v9;
-    v15 = 2048;
-    v16 = v11 - v12;
-    v17 = 2112;
-    v18 = operationDescription;
-    _os_log_impl(&dword_1C3942000, v7, OS_LOG_TYPE_DEFAULT, "ChartQuery: running %lgs queued %lgs for %@", &v13, 0x20u);
+    v14 = 134218498;
+    v15 = v10;
+    v16 = 2048;
+    v17 = v12 - v13;
+    v18 = 2112;
+    v19 = operationDescription;
+    _os_log_impl(&dword_1C3942000, v8, OS_LOG_TYPE_DEFAULT, "ChartQuery: running %lgs queued %lgs for %@", &v14, 0x20u);
   }
 }
 

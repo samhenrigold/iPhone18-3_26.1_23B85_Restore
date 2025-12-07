@@ -114,7 +114,7 @@ void __68__PRDeviceMotionRenderer_setupMotionUpdateRenderingTimerForceReset___bl
     v3 = WeakRetained[1];
     if (v3)
     {
-      [v3 readLatestRotation];
+      objc_msgSend_readLatestRotation(v3);
     }
 
     v4 = v2[8];
@@ -131,7 +131,7 @@ void __68__PRDeviceMotionRenderer_setupMotionUpdateRenderingTimerForceReset___bl
 - (void)deviceMotionEventGenerationWillStart
 {
   v7 = *MEMORY[0x1E69E9840];
-  v3 = PRLogRenderingService();
+  v3 = PRLogRenderingService(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     identifier = self->_identifier;
@@ -144,7 +144,7 @@ void __68__PRDeviceMotionRenderer_setupMotionUpdateRenderingTimerForceReset___bl
 - (void)deviceMotionEventGenerationDidStop
 {
   v7 = *MEMORY[0x1E69E9840];
-  v3 = PRLogRenderingService();
+  v3 = PRLogRenderingService(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     identifier = self->_identifier;
@@ -156,7 +156,7 @@ void __68__PRDeviceMotionRenderer_setupMotionUpdateRenderingTimerForceReset___bl
 
 - (void)serverDidUpdateMotionWithRotation:(_OWORD *)rotation
 {
-  v5 = PRLogRenderingService();
+  v5 = PRLogRenderingService(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [PRDeviceMotionRenderer serverDidUpdateMotionWithRotation:];
@@ -164,33 +164,34 @@ void __68__PRDeviceMotionRenderer_setupMotionUpdateRenderingTimerForceReset___bl
 
   if (*(self + 8))
   {
-    v6 = PRLogRenderingService();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v7 = PRLogRenderingService(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       [PRDeviceMotionRenderer serverDidUpdateMotionWithRotation:];
     }
 
-    v7 = *(self + 8);
-    v8 = rotation[1];
-    v14[0] = *rotation;
-    v14[1] = v8;
-    [v7 writeRotation:v14];
+    v8 = *(self + 8);
+    v9 = rotation[1];
+    v16[0] = *rotation;
+    v16[1] = v9;
+    [v8 writeRotation:v16];
   }
 
   else
   {
-    v9 = [*(self + 64) copy];
-    v10 = [*(self + 48) copy];
-    if (v9)
+    v10 = [*(self + 64) copy];
+    v11 = [*(self + 48) copy];
+    v12 = v11;
+    if (v10)
     {
-      v11 = PRLogRenderingService();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+      v13 = PRLogRenderingService(v11);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
         [PRDeviceMotionRenderer serverDidUpdateMotionWithRotation:];
       }
 
-      v12 = v10;
-      v13 = v9;
+      v14 = v12;
+      v15 = v10;
       BSDispatchMain();
     }
   }
@@ -198,7 +199,7 @@ void __68__PRDeviceMotionRenderer_setupMotionUpdateRenderingTimerForceReset___bl
 
 uint64_t __60__PRDeviceMotionRenderer_serverDidUpdateMotionWithRotation___block_invoke(uint64_t a1)
 {
-  v2 = PRLogRenderingService();
+  v2 = PRLogRenderingService(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __60__PRDeviceMotionRenderer_serverDidUpdateMotionWithRotation___block_invoke_cold_1();

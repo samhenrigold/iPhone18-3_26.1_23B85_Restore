@@ -723,7 +723,7 @@ LABEL_9:
 
 + (uint64_t)_SUCoreBorder_MAAssetState:()SUCoreBorderMAAsset
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v3 = a3;
   if ([v3 simAction] != 3)
   {
@@ -795,8 +795,8 @@ LABEL_9:
     }
 
     mEMORY[0x277D64428]2 = [MEMORY[0x277D64428] sharedDiag];
-    v27 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"unsupported simulated event asset state, event: %@", v3];
-    [mEMORY[0x277D64428]2 trackAnomaly:@"_SUCoreBorder_MAAssetState" forReason:v27 withResult:8113 withError:0];
+    v26 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"unsupported simulated event asset state, event: %@", v3];
+    [mEMORY[0x277D64428]2 trackAnomaly:@"_SUCoreBorder_MAAssetState" forReason:v26 withResult:8113 withError:0];
   }
 
   v6 = 0;
@@ -808,20 +808,19 @@ LABEL_17:
   {
     assetState8 = [v3 assetState];
     *buf = 138412546;
-    v29 = assetState8;
-    v30 = 2048;
-    v31 = v6;
+    v28 = assetState8;
+    v29 = 2048;
+    v30 = v6;
     _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "[BORDER_MA_STATE] using simulated state:%@ (enum:%ld)", buf, 0x16u);
   }
 
 LABEL_20:
-  v24 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 + (id)_SUCoreBorder_MAAttributesAtBegin:()SUCoreBorderMAAsset
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a3;
   simAction = [v3 simAction];
   if (simAction == 3)
@@ -836,7 +835,7 @@ LABEL_20:
     if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v16 = v9;
+      v15 = v9;
       _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "[BORDER_MA_ATTRIBUTES] using simulated attributes:%@", buf, 0xCu);
     }
   }
@@ -865,14 +864,12 @@ LABEL_20:
     v9 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 + (id)_SUCoreBorder_MAAttributesAtEnd:()SUCoreBorderMAAsset withBaseAttributes:
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = a4;
   simAction = [v5 simAction];
@@ -889,7 +886,7 @@ LABEL_20:
     if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v20 = v13;
+      v19 = v13;
       _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "[BORDER_MA_ATTRIBUTES] simulating additional/replaced attributes:%@", buf, 0xCu);
     }
 
@@ -919,8 +916,6 @@ LABEL_20:
 
     v10 = 0;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

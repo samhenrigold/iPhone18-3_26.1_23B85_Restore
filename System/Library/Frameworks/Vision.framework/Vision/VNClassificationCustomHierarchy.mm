@@ -238,7 +238,7 @@ LABEL_10:
     goto LABEL_11;
   }
 
-  [(VNClassificationCustomHierarchy *)self hierarchicalModelAndReturnError:error];
+  objc_msgSend_hierarchicalModelAndReturnError_(self);
   if (v16)
   {
     if (_addRelationshipsToHierarchicalModel(v16, relationshipsCopy, error))
@@ -328,7 +328,7 @@ LABEL_14:
     goto LABEL_16;
   }
 
-  [(VNClassificationCustomHierarchy *)self newHierarchicalModelAndReturnError:?];
+  objc_msgSend_newHierarchicalModelAndReturnError_(self, a2);
   if (v11 && _addRelationshipsToHierarchicalModel(v11, selfCopy->_additionalRelationships, error))
   {
     if (v12)

@@ -137,7 +137,7 @@ void __44__UIKeyboardEmojiPreferences_sharedInstance__block_invoke()
   v5 = [userInfo objectForKey:@"UIKeyboardIsLocalUserInfoKey"];
   bOOLValue = [v5 BOOLValue];
 
-  if ((bOOLValue & 1) != 0 || ([writeCopy name], v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v7, "isEqualToString:", @"UIKeyboardWillChangeFrameNotification"), v7, v8))
+  if ((bOOLValue & 1) != 0 || ([writeCopy name], v7 = objc_claimAutoreleasedReturnValue(), isEqualToString = objc_msgSend_isEqualToString_(v7), v7, isEqualToString))
   {
     [(UIKeyboardEmojiPreferences *)self writeEmojiDefaults];
   }
@@ -386,14 +386,14 @@ LABEL_15:
   if (_MergedGlobals_1188 == 1)
   {
     v2 = +[UIKeyboard keyboardBundleIdentifier];
-    if ([v2 isEqualToString:@"com.apple.springboard"])
+    if (objc_msgSend_isEqualToString_(v2))
     {
       LOBYTE(v3) = 0;
     }
 
     else
     {
-      v3 = [v2 isEqualToString:@"com.apple.MobileSMS.MessagesNotificationExtension"] ^ 1;
+      v3 = objc_msgSend_isEqualToString_(v2) ^ 1;
     }
   }
 

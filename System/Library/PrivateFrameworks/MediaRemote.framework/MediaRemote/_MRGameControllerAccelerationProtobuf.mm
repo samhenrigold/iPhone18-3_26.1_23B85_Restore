@@ -143,19 +143,18 @@ LABEL_8:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v10 = toCopy;
+  v6 = toCopy;
   if (self->_data)
   {
     PBDataWriterWriteDataField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 2) != 0)
   {
-    x = self->_x;
     PBDataWriterWriteFloatField();
-    toCopy = v10;
+    toCopy = v6;
     has = self->_has;
     if ((has & 4) == 0)
     {
@@ -174,9 +173,8 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  y = self->_y;
   PBDataWriterWriteFloatField();
-  toCopy = v10;
+  toCopy = v6;
   has = self->_has;
   if ((has & 8) == 0)
   {
@@ -190,15 +188,13 @@ LABEL_6:
   }
 
 LABEL_13:
-  z = self->_z;
   PBDataWriterWriteFloatField();
-  toCopy = v10;
+  toCopy = v6;
   if (*&self->_has)
   {
 LABEL_7:
-    w = self->_w;
     PBDataWriterWriteFloatField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
 LABEL_8:

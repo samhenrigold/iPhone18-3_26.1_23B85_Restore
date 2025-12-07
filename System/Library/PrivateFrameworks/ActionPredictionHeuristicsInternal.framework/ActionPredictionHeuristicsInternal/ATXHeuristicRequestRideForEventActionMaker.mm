@@ -35,7 +35,7 @@
 
 - (id)dropOffLocationFromEKEvent:(id)event
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   if (eventCopy)
   {
@@ -51,7 +51,7 @@
     v7 = __atxlog_handle_heuristic();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [ATXHeuristicCreateCalendarEventActionMaker _makeAction];
+      [(ATXHeuristicCreateCalendarEventActionMaker *)eventCopy _makeAction];
     }
   }
 
@@ -61,23 +61,21 @@
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       heuristic = [(ATXHeuristicActionMaker *)self heuristic];
-      v11 = 138412290;
-      v12 = heuristic;
-      _os_log_impl(&dword_23E3EA000, v7, OS_LOG_TYPE_DEFAULT, "Failed to create drop off location because of nil ekEvent. Heuristic: %@.", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = heuristic;
+      _os_log_impl(&dword_23E3EA000, v7, OS_LOG_TYPE_DEFAULT, "Failed to create drop off location because of nil ekEvent. Heuristic: %@.", &v10, 0xCu);
     }
   }
 
   geoLocation = 0;
 LABEL_9:
 
-  v9 = *MEMORY[0x277D85DE8];
-
   return geoLocation;
 }
 
 - (BOOL)shouldPredictDropOffLocationGivenPickupLocation:(id)location andDropOffLocation:(id)offLocation
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   locationCopy = location;
   offLocationCopy = offLocation;
   v8 = offLocationCopy;
@@ -102,11 +100,11 @@ LABEL_9:
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         heuristic = [(ATXHeuristicActionMaker *)self heuristic];
-        v17 = 134218242;
-        v18 = v12 / 1610.0;
-        v19 = 2112;
-        v20 = heuristic;
-        _os_log_impl(&dword_23E3EA000, v13, OS_LOG_TYPE_DEFAULT, "Dropoff location of %f miles is more than 40 miles away from pickup location . Heuristic: %@.", &v17, 0x16u);
+        v16 = 134218242;
+        v17 = v12 / 1610.0;
+        v18 = 2112;
+        v19 = heuristic;
+        _os_log_impl(&dword_23E3EA000, v13, OS_LOG_TYPE_DEFAULT, "Dropoff location of %f miles is more than 40 miles away from pickup location . Heuristic: %@.", &v16, 0x16u);
       }
 
       v10 = 0;
@@ -118,13 +116,12 @@ LABEL_9:
     }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (id)_makeAction
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   v3 = [(ATXHeuristicObjectHandle *)self->_dropoffEvent obj];
   v4 = [(ATXHeuristicRequestRideForEventActionMaker *)self dropOffLocationFromEKEvent:v3];
   if ([(ATXHeuristicRequestRideForEventActionMaker *)self shouldPredictDropOffLocationGivenPickupLocation:self->_pickupLocation andDropOffLocation:v4])
@@ -138,10 +135,10 @@ LABEL_9:
 
     if (eventIdentifier)
     {
-      v20 = *MEMORY[0x277CEB208];
+      v19 = *MEMORY[0x277CEB208];
       eventIdentifier2 = [v3 eventIdentifier];
-      v21[0] = eventIdentifier2;
-      eventIdentifier = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+      v20[0] = eventIdentifier2;
+      eventIdentifier = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
     }
   }
 
@@ -166,10 +163,8 @@ LABEL_9:
   [v13 _setLaunchId:self->_preferredAppBundleID];
   v14 = objc_alloc(MEMORY[0x277CEB2C8]);
   v15 = objc_opt_new();
-  LOBYTE(v19) = 0;
-  v16 = [v14 initWithIntent:v13 actionUUID:v15 bundleId:self->_preferredAppBundleID heuristic:0 heuristicMetadata:eventIdentifier criteria:0 isFutureMedia:v19 title:self->super._title subtitle:self->super._subtitle];
-
-  v17 = *MEMORY[0x277D85DE8];
+  LOBYTE(v18) = 0;
+  v16 = [v14 initWithIntent:v13 actionUUID:v15 bundleId:self->_preferredAppBundleID heuristic:0 heuristicMetadata:eventIdentifier criteria:0 isFutureMedia:v18 title:self->super._title subtitle:self->super._subtitle];
 
   return v16;
 }

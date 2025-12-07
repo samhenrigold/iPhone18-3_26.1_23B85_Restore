@@ -31,82 +31,83 @@ LABEL_16:
   {
     if (byte_100117E80 == 1)
     {
-      v8 = *__error();
-      v9 = sub_100035B80();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v8 = __error();
+      v9 = *v8;
+      v11 = sub_100035B80(v8, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         sub_1000BCFF8();
       }
 
-      *__error() = v8;
+      *__error() = v9;
     }
 
     if (byte_100117E81 == 1 && dword_100117510 <= 3)
     {
-      v11 = *__error();
-      v12 = *__error();
-      v13 = __error();
-      v14 = strerror(*v13);
-      v15 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Unable to open %s: %d (%s)", file, v12, v14);
-      if (v15)
+      v13 = *__error();
+      v14 = *__error();
+      v15 = __error();
+      v16 = strerror(*v15);
+      v17 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Unable to open %s: %d (%s)", file, v14, v16);
+      if (v17)
       {
-        v16 = v15;
-        CStringPtr = CFStringGetCStringPtr(v15, 0x8000100u);
+        v19 = v17;
+        CStringPtr = CFStringGetCStringPtr(v17, 0x8000100u);
         if (CStringPtr)
         {
-          v18 = CStringPtr;
-          v19 = 0;
+          v21 = CStringPtr;
+          v22 = 0;
         }
 
         else
         {
-          v18 = malloc_type_calloc(0x400uLL, 1uLL, 0xE5C3074DuLL);
-          CFStringGetCString(v16, v18, 1024, 0x8000100u);
-          v19 = v18;
+          v21 = malloc_type_calloc(0x400uLL, 1uLL, 0xE5C3074DuLL);
+          CFStringGetCString(v19, v21, 1024, 0x8000100u);
+          v22 = v21;
         }
 
         if (qword_100117E88)
         {
-          v22 = qword_100117E88;
+          v25 = qword_100117E88;
         }
 
         else
         {
-          v22 = __stderrp;
+          v25 = __stderrp;
         }
 
-        fprintf(v22, "%s\n", v18);
-        if (v19)
+        fprintf(v25, "%s\n", v21);
+        if (v22)
         {
-          free(v19);
+          free(v22);
         }
 
-        CFRelease(v16);
+        CFRelease(v19);
       }
 
       else
       {
-        v20 = sub_100035B80();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
+        v23 = sub_100035B80(0, v18);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
         {
           sub_1000BD098();
         }
 
         if (qword_100117E88)
         {
-          v21 = qword_100117E88;
+          v24 = qword_100117E88;
         }
 
         else
         {
-          v21 = __stderrp;
+          v24 = __stderrp;
         }
 
-        fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v21);
+        fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v24);
       }
 
       v7 = 0;
-      *__error() = v11;
+      *__error() = v13;
     }
 
     else
@@ -121,166 +122,167 @@ LABEL_16:
 - (BOOL)parseSpindumpFile:(const char *)file andReportToStream:(__sFILE *)stream
 {
   context = objc_autoreleasePoolPush();
-  v975 = 0;
-  v976 = &v975;
-  v977 = 0x2020000000;
-  v978 = 0;
-  v971 = 0;
-  v972 = &v971;
-  v973 = 0x2020000000;
-  v974 = 0;
-  v970[0] = _NSConcreteStackBlock;
-  v970[1] = 3221225472;
-  v970[2] = sub_100097FA0;
-  v970[3] = &unk_1001093D0;
-  v970[4] = &v971;
-  v970[5] = &v975;
-  v949 = objc_retainBlock(v970);
+  v1098 = 0;
+  v1099 = &v1098;
+  v1100 = 0x2020000000;
+  v1101 = 0;
+  v1094 = 0;
+  v1095 = &v1094;
+  v1096 = 0x2020000000;
+  v1097 = 0;
+  v1093[0] = _NSConcreteStackBlock;
+  v1093[1] = 3221225472;
+  v1093[2] = sub_100097FA0;
+  v1093[3] = &unk_1001093D0;
+  v1093[4] = &v1094;
+  v1093[5] = &v1098;
+  v1072 = objc_retainBlock(v1093);
   v5 = fopen(file, "r");
   if (!v5)
   {
     if (byte_100117E80 == 1)
     {
-      v26 = *__error();
-      v27 = sub_100035B80();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+      v30 = __error();
+      v31 = *v30;
+      v33 = sub_100035B80(v30, v32);
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
       {
-        v85 = *__error();
-        v86 = __error();
-        v87 = strerror(*v86);
+        v101 = *__error();
+        v102 = __error();
+        v103 = strerror(*v102);
         *buf = 136315650;
         *&buf[4] = file;
         *&buf[12] = 1024;
-        *&buf[14] = v85;
+        *&buf[14] = v101;
         *&buf[18] = 2080;
-        *&buf[20] = v87;
-        _os_log_error_impl(&_mh_execute_header, v27, OS_LOG_TYPE_ERROR, "Parsing spindump text: Unable to open %s: %d (%s)", buf, 0x1Cu);
+        *&buf[20] = v103;
+        _os_log_error_impl(&_mh_execute_header, v33, OS_LOG_TYPE_ERROR, "Parsing spindump text: Unable to open %s: %d (%s)", buf, 0x1Cu);
       }
 
-      *__error() = v26;
+      *__error() = v31;
     }
 
-    v13 = 0;
+    v14 = 0;
     ptr = 0;
     if (byte_100117E81 == 1)
     {
-      v14 = 0;
-      v941 = 0;
-      v942 = 0;
-      v946 = 0;
-      v947 = 0;
+      v15 = 0;
+      v1064 = 0;
+      v1065 = 0;
+      v1069 = 0;
+      v1070 = 0;
       obj = 0;
-      v944 = 0;
-      v945 = 0;
+      v1067 = 0;
+      v1068 = 0;
       if (dword_100117510 > 3)
       {
         goto LABEL_127;
       }
 
-      v15 = *__error();
-      v28 = *__error();
-      v29 = __error();
-      v30 = strerror(*v29);
-      v31 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Parsing spindump text: Unable to open %s: %d (%s)", file, v28, v30);
-      v20 = v31;
-      if (v31)
+      v16 = *__error();
+      v34 = *__error();
+      v35 = __error();
+      v36 = strerror(*v35);
+      v37 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Parsing spindump text: Unable to open %s: %d (%s)", file, v34, v36);
+      v22 = v37;
+      if (v37)
       {
-        CStringPtr = CFStringGetCStringPtr(v31, 0x8000100u);
+        CStringPtr = CFStringGetCStringPtr(v37, 0x8000100u);
         if (CStringPtr)
         {
-          v33 = 0;
+          v40 = 0;
         }
 
         else
         {
           CStringPtr = malloc_type_calloc(0x400uLL, 1uLL, 0x82A0C77CuLL);
-          CFStringGetCString(v20, CStringPtr, 1024, 0x8000100u);
-          v33 = CStringPtr;
+          CFStringGetCString(v22, CStringPtr, 1024, 0x8000100u);
+          v40 = CStringPtr;
         }
 
         if (qword_100117E88)
         {
-          v57 = qword_100117E88;
+          v71 = qword_100117E88;
         }
 
         else
         {
-          v57 = __stderrp;
+          v71 = __stderrp;
         }
 
-        fprintf(v57, "%s\n", CStringPtr);
-        if (v33)
+        fprintf(v71, "%s\n", CStringPtr);
+        if (v40)
         {
-          free(v33);
+          free(v40);
         }
 
         goto LABEL_125;
       }
 
-      v46 = sub_100035B80();
-      if (os_log_type_enabled(v46, OS_LOG_TYPE_FAULT))
+      v57 = sub_100035B80(0, v38);
+      if (os_log_type_enabled(v57, OS_LOG_TYPE_FAULT))
       {
-        v93 = *__error();
-        v94 = __error();
-        v95 = strerror(*v94);
+        v109 = *__error();
+        v110 = __error();
+        v111 = strerror(*v110);
         *buf = 136315650;
         *&buf[4] = file;
         *&buf[12] = 1024;
-        *&buf[14] = v93;
+        *&buf[14] = v109;
         *&buf[18] = 2080;
-        *&buf[20] = v95;
-        _os_log_fault_impl(&_mh_execute_header, v46, OS_LOG_TYPE_FAULT, "Unable to format: Parsing spindump text: Unable to open %s: %d (%s)", buf, 0x1Cu);
+        *&buf[20] = v111;
+        _os_log_fault_impl(&_mh_execute_header, v57, OS_LOG_TYPE_FAULT, "Unable to format: Parsing spindump text: Unable to open %s: %d (%s)", buf, 0x1Cu);
       }
 
       if (qword_100117E88)
       {
-        v47 = qword_100117E88;
+        v58 = qword_100117E88;
       }
 
       else
       {
-        v47 = __stderrp;
+        v58 = __stderrp;
       }
 
 LABEL_108:
-      fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v47);
+      fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v58);
 LABEL_126:
       obj = 0;
       ptr = 0;
+      v15 = 0;
+      v1064 = 0;
+      v1065 = 0;
+      v1069 = 0;
+      v1070 = 0;
+      v1067 = 0;
+      v1068 = 0;
       v14 = 0;
-      v941 = 0;
-      v942 = 0;
-      v946 = 0;
-      v947 = 0;
-      v944 = 0;
-      v945 = 0;
-      v13 = 0;
-      *__error() = v15;
+      *__error() = v16;
       goto LABEL_127;
     }
 
 LABEL_57:
-    v14 = 0;
-    v941 = 0;
-    v942 = 0;
-    v946 = 0;
-    v947 = 0;
+    v15 = 0;
+    v1064 = 0;
+    v1065 = 0;
+    v1069 = 0;
+    v1070 = 0;
     obj = 0;
-    v944 = 0;
-    v945 = 0;
+    v1067 = 0;
+    v1068 = 0;
     goto LABEL_127;
   }
 
-  (v949[2])();
-  v6 = v976[3];
+  (v1072[2])();
+  v6 = v1099[3];
   do
   {
-    if (!fgets(v6, *(v972 + 6), v5))
+    if (!fgets(v6, *(v1095 + 6), v5))
     {
       goto LABEL_19;
     }
 
-    v6 = v976[3];
+    v6 = v1099[3];
   }
 
   while (strncmp("Report Version:", v6, 0xFuLL));
@@ -290,284 +292,287 @@ LABEL_57:
 LABEL_19:
     if (byte_100117E80 == 1)
     {
-      v23 = *__error();
-      v24 = sub_100035B80();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      v25 = __error();
+      v26 = *v25;
+      v28 = sub_100035B80(v25, v27);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
         sub_1000BD78C();
       }
 
-      *__error() = v23;
+      *__error() = v26;
     }
 
-    v25 = byte_100117E81 == 1 && dword_100117510 <= 3;
-    if (v25)
+    v29 = byte_100117E81 == 1 && dword_100117510 <= 3;
+    if (v29)
     {
-      v34 = *__error();
-      v35 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Parsing spindump text: No report version. Not a spindump file?");
-      v36 = v35;
-      if (v35)
+      v41 = *__error();
+      v42 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Parsing spindump text: No report version. Not a spindump file?");
+      v44 = v42;
+      if (v42)
       {
-        v37 = CFStringGetCStringPtr(v35, 0x8000100u);
-        if (v37)
+        v45 = CFStringGetCStringPtr(v42, 0x8000100u);
+        if (v45)
         {
-          v38 = 0;
+          v46 = 0;
         }
 
         else
         {
-          v37 = malloc_type_calloc(0x400uLL, 1uLL, 0x14346A06uLL);
-          CFStringGetCString(v36, v37, 1024, 0x8000100u);
-          v38 = v37;
+          v45 = malloc_type_calloc(0x400uLL, 1uLL, 0x14346A06uLL);
+          CFStringGetCString(v44, v45, 1024, 0x8000100u);
+          v46 = v45;
         }
 
         if (qword_100117E88)
         {
-          v48 = qword_100117E88;
+          v59 = qword_100117E88;
         }
 
         else
         {
-          v48 = __stderrp;
+          v59 = __stderrp;
         }
 
-        fprintf(v48, "%s\n", v37);
-        if (v38)
+        fprintf(v59, "%s\n", v45);
+        if (v46)
         {
-          free(v38);
+          free(v46);
         }
 
         goto LABEL_69;
       }
 
-      v39 = sub_100035B80();
-      if (os_log_type_enabled(v39, OS_LOG_TYPE_FAULT))
+      v47 = sub_100035B80(0, v43);
+      if (os_log_type_enabled(v47, OS_LOG_TYPE_FAULT))
       {
         sub_1000BD7C0();
       }
 
       if (qword_100117E88)
       {
-        v40 = qword_100117E88;
+        v48 = qword_100117E88;
       }
 
       else
       {
-        v40 = __stderrp;
+        v48 = __stderrp;
       }
 
 LABEL_46:
-      fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v40);
+      fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v48);
 LABEL_70:
-      v49 = __error();
+      v60 = __error();
       obj = 0;
       ptr = 0;
-      v14 = 0;
-      v941 = 0;
-      v942 = 0;
-      v946 = 0;
-      v947 = 0;
-      v944 = 0;
-      v945 = 0;
+      v15 = 0;
+      v1064 = 0;
+      v1065 = 0;
+      v1069 = 0;
+      v1070 = 0;
+      v1067 = 0;
+      v1068 = 0;
 LABEL_71:
-      v13 = 0;
-      *v49 = v34;
+      v14 = 0;
+      *v60 = v41;
       goto LABEL_127;
     }
 
     obj = 0;
     ptr = 0;
-    v14 = 0;
-    v941 = 0;
-    v942 = 0;
-    v946 = 0;
-    v947 = 0;
-    v944 = 0;
-    v945 = 0;
+    v15 = 0;
+    v1064 = 0;
+    v1065 = 0;
+    v1069 = 0;
+    v1070 = 0;
+    v1067 = 0;
+    v1068 = 0;
 LABEL_28:
-    v13 = 0;
+    v14 = 0;
     goto LABEL_127;
   }
 
   v8 = v7;
-  if (fgets(v976[3], *(v972 + 6), v5) && !strncmp("Report Variant:   condensed", v976[3], 0x1BuLL))
+  if (fgets(v1099[3], *(v1095 + 6), v5) && !strncmp("Report Variant:   condensed", v1099[3], 0x1BuLL))
   {
     if (byte_100117E80 == 1)
     {
-      v50 = *__error();
-      v51 = sub_100035B80();
-      if (os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
+      v61 = __error();
+      v62 = *v61;
+      v64 = sub_100035B80(v61, v63);
+      if (os_log_type_enabled(v64, OS_LOG_TYPE_DEBUG))
       {
         sub_1000BD138();
       }
 
-      *__error() = v50;
+      *__error() = v62;
     }
 
-    v935 = 1;
+    v1058 = 1;
     if (byte_100117E81 == 1 && dword_100117510 <= 0)
     {
-      v52 = *__error();
-      v53 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Parsing spindump text: Detected condensed report variant");
-      v54 = v53;
-      if (v53)
+      v65 = *__error();
+      v66 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Parsing spindump text: Detected condensed report variant");
+      v68 = v66;
+      if (v66)
       {
-        v55 = CFStringGetCStringPtr(v53, 0x8000100u);
-        if (v55)
+        v69 = CFStringGetCStringPtr(v66, 0x8000100u);
+        if (v69)
         {
-          v56 = 0;
+          v70 = 0;
         }
 
         else
         {
-          v55 = malloc_type_calloc(0x400uLL, 1uLL, 0x692606CFuLL);
-          CFStringGetCString(v54, v55, 1024, 0x8000100u);
-          v56 = v55;
+          v69 = malloc_type_calloc(0x400uLL, 1uLL, 0x692606CFuLL);
+          CFStringGetCString(v68, v69, 1024, 0x8000100u);
+          v70 = v69;
         }
 
         if (qword_100117E88)
         {
-          v91 = qword_100117E88;
+          v107 = qword_100117E88;
         }
 
         else
         {
-          v91 = __stderrp;
+          v107 = __stderrp;
         }
 
-        fprintf(v91, "%s\n", v55);
-        if (v56)
+        fprintf(v107, "%s\n", v69);
+        if (v70)
         {
-          free(v56);
+          free(v70);
         }
 
-        CFRelease(v54);
+        CFRelease(v68);
       }
 
       else
       {
-        v88 = sub_100035B80();
-        if (os_log_type_enabled(v88, OS_LOG_TYPE_FAULT))
+        v104 = sub_100035B80(0, v67);
+        if (os_log_type_enabled(v104, OS_LOG_TYPE_FAULT))
         {
           sub_1000BD178();
         }
 
         if (qword_100117E88)
         {
-          v89 = qword_100117E88;
+          v105 = qword_100117E88;
         }
 
         else
         {
-          v89 = __stderrp;
+          v105 = __stderrp;
         }
 
-        fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v89);
+        fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v105);
       }
 
-      *__error() = v52;
-      v935 = 1;
+      *__error() = v65;
+      v1058 = 1;
     }
   }
 
   else
   {
-    v935 = 0;
+    v1058 = 0;
   }
 
   if (fseek(v5, 0, 0))
   {
     if (byte_100117E80 == 1)
     {
-      v9 = *__error();
-      v10 = sub_100035B80();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v9 = __error();
+      v10 = *v9;
+      v12 = sub_100035B80(v9, v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        v11 = *__error();
-        v12 = __error();
-        strerror(*v12);
+        __error();
+        v13 = __error();
+        strerror(*v13);
         sub_1000BD1AC();
       }
 
-      *__error() = v9;
+      *__error() = v10;
     }
 
-    v13 = 0;
+    v14 = 0;
     ptr = 0;
     if (byte_100117E81 == 1)
     {
-      v14 = 0;
-      v941 = 0;
-      v942 = 0;
-      v946 = 0;
-      v947 = 0;
+      v15 = 0;
+      v1064 = 0;
+      v1065 = 0;
+      v1069 = 0;
+      v1070 = 0;
       obj = 0;
-      v944 = 0;
-      v945 = 0;
+      v1067 = 0;
+      v1068 = 0;
       if (dword_100117510 > 3)
       {
         goto LABEL_127;
       }
 
-      v15 = *__error();
       v16 = *__error();
-      v17 = __error();
-      v18 = strerror(*v17);
-      v19 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Parsing spindump text requires a seekable file: %d (%s)", v16, v18);
-      v20 = v19;
-      if (v19)
+      v17 = *__error();
+      v18 = __error();
+      v19 = strerror(*v18);
+      v20 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Parsing spindump text requires a seekable file: %d (%s)", v17, v19);
+      v22 = v20;
+      if (v20)
       {
-        v21 = CFStringGetCStringPtr(v19, 0x8000100u);
-        if (v21)
+        v23 = CFStringGetCStringPtr(v20, 0x8000100u);
+        if (v23)
         {
-          v22 = 0;
+          v24 = 0;
         }
 
         else
         {
-          v21 = malloc_type_calloc(0x400uLL, 1uLL, 0x717B2CBAuLL);
-          CFStringGetCString(v20, v21, 1024, 0x8000100u);
-          v22 = v21;
+          v23 = malloc_type_calloc(0x400uLL, 1uLL, 0x717B2CBAuLL);
+          CFStringGetCString(v22, v23, 1024, 0x8000100u);
+          v24 = v23;
         }
 
         if (qword_100117E88)
         {
-          v82 = qword_100117E88;
+          v98 = qword_100117E88;
         }
 
         else
         {
-          v82 = __stderrp;
+          v98 = __stderrp;
         }
 
-        fprintf(v82, "%s\n", v21);
-        if (v22)
+        fprintf(v98, "%s\n", v23);
+        if (v24)
         {
-          free(v22);
+          free(v24);
         }
 
 LABEL_125:
-        CFRelease(v20);
+        CFRelease(v22);
         goto LABEL_126;
       }
 
-      v70 = sub_100035B80();
-      if (os_log_type_enabled(v70, OS_LOG_TYPE_FAULT))
+      v84 = sub_100035B80(0, v21);
+      if (os_log_type_enabled(v84, OS_LOG_TYPE_FAULT))
       {
-        v71 = *__error();
-        v72 = __error();
-        strerror(*v72);
+        __error();
+        v85 = __error();
+        strerror(*v85);
         sub_1000BD1F0();
       }
 
       if (qword_100117E88)
       {
-        v47 = qword_100117E88;
+        v58 = qword_100117E88;
       }
 
       else
       {
-        v47 = __stderrp;
+        v58 = __stderrp;
       }
 
       goto LABEL_108;
@@ -580,761 +585,769 @@ LABEL_125:
   {
     if (byte_100117E80 == 1)
     {
-      v41 = *__error();
-      v42 = sub_100035B80();
-      if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+      v49 = __error();
+      v50 = *v49;
+      v52 = sub_100035B80(v49, v51);
+      if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
       {
         sub_1000BD724();
       }
 
-      *__error() = v41;
+      *__error() = v50;
     }
 
-    v13 = 0;
+    v14 = 0;
     ptr = 0;
     if (byte_100117E81 != 1)
     {
       goto LABEL_57;
     }
 
-    v14 = 0;
-    v941 = 0;
-    v942 = 0;
-    v946 = 0;
-    v947 = 0;
+    v15 = 0;
+    v1064 = 0;
+    v1065 = 0;
+    v1069 = 0;
+    v1070 = 0;
     obj = 0;
-    v944 = 0;
-    v945 = 0;
+    v1067 = 0;
+    v1068 = 0;
     if (dword_100117510 > 3)
     {
       goto LABEL_127;
     }
 
-    v34 = *__error();
-    v43 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Parsing spindump text: Unable to parse text of the report: spindump report version 20+ required");
-    v36 = v43;
-    if (v43)
+    v41 = *__error();
+    v53 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Parsing spindump text: Unable to parse text of the report: spindump report version 20+ required");
+    v44 = v53;
+    if (v53)
     {
-      v44 = CFStringGetCStringPtr(v43, 0x8000100u);
-      if (v44)
+      v55 = CFStringGetCStringPtr(v53, 0x8000100u);
+      if (v55)
       {
-        v45 = 0;
+        v56 = 0;
       }
 
       else
       {
-        v44 = malloc_type_calloc(0x400uLL, 1uLL, 0xD1CE92A8uLL);
-        CFStringGetCString(v36, v44, 1024, 0x8000100u);
-        v45 = v44;
+        v55 = malloc_type_calloc(0x400uLL, 1uLL, 0xD1CE92A8uLL);
+        CFStringGetCString(v44, v55, 1024, 0x8000100u);
+        v56 = v55;
       }
 
       if (qword_100117E88)
       {
-        v92 = qword_100117E88;
+        v108 = qword_100117E88;
       }
 
       else
       {
-        v92 = __stderrp;
+        v108 = __stderrp;
       }
 
-      fprintf(v92, "%s\n", v44);
-      if (v45)
+      fprintf(v108, "%s\n", v55);
+      if (v56)
       {
-        free(v45);
+        free(v56);
       }
 
 LABEL_69:
-      CFRelease(v36);
+      CFRelease(v44);
       goto LABEL_70;
     }
 
-    v90 = sub_100035B80();
-    if (os_log_type_enabled(v90, OS_LOG_TYPE_FAULT))
+    v106 = sub_100035B80(0, v54);
+    if (os_log_type_enabled(v106, OS_LOG_TYPE_FAULT))
     {
       sub_1000BD758();
     }
 
     if (qword_100117E88)
     {
-      v40 = qword_100117E88;
+      v48 = qword_100117E88;
     }
 
     else
     {
-      v40 = __stderrp;
+      v48 = __stderrp;
     }
 
     goto LABEL_46;
   }
 
-  if (v935)
+  if (v1058)
   {
-    v58 = @"^(?<indentCount>\\d+)(?<kernelDot>\\*)?\\s+(?<count>\\d+)\\s+(?:(?<binaryIndex>\\d+)\\s+\\+\\s+(?<offsetIntoBinary>\\d+)|\\?\\?\\?)$";
+    v72 = @"^(?<indentCount>\\d+)(?<kernelDot>\\*)?\\s+(?<count>\\d+)\\s+(?:(?<binaryIndex>\\d+)\\s+\\+\\s+(?<offsetIntoBinary>\\d+)|\\?\\?\\?)$";
   }
 
   else
   {
-    v58 = @"^(?<indentWhitespace> +(?<kernelDot>\\*)?)(?<countAndWhitespace>(?<count>\\d+)\\s+)(?:\\?\\?\\?(?:\\s+\\+\\s+(?<offsetIntoUnknownSymbol>\\d+))?|(?<symbolName>.*?)\\s+\\+\\s+(?<offsetIntoSymbol>\\d+))(?:\\s+\\((?:(?<sourceFilepath>.+?)(?::(?<sourceLineNumber>\\d+)(?:[:\\.,](?<sourceColumnNumber>\\d+))?)?\\s+in\\s+)?(?:<(?<binaryUuid>[\\dabcdef\\-]{32,36})>|(?<binaryName>.+?))\\s+\\+\\s+(?<offsetIntoBinary>\\d+)\\))?(?:\\s+\\[(?<address>(?:0x)?[\\dabcdef]+)\\])?(?:\\s+\\((?<stateInfo>.+?)\\))?(?:\\s+(?<startIndex>\\d+)(?:\\s*-\\s*(?<endIndex>\\d+))?)?$";
+    v72 = @"^(?<indentWhitespace> +(?<kernelDot>\\*)?)(?<countAndWhitespace>(?<count>\\d+)\\s+)(?:\\?\\?\\?(?:\\s+\\+\\s+(?<offsetIntoUnknownSymbol>\\d+))?|(?<symbolName>.*?)\\s+\\+\\s+(?<offsetIntoSymbol>\\d+))(?:\\s+\\((?:(?<sourceFilepath>.+?)(?::(?<sourceLineNumber>\\d+)(?:[:\\.,](?<sourceColumnNumber>\\d+))?)?\\s+in\\s+)?(?:<(?<binaryUuid>[\\dabcdef\\-]{32,36})>|(?<binaryName>.+?))\\s+\\+\\s+(?<offsetIntoBinary>\\d+)\\))?(?:\\s+\\[(?<address>(?:0x)?[\\dabcdef]+)\\])?(?:\\s+\\((?<stateInfo>.+?)\\))?(?:\\s+(?<startIndex>\\d+)(?:\\s*-\\s*(?<endIndex>\\d+))?)?$";
   }
 
-  v59 = [NSRegularExpression alloc];
-  v996[0] = 0;
-  v946 = [v59 initWithPattern:v58 options:1 error:v996];
-  v60 = v996[0];
-  v61 = v60;
-  if (!v946)
+  v73 = [NSRegularExpression alloc];
+  v1119[0] = 0;
+  v1069 = [v73 initWithPattern:v72 options:1 error:v1119];
+  v74 = v1119[0];
+  v75 = v74;
+  if (!v1069)
   {
     if (byte_100117E80 == 1)
     {
-      v628 = *__error();
-      v629 = sub_100035B80();
-      if (os_log_type_enabled(v629, OS_LOG_TYPE_ERROR))
+      v696 = __error();
+      v697 = *v696;
+      v699 = sub_100035B80(v696, v698);
+      if (os_log_type_enabled(v699, OS_LOG_TYPE_ERROR))
       {
-        uTF8String = [(__CFString *)v58 UTF8String];
-        v631 = [v61 debugDescription];
-        v632 = v631;
-        uTF8String2 = [v631 UTF8String];
+        uTF8String = [(__CFString *)v72 UTF8String];
+        v701 = [v75 debugDescription];
+        v702 = v701;
+        uTF8String2 = [v701 UTF8String];
         *buf = 136315650;
         *&buf[4] = "regex";
         *&buf[12] = 2080;
         *&buf[14] = uTF8String;
         *&buf[22] = 2080;
         *&buf[24] = uTF8String2;
-        _os_log_error_impl(&_mh_execute_header, v629, OS_LOG_TYPE_ERROR, "%s: Unable to compile regex %s: %s", buf, 0x20u);
+        _os_log_error_impl(&_mh_execute_header, v699, OS_LOG_TYPE_ERROR, "%s: Unable to compile regex %s: %s", buf, 0x20u);
       }
 
-      *__error() = v628;
+      *__error() = v697;
     }
 
     if (byte_100117E81 == 1 && dword_100117510 <= 3)
     {
-      v634 = *__error();
-      uTF8String3 = [(__CFString *)v58 UTF8String];
-      v636 = [v61 debugDescription];
-      v637 = v636;
-      v638 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s: Unable to compile regex %s: %s", "regex", uTF8String3, [v636 UTF8String]);
+      v704 = *__error();
+      uTF8String3 = [(__CFString *)v72 UTF8String];
+      v706 = [v75 debugDescription];
+      v707 = v706;
+      v708 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s: Unable to compile regex %s: %s", "regex", uTF8String3, [v706 UTF8String]);
 
-      if (v638)
+      if (v708)
       {
-        v840 = CFStringGetCStringPtr(v638, 0x8000100u);
-        if (v840)
+        v958 = CFStringGetCStringPtr(v708, 0x8000100u);
+        if (v958)
         {
-          v841 = 0;
+          v959 = 0;
         }
 
         else
         {
-          v840 = malloc_type_calloc(0x400uLL, 1uLL, 0x134220A1uLL);
-          CFStringGetCString(v638, v840, 1024, 0x8000100u);
-          v841 = v840;
+          v958 = malloc_type_calloc(0x400uLL, 1uLL, 0x134220A1uLL);
+          CFStringGetCString(v708, v958, 1024, 0x8000100u);
+          v959 = v958;
         }
 
         if (qword_100117E88)
         {
-          v846 = qword_100117E88;
+          v964 = qword_100117E88;
         }
 
         else
         {
-          v846 = __stderrp;
+          v964 = __stderrp;
         }
 
-        fprintf(v846, "%s\n", v840);
-        if (v841)
+        fprintf(v964, "%s\n", v958);
+        if (v959)
         {
-          free(v841);
+          free(v959);
         }
 
-        CFRelease(v638);
+        CFRelease(v708);
       }
 
       else
       {
-        v639 = sub_100035B80();
-        if (os_log_type_enabled(v639, OS_LOG_TYPE_FAULT))
+        v711 = sub_100035B80(v709, v710);
+        if (os_log_type_enabled(v711, OS_LOG_TYPE_FAULT))
         {
-          uTF8String4 = [(__CFString *)v58 UTF8String];
-          v641 = [v61 debugDescription];
-          v642 = v641;
-          uTF8String5 = [v641 UTF8String];
+          uTF8String4 = [(__CFString *)v72 UTF8String];
+          v713 = [v75 debugDescription];
+          v714 = v713;
+          uTF8String5 = [v713 UTF8String];
           *buf = 136315650;
           *&buf[4] = "regex";
           *&buf[12] = 2080;
           *&buf[14] = uTF8String4;
           *&buf[22] = 2080;
           *&buf[24] = uTF8String5;
-          _os_log_fault_impl(&_mh_execute_header, v639, OS_LOG_TYPE_FAULT, "Unable to format: %s: Unable to compile regex %s: %s", buf, 0x20u);
+          _os_log_fault_impl(&_mh_execute_header, v711, OS_LOG_TYPE_FAULT, "Unable to format: %s: Unable to compile regex %s: %s", buf, 0x20u);
         }
 
         if (qword_100117E88)
         {
-          v644 = qword_100117E88;
+          v716 = qword_100117E88;
         }
 
         else
         {
-          v644 = __stderrp;
+          v716 = __stderrp;
         }
 
-        fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v644);
+        fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v716);
       }
 
-      *__error() = v634;
+      *__error() = v704;
     }
 
-    [(__CFString *)v58 UTF8String];
-    v645 = [v61 debugDescription];
-    v646 = v645;
-    [v645 UTF8String];
-    sub_100035A54("CallTreeFrameLineRegex", "SPTextualReportParser.m", 1816, "%s: Unable to compile regex %s: %s", v647, v648, v649, v650, "regex");
+    uTF8String6 = [(__CFString *)v72 UTF8String];
+    v718 = [v75 debugDescription];
+    v719 = v718;
+    uTF8String7 = [v718 UTF8String];
+    sub_100035A54("CallTreeFrameLineRegex", "SPTextualReportParser.m", 1816, "%s: Unable to compile regex %s: %s", v721, v722, v723, v724, "regex", uTF8String6, uTF8String7);
 
     goto LABEL_1248;
   }
 
-  if (v935)
+  if (v1058)
   {
-    v62 = @"^(?<indentCount>\\d+)(?<kernelDot>\\*)?\\s+(?<count>\\d+)\\s+(?:state\\s+(?<stateInfo>(?:0x)?[\\dabcdef]+)|<(?<angleBracketContents>.*)>|(?<otherInfo>[^<\\s\\d].*))$";
+    v76 = @"^(?<indentCount>\\d+)(?<kernelDot>\\*)?\\s+(?<count>\\d+)\\s+(?:state\\s+(?<stateInfo>(?:0x)?[\\dabcdef]+)|<(?<angleBracketContents>.*)>|(?<otherInfo>[^<\\s\\d].*))$";
   }
 
   else
   {
-    v62 = @"^(?<indentWhitespace> +(?<kernelDot>\\*)?)(?<countAndWhitespace>(?<count>\\d+)\\s+)?<(?<angleBracketContents>.*)>(?:\\s+\\((?<stateInfo>.+?)\\))?(?:\\s+(?<startIndex>\\d+)(?:\\s*-\\s*(?<endIndex>\\d+))?)?$";
+    v76 = @"^(?<indentWhitespace> +(?<kernelDot>\\*)?)(?<countAndWhitespace>(?<count>\\d+)\\s+)?<(?<angleBracketContents>.*)>(?:\\s+\\((?<stateInfo>.+?)\\))?(?:\\s+(?<startIndex>\\d+)(?:\\s*-\\s*(?<endIndex>\\d+))?)?$";
   }
 
-  v63 = [NSRegularExpression alloc];
-  v979 = 0;
-  v945 = [v63 initWithPattern:v62 options:1 error:&v979];
-  v64 = v979;
-  if (!v945)
+  v77 = [NSRegularExpression alloc];
+  v1102 = 0;
+  v1068 = [v77 initWithPattern:v76 options:1 error:&v1102];
+  v78 = v1102;
+  if (!v1068)
   {
     if (byte_100117E80 == 1)
     {
-      v651 = *__error();
-      v652 = sub_100035B80();
-      if (os_log_type_enabled(v652, OS_LOG_TYPE_ERROR))
+      v725 = __error();
+      v726 = *v725;
+      v728 = sub_100035B80(v725, v727);
+      if (os_log_type_enabled(v728, OS_LOG_TYPE_ERROR))
       {
-        sub_1000BD68C([(__CFString *)v62 UTF8String], buf);
+        sub_1000BD68C([(__CFString *)v76 UTF8String], buf);
       }
 
-      *__error() = v651;
+      *__error() = v726;
     }
 
     if (byte_100117E81 == 1 && dword_100117510 <= 3)
     {
-      v653 = *__error();
-      v654 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s: Unable to compile regex %s", "regex", [(__CFString *)v62 UTF8String]);
-      v655 = v654;
-      if (v654)
+      v729 = *__error();
+      v730 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s: Unable to compile regex %s", "regex", [(__CFString *)v76 UTF8String]);
+      v732 = v730;
+      if (v730)
       {
-        v772 = CFStringGetCStringPtr(v654, 0x8000100u);
-        if (v772)
+        v882 = CFStringGetCStringPtr(v730, 0x8000100u);
+        if (v882)
         {
-          v773 = 0;
+          v883 = 0;
         }
 
         else
         {
-          v772 = malloc_type_calloc(0x400uLL, 1uLL, 0xB9202467uLL);
-          CFStringGetCString(v655, v772, 1024, 0x8000100u);
-          v773 = v772;
+          v882 = malloc_type_calloc(0x400uLL, 1uLL, 0xB9202467uLL);
+          CFStringGetCString(v732, v882, 1024, 0x8000100u);
+          v883 = v882;
         }
 
         if (qword_100117E88)
         {
-          v784 = qword_100117E88;
+          v894 = qword_100117E88;
         }
 
         else
         {
-          v784 = __stderrp;
+          v894 = __stderrp;
         }
 
-        fprintf(v784, "%s\n", v772);
-        if (v773)
+        fprintf(v894, "%s\n", v882);
+        if (v883)
         {
-          free(v773);
+          free(v883);
         }
 
-        CFRelease(v655);
+        CFRelease(v732);
       }
 
       else
       {
-        v656 = sub_100035B80();
-        if (os_log_type_enabled(v656, OS_LOG_TYPE_FAULT))
+        v733 = sub_100035B80(0, v731);
+        if (os_log_type_enabled(v733, OS_LOG_TYPE_FAULT))
         {
-          sub_1000BD6D8([(__CFString *)v62 UTF8String], v996);
+          sub_1000BD6D8([(__CFString *)v76 UTF8String], v1119);
         }
 
         if (qword_100117E88)
         {
-          v657 = qword_100117E88;
+          v734 = qword_100117E88;
         }
 
         else
         {
-          v657 = __stderrp;
+          v734 = __stderrp;
         }
 
-        fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v657);
+        fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v734);
       }
 
-      *__error() = v653;
+      *__error() = v729;
     }
 
-    [(__CFString *)v62 UTF8String];
-    sub_100035A54("CallTreeNonFrameLineRegex", "SPTextualReportParser.m", 1879, "%s: Unable to compile regex %s", v785, v786, v787, v788, "regex");
+    uTF8String8 = [(__CFString *)v76 UTF8String];
+    sub_100035A54("CallTreeNonFrameLineRegex", "SPTextualReportParser.m", 1879, "%s: Unable to compile regex %s", v896, v897, v898, v899, "regex", uTF8String8);
     goto LABEL_1248;
   }
 
-  if (v935)
+  if (v1058)
   {
-    v65 = @"^(?<binaryIndex>\\d+)\\t(?<kernelDot>\\*)?(?<bundleIdentifier>\\S+)?\\t(?<version>.+?)?\\t<(?<binaryUuid>[\\dabcdef\\-]{32,36})>\\t(?<segmentName>\\S+?)?\\t(?<binaryPath>.+?)?$";
+    v79 = @"^(?<binaryIndex>\\d+)\\t(?<kernelDot>\\*)?(?<bundleIdentifier>\\S+)?\\t(?<version>.+?)?\\t<(?<binaryUuid>[\\dabcdef\\-]{32,36})>\\t(?<segmentName>\\S+?)?\\t(?<binaryPath>.+?)?$";
   }
 
   else
   {
-    v65 = @"^\\s*(?<kernelDot>\\*)?(?:(?<startAddress>(?:0x)?[\\dabcdef]+)|\\?\\?\\?)\\s*\\-\\s*(?:(?<endAddress>(?:0x)?[\\dabcdef]+)|\\?\\?\\?)\\s*(?:\\?\\?\\?|(?<bundleIdentifier>\\S+\\.\\S+\\.\\S+)|(?<name>.+?\\b))\\s+(?<version>(?:\\d[\\S]*?)?(?:\\s*\\(\\S+?\\)))?\\s*<(?<binaryUuid>[\\dabcdef\\-]{32,36})>(?<segmentName>\\S+?)?(?:\\s+(?<binaryPath>.+?)?)?$";
+    v79 = @"^\\s*(?<kernelDot>\\*)?(?:(?<startAddress>(?:0x)?[\\dabcdef]+)|\\?\\?\\?)\\s*\\-\\s*(?:(?<endAddress>(?:0x)?[\\dabcdef]+)|\\?\\?\\?)\\s*(?:\\?\\?\\?|(?<bundleIdentifier>\\S+\\.\\S+\\.\\S+)|(?<name>.+?\\b))\\s+(?<version>(?:\\d[\\S]*?)?(?:\\s*\\(\\S+?\\)))?\\s*<(?<binaryUuid>[\\dabcdef\\-]{32,36})>(?<segmentName>\\S+?)?(?:\\s+(?<binaryPath>.+?)?)?$";
   }
 
-  v66 = [NSRegularExpression alloc];
-  v979 = 0;
-  v944 = [v66 initWithPattern:v65 options:1 error:&v979];
-  v67 = v979;
-  if (!v944)
+  v80 = [NSRegularExpression alloc];
+  v1102 = 0;
+  v1067 = [v80 initWithPattern:v79 options:1 error:&v1102];
+  v81 = v1102;
+  if (!v1067)
   {
     if (byte_100117E80 == 1)
     {
-      v658 = *__error();
-      v659 = sub_100035B80();
-      if (os_log_type_enabled(v659, OS_LOG_TYPE_ERROR))
+      v735 = __error();
+      v736 = *v735;
+      v738 = sub_100035B80(v735, v737);
+      if (os_log_type_enabled(v738, OS_LOG_TYPE_ERROR))
       {
-        sub_1000BD68C([(__CFString *)v65 UTF8String], buf);
+        sub_1000BD68C([(__CFString *)v79 UTF8String], buf);
       }
 
-      *__error() = v658;
+      *__error() = v736;
     }
 
     if (byte_100117E81 == 1 && dword_100117510 <= 3)
     {
-      v660 = *__error();
-      v661 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s: Unable to compile regex %s", "regex", [(__CFString *)v65 UTF8String]);
-      v662 = v661;
-      if (v661)
+      v739 = *__error();
+      v740 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s: Unable to compile regex %s", "regex", [(__CFString *)v79 UTF8String]);
+      v742 = v740;
+      if (v740)
       {
-        v774 = CFStringGetCStringPtr(v661, 0x8000100u);
-        if (v774)
+        v884 = CFStringGetCStringPtr(v740, 0x8000100u);
+        if (v884)
         {
-          v775 = 0;
+          v885 = 0;
         }
 
         else
         {
-          v774 = malloc_type_calloc(0x400uLL, 1uLL, 0xBB67A353uLL);
-          CFStringGetCString(v662, v774, 1024, 0x8000100u);
-          v775 = v774;
+          v884 = malloc_type_calloc(0x400uLL, 1uLL, 0xBB67A353uLL);
+          CFStringGetCString(v742, v884, 1024, 0x8000100u);
+          v885 = v884;
         }
 
         if (qword_100117E88)
         {
-          v789 = qword_100117E88;
+          v900 = qword_100117E88;
         }
 
         else
         {
-          v789 = __stderrp;
+          v900 = __stderrp;
         }
 
-        fprintf(v789, "%s\n", v774);
-        if (v775)
+        fprintf(v900, "%s\n", v884);
+        if (v885)
         {
-          free(v775);
+          free(v885);
         }
 
-        CFRelease(v662);
+        CFRelease(v742);
       }
 
       else
       {
-        v663 = sub_100035B80();
-        if (os_log_type_enabled(v663, OS_LOG_TYPE_FAULT))
+        v743 = sub_100035B80(0, v741);
+        if (os_log_type_enabled(v743, OS_LOG_TYPE_FAULT))
         {
-          sub_1000BD6D8([(__CFString *)v65 UTF8String], v996);
+          sub_1000BD6D8([(__CFString *)v79 UTF8String], v1119);
         }
 
         if (qword_100117E88)
         {
-          v664 = qword_100117E88;
+          v744 = qword_100117E88;
         }
 
         else
         {
-          v664 = __stderrp;
+          v744 = __stderrp;
         }
 
-        fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v664);
+        fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v744);
       }
 
-      *__error() = v660;
+      *__error() = v739;
     }
 
-    [(__CFString *)v65 UTF8String];
-    sub_100035A54("LoadInfoLineRegex", "SPTextualReportParser.m", 1958, "%s: Unable to compile regex %s", v790, v791, v792, v793, "regex");
+    uTF8String9 = [(__CFString *)v79 UTF8String];
+    sub_100035A54("LoadInfoLineRegex", "SPTextualReportParser.m", 1958, "%s: Unable to compile regex %s", v902, v903, v904, v905, "regex", uTF8String9);
     goto LABEL_1248;
   }
 
-  v68 = [NSRegularExpression alloc];
-  v979 = 0;
-  v941 = [v68 initWithPattern:@"^UUID:(?<whitespace>\\s*)(?:<?(?<binaryUuid>[\\dabcdef\\-]{32 options:36})>?|(?<binaryIndex>\\d+))$" error:{1, &v979}];
-  v69 = v979;
-  if (!v941)
+  v82 = [NSRegularExpression alloc];
+  v1102 = 0;
+  v1064 = [v82 initWithPattern:@"^UUID:(?<whitespace>\\s*)(?:<?(?<binaryUuid>[\\dabcdef\\-]{32 options:36})>?|(?<binaryIndex>\\d+))$" error:{1, &v1102}];
+  v83 = v1102;
+  if (!v1064)
   {
     if (byte_100117E80 == 1)
     {
-      v665 = *__error();
-      v666 = sub_100035B80();
-      if (os_log_type_enabled(v666, OS_LOG_TYPE_ERROR))
+      v745 = __error();
+      v746 = *v745;
+      v748 = sub_100035B80(v745, v747);
+      if (os_log_type_enabled(v748, OS_LOG_TYPE_ERROR))
       {
         sub_1000BD68C([@"^UUID:(?<whitespace>\\s*)(?:<?(?<binaryUuid>[\\dabcdef\\-]{32 36})>?|(?<binaryIndex>\\d+))$"], buf);
       }
 
-      *__error() = v665;
+      *__error() = v746;
     }
 
     if (byte_100117E81 == 1 && dword_100117510 <= 3)
     {
-      v667 = *__error();
-      v668 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s: Unable to compile regex %s", "regex", [@"^UUID:(?<whitespace>\\s*)(?:<?(?<binaryUuid>[\\dabcdef\\-]{32 36})>?|(?<binaryIndex>\\d+))$"]);
-      v669 = v668;
-      if (v668)
+      v749 = *__error();
+      v750 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s: Unable to compile regex %s", "regex", [@"^UUID:(?<whitespace>\\s*)(?:<?(?<binaryUuid>[\\dabcdef\\-]{32 36})>?|(?<binaryIndex>\\d+))$"]);
+      v752 = v750;
+      if (v750)
       {
-        v776 = CFStringGetCStringPtr(v668, 0x8000100u);
-        if (v776)
+        v886 = CFStringGetCStringPtr(v750, 0x8000100u);
+        if (v886)
         {
-          v777 = 0;
+          v887 = 0;
         }
 
         else
         {
-          v776 = malloc_type_calloc(0x400uLL, 1uLL, 0xD97EBE6BuLL);
-          CFStringGetCString(v669, v776, 1024, 0x8000100u);
-          v777 = v776;
+          v886 = malloc_type_calloc(0x400uLL, 1uLL, 0xD97EBE6BuLL);
+          CFStringGetCString(v752, v886, 1024, 0x8000100u);
+          v887 = v886;
         }
 
         if (qword_100117E88)
         {
-          v794 = qword_100117E88;
+          v906 = qword_100117E88;
         }
 
         else
         {
-          v794 = __stderrp;
+          v906 = __stderrp;
         }
 
-        fprintf(v794, "%s\n", v776);
-        if (v777)
+        fprintf(v906, "%s\n", v886);
+        if (v887)
         {
-          free(v777);
+          free(v887);
         }
 
-        CFRelease(v669);
+        CFRelease(v752);
       }
 
       else
       {
-        v670 = sub_100035B80();
-        if (os_log_type_enabled(v670, OS_LOG_TYPE_FAULT))
+        v753 = sub_100035B80(0, v751);
+        if (os_log_type_enabled(v753, OS_LOG_TYPE_FAULT))
         {
-          sub_1000BD6D8([@"^UUID:(?<whitespace>\\s*)(?:<?(?<binaryUuid>[\\dabcdef\\-]{32 36})>?|(?<binaryIndex>\\d+))$"], v996);
+          sub_1000BD6D8([@"^UUID:(?<whitespace>\\s*)(?:<?(?<binaryUuid>[\\dabcdef\\-]{32 36})>?|(?<binaryIndex>\\d+))$"], v1119);
         }
 
         if (qword_100117E88)
         {
-          v671 = qword_100117E88;
+          v754 = qword_100117E88;
         }
 
         else
         {
-          v671 = __stderrp;
+          v754 = __stderrp;
         }
 
-        fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v671);
+        fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v754);
       }
 
-      *__error() = v667;
+      *__error() = v749;
     }
 
-    [@"^UUID:(?<whitespace>\\s*)(?:<?(?<binaryUuid>[\\dabcdef\\-]{32 36})>?|(?<binaryIndex>\\d+))$"];
-    sub_100035A54("UUIDLineRegex", "SPTextualReportParser.m", 1984, "%s: Unable to compile regex %s", v795, v796, v797, v798, "regex");
+    v907 = [@"^UUID:(?<whitespace>\\s*)(?:<?(?<binaryUuid>[\\dabcdef\\-]{32 36})>?|(?<binaryIndex>\\d+))$"];
+    sub_100035A54("UUIDLineRegex", "SPTextualReportParser.m", 1984, "%s: Unable to compile regex %s", v908, v909, v910, v911, "regex", v907);
     goto LABEL_1248;
   }
 
-  v969 = 0;
-  v968 = 0;
-  v967 = 0;
-  if (v935)
+  v1092 = 0;
+  v1091 = 0;
+  v1090 = 0;
+  if (v1058)
   {
-    v967 = 2;
-    v968 = 2;
-    v969 = 1;
+    v1090 = 2;
+    v1091 = 2;
+    v1092 = 1;
   }
 
   else
   {
-    v73 = v946;
-    v967 = -1;
-    v968 = -1;
+    v86 = v1069;
+    v1090 = -1;
+    v1091 = -1;
     *buf = _NSConcreteStackBlock;
     *&buf[8] = 3221225472;
     *&buf[16] = sub_10009CB60;
     *&buf[24] = &unk_10010A000;
-    *&buf[32] = v73;
-    *&buf[40] = &v969;
-    *&buf[48] = &v967;
-    v985 = &v968;
-    v74 = v73;
+    *&buf[32] = v86;
+    *&buf[40] = &v1092;
+    *&buf[48] = &v1090;
+    v1108 = &v1091;
+    v87 = v86;
     sub_10009A5FC(v5, 0, buf);
 
-    if (v967 <= 0)
+    if (v1090 <= 0)
     {
       if (byte_100117E80 == 1)
       {
-        v75 = *__error();
-        v76 = sub_100035B80();
-        if (os_log_type_enabled(v76, OS_LOG_TYPE_INFO))
+        v88 = __error();
+        v89 = *v88;
+        v91 = sub_100035B80(v88, v90);
+        if (os_log_type_enabled(v91, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v76, OS_LOG_TYPE_INFO, "Parsing spindump text: Unable to detect initial indentation, using 2", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v91, OS_LOG_TYPE_INFO, "Parsing spindump text: Unable to detect initial indentation, using 2", buf, 2u);
         }
 
-        *__error() = v75;
+        *__error() = v89;
       }
 
       if (byte_100117E81 == 1 && dword_100117510 <= 1)
       {
-        v77 = *__error();
-        v78 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Parsing spindump text: Unable to detect initial indentation, using 2");
-        v79 = v78;
-        if (v78)
+        v92 = *__error();
+        v93 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Parsing spindump text: Unable to detect initial indentation, using 2");
+        v95 = v93;
+        if (v93)
         {
-          v80 = CFStringGetCStringPtr(v78, 0x8000100u);
-          if (v80)
+          v96 = CFStringGetCStringPtr(v93, 0x8000100u);
+          if (v96)
           {
-            v81 = 0;
+            v97 = 0;
           }
 
           else
           {
-            v80 = malloc_type_calloc(0x400uLL, 1uLL, 0x68A294DCuLL);
-            CFStringGetCString(v79, v80, 1024, 0x8000100u);
-            v81 = v80;
+            v96 = malloc_type_calloc(0x400uLL, 1uLL, 0x68A294DCuLL);
+            CFStringGetCString(v95, v96, 1024, 0x8000100u);
+            v97 = v96;
           }
 
           if (qword_100117E88)
           {
-            v98 = qword_100117E88;
+            v114 = qword_100117E88;
           }
 
           else
           {
-            v98 = __stderrp;
+            v114 = __stderrp;
           }
 
-          fprintf(v98, "%s\n", v80);
-          if (v81)
+          fprintf(v114, "%s\n", v96);
+          if (v97)
           {
-            free(v81);
+            free(v97);
           }
 
-          CFRelease(v79);
+          CFRelease(v95);
         }
 
         else
         {
-          v96 = sub_100035B80();
-          if (os_log_type_enabled(v96, OS_LOG_TYPE_FAULT))
+          v112 = sub_100035B80(0, v94);
+          if (os_log_type_enabled(v112, OS_LOG_TYPE_FAULT))
           {
             sub_1000BD234();
           }
 
           if (qword_100117E88)
           {
-            v97 = qword_100117E88;
+            v113 = qword_100117E88;
           }
 
           else
           {
-            v97 = __stderrp;
+            v113 = __stderrp;
           }
 
-          fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v97);
+          fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v113);
         }
 
-        *__error() = v77;
+        *__error() = v92;
       }
 
-      v967 = 2;
+      v1090 = 2;
     }
 
-    if (v968 <= 0)
+    if (v1091 <= 0)
     {
       if (byte_100117E80 == 1)
       {
-        v99 = *__error();
-        v100 = sub_100035B80();
-        if (os_log_type_enabled(v100, OS_LOG_TYPE_INFO))
+        v115 = __error();
+        v116 = *v115;
+        v118 = sub_100035B80(v115, v117);
+        if (os_log_type_enabled(v118, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v100, OS_LOG_TYPE_INFO, "Parsing spindump text: Unable to detect incremental indentation, using 2", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v118, OS_LOG_TYPE_INFO, "Parsing spindump text: Unable to detect incremental indentation, using 2", buf, 2u);
         }
 
-        *__error() = v99;
+        *__error() = v116;
       }
 
       if (byte_100117E81 == 1 && dword_100117510 <= 1)
       {
-        v101 = *__error();
-        v102 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Parsing spindump text: Unable to detect incremental indentation, using 2");
-        v103 = v102;
-        if (v102)
+        v119 = *__error();
+        v120 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Parsing spindump text: Unable to detect incremental indentation, using 2");
+        v122 = v120;
+        if (v120)
         {
-          v104 = CFStringGetCStringPtr(v102, 0x8000100u);
-          if (v104)
+          v123 = CFStringGetCStringPtr(v120, 0x8000100u);
+          if (v123)
           {
-            v105 = 0;
+            v124 = 0;
           }
 
           else
           {
-            v104 = malloc_type_calloc(0x400uLL, 1uLL, 0x7F412522uLL);
-            CFStringGetCString(v103, v104, 1024, 0x8000100u);
-            v105 = v104;
+            v123 = malloc_type_calloc(0x400uLL, 1uLL, 0x7F412522uLL);
+            CFStringGetCString(v122, v123, 1024, 0x8000100u);
+            v124 = v123;
           }
 
           if (qword_100117E88)
           {
-            v108 = qword_100117E88;
+            v127 = qword_100117E88;
           }
 
           else
           {
-            v108 = __stderrp;
+            v127 = __stderrp;
           }
 
-          fprintf(v108, "%s\n", v104);
-          if (v105)
+          fprintf(v127, "%s\n", v123);
+          if (v124)
           {
-            free(v105);
+            free(v124);
           }
 
-          CFRelease(v103);
+          CFRelease(v122);
         }
 
         else
         {
-          v106 = sub_100035B80();
-          if (os_log_type_enabled(v106, OS_LOG_TYPE_FAULT))
+          v125 = sub_100035B80(0, v121);
+          if (os_log_type_enabled(v125, OS_LOG_TYPE_FAULT))
           {
             sub_1000BD268();
           }
 
           if (qword_100117E88)
           {
-            v107 = qword_100117E88;
+            v126 = qword_100117E88;
           }
 
           else
           {
-            v107 = __stderrp;
+            v126 = __stderrp;
           }
 
-          fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v107);
+          fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v126);
         }
 
-        *__error() = v101;
+        *__error() = v119;
       }
 
-      v968 = 2;
+      v1091 = 2;
     }
   }
 
   if (self->_isHeavy)
   {
-    if (v969)
+    if (v1092)
     {
       p_startIndex = &self->_startIndex;
       if (self->_startIndex || self->_endIndex)
       {
         if (byte_100117E80 == 1)
         {
-          v109 = *__error();
-          v110 = sub_100035B80();
-          if (os_log_type_enabled(v110, OS_LOG_TYPE_ERROR))
+          v128 = __error();
+          v129 = *v128;
+          v131 = sub_100035B80(v128, v130);
+          if (os_log_type_enabled(v131, OS_LOG_TYPE_ERROR))
           {
             sub_1000BD304();
           }
 
-          *__error() = v109;
+          *__error() = v129;
         }
 
-        v13 = 0;
+        v14 = 0;
         ptr = 0;
         if (byte_100117E81 == 1 && dword_100117510 <= 3)
         {
-          v34 = *__error();
-          v111 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Parsing spindump text: Original report is not in timeline mode, so unable to filter to start/end indexes");
-          v112 = v111;
-          if (v111)
+          v41 = *__error();
+          v132 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Parsing spindump text: Original report is not in timeline mode, so unable to filter to start/end indexes");
+          v134 = v132;
+          if (v132)
           {
-            v113 = CFStringGetCStringPtr(v111, 0x8000100u);
-            if (v113)
+            v135 = CFStringGetCStringPtr(v132, 0x8000100u);
+            if (v135)
             {
-              v114 = 0;
+              v136 = 0;
             }
 
             else
             {
-              v113 = malloc_type_calloc(0x400uLL, 1uLL, 0x88A3DD5DuLL);
-              CFStringGetCString(v112, v113, 1024, 0x8000100u);
-              v114 = v113;
+              v135 = malloc_type_calloc(0x400uLL, 1uLL, 0x88A3DD5DuLL);
+              CFStringGetCString(v134, v135, 1024, 0x8000100u);
+              v136 = v135;
             }
 
             if (qword_100117E88)
             {
-              v571 = qword_100117E88;
+              v626 = qword_100117E88;
             }
 
             else
             {
-              v571 = __stderrp;
+              v626 = __stderrp;
             }
 
-            fprintf(v571, "%s\n", v113);
-            if (v114)
+            fprintf(v626, "%s\n", v135);
+            if (v136)
             {
-              free(v114);
+              free(v136);
             }
 
 LABEL_931:
-            CFRelease(v112);
+            CFRelease(v134);
             goto LABEL_932;
           }
 
-          v141 = sub_100035B80();
-          if (os_log_type_enabled(v141, OS_LOG_TYPE_FAULT))
+          v172 = sub_100035B80(0, v133);
+          if (os_log_type_enabled(v172, OS_LOG_TYPE_FAULT))
           {
             sub_1000BD338();
           }
 
           if (qword_100117E88)
           {
-            v140 = qword_100117E88;
+            v171 = qword_100117E88;
           }
 
           else
           {
-            v140 = __stderrp;
+            v171 = __stderrp;
           }
 
           goto LABEL_910;
@@ -1347,84 +1360,85 @@ LABEL_931:
     }
   }
 
-  else if (v969)
+  else if (v1092)
   {
     if (byte_100117E80 == 1)
     {
-      v115 = *__error();
-      v116 = sub_100035B80();
-      if (os_log_type_enabled(v116, OS_LOG_TYPE_ERROR))
+      v137 = __error();
+      v138 = *v137;
+      v140 = sub_100035B80(v137, v139);
+      if (os_log_type_enabled(v140, OS_LOG_TYPE_ERROR))
       {
         sub_1000BD29C();
       }
 
-      *__error() = v115;
+      *__error() = v138;
     }
 
-    v13 = 0;
+    v14 = 0;
     ptr = 0;
     if (byte_100117E81 == 1 && dword_100117510 <= 3)
     {
-      v34 = *__error();
-      v117 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Parsing spindump text: Original report is not in timeline mode, so unable to output timeline mode");
-      v112 = v117;
-      if (v117)
+      v41 = *__error();
+      v141 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Parsing spindump text: Original report is not in timeline mode, so unable to output timeline mode");
+      v134 = v141;
+      if (v141)
       {
-        v118 = CFStringGetCStringPtr(v117, 0x8000100u);
-        if (v118)
+        v143 = CFStringGetCStringPtr(v141, 0x8000100u);
+        if (v143)
         {
-          v119 = 0;
+          v144 = 0;
         }
 
         else
         {
-          v118 = malloc_type_calloc(0x400uLL, 1uLL, 0xCB89CD56uLL);
-          CFStringGetCString(v112, v118, 1024, 0x8000100u);
-          v119 = v118;
+          v143 = malloc_type_calloc(0x400uLL, 1uLL, 0xCB89CD56uLL);
+          CFStringGetCString(v134, v143, 1024, 0x8000100u);
+          v144 = v143;
         }
 
         if (qword_100117E88)
         {
-          v570 = qword_100117E88;
+          v625 = qword_100117E88;
         }
 
         else
         {
-          v570 = __stderrp;
+          v625 = __stderrp;
         }
 
-        fprintf(v570, "%s\n", v118);
-        if (v119)
+        fprintf(v625, "%s\n", v143);
+        if (v144)
         {
-          free(v119);
+          free(v144);
         }
 
         goto LABEL_931;
       }
 
-      v139 = sub_100035B80();
-      if (os_log_type_enabled(v139, OS_LOG_TYPE_FAULT))
+      v170 = sub_100035B80(0, v142);
+      if (os_log_type_enabled(v170, OS_LOG_TYPE_FAULT))
       {
         sub_1000BD2D0();
       }
 
       if (qword_100117E88)
       {
-        v140 = qword_100117E88;
+        v171 = qword_100117E88;
       }
 
       else
       {
-        v140 = __stderrp;
+        v171 = __stderrp;
       }
 
       goto LABEL_910;
     }
 
 LABEL_898:
-    v14 = 0;
-    v942 = 0;
-    v947 = 0;
+    v15 = 0;
+    v1065 = 0;
+    v1070 = 0;
     obj = 0;
     goto LABEL_127;
   }
@@ -1435,78 +1449,79 @@ LABEL_898:
 LABEL_225:
     if (byte_100117E80 == 1)
     {
-      v120 = *__error();
-      v121 = sub_100035B80();
-      if (os_log_type_enabled(v121, OS_LOG_TYPE_DEFAULT))
+      v145 = __error();
+      v146 = *v145;
+      v148 = sub_100035B80(v145, v147);
+      if (os_log_type_enabled(v148, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v121, OS_LOG_TYPE_DEFAULT, "Parsing spindump text: Stacks will be filtered to the sample index range specified, but process and thread summary information and timestamps will still reflect full time range", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v148, OS_LOG_TYPE_DEFAULT, "Parsing spindump text: Stacks will be filtered to the sample index range specified, but process and thread summary information and timestamps will still reflect full time range", buf, 2u);
       }
 
-      *__error() = v120;
+      *__error() = v146;
     }
 
     if (byte_100117E81 == 1 && dword_100117510 <= 2)
     {
-      v122 = *__error();
-      v123 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Parsing spindump text: Stacks will be filtered to the sample index range specified, but process and thread summary information and timestamps will still reflect full time range");
-      v124 = v123;
-      if (v123)
+      v149 = *__error();
+      v150 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Parsing spindump text: Stacks will be filtered to the sample index range specified, but process and thread summary information and timestamps will still reflect full time range");
+      v152 = v150;
+      if (v150)
       {
-        v125 = CFStringGetCStringPtr(v123, 0x8000100u);
-        if (v125)
+        v153 = CFStringGetCStringPtr(v150, 0x8000100u);
+        if (v153)
         {
-          v126 = 0;
+          v154 = 0;
         }
 
         else
         {
-          v125 = malloc_type_calloc(0x400uLL, 1uLL, 0x5CF7E278uLL);
-          CFStringGetCString(v124, v125, 1024, 0x8000100u);
-          v126 = v125;
+          v153 = malloc_type_calloc(0x400uLL, 1uLL, 0x5CF7E278uLL);
+          CFStringGetCString(v152, v153, 1024, 0x8000100u);
+          v154 = v153;
         }
 
         if (qword_100117E88)
         {
-          v129 = qword_100117E88;
+          v157 = qword_100117E88;
         }
 
         else
         {
-          v129 = __stderrp;
+          v157 = __stderrp;
         }
 
-        fprintf(v129, "%s\n", v125);
-        if (v126)
+        fprintf(v157, "%s\n", v153);
+        if (v154)
         {
-          free(v126);
+          free(v154);
         }
 
-        CFRelease(v124);
+        CFRelease(v152);
       }
 
       else
       {
-        v127 = sub_100035B80();
-        if (os_log_type_enabled(v127, OS_LOG_TYPE_FAULT))
+        v155 = sub_100035B80(0, v151);
+        if (os_log_type_enabled(v155, OS_LOG_TYPE_FAULT))
         {
           sub_1000BD36C();
         }
 
         if (qword_100117E88)
         {
-          v128 = qword_100117E88;
+          v156 = qword_100117E88;
         }
 
         else
         {
-          v128 = __stderrp;
+          v156 = __stderrp;
         }
 
-        fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v128);
+        fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v156);
       }
 
-      *__error() = v122;
+      *__error() = v149;
     }
 
     goto LABEL_248;
@@ -1523,1193 +1538,1200 @@ LABEL_248:
   {
     if (byte_100117E80 == 1)
     {
-      v130 = *__error();
-      v131 = sub_100035B80();
-      if (os_log_type_enabled(v131, OS_LOG_TYPE_DEFAULT))
+      v158 = __error();
+      v159 = *v158;
+      v161 = sub_100035B80(v158, v160);
+      if (os_log_type_enabled(v161, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v131, OS_LOG_TYPE_DEFAULT, "Parsing spindump text: Symbolicating...", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v161, OS_LOG_TYPE_DEFAULT, "Parsing spindump text: Symbolicating...", buf, 2u);
       }
 
-      *__error() = v130;
+      *__error() = v159;
     }
 
     if (byte_100117E81 == 1 && dword_100117510 <= 2)
     {
-      v132 = *__error();
-      v133 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Parsing spindump text: Symbolicating...");
-      v134 = v133;
-      if (v133)
+      v162 = *__error();
+      v163 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Parsing spindump text: Symbolicating...");
+      v165 = v163;
+      if (v163)
       {
-        v135 = CFStringGetCStringPtr(v133, 0x8000100u);
-        if (v135)
+        v166 = CFStringGetCStringPtr(v163, 0x8000100u);
+        if (v166)
         {
-          v136 = 0;
+          v167 = 0;
         }
 
         else
         {
-          v135 = malloc_type_calloc(0x400uLL, 1uLL, 0x9C1A4E7DuLL);
-          CFStringGetCString(v134, v135, 1024, 0x8000100u);
-          v136 = v135;
+          v166 = malloc_type_calloc(0x400uLL, 1uLL, 0x9C1A4E7DuLL);
+          CFStringGetCString(v165, v166, 1024, 0x8000100u);
+          v167 = v166;
         }
 
         if (qword_100117E88)
         {
-          v142 = qword_100117E88;
+          v173 = qword_100117E88;
         }
 
         else
         {
-          v142 = __stderrp;
+          v173 = __stderrp;
         }
 
-        fprintf(v142, "%s\n", v135);
-        if (v136)
+        fprintf(v173, "%s\n", v166);
+        if (v167)
         {
-          free(v136);
+          free(v167);
         }
 
-        CFRelease(v134);
+        CFRelease(v165);
       }
 
       else
       {
-        v137 = sub_100035B80();
-        if (os_log_type_enabled(v137, OS_LOG_TYPE_FAULT))
+        v168 = sub_100035B80(0, v164);
+        if (os_log_type_enabled(v168, OS_LOG_TYPE_FAULT))
         {
           sub_1000BD3A0();
         }
 
         if (qword_100117E88)
         {
-          v138 = qword_100117E88;
+          v169 = qword_100117E88;
         }
 
         else
         {
-          v138 = __stderrp;
+          v169 = __stderrp;
         }
 
-        fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v138);
+        fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v169);
       }
 
-      *__error() = v132;
+      *__error() = v162;
     }
 
-    sub_100098044(v5, v946, v944, v935, self->_useDsymForUUIDForEverything, self->_findDsymsForIDs);
+    sub_100098044(v5, v1069, v1067, v1058, self->_useDsymForUUIDForEverything, self->_findDsymsForIDs);
   }
 
-  v947 = sub_100098334(v5, 0, v944, v935);
+  v1070 = sub_100098334(v5, 0, v1067, v1058);
   streamCopy6 = stream;
-  if (!v947)
+  if (!v1070)
   {
     if (byte_100117E80 == 1)
     {
-      v564 = *__error();
-      v565 = sub_100035B80();
-      if (os_log_type_enabled(v565, OS_LOG_TYPE_ERROR))
+      v616 = __error();
+      v617 = *v616;
+      v619 = sub_100035B80(v616, v618);
+      if (os_log_type_enabled(v619, OS_LOG_TYPE_ERROR))
       {
         sub_1000BD624();
       }
 
-      *__error() = v564;
+      *__error() = v617;
     }
 
-    v13 = 0;
+    v14 = 0;
     ptr = 0;
     if (byte_100117E81 == 1 && dword_100117510 <= 3)
     {
-      v34 = *__error();
-      v566 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Parsing spindump text: Unable to find any Binary Images");
-      v112 = v566;
-      if (v566)
+      v41 = *__error();
+      v620 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Parsing spindump text: Unable to find any Binary Images");
+      v134 = v620;
+      if (v620)
       {
-        v567 = CFStringGetCStringPtr(v566, 0x8000100u);
-        if (v567)
+        v622 = CFStringGetCStringPtr(v620, 0x8000100u);
+        if (v622)
         {
-          v568 = 0;
+          v623 = 0;
         }
 
         else
         {
-          v567 = malloc_type_calloc(0x400uLL, 1uLL, 0x31B6311CuLL);
-          CFStringGetCString(v112, v567, 1024, 0x8000100u);
-          v568 = v567;
+          v622 = malloc_type_calloc(0x400uLL, 1uLL, 0x31B6311CuLL);
+          CFStringGetCString(v134, v622, 1024, 0x8000100u);
+          v623 = v622;
         }
 
         if (qword_100117E88)
         {
-          v572 = qword_100117E88;
+          v627 = qword_100117E88;
         }
 
         else
         {
-          v572 = __stderrp;
+          v627 = __stderrp;
         }
 
-        fprintf(v572, "%s\n", v567);
-        if (v568)
+        fprintf(v627, "%s\n", v622);
+        if (v623)
         {
-          free(v568);
+          free(v623);
         }
 
         goto LABEL_931;
       }
 
-      v569 = sub_100035B80();
-      if (os_log_type_enabled(v569, OS_LOG_TYPE_FAULT))
+      v624 = sub_100035B80(0, v621);
+      if (os_log_type_enabled(v624, OS_LOG_TYPE_FAULT))
       {
         sub_1000BD658();
       }
 
       if (qword_100117E88)
       {
-        v140 = qword_100117E88;
+        v171 = qword_100117E88;
       }
 
       else
       {
-        v140 = __stderrp;
+        v171 = __stderrp;
       }
 
 LABEL_910:
-      fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v140);
+      fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v171);
 LABEL_932:
-      v49 = __error();
+      v60 = __error();
       obj = 0;
       ptr = 0;
-      v14 = 0;
-      v942 = 0;
-      v947 = 0;
+      v15 = 0;
+      v1065 = 0;
+      v1070 = 0;
       goto LABEL_71;
     }
 
     goto LABEL_898;
   }
 
-  if (fgets(v976[3], *(v972 + 6), v5))
+  if (fgets(v1099[3], *(v1095 + 6), v5))
   {
     obj = 0;
     ptr = 0;
-    v942 = 0;
-    v14 = 0;
-    v881 = 0;
-    LODWORD(v905) = 0;
-    v875 = 0;
-    v895 = 0;
-    v882 = 0;
-    v927 = 0xFFFFFFFFLL;
-    v144 = -1;
+    v1065 = 0;
+    v15 = 0;
+    v1004 = 0;
+    LODWORD(v1028) = 0;
+    v998 = 0;
+    v1018 = 0;
+    v1005 = 0;
+    v1050 = 0xFFFFFFFFLL;
+    v175 = -1;
     while (1)
     {
-      v929 = v144;
-      v930 = v14;
-      v914 = objc_autoreleasePoolPush();
-      v145 = v976[3];
-      v146 = strnlen(v145, *(v972 + 6));
-      if (v145[v146 - 1] != 10)
+      v1052 = v175;
+      v1053 = v15;
+      v1037 = objc_autoreleasePoolPush();
+      v176 = v1099[3];
+      v177 = strnlen(v176, *(v1095 + 6));
+      if (v176[v177 - 1] != 10)
       {
-        (v949[2])();
+        (v1072[2])();
         streamCopy6 = stream;
-        v154 = 5;
+        v185 = 5;
         goto LABEL_786;
       }
 
-      v145[v146 - 1] = 0;
-      [NSString stringWithUTF8String:v976[3]];
+      v176[v177 - 1] = 0;
+      [NSString stringWithUTF8String:v1099[3]];
       streamCopy5 = stream;
-      v149 = v144;
-      v150 = v148 = v14;
-      v151 = [v946 firstMatchInString:v150 options:0 range:{0, objc_msgSend(v150, "length")}];
-      v905 = (v905 + 1);
-      v898 = v151;
-      v899 = v150;
-      if (v151)
+      v180 = v175;
+      v181 = v179 = v15;
+      v182 = [v1069 firstMatchInString:v181 options:0 range:{0, objc_msgSend(v181, "length")}];
+      v1028 = (v1028 + 1);
+      v1021 = v182;
+      v1022 = v181;
+      if (v182)
       {
-        v966 = 0;
-        v931 = sub_100098494(v150, v151, v935, v967, v968);
-        v900 = [v151 rangeWithName:@"kernelDot"];
-        v979 = -1;
-        v152 = sub_100098564(v150, v905, v151, v947, v935, &v979);
-        v153 = v152;
-        if (v929 != -1)
+        v1089 = 0;
+        v1054 = sub_100098494(v181, v182, v1058, v1090, v1091);
+        v1023 = [v182 rangeWithName:@"kernelDot"];
+        v1102 = -1;
+        v183 = sub_100098564(v181, v1028, v182, v1070, v1058, &v1102);
+        v184 = v183;
+        if (v1052 != -1)
         {
-          if (v979 == v929 && v930 == v152)
+          if (v1102 == v1052 && v1053 == v183)
           {
-            LOBYTE(v966) = 1;
+            LOBYTE(v1089) = 1;
           }
 
           else
           {
 
-            v148 = 0;
-            v149 = -1;
+            v179 = 0;
+            v180 = -1;
           }
         }
 
-        v163 = [v151 rangeWithName:@"symbolName"];
-        if (v163 == 0x7FFFFFFFFFFFFFFFLL)
+        v194 = [v182 rangeWithName:@"symbolName"];
+        if (v194 == 0x7FFFFFFFFFFFFFFFLL)
         {
-          v164 = 0;
+          v195 = 0;
         }
 
         else
         {
-          v164 = [v150 substringWithRange:{v163, v162}];
+          v195 = [v181 substringWithRange:{v194, v193}];
         }
 
-        v166 = [v151 rangeWithName:@"offsetIntoSymbol"];
-        v929 = v149;
-        v930 = v148;
-        if (v166 == 0x7FFFFFFFFFFFFFFFLL)
+        v197 = [v182 rangeWithName:@"offsetIntoSymbol"];
+        v1052 = v180;
+        v1053 = v179;
+        if (v197 == 0x7FFFFFFFFFFFFFFFLL)
         {
-          v167 = -1;
+          v198 = -1;
         }
 
         else
         {
-          v168 = [v150 substringWithRange:{v166, v165}];
-          v169 = sub_10009A270(v168);
+          v199 = [v181 substringWithRange:{v197, v196}];
+          v200 = sub_10009A270(v199);
 
-          v167 = v169;
+          v198 = v200;
         }
 
-        v922 = v167;
-        v170 = v967;
-        v171 = v968;
-        v172 = v979;
-        v173 = v946;
-        v174 = v947;
-        v175 = v945;
-        v176 = v153;
-        v177 = v164;
-        HIBYTE(v966) = 0;
+        v1045 = v198;
+        v201 = v1090;
+        v202 = v1091;
+        v203 = v1102;
+        v204 = v1069;
+        v205 = v1070;
+        v206 = v1068;
+        v207 = v184;
+        v208 = v195;
+        HIBYTE(v1089) = 0;
         *buf = _NSConcreteStackBlock;
         *&buf[8] = 3221225472;
         *&buf[16] = sub_10009C8EC;
         *&buf[24] = &unk_100109FD8;
-        *&buf[32] = v173;
-        *&buf[40] = v175;
-        v994 = v935;
-        v991 = v170;
-        v992 = v171;
-        v993 = v931;
-        v995 = v900 != 0x7FFFFFFFFFFFFFFFLL;
-        v988 = &v966;
-        v989 = v172;
-        *&buf[48] = v176;
-        v985 = v174;
-        v987 = &v966 + 1;
-        v986 = v177;
-        v990 = v922;
-        v888 = v177;
-        v947 = v174;
-        v178 = v176;
-        v179 = v175;
-        v180 = v173;
-        sub_10009A5FC(v5, v905, buf);
+        *&buf[32] = v204;
+        *&buf[40] = v206;
+        v1117 = v1058;
+        v1114 = v201;
+        v1115 = v202;
+        v1116 = v1054;
+        v1118 = v1023 != 0x7FFFFFFFFFFFFFFFLL;
+        v1111 = &v1089;
+        v1112 = v203;
+        *&buf[48] = v207;
+        v1108 = v205;
+        v1110 = &v1089 + 1;
+        v1109 = v208;
+        v1113 = v1045;
+        v1011 = v208;
+        v1070 = v205;
+        v209 = v207;
+        v210 = v206;
+        v211 = v204;
+        sub_10009A5FC(v5, v1028, buf);
 
-        if (v966 == 1)
+        if (v1089 == 1)
         {
-          v181 = v178;
+          v212 = v209;
 
-          v182 = v966;
-          v885 = v979;
-          v929 = v979;
-          v930 = v181;
+          v213 = v1089;
+          v1008 = v1102;
+          v1052 = v1102;
+          v1053 = v212;
         }
 
         else
         {
-          v182 = 0;
-          v885 = v979;
+          v213 = 0;
+          v1008 = v1102;
         }
 
-        v183 = HIBYTE(v966);
-        v184 = v899;
-        v185 = v898;
-        v186 = v178;
-        v923 = objc_autoreleasePoolPush();
-        v188 = [v185 rangeWithName:@"count"];
-        if (v188 == 0x7FFFFFFFFFFFFFFFLL)
+        v214 = HIBYTE(v1089);
+        v215 = v1022;
+        v216 = v1021;
+        v217 = v209;
+        v1046 = objc_autoreleasePoolPush();
+        v219 = [v216 rangeWithName:@"count"];
+        if (v219 == 0x7FFFFFFFFFFFFFFFLL)
         {
           if (byte_100117E80 == 1)
           {
-            v618 = *__error();
-            v619 = sub_100035B80();
-            if (os_log_type_enabled(v619, OS_LOG_TYPE_ERROR))
+            v683 = __error();
+            v684 = *v683;
+            v686 = sub_100035B80(v683, v685);
+            if (os_log_type_enabled(v686, OS_LOG_TYPE_ERROR))
             {
-              v620 = v184;
-              [v184 UTF8String];
+              v687 = v215;
+              [v215 UTF8String];
               sub_1000BD45C();
             }
 
-            *__error() = v618;
+            *__error() = v684;
           }
 
           if (byte_100117E81 == 1 && dword_100117510 <= 3)
           {
-            v621 = *__error();
-            v622 = v184;
-            v623 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s: frame match with no count (%d: %s)", "range.location != NSNotFound", v905, [v184 UTF8String]);
-            v624 = v623;
-            if (v623)
+            v688 = *__error();
+            v689 = v215;
+            v690 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s: frame match with no count (%d: %s)", "range.location != NSNotFound", v1028, [v215 UTF8String]);
+            v692 = v690;
+            if (v690)
             {
-              v780 = CFStringGetCStringPtr(v623, 0x8000100u);
-              if (v780)
+              v890 = CFStringGetCStringPtr(v690, 0x8000100u);
+              if (v890)
               {
-                v781 = 0;
+                v891 = 0;
               }
 
               else
               {
-                v780 = malloc_type_calloc(0x400uLL, 1uLL, 0xE8AB3756uLL);
-                CFStringGetCString(v624, v780, 1024, 0x8000100u);
-                v781 = v780;
+                v890 = malloc_type_calloc(0x400uLL, 1uLL, 0xE8AB3756uLL);
+                CFStringGetCString(v692, v890, 1024, 0x8000100u);
+                v891 = v890;
               }
 
               if (qword_100117E88)
               {
-                v802 = qword_100117E88;
+                v915 = qword_100117E88;
               }
 
               else
               {
-                v802 = __stderrp;
+                v915 = __stderrp;
               }
 
-              fprintf(v802, "%s\n", v780);
-              if (v781)
+              fprintf(v915, "%s\n", v890);
+              if (v891)
               {
-                free(v781);
+                free(v891);
               }
 
-              CFRelease(v624);
+              CFRelease(v692);
             }
 
             else
             {
-              v625 = sub_100035B80();
-              if (os_log_type_enabled(v625, OS_LOG_TYPE_FAULT))
+              v693 = sub_100035B80(0, v691);
+              if (os_log_type_enabled(v693, OS_LOG_TYPE_FAULT))
               {
-                v626 = v184;
-                [v184 UTF8String];
+                v694 = v215;
+                [v215 UTF8String];
                 sub_1000BD4A0();
               }
 
               if (qword_100117E88)
               {
-                v627 = qword_100117E88;
+                v695 = qword_100117E88;
               }
 
               else
               {
-                v627 = __stderrp;
+                v695 = __stderrp;
               }
 
-              fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v627);
+              fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v695);
             }
 
-            *__error() = v621;
+            *__error() = v688;
           }
 
-          v803 = v184;
-          [v184 UTF8String];
-          sub_100035A54("ParseFrameLine", "SPTextualReportParser.m", 1511, "%s: frame match with no count (%d: %s)", v804, v805, v806, v807, "range.location != NSNotFound");
+          v916 = v215;
+          uTF8String10 = [v215 UTF8String];
+          sub_100035A54("ParseFrameLine", "SPTextualReportParser.m", 1511, "%s: frame match with no count (%d: %s)", v918, v919, v920, v921, "range.location != NSNotFound", v1028, uTF8String10);
           goto LABEL_1248;
         }
 
-        v189 = [v184 substringWithRange:{v188, v187}];
-        v910 = sub_10009A270(v189);
+        v220 = [v215 substringWithRange:{v219, v218}];
+        v1033 = sub_10009A270(v220);
 
-        if (v935)
+        if (v1058)
         {
-          v879 = 0;
-          v190 = -1;
+          v1002 = 0;
+          v221 = -1;
           goto LABEL_310;
         }
 
-        v191 = [v185 rangeWithName:@"countAndWhitespace"];
-        v879 = v192;
-        if (v191 == 0x7FFFFFFFFFFFFFFFLL)
+        v222 = [v216 rangeWithName:@"countAndWhitespace"];
+        v1002 = v223;
+        if (v222 == 0x7FFFFFFFFFFFFFFFLL)
         {
           if (byte_100117E80 == 1)
           {
-            v672 = *__error();
-            v673 = sub_100035B80();
-            if (os_log_type_enabled(v673, OS_LOG_TYPE_ERROR))
+            v755 = __error();
+            v756 = *v755;
+            v758 = sub_100035B80(v755, v757);
+            if (os_log_type_enabled(v758, OS_LOG_TYPE_ERROR))
             {
-              v674 = v184;
-              [v184 UTF8String];
+              v759 = v215;
+              [v215 UTF8String];
               sub_1000BD3D4();
             }
 
-            *__error() = v672;
+            *__error() = v756;
           }
 
           if (byte_100117E81 == 1 && dword_100117510 <= 3)
           {
-            v675 = *__error();
-            v676 = v184;
-            v677 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s: frame match with no count and whitespace (%d: %s)", "range.location != NSNotFound", v905, [v184 UTF8String]);
-            v678 = v677;
-            if (v677)
+            v760 = *__error();
+            v761 = v215;
+            v762 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s: frame match with no count and whitespace (%d: %s)", "range.location != NSNotFound", v1028, [v215 UTF8String]);
+            v764 = v762;
+            if (v762)
             {
-              v782 = CFStringGetCStringPtr(v677, 0x8000100u);
-              if (v782)
+              v892 = CFStringGetCStringPtr(v762, 0x8000100u);
+              if (v892)
               {
-                v783 = 0;
+                v893 = 0;
               }
 
               else
               {
-                v782 = malloc_type_calloc(0x400uLL, 1uLL, 0xDAB5F7ABuLL);
-                CFStringGetCString(v678, v782, 1024, 0x8000100u);
-                v783 = v782;
+                v892 = malloc_type_calloc(0x400uLL, 1uLL, 0xDAB5F7ABuLL);
+                CFStringGetCString(v764, v892, 1024, 0x8000100u);
+                v893 = v892;
               }
 
               if (qword_100117E88)
               {
-                v808 = qword_100117E88;
+                v922 = qword_100117E88;
               }
 
               else
               {
-                v808 = __stderrp;
+                v922 = __stderrp;
               }
 
-              fprintf(v808, "%s\n", v782);
-              if (v783)
+              fprintf(v922, "%s\n", v892);
+              if (v893)
               {
-                free(v783);
+                free(v893);
               }
 
-              CFRelease(v678);
+              CFRelease(v764);
             }
 
             else
             {
-              v679 = sub_100035B80();
-              if (os_log_type_enabled(v679, OS_LOG_TYPE_FAULT))
+              v765 = sub_100035B80(0, v763);
+              if (os_log_type_enabled(v765, OS_LOG_TYPE_FAULT))
               {
-                v680 = v184;
-                [v184 UTF8String];
+                v766 = v215;
+                [v215 UTF8String];
                 sub_1000BD418();
               }
 
               if (qword_100117E88)
               {
-                v681 = qword_100117E88;
+                v767 = qword_100117E88;
               }
 
               else
               {
-                v681 = __stderrp;
+                v767 = __stderrp;
               }
 
-              fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v681);
+              fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v767);
             }
 
-            *__error() = v675;
+            *__error() = v760;
           }
 
-          v809 = v184;
-          [v184 UTF8String];
-          sub_100035A54("ParseFrameLine", "SPTextualReportParser.m", 1515, "%s: frame match with no count and whitespace (%d: %s)", v810, v811, v812, v813, "range.location != NSNotFound");
+          v923 = v215;
+          uTF8String11 = [v215 UTF8String];
+          sub_100035A54("ParseFrameLine", "SPTextualReportParser.m", 1515, "%s: frame match with no count and whitespace (%d: %s)", v925, v926, v927, v928, "range.location != NSNotFound", v1028, uTF8String11);
           goto LABEL_1248;
         }
 
-        v194 = [v185 rangeWithName:@"address"];
-        if (v194 == 0x7FFFFFFFFFFFFFFFLL)
+        v225 = [v216 rangeWithName:@"address"];
+        if (v225 == 0x7FFFFFFFFFFFFFFFLL)
         {
-          v892 = 0;
-          if (v186 && v885 != 0x7FFFFFFFFFFFFFFFLL)
+          v1015 = 0;
+          if (v217 && v1008 != 0x7FFFFFFFFFFFFFFFLL)
           {
-            v190 = &v885[v186[7]];
+            v221 = &v1008[v217[7]];
 LABEL_310:
-            v892 = v190;
+            v1015 = v221;
           }
         }
 
         else
         {
-          v198 = [v184 substringWithRange:{v194, v193}];
-          v892 = sub_10009A270(v198);
+          v229 = [v215 substringWithRange:{v225, v224}];
+          v1015 = sub_10009A270(v229);
         }
 
-        v906 = v184;
-        v199 = v185;
-        selfa = v186;
-        v915 = objc_autoreleasePoolPush();
-        v201 = [v199 rangeWithName:@"fakeFrameInfo"];
-        if (v201 == 0x7FFFFFFFFFFFFFFFLL)
+        v1029 = v215;
+        v230 = v216;
+        selfa = v217;
+        v1038 = objc_autoreleasePoolPush();
+        v232 = [v230 rangeWithName:@"fakeFrameInfo"];
+        if (v232 == 0x7FFFFFFFFFFFFFFFLL)
         {
-          v203 = [v199 rangeWithName:@"symbolName"];
-          if (v203 == 0x7FFFFFFFFFFFFFFFLL)
+          v234 = [v230 rangeWithName:@"symbolName"];
+          if (v234 == 0x7FFFFFFFFFFFFFFFLL)
           {
             goto LABEL_324;
           }
 
-          v204 = [v906 substringWithRange:{v203, v202}];
-          if ([v204 isEqualToString:@"???"])
+          v235 = [v1029 substringWithRange:{v234, v233}];
+          if ([v235 isEqualToString:@"???"])
           {
 
 LABEL_324:
-            v204 = 0;
+            v235 = 0;
           }
 
-          v206 = [v199 rangeWithName:@"sourceFilepath"];
-          if (v206 == 0x7FFFFFFFFFFFFFFFLL)
+          v237 = [v230 rangeWithName:@"sourceFilepath"];
+          if (v237 == 0x7FFFFFFFFFFFFFFFLL)
           {
-            v207 = 0;
+            v238 = 0;
           }
 
           else
           {
-            v207 = [v906 substringWithRange:{v206, v205}];
+            v238 = [v1029 substringWithRange:{v237, v236}];
           }
 
-          v211 = [v199 rangeWithName:@"binaryName"];
-          if (v211 == 0x7FFFFFFFFFFFFFFFLL)
+          v242 = [v230 rangeWithName:@"binaryName"];
+          if (v242 == 0x7FFFFFFFFFFFFFFFLL)
           {
-            v213 = [v199 rangeWithName:@"binaryUuid"];
-            if (v213 == 0x7FFFFFFFFFFFFFFFLL)
+            v244 = [v230 rangeWithName:@"binaryUuid"];
+            if (v244 == 0x7FFFFFFFFFFFFFFFLL)
             {
-              v225 = 0;
+              v256 = 0;
             }
 
             else
             {
-              v225 = [v906 substringWithRange:{v213, v212}];
-              v225 = [NSString stringWithFormat:@"<%@>", v225];
+              v256 = [v1029 substringWithRange:{v244, v243}];
+              v256 = [NSString stringWithFormat:@"<%@>", v256];
             }
           }
 
           else
           {
-            v225 = [v906 substringWithRange:{v211, v210}];
+            v256 = [v1029 substringWithRange:{v242, v241}];
           }
 
           *buf = _NSConcreteStackBlock;
           *&buf[8] = 3221225472;
           *&buf[16] = sub_10009C4D0;
           *&buf[24] = &unk_100109F88;
-          *&buf[32] = v199;
-          *&buf[40] = v906;
-          v208 = v204;
-          *&buf[48] = v208;
-          v877 = v207;
-          v985 = v877;
-          v883 = v225;
-          v986 = v883;
-          v227 = objc_retainBlock(buf);
-          if ((v182 & 1) != 0 || v885 == 0x7FFFFFFFFFFFFFFFLL)
+          *&buf[32] = v230;
+          *&buf[40] = v1029;
+          v239 = v235;
+          *&buf[48] = v239;
+          v1000 = v238;
+          v1108 = v1000;
+          v1006 = v256;
+          v1109 = v1006;
+          v258 = objc_retainBlock(buf);
+          if ((v213 & 1) != 0 || v1008 == 0x7FFFFFFFFFFFFFFFLL)
           {
-            v228 = [NSArray alloc];
-            v229 = (*(v227 + 2))(v227);
-            v230 = [v228 initWithObjects:{v229, 0}];
+            v259 = [NSArray alloc];
+            v260 = (*(v258 + 2))(v258);
+            v261 = [v259 initWithObjects:{v260, 0}];
             goto LABEL_358;
           }
 
-          if (selfa && (v241 = objc_getProperty(selfa, v226, 40, 1)) != 0)
+          if (selfa && (v272 = objc_getProperty(selfa, v257, 40, 1)) != 0)
           {
-            v229 = v241;
-            if (objc_getProperty(selfa, v242, 48, 1))
+            v260 = v272;
+            if (objc_getProperty(selfa, v273, 48, 1))
             {
-              v244 = [v229 segmentWithName:{objc_getProperty(selfa, v243, 48, 1)}];
-              v245 = v244;
-              if (v244)
+              v275 = [v260 segmentWithName:{objc_getProperty(selfa, v274, 48, 1)}];
+              v276 = v275;
+              if (v275)
               {
-                v246 = [v244 instructionAtOffsetIntoSegment:&v885[-v183]];
+                v277 = [v275 instructionAtOffsetIntoSegment:&v1008[-v214]];
 
                 goto LABEL_567;
               }
 
-              v392 = [NSArray alloc];
-              v246 = (*(v227 + 2))(v227);
-              v386 = [v392 initWithObjects:{v246, 0}];
+              v435 = [NSArray alloc];
+              v277 = (*(v258 + 2))(v258);
+              v429 = [v435 initWithObjects:{v277, 0}];
 LABEL_612:
-              v209 = v386;
+              v240 = v429;
             }
 
             else
             {
-              v246 = [v229 instructionAtOffsetIntoBinary:&v885[-v183]];
+              v277 = [v260 instructionAtOffsetIntoBinary:&v1008[-v214]];
 LABEL_567:
-              if (!v246)
+              if (!v277)
               {
-                v385 = [NSArray alloc];
-                v246 = sub_10009C65C(0, -1, 0, 0, 0, 0, -1);
-                v386 = [v385 initWithObjects:{v246, 0}];
+                v428 = [NSArray alloc];
+                v277 = sub_10009C65C(0, -1, 0, 0, 0, 0, -1);
+                v429 = [v428 initWithObjects:{v277, 0}];
                 goto LABEL_612;
               }
 
-              if ([v246 numSymbols] > 1 || !v877 && ((v423 = objc_msgSend(v246, "hasSourceInfo"), !v208) ? (v424 = 1) : (v424 = v423), (v424 & 1) != 0))
+              if ([v277 numSymbols] > 1 || !v1000 && ((v472 = objc_msgSend(v277, "hasSourceInfo"), !v239) ? (v473 = 1) : (v473 = v472), (v473 & 1) != 0))
               {
-                name = [v229 name];
+                name = [v260 name];
 
                 if (name)
                 {
-                  name2 = [v229 name];
+                  name2 = [v260 name];
                 }
 
                 else
                 {
-                  uuid = [v229 uuid];
+                  uuid = [v260 uuid];
                   uUIDString = [uuid UUIDString];
                   name2 = [NSString stringWithFormat:@"<%@>", uUIDString];
                 }
 
-                v415 = objc_alloc_init(NSMutableArray);
-                v996[0] = _NSConcreteStackBlock;
-                v996[1] = 3221225472;
-                v996[2] = sub_10009C7EC;
-                v996[3] = &unk_100109FB0;
-                v1001 = v183;
-                v997 = v246;
-                v998 = name2;
-                v1000 = v885;
-                v416 = v415;
-                v999 = v416;
-                v417 = name2;
-                [v246 enumerateSymbols:v996];
-                v418 = [v416 count];
-                v419 = v999;
-                if (v418)
+                v464 = objc_alloc_init(NSMutableArray);
+                v1119[0] = _NSConcreteStackBlock;
+                v1119[1] = 3221225472;
+                v1119[2] = sub_10009C7EC;
+                v1119[3] = &unk_100109FB0;
+                v1124 = v214;
+                v1120 = v277;
+                v1121 = name2;
+                v1123 = v1008;
+                v465 = v464;
+                v1122 = v465;
+                v466 = name2;
+                [v277 enumerateSymbols:v1119];
+                v467 = [v465 count];
+                v468 = v1122;
+                if (v467)
                 {
-                  v209 = v416;
+                  v240 = v465;
                 }
 
                 else
                 {
 
-                  v420 = [NSArray alloc];
-                  v421 = sub_10009C65C(0, -1, 0, 0, 0, v417, v885);
+                  v469 = [NSArray alloc];
+                  v470 = sub_10009C65C(0, -1, 0, 0, 0, v466, v1008);
 
-                  v209 = [v420 initWithObjects:{v421, 0}];
-                  v417 = v421;
+                  v240 = [v469 initWithObjects:{v470, 0}];
+                  v466 = v470;
                 }
               }
 
               else
               {
-                v425 = [NSArray alloc];
-                v417 = (*(v227 + 2))(v227);
-                v209 = [v425 initWithObjects:{v417, 0}];
+                v474 = [NSArray alloc];
+                v466 = (*(v258 + 2))(v258);
+                v240 = [v474 initWithObjects:{v466, 0}];
               }
             }
           }
 
           else
           {
-            v349 = [NSArray alloc];
-            if (v883)
+            v389 = [NSArray alloc];
+            if (v1006)
             {
-              (*(v227 + 2))(v227);
+              (*(v258 + 2))(v258);
             }
 
             else
             {
               sub_10009C65C(0, -1, 0, 0, 0, 0, -1);
             }
-            v229 = ;
-            v230 = [v349 initWithObjects:{v229, 0}];
+            v260 = ;
+            v261 = [v389 initWithObjects:{v260, 0}];
 LABEL_358:
-            v209 = v230;
+            v240 = v261;
           }
         }
 
         else
         {
-          v208 = [v906 substringWithRange:{v201, v200}];
-          v209 = [[NSArray alloc] initWithObjects:{v208, 0}];
+          v239 = [v1029 substringWithRange:{v232, v231}];
+          v240 = [[NSArray alloc] initWithObjects:{v239, 0}];
         }
 
-        objc_autoreleasePoolPop(v915);
-        if (v935)
+        objc_autoreleasePoolPop(v1038);
+        if (v1058)
         {
-          v231 = 0;
-          v232 = 0;
-          v233 = 0;
+          v262 = 0;
+          v263 = 0;
+          v264 = 0;
         }
 
         else
         {
-          v235 = [v199 rangeWithName:@"stateInfo"];
-          if (v235 == 0x7FFFFFFFFFFFFFFFLL)
+          v266 = [v230 rangeWithName:@"stateInfo"];
+          if (v266 == 0x7FFFFFFFFFFFFFFFLL)
           {
-            v233 = 0;
+            v264 = 0;
           }
 
           else
           {
-            v233 = [v906 substringWithRange:{v235, v234}];
+            v264 = [v1029 substringWithRange:{v266, v265}];
           }
 
-          v237 = [v199 rangeWithName:@"startIndex"];
-          if (v237 == 0x7FFFFFFFFFFFFFFFLL)
+          v268 = [v230 rangeWithName:@"startIndex"];
+          if (v268 == 0x7FFFFFFFFFFFFFFFLL)
           {
-            v231 = 0;
-            v232 = 0;
+            v262 = 0;
+            v263 = 0;
           }
 
           else
           {
-            v238 = [v906 substringWithRange:{v237, v236}];
-            v231 = sub_10009A270(v238);
+            v269 = [v1029 substringWithRange:{v268, v267}];
+            v262 = sub_10009A270(v269);
 
-            v240 = [v199 rangeWithName:@"endIndex"];
-            if (v240 == 0x7FFFFFFFFFFFFFFFLL)
+            v271 = [v230 rangeWithName:@"endIndex"];
+            if (v271 == 0x7FFFFFFFFFFFFFFFLL)
             {
-              v232 = v231;
+              v263 = v262;
             }
 
             else
             {
-              v247 = [v906 substringWithRange:{v240, v239}];
-              v232 = sub_10009A270(v247);
+              v278 = [v1029 substringWithRange:{v271, v270}];
+              v263 = sub_10009A270(v278);
             }
           }
         }
 
-        objc_autoreleasePoolPop(v923);
-        v248 = v209;
-        v249 = v233;
+        objc_autoreleasePoolPop(v1046);
+        v279 = v240;
+        v280 = v264;
 
-        v250 = v209;
-        v916 = v233;
-        v924 = v250;
-        firstObject = [v250 firstObject];
-        LODWORD(v250) = [firstObject length] == 0;
+        v281 = v240;
+        v1039 = v264;
+        v1047 = v281;
+        firstObject = [v281 firstObject];
+        LODWORD(v281) = [firstObject length] == 0;
 
-        if (v250)
+        if (v281)
         {
           if (byte_100117E80 == 1)
           {
-            v573 = *__error();
-            v574 = sub_100035B80();
-            if (os_log_type_enabled(v574, OS_LOG_TYPE_ERROR))
+            v628 = __error();
+            v629 = *v628;
+            v631 = sub_100035B80(v628, v630);
+            if (os_log_type_enabled(v631, OS_LOG_TYPE_ERROR))
             {
-              v575 = [v924 debugDescription];
-              v576 = v575;
-              uTF8String6 = [v575 UTF8String];
-              v578 = v906;
-              uTF8String7 = [v906 UTF8String];
+              v632 = [v1047 debugDescription];
+              v633 = v632;
+              uTF8String12 = [v632 UTF8String];
+              v635 = v1029;
+              uTF8String13 = [v1029 UTF8String];
               *buf = 136315906;
               *&buf[4] = "frameBodies.firstObject.length > 0";
               *&buf[12] = 2080;
-              *&buf[14] = uTF8String6;
+              *&buf[14] = uTF8String12;
               *&buf[22] = 1024;
-              *&buf[24] = v905;
+              *&buf[24] = v1028;
               *&buf[28] = 2080;
-              *&buf[30] = uTF8String7;
-              _os_log_error_impl(&_mh_execute_header, v574, OS_LOG_TYPE_ERROR, "%s: No frame bodies in %s (%d: %s)", buf, 0x26u);
+              *&buf[30] = uTF8String13;
+              _os_log_error_impl(&_mh_execute_header, v631, OS_LOG_TYPE_ERROR, "%s: No frame bodies in %s (%d: %s)", buf, 0x26u);
             }
 
-            *__error() = v573;
+            *__error() = v629;
           }
 
           if (byte_100117E81 == 1 && dword_100117510 <= 3)
           {
-            v580 = *__error();
-            v581 = [v924 debugDescription];
-            v582 = v581;
-            uTF8String8 = [v581 UTF8String];
-            v584 = v906;
-            v585 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s: No frame bodies in %s (%d: %s)", "frameBodies.firstObject.length > 0", uTF8String8, v905, [v906 UTF8String]);
+            v637 = *__error();
+            v638 = [v1047 debugDescription];
+            v639 = v638;
+            uTF8String14 = [v638 UTF8String];
+            v641 = v1029;
+            v642 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s: No frame bodies in %s (%d: %s)", "frameBodies.firstObject.length > 0", uTF8String14, v1028, [v1029 UTF8String]);
 
-            if (v585)
+            if (v642)
             {
-              v836 = CFStringGetCStringPtr(v585, 0x8000100u);
-              if (v836)
+              v954 = CFStringGetCStringPtr(v642, 0x8000100u);
+              if (v954)
               {
-                v837 = 0;
+                v955 = 0;
               }
 
               else
               {
-                v836 = malloc_type_calloc(0x400uLL, 1uLL, 0x18C32872uLL);
-                CFStringGetCString(v585, v836, 1024, 0x8000100u);
-                v837 = v836;
+                v954 = malloc_type_calloc(0x400uLL, 1uLL, 0x18C32872uLL);
+                CFStringGetCString(v642, v954, 1024, 0x8000100u);
+                v955 = v954;
               }
 
               if (qword_100117E88)
               {
-                v842 = qword_100117E88;
+                v960 = qword_100117E88;
               }
 
               else
               {
-                v842 = __stderrp;
+                v960 = __stderrp;
               }
 
-              fprintf(v842, "%s\n", v836);
-              if (v837)
+              fprintf(v960, "%s\n", v954);
+              if (v955)
               {
-                free(v837);
+                free(v955);
               }
 
-              CFRelease(v585);
+              CFRelease(v642);
             }
 
             else
             {
-              v586 = sub_100035B80();
-              if (os_log_type_enabled(v586, OS_LOG_TYPE_FAULT))
+              v645 = sub_100035B80(v643, v644);
+              if (os_log_type_enabled(v645, OS_LOG_TYPE_FAULT))
               {
-                v587 = [v924 debugDescription];
-                v588 = v587;
-                uTF8String9 = [v587 UTF8String];
-                v590 = v906;
-                uTF8String10 = [v906 UTF8String];
+                v646 = [v1047 debugDescription];
+                v647 = v646;
+                uTF8String15 = [v646 UTF8String];
+                v649 = v1029;
+                uTF8String16 = [v1029 UTF8String];
                 *buf = 136315906;
                 *&buf[4] = "frameBodies.firstObject.length > 0";
                 *&buf[12] = 2080;
-                *&buf[14] = uTF8String9;
+                *&buf[14] = uTF8String15;
                 *&buf[22] = 1024;
-                *&buf[24] = v905;
+                *&buf[24] = v1028;
                 *&buf[28] = 2080;
-                *&buf[30] = uTF8String10;
-                _os_log_fault_impl(&_mh_execute_header, v586, OS_LOG_TYPE_FAULT, "Unable to format: %s: No frame bodies in %s (%d: %s)", buf, 0x26u);
+                *&buf[30] = uTF8String16;
+                _os_log_fault_impl(&_mh_execute_header, v645, OS_LOG_TYPE_FAULT, "Unable to format: %s: No frame bodies in %s (%d: %s)", buf, 0x26u);
               }
 
               if (qword_100117E88)
               {
-                v592 = qword_100117E88;
+                v651 = qword_100117E88;
               }
 
               else
               {
-                v592 = __stderrp;
+                v651 = __stderrp;
               }
 
-              fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v592);
+              fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v651);
             }
 
-            *__error() = v580;
+            *__error() = v637;
           }
 
-          v593 = [v924 debugDescription];
-          v594 = v593;
-          [v593 UTF8String];
-          v595 = v906;
-          [v906 UTF8String];
-          sub_100035A54("[SPTextualReportParser parseSpindumpFile:andReportToStream:]", "SPTextualReportParser.m", 469, "%s: No frame bodies in %s (%d: %s)", v596, v597, v598, v599, "frameBodies.firstObject.length > 0");
+          v652 = [v1047 debugDescription];
+          v653 = v652;
+          uTF8String17 = [v652 UTF8String];
+          v655 = v1029;
+          uTF8String18 = [v1029 UTF8String];
+          sub_100035A54("[SPTextualReportParser parseSpindumpFile:andReportToStream:]", "SPTextualReportParser.m", 469, "%s: No frame bodies in %s (%d: %s)", v657, v658, v659, v660, "frameBodies.firstObject.length > 0", uTF8String17, v1028, uTF8String18);
 
           goto LABEL_1248;
         }
 
-        v252 = v895;
-        v253 = v931;
-        v254 = v232;
-        v255 = v231;
-        if (v969)
+        v283 = v1018;
+        v284 = v1054;
+        v285 = v263;
+        v286 = v262;
+        if (v1092)
         {
 LABEL_377:
-          if (!v255)
+          if (!v286)
           {
             goto LABEL_384;
           }
         }
 
-        else if (!v231 || !v232)
+        else if (!v262 || !v263)
         {
           if (byte_100117E80 == 1)
           {
-            v277 = *__error();
-            v278 = sub_100035B80();
-            if (os_log_type_enabled(v278, OS_LOG_TYPE_ERROR))
+            v311 = __error();
+            v312 = *v311;
+            v314 = sub_100035B80(v311, v313);
+            if (os_log_type_enabled(v314, OS_LOG_TYPE_ERROR))
             {
               *buf = 67109378;
-              *&buf[4] = v905;
+              *&buf[4] = v1028;
               *&buf[8] = 2112;
-              *&buf[10] = v906;
-              _os_log_error_impl(&_mh_execute_header, v278, OS_LOG_TYPE_ERROR, "Parsing spindump text: No start/end index for frame line in timeline report (%d: %@)", buf, 0x12u);
+              *&buf[10] = v1029;
+              _os_log_error_impl(&_mh_execute_header, v314, OS_LOG_TYPE_ERROR, "Parsing spindump text: No start/end index for frame line in timeline report (%d: %@)", buf, 0x12u);
             }
 
-            v253 = v931;
-            v254 = v232;
-            v255 = v231;
-            *__error() = v277;
-            v252 = v895;
+            v284 = v1054;
+            v285 = v263;
+            v286 = v262;
+            *__error() = v312;
+            v283 = v1018;
           }
 
           if (byte_100117E81 == 1 && dword_100117510 <= 3)
           {
-            v279 = *__error();
-            v280 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Parsing spindump text: No start/end index for frame line in timeline report (%d: %@)", v905, v906);
-            v281 = v280;
-            if (v280)
+            v315 = *__error();
+            v316 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Parsing spindump text: No start/end index for frame line in timeline report (%d: %@)", v1028, v1029);
+            v318 = v316;
+            if (v316)
             {
-              v282 = CFStringGetCStringPtr(v280, 0x8000100u);
-              if (v282)
+              v319 = CFStringGetCStringPtr(v316, 0x8000100u);
+              if (v319)
               {
-                v283 = 0;
+                v320 = 0;
               }
 
               else
               {
-                v282 = malloc_type_calloc(0x400uLL, 1uLL, 0x16CF65A4uLL);
-                CFStringGetCString(v281, v282, 1024, 0x8000100u);
-                v283 = v282;
+                v319 = malloc_type_calloc(0x400uLL, 1uLL, 0x16CF65A4uLL);
+                CFStringGetCString(v318, v319, 1024, 0x8000100u);
+                v320 = v319;
               }
 
               if (qword_100117E88)
               {
-                v373 = qword_100117E88;
+                v416 = qword_100117E88;
               }
 
               else
               {
-                v373 = __stderrp;
+                v416 = __stderrp;
               }
 
-              fprintf(v373, "%s\n", v282);
-              if (v283)
+              fprintf(v416, "%s\n", v319);
+              if (v320)
               {
-                free(v283);
+                free(v320);
               }
 
-              CFRelease(v281);
+              CFRelease(v318);
             }
 
             else
             {
-              v350 = sub_100035B80();
-              if (os_log_type_enabled(v350, OS_LOG_TYPE_FAULT))
+              v390 = sub_100035B80(0, v317);
+              if (os_log_type_enabled(v390, OS_LOG_TYPE_FAULT))
               {
                 *buf = 67109378;
-                *&buf[4] = v905;
+                *&buf[4] = v1028;
                 *&buf[8] = 2112;
-                *&buf[10] = v906;
-                _os_log_fault_impl(&_mh_execute_header, v350, OS_LOG_TYPE_FAULT, "Unable to format: Parsing spindump text: No start/end index for frame line in timeline report (%d: %@)", buf, 0x12u);
+                *&buf[10] = v1029;
+                _os_log_fault_impl(&_mh_execute_header, v390, OS_LOG_TYPE_FAULT, "Unable to format: Parsing spindump text: No start/end index for frame line in timeline report (%d: %@)", buf, 0x12u);
               }
 
               if (qword_100117E88)
               {
-                v351 = qword_100117E88;
+                v391 = qword_100117E88;
               }
 
               else
               {
-                v351 = __stderrp;
+                v391 = __stderrp;
               }
 
-              fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v351);
-              v253 = v931;
-              v254 = v232;
-              v255 = v231;
+              fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v391);
+              v284 = v1054;
+              v285 = v263;
+              v286 = v262;
             }
 
-            *__error() = v279;
-            v252 = v895;
+            *__error() = v315;
+            v283 = v1018;
           }
 
           goto LABEL_377;
         }
 
-        v256 = *p_startIndex;
-        if (*p_startIndex && v255 < v256)
+        v287 = *p_startIndex;
+        if (*p_startIndex && v286 < v287)
         {
-          v910 = v255 + v910 - v256;
-          v255 = *p_startIndex;
+          v1033 = v286 + v1033 - v287;
+          v286 = *p_startIndex;
         }
 
 LABEL_384:
-        if (v254)
+        if (v285)
         {
           endIndex = self->_endIndex;
           if (endIndex)
           {
-            if (v254 > endIndex)
+            if (v285 > endIndex)
             {
-              v910 = v910 - v254 + endIndex;
-              v254 = self->_endIndex;
+              v1033 = v1033 - v285 + endIndex;
+              v285 = self->_endIndex;
             }
           }
         }
 
-        v882 = v910 < 1;
-        if (v910 > 0)
+        v1005 = v1033 < 1;
+        if (v1033 > 0)
         {
-          if (v253 > v927 && v253 != v927 + 1)
+          if (v284 > v1050 && v284 != v1050 + 1)
           {
             if (byte_100117E80 == 1)
             {
-              v258 = *__error();
-              v259 = sub_100035B80();
-              if (os_log_type_enabled(v259, OS_LOG_TYPE_ERROR))
+              v289 = __error();
+              v290 = *v289;
+              v292 = sub_100035B80(v289, v291);
+              if (os_log_type_enabled(v292, OS_LOG_TYPE_ERROR))
               {
                 *buf = 67109378;
-                *&buf[4] = v905;
+                *&buf[4] = v1028;
                 *&buf[8] = 2112;
-                *&buf[10] = v906;
-                _os_log_error_impl(&_mh_execute_header, v259, OS_LOG_TYPE_ERROR, "Parsing spindump text: Unexpected indent for line (%d: %@)", buf, 0x12u);
+                *&buf[10] = v1029;
+                _os_log_error_impl(&_mh_execute_header, v292, OS_LOG_TYPE_ERROR, "Parsing spindump text: Unexpected indent for line (%d: %@)", buf, 0x12u);
               }
 
-              *__error() = v258;
+              *__error() = v290;
             }
 
-            v260 = 0;
-            v154 = 2;
+            v293 = 0;
+            v185 = 2;
             if (byte_100117E81 == 1 && dword_100117510 <= 3)
             {
-              v261 = *__error();
-              v262 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Parsing spindump text: Unexpected indent for line (%d: %@)", v905, v906);
-              v263 = v262;
-              if (v262)
+              v294 = *__error();
+              v295 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Parsing spindump text: Unexpected indent for line (%d: %@)", v1028, v1029);
+              v297 = v295;
+              if (v295)
               {
-                v264 = CFStringGetCStringPtr(v262, 0x8000100u);
-                if (v264)
+                v298 = CFStringGetCStringPtr(v295, 0x8000100u);
+                if (v298)
                 {
-                  v265 = 0;
+                  v299 = 0;
                 }
 
                 else
                 {
-                  v264 = malloc_type_calloc(0x400uLL, 1uLL, 0x52C96D2BuLL);
-                  CFStringGetCString(v263, v264, 1024, 0x8000100u);
-                  v265 = v264;
+                  v298 = malloc_type_calloc(0x400uLL, 1uLL, 0x52C96D2BuLL);
+                  CFStringGetCString(v297, v298, 1024, 0x8000100u);
+                  v299 = v298;
                 }
 
                 if (qword_100117E88)
                 {
-                  v363 = qword_100117E88;
+                  v403 = qword_100117E88;
                 }
 
                 else
                 {
-                  v363 = __stderrp;
+                  v403 = __stderrp;
                 }
 
-                fprintf(v363, "%s\n", v264);
-                if (v265)
+                fprintf(v403, "%s\n", v298);
+                if (v299)
                 {
-                  free(v265);
+                  free(v299);
                 }
 
-                CFRelease(v263);
+                CFRelease(v297);
               }
 
               else
               {
-                v341 = sub_100035B80();
-                if (os_log_type_enabled(v341, OS_LOG_TYPE_FAULT))
+                v381 = sub_100035B80(0, v296);
+                if (os_log_type_enabled(v381, OS_LOG_TYPE_FAULT))
                 {
                   *buf = 67109378;
-                  *&buf[4] = v905;
+                  *&buf[4] = v1028;
                   *&buf[8] = 2112;
-                  *&buf[10] = v906;
-                  _os_log_fault_impl(&_mh_execute_header, v341, OS_LOG_TYPE_FAULT, "Unable to format: Parsing spindump text: Unexpected indent for line (%d: %@)", buf, 0x12u);
+                  *&buf[10] = v1029;
+                  _os_log_fault_impl(&_mh_execute_header, v381, OS_LOG_TYPE_FAULT, "Unable to format: Parsing spindump text: Unexpected indent for line (%d: %@)", buf, 0x12u);
                 }
 
                 if (qword_100117E88)
                 {
-                  v342 = qword_100117E88;
+                  v382 = qword_100117E88;
                 }
 
                 else
                 {
-                  v342 = __stderrp;
+                  v382 = __stderrp;
                 }
 
-                fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v342);
+                fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v382);
               }
 
-              v260 = 0;
-              *__error() = v261;
-              v154 = 2;
+              v293 = 0;
+              *__error() = v294;
+              v185 = 2;
             }
 
             goto LABEL_553;
           }
 
-          if (self->_isHeavy == v969)
+          if (self->_isHeavy == v1092)
           {
-            if (v910 >= self->_omitFramesBelowSampleCount)
+            if (v1033 >= self->_omitFramesBelowSampleCount)
             {
-              if (v252 <= 0)
+              if (v283 <= 0)
               {
-                v252 = v879;
-                if (v879 <= 0)
+                v283 = v1002;
+                if (v1002 <= 0)
                 {
-                  v252 = vcvtpd_s64_f64(log10(v910)) + 2;
+                  v283 = vcvtpd_s64_f64(log10(v1033)) + 2;
                 }
               }
 
-              v895 = v252;
-              v269 = v881;
-              v270 = v881 << 32;
-              v271 = &ptr[8 * v881 - 8];
-              v886 = v255;
+              v1018 = v283;
+              v303 = v1004;
+              v304 = v1004 << 32;
+              v305 = &ptr[8 * v1004 - 8];
+              v1009 = v286;
               while (1)
               {
-                v272 = v269;
-                v273 = v270;
-                if (v269 < 1)
+                v306 = v303;
+                v307 = v304;
+                if (v303 < 1)
                 {
                   break;
                 }
 
-                --v269;
-                v274 = *v271;
-                v271 -= 2;
-                v270 -= 0x100000000;
-                if (v274 < v253)
+                --v303;
+                v308 = *v305;
+                v305 -= 2;
+                v304 -= 0x100000000;
+                if (v308 < v284)
                 {
-                  v275 = v254;
-                  v276 = v271[3];
+                  v309 = v285;
+                  v310 = v305[3];
                   goto LABEL_538;
                 }
               }
 
-              v275 = v254;
-              v276 = 0;
+              v309 = v285;
+              v310 = 0;
 LABEL_538:
-              v352 = 0;
-              v353 = v276 + v253;
-              while (v352 < [v924 count])
+              v392 = 0;
+              v393 = v310 + v284;
+              while (v392 < [v1047 count])
               {
-                v354 = [v924 objectAtIndexedSubscript:v352];
-                v355 = v968;
-                v356 = v967;
-                v357 = v354;
-                uTF8String11 = [v354 UTF8String];
-                v359 = v916;
-                sub_10009A310(stream, v356 + v355 * (v353 + v352), v900 != 0x7FFFFFFFFFFFFFFFLL, v910, v895, uTF8String11, v892, [v916 UTF8String], v886, v275);
+                v394 = [v1047 objectAtIndexedSubscript:v392];
+                v395 = v1091;
+                v396 = v1090;
+                v397 = v394;
+                uTF8String19 = [v394 UTF8String];
+                v399 = v1039;
+                sub_10009A310(stream, v396 + v395 * (v393 + v392), v1023 != 0x7FFFFFFFFFFFFFFFLL, v1033, v1018, uTF8String19, v1015, [v1039 UTF8String], v1009, v309);
 
-                ++v352;
-                v253 = v931;
+                ++v392;
+                v284 = v1054;
               }
 
-              if ([v924 count] <= 1)
+              if ([v1047 count] <= 1)
               {
-                v154 = 0;
-                v260 = 1;
-                v881 = v272;
+                v185 = 0;
+                v293 = 1;
+                v1004 = v306;
               }
 
               else
               {
-                ptr = malloc_type_realloc(ptr, 8 * (v272 + 1), 0x100004000313F17uLL);
-                v360 = &ptr[v273 >> 29];
-                *v360 = v253;
-                v361 = [v924 count];
-                if (v272 < 1)
+                ptr = malloc_type_realloc(ptr, 8 * (v306 + 1), 0x100004000313F17uLL);
+                v400 = &ptr[v307 >> 29];
+                *v400 = v284;
+                v401 = [v1047 count];
+                if (v306 < 1)
                 {
-                  v362 = 0;
+                  v402 = 0;
                 }
 
                 else
                 {
-                  v362 = *&ptr[8 * (v272 & 0x7FFFFFFF) - 4];
+                  v402 = *&ptr[8 * (v306 & 0x7FFFFFFF) - 4];
                 }
 
-                v154 = 0;
-                v360[1] = v361 - 1 + v362;
-                v260 = 1;
-                v881 = v272 + 1;
+                v185 = 0;
+                v400[1] = v401 - 1 + v402;
+                v293 = 1;
+                v1004 = v306 + 1;
               }
 
               goto LABEL_597;
@@ -2718,118 +2740,119 @@ LABEL_538:
 
           else
           {
-            if (v253)
+            if (v284)
             {
-              if (!v942)
+              if (!v1065)
               {
                 if (byte_100117E80 == 1)
                 {
-                  v717 = *__error();
-                  v718 = sub_100035B80();
-                  if (os_log_type_enabled(v718, OS_LOG_TYPE_ERROR))
+                  v813 = __error();
+                  v814 = *v813;
+                  v816 = sub_100035B80(v813, v815);
+                  if (os_log_type_enabled(v816, OS_LOG_TYPE_ERROR))
                   {
-                    v719 = v906;
-                    uTF8String12 = [v906 UTF8String];
+                    v817 = v1029;
+                    uTF8String20 = [v1029 UTF8String];
                     *buf = 136315906;
                     *&buf[4] = "previousNode";
                     *&buf[12] = 1024;
-                    *&buf[14] = v931;
+                    *&buf[14] = v1054;
                     *&buf[18] = 1024;
-                    *&buf[20] = v905;
+                    *&buf[20] = v1028;
                     *&buf[24] = 2080;
-                    *&buf[26] = uTF8String12;
-                    _os_log_error_impl(&_mh_execute_header, v718, OS_LOG_TYPE_ERROR, "%s: no previousNode for indent of %d (%d: %s)", buf, 0x22u);
+                    *&buf[26] = uTF8String20;
+                    _os_log_error_impl(&_mh_execute_header, v816, OS_LOG_TYPE_ERROR, "%s: no previousNode for indent of %d (%d: %s)", buf, 0x22u);
                   }
 
-                  *__error() = v717;
+                  *__error() = v814;
                 }
 
                 if (byte_100117E81 == 1 && dword_100117510 <= 3)
                 {
-                  v721 = *__error();
-                  v722 = v906;
-                  v723 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s: no previousNode for indent of %d (%d: %s)", "previousNode", v931, v905, [v906 UTF8String]);
-                  v724 = v723;
-                  if (v723)
+                  v819 = *__error();
+                  v820 = v1029;
+                  v821 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s: no previousNode for indent of %d (%d: %s)", "previousNode", v1054, v1028, [v1029 UTF8String]);
+                  v823 = v821;
+                  if (v821)
                   {
-                    v860 = CFStringGetCStringPtr(v723, 0x8000100u);
-                    if (v860)
+                    v982 = CFStringGetCStringPtr(v821, 0x8000100u);
+                    if (v982)
                     {
-                      v861 = 0;
+                      v983 = 0;
                     }
 
                     else
                     {
-                      v860 = malloc_type_calloc(0x400uLL, 1uLL, 0xCAA63125uLL);
-                      CFStringGetCString(v724, v860, 1024, 0x8000100u);
-                      v861 = v860;
+                      v982 = malloc_type_calloc(0x400uLL, 1uLL, 0xCAA63125uLL);
+                      CFStringGetCString(v823, v982, 1024, 0x8000100u);
+                      v983 = v982;
                     }
 
                     if (qword_100117E88)
                     {
-                      v864 = qword_100117E88;
+                      v986 = qword_100117E88;
                     }
 
                     else
                     {
-                      v864 = __stderrp;
+                      v986 = __stderrp;
                     }
 
-                    fprintf(v864, "%s\n", v860);
-                    if (v861)
+                    fprintf(v986, "%s\n", v982);
+                    if (v983)
                     {
-                      free(v861);
+                      free(v983);
                     }
 
-                    CFRelease(v724);
+                    CFRelease(v823);
                   }
 
                   else
                   {
-                    v725 = sub_100035B80();
-                    if (os_log_type_enabled(v725, OS_LOG_TYPE_FAULT))
+                    v824 = sub_100035B80(0, v822);
+                    if (os_log_type_enabled(v824, OS_LOG_TYPE_FAULT))
                     {
-                      v726 = v906;
-                      uTF8String13 = [v906 UTF8String];
+                      v825 = v1029;
+                      uTF8String21 = [v1029 UTF8String];
                       *buf = 136315906;
                       *&buf[4] = "previousNode";
                       *&buf[12] = 1024;
-                      *&buf[14] = v931;
+                      *&buf[14] = v1054;
                       *&buf[18] = 1024;
-                      *&buf[20] = v905;
+                      *&buf[20] = v1028;
                       *&buf[24] = 2080;
-                      *&buf[26] = uTF8String13;
-                      _os_log_fault_impl(&_mh_execute_header, v725, OS_LOG_TYPE_FAULT, "Unable to format: %s: no previousNode for indent of %d (%d: %s)", buf, 0x22u);
+                      *&buf[26] = uTF8String21;
+                      _os_log_fault_impl(&_mh_execute_header, v824, OS_LOG_TYPE_FAULT, "Unable to format: %s: no previousNode for indent of %d (%d: %s)", buf, 0x22u);
                     }
 
                     if (qword_100117E88)
                     {
-                      v728 = qword_100117E88;
+                      v827 = qword_100117E88;
                     }
 
                     else
                     {
-                      v728 = __stderrp;
+                      v827 = __stderrp;
                     }
 
-                    fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v728);
+                    fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v827);
                   }
 
-                  *__error() = v721;
+                  *__error() = v819;
                 }
 
-                v729 = v906;
-                [v906 UTF8String];
-                sub_100035A54("[SPTextualReportParser parseSpindumpFile:andReportToStream:]", "SPTextualReportParser.m", 561, "%s: no previousNode for indent of %d (%d: %s)", v730, v731, v732, v733, "previousNode");
+                v828 = v1029;
+                uTF8String22 = [v1029 UTF8String];
+                sub_100035A54("[SPTextualReportParser parseSpindumpFile:andReportToStream:]", "SPTextualReportParser.m", 561, "%s: no previousNode for indent of %d (%d: %s)", v830, v831, v832, v833, "previousNode", v1054, v1028, uTF8String22);
                 goto LABEL_1248;
               }
 
-              WeakRetained = v942;
-              if (v927 >= v253)
+              WeakRetained = v1065;
+              if (v1050 >= v284)
               {
                 while (1)
                 {
-                  v285 = WeakRetained;
+                  v322 = WeakRetained;
                   WeakRetained = objc_loadWeakRetained(WeakRetained + 7);
 
                   if (!WeakRetained)
@@ -2837,9 +2860,9 @@ LABEL_538:
                     break;
                   }
 
-                  v25 = v927 <= v931;
-                  v927 = (v927 - 1);
-                  if (v25)
+                  v29 = v1050 <= v1054;
+                  v1050 = (v1050 - 1);
+                  if (v29)
                   {
                     goto LABEL_433;
                   }
@@ -2847,147 +2870,148 @@ LABEL_538:
 
                 if (byte_100117E80 == 1)
                 {
-                  v600 = *__error();
-                  v601 = sub_100035B80();
-                  if (os_log_type_enabled(v601, OS_LOG_TYPE_ERROR))
+                  v661 = __error();
+                  v662 = *v661;
+                  v664 = sub_100035B80(v661, v663);
+                  if (os_log_type_enabled(v664, OS_LOG_TYPE_ERROR))
                   {
-                    v602 = v906;
-                    uTF8String14 = [v906 UTF8String];
+                    v665 = v1029;
+                    uTF8String23 = [v1029 UTF8String];
                     *buf = 136316162;
                     *&buf[4] = "previousNode";
                     *&buf[12] = 1024;
-                    *&buf[14] = v931;
+                    *&buf[14] = v1054;
                     *&buf[18] = 1024;
-                    *&buf[20] = v927;
+                    *&buf[20] = v1050;
                     *&buf[24] = 1024;
-                    *&buf[26] = v905;
+                    *&buf[26] = v1028;
                     *&buf[30] = 2080;
-                    *&buf[32] = uTF8String14;
-                    _os_log_error_impl(&_mh_execute_header, v601, OS_LOG_TYPE_ERROR, "%s: no previousNode for indent %d, previousIndentLevel %d (%d: %s)", buf, 0x28u);
+                    *&buf[32] = uTF8String23;
+                    _os_log_error_impl(&_mh_execute_header, v664, OS_LOG_TYPE_ERROR, "%s: no previousNode for indent %d, previousIndentLevel %d (%d: %s)", buf, 0x28u);
                   }
 
-                  *__error() = v600;
+                  *__error() = v662;
                 }
 
                 if (byte_100117E81 == 1 && dword_100117510 <= 3)
                 {
-                  v605 = *__error();
-                  v606 = v906;
-                  v607 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s: no previousNode for indent %d, previousIndentLevel %d (%d: %s)", "previousNode", v931, v927, v905, [v906 UTF8String]);
-                  v608 = v607;
-                  if (v607)
+                  v668 = *__error();
+                  v669 = v1029;
+                  v670 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s: no previousNode for indent %d, previousIndentLevel %d (%d: %s)", "previousNode", v1054, v1050, v1028, [v1029 UTF8String]);
+                  v672 = v670;
+                  if (v670)
                   {
-                    v838 = CFStringGetCStringPtr(v607, 0x8000100u);
-                    if (v838)
+                    v956 = CFStringGetCStringPtr(v670, 0x8000100u);
+                    if (v956)
                     {
-                      v839 = 0;
+                      v957 = 0;
                     }
 
                     else
                     {
-                      v838 = malloc_type_calloc(0x400uLL, 1uLL, 0x4AAF81ECuLL);
-                      CFStringGetCString(v608, v838, 1024, 0x8000100u);
-                      v839 = v838;
+                      v956 = malloc_type_calloc(0x400uLL, 1uLL, 0x4AAF81ECuLL);
+                      CFStringGetCString(v672, v956, 1024, 0x8000100u);
+                      v957 = v956;
                     }
 
                     if (qword_100117E88)
                     {
-                      v845 = qword_100117E88;
+                      v963 = qword_100117E88;
                     }
 
                     else
                     {
-                      v845 = __stderrp;
+                      v963 = __stderrp;
                     }
 
-                    fprintf(v845, "%s\n", v838);
-                    if (v839)
+                    fprintf(v963, "%s\n", v956);
+                    if (v957)
                     {
-                      free(v839);
+                      free(v957);
                     }
 
-                    CFRelease(v608);
+                    CFRelease(v672);
                   }
 
                   else
                   {
-                    v609 = sub_100035B80();
-                    if (os_log_type_enabled(v609, OS_LOG_TYPE_FAULT))
+                    v673 = sub_100035B80(0, v671);
+                    if (os_log_type_enabled(v673, OS_LOG_TYPE_FAULT))
                     {
-                      v610 = v906;
-                      uTF8String15 = [v906 UTF8String];
+                      v674 = v1029;
+                      uTF8String24 = [v1029 UTF8String];
                       *buf = 136316162;
                       *&buf[4] = "previousNode";
                       *&buf[12] = 1024;
-                      *&buf[14] = v931;
+                      *&buf[14] = v1054;
                       *&buf[18] = 1024;
-                      *&buf[20] = v927;
+                      *&buf[20] = v1050;
                       *&buf[24] = 1024;
-                      *&buf[26] = v905;
+                      *&buf[26] = v1028;
                       *&buf[30] = 2080;
-                      *&buf[32] = uTF8String15;
-                      _os_log_fault_impl(&_mh_execute_header, v609, OS_LOG_TYPE_FAULT, "Unable to format: %s: no previousNode for indent %d, previousIndentLevel %d (%d: %s)", buf, 0x28u);
+                      *&buf[32] = uTF8String24;
+                      _os_log_fault_impl(&_mh_execute_header, v673, OS_LOG_TYPE_FAULT, "Unable to format: %s: no previousNode for indent %d, previousIndentLevel %d (%d: %s)", buf, 0x28u);
                     }
 
                     if (qword_100117E88)
                     {
-                      v612 = qword_100117E88;
+                      v676 = qword_100117E88;
                     }
 
                     else
                     {
-                      v612 = __stderrp;
+                      v676 = __stderrp;
                     }
 
-                    fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v612);
+                    fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v676);
                   }
 
-                  *__error() = v605;
+                  *__error() = v668;
                 }
 
-                v613 = v906;
-                [v906 UTF8String];
-                sub_100035A54("[SPTextualReportParser parseSpindumpFile:andReportToStream:]", "SPTextualReportParser.m", 566, "%s: no previousNode for indent %d, previousIndentLevel %d (%d: %s)", v614, v615, v616, v617, "previousNode");
+                v677 = v1029;
+                uTF8String25 = [v1029 UTF8String];
+                sub_100035A54("[SPTextualReportParser parseSpindumpFile:andReportToStream:]", "SPTextualReportParser.m", 566, "%s: no previousNode for indent %d, previousIndentLevel %d (%d: %s)", v679, v680, v681, v682, "previousNode", v1054, v1050, v1028, uTF8String25);
                 goto LABEL_1248;
               }
 
 LABEL_433:
-              v942 = WeakRetained;
-              v286 = sub_1000BC444();
+              v1065 = WeakRetained;
+              v323 = sub_1000BC444();
             }
 
             else
             {
               if (obj)
               {
-                v964 = 0u;
-                v965 = 0u;
-                v962 = 0u;
-                v963 = 0u;
+                v1087 = 0u;
+                v1088 = 0u;
+                v1085 = 0u;
+                v1086 = 0u;
                 obj = obj;
-                v337 = [obj countByEnumeratingWithState:&v962 objects:v983 count:16];
-                if (v337)
+                v377 = [obj countByEnumeratingWithState:&v1085 objects:v1106 count:16];
+                if (v377)
                 {
-                  v338 = *v963;
+                  v378 = *v1086;
 LABEL_507:
-                  v339 = 0;
+                  v379 = 0;
                   while (1)
                   {
-                    if (*v963 != v338)
+                    if (*v1086 != v378)
                     {
                       objc_enumerationMutation(obj);
                     }
 
-                    v340 = *(*(&v962 + 1) + 8 * v339);
+                    v380 = *(*(&v1085 + 1) + 8 * v379);
                     if (sub_1000BC614())
                     {
                       break;
                     }
 
-                    if (v337 == ++v339)
+                    if (v377 == ++v379)
                     {
-                      v337 = [obj countByEnumeratingWithState:&v962 objects:v983 count:16];
-                      if (v337)
+                      v377 = [obj countByEnumeratingWithState:&v1085 objects:v1106 count:16];
+                      if (v377)
                       {
                         goto LABEL_507;
                       }
@@ -2996,9 +3020,9 @@ LABEL_507:
                     }
                   }
 
-                  v286 = v340;
+                  v323 = v380;
 
-                  if (v286)
+                  if (v323)
                   {
                     goto LABEL_594;
                   }
@@ -3015,51 +3039,51 @@ LABEL_513:
                 obj = objc_alloc_init(NSMutableArray);
               }
 
-              v286 = sub_10008F924(SPTreeNode, 0, v900 != 0x7FFFFFFFFFFFFFFFLL, v924, v892, v916, 0);
-              [obj addObject:v286];
+              v323 = sub_10008F924(SPTreeNode, 0, v1023 != 0x7FFFFFFFFFFFFFFFLL, v1047, v1015, v1039, 0);
+              [obj addObject:v323];
             }
 
-            if (v286)
+            if (v323)
             {
 LABEL_594:
-              v286[3] += v910;
+              v323[3] += v1033;
             }
 
-            v387 = v942;
-            v942 = v286;
+            v430 = v1065;
+            v1065 = v323;
           }
 
-          v154 = 0;
-          v260 = 1;
+          v185 = 0;
+          v293 = 1;
           goto LABEL_597;
         }
 
-        v260 = 0;
-        if (v255)
+        v293 = 0;
+        if (v286)
         {
-          v266 = self->_endIndex;
-          if (v266)
+          v300 = self->_endIndex;
+          if (v300)
           {
-            v267 = v255 <= v266;
+            v301 = v286 <= v300;
           }
 
           else
           {
-            v267 = 1;
+            v301 = 1;
           }
 
-          v268 = !v267;
-          v875 |= v268;
+          v302 = !v301;
+          v998 |= v302;
         }
 
-        v154 = 5;
+        v185 = 5;
 LABEL_553:
-        v931 = v927;
+        v1054 = v1050;
 LABEL_597:
 
-        v921 = 0;
-        v215 = 0;
-        if (v260)
+        v1044 = 0;
+        v246 = 0;
+        if (v293)
         {
           goto LABEL_676;
         }
@@ -3067,164 +3091,165 @@ LABEL_597:
         goto LABEL_785;
       }
 
-      v155 = [v945 firstMatchInString:v150 options:0 range:{0, objc_msgSend(v150, "length")}];
-      if (!v155)
+      v186 = [v1068 firstMatchInString:v181 options:0 range:{0, objc_msgSend(v181, "length")}];
+      if (!v186)
       {
-        v215 = [v944 firstMatchInString:v150 options:0 range:{0, objc_msgSend(v150, "length")}];
-        if (v215)
+        v246 = [v1067 firstMatchInString:v181 options:0 range:{0, objc_msgSend(v181, "length")}];
+        if (v246)
         {
-          v921 = 0;
+          v1044 = 0;
 LABEL_587:
-          v154 = 5;
+          v185 = 5;
           goto LABEL_784;
         }
 
-        v333 = [v941 firstMatchInString:v150 options:0 range:{0, objc_msgSend(v150, "length")}];
-        v334 = v333;
-        if (!v333)
+        v373 = [v1064 firstMatchInString:v181 options:0 range:{0, objc_msgSend(v181, "length")}];
+        v374 = v373;
+        if (!v373)
         {
-          if (self->_isHeavy == v969 || !obj)
+          if (self->_isHeavy == v1092 || !obj)
           {
 LABEL_743:
-            if ([v150 length] && v927 != -1)
+            if ([v181 length] && v1050 != -1)
             {
               if (byte_100117E80 == 1)
               {
-                v496 = *__error();
-                v497 = sub_100035B80();
-                if (os_log_type_enabled(v497, OS_LOG_TYPE_ERROR))
+                v545 = __error();
+                v546 = *v545;
+                v548 = sub_100035B80(v545, v547);
+                if (os_log_type_enabled(v548, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 67109378;
-                  *&buf[4] = v905;
+                  *&buf[4] = v1028;
                   *&buf[8] = 2112;
-                  *&buf[10] = v899;
-                  _os_log_error_impl(&_mh_execute_header, v497, OS_LOG_TYPE_ERROR, "Parsing spindump text: Unexpected end of call tree (%d: %@)", buf, 0x12u);
+                  *&buf[10] = v1022;
+                  _os_log_error_impl(&_mh_execute_header, v548, OS_LOG_TYPE_ERROR, "Parsing spindump text: Unexpected end of call tree (%d: %@)", buf, 0x12u);
                 }
 
-                v150 = v899;
-                *__error() = v496;
+                v181 = v1022;
+                *__error() = v546;
               }
 
               if (byte_100117E81 == 1 && dword_100117510 <= 3)
               {
-                v498 = *__error();
-                v499 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Parsing spindump text: Unexpected end of call tree (%d: %@)", v905, v150);
-                v500 = v499;
-                if (v499)
+                v549 = *__error();
+                v550 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Parsing spindump text: Unexpected end of call tree (%d: %@)", v1028, v181);
+                v552 = v550;
+                if (v550)
                 {
-                  v501 = CFStringGetCStringPtr(v499, 0x8000100u);
-                  if (v501)
+                  v553 = CFStringGetCStringPtr(v550, 0x8000100u);
+                  if (v553)
                   {
-                    v502 = 0;
+                    v554 = 0;
                   }
 
                   else
                   {
-                    v501 = malloc_type_calloc(0x400uLL, 1uLL, 0x68FCD31CuLL);
-                    CFStringGetCString(v500, v501, 1024, 0x8000100u);
-                    v502 = v501;
+                    v553 = malloc_type_calloc(0x400uLL, 1uLL, 0x68FCD31CuLL);
+                    CFStringGetCString(v552, v553, 1024, 0x8000100u);
+                    v554 = v553;
                   }
 
                   if (qword_100117E88)
                   {
-                    v513 = qword_100117E88;
+                    v565 = qword_100117E88;
                   }
 
                   else
                   {
-                    v513 = __stderrp;
+                    v565 = __stderrp;
                   }
 
-                  fprintf(v513, "%s\n", v501);
-                  if (v502)
+                  fprintf(v565, "%s\n", v553);
+                  if (v554)
                   {
-                    free(v502);
+                    free(v554);
                   }
 
-                  CFRelease(v500);
+                  CFRelease(v552);
                 }
 
                 else
                 {
-                  v507 = sub_100035B80();
-                  if (os_log_type_enabled(v507, OS_LOG_TYPE_FAULT))
+                  v559 = sub_100035B80(0, v551);
+                  if (os_log_type_enabled(v559, OS_LOG_TYPE_FAULT))
                   {
                     *buf = 67109378;
-                    *&buf[4] = v905;
+                    *&buf[4] = v1028;
                     *&buf[8] = 2112;
-                    *&buf[10] = v899;
-                    _os_log_fault_impl(&_mh_execute_header, v507, OS_LOG_TYPE_FAULT, "Unable to format: Parsing spindump text: Unexpected end of call tree (%d: %@)", buf, 0x12u);
+                    *&buf[10] = v1022;
+                    _os_log_fault_impl(&_mh_execute_header, v559, OS_LOG_TYPE_FAULT, "Unable to format: Parsing spindump text: Unexpected end of call tree (%d: %@)", buf, 0x12u);
                   }
 
                   if (qword_100117E88)
                   {
-                    v508 = qword_100117E88;
+                    v560 = qword_100117E88;
                   }
 
                   else
                   {
-                    v508 = __stderrp;
+                    v560 = __stderrp;
                   }
 
-                  fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v508);
+                  fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v560);
                 }
 
-                *__error() = v498;
+                *__error() = v549;
               }
             }
 
-            fprintf(stream, "%s\n", v976[3]);
-            if ([v899 containsString:@"Binary Images:"])
+            fprintf(stream, "%s\n", v1099[3]);
+            if ([v1022 containsString:@"Binary Images:"])
             {
-              v956 = 0u;
-              v957 = 0u;
-              v954 = 0u;
-              v955 = 0u;
-              v948 = v947;
-              v514 = 0;
-              v515 = 0;
-              v516 = [v948 countByEnumeratingWithState:&v954 objects:v981 count:16];
-              if (v516)
+              v1079 = 0u;
+              v1080 = 0u;
+              v1077 = 0u;
+              v1078 = 0u;
+              v1071 = v1070;
+              v566 = 0;
+              v567 = 0;
+              v568 = [v1071 countByEnumeratingWithState:&v1077 objects:v1104 count:16];
+              if (v568)
               {
-                v517 = *v955;
+                v569 = *v1078;
                 do
                 {
-                  v518 = 0;
+                  v570 = 0;
                   do
                   {
-                    if (*v955 != v517)
+                    if (*v1078 != v569)
                     {
-                      objc_enumerationMutation(v948);
+                      objc_enumerationMutation(v1071);
                     }
 
-                    v519 = *(*(&v954 + 1) + 8 * v518);
-                    v520 = sub_1000BC830(v519);
-                    v521 = [v520 length];
-                    v522 = v521;
-                    if (!v521)
+                    v571 = *(*(&v1077 + 1) + 8 * v570);
+                    v572 = sub_1000BC830(v571);
+                    v573 = [v572 length];
+                    v574 = v573;
+                    if (!v573)
                     {
-                      v523 = sub_1000BC890(v519);
-                      v524 = [v523 length];
-                      if (v524)
+                      v575 = sub_1000BC890(v571);
+                      v576 = [v575 length];
+                      if (v576)
                       {
-                        v522 = v524;
+                        v574 = v576;
                       }
 
                       else
                       {
-                        v522 = 3;
+                        v574 = 3;
                       }
                     }
 
-                    v525 = sub_1000BC8F0(v519);
-                    if ([v525 length])
+                    v577 = sub_1000BC8F0(v571);
+                    if ([v577 length])
                     {
-                      v522 += [v525 length] + 1;
+                      v574 += [v577 length] + 1;
                     }
 
-                    if (v519)
+                    if (v571)
                     {
-                      Property = objc_getProperty(v519, v526, 48, 1);
+                      Property = objc_getProperty(v571, v578, 48, 1);
                     }
 
                     else
@@ -3232,130 +3257,130 @@ LABEL_743:
                       Property = 0;
                     }
 
-                    v528 = Property;
-                    v529 = [v528 length];
+                    v580 = Property;
+                    v581 = [v580 length];
 
-                    if (v514 <= v522)
+                    if (v566 <= v574)
                     {
-                      v514 = v522;
+                      v566 = v574;
                     }
 
                     else
                     {
-                      v514 = v514;
+                      v566 = v566;
                     }
 
-                    if (v515 <= v529)
+                    if (v567 <= v581)
                     {
-                      v515 = v529;
+                      v567 = v581;
                     }
 
-                    v518 = v518 + 1;
+                    v570 = v570 + 1;
                   }
 
-                  while (v516 != v518);
-                  v530 = [v948 countByEnumeratingWithState:&v954 objects:v981 count:16];
-                  v516 = v530;
+                  while (v568 != v570);
+                  v582 = [v1071 countByEnumeratingWithState:&v1077 objects:v1104 count:16];
+                  v568 = v582;
                 }
 
-                while (v530);
+                while (v582);
               }
 
-              v952 = 0u;
-              v953 = 0u;
-              v950 = 0u;
-              v951 = 0u;
-              v947 = v948;
-              v909 = [v947 countByEnumeratingWithState:&v950 objects:v980 count:16];
-              if (v909)
+              v1075 = 0u;
+              v1076 = 0u;
+              v1073 = 0u;
+              v1074 = 0u;
+              v1070 = v1071;
+              v1032 = [v1070 countByEnumeratingWithState:&v1073 objects:v1103 count:16];
+              if (v1032)
               {
-                v919 = 0;
-                v531 = *v951;
-                v876 = *v951;
+                v1042 = 0;
+                v583 = *v1074;
+                v999 = *v1074;
                 while (1)
                 {
-                  if (v531 != v876)
+                  if (v583 != v999)
                   {
-                    objc_enumerationMutation(v947);
+                    objc_enumerationMutation(v1070);
                   }
 
-                  v532 = *(*(&v950 + 1) + 8 * v919);
-                  if (v532)
+                  v584 = *(*(&v1073 + 1) + 8 * v1042);
+                  if (v584)
                   {
-                    selfb = *(v532 + 56);
-                    v878 = *(v532 + 64);
-                    v533 = "";
-                    if (*(v532 + 32))
+                    selfb = *(v584 + 56);
+                    v1001 = *(v584 + 64);
+                    v585 = "";
+                    if (*(v584 + 32))
                     {
-                      v533 = "*";
+                      v585 = "*";
                     }
                   }
 
                   else
                   {
                     selfb = 0;
-                    v878 = 0;
-                    v533 = "";
+                    v1001 = 0;
+                    v585 = "";
                   }
 
-                  v889 = v533;
-                  v943 = sub_1000BC830(v532);
-                  v534 = v943;
-                  uTF8String16 = [v943 UTF8String];
-                  v934 = sub_1000BC890(v532);
-                  v535 = v934;
-                  uTF8String17 = [v934 UTF8String];
-                  v928 = sub_1000BC8F0(v532);
-                  v536 = v928;
-                  uTF8String18 = [v928 UTF8String];
-                  if (v532)
+                  v1012 = v585;
+                  v1066 = sub_1000BC830(v584);
+                  v586 = v1066;
+                  uTF8String26 = [v1066 UTF8String];
+                  v1057 = sub_1000BC890(v584);
+                  v587 = v1057;
+                  uTF8String27 = [v1057 UTF8String];
+                  v1051 = sub_1000BC8F0(v584);
+                  v588 = v1051;
+                  uTF8String28 = [v1051 UTF8String];
+                  if (v584)
                   {
-                    v538 = objc_getProperty(v532, v537, 40, 1);
+                    v590 = objc_getProperty(v584, v589, 40, 1);
                   }
 
                   else
                   {
-                    v538 = 0;
+                    v590 = 0;
                   }
 
-                  v539 = v538;
-                  uuid2 = [v539 uuid];
+                  v591 = v590;
+                  uuid2 = [v591 uuid];
                   uUIDString2 = [uuid2 UUIDString];
-                  v541 = uUIDString2;
-                  uTF8String19 = [uUIDString2 UTF8String];
-                  if (v532)
+                  v593 = uUIDString2;
+                  uTF8String29 = [uUIDString2 UTF8String];
+                  if (v584)
                   {
-                    v543 = objc_getProperty(v532, v542, 48, 1);
+                    v595 = objc_getProperty(v584, v594, 48, 1);
                   }
 
                   else
                   {
-                    v543 = 0;
+                    v595 = 0;
                   }
 
-                  v913 = v543;
-                  v544 = v913;
-                  uTF8String20 = [v913 UTF8String];
-                  if (v532)
+                  v1036 = v595;
+                  v596 = v1036;
+                  uTF8String30 = [v1036 UTF8String];
+                  if (v584)
                   {
-                    v547 = objc_getProperty(v532, v545, 40, 1);
+                    v599 = objc_getProperty(v584, v597, 40, 1);
                   }
 
                   else
                   {
-                    v547 = 0;
+                    v599 = 0;
                   }
 
-                  v548 = v547;
-                  path = [v548 path];
-                  v550 = path;
-                  uTF8String21 = [path UTF8String];
-                  v880 = uuid2;
+                  v600 = v599;
+                  path = [v600 path];
+                  v602 = path;
+                  uTF8String31 = [path UTF8String];
+                  v1003 = uuid2;
                   if (selfb)
                   {
-                    snprintf(buf, 0x20uLL, "%s0x%llx", v889, selfb);
+                    snprintf(buf, 0x20uLL, "%s0x%llx", v1012, selfb);
                     fprintf(stream, "%22s - ", buf);
-                    if (v878)
+                    if (v1001)
                     {
                       fprintf(stream, "%#18llx  ");
                     }
@@ -3371,110 +3396,150 @@ LABEL_743:
                     fprintf(stream, "%2s");
                   }
 
-                  v552 = v539;
-                  v553 = "???";
-                  if (uTF8String17)
+                  v604 = v591;
+                  v605 = "???";
+                  if (uTF8String27)
                   {
-                    v553 = uTF8String17;
+                    v605 = uTF8String27;
                   }
 
-                  if (uTF8String16)
+                  if (uTF8String26)
                   {
-                    v553 = uTF8String16;
+                    v605 = uTF8String26;
                   }
 
-                  v558 = fprintf(stream, "%s", v553);
-                  if (uTF8String18)
+                  v610 = fprintf(stream, "%s", v605);
+                  if (uTF8String28)
                   {
-                    v558 = (fprintf(stream, " %s", uTF8String18) + v558);
+                    v610 = (fprintf(stream, " %s", uTF8String28) + v610);
                   }
 
-                  if (v558 > v514)
+                  if (v610 > v566)
                   {
                     break;
                   }
 
-                  fprintf(stream, "%*s", v514 + 1 - v558, "");
-                  fprintf(stream, "<%s>", uTF8String19);
-                  if (uTF8String20)
+                  fprintf(stream, "%*s", v566 + 1 - v610, "");
+                  fprintf(stream, "<%s>", uTF8String29);
+                  if (uTF8String30)
                   {
-                    v559 = fprintf(stream, "%s", uTF8String20);
+                    v611 = fprintf(stream, "%s", uTF8String30);
                   }
 
                   else
                   {
-                    v559 = 0;
+                    v611 = 0;
                   }
 
-                  if (v515 > v559)
+                  if (v567 > v611)
                   {
-                    fprintf(stream, "%*s", v515 - v559, "");
+                    fprintf(stream, "%*s", v567 - v611, "");
                   }
 
-                  if (uTF8String21)
+                  if (uTF8String31)
                   {
-                    fprintf(stream, "  %s", uTF8String21);
+                    fprintf(stream, "  %s", uTF8String31);
                   }
 
                   fputc(10, stream);
 
-                  v919 = v919 + 1;
-                  if (v919 >= v909)
+                  v1042 = v1042 + 1;
+                  if (v1042 >= v1032)
                   {
-                    v909 = [v947 countByEnumeratingWithState:&v950 objects:v980 count:16];
-                    if (!v909)
+                    v1032 = [v1070 countByEnumeratingWithState:&v1073 objects:v1103 count:16];
+                    if (!v1032)
                     {
                       goto LABEL_876;
                     }
 
-                    v919 = 0;
+                    v1042 = 0;
                   }
 
-                  v531 = *v951;
+                  v583 = *v1074;
                 }
 
                 if (byte_100117E80 == 1)
                 {
-                  v700 = *__error();
-                  v701 = sub_100035B80();
-                  if (os_log_type_enabled(v701, OS_LOG_TYPE_ERROR))
+                  v790 = __error();
+                  v791 = *v790;
+                  v793 = sub_100035B80(v790, v792);
+                  if (os_log_type_enabled(v793, OS_LOG_TYPE_ERROR))
                   {
                     *buf = 136316418;
                     *&buf[4] = "numChars < nameAndVersionWidth + 1";
                     *&buf[12] = 1024;
-                    *&buf[14] = v558;
+                    *&buf[14] = v610;
                     *&buf[18] = 1024;
-                    *&buf[20] = v514;
+                    *&buf[20] = v566;
                     *&buf[24] = 2080;
-                    *&buf[26] = uTF8String16;
+                    *&buf[26] = uTF8String26;
                     *&buf[34] = 2080;
-                    *&buf[36] = uTF8String17;
+                    *&buf[36] = uTF8String27;
                     *&buf[44] = 2080;
-                    *&buf[46] = uTF8String18;
-                    _os_log_error_impl(&_mh_execute_header, v701, OS_LOG_TYPE_ERROR, "%s: Printed %d characters when max is %d: %s, %s, %s", buf, 0x36u);
+                    *&buf[46] = uTF8String28;
+                    _os_log_error_impl(&_mh_execute_header, v793, OS_LOG_TYPE_ERROR, "%s: Printed %d characters when max is %d: %s, %s, %s", buf, 0x36u);
                   }
 
-                  *__error() = v700;
+                  *__error() = v791;
                 }
 
                 if (byte_100117E81 == 1 && dword_100117510 <= 3)
                 {
-                  v702 = *__error();
-                  v703 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s: Printed %d characters when max is %d: %s, %s, %s", "numChars < nameAndVersionWidth + 1", v558, v514, uTF8String16, uTF8String17, uTF8String18);
-                  v704 = v703;
-                  if (v703)
+                  v794 = *__error();
+                  v795 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s: Printed %d characters when max is %d: %s, %s, %s", "numChars < nameAndVersionWidth + 1", v610, v566, uTF8String26, uTF8String27, uTF8String28);
+                  v797 = v795;
+                  if (v795)
                   {
-                    v778 = CFStringGetCStringPtr(v703, 0x8000100u);
-                    if (v778)
+                    v888 = CFStringGetCStringPtr(v795, 0x8000100u);
+                    if (v888)
                     {
-                      v779 = 0;
+                      v889 = 0;
                     }
 
                     else
                     {
-                      v778 = malloc_type_calloc(0x400uLL, 1uLL, 0x339E6499uLL);
-                      CFStringGetCString(v704, v778, 1024, 0x8000100u);
-                      v779 = v778;
+                      v888 = malloc_type_calloc(0x400uLL, 1uLL, 0x339E6499uLL);
+                      CFStringGetCString(v797, v888, 1024, 0x8000100u);
+                      v889 = v888;
+                    }
+
+                    if (qword_100117E88)
+                    {
+                      v912 = qword_100117E88;
+                    }
+
+                    else
+                    {
+                      v912 = __stderrp;
+                    }
+
+                    fprintf(v912, "%s\n", v888);
+                    if (v889)
+                    {
+                      free(v889);
+                    }
+
+                    CFRelease(v797);
+                  }
+
+                  else
+                  {
+                    v798 = sub_100035B80(0, v796);
+                    if (os_log_type_enabled(v798, OS_LOG_TYPE_FAULT))
+                    {
+                      *buf = 136316418;
+                      *&buf[4] = "numChars < nameAndVersionWidth + 1";
+                      *&buf[12] = 1024;
+                      *&buf[14] = v610;
+                      *&buf[18] = 1024;
+                      *&buf[20] = v566;
+                      *&buf[24] = 2080;
+                      *&buf[26] = uTF8String26;
+                      *&buf[34] = 2080;
+                      *&buf[36] = uTF8String27;
+                      *&buf[44] = 2080;
+                      *&buf[46] = uTF8String28;
+                      _os_log_fault_impl(&_mh_execute_header, v798, OS_LOG_TYPE_FAULT, "Unable to format: %s: Printed %d characters when max is %d: %s, %s, %s", buf, 0x36u);
                     }
 
                     if (qword_100117E88)
@@ -3487,240 +3552,201 @@ LABEL_743:
                       v799 = __stderrp;
                     }
 
-                    fprintf(v799, "%s\n", v778);
-                    if (v779)
-                    {
-                      free(v779);
-                    }
-
-                    CFRelease(v704);
+                    fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v799);
                   }
 
-                  else
-                  {
-                    v705 = sub_100035B80();
-                    if (os_log_type_enabled(v705, OS_LOG_TYPE_FAULT))
-                    {
-                      *buf = 136316418;
-                      *&buf[4] = "numChars < nameAndVersionWidth + 1";
-                      *&buf[12] = 1024;
-                      *&buf[14] = v558;
-                      *&buf[18] = 1024;
-                      *&buf[20] = v514;
-                      *&buf[24] = 2080;
-                      *&buf[26] = uTF8String16;
-                      *&buf[34] = 2080;
-                      *&buf[36] = uTF8String17;
-                      *&buf[44] = 2080;
-                      *&buf[46] = uTF8String18;
-                      _os_log_fault_impl(&_mh_execute_header, v705, OS_LOG_TYPE_FAULT, "Unable to format: %s: Printed %d characters when max is %d: %s, %s, %s", buf, 0x36u);
-                    }
-
-                    if (qword_100117E88)
-                    {
-                      v706 = qword_100117E88;
-                    }
-
-                    else
-                    {
-                      v706 = __stderrp;
-                    }
-
-                    fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v706);
-                  }
-
-                  *__error() = v702;
+                  *__error() = v794;
                 }
 
-                sub_100035A54("PrintLoadInfoLine", "SPTextualReportParser.m", 2394, "%s: Printed %d characters when max is %d: %s, %s, %s", v554, v555, v556, v557, "numChars < nameAndVersionWidth + 1");
+                sub_100035A54("PrintLoadInfoLine", "SPTextualReportParser.m", 2394, "%s: Printed %d characters when max is %d: %s, %s, %s", v606, v607, v608, v609, "numChars < nameAndVersionWidth + 1", v610, v566, uTF8String26, uTF8String27, uTF8String28);
                 goto LABEL_1248;
               }
 
 LABEL_876:
 
-              if ((v935 & 1) == 0)
+              if ((v1058 & 1) == 0)
               {
-                sub_100098334(v5, v905, v944, 0);
-                v895 = 0;
-                v875 = 0;
-                v942 = 0;
-                v931 = 0xFFFFFFFFLL;
-                v920 = v947;
-                v947 = v921 = 0;
+                sub_100098334(v5, v1028, v1067, 0);
+                v1018 = 0;
+                v998 = 0;
+                v1065 = 0;
+                v1054 = 0xFFFFFFFFLL;
+                v1043 = v1070;
+                v1070 = v1044 = 0;
 
                 goto LABEL_676;
               }
             }
 
-            v921 = 0;
-            v895 = 0;
-            v875 = 0;
-            v942 = 0;
-            v931 = 0xFFFFFFFFLL;
+            v1044 = 0;
+            v1018 = 0;
+            v998 = 0;
+            v1065 = 0;
+            v1054 = 0xFFFFFFFFLL;
             goto LABEL_676;
           }
 
-          if (![v150 length])
+          if (![v181 length])
           {
-            v428 = objc_alloc_init(NSMutableArray);
+            v477 = objc_alloc_init(NSMutableArray);
             [obj sortUsingComparator:&stru_100109EA0];
-            [v428 addObject:obj];
-            v429 = [obj objectAtIndex:0];
-            lastObject = v429;
-            if (v429)
+            [v477 addObject:obj];
+            v478 = [obj objectAtIndex:0];
+            lastObject = v478;
+            if (v478)
             {
-              v431 = *(v429 + 12);
+              v480 = *(v478 + 12);
             }
 
             else
             {
-              v431 = 0.0;
+              v480 = 0.0;
             }
 
-            v432 = 0;
-            v918 = vcvtpd_s64_f64(log10(v431));
-            v925 = v428;
+            v481 = 0;
+            v1041 = vcvtpd_s64_f64(log10(v480));
+            v1048 = v477;
             while (1)
             {
-              v881 = v432;
+              v1004 = v481;
               while (1)
               {
 
-                if (![v925 count])
+                if (![v1048 count])
                 {
 
                   obj = 0;
-                  v150 = v899;
+                  v181 = v1022;
                   goto LABEL_743;
                 }
 
-                lastObject = [v925 lastObject];
+                lastObject = [v1048 lastObject];
                 if ([lastObject count])
                 {
                   break;
                 }
 
-                [v925 removeLastObject];
+                [v1048 removeLastObject];
               }
 
-              v933 = [lastObject objectAtIndex:0];
+              v1056 = [lastObject objectAtIndex:0];
               [lastObject removeObjectAtIndex:0];
-              v433 = [v925 count];
-              v435 = v433;
+              v482 = [v1048 count];
+              v484 = v482;
               omitFramesBelowSampleCount = self->_omitFramesBelowSampleCount;
-              v908 = lastObject;
+              v1031 = lastObject;
               if (omitFramesBelowSampleCount >= 1)
               {
-                v437 = v933;
-                if (v933)
+                v486 = v1056;
+                if (v1056)
                 {
-                  v437 = *(v933 + 3);
+                  v486 = *(v1056 + 3);
                 }
 
-                if (v437 < omitFramesBelowSampleCount)
+                if (v486 < omitFramesBelowSampleCount)
                 {
                   goto LABEL_736;
                 }
               }
 
-              v438 = v432;
-              v439 = v432 << 32;
-              v440 = &ptr[8 * v432 - 8];
-              v896 = v433 - 1;
+              v487 = v481;
+              v488 = v481 << 32;
+              v489 = &ptr[8 * v481 - 8];
+              v1019 = v482 - 1;
               while (1)
               {
-                v441 = v438;
-                v442 = v439;
-                if (v438 < 1)
+                v490 = v487;
+                v491 = v488;
+                if (v487 < 1)
                 {
                   break;
                 }
 
-                --v438;
-                v443 = *v440;
-                v440 -= 2;
-                v439 -= 0x100000000;
-                if (v443 < v433 - 1)
+                --v487;
+                v492 = *v489;
+                v489 -= 2;
+                v488 -= 0x100000000;
+                if (v492 < v482 - 1)
                 {
-                  v893 = v442;
-                  v903 = v441;
-                  v444 = v440[3];
+                  v1016 = v491;
+                  v1026 = v490;
+                  v493 = v489[3];
                   goto LABEL_693;
                 }
               }
 
-              v893 = v439;
-              v903 = v438;
-              v444 = 0;
+              v1016 = v488;
+              v1026 = v487;
+              v493 = 0;
 LABEL_693:
-              v445 = v933;
-              if (v933)
+              v494 = v1056;
+              if (v1056)
               {
-                v445 = objc_getProperty(v933, v434, 16, 1);
+                v494 = objc_getProperty(v1056, v483, 16, 1);
               }
 
-              v446 = v445;
-              v447 = v446 == 0;
+              v495 = v494;
+              v496 = v495 == 0;
 
-              if (v447)
+              if (v496)
               {
-                if (v933)
+                if (v1056)
                 {
-                  v478 = objc_getProperty(v933, v448, 24, 1);
-                  if (v478)
+                  v527 = objc_getProperty(v1056, v497, 24, 1);
+                  if (v527)
                   {
 
-                    v481 = v967 + v968 * (v444 + v896);
+                    v530 = v1090 + v1091 * (v493 + v1019);
                     goto LABEL_724;
                   }
 
-                  v482 = objc_getProperty(v933, v479, 40, 1);
+                  v531 = objc_getProperty(v1056, v528, 40, 1);
                 }
 
                 else
                 {
-                  v482 = 0;
+                  v531 = 0;
                 }
 
-                v483 = v482;
-                v484 = v483 == 0;
+                v532 = v531;
+                v533 = v532 == 0;
 
-                if (!v484)
+                if (!v533)
                 {
-                  v481 = v967 + v968 * (v444 + v896);
-                  if (v933)
+                  v530 = v1090 + v1091 * (v493 + v1019);
+                  if (v1056)
                   {
 LABEL_724:
-                    v485 = *(v933 + 8);
-                    v486 = *(v933 + 3);
-                    v487 = objc_getProperty(v933, v480, 24, 1);
+                    v534 = *(v1056 + 8);
+                    v535 = *(v1056 + 3);
+                    v536 = objc_getProperty(v1056, v529, 24, 1);
                   }
 
                   else
                   {
-                    v486 = 0;
-                    v485 = 0;
-                    v487 = 0;
+                    v535 = 0;
+                    v534 = 0;
+                    v536 = 0;
                   }
 
-                  v475 = v487;
-                  v488 = v475;
-                  uTF8String22 = [v475 UTF8String];
-                  if (v933)
+                  v524 = v536;
+                  v537 = v524;
+                  uTF8String32 = [v524 UTF8String];
+                  if (v1056)
                   {
-                    v491 = objc_getProperty(v933, v489, 40, 1);
+                    v540 = objc_getProperty(v1056, v538, 40, 1);
                   }
 
                   else
                   {
-                    v491 = 0;
+                    v540 = 0;
                   }
 
-                  v492 = v491;
-                  v493 = v492;
-                  sub_10009A430(stream, v481, v485 & 1, v486, v918 + 2, uTF8String22, [v492 UTF8String], 0, 0);
+                  v541 = v540;
+                  v542 = v541;
+                  sub_10009A430(stream, v530, v534 & 1, v535, v1041 + 2, uTF8String32, [v541 UTF8String], 0, 0);
 
-                  v881 = v903;
+                  v1004 = v1026;
 LABEL_730:
 
                   goto LABEL_731;
@@ -3728,1228 +3754,1236 @@ LABEL_730:
 
                 if (byte_100117E80 == 1)
                 {
-                  v847 = *__error();
-                  v848 = sub_100035B80();
-                  if (os_log_type_enabled(v848, OS_LOG_TYPE_ERROR))
+                  v965 = __error();
+                  v966 = *v965;
+                  v968 = sub_100035B80(v965, v967);
+                  if (os_log_type_enabled(v968, OS_LOG_TYPE_ERROR))
                   {
-                    v849 = [v933 debugDescription];
-                    v850 = v849;
-                    sub_1000BD56C([v849 UTF8String], buf, v848, v849);
+                    v969 = [v1056 debugDescription];
+                    v970 = v969;
+                    sub_1000BD56C([v969 UTF8String], buf, v968, v969);
                   }
 
-                  *__error() = v847;
+                  *__error() = v966;
                 }
 
                 if (byte_100117E81 == 1 && dword_100117510 <= 3)
                 {
-                  v851 = *__error();
-                  v852 = [v933 debugDescription];
-                  v853 = v852;
-                  v854 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s: No angle bracket contents nor state info for non-frame (%s)", "heaviestNode.angleBracketContents || heaviestNode.stateInfo", [v852 UTF8String]);
+                  v971 = *__error();
+                  v972 = [v1056 debugDescription];
+                  v973 = v972;
+                  v974 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s: No angle bracket contents nor state info for non-frame (%s)", "heaviestNode.angleBracketContents || heaviestNode.stateInfo", [v972 UTF8String]);
 
-                  if (v854)
+                  if (v974)
                   {
-                    v866 = CFStringGetCStringPtr(v854, 0x8000100u);
-                    if (v866)
+                    v988 = CFStringGetCStringPtr(v974, 0x8000100u);
+                    if (v988)
                     {
-                      v867 = 0;
+                      v989 = 0;
                     }
 
                     else
                     {
-                      v866 = malloc_type_calloc(0x400uLL, 1uLL, 0xFE31698uLL);
-                      CFStringGetCString(v854, v866, 1024, 0x8000100u);
-                      v867 = v866;
+                      v988 = malloc_type_calloc(0x400uLL, 1uLL, 0xFE31698uLL);
+                      CFStringGetCString(v974, v988, 1024, 0x8000100u);
+                      v989 = v988;
                     }
 
                     if (qword_100117E88)
                     {
-                      v868 = qword_100117E88;
+                      v990 = qword_100117E88;
                     }
 
                     else
                     {
-                      v868 = __stderrp;
+                      v990 = __stderrp;
                     }
 
-                    fprintf(v868, "%s\n", v866);
-                    if (v867)
+                    fprintf(v990, "%s\n", v988);
+                    if (v989)
                     {
-                      free(v867);
+                      free(v989);
                     }
 
-                    CFRelease(v854);
+                    CFRelease(v974);
                   }
 
                   else
                   {
-                    v855 = sub_100035B80();
-                    if (os_log_type_enabled(v855, OS_LOG_TYPE_FAULT))
+                    v977 = sub_100035B80(v975, v976);
+                    if (os_log_type_enabled(v977, OS_LOG_TYPE_FAULT))
                     {
-                      v856 = [v933 debugDescription];
-                      v857 = v856;
-                      sub_1000BD5C8([v856 UTF8String], v996, v855, v856);
+                      v978 = [v1056 debugDescription];
+                      v979 = v978;
+                      sub_1000BD5C8([v978 UTF8String], v1119, v977, v978);
                     }
 
                     if (qword_100117E88)
                     {
-                      v858 = qword_100117E88;
+                      v980 = qword_100117E88;
                     }
 
                     else
                     {
-                      v858 = __stderrp;
+                      v980 = __stderrp;
                     }
 
-                    fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v858);
+                    fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v980);
                   }
 
-                  *__error() = v851;
+                  *__error() = v971;
                 }
 
-                v869 = [v933 debugDescription];
-                v870 = v869;
-                [v869 UTF8String];
-                sub_100035A54("[SPTextualReportParser parseSpindumpFile:andReportToStream:]", "SPTextualReportParser.m", 820, "%s: No angle bracket contents nor state info for non-frame (%s)", v871, v872, v873, v874, "heaviestNode.angleBracketContents || heaviestNode.stateInfo");
+                v991 = [v1056 debugDescription];
+                v992 = v991;
+                uTF8String33 = [v991 UTF8String];
+                sub_100035A54("[SPTextualReportParser parseSpindumpFile:andReportToStream:]", "SPTextualReportParser.m", 820, "%s: No angle bracket contents nor state info for non-frame (%s)", v994, v995, v996, v997, "heaviestNode.angleBracketContents || heaviestNode.stateInfo", uTF8String33);
 
 LABEL_1248:
                 abort();
               }
 
-              v449 = 0;
-              v912 = v444 + v435 - 1;
+              v498 = 0;
+              v1035 = v493 + v484 - 1;
               while (1)
               {
-                v450 = v933;
-                if (v933)
+                v499 = v1056;
+                if (v1056)
                 {
-                  v450 = objc_getProperty(v933, v448, 16, 1);
+                  v499 = objc_getProperty(v1056, v497, 16, 1);
                 }
 
-                v451 = v450;
-                v452 = v449 < [v451 count];
+                v500 = v499;
+                v501 = v498 < [v500 count];
 
-                if (!v452)
+                if (!v501)
                 {
                   break;
                 }
 
-                if (v933)
+                if (v1056)
                 {
-                  v454 = objc_getProperty(v933, v453, 16, 1);
+                  v503 = objc_getProperty(v1056, v502, 16, 1);
                 }
 
                 else
                 {
-                  v454 = 0;
+                  v503 = 0;
                 }
 
-                v455 = v454;
-                v456 = [v455 objectAtIndexedSubscript:v449];
+                v504 = v503;
+                v505 = [v504 objectAtIndexedSubscript:v498];
 
-                if (v933)
+                if (v1056)
                 {
-                  v457 = *(v933 + 8);
-                  v458 = *(v933 + 3);
+                  v506 = *(v1056 + 8);
+                  v507 = *(v1056 + 3);
                 }
 
                 else
                 {
-                  v457 = 0;
-                  v458 = 0;
+                  v506 = 0;
+                  v507 = 0;
                 }
 
-                v459 = v968;
-                v460 = v967;
-                v461 = v456;
-                uTF8String23 = [v456 UTF8String];
-                v464 = v933;
-                if (v933)
+                v508 = v1091;
+                v509 = v1090;
+                v510 = v505;
+                uTF8String34 = [v505 UTF8String];
+                v513 = v1056;
+                if (v1056)
                 {
-                  v465 = *(v933 + 4);
-                  v464 = objc_getProperty(v933, v462, 40, 1);
+                  v514 = *(v1056 + 4);
+                  v513 = objc_getProperty(v1056, v511, 40, 1);
                 }
 
                 else
                 {
-                  v465 = 0;
+                  v514 = 0;
                 }
 
-                v466 = v464;
-                v467 = v466;
-                sub_10009A310(stream, v460 + v459 * (v912 + v449), v457 & 1, v458, v918 + 2, uTF8String23, v465, [v466 UTF8String], 0, 0);
+                v515 = v513;
+                v516 = v515;
+                sub_10009A310(stream, v509 + v508 * (v1035 + v498), v506 & 1, v507, v1041 + 2, uTF8String34, v514, [v515 UTF8String], 0, 0);
 
-                ++v449;
+                ++v498;
               }
 
-              v468 = v933;
-              if (v933)
+              v517 = v1056;
+              if (v1056)
               {
-                v468 = objc_getProperty(v933, v453, 16, 1);
+                v517 = objc_getProperty(v1056, v502, 16, 1);
               }
 
-              v469 = v468;
-              v470 = [v469 count] > 1;
+              v518 = v517;
+              v519 = [v518 count] > 1;
 
-              if (v470)
+              if (v519)
               {
-                ptr = malloc_type_realloc(ptr, 8 * (v903 + 1), 0x100004000313F17uLL);
-                v473 = &ptr[v893 >> 29];
-                *v473 = v896;
-                if (v933)
+                ptr = malloc_type_realloc(ptr, 8 * (v1026 + 1), 0x100004000313F17uLL);
+                v522 = &ptr[v1016 >> 29];
+                *v522 = v1019;
+                if (v1056)
                 {
-                  v474 = objc_getProperty(v933, v472, 16, 1);
+                  v523 = objc_getProperty(v1056, v521, 16, 1);
                 }
 
                 else
                 {
-                  v474 = 0;
+                  v523 = 0;
                 }
 
-                v475 = v474;
-                v476 = [v475 count];
-                if (v903 < 1)
+                v524 = v523;
+                v525 = [v524 count];
+                if (v1026 < 1)
                 {
-                  v477 = 0;
+                  v526 = 0;
                 }
 
                 else
                 {
-                  v477 = *&ptr[8 * (v903 & 0x7FFFFFFF) - 4];
+                  v526 = *&ptr[8 * (v1026 & 0x7FFFFFFF) - 4];
                 }
 
-                v473[1] = v476 - 1 + v477;
-                v881 = v903 + 1;
+                v522[1] = v525 - 1 + v526;
+                v1004 = v1026 + 1;
                 goto LABEL_730;
               }
 
-              v881 = v903;
+              v1004 = v1026;
 LABEL_731:
-              if (v933)
+              if (v1056)
               {
-                v494 = objc_getProperty(v933, v471, 48, 1);
-                v495 = v494;
-                if (v494 && [v494 count])
+                v543 = objc_getProperty(v1056, v520, 48, 1);
+                v544 = v543;
+                if (v543 && [v543 count])
                 {
-                  [v495 sortUsingComparator:&stru_100109EA0];
-                  [v925 addObject:v495];
+                  [v544 sortUsingComparator:&stru_100109EA0];
+                  [v1048 addObject:v544];
                 }
               }
 
               else
               {
-                v495 = 0;
+                v544 = 0;
               }
 
 LABEL_736:
-              v432 = v881;
-              lastObject = v908;
+              v481 = v1004;
+              lastObject = v1031;
             }
           }
 
           if (byte_100117E80 == 1)
           {
-            v364 = *__error();
-            v365 = sub_100035B80();
-            if (os_log_type_enabled(v365, OS_LOG_TYPE_ERROR))
+            v404 = __error();
+            v405 = *v404;
+            v407 = sub_100035B80(v404, v406);
+            if (os_log_type_enabled(v407, OS_LOG_TYPE_ERROR))
             {
               *buf = 67109378;
-              *&buf[4] = v905;
+              *&buf[4] = v1028;
               *&buf[8] = 2112;
-              *&buf[10] = v150;
-              _os_log_error_impl(&_mh_execute_header, v365, OS_LOG_TYPE_ERROR, "Parsing spindump text: Unexpected line in call tree, ignoring (%d: %@)", buf, 0x12u);
+              *&buf[10] = v181;
+              _os_log_error_impl(&_mh_execute_header, v407, OS_LOG_TYPE_ERROR, "Parsing spindump text: Unexpected line in call tree, ignoring (%d: %@)", buf, 0x12u);
             }
 
-            *__error() = v364;
+            *__error() = v405;
           }
 
-          v921 = 0;
-          v154 = 5;
+          v1044 = 0;
+          v185 = 5;
           if (byte_100117E81 != 1 || dword_100117510 > 3)
           {
-            v215 = 0;
+            v246 = 0;
             goto LABEL_784;
           }
 
-          v366 = *__error();
-          v367 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Parsing spindump text: Unexpected line in call tree, ignoring (%d: %@)", v905, v150);
-          v368 = v367;
-          if (v367)
+          v408 = *__error();
+          v409 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Parsing spindump text: Unexpected line in call tree, ignoring (%d: %@)", v1028, v181);
+          v411 = v409;
+          if (v409)
           {
-            v369 = CFStringGetCStringPtr(v367, 0x8000100u);
-            if (v369)
+            v412 = CFStringGetCStringPtr(v409, 0x8000100u);
+            if (v412)
             {
-              v370 = 0;
+              v413 = 0;
             }
 
             else
             {
-              v369 = malloc_type_calloc(0x400uLL, 1uLL, 0xEB90DDBAuLL);
-              CFStringGetCString(v368, v369, 1024, 0x8000100u);
-              v370 = v369;
+              v412 = malloc_type_calloc(0x400uLL, 1uLL, 0xEB90DDBAuLL);
+              CFStringGetCString(v411, v412, 1024, 0x8000100u);
+              v413 = v412;
             }
 
             if (qword_100117E88)
             {
-              v560 = qword_100117E88;
+              v612 = qword_100117E88;
             }
 
             else
             {
-              v560 = __stderrp;
+              v612 = __stderrp;
             }
 
-            fprintf(v560, "%s\n", v369);
-            if (v370)
+            fprintf(v612, "%s\n", v412);
+            if (v413)
             {
-              free(v370);
+              free(v413);
             }
 
-            CFRelease(v368);
+            CFRelease(v411);
           }
 
           else
           {
-            v510 = sub_100035B80();
-            if (os_log_type_enabled(v510, OS_LOG_TYPE_FAULT))
+            v562 = sub_100035B80(0, v410);
+            if (os_log_type_enabled(v562, OS_LOG_TYPE_FAULT))
             {
               *buf = 67109378;
-              *&buf[4] = v905;
+              *&buf[4] = v1028;
               *&buf[8] = 2112;
-              *&buf[10] = v150;
-              _os_log_fault_impl(&_mh_execute_header, v510, OS_LOG_TYPE_FAULT, "Unable to format: Parsing spindump text: Unexpected line in call tree, ignoring (%d: %@)", buf, 0x12u);
+              *&buf[10] = v181;
+              _os_log_fault_impl(&_mh_execute_header, v562, OS_LOG_TYPE_FAULT, "Unable to format: Parsing spindump text: Unexpected line in call tree, ignoring (%d: %@)", buf, 0x12u);
             }
 
             if (qword_100117E88)
             {
-              v511 = qword_100117E88;
+              v563 = qword_100117E88;
             }
 
             else
             {
-              v511 = __stderrp;
+              v563 = __stderrp;
             }
 
-            fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v511);
+            fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v563);
           }
 
-          v561 = __error();
-          v921 = 0;
-          v215 = 0;
-          *v561 = v366;
+          v613 = __error();
+          v1044 = 0;
+          v246 = 0;
+          *v613 = v408;
           goto LABEL_587;
         }
 
-        v336 = [v333 rangeWithName:@"binaryIndex"];
-        if (v336 == 0x7FFFFFFFFFFFFFFFLL)
+        v376 = [v373 rangeWithName:@"binaryIndex"];
+        if (v376 == 0x7FFFFFFFFFFFFFFFLL)
         {
 LABEL_503:
-          fprintf(streamCopy5, "%s\n", v976[3]);
+          fprintf(streamCopy5, "%s\n", v1099[3]);
         }
 
         else
         {
-          v374 = [v150 substringWithRange:{v336, v335}];
-          v375 = sub_10009A270(v374);
+          v417 = [v181 substringWithRange:{v376, v375}];
+          v418 = sub_10009A270(v417);
 
-          v376 = v150;
-          if (v375 >= [v947 count])
+          v419 = v181;
+          if (v418 >= [v1070 count])
           {
             if (byte_100117E80 == 1)
             {
-              v404 = *__error();
-              v405 = sub_100035B80();
-              if (os_log_type_enabled(v405, OS_LOG_TYPE_ERROR))
+              v450 = __error();
+              v451 = *v450;
+              v453 = sub_100035B80(v450, v452);
+              if (os_log_type_enabled(v453, OS_LOG_TYPE_ERROR))
               {
-                v562 = [v947 count];
+                v614 = [v1070 count];
                 *buf = 134218754;
-                *&buf[4] = v375;
+                *&buf[4] = v418;
                 *&buf[12] = 2048;
-                *&buf[14] = v562;
+                *&buf[14] = v614;
                 *&buf[22] = 1024;
-                *&buf[24] = v905;
+                *&buf[24] = v1028;
                 *&buf[28] = 2112;
-                *&buf[30] = v150;
-                _os_log_error_impl(&_mh_execute_header, v405, OS_LOG_TYPE_ERROR, "Parsing spindump text: corrupt condensed file, UUID line has out-of-bounds binary index %lu (%lu binaries) (%d: %@)", buf, 0x26u);
+                *&buf[30] = v181;
+                _os_log_error_impl(&_mh_execute_header, v453, OS_LOG_TYPE_ERROR, "Parsing spindump text: corrupt condensed file, UUID line has out-of-bounds binary index %lu (%lu binaries) (%d: %@)", buf, 0x26u);
               }
 
-              v376 = v150;
-              *__error() = v404;
+              v419 = v181;
+              *__error() = v451;
             }
 
             streamCopy5 = stream;
             if (byte_100117E81 == 1 && dword_100117510 <= 3)
             {
-              v406 = *__error();
-              v407 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Parsing spindump text: corrupt condensed file, UUID line has out-of-bounds binary index %lu (%lu binaries) (%d: %@)", v375, [v947 count], v905, v376);
-              v408 = v407;
-              if (v407)
+              v454 = *__error();
+              v455 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Parsing spindump text: corrupt condensed file, UUID line has out-of-bounds binary index %lu (%lu binaries) (%d: %@)", v418, [v1070 count], v1028, v419);
+              v457 = v455;
+              if (v455)
               {
-                v409 = CFStringGetCStringPtr(v407, 0x8000100u);
-                if (v409)
+                v458 = CFStringGetCStringPtr(v455, 0x8000100u);
+                if (v458)
                 {
-                  v410 = 0;
+                  v459 = 0;
                 }
 
                 else
                 {
-                  v409 = malloc_type_calloc(0x400uLL, 1uLL, 0x8168DFCBuLL);
-                  CFStringGetCString(v408, v409, 1024, 0x8000100u);
-                  v410 = v409;
+                  v458 = malloc_type_calloc(0x400uLL, 1uLL, 0x8168DFCBuLL);
+                  CFStringGetCString(v457, v458, 1024, 0x8000100u);
+                  v459 = v458;
                 }
 
                 if (qword_100117E88)
                 {
-                  v512 = qword_100117E88;
+                  v564 = qword_100117E88;
                 }
 
                 else
                 {
-                  v512 = __stderrp;
+                  v564 = __stderrp;
                 }
 
-                fprintf(v512, "%s\n", v409);
-                if (v410)
+                fprintf(v564, "%s\n", v458);
+                if (v459)
                 {
-                  free(v410);
+                  free(v459);
                 }
 
-                CFRelease(v408);
+                CFRelease(v457);
               }
 
               else
               {
-                v505 = sub_100035B80();
-                if (os_log_type_enabled(v505, OS_LOG_TYPE_FAULT))
+                v557 = sub_100035B80(0, v456);
+                if (os_log_type_enabled(v557, OS_LOG_TYPE_FAULT))
                 {
-                  v563 = [v947 count];
+                  v615 = [v1070 count];
                   *buf = 134218754;
-                  *&buf[4] = v375;
+                  *&buf[4] = v418;
                   *&buf[12] = 2048;
-                  *&buf[14] = v563;
+                  *&buf[14] = v615;
                   *&buf[22] = 1024;
-                  *&buf[24] = v905;
+                  *&buf[24] = v1028;
                   *&buf[28] = 2112;
-                  *&buf[30] = v150;
-                  _os_log_fault_impl(&_mh_execute_header, v505, OS_LOG_TYPE_FAULT, "Unable to format: Parsing spindump text: corrupt condensed file, UUID line has out-of-bounds binary index %lu (%lu binaries) (%d: %@)", buf, 0x26u);
+                  *&buf[30] = v181;
+                  _os_log_fault_impl(&_mh_execute_header, v557, OS_LOG_TYPE_FAULT, "Unable to format: Parsing spindump text: corrupt condensed file, UUID line has out-of-bounds binary index %lu (%lu binaries) (%d: %@)", buf, 0x26u);
                 }
 
                 if (qword_100117E88)
                 {
-                  v506 = qword_100117E88;
+                  v558 = qword_100117E88;
                 }
 
                 else
                 {
-                  v506 = __stderrp;
+                  v558 = __stderrp;
                 }
 
-                fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v506);
+                fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v558);
               }
 
-              *__error() = v406;
+              *__error() = v454;
               streamCopy5 = stream;
             }
 
             goto LABEL_503;
           }
 
-          v377 = [v947 objectAtIndexedSubscript:v375];
-          if ([v334 rangeWithName:@"whitespace"] == 0x7FFFFFFFFFFFFFFFLL)
+          v420 = [v1070 objectAtIndexedSubscript:v418];
+          if ([v374 rangeWithName:@"whitespace"] == 0x7FFFFFFFFFFFFFFFLL)
           {
-            v379 = 13;
+            v422 = 13;
           }
 
           else
           {
-            v379 = v378;
+            v422 = v421;
           }
 
-          if (v377)
+          if (v420)
           {
-            v380 = objc_getProperty(v377, v378, 40, 1);
+            v423 = objc_getProperty(v420, v421, 40, 1);
           }
 
           else
           {
-            v380 = 0;
+            v423 = 0;
           }
 
-          v381 = v380;
-          uuid3 = [v381 uuid];
+          v424 = v423;
+          uuid3 = [v424 uuid];
           uUIDString3 = [uuid3 UUIDString];
-          v384 = uUIDString3;
-          fprintf(stream, "UUID:%*s%s\n", v379, "", [uUIDString3 UTF8String]);
+          v427 = uUIDString3;
+          fprintf(stream, "UUID:%*s%s\n", v422, "", [uUIDString3 UTF8String]);
         }
 
-        v921 = 0;
-        v215 = 0;
+        v1044 = 0;
+        v246 = 0;
         goto LABEL_587;
       }
 
-      v156 = v967;
-      v157 = v968;
-      v932 = v150;
-      v921 = v155;
-      v158 = objc_autoreleasePoolPush();
-      v160 = [v921 rangeWithName:@"angleBracketContents"];
-      if (v160 == 0x7FFFFFFFFFFFFFFFLL && (v160 = [v921 rangeWithName:@"otherInfo"], v160 == 0x7FFFFFFFFFFFFFFFLL))
+      v187 = v1090;
+      v188 = v1091;
+      v1055 = v181;
+      v1044 = v186;
+      v189 = objc_autoreleasePoolPush();
+      v191 = [v1044 rangeWithName:@"angleBracketContents"];
+      if (v191 == 0x7FFFFFFFFFFFFFFFLL && (v191 = [v1044 rangeWithName:@"otherInfo"], v191 == 0x7FFFFFFFFFFFFFFFLL))
       {
-        v161 = 0;
+        v192 = 0;
       }
 
       else
       {
-        v161 = [v932 substringWithRange:{v160, v159}];
+        v192 = [v1055 substringWithRange:{v191, v190}];
       }
 
-      v196 = [v921 rangeWithName:@"stateInfo"];
-      if (v196 == 0x7FFFFFFFFFFFFFFFLL)
+      v227 = [v1044 rangeWithName:@"stateInfo"];
+      if (v227 == 0x7FFFFFFFFFFFFFFFLL)
       {
-        v197 = 0;
+        v228 = 0;
       }
 
       else
       {
-        v216 = [v932 substringWithRange:{v196, v195}];
-        v217 = v216;
-        if (v935)
+        v247 = [v1055 substringWithRange:{v227, v226}];
+        v248 = v247;
+        if (v1058)
         {
-          v218 = sub_10009A270(v216);
-          v219 = objc_alloc_init(NSMutableString);
-          v197 = v219;
-          if ((v218 & 2) != 0)
+          v249 = sub_10009A270(v247);
+          v250 = objc_alloc_init(NSMutableString);
+          v228 = v250;
+          if ((v249 & 2) != 0)
           {
-            v220 = @"Frontmost App";
+            v251 = @"Frontmost App";
           }
 
           else
           {
-            v220 = @"Non-Frontmost App";
+            v251 = @"Non-Frontmost App";
           }
 
-          [v219 appendString:v220];
-          if ((v218 & 0x20) != 0)
+          [v250 appendString:v251];
+          if ((v249 & 0x20) != 0)
           {
-            v221 = @", Suppressed";
-          }
-
-          else
-          {
-            v221 = @", Non-Suppressed";
-          }
-
-          [v197 appendString:v221];
-          if ((v218 & 0x80) != 0)
-          {
-            v222 = @", Kernel mode";
+            v252 = @", Suppressed";
           }
 
           else
           {
-            v222 = @", User mode";
+            v252 = @", Non-Suppressed";
           }
 
-          [v197 appendString:v222];
-          if ((v218 & 0x10) != 0)
+          [v228 appendString:v252];
+          if ((v249 & 0x80) != 0)
           {
-            if ((v218 & 4) != 0)
+            v253 = @", Kernel mode";
+          }
+
+          else
+          {
+            v253 = @", User mode";
+          }
+
+          [v228 appendString:v253];
+          if ((v249 & 0x10) != 0)
+          {
+            if ((v249 & 4) != 0)
             {
-              v223 = @", User Idle";
+              v254 = @", User Idle";
             }
 
             else
             {
-              v223 = @", User Active";
+              v254 = @", User Active";
             }
 
-            [v197 appendString:v223];
+            [v228 appendString:v254];
           }
 
-          v224 = (v218 & 8) != 0 ? @", On Battery" : @", On AC";
-          [v197 appendString:v224];
-          [v197 appendFormat:@", Effective %s", sub_10009CC68((v218 >> 8) & 7)];
-          [v197 appendFormat:@", Requested %s", sub_10009CC68((v218 >> 11) & 7)];
-          [v197 appendFormat:@", Override %s", sub_10009CC68((v218 >> 14) & 7)];
+          v255 = (v249 & 8) != 0 ? @", On Battery" : @", On AC";
+          [v228 appendString:v255];
+          [v228 appendFormat:@", Effective %s", sub_10009CC68((v249 >> 8) & 7)];
+          [v228 appendFormat:@", Requested %s", sub_10009CC68((v249 >> 11) & 7)];
+          [v228 appendFormat:@", Override %s", sub_10009CC68((v249 >> 14) & 7)];
         }
 
         else
         {
-          v197 = v216;
+          v228 = v247;
         }
       }
 
-      v288 = [v921 rangeWithName:@"count"];
-      if (v288 == 0x7FFFFFFFFFFFFFFFLL)
+      v325 = [v1044 rangeWithName:@"count"];
+      if (v325 == 0x7FFFFFFFFFFFFFFFLL)
       {
-        v289 = 0xFFFFFFFFLL;
+        v326 = 0xFFFFFFFFLL;
       }
 
       else
       {
-        v290 = [v932 substringWithRange:{v288, v287}];
-        sub_10009A270(v290);
+        v327 = [v1055 substringWithRange:{v325, v324}];
+        sub_10009A270(v327);
 
-        if ((v935 & 1) == 0 && [v921 rangeWithName:@"countAndWhitespace"] == 0x7FFFFFFFFFFFFFFFLL)
+        if ((v1058 & 1) == 0 && [v1044 rangeWithName:@"countAndWhitespace"] == 0x7FFFFFFFFFFFFFFFLL)
         {
           if (byte_100117E80 == 1)
           {
-            v734 = *__error();
-            v735 = sub_100035B80();
-            if (os_log_type_enabled(v735, OS_LOG_TYPE_ERROR))
+            v834 = __error();
+            v835 = *v834;
+            v837 = sub_100035B80(v834, v836);
+            if (os_log_type_enabled(v837, OS_LOG_TYPE_ERROR))
             {
-              v736 = v932;
-              [v932 UTF8String];
+              v838 = v1055;
+              [v1055 UTF8String];
               sub_1000BD3D4();
             }
 
-            *__error() = v734;
+            *__error() = v835;
           }
 
           if (byte_100117E81 == 1 && dword_100117510 <= 3)
           {
-            v737 = *__error();
-            v738 = v932;
-            v739 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s: frame match with no count and whitespace (%d: %s)", "range.location != NSNotFound", v905, [v932 UTF8String]);
-            v740 = v739;
-            if (v739)
+            v839 = *__error();
+            v840 = v1055;
+            v841 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s: frame match with no count and whitespace (%d: %s)", "range.location != NSNotFound", v1028, [v1055 UTF8String]);
+            v843 = v841;
+            if (v841)
             {
-              v814 = CFStringGetCStringPtr(v739, 0x8000100u);
-              if (v814)
+              v929 = CFStringGetCStringPtr(v841, 0x8000100u);
+              if (v929)
               {
-                v815 = 0;
+                v930 = 0;
               }
 
               else
               {
-                v814 = malloc_type_calloc(0x400uLL, 1uLL, 0xB7B0184FuLL);
-                CFStringGetCString(v740, v814, 1024, 0x8000100u);
-                v815 = v814;
+                v929 = malloc_type_calloc(0x400uLL, 1uLL, 0xB7B0184FuLL);
+                CFStringGetCString(v843, v929, 1024, 0x8000100u);
+                v930 = v929;
               }
 
               if (qword_100117E88)
               {
-                v824 = qword_100117E88;
+                v940 = qword_100117E88;
               }
 
               else
               {
-                v824 = __stderrp;
+                v940 = __stderrp;
               }
 
-              fprintf(v824, "%s\n", v814);
-              if (v815)
+              fprintf(v940, "%s\n", v929);
+              if (v930)
               {
-                free(v815);
+                free(v930);
               }
 
-              CFRelease(v740);
+              CFRelease(v843);
             }
 
             else
             {
-              v741 = sub_100035B80();
-              if (os_log_type_enabled(v741, OS_LOG_TYPE_FAULT))
+              v844 = sub_100035B80(0, v842);
+              if (os_log_type_enabled(v844, OS_LOG_TYPE_FAULT))
               {
-                v742 = v932;
-                [v932 UTF8String];
+                v845 = v1055;
+                [v1055 UTF8String];
                 sub_1000BD418();
               }
 
               if (qword_100117E88)
               {
-                v743 = qword_100117E88;
+                v846 = qword_100117E88;
               }
 
               else
               {
-                v743 = __stderrp;
+                v846 = __stderrp;
               }
 
-              fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v743);
+              fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v846);
             }
 
-            *__error() = v737;
+            *__error() = v839;
           }
 
-          v825 = v932;
-          [v932 UTF8String];
-          sub_100035A54("ParseCallTreeNonFrameLine", "SPTextualReportParser.m", 2186, "%s: frame match with no count and whitespace (%d: %s)", v826, v827, v828, v829, "range.location != NSNotFound");
+          v941 = v1055;
+          uTF8String35 = [v1055 UTF8String];
+          sub_100035A54("ParseCallTreeNonFrameLine", "SPTextualReportParser.m", 2186, "%s: frame match with no count and whitespace (%d: %s)", v943, v944, v945, v946, "range.location != NSNotFound", v1028, uTF8String35);
           goto LABEL_1248;
         }
 
-        v289 = sub_100098494(v932, v921, v935, v156, v157);
+        v326 = sub_100098494(v1055, v1044, v1058, v187, v188);
       }
 
-      v292 = [v921 rangeWithName:@"indentWhitespace"] == 0x7FFFFFFFFFFFFFFFLL ? 0xFFFFFFFFLL : v291;
-      v907 = [v921 rangeWithName:@"kernelDot"];
-      v294 = [v921 rangeWithName:@"count"];
-      if (v294 == 0x7FFFFFFFFFFFFFFFLL)
+      v329 = [v1044 rangeWithName:@"indentWhitespace"] == 0x7FFFFFFFFFFFFFFFLL ? 0xFFFFFFFFLL : v328;
+      v1030 = [v1044 rangeWithName:@"kernelDot"];
+      v331 = [v1044 rangeWithName:@"count"];
+      if (v331 == 0x7FFFFFFFFFFFFFFFLL)
       {
         break;
       }
 
-      v296 = [v932 substringWithRange:{v294, v293}];
-      v295 = sub_10009A270(v296);
+      v333 = [v1055 substringWithRange:{v331, v330}];
+      v332 = sub_10009A270(v333);
 
-      if (v935)
+      if (v1058)
       {
         goto LABEL_446;
       }
 
-      v297 = [v921 rangeWithName:@"countAndWhitespace"];
-      v901 = v298;
-      if (v297 == 0x7FFFFFFFFFFFFFFFLL)
+      v334 = [v1044 rangeWithName:@"countAndWhitespace"];
+      v1024 = v335;
+      if (v334 == 0x7FFFFFFFFFFFFFFFLL)
       {
         if (byte_100117E80 == 1)
         {
-          v744 = *__error();
-          v745 = sub_100035B80();
-          if (os_log_type_enabled(v745, OS_LOG_TYPE_ERROR))
+          v847 = __error();
+          v848 = *v847;
+          v850 = sub_100035B80(v847, v849);
+          if (os_log_type_enabled(v850, OS_LOG_TYPE_ERROR))
           {
-            v746 = v932;
-            [v932 UTF8String];
+            v851 = v1055;
+            [v1055 UTF8String];
             sub_1000BD3D4();
           }
 
-          *__error() = v744;
+          *__error() = v848;
         }
 
         if (byte_100117E81 == 1 && dword_100117510 <= 3)
         {
-          v747 = *__error();
-          v748 = v932;
-          v749 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s: frame match with no count and whitespace (%d: %s)", "range.location != NSNotFound", v905, [v932 UTF8String]);
-          v750 = v749;
-          if (v749)
+          v852 = *__error();
+          v853 = v1055;
+          v854 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s: frame match with no count and whitespace (%d: %s)", "range.location != NSNotFound", v1028, [v1055 UTF8String]);
+          v856 = v854;
+          if (v854)
           {
-            v816 = CFStringGetCStringPtr(v749, 0x8000100u);
-            if (v816)
+            v931 = CFStringGetCStringPtr(v854, 0x8000100u);
+            if (v931)
             {
-              v817 = 0;
+              v932 = 0;
             }
 
             else
             {
-              v816 = malloc_type_calloc(0x400uLL, 1uLL, 0xE3B51BFCuLL);
-              CFStringGetCString(v750, v816, 1024, 0x8000100u);
-              v817 = v816;
+              v931 = malloc_type_calloc(0x400uLL, 1uLL, 0xE3B51BFCuLL);
+              CFStringGetCString(v856, v931, 1024, 0x8000100u);
+              v932 = v931;
             }
 
             if (qword_100117E88)
             {
-              v830 = qword_100117E88;
+              v947 = qword_100117E88;
             }
 
             else
             {
-              v830 = __stderrp;
+              v947 = __stderrp;
             }
 
-            fprintf(v830, "%s\n", v816);
-            if (v817)
+            fprintf(v947, "%s\n", v931);
+            if (v932)
             {
-              free(v817);
+              free(v932);
             }
 
-            CFRelease(v750);
+            CFRelease(v856);
           }
 
           else
           {
-            v751 = sub_100035B80();
-            if (os_log_type_enabled(v751, OS_LOG_TYPE_FAULT))
+            v857 = sub_100035B80(0, v855);
+            if (os_log_type_enabled(v857, OS_LOG_TYPE_FAULT))
             {
-              v752 = v932;
-              [v932 UTF8String];
+              v858 = v1055;
+              [v1055 UTF8String];
               sub_1000BD418();
             }
 
             if (qword_100117E88)
             {
-              v753 = qword_100117E88;
+              v859 = qword_100117E88;
             }
 
             else
             {
-              v753 = __stderrp;
+              v859 = __stderrp;
             }
 
-            fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v753);
+            fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v859);
           }
 
-          *__error() = v747;
+          *__error() = v852;
         }
 
-        v831 = v932;
-        [v932 UTF8String];
-        sub_100035A54("ParseCallTreeNonFrameLine", "SPTextualReportParser.m", 2219, "%s: frame match with no count and whitespace (%d: %s)", v832, v833, v834, v835, "range.location != NSNotFound");
+        v948 = v1055;
+        uTF8String36 = [v1055 UTF8String];
+        sub_100035A54("ParseCallTreeNonFrameLine", "SPTextualReportParser.m", 2219, "%s: frame match with no count and whitespace (%d: %s)", v950, v951, v952, v953, "range.location != NSNotFound", v1028, uTF8String36);
         goto LABEL_1248;
       }
 
 LABEL_448:
-      v300 = [v921 rangeWithName:@"startIndex"];
-      if (v300 == 0x7FFFFFFFFFFFFFFFLL)
+      v337 = [v1044 rangeWithName:@"startIndex"];
+      if (v337 == 0x7FFFFFFFFFFFFFFFLL)
       {
-        v301 = 0;
-        v302 = 0;
+        v338 = 0;
+        v339 = 0;
       }
 
       else
       {
-        v303 = [v932 substringWithRange:{v300, v299}];
-        v301 = sub_10009A270(v303);
+        v340 = [v1055 substringWithRange:{v337, v336}];
+        v338 = sub_10009A270(v340);
 
-        v305 = [v921 rangeWithName:@"endIndex"];
-        if (v305 == 0x7FFFFFFFFFFFFFFFLL)
+        v342 = [v1044 rangeWithName:@"endIndex"];
+        if (v342 == 0x7FFFFFFFFFFFFFFFLL)
         {
-          v302 = v301;
+          v339 = v338;
         }
 
         else
         {
-          v306 = [v932 substringWithRange:{v305, v304}];
-          v302 = sub_10009A270(v306);
+          v343 = [v1055 substringWithRange:{v342, v341}];
+          v339 = sub_10009A270(v343);
         }
       }
 
-      objc_autoreleasePoolPop(v158);
-      v307 = v161;
-      v308 = v197;
+      objc_autoreleasePoolPop(v189);
+      v344 = v192;
+      v345 = v228;
 
-      v917 = v161;
-      v911 = v197;
-      v309 = v295;
-      if (v295 > 0)
+      v1040 = v192;
+      v1034 = v228;
+      v346 = v332;
+      if (v332 > 0)
       {
-        v310 = v881;
-        v311 = v895;
-        if (v301)
+        v347 = v1004;
+        v348 = v1018;
+        if (v338)
         {
-          v312 = *p_startIndex;
+          v349 = *p_startIndex;
           if (*p_startIndex)
           {
-            if (v301 < v312)
+            if (v338 < v349)
             {
-              v309 = v301 + v295 - v312;
-              v301 = *p_startIndex;
+              v346 = v338 + v332 - v349;
+              v338 = *p_startIndex;
             }
           }
         }
 
-        if (v302)
+        if (v339)
         {
-          v313 = self->_endIndex;
-          if (v313)
+          v350 = self->_endIndex;
+          if (v350)
           {
-            if (v302 > v313)
+            if (v339 > v350)
             {
-              v309 = v309 - v302 + v313;
-              v302 = self->_endIndex;
+              v346 = v346 - v339 + v350;
+              v339 = self->_endIndex;
             }
           }
         }
 
-        if (v309 <= 0)
+        if (v346 <= 0)
         {
-          if (v301)
+          if (v338)
           {
-            v330 = self->_endIndex;
-            if (v330)
+            v370 = self->_endIndex;
+            if (v370)
             {
-              v331 = v301 <= v330;
+              v371 = v338 <= v370;
             }
 
             else
             {
-              v331 = 1;
+              v371 = 1;
             }
 
-            v332 = !v331;
-            v875 |= v332;
+            v372 = !v371;
+            v998 |= v372;
           }
 
 LABEL_782:
-          v154 = 5;
+          v185 = 5;
 LABEL_783:
 
-          v215 = 0;
+          v246 = 0;
 LABEL_784:
-          v931 = v927;
+          v1054 = v1050;
           goto LABEL_785;
         }
 
         goto LABEL_463;
       }
 
-      v311 = v895;
-      v310 = v881;
-      if (v895 >= 1)
+      v348 = v1018;
+      v347 = v1004;
+      if (v1018 >= 1)
       {
-        v315 = v292 - (v967 + v895);
-        if (v292 > v967 + v895)
+        v352 = v329 - (v1090 + v1018);
+        if (v329 > v1090 + v1018)
         {
-          v316 = (v315 / v968);
-          if ((v316 & 0x80000000) != 0)
+          v353 = (v352 / v1091);
+          if ((v353 & 0x80000000) != 0)
           {
             if (byte_100117E80 == 1)
             {
-              v393 = *__error();
-              v394 = sub_100035B80();
-              if (os_log_type_enabled(v394, OS_LOG_TYPE_DEBUG))
+              v436 = __error();
+              v437 = *v436;
+              v439 = sub_100035B80(v436, v438);
+              if (os_log_type_enabled(v439, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 67109890;
-                *&buf[4] = v316;
+                *&buf[4] = v353;
                 *&buf[8] = 1024;
-                *&buf[10] = v292;
+                *&buf[10] = v329;
                 *&buf[14] = 1024;
-                *&buf[16] = v905;
+                *&buf[16] = v1028;
                 *&buf[20] = 2112;
-                *&buf[22] = v932;
-                _os_log_debug_impl(&_mh_execute_header, v394, OS_LOG_TYPE_DEBUG, "Parsing spindump text: Bad indent level %d for %d whitespace (%d: %@)", buf, 0x1Eu);
+                *&buf[22] = v1055;
+                _os_log_debug_impl(&_mh_execute_header, v439, OS_LOG_TYPE_DEBUG, "Parsing spindump text: Bad indent level %d for %d whitespace (%d: %@)", buf, 0x1Eu);
               }
 
-              v309 = v295;
-              *__error() = v393;
-              v310 = v881;
-              v311 = v895;
+              v346 = v332;
+              *__error() = v437;
+              v347 = v1004;
+              v348 = v1018;
             }
 
-            v289 = 0;
+            v326 = 0;
             if (byte_100117E81 == 1 && dword_100117510 <= 0)
             {
-              v395 = *__error();
-              v396 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Parsing spindump text: Bad indent level %d for %d whitespace (%d: %@)", v316, v292, v905, v932);
-              v397 = v396;
-              if (v396)
+              v440 = *__error();
+              v441 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Parsing spindump text: Bad indent level %d for %d whitespace (%d: %@)", v353, v329, v1028, v1055);
+              v443 = v441;
+              if (v441)
               {
-                v398 = CFStringGetCStringPtr(v396, 0x8000100u);
-                if (v398)
+                v444 = CFStringGetCStringPtr(v441, 0x8000100u);
+                if (v444)
                 {
-                  v399 = 0;
+                  v445 = 0;
                 }
 
                 else
                 {
-                  v398 = malloc_type_calloc(0x400uLL, 1uLL, 0xE13E54BAuLL);
-                  CFStringGetCString(v397, v398, 1024, 0x8000100u);
-                  v399 = v398;
+                  v444 = malloc_type_calloc(0x400uLL, 1uLL, 0xE13E54BAuLL);
+                  CFStringGetCString(v443, v444, 1024, 0x8000100u);
+                  v445 = v444;
                 }
 
                 if (qword_100117E88)
                 {
-                  v509 = qword_100117E88;
+                  v561 = qword_100117E88;
                 }
 
                 else
                 {
-                  v509 = __stderrp;
+                  v561 = __stderrp;
                 }
 
-                fprintf(v509, "%s\n", v398);
-                if (v399)
+                fprintf(v561, "%s\n", v444);
+                if (v445)
                 {
-                  free(v399);
+                  free(v445);
                 }
 
-                CFRelease(v397);
+                CFRelease(v443);
               }
 
               else
               {
-                v503 = sub_100035B80();
-                if (os_log_type_enabled(v503, OS_LOG_TYPE_FAULT))
+                v555 = sub_100035B80(0, v442);
+                if (os_log_type_enabled(v555, OS_LOG_TYPE_FAULT))
                 {
                   *buf = 67109890;
-                  *&buf[4] = v316;
+                  *&buf[4] = v353;
                   *&buf[8] = 1024;
-                  *&buf[10] = v292;
+                  *&buf[10] = v329;
                   *&buf[14] = 1024;
-                  *&buf[16] = v905;
+                  *&buf[16] = v1028;
                   *&buf[20] = 2112;
-                  *&buf[22] = v932;
-                  _os_log_fault_impl(&_mh_execute_header, v503, OS_LOG_TYPE_FAULT, "Unable to format: Parsing spindump text: Bad indent level %d for %d whitespace (%d: %@)", buf, 0x1Eu);
+                  *&buf[22] = v1055;
+                  _os_log_fault_impl(&_mh_execute_header, v555, OS_LOG_TYPE_FAULT, "Unable to format: Parsing spindump text: Bad indent level %d for %d whitespace (%d: %@)", buf, 0x1Eu);
                 }
 
                 if (qword_100117E88)
                 {
-                  v504 = qword_100117E88;
+                  v556 = qword_100117E88;
                 }
 
                 else
                 {
-                  v504 = __stderrp;
+                  v556 = __stderrp;
                 }
 
-                fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v504);
-                v309 = v295;
+                fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v556);
+                v346 = v332;
               }
 
-              v289 = 0;
-              *__error() = v395;
-              v310 = v881;
-              v311 = v895;
+              v326 = 0;
+              *__error() = v440;
+              v347 = v1004;
+              v348 = v1018;
             }
           }
 
           else
           {
-            v289 = (v315 / v968);
+            v326 = (v352 / v1091);
           }
 
-          if (v882)
+          if (v1005)
           {
             goto LABEL_782;
           }
 
 LABEL_463:
-          v314 = 1;
+          v351 = 1;
           goto LABEL_469;
         }
       }
 
-      v289 = 0;
-      v314 = 0;
+      v326 = 0;
+      v351 = 0;
 LABEL_469:
-      if ((v289 & 0x80000000) != 0)
+      if ((v326 & 0x80000000) != 0)
       {
         if (byte_100117E80 == 1)
         {
-          v707 = *__error();
-          v708 = sub_100035B80();
-          if (os_log_type_enabled(v708, OS_LOG_TYPE_ERROR))
+          v800 = __error();
+          v801 = *v800;
+          v803 = sub_100035B80(v800, v802);
+          if (os_log_type_enabled(v803, OS_LOG_TYPE_ERROR))
           {
-            v709 = v932;
-            [v932 UTF8String];
+            v804 = v1055;
+            [v1055 UTF8String];
             sub_1000BD4E4();
           }
 
-          *__error() = v707;
+          *__error() = v801;
         }
 
         if (byte_100117E81 == 1 && dword_100117510 <= 3)
         {
-          v710 = *__error();
-          v711 = v932;
-          v712 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s: Non-frame line has count but no indent level (%d: %s)", "rawIndentLevel >= 0", v905, [v932 UTF8String]);
-          v713 = v712;
-          if (v712)
+          v805 = *__error();
+          v806 = v1055;
+          v807 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s: Non-frame line has count but no indent level (%d: %s)", "rawIndentLevel >= 0", v1028, [v1055 UTF8String]);
+          v809 = v807;
+          if (v807)
           {
-            v800 = CFStringGetCStringPtr(v712, 0x8000100u);
-            if (v800)
+            v913 = CFStringGetCStringPtr(v807, 0x8000100u);
+            if (v913)
             {
-              v801 = 0;
+              v914 = 0;
             }
 
             else
             {
-              v800 = malloc_type_calloc(0x400uLL, 1uLL, 0xF401C9C8uLL);
-              CFStringGetCString(v713, v800, 1024, 0x8000100u);
-              v801 = v800;
+              v913 = malloc_type_calloc(0x400uLL, 1uLL, 0xF401C9C8uLL);
+              CFStringGetCString(v809, v913, 1024, 0x8000100u);
+              v914 = v913;
             }
 
             if (qword_100117E88)
             {
-              v818 = qword_100117E88;
+              v933 = qword_100117E88;
             }
 
             else
             {
-              v818 = __stderrp;
+              v933 = __stderrp;
             }
 
-            fprintf(v818, "%s\n", v800);
-            if (v801)
+            fprintf(v933, "%s\n", v913);
+            if (v914)
             {
-              free(v801);
+              free(v914);
             }
 
-            CFRelease(v713);
+            CFRelease(v809);
           }
 
           else
           {
-            v714 = sub_100035B80();
-            if (os_log_type_enabled(v714, OS_LOG_TYPE_FAULT))
+            v810 = sub_100035B80(0, v808);
+            if (os_log_type_enabled(v810, OS_LOG_TYPE_FAULT))
             {
-              v715 = v932;
-              [v932 UTF8String];
+              v811 = v1055;
+              [v1055 UTF8String];
               sub_1000BD528();
             }
 
             if (qword_100117E88)
             {
-              v716 = qword_100117E88;
+              v812 = qword_100117E88;
             }
 
             else
             {
-              v716 = __stderrp;
+              v812 = __stderrp;
             }
 
-            fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v716);
+            fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v812);
           }
 
-          *__error() = v710;
+          *__error() = v805;
         }
 
-        v819 = v932;
-        [v932 UTF8String];
-        sub_100035A54("[SPTextualReportParser parseSpindumpFile:andReportToStream:]", "SPTextualReportParser.m", 640, "%s: Non-frame line has count but no indent level (%d: %s)", v820, v821, v822, v823, "rawIndentLevel >= 0");
+        v934 = v1055;
+        uTF8String37 = [v1055 UTF8String];
+        sub_100035A54("[SPTextualReportParser parseSpindumpFile:andReportToStream:]", "SPTextualReportParser.m", 640, "%s: Non-frame line has count but no indent level (%d: %s)", v936, v937, v938, v939, "rawIndentLevel >= 0", v1028, uTF8String37);
         goto LABEL_1248;
       }
 
-      if (v314 && v289 > v927 && v289 != v927 + 1)
+      if (v351 && v326 > v1050 && v326 != v1050 + 1)
       {
         if (byte_100117E80 == 1)
         {
-          v317 = *__error();
-          v318 = sub_100035B80();
-          if (os_log_type_enabled(v318, OS_LOG_TYPE_ERROR))
+          v354 = __error();
+          v355 = *v354;
+          v357 = sub_100035B80(v354, v356);
+          if (os_log_type_enabled(v357, OS_LOG_TYPE_ERROR))
           {
             *buf = 67109378;
-            *&buf[4] = v905;
+            *&buf[4] = v1028;
             *&buf[8] = 2112;
-            *&buf[10] = v932;
-            _os_log_error_impl(&_mh_execute_header, v318, OS_LOG_TYPE_ERROR, "Parsing spindump text: Unexpected indent for line (%d: %@)", buf, 0x12u);
+            *&buf[10] = v1055;
+            _os_log_error_impl(&_mh_execute_header, v357, OS_LOG_TYPE_ERROR, "Parsing spindump text: Unexpected indent for line (%d: %@)", buf, 0x12u);
           }
 
-          *__error() = v317;
+          *__error() = v355;
         }
 
-        v154 = 2;
+        v185 = 2;
         if (byte_100117E81 == 1 && dword_100117510 <= 3)
         {
-          v319 = *__error();
-          v320 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Parsing spindump text: Unexpected indent for line (%d: %@)", v905, v932);
-          v321 = v320;
-          if (v320)
+          v358 = *__error();
+          v359 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Parsing spindump text: Unexpected indent for line (%d: %@)", v1028, v1055);
+          v361 = v359;
+          if (v359)
           {
-            v322 = CFStringGetCStringPtr(v320, 0x8000100u);
-            if (v322)
+            v362 = CFStringGetCStringPtr(v359, 0x8000100u);
+            if (v362)
             {
-              v323 = 0;
+              v363 = 0;
             }
 
             else
             {
-              v322 = malloc_type_calloc(0x400uLL, 1uLL, 0xCFDF6F80uLL);
-              CFStringGetCString(v321, v322, 1024, 0x8000100u);
-              v323 = v322;
+              v362 = malloc_type_calloc(0x400uLL, 1uLL, 0xCFDF6F80uLL);
+              CFStringGetCString(v361, v362, 1024, 0x8000100u);
+              v363 = v362;
             }
 
             if (qword_100117E88)
             {
-              v422 = qword_100117E88;
+              v471 = qword_100117E88;
             }
 
             else
             {
-              v422 = __stderrp;
+              v471 = __stderrp;
             }
 
-            fprintf(v422, "%s\n", v322);
-            if (v323)
+            fprintf(v471, "%s\n", v362);
+            if (v363)
             {
-              free(v323);
+              free(v363);
             }
 
-            CFRelease(v321);
+            CFRelease(v361);
           }
 
           else
           {
-            v411 = sub_100035B80();
-            if (os_log_type_enabled(v411, OS_LOG_TYPE_FAULT))
+            v460 = sub_100035B80(0, v360);
+            if (os_log_type_enabled(v460, OS_LOG_TYPE_FAULT))
             {
               *buf = 67109378;
-              *&buf[4] = v905;
+              *&buf[4] = v1028;
               *&buf[8] = 2112;
-              *&buf[10] = v932;
-              _os_log_fault_impl(&_mh_execute_header, v411, OS_LOG_TYPE_FAULT, "Unable to format: Parsing spindump text: Unexpected indent for line (%d: %@)", buf, 0x12u);
+              *&buf[10] = v1055;
+              _os_log_fault_impl(&_mh_execute_header, v460, OS_LOG_TYPE_FAULT, "Unable to format: Parsing spindump text: Unexpected indent for line (%d: %@)", buf, 0x12u);
             }
 
             if (qword_100117E88)
             {
-              v412 = qword_100117E88;
+              v461 = qword_100117E88;
             }
 
             else
             {
-              v412 = __stderrp;
+              v461 = __stderrp;
             }
 
-            fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v412);
+            fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v461);
           }
 
-          *__error() = v319;
-          v154 = 2;
+          *__error() = v358;
+          v185 = 2;
         }
 
         goto LABEL_783;
       }
 
-      if (v309 >= 1 && v311 <= 0)
+      if (v346 >= 1 && v348 <= 0)
       {
-        v311 = v901;
-        if (v901 <= 0)
+        v348 = v1024;
+        if (v1024 <= 0)
         {
-          v311 = vcvtpd_s64_f64(log10(v309)) + 2;
+          v348 = vcvtpd_s64_f64(log10(v346)) + 2;
         }
       }
 
-      v895 = v311;
-      if (!v314)
+      v1018 = v348;
+      if (!v351)
       {
-        if ((self->_isHeavy != v969) | v875 & 1)
+        if ((self->_isHeavy != v1092) | v998 & 1)
         {
           goto LABEL_672;
         }
 
-        v902 = v309;
-        v329 = 0;
-        v328 = 0;
+        v1025 = v346;
+        v369 = 0;
+        v368 = 0;
         goto LABEL_527;
       }
 
-      v902 = v309;
-      v324 = &ptr[8 * v310 + 4];
+      v1025 = v346;
+      v364 = &ptr[8 * v347 + 4];
       while (1)
       {
-        v325 = v310;
-        v326 = __OFSUB__(v310, 1);
-        v310 = (v310 - 1);
-        if (v310 < 0 != v326)
+        v365 = v347;
+        v366 = __OFSUB__(v347, 1);
+        v347 = (v347 - 1);
+        if (v347 < 0 != v366)
         {
           break;
         }
 
-        v327 = *(v324 - 3);
-        v324 -= 8;
-        if (v327 < v289)
+        v367 = *(v364 - 3);
+        v364 -= 8;
+        if (v367 < v326)
         {
-          v328 = *v324;
+          v368 = *v364;
           goto LABEL_521;
         }
       }
 
-      v328 = 0;
+      v368 = 0;
 LABEL_521:
-      if (!((self->_isHeavy != v969) | v875 & 1))
+      if (!((self->_isHeavy != v1092) | v998 & 1))
       {
-        v329 = v311;
-        v881 = v325;
+        v369 = v348;
+        v1004 = v365;
 LABEL_527:
-        v344 = v968;
-        v345 = v967;
-        v346 = v917;
-        uTF8String24 = [v917 UTF8String];
-        v348 = v911;
-        sub_10009A430(stream, v345 + (v328 + v289) * v344, v907 != 0x7FFFFFFFFFFFFFFFLL, v902, v329, uTF8String24, [v911 UTF8String], v301, v302);
+        v384 = v1091;
+        v385 = v1090;
+        v386 = v1040;
+        uTF8String38 = [v1040 UTF8String];
+        v388 = v1034;
+        sub_10009A430(stream, v385 + (v368 + v326) * v384, v1030 != 0x7FFFFFFFFFFFFFFFLL, v1025, v369, uTF8String38, [v1034 UTF8String], v338, v339);
         goto LABEL_672;
       }
 
-      if (!v289)
+      if (!v326)
       {
         if (!obj)
         {
@@ -4957,46 +4991,46 @@ LABEL_527:
           goto LABEL_668;
         }
 
-        v960 = 0u;
-        v961 = 0u;
-        v958 = 0u;
-        v959 = 0u;
+        v1083 = 0u;
+        v1084 = 0u;
+        v1081 = 0u;
+        v1082 = 0u;
         obj = obj;
-        v388 = [obj countByEnumeratingWithState:&v958 objects:v982 count:16];
-        if (!v388)
+        v431 = [obj countByEnumeratingWithState:&v1081 objects:v1105 count:16];
+        if (!v431)
         {
           goto LABEL_610;
         }
 
-        v389 = *v959;
+        v432 = *v1082;
         while (1)
         {
-          for (i = 0; i != v388; i = i + 1)
+          for (i = 0; i != v431; i = i + 1)
           {
-            if (*v959 != v389)
+            if (*v1082 != v432)
             {
               objc_enumerationMutation(obj);
             }
 
-            v391 = *(*(&v958 + 1) + 8 * i);
+            v434 = *(*(&v1081 + 1) + 8 * i);
             if (sub_1000BC614())
             {
-              v403 = v391;
+              v449 = v434;
 
-              if (v403)
+              if (v449)
               {
                 goto LABEL_670;
               }
 
 LABEL_668:
-              v403 = sub_10008F924(SPTreeNode, 0, v907 != 0x7FFFFFFFFFFFFFFFLL, 0, 0xFFFFFFFFFFFFFFFFLL, v911, v917);
-              [obj addObject:v403];
+              v449 = sub_10008F924(SPTreeNode, 0, v1030 != 0x7FFFFFFFFFFFFFFFLL, 0, 0xFFFFFFFFFFFFFFFFLL, v1034, v1040);
+              [obj addObject:v449];
               goto LABEL_669;
             }
           }
 
-          v388 = [obj countByEnumeratingWithState:&v958 objects:v982 count:16];
-          if (!v388)
+          v431 = [obj countByEnumeratingWithState:&v1081 objects:v1105 count:16];
+          if (!v431)
           {
 LABEL_610:
 
@@ -5005,320 +5039,322 @@ LABEL_610:
         }
       }
 
-      if (!v942)
+      if (!v1065)
       {
         if (byte_100117E80 == 1)
         {
-          v754 = *__error();
-          v755 = sub_100035B80();
-          if (os_log_type_enabled(v755, OS_LOG_TYPE_ERROR))
+          v860 = __error();
+          v861 = *v860;
+          v863 = sub_100035B80(v860, v862);
+          if (os_log_type_enabled(v863, OS_LOG_TYPE_ERROR))
           {
-            v756 = v932;
-            uTF8String25 = [v932 UTF8String];
+            v864 = v1055;
+            uTF8String39 = [v1055 UTF8String];
             *buf = 136315906;
             *&buf[4] = "previousNode";
             *&buf[12] = 1024;
-            *&buf[14] = v289;
+            *&buf[14] = v326;
             *&buf[18] = 1024;
-            *&buf[20] = v905;
+            *&buf[20] = v1028;
             *&buf[24] = 2080;
-            *&buf[26] = uTF8String25;
-            _os_log_error_impl(&_mh_execute_header, v755, OS_LOG_TYPE_ERROR, "%s: no previousNode for indent of %d (%d: %s)", buf, 0x22u);
+            *&buf[26] = uTF8String39;
+            _os_log_error_impl(&_mh_execute_header, v863, OS_LOG_TYPE_ERROR, "%s: no previousNode for indent of %d (%d: %s)", buf, 0x22u);
           }
 
-          *__error() = v754;
+          *__error() = v861;
         }
 
         if (byte_100117E81 == 1 && dword_100117510 <= 3)
         {
-          v759 = *__error();
-          v760 = v932;
-          v761 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s: no previousNode for indent of %d (%d: %s)", "previousNode", v289, v905, [v932 UTF8String]);
-          v762 = v761;
-          if (v761)
+          v867 = *__error();
+          v868 = v1055;
+          v869 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s: no previousNode for indent of %d (%d: %s)", "previousNode", v326, v1028, [v1055 UTF8String]);
+          v871 = v869;
+          if (v869)
           {
-            v862 = CFStringGetCStringPtr(v761, 0x8000100u);
-            if (v862)
+            v984 = CFStringGetCStringPtr(v869, 0x8000100u);
+            if (v984)
             {
-              v863 = 0;
+              v985 = 0;
             }
 
             else
             {
-              v862 = malloc_type_calloc(0x400uLL, 1uLL, 0xE6B72259uLL);
-              CFStringGetCString(v762, v862, 1024, 0x8000100u);
-              v863 = v862;
+              v984 = malloc_type_calloc(0x400uLL, 1uLL, 0xE6B72259uLL);
+              CFStringGetCString(v871, v984, 1024, 0x8000100u);
+              v985 = v984;
             }
 
             if (qword_100117E88)
             {
-              v865 = qword_100117E88;
+              v987 = qword_100117E88;
             }
 
             else
             {
-              v865 = __stderrp;
+              v987 = __stderrp;
             }
 
-            fprintf(v865, "%s\n", v862);
-            if (v863)
+            fprintf(v987, "%s\n", v984);
+            if (v985)
             {
-              free(v863);
+              free(v985);
             }
 
-            CFRelease(v762);
+            CFRelease(v871);
           }
 
           else
           {
-            v763 = sub_100035B80();
-            if (os_log_type_enabled(v763, OS_LOG_TYPE_FAULT))
+            v872 = sub_100035B80(0, v870);
+            if (os_log_type_enabled(v872, OS_LOG_TYPE_FAULT))
             {
-              v764 = v932;
-              uTF8String26 = [v932 UTF8String];
+              v873 = v1055;
+              uTF8String40 = [v1055 UTF8String];
               *buf = 136315906;
               *&buf[4] = "previousNode";
               *&buf[12] = 1024;
-              *&buf[14] = v289;
+              *&buf[14] = v326;
               *&buf[18] = 1024;
-              *&buf[20] = v905;
+              *&buf[20] = v1028;
               *&buf[24] = 2080;
-              *&buf[26] = uTF8String26;
-              _os_log_fault_impl(&_mh_execute_header, v763, OS_LOG_TYPE_FAULT, "Unable to format: %s: no previousNode for indent of %d (%d: %s)", buf, 0x22u);
+              *&buf[26] = uTF8String40;
+              _os_log_fault_impl(&_mh_execute_header, v872, OS_LOG_TYPE_FAULT, "Unable to format: %s: no previousNode for indent of %d (%d: %s)", buf, 0x22u);
             }
 
             if (qword_100117E88)
             {
-              v766 = qword_100117E88;
+              v875 = qword_100117E88;
             }
 
             else
             {
-              v766 = __stderrp;
+              v875 = __stderrp;
             }
 
-            fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v766);
+            fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v875);
           }
 
-          *__error() = v759;
+          *__error() = v867;
         }
 
-        v767 = v932;
-        [v932 UTF8String];
-        sub_100035A54("[SPTextualReportParser parseSpindumpFile:andReportToStream:]", "SPTextualReportParser.m", 697, "%s: no previousNode for indent of %d (%d: %s)", v768, v769, v770, v771, "previousNode");
+        v876 = v1055;
+        uTF8String41 = [v1055 UTF8String];
+        sub_100035A54("[SPTextualReportParser parseSpindumpFile:andReportToStream:]", "SPTextualReportParser.m", 697, "%s: no previousNode for indent of %d (%d: %s)", v878, v879, v880, v881, "previousNode", v326, v1028, uTF8String41);
         goto LABEL_1248;
       }
 
-      if (v927 < v289)
+      if (v1050 < v326)
       {
-        v343 = v942;
+        v383 = v1065;
         goto LABEL_628;
       }
 
-      v400 = v942;
+      v446 = v1065;
       do
       {
-        v401 = v400;
-        v402 = objc_loadWeakRetained(v400 + 7);
+        v447 = v446;
+        v448 = objc_loadWeakRetained(v446 + 7);
 
-        if (!v402)
+        if (!v448)
         {
           if (byte_100117E80 == 1)
           {
-            v682 = *__error();
-            v683 = sub_100035B80();
-            if (os_log_type_enabled(v683, OS_LOG_TYPE_ERROR))
+            v768 = __error();
+            v769 = *v768;
+            v771 = sub_100035B80(v768, v770);
+            if (os_log_type_enabled(v771, OS_LOG_TYPE_ERROR))
             {
-              v684 = v932;
-              uTF8String27 = [v932 UTF8String];
+              v772 = v1055;
+              uTF8String42 = [v1055 UTF8String];
               *buf = 136316162;
               *&buf[4] = "previousNode";
               *&buf[12] = 1024;
-              *&buf[14] = v289;
+              *&buf[14] = v326;
               *&buf[18] = 1024;
-              *&buf[20] = v927;
+              *&buf[20] = v1050;
               *&buf[24] = 1024;
-              *&buf[26] = v905;
+              *&buf[26] = v1028;
               *&buf[30] = 2080;
-              *&buf[32] = uTF8String27;
-              _os_log_error_impl(&_mh_execute_header, v683, OS_LOG_TYPE_ERROR, "%s: no previousNode for indent %d, previousIndentLevel %d (%d: %s)", buf, 0x28u);
+              *&buf[32] = uTF8String42;
+              _os_log_error_impl(&_mh_execute_header, v771, OS_LOG_TYPE_ERROR, "%s: no previousNode for indent %d, previousIndentLevel %d (%d: %s)", buf, 0x28u);
             }
 
-            *__error() = v682;
+            *__error() = v769;
           }
 
           if (byte_100117E81 == 1 && dword_100117510 <= 3)
           {
-            v687 = *__error();
-            v688 = v932;
-            v689 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s: no previousNode for indent %d, previousIndentLevel %d (%d: %s)", "previousNode", v289, v927, v905, [v932 UTF8String]);
-            v690 = v689;
-            if (v689)
+            v775 = *__error();
+            v776 = v1055;
+            v777 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s: no previousNode for indent %d, previousIndentLevel %d (%d: %s)", "previousNode", v326, v1050, v1028, [v1055 UTF8String]);
+            v779 = v777;
+            if (v777)
             {
-              v843 = CFStringGetCStringPtr(v689, 0x8000100u);
-              if (v843)
+              v961 = CFStringGetCStringPtr(v777, 0x8000100u);
+              if (v961)
               {
-                v844 = 0;
+                v962 = 0;
               }
 
               else
               {
-                v843 = malloc_type_calloc(0x400uLL, 1uLL, 0xBAF7CBA6uLL);
-                CFStringGetCString(v690, v843, 1024, 0x8000100u);
-                v844 = v843;
+                v961 = malloc_type_calloc(0x400uLL, 1uLL, 0xBAF7CBA6uLL);
+                CFStringGetCString(v779, v961, 1024, 0x8000100u);
+                v962 = v961;
               }
 
               if (qword_100117E88)
               {
-                v859 = qword_100117E88;
+                v981 = qword_100117E88;
               }
 
               else
               {
-                v859 = __stderrp;
+                v981 = __stderrp;
               }
 
-              fprintf(v859, "%s\n", v843);
-              if (v844)
+              fprintf(v981, "%s\n", v961);
+              if (v962)
               {
-                free(v844);
+                free(v962);
               }
 
-              CFRelease(v690);
+              CFRelease(v779);
             }
 
             else
             {
-              v691 = sub_100035B80();
-              if (os_log_type_enabled(v691, OS_LOG_TYPE_FAULT))
+              v780 = sub_100035B80(0, v778);
+              if (os_log_type_enabled(v780, OS_LOG_TYPE_FAULT))
               {
-                v692 = v932;
-                uTF8String28 = [v932 UTF8String];
+                v781 = v1055;
+                uTF8String43 = [v1055 UTF8String];
                 *buf = 136316162;
                 *&buf[4] = "previousNode";
                 *&buf[12] = 1024;
-                *&buf[14] = v289;
+                *&buf[14] = v326;
                 *&buf[18] = 1024;
-                *&buf[20] = v927;
+                *&buf[20] = v1050;
                 *&buf[24] = 1024;
-                *&buf[26] = v905;
+                *&buf[26] = v1028;
                 *&buf[30] = 2080;
-                *&buf[32] = uTF8String28;
-                _os_log_fault_impl(&_mh_execute_header, v691, OS_LOG_TYPE_FAULT, "Unable to format: %s: no previousNode for indent %d, previousIndentLevel %d (%d: %s)", buf, 0x28u);
+                *&buf[32] = uTF8String43;
+                _os_log_fault_impl(&_mh_execute_header, v780, OS_LOG_TYPE_FAULT, "Unable to format: %s: no previousNode for indent %d, previousIndentLevel %d (%d: %s)", buf, 0x28u);
               }
 
               if (qword_100117E88)
               {
-                v694 = qword_100117E88;
+                v783 = qword_100117E88;
               }
 
               else
               {
-                v694 = __stderrp;
+                v783 = __stderrp;
               }
 
-              fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v694);
+              fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v783);
             }
 
-            *__error() = v687;
+            *__error() = v775;
           }
 
-          v695 = v932;
-          [v932 UTF8String];
-          sub_100035A54("[SPTextualReportParser parseSpindumpFile:andReportToStream:]", "SPTextualReportParser.m", 702, "%s: no previousNode for indent %d, previousIndentLevel %d (%d: %s)", v696, v697, v698, v699, "previousNode");
+          v784 = v1055;
+          uTF8String44 = [v1055 UTF8String];
+          sub_100035A54("[SPTextualReportParser parseSpindumpFile:andReportToStream:]", "SPTextualReportParser.m", 702, "%s: no previousNode for indent %d, previousIndentLevel %d (%d: %s)", v786, v787, v788, v789, "previousNode", v326, v1050, v1028, uTF8String44);
           goto LABEL_1248;
         }
 
-        v400 = v402;
-        v25 = v927 <= v289;
-        v927 = (v927 - 1);
+        v446 = v448;
+        v29 = v1050 <= v326;
+        v1050 = (v1050 - 1);
       }
 
-      while (!v25);
-      LODWORD(v927) = v289 - 1;
-      v343 = v402;
+      while (!v29);
+      LODWORD(v1050) = v326 - 1;
+      v383 = v448;
 LABEL_628:
-      v942 = v343;
-      v403 = sub_1000BC444();
+      v1065 = v383;
+      v449 = sub_1000BC444();
 LABEL_669:
-      if (v403)
+      if (v449)
       {
 LABEL_670:
-        v403[3] += v902;
+        v449[3] += v1025;
       }
 
-      v426 = v942;
-      v942 = v403;
+      v475 = v1065;
+      v1065 = v449;
 
-      v881 = v325;
+      v1004 = v365;
 LABEL_672:
-      if (v314)
+      if (v351)
       {
-        v427 = v289;
+        v476 = v326;
       }
 
       else
       {
-        v427 = v927;
+        v476 = v1050;
       }
 
-      v931 = v427;
+      v1054 = v476;
 
 LABEL_676:
-      v215 = 0;
-      v154 = 0;
+      v246 = 0;
+      v185 = 0;
 LABEL_785:
 
-      v146 = 0;
-      v14 = v930;
-      v927 = v931;
+      v177 = 0;
+      v15 = v1053;
+      v1050 = v1054;
       streamCopy6 = stream;
-      v144 = v929;
+      v175 = v1052;
 LABEL_786:
-      objc_autoreleasePoolPop(v914);
-      if (v154 && v154 != 5)
+      objc_autoreleasePoolPop(v1037);
+      if (v185 && v185 != 5)
       {
         goto LABEL_28;
       }
 
-      if (!fgets((v976[3] + v146), *(v972 + 6) - v146, v5))
+      if (!fgets((v1099[3] + v177), *(v1095 + 6) - v177, v5))
       {
         goto LABEL_900;
       }
     }
 
-    v295 = -1;
+    v332 = -1;
 LABEL_446:
-    v901 = -1;
+    v1024 = -1;
     goto LABEL_448;
   }
 
   obj = 0;
   ptr = 0;
-  v14 = 0;
-  v942 = 0;
+  v15 = 0;
+  v1065 = 0;
 LABEL_900:
-  if (fgets(v976[3], *(v972 + 6), v5))
+  if (fgets(v1099[3], *(v1095 + 6), v5))
   {
     do
     {
-      fputs(v976[3], streamCopy6);
-      v13 = 1;
+      fputs(v1099[3], streamCopy6);
+      v14 = 1;
     }
 
-    while (fgets(v976[3], *(v972 + 6), v5));
+    while (fgets(v1099[3], *(v1095 + 6), v5));
   }
 
   else
   {
-    v13 = 1;
+    v14 = 1;
   }
 
 LABEL_127:
-  v83 = v976[3];
-  if (v83)
+  v99 = v1099[3];
+  if (v99)
   {
-    free(v83);
+    free(v99);
   }
 
   if (v5)
@@ -5331,10 +5367,10 @@ LABEL_127:
     free(ptr);
   }
 
-  _Block_object_dispose(&v971, 8);
-  _Block_object_dispose(&v975, 8);
+  _Block_object_dispose(&v1094, 8);
+  _Block_object_dispose(&v1098, 8);
   objc_autoreleasePoolPop(context);
-  return v13 & 1;
+  return v14 & 1;
 }
 
 @end

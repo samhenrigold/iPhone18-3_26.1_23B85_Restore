@@ -60,7 +60,7 @@
 
 - (id)_encryptedKeyDataWithShareMetadata:(id)metadata error:(id *)error
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   metadataCopy = metadata;
   v7 = MEMORY[0x277CBC880];
   if (*MEMORY[0x277CBC880] != -1)
@@ -75,9 +75,9 @@
     v12 = v9;
     v15 = objc_msgSend_share(metadataCopy, v13, v14);
     v18 = objc_msgSend_recordID(v15, v16, v17);
-    v32 = 138412290;
-    v33 = v18;
-    _os_log_impl(&dword_22506F000, v12, OS_LOG_TYPE_INFO, "Preparing encrypted key for vetting: adding ourselves to the public PCS for share %@", &v32, 0xCu);
+    v31 = 138412290;
+    v32 = v18;
+    _os_log_impl(&dword_22506F000, v12, OS_LOG_TYPE_INFO, "Preparing encrypted key for vetting: adding ourselves to the public PCS for share %@", &v31, 0xCu);
   }
 
   v19 = objc_msgSend_share(metadataCopy, v10, v11);
@@ -94,10 +94,10 @@
     v27 = *v8;
     if (os_log_type_enabled(*v8, OS_LOG_TYPE_ERROR))
     {
-      v31 = *error;
-      v32 = 138412290;
-      v33 = v31;
-      _os_log_error_impl(&dword_22506F000, v27, OS_LOG_TYPE_ERROR, "Unable to generate encrypted key to initiate share vetting: %@", &v32, 0xCu);
+      v30 = *error;
+      v31 = 138412290;
+      v32 = v30;
+      _os_log_error_impl(&dword_22506F000, v27, OS_LOG_TYPE_ERROR, "Unable to generate encrypted key to initiate share vetting: %@", &v31, 0xCu);
     }
 
     v28 = 0;
@@ -108,14 +108,12 @@
     v28 = objc_msgSend_publicPCSData(v24, v25, v26);
   }
 
-  v29 = *MEMORY[0x277D85DE8];
-
   return v28;
 }
 
 - (id)_addSelfIdentityToShareMetadataPublicPCS:(id)s forShareWithURL:(id)l error:(id *)error
 {
-  v110 = *MEMORY[0x277D85DE8];
+  v109 = *MEMORY[0x277D85DE8];
   sCopy = s;
   lCopy = l;
   v12 = objc_msgSend_container(self, v10, v11);
@@ -144,7 +142,7 @@ LABEL_17:
     if (os_log_type_enabled(*v22, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v107 = lCopy;
+      v106 = lCopy;
       _os_log_impl(&dword_22506F000, v59, OS_LOG_TYPE_INFO, "Share metadata for the share at URL %@ doesn't have protection data on it, skipping", buf, 0xCu);
     }
 
@@ -163,17 +161,17 @@ LABEL_17:
     v28 = v25;
     v31 = objc_msgSend_privateToken(sCopy, v29, v30);
     *buf = 138412546;
-    v107 = lCopy;
-    v108 = 2112;
-    v109 = v31;
+    v106 = lCopy;
+    v107 = 2112;
+    v108 = v31;
     _os_log_impl(&dword_22506F000, v28, OS_LOG_TYPE_INFO, "Preparing public PCS metadata for share at URL %@ using public sharing token %@", buf, 0x16u);
   }
 
   v32 = objc_msgSend_pcsManager(v12, v26, v27);
   v35 = objc_msgSend_privateToken(sCopy, v33, v34);
-  v105 = 0;
-  v37 = objc_msgSend_createSharingIdentityFromData_error_(v32, v36, v35, &v105);
-  v38 = v105;
+  v104 = 0;
+  v37 = objc_msgSend_createSharingIdentityFromData_error_(v32, v36, v35, &v104);
+  v38 = v104;
 
   if (!v37 || v38)
   {
@@ -185,13 +183,13 @@ LABEL_17:
     v61 = *v22;
     if (os_log_type_enabled(*v22, OS_LOG_TYPE_ERROR))
     {
-      v84 = v61;
-      v87 = objc_msgSend_privateToken(sCopy, v85, v86);
+      v83 = v61;
+      v86 = objc_msgSend_privateToken(sCopy, v84, v85);
       *buf = 138412546;
-      v107 = v87;
-      v108 = 2112;
-      v109 = v38;
-      _os_log_error_impl(&dword_22506F000, v84, OS_LOG_TYPE_ERROR, "Couldn't create a sharing public identity from %@: %@", buf, 0x16u);
+      v106 = v86;
+      v107 = 2112;
+      v108 = v38;
+      _os_log_error_impl(&dword_22506F000, v83, OS_LOG_TYPE_ERROR, "Couldn't create a sharing public identity from %@: %@", buf, 0x16u);
 
       if (!v37)
       {
@@ -216,9 +214,9 @@ LABEL_33:
   v41 = objc_msgSend_pcsManager(v12, v39, v40);
   v44 = objc_msgSend_share(sCopy, v42, v43);
   v47 = objc_msgSend_publicProtectionData(v44, v45, v46);
-  v104 = 0;
-  v49 = objc_msgSend_createSharePCSFromData_sharingIdentity_error_(v41, v48, v47, v37, &v104);
-  v38 = v104;
+  v103 = 0;
+  v49 = objc_msgSend_createSharePCSFromData_sharingIdentity_error_(v41, v48, v47, v37, &v103);
+  v38 = v103;
 
   if (!v49 || v38)
   {
@@ -231,14 +229,14 @@ LABEL_33:
     v64 = *v63;
     if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
     {
-      v88 = v64;
-      v91 = objc_msgSend_share(sCopy, v89, v90);
-      v94 = objc_msgSend_publicProtectionData(v91, v92, v93);
+      v87 = v64;
+      v90 = objc_msgSend_share(sCopy, v88, v89);
+      v93 = objc_msgSend_publicProtectionData(v90, v91, v92);
       *buf = 138543618;
-      v107 = v94;
-      v108 = 2112;
-      v109 = v37;
-      _os_log_error_impl(&dword_22506F000, v88, OS_LOG_TYPE_ERROR, "Couldn't create a public PCS from the PCS data %{public}@ for identity %@", buf, 0x16u);
+      v106 = v93;
+      v107 = 2112;
+      v108 = v37;
+      _os_log_error_impl(&dword_22506F000, v87, OS_LOG_TYPE_ERROR, "Couldn't create a public PCS from the PCS data %{public}@ for identity %@", buf, 0x16u);
     }
 
     CFRelease(v37);
@@ -267,44 +265,44 @@ LABEL_33:
     if (os_log_type_enabled(*v57, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v107 = lCopy;
-      v108 = 2112;
-      v109 = v38;
+      v106 = lCopy;
+      v107 = 2112;
+      v108 = v38;
       _os_log_error_impl(&dword_22506F000, v58, OS_LOG_TYPE_ERROR, "Couldn't add our self identity to the public PCS for share at URL %@: %@", buf, 0x16u);
     }
   }
 
   else
   {
-    v73 = objc_msgSend_pcsManager(v12, v54, v55);
-    v103 = 0;
-    v66 = objc_msgSend_dataFromSharePCS_pcsBlobType_error_(v73, v74, v49, 0, &v103);
-    v38 = v103;
+    v72 = objc_msgSend_pcsManager(v12, v54, v55);
+    v102 = 0;
+    v66 = objc_msgSend_dataFromSharePCS_pcsBlobType_error_(v72, v73, v49, 0, &v102);
+    v38 = v102;
 
     if (v66 && !v38)
     {
-      v77 = objc_msgSend_pcsManager(v12, v75, v76);
-      v102 = 0;
-      v65 = objc_msgSend_etagFromSharePCS_error_(v77, v78, v49, &v102);
-      v38 = v102;
+      v76 = objc_msgSend_pcsManager(v12, v74, v75);
+      v101 = 0;
+      v65 = objc_msgSend_etagFromSharePCS_error_(v76, v77, v49, &v101);
+      v38 = v101;
 
       if (!v65 || v38)
       {
-        v79 = MEMORY[0x277CBC830];
+        v78 = MEMORY[0x277CBC830];
         if (*MEMORY[0x277CBC880] != -1)
         {
           dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
         }
 
-        v80 = *v79;
-        if (os_log_type_enabled(v80, OS_LOG_TYPE_ERROR))
+        v79 = *v78;
+        if (os_log_type_enabled(v79, OS_LOG_TYPE_ERROR))
         {
-          v95 = v80;
-          v101 = objc_msgSend_share(sCopy, v96, v97);
-          v100 = objc_msgSend_recordID(v101, v98, v99);
+          v94 = v79;
+          v100 = objc_msgSend_share(sCopy, v95, v96);
+          v99 = objc_msgSend_recordID(v100, v97, v98);
           *buf = 138412290;
-          v107 = v100;
-          _os_log_error_impl(&dword_22506F000, v95, OS_LOG_TYPE_ERROR, "Couldn't get an etag for public PCS data on share %@", buf, 0xCu);
+          v106 = v99;
+          _os_log_error_impl(&dword_22506F000, v94, OS_LOG_TYPE_ERROR, "Couldn't get an etag for public PCS data on share %@", buf, 0xCu);
         }
 
         v65 = 0;
@@ -315,21 +313,21 @@ LABEL_33:
       goto LABEL_59;
     }
 
-    v81 = *v56 == -1;
+    v80 = *v56 == -1;
     v57 = MEMORY[0x277CBC830];
-    if (!v81)
+    if (!v80)
     {
       dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
     }
 
-    v82 = *v57;
+    v81 = *v57;
     if (os_log_type_enabled(*v57, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v107 = lCopy;
-      v108 = 2112;
-      v109 = v38;
-      _os_log_error_impl(&dword_22506F000, v82, OS_LOG_TYPE_ERROR, "Couldn't serialize share public PCS for share at URL %@: %@", buf, 0x16u);
+      v106 = lCopy;
+      v107 = 2112;
+      v108 = v38;
+      _os_log_error_impl(&dword_22506F000, v81, OS_LOG_TYPE_ERROR, "Couldn't serialize share public PCS for share at URL %@: %@", buf, 0x16u);
     }
   }
 
@@ -345,12 +343,12 @@ LABEL_59:
       dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
     }
 
-    v83 = *v57;
+    v82 = *v57;
     if (os_log_type_enabled(*v57, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v107 = lCopy;
-      _os_log_impl(&dword_22506F000, v83, OS_LOG_TYPE_INFO, "Successfully added our public identity to the share's public PCS at %@", buf, 0xCu);
+      v106 = lCopy;
+      _os_log_impl(&dword_22506F000, v82, OS_LOG_TYPE_INFO, "Successfully added our public identity to the share's public PCS at %@", buf, 0xCu);
     }
   }
 
@@ -373,71 +371,61 @@ LABEL_35:
     v68 = 0;
   }
 
-  v71 = *MEMORY[0x277D85DE8];
-
   return v68;
 }
 
 - (void)main
 {
-  v53[1] = *MEMORY[0x277D85DE8];
+  v51[1] = *MEMORY[0x277D85DE8];
   v4 = objc_msgSend_shareMetadata(self, a2, v2);
-  if (v4)
+  if (v4 && (v7 = v4, objc_msgSend_participantID(self, v5, v6), v8 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend_length(v8, v9, v10), v8, v7, v11))
   {
-    v7 = v4;
-    v8 = objc_msgSend_participantID(self, v5, v6);
-    v11 = objc_msgSend_length(v8, v9, v10);
+    v13 = objc_msgSend_encryptedKey(self, v5, v12);
 
-    if (v11)
+    if (!v13)
     {
-      v13 = objc_msgSend_encryptedKey(self, v5, v12);
+      v16 = objc_msgSend_shareMetadata(self, v14, v15);
+      v49 = 0;
+      v18 = objc_msgSend__encryptedKeyDataWithShareMetadata_error_(self, v17, v16, &v49);
+      v19 = v49;
+      objc_msgSend_setEncryptedKey_(self, v20, v18);
 
-      if (!v13)
+      v23 = objc_msgSend_encryptedKey(self, v21, v22);
+
+      if (!v23)
       {
-        v16 = objc_msgSend_shareMetadata(self, v14, v15);
-        v51 = 0;
-        v18 = objc_msgSend__encryptedKeyDataWithShareMetadata_error_(self, v17, v16, &v51);
-        v19 = v51;
-        objc_msgSend_setEncryptedKey_(self, v20, v18);
+        v48 = MEMORY[0x277CBC560];
+        v25 = *MEMORY[0x277CBC120];
+        v50 = *MEMORY[0x277CCA7E8];
+        v51[0] = v19;
+        v26 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v24, v51, &v50, 1);
+        v29 = objc_msgSend_shareMetadata(self, v27, v28);
+        v32 = objc_msgSend_shareMetadata(self, v30, v31);
+        v35 = objc_msgSend_privateToken(v32, v33, v34);
+        v38 = objc_msgSend_shareMetadata(self, v36, v37);
+        v41 = objc_msgSend_share(v38, v39, v40);
+        v44 = objc_msgSend_publicProtectionData(v41, v42, v43);
+        v46 = objc_msgSend_errorWithDomain_code_userInfo_format_(v48, v45, v25, 5005, v26, @"Unable to create public PCS blob using metadata %@ (private token was: %@, share's public PCS blob was %@)", v29, v35, v44);
+        objc_msgSend_finishWithError_(self, v47, v46);
 
-        v23 = objc_msgSend_encryptedKey(self, v21, v22);
-
-        if (!v23)
-        {
-          v50 = MEMORY[0x277CBC560];
-          v27 = *MEMORY[0x277CBC120];
-          v52 = *MEMORY[0x277CCA7E8];
-          v53[0] = v19;
-          v28 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v24, v53, &v52, 1);
-          v31 = objc_msgSend_shareMetadata(self, v29, v30);
-          v34 = objc_msgSend_shareMetadata(self, v32, v33);
-          v37 = objc_msgSend_privateToken(v34, v35, v36);
-          v40 = objc_msgSend_shareMetadata(self, v38, v39);
-          v43 = objc_msgSend_share(v40, v41, v42);
-          v46 = objc_msgSend_publicProtectionData(v43, v44, v45);
-          v48 = objc_msgSend_errorWithDomain_code_userInfo_format_(v50, v47, v27, 5005, v28, @"Unable to create public PCS blob using metadata %@ (private token was: %@, share's public PCS blob was %@)", v31, v37, v46);
-          objc_msgSend_finishWithError_(self, v49, v48);
-
-          goto LABEL_7;
-        }
+        return;
       }
-
-      objc_msgSend__sendRequest_(self, v14, 0);
-LABEL_7:
-      v25 = *MEMORY[0x277D85DE8];
-      return;
     }
+
+    objc_msgSend__sendRequest_(self, v14, 0);
   }
 
-  v26 = *MEMORY[0x277D85DE8];
+  else
+  {
 
-  objc_msgSend_finishWithError_(self, v5, 0);
+    objc_msgSend_finishWithError_(self, v5, 0);
+  }
 }
 
 - (void)_sendRequest:(BOOL)request
 {
   requestCopy = request;
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   if (*MEMORY[0x277CBC880] != -1)
   {
     dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
@@ -446,21 +434,21 @@ LABEL_7:
   v5 = *MEMORY[0x277CBC830];
   if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
   {
-    v38 = @"first";
+    v37 = @"first";
     if (requestCopy)
     {
-      v38 = @"second";
+      v37 = @"second";
     }
 
     LODWORD(buf) = 138543362;
-    *(&buf + 4) = v38;
+    *(&buf + 4) = v37;
     _os_log_debug_impl(&dword_22506F000, v5, OS_LOG_TYPE_DEBUG, "Sending initiate vetting request, this is a %{public}@ attempt", &buf, 0xCu);
   }
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v48 = 0x2020000000;
-  v49 = 1;
+  v47 = 0x2020000000;
+  v48 = 1;
   v6 = [CKDInitiateParticipantVettingURLRequest alloc];
   v9 = objc_msgSend_shareMetadata(self, v7, v8);
   v12 = objc_msgSend_share(v9, v10, v11);
@@ -473,35 +461,34 @@ LABEL_7:
 
   objc_initWeak(&location, self);
   objc_initWeak(&from, v29);
-  v42[0] = MEMORY[0x277D85DD0];
-  v42[1] = 3221225472;
-  v42[2] = sub_225236574;
-  v42[3] = &unk_27854AB00;
-  objc_copyWeak(&v43, &location);
-  v44 = requestCopy;
-  v42[4] = self;
-  v42[5] = &buf;
-  objc_msgSend_setVettingInitiationRequestCompletionBlock_(v29, v30, v42);
-  v39[0] = MEMORY[0x277D85DD0];
-  v39[1] = 3221225472;
-  v39[2] = sub_225236ADC;
-  v39[3] = &unk_27854AB28;
-  v39[4] = &buf;
-  objc_copyWeak(&v40, &location);
-  objc_copyWeak(&v41, &from);
-  objc_msgSend_setCompletionBlock_(v29, v31, v39);
+  v41[0] = MEMORY[0x277D85DD0];
+  v41[1] = 3221225472;
+  v41[2] = sub_225236574;
+  v41[3] = &unk_27854AB00;
+  objc_copyWeak(&v42, &location);
+  v43 = requestCopy;
+  v41[4] = self;
+  v41[5] = &buf;
+  objc_msgSend_setVettingInitiationRequestCompletionBlock_(v29, v30, v41);
+  v38[0] = MEMORY[0x277D85DD0];
+  v38[1] = 3221225472;
+  v38[2] = sub_225236ADC;
+  v38[3] = &unk_27854AB28;
+  v38[4] = &buf;
+  objc_copyWeak(&v39, &location);
+  objc_copyWeak(&v40, &from);
+  objc_msgSend_setCompletionBlock_(v29, v31, v38);
   objc_msgSend_setRequest_(self, v32, v29);
   v35 = objc_msgSend_container(self, v33, v34);
   objc_msgSend_performRequest_(v35, v36, v29);
 
-  objc_destroyWeak(&v41);
   objc_destroyWeak(&v40);
-  objc_destroyWeak(&v43);
+  objc_destroyWeak(&v39);
+  objc_destroyWeak(&v42);
   objc_destroyWeak(&from);
   objc_destroyWeak(&location);
 
   _Block_object_dispose(&buf, 8);
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_finishOnCallbackQueueWithError:(id)error

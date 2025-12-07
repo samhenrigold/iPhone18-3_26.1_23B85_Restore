@@ -147,7 +147,6 @@ LABEL_13:
 
   if (messageIdentifier)
   {
-    messageIdentifier = self->_messageIdentifier;
     PBDataWriterWriteStringField();
   }
 }

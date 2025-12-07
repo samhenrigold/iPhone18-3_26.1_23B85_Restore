@@ -102,7 +102,7 @@
 {
   storeCopy = store;
   contextCopy = context;
-  sub_1B628D31C(contextCopy);
+  sub_1B628D31C(contextCopy, v8);
 
   return 1;
 }
@@ -119,7 +119,7 @@
 + (void)pruneHistoryItemsWithContext:(id)context
 {
   contextCopy = context;
-  sub_1B628D31C(contextCopy);
+  sub_1B628D31C(contextCopy, v3);
 }
 
 @end

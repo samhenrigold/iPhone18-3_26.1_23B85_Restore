@@ -19,9 +19,9 @@ void sub_2561779CC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_256177FCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_256177FCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -37,6 +37,13 @@ void sub_2561786D0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 {
   objc_destroyWeak((v14 + 32));
   objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_256178A60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
+{
+  va_start(va, a31);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -73,80 +80,88 @@ uint64_t LCSOverrideFeatureEnabled(uint64_t result, int a2)
   return result;
 }
 
-id LCSLogCommon()
+id LCSLogCommon(uint64_t a1)
 {
   if (LCSLogCommon_onceToken != -1)
   {
     LCSLogCommon_cold_1();
   }
 
-  v1 = LCSLogCommon___logObj;
+  v2 = LCSLogCommon___logObj;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __LCSLogCommon_block_invoke()
 {
-  LCSLogCommon___logObj = os_log_create("com.apple.LockedContentServices", "Common");
+  v0 = os_log_create("com.apple.LockedContentServices", "Common");
+  v1 = LCSLogCommon___logObj;
+  LCSLogCommon___logObj = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
-id LCSLogExtension()
+id LCSLogExtension(uint64_t a1)
 {
   if (LCSLogExtension_onceToken != -1)
   {
     LCSLogExtension_cold_1();
   }
 
-  v1 = LCSLogExtension___logObj;
+  v2 = LCSLogExtension___logObj;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __LCSLogExtension_block_invoke()
 {
-  LCSLogExtension___logObj = os_log_create("com.apple.LockedContentServices", "Extension");
+  v0 = os_log_create("com.apple.LockedContentServices", "Extension");
+  v1 = LCSLogExtension___logObj;
+  LCSLogExtension___logObj = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
-id LCSLogSessionContents()
+id LCSLogSessionContents(uint64_t a1)
 {
   if (LCSLogSessionContents_onceToken != -1)
   {
     LCSLogSessionContents_cold_1();
   }
 
-  v1 = LCSLogSessionContents___logObj;
+  v2 = LCSLogSessionContents___logObj;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __LCSLogSessionContents_block_invoke()
 {
-  LCSLogSessionContents___logObj = os_log_create("com.apple.LockedContentServices", "SessionContents");
+  v0 = os_log_create("com.apple.LockedContentServices", "SessionContents");
+  v1 = LCSLogSessionContents___logObj;
+  LCSLogSessionContents___logObj = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
-id LCSLogSandboxing()
+id LCSLogSandboxing(uint64_t a1)
 {
   if (LCSLogSandboxing_onceToken != -1)
   {
     LCSLogSandboxing_cold_1();
   }
 
-  v1 = LCSLogSandboxing___logObj;
+  v2 = LCSLogSandboxing___logObj;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __LCSLogSandboxing_block_invoke()
 {
-  LCSLogSandboxing___logObj = os_log_create("com.apple.LockedContentServices", "Sandboxing");
+  v0 = os_log_create("com.apple.LockedContentServices", "Sandboxing");
+  v1 = LCSLogSandboxing___logObj;
+  LCSLogSandboxing___logObj = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 void sub_25617B914(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location)
@@ -176,9 +191,9 @@ __CFString *_LCSTypeIdentifierForType(uint64_t a1)
   }
 }
 
-void sub_25617C910(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_25617C910(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -190,11 +205,12 @@ uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_25617E674(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37)
+void sub_25617E674(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, ...)
 {
-  objc_destroyWeak((v37 + 32));
+  va_start(va, a36);
+  objc_destroyWeak((v36 + 32));
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a37, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -218,10 +234,11 @@ __CFString *NSStringFromBundleTarget(uint64_t a1)
   }
 }
 
-void OUTLINED_FUNCTION_1_0(void *a1, NSObject *a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint8_t buf)
+void OUTLINED_FUNCTION_1_0(void *a1, NSObject *a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &buf, 0x3Au);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x3Au);
 }
 
 uint64_t OUTLINED_FUNCTION_2_0()
@@ -244,9 +261,9 @@ void sub_25618153C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_256181A48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_256181A48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -258,16 +275,18 @@ uint64_t __Block_byref_object_copy__2(uint64_t result, uint64_t a2)
   return result;
 }
 
-void OUTLINED_FUNCTION_0_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
-void OUTLINED_FUNCTION_1_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 id NSStringFromLCSCaptureApplicationLaunchTypeMask(uint64_t a1)

@@ -33,11 +33,12 @@
   v4 = *(&self->super.super.super.isa + OBJC_IVAR____TtC7Climate21ClimatePopoverTapView_tapHandler);
   if (v4)
   {
+    v5 = *&self->tapHandler[OBJC_IVAR____TtC7Climate21ClimatePopoverTapView_tapHandler];
     selfCopy = self;
-    sub_10001B054(v4);
+    sub_10001B054(v4, v5);
     v4(0);
 
-    sub_100003380(v4);
+    sub_100003380(v4, v5);
   }
 
   return 0;

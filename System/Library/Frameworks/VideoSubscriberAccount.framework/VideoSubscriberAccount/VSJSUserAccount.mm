@@ -96,13 +96,13 @@
 
       if (!v8)
       {
-        v8 = VSErrorLogObject();
+        v8 = VSErrorLogObject(v9);
         if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
         {
-          [(VSJSUserAccount *)v8 userAccount:v9];
+          [(VSJSUserAccount *)v8 userAccount:v10];
         }
 
-        v16 = 0;
+        v17 = 0;
         goto LABEL_14;
       }
     }
@@ -112,47 +112,47 @@
       v8 = 0;
     }
 
-    v16 = [[VSUserAccount alloc] initWithAccountType:[(VSJSUserAccount *)self accountType] updateURL:v8 sourceType:0 sourceIdentifier:bundleId];
+    v17 = [[VSUserAccount alloc] initWithAccountType:[(VSJSUserAccount *)self accountType] updateURL:v8 sourceType:0 sourceIdentifier:bundleId];
     identifier = [(VSJSUserAccount *)self identifier];
-    v25 = [identifier copy];
-    [(VSUserAccount *)v16 setIdentifier:v25];
+    v26 = [identifier copy];
+    [(VSUserAccount *)v17 setIdentifier:v26];
 
-    [(VSUserAccount *)v16 setSignedOut:[(VSJSUserAccount *)self isSignedOut]];
+    [(VSUserAccount *)v17 setSignedOut:[(VSJSUserAccount *)self isSignedOut]];
     subscriptionBillingCycleEndDate = [(VSJSUserAccount *)self subscriptionBillingCycleEndDate];
-    v27 = [subscriptionBillingCycleEndDate copy];
-    [(VSUserAccount *)v16 setSubscriptionBillingCycleEndDate:v27];
+    v28 = [subscriptionBillingCycleEndDate copy];
+    [(VSUserAccount *)v17 setSubscriptionBillingCycleEndDate:v28];
 
     tierIdentifiers = [(VSJSUserAccount *)self tierIdentifiers];
-    v29 = [tierIdentifiers copy];
-    [(VSUserAccount *)v16 setTierIdentifiers:v29];
+    v30 = [tierIdentifiers copy];
+    [(VSUserAccount *)v17 setTierIdentifiers:v30];
 
     billingIdentifier = [(VSJSUserAccount *)self billingIdentifier];
-    v31 = [billingIdentifier copy];
-    [(VSUserAccount *)v16 setBillingIdentifier:v31];
+    v32 = [billingIdentifier copy];
+    [(VSUserAccount *)v17 setBillingIdentifier:v32];
 
     authenticationData = [(VSJSUserAccount *)self authenticationData];
-    v33 = [authenticationData copy];
-    [(VSUserAccount *)v16 setAuthenticationData:v33];
+    v34 = [authenticationData copy];
+    [(VSUserAccount *)v17 setAuthenticationData:v34];
 
     appleSubscription = [(VSJSUserAccount *)self appleSubscription];
-    v34AppleSubscription = [appleSubscription appleSubscription];
-    v36 = [v34AppleSubscription copy];
-    [(VSUserAccount *)v16 setAppleSubscription:v36];
+    v35AppleSubscription = [appleSubscription appleSubscription];
+    v37 = [v35AppleSubscription copy];
+    [(VSUserAccount *)v17 setAppleSubscription:v37];
 
 LABEL_14:
     goto LABEL_15;
   }
 
-  updateURL = VSErrorLogObject();
+  updateURL = VSErrorLogObject(0);
   if (os_log_type_enabled(updateURL, OS_LOG_TYPE_ERROR))
   {
-    [(VSJSUserAccount *)updateURL userAccount:v17];
+    [(VSJSUserAccount *)updateURL userAccount:v18];
   }
 
-  v16 = 0;
+  v17 = 0;
 LABEL_15:
 
-  return v16;
+  return v17;
 }
 
 - (id)userAccountForProviderID:(id)d allowedBundleIDs:(id)ds
@@ -185,11 +185,11 @@ LABEL_15:
   else
   {
 LABEL_6:
-    v15 = VSDefaultLogObject();
+    v15 = VSDefaultLogObject(bundleId2);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      *v43 = 0;
-      _os_log_impl(&dword_23AB8E000, v15, OS_LOG_TYPE_DEFAULT, "JS User Account with no bundle ID, setting source type to VSUserAccountSourceTypeProvider", v43, 2u);
+      *v44 = 0;
+      _os_log_impl(&dword_23AB8E000, v15, OS_LOG_TYPE_DEFAULT, "JS User Account with no bundle ID, setting source type to VSUserAccountSourceTypeProvider", v44, 2u);
     }
 
     v16 = dCopy;
@@ -217,47 +217,47 @@ LABEL_6:
 
   if (!updateURL)
   {
-    updateURL = VSErrorLogObject();
+    updateURL = VSErrorLogObject(v21);
     if (os_log_type_enabled(updateURL, OS_LOG_TYPE_ERROR))
     {
-      [(VSJSUserAccount *)updateURL userAccount:v35];
+      [(VSJSUserAccount *)updateURL userAccount:v36];
     }
 
-    v21 = 0;
+    v22 = 0;
   }
 
   else
   {
 LABEL_13:
-    v21 = [[VSUserAccount alloc] initWithAccountType:[(VSJSUserAccount *)self accountType] updateURL:updateURL sourceType:v14 sourceIdentifier:bundleId];
+    v22 = [[VSUserAccount alloc] initWithAccountType:[(VSJSUserAccount *)self accountType] updateURL:updateURL sourceType:v14 sourceIdentifier:bundleId];
     identifier = [(VSJSUserAccount *)self identifier];
-    v23 = [identifier copy];
-    [(VSUserAccount *)v21 setIdentifier:v23];
+    v24 = [identifier copy];
+    [(VSUserAccount *)v22 setIdentifier:v24];
 
-    [(VSUserAccount *)v21 setSignedOut:[(VSJSUserAccount *)self isSignedOut]];
+    [(VSUserAccount *)v22 setSignedOut:[(VSJSUserAccount *)self isSignedOut]];
     subscriptionBillingCycleEndDate = [(VSJSUserAccount *)self subscriptionBillingCycleEndDate];
-    v25 = [subscriptionBillingCycleEndDate copy];
-    [(VSUserAccount *)v21 setSubscriptionBillingCycleEndDate:v25];
+    v26 = [subscriptionBillingCycleEndDate copy];
+    [(VSUserAccount *)v22 setSubscriptionBillingCycleEndDate:v26];
 
     tierIdentifiers = [(VSJSUserAccount *)self tierIdentifiers];
-    v27 = [tierIdentifiers copy];
-    [(VSUserAccount *)v21 setTierIdentifiers:v27];
+    v28 = [tierIdentifiers copy];
+    [(VSUserAccount *)v22 setTierIdentifiers:v28];
 
     billingIdentifier = [(VSJSUserAccount *)self billingIdentifier];
-    v29 = [billingIdentifier copy];
-    [(VSUserAccount *)v21 setBillingIdentifier:v29];
+    v30 = [billingIdentifier copy];
+    [(VSUserAccount *)v22 setBillingIdentifier:v30];
 
     authenticationData = [(VSJSUserAccount *)self authenticationData];
-    v31 = [authenticationData copy];
-    [(VSUserAccount *)v21 setAuthenticationData:v31];
+    v32 = [authenticationData copy];
+    [(VSUserAccount *)v22 setAuthenticationData:v32];
 
     appleSubscription = [(VSJSUserAccount *)self appleSubscription];
-    v32AppleSubscription = [appleSubscription appleSubscription];
-    v34 = [v32AppleSubscription copy];
-    [(VSUserAccount *)v21 setAppleSubscription:v34];
+    v33AppleSubscription = [appleSubscription appleSubscription];
+    v35 = [v33AppleSubscription copy];
+    [(VSUserAccount *)v22 setAppleSubscription:v35];
   }
 
-  return v21;
+  return v22;
 }
 
 + (id)userAccountsFromJSUserAccounts:(id)accounts

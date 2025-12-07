@@ -6,11 +6,11 @@
 
 - (HMDCameraClipImportPosterFrameMetadata)initWithPosterFrameMetadata:(id)metadata
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   metadataCopy = metadata;
-  v33.receiver = self;
-  v33.super_class = HMDCameraClipImportPosterFrameMetadata;
-  v5 = [(HMDCameraClipImportPosterFrameMetadata *)&v33 init];
+  v32.receiver = self;
+  v32.super_class = HMDCameraClipImportPosterFrameMetadata;
+  v5 = [(HMDCameraClipImportPosterFrameMetadata *)&v32 init];
   if (!v5)
   {
 LABEL_22:
@@ -28,9 +28,9 @@ LABEL_22:
     {
       v17 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v35 = v17;
-      v36 = 2112;
-      v37 = metadataCopy;
+      v34 = v17;
+      v35 = 2112;
+      v36 = metadataCopy;
       _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@Could not find resourcePath in poster frame segment metadata: %@", buf, 0x16u);
     }
 
@@ -49,9 +49,9 @@ LABEL_22:
     {
       v21 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v35 = v21;
-      v36 = 2112;
-      v37 = metadataCopy;
+      v34 = v21;
+      v35 = 2112;
+      v36 = metadataCopy;
       _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_ERROR, "%{public}@Could not find offset in poster frame segment metadata: %@", buf, 0x16u);
     }
 
@@ -70,9 +70,9 @@ LABEL_22:
     {
       v25 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v35 = v25;
-      v36 = 2112;
-      v37 = metadataCopy;
+      v34 = v25;
+      v35 = 2112;
+      v36 = metadataCopy;
       _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_ERROR, "%{public}@Could not find width in poster frame segment metadata: %@", buf, 0x16u);
     }
 
@@ -102,9 +102,9 @@ LABEL_16:
     {
       v30 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v35 = v30;
-      v36 = 2112;
-      v37 = metadataCopy;
+      v34 = v30;
+      v35 = 2112;
+      v36 = metadataCopy;
       _os_log_impl(&dword_229538000, v29, OS_LOG_TYPE_ERROR, "%{public}@Could not find height in poster frame segment metadata: %@", buf, 0x16u);
     }
 
@@ -120,7 +120,6 @@ LABEL_17:
   v26 = 0;
 LABEL_23:
 
-  v31 = *MEMORY[0x277D85DE8];
   return v26;
 }
 

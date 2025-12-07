@@ -135,18 +135,17 @@ LABEL_9:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (self->_task)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    reason = self->_reason;
     PBDataWriterWriteUint32Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 

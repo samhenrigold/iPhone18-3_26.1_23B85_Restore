@@ -70,37 +70,35 @@
   {
     if (objectCopy)
     {
-      v19 = 0u;
-      v20 = 0u;
-      v17 = 0u;
       v18 = 0u;
+      v19 = 0u;
+      v17 = 0u;
       supportedAttributeClasses = [objc_opt_class() supportedAttributeClasses];
-      v9 = [supportedAttributeClasses countByEnumeratingWithState:&v17 objects:v25 count:16];
+      v9 = [supportedAttributeClasses countByEnumeratingWithState:&v16 objects:v24 count:16];
       if (v9)
       {
-        v10 = *v18;
+        v10 = *v17;
         while (2)
         {
           v11 = 0;
           do
           {
-            if (*v18 != v10)
+            if (*v17 != v10)
             {
               objc_enumerationMutation(supportedAttributeClasses);
             }
 
-            v12 = *(*(&v17 + 1) + 8 * v11);
             if (objc_opt_isKindOfClass())
             {
 
               goto LABEL_14;
             }
 
-            v11 = v11 + 1;
+            ++v11;
           }
 
           while (v9 != v11);
-          v9 = [supportedAttributeClasses countByEnumeratingWithState:&v17 objects:v25 count:16];
+          v9 = [supportedAttributeClasses countByEnumeratingWithState:&v16 objects:v24 count:16];
           if (v9)
           {
             continue;
@@ -112,12 +110,12 @@
 
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = objc_opt_class();
-        v14 = NSStringFromClass(v13);
+        v12 = objc_opt_class();
+        v13 = NSStringFromClass(v12);
         *buf = 138543618;
-        v22 = subscriptCopy;
-        v23 = 2114;
-        v24 = v14;
+        v21 = subscriptCopy;
+        v22 = 2114;
+        v23 = v13;
         _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "genericMetric  %{public}@ with unhandled metric type: %{public}@", buf, 0x16u);
       }
     }

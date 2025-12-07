@@ -44,10 +44,16 @@
 {
   if (name)
   {
-    sub_248383960();
+    v4 = sub_248383960();
   }
 
-  return sub_24828CDB0();
+  else
+  {
+    v4 = 0;
+    v5 = 0;
+  }
+
+  return sub_24828CDB0(v4, v5);
 }
 
 - (void)activateLiveActivityWithDescriptor:(id)descriptor completion:(id)completion

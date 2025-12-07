@@ -202,22 +202,21 @@
   originInformation = self->_originInformation;
   if (originInformation)
   {
-    [(HDHRSOriginInformation *)originInformation operatingSystemVersion];
+    objc_msgSend_operatingSystemVersion(originInformation);
     originInformation = self->_originInformation;
   }
 
   else
   {
-    memset(v21, 0, sizeof(v21));
+    memset(v20, 0, sizeof(v20));
   }
 
   v14 = extractionHints | 0x10;
   operatingSystemBuild = [(HDHRSOriginInformation *)originInformation operatingSystemBuild];
-  country = self->_country;
-  LOBYTE(v19) = self->_ingestedOnLocalDevice;
-  v17 = [v7 resourceObjectWithData:dataCopy uniquenessChecksum:staticUniquenessChecksum sourceURL:sourceURL FHIRVersion:fHIRVersion receivedDate:v11 firstSeenDate:firstSeenDate extractionHints:v14 originVersion:v21 originBuild:operatingSystemBuild country:country existingROWID:self->_existingRowID ingestedOnLocalDevice:v19 error:error];
+  LOBYTE(v18) = self->_ingestedOnLocalDevice;
+  v16 = [v7 resourceObjectWithData:dataCopy uniquenessChecksum:staticUniquenessChecksum sourceURL:sourceURL FHIRVersion:fHIRVersion receivedDate:v11 firstSeenDate:firstSeenDate extractionHints:v14 originVersion:v20 originBuild:operatingSystemBuild country:self->_country existingROWID:self->_existingRowID ingestedOnLocalDevice:v18 error:error];
 
-  return v17;
+  return v16;
 }
 
 - (void)encodeWithCoder:(id)coder

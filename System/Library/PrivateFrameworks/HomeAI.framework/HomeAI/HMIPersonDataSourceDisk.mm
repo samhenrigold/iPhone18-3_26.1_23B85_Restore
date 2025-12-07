@@ -38,19 +38,19 @@
   objc_storeStrong(&v12->_sourceUUID, iD);
   v18 = MEMORY[0x277CBEBC0];
   getStoragePath = [objc_opt_class() getStoragePath];
-  v20 = [v18 fileURLWithPath:getStoragePath];
+  v20 = [v18 fileURLWithPath:?];
 
   uUIDString = [dCopy UUIDString];
-  v22 = [v20 URLByAppendingPathComponent:uUIDString];
+  v22 = [v20 URLByAppendingPathComponent:?];
   uUIDString2 = [iDCopy UUIDString];
-  v24 = [v22 URLByAppendingPathComponent:uUIDString2];
+  v24 = [v22 URLByAppendingPathComponent:?];
   sourceURL = v12->_sourceURL;
   v12->_sourceURL = v24;
 
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   path = [(NSURL *)v12->_sourceURL path];
   v35 = 0;
-  LOBYTE(v15) = [defaultManager createDirectoryAtPath:path withIntermediateDirectories:1 attributes:0 error:&v35];
+  LOBYTE(v15) = [defaultManager createDirectoryAtPath:? withIntermediateDirectories:? attributes:? error:?];
   v28 = v35;
 
   if (v15)
@@ -61,8 +61,8 @@ LABEL_4:
     goto LABEL_8;
   }
 
-  iDCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"Error initializing with home UUID: %@ source UUID:%@", dCopy, iDCopy];
-  v31 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:1031 description:iDCopy underlyingError:v28];
+  iDCopy = [MEMORY[0x277CCACA8] stringWithFormat:dCopy, iDCopy];
+  v31 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:? description:? underlyingError:?];
   v32 = v31;
   if (error)
   {
@@ -94,51 +94,44 @@ LABEL_8:
 
 void __57__HMIPersonDataSourceDisk_fetchAllPersonsWithCompletion___block_invoke(uint64_t a1)
 {
-  v36 = *MEMORY[0x277D85DE8];
   v28 = [MEMORY[0x277CBEB58] set];
   v2 = [MEMORY[0x277CCAA00] defaultManager];
   v3 = [*(a1 + 32) sourceURL];
-  v34 = 0;
-  v4 = [v2 contentsOfDirectoryAtURL:v3 includingPropertiesForKeys:MEMORY[0x277CBEBF8] options:4 error:&v34];
-  v5 = v34;
+  v4 = [v2 contentsOfDirectoryAtURL:? includingPropertiesForKeys:? options:? error:?];
+  v5 = 0;
 
   if (v4)
   {
     v25 = a1;
     v26 = v4;
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
-    v31 = 0u;
     obj = v4;
-    v6 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
+    v6 = [obj countByEnumeratingWithState:? objects:? count:?];
     if (v6)
     {
       v7 = v6;
-      v8 = *v31;
+      v8 = MEMORY[0];
       while (2)
       {
         v9 = 0;
         v10 = v5;
         do
         {
-          if (*v31 != v8)
+          if (MEMORY[0] != v8)
           {
             objc_enumerationMutation(obj);
           }
 
           v11 = MEMORY[0x277CBEA90];
-          v12 = [*(*(&v30 + 1) + 8 * v9) URLByAppendingPathComponent:@"person.json"];
-          v13 = [v11 dataWithContentsOfURL:v12];
+          v12 = [*(8 * v9) URLByAppendingPathComponent:?];
+          v13 = [v11 dataWithContentsOfURL:?];
 
-          v29 = v10;
-          v14 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v13 options:0 error:&v29];
-          v5 = v29;
+          v14 = [MEMORY[0x277CCAAA0] JSONObjectWithData:? options:? error:?];
+          v5 = v10;
 
           if (!v14)
           {
             v21 = *(v25 + 40);
-            v22 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:1031 description:@"Error loading person from JSON" underlyingError:v5];
+            v22 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:? description:? underlyingError:?];
             (*(v21 + 16))(v21, 0, v22);
 
             goto LABEL_12;
@@ -146,18 +139,18 @@ void __57__HMIPersonDataSourceDisk_fetchAllPersonsWithCompletion___block_invoke(
 
           v15 = [HMIPerson alloc];
           v16 = objc_alloc(MEMORY[0x277CCAD78]);
-          v17 = [v14 objectForKeyedSubscript:@"UUID"];
-          v18 = [v16 initWithUUIDString:v17];
-          v19 = [v14 objectForKeyedSubscript:@"displayName"];
-          v20 = [(HMIPerson *)v15 initWithUUID:v18 name:v19];
+          v17 = [v14 objectForKeyedSubscript:?];
+          v18 = [v16 initWithUUIDString:?];
+          v19 = [v14 objectForKeyedSubscript:?];
+          v20 = [HMIPerson initWithUUID:v15 name:"initWithUUID:name:"];
 
-          [v28 addObject:v20];
-          ++v9;
+          [v28 addObject:?];
+          v9 = (v9 + 1);
           v10 = v5;
         }
 
         while (v7 != v9);
-        v7 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
+        v7 = [obj countByEnumeratingWithState:? objects:? count:?];
         if (v7)
         {
           continue;
@@ -175,7 +168,7 @@ LABEL_12:
   else
   {
     v23 = *(a1 + 40);
-    v24 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:1031 description:@"Error enumerating persons" underlyingError:v5];
+    v24 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:? description:? underlyingError:?];
     (*(v23 + 16))(v23, 0, v24);
   }
 }
@@ -199,14 +192,14 @@ LABEL_12:
 
 void __72__HMIPersonDataSourceDisk_fetchFaceCropsForPersonsWithUUIDs_completion___block_invoke(uint64_t a1)
 {
-  v73 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBEB58] set];
+  v65 = 0u;
   v66 = 0u;
   v67 = 0u;
   v68 = 0u;
-  v69 = 0u;
   v3 = *(a1 + 32);
-  v4 = [v3 countByEnumeratingWithState:&v66 objects:v72 count:16];
+  v4 = [v3 countByEnumeratingWithState:? objects:? count:?];
   if (!v4)
   {
     v6 = 0;
@@ -215,50 +208,50 @@ void __72__HMIPersonDataSourceDisk_fetchFaceCropsForPersonsWithUUIDs_completion_
 
   v5 = v4;
   v6 = 0;
-  v7 = *v67;
-  v49 = v3;
-  v50 = *MEMORY[0x277CBE8E8];
-  v55 = v2;
-  v56 = *MEMORY[0x277CBE868];
-  v48 = a1;
-  v45 = *v67;
+  v7 = *v66;
+  v48 = v3;
+  v49 = *MEMORY[0x277CBE8E8];
+  v54 = v2;
+  v55 = *MEMORY[0x277CBE868];
+  v47 = a1;
+  v44 = *v66;
 LABEL_3:
   v8 = 0;
-  v46 = v5;
+  v45 = v5;
   while (1)
   {
-    if (*v67 != v7)
+    if (*v66 != v7)
     {
       objc_enumerationMutation(v3);
     }
 
-    v47 = v8;
-    v9 = *(*(&v66 + 1) + 8 * v8);
+    v46 = v8;
+    v9 = *(*(&v65 + 1) + 8 * v8);
     v10 = [*(a1 + 40) sourceURL];
-    v52 = v9;
+    v51 = v9;
     v11 = [v9 UUIDString];
-    v12 = [v10 URLByAppendingPathComponent:v11];
+    v12 = [v10 URLByAppendingPathComponent:?];
 
     v13 = [MEMORY[0x277CCAA00] defaultManager];
-    v71[0] = v50;
-    v71[1] = v56;
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v71 count:2];
-    v65 = v6;
-    v15 = [v13 contentsOfDirectoryAtURL:v12 includingPropertiesForKeys:v14 options:5 error:&v65];
-    v16 = v65;
+    v69 = v49;
+    v70 = v55;
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
+    v64 = v6;
+    v15 = [v13 contentsOfDirectoryAtURL:? includingPropertiesForKeys:? options:? error:?];
+    v16 = v64;
 
     if (!v15)
     {
       break;
     }
 
-    v51 = v12;
-    v63 = 0u;
-    v64 = 0u;
-    v61 = 0u;
+    v50 = v12;
     v62 = 0u;
+    v63 = 0u;
+    v60 = 0u;
+    v61 = 0u;
     v17 = v15;
-    v18 = [v17 countByEnumeratingWithState:&v61 objects:v70 count:16];
+    v18 = [v17 countByEnumeratingWithState:? objects:? count:?];
     if (!v18)
     {
       v6 = v16;
@@ -266,93 +259,92 @@ LABEL_3:
     }
 
     v19 = v18;
-    v20 = *v62;
+    v20 = *v61;
     v6 = v16;
     v21 = 0x277CBE000uLL;
-    v54 = v17;
+    v53 = v17;
     while (2)
     {
       v22 = 0;
-      v53 = v19;
+      v52 = v19;
       do
       {
-        if (*v62 != v20)
+        if (*v61 != v20)
         {
           objc_enumerationMutation(v17);
         }
 
-        v23 = *(*(&v61 + 1) + 8 * v22);
-        v60 = 0;
-        [v23 getResourceValue:&v60 forKey:v56 error:0];
-        v24 = v60;
+        v23 = *(*(&v60 + 1) + 8 * v22);
+        v59 = 0;
+        [v23 getResourceValue:? forKey:? error:?];
+        v24 = v59;
         if ([v24 BOOLValue])
         {
           v25 = *(v21 + 2704);
-          v26 = [v23 URLByAppendingPathComponent:@"facecrop.json"];
-          v27 = [v25 dataWithContentsOfURL:v26];
+          v26 = [v23 URLByAppendingPathComponent:?];
+          v27 = [v25 dataWithContentsOfURL:?];
 
-          v59 = v6;
-          v28 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v27 options:0 error:&v59];
-          v16 = v59;
+          v58 = v6;
+          v28 = [MEMORY[0x277CCAAA0] JSONObjectWithData:? options:? error:?];
+          v16 = v58;
 
           if (v28)
           {
             v29 = objc_alloc(MEMORY[0x277CCAD78]);
-            v30 = [v28 objectForKeyedSubscript:@"UUID"];
-            v31 = [v29 initWithUUIDString:v30];
+            v30 = [v28 objectForKeyedSubscript:?];
+            v31 = [v29 initWithUUIDString:?];
 
             v32 = *(v21 + 2704);
-            v33 = [v23 URLByAppendingPathComponent:@"facecrop.jpeg"];
-            v58 = v16;
-            v34 = [v32 dataWithContentsOfURL:v33 options:0 error:&v58];
-            v6 = v58;
+            v33 = [v23 URLByAppendingPathComponent:?];
+            v57 = v16;
+            v34 = [v32 dataWithContentsOfURL:? options:? error:?];
+            v6 = v57;
 
             if (v34)
             {
-              v35 = [v28 objectForKeyedSubscript:@"dateCreated"];
+              v35 = [v28 objectForKeyedSubscript:?];
               memset(&rect, 0, sizeof(rect));
-              v36 = [v28 objectForKeyedSubscript:@"faceBoundingBox"];
+              v36 = [v28 objectForKeyedSubscript:?];
               CGRectMakeWithDictionaryRepresentation(v36, &rect);
 
-              v37 = [HMIPersonFaceCrop alloc];
-              v38 = [(HMIPersonFaceCrop *)v37 initWithUUID:v31 dataRepresentation:v34 dateCreated:v35 faceBoundingBox:v52 personUUID:rect.origin.x, rect.origin.y, rect.size.width, rect.size.height];
-              [v55 addObject:v38];
+              v37 = [HMIPersonFaceCrop initWithUUID:"initWithUUID:dataRepresentation:dateCreated:faceBoundingBox:personUUID:" dataRepresentation:? dateCreated:? faceBoundingBox:? personUUID:?];
+              [v54 addObject:?];
 
               v21 = 0x277CBE000;
-              v19 = v53;
-              v17 = v54;
+              v19 = v52;
+              v17 = v53;
               goto LABEL_16;
             }
 
-            v40 = *(v48 + 48);
-            v41 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:1031 description:@"Error loading face crop image" underlyingError:v6];
-            (*(v40 + 16))(v40, 0, v41);
+            v39 = *(v47 + 48);
+            v40 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:? description:? underlyingError:?];
+            (*(v39 + 16))(v39, 0, v40);
 
             v16 = v6;
           }
 
           else
           {
-            v39 = *(v48 + 48);
-            v28 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:1031 description:@"Error loading face crop from JSON" underlyingError:v16];
-            (*(v39 + 16))(v39, 0, v28);
+            v38 = *(v47 + 48);
+            v28 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:? description:? underlyingError:?];
+            (*(v38 + 16))(v38, 0, v28);
           }
 
-          v42 = v54;
-          v2 = v55;
-          v43 = v54;
-          v3 = v49;
-          v12 = v51;
+          v41 = v53;
+          v2 = v54;
+          v42 = v53;
+          v3 = v48;
+          v12 = v50;
           goto LABEL_28;
         }
 
 LABEL_16:
 
-        ++v22;
+        v22 = (v22 + 1);
       }
 
       while (v19 != v22);
-      v19 = [v17 countByEnumeratingWithState:&v61 objects:v70 count:16];
+      v19 = [v17 countByEnumeratingWithState:? objects:? count:?];
       if (v19)
       {
         continue;
@@ -363,14 +355,14 @@ LABEL_16:
 
 LABEL_20:
 
-    v8 = v47 + 1;
-    v2 = v55;
-    a1 = v48;
-    v3 = v49;
-    v7 = v45;
-    if (v47 + 1 == v46)
+    v8 = v46 + 1;
+    v2 = v54;
+    a1 = v47;
+    v3 = v48;
+    v7 = v44;
+    if ((v46 + 1) == v45)
     {
-      v5 = [v49 countByEnumeratingWithState:&v66 objects:v72 count:16];
+      v5 = [v48 countByEnumeratingWithState:? objects:? count:?];
       if (!v5)
       {
 LABEL_24:
@@ -384,10 +376,10 @@ LABEL_24:
     }
   }
 
-  v43 = [MEMORY[0x277CCACA8] stringWithFormat:@"Error enumerating face crops for person UUID:%@", v52];
-  v44 = *(a1 + 48);
-  v42 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:1031 description:v43 underlyingError:v16];
-  (*(v44 + 16))(v44, 0, v42);
+  v42 = [MEMORY[0x277CCACA8] stringWithFormat:v51];
+  v43 = *(a1 + 48);
+  v41 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:? description:? underlyingError:?];
+  (*(v43 + 16))(v43, 0, v41);
 LABEL_28:
 
 LABEL_29:
@@ -397,7 +389,7 @@ LABEL_29:
 {
   v4 = MEMORY[0x277CCA9B8];
   completionCopy = completion;
-  v6 = [v4 hmfErrorWithCode:5];
+  v6 = [v4 hmfErrorWithCode:?];
   (*(completion + 2))(completionCopy, 0, v6);
 }
 
@@ -405,7 +397,7 @@ LABEL_29:
 {
   v4 = MEMORY[0x277CCA9B8];
   completionCopy = completion;
-  v6 = [v4 hmfErrorWithCode:5];
+  v6 = [v4 hmfErrorWithCode:?];
   (*(completion + 2))(completionCopy, 0, v6);
 }
 
@@ -413,7 +405,7 @@ LABEL_29:
 {
   v5 = MEMORY[0x277CCA9B8];
   completionCopy = completion;
-  v7 = [v5 hmfErrorWithCode:5];
+  v7 = [v5 hmfErrorWithCode:?];
   (*(completion + 2))(completionCopy, 0, v7);
 }
 
@@ -421,7 +413,7 @@ LABEL_29:
 {
   v5 = MEMORY[0x277CCA9B8];
   completionCopy = completion;
-  v7 = [v5 hmfErrorWithCode:5];
+  v7 = [v5 hmfErrorWithCode:?];
   (*(completion + 2))(completionCopy, 0, v7);
 }
 
@@ -429,7 +421,7 @@ LABEL_29:
 {
   v4 = MEMORY[0x277CCA9B8];
   completionCopy = completion;
-  v6 = [v4 hmfErrorWithCode:5];
+  v6 = [v4 hmfErrorWithCode:?];
   (*(completion + 2))(completionCopy, v6);
 }
 
@@ -437,7 +429,7 @@ LABEL_29:
 {
   v5 = MEMORY[0x277CCA9B8];
   completionCopy = completion;
-  v7 = [v5 hmfErrorWithCode:5];
+  v7 = [v5 hmfErrorWithCode:?];
   (*(completion + 2))(completionCopy, v7);
 }
 
@@ -445,14 +437,14 @@ LABEL_29:
 {
   v5 = MEMORY[0x277CCA9B8];
   completionCopy = completion;
-  v7 = [v5 hmfErrorWithCode:5];
+  v7 = [v5 hmfErrorWithCode:?];
   (*(completion + 2))(completionCopy, v7);
 }
 
 + (id)getStoragePath
 {
   v2 = +[HMIPreference sharedInstance];
-  v3 = [v2 stringPreferenceForKey:@"personDataSourceDiskStoragePath" defaultValue:@"/tmp/com.apple.HomeAI/familiar-face-data"];
+  v3 = [v2 stringPreferenceForKey:? defaultValue:?];
 
   return v3;
 }

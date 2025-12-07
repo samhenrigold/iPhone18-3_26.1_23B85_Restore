@@ -6,11 +6,11 @@
 
 - (id)provideComplicationsForSuggestedFaceType:(int64_t)type environment:(id)environment
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   environmentCopy = environment;
-  v30 = objc_alloc_init(ATXSuggestedPagesWidgetAggregator);
-  v31 = environmentCopy;
-  v6 = [(ATXSuggestedPagesWidgetAggregator *)v30 provideWidgetsForPageType:ATXSuggestedPageTypeFromSuggestedFaceType(type) environment:environmentCopy];
+  v29 = objc_alloc_init(ATXSuggestedPagesWidgetAggregator);
+  v30 = environmentCopy;
+  v6 = [(ATXSuggestedPagesWidgetAggregator *)v29 provideWidgetsForPageType:ATXSuggestedPageTypeFromSuggestedFaceType(type) environment:environmentCopy];
   v7 = v6;
   v8 = MEMORY[0x277CBEBF8];
   if (v6)
@@ -21,58 +21,56 @@
   v9 = v8;
 
   v10 = objc_alloc(MEMORY[0x277CBEB98]);
-  v29 = v9;
+  v28 = v9;
   v11 = [v9 _pas_mappedArrayWithTransform:&__block_literal_global_242];
   v12 = [v10 initWithArray:v11];
 
   mEMORY[0x277CEB998] = [MEMORY[0x277CEB998] sharedInstance];
   complicationWidgetDescriptors = [mEMORY[0x277CEB998] complicationWidgetDescriptors];
 
-  v27 = objc_alloc_init(MEMORY[0x277CEB568]);
-  homeScreenWidgetPersonalities = [v27 homeScreenWidgetPersonalities];
-  v38[0] = MEMORY[0x277D85DD0];
-  v38[1] = 3221225472;
-  v38[2] = __96__ATXModeFaceComplicationWidgetDataSource_provideComplicationsForSuggestedFaceType_environment___block_invoke_2;
-  v38[3] = &unk_2785A16B8;
-  v26 = v12;
-  v39 = v26;
-  v25 = homeScreenWidgetPersonalities;
-  v40 = v25;
-  v28 = complicationWidgetDescriptors;
-  v16 = [complicationWidgetDescriptors _pas_filteredSetWithTest:v38];
+  v26 = objc_alloc_init(MEMORY[0x277CEB568]);
+  homeScreenWidgetPersonalities = [v26 homeScreenWidgetPersonalities];
+  v37[0] = MEMORY[0x277D85DD0];
+  v37[1] = 3221225472;
+  v37[2] = __96__ATXModeFaceComplicationWidgetDataSource_provideComplicationsForSuggestedFaceType_environment___block_invoke_2;
+  v37[3] = &unk_2785A16B8;
+  v25 = v12;
+  v38 = v25;
+  v24 = homeScreenWidgetPersonalities;
+  v39 = v24;
+  v27 = complicationWidgetDescriptors;
+  v16 = [complicationWidgetDescriptors _pas_filteredSetWithTest:v37];
   v17 = objc_opt_new();
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
   v18 = v16;
-  v19 = [v18 countByEnumeratingWithState:&v34 objects:v41 count:16];
+  v19 = [v18 countByEnumeratingWithState:&v33 objects:v40 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v35;
+    v21 = *v34;
     do
     {
       for (i = 0; i != v20; ++i)
       {
-        if (*v35 != v21)
+        if (*v34 != v21)
         {
           objc_enumerationMutation(v18);
         }
 
-        [*(*(&v34 + 1) + 8 * i) supportedFamilies];
-        v32 = v31;
-        v33 = v17;
+        [*(*(&v33 + 1) + 8 * i) supportedFamilies];
+        v31 = v30;
+        v32 = v17;
         CHSWidgetFamilyMaskEnumerateFamilies();
       }
 
-      v20 = [v18 countByEnumeratingWithState:&v34 objects:v41 count:16];
+      v20 = [v18 countByEnumeratingWithState:&v33 objects:v40 count:16];
     }
 
     while (v20);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v17;
 }

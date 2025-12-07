@@ -982,9 +982,9 @@ void __71__UIFeedbackGenerator___activateWithStyle_forFeedback_completionBlock__
     {
       if (v19 && v18)
       {
-        v21 = [(NSSet *)v18 isEqual:v19];
+        isEqual = objc_msgSend_isEqual_(v18);
 
-        if (v21)
+        if (isEqual)
         {
           goto LABEL_29;
         }

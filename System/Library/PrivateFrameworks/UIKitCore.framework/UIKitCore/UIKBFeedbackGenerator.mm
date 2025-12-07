@@ -492,7 +492,7 @@ void __43___UIKBFeedbackGenerator__resetWithReason___block_invoke_2(uint64_t a1,
   }
 }
 
-uint64_t __74___UIKBFeedbackGenerator__recreateEngineAndPlayersOnQueueWithMode_reason___block_invoke(uint64_t a1, uint64_t a2)
+void *__74___UIKBFeedbackGenerator__recreateEngineAndPlayersOnQueueWithMode_reason___block_invoke(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {

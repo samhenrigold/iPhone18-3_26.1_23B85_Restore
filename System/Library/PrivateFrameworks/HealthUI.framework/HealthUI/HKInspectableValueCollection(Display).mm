@@ -187,7 +187,9 @@ LABEL_4:
   v3 = a1;
   v4 = [a2 inspectableValue];
   v5 = [v4 ontologyConcept];
-  OUTLINED_FUNCTION_0_3(&dword_1C3942000, v6, v7, "Concept display name should not be nil: %@", v8, v9, v10, v11, 2u);
+  LODWORD(v12) = 138412290;
+  *(&v12 + 4) = v5;
+  OUTLINED_FUNCTION_0_3(&dword_1C3942000, v6, v7, "Concept display name should not be nil: %@", v8, v9, v10, v11, v12, DWORD2(v12));
 }
 
 + (void)parseValueCollection:()Display referenceRanges:healthRecordsStore:withCompletion:.cold.2(void *a1, void *a2)
@@ -195,7 +197,9 @@ LABEL_4:
   v3 = a1;
   v4 = [a2 inspectableValue];
   v5 = [v4 dataAbsentReason];
-  OUTLINED_FUNCTION_0_3(&dword_1C3942000, v6, v7, "Data absent reasaon display name should not be nil: %@", v8, v9, v10, v11, 2u);
+  LODWORD(v12) = 138412290;
+  *(&v12 + 4) = v5;
+  OUTLINED_FUNCTION_0_3(&dword_1C3942000, v6, v7, "Data absent reasaon display name should not be nil: %@", v8, v9, v10, v11, v12, DWORD2(v12));
 }
 
 @end

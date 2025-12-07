@@ -149,7 +149,7 @@
   v4 = _selectingView;
   if (_selectingView)
   {
-    [_selectingView cellMetrics];
+    objc_msgSend_cellMetrics(_selectingView);
   }
 
   else

@@ -668,10 +668,10 @@ uint64_t __122__SBHLibraryPodIconZoomAnimator__animateIconViewTransformsAndAlpha
   matchMoveWrapperView = self->_matchMoveWrapperView;
   animationContainer = [(SBIconAnimator *)self animationContainer];
   containerView = [animationContainer containerView];
-  [containerView bounds];
+  objc_msgSend_bounds(containerView);
   [(UIView *)matchMoveWrapperView setBounds:?];
 
-  [(UIView *)self->_folderScalingView bounds];
+  objc_msgSend_bounds(self->_folderScalingView);
   UIRectGetCenter();
   v11 = v10;
   v13 = v12;
@@ -681,12 +681,12 @@ uint64_t __122__SBHLibraryPodIconZoomAnimator__animateIconViewTransformsAndAlpha
 
   v15 = 1.0 - fraction;
   [referenceIconView iconImageSize];
-  [(UIView *)self->_folderScalingView bounds];
+  objc_msgSend_bounds(self->_folderScalingView);
   folderClippingView = self->_folderClippingView;
   BSRectWithSize();
   BSRectCenteredAboutPoint();
   [(UIView *)folderClippingView setFrame:?];
-  [referenceIconView iconImageInfo];
+  objc_msgSend_iconImageInfo(referenceIconView);
   [(UIView *)self->_folderClippingView _setContinuousCornerRadius:fraction * 0.0 + (1.0 - fraction) * v17];
   firstObject = [(NSArray *)v5 firstObject];
   [(SBHLibraryPodIconZoomAnimator *)self _centerOfMiniPodIconViews];
@@ -697,7 +697,7 @@ uint64_t __122__SBHLibraryPodIconZoomAnimator__animateIconViewTransformsAndAlpha
   folderScalingView = self->_folderScalingView;
   CGAffineTransformMakeScale(&v35, v23, v23);
   [(UIView *)folderScalingView setTransform:&v35];
-  [(UIView *)self->_folderClippingView bounds];
+  objc_msgSend_bounds(self->_folderClippingView);
   UIRectGetCenter();
   v27 = v26;
   v29 = v28;
@@ -822,7 +822,7 @@ uint64_t __122__SBHLibraryPodIconZoomAnimator__animateIconViewTransformsAndAlpha
 
   [containerView layoutIfNeeded];
   currentIconListView = [(SBFolderController *)self->_folderController currentIconListView];
-  [containerView bounds];
+  objc_msgSend_bounds(containerView);
   v52 = containerView;
   [currentIconListView convertRect:containerView fromView:?];
   v6 = [currentIconListView gridRangeForRect:?];
@@ -955,7 +955,7 @@ void __67__SBHLibraryPodIconZoomAnimator__captureVisibleAndMiniPodIconViews__blo
 
   v8 = SBHIconListLayoutFolderIconGridCellSize(v7);
   v10 = v9;
-  [v7 iconImageInfo];
+  objc_msgSend_iconImageInfo(v7);
   v12 = v11;
   v14 = v13;
   v16 = v15;
@@ -982,8 +982,8 @@ void __67__SBHLibraryPodIconZoomAnimator__captureVisibleAndMiniPodIconViews__blo
   {
     for (i = 0; i != v23; ++i)
     {
-      v25 = [(NSArray *)v3 objectAtIndex:i];
-      v26 = [icons objectAtIndex:i];
+      v25 = objc_msgSend_objectAtIndex_(v3);
+      v26 = objc_msgSend_objectAtIndex_(icons);
       v27 = [v26 iconLayerViewWithInfo:traitCollection traitCollection:1 options:{v12, v14, v16, v18}];
       v29 = v30;
       [v27 setTransform:&v29];
@@ -1072,11 +1072,11 @@ void __67__SBHLibraryPodIconZoomAnimator__captureVisibleAndMiniPodIconViews__blo
     layer = [referenceIconView layer];
     [v4 setSourceLayer:layer];
 
-    [referenceIconView bounds];
+    objc_msgSend_bounds(referenceIconView);
     [referenceIconView convertRect:self->_libraryScalingView toView:?];
     v7 = v6;
     v9 = v8;
-    [(UIView *)self->_matchMoveWrapperView bounds];
+    objc_msgSend_bounds(self->_matchMoveWrapperView);
     x = v20.origin.x;
     y = v20.origin.y;
     width = v20.size.width;
@@ -1139,7 +1139,7 @@ void __67__SBHLibraryPodIconZoomAnimator__captureVisibleAndMiniPodIconViews__blo
 
 - (void)_cancelAnimationForIconViewClippedOrObscured
 {
-  v3 = SBLogCommon();
+  v3 = SBLogCommon(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *v5 = 0;

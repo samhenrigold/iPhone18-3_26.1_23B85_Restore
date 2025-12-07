@@ -22,44 +22,44 @@
 - (PCNativeAssetInfo)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v14 = objc_msgSend_init(self, v5, v6, v7, v8, v9, v10);
-  if (v14)
+  v8 = objc_msgSend_init(self, v5, v6);
+  if (v8)
   {
-    *(v14 + 16) = objc_msgSend_decodeInt32ForKey_(coderCopy, v11, @"contentType", v12, v13, v15, v16);
-    *(v14 + 24) = objc_msgSend_decodeInt32ForKey_(coderCopy, v17, @"width", v18, v19, v20, v21);
-    *(v14 + 32) = objc_msgSend_decodeInt32ForKey_(coderCopy, v22, @"height", v23, v24, v25, v26);
-    *(v14 + 48) = objc_msgSend_decodeInt32ForKey_(coderCopy, v27, @"length", v28, v29, v30, v31);
-    objc_msgSend_decodeDoubleForKey_(coderCopy, v32, @"bitrate", v33, v34, v35, v36);
-    *(v14 + 56) = v37;
-    v38 = objc_opt_class();
-    v43 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v39, v38, @"url", v40, v41, v42);
-    v44 = *(v14 + 40);
-    *(v14 + 40) = v43;
+    *(v8 + 16) = objc_msgSend_decodeInt32ForKey_(coderCopy, v7, @"contentType");
+    *(v8 + 24) = objc_msgSend_decodeInt32ForKey_(coderCopy, v9, @"width");
+    *(v8 + 32) = objc_msgSend_decodeInt32ForKey_(coderCopy, v10, @"height");
+    *(v8 + 48) = objc_msgSend_decodeInt32ForKey_(coderCopy, v11, @"length");
+    objc_msgSend_decodeDoubleForKey_(coderCopy, v12, @"bitrate");
+    *(v8 + 56) = v13;
+    v14 = objc_opt_class();
+    v16 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v15, v14, @"url");
+    v17 = *(v8 + 40);
+    *(v8 + 40) = v16;
 
-    *(v14 + 8) = objc_msgSend_decodeBoolForKey_(coderCopy, v45, @"autoloop", v46, v47, v48, v49);
+    *(v8 + 8) = objc_msgSend_decodeBoolForKey_(coderCopy, v18, @"autoloop");
   }
 
-  return v14;
+  return v8;
 }
 
 - (void)encodeWithCoder:(id)coder
 {
   coderCopy = coder;
-  v10 = objc_msgSend_contentType(self, v4, v5, v6, v7, v8, v9);
-  objc_msgSend_encodeInt32_forKey_(coderCopy, v11, v10, @"contentType", v12, v13, v14);
-  v21 = objc_msgSend_width(self, v15, v16, v17, v18, v19, v20);
-  objc_msgSend_encodeInt32_forKey_(coderCopy, v22, v21, @"width", v23, v24, v25);
-  v32 = objc_msgSend_height(self, v26, v27, v28, v29, v30, v31);
-  objc_msgSend_encodeInt32_forKey_(coderCopy, v33, v32, @"height", v34, v35, v36);
-  v43 = objc_msgSend_url(self, v37, v38, v39, v40, v41, v42);
-  objc_msgSend_encodeObject_forKey_(coderCopy, v44, v43, @"url", v45, v46, v47);
+  v6 = objc_msgSend_contentType(self, v4, v5);
+  objc_msgSend_encodeInt32_forKey_(coderCopy, v7, v6, @"contentType");
+  v10 = objc_msgSend_width(self, v8, v9);
+  objc_msgSend_encodeInt32_forKey_(coderCopy, v11, v10, @"width");
+  v14 = objc_msgSend_height(self, v12, v13);
+  objc_msgSend_encodeInt32_forKey_(coderCopy, v15, v14, @"height");
+  v18 = objc_msgSend_url(self, v16, v17);
+  objc_msgSend_encodeObject_forKey_(coderCopy, v19, v18, @"url");
 
-  v54 = objc_msgSend_length(self, v48, v49, v50, v51, v52, v53);
-  objc_msgSend_encodeInt32_forKey_(coderCopy, v55, v54, @"length", v56, v57, v58);
-  objc_msgSend_bitrate(self, v59, v60, v61, v62, v63, v64);
-  objc_msgSend_encodeDouble_forKey_(coderCopy, v65, @"bitrate", v66, v67, v68, v69);
-  v76 = objc_msgSend_autoloop(self, v70, v71, v72, v73, v74, v75);
-  objc_msgSend_encodeBool_forKey_(coderCopy, v77, v76, @"autoloop", v78, v79, v80);
+  v22 = objc_msgSend_length(self, v20, v21);
+  objc_msgSend_encodeInt32_forKey_(coderCopy, v23, v22, @"length");
+  objc_msgSend_bitrate(self, v24, v25);
+  objc_msgSend_encodeDouble_forKey_(coderCopy, v26, @"bitrate");
+  v29 = objc_msgSend_autoloop(self, v27, v28);
+  objc_msgSend_encodeBool_forKey_(coderCopy, v30, v29, @"autoloop");
 }
 
 @end

@@ -88,7 +88,7 @@
 
 void __42__HMAccessorySettings_mergeFromNewObject___block_invoke(id *a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained(a1 + 6);
   v3 = [a1[4] internal];
   v4 = [a1[5] rootGroup];
@@ -103,15 +103,13 @@ void __42__HMAccessorySettings_mergeFromNewObject___block_invoke(id *a1)
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       v10 = HMFGetLogIdentifier();
-      v12 = 138543362;
-      v13 = v10;
-      _os_log_impl(&dword_19BB39000, v9, OS_LOG_TYPE_INFO, "%{public}@The merge unexpectedly did not result in a change.", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v10;
+      _os_log_impl(&dword_19BB39000, v9, OS_LOG_TYPE_INFO, "%{public}@The merge unexpectedly did not result in a change.", &v11, 0xCu);
     }
 
     objc_autoreleasePoolPop(v7);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __42__HMAccessorySettings_mergeFromNewObject___block_invoke_24(uint64_t a1)
@@ -123,7 +121,7 @@ void __42__HMAccessorySettings_mergeFromNewObject___block_invoke_24(uint64_t a1)
 
 - (void)_notifyDelegateDidUpdateKeyPath:(id)path
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   rootGroup = [(HMAccessorySettings *)self rootGroup];
   internal = [rootGroup internal];
@@ -140,21 +138,21 @@ void __42__HMAccessorySettings_mergeFromNewObject___block_invoke_24(uint64_t a1)
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v20 = v13;
+      v19 = v13;
       _os_log_impl(&dword_19BB39000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@Finished update", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v9);
     objc_initWeak(buf, selfCopy);
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __55__HMAccessorySettings__notifyDelegateDidUpdateKeyPath___block_invoke;
-    v16[3] = &unk_1E754D848;
-    objc_copyWeak(&v18, buf);
-    v17 = pathCopy;
-    [delegateCaller invokeBlock:v16];
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __55__HMAccessorySettings__notifyDelegateDidUpdateKeyPath___block_invoke;
+    v15[3] = &unk_1E754D848;
+    objc_copyWeak(&v17, buf);
+    v16 = pathCopy;
+    [delegateCaller invokeBlock:v15];
 
-    objc_destroyWeak(&v18);
+    objc_destroyWeak(&v17);
     objc_destroyWeak(buf);
   }
 
@@ -164,19 +162,17 @@ void __42__HMAccessorySettings_mergeFromNewObject___block_invoke_24(uint64_t a1)
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v20 = v14;
+      v19 = v14;
       _os_log_impl(&dword_19BB39000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@Missing delegate caller, not invoking delegate for updated settings", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v9);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __55__HMAccessorySettings__notifyDelegateDidUpdateKeyPath___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = [WeakRetained delegate];
   if (objc_opt_respondsToSelector())
@@ -190,15 +186,15 @@ void __55__HMAccessorySettings__notifyDelegateDidUpdateKeyPath___block_invoke(ui
       v8 = [v5 accessory];
       v9 = [v8 uniqueIdentifier];
       v10 = *(a1 + 32);
-      v14 = 138544130;
-      v15 = v7;
-      v16 = 2112;
-      v17 = v5;
-      v18 = 2112;
-      v19 = v9;
-      v20 = 2112;
-      v21 = v10;
-      _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_INFO, "%{public}@Notifying clients settings: %@ didUpdateForIdentifier: %@ keyPath: %@", &v14, 0x2Au);
+      v13 = 138544130;
+      v14 = v7;
+      v15 = 2112;
+      v16 = v5;
+      v17 = 2112;
+      v18 = v9;
+      v19 = 2112;
+      v20 = v10;
+      _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_INFO, "%{public}@Notifying clients settings: %@ didUpdateForIdentifier: %@ keyPath: %@", &v13, 0x2Au);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -206,22 +202,20 @@ void __55__HMAccessorySettings__notifyDelegateDidUpdateKeyPath___block_invoke(ui
     v12 = [v11 uniqueIdentifier];
     [v3 settings:v5 didUpdateForIdentifier:v12 keyPath:*(a1 + 32)];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateSettingsWithBlock:(id)block
 {
-  v28[2] = *MEMORY[0x1E69E9840];
+  v27[2] = *MEMORY[0x1E69E9840];
   blockCopy = block;
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v19 = __48__HMAccessorySettings__updateSettingsWithBlock___block_invoke;
-  v20 = &unk_1E754E458;
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v18 = __48__HMAccessorySettings__updateSettingsWithBlock___block_invoke;
+  v19 = &unk_1E754E458;
   selfCopy = self;
-  v22 = blockCopy;
+  v21 = blockCopy;
   v5 = blockCopy;
-  v6 = v18;
+  v6 = v17;
   if (self)
   {
     rootGroup = [(HMAccessorySettings *)self rootGroup];
@@ -247,13 +241,13 @@ void __55__HMAccessorySettings__notifyDelegateDidUpdateKeyPath___block_invoke(ui
       objc_initWeak(&location, selfCopy2);
       *&buf = MEMORY[0x1E69E9820];
       *(&buf + 1) = 3221225472;
-      v25 = __79__HMAccessorySettings___notifyDelegateSettingsWillUpdateWithCompletionHandler___block_invoke;
-      v26 = &unk_1E754A290;
-      objc_copyWeak(v28, &location);
-      v27 = v6;
+      v24 = __79__HMAccessorySettings___notifyDelegateSettingsWillUpdateWithCompletionHandler___block_invoke;
+      v25 = &unk_1E754A290;
+      objc_copyWeak(v27, &location);
+      v26 = v6;
       [delegateCaller invokeBlock:&buf];
 
-      objc_destroyWeak(v28);
+      objc_destroyWeak(v27);
       objc_destroyWeak(&location);
     }
 
@@ -268,16 +262,14 @@ void __55__HMAccessorySettings__notifyDelegateDidUpdateKeyPath___block_invoke(ui
       }
 
       objc_autoreleasePoolPop(v11);
-      v19(v6);
+      v18(v6);
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __48__HMAccessorySettings__updateSettingsWithBlock___block_invoke(uint64_t a1)
 {
-  v25[2] = *MEMORY[0x1E69E9840];
+  v24[2] = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 40);
   if (v2)
   {
@@ -316,13 +308,13 @@ void __48__HMAccessorySettings__updateSettingsWithBlock___block_invoke(uint64_t 
       *buf = MEMORY[0x1E69E9820];
       *&buf[8] = 3221225472;
       *&buf[16] = __56__HMAccessorySettings___notifyDelegateSettingsDidUpdate__block_invoke;
-      v23 = &unk_1E754D848;
-      objc_copyWeak(v25, &location);
+      v22 = &unk_1E754D848;
+      objc_copyWeak(v24, &location);
       v15 = v10;
-      v24 = v15;
+      v23 = v15;
       [v7 invokeBlock:buf];
 
-      objc_destroyWeak(v25);
+      objc_destroyWeak(v24);
       objc_destroyWeak(&location);
     }
 
@@ -342,13 +334,11 @@ void __48__HMAccessorySettings__updateSettingsWithBlock___block_invoke(uint64_t 
       objc_autoreleasePoolPop(v16);
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __79__HMAccessorySettings___notifyDelegateSettingsWillUpdateWithCompletionHandler___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = [WeakRetained delegate];
   if (objc_opt_respondsToSelector())
@@ -359,11 +349,11 @@ void __79__HMAccessorySettings___notifyDelegateSettingsWillUpdateWithCompletionH
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       v7 = HMFGetLogIdentifier();
-      v10 = 138543618;
-      v11 = v7;
-      v12 = 2112;
-      v13 = v5;
-      _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_INFO, "%{public}@Notifying clients settings will update: %@", &v10, 0x16u);
+      v9 = 138543618;
+      v10 = v7;
+      v11 = 2112;
+      v12 = v5;
+      _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_INFO, "%{public}@Notifying clients settings will update: %@", &v9, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -375,13 +365,11 @@ void __79__HMAccessorySettings___notifyDelegateSettingsWillUpdateWithCompletionH
   {
     (*(v8 + 16))();
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __56__HMAccessorySettings___notifyDelegateSettingsDidUpdate__block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = [WeakRetained delegate];
   if (objc_opt_respondsToSelector())
@@ -392,11 +380,11 @@ void __56__HMAccessorySettings___notifyDelegateSettingsDidUpdate__block_invoke(u
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       v7 = HMFGetLogIdentifier();
-      v14 = 138543618;
-      v15 = v7;
-      v16 = 2112;
-      v17 = v5;
-      _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_INFO, "%{public}@Notifying clients settings did update: %@", &v14, 0x16u);
+      v13 = 138543618;
+      v14 = v7;
+      v15 = 2112;
+      v16 = v5;
+      _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_INFO, "%{public}@Notifying clients settings did update: %@", &v13, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -412,17 +400,15 @@ void __56__HMAccessorySettings___notifyDelegateSettingsDidUpdate__block_invoke(u
     {
       v11 = HMFGetLogIdentifier();
       v12 = *(a1 + 32);
-      v14 = 138543618;
-      v15 = v11;
-      v16 = 2112;
-      v17 = v12;
-      _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@%@: Delegate does not implement settingsDidUpdate:", &v14, 0x16u);
+      v13 = 138543618;
+      v14 = v11;
+      v15 = 2112;
+      v16 = v12;
+      _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@%@: Delegate does not implement settingsDidUpdate:", &v13, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isControllable
@@ -442,7 +428,7 @@ void __56__HMAccessorySettings___notifyDelegateSettingsDidUpdate__block_invoke(u
 
 - (void)setDelegate:(id)delegate
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   delegateCopy = delegate;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -452,21 +438,19 @@ void __56__HMAccessorySettings___notifyDelegateSettingsDidUpdate__block_invoke(u
     v8 = HMFGetLogIdentifier();
     rootGroup = [(HMAccessorySettings *)selfCopy rootGroup];
     settingsContainer = [(HMAccessorySettings *)selfCopy settingsContainer];
-    v12 = 138544130;
-    v13 = v8;
-    v14 = 2112;
-    v15 = delegateCopy;
-    v16 = 2112;
-    v17 = rootGroup;
-    v18 = 2112;
-    v19 = settingsContainer;
-    _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@Setting delegate %@ on settings %@ for %@", &v12, 0x2Au);
+    v11 = 138544130;
+    v12 = v8;
+    v13 = 2112;
+    v14 = delegateCopy;
+    v15 = 2112;
+    v16 = rootGroup;
+    v17 = 2112;
+    v18 = settingsContainer;
+    _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@Setting delegate %@ on settings %@ for %@", &v11, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v5);
   objc_storeWeak(&selfCopy->_delegate, delegateCopy);
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setSettingsControl:(id)control
@@ -566,12 +550,11 @@ void __56__HMAccessorySettings___notifyDelegateSettingsDidUpdate__block_invoke(u
 
 uint64_t __34__HMAccessorySettings_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x1E69A2980];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v17_31887;
-  logCategory__hmf_once_v17_31887 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v17_31887;
+  logCategory__hmf_once_v17_31887 = v0;
 
-  return MEMORY[0x1EEE66BB8](v1, v2);
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)localizationKeyForKeyPath:(id)path

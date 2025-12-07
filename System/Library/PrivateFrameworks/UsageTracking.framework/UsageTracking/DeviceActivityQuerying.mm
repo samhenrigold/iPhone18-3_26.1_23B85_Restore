@@ -22,29 +22,28 @@
 - (void)queryForUncategorizedLocalWebUsageDuringInterval:(NSDateInterval *)interval completionHandler:(id)handler
 {
   v7 = sub_100020818(&qword_1000913B8, &qword_10006DC30);
-  v8 = *(*(v7 - 8) + 64);
-  __chkstk_darwin(v7 - 8, v9);
-  v11 = &v19 - v10;
-  v12 = _Block_copy(handler);
+  __chkstk_darwin(v7 - 8);
+  v9 = &v17 - v8;
+  v10 = _Block_copy(handler);
+  v11 = swift_allocObject();
+  v11[2] = interval;
+  v11[3] = v10;
+  v11[4] = self;
+  v12 = type metadata accessor for TaskPriority();
+  (*(*(v12 - 8) + 56))(v9, 1, 1, v12);
   v13 = swift_allocObject();
-  v13[2] = interval;
-  v13[3] = v12;
-  v13[4] = self;
-  v14 = type metadata accessor for TaskPriority();
-  (*(*(v14 - 8) + 56))(v11, 1, 1, v14);
-  v15 = swift_allocObject();
-  v15[2] = 0;
-  v15[3] = 0;
-  v15[4] = &unk_10006DC40;
-  v15[5] = v13;
-  v16 = swift_allocObject();
-  v16[2] = 0;
-  v16[3] = 0;
-  v16[4] = &unk_10006DC50;
-  v16[5] = v15;
+  v13[2] = 0;
+  v13[3] = 0;
+  v13[4] = &unk_10006DC40;
+  v13[5] = v11;
+  v14 = swift_allocObject();
+  v14[2] = 0;
+  v14[3] = 0;
+  v14[4] = &unk_10006DC50;
+  v14[5] = v13;
   intervalCopy = interval;
   selfCopy = self;
-  sub_100032B4C(0, 0, v11, &unk_10006DC60, v16);
+  sub_100032B4C(0, 0, v9, &unk_10006DC60, v14);
 }
 
 + (NSOrderedSet)currentBundleIdentifiers
@@ -102,7 +101,7 @@
   *(v3 + 1) = 0u;
   *(v3 + 4) = 0;
   v4 = (self + OBJC_IVAR____TtC18UsageTrackingAgent22DeviceActivityQuerying__query);
-  *v4 = type metadata accessor for DeviceActivityQuery();
+  *v4 = type metadata accessor for DeviceActivityQuery(0);
   v4[1] = &off_100086DF0;
   v5 = self + OBJC_IVAR____TtC18UsageTrackingAgent22DeviceActivityQuerying____lazy_storage___usageQuerying;
   v6 = type metadata accessor for DeviceActivityQuerying();

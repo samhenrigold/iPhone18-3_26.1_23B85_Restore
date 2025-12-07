@@ -104,29 +104,30 @@
 {
   managerCopy = manager;
   identifierCopy = identifier;
-  v12.receiver = self;
-  v12.super_class = AAUIAccountRecoveryViewController;
-  v8 = [(AAUIAccountRecoveryViewController *)&v12 init];
+  v13.receiver = self;
+  v13.super_class = AAUIAccountRecoveryViewController;
+  v8 = [(AAUIAccountRecoveryViewController *)&v13 init];
+  v9 = v8;
   if (v8)
   {
-    v9 = _AAUILogSystem();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v10 = _AAUILogSystem(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       [AAUIAccountRecoveryViewController initWithAccountManager:highlightRowIdentifier:];
     }
 
-    objc_storeStrong((&v8->super.super.super.super.super.isa + *MEMORY[0x1E69C57A8]), identifier);
+    objc_storeStrong((&v9->super.super.super.super.super.isa + *MEMORY[0x1E69C57A8]), identifier);
   }
 
-  v10 = [(AAUIAccountRecoveryViewController *)v8 initWithAccountManager:managerCopy];
+  v11 = [(AAUIAccountRecoveryViewController *)v9 initWithAccountManager:managerCopy];
 
-  return v10;
+  return v11;
 }
 
 - (void)dealloc
 {
   v9 = *MEMORY[0x1E69E9840];
-  v3 = _AAUILogSystem();
+  v3 = _AAUILogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = objc_opt_self();
@@ -187,7 +188,7 @@
 
 void __70__AAUIAccountRecoveryViewController_showReviewCustodiansModalIfNeeded__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v4 = _AAUILogSystem();
+  v4 = _AAUILogSystem(a1);
   v5 = v4;
   if (a2)
   {
@@ -239,7 +240,7 @@ void __70__AAUIAccountRecoveryViewController_showReviewCustodiansModalIfNeeded__
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   WeakRetained[1576] = 1;
-  v2 = _AAUILogSystem();
+  v2 = _AAUILogSystem(WeakRetained);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __70__AAUIAccountRecoveryViewController_showReviewCustodiansModalIfNeeded__block_invoke_2_cold_1();
@@ -269,34 +270,39 @@ void __70__AAUIAccountRecoveryViewController_showReviewCustodiansModalIfNeeded__
 - (void)reviewCustodianSheetDismissed:(id)dismissed withUUIDs:(id)ds
 {
   dismissedCopy = dismissed;
-  if (-[AAUIAccountRecoveryViewController isViewLoaded](self, "isViewLoaded") && (-[AAUIAccountRecoveryViewController view](self, "view"), v6 = objc_claimAutoreleasedReturnValue(), [v6 window], v7 = objc_claimAutoreleasedReturnValue(), v7, v6, v7))
+  isViewLoaded = [(AAUIAccountRecoveryViewController *)self isViewLoaded];
+  if (isViewLoaded && (-[AAUIAccountRecoveryViewController view](self, "view"), v7 = objc_claimAutoreleasedReturnValue(), [v7 window], v8 = objc_claimAutoreleasedReturnValue(), v8, v7, v8))
   {
-    v8 = CFPreferencesCopyAppValue(@"DismissCustodianReviewCFU", *MEMORY[0x1E698B7D0]);
-    v9 = _AAUILogSystem();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v9 = CFPreferencesCopyAppValue(@"DismissCustodianReviewCFU", *MEMORY[0x1E698B7D0]);
+    v10 = _AAUILogSystem(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       [AAUIAccountRecoveryViewController reviewCustodianSheetDismissed:withUUIDs:];
     }
 
-    if (v8 && [MEMORY[0x1E698B9D8] canRepairCustodian])
+    if (v9)
     {
-      v10 = _AAUILogSystem();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      canRepairCustodian = [MEMORY[0x1E698B9D8] canRepairCustodian];
+      if (canRepairCustodian)
       {
-        [AAUIAccountRecoveryViewController reviewCustodianSheetDismissed:withUUIDs:];
-      }
+        v12 = _AAUILogSystem(canRepairCustodian);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+        {
+          [AAUIAccountRecoveryViewController reviewCustodianSheetDismissed:withUUIDs:];
+        }
 
-      v11 = objc_alloc_init(MEMORY[0x1E698B850]);
-      userInfo = [dismissedCopy userInfo];
-      v13 = [userInfo valueForKey:@"custodianUUIDs"];
-      [v11 repairCustodians:v13 remove:MEMORY[0x1E695E0F0] completion:&__block_literal_global_18];
+        v13 = objc_alloc_init(MEMORY[0x1E698B850]);
+        userInfo = [dismissedCopy userInfo];
+        v15 = [userInfo valueForKey:@"custodianUUIDs"];
+        [v13 repairCustodians:v15 remove:MEMORY[0x1E695E0F0] completion:&__block_literal_global_18];
+      }
     }
   }
 
   else
   {
-    v8 = _AAUILogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = _AAUILogSystem(isViewLoaded);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [AAUIAccountRecoveryViewController reviewCustodianSheetDismissed:withUUIDs:];
     }
@@ -306,7 +312,7 @@ void __70__AAUIAccountRecoveryViewController_showReviewCustodiansModalIfNeeded__
 void __77__AAUIAccountRecoveryViewController_reviewCustodianSheetDismissed_withUUIDs___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = _AAUILogSystem();
+  v3 = _AAUILogSystem(v2);
   v4 = v3;
   if (v2)
   {
@@ -365,7 +371,7 @@ void __77__AAUIAccountRecoveryViewController_reviewCustodianSheetDismissed_withU
     *(&self->super.super.super.super.super.isa + v3) = _generateSpecifiers;
   }
 
-  v6 = _AAUILogSystem();
+  v6 = _AAUILogSystem(self);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = *(&self->super.super.super.super.super.isa + v3);
@@ -381,7 +387,7 @@ void __77__AAUIAccountRecoveryViewController_reviewCustodianSheetDismissed_withU
 
 - (id)_generateSpecifiers
 {
-  v3 = _AAUILogSystem();
+  v3 = _AAUILogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -390,14 +396,15 @@ void __77__AAUIAccountRecoveryViewController_reviewCustodianSheetDismissed_withU
 
   v4 = objc_opt_new();
   _canHaveCustodian = [(AAUIAccountRecoveryViewController *)self _canHaveCustodian];
-  v6 = _AAUILogSystem();
-  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
-  if (_canHaveCustodian)
+  v6 = _canHaveCustodian;
+  v7 = _AAUILogSystem(_canHaveCustodian);
+  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+  if (v6)
   {
-    if (v7)
+    if (v8)
     {
-      *v21 = 0;
-      _os_log_impl(&dword_1C5355000, v6, OS_LOG_TYPE_DEFAULT, "Account can have custodians, adding custodian specifiers to UI...", v21, 2u);
+      *v23 = 0;
+      _os_log_impl(&dword_1C5355000, v7, OS_LOG_TYPE_DEFAULT, "Account can have custodians, adding custodian specifiers to UI...", v23, 2u);
     }
 
     _accountRecoveryDetailsSpecifier = [(AAUIAccountRecoveryViewController *)self _accountRecoveryDetailsSpecifier];
@@ -415,10 +422,10 @@ void __77__AAUIAccountRecoveryViewController_reviewCustodianSheetDismissed_withU
 
   else
   {
-    if (v7)
+    if (v8)
     {
-      *v20 = 0;
-      _os_log_impl(&dword_1C5355000, v6, OS_LOG_TYPE_DEFAULT, "Account not eligible to have custodians, adding ineligible specifiers to UI...", v20, 2u);
+      *v22 = 0;
+      _os_log_impl(&dword_1C5355000, v7, OS_LOG_TYPE_DEFAULT, "Account not eligible to have custodians, adding ineligible specifiers to UI...", v22, 2u);
     }
 
     _accountRecoveryDetailsSpecifierForIneligibleAccount = [(AAUIAccountRecoveryViewController *)self _accountRecoveryDetailsSpecifierForIneligibleAccount];
@@ -437,13 +444,14 @@ void __77__AAUIAccountRecoveryViewController_reviewCustodianSheetDismissed_withU
     [v4 addObjectsFromArray:_recoveryKeySpecifiers];
   }
 
-  if ([(AAUIAccountRecoveryViewController *)self _canBeCustodian])
+  _canBeCustodian = [(AAUIAccountRecoveryViewController *)self _canBeCustodian];
+  if (_canBeCustodian)
   {
-    v15 = _AAUILogSystem();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v17 = _AAUILogSystem(_canBeCustodian);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      *v19 = 0;
-      _os_log_impl(&dword_1C5355000, v15, OS_LOG_TYPE_DEFAULT, "Account can be a custodian, adding custodianship owner specifiers, if any, to UI...", v19, 2u);
+      *v21 = 0;
+      _os_log_impl(&dword_1C5355000, v17, OS_LOG_TYPE_DEFAULT, "Account can be a custodian, adding custodianship owner specifiers, if any, to UI...", v21, 2u);
     }
 
     if ([(NSArray *)self->_myCustodianshipOwners count])
@@ -658,7 +666,7 @@ void __69__AAUIAccountRecoveryViewController__syncTrustedContactsFromCloudKit__b
 {
   v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = _AAUILogSystem();
+  v4 = _AAUILogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -765,7 +773,7 @@ void __63__AAUIAccountRecoveryViewController__fetchAllCustodianContacts__block_i
 {
   v14 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  v6 = _AAUILogSystem();
+  v6 = _AAUILogSystem(v5);
   v7 = v6;
   if (v5)
   {
@@ -929,7 +937,7 @@ void __60__AAUIAccountRecoveryViewController__fetchRecoveryKeyUpdate__block_invo
   v13 = *MEMORY[0x1E69E9840];
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v7 = _AAUILogSystem();
+  v7 = _AAUILogSystem(WeakRetained);
   v8 = v7;
   if (v5)
   {
@@ -977,7 +985,7 @@ void __60__AAUIAccountRecoveryViewController__fetchRecoveryKeyUpdate__block_invo
 - (void)_syncAccountRecoveryFactorsWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = _AAUILogSystem();
+  v5 = _AAUILogSystem(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -999,7 +1007,7 @@ void __60__AAUIAccountRecoveryViewController__fetchRecoveryKeyUpdate__block_invo
 void __79__AAUIAccountRecoveryViewController__syncAccountRecoveryFactorsWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _AAUILogSystem();
+  v4 = _AAUILogSystem(v3);
   v5 = v4;
   if (v3)
   {
@@ -1220,7 +1228,7 @@ uint64_t __65__AAUIAccountRecoveryViewController__myRecoveryOptionsSpecifiers__b
 
 - (void)_learnMoreWasTapped
 {
-  v3 = _AAUILogSystem();
+  v3 = _AAUILogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -1234,7 +1242,7 @@ uint64_t __65__AAUIAccountRecoveryViewController__myRecoveryOptionsSpecifiers__b
 
 - (void)_footerLearnMoreWasTapped
 {
-  v3 = _AAUILogSystem();
+  v3 = _AAUILogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -1266,83 +1274,84 @@ uint64_t __65__AAUIAccountRecoveryViewController__myRecoveryOptionsSpecifiers__b
   {
     dtoHelper = self->_dtoHelper;
     aa_altDSID = [v4 aa_altDSID];
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 3221225472;
-    v8[2] = __54__AAUIAccountRecoveryViewController__showAddCustodian__block_invoke;
-    v8[3] = &unk_1E820C140;
-    v8[4] = self;
-    [(AAUIDTOHelper *)dtoHelper shouldGateUsingRatchetForAltDSID:aa_altDSID completion:v8];
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __54__AAUIAccountRecoveryViewController__showAddCustodian__block_invoke;
+    v9[3] = &unk_1E820C140;
+    v9[4] = self;
+    [(AAUIDTOHelper *)dtoHelper shouldGateUsingRatchetForAltDSID:aa_altDSID completion:v9];
   }
 
   else
   {
-    v7 = _AAUILogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v8 = _AAUILogSystem(v5);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       [AAUIRecoveryFactorController startAddingRecoveryContact];
     }
   }
 }
 
-void __54__AAUIAccountRecoveryViewController__showAddCustodian__block_invoke(uint64_t a1, int a2)
+void __54__AAUIAccountRecoveryViewController__showAddCustodian__block_invoke(uint64_t a1, uint64_t a2)
 {
   if (!a2)
   {
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __54__AAUIAccountRecoveryViewController__showAddCustodian__block_invoke_149;
-    v13[3] = &unk_1E820B8F0;
-    v13[4] = *(a1 + 32);
-    v11 = MEMORY[0x1E69E96A0];
-    v12 = v13;
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __54__AAUIAccountRecoveryViewController__showAddCustodian__block_invoke_149;
+    v14[3] = &unk_1E820B8F0;
+    v14[4] = *(a1 + 32);
+    v12 = MEMORY[0x1E69E96A0];
+    v13 = v14;
 LABEL_10:
-    dispatch_async(v11, v12);
+    dispatch_async(v12, v13);
     return;
   }
 
-  v3 = _AAUILogSystem();
+  v3 = _AAUILogSystem(a1);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     __58__AAUIRecoveryFactorController_startAddingRecoveryContact__block_invoke_cold_1();
   }
 
-  if (![*(*(a1 + 32) + 1552) isDTOGatingEnabled])
+  v4 = [*(*(a1 + 32) + 1552) isDTOGatingEnabled];
+  if (!v4)
   {
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __54__AAUIAccountRecoveryViewController__showAddCustodian__block_invoke_2;
     block[3] = &unk_1E820B8F0;
     block[4] = *(a1 + 32);
-    v11 = MEMORY[0x1E69E96A0];
-    v12 = block;
+    v12 = MEMORY[0x1E69E96A0];
+    v13 = block;
     goto LABEL_10;
   }
 
-  v4 = _AAUILogSystem();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  v5 = _AAUILogSystem(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     __58__AAUIRecoveryFactorController_startAddingRecoveryContact__block_invoke_cold_2();
   }
 
-  v5 = *(a1 + 32);
-  v6 = v5[194];
-  v7 = [v5 presentingViewController];
-  v8 = [v6 makeRatchetContextWithPresentationContext:v7 DTOContextType:1];
+  v6 = *(a1 + 32);
+  v7 = v6[194];
+  v8 = [v6 presentingViewController];
+  v9 = [v7 makeRatchetContextWithPresentationContext:v8 DTOContextType:1];
 
-  v9 = *(a1 + 32);
-  v10 = *(v9 + 1552);
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __54__AAUIAccountRecoveryViewController__showAddCustodian__block_invoke_147;
-  v15[3] = &unk_1E820C1A8;
-  v15[4] = v9;
-  [v10 shouldAllowOpForContext:v8 completion:v15];
+  v10 = *(a1 + 32);
+  v11 = *(v10 + 1552);
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __54__AAUIAccountRecoveryViewController__showAddCustodian__block_invoke_147;
+  v16[3] = &unk_1E820C1A8;
+  v16[4] = v10;
+  [v11 shouldAllowOpForContext:v9 completion:v16];
 }
 
 void __54__AAUIAccountRecoveryViewController__showAddCustodian__block_invoke_147(uint64_t a1, int a2, void *a3)
 {
   v5 = a3;
-  v6 = _AAUILogSystem();
+  v6 = _AAUILogSystem(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     __58__AAUIRecoveryFactorController_startAddingRecoveryContact__block_invoke_35_cold_1(a2, v5, v6);
@@ -1359,10 +1368,10 @@ void __54__AAUIAccountRecoveryViewController__showAddCustodian__block_invoke_147
   }
 }
 
-uint64_t __54__AAUIAccountRecoveryViewController__showAddCustodian__block_invoke_2(uint64_t a1)
+uint64_t __54__AAUIAccountRecoveryViewController__showAddCustodian__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = _AAUILogSystem();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = _AAUILogSystem(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     __58__AAUIRecoveryFactorController_startAddingRecoveryContact__block_invoke_2_cold_1();
   }
@@ -1370,10 +1379,10 @@ uint64_t __54__AAUIAccountRecoveryViewController__showAddCustodian__block_invoke
   return [*(a1 + 32) _continueShowingAddCustodian];
 }
 
-uint64_t __54__AAUIAccountRecoveryViewController__showAddCustodian__block_invoke_149(uint64_t a1)
+uint64_t __54__AAUIAccountRecoveryViewController__showAddCustodian__block_invoke_149(uint64_t a1, uint64_t a2)
 {
-  v2 = _AAUILogSystem();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = _AAUILogSystem(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     __58__AAUIRecoveryFactorController_startAddingRecoveryContact__block_invoke_39_cold_1();
   }
@@ -1408,7 +1417,7 @@ uint64_t __54__AAUIAccountRecoveryViewController__showAddCustodian__block_invoke
 - (void)_showRecoveryKey:(id)key
 {
   keyCopy = key;
-  v5 = _AAUILogSystem();
+  v5 = _AAUILogSystem(keyCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1421,22 +1430,22 @@ uint64_t __54__AAUIAccountRecoveryViewController__showAddCustodian__block_invoke
   if (v7)
   {
     [(AAUIAccountRecoveryViewController *)self _startSpinnerInSpecifier:keyCopy];
-    v8 = [MEMORY[0x1E696AF68] requestWithURL:v7];
-    v9 = [[AAUIGrandSlamRemoteUIPresenter alloc] initWithAccountManager:self->_accountManager presenter:self];
+    v9 = [MEMORY[0x1E696AF68] requestWithURL:v7];
+    v10 = [[AAUIGrandSlamRemoteUIPresenter alloc] initWithAccountManager:self->_accountManager presenter:self];
     remoteUIPresenter = self->_remoteUIPresenter;
-    self->_remoteUIPresenter = v9;
+    self->_remoteUIPresenter = v10;
 
     [(AAUIGrandSlamRemoteUIPresenter *)self->_remoteUIPresenter setDelegate:self];
-    [(AAUIGrandSlamRemoteUIPresenter *)self->_remoteUIPresenter loadRequest:v8];
+    [(AAUIGrandSlamRemoteUIPresenter *)self->_remoteUIPresenter loadRequest:v9];
   }
 
   else
   {
-    v8 = _AAUILogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = _AAUILogSystem(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      *v11 = 0;
-      _os_log_impl(&dword_1C5355000, v8, OS_LOG_TYPE_DEFAULT, "Unable to load Recovery Key UI. We're missing the URL from the URL bag.", v11, 2u);
+      *v12 = 0;
+      _os_log_impl(&dword_1C5355000, v9, OS_LOG_TYPE_DEFAULT, "Unable to load Recovery Key UI. We're missing the URL from the URL bag.", v12, 2u);
     }
   }
 }

@@ -7,6 +7,7 @@
 - (id)plugInKitProxyForUUID:(id)d;
 - (id)plugInRecordEnumerator;
 - (id)plugInRecordEnumeratorForExtensionPointRecord:(id)record;
+- (id)plugInRecordEnumeratorWithExtensionPointName:(id)name platform:(unsigned int)platform;
 - (id)plugInRecordForIdentifier:(id)identifier;
 - (id)plugInRecordForUUID:(id)d;
 - (id)pluginKitProxyForIdentifier:(id)identifier;
@@ -91,6 +92,32 @@
   v2 = [MEMORY[0x1E69635D0] enumeratorWithOptions:0];
 
   return v2;
+}
+
+- (id)plugInRecordEnumeratorWithExtensionPointName:(id)name platform:(unsigned int)platform
+{
+  v4 = *&platform;
+  nameCopy = name;
+  v11 = 0;
+  v6 = [objc_alloc(MEMORY[0x1E6963668]) initWithIdentifier:nameCopy platform:v4 error:&v11];
+  v7 = v11;
+  if (v6)
+  {
+    v8 = [MEMORY[0x1E69635D0] enumeratorWithExtensionPointRecord:v6 options:0];
+  }
+
+  else
+  {
+    v9 = pklog_handle_for_category(3);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    {
+      sub_1C68B51D0(nameCopy, v7, v9);
+    }
+
+    v8 = 0;
+  }
+
+  return v8;
 }
 
 - (id)extensionPointRecordEnumeratorForExtensionPointIdentifier:(id)identifier

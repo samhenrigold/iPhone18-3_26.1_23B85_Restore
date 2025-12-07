@@ -148,7 +148,7 @@
 
               v15 = [v9 itemForLayoutRole:{objc_msgSend(*(*(&v22 + 1) + 8 * j), "integerValue")}];
               bundleIdentifier = [v15 bundleIdentifier];
-              if (v15 && ([v5 containsObject:bundleIdentifier] & 1) == 0)
+              if (v15 && (objc_msgSend_containsObject_(v5) & 1) == 0)
               {
                 [v4 addObject:v15];
                 [v5 addObject:bundleIdentifier];

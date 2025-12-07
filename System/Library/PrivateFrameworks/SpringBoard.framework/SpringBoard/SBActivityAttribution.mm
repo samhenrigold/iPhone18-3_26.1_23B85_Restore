@@ -165,7 +165,7 @@ LABEL_13:
   if (attributedEntity)
   {
     v6 = attributedEntity;
-    [attributedEntity auditToken];
+    objc_msgSend_auditToken(attributedEntity);
     attributedEntity = v6;
   }
 

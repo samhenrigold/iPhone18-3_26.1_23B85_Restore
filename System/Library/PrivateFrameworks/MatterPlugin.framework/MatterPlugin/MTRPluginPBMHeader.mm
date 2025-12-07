@@ -1,11 +1,19 @@
 @interface MTRPluginPBMHeader
++ (MTRPluginPBMHeader)headerWithSessionID:(id)d homeID:(id)iD messageType:(int)type;
++ (id)messageTypeAsString:(unsigned int)string;
++ (id)onewayHeaderWithSessionID:(id)d homeID:(id)iD messageType:(int)type;
++ (id)requestHeaderWithSessionID:(id)d homeID:(id)iD messageType:(int)type;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isValid;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)messageDirectionAsString:(int)string;
+- (id)protocolAsString:(int)string;
 - (id)responseHeaderForRequestHeader;
+- (id)schemaAsString:(int)string;
 - (id)shortDescription;
+- (id)versionAsString:(int)string;
 - (int)StringAsMessageDirection:(id)direction;
 - (int)messageDirection;
 - (int)protocol;
@@ -51,6 +59,21 @@
   *&self->_has = *&self->_has & 0xEF | v3;
 }
 
+- (id)versionAsString:(int)string
+{
+  if (string == 1)
+  {
+    v4 = @"VERSION_V1";
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v4;
+}
+
 - (int)schema
 {
   if ((*&self->_has & 8) != 0)
@@ -77,6 +100,21 @@
   }
 
   *&self->_has = *&self->_has & 0xF7 | v3;
+}
+
+- (id)schemaAsString:(int)string
+{
+  if (string == 1)
+  {
+    v4 = @"SCHEMA_V1";
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v4;
 }
 
 - (int)protocol
@@ -107,6 +145,21 @@
   *&self->_has = *&self->_has & 0xFB | v3;
 }
 
+- (id)protocolAsString:(int)string
+{
+  if (string == 1)
+  {
+    v4 = @"MATTER_V1";
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v4;
+}
+
 - (void)setHasMessageType:(BOOL)type
 {
   if (type)
@@ -133,6 +186,21 @@
   {
     return 1;
   }
+}
+
+- (id)messageDirectionAsString:(int)string
+{
+  if ((string - 1) >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_279894218[string - 1];
+  }
+
+  return v4;
 }
 
 - (int)StringAsMessageDirection:(id)direction
@@ -310,12 +378,11 @@ LABEL_24:
 {
   toCopy = to;
   has = self->_has;
-  v11 = toCopy;
+  v6 = toCopy;
   if ((has & 0x10) != 0)
   {
-    version = self->_version;
     PBDataWriterWriteInt32Field();
-    toCopy = v11;
+    toCopy = v6;
     has = self->_has;
     if ((has & 8) == 0)
     {
@@ -334,9 +401,8 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  schema = self->_schema;
   PBDataWriterWriteInt32Field();
-  toCopy = v11;
+  toCopy = v6;
   has = self->_has;
   if ((has & 4) == 0)
   {
@@ -350,9 +416,8 @@ LABEL_4:
   }
 
 LABEL_18:
-  protocol = self->_protocol;
   PBDataWriterWriteInt32Field();
-  toCopy = v11;
+  toCopy = v6;
   has = self->_has;
   if ((has & 2) == 0)
   {
@@ -366,34 +431,32 @@ LABEL_5:
   }
 
 LABEL_19:
-  messageType = self->_messageType;
   PBDataWriterWriteUint32Field();
-  toCopy = v11;
+  toCopy = v6;
   if (*&self->_has)
   {
 LABEL_6:
-    messageDirection = self->_messageDirection;
     PBDataWriterWriteInt32Field();
-    toCopy = v11;
+    toCopy = v6;
   }
 
 LABEL_7:
   if (self->_messageID)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   if (self->_sessionID)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   if (self->_homeID)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v11;
+    toCopy = v6;
   }
 }
 
@@ -573,7 +636,6 @@ LABEL_7:
     goto LABEL_33;
   }
 
-  v5 = *(equalCopy + 60);
   if ((*&self->_has & 0x10) != 0)
   {
     if ((*(equalCopy + 60) & 0x10) == 0 || self->_version != *(equalCopy + 14))
@@ -585,7 +647,7 @@ LABEL_7:
   else if ((*(equalCopy + 60) & 0x10) != 0)
   {
 LABEL_33:
-    v9 = 0;
+    v8 = 0;
     goto LABEL_34;
   }
 
@@ -659,17 +721,17 @@ LABEL_33:
   homeID = self->_homeID;
   if (homeID | *(equalCopy + 1))
   {
-    v9 = [(MTRPluginPBMUUID *)homeID isEqual:?];
+    v8 = [(MTRPluginPBMUUID *)homeID isEqual:?];
   }
 
   else
   {
-    v9 = 1;
+    v8 = 1;
   }
 
 LABEL_34:
 
-  return v9;
+  return v8;
 }
 
 - (unint64_t)hash
@@ -877,6 +939,47 @@ LABEL_24:
   MEMORY[0x2821F96F8]();
 }
 
++ (MTRPluginPBMHeader)headerWithSessionID:(id)d homeID:(id)iD messageType:(int)type
+{
+  v5 = *&type;
+  iDCopy = iD;
+  dCopy = d;
+  v9 = objc_alloc_init(MTRPluginPBMHeader);
+  [(MTRPluginPBMHeader *)v9 setVersion:1];
+  [(MTRPluginPBMHeader *)v9 setSchema:1];
+  [(MTRPluginPBMHeader *)v9 setProtocol:1];
+  v10 = [MTRPluginPBMUUID alloc];
+  uUID = [MEMORY[0x277CCAD78] UUID];
+  v12 = [(MTRPluginPBMUUID *)v10 initWithUUID:uUID];
+  [(MTRPluginPBMHeader *)v9 setMessageID:v12];
+
+  v13 = [[MTRPluginPBMUUID alloc] initWithUUID:dCopy];
+  [(MTRPluginPBMHeader *)v9 setSessionID:v13];
+
+  v14 = [[MTRPluginPBMUUID alloc] initWithUUID:iDCopy];
+  [(MTRPluginPBMHeader *)v9 setHomeID:v14];
+
+  [(MTRPluginPBMHeader *)v9 setMessageType:v5];
+
+  return v9;
+}
+
++ (id)requestHeaderWithSessionID:(id)d homeID:(id)iD messageType:(int)type
+{
+  v5 = [self headerWithSessionID:d homeID:iD messageType:*&type];
+  [v5 setMessageDirection:2];
+
+  return v5;
+}
+
++ (id)onewayHeaderWithSessionID:(id)d homeID:(id)iD messageType:(int)type
+{
+  v5 = [self headerWithSessionID:d homeID:iD messageType:*&type];
+  [v5 setMessageDirection:1];
+
+  return v5;
+}
+
 - (id)responseHeaderForRequestHeader
 {
   v2 = [(MTRPluginPBMHeader *)self copy];
@@ -919,6 +1022,37 @@ LABEL_24:
   v14 = [v3 stringWithFormat:@"<MTRPluginPBMHeader: mid: %@, type: %u (%@), sid: %@, hid: %@, direction: %@>", uuid, messageType, v7, uuid2, uuid3, v13];
 
   return v14;
+}
+
++ (id)messageTypeAsString:(unsigned int)string
+{
+  if (string <= 0x3E7)
+  {
+    v4 = string - 1;
+    if (string - 1 < 0xA && ((0x387u >> v4) & 1) != 0)
+    {
+      v3 = off_279894270[v4];
+      goto LABEL_11;
+    }
+
+    v5 = MEMORY[0x277CCACA8];
+  }
+
+  else
+  {
+    if (string - 1000 < 0x12 && ((0x3FFFBu >> (string + 24)) & 1) != 0)
+    {
+      v3 = off_2798942C0[string - 1000];
+      goto LABEL_11;
+    }
+
+    v5 = MEMORY[0x277CCACA8];
+  }
+
+  v3 = [v5 stringWithFormat:@"(unknown: %i)", *&string];
+LABEL_11:
+
+  return v3;
 }
 
 @end

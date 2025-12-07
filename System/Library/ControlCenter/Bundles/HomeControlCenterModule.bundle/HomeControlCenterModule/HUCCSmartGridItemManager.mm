@@ -69,7 +69,7 @@
 
 - (id)_buildItemProvidersForHome:(id)home
 {
-  v56 = *MEMORY[0x29EDCA608];
+  v55 = *MEMORY[0x29EDCA608];
   homeCopy = home;
   v7 = objc_msgSend_array(MEMORY[0x29EDB8DE8], v5, v6);
   if (objc_msgSend_hf_shouldBlockCurrentUserFromHome(homeCopy, v8, v9))
@@ -87,24 +87,13 @@
   else
   {
     v24 = objc_msgSend_predictionsManager(self, v10, v11);
-    if (!v24)
+    if (!v24 || (v27 = v24, objc_msgSend_predictionsManager(self, v25, v26), v28 = objc_claimAutoreleasedReturnValue(), objc_msgSend_home(v28, v29, v30), v31 = objc_claimAutoreleasedReturnValue(), isEqual = objc_msgSend_isEqual_(v31, v32, homeCopy), v31, v28, v27, (isEqual & 1) == 0))
     {
-      goto LABEL_5;
-    }
-
-    v27 = v24;
-    v28 = objc_msgSend_predictionsManager(self, v25, v26);
-    v31 = objc_msgSend_home(v28, v29, v30);
-    isEqual = objc_msgSend_isEqual_(v31, v32, homeCopy);
-
-    if ((isEqual & 1) == 0)
-    {
-LABEL_5:
       v34 = HFLogForCategory();
       if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v55 = homeCopy;
+        v54 = homeCopy;
         _os_log_impl(&dword_29C992000, v34, OS_LOG_TYPE_DEFAULT, "Creating predictionsManager for home: %@", buf, 0xCu);
       }
 
@@ -123,14 +112,12 @@ LABEL_5:
     objc_msgSend_addObject_(v7, v51, v14);
   }
 
-  v52 = *MEMORY[0x29EDCA608];
-
   return v7;
 }
 
 - (id)_buildSectionsWithDisplayedItems:(id)items
 {
-  v114 = *MEMORY[0x29EDCA608];
+  v112 = *MEMORY[0x29EDCA608];
   itemsCopy = items;
   v7 = objc_msgSend_array(MEMORY[0x29EDB8DE8], v5, v6);
   v10 = objc_msgSend_mosaicLayoutDelegate(self, v8, v9);
@@ -140,47 +127,47 @@ LABEL_5:
     v11 = objc_alloc(MEMORY[0x29EDC53B0]);
     v13 = objc_msgSend_initWithIdentifier_(v11, v12, @"HUCC START GRID MAIN SECTION");
     v16 = objc_msgSend_allObjects(itemsCopy, v14, v15);
-    v111[0] = MEMORY[0x29EDCA5F8];
-    v111[1] = 3221225472;
-    v111[2] = sub_29C995170;
-    v111[3] = &unk_29F33A820;
-    v111[4] = self;
-    v18 = objc_msgSend_sortedArrayUsingComparator_(v16, v17, v111);
+    v109[0] = MEMORY[0x29EDCA5F8];
+    v109[1] = 3221225472;
+    v109[2] = sub_29C995170;
+    v109[3] = &unk_29F33A820;
+    v109[4] = self;
+    v18 = objc_msgSend_sortedArrayUsingComparator_(v16, v17, v109);
 
     if (objc_msgSend_count(v18, v19, v20))
     {
-      v97 = v13;
-      v98 = itemsCopy;
-      v99 = v7;
+      v95 = v13;
+      v96 = itemsCopy;
+      v97 = v7;
       v23 = objc_msgSend_array(MEMORY[0x29EDB8DE8], v21, v22);
+      v105 = 0u;
+      v106 = 0u;
       v107 = 0u;
       v108 = 0u;
-      v109 = 0u;
-      v110 = 0u;
-      v96 = v18;
+      v94 = v18;
       v24 = v18;
-      v26 = objc_msgSend_countByEnumeratingWithState_objects_count_(v24, v25, &v107, v113, 16);
+      v26 = objc_msgSend_countByEnumeratingWithState_objects_count_(v24, v25, &v105, v111, 16);
       v27 = 0x29EDC5000uLL;
       if (v26)
       {
         v28 = v26;
-        v29 = *v108;
+        v29 = *v106;
         do
         {
           for (i = 0; i != v28; ++i)
           {
-            if (*v108 != v29)
+            if (*v106 != v29)
             {
               objc_enumerationMutation(v24);
             }
 
-            v31 = *(*(&v107 + 1) + 8 * i);
+            v31 = *(*(&v105 + 1) + 8 * i);
             v32 = objc_alloc(MEMORY[0x29EDC5490]);
             v34 = objc_msgSend_initWithBaseItem_(v32, v33, v31);
             objc_msgSend_addObject_(v23, v35, v34);
           }
 
-          v28 = objc_msgSend_countByEnumeratingWithState_objects_count_(v24, v36, &v107, v113, 16);
+          v28 = objc_msgSend_countByEnumeratingWithState_objects_count_(v24, v36, &v105, v111, 16);
         }
 
         while (v28);
@@ -189,88 +176,87 @@ LABEL_5:
       v39 = objc_msgSend_mosaicLayoutDelegate(self, v37, v38);
       v42 = objc_msgSend_arranger(v39, v40, v41);
 
-      v95 = v23;
+      v93 = v23;
       v44 = objc_msgSend_calculateOrderingForItems_(v42, v43, v23);
-      v94 = v42;
+      v92 = v42;
       v47 = objc_msgSend_chosenLayoutType(v42, v45, v46);
       objc_msgSend_setChosenLayoutType_(self, v48, v47);
-      v101 = objc_msgSend_array(MEMORY[0x29EDB8DE8], v49, v50);
+      v99 = objc_msgSend_array(MEMORY[0x29EDB8DE8], v49, v50);
       v53 = objc_msgSend_dictionary(MEMORY[0x29EDB8E00], v51, v52);
       objc_msgSend_setMosaicLayoutDetails_(self, v54, v53);
 
-      v105 = 0u;
-      v106 = 0u;
       v103 = 0u;
       v104 = 0u;
+      v101 = 0u;
+      v102 = 0u;
       obj = v44;
-      v56 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v55, &v103, v112, 16);
+      v56 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v55, &v101, v110, 16);
       if (v56)
       {
         v57 = v56;
         v58 = 0;
-        v102 = *v104;
+        v100 = *v102;
         do
         {
           for (j = 0; j != v57; ++j)
           {
-            if (*v104 != v102)
+            if (*v102 != v100)
             {
               objc_enumerationMutation(obj);
             }
 
-            v60 = *(*(&v103 + 1) + 8 * j);
-            v61 = *(v27 + 1168);
+            v60 = *(*(&v101 + 1) + 8 * j);
             objc_opt_class();
-            v62 = v60;
+            v61 = v60;
             if (objc_opt_isKindOfClass())
             {
-              v63 = v62;
+              v62 = v61;
             }
 
             else
             {
-              v63 = 0;
+              v62 = 0;
             }
 
-            v64 = v63;
+            v63 = v62;
 
-            if (v64)
+            if (v63)
             {
               objc_opt_class();
-              v67 = objc_msgSend_baseItem(v64, v65, v66);
+              v66 = objc_msgSend_baseItem(v63, v64, v65);
               if (objc_opt_isKindOfClass())
               {
-                v68 = v67;
+                v67 = v66;
               }
 
               else
               {
-                v68 = 0;
+                v67 = 0;
               }
 
-              v69 = v68;
+              v68 = v67;
 
-              if (v69)
+              if (v68)
               {
                 ++v58;
               }
 
-              v72 = objc_msgSend_baseItem(v64, v70, v71);
-              objc_msgSend_addObject_(v101, v73, v72);
+              v71 = objc_msgSend_baseItem(v63, v69, v70);
+              objc_msgSend_addObject_(v99, v72, v71);
 
-              v76 = objc_msgSend_mosaicLayoutDetails(self, v74, v75);
-              v79 = objc_msgSend_baseItem(v64, v77, v78);
-              objc_msgSend__mosaicKeyForItem_(self, v80, v79);
-              v81 = v27;
-              v83 = v82 = self;
-              objc_msgSend_setObject_forKey_(v76, v84, v64, v83);
+              v75 = objc_msgSend_mosaicLayoutDetails(self, v73, v74);
+              v78 = objc_msgSend_baseItem(v63, v76, v77);
+              objc_msgSend__mosaicKeyForItem_(self, v79, v78);
+              v80 = v27;
+              v82 = v81 = self;
+              objc_msgSend_setObject_forKey_(v75, v83, v63, v82);
 
-              self = v82;
-              v27 = v81;
+              self = v81;
+              v27 = v80;
             }
           }
 
-          v57 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v85, &v103, v112, 16);
+          v57 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v84, &v101, v110, 16);
         }
 
         while (v57);
@@ -281,46 +267,44 @@ LABEL_5:
         v58 = 0;
       }
 
-      if (v58 != objc_msgSend_numberOfPlaceholderItems(self, v87, v88))
+      if (v58 != objc_msgSend_numberOfPlaceholderItems(self, v86, v87))
       {
-        objc_msgSend_setNumberOfPlaceholderItems_(self, v89, v58);
-        objc_msgSend_setNumberOfPlaceholdersWasChanged_(self, v90, 1);
+        objc_msgSend_setNumberOfPlaceholderItems_(self, v88, v58);
+        objc_msgSend_setNumberOfPlaceholdersWasChanged_(self, v89, 1);
       }
 
-      v13 = v97;
-      objc_msgSend_setItems_(v97, v89, v101);
+      v13 = v95;
+      objc_msgSend_setItems_(v95, v88, v99);
 
-      itemsCopy = v98;
-      v7 = v99;
-      v86 = v95;
-      v18 = v96;
+      itemsCopy = v96;
+      v7 = v97;
+      v85 = v93;
+      v18 = v94;
     }
 
     else
     {
-      v86 = HFLogForCategory();
-      if (os_log_type_enabled(v86, OS_LOG_TYPE_ERROR))
+      v85 = HFLogForCategory();
+      if (os_log_type_enabled(v85, OS_LOG_TYPE_ERROR))
       {
-        sub_29C9AB710(self, v86);
+        sub_29C9AB710(self, v85);
       }
     }
 
     if (_os_feature_enabled_impl())
     {
-      objc_msgSend_setItems_(v13, v91, v18);
+      objc_msgSend_setItems_(v13, v90, v18);
     }
 
-    objc_msgSend_addObject_(v7, v91, v13);
+    objc_msgSend_addObject_(v7, v90, v13);
   }
-
-  v92 = *MEMORY[0x29EDCA608];
 
   return v7;
 }
 
 - (void)setChosenLayoutType:(unint64_t)type
 {
-  v18 = *MEMORY[0x29EDCA608];
+  v17 = *MEMORY[0x29EDCA608];
   if (self->_chosenLayoutType != type)
   {
     v5 = HFLogForCategory();
@@ -329,15 +313,15 @@ LABEL_5:
       v6 = objc_opt_class();
       v7 = NSStringFromClass(v6);
       chosenLayoutType = self->_chosenLayoutType;
-      v10 = 138413058;
-      v11 = v7;
-      v12 = 2080;
-      v13 = "[HUCCSmartGridItemManager setChosenLayoutType:]";
-      v14 = 2048;
-      v15 = chosenLayoutType;
-      v16 = 2048;
+      v9 = 138413058;
+      v10 = v7;
+      v11 = 2080;
+      v12 = "[HUCCSmartGridItemManager setChosenLayoutType:]";
+      v13 = 2048;
+      v14 = chosenLayoutType;
+      v15 = 2048;
       typeCopy = type;
-      _os_log_impl(&dword_29C992000, v5, OS_LOG_TYPE_DEFAULT, "%@:%s prev chosenLayoutType = %lu. new chosenLayoutType = %lu", &v10, 0x2Au);
+      _os_log_impl(&dword_29C992000, v5, OS_LOG_TYPE_DEFAULT, "%@:%s prev chosenLayoutType = %lu. new chosenLayoutType = %lu", &v9, 0x2Au);
     }
 
     if (self->_chosenLayoutType)
@@ -347,8 +331,6 @@ LABEL_5:
 
     self->_chosenLayoutType = type;
   }
-
-  v9 = *MEMORY[0x29EDCA608];
 }
 
 - (void)_didFinishUpdateTransactionWithAffectedItems:(id)items

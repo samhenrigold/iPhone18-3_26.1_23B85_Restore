@@ -23,10 +23,10 @@
 
 - (CRSUIClusterThemeManager)init
 {
-  v27 = *MEMORY[0x277D85DE8];
-  v24.receiver = self;
-  v24.super_class = CRSUIClusterThemeManager;
-  v2 = [(CRSUIClusterThemeManager *)&v24 init];
+  v26 = *MEMORY[0x277D85DE8];
+  v23.receiver = self;
+  v23.super_class = CRSUIClusterThemeManager;
+  v2 = [(CRSUIClusterThemeManager *)&v23 init];
   v3 = v2;
   if (v2)
   {
@@ -51,29 +51,28 @@
 
     objc_initWeak(&location, v3);
     v15 = v3->_connection;
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __32__CRSUIClusterThemeManager_init__block_invoke;
-    v20[3] = &unk_278DA0B58;
-    v21 = v3;
-    objc_copyWeak(&v22, &location);
-    [(BSServiceConnection *)v15 configureConnection:v20];
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __32__CRSUIClusterThemeManager_init__block_invoke;
+    v19[3] = &unk_278DA0B58;
+    v20 = v3;
+    objc_copyWeak(&v21, &location);
+    [(BSServiceConnection *)v15 configureConnection:v19];
     v16 = CRSUILogForCategory(6uLL);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       v17 = v3->_connection;
       *buf = 138412290;
-      v26 = v17;
+      v25 = v17;
       _os_log_impl(&dword_243218000, v16, OS_LOG_TYPE_DEFAULT, "Activating connection! %@", buf, 0xCu);
     }
 
     [(BSServiceConnection *)v3->_connection activate];
-    objc_destroyWeak(&v22);
+    objc_destroyWeak(&v21);
 
     objc_destroyWeak(&location);
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -104,20 +103,18 @@ void __32__CRSUIClusterThemeManager_init__block_invoke(uint64_t a1, void *a2)
 
 void __32__CRSUIClusterThemeManager_init__block_invoke_2(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = CRSUILogForCategory(6uLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = v3;
-    _os_log_impl(&dword_243218000, v4, OS_LOG_TYPE_DEFAULT, "Connection activated! %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v3;
+    _os_log_impl(&dword_243218000, v4, OS_LOG_TYPE_DEFAULT, "Connection activated! %@", &v6, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained _handleConnectionActivated];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __32__CRSUIClusterThemeManager_init__block_invoke_30(uint64_t a1, void *a2)
@@ -207,7 +204,7 @@ void __32__CRSUIClusterThemeManager_init__block_invoke_31(uint64_t a1, void *a2)
 
 - (void)invalidate
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   if (!self->_lock_invalidated)
   {
@@ -215,9 +212,9 @@ void __32__CRSUIClusterThemeManager_init__block_invoke_31(uint64_t a1, void *a2)
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       connection = [(CRSUIClusterThemeManager *)self connection];
-      v10 = 138412290;
-      v11 = connection;
-      _os_log_impl(&dword_243218000, v3, OS_LOG_TYPE_DEFAULT, "Invalidating connection! %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = connection;
+      _os_log_impl(&dword_243218000, v3, OS_LOG_TYPE_DEFAULT, "Invalidating connection! %@", &v9, 0xCu);
     }
 
     connection2 = [(CRSUIClusterThemeManager *)self connection];
@@ -230,43 +227,40 @@ void __32__CRSUIClusterThemeManager_init__block_invoke_31(uint64_t a1, void *a2)
     v8 = CRSUILogForCategory(6uLL);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138543362;
-      v11 = v7;
-      _os_log_impl(&dword_243218000, v8, OS_LOG_TYPE_DEFAULT, "Stopping secure access to %{public}@", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v7;
+      _os_log_impl(&dword_243218000, v8, OS_LOG_TYPE_DEFAULT, "Stopping secure access to %{public}@", &v9, 0xCu);
     }
 
     [v7 stopAccessingSecurityScopedResource];
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateExtraAssetsURL:(id)l
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   lCopy = l;
   v6 = CRSUILogForCategory(6uLL);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v12 = lCopy;
+    v11 = lCopy;
     _os_log_impl(&dword_243218000, v6, OS_LOG_TYPE_DEFAULT, "manager extraAssetsURL=%@", buf, 0xCu);
   }
 
   os_unfair_lock_lock(&self->_lock);
   objc_storeStrong(&self->_extraAssetsURL, l);
   os_unfair_lock_unlock(&self->_lock);
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __49__CRSUIClusterThemeManager_updateExtraAssetsURL___block_invoke;
-  v9[3] = &unk_278DA0D18;
-  v9[4] = self;
-  v10 = lCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __49__CRSUIClusterThemeManager_updateExtraAssetsURL___block_invoke;
+  v8[3] = &unk_278DA0D18;
+  v8[4] = self;
+  v9 = lCopy;
   v7 = lCopy;
-  dispatch_async(MEMORY[0x277D85CD0], v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  dispatch_async(MEMORY[0x277D85CD0], v8);
 }
 
 void __49__CRSUIClusterThemeManager_updateExtraAssetsURL___block_invoke(uint64_t a1)
@@ -283,29 +277,28 @@ void __49__CRSUIClusterThemeManager_updateExtraAssetsURL___block_invoke(uint64_t
 
 - (void)_handleConnectionActivated
 {
-  connectionQueue = self->_connectionQueue;
   BSDispatchQueueAssert();
   os_unfair_lock_lock(&self->_lock);
   self->_lock_connectionActivated = 1;
-  v4 = CRSUILogForCategory(6uLL);
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v3 = CRSUILogForCategory(6uLL);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
-    _os_log_impl(&dword_243218000, v4, OS_LOG_TYPE_DEFAULT, "Requesting cluster layouts", buf, 2u);
+    _os_log_impl(&dword_243218000, v3, OS_LOG_TYPE_DEFAULT, "Requesting cluster layouts", buf, 2u);
   }
 
   objc_initWeak(buf, self);
   connection = [(CRSUIClusterThemeManager *)self connection];
   remoteTarget = [connection remoteTarget];
 
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __54__CRSUIClusterThemeManager__handleConnectionActivated__block_invoke;
-  v7[3] = &unk_278DA0DF8;
-  objc_copyWeak(&v8, buf);
-  [remoteTarget getClusterThemeLayoutData:v7];
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __54__CRSUIClusterThemeManager__handleConnectionActivated__block_invoke;
+  v6[3] = &unk_278DA0DF8;
+  objc_copyWeak(&v7, buf);
+  [remoteTarget getClusterThemeLayoutData:v6];
   os_unfair_lock_unlock(&self->_lock);
-  objc_destroyWeak(&v8);
+  objc_destroyWeak(&v7);
 
   objc_destroyWeak(buf);
 }
@@ -320,13 +313,12 @@ void __54__CRSUIClusterThemeManager__handleConnectionActivated__block_invoke(uin
 
 - (void)_processThemeLayoutData:(id)data error:(id)error
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   errorCopy = error;
-  connectionQueue = self->_connectionQueue;
   BSDispatchQueueAssert();
   displays = self->_displays;
-  v23 = errorCopy;
+  v21 = errorCopy;
   if (dataCopy)
   {
     themeData = [dataCopy themeData];
@@ -334,19 +326,19 @@ void __54__CRSUIClusterThemeManager__handleConnectionActivated__block_invoke(uin
     assetBaseURL = [dataCopy assetBaseURL];
     extraAssetsURL = [dataCopy extraAssetsURL];
     assetVersion = [dataCopy assetVersion];
-    v15 = CRSUILogForCategory(6uLL);
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+    v14 = CRSUILogForCategory(6uLL);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       *buf = 67109120;
-      v29 = [displays count];
-      _os_log_impl(&dword_243218000, v15, OS_LOG_TYPE_INFO, "Received %d displays", buf, 8u);
+      v27 = [displays count];
+      _os_log_impl(&dword_243218000, v14, OS_LOG_TYPE_INFO, "Received %d displays", buf, 8u);
     }
   }
 
   else
   {
-    v15 = CRSUILogForCategory(6uLL);
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v14 = CRSUILogForCategory(6uLL);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [CRSUIClusterThemeManager _processThemeLayoutData:error:];
     }
@@ -361,12 +353,12 @@ void __54__CRSUIClusterThemeManager__handleConnectionActivated__block_invoke(uin
   os_unfair_lock_lock(&self->_lock);
   themeData = self->_themeData;
   self->_themeData = themeData;
-  v17 = themeData;
+  v16 = themeData;
 
   objc_storeStrong(&self->_displays, displays);
   assetBaseURL = self->_assetBaseURL;
   self->_assetBaseURL = assetBaseURL;
-  v19 = assetBaseURL;
+  v18 = assetBaseURL;
 
   objc_storeStrong(&self->_extraAssetsURL, extraAssetsURL);
   self->_assetVersion = assetVersion;
@@ -376,28 +368,26 @@ void __54__CRSUIClusterThemeManager__handleConnectionActivated__block_invoke(uin
   block[2] = __58__CRSUIClusterThemeManager__processThemeLayoutData_error___block_invoke;
   block[3] = &unk_278DA0E20;
   block[4] = self;
-  v25 = extraAssetsURL;
-  v27 = displays != 0;
-  v26 = displays;
-  v20 = displays;
-  v21 = extraAssetsURL;
+  v23 = extraAssetsURL;
+  v25 = displays != 0;
+  v24 = displays;
+  v19 = displays;
+  v20 = extraAssetsURL;
   dispatch_async(MEMORY[0x277D85CD0], block);
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __58__CRSUIClusterThemeManager__processThemeLayoutData_error___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) assetBaseURL];
   v3 = [v2 url];
 
   v4 = CRSUILogForCategory(6uLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 138543362;
-    v16 = v3;
-    _os_log_impl(&dword_243218000, v4, OS_LOG_TYPE_DEFAULT, "Starting secure access to %{public}@", &v15, 0xCu);
+    v14 = 138543362;
+    v15 = v3;
+    _os_log_impl(&dword_243218000, v4, OS_LOG_TYPE_DEFAULT, "Starting secure access to %{public}@", &v14, 0xCu);
   }
 
   [v3 startAccessingSecurityScopedResource];
@@ -433,20 +423,18 @@ void __58__CRSUIClusterThemeManager__processThemeLayoutData_error___block_invoke
       }
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setThemeData:(id)data completion:(id)completion
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   completionCopy = completion;
   v8 = CRSUILogForCategory(6uLL);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v17 = dataCopy;
+    v16 = dataCopy;
     _os_log_impl(&dword_243218000, v8, OS_LOG_TYPE_DEFAULT, "Setting theme data: %@", buf, 0xCu);
   }
 
@@ -454,15 +442,13 @@ void __58__CRSUIClusterThemeManager__processThemeLayoutData_error___block_invoke
   connection = [(CRSUIClusterThemeManager *)self connection];
   remoteTarget = [connection remoteTarget];
 
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __53__CRSUIClusterThemeManager__setThemeData_completion___block_invoke;
-  v14[3] = &unk_278DA0E70;
-  v15 = completionCopy;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __53__CRSUIClusterThemeManager__setThemeData_completion___block_invoke;
+  v13[3] = &unk_278DA0E70;
+  v14 = completionCopy;
   v12 = completionCopy;
-  [remoteTarget setThemeData:v9 reply:v14];
-
-  v13 = *MEMORY[0x277D85DE8];
+  [remoteTarget setThemeData:v9 reply:v13];
 }
 
 void __53__CRSUIClusterThemeManager__setThemeData_completion___block_invoke(uint64_t a1, void *a2)
@@ -540,8 +526,116 @@ void __79__CRSUIClusterThemeManager__getURLForAssetWithIdentifier_displayID_comp
 
 - (id)wallpapers
 {
+  v47 = *MEMORY[0x277D85DE8];
+  v30 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v40 = 0u;
+  v41 = 0u;
+  v42 = 0u;
+  v43 = 0u;
+  obj = [(CRSUIClusterThemeManager *)self displays];
+  v23 = [obj countByEnumeratingWithState:&v40 objects:v46 count:16];
+  if (v23)
+  {
+    v22 = *v41;
+    do
+    {
+      v3 = 0;
+      do
+      {
+        if (*v41 != v22)
+        {
+          objc_enumerationMutation(obj);
+        }
+
+        v24 = v3;
+        v4 = *(*(&v40 + 1) + 8 * v3);
+        v36 = 0u;
+        v37 = 0u;
+        v38 = 0u;
+        v39 = 0u;
+        v31 = v4;
+        layouts = [v4 layouts];
+        v27 = [layouts countByEnumeratingWithState:&v36 objects:v45 count:16];
+        if (v27)
+        {
+          v26 = *v37;
+          do
+          {
+            v5 = 0;
+            do
+            {
+              if (*v37 != v26)
+              {
+                objc_enumerationMutation(layouts);
+              }
+
+              v28 = v5;
+              v6 = *(*(&v36 + 1) + 8 * v5);
+              v32 = 0u;
+              v33 = 0u;
+              v34 = 0u;
+              v35 = 0u;
+              wallpapers = [v6 wallpapers];
+              v7 = [wallpapers countByEnumeratingWithState:&v32 objects:v44 count:16];
+              if (v7)
+              {
+                v8 = v7;
+                v9 = *v33;
+                do
+                {
+                  for (i = 0; i != v8; ++i)
+                  {
+                    if (*v33 != v9)
+                    {
+                      objc_enumerationMutation(wallpapers);
+                    }
+
+                    v11 = *(*(&v32 + 1) + 8 * i);
+                    v12 = [CRSUIAssetWallpaper alloc];
+                    identifier = [v11 identifier];
+                    identifier2 = [v31 identifier];
+                    identifier3 = [v6 identifier];
+                    cacheID = [v11 cacheID];
+                    traits = [v11 traits];
+                    v18 = [(CRSUIAssetWallpaper *)v12 initWithIdentifier:identifier displayID:identifier2 layoutID:identifier3 cacheID:cacheID traits:traits];
+                    [v30 addObject:v18];
+                  }
+
+                  v8 = [wallpapers countByEnumeratingWithState:&v32 objects:v44 count:16];
+                }
+
+                while (v8);
+              }
+
+              v5 = v28 + 1;
+            }
+
+            while (v28 + 1 != v27);
+            v27 = [layouts countByEnumeratingWithState:&v36 objects:v45 count:16];
+          }
+
+          while (v27);
+        }
+
+        v3 = v24 + 1;
+      }
+
+      while (v24 + 1 != v23);
+      v23 = [obj countByEnumeratingWithState:&v40 objects:v46 count:16];
+    }
+
+    while (v23);
+  }
+
+  v19 = [v30 copy];
+
+  return v19;
+}
+
+- (id)defaultWallpapers
+{
   v48 = *MEMORY[0x277D85DE8];
-  v31 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v30 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v41 = 0u;
   v42 = 0u;
   v43 = 0u;
@@ -567,7 +661,7 @@ void __79__CRSUIClusterThemeManager__getURLForAssetWithIdentifier_displayID_comp
         v38 = 0u;
         v39 = 0u;
         v40 = 0u;
-        v32 = v4;
+        v31 = v4;
         layouts = [v4 layouts];
         v28 = [layouts countByEnumeratingWithState:&v37 objects:v46 count:16];
         if (v28)
@@ -589,36 +683,40 @@ void __79__CRSUIClusterThemeManager__getURLForAssetWithIdentifier_displayID_comp
               v34 = 0u;
               v35 = 0u;
               v36 = 0u;
+              v32 = v6;
               wallpapers = [v6 wallpapers];
-              v7 = [wallpapers countByEnumeratingWithState:&v33 objects:v45 count:16];
-              if (v7)
+              v8 = [wallpapers countByEnumeratingWithState:&v33 objects:v45 count:16];
+              if (v8)
               {
-                v8 = v7;
-                v9 = *v34;
+                v9 = v8;
+                v10 = *v34;
                 do
                 {
-                  for (i = 0; i != v8; ++i)
+                  for (i = 0; i != v9; ++i)
                   {
-                    if (*v34 != v9)
+                    if (*v34 != v10)
                     {
                       objc_enumerationMutation(wallpapers);
                     }
 
-                    v11 = *(*(&v33 + 1) + 8 * i);
-                    v12 = [CRSUIAssetWallpaper alloc];
-                    identifier = [v11 identifier];
-                    identifier2 = [v32 identifier];
-                    identifier3 = [v6 identifier];
-                    cacheID = [v11 cacheID];
-                    traits = [v11 traits];
-                    v18 = [(CRSUIAssetWallpaper *)v12 initWithIdentifier:identifier displayID:identifier2 layoutID:identifier3 cacheID:cacheID traits:traits];
-                    [v31 addObject:v18];
+                    v12 = *(*(&v33 + 1) + 8 * i);
+                    if ([v12 isDefault])
+                    {
+                      v13 = [CRSUIAssetWallpaper alloc];
+                      identifier = [v12 identifier];
+                      identifier2 = [v31 identifier];
+                      identifier3 = [v32 identifier];
+                      cacheID = [v12 cacheID];
+                      traits = [v12 traits];
+                      v19 = [(CRSUIAssetWallpaper *)v13 initWithIdentifier:identifier displayID:identifier2 layoutID:identifier3 cacheID:cacheID traits:traits];
+                      [v30 addObject:v19];
+                    }
                   }
 
-                  v8 = [wallpapers countByEnumeratingWithState:&v33 objects:v45 count:16];
+                  v9 = [wallpapers countByEnumeratingWithState:&v33 objects:v45 count:16];
                 }
 
-                while (v8);
+                while (v9);
               }
 
               v5 = v29 + 1;
@@ -641,167 +739,53 @@ void __79__CRSUIClusterThemeManager__getURLForAssetWithIdentifier_displayID_comp
     while (v24);
   }
 
-  v19 = [v31 copy];
-  v20 = *MEMORY[0x277D85DE8];
-
-  return v19;
-}
-
-- (id)defaultWallpapers
-{
-  v49 = *MEMORY[0x277D85DE8];
-  v31 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v42 = 0u;
-  v43 = 0u;
-  v44 = 0u;
-  v45 = 0u;
-  obj = [(CRSUIClusterThemeManager *)self displays];
-  v25 = [obj countByEnumeratingWithState:&v42 objects:v48 count:16];
-  if (v25)
-  {
-    v24 = *v43;
-    do
-    {
-      v3 = 0;
-      do
-      {
-        if (*v43 != v24)
-        {
-          objc_enumerationMutation(obj);
-        }
-
-        v26 = v3;
-        v4 = *(*(&v42 + 1) + 8 * v3);
-        v38 = 0u;
-        v39 = 0u;
-        v40 = 0u;
-        v41 = 0u;
-        v32 = v4;
-        layouts = [v4 layouts];
-        v29 = [layouts countByEnumeratingWithState:&v38 objects:v47 count:16];
-        if (v29)
-        {
-          v28 = *v39;
-          do
-          {
-            v5 = 0;
-            do
-            {
-              if (*v39 != v28)
-              {
-                objc_enumerationMutation(layouts);
-              }
-
-              v30 = v5;
-              v6 = *(*(&v38 + 1) + 8 * v5);
-              v34 = 0u;
-              v35 = 0u;
-              v36 = 0u;
-              v37 = 0u;
-              v33 = v6;
-              wallpapers = [v6 wallpapers];
-              v8 = [wallpapers countByEnumeratingWithState:&v34 objects:v46 count:16];
-              if (v8)
-              {
-                v9 = v8;
-                v10 = *v35;
-                do
-                {
-                  for (i = 0; i != v9; ++i)
-                  {
-                    if (*v35 != v10)
-                    {
-                      objc_enumerationMutation(wallpapers);
-                    }
-
-                    v12 = *(*(&v34 + 1) + 8 * i);
-                    if ([v12 isDefault])
-                    {
-                      v13 = [CRSUIAssetWallpaper alloc];
-                      identifier = [v12 identifier];
-                      identifier2 = [v32 identifier];
-                      identifier3 = [v33 identifier];
-                      cacheID = [v12 cacheID];
-                      traits = [v12 traits];
-                      v19 = [(CRSUIAssetWallpaper *)v13 initWithIdentifier:identifier displayID:identifier2 layoutID:identifier3 cacheID:cacheID traits:traits];
-                      [v31 addObject:v19];
-                    }
-                  }
-
-                  v9 = [wallpapers countByEnumeratingWithState:&v34 objects:v46 count:16];
-                }
-
-                while (v9);
-              }
-
-              v5 = v30 + 1;
-            }
-
-            while (v30 + 1 != v29);
-            v29 = [layouts countByEnumeratingWithState:&v38 objects:v47 count:16];
-          }
-
-          while (v29);
-        }
-
-        v3 = v26 + 1;
-      }
-
-      while (v26 + 1 != v25);
-      v25 = [obj countByEnumeratingWithState:&v42 objects:v48 count:16];
-    }
-
-    while (v25);
-  }
-
-  v20 = [v31 copy];
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = [v30 copy];
 
   return v20;
 }
 
 - (id)dynamicAppearanceWallpapersForVehicle:(id)vehicle
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   displayThemeData = [vehicle displayThemeData];
   if (displayThemeData)
   {
-    v27 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v26 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v30 = 0u;
     v31 = 0u;
     v32 = 0u;
     v33 = 0u;
-    v34 = 0u;
     obj = [(CRSUIClusterThemeManager *)self displays];
-    v5 = [obj countByEnumeratingWithState:&v31 objects:v39 count:16];
+    v5 = [obj countByEnumeratingWithState:&v30 objects:v38 count:16];
     if (v5)
     {
       v7 = v5;
-      v8 = *v32;
+      v8 = *v31;
       *&v6 = 138412546;
-      v26 = v6;
+      v25 = v6;
       do
       {
         v9 = 0;
         do
         {
-          if (*v32 != v8)
+          if (*v31 != v8)
           {
             objc_enumerationMutation(obj);
           }
 
-          v10 = *(*(&v31 + 1) + 8 * v9);
+          v10 = *(*(&v30 + 1) + 8 * v9);
           identifier = [v10 identifier];
           v12 = [displayThemeData objectForKey:identifier];
 
           if (v12)
           {
             layouts = [v10 layouts];
-            v29[0] = MEMORY[0x277D85DD0];
-            v29[1] = 3221225472;
-            v29[2] = __66__CRSUIClusterThemeManager_dynamicAppearanceWallpapersForVehicle___block_invoke;
-            v29[3] = &unk_278DA0EE8;
-            v30 = v12;
-            v14 = [layouts bs_firstObjectPassingTest:v29];
+            v28[0] = MEMORY[0x277D85DD0];
+            v28[1] = 3221225472;
+            v28[2] = __66__CRSUIClusterThemeManager_dynamicAppearanceWallpapersForVehicle___block_invoke;
+            v28[3] = &unk_278DA0EE8;
+            v29 = v12;
+            v14 = [layouts bs_firstObjectPassingTest:v28];
 
             if (v14)
             {
@@ -815,7 +799,7 @@ void __79__CRSUIClusterThemeManager__getURLForAssetWithIdentifier_displayID_comp
 
                 if (v19)
                 {
-                  [v27 addObject:v19];
+                  [v26 addObject:v19];
                 }
               }
 
@@ -826,10 +810,10 @@ void __79__CRSUIClusterThemeManager__getURLForAssetWithIdentifier_displayID_comp
                 {
                   identifier2 = [v10 identifier];
                   displayName = [v14 displayName];
-                  *buf = v26;
-                  v36 = identifier2;
-                  v37 = 2112;
-                  v38 = displayName;
+                  *buf = v25;
+                  v35 = identifier2;
+                  v36 = 2112;
+                  v37 = displayName;
                   _os_log_impl(&dword_243218000, v16, OS_LOG_TYPE_DEFAULT, "No wallpaper supports dynamic appearance for %@:%@", buf, 0x16u);
                 }
               }
@@ -840,22 +824,20 @@ void __79__CRSUIClusterThemeManager__getURLForAssetWithIdentifier_displayID_comp
         }
 
         while (v7 != v9);
-        v22 = [obj countByEnumeratingWithState:&v31 objects:v39 count:16];
+        v22 = [obj countByEnumeratingWithState:&v30 objects:v38 count:16];
         v7 = v22;
       }
 
       while (v22);
     }
 
-    v23 = [v27 copy];
+    v23 = [v26 copy];
   }
 
   else
   {
     v23 = MEMORY[0x277CBEBF8];
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v23;
 }
@@ -1004,7 +986,7 @@ uint64_t __50__CRSUIClusterThemeManager_loadWallpaperFromData___block_invoke_3(u
 
 - (id)resolveWallpaper:(id)wallpaper
 {
-  v86 = *MEMORY[0x277D85DE8];
+  v85 = *MEMORY[0x277D85DE8];
   wallpaperCopy = wallpaper;
   objc_opt_class();
   data = [wallpaperCopy data];
@@ -1020,54 +1002,54 @@ uint64_t __50__CRSUIClusterThemeManager_loadWallpaperFromData___block_invoke_3(u
 
   if (v6)
   {
-    v81 = 0u;
-    v82 = 0u;
-    v79 = 0u;
     v80 = 0u;
+    v81 = 0u;
+    v78 = 0u;
+    v79 = 0u;
     displays = [(CRSUIClusterThemeManager *)self displays];
-    v58 = [displays countByEnumeratingWithState:&v79 objects:v85 count:16];
-    if (v58)
+    v57 = [displays countByEnumeratingWithState:&v78 objects:v84 count:16];
+    if (v57)
     {
-      v8 = *v80;
-      v61 = wallpaperCopy;
-      v62 = displays;
-      v57 = *v80;
+      v8 = *v79;
+      v60 = wallpaperCopy;
+      v61 = displays;
+      v56 = *v79;
       do
       {
         v9 = 0;
         do
         {
-          if (*v80 != v8)
+          if (*v79 != v8)
           {
             objc_enumerationMutation(displays);
           }
 
-          v10 = *(*(&v79 + 1) + 8 * v9);
+          v10 = *(*(&v78 + 1) + 8 * v9);
+          v74 = 0u;
           v75 = 0u;
           v76 = 0u;
           v77 = 0u;
-          v78 = 0u;
-          v59 = v9;
-          v60 = v10;
+          v58 = v9;
+          v59 = v10;
           obj = [v10 layouts];
-          v11 = [obj countByEnumeratingWithState:&v75 objects:v84 count:16];
+          v11 = [obj countByEnumeratingWithState:&v74 objects:v83 count:16];
           if (v11)
           {
             v12 = v11;
-            v13 = *v76;
-            v64 = *v76;
+            v13 = *v75;
+            v63 = *v75;
             do
             {
               v14 = 0;
-              v65 = v12;
+              v64 = v12;
               do
               {
-                if (*v76 != v13)
+                if (*v75 != v13)
                 {
                   objc_enumerationMutation(obj);
                 }
 
-                v15 = *(*(&v75 + 1) + 8 * v14);
+                v15 = *(*(&v74 + 1) + 8 * v14);
                 identifier = [v15 identifier];
                 layoutID = [v6 layoutID];
                 v18 = [identifier isEqualToString:layoutID];
@@ -1077,29 +1059,29 @@ uint64_t __50__CRSUIClusterThemeManager_loadWallpaperFromData___block_invoke_3(u
                   goto LABEL_27;
                 }
 
-                v73 = 0u;
-                v74 = 0u;
-                v71 = 0u;
                 v72 = 0u;
+                v73 = 0u;
+                v70 = 0u;
+                v71 = 0u;
                 wallpapers = [v15 wallpapers];
-                v20 = [wallpapers countByEnumeratingWithState:&v71 objects:v83 count:16];
+                v20 = [wallpapers countByEnumeratingWithState:&v70 objects:v82 count:16];
                 if (!v20)
                 {
                   goto LABEL_25;
                 }
 
                 v21 = v20;
-                v22 = *v72;
+                v22 = *v71;
                 while (2)
                 {
                   for (i = 0; i != v21; ++i)
                   {
-                    if (*v72 != v22)
+                    if (*v71 != v22)
                     {
                       objc_enumerationMutation(wallpapers);
                     }
 
-                    v24 = *(*(&v71 + 1) + 8 * i);
+                    v24 = *(*(&v70 + 1) + 8 * i);
                     identifier2 = [v24 identifier];
                     wallpaperID = [v6 wallpaperID];
                     v27 = [identifier2 isEqualToString:wallpaperID];
@@ -1108,14 +1090,14 @@ uint64_t __50__CRSUIClusterThemeManager_loadWallpaperFromData___block_invoke_3(u
                     {
                       v28 = v24;
 
-                      v13 = v64;
-                      v12 = v65;
+                      v13 = v63;
+                      v12 = v64;
                       if (!v28)
                       {
                         goto LABEL_27;
                       }
 
-                      v29 = v60;
+                      v29 = v59;
                       if (!v29)
                       {
                         goto LABEL_42;
@@ -1128,8 +1110,8 @@ uint64_t __50__CRSUIClusterThemeManager_loadWallpaperFromData___block_invoke_3(u
                         v32 = [CRSUIResolvedWallpaper alloc];
                         displays = [v28 color];
                         v33 = v32;
-                        wallpaperCopy = v61;
-                        v30 = [(CRSUIResolvedWallpaper *)v33 initWithWallpaperInformation:v61 color:displays];
+                        wallpaperCopy = v60;
+                        v30 = [(CRSUIResolvedWallpaper *)v33 initWithWallpaperInformation:v60 color:displays];
                         goto LABEL_49;
                       }
 
@@ -1138,16 +1120,16 @@ uint64_t __50__CRSUIClusterThemeManager_loadWallpaperFromData___block_invoke_3(u
                       if (image)
                       {
                         v35 = [CRSUIResolvedWallpaper alloc];
-                        v69[0] = MEMORY[0x277D85DD0];
-                        v69[1] = 3221225472;
-                        v69[2] = __45__CRSUIClusterThemeManager_resolveWallpaper___block_invoke;
-                        v69[3] = &unk_278DA0F80;
+                        v68[0] = MEMORY[0x277D85DD0];
+                        v68[1] = 3221225472;
+                        v68[2] = __45__CRSUIClusterThemeManager_resolveWallpaper___block_invoke;
+                        v68[3] = &unk_278DA0F80;
                         v28 = v28;
-                        v70 = v28;
+                        v69 = v28;
                         v36 = v35;
-                        wallpaperCopy = v61;
-                        v30 = [(CRSUIResolvedWallpaper *)v36 initWithWallpaperInformation:v61 imageResolver:v69];
-                        displays = v70;
+                        wallpaperCopy = v60;
+                        v30 = [(CRSUIResolvedWallpaper *)v36 initWithWallpaperInformation:v60 imageResolver:v68];
+                        displays = v69;
                         goto LABEL_49;
                       }
 
@@ -1157,7 +1139,7 @@ uint64_t __50__CRSUIClusterThemeManager_loadWallpaperFromData___block_invoke_3(u
                       {
 LABEL_42:
                         v30 = 0;
-                        wallpaperCopy = v61;
+                        wallpaperCopy = v60;
                         goto LABEL_50;
                       }
 
@@ -1169,9 +1151,9 @@ LABEL_42:
                       package2 = [v28 package];
                       asset2 = [package2 asset];
                       packageType = [asset2 packageType];
-                      v68 = 0;
-                      v45 = [v38 packageWithContentsOfURL:v40Url type:packageType options:0 error:&v68];
-                      v63 = v68;
+                      v67 = 0;
+                      v45 = [v38 packageWithContentsOfURL:v40Url type:packageType options:0 error:&v67];
+                      v62 = v67;
 
                       if (v45)
                       {
@@ -1195,9 +1177,9 @@ LABEL_42:
                           v54 = [(CRSUIStatefulCAPackage *)v48 initWithPackage:v45 state:v51];
                         }
 
-                        v30 = [[CRSUIResolvedWallpaper alloc] initWithWallpaperInformation:v61 statefulPackage:v54];
+                        v30 = [[CRSUIResolvedWallpaper alloc] initWithWallpaperInformation:v60 statefulPackage:v54];
 LABEL_47:
-                        displays = v63;
+                        displays = v62;
                       }
 
                       else
@@ -1209,17 +1191,17 @@ LABEL_47:
                           goto LABEL_47;
                         }
 
-                        displays = v63;
-                        [(CRSUIClusterThemeManager *)v28 resolveWallpaper:v63, v54];
+                        displays = v62;
+                        [(CRSUIClusterThemeManager *)v28 resolveWallpaper:v62, v54];
                         v30 = 0;
                       }
 
-                      wallpaperCopy = v61;
+                      wallpaperCopy = v60;
                       goto LABEL_49;
                     }
                   }
 
-                  v21 = [wallpapers countByEnumeratingWithState:&v71 objects:v83 count:16];
+                  v21 = [wallpapers countByEnumeratingWithState:&v70 objects:v82 count:16];
                   if (v21)
                   {
                     continue;
@@ -1230,30 +1212,30 @@ LABEL_47:
 
 LABEL_25:
 
-                v13 = v64;
-                v12 = v65;
+                v13 = v63;
+                v12 = v64;
 LABEL_27:
                 ++v14;
               }
 
               while (v14 != v12);
-              v12 = [obj countByEnumeratingWithState:&v75 objects:v84 count:16];
+              v12 = [obj countByEnumeratingWithState:&v74 objects:v83 count:16];
             }
 
             while (v12);
           }
 
-          v9 = v59 + 1;
-          wallpaperCopy = v61;
-          displays = v62;
-          v8 = v57;
+          v9 = v58 + 1;
+          wallpaperCopy = v60;
+          displays = v61;
+          v8 = v56;
         }
 
-        while (v59 + 1 != v58);
-        v58 = [v62 countByEnumeratingWithState:&v79 objects:v85 count:16];
+        while (v58 + 1 != v57);
+        v57 = [v61 countByEnumeratingWithState:&v78 objects:v84 count:16];
       }
 
-      while (v58);
+      while (v57);
     }
 
     v29 = 0;
@@ -1268,8 +1250,6 @@ LABEL_50:
   {
     v30 = 0;
   }
-
-  v55 = *MEMORY[0x277D85DE8];
 
   return v30;
 }
@@ -1321,88 +1301,49 @@ id __45__CRSUIClusterThemeManager_resolveWallpaper___block_invoke(uint64_t a1, v
   return WeakRetained;
 }
 
-void __32__CRSUIClusterThemeManager_init__block_invoke_30_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_243218000, v0, v1, "Connection interrupted! %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __32__CRSUIClusterThemeManager_init__block_invoke_31_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_243218000, v0, v1, "Connection invalidated! %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_processThemeLayoutData:error:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_243218000, v0, v1, "Error retrieving cluster layouts: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __53__CRSUIClusterThemeManager__setThemeData_completion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_243218000, v0, v1, "Error setting theme data: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 void __79__CRSUIClusterThemeManager__getURLForAssetWithIdentifier_displayID_completion___block_invoke_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
   v4 = *(a1 + 40);
-  v6 = 138412802;
-  v7 = v3;
-  v8 = 2112;
-  v9 = v4;
-  v10 = 2112;
-  v11 = a2;
-  _os_log_error_impl(&dword_243218000, log, OS_LOG_TYPE_ERROR, "Error getting url of %@:%@: %@", &v6, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138412802;
+  v6 = v3;
+  v7 = 2112;
+  v8 = v4;
+  v9 = 2112;
+  v10 = a2;
+  _os_log_error_impl(&dword_243218000, log, OS_LOG_TYPE_ERROR, "Error getting url of %@:%@: %@", &v5, 0x20u);
 }
 
 - (void)loadWallpaperFromData:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
   OUTLINED_FUNCTION_0_0();
-  _os_log_fault_impl(&dword_243218000, a2, OS_LOG_TYPE_FAULT, "Unsupported wallpaper type: %{public}@", v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_243218000, a2, OS_LOG_TYPE_FAULT, "Unsupported wallpaper type: %{public}@", v5, 0xCu);
 }
 
 - (void)resolveWallpaper:(NSObject *)a3 .cold.1(void *a1, uint64_t a2, NSObject *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = [a1 package];
   v6 = [v5 asset];
   v7 = [v6 url];
   v8 = [v7 url];
   OUTLINED_FUNCTION_0_0();
-  v11 = 2112;
-  v12 = a2;
-  _os_log_error_impl(&dword_243218000, a3, OS_LOG_TYPE_ERROR, "Error loading CAPackage from %@: %@", v10, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  v10 = 2112;
+  v11 = a2;
+  _os_log_error_impl(&dword_243218000, a3, OS_LOG_TYPE_ERROR, "Error loading CAPackage from %@: %@", v9, 0x16u);
 }
 
 void __45__CRSUIClusterThemeManager_resolveWallpaper___block_invoke_cold_1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 url];
   v4 = [v3 url];
   OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(&dword_243218000, a2, OS_LOG_TYPE_ERROR, "Error loading image from %@", v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_243218000, a2, OS_LOG_TYPE_ERROR, "Error loading image from %@", v5, 0xCu);
 }
 
 @end

@@ -114,7 +114,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v62 = *MEMORY[0x29EDCA608];
+  v61 = *MEMORY[0x29EDCA608];
   dictionary = [MEMORY[0x29EDB8E00] dictionary];
   has = self->_has;
   if ((has & 2) != 0)
@@ -131,29 +131,29 @@
   if ([(NSMutableArray *)self->_lessThan10mIntervalHistograms count])
   {
     v5 = [objc_alloc(MEMORY[0x29EDB8DE8]) initWithCapacity:{-[NSMutableArray count](self->_lessThan10mIntervalHistograms, "count")}];
+    v52 = 0u;
     v53 = 0u;
     v54 = 0u;
     v55 = 0u;
-    v56 = 0u;
     lessThan10mIntervalHistograms = self->_lessThan10mIntervalHistograms;
-    v7 = [(NSMutableArray *)lessThan10mIntervalHistograms countByEnumeratingWithState:&v53 objects:v61 count:16];
+    v7 = [(NSMutableArray *)lessThan10mIntervalHistograms countByEnumeratingWithState:&v52 objects:v60 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v54;
+      v9 = *v53;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v54 != v9)
+          if (*v53 != v9)
           {
             objc_enumerationMutation(lessThan10mIntervalHistograms);
           }
 
-          [v5 addObject:{objc_msgSend(*(*(&v53 + 1) + 8 * i), "dictionaryRepresentation")}];
+          [v5 addObject:{objc_msgSend(*(*(&v52 + 1) + 8 * i), "dictionaryRepresentation")}];
         }
 
-        v8 = [(NSMutableArray *)lessThan10mIntervalHistograms countByEnumeratingWithState:&v53 objects:v61 count:16];
+        v8 = [(NSMutableArray *)lessThan10mIntervalHistograms countByEnumeratingWithState:&v52 objects:v60 count:16];
       }
 
       while (v8);
@@ -165,29 +165,29 @@
   if ([(NSMutableArray *)self->_lessThan25mIntervalHistograms count])
   {
     v11 = [objc_alloc(MEMORY[0x29EDB8DE8]) initWithCapacity:{-[NSMutableArray count](self->_lessThan25mIntervalHistograms, "count")}];
+    v48 = 0u;
     v49 = 0u;
     v50 = 0u;
     v51 = 0u;
-    v52 = 0u;
     lessThan25mIntervalHistograms = self->_lessThan25mIntervalHistograms;
-    v13 = [(NSMutableArray *)lessThan25mIntervalHistograms countByEnumeratingWithState:&v49 objects:v60 count:16];
+    v13 = [(NSMutableArray *)lessThan25mIntervalHistograms countByEnumeratingWithState:&v48 objects:v59 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v50;
+      v15 = *v49;
       do
       {
         for (j = 0; j != v14; ++j)
         {
-          if (*v50 != v15)
+          if (*v49 != v15)
           {
             objc_enumerationMutation(lessThan25mIntervalHistograms);
           }
 
-          [v11 addObject:{objc_msgSend(*(*(&v49 + 1) + 8 * j), "dictionaryRepresentation")}];
+          [v11 addObject:{objc_msgSend(*(*(&v48 + 1) + 8 * j), "dictionaryRepresentation")}];
         }
 
-        v14 = [(NSMutableArray *)lessThan25mIntervalHistograms countByEnumeratingWithState:&v49 objects:v60 count:16];
+        v14 = [(NSMutableArray *)lessThan25mIntervalHistograms countByEnumeratingWithState:&v48 objects:v59 count:16];
       }
 
       while (v14);
@@ -199,29 +199,29 @@
   if ([(NSMutableArray *)self->_lessThan55mIntervalHistograms count])
   {
     v17 = [objc_alloc(MEMORY[0x29EDB8DE8]) initWithCapacity:{-[NSMutableArray count](self->_lessThan55mIntervalHistograms, "count")}];
+    v44 = 0u;
     v45 = 0u;
     v46 = 0u;
     v47 = 0u;
-    v48 = 0u;
     lessThan55mIntervalHistograms = self->_lessThan55mIntervalHistograms;
-    v19 = [(NSMutableArray *)lessThan55mIntervalHistograms countByEnumeratingWithState:&v45 objects:v59 count:16];
+    v19 = [(NSMutableArray *)lessThan55mIntervalHistograms countByEnumeratingWithState:&v44 objects:v58 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v46;
+      v21 = *v45;
       do
       {
         for (k = 0; k != v20; ++k)
         {
-          if (*v46 != v21)
+          if (*v45 != v21)
           {
             objc_enumerationMutation(lessThan55mIntervalHistograms);
           }
 
-          [v17 addObject:{objc_msgSend(*(*(&v45 + 1) + 8 * k), "dictionaryRepresentation")}];
+          [v17 addObject:{objc_msgSend(*(*(&v44 + 1) + 8 * k), "dictionaryRepresentation")}];
         }
 
-        v20 = [(NSMutableArray *)lessThan55mIntervalHistograms countByEnumeratingWithState:&v45 objects:v59 count:16];
+        v20 = [(NSMutableArray *)lessThan55mIntervalHistograms countByEnumeratingWithState:&v44 objects:v58 count:16];
       }
 
       while (v20);
@@ -233,29 +233,29 @@
   if ([(NSMutableArray *)self->_lessThan200mIntervalHistograms count])
   {
     v23 = [objc_alloc(MEMORY[0x29EDB8DE8]) initWithCapacity:{-[NSMutableArray count](self->_lessThan200mIntervalHistograms, "count")}];
+    v40 = 0u;
     v41 = 0u;
     v42 = 0u;
     v43 = 0u;
-    v44 = 0u;
     lessThan200mIntervalHistograms = self->_lessThan200mIntervalHistograms;
-    v25 = [(NSMutableArray *)lessThan200mIntervalHistograms countByEnumeratingWithState:&v41 objects:v58 count:16];
+    v25 = [(NSMutableArray *)lessThan200mIntervalHistograms countByEnumeratingWithState:&v40 objects:v57 count:16];
     if (v25)
     {
       v26 = v25;
-      v27 = *v42;
+      v27 = *v41;
       do
       {
         for (m = 0; m != v26; ++m)
         {
-          if (*v42 != v27)
+          if (*v41 != v27)
           {
             objc_enumerationMutation(lessThan200mIntervalHistograms);
           }
 
-          [v23 addObject:{objc_msgSend(*(*(&v41 + 1) + 8 * m), "dictionaryRepresentation")}];
+          [v23 addObject:{objc_msgSend(*(*(&v40 + 1) + 8 * m), "dictionaryRepresentation")}];
         }
 
-        v26 = [(NSMutableArray *)lessThan200mIntervalHistograms countByEnumeratingWithState:&v41 objects:v58 count:16];
+        v26 = [(NSMutableArray *)lessThan200mIntervalHistograms countByEnumeratingWithState:&v40 objects:v57 count:16];
       }
 
       while (v26);
@@ -267,29 +267,29 @@
   if ([(NSMutableArray *)self->_anyPositiveIntervalHistograms count])
   {
     v29 = [objc_alloc(MEMORY[0x29EDB8DE8]) initWithCapacity:{-[NSMutableArray count](self->_anyPositiveIntervalHistograms, "count")}];
+    v36 = 0u;
     v37 = 0u;
     v38 = 0u;
     v39 = 0u;
-    v40 = 0u;
     anyPositiveIntervalHistograms = self->_anyPositiveIntervalHistograms;
-    v31 = [(NSMutableArray *)anyPositiveIntervalHistograms countByEnumeratingWithState:&v37 objects:v57 count:16];
+    v31 = [(NSMutableArray *)anyPositiveIntervalHistograms countByEnumeratingWithState:&v36 objects:v56 count:16];
     if (v31)
     {
       v32 = v31;
-      v33 = *v38;
+      v33 = *v37;
       do
       {
         for (n = 0; n != v32; ++n)
         {
-          if (*v38 != v33)
+          if (*v37 != v33)
           {
             objc_enumerationMutation(anyPositiveIntervalHistograms);
           }
 
-          [v29 addObject:{objc_msgSend(*(*(&v37 + 1) + 8 * n), "dictionaryRepresentation")}];
+          [v29 addObject:{objc_msgSend(*(*(&v36 + 1) + 8 * n), "dictionaryRepresentation")}];
         }
 
-        v32 = [(NSMutableArray *)anyPositiveIntervalHistograms countByEnumeratingWithState:&v37 objects:v57 count:16];
+        v32 = [(NSMutableArray *)anyPositiveIntervalHistograms countByEnumeratingWithState:&v36 objects:v56 count:16];
       }
 
       while (v32);
@@ -298,173 +298,163 @@
     [dictionary setObject:v29 forKey:@"AnyPositiveIntervalHistogram"];
   }
 
-  v35 = *MEMORY[0x29EDCA608];
   return dictionary;
 }
 
 - (void)writeTo:(id)to
 {
-  v63 = *MEMORY[0x29EDCA608];
+  v55 = *MEMORY[0x29EDCA608];
   has = self->_has;
   if ((has & 2) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
   }
 
   if (has)
   {
-    duration = self->_duration;
     PBDataWriterWriteUint64Field();
-  }
-
-  v56 = 0u;
-  v57 = 0u;
-  v54 = 0u;
-  v55 = 0u;
-  lessThan10mIntervalHistograms = self->_lessThan10mIntervalHistograms;
-  v8 = [(NSMutableArray *)lessThan10mIntervalHistograms countByEnumeratingWithState:&v54 objects:v62 count:16];
-  if (v8)
-  {
-    v9 = v8;
-    v10 = *v55;
-    do
-    {
-      for (i = 0; i != v9; ++i)
-      {
-        if (*v55 != v10)
-        {
-          objc_enumerationMutation(lessThan10mIntervalHistograms);
-        }
-
-        v12 = *(*(&v54 + 1) + 8 * i);
-        PBDataWriterWriteSubmessage();
-      }
-
-      v9 = [(NSMutableArray *)lessThan10mIntervalHistograms countByEnumeratingWithState:&v54 objects:v62 count:16];
-    }
-
-    while (v9);
-  }
-
-  v52 = 0u;
-  v53 = 0u;
-  v50 = 0u;
-  v51 = 0u;
-  lessThan25mIntervalHistograms = self->_lessThan25mIntervalHistograms;
-  v14 = [(NSMutableArray *)lessThan25mIntervalHistograms countByEnumeratingWithState:&v50 objects:v61 count:16];
-  if (v14)
-  {
-    v15 = v14;
-    v16 = *v51;
-    do
-    {
-      for (j = 0; j != v15; ++j)
-      {
-        if (*v51 != v16)
-        {
-          objc_enumerationMutation(lessThan25mIntervalHistograms);
-        }
-
-        v18 = *(*(&v50 + 1) + 8 * j);
-        PBDataWriterWriteSubmessage();
-      }
-
-      v15 = [(NSMutableArray *)lessThan25mIntervalHistograms countByEnumeratingWithState:&v50 objects:v61 count:16];
-    }
-
-    while (v15);
   }
 
   v48 = 0u;
   v49 = 0u;
   v46 = 0u;
   v47 = 0u;
-  lessThan55mIntervalHistograms = self->_lessThan55mIntervalHistograms;
-  v20 = [(NSMutableArray *)lessThan55mIntervalHistograms countByEnumeratingWithState:&v46 objects:v60 count:16];
-  if (v20)
+  lessThan10mIntervalHistograms = self->_lessThan10mIntervalHistograms;
+  v6 = [(NSMutableArray *)lessThan10mIntervalHistograms countByEnumeratingWithState:&v46 objects:v54 count:16];
+  if (v6)
   {
-    v21 = v20;
-    v22 = *v47;
+    v7 = v6;
+    v8 = *v47;
     do
     {
-      for (k = 0; k != v21; ++k)
+      for (i = 0; i != v7; ++i)
       {
-        if (*v47 != v22)
+        if (*v47 != v8)
         {
-          objc_enumerationMutation(lessThan55mIntervalHistograms);
+          objc_enumerationMutation(lessThan10mIntervalHistograms);
         }
 
-        v24 = *(*(&v46 + 1) + 8 * k);
         PBDataWriterWriteSubmessage();
       }
 
-      v21 = [(NSMutableArray *)lessThan55mIntervalHistograms countByEnumeratingWithState:&v46 objects:v60 count:16];
+      v7 = [(NSMutableArray *)lessThan10mIntervalHistograms countByEnumeratingWithState:&v46 objects:v54 count:16];
     }
 
-    while (v21);
+    while (v7);
   }
 
   v44 = 0u;
   v45 = 0u;
   v42 = 0u;
   v43 = 0u;
-  lessThan200mIntervalHistograms = self->_lessThan200mIntervalHistograms;
-  v26 = [(NSMutableArray *)lessThan200mIntervalHistograms countByEnumeratingWithState:&v42 objects:v59 count:16];
-  if (v26)
+  lessThan25mIntervalHistograms = self->_lessThan25mIntervalHistograms;
+  v11 = [(NSMutableArray *)lessThan25mIntervalHistograms countByEnumeratingWithState:&v42 objects:v53 count:16];
+  if (v11)
   {
-    v27 = v26;
-    v28 = *v43;
+    v12 = v11;
+    v13 = *v43;
     do
     {
-      for (m = 0; m != v27; ++m)
+      for (j = 0; j != v12; ++j)
       {
-        if (*v43 != v28)
+        if (*v43 != v13)
         {
-          objc_enumerationMutation(lessThan200mIntervalHistograms);
+          objc_enumerationMutation(lessThan25mIntervalHistograms);
         }
 
-        v30 = *(*(&v42 + 1) + 8 * m);
         PBDataWriterWriteSubmessage();
       }
 
-      v27 = [(NSMutableArray *)lessThan200mIntervalHistograms countByEnumeratingWithState:&v42 objects:v59 count:16];
+      v12 = [(NSMutableArray *)lessThan25mIntervalHistograms countByEnumeratingWithState:&v42 objects:v53 count:16];
     }
 
-    while (v27);
+    while (v12);
   }
 
   v40 = 0u;
   v41 = 0u;
   v38 = 0u;
   v39 = 0u;
-  anyPositiveIntervalHistograms = self->_anyPositiveIntervalHistograms;
-  v32 = [(NSMutableArray *)anyPositiveIntervalHistograms countByEnumeratingWithState:&v38 objects:v58 count:16];
-  if (v32)
+  lessThan55mIntervalHistograms = self->_lessThan55mIntervalHistograms;
+  v16 = [(NSMutableArray *)lessThan55mIntervalHistograms countByEnumeratingWithState:&v38 objects:v52 count:16];
+  if (v16)
   {
-    v33 = v32;
-    v34 = *v39;
+    v17 = v16;
+    v18 = *v39;
     do
     {
-      for (n = 0; n != v33; ++n)
+      for (k = 0; k != v17; ++k)
       {
-        if (*v39 != v34)
+        if (*v39 != v18)
+        {
+          objc_enumerationMutation(lessThan55mIntervalHistograms);
+        }
+
+        PBDataWriterWriteSubmessage();
+      }
+
+      v17 = [(NSMutableArray *)lessThan55mIntervalHistograms countByEnumeratingWithState:&v38 objects:v52 count:16];
+    }
+
+    while (v17);
+  }
+
+  v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
+  lessThan200mIntervalHistograms = self->_lessThan200mIntervalHistograms;
+  v21 = [(NSMutableArray *)lessThan200mIntervalHistograms countByEnumeratingWithState:&v34 objects:v51 count:16];
+  if (v21)
+  {
+    v22 = v21;
+    v23 = *v35;
+    do
+    {
+      for (m = 0; m != v22; ++m)
+      {
+        if (*v35 != v23)
+        {
+          objc_enumerationMutation(lessThan200mIntervalHistograms);
+        }
+
+        PBDataWriterWriteSubmessage();
+      }
+
+      v22 = [(NSMutableArray *)lessThan200mIntervalHistograms countByEnumeratingWithState:&v34 objects:v51 count:16];
+    }
+
+    while (v22);
+  }
+
+  v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
+  anyPositiveIntervalHistograms = self->_anyPositiveIntervalHistograms;
+  v26 = [(NSMutableArray *)anyPositiveIntervalHistograms countByEnumeratingWithState:&v30 objects:v50 count:16];
+  if (v26)
+  {
+    v27 = v26;
+    v28 = *v31;
+    do
+    {
+      for (n = 0; n != v27; ++n)
+      {
+        if (*v31 != v28)
         {
           objc_enumerationMutation(anyPositiveIntervalHistograms);
         }
 
-        v36 = *(*(&v38 + 1) + 8 * n);
         PBDataWriterWriteSubmessage();
       }
 
-      v33 = [(NSMutableArray *)anyPositiveIntervalHistograms countByEnumeratingWithState:&v38 objects:v58 count:16];
+      v27 = [(NSMutableArray *)anyPositiveIntervalHistograms countByEnumeratingWithState:&v30 objects:v50 count:16];
     }
 
-    while (v33);
+    while (v27);
   }
-
-  v37 = *MEMORY[0x29EDCA608];
 }
 
 - (void)copyTo:(id)to
@@ -556,7 +546,7 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v65 = *MEMORY[0x29EDCA608];
+  v64 = *MEMORY[0x29EDCA608];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = v5;
   has = self->_has;
@@ -573,152 +563,151 @@
     *(v5 + 64) |= 1u;
   }
 
-  v58 = 0u;
-  v59 = 0u;
-  v56 = 0u;
   v57 = 0u;
+  v58 = 0u;
+  v55 = 0u;
+  v56 = 0u;
   lessThan10mIntervalHistograms = self->_lessThan10mIntervalHistograms;
-  v9 = [(NSMutableArray *)lessThan10mIntervalHistograms countByEnumeratingWithState:&v56 objects:v64 count:16];
+  v9 = [(NSMutableArray *)lessThan10mIntervalHistograms countByEnumeratingWithState:&v55 objects:v63 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v57;
+    v11 = *v56;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v57 != v11)
+        if (*v56 != v11)
         {
           objc_enumerationMutation(lessThan10mIntervalHistograms);
         }
 
-        v13 = [*(*(&v56 + 1) + 8 * i) copyWithZone:zone];
+        v13 = [*(*(&v55 + 1) + 8 * i) copyWithZone:zone];
         [v6 addLessThan10mIntervalHistogram:v13];
       }
 
-      v10 = [(NSMutableArray *)lessThan10mIntervalHistograms countByEnumeratingWithState:&v56 objects:v64 count:16];
+      v10 = [(NSMutableArray *)lessThan10mIntervalHistograms countByEnumeratingWithState:&v55 objects:v63 count:16];
     }
 
     while (v10);
   }
 
-  v54 = 0u;
-  v55 = 0u;
-  v52 = 0u;
   v53 = 0u;
+  v54 = 0u;
+  v51 = 0u;
+  v52 = 0u;
   lessThan25mIntervalHistograms = self->_lessThan25mIntervalHistograms;
-  v15 = [(NSMutableArray *)lessThan25mIntervalHistograms countByEnumeratingWithState:&v52 objects:v63 count:16];
+  v15 = [(NSMutableArray *)lessThan25mIntervalHistograms countByEnumeratingWithState:&v51 objects:v62 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v53;
+    v17 = *v52;
     do
     {
       for (j = 0; j != v16; ++j)
       {
-        if (*v53 != v17)
+        if (*v52 != v17)
         {
           objc_enumerationMutation(lessThan25mIntervalHistograms);
         }
 
-        v19 = [*(*(&v52 + 1) + 8 * j) copyWithZone:zone];
+        v19 = [*(*(&v51 + 1) + 8 * j) copyWithZone:zone];
         [v6 addLessThan25mIntervalHistogram:v19];
       }
 
-      v16 = [(NSMutableArray *)lessThan25mIntervalHistograms countByEnumeratingWithState:&v52 objects:v63 count:16];
+      v16 = [(NSMutableArray *)lessThan25mIntervalHistograms countByEnumeratingWithState:&v51 objects:v62 count:16];
     }
 
     while (v16);
   }
 
-  v50 = 0u;
-  v51 = 0u;
-  v48 = 0u;
   v49 = 0u;
+  v50 = 0u;
+  v47 = 0u;
+  v48 = 0u;
   lessThan55mIntervalHistograms = self->_lessThan55mIntervalHistograms;
-  v21 = [(NSMutableArray *)lessThan55mIntervalHistograms countByEnumeratingWithState:&v48 objects:v62 count:16];
+  v21 = [(NSMutableArray *)lessThan55mIntervalHistograms countByEnumeratingWithState:&v47 objects:v61 count:16];
   if (v21)
   {
     v22 = v21;
-    v23 = *v49;
+    v23 = *v48;
     do
     {
       for (k = 0; k != v22; ++k)
       {
-        if (*v49 != v23)
+        if (*v48 != v23)
         {
           objc_enumerationMutation(lessThan55mIntervalHistograms);
         }
 
-        v25 = [*(*(&v48 + 1) + 8 * k) copyWithZone:zone];
+        v25 = [*(*(&v47 + 1) + 8 * k) copyWithZone:zone];
         [v6 addLessThan55mIntervalHistogram:v25];
       }
 
-      v22 = [(NSMutableArray *)lessThan55mIntervalHistograms countByEnumeratingWithState:&v48 objects:v62 count:16];
+      v22 = [(NSMutableArray *)lessThan55mIntervalHistograms countByEnumeratingWithState:&v47 objects:v61 count:16];
     }
 
     while (v22);
   }
 
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
   v45 = 0u;
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
   lessThan200mIntervalHistograms = self->_lessThan200mIntervalHistograms;
-  v27 = [(NSMutableArray *)lessThan200mIntervalHistograms countByEnumeratingWithState:&v44 objects:v61 count:16];
+  v27 = [(NSMutableArray *)lessThan200mIntervalHistograms countByEnumeratingWithState:&v43 objects:v60 count:16];
   if (v27)
   {
     v28 = v27;
-    v29 = *v45;
+    v29 = *v44;
     do
     {
       for (m = 0; m != v28; ++m)
       {
-        if (*v45 != v29)
+        if (*v44 != v29)
         {
           objc_enumerationMutation(lessThan200mIntervalHistograms);
         }
 
-        v31 = [*(*(&v44 + 1) + 8 * m) copyWithZone:zone];
+        v31 = [*(*(&v43 + 1) + 8 * m) copyWithZone:zone];
         [v6 addLessThan200mIntervalHistogram:v31];
       }
 
-      v28 = [(NSMutableArray *)lessThan200mIntervalHistograms countByEnumeratingWithState:&v44 objects:v61 count:16];
+      v28 = [(NSMutableArray *)lessThan200mIntervalHistograms countByEnumeratingWithState:&v43 objects:v60 count:16];
     }
 
     while (v28);
   }
 
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
   v41 = 0u;
+  v42 = 0u;
+  v39 = 0u;
+  v40 = 0u;
   anyPositiveIntervalHistograms = self->_anyPositiveIntervalHistograms;
-  v33 = [(NSMutableArray *)anyPositiveIntervalHistograms countByEnumeratingWithState:&v40 objects:v60 count:16];
+  v33 = [(NSMutableArray *)anyPositiveIntervalHistograms countByEnumeratingWithState:&v39 objects:v59 count:16];
   if (v33)
   {
     v34 = v33;
-    v35 = *v41;
+    v35 = *v40;
     do
     {
       for (n = 0; n != v34; ++n)
       {
-        if (*v41 != v35)
+        if (*v40 != v35)
         {
           objc_enumerationMutation(anyPositiveIntervalHistograms);
         }
 
-        v37 = [*(*(&v40 + 1) + 8 * n) copyWithZone:zone];
+        v37 = [*(*(&v39 + 1) + 8 * n) copyWithZone:zone];
         [v6 addAnyPositiveIntervalHistogram:v37];
       }
 
-      v34 = [(NSMutableArray *)anyPositiveIntervalHistograms countByEnumeratingWithState:&v40 objects:v60 count:16];
+      v34 = [(NSMutableArray *)anyPositiveIntervalHistograms countByEnumeratingWithState:&v39 objects:v59 count:16];
     }
 
     while (v34);
   }
 
-  v38 = *MEMORY[0x29EDCA608];
   return v6;
 }
 
@@ -727,7 +716,6 @@
   v5 = [equal isMemberOfClass:objc_opt_class()];
   if (v5)
   {
-    v6 = *(equal + 64);
     if ((*&self->_has & 2) != 0)
     {
       if ((*(equal + 64) & 2) == 0 || self->_timestamp != *(equal + 2))
@@ -821,7 +809,7 @@ LABEL_6:
 
 - (void)mergeFrom:(id)from
 {
-  v57 = *MEMORY[0x29EDCA608];
+  v56 = *MEMORY[0x29EDCA608];
   v5 = *(from + 64);
   if ((v5 & 2) != 0)
   {
@@ -836,147 +824,145 @@ LABEL_6:
     *&self->_has |= 1u;
   }
 
-  v50 = 0u;
-  v51 = 0u;
-  v48 = 0u;
   v49 = 0u;
+  v50 = 0u;
+  v47 = 0u;
+  v48 = 0u;
   v6 = *(from + 4);
-  v7 = [v6 countByEnumeratingWithState:&v48 objects:v56 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v47 objects:v55 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v49;
+    v9 = *v48;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v49 != v9)
+        if (*v48 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [(AWDCoreRoutineLocationAwarenessIntervalHistogram *)self addLessThan10mIntervalHistogram:*(*(&v48 + 1) + 8 * i)];
+        [(AWDCoreRoutineLocationAwarenessIntervalHistogram *)self addLessThan10mIntervalHistogram:*(*(&v47 + 1) + 8 * i)];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v48 objects:v56 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v47 objects:v55 count:16];
     }
 
     while (v8);
   }
 
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
   v45 = 0u;
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
   v11 = *(from + 6);
-  v12 = [v11 countByEnumeratingWithState:&v44 objects:v55 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v43 objects:v54 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v45;
+    v14 = *v44;
     do
     {
       for (j = 0; j != v13; ++j)
       {
-        if (*v45 != v14)
+        if (*v44 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        [(AWDCoreRoutineLocationAwarenessIntervalHistogram *)self addLessThan25mIntervalHistogram:*(*(&v44 + 1) + 8 * j)];
+        [(AWDCoreRoutineLocationAwarenessIntervalHistogram *)self addLessThan25mIntervalHistogram:*(*(&v43 + 1) + 8 * j)];
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v44 objects:v55 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v43 objects:v54 count:16];
     }
 
     while (v13);
   }
 
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
   v41 = 0u;
+  v42 = 0u;
+  v39 = 0u;
+  v40 = 0u;
   v16 = *(from + 7);
-  v17 = [v16 countByEnumeratingWithState:&v40 objects:v54 count:16];
+  v17 = [v16 countByEnumeratingWithState:&v39 objects:v53 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v41;
+    v19 = *v40;
     do
     {
       for (k = 0; k != v18; ++k)
       {
-        if (*v41 != v19)
+        if (*v40 != v19)
         {
           objc_enumerationMutation(v16);
         }
 
-        [(AWDCoreRoutineLocationAwarenessIntervalHistogram *)self addLessThan55mIntervalHistogram:*(*(&v40 + 1) + 8 * k)];
+        [(AWDCoreRoutineLocationAwarenessIntervalHistogram *)self addLessThan55mIntervalHistogram:*(*(&v39 + 1) + 8 * k)];
       }
 
-      v18 = [v16 countByEnumeratingWithState:&v40 objects:v54 count:16];
+      v18 = [v16 countByEnumeratingWithState:&v39 objects:v53 count:16];
     }
 
     while (v18);
   }
 
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
   v37 = 0u;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
   v21 = *(from + 5);
-  v22 = [v21 countByEnumeratingWithState:&v36 objects:v53 count:16];
+  v22 = [v21 countByEnumeratingWithState:&v35 objects:v52 count:16];
   if (v22)
   {
     v23 = v22;
-    v24 = *v37;
+    v24 = *v36;
     do
     {
       for (m = 0; m != v23; ++m)
       {
-        if (*v37 != v24)
+        if (*v36 != v24)
         {
           objc_enumerationMutation(v21);
         }
 
-        [(AWDCoreRoutineLocationAwarenessIntervalHistogram *)self addLessThan200mIntervalHistogram:*(*(&v36 + 1) + 8 * m)];
+        [(AWDCoreRoutineLocationAwarenessIntervalHistogram *)self addLessThan200mIntervalHistogram:*(*(&v35 + 1) + 8 * m)];
       }
 
-      v23 = [v21 countByEnumeratingWithState:&v36 objects:v53 count:16];
+      v23 = [v21 countByEnumeratingWithState:&v35 objects:v52 count:16];
     }
 
     while (v23);
   }
 
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
   v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   v26 = *(from + 3);
-  v27 = [v26 countByEnumeratingWithState:&v32 objects:v52 count:16];
+  v27 = [v26 countByEnumeratingWithState:&v31 objects:v51 count:16];
   if (v27)
   {
     v28 = v27;
-    v29 = *v33;
+    v29 = *v32;
     do
     {
       for (n = 0; n != v28; ++n)
       {
-        if (*v33 != v29)
+        if (*v32 != v29)
         {
           objc_enumerationMutation(v26);
         }
 
-        [(AWDCoreRoutineLocationAwarenessIntervalHistogram *)self addAnyPositiveIntervalHistogram:*(*(&v32 + 1) + 8 * n)];
+        [(AWDCoreRoutineLocationAwarenessIntervalHistogram *)self addAnyPositiveIntervalHistogram:*(*(&v31 + 1) + 8 * n)];
       }
 
-      v28 = [v26 countByEnumeratingWithState:&v32 objects:v52 count:16];
+      v28 = [v26 countByEnumeratingWithState:&v31 objects:v51 count:16];
     }
 
     while (v28);
   }
-
-  v31 = *MEMORY[0x29EDCA608];
 }
 
 @end

@@ -3,7 +3,7 @@
 
 @implementation AXSPearlRestingUnlockEverSet
 
-uint64_t ___AXSPearlRestingUnlockEverSet_block_invoke()
+void *___AXSPearlRestingUnlockEverSet_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

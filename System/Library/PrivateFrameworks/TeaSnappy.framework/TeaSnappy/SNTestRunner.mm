@@ -190,20 +190,18 @@ void __60__SNTestRunner_runTestRun_testName_options_fallingBackWith___block_invo
 {
   if (a2)
   {
-    v3 = *(a1 + 32);
-    v4 = *(a1 + 40);
-    v5 = *(a1 + 48);
+    v2 = *(a1 + 32);
+    v3 = *(a1 + 40);
+    v4 = *(a1 + 48);
     v6 = [*(a1 + 56) testCoordinator];
-    v7 = *(a1 + 64);
-    v9 = v6;
-    [v3 runTestWithContext:v4 testName:v5 testCoordinator:? completion:?];
+    [v2 runTestWithContext:v3 testName:v4 testCoordinator:? completion:?];
   }
 
   else
   {
-    v8 = *(a1 + 64);
-    v9 = [[SNTestFailure alloc] initWithMessage:@"Failed to rotate to expected orientation before running test case"];
-    (*(v8 + 16))(v8);
+    v5 = *(a1 + 64);
+    v6 = [[SNTestFailure alloc] initWithMessage:@"Failed to rotate to expected orientation before running test case"];
+    (*(v5 + 16))(v5);
   }
 }
 

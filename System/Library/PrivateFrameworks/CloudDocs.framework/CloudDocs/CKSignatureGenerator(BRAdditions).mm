@@ -8,7 +8,7 @@
 {
   if (a4)
   {
-    [MEMORY[0x1E695BAE0] signatureWithFileDescriptor:? boundaryKey:? error:?];
+    [MEMORY[0x1E695BAE0] signatureWithFileDescriptor:a3 boundaryKey:a4 error:a5];
   }
 
   else

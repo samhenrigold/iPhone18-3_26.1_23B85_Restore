@@ -13,10 +13,10 @@
   {
     v3 = *(&self->super.super._responderFlags + OBJC_IVAR____TtC27ActionButtonConfigurationUI18CommitTrackingView_commitHandler);
     selfCopy = self;
-    v5 = sub_23DDD6EA4(v2);
+    v5 = sub_23DDD6EA4(v2, v3);
     v2(v5);
 
-    sub_23DDCC0D8(v2);
+    sub_23DDCC0D8(v2, v3);
   }
 }
 

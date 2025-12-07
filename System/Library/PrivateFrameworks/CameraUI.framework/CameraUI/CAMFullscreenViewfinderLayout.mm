@@ -481,7 +481,7 @@
       size = retstr->var0.size;
       v47[0] = retstr->var0.origin;
       v47[1] = size;
-      CAMFrameForGeometry(v47);
+      v52.origin.x = CAMFrameForGeometry(v47);
       v45 = CGRectGetMaxY(v52) + 88.0;
       if (v45 > MinY)
       {

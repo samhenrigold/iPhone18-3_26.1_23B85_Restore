@@ -28,7 +28,7 @@
   v3 = MEMORY[0x277CCACA8];
   time = self->_time;
   v4 = HMICMTimeDescription(&time);
-  v5 = [v3 stringWithFormat:@"Time: %@, Date: %@", v4, self->_date];
+  v5 = [v3 stringWithFormat:v4, self->_date];
 
   return v5;
 }

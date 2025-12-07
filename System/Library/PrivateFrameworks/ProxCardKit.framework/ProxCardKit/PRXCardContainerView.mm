@@ -30,7 +30,7 @@
   width = frame.size.width;
   y = frame.origin.y;
   x = frame.origin.x;
-  v11 = PRXCardContainerDefaultLayoutMargins();
+  v11 = PRXCardContainerDefaultLayoutMargins(self);
 
   return [(PRXCardContainerView *)self initWithFrame:x containerLayoutMargins:y, width, height, v11, v8, v9, v10];
 }
@@ -75,8 +75,7 @@
 
     [(PRXCardBackgroundView *)v9->_backgroundView setTranslatesAutoresizingMaskIntoConstraints:0];
     [(PRXCardBackgroundView *)v9->_backgroundView setClipsToBounds:1];
-    [dismissableContentContainerView addSubview:v9->_backgroundView];
-    PRXCardDefaultSize();
+    PRXCardDefaultSize([dismissableContentContainerView addSubview:v9->_backgroundView]);
     v9->_preferredContentSize.width = v19;
     v9->_preferredContentSize.height = v20;
     v21 = [[PRXCardContentContainerView alloc] initWithFrame:0.0, 0.0, v9->_preferredContentSize.width, v9->_preferredContentSize.height];
@@ -260,7 +259,7 @@
   p_preferredContentSize = &self->_preferredContentSize;
   if (self->_preferredContentSize.width != size.width || self->_preferredContentSize.height != size.height)
   {
-    v8 = PRXDefaultLog();
+    v8 = PRXDefaultLog(self);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       [(PRXCardContainerView *)v8 setPreferredContentSize:height];

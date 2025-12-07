@@ -2265,7 +2265,6 @@ LABEL_131:
   has = self->_has;
   if ((has & 0x200000000) != 0)
   {
-    event = self->_event;
     PBDataWriterWriteUint32Field();
     has = *p_has;
     if ((*p_has & 0x100) == 0)
@@ -2285,7 +2284,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  bufferInterval = self->_bufferInterval;
   PBDataWriterWriteUint32Field();
   has = *p_has;
   if ((*p_has & 1) == 0)
@@ -2300,7 +2298,6 @@ LABEL_4:
   }
 
 LABEL_134:
-  wifiRssi = self->_wifiRssi;
   PBDataWriterWriteSint64Field();
   has = *p_has;
   if ((*p_has & 0x400000000000000) == 0)
@@ -2315,7 +2312,6 @@ LABEL_5:
   }
 
 LABEL_135:
-  phyRate = self->_phyRate;
   PBDataWriterWriteUint32Field();
   has = *p_has;
   if ((*p_has & 0x4000000000000000) == 0)
@@ -2330,7 +2326,6 @@ LABEL_6:
   }
 
 LABEL_136:
-  qbssLoad = self->_qbssLoad;
   PBDataWriterWriteUint32Field();
   has = *p_has;
   if ((*p_has & 0x200) == 0)
@@ -2345,7 +2340,6 @@ LABEL_7:
   }
 
 LABEL_137:
-  cca = self->_cca;
   PBDataWriterWriteUint32Field();
   has = *p_has;
   if ((*p_has & 0x20) == 0)
@@ -2360,32 +2354,28 @@ LABEL_8:
   }
 
 LABEL_138:
-  bcnPer = self->_bcnPer;
   PBDataWriterWriteUint32Field();
   if ((*p_has & 0x800000000) != 0)
   {
 LABEL_9:
-    expectedThroughputVO = self->_expectedThroughputVO;
     PBDataWriterWriteUint32Field();
   }
 
 LABEL_10:
   if ((*(p_has + 10) & 0x20) != 0)
   {
-    wifiSinr = self->_wifiSinr;
     PBDataWriterWriteSint32Field();
   }
 
-  v8 = *p_has;
+  v6 = *p_has;
   if ((*p_has & 0x1000000000000000) != 0)
   {
-    pktLifeTimeVO = self->_pktLifeTimeVO;
     PBDataWriterWriteUint32Field();
-    v8 = *p_has;
+    v6 = *p_has;
     if ((*p_has & 0x2000000000000000) == 0)
     {
 LABEL_14:
-      if ((v8 & 0x40000000000) == 0)
+      if ((v6 & 0x40000000000) == 0)
       {
         goto LABEL_15;
       }
@@ -2394,18 +2384,17 @@ LABEL_14:
     }
   }
 
-  else if ((v8 & 0x2000000000000000) == 0)
+  else if ((v6 & 0x2000000000000000) == 0)
   {
     goto LABEL_14;
   }
 
-  pktLossRateVO = self->_pktLossRateVO;
   PBDataWriterWriteUint32Field();
-  v8 = *p_has;
+  v6 = *p_has;
   if ((*p_has & 0x40000000000) == 0)
   {
 LABEL_15:
-    if ((v8 & 0x200000000000000) == 0)
+    if ((v6 & 0x200000000000000) == 0)
     {
       goto LABEL_16;
     }
@@ -2414,13 +2403,12 @@ LABEL_15:
   }
 
 LABEL_142:
-  lqmScoreWifi = self->_lqmScoreWifi;
   PBDataWriterWriteInt32Field();
-  v8 = *p_has;
+  v6 = *p_has;
   if ((*p_has & 0x200000000000000) == 0)
   {
 LABEL_16:
-    if ((v8 & 0x400000000) == 0)
+    if ((v6 & 0x400000000) == 0)
     {
       goto LABEL_17;
     }
@@ -2429,13 +2417,12 @@ LABEL_16:
   }
 
 LABEL_143:
-  packetLossRateVIBE = self->_packetLossRateVIBE;
   PBDataWriterWriteUint32Field();
-  v8 = *p_has;
+  v6 = *p_has;
   if ((*p_has & 0x400000000) == 0)
   {
 LABEL_17:
-    if ((v8 & 0x100000000000000) == 0)
+    if ((v6 & 0x100000000000000) == 0)
     {
       goto LABEL_18;
     }
@@ -2444,13 +2431,12 @@ LABEL_17:
   }
 
 LABEL_144:
-  expectedThroughputVIBE = self->_expectedThroughputVIBE;
   PBDataWriterWriteUint32Field();
-  v8 = *p_has;
+  v6 = *p_has;
   if ((*p_has & 0x100000000000000) == 0)
   {
 LABEL_18:
-    if ((v8 & 0x10) == 0)
+    if ((v6 & 0x10) == 0)
     {
       goto LABEL_19;
     }
@@ -2459,13 +2445,12 @@ LABEL_18:
   }
 
 LABEL_145:
-  packetLifetimeVIBE = self->_packetLifetimeVIBE;
   PBDataWriterWriteUint32Field();
-  v8 = *p_has;
+  v6 = *p_has;
   if ((*p_has & 0x10) == 0)
   {
 LABEL_19:
-    if ((v8 & 0x2000000000) == 0)
+    if ((v6 & 0x2000000000) == 0)
     {
       goto LABEL_20;
     }
@@ -2474,13 +2459,12 @@ LABEL_19:
   }
 
 LABEL_146:
-  badDecisionsCounterVO = self->_badDecisionsCounterVO;
   PBDataWriterWriteUint32Field();
-  v8 = *p_has;
+  v6 = *p_has;
   if ((*p_has & 0x2000000000) == 0)
   {
 LABEL_20:
-    if ((v8 & 0x8000000000) == 0)
+    if ((v6 & 0x8000000000) == 0)
     {
       goto LABEL_21;
     }
@@ -2489,13 +2473,12 @@ LABEL_20:
   }
 
 LABEL_147:
-  goodDecisionsCounterVO = self->_goodDecisionsCounterVO;
   PBDataWriterWriteUint32Field();
-  v8 = *p_has;
+  v6 = *p_has;
   if ((*p_has & 0x8000000000) == 0)
   {
 LABEL_21:
-    if ((v8 & 8) == 0)
+    if ((v6 & 8) == 0)
     {
       goto LABEL_22;
     }
@@ -2504,13 +2487,12 @@ LABEL_21:
   }
 
 LABEL_148:
-  invalidDecisionsCounterVO = self->_invalidDecisionsCounterVO;
   PBDataWriterWriteUint32Field();
-  v8 = *p_has;
+  v6 = *p_has;
   if ((*p_has & 8) == 0)
   {
 LABEL_22:
-    if ((v8 & 0x1000000000) == 0)
+    if ((v6 & 0x1000000000) == 0)
     {
       goto LABEL_23;
     }
@@ -2519,13 +2501,12 @@ LABEL_22:
   }
 
 LABEL_149:
-  badDecisionsCounterVIBE = self->_badDecisionsCounterVIBE;
   PBDataWriterWriteUint32Field();
-  v8 = *p_has;
+  v6 = *p_has;
   if ((*p_has & 0x1000000000) == 0)
   {
 LABEL_23:
-    if ((v8 & 0x4000000000) == 0)
+    if ((v6 & 0x4000000000) == 0)
     {
       goto LABEL_24;
     }
@@ -2534,13 +2515,12 @@ LABEL_23:
   }
 
 LABEL_150:
-  goodDecisionsCounterVIBE = self->_goodDecisionsCounterVIBE;
   PBDataWriterWriteUint32Field();
-  v8 = *p_has;
+  v6 = *p_has;
   if ((*p_has & 0x4000000000) == 0)
   {
 LABEL_24:
-    if ((v8 & 0x80000000000) == 0)
+    if ((v6 & 0x80000000000) == 0)
     {
       goto LABEL_26;
     }
@@ -2549,12 +2529,10 @@ LABEL_24:
   }
 
 LABEL_151:
-  invalidDecisionsCounterVIBE = self->_invalidDecisionsCounterVIBE;
   PBDataWriterWriteUint32Field();
   if ((*p_has & 0x80000000000) != 0)
   {
 LABEL_25:
-    lqmScorecellular = self->_lqmScorecellular;
     PBDataWriterWriteInt32Field();
   }
 
@@ -2564,16 +2542,15 @@ LABEL_26:
     PBDataWriterWriteStringField();
   }
 
-  v10 = *p_has;
+  v7 = *p_has;
   if ((*p_has & 0x100000) != 0)
   {
-    cellRsrp = self->_cellRsrp;
     PBDataWriterWriteSint32Field();
-    v10 = *p_has;
+    v7 = *p_has;
     if ((*p_has & 0x200000) == 0)
     {
 LABEL_30:
-      if ((v10 & 0x40) == 0)
+      if ((v7 & 0x40) == 0)
       {
         goto LABEL_32;
       }
@@ -2582,57 +2559,50 @@ LABEL_30:
     }
   }
 
-  else if ((v10 & 0x200000) == 0)
+  else if ((v7 & 0x200000) == 0)
   {
     goto LABEL_30;
   }
 
-  cellSinr = self->_cellSinr;
   PBDataWriterWriteSint32Field();
   if ((*p_has & 0x40) != 0)
   {
 LABEL_31:
-    btRssi = self->_btRssi;
     PBDataWriterWriteSint32Field();
   }
 
 LABEL_32:
-  v12 = *(p_has + 2);
-  if ((v12 & 0x200) != 0)
+  v8 = *(p_has + 2);
+  if ((v8 & 0x200) != 0)
   {
-    txRetransmissionRate = self->_txRetransmissionRate;
     PBDataWriterWriteUint32Field();
-    v12 = *(p_has + 2);
+    v8 = *(p_has + 2);
   }
 
-  if ((v12 & 4) != 0)
+  if ((v8 & 4) != 0)
   {
-    rxRetransmissionRate = self->_rxRetransmissionRate;
     PBDataWriterWriteUint32Field();
   }
 
   if ((*(p_has + 5) & 2) != 0)
   {
-    lqmScoreBT = self->_lqmScoreBT;
     PBDataWriterWriteSint32Field();
   }
 
   if ((*(p_has + 11) & 8) != 0)
   {
-    wrmRecommendedRAT = self->_wrmRecommendedRAT;
     PBDataWriterWriteUint32Field();
   }
 
-  v17 = *p_has;
+  v9 = *p_has;
   if ((*p_has & 4) != 0)
   {
-    actualLowBandwidth = self->_actualLowBandwidth;
     PBDataWriterWriteUint32Field();
-    v17 = *p_has;
+    v9 = *p_has;
     if ((*p_has & 2) == 0)
     {
 LABEL_42:
-      if ((v17 & 0x80000000) == 0)
+      if ((v9 & 0x80000000) == 0)
       {
         goto LABEL_43;
       }
@@ -2641,18 +2611,17 @@ LABEL_42:
     }
   }
 
-  else if ((v17 & 2) == 0)
+  else if ((v9 & 2) == 0)
   {
     goto LABEL_42;
   }
 
-  actualHighBandwidth = self->_actualHighBandwidth;
   PBDataWriterWriteUint32Field();
-  v17 = *p_has;
+  v9 = *p_has;
   if ((*p_has & 0x80000000) == 0)
   {
 LABEL_43:
-    if ((v17 & 0x40000000) == 0)
+    if ((v9 & 0x40000000) == 0)
     {
       goto LABEL_44;
     }
@@ -2661,13 +2630,12 @@ LABEL_43:
   }
 
 LABEL_158:
-  estimatedLowBandwidth = self->_estimatedLowBandwidth;
   PBDataWriterWriteUint32Field();
-  v17 = *p_has;
+  v9 = *p_has;
   if ((*p_has & 0x40000000) == 0)
   {
 LABEL_44:
-    if ((v17 & 0x8000000000000) == 0)
+    if ((v9 & 0x8000000000000) == 0)
     {
       goto LABEL_45;
     }
@@ -2676,13 +2644,12 @@ LABEL_44:
   }
 
 LABEL_159:
-  estimatedHighBandwidth = self->_estimatedHighBandwidth;
   PBDataWriterWriteUint32Field();
-  v17 = *p_has;
+  v9 = *p_has;
   if ((*p_has & 0x8000000000000) == 0)
   {
 LABEL_45:
-    if ((v17 & 0x4000000000000) == 0)
+    if ((v9 & 0x4000000000000) == 0)
     {
       goto LABEL_46;
     }
@@ -2691,13 +2658,12 @@ LABEL_45:
   }
 
 LABEL_160:
-  movingAvgLowBandwidth = self->_movingAvgLowBandwidth;
   PBDataWriterWriteUint32Field();
-  v17 = *p_has;
+  v9 = *p_has;
   if ((*p_has & 0x4000000000000) == 0)
   {
 LABEL_46:
-    if ((v17 & 0x10000000) == 0)
+    if ((v9 & 0x10000000) == 0)
     {
       goto LABEL_47;
     }
@@ -2706,13 +2672,12 @@ LABEL_46:
   }
 
 LABEL_161:
-  movingAvgHighBandwidth = self->_movingAvgHighBandwidth;
   PBDataWriterWriteUint32Field();
-  v17 = *p_has;
+  v9 = *p_has;
   if ((*p_has & 0x10000000) == 0)
   {
 LABEL_47:
-    if ((v17 & 0x400000000000) == 0)
+    if ((v9 & 0x400000000000) == 0)
     {
       goto LABEL_48;
     }
@@ -2721,13 +2686,12 @@ LABEL_47:
   }
 
 LABEL_162:
-  deviation = self->_deviation;
   PBDataWriterWriteSint32Field();
-  v17 = *p_has;
+  v9 = *p_has;
   if ((*p_has & 0x400000000000) == 0)
   {
 LABEL_48:
-    if ((v17 & 0x800000000000000) == 0)
+    if ((v9 & 0x800000000000000) == 0)
     {
       goto LABEL_49;
     }
@@ -2736,13 +2700,12 @@ LABEL_48:
   }
 
 LABEL_163:
-  maxOfActualLowBandwidth = self->_maxOfActualLowBandwidth;
   PBDataWriterWriteUint32Field();
-  v17 = *p_has;
+  v9 = *p_has;
   if ((*p_has & 0x800000000000000) == 0)
   {
 LABEL_49:
-    if ((v17 & 0x8000000) == 0)
+    if ((v9 & 0x8000000) == 0)
     {
       goto LABEL_50;
     }
@@ -2751,13 +2714,12 @@ LABEL_49:
   }
 
 LABEL_164:
-  pkgLifeTimeVO = self->_pkgLifeTimeVO;
   PBDataWriterWriteUint32Field();
-  v17 = *p_has;
+  v9 = *p_has;
   if ((*p_has & 0x8000000) == 0)
   {
 LABEL_50:
-    if ((v17 & 0x4000000) == 0)
+    if ((v9 & 0x4000000) == 0)
     {
       goto LABEL_52;
     }
@@ -2766,26 +2728,23 @@ LABEL_50:
   }
 
 LABEL_165:
-  decisionVO = self->_decisionVO;
   PBDataWriterWriteUint32Field();
   if ((*p_has & 0x4000000) != 0)
   {
 LABEL_51:
-    decisionVIBE = self->_decisionVIBE;
     PBDataWriterWriteUint32Field();
   }
 
 LABEL_52:
-  v19 = *(p_has + 2);
-  if ((v19 & 0x800) != 0)
+  v10 = *(p_has + 2);
+  if ((v10 & 0x800) != 0)
   {
-    videoStreamingStallTime = self->_videoStreamingStallTime;
     PBDataWriterWriteUint32Field();
-    v19 = *(p_has + 2);
-    if ((v19 & 0x400) == 0)
+    v10 = *(p_has + 2);
+    if ((v10 & 0x400) == 0)
     {
 LABEL_54:
-      if ((v19 & 8) == 0)
+      if ((v10 & 8) == 0)
       {
         goto LABEL_55;
       }
@@ -2794,18 +2753,17 @@ LABEL_54:
     }
   }
 
-  else if ((v19 & 0x400) == 0)
+  else if ((v10 & 0x400) == 0)
   {
     goto LABEL_54;
   }
 
-  txber = self->_txber;
   PBDataWriterWriteUint32Field();
-  v19 = *(p_has + 2);
-  if ((v19 & 8) == 0)
+  v10 = *(p_has + 2);
+  if ((v10 & 8) == 0)
   {
 LABEL_55:
-    if ((v19 & 0x2000) == 0)
+    if ((v10 & 0x2000) == 0)
     {
       goto LABEL_56;
     }
@@ -2814,13 +2772,12 @@ LABEL_55:
   }
 
 LABEL_169:
-  rxRetry = self->_rxRetry;
   PBDataWriterWriteUint32Field();
-  v19 = *(p_has + 2);
-  if ((v19 & 0x2000) == 0)
+  v10 = *(p_has + 2);
+  if ((v10 & 0x2000) == 0)
   {
 LABEL_56:
-    if ((v19 & 0x1000) == 0)
+    if ((v10 & 0x1000) == 0)
     {
       goto LABEL_57;
     }
@@ -2829,13 +2786,12 @@ LABEL_56:
   }
 
 LABEL_170:
-  weightedAveragePhyrateTx = self->_weightedAveragePhyrateTx;
   PBDataWriterWriteUint32Field();
-  v19 = *(p_has + 2);
-  if ((v19 & 0x1000) == 0)
+  v10 = *(p_has + 2);
+  if ((v10 & 0x1000) == 0)
   {
 LABEL_57:
-    if ((v19 & 0x4000) == 0)
+    if ((v10 & 0x4000) == 0)
     {
       goto LABEL_58;
     }
@@ -2844,13 +2800,12 @@ LABEL_57:
   }
 
 LABEL_171:
-  weightedAveragePhyrateRx = self->_weightedAveragePhyrateRx;
   PBDataWriterWriteUint32Field();
-  v19 = *(p_has + 2);
-  if ((v19 & 0x4000) == 0)
+  v10 = *(p_has + 2);
+  if ((v10 & 0x4000) == 0)
   {
 LABEL_58:
-    if ((v19 & 0x8000) == 0)
+    if ((v10 & 0x8000) == 0)
     {
       goto LABEL_60;
     }
@@ -2859,26 +2814,23 @@ LABEL_58:
   }
 
 LABEL_172:
-  weightedAverageRssi = self->_weightedAverageRssi;
   PBDataWriterWriteUint32Field();
   if ((*(p_has + 2) & 0x8000) != 0)
   {
 LABEL_59:
-    weightedAverageSnr = self->_weightedAverageSnr;
     PBDataWriterWriteUint32Field();
   }
 
 LABEL_60:
-  v21 = *p_has;
+  v11 = *p_has;
   if ((*p_has & 0x400000) != 0)
   {
-    cmDataSentCount = self->_cmDataSentCount;
     PBDataWriterWriteUint32Field();
-    v21 = *p_has;
+    v11 = *p_has;
     if ((*p_has & 0x800000) == 0)
     {
 LABEL_62:
-      if ((v21 & 0x1000000) == 0)
+      if ((v11 & 0x1000000) == 0)
       {
         goto LABEL_63;
       }
@@ -2887,18 +2839,17 @@ LABEL_62:
     }
   }
 
-  else if ((v21 & 0x800000) == 0)
+  else if ((v11 & 0x800000) == 0)
   {
     goto LABEL_62;
   }
 
-  cmDataSentDuration = self->_cmDataSentDuration;
   PBDataWriterWriteUint32Field();
-  v21 = *p_has;
+  v11 = *p_has;
   if ((*p_has & 0x1000000) == 0)
   {
 LABEL_63:
-    if ((v21 & 0x20000000) == 0)
+    if ((v11 & 0x20000000) == 0)
     {
       goto LABEL_65;
     }
@@ -2907,52 +2858,45 @@ LABEL_63:
   }
 
 LABEL_176:
-  cmEstimatedBandwidth = self->_cmEstimatedBandwidth;
   PBDataWriterWriteUint32Field();
   if ((*p_has & 0x20000000) != 0)
   {
 LABEL_64:
-    devicePointOfInterest = self->_devicePointOfInterest;
     PBDataWriterWriteUint32Field();
   }
 
 LABEL_65:
   if ((*(p_has + 8) & 2) != 0)
   {
-    rrcState = self->_rrcState;
     PBDataWriterWriteUint32Field();
   }
 
   if ((*(p_has + 6) & 2) != 0)
   {
-    mlPredictedWiFiBW = self->_mlPredictedWiFiBW;
     PBDataWriterWriteUint32Field();
   }
 
-  v25 = *(p_has + 2);
-  if ((v25 & 0x100000) != 0)
+  v12 = *(p_has + 2);
+  if ((v12 & 0x100000) != 0)
   {
-    wifiModelVersion = self->_wifiModelVersion;
     PBDataWriterWriteUint32Field();
-    v25 = *(p_has + 2);
+    v12 = *(p_has + 2);
   }
 
-  if ((v25 & 0x80000) != 0)
+  if ((v12 & 0x80000) != 0)
   {
-    wifiModelConfidenceLevel = self->_wifiModelConfidenceLevel;
     PBDataWriterWriteUint32Field();
   }
 
-  v28 = *p_has;
+  v13 = *p_has;
   if ((*p_has & 0x1000000000000) != 0)
   {
-    mlPredictedCellBW = self->_mlPredictedCellBW;
     PBDataWriterWriteUint32Field();
-    v28 = *p_has;
+    v13 = *p_has;
     if ((*p_has & 0x10000) == 0)
     {
 LABEL_75:
-      if ((v28 & 0x8000) == 0)
+      if ((v13 & 0x8000) == 0)
       {
         goto LABEL_76;
       }
@@ -2961,18 +2905,17 @@ LABEL_75:
     }
   }
 
-  else if ((v28 & 0x10000) == 0)
+  else if ((v13 & 0x10000) == 0)
   {
     goto LABEL_75;
   }
 
-  cellModelVersion = self->_cellModelVersion;
   PBDataWriterWriteUint32Field();
-  v28 = *p_has;
+  v13 = *p_has;
   if ((*p_has & 0x8000) == 0)
   {
 LABEL_76:
-    if ((v28 & 0x2000) == 0)
+    if ((v13 & 0x2000) == 0)
     {
       goto LABEL_78;
     }
@@ -2981,12 +2924,10 @@ LABEL_76:
   }
 
 LABEL_180:
-  cellModelConfidenceLevel = self->_cellModelConfidenceLevel;
   PBDataWriterWriteUint32Field();
   if ((*p_has & 0x2000) != 0)
   {
 LABEL_77:
-    cellEstimatedBW = self->_cellEstimatedBW;
     PBDataWriterWriteUint32Field();
   }
 
@@ -2996,16 +2937,15 @@ LABEL_78:
     PBDataWriterWriteStringField();
   }
 
-  v30 = *(p_has + 2);
-  if ((v30 & 0x10) != 0)
+  v14 = *(p_has + 2);
+  if ((v14 & 0x10) != 0)
   {
-    tcpRTTAvg = self->_tcpRTTAvg;
     PBDataWriterWriteUint32Field();
-    v30 = *(p_has + 2);
-    if ((v30 & 0x20) == 0)
+    v14 = *(p_has + 2);
+    if ((v14 & 0x20) == 0)
     {
 LABEL_82:
-      if ((v30 & 0x40) == 0)
+      if ((v14 & 0x40) == 0)
       {
         goto LABEL_84;
       }
@@ -3014,43 +2954,38 @@ LABEL_82:
     }
   }
 
-  else if ((v30 & 0x20) == 0)
+  else if ((v14 & 0x20) == 0)
   {
     goto LABEL_82;
   }
 
-  tcpRTTmin = self->_tcpRTTmin;
   PBDataWriterWriteUint32Field();
   if ((*(p_has + 2) & 0x40) != 0)
   {
 LABEL_83:
-    tcpRTTvar = self->_tcpRTTvar;
     PBDataWriterWriteUint32Field();
   }
 
 LABEL_84:
   if ((*p_has & 0x8000000000000000) != 0)
   {
-    ratioDupeBytes = self->_ratioDupeBytes;
     PBDataWriterWriteUint32Field();
   }
 
   if (*(p_has + 8))
   {
-    ratioOOBBytes = self->_ratioOOBBytes;
     PBDataWriterWriteUint32Field();
   }
 
-  v34 = *p_has;
+  v15 = *p_has;
   if ((*p_has & 0x400) != 0)
   {
-    cellARFCN = self->_cellARFCN;
     PBDataWriterWriteUint32Field();
-    v34 = *p_has;
+    v15 = *p_has;
     if ((*p_has & 0x1000) == 0)
     {
 LABEL_90:
-      if ((v34 & 0x800) == 0)
+      if ((v15 & 0x800) == 0)
       {
         goto LABEL_91;
       }
@@ -3059,18 +2994,17 @@ LABEL_90:
     }
   }
 
-  else if ((v34 & 0x1000) == 0)
+  else if ((v15 & 0x1000) == 0)
   {
     goto LABEL_90;
   }
 
-  cellChannelBW = self->_cellChannelBW;
   PBDataWriterWriteUint32Field();
-  v34 = *p_has;
+  v15 = *p_has;
   if ((*p_has & 0x800) == 0)
   {
 LABEL_91:
-    if ((v34 & 0x200000000000) == 0)
+    if ((v15 & 0x200000000000) == 0)
     {
       goto LABEL_92;
     }
@@ -3079,13 +3013,12 @@ LABEL_91:
   }
 
 LABEL_187:
-  cellBandInfo = self->_cellBandInfo;
   PBDataWriterWriteUint32Field();
-  v34 = *p_has;
+  v15 = *p_has;
   if ((*p_has & 0x200000000000) == 0)
   {
 LABEL_92:
-    if ((v34 & 0x800000000000) == 0)
+    if ((v15 & 0x800000000000) == 0)
     {
       goto LABEL_94;
     }
@@ -3094,26 +3027,23 @@ LABEL_92:
   }
 
 LABEL_188:
-  maxDLCAConfigured = self->_maxDLCAConfigured;
   PBDataWriterWriteUint32Field();
   if ((*p_has & 0x800000000000) != 0)
   {
 LABEL_93:
-    maxULCAConfigured = self->_maxULCAConfigured;
     PBDataWriterWriteUint32Field();
   }
 
 LABEL_94:
-  v36 = *(p_has + 2);
-  if ((v36 & 0x10000) != 0)
+  v16 = *(p_has + 2);
+  if ((v16 & 0x10000) != 0)
   {
-    wifChannelBW = self->_wifChannelBW;
     PBDataWriterWriteUint32Field();
-    v36 = *(p_has + 2);
-    if ((v36 & 0x20000) == 0)
+    v16 = *(p_has + 2);
+    if ((v16 & 0x20000) == 0)
     {
 LABEL_96:
-      if ((v36 & 0x40000) == 0)
+      if ((v16 & 0x40000) == 0)
       {
         goto LABEL_98;
       }
@@ -3122,51 +3052,45 @@ LABEL_96:
     }
   }
 
-  else if ((v36 & 0x20000) == 0)
+  else if ((v16 & 0x20000) == 0)
   {
     goto LABEL_96;
   }
 
-  wifChannelType = self->_wifChannelType;
   PBDataWriterWriteUint32Field();
   if ((*(p_has + 2) & 0x40000) != 0)
   {
 LABEL_97:
-    wifiCapability = self->_wifiCapability;
     PBDataWriterWriteUint32Field();
   }
 
 LABEL_98:
   if (*(p_has + 4))
   {
-    estimatedSpeed = self->_estimatedSpeed;
     PBDataWriterWriteUint32Field();
   }
 
-  v39 = *(p_has + 2);
-  if ((v39 & 0x10000000) != 0)
+  v17 = *(p_has + 2);
+  if ((v17 & 0x10000000) != 0)
   {
-    cellNsaEnabled = self->_cellNsaEnabled;
     PBDataWriterWriteBOOLField();
-    v39 = *(p_has + 2);
+    v17 = *(p_has + 2);
   }
 
-  if ((v39 & 0x20000000) != 0)
+  if ((v17 & 0x20000000) != 0)
   {
-    isFR1 = self->_isFR1;
     PBDataWriterWriteBOOLField();
   }
 
-  v42 = *p_has;
+  v18 = *p_has;
   if ((*p_has & 0x20000) != 0)
   {
-    cellNrRSRP = self->_cellNrRSRP;
     PBDataWriterWriteInt32Field();
-    v42 = *p_has;
+    v18 = *p_has;
     if ((*p_has & 0x40000) == 0)
     {
 LABEL_106:
-      if ((v42 & 0x80000) == 0)
+      if ((v18 & 0x80000) == 0)
       {
         goto LABEL_107;
       }
@@ -3175,18 +3099,17 @@ LABEL_106:
     }
   }
 
-  else if ((v42 & 0x40000) == 0)
+  else if ((v18 & 0x40000) == 0)
   {
     goto LABEL_106;
   }
 
-  cellNrRSRQ = self->_cellNrRSRQ;
   PBDataWriterWriteInt32Field();
-  v42 = *p_has;
+  v18 = *p_has;
   if ((*p_has & 0x80000) == 0)
   {
 LABEL_107:
-    if ((v42 & 0x4000) == 0)
+    if ((v18 & 0x4000) == 0)
     {
       goto LABEL_108;
     }
@@ -3195,13 +3118,12 @@ LABEL_107:
   }
 
 LABEL_195:
-  cellNrSNR = self->_cellNrSNR;
   PBDataWriterWriteInt32Field();
-  v42 = *p_has;
+  v18 = *p_has;
   if ((*p_has & 0x4000) == 0)
   {
 LABEL_108:
-    if ((v42 & 0x80000000000000) == 0)
+    if ((v18 & 0x80000000000000) == 0)
     {
       goto LABEL_110;
     }
@@ -3210,26 +3132,23 @@ LABEL_108:
   }
 
 LABEL_196:
-  cellLteRSRQ = self->_cellLteRSRQ;
   PBDataWriterWriteInt32Field();
   if ((*p_has & 0x80000000000000) != 0)
   {
 LABEL_109:
-    pActualLowBandwidth = self->_pActualLowBandwidth;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_110:
-  v44 = *(p_has + 2);
-  if ((v44 & 0x2000000) != 0)
+  v19 = *(p_has + 2);
+  if ((v19 & 0x2000000) != 0)
   {
-    wifimcsindex = self->_wifimcsindex;
     PBDataWriterWriteInt32Field();
-    v44 = *(p_has + 2);
-    if ((v44 & 0x800000) == 0)
+    v19 = *(p_has + 2);
+    if ((v19 & 0x800000) == 0)
     {
 LABEL_112:
-      if ((v44 & 0x4000000) == 0)
+      if ((v19 & 0x4000000) == 0)
       {
         goto LABEL_113;
       }
@@ -3238,18 +3157,17 @@ LABEL_112:
     }
   }
 
-  else if ((v44 & 0x800000) == 0)
+  else if ((v19 & 0x800000) == 0)
   {
     goto LABEL_112;
   }
 
-  wifiguardinterval = self->_wifiguardinterval;
   PBDataWriterWriteInt32Field();
-  v44 = *(p_has + 2);
-  if ((v44 & 0x4000000) == 0)
+  v19 = *(p_has + 2);
+  if ((v19 & 0x4000000) == 0)
   {
 LABEL_113:
-    if ((v44 & 0x400000) == 0)
+    if ((v19 & 0x400000) == 0)
     {
       goto LABEL_114;
     }
@@ -3258,13 +3176,12 @@ LABEL_113:
   }
 
 LABEL_200:
-  wifinumberOfSpatialStreams = self->_wifinumberOfSpatialStreams;
   PBDataWriterWriteInt32Field();
-  v44 = *(p_has + 2);
-  if ((v44 & 0x400000) == 0)
+  v19 = *(p_has + 2);
+  if ((v19 & 0x400000) == 0)
   {
 LABEL_114:
-    if ((v44 & 0x1000000) == 0)
+    if ((v19 & 0x1000000) == 0)
     {
       goto LABEL_116;
     }
@@ -3273,66 +3190,57 @@ LABEL_114:
   }
 
 LABEL_201:
-  wifichannel = self->_wifichannel;
   PBDataWriterWriteInt32Field();
   if ((*(p_has + 2) & 0x1000000) != 0)
   {
 LABEL_115:
-    wifilowDataMode = self->_wifilowDataMode;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_116:
-  v46 = *p_has;
+  v20 = *p_has;
   if ((*p_has & 0x10000000000) != 0)
   {
-    isWfiCaptive = self->_isWfiCaptive;
     PBDataWriterWriteInt32Field();
-    v46 = *p_has;
+    v20 = *p_has;
   }
 
-  if ((v46 & 0x80) != 0)
+  if ((v20 & 0x80) != 0)
   {
-    btWiFiCoexState = self->_btWiFiCoexState;
     PBDataWriterWriteInt32Field();
   }
 
   if ((*(p_has + 8) & 0x80) != 0)
   {
-    totalConfiguredBw = self->_totalConfiguredBw;
     PBDataWriterWriteUint32Field();
   }
 
-  v50 = *p_has;
+  v21 = *p_has;
   if ((*p_has & 0x10000000000000) != 0)
   {
-    nrConfiguredBw = self->_nrConfiguredBw;
     PBDataWriterWriteUint32Field();
-    v50 = *p_has;
+    v21 = *p_has;
   }
 
-  if ((v50 & 0x40000000000000) != 0)
+  if ((v21 & 0x40000000000000) != 0)
   {
-    nrTotalScheduledMimoLayers = self->_nrTotalScheduledMimoLayers;
     PBDataWriterWriteUint32Field();
   }
 
   if (*(p_has + 9))
   {
-    totalConfiguredMimoLayers = self->_totalConfiguredMimoLayers;
     PBDataWriterWriteUint32Field();
   }
 
-  v54 = *p_has;
+  v22 = *p_has;
   if ((*p_has & 0x100000000000) == 0)
   {
-    if ((v54 & 0x20000000000000) == 0)
+    if ((v22 & 0x20000000000000) == 0)
     {
       goto LABEL_130;
     }
 
 LABEL_204:
-    nrMaxDlModulation = self->_nrMaxDlModulation;
     PBDataWriterWriteUint32Field();
     if ((*p_has & 0x2000000) == 0)
     {
@@ -3342,22 +3250,20 @@ LABEL_204:
     goto LABEL_205;
   }
 
-  lteMaxScheduledMimoLayersInACell = self->_lteMaxScheduledMimoLayersInACell;
   PBDataWriterWriteUint32Field();
-  v54 = *p_has;
+  v22 = *p_has;
   if ((*p_has & 0x20000000000000) != 0)
   {
     goto LABEL_204;
   }
 
 LABEL_130:
-  if ((v54 & 0x2000000) == 0)
+  if ((v22 & 0x2000000) == 0)
   {
     return;
   }
 
 LABEL_205:
-  coldStartType = self->_coldStartType;
 
   PBDataWriterWriteUint32Field();
 }
@@ -5675,7 +5581,7 @@ LABEL_127:
 
   v8 = *(equal + 102);
   p_has = &self->_has;
-  v21 = (equal + 400);
+  v19 = (equal + 400);
   if ((*(&self->_has + 10) & 0x20) != 0)
   {
     if ((v8 & 0x200000) == 0 || self->_wifiSinr != *(equal + 92))
@@ -5870,7 +5776,7 @@ LABEL_127:
     has = *p_has;
   }
 
-  v10 = *v21;
+  v10 = *v19;
   if ((has & 0x100000) != 0)
   {
     if ((v10 & 0x100000) == 0 || self->_cellRsrp != *(equal + 25))
@@ -6407,7 +6313,7 @@ LABEL_127:
   }
 
   v15 = *p_has;
-  v16 = *v21;
+  v16 = *v19;
   if ((*p_has & 0x8000000000000000) != 0)
   {
     if ((v16 & 0x8000000000000000) == 0 || self->_ratioDupeBytes != *(equal + 70))
@@ -6558,7 +6464,6 @@ LABEL_127:
       goto LABEL_483;
     }
 
-    v17 = *(equal + 396);
     if (self->_cellNsaEnabled)
     {
       if ((*(equal + 396) & 1) == 0)
@@ -6585,7 +6490,6 @@ LABEL_127:
       goto LABEL_483;
     }
 
-    v18 = *(equal + 397);
     if (self->_isFR1)
     {
       if ((*(equal + 397) & 1) == 0)
@@ -6844,7 +6748,7 @@ LABEL_483:
   }
 
 LABEL_479:
-  LOBYTE(v5) = (*v21 & 0x2000000) == 0;
+  LOBYTE(v5) = (*v19 & 0x2000000) == 0;
   if ((v15 & 0x2000000) != 0)
   {
     if ((v16 & 0x2000000) == 0 || self->_coldStartType != *(equal + 30))

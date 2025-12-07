@@ -205,7 +205,7 @@
 
 - (SPSimpleBeaconContext)initWithCoder:(id)coder
 {
-  v35[2] = *MEMORY[0x277D85DE8];
+  v34[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"bundleIdentifier"];
   bundleIdentifier = self->_bundleIdentifier;
@@ -215,36 +215,36 @@
   self->_fetchProperties = v7;
   self->_sendInitialBeacons = [coderCopy decodeBoolForKey:@"sendInitialBeacons"];
   v8 = MEMORY[0x277CBEB98];
-  v35[0] = objc_opt_class();
-  v35[1] = objc_opt_class();
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:2];
+  v34[0] = objc_opt_class();
+  v34[1] = objc_opt_class();
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:2];
   v10 = [v8 setWithArray:v9];
   v11 = [coderCopy decodeObjectOfClasses:v10 forKey:@"matchingBeaconUUIDs"];
   matchingBeaconUUIDs = self->_matchingBeaconUUIDs;
   self->_matchingBeaconUUIDs = v11;
 
   v13 = MEMORY[0x277CBEB98];
-  v34[0] = objc_opt_class();
-  v34[1] = objc_opt_class();
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:2];
+  v33[0] = objc_opt_class();
+  v33[1] = objc_opt_class();
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:2];
   v15 = [v13 setWithArray:v14];
   v16 = [coderCopy decodeObjectOfClasses:v15 forKey:@"matchingProductUUIDs"];
   matchingProductUUIDs = self->_matchingProductUUIDs;
   self->_matchingProductUUIDs = v16;
 
   v18 = MEMORY[0x277CBEB98];
-  v33[0] = objc_opt_class();
-  v33[1] = objc_opt_class();
-  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:2];
+  v32[0] = objc_opt_class();
+  v32[1] = objc_opt_class();
+  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:2];
   v20 = [v18 setWithArray:v19];
   v21 = [coderCopy decodeObjectOfClasses:v20 forKey:@"matchingSerialNumbers"];
   matchingSerialNumbers = self->_matchingSerialNumbers;
   self->_matchingSerialNumbers = v21;
 
   v23 = MEMORY[0x277CBEB98];
-  v32[0] = objc_opt_class();
-  v32[1] = objc_opt_class();
-  v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:2];
+  v31[0] = objc_opt_class();
+  v31[1] = objc_opt_class();
+  v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:2];
   v25 = [v23 setWithArray:v24];
   v26 = [coderCopy decodeObjectOfClasses:v25 forKey:@"matchingFindMyIds"];
   matchingFindMyIds = self->_matchingFindMyIds;
@@ -255,7 +255,6 @@
   repairContextType = self->_repairContextType;
   self->_repairContextType = v28;
 
-  v30 = *MEMORY[0x277D85DE8];
   return self;
 }
 

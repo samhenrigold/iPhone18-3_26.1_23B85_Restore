@@ -14,51 +14,50 @@
 
 - (void)cancel
 {
-  v20 = *MEMORY[0x1E69E9840];
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x3032000000;
-  v16 = __Block_byref_object_copy__30;
-  v17 = __Block_byref_object_dispose__30;
-  v18 = 0;
+  v19 = *MEMORY[0x1E69E9840];
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x3032000000;
+  v15 = __Block_byref_object_copy__30;
+  v16 = __Block_byref_object_dispose__30;
+  v17 = 0;
   summaryLoadersMapTable = self->_summaryLoadersMapTable;
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __41__EDMessageRepositoryQueryHandler_cancel__block_invoke;
-  v12[3] = &unk_1E82559B0;
-  v12[4] = &v13;
-  [(EFLocked *)summaryLoadersMapTable performWhileLocked:v12];
-  v10 = 0u;
-  v11 = 0u;
-  v8 = 0u;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __41__EDMessageRepositoryQueryHandler_cancel__block_invoke;
+  v11[3] = &unk_1E82559B0;
+  v11[4] = &v12;
+  [(EFLocked *)summaryLoadersMapTable performWhileLocked:v11];
   v9 = 0u;
-  v3 = v14[5];
-  v4 = [v3 countByEnumeratingWithState:&v8 objects:v19 count:16];
+  v10 = 0u;
+  v7 = 0u;
+  v8 = 0u;
+  v3 = v13[5];
+  v4 = [v3 countByEnumeratingWithState:&v7 objects:v18 count:16];
   if (v4)
   {
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v3);
         }
 
-        [*(*(&v8 + 1) + 8 * v6++) cancel];
+        [*(*(&v7 + 1) + 8 * v6++) cancel];
       }
 
       while (v4 != v6);
-      v4 = [v3 countByEnumeratingWithState:&v8 objects:v19 count:16];
+      v4 = [v3 countByEnumeratingWithState:&v7 objects:v18 count:16];
     }
 
     while (v4);
   }
 
-  _Block_object_dispose(&v13, 8);
-  v7 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v12, 8);
 }
 
 void __41__EDMessageRepositoryQueryHandler_cancel__block_invoke(uint64_t a1, void *a2)
@@ -155,29 +154,29 @@ void __41__EDMessageRepositoryQueryHandler_cancel__block_invoke(uint64_t a1, voi
 
 - (BOOL)keyPathsAffectSorting:(id)sorting
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   sortingCopy = sorting;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   query = [(EDMessageRepositoryQueryHandler *)self query];
   sortDescriptors = [query sortDescriptors];
 
-  v7 = [sortDescriptors countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [sortDescriptors countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
-    v8 = *v15;
+    v8 = *v14;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(sortDescriptors);
         }
 
-        v10 = [*(*(&v14 + 1) + 8 * i) key];
+        v10 = [*(*(&v13 + 1) + 8 * i) key];
         v11 = [sortingCopy containsObject:v10];
 
         if (v11)
@@ -187,7 +186,7 @@ void __41__EDMessageRepositoryQueryHandler_cancel__block_invoke(uint64_t a1, voi
         }
       }
 
-      v7 = [sortDescriptors countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [sortDescriptors countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v7)
       {
         continue;
@@ -199,7 +198,6 @@ void __41__EDMessageRepositoryQueryHandler_cancel__block_invoke(uint64_t a1, voi
 
 LABEL_11:
 
-  v12 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -255,7 +253,7 @@ void __68__EDMessageRepositoryQueryHandler_requestSummaryForMessageObjectID___bl
 
 - (id)_distinctObjectIDs:(id)ds queryHandlerLog:(id)log
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   logCopy = log;
   v7 = dsCopy;
@@ -272,50 +270,46 @@ void __68__EDMessageRepositoryQueryHandler_requestSummaryForMessageObjectID___bl
       if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
       {
         array = [v10 array];
-        v16 = [v7 differenceFromArray:array];
-        v17 = [v16 debugDescription];
+        v15 = [v7 differenceFromArray:array];
+        v16 = [v15 debugDescription];
         __b[0] = 138412290;
-        *&__b[1] = v17;
+        *&__b[1] = v16;
         _os_log_fault_impl(&dword_1C61EF000, v12, OS_LOG_TYPE_FAULT, "Adding objectIDs but duplicate found %@", __b, 0xCu);
       }
 
       memset(__b, 170, sizeof(__b));
       __b[8] = 0;
-      *v20 = 0xE00000001;
-      v21 = 1;
-      v22 = getpid();
-      v18 = 648;
-      if (!sysctl(v20, 4u, __b, &v18, 0, 0) && (__b[8] & 0x800) != 0)
+      *v19 = 0xE00000001;
+      v20 = 1;
+      v21 = getpid();
+      v17 = 648;
+      if (!sysctl(v19, 4u, __b, &v17, 0, 0) && (__b[8] & 0x800) != 0)
       {
         __debugbreak();
       }
     }
   }
 
-  v13 = *MEMORY[0x1E69E9840];
-
   return v7;
 }
 
 - (id)messageReconciliationQueries
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   query = [(EDMessageRepositoryQueryHandler *)self query];
   queryOptions = [query queryOptions];
 
   if ((queryOptions & 8) != 0)
   {
     query2 = [(EDMessageRepositoryQueryHandler *)self query];
-    v9[0] = query2;
-    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
+    v8[0] = query2;
+    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
   }
 
   else
   {
     v5 = 0;
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

@@ -11,7 +11,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_100069D18();
+  sub_100069D18(v2);
 }
 
 - (void)viewDidAppear:(BOOL)appear
@@ -26,8 +26,9 @@
 
 - (void)viewWillDisappear:(BOOL)disappear
 {
+  disappearCopy = disappear;
   selfCopy = self;
-  sub_10006ACB0(disappear);
+  sub_10006ACB0(disappearCopy, selfCopy);
 }
 
 - (_TtC11Diagnostics40AssessmentDamageCheckGuideViewController)initWithTitle:(id)title detailText:(id)text symbolName:(id)name contentLayout:(int64_t)layout

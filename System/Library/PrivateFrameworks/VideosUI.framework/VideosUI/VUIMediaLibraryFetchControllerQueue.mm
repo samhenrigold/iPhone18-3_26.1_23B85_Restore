@@ -179,7 +179,7 @@ void __59__VUIMediaLibraryFetchControllerQueue_addFetchControllers___block_invok
 {
   v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = VUIDefaultLogObject();
+  v4 = VUIDefaultLogObject(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [VUIMediaLibraryFetchController _logStringWithFetchControllers:*(a1 + 32)];
@@ -223,58 +223,58 @@ void __59__VUIMediaLibraryFetchControllerQueue_addFetchControllers___block_invok
 
 void __62__VUIMediaLibraryFetchControllerQueue_removeFetchControllers___block_invoke(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = VUIDefaultLogObject();
+  v4 = VUIDefaultLogObject(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [VUIMediaLibraryFetchController _logStringWithFetchControllers:*(a1 + 32)];
     *buf = 138412290;
-    v22 = v5;
+    v23 = v5;
     _os_log_impl(&dword_1E323F000, v4, OS_LOG_TYPE_DEFAULT, "Passed fetch controllers to remove from queue: %@", buf, 0xCu);
   }
 
   v6 = [v3 mutableFetchControllers];
   v7 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
   v8 = *(a1 + 32);
-  v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v17;
+    v11 = *v18;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v17 != v11)
+        if (*v18 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v16 + 1) + 8 * i);
-        if ([v6 indexOfObjectIdenticalTo:{v13, v16}] != 0x7FFFFFFFFFFFFFFFLL)
+        v13 = *(*(&v17 + 1) + 8 * i);
+        if ([v6 indexOfObjectIdenticalTo:{v13, v17}] != 0x7FFFFFFFFFFFFFFFLL)
         {
           [v7 addObject:v13];
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v10);
   }
 
-  v14 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v15 = VUIDefaultLogObject(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = [VUIMediaLibraryFetchController _logStringWithFetchControllers:v7];
+    v16 = [VUIMediaLibraryFetchController _logStringWithFetchControllers:v7];
     *buf = 138412290;
-    v22 = v15;
-    _os_log_impl(&dword_1E323F000, v14, OS_LOG_TYPE_DEFAULT, "Actually removing fetch controllers from queue: %@", buf, 0xCu);
+    v23 = v16;
+    _os_log_impl(&dword_1E323F000, v15, OS_LOG_TYPE_DEFAULT, "Actually removing fetch controllers from queue: %@", buf, 0xCu);
   }
 
   [*(a1 + 40) _removeStateObserverForFetchControllers:v7];
@@ -295,46 +295,47 @@ void __62__VUIMediaLibraryFetchControllerQueue_removeFetchControllers___block_in
 
 void __85__VUIMediaLibraryFetchControllerQueue_nowPlayingObserver_latestObservationDidChange___block_invoke(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [*(a1 + 32) nowPlayingAppBundleIdentifier];
   v5 = [MEMORY[0x1E696AAE8] mainBundle];
   v6 = [v5 bundleIdentifier];
 
   v7 = [v4 isEqualToString:v6];
-  v8 = VUIDefaultLogObject();
-  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
-  if (v7)
+  v8 = v7;
+  v9 = VUIDefaultLogObject(v7);
+  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+  if (v8)
   {
-    if (v9)
+    if (v10)
     {
-      v10 = [v3 mediaLibrary];
-      v11 = [v10 title];
-      v12 = *(a1 + 32);
-      v16 = 138412546;
-      v17 = v11;
-      v18 = 2112;
-      v19 = v12;
-      _os_log_impl(&dword_1E323F000, v8, OS_LOG_TYPE_DEFAULT, "VUIMediaLibraryFetchControllerQueue for %@ has detected playback has begun. Observation = %@", &v16, 0x16u);
+      v11 = [v3 mediaLibrary];
+      v12 = [v11 title];
+      v13 = *(a1 + 32);
+      v17 = 138412546;
+      v18 = v12;
+      v19 = 2112;
+      v20 = v13;
+      _os_log_impl(&dword_1E323F000, v9, OS_LOG_TYPE_DEFAULT, "VUIMediaLibraryFetchControllerQueue for %@ has detected playback has begun. Observation = %@", &v17, 0x16u);
     }
   }
 
   else
   {
-    if (v9)
+    if (v10)
     {
-      v13 = [v3 mediaLibrary];
-      v14 = [v13 title];
-      v15 = *(a1 + 32);
-      v16 = 138412546;
-      v17 = v14;
-      v18 = 2112;
-      v19 = v15;
-      _os_log_impl(&dword_1E323F000, v8, OS_LOG_TYPE_DEFAULT, "VUIMediaLibraryFetchControllerQueue for %@ has detected playback has ended. Will begin a refetch. Observation = %@", &v16, 0x16u);
+      v14 = [v3 mediaLibrary];
+      v15 = [v14 title];
+      v16 = *(a1 + 32);
+      v17 = 138412546;
+      v18 = v15;
+      v19 = 2112;
+      v20 = v16;
+      _os_log_impl(&dword_1E323F000, v9, OS_LOG_TYPE_DEFAULT, "VUIMediaLibraryFetchControllerQueue for %@ has detected playback has ended. Will begin a refetch. Observation = %@", &v17, 0x16u);
     }
 
-    v8 = [v3 mediaLibrary];
-    [v8 _postContentsDidChangeNotification];
+    v9 = [v3 mediaLibrary];
+    [v9 _postContentsDidChangeNotification];
   }
 }
 
@@ -355,7 +356,7 @@ void __88__VUIMediaLibraryFetchControllerQueue__handleMediaLibraryContentsDidCha
 {
   v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = VUIDefaultLogObject();
+  v4 = VUIDefaultLogObject(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [v3 mediaLibrary];
@@ -414,7 +415,7 @@ void __86__VUIMediaLibraryFetchControllerQueue_observeValueForKeyPath_ofObject_c
   v9 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
   v4 = a2;
-  v5 = VUIDefaultLogObject();
+  v5 = VUIDefaultLogObject(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = [v3 logName];
@@ -498,7 +499,7 @@ void __86__VUIMediaLibraryFetchControllerQueue_observeValueForKeyPath_ofObject_c
 {
   v16 = *MEMORY[0x1E69E9840];
   delayContentsChangeOperation = [(VUIMediaLibraryFetchControllerQueue *)self delayContentsChangeOperation];
-  v4 = VUIDefaultLogObject();
+  v4 = VUIDefaultLogObject(delayContentsChangeOperation);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
   if (delayContentsChangeOperation)
   {
@@ -566,23 +567,23 @@ void __72__VUIMediaLibraryFetchControllerQueue__handleMediaLibraryContentsChange
 
 void __80__VUIMediaLibraryFetchControllerQueue__delayContentsChangeOperationDidComplete___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 delayContentsChangeOperation];
   v5 = *(a1 + 32);
 
   if (v4 == v5)
   {
-    v6 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = VUIDefaultLogObject(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = [v3 mediaLibrary];
-      v8 = [v7 title];
-      v9 = 138412546;
-      v10 = v8;
-      v11 = 2048;
-      v12 = [v3 mediaLibraryRevision];
-      _os_log_impl(&dword_1E323F000, v6, OS_LOG_TYPE_DEFAULT, "[%@] - Delay contents change operation has completed. Starting fetching of controllers for revision: %lu", &v9, 0x16u);
+      v8 = [v3 mediaLibrary];
+      v9 = [v8 title];
+      v10 = 138412546;
+      v11 = v9;
+      v12 = 2048;
+      v13 = [v3 mediaLibraryRevision];
+      _os_log_impl(&dword_1E323F000, v7, OS_LOG_TYPE_DEFAULT, "[%@] - Delay contents change operation has completed. Starting fetching of controllers for revision: %lu", &v10, 0x16u);
     }
 
     [v3 _enqueueControllerFetchOperation];
@@ -593,7 +594,7 @@ void __80__VUIMediaLibraryFetchControllerQueue__delayContentsChangeOperationDidC
 - (void)_queueOperationDidComplete:(id)complete
 {
   completeCopy = complete;
-  v5 = VUIDefaultLogObject();
+  v5 = VUIDefaultLogObject(completeCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -624,17 +625,18 @@ void __66__VUIMediaLibraryFetchControllerQueue__queueOperationDidComplete___bloc
 
 - (void)_enqueueControllerFetchOperation
 {
-  v16 = *MEMORY[0x1E69E9840];
-  if ([(VUIMediaLibraryFetchControllerQueue *)self isPaused])
+  v17 = *MEMORY[0x1E69E9840];
+  isPaused = [(VUIMediaLibraryFetchControllerQueue *)self isPaused];
+  if (isPaused)
   {
-    v3 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = VUIDefaultLogObject(isPaused);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       mediaLibrary = [(VUIMediaLibraryFetchControllerQueue *)self mediaLibrary];
       title = [mediaLibrary title];
       *buf = 138412290;
-      v15 = title;
-      _os_log_impl(&dword_1E323F000, v3, OS_LOG_TYPE_DEFAULT, "[%@] - Fetching is paused so the fetch has been deferred. It will start when fetching is resumed", buf, 0xCu);
+      v16 = title;
+      _os_log_impl(&dword_1E323F000, v4, OS_LOG_TYPE_DEFAULT, "[%@] - Fetching is paused so the fetch has been deferred. It will start when fetching is resumed", buf, 0xCu);
     }
 
     [(VUIMediaLibraryFetchControllerQueue *)self setShouldFetchOnResume:1];
@@ -643,25 +645,25 @@ void __66__VUIMediaLibraryFetchControllerQueue__queueOperationDidComplete___bloc
   else
   {
     mutableFetchControllers = [(VUIMediaLibraryFetchControllerQueue *)self mutableFetchControllers];
-    v7 = [[VUIMediaLibraryFetchControllerQueueOperation alloc] initWithFetchControllers:mutableFetchControllers mediaLibraryRevision:[(VUIMediaLibraryFetchControllerQueue *)self mediaLibraryRevision]];
+    v8 = [[VUIMediaLibraryFetchControllerQueueOperation alloc] initWithFetchControllers:mutableFetchControllers mediaLibraryRevision:[(VUIMediaLibraryFetchControllerQueue *)self mediaLibraryRevision]];
     currentFetchOperation = [(VUIMediaLibraryFetchControllerQueue *)self currentFetchOperation];
     [currentFetchOperation cancel];
 
-    [(VUIMediaLibraryFetchControllerQueue *)self setCurrentFetchOperation:v7];
+    [(VUIMediaLibraryFetchControllerQueue *)self setCurrentFetchOperation:v8];
     objc_initWeak(buf, self);
-    objc_initWeak(&location, v7);
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __71__VUIMediaLibraryFetchControllerQueue__enqueueControllerFetchOperation__block_invoke;
-    v10[3] = &unk_1E872EFE8;
-    objc_copyWeak(&v11, buf);
-    objc_copyWeak(&v12, &location);
-    [(VUIMediaLibraryFetchControllerQueueOperation *)v7 setCompletionBlock:v10];
+    objc_initWeak(&location, v8);
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __71__VUIMediaLibraryFetchControllerQueue__enqueueControllerFetchOperation__block_invoke;
+    v11[3] = &unk_1E872EFE8;
+    objc_copyWeak(&v12, buf);
+    objc_copyWeak(&v13, &location);
+    [(VUIMediaLibraryFetchControllerQueueOperation *)v8 setCompletionBlock:v11];
     serialFetchOperationQueue = [(VUIMediaLibraryFetchControllerQueue *)self serialFetchOperationQueue];
-    [serialFetchOperationQueue addOperation:v7];
+    [serialFetchOperationQueue addOperation:v8];
 
+    objc_destroyWeak(&v13);
     objc_destroyWeak(&v12);
-    objc_destroyWeak(&v11);
     objc_destroyWeak(&location);
     objc_destroyWeak(buf);
   }
@@ -802,7 +804,7 @@ void __72__VUIMediaLibraryFetchControllerQueue__enqueueSyncProcessingQueueBlock_
 
 void __70__VUIMediaLibraryFetchControllerQueue__notifyDelegateFetchDidComplete__block_invoke(uint64_t a1)
 {
-  v2 = VUIDefaultLogObject();
+  v2 = VUIDefaultLogObject(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;

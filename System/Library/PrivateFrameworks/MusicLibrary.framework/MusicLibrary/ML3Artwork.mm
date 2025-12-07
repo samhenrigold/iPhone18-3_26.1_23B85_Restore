@@ -488,7 +488,7 @@ void *__25__ML3Artwork_artworkType__block_invoke(uint64_t a1)
   return v6 & 1;
 }
 
-uint64_t __22__ML3Artwork_isEqual___block_invoke(void *a1)
+void *__22__ML3Artwork_isEqual___block_invoke(void *a1)
 {
   result = [*(a1[4] + 48) isEqualToString:*(a1[5] + 48)];
   *(*(a1[6] + 8) + 24) = result;

@@ -529,41 +529,41 @@ LABEL_18:
   width = size.width;
   infoCopy = info;
   completionCopy = completion;
-  [infoCopy fixedLayoutSizeForDocumentWithOrdinal:number - 1];
-  v21 = v20;
-  v23 = v22;
+  v20 = [infoCopy fixedLayoutSizeForDocumentWithOrdinal:number - 1];
+  v22 = v21;
+  v24 = v23;
   if (width == CGSizeZero.width && height == CGSizeZero.height)
   {
-    v27 = _AELog();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v28 = _AELog(v20);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v27, OS_LOG_TYPE_ERROR, "Requesting zero size snapshot", buf, 2u);
+      _os_log_impl(&dword_0, v28, OS_LOG_TYPE_ERROR, "Requesting zero size snapshot", buf, 2u);
     }
 
-    v26 = [(AEPictureBookRenderingCache *)self whitePageForSize:rightCopy right:gutterCopy scale:width contentSize:height applyMaskAndGutter:scale containerBounds:v21, v23, *&bounds.origin.x, *&bounds.origin.y, *&bounds.size.width, *&bounds.size.height];
-    completionCopy[2](completionCopy, v26);
+    v27 = [(AEPictureBookRenderingCache *)self whitePageForSize:rightCopy right:gutterCopy scale:width contentSize:height applyMaskAndGutter:scale containerBounds:v22, v24, *&bounds.origin.x, *&bounds.origin.y, *&bounds.size.width, *&bounds.size.height];
+    completionCopy[2](completionCopy, v27);
   }
 
   else
   {
     assetID = [infoCopy assetID];
-    v26 = assetID;
-    if (number <= 0x7FFFFFFFFFFFFFFELL && [assetID length])
+    v27 = assetID;
+    if (number <= 0x7FFFFFFFFFFFFFFELL && (assetID = [assetID length]) != 0)
     {
-      [(AEPictureBookRenderingCache *)self _uncheckedSnapshotWithMask:gutterCopy assetID:v26 bookInfo:infoCopy containerBounds:rightCopy contentSize:number isRight:completionCopy pageNumber:bounds.origin.x scale:bounds.origin.y size:bounds.size.width completion:bounds.size.height, v21, v23, scale, *&width, *&height];
+      [(AEPictureBookRenderingCache *)self _uncheckedSnapshotWithMask:gutterCopy assetID:v27 bookInfo:infoCopy containerBounds:rightCopy contentSize:number isRight:completionCopy pageNumber:bounds.origin.x scale:bounds.origin.y size:bounds.size.width completion:bounds.size.height, v22, v24, scale, *&width, *&height];
     }
 
     else
     {
-      v28 = _AELog();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+      v29 = _AELog(assetID);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
       {
         *buf = 134218242;
         numberCopy = number;
-        v32 = 2112;
-        v33 = v26;
-        _os_log_impl(&dword_0, v28, OS_LOG_TYPE_ERROR, "snapshot needs pageNumber and assetID. pageNumber: %ld. assetID: %@", buf, 0x16u);
+        v33 = 2112;
+        v34 = v27;
+        _os_log_impl(&dword_0, v29, OS_LOG_TYPE_ERROR, "snapshot needs pageNumber and assetID. pageNumber: %ld. assetID: %@", buf, 0x16u);
       }
 
       completionCopy[2](completionCopy, 0);

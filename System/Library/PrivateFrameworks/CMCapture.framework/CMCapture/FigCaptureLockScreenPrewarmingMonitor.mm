@@ -3,15 +3,15 @@
 + (void)start;
 + (void)stop;
 - (uint64_t)_shouldPrewarmForHostTime:(uint64_t)result;
-- (uint64_t)_startMonitoring;
 - (void)_cancelDelayedPrewarmTimer;
 - (void)_evaluatePrewarmingConditions;
 - (void)_init;
 - (void)_invalidate;
 - (void)_prewarmAfterDelay:(uint64_t)delay;
-- (void)_setIsPrewarming:(uint64_t)prewarming;
+- (void)_setIsPrewarming:(uint64_t)result;
+- (void)_startMonitoring;
 - (void)_stopMonitoring;
-- (void)_updateActiveBiometricOperation:(uint64_t)operation;
+- (void)_updateActiveBiometricOperation:(uint64_t)result;
 - (void)_updateDeviceLockState;
 - (void)dealloc;
 - (void)layoutMonitor:(id)monitor didUpdateLayout:(id)layout;
@@ -64,7 +64,7 @@ void __52__FigCaptureLockScreenPrewarmingMonitor__invalidate__block_invoke(uint6
   }
 }
 
-void __60__FigCaptureLockScreenPrewarmingMonitor__prewarmAfterDelay___block_invoke_29()
+double __60__FigCaptureLockScreenPrewarmingMonitor__prewarmAfterDelay___block_invoke_29()
 {
   if (dword_1ED8440D0)
   {
@@ -72,16 +72,18 @@ void __60__FigCaptureLockScreenPrewarmingMonitor__prewarmAfterDelay___block_invo
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
+
+  return result;
 }
 
-void __97__FigCaptureLockScreenPrewarmingMonitor__registerForBiometricEnrollmentChangesAndStartMonitoring__block_invoke(uint64_t a1, uint64_t a2)
+void __97__FigCaptureLockScreenPrewarmingMonitor__registerForBiometricEnrollmentChangesAndStartMonitoring__block_invoke(uint64_t result, uint64_t a2)
 {
   v2 = a2 != 0;
-  v3 = *(a1 + 32);
+  v3 = *(result + 32);
   if (*(v3 + 20) != v2)
   {
     *(v3 + 20) = v2;
-    v4 = *(a1 + 32);
+    v4 = *(result + 32);
     if (a2)
     {
       [(FigCaptureLockScreenPrewarmingMonitor *)v4 _startMonitoring];
@@ -202,13 +204,13 @@ uint64_t __71__FigCaptureLockScreenPrewarmingMonitor_layoutMonitor_didUpdateLayo
 
 - (void)_stopMonitoring
 {
-  if (self)
+  if (result)
   {
-    if (!OUTLINED_FUNCTION_10_38())
+    if (!OUTLINED_FUNCTION_10_38(result))
     {
       OUTLINED_FUNCTION_0();
       OUTLINED_FUNCTION_2_5();
-      FigDebugAssert3();
+      FigDebugAssert3(v4);
     }
 
     v2 = *(v1 + 48);
@@ -238,34 +240,34 @@ uint64_t __71__FigCaptureLockScreenPrewarmingMonitor_layoutMonitor_didUpdateLayo
   }
 }
 
-- (uint64_t)_startMonitoring
+- (void)_startMonitoring
 {
   if (result)
   {
-    result = OUTLINED_FUNCTION_10_38();
+    result = OUTLINED_FUNCTION_10_38(result);
     if (!result)
     {
       OUTLINED_FUNCTION_0();
       OUTLINED_FUNCTION_2_5();
-      result = FigDebugAssert3();
+      result = FigDebugAssert3(v4);
     }
 
     if (*(v1 + 20) == 1 && !*(v1 + 24) && !*(v1 + 48) && (*(v1 + 66) & 1) == 0)
     {
       v2 = *(v1 + 8);
+      v6[0] = MEMORY[0x1E69E9820];
+      v6[1] = 3221225472;
+      v6[2] = __57__FigCaptureLockScreenPrewarmingMonitor__startMonitoring__block_invoke;
+      v6[3] = &unk_1E79997C0;
+      v6[4] = v1;
+      *(v1 + 24) = clspm_registerForNotifyName("com.apple.BiometricKit.activeOperation", v2, v6);
+      v3 = *(v1 + 8);
       v5[0] = MEMORY[0x1E69E9820];
       v5[1] = 3221225472;
-      v5[2] = __57__FigCaptureLockScreenPrewarmingMonitor__startMonitoring__block_invoke;
+      v5[2] = __57__FigCaptureLockScreenPrewarmingMonitor__startMonitoring__block_invoke_2;
       v5[3] = &unk_1E79997C0;
       v5[4] = v1;
-      *(v1 + 24) = clspm_registerForNotifyName("com.apple.BiometricKit.activeOperation", v2, v5);
-      v3 = *(v1 + 8);
-      v4[0] = MEMORY[0x1E69E9820];
-      v4[1] = 3221225472;
-      v4[2] = __57__FigCaptureLockScreenPrewarmingMonitor__startMonitoring__block_invoke_2;
-      v4[3] = &unk_1E79997C0;
-      v4[4] = v1;
-      *(v1 + 48) = clspm_registerForNotifyName("com.apple.mobile.keybagd.lock_status", v3, v4);
+      *(v1 + 48) = clspm_registerForNotifyName("com.apple.mobile.keybagd.lock_status", v3, v5);
       *(v1 + 65) = 1;
       result = [+[FigCaptureDisplayLayoutMonitor sharedDisplayLayoutMonitor](FigCaptureDisplayLayoutMonitor "sharedDisplayLayoutMonitor")];
       *(v1 + 65) = 256;
@@ -275,53 +277,53 @@ uint64_t __71__FigCaptureLockScreenPrewarmingMonitor_layoutMonitor_didUpdateLayo
   return result;
 }
 
-- (void)_updateActiveBiometricOperation:(uint64_t)operation
+- (void)_updateActiveBiometricOperation:(uint64_t)result
 {
-  if (operation)
+  if (result)
   {
-    v3 = *(operation + 28);
+    v3 = *(result + 28);
     if (v3 != a2)
     {
-      *(operation + 28) = a2;
+      *(result + 28) = a2;
       if (v3 == 2)
       {
-        *(operation + 32) = mach_absolute_time();
+        *(result + 32) = mach_absolute_time();
       }
 
-      [(FigCaptureLockScreenPrewarmingMonitor *)operation _evaluatePrewarmingConditions];
+      [(FigCaptureLockScreenPrewarmingMonitor *)result _evaluatePrewarmingConditions];
     }
   }
 }
 
 - (void)_updateDeviceLockState
 {
-  if (self)
+  if (result)
   {
     v2 = MKBGetDeviceLockState();
-    v3 = *(self + 52);
+    v3 = *(result + 52);
     if (v2 != v3)
     {
       v4 = v2;
       if (((v2 < 7) & (0x46u >> v2)) == 0 && v3 <= 6 && ((0x39u >> v3) & 1) == 0)
       {
-        *(self + 56) = mach_absolute_time();
+        *(result + 56) = mach_absolute_time();
       }
 
-      *(self + 52) = v4;
+      *(result + 52) = v4;
 
-      [(FigCaptureLockScreenPrewarmingMonitor *)self _evaluatePrewarmingConditions];
+      [(FigCaptureLockScreenPrewarmingMonitor *)result _evaluatePrewarmingConditions];
     }
   }
 }
 
 - (void)_evaluatePrewarmingConditions
 {
-  if (self)
+  if (result)
   {
-    mach_absolute_time();
-    v2 = [FigCaptureLockScreenPrewarmingMonitor _shouldPrewarmForHostTime:self];
+    v2 = mach_absolute_time();
+    v3 = [(FigCaptureLockScreenPrewarmingMonitor *)result _shouldPrewarmForHostTime:v2];
 
-    [(FigCaptureLockScreenPrewarmingMonitor *)self _setIsPrewarming:v2];
+    [(FigCaptureLockScreenPrewarmingMonitor *)result _setIsPrewarming:v3];
   }
 }
 
@@ -329,39 +331,39 @@ uint64_t __71__FigCaptureLockScreenPrewarmingMonitor_layoutMonitor_didUpdateLayo
 {
   if (result)
   {
-    v1 = result;
+    v2 = result;
     if (!_FigIsCurrentDispatchQueue())
     {
       OUTLINED_FUNCTION_0();
       OUTLINED_FUNCTION_2_5();
-      FigDebugAssert3();
+      FigDebugAssert3(v9);
     }
 
-    v2 = *(v1 + 67);
-    v3 = (*(v1 + 52) > 6u) | (0x39u >> *(v1 + 52));
-    v4 = *(v1 + 64);
-    v5 = ((FigHostTimeToNanoseconds() / 1000) / 1000000.0) < 0.5;
-    v6 = *(v1 + 28);
-    v7 = FigHostTimeToNanoseconds();
+    v3 = *(v2 + 67);
+    v4 = (*(v2 + 52) > 6u) | (0x39u >> *(v2 + 52));
+    v5 = *(v2 + 64);
+    v6 = ((FigHostTimeToNanoseconds() / 1000) / 1000000.0) < 0.5;
+    v7 = *(v2 + 28);
+    v8 = FigHostTimeToNanoseconds();
     result = 0;
-    if (v3 & 1) != 0 && (v4 & 1) != 0 && ((v5 | v2))
+    if (v4 & 1) != 0 && (v5 & 1) != 0 && ((v6 | v3))
     {
-      return (v6 != 2) & ((((v7 / 1000) / 1000000.0) < 0.5) | v2);
+      return (v7 != 2) & ((((v8 / 1000) / 1000000.0) < 0.5) | v3);
     }
   }
 
   return result;
 }
 
-- (void)_setIsPrewarming:(uint64_t)prewarming
+- (void)_setIsPrewarming:(uint64_t)result
 {
-  if (prewarming)
+  if (result)
   {
-    if (!OUTLINED_FUNCTION_10_38())
+    if (!OUTLINED_FUNCTION_10_38(result))
     {
       OUTLINED_FUNCTION_0();
       OUTLINED_FUNCTION_2_5();
-      FigDebugAssert3();
+      FigDebugAssert3(v38);
     }
 
     if (*(v2 + 67) != a2)
@@ -373,13 +375,24 @@ uint64_t __71__FigCaptureLockScreenPrewarmingMonitor_layoutMonitor_didUpdateLayo
         {
           v4 = OUTLINED_FUNCTION_6_54();
           v5 = OUTLINED_FUNCTION_8_5(v4);
-          if (OUTLINED_FUNCTION_6(v5))
+          v6 = OUTLINED_FUNCTION_6(v5);
+          if (v6)
           {
+            LODWORD(v42) = 136315394;
+            *(&v42 + 4) = "[FigCaptureLockScreenPrewarmingMonitor _setIsPrewarming:]";
+            WORD6(v42) = 2048;
+            *(&v45 - 2) = 0x406F400000000000;
             OUTLINED_FUNCTION_5();
-            OUTLINED_FUNCTION_4_63();
+            v6 = OUTLINED_FUNCTION_4_63(v16, v17, v18, v19, &dword_1AC90E000, v20, v21, "<<<< FigCaptureLockScreenPrewarmingMonitor >>>> %s: Biometric match complete, device is unlocked, and on lock screen. Will prewarm the capture device in %.0fms.", v39, v40, v42, *(&v42 + 1), v45, v46, SBYTE2(v46), SHIBYTE(v46));
+            v13 = v6;
           }
 
-          OUTLINED_FUNCTION_1_92();
+          else
+          {
+            v13 = 0;
+          }
+
+          OUTLINED_FUNCTION_1_92(v6, v7, v8, v13, v9, v10, v11, v12, v39, v40, v41, v44, v45, v46, SBYTE2(v46), SHIBYTE(v46));
         }
 
         [(FigCaptureLockScreenPrewarmingMonitor *)v2 _prewarmAfterDelay:?];
@@ -389,17 +402,47 @@ uint64_t __71__FigCaptureLockScreenPrewarmingMonitor_layoutMonitor_didUpdateLayo
       {
         if (*(v2 + 72))
         {
-          if (dword_1ED8440D0)
+          if (*(v2 + 64) == 1)
           {
-            v6 = OUTLINED_FUNCTION_6_54();
-            v7 = OUTLINED_FUNCTION_8_5(v6);
-            if (OUTLINED_FUNCTION_6(v7))
+            v14 = *(v2 + 52) - 1;
+            if (v14 > 5)
             {
-              OUTLINED_FUNCTION_5();
-              OUTLINED_FUNCTION_4_63();
+              v15 = "biometric match in progress";
             }
 
-            OUTLINED_FUNCTION_1_92();
+            else
+            {
+              v15 = off_1E7999830[v14];
+            }
+          }
+
+          else
+          {
+            v15 = "no longer on lock screen";
+          }
+
+          if (dword_1ED8440D0)
+          {
+            v22 = OUTLINED_FUNCTION_6_54();
+            v23 = OUTLINED_FUNCTION_8_5(v22);
+            v24 = OUTLINED_FUNCTION_6(v23);
+            if (v24)
+            {
+              LODWORD(v43) = 136315394;
+              *(&v43 + 4) = "[FigCaptureLockScreenPrewarmingMonitor _setIsPrewarming:]";
+              WORD6(v43) = 2080;
+              *(&v45 - 2) = v15;
+              OUTLINED_FUNCTION_5();
+              v24 = OUTLINED_FUNCTION_4_63(v32, v33, v34, v35, &dword_1AC90E000, v36, v37, "<<<< FigCaptureLockScreenPrewarmingMonitor >>>> %s: Cancelling lock screen capture device prewarming for reason: %s.", v39, v40, v43, *(&v43 + 1), v45, v46, SBYTE2(v46), SHIBYTE(v46));
+              v31 = v24;
+            }
+
+            else
+            {
+              v31 = 0;
+            }
+
+            OUTLINED_FUNCTION_1_92(v24, v25, v26, v31, v27, v28, v29, v30, v39, v40, v41, v44, v45, v46, SBYTE2(v46), SHIBYTE(v46));
           }
 
           [(FigCaptureLockScreenPrewarmingMonitor *)v2 _cancelDelayedPrewarmTimer];
@@ -416,11 +459,11 @@ uint64_t __71__FigCaptureLockScreenPrewarmingMonitor_layoutMonitor_didUpdateLayo
 {
   if (delay)
   {
-    if (!OUTLINED_FUNCTION_10_38())
+    if (!OUTLINED_FUNCTION_10_38(delay))
     {
       OUTLINED_FUNCTION_0();
       OUTLINED_FUNCTION_2_5();
-      FigDebugAssert3();
+      FigDebugAssert3(v6);
     }
 
     [(FigCaptureLockScreenPrewarmingMonitor *)v2 _cancelDelayedPrewarmTimer];
@@ -458,13 +501,22 @@ uint64_t __60__FigCaptureLockScreenPrewarmingMonitor__prewarmAfterDelay___block_
   {
     v2 = OUTLINED_FUNCTION_6_54();
     v3 = OUTLINED_FUNCTION_8_5(v2);
-    if (OUTLINED_FUNCTION_6(v3))
+    v4 = OUTLINED_FUNCTION_6(v3);
+    if (v4)
     {
+      LODWORD(v22) = 136315138;
+      *(&v23 - 4) = "[FigCaptureLockScreenPrewarmingMonitor _prewarmAfterDelay:]_block_invoke";
       OUTLINED_FUNCTION_5();
-      OUTLINED_FUNCTION_4_63();
+      v4 = OUTLINED_FUNCTION_4_63(v12, v13, v14, v15, &dword_1AC90E000, v16, v17, "<<<< FigCaptureLockScreenPrewarmingMonitor >>>> %s: Prewarming capture device for lock screen camera", v19, v20, v22, v23, v24, v25, SBYTE2(v25), SHIBYTE(v25));
+      v11 = v4;
     }
 
-    OUTLINED_FUNCTION_1_92();
+    else
+    {
+      v11 = 0;
+    }
+
+    OUTLINED_FUNCTION_1_92(v4, v5, v6, v11, v7, v8, v9, v10, v19, v20, v21, v23, v24, v25, SBYTE2(v25), SHIBYTE(v25));
   }
 
   [(FigCaptureLockScreenPrewarmingMonitor *)*(a1 + 32) _cancelDelayedPrewarmTimer];
@@ -476,14 +528,14 @@ uint64_t __60__FigCaptureLockScreenPrewarmingMonitor__prewarmAfterDelay___block_
 {
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2_5();
-  return FigDebugAssert3();
+  return FigDebugAssert3(v0);
 }
 
 - (uint64_t)layoutMonitor:didUpdateLayout:.cold.2()
 {
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2_5();
-  return FigDebugAssert3();
+  return FigDebugAssert3(v0);
 }
 
 @end

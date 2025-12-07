@@ -1,58 +1,59 @@
 int main(int argc, const char **argv, const char **envp)
 {
-  v3 = _TVRDXPCLog();
+  v3 = _TVRDXPCLog(*&argc);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v11 = 0;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "The tvremote daemon is starting.", v11, 2u);
+    *v12 = 0;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "The tvremote daemon is starting.", v12, 2u);
   }
 
   v4 = objc_autoreleasePoolPush();
-  if ((_set_user_dir_suffix() & 1) == 0)
+  v5 = _set_user_dir_suffix();
+  if ((v5 & 1) == 0)
   {
-    v5 = _TVRDXPCLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    v6 = _TVRDXPCLog(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
-      main_cold_1(v5);
+      main_cold_1(v6);
     }
   }
 
-  v6 = +[TVRDLaunchEventHandlers sharedInstance];
-  [v6 setupHandlers];
+  v7 = +[TVRDLaunchEventHandlers sharedInstance];
+  [v7 setupHandlers];
 
-  v7 = objc_alloc_init(TVRDServer);
-  v8 = [[NSXPCListener alloc] initWithMachServiceName:@"com.apple.tvremotecore.xpc"];
-  [v8 setDelegate:v7];
-  [v8 resume];
+  v8 = objc_alloc_init(TVRDServer);
+  v9 = [[NSXPCListener alloc] initWithMachServiceName:@"com.apple.tvremotecore.xpc"];
+  [v9 setDelegate:v8];
+  [v9 resume];
   objc_autoreleasePoolPop(v4);
-  v9 = +[NSRunLoop currentRunLoop];
-  [v9 run];
+  v10 = +[NSRunLoop currentRunLoop];
+  [v10 run];
 
   return 0;
 }
 
-id _TVRDIRLog()
+id _TVRDIRLog(uint64_t a1)
 {
   if (_TVRDIRLog_onceToken != -1)
   {
     _TVRDIRLog_cold_1();
   }
 
-  v1 = _TVRDIRLog_log;
+  v2 = _TVRDIRLog_log;
 
-  return v1;
+  return v2;
 }
 
-id _TVRDXPCLog()
+id _TVRDXPCLog(uint64_t a1)
 {
   if (_TVRDXPCLog_onceToken != -1)
   {
     _TVRDXPCLog_cold_1();
   }
 
-  v1 = _TVRDXPCLog_log;
+  v2 = _TVRDXPCLog_log;
 
-  return v1;
+  return v2;
 }
 
 void sub_1000015E0(_Unwind_Exception *a1)
@@ -98,22 +99,25 @@ void sub_10000656C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-void OUTLINED_FUNCTION_2(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_2(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
-void OUTLINED_FUNCTION_3(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_3(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
 void sub_10000705C(_Unwind_Exception *a1)

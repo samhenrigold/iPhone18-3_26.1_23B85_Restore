@@ -8,12 +8,11 @@
 
 - (NSArray)domains
 {
-  v2 = *(self + OBJC_IVAR___PlistParser_domains);
   type metadata accessor for Domain(0);
 
-  v3.super.isa = Array._bridgeToObjectiveC()().super.isa;
+  v2.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
-  return v3.super.isa;
+  return v2.super.isa;
 }
 
 - (PlistParser)initWithPlistDictionary:(id)dictionary dataStore:(id)store error:(id *)error

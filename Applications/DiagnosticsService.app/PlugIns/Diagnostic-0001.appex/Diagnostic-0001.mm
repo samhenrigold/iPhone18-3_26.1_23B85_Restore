@@ -24,11 +24,11 @@ id sub_100000F34()
   return [v1 setFinished:1];
 }
 
-id sub_100001154()
+id sub_100001154(uint64_t a1, uint64_t a2)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for ClarusController();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v4.receiver = v2;
+  v4.super_class = type metadata accessor for ClarusController();
+  return objc_msgSendSuper2(&v4, "dealloc");
 }
 
 uint64_t sub_1000011AC(uint64_t *a1, uint64_t *a2)
@@ -36,7 +36,6 @@ uint64_t sub_1000011AC(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }

@@ -66,7 +66,7 @@ void __48__ATXModeEntityTrialClientWrapper_updateFactors__block_invoke(uint64_t 
 {
   v23 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = __atxlog_handle_modes();
+  v4 = __atxlog_handle_modes(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     LOWORD(v21) = 0;
@@ -85,7 +85,7 @@ void __48__ATXModeEntityTrialClientWrapper_updateFactors__block_invoke(uint64_t 
 
   else
   {
-    v8 = __atxlog_handle_modes();
+    v8 = __atxlog_handle_modes(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       v21 = 138543362;
@@ -105,7 +105,7 @@ void __48__ATXModeEntityTrialClientWrapper_updateFactors__block_invoke(uint64_t 
 
   else
   {
-    v12 = __atxlog_handle_modes();
+    v12 = __atxlog_handle_modes(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       v21 = 138543362;
@@ -125,7 +125,7 @@ void __48__ATXModeEntityTrialClientWrapper_updateFactors__block_invoke(uint64_t 
 
   else
   {
-    v16 = __atxlog_handle_modes();
+    v16 = __atxlog_handle_modes(0);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
       v21 = 138543362;
@@ -145,7 +145,7 @@ void __48__ATXModeEntityTrialClientWrapper_updateFactors__block_invoke(uint64_t 
 
   else
   {
-    v20 = __atxlog_handle_modes();
+    v20 = __atxlog_handle_modes(0);
     if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
     {
       v21 = 138543362;
@@ -157,30 +157,30 @@ void __48__ATXModeEntityTrialClientWrapper_updateFactors__block_invoke(uint64_t 
 
 - (id)widgetModeEntityModelWeights
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   *buf = 0;
-  v9 = buf;
-  v10 = 0x3032000000;
-  v11 = __Block_byref_object_copy__0;
-  v12 = __Block_byref_object_dispose__0;
-  v13 = 0;
+  v10 = buf;
+  v11 = 0x3032000000;
+  v12 = __Block_byref_object_copy__0;
+  v13 = __Block_byref_object_dispose__0;
+  v14 = 0;
   lock = self->_lock;
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = __63__ATXModeEntityTrialClientWrapper_widgetModeEntityModelWeights__block_invoke;
-  v7[3] = &unk_1E80C0FB8;
-  v7[4] = buf;
-  [(_PASLock *)lock runWithLockAcquired:v7];
-  v3 = *(v9 + 5);
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __63__ATXModeEntityTrialClientWrapper_widgetModeEntityModelWeights__block_invoke;
+  v8[3] = &unk_1E80C0FB8;
+  v8[4] = buf;
+  [(_PASLock *)lock runWithLockAcquired:v8];
+  v3 = *(v10 + 5);
   _Block_object_dispose(buf, 8);
 
-  v4 = __atxlog_handle_modes();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v5 = __atxlog_handle_modes(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v5 = [v3 count];
+    v6 = [v3 count];
     *buf = 67109120;
-    *&buf[4] = v5 != 0;
-    _os_log_impl(&dword_1BF549000, v4, OS_LOG_TYPE_INFO, "ATXModeEntityTrialClientWrapper: widgetModeEntityModelWeights list loaded with Trial: %{BOOL}d", buf, 8u);
+    *&buf[4] = v6 != 0;
+    _os_log_impl(&dword_1BF549000, v5, OS_LOG_TYPE_INFO, "ATXModeEntityTrialClientWrapper: widgetModeEntityModelWeights list loaded with Trial: %{BOOL}d", buf, 8u);
   }
 
   return v3;
@@ -188,30 +188,30 @@ void __48__ATXModeEntityTrialClientWrapper_updateFactors__block_invoke(uint64_t 
 
 - (id)notificationModeEntityModelWeights
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   *buf = 0;
-  v9 = buf;
-  v10 = 0x3032000000;
-  v11 = __Block_byref_object_copy__0;
-  v12 = __Block_byref_object_dispose__0;
-  v13 = 0;
+  v10 = buf;
+  v11 = 0x3032000000;
+  v12 = __Block_byref_object_copy__0;
+  v13 = __Block_byref_object_dispose__0;
+  v14 = 0;
   lock = self->_lock;
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = __69__ATXModeEntityTrialClientWrapper_notificationModeEntityModelWeights__block_invoke;
-  v7[3] = &unk_1E80C0FB8;
-  v7[4] = buf;
-  [(_PASLock *)lock runWithLockAcquired:v7];
-  v3 = *(v9 + 5);
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __69__ATXModeEntityTrialClientWrapper_notificationModeEntityModelWeights__block_invoke;
+  v8[3] = &unk_1E80C0FB8;
+  v8[4] = buf;
+  [(_PASLock *)lock runWithLockAcquired:v8];
+  v3 = *(v10 + 5);
   _Block_object_dispose(buf, 8);
 
-  v4 = __atxlog_handle_modes();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v5 = __atxlog_handle_modes(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v5 = [v3 count];
+    v6 = [v3 count];
     *buf = 67109120;
-    *&buf[4] = v5 != 0;
-    _os_log_impl(&dword_1BF549000, v4, OS_LOG_TYPE_INFO, "ATXModeEntityTrialClientWrapper: notificationModeEntityModelWeights list loaded with Trial: %{BOOL}d", buf, 8u);
+    *&buf[4] = v6 != 0;
+    _os_log_impl(&dword_1BF549000, v5, OS_LOG_TYPE_INFO, "ATXModeEntityTrialClientWrapper: notificationModeEntityModelWeights list loaded with Trial: %{BOOL}d", buf, 8u);
   }
 
   return v3;
@@ -219,30 +219,30 @@ void __48__ATXModeEntityTrialClientWrapper_updateFactors__block_invoke(uint64_t 
 
 - (id)modeAffinityAppCategoryScores
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   *buf = 0;
-  v9 = buf;
-  v10 = 0x3032000000;
-  v11 = __Block_byref_object_copy__0;
-  v12 = __Block_byref_object_dispose__0;
-  v13 = 0;
+  v10 = buf;
+  v11 = 0x3032000000;
+  v12 = __Block_byref_object_copy__0;
+  v13 = __Block_byref_object_dispose__0;
+  v14 = 0;
   lock = self->_lock;
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = __64__ATXModeEntityTrialClientWrapper_modeAffinityAppCategoryScores__block_invoke;
-  v7[3] = &unk_1E80C0FB8;
-  v7[4] = buf;
-  [(_PASLock *)lock runWithLockAcquired:v7];
-  v3 = *(v9 + 5);
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __64__ATXModeEntityTrialClientWrapper_modeAffinityAppCategoryScores__block_invoke;
+  v8[3] = &unk_1E80C0FB8;
+  v8[4] = buf;
+  [(_PASLock *)lock runWithLockAcquired:v8];
+  v3 = *(v10 + 5);
   _Block_object_dispose(buf, 8);
 
-  v4 = __atxlog_handle_modes();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v5 = __atxlog_handle_modes(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v5 = [v3 count];
+    v6 = [v3 count];
     *buf = 67109120;
-    *&buf[4] = v5 != 0;
-    _os_log_impl(&dword_1BF549000, v4, OS_LOG_TYPE_INFO, "ATXModeEntityTrialClientWrapper: modeAffinityAppCategoryScores list loaded with Trial: %{BOOL}d", buf, 8u);
+    *&buf[4] = v6 != 0;
+    _os_log_impl(&dword_1BF549000, v5, OS_LOG_TYPE_INFO, "ATXModeEntityTrialClientWrapper: modeAffinityAppCategoryScores list loaded with Trial: %{BOOL}d", buf, 8u);
   }
 
   return v3;
@@ -250,30 +250,30 @@ void __48__ATXModeEntityTrialClientWrapper_updateFactors__block_invoke(uint64_t 
 
 - (id)modeAffinityModelsConstants
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   *buf = 0;
-  v9 = buf;
-  v10 = 0x3032000000;
-  v11 = __Block_byref_object_copy__0;
-  v12 = __Block_byref_object_dispose__0;
-  v13 = 0;
+  v10 = buf;
+  v11 = 0x3032000000;
+  v12 = __Block_byref_object_copy__0;
+  v13 = __Block_byref_object_dispose__0;
+  v14 = 0;
   lock = self->_lock;
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = __62__ATXModeEntityTrialClientWrapper_modeAffinityModelsConstants__block_invoke;
-  v7[3] = &unk_1E80C0FB8;
-  v7[4] = buf;
-  [(_PASLock *)lock runWithLockAcquired:v7];
-  v3 = *(v9 + 5);
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __62__ATXModeEntityTrialClientWrapper_modeAffinityModelsConstants__block_invoke;
+  v8[3] = &unk_1E80C0FB8;
+  v8[4] = buf;
+  [(_PASLock *)lock runWithLockAcquired:v8];
+  v3 = *(v10 + 5);
   _Block_object_dispose(buf, 8);
 
-  v4 = __atxlog_handle_modes();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v5 = __atxlog_handle_modes(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v5 = [v3 count];
+    v6 = [v3 count];
     *buf = 67109120;
-    *&buf[4] = v5 != 0;
-    _os_log_impl(&dword_1BF549000, v4, OS_LOG_TYPE_INFO, "ATXModeEntityTrialClientWrapper: modeAffinityModelsConstants list loaded with Trial: %{BOOL}d", buf, 8u);
+    *&buf[4] = v6 != 0;
+    _os_log_impl(&dword_1BF549000, v5, OS_LOG_TYPE_INFO, "ATXModeEntityTrialClientWrapper: modeAffinityModelsConstants list loaded with Trial: %{BOOL}d", buf, 8u);
   }
 
   return v3;

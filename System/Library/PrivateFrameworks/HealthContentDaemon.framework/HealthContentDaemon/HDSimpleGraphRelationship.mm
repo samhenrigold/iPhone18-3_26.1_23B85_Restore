@@ -47,13 +47,12 @@
 - (id)description
 {
   v3 = MEMORY[0x277CCACA8];
-  v8.receiver = self;
-  v8.super_class = HDSimpleGraphRelationship;
-  v4 = [(HDSimpleGraphObject *)&v8 description];
-  type = self->_type;
-  v6 = [v3 stringWithFormat:@"<%@ %lld (%lld) %lld>", v4, self->_subjectID, type, self->_objectID];
+  v7.receiver = self;
+  v7.super_class = HDSimpleGraphRelationship;
+  v4 = [(HDSimpleGraphObject *)&v7 description];
+  v5 = [v3 stringWithFormat:@"<%@ %lld (%lld) %lld>", v4, self->_subjectID, self->_type, self->_objectID];
 
-  return v6;
+  return v5;
 }
 
 - (unint64_t)hash

@@ -183,7 +183,7 @@ uint64_t __60__PXAssetsDataSourceManager_ensureStartingSectionHasContent__block_
   return v2;
 }
 
-uint64_t __55__PXAssetsDataSourceManager_isLoadingInitialDataSource__block_invoke(uint64_t a1, void *a2)
+void *__55__PXAssetsDataSourceManager_isLoadingInitialDataSource__block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 isSectionConsideredAccurate:?];
   if ((result & 1) == 0)

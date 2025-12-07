@@ -25,7 +25,7 @@
   *(v11 + 16) = sub_275B76E44;
   *(v11 + 24) = v6;
 
-  XpcSubscriptionClientProtocolServer.request(_:withReply:)(requestCopy + v10, sub_275B77D70, v11);
+  XpcSubscriptionClientProtocolServer.request(_:withReply:)(&requestCopy[v10], sub_275B77D70, v11);
 }
 
 @end

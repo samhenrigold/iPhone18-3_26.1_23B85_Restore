@@ -1151,7 +1151,7 @@ void __62__PKTextAttachmentDrawingView_drawingDidChangeVisibleStrokes___block_in
   v4 = v3;
   if ((*&v3 & 0x7FFFFFFFFFFFFFFFuLL) <= 0x7FEFFFFFFFFFFFFFLL)
   {
-    [(PKTextAttachmentDrawingView *)self drawingTransform];
+    objc_msgSend_drawingTransform(self);
     [(PKTextAttachmentResizeView *)self->_topResizeView resizeContentInset];
     v9 = v8;
     [(PKTextAttachmentResizeView *)self->_bottomResizeView resizeContentInset];
@@ -1258,7 +1258,7 @@ void __62__PKTextAttachmentDrawingView_drawingDidChangeVisibleStrokes___block_in
   v6 = CGRectGetMaxY(v11) + delta;
   [(PKTextAttachmentDrawingView *)self drawingBounds];
   v7 = v6 - CGRectGetMinY(v12);
-  [(PKTextAttachmentDrawingView *)self drawingTransform];
+  objc_msgSend_drawingTransform(self);
   return v7 * sqrt(v10 * v10 + v9 * v9);
 }
 
@@ -3047,7 +3047,7 @@ LABEL_21:
 {
   _textView = [(PKTextAttachmentDrawingView *)self _textView];
   [(PKTextAttachmentDrawingView *)self desiredAttachmentViewWidthForContainerView:_textView];
-  [(PKTextAttachmentDrawingView *)self drawingTransformForViewWidth:?];
+  objc_msgSend_drawingTransformForViewWidth_(self);
 
   return result;
 }

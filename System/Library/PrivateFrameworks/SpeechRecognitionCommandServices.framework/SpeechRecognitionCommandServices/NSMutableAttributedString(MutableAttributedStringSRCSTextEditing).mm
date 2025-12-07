@@ -276,56 +276,56 @@ LABEL_11:
 
 + (uint64_t)_SRCSCharacterIsScriptWithoutSpacing:()MutableAttributedStringSRCSTextEditing
 {
-  v31[13] = *MEMORY[0x277D85DE8];
-  v25 = [MEMORY[0x277CCA900] characterSetWithRange:{19968, 20992}];
-  v31[0] = v25;
-  v24 = [MEMORY[0x277CCA900] characterSetWithRange:{13312, 6592}];
-  v31[1] = v24;
-  v23 = [MEMORY[0x277CCA900] characterSetWithRange:{0x20000, 42720}];
-  v31[2] = v23;
-  v22 = [MEMORY[0x277CCA900] characterSetWithRange:{173824, 4160}];
-  v31[3] = v22;
-  v21 = [MEMORY[0x277CCA900] characterSetWithRange:{177984, 224}];
-  v31[4] = v21;
+  v30[13] = *MEMORY[0x277D85DE8];
+  v24 = [MEMORY[0x277CCA900] characterSetWithRange:{19968, 20992}];
+  v30[0] = v24;
+  v23 = [MEMORY[0x277CCA900] characterSetWithRange:{13312, 6592}];
+  v30[1] = v23;
+  v22 = [MEMORY[0x277CCA900] characterSetWithRange:{0x20000, 42720}];
+  v30[2] = v22;
+  v21 = [MEMORY[0x277CCA900] characterSetWithRange:{173824, 4160}];
+  v30[3] = v21;
+  v20 = [MEMORY[0x277CCA900] characterSetWithRange:{177984, 224}];
+  v30[4] = v20;
   v4 = [MEMORY[0x277CCA900] characterSetWithRange:{178208, 5776}];
-  v31[5] = v4;
+  v30[5] = v4;
   v5 = [MEMORY[0x277CCA900] characterSetWithRange:{183984, 7488}];
-  v31[6] = v5;
+  v30[6] = v5;
   v6 = [MEMORY[0x277CCA900] characterSetWithRange:{196608, 4944}];
-  v31[7] = v6;
+  v30[7] = v6;
   v7 = [MEMORY[0x277CCA900] characterSetWithRange:{201552, 4192}];
-  v31[8] = v7;
+  v30[8] = v7;
   v8 = [MEMORY[0x277CCA900] characterSetWithRange:{63744, 512}];
-  v31[9] = v8;
+  v30[9] = v8;
   v9 = [MEMORY[0x277CCA900] characterSetWithRange:{194560, 544}];
-  v31[10] = v9;
+  v30[10] = v9;
   v10 = [MEMORY[0x277CCA900] characterSetWithRange:{12352, 96}];
-  v31[11] = v10;
+  v30[11] = v10;
   v11 = [MEMORY[0x277CCA900] characterSetWithRange:{12448, 96}];
-  v31[12] = v11;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:13];
+  v30[12] = v11;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:13];
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v13 = v12;
-  v14 = [v13 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v27;
+    v16 = *v26;
     while (2)
     {
       v17 = 0;
       do
       {
-        if (*v27 != v16)
+        if (*v26 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        if ([*(*(&v26 + 1) + 8 * v17) characterIsMember:a3])
+        if ([*(*(&v25 + 1) + 8 * v17) characterIsMember:a3])
         {
           v18 = 1;
           goto LABEL_11;
@@ -335,7 +335,7 @@ LABEL_11:
       }
 
       while (v15 != v17);
-      v15 = [v13 countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v25 objects:v29 count:16];
       if (v15)
       {
         continue;
@@ -348,7 +348,6 @@ LABEL_11:
   v18 = 0;
 LABEL_11:
 
-  v19 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
@@ -436,30 +435,30 @@ LABEL_11:
 
 - (void)_SRCSPreserveCasingOfPrefixCustomVocabularies:()MutableAttributedStringSRCSTextEditing startsWithMustPreserveCaseCustomVocabulary:startsWithAutoCaseCustomVocabulary:
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   v8 = a3;
-  v9 = [v8 countByEnumeratingWithState:&v32 objects:v36 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v31 objects:v35 count:16];
   v10 = v8;
   if (v9)
   {
     v11 = v9;
-    v30 = a4;
-    v31 = a5;
-    v12 = *v33;
+    v29 = a4;
+    v30 = a5;
+    v12 = *v32;
     while (2)
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v33 != v12)
+        if (*v32 != v12)
         {
           objc_enumerationMutation(v8);
         }
 
-        v14 = *(*(&v32 + 1) + 8 * i);
+        v14 = *(*(&v31 + 1) + 8 * i);
         string = [self string];
         lowercaseString = [string lowercaseString];
         lowercaseString2 = [v14 lowercaseString];
@@ -471,22 +470,8 @@ LABEL_11:
           v20 = [string2 length];
           v21 = [v14 length];
 
-          if (v20 <= v21)
+          if (v20 <= v21 || ([self string], v22 = objc_claimAutoreleasedReturnValue(), v23 = objc_msgSend(v22, "characterAtIndex:", objc_msgSend(v14, "length")), v22, objc_msgSend(MEMORY[0x277CCAB50], "whitespaceAndNewlineCharacterSet"), v24 = objc_claimAutoreleasedReturnValue(), objc_msgSend(MEMORY[0x277CCA900], "punctuationCharacterSet"), v25 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v24, "formUnionWithCharacterSet:", v25), v25, LODWORD(v23) = objc_msgSend(v24, "characterIsMember:", v23), v24, v23))
           {
-            goto LABEL_12;
-          }
-
-          string3 = [self string];
-          v23 = [string3 characterAtIndex:{objc_msgSend(v14, "length")}];
-
-          whitespaceAndNewlineCharacterSet = [MEMORY[0x277CCAB50] whitespaceAndNewlineCharacterSet];
-          punctuationCharacterSet = [MEMORY[0x277CCA900] punctuationCharacterSet];
-          [whitespaceAndNewlineCharacterSet formUnionWithCharacterSet:punctuationCharacterSet];
-
-          LODWORD(v23) = [whitespaceAndNewlineCharacterSet characterIsMember:v23];
-          if (v23)
-          {
-LABEL_12:
             lowercaseLetterCharacterSet = [MEMORY[0x277CCAB50] lowercaseLetterCharacterSet];
             [lowercaseLetterCharacterSet addCharactersInString:@"-' "];
             invertedSet = [lowercaseLetterCharacterSet invertedSet];
@@ -494,9 +479,9 @@ LABEL_12:
 
             if (v28 == 0x7FFFFFFFFFFFFFFFLL)
             {
-              if (v31)
+              if (v30)
               {
-                *v31 = 1;
+                *v30 = 1;
               }
 
               v10 = v14;
@@ -504,9 +489,9 @@ LABEL_12:
 
             else
             {
-              if (v30)
+              if (v29)
               {
-                *v30 = 1;
+                *v29 = 1;
               }
 
               v10 = v14;
@@ -519,7 +504,7 @@ LABEL_12:
         }
       }
 
-      v11 = [v8 countByEnumeratingWithState:&v32 objects:v36 count:16];
+      v11 = [v8 countByEnumeratingWithState:&v31 objects:v35 count:16];
       if (v11)
       {
         continue;
@@ -532,8 +517,6 @@ LABEL_12:
   }
 
 LABEL_19:
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)adjustCapsAndSpacingUsingLeadingText:()MutableAttributedStringSRCSTextEditing preITNTokens:customVocabularies:localeIdentifier:

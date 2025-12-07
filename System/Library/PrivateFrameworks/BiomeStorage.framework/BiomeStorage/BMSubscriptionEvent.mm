@@ -1,5 +1,6 @@
 @interface BMSubscriptionEvent
 + (id)eventWithData:(id)data dataVersion:(unsigned int)version;
+- (BMSubscriptionEvent)initWithClient:(id)client identifier:(id)identifier useCase:(id)case starting:(BOOL)starting;
 - (BMSubscriptionEvent)initWithCoder:(id)coder;
 - (BMSubscriptionEvent)initWithProto:(id)proto;
 - (BMSubscriptionEvent)initWithProtoData:(id)data;
@@ -14,6 +15,19 @@
 @end
 
 @implementation BMSubscriptionEvent
+
+- (BMSubscriptionEvent)initWithClient:(id)client identifier:(id)identifier useCase:(id)case starting:(BOOL)starting
+{
+  startingCopy = starting;
+  v10 = MEMORY[0x1E696AFB0];
+  caseCopy = case;
+  identifierCopy = identifier;
+  clientCopy = client;
+  bm_bootSessionUUID = [v10 bm_bootSessionUUID];
+  v15 = [(BMSubscriptionEvent *)self _initWithClient:clientCopy identifier:identifierCopy useCase:caseCopy starting:startingCopy bootUUID:bm_bootSessionUUID];
+
+  return v15;
+}
 
 - (id)_initWithClient:(id)client identifier:(id)identifier useCase:(id)case starting:(BOOL)starting bootUUID:(id)d
 {
@@ -47,18 +61,17 @@
 {
   v3 = MEMORY[0x1E696AEC0];
   v4 = objc_opt_class();
-  useCase = self->_useCase;
   if (self->_starting)
   {
-    v6 = @"YES";
+    v5 = @"YES";
   }
 
   else
   {
-    v6 = @"NO";
+    v5 = @"NO";
   }
 
-  return [v3 stringWithFormat:@"<%@: client=%@, identifier=%@, useCase=%@, starting=%@>", v4, *&self->_client, self->_useCase, v6];
+  return [v3 stringWithFormat:@"<%@: client=%@, identifier=%@, useCase=%@, starting=%@>", v4, *&self->_client, self->_useCase, v5];
 }
 
 - (unint64_t)hash
@@ -114,8 +127,8 @@
 
 - (id)jsonDictionary
 {
-  v16[5] = *MEMORY[0x1E69E9840];
-  v15[0] = @"client";
+  v15[5] = *MEMORY[0x1E69E9840];
+  v14[0] = @"client";
   client = self->_client;
   null = client;
   if (!client)
@@ -123,8 +136,8 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v16[0] = null;
-  v15[1] = @"identifier";
+  v15[0] = null;
+  v14[1] = @"identifier";
   identifier = self->_identifier;
   null2 = identifier;
   if (!identifier)
@@ -132,8 +145,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v16[1] = null2;
-  v15[2] = @"useCase";
+  v15[1] = null2;
+  v14[2] = @"useCase";
   useCase = self->_useCase;
   null3 = useCase;
   if (!useCase)
@@ -147,10 +160,10 @@
     v9 = MEMORY[0x1E695E118];
   }
 
-  v16[2] = null3;
-  v16[3] = v9;
-  v15[3] = @"starting";
-  v15[4] = @"bootUUID";
+  v15[2] = null3;
+  v15[3] = v9;
+  v14[3] = @"starting";
+  v14[4] = @"bootUUID";
   uUIDString = [(NSUUID *)self->_bootUUID UUIDString];
   null4 = uUIDString;
   if (!uUIDString)
@@ -158,8 +171,8 @@
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v16[4] = null4;
-  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:5];
+  v15[4] = null4;
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:5];
   if (!uUIDString)
   {
   }
@@ -195,7 +208,6 @@ LABEL_15:
 LABEL_21:
 
 LABEL_16:
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -326,11 +338,10 @@ LABEL_16:
 
 + (void)eventWithData:(int)a1 dataVersion:(NSObject *)a2 .cold.1(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_error_impl(&dword_1C928A000, a2, OS_LOG_TYPE_ERROR, "Unable to decode BMSubscriptionEvent with dataVersion %u", v3, 8u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_error_impl(&dword_1C928A000, a2, OS_LOG_TYPE_ERROR, "Unable to decode BMSubscriptionEvent with dataVersion %u", v2, 8u);
 }
 
 @end

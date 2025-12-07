@@ -36,7 +36,7 @@
   v13 = 1;
   if (v10 != @"ccs")
   {
-    if (!v10 || (v12 = [(__CFString *)v10 isEqualToString:@"ccs"], v11, !v12))
+    if (!v10 || (isEqualToString = objc_msgSend_isEqualToString_(v10), v11, !isEqualToString))
     {
       v13 = 0;
     }
@@ -55,7 +55,7 @@
     goto LABEL_17;
   }
 
-  v16 = [(__CFString *)v14 isEqualToString:@"private"];
+  v16 = objc_msgSend_isEqualToString_(v14);
 
   if (v16)
   {
@@ -65,14 +65,14 @@ LABEL_10:
   }
 
   v18 = v15;
-  if (v18 == @"shared" || (v19 = v18, v20 = [(__CFString *)v18 isEqualToString:@"shared"], v19, (v20 & 1) != 0))
+  if (v18 == @"shared" || (v19 = v18, v20 = objc_msgSend_isEqualToString_(v18), v19, (v20 & 1) != 0))
   {
     v17 = 2;
     goto LABEL_18;
   }
 
   v21 = v19;
-  if (v21 == @"public" || (v22 = v21, v23 = [(__CFString *)v21 isEqualToString:@"public"], v22, v23))
+  if (v21 == @"public" || (v22 = v21, v23 = objc_msgSend_isEqualToString_(v21), v22, v23))
   {
     v17 = 3;
   }
@@ -92,7 +92,7 @@ LABEL_18:
   {
     if (v24)
     {
-      v26 = [(__CFString *)v24 isEqualToString:@"readwrite"];
+      v26 = objc_msgSend_isEqualToString_(v24);
 
       if (v26)
       {
@@ -100,7 +100,7 @@ LABEL_18:
       }
 
       v28 = v25;
-      if (v28 == @"readonly" || (v29 = v28, v30 = [(__CFString *)v28 isEqualToString:@"readonly"], v29, v30))
+      if (v28 == @"readonly" || (v29 = v28, v30 = objc_msgSend_isEqualToString_(v28), v29, v30))
       {
         v27 = 2;
         goto LABEL_26;
@@ -231,9 +231,9 @@ LABEL_29:
       goto LABEL_23;
     }
 
-    v10 = [(NSString *)v6 isEqualToString:v7];
+    isEqualToString = objc_msgSend_isEqualToString_(v6);
 
-    if (!v10)
+    if (!isEqualToString)
     {
       goto LABEL_24;
     }
@@ -254,7 +254,7 @@ LABEL_29:
       goto LABEL_23;
     }
 
-    v13 = [(NSString *)v6 isEqualToString:v12];
+    v13 = objc_msgSend_isEqualToString_(v6);
 
     if (!v13)
     {
@@ -275,7 +275,7 @@ LABEL_29:
   {
     if (v6 && v15)
     {
-      v16 = [(NSString *)v6 isEqualToString:v15];
+      v16 = objc_msgSend_isEqualToString_(v6);
 
       if (v16)
       {

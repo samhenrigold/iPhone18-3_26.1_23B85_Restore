@@ -34,7 +34,7 @@
 
 - (uint64_t)sf_shouldDownloadDueToContentDisposition:()MobileSafariFrameworkExtras
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   if (([self sf_hasXMLAttachment] & 1) == 0)
   {
     if (![self safari_hasAttachment])
@@ -44,68 +44,69 @@
 
     safari_browserDefaults = [MEMORY[0x1E695E000] safari_browserDefaults];
     v7 = safari_browserDefaults;
-    if ((a3 & 1) != 0 || ![safari_browserDefaults BOOLForKey:@"DebugEnableDownloadsInSubframes"])
+    if ((a3 & 1) != 0 || (v8 = [safari_browserDefaults BOOLForKey:@"DebugEnableDownloadsInSubframes"], !v8))
     {
-      v13 = [v7 BOOLForKey:@"DebugContentDispositionHeaderStartsDownloads"];
-      v14 = WBS_LOG_CHANNEL_PREFIXDownloads();
-      v15 = os_log_type_enabled(v14, OS_LOG_TYPE_INFO);
-      if (!v13)
+      v15 = [v7 BOOLForKey:@"DebugContentDispositionHeaderStartsDownloads"];
+      v16 = v15;
+      v18 = WBS_LOG_CHANNEL_PREFIXDownloads(v15, v17);
+      v19 = os_log_type_enabled(v18, OS_LOG_TYPE_INFO);
+      if (!v16)
       {
-        if (v15)
+        if (v19)
         {
-          v16 = v14;
-          v17 = [self URL];
+          v20 = v18;
+          v21 = [self URL];
           mIMEType = [self MIMEType];
-          v20 = 138740227;
-          v21 = v17;
-          v22 = 2117;
-          v23 = mIMEType;
-          _os_log_impl(&dword_18B7AC000, v16, OS_LOG_TYPE_INFO, "Ignoring Content-Disposition header for %{sensitive}@, MIME Type: %{sensitive}@", &v20, 0x16u);
+          v24 = 138740227;
+          v25 = v21;
+          v26 = 2117;
+          v27 = mIMEType;
+          _os_log_impl(&dword_18B7AC000, v20, OS_LOG_TYPE_INFO, "Ignoring Content-Disposition header for %{sensitive}@, MIME Type: %{sensitive}@", &v24, 0x16u);
         }
 
         v5 = 0;
         goto LABEL_17;
       }
 
-      if (!v15)
+      if (!v19)
       {
         v5 = 1;
         goto LABEL_17;
       }
 
-      v9 = v14;
-      v10 = [self URL];
+      v11 = v18;
+      v12 = [self URL];
       mIMEType2 = [self MIMEType];
-      v20 = 138740227;
-      v21 = v10;
-      v22 = 2117;
-      v23 = mIMEType2;
-      v12 = "Starting download due to Content-Disposition header for %{sensitive}@, MIME Type: %{sensitive}@";
+      v24 = 138740227;
+      v25 = v12;
+      v26 = 2117;
+      v27 = mIMEType2;
+      v14 = "Starting download due to Content-Disposition header for %{sensitive}@, MIME Type: %{sensitive}@";
       v5 = 1;
     }
 
     else
     {
-      v8 = WBS_LOG_CHANNEL_PREFIXDownloads();
+      v10 = WBS_LOG_CHANNEL_PREFIXDownloads(v8, v9);
       v5 = 1;
-      if (!os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+      if (!os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
 LABEL_17:
 
         return v5;
       }
 
-      v9 = v8;
-      v10 = [self URL];
+      v11 = v10;
+      v12 = [self URL];
       mIMEType2 = [self MIMEType];
-      v20 = 138740227;
-      v21 = v10;
-      v22 = 2117;
-      v23 = mIMEType2;
-      v12 = "Starting download due to Content-Disposition header in subframe for %{sensitive}@, MIME Type: %{sensitive}@";
+      v24 = 138740227;
+      v25 = v12;
+      v26 = 2117;
+      v27 = mIMEType2;
+      v14 = "Starting download due to Content-Disposition header in subframe for %{sensitive}@, MIME Type: %{sensitive}@";
     }
 
-    _os_log_impl(&dword_18B7AC000, v9, OS_LOG_TYPE_INFO, v12, &v20, 0x16u);
+    _os_log_impl(&dword_18B7AC000, v11, OS_LOG_TYPE_INFO, v14, &v24, 0x16u);
 
     goto LABEL_17;
   }

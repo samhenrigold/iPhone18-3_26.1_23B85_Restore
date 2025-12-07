@@ -3,6 +3,9 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)downloadOffPowerPolicyAsString:(int)string;
+- (id)downloadOnCellularPolicyAsString:(int)string;
+- (id)qualityOfServiceAsString:(int)string;
 - (int)StringAsDownloadOffPowerPolicy:(id)policy;
 - (int)StringAsDownloadOnCellularPolicy:(id)policy;
 - (int)StringAsQualityOfService:(id)service;
@@ -64,6 +67,21 @@
   *&self->_has = *&self->_has & 0xFD | v3;
 }
 
+- (id)downloadOffPowerPolicyAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27993E430[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsDownloadOffPowerPolicy:(id)policy
 {
   policyCopy = policy;
@@ -118,6 +136,21 @@
   *&self->_has = *&self->_has & 0xFB | v3;
 }
 
+- (id)downloadOnCellularPolicyAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27993E430[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsDownloadOnCellularPolicy:(id)policy
 {
   policyCopy = policy;
@@ -170,6 +203,21 @@
   }
 
   *&self->_has = *&self->_has & 0xF7 | v3;
+}
+
+- (id)qualityOfServiceAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27993E448[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsQualityOfService:(id)service
@@ -333,12 +381,11 @@ LABEL_7:
 {
   toCopy = to;
   has = self->_has;
-  v11 = toCopy;
+  v6 = toCopy;
   if ((has & 0x10) != 0)
   {
-    requiresValidation = self->_requiresValidation;
     PBDataWriterWriteBOOLField();
-    toCopy = v11;
+    toCopy = v6;
     has = self->_has;
     if ((has & 2) == 0)
     {
@@ -357,9 +404,8 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  downloadOffPowerPolicy = self->_downloadOffPowerPolicy;
   PBDataWriterWriteInt32Field();
-  toCopy = v11;
+  toCopy = v6;
   has = self->_has;
   if ((has & 4) == 0)
   {
@@ -373,9 +419,8 @@ LABEL_4:
   }
 
 LABEL_14:
-  downloadOnCellularPolicy = self->_downloadOnCellularPolicy;
   PBDataWriterWriteInt32Field();
-  toCopy = v11;
+  toCopy = v6;
   has = self->_has;
   if ((has & 8) == 0)
   {
@@ -389,22 +434,20 @@ LABEL_5:
   }
 
 LABEL_15:
-  qualityOfService = self->_qualityOfService;
   PBDataWriterWriteInt32Field();
-  toCopy = v11;
+  toCopy = v6;
   if (*&self->_has)
   {
 LABEL_6:
-    timeout = self->_timeout;
     PBDataWriterWriteDoubleField();
-    toCopy = v11;
+    toCopy = v6;
   }
 
 LABEL_7:
   if (self->_cellularBundleIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v11;
+    toCopy = v6;
   }
 }
 
@@ -564,7 +607,6 @@ LABEL_7:
     goto LABEL_32;
   }
 
-  v5 = *(equalCopy + 40);
   if ((*&self->_has & 0x10) == 0)
   {
     if ((*(equalCopy + 40) & 0x10) == 0)
@@ -573,7 +615,7 @@ LABEL_7:
     }
 
 LABEL_32:
-    v8 = 0;
+    v6 = 0;
     goto LABEL_33;
   }
 
@@ -582,7 +624,6 @@ LABEL_32:
     goto LABEL_32;
   }
 
-  v6 = *(equalCopy + 36);
   if (self->_requiresValidation)
   {
     if ((*(equalCopy + 36) & 1) == 0)
@@ -652,17 +693,17 @@ LABEL_4:
   cellularBundleIdentifier = self->_cellularBundleIdentifier;
   if (cellularBundleIdentifier | *(equalCopy + 2))
   {
-    v8 = [(NSString *)cellularBundleIdentifier isEqual:?];
+    v6 = [(NSString *)cellularBundleIdentifier isEqual:?];
   }
 
   else
   {
-    v8 = 1;
+    v6 = 1;
   }
 
 LABEL_33:
 
-  return v8;
+  return v6;
 }
 
 - (unint64_t)hash

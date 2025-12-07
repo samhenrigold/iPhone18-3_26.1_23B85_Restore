@@ -1,23 +1,23 @@
 @interface NSString(CoreRecognitionCaseCheck)
 - (uint64_t)isCaseApplicable;
-- (uint64_t)isLowercase;
-- (uint64_t)isUppercase;
+- (void)isLowercase;
+- (void)isUppercase;
 @end
 
 @implementation NSString(CoreRecognitionCaseCheck)
 
-- (uint64_t)isLowercase
+- (void)isLowercase
 {
   lowercaseString = [self lowercaseString];
-  v3 = [self isEqualToString:lowercaseString];
+  v3 = [self isEqualToString:?];
 
   return v3;
 }
 
-- (uint64_t)isUppercase
+- (void)isUppercase
 {
   uppercaseString = [self uppercaseString];
-  v3 = [self isEqualToString:uppercaseString];
+  v3 = [self isEqualToString:?];
 
   return v3;
 }

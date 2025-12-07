@@ -10,7 +10,7 @@
 
 - (PUBrowsingVideoPlayer)player
 {
-  v2 = sub_1B37D8F70();
+  v2 = sub_1B37D8F70(self, a2);
 
   return v2;
 }
@@ -24,7 +24,7 @@
 
 - (PUOneUpVideoPlayerControllerDelegate)delegate
 {
-  v2 = sub_1B37D9184();
+  v2 = sub_1B37D9184(self, a2);
 
   return v2;
 }
@@ -33,7 +33,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_1B37D9220();
+  sub_1B37D9220(delegate);
 }
 
 - (void)updateWithBrowsingViewModel:(id)model

@@ -15,37 +15,37 @@
 
   if (v6 != 0x7FFFFFFFFFFFFFFFLL)
   {
-    v8 = NCUserNotificationsUIKitFrameworkBundle();
-    v9 = [v8 localizedStringForKey:@"NOTIFICATION_SUMMARY_COMMUNICATION_CALLS" value:&stru_282FE84F8 table:0];
-    v7 = [&stru_282FE84F8 stringByAppendingString:v9];
+    v9 = NCUserNotificationsUIKitFrameworkBundle(v7);
+    v10 = [v9 localizedStringForKey:@"NOTIFICATION_SUMMARY_COMMUNICATION_CALLS" value:&stru_282FE84F8 table:0];
+    v8 = [&stru_282FE84F8 stringByAppendingString:v10];
 
     if (v4 == 0x7FFFFFFFFFFFFFFFLL)
     {
       goto LABEL_7;
     }
 
-    v10 = NCUserNotificationsUIKitFrameworkBundle();
-    v11 = [v10 localizedStringForKey:@"NOTIFICATION_SUMMARY_CONNECTOR_AND" value:&stru_282FE84F8 table:0];
-    v12 = [(__CFString *)v7 stringByAppendingFormat:@" %@ ", v11];
+    v12 = NCUserNotificationsUIKitFrameworkBundle(v11);
+    v13 = [v12 localizedStringForKey:@"NOTIFICATION_SUMMARY_CONNECTOR_AND" value:&stru_282FE84F8 table:0];
+    v14 = [(__CFString *)v8 stringByAppendingFormat:@" %@ ", v13];
 
-    v7 = v12;
+    v8 = v14;
     goto LABEL_6;
   }
 
-  v7 = &stru_282FE84F8;
+  v8 = &stru_282FE84F8;
   if (v4 != 0x7FFFFFFFFFFFFFFFLL)
   {
 LABEL_6:
-    v13 = NCUserNotificationsUIKitFrameworkBundle();
-    v14 = [v13 localizedStringForKey:@"NOTIFICATION_SUMMARY_COMMUNICATION_MESSAGES" value:&stru_282FE84F8 table:0];
-    v15 = [(__CFString *)v7 stringByAppendingString:v14];
+    v15 = NCUserNotificationsUIKitFrameworkBundle(v7);
+    v16 = [v15 localizedStringForKey:@"NOTIFICATION_SUMMARY_COMMUNICATION_MESSAGES" value:&stru_282FE84F8 table:0];
+    v17 = [(__CFString *)v8 stringByAppendingString:v16];
 
-    v7 = v15;
+    v8 = v17;
   }
 
 LABEL_7:
 
-  return v7;
+  return v8;
 }
 
 uint64_t __66__NCNotificationCommunicationsSummaryContentProvider_summaryTitle__block_invoke(uint64_t a1, void *a2)

@@ -23,13 +23,13 @@
 
 - (GTFileWriterSessionUncompressed)initWithFileEntries:(id)entries relativeToURL:(id)l options:(id)options error:(id *)error
 {
-  v96 = *MEMORY[0x277D85DE8];
+  v94 = *MEMORY[0x277D85DE8];
   entriesCopy = entries;
   lCopy = l;
   optionsCopy = options;
-  v85.receiver = self;
-  v85.super_class = GTFileWriterSessionUncompressed;
-  v14 = [(GTFileWriterSessionUncompressed *)&v85 init];
+  v83.receiver = self;
+  v83.super_class = GTFileWriterSessionUncompressed;
+  v14 = [(GTFileWriterSessionUncompressed *)&v83 init];
   v15 = v14;
   if (!v14)
   {
@@ -42,72 +42,71 @@
   v15->_currentFileBytesWritten = 0;
   v15->_fd = -1;
   v16 = entriesCopy;
-  v81 = lCopy;
+  v79 = lCopy;
+  v85 = 0u;
+  v86 = 0u;
   v87 = 0u;
   v88 = 0u;
-  v89 = 0u;
-  v90 = 0u;
   obj = v16;
-  v84 = [obj countByEnumeratingWithState:&v87 objects:v91 count:16];
-  if (!v84)
+  v82 = [obj countByEnumeratingWithState:&v85 objects:v89 count:16];
+  if (!v82)
   {
     v17 = 0;
-    v37 = 1;
+    v36 = 1;
     goto LABEL_50;
   }
 
   errorCopy = error;
-  v76 = v15;
-  v77 = optionsCopy;
-  v78 = lCopy;
+  v74 = v15;
+  v75 = optionsCopy;
+  v76 = lCopy;
   v17 = 0;
-  v83 = *v88;
-  v18 = *MEMORY[0x277CCA450];
-  v79 = *MEMORY[0x277CCA450];
-  v80 = *MEMORY[0x277CCA5B8];
-  v19 = v81;
+  v81 = *v86;
+  v77 = *MEMORY[0x277CCA450];
+  v78 = *MEMORY[0x277CCA5B8];
+  v18 = v79;
   do
   {
-    v20 = 0;
-    v21 = v17;
+    v19 = 0;
+    v20 = v17;
     do
     {
-      if (*v88 != v83)
+      if (*v86 != v81)
       {
         objc_enumerationMutation(obj);
       }
 
-      v22 = *(*(&v87 + 1) + 8 * v20);
-      v23 = objc_autoreleasePoolPush();
-      v86 = v21;
-      v24 = v22;
-      v25 = MEMORY[0x277CBEBC0];
-      v26 = v19;
-      v27 = [v25 alloc];
-      path = [v24 path];
-      v29 = [v27 initFileURLWithPath:path isDirectory:0 relativeToURL:v26];
+      v21 = *(*(&v85 + 1) + 8 * v19);
+      v22 = objc_autoreleasePoolPush();
+      v84 = v20;
+      v23 = v21;
+      v24 = MEMORY[0x277CBEBC0];
+      v25 = v18;
+      v26 = [v24 alloc];
+      path = [v23 path];
+      v28 = [v26 initFileURLWithPath:path isDirectory:0 relativeToURL:v25];
 
       defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-      uRLByDeletingLastPathComponent = [v29 URLByDeletingLastPathComponent];
-      LODWORD(v26) = [defaultManager createDirectoryAtURL:uRLByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v86];
+      uRLByDeletingLastPathComponent = [v28 URLByDeletingLastPathComponent];
+      LODWORD(v25) = [defaultManager createDirectoryAtURL:uRLByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v84];
 
-      if (!v26)
+      if (!v25)
       {
 LABEL_20:
-        v37 = 0;
+        v36 = 0;
         goto LABEL_44;
       }
 
-      destination = [v24 destination];
+      destination = [v23 destination];
 
       if (destination)
       {
         defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
-        path2 = [v29 path];
-        destination2 = [v24 destination];
-        v36 = [defaultManager2 createSymbolicLinkAtPath:path2 withDestinationPath:destination2 error:&v86];
+        path2 = [v28 path];
+        destination2 = [v23 destination];
+        v35 = [defaultManager2 createSymbolicLinkAtPath:path2 withDestinationPath:destination2 error:&v84];
 
-        if ((v36 & 1) == 0)
+        if ((v35 & 1) == 0)
         {
           goto LABEL_42;
         }
@@ -115,227 +114,226 @@ LABEL_20:
 
       else
       {
-        v38 = objc_alloc_init(MEMORY[0x277CBEA90]);
-        v39 = [v38 writeToURL:v29 options:0 error:&v86];
+        v37 = objc_alloc_init(MEMORY[0x277CBEA90]);
+        v38 = [v37 writeToURL:v28 options:0 error:&v84];
 
-        if (!v39)
+        if (!v38)
         {
           goto LABEL_20;
         }
 
-        v40 = open([v29 fileSystemRepresentation], 1, 0);
-        if (v40 < 0)
+        v39 = open([v28 fileSystemRepresentation], 1, 0);
+        if (v39 < 0)
         {
-          v45 = *__error();
+          v44 = *__error();
           if (GTCoreLogUseOsLog())
           {
-            v46 = gt_tagged_log(0x10u);
-            if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+            v45 = gt_tagged_log(0x10u);
+            if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412546;
-              *&buf[4] = v29;
-              v94 = 1024;
-              v95 = v45;
-              _os_log_error_impl(&dword_24DBC9000, v46, OS_LOG_TYPE_ERROR, "Failed to open file %@ for writing (%d)", buf, 0x12u);
+              *&buf[4] = v28;
+              v92 = 1024;
+              v93 = v44;
+              _os_log_error_impl(&dword_24DBC9000, v45, OS_LOG_TYPE_ERROR, "Failed to open file %@ for writing (%d)", buf, 0x12u);
             }
           }
 
           else
           {
-            v50 = *MEMORY[0x277D85DF8];
-            v46 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to open file %@ for writing (%d)", v29, v45];
-            fprintf(v50, "%s\n", [v46 UTF8String]);
+            v49 = *MEMORY[0x277D85DF8];
+            v45 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to open file %@ for writing (%d)", v28, v44];
+            fprintf(v49, "%s\n", [v45 UTF8String]);
           }
 
-          v51 = v45;
+          v50 = v44;
 
-          v52 = MEMORY[0x277CCA9B8];
-          v92 = v79;
-          v53 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to open file %@ for writing", v29];
-          *buf = v53;
-          v54 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:&v92 count:1];
-          v55 = v52;
-          v56 = v80;
-          v57 = v51;
+          v51 = MEMORY[0x277CCA9B8];
+          v90 = v77;
+          v52 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to open file %@ for writing", v28];
+          *buf = v52;
+          v53 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:&v90 count:1];
+          v54 = v51;
+          v55 = v78;
+          v56 = v50;
           goto LABEL_41;
         }
 
-        v41 = v40;
-        if (ftruncate(v40, [v24 fileSize]) < 0)
+        v40 = v39;
+        if (ftruncate(v39, [v23 fileSize]) < 0)
         {
-          v47 = *__error();
-          v74 = entriesCopy;
+          v46 = *__error();
+          v72 = entriesCopy;
           if (GTCoreLogUseOsLog())
           {
-            v48 = gt_tagged_log(0x10u);
-            if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+            v47 = gt_tagged_log(0x10u);
+            if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412546;
-              *&buf[4] = v29;
-              v94 = 1024;
-              v95 = v47;
-              _os_log_error_impl(&dword_24DBC9000, v48, OS_LOG_TYPE_ERROR, "Failed to resize file %@ (%d)", buf, 0x12u);
+              *&buf[4] = v28;
+              v92 = 1024;
+              v93 = v46;
+              _os_log_error_impl(&dword_24DBC9000, v47, OS_LOG_TYPE_ERROR, "Failed to resize file %@ (%d)", buf, 0x12u);
             }
 
-            v49 = 0x277CCA000;
+            v48 = 0x277CCA000;
           }
 
           else
           {
-            v61 = *MEMORY[0x277D85DF8];
-            v49 = 0x277CCA000uLL;
-            v48 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to resize file %@ (%d)", v29, v47];
-            fprintf(v61, "%s\n", [v48 UTF8String]);
+            v60 = *MEMORY[0x277D85DF8];
+            v48 = 0x277CCA000uLL;
+            v47 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to resize file %@ (%d)", v28, v46];
+            fprintf(v60, "%s\n", [v47 UTF8String]);
           }
 
-          v62 = v47;
+          v61 = v46;
 
-          v63 = MEMORY[0x277CCA9B8];
-          v92 = v79;
-          v64 = [*(v49 + 3240) stringWithFormat:@"Failed to resize file %@", v29];
-          *buf = v64;
-          v65 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:&v92 count:1];
-          v86 = [v63 errorWithDomain:v80 code:v62 userInfo:v65];
+          v62 = MEMORY[0x277CCA9B8];
+          v90 = v77;
+          v63 = [*(v48 + 3240) stringWithFormat:@"Failed to resize file %@", v28];
+          *buf = v63;
+          v64 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:&v90 count:1];
+          v84 = [v62 errorWithDomain:v78 code:v61 userInfo:v64];
 
-          close(v41);
-          v37 = 0;
-          entriesCopy = v74;
+          close(v40);
+          v36 = 0;
+          entriesCopy = v72;
           goto LABEL_43;
         }
 
-        if (fsync(v41) < 0)
+        if (fsync(v40) < 0)
         {
-          v58 = *__error();
+          v57 = *__error();
           if (GTCoreLogUseOsLog())
           {
-            v59 = gt_tagged_log(0x10u);
-            if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
+            v58 = gt_tagged_log(0x10u);
+            if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412546;
-              *&buf[4] = v29;
-              v94 = 1024;
-              v95 = v58;
-              _os_log_error_impl(&dword_24DBC9000, v59, OS_LOG_TYPE_ERROR, "Failed to flush file %@ (%d)", buf, 0x12u);
+              *&buf[4] = v28;
+              v92 = 1024;
+              v93 = v57;
+              _os_log_error_impl(&dword_24DBC9000, v58, OS_LOG_TYPE_ERROR, "Failed to flush file %@ (%d)", buf, 0x12u);
             }
 
-            v60 = 0x277CCA000;
+            v59 = 0x277CCA000;
           }
 
           else
           {
-            v66 = *MEMORY[0x277D85DF8];
-            v60 = 0x277CCA000uLL;
-            v59 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to flush file %@ (%d)", v29, v58];
-            fprintf(v66, "%s\n", [v59 UTF8String]);
+            v65 = *MEMORY[0x277D85DF8];
+            v59 = 0x277CCA000uLL;
+            v58 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to flush file %@ (%d)", v28, v57];
+            fprintf(v65, "%s\n", [v58 UTF8String]);
           }
 
-          v67 = v58;
+          v66 = v57;
 
-          v68 = MEMORY[0x277CCA9B8];
-          v92 = v79;
-          [*(v60 + 3240) stringWithFormat:@"Failed to flush file %@", v29];
-          v53 = LABEL_40:;
-          *buf = v53;
-          v54 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:&v92 count:1];
-          v55 = v68;
-          v56 = v80;
-          v57 = v67;
+          v67 = MEMORY[0x277CCA9B8];
+          v90 = v77;
+          [*(v59 + 3240) stringWithFormat:@"Failed to flush file %@", v28];
+          v52 = LABEL_40:;
+          *buf = v52;
+          v53 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:&v90 count:1];
+          v54 = v67;
+          v55 = v78;
+          v56 = v66;
 LABEL_41:
-          v86 = [v55 errorWithDomain:v56 code:v57 userInfo:v54];
+          v84 = [v54 errorWithDomain:v55 code:v56 userInfo:v53];
 
 LABEL_42:
-          v37 = 0;
+          v36 = 0;
           goto LABEL_43;
         }
 
-        if (close(v41) < 0)
+        if (close(v40) < 0)
         {
-          v42 = *__error();
+          v41 = *__error();
           if (GTCoreLogUseOsLog())
           {
-            v43 = gt_tagged_log(0x10u);
-            if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+            v42 = gt_tagged_log(0x10u);
+            if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412546;
-              *&buf[4] = v29;
-              v94 = 1024;
-              v95 = v42;
-              _os_log_error_impl(&dword_24DBC9000, v43, OS_LOG_TYPE_ERROR, "Failed to close file %@ (%d)", buf, 0x12u);
+              *&buf[4] = v28;
+              v92 = 1024;
+              v93 = v41;
+              _os_log_error_impl(&dword_24DBC9000, v42, OS_LOG_TYPE_ERROR, "Failed to close file %@ (%d)", buf, 0x12u);
             }
 
-            v44 = 0x277CCA000;
+            v43 = 0x277CCA000;
           }
 
           else
           {
-            v69 = *MEMORY[0x277D85DF8];
-            v44 = 0x277CCA000uLL;
-            v43 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to close file %@ (%d)", v29, v42];
-            fprintf(v69, "%s\n", [v43 UTF8String]);
+            v68 = *MEMORY[0x277D85DF8];
+            v43 = 0x277CCA000uLL;
+            v42 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to close file %@ (%d)", v28, v41];
+            fprintf(v68, "%s\n", [v42 UTF8String]);
           }
 
-          v67 = v42;
+          v66 = v41;
 
-          v68 = MEMORY[0x277CCA9B8];
-          v92 = v79;
-          [*(v44 + 3240) stringWithFormat:@"Failed to close file %@", v29];
+          v67 = MEMORY[0x277CCA9B8];
+          v90 = v77;
+          [*(v43 + 3240) stringWithFormat:@"Failed to close file %@", v28];
           goto LABEL_40;
         }
       }
 
-      v37 = 1;
+      v36 = 1;
 LABEL_43:
-      v19 = v81;
+      v18 = v79;
 LABEL_44:
 
-      v17 = v86;
-      objc_autoreleasePoolPop(v23);
-      if (!v37)
+      v17 = v84;
+      objc_autoreleasePoolPop(v22);
+      if (!v36)
       {
         goto LABEL_48;
       }
 
-      ++v20;
-      v21 = v17;
+      ++v19;
+      v20 = v17;
     }
 
-    while (v84 != v20);
-    v84 = [obj countByEnumeratingWithState:&v87 objects:v91 count:16];
+    while (v82 != v19);
+    v82 = [obj countByEnumeratingWithState:&v85 objects:v89 count:16];
   }
 
-  while (v84);
-  v37 = 1;
+  while (v82);
+  v36 = 1;
 LABEL_48:
-  optionsCopy = v77;
-  lCopy = v78;
+  optionsCopy = v75;
+  lCopy = v76;
   error = errorCopy;
-  v15 = v76;
+  v15 = v74;
 LABEL_50:
 
   if (error)
   {
-    v70 = v17;
+    v69 = v17;
     *error = v17;
   }
 
-  if (v37)
+  if (v36)
   {
 LABEL_53:
-    v71 = v15;
+    v70 = v15;
   }
 
   else
   {
-    v71 = 0;
+    v70 = 0;
   }
 
-  v72 = *MEMORY[0x277D85DE8];
-  return v71;
+  return v70;
 }
 
 - (int)_openNextFile:(id *)file
 {
-  v33[1] = *MEMORY[0x277D85DE8];
+  v32[1] = *MEMORY[0x277D85DE8];
   currentFileIndex = self->_currentFileIndex;
   if (currentFileIndex >= [(NSArray *)self->_fileEntries count])
   {
@@ -366,9 +364,9 @@ LABEL_9:
 LABEL_13:
         v11 = MEMORY[0x277CCA9B8];
         v12 = *MEMORY[0x277CCA5B8];
-        v32 = *MEMORY[0x277CCA450];
-        v33[0] = @"No more files to write to";
-        v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:&v32 count:1];
+        v31 = *MEMORY[0x277CCA450];
+        v32[0] = @"No more files to write to";
+        v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:&v31 count:1];
         *file = [v11 errorWithDomain:v12 code:2 userInfo:v13];
 LABEL_14:
         v14 = -1;
@@ -406,17 +404,17 @@ LABEL_6:
     goto LABEL_6;
   }
 
-  v19 = objc_alloc(MEMORY[0x277CBEBC0]);
+  v18 = objc_alloc(MEMORY[0x277CBEBC0]);
   path = [v6 path];
-  v13 = [v19 initFileURLWithPath:path isDirectory:0 relativeToURL:self->_baseURL];
+  v13 = [v18 initFileURLWithPath:path isDirectory:0 relativeToURL:self->_baseURL];
 
-  v21 = open([v13 fileSystemRepresentation], 1, 0);
-  if (v21 < 0)
+  v20 = open([v13 fileSystemRepresentation], 1, 0);
+  if (v20 < 0)
   {
     if (GTCoreLogUseOsLog())
     {
-      v22 = gt_tagged_log(0x10u);
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v21 = gt_tagged_log(0x10u);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         [GTFileWriterSessionUncompressed _openNextFile:];
       }
@@ -424,30 +422,29 @@ LABEL_6:
 
     else
     {
-      v23 = *MEMORY[0x277D85DF8];
-      v24 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to open file %@ for writing", v13];
-      fprintf(v23, "%s\n", [v24 UTF8String]);
+      v22 = *MEMORY[0x277D85DF8];
+      v23 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to open file %@ for writing", v13];
+      fprintf(v22, "%s\n", [v23 UTF8String]);
     }
 
     if (file)
     {
-      v25 = MEMORY[0x277CCA9B8];
-      v26 = *MEMORY[0x277CCA5B8];
-      v27 = *__error();
-      v28 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to open file %@ for writing", v13, *MEMORY[0x277CCA450]];
-      v31 = v28;
-      v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
-      *file = [v25 errorWithDomain:v26 code:v27 userInfo:v29];
+      v24 = MEMORY[0x277CCA9B8];
+      v25 = *MEMORY[0x277CCA5B8];
+      v26 = *__error();
+      v27 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to open file %@ for writing", v13, *MEMORY[0x277CCA450]];
+      v30 = v27;
+      v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
+      *file = [v24 errorWithDomain:v25 code:v26 userInfo:v28];
     }
 
     goto LABEL_14;
   }
 
-  v14 = v21;
+  v14 = v20;
 LABEL_15:
 
 LABEL_18:
-  v17 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -467,7 +464,7 @@ LABEL_18:
 
 - (BOOL)_writeUncompressedFileData:(const char *)data length:(unint64_t)length error:(id *)error
 {
-  v33[1] = *MEMORY[0x277D85DE8];
+  v32[1] = *MEMORY[0x277D85DE8];
   if (length)
   {
     v9 = 0;
@@ -518,7 +515,7 @@ LABEL_18:
         v21 = [(GTFileWriterSessionUncompressed *)self _closeCurrentFileDescriptor:error];
         if (!v21)
         {
-          goto LABEL_22;
+          return v21;
         }
 
         ++self->_currentFileIndex;
@@ -545,7 +542,7 @@ LABEL_14:
       {
 LABEL_21:
         LOBYTE(v21) = 0;
-        goto LABEL_22;
+        return v21;
       }
     }
 
@@ -565,8 +562,8 @@ LABEL_21:
     v26 = *MEMORY[0x277CCA5B8];
     v27 = *__error();
     v28 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to write to fd (%d)", v11, *MEMORY[0x277CCA450]];
-    v33[0] = v28;
-    v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:&v32 count:1];
+    v32[0] = v28;
+    v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:&v31 count:1];
     *error = [v25 errorWithDomain:v26 code:v27 userInfo:v29];
 
     goto LABEL_21;
@@ -574,8 +571,6 @@ LABEL_21:
 
 LABEL_13:
   LOBYTE(v21) = 1;
-LABEL_22:
-  v30 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
@@ -607,11 +602,11 @@ LABEL_22:
 
 - (BOOL)_closeCurrentFileDescriptor:(id *)descriptor
 {
-  v26[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   fd = self->_fd;
   if ((fd & 0x80000000) != 0)
   {
-    goto LABEL_4;
+    return 1;
   }
 
   self->_fd = -1;
@@ -627,7 +622,7 @@ LABEL_22:
 
       if (!descriptor)
       {
-        goto LABEL_20;
+        return 0;
       }
     }
 
@@ -639,108 +634,76 @@ LABEL_22:
 
       if (!descriptor)
       {
-        goto LABEL_20;
+        return 0;
       }
     }
 
     v12 = MEMORY[0x277CCA9B8];
     v13 = *MEMORY[0x277CCA5B8];
     v14 = *__error();
-    v25 = *MEMORY[0x277CCA450];
+    v24 = *MEMORY[0x277CCA450];
     v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to flush fd (%d)", fd];
-    v26[0] = v15;
+    v25[0] = v15;
     v16 = MEMORY[0x277CBEAC0];
-    v17 = v26;
-    v18 = &v25;
+    v17 = v25;
+    v18 = &v24;
 LABEL_19:
     v21 = [v16 dictionaryWithObjects:v17 forKeys:v18 count:1];
     *descriptor = [v12 errorWithDomain:v13 code:v14 userInfo:v21];
 
-    goto LABEL_20;
+    return 0;
   }
 
   v5 = close(fd);
-  if ((v5 & 0x80000000) != 0)
+  if ((v5 & 0x80000000) == 0)
   {
-    v8 = v5;
-    if (GTCoreLogUseOsLog())
-    {
-      v9 = gt_tagged_log(0x10u);
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
-      {
-        [GTFileWriterSessionUncompressed _closeCurrentFileDescriptor:];
-      }
-
-      if (!descriptor)
-      {
-        goto LABEL_20;
-      }
-
-      goto LABEL_18;
-    }
-
-    v19 = *MEMORY[0x277D85DF8];
-    v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to close fd (%d), status %d", fd, v8];
-    fprintf(v19, "%s\n", [v20 UTF8String]);
-
-    if (descriptor)
-    {
-LABEL_18:
-      v12 = MEMORY[0x277CCA9B8];
-      v13 = *MEMORY[0x277CCA5B8];
-      v14 = *__error();
-      v23 = *MEMORY[0x277CCA450];
-      v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to close fd (%d), status %d", fd, v8];
-      v24 = v15;
-      v16 = MEMORY[0x277CBEAC0];
-      v17 = &v24;
-      v18 = &v23;
-      goto LABEL_19;
-    }
-
-LABEL_20:
-    result = 0;
-    goto LABEL_21;
+    return 1;
   }
 
-LABEL_4:
-  result = 1;
-LABEL_21:
-  v22 = *MEMORY[0x277D85DE8];
-  return result;
+  v8 = v5;
+  if (GTCoreLogUseOsLog())
+  {
+    v9 = gt_tagged_log(0x10u);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    {
+      [GTFileWriterSessionUncompressed _closeCurrentFileDescriptor:];
+    }
+
+    if (!descriptor)
+    {
+      return 0;
+    }
+
+    goto LABEL_18;
+  }
+
+  v19 = *MEMORY[0x277D85DF8];
+  v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to close fd (%d), status %d", fd, v8];
+  fprintf(v19, "%s\n", [v20 UTF8String]);
+
+  if (descriptor)
+  {
+LABEL_18:
+    v12 = MEMORY[0x277CCA9B8];
+    v13 = *MEMORY[0x277CCA5B8];
+    v14 = *__error();
+    v22 = *MEMORY[0x277CCA450];
+    v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to close fd (%d), status %d", fd, v8];
+    v23 = v15;
+    v16 = MEMORY[0x277CBEAC0];
+    v17 = &v23;
+    v18 = &v22;
+    goto LABEL_19;
+  }
+
+  return 0;
 }
 
 - (void)_openNextFile:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_writeUncompressedFileData:length:error:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_closeCurrentFileDescriptor:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xEu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_closeCurrentFileDescriptor:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

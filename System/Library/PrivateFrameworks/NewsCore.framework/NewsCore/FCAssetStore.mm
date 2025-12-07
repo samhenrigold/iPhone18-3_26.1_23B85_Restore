@@ -31,13 +31,13 @@
 
 - (FCAssetStore)initWithDirectoryAtPath:(id)path preferredAssetPathExtension:(id)extension knownKeys:(id)keys
 {
-  v59 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   extensionCopy = extension;
   keysCopy = keys;
-  v55.receiver = self;
-  v55.super_class = FCAssetStore;
-  v11 = [(FCAssetStore *)&v55 init];
+  v54.receiver = self;
+  v54.super_class = FCAssetStore;
+  v11 = [(FCAssetStore *)&v54 init];
   if (v11)
   {
     v12 = [pathCopy copy];
@@ -63,9 +63,9 @@
     v11->_keysAwaitingRemoval = v22;
 
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-    v54 = 0;
-    LOBYTE(v19) = [defaultManager createDirectoryAtPath:pathCopy withIntermediateDirectories:0 attributes:0 error:&v54];
-    v25 = v54;
+    v53 = 0;
+    LOBYTE(v19) = [defaultManager createDirectoryAtPath:pathCopy withIntermediateDirectories:0 attributes:0 error:&v53];
+    v25 = v53;
 
     if ((v19 & 1) == 0 && [v25 code] != 516)
     {
@@ -73,14 +73,14 @@
       if (os_log_type_enabled(FCDefaultLog, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v58 = v25;
+        v57 = v25;
         _os_log_error_impl(&dword_1B63EF000, v26, OS_LOG_TYPE_ERROR, "error creating asset store directory: %{public}@", buf, 0xCu);
       }
     }
 
-    v45 = v25;
-    v47 = keysCopy;
-    v48 = extensionCopy;
+    v44 = v25;
+    v46 = keysCopy;
+    v47 = extensionCopy;
     if (keysCopy)
     {
       v27 = [MEMORY[0x1E695DFD8] setWithArray:{keysCopy, v25}];
@@ -91,29 +91,29 @@
       v27 = 0;
     }
 
-    v52 = 0u;
-    v53 = 0u;
-    v50 = 0u;
     v51 = 0u;
+    v52 = 0u;
+    v49 = 0u;
+    v50 = 0u;
     defaultManager2 = [MEMORY[0x1E696AC08] defaultManager];
     v29 = [defaultManager2 subpathsOfDirectoryAtPath:pathCopy error:0];
 
     obj = v29;
-    v30 = [v29 countByEnumeratingWithState:&v50 objects:v56 count:16];
+    v30 = [v29 countByEnumeratingWithState:&v49 objects:v55 count:16];
     if (v30)
     {
       v31 = v30;
-      v32 = *v51;
+      v32 = *v50;
       do
       {
         for (i = 0; i != v31; ++i)
         {
-          if (*v51 != v32)
+          if (*v50 != v32)
           {
             objc_enumerationMutation(obj);
           }
 
-          v34 = *(*(&v50 + 1) + 8 * i);
+          v34 = *(*(&v49 + 1) + 8 * i);
           v35 = objc_autoreleasePoolPush();
           v36 = v34;
           if ([(NSString *)v11->_preferredExtension length])
@@ -152,23 +152,22 @@ LABEL_22:
           objc_autoreleasePoolPop(v35);
         }
 
-        v31 = [obj countByEnumeratingWithState:&v50 objects:v56 count:16];
+        v31 = [obj countByEnumeratingWithState:&v49 objects:v55 count:16];
       }
 
       while (v31);
     }
 
-    keysCopy = v47;
-    extensionCopy = v48;
+    keysCopy = v46;
+    extensionCopy = v47;
   }
 
-  v43 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 - (id)copyFileAtPath:(id)path withKey:(id)key error:(id *)error
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   keyCopy = key;
   v10 = [(FCAssetStore *)self _filePathForKey:keyCopy];
@@ -186,9 +185,9 @@ LABEL_22:
   [(FCThreadSafeMutableSet *)keysAwaitingRemoval removeObject:keyCopy, error];
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   v14 = [MEMORY[0x1E695DFF8] fileURLWithPath:pathCopy isDirectory:0];
-  v27 = 0;
-  v15 = [defaultManager copyItemAtURL:v14 toURL:v11 error:&v27];
-  v16 = v27;
+  v26 = 0;
+  v15 = [defaultManager copyItemAtURL:v14 toURL:v11 error:&v26];
+  v16 = v26;
 
   if (v15)
   {
@@ -230,15 +229,15 @@ LABEL_7:
   if (os_log_type_enabled(FCDefaultLog, OS_LOG_TYPE_ERROR))
   {
     *buf = 138543362;
-    v29 = v16;
+    v28 = v16;
     _os_log_error_impl(&dword_1B63EF000, v22, OS_LOG_TYPE_ERROR, "error copying file into asset store: %{public}@", buf, 0xCu);
   }
 
-  if (v26)
+  if (v25)
   {
     v23 = v16;
     v18 = 0;
-    *v26 = v16;
+    *v25 = v16;
   }
 
   else
@@ -248,13 +247,12 @@ LABEL_7:
 
 LABEL_17:
 
-  v24 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
 - (id)_filePathForKey:(uint64_t)key
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (key)
   {
     v3 = [*(key + 8) stringByAppendingPathComponent:a2];
@@ -265,16 +263,16 @@ LABEL_17:
 
       if ((v5 & 1) == 0 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"asset store keys should not have an extension"];
-        v10 = 136315906;
-        v11 = "[FCAssetStore _filePathForKey:]";
-        v12 = 2080;
-        v13 = "FCAssetStore.m";
-        v14 = 1024;
-        v15 = 292;
-        v16 = 2114;
-        v17 = v9;
-        _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v10, 0x26u);
+        v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"asset store keys should not have an extension"];
+        v9 = 136315906;
+        v10 = "[FCAssetStore _filePathForKey:]";
+        v11 = 2080;
+        v12 = "FCAssetStore.m";
+        v13 = 1024;
+        v14 = 292;
+        v15 = 2114;
+        v16 = v8;
+        _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v9, 0x26u);
       }
 
       v6 = [v3 stringByAppendingPathExtension:*(key + 16)];
@@ -288,14 +286,12 @@ LABEL_17:
     v3 = 0;
   }
 
-  v7 = *MEMORY[0x1E69E9840];
-
   return v3;
 }
 
 - (id)moveFileAtPath:(id)path withKey:(id)key error:(id *)error
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   keyCopy = key;
   v10 = [(FCAssetStore *)self _filePathForKey:keyCopy];
@@ -313,9 +309,9 @@ LABEL_17:
   [(FCThreadSafeMutableSet *)keysAwaitingRemoval removeObject:keyCopy, error];
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   v14 = [MEMORY[0x1E695DFF8] fileURLWithPath:pathCopy isDirectory:0];
-  v27 = 0;
-  v15 = [defaultManager moveItemAtURL:v14 toURL:v11 error:&v27];
-  v16 = v27;
+  v26 = 0;
+  v15 = [defaultManager moveItemAtURL:v14 toURL:v11 error:&v26];
+  v16 = v26;
 
   if (v15)
   {
@@ -343,7 +339,7 @@ LABEL_17:
       defaultManager2 = [MEMORY[0x1E696AC08] defaultManager];
       [defaultManager2 removeItemAtURL:v11 error:0];
 
-      v21 = [(FCAssetStore *)self moveFileAtPath:pathCopy withKey:keyCopy error:v26];
+      v21 = [(FCAssetStore *)self moveFileAtPath:pathCopy withKey:keyCopy error:v25];
       goto LABEL_16;
     }
   }
@@ -356,20 +352,18 @@ LABEL_17:
   if (os_log_type_enabled(FCDefaultLog, OS_LOG_TYPE_ERROR))
   {
     *buf = 138543362;
-    v29 = v16;
+    v28 = v16;
     _os_log_error_impl(&dword_1B63EF000, v22, OS_LOG_TYPE_ERROR, "error moving file into asset store: %{public}@", buf, 0xCu);
   }
 
-  if (v26)
+  if (v25)
   {
     v23 = v16;
-    *v26 = v16;
+    *v25 = v16;
   }
 
   v10 = 0;
 LABEL_16:
-
-  v24 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -395,7 +389,7 @@ LABEL_16:
 
 - (id)copyData:(id)data withKey:(id)key
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   dataCopy = data;
   v8 = [(FCAssetStore *)self _filePathForKey:keyCopy];
@@ -410,10 +404,10 @@ LABEL_16:
   }
 
   [(FCThreadSafeMutableSet *)keysAwaitingRemoval removeObject:keyCopy];
-  v16 = 0;
-  v10 = [dataCopy writeToFile:v8 options:1 error:&v16];
+  v15 = 0;
+  v10 = [dataCopy writeToFile:v8 options:1 error:&v15];
 
-  v11 = v16;
+  v11 = v15;
   if (v10)
   {
     if (self)
@@ -435,14 +429,13 @@ LABEL_16:
     if (os_log_type_enabled(FCDefaultLog, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v18 = v11;
+      v17 = v11;
       _os_log_error_impl(&dword_1B63EF000, v13, OS_LOG_TYPE_ERROR, "error copying data into asset store: %{public}@", buf, 0xCu);
     }
 
     v8 = 0;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -499,15 +492,15 @@ void __34__FCAssetStore_removeFileWithKey___block_invoke(uint64_t a1)
 
 void __34__FCAssetStore_removeFileWithKey___block_invoke_2(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if ([v3 containsObject:*(a1 + 32)])
   {
     v4 = [MEMORY[0x1E696AC08] defaultManager];
     v5 = *(a1 + 40);
-    v10 = 0;
-    v6 = [v4 removeItemAtPath:v5 error:&v10];
-    v7 = v10;
+    v9 = 0;
+    v6 = [v4 removeItemAtPath:v5 error:&v9];
+    v7 = v9;
 
     if ((v6 & 1) == 0)
     {
@@ -515,25 +508,23 @@ void __34__FCAssetStore_removeFileWithKey___block_invoke_2(uint64_t a1, void *a2
       if (os_log_type_enabled(FCDefaultLog, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v12 = v7;
+        v11 = v7;
         _os_log_error_impl(&dword_1B63EF000, v8, OS_LOG_TYPE_ERROR, "error deleting file from asset store: %{public}@", buf, 0xCu);
       }
     }
 
     [v3 removeObject:*(a1 + 32)];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeAllFilesExceptKeys:(id)keys
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v4 = [MEMORY[0x1E695DFD8] setWithArray:keys];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   if (self)
   {
     knownKeys = self->_knownKeys;
@@ -545,43 +536,41 @@ void __34__FCAssetStore_removeFileWithKey___block_invoke_2(uint64_t a1, void *a2
   }
 
   v6 = knownKeys;
-  v7 = [(NSMutableSet *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [(NSMutableSet *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v14;
+    v9 = *v13;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v14 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v13 + 1) + 8 * i);
-        if (([v4 containsObject:{v11, v13}] & 1) == 0)
+        v11 = *(*(&v12 + 1) + 8 * i);
+        if (([v4 containsObject:{v11, v12}] & 1) == 0)
         {
           [(FCAssetStore *)self removeFileWithKey:v11];
         }
       }
 
-      v8 = [(NSMutableSet *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v8 = [(NSMutableSet *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v8);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeAllFiles
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   if (self)
   {
     knownKeys = self->_knownKeys;
@@ -593,30 +582,28 @@ void __34__FCAssetStore_removeFileWithKey___block_invoke_2(uint64_t a1, void *a2
   }
 
   v4 = knownKeys;
-  v5 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        [(FCAssetStore *)self removeFileWithKey:*(*(&v10 + 1) + 8 * i), v10];
+        [(FCAssetStore *)self removeFileWithKey:*(*(&v9 + 1) + 8 * i), v9];
       }
 
-      v6 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (id)filePathForKey:(id)key
@@ -663,26 +650,25 @@ void __34__FCAssetStore_removeFileWithKey___block_invoke_2(uint64_t a1, void *a2
 
 - (unint64_t)sizeOfFileForKey:(id)key
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   if (!keyCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "key"];
+    v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "key"];
     *buf = 136315906;
-    v11 = "[FCAssetStore sizeOfFileForKey:]";
-    v12 = 2080;
-    v13 = "FCAssetStore.m";
-    v14 = 1024;
-    v15 = 253;
-    v16 = 2114;
-    v17 = v9;
+    v10 = "[FCAssetStore sizeOfFileForKey:]";
+    v11 = 2080;
+    v12 = "FCAssetStore.m";
+    v13 = 1024;
+    v14 = 253;
+    v15 = 2114;
+    v16 = v8;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
   v5 = [(FCAssetStore *)self _filePathForKey:keyCopy];
   v6 = [(FCAssetStore *)self _sizeOfFileAtPath:v5];
 
-  v7 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -721,25 +707,25 @@ void __34__FCAssetStore_removeFileWithKey___block_invoke_2(uint64_t a1, void *a2
 
 - (unint64_t)storeSizeForKeys:(id)keys
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   keysCopy = keys;
   v5 = objc_autoreleasePoolPush();
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v6 = keysCopy;
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
     v9 = 0;
-    v10 = *v16;
+    v10 = *v15;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(v6);
         }
@@ -748,7 +734,7 @@ void __34__FCAssetStore_removeFileWithKey___block_invoke_2(uint64_t a1, void *a2
         v9 += [(FCAssetStore *)self _sizeOfFileAtPath:v12];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
@@ -760,7 +746,6 @@ void __34__FCAssetStore_removeFileWithKey___block_invoke_2(uint64_t a1, void *a2
   }
 
   objc_autoreleasePoolPop(v5);
-  v13 = *MEMORY[0x1E69E9840];
   return v9;
 }
 

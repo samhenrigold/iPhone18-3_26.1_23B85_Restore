@@ -197,15 +197,15 @@
 
 - (void)_commitAppearance
 {
-  v89 = *MEMORY[0x1E69E9840];
-  v87.receiver = self;
-  v87.super_class = AMSUIBannerMessageViewController;
-  [(AMSUIBaseMessageViewController *)&v87 _commitAppearance];
+  v88 = *MEMORY[0x1E69E9840];
+  v86.receiver = self;
+  v86.super_class = AMSUIBannerMessageViewController;
+  [(AMSUIBaseMessageViewController *)&v86 _commitAppearance];
   viewIfLoaded = [(AMSUIBannerMessageViewController *)self viewIfLoaded];
 
   if (!viewIfLoaded)
   {
-    goto LABEL_81;
+    return;
   }
 
   _messageView = [(AMSUIBaseMessageViewController *)self _messageView];
@@ -353,7 +353,7 @@ LABEL_21:
 LABEL_40:
   requestAppearance7 = [(AMSUIBannerMessageViewController *)self requestAppearance];
   backgroundColor = [requestAppearance7 backgroundColor];
-  v80 = accessoryButtonBackgroundColor2;
+  v79 = accessoryButtonBackgroundColor2;
   if (backgroundColor)
   {
     backgroundColor2 = backgroundColor;
@@ -373,7 +373,7 @@ LABEL_40:
   [_messageView set_ams_backgroundColor:backgroundColor2];
 
 LABEL_44:
-  v81 = v7;
+  v80 = v7;
   requestAppearance8 = [(AMSUIBannerMessageViewController *)self requestAppearance];
   backgroundImage = [requestAppearance8 backgroundImage];
   backgroundImage2 = backgroundImage;
@@ -404,7 +404,7 @@ LABEL_44:
     footerButtonBackgroundColor2 = [preferredAppearance5 footerButtonBackgroundColor];
   }
 
-  v79 = accessoryButtonColor2;
+  v78 = accessoryButtonColor2;
 
   requestAppearance10 = [(AMSUIBannerMessageViewController *)self requestAppearance];
   footerButtonColor = [requestAppearance10 footerButtonColor];
@@ -420,12 +420,12 @@ LABEL_44:
     footerButtonColor2 = [preferredAppearance6 footerButtonColor];
   }
 
-  v76 = accessorySecondaryButtonBackgroundColor2;
+  v75 = accessorySecondaryButtonBackgroundColor2;
 
   requestAppearance11 = [(AMSUIBannerMessageViewController *)self requestAppearance];
   footerButtonFont = [requestAppearance11 footerButtonFont];
   v53 = footerButtonFont;
-  v78 = v23;
+  v77 = v23;
   if (footerButtonFont)
   {
     footerButtonFont2 = footerButtonFont;
@@ -438,28 +438,28 @@ LABEL_44:
   }
 
   footerButtons = [_messageView footerButtons];
+  v82 = 0u;
   v83 = 0u;
   v84 = 0u;
   v85 = 0u;
-  v86 = 0u;
-  v57 = [footerButtons countByEnumeratingWithState:&v83 objects:v88 count:16];
+  v57 = [footerButtons countByEnumeratingWithState:&v82 objects:v87 count:16];
   if (v57)
   {
     v58 = v57;
-    v59 = *v84;
+    v59 = *v83;
     do
     {
       for (i = 0; i != v58; ++i)
       {
-        if (*v84 != v59)
+        if (*v83 != v59)
         {
           objc_enumerationMutation(footerButtons);
         }
 
-        v61 = *(*(&v83 + 1) + 8 * i);
+        v61 = *(*(&v82 + 1) + 8 * i);
         if (footerButtonColor2)
         {
-          [*(*(&v83 + 1) + 8 * i) setPreferredForegroundColor:footerButtonColor2];
+          [*(*(&v82 + 1) + 8 * i) setPreferredForegroundColor:footerButtonColor2];
         }
 
         if (footerButtonFont2)
@@ -473,7 +473,7 @@ LABEL_44:
         }
       }
 
-      v58 = [footerButtons countByEnumeratingWithState:&v83 objects:v88 count:16];
+      v58 = [footerButtons countByEnumeratingWithState:&v82 objects:v87 count:16];
     }
 
     while (v58);
@@ -485,7 +485,7 @@ LABEL_44:
   {
     imageTintColor2 = imageTintColor;
 
-    v65 = v77;
+    v65 = v76;
   }
 
   else
@@ -493,7 +493,7 @@ LABEL_44:
     preferredAppearance8 = [(AMSUIBannerMessageViewController *)self preferredAppearance];
     imageTintColor2 = [preferredAppearance8 imageTintColor];
 
-    v65 = v77;
+    v65 = v76;
     if (!imageTintColor2)
     {
       goto LABEL_74;
@@ -535,9 +535,6 @@ LABEL_78:
   }
 
   [(AMSUIBaseMessageViewController *)self _updateTextWithAttributes];
-
-LABEL_81:
-  v75 = *MEMORY[0x1E69E9840];
 }
 
 - (int64_t)_iconAnimationPlayCount

@@ -8,15 +8,14 @@
 - (id)description
 {
   v3 = MEMORY[0x277CCACA8];
-  v10.receiver = self;
-  v10.super_class = SVXModule;
-  v4 = [(SVXModule *)&v10 description];
+  v9.receiver = self;
+  v9.super_class = SVXModule;
+  v4 = [(SVXModule *)&v9 description];
   identifier = self->_identifier;
   v6 = NSStringFromClass(self->_instanceClass);
-  instanceContext = self->_instanceContext;
-  v8 = [v3 stringWithFormat:@"%@ {identifier = %@, instanceClass = %@, instanceContext = %@, performer = %@}", v4, identifier, v6, instanceContext, self->_performer];
+  v7 = [v3 stringWithFormat:@"%@ {identifier = %@, instanceClass = %@, instanceContext = %@, performer = %@}", v4, identifier, v6, self->_instanceContext, self->_performer];
 
-  return v8;
+  return v7;
 }
 
 - (SVXModule)initWithIdentifier:(id)identifier instanceClass:(Class)class instanceContext:(id)context preferences:(id)preferences analytics:(id)analytics performer:(id)performer

@@ -75,7 +75,7 @@
 {
   [(UISegmentedControl *)self->_segmentedControl setSelectedSegmentIndex:[(SBHIconStyleLabelHidingView *)self shouldUseLargeIcons]];
   segmentedControl = self->_segmentedControl;
-  [(SBHIconStyleLabelHidingView *)self bounds];
+  objc_msgSend_bounds(self);
 
   [(UISegmentedControl *)segmentedControl setFrame:?];
 }
@@ -85,41 +85,41 @@
   targetCopy = target;
   if (!self->_segmentedControl)
   {
-    objc_initWeak(&location, self);
-    v7 = MEMORY[0x1E69DC628];
-    v8 = SBHBundle();
-    v9 = [v8 localizedStringForKey:@"LABEL_HIDING_VIEW_SMALL" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
+    inited = objc_initWeak(&location, self);
+    v8 = MEMORY[0x1E69DC628];
+    v9 = SBHBundle(inited);
+    v10 = [v9 localizedStringForKey:@"LABEL_HIDING_VIEW_SMALL" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = __59__SBHIconStyleLabelHidingView__setupViewsForTarget_action___block_invoke;
+    v23[3] = &unk_1E808B348;
+    objc_copyWeak(&v24, &location);
+    v11 = [v8 actionWithTitle:v10 image:0 identifier:0 handler:v23];
+
+    v12 = MEMORY[0x1E69DC628];
+    v14 = SBHBundle(v13);
+    v15 = [v14 localizedStringForKey:@"LABEL_HIDING_VIEW_LARGE" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
     v21[0] = MEMORY[0x1E69E9820];
     v21[1] = 3221225472;
-    v21[2] = __59__SBHIconStyleLabelHidingView__setupViewsForTarget_action___block_invoke;
+    v21[2] = __59__SBHIconStyleLabelHidingView__setupViewsForTarget_action___block_invoke_2;
     v21[3] = &unk_1E808B348;
     objc_copyWeak(&v22, &location);
-    v10 = [v7 actionWithTitle:v9 image:0 identifier:0 handler:v21];
+    v16 = [v12 actionWithTitle:v15 image:0 identifier:0 handler:v21];
 
-    v11 = MEMORY[0x1E69DC628];
-    v12 = SBHBundle();
-    v13 = [v12 localizedStringForKey:@"LABEL_HIDING_VIEW_LARGE" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __59__SBHIconStyleLabelHidingView__setupViewsForTarget_action___block_invoke_2;
-    v19[3] = &unk_1E808B348;
-    objc_copyWeak(&v20, &location);
-    v14 = [v11 actionWithTitle:v13 image:0 identifier:0 handler:v19];
-
-    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:{v10, v14, 0}];
-    v16 = [_SBHIconStyleLabelHidingSegmentedControl alloc];
-    v17 = [(_SBHIconStyleLabelHidingSegmentedControl *)v16 initWithFrame:v15 actions:*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)];
+    v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:{v11, v16, 0}];
+    v18 = [_SBHIconStyleLabelHidingSegmentedControl alloc];
+    v19 = [(_SBHIconStyleLabelHidingSegmentedControl *)v18 initWithFrame:v17 actions:*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)];
     segmentedControl = self->_segmentedControl;
-    self->_segmentedControl = v17;
+    self->_segmentedControl = v19;
 
     [(UISegmentedControl *)self->_segmentedControl sizeToFit];
     [(UISegmentedControl *)self->_segmentedControl addTarget:targetCopy action:action forControlEvents:4096];
     [(SBHIconStyleLabelHidingView *)self addSubview:self->_segmentedControl];
-    [(UISegmentedControl *)self->_segmentedControl bounds];
+    objc_msgSend_bounds(self->_segmentedControl);
     [(SBHIconStyleLabelHidingView *)self setFrame:?];
 
-    objc_destroyWeak(&v20);
     objc_destroyWeak(&v22);
+    objc_destroyWeak(&v24);
     objc_destroyWeak(&location);
   }
 }

@@ -26,31 +26,32 @@ __n128 __54__UIBezierPath_ITKUtilities__itk_lengthIgnoringCurves__block_invoke(v
   *(*(a1[4] + 8) + 48) = **(a2 + 1);
 LABEL_7:
   v5 = *(a1[5] + 8);
-  v6 = *v4;
-  v7 = v4[1];
-  v8 = *(a1[4] + 8);
-  v9 = *(v8 + 56);
-  v10 = *(v8 + 48) == v6;
-  v11 = v9 == v7 && v10;
-  v12 = *(v5 + 56) == v7 && *(v5 + 48) == v6;
-  if (!v12 && !v11)
+  v6 = *(v5 + 48);
+  v7 = *(v5 + 56);
+  v8 = *v4;
+  v9 = v4[1];
+  v10 = *(a1[4] + 8);
+  v11 = *(v10 + 56);
+  v12 = *(v10 + 48) == v8;
+  v13 = v11 == v9 && v12;
+  v14 = v7 == v9 && v6 == v8;
+  if (!v14 && !v13)
   {
-    ITKDistance();
-    *(*(a1[6] + 8) + 24) = v13 + *(*(a1[6] + 8) + 24);
+    *(*(a1[6] + 8) + 24) = ITKDistance(v6, v7) + *(*(a1[6] + 8) + 24);
   }
 
-  if (v11)
+  if (v13)
   {
-    v14 = MEMORY[0x277D1C0D8];
+    v15 = MEMORY[0x277D1C0D8];
   }
 
   else
   {
-    v14 = (*(a1[4] + 8) + 48);
+    v15 = (*(a1[4] + 8) + 48);
   }
 
-  result = *v14;
-  *(*(a1[5] + 8) + 48) = *v14;
+  result = *v15;
+  *(*(a1[5] + 8) + 48) = *v15;
   return result;
 }
 
@@ -82,7 +83,7 @@ void __54__UIBezierPath_ITKUtilities__itk_allPointsFromCGPath___block_invoke(uin
   }
 }
 
-uint64_t __57__UIBezierPath_ITKUtilities__itk_pathFromFlippingInRect___block_invoke(uint64_t result, int *a2)
+void *__57__UIBezierPath_ITKUtilities__itk_pathFromFlippingInRect___block_invoke(void *result, int *a2)
 {
   v2 = result;
   v3 = *a2;
@@ -92,7 +93,7 @@ uint64_t __57__UIBezierPath_ITKUtilities__itk_pathFromFlippingInRect___block_inv
     {
       if (v3 == 3)
       {
-        v6 = *(result + 32);
+        v6 = result[4];
         ITKFlipPoint();
         v8 = v7;
         v10 = v9;
@@ -103,7 +104,7 @@ uint64_t __57__UIBezierPath_ITKUtilities__itk_pathFromFlippingInRect___block_inv
 
       else if (v3 == 4)
       {
-        v4 = *(result + 32);
+        v4 = result[4];
 
         return [v4 closePath];
       }
@@ -123,19 +124,19 @@ uint64_t __57__UIBezierPath_ITKUtilities__itk_pathFromFlippingInRect___block_inv
     }
 
 LABEL_12:
-    v5 = *(v2 + 32);
+    v5 = v2[4];
     ITKFlipPoint();
 
     return [v5 itk_addLineToPoint:?];
   }
 
-  v11 = *(result + 32);
+  v11 = result[4];
   ITKFlipPoint();
 
   return [v11 moveToPoint:?];
 }
 
-uint64_t __57__UIBezierPath_ITKUtilities__itk_subpathArrayFromCGPath___block_invoke(uint64_t result, uint64_t a2)
+void *__57__UIBezierPath_ITKUtilities__itk_subpathArrayFromCGPath___block_invoke(void *result, uint64_t a2)
 {
   v3 = result;
   v4 = *a2;
@@ -145,7 +146,7 @@ uint64_t __57__UIBezierPath_ITKUtilities__itk_subpathArrayFromCGPath___block_inv
     {
       if (v4 == 3)
       {
-        v9 = *(*(*(result + 40) + 8) + 40);
+        v9 = *(*(result[5] + 8) + 40);
         v10 = *(a2 + 8);
         v11 = v10[4];
         v12 = v10[5];
@@ -159,9 +160,9 @@ uint64_t __57__UIBezierPath_ITKUtilities__itk_subpathArrayFromCGPath___block_inv
 
       else if (v4 == 4)
       {
-        [*(*(*(result + 40) + 8) + 40) closePath];
-        [*(v3 + 32) addObject:*(*(*(v3 + 40) + 8) + 40)];
-        *(*(*(v3 + 40) + 8) + 40) = objc_alloc_init(MEMORY[0x277D75208]);
+        [*(*(result[5] + 8) + 40) closePath];
+        [v3[4] addObject:*(*(v3[5] + 8) + 40)];
+        *(*(v3[5] + 8) + 40) = objc_alloc_init(MEMORY[0x277D75208]);
 
         return MEMORY[0x2821F96F8]();
       }
@@ -181,7 +182,7 @@ uint64_t __57__UIBezierPath_ITKUtilities__itk_subpathArrayFromCGPath___block_inv
     }
 
 LABEL_12:
-    v5 = *(*(*(v3 + 40) + 8) + 40);
+    v5 = *(*(v3[5] + 8) + 40);
     v6 = *(a2 + 8);
     v7 = *v6;
     v8 = v6[1];
@@ -189,7 +190,7 @@ LABEL_12:
     return [v5 itk_addLineToPoint:{v7, v8}];
   }
 
-  v17 = *(*(*(result + 40) + 8) + 40);
+  v17 = *(*(result[5] + 8) + 40);
   v18 = *(a2 + 8);
   v19 = *v18;
   v20 = v18[1];
@@ -239,35 +240,37 @@ uint64_t __65__UIBezierPath_ITKUtilities__itk_cgPathcontainsAnyCurveToPoints___b
 void __67__UIBezierPath_ITKUtilities___processPointsForRounding_withRadius___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   v6 = a2;
-  v12 = v6;
+  v17 = v6;
   if (!a3)
   {
-    v7 = a1 + 32;
+    v11 = a1 + 32;
     goto LABEL_7;
   }
 
   [v6 itk_pointValue];
-  v7 = a1 + 32;
+  v8 = v7;
+  v10 = v9;
+  v11 = a1 + 32;
   [*(*(*(a1 + 32) + 8) + 40) itk_pointValue];
-  if (!ITKNearlyEqualPointsWithThreshold())
+  if (!ITKNearlyEqualPointsWithThreshold(v8, v10, v12))
   {
 LABEL_7:
-    objc_storeStrong((*(*v7 + 8) + 40), a2);
+    objc_storeStrong((*(*v11 + 8) + 40), a2);
     goto LABEL_8;
   }
 
-  v8 = *(*(*(a1 + 40) + 8) + 40);
-  if (!v8)
+  v13 = *(*(*(a1 + 40) + 8) + 40);
+  if (!v13)
   {
-    v9 = [MEMORY[0x277CCAB58] indexSet];
-    v10 = *(*(a1 + 40) + 8);
-    v11 = *(v10 + 40);
-    *(v10 + 40) = v9;
+    v14 = [MEMORY[0x277CCAB58] indexSet];
+    v15 = *(*(a1 + 40) + 8);
+    v16 = *(v15 + 40);
+    *(v15 + 40) = v14;
 
-    v8 = *(*(*(a1 + 40) + 8) + 40);
+    v13 = *(*(*(a1 + 40) + 8) + 40);
   }
 
-  [v8 addIndex:a3];
+  [v13 addIndex:a3];
 LABEL_8:
 }
 

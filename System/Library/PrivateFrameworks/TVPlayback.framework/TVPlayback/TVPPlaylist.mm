@@ -21,6 +21,7 @@
 - (void)removeItemsAtIndexes:(id)indexes;
 - (void)setEndAction:(int64_t)action;
 - (void)setRepeatMode:(int64_t)mode;
+- (void)setShuffleEnabled:(BOOL)enabled preserveCurrentItem:(BOOL)item;
 - (void)setSkipExplicit:(BOOL)explicit;
 - (void)setUpcomingItemsLimit:(unint64_t)limit;
 - (void)setWindowed:(BOOL)windowed;
@@ -423,7 +424,7 @@ LABEL_28:
 {
   itemsCopy = items;
   currentCopy = current;
-  v29[1] = *MEMORY[0x277D85DE8];
+  v28[1] = *MEMORY[0x277D85DE8];
   contextCopy = context;
   if (contextCopy)
   {
@@ -444,22 +445,22 @@ LABEL_28:
 
   if (currentCopy && v13 == self->_currentMediaItem)
   {
-    v27 = 0;
+    v26 = 0;
   }
 
   else
   {
     if (!contextCopy)
     {
-      v28 = @"direction";
-      v29[0] = &unk_287E59678;
-      v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:&v28 count:1];
+      v27 = @"direction";
+      v28[0] = &unk_287E59678;
+      v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:&v27 count:1];
       [(TVPPlaylist *)self setChangeContext:v14];
     }
 
     [(TVPPlaylist *)self willChangeValueForKey:@"currentMediaItem"];
     objc_storeStrong(&self->_currentMediaItem, v13);
-    v27 = 1;
+    v26 = 1;
   }
 
   if ([upcomingItems count])
@@ -563,7 +564,7 @@ LABEL_16:
     self->_upNextIndex = v25;
   }
 
-  if (v27)
+  if (v26)
   {
     [(TVPPlaylist *)self didChangeValueForKey:@"currentMediaItem"];
   }
@@ -579,8 +580,6 @@ LABEL_16:
   }
 
   [(TVPPlaylist *)self didChangeValueForKey:@"upcomingItems"];
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setWindowed:(BOOL)windowed
@@ -603,6 +602,52 @@ LABEL_16:
     self->_endAction = action;
 
     [(TVPPlaylist *)self didChangeValueForKey:@"endAction"];
+  }
+}
+
+- (void)setShuffleEnabled:(BOOL)enabled preserveCurrentItem:(BOOL)item
+{
+  if (self->_shuffleEnabled != enabled)
+  {
+    itemCopy = item;
+    enabledCopy = enabled;
+    if ([(TVPPlaylist *)self supportsShuffle])
+    {
+      [(TVPPlaylist *)self willChangeValueForKey:@"shuffleEnabled"];
+      self->_shuffleEnabled = enabledCopy;
+      if (enabledCopy)
+      {
+        [(TVPPlaylist *)self _shuffle:itemCopy];
+      }
+
+      else
+      {
+        shuffledItems = self->_shuffledItems;
+        self->_shuffledItems = 0;
+
+        v8 = 0;
+        if (itemCopy)
+        {
+          v9 = [(NSMutableArray *)self->_trackList indexOfObject:self->_currentMediaItem];
+          if (v9 == 0x7FFFFFFFFFFFFFFFLL)
+          {
+            v8 = 0;
+          }
+
+          else
+          {
+            v8 = v9;
+          }
+        }
+
+        self->_activeListIndex = v8;
+        objc_storeStrong(&self->_activeList, self->_trackList);
+      }
+
+      [(TVPPlaylist *)self _updateCurrent:1 andNextItems:1 withContext:0];
+
+      [(TVPPlaylist *)self didChangeValueForKey:@"shuffleEnabled"];
+    }
   }
 }
 
@@ -653,19 +698,17 @@ LABEL_16:
 
 - (void)insertItem:(id)item atIndex:(unint64_t)index
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   itemCopy = item;
   if ([(NSMutableArray *)self->_trackList count]< index)
   {
     index = [(NSMutableArray *)self->_trackList count];
   }
 
-  v10[0] = itemCopy;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
+  v9[0] = itemCopy;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
   v8 = [MEMORY[0x277CCAA78] indexSetWithIndex:index];
   [(TVPPlaylist *)self insertItems:v7 atIndexes:v8];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)insertItems:(id)items atIndexes:(id)indexes
@@ -781,7 +824,7 @@ void *__37__TVPPlaylist_insertItems_atIndexes___block_invoke(void *result, unint
   [(TVPPlaylist *)self _updateCurrent:v5 ^ 1u andNextItems:1 withContext:0];
 }
 
-unint64_t __36__TVPPlaylist_removeItemsAtIndexes___block_invoke(uint64_t a1, uint64_t a2)
+void *__36__TVPPlaylist_removeItemsAtIndexes___block_invoke(uint64_t a1, uint64_t a2)
 {
   v3 = *(a1 + 32);
   v4 = *(v3 + 8);

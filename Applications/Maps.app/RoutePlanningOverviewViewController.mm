@@ -2395,8 +2395,8 @@ LABEL_9:
     }
 
     objc_initWeak(location, self);
-    configuration = [v7 configuration];
-    isNavigationTracePlayback = [configuration isNavigationTracePlayback];
+    v17 = objc_msgSend_configuration(v7);
+    isNavigationTracePlayback = [v17 isNavigationTracePlayback];
     v26[0] = _NSConcreteStackBlock;
     v26[1] = 3221225472;
     v26[2] = sub_100834B8C;
@@ -3103,9 +3103,9 @@ LABEL_11:
 
   v7 = v6;
 
-  configuration = [v7 configuration];
+  v8 = objc_msgSend_configuration(v7);
 
-  automaticSharingContacts = [configuration automaticSharingContacts];
+  automaticSharingContacts = [v8 automaticSharingContacts];
 
   if ([(RoutePlanningOverviewViewController *)self _shouldPermitAutomaticSharingContacts])
   {
@@ -3196,7 +3196,7 @@ LABEL_16:
   _hasModalViewControllerInTransition = [(RoutePlanningOverviewViewController *)self _hasModalViewControllerInTransition];
   if ((isInNavigatingState & 1) == 0 && (_hasModalViewControllerInTransition & 1) == 0)
   {
-    +[StartNavigationDetailsBuilder defaultNavigationDetailsOptions];
+    objc_msgSend_defaultNavigationDetailsOptions(StartNavigationDetailsBuilder);
     [(RoutePlanningOverviewViewController *)self _startNavigationForRouteCollection:possibleCopy navigationDetailsOptions:v8];
   }
 }

@@ -1,7 +1,91 @@
-uint64_t VoiceProcessorV8::ProcessDSPChain_Uplink(uint64_t this, AudioTimeStamp *a2)
+uint64_t VoiceProcessorV6::ApplyGMCoexNoiseMitigation(VoiceProcessorV6 *this, const AudioBufferList *a2, AudioBufferList *a3, const AudioTimeStamp *a4, UInt32 a5)
+{
+  inInputBufferLists[1] = *MEMORY[0x277D85DE8];
+  v10 = atomic_load(this + 16576);
+  AudioUnitSetParameter(*(this + 355), 0x676D636Fu, 0, 0, (v10 & 1), 0);
+  ioActionFlags = 512;
+  ioOutputBufferLists = a3;
+  inInputBufferLists[0] = a2;
+  return AudioUnitProcessMultiple(*(this + 355), &ioActionFlags, a4, a5, 1u, inInputBufferLists, 1u, &ioOutputBufferLists);
+}
+
+uint64_t VoiceProcessorV6::ProcessLevelDrivenSuppressor(uint64_t this, AudioTimeStamp *inTimeStamp)
+{
+  inInputBufferLists[1] = *MEMORY[0x277D85DE8];
+  if ((*(this + 4696) & 4) != 0)
+  {
+    v2 = this;
+    if ((*(this + 4712) & 4) != 0)
+    {
+      this = *(this + 3320);
+      if (this)
+      {
+        v4 = *(v2 + 1096);
+        if (*v4)
+        {
+          v5 = 0;
+          v6 = 4;
+          do
+          {
+            v7 = *(v2 + 17416);
+            v8 = *&v4[v6];
+            v9 = (*(*(v2 + 17424) + v6 * 4) + 4 * *(v2 + 516));
+            v16.realp = *(*(v2 + 17424) + v6 * 4);
+            v16.imagp = v9;
+            VPTimeFreqConverter_Analyze(v7, v8, &v16);
+            ++v5;
+            v4 = *(v2 + 1096);
+            v6 += 4;
+          }
+
+          while (v5 < *v4);
+          this = *(v2 + 3320);
+        }
+
+        ioOutputBufferLists = *(v2 + 17424);
+        inInputBufferLists[0] = ioOutputBufferLists;
+        ioActionFlags = 512;
+        this = AudioUnitProcessMultiple(this, &ioActionFlags, inTimeStamp, *(v2 + 516), 1u, inInputBufferLists, 1u, &ioOutputBufferLists);
+        v10 = *(v2 + 1096);
+        if (v10->mNumberBuffers)
+        {
+          v11 = 0;
+          v12 = 16;
+          do
+          {
+            this = *(v2 + 17416);
+            v13 = *(&v10->mNumberBuffers + v12);
+            v14 = (*(*(v2 + 17424) + v12) + 4 * *(v2 + 516));
+            v16.realp = *(*(v2 + 17424) + v12);
+            v16.imagp = v14;
+            if (this)
+            {
+              this = VPTimeFreqConverter::Synthesize(this, &v16, v13);
+              v10 = *(v2 + 1096);
+            }
+
+            ++v11;
+            v12 += 16;
+          }
+
+          while (v11 < v10->mNumberBuffers);
+        }
+
+        if ((*(v2 + 15881) & 1) != 0 || *(v2 + 15882) == 1)
+        {
+          return VoiceProcessorV2::SaveFilesWriteSignal(v2, 0x2Eu, *(v2 + 516), v10, inTimeStamp);
+        }
+      }
+    }
+  }
+
+  return this;
+}
+
+uint64_t VoiceProcessorV7::ProcessDSPChain_Uplink(uint64_t this, AudioTimeStamp *a2)
 {
   v3 = this;
-  v490 = *MEMORY[0x277D85DE8];
+  v345 = *MEMORY[0x277D85DE8];
   v4 = **(this + 1088);
   if (v4)
   {
@@ -19,13 +103,13 @@ uint64_t VoiceProcessorV8::ProcessDSPChain_Uplink(uint64_t this, AudioTimeStamp 
   }
 
   v5 = *(v3 + 15881);
-  if (v5 == 1 && (this = VoiceProcessorV2::InjectionFilesReadSignal(v3, 7, *(v3 + 129), *(v3 + 135)), LOBYTE(v5) = *(v3 + 15881), (v5 & 1) != 0) && (this = VoiceProcessorV2::InjectionFilesReadSignal(v3, 8, *(v3 + 129), *(v3 + 136)), LOBYTE(v5) = *(v3 + 15881), (v5 & 1) != 0))
+  if (v5 == 1 && (this = VoiceProcessorV2::InjectionFilesReadSignal(v3, 7, *(v3 + 516), *(v3 + 1080)), LOBYTE(v5) = *(v3 + 15881), (v5 & 1) != 0) && (this = VoiceProcessorV2::InjectionFilesReadSignal(v3, 8, *(v3 + 516), *(v3 + 1088)), LOBYTE(v5) = *(v3 + 15881), (v5 & 1) != 0))
   {
     if ((*(v3 + 15880) & 1) == 0 && (*(v3 + 15883) & 1) == 0)
     {
-      v6 = *(v3 + 135);
+      v6 = *(v3 + 1080);
       v9 = (v3 + 516);
-      v10 = *(v3 + 129);
+      v10 = *(v3 + 516);
       goto LABEL_21;
     }
 
@@ -34,11 +118,11 @@ uint64_t VoiceProcessorV8::ProcessDSPChain_Uplink(uint64_t this, AudioTimeStamp 
 
   else if ((*(v3 + 15883) & 1) == 0)
   {
-    v6 = *(v3 + 135);
+    v6 = *(v3 + 1080);
     goto LABEL_19;
   }
 
-  v6 = *(v3 + 135);
+  v6 = *(v3 + 1080);
   if (v6->mNumberBuffers)
   {
     v7 = 0;
@@ -47,7 +131,7 @@ uint64_t VoiceProcessorV8::ProcessDSPChain_Uplink(uint64_t this, AudioTimeStamp 
     {
       bzero(v6->mBuffers[v7].mData, v6->mBuffers[v7].mDataByteSize);
       ++v8;
-      v6 = *(v3 + 135);
+      v6 = *(v3 + 1080);
       ++v7;
     }
 
@@ -57,13 +141,13 @@ uint64_t VoiceProcessorV8::ProcessDSPChain_Uplink(uint64_t this, AudioTimeStamp 
 
 LABEL_19:
   v9 = (v3 + 516);
-  v10 = *(v3 + 129);
+  v10 = *(v3 + 516);
   if (v5 & 1) != 0 || (*(v3 + 15882))
   {
 LABEL_21:
     this = VoiceProcessorV2::SaveFilesWriteSignal(v3, 4u, v10, v6, a2);
-    v10 = *(v3 + 129);
-    v11 = *(v3 + 136);
+    v10 = *(v3 + 516);
+    v11 = *(v3 + 1088);
     if (*(v3 + 15881))
     {
       goto LABEL_25;
@@ -72,18 +156,18 @@ LABEL_21:
     goto LABEL_24;
   }
 
-  v11 = *(v3 + 136);
+  v11 = *(v3 + 1088);
 LABEL_24:
   if ((*(v3 + 15882) & 1) == 0)
   {
-    v12 = *(v3 + 178);
+    v12 = *(v3 + 1424);
     goto LABEL_28;
   }
 
 LABEL_25:
   this = VoiceProcessorV2::SaveFilesWriteSignal(v3, 5u, v10, v11, a2);
-  v10 = *(v3 + 129);
-  v12 = *(v3 + 178);
+  v10 = *(v3 + 516);
+  v12 = *(v3 + 1424);
   if (*(v3 + 15881))
   {
     goto LABEL_29;
@@ -96,21 +180,21 @@ LABEL_29:
     this = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x4Cu, v10, v12, a2);
   }
 
-  v472 = 0.0;
+  v326 = 0.0;
   if ((*(v3 + 2091) & 1) == 0 && (*(v3 + 2093) & 1) == 0 && (*(v3 + 480) & 1) == 0)
   {
-    v26 = *(v3 + 586);
+    v26 = *(v3 + 4688);
     if (v26 || (*(v3 + 4696) & 0x7F) != 0)
     {
-      v471 = 0;
-      *(v3 + 2137) = 0;
-      *(v3 + 2139) = 0;
-      *(v3 + 2138) = 0;
-      *(v3 + 4274) = 1;
-      *(v3 + 1069) = *(*(v3 + 135) + 8);
+      v325 = 0;
+      *(v3 + 17096) = 0;
+      *(v3 + 17112) = 0;
+      *(v3 + 17104) = 0;
+      *(v3 + 17096) = 1;
+      *(v3 + 17104) = *(*(v3 + 1080) + 8);
       if (v26 & 1) != 0 && (*(v3 + 4704))
       {
-        this = *(v3 + 349);
+        this = *(v3 + 2792);
         if (this)
         {
           v27 = *&a2->mRateScalar;
@@ -119,151 +203,151 @@ LABEL_29:
           v28 = *&a2->mSMPTETime.mHours;
           *&buf.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
           *&buf.mSMPTETime.mHours = v28;
-          v471 = 512;
-          this = AudioUnitProcess(this, &v471, &buf, *(v3 + 129), *(v3 + 136));
+          v325 = 512;
+          this = AudioUnitProcess(this, &v325, &buf, *(v3 + 516), *(v3 + 1088));
         }
       }
 
-      v461 = &v455;
-      v29 = 24 * **(v3 + 136);
       MEMORY[0x28223BE20](this);
-      v31 = (&v455 - ((v30 + 15) & 0x3FFFFFFFF0));
-      v32 = *(v3 + 136);
-      if (*v32)
+      v30 = (&v309 - ((v29 + 15) & 0x3FFFFFFFF0));
+      v31 = *(v3 + 1088);
+      if (*v31)
       {
-        v33 = 0;
-        v34 = 2;
-        v35 = v31;
+        v32 = 0;
+        v33 = 2;
+        v34 = v30;
         do
         {
-          *&v35->mNumberBuffers = 0;
-          *&v35->mBuffers[0].mNumberChannels = 0;
-          v35->mBuffers[0].mData = 0;
-          v35->mNumberBuffers = 1;
-          v35->mBuffers[0] = *&v32[v34];
-          ++v33;
-          v34 += 4;
-          ++v35;
+          *&v34->mNumberBuffers = 0;
+          *&v34->mBuffers[0].mNumberChannels = 0;
+          v34->mBuffers[0].mData = 0;
+          v34->mNumberBuffers = 1;
+          v34->mBuffers[0] = *&v31[v33];
+          ++v32;
+          v33 += 4;
+          ++v34;
         }
 
-        while (v33 < *v32);
+        while (v32 < *v31);
       }
 
-      v36 = *(v3 + 586);
-      if ((v36 & 2) != 0 && (*(v3 + 4704) & 2) != 0)
+      v35 = *(v3 + 4688);
+      if ((v35 & 2) != 0 && (*(v3 + 4704) & 2) != 0)
       {
-        v37 = *(v3 + 350);
-        if (v37)
+        v36 = *(v3 + 2800);
+        if (v36)
         {
-          v38 = *&a2->mRateScalar;
+          v37 = *&a2->mRateScalar;
           *&buf.mSampleTime = *&a2->mSampleTime;
-          *&buf.mRateScalar = v38;
-          v39 = *&a2->mSMPTETime.mHours;
+          *&buf.mRateScalar = v37;
+          v38 = *&a2->mSMPTETime.mHours;
           *&buf.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-          *&buf.mSMPTETime.mHours = v39;
-          v471 = 512;
-          AudioUnitProcess(v37, &v471, &buf, *v9, v31);
-          v45 = *v9;
+          *&buf.mSMPTETime.mHours = v38;
+          v325 = 512;
+          AudioUnitProcess(v36, &v325, &buf, *v9, v30);
+          v44 = *v9;
           if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
           {
-            VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x4Du, v45, v31, &buf);
+            VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x4Du, v44, v30, &buf);
           }
 
-          CADeprecated::CABufferList::CopyDataFrom(*(v3 + 139), v31, v45, v40, v41, v42, v43, v44, v455);
-          v36 = *(v3 + 586);
+          CADeprecated::CABufferList::CopyDataFrom(*(v3 + 1112), v30, v44, v39, v40, v41, v42, v43, v309);
+          v35 = *(v3 + 4688);
         }
       }
 
-      if ((v36 & 4) != 0 && (*(v3 + 4704) & 4) != 0)
+      if ((v35 & 4) != 0 && (*(v3 + 4704) & 4) != 0)
       {
-        v46 = *(v3 + 351);
-        if (v46)
+        v45 = *(v3 + 2808);
+        if (v45)
         {
-          v47 = *&a2->mRateScalar;
+          v46 = *&a2->mRateScalar;
           *&buf.mSampleTime = *&a2->mSampleTime;
-          *&buf.mRateScalar = v47;
-          v48 = *&a2->mSMPTETime.mHours;
+          *&buf.mRateScalar = v46;
+          v47 = *&a2->mSMPTETime.mHours;
           *&buf.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-          *&buf.mSMPTETime.mHours = v48;
-          v471 = 512;
-          AudioUnitProcess(v46, &v471, &buf, *v9, v31 + 1);
-          v54 = *v9;
+          *&buf.mSMPTETime.mHours = v47;
+          v325 = 512;
+          AudioUnitProcess(v45, &v325, &buf, *v9, v30 + 1);
+          v53 = *v9;
           if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
           {
-            VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x4Eu, v54, v31 + 1, &buf);
+            VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x4Eu, v53, v30 + 1, &buf);
           }
 
-          CADeprecated::CABufferList::CopyDataFrom(*(v3 + 140), v31 + 1, v54, v49, v50, v51, v52, v53, v455);
-          v36 = *(v3 + 586);
+          CADeprecated::CABufferList::CopyDataFrom(*(v3 + 1120), v30 + 1, v53, v48, v49, v50, v51, v52, v309);
+          v35 = *(v3 + 4688);
         }
       }
 
-      if ((v36 & 8) != 0 && (*(v3 + 4704) & 8) != 0)
+      if ((v35 & 8) != 0 && (*(v3 + 4704) & 8) != 0)
       {
-        v55 = *(v3 + 352);
-        if (v55)
+        v54 = *(v3 + 2816);
+        if (v54)
         {
-          v56 = *&a2->mRateScalar;
+          v55 = *&a2->mRateScalar;
           *&buf.mSampleTime = *&a2->mSampleTime;
-          *&buf.mRateScalar = v56;
-          v57 = *&a2->mSMPTETime.mHours;
+          *&buf.mRateScalar = v55;
+          v56 = *&a2->mSMPTETime.mHours;
           *&buf.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-          *&buf.mSMPTETime.mHours = v57;
-          v471 = 512;
-          AudioUnitProcess(v55, &v471, &buf, *v9, v31 + 2);
-          v63 = *v9;
+          *&buf.mSMPTETime.mHours = v56;
+          v325 = 512;
+          AudioUnitProcess(v54, &v325, &buf, *v9, v30 + 2);
+          v62 = *v9;
           if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
           {
-            VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x4Fu, v63, v31 + 2, &buf);
+            VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x4Fu, v62, v30 + 2, &buf);
           }
 
-          CADeprecated::CABufferList::CopyDataFrom(*(v3 + 141), v31 + 2, v63, v58, v59, v60, v61, v62, v455);
-          v36 = *(v3 + 586);
+          CADeprecated::CABufferList::CopyDataFrom(*(v3 + 1128), v30 + 2, v62, v57, v58, v59, v60, v61, v309);
+          v35 = *(v3 + 4688);
         }
       }
 
-      if ((v36 & 0x10) != 0 && (*(v3 + 4704) & 0x10) != 0)
+      if ((v35 & 0x10) != 0 && (*(v3 + 4704) & 0x10) != 0)
       {
-        v64 = *(v3 + 353);
-        if (v64)
+        v63 = *(v3 + 2824);
+        if (v63)
         {
-          v65 = *&a2->mRateScalar;
+          v64 = *&a2->mRateScalar;
           *&buf.mSampleTime = *&a2->mSampleTime;
-          *&buf.mRateScalar = v65;
-          v66 = *&a2->mSMPTETime.mHours;
+          *&buf.mRateScalar = v64;
+          v65 = *&a2->mSMPTETime.mHours;
           *&buf.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-          *&buf.mSMPTETime.mHours = v66;
-          v471 = 512;
-          AudioUnitProcess(v64, &v471, &buf, *v9, v31 + 3);
-          v72 = *v9;
+          *&buf.mSMPTETime.mHours = v65;
+          v325 = 512;
+          AudioUnitProcess(v63, &v325, &buf, *v9, v30 + 3);
+          v71 = *v9;
           if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
           {
-            VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x50u, v72, v31 + 3, &buf);
+            VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x50u, v71, v30 + 3, &buf);
           }
 
-          CADeprecated::CABufferList::CopyDataFrom(*(v3 + 142), v31 + 3, v72, v67, v68, v69, v70, v71, v455);
-          v36 = *(v3 + 586);
+          CADeprecated::CABufferList::CopyDataFrom(*(v3 + 1136), v30 + 3, v71, v66, v67, v68, v69, v70, v309);
+          v35 = *(v3 + 4688);
         }
       }
 
-      if ((v36 & 0x40) != 0 && (*(v3 + 4704) & 0x40) != 0 && *(v3 + 355))
+      if ((v35 & 0x40) != 0 && (*(v3 + 4704) & 0x40) != 0 && *(v3 + 2840))
       {
-        v73 = *&a2->mRateScalar;
+        v72 = *&a2->mRateScalar;
         *&buf.mSampleTime = *&a2->mSampleTime;
-        *&buf.mRateScalar = v73;
-        v74 = *&a2->mSMPTETime.mHours;
+        *&buf.mRateScalar = v72;
+        v73 = *&a2->mSMPTETime.mHours;
         *&buf.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-        *&buf.mSMPTETime.mHours = v74;
-        VoiceProcessorV6::ApplyGMCoexNoiseMitigation(v3, *(v3 + 136), *(v3 + 136), &buf, *(v3 + 129));
+        *&buf.mSMPTETime.mHours = v73;
+        VoiceProcessorV6::ApplyGMCoexNoiseMitigation(v3, *(v3 + 1088), *(v3 + 1088), &buf, *(v3 + 516));
       }
 
-      v75 = *(v3 + 136);
-      if (*v75 < 3u)
+      v74 = *(v3 + 1088);
+      v75 = *v74;
+      v314 = &v309;
+      if (v75 < 3)
       {
-        *(v3 + 1057) = *(v75 + 8);
-        if (*v75 < 2u)
+        *(v3 + 16912) = *(v74 + 8);
+        if (*v74 < 2u)
         {
-          v460 = 0;
+          LODWORD(v313) = 0;
           v81 = 0;
           v78 = 0;
           v77 = 0;
@@ -271,29 +355,29 @@ LABEL_29:
 
         else if (*(v3 + 17160) == 1)
         {
-          v460 = 0;
+          LODWORD(v313) = 0;
           v81 = 0;
           v78 = 0;
-          *(v3 + 1057) = *(v75 + 24);
-          *(v3 + 16936) = *(v75 + 8);
+          *(v3 + 16912) = *(v74 + 24);
+          *(v3 + 16936) = *(v74 + 8);
           v77 = 1;
         }
 
         else
         {
-          v460 = 0;
+          LODWORD(v313) = 0;
           v81 = 0;
           v77 = 0;
-          *(v3 + 16936) = *(v75 + 24);
+          *(v3 + 16936) = *(v74 + 24);
           v78 = 1;
         }
 
 LABEL_124:
-        v83 = *(v3 + 586);
-        LODWORD(v462) = v78;
+        v83 = *(v3 + 4688);
+        LODWORD(v315) = v78;
         if ((v83 & 0x80) != 0 && (*(v3 + 4704) & 0x80) != 0)
         {
-          v84 = *(v3 + 356);
+          v84 = *(v3 + 2848);
           if (v84)
           {
             v85 = *&a2->mRateScalar;
@@ -302,20 +386,20 @@ LABEL_124:
             v86 = *&a2->mSMPTETime.mHours;
             *&buf.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
             *&buf.mSMPTETime.mHours = v86;
-            v471 = 512;
-            AudioUnitProcess(v84, &v471, &buf, *(v3 + 129), (v3 + 16904));
+            v325 = 512;
+            AudioUnitProcess(v84, &v325, &buf, *(v3 + 516), (v3 + 16904));
             if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
             {
-              VoiceProcessorV2::SaveFilesWriteSignal(v3, 6u, *(v3 + 129), (v3 + 16904), &buf);
+              VoiceProcessorV2::SaveFilesWriteSignal(v3, 6u, *(v3 + 516), (v3 + 16904), &buf);
             }
 
-            v83 = *(v3 + 586);
+            v83 = *(v3 + 4688);
           }
         }
 
         if (v83 & 0x100) != 0 && (*(v3 + 4705))
         {
-          v87 = *(v3 + 357);
+          v87 = *(v3 + 2856);
           if (v87)
           {
             v88 = *&a2->mRateScalar;
@@ -324,2463 +408,1707 @@ LABEL_124:
             v89 = *&a2->mSMPTETime.mHours;
             *&buf.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
             *&buf.mSMPTETime.mHours = v89;
-            v471 = 512;
-            AudioUnitProcess(v87, &v471, &buf, *(v3 + 129), (v3 + 16928));
+            v325 = 512;
+            AudioUnitProcess(v87, &v325, &buf, *(v3 + 516), (v3 + 16928));
             if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
             {
-              VoiceProcessorV2::SaveFilesWriteSignal(v3, 7u, *(v3 + 129), (v3 + 16928), &buf);
+              VoiceProcessorV2::SaveFilesWriteSignal(v3, 7u, *(v3 + 516), (v3 + 16928), &buf);
             }
 
-            v83 = *(v3 + 586);
-          }
-        }
-
-        if ((v83 & 0x200) != 0)
-        {
-          v90 = *(v3 + 588);
-          if ((v90 & 0x200) != 0)
-          {
-            v91 = *(v3 + 358);
-            if (v91)
-            {
-              if ((v83 & v90 & 0x1000000000000) != 0 && *(v3 + 397))
-              {
-                v92 = *&a2->mRateScalar;
-                *&buf.mSampleTime = *&a2->mSampleTime;
-                *&buf.mRateScalar = v92;
-                v93 = *&a2->mSMPTETime.mHours;
-                *&buf.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-                *&buf.mSMPTETime.mHours = v93;
-                v471 = 512;
-                AudioUnitProcess(v91, &v471, &buf, *(v3 + 129), (v3 + 16952));
-                if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
-                {
-                  VoiceProcessorV2::SaveFilesWriteSignal(v3, 8u, *(v3 + 129), (v3 + 16952), &buf);
-                }
-
-                v83 = *(v3 + 586);
-              }
-            }
+            v83 = *(v3 + 4688);
           }
         }
 
         if ((v83 & 0x400) != 0 && (*(v3 + 4705) & 4) != 0)
         {
-          v94 = *(v3 + 359);
-          if (v94)
+          v90 = *(v3 + 2872);
+          if (v90)
           {
-            v95 = *&a2->mRateScalar;
+            v91 = *&a2->mRateScalar;
             *&buf.mSampleTime = *&a2->mSampleTime;
-            *&buf.mRateScalar = v95;
-            v96 = *&a2->mSMPTETime.mHours;
+            *&buf.mRateScalar = v91;
+            v92 = *&a2->mSMPTETime.mHours;
             *&buf.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-            *&buf.mSMPTETime.mHours = v96;
-            v471 = 512;
-            AudioUnitProcess(v94, &v471, &buf, *(v3 + 129), (v3 + 16976));
+            *&buf.mSMPTETime.mHours = v92;
+            v325 = 512;
+            AudioUnitProcess(v90, &v325, &buf, *(v3 + 516), (v3 + 16976));
             if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
             {
-              VoiceProcessorV2::SaveFilesWriteSignal(v3, 9u, *(v3 + 129), (v3 + 16976), &buf);
+              VoiceProcessorV2::SaveFilesWriteSignal(v3, 9u, *(v3 + 516), (v3 + 16976), &buf);
             }
 
-            v83 = *(v3 + 586);
+            v83 = *(v3 + 4688);
           }
         }
 
-        if ((v83 & 0x400000) != 0 && (*(v3 + 4706) & 0x40) != 0)
+        if ((v83 & 0x800) != 0 && (*(v3 + 4705) & 8) != 0)
         {
-          if (*(v3 + 371))
+          v93 = *(v3 + 2880);
+          if (v93)
           {
-            v97 = *(v3 + 2200);
-            if (v97)
-            {
-              v98 = *(v3 + 2115);
-              v99 = *(*(v3 + 2195) + 16) + 4 * *(v3 + 129);
-              buf.mSampleTime = *(*(v3 + 2195) + 16);
-              buf.mHostTime = v99;
-              VPTimeFreqConverter_Analyze(v97, v98, &buf);
-              v83 = *(v3 + 586);
-            }
-          }
-        }
-
-        if ((v83 & 0x800000) != 0 && (*(v3 + 4706) & 0x80) != 0)
-        {
-          if (*(v3 + 372))
-          {
-            v100 = *(v3 + 2201);
-            if (v100)
-            {
-              v101 = *(v3 + 2118);
-              v102 = *(*(v3 + 2196) + 16) + 4 * *(v3 + 129);
-              buf.mSampleTime = *(*(v3 + 2196) + 16);
-              buf.mHostTime = v102;
-              VPTimeFreqConverter_Analyze(v100, v101, &buf);
-              v83 = *(v3 + 586);
-            }
-          }
-        }
-
-        if (v83 & 0x1000000) != 0 && (*(v3 + 4707))
-        {
-          if (*(v3 + 373))
-          {
-            v103 = *(v3 + 2202);
-            if (v103)
-            {
-              v104 = *(v3 + 2121);
-              v105 = *(*(v3 + 2197) + 16) + 4 * *(v3 + 129);
-              buf.mSampleTime = *(*(v3 + 2197) + 16);
-              buf.mHostTime = v105;
-              VPTimeFreqConverter_Analyze(v103, v104, &buf);
-              v83 = *(v3 + 586);
-            }
-          }
-        }
-
-        if ((v83 & 0x2000000) != 0 && (*(v3 + 4707) & 2) != 0)
-        {
-          if (*(v3 + 374))
-          {
-            v106 = *(v3 + 2203);
-            if (v106)
-            {
-              v107 = *(v3 + 2124);
-              v108 = *(*(v3 + 2198) + 16) + 4 * *(v3 + 129);
-              buf.mSampleTime = *(*(v3 + 2198) + 16);
-              buf.mHostTime = v108;
-              VPTimeFreqConverter_Analyze(v106, v107, &buf);
-              v83 = *(v3 + 586);
-            }
-          }
-        }
-
-        if (((v83 & 0x1000000000000) == 0 || (*(v3 + 4710) & 1) == 0 || !*(v3 + 397)) && (v83 & 0x800) != 0 && (*(v3 + 4705) & 8) != 0)
-        {
-          v109 = *(v3 + 360);
-          if (v109)
-          {
-            MEMORY[0x28223BE20](v109);
-            *(&v455 - 6) = 2;
-            *(&v455 - 5) = *(v3 + 1057);
-            *(&v455 - 3) = *(v3 + 16936);
-            *&v481.mSampleTime = &v455 - 6;
-            v481.mHostTime = 0;
-            *&v486.mSampleTime = v3 + 16904;
-            memset(&v486.mHostTime, 0, 24);
-            v471 = 512;
-            v110 = *&a2->mRateScalar;
+            MEMORY[0x28223BE20](v93);
+            *(&v309 - 6) = 2;
+            *(&v309 - 5) = *(v3 + 16912);
+            *(&v309 - 3) = *(v3 + 16936);
+            *&v335.mSampleTime = &v309 - 6;
+            v335.mHostTime = 0;
+            *&inInputBufferLists.mSampleTime = v3 + 16904;
+            memset(&inInputBufferLists.mHostTime, 0, 24);
+            v325 = 512;
+            v94 = *&a2->mRateScalar;
             *&buf.mSampleTime = *&a2->mSampleTime;
-            *&buf.mRateScalar = v110;
-            v111 = *&a2->mSMPTETime.mHours;
+            *&buf.mRateScalar = v94;
+            v95 = *&a2->mSMPTETime.mHours;
             *&buf.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-            *&buf.mSMPTETime.mHours = v111;
-            AudioUnitProcessMultiple(v112, &v471, &buf, *(v3 + 129), 2u, &v481, 4u, &v486);
+            *&buf.mSMPTETime.mHours = v95;
+            AudioUnitProcessMultiple(v96, &v325, &buf, *(v3 + 516), 2u, &v335, 4u, &inInputBufferLists);
             if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
             {
-              VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x65u, *(v3 + 129), (v3 + 16904), &buf);
+              VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x65u, *(v3 + 516), (v3 + 16904), &buf);
             }
 
-            v83 = *(v3 + 586);
+            v83 = *(v3 + 4688);
           }
         }
 
-        v470 = 0;
-        v113 = *&a2->mRateScalar;
+        v324 = 0;
+        v97 = *&a2->mRateScalar;
         *&buf.mSampleTime = *&a2->mSampleTime;
-        *&buf.mRateScalar = v113;
-        v114 = *&a2->mSMPTETime.mHours;
+        *&buf.mRateScalar = v97;
+        v98 = *&a2->mSMPTETime.mHours;
         *&buf.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-        *&buf.mSMPTETime.mHours = v114;
-        if ((v83 & 0x4000000) == 0 || (*(v3 + 4707) & 4) == 0 || !*(v3 + 375))
+        *&buf.mSMPTETime.mHours = v98;
+        if ((v83 & 0x4000000) == 0 || (*(v3 + 4707) & 4) == 0 || !*(v3 + 3000))
         {
-LABEL_199:
-          v469 = 0;
-          if ((*(v3 + 4691) & 8) == 0 || (*(v3 + 4707) & 8) == 0 || !*(v3 + 376))
+LABEL_168:
+          v323 = 0;
+          if ((v83 & 0x8000000) == 0 || (*(v3 + 4707) & 8) == 0 || !*(v3 + 3008))
           {
-            goto LABEL_213;
+            goto LABEL_183;
           }
 
-          v120 = *(v3 + 2110);
-          if ((*(v3 + 2111) - v120) <= 0x28)
+          v102 = *(v3 + 16880);
+          if ((*(v3 + 16888) - v102) <= 0x28)
           {
-            goto LABEL_856;
+            goto LABEL_668;
           }
 
-          ECApplicator::apply(*(v120 + 40), &buf, v462, &v469, v3 + 1055, v3 + 1059, v3 + 1063, v3 + 1067, v3 + 1071, v3 + 1075);
-          v121 = *(v3 + 129);
+          ECApplicator::apply(*(v102 + 40), &buf, v315, &v323, (v3 + 4220), (v3 + 4236), (v3 + 4252), (v3 + 4268), (v3 + 4284), (v3 + 4300));
+          v103 = *(v3 + 516);
           if (*(v3 + 15881) & 1) != 0 || (*(v3 + 15882))
           {
-            VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x22u, v121, *(v3 + 137), &buf);
-            v121 = *(v3 + 129);
-            v122 = *(v3 + 2149);
+            VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x22u, v103, *(v3 + 1096), &buf);
+            v103 = *(v3 + 516);
+            v104 = *(v3 + 17192);
             if (*(v3 + 15881))
             {
-              goto LABEL_209;
-            }
-          }
-
-          else
-          {
-            v122 = *(v3 + 2149);
-          }
-
-          if (*(v3 + 15882) != 1)
-          {
-LABEL_210:
-            v123 = *(v3 + 2157);
-            v124 = *(v122 + 16);
-            v486.mSampleTime = *(*(v3 + 512) + 16);
-            v486.mHostTime = *&v486.mSampleTime + 4 * v121;
-            VPTimeFreqConverter_Analyze(v123, v124, &v486);
-            if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
-            {
-              VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x17u, *(v3 + 129), *(v3 + 512), &buf);
-            }
-
-LABEL_213:
-            if ((*(v3 + 4690) & 0x40) != 0 && (*(v3 + 4706) & 0x40) != 0 && *(v3 + 371))
-            {
-              v125 = *(v3 + 2110);
-              if (*(v3 + 2111) == v125)
+LABEL_178:
+              VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x11u, v103, v104, &buf);
+              LODWORD(v103) = *(v3 + 516);
+              v104 = *(v3 + 17192);
+LABEL_179:
+              inInputBufferLists.mSampleTime = *(*(v3 + 4096) + 16);
+              inInputBufferLists.mHostTime = *&inInputBufferLists.mSampleTime + 4 * v103;
+              VPTimeFreqConverter_Analyze(*(v3 + 17256), *(v104 + 16), &inInputBufferLists);
+              if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
               {
-                goto LABEL_856;
+                VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x17u, *(v3 + 516), *(v3 + 4096), &buf);
               }
 
-              ECApplicator::apply(*v125, &buf, v77, &v470 + 1, v3 + 1054, v3 + 1058, v3 + 1062, v3 + 1066, v3 + 1070, v3 + 1074);
-              v126 = *(v3 + 129);
-              if (*(v3 + 15881) & 1) != 0 || (*(v3 + 15882))
+              v83 = *(v3 + 4688);
+LABEL_183:
+              if ((v83 & 0x400000) != 0 && (*(v3 + 4706) & 0x40) != 0 && *(v3 + 2968))
               {
-                VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x1Cu, v126, (v3 + 16904), &buf);
-                v126 = *(v3 + 129);
-                v127 = *(v3 + 420);
-                if (*(v3 + 15881))
+                v105 = *(v3 + 16880);
+                if (*(v3 + 16888) == v105)
                 {
-                  goto LABEL_257;
+                  goto LABEL_668;
+                }
+
+                ECApplicator::apply(*v105, &buf, v77, &v324 + 1, (v3 + 4216), (v3 + 4232), (v3 + 4248), (v3 + 4264), (v3 + 4280), (v3 + 4296));
+                v106 = *(v3 + 516);
+                if (*(v3 + 15881) & 1) != 0 || (*(v3 + 15882))
+                {
+                  VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x1Cu, v106, (v3 + 16904), &buf);
+                  v106 = *(v3 + 516);
+                  v107 = *(v3 + 3360);
+                  if (*(v3 + 15881))
+                  {
+                    goto LABEL_227;
+                  }
+                }
+
+                else
+                {
+                  v107 = *(v3 + 3360);
+                }
+
+                if (*(v3 + 15882) == 1)
+                {
+LABEL_227:
+                  VoiceProcessorV2::SaveFilesWriteSignal(v3, 0xCu, v106, v107, &buf);
                 }
               }
 
               else
               {
-                v127 = *(v3 + 420);
-              }
-
-              if (*(v3 + 15882) == 1)
-              {
-LABEL_257:
-                VoiceProcessorV2::SaveFilesWriteSignal(v3, 0xCu, v126, v127, &buf);
-              }
-            }
-
-            else
-            {
-              v128 = 0;
-              while (((*(v3 + 118) >> v128) & 1) == 0)
-              {
-                if (++v128 == 32)
+                v108 = 0;
+                while (((*(v3 + 472) >> v108) & 1) == 0)
                 {
-                  v128 = 33;
-                  break;
-                }
-              }
-
-              if (v128 >= **(v3 + 136))
-              {
-                if (VPLogScope(void)::once != -1)
-                {
-                  dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                }
-
-                v129 = VPLogScope(void)::scope;
-                if (VPLogScope(void)::scope && CALegacyLog::LogEnabled(1, VPLogScope(void)::scope, 0))
-                {
-                  v130 = (*v129 ? *v129 : MEMORY[0x277D86220]);
-                  if (os_log_type_enabled(v130, OS_LOG_TYPE_ERROR))
+                  if (++v108 == 32)
                   {
-                    v131 = **(v3 + 136);
-                    LODWORD(v486.mSampleTime) = 136315906;
-                    *(&v486.mSampleTime + 4) = "vpProcessUplink_v8.cpp";
-                    WORD2(v486.mHostTime) = 1024;
-                    *(&v486.mHostTime + 6) = 371;
-                    WORD1(v486.mRateScalar) = 1024;
-                    HIDWORD(v486.mRateScalar) = v128;
-                    LOWORD(v486.mWordClockTime) = 1024;
-                    *(&v486.mWordClockTime + 2) = v131;
-                    _os_log_impl(&dword_2724B4000, v130, OS_LOG_TYPE_ERROR, "%25s:%-5d  >vp> ERROR: mPrimaryEpMicIndex is %d, but epmic only has %d channels", &v486, 0x1Eu);
+                    v108 = 33;
+                    break;
                   }
                 }
 
-                v132 = *(v3 + 1588);
-                if (v132 && ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1))
+                if (v108 >= **(v3 + 1088))
                 {
                   if (VPLogScope(void)::once != -1)
                   {
                     dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
                   }
 
-                  CALegacyLog::log(v132, 1, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProcessUplink_v8.cpp", 371, "ProcessDSPChain_Uplink", "ERROR: mPrimaryEpMicIndex is %d, but epmic only has %d channels", v128, **(v3 + 136));
-                }
-
-                v128 = 0;
-              }
-
-              v133 = *(v3 + 136) + 16 * v128;
-              memcpy(*(*(v3 + 137) + 16), *(v133 + 16), *(v133 + 12));
-            }
-
-            if ((*(v3 + 4696) & 0x20) != 0 && (*(v3 + 4712) & 0x20) != 0)
-            {
-              v134 = *(v3 + 418);
-              if (v134)
-              {
-                v486.mSampleTime = *(v3 + 136);
-                v486.mHostTime = v3 + 17096;
-                v481.mSampleTime = *(v3 + 137);
-                v471 = 512;
-                AudioUnitProcessMultiple(v134, &v471, &buf, *(v3 + 129), 2u, &v486, 1u, &v481);
-              }
-            }
-
-            v468 = 0;
-            if ((*(v3 + 4690) & 0x80) != 0 && (*(v3 + 4706) & 0x80) != 0 && *(v3 + 372))
-            {
-              v135 = *(v3 + 2110);
-              if ((*(v3 + 2111) - v135) <= 8)
-              {
-                goto LABEL_856;
-              }
-
-              ECApplicator::apply(*(v135 + 8), &buf, v462, &v468, v3 + 1055, v3 + 1059, v3 + 1063, v3 + 1067, v3 + 1071, v3 + 1075);
-              v136 = *(v3 + 129);
-              if (*(v3 + 15881) & 1) != 0 || (*(v3 + 15882))
-              {
-                VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x1Du, v136, (v3 + 16928), &buf);
-                v136 = *(v3 + 129);
-                v137 = *(v3 + 421);
-                if (*(v3 + 15881))
-                {
-                  goto LABEL_260;
-                }
-              }
-
-              else
-              {
-                v137 = *(v3 + 421);
-              }
-
-              if (*(v3 + 15882) == 1)
-              {
-LABEL_260:
-                VoiceProcessorV2::SaveFilesWriteSignal(v3, 0xDu, v136, v137, &buf);
-              }
-            }
-
-            v467 = 0;
-            if ((*(v3 + 4691) & 1) == 0 || (*(v3 + 4707) & 1) == 0 || !*(v3 + 373))
-            {
-              goto LABEL_272;
-            }
-
-            v138 = *(v3 + 2110);
-            if ((*(v3 + 2111) - v138) <= 0x10)
-            {
-              goto LABEL_856;
-            }
-
-            ECApplicator::apply(*(v138 + 16), &buf, v460, &v467, v3 + 1056, v3 + 1060, v3 + 1064, v3 + 1068, v3 + 1072, v3 + 1076);
-            v139 = *(v3 + 129);
-            if (*(v3 + 15881) & 1) != 0 || (*(v3 + 15882))
-            {
-              VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x1Eu, v139, (v3 + 16952), &buf);
-              v139 = *(v3 + 129);
-              v140 = *(v3 + 423);
-              if (*(v3 + 15881))
-              {
-LABEL_271:
-                VoiceProcessorV2::SaveFilesWriteSignal(v3, 0xEu, v139, v140, &buf);
-LABEL_272:
-                v466 = 0;
-                if ((*(v3 + 4691) & 2) == 0 || (*(v3 + 4707) & 2) == 0 || !*(v3 + 374))
-                {
-                  goto LABEL_283;
-                }
-
-                v141 = *(v3 + 2110);
-                if ((*(v3 + 2111) - v141) > 0x18)
-                {
-                  ECApplicator::apply(*(v141 + 24), &buf, v81, &v466, v3 + 1057, v3 + 1061, v3 + 1065, v3 + 1069, v3 + 1073, v3 + 1077);
-                  v142 = *(v3 + 129);
-                  if (*(v3 + 15881) & 1) != 0 || (*(v3 + 15882))
+                  v109 = VPLogScope(void)::scope;
+                  if (VPLogScope(void)::scope && CALegacyLog::LogEnabled(1, VPLogScope(void)::scope, 0))
                   {
-                    VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x1Fu, v142, (v3 + 16976), &buf);
-                    v142 = *(v3 + 129);
-                    v143 = *(v3 + 422);
-                    if (*(v3 + 15881))
+                    v110 = (*v109 ? *v109 : MEMORY[0x277D86220]);
+                    if (os_log_type_enabled(v110, OS_LOG_TYPE_ERROR))
                     {
-                      goto LABEL_282;
+                      v111 = **(v3 + 1088);
+                      LODWORD(inInputBufferLists.mSampleTime) = 136315906;
+                      *(&inInputBufferLists.mSampleTime + 4) = "vpProcessUplink_v7.cpp";
+                      WORD2(inInputBufferLists.mHostTime) = 1024;
+                      *(&inInputBufferLists.mHostTime + 6) = 334;
+                      WORD1(inInputBufferLists.mRateScalar) = 1024;
+                      HIDWORD(inInputBufferLists.mRateScalar) = v108;
+                      LOWORD(inInputBufferLists.mWordClockTime) = 1024;
+                      *(&inInputBufferLists.mWordClockTime + 2) = v111;
+                      _os_log_impl(&dword_2724B4000, v110, OS_LOG_TYPE_ERROR, "%25s:%-5d  >vp> ERROR: mPrimaryEpMicIndex is %d, but epmic only has %d channels", &inInputBufferLists, 0x1Eu);
                     }
                   }
 
-                  else
+                  v112 = *(v3 + 12704);
+                  if (v112 && ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1))
                   {
-                    v143 = *(v3 + 422);
-                  }
-
-                  if (*(v3 + 15882) == 1)
-                  {
-LABEL_282:
-                    VoiceProcessorV2::SaveFilesWriteSignal(v3, 0xFu, v142, v143, &buf);
-                  }
-
-LABEL_283:
-                  if ((*(v3 + 8869) & 8) != 0 && (*(v3 + 8877) & 8) != 0)
-                  {
-                    if (*(v3 + 482))
+                    if (VPLogScope(void)::once != -1)
                     {
-                      *(v3 + 17128) = 0;
-                      if (*(v3 + 4691) & 1) != 0 && (*(v3 + 4707))
-                      {
-                        v144 = *(v3 + 373);
-                        if (v144)
-                        {
-                          if (*(v3 + 2140))
-                          {
-                            LODWORD(v486.mSampleTime) = 0;
-                            if (!AudioUnitGetPropertyInfo(v144, 0xF3Cu, 0, 0, &v486, 0) && LODWORD(v486.mSampleTime) == 4 * *v9)
-                            {
-                              v145 = *(*(v3 + 2140) + 16);
-                              Property = AudioUnitGetProperty(*(v3 + 373), 0xF3Cu, 0, 0, v145, &v486);
-                              if (*(v3 + 489) == 1)
-                              {
-                                AudioUnitSetProperty(*(v3 + 482), 0xF3Cu, 0, 0, v145, LODWORD(v486.mSampleTime));
-                              }
+                      dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
+                    }
 
-                              *(v3 + 17128) = Property == 0;
+                    CALegacyLog::log(v112, 1, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProcessUplink_v7.cpp", 334, "ProcessDSPChain_Uplink", "ERROR: mPrimaryEpMicIndex is %d, but epmic only has %d channels", v108, **(v3 + 1088));
+                  }
+
+                  v108 = 0;
+                }
+
+                v113 = *(v3 + 1088) + 16 * v108;
+                memcpy(*(*(v3 + 1096) + 16), *(v113 + 16), *(v113 + 12));
+              }
+
+              if ((*(v3 + 4696) & 0x20) != 0 && (*(v3 + 4712) & 0x20) != 0)
+              {
+                v114 = *(v3 + 3344);
+                if (v114)
+                {
+                  inInputBufferLists.mSampleTime = *(v3 + 1088);
+                  inInputBufferLists.mHostTime = v3 + 17096;
+                  v335.mSampleTime = *(v3 + 1096);
+                  v325 = 512;
+                  AudioUnitProcessMultiple(v114, &v325, &buf, *(v3 + 516), 2u, &inInputBufferLists, 1u, &v335);
+                }
+              }
+
+              v322 = 0;
+              if ((*(v3 + 4690) & 0x80) != 0 && (*(v3 + 4706) & 0x80) != 0 && *(v3 + 2976))
+              {
+                v115 = *(v3 + 16880);
+                if ((*(v3 + 16888) - v115) <= 8)
+                {
+                  goto LABEL_668;
+                }
+
+                ECApplicator::apply(*(v115 + 8), &buf, v315, &v322, (v3 + 4220), (v3 + 4236), (v3 + 4252), (v3 + 4268), (v3 + 4284), (v3 + 4300));
+                v116 = *(v3 + 516);
+                if (*(v3 + 15881) & 1) != 0 || (*(v3 + 15882))
+                {
+                  VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x1Du, v116, (v3 + 16928), &buf);
+                  v116 = *(v3 + 516);
+                  v117 = *(v3 + 3368);
+                  if (*(v3 + 15881))
+                  {
+                    goto LABEL_230;
+                  }
+                }
+
+                else
+                {
+                  v117 = *(v3 + 3368);
+                }
+
+                if (*(v3 + 15882) == 1)
+                {
+LABEL_230:
+                  VoiceProcessorV2::SaveFilesWriteSignal(v3, 0xDu, v116, v117, &buf);
+                }
+              }
+
+              v321 = 0;
+              if ((*(v3 + 4691) & 1) == 0 || (*(v3 + 4707) & 1) == 0 || !*(v3 + 2984))
+              {
+                goto LABEL_242;
+              }
+
+              v118 = *(v3 + 16880);
+              if ((*(v3 + 16888) - v118) <= 0x10)
+              {
+                goto LABEL_668;
+              }
+
+              ECApplicator::apply(*(v118 + 16), &buf, v313, &v321, (v3 + 4224), (v3 + 4240), (v3 + 4256), (v3 + 4272), (v3 + 4288), (v3 + 4304));
+              v119 = *(v3 + 516);
+              if (*(v3 + 15881) & 1) != 0 || (*(v3 + 15882))
+              {
+                VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x1Eu, v119, (v3 + 16952), &buf);
+                v119 = *(v3 + 516);
+                v120 = *(v3 + 3384);
+                if (*(v3 + 15881))
+                {
+LABEL_241:
+                  VoiceProcessorV2::SaveFilesWriteSignal(v3, 0xEu, v119, v120, &buf);
+LABEL_242:
+                  v320 = 0;
+                  if ((*(v3 + 4691) & 2) == 0 || (*(v3 + 4707) & 2) == 0 || !*(v3 + 2992))
+                  {
+                    goto LABEL_253;
+                  }
+
+                  v121 = *(v3 + 16880);
+                  if ((*(v3 + 16888) - v121) > 0x18)
+                  {
+                    ECApplicator::apply(*(v121 + 24), &buf, v81, &v320, (v3 + 4228), (v3 + 4244), (v3 + 4260), (v3 + 4276), (v3 + 4292), (v3 + 4308));
+                    v122 = *(v3 + 516);
+                    if (*(v3 + 15881) & 1) != 0 || (*(v3 + 15882))
+                    {
+                      VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x1Fu, v122, (v3 + 16976), &buf);
+                      v122 = *(v3 + 516);
+                      v123 = *(v3 + 3376);
+                      if (*(v3 + 15881))
+                      {
+                        goto LABEL_252;
+                      }
+                    }
+
+                    else
+                    {
+                      v123 = *(v3 + 3376);
+                    }
+
+                    if (*(v3 + 15882) == 1)
+                    {
+LABEL_252:
+                      VoiceProcessorV2::SaveFilesWriteSignal(v3, 0xFu, v122, v123, &buf);
+                    }
+
+LABEL_253:
+                    if ((*(v3 + 8869) & 8) != 0 && (*(v3 + 8877) & 8) != 0)
+                    {
+                      if (*(v3 + 3856))
+                      {
+                        *(v3 + 17128) = 0;
+                        if (*(v3 + 4691) & 1) != 0 && (*(v3 + 4707))
+                        {
+                          v124 = *(v3 + 2984);
+                          if (v124)
+                          {
+                            if (*(v3 + 17120))
+                            {
+                              LODWORD(inInputBufferLists.mSampleTime) = 0;
+                              if (!AudioUnitGetPropertyInfo(v124, 0xF3Cu, 0, 0, &inInputBufferLists, 0) && LODWORD(inInputBufferLists.mSampleTime) == 4 * *v9)
+                              {
+                                v125 = *(*(v3 + 17120) + 16);
+                                Property = AudioUnitGetProperty(*(v3 + 2984), 0xF3Cu, 0, 0, v125, &inInputBufferLists);
+                                if (*(v3 + 489) == 1)
+                                {
+                                  AudioUnitSetProperty(*(v3 + 3856), 0xF3Cu, 0, 0, v125, LODWORD(inInputBufferLists.mSampleTime));
+                                }
+
+                                *(v3 + 17128) = Property == 0;
+                              }
                             }
                           }
                         }
                       }
                     }
-                  }
 
-                  v147 = *(v3 + 522);
-                  v148 = *(v3 + 2139);
-                  v149 = *(*(v3 + 514) + 16) + 4 * *(v3 + 129);
-                  v486.mSampleTime = *(*(v3 + 514) + 16);
-                  v486.mHostTime = v149;
-                  VPTimeFreqConverter_Analyze(v147, v148, &v486);
-                  v465 = 0.0;
-                  if ((*(v3 + 4690) & 0x40) != 0 && (*(v3 + 4706) & 0x40) != 0)
-                  {
-                    if (*(v3 + 371))
+                    v127 = (*(*(v3 + 4112) + 16) + 4 * *(v3 + 516));
+                    v319.realp = *(*(v3 + 4112) + 16);
+                    v319.imagp = v127;
+                    VPTimeFreqConverter_Analyze(*(v3 + 4176), *(v3 + 17112), &v319);
+                    if ((*(v3 + 4690) & 0x40) != 0 && (*(v3 + 4706) & 0x40) != 0)
                     {
-                      v151 = *(v3 + 516);
-                      v152 = *(v3 + 2115);
-                      v153 = *(*(v3 + 430) + 16) + 4 * *(v3 + 129);
-                      v486.mSampleTime = *(*(v3 + 430) + 16);
-                      v486.mHostTime = v153;
-                      VPTimeFreqConverter_Analyze(v151, v152, &v486);
-                      v154 = *(v3 + 520);
-                      v155 = *(*(v3 + 420) + 16);
-                      v156 = *(*(v3 + 508) + 16) + 4 * *(v3 + 129);
-                      v486.mSampleTime = *(*(v3 + 508) + 16);
-                      v486.mHostTime = v156;
-                      VPTimeFreqConverter_Analyze(v154, v155, &v486);
-                      if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
+                      if (*(v3 + 2968))
                       {
-                        Parameter = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x12u, *(v3 + 129), *(v3 + 430), &buf);
-                      }
-                    }
-                  }
-
-                  if ((*(v3 + 4690) & 0x80) != 0 && (*(v3 + 4706) & 0x80) != 0)
-                  {
-                    if (*(v3 + 372))
-                    {
-                      v157 = *(v3 + 517);
-                      v158 = *(v3 + 2118);
-                      v159 = *(*(v3 + 509) + 16) + 4 * *(v3 + 129);
-                      v486.mSampleTime = *(*(v3 + 509) + 16);
-                      v486.mHostTime = v159;
-                      VPTimeFreqConverter_Analyze(v157, v158, &v486);
-                      v160 = *(v3 + 521);
-                      v161 = *(*(v3 + 421) + 16);
-                      v162 = *(*(v3 + 508) + 32) + 4 * *(v3 + 129);
-                      v486.mSampleTime = *(*(v3 + 508) + 32);
-                      v486.mHostTime = v162;
-                      VPTimeFreqConverter_Analyze(v160, v161, &v486);
-                      if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
-                      {
-                        Parameter = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x13u, *(v3 + 129), *(v3 + 509), &buf);
-                      }
-                    }
-                  }
-
-                  v163 = *(v3 + 586);
-                  if ((v163 & 0x1000000) != 0)
-                  {
-                    v164 = *(v3 + 588);
-                    if ((v164 & 0x1000000) != 0)
-                    {
-                      if (*(v3 + 373))
-                      {
-                        if ((v163 & v164 & 0x80000000000) != 0)
-                        {
-                          Parameter = *(v3 + 392);
-                          if (Parameter)
-                          {
-                            Parameter = AudioUnitGetParameter(Parameter, 0x2Bu, 0, 0, &v465);
-                          }
-                        }
-
-                        if (v465 != 0.0 || (*(v3 + 4694) & 1) != 0 && (*(v3 + 4710) & 1) != 0 && *(v3 + 397))
-                        {
-                          v165 = *(v3 + 518);
-                          v166 = *(v3 + 2121);
-                          v167 = *(*(v3 + 2179) + 16) + 4 * *(v3 + 129);
-                          v486.mSampleTime = *(*(v3 + 2179) + 16);
-                          v486.mHostTime = v167;
-                          VPTimeFreqConverter_Analyze(v165, v166, &v486);
-                          v168 = *(v3 + 2144);
-                          v169 = *(*(v3 + 423) + 16);
-                          v170 = *(*(v3 + 508) + 48) + 4 * *(v3 + 129);
-                          v486.mSampleTime = *(*(v3 + 508) + 48);
-                          v486.mHostTime = v170;
-                          VPTimeFreqConverter_Analyze(v168, v169, &v486);
-                          if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
-                          {
-                            Parameter = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x14u, *(v3 + 129), *(v3 + 2179), &buf);
-                          }
-                        }
-                      }
-                    }
-                  }
-
-                  if ((*(v3 + 4691) & 2) != 0 && (*(v3 + 4707) & 2) != 0)
-                  {
-                    if (*(v3 + 374))
-                    {
-                      v171 = *(v3 + 519);
-                      v172 = *(v3 + 2124);
-                      v173 = *(*(v3 + 510) + 16) + 4 * *(v3 + 129);
-                      v486.mSampleTime = *(*(v3 + 510) + 16);
-                      v486.mHostTime = v173;
-                      VPTimeFreqConverter_Analyze(v171, v172, &v486);
-                      v174 = *(v3 + 2108);
-                      v175 = *(*(v3 + 422) + 16);
-                      v176 = *(*(v3 + 508) + 64) + 4 * *(v3 + 129);
-                      v486.mSampleTime = *(*(v3 + 508) + 64);
-                      v486.mHostTime = v176;
-                      VPTimeFreqConverter_Analyze(v174, v175, &v486);
-                      if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
-                      {
-                        Parameter = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x15u, *(v3 + 129), *(v3 + 510), &buf);
-                      }
-                    }
-                  }
-
-                  v177 = *(v3 + 586);
-                  if ((v177 & 0x1000) != 0 && (*(v3 + 4705) & 0x10) != 0)
-                  {
-                    Parameter = *(v3 + 361);
-                    if (Parameter)
-                    {
-                      MEMORY[0x28223BE20](Parameter);
-                      *(&v455 - 6) = 2;
-                      *(&v455 - 5) = *(v3 + 1057);
-                      *(&v455 - 3) = *(v3 + 16936);
-                      inInputBufferLists = (&v455 - 6);
-                      v488 = 0;
-                      v481.mSampleTime = *(v3 + 2184);
-                      memset(&v481.mHostTime, 0, 24);
-                      v471 = 512;
-                      v178 = *&a2->mRateScalar;
-                      *&v486.mSampleTime = *&a2->mSampleTime;
-                      *&v486.mRateScalar = v178;
-                      v179 = *&a2->mSMPTETime.mHours;
-                      *&v486.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-                      *&v486.mSMPTETime.mHours = v179;
-                      AudioUnitProcessMultiple(v180, &v471, &v486, *(v3 + 129), 2u, &inInputBufferLists, 4u, &v481);
-                      v181 = *(v3 + 2187);
-                      v182 = *(*(v3 + 2184) + 16);
-                      v183 = *(*(v3 + 2185) + 16) + 4 * *(v3 + 129);
-                      *&v482.mNumberBuffers = *(*(v3 + 2185) + 16);
-                      *&v482.mBuffers[0].mNumberChannels = v183;
-                      VPTimeFreqConverter_Analyze(v181, v182, &v482);
-                      if (*(v3 + 17632) == 1)
-                      {
-                        v184 = *(v3 + 129);
-                        *&v482.mNumberBuffers = *(*(v3 + 430) + 16);
-                        *&v482.mBuffers[0].mNumberChannels = *&v482.mNumberBuffers + 4 * v184;
-                        v485.realp = *(*(v3 + 2185) + 16);
-                        v485.imagp = &v485.realp[v184];
-                        v185 = *(*(v3 + 2186) + 16);
-                        v186 = &v185[v184];
-                        vDSP_zvabs(&v482, 1, v185, 1, v184);
-                        vDSP_zvabs(&v485, 1, v186, 1, *(v3 + 129));
-                        vDSP_vmin(v185, 1, v186, 1, v185, 1, *(v3 + 129));
-                        LODWORD(v479) = 507307272;
-                        MEMORY[0x2743CCE00](v186, 1, &v479, v186, 1, *(v3 + 129));
-                        vDSP_vdiv(v186, 1, v185, 1, v186, 1, *(v3 + 129));
-                        MEMORY[0x2743CCDD0](v485.realp, 1, v186, 1, v485.realp, 1, *(v3 + 129));
-                        Parameter = MEMORY[0x2743CCDD0](v485.imagp, 1, v186, 1, v485.imagp, 1, *(v3 + 129));
-                      }
-
-                      if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
-                      {
-                        Parameter = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x61u, *(v3 + 129), *(v3 + 2185), &v486);
-                      }
-
-                      v177 = *(v3 + 586);
-                    }
-                  }
-
-                  if ((v177 & 0x20000000) != 0 && (*(v3 + 4707) & 0x20) != 0)
-                  {
-                    Parameter = *(v3 + 378);
-                    if (Parameter)
-                    {
-                      v481.mSampleTime = *(v3 + 430);
-                      *&v482.mNumberBuffers = v481.mSampleTime;
-                      v471 = 512;
-                      v187 = *&a2->mRateScalar;
-                      *&v486.mSampleTime = *&a2->mSampleTime;
-                      *&v486.mRateScalar = v187;
-                      v188 = *&a2->mSMPTETime.mHours;
-                      *&v486.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-                      *&v486.mSMPTETime.mHours = v188;
-                      Parameter = AudioUnitProcessMultiple(Parameter, &v471, &v486, *(v3 + 129), 1u, &v481, 1u, &v482);
-                      if (!Parameter)
-                      {
-                        Parameter = AudioUnitGetProperty(*(v3 + 378), 0x1450u, 0, 0, *(*(v3 + 2183) + 16), (*(v3 + 2183) + 12));
+                        v129 = (*(*(v3 + 3440) + 16) + 4 * *(v3 + 516));
+                        v319.realp = *(*(v3 + 3440) + 16);
+                        v319.imagp = v129;
+                        VPTimeFreqConverter_Analyze(*(v3 + 4128), *(v3 + 16920), &v319);
+                        v130 = (*(*(v3 + 4064) + 16) + 4 * *(v3 + 516));
+                        v319.realp = *(*(v3 + 4064) + 16);
+                        v319.imagp = v130;
+                        VPTimeFreqConverter_Analyze(*(v3 + 4160), *(*(v3 + 3360) + 16), &v319);
                         if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
                         {
-                          Parameter = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x20u, (*(v3 + 129) + 1), *(v3 + 2183), &v486);
+                          Parameter = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x12u, *(v3 + 516), *(v3 + 3440), &buf);
                         }
                       }
-
-                      v177 = *(v3 + 586);
-                    }
-                  }
-
-                  if ((v177 & 0x100000000000) == 0 || (v189 = *(v3 + 588), (v189 & 0x100000000000) == 0) || (Parameter = *(v3 + 393)) == 0 || (v177 & v189 & 0x1000000000000) != 0 && *(v3 + 397))
-                  {
-LABEL_358:
-                    v464 = 0;
-                    if ((v177 & 0x40000000) != 0 && (*(v3 + 4707) & 0x40) != 0 && *(v3 + 379))
-                    {
-                      v199 = 1;
-                      v200 = 1;
                     }
 
-                    else if ((v177 & 0x200000000) != 0 && (*(v3 + 4708) & 2) != 0)
+                    if ((*(v3 + 4690) & 0x80) != 0 && (*(v3 + 4706) & 0x80) != 0)
                     {
-                      v199 = 0;
-                      v200 = *(v3 + 382) != 0;
-                    }
-
-                    else
-                    {
-                      v199 = 0;
-                      v200 = 0;
-                    }
-
-                    v201 = v177 & 0x80000000;
-                    if ((v177 & 0x80000000) != 0 && (*(v3 + 4707) & 0x80) != 0 && *(v3 + 380))
-                    {
-                      v202 = 1;
-                      v199 = 1;
-                      v203 = 1;
-                      if ((v177 & 0x100000000) == 0)
+                      if (*(v3 + 2976))
                       {
-                        goto LABEL_383;
-                      }
-                    }
-
-                    else
-                    {
-                      if ((v177 & 0x100000000) == 0)
-                      {
-                        v202 = 0;
-                        v203 = 1;
-                        goto LABEL_383;
-                      }
-
-                      v203 = 1;
-                      if (*(v3 + 4708))
-                      {
-                        v204 = *(v3 + 381);
-                        v202 = v204 != 0;
-                        if (v204)
+                        v131 = (*(*(v3 + 4072) + 16) + 4 * *(v3 + 516));
+                        v319.realp = *(*(v3 + 4072) + 16);
+                        v319.imagp = v131;
+                        VPTimeFreqConverter_Analyze(*(v3 + 4136), *(v3 + 16944), &v319);
+                        v132 = (*(*(v3 + 4064) + 32) + 4 * *(v3 + 516));
+                        v319.realp = *(*(v3 + 4064) + 32);
+                        v319.imagp = v132;
+                        VPTimeFreqConverter_Analyze(*(v3 + 4168), *(*(v3 + 3368) + 16), &v319);
+                        if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
                         {
-                          v203 = 2;
+                          Parameter = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x13u, *(v3 + 516), *(v3 + 4072), &buf);
                         }
+                      }
+                    }
 
-                        else
+                    if ((*(v3 + 4691) & 2) != 0 && (*(v3 + 4707) & 2) != 0)
+                    {
+                      if (*(v3 + 2992))
+                      {
+                        v133 = (*(*(v3 + 4080) + 16) + 4 * *(v3 + 516));
+                        v319.realp = *(*(v3 + 4080) + 16);
+                        v319.imagp = v133;
+                        VPTimeFreqConverter_Analyze(*(v3 + 4152), *(v3 + 16992), &v319);
+                        v134 = (*(*(v3 + 4064) + 64) + 4 * *(v3 + 516));
+                        v319.realp = *(*(v3 + 4064) + 64);
+                        v319.imagp = v134;
+                        VPTimeFreqConverter_Analyze(*(v3 + 16864), *(*(v3 + 3376) + 16), &v319);
+                        if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
                         {
-                          v203 = 1;
+                          Parameter = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x15u, *(v3 + 516), *(v3 + 4080), &buf);
+                        }
+                      }
+                    }
+
+                    v318 = 0.0;
+                    v135 = *(v3 + 4688);
+                    if ((v135 & 0x80000000000) != 0 && (*(v3 + 4709) & 8) != 0)
+                    {
+                      Parameter = *(v3 + 3136);
+                      if (Parameter)
+                      {
+                        Parameter = AudioUnitGetParameter(Parameter, 0x2Bu, 0, 0, &v318);
+                        v135 = *(v3 + 4688);
+                      }
+                    }
+
+                    if ((v135 & 0x1000000) != 0 && (*(v3 + 4707) & 1) != 0 && *(v3 + 2984) && v318 == 1.0)
+                    {
+                      v136 = (*(*(v3 + 4064) + 48) + 4 * *(v3 + 516));
+                      v319.realp = *(*(v3 + 4064) + 48);
+                      v319.imagp = v136;
+                      VPTimeFreqConverter_Analyze(*(v3 + 17152), *(*(v3 + 3384) + 16), &v319);
+                      v135 = *(v3 + 4688);
+                    }
+
+                    if ((v135 & 0x100000000000) == 0 || (*(v3 + 4709) & 0x10) == 0 || (Parameter = *(v3 + 3144)) == 0)
+                    {
+LABEL_305:
+                      v317 = 0;
+                      if ((v135 & 0x40000000) != 0 && (*(v3 + 4707) & 0x40) != 0 && *(v3 + 3032))
+                      {
+                        v144 = 1;
+                        v145 = 1;
+                      }
+
+                      else if ((v135 & 0x200000000) != 0 && (*(v3 + 4708) & 2) != 0)
+                      {
+                        v144 = 0;
+                        v145 = *(v3 + 3056) != 0;
+                      }
+
+                      else
+                      {
+                        v144 = 0;
+                        v145 = 0;
+                      }
+
+                      v146 = v135 & 0x80000000;
+                      if ((v135 & 0x80000000) != 0 && (*(v3 + 4707) & 0x80) != 0 && *(v3 + 3040))
+                      {
+                        v147 = 1;
+                        v144 = 1;
+                        v148 = 1;
+                        if ((v135 & 0x100000000) == 0)
+                        {
+                          goto LABEL_330;
                         }
                       }
 
                       else
                       {
-                        v202 = 0;
-                      }
-                    }
-
-                    v205 = *(v3 + 588);
-                    if ((v205 & 0x100000000) != 0 && *(v3 + 381) && (v177 & v205 & 0x200000000) != 0 && *(v3 + 382))
-                    {
-                      v203 = 2;
-                      v199 = 2;
-                    }
-
-LABEL_383:
-                    if ((v177 & 0x40000000) == 0)
-                    {
-                      goto LABEL_400;
-                    }
-
-                    if ((*(v3 + 4707) & 0x40) == 0)
-                    {
-                      goto LABEL_400;
-                    }
-
-                    Parameter = *(v3 + 379);
-                    if (!Parameter)
-                    {
-                      goto LABEL_400;
-                    }
-
-                    AudioUnitSetProperty(Parameter, 0x457u, 0, 0, v3 + 2332, 4u);
-                    if ((*(v3 + 4691) & 0x80) != 0 && (*(v3 + 4707) & 0x80) != 0)
-                    {
-                      v206 = *(v3 + 379);
-                      if (*(v3 + 380))
-                      {
-                        v207 = *(v3 + 688);
-LABEL_390:
-                        AudioUnitSetParameter(v206, 0x1Bu, 0, 0, v207, 0);
-                        v208 = *(v3 + 586);
-                        if ((v208 & 0x400000) != 0)
+                        if ((v135 & 0x100000000) == 0)
                         {
-                          v209 = *(v3 + 588);
-                          if ((v209 & 0x400000) != 0 && *(v3 + 371) && (v208 & v209 & 0x800000) != 0 && *(v3 + 372))
+                          v147 = 0;
+                          v148 = 1;
+                          goto LABEL_330;
+                        }
+
+                        v148 = 1;
+                        if (*(v3 + 4708))
+                        {
+                          v149 = *(v3 + 3048);
+                          v147 = v149 != 0;
+                          if (v149)
                           {
-                            AudioUnitSetParameter(*(v3 + 379), 0x3Fu, 0, 0, *(v3 + 1062) * *(v3 + 1063), 0);
-                          }
-                        }
-
-                        *&v210 = *(v3 + 139) + 24;
-                        *&v211 = *(v3 + 140) + 24;
-                        if (**(v3 + 136) <= 2u)
-                        {
-                          *&v481.mSampleTime = *(v3 + 139) + 24;
-                          *&v481.mHostTime = v211;
-                          v481.mRateScalar = 0.0;
-                          v481.mWordClockTime = v3 + 17096;
-                          *&v481.mSMPTETime.mSubframes = *(v3 + 210);
-                        }
-
-                        else
-                        {
-                          v212 = *(v3 + 141) + 24;
-                          *&v481.mSMPTETime.mSubframes = *(v3 + 210);
-                          v481.mSampleTime = v211;
-                          v481.mHostTime = v212;
-                          v481.mRateScalar = v210;
-                          v481.mWordClockTime = v3 + 17096;
-                        }
-
-                        *&v482.mNumberBuffers = 0;
-                        v471 = 512;
-                        AudioUnitSetParameter(*(v3 + 379), 0x2Cu, 0, 0, *(v3 + 1098), 0);
-                        v213 = *&a2->mRateScalar;
-                        *&v486.mSampleTime = *&a2->mSampleTime;
-                        *&v486.mRateScalar = v213;
-                        v214 = *&a2->mSMPTETime.mHours;
-                        *&v486.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-                        *&v486.mSMPTETime.mHours = v214;
-                        Parameter = AudioUnitProcessMultiple(*(v3 + 379), &v471, &v486, *(v3 + 129), 6u, &v481, 1u, &v482);
-                        v177 = *(v3 + 586);
-                        v201 = v177 & 0x80000000;
-LABEL_400:
-                        if (v201 && (*(v3 + 4707) & 0x80) != 0 && *(v3 + 380))
-                        {
-                          memcpy(*(*(v3 + 436) + 16 * *(v3 + 1048) + 16), *(*(v3 + 430) + 16), 4 * (2 * *(v3 + 129)));
-                          memcpy(*(*(v3 + 436) + 16 * *(v3 + 1049) + 16), *(*(v3 + 509) + 16), 4 * (2 * *(v3 + 129)));
-                          if (*(v3 + 1074) == 0.0 && *(v3 + 1075) == 0.0)
-                          {
-                            v215 = 0.0;
+                            v148 = 2;
                           }
 
                           else
                           {
-                            v215 = 1.0;
+                            v148 = 1;
                           }
+                        }
 
-                          AudioUnitSetParameter(*(v3 + 380), 0x20u, 0, 0, v215, 0);
-                          v481.mSampleTime = *(v3 + 436);
-                          *&v482.mNumberBuffers = *(v3 + 431);
-                          v216 = *&a2->mRateScalar;
-                          *&v486.mSampleTime = *&a2->mSampleTime;
-                          *&v486.mRateScalar = v216;
-                          v217 = *&a2->mSMPTETime.mHours;
-                          *&v486.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-                          *&v486.mSMPTETime.mHours = v217;
-                          v471 = 512;
-                          AudioUnitProcessMultiple(*(v3 + 380), &v471, &v486, *(v3 + 129), 1u, &v481, 1u, &v482);
-                          LODWORD(inInputBufferLists) = 8 * *(v3 + 129);
-                          AudioUnitGetProperty(*(v3 + 380), 0xE7Au, 0, 0, *(*(v3 + 541) + 16), &inInputBufferLists);
-                          LODWORD(inInputBufferLists) = 8 * *(v3 + 129);
-                          Parameter = AudioUnitGetProperty(*(v3 + 380), 0xE79u, 0, 0, *(*(v3 + 541) + 32), &inInputBufferLists);
-                          v218 = *(v3 + 129);
-                          imagp = *(v3 + 431);
-                          if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
-                          {
-                            v220 = &v486;
-                            v221 = v3;
-                            v222 = 10;
-LABEL_409:
-                            Parameter = VoiceProcessorV2::SaveFilesWriteSignal(v221, v222, v218, imagp, v220);
-                          }
+                        else
+                        {
+                          v147 = 0;
+                        }
+                      }
 
-LABEL_437:
-                          MEMORY[0x28223BE20](Parameter);
-                          v235 = (&v455 - 8);
-                          *(&v455 - 3) = 0u;
-                          *(&v455 - 2) = 0u;
-                          *(&v455 - 4) = 0u;
-                          *(&v455 - 16) = 3;
-                          *&v238 = MEMORY[0x28223BE20](v236);
-                          v462 = (&v455 - 8);
-                          v454 = 0;
-                          *(&v455 - 3) = v238;
-                          *(&v455 - 2) = v238;
-                          *(&v455 - 4) = v238;
-                          *(&v455 - 16) = v239;
-                          v240 = *(v3 + 586);
-                          if ((v240 & 0x400000000) != 0 && (*(v3 + 4708) & 4) != 0 && *(v3 + 383) || (v240 & 0x800000000) != 0 && (*(v3 + 4708) & 8) != 0 && *(v3 + 384) || (v240 & 0x2000000000) != 0 && (*(v3 + 4708) & 0x20) != 0 && *(v3 + 386))
-                          {
-                            *(&v455 - 7) = *(*(v3 + 430) + 8);
-                            *(&v455 - 5) = *(*(v3 + 509) + 8);
-                            *(&v455 - 3) = *(*(v3 + 510) + 8);
-                            v241 = *(v3 + 508);
-                            v242 = v462;
-                            v462->mBuffers[0] = *(v241 + 8);
-                            *&v242[1].mNumberBuffers = *(v241 + 24);
-                            *&v242[1].mBuffers[0].mData = *(v241 + 56);
-                          }
+                      v150 = *(v3 + 4704);
+                      if ((v150 & 0x100000000) != 0 && *(v3 + 3048) && (v135 & v150 & 0x200000000) != 0 && *(v3 + 3056))
+                      {
+                        v148 = 2;
+                        v144 = 2;
+                      }
 
-                          if ((v240 & 0x400000000) == 0 || (*(v3 + 4708) & 4) == 0 || !*(v3 + 383))
+LABEL_330:
+                      if ((v135 & 0x40000000) == 0)
+                      {
+                        goto LABEL_347;
+                      }
+
+                      if ((*(v3 + 4707) & 0x40) == 0)
+                      {
+                        goto LABEL_347;
+                      }
+
+                      Parameter = *(v3 + 3032);
+                      if (!Parameter)
+                      {
+                        goto LABEL_347;
+                      }
+
+                      AudioUnitSetProperty(Parameter, 0x457u, 0, 0, (v3 + 2332), 4u);
+                      if ((*(v3 + 4691) & 0x80) != 0 && (*(v3 + 4707) & 0x80) != 0)
+                      {
+                        v151 = *(v3 + 3032);
+                        if (*(v3 + 3040))
+                        {
+                          v152 = *(v3 + 2752);
+LABEL_337:
+                          AudioUnitSetParameter(v151, 0x1Bu, 0, 0, v152, 0);
+                          v153 = *(v3 + 4688);
+                          if ((v153 & 0x400000) != 0)
                           {
-LABEL_460:
-                            if ((v240 & 0x800000000) == 0 || (*(v3 + 4708) & 8) == 0 || !*(v3 + 384))
+                            v154 = *(v3 + 4704);
+                            if ((v154 & 0x400000) != 0 && *(v3 + 2968) && (v153 & v154 & 0x800000) != 0 && *(v3 + 2976))
                             {
-LABEL_473:
-                              if ((v240 & 0x2000000000) == 0 || (*(v3 + 4708) & 0x20) == 0 || !*(v3 + 386))
+                              AudioUnitSetParameter(*(v3 + 3032), 0x3Fu, 0, 0, *(v3 + 4248) * *(v3 + 4252), 0);
+                            }
+                          }
+
+                          *&v155 = *(v3 + 1112) + 24;
+                          *&v156 = *(v3 + 1120) + 24;
+                          if (**(v3 + 1088) <= 2u)
+                          {
+                            *&v335.mSampleTime = *(v3 + 1112) + 24;
+                            *&v335.mHostTime = v156;
+                            v335.mRateScalar = 0.0;
+                            v335.mWordClockTime = v3 + 17096;
+                            *&v335.mSMPTETime.mSubframes = *(v3 + 3360);
+                          }
+
+                          else
+                          {
+                            v157 = *(v3 + 1128) + 24;
+                            v335.mWordClockTime = v3 + 17096;
+                            *&v335.mSMPTETime.mSubframes = *(v3 + 3360);
+                            v335.mSampleTime = v156;
+                            v335.mHostTime = v157;
+                            v335.mRateScalar = v155;
+                          }
+
+                          *&v338.mNumberBuffers = 0;
+                          v325 = 512;
+                          AudioUnitSetParameter(*(v3 + 3032), 0x2Cu, 0, 0, *(v3 + 4392), 0);
+                          v158 = *&a2->mRateScalar;
+                          *&inInputBufferLists.mSampleTime = *&a2->mSampleTime;
+                          *&inInputBufferLists.mRateScalar = v158;
+                          v159 = *&a2->mSMPTETime.mHours;
+                          *&inInputBufferLists.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
+                          *&inInputBufferLists.mSMPTETime.mHours = v159;
+                          Parameter = AudioUnitProcessMultiple(*(v3 + 3032), &v325, &inInputBufferLists, *(v3 + 516), 6u, &v335, 1u, &v338);
+                          v135 = *(v3 + 4688);
+                          v146 = v135 & 0x80000000;
+LABEL_347:
+                          if (v146 && (*(v3 + 4707) & 0x80) != 0 && *(v3 + 3040))
+                          {
+                            memcpy(*(*(v3 + 3488) + 16 * *(v3 + 4192) + 16), *(*(v3 + 3440) + 16), 4 * (2 * *(v3 + 516)));
+                            memcpy(*(*(v3 + 3488) + 16 * *(v3 + 4196) + 16), *(*(v3 + 4072) + 16), 4 * (2 * *(v3 + 516)));
+                            if (*(v3 + 4296) == 0.0 && *(v3 + 4300) == 0.0)
+                            {
+                              v160 = 0.0;
+                            }
+
+                            else
+                            {
+                              v160 = 1.0;
+                            }
+
+                            AudioUnitSetParameter(*(v3 + 3040), 0x20u, 0, 0, v160, 0);
+                            v335.mSampleTime = *(v3 + 3488);
+                            *&v338.mNumberBuffers = *(v3 + 3448);
+                            v161 = *&a2->mRateScalar;
+                            *&inInputBufferLists.mSampleTime = *&a2->mSampleTime;
+                            *&inInputBufferLists.mRateScalar = v161;
+                            v162 = *&a2->mSMPTETime.mHours;
+                            *&inInputBufferLists.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
+                            *&inInputBufferLists.mSMPTETime.mHours = v162;
+                            v325 = 512;
+                            AudioUnitProcessMultiple(*(v3 + 3040), &v325, &inInputBufferLists, *(v3 + 516), 1u, &v335, 1u, &v338);
+                            ioDataSize[0] = 8 * *(v3 + 516);
+                            AudioUnitGetProperty(*(v3 + 3040), 0xE7Au, 0, 0, *(*(v3 + 4328) + 16), ioDataSize);
+                            ioDataSize[0] = 8 * *(v3 + 516);
+                            Parameter = AudioUnitGetProperty(*(v3 + 3040), 0xE79u, 0, 0, *(*(v3 + 4328) + 32), ioDataSize);
+                            v163 = *(v3 + 516);
+                            v164 = *(v3 + 3448);
+                            if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
+                            {
+                              p_inInputBufferLists = &inInputBufferLists;
+                              v166 = v3;
+                              v167 = 10;
+LABEL_356:
+                              Parameter = VoiceProcessorV2::SaveFilesWriteSignal(v166, v167, v163, v164, p_inInputBufferLists);
+                            }
+
+LABEL_384:
+                            MEMORY[0x28223BE20](Parameter);
+                            v180 = (&v309 - 8);
+                            *(&v309 - 3) = 0u;
+                            *(&v309 - 2) = 0u;
+                            *(&v309 - 4) = 0u;
+                            *(&v309 - 16) = 3;
+                            *&v183 = MEMORY[0x28223BE20](v181);
+                            v315 = (&v309 - 8);
+                            v308 = 0;
+                            *(&v309 - 3) = v183;
+                            *(&v309 - 2) = v183;
+                            *(&v309 - 4) = v183;
+                            *(&v309 - 16) = v184;
+                            v185 = *(v3 + 4688);
+                            if ((v185 & 0x400000000) != 0 && (*(v3 + 4708) & 4) != 0 && *(v3 + 3064) || (v185 & 0x800000000) != 0 && (*(v3 + 4708) & 8) != 0 && *(v3 + 3072) || (v185 & 0x2000000000) != 0 && (*(v3 + 4708) & 0x20) != 0 && *(v3 + 3088))
+                            {
+                              *(&v309 - 7) = *(*(v3 + 3440) + 8);
+                              *(&v309 - 5) = *(*(v3 + 4072) + 8);
+                              *(&v309 - 3) = *(*(v3 + 4080) + 8);
+                              v186 = *(v3 + 4064);
+                              v187 = v315;
+                              v315->mBuffers[0] = *(v186 + 8);
+                              *&v187[1].mNumberBuffers = *(v186 + 24);
+                              *&v187[1].mBuffers[0].mData = *(v186 + 56);
+                            }
+
+                            if ((v185 & 0x400000000) == 0 || (*(v3 + 4708) & 4) == 0 || !*(v3 + 3064))
+                            {
+LABEL_407:
+                              if ((v185 & 0x800000000) == 0 || (*(v3 + 4708) & 8) == 0 || !*(v3 + 3072))
                               {
-LABEL_486:
-                                if (v199 == 2)
+LABEL_420:
+                                if ((v185 & 0x2000000000) == 0 || (*(v3 + 4708) & 0x20) == 0 || !*(v3 + 3088))
                                 {
-                                  VoiceProcessorV4::SignalParamSwitchMixNF(v3, v202, v200, &v464);
-                                }
-
-                                else if (v199 == 1)
-                                {
-                                  VoiceProcessorV2::SignalParamSwitchMix(v3, v202, v200, &v464, v237);
-                                }
-
-                                if (v203 == 1)
-                                {
-                                  VoiceProcessorV2::TimeAlignedReferenceAndOtherHandling(v3, HIBYTE(v470), v468, v202, v464);
-                                }
-
-                                else
-                                {
-                                  VoiceProcessorV4::TimeAlignedReferenceAndOtherHandlingNF(v3, HIBYTE(v470), v466, v202, v464);
-                                }
-
-                                LODWORD(inInputBufferLists) = 0;
-                                if ((*(v3 + 586) & 0x2000000000000) != 0 && (*(v3 + 588) & 0x2000000000000) != 0)
-                                {
-                                  v255 = *(v3 + 398);
-                                  if (v255)
+LABEL_433:
+                                  if (v144 == 2)
                                   {
-                                    MEMORY[0x28223BE20](v255);
-                                    *(&v455 - 3) = 0u;
-                                    *(&v455 - 2) = 0u;
-                                    *(&v455 - 4) = 0u;
-                                    *(&v455 - 16) = 3;
-                                    *&v258 = MEMORY[0x28223BE20](v256);
-                                    v454 = 0;
-                                    *(&v455 - 3) = v258;
-                                    *(&v455 - 2) = v258;
-                                    *(&v455 - 4) = v258;
-                                    *(&v455 - 16) = v259;
-                                    *(v260 - 56) = *(*(v3 + 430) + 8);
-                                    *(v260 - 40) = *(*(v3 + 433) + 8);
-                                    *(v260 - 24) = *(*(v3 + 2179) + 8);
-                                    v261 = *(v3 + 508);
-                                    *(&v455 - 7) = *(v261 + 8);
-                                    *(&v455 - 5) = *(v261 + 24);
-                                    *(&v455 - 3) = *(v261 + 40);
-                                    v481.mSampleTime = v262;
-                                    v481.mHostTime = (&v455 - 8);
-                                    *&v482.mNumberBuffers = *(v3 + 1090);
-                                    if ((v263 & v264 & 0x400000000000000) != 0)
-                                    {
-                                      v265 = *(v3 + 407);
-                                      if (v265)
-                                      {
-                                        LODWORD(v486.mSampleTime) = 0;
-                                        AudioUnitGetParameter(v265, 0, 0, 0, &v486);
-                                        AudioUnitSetParameter(*(v3 + 398), 0, 0, 0, *&v486.mSampleTime, 0);
-                                        AudioUnitGetParameter(*(v3 + 398), 0xDu, 0, 0, &inInputBufferLists);
-                                        v257 = *(v3 + 398);
-                                      }
-                                    }
+                                    VoiceProcessorV4::SignalParamSwitchMixNF(v3, v147, v145, &v317);
+                                  }
 
-                                    v266 = *&a2->mRateScalar;
-                                    *&v486.mSampleTime = *&a2->mSampleTime;
-                                    *&v486.mRateScalar = v266;
-                                    v267 = *&a2->mSMPTETime.mHours;
-                                    *&v486.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-                                    *&v486.mSMPTETime.mHours = v267;
-                                    AudioUnitProcessMultiple(v257, &v471, &v486, *(v3 + 129), 2u, &v481, 2u, &v482);
-                                    v268 = *(v3 + 129);
-                                    if (*(v3 + 15881) & 1) != 0 || (*(v3 + 15882))
+                                  else if (v144 == 1)
+                                  {
+                                    VoiceProcessorV2::SignalParamSwitchMix(v3, v147, v145, &v317, v182);
+                                  }
+
+                                  if (v148 == 1)
+                                  {
+                                    VoiceProcessorV2::TimeAlignedReferenceAndOtherHandling(v3, HIBYTE(v324), v322, v147, v317);
+                                  }
+
+                                  else
+                                  {
+                                    VoiceProcessorV4::TimeAlignedReferenceAndOtherHandlingNF(v3, HIBYTE(v324), v320, v147, v317);
+                                  }
+
+                                  v200 = memcpy(*(*(v3 + 3472) + 16), *(*(v3 + 4064) + 16), *(v3 + 4316));
+                                  v201 = *(v3 + 4688);
+                                  if ((v201 & 0x1000000) != 0 && (*(v3 + 4707) & 1) != 0 && *(v3 + 2984) && v318 == 1.0)
+                                  {
+                                    v200 = memcpy(*(*(v3 + 17144) + 16), *(*(v3 + 4064) + 48), *(v3 + 4316));
+                                    v201 = *(v3 + 4688);
+                                  }
+
+                                  if ((v201 & 0x400000000000) == 0 || (v202 = *(v3 + 4704), (v202 & 0x400000000000) == 0) || !*(v3 + 3160))
+                                  {
+LABEL_463:
+                                    if ((v201 & 0x40000000000000) != 0 && (*(v3 + 4710) & 0x40) != 0 && *(v3 + 3224))
                                     {
-                                      VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x81u, v268, *(v3 + 2180), &v486);
-                                      v268 = *(v3 + 129);
-                                      v269 = *(v3 + 2181);
-                                      if (*(v3 + 15881))
-                                      {
-                                        goto LABEL_505;
-                                      }
+                                      v218 = 1;
                                     }
 
                                     else
                                     {
-                                      v269 = *(v3 + 2181);
+                                      v218 = (v201 & 0x80000000000000) != 0 && (*(v3 + 4710) & 0x80) != 0 && *(v3 + 3232) != 0;
                                     }
 
-                                    if (*(v3 + 15882) == 1)
+                                    LODWORD(v336) = 0;
+                                    LODWORD(v333) = 0;
+                                    LODWORD(v331) = 0;
+                                    AudioUnitGetParameter(*(v3 + 3136), 0x1Du, 0, 0, &v336);
+                                    v219 = *&v336 < 1.0 && v218;
+                                    if (v218)
                                     {
-LABEL_505:
-                                      VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x82u, v268, v269, &v486);
-                                    }
-                                  }
-                                }
-
-                                v270 = memcpy(*(*(v3 + 434) + 16), *(*(v3 + 508) + 16), *(v3 + 1079));
-                                v271 = *(v3 + 586);
-                                if ((v271 & 0x1000000) != 0 && (*(v3 + 4707) & 1) != 0 && *(v3 + 373) && v465 == 1.0)
-                                {
-                                  v270 = memcpy(*(*(v3 + 2143) + 16), *(*(v3 + 508) + 48), *(v3 + 1079));
-                                  v271 = *(v3 + 586);
-                                }
-
-                                if ((v271 & 0x400000000000) == 0 || (v272 = *(v3 + 588), (v272 & 0x400000000000) == 0) || !*(v3 + 395))
-                                {
-LABEL_529:
-                                  if ((v271 & 0x800000000000) != 0 && (*(v3 + 588) & 0x800000000000) != 0)
-                                  {
-                                    v288 = *(v3 + 396);
-                                    if (v288)
-                                    {
-                                      MEMORY[0x28223BE20](v288);
-                                      *(&v455 - 3) = 0u;
-                                      *(&v455 - 2) = 0u;
-                                      *(&v455 - 12) = 2;
-                                      *&v290 = MEMORY[0x28223BE20](v289);
-                                      v454 = 0;
-                                      *(&v455 - 3) = v290;
-                                      *(&v455 - 2) = v290;
-                                      *(&v455 - 12) = v291;
-                                      *(v292 - 40) = *(*(v3 + 430) + 8);
-                                      *(v292 - 24) = *(*(v3 + 2180) + 8);
-                                      *(&v455 - 5) = *(*(v3 + 508) + 8);
-                                      *(&v455 - 3) = *(*(v3 + 2181) + 8);
-                                      *&v294 = MEMORY[0x28223BE20](v293);
-                                      *(&v455 - 3) = v294;
-                                      *(&v455 - 2) = v294;
-                                      *(&v455 - 12) = v295;
-                                      *&v298 = MEMORY[0x28223BE20](v296);
-                                      v454 = 0;
-                                      *(&v455 - 3) = v298;
-                                      *(&v455 - 2) = v298;
-                                      *(&v455 - 12) = v299;
-                                      v300 = *(v3 + 2182);
-                                      *(v301 - 40) = *(v300 + 8);
-                                      *(v301 - 24) = *(v300 + 24);
-                                      *(&v455 - 5) = *(v300 + 40);
-                                      *(&v455 - 3) = *(v300 + 56);
-                                      if ((v302 & v303 & 0x2000000000000) != 0)
+                                      LODWORD(inInputBufferLists.mSampleTime) = 1065353216;
+                                      if (*&v336 < 1.0)
                                       {
-                                        v304 = *(v3 + 398);
-                                        if (v304)
-                                        {
-                                          LODWORD(v486.mSampleTime) = 0;
-                                          AudioUnitGetParameter(v304, 1u, 0, 0, &v486);
-                                          AudioUnitSetParameter(*(v3 + 396), 0, 4u, 0, *&v486.mSampleTime, 0);
-                                          AudioUnitSetParameter(*(v3 + 399), 0, 0, 0, *&v486.mSampleTime, 0);
-                                          v297 = *(v3 + 396);
-                                        }
+                                        vDSP_vfill(&inInputBufferLists, *(*(v3 + 4040) + 16), 1, *(v3 + 516));
                                       }
 
-                                      *&v481.mSampleTime = &v455 - 6;
-                                      v481.mHostTime = (&v455 - 6);
-                                      *&v482.mNumberBuffers = &v455 - 6;
-                                      *&v482.mBuffers[0].mNumberChannels = &v455 - 6;
-                                      v305 = *&a2->mRateScalar;
-                                      *&v486.mSampleTime = *&a2->mSampleTime;
-                                      *&v486.mRateScalar = v305;
-                                      v306 = *&a2->mSMPTETime.mHours;
-                                      *&v486.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-                                      *&v486.mSMPTETime.mHours = v306;
-                                      v471 = 512;
-                                      AudioUnitProcessMultiple(v297, &v471, &v486, *(v3 + 129), 2u, &v481, 2u, &v482);
-                                      if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
-                                      {
-                                        VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x85u, *(v3 + 129), *(v3 + 2182), &v486);
-                                      }
-
-                                      v271 = *(v3 + 586);
+                                      vDSP_vfill(&inInputBufferLists, *(*(v3 + 4024) + 16), 1, *(v3 + 516));
                                     }
-                                  }
 
-                                  if ((v271 & 0x4000000000000) != 0)
-                                  {
-                                    v307 = *(v3 + 588);
-                                    if ((v307 & 0x4000000000000) != 0)
+                                    else if ((*(v3 + 4693) & 8) == 0 || (*(v3 + 4709) & 8) == 0 || !*(v3 + 3136))
                                     {
-                                      v308 = *(v3 + 399);
-                                      if (v308)
-                                      {
-                                        if ((v271 & v307 & 0x800000000000) != 0 && *(v3 + 396))
-                                        {
-                                          MEMORY[0x28223BE20](v308);
-                                          v454 = 0;
-                                          *(&v455 - 3) = 0u;
-                                          *(&v455 - 2) = 0u;
-                                          *(&v455 - 12) = 2;
-                                          v309 = *(v3 + 2182);
-                                          *(&v455 - 5) = *(v309 + 8);
-                                          *(&v455 - 3) = *(v309 + 24);
-                                          *&v481.mSampleTime = &v455 - 6;
-                                          *&v482.mNumberBuffers = *(v3 + 433);
-                                          v310 = *&a2->mRateScalar;
-                                          *&v486.mSampleTime = *&a2->mSampleTime;
-                                          *&v486.mRateScalar = v310;
-                                          v311 = *&a2->mSMPTETime.mHours;
-                                          *&v486.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-                                          *&v486.mSMPTETime.mHours = v311;
-                                          v471 = 512;
-                                          AudioUnitProcessMultiple(v312, &v471, &v486, *(v3 + 129), 1u, &v481, 1u, &v482);
-                                          if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
-                                          {
-                                            VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x87u, *(v3 + 129), *(v3 + 433), &v486);
-                                          }
-
-                                          v271 = *(v3 + 586);
-                                        }
-                                      }
-                                    }
-                                  }
-
-                                  if ((v271 & 0x40000000000000) != 0 && (*(v3 + 4710) & 0x40) != 0 && *(v3 + 403))
-                                  {
-                                    v313 = 1;
-                                  }
-
-                                  else
-                                  {
-                                    v313 = (v271 & 0x80000000000000) != 0 && (*(v3 + 4710) & 0x80) != 0 && *(v3 + 404) != 0;
-                                  }
-
-                                  LODWORD(v485.realp) = 0;
-                                  LODWORD(v479) = 0;
-                                  v314 = AudioUnitGetParameter(*(v3 + 392), 0x1Du, 0, 0, &v485);
-                                  v315 = *&v485.realp < 1.0 && v313;
-                                  v460 = v315;
-                                  if (v313)
-                                  {
-                                    LODWORD(v486.mSampleTime) = 1065353216;
-                                    if (*&v485.realp < 1.0)
-                                    {
-                                      vDSP_vfill(&v486, *(*(v3 + 505) + 16), 1, *(v3 + 129));
+                                      LODWORD(v220) = 0;
+                                      goto LABEL_486;
                                     }
 
-                                    vDSP_vfill(&v486, *(*(v3 + 503) + 16), 1, *(v3 + 129));
-                                    v316 = *(v3 + 586);
-                                  }
-
-                                  else
-                                  {
-                                    v316 = *(v3 + 586);
-                                    if ((v316 & 0x80000000000) == 0 || (*(v3 + 4709) & 8) == 0 || !*(v3 + 392))
-                                    {
-                                      goto LABEL_573;
-                                    }
-                                  }
-
-                                  if ((v316 & 0x1000000000000) == 0 || (*(v3 + 4710) & 1) == 0 || !*(v3 + 397))
-                                  {
                                     if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
                                     {
-                                      v314 = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x63u, *(v3 + 129), *(v3 + 430), &buf);
-                                      v316 = *(v3 + 586);
+                                      VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x63u, *(v3 + 516), *(v3 + 3440), &buf);
                                     }
 
-                                    LODWORD(v462) = 1;
-LABEL_574:
-                                    v317 = *(v3 + 504);
-                                    if ((v316 & 0x40000000000000) != 0 && (*(v3 + 4710) & 0x40) != 0 && (v314 = *(v3 + 403)) != 0)
+                                    LODWORD(v220) = 1;
+LABEL_486:
+                                    v221 = *(v3 + 4032);
+                                    v222 = *(v3 + 4688);
+                                    if ((v222 & 0x40000000000000) != 0 && (*(v3 + 4710) & 0x40) != 0 && (v223 = *(v3 + 3224)) != 0)
                                     {
-                                      v318 = *(v3 + 503);
-                                      v481.mSampleTime = *(v3 + 430);
-                                      v481.mHostTime = v318;
-                                      *&v481.mRateScalar = v3 + 16904;
-                                      v319 = *(v3 + 505);
-                                      *&v482.mNumberBuffers = *(v3 + 431);
-                                      *&v482.mBuffers[0].mNumberChannels = v319;
-                                      v482.mBuffers[0].mData = v317;
-                                      v471 = 512;
-                                      v320 = *&a2->mRateScalar;
-                                      *&v486.mSampleTime = *&a2->mSampleTime;
-                                      *&v486.mRateScalar = v320;
-                                      v321 = *&a2->mSMPTETime.mHours;
-                                      *&v486.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-                                      *&v486.mSMPTETime.mHours = v321;
-                                      AudioUnitProcessMultiple(v314, &v471, &v486, *(v3 + 129), 3u, &v481, 3u, &v482);
-                                      AudioUnitGetParameter(*(v3 + 403), 1u, 0, 0, &v472);
-                                      v314 = AudioUnitGetParameter(*(v3 + 403), 1u, 0, 0, v3 + 4377);
-                                      if ((*(v3 + 4696) & 2) == 0 || (*(v3 + 4712) & 2) == 0 || !*(v3 + 414))
+                                      v224 = *(v3 + 4024);
+                                      v335.mSampleTime = *(v3 + 3440);
+                                      v335.mHostTime = v224;
+                                      *&v335.mRateScalar = v3 + 16904;
+                                      v225 = *(v3 + 4040);
+                                      *&v338.mNumberBuffers = *(v3 + 3448);
+                                      *&v338.mBuffers[0].mNumberChannels = v225;
+                                      v338.mBuffers[0].mData = v221;
+                                      v325 = 512;
+                                      v226 = *&a2->mRateScalar;
+                                      *&inInputBufferLists.mSampleTime = *&a2->mSampleTime;
+                                      *&inInputBufferLists.mRateScalar = v226;
+                                      v227 = *&a2->mSMPTETime.mHours;
+                                      *&inInputBufferLists.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
+                                      *&inInputBufferLists.mSMPTETime.mHours = v227;
+                                      AudioUnitProcessMultiple(v223, &v325, &inInputBufferLists, *(v3 + 516), 3u, &v335, 3u, &v338);
+                                      AudioUnitGetParameter(*(v3 + 3224), 1u, 0, 0, &v333);
+                                      if ((*(v3 + 4696) & 2) == 0 || (*(v3 + 4712) & 2) == 0 || !*(v3 + 3312))
                                       {
-                                        goto LABEL_589;
+                                        goto LABEL_501;
                                       }
 
-                                      v322 = *(v3 + 403);
-                                      v323 = 2;
+                                      v228 = *(v3 + 3224);
+                                      v229 = 2;
                                     }
 
                                     else
                                     {
-                                      if ((v316 & 0x80000000000000) == 0 || (*(v3 + 4710) & 0x80) == 0 || (v314 = *(v3 + 404)) == 0)
+                                      if ((v222 & 0x80000000000000) == 0 || (*(v3 + 4710) & 0x80) == 0 || (v230 = *(v3 + 3232)) == 0)
                                       {
-                                        v329 = 0;
-                                        goto LABEL_594;
+                                        v235 = 0;
+                                        goto LABEL_506;
                                       }
 
-                                      MEMORY[0x28223BE20](v314);
-                                      *(&v455 - 3) = 0;
-                                      v454 = 0;
-                                      *(&v455 - 4) = 0;
-                                      *(&v455 - 8) = 1;
-                                      *(&v455 - 3) = *(*(v3 + 2182) + 8);
-                                      AudioUnitSetParameter(v324, 0x14u, 0, 0, *(v3 + 4189), 0);
-                                      v325 = *(v3 + 433);
-                                      *&v481.mSampleTime = &v455 - 4;
-                                      v481.mHostTime = v325;
-                                      v481.mRateScalar = *(v3 + 503);
-                                      v481.mWordClockTime = v3 + 16904;
-                                      v326 = *(v3 + 438);
-                                      *&v482.mNumberBuffers = *(v3 + 431);
-                                      *&v482.mBuffers[0].mNumberChannels = v326;
-                                      v482.mBuffers[0].mData = *(v3 + 505);
-                                      v483 = v317;
-                                      v327 = *&a2->mRateScalar;
-                                      *&v486.mSampleTime = *&a2->mSampleTime;
-                                      *&v486.mRateScalar = v327;
-                                      v328 = *&a2->mSMPTETime.mHours;
-                                      *&v486.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-                                      *&v486.mSMPTETime.mHours = v328;
-                                      v471 = 512;
-                                      AudioUnitProcessMultiple(*(v3 + 404), &v471, &v486, *(v3 + 129), 4u, &v481, 4u, &v482);
-                                      v314 = AudioUnitGetParameter(*(v3 + 404), 2u, 0, 0, &v472);
-                                      if ((*(v3 + 4696) & 2) == 0 || (*(v3 + 4712) & 2) == 0 || !*(v3 + 414))
+                                      AudioUnitSetParameter(v230, 0x14u, 0, 0, *(v3 + 16756), 0);
+                                      v231 = *(v3 + 3464);
+                                      v335.mSampleTime = *(v3 + 3440);
+                                      v335.mHostTime = v231;
+                                      v335.mRateScalar = *(v3 + 4024);
+                                      v335.mWordClockTime = v3 + 16904;
+                                      v232 = *(v3 + 3504);
+                                      *&v338.mNumberBuffers = *(v3 + 3448);
+                                      *&v338.mBuffers[0].mNumberChannels = v232;
+                                      v338.mBuffers[0].mData = *(v3 + 4040);
+                                      v339 = v221;
+                                      v233 = *&a2->mRateScalar;
+                                      *&inInputBufferLists.mSampleTime = *&a2->mSampleTime;
+                                      *&inInputBufferLists.mRateScalar = v233;
+                                      v234 = *&a2->mSMPTETime.mHours;
+                                      *&inInputBufferLists.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
+                                      *&inInputBufferLists.mSMPTETime.mHours = v234;
+                                      v325 = 512;
+                                      AudioUnitProcessMultiple(*(v3 + 3232), &v325, &inInputBufferLists, *(v3 + 516), 4u, &v335, 4u, &v338);
+                                      AudioUnitGetParameter(*(v3 + 3232), 2u, 0, 0, &v333);
+                                      if ((*(v3 + 4696) & 2) == 0 || (*(v3 + 4712) & 2) == 0 || !*(v3 + 3312))
                                       {
-LABEL_589:
+LABEL_501:
                                         if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
                                         {
-                                          v314 = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x27u, *(v3 + 129), *(v3 + 431), &v486);
+                                          VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x27u, *(v3 + 516), *(v3 + 3448), &inInputBufferLists);
                                         }
 
-                                        v329 = 1;
-LABEL_594:
-                                        v330 = *(v3 + 586);
-                                        if ((v330 & 0x200000000000000) != 0 && (*(v3 + 4711) & 2) != 0)
+                                        v235 = 1;
+LABEL_506:
+                                        v236 = *(v3 + 4688);
+                                        if ((v236 & 0x200000000000000) != 0 && (*(v3 + 4711) & 2) != 0)
                                         {
-                                          v314 = *(v3 + 406);
-                                          if (v314)
+                                          v237 = *(v3 + 3248);
+                                          if (v237)
                                           {
-                                            v481.mSampleTime = *(v3 + 430);
-                                            *&v482.mNumberBuffers = 0;
-                                            v331 = *&a2->mSMPTETime.mHours;
-                                            *&v486.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-                                            *&v486.mSMPTETime.mHours = v331;
-                                            v332 = *&a2->mRateScalar;
-                                            *&v486.mSampleTime = *&a2->mSampleTime;
-                                            *&v486.mRateScalar = v332;
-                                            v471 = 512;
-                                            v333 = *(v3 + 506);
-                                            v334 = *(v333 + 16);
-                                            v335 = *(v333 + 12);
-                                            v314 = AudioUnitProcessMultiple(v314, &v471, &v486, *(v3 + 129), 1u, &v481, 1u, &v482);
-                                            if (v314 || (v314 = AudioUnitGetProperty(*(v3 + 406), 0x13EDu, 0, 0, *(*(v3 + 506) + 16), (*(v3 + 506) + 12)), v314))
+                                            LODWORD(v315) = v235;
+                                            v313 = v221;
+                                            v238 = v219;
+                                            v239 = v220;
+                                            v335.mSampleTime = *(v3 + 3440);
+                                            *&v338.mNumberBuffers = 0;
+                                            v240 = *&a2->mSMPTETime.mHours;
+                                            *&inInputBufferLists.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
+                                            *&inInputBufferLists.mSMPTETime.mHours = v240;
+                                            v241 = *&a2->mRateScalar;
+                                            *&inInputBufferLists.mSampleTime = *&a2->mSampleTime;
+                                            *&inInputBufferLists.mRateScalar = v241;
+                                            v325 = 512;
+                                            v242 = *(v3 + 4048);
+                                            v243 = *(v242 + 16);
+                                            v244 = *(v242 + 12);
+                                            if ((AudioUnitProcessMultiple(v237, &v325, &inInputBufferLists, *(v3 + 516), 1u, &v335, 1u, &v338) || AudioUnitGetProperty(*(v3 + 3248), 0x13EDu, 0, 0, *(*(v3 + 4048) + 16), (*(v3 + 4048) + 12))) && v244 >= 4)
                                             {
-                                              if (v335 >= 4)
-                                              {
-                                                memset_pattern16(v334, &unk_2727568B0, v335 & 0xFFFFFFFC);
-                                              }
+                                              memset_pattern16(v243, &unk_2727568B0, v244 & 0xFFFFFFFC);
                                             }
 
                                             if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
                                             {
-                                              v314 = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x54u, *(v3 + 129), *(v3 + 506), &v486);
+                                              VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x54u, *(v3 + 516), *(v3 + 4048), &inInputBufferLists);
                                             }
 
-                                            v330 = *(v3 + 586);
+                                            v236 = *(v3 + 4688);
+                                            LODWORD(v220) = v239;
+                                            v219 = v238;
+                                            v221 = v313;
+                                            v235 = v315;
                                           }
                                         }
 
-                                        if ((v330 & 0x400000000000000) != 0 && (*(v3 + 4711) & 4) != 0)
+                                        if ((v236 & 0x400000000000000) != 0 && (*(v3 + 4711) & 4) != 0)
                                         {
-                                          if (*(v3 + 407))
+                                          if (*(v3 + 3256))
                                           {
-                                            v336 = *(v3 + 4344);
-                                            if (v336)
+                                            v245 = *(v3 + 17376);
+                                            if (v245)
                                             {
-                                              if (v336 == 1)
+                                              LODWORD(v315) = v235;
+                                              if (v245 == 1)
                                               {
-                                                v337 = 1136;
-                                                v338 = 1112;
+                                                v246 = 1136;
+                                                v247 = 1112;
                                               }
 
                                               else
                                               {
-                                                v337 = 1128;
-                                                v338 = 1120;
+                                                v246 = 1128;
+                                                v247 = 1120;
                                               }
 
-                                              v339 = *(v3 + v337);
-                                              v340 = *(v3 + 2158);
-                                              v341 = *(*(v3 + v338) + 40);
-                                              v342 = *(*(v3 + 2154) + 16) + 4 * *(v3 + 129);
-                                              v486.mSampleTime = *(*(v3 + 2154) + 16);
-                                              v486.mHostTime = v342;
-                                              VPTimeFreqConverter_Analyze(v340, v341, &v486);
-                                              v343 = *(v3 + 2159);
-                                              v344 = *(v339 + 40);
-                                              v345 = *(*(v3 + 2154) + 32) + 4 * *(v3 + 129);
-                                              v486.mSampleTime = *(*(v3 + 2154) + 32);
-                                              v486.mHostTime = v345;
-                                              VPTimeFreqConverter_Analyze(v343, v344, &v486);
-                                              v481.mSampleTime = *(v3 + 2154);
-                                              *&v482.mNumberBuffers = v481.mSampleTime;
-                                              v471 = 512;
-                                              v346 = *&a2->mRateScalar;
-                                              *&v486.mSampleTime = *&a2->mSampleTime;
-                                              *&v486.mRateScalar = v346;
-                                              v347 = *&a2->mSMPTETime.mHours;
-                                              *&v486.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-                                              *&v486.mSMPTETime.mHours = v347;
-                                              v348 = AudioUnitProcessMultiple(*(v3 + 407), &v471, &v486, *(v3 + 129), 1u, &v481, 1u, &v482);
+                                              LODWORD(v313) = v220;
+                                              v248 = *(v3 + v246);
+                                              v249 = *(v3 + v247);
+                                              v250 = *(*(v3 + 17232) + 16) + 4 * *(v3 + 516);
+                                              v335.mSampleTime = *(*(v3 + 17232) + 16);
+                                              v335.mHostTime = v250;
+                                              VPTimeFreqConverter_Analyze(*(v3 + 17264), *(v249 + 40), &v335);
+                                              v251 = *(*(v3 + 17232) + 32) + 4 * *(v3 + 516);
+                                              v335.mSampleTime = *(*(v3 + 17232) + 32);
+                                              v335.mHostTime = v251;
+                                              VPTimeFreqConverter_Analyze(*(v3 + 17272), *(v248 + 40), &v335);
+                                              *&v338.mNumberBuffers = *(v3 + 17232);
+                                              *ioDataSize = *&v338.mNumberBuffers;
+                                              v325 = 512;
+                                              v252 = *&a2->mRateScalar;
+                                              *&inInputBufferLists.mSampleTime = *&a2->mSampleTime;
+                                              *&inInputBufferLists.mRateScalar = v252;
+                                              v253 = *&a2->mSMPTETime.mHours;
+                                              *&inInputBufferLists.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
+                                              *&inInputBufferLists.mSMPTETime.mHours = v253;
+                                              v254 = AudioUnitProcessMultiple(*(v3 + 3256), &v325, &inInputBufferLists, *(v3 + 516), 1u, &v338, 1u, ioDataSize);
                                               if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
                                               {
-                                                VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x6Fu, *(v3 + 129), *(v3 + 2154), &v486);
+                                                VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x6Fu, *(v3 + 516), *(v3 + 17232), &inInputBufferLists);
                                               }
 
-                                              v349 = *(v3 + 2155);
-                                              v352 = *(v349 + 12);
-                                              v350 = v349 + 12;
-                                              v351 = v352;
-                                              v353 = *(v350 + 4);
-                                              if ((v348 || AudioUnitGetProperty(*(v3 + 407), 0x15FEu, 0, 0, *(v350 + 4), v350)) && v351 >= 4)
+                                              v255 = *(v3 + 17240);
+                                              v258 = *(v255 + 12);
+                                              v256 = v255 + 12;
+                                              v257 = v258;
+                                              v259 = *(v256 + 4);
+                                              if ((v254 || AudioUnitGetProperty(*(v3 + 3256), 0x15FEu, 0, 0, *(v256 + 4), v256)) && v257 >= 4)
                                               {
-                                                memset_pattern16(v353, &unk_2727568B0, v351 & 0xFFFFFFFC);
+                                                memset_pattern16(v259, &unk_2727568B0, v257 & 0xFFFFFFFC);
                                               }
 
-                                              v314 = AudioUnitGetParameter(*(v3 + 407), 0, 0, 0, v3 + 4376);
-                                              if (v314)
-                                              {
-                                                *(v3 + 4376) = 0;
-                                              }
-
+                                              v235 = v315;
                                               if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
                                               {
-                                                v314 = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x70u, *(v3 + 129), *(v3 + 2155), &v486);
+                                                VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x70u, *(v3 + 516), *(v3 + 17240), &inInputBufferLists);
                                               }
 
-                                              v330 = *(v3 + 586);
+                                              v236 = *(v3 + 4688);
+                                              LOBYTE(v220) = v313;
                                             }
                                           }
                                         }
 
-                                        if ((v330 & 0x80000000000) == 0 || (*(v3 + 588) & 0x80000000000) == 0 || !*(v3 + 392))
+                                        if ((v236 & 0x80000000000) == 0)
                                         {
-LABEL_665:
-                                          if ((v330 & 0x1000000000000) != 0 && (*(v3 + 4710) & 1) != 0 && *(v3 + 397))
-                                          {
-                                            LODWORD(v477) = 0;
-                                            AudioUnitGetParameter(*(v3 + 371), 0x25u, 0, 0, &v477);
-                                            AudioUnitSetParameter(*(v3 + 397), 0, 4u, 2u, *&v477, 0);
-                                            AudioUnitSetParameter(*(v3 + 397), 0, 4u, 3u, *&v477, 0);
-                                            v374 = memcpy(*(*(v3 + 2199) + 16), *(*(v3 + 430) + 16), *(*(v3 + 430) + 12));
-                                            MEMORY[0x28223BE20](v374);
-                                            v454 = 0;
-                                            *(&v455 - 3) = 0u;
-                                            *(&v455 - 2) = 0u;
-                                            *(&v455 - 5) = 0u;
-                                            *(&v455 - 4) = 0u;
-                                            *(&v455 - 20) = 4;
-                                            *(&v455 - 9) = *(*(v3 + 430) + 8);
-                                            *(&v455 - 7) = *(*(v3 + 2179) + 8);
-                                            *(&v455 - 5) = *(*(v3 + 510) + 8);
-                                            *(&v455 - 3) = *(*(v3 + 509) + 8);
-                                            *&v376 = MEMORY[0x28223BE20](v375);
-                                            v454 = 0;
-                                            *(&v455 - 3) = v376;
-                                            *(&v455 - 2) = v376;
-                                            *(&v455 - 5) = v376;
-                                            *(&v455 - 4) = v376;
-                                            *(&v455 - 20) = 4;
-                                            *(&v455 - 9) = *(*(v3 + 2195) + 8);
-                                            *(&v455 - 7) = *(*(v3 + 2197) + 8);
-                                            *(&v455 - 5) = *(*(v3 + 2198) + 8);
-                                            *(&v455 - 3) = *(*(v3 + 2196) + 8);
-                                            *&v481.mSampleTime = &v455 - 10;
-                                            v481.mHostTime = (&v455 - 10);
-                                            *&v482.mNumberBuffers = &v455 - 10;
-                                            *&v482.mBuffers[0].mNumberChannels = &v455 - 10;
-                                            v377 = *&a2->mRateScalar;
-                                            *&v486.mSampleTime = *&a2->mSampleTime;
-                                            *&v486.mRateScalar = v377;
-                                            v378 = *&a2->mSMPTETime.mHours;
-                                            *&v486.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-                                            *&v486.mSMPTETime.mHours = v378;
-                                            v471 = 512;
-                                            AudioUnitProcessMultiple(*(v3 + 397), &v471, &v486, *(v3 + 129), 2u, &v481, 2u, &v482);
-                                            if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
-                                            {
-                                              VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x86u, *(v3 + 129), (&v455 - 10), &v486);
-                                            }
-
-                                            v330 = *(v3 + 586);
-                                          }
-
-                                          if ((v330 & 0x4000000000000) != 0)
-                                          {
-                                            v379 = *(v3 + 588);
-                                            if ((v379 & 0x4000000000000) != 0)
-                                            {
-                                              v380 = *(v3 + 399);
-                                              if (v380)
-                                              {
-                                                if ((v330 & v379 & 0x1000000000000) != 0 && *(v3 + 397))
-                                                {
-                                                  MEMORY[0x28223BE20](v380);
-                                                  v454 = 0;
-                                                  *(&v455 - 3) = 0u;
-                                                  *(&v455 - 2) = 0u;
-                                                  *(&v455 - 12) = 2;
-                                                  *(&v455 - 5) = *(*(v3 + 430) + 8);
-                                                  *(&v455 - 3) = *(*(v3 + 2179) + 8);
-                                                  *&v481.mSampleTime = &v455 - 6;
-                                                  *&v482.mNumberBuffers = *(v3 + 433);
-                                                  v381 = *&a2->mRateScalar;
-                                                  *&v486.mSampleTime = *&a2->mSampleTime;
-                                                  *&v486.mRateScalar = v381;
-                                                  v382 = *&a2->mSMPTETime.mHours;
-                                                  *&v486.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-                                                  *&v486.mSMPTETime.mHours = v382;
-                                                  v471 = 512;
-                                                  AudioUnitProcessMultiple(v383, &v471, &v486, *(v3 + 129), 1u, &v481, 1u, &v482);
-                                                  if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
-                                                  {
-                                                    VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x87u, *(v3 + 129), *(v3 + 433), &v486);
-                                                  }
-
-                                                  v330 = *(v3 + 586);
-                                                }
-                                              }
-                                            }
-                                          }
-
-                                          LODWORD(v477) = 0;
-                                          LODWORD(v475) = 0;
-                                          if ((v330 & 0x400000) != 0 && (*(v3 + 4706) & 0x40) != 0 && (v384 = *(v3 + 371)) != 0)
-                                          {
-                                            AudioUnitGetParameter(v384, 0x43u, 0, 0, &v477);
-                                            AudioUnitGetParameter(*(v3 + 371), 0x47u, 0, 0, &v475);
-                                            v330 = *(v3 + 586);
-                                            v385 = *&v475 == 0.0 || *&v477 == 0.0;
-                                          }
-
-                                          else
-                                          {
-                                            v385 = 1;
-                                          }
-
-                                          if ((v330 & 0x100000000000) == 0 || (v386 = *(v3 + 588), (v386 & 0x100000000000) == 0) || (v387 = *(v3 + 393)) == 0 || (v330 & v386 & 0x1000000000000) == 0 || !*(v3 + 397))
-                                          {
-LABEL_703:
-                                            if ((v330 & 0x200000000000) == 0)
-                                            {
-                                              goto LABEL_718;
-                                            }
-
-                                            v397 = *(v3 + 588);
-                                            if ((v397 & 0x200000000000) == 0)
-                                            {
-                                              goto LABEL_718;
-                                            }
-
-                                            v398 = *(v3 + 394);
-                                            if (!v398 || (v330 & v397 & 0x1000000000000) != 0 && *(v3 + 397))
-                                            {
-                                              goto LABEL_718;
-                                            }
-
-                                            MEMORY[0x28223BE20](v398);
-                                            *(&v455 - 4) = 0;
-                                            *(&v455 - 3) = 0;
-                                            *(&v455 - 8) = 1;
-                                            MEMORY[0x28223BE20](v399);
-                                            *(&v455 - 3) = 0;
-                                            v454 = 0;
-                                            *(&v455 - 4) = 0;
-                                            *(&v455 - 8) = v400;
-                                            *(v401 - 24) = *(*(v3 + 2179) + 8);
-                                            *(&v455 - 3) = *(*(v3 + 508) + 40);
-                                            AudioUnitSetParameter(v402, 6u, 0, 0, *(v3 + 1062), 0);
-                                            AudioUnitSetParameter(*(v3 + 394), 7u, 0, 0, *(v3 + 1066), 0);
-                                            AudioUnitSetParameter(*(v3 + 394), 0xDu, 0, 0, *(v3 + 1070), 0);
-                                            *&v481.mSampleTime = &v455 - 4;
-                                            v481.mHostTime = (&v455 - 4);
-                                            v403 = *(v3 + 505);
-                                            v481.mRateScalar = *(v3 + 515);
-                                            v481.mWordClockTime = v403;
-                                            *&v481.mSMPTETime.mSubframes = v317;
-                                            *&v481.mSMPTETime.mType = 0;
-                                            *&v482.mNumberBuffers = *(v3 + 433);
-                                            *&v482.mBuffers[0].mNumberChannels = 0;
-                                            v482.mBuffers[0].mData = *(v3 + 2191);
-                                            v404 = *&a2->mRateScalar;
-                                            *&v486.mSampleTime = *&a2->mSampleTime;
-                                            *&v486.mRateScalar = v404;
-                                            v405 = *&a2->mSMPTETime.mHours;
-                                            *&v486.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-                                            *&v486.mSMPTETime.mHours = v405;
-                                            v471 = 512;
-                                            AudioUnitProcessMultiple(*(v3 + 394), &v471, &v486, *(v3 + 129), 6u, &v481, 3u, &v482);
-                                            v406 = *(v3 + 129);
-                                            if (*(v3 + 15881) & 1) != 0 || (*(v3 + 15882))
-                                            {
-                                              VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x26u, v406, *(v3 + 433), &v486);
-                                              v406 = *(v3 + 129);
-                                              v407 = *(v3 + 2191);
-                                              if (*(v3 + 15881))
-                                              {
-                                                goto LABEL_714;
-                                              }
-                                            }
-
-                                            else
-                                            {
-                                              v407 = *(v3 + 2191);
-                                            }
-
-                                            if (*(v3 + 15882) != 1)
-                                            {
-LABEL_715:
-                                              if (*&inInputBufferLists != 0.0)
-                                              {
-                                                vDSP_vmin(*(*(v3 + 503) + 16), 1, *(*(v3 + 2191) + 16), 1, *(*(v3 + 503) + 16), 1, *(v3 + 129));
-                                              }
-
-                                              v330 = *(v3 + 586);
-LABEL_718:
-                                              if ((v330 & 0x80000000000) != 0 && (*(v3 + 4709) & 8) != 0 && *(v3 + 392))
-                                              {
-                                                if (!v460)
-                                                {
-LABEL_739:
-                                                  if ((*(v3 + 4709) & 8) != 0)
-                                                  {
-                                                    if (*(v3 + 392) != 0 || v313)
-                                                    {
-LABEL_754:
-                                                      if (((v462 & 1) != 0 || (*(v3 + 4693) & 8) != 0 && (*(v3 + 4709) & 8) != 0 && *(v3 + 392)) && ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1))
-                                                      {
-                                                        VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x62u, *(v3 + 129), *(v3 + 431), a2);
-                                                      }
-
-                                                      if ((*(v3 + 4695) & 0x10) != 0 && (*(v3 + 4711) & 0x10) != 0)
-                                                      {
-                                                        v414 = *(v3 + 409);
-                                                        if (v414)
-                                                        {
-                                                          AudioUnitSetParameter(v414, 0, 0, 0, *(v3 + 3153), 0);
-                                                          AudioUnitSetParameter(*(v3 + 409), 4u, 0, 0, *(v3 + 1054), 0);
-                                                          AudioUnitSetParameter(*(v3 + 409), 0x13u, 0, 0, *(v3 + 1058), 0);
-                                                          AudioUnitSetParameter(*(v3 + 409), 3u, 0, 0, v472, 0);
-                                                          LODWORD(v473) = 0;
-                                                          AudioUnitGetParameter(*(v3 + 409), 0x1Cu, 0, 0, &v473);
-                                                          if (*&v473 == 1.0)
-                                                          {
-                                                            v415 = v3 + 2792;
-                                                            LODWORD(v486.mSampleTime) = -1082130432;
-                                                            AudioUnitGetParameter(*(v3 + 409), 0x1Du, 0, 0, &v486);
-                                                            v416 = *&v486.mSampleTime != 2.0 || *&v486.mSampleTime == 1.0;
-                                                            v417 = v416 ? 22 : 23;
-                                                            v418 = *&v415[8 * v417];
-                                                            if (v418)
-                                                            {
-                                                              LODWORD(v481.mSampleTime) = 0;
-                                                              if (!AudioUnitGetPropertyInfo(v418, 0xED8u, 0, 0, &v481, 0))
-                                                              {
-                                                                v419 = *(v3 + 2192);
-                                                                if (*(v3 + 2193) - v419 >= LODWORD(v481.mSampleTime))
-                                                                {
-                                                                  AudioUnitGetProperty(*&v415[8 * v417], 0xED8u, 0, 0, v419, &v481);
-                                                                }
-                                                              }
-
-                                                              v482.mNumberBuffers = 0;
-                                                              AudioUnitGetParameter(*&v415[8 * v417], 1u, 0, 0, &v482.mNumberBuffers);
-                                                              AudioUnitSetProperty(*(v3 + 409), 0x846u, 0, 0, *(v3 + 2192), vcvts_n_u32_f32(*&v482.mNumberBuffers, 2uLL));
-                                                            }
-                                                          }
-
-                                                          AudioUnitSetParameter(*(v3 + 409), 0xEu, 0, 0, *(v3 + 580), 0);
-                                                          v420 = *(v3 + 514);
-                                                          v481.mSampleTime = *(v3 + 420);
-                                                          v481.mHostTime = v420;
-                                                          v421 = *(v3 + 513);
-                                                          v481.mRateScalar = *(v3 + 431);
-                                                          v481.mWordClockTime = v421;
-                                                          *&v481.mSMPTETime.mSubframes = *(v3 + 503);
-                                                          *&v481.mSMPTETime.mType = *(v3 + 505);
-                                                          *&v482.mNumberBuffers = *(v3 + 137);
-                                                          v471 = 512;
-                                                          v422 = *&a2->mRateScalar;
-                                                          *&v486.mSampleTime = *&a2->mSampleTime;
-                                                          *&v486.mRateScalar = v422;
-                                                          v423 = *&a2->mSMPTETime.mHours;
-                                                          *&v486.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-                                                          *&v486.mSMPTETime.mHours = v423;
-                                                          AudioUnitProcessMultiple(*(v3 + 409), &v471, &v486, *(v3 + 129), 6u, &v481, 1u, &v482);
-                                                          v463 = 0.0;
-                                                          AudioUnitGetParameter(*(v3 + 409), 1u, 0, 0, &v463);
-                                                          *(v3 + 3154) = v463;
-                                                          if ((*(v3 + 4696) & 2) != 0 && (*(v3 + 4712) & 2) != 0 && *(v3 + 414))
-                                                          {
-                                                            AudioUnitGetParameter(*(v3 + 409), 2u, 0, 0, &v472);
-                                                            AudioUnitSetParameter(*(v3 + 414), 0x23u, 0, 0, v472, 0);
-                                                          }
-                                                        }
-                                                      }
-
-                                                      goto LABEL_780;
-                                                    }
-
-LABEL_743:
-                                                    LODWORD(v486.mSampleTime) = 1065353216;
-                                                    v411 = *(v3 + 129);
-                                                    vDSP_vfill(&v486, *(*(v3 + 505) + 16), 1, v411);
-                                                    memcpy(*(*(v3 + 431) + 16), *(*(v3 + 430) + 16), 8 * v411);
-                                                    goto LABEL_754;
-                                                  }
-
-LABEL_740:
-                                                  if (v313)
-                                                  {
-                                                    goto LABEL_754;
-                                                  }
-
-                                                  goto LABEL_743;
-                                                }
-                                              }
-
-                                              else if ((v330 & 0x100000000000) == 0 || (*(v3 + 4709) & 0x10) == 0 || ((*(v3 + 393) != 0) & v460) == 0)
-                                              {
-                                                if ((v330 & 0x80000000000) == 0)
-                                                {
-                                                  goto LABEL_740;
-                                                }
-
-                                                goto LABEL_739;
-                                              }
-
-                                              v408 = *(*(v3 + 505) + 16);
-                                              vDSP_vmin(*(*(v3 + 503) + 16), 1, v408, 1, v408, 1, *(v3 + 129));
-                                              v409 = *(v3 + 586);
-                                              if ((v409 & 0x200000000000000) != 0 && (*(v3 + 4711) & 2) != 0 && *(v3 + 406))
-                                              {
-                                                vDSP_vmin(*(*(v3 + 506) + 16), 1, v408, 1, v408, 1, *(v3 + 129));
-                                                v409 = *(v3 + 586);
-                                              }
-
-                                              if ((v409 & 0x400000000000000) != 0 && (*(v3 + 4711) & 4) != 0 && *(v3 + 407))
-                                              {
-                                                vDSP_vmin(*(*(v3 + 2155) + 16), 1, v408, 1, v408, 1, *(v3 + 129));
-                                                v409 = *(v3 + 586);
-                                              }
-
-                                              if ((v409 & 0x1000) != 0 && (*(v3 + 4705) & 0x10) != 0 && *(v3 + 361))
-                                              {
-                                                v410 = 17480;
-                                              }
-
-                                              else if ((v409 & 0x800000000000) != 0 && (*(v3 + 4709) & 0x80) != 0 && *(v3 + 396))
-                                              {
-                                                v410 = 17456;
-                                              }
-
-                                              else if (v409 & 0x1000000000000) != 0 && (*(v3 + 4710))
-                                              {
-                                                v410 = 3440;
-                                                if (*(v3 + 397) != 0 && v385)
-                                                {
-                                                  v410 = 17592;
-                                                }
-                                              }
-
-                                              else
-                                              {
-                                                v410 = 3440;
-                                              }
-
-                                              v412 = *(*(v3 + v410) + 16);
-                                              v413 = *(*(v3 + 431) + 16);
-                                              MEMORY[0x2743CCDD0](v412, 1, v408, 1, v413, 1, *(v3 + 129));
-                                              MEMORY[0x2743CCDD0](v412 + 4 * *(v3 + 129) + 4, 1, v408 + 1, 1, v413 + 4 * *(v3 + 129) + 4, 1, (*(v3 + 129) - 1));
-                                              *(v412 + 4 * *(v3 + 129)) = *(v412 + 4 * *(v3 + 129)) * v408[*(v3 + 129) - 1];
-                                              goto LABEL_754;
-                                            }
-
-LABEL_714:
-                                            VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x53u, v406, v407, &v486);
-                                            goto LABEL_715;
-                                          }
-
-                                          MEMORY[0x28223BE20](v387);
-                                          *(&v455 - 4) = 0;
-                                          *(&v455 - 3) = 0;
-                                          *(&v455 - 8) = 1;
-                                          MEMORY[0x28223BE20](v388);
-                                          *(&v455 - 3) = 0;
-                                          v454 = 0;
-                                          *(&v455 - 4) = 0;
-                                          *(&v455 - 8) = v389;
-                                          *(v390 - 24) = *(*(v3 + 430) + 8);
-                                          *(&v455 - 3) = *(*(v3 + 433) + 8);
-                                          AudioUnitSetParameter(v391, 6u, 0, 0, *(v3 + 1062), 0);
-                                          AudioUnitSetParameter(*(v3 + 393), 7u, 0, 0, *(v3 + 1066), 0);
-                                          AudioUnitSetParameter(*(v3 + 393), 0xDu, 0, 0, *(v3 + 1070), 0);
-                                          *&v481.mSampleTime = &v455 - 4;
-                                          v481.mHostTime = (&v455 - 4);
-                                          v392 = *(v3 + 505);
-                                          *&v481.mRateScalar = &v455 - 4;
-                                          v481.mWordClockTime = v392;
-                                          *&v481.mSMPTETime.mSubframes = v317;
-                                          *&v481.mSMPTETime.mType = 0;
-                                          *&v482.mNumberBuffers = *(v3 + 433);
-                                          *&v482.mBuffers[0].mNumberChannels = 0;
-                                          v482.mBuffers[0].mData = *(v3 + 504);
-                                          v393 = *&a2->mRateScalar;
-                                          *&v486.mSampleTime = *&a2->mSampleTime;
-                                          *&v486.mRateScalar = v393;
-                                          v394 = *&a2->mSMPTETime.mHours;
-                                          *&v486.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-                                          *&v486.mSMPTETime.mHours = v394;
-                                          v471 = 512;
-                                          AudioUnitProcessMultiple(*(v3 + 393), &v471, &v486, *(v3 + 129), 6u, &v481, 3u, &v482);
-                                          v395 = *(v3 + 129);
-                                          if (*(v3 + 15881) & 1) != 0 || (*(v3 + 15882))
-                                          {
-                                            VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x25u, v395, *(v3 + 433), &v486);
-                                            v395 = *(v3 + 129);
-                                            v396 = *(v3 + 504);
-                                            if (*(v3 + 15881))
-                                            {
-                                              goto LABEL_699;
-                                            }
-                                          }
-
-                                          else
-                                          {
-                                            v396 = *(v3 + 504);
-                                          }
-
-                                          if (*(v3 + 15882) != 1)
-                                          {
-LABEL_700:
-                                            if (!v385)
-                                            {
-                                              vDSP_vmin(*(*(v3 + 503) + 16), 1, *(*(v3 + 504) + 16), 1, *(*(v3 + 503) + 16), 1, *(v3 + 129));
-                                            }
-
-                                            v330 = *(v3 + 586);
-                                            goto LABEL_703;
-                                          }
-
-LABEL_699:
-                                          VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x52u, v395, v396, &v486);
-                                          goto LABEL_700;
+                                          goto LABEL_576;
                                         }
 
-                                        MEMORY[0x28223BE20](v314);
-                                        *(&v455 - 4) = 0;
-                                        *(&v455 - 3) = 0;
-                                        *(&v455 - 8) = 1;
-                                        MEMORY[0x28223BE20](v354);
-                                        *(&v455 - 4) = 0;
-                                        *(&v455 - 3) = 0;
-                                        v454 = 0;
-                                        *(&v455 - 8) = v357;
-                                        if ((v355 & v356 & 0x800000000000) != 0)
+                                        if ((*(v3 + 4709) & 8) == 0 || (v260 = *(v3 + 3136)) == 0)
                                         {
-                                          v358 = &v455 - 3;
-                                          v359 = &v455 - 3;
-                                          if (*(v3 + 396))
+LABEL_566:
+                                          if ((*(v3 + 4709) & 8) != 0 && *(v3 + 3136) != 0 && v219)
                                           {
-                                            v360 = *(v3 + 2182);
-                                            *v358 = *(v360 + 8);
-                                            v361 = (v360 + 40);
-LABEL_633:
-                                            *v359 = *v361;
-                                            AudioUnitSetParameter(*(v3 + 392), 6u, 0, 0, *(v3 + 1062), 0);
-                                            AudioUnitSetParameter(*(v3 + 392), 7u, 0, 0, *(v3 + 1066), 0);
-                                            AudioUnitSetParameter(*(v3 + 392), 0xDu, 0, 0, *(v3 + 1070), 0);
-                                            *&v481.mSampleTime = &v455 - 4;
-                                            v481.mHostTime = (&v455 - 4);
-                                            v362 = *(v3 + 505);
-                                            v481.mRateScalar = *(v3 + 515);
-                                            v481.mWordClockTime = v362;
-                                            *&v481.mSMPTETime.mSubframes = v317;
-                                            *&v481.mSMPTETime.mType = 0;
-                                            v363 = *(v3 + 586);
-                                            if ((v363 & 0x1000000000000) != 0 && (*(v3 + 4710) & 1) != 0 && *(v3 + 397))
+                                            v273 = *(*(v3 + 4040) + 16);
+                                            vDSP_vmin(*(*(v3 + 4024) + 16), 1, v273, 1, v273, 1, *(v3 + 516));
+                                            v274 = *(v3 + 4688);
+                                            if ((v274 & 0x200000000000000) != 0 && (*(v3 + 4711) & 2) != 0 && *(v3 + 3248))
                                             {
-                                              *&v481.mSMPTETime.mType = *(v3 + 511);
+                                              vDSP_vmin(*(*(v3 + 4048) + 16), 1, v273, 1, v273, 1, *(v3 + 516));
+                                              v274 = *(v3 + 4688);
                                             }
 
-                                            if ((v460 & 1) == 0)
+                                            v275 = v220;
+                                            if ((v274 & 0x400000000000000) != 0 && (*(v3 + 4711) & 4) != 0 && *(v3 + 3256))
                                             {
-                                              v481.mWordClockTime = 0;
+                                              vDSP_vmin(*(*(v3 + 17240) + 16), 1, v273, 1, v273, 1, *(v3 + 516));
                                             }
 
-                                            v364 = *(v3 + 513);
-                                            *&v482.mNumberBuffers = 0;
-                                            *&v482.mBuffers[0].mNumberChannels = v364;
-                                            v482.mBuffers[0].mData = 0;
-                                            if ((v363 & 0x4000000) != 0 && (v365 = *(v3 + 588), (v365 & 0x4000000) != 0) && (v366 = *(v3 + 375)) != 0 && (v363 & v365 & 0x400000) != 0 && *(v3 + 371))
+                                            v220 = *(*(v3 + 3440) + 16);
+                                            v276 = *(*(v3 + 3448) + 16);
+                                            MEMORY[0x2743CCDD0](v220, 1, v273, 1, v276, 1, *(v3 + 516));
+                                            MEMORY[0x2743CCDD0](v220 + 4 * *(v3 + 516) + 4, 1, v273 + 1, 1, v276 + 4 * *(v3 + 516) + 4, 1, (*(v3 + 516) - 1));
+                                            *(v220 + 4 * *(v3 + 516)) = *(v220 + 4 * *(v3 + 516)) * v273[*(v3 + 516) - 1];
+                                            LOBYTE(v220) = v275;
+                                            goto LABEL_578;
+                                          }
+
+                                          if ((*(v3 + 4709) & 8) != 0)
+                                          {
+                                            if (*(v3 + 3136) != 0 || v218)
                                             {
-                                              LODWORD(v486.mSampleTime) = 0;
-                                              *&v481.mSMPTETime.mType = *(v3 + 511);
-                                              AudioUnitGetParameter(v366, 0x2Du, 0, 0, &v486);
-                                              AudioUnitSetParameter(*(v3 + 392), 0x2Au, 0, 0, *&v486.mSampleTime, 0);
-                                              AudioUnitGetParameter(*(v3 + 371), 0x2Du, 0, 0, &v486);
-                                              AudioUnitSetParameter(*(v3 + 392), 0x29u, 0, 0, *&v486.mSampleTime, 0);
+                                              goto LABEL_578;
                                             }
 
-                                            else if ((v363 & 0x1000000) != 0 && (*(v3 + 4707) & 1) != 0 && *(v3 + 373) && v465 == 1.0)
+                                            goto LABEL_577;
+                                          }
+
+LABEL_576:
+                                          if (v218)
+                                          {
+LABEL_578:
+                                            if (((v220 & 1) != 0 || (*(v3 + 4693) & 8) != 0 && (*(v3 + 4709) & 8) != 0 && *(v3 + 3136)) && ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1))
                                             {
-                                              *&v481.mSMPTETime.mType = *(v3 + 2143);
+                                              VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x62u, *(v3 + 516), *(v3 + 3448), &buf);
                                             }
 
-                                            v367 = v460;
-                                            if (v460)
+                                            if ((*(v3 + 4695) & 0x10) != 0 && (*(v3 + 4711) & 0x10) != 0)
                                             {
-                                              v368 = 3464;
-                                            }
-
-                                            else
-                                            {
-                                              v368 = 3448;
-                                            }
-
-                                            v369 = 4040;
-                                            *&v482.mNumberBuffers = *(v3 + v368);
-                                            if (v460)
-                                            {
-                                              v369 = 4024;
-                                            }
-
-                                            v482.mBuffers[0].mData = *(v3 + v369);
-                                            v370 = *&a2->mRateScalar;
-                                            *&v486.mSampleTime = *&a2->mSampleTime;
-                                            *&v486.mRateScalar = v370;
-                                            v371 = *&a2->mSMPTETime.mHours;
-                                            *&v486.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-                                            *&v486.mSMPTETime.mHours = v371;
-                                            v471 = 512;
-                                            AudioUnitProcessMultiple(*(v3 + 392), &v471, &v486, *(v3 + 129), 6u, &v481, 3u, &v482);
-                                            if ((v329 & v367 & 1) == 0)
-                                            {
-                                              AudioUnitGetParameter(*(v3 + 392), 0x20u, 0, 0, &v472);
-                                            }
-
-                                            v372 = *(v3 + 129);
-                                            if (*(v3 + 15881) & 1) != 0 || (*(v3 + 15882))
-                                            {
-                                              VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x24u, v372, *(v3 + v368), &v486);
-                                              v372 = *(v3 + 129);
-                                              v373 = *(v3 + 503);
-                                              if (*(v3 + 15881))
+                                              v278 = *(v3 + 3272);
+                                              if (v278)
                                               {
-                                                goto LABEL_663;
+                                                AudioUnitSetParameter(v278, 0, 0, 0, *(v3 + 12612), 0);
+                                                AudioUnitSetParameter(*(v3 + 3272), 4u, 0, 0, *(v3 + 4216), 0);
+                                                AudioUnitSetParameter(*(v3 + 3272), 0x13u, 0, 0, *(v3 + 4232), 0);
+                                                AudioUnitSetParameter(*(v3 + 3272), 3u, 0, 0, *&v333, 0);
+                                                AudioUnitSetParameter(*(v3 + 3272), 0xEu, 0, 0, *(v3 + 2320), 0);
+                                                v279 = *(v3 + 4112);
+                                                v335.mSampleTime = *(v3 + 3360);
+                                                v335.mHostTime = v279;
+                                                v335.mRateScalar = *(v3 + 3448);
+                                                v280 = *(v3 + 4024);
+                                                v335.mWordClockTime = *(v3 + 4104);
+                                                *&v335.mSMPTETime.mSubframes = v280;
+                                                *&v335.mSMPTETime.mType = *(v3 + 4040);
+                                                *&v338.mNumberBuffers = *(v3 + 1096);
+                                                v325 = 512;
+                                                v281 = *&a2->mRateScalar;
+                                                *&inInputBufferLists.mSampleTime = *&a2->mSampleTime;
+                                                *&inInputBufferLists.mRateScalar = v281;
+                                                v282 = *&a2->mSMPTETime.mHours;
+                                                *&inInputBufferLists.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
+                                                *&inInputBufferLists.mSMPTETime.mHours = v282;
+                                                AudioUnitProcessMultiple(*(v3 + 3272), &v325, &inInputBufferLists, *(v3 + 516), 6u, &v335, 1u, &v338);
+                                                ioDataSize[0] = 0;
+                                                AudioUnitGetParameter(*(v3 + 3272), 1u, 0, 0, ioDataSize);
+                                                *(v3 + 12616) = ioDataSize[0];
+                                                if ((*(v3 + 4696) & 2) != 0 && (*(v3 + 4712) & 2) != 0 && *(v3 + 3312))
+                                                {
+                                                  AudioUnitGetParameter(*(v3 + 3272), 2u, 0, 0, &v333);
+                                                  AudioUnitSetParameter(*(v3 + 3312), 0x23u, 0, 0, *&v333, 0);
+                                                }
                                               }
                                             }
 
-                                            else
+                                            goto LABEL_592;
+                                          }
+
+LABEL_577:
+                                          LODWORD(inInputBufferLists.mSampleTime) = 1065353216;
+                                          v277 = *(v3 + 516);
+                                          vDSP_vfill(&inInputBufferLists, *(*(v3 + 4040) + 16), 1, v277);
+                                          memcpy(*(*(v3 + 3448) + 16), *(*(v3 + 3440) + 16), 8 * v277);
+                                          goto LABEL_578;
+                                        }
+
+                                        AudioUnitSetParameter(v260, 6u, 0, 0, *(v3 + 4248), 0);
+                                        AudioUnitSetParameter(*(v3 + 3136), 7u, 0, 0, *(v3 + 4264), 0);
+                                        AudioUnitSetParameter(*(v3 + 3136), 0xDu, 0, 0, *(v3 + 4280), 0);
+                                        v261 = *(v3 + 3472);
+                                        v335.mSampleTime = *(v3 + 3440);
+                                        v335.mHostTime = v261;
+                                        v335.mRateScalar = *(v3 + 4120);
+                                        v335.mWordClockTime = *(v3 + 4040);
+                                        *&v335.mSMPTETime.mSubframes = v221;
+                                        *&v335.mSMPTETime.mType = 0;
+                                        if (!v219)
+                                        {
+                                          v335.mWordClockTime = 0;
+                                        }
+
+                                        v262 = *(v3 + 4104);
+                                        *&v338.mNumberBuffers = 0;
+                                        *&v338.mBuffers[0].mNumberChannels = v262;
+                                        v338.mBuffers[0].mData = 0;
+                                        v263 = *(v3 + 4688);
+                                        if ((v263 & 0x4000000) != 0 && (v264 = *(v3 + 4704), (v264 & 0x4000000) != 0) && (v266 = *(v3 + 3000)) != 0 && (v263 & v264 & 0x400000) != 0 && *(v3 + 2968))
+                                        {
+                                          v265 = v235;
+                                          LODWORD(inInputBufferLists.mSampleTime) = 0;
+                                          *&v335.mSMPTETime.mType = *(v3 + 4088);
+                                          AudioUnitGetParameter(v266, 0x2Du, 0, 0, &inInputBufferLists);
+                                          AudioUnitSetParameter(*(v3 + 3136), 0x2Au, 0, 0, *&inInputBufferLists.mSampleTime, 0);
+                                          AudioUnitGetParameter(*(v3 + 2968), 0x2Du, 0, 0, &inInputBufferLists);
+                                          AudioUnitSetParameter(*(v3 + 3136), 0x29u, 0, 0, *&inInputBufferLists.mSampleTime, 0);
+                                        }
+
+                                        else
+                                        {
+                                          v265 = v235;
+                                          if ((v263 & 0x1000000) != 0 && (*(v3 + 4707) & 1) != 0 && *(v3 + 2984) && v318 == 1.0)
+                                          {
+                                            *&v335.mSMPTETime.mType = *(v3 + 17144);
+                                          }
+                                        }
+
+                                        if (v219)
+                                        {
+                                          v267 = 3464;
+                                        }
+
+                                        else
+                                        {
+                                          v267 = 3448;
+                                        }
+
+                                        v268 = 4040;
+                                        *&v338.mNumberBuffers = *(v3 + v267);
+                                        if (v219)
+                                        {
+                                          v268 = 4024;
+                                        }
+
+                                        v338.mBuffers[0].mData = *(v3 + v268);
+                                        v269 = *&a2->mRateScalar;
+                                        *&inInputBufferLists.mSampleTime = *&a2->mSampleTime;
+                                        *&inInputBufferLists.mRateScalar = v269;
+                                        v270 = *&a2->mSMPTETime.mHours;
+                                        *&inInputBufferLists.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
+                                        *&inInputBufferLists.mSMPTETime.mHours = v270;
+                                        v325 = 512;
+                                        AudioUnitProcessMultiple(*(v3 + 3136), &v325, &inInputBufferLists, *(v3 + 516), 6u, &v335, 3u, &v338);
+                                        if ((v265 & v219 & 1) == 0)
+                                        {
+                                          AudioUnitGetParameter(*(v3 + 3136), 0x20u, 0, 0, &v333);
+                                        }
+
+                                        v271 = *(v3 + 516);
+                                        if (*(v3 + 15881) & 1) != 0 || (*(v3 + 15882))
+                                        {
+                                          VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x24u, v271, *(v3 + v267), &inInputBufferLists);
+                                          v271 = *(v3 + 516);
+                                          v272 = *(v3 + 4024);
+                                          if (*(v3 + 15881))
+                                          {
+LABEL_564:
+                                            VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x51u, v271, v272, &inInputBufferLists);
+LABEL_565:
+                                            if ((*(v3 + 4693) & 8) == 0)
                                             {
-                                              v373 = *(v3 + 503);
+                                              goto LABEL_576;
                                             }
 
-                                            if (*(v3 + 15882) != 1)
-                                            {
-LABEL_664:
-                                              v330 = *(v3 + 586);
-                                              goto LABEL_665;
-                                            }
-
-LABEL_663:
-                                            VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x51u, v372, v373, &v486);
-                                            goto LABEL_664;
+                                            goto LABEL_566;
                                           }
                                         }
 
                                         else
                                         {
-                                          v358 = &v455 - 3;
-                                          v359 = &v455 - 3;
+                                          v272 = *(v3 + 4024);
                                         }
 
-                                        *v358 = *(*(v3 + 430) + 8);
-                                        v361 = (*(v3 + 434) + 8);
-                                        goto LABEL_633;
+                                        if (*(v3 + 15882) != 1)
+                                        {
+                                          goto LABEL_565;
+                                        }
+
+                                        goto LABEL_564;
                                       }
 
-                                      v322 = *(v3 + 404);
-                                      v323 = 9;
+                                      v228 = *(v3 + 3232);
+                                      v229 = 9;
                                     }
 
-                                    AudioUnitGetParameter(v322, v323, 0, 0, &v479);
-                                    v314 = AudioUnitSetParameter(*(v3 + 414), 0x12u, 0, 0, *&v479, 0);
-                                    goto LABEL_589;
+                                    AudioUnitGetParameter(v228, v229, 0, 0, &v331);
+                                    AudioUnitSetParameter(*(v3 + 3312), 0x12u, 0, 0, *&v331, 0);
+                                    goto LABEL_501;
                                   }
 
-LABEL_573:
-                                  LODWORD(v462) = 0;
-                                  goto LABEL_574;
-                                }
-
-                                LODWORD(v485.realp) = 1092616192;
-                                if ((v271 & v272 & 0x80000000000000) != 0)
-                                {
-                                  v270 = *(v3 + 404);
-                                  if (v270)
+                                  ioDataSize[0] = 1092616192;
+                                  if ((v201 & v202 & 0x80000000000000) != 0)
                                   {
-                                    v270 = AudioUnitGetParameter(v270, 9u, 0, 0, &v485);
-                                    v271 = *(v3 + 586);
+                                    v200 = *(v3 + 3232);
+                                    if (v200)
+                                    {
+                                      v200 = AudioUnitGetParameter(v200, 9u, 0, 0, ioDataSize);
+                                      v201 = *(v3 + 4688);
+                                    }
                                   }
+
+                                  if ((v201 & 0x100000000) != 0 && (*(v3 + 4708) & 1) != 0 && *(v3 + 3048))
+                                  {
+                                    LODWORD(inInputBufferLists.mSampleTime) = 0;
+                                    LODWORD(v335.mSampleTime) = 0;
+                                    v338.mNumberBuffers = 0;
+                                    AudioUnitGetParameter(*(v3 + 3056), 0x18u, 0, 0, &inInputBufferLists);
+                                    AudioUnitGetParameter(*(v3 + 3056), 0x19u, 0, 0, &v335);
+                                    AudioUnitGetParameter(*(v3 + 3056), 5u, 0, 0, &v338.mNumberBuffers);
+                                    AudioUnitSetParameter(*(v3 + 3160), 3u, 0, 0, *&inInputBufferLists.mSampleTime, 0);
+                                    AudioUnitSetParameter(*(v3 + 3160), 4u, 0, 0, *&v335.mSampleTime, 0);
+                                    AudioUnitSetParameter(*(v3 + 3160), 5u, 0, 0, *&v338.mNumberBuffers, 0);
+                                    v200 = AudioUnitSetParameter(*(v3 + 3160), 6u, 0, 0, *ioDataSize, 0);
+                                  }
+
+                                  MEMORY[0x28223BE20](v200);
+                                  v308 = 0;
+                                  *(&v309 - 3) = 0u;
+                                  *(&v309 - 2) = 0u;
+                                  *(&v309 - 12) = 2;
+                                  v203 = *(v3 + 3440);
+                                  *(&v309 - 4) = *(v203 + 16);
+                                  *(&v309 - 5) = *(v203 + 8);
+                                  v204 = *(v3 + 3464);
+                                  v308 = *(v204 + 16);
+                                  *(&v309 - 3) = *(v204 + 8);
+                                  *&v206 = MEMORY[0x28223BE20](v205);
+                                  *(&v309 - 3) = v206;
+                                  *(&v309 - 2) = v206;
+                                  *(&v309 - 12) = v207;
+                                  MEMORY[0x28223BE20](v208);
+                                  *(&v309 - 3) = 0;
+                                  v308 = 0;
+                                  *(&v309 - 4) = 0;
+                                  *(&v309 - 8) = 1;
+                                  v209 = *(v3 + 3472);
+                                  *(v210 - 32) = *(v209 + 16);
+                                  *(v210 - 40) = *(v209 + 8);
+                                  v211 = *(v3 + 4064);
+                                  *(v210 - 16) = *(v211 + 32);
+                                  *(v210 - 24) = *(v211 + 24);
+                                  v308 = *(v209 + 16);
+                                  *(&v309 - 3) = *(v209 + 8);
+                                  v335.mSampleTime = v212;
+                                  v335.mHostTime = v213;
+                                  *&v338.mNumberBuffers = v212;
+                                  *&v338.mBuffers[0].mNumberChannels = &v309 - 4;
+                                  v214 = *&a2->mRateScalar;
+                                  *&inInputBufferLists.mSampleTime = *&a2->mSampleTime;
+                                  *&inInputBufferLists.mRateScalar = v214;
+                                  v215 = *&a2->mSMPTETime.mHours;
+                                  *&inInputBufferLists.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
+                                  *&inInputBufferLists.mSMPTETime.mHours = v215;
+                                  v325 = 512;
+                                  AudioUnitProcessMultiple(*(v3 + 3160), &v325, &inInputBufferLists, *(v3 + 516), 2u, &v335, 2u, &v338);
+                                  v216 = *(v3 + 516);
+                                  if (*(v3 + 15881) & 1) != 0 || (*(v3 + 15882))
+                                  {
+                                    VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x83u, v216, *(v3 + 3440), &inInputBufferLists);
+                                    v216 = *(v3 + 516);
+                                    v217 = *(v3 + 3464);
+                                    if (*(v3 + 15881))
+                                    {
+                                      goto LABEL_461;
+                                    }
+                                  }
+
+                                  else
+                                  {
+                                    v217 = *(v3 + 3464);
+                                  }
+
+                                  if (*(v3 + 15882) != 1)
+                                  {
+LABEL_462:
+                                    v201 = *(v3 + 4688);
+                                    goto LABEL_463;
+                                  }
+
+LABEL_461:
+                                  VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x84u, v216, v217, &inInputBufferLists);
+                                  goto LABEL_462;
                                 }
 
-                                if ((v271 & 0x100000000) != 0 && (*(v3 + 4708) & 1) != 0 && *(v3 + 381))
+                                v309 = v180;
+                                v310 = v148;
+                                v311 = v147;
+                                v312 = v144;
+                                LODWORD(v313) = v145;
+                                v196 = 0;
+                                v336 = *(v3 + 4216);
+                                LODWORD(v337) = *(v3 + 4228);
+                                v333 = *(v3 + 4232);
+                                v334 = *(v3 + 4244);
+                                v331 = *(v3 + 4248);
+                                v332 = *(v3 + 4260);
+                                v329 = *(v3 + 4264);
+                                v330 = *(v3 + 4276);
+                                v327 = *(v3 + 4280);
+                                v328 = *(v3 + 4292);
+                                do
                                 {
-                                  LODWORD(v486.mSampleTime) = 0;
-                                  LODWORD(v481.mSampleTime) = 0;
-                                  v482.mNumberBuffers = 0;
-                                  AudioUnitGetParameter(*(v3 + 382), 0x18u, 0, 0, &v486);
-                                  AudioUnitGetParameter(*(v3 + 382), 0x19u, 0, 0, &v481);
-                                  AudioUnitGetParameter(*(v3 + 382), 5u, 0, 0, &v482.mNumberBuffers);
-                                  AudioUnitSetParameter(*(v3 + 395), 3u, 0, 0, *&v486.mSampleTime, 0);
-                                  AudioUnitSetParameter(*(v3 + 395), 4u, 0, 0, *&v481.mSampleTime, 0);
-                                  AudioUnitSetParameter(*(v3 + 395), 5u, 0, 0, *&v482.mNumberBuffers, 0);
-                                  v270 = AudioUnitSetParameter(*(v3 + 395), 6u, 0, 0, *&v485.realp, 0);
+                                  AudioUnitSetParameter(*(v3 + 3088), 0x64u, 4u, v196, *(&v336 + v196), 0);
+                                  AudioUnitSetParameter(*(v3 + 3088), 0x65u, 4u, v196, *(&v333 + v196), 0);
+                                  AudioUnitSetParameter(*(v3 + 3088), 0x66u, 4u, v196, *(&v331 + v196), 0);
+                                  AudioUnitSetParameter(*(v3 + 3088), 0x67u, 4u, v196, *(&v329 + v196), 0);
+                                  AudioUnitSetParameter(*(v3 + 3088), 0x68u, 4u, v196, *(&v327 + v196), 0);
+                                  ++v196;
                                 }
 
-                                MEMORY[0x28223BE20](v270);
-                                v454 = 0;
-                                *(&v455 - 3) = 0u;
-                                *(&v455 - 2) = 0u;
-                                *(&v455 - 12) = 2;
-                                v273 = *(v3 + 430);
-                                *(&v455 - 4) = *(v273 + 16);
-                                *(&v455 - 5) = *(v273 + 8);
-                                v274 = *(v3 + 433);
-                                v454 = *(v274 + 16);
-                                *(&v455 - 3) = *(v274 + 8);
-                                *&v276 = MEMORY[0x28223BE20](v275);
-                                *(&v455 - 3) = v276;
-                                *(&v455 - 2) = v276;
-                                *(&v455 - 12) = v277;
-                                MEMORY[0x28223BE20](v278);
-                                *(&v455 - 3) = 0;
-                                v454 = 0;
-                                *(&v455 - 4) = 0;
-                                *(&v455 - 8) = 1;
-                                v279 = *(v3 + 434);
-                                *(v280 - 32) = *(v279 + 16);
-                                *(v280 - 40) = *(v279 + 8);
-                                v281 = *(v3 + 508);
-                                *(v280 - 16) = *(v281 + 32);
-                                *(v280 - 24) = *(v281 + 24);
-                                v454 = *(v279 + 16);
-                                *(&v455 - 3) = *(v279 + 8);
-                                v481.mSampleTime = v282;
-                                v481.mHostTime = v283;
-                                *&v482.mNumberBuffers = v282;
-                                *&v482.mBuffers[0].mNumberChannels = &v455 - 4;
-                                v284 = *&a2->mRateScalar;
-                                *&v486.mSampleTime = *&a2->mSampleTime;
-                                *&v486.mRateScalar = v284;
-                                v285 = *&a2->mSMPTETime.mHours;
-                                *&v486.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-                                *&v486.mSMPTETime.mHours = v285;
-                                v471 = 512;
-                                AudioUnitProcessMultiple(*(v3 + 395), &v471, &v486, *(v3 + 129), 2u, &v481, 2u, &v482);
-                                v286 = *(v3 + 129);
-                                if (*(v3 + 15881) & 1) != 0 || (*(v3 + 15882))
+                                while (v196 != 3);
+                                *&v338.mNumberBuffers = 1;
+                                *&v338.mBuffers[0].mNumberChannels = 0;
+                                v338.mBuffers[0].mData = 0;
+                                v338.mBuffers[0] = *(*(v3 + 4064) + 8);
+                                *ioDataSize = v309;
+                                v342 = v315;
+                                v335.mSampleTime = *(v3 + 3440);
+                                v335.mHostTime = &v338;
+                                v335.mWordClockTime = 0;
+                                v335.mRateScalar = 0.0;
+                                v325 = 512;
+                                v197 = *&a2->mRateScalar;
+                                *&inInputBufferLists.mSampleTime = *&a2->mSampleTime;
+                                *&inInputBufferLists.mRateScalar = v197;
+                                v198 = *&a2->mSMPTETime.mHours;
+                                *&inInputBufferLists.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
+                                *&inInputBufferLists.mSMPTETime.mHours = v198;
+                                AudioUnitProcessMultiple(*(v3 + 3088), &v325, &inInputBufferLists, *(v3 + 516), 2u, ioDataSize, 4u, &v335);
+                                v316 = 0.0;
+                                AudioUnitGetParameter(*(v3 + 3088), 0xAu, 0, 0, &v316);
+                                v199 = *(v3 + 516);
+                                if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
                                 {
-                                  VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x83u, v286, *(v3 + 430), &v486);
-                                  v286 = *(v3 + 129);
-                                  v287 = *(v3 + 433);
+                                  VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x66u, v199, *(v3 + 3440), &inInputBufferLists);
+                                  v199 = *(v3 + 516);
+                                  v144 = v312;
+                                  v145 = v313;
+                                  v148 = v310;
+                                  v147 = v311;
                                   if (*(v3 + 15881))
                                   {
-                                    goto LABEL_527;
+                                    goto LABEL_431;
                                   }
                                 }
 
                                 else
                                 {
-                                  v287 = *(v3 + 433);
+                                  v144 = v312;
+                                  v145 = v313;
+                                  v148 = v310;
+                                  v147 = v311;
                                 }
 
                                 if (*(v3 + 15882) != 1)
                                 {
-LABEL_528:
-                                  v271 = *(v3 + 586);
-                                  goto LABEL_529;
+LABEL_432:
+                                  AudioUnitGetParameter(*(v3 + 3088), 0x64u, 4u, 0, (v3 + 4216));
+                                  AudioUnitGetParameter(*(v3 + 3088), 0x65u, 4u, 0, (v3 + 4232));
+                                  AudioUnitGetParameter(*(v3 + 3088), 0x66u, 4u, 0, (v3 + 4248));
+                                  AudioUnitGetParameter(*(v3 + 3088), 0x67u, 4u, 0, (v3 + 4264));
+                                  AudioUnitGetParameter(*(v3 + 3088), 0x68u, 4u, 0, (v3 + 4280));
+                                  goto LABEL_433;
                                 }
 
-LABEL_527:
-                                VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x84u, v286, v287, &v486);
-                                goto LABEL_528;
+LABEL_431:
+                                VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x67u, v199, &v338, &inInputBufferLists);
+                                goto LABEL_432;
                               }
 
-                              v456 = v235;
-                              v457 = v203;
-                              v458 = v202;
-                              v459 = v199;
-                              v460 = v200;
-                              v251 = 0;
-                              v485.realp = *(v3 + 527);
-                              LODWORD(v485.imagp) = *(v3 + 1057);
-                              v479 = *(v3 + 529);
-                              v480 = *(v3 + 1061);
-                              v477 = *(v3 + 531);
-                              v478 = *(v3 + 1065);
-                              v475 = *(v3 + 533);
-                              v476 = *(v3 + 1069);
-                              v473 = *(v3 + 535);
-                              v474 = *(v3 + 1073);
+                              v309 = v180;
+                              v310 = v148;
+                              v311 = v147;
+                              v312 = v144;
+                              LODWORD(v313) = v145;
+                              v192 = 0;
+                              *ioDataSize = *(v3 + 4216);
+                              LODWORD(v342) = *(v3 + 4228);
+                              v336 = *(v3 + 4232);
+                              LODWORD(v337) = *(v3 + 4244);
+                              v333 = *(v3 + 4248);
+                              v334 = *(v3 + 4260);
+                              v331 = *(v3 + 4264);
+                              v332 = *(v3 + 4276);
+                              v329 = *(v3 + 4280);
+                              v330 = *(v3 + 4292);
                               do
                               {
-                                AudioUnitSetParameter(*(v3 + 386), 0x64u, 4u, v251, *(&v485.realp + v251), 0);
-                                AudioUnitSetParameter(*(v3 + 386), 0x65u, 4u, v251, *(&v479 + v251), 0);
-                                AudioUnitSetParameter(*(v3 + 386), 0x66u, 4u, v251, *(&v477 + v251), 0);
-                                AudioUnitSetParameter(*(v3 + 386), 0x67u, 4u, v251, *(&v475 + v251), 0);
-                                AudioUnitSetParameter(*(v3 + 386), 0x68u, 4u, v251, *(&v473 + v251), 0);
-                                ++v251;
+                                AudioUnitSetParameter(*(v3 + 3072), 0x12u, 4u, v192, *&ioDataSize[v192], 0);
+                                AudioUnitSetParameter(*(v3 + 3072), 0x13u, 4u, v192, *(&v336 + v192), 0);
+                                AudioUnitSetParameter(*(v3 + 3072), 0x14u, 4u, v192, *(&v333 + v192), 0);
+                                AudioUnitSetParameter(*(v3 + 3072), 0x15u, 4u, v192, *(&v331 + v192), 0);
+                                AudioUnitSetParameter(*(v3 + 3072), 0x16u, 4u, v192, *(&v329 + v192), 0);
+                                ++v192;
                               }
 
-                              while (v251 != 3);
-                              *&v482.mNumberBuffers = 1;
-                              *&v482.mBuffers[0].mNumberChannels = 0;
-                              v482.mBuffers[0].mData = 0;
-                              v482.mBuffers[0] = *(*(v3 + 508) + 8);
-                              inInputBufferLists = v456;
-                              v488 = v462;
-                              v481.mSampleTime = *(v3 + 430);
-                              v481.mHostTime = &v482;
-                              v481.mRateScalar = 0.0;
-                              v481.mWordClockTime = 0;
-                              v471 = 512;
-                              v252 = *&a2->mRateScalar;
-                              *&v486.mSampleTime = *&a2->mSampleTime;
-                              *&v486.mRateScalar = v252;
-                              v253 = *&a2->mSMPTETime.mHours;
-                              *&v486.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-                              *&v486.mSMPTETime.mHours = v253;
-                              AudioUnitProcessMultiple(*(v3 + 386), &v471, &v486, *(v3 + 129), 2u, &inInputBufferLists, 4u, &v481);
-                              v463 = 0.0;
-                              AudioUnitGetParameter(*(v3 + 386), 0xAu, 0, 0, &v463);
-                              v254 = *(v3 + 129);
+                              while (v192 != 3);
+                              v180 = v309;
+                              *&v335.mSampleTime = v309;
+                              v335.mHostTime = v315;
+                              *&v338.mNumberBuffers = v309;
+                              *&v338.mBuffers[0].mNumberChannels = v315;
+                              v325 = 512;
+                              v193 = *&a2->mRateScalar;
+                              *&inInputBufferLists.mSampleTime = *&a2->mSampleTime;
+                              *&inInputBufferLists.mRateScalar = v193;
+                              v194 = *&a2->mSMPTETime.mHours;
+                              *&inInputBufferLists.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
+                              *&inInputBufferLists.mSMPTETime.mHours = v194;
+                              AudioUnitProcessMultiple(*(v3 + 3072), &v325, &inInputBufferLists, *(v3 + 516), 2u, &v335, 2u, &v338);
+                              v195 = *(v3 + 516);
                               if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
                               {
-                                VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x66u, v254, *(v3 + 430), &v486);
-                                v254 = *(v3 + 129);
-                                v199 = v459;
-                                v200 = v460;
-                                v203 = v457;
-                                v202 = v458;
+                                VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x6Du, v195, v180, &inInputBufferLists);
+                                v195 = *(v3 + 516);
+                                v144 = v312;
+                                v145 = v313;
+                                v148 = v310;
+                                v147 = v311;
                                 if (*(v3 + 15881))
                                 {
-                                  goto LABEL_484;
+                                  goto LABEL_418;
                                 }
                               }
 
                               else
                               {
-                                v199 = v459;
-                                v200 = v460;
-                                v203 = v457;
-                                v202 = v458;
+                                v144 = v312;
+                                v145 = v313;
+                                v148 = v310;
+                                v147 = v311;
                               }
 
                               if (*(v3 + 15882) != 1)
                               {
-LABEL_485:
-                                AudioUnitGetParameter(*(v3 + 386), 0x64u, 4u, 0, v3 + 1054);
-                                AudioUnitGetParameter(*(v3 + 386), 0x65u, 4u, 0, v3 + 1058);
-                                AudioUnitGetParameter(*(v3 + 386), 0x66u, 4u, 0, v3 + 1062);
-                                AudioUnitGetParameter(*(v3 + 386), 0x67u, 4u, 0, v3 + 1066);
-                                AudioUnitGetParameter(*(v3 + 386), 0x68u, 4u, 0, v3 + 1070);
-                                goto LABEL_486;
+LABEL_419:
+                                v185 = *(v3 + 4688);
+                                goto LABEL_420;
                               }
 
-LABEL_484:
-                              VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x67u, v254, &v482, &v486);
-                              goto LABEL_485;
+LABEL_418:
+                              VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x6Eu, v195, v315, &inInputBufferLists);
+                              goto LABEL_419;
                             }
 
-                            v456 = v235;
-                            v457 = v203;
-                            v458 = v202;
-                            v459 = v199;
-                            v460 = v200;
-                            v247 = 0;
-                            inInputBufferLists = *(v3 + 527);
-                            LODWORD(v488) = *(v3 + 1057);
-                            v485.realp = *(v3 + 529);
-                            LODWORD(v485.imagp) = *(v3 + 1061);
-                            v479 = *(v3 + 531);
-                            v480 = *(v3 + 1065);
-                            v477 = *(v3 + 533);
-                            v478 = *(v3 + 1069);
-                            v475 = *(v3 + 535);
-                            v476 = *(v3 + 1073);
+                            v309 = (&v309 - 8);
+                            v310 = v148;
+                            v311 = v147;
+                            v312 = v144;
+                            LODWORD(v313) = v145;
+                            v188 = 0;
+                            *ioDataSize = *(v3 + 4216);
+                            LODWORD(v342) = *(v3 + 4228);
+                            v336 = *(v3 + 4232);
+                            LODWORD(v337) = *(v3 + 4244);
+                            v333 = *(v3 + 4248);
+                            v334 = *(v3 + 4260);
+                            v331 = *(v3 + 4264);
+                            v332 = *(v3 + 4276);
+                            v329 = *(v3 + 4280);
+                            v330 = *(v3 + 4292);
                             do
                             {
-                              AudioUnitSetParameter(*(v3 + 384), 0x12u, 4u, v247, *(&inInputBufferLists + v247), 0);
-                              AudioUnitSetParameter(*(v3 + 384), 0x13u, 4u, v247, *(&v485.realp + v247), 0);
-                              AudioUnitSetParameter(*(v3 + 384), 0x14u, 4u, v247, *(&v479 + v247), 0);
-                              AudioUnitSetParameter(*(v3 + 384), 0x15u, 4u, v247, *(&v477 + v247), 0);
-                              AudioUnitSetParameter(*(v3 + 384), 0x16u, 4u, v247, *(&v475 + v247), 0);
-                              ++v247;
+                              AudioUnitSetParameter(*(v3 + 3064), 9u, 4u, v188, *&ioDataSize[v188], 0);
+                              AudioUnitSetParameter(*(v3 + 3064), 0xAu, 4u, v188, *(&v336 + v188), 0);
+                              AudioUnitSetParameter(*(v3 + 3064), 0xBu, 4u, v188, *(&v333 + v188), 0);
+                              AudioUnitSetParameter(*(v3 + 3064), 0xCu, 4u, v188, *(&v331 + v188), 0);
+                              AudioUnitSetParameter(*(v3 + 3064), 0xDu, 4u, v188, *(&v329 + v188), 0);
+                              ++v188;
                             }
 
-                            while (v247 != 3);
-                            v235 = v456;
-                            *&v481.mSampleTime = v456;
-                            v481.mHostTime = v462;
-                            *&v482.mNumberBuffers = v456;
-                            *&v482.mBuffers[0].mNumberChannels = v462;
-                            v471 = 512;
-                            v248 = *&a2->mRateScalar;
-                            *&v486.mSampleTime = *&a2->mSampleTime;
-                            *&v486.mRateScalar = v248;
-                            v249 = *&a2->mSMPTETime.mHours;
-                            *&v486.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-                            *&v486.mSMPTETime.mHours = v249;
-                            AudioUnitProcessMultiple(*(v3 + 384), &v471, &v486, *(v3 + 129), 2u, &v481, 2u, &v482);
-                            v250 = *(v3 + 129);
+                            while (v188 != 3);
+                            v180 = v309;
+                            *&v335.mSampleTime = v309;
+                            v335.mHostTime = v315;
+                            *&v338.mNumberBuffers = v309;
+                            *&v338.mBuffers[0].mNumberChannels = v315;
+                            v325 = 512;
+                            v189 = *&a2->mRateScalar;
+                            *&inInputBufferLists.mSampleTime = *&a2->mSampleTime;
+                            *&inInputBufferLists.mRateScalar = v189;
+                            v190 = *&a2->mSMPTETime.mHours;
+                            *&inInputBufferLists.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
+                            *&inInputBufferLists.mSMPTETime.mHours = v190;
+                            AudioUnitProcessMultiple(*(v3 + 3064), &v325, &inInputBufferLists, *(v3 + 516), 2u, &v335, 2u, &v338);
+                            v191 = *(v3 + 516);
                             if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
                             {
-                              VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x6Du, v250, v235, &v486);
-                              v250 = *(v3 + 129);
-                              v199 = v459;
-                              v200 = v460;
-                              v203 = v457;
-                              v202 = v458;
+                              VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x6Bu, v191, v180, &inInputBufferLists);
+                              v191 = *(v3 + 516);
+                              v144 = v312;
+                              v145 = v313;
+                              v148 = v310;
+                              v147 = v311;
                               if (*(v3 + 15881))
                               {
-                                goto LABEL_471;
+                                goto LABEL_405;
                               }
                             }
 
                             else
                             {
-                              v199 = v459;
-                              v200 = v460;
-                              v203 = v457;
-                              v202 = v458;
+                              v144 = v312;
+                              v145 = v313;
+                              v148 = v310;
+                              v147 = v311;
                             }
 
                             if (*(v3 + 15882) != 1)
                             {
-LABEL_472:
-                              v240 = *(v3 + 586);
-                              goto LABEL_473;
+LABEL_406:
+                              v185 = *(v3 + 4688);
+                              goto LABEL_407;
                             }
 
-LABEL_471:
-                            VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x6Eu, v250, v462, &v486);
-                            goto LABEL_472;
+LABEL_405:
+                            VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x6Cu, v191, v315, &inInputBufferLists);
+                            goto LABEL_406;
                           }
 
-                          v456 = (&v455 - 8);
-                          v457 = v203;
-                          v458 = v202;
-                          v459 = v199;
-                          v460 = v200;
-                          v243 = 0;
-                          inInputBufferLists = *(v3 + 527);
-                          LODWORD(v488) = *(v3 + 1057);
-                          v485.realp = *(v3 + 529);
-                          LODWORD(v485.imagp) = *(v3 + 1061);
-                          v479 = *(v3 + 531);
-                          v480 = *(v3 + 1065);
-                          v477 = *(v3 + 533);
-                          v478 = *(v3 + 1069);
-                          v475 = *(v3 + 535);
-                          v476 = *(v3 + 1073);
-                          do
+                          if ((v135 & 0x100000000) == 0 || (*(v3 + 4708) & 1) == 0 || !*(v3 + 3048))
                           {
-                            AudioUnitSetParameter(*(v3 + 383), 9u, 4u, v243, *(&inInputBufferLists + v243), 0);
-                            AudioUnitSetParameter(*(v3 + 383), 0xAu, 4u, v243, *(&v485.realp + v243), 0);
-                            AudioUnitSetParameter(*(v3 + 383), 0xBu, 4u, v243, *(&v479 + v243), 0);
-                            AudioUnitSetParameter(*(v3 + 383), 0xCu, 4u, v243, *(&v477 + v243), 0);
-                            AudioUnitSetParameter(*(v3 + 383), 0xDu, 4u, v243, *(&v475 + v243), 0);
-                            ++v243;
+                            goto LABEL_384;
                           }
 
-                          while (v243 != 3);
-                          v235 = v456;
-                          *&v481.mSampleTime = v456;
-                          v481.mHostTime = v462;
-                          *&v482.mNumberBuffers = v456;
-                          *&v482.mBuffers[0].mNumberChannels = v462;
-                          v471 = 512;
-                          v244 = *&a2->mRateScalar;
-                          *&v486.mSampleTime = *&a2->mSampleTime;
-                          *&v486.mRateScalar = v244;
-                          v245 = *&a2->mSMPTETime.mHours;
-                          *&v486.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-                          *&v486.mSMPTETime.mHours = v245;
-                          AudioUnitProcessMultiple(*(v3 + 383), &v471, &v486, *(v3 + 129), 2u, &v481, 2u, &v482);
-                          v246 = *(v3 + 129);
-                          if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
-                          {
-                            VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x6Bu, v246, v235, &v486);
-                            v246 = *(v3 + 129);
-                            v199 = v459;
-                            v200 = v460;
-                            v203 = v457;
-                            v202 = v458;
-                            if (*(v3 + 15881))
-                            {
-                              goto LABEL_458;
-                            }
-                          }
-
-                          else
-                          {
-                            v199 = v459;
-                            v200 = v460;
-                            v203 = v457;
-                            v202 = v458;
-                          }
-
-                          if (*(v3 + 15882) != 1)
-                          {
-LABEL_459:
-                            v240 = *(v3 + 586);
-                            goto LABEL_460;
-                          }
-
-LABEL_458:
-                          VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x6Cu, v246, v462, &v486);
-                          goto LABEL_459;
-                        }
-
-                        if ((v177 & 0x100000000) == 0 || (*(v3 + 4708) & 1) == 0 || !*(v3 + 381))
-                        {
-                          goto LABEL_437;
-                        }
-
-                        memcpy(*(*(v3 + 436) + 16), *(*(v3 + 430) + 16), 8 * *(v3 + 129));
-                        memcpy(*(*(v3 + 436) + 32), *(*(v3 + 510) + 16), 8 * *(v3 + 129));
-                        v479 = *(v3 + 436);
-                        v223 = *(v3 + 435);
-                        inInputBufferLists = *(v3 + 431);
-                        v488 = v223;
-                        v224 = *&a2->mRateScalar;
-                        *&v486.mSampleTime = *&a2->mSampleTime;
-                        *&v486.mRateScalar = v224;
-                        v225 = *&a2->mSMPTETime.mHours;
-                        *&v486.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-                        *&v486.mSMPTETime.mHours = v225;
-                        Parameter = AudioUnitProcessMultiple(*(v3 + 381), &v471, &v486, *(v3 + 129), 1u, &v479, 2u, &inInputBufferLists);
-                        v226 = *(v3 + 129);
-                        if (*(v3 + 15881) & 1) != 0 || (*(v3 + 15882))
-                        {
-                          Parameter = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x18u, v226, inInputBufferLists, &v486);
-                          v226 = *(v3 + 129);
-                          v227 = v488;
-                          if (*(v3 + 15881))
-                          {
-                            goto LABEL_421;
-                          }
-                        }
-
-                        else
-                        {
-                          v227 = v488;
-                        }
-
-                        if (*(v3 + 15882) != 1)
-                        {
-LABEL_422:
-                          if ((*(v3 + 4692) & 2) == 0 || (*(v3 + 4708) & 2) == 0 || !*(v3 + 382))
-                          {
-                            goto LABEL_437;
-                          }
-
-                          memcpy(*(*(v3 + 437) + 16), *(*(v3 + 430) + 16), 4 * (2 * *(v3 + 129)));
-                          memcpy(*(*(v3 + 432) + 16), *(*(v3 + 433) + 16), 4 * (2 * *(v3 + 129)));
-                          LODWORD(v477) = 1092616192;
-                          v228 = *(v3 + 435);
-                          *&v482.mNumberBuffers = *(v3 + 431);
-                          *&v482.mBuffers[0].mNumberChannels = v228;
-                          v229 = *(v3 + 510);
-                          v482.mBuffers[0].mData = *(v3 + 437);
-                          v483 = v229;
-                          v484 = *(v3 + 432);
-                          v230 = *(v3 + 433);
-                          v231 = 10.0;
-                          v485.realp = *(v3 + 430);
-                          v485.imagp = v230;
-                          if ((*(v3 + 4694) & 0x80) != 0 && (*(v3 + 4710) & 0x80) != 0)
-                          {
-                            v232 = *(v3 + 404);
-                            if (v232)
-                            {
-                              AudioUnitGetParameter(v232, 9u, 0, 0, &v477);
-                              v231 = *&v477;
-                            }
-                          }
-
-                          AudioUnitSetParameter(*(v3 + 382), 0xAu, 0, 0, v231, 0);
-                          AudioUnitSetParameter(*(v3 + 382), 0x17u, 0, 0, *(v3 + 4189), 0);
-                          v233 = *&a2->mRateScalar;
-                          *&v481.mSampleTime = *&a2->mSampleTime;
-                          *&v481.mRateScalar = v233;
-                          v234 = *&a2->mSMPTETime.mHours;
-                          *&v481.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-                          *&v481.mSMPTETime.mHours = v234;
-                          Parameter = AudioUnitProcessMultiple(*(v3 + 382), &v471, &v481, *(v3 + 129), 5u, &v482, 2u, &v485);
-                          v218 = *(v3 + 129);
+                          memcpy(*(*(v3 + 3488) + 16), *(*(v3 + 3440) + 16), 8 * *(v3 + 516));
+                          memcpy(*(*(v3 + 3488) + 32), *(*(v3 + 4080) + 16), 8 * *(v3 + 516));
+                          v333 = *(v3 + 3488);
+                          v168 = *(v3 + 3480);
+                          *ioDataSize = *(v3 + 3448);
+                          v342 = v168;
+                          v169 = *&a2->mRateScalar;
+                          *&inInputBufferLists.mSampleTime = *&a2->mSampleTime;
+                          *&inInputBufferLists.mRateScalar = v169;
+                          v170 = *&a2->mSMPTETime.mHours;
+                          *&inInputBufferLists.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
+                          *&inInputBufferLists.mSMPTETime.mHours = v170;
+                          Parameter = AudioUnitProcessMultiple(*(v3 + 3048), &v325, &inInputBufferLists, *(v3 + 516), 1u, &v333, 2u, ioDataSize);
+                          v171 = *(v3 + 516);
                           if (*(v3 + 15881) & 1) != 0 || (*(v3 + 15882))
                           {
-                            Parameter = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x1Au, v218, v485.realp, &v481);
-                            v218 = *(v3 + 129);
-                            imagp = v485.imagp;
+                            Parameter = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x18u, v171, *ioDataSize, &inInputBufferLists);
+                            v171 = *(v3 + 516);
+                            v172 = v342;
                             if (*(v3 + 15881))
                             {
-                              goto LABEL_436;
+                              goto LABEL_368;
                             }
                           }
 
                           else
                           {
-                            imagp = v485.imagp;
+                            v172 = v342;
                           }
 
                           if (*(v3 + 15882) != 1)
                           {
-                            goto LABEL_437;
+LABEL_369:
+                            if ((*(v3 + 4692) & 2) == 0 || (*(v3 + 4708) & 2) == 0 || !*(v3 + 3056))
+                            {
+                              goto LABEL_384;
+                            }
+
+                            memcpy(*(*(v3 + 3496) + 16), *(*(v3 + 3440) + 16), 4 * (2 * *(v3 + 516)));
+                            memcpy(*(*(v3 + 3456) + 16), *(*(v3 + 3464) + 16), 4 * (2 * *(v3 + 516)));
+                            LODWORD(v331) = 1092616192;
+                            v173 = *(v3 + 3480);
+                            *&v338.mNumberBuffers = *(v3 + 3448);
+                            *&v338.mBuffers[0].mNumberChannels = v173;
+                            v174 = *(v3 + 4080);
+                            v338.mBuffers[0].mData = *(v3 + 3496);
+                            v339 = v174;
+                            v340 = *(v3 + 3456);
+                            v175 = *(v3 + 3464);
+                            v176 = 10.0;
+                            v336 = *(v3 + 3440);
+                            v337 = v175;
+                            if ((*(v3 + 4694) & 0x80) != 0 && (*(v3 + 4710) & 0x80) != 0)
+                            {
+                              v177 = *(v3 + 3232);
+                              if (v177)
+                              {
+                                AudioUnitGetParameter(v177, 9u, 0, 0, &v331);
+                                v176 = *&v331;
+                              }
+                            }
+
+                            AudioUnitSetParameter(*(v3 + 3056), 0xAu, 0, 0, v176, 0);
+                            AudioUnitSetParameter(*(v3 + 3056), 0x17u, 0, 0, *(v3 + 16756), 0);
+                            v178 = *&a2->mRateScalar;
+                            *&v335.mSampleTime = *&a2->mSampleTime;
+                            *&v335.mRateScalar = v178;
+                            v179 = *&a2->mSMPTETime.mHours;
+                            *&v335.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
+                            *&v335.mSMPTETime.mHours = v179;
+                            Parameter = AudioUnitProcessMultiple(*(v3 + 3056), &v325, &v335, *(v3 + 516), 5u, &v338, 2u, &v336);
+                            v163 = *(v3 + 516);
+                            if (*(v3 + 15881) & 1) != 0 || (*(v3 + 15882))
+                            {
+                              Parameter = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x1Au, v163, v336, &v335);
+                              v163 = *(v3 + 516);
+                              v164 = v337;
+                              if (*(v3 + 15881))
+                              {
+                                goto LABEL_383;
+                              }
+                            }
+
+                            else
+                            {
+                              v164 = v337;
+                            }
+
+                            if (*(v3 + 15882) != 1)
+                            {
+                              goto LABEL_384;
+                            }
+
+LABEL_383:
+                            p_inInputBufferLists = &v335;
+                            v166 = v3;
+                            v167 = 27;
+                            goto LABEL_356;
                           }
 
-LABEL_436:
-                          v220 = &v481;
-                          v221 = v3;
-                          v222 = 27;
-                          goto LABEL_409;
+LABEL_368:
+                          Parameter = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x19u, v171, v172, &inInputBufferLists);
+                          goto LABEL_369;
                         }
+                      }
 
-LABEL_421:
-                        Parameter = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x19u, v226, v227, &v486);
-                        goto LABEL_422;
+                      else
+                      {
+                        v151 = *(v3 + 3032);
+                      }
+
+                      v152 = 2.0;
+                      goto LABEL_337;
+                    }
+
+                    v137 = *(v3 + 4252);
+                    if (v137 == 0.0)
+                    {
+                      v138 = *(*(v3 + 3496) + 16) + 4 * *(v3 + 516);
+                      inInputBufferLists.mSampleTime = *(*(v3 + 3496) + 16);
+                      inInputBufferLists.mHostTime = v138;
+                      VPTimeFreqConverter_Analyze(*(v3 + 16872), *(*(v3 + 3408) + 16), &inInputBufferLists);
+                      v137 = *(v3 + 4252);
+                      Parameter = *(v3 + 3144);
+                    }
+
+                    AudioUnitSetParameter(Parameter, 6u, 0, 0, v137, 0);
+                    AudioUnitSetParameter(*(v3 + 3144), 7u, 0, 0, *(v3 + 4268), 0);
+                    AudioUnitSetParameter(*(v3 + 3144), 0xDu, 0, 0, *(v3 + 4284), 0);
+                    memcpy(*(*(v3 + 3480) + 16), *(*(v3 + 4064) + 32), *(v3 + 4316));
+                    v139 = *(v3 + 3480);
+                    v335.mSampleTime = *(v3 + 4072);
+                    v335.mHostTime = v139;
+                    v335.mRateScalar = *(v3 + 4120);
+                    memset(&v335.mWordClockTime, 0, 24);
+                    *&v338.mNumberBuffers = *(v3 + 3464);
+                    *&v338.mBuffers[0].mNumberChannels = 0;
+                    v338.mBuffers[0].mData = *(v3 + 4032);
+                    v140 = *&a2->mRateScalar;
+                    *&inInputBufferLists.mSampleTime = *&a2->mSampleTime;
+                    *&inInputBufferLists.mRateScalar = v140;
+                    v141 = *&a2->mSMPTETime.mHours;
+                    *&inInputBufferLists.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
+                    *&inInputBufferLists.mSMPTETime.mHours = v141;
+                    v325 = 512;
+                    Parameter = AudioUnitProcessMultiple(*(v3 + 3144), &v325, &inInputBufferLists, *(v3 + 516), 6u, &v335, 3u, &v338);
+                    v142 = *(v3 + 516);
+                    if (*(v3 + 15881) & 1) != 0 || (*(v3 + 15882))
+                    {
+                      Parameter = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x25u, v142, *(v3 + 3464), &inInputBufferLists);
+                      v142 = *(v3 + 516);
+                      v143 = *(v3 + 4032);
+                      if (*(v3 + 15881))
+                      {
+                        goto LABEL_303;
                       }
                     }
 
                     else
                     {
-                      v206 = *(v3 + 379);
+                      v143 = *(v3 + 4032);
                     }
 
-                    v207 = 2.0;
-                    goto LABEL_390;
-                  }
-
-                  v190 = *(v3 + 1063);
-                  if (v190 == 0.0)
-                  {
-                    v191 = *(v3 + 2109);
-                    v192 = *(*(v3 + 426) + 16);
-                    v193 = *(*(v3 + 437) + 16) + 4 * *(v3 + 129);
-                    v486.mSampleTime = *(*(v3 + 437) + 16);
-                    v486.mHostTime = v193;
-                    VPTimeFreqConverter_Analyze(v191, v192, &v486);
-                    v190 = *(v3 + 1063);
-                    Parameter = *(v3 + 393);
-                  }
-
-                  AudioUnitSetParameter(Parameter, 6u, 0, 0, v190, 0);
-                  AudioUnitSetParameter(*(v3 + 393), 7u, 0, 0, *(v3 + 1067), 0);
-                  AudioUnitSetParameter(*(v3 + 393), 0xDu, 0, 0, *(v3 + 1071), 0);
-                  memcpy(*(*(v3 + 435) + 16), *(*(v3 + 508) + 32), *(v3 + 1079));
-                  v194 = *(v3 + 435);
-                  v481.mSampleTime = *(v3 + 509);
-                  v481.mHostTime = v194;
-                  v481.mRateScalar = *(v3 + 515);
-                  memset(&v481.mWordClockTime, 0, 24);
-                  *&v482.mNumberBuffers = *(v3 + 433);
-                  *&v482.mBuffers[0].mNumberChannels = 0;
-                  v482.mBuffers[0].mData = *(v3 + 504);
-                  v195 = *&a2->mRateScalar;
-                  *&v486.mSampleTime = *&a2->mSampleTime;
-                  *&v486.mRateScalar = v195;
-                  v196 = *&a2->mSMPTETime.mHours;
-                  *&v486.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-                  *&v486.mSMPTETime.mHours = v196;
-                  v471 = 512;
-                  Parameter = AudioUnitProcessMultiple(*(v3 + 393), &v471, &v486, *(v3 + 129), 6u, &v481, 3u, &v482);
-                  v197 = *(v3 + 129);
-                  if (*(v3 + 15881) & 1) != 0 || (*(v3 + 15882))
-                  {
-                    Parameter = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x25u, v197, *(v3 + 433), &v486);
-                    v197 = *(v3 + 129);
-                    v198 = *(v3 + 504);
-                    if (*(v3 + 15881))
+                    if (*(v3 + 15882) != 1)
                     {
-                      goto LABEL_356;
+LABEL_304:
+                      v135 = *(v3 + 4688);
+                      goto LABEL_305;
                     }
+
+LABEL_303:
+                    Parameter = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x52u, v142, v143, &inInputBufferLists);
+                    goto LABEL_304;
                   }
 
-                  else
-                  {
-                    v198 = *(v3 + 504);
-                  }
-
-                  if (*(v3 + 15882) != 1)
-                  {
-LABEL_357:
-                    v177 = *(v3 + 586);
-                    goto LABEL_358;
-                  }
-
-LABEL_356:
-                  Parameter = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x52u, v197, v198, &v486);
-                  goto LABEL_357;
+LABEL_668:
+                  std::vector<std::unique_ptr<VoiceProcessor::SampleRateConverter>>::__throw_out_of_range[abi:ne200100]();
                 }
-
-LABEL_856:
-                std::vector<std::unique_ptr<VoiceProcessor::SampleRateConverter>>::__throw_out_of_range[abi:ne200100]();
               }
-            }
 
-            else
-            {
-              v140 = *(v3 + 423);
-            }
+              else
+              {
+                v120 = *(v3 + 3384);
+              }
 
-            if (*(v3 + 15882) != 1)
-            {
-              goto LABEL_272;
-            }
+              if (*(v3 + 15882) != 1)
+              {
+                goto LABEL_242;
+              }
 
-            goto LABEL_271;
+              goto LABEL_241;
+            }
           }
 
-LABEL_209:
-          VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x11u, v121, v122, &buf);
-          v122 = *(v3 + 2149);
-          LODWORD(v121) = *(v3 + 129);
-          goto LABEL_210;
+          else
+          {
+            v104 = *(v3 + 17192);
+          }
+
+          if (*(v3 + 15882) != 1)
+          {
+            goto LABEL_179;
+          }
+
+          goto LABEL_178;
         }
 
-        v115 = *(v3 + 2110);
-        if ((*(v3 + 2111) - v115) <= 0x20)
+        v99 = *(v3 + 16880);
+        if ((*(v3 + 16888) - v99) <= 0x20)
         {
-          goto LABEL_856;
+          goto LABEL_668;
         }
 
-        ECApplicator::apply(*(v115 + 32), &buf, v77, &v470, v3 + 1055, v3 + 1059, v3 + 1063, v3 + 1067, v3 + 1071, v3 + 1075);
-        v116 = *(v3 + 129);
+        ECApplicator::apply(*(v99 + 32), &buf, v77, &v324, (v3 + 4220), (v3 + 4236), (v3 + 4252), (v3 + 4268), (v3 + 4284), (v3 + 4300));
+        v100 = *(v3 + 516);
         if (*(v3 + 15881) & 1) != 0 || (*(v3 + 15882))
         {
-          VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x21u, v116, *(v3 + 137), &buf);
-          v116 = *(v3 + 129);
-          v117 = *(v3 + 424);
+          VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x21u, v100, *(v3 + 1096), &buf);
+          v100 = *(v3 + 516);
+          v101 = *(v3 + 3392);
           if (*(v3 + 15881))
           {
-            goto LABEL_195;
+LABEL_163:
+            VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x10u, v100, v101, &buf);
+            LODWORD(v100) = *(v3 + 516);
+            v101 = *(v3 + 3392);
+LABEL_164:
+            inInputBufferLists.mSampleTime = *(*(v3 + 4088) + 16);
+            inInputBufferLists.mHostTime = *&inInputBufferLists.mSampleTime + 4 * v100;
+            VPTimeFreqConverter_Analyze(*(v3 + 17136), *(v101 + 16), &inInputBufferLists);
+            if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
+            {
+              VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x16u, *(v3 + 516), *(v3 + 4088), &buf);
+            }
+
+            v83 = *(v3 + 4688);
+            goto LABEL_168;
           }
         }
 
         else
         {
-          v117 = *(v3 + 424);
+          v101 = *(v3 + 3392);
         }
 
         if (*(v3 + 15882) != 1)
         {
-LABEL_196:
-          v118 = *(v3 + 2142);
-          v119 = *(v117 + 16);
-          v486.mSampleTime = *(*(v3 + 511) + 16);
-          v486.mHostTime = *&v486.mSampleTime + 4 * v116;
-          VPTimeFreqConverter_Analyze(v118, v119, &v486);
-          if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
-          {
-            VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x16u, *(v3 + 129), *(v3 + 511), &buf);
-          }
-
-          goto LABEL_199;
+          goto LABEL_164;
         }
 
-LABEL_195:
-        VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x10u, v116, v117, &buf);
-        v117 = *(v3 + 424);
-        LODWORD(v116) = *(v3 + 129);
-        goto LABEL_196;
+        goto LABEL_163;
       }
 
-      v76 = *(v3 + 3134);
-      if (*v75 != 3)
+      v76 = *(v3 + 12536);
+      if (v75 != 3)
       {
         if (v76 == 2)
         {
           v77 = 1;
           v78 = 3;
-          v460 = 2;
+          LODWORD(v313) = 2;
           v79 = 56;
           v80 = 40;
           goto LABEL_121;
         }
 
-        v76 = *(v3 + 3134);
+        v76 = *(v3 + 12536);
         if (v76 <= 0xC && ((0x1028u >> v76) & 1) != 0)
         {
           v77 = 3;
           v78 = 2;
-          v460 = 1;
+          LODWORD(v313) = 1;
           v79 = 40;
           v80 = 24;
           goto LABEL_121;
@@ -2791,30 +2119,30 @@ LABEL_195:
       v78 = 2;
       if (v76 != 9)
       {
-        v460 = 0;
+        LODWORD(v313) = 0;
         v81 = 0;
         goto LABEL_123;
       }
 
-      v460 = 3;
+      LODWORD(v313) = 3;
       v79 = 40;
       v80 = 56;
 LABEL_121:
-      *(v3 + 1060) = *(v75 + v80);
-      *(v3 + 16984) = *(v75 + v79);
+      *(v3 + 16960) = *(v74 + v80);
+      *(v3 + 16984) = *(v74 + v79);
       v81 = v78;
       v78 = v77;
       v77 = 0;
 LABEL_123:
-      v82 = v75 + 8;
-      *(v3 + 1057) = *(v82 + 16 * v77);
+      v82 = v74 + 8;
+      *(v3 + 16912) = *(v82 + 16 * v77);
       *(v3 + 16936) = *(v82 + 16 * v78);
       goto LABEL_124;
     }
   }
 
   v13 = 0;
-  while (((*(v3 + 118) >> v13) & 1) == 0)
+  while (((*(v3 + 472) >> v13) & 1) == 0)
   {
     if (++v13 == 32)
     {
@@ -2823,7 +2151,7 @@ LABEL_123:
     }
   }
 
-  v14 = *(v3 + 136);
+  v14 = *(v3 + 1088);
   if (v13 >= *v14)
   {
     if (VPLogScope(void)::once != -1)
@@ -2837,9 +2165,9 @@ LABEL_123:
       v18 = (*v17 ? *v17 : MEMORY[0x277D86220]);
       if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
-        v19 = **(v3 + 136);
+        v19 = **(v3 + 1088);
         LODWORD(buf.mSampleTime) = 136315906;
-        *(&buf.mSampleTime + 4) = "vpProcessUplink_v8.cpp";
+        *(&buf.mSampleTime + 4) = "vpProcessUplink_v7.cpp";
         WORD2(buf.mHostTime) = 1024;
         *(&buf.mHostTime + 6) = 50;
         WORD1(buf.mRateScalar) = 1024;
@@ -2850,7 +2178,7 @@ LABEL_123:
       }
     }
 
-    v20 = *(v3 + 1588);
+    v20 = *(v3 + 12704);
     if (v20 && ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1))
     {
       if (VPLogScope(void)::once != -1)
@@ -2858,290 +2186,271 @@ LABEL_123:
         dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
       }
 
-      CALegacyLog::log(v20, 1, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProcessUplink_v8.cpp", 50, "ProcessDSPChain_Uplink", "ERROR: mPrimaryEpMicIndex is %d, but epmic only has %d channels", v13, **(v3 + 136));
+      CALegacyLog::log(v20, 1, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProcessUplink_v7.cpp", 50, "ProcessDSPChain_Uplink", "ERROR: mPrimaryEpMicIndex is %d, but epmic only has %d channels", v13, **(v3 + 1088));
     }
 
-    v15 = *(*(v3 + 137) + 16);
-    v16 = *(v3 + 136);
+    v15 = *(*(v3 + 1096) + 16);
+    v16 = *(v3 + 1088);
   }
 
   else
   {
-    v15 = *(*(v3 + 137) + 16);
+    v15 = *(*(v3 + 1096) + 16);
     v16 = &v14[4 * v13];
   }
 
   memcpy(v15, v16[2], *(v16 + 3));
   if (*(v3 + 2093) == 1 && (*(v3 + 4694) & 0x40) != 0 && (*(v3 + 4710) & 0x40) != 0)
   {
-    v21 = *(v3 + 403);
+    v21 = *(v3 + 3224);
     if (v21)
     {
-      v22 = *(v3 + 503);
-      v486.mSampleTime = *(v3 + 137);
-      v486.mHostTime = v22;
-      v23 = *(v3 + 505);
-      v481.mSampleTime = v486.mSampleTime;
-      v481.mHostTime = v23;
+      v22 = *(v3 + 4024);
+      inInputBufferLists.mSampleTime = *(v3 + 1096);
+      inInputBufferLists.mHostTime = v22;
+      v23 = *(v3 + 4040);
+      v335.mSampleTime = inInputBufferLists.mSampleTime;
+      v335.mHostTime = v23;
       v24 = *&a2->mRateScalar;
       *&buf.mSampleTime = *&a2->mSampleTime;
       *&buf.mRateScalar = v24;
       v25 = *&a2->mSMPTETime.mHours;
       *&buf.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
       *&buf.mSMPTETime.mHours = v25;
-      v482.mNumberBuffers = 512;
-      AudioUnitProcessMultiple(v21, &v482.mNumberBuffers, &buf, *(v3 + 129), 2u, &v486, 2u, &v481);
+      v338.mNumberBuffers = 512;
+      AudioUnitProcessMultiple(v21, &v338.mNumberBuffers, &buf, *(v3 + 516), 2u, &inInputBufferLists, 2u, &v335);
       if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
       {
-        VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x27u, *(v3 + 129), *(v3 + 137), &buf);
+        VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x27u, *(v3 + 516), *(v3 + 1096), &buf);
       }
 
-      if ((*(v3 + 4696) & 2) != 0 && (*(v3 + 4712) & 2) != 0 && *(v3 + 414))
+      if ((*(v3 + 4696) & 2) != 0 && (*(v3 + 4712) & 2) != 0 && *(v3 + 3312))
       {
-        AudioUnitGetParameter(*(v3 + 403), 1u, 0, 0, &v472);
-        AudioUnitSetParameter(*(v3 + 414), 0x23u, 0, 0, v472, 0);
+        AudioUnitGetParameter(*(v3 + 3224), 1u, 0, 0, &v326);
+        AudioUnitSetParameter(*(v3 + 3312), 0x23u, 0, 0, v326, 0);
       }
     }
   }
 
-LABEL_780:
-  v482.mNumberBuffers = 0;
-  v424 = VoiceProcessorV2::LocalVoiceDuckingForMediaChatEnabled(v3);
-  v425 = v424;
+LABEL_592:
+  v338.mNumberBuffers = 0;
+  v283 = VoiceProcessorV2::LocalVoiceDuckingForMediaChatEnabled(v3);
+  v284 = v283;
   if (*(v3 + 2088) == 1)
   {
-    if (!((*(v3 + 2053) != 0) | v424 & 1))
+    if (!((*(v3 + 16424) != 0) | v283 & 1))
     {
-      goto LABEL_796;
+      goto LABEL_608;
     }
 
     VoiceProcessorV2::DetectVoiceActivity(v3, a2);
-    if ((v425 & 1) == 0)
+    if ((v284 & 1) == 0)
     {
-      goto LABEL_796;
+      goto LABEL_608;
     }
   }
 
   else
   {
-    if ((v424 & 1) == 0)
+    if ((v283 & 1) == 0)
     {
-      goto LABEL_796;
+      goto LABEL_608;
     }
 
     VoiceProcessorV2::DetectVoiceActivity(v3, a2);
   }
 
-  v426 = *(v3 + 586);
-  if ((v426 & 0x2000000000000000) != 0 && (*(v3 + 4711) & 0x20) != 0)
+  v285 = *(v3 + 4688);
+  if ((v285 & 0x2000000000000000) != 0 && (*(v3 + 4711) & 0x20) != 0)
   {
-    v427 = *(v3 + 410);
-    if (v427)
+    v286 = *(v3 + 3280);
+    if (v286)
     {
-      v428 = 1936748646;
-LABEL_794:
-      AudioUnitGetParameter(v427, v428, 0, 0, &v482.mNumberBuffers);
-      goto LABEL_796;
+      v287 = 1936748646;
+LABEL_606:
+      AudioUnitGetParameter(v286, v287, 0, 0, &v338.mNumberBuffers);
+      goto LABEL_608;
     }
   }
 
-  if ((v426 & 0x1000000000000000) != 0 && (*(v3 + 4711) & 0x10) != 0)
+  if ((v285 & 0x1000000000000000) != 0 && (*(v3 + 4711) & 0x10) != 0)
   {
-    v427 = *(v3 + 409);
-    if (v427)
+    v286 = *(v3 + 3272);
+    if (v286)
     {
-      v428 = 2;
-      goto LABEL_794;
+      v287 = 2;
+      goto LABEL_606;
     }
   }
 
-  *&v482.mNumberBuffers = v472;
-LABEL_796:
+  *&v338.mNumberBuffers = v326;
+LABEL_608:
   if (*(v3 + 2088) == 1)
   {
-    bzero(*(*(v3 + 137) + 16), 4 * *(v3 + 129));
-    v482.mNumberBuffers = 0;
+    bzero(*(*(v3 + 1096) + 16), 4 * *(v3 + 516));
+    v338.mNumberBuffers = 0;
   }
 
   else
   {
-    *(v3 + 4108) = 0;
+    *(v3 + 16432) = 0;
   }
 
   if ((*(v3 + 8865) & 0x80) != 0 && (*(v3 + 8873) & 0x80) != 0)
   {
-    v429 = *(v3 + 454);
-    if (((v429 != 0) & v425) == 1)
+    v288 = *(v3 + 3632);
+    if (((v288 != 0) & v284) == 1)
     {
-      AudioUnitSetParameter(v429, 0x12u, 0, 0, *&v482.mNumberBuffers, 0);
+      AudioUnitSetParameter(v288, 0x12u, 0, 0, *&v338.mNumberBuffers, 0);
     }
   }
 
   if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
   {
-    VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x2Au, *(v3 + 129), *(v3 + 137), a2);
+    VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x2Au, *(v3 + 516), *(v3 + 1096), a2);
   }
 
   if ((*(v3 + 4695) & 8) != 0 && (*(v3 + 4711) & 8) != 0)
   {
-    v430 = *(v3 + 408);
-    if (v430)
+    v289 = *(v3 + 3264);
+    if (v289)
     {
-      v486.mSampleTime = *(v3 + 137);
-      v481.mSampleTime = v486.mSampleTime;
-      LODWORD(inInputBufferLists) = 512;
-      v431 = *&a2->mRateScalar;
+      inInputBufferLists.mSampleTime = *(v3 + 1096);
+      v335.mSampleTime = inInputBufferLists.mSampleTime;
+      LODWORD(v319.realp) = 512;
+      v290 = *&a2->mRateScalar;
       *&buf.mSampleTime = *&a2->mSampleTime;
-      *&buf.mRateScalar = v431;
-      v432 = *&a2->mSMPTETime.mHours;
+      *&buf.mRateScalar = v290;
+      v291 = *&a2->mSMPTETime.mHours;
       *&buf.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-      *&buf.mSMPTETime.mHours = v432;
-      AudioUnitProcessMultiple(v430, &inInputBufferLists, &buf, *(v3 + 129), 1u, &v486, 1u, &v481);
+      *&buf.mSMPTETime.mHours = v291;
+      AudioUnitProcessMultiple(v289, &v319, &buf, *(v3 + 516), 1u, &inInputBufferLists, 1u, &v335);
       if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
       {
-        VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x7Cu, *(v3 + 129), *(v3 + 137), &buf);
+        VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x7Cu, *(v3 + 516), *(v3 + 1096), &buf);
       }
     }
   }
 
   if (*(v3 + 2093) == 1 && (*(v3 + 4696) & 0x40) != 0 && (*(v3 + 4712) & 0x40) != 0)
   {
-    v433 = *(v3 + 419);
-    if (v433)
+    v292 = *(v3 + 3352);
+    if (v292)
     {
-      v486.mSampleTime = *(v3 + 137);
-      v481.mSampleTime = v486.mSampleTime;
-      LODWORD(inInputBufferLists) = 512;
-      v434 = *&a2->mRateScalar;
+      inInputBufferLists.mSampleTime = *(v3 + 1096);
+      v335.mSampleTime = inInputBufferLists.mSampleTime;
+      LODWORD(v319.realp) = 512;
+      v293 = *&a2->mRateScalar;
       *&buf.mSampleTime = *&a2->mSampleTime;
-      *&buf.mRateScalar = v434;
-      v435 = *&a2->mSMPTETime.mHours;
+      *&buf.mRateScalar = v293;
+      v294 = *&a2->mSMPTETime.mHours;
       *&buf.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-      *&buf.mSMPTETime.mHours = v435;
-      AudioUnitProcessMultiple(v433, &inInputBufferLists, &buf, *(v3 + 129), 1u, &v486, 1u, &v481);
+      *&buf.mSMPTETime.mHours = v294;
+      AudioUnitProcessMultiple(v292, &v319, &buf, *(v3 + 516), 1u, &inInputBufferLists, 1u, &v335);
       if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
       {
-        VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x7Eu, *(v3 + 129), *(v3 + 137), &buf);
+        VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x7Eu, *(v3 + 516), *(v3 + 1096), &buf);
       }
     }
   }
 
-  if ((*(v3 + 586) & 0x8000000000000000) != 0 && (*(v3 + 588) & 0x8000000000000000) != 0)
+  if ((*(v3 + 4688) & 0x8000000000000000) != 0 && (*(v3 + 4704) & 0x8000000000000000) != 0)
   {
-    v436 = *(v3 + 412);
-    if (v436)
+    v295 = *(v3 + 3296);
+    if (v295)
     {
-      v437 = *&a2->mRateScalar;
+      v296 = *&a2->mRateScalar;
       *&buf.mSampleTime = *&a2->mSampleTime;
-      *&buf.mRateScalar = v437;
-      v438 = *&a2->mSMPTETime.mHours;
+      *&buf.mRateScalar = v296;
+      v297 = *&a2->mSMPTETime.mHours;
       *&buf.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-      *&buf.mSMPTETime.mHours = v438;
-      LODWORD(v486.mSampleTime) = 512;
-      AudioUnitProcess(v436, &v486, &buf, *(v3 + 129), *(v3 + 137));
+      *&buf.mSMPTETime.mHours = v297;
+      LODWORD(inInputBufferLists.mSampleTime) = 512;
+      AudioUnitProcess(v295, &inInputBufferLists, &buf, *(v3 + 516), *(v3 + 1096));
       if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
       {
-        VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x2Cu, *(v3 + 129), *(v3 + 137), &buf);
+        VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x2Cu, *(v3 + 516), *(v3 + 1096), &buf);
       }
     }
   }
 
-  v439 = *(v3 + 587);
-  if (v439 & 1) != 0 && (*(v3 + 4712))
+  v298 = *(v3 + 4696);
+  if (v298 & 1) != 0 && (*(v3 + 4712))
   {
-    v440 = *(v3 + 413);
-    if (v440)
+    v299 = *(v3 + 3304);
+    if (v299)
     {
-      v441 = *&a2->mRateScalar;
+      v300 = *&a2->mRateScalar;
       *&buf.mSampleTime = *&a2->mSampleTime;
-      *&buf.mRateScalar = v441;
-      v442 = *&a2->mSMPTETime.mHours;
+      *&buf.mRateScalar = v300;
+      v301 = *&a2->mSMPTETime.mHours;
       *&buf.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-      *&buf.mSMPTETime.mHours = v442;
-      LODWORD(v486.mSampleTime) = 512;
-      AudioUnitProcess(v440, &v486, &buf, *(v3 + 129), *(v3 + 137));
-      v439 = *(v3 + 587);
+      *&buf.mSMPTETime.mHours = v301;
+      LODWORD(inInputBufferLists.mSampleTime) = 512;
+      AudioUnitProcess(v299, &inInputBufferLists, &buf, *(v3 + 516), *(v3 + 1096));
+      v298 = *(v3 + 4696);
     }
   }
 
-  if ((v439 & 2) != 0 && (*(v3 + 4712) & 2) != 0 && (v443 = *(v3 + 414)) != 0)
+  if ((v298 & 2) != 0 && (*(v3 + 4712) & 2) != 0 && (v302 = *(v3 + 3312)) != 0)
   {
-    v444 = *&a2->mRateScalar;
+    v303 = *&a2->mRateScalar;
     *&buf.mSampleTime = *&a2->mSampleTime;
-    *&buf.mRateScalar = v444;
-    v445 = *&a2->mSMPTETime.mHours;
+    *&buf.mRateScalar = v303;
+    v304 = *&a2->mSMPTETime.mHours;
     *&buf.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-    *&buf.mSMPTETime.mHours = v445;
-    LODWORD(v486.mSampleTime) = 512;
-    AudioUnitProcess(v443, &v486, &buf, *(v3 + 129), *(v3 + 137));
+    *&buf.mSMPTETime.mHours = v304;
+    LODWORD(inInputBufferLists.mSampleTime) = 512;
+    AudioUnitProcess(v302, &inInputBufferLists, &buf, *(v3 + 516), *(v3 + 1096));
     if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
     {
-      VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x2Du, *(v3 + 129), *(v3 + 137), &buf);
+      VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x2Du, *(v3 + 516), *(v3 + 1096), &buf);
     }
 
-    if ((*(v3 + 4695) & 0x10) != 0 && (*(v3 + 4711) & 0x10) != 0 && *(v3 + 409))
+    if ((*(v3 + 4695) & 0x10) != 0 && (*(v3 + 4711) & 0x10) != 0 && *(v3 + 3272))
     {
-      LODWORD(v481.mSampleTime) = 0;
-      AudioUnitGetParameter(*(v3 + 414), 1u, 0, 0, &v481);
-      AudioUnitSetParameter(*(v3 + 409), 0x11u, 0, 0, *&v481.mSampleTime, 0);
+      LODWORD(v335.mSampleTime) = 0;
+      AudioUnitGetParameter(*(v3 + 3312), 1u, 0, 0, &v335);
+      AudioUnitSetParameter(*(v3 + 3272), 0x11u, 0, 0, *&v335.mSampleTime, 0);
     }
 
-    LODWORD(v481.mSampleTime) = 0;
-    AudioUnitGetParameter(*(v3 + 414), 0x1Bu, 0, 0, &v481);
-    mSampleTime_low = LODWORD(v481.mSampleTime);
-    if (*(v3 + 577) != *&v481.mSampleTime)
+    LODWORD(v335.mSampleTime) = 0;
+    AudioUnitGetParameter(*(v3 + 3312), 0x1Bu, 0, 0, &v335);
+    mSampleTime_low = LODWORD(v335.mSampleTime);
+    if (*(v3 + 2308) != *&v335.mSampleTime)
     {
       if ((*(v3 + 4695) & 0x10) != 0 && (*(v3 + 4711) & 0x10) != 0)
       {
-        v447 = *(v3 + 409);
-        if (v447)
+        v306 = *(v3 + 3272);
+        if (v306)
         {
-          AudioUnitSetParameter(v447, 0x12u, 0, 0, *&v481.mSampleTime, 0);
-          mSampleTime_low = LODWORD(v481.mSampleTime);
+          AudioUnitSetParameter(v306, 0x12u, 0, 0, *&v335.mSampleTime, 0);
+          mSampleTime_low = LODWORD(v335.mSampleTime);
         }
       }
 
-      *(v3 + 577) = mSampleTime_low;
+      *(v3 + 2308) = mSampleTime_low;
     }
   }
 
   else if ((*(v3 + 4695) & 0x40) != 0 && ((*(v3 + 4711) & 0x40) != 0 || *(v3 + 480) == 1))
   {
-    LODWORD(buf.mSampleTime) = __exp10f(*(v3 + 1099) / 20.0);
-    MEMORY[0x2743CCE20](*(*(v3 + 137) + 16), 1, &buf, *(*(v3 + 137) + 16), 1, *(v3 + 129));
+    LODWORD(buf.mSampleTime) = __exp10f(*(v3 + 4396) / 20.0);
+    MEMORY[0x2743CCE20](*(*(v3 + 1096) + 16), 1, &buf, *(*(v3 + 1096) + 16), 1, *(v3 + 516));
     if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
     {
-      VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x2Bu, *(v3 + 129), *(v3 + 137), a2);
+      VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x2Bu, *(v3 + 516), *(v3 + 1096), a2);
     }
   }
 
   VoiceProcessorV6::ProcessLevelDrivenSuppressor(v3, a2);
-  if ((*(v3 + 4696) & 8) != 0 && (*(v3 + 4712) & 8) != 0)
-  {
-    v448 = *(v3 + 416);
-    if (v448)
-    {
-      v449 = *&a2->mRateScalar;
-      *&buf.mSampleTime = *&a2->mSampleTime;
-      *&buf.mRateScalar = v449;
-      v450 = *&a2->mSMPTETime.mHours;
-      *&buf.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-      *&buf.mSMPTETime.mHours = v450;
-      LODWORD(v486.mSampleTime) = 512;
-      v451 = atomic_load(gWirelessChargingMatIsAttached);
-      AudioUnitSetParameter(v448, 5u, 0, 0, (v451 & 1), 0);
-      AudioUnitProcess(*(v3 + 416), &v486, &buf, *(v3 + 129), *(v3 + 137));
-    }
-  }
-
-  v452 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
-uint64_t VoiceProcessorV9::ProcessDSPChain_Uplink(uint64_t this, AudioTimeStamp *a2)
+uint64_t VoiceProcessorV8::ProcessDSPChain_Uplink(uint64_t this, AudioTimeStamp *a2)
 {
   v3 = this;
-  v537 = *MEMORY[0x277D85DE8];
+  v488 = *MEMORY[0x277D85DE8];
   v4 = **(this + 1088);
   if (v4)
   {
@@ -3159,13 +2468,13 @@ uint64_t VoiceProcessorV9::ProcessDSPChain_Uplink(uint64_t this, AudioTimeStamp 
   }
 
   v5 = *(v3 + 15881);
-  if (v5 == 1 && (this = VoiceProcessorV2::InjectionFilesReadSignal(v3, 7, *(v3 + 129), *(v3 + 135)), LOBYTE(v5) = *(v3 + 15881), (v5 & 1) != 0) && (this = VoiceProcessorV2::InjectionFilesReadSignal(v3, 8, *(v3 + 129), *(v3 + 136)), LOBYTE(v5) = *(v3 + 15881), (v5 & 1) != 0))
+  if (v5 == 1 && (this = VoiceProcessorV2::InjectionFilesReadSignal(v3, 7, *(v3 + 516), *(v3 + 1080)), LOBYTE(v5) = *(v3 + 15881), (v5 & 1) != 0) && (this = VoiceProcessorV2::InjectionFilesReadSignal(v3, 8, *(v3 + 516), *(v3 + 1088)), LOBYTE(v5) = *(v3 + 15881), (v5 & 1) != 0))
   {
     if ((*(v3 + 15880) & 1) == 0 && (*(v3 + 15883) & 1) == 0)
     {
-      v6 = *(v3 + 135);
+      v6 = *(v3 + 1080);
       v9 = (v3 + 516);
-      v10 = *(v3 + 129);
+      v10 = *(v3 + 516);
       goto LABEL_21;
     }
 
@@ -3174,11 +2483,11 @@ uint64_t VoiceProcessorV9::ProcessDSPChain_Uplink(uint64_t this, AudioTimeStamp 
 
   else if ((*(v3 + 15883) & 1) == 0)
   {
-    v6 = *(v3 + 135);
+    v6 = *(v3 + 1080);
     goto LABEL_19;
   }
 
-  v6 = *(v3 + 135);
+  v6 = *(v3 + 1080);
   if (v6->mNumberBuffers)
   {
     v7 = 0;
@@ -3187,7 +2496,7 @@ uint64_t VoiceProcessorV9::ProcessDSPChain_Uplink(uint64_t this, AudioTimeStamp 
     {
       bzero(v6->mBuffers[v7].mData, v6->mBuffers[v7].mDataByteSize);
       ++v8;
-      v6 = *(v3 + 135);
+      v6 = *(v3 + 1080);
       ++v7;
     }
 
@@ -3197,13 +2506,13 @@ uint64_t VoiceProcessorV9::ProcessDSPChain_Uplink(uint64_t this, AudioTimeStamp 
 
 LABEL_19:
   v9 = (v3 + 516);
-  v10 = *(v3 + 129);
+  v10 = *(v3 + 516);
   if (v5 & 1) != 0 || (*(v3 + 15882))
   {
 LABEL_21:
     this = VoiceProcessorV2::SaveFilesWriteSignal(v3, 4u, v10, v6, a2);
-    v10 = *(v3 + 129);
-    v11 = *(v3 + 136);
+    v10 = *(v3 + 516);
+    v11 = *(v3 + 1088);
     if (*(v3 + 15881))
     {
       goto LABEL_25;
@@ -3212,18 +2521,18 @@ LABEL_21:
     goto LABEL_24;
   }
 
-  v11 = *(v3 + 136);
+  v11 = *(v3 + 1088);
 LABEL_24:
   if ((*(v3 + 15882) & 1) == 0)
   {
-    v12 = *(v3 + 178);
+    v12 = *(v3 + 1424);
     goto LABEL_28;
   }
 
 LABEL_25:
   this = VoiceProcessorV2::SaveFilesWriteSignal(v3, 5u, v10, v11, a2);
-  v10 = *(v3 + 129);
-  v12 = *(v3 + 178);
+  v10 = *(v3 + 516);
+  v12 = *(v3 + 1424);
   if (*(v3 + 15881))
   {
     goto LABEL_29;
@@ -3236,11 +2545,3149 @@ LABEL_29:
     this = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x4Cu, v10, v12, a2);
   }
 
-  v520 = 0.0;
-  if ((*(v3 + 2091) & 1) != 0 || (*(v3 + 2093) & 1) != 0 || (*(v3 + 480) & 1) != 0 || (v26 = *(v3 + 586)) == 0 && (*(v3 + 4696) & 0x7F) == 0)
+  v470 = 0.0;
+  if ((*(v3 + 2091) & 1) == 0 && (*(v3 + 2093) & 1) == 0 && (*(v3 + 480) & 1) == 0)
+  {
+    v26 = *(v3 + 4688);
+    if (v26 || (*(v3 + 4696) & 0x7F) != 0)
+    {
+      v469 = 0;
+      *(v3 + 17096) = 0;
+      *(v3 + 17112) = 0;
+      *(v3 + 17104) = 0;
+      *(v3 + 17096) = 1;
+      *(v3 + 17104) = *(*(v3 + 1080) + 8);
+      if (v26 & 1) != 0 && (*(v3 + 4704))
+      {
+        this = *(v3 + 2792);
+        if (this)
+        {
+          v27 = *&a2->mRateScalar;
+          *&buf.mSampleTime = *&a2->mSampleTime;
+          *&buf.mRateScalar = v27;
+          v28 = *&a2->mSMPTETime.mHours;
+          *&buf.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
+          *&buf.mSMPTETime.mHours = v28;
+          v469 = 512;
+          this = AudioUnitProcess(this, &v469, &buf, *(v3 + 516), *(v3 + 1088));
+        }
+      }
+
+      v459 = &v453;
+      MEMORY[0x28223BE20](this);
+      v30 = (&v453 - ((v29 + 15) & 0x3FFFFFFFF0));
+      v31 = *(v3 + 1088);
+      if (*v31)
+      {
+        v32 = 0;
+        v33 = 2;
+        v34 = v30;
+        do
+        {
+          *&v34->mNumberBuffers = 0;
+          *&v34->mBuffers[0].mNumberChannels = 0;
+          v34->mBuffers[0].mData = 0;
+          v34->mNumberBuffers = 1;
+          v34->mBuffers[0] = *&v31[v33];
+          ++v32;
+          v33 += 4;
+          ++v34;
+        }
+
+        while (v32 < *v31);
+      }
+
+      v35 = *(v3 + 4688);
+      if ((v35 & 2) != 0 && (*(v3 + 4704) & 2) != 0)
+      {
+        v36 = *(v3 + 2800);
+        if (v36)
+        {
+          v37 = *&a2->mRateScalar;
+          *&buf.mSampleTime = *&a2->mSampleTime;
+          *&buf.mRateScalar = v37;
+          v38 = *&a2->mSMPTETime.mHours;
+          *&buf.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
+          *&buf.mSMPTETime.mHours = v38;
+          v469 = 512;
+          AudioUnitProcess(v36, &v469, &buf, *v9, v30);
+          v44 = *v9;
+          if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
+          {
+            VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x4Du, v44, v30, &buf);
+          }
+
+          CADeprecated::CABufferList::CopyDataFrom(*(v3 + 1112), v30, v44, v39, v40, v41, v42, v43, v453);
+          v35 = *(v3 + 4688);
+        }
+      }
+
+      if ((v35 & 4) != 0 && (*(v3 + 4704) & 4) != 0)
+      {
+        v45 = *(v3 + 2808);
+        if (v45)
+        {
+          v46 = *&a2->mRateScalar;
+          *&buf.mSampleTime = *&a2->mSampleTime;
+          *&buf.mRateScalar = v46;
+          v47 = *&a2->mSMPTETime.mHours;
+          *&buf.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
+          *&buf.mSMPTETime.mHours = v47;
+          v469 = 512;
+          AudioUnitProcess(v45, &v469, &buf, *v9, v30 + 1);
+          v53 = *v9;
+          if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
+          {
+            VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x4Eu, v53, v30 + 1, &buf);
+          }
+
+          CADeprecated::CABufferList::CopyDataFrom(*(v3 + 1120), v30 + 1, v53, v48, v49, v50, v51, v52, v453);
+          v35 = *(v3 + 4688);
+        }
+      }
+
+      if ((v35 & 8) != 0 && (*(v3 + 4704) & 8) != 0)
+      {
+        v54 = *(v3 + 2816);
+        if (v54)
+        {
+          v55 = *&a2->mRateScalar;
+          *&buf.mSampleTime = *&a2->mSampleTime;
+          *&buf.mRateScalar = v55;
+          v56 = *&a2->mSMPTETime.mHours;
+          *&buf.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
+          *&buf.mSMPTETime.mHours = v56;
+          v469 = 512;
+          AudioUnitProcess(v54, &v469, &buf, *v9, v30 + 2);
+          v62 = *v9;
+          if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
+          {
+            VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x4Fu, v62, v30 + 2, &buf);
+          }
+
+          CADeprecated::CABufferList::CopyDataFrom(*(v3 + 1128), v30 + 2, v62, v57, v58, v59, v60, v61, v453);
+          v35 = *(v3 + 4688);
+        }
+      }
+
+      if ((v35 & 0x10) != 0 && (*(v3 + 4704) & 0x10) != 0)
+      {
+        v63 = *(v3 + 2824);
+        if (v63)
+        {
+          v64 = *&a2->mRateScalar;
+          *&buf.mSampleTime = *&a2->mSampleTime;
+          *&buf.mRateScalar = v64;
+          v65 = *&a2->mSMPTETime.mHours;
+          *&buf.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
+          *&buf.mSMPTETime.mHours = v65;
+          v469 = 512;
+          AudioUnitProcess(v63, &v469, &buf, *v9, v30 + 3);
+          v71 = *v9;
+          if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
+          {
+            VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x50u, v71, v30 + 3, &buf);
+          }
+
+          CADeprecated::CABufferList::CopyDataFrom(*(v3 + 1136), v30 + 3, v71, v66, v67, v68, v69, v70, v453);
+          v35 = *(v3 + 4688);
+        }
+      }
+
+      if ((v35 & 0x40) != 0 && (*(v3 + 4704) & 0x40) != 0 && *(v3 + 2840))
+      {
+        v72 = *&a2->mRateScalar;
+        *&buf.mSampleTime = *&a2->mSampleTime;
+        *&buf.mRateScalar = v72;
+        v73 = *&a2->mSMPTETime.mHours;
+        *&buf.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
+        *&buf.mSMPTETime.mHours = v73;
+        VoiceProcessorV6::ApplyGMCoexNoiseMitigation(v3, *(v3 + 1088), *(v3 + 1088), &buf, *(v3 + 516));
+      }
+
+      v74 = *(v3 + 1088);
+      if (*v74 < 3u)
+      {
+        *(v3 + 16912) = *(v74 + 8);
+        if (*v74 < 2u)
+        {
+          v458 = 0;
+          v80 = 0;
+          v77 = 0;
+          v76 = 0;
+        }
+
+        else if (*(v3 + 17160) == 1)
+        {
+          v458 = 0;
+          v80 = 0;
+          v77 = 0;
+          *(v3 + 16912) = *(v74 + 24);
+          *(v3 + 16936) = *(v74 + 8);
+          v76 = 1;
+        }
+
+        else
+        {
+          v458 = 0;
+          v80 = 0;
+          v76 = 0;
+          *(v3 + 16936) = *(v74 + 24);
+          v77 = 1;
+        }
+
+LABEL_124:
+        v82 = *(v3 + 4688);
+        LODWORD(v460) = v77;
+        if ((v82 & 0x80) != 0 && (*(v3 + 4704) & 0x80) != 0)
+        {
+          v83 = *(v3 + 2848);
+          if (v83)
+          {
+            v84 = *&a2->mRateScalar;
+            *&buf.mSampleTime = *&a2->mSampleTime;
+            *&buf.mRateScalar = v84;
+            v85 = *&a2->mSMPTETime.mHours;
+            *&buf.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
+            *&buf.mSMPTETime.mHours = v85;
+            v469 = 512;
+            AudioUnitProcess(v83, &v469, &buf, *(v3 + 516), (v3 + 16904));
+            if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
+            {
+              VoiceProcessorV2::SaveFilesWriteSignal(v3, 6u, *(v3 + 516), (v3 + 16904), &buf);
+            }
+
+            v82 = *(v3 + 4688);
+          }
+        }
+
+        if (v82 & 0x100) != 0 && (*(v3 + 4705))
+        {
+          v86 = *(v3 + 2856);
+          if (v86)
+          {
+            v87 = *&a2->mRateScalar;
+            *&buf.mSampleTime = *&a2->mSampleTime;
+            *&buf.mRateScalar = v87;
+            v88 = *&a2->mSMPTETime.mHours;
+            *&buf.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
+            *&buf.mSMPTETime.mHours = v88;
+            v469 = 512;
+            AudioUnitProcess(v86, &v469, &buf, *(v3 + 516), (v3 + 16928));
+            if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
+            {
+              VoiceProcessorV2::SaveFilesWriteSignal(v3, 7u, *(v3 + 516), (v3 + 16928), &buf);
+            }
+
+            v82 = *(v3 + 4688);
+          }
+        }
+
+        if ((v82 & 0x200) != 0)
+        {
+          v89 = *(v3 + 4704);
+          if ((v89 & 0x200) != 0)
+          {
+            v90 = *(v3 + 2864);
+            if (v90)
+            {
+              if ((v82 & v89 & 0x1000000000000) != 0 && *(v3 + 3176))
+              {
+                v91 = *&a2->mRateScalar;
+                *&buf.mSampleTime = *&a2->mSampleTime;
+                *&buf.mRateScalar = v91;
+                v92 = *&a2->mSMPTETime.mHours;
+                *&buf.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
+                *&buf.mSMPTETime.mHours = v92;
+                v469 = 512;
+                AudioUnitProcess(v90, &v469, &buf, *(v3 + 516), (v3 + 16952));
+                if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
+                {
+                  VoiceProcessorV2::SaveFilesWriteSignal(v3, 8u, *(v3 + 516), (v3 + 16952), &buf);
+                }
+
+                v82 = *(v3 + 4688);
+              }
+            }
+          }
+        }
+
+        if ((v82 & 0x400) != 0 && (*(v3 + 4705) & 4) != 0)
+        {
+          v93 = *(v3 + 2872);
+          if (v93)
+          {
+            v94 = *&a2->mRateScalar;
+            *&buf.mSampleTime = *&a2->mSampleTime;
+            *&buf.mRateScalar = v94;
+            v95 = *&a2->mSMPTETime.mHours;
+            *&buf.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
+            *&buf.mSMPTETime.mHours = v95;
+            v469 = 512;
+            AudioUnitProcess(v93, &v469, &buf, *(v3 + 516), (v3 + 16976));
+            if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
+            {
+              VoiceProcessorV2::SaveFilesWriteSignal(v3, 9u, *(v3 + 516), (v3 + 16976), &buf);
+            }
+
+            v82 = *(v3 + 4688);
+          }
+        }
+
+        if ((v82 & 0x400000) != 0 && (*(v3 + 4706) & 0x40) != 0)
+        {
+          if (*(v3 + 2968))
+          {
+            v96 = *(v3 + 17600);
+            if (v96)
+            {
+              v97 = *(v3 + 16920);
+              v98 = *(*(v3 + 17560) + 16) + 4 * *(v3 + 516);
+              buf.mSampleTime = *(*(v3 + 17560) + 16);
+              buf.mHostTime = v98;
+              VPTimeFreqConverter_Analyze(v96, v97, &buf);
+              v82 = *(v3 + 4688);
+            }
+          }
+        }
+
+        if ((v82 & 0x800000) != 0 && (*(v3 + 4706) & 0x80) != 0)
+        {
+          if (*(v3 + 2976))
+          {
+            v99 = *(v3 + 17608);
+            if (v99)
+            {
+              v100 = *(v3 + 16944);
+              v101 = *(*(v3 + 17568) + 16) + 4 * *(v3 + 516);
+              buf.mSampleTime = *(*(v3 + 17568) + 16);
+              buf.mHostTime = v101;
+              VPTimeFreqConverter_Analyze(v99, v100, &buf);
+              v82 = *(v3 + 4688);
+            }
+          }
+        }
+
+        if (v82 & 0x1000000) != 0 && (*(v3 + 4707))
+        {
+          if (*(v3 + 2984))
+          {
+            v102 = *(v3 + 17616);
+            if (v102)
+            {
+              v103 = *(v3 + 16968);
+              v104 = *(*(v3 + 17576) + 16) + 4 * *(v3 + 516);
+              buf.mSampleTime = *(*(v3 + 17576) + 16);
+              buf.mHostTime = v104;
+              VPTimeFreqConverter_Analyze(v102, v103, &buf);
+              v82 = *(v3 + 4688);
+            }
+          }
+        }
+
+        if ((v82 & 0x2000000) != 0 && (*(v3 + 4707) & 2) != 0)
+        {
+          if (*(v3 + 2992))
+          {
+            v105 = *(v3 + 17624);
+            if (v105)
+            {
+              v106 = *(v3 + 16992);
+              v107 = *(*(v3 + 17584) + 16) + 4 * *(v3 + 516);
+              buf.mSampleTime = *(*(v3 + 17584) + 16);
+              buf.mHostTime = v107;
+              VPTimeFreqConverter_Analyze(v105, v106, &buf);
+              v82 = *(v3 + 4688);
+            }
+          }
+        }
+
+        if (((v82 & 0x1000000000000) == 0 || (*(v3 + 4710) & 1) == 0 || !*(v3 + 3176)) && (v82 & 0x800) != 0 && (*(v3 + 4705) & 8) != 0)
+        {
+          v108 = *(v3 + 2880);
+          if (v108)
+          {
+            MEMORY[0x28223BE20](v108);
+            *(&v453 - 6) = 2;
+            *(&v453 - 5) = *(v3 + 16912);
+            *(&v453 - 3) = *(v3 + 16936);
+            *&v479.mSampleTime = &v453 - 6;
+            v479.mHostTime = 0;
+            *&v484.mSampleTime = v3 + 16904;
+            memset(&v484.mHostTime, 0, 24);
+            v469 = 512;
+            v109 = *&a2->mRateScalar;
+            *&buf.mSampleTime = *&a2->mSampleTime;
+            *&buf.mRateScalar = v109;
+            v110 = *&a2->mSMPTETime.mHours;
+            *&buf.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
+            *&buf.mSMPTETime.mHours = v110;
+            AudioUnitProcessMultiple(v111, &v469, &buf, *(v3 + 516), 2u, &v479, 4u, &v484);
+            if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
+            {
+              VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x65u, *(v3 + 516), (v3 + 16904), &buf);
+            }
+
+            v82 = *(v3 + 4688);
+          }
+        }
+
+        v468 = 0;
+        v112 = *&a2->mRateScalar;
+        *&buf.mSampleTime = *&a2->mSampleTime;
+        *&buf.mRateScalar = v112;
+        v113 = *&a2->mSMPTETime.mHours;
+        *&buf.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
+        *&buf.mSMPTETime.mHours = v113;
+        if ((v82 & 0x4000000) == 0 || (*(v3 + 4707) & 4) == 0 || !*(v3 + 3000))
+        {
+LABEL_199:
+          v467 = 0;
+          if ((*(v3 + 4691) & 8) == 0 || (*(v3 + 4707) & 8) == 0 || !*(v3 + 3008))
+          {
+            goto LABEL_213;
+          }
+
+          v119 = *(v3 + 16880);
+          if ((*(v3 + 16888) - v119) <= 0x28)
+          {
+            goto LABEL_856;
+          }
+
+          ECApplicator::apply(*(v119 + 40), &buf, v460, &v467, (v3 + 4220), (v3 + 4236), (v3 + 4252), (v3 + 4268), (v3 + 4284), (v3 + 4300));
+          v120 = *(v3 + 516);
+          if (*(v3 + 15881) & 1) != 0 || (*(v3 + 15882))
+          {
+            VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x22u, v120, *(v3 + 1096), &buf);
+            v120 = *(v3 + 516);
+            v121 = *(v3 + 17192);
+            if (*(v3 + 15881))
+            {
+              goto LABEL_209;
+            }
+          }
+
+          else
+          {
+            v121 = *(v3 + 17192);
+          }
+
+          if (*(v3 + 15882) != 1)
+          {
+LABEL_210:
+            v122 = *(v3 + 17256);
+            v123 = *(v121 + 16);
+            v484.mSampleTime = *(*(v3 + 4096) + 16);
+            v484.mHostTime = *&v484.mSampleTime + 4 * v120;
+            VPTimeFreqConverter_Analyze(v122, v123, &v484);
+            if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
+            {
+              VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x17u, *(v3 + 516), *(v3 + 4096), &buf);
+            }
+
+LABEL_213:
+            if ((*(v3 + 4690) & 0x40) != 0 && (*(v3 + 4706) & 0x40) != 0 && *(v3 + 2968))
+            {
+              v124 = *(v3 + 16880);
+              if (*(v3 + 16888) == v124)
+              {
+                goto LABEL_856;
+              }
+
+              ECApplicator::apply(*v124, &buf, v76, &v468 + 1, (v3 + 4216), (v3 + 4232), (v3 + 4248), (v3 + 4264), (v3 + 4280), (v3 + 4296));
+              v125 = *(v3 + 516);
+              if (*(v3 + 15881) & 1) != 0 || (*(v3 + 15882))
+              {
+                VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x1Cu, v125, (v3 + 16904), &buf);
+                v125 = *(v3 + 516);
+                v126 = *(v3 + 3360);
+                if (*(v3 + 15881))
+                {
+                  goto LABEL_257;
+                }
+              }
+
+              else
+              {
+                v126 = *(v3 + 3360);
+              }
+
+              if (*(v3 + 15882) == 1)
+              {
+LABEL_257:
+                VoiceProcessorV2::SaveFilesWriteSignal(v3, 0xCu, v125, v126, &buf);
+              }
+            }
+
+            else
+            {
+              v127 = 0;
+              while (((*(v3 + 472) >> v127) & 1) == 0)
+              {
+                if (++v127 == 32)
+                {
+                  v127 = 33;
+                  break;
+                }
+              }
+
+              if (v127 >= **(v3 + 1088))
+              {
+                if (VPLogScope(void)::once != -1)
+                {
+                  dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
+                }
+
+                v128 = VPLogScope(void)::scope;
+                if (VPLogScope(void)::scope && CALegacyLog::LogEnabled(1, VPLogScope(void)::scope, 0))
+                {
+                  v129 = (*v128 ? *v128 : MEMORY[0x277D86220]);
+                  if (os_log_type_enabled(v129, OS_LOG_TYPE_ERROR))
+                  {
+                    v130 = **(v3 + 1088);
+                    LODWORD(v484.mSampleTime) = 136315906;
+                    *(&v484.mSampleTime + 4) = "vpProcessUplink_v8.cpp";
+                    WORD2(v484.mHostTime) = 1024;
+                    *(&v484.mHostTime + 6) = 371;
+                    WORD1(v484.mRateScalar) = 1024;
+                    HIDWORD(v484.mRateScalar) = v127;
+                    LOWORD(v484.mWordClockTime) = 1024;
+                    *(&v484.mWordClockTime + 2) = v130;
+                    _os_log_impl(&dword_2724B4000, v129, OS_LOG_TYPE_ERROR, "%25s:%-5d  >vp> ERROR: mPrimaryEpMicIndex is %d, but epmic only has %d channels", &v484, 0x1Eu);
+                  }
+                }
+
+                v131 = *(v3 + 12704);
+                if (v131 && ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1))
+                {
+                  if (VPLogScope(void)::once != -1)
+                  {
+                    dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
+                  }
+
+                  CALegacyLog::log(v131, 1, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProcessUplink_v8.cpp", 371, "ProcessDSPChain_Uplink", "ERROR: mPrimaryEpMicIndex is %d, but epmic only has %d channels", v127, **(v3 + 1088));
+                }
+
+                v127 = 0;
+              }
+
+              v132 = *(v3 + 1088) + 16 * v127;
+              memcpy(*(*(v3 + 1096) + 16), *(v132 + 16), *(v132 + 12));
+            }
+
+            if ((*(v3 + 4696) & 0x20) != 0 && (*(v3 + 4712) & 0x20) != 0)
+            {
+              v133 = *(v3 + 3344);
+              if (v133)
+              {
+                v484.mSampleTime = *(v3 + 1088);
+                v484.mHostTime = v3 + 17096;
+                v479.mSampleTime = *(v3 + 1096);
+                v469 = 512;
+                AudioUnitProcessMultiple(v133, &v469, &buf, *(v3 + 516), 2u, &v484, 1u, &v479);
+              }
+            }
+
+            v466 = 0;
+            if ((*(v3 + 4690) & 0x80) != 0 && (*(v3 + 4706) & 0x80) != 0 && *(v3 + 2976))
+            {
+              v134 = *(v3 + 16880);
+              if ((*(v3 + 16888) - v134) <= 8)
+              {
+                goto LABEL_856;
+              }
+
+              ECApplicator::apply(*(v134 + 8), &buf, v460, &v466, (v3 + 4220), (v3 + 4236), (v3 + 4252), (v3 + 4268), (v3 + 4284), (v3 + 4300));
+              v135 = *(v3 + 516);
+              if (*(v3 + 15881) & 1) != 0 || (*(v3 + 15882))
+              {
+                VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x1Du, v135, (v3 + 16928), &buf);
+                v135 = *(v3 + 516);
+                v136 = *(v3 + 3368);
+                if (*(v3 + 15881))
+                {
+                  goto LABEL_260;
+                }
+              }
+
+              else
+              {
+                v136 = *(v3 + 3368);
+              }
+
+              if (*(v3 + 15882) == 1)
+              {
+LABEL_260:
+                VoiceProcessorV2::SaveFilesWriteSignal(v3, 0xDu, v135, v136, &buf);
+              }
+            }
+
+            v465 = 0;
+            if ((*(v3 + 4691) & 1) == 0 || (*(v3 + 4707) & 1) == 0 || !*(v3 + 2984))
+            {
+              goto LABEL_272;
+            }
+
+            v137 = *(v3 + 16880);
+            if ((*(v3 + 16888) - v137) <= 0x10)
+            {
+              goto LABEL_856;
+            }
+
+            ECApplicator::apply(*(v137 + 16), &buf, v458, &v465, (v3 + 4224), (v3 + 4240), (v3 + 4256), (v3 + 4272), (v3 + 4288), (v3 + 4304));
+            v138 = *(v3 + 516);
+            if (*(v3 + 15881) & 1) != 0 || (*(v3 + 15882))
+            {
+              VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x1Eu, v138, (v3 + 16952), &buf);
+              v138 = *(v3 + 516);
+              v139 = *(v3 + 3384);
+              if (*(v3 + 15881))
+              {
+LABEL_271:
+                VoiceProcessorV2::SaveFilesWriteSignal(v3, 0xEu, v138, v139, &buf);
+LABEL_272:
+                v464 = 0;
+                if ((*(v3 + 4691) & 2) == 0 || (*(v3 + 4707) & 2) == 0 || !*(v3 + 2992))
+                {
+                  goto LABEL_283;
+                }
+
+                v140 = *(v3 + 16880);
+                if ((*(v3 + 16888) - v140) > 0x18)
+                {
+                  ECApplicator::apply(*(v140 + 24), &buf, v80, &v464, (v3 + 4228), (v3 + 4244), (v3 + 4260), (v3 + 4276), (v3 + 4292), (v3 + 4308));
+                  v141 = *(v3 + 516);
+                  if (*(v3 + 15881) & 1) != 0 || (*(v3 + 15882))
+                  {
+                    VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x1Fu, v141, (v3 + 16976), &buf);
+                    v141 = *(v3 + 516);
+                    v142 = *(v3 + 3376);
+                    if (*(v3 + 15881))
+                    {
+                      goto LABEL_282;
+                    }
+                  }
+
+                  else
+                  {
+                    v142 = *(v3 + 3376);
+                  }
+
+                  if (*(v3 + 15882) == 1)
+                  {
+LABEL_282:
+                    VoiceProcessorV2::SaveFilesWriteSignal(v3, 0xFu, v141, v142, &buf);
+                  }
+
+LABEL_283:
+                  if ((*(v3 + 8869) & 8) != 0 && (*(v3 + 8877) & 8) != 0)
+                  {
+                    if (*(v3 + 3856))
+                    {
+                      *(v3 + 17128) = 0;
+                      if (*(v3 + 4691) & 1) != 0 && (*(v3 + 4707))
+                      {
+                        v143 = *(v3 + 2984);
+                        if (v143)
+                        {
+                          if (*(v3 + 17120))
+                          {
+                            LODWORD(v484.mSampleTime) = 0;
+                            if (!AudioUnitGetPropertyInfo(v143, 0xF3Cu, 0, 0, &v484, 0) && LODWORD(v484.mSampleTime) == 4 * *v9)
+                            {
+                              v144 = *(*(v3 + 17120) + 16);
+                              Property = AudioUnitGetProperty(*(v3 + 2984), 0xF3Cu, 0, 0, v144, &v484);
+                              if (*(v3 + 489) == 1)
+                              {
+                                AudioUnitSetProperty(*(v3 + 3856), 0xF3Cu, 0, 0, v144, LODWORD(v484.mSampleTime));
+                              }
+
+                              *(v3 + 17128) = Property == 0;
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+
+                  v146 = *(v3 + 4176);
+                  v147 = *(v3 + 17112);
+                  v148 = *(*(v3 + 4112) + 16) + 4 * *(v3 + 516);
+                  v484.mSampleTime = *(*(v3 + 4112) + 16);
+                  v484.mHostTime = v148;
+                  VPTimeFreqConverter_Analyze(v146, v147, &v484);
+                  v463 = 0.0;
+                  if ((*(v3 + 4690) & 0x40) != 0 && (*(v3 + 4706) & 0x40) != 0)
+                  {
+                    if (*(v3 + 2968))
+                    {
+                      v150 = *(v3 + 4128);
+                      v151 = *(v3 + 16920);
+                      v152 = *(*(v3 + 3440) + 16) + 4 * *(v3 + 516);
+                      v484.mSampleTime = *(*(v3 + 3440) + 16);
+                      v484.mHostTime = v152;
+                      VPTimeFreqConverter_Analyze(v150, v151, &v484);
+                      v153 = *(v3 + 4160);
+                      v154 = *(*(v3 + 3360) + 16);
+                      v155 = *(*(v3 + 4064) + 16) + 4 * *(v3 + 516);
+                      v484.mSampleTime = *(*(v3 + 4064) + 16);
+                      v484.mHostTime = v155;
+                      VPTimeFreqConverter_Analyze(v153, v154, &v484);
+                      if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
+                      {
+                        Parameter = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x12u, *(v3 + 516), *(v3 + 3440), &buf);
+                      }
+                    }
+                  }
+
+                  if ((*(v3 + 4690) & 0x80) != 0 && (*(v3 + 4706) & 0x80) != 0)
+                  {
+                    if (*(v3 + 2976))
+                    {
+                      v156 = *(v3 + 4136);
+                      v157 = *(v3 + 16944);
+                      v158 = *(*(v3 + 4072) + 16) + 4 * *(v3 + 516);
+                      v484.mSampleTime = *(*(v3 + 4072) + 16);
+                      v484.mHostTime = v158;
+                      VPTimeFreqConverter_Analyze(v156, v157, &v484);
+                      v159 = *(v3 + 4168);
+                      v160 = *(*(v3 + 3368) + 16);
+                      v161 = *(*(v3 + 4064) + 32) + 4 * *(v3 + 516);
+                      v484.mSampleTime = *(*(v3 + 4064) + 32);
+                      v484.mHostTime = v161;
+                      VPTimeFreqConverter_Analyze(v159, v160, &v484);
+                      if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
+                      {
+                        Parameter = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x13u, *(v3 + 516), *(v3 + 4072), &buf);
+                      }
+                    }
+                  }
+
+                  v162 = *(v3 + 4688);
+                  if ((v162 & 0x1000000) != 0)
+                  {
+                    v163 = *(v3 + 4704);
+                    if ((v163 & 0x1000000) != 0)
+                    {
+                      if (*(v3 + 2984))
+                      {
+                        if ((v162 & v163 & 0x80000000000) != 0)
+                        {
+                          Parameter = *(v3 + 3136);
+                          if (Parameter)
+                          {
+                            Parameter = AudioUnitGetParameter(Parameter, 0x2Bu, 0, 0, &v463);
+                          }
+                        }
+
+                        if (v463 != 0.0 || (*(v3 + 4694) & 1) != 0 && (*(v3 + 4710) & 1) != 0 && *(v3 + 3176))
+                        {
+                          v164 = *(v3 + 4144);
+                          v165 = *(v3 + 16968);
+                          v166 = *(*(v3 + 17432) + 16) + 4 * *(v3 + 516);
+                          v484.mSampleTime = *(*(v3 + 17432) + 16);
+                          v484.mHostTime = v166;
+                          VPTimeFreqConverter_Analyze(v164, v165, &v484);
+                          v167 = *(v3 + 17152);
+                          v168 = *(*(v3 + 3384) + 16);
+                          v169 = *(*(v3 + 4064) + 48) + 4 * *(v3 + 516);
+                          v484.mSampleTime = *(*(v3 + 4064) + 48);
+                          v484.mHostTime = v169;
+                          VPTimeFreqConverter_Analyze(v167, v168, &v484);
+                          if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
+                          {
+                            Parameter = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x14u, *(v3 + 516), *(v3 + 17432), &buf);
+                          }
+                        }
+                      }
+                    }
+                  }
+
+                  if ((*(v3 + 4691) & 2) != 0 && (*(v3 + 4707) & 2) != 0)
+                  {
+                    if (*(v3 + 2992))
+                    {
+                      v170 = *(v3 + 4152);
+                      v171 = *(v3 + 16992);
+                      v172 = *(*(v3 + 4080) + 16) + 4 * *(v3 + 516);
+                      v484.mSampleTime = *(*(v3 + 4080) + 16);
+                      v484.mHostTime = v172;
+                      VPTimeFreqConverter_Analyze(v170, v171, &v484);
+                      v173 = *(v3 + 16864);
+                      v174 = *(*(v3 + 3376) + 16);
+                      v175 = *(*(v3 + 4064) + 64) + 4 * *(v3 + 516);
+                      v484.mSampleTime = *(*(v3 + 4064) + 64);
+                      v484.mHostTime = v175;
+                      VPTimeFreqConverter_Analyze(v173, v174, &v484);
+                      if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
+                      {
+                        Parameter = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x15u, *(v3 + 516), *(v3 + 4080), &buf);
+                      }
+                    }
+                  }
+
+                  v176 = *(v3 + 4688);
+                  if ((v176 & 0x1000) != 0 && (*(v3 + 4705) & 0x10) != 0)
+                  {
+                    Parameter = *(v3 + 2888);
+                    if (Parameter)
+                    {
+                      MEMORY[0x28223BE20](Parameter);
+                      *(&v453 - 6) = 2;
+                      *(&v453 - 5) = *(v3 + 16912);
+                      *(&v453 - 3) = *(v3 + 16936);
+                      inInputBufferLists = (&v453 - 6);
+                      v486 = 0;
+                      v479.mSampleTime = *(v3 + 17472);
+                      memset(&v479.mHostTime, 0, 24);
+                      v469 = 512;
+                      v177 = *&a2->mRateScalar;
+                      *&v484.mSampleTime = *&a2->mSampleTime;
+                      *&v484.mRateScalar = v177;
+                      v178 = *&a2->mSMPTETime.mHours;
+                      *&v484.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
+                      *&v484.mSMPTETime.mHours = v178;
+                      AudioUnitProcessMultiple(v179, &v469, &v484, *(v3 + 516), 2u, &inInputBufferLists, 4u, &v479);
+                      v180 = *(v3 + 17496);
+                      v181 = *(*(v3 + 17472) + 16);
+                      v182 = *(*(v3 + 17480) + 16) + 4 * *(v3 + 516);
+                      *&v480.mNumberBuffers = *(*(v3 + 17480) + 16);
+                      *&v480.mBuffers[0].mNumberChannels = v182;
+                      VPTimeFreqConverter_Analyze(v180, v181, &v480);
+                      if (*(v3 + 17632) == 1)
+                      {
+                        v183 = *(v3 + 516);
+                        *&v480.mNumberBuffers = *(*(v3 + 3440) + 16);
+                        *&v480.mBuffers[0].mNumberChannels = *&v480.mNumberBuffers + 4 * v183;
+                        v483.realp = *(*(v3 + 17480) + 16);
+                        v483.imagp = &v483.realp[v183];
+                        v184 = *(*(v3 + 17488) + 16);
+                        v185 = &v184[v183];
+                        vDSP_zvabs(&v480, 1, v184, 1, v183);
+                        vDSP_zvabs(&v483, 1, v185, 1, *(v3 + 516));
+                        vDSP_vmin(v184, 1, v185, 1, v184, 1, *(v3 + 516));
+                        LODWORD(v477) = 507307272;
+                        MEMORY[0x2743CCE00](v185, 1, &v477, v185, 1, *(v3 + 516));
+                        vDSP_vdiv(v185, 1, v184, 1, v185, 1, *(v3 + 516));
+                        MEMORY[0x2743CCDD0](v483.realp, 1, v185, 1, v483.realp, 1, *(v3 + 516));
+                        Parameter = MEMORY[0x2743CCDD0](v483.imagp, 1, v185, 1, v483.imagp, 1, *(v3 + 516));
+                      }
+
+                      if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
+                      {
+                        Parameter = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x61u, *(v3 + 516), *(v3 + 17480), &v484);
+                      }
+
+                      v176 = *(v3 + 4688);
+                    }
+                  }
+
+                  if ((v176 & 0x20000000) != 0 && (*(v3 + 4707) & 0x20) != 0)
+                  {
+                    Parameter = *(v3 + 3024);
+                    if (Parameter)
+                    {
+                      v479.mSampleTime = *(v3 + 3440);
+                      *&v480.mNumberBuffers = v479.mSampleTime;
+                      v469 = 512;
+                      v186 = *&a2->mRateScalar;
+                      *&v484.mSampleTime = *&a2->mSampleTime;
+                      *&v484.mRateScalar = v186;
+                      v187 = *&a2->mSMPTETime.mHours;
+                      *&v484.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
+                      *&v484.mSMPTETime.mHours = v187;
+                      Parameter = AudioUnitProcessMultiple(Parameter, &v469, &v484, *(v3 + 516), 1u, &v479, 1u, &v480);
+                      if (!Parameter)
+                      {
+                        Parameter = AudioUnitGetProperty(*(v3 + 3024), 0x1450u, 0, 0, *(*(v3 + 17464) + 16), (*(v3 + 17464) + 12));
+                        if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
+                        {
+                          Parameter = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x20u, (*(v3 + 516) + 1), *(v3 + 17464), &v484);
+                        }
+                      }
+
+                      v176 = *(v3 + 4688);
+                    }
+                  }
+
+                  if ((v176 & 0x100000000000) == 0 || (v188 = *(v3 + 4704), (v188 & 0x100000000000) == 0) || (Parameter = *(v3 + 3144)) == 0 || (v176 & v188 & 0x1000000000000) != 0 && *(v3 + 3176))
+                  {
+LABEL_358:
+                    v462 = 0;
+                    if ((v176 & 0x40000000) != 0 && (*(v3 + 4707) & 0x40) != 0 && *(v3 + 3032))
+                    {
+                      v198 = 1;
+                      v199 = 1;
+                    }
+
+                    else if ((v176 & 0x200000000) != 0 && (*(v3 + 4708) & 2) != 0)
+                    {
+                      v198 = 0;
+                      v199 = *(v3 + 3056) != 0;
+                    }
+
+                    else
+                    {
+                      v198 = 0;
+                      v199 = 0;
+                    }
+
+                    v200 = v176 & 0x80000000;
+                    if ((v176 & 0x80000000) != 0 && (*(v3 + 4707) & 0x80) != 0 && *(v3 + 3040))
+                    {
+                      v201 = 1;
+                      v198 = 1;
+                      v202 = 1;
+                      if ((v176 & 0x100000000) == 0)
+                      {
+                        goto LABEL_383;
+                      }
+                    }
+
+                    else
+                    {
+                      if ((v176 & 0x100000000) == 0)
+                      {
+                        v201 = 0;
+                        v202 = 1;
+                        goto LABEL_383;
+                      }
+
+                      v202 = 1;
+                      if (*(v3 + 4708))
+                      {
+                        v203 = *(v3 + 3048);
+                        v201 = v203 != 0;
+                        if (v203)
+                        {
+                          v202 = 2;
+                        }
+
+                        else
+                        {
+                          v202 = 1;
+                        }
+                      }
+
+                      else
+                      {
+                        v201 = 0;
+                      }
+                    }
+
+                    v204 = *(v3 + 4704);
+                    if ((v204 & 0x100000000) != 0 && *(v3 + 3048) && (v176 & v204 & 0x200000000) != 0 && *(v3 + 3056))
+                    {
+                      v202 = 2;
+                      v198 = 2;
+                    }
+
+LABEL_383:
+                    if ((v176 & 0x40000000) == 0)
+                    {
+                      goto LABEL_400;
+                    }
+
+                    if ((*(v3 + 4707) & 0x40) == 0)
+                    {
+                      goto LABEL_400;
+                    }
+
+                    Parameter = *(v3 + 3032);
+                    if (!Parameter)
+                    {
+                      goto LABEL_400;
+                    }
+
+                    AudioUnitSetProperty(Parameter, 0x457u, 0, 0, (v3 + 2332), 4u);
+                    if ((*(v3 + 4691) & 0x80) != 0 && (*(v3 + 4707) & 0x80) != 0)
+                    {
+                      v205 = *(v3 + 3032);
+                      if (*(v3 + 3040))
+                      {
+                        v206 = *(v3 + 2752);
+LABEL_390:
+                        AudioUnitSetParameter(v205, 0x1Bu, 0, 0, v206, 0);
+                        v207 = *(v3 + 4688);
+                        if ((v207 & 0x400000) != 0)
+                        {
+                          v208 = *(v3 + 4704);
+                          if ((v208 & 0x400000) != 0 && *(v3 + 2968) && (v207 & v208 & 0x800000) != 0 && *(v3 + 2976))
+                          {
+                            AudioUnitSetParameter(*(v3 + 3032), 0x3Fu, 0, 0, *(v3 + 4248) * *(v3 + 4252), 0);
+                          }
+                        }
+
+                        *&v209 = *(v3 + 1112) + 24;
+                        *&v210 = *(v3 + 1120) + 24;
+                        if (**(v3 + 1088) <= 2u)
+                        {
+                          *&v479.mSampleTime = *(v3 + 1112) + 24;
+                          *&v479.mHostTime = v210;
+                          v479.mRateScalar = 0.0;
+                          v479.mWordClockTime = v3 + 17096;
+                          *&v479.mSMPTETime.mSubframes = *(v3 + 3360);
+                        }
+
+                        else
+                        {
+                          v211 = *(v3 + 1128) + 24;
+                          *&v479.mSMPTETime.mSubframes = *(v3 + 3360);
+                          v479.mSampleTime = v210;
+                          v479.mHostTime = v211;
+                          v479.mRateScalar = v209;
+                          v479.mWordClockTime = v3 + 17096;
+                        }
+
+                        *&v480.mNumberBuffers = 0;
+                        v469 = 512;
+                        AudioUnitSetParameter(*(v3 + 3032), 0x2Cu, 0, 0, *(v3 + 4392), 0);
+                        v212 = *&a2->mRateScalar;
+                        *&v484.mSampleTime = *&a2->mSampleTime;
+                        *&v484.mRateScalar = v212;
+                        v213 = *&a2->mSMPTETime.mHours;
+                        *&v484.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
+                        *&v484.mSMPTETime.mHours = v213;
+                        Parameter = AudioUnitProcessMultiple(*(v3 + 3032), &v469, &v484, *(v3 + 516), 6u, &v479, 1u, &v480);
+                        v176 = *(v3 + 4688);
+                        v200 = v176 & 0x80000000;
+LABEL_400:
+                        if (v200 && (*(v3 + 4707) & 0x80) != 0 && *(v3 + 3040))
+                        {
+                          memcpy(*(*(v3 + 3488) + 16 * *(v3 + 4192) + 16), *(*(v3 + 3440) + 16), 4 * (2 * *(v3 + 516)));
+                          memcpy(*(*(v3 + 3488) + 16 * *(v3 + 4196) + 16), *(*(v3 + 4072) + 16), 4 * (2 * *(v3 + 516)));
+                          if (*(v3 + 4296) == 0.0 && *(v3 + 4300) == 0.0)
+                          {
+                            v214 = 0.0;
+                          }
+
+                          else
+                          {
+                            v214 = 1.0;
+                          }
+
+                          AudioUnitSetParameter(*(v3 + 3040), 0x20u, 0, 0, v214, 0);
+                          v479.mSampleTime = *(v3 + 3488);
+                          *&v480.mNumberBuffers = *(v3 + 3448);
+                          v215 = *&a2->mRateScalar;
+                          *&v484.mSampleTime = *&a2->mSampleTime;
+                          *&v484.mRateScalar = v215;
+                          v216 = *&a2->mSMPTETime.mHours;
+                          *&v484.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
+                          *&v484.mSMPTETime.mHours = v216;
+                          v469 = 512;
+                          AudioUnitProcessMultiple(*(v3 + 3040), &v469, &v484, *(v3 + 516), 1u, &v479, 1u, &v480);
+                          LODWORD(inInputBufferLists) = 8 * *(v3 + 516);
+                          AudioUnitGetProperty(*(v3 + 3040), 0xE7Au, 0, 0, *(*(v3 + 4328) + 16), &inInputBufferLists);
+                          LODWORD(inInputBufferLists) = 8 * *(v3 + 516);
+                          Parameter = AudioUnitGetProperty(*(v3 + 3040), 0xE79u, 0, 0, *(*(v3 + 4328) + 32), &inInputBufferLists);
+                          v217 = *(v3 + 516);
+                          imagp = *(v3 + 3448);
+                          if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
+                          {
+                            v219 = &v484;
+                            v220 = v3;
+                            v221 = 10;
+LABEL_409:
+                            Parameter = VoiceProcessorV2::SaveFilesWriteSignal(v220, v221, v217, imagp, v219);
+                          }
+
+LABEL_437:
+                          MEMORY[0x28223BE20](Parameter);
+                          v234 = (&v453 - 8);
+                          *(&v453 - 3) = 0u;
+                          *(&v453 - 2) = 0u;
+                          *(&v453 - 4) = 0u;
+                          *(&v453 - 16) = 3;
+                          *&v237 = MEMORY[0x28223BE20](v235);
+                          v460 = (&v453 - 8);
+                          v452 = 0;
+                          *(&v453 - 3) = v237;
+                          *(&v453 - 2) = v237;
+                          *(&v453 - 4) = v237;
+                          *(&v453 - 16) = v238;
+                          v239 = *(v3 + 4688);
+                          if ((v239 & 0x400000000) != 0 && (*(v3 + 4708) & 4) != 0 && *(v3 + 3064) || (v239 & 0x800000000) != 0 && (*(v3 + 4708) & 8) != 0 && *(v3 + 3072) || (v239 & 0x2000000000) != 0 && (*(v3 + 4708) & 0x20) != 0 && *(v3 + 3088))
+                          {
+                            *(&v453 - 7) = *(*(v3 + 3440) + 8);
+                            *(&v453 - 5) = *(*(v3 + 4072) + 8);
+                            *(&v453 - 3) = *(*(v3 + 4080) + 8);
+                            v240 = *(v3 + 4064);
+                            v241 = v460;
+                            v460->mBuffers[0] = *(v240 + 8);
+                            *&v241[1].mNumberBuffers = *(v240 + 24);
+                            *&v241[1].mBuffers[0].mData = *(v240 + 56);
+                          }
+
+                          if ((v239 & 0x400000000) == 0 || (*(v3 + 4708) & 4) == 0 || !*(v3 + 3064))
+                          {
+LABEL_460:
+                            if ((v239 & 0x800000000) == 0 || (*(v3 + 4708) & 8) == 0 || !*(v3 + 3072))
+                            {
+LABEL_473:
+                              if ((v239 & 0x2000000000) == 0 || (*(v3 + 4708) & 0x20) == 0 || !*(v3 + 3088))
+                              {
+LABEL_486:
+                                if (v198 == 2)
+                                {
+                                  VoiceProcessorV4::SignalParamSwitchMixNF(v3, v201, v199, &v462);
+                                }
+
+                                else if (v198 == 1)
+                                {
+                                  VoiceProcessorV2::SignalParamSwitchMix(v3, v201, v199, &v462, v236);
+                                }
+
+                                if (v202 == 1)
+                                {
+                                  VoiceProcessorV2::TimeAlignedReferenceAndOtherHandling(v3, HIBYTE(v468), v466, v201, v462);
+                                }
+
+                                else
+                                {
+                                  VoiceProcessorV4::TimeAlignedReferenceAndOtherHandlingNF(v3, HIBYTE(v468), v464, v201, v462);
+                                }
+
+                                LODWORD(inInputBufferLists) = 0;
+                                if ((*(v3 + 4688) & 0x2000000000000) != 0 && (*(v3 + 4704) & 0x2000000000000) != 0)
+                                {
+                                  v254 = *(v3 + 3184);
+                                  if (v254)
+                                  {
+                                    MEMORY[0x28223BE20](v254);
+                                    *(&v453 - 3) = 0u;
+                                    *(&v453 - 2) = 0u;
+                                    *(&v453 - 4) = 0u;
+                                    *(&v453 - 16) = 3;
+                                    *&v257 = MEMORY[0x28223BE20](v255);
+                                    v452 = 0;
+                                    *(&v453 - 3) = v257;
+                                    *(&v453 - 2) = v257;
+                                    *(&v453 - 4) = v257;
+                                    *(&v453 - 16) = v258;
+                                    *(v259 - 56) = *(*(v3 + 3440) + 8);
+                                    *(v259 - 40) = *(*(v3 + 3464) + 8);
+                                    *(v259 - 24) = *(*(v3 + 17432) + 8);
+                                    v260 = *(v3 + 4064);
+                                    *(&v453 - 7) = *(v260 + 8);
+                                    *(&v453 - 5) = *(v260 + 24);
+                                    *(&v453 - 3) = *(v260 + 40);
+                                    v479.mSampleTime = v261;
+                                    v479.mHostTime = (&v453 - 8);
+                                    *&v480.mNumberBuffers = *(v3 + 17440);
+                                    if ((v262 & v263 & 0x400000000000000) != 0)
+                                    {
+                                      v264 = *(v3 + 3256);
+                                      if (v264)
+                                      {
+                                        LODWORD(v484.mSampleTime) = 0;
+                                        AudioUnitGetParameter(v264, 0, 0, 0, &v484);
+                                        AudioUnitSetParameter(*(v3 + 3184), 0, 0, 0, *&v484.mSampleTime, 0);
+                                        AudioUnitGetParameter(*(v3 + 3184), 0xDu, 0, 0, &inInputBufferLists);
+                                        v256 = *(v3 + 3184);
+                                      }
+                                    }
+
+                                    v265 = *&a2->mRateScalar;
+                                    *&v484.mSampleTime = *&a2->mSampleTime;
+                                    *&v484.mRateScalar = v265;
+                                    v266 = *&a2->mSMPTETime.mHours;
+                                    *&v484.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
+                                    *&v484.mSMPTETime.mHours = v266;
+                                    AudioUnitProcessMultiple(v256, &v469, &v484, *(v3 + 516), 2u, &v479, 2u, &v480);
+                                    v267 = *(v3 + 516);
+                                    if (*(v3 + 15881) & 1) != 0 || (*(v3 + 15882))
+                                    {
+                                      VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x81u, v267, *(v3 + 17440), &v484);
+                                      v267 = *(v3 + 516);
+                                      v268 = *(v3 + 17448);
+                                      if (*(v3 + 15881))
+                                      {
+                                        goto LABEL_505;
+                                      }
+                                    }
+
+                                    else
+                                    {
+                                      v268 = *(v3 + 17448);
+                                    }
+
+                                    if (*(v3 + 15882) == 1)
+                                    {
+LABEL_505:
+                                      VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x82u, v267, v268, &v484);
+                                    }
+                                  }
+                                }
+
+                                v269 = memcpy(*(*(v3 + 3472) + 16), *(*(v3 + 4064) + 16), *(v3 + 4316));
+                                v270 = *(v3 + 4688);
+                                if ((v270 & 0x1000000) != 0 && (*(v3 + 4707) & 1) != 0 && *(v3 + 2984) && v463 == 1.0)
+                                {
+                                  v269 = memcpy(*(*(v3 + 17144) + 16), *(*(v3 + 4064) + 48), *(v3 + 4316));
+                                  v270 = *(v3 + 4688);
+                                }
+
+                                if ((v270 & 0x400000000000) == 0 || (v271 = *(v3 + 4704), (v271 & 0x400000000000) == 0) || !*(v3 + 3160))
+                                {
+LABEL_529:
+                                  if ((v270 & 0x800000000000) != 0 && (*(v3 + 4704) & 0x800000000000) != 0)
+                                  {
+                                    v287 = *(v3 + 3168);
+                                    if (v287)
+                                    {
+                                      MEMORY[0x28223BE20](v287);
+                                      *(&v453 - 3) = 0u;
+                                      *(&v453 - 2) = 0u;
+                                      *(&v453 - 12) = 2;
+                                      *&v289 = MEMORY[0x28223BE20](v288);
+                                      v452 = 0;
+                                      *(&v453 - 3) = v289;
+                                      *(&v453 - 2) = v289;
+                                      *(&v453 - 12) = v290;
+                                      *(v291 - 40) = *(*(v3 + 3440) + 8);
+                                      *(v291 - 24) = *(*(v3 + 17440) + 8);
+                                      *(&v453 - 5) = *(*(v3 + 4064) + 8);
+                                      *(&v453 - 3) = *(*(v3 + 17448) + 8);
+                                      *&v293 = MEMORY[0x28223BE20](v292);
+                                      *(&v453 - 3) = v293;
+                                      *(&v453 - 2) = v293;
+                                      *(&v453 - 12) = v294;
+                                      *&v297 = MEMORY[0x28223BE20](v295);
+                                      v452 = 0;
+                                      *(&v453 - 3) = v297;
+                                      *(&v453 - 2) = v297;
+                                      *(&v453 - 12) = v298;
+                                      v299 = *(v3 + 17456);
+                                      *(v300 - 40) = *(v299 + 8);
+                                      *(v300 - 24) = *(v299 + 24);
+                                      *(&v453 - 5) = *(v299 + 40);
+                                      *(&v453 - 3) = *(v299 + 56);
+                                      if ((v301 & v302 & 0x2000000000000) != 0)
+                                      {
+                                        v303 = *(v3 + 3184);
+                                        if (v303)
+                                        {
+                                          LODWORD(v484.mSampleTime) = 0;
+                                          AudioUnitGetParameter(v303, 1u, 0, 0, &v484);
+                                          AudioUnitSetParameter(*(v3 + 3168), 0, 4u, 0, *&v484.mSampleTime, 0);
+                                          AudioUnitSetParameter(*(v3 + 3192), 0, 0, 0, *&v484.mSampleTime, 0);
+                                          v296 = *(v3 + 3168);
+                                        }
+                                      }
+
+                                      *&v479.mSampleTime = &v453 - 6;
+                                      v479.mHostTime = (&v453 - 6);
+                                      *&v480.mNumberBuffers = &v453 - 6;
+                                      *&v480.mBuffers[0].mNumberChannels = &v453 - 6;
+                                      v304 = *&a2->mRateScalar;
+                                      *&v484.mSampleTime = *&a2->mSampleTime;
+                                      *&v484.mRateScalar = v304;
+                                      v305 = *&a2->mSMPTETime.mHours;
+                                      *&v484.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
+                                      *&v484.mSMPTETime.mHours = v305;
+                                      v469 = 512;
+                                      AudioUnitProcessMultiple(v296, &v469, &v484, *(v3 + 516), 2u, &v479, 2u, &v480);
+                                      if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
+                                      {
+                                        VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x85u, *(v3 + 516), *(v3 + 17456), &v484);
+                                      }
+
+                                      v270 = *(v3 + 4688);
+                                    }
+                                  }
+
+                                  if ((v270 & 0x4000000000000) != 0)
+                                  {
+                                    v306 = *(v3 + 4704);
+                                    if ((v306 & 0x4000000000000) != 0)
+                                    {
+                                      v307 = *(v3 + 3192);
+                                      if (v307)
+                                      {
+                                        if ((v270 & v306 & 0x800000000000) != 0 && *(v3 + 3168))
+                                        {
+                                          MEMORY[0x28223BE20](v307);
+                                          v452 = 0;
+                                          *(&v453 - 3) = 0u;
+                                          *(&v453 - 2) = 0u;
+                                          *(&v453 - 12) = 2;
+                                          v308 = *(v3 + 17456);
+                                          *(&v453 - 5) = *(v308 + 8);
+                                          *(&v453 - 3) = *(v308 + 24);
+                                          *&v479.mSampleTime = &v453 - 6;
+                                          *&v480.mNumberBuffers = *(v3 + 3464);
+                                          v309 = *&a2->mRateScalar;
+                                          *&v484.mSampleTime = *&a2->mSampleTime;
+                                          *&v484.mRateScalar = v309;
+                                          v310 = *&a2->mSMPTETime.mHours;
+                                          *&v484.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
+                                          *&v484.mSMPTETime.mHours = v310;
+                                          v469 = 512;
+                                          AudioUnitProcessMultiple(v311, &v469, &v484, *(v3 + 516), 1u, &v479, 1u, &v480);
+                                          if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
+                                          {
+                                            VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x87u, *(v3 + 516), *(v3 + 3464), &v484);
+                                          }
+
+                                          v270 = *(v3 + 4688);
+                                        }
+                                      }
+                                    }
+                                  }
+
+                                  if ((v270 & 0x40000000000000) != 0 && (*(v3 + 4710) & 0x40) != 0 && *(v3 + 3224))
+                                  {
+                                    v312 = 1;
+                                  }
+
+                                  else
+                                  {
+                                    v312 = (v270 & 0x80000000000000) != 0 && (*(v3 + 4710) & 0x80) != 0 && *(v3 + 3232) != 0;
+                                  }
+
+                                  LODWORD(v483.realp) = 0;
+                                  LODWORD(v477) = 0;
+                                  v313 = AudioUnitGetParameter(*(v3 + 3136), 0x1Du, 0, 0, &v483);
+                                  v314 = *&v483.realp < 1.0 && v312;
+                                  v458 = v314;
+                                  if (v312)
+                                  {
+                                    LODWORD(v484.mSampleTime) = 1065353216;
+                                    if (*&v483.realp < 1.0)
+                                    {
+                                      vDSP_vfill(&v484, *(*(v3 + 4040) + 16), 1, *(v3 + 516));
+                                    }
+
+                                    vDSP_vfill(&v484, *(*(v3 + 4024) + 16), 1, *(v3 + 516));
+                                    v315 = *(v3 + 4688);
+                                  }
+
+                                  else
+                                  {
+                                    v315 = *(v3 + 4688);
+                                    if ((v315 & 0x80000000000) == 0 || (*(v3 + 4709) & 8) == 0 || !*(v3 + 3136))
+                                    {
+                                      goto LABEL_573;
+                                    }
+                                  }
+
+                                  if ((v315 & 0x1000000000000) == 0 || (*(v3 + 4710) & 1) == 0 || !*(v3 + 3176))
+                                  {
+                                    if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
+                                    {
+                                      v313 = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x63u, *(v3 + 516), *(v3 + 3440), &buf);
+                                      v315 = *(v3 + 4688);
+                                    }
+
+                                    LODWORD(v460) = 1;
+LABEL_574:
+                                    v316 = *(v3 + 4032);
+                                    if ((v315 & 0x40000000000000) != 0 && (*(v3 + 4710) & 0x40) != 0 && (v313 = *(v3 + 3224)) != 0)
+                                    {
+                                      v317 = *(v3 + 4024);
+                                      v479.mSampleTime = *(v3 + 3440);
+                                      v479.mHostTime = v317;
+                                      *&v479.mRateScalar = v3 + 16904;
+                                      v318 = *(v3 + 4040);
+                                      *&v480.mNumberBuffers = *(v3 + 3448);
+                                      *&v480.mBuffers[0].mNumberChannels = v318;
+                                      v480.mBuffers[0].mData = v316;
+                                      v469 = 512;
+                                      v319 = *&a2->mRateScalar;
+                                      *&v484.mSampleTime = *&a2->mSampleTime;
+                                      *&v484.mRateScalar = v319;
+                                      v320 = *&a2->mSMPTETime.mHours;
+                                      *&v484.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
+                                      *&v484.mSMPTETime.mHours = v320;
+                                      AudioUnitProcessMultiple(v313, &v469, &v484, *(v3 + 516), 3u, &v479, 3u, &v480);
+                                      AudioUnitGetParameter(*(v3 + 3224), 1u, 0, 0, &v470);
+                                      v313 = AudioUnitGetParameter(*(v3 + 3224), 1u, 0, 0, (v3 + 17508));
+                                      if ((*(v3 + 4696) & 2) == 0 || (*(v3 + 4712) & 2) == 0 || !*(v3 + 3312))
+                                      {
+                                        goto LABEL_589;
+                                      }
+
+                                      v321 = *(v3 + 3224);
+                                      v322 = 2;
+                                    }
+
+                                    else
+                                    {
+                                      if ((v315 & 0x80000000000000) == 0 || (*(v3 + 4710) & 0x80) == 0 || (v313 = *(v3 + 3232)) == 0)
+                                      {
+                                        v328 = 0;
+                                        goto LABEL_594;
+                                      }
+
+                                      MEMORY[0x28223BE20](v313);
+                                      *(&v453 - 3) = 0;
+                                      v452 = 0;
+                                      *(&v453 - 4) = 0;
+                                      *(&v453 - 8) = 1;
+                                      *(&v453 - 3) = *(*(v3 + 17456) + 8);
+                                      AudioUnitSetParameter(v323, 0x14u, 0, 0, *(v3 + 16756), 0);
+                                      v324 = *(v3 + 3464);
+                                      *&v479.mSampleTime = &v453 - 4;
+                                      v479.mHostTime = v324;
+                                      v479.mRateScalar = *(v3 + 4024);
+                                      v479.mWordClockTime = v3 + 16904;
+                                      v325 = *(v3 + 3504);
+                                      *&v480.mNumberBuffers = *(v3 + 3448);
+                                      *&v480.mBuffers[0].mNumberChannels = v325;
+                                      v480.mBuffers[0].mData = *(v3 + 4040);
+                                      v481 = v316;
+                                      v326 = *&a2->mRateScalar;
+                                      *&v484.mSampleTime = *&a2->mSampleTime;
+                                      *&v484.mRateScalar = v326;
+                                      v327 = *&a2->mSMPTETime.mHours;
+                                      *&v484.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
+                                      *&v484.mSMPTETime.mHours = v327;
+                                      v469 = 512;
+                                      AudioUnitProcessMultiple(*(v3 + 3232), &v469, &v484, *(v3 + 516), 4u, &v479, 4u, &v480);
+                                      v313 = AudioUnitGetParameter(*(v3 + 3232), 2u, 0, 0, &v470);
+                                      if ((*(v3 + 4696) & 2) == 0 || (*(v3 + 4712) & 2) == 0 || !*(v3 + 3312))
+                                      {
+LABEL_589:
+                                        if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
+                                        {
+                                          v313 = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x27u, *(v3 + 516), *(v3 + 3448), &v484);
+                                        }
+
+                                        v328 = 1;
+LABEL_594:
+                                        v329 = *(v3 + 4688);
+                                        if ((v329 & 0x200000000000000) != 0 && (*(v3 + 4711) & 2) != 0)
+                                        {
+                                          v313 = *(v3 + 3248);
+                                          if (v313)
+                                          {
+                                            v479.mSampleTime = *(v3 + 3440);
+                                            *&v480.mNumberBuffers = 0;
+                                            v330 = *&a2->mSMPTETime.mHours;
+                                            *&v484.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
+                                            *&v484.mSMPTETime.mHours = v330;
+                                            v331 = *&a2->mRateScalar;
+                                            *&v484.mSampleTime = *&a2->mSampleTime;
+                                            *&v484.mRateScalar = v331;
+                                            v469 = 512;
+                                            v332 = *(v3 + 4048);
+                                            v333 = *(v332 + 16);
+                                            v334 = *(v332 + 12);
+                                            v313 = AudioUnitProcessMultiple(v313, &v469, &v484, *(v3 + 516), 1u, &v479, 1u, &v480);
+                                            if (v313 || (v313 = AudioUnitGetProperty(*(v3 + 3248), 0x13EDu, 0, 0, *(*(v3 + 4048) + 16), (*(v3 + 4048) + 12)), v313))
+                                            {
+                                              if (v334 >= 4)
+                                              {
+                                                memset_pattern16(v333, &unk_2727568B0, v334 & 0xFFFFFFFC);
+                                              }
+                                            }
+
+                                            if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
+                                            {
+                                              v313 = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x54u, *(v3 + 516), *(v3 + 4048), &v484);
+                                            }
+
+                                            v329 = *(v3 + 4688);
+                                          }
+                                        }
+
+                                        if ((v329 & 0x400000000000000) != 0 && (*(v3 + 4711) & 4) != 0)
+                                        {
+                                          if (*(v3 + 3256))
+                                          {
+                                            v335 = *(v3 + 17376);
+                                            if (v335)
+                                            {
+                                              if (v335 == 1)
+                                              {
+                                                v336 = 1136;
+                                                v337 = 1112;
+                                              }
+
+                                              else
+                                              {
+                                                v336 = 1128;
+                                                v337 = 1120;
+                                              }
+
+                                              v338 = *(v3 + v336);
+                                              v339 = *(v3 + 17264);
+                                              v340 = *(*(v3 + v337) + 40);
+                                              v341 = *(*(v3 + 17232) + 16) + 4 * *(v3 + 516);
+                                              v484.mSampleTime = *(*(v3 + 17232) + 16);
+                                              v484.mHostTime = v341;
+                                              VPTimeFreqConverter_Analyze(v339, v340, &v484);
+                                              v342 = *(v3 + 17272);
+                                              v343 = *(v338 + 40);
+                                              v344 = *(*(v3 + 17232) + 32) + 4 * *(v3 + 516);
+                                              v484.mSampleTime = *(*(v3 + 17232) + 32);
+                                              v484.mHostTime = v344;
+                                              VPTimeFreqConverter_Analyze(v342, v343, &v484);
+                                              v479.mSampleTime = *(v3 + 17232);
+                                              *&v480.mNumberBuffers = v479.mSampleTime;
+                                              v469 = 512;
+                                              v345 = *&a2->mRateScalar;
+                                              *&v484.mSampleTime = *&a2->mSampleTime;
+                                              *&v484.mRateScalar = v345;
+                                              v346 = *&a2->mSMPTETime.mHours;
+                                              *&v484.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
+                                              *&v484.mSMPTETime.mHours = v346;
+                                              v347 = AudioUnitProcessMultiple(*(v3 + 3256), &v469, &v484, *(v3 + 516), 1u, &v479, 1u, &v480);
+                                              if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
+                                              {
+                                                VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x6Fu, *(v3 + 516), *(v3 + 17232), &v484);
+                                              }
+
+                                              v348 = *(v3 + 17240);
+                                              v351 = *(v348 + 12);
+                                              v349 = v348 + 12;
+                                              v350 = v351;
+                                              v352 = *(v349 + 4);
+                                              if ((v347 || AudioUnitGetProperty(*(v3 + 3256), 0x15FEu, 0, 0, *(v349 + 4), v349)) && v350 >= 4)
+                                              {
+                                                memset_pattern16(v352, &unk_2727568B0, v350 & 0xFFFFFFFC);
+                                              }
+
+                                              v313 = AudioUnitGetParameter(*(v3 + 3256), 0, 0, 0, (v3 + 17504));
+                                              if (v313)
+                                              {
+                                                *(v3 + 17504) = 0;
+                                              }
+
+                                              if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
+                                              {
+                                                v313 = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x70u, *(v3 + 516), *(v3 + 17240), &v484);
+                                              }
+
+                                              v329 = *(v3 + 4688);
+                                            }
+                                          }
+                                        }
+
+                                        if ((v329 & 0x80000000000) == 0 || (*(v3 + 4704) & 0x80000000000) == 0 || !*(v3 + 3136))
+                                        {
+LABEL_665:
+                                          if ((v329 & 0x1000000000000) != 0 && (*(v3 + 4710) & 1) != 0 && *(v3 + 3176))
+                                          {
+                                            LODWORD(v475) = 0;
+                                            AudioUnitGetParameter(*(v3 + 2968), 0x25u, 0, 0, &v475);
+                                            AudioUnitSetParameter(*(v3 + 3176), 0, 4u, 2u, *&v475, 0);
+                                            AudioUnitSetParameter(*(v3 + 3176), 0, 4u, 3u, *&v475, 0);
+                                            v373 = memcpy(*(*(v3 + 17592) + 16), *(*(v3 + 3440) + 16), *(*(v3 + 3440) + 12));
+                                            MEMORY[0x28223BE20](v373);
+                                            v452 = 0;
+                                            *(&v453 - 3) = 0u;
+                                            *(&v453 - 2) = 0u;
+                                            *(&v453 - 5) = 0u;
+                                            *(&v453 - 4) = 0u;
+                                            *(&v453 - 20) = 4;
+                                            *(&v453 - 9) = *(*(v3 + 3440) + 8);
+                                            *(&v453 - 7) = *(*(v3 + 17432) + 8);
+                                            *(&v453 - 5) = *(*(v3 + 4080) + 8);
+                                            *(&v453 - 3) = *(*(v3 + 4072) + 8);
+                                            *&v375 = MEMORY[0x28223BE20](v374);
+                                            v452 = 0;
+                                            *(&v453 - 3) = v375;
+                                            *(&v453 - 2) = v375;
+                                            *(&v453 - 5) = v375;
+                                            *(&v453 - 4) = v375;
+                                            *(&v453 - 20) = 4;
+                                            *(&v453 - 9) = *(*(v3 + 17560) + 8);
+                                            *(&v453 - 7) = *(*(v3 + 17576) + 8);
+                                            *(&v453 - 5) = *(*(v3 + 17584) + 8);
+                                            *(&v453 - 3) = *(*(v3 + 17568) + 8);
+                                            *&v479.mSampleTime = &v453 - 10;
+                                            v479.mHostTime = (&v453 - 10);
+                                            *&v480.mNumberBuffers = &v453 - 10;
+                                            *&v480.mBuffers[0].mNumberChannels = &v453 - 10;
+                                            v376 = *&a2->mRateScalar;
+                                            *&v484.mSampleTime = *&a2->mSampleTime;
+                                            *&v484.mRateScalar = v376;
+                                            v377 = *&a2->mSMPTETime.mHours;
+                                            *&v484.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
+                                            *&v484.mSMPTETime.mHours = v377;
+                                            v469 = 512;
+                                            AudioUnitProcessMultiple(*(v3 + 3176), &v469, &v484, *(v3 + 516), 2u, &v479, 2u, &v480);
+                                            if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
+                                            {
+                                              VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x86u, *(v3 + 516), (&v453 - 10), &v484);
+                                            }
+
+                                            v329 = *(v3 + 4688);
+                                          }
+
+                                          if ((v329 & 0x4000000000000) != 0)
+                                          {
+                                            v378 = *(v3 + 4704);
+                                            if ((v378 & 0x4000000000000) != 0)
+                                            {
+                                              v379 = *(v3 + 3192);
+                                              if (v379)
+                                              {
+                                                if ((v329 & v378 & 0x1000000000000) != 0 && *(v3 + 3176))
+                                                {
+                                                  MEMORY[0x28223BE20](v379);
+                                                  v452 = 0;
+                                                  *(&v453 - 3) = 0u;
+                                                  *(&v453 - 2) = 0u;
+                                                  *(&v453 - 12) = 2;
+                                                  *(&v453 - 5) = *(*(v3 + 3440) + 8);
+                                                  *(&v453 - 3) = *(*(v3 + 17432) + 8);
+                                                  *&v479.mSampleTime = &v453 - 6;
+                                                  *&v480.mNumberBuffers = *(v3 + 3464);
+                                                  v380 = *&a2->mRateScalar;
+                                                  *&v484.mSampleTime = *&a2->mSampleTime;
+                                                  *&v484.mRateScalar = v380;
+                                                  v381 = *&a2->mSMPTETime.mHours;
+                                                  *&v484.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
+                                                  *&v484.mSMPTETime.mHours = v381;
+                                                  v469 = 512;
+                                                  AudioUnitProcessMultiple(v382, &v469, &v484, *(v3 + 516), 1u, &v479, 1u, &v480);
+                                                  if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
+                                                  {
+                                                    VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x87u, *(v3 + 516), *(v3 + 3464), &v484);
+                                                  }
+
+                                                  v329 = *(v3 + 4688);
+                                                }
+                                              }
+                                            }
+                                          }
+
+                                          LODWORD(v475) = 0;
+                                          LODWORD(v473) = 0;
+                                          if ((v329 & 0x400000) != 0 && (*(v3 + 4706) & 0x40) != 0 && (v383 = *(v3 + 2968)) != 0)
+                                          {
+                                            AudioUnitGetParameter(v383, 0x43u, 0, 0, &v475);
+                                            AudioUnitGetParameter(*(v3 + 2968), 0x47u, 0, 0, &v473);
+                                            v329 = *(v3 + 4688);
+                                            v384 = *&v473 == 0.0 || *&v475 == 0.0;
+                                          }
+
+                                          else
+                                          {
+                                            v384 = 1;
+                                          }
+
+                                          if ((v329 & 0x100000000000) == 0 || (v385 = *(v3 + 4704), (v385 & 0x100000000000) == 0) || (v386 = *(v3 + 3144)) == 0 || (v329 & v385 & 0x1000000000000) == 0 || !*(v3 + 3176))
+                                          {
+LABEL_703:
+                                            if ((v329 & 0x200000000000) == 0)
+                                            {
+                                              goto LABEL_718;
+                                            }
+
+                                            v396 = *(v3 + 4704);
+                                            if ((v396 & 0x200000000000) == 0)
+                                            {
+                                              goto LABEL_718;
+                                            }
+
+                                            v397 = *(v3 + 3152);
+                                            if (!v397 || (v329 & v396 & 0x1000000000000) != 0 && *(v3 + 3176))
+                                            {
+                                              goto LABEL_718;
+                                            }
+
+                                            MEMORY[0x28223BE20](v397);
+                                            *(&v453 - 4) = 0;
+                                            *(&v453 - 3) = 0;
+                                            *(&v453 - 8) = 1;
+                                            MEMORY[0x28223BE20](v398);
+                                            *(&v453 - 3) = 0;
+                                            v452 = 0;
+                                            *(&v453 - 4) = 0;
+                                            *(&v453 - 8) = v399;
+                                            *(v400 - 24) = *(*(v3 + 17432) + 8);
+                                            *(&v453 - 3) = *(*(v3 + 4064) + 40);
+                                            AudioUnitSetParameter(v401, 6u, 0, 0, *(v3 + 4248), 0);
+                                            AudioUnitSetParameter(*(v3 + 3152), 7u, 0, 0, *(v3 + 4264), 0);
+                                            AudioUnitSetParameter(*(v3 + 3152), 0xDu, 0, 0, *(v3 + 4280), 0);
+                                            *&v479.mSampleTime = &v453 - 4;
+                                            v479.mHostTime = (&v453 - 4);
+                                            v402 = *(v3 + 4040);
+                                            v479.mRateScalar = *(v3 + 4120);
+                                            v479.mWordClockTime = v402;
+                                            *&v479.mSMPTETime.mSubframes = v316;
+                                            *&v479.mSMPTETime.mType = 0;
+                                            *&v480.mNumberBuffers = *(v3 + 3464);
+                                            *&v480.mBuffers[0].mNumberChannels = 0;
+                                            v480.mBuffers[0].mData = *(v3 + 17528);
+                                            v403 = *&a2->mRateScalar;
+                                            *&v484.mSampleTime = *&a2->mSampleTime;
+                                            *&v484.mRateScalar = v403;
+                                            v404 = *&a2->mSMPTETime.mHours;
+                                            *&v484.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
+                                            *&v484.mSMPTETime.mHours = v404;
+                                            v469 = 512;
+                                            AudioUnitProcessMultiple(*(v3 + 3152), &v469, &v484, *(v3 + 516), 6u, &v479, 3u, &v480);
+                                            v405 = *(v3 + 516);
+                                            if (*(v3 + 15881) & 1) != 0 || (*(v3 + 15882))
+                                            {
+                                              VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x26u, v405, *(v3 + 3464), &v484);
+                                              v405 = *(v3 + 516);
+                                              v406 = *(v3 + 17528);
+                                              if (*(v3 + 15881))
+                                              {
+                                                goto LABEL_714;
+                                              }
+                                            }
+
+                                            else
+                                            {
+                                              v406 = *(v3 + 17528);
+                                            }
+
+                                            if (*(v3 + 15882) != 1)
+                                            {
+LABEL_715:
+                                              if (*&inInputBufferLists != 0.0)
+                                              {
+                                                vDSP_vmin(*(*(v3 + 4024) + 16), 1, *(*(v3 + 17528) + 16), 1, *(*(v3 + 4024) + 16), 1, *(v3 + 516));
+                                              }
+
+                                              v329 = *(v3 + 4688);
+LABEL_718:
+                                              if ((v329 & 0x80000000000) != 0 && (*(v3 + 4709) & 8) != 0 && *(v3 + 3136))
+                                              {
+                                                if (!v458)
+                                                {
+LABEL_739:
+                                                  if ((*(v3 + 4709) & 8) != 0)
+                                                  {
+                                                    if (*(v3 + 3136) != 0 || v312)
+                                                    {
+LABEL_754:
+                                                      if (((v460 & 1) != 0 || (*(v3 + 4693) & 8) != 0 && (*(v3 + 4709) & 8) != 0 && *(v3 + 3136)) && ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1))
+                                                      {
+                                                        VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x62u, *(v3 + 516), *(v3 + 3448), a2);
+                                                      }
+
+                                                      if ((*(v3 + 4695) & 0x10) != 0 && (*(v3 + 4711) & 0x10) != 0)
+                                                      {
+                                                        v413 = *(v3 + 3272);
+                                                        if (v413)
+                                                        {
+                                                          AudioUnitSetParameter(v413, 0, 0, 0, *(v3 + 12612), 0);
+                                                          AudioUnitSetParameter(*(v3 + 3272), 4u, 0, 0, *(v3 + 4216), 0);
+                                                          AudioUnitSetParameter(*(v3 + 3272), 0x13u, 0, 0, *(v3 + 4232), 0);
+                                                          AudioUnitSetParameter(*(v3 + 3272), 3u, 0, 0, v470, 0);
+                                                          LODWORD(v471) = 0;
+                                                          AudioUnitGetParameter(*(v3 + 3272), 0x1Cu, 0, 0, &v471);
+                                                          if (*&v471 == 1.0)
+                                                          {
+                                                            v414 = v3 + 2792;
+                                                            LODWORD(v484.mSampleTime) = -1082130432;
+                                                            AudioUnitGetParameter(*(v3 + 3272), 0x1Du, 0, 0, &v484);
+                                                            v415 = *&v484.mSampleTime != 2.0 || *&v484.mSampleTime == 1.0;
+                                                            v416 = v415 ? 22 : 23;
+                                                            v417 = *(v414 + 8 * v416);
+                                                            if (v417)
+                                                            {
+                                                              LODWORD(v479.mSampleTime) = 0;
+                                                              if (!AudioUnitGetPropertyInfo(v417, 0xED8u, 0, 0, &v479, 0))
+                                                              {
+                                                                v418 = *(v3 + 17536);
+                                                                if (*(v3 + 17544) - v418 >= LODWORD(v479.mSampleTime))
+                                                                {
+                                                                  AudioUnitGetProperty(*(v414 + 8 * v416), 0xED8u, 0, 0, v418, &v479);
+                                                                }
+                                                              }
+
+                                                              v480.mNumberBuffers = 0;
+                                                              AudioUnitGetParameter(*(v414 + 8 * v416), 1u, 0, 0, &v480.mNumberBuffers);
+                                                              AudioUnitSetProperty(*(v3 + 3272), 0x846u, 0, 0, *(v3 + 17536), vcvts_n_u32_f32(*&v480.mNumberBuffers, 2uLL));
+                                                            }
+                                                          }
+
+                                                          AudioUnitSetParameter(*(v3 + 3272), 0xEu, 0, 0, *(v3 + 2320), 0);
+                                                          v419 = *(v3 + 4112);
+                                                          v479.mSampleTime = *(v3 + 3360);
+                                                          v479.mHostTime = v419;
+                                                          v420 = *(v3 + 4104);
+                                                          v479.mRateScalar = *(v3 + 3448);
+                                                          v479.mWordClockTime = v420;
+                                                          *&v479.mSMPTETime.mSubframes = *(v3 + 4024);
+                                                          *&v479.mSMPTETime.mType = *(v3 + 4040);
+                                                          *&v480.mNumberBuffers = *(v3 + 1096);
+                                                          v469 = 512;
+                                                          v421 = *&a2->mRateScalar;
+                                                          *&v484.mSampleTime = *&a2->mSampleTime;
+                                                          *&v484.mRateScalar = v421;
+                                                          v422 = *&a2->mSMPTETime.mHours;
+                                                          *&v484.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
+                                                          *&v484.mSMPTETime.mHours = v422;
+                                                          AudioUnitProcessMultiple(*(v3 + 3272), &v469, &v484, *(v3 + 516), 6u, &v479, 1u, &v480);
+                                                          v461 = 0.0;
+                                                          AudioUnitGetParameter(*(v3 + 3272), 1u, 0, 0, &v461);
+                                                          *(v3 + 12616) = v461;
+                                                          if ((*(v3 + 4696) & 2) != 0 && (*(v3 + 4712) & 2) != 0 && *(v3 + 3312))
+                                                          {
+                                                            AudioUnitGetParameter(*(v3 + 3272), 2u, 0, 0, &v470);
+                                                            AudioUnitSetParameter(*(v3 + 3312), 0x23u, 0, 0, v470, 0);
+                                                          }
+                                                        }
+                                                      }
+
+                                                      goto LABEL_780;
+                                                    }
+
+LABEL_743:
+                                                    LODWORD(v484.mSampleTime) = 1065353216;
+                                                    v410 = *(v3 + 516);
+                                                    vDSP_vfill(&v484, *(*(v3 + 4040) + 16), 1, v410);
+                                                    memcpy(*(*(v3 + 3448) + 16), *(*(v3 + 3440) + 16), 8 * v410);
+                                                    goto LABEL_754;
+                                                  }
+
+LABEL_740:
+                                                  if (v312)
+                                                  {
+                                                    goto LABEL_754;
+                                                  }
+
+                                                  goto LABEL_743;
+                                                }
+                                              }
+
+                                              else if ((v329 & 0x100000000000) == 0 || (*(v3 + 4709) & 0x10) == 0 || ((*(v3 + 3144) != 0) & v458) == 0)
+                                              {
+                                                if ((v329 & 0x80000000000) == 0)
+                                                {
+                                                  goto LABEL_740;
+                                                }
+
+                                                goto LABEL_739;
+                                              }
+
+                                              v407 = *(*(v3 + 4040) + 16);
+                                              vDSP_vmin(*(*(v3 + 4024) + 16), 1, v407, 1, v407, 1, *(v3 + 516));
+                                              v408 = *(v3 + 4688);
+                                              if ((v408 & 0x200000000000000) != 0 && (*(v3 + 4711) & 2) != 0 && *(v3 + 3248))
+                                              {
+                                                vDSP_vmin(*(*(v3 + 4048) + 16), 1, v407, 1, v407, 1, *(v3 + 516));
+                                                v408 = *(v3 + 4688);
+                                              }
+
+                                              if ((v408 & 0x400000000000000) != 0 && (*(v3 + 4711) & 4) != 0 && *(v3 + 3256))
+                                              {
+                                                vDSP_vmin(*(*(v3 + 17240) + 16), 1, v407, 1, v407, 1, *(v3 + 516));
+                                                v408 = *(v3 + 4688);
+                                              }
+
+                                              if ((v408 & 0x1000) != 0 && (*(v3 + 4705) & 0x10) != 0 && *(v3 + 2888))
+                                              {
+                                                v409 = 17480;
+                                              }
+
+                                              else if ((v408 & 0x800000000000) != 0 && (*(v3 + 4709) & 0x80) != 0 && *(v3 + 3168))
+                                              {
+                                                v409 = 17456;
+                                              }
+
+                                              else if (v408 & 0x1000000000000) != 0 && (*(v3 + 4710))
+                                              {
+                                                v409 = 3440;
+                                                if (*(v3 + 3176) != 0 && v384)
+                                                {
+                                                  v409 = 17592;
+                                                }
+                                              }
+
+                                              else
+                                              {
+                                                v409 = 3440;
+                                              }
+
+                                              v411 = *(*(v3 + v409) + 16);
+                                              v412 = *(*(v3 + 3448) + 16);
+                                              MEMORY[0x2743CCDD0](v411, 1, v407, 1, v412, 1, *(v3 + 516));
+                                              MEMORY[0x2743CCDD0](v411 + 4 * *(v3 + 516) + 4, 1, v407 + 1, 1, v412 + 4 * *(v3 + 516) + 4, 1, (*(v3 + 516) - 1));
+                                              *(v411 + 4 * *(v3 + 516)) = *(v411 + 4 * *(v3 + 516)) * v407[*(v3 + 516) - 1];
+                                              goto LABEL_754;
+                                            }
+
+LABEL_714:
+                                            VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x53u, v405, v406, &v484);
+                                            goto LABEL_715;
+                                          }
+
+                                          MEMORY[0x28223BE20](v386);
+                                          *(&v453 - 4) = 0;
+                                          *(&v453 - 3) = 0;
+                                          *(&v453 - 8) = 1;
+                                          MEMORY[0x28223BE20](v387);
+                                          *(&v453 - 3) = 0;
+                                          v452 = 0;
+                                          *(&v453 - 4) = 0;
+                                          *(&v453 - 8) = v388;
+                                          *(v389 - 24) = *(*(v3 + 3440) + 8);
+                                          *(&v453 - 3) = *(*(v3 + 3464) + 8);
+                                          AudioUnitSetParameter(v390, 6u, 0, 0, *(v3 + 4248), 0);
+                                          AudioUnitSetParameter(*(v3 + 3144), 7u, 0, 0, *(v3 + 4264), 0);
+                                          AudioUnitSetParameter(*(v3 + 3144), 0xDu, 0, 0, *(v3 + 4280), 0);
+                                          *&v479.mSampleTime = &v453 - 4;
+                                          v479.mHostTime = (&v453 - 4);
+                                          v391 = *(v3 + 4040);
+                                          *&v479.mRateScalar = &v453 - 4;
+                                          v479.mWordClockTime = v391;
+                                          *&v479.mSMPTETime.mSubframes = v316;
+                                          *&v479.mSMPTETime.mType = 0;
+                                          *&v480.mNumberBuffers = *(v3 + 3464);
+                                          *&v480.mBuffers[0].mNumberChannels = 0;
+                                          v480.mBuffers[0].mData = *(v3 + 4032);
+                                          v392 = *&a2->mRateScalar;
+                                          *&v484.mSampleTime = *&a2->mSampleTime;
+                                          *&v484.mRateScalar = v392;
+                                          v393 = *&a2->mSMPTETime.mHours;
+                                          *&v484.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
+                                          *&v484.mSMPTETime.mHours = v393;
+                                          v469 = 512;
+                                          AudioUnitProcessMultiple(*(v3 + 3144), &v469, &v484, *(v3 + 516), 6u, &v479, 3u, &v480);
+                                          v394 = *(v3 + 516);
+                                          if (*(v3 + 15881) & 1) != 0 || (*(v3 + 15882))
+                                          {
+                                            VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x25u, v394, *(v3 + 3464), &v484);
+                                            v394 = *(v3 + 516);
+                                            v395 = *(v3 + 4032);
+                                            if (*(v3 + 15881))
+                                            {
+                                              goto LABEL_699;
+                                            }
+                                          }
+
+                                          else
+                                          {
+                                            v395 = *(v3 + 4032);
+                                          }
+
+                                          if (*(v3 + 15882) != 1)
+                                          {
+LABEL_700:
+                                            if (!v384)
+                                            {
+                                              vDSP_vmin(*(*(v3 + 4024) + 16), 1, *(*(v3 + 4032) + 16), 1, *(*(v3 + 4024) + 16), 1, *(v3 + 516));
+                                            }
+
+                                            v329 = *(v3 + 4688);
+                                            goto LABEL_703;
+                                          }
+
+LABEL_699:
+                                          VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x52u, v394, v395, &v484);
+                                          goto LABEL_700;
+                                        }
+
+                                        MEMORY[0x28223BE20](v313);
+                                        *(&v453 - 4) = 0;
+                                        *(&v453 - 3) = 0;
+                                        *(&v453 - 8) = 1;
+                                        MEMORY[0x28223BE20](v353);
+                                        *(&v453 - 4) = 0;
+                                        *(&v453 - 3) = 0;
+                                        v452 = 0;
+                                        *(&v453 - 8) = v356;
+                                        if ((v354 & v355 & 0x800000000000) != 0)
+                                        {
+                                          v357 = &v453 - 3;
+                                          v358 = &v453 - 3;
+                                          if (*(v3 + 3168))
+                                          {
+                                            v359 = *(v3 + 17456);
+                                            *v357 = *(v359 + 8);
+                                            v360 = (v359 + 40);
+LABEL_633:
+                                            *v358 = *v360;
+                                            AudioUnitSetParameter(*(v3 + 3136), 6u, 0, 0, *(v3 + 4248), 0);
+                                            AudioUnitSetParameter(*(v3 + 3136), 7u, 0, 0, *(v3 + 4264), 0);
+                                            AudioUnitSetParameter(*(v3 + 3136), 0xDu, 0, 0, *(v3 + 4280), 0);
+                                            *&v479.mSampleTime = &v453 - 4;
+                                            v479.mHostTime = (&v453 - 4);
+                                            v361 = *(v3 + 4040);
+                                            v479.mRateScalar = *(v3 + 4120);
+                                            v479.mWordClockTime = v361;
+                                            *&v479.mSMPTETime.mSubframes = v316;
+                                            *&v479.mSMPTETime.mType = 0;
+                                            v362 = *(v3 + 4688);
+                                            if ((v362 & 0x1000000000000) != 0 && (*(v3 + 4710) & 1) != 0 && *(v3 + 3176))
+                                            {
+                                              *&v479.mSMPTETime.mType = *(v3 + 4088);
+                                            }
+
+                                            if ((v458 & 1) == 0)
+                                            {
+                                              v479.mWordClockTime = 0;
+                                            }
+
+                                            v363 = *(v3 + 4104);
+                                            *&v480.mNumberBuffers = 0;
+                                            *&v480.mBuffers[0].mNumberChannels = v363;
+                                            v480.mBuffers[0].mData = 0;
+                                            if ((v362 & 0x4000000) != 0 && (v364 = *(v3 + 4704), (v364 & 0x4000000) != 0) && (v365 = *(v3 + 3000)) != 0 && (v362 & v364 & 0x400000) != 0 && *(v3 + 2968))
+                                            {
+                                              LODWORD(v484.mSampleTime) = 0;
+                                              *&v479.mSMPTETime.mType = *(v3 + 4088);
+                                              AudioUnitGetParameter(v365, 0x2Du, 0, 0, &v484);
+                                              AudioUnitSetParameter(*(v3 + 3136), 0x2Au, 0, 0, *&v484.mSampleTime, 0);
+                                              AudioUnitGetParameter(*(v3 + 2968), 0x2Du, 0, 0, &v484);
+                                              AudioUnitSetParameter(*(v3 + 3136), 0x29u, 0, 0, *&v484.mSampleTime, 0);
+                                            }
+
+                                            else if ((v362 & 0x1000000) != 0 && (*(v3 + 4707) & 1) != 0 && *(v3 + 2984) && v463 == 1.0)
+                                            {
+                                              *&v479.mSMPTETime.mType = *(v3 + 17144);
+                                            }
+
+                                            v366 = v458;
+                                            if (v458)
+                                            {
+                                              v367 = 3464;
+                                            }
+
+                                            else
+                                            {
+                                              v367 = 3448;
+                                            }
+
+                                            v368 = 4040;
+                                            *&v480.mNumberBuffers = *(v3 + v367);
+                                            if (v458)
+                                            {
+                                              v368 = 4024;
+                                            }
+
+                                            v480.mBuffers[0].mData = *(v3 + v368);
+                                            v369 = *&a2->mRateScalar;
+                                            *&v484.mSampleTime = *&a2->mSampleTime;
+                                            *&v484.mRateScalar = v369;
+                                            v370 = *&a2->mSMPTETime.mHours;
+                                            *&v484.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
+                                            *&v484.mSMPTETime.mHours = v370;
+                                            v469 = 512;
+                                            AudioUnitProcessMultiple(*(v3 + 3136), &v469, &v484, *(v3 + 516), 6u, &v479, 3u, &v480);
+                                            if ((v328 & v366 & 1) == 0)
+                                            {
+                                              AudioUnitGetParameter(*(v3 + 3136), 0x20u, 0, 0, &v470);
+                                            }
+
+                                            v371 = *(v3 + 516);
+                                            if (*(v3 + 15881) & 1) != 0 || (*(v3 + 15882))
+                                            {
+                                              VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x24u, v371, *(v3 + v367), &v484);
+                                              v371 = *(v3 + 516);
+                                              v372 = *(v3 + 4024);
+                                              if (*(v3 + 15881))
+                                              {
+                                                goto LABEL_663;
+                                              }
+                                            }
+
+                                            else
+                                            {
+                                              v372 = *(v3 + 4024);
+                                            }
+
+                                            if (*(v3 + 15882) != 1)
+                                            {
+LABEL_664:
+                                              v329 = *(v3 + 4688);
+                                              goto LABEL_665;
+                                            }
+
+LABEL_663:
+                                            VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x51u, v371, v372, &v484);
+                                            goto LABEL_664;
+                                          }
+                                        }
+
+                                        else
+                                        {
+                                          v357 = &v453 - 3;
+                                          v358 = &v453 - 3;
+                                        }
+
+                                        *v357 = *(*(v3 + 3440) + 8);
+                                        v360 = (*(v3 + 3472) + 8);
+                                        goto LABEL_633;
+                                      }
+
+                                      v321 = *(v3 + 3232);
+                                      v322 = 9;
+                                    }
+
+                                    AudioUnitGetParameter(v321, v322, 0, 0, &v477);
+                                    v313 = AudioUnitSetParameter(*(v3 + 3312), 0x12u, 0, 0, *&v477, 0);
+                                    goto LABEL_589;
+                                  }
+
+LABEL_573:
+                                  LODWORD(v460) = 0;
+                                  goto LABEL_574;
+                                }
+
+                                LODWORD(v483.realp) = 1092616192;
+                                if ((v270 & v271 & 0x80000000000000) != 0)
+                                {
+                                  v269 = *(v3 + 3232);
+                                  if (v269)
+                                  {
+                                    v269 = AudioUnitGetParameter(v269, 9u, 0, 0, &v483);
+                                    v270 = *(v3 + 4688);
+                                  }
+                                }
+
+                                if ((v270 & 0x100000000) != 0 && (*(v3 + 4708) & 1) != 0 && *(v3 + 3048))
+                                {
+                                  LODWORD(v484.mSampleTime) = 0;
+                                  LODWORD(v479.mSampleTime) = 0;
+                                  v480.mNumberBuffers = 0;
+                                  AudioUnitGetParameter(*(v3 + 3056), 0x18u, 0, 0, &v484);
+                                  AudioUnitGetParameter(*(v3 + 3056), 0x19u, 0, 0, &v479);
+                                  AudioUnitGetParameter(*(v3 + 3056), 5u, 0, 0, &v480.mNumberBuffers);
+                                  AudioUnitSetParameter(*(v3 + 3160), 3u, 0, 0, *&v484.mSampleTime, 0);
+                                  AudioUnitSetParameter(*(v3 + 3160), 4u, 0, 0, *&v479.mSampleTime, 0);
+                                  AudioUnitSetParameter(*(v3 + 3160), 5u, 0, 0, *&v480.mNumberBuffers, 0);
+                                  v269 = AudioUnitSetParameter(*(v3 + 3160), 6u, 0, 0, *&v483.realp, 0);
+                                }
+
+                                MEMORY[0x28223BE20](v269);
+                                v452 = 0;
+                                *(&v453 - 3) = 0u;
+                                *(&v453 - 2) = 0u;
+                                *(&v453 - 12) = 2;
+                                v272 = *(v3 + 3440);
+                                *(&v453 - 4) = *(v272 + 16);
+                                *(&v453 - 5) = *(v272 + 8);
+                                v273 = *(v3 + 3464);
+                                v452 = *(v273 + 16);
+                                *(&v453 - 3) = *(v273 + 8);
+                                *&v275 = MEMORY[0x28223BE20](v274);
+                                *(&v453 - 3) = v275;
+                                *(&v453 - 2) = v275;
+                                *(&v453 - 12) = v276;
+                                MEMORY[0x28223BE20](v277);
+                                *(&v453 - 3) = 0;
+                                v452 = 0;
+                                *(&v453 - 4) = 0;
+                                *(&v453 - 8) = 1;
+                                v278 = *(v3 + 3472);
+                                *(v279 - 32) = *(v278 + 16);
+                                *(v279 - 40) = *(v278 + 8);
+                                v280 = *(v3 + 4064);
+                                *(v279 - 16) = *(v280 + 32);
+                                *(v279 - 24) = *(v280 + 24);
+                                v452 = *(v278 + 16);
+                                *(&v453 - 3) = *(v278 + 8);
+                                v479.mSampleTime = v281;
+                                v479.mHostTime = v282;
+                                *&v480.mNumberBuffers = v281;
+                                *&v480.mBuffers[0].mNumberChannels = &v453 - 4;
+                                v283 = *&a2->mRateScalar;
+                                *&v484.mSampleTime = *&a2->mSampleTime;
+                                *&v484.mRateScalar = v283;
+                                v284 = *&a2->mSMPTETime.mHours;
+                                *&v484.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
+                                *&v484.mSMPTETime.mHours = v284;
+                                v469 = 512;
+                                AudioUnitProcessMultiple(*(v3 + 3160), &v469, &v484, *(v3 + 516), 2u, &v479, 2u, &v480);
+                                v285 = *(v3 + 516);
+                                if (*(v3 + 15881) & 1) != 0 || (*(v3 + 15882))
+                                {
+                                  VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x83u, v285, *(v3 + 3440), &v484);
+                                  v285 = *(v3 + 516);
+                                  v286 = *(v3 + 3464);
+                                  if (*(v3 + 15881))
+                                  {
+                                    goto LABEL_527;
+                                  }
+                                }
+
+                                else
+                                {
+                                  v286 = *(v3 + 3464);
+                                }
+
+                                if (*(v3 + 15882) != 1)
+                                {
+LABEL_528:
+                                  v270 = *(v3 + 4688);
+                                  goto LABEL_529;
+                                }
+
+LABEL_527:
+                                VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x84u, v285, v286, &v484);
+                                goto LABEL_528;
+                              }
+
+                              v454 = v234;
+                              v455 = v202;
+                              v456 = v201;
+                              v457 = v198;
+                              v458 = v199;
+                              v250 = 0;
+                              v483.realp = *(v3 + 4216);
+                              LODWORD(v483.imagp) = *(v3 + 4228);
+                              v477 = *(v3 + 4232);
+                              v478 = *(v3 + 4244);
+                              v475 = *(v3 + 4248);
+                              v476 = *(v3 + 4260);
+                              v473 = *(v3 + 4264);
+                              v474 = *(v3 + 4276);
+                              v471 = *(v3 + 4280);
+                              v472 = *(v3 + 4292);
+                              do
+                              {
+                                AudioUnitSetParameter(*(v3 + 3088), 0x64u, 4u, v250, *(&v483.realp + v250), 0);
+                                AudioUnitSetParameter(*(v3 + 3088), 0x65u, 4u, v250, *(&v477 + v250), 0);
+                                AudioUnitSetParameter(*(v3 + 3088), 0x66u, 4u, v250, *(&v475 + v250), 0);
+                                AudioUnitSetParameter(*(v3 + 3088), 0x67u, 4u, v250, *(&v473 + v250), 0);
+                                AudioUnitSetParameter(*(v3 + 3088), 0x68u, 4u, v250, *(&v471 + v250), 0);
+                                ++v250;
+                              }
+
+                              while (v250 != 3);
+                              *&v480.mNumberBuffers = 1;
+                              *&v480.mBuffers[0].mNumberChannels = 0;
+                              v480.mBuffers[0].mData = 0;
+                              v480.mBuffers[0] = *(*(v3 + 4064) + 8);
+                              inInputBufferLists = v454;
+                              v486 = v460;
+                              v479.mSampleTime = *(v3 + 3440);
+                              v479.mHostTime = &v480;
+                              v479.mRateScalar = 0.0;
+                              v479.mWordClockTime = 0;
+                              v469 = 512;
+                              v251 = *&a2->mRateScalar;
+                              *&v484.mSampleTime = *&a2->mSampleTime;
+                              *&v484.mRateScalar = v251;
+                              v252 = *&a2->mSMPTETime.mHours;
+                              *&v484.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
+                              *&v484.mSMPTETime.mHours = v252;
+                              AudioUnitProcessMultiple(*(v3 + 3088), &v469, &v484, *(v3 + 516), 2u, &inInputBufferLists, 4u, &v479);
+                              v461 = 0.0;
+                              AudioUnitGetParameter(*(v3 + 3088), 0xAu, 0, 0, &v461);
+                              v253 = *(v3 + 516);
+                              if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
+                              {
+                                VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x66u, v253, *(v3 + 3440), &v484);
+                                v253 = *(v3 + 516);
+                                v198 = v457;
+                                v199 = v458;
+                                v202 = v455;
+                                v201 = v456;
+                                if (*(v3 + 15881))
+                                {
+                                  goto LABEL_484;
+                                }
+                              }
+
+                              else
+                              {
+                                v198 = v457;
+                                v199 = v458;
+                                v202 = v455;
+                                v201 = v456;
+                              }
+
+                              if (*(v3 + 15882) != 1)
+                              {
+LABEL_485:
+                                AudioUnitGetParameter(*(v3 + 3088), 0x64u, 4u, 0, (v3 + 4216));
+                                AudioUnitGetParameter(*(v3 + 3088), 0x65u, 4u, 0, (v3 + 4232));
+                                AudioUnitGetParameter(*(v3 + 3088), 0x66u, 4u, 0, (v3 + 4248));
+                                AudioUnitGetParameter(*(v3 + 3088), 0x67u, 4u, 0, (v3 + 4264));
+                                AudioUnitGetParameter(*(v3 + 3088), 0x68u, 4u, 0, (v3 + 4280));
+                                goto LABEL_486;
+                              }
+
+LABEL_484:
+                              VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x67u, v253, &v480, &v484);
+                              goto LABEL_485;
+                            }
+
+                            v454 = v234;
+                            v455 = v202;
+                            v456 = v201;
+                            v457 = v198;
+                            v458 = v199;
+                            v246 = 0;
+                            inInputBufferLists = *(v3 + 4216);
+                            LODWORD(v486) = *(v3 + 4228);
+                            v483.realp = *(v3 + 4232);
+                            LODWORD(v483.imagp) = *(v3 + 4244);
+                            v477 = *(v3 + 4248);
+                            v478 = *(v3 + 4260);
+                            v475 = *(v3 + 4264);
+                            v476 = *(v3 + 4276);
+                            v473 = *(v3 + 4280);
+                            v474 = *(v3 + 4292);
+                            do
+                            {
+                              AudioUnitSetParameter(*(v3 + 3072), 0x12u, 4u, v246, *(&inInputBufferLists + v246), 0);
+                              AudioUnitSetParameter(*(v3 + 3072), 0x13u, 4u, v246, *(&v483.realp + v246), 0);
+                              AudioUnitSetParameter(*(v3 + 3072), 0x14u, 4u, v246, *(&v477 + v246), 0);
+                              AudioUnitSetParameter(*(v3 + 3072), 0x15u, 4u, v246, *(&v475 + v246), 0);
+                              AudioUnitSetParameter(*(v3 + 3072), 0x16u, 4u, v246, *(&v473 + v246), 0);
+                              ++v246;
+                            }
+
+                            while (v246 != 3);
+                            v234 = v454;
+                            *&v479.mSampleTime = v454;
+                            v479.mHostTime = v460;
+                            *&v480.mNumberBuffers = v454;
+                            *&v480.mBuffers[0].mNumberChannels = v460;
+                            v469 = 512;
+                            v247 = *&a2->mRateScalar;
+                            *&v484.mSampleTime = *&a2->mSampleTime;
+                            *&v484.mRateScalar = v247;
+                            v248 = *&a2->mSMPTETime.mHours;
+                            *&v484.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
+                            *&v484.mSMPTETime.mHours = v248;
+                            AudioUnitProcessMultiple(*(v3 + 3072), &v469, &v484, *(v3 + 516), 2u, &v479, 2u, &v480);
+                            v249 = *(v3 + 516);
+                            if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
+                            {
+                              VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x6Du, v249, v234, &v484);
+                              v249 = *(v3 + 516);
+                              v198 = v457;
+                              v199 = v458;
+                              v202 = v455;
+                              v201 = v456;
+                              if (*(v3 + 15881))
+                              {
+                                goto LABEL_471;
+                              }
+                            }
+
+                            else
+                            {
+                              v198 = v457;
+                              v199 = v458;
+                              v202 = v455;
+                              v201 = v456;
+                            }
+
+                            if (*(v3 + 15882) != 1)
+                            {
+LABEL_472:
+                              v239 = *(v3 + 4688);
+                              goto LABEL_473;
+                            }
+
+LABEL_471:
+                            VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x6Eu, v249, v460, &v484);
+                            goto LABEL_472;
+                          }
+
+                          v454 = (&v453 - 8);
+                          v455 = v202;
+                          v456 = v201;
+                          v457 = v198;
+                          v458 = v199;
+                          v242 = 0;
+                          inInputBufferLists = *(v3 + 4216);
+                          LODWORD(v486) = *(v3 + 4228);
+                          v483.realp = *(v3 + 4232);
+                          LODWORD(v483.imagp) = *(v3 + 4244);
+                          v477 = *(v3 + 4248);
+                          v478 = *(v3 + 4260);
+                          v475 = *(v3 + 4264);
+                          v476 = *(v3 + 4276);
+                          v473 = *(v3 + 4280);
+                          v474 = *(v3 + 4292);
+                          do
+                          {
+                            AudioUnitSetParameter(*(v3 + 3064), 9u, 4u, v242, *(&inInputBufferLists + v242), 0);
+                            AudioUnitSetParameter(*(v3 + 3064), 0xAu, 4u, v242, *(&v483.realp + v242), 0);
+                            AudioUnitSetParameter(*(v3 + 3064), 0xBu, 4u, v242, *(&v477 + v242), 0);
+                            AudioUnitSetParameter(*(v3 + 3064), 0xCu, 4u, v242, *(&v475 + v242), 0);
+                            AudioUnitSetParameter(*(v3 + 3064), 0xDu, 4u, v242, *(&v473 + v242), 0);
+                            ++v242;
+                          }
+
+                          while (v242 != 3);
+                          v234 = v454;
+                          *&v479.mSampleTime = v454;
+                          v479.mHostTime = v460;
+                          *&v480.mNumberBuffers = v454;
+                          *&v480.mBuffers[0].mNumberChannels = v460;
+                          v469 = 512;
+                          v243 = *&a2->mRateScalar;
+                          *&v484.mSampleTime = *&a2->mSampleTime;
+                          *&v484.mRateScalar = v243;
+                          v244 = *&a2->mSMPTETime.mHours;
+                          *&v484.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
+                          *&v484.mSMPTETime.mHours = v244;
+                          AudioUnitProcessMultiple(*(v3 + 3064), &v469, &v484, *(v3 + 516), 2u, &v479, 2u, &v480);
+                          v245 = *(v3 + 516);
+                          if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
+                          {
+                            VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x6Bu, v245, v234, &v484);
+                            v245 = *(v3 + 516);
+                            v198 = v457;
+                            v199 = v458;
+                            v202 = v455;
+                            v201 = v456;
+                            if (*(v3 + 15881))
+                            {
+                              goto LABEL_458;
+                            }
+                          }
+
+                          else
+                          {
+                            v198 = v457;
+                            v199 = v458;
+                            v202 = v455;
+                            v201 = v456;
+                          }
+
+                          if (*(v3 + 15882) != 1)
+                          {
+LABEL_459:
+                            v239 = *(v3 + 4688);
+                            goto LABEL_460;
+                          }
+
+LABEL_458:
+                          VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x6Cu, v245, v460, &v484);
+                          goto LABEL_459;
+                        }
+
+                        if ((v176 & 0x100000000) == 0 || (*(v3 + 4708) & 1) == 0 || !*(v3 + 3048))
+                        {
+                          goto LABEL_437;
+                        }
+
+                        memcpy(*(*(v3 + 3488) + 16), *(*(v3 + 3440) + 16), 8 * *(v3 + 516));
+                        memcpy(*(*(v3 + 3488) + 32), *(*(v3 + 4080) + 16), 8 * *(v3 + 516));
+                        v477 = *(v3 + 3488);
+                        v222 = *(v3 + 3480);
+                        inInputBufferLists = *(v3 + 3448);
+                        v486 = v222;
+                        v223 = *&a2->mRateScalar;
+                        *&v484.mSampleTime = *&a2->mSampleTime;
+                        *&v484.mRateScalar = v223;
+                        v224 = *&a2->mSMPTETime.mHours;
+                        *&v484.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
+                        *&v484.mSMPTETime.mHours = v224;
+                        Parameter = AudioUnitProcessMultiple(*(v3 + 3048), &v469, &v484, *(v3 + 516), 1u, &v477, 2u, &inInputBufferLists);
+                        v225 = *(v3 + 516);
+                        if (*(v3 + 15881) & 1) != 0 || (*(v3 + 15882))
+                        {
+                          Parameter = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x18u, v225, inInputBufferLists, &v484);
+                          v225 = *(v3 + 516);
+                          v226 = v486;
+                          if (*(v3 + 15881))
+                          {
+                            goto LABEL_421;
+                          }
+                        }
+
+                        else
+                        {
+                          v226 = v486;
+                        }
+
+                        if (*(v3 + 15882) != 1)
+                        {
+LABEL_422:
+                          if ((*(v3 + 4692) & 2) == 0 || (*(v3 + 4708) & 2) == 0 || !*(v3 + 3056))
+                          {
+                            goto LABEL_437;
+                          }
+
+                          memcpy(*(*(v3 + 3496) + 16), *(*(v3 + 3440) + 16), 4 * (2 * *(v3 + 516)));
+                          memcpy(*(*(v3 + 3456) + 16), *(*(v3 + 3464) + 16), 4 * (2 * *(v3 + 516)));
+                          LODWORD(v475) = 1092616192;
+                          v227 = *(v3 + 3480);
+                          *&v480.mNumberBuffers = *(v3 + 3448);
+                          *&v480.mBuffers[0].mNumberChannels = v227;
+                          v228 = *(v3 + 4080);
+                          v480.mBuffers[0].mData = *(v3 + 3496);
+                          v481 = v228;
+                          v482 = *(v3 + 3456);
+                          v229 = *(v3 + 3464);
+                          v230 = 10.0;
+                          v483.realp = *(v3 + 3440);
+                          v483.imagp = v229;
+                          if ((*(v3 + 4694) & 0x80) != 0 && (*(v3 + 4710) & 0x80) != 0)
+                          {
+                            v231 = *(v3 + 3232);
+                            if (v231)
+                            {
+                              AudioUnitGetParameter(v231, 9u, 0, 0, &v475);
+                              v230 = *&v475;
+                            }
+                          }
+
+                          AudioUnitSetParameter(*(v3 + 3056), 0xAu, 0, 0, v230, 0);
+                          AudioUnitSetParameter(*(v3 + 3056), 0x17u, 0, 0, *(v3 + 16756), 0);
+                          v232 = *&a2->mRateScalar;
+                          *&v479.mSampleTime = *&a2->mSampleTime;
+                          *&v479.mRateScalar = v232;
+                          v233 = *&a2->mSMPTETime.mHours;
+                          *&v479.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
+                          *&v479.mSMPTETime.mHours = v233;
+                          Parameter = AudioUnitProcessMultiple(*(v3 + 3056), &v469, &v479, *(v3 + 516), 5u, &v480, 2u, &v483);
+                          v217 = *(v3 + 516);
+                          if (*(v3 + 15881) & 1) != 0 || (*(v3 + 15882))
+                          {
+                            Parameter = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x1Au, v217, v483.realp, &v479);
+                            v217 = *(v3 + 516);
+                            imagp = v483.imagp;
+                            if (*(v3 + 15881))
+                            {
+                              goto LABEL_436;
+                            }
+                          }
+
+                          else
+                          {
+                            imagp = v483.imagp;
+                          }
+
+                          if (*(v3 + 15882) != 1)
+                          {
+                            goto LABEL_437;
+                          }
+
+LABEL_436:
+                          v219 = &v479;
+                          v220 = v3;
+                          v221 = 27;
+                          goto LABEL_409;
+                        }
+
+LABEL_421:
+                        Parameter = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x19u, v225, v226, &v484);
+                        goto LABEL_422;
+                      }
+                    }
+
+                    else
+                    {
+                      v205 = *(v3 + 3032);
+                    }
+
+                    v206 = 2.0;
+                    goto LABEL_390;
+                  }
+
+                  v189 = *(v3 + 4252);
+                  if (v189 == 0.0)
+                  {
+                    v190 = *(v3 + 16872);
+                    v191 = *(*(v3 + 3408) + 16);
+                    v192 = *(*(v3 + 3496) + 16) + 4 * *(v3 + 516);
+                    v484.mSampleTime = *(*(v3 + 3496) + 16);
+                    v484.mHostTime = v192;
+                    VPTimeFreqConverter_Analyze(v190, v191, &v484);
+                    v189 = *(v3 + 4252);
+                    Parameter = *(v3 + 3144);
+                  }
+
+                  AudioUnitSetParameter(Parameter, 6u, 0, 0, v189, 0);
+                  AudioUnitSetParameter(*(v3 + 3144), 7u, 0, 0, *(v3 + 4268), 0);
+                  AudioUnitSetParameter(*(v3 + 3144), 0xDu, 0, 0, *(v3 + 4284), 0);
+                  memcpy(*(*(v3 + 3480) + 16), *(*(v3 + 4064) + 32), *(v3 + 4316));
+                  v193 = *(v3 + 3480);
+                  v479.mSampleTime = *(v3 + 4072);
+                  v479.mHostTime = v193;
+                  v479.mRateScalar = *(v3 + 4120);
+                  memset(&v479.mWordClockTime, 0, 24);
+                  *&v480.mNumberBuffers = *(v3 + 3464);
+                  *&v480.mBuffers[0].mNumberChannels = 0;
+                  v480.mBuffers[0].mData = *(v3 + 4032);
+                  v194 = *&a2->mRateScalar;
+                  *&v484.mSampleTime = *&a2->mSampleTime;
+                  *&v484.mRateScalar = v194;
+                  v195 = *&a2->mSMPTETime.mHours;
+                  *&v484.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
+                  *&v484.mSMPTETime.mHours = v195;
+                  v469 = 512;
+                  Parameter = AudioUnitProcessMultiple(*(v3 + 3144), &v469, &v484, *(v3 + 516), 6u, &v479, 3u, &v480);
+                  v196 = *(v3 + 516);
+                  if (*(v3 + 15881) & 1) != 0 || (*(v3 + 15882))
+                  {
+                    Parameter = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x25u, v196, *(v3 + 3464), &v484);
+                    v196 = *(v3 + 516);
+                    v197 = *(v3 + 4032);
+                    if (*(v3 + 15881))
+                    {
+                      goto LABEL_356;
+                    }
+                  }
+
+                  else
+                  {
+                    v197 = *(v3 + 4032);
+                  }
+
+                  if (*(v3 + 15882) != 1)
+                  {
+LABEL_357:
+                    v176 = *(v3 + 4688);
+                    goto LABEL_358;
+                  }
+
+LABEL_356:
+                  Parameter = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x52u, v196, v197, &v484);
+                  goto LABEL_357;
+                }
+
+LABEL_856:
+                std::vector<std::unique_ptr<VoiceProcessor::SampleRateConverter>>::__throw_out_of_range[abi:ne200100]();
+              }
+            }
+
+            else
+            {
+              v139 = *(v3 + 3384);
+            }
+
+            if (*(v3 + 15882) != 1)
+            {
+              goto LABEL_272;
+            }
+
+            goto LABEL_271;
+          }
+
+LABEL_209:
+          VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x11u, v120, v121, &buf);
+          v121 = *(v3 + 17192);
+          LODWORD(v120) = *(v3 + 516);
+          goto LABEL_210;
+        }
+
+        v114 = *(v3 + 16880);
+        if ((*(v3 + 16888) - v114) <= 0x20)
+        {
+          goto LABEL_856;
+        }
+
+        ECApplicator::apply(*(v114 + 32), &buf, v76, &v468, (v3 + 4220), (v3 + 4236), (v3 + 4252), (v3 + 4268), (v3 + 4284), (v3 + 4300));
+        v115 = *(v3 + 516);
+        if (*(v3 + 15881) & 1) != 0 || (*(v3 + 15882))
+        {
+          VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x21u, v115, *(v3 + 1096), &buf);
+          v115 = *(v3 + 516);
+          v116 = *(v3 + 3392);
+          if (*(v3 + 15881))
+          {
+            goto LABEL_195;
+          }
+        }
+
+        else
+        {
+          v116 = *(v3 + 3392);
+        }
+
+        if (*(v3 + 15882) != 1)
+        {
+LABEL_196:
+          v117 = *(v3 + 17136);
+          v118 = *(v116 + 16);
+          v484.mSampleTime = *(*(v3 + 4088) + 16);
+          v484.mHostTime = *&v484.mSampleTime + 4 * v115;
+          VPTimeFreqConverter_Analyze(v117, v118, &v484);
+          if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
+          {
+            VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x16u, *(v3 + 516), *(v3 + 4088), &buf);
+          }
+
+          goto LABEL_199;
+        }
+
+LABEL_195:
+        VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x10u, v115, v116, &buf);
+        v116 = *(v3 + 3392);
+        LODWORD(v115) = *(v3 + 516);
+        goto LABEL_196;
+      }
+
+      v75 = *(v3 + 12536);
+      if (*v74 != 3)
+      {
+        if (v75 == 2)
+        {
+          v76 = 1;
+          v77 = 3;
+          v458 = 2;
+          v78 = 56;
+          v79 = 40;
+          goto LABEL_121;
+        }
+
+        v75 = *(v3 + 12536);
+        if (v75 <= 0xC && ((0x1028u >> v75) & 1) != 0)
+        {
+          v76 = 3;
+          v77 = 2;
+          v458 = 1;
+          v78 = 40;
+          v79 = 24;
+          goto LABEL_121;
+        }
+      }
+
+      v76 = 1;
+      v77 = 2;
+      if (v75 != 9)
+      {
+        v458 = 0;
+        v80 = 0;
+        goto LABEL_123;
+      }
+
+      v458 = 3;
+      v78 = 40;
+      v79 = 56;
+LABEL_121:
+      *(v3 + 16960) = *(v74 + v79);
+      *(v3 + 16984) = *(v74 + v78);
+      v80 = v77;
+      v77 = v76;
+      v76 = 0;
+LABEL_123:
+      v81 = v74 + 8;
+      *(v3 + 16912) = *(v81 + 16 * v76);
+      *(v3 + 16936) = *(v81 + 16 * v77);
+      goto LABEL_124;
+    }
+  }
+
+  v13 = 0;
+  while (((*(v3 + 472) >> v13) & 1) == 0)
+  {
+    if (++v13 == 32)
+    {
+      v13 = 33;
+      break;
+    }
+  }
+
+  v14 = *(v3 + 1088);
+  if (v13 >= *v14)
+  {
+    if (VPLogScope(void)::once != -1)
+    {
+      dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
+    }
+
+    v17 = VPLogScope(void)::scope;
+    if (VPLogScope(void)::scope && CALegacyLog::LogEnabled(1, VPLogScope(void)::scope, 0))
+    {
+      v18 = (*v17 ? *v17 : MEMORY[0x277D86220]);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      {
+        v19 = **(v3 + 1088);
+        LODWORD(buf.mSampleTime) = 136315906;
+        *(&buf.mSampleTime + 4) = "vpProcessUplink_v8.cpp";
+        WORD2(buf.mHostTime) = 1024;
+        *(&buf.mHostTime + 6) = 50;
+        WORD1(buf.mRateScalar) = 1024;
+        HIDWORD(buf.mRateScalar) = v13;
+        LOWORD(buf.mWordClockTime) = 1024;
+        *(&buf.mWordClockTime + 2) = v19;
+        _os_log_impl(&dword_2724B4000, v18, OS_LOG_TYPE_ERROR, "%25s:%-5d  >vp> ERROR: mPrimaryEpMicIndex is %d, but epmic only has %d channels", &buf, 0x1Eu);
+      }
+    }
+
+    v20 = *(v3 + 12704);
+    if (v20 && ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1))
+    {
+      if (VPLogScope(void)::once != -1)
+      {
+        dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
+      }
+
+      CALegacyLog::log(v20, 1, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProcessUplink_v8.cpp", 50, "ProcessDSPChain_Uplink", "ERROR: mPrimaryEpMicIndex is %d, but epmic only has %d channels", v13, **(v3 + 1088));
+    }
+
+    v15 = *(*(v3 + 1096) + 16);
+    v16 = *(v3 + 1088);
+  }
+
+  else
+  {
+    v15 = *(*(v3 + 1096) + 16);
+    v16 = &v14[4 * v13];
+  }
+
+  memcpy(v15, v16[2], *(v16 + 3));
+  if (*(v3 + 2093) == 1 && (*(v3 + 4694) & 0x40) != 0 && (*(v3 + 4710) & 0x40) != 0)
+  {
+    v21 = *(v3 + 3224);
+    if (v21)
+    {
+      v22 = *(v3 + 4024);
+      v484.mSampleTime = *(v3 + 1096);
+      v484.mHostTime = v22;
+      v23 = *(v3 + 4040);
+      v479.mSampleTime = v484.mSampleTime;
+      v479.mHostTime = v23;
+      v24 = *&a2->mRateScalar;
+      *&buf.mSampleTime = *&a2->mSampleTime;
+      *&buf.mRateScalar = v24;
+      v25 = *&a2->mSMPTETime.mHours;
+      *&buf.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
+      *&buf.mSMPTETime.mHours = v25;
+      v480.mNumberBuffers = 512;
+      AudioUnitProcessMultiple(v21, &v480.mNumberBuffers, &buf, *(v3 + 516), 2u, &v484, 2u, &v479);
+      if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
+      {
+        VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x27u, *(v3 + 516), *(v3 + 1096), &buf);
+      }
+
+      if ((*(v3 + 4696) & 2) != 0 && (*(v3 + 4712) & 2) != 0 && *(v3 + 3312))
+      {
+        AudioUnitGetParameter(*(v3 + 3224), 1u, 0, 0, &v470);
+        AudioUnitSetParameter(*(v3 + 3312), 0x23u, 0, 0, v470, 0);
+      }
+    }
+  }
+
+LABEL_780:
+  v480.mNumberBuffers = 0;
+  v423 = VoiceProcessorV2::LocalVoiceDuckingForMediaChatEnabled(v3);
+  v424 = v423;
+  if (*(v3 + 2088) == 1)
+  {
+    if (!((*(v3 + 16424) != 0) | v423 & 1))
+    {
+      goto LABEL_796;
+    }
+
+    VoiceProcessorV2::DetectVoiceActivity(v3, a2);
+    if ((v424 & 1) == 0)
+    {
+      goto LABEL_796;
+    }
+  }
+
+  else
+  {
+    if ((v423 & 1) == 0)
+    {
+      goto LABEL_796;
+    }
+
+    VoiceProcessorV2::DetectVoiceActivity(v3, a2);
+  }
+
+  v425 = *(v3 + 4688);
+  if ((v425 & 0x2000000000000000) != 0 && (*(v3 + 4711) & 0x20) != 0)
+  {
+    v426 = *(v3 + 3280);
+    if (v426)
+    {
+      v427 = 1936748646;
+LABEL_794:
+      AudioUnitGetParameter(v426, v427, 0, 0, &v480.mNumberBuffers);
+      goto LABEL_796;
+    }
+  }
+
+  if ((v425 & 0x1000000000000000) != 0 && (*(v3 + 4711) & 0x10) != 0)
+  {
+    v426 = *(v3 + 3272);
+    if (v426)
+    {
+      v427 = 2;
+      goto LABEL_794;
+    }
+  }
+
+  *&v480.mNumberBuffers = v470;
+LABEL_796:
+  if (*(v3 + 2088) == 1)
+  {
+    bzero(*(*(v3 + 1096) + 16), 4 * *(v3 + 516));
+    v480.mNumberBuffers = 0;
+  }
+
+  else
+  {
+    *(v3 + 16432) = 0;
+  }
+
+  if ((*(v3 + 8865) & 0x80) != 0 && (*(v3 + 8873) & 0x80) != 0)
+  {
+    v428 = *(v3 + 3632);
+    if (((v428 != 0) & v424) == 1)
+    {
+      AudioUnitSetParameter(v428, 0x12u, 0, 0, *&v480.mNumberBuffers, 0);
+    }
+  }
+
+  if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
+  {
+    VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x2Au, *(v3 + 516), *(v3 + 1096), a2);
+  }
+
+  if ((*(v3 + 4695) & 8) != 0 && (*(v3 + 4711) & 8) != 0)
+  {
+    v429 = *(v3 + 3264);
+    if (v429)
+    {
+      v484.mSampleTime = *(v3 + 1096);
+      v479.mSampleTime = v484.mSampleTime;
+      LODWORD(inInputBufferLists) = 512;
+      v430 = *&a2->mRateScalar;
+      *&buf.mSampleTime = *&a2->mSampleTime;
+      *&buf.mRateScalar = v430;
+      v431 = *&a2->mSMPTETime.mHours;
+      *&buf.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
+      *&buf.mSMPTETime.mHours = v431;
+      AudioUnitProcessMultiple(v429, &inInputBufferLists, &buf, *(v3 + 516), 1u, &v484, 1u, &v479);
+      if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
+      {
+        VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x7Cu, *(v3 + 516), *(v3 + 1096), &buf);
+      }
+    }
+  }
+
+  if (*(v3 + 2093) == 1 && (*(v3 + 4696) & 0x40) != 0 && (*(v3 + 4712) & 0x40) != 0)
+  {
+    v432 = *(v3 + 3352);
+    if (v432)
+    {
+      v484.mSampleTime = *(v3 + 1096);
+      v479.mSampleTime = v484.mSampleTime;
+      LODWORD(inInputBufferLists) = 512;
+      v433 = *&a2->mRateScalar;
+      *&buf.mSampleTime = *&a2->mSampleTime;
+      *&buf.mRateScalar = v433;
+      v434 = *&a2->mSMPTETime.mHours;
+      *&buf.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
+      *&buf.mSMPTETime.mHours = v434;
+      AudioUnitProcessMultiple(v432, &inInputBufferLists, &buf, *(v3 + 516), 1u, &v484, 1u, &v479);
+      if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
+      {
+        VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x7Eu, *(v3 + 516), *(v3 + 1096), &buf);
+      }
+    }
+  }
+
+  if ((*(v3 + 4688) & 0x8000000000000000) != 0 && (*(v3 + 4704) & 0x8000000000000000) != 0)
+  {
+    v435 = *(v3 + 3296);
+    if (v435)
+    {
+      v436 = *&a2->mRateScalar;
+      *&buf.mSampleTime = *&a2->mSampleTime;
+      *&buf.mRateScalar = v436;
+      v437 = *&a2->mSMPTETime.mHours;
+      *&buf.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
+      *&buf.mSMPTETime.mHours = v437;
+      LODWORD(v484.mSampleTime) = 512;
+      AudioUnitProcess(v435, &v484, &buf, *(v3 + 516), *(v3 + 1096));
+      if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
+      {
+        VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x2Cu, *(v3 + 516), *(v3 + 1096), &buf);
+      }
+    }
+  }
+
+  v438 = *(v3 + 4696);
+  if (v438 & 1) != 0 && (*(v3 + 4712))
+  {
+    v439 = *(v3 + 3304);
+    if (v439)
+    {
+      v440 = *&a2->mRateScalar;
+      *&buf.mSampleTime = *&a2->mSampleTime;
+      *&buf.mRateScalar = v440;
+      v441 = *&a2->mSMPTETime.mHours;
+      *&buf.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
+      *&buf.mSMPTETime.mHours = v441;
+      LODWORD(v484.mSampleTime) = 512;
+      AudioUnitProcess(v439, &v484, &buf, *(v3 + 516), *(v3 + 1096));
+      v438 = *(v3 + 4696);
+    }
+  }
+
+  if ((v438 & 2) != 0 && (*(v3 + 4712) & 2) != 0 && (v442 = *(v3 + 3312)) != 0)
+  {
+    v443 = *&a2->mRateScalar;
+    *&buf.mSampleTime = *&a2->mSampleTime;
+    *&buf.mRateScalar = v443;
+    v444 = *&a2->mSMPTETime.mHours;
+    *&buf.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
+    *&buf.mSMPTETime.mHours = v444;
+    LODWORD(v484.mSampleTime) = 512;
+    AudioUnitProcess(v442, &v484, &buf, *(v3 + 516), *(v3 + 1096));
+    if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
+    {
+      VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x2Du, *(v3 + 516), *(v3 + 1096), &buf);
+    }
+
+    if ((*(v3 + 4695) & 0x10) != 0 && (*(v3 + 4711) & 0x10) != 0 && *(v3 + 3272))
+    {
+      LODWORD(v479.mSampleTime) = 0;
+      AudioUnitGetParameter(*(v3 + 3312), 1u, 0, 0, &v479);
+      AudioUnitSetParameter(*(v3 + 3272), 0x11u, 0, 0, *&v479.mSampleTime, 0);
+    }
+
+    LODWORD(v479.mSampleTime) = 0;
+    AudioUnitGetParameter(*(v3 + 3312), 0x1Bu, 0, 0, &v479);
+    mSampleTime_low = LODWORD(v479.mSampleTime);
+    if (*(v3 + 2308) != *&v479.mSampleTime)
+    {
+      if ((*(v3 + 4695) & 0x10) != 0 && (*(v3 + 4711) & 0x10) != 0)
+      {
+        v446 = *(v3 + 3272);
+        if (v446)
+        {
+          AudioUnitSetParameter(v446, 0x12u, 0, 0, *&v479.mSampleTime, 0);
+          mSampleTime_low = LODWORD(v479.mSampleTime);
+        }
+      }
+
+      *(v3 + 2308) = mSampleTime_low;
+    }
+  }
+
+  else if ((*(v3 + 4695) & 0x40) != 0 && ((*(v3 + 4711) & 0x40) != 0 || *(v3 + 480) == 1))
+  {
+    LODWORD(buf.mSampleTime) = __exp10f(*(v3 + 4396) / 20.0);
+    MEMORY[0x2743CCE20](*(*(v3 + 1096) + 16), 1, &buf, *(*(v3 + 1096) + 16), 1, *(v3 + 516));
+    if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
+    {
+      VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x2Bu, *(v3 + 516), *(v3 + 1096), a2);
+    }
+  }
+
+  VoiceProcessorV6::ProcessLevelDrivenSuppressor(v3, a2);
+  if ((*(v3 + 4696) & 8) != 0 && (*(v3 + 4712) & 8) != 0)
+  {
+    v447 = *(v3 + 3328);
+    if (v447)
+    {
+      v448 = *&a2->mRateScalar;
+      *&buf.mSampleTime = *&a2->mSampleTime;
+      *&buf.mRateScalar = v448;
+      v449 = *&a2->mSMPTETime.mHours;
+      *&buf.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
+      *&buf.mSMPTETime.mHours = v449;
+      LODWORD(v484.mSampleTime) = 512;
+      v450 = atomic_load(gWirelessChargingMatIsAttached);
+      AudioUnitSetParameter(v447, 5u, 0, 0, (v450 & 1), 0);
+      AudioUnitProcess(*(v3 + 3328), &v484, &buf, *(v3 + 516), *(v3 + 1096));
+    }
+  }
+
+  return 0;
+}
+
+uint64_t VoiceProcessorV9::ProcessDSPChain_Uplink(uint64_t this, AudioTimeStamp *a2)
+{
+  v3 = this;
+  v534 = *MEMORY[0x277D85DE8];
+  v4 = **(this + 1088);
+  if (v4)
+  {
+    bzero(*(this + 1416), v4);
+  }
+
+  if (*(v3 + 1412) == 1)
+  {
+    VoiceProcessorV2::PostSRCMicClipDetection(v3);
+  }
+
+  if ((*(v3 + 2091) & 1) == 0)
+  {
+    this = VoiceProcessorV2::GetAbsoluteChIndexForEpmicAndApplyPreDigitalGain(v3);
+  }
+
+  v5 = *(v3 + 15881);
+  if (v5 == 1 && (this = VoiceProcessorV2::InjectionFilesReadSignal(v3, 7, *(v3 + 516), *(v3 + 1080)), LOBYTE(v5) = *(v3 + 15881), (v5 & 1) != 0) && (this = VoiceProcessorV2::InjectionFilesReadSignal(v3, 8, *(v3 + 516), *(v3 + 1088)), LOBYTE(v5) = *(v3 + 15881), (v5 & 1) != 0))
+  {
+    if ((*(v3 + 15880) & 1) == 0 && (*(v3 + 15883) & 1) == 0)
+    {
+      v6 = *(v3 + 1080);
+      v9 = (v3 + 516);
+      v10 = *(v3 + 516);
+      goto LABEL_21;
+    }
+
+    LOBYTE(v5) = 1;
+  }
+
+  else if ((*(v3 + 15883) & 1) == 0)
+  {
+    v6 = *(v3 + 1080);
+    goto LABEL_19;
+  }
+
+  v6 = *(v3 + 1080);
+  if (v6->mNumberBuffers)
+  {
+    v7 = 0;
+    v8 = 0;
+    do
+    {
+      bzero(v6->mBuffers[v7].mData, v6->mBuffers[v7].mDataByteSize);
+      ++v8;
+      v6 = *(v3 + 1080);
+      ++v7;
+    }
+
+    while (v8 < v6->mNumberBuffers);
+    LOBYTE(v5) = *(v3 + 15881);
+  }
+
+LABEL_19:
+  v9 = (v3 + 516);
+  v10 = *(v3 + 516);
+  if (v5 & 1) != 0 || (*(v3 + 15882))
+  {
+LABEL_21:
+    this = VoiceProcessorV2::SaveFilesWriteSignal(v3, 4u, v10, v6, a2);
+    v10 = *(v3 + 516);
+    v11 = *(v3 + 1088);
+    if (*(v3 + 15881))
+    {
+      goto LABEL_25;
+    }
+
+    goto LABEL_24;
+  }
+
+  v11 = *(v3 + 1088);
+LABEL_24:
+  if ((*(v3 + 15882) & 1) == 0)
+  {
+    v12 = *(v3 + 1424);
+    goto LABEL_28;
+  }
+
+LABEL_25:
+  this = VoiceProcessorV2::SaveFilesWriteSignal(v3, 5u, v10, v11, a2);
+  v10 = *(v3 + 516);
+  v12 = *(v3 + 1424);
+  if (*(v3 + 15881))
+  {
+    goto LABEL_29;
+  }
+
+LABEL_28:
+  if (*(v3 + 15882) == 1)
+  {
+LABEL_29:
+    this = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x4Cu, v10, v12, a2);
+  }
+
+  v517 = 0.0;
+  if ((*(v3 + 2091) & 1) != 0 || (*(v3 + 2093) & 1) != 0 || (*(v3 + 480) & 1) != 0 || (v26 = *(v3 + 4688)) == 0 && (*(v3 + 4696) & 0x7F) == 0)
   {
     v13 = 0;
-    while (((*(v3 + 118) >> v13) & 1) == 0)
+    while (((*(v3 + 472) >> v13) & 1) == 0)
     {
       if (++v13 == 32)
       {
@@ -3249,7 +5696,7 @@ LABEL_29:
       }
     }
 
-    v14 = *(v3 + 136);
+    v14 = *(v3 + 1088);
     if (v13 >= *v14)
     {
       if (VPLogScope(void)::once != -1)
@@ -3263,7 +5710,7 @@ LABEL_29:
         v18 = (*v17 ? *v17 : MEMORY[0x277D86220]);
         if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
-          v19 = **(v3 + 136);
+          v19 = **(v3 + 1088);
           LODWORD(buf.mSampleTime) = 136315906;
           *(&buf.mSampleTime + 4) = "vpProcessUplink_v9.cpp";
           WORD2(buf.mHostTime) = 1024;
@@ -3276,7 +5723,7 @@ LABEL_29:
         }
       }
 
-      v20 = *(v3 + 1588);
+      v20 = *(v3 + 12704);
       if (v20 && ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1))
       {
         if (VPLogScope(void)::once != -1)
@@ -3284,48 +5731,48 @@ LABEL_29:
           dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
         }
 
-        CALegacyLog::log(v20, 1, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProcessUplink_v9.cpp", 53, "ProcessDSPChain_Uplink", "ERROR: mPrimaryEpMicIndex is %d, but epmic only has %d channels", v13, **(v3 + 136));
+        CALegacyLog::log(v20, 1, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProcessUplink_v9.cpp", 53, "ProcessDSPChain_Uplink", "ERROR: mPrimaryEpMicIndex is %d, but epmic only has %d channels", v13, **(v3 + 1088));
       }
 
-      v15 = *(*(v3 + 137) + 16);
-      v16 = *(v3 + 136);
+      v15 = *(*(v3 + 1096) + 16);
+      v16 = *(v3 + 1088);
     }
 
     else
     {
-      v15 = *(*(v3 + 137) + 16);
+      v15 = *(*(v3 + 1096) + 16);
       v16 = &v14[4 * v13];
     }
 
     memcpy(v15, v16[2], *(v16 + 3));
     if (*(v3 + 2093) == 1 && (*(v3 + 4694) & 0x40) != 0 && (*(v3 + 4710) & 0x40) != 0)
     {
-      v21 = *(v3 + 403);
+      v21 = *(v3 + 3224);
       if (v21)
       {
-        v22 = *(v3 + 503);
-        inInputBufferLists.mSampleTime = *(v3 + 137);
+        v22 = *(v3 + 4024);
+        inInputBufferLists.mSampleTime = *(v3 + 1096);
         inInputBufferLists.mHostTime = v22;
-        v23 = *(v3 + 505);
-        v529.mSampleTime = inInputBufferLists.mSampleTime;
-        v529.mHostTime = v23;
+        v23 = *(v3 + 4040);
+        v526.mSampleTime = inInputBufferLists.mSampleTime;
+        v526.mHostTime = v23;
         v24 = *&a2->mRateScalar;
         *&buf.mSampleTime = *&a2->mSampleTime;
         *&buf.mRateScalar = v24;
         v25 = *&a2->mSMPTETime.mHours;
         *&buf.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
         *&buf.mSMPTETime.mHours = v25;
-        v530.mNumberBuffers = 512;
-        AudioUnitProcessMultiple(v21, &v530.mNumberBuffers, &buf, *(v3 + 129), 2u, &inInputBufferLists, 2u, &v529);
+        v527.mNumberBuffers = 512;
+        AudioUnitProcessMultiple(v21, &v527.mNumberBuffers, &buf, *(v3 + 516), 2u, &inInputBufferLists, 2u, &v526);
         if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
         {
-          VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x27u, *(v3 + 129), *(v3 + 137), &buf);
+          VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x27u, *(v3 + 516), *(v3 + 1096), &buf);
         }
 
-        if ((*(v3 + 4696) & 2) != 0 && (*(v3 + 4712) & 2) != 0 && *(v3 + 414))
+        if ((*(v3 + 4696) & 2) != 0 && (*(v3 + 4712) & 2) != 0 && *(v3 + 3312))
         {
-          AudioUnitGetParameter(*(v3 + 403), 1u, 0, 0, &v520);
-          AudioUnitSetParameter(*(v3 + 414), 0x23u, 0, 0, v520, 0);
+          AudioUnitGetParameter(*(v3 + 3224), 1u, 0, 0, &v517);
+          AudioUnitSetParameter(*(v3 + 3312), 0x23u, 0, 0, v517, 0);
         }
       }
     }
@@ -3333,15 +5780,15 @@ LABEL_29:
     goto LABEL_878;
   }
 
-  v519 = 0;
-  *(v3 + 2137) = 0;
-  *(v3 + 2139) = 0;
-  *(v3 + 2138) = 0;
-  *(v3 + 4274) = 1;
-  *(v3 + 1069) = *(*(v3 + 135) + 8);
+  v516 = 0;
+  *(v3 + 17096) = 0;
+  *(v3 + 17112) = 0;
+  *(v3 + 17104) = 0;
+  *(v3 + 17096) = 1;
+  *(v3 + 17104) = *(*(v3 + 1080) + 8);
   if (v26 & 1) != 0 && (*(v3 + 4704))
   {
-    this = *(v3 + 349);
+    this = *(v3 + 2792);
     if (this)
     {
       v27 = *&a2->mRateScalar;
@@ -3350,342 +5797,352 @@ LABEL_29:
       v28 = *&a2->mSMPTETime.mHours;
       *&buf.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
       *&buf.mSMPTETime.mHours = v28;
-      v519 = 512;
-      this = AudioUnitProcess(this, &v519, &buf, *(v3 + 129), *(v3 + 136));
+      v516 = 512;
+      this = AudioUnitProcess(this, &v516, &buf, *(v3 + 516), *(v3 + 1088));
     }
   }
 
-  v29 = 24 * **(v3 + 136);
   MEMORY[0x28223BE20](this);
-  v32 = (&v501 - ((v31 + 15) & 0x3FFFFFFFF0));
-  v33 = *(v3 + 136);
-  if (*v33)
+  v31 = (&v498 - ((v30 + 15) & 0x3FFFFFFFF0));
+  v32 = *(v3 + 1088);
+  if (*v32)
   {
-    v34 = 0;
-    v35 = 2;
-    v36 = v32;
+    v33 = 0;
+    v34 = 2;
+    v35 = v31;
     do
     {
-      *&v36->mNumberBuffers = 0;
-      *&v36->mBuffers[0].mNumberChannels = 0;
-      v36->mBuffers[0].mData = 0;
-      v36->mNumberBuffers = 1;
-      v36->mBuffers[0] = *&v33[v35];
-      ++v34;
-      v35 += 4;
-      ++v36;
+      *&v35->mNumberBuffers = 0;
+      *&v35->mBuffers[0].mNumberChannels = 0;
+      v35->mBuffers[0].mData = 0;
+      v35->mNumberBuffers = 1;
+      v35->mBuffers[0] = *&v32[v34];
+      ++v33;
+      v34 += 4;
+      ++v35;
     }
 
-    while (v34 < *v33);
+    while (v33 < *v32);
   }
 
-  v37 = *(v3 + 586);
-  if ((v37 & 2) != 0 && (*(v3 + 4704) & 2) != 0)
+  v36 = *(v3 + 4688);
+  if ((v36 & 2) != 0 && (*(v3 + 4704) & 2) != 0)
   {
-    Parameter = *(v3 + 350);
+    Parameter = *(v3 + 2800);
     if (Parameter)
     {
-      v38 = *&a2->mRateScalar;
+      v37 = *&a2->mRateScalar;
       *&buf.mSampleTime = *&a2->mSampleTime;
-      *&buf.mRateScalar = v38;
-      v39 = *&a2->mSMPTETime.mHours;
+      *&buf.mRateScalar = v37;
+      v38 = *&a2->mSMPTETime.mHours;
       *&buf.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-      *&buf.mSMPTETime.mHours = v39;
-      v519 = 512;
-      AudioUnitProcess(Parameter, &v519, &buf, *v9, v32);
-      v45 = *v9;
+      *&buf.mSMPTETime.mHours = v38;
+      v516 = 512;
+      AudioUnitProcess(Parameter, &v516, &buf, *v9, v31);
+      v44 = *v9;
       if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
       {
-        VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x4Du, v45, v32, &buf);
+        VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x4Du, v44, v31, &buf);
       }
 
-      Parameter = CADeprecated::CABufferList::CopyDataFrom(*(v3 + 139), v32, v45, v40, v41, v42, v43, v44, v501);
-      v37 = *(v3 + 586);
+      Parameter = CADeprecated::CABufferList::CopyDataFrom(*(v3 + 1112), v31, v44, v39, v40, v41, v42, v43, v498);
+      v36 = *(v3 + 4688);
     }
   }
 
-  if ((v37 & 4) != 0 && (*(v3 + 4704) & 4) != 0)
+  if ((v36 & 4) != 0 && (*(v3 + 4704) & 4) != 0)
   {
-    Parameter = *(v3 + 351);
+    Parameter = *(v3 + 2808);
     if (Parameter)
     {
-      v46 = *&a2->mRateScalar;
+      v45 = *&a2->mRateScalar;
       *&buf.mSampleTime = *&a2->mSampleTime;
-      *&buf.mRateScalar = v46;
-      v47 = *&a2->mSMPTETime.mHours;
+      *&buf.mRateScalar = v45;
+      v46 = *&a2->mSMPTETime.mHours;
       *&buf.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-      *&buf.mSMPTETime.mHours = v47;
-      v519 = 512;
-      AudioUnitProcess(Parameter, &v519, &buf, *v9, v32 + 1);
-      v53 = *v9;
+      *&buf.mSMPTETime.mHours = v46;
+      v516 = 512;
+      AudioUnitProcess(Parameter, &v516, &buf, *v9, v31 + 1);
+      v52 = *v9;
       if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
       {
-        VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x4Eu, v53, v32 + 1, &buf);
+        VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x4Eu, v52, v31 + 1, &buf);
       }
 
-      Parameter = CADeprecated::CABufferList::CopyDataFrom(*(v3 + 140), v32 + 1, v53, v48, v49, v50, v51, v52, v501);
-      v37 = *(v3 + 586);
+      Parameter = CADeprecated::CABufferList::CopyDataFrom(*(v3 + 1120), v31 + 1, v52, v47, v48, v49, v50, v51, v498);
+      v36 = *(v3 + 4688);
     }
   }
 
-  if ((v37 & 8) != 0 && (*(v3 + 4704) & 8) != 0)
+  if ((v36 & 8) != 0 && (*(v3 + 4704) & 8) != 0)
   {
-    Parameter = *(v3 + 352);
+    Parameter = *(v3 + 2816);
     if (Parameter)
     {
-      v54 = *&a2->mRateScalar;
+      v53 = *&a2->mRateScalar;
       *&buf.mSampleTime = *&a2->mSampleTime;
-      *&buf.mRateScalar = v54;
-      v55 = *&a2->mSMPTETime.mHours;
+      *&buf.mRateScalar = v53;
+      v54 = *&a2->mSMPTETime.mHours;
       *&buf.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-      *&buf.mSMPTETime.mHours = v55;
-      v519 = 512;
-      AudioUnitProcess(Parameter, &v519, &buf, *v9, v32 + 2);
-      v61 = *v9;
+      *&buf.mSMPTETime.mHours = v54;
+      v516 = 512;
+      AudioUnitProcess(Parameter, &v516, &buf, *v9, v31 + 2);
+      v60 = *v9;
       if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
       {
-        VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x4Fu, v61, v32 + 2, &buf);
+        VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x4Fu, v60, v31 + 2, &buf);
       }
 
-      Parameter = CADeprecated::CABufferList::CopyDataFrom(*(v3 + 141), v32 + 2, v61, v56, v57, v58, v59, v60, v501);
-      v37 = *(v3 + 586);
+      Parameter = CADeprecated::CABufferList::CopyDataFrom(*(v3 + 1128), v31 + 2, v60, v55, v56, v57, v58, v59, v498);
+      v36 = *(v3 + 4688);
     }
   }
 
-  if ((v37 & 0x10) != 0 && (*(v3 + 4704) & 0x10) != 0)
+  if ((v36 & 0x10) != 0 && (*(v3 + 4704) & 0x10) != 0)
   {
-    Parameter = *(v3 + 353);
+    Parameter = *(v3 + 2824);
     if (Parameter)
     {
-      v62 = *&a2->mRateScalar;
+      v61 = *&a2->mRateScalar;
       *&buf.mSampleTime = *&a2->mSampleTime;
-      *&buf.mRateScalar = v62;
-      v63 = *&a2->mSMPTETime.mHours;
+      *&buf.mRateScalar = v61;
+      v62 = *&a2->mSMPTETime.mHours;
       *&buf.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-      *&buf.mSMPTETime.mHours = v63;
-      v519 = 512;
-      AudioUnitProcess(Parameter, &v519, &buf, *v9, v32 + 3);
-      v69 = *v9;
+      *&buf.mSMPTETime.mHours = v62;
+      v516 = 512;
+      AudioUnitProcess(Parameter, &v516, &buf, *v9, v31 + 3);
+      v68 = *v9;
       if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
       {
-        VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x50u, v69, v32 + 3, &buf);
+        VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x50u, v68, v31 + 3, &buf);
       }
 
-      Parameter = CADeprecated::CABufferList::CopyDataFrom(*(v3 + 142), v32 + 3, v69, v64, v65, v66, v67, v68, v501);
-      v37 = *(v3 + 586);
+      Parameter = CADeprecated::CABufferList::CopyDataFrom(*(v3 + 1136), v31 + 3, v68, v63, v64, v65, v66, v67, v498);
+      v36 = *(v3 + 4688);
     }
   }
 
-  if ((v37 & 0x40) != 0 && (*(v3 + 4704) & 0x40) != 0 && *(v3 + 355))
+  if ((v36 & 0x40) != 0 && (*(v3 + 4704) & 0x40) != 0 && *(v3 + 2840))
   {
-    v70 = *&a2->mRateScalar;
+    v69 = *&a2->mRateScalar;
     *&buf.mSampleTime = *&a2->mSampleTime;
-    *&buf.mRateScalar = v70;
-    v71 = *&a2->mSMPTETime.mHours;
+    *&buf.mRateScalar = v69;
+    v70 = *&a2->mSMPTETime.mHours;
     *&buf.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-    *&buf.mSMPTETime.mHours = v71;
-    Parameter = VoiceProcessorV6::ApplyGMCoexNoiseMitigation(v3, *(v3 + 136), *(v3 + 136), &buf, *(v3 + 129));
+    *&buf.mSMPTETime.mHours = v70;
+    Parameter = VoiceProcessorV6::ApplyGMCoexNoiseMitigation(v3, *(v3 + 1088), *(v3 + 1088), &buf, *(v3 + 516));
   }
 
-  v72 = *(v3 + 136);
-  v73 = *v72;
-  v508 = &v501;
-  if (v73 >= 3)
+  v71 = *(v3 + 1088);
+  v72 = *v71;
+  v505 = &v498;
+  if (v72 >= 3)
   {
-    v74 = *(v3 + 3134);
-    if (v73 != 3)
+    v73 = *(v3 + 12536);
+    if (v72 != 3)
     {
-      if (v74 == 2)
+      if (v73 == 2)
       {
-        v75 = 1;
-        v76 = 3;
-        v77 = 56;
-        v78 = 40;
+        v74 = 1;
+        v75 = 3;
+        v76 = 56;
+        v77 = 40;
         goto LABEL_122;
       }
 
-      v74 = *(v3 + 3134);
-      if (v74 <= 0xC && ((0x1028u >> v74) & 1) != 0)
+      v73 = *(v3 + 12536);
+      if (v73 <= 0xC && ((0x1028u >> v73) & 1) != 0)
       {
-        v75 = 3;
-        v76 = 2;
-        v74 = 1;
-        v77 = 40;
-        v78 = 24;
+        v74 = 3;
+        v75 = 2;
+        v73 = 1;
+        v76 = 40;
+        v77 = 24;
         goto LABEL_122;
       }
     }
 
-    v79 = 0;
-    v75 = 1;
-    v76 = 2;
-    v77 = 40;
-    if (v74 == 14)
+    v78 = 0;
+    v74 = 1;
+    v75 = 2;
+    v76 = 40;
+    if (v73 == 14)
     {
-      v80 = 16960;
+      v79 = 16960;
       goto LABEL_125;
     }
 
-    if (v74 != 9)
+    if (v73 != 9)
     {
-      LODWORD(v509) = 0;
+      LODWORD(v506) = 0;
       goto LABEL_127;
     }
 
-    v74 = 3;
-    v78 = 56;
+    v73 = 3;
+    v77 = 56;
 LABEL_122:
-    v79 = v76;
-    *(v3 + 1060) = *(v72 + v78);
-    v80 = 16984;
-    v76 = v74;
+    v78 = v75;
+    *(v3 + 16960) = *(v71 + v77);
+    v79 = 16984;
+    v75 = v73;
 LABEL_125:
-    v81 = *(v72 + v77);
-    LODWORD(v509) = v79;
-    *(v3 + v80) = v81;
-    v79 = v76;
-    v76 = v75;
-    v75 = 0;
+    v80 = *(v71 + v76);
+    LODWORD(v506) = v78;
+    *(v3 + v79) = v80;
+    v78 = v75;
+    v75 = v74;
+    v74 = 0;
 LABEL_127:
-    v82 = v72 + 8;
-    *(v3 + 1057) = *(v82 + 16 * v75);
-    *(v3 + 16936) = *(v82 + 16 * v76);
+    v81 = v71 + 8;
+    *(v3 + 16912) = *(v81 + 16 * v74);
+    *(v3 + 16936) = *(v81 + 16 * v75);
     goto LABEL_128;
   }
 
-  *(v3 + 1057) = *(v72 + 8);
-  if (*v72 < 2u)
+  *(v3 + 16912) = *(v71 + 8);
+  if (*v71 < 2u)
   {
-    v79 = 0;
-    LODWORD(v509) = 0;
-    v76 = 0;
+    v78 = 0;
+    LODWORD(v506) = 0;
     v75 = 0;
+    v74 = 0;
   }
 
   else
   {
-    v79 = 0;
+    v78 = 0;
     if (*(v3 + 17160) == 1)
     {
-      LODWORD(v509) = 0;
-      v76 = 0;
-      *(v3 + 1057) = *(v72 + 24);
-      *(v3 + 16936) = *(v72 + 8);
-      v75 = 1;
+      LODWORD(v506) = 0;
+      v75 = 0;
+      *(v3 + 16912) = *(v71 + 24);
+      *(v3 + 16936) = *(v71 + 8);
+      v74 = 1;
     }
 
     else
     {
-      LODWORD(v509) = 0;
-      v75 = 0;
-      *(v3 + 16936) = *(v72 + 24);
-      v76 = 1;
+      LODWORD(v506) = 0;
+      v74 = 0;
+      *(v3 + 16936) = *(v71 + 24);
+      v75 = 1;
     }
   }
 
 LABEL_128:
-  v83 = *(v3 + 586);
-  if ((v83 & 0x80) != 0 && (*(v3 + 4704) & 0x80) != 0)
+  v82 = *(v3 + 4688);
+  if ((v82 & 0x80) != 0 && (*(v3 + 4704) & 0x80) != 0)
   {
-    Parameter = *(v3 + 356);
+    Parameter = *(v3 + 2848);
     if (Parameter)
     {
-      v84 = *&a2->mRateScalar;
+      v83 = *&a2->mRateScalar;
       *&buf.mSampleTime = *&a2->mSampleTime;
-      *&buf.mRateScalar = v84;
-      v85 = *&a2->mSMPTETime.mHours;
+      *&buf.mRateScalar = v83;
+      v84 = *&a2->mSMPTETime.mHours;
       *&buf.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-      *&buf.mSMPTETime.mHours = v85;
-      v519 = 512;
-      Parameter = AudioUnitProcess(Parameter, &v519, &buf, *(v3 + 129), (v3 + 16904));
+      *&buf.mSMPTETime.mHours = v84;
+      v516 = 512;
+      Parameter = AudioUnitProcess(Parameter, &v516, &buf, *(v3 + 516), (v3 + 16904));
       if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
       {
-        Parameter = VoiceProcessorV2::SaveFilesWriteSignal(v3, 6u, *(v3 + 129), (v3 + 16904), &buf);
+        Parameter = VoiceProcessorV2::SaveFilesWriteSignal(v3, 6u, *(v3 + 516), (v3 + 16904), &buf);
       }
 
-      v83 = *(v3 + 586);
+      v82 = *(v3 + 4688);
     }
   }
 
-  if (v83 & 0x100) != 0 && (*(v3 + 4705))
+  if (v82 & 0x100) != 0 && (*(v3 + 4705))
   {
-    Parameter = *(v3 + 357);
+    Parameter = *(v3 + 2856);
     if (Parameter)
     {
-      v86 = *&a2->mRateScalar;
+      v85 = *&a2->mRateScalar;
       *&buf.mSampleTime = *&a2->mSampleTime;
-      *&buf.mRateScalar = v86;
-      v87 = *&a2->mSMPTETime.mHours;
+      *&buf.mRateScalar = v85;
+      v86 = *&a2->mSMPTETime.mHours;
       *&buf.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-      *&buf.mSMPTETime.mHours = v87;
-      v519 = 512;
-      Parameter = AudioUnitProcess(Parameter, &v519, &buf, *(v3 + 129), (v3 + 16928));
+      *&buf.mSMPTETime.mHours = v86;
+      v516 = 512;
+      Parameter = AudioUnitProcess(Parameter, &v516, &buf, *(v3 + 516), (v3 + 16928));
       if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
       {
-        Parameter = VoiceProcessorV2::SaveFilesWriteSignal(v3, 7u, *(v3 + 129), (v3 + 16928), &buf);
+        Parameter = VoiceProcessorV2::SaveFilesWriteSignal(v3, 7u, *(v3 + 516), (v3 + 16928), &buf);
       }
 
-      v83 = *(v3 + 586);
+      v82 = *(v3 + 4688);
     }
   }
 
-  if ((v83 & 0x200) != 0)
+  if ((v82 & 0x200) != 0)
   {
-    v88 = *(v3 + 588);
-    if ((v88 & 0x200) != 0)
+    v87 = *(v3 + 4704);
+    if ((v87 & 0x200) != 0)
     {
-      Parameter = *(v3 + 358);
+      Parameter = *(v3 + 2864);
       if (Parameter)
       {
-        if ((v89 = v83 & v88, (v89 & 0x1000000000000) != 0) && *(v3 + 397) || (v89 & 0x1000000000) != 0 && *(v3 + 385) || (v89 & 0x10000000) != 0 && *(v3 + 377))
+        if ((v88 = v82 & v87, (v88 & 0x1000000000000) != 0) && *(v3 + 3176) || (v88 & 0x1000000000) != 0 && *(v3 + 3080) || (v88 & 0x10000000) != 0 && *(v3 + 3016))
         {
-          v90 = *&a2->mRateScalar;
+          v89 = *&a2->mRateScalar;
           *&buf.mSampleTime = *&a2->mSampleTime;
-          *&buf.mRateScalar = v90;
-          v91 = *&a2->mSMPTETime.mHours;
+          *&buf.mRateScalar = v89;
+          v90 = *&a2->mSMPTETime.mHours;
           *&buf.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-          *&buf.mSMPTETime.mHours = v91;
-          v519 = 512;
-          Parameter = AudioUnitProcess(Parameter, &v519, &buf, *(v3 + 129), (v3 + 16952));
+          *&buf.mSMPTETime.mHours = v90;
+          v516 = 512;
+          Parameter = AudioUnitProcess(Parameter, &v516, &buf, *(v3 + 516), (v3 + 16952));
           if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
           {
-            Parameter = VoiceProcessorV2::SaveFilesWriteSignal(v3, 8u, *(v3 + 129), (v3 + 16952), &buf);
+            Parameter = VoiceProcessorV2::SaveFilesWriteSignal(v3, 8u, *(v3 + 516), (v3 + 16952), &buf);
           }
 
-          v83 = *(v3 + 586);
+          v82 = *(v3 + 4688);
         }
       }
     }
   }
 
-  if ((v83 & 0x400) != 0 && (*(v3 + 4705) & 4) != 0)
+  if ((v82 & 0x400) != 0 && (*(v3 + 4705) & 4) != 0)
   {
-    Parameter = *(v3 + 359);
+    Parameter = *(v3 + 2872);
     if (Parameter)
     {
-      v92 = *&a2->mRateScalar;
+      v91 = *&a2->mRateScalar;
       *&buf.mSampleTime = *&a2->mSampleTime;
-      *&buf.mRateScalar = v92;
-      v93 = *&a2->mSMPTETime.mHours;
+      *&buf.mRateScalar = v91;
+      v92 = *&a2->mSMPTETime.mHours;
       *&buf.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-      *&buf.mSMPTETime.mHours = v93;
-      v519 = 512;
-      Parameter = AudioUnitProcess(Parameter, &v519, &buf, *(v3 + 129), (v3 + 16976));
+      *&buf.mSMPTETime.mHours = v92;
+      v516 = 512;
+      Parameter = AudioUnitProcess(Parameter, &v516, &buf, *(v3 + 516), (v3 + 16976));
       if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
       {
-        Parameter = VoiceProcessorV2::SaveFilesWriteSignal(v3, 9u, *(v3 + 129), (v3 + 16976), &buf);
+        Parameter = VoiceProcessorV2::SaveFilesWriteSignal(v3, 9u, *(v3 + 516), (v3 + 16976), &buf);
       }
 
-      v83 = *(v3 + 586);
+      v82 = *(v3 + 4688);
     }
   }
 
-  if ((v83 & 0x10000000) != 0 && (*(v3 + 4707) & 0x10) != 0)
+  if ((v82 & 0x10000000) != 0 && (*(v3 + 4707) & 0x10) != 0)
   {
-    Parameter = *(v3 + 377);
+    Parameter = *(v3 + 3016);
     if (Parameter)
     {
-      if (**(v3 + 177))
+      if (**(v3 + 1416))
+      {
+        v93 = 1.0;
+      }
+
+      else
+      {
+        v93 = 0.0;
+      }
+
+      AudioUnitSetParameter(Parameter, 0x66616331u, 0, 0, v93, 0);
+      if (*(*(v3 + 1416) + 1))
       {
         v94 = 1.0;
       }
@@ -3695,8 +6152,8 @@ LABEL_128:
         v94 = 0.0;
       }
 
-      AudioUnitSetParameter(Parameter, 0x66616331u, 0, 0, v94, 0);
-      if (*(*(v3 + 177) + 1))
+      AudioUnitSetParameter(*(v3 + 3016), 0x66616332u, 0, 0, v94, 0);
+      if (*(*(v3 + 1416) + 2))
       {
         v95 = 1.0;
       }
@@ -3706,213 +6163,202 @@ LABEL_128:
         v95 = 0.0;
       }
 
-      AudioUnitSetParameter(*(v3 + 377), 0x66616332u, 0, 0, v95, 0);
-      if (*(*(v3 + 177) + 2))
+      AudioUnitSetParameter(*(v3 + 3016), 0x66616333u, 0, 0, v95, 0);
+      v96 = 0;
+      qmemcpy(&buf, "1dmr2dmr3dmr", 12);
+      do
       {
-        v96 = 1.0;
+        AudioUnitSetParameter(*(v3 + 3016), *(&buf.mSampleTime + v96), 0, 0, *(v3 + 4400), 0);
+        v96 += 4;
+      }
+
+      while (v96 != 12);
+      v527.mNumberBuffers = 0;
+      AudioUnitGetParameter(*(v3 + 3312), 1u, 0, 0, &v527.mNumberBuffers);
+      AudioUnitSetParameter(*(v3 + 3016), 0x67746479u, 0, 0, *&v527.mNumberBuffers, 0);
+      LODWORD(v531.realp) = 0;
+      AudioUnitGetParameter(*(v3 + 3312), 0x1Bu, 0, 0, &v531);
+      if (*(v3 + 2308) != *&v531.realp)
+      {
+        AudioUnitSetParameter(*(v3 + 3016), 0x67747067u, 0, 0, *&v531.realp, 0);
+        *(v3 + 2308) = v531.realp;
+      }
+
+      AudioUnitSetParameter(*(v3 + 3016), 0x67746467u, 0, 0, *(v3 + 12612), 0);
+      v97 = AudioUnitSetParameter(*(v3 + 3272), 0x6774706Du, 0, 0, *(v3 + 2320), 0);
+      MEMORY[0x28223BE20](v97);
+      *(&v498 - 8) = 3;
+      *(&v498 - 7) = *(v3 + 16912);
+      *(&v498 - 5) = *(v3 + 16936);
+      *(&v498 - 3) = *(v3 + 16960);
+      v98 = *(v3 + 1080);
+      *&inInputBufferLists.mSampleTime = &v498 - 8;
+      inInputBufferLists.mHostTime = v98;
+      v526.mSampleTime = *(v3 + 1096);
+      v99 = *&a2->mRateScalar;
+      *&buf.mSampleTime = *&a2->mSampleTime;
+      *&buf.mRateScalar = v99;
+      v100 = *&a2->mSMPTETime.mHours;
+      *&buf.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
+      *&buf.mSMPTETime.mHours = v100;
+      LODWORD(v530.realp) = 512;
+      AudioUnitProcessMultiple(*(v3 + 3016), &v530, &buf, *(v3 + 516), 2u, &inInputBufferLists, 1u, &v526);
+      if (*(v3 + 16752))
+      {
+        v101 = 1852142452;
       }
 
       else
       {
-        v96 = 0.0;
+        v101 = 0;
       }
 
-      AudioUnitSetParameter(*(v3 + 377), 0x66616333u, 0, 0, v96, 0);
-      v97 = 0;
-      qmemcpy(&buf, "1dmr2dmr3dmr", 12);
-      do
-      {
-        AudioUnitSetParameter(*(v3 + 377), *(&buf.mSampleTime + v97), 0, 0, *(v3 + 1100), 0);
-        v97 += 4;
-      }
-
-      while (v97 != 12);
-      v530.mNumberBuffers = 0;
-      AudioUnitGetParameter(*(v3 + 414), 1u, 0, 0, &v530.mNumberBuffers);
-      AudioUnitSetParameter(*(v3 + 377), 0x67746479u, 0, 0, *&v530.mNumberBuffers, 0);
-      LODWORD(v534.realp) = 0;
-      AudioUnitGetParameter(*(v3 + 414), 0x1Bu, 0, 0, &v534);
-      if (*(v3 + 577) != *&v534.realp)
-      {
-        AudioUnitSetParameter(*(v3 + 377), 0x67747067u, 0, 0, *&v534.realp, 0);
-        *(v3 + 577) = v534.realp;
-      }
-
-      AudioUnitSetParameter(*(v3 + 377), 0x67746467u, 0, 0, *(v3 + 3153), 0);
-      v98 = AudioUnitSetParameter(*(v3 + 409), 0x6774706Du, 0, 0, *(v3 + 580), 0);
-      MEMORY[0x28223BE20](v98);
-      *(&v501 - 8) = 3;
-      *(&v501 - 7) = *(v3 + 1057);
-      *(&v501 - 5) = *(v3 + 16936);
-      *(&v501 - 3) = *(v3 + 1060);
-      v99 = *(v3 + 135);
-      *&inInputBufferLists.mSampleTime = &v501 - 8;
-      inInputBufferLists.mHostTime = v99;
-      v529.mSampleTime = *(v3 + 137);
-      v100 = *&a2->mRateScalar;
-      *&buf.mSampleTime = *&a2->mSampleTime;
-      *&buf.mRateScalar = v100;
-      v101 = *&a2->mSMPTETime.mHours;
-      *&buf.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-      *&buf.mSMPTETime.mHours = v101;
-      LODWORD(v533.realp) = 512;
-      AudioUnitProcessMultiple(*(v3 + 377), &v533, &buf, *(v3 + 129), 2u, &inInputBufferLists, 1u, &v529);
       if (*(v3 + 16752))
+      {
+        v102 = 1733326433;
+      }
+
+      else
       {
         v102 = 1852142452;
       }
 
-      else
-      {
-        v102 = 0;
-      }
-
-      if (*(v3 + 16752))
-      {
-        v103 = 1733326433;
-      }
-
-      else
-      {
-        v103 = 1852142452;
-      }
-
-      AudioUnitGetProperty(*(v3 + 377), v103, 0, v102, *(*(v3 + 2183) + 16), (*(v3 + 2183) + 12));
+      AudioUnitGetProperty(*(v3 + 3016), v102, 0, v101, *(*(v3 + 17464) + 16), (*(v3 + 17464) + 12));
       if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
       {
-        VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x20u, (*(v3 + 129) + 1), *(v3 + 2183), &buf);
+        VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x20u, (*(v3 + 516) + 1), *(v3 + 17464), &buf);
       }
 
-      AudioUnitGetParameter(*(v3 + 377), 0x776E6466u, 0, 0, v3 + 4376);
-      AudioUnitGetParameter(*(v3 + 377), 0x67747370u, 0, 0, &v520);
-      v104 = v520;
-      *(v3 + 4377) = v520;
-      AudioUnitSetParameter(*(v3 + 414), 0x23u, 0, 0, v104, 0);
-      Parameter = AudioUnitGetParameter(*(v3 + 377), 0x67746774u, 0, 0, v3 + 3154);
-      v83 = *(v3 + 586);
+      AudioUnitGetParameter(*(v3 + 3016), 0x776E6466u, 0, 0, (v3 + 17504));
+      AudioUnitGetParameter(*(v3 + 3016), 0x67747370u, 0, 0, &v517);
+      v103 = v517;
+      *(v3 + 17508) = v517;
+      AudioUnitSetParameter(*(v3 + 3312), 0x23u, 0, 0, v103, 0);
+      Parameter = AudioUnitGetParameter(*(v3 + 3016), 0x67746774u, 0, 0, (v3 + 12616));
+      v82 = *(v3 + 4688);
     }
   }
 
-  if ((v83 & 0x400000) != 0 && (*(v3 + 4706) & 0x40) != 0)
+  if ((v82 & 0x400000) != 0 && (*(v3 + 4706) & 0x40) != 0)
   {
-    if (*(v3 + 371))
+    if (*(v3 + 2968))
     {
-      Parameter = *(v3 + 2200);
+      Parameter = *(v3 + 17600);
       if (Parameter)
       {
-        v105 = *(v3 + 2115);
-        v106 = *(*(v3 + 2195) + 16) + 4 * *(v3 + 129);
-        buf.mSampleTime = *(*(v3 + 2195) + 16);
-        buf.mHostTime = v106;
-        VPTimeFreqConverter_Analyze(Parameter, v105, &buf);
-        v83 = *(v3 + 586);
+        v104 = *(v3 + 16920);
+        v105 = *(*(v3 + 17560) + 16) + 4 * *(v3 + 516);
+        buf.mSampleTime = *(*(v3 + 17560) + 16);
+        buf.mHostTime = v105;
+        VPTimeFreqConverter_Analyze(Parameter, v104, &buf);
+        v82 = *(v3 + 4688);
       }
     }
   }
 
-  if ((v83 & 0x800000) != 0 && (*(v3 + 4706) & 0x80) != 0)
+  if ((v82 & 0x800000) != 0 && (*(v3 + 4706) & 0x80) != 0)
   {
-    if (*(v3 + 372))
+    if (*(v3 + 2976))
     {
-      Parameter = *(v3 + 2201);
+      Parameter = *(v3 + 17608);
       if (Parameter)
       {
-        v107 = *(v3 + 2118);
-        v108 = *(*(v3 + 2196) + 16) + 4 * *(v3 + 129);
-        buf.mSampleTime = *(*(v3 + 2196) + 16);
-        buf.mHostTime = v108;
-        VPTimeFreqConverter_Analyze(Parameter, v107, &buf);
-        v83 = *(v3 + 586);
+        v106 = *(v3 + 16944);
+        v107 = *(*(v3 + 17568) + 16) + 4 * *(v3 + 516);
+        buf.mSampleTime = *(*(v3 + 17568) + 16);
+        buf.mHostTime = v107;
+        VPTimeFreqConverter_Analyze(Parameter, v106, &buf);
+        v82 = *(v3 + 4688);
       }
     }
   }
 
-  if (v83 & 0x1000000) != 0 && (*(v3 + 4707))
+  if (v82 & 0x1000000) != 0 && (*(v3 + 4707))
   {
-    if (*(v3 + 373))
+    if (*(v3 + 2984))
     {
-      Parameter = *(v3 + 2202);
+      Parameter = *(v3 + 17616);
       if (Parameter)
       {
-        v109 = *(v3 + 2121);
-        v110 = *(*(v3 + 2197) + 16) + 4 * *(v3 + 129);
-        buf.mSampleTime = *(*(v3 + 2197) + 16);
-        buf.mHostTime = v110;
-        VPTimeFreqConverter_Analyze(Parameter, v109, &buf);
-        v83 = *(v3 + 586);
+        v108 = *(v3 + 16968);
+        v109 = *(*(v3 + 17576) + 16) + 4 * *(v3 + 516);
+        buf.mSampleTime = *(*(v3 + 17576) + 16);
+        buf.mHostTime = v109;
+        VPTimeFreqConverter_Analyze(Parameter, v108, &buf);
+        v82 = *(v3 + 4688);
       }
     }
   }
 
-  if ((v83 & 0x2000000) != 0 && (*(v3 + 4707) & 2) != 0)
+  if ((v82 & 0x2000000) != 0 && (*(v3 + 4707) & 2) != 0)
   {
-    if (*(v3 + 374))
+    if (*(v3 + 2992))
     {
-      Parameter = *(v3 + 2203);
+      Parameter = *(v3 + 17624);
       if (Parameter)
       {
-        v111 = *(v3 + 2124);
-        v112 = *(*(v3 + 2198) + 16) + 4 * *(v3 + 129);
-        buf.mSampleTime = *(*(v3 + 2198) + 16);
-        buf.mHostTime = v112;
-        VPTimeFreqConverter_Analyze(Parameter, v111, &buf);
-        v83 = *(v3 + 586);
+        v110 = *(v3 + 16992);
+        v111 = *(*(v3 + 17584) + 16) + 4 * *(v3 + 516);
+        buf.mSampleTime = *(*(v3 + 17584) + 16);
+        buf.mHostTime = v111;
+        VPTimeFreqConverter_Analyze(Parameter, v110, &buf);
+        v82 = *(v3 + 4688);
       }
     }
   }
 
-  if (((v83 & 0x1000000000000) == 0 || (*(v3 + 4710) & 1) == 0 || !*(v3 + 397)) && (v83 & 0x800) != 0 && (*(v3 + 4705) & 8) != 0)
+  if (((v82 & 0x1000000000000) == 0 || (*(v3 + 4710) & 1) == 0 || !*(v3 + 3176)) && (v82 & 0x800) != 0 && (*(v3 + 4705) & 8) != 0)
   {
-    Parameter = *(v3 + 360);
+    Parameter = *(v3 + 2880);
     if (Parameter)
     {
       MEMORY[0x28223BE20](Parameter);
-      *(&v501 - 6) = 2;
-      *(&v501 - 5) = *(v3 + 1057);
-      *(&v501 - 3) = *(v3 + 16936);
-      *&v529.mSampleTime = &v501 - 6;
-      v529.mHostTime = 0;
+      *(&v498 - 6) = 2;
+      *(&v498 - 5) = *(v3 + 16912);
+      *(&v498 - 3) = *(v3 + 16936);
+      *&v526.mSampleTime = &v498 - 6;
+      v526.mHostTime = 0;
       *&inInputBufferLists.mSampleTime = v3 + 16904;
       memset(&inInputBufferLists.mHostTime, 0, 24);
-      v519 = 512;
-      v113 = *&a2->mRateScalar;
+      v516 = 512;
+      v112 = *&a2->mRateScalar;
       *&buf.mSampleTime = *&a2->mSampleTime;
-      *&buf.mRateScalar = v113;
-      v114 = *&a2->mSMPTETime.mHours;
+      *&buf.mRateScalar = v112;
+      v113 = *&a2->mSMPTETime.mHours;
       *&buf.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-      *&buf.mSMPTETime.mHours = v114;
-      Parameter = AudioUnitProcessMultiple(v115, &v519, &buf, *(v3 + 129), 2u, &v529, 4u, &inInputBufferLists);
+      *&buf.mSMPTETime.mHours = v113;
+      Parameter = AudioUnitProcessMultiple(v114, &v516, &buf, *(v3 + 516), 2u, &v526, 4u, &inInputBufferLists);
       if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
       {
-        Parameter = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x65u, *(v3 + 129), (v3 + 16904), &buf);
+        Parameter = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x65u, *(v3 + 516), (v3 + 16904), &buf);
       }
 
-      v83 = *(v3 + 586);
+      v82 = *(v3 + 4688);
     }
   }
 
-  v518 = 0;
-  v116 = *&a2->mRateScalar;
+  v515 = 0;
+  v115 = *&a2->mRateScalar;
   *&buf.mSampleTime = *&a2->mSampleTime;
-  *&buf.mRateScalar = v116;
-  v117 = *&a2->mSMPTETime.mHours;
+  *&buf.mRateScalar = v115;
+  v116 = *&a2->mSMPTETime.mHours;
   *&buf.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-  *&buf.mSMPTETime.mHours = v117;
-  if ((v83 & 0x4000000) != 0 && (*(v3 + 4707) & 4) != 0 && *(v3 + 375))
+  *&buf.mSMPTETime.mHours = v116;
+  if ((v82 & 0x4000000) != 0 && (*(v3 + 4707) & 4) != 0 && *(v3 + 3000))
   {
-    v118 = *(v3 + 2110);
-    if ((*(v3 + 2111) - v118) <= 0x20)
+    v117 = *(v3 + 16880);
+    if ((*(v3 + 16888) - v117) <= 0x20)
     {
       goto LABEL_954;
     }
 
-    ECApplicator::apply(*(v118 + 32), &buf, v75, &v518, v3 + 1055, v3 + 1059, v3 + 1063, v3 + 1067, v3 + 1071, v3 + 1075);
-    v119 = *(v3 + 129);
+    ECApplicator::apply(*(v117 + 32), &buf, v74, &v515, (v3 + 4220), (v3 + 4236), (v3 + 4252), (v3 + 4268), (v3 + 4284), (v3 + 4300));
+    v118 = *(v3 + 516);
     if (*(v3 + 15881) & 1) != 0 || (*(v3 + 15882))
     {
-      VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x21u, v119, *(v3 + 137), &buf);
-      v119 = *(v3 + 129);
-      v120 = *(v3 + 424);
+      VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x21u, v118, *(v3 + 1096), &buf);
+      v118 = *(v3 + 516);
+      v119 = *(v3 + 3392);
       if (*(v3 + 15881))
       {
         goto LABEL_228;
@@ -3921,52 +6367,52 @@ LABEL_128:
 
     else
     {
-      v120 = *(v3 + 424);
+      v119 = *(v3 + 3392);
     }
 
     if (*(v3 + 15882) != 1)
     {
 LABEL_229:
-      v121 = *(v3 + 2142);
-      v122 = *(v120 + 16);
-      inInputBufferLists.mSampleTime = *(*(v3 + 511) + 16);
-      inInputBufferLists.mHostTime = *&inInputBufferLists.mSampleTime + 4 * v119;
-      VPTimeFreqConverter_Analyze(v121, v122, &inInputBufferLists);
+      v120 = *(v3 + 17136);
+      v121 = *(v119 + 16);
+      inInputBufferLists.mSampleTime = *(*(v3 + 4088) + 16);
+      inInputBufferLists.mHostTime = *&inInputBufferLists.mSampleTime + 4 * v118;
+      VPTimeFreqConverter_Analyze(v120, v121, &inInputBufferLists);
       if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
       {
-        Parameter = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x16u, *(v3 + 129), *(v3 + 511), &buf);
+        Parameter = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x16u, *(v3 + 516), *(v3 + 4088), &buf);
       }
 
       goto LABEL_232;
     }
 
 LABEL_228:
-    VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x10u, v119, v120, &buf);
-    v120 = *(v3 + 424);
-    LODWORD(v119) = *(v3 + 129);
+    VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x10u, v118, v119, &buf);
+    v119 = *(v3 + 3392);
+    LODWORD(v118) = *(v3 + 516);
     goto LABEL_229;
   }
 
 LABEL_232:
-  v517 = 0;
-  if ((*(v3 + 4691) & 8) == 0 || (*(v3 + 4707) & 8) == 0 || !*(v3 + 376))
+  v514 = 0;
+  if ((*(v3 + 4691) & 8) == 0 || (*(v3 + 4707) & 8) == 0 || !*(v3 + 3008))
   {
     goto LABEL_246;
   }
 
-  v123 = *(v3 + 2110);
-  if ((*(v3 + 2111) - v123) <= 0x28)
+  v122 = *(v3 + 16880);
+  if ((*(v3 + 16888) - v122) <= 0x28)
   {
     goto LABEL_954;
   }
 
-  ECApplicator::apply(*(v123 + 40), &buf, v76, &v517, v3 + 1055, v3 + 1059, v3 + 1063, v3 + 1067, v3 + 1071, v3 + 1075);
-  v124 = *(v3 + 129);
+  ECApplicator::apply(*(v122 + 40), &buf, v75, &v514, (v3 + 4220), (v3 + 4236), (v3 + 4252), (v3 + 4268), (v3 + 4284), (v3 + 4300));
+  v123 = *(v3 + 516);
   if (*(v3 + 15881) & 1) != 0 || (*(v3 + 15882))
   {
-    VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x22u, v124, *(v3 + 137), &buf);
-    v124 = *(v3 + 129);
-    v125 = *(v3 + 2149);
+    VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x22u, v123, *(v3 + 1096), &buf);
+    v123 = *(v3 + 516);
+    v124 = *(v3 + 17192);
     if (*(v3 + 15881))
     {
       goto LABEL_242;
@@ -3975,45 +6421,45 @@ LABEL_232:
 
   else
   {
-    v125 = *(v3 + 2149);
+    v124 = *(v3 + 17192);
   }
 
   if (*(v3 + 15882) == 1)
   {
 LABEL_242:
-    VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x11u, v124, v125, &buf);
-    v125 = *(v3 + 2149);
-    LODWORD(v124) = *(v3 + 129);
+    VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x11u, v123, v124, &buf);
+    v124 = *(v3 + 17192);
+    LODWORD(v123) = *(v3 + 516);
   }
 
-  v126 = *(v3 + 2157);
-  v127 = *(v125 + 16);
-  inInputBufferLists.mSampleTime = *(*(v3 + 512) + 16);
-  inInputBufferLists.mHostTime = *&inInputBufferLists.mSampleTime + 4 * v124;
-  VPTimeFreqConverter_Analyze(v126, v127, &inInputBufferLists);
+  v125 = *(v3 + 17256);
+  v126 = *(v124 + 16);
+  inInputBufferLists.mSampleTime = *(*(v3 + 4096) + 16);
+  inInputBufferLists.mHostTime = *&inInputBufferLists.mSampleTime + 4 * v123;
+  VPTimeFreqConverter_Analyze(v125, v126, &inInputBufferLists);
   if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
   {
-    Parameter = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x17u, *(v3 + 129), *(v3 + 512), &buf);
+    Parameter = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x17u, *(v3 + 516), *(v3 + 4096), &buf);
   }
 
 LABEL_246:
-  v128 = *(v3 + 586);
-  v506 = v9;
-  if ((v128 & 0x400000) != 0 && (*(v3 + 4706) & 0x40) != 0 && *(v3 + 371))
+  v127 = *(v3 + 4688);
+  v503 = v9;
+  if ((v127 & 0x400000) != 0 && (*(v3 + 4706) & 0x40) != 0 && *(v3 + 2968))
   {
-    v129 = *(v3 + 2110);
-    if (*(v3 + 2111) == v129)
+    v128 = *(v3 + 16880);
+    if (*(v3 + 16888) == v128)
     {
       goto LABEL_954;
     }
 
-    Parameter = ECApplicator::apply(*v129, &buf, v75, &v518 + 1, v3 + 1054, v3 + 1058, v3 + 1062, v3 + 1066, v3 + 1070, v3 + 1074);
-    v130 = *(v3 + 129);
+    Parameter = ECApplicator::apply(*v128, &buf, v74, &v515 + 1, (v3 + 4216), (v3 + 4232), (v3 + 4248), (v3 + 4264), (v3 + 4280), (v3 + 4296));
+    v129 = *(v3 + 516);
     if (*(v3 + 15881) & 1) != 0 || (*(v3 + 15882))
     {
-      Parameter = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x1Cu, v130, (v3 + 16904), &buf);
-      v130 = *(v3 + 129);
-      v131 = *(v3 + 420);
+      Parameter = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x1Cu, v129, (v3 + 16904), &buf);
+      v129 = *(v3 + 516);
+      v130 = *(v3 + 3360);
       if (*(v3 + 15881))
       {
         goto LABEL_289;
@@ -4022,108 +6468,108 @@ LABEL_246:
 
     else
     {
-      v131 = *(v3 + 420);
+      v130 = *(v3 + 3360);
     }
 
     if (*(v3 + 15882) == 1)
     {
 LABEL_289:
-      Parameter = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0xCu, v130, v131, &buf);
+      Parameter = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0xCu, v129, v130, &buf);
     }
   }
 
-  else if ((v128 & 0x10000000) == 0 || (*(v3 + 4707) & 0x10) == 0 || !*(v3 + 377))
+  else if ((v127 & 0x10000000) == 0 || (*(v3 + 4707) & 0x10) == 0 || !*(v3 + 3016))
   {
-    v132 = 0;
-    while (((*(v3 + 118) >> v132) & 1) == 0)
+    v131 = 0;
+    while (((*(v3 + 472) >> v131) & 1) == 0)
     {
-      if (++v132 == 32)
+      if (++v131 == 32)
       {
-        v132 = 33;
+        v131 = 33;
         break;
       }
     }
 
-    if (v132 >= **(v3 + 136))
+    if (v131 >= **(v3 + 1088))
     {
       if (VPLogScope(void)::once != -1)
       {
         dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
       }
 
-      v133 = CALog::LogObjIfEnabled(1, VPLogScope(void)::scope);
-      if (v133)
+      v132 = CALog::LogObjIfEnabled(1, VPLogScope(void)::scope);
+      if (v132)
       {
-        v134 = v133;
-        if (os_log_type_enabled(v133, OS_LOG_TYPE_ERROR))
+        v133 = v132;
+        if (os_log_type_enabled(v132, OS_LOG_TYPE_ERROR))
         {
-          v135 = **(v3 + 136);
+          v134 = **(v3 + 1088);
           LODWORD(inInputBufferLists.mSampleTime) = 136315906;
           *(&inInputBufferLists.mSampleTime + 4) = "vpProcessUplink_v9.cpp";
           WORD2(inInputBufferLists.mHostTime) = 1024;
           *(&inInputBufferLists.mHostTime + 6) = 514;
           WORD1(inInputBufferLists.mRateScalar) = 1024;
-          HIDWORD(inInputBufferLists.mRateScalar) = v132;
+          HIDWORD(inInputBufferLists.mRateScalar) = v131;
           LOWORD(inInputBufferLists.mWordClockTime) = 1024;
-          *(&inInputBufferLists.mWordClockTime + 2) = v135;
-          _os_log_impl(&dword_2724B4000, v134, OS_LOG_TYPE_ERROR, "%25s:%-5d  >vp> ERROR: mPrimaryEpMicIndex is %d, but epmic only has %d channels", &inInputBufferLists, 0x1Eu);
+          *(&inInputBufferLists.mWordClockTime + 2) = v134;
+          _os_log_impl(&dword_2724B4000, v133, OS_LOG_TYPE_ERROR, "%25s:%-5d  >vp> ERROR: mPrimaryEpMicIndex is %d, but epmic only has %d channels", &inInputBufferLists, 0x1Eu);
         }
       }
 
-      v136 = *(v3 + 1588);
-      if (v136 && ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1))
+      v135 = *(v3 + 12704);
+      if (v135 && ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1))
       {
         if (VPLogScope(void)::once != -1)
         {
           dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
         }
 
-        v9 = v506;
-        CALegacyLog::log(v136, 1, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProcessUplink_v9.cpp", 514, "ProcessDSPChain_Uplink", "ERROR: mPrimaryEpMicIndex is %d, but epmic only has %d channels", v132, **(v3 + 136));
-        v132 = 0;
+        v9 = v503;
+        CALegacyLog::log(v135, 1, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProcessUplink_v9.cpp", 514, "ProcessDSPChain_Uplink", "ERROR: mPrimaryEpMicIndex is %d, but epmic only has %d channels", v131, **(v3 + 1088));
+        v131 = 0;
       }
 
       else
       {
-        v132 = 0;
-        v9 = v506;
+        v131 = 0;
+        v9 = v503;
       }
     }
 
-    v137 = *(v3 + 136) + 16 * v132;
-    Parameter = memcpy(*(*(v3 + 137) + 16), *(v137 + 16), *(v137 + 12));
+    v136 = *(v3 + 1088) + 16 * v131;
+    Parameter = memcpy(*(*(v3 + 1096) + 16), *(v136 + 16), *(v136 + 12));
   }
 
-  v138 = (v3 + 17096);
+  v137 = (v3 + 17096);
   if ((*(v3 + 4696) & 0x20) != 0 && (*(v3 + 4712) & 0x20) != 0)
   {
-    Parameter = *(v3 + 418);
+    Parameter = *(v3 + 3344);
     if (Parameter)
     {
-      inInputBufferLists.mSampleTime = *(v3 + 136);
+      inInputBufferLists.mSampleTime = *(v3 + 1088);
       inInputBufferLists.mHostTime = v3 + 17096;
-      v529.mSampleTime = *(v3 + 137);
-      v519 = 512;
-      Parameter = AudioUnitProcessMultiple(Parameter, &v519, &buf, *(v3 + 129), 2u, &inInputBufferLists, 1u, &v529);
+      v526.mSampleTime = *(v3 + 1096);
+      v516 = 512;
+      Parameter = AudioUnitProcessMultiple(Parameter, &v516, &buf, *(v3 + 516), 2u, &inInputBufferLists, 1u, &v526);
     }
   }
 
-  v516 = 0;
-  if ((*(v3 + 4690) & 0x80) != 0 && (*(v3 + 4706) & 0x80) != 0 && *(v3 + 372))
+  v513 = 0;
+  if ((*(v3 + 4690) & 0x80) != 0 && (*(v3 + 4706) & 0x80) != 0 && *(v3 + 2976))
   {
-    v139 = *(v3 + 2110);
-    if ((*(v3 + 2111) - v139) <= 8)
+    v138 = *(v3 + 16880);
+    if ((*(v3 + 16888) - v138) <= 8)
     {
       goto LABEL_954;
     }
 
-    Parameter = ECApplicator::apply(*(v139 + 8), &buf, v76, &v516, v3 + 1055, v3 + 1059, v3 + 1063, v3 + 1067, v3 + 1071, v3 + 1075);
-    v140 = *(v3 + 129);
+    Parameter = ECApplicator::apply(*(v138 + 8), &buf, v75, &v513, (v3 + 4220), (v3 + 4236), (v3 + 4252), (v3 + 4268), (v3 + 4284), (v3 + 4300));
+    v139 = *(v3 + 516);
     if (*(v3 + 15881) & 1) != 0 || (*(v3 + 15882))
     {
-      Parameter = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x1Du, v140, (v3 + 16928), &buf);
-      v140 = *(v3 + 129);
-      v141 = *(v3 + 421);
+      Parameter = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x1Du, v139, (v3 + 16928), &buf);
+      v139 = *(v3 + 516);
+      v140 = *(v3 + 3368);
       if (*(v3 + 15881))
       {
         goto LABEL_292;
@@ -4132,32 +6578,32 @@ LABEL_289:
 
     else
     {
-      v141 = *(v3 + 421);
+      v140 = *(v3 + 3368);
     }
 
     if (*(v3 + 15882) == 1)
     {
 LABEL_292:
-      Parameter = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0xDu, v140, v141, &buf);
+      Parameter = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0xDu, v139, v140, &buf);
     }
   }
 
-  v515 = 0;
-  if ((*(v3 + 4691) & 1) != 0 && (*(v3 + 4707) & 1) != 0 && *(v3 + 373))
+  v512 = 0;
+  if ((*(v3 + 4691) & 1) != 0 && (*(v3 + 4707) & 1) != 0 && *(v3 + 2984))
   {
-    v142 = *(v3 + 2110);
-    if ((*(v3 + 2111) - v142) <= 0x10)
+    v141 = *(v3 + 16880);
+    if ((*(v3 + 16888) - v141) <= 0x10)
     {
       goto LABEL_954;
     }
 
-    Parameter = ECApplicator::apply(*(v142 + 16), &buf, v79, &v515, v3 + 1056, v3 + 1060, v3 + 1064, v3 + 1068, v3 + 1072, v3 + 1076);
-    v143 = *(v3 + 129);
+    Parameter = ECApplicator::apply(*(v141 + 16), &buf, v78, &v512, (v3 + 4224), (v3 + 4240), (v3 + 4256), (v3 + 4272), (v3 + 4288), (v3 + 4304));
+    v142 = *(v3 + 516);
     if (*(v3 + 15881) & 1) != 0 || (*(v3 + 15882))
     {
-      Parameter = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x1Eu, v143, (v3 + 16952), &buf);
-      v143 = *(v3 + 129);
-      v144 = *(v3 + 423);
+      Parameter = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x1Eu, v142, (v3 + 16952), &buf);
+      v142 = *(v3 + 516);
+      v143 = *(v3 + 3384);
       if (*(v3 + 15881))
       {
         goto LABEL_303;
@@ -4166,36 +6612,36 @@ LABEL_292:
 
     else
     {
-      v144 = *(v3 + 423);
+      v143 = *(v3 + 3384);
     }
 
     if (*(v3 + 15882) == 1)
     {
 LABEL_303:
-      Parameter = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0xEu, v143, v144, &buf);
+      Parameter = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0xEu, v142, v143, &buf);
     }
   }
 
-  v514 = 0;
-  if ((*(v3 + 4691) & 2) == 0 || (*(v3 + 4707) & 2) == 0 || !*(v3 + 374))
+  v511 = 0;
+  if ((*(v3 + 4691) & 2) == 0 || (*(v3 + 4707) & 2) == 0 || !*(v3 + 2992))
   {
     goto LABEL_315;
   }
 
-  v145 = *(v3 + 2110);
-  if ((*(v3 + 2111) - v145) <= 0x18)
+  v144 = *(v3 + 16880);
+  if ((*(v3 + 16888) - v144) <= 0x18)
   {
 LABEL_954:
     std::vector<std::unique_ptr<VoiceProcessor::SampleRateConverter>>::__throw_out_of_range[abi:ne200100]();
   }
 
-  Parameter = ECApplicator::apply(*(v145 + 24), &buf, v509, &v514, v3 + 1057, v3 + 1061, v3 + 1065, v3 + 1069, v3 + 1073, v3 + 1077);
-  v146 = *(v3 + 129);
+  Parameter = ECApplicator::apply(*(v144 + 24), &buf, v506, &v511, (v3 + 4228), (v3 + 4244), (v3 + 4260), (v3 + 4276), (v3 + 4292), (v3 + 4308));
+  v145 = *(v3 + 516);
   if (*(v3 + 15881) & 1) != 0 || (*(v3 + 15882))
   {
-    Parameter = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x1Fu, v146, (v3 + 16976), &buf);
-    v146 = *(v3 + 129);
-    v147 = *(v3 + 422);
+    Parameter = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x1Fu, v145, (v3 + 16976), &buf);
+    v145 = *(v3 + 516);
+    v146 = *(v3 + 3376);
     if (*(v3 + 15881))
     {
       goto LABEL_314;
@@ -4204,41 +6650,41 @@ LABEL_954:
 
   else
   {
-    v147 = *(v3 + 422);
+    v146 = *(v3 + 3376);
   }
 
   if (*(v3 + 15882) == 1)
   {
 LABEL_314:
-    Parameter = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0xFu, v146, v147, &buf);
+    Parameter = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0xFu, v145, v146, &buf);
   }
 
 LABEL_315:
   if ((*(v3 + 8869) & 8) != 0 && (*(v3 + 8877) & 8) != 0)
   {
-    if (*(v3 + 482))
+    if (*(v3 + 3856))
     {
       *(v3 + 17128) = 0;
       if (*(v3 + 4691) & 1) != 0 && (*(v3 + 4707))
       {
-        Parameter = *(v3 + 373);
+        Parameter = *(v3 + 2984);
         if (Parameter)
         {
-          if (*(v3 + 2140))
+          if (*(v3 + 17120))
           {
             LODWORD(inInputBufferLists.mSampleTime) = 0;
             Parameter = AudioUnitGetPropertyInfo(Parameter, 0xF3Cu, 0, 0, &inInputBufferLists, 0);
             if (!Parameter && LODWORD(inInputBufferLists.mSampleTime) == 4 * *v9)
             {
-              v148 = *(*(v3 + 2140) + 16);
-              Parameter = AudioUnitGetProperty(*(v3 + 373), 0xF3Cu, 0, 0, v148, &inInputBufferLists);
-              v149 = Parameter;
+              v147 = *(*(v3 + 17120) + 16);
+              Parameter = AudioUnitGetProperty(*(v3 + 2984), 0xF3Cu, 0, 0, v147, &inInputBufferLists);
+              v148 = Parameter;
               if (*(v3 + 489) == 1)
               {
-                Parameter = AudioUnitSetProperty(*(v3 + 482), 0xF3Cu, 0, 0, v148, LODWORD(inInputBufferLists.mSampleTime));
+                Parameter = AudioUnitSetProperty(*(v3 + 3856), 0xF3Cu, 0, 0, v147, LODWORD(inInputBufferLists.mSampleTime));
               }
 
-              *(v3 + 17128) = v149 == 0;
+              *(v3 + 17128) = v148 == 0;
             }
           }
         }
@@ -4246,167 +6692,166 @@ LABEL_315:
     }
   }
 
-  if ((*(v3 + 4692) & 0x10) != 0 && (*(v3 + 4708) & 0x10) != 0 && *(v3 + 385))
+  if ((*(v3 + 4692) & 0x10) != 0 && (*(v3 + 4708) & 0x10) != 0 && *(v3 + 3080))
   {
-    v509 = (v3 + 17096);
+    v506 = (v3 + 17096);
     MEMORY[0x28223BE20](Parameter);
-    *(&v501 - 6) = 0u;
-    *(&v501 - 5) = 0u;
-    *(&v501 - 3) = 0u;
-    *(&v501 - 2) = 0u;
-    *(&v501 - 4) = 0u;
-    v500 = 0;
-    *(&v501 - 24) = 5;
-    *(&v501 - 11) = *(v3 + 1057);
-    *(&v501 - 5) = *(v3 + 16936);
-    *(&v501 - 9) = *(v3 + 1060);
-    *(&v501 - 7) = *(v3 + 16984);
-    v150 = *(v3 + 2139);
-    v151 = *(*(v3 + 420) + 16);
-    v507 = *(*(v3 + 421) + 16);
-    v152 = v507;
-    v153 = *(*(v3 + 423) + 16);
-    v504 = v150;
-    v505 = v153;
-    v154 = *(*(v3 + 422) + 16);
-    v155 = *(*(v3 + 2165) + 16);
-    LODWORD(v533.realp) = 1048576000;
-    v156 = *(v3 + 129);
-    MEMORY[0x2743CCD80](v151, 1);
-    MEMORY[0x2743CCD80](v155, 1, v154, 1, v155, 1, *(v3 + 129));
-    MEMORY[0x2743CCD80](v155, 1, v152, 1, v155, 1, *(v3 + 129));
-    MEMORY[0x2743CCE20](v155, 1, &v533, v155, 1, *(v3 + 129));
-    *(&v501 - 3) = *(*(v3 + 2165) + 8);
-    *&v530.mNumberBuffers = &v501 - 12;
-    v534.realp = *(v3 + 137);
-    v519 = 512;
-    v157 = *&a2->mRateScalar;
+    *(&v498 - 6) = 0u;
+    *(&v498 - 5) = 0u;
+    *(&v498 - 3) = 0u;
+    *(&v498 - 2) = 0u;
+    *(&v498 - 4) = 0u;
+    v497 = 0;
+    *(&v498 - 24) = 5;
+    *(&v498 - 11) = *(v3 + 16912);
+    *(&v498 - 5) = *(v3 + 16936);
+    *(&v498 - 9) = *(v3 + 16960);
+    *(&v498 - 7) = *(v3 + 16984);
+    v149 = *(v3 + 17112);
+    v150 = *(*(v3 + 3360) + 16);
+    v504 = *(*(v3 + 3368) + 16);
+    v151 = v504;
+    v152 = *(*(v3 + 3384) + 16);
+    v501 = v149;
+    v502 = v152;
+    v153 = *(*(v3 + 3376) + 16);
+    v154 = *(*(v3 + 17320) + 16);
+    LODWORD(v530.realp) = 1048576000;
+    MEMORY[0x2743CCD80](v150, 1);
+    MEMORY[0x2743CCD80](v154, 1, v153, 1, v154, 1, *(v3 + 516));
+    MEMORY[0x2743CCD80](v154, 1, v151, 1, v154, 1, *(v3 + 516));
+    MEMORY[0x2743CCE20](v154, 1, &v530, v154, 1, *(v3 + 516));
+    *(&v498 - 3) = *(*(v3 + 17320) + 8);
+    *&v527.mNumberBuffers = &v498 - 12;
+    v531.realp = *(v3 + 1096);
+    v516 = 512;
+    v155 = *&a2->mRateScalar;
     *&inInputBufferLists.mSampleTime = *&a2->mSampleTime;
-    *&inInputBufferLists.mRateScalar = v157;
-    v158 = *&a2->mSMPTETime.mHours;
+    *&inInputBufferLists.mRateScalar = v155;
+    v156 = *&a2->mSMPTETime.mHours;
     *&inInputBufferLists.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-    *&inInputBufferLists.mSMPTETime.mHours = v158;
-    AudioUnitProcessMultiple(*(v3 + 385), &v519, &inInputBufferLists, *(v3 + 129), 1u, &v530, 1u, &v534);
-    v159 = v504;
-    memcpy((*(*(v3 + 2161) + 16) + 4 * *(v3 + 4320)), v504, 4 * *(v3 + 129));
-    memcpy((*(*(v3 + 2162) + 16) + 4 * *(v3 + 4320)), v151, 4 * *(v3 + 129));
-    v160 = v505;
-    memcpy((*(*(v3 + 2163) + 16) + 4 * *(v3 + 4320)), v505, 4 * *(v3 + 129));
-    v161 = v154;
-    memcpy((*(*(v3 + 2215) + 16) + 4 * *(v3 + 4320)), v154, 4 * *(v3 + 129));
-    v162 = v507;
-    memcpy((*(*(v3 + 2164) + 16) + 4 * *(v3 + 4320)), v507, 4 * *(v3 + 129));
-    LODWORD(v527) = 4 * *(v3 + 129);
-    AudioUnitGetProperty(*(v3 + 385), 0x9087u, 0, 0, *(*(v3 + 2166) + 16), &v527);
-    v163 = *(*(v3 + 2167) + 16) + 4 * *(v3 + 129);
-    v529.mSampleTime = *(*(v3 + 2167) + 16);
-    v529.mHostTime = v163;
-    VPTimeFreqConverter_Analyze(*(v3 + 2168), *(*(v3 + 137) + 16), &v529);
-    memcpy(v159, *(*(v3 + 2161) + 16), 4 * *(v3 + 129));
-    memcpy(v151, *(*(v3 + 2162) + 16), 4 * *(v3 + 129));
-    memcpy(v160, *(*(v3 + 2163) + 16), 4 * *(v3 + 129));
-    memcpy(v161, *(*(v3 + 2215) + 16), 4 * *(v3 + 129));
-    memcpy(v162, *(*(v3 + 2164) + 16), 4 * *(v3 + 129));
-    memmove(*(*(v3 + 2161) + 16), (*(*(v3 + 2161) + 16) + 4 * *(v3 + 129)), 4 * *(v3 + 4320));
-    memmove(*(*(v3 + 2162) + 16), (*(*(v3 + 2162) + 16) + 4 * *(v3 + 129)), 4 * *(v3 + 4320));
-    memmove(*(*(v3 + 2163) + 16), (*(*(v3 + 2163) + 16) + 4 * *(v3 + 129)), 4 * *(v3 + 4320));
-    memmove(*(*(v3 + 2215) + 16), (*(*(v3 + 2215) + 16) + 4 * *(v3 + 129)), 4 * *(v3 + 4320));
-    memmove(*(*(v3 + 2164) + 16), (*(*(v3 + 2164) + 16) + 4 * *(v3 + 129)), 4 * *(v3 + 4320));
+    *&inInputBufferLists.mSMPTETime.mHours = v156;
+    AudioUnitProcessMultiple(*(v3 + 3080), &v516, &inInputBufferLists, *(v3 + 516), 1u, &v527, 1u, &v531);
+    v157 = v501;
+    memcpy((*(*(v3 + 17288) + 16) + 4 * *(v3 + 17280)), v501, 4 * *(v3 + 516));
+    memcpy((*(*(v3 + 17296) + 16) + 4 * *(v3 + 17280)), v150, 4 * *(v3 + 516));
+    v158 = v502;
+    memcpy((*(*(v3 + 17304) + 16) + 4 * *(v3 + 17280)), v502, 4 * *(v3 + 516));
+    v159 = v153;
+    memcpy((*(*(v3 + 17720) + 16) + 4 * *(v3 + 17280)), v153, 4 * *(v3 + 516));
+    v160 = v504;
+    memcpy((*(*(v3 + 17312) + 16) + 4 * *(v3 + 17280)), v504, 4 * *(v3 + 516));
+    LODWORD(v524) = 4 * *(v3 + 516);
+    AudioUnitGetProperty(*(v3 + 3080), 0x9087u, 0, 0, *(*(v3 + 17328) + 16), &v524);
+    v161 = *(*(v3 + 17336) + 16) + 4 * *(v3 + 516);
+    v526.mSampleTime = *(*(v3 + 17336) + 16);
+    v526.mHostTime = v161;
+    VPTimeFreqConverter_Analyze(*(v3 + 17344), *(*(v3 + 1096) + 16), &v526);
+    memcpy(v157, *(*(v3 + 17288) + 16), 4 * *(v3 + 516));
+    memcpy(v150, *(*(v3 + 17296) + 16), 4 * *(v3 + 516));
+    memcpy(v158, *(*(v3 + 17304) + 16), 4 * *(v3 + 516));
+    memcpy(v159, *(*(v3 + 17720) + 16), 4 * *(v3 + 516));
+    memcpy(v160, *(*(v3 + 17312) + 16), 4 * *(v3 + 516));
+    memmove(*(*(v3 + 17288) + 16), (*(*(v3 + 17288) + 16) + 4 * *(v3 + 516)), 4 * *(v3 + 17280));
+    memmove(*(*(v3 + 17296) + 16), (*(*(v3 + 17296) + 16) + 4 * *(v3 + 516)), 4 * *(v3 + 17280));
+    memmove(*(*(v3 + 17304) + 16), (*(*(v3 + 17304) + 16) + 4 * *(v3 + 516)), 4 * *(v3 + 17280));
+    memmove(*(*(v3 + 17720) + 16), (*(*(v3 + 17720) + 16) + 4 * *(v3 + 516)), 4 * *(v3 + 17280));
+    memmove(*(*(v3 + 17312) + 16), (*(*(v3 + 17312) + 16) + 4 * *(v3 + 516)), 4 * *(v3 + 17280));
     if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
     {
-      VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x7Cu, *(v3 + 129), *(v3 + 137), &inInputBufferLists);
+      VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x7Cu, *(v3 + 516), *(v3 + 1096), &inInputBufferLists);
     }
 
-    v138 = v509;
+    v137 = v506;
   }
 
-  v164 = *(v3 + 522);
-  v165 = *(v3 + 2139);
-  v166 = *(*(v3 + 514) + 16) + 4 * *(v3 + 129);
-  inInputBufferLists.mSampleTime = *(*(v3 + 514) + 16);
-  inInputBufferLists.mHostTime = v166;
-  VPTimeFreqConverter_Analyze(v164, v165, &inInputBufferLists);
-  v513 = 0.0;
+  v162 = *(v3 + 4176);
+  v163 = *(v3 + 17112);
+  v164 = *(*(v3 + 4112) + 16) + 4 * *(v3 + 516);
+  inInputBufferLists.mSampleTime = *(*(v3 + 4112) + 16);
+  inInputBufferLists.mHostTime = v164;
+  VPTimeFreqConverter_Analyze(v162, v163, &inInputBufferLists);
+  v510 = 0.0;
   if ((*(v3 + 4690) & 0x40) != 0 && (*(v3 + 4706) & 0x40) != 0)
   {
-    if (*(v3 + 371))
+    if (*(v3 + 2968))
     {
-      v168 = *(v3 + 516);
-      v169 = *(v3 + 2115);
-      v170 = *(*(v3 + 430) + 16) + 4 * *(v3 + 129);
-      inInputBufferLists.mSampleTime = *(*(v3 + 430) + 16);
-      inInputBufferLists.mHostTime = v170;
-      VPTimeFreqConverter_Analyze(v168, v169, &inInputBufferLists);
-      v171 = *(v3 + 520);
-      v172 = *(*(v3 + 420) + 16);
-      v173 = *(*(v3 + 508) + 16) + 4 * *(v3 + 129);
-      inInputBufferLists.mSampleTime = *(*(v3 + 508) + 16);
-      inInputBufferLists.mHostTime = v173;
-      VPTimeFreqConverter_Analyze(v171, v172, &inInputBufferLists);
+      v166 = *(v3 + 4128);
+      v167 = *(v3 + 16920);
+      v168 = *(*(v3 + 3440) + 16) + 4 * *(v3 + 516);
+      inInputBufferLists.mSampleTime = *(*(v3 + 3440) + 16);
+      inInputBufferLists.mHostTime = v168;
+      VPTimeFreqConverter_Analyze(v166, v167, &inInputBufferLists);
+      v169 = *(v3 + 4160);
+      v170 = *(*(v3 + 3360) + 16);
+      v171 = *(*(v3 + 4064) + 16) + 4 * *(v3 + 516);
+      inInputBufferLists.mSampleTime = *(*(v3 + 4064) + 16);
+      inInputBufferLists.mHostTime = v171;
+      VPTimeFreqConverter_Analyze(v169, v170, &inInputBufferLists);
       if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
       {
-        Property = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x12u, *(v3 + 129), *(v3 + 430), &buf);
+        Property = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x12u, *(v3 + 516), *(v3 + 3440), &buf);
       }
     }
   }
 
   if ((*(v3 + 4690) & 0x80) != 0 && (*(v3 + 4706) & 0x80) != 0)
   {
-    if (*(v3 + 372))
+    if (*(v3 + 2976))
     {
-      v174 = *(v3 + 517);
-      v175 = *(v3 + 2118);
-      v176 = *(*(v3 + 509) + 16) + 4 * *(v3 + 129);
-      inInputBufferLists.mSampleTime = *(*(v3 + 509) + 16);
-      inInputBufferLists.mHostTime = v176;
-      VPTimeFreqConverter_Analyze(v174, v175, &inInputBufferLists);
-      v177 = *(v3 + 521);
-      v178 = *(*(v3 + 421) + 16);
-      v179 = *(*(v3 + 508) + 32) + 4 * *(v3 + 129);
-      inInputBufferLists.mSampleTime = *(*(v3 + 508) + 32);
-      inInputBufferLists.mHostTime = v179;
-      VPTimeFreqConverter_Analyze(v177, v178, &inInputBufferLists);
+      v172 = *(v3 + 4136);
+      v173 = *(v3 + 16944);
+      v174 = *(*(v3 + 4072) + 16) + 4 * *(v3 + 516);
+      inInputBufferLists.mSampleTime = *(*(v3 + 4072) + 16);
+      inInputBufferLists.mHostTime = v174;
+      VPTimeFreqConverter_Analyze(v172, v173, &inInputBufferLists);
+      v175 = *(v3 + 4168);
+      v176 = *(*(v3 + 3368) + 16);
+      v177 = *(*(v3 + 4064) + 32) + 4 * *(v3 + 516);
+      inInputBufferLists.mSampleTime = *(*(v3 + 4064) + 32);
+      inInputBufferLists.mHostTime = v177;
+      VPTimeFreqConverter_Analyze(v175, v176, &inInputBufferLists);
       if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
       {
-        Property = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x13u, *(v3 + 129), *(v3 + 509), &buf);
+        Property = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x13u, *(v3 + 516), *(v3 + 4072), &buf);
       }
     }
   }
 
-  v180 = *(v3 + 586);
-  if ((v180 & 0x1000000) != 0)
+  v178 = *(v3 + 4688);
+  if ((v178 & 0x1000000) != 0)
   {
-    v181 = *(v3 + 588);
-    if ((v181 & 0x1000000) != 0)
+    v179 = *(v3 + 4704);
+    if ((v179 & 0x1000000) != 0)
     {
-      if (*(v3 + 373))
+      if (*(v3 + 2984))
       {
-        if ((v180 & v181 & 0x80000000000) != 0)
+        if ((v178 & v179 & 0x80000000000) != 0)
         {
-          Property = *(v3 + 392);
+          Property = *(v3 + 3136);
           if (Property)
           {
-            Property = AudioUnitGetParameter(Property, 0x2Bu, 0, 0, &v513);
+            Property = AudioUnitGetParameter(Property, 0x2Bu, 0, 0, &v510);
           }
         }
 
-        if (v513 != 0.0 || (*(v3 + 4694) & 1) != 0 && (*(v3 + 4710) & 1) != 0 && *(v3 + 397))
+        if (v510 != 0.0 || (*(v3 + 4694) & 1) != 0 && (*(v3 + 4710) & 1) != 0 && *(v3 + 3176))
         {
-          v182 = *(v3 + 518);
-          v183 = *(v3 + 2121);
-          v184 = *(*(v3 + 2179) + 16) + 4 * *(v3 + 129);
-          inInputBufferLists.mSampleTime = *(*(v3 + 2179) + 16);
-          inInputBufferLists.mHostTime = v184;
-          VPTimeFreqConverter_Analyze(v182, v183, &inInputBufferLists);
-          v185 = *(v3 + 2144);
-          v186 = *(*(v3 + 423) + 16);
-          v187 = *(*(v3 + 508) + 48) + 4 * *(v3 + 129);
-          inInputBufferLists.mSampleTime = *(*(v3 + 508) + 48);
-          inInputBufferLists.mHostTime = v187;
-          VPTimeFreqConverter_Analyze(v185, v186, &inInputBufferLists);
+          v180 = *(v3 + 4144);
+          v181 = *(v3 + 16968);
+          v182 = *(*(v3 + 17432) + 16) + 4 * *(v3 + 516);
+          inInputBufferLists.mSampleTime = *(*(v3 + 17432) + 16);
+          inInputBufferLists.mHostTime = v182;
+          VPTimeFreqConverter_Analyze(v180, v181, &inInputBufferLists);
+          v183 = *(v3 + 17152);
+          v184 = *(*(v3 + 3384) + 16);
+          v185 = *(*(v3 + 4064) + 48) + 4 * *(v3 + 516);
+          inInputBufferLists.mSampleTime = *(*(v3 + 4064) + 48);
+          inInputBufferLists.mHostTime = v185;
+          VPTimeFreqConverter_Analyze(v183, v184, &inInputBufferLists);
           if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
           {
-            Property = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x14u, *(v3 + 129), *(v3 + 2179), &buf);
+            Property = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x14u, *(v3 + 516), *(v3 + 17432), &buf);
           }
         }
       }
@@ -4415,160 +6860,160 @@ LABEL_315:
 
   if ((*(v3 + 4691) & 2) != 0 && (*(v3 + 4707) & 2) != 0)
   {
-    if (*(v3 + 374))
+    if (*(v3 + 2992))
     {
-      v188 = *(v3 + 519);
-      v189 = *(v3 + 2124);
-      v190 = *(*(v3 + 510) + 16) + 4 * *(v3 + 129);
-      inInputBufferLists.mSampleTime = *(*(v3 + 510) + 16);
-      inInputBufferLists.mHostTime = v190;
-      VPTimeFreqConverter_Analyze(v188, v189, &inInputBufferLists);
-      v191 = *(v3 + 2108);
-      v192 = *(*(v3 + 422) + 16);
-      v193 = *(*(v3 + 508) + 64) + 4 * *(v3 + 129);
-      inInputBufferLists.mSampleTime = *(*(v3 + 508) + 64);
-      inInputBufferLists.mHostTime = v193;
-      VPTimeFreqConverter_Analyze(v191, v192, &inInputBufferLists);
+      v186 = *(v3 + 4152);
+      v187 = *(v3 + 16992);
+      v188 = *(*(v3 + 4080) + 16) + 4 * *(v3 + 516);
+      inInputBufferLists.mSampleTime = *(*(v3 + 4080) + 16);
+      inInputBufferLists.mHostTime = v188;
+      VPTimeFreqConverter_Analyze(v186, v187, &inInputBufferLists);
+      v189 = *(v3 + 16864);
+      v190 = *(*(v3 + 3376) + 16);
+      v191 = *(*(v3 + 4064) + 64) + 4 * *(v3 + 516);
+      inInputBufferLists.mSampleTime = *(*(v3 + 4064) + 64);
+      inInputBufferLists.mHostTime = v191;
+      VPTimeFreqConverter_Analyze(v189, v190, &inInputBufferLists);
       if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
       {
-        Property = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x15u, *(v3 + 129), *(v3 + 510), &buf);
+        Property = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x15u, *(v3 + 516), *(v3 + 4080), &buf);
       }
     }
   }
 
-  v194 = *(v3 + 586);
-  if ((v194 & 0x1000) != 0 && (*(v3 + 4705) & 0x10) != 0)
+  v192 = *(v3 + 4688);
+  if ((v192 & 0x1000) != 0 && (*(v3 + 4705) & 0x10) != 0)
   {
-    Property = *(v3 + 361);
+    Property = *(v3 + 2888);
     if (Property)
     {
       MEMORY[0x28223BE20](Property);
-      *(&v501 - 6) = 2;
-      *(&v501 - 5) = *(v3 + 1057);
-      *(&v501 - 3) = *(v3 + 16936);
-      v534.realp = (&v501 - 6);
-      v534.imagp = 0;
-      v529.mSampleTime = *(v3 + 2184);
-      memset(&v529.mHostTime, 0, 24);
-      v519 = 512;
-      v195 = *&a2->mRateScalar;
+      *(&v498 - 6) = 2;
+      *(&v498 - 5) = *(v3 + 16912);
+      *(&v498 - 3) = *(v3 + 16936);
+      v531.realp = (&v498 - 6);
+      v531.imagp = 0;
+      v526.mSampleTime = *(v3 + 17472);
+      memset(&v526.mHostTime, 0, 24);
+      v516 = 512;
+      v193 = *&a2->mRateScalar;
       *&inInputBufferLists.mSampleTime = *&a2->mSampleTime;
-      *&inInputBufferLists.mRateScalar = v195;
-      v196 = *&a2->mSMPTETime.mHours;
+      *&inInputBufferLists.mRateScalar = v193;
+      v194 = *&a2->mSMPTETime.mHours;
       *&inInputBufferLists.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-      *&inInputBufferLists.mSMPTETime.mHours = v196;
-      AudioUnitProcessMultiple(v197, &v519, &inInputBufferLists, *(v3 + 129), 2u, &v534, 4u, &v529);
-      v198 = *(v3 + 2187);
-      v199 = *(*(v3 + 2184) + 16);
-      v200 = *(*(v3 + 2185) + 16) + 4 * *(v3 + 129);
-      *&v530.mNumberBuffers = *(*(v3 + 2185) + 16);
-      *&v530.mBuffers[0].mNumberChannels = v200;
-      VPTimeFreqConverter_Analyze(v198, v199, &v530);
+      *&inInputBufferLists.mSMPTETime.mHours = v194;
+      AudioUnitProcessMultiple(v195, &v516, &inInputBufferLists, *(v3 + 516), 2u, &v531, 4u, &v526);
+      v196 = *(v3 + 17496);
+      v197 = *(*(v3 + 17472) + 16);
+      v198 = *(*(v3 + 17480) + 16) + 4 * *(v3 + 516);
+      *&v527.mNumberBuffers = *(*(v3 + 17480) + 16);
+      *&v527.mBuffers[0].mNumberChannels = v198;
+      VPTimeFreqConverter_Analyze(v196, v197, &v527);
       if (*(v3 + 17632) == 1)
       {
-        v201 = *(v3 + 129);
-        *&v530.mNumberBuffers = *(*(v3 + 430) + 16);
-        *&v530.mBuffers[0].mNumberChannels = *&v530.mNumberBuffers + 4 * v201;
-        v533.realp = *(*(v3 + 2185) + 16);
-        v533.imagp = &v533.realp[v201];
-        v202 = *(*(v3 + 2186) + 16);
-        v203 = &v202[v201];
-        vDSP_zvabs(&v530, 1, v202, 1, v201);
-        vDSP_zvabs(&v533, 1, v203, 1, *(v3 + 129));
-        vDSP_vmin(v202, 1, v203, 1, v202, 1, *(v3 + 129));
-        LODWORD(v527) = 507307272;
-        MEMORY[0x2743CCE00](v203, 1, &v527, v203, 1, *(v3 + 129));
-        vDSP_vdiv(v203, 1, v202, 1, v203, 1, *(v3 + 129));
-        MEMORY[0x2743CCDD0](v533.realp, 1, v203, 1, v533.realp, 1, *(v3 + 129));
-        Property = MEMORY[0x2743CCDD0](v533.imagp, 1, v203, 1, v533.imagp, 1, *(v3 + 129));
+        v199 = *(v3 + 516);
+        *&v527.mNumberBuffers = *(*(v3 + 3440) + 16);
+        *&v527.mBuffers[0].mNumberChannels = *&v527.mNumberBuffers + 4 * v199;
+        v530.realp = *(*(v3 + 17480) + 16);
+        v530.imagp = &v530.realp[v199];
+        v200 = *(*(v3 + 17488) + 16);
+        v201 = &v200[v199];
+        vDSP_zvabs(&v527, 1, v200, 1, v199);
+        vDSP_zvabs(&v530, 1, v201, 1, *(v3 + 516));
+        vDSP_vmin(v200, 1, v201, 1, v200, 1, *(v3 + 516));
+        LODWORD(v524) = 507307272;
+        MEMORY[0x2743CCE00](v201, 1, &v524, v201, 1, *(v3 + 516));
+        vDSP_vdiv(v201, 1, v200, 1, v201, 1, *(v3 + 516));
+        MEMORY[0x2743CCDD0](v530.realp, 1, v201, 1, v530.realp, 1, *(v3 + 516));
+        Property = MEMORY[0x2743CCDD0](v530.imagp, 1, v201, 1, v530.imagp, 1, *(v3 + 516));
       }
 
       if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
       {
-        Property = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x61u, *(v3 + 129), *(v3 + 2185), &inInputBufferLists);
+        Property = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x61u, *(v3 + 516), *(v3 + 17480), &inInputBufferLists);
       }
 
-      v194 = *(v3 + 586);
+      v192 = *(v3 + 4688);
     }
   }
 
-  if ((v194 & 0x20000000) != 0 && (*(v3 + 4707) & 0x20) != 0)
+  if ((v192 & 0x20000000) != 0 && (*(v3 + 4707) & 0x20) != 0)
   {
-    Property = *(v3 + 378);
+    Property = *(v3 + 3024);
     if (Property)
     {
-      v529.mSampleTime = *(v3 + 430);
-      *&v530.mNumberBuffers = v529.mSampleTime;
-      v519 = 512;
-      v204 = *&a2->mRateScalar;
+      v526.mSampleTime = *(v3 + 3440);
+      *&v527.mNumberBuffers = v526.mSampleTime;
+      v516 = 512;
+      v202 = *&a2->mRateScalar;
       *&inInputBufferLists.mSampleTime = *&a2->mSampleTime;
-      *&inInputBufferLists.mRateScalar = v204;
-      v205 = *&a2->mSMPTETime.mHours;
+      *&inInputBufferLists.mRateScalar = v202;
+      v203 = *&a2->mSMPTETime.mHours;
       *&inInputBufferLists.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-      *&inInputBufferLists.mSMPTETime.mHours = v205;
-      Property = AudioUnitProcessMultiple(Property, &v519, &inInputBufferLists, *(v3 + 129), 1u, &v529, 1u, &v530);
+      *&inInputBufferLists.mSMPTETime.mHours = v203;
+      Property = AudioUnitProcessMultiple(Property, &v516, &inInputBufferLists, *(v3 + 516), 1u, &v526, 1u, &v527);
       if (!Property)
       {
-        Property = AudioUnitGetProperty(*(v3 + 378), 0x1450u, 0, 0, *(*(v3 + 2183) + 16), (*(v3 + 2183) + 12));
+        Property = AudioUnitGetProperty(*(v3 + 3024), 0x1450u, 0, 0, *(*(v3 + 17464) + 16), (*(v3 + 17464) + 12));
         if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
         {
-          Property = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x20u, (*(v3 + 129) + 1), *(v3 + 2183), &inInputBufferLists);
+          Property = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x20u, (*(v3 + 516) + 1), *(v3 + 17464), &inInputBufferLists);
         }
       }
 
-      v194 = *(v3 + 586);
+      v192 = *(v3 + 4688);
     }
   }
 
-  if ((v194 & 0x100000000000) != 0)
+  if ((v192 & 0x100000000000) != 0)
   {
-    v206 = *(v3 + 588);
-    if ((v206 & 0x100000000000) != 0)
+    v204 = *(v3 + 4704);
+    if ((v204 & 0x100000000000) != 0)
     {
-      Property = *(v3 + 393);
+      Property = *(v3 + 3144);
       if (Property)
       {
-        if ((v194 & v206 & 0x1000000000000) == 0 || !*(v3 + 397))
+        if ((v192 & v204 & 0x1000000000000) == 0 || !*(v3 + 3176))
         {
-          v207 = *(v3 + 1063);
-          if (v207 == 0.0)
+          v205 = *(v3 + 4252);
+          if (v205 == 0.0)
           {
-            v208 = *(v3 + 2109);
-            v209 = *(*(v3 + 426) + 16);
-            v210 = *(*(v3 + 437) + 16) + 4 * *(v3 + 129);
-            inInputBufferLists.mSampleTime = *(*(v3 + 437) + 16);
-            inInputBufferLists.mHostTime = v210;
-            VPTimeFreqConverter_Analyze(v208, v209, &inInputBufferLists);
-            v207 = *(v3 + 1063);
-            Property = *(v3 + 393);
+            v206 = *(v3 + 16872);
+            v207 = *(*(v3 + 3408) + 16);
+            v208 = *(*(v3 + 3496) + 16) + 4 * *(v3 + 516);
+            inInputBufferLists.mSampleTime = *(*(v3 + 3496) + 16);
+            inInputBufferLists.mHostTime = v208;
+            VPTimeFreqConverter_Analyze(v206, v207, &inInputBufferLists);
+            v205 = *(v3 + 4252);
+            Property = *(v3 + 3144);
           }
 
-          AudioUnitSetParameter(Property, 6u, 0, 0, v207, 0);
-          AudioUnitSetParameter(*(v3 + 393), 7u, 0, 0, *(v3 + 1067), 0);
-          AudioUnitSetParameter(*(v3 + 393), 0xDu, 0, 0, *(v3 + 1071), 0);
-          memcpy(*(*(v3 + 435) + 16), *(*(v3 + 508) + 32), *(v3 + 1079));
-          v211 = *(v3 + 435);
-          v529.mSampleTime = *(v3 + 509);
-          v529.mHostTime = v211;
-          v529.mRateScalar = *(v3 + 515);
-          memset(&v529.mWordClockTime, 0, 24);
-          *&v530.mNumberBuffers = *(v3 + 433);
-          *&v530.mBuffers[0].mNumberChannels = 0;
-          v530.mBuffers[0].mData = *(v3 + 504);
-          v212 = *&a2->mRateScalar;
+          AudioUnitSetParameter(Property, 6u, 0, 0, v205, 0);
+          AudioUnitSetParameter(*(v3 + 3144), 7u, 0, 0, *(v3 + 4268), 0);
+          AudioUnitSetParameter(*(v3 + 3144), 0xDu, 0, 0, *(v3 + 4284), 0);
+          memcpy(*(*(v3 + 3480) + 16), *(*(v3 + 4064) + 32), *(v3 + 4316));
+          v209 = *(v3 + 3480);
+          v526.mSampleTime = *(v3 + 4072);
+          v526.mHostTime = v209;
+          v526.mRateScalar = *(v3 + 4120);
+          memset(&v526.mWordClockTime, 0, 24);
+          *&v527.mNumberBuffers = *(v3 + 3464);
+          *&v527.mBuffers[0].mNumberChannels = 0;
+          v527.mBuffers[0].mData = *(v3 + 4032);
+          v210 = *&a2->mRateScalar;
           *&inInputBufferLists.mSampleTime = *&a2->mSampleTime;
-          *&inInputBufferLists.mRateScalar = v212;
-          v213 = *&a2->mSMPTETime.mHours;
+          *&inInputBufferLists.mRateScalar = v210;
+          v211 = *&a2->mSMPTETime.mHours;
           *&inInputBufferLists.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-          *&inInputBufferLists.mSMPTETime.mHours = v213;
-          v519 = 512;
-          Property = AudioUnitProcessMultiple(*(v3 + 393), &v519, &inInputBufferLists, *(v3 + 129), 6u, &v529, 3u, &v530);
-          v214 = *(v3 + 129);
+          *&inInputBufferLists.mSMPTETime.mHours = v211;
+          v516 = 512;
+          Property = AudioUnitProcessMultiple(*(v3 + 3144), &v516, &inInputBufferLists, *(v3 + 516), 6u, &v526, 3u, &v527);
+          v212 = *(v3 + 516);
           if (*(v3 + 15881) & 1) != 0 || (*(v3 + 15882))
           {
-            Property = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x25u, v214, *(v3 + 433), &inInputBufferLists);
-            v214 = *(v3 + 129);
-            v215 = *(v3 + 504);
+            Property = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x25u, v212, *(v3 + 3464), &inInputBufferLists);
+            v212 = *(v3 + 516);
+            v213 = *(v3 + 4032);
             if (*(v3 + 15881))
             {
               goto LABEL_395;
@@ -4577,18 +7022,18 @@ LABEL_315:
 
           else
           {
-            v215 = *(v3 + 504);
+            v213 = *(v3 + 4032);
           }
 
           if (*(v3 + 15882) != 1)
           {
 LABEL_396:
-            v194 = *(v3 + 586);
+            v192 = *(v3 + 4688);
             goto LABEL_397;
           }
 
 LABEL_395:
-          Property = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x52u, v214, v215, &inInputBufferLists);
+          Property = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x52u, v212, v213, &inInputBufferLists);
           goto LABEL_396;
         }
       }
@@ -4596,32 +7041,32 @@ LABEL_395:
   }
 
 LABEL_397:
-  v512 = 0;
-  if ((v194 & 0x40000000) != 0 && (*(v3 + 4707) & 0x40) != 0 && *(v3 + 379))
+  v509 = 0;
+  if ((v192 & 0x40000000) != 0 && (*(v3 + 4707) & 0x40) != 0 && *(v3 + 3032))
   {
-    v216 = 1;
+    v214 = 1;
+    v215 = 1;
+  }
+
+  else if ((v192 & 0x200000000) != 0 && (*(v3 + 4708) & 2) != 0)
+  {
+    v214 = 0;
+    v215 = *(v3 + 3056) != 0;
+  }
+
+  else
+  {
+    v214 = 0;
+    v215 = 0;
+  }
+
+  v216 = v192 & 0x80000000;
+  if ((v192 & 0x80000000) != 0 && (*(v3 + 4707) & 0x80) != 0 && *(v3 + 3040))
+  {
     v217 = 1;
-  }
-
-  else if ((v194 & 0x200000000) != 0 && (*(v3 + 4708) & 2) != 0)
-  {
-    v216 = 0;
-    v217 = *(v3 + 382) != 0;
-  }
-
-  else
-  {
-    v216 = 0;
-    v217 = 0;
-  }
-
-  v218 = v194 & 0x80000000;
-  if ((v194 & 0x80000000) != 0 && (*(v3 + 4707) & 0x80) != 0 && *(v3 + 380))
-  {
-    v219 = 1;
-    v216 = 1;
-    v220 = 1;
-    if ((v194 & 0x100000000) == 0)
+    v214 = 1;
+    v218 = 1;
+    if ((v192 & 0x100000000) == 0)
     {
       goto LABEL_422;
     }
@@ -4629,44 +7074,44 @@ LABEL_397:
 
   else
   {
-    if ((v194 & 0x100000000) == 0)
+    if ((v192 & 0x100000000) == 0)
     {
-      v219 = 0;
-      v220 = 1;
+      v217 = 0;
+      v218 = 1;
       goto LABEL_422;
     }
 
-    v220 = 1;
+    v218 = 1;
     if (*(v3 + 4708))
     {
-      v221 = *(v3 + 381);
-      v219 = v221 != 0;
-      if (v221)
+      v219 = *(v3 + 3048);
+      v217 = v219 != 0;
+      if (v219)
       {
-        v220 = 2;
+        v218 = 2;
       }
 
       else
       {
-        v220 = 1;
+        v218 = 1;
       }
     }
 
     else
     {
-      v219 = 0;
+      v217 = 0;
     }
   }
 
-  v222 = *(v3 + 588);
-  if ((v222 & 0x100000000) != 0 && *(v3 + 381) && (v194 & v222 & 0x200000000) != 0 && *(v3 + 382))
+  v220 = *(v3 + 4704);
+  if ((v220 & 0x100000000) != 0 && *(v3 + 3048) && (v192 & v220 & 0x200000000) != 0 && *(v3 + 3056))
   {
-    v220 = 2;
-    v216 = 2;
+    v218 = 2;
+    v214 = 2;
   }
 
 LABEL_422:
-  if ((v194 & 0x40000000) == 0)
+  if ((v192 & 0x40000000) == 0)
   {
     goto LABEL_439;
   }
@@ -4676,100 +7121,100 @@ LABEL_422:
     goto LABEL_439;
   }
 
-  Property = *(v3 + 379);
+  Property = *(v3 + 3032);
   if (!Property)
   {
     goto LABEL_439;
   }
 
-  AudioUnitSetProperty(Property, 0x457u, 0, 0, v3 + 2332, 4u);
+  AudioUnitSetProperty(Property, 0x457u, 0, 0, (v3 + 2332), 4u);
   if ((*(v3 + 4691) & 0x80) == 0 || (*(v3 + 4707) & 0x80) == 0)
   {
-    v223 = *(v3 + 379);
+    v221 = *(v3 + 3032);
 LABEL_428:
-    v224 = 2.0;
+    v222 = 2.0;
     goto LABEL_429;
   }
 
-  v223 = *(v3 + 379);
-  if (!*(v3 + 380))
+  v221 = *(v3 + 3032);
+  if (!*(v3 + 3040))
   {
     goto LABEL_428;
   }
 
-  v224 = *(v3 + 688);
+  v222 = *(v3 + 2752);
 LABEL_429:
-  AudioUnitSetParameter(v223, 0x1Bu, 0, 0, v224, 0);
-  v225 = *(v3 + 586);
-  if ((v225 & 0x400000) != 0)
+  AudioUnitSetParameter(v221, 0x1Bu, 0, 0, v222, 0);
+  v223 = *(v3 + 4688);
+  if ((v223 & 0x400000) != 0)
   {
-    v226 = *(v3 + 588);
-    if ((v226 & 0x400000) != 0 && *(v3 + 371) && (v225 & v226 & 0x800000) != 0 && *(v3 + 372))
+    v224 = *(v3 + 4704);
+    if ((v224 & 0x400000) != 0 && *(v3 + 2968) && (v223 & v224 & 0x800000) != 0 && *(v3 + 2976))
     {
-      AudioUnitSetParameter(*(v3 + 379), 0x3Fu, 0, 0, *(v3 + 1062) * *(v3 + 1063), 0);
+      AudioUnitSetParameter(*(v3 + 3032), 0x3Fu, 0, 0, *(v3 + 4248) * *(v3 + 4252), 0);
     }
   }
 
-  *&v227 = *(v3 + 139) + 24;
-  *&v228 = *(v3 + 140) + 24;
-  if (**(v3 + 136) <= 2u)
+  *&v225 = *(v3 + 1112) + 24;
+  *&v226 = *(v3 + 1120) + 24;
+  if (**(v3 + 1088) <= 2u)
   {
-    *&v529.mSampleTime = *(v3 + 139) + 24;
-    *&v529.mHostTime = v228;
-    v529.mRateScalar = 0.0;
-    v529.mWordClockTime = v138;
-    *&v529.mSMPTETime.mSubframes = *(v3 + 210);
+    *&v526.mSampleTime = *(v3 + 1112) + 24;
+    *&v526.mHostTime = v226;
+    v526.mRateScalar = 0.0;
+    v526.mWordClockTime = v137;
+    *&v526.mSMPTETime.mSubframes = *(v3 + 3360);
   }
 
   else
   {
-    v229 = *(v3 + 141) + 24;
-    *&v529.mSMPTETime.mSubframes = *(v3 + 210);
-    v529.mSampleTime = v228;
-    v529.mHostTime = v229;
-    v529.mRateScalar = v227;
-    v529.mWordClockTime = v138;
+    v227 = *(v3 + 1128) + 24;
+    *&v526.mSMPTETime.mSubframes = *(v3 + 3360);
+    v526.mSampleTime = v226;
+    v526.mHostTime = v227;
+    v526.mRateScalar = v225;
+    v526.mWordClockTime = v137;
   }
 
-  *&v530.mNumberBuffers = 0;
-  v519 = 512;
-  AudioUnitSetParameter(*(v3 + 379), 0x2Cu, 0, 0, *(v3 + 1098), 0);
-  v230 = *&a2->mRateScalar;
+  *&v527.mNumberBuffers = 0;
+  v516 = 512;
+  AudioUnitSetParameter(*(v3 + 3032), 0x2Cu, 0, 0, *(v3 + 4392), 0);
+  v228 = *&a2->mRateScalar;
   *&inInputBufferLists.mSampleTime = *&a2->mSampleTime;
-  *&inInputBufferLists.mRateScalar = v230;
-  v231 = *&a2->mSMPTETime.mHours;
+  *&inInputBufferLists.mRateScalar = v228;
+  v229 = *&a2->mSMPTETime.mHours;
   *&inInputBufferLists.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-  *&inInputBufferLists.mSMPTETime.mHours = v231;
-  Property = AudioUnitProcessMultiple(*(v3 + 379), &v519, &inInputBufferLists, *(v3 + 129), 6u, &v529, 1u, &v530);
-  v194 = *(v3 + 586);
-  v218 = v194 & 0x80000000;
+  *&inInputBufferLists.mSMPTETime.mHours = v229;
+  Property = AudioUnitProcessMultiple(*(v3 + 3032), &v516, &inInputBufferLists, *(v3 + 516), 6u, &v526, 1u, &v527);
+  v192 = *(v3 + 4688);
+  v216 = v192 & 0x80000000;
 LABEL_439:
-  if (!v218 || (*(v3 + 4707) & 0x80) == 0 || !*(v3 + 380))
+  if (!v216 || (*(v3 + 4707) & 0x80) == 0 || !*(v3 + 3040))
   {
-    if ((v194 & 0x100000000) == 0 || (*(v3 + 4708) & 1) == 0 || !*(v3 + 381))
+    if ((v192 & 0x100000000) == 0 || (*(v3 + 4708) & 1) == 0 || !*(v3 + 3048))
     {
       goto LABEL_476;
     }
 
-    memcpy(*(*(v3 + 436) + 16), *(*(v3 + 430) + 16), 8 * *(v3 + 129));
-    memcpy(*(*(v3 + 436) + 32), *(*(v3 + 510) + 16), 8 * *(v3 + 129));
-    v527 = *(v3 + 436);
-    v240 = *(v3 + 435);
-    v534.realp = *(v3 + 431);
-    v534.imagp = v240;
-    v241 = *&a2->mRateScalar;
+    memcpy(*(*(v3 + 3488) + 16), *(*(v3 + 3440) + 16), 8 * *(v3 + 516));
+    memcpy(*(*(v3 + 3488) + 32), *(*(v3 + 4080) + 16), 8 * *(v3 + 516));
+    v524 = *(v3 + 3488);
+    v238 = *(v3 + 3480);
+    v531.realp = *(v3 + 3448);
+    v531.imagp = v238;
+    v239 = *&a2->mRateScalar;
     *&inInputBufferLists.mSampleTime = *&a2->mSampleTime;
-    *&inInputBufferLists.mRateScalar = v241;
-    v242 = *&a2->mSMPTETime.mHours;
+    *&inInputBufferLists.mRateScalar = v239;
+    v240 = *&a2->mSMPTETime.mHours;
     *&inInputBufferLists.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-    *&inInputBufferLists.mSMPTETime.mHours = v242;
-    Property = AudioUnitProcessMultiple(*(v3 + 381), &v519, &inInputBufferLists, *(v3 + 129), 1u, &v527, 2u, &v534);
-    v243 = *(v3 + 129);
+    *&inInputBufferLists.mSMPTETime.mHours = v240;
+    Property = AudioUnitProcessMultiple(*(v3 + 3048), &v516, &inInputBufferLists, *(v3 + 516), 1u, &v524, 2u, &v531);
+    v241 = *(v3 + 516);
     if (*(v3 + 15881) & 1) != 0 || (*(v3 + 15882))
     {
-      Property = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x18u, v243, v534.realp, &inInputBufferLists);
-      v243 = *(v3 + 129);
-      imagp = v534.imagp;
+      Property = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x18u, v241, v531.realp, &inInputBufferLists);
+      v241 = *(v3 + 516);
+      imagp = v531.imagp;
       if (*(v3 + 15881))
       {
         goto LABEL_460;
@@ -4778,56 +7223,56 @@ LABEL_439:
 
     else
     {
-      imagp = v534.imagp;
+      imagp = v531.imagp;
     }
 
     if (*(v3 + 15882) != 1)
     {
 LABEL_461:
-      if ((*(v3 + 4692) & 2) == 0 || (*(v3 + 4708) & 2) == 0 || !*(v3 + 382))
+      if ((*(v3 + 4692) & 2) == 0 || (*(v3 + 4708) & 2) == 0 || !*(v3 + 3056))
       {
         goto LABEL_476;
       }
 
-      memcpy(*(*(v3 + 437) + 16), *(*(v3 + 430) + 16), 4 * (2 * *(v3 + 129)));
-      memcpy(*(*(v3 + 432) + 16), *(*(v3 + 433) + 16), 4 * (2 * *(v3 + 129)));
-      LODWORD(v525) = 1092616192;
-      v245 = *(v3 + 435);
-      *&v530.mNumberBuffers = *(v3 + 431);
-      *&v530.mBuffers[0].mNumberChannels = v245;
-      v246 = *(v3 + 510);
-      v530.mBuffers[0].mData = *(v3 + 437);
-      v531 = v246;
-      v532 = *(v3 + 432);
-      v247 = *(v3 + 433);
-      v248 = 10.0;
-      v533.realp = *(v3 + 430);
-      v533.imagp = v247;
+      memcpy(*(*(v3 + 3496) + 16), *(*(v3 + 3440) + 16), 4 * (2 * *(v3 + 516)));
+      memcpy(*(*(v3 + 3456) + 16), *(*(v3 + 3464) + 16), 4 * (2 * *(v3 + 516)));
+      LODWORD(v522) = 1092616192;
+      v243 = *(v3 + 3480);
+      *&v527.mNumberBuffers = *(v3 + 3448);
+      *&v527.mBuffers[0].mNumberChannels = v243;
+      v244 = *(v3 + 4080);
+      v527.mBuffers[0].mData = *(v3 + 3496);
+      v528 = v244;
+      v529 = *(v3 + 3456);
+      v245 = *(v3 + 3464);
+      v246 = 10.0;
+      v530.realp = *(v3 + 3440);
+      v530.imagp = v245;
       if ((*(v3 + 4694) & 0x80) != 0 && (*(v3 + 4710) & 0x80) != 0)
       {
-        v249 = *(v3 + 404);
-        if (v249)
+        v247 = *(v3 + 3232);
+        if (v247)
         {
-          AudioUnitGetParameter(v249, 9u, 0, 0, &v525);
-          v248 = *&v525;
+          AudioUnitGetParameter(v247, 9u, 0, 0, &v522);
+          v246 = *&v522;
         }
       }
 
-      AudioUnitSetParameter(*(v3 + 382), 0xAu, 0, 0, v248, 0);
-      AudioUnitSetParameter(*(v3 + 382), 0x17u, 0, 0, *(v3 + 4189), 0);
-      v250 = *&a2->mRateScalar;
-      *&v529.mSampleTime = *&a2->mSampleTime;
-      *&v529.mRateScalar = v250;
-      v251 = *&a2->mSMPTETime.mHours;
-      *&v529.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-      *&v529.mSMPTETime.mHours = v251;
-      Property = AudioUnitProcessMultiple(*(v3 + 382), &v519, &v529, *(v3 + 129), 5u, &v530, 2u, &v533);
-      v235 = *(v3 + 129);
+      AudioUnitSetParameter(*(v3 + 3056), 0xAu, 0, 0, v246, 0);
+      AudioUnitSetParameter(*(v3 + 3056), 0x17u, 0, 0, *(v3 + 16756), 0);
+      v248 = *&a2->mRateScalar;
+      *&v526.mSampleTime = *&a2->mSampleTime;
+      *&v526.mRateScalar = v248;
+      v249 = *&a2->mSMPTETime.mHours;
+      *&v526.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
+      *&v526.mSMPTETime.mHours = v249;
+      Property = AudioUnitProcessMultiple(*(v3 + 3056), &v516, &v526, *(v3 + 516), 5u, &v527, 2u, &v530);
+      v233 = *(v3 + 516);
       if (*(v3 + 15881) & 1) != 0 || (*(v3 + 15882))
       {
-        Property = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x1Au, v235, v533.realp, &v529);
-        v235 = *(v3 + 129);
-        v236 = v533.imagp;
+        Property = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x1Au, v233, v530.realp, &v526);
+        v233 = *(v3 + 516);
+        v234 = v530.imagp;
         if (*(v3 + 15881))
         {
           goto LABEL_475;
@@ -4836,7 +7281,7 @@ LABEL_461:
 
       else
       {
-        v236 = v533.imagp;
+        v234 = v530.imagp;
       }
 
       if (*(v3 + 15882) != 1)
@@ -4845,133 +7290,133 @@ LABEL_461:
       }
 
 LABEL_475:
-      p_inInputBufferLists = &v529;
-      v238 = v3;
-      v239 = 27;
+      p_inInputBufferLists = &v526;
+      v236 = v3;
+      v237 = 27;
       goto LABEL_448;
     }
 
 LABEL_460:
-    Property = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x19u, v243, imagp, &inInputBufferLists);
+    Property = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x19u, v241, imagp, &inInputBufferLists);
     goto LABEL_461;
   }
 
-  memcpy(*(*(v3 + 436) + 16 * *(v3 + 1048) + 16), *(*(v3 + 430) + 16), 4 * (2 * *(v3 + 129)));
-  memcpy(*(*(v3 + 436) + 16 * *(v3 + 1049) + 16), *(*(v3 + 509) + 16), 4 * (2 * *(v3 + 129)));
-  if (*(v3 + 1074) == 0.0 && *(v3 + 1075) == 0.0)
+  memcpy(*(*(v3 + 3488) + 16 * *(v3 + 4192) + 16), *(*(v3 + 3440) + 16), 4 * (2 * *(v3 + 516)));
+  memcpy(*(*(v3 + 3488) + 16 * *(v3 + 4196) + 16), *(*(v3 + 4072) + 16), 4 * (2 * *(v3 + 516)));
+  if (*(v3 + 4296) == 0.0 && *(v3 + 4300) == 0.0)
   {
-    v232 = 0.0;
+    v230 = 0.0;
   }
 
   else
   {
-    v232 = 1.0;
+    v230 = 1.0;
   }
 
-  AudioUnitSetParameter(*(v3 + 380), 0x20u, 0, 0, v232, 0);
-  v529.mSampleTime = *(v3 + 436);
-  *&v530.mNumberBuffers = *(v3 + 431);
-  v233 = *&a2->mRateScalar;
+  AudioUnitSetParameter(*(v3 + 3040), 0x20u, 0, 0, v230, 0);
+  v526.mSampleTime = *(v3 + 3488);
+  *&v527.mNumberBuffers = *(v3 + 3448);
+  v231 = *&a2->mRateScalar;
   *&inInputBufferLists.mSampleTime = *&a2->mSampleTime;
-  *&inInputBufferLists.mRateScalar = v233;
-  v234 = *&a2->mSMPTETime.mHours;
+  *&inInputBufferLists.mRateScalar = v231;
+  v232 = *&a2->mSMPTETime.mHours;
   *&inInputBufferLists.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-  *&inInputBufferLists.mSMPTETime.mHours = v234;
-  v519 = 512;
-  AudioUnitProcessMultiple(*(v3 + 380), &v519, &inInputBufferLists, *(v3 + 129), 1u, &v529, 1u, &v530);
-  LODWORD(v534.realp) = 8 * *(v3 + 129);
-  AudioUnitGetProperty(*(v3 + 380), 0xE7Au, 0, 0, *(*(v3 + 541) + 16), &v534);
-  LODWORD(v534.realp) = 8 * *(v3 + 129);
-  Property = AudioUnitGetProperty(*(v3 + 380), 0xE79u, 0, 0, *(*(v3 + 541) + 32), &v534);
-  v235 = *(v3 + 129);
-  v236 = *(v3 + 431);
+  *&inInputBufferLists.mSMPTETime.mHours = v232;
+  v516 = 512;
+  AudioUnitProcessMultiple(*(v3 + 3040), &v516, &inInputBufferLists, *(v3 + 516), 1u, &v526, 1u, &v527);
+  LODWORD(v531.realp) = 8 * *(v3 + 516);
+  AudioUnitGetProperty(*(v3 + 3040), 0xE7Au, 0, 0, *(*(v3 + 4328) + 16), &v531);
+  LODWORD(v531.realp) = 8 * *(v3 + 516);
+  Property = AudioUnitGetProperty(*(v3 + 3040), 0xE79u, 0, 0, *(*(v3 + 4328) + 32), &v531);
+  v233 = *(v3 + 516);
+  v234 = *(v3 + 3448);
   if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
   {
     p_inInputBufferLists = &inInputBufferLists;
-    v238 = v3;
-    v239 = 10;
+    v236 = v3;
+    v237 = 10;
 LABEL_448:
-    Property = VoiceProcessorV2::SaveFilesWriteSignal(v238, v239, v235, v236, p_inInputBufferLists);
+    Property = VoiceProcessorV2::SaveFilesWriteSignal(v236, v237, v233, v234, p_inInputBufferLists);
   }
 
 LABEL_476:
   MEMORY[0x28223BE20](Property);
-  v252 = (&v501 - 8);
-  *(&v501 - 3) = 0u;
-  *(&v501 - 2) = 0u;
-  *(&v501 - 4) = 0u;
-  *(&v501 - 16) = 3;
-  *&v255 = MEMORY[0x28223BE20](v253);
-  v509 = (&v501 - 8);
-  v500 = 0;
-  *(&v501 - 3) = v255;
-  *(&v501 - 2) = v255;
-  *(&v501 - 4) = v255;
-  *(&v501 - 16) = v256;
-  v257 = *(v3 + 586);
-  if ((v257 & 0x400000000) != 0 && (*(v3 + 4708) & 4) != 0 && *(v3 + 383) || (v257 & 0x800000000) != 0 && (*(v3 + 4708) & 8) != 0 && *(v3 + 384) || (v257 & 0x2000000000) != 0 && (*(v3 + 4708) & 0x20) != 0 && *(v3 + 386))
+  v250 = (&v498 - 8);
+  *(&v498 - 3) = 0u;
+  *(&v498 - 2) = 0u;
+  *(&v498 - 4) = 0u;
+  *(&v498 - 16) = 3;
+  *&v253 = MEMORY[0x28223BE20](v251);
+  v506 = (&v498 - 8);
+  v497 = 0;
+  *(&v498 - 3) = v253;
+  *(&v498 - 2) = v253;
+  *(&v498 - 4) = v253;
+  *(&v498 - 16) = v254;
+  v255 = *(v3 + 4688);
+  if ((v255 & 0x400000000) != 0 && (*(v3 + 4708) & 4) != 0 && *(v3 + 3064) || (v255 & 0x800000000) != 0 && (*(v3 + 4708) & 8) != 0 && *(v3 + 3072) || (v255 & 0x2000000000) != 0 && (*(v3 + 4708) & 0x20) != 0 && *(v3 + 3088))
   {
-    *(&v501 - 7) = *(*(v3 + 430) + 8);
-    *(&v501 - 5) = *(*(v3 + 509) + 8);
-    *(&v501 - 3) = *(*(v3 + 510) + 8);
-    v258 = *(v3 + 508);
-    v259 = v509;
-    v509->mBuffers[0] = *(v258 + 8);
-    *&v259[1].mNumberBuffers = *(v258 + 24);
-    *&v259[1].mBuffers[0].mData = *(v258 + 56);
+    *(&v498 - 7) = *(*(v3 + 3440) + 8);
+    *(&v498 - 5) = *(*(v3 + 4072) + 8);
+    *(&v498 - 3) = *(*(v3 + 4080) + 8);
+    v256 = *(v3 + 4064);
+    v257 = v506;
+    v506->mBuffers[0] = *(v256 + 8);
+    *&v257[1].mNumberBuffers = *(v256 + 24);
+    *&v257[1].mBuffers[0].mData = *(v256 + 56);
   }
 
-  if ((v257 & 0x400000000) != 0 && (*(v3 + 4708) & 4) != 0 && *(v3 + 383))
+  if ((v255 & 0x400000000) != 0 && (*(v3 + 4708) & 4) != 0 && *(v3 + 3064))
   {
-    p_mNumberBuffers = (&v501 - 8);
-    v503 = v220;
-    LODWORD(v504) = v219;
-    LODWORD(v505) = v216;
-    LODWORD(v507) = v217;
-    v260 = 0;
-    v534.realp = *(v3 + 527);
-    LODWORD(v534.imagp) = *(v3 + 1057);
-    v533.realp = *(v3 + 529);
-    LODWORD(v533.imagp) = *(v3 + 1061);
-    v527 = *(v3 + 531);
-    v528 = *(v3 + 1065);
-    v525 = *(v3 + 533);
-    v526 = *(v3 + 1069);
-    v523 = *(v3 + 535);
-    v524 = *(v3 + 1073);
+    p_mNumberBuffers = (&v498 - 8);
+    v500 = v218;
+    LODWORD(v501) = v217;
+    LODWORD(v502) = v214;
+    LODWORD(v504) = v215;
+    v258 = 0;
+    v531.realp = *(v3 + 4216);
+    LODWORD(v531.imagp) = *(v3 + 4228);
+    v530.realp = *(v3 + 4232);
+    LODWORD(v530.imagp) = *(v3 + 4244);
+    v524 = *(v3 + 4248);
+    v525 = *(v3 + 4260);
+    v522 = *(v3 + 4264);
+    v523 = *(v3 + 4276);
+    v520 = *(v3 + 4280);
+    v521 = *(v3 + 4292);
     do
     {
-      AudioUnitSetParameter(*(v3 + 383), 9u, 4u, v260, *(&v534.realp + v260), 0);
-      AudioUnitSetParameter(*(v3 + 383), 0xAu, 4u, v260, *(&v533.realp + v260), 0);
-      AudioUnitSetParameter(*(v3 + 383), 0xBu, 4u, v260, *(&v527 + v260), 0);
-      AudioUnitSetParameter(*(v3 + 383), 0xCu, 4u, v260, *(&v525 + v260), 0);
-      AudioUnitSetParameter(*(v3 + 383), 0xDu, 4u, v260, *(&v523 + v260), 0);
-      ++v260;
+      AudioUnitSetParameter(*(v3 + 3064), 9u, 4u, v258, *(&v531.realp + v258), 0);
+      AudioUnitSetParameter(*(v3 + 3064), 0xAu, 4u, v258, *(&v530.realp + v258), 0);
+      AudioUnitSetParameter(*(v3 + 3064), 0xBu, 4u, v258, *(&v524 + v258), 0);
+      AudioUnitSetParameter(*(v3 + 3064), 0xCu, 4u, v258, *(&v522 + v258), 0);
+      AudioUnitSetParameter(*(v3 + 3064), 0xDu, 4u, v258, *(&v520 + v258), 0);
+      ++v258;
     }
 
-    while (v260 != 3);
-    v252 = p_mNumberBuffers;
-    *&v529.mSampleTime = p_mNumberBuffers;
-    v529.mHostTime = v509;
-    *&v530.mNumberBuffers = p_mNumberBuffers;
-    *&v530.mBuffers[0].mNumberChannels = v509;
-    v519 = 512;
-    v261 = *&a2->mRateScalar;
+    while (v258 != 3);
+    v250 = p_mNumberBuffers;
+    *&v526.mSampleTime = p_mNumberBuffers;
+    v526.mHostTime = v506;
+    *&v527.mNumberBuffers = p_mNumberBuffers;
+    *&v527.mBuffers[0].mNumberChannels = v506;
+    v516 = 512;
+    v259 = *&a2->mRateScalar;
     *&inInputBufferLists.mSampleTime = *&a2->mSampleTime;
-    *&inInputBufferLists.mRateScalar = v261;
-    v262 = *&a2->mSMPTETime.mHours;
+    *&inInputBufferLists.mRateScalar = v259;
+    v260 = *&a2->mSMPTETime.mHours;
     *&inInputBufferLists.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-    *&inInputBufferLists.mSMPTETime.mHours = v262;
-    AudioUnitProcessMultiple(*(v3 + 383), &v519, &inInputBufferLists, *(v3 + 129), 2u, &v529, 2u, &v530);
-    v263 = *(v3 + 129);
+    *&inInputBufferLists.mSMPTETime.mHours = v260;
+    AudioUnitProcessMultiple(*(v3 + 3064), &v516, &inInputBufferLists, *(v3 + 516), 2u, &v526, 2u, &v527);
+    v261 = *(v3 + 516);
     if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
     {
-      VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x6Bu, v263, v252, &inInputBufferLists);
-      v263 = *(v3 + 129);
-      v217 = v507;
-      v216 = v505;
-      v220 = v503;
-      v219 = v504;
+      VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x6Bu, v261, v250, &inInputBufferLists);
+      v261 = *(v3 + 516);
+      v215 = v504;
+      v214 = v502;
+      v218 = v500;
+      v217 = v501;
       if (*(v3 + 15881))
       {
         goto LABEL_497;
@@ -4980,76 +7425,76 @@ LABEL_476:
 
     else
     {
-      v217 = v507;
-      v216 = v505;
-      v220 = v503;
-      v219 = v504;
+      v215 = v504;
+      v214 = v502;
+      v218 = v500;
+      v217 = v501;
     }
 
     if (*(v3 + 15882) != 1)
     {
 LABEL_498:
-      v257 = *(v3 + 586);
+      v255 = *(v3 + 4688);
       goto LABEL_499;
     }
 
 LABEL_497:
-    VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x6Cu, v263, v509, &inInputBufferLists);
+    VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x6Cu, v261, v506, &inInputBufferLists);
     goto LABEL_498;
   }
 
 LABEL_499:
-  if ((v257 & 0x800000000) != 0 && (*(v3 + 4708) & 8) != 0 && *(v3 + 384))
+  if ((v255 & 0x800000000) != 0 && (*(v3 + 4708) & 8) != 0 && *(v3 + 3072))
   {
-    p_mNumberBuffers = &v252->mNumberBuffers;
-    v503 = v220;
-    LODWORD(v504) = v219;
-    LODWORD(v505) = v216;
-    LODWORD(v507) = v217;
-    v264 = 0;
-    v534.realp = *(v3 + 527);
-    LODWORD(v534.imagp) = *(v3 + 1057);
-    v533.realp = *(v3 + 529);
-    LODWORD(v533.imagp) = *(v3 + 1061);
-    v527 = *(v3 + 531);
-    v528 = *(v3 + 1065);
-    v525 = *(v3 + 533);
-    v526 = *(v3 + 1069);
-    v523 = *(v3 + 535);
-    v524 = *(v3 + 1073);
+    p_mNumberBuffers = &v250->mNumberBuffers;
+    v500 = v218;
+    LODWORD(v501) = v217;
+    LODWORD(v502) = v214;
+    LODWORD(v504) = v215;
+    v262 = 0;
+    v531.realp = *(v3 + 4216);
+    LODWORD(v531.imagp) = *(v3 + 4228);
+    v530.realp = *(v3 + 4232);
+    LODWORD(v530.imagp) = *(v3 + 4244);
+    v524 = *(v3 + 4248);
+    v525 = *(v3 + 4260);
+    v522 = *(v3 + 4264);
+    v523 = *(v3 + 4276);
+    v520 = *(v3 + 4280);
+    v521 = *(v3 + 4292);
     do
     {
-      AudioUnitSetParameter(*(v3 + 384), 0x12u, 4u, v264, *(&v534.realp + v264), 0);
-      AudioUnitSetParameter(*(v3 + 384), 0x13u, 4u, v264, *(&v533.realp + v264), 0);
-      AudioUnitSetParameter(*(v3 + 384), 0x14u, 4u, v264, *(&v527 + v264), 0);
-      AudioUnitSetParameter(*(v3 + 384), 0x15u, 4u, v264, *(&v525 + v264), 0);
-      AudioUnitSetParameter(*(v3 + 384), 0x16u, 4u, v264, *(&v523 + v264), 0);
-      ++v264;
+      AudioUnitSetParameter(*(v3 + 3072), 0x12u, 4u, v262, *(&v531.realp + v262), 0);
+      AudioUnitSetParameter(*(v3 + 3072), 0x13u, 4u, v262, *(&v530.realp + v262), 0);
+      AudioUnitSetParameter(*(v3 + 3072), 0x14u, 4u, v262, *(&v524 + v262), 0);
+      AudioUnitSetParameter(*(v3 + 3072), 0x15u, 4u, v262, *(&v522 + v262), 0);
+      AudioUnitSetParameter(*(v3 + 3072), 0x16u, 4u, v262, *(&v520 + v262), 0);
+      ++v262;
     }
 
-    while (v264 != 3);
-    v252 = p_mNumberBuffers;
-    *&v529.mSampleTime = p_mNumberBuffers;
-    v529.mHostTime = v509;
-    *&v530.mNumberBuffers = p_mNumberBuffers;
-    *&v530.mBuffers[0].mNumberChannels = v509;
-    v519 = 512;
-    v265 = *&a2->mRateScalar;
+    while (v262 != 3);
+    v250 = p_mNumberBuffers;
+    *&v526.mSampleTime = p_mNumberBuffers;
+    v526.mHostTime = v506;
+    *&v527.mNumberBuffers = p_mNumberBuffers;
+    *&v527.mBuffers[0].mNumberChannels = v506;
+    v516 = 512;
+    v263 = *&a2->mRateScalar;
     *&inInputBufferLists.mSampleTime = *&a2->mSampleTime;
-    *&inInputBufferLists.mRateScalar = v265;
-    v266 = *&a2->mSMPTETime.mHours;
+    *&inInputBufferLists.mRateScalar = v263;
+    v264 = *&a2->mSMPTETime.mHours;
     *&inInputBufferLists.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-    *&inInputBufferLists.mSMPTETime.mHours = v266;
-    AudioUnitProcessMultiple(*(v3 + 384), &v519, &inInputBufferLists, *(v3 + 129), 2u, &v529, 2u, &v530);
-    v267 = *(v3 + 129);
+    *&inInputBufferLists.mSMPTETime.mHours = v264;
+    AudioUnitProcessMultiple(*(v3 + 3072), &v516, &inInputBufferLists, *(v3 + 516), 2u, &v526, 2u, &v527);
+    v265 = *(v3 + 516);
     if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
     {
-      VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x6Du, v267, v252, &inInputBufferLists);
-      v267 = *(v3 + 129);
-      v217 = v507;
-      v216 = v505;
-      v220 = v503;
-      v219 = v504;
+      VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x6Du, v265, v250, &inInputBufferLists);
+      v265 = *(v3 + 516);
+      v215 = v504;
+      v214 = v502;
+      v218 = v500;
+      v217 = v501;
       if (*(v3 + 15881))
       {
         goto LABEL_510;
@@ -5058,83 +7503,83 @@ LABEL_499:
 
     else
     {
-      v217 = v507;
-      v216 = v505;
-      v220 = v503;
-      v219 = v504;
+      v215 = v504;
+      v214 = v502;
+      v218 = v500;
+      v217 = v501;
     }
 
     if (*(v3 + 15882) != 1)
     {
 LABEL_511:
-      v257 = *(v3 + 586);
+      v255 = *(v3 + 4688);
       goto LABEL_512;
     }
 
 LABEL_510:
-    VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x6Eu, v267, v509, &inInputBufferLists);
+    VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x6Eu, v265, v506, &inInputBufferLists);
     goto LABEL_511;
   }
 
 LABEL_512:
-  if ((v257 & 0x2000000000) != 0 && (*(v3 + 4708) & 0x20) != 0 && *(v3 + 386))
+  if ((v255 & 0x2000000000) != 0 && (*(v3 + 4708) & 0x20) != 0 && *(v3 + 3088))
   {
-    p_mNumberBuffers = &v252->mNumberBuffers;
-    v503 = v220;
-    LODWORD(v504) = v219;
-    LODWORD(v505) = v216;
-    LODWORD(v507) = v217;
-    v268 = 0;
-    v533.realp = *(v3 + 527);
-    LODWORD(v533.imagp) = *(v3 + 1057);
-    v527 = *(v3 + 529);
-    v528 = *(v3 + 1061);
-    v525 = *(v3 + 531);
-    v526 = *(v3 + 1065);
-    v523 = *(v3 + 533);
-    v524 = *(v3 + 1069);
-    v521 = *(v3 + 535);
-    v522 = *(v3 + 1073);
+    p_mNumberBuffers = &v250->mNumberBuffers;
+    v500 = v218;
+    LODWORD(v501) = v217;
+    LODWORD(v502) = v214;
+    LODWORD(v504) = v215;
+    v266 = 0;
+    v530.realp = *(v3 + 4216);
+    LODWORD(v530.imagp) = *(v3 + 4228);
+    v524 = *(v3 + 4232);
+    v525 = *(v3 + 4244);
+    v522 = *(v3 + 4248);
+    v523 = *(v3 + 4260);
+    v520 = *(v3 + 4264);
+    v521 = *(v3 + 4276);
+    v518 = *(v3 + 4280);
+    v519 = *(v3 + 4292);
     do
     {
-      AudioUnitSetParameter(*(v3 + 386), 0x64u, 4u, v268, *(&v533.realp + v268), 0);
-      AudioUnitSetParameter(*(v3 + 386), 0x65u, 4u, v268, *(&v527 + v268), 0);
-      AudioUnitSetParameter(*(v3 + 386), 0x66u, 4u, v268, *(&v525 + v268), 0);
-      AudioUnitSetParameter(*(v3 + 386), 0x67u, 4u, v268, *(&v523 + v268), 0);
-      AudioUnitSetParameter(*(v3 + 386), 0x68u, 4u, v268, *(&v521 + v268), 0);
-      ++v268;
+      AudioUnitSetParameter(*(v3 + 3088), 0x64u, 4u, v266, *(&v530.realp + v266), 0);
+      AudioUnitSetParameter(*(v3 + 3088), 0x65u, 4u, v266, *(&v524 + v266), 0);
+      AudioUnitSetParameter(*(v3 + 3088), 0x66u, 4u, v266, *(&v522 + v266), 0);
+      AudioUnitSetParameter(*(v3 + 3088), 0x67u, 4u, v266, *(&v520 + v266), 0);
+      AudioUnitSetParameter(*(v3 + 3088), 0x68u, 4u, v266, *(&v518 + v266), 0);
+      ++v266;
     }
 
-    while (v268 != 3);
-    *&v530.mNumberBuffers = 1;
-    *&v530.mBuffers[0].mNumberChannels = 0;
-    v530.mBuffers[0].mData = 0;
-    v530.mBuffers[0] = *(*(v3 + 508) + 8);
-    v534.realp = p_mNumberBuffers;
-    v534.imagp = &v509->mNumberBuffers;
-    v529.mSampleTime = *(v3 + 430);
-    v529.mHostTime = &v530;
-    v529.mRateScalar = 0.0;
-    v529.mWordClockTime = 0;
-    v519 = 512;
-    v269 = *&a2->mRateScalar;
+    while (v266 != 3);
+    *&v527.mNumberBuffers = 1;
+    *&v527.mBuffers[0].mNumberChannels = 0;
+    v527.mBuffers[0].mData = 0;
+    v527.mBuffers[0] = *(*(v3 + 4064) + 8);
+    v531.realp = p_mNumberBuffers;
+    v531.imagp = &v506->mNumberBuffers;
+    v526.mSampleTime = *(v3 + 3440);
+    v526.mHostTime = &v527;
+    v526.mRateScalar = 0.0;
+    v526.mWordClockTime = 0;
+    v516 = 512;
+    v267 = *&a2->mRateScalar;
     *&inInputBufferLists.mSampleTime = *&a2->mSampleTime;
-    *&inInputBufferLists.mRateScalar = v269;
-    v270 = *&a2->mSMPTETime.mHours;
+    *&inInputBufferLists.mRateScalar = v267;
+    v268 = *&a2->mSMPTETime.mHours;
     *&inInputBufferLists.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-    *&inInputBufferLists.mSMPTETime.mHours = v270;
-    AudioUnitProcessMultiple(*(v3 + 386), &v519, &inInputBufferLists, *(v3 + 129), 2u, &v534, 4u, &v529);
-    HIDWORD(v511) = 0;
-    AudioUnitGetParameter(*(v3 + 386), 0xAu, 0, 0, &v511 + 1);
-    v271 = *(v3 + 129);
+    *&inInputBufferLists.mSMPTETime.mHours = v268;
+    AudioUnitProcessMultiple(*(v3 + 3088), &v516, &inInputBufferLists, *(v3 + 516), 2u, &v531, 4u, &v526);
+    HIDWORD(v508) = 0;
+    AudioUnitGetParameter(*(v3 + 3088), 0xAu, 0, 0, &v508 + 1);
+    v269 = *(v3 + 516);
     if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
     {
-      VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x66u, v271, *(v3 + 430), &inInputBufferLists);
-      v271 = *(v3 + 129);
-      v217 = v507;
-      v216 = v505;
-      v220 = v503;
-      v219 = v504;
+      VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x66u, v269, *(v3 + 3440), &inInputBufferLists);
+      v269 = *(v3 + 516);
+      v215 = v504;
+      v214 = v502;
+      v218 = v500;
+      v217 = v501;
       if (*(v3 + 15881))
       {
         goto LABEL_523;
@@ -5143,102 +7588,102 @@ LABEL_512:
 
     else
     {
-      v217 = v507;
-      v216 = v505;
-      v220 = v503;
-      v219 = v504;
+      v215 = v504;
+      v214 = v502;
+      v218 = v500;
+      v217 = v501;
     }
 
     if (*(v3 + 15882) != 1)
     {
 LABEL_524:
-      AudioUnitGetParameter(*(v3 + 386), 0x64u, 4u, 0, v3 + 1054);
-      AudioUnitGetParameter(*(v3 + 386), 0x65u, 4u, 0, v3 + 1058);
-      AudioUnitGetParameter(*(v3 + 386), 0x66u, 4u, 0, v3 + 1062);
-      AudioUnitGetParameter(*(v3 + 386), 0x67u, 4u, 0, v3 + 1066);
-      AudioUnitGetParameter(*(v3 + 386), 0x68u, 4u, 0, v3 + 1070);
+      AudioUnitGetParameter(*(v3 + 3088), 0x64u, 4u, 0, (v3 + 4216));
+      AudioUnitGetParameter(*(v3 + 3088), 0x65u, 4u, 0, (v3 + 4232));
+      AudioUnitGetParameter(*(v3 + 3088), 0x66u, 4u, 0, (v3 + 4248));
+      AudioUnitGetParameter(*(v3 + 3088), 0x67u, 4u, 0, (v3 + 4264));
+      AudioUnitGetParameter(*(v3 + 3088), 0x68u, 4u, 0, (v3 + 4280));
       goto LABEL_525;
     }
 
 LABEL_523:
-    VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x67u, v271, &v530, &inInputBufferLists);
+    VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x67u, v269, &v527, &inInputBufferLists);
     goto LABEL_524;
   }
 
 LABEL_525:
-  if (v216 == 2)
+  if (v214 == 2)
   {
-    VoiceProcessorV4::SignalParamSwitchMixNF(v3, v219, v217, &v512);
+    VoiceProcessorV4::SignalParamSwitchMixNF(v3, v217, v215, &v509);
   }
 
-  else if (v216 == 1)
+  else if (v214 == 1)
   {
-    VoiceProcessorV2::SignalParamSwitchMix(v3, v219, v217, &v512, v254);
+    VoiceProcessorV2::SignalParamSwitchMix(v3, v217, v215, &v509, v252);
   }
 
-  if (v220 == 1)
+  if (v218 == 1)
   {
-    VoiceProcessorV2::TimeAlignedReferenceAndOtherHandling(v3, HIBYTE(v518), v516, v219, v512);
+    VoiceProcessorV2::TimeAlignedReferenceAndOtherHandling(v3, HIBYTE(v515), v513, v217, v509);
   }
 
   else
   {
-    VoiceProcessorV4::TimeAlignedReferenceAndOtherHandlingNF(v3, HIBYTE(v518), v514, v219, v512);
+    VoiceProcessorV4::TimeAlignedReferenceAndOtherHandlingNF(v3, HIBYTE(v515), v511, v217, v509);
   }
 
-  LODWORD(v527) = 0;
-  if ((*(v3 + 586) & 0x2000000000000) != 0 && (*(v3 + 588) & 0x2000000000000) != 0)
+  LODWORD(v524) = 0;
+  if ((*(v3 + 4688) & 0x2000000000000) != 0 && (*(v3 + 4704) & 0x2000000000000) != 0)
   {
-    v272 = *(v3 + 398);
-    if (v272)
+    v270 = *(v3 + 3184);
+    if (v270)
     {
-      MEMORY[0x28223BE20](v272);
-      *(&v501 - 3) = 0u;
-      *(&v501 - 2) = 0u;
-      *(&v501 - 4) = 0u;
-      *(&v501 - 16) = 3;
-      *&v275 = MEMORY[0x28223BE20](v273);
-      v500 = 0;
-      *(&v501 - 3) = v275;
-      *(&v501 - 2) = v275;
-      *(&v501 - 4) = v275;
-      *(&v501 - 16) = v276;
-      *(v277 - 56) = *(*(v3 + 430) + 8);
-      *(v277 - 40) = *(*(v3 + 433) + 8);
-      *(v277 - 24) = *(*(v3 + 2179) + 8);
-      v278 = *(v3 + 508);
-      *(&v501 - 7) = *(v278 + 8);
-      *(&v501 - 5) = *(v278 + 24);
-      *(&v501 - 3) = *(v278 + 40);
-      v529.mSampleTime = v279;
-      v529.mHostTime = (&v501 - 8);
-      *&v530.mNumberBuffers = *(v3 + 1090);
-      if ((v280 & v281 & 0x400000000000000) != 0)
+      MEMORY[0x28223BE20](v270);
+      *(&v498 - 3) = 0u;
+      *(&v498 - 2) = 0u;
+      *(&v498 - 4) = 0u;
+      *(&v498 - 16) = 3;
+      *&v273 = MEMORY[0x28223BE20](v271);
+      v497 = 0;
+      *(&v498 - 3) = v273;
+      *(&v498 - 2) = v273;
+      *(&v498 - 4) = v273;
+      *(&v498 - 16) = v274;
+      *(v275 - 56) = *(*(v3 + 3440) + 8);
+      *(v275 - 40) = *(*(v3 + 3464) + 8);
+      *(v275 - 24) = *(*(v3 + 17432) + 8);
+      v276 = *(v3 + 4064);
+      *(&v498 - 7) = *(v276 + 8);
+      *(&v498 - 5) = *(v276 + 24);
+      *(&v498 - 3) = *(v276 + 40);
+      v526.mSampleTime = v277;
+      v526.mHostTime = (&v498 - 8);
+      *&v527.mNumberBuffers = *(v3 + 17440);
+      if ((v278 & v279 & 0x400000000000000) != 0)
       {
-        v282 = *(v3 + 407);
-        if (v282)
+        v280 = *(v3 + 3256);
+        if (v280)
         {
           LODWORD(inInputBufferLists.mSampleTime) = 0;
-          AudioUnitGetParameter(v282, 0, 0, 0, &inInputBufferLists);
-          AudioUnitSetParameter(*(v3 + 398), 0, 0, 0, *&inInputBufferLists.mSampleTime, 0);
-          AudioUnitGetParameter(*(v3 + 398), 0xDu, 0, 0, &v527);
-          v274 = *(v3 + 398);
+          AudioUnitGetParameter(v280, 0, 0, 0, &inInputBufferLists);
+          AudioUnitSetParameter(*(v3 + 3184), 0, 0, 0, *&inInputBufferLists.mSampleTime, 0);
+          AudioUnitGetParameter(*(v3 + 3184), 0xDu, 0, 0, &v524);
+          v272 = *(v3 + 3184);
         }
       }
 
-      v283 = *&a2->mRateScalar;
+      v281 = *&a2->mRateScalar;
       *&inInputBufferLists.mSampleTime = *&a2->mSampleTime;
-      *&inInputBufferLists.mRateScalar = v283;
-      v284 = *&a2->mSMPTETime.mHours;
+      *&inInputBufferLists.mRateScalar = v281;
+      v282 = *&a2->mSMPTETime.mHours;
       *&inInputBufferLists.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-      *&inInputBufferLists.mSMPTETime.mHours = v284;
-      AudioUnitProcessMultiple(v274, &v519, &inInputBufferLists, *(v3 + 129), 2u, &v529, 2u, &v530);
-      v285 = *(v3 + 129);
+      *&inInputBufferLists.mSMPTETime.mHours = v282;
+      AudioUnitProcessMultiple(v272, &v516, &inInputBufferLists, *(v3 + 516), 2u, &v526, 2u, &v527);
+      v283 = *(v3 + 516);
       if (*(v3 + 15881) & 1) != 0 || (*(v3 + 15882))
       {
-        VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x81u, v285, *(v3 + 2180), &inInputBufferLists);
-        v285 = *(v3 + 129);
-        v286 = *(v3 + 2181);
+        VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x81u, v283, *(v3 + 17440), &inInputBufferLists);
+        v283 = *(v3 + 516);
+        v284 = *(v3 + 17448);
         if (*(v3 + 15881))
         {
           goto LABEL_544;
@@ -5247,103 +7692,103 @@ LABEL_525:
 
       else
       {
-        v286 = *(v3 + 2181);
+        v284 = *(v3 + 17448);
       }
 
       if (*(v3 + 15882) == 1)
       {
 LABEL_544:
-        VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x82u, v285, v286, &inInputBufferLists);
+        VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x82u, v283, v284, &inInputBufferLists);
       }
     }
   }
 
-  v287 = memcpy(*(*(v3 + 434) + 16), *(*(v3 + 508) + 16), *(v3 + 1079));
-  v288 = *(v3 + 586);
-  if ((v288 & 0x1000000) != 0 && (*(v3 + 4707) & 1) != 0 && *(v3 + 373) && v513 == 1.0)
+  v285 = memcpy(*(*(v3 + 3472) + 16), *(*(v3 + 4064) + 16), *(v3 + 4316));
+  v286 = *(v3 + 4688);
+  if ((v286 & 0x1000000) != 0 && (*(v3 + 4707) & 1) != 0 && *(v3 + 2984) && v510 == 1.0)
   {
-    v287 = memcpy(*(*(v3 + 2143) + 16), *(*(v3 + 508) + 48), *(v3 + 1079));
-    v288 = *(v3 + 586);
+    v285 = memcpy(*(*(v3 + 17144) + 16), *(*(v3 + 4064) + 48), *(v3 + 4316));
+    v286 = *(v3 + 4688);
   }
 
-  if ((v288 & 0x400000000000) != 0)
+  if ((v286 & 0x400000000000) != 0)
   {
-    v289 = *(v3 + 588);
-    if ((v289 & 0x400000000000) != 0)
+    v287 = *(v3 + 4704);
+    if ((v287 & 0x400000000000) != 0)
     {
-      if (*(v3 + 395))
+      if (*(v3 + 3160))
       {
-        LODWORD(v534.realp) = 1092616192;
-        if ((v288 & v289 & 0x80000000000000) != 0)
+        LODWORD(v531.realp) = 1092616192;
+        if ((v286 & v287 & 0x80000000000000) != 0)
         {
-          v287 = *(v3 + 404);
-          if (v287)
+          v285 = *(v3 + 3232);
+          if (v285)
           {
-            v287 = AudioUnitGetParameter(v287, 9u, 0, 0, &v534);
-            v288 = *(v3 + 586);
+            v285 = AudioUnitGetParameter(v285, 9u, 0, 0, &v531);
+            v286 = *(v3 + 4688);
           }
         }
 
-        if ((v288 & 0x100000000) != 0 && (*(v3 + 4708) & 1) != 0 && *(v3 + 381))
+        if ((v286 & 0x100000000) != 0 && (*(v3 + 4708) & 1) != 0 && *(v3 + 3048))
         {
           LODWORD(inInputBufferLists.mSampleTime) = 0;
-          LODWORD(v529.mSampleTime) = 0;
-          v530.mNumberBuffers = 0;
-          AudioUnitGetParameter(*(v3 + 382), 0x18u, 0, 0, &inInputBufferLists);
-          AudioUnitGetParameter(*(v3 + 382), 0x19u, 0, 0, &v529);
-          AudioUnitGetParameter(*(v3 + 382), 5u, 0, 0, &v530.mNumberBuffers);
-          AudioUnitSetParameter(*(v3 + 395), 3u, 0, 0, *&inInputBufferLists.mSampleTime, 0);
-          AudioUnitSetParameter(*(v3 + 395), 4u, 0, 0, *&v529.mSampleTime, 0);
-          AudioUnitSetParameter(*(v3 + 395), 5u, 0, 0, *&v530.mNumberBuffers, 0);
-          v287 = AudioUnitSetParameter(*(v3 + 395), 6u, 0, 0, *&v534.realp, 0);
+          LODWORD(v526.mSampleTime) = 0;
+          v527.mNumberBuffers = 0;
+          AudioUnitGetParameter(*(v3 + 3056), 0x18u, 0, 0, &inInputBufferLists);
+          AudioUnitGetParameter(*(v3 + 3056), 0x19u, 0, 0, &v526);
+          AudioUnitGetParameter(*(v3 + 3056), 5u, 0, 0, &v527.mNumberBuffers);
+          AudioUnitSetParameter(*(v3 + 3160), 3u, 0, 0, *&inInputBufferLists.mSampleTime, 0);
+          AudioUnitSetParameter(*(v3 + 3160), 4u, 0, 0, *&v526.mSampleTime, 0);
+          AudioUnitSetParameter(*(v3 + 3160), 5u, 0, 0, *&v527.mNumberBuffers, 0);
+          v285 = AudioUnitSetParameter(*(v3 + 3160), 6u, 0, 0, *&v531.realp, 0);
         }
 
-        MEMORY[0x28223BE20](v287);
-        v500 = 0;
-        *(&v501 - 3) = 0u;
-        *(&v501 - 2) = 0u;
-        *(&v501 - 12) = 2;
-        v290 = *(v3 + 430);
-        *(&v501 - 4) = *(v290 + 16);
-        *(&v501 - 5) = *(v290 + 8);
-        v291 = *(v3 + 433);
-        v500 = *(v291 + 16);
-        *(&v501 - 3) = *(v291 + 8);
-        *&v293 = MEMORY[0x28223BE20](v292);
-        *(&v501 - 3) = v293;
-        *(&v501 - 2) = v293;
-        *(&v501 - 12) = v294;
-        MEMORY[0x28223BE20](v295);
-        *(&v501 - 3) = 0;
-        v500 = 0;
-        *(&v501 - 4) = 0;
-        *(&v501 - 8) = 1;
-        v296 = *(v3 + 434);
-        *(v297 - 32) = *(v296 + 16);
-        *(v297 - 40) = *(v296 + 8);
-        v298 = *(v3 + 508);
-        *(v297 - 16) = *(v298 + 32);
-        *(v297 - 24) = *(v298 + 24);
-        v500 = *(v296 + 16);
-        *(&v501 - 3) = *(v296 + 8);
-        v529.mSampleTime = v299;
-        v529.mHostTime = v300;
-        *&v530.mNumberBuffers = v299;
-        *&v530.mBuffers[0].mNumberChannels = &v501 - 4;
-        v301 = *&a2->mRateScalar;
+        MEMORY[0x28223BE20](v285);
+        v497 = 0;
+        *(&v498 - 3) = 0u;
+        *(&v498 - 2) = 0u;
+        *(&v498 - 12) = 2;
+        v288 = *(v3 + 3440);
+        *(&v498 - 4) = *(v288 + 16);
+        *(&v498 - 5) = *(v288 + 8);
+        v289 = *(v3 + 3464);
+        v497 = *(v289 + 16);
+        *(&v498 - 3) = *(v289 + 8);
+        *&v291 = MEMORY[0x28223BE20](v290);
+        *(&v498 - 3) = v291;
+        *(&v498 - 2) = v291;
+        *(&v498 - 12) = v292;
+        MEMORY[0x28223BE20](v293);
+        *(&v498 - 3) = 0;
+        v497 = 0;
+        *(&v498 - 4) = 0;
+        *(&v498 - 8) = 1;
+        v294 = *(v3 + 3472);
+        *(v295 - 32) = *(v294 + 16);
+        *(v295 - 40) = *(v294 + 8);
+        v296 = *(v3 + 4064);
+        *(v295 - 16) = *(v296 + 32);
+        *(v295 - 24) = *(v296 + 24);
+        v497 = *(v294 + 16);
+        *(&v498 - 3) = *(v294 + 8);
+        v526.mSampleTime = v297;
+        v526.mHostTime = v298;
+        *&v527.mNumberBuffers = v297;
+        *&v527.mBuffers[0].mNumberChannels = &v498 - 4;
+        v299 = *&a2->mRateScalar;
         *&inInputBufferLists.mSampleTime = *&a2->mSampleTime;
-        *&inInputBufferLists.mRateScalar = v301;
-        v302 = *&a2->mSMPTETime.mHours;
+        *&inInputBufferLists.mRateScalar = v299;
+        v300 = *&a2->mSMPTETime.mHours;
         *&inInputBufferLists.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-        *&inInputBufferLists.mSMPTETime.mHours = v302;
-        v519 = 512;
-        AudioUnitProcessMultiple(*(v3 + 395), &v519, &inInputBufferLists, *(v3 + 129), 2u, &v529, 2u, &v530);
-        v303 = *(v3 + 129);
+        *&inInputBufferLists.mSMPTETime.mHours = v300;
+        v516 = 512;
+        AudioUnitProcessMultiple(*(v3 + 3160), &v516, &inInputBufferLists, *(v3 + 516), 2u, &v526, 2u, &v527);
+        v301 = *(v3 + 516);
         if (*(v3 + 15881) & 1) != 0 || (*(v3 + 15882))
         {
-          VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x83u, v303, *(v3 + 430), &inInputBufferLists);
-          v303 = *(v3 + 129);
-          v304 = *(v3 + 433);
+          VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x83u, v301, *(v3 + 3440), &inInputBufferLists);
+          v301 = *(v3 + 516);
+          v302 = *(v3 + 3464);
           if (*(v3 + 15881))
           {
             goto LABEL_566;
@@ -5352,163 +7797,163 @@ LABEL_544:
 
         else
         {
-          v304 = *(v3 + 433);
+          v302 = *(v3 + 3464);
         }
 
         if (*(v3 + 15882) != 1)
         {
 LABEL_567:
-          v288 = *(v3 + 586);
+          v286 = *(v3 + 4688);
           goto LABEL_568;
         }
 
 LABEL_566:
-        VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x84u, v303, v304, &inInputBufferLists);
+        VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x84u, v301, v302, &inInputBufferLists);
         goto LABEL_567;
       }
     }
   }
 
 LABEL_568:
-  if ((v288 & 0x800000000000) != 0 && (*(v3 + 588) & 0x800000000000) != 0)
+  if ((v286 & 0x800000000000) != 0 && (*(v3 + 4704) & 0x800000000000) != 0)
   {
-    v305 = *(v3 + 396);
-    if (v305)
+    v303 = *(v3 + 3168);
+    if (v303)
     {
-      MEMORY[0x28223BE20](v305);
-      *(&v501 - 3) = 0u;
-      *(&v501 - 2) = 0u;
-      *(&v501 - 12) = 2;
-      *&v307 = MEMORY[0x28223BE20](v306);
-      v500 = 0;
-      *(&v501 - 3) = v307;
-      *(&v501 - 2) = v307;
-      *(&v501 - 12) = v308;
-      *(v309 - 40) = *(*(v3 + 430) + 8);
-      *(v309 - 24) = *(*(v3 + 2180) + 8);
-      *(&v501 - 5) = *(*(v3 + 508) + 8);
-      *(&v501 - 3) = *(*(v3 + 2181) + 8);
-      *&v311 = MEMORY[0x28223BE20](v310);
-      *(&v501 - 3) = v311;
-      *(&v501 - 2) = v311;
-      *(&v501 - 12) = v312;
-      *&v315 = MEMORY[0x28223BE20](v313);
-      v500 = 0;
-      *(&v501 - 3) = v315;
-      *(&v501 - 2) = v315;
-      *(&v501 - 12) = v316;
-      v317 = *(v3 + 2182);
-      *(v318 - 40) = *(v317 + 8);
-      *(v318 - 24) = *(v317 + 24);
-      *(&v501 - 5) = *(v317 + 40);
-      *(&v501 - 3) = *(v317 + 56);
-      if ((v319 & v320 & 0x2000000000000) != 0)
+      MEMORY[0x28223BE20](v303);
+      *(&v498 - 3) = 0u;
+      *(&v498 - 2) = 0u;
+      *(&v498 - 12) = 2;
+      *&v305 = MEMORY[0x28223BE20](v304);
+      v497 = 0;
+      *(&v498 - 3) = v305;
+      *(&v498 - 2) = v305;
+      *(&v498 - 12) = v306;
+      *(v307 - 40) = *(*(v3 + 3440) + 8);
+      *(v307 - 24) = *(*(v3 + 17440) + 8);
+      *(&v498 - 5) = *(*(v3 + 4064) + 8);
+      *(&v498 - 3) = *(*(v3 + 17448) + 8);
+      *&v309 = MEMORY[0x28223BE20](v308);
+      *(&v498 - 3) = v309;
+      *(&v498 - 2) = v309;
+      *(&v498 - 12) = v310;
+      *&v313 = MEMORY[0x28223BE20](v311);
+      v497 = 0;
+      *(&v498 - 3) = v313;
+      *(&v498 - 2) = v313;
+      *(&v498 - 12) = v314;
+      v315 = *(v3 + 17456);
+      *(v316 - 40) = *(v315 + 8);
+      *(v316 - 24) = *(v315 + 24);
+      *(&v498 - 5) = *(v315 + 40);
+      *(&v498 - 3) = *(v315 + 56);
+      if ((v317 & v318 & 0x2000000000000) != 0)
       {
-        v321 = *(v3 + 398);
-        if (v321)
+        v319 = *(v3 + 3184);
+        if (v319)
         {
           LODWORD(inInputBufferLists.mSampleTime) = 0;
-          AudioUnitGetParameter(v321, 1u, 0, 0, &inInputBufferLists);
-          AudioUnitSetParameter(*(v3 + 396), 0, 4u, 0, *&inInputBufferLists.mSampleTime, 0);
-          AudioUnitSetParameter(*(v3 + 399), 0, 0, 0, *&inInputBufferLists.mSampleTime, 0);
-          v314 = *(v3 + 396);
+          AudioUnitGetParameter(v319, 1u, 0, 0, &inInputBufferLists);
+          AudioUnitSetParameter(*(v3 + 3168), 0, 4u, 0, *&inInputBufferLists.mSampleTime, 0);
+          AudioUnitSetParameter(*(v3 + 3192), 0, 0, 0, *&inInputBufferLists.mSampleTime, 0);
+          v312 = *(v3 + 3168);
         }
       }
 
-      *&v529.mSampleTime = &v501 - 6;
-      v529.mHostTime = (&v501 - 6);
-      *&v530.mNumberBuffers = &v501 - 6;
-      *&v530.mBuffers[0].mNumberChannels = &v501 - 6;
-      v322 = *&a2->mRateScalar;
+      *&v526.mSampleTime = &v498 - 6;
+      v526.mHostTime = (&v498 - 6);
+      *&v527.mNumberBuffers = &v498 - 6;
+      *&v527.mBuffers[0].mNumberChannels = &v498 - 6;
+      v320 = *&a2->mRateScalar;
       *&inInputBufferLists.mSampleTime = *&a2->mSampleTime;
-      *&inInputBufferLists.mRateScalar = v322;
-      v323 = *&a2->mSMPTETime.mHours;
+      *&inInputBufferLists.mRateScalar = v320;
+      v321 = *&a2->mSMPTETime.mHours;
       *&inInputBufferLists.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-      *&inInputBufferLists.mSMPTETime.mHours = v323;
-      v519 = 512;
-      AudioUnitProcessMultiple(v314, &v519, &inInputBufferLists, *(v3 + 129), 2u, &v529, 2u, &v530);
+      *&inInputBufferLists.mSMPTETime.mHours = v321;
+      v516 = 512;
+      AudioUnitProcessMultiple(v312, &v516, &inInputBufferLists, *(v3 + 516), 2u, &v526, 2u, &v527);
       if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
       {
-        VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x85u, *(v3 + 129), *(v3 + 2182), &inInputBufferLists);
+        VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x85u, *(v3 + 516), *(v3 + 17456), &inInputBufferLists);
       }
 
-      v288 = *(v3 + 586);
+      v286 = *(v3 + 4688);
     }
   }
 
-  if ((v288 & 0x4000000000000) != 0)
+  if ((v286 & 0x4000000000000) != 0)
   {
-    v324 = *(v3 + 588);
-    if ((v324 & 0x4000000000000) != 0)
+    v322 = *(v3 + 4704);
+    if ((v322 & 0x4000000000000) != 0)
     {
-      v325 = *(v3 + 399);
-      if (v325)
+      v323 = *(v3 + 3192);
+      if (v323)
       {
-        if ((v288 & v324 & 0x800000000000) != 0 && *(v3 + 396))
+        if ((v286 & v322 & 0x800000000000) != 0 && *(v3 + 3168))
         {
-          MEMORY[0x28223BE20](v325);
-          v500 = 0;
-          *(&v501 - 3) = 0u;
-          *(&v501 - 2) = 0u;
-          *(&v501 - 12) = 2;
-          v326 = *(v3 + 2182);
-          *(&v501 - 5) = *(v326 + 8);
-          *(&v501 - 3) = *(v326 + 24);
-          *&v529.mSampleTime = &v501 - 6;
-          *&v530.mNumberBuffers = *(v3 + 433);
-          v327 = *&a2->mRateScalar;
+          MEMORY[0x28223BE20](v323);
+          v497 = 0;
+          *(&v498 - 3) = 0u;
+          *(&v498 - 2) = 0u;
+          *(&v498 - 12) = 2;
+          v324 = *(v3 + 17456);
+          *(&v498 - 5) = *(v324 + 8);
+          *(&v498 - 3) = *(v324 + 24);
+          *&v526.mSampleTime = &v498 - 6;
+          *&v527.mNumberBuffers = *(v3 + 3464);
+          v325 = *&a2->mRateScalar;
           *&inInputBufferLists.mSampleTime = *&a2->mSampleTime;
-          *&inInputBufferLists.mRateScalar = v327;
-          v328 = *&a2->mSMPTETime.mHours;
+          *&inInputBufferLists.mRateScalar = v325;
+          v326 = *&a2->mSMPTETime.mHours;
           *&inInputBufferLists.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-          *&inInputBufferLists.mSMPTETime.mHours = v328;
-          v519 = 512;
-          AudioUnitProcessMultiple(v329, &v519, &inInputBufferLists, *(v3 + 129), 1u, &v529, 1u, &v530);
+          *&inInputBufferLists.mSMPTETime.mHours = v326;
+          v516 = 512;
+          AudioUnitProcessMultiple(v327, &v516, &inInputBufferLists, *(v3 + 516), 1u, &v526, 1u, &v527);
           if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
           {
-            VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x87u, *(v3 + 129), *(v3 + 433), &inInputBufferLists);
+            VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x87u, *(v3 + 516), *(v3 + 3464), &inInputBufferLists);
           }
 
-          v288 = *(v3 + 586);
+          v286 = *(v3 + 4688);
         }
       }
     }
   }
 
-  if ((v288 & 0x40000000000000) != 0 && (*(v3 + 4710) & 0x40) != 0 && *(v3 + 403))
+  if ((v286 & 0x40000000000000) != 0 && (*(v3 + 4710) & 0x40) != 0 && *(v3 + 3224))
   {
-    v330 = 1;
+    v328 = 1;
   }
 
   else
   {
-    v330 = (v288 & 0x80000000000000) != 0 && (*(v3 + 4710) & 0x80) != 0 && *(v3 + 404) != 0;
+    v328 = (v286 & 0x80000000000000) != 0 && (*(v3 + 4710) & 0x80) != 0 && *(v3 + 3232) != 0;
   }
 
-  LODWORD(v525) = 0;
-  LODWORD(v523) = 0;
-  v331 = AudioUnitGetParameter(*(v3 + 392), 0x1Du, 0, 0, &v525);
-  v332 = *&v525 < 1.0 && v330;
-  if (v330)
+  LODWORD(v522) = 0;
+  LODWORD(v520) = 0;
+  v329 = AudioUnitGetParameter(*(v3 + 3136), 0x1Du, 0, 0, &v522);
+  v330 = *&v522 < 1.0 && v328;
+  if (v328)
   {
     LODWORD(inInputBufferLists.mSampleTime) = 1065353216;
-    if (*&v525 < 1.0)
+    if (*&v522 < 1.0)
     {
-      vDSP_vfill(&inInputBufferLists, *(*(v3 + 505) + 16), 1, *(v3 + 129));
+      vDSP_vfill(&inInputBufferLists, *(*(v3 + 4040) + 16), 1, *(v3 + 516));
     }
 
-    vDSP_vfill(&inInputBufferLists, *(*(v3 + 503) + 16), 1, *(v3 + 129));
-    v333 = *(v3 + 586);
+    vDSP_vfill(&inInputBufferLists, *(*(v3 + 4024) + 16), 1, *(v3 + 516));
+    v331 = *(v3 + 4688);
   }
 
   else
   {
-    v333 = *(v3 + 586);
-    if ((v333 & 0x80000000000) == 0 || (*(v3 + 4709) & 8) == 0 || !*(v3 + 392))
+    v331 = *(v3 + 4688);
+    if ((v331 & 0x80000000000) == 0 || (*(v3 + 4709) & 8) == 0 || !*(v3 + 3136))
     {
 LABEL_613:
-      LODWORD(v509) = 0;
-      if ((v333 & 0x8000000000000) == 0)
+      LODWORD(v506) = 0;
+      if ((v331 & 0x8000000000000) == 0)
       {
         goto LABEL_624;
       }
@@ -5517,347 +7962,347 @@ LABEL_613:
     }
   }
 
-  if ((v333 & 0x1000000000000) != 0 && (*(v3 + 4710) & 1) != 0 && *(v3 + 397))
+  if ((v331 & 0x1000000000000) != 0 && (*(v3 + 4710) & 1) != 0 && *(v3 + 3176))
   {
     goto LABEL_613;
   }
 
   if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
   {
-    v331 = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x63u, *(v3 + 129), *(v3 + 430), &buf);
-    v333 = *(v3 + 586);
+    v329 = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x63u, *(v3 + 516), *(v3 + 3440), &buf);
+    v331 = *(v3 + 4688);
   }
 
-  LODWORD(v509) = 1;
-  if ((v333 & 0x8000000000000) != 0)
+  LODWORD(v506) = 1;
+  if ((v331 & 0x8000000000000) != 0)
   {
 LABEL_614:
     if ((*(v3 + 4710) & 8) != 0)
     {
-      v331 = *(v3 + 400);
-      if (v331)
+      v329 = *(v3 + 3200);
+      if (v329)
       {
-        v519 = 512;
-        inInputBufferLists.mSampleTime = *(v3 + 430);
-        v529.mSampleTime = *(v3 + 431);
-        v331 = AudioUnitProcessMultiple(v331, &v519, &buf, *(v3 + 129), 1u, &inInputBufferLists, 1u, &v529);
-        v334 = *(v3 + 2156);
-        v337 = *(v334 + 12);
-        v335 = v334 + 12;
-        v336 = v337;
-        v338 = *(v335 + 4);
-        if (v331 || (v331 = AudioUnitGetProperty(*(v3 + 400), 0x3ECu, 0, 0, *(v335 + 4), v335), v331))
+        v516 = 512;
+        inInputBufferLists.mSampleTime = *(v3 + 3440);
+        v526.mSampleTime = *(v3 + 3448);
+        v329 = AudioUnitProcessMultiple(v329, &v516, &buf, *(v3 + 516), 1u, &inInputBufferLists, 1u, &v526);
+        v332 = *(v3 + 17248);
+        v335 = *(v332 + 12);
+        v333 = v332 + 12;
+        v334 = v335;
+        v336 = *(v333 + 4);
+        if (v329 || (v329 = AudioUnitGetProperty(*(v3 + 3200), 0x3ECu, 0, 0, *(v333 + 4), v333), v329))
         {
-          if (v336 >= 4)
+          if (v334 >= 4)
           {
-            memset_pattern16(v338, &unk_2727568B0, v336 & 0xFFFFFFFC);
+            memset_pattern16(v336, &unk_2727568B0, v334 & 0xFFFFFFFC);
           }
         }
 
         if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
         {
-          v331 = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x74u, *(v3 + 129), *(v3 + 430), &buf);
+          v329 = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x74u, *(v3 + 516), *(v3 + 3440), &buf);
         }
 
-        v333 = *(v3 + 586);
+        v331 = *(v3 + 4688);
       }
     }
   }
 
 LABEL_624:
-  v507 = *(v3 + 2214);
-  if ((v333 & 0x40000000000000) != 0 && (*(v3 + 4710) & 0x40) != 0)
+  v504 = *(v3 + 17712);
+  if ((v331 & 0x40000000000000) != 0 && (*(v3 + 4710) & 0x40) != 0)
   {
-    v331 = *(v3 + 403);
-    if (v331)
+    v329 = *(v3 + 3224);
+    if (v329)
     {
-      v339 = *(v3 + 503);
-      v529.mSampleTime = *(v3 + 430);
-      v529.mHostTime = v339;
-      *&v529.mRateScalar = v3 + 16904;
-      v340 = *(v3 + 505);
-      *&v530.mNumberBuffers = *(v3 + 431);
-      *&v530.mBuffers[0].mNumberChannels = v340;
-      v530.mBuffers[0].mData = v507;
-      v519 = 512;
-      v341 = *&a2->mRateScalar;
+      v337 = *(v3 + 4024);
+      v526.mSampleTime = *(v3 + 3440);
+      v526.mHostTime = v337;
+      *&v526.mRateScalar = v3 + 16904;
+      v338 = *(v3 + 4040);
+      *&v527.mNumberBuffers = *(v3 + 3448);
+      *&v527.mBuffers[0].mNumberChannels = v338;
+      v527.mBuffers[0].mData = v504;
+      v516 = 512;
+      v339 = *&a2->mRateScalar;
       *&inInputBufferLists.mSampleTime = *&a2->mSampleTime;
-      *&inInputBufferLists.mRateScalar = v341;
-      v342 = *&a2->mSMPTETime.mHours;
+      *&inInputBufferLists.mRateScalar = v339;
+      v340 = *&a2->mSMPTETime.mHours;
       *&inInputBufferLists.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-      *&inInputBufferLists.mSMPTETime.mHours = v342;
-      AudioUnitProcessMultiple(v331, &v519, &inInputBufferLists, *(v3 + 129), 3u, &v529, 3u, &v530);
-      AudioUnitGetParameter(*(v3 + 403), 1u, 0, 0, &v520);
-      v331 = AudioUnitGetParameter(*(v3 + 403), 1u, 0, 0, v3 + 4377);
-      if ((*(v3 + 4696) & 2) == 0 || (*(v3 + 4712) & 2) == 0 || !*(v3 + 414))
+      *&inInputBufferLists.mSMPTETime.mHours = v340;
+      AudioUnitProcessMultiple(v329, &v516, &inInputBufferLists, *(v3 + 516), 3u, &v526, 3u, &v527);
+      AudioUnitGetParameter(*(v3 + 3224), 1u, 0, 0, &v517);
+      v329 = AudioUnitGetParameter(*(v3 + 3224), 1u, 0, 0, (v3 + 17508));
+      if ((*(v3 + 4696) & 2) == 0 || (*(v3 + 4712) & 2) == 0 || !*(v3 + 3312))
       {
         goto LABEL_639;
       }
 
-      v343 = *(v3 + 403);
-      v344 = 2;
+      v341 = *(v3 + 3224);
+      v342 = 2;
       goto LABEL_638;
     }
   }
 
-  if ((v333 & 0x80000000000000) == 0 || (*(v3 + 4710) & 0x80) == 0 || (v331 = *(v3 + 404)) == 0)
+  if ((v331 & 0x80000000000000) == 0 || (*(v3 + 4710) & 0x80) == 0 || (v329 = *(v3 + 3232)) == 0)
   {
-    v350 = 0;
+    v348 = 0;
     goto LABEL_644;
   }
 
-  MEMORY[0x28223BE20](v331);
-  *(&v501 - 3) = 0;
-  v500 = 0;
-  *(&v501 - 4) = 0;
-  *(&v501 - 8) = 1;
-  *(&v501 - 3) = *(*(v3 + 2182) + 8);
-  AudioUnitSetParameter(v345, 0x14u, 0, 0, *(v3 + 4189), 0);
-  v346 = *(v3 + 433);
-  *&v529.mSampleTime = &v501 - 4;
-  v529.mHostTime = v346;
-  v529.mRateScalar = *(v3 + 503);
-  v529.mWordClockTime = v3 + 16904;
-  v347 = *(v3 + 438);
-  *&v530.mNumberBuffers = *(v3 + 431);
-  *&v530.mBuffers[0].mNumberChannels = v347;
-  v530.mBuffers[0].mData = *(v3 + 505);
-  v531 = v507;
-  v348 = *&a2->mRateScalar;
+  MEMORY[0x28223BE20](v329);
+  *(&v498 - 3) = 0;
+  v497 = 0;
+  *(&v498 - 4) = 0;
+  *(&v498 - 8) = 1;
+  *(&v498 - 3) = *(*(v3 + 17456) + 8);
+  AudioUnitSetParameter(v343, 0x14u, 0, 0, *(v3 + 16756), 0);
+  v344 = *(v3 + 3464);
+  *&v526.mSampleTime = &v498 - 4;
+  v526.mHostTime = v344;
+  v526.mRateScalar = *(v3 + 4024);
+  v526.mWordClockTime = v3 + 16904;
+  v345 = *(v3 + 3504);
+  *&v527.mNumberBuffers = *(v3 + 3448);
+  *&v527.mBuffers[0].mNumberChannels = v345;
+  v527.mBuffers[0].mData = *(v3 + 4040);
+  v528 = v504;
+  v346 = *&a2->mRateScalar;
   *&inInputBufferLists.mSampleTime = *&a2->mSampleTime;
-  *&inInputBufferLists.mRateScalar = v348;
-  v349 = *&a2->mSMPTETime.mHours;
+  *&inInputBufferLists.mRateScalar = v346;
+  v347 = *&a2->mSMPTETime.mHours;
   *&inInputBufferLists.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-  *&inInputBufferLists.mSMPTETime.mHours = v349;
-  v519 = 512;
-  AudioUnitProcessMultiple(*(v3 + 404), &v519, &inInputBufferLists, *(v3 + 129), 4u, &v529, 4u, &v530);
-  v331 = AudioUnitGetParameter(*(v3 + 404), 2u, 0, 0, &v520);
-  if ((*(v3 + 4696) & 2) != 0 && (*(v3 + 4712) & 2) != 0 && *(v3 + 414))
+  *&inInputBufferLists.mSMPTETime.mHours = v347;
+  v516 = 512;
+  AudioUnitProcessMultiple(*(v3 + 3232), &v516, &inInputBufferLists, *(v3 + 516), 4u, &v526, 4u, &v527);
+  v329 = AudioUnitGetParameter(*(v3 + 3232), 2u, 0, 0, &v517);
+  if ((*(v3 + 4696) & 2) != 0 && (*(v3 + 4712) & 2) != 0 && *(v3 + 3312))
   {
-    v343 = *(v3 + 404);
-    v344 = 9;
+    v341 = *(v3 + 3232);
+    v342 = 9;
 LABEL_638:
-    AudioUnitGetParameter(v343, v344, 0, 0, &v523);
-    v331 = AudioUnitSetParameter(*(v3 + 414), 0x12u, 0, 0, *&v523, 0);
+    AudioUnitGetParameter(v341, v342, 0, 0, &v520);
+    v329 = AudioUnitSetParameter(*(v3 + 3312), 0x12u, 0, 0, *&v520, 0);
   }
 
 LABEL_639:
   if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
   {
-    v331 = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x27u, *(v3 + 129), *(v3 + 431), &inInputBufferLists);
+    v329 = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x27u, *(v3 + 516), *(v3 + 3448), &inInputBufferLists);
   }
 
-  v350 = 1;
+  v348 = 1;
 LABEL_644:
-  v351 = *(v3 + 586);
-  if ((v351 & 0x200000000000000) != 0 && (*(v3 + 4711) & 2) != 0)
+  v349 = *(v3 + 4688);
+  if ((v349 & 0x200000000000000) != 0 && (*(v3 + 4711) & 2) != 0)
   {
-    v331 = *(v3 + 406);
-    if (v331)
+    v329 = *(v3 + 3248);
+    if (v329)
     {
-      v529.mSampleTime = *(v3 + 430);
-      *&v530.mNumberBuffers = 0;
-      v352 = *&a2->mSMPTETime.mHours;
+      v526.mSampleTime = *(v3 + 3440);
+      *&v527.mNumberBuffers = 0;
+      v350 = *&a2->mSMPTETime.mHours;
       *&inInputBufferLists.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-      *&inInputBufferLists.mSMPTETime.mHours = v352;
-      v353 = *&a2->mRateScalar;
+      *&inInputBufferLists.mSMPTETime.mHours = v350;
+      v351 = *&a2->mRateScalar;
       *&inInputBufferLists.mSampleTime = *&a2->mSampleTime;
-      *&inInputBufferLists.mRateScalar = v353;
-      v519 = 512;
-      v354 = *(v3 + 506);
-      v355 = *(v354 + 16);
-      v356 = *(v354 + 12);
-      v331 = AudioUnitProcessMultiple(v331, &v519, &inInputBufferLists, *(v3 + 129), 1u, &v529, 1u, &v530);
-      if (v331 || (v331 = AudioUnitGetProperty(*(v3 + 406), 0x13EDu, 0, 0, *(*(v3 + 506) + 16), (*(v3 + 506) + 12)), v331))
+      *&inInputBufferLists.mRateScalar = v351;
+      v516 = 512;
+      v352 = *(v3 + 4048);
+      v353 = *(v352 + 16);
+      v354 = *(v352 + 12);
+      v329 = AudioUnitProcessMultiple(v329, &v516, &inInputBufferLists, *(v3 + 516), 1u, &v526, 1u, &v527);
+      if (v329 || (v329 = AudioUnitGetProperty(*(v3 + 3248), 0x13EDu, 0, 0, *(*(v3 + 4048) + 16), (*(v3 + 4048) + 12)), v329))
       {
-        if (v356 >= 4)
+        if (v354 >= 4)
         {
-          memset_pattern16(v355, &unk_2727568B0, v356 & 0xFFFFFFFC);
+          memset_pattern16(v353, &unk_2727568B0, v354 & 0xFFFFFFFC);
         }
       }
 
       if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
       {
-        v331 = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x54u, *(v3 + 129), *(v3 + 506), &inInputBufferLists);
+        v329 = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x54u, *(v3 + 516), *(v3 + 4048), &inInputBufferLists);
       }
 
-      v351 = *(v3 + 586);
+      v349 = *(v3 + 4688);
     }
   }
 
-  if ((v351 & 0x400000000000000) != 0 && (*(v3 + 4711) & 4) != 0)
+  if ((v349 & 0x400000000000000) != 0 && (*(v3 + 4711) & 4) != 0)
   {
-    if (*(v3 + 407))
+    if (*(v3 + 3256))
     {
-      v357 = *(v3 + 4344);
-      if (v357)
+      v355 = *(v3 + 17376);
+      if (v355)
       {
-        if (v357 == 1)
+        if (v355 == 1)
         {
-          v358 = 1136;
-          v359 = 1112;
+          v356 = 1136;
+          v357 = 1112;
         }
 
         else
         {
-          v358 = 1128;
-          v359 = 1120;
+          v356 = 1128;
+          v357 = 1120;
         }
 
-        v360 = *(v3 + v358);
-        v361 = *(v3 + 2158);
-        v362 = *(*(v3 + v359) + 40);
-        v363 = *(*(v3 + 2154) + 16) + 4 * *(v3 + 129);
-        inInputBufferLists.mSampleTime = *(*(v3 + 2154) + 16);
-        inInputBufferLists.mHostTime = v363;
-        VPTimeFreqConverter_Analyze(v361, v362, &inInputBufferLists);
-        v364 = *(v3 + 2159);
-        v365 = *(v360 + 40);
-        v366 = *(*(v3 + 2154) + 32) + 4 * *(v3 + 129);
-        inInputBufferLists.mSampleTime = *(*(v3 + 2154) + 32);
-        inInputBufferLists.mHostTime = v366;
-        VPTimeFreqConverter_Analyze(v364, v365, &inInputBufferLists);
-        v529.mSampleTime = *(v3 + 2154);
-        *&v530.mNumberBuffers = v529.mSampleTime;
-        v519 = 512;
-        v367 = *&a2->mRateScalar;
+        v358 = *(v3 + v356);
+        v359 = *(v3 + 17264);
+        v360 = *(*(v3 + v357) + 40);
+        v361 = *(*(v3 + 17232) + 16) + 4 * *(v3 + 516);
+        inInputBufferLists.mSampleTime = *(*(v3 + 17232) + 16);
+        inInputBufferLists.mHostTime = v361;
+        VPTimeFreqConverter_Analyze(v359, v360, &inInputBufferLists);
+        v362 = *(v3 + 17272);
+        v363 = *(v358 + 40);
+        v364 = *(*(v3 + 17232) + 32) + 4 * *(v3 + 516);
+        inInputBufferLists.mSampleTime = *(*(v3 + 17232) + 32);
+        inInputBufferLists.mHostTime = v364;
+        VPTimeFreqConverter_Analyze(v362, v363, &inInputBufferLists);
+        v526.mSampleTime = *(v3 + 17232);
+        *&v527.mNumberBuffers = v526.mSampleTime;
+        v516 = 512;
+        v365 = *&a2->mRateScalar;
         *&inInputBufferLists.mSampleTime = *&a2->mSampleTime;
-        *&inInputBufferLists.mRateScalar = v367;
-        v368 = *&a2->mSMPTETime.mHours;
+        *&inInputBufferLists.mRateScalar = v365;
+        v366 = *&a2->mSMPTETime.mHours;
         *&inInputBufferLists.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-        *&inInputBufferLists.mSMPTETime.mHours = v368;
-        v369 = AudioUnitProcessMultiple(*(v3 + 407), &v519, &inInputBufferLists, *(v3 + 129), 1u, &v529, 1u, &v530);
+        *&inInputBufferLists.mSMPTETime.mHours = v366;
+        v367 = AudioUnitProcessMultiple(*(v3 + 3256), &v516, &inInputBufferLists, *(v3 + 516), 1u, &v526, 1u, &v527);
         if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
         {
-          VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x6Fu, *(v3 + 129), *(v3 + 2154), &inInputBufferLists);
+          VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x6Fu, *(v3 + 516), *(v3 + 17232), &inInputBufferLists);
         }
 
-        v370 = *(v3 + 2155);
-        v373 = *(v370 + 12);
-        v371 = v370 + 12;
-        v372 = v373;
-        v374 = *(v371 + 4);
-        if ((v369 || AudioUnitGetProperty(*(v3 + 407), 0x15FEu, 0, 0, *(v371 + 4), v371)) && v372 >= 4)
+        v368 = *(v3 + 17240);
+        v371 = *(v368 + 12);
+        v369 = v368 + 12;
+        v370 = v371;
+        v372 = *(v369 + 4);
+        if ((v367 || AudioUnitGetProperty(*(v3 + 3256), 0x15FEu, 0, 0, *(v369 + 4), v369)) && v370 >= 4)
         {
-          memset_pattern16(v374, &unk_2727568B0, v372 & 0xFFFFFFFC);
+          memset_pattern16(v372, &unk_2727568B0, v370 & 0xFFFFFFFC);
         }
 
-        v331 = AudioUnitGetParameter(*(v3 + 407), 0, 0, 0, v3 + 4376);
-        if (v331)
+        v329 = AudioUnitGetParameter(*(v3 + 3256), 0, 0, 0, (v3 + 17504));
+        if (v329)
         {
-          *(v3 + 4376) = 0;
+          *(v3 + 17504) = 0;
         }
 
         if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
         {
-          v331 = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x70u, *(v3 + 129), *(v3 + 2155), &inInputBufferLists);
+          v329 = VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x70u, *(v3 + 516), *(v3 + 17240), &inInputBufferLists);
         }
 
-        v351 = *(v3 + 586);
+        v349 = *(v3 + 4688);
       }
     }
   }
 
-  if ((v351 & 0x80000000000) != 0 && (*(v3 + 588) & 0x80000000000) != 0 && *(v3 + 392))
+  if ((v349 & 0x80000000000) != 0 && (*(v3 + 4704) & 0x80000000000) != 0 && *(v3 + 3136))
   {
-    MEMORY[0x28223BE20](v331);
-    *(&v501 - 4) = 0;
-    *(&v501 - 3) = 0;
-    *(&v501 - 8) = 1;
-    MEMORY[0x28223BE20](v375);
-    *(&v501 - 4) = 0;
-    *(&v501 - 3) = 0;
-    v500 = 0;
-    *(&v501 - 8) = v378;
-    if ((v376 & v377 & 0x800000000000) != 0)
+    MEMORY[0x28223BE20](v329);
+    *(&v498 - 4) = 0;
+    *(&v498 - 3) = 0;
+    *(&v498 - 8) = 1;
+    MEMORY[0x28223BE20](v373);
+    *(&v498 - 4) = 0;
+    *(&v498 - 3) = 0;
+    v497 = 0;
+    *(&v498 - 8) = v376;
+    if ((v374 & v375 & 0x800000000000) != 0)
     {
-      v379 = &v501 - 3;
-      v380 = &v501 - 3;
-      if (*(v3 + 396))
+      v377 = &v498 - 3;
+      v378 = &v498 - 3;
+      if (*(v3 + 3168))
       {
-        v381 = *(v3 + 2182);
-        *v379 = *(v381 + 8);
-        v382 = (v381 + 40);
+        v379 = *(v3 + 17456);
+        *v377 = *(v379 + 8);
+        v380 = (v379 + 40);
 LABEL_683:
-        *v380 = *v382;
-        AudioUnitSetParameter(*(v3 + 392), 6u, 0, 0, *(v3 + 1062), 0);
-        AudioUnitSetParameter(*(v3 + 392), 7u, 0, 0, *(v3 + 1066), 0);
-        AudioUnitSetParameter(*(v3 + 392), 0xDu, 0, 0, *(v3 + 1070), 0);
-        *&v529.mSampleTime = &v501 - 4;
-        v529.mHostTime = (&v501 - 4);
-        v383 = *(v3 + 505);
-        v529.mRateScalar = *(v3 + 515);
-        v529.mWordClockTime = v383;
-        *&v529.mSMPTETime.mSubframes = v507;
-        *&v529.mSMPTETime.mType = 0;
-        v384 = *(v3 + 586);
-        if ((v384 & 0x1000000000000) != 0 && (*(v3 + 4710) & 1) != 0 && *(v3 + 397))
+        *v378 = *v380;
+        AudioUnitSetParameter(*(v3 + 3136), 6u, 0, 0, *(v3 + 4248), 0);
+        AudioUnitSetParameter(*(v3 + 3136), 7u, 0, 0, *(v3 + 4264), 0);
+        AudioUnitSetParameter(*(v3 + 3136), 0xDu, 0, 0, *(v3 + 4280), 0);
+        *&v526.mSampleTime = &v498 - 4;
+        v526.mHostTime = (&v498 - 4);
+        v381 = *(v3 + 4040);
+        v526.mRateScalar = *(v3 + 4120);
+        v526.mWordClockTime = v381;
+        *&v526.mSMPTETime.mSubframes = v504;
+        *&v526.mSMPTETime.mType = 0;
+        v382 = *(v3 + 4688);
+        if ((v382 & 0x1000000000000) != 0 && (*(v3 + 4710) & 1) != 0 && *(v3 + 3176))
         {
-          *&v529.mSMPTETime.mType = *(v3 + 511);
+          *&v526.mSMPTETime.mType = *(v3 + 4088);
         }
 
-        if (!v332)
+        if (!v330)
         {
-          v529.mWordClockTime = 0;
+          v526.mWordClockTime = 0;
         }
 
-        v385 = *(v3 + 513);
-        *&v530.mNumberBuffers = 0;
-        *&v530.mBuffers[0].mNumberChannels = v385;
-        v530.mBuffers[0].mData = 0;
-        if ((v384 & 0x4000000) != 0 && (v386 = *(v3 + 588), (v386 & 0x4000000) != 0) && (v387 = *(v3 + 375)) != 0 && (v384 & v386 & 0x400000) != 0 && *(v3 + 371))
+        v383 = *(v3 + 4104);
+        *&v527.mNumberBuffers = 0;
+        *&v527.mBuffers[0].mNumberChannels = v383;
+        v527.mBuffers[0].mData = 0;
+        if ((v382 & 0x4000000) != 0 && (v384 = *(v3 + 4704), (v384 & 0x4000000) != 0) && (v385 = *(v3 + 3000)) != 0 && (v382 & v384 & 0x400000) != 0 && *(v3 + 2968))
         {
           LODWORD(inInputBufferLists.mSampleTime) = 0;
-          *&v529.mSMPTETime.mType = *(v3 + 511);
-          AudioUnitGetParameter(v387, 0x2Du, 0, 0, &inInputBufferLists);
-          AudioUnitSetParameter(*(v3 + 392), 0x2Au, 0, 0, *&inInputBufferLists.mSampleTime, 0);
-          AudioUnitGetParameter(*(v3 + 371), 0x2Du, 0, 0, &inInputBufferLists);
-          AudioUnitSetParameter(*(v3 + 392), 0x29u, 0, 0, *&inInputBufferLists.mSampleTime, 0);
+          *&v526.mSMPTETime.mType = *(v3 + 4088);
+          AudioUnitGetParameter(v385, 0x2Du, 0, 0, &inInputBufferLists);
+          AudioUnitSetParameter(*(v3 + 3136), 0x2Au, 0, 0, *&inInputBufferLists.mSampleTime, 0);
+          AudioUnitGetParameter(*(v3 + 2968), 0x2Du, 0, 0, &inInputBufferLists);
+          AudioUnitSetParameter(*(v3 + 3136), 0x29u, 0, 0, *&inInputBufferLists.mSampleTime, 0);
         }
 
-        else if ((v384 & 0x1000000) != 0 && (*(v3 + 4707) & 1) != 0 && *(v3 + 373) && v513 == 1.0)
+        else if ((v382 & 0x1000000) != 0 && (*(v3 + 4707) & 1) != 0 && *(v3 + 2984) && v510 == 1.0)
         {
-          *&v529.mSMPTETime.mType = *(v3 + 2143);
+          *&v526.mSMPTETime.mType = *(v3 + 17144);
         }
 
-        if (v332)
+        if (v330)
         {
-          v388 = 3464;
+          v386 = 3464;
         }
 
         else
         {
-          v388 = 3448;
+          v386 = 3448;
         }
 
-        v389 = 4040;
-        *&v530.mNumberBuffers = *(v3 + v388);
-        if (v332)
+        v387 = 4040;
+        *&v527.mNumberBuffers = *(v3 + v386);
+        if (v330)
         {
-          v389 = 4024;
+          v387 = 4024;
         }
 
-        v530.mBuffers[0].mData = *(v3 + v389);
-        v390 = *&a2->mRateScalar;
+        v527.mBuffers[0].mData = *(v3 + v387);
+        v388 = *&a2->mRateScalar;
         *&inInputBufferLists.mSampleTime = *&a2->mSampleTime;
-        *&inInputBufferLists.mRateScalar = v390;
-        v391 = *&a2->mSMPTETime.mHours;
+        *&inInputBufferLists.mRateScalar = v388;
+        v389 = *&a2->mSMPTETime.mHours;
         *&inInputBufferLists.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-        *&inInputBufferLists.mSMPTETime.mHours = v391;
-        v519 = 512;
-        AudioUnitProcessMultiple(*(v3 + 392), &v519, &inInputBufferLists, *(v3 + 129), 6u, &v529, 3u, &v530);
-        if ((v350 & v332 & 1) == 0)
+        *&inInputBufferLists.mSMPTETime.mHours = v389;
+        v516 = 512;
+        AudioUnitProcessMultiple(*(v3 + 3136), &v516, &inInputBufferLists, *(v3 + 516), 6u, &v526, 3u, &v527);
+        if ((v348 & v330 & 1) == 0)
         {
-          AudioUnitGetParameter(*(v3 + 392), 0x20u, 0, 0, &v520);
-          AudioUnitGetParameter(*(v3 + 392), 0x20u, 0, 0, v3 + 4377);
+          AudioUnitGetParameter(*(v3 + 3136), 0x20u, 0, 0, &v517);
+          AudioUnitGetParameter(*(v3 + 3136), 0x20u, 0, 0, (v3 + 17508));
         }
 
-        v392 = *(v3 + 129);
+        v390 = *(v3 + 516);
         if (*(v3 + 15881) & 1) != 0 || (*(v3 + 15882))
         {
-          VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x24u, v392, *(v3 + v388), &inInputBufferLists);
-          v392 = *(v3 + 129);
-          v393 = *(v3 + 503);
+          VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x24u, v390, *(v3 + v386), &inInputBufferLists);
+          v390 = *(v3 + 516);
+          v391 = *(v3 + 4024);
           if (*(v3 + 15881))
           {
             goto LABEL_713;
@@ -5866,211 +8311,211 @@ LABEL_683:
 
         else
         {
-          v393 = *(v3 + 503);
+          v391 = *(v3 + 4024);
         }
 
         if (*(v3 + 15882) != 1)
         {
 LABEL_714:
-          v351 = *(v3 + 586);
+          v349 = *(v3 + 4688);
           goto LABEL_715;
         }
 
 LABEL_713:
-        VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x51u, v392, v393, &inInputBufferLists);
+        VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x51u, v390, v391, &inInputBufferLists);
         goto LABEL_714;
       }
     }
 
     else
     {
-      v379 = &v501 - 3;
-      v380 = &v501 - 3;
+      v377 = &v498 - 3;
+      v378 = &v498 - 3;
     }
 
-    *v379 = *(*(v3 + 430) + 8);
-    v382 = (*(v3 + 434) + 8);
+    *v377 = *(*(v3 + 3440) + 8);
+    v380 = (*(v3 + 3472) + 8);
     goto LABEL_683;
   }
 
 LABEL_715:
-  if ((v351 & 0x1000000000000) != 0 && (*(v3 + 4710) & 1) != 0 && *(v3 + 397))
+  if ((v349 & 0x1000000000000) != 0 && (*(v3 + 4710) & 1) != 0 && *(v3 + 3176))
   {
-    LODWORD(v521) = 0;
-    AudioUnitGetParameter(*(v3 + 371), 0x25u, 0, 0, &v521);
-    AudioUnitSetParameter(*(v3 + 397), 0, 4u, 2u, *&v521, 0);
-    AudioUnitSetParameter(*(v3 + 397), 0, 4u, 3u, *&v521, 0);
+    LODWORD(v518) = 0;
+    AudioUnitGetParameter(*(v3 + 2968), 0x25u, 0, 0, &v518);
+    AudioUnitSetParameter(*(v3 + 3176), 0, 4u, 2u, *&v518, 0);
+    AudioUnitSetParameter(*(v3 + 3176), 0, 4u, 3u, *&v518, 0);
     if ((*(v3 + 4689) & 0x10) != 0 && (*(v3 + 4705) & 0x10) != 0)
     {
-      v394 = 17480;
-      if (!*(v3 + 361))
+      v392 = 17480;
+      if (!*(v3 + 2888))
       {
-        v394 = 3440;
+        v392 = 3440;
       }
     }
 
     else
     {
-      v394 = 3440;
+      v392 = 3440;
     }
 
-    v395 = memcpy(*(*(v3 + 2199) + 16), *(*(v3 + v394) + 16), *(*(v3 + v394) + 12));
-    MEMORY[0x28223BE20](v395);
-    v500 = 0;
-    *(&v501 - 3) = 0u;
-    *(&v501 - 2) = 0u;
-    *(&v501 - 5) = 0u;
-    *(&v501 - 4) = 0u;
-    *(&v501 - 20) = 4;
-    *(&v501 - 9) = *(*(v3 + 430) + 8);
-    *(&v501 - 7) = *(*(v3 + 2179) + 8);
-    *(&v501 - 5) = *(*(v3 + 510) + 8);
-    *(&v501 - 3) = *(*(v3 + 509) + 8);
-    *&v397 = MEMORY[0x28223BE20](v396);
-    v500 = 0;
-    *(&v501 - 3) = v397;
-    *(&v501 - 2) = v397;
-    *(&v501 - 5) = v397;
-    *(&v501 - 4) = v397;
-    *(&v501 - 20) = 4;
-    *(&v501 - 9) = *(*(v3 + 2195) + 8);
-    *(&v501 - 7) = *(*(v3 + 2197) + 8);
-    *(&v501 - 5) = *(*(v3 + 2198) + 8);
-    *(&v501 - 3) = *(*(v3 + 2196) + 8);
-    *&v529.mSampleTime = &v501 - 10;
-    v529.mHostTime = (&v501 - 10);
-    *&v530.mNumberBuffers = &v501 - 10;
-    *&v530.mBuffers[0].mNumberChannels = &v501 - 10;
-    v398 = *&a2->mRateScalar;
+    v393 = memcpy(*(*(v3 + 17592) + 16), *(*(v3 + v392) + 16), *(*(v3 + v392) + 12));
+    MEMORY[0x28223BE20](v393);
+    v497 = 0;
+    *(&v498 - 3) = 0u;
+    *(&v498 - 2) = 0u;
+    *(&v498 - 5) = 0u;
+    *(&v498 - 4) = 0u;
+    *(&v498 - 20) = 4;
+    *(&v498 - 9) = *(*(v3 + 3440) + 8);
+    *(&v498 - 7) = *(*(v3 + 17432) + 8);
+    *(&v498 - 5) = *(*(v3 + 4080) + 8);
+    *(&v498 - 3) = *(*(v3 + 4072) + 8);
+    *&v395 = MEMORY[0x28223BE20](v394);
+    v497 = 0;
+    *(&v498 - 3) = v395;
+    *(&v498 - 2) = v395;
+    *(&v498 - 5) = v395;
+    *(&v498 - 4) = v395;
+    *(&v498 - 20) = 4;
+    *(&v498 - 9) = *(*(v3 + 17560) + 8);
+    *(&v498 - 7) = *(*(v3 + 17576) + 8);
+    *(&v498 - 5) = *(*(v3 + 17584) + 8);
+    *(&v498 - 3) = *(*(v3 + 17568) + 8);
+    *&v526.mSampleTime = &v498 - 10;
+    v526.mHostTime = (&v498 - 10);
+    *&v527.mNumberBuffers = &v498 - 10;
+    *&v527.mBuffers[0].mNumberChannels = &v498 - 10;
+    v396 = *&a2->mRateScalar;
     *&inInputBufferLists.mSampleTime = *&a2->mSampleTime;
-    *&inInputBufferLists.mRateScalar = v398;
-    v399 = *&a2->mSMPTETime.mHours;
+    *&inInputBufferLists.mRateScalar = v396;
+    v397 = *&a2->mSMPTETime.mHours;
     *&inInputBufferLists.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-    *&inInputBufferLists.mSMPTETime.mHours = v399;
-    v519 = 512;
-    AudioUnitProcessMultiple(*(v3 + 397), &v519, &inInputBufferLists, *(v3 + 129), 2u, &v529, 2u, &v530);
-    v400 = *(v3 + 129);
-    v534.realp = *(*(v3 + 2199) + 16);
-    v534.imagp = &v534.realp[v400];
-    v533.realp = *(*(v3 + 430) + 16);
-    v533.imagp = &v533.realp[v400];
-    v401 = *(*(v3 + 2186) + 16);
-    v402 = &v401[v400];
-    vDSP_zvabs(&v534, 1, v401, 1, v400);
-    vDSP_zvabs(&v533, 1, v402, 1, *(v3 + 129));
-    vDSP_vmin(v401, 1, v402, 1, v401, 1, *(v3 + 129));
-    HIDWORD(v511) = 507307272;
-    MEMORY[0x2743CCE00](v402, 1, &v511 + 4, v402, 1, *(v3 + 129));
-    vDSP_vdiv(v402, 1, v401, 1, v402, 1, *(v3 + 129));
-    MEMORY[0x2743CCDD0](v533.realp, 1, v402, 1, v533.realp, 1, *(v3 + 129));
-    MEMORY[0x2743CCDD0](v533.imagp, 1, v402, 1, v533.imagp, 1, *(v3 + 129));
+    *&inInputBufferLists.mSMPTETime.mHours = v397;
+    v516 = 512;
+    AudioUnitProcessMultiple(*(v3 + 3176), &v516, &inInputBufferLists, *(v3 + 516), 2u, &v526, 2u, &v527);
+    v398 = *(v3 + 516);
+    v531.realp = *(*(v3 + 17592) + 16);
+    v531.imagp = &v531.realp[v398];
+    v530.realp = *(*(v3 + 3440) + 16);
+    v530.imagp = &v530.realp[v398];
+    v399 = *(*(v3 + 17488) + 16);
+    v400 = &v399[v398];
+    vDSP_zvabs(&v531, 1, v399, 1, v398);
+    vDSP_zvabs(&v530, 1, v400, 1, *(v3 + 516));
+    vDSP_vmin(v399, 1, v400, 1, v399, 1, *(v3 + 516));
+    HIDWORD(v508) = 507307272;
+    MEMORY[0x2743CCE00](v400, 1, &v508 + 4, v400, 1, *(v3 + 516));
+    vDSP_vdiv(v400, 1, v399, 1, v400, 1, *(v3 + 516));
+    MEMORY[0x2743CCDD0](v530.realp, 1, v400, 1, v530.realp, 1, *(v3 + 516));
+    MEMORY[0x2743CCDD0](v530.imagp, 1, v400, 1, v530.imagp, 1, *(v3 + 516));
     if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
     {
-      VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x86u, *(v3 + 129), (&v501 - 10), &inInputBufferLists);
+      VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x86u, *(v3 + 516), (&v498 - 10), &inInputBufferLists);
     }
 
-    v351 = *(v3 + 586);
+    v349 = *(v3 + 4688);
   }
 
-  if ((v351 & 0x4000000000000) != 0)
+  if ((v349 & 0x4000000000000) != 0)
   {
-    v403 = *(v3 + 588);
-    if ((v403 & 0x4000000000000) != 0)
+    v401 = *(v3 + 4704);
+    if ((v401 & 0x4000000000000) != 0)
     {
-      v404 = *(v3 + 399);
-      if (v404)
+      v402 = *(v3 + 3192);
+      if (v402)
       {
-        if ((v351 & v403 & 0x1000000000000) != 0 && *(v3 + 397))
+        if ((v349 & v401 & 0x1000000000000) != 0 && *(v3 + 3176))
         {
-          MEMORY[0x28223BE20](v404);
-          v500 = 0;
-          *(&v501 - 3) = 0u;
-          *(&v501 - 2) = 0u;
-          *(&v501 - 12) = 2;
-          *(&v501 - 5) = *(*(v3 + 430) + 8);
-          *(&v501 - 3) = *(*(v3 + 2179) + 8);
-          *&v529.mSampleTime = &v501 - 6;
-          *&v530.mNumberBuffers = *(v3 + 433);
-          v405 = *&a2->mRateScalar;
+          MEMORY[0x28223BE20](v402);
+          v497 = 0;
+          *(&v498 - 3) = 0u;
+          *(&v498 - 2) = 0u;
+          *(&v498 - 12) = 2;
+          *(&v498 - 5) = *(*(v3 + 3440) + 8);
+          *(&v498 - 3) = *(*(v3 + 17432) + 8);
+          *&v526.mSampleTime = &v498 - 6;
+          *&v527.mNumberBuffers = *(v3 + 3464);
+          v403 = *&a2->mRateScalar;
           *&inInputBufferLists.mSampleTime = *&a2->mSampleTime;
-          *&inInputBufferLists.mRateScalar = v405;
-          v406 = *&a2->mSMPTETime.mHours;
+          *&inInputBufferLists.mRateScalar = v403;
+          v404 = *&a2->mSMPTETime.mHours;
           *&inInputBufferLists.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-          *&inInputBufferLists.mSMPTETime.mHours = v406;
-          v519 = 512;
-          AudioUnitProcessMultiple(v407, &v519, &inInputBufferLists, *(v3 + 129), 1u, &v529, 1u, &v530);
+          *&inInputBufferLists.mSMPTETime.mHours = v404;
+          v516 = 512;
+          AudioUnitProcessMultiple(v405, &v516, &inInputBufferLists, *(v3 + 516), 1u, &v526, 1u, &v527);
           if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
           {
-            VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x87u, *(v3 + 129), *(v3 + 433), &inInputBufferLists);
+            VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x87u, *(v3 + 516), *(v3 + 3464), &inInputBufferLists);
           }
 
-          v351 = *(v3 + 586);
+          v349 = *(v3 + 4688);
         }
       }
     }
   }
 
-  if ((v351 & 0x1000000000000) != 0 && (v408 = *(v3 + 588), (v408 & 0x1000000000000) != 0) && *(v3 + 397) && (LODWORD(inInputBufferLists.mSampleTime) = 0, LODWORD(v529.mSampleTime) = 0, (v351 & v408 & 0x400000) != 0) && (v409 = *(v3 + 371)) != 0)
+  if ((v349 & 0x1000000000000) != 0 && (v406 = *(v3 + 4704), (v406 & 0x1000000000000) != 0) && *(v3 + 3176) && (LODWORD(inInputBufferLists.mSampleTime) = 0, LODWORD(v526.mSampleTime) = 0, (v349 & v406 & 0x400000) != 0) && (v407 = *(v3 + 2968)) != 0)
   {
-    AudioUnitGetParameter(v409, 0x43u, 0, 0, &inInputBufferLists);
-    AudioUnitGetParameter(*(v3 + 371), 0x47u, 0, 0, &v529);
-    v351 = *(v3 + 586);
-    v411 = *&v529.mSampleTime != 0.0 && *&inInputBufferLists.mSampleTime != 0.0;
+    AudioUnitGetParameter(v407, 0x43u, 0, 0, &inInputBufferLists);
+    AudioUnitGetParameter(*(v3 + 2968), 0x47u, 0, 0, &v526);
+    v349 = *(v3 + 4688);
+    v409 = *&v526.mSampleTime != 0.0 && *&inInputBufferLists.mSampleTime != 0.0;
   }
 
   else
   {
-    v411 = 0;
+    v409 = 0;
   }
 
-  if ((v351 & 0x100000000000) != 0)
+  if ((v349 & 0x100000000000) != 0)
   {
-    v412 = *(v3 + 588);
-    if ((v412 & 0x100000000000) != 0)
+    v410 = *(v3 + 4704);
+    if ((v410 & 0x100000000000) != 0)
     {
-      v413 = *(v3 + 393);
-      if (v413)
+      v411 = *(v3 + 3144);
+      if (v411)
       {
-        if ((v351 & v412 & 0x1000000000000) != 0 && *(v3 + 397))
+        if ((v349 & v410 & 0x1000000000000) != 0 && *(v3 + 3176))
         {
-          MEMORY[0x28223BE20](v413);
-          *(&v501 - 4) = 0;
-          *(&v501 - 3) = 0;
-          *(&v501 - 8) = 1;
-          MEMORY[0x28223BE20](v414);
-          *(&v501 - 3) = 0;
-          v500 = 0;
-          *(&v501 - 4) = 0;
-          *(&v501 - 8) = v415;
-          *(v416 - 24) = *(*(v3 + 430) + 8);
-          *(&v501 - 3) = *(*(v3 + 433) + 8);
-          AudioUnitSetParameter(v417, 6u, 0, 0, *(v3 + 1062), 0);
-          AudioUnitSetParameter(*(v3 + 393), 7u, 0, 0, *(v3 + 1066), 0);
-          AudioUnitSetParameter(*(v3 + 393), 0xDu, 0, 0, *(v3 + 1070), 0);
-          *&v529.mSampleTime = &v501 - 4;
-          v529.mHostTime = (&v501 - 4);
-          v418 = *(v3 + 505);
-          *&v529.mRateScalar = &v501 - 4;
-          v529.mWordClockTime = v418;
-          *&v529.mSMPTETime.mSubframes = v507;
-          *&v529.mSMPTETime.mType = 0;
-          *&v530.mNumberBuffers = *(v3 + 433);
-          *&v530.mBuffers[0].mNumberChannels = 0;
-          v530.mBuffers[0].mData = *(v3 + 504);
-          v419 = *&a2->mRateScalar;
+          MEMORY[0x28223BE20](v411);
+          *(&v498 - 4) = 0;
+          *(&v498 - 3) = 0;
+          *(&v498 - 8) = 1;
+          MEMORY[0x28223BE20](v412);
+          *(&v498 - 3) = 0;
+          v497 = 0;
+          *(&v498 - 4) = 0;
+          *(&v498 - 8) = v413;
+          *(v414 - 24) = *(*(v3 + 3440) + 8);
+          *(&v498 - 3) = *(*(v3 + 3464) + 8);
+          AudioUnitSetParameter(v415, 6u, 0, 0, *(v3 + 4248), 0);
+          AudioUnitSetParameter(*(v3 + 3144), 7u, 0, 0, *(v3 + 4264), 0);
+          AudioUnitSetParameter(*(v3 + 3144), 0xDu, 0, 0, *(v3 + 4280), 0);
+          *&v526.mSampleTime = &v498 - 4;
+          v526.mHostTime = (&v498 - 4);
+          v416 = *(v3 + 4040);
+          *&v526.mRateScalar = &v498 - 4;
+          v526.mWordClockTime = v416;
+          *&v526.mSMPTETime.mSubframes = v504;
+          *&v526.mSMPTETime.mType = 0;
+          *&v527.mNumberBuffers = *(v3 + 3464);
+          *&v527.mBuffers[0].mNumberChannels = 0;
+          v527.mBuffers[0].mData = *(v3 + 4032);
+          v417 = *&a2->mRateScalar;
           *&inInputBufferLists.mSampleTime = *&a2->mSampleTime;
-          *&inInputBufferLists.mRateScalar = v419;
-          v420 = *&a2->mSMPTETime.mHours;
+          *&inInputBufferLists.mRateScalar = v417;
+          v418 = *&a2->mSMPTETime.mHours;
           *&inInputBufferLists.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-          *&inInputBufferLists.mSMPTETime.mHours = v420;
-          v519 = 512;
-          AudioUnitProcessMultiple(*(v3 + 393), &v519, &inInputBufferLists, *(v3 + 129), 6u, &v529, 3u, &v530);
-          v421 = *(v3 + 129);
+          *&inInputBufferLists.mSMPTETime.mHours = v418;
+          v516 = 512;
+          AudioUnitProcessMultiple(*(v3 + 3144), &v516, &inInputBufferLists, *(v3 + 516), 6u, &v526, 3u, &v527);
+          v419 = *(v3 + 516);
           if (*(v3 + 15881) & 1) != 0 || (*(v3 + 15882))
           {
-            VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x25u, v421, *(v3 + 433), &inInputBufferLists);
-            v421 = *(v3 + 129);
-            v422 = *(v3 + 504);
+            VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x25u, v419, *(v3 + 3464), &inInputBufferLists);
+            v419 = *(v3 + 516);
+            v420 = *(v3 + 4032);
             if (*(v3 + 15881))
             {
               goto LABEL_759;
@@ -6079,23 +8524,23 @@ LABEL_715:
 
           else
           {
-            v422 = *(v3 + 504);
+            v420 = *(v3 + 4032);
           }
 
           if (*(v3 + 15882) != 1)
           {
 LABEL_760:
-            if (v411)
+            if (v409)
             {
-              vDSP_vmin(*(*(v3 + 503) + 16), 1, *(*(v3 + 504) + 16), 1, *(*(v3 + 503) + 16), 1, *(v3 + 129));
+              vDSP_vmin(*(*(v3 + 4024) + 16), 1, *(*(v3 + 4032) + 16), 1, *(*(v3 + 4024) + 16), 1, *(v3 + 516));
             }
 
-            v351 = *(v3 + 586);
+            v349 = *(v3 + 4688);
             goto LABEL_763;
           }
 
 LABEL_759:
-          VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x52u, v421, v422, &inInputBufferLists);
+          VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x52u, v419, v420, &inInputBufferLists);
           goto LABEL_760;
         }
       }
@@ -6103,61 +8548,61 @@ LABEL_759:
   }
 
 LABEL_763:
-  if ((v351 & 0x200000000000) == 0)
+  if ((v349 & 0x200000000000) == 0)
   {
     goto LABEL_778;
   }
 
-  v423 = *(v3 + 588);
-  if ((v423 & 0x200000000000) == 0)
+  v421 = *(v3 + 4704);
+  if ((v421 & 0x200000000000) == 0)
   {
     goto LABEL_778;
   }
 
-  v424 = *(v3 + 394);
-  if (!v424 || (v351 & v423 & 0x1000000000000) != 0 && *(v3 + 397))
+  v422 = *(v3 + 3152);
+  if (!v422 || (v349 & v421 & 0x1000000000000) != 0 && *(v3 + 3176))
   {
     goto LABEL_778;
   }
 
-  MEMORY[0x28223BE20](v424);
-  *(&v501 - 4) = 0;
-  *(&v501 - 3) = 0;
-  *(&v501 - 8) = 1;
-  MEMORY[0x28223BE20](v425);
-  *(&v501 - 3) = 0;
-  v500 = 0;
-  *(&v501 - 4) = 0;
-  *(&v501 - 8) = v426;
-  *(v427 - 24) = *(*(v3 + 2179) + 8);
-  *(&v501 - 3) = *(*(v3 + 508) + 40);
-  AudioUnitSetParameter(v428, 6u, 0, 0, *(v3 + 1062), 0);
-  AudioUnitSetParameter(*(v3 + 394), 7u, 0, 0, *(v3 + 1066), 0);
-  AudioUnitSetParameter(*(v3 + 394), 0xDu, 0, 0, *(v3 + 1070), 0);
-  *&v529.mSampleTime = &v501 - 4;
-  v529.mHostTime = (&v501 - 4);
-  v429 = *(v3 + 505);
-  v529.mRateScalar = *(v3 + 515);
-  v529.mWordClockTime = v429;
-  *&v529.mSMPTETime.mSubframes = v507;
-  *&v529.mSMPTETime.mType = 0;
-  *&v530.mNumberBuffers = *(v3 + 433);
-  *&v530.mBuffers[0].mNumberChannels = 0;
-  v530.mBuffers[0].mData = *(v3 + 2191);
-  v430 = *&a2->mRateScalar;
+  MEMORY[0x28223BE20](v422);
+  *(&v498 - 4) = 0;
+  *(&v498 - 3) = 0;
+  *(&v498 - 8) = 1;
+  MEMORY[0x28223BE20](v423);
+  *(&v498 - 3) = 0;
+  v497 = 0;
+  *(&v498 - 4) = 0;
+  *(&v498 - 8) = v424;
+  *(v425 - 24) = *(*(v3 + 17432) + 8);
+  *(&v498 - 3) = *(*(v3 + 4064) + 40);
+  AudioUnitSetParameter(v426, 6u, 0, 0, *(v3 + 4248), 0);
+  AudioUnitSetParameter(*(v3 + 3152), 7u, 0, 0, *(v3 + 4264), 0);
+  AudioUnitSetParameter(*(v3 + 3152), 0xDu, 0, 0, *(v3 + 4280), 0);
+  *&v526.mSampleTime = &v498 - 4;
+  v526.mHostTime = (&v498 - 4);
+  v427 = *(v3 + 4040);
+  v526.mRateScalar = *(v3 + 4120);
+  v526.mWordClockTime = v427;
+  *&v526.mSMPTETime.mSubframes = v504;
+  *&v526.mSMPTETime.mType = 0;
+  *&v527.mNumberBuffers = *(v3 + 3464);
+  *&v527.mBuffers[0].mNumberChannels = 0;
+  v527.mBuffers[0].mData = *(v3 + 17528);
+  v428 = *&a2->mRateScalar;
   *&inInputBufferLists.mSampleTime = *&a2->mSampleTime;
-  *&inInputBufferLists.mRateScalar = v430;
-  v431 = *&a2->mSMPTETime.mHours;
+  *&inInputBufferLists.mRateScalar = v428;
+  v429 = *&a2->mSMPTETime.mHours;
   *&inInputBufferLists.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-  *&inInputBufferLists.mSMPTETime.mHours = v431;
-  v519 = 512;
-  AudioUnitProcessMultiple(*(v3 + 394), &v519, &inInputBufferLists, *(v3 + 129), 6u, &v529, 3u, &v530);
-  v432 = *(v3 + 129);
+  *&inInputBufferLists.mSMPTETime.mHours = v429;
+  v516 = 512;
+  AudioUnitProcessMultiple(*(v3 + 3152), &v516, &inInputBufferLists, *(v3 + 516), 6u, &v526, 3u, &v527);
+  v430 = *(v3 + 516);
   if (*(v3 + 15881) & 1) != 0 || (*(v3 + 15882))
   {
-    VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x26u, v432, *(v3 + 433), &inInputBufferLists);
-    v432 = *(v3 + 129);
-    v433 = *(v3 + 2191);
+    VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x26u, v430, *(v3 + 3464), &inInputBufferLists);
+    v430 = *(v3 + 516);
+    v431 = *(v3 + 17528);
     if (*(v3 + 15881))
     {
       goto LABEL_774;
@@ -6166,30 +8611,30 @@ LABEL_763:
 
   else
   {
-    v433 = *(v3 + 2191);
+    v431 = *(v3 + 17528);
   }
 
   if (*(v3 + 15882) == 1)
   {
 LABEL_774:
-    VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x53u, v432, v433, &inInputBufferLists);
+    VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x53u, v430, v431, &inInputBufferLists);
   }
 
-  if (*&v527 != 0.0)
+  if (*&v524 != 0.0)
   {
-    vDSP_vmin(*(*(v3 + 503) + 16), 1, *(*(v3 + 2191) + 16), 1, *(*(v3 + 503) + 16), 1, *(v3 + 129));
+    vDSP_vmin(*(*(v3 + 4024) + 16), 1, *(*(v3 + 17528) + 16), 1, *(*(v3 + 4024) + 16), 1, *(v3 + 516));
   }
 
-  v351 = *(v3 + 586);
+  v349 = *(v3 + 4688);
 LABEL_778:
-  if ((v351 & 0x80000000000) != 0 && (*(v3 + 4709) & 8) != 0 && *(v3 + 392))
+  if ((v349 & 0x80000000000) != 0 && (*(v3 + 4709) & 8) != 0 && *(v3 + 3136))
   {
-    if (!v332)
+    if (!v330)
     {
 LABEL_789:
       if ((*(v3 + 4709) & 8) != 0)
       {
-        if (*(v3 + 392) != 0 || v330)
+        if (*(v3 + 3136) != 0 || v328)
         {
           goto LABEL_827;
         }
@@ -6198,23 +8643,23 @@ LABEL_789:
       }
 
 LABEL_790:
-      if (v330)
+      if (v328)
       {
         goto LABEL_827;
       }
 
 LABEL_793:
       LODWORD(inInputBufferLists.mSampleTime) = 1065353216;
-      v437 = *(v3 + 129);
-      vDSP_vfill(&inInputBufferLists, *(*(v3 + 505) + 16), 1, v437);
-      memcpy(*(*(v3 + 431) + 16), *(*(v3 + 430) + 16), 8 * v437);
+      v435 = *(v3 + 516);
+      vDSP_vfill(&inInputBufferLists, *(*(v3 + 4040) + 16), 1, v435);
+      memcpy(*(*(v3 + 3448) + 16), *(*(v3 + 3440) + 16), 8 * v435);
       goto LABEL_827;
     }
   }
 
-  else if ((v351 & 0x100000000000) == 0 || (*(v3 + 4709) & 0x10) == 0 || *(v3 + 393) == 0 || !v332)
+  else if ((v349 & 0x100000000000) == 0 || (*(v3 + 4709) & 0x10) == 0 || *(v3 + 3144) == 0 || !v330)
   {
-    if ((v351 & 0x80000000000) == 0)
+    if ((v349 & 0x80000000000) == 0)
     {
       goto LABEL_790;
     }
@@ -6222,255 +8667,255 @@ LABEL_793:
     goto LABEL_789;
   }
 
-  v434 = *(*(v3 + 505) + 16);
-  memcpy(*(*(v3 + 436) + 16), v434, 4 * *(v3 + 129));
-  vDSP_vmin(*(*(v3 + 503) + 16), 1, v434, 1, v434, 1, *(v3 + 129));
-  v435 = *(v3 + 586);
-  if ((v435 & 0x200000000000000) != 0)
+  v432 = *(*(v3 + 4040) + 16);
+  memcpy(*(*(v3 + 3488) + 16), v432, 4 * *(v3 + 516));
+  vDSP_vmin(*(*(v3 + 4024) + 16), 1, v432, 1, v432, 1, *(v3 + 516));
+  v433 = *(v3 + 4688);
+  if ((v433 & 0x200000000000000) != 0)
   {
-    v436 = v506;
-    if ((*(v3 + 4711) & 2) != 0 && *(v3 + 406))
+    v434 = v503;
+    if ((*(v3 + 4711) & 2) != 0 && *(v3 + 3248))
     {
-      vDSP_vmin(*(*(v3 + 506) + 16), 1, v434, 1, v434, 1, *(v3 + 129));
-      v435 = *(v3 + 586);
+      vDSP_vmin(*(*(v3 + 4048) + 16), 1, v432, 1, v432, 1, *(v3 + 516));
+      v433 = *(v3 + 4688);
     }
   }
 
   else
   {
-    v436 = v506;
+    v434 = v503;
   }
 
-  if ((v435 & 0x400000000000000) != 0 && (*(v3 + 4711) & 4) != 0 && *(v3 + 407))
+  if ((v433 & 0x400000000000000) != 0 && (*(v3 + 4711) & 4) != 0 && *(v3 + 3256))
   {
-    vDSP_vmin(*(*(v3 + 2155) + 16), 1, v434, 1, v434, 1, *(v3 + 129));
-    v435 = *(v3 + 586);
+    vDSP_vmin(*(*(v3 + 17240) + 16), 1, v432, 1, v432, 1, *(v3 + 516));
+    v433 = *(v3 + 4688);
   }
 
-  if ((v435 & 0x8000000000000) != 0 && (*(v3 + 4710) & 8) != 0 && *(v3 + 400))
+  if ((v433 & 0x8000000000000) != 0 && (*(v3 + 4710) & 8) != 0 && *(v3 + 3200))
   {
-    vDSP_vmin(*(*(v3 + 2156) + 16), 1, v434, 1, v434, 1, *(v3 + 129));
-    v435 = *(v3 + 586);
+    vDSP_vmin(*(*(v3 + 17248) + 16), 1, v432, 1, v432, 1, *(v3 + 516));
+    v433 = *(v3 + 4688);
   }
 
-  if ((v435 & 0x1000) != 0)
+  if ((v433 & 0x1000) != 0)
   {
-    v438 = *(v3 + 588);
-    if ((v438 & 0x1000) != 0 && *(v3 + 361) && ((v435 & v438 & 0x1000000000000) == 0 || !*(v3 + 397)))
+    v436 = *(v3 + 4704);
+    if ((v436 & 0x1000) != 0 && *(v3 + 2888) && ((v433 & v436 & 0x1000000000000) == 0 || !*(v3 + 3176)))
     {
-      v439 = *(v3 + 2185);
+      v437 = *(v3 + 17480);
       goto LABEL_822;
     }
   }
 
-  if ((v435 & 0x800000000000) == 0 || (*(v3 + 4709) & 0x80) == 0 || !*(v3 + 396))
+  if ((v433 & 0x800000000000) == 0 || (*(v3 + 4709) & 0x80) == 0 || !*(v3 + 3168))
   {
-    if (v435 & 0x1000000000000) != 0 && (*(v3 + 4710))
+    if (v433 & 0x1000000000000) != 0 && (*(v3 + 4710))
     {
-      v440 = *(v3 + 129);
-      if (*(v3 + 397) != 0 && !v411)
+      v438 = *(v3 + 516);
+      if (*(v3 + 3176) != 0 && !v409)
       {
-        v439 = *(v3 + 2199);
+        v437 = *(v3 + 17592);
         goto LABEL_818;
       }
     }
 
     else
     {
-      v440 = *v436;
+      v438 = *v434;
     }
 
-    v439 = *(v3 + 430);
+    v437 = *(v3 + 3440);
 LABEL_818:
-    v441 = *(v439 + 16);
+    v439 = *(v437 + 16);
     goto LABEL_823;
   }
 
-  v439 = *(v3 + 2182);
+  v437 = *(v3 + 17456);
 LABEL_822:
-  v441 = *(v439 + 16);
-  v440 = *(v3 + 129);
+  v439 = *(v437 + 16);
+  v438 = *(v3 + 516);
 LABEL_823:
   if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
   {
-    VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x63u, v440, v439, &buf);
+    VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x63u, v438, v437, &buf);
   }
 
-  v442 = *(*(v3 + 431) + 16);
-  MEMORY[0x2743CCDD0](v441, 1, v434, 1, v442, 1, *(v3 + 129));
-  MEMORY[0x2743CCDD0](v441 + 4 * *(v3 + 129) + 4, 1, v434 + 4, 1, v442 + 4 * *(v3 + 129) + 4, 1, (*(v3 + 129) - 1));
-  *(v441 + 4 * *(v3 + 129)) = *(v441 + 4 * *(v3 + 129)) * *&v434[4 * (*(v3 + 129) - 1)];
+  v440 = *(*(v3 + 3448) + 16);
+  MEMORY[0x2743CCDD0](v439, 1, v432, 1, v440, 1, *(v3 + 516));
+  MEMORY[0x2743CCDD0](v439 + 4 * *(v3 + 516) + 4, 1, v432 + 4, 1, v440 + 4 * *(v3 + 516) + 4, 1, (*(v3 + 516) - 1));
+  *(v439 + 4 * *(v3 + 516)) = *(v439 + 4 * *(v3 + 516)) * *&v432[4 * (*(v3 + 516) - 1)];
 LABEL_827:
-  if (((v509 & 1) != 0 || (*(v3 + 4693) & 8) != 0 && (*(v3 + 4709) & 8) != 0 && *(v3 + 392)) && ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1))
+  if (((v506 & 1) != 0 || (*(v3 + 4693) & 8) != 0 && (*(v3 + 4709) & 8) != 0 && *(v3 + 3136)) && ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1))
   {
-    VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x62u, *(v3 + 129), *(v3 + 431), &buf);
+    VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x62u, *(v3 + 516), *(v3 + 3448), &buf);
   }
 
   if ((*(v3 + 4695) & 0x10) != 0 && (*(v3 + 4711) & 0x10) != 0)
   {
-    v443 = *(v3 + 409);
-    if (v443)
+    v441 = *(v3 + 3272);
+    if (v441)
     {
-      if (*(v3 + 3134) == 12)
+      if (*(v3 + 12536) == 12)
       {
-        v444 = *(v3 + 2169);
-        *v444 = v520;
-        v445 = *(v3 + 4320);
-        v446 = *(v3 + 129);
-        v447 = v445 % v446;
-        v448 = vcvtms_u32_f32(v445 / v446);
-        if (v447)
+        v442 = *(v3 + 17352);
+        *v442 = v517;
+        v443 = *(v3 + 17280);
+        v444 = *(v3 + 516);
+        v445 = v443 % v444;
+        v446 = vcvtms_u32_f32(v443 / v444);
+        if (v445)
         {
-          v449 = ((v447 / v446) * v444[v448 + 1]) + ((1.0 - (v447 / v446)) * v444[v448]);
+          v447 = ((v445 / v444) * v442[v446 + 1]) + ((1.0 - (v445 / v444)) * v442[v446]);
         }
 
         else
         {
-          v449 = v444[v448];
+          v447 = v442[v446];
         }
 
-        v520 = v449;
-        memmove(v444 + 1, v444, *(v3 + 2170) - v444 - 4);
-        v443 = *(v3 + 409);
+        v517 = v447;
+        memmove(v442 + 1, v442, *(v3 + 17360) - v442 - 4);
+        v441 = *(v3 + 3272);
       }
 
-      AudioUnitSetParameter(v443, 0, 0, 0, *(v3 + 3153), 0);
-      AudioUnitSetParameter(*(v3 + 409), 4u, 0, 0, *(v3 + 1054), 0);
-      AudioUnitSetParameter(*(v3 + 409), 0x13u, 0, 0, *(v3 + 1058), 0);
-      AudioUnitSetParameter(*(v3 + 409), 3u, 0, 0, v520, 0);
-      LODWORD(v534.realp) = 0;
-      AudioUnitGetParameter(*(v3 + 409), 0x1Cu, 0, 0, &v534);
-      if (*&v534.realp == 1.0)
+      AudioUnitSetParameter(v441, 0, 0, 0, *(v3 + 12612), 0);
+      AudioUnitSetParameter(*(v3 + 3272), 4u, 0, 0, *(v3 + 4216), 0);
+      AudioUnitSetParameter(*(v3 + 3272), 0x13u, 0, 0, *(v3 + 4232), 0);
+      AudioUnitSetParameter(*(v3 + 3272), 3u, 0, 0, v517, 0);
+      LODWORD(v531.realp) = 0;
+      AudioUnitGetParameter(*(v3 + 3272), 0x1Cu, 0, 0, &v531);
+      if (*&v531.realp == 1.0)
       {
-        v450 = v3 + 2792;
+        v448 = v3 + 2792;
         LODWORD(inInputBufferLists.mSampleTime) = -1082130432;
-        AudioUnitGetParameter(*(v3 + 409), 0x1Du, 0, 0, &inInputBufferLists);
-        v451 = *&inInputBufferLists.mSampleTime != 2.0 || *&inInputBufferLists.mSampleTime == 1.0;
-        v452 = v451 ? 22 : 23;
-        v453 = *&v450[8 * v452];
-        if (v453)
+        AudioUnitGetParameter(*(v3 + 3272), 0x1Du, 0, 0, &inInputBufferLists);
+        v449 = *&inInputBufferLists.mSampleTime != 2.0 || *&inInputBufferLists.mSampleTime == 1.0;
+        v450 = v449 ? 22 : 23;
+        v451 = *(v448 + 8 * v450);
+        if (v451)
         {
-          LODWORD(v529.mSampleTime) = 0;
-          if (!AudioUnitGetPropertyInfo(v453, 0xED8u, 0, 0, &v529, 0))
+          LODWORD(v526.mSampleTime) = 0;
+          if (!AudioUnitGetPropertyInfo(v451, 0xED8u, 0, 0, &v526, 0))
           {
-            v454 = *(v3 + 2192);
-            if (*(v3 + 2193) - v454 >= LODWORD(v529.mSampleTime))
+            v452 = *(v3 + 17536);
+            if (*(v3 + 17544) - v452 >= LODWORD(v526.mSampleTime))
             {
-              AudioUnitGetProperty(*&v450[8 * v452], 0xED8u, 0, 0, v454, &v529);
+              AudioUnitGetProperty(*(v448 + 8 * v450), 0xED8u, 0, 0, v452, &v526);
             }
           }
 
-          v530.mNumberBuffers = 0;
-          AudioUnitGetParameter(*&v450[8 * v452], 1u, 0, 0, &v530.mNumberBuffers);
-          AudioUnitSetProperty(*(v3 + 409), 0x846u, 0, 0, *(v3 + 2192), vcvts_n_u32_f32(*&v530.mNumberBuffers, 2uLL));
+          v527.mNumberBuffers = 0;
+          AudioUnitGetParameter(*(v448 + 8 * v450), 1u, 0, 0, &v527.mNumberBuffers);
+          AudioUnitSetProperty(*(v3 + 3272), 0x846u, 0, 0, *(v3 + 17536), vcvts_n_u32_f32(*&v527.mNumberBuffers, 2uLL));
         }
       }
 
-      AudioUnitSetParameter(*(v3 + 409), 0xEu, 0, 0, *(v3 + 580), 0);
-      LODWORD(v533.realp) = 0;
-      AudioUnitGetParameter(*(v3 + 371), 0x2Du, 0, 0, &v533);
-      AudioUnitSetParameter(*(v3 + 409), 0x23u, 0, 0, *&v533.realp, 0);
-      LODWORD(v521) = 1120403456;
-      v455 = *(v3 + 586);
-      if ((v455 & 0x20000000) != 0 && (*(v3 + 4707) & 0x20) != 0 && (v456 = *(v3 + 378)) != 0 || (v455 & 0x20000000000000) != 0 && (*(v3 + 4710) & 0x20) != 0 && (v456 = *(v3 + 402)) != 0 || (v455 & 0x40000000000000) != 0 && (*(v3 + 4710) & 0x40) != 0 && (v456 = *(v3 + 403)) != 0)
+      AudioUnitSetParameter(*(v3 + 3272), 0xEu, 0, 0, *(v3 + 2320), 0);
+      LODWORD(v530.realp) = 0;
+      AudioUnitGetParameter(*(v3 + 2968), 0x2Du, 0, 0, &v530);
+      AudioUnitSetParameter(*(v3 + 3272), 0x23u, 0, 0, *&v530.realp, 0);
+      LODWORD(v518) = 1120403456;
+      v453 = *(v3 + 4688);
+      if ((v453 & 0x20000000) != 0 && (*(v3 + 4707) & 0x20) != 0 && (v454 = *(v3 + 3024)) != 0 || (v453 & 0x20000000000000) != 0 && (*(v3 + 4710) & 0x20) != 0 && (v454 = *(v3 + 3216)) != 0 || (v453 & 0x40000000000000) != 0 && (*(v3 + 4710) & 0x40) != 0 && (v454 = *(v3 + 3224)) != 0)
       {
-        v457 = 2;
+        v455 = 2;
       }
 
       else
       {
-        if ((v455 & 0x80000000000000) == 0 || (*(v3 + 4710) & 0x80) == 0 || (v456 = *(v3 + 404)) == 0)
+        if ((v453 & 0x80000000000000) == 0 || (*(v3 + 4710) & 0x80) == 0 || (v454 = *(v3 + 3232)) == 0)
         {
-          v458 = 100.0;
+          v456 = 100.0;
           goto LABEL_870;
         }
 
-        v457 = 9;
+        v455 = 9;
       }
 
-      AudioUnitGetParameter(v456, v457, 0, 0, &v521);
-      v458 = *&v521;
+      AudioUnitGetParameter(v454, v455, 0, 0, &v518);
+      v456 = *&v518;
 LABEL_870:
-      AudioUnitSetParameter(*(v3 + 409), 0x25u, 0, 0, v458, 0);
-      if (*(v3 + 3134) == 12)
+      AudioUnitSetParameter(*(v3 + 3272), 0x25u, 0, 0, v456, 0);
+      if (*(v3 + 12536) == 12)
       {
-        v459 = *(v3 + 514);
-        v529.mSampleTime = *(v3 + 420);
-        v529.mHostTime = v459;
-        v460 = *(v3 + 434);
-        v529.mRateScalar = *(v3 + 2167);
-        v529.mWordClockTime = v460;
-        v461 = *(v3 + 2166);
-        *&v529.mSMPTETime.mSubframes = 0;
-        *&v529.mSMPTETime.mType = v461;
-        *&v530.mNumberBuffers = 0;
-        v519 = 512;
-        v462 = *&a2->mRateScalar;
+        v457 = *(v3 + 4112);
+        v526.mSampleTime = *(v3 + 3360);
+        v526.mHostTime = v457;
+        v458 = *(v3 + 3472);
+        v526.mRateScalar = *(v3 + 17336);
+        v526.mWordClockTime = v458;
+        v459 = *(v3 + 17328);
+        *&v526.mSMPTETime.mSubframes = 0;
+        *&v526.mSMPTETime.mType = v459;
+        *&v527.mNumberBuffers = 0;
+        v516 = 512;
+        v460 = *&a2->mRateScalar;
         *&inInputBufferLists.mSampleTime = *&a2->mSampleTime;
-        *&inInputBufferLists.mRateScalar = v462;
-        v463 = *&a2->mSMPTETime.mHours;
+        *&inInputBufferLists.mRateScalar = v460;
+        v461 = *&a2->mSMPTETime.mHours;
         *&inInputBufferLists.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-        *&inInputBufferLists.mSMPTETime.mHours = v463;
-        AudioUnitProcessMultiple(*(v3 + 409), &v519, &inInputBufferLists, *(v3 + 129), 6u, &v529, 1u, &v530);
-        v511 = 4;
-        AudioUnitGetProperty(*(v3 + 409), 0x15u, 0, 0, &v511 + 4, &v511);
-        if (!HIDWORD(v511))
+        *&inInputBufferLists.mSMPTETime.mHours = v461;
+        AudioUnitProcessMultiple(*(v3 + 3272), &v516, &inInputBufferLists, *(v3 + 516), 6u, &v526, 1u, &v527);
+        v508 = 4;
+        AudioUnitGetProperty(*(v3 + 3272), 0x15u, 0, 0, &v508 + 4, &v508);
+        if (!HIDWORD(v508))
         {
-          v510 = 0.0;
-          AudioUnitGetParameter(*(v3 + 409), 0xBu, 0, 0, &v510);
-          MEMORY[0x2743CCE20](*(*(v3 + 137) + 16), 1, &v510, *(*(v3 + 137) + 16), 1, *(v3 + 129));
+          v507 = 0.0;
+          AudioUnitGetParameter(*(v3 + 3272), 0xBu, 0, 0, &v507);
+          MEMORY[0x2743CCE20](*(*(v3 + 1096) + 16), 1, &v507, *(*(v3 + 1096) + 16), 1, *(v3 + 516));
         }
       }
 
       else
       {
-        v464 = *(v3 + 514);
-        inInputBufferLists.mSampleTime = *(v3 + 420);
-        inInputBufferLists.mHostTime = v464;
-        v465 = *(v3 + 513);
-        inInputBufferLists.mRateScalar = *(v3 + 431);
-        inInputBufferLists.mWordClockTime = v465;
-        v466 = *(v3 + 505);
-        *&inInputBufferLists.mSMPTETime.mSubframes = *(v3 + 503);
-        *&inInputBufferLists.mSMPTETime.mType = v466;
-        v467 = *(v3 + 436);
-        *&inInputBufferLists.mSMPTETime.mHours = v507;
-        *&inInputBufferLists.mFlags = v467;
-        *&v530.mNumberBuffers = *(v3 + 137);
-        v519 = 512;
-        v468 = *&a2->mRateScalar;
-        *&v529.mSampleTime = *&a2->mSampleTime;
-        *&v529.mRateScalar = v468;
-        v469 = *&a2->mSMPTETime.mHours;
-        *&v529.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-        *&v529.mSMPTETime.mHours = v469;
-        AudioUnitProcessMultiple(*(v3 + 409), &v519, &v529, *(v3 + 129), 8u, &inInputBufferLists, 1u, &v530);
+        v462 = *(v3 + 4112);
+        inInputBufferLists.mSampleTime = *(v3 + 3360);
+        inInputBufferLists.mHostTime = v462;
+        v463 = *(v3 + 4104);
+        inInputBufferLists.mRateScalar = *(v3 + 3448);
+        inInputBufferLists.mWordClockTime = v463;
+        v464 = *(v3 + 4040);
+        *&inInputBufferLists.mSMPTETime.mSubframes = *(v3 + 4024);
+        *&inInputBufferLists.mSMPTETime.mType = v464;
+        v465 = *(v3 + 3488);
+        *&inInputBufferLists.mSMPTETime.mHours = v504;
+        *&inInputBufferLists.mFlags = v465;
+        *&v527.mNumberBuffers = *(v3 + 1096);
+        v516 = 512;
+        v466 = *&a2->mRateScalar;
+        *&v526.mSampleTime = *&a2->mSampleTime;
+        *&v526.mRateScalar = v466;
+        v467 = *&a2->mSMPTETime.mHours;
+        *&v526.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
+        *&v526.mSMPTETime.mHours = v467;
+        AudioUnitProcessMultiple(*(v3 + 3272), &v516, &v526, *(v3 + 516), 8u, &inInputBufferLists, 1u, &v527);
       }
 
       LODWORD(inInputBufferLists.mSampleTime) = 0;
-      AudioUnitGetParameter(*(v3 + 409), 1u, 0, 0, &inInputBufferLists);
-      *(v3 + 3154) = LODWORD(inInputBufferLists.mSampleTime);
-      if ((*(v3 + 4696) & 2) != 0 && (*(v3 + 4712) & 2) != 0 && *(v3 + 414))
+      AudioUnitGetParameter(*(v3 + 3272), 1u, 0, 0, &inInputBufferLists);
+      *(v3 + 12616) = LODWORD(inInputBufferLists.mSampleTime);
+      if ((*(v3 + 4696) & 2) != 0 && (*(v3 + 4712) & 2) != 0 && *(v3 + 3312))
       {
-        AudioUnitGetParameter(*(v3 + 409), 2u, 0, 0, &v520);
-        AudioUnitSetParameter(*(v3 + 414), 0x23u, 0, 0, v520, 0);
+        AudioUnitGetParameter(*(v3 + 3272), 2u, 0, 0, &v517);
+        AudioUnitSetParameter(*(v3 + 3312), 0x23u, 0, 0, v517, 0);
       }
     }
   }
 
 LABEL_878:
-  v530.mNumberBuffers = 0;
-  v470 = VoiceProcessorV2::LocalVoiceDuckingForMediaChatEnabled(v3);
-  v471 = v470;
+  v527.mNumberBuffers = 0;
+  v468 = VoiceProcessorV2::LocalVoiceDuckingForMediaChatEnabled(v3);
+  v469 = v468;
   if (*(v3 + 2088) == 1)
   {
-    if (!((*(v3 + 2053) != 0) | v470 & 1))
+    if (!((*(v3 + 16424) != 0) | v468 & 1))
     {
       goto LABEL_894;
     }
 
     VoiceProcessorV2::DetectVoiceActivity(v3, a2);
-    if ((v471 & 1) == 0)
+    if ((v469 & 1) == 0)
     {
       goto LABEL_894;
     }
@@ -6478,7 +8923,7 @@ LABEL_878:
 
   else
   {
-    if ((v470 & 1) == 0)
+    if ((v468 & 1) == 0)
     {
       goto LABEL_894;
     }
@@ -6486,219 +8931,218 @@ LABEL_878:
     VoiceProcessorV2::DetectVoiceActivity(v3, a2);
   }
 
-  v472 = *(v3 + 586);
-  if ((v472 & 0x2000000000000000) != 0 && (*(v3 + 4711) & 0x20) != 0)
+  v470 = *(v3 + 4688);
+  if ((v470 & 0x2000000000000000) != 0 && (*(v3 + 4711) & 0x20) != 0)
   {
-    v473 = *(v3 + 410);
-    if (v473)
+    v471 = *(v3 + 3280);
+    if (v471)
     {
-      v474 = 1936748646;
+      v472 = 1936748646;
 LABEL_892:
-      AudioUnitGetParameter(v473, v474, 0, 0, &v530.mNumberBuffers);
+      AudioUnitGetParameter(v471, v472, 0, 0, &v527.mNumberBuffers);
       goto LABEL_894;
     }
   }
 
-  if ((v472 & 0x1000000000000000) != 0 && (*(v3 + 4711) & 0x10) != 0)
+  if ((v470 & 0x1000000000000000) != 0 && (*(v3 + 4711) & 0x10) != 0)
   {
-    v473 = *(v3 + 409);
-    if (v473)
+    v471 = *(v3 + 3272);
+    if (v471)
     {
-      v474 = 2;
+      v472 = 2;
       goto LABEL_892;
     }
   }
 
-  *&v530.mNumberBuffers = v520;
+  *&v527.mNumberBuffers = v517;
 LABEL_894:
   if (*(v3 + 2088) == 1)
   {
-    bzero(*(*(v3 + 137) + 16), 4 * *(v3 + 129));
-    v530.mNumberBuffers = 0;
+    bzero(*(*(v3 + 1096) + 16), 4 * *(v3 + 516));
+    v527.mNumberBuffers = 0;
   }
 
   else
   {
-    *(v3 + 4108) = 0;
+    *(v3 + 16432) = 0;
   }
 
   if ((*(v3 + 8865) & 0x80) != 0 && (*(v3 + 8873) & 0x80) != 0)
   {
-    v475 = *(v3 + 454);
-    if (((v475 != 0) & v471) == 1)
+    v473 = *(v3 + 3632);
+    if (((v473 != 0) & v469) == 1)
     {
-      AudioUnitSetParameter(v475, 0x12u, 0, 0, *&v530.mNumberBuffers, 0);
+      AudioUnitSetParameter(v473, 0x12u, 0, 0, *&v527.mNumberBuffers, 0);
     }
   }
 
   if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
   {
-    VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x2Au, *(v3 + 129), *(v3 + 137), a2);
+    VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x2Au, *(v3 + 516), *(v3 + 1096), a2);
   }
 
   if ((*(v3 + 4695) & 8) != 0 && (*(v3 + 4711) & 8) != 0)
   {
-    v476 = *(v3 + 408);
-    if (v476)
+    v474 = *(v3 + 3264);
+    if (v474)
     {
-      inInputBufferLists.mSampleTime = *(v3 + 137);
-      v529.mSampleTime = inInputBufferLists.mSampleTime;
-      LODWORD(v534.realp) = 512;
-      v477 = *&a2->mRateScalar;
+      inInputBufferLists.mSampleTime = *(v3 + 1096);
+      v526.mSampleTime = inInputBufferLists.mSampleTime;
+      LODWORD(v531.realp) = 512;
+      v475 = *&a2->mRateScalar;
       *&buf.mSampleTime = *&a2->mSampleTime;
-      *&buf.mRateScalar = v477;
-      v478 = *&a2->mSMPTETime.mHours;
+      *&buf.mRateScalar = v475;
+      v476 = *&a2->mSMPTETime.mHours;
       *&buf.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-      *&buf.mSMPTETime.mHours = v478;
-      AudioUnitProcessMultiple(v476, &v534, &buf, *(v3 + 129), 1u, &inInputBufferLists, 1u, &v529);
+      *&buf.mSMPTETime.mHours = v476;
+      AudioUnitProcessMultiple(v474, &v531, &buf, *(v3 + 516), 1u, &inInputBufferLists, 1u, &v526);
       if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
       {
-        VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x7Cu, *(v3 + 129), *(v3 + 137), &buf);
+        VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x7Cu, *(v3 + 516), *(v3 + 1096), &buf);
       }
     }
   }
 
   if (*(v3 + 2093) == 1 && (*(v3 + 4696) & 0x40) != 0 && (*(v3 + 4712) & 0x40) != 0)
   {
-    v479 = *(v3 + 419);
-    if (v479)
+    v477 = *(v3 + 3352);
+    if (v477)
     {
-      inInputBufferLists.mSampleTime = *(v3 + 137);
-      v529.mSampleTime = inInputBufferLists.mSampleTime;
-      LODWORD(v534.realp) = 512;
-      v480 = *&a2->mRateScalar;
+      inInputBufferLists.mSampleTime = *(v3 + 1096);
+      v526.mSampleTime = inInputBufferLists.mSampleTime;
+      LODWORD(v531.realp) = 512;
+      v478 = *&a2->mRateScalar;
       *&buf.mSampleTime = *&a2->mSampleTime;
-      *&buf.mRateScalar = v480;
-      v481 = *&a2->mSMPTETime.mHours;
+      *&buf.mRateScalar = v478;
+      v479 = *&a2->mSMPTETime.mHours;
       *&buf.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-      *&buf.mSMPTETime.mHours = v481;
-      AudioUnitProcessMultiple(v479, &v534, &buf, *(v3 + 129), 1u, &inInputBufferLists, 1u, &v529);
+      *&buf.mSMPTETime.mHours = v479;
+      AudioUnitProcessMultiple(v477, &v531, &buf, *(v3 + 516), 1u, &inInputBufferLists, 1u, &v526);
       if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
       {
-        VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x7Eu, *(v3 + 129), *(v3 + 137), &buf);
+        VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x7Eu, *(v3 + 516), *(v3 + 1096), &buf);
       }
     }
   }
 
-  if ((*(v3 + 586) & 0x8000000000000000) != 0 && (*(v3 + 588) & 0x8000000000000000) != 0)
+  if ((*(v3 + 4688) & 0x8000000000000000) != 0 && (*(v3 + 4704) & 0x8000000000000000) != 0)
   {
-    v482 = *(v3 + 412);
-    if (v482)
+    v480 = *(v3 + 3296);
+    if (v480)
     {
-      v483 = *&a2->mRateScalar;
+      v481 = *&a2->mRateScalar;
       *&buf.mSampleTime = *&a2->mSampleTime;
-      *&buf.mRateScalar = v483;
-      v484 = *&a2->mSMPTETime.mHours;
+      *&buf.mRateScalar = v481;
+      v482 = *&a2->mSMPTETime.mHours;
       *&buf.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-      *&buf.mSMPTETime.mHours = v484;
+      *&buf.mSMPTETime.mHours = v482;
       LODWORD(inInputBufferLists.mSampleTime) = 512;
-      AudioUnitProcess(v482, &inInputBufferLists, &buf, *(v3 + 129), *(v3 + 137));
+      AudioUnitProcess(v480, &inInputBufferLists, &buf, *(v3 + 516), *(v3 + 1096));
       if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
       {
-        VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x2Cu, *(v3 + 129), *(v3 + 137), &buf);
+        VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x2Cu, *(v3 + 516), *(v3 + 1096), &buf);
       }
     }
   }
 
-  v485 = *(v3 + 587);
-  if (v485 & 1) != 0 && (*(v3 + 4712))
+  v483 = *(v3 + 4696);
+  if (v483 & 1) != 0 && (*(v3 + 4712))
   {
-    v486 = *(v3 + 413);
-    if (v486)
+    v484 = *(v3 + 3304);
+    if (v484)
     {
-      v487 = *&a2->mRateScalar;
+      v485 = *&a2->mRateScalar;
       *&buf.mSampleTime = *&a2->mSampleTime;
-      *&buf.mRateScalar = v487;
-      v488 = *&a2->mSMPTETime.mHours;
+      *&buf.mRateScalar = v485;
+      v486 = *&a2->mSMPTETime.mHours;
       *&buf.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-      *&buf.mSMPTETime.mHours = v488;
+      *&buf.mSMPTETime.mHours = v486;
       LODWORD(inInputBufferLists.mSampleTime) = 512;
-      AudioUnitProcess(v486, &inInputBufferLists, &buf, *(v3 + 129), *(v3 + 137));
-      v485 = *(v3 + 587);
+      AudioUnitProcess(v484, &inInputBufferLists, &buf, *(v3 + 516), *(v3 + 1096));
+      v483 = *(v3 + 4696);
     }
   }
 
-  if ((v485 & 2) != 0 && (*(v3 + 4712) & 2) != 0 && (v489 = *(v3 + 414)) != 0)
+  if ((v483 & 2) != 0 && (*(v3 + 4712) & 2) != 0 && (v487 = *(v3 + 3312)) != 0)
   {
-    v490 = *&a2->mRateScalar;
+    v488 = *&a2->mRateScalar;
     *&buf.mSampleTime = *&a2->mSampleTime;
-    *&buf.mRateScalar = v490;
-    v491 = *&a2->mSMPTETime.mHours;
+    *&buf.mRateScalar = v488;
+    v489 = *&a2->mSMPTETime.mHours;
     *&buf.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-    *&buf.mSMPTETime.mHours = v491;
+    *&buf.mSMPTETime.mHours = v489;
     LODWORD(inInputBufferLists.mSampleTime) = 512;
-    AudioUnitProcess(v489, &inInputBufferLists, &buf, *(v3 + 129), *(v3 + 137));
+    AudioUnitProcess(v487, &inInputBufferLists, &buf, *(v3 + 516), *(v3 + 1096));
     if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
     {
-      VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x2Du, *(v3 + 129), *(v3 + 137), &buf);
+      VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x2Du, *(v3 + 516), *(v3 + 1096), &buf);
     }
 
-    if ((*(v3 + 4695) & 0x10) != 0 && (*(v3 + 4711) & 0x10) != 0 && *(v3 + 409))
+    if ((*(v3 + 4695) & 0x10) != 0 && (*(v3 + 4711) & 0x10) != 0 && *(v3 + 3272))
     {
-      LODWORD(v529.mSampleTime) = 0;
-      AudioUnitGetParameter(*(v3 + 414), 1u, 0, 0, &v529);
-      AudioUnitSetParameter(*(v3 + 409), 0x11u, 0, 0, *&v529.mSampleTime, 0);
+      LODWORD(v526.mSampleTime) = 0;
+      AudioUnitGetParameter(*(v3 + 3312), 1u, 0, 0, &v526);
+      AudioUnitSetParameter(*(v3 + 3272), 0x11u, 0, 0, *&v526.mSampleTime, 0);
     }
 
-    LODWORD(v529.mSampleTime) = 0;
-    AudioUnitGetParameter(*(v3 + 414), 0x1Bu, 0, 0, &v529);
-    mSampleTime_low = LODWORD(v529.mSampleTime);
-    if (*(v3 + 577) != *&v529.mSampleTime)
+    LODWORD(v526.mSampleTime) = 0;
+    AudioUnitGetParameter(*(v3 + 3312), 0x1Bu, 0, 0, &v526);
+    mSampleTime_low = LODWORD(v526.mSampleTime);
+    if (*(v3 + 2308) != *&v526.mSampleTime)
     {
       if ((*(v3 + 4695) & 0x10) != 0 && (*(v3 + 4711) & 0x10) != 0)
       {
-        v493 = *(v3 + 409);
-        if (v493)
+        v491 = *(v3 + 3272);
+        if (v491)
         {
-          AudioUnitSetParameter(v493, 0x12u, 0, 0, *&v529.mSampleTime, 0);
-          mSampleTime_low = LODWORD(v529.mSampleTime);
+          AudioUnitSetParameter(v491, 0x12u, 0, 0, *&v526.mSampleTime, 0);
+          mSampleTime_low = LODWORD(v526.mSampleTime);
         }
       }
 
-      *(v3 + 577) = mSampleTime_low;
+      *(v3 + 2308) = mSampleTime_low;
     }
   }
 
   else if ((*(v3 + 4695) & 0x40) != 0 && ((*(v3 + 4711) & 0x40) != 0 || *(v3 + 480) == 1))
   {
-    LODWORD(buf.mSampleTime) = __exp10f(*(v3 + 1099) / 20.0);
-    MEMORY[0x2743CCE20](*(*(v3 + 137) + 16), 1, &buf, *(*(v3 + 137) + 16), 1, *(v3 + 129));
+    LODWORD(buf.mSampleTime) = __exp10f(*(v3 + 4396) / 20.0);
+    MEMORY[0x2743CCE20](*(*(v3 + 1096) + 16), 1, &buf, *(*(v3 + 1096) + 16), 1, *(v3 + 516));
     if ((*(v3 + 15881) & 1) != 0 || *(v3 + 15882) == 1)
     {
-      VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x2Bu, *(v3 + 129), *(v3 + 137), a2);
+      VoiceProcessorV2::SaveFilesWriteSignal(v3, 0x2Bu, *(v3 + 516), *(v3 + 1096), a2);
     }
   }
 
   VoiceProcessorV6::ProcessLevelDrivenSuppressor(v3, a2);
   if ((*(v3 + 4696) & 8) != 0 && (*(v3 + 4712) & 8) != 0)
   {
-    v494 = *(v3 + 416);
-    if (v494)
+    v492 = *(v3 + 3328);
+    if (v492)
     {
-      v495 = *&a2->mRateScalar;
+      v493 = *&a2->mRateScalar;
       *&buf.mSampleTime = *&a2->mSampleTime;
-      *&buf.mRateScalar = v495;
-      v496 = *&a2->mSMPTETime.mHours;
+      *&buf.mRateScalar = v493;
+      v494 = *&a2->mSMPTETime.mHours;
       *&buf.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes;
-      *&buf.mSMPTETime.mHours = v496;
+      *&buf.mSMPTETime.mHours = v494;
       LODWORD(inInputBufferLists.mSampleTime) = 512;
-      v497 = atomic_load(gWirelessChargingMatIsAttached);
-      AudioUnitSetParameter(v494, 5u, 0, 0, (v497 & 1), 0);
-      AudioUnitProcess(*(v3 + 416), &inInputBufferLists, &buf, *(v3 + 129), *(v3 + 137));
+      v495 = atomic_load(gWirelessChargingMatIsAttached);
+      AudioUnitSetParameter(v492, 5u, 0, 0, (v495 & 1), 0);
+      AudioUnitProcess(*(v3 + 3328), &inInputBufferLists, &buf, *(v3 + 516), *(v3 + 1096));
     }
   }
 
-  v498 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 uint64_t VoiceProcessorV2::GetPropertyInfo(VoiceProcessorV2 *this, int a2, unsigned int *a3, unsigned __int8 *a4)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   result = 1651532146;
   if (!a3 || !a4)
   {
-    goto LABEL_109;
+    return result;
   }
 
   result = 4294956417;
@@ -6750,9 +9194,7 @@ LABEL_87:
               goto LABEL_88;
             }
 
-LABEL_115:
-            result = 2003332927;
-            goto LABEL_109;
+            return 2003332927;
           }
 
 LABEL_106:
@@ -6812,138 +9254,222 @@ LABEL_81:
       goto LABEL_87;
     }
 
-    if (a2 > 1937141090)
+    if (a2 <= 1937141090)
     {
-      if (a2 > 1986097260)
+      if (a2 <= 1885957986)
       {
-        if (a2 > 1986880626)
+        if (a2 > 1836278116)
         {
-          if (a2 == 1986880627)
+          if (a2 != 1836278117 && a2 != 1868653667)
           {
-            goto LABEL_88;
+            return 2003332927;
           }
 
-          v14 = 26988;
-        }
-
-        else
-        {
-          if (a2 == 1986097261)
+          if (!_os_feature_enabled_impl())
           {
-            goto LABEL_88;
+            return 4294956417;
           }
 
-          v14 = 25187;
+          goto LABEL_106;
         }
 
-        goto LABEL_81;
-      }
-
-      if (a2 <= 1953915763)
-      {
-        if (a2 == 1937141091)
+        if (a2 == 1836082532)
         {
-          goto LABEL_88;
+          *a3 = 4;
+          IsDeviceSupportingAdvancedChatFlavors = VoiceProcessorV2::IsDeviceSupportingAdvancedChatFlavors(0xFFFFD581);
+          result = 0;
+LABEL_108:
+          *a4 = IsDeviceSupportingAdvancedChatFlavors;
+          return result;
         }
 
-        v12 = 1953915762;
-        goto LABEL_32;
+        v11 = 1836266093;
+        goto LABEL_68;
       }
 
-      if (a2 == 1953915764)
+      if (a2 > 1936746594)
       {
-        goto LABEL_88;
-      }
-
-      v11 = 1969844082;
-      goto LABEL_68;
-    }
-
-    if (a2 <= 1885957986)
-    {
-      if (a2 > 1836278116)
-      {
-        if (a2 != 1836278117 && a2 != 1868653667)
+        if (a2 != 1936746595)
         {
-          goto LABEL_115;
-        }
+          if (a2 == 1936747876)
+          {
+            *buf = 0;
+            if (GetSpatialMetadataSPI(void)::sSpatialMetadataSPIOnce != -1)
+            {
+              dispatch_once(&GetSpatialMetadataSPI(void)::sSpatialMetadataSPIOnce, &__block_literal_global_3842);
+            }
 
-        if (!_os_feature_enabled_impl())
-        {
-          result = 4294956417;
-          goto LABEL_109;
+            (*(GetSpatialMetadataSPI(void)::sSpatialMetadataSPI + 8))(buf, 32);
+            v20 = 0;
+            if (GetSpatialMetadataSPI(void)::sSpatialMetadataSPIOnce != -1)
+            {
+              dispatch_once(&GetSpatialMetadataSPI(void)::sSpatialMetadataSPIOnce, &__block_literal_global_3842);
+            }
+
+            (*(GetSpatialMetadataSPI(void)::sSpatialMetadataSPI + 40))(*buf, &v20);
+            if (GetSpatialMetadataSPI(void)::sSpatialMetadataSPIOnce != -1)
+            {
+              dispatch_once(&GetSpatialMetadataSPI(void)::sSpatialMetadataSPIOnce, &__block_literal_global_3842);
+            }
+
+            (*(GetSpatialMetadataSPI(void)::sSpatialMetadataSPI + 16))(*buf);
+            result = 0;
+            v16 = v20;
+            goto LABEL_107;
+          }
+
+          return 2003332927;
         }
 
         goto LABEL_106;
       }
 
-      if (a2 == 1836082532)
+      if (a2 != 1885957987)
       {
-        *a3 = 4;
-        IsDeviceSupportingAdvancedChatFlavors = VoiceProcessorV2::IsDeviceSupportingAdvancedChatFlavors(0xFFFFD581);
-        result = 0;
-LABEL_108:
-        *a4 = IsDeviceSupportingAdvancedChatFlavors;
-        goto LABEL_109;
+        v13 = 1936744803;
+        goto LABEL_87;
       }
 
-      v11 = 1836266093;
+      goto LABEL_56;
+    }
+
+    if (a2 > 1986097260)
+    {
+      if (a2 > 1986880626)
+      {
+        if (a2 == 1986880627)
+        {
+          goto LABEL_88;
+        }
+
+        v14 = 26988;
+      }
+
+      else
+      {
+        if (a2 == 1986097261)
+        {
+          goto LABEL_88;
+        }
+
+        v14 = 25187;
+      }
+
+      goto LABEL_81;
+    }
+
+    if (a2 <= 1953915763)
+    {
+      if (a2 == 1937141091)
+      {
+        goto LABEL_88;
+      }
+
+      v12 = 1953915762;
+      goto LABEL_32;
+    }
+
+    if (a2 == 1953915764)
+    {
+      goto LABEL_88;
+    }
+
+    v11 = 1969844082;
+LABEL_68:
+    if (a2 == v11)
+    {
+      return result;
+    }
+
+    return 2003332927;
+  }
+
+  if (a2 > 1634300530)
+  {
+    if (a2 > 1701864050)
+    {
+      if (a2 > 1718384241)
+      {
+        if (a2 > 1768514914)
+        {
+          if (a2 != 1768514915)
+          {
+            v13 = 1835361379;
+            goto LABEL_87;
+          }
+
+          goto LABEL_88;
+        }
+
+        if (a2 == 1718384242)
+        {
+          goto LABEL_88;
+        }
+
+        v12 = 1751214436;
+LABEL_32:
+        if (a2 != v12)
+        {
+          return 2003332927;
+        }
+
+        goto LABEL_106;
+      }
+
+      if (a2 == 1701864051 || a2 == 1701868402)
+      {
+        goto LABEL_88;
+      }
+
+      if (a2 != 1718384225)
+      {
+        return 2003332927;
+      }
+
+LABEL_56:
+      result = 0;
+      v15 = 4;
+LABEL_103:
+      *a3 = v15;
+      *a4 = 0;
+      return result;
+    }
+
+    if (a2 > 1635085676)
+    {
+      if (a2 == 1635085677)
+      {
+        goto LABEL_88;
+      }
+
+      if (a2 == 1684305512)
+      {
+        return result;
+      }
+
+      v11 = 1685483378;
       goto LABEL_68;
     }
 
-    if (a2 > 1936746594)
+    if (a2 == 1634300531)
     {
-      if (a2 != 1936746595)
-      {
-        if (a2 == 1936747876)
-        {
-          *buf = 0;
-          if (GetSpatialMetadataSPI(void)::sSpatialMetadataSPIOnce != -1)
-          {
-            dispatch_once(&GetSpatialMetadataSPI(void)::sSpatialMetadataSPIOnce, &__block_literal_global_3842);
-          }
-
-          (*(GetSpatialMetadataSPI(void)::sSpatialMetadataSPI + 8))(buf, 32);
-          v22 = 0;
-          if (GetSpatialMetadataSPI(void)::sSpatialMetadataSPIOnce != -1)
-          {
-            dispatch_once(&GetSpatialMetadataSPI(void)::sSpatialMetadataSPIOnce, &__block_literal_global_3842);
-          }
-
-          (*(GetSpatialMetadataSPI(void)::sSpatialMetadataSPI + 40))(*buf, &v22);
-          if (GetSpatialMetadataSPI(void)::sSpatialMetadataSPIOnce != -1)
-          {
-            dispatch_once(&GetSpatialMetadataSPI(void)::sSpatialMetadataSPIOnce, &__block_literal_global_3842);
-          }
-
-          (*(GetSpatialMetadataSPI(void)::sSpatialMetadataSPI + 16))(*buf);
-          result = 0;
-          v16 = v22;
-          goto LABEL_107;
-        }
-
-        goto LABEL_115;
-      }
-
-      goto LABEL_106;
+      result = 0;
+      v16 = 8 * *(this + 544);
+      goto LABEL_107;
     }
 
-    if (a2 != 1885957987)
+    if (a2 != 1634758259)
     {
-      v13 = 1936744803;
+      v13 = 1634758502;
       goto LABEL_87;
     }
 
-LABEL_56:
-    result = 0;
-    v15 = 4;
-LABEL_103:
-    *a3 = v15;
-    *a4 = 0;
-    goto LABEL_109;
+    v19 = *(*this + 152);
+
+    return v19(this, 1634758502);
   }
 
-  if (a2 <= 1634300530)
+  else
   {
     switch(a2)
     {
@@ -6978,17 +9504,17 @@ LABEL_93:
 
         if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
-          goto LABEL_101;
+          return 561406316;
         }
 
         *buf = 136315906;
         *&buf[4] = "vpProperties.cpp";
-        v24 = 1024;
-        v25 = 123;
+        v22 = 1024;
+        v23 = 123;
+        v24 = 2080;
+        v25 = "mTelephonyMicDSPSettingsDict != nullptr";
         v26 = 2080;
-        v27 = "mTelephonyMicDSPSettingsDict != nullptr";
-        v28 = 2080;
-        v29 = "InvalidPropertyValue";
+        v27 = "InvalidPropertyValue";
         v17 = MEMORY[0x277D86220];
         break;
       case 32784:
@@ -6999,17 +9525,17 @@ LABEL_93:
 
         if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
-          goto LABEL_101;
+          return 561406316;
         }
 
         *buf = 136315906;
         *&buf[4] = "vpProperties.cpp";
-        v24 = 1024;
-        v25 = 129;
+        v22 = 1024;
+        v23 = 129;
+        v24 = 2080;
+        v25 = "mTelephonyRefDSPSettingsDict != nullptr";
         v26 = 2080;
-        v27 = "mTelephonyRefDSPSettingsDict != nullptr";
-        v28 = 2080;
-        v29 = "InvalidPropertyValue";
+        v27 = "InvalidPropertyValue";
         v17 = MEMORY[0x277D86220];
         break;
       case 32796:
@@ -7024,17 +9550,17 @@ LABEL_93:
 
         if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
-          goto LABEL_101;
+          return 561406316;
         }
 
         *buf = 136315906;
         *&buf[4] = "vpProperties.cpp";
-        v24 = 1024;
-        v25 = 135;
+        v22 = 1024;
+        v23 = 135;
+        v24 = 2080;
+        v25 = "mPowerBudget != nullptr";
         v26 = 2080;
-        v27 = "mPowerBudget != nullptr";
-        v28 = 2080;
-        v29 = "InvalidPropertyValue";
+        v27 = "InvalidPropertyValue";
         v17 = MEMORY[0x277D86220];
         break;
       case 32799:
@@ -7042,99 +9568,12 @@ LABEL_93:
       case 32801:
         goto LABEL_106;
       default:
-        goto LABEL_115;
+        return 2003332927;
     }
 
     _os_log_impl(&dword_2724B4000, v17, OS_LOG_TYPE_ERROR, "%25s:%-5d  ca_require: %s %s", buf, 0x26u);
-LABEL_101:
-    result = 561406316;
-    goto LABEL_109;
+    return 561406316;
   }
-
-  if (a2 > 1701864050)
-  {
-    if (a2 > 1718384241)
-    {
-      if (a2 > 1768514914)
-      {
-        if (a2 != 1768514915)
-        {
-          v13 = 1835361379;
-          goto LABEL_87;
-        }
-
-        goto LABEL_88;
-      }
-
-      if (a2 == 1718384242)
-      {
-        goto LABEL_88;
-      }
-
-      v12 = 1751214436;
-LABEL_32:
-      if (a2 != v12)
-      {
-        goto LABEL_115;
-      }
-
-      goto LABEL_106;
-    }
-
-    if (a2 == 1701864051 || a2 == 1701868402)
-    {
-      goto LABEL_88;
-    }
-
-    if (a2 != 1718384225)
-    {
-      goto LABEL_115;
-    }
-
-    goto LABEL_56;
-  }
-
-  if (a2 > 1635085676)
-  {
-    if (a2 == 1635085677)
-    {
-      goto LABEL_88;
-    }
-
-    if (a2 == 1684305512)
-    {
-LABEL_109:
-      v19 = *MEMORY[0x277D85DE8];
-      return result;
-    }
-
-    v11 = 1685483378;
-LABEL_68:
-    if (a2 != v11)
-    {
-      goto LABEL_115;
-    }
-
-    goto LABEL_109;
-  }
-
-  if (a2 == 1634300531)
-  {
-    result = 0;
-    v16 = 8 * *(this + 544);
-    goto LABEL_107;
-  }
-
-  if (a2 != 1634758259)
-  {
-    v13 = 1634758502;
-    goto LABEL_87;
-  }
-
-  v20 = *(*this + 152);
-  v21 = *MEMORY[0x277D85DE8];
-
-  return v20(this, 1634758502);
 }
 
 void *___ZL21GetSpatialMetadataSPIv_block_invoke()
@@ -7172,11 +9611,11 @@ uint64_t VoiceProcessorV2::GetPropertyInternal(VoiceProcessorV2 *this, int a2, u
 {
   while (1)
   {
-    v42 = *MEMORY[0x277D85DE8];
+    v40 = *MEMORY[0x277D85DE8];
     v9 = this + 0x4000;
-    v36 = a3;
-    v34 = 0;
-    v35 = a4;
+    v34 = a3;
+    v32 = 0;
+    v33 = a4;
     if (a2 > 1684305511)
     {
       if (a2 <= 1868653666)
@@ -7189,15 +9628,15 @@ uint64_t VoiceProcessorV2::GetPropertyInternal(VoiceProcessorV2 *this, int a2, u
             {
               if (a2 != 1835361379)
               {
-                goto LABEL_119;
+                return 2003332927;
               }
 
               if (a4 != 4)
               {
-                v15 = 561211770;
+                v14 = 561211770;
                 if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
                 {
-                  goto LABEL_151;
+                  return v14;
                 }
 
                 *buf = 136315906;
@@ -7206,13 +9645,13 @@ uint64_t VoiceProcessorV2::GetPropertyInternal(VoiceProcessorV2 *this, int a2, u
                 *&buf[14] = 405;
                 *&buf[18] = 2080;
                 *&buf[20] = "inDataSize == sizeof(UInt32)";
-                v40 = 2080;
-                v41 = "BadPropertySize";
-                v16 = MEMORY[0x277D86220];
+                v38 = 2080;
+                v39 = "BadPropertySize";
+                v15 = MEMORY[0x277D86220];
                 goto LABEL_51;
               }
 
-              if ((*(*this + 112))(this) > 9 || (v18 = *(this + 20), v18 == 2) || v18 == 4)
+              if ((*(*this + 112))(this) > 9 || (v17 = *(this + 20), v17 == 2) || v17 == 4)
               {
                 v10 = *(this + 2260);
               }
@@ -7227,7 +9666,7 @@ uint64_t VoiceProcessorV2::GetPropertyInternal(VoiceProcessorV2 *this, int a2, u
 
             if (a4 <= 3)
             {
-              goto LABEL_140;
+              return 561211770;
             }
 
             v10 = *(this + 16568);
@@ -7241,15 +9680,15 @@ uint64_t VoiceProcessorV2::GetPropertyInternal(VoiceProcessorV2 *this, int a2, u
               {
                 if (a2 != 1836278117)
                 {
-                  goto LABEL_119;
+                  return 2003332927;
                 }
 
                 if (a4 != 8)
                 {
-                  v15 = 561211770;
+                  v14 = 561211770;
                   if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
                   {
-                    goto LABEL_151;
+                    return v14;
                   }
 
                   *buf = 136315906;
@@ -7258,9 +9697,9 @@ uint64_t VoiceProcessorV2::GetPropertyInternal(VoiceProcessorV2 *this, int a2, u
                   *&buf[14] = 662;
                   *&buf[18] = 2080;
                   *&buf[20] = "inDataSize == sizeof(AUVoiceIOMutedSpeechActivityEventListener)";
-                  v40 = 2080;
-                  v41 = "BadPropertySize";
-                  v16 = MEMORY[0x277D86220];
+                  v38 = 2080;
+                  v39 = "BadPropertySize";
+                  v15 = MEMORY[0x277D86220];
                   goto LABEL_51;
                 }
 
@@ -7275,15 +9714,15 @@ LABEL_87:
                 goto LABEL_113;
               }
 
-              goto LABEL_54;
+              return -10879;
             }
 
             if (a4 != 4)
             {
-              v15 = 561211770;
+              v14 = 561211770;
               if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
               {
-                goto LABEL_151;
+                return v14;
               }
 
               *buf = 136315906;
@@ -7292,9 +9731,9 @@ LABEL_87:
               *&buf[14] = 424;
               *&buf[18] = 2080;
               *&buf[20] = "inDataSize == sizeof(UInt32)";
-              v40 = 2080;
-              v41 = "BadPropertySize";
-              v16 = MEMORY[0x277D86220];
+              v38 = 2080;
+              v39 = "BadPropertySize";
+              v15 = MEMORY[0x277D86220];
               goto LABEL_51;
             }
 
@@ -7310,10 +9749,10 @@ LABEL_87:
 LABEL_147:
           *a3 = v10;
 LABEL_148:
-          v27 = 4;
+          v26 = 4;
 LABEL_149:
-          *a5 = v27;
-          goto LABEL_150;
+          *a5 = v26;
+          return v32;
         }
 
         if (a2 > 1718384224)
@@ -7322,10 +9761,10 @@ LABEL_149:
           {
             if (a4 <= 3)
             {
-              v15 = 561211770;
+              v14 = 561211770;
               if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
               {
-                goto LABEL_151;
+                return v14;
               }
 
               *buf = 136315906;
@@ -7334,9 +9773,9 @@ LABEL_149:
               *&buf[14] = 657;
               *&buf[18] = 2080;
               *&buf[20] = "inDataSize >= sizeof(UInt32)";
-              v40 = 2080;
-              v41 = "BadPropertySize";
-              v16 = MEMORY[0x277D86220];
+              v38 = 2080;
+              v39 = "BadPropertySize";
+              v15 = MEMORY[0x277D86220];
               goto LABEL_51;
             }
 
@@ -7348,10 +9787,10 @@ LABEL_149:
           {
             if (a4 <= 3)
             {
-              v15 = 561211770;
+              v14 = 561211770;
               if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
               {
-                goto LABEL_151;
+                return v14;
               }
 
               *buf = 136315906;
@@ -7360,9 +9799,9 @@ LABEL_149:
               *&buf[14] = 652;
               *&buf[18] = 2080;
               *&buf[20] = "inDataSize >= sizeof(UInt32)";
-              v40 = 2080;
-              v41 = "BadPropertySize";
-              v16 = MEMORY[0x277D86220];
+              v38 = 2080;
+              v39 = "BadPropertySize";
+              v15 = MEMORY[0x277D86220];
               goto LABEL_51;
             }
 
@@ -7372,16 +9811,16 @@ LABEL_149:
 
           if (a2 != 1751214436)
           {
-            goto LABEL_119;
+            return 2003332927;
           }
 
           if (a4 != 8)
           {
 LABEL_49:
-            v15 = 561211770;
+            v14 = 561211770;
             if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
             {
-              goto LABEL_151;
+              return v14;
             }
 
             *buf = 136315906;
@@ -7390,9 +9829,9 @@ LABEL_49:
             *&buf[14] = 735;
             *&buf[18] = 2080;
             *&buf[20] = "inDataSize == sizeof(CFStringRef)";
-            v40 = 2080;
-            v41 = "BadPropertySize";
-            v16 = MEMORY[0x277D86220];
+            v38 = 2080;
+            v39 = "BadPropertySize";
+            v15 = MEMORY[0x277D86220];
             goto LABEL_51;
           }
 
@@ -7410,7 +9849,7 @@ LABEL_112:
 
         if (a2 != 1684305512 && a2 != 1685483378)
         {
-          goto LABEL_119;
+          return 2003332927;
         }
       }
 
@@ -7424,10 +9863,10 @@ LABEL_112:
             {
               if (a4 != 4)
               {
-                v15 = 561211770;
+                v14 = 561211770;
                 if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
                 {
-                  goto LABEL_151;
+                  return v14;
                 }
 
                 *buf = 136315906;
@@ -7436,9 +9875,9 @@ LABEL_112:
                 *&buf[14] = 418;
                 *&buf[18] = 2080;
                 *&buf[20] = "inDataSize == sizeof(UInt32)";
-                v40 = 2080;
-                v41 = "BadPropertySize";
-                v16 = MEMORY[0x277D86220];
+                v38 = 2080;
+                v39 = "BadPropertySize";
+                v15 = MEMORY[0x277D86220];
                 goto LABEL_51;
               }
 
@@ -7450,27 +9889,25 @@ LABEL_112:
             {
               if (a2 == 1936747876)
               {
-                *buf = &v35;
-                *&buf[8] = &v34;
-                *&buf[16] = &v36;
-                v38[0] = caulk::function_ref<void ()(unsigned char const*,unsigned long)>::functor_invoker<VoiceProcessorV2::GetPropertyInternal(unsigned int,void *,unsigned int,unsigned int *)::$_0>;
-                v38[1] = buf;
-                v37 = v38;
-                caulk::concurrent::lf_read_synchronized_write<std::optional<std::vector<unsigned char>>>::access<vp::utility::Lock_Free_SRSW_Storage<unsigned char>::load(caulk::function_ref<void ()(unsigned char const*,unsigned long)>)::{lambda(std::optional<std::vector<unsigned char>> const&)#1}>((this + 16296), &v37);
-LABEL_150:
-                v15 = v34;
-                goto LABEL_151;
+                *buf = &v33;
+                *&buf[8] = &v32;
+                *&buf[16] = &v34;
+                v36[0] = caulk::function_ref<void ()(unsigned char const*,unsigned long)>::functor_invoker<VoiceProcessorV2::GetPropertyInternal(unsigned int,void *,unsigned int,unsigned int *)::$_0>;
+                v36[1] = buf;
+                v35 = v36;
+                caulk::concurrent::lf_read_synchronized_write<std::optional<std::vector<unsigned char>>>::access<vp::utility::Lock_Free_SRSW_Storage<unsigned char>::load(caulk::function_ref<void ()(unsigned char const*,unsigned long)>)::{lambda(std::optional<std::vector<unsigned char>> const&)#1}>((this + 16296), &v35);
+                return v32;
               }
 
-              goto LABEL_119;
+              return 2003332927;
             }
 
             if (a4 <= 7)
             {
-              v15 = 561211770;
+              v14 = 561211770;
               if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
               {
-                goto LABEL_151;
+                return v14;
               }
 
               *buf = 136315906;
@@ -7479,9 +9916,9 @@ LABEL_150:
               *&buf[14] = 646;
               *&buf[18] = 2080;
               *&buf[20] = "inDataSize >= sizeof(SpatialHeadTrackingConfiguration)";
-              v40 = 2080;
-              v41 = "BadPropertySize";
-              v16 = MEMORY[0x277D86220];
+              v38 = 2080;
+              v39 = "BadPropertySize";
+              v15 = MEMORY[0x277D86220];
               goto LABEL_51;
             }
 
@@ -7493,12 +9930,12 @@ LABEL_150:
           {
             if (!_os_feature_enabled_impl())
             {
-              goto LABEL_119;
+              return 2003332927;
             }
 
             if (a4 != 8)
             {
-              v15 = 561211770;
+              v14 = 561211770;
               if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
               {
                 *buf = 136315906;
@@ -7507,32 +9944,32 @@ LABEL_150:
                 *&buf[14] = 670;
                 *&buf[18] = 2080;
                 *&buf[20] = "inDataSize == sizeof(AUVoiceIOOtherAudioDuckingConfiguration)";
-                v40 = 2080;
-                v41 = "BadPropertySize";
-                v16 = MEMORY[0x277D86220];
+                v38 = 2080;
+                v39 = "BadPropertySize";
+                v15 = MEMORY[0x277D86220];
                 goto LABEL_51;
               }
 
-              goto LABEL_151;
+              return v14;
             }
 
-            v29 = *(v9 + 45);
+            v28 = *(v9 + 45);
             *a3 = v9[177];
-            a3[1] = v29;
+            a3[1] = v28;
             goto LABEL_113;
           }
 
           if (a2 != 1885957987)
           {
-            goto LABEL_119;
+            return 2003332927;
           }
 
           if (a4 <= 3)
           {
-            v15 = 561211770;
+            v14 = 561211770;
             if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
             {
-              goto LABEL_151;
+              return v14;
             }
 
             *buf = 136315906;
@@ -7541,15 +9978,15 @@ LABEL_150:
             *&buf[14] = 686;
             *&buf[18] = 2080;
             *&buf[20] = "inDataSize >= sizeof(Float32)";
-            v40 = 2080;
-            v41 = "BadPropertySize";
-            v16 = MEMORY[0x277D86220];
+            v38 = 2080;
+            v39 = "BadPropertySize";
+            v15 = MEMORY[0x277D86220];
             goto LABEL_51;
           }
 
-          v14 = *(this + 292);
+          v13 = *(this + 292);
 LABEL_66:
-          *a3 = v14;
+          *a3 = v13;
           goto LABEL_148;
         }
 
@@ -7559,10 +9996,10 @@ LABEL_66:
           {
             if (a4 != 4)
             {
-              v15 = 561211770;
+              v14 = 561211770;
               if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
               {
-                goto LABEL_151;
+                return v14;
               }
 
               *buf = 136315906;
@@ -7571,14 +10008,14 @@ LABEL_66:
               *&buf[14] = 435;
               *&buf[18] = 2080;
               *&buf[20] = "inDataSize == sizeof(Float32)";
-              v40 = 2080;
-              v41 = "BadPropertySize";
-              v16 = MEMORY[0x277D86220];
+              v38 = 2080;
+              v39 = "BadPropertySize";
+              v15 = MEMORY[0x277D86220];
               goto LABEL_51;
             }
 
-            v30 = atomic_load(this + 567);
-            *v36 = v30;
+            v29 = atomic_load(this + 567);
+            *v34 = v29;
             goto LABEL_148;
           }
 
@@ -7588,10 +10025,10 @@ LABEL_66:
             {
               if (a4 <= 3)
               {
-                v15 = 561211770;
+                v14 = 561211770;
                 if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
                 {
-                  goto LABEL_151;
+                  return v14;
                 }
 
                 *buf = 136315906;
@@ -7600,9 +10037,9 @@ LABEL_66:
                 *&buf[14] = 496;
                 *&buf[18] = 2080;
                 *&buf[20] = "inDataSize >= sizeof(UInt32)";
-                v40 = 2080;
-                v41 = "BadPropertySize";
-                v16 = MEMORY[0x277D86220];
+                v38 = 2080;
+                v39 = "BadPropertySize";
+                v15 = MEMORY[0x277D86220];
                 goto LABEL_51;
               }
 
@@ -7610,17 +10047,15 @@ LABEL_66:
               goto LABEL_147;
             }
 
-LABEL_119:
-            v17 = 2003332927;
-            goto LABEL_141;
+            return 2003332927;
           }
 
           if (a4 <= 7)
           {
-            v15 = 561211770;
+            v14 = 561211770;
             if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
             {
-              goto LABEL_151;
+              return v14;
             }
 
             *buf = 136315906;
@@ -7629,15 +10064,15 @@ LABEL_119:
             *&buf[14] = 502;
             *&buf[18] = 2080;
             *&buf[20] = "inDataSize >= sizeof(Float64)";
-            v40 = 2080;
-            v41 = "BadPropertySize";
-            v16 = MEMORY[0x277D86220];
+            v38 = 2080;
+            v39 = "BadPropertySize";
+            v15 = MEMORY[0x277D86220];
             goto LABEL_51;
           }
 
           *a3 = *(this + 554);
 LABEL_113:
-          v27 = 8;
+          v26 = 8;
           goto LABEL_149;
         }
 
@@ -7647,15 +10082,15 @@ LABEL_113:
           {
             if (a2 != 1987208053)
             {
-              goto LABEL_119;
+              return 2003332927;
             }
 
             if (a4 <= 3)
             {
-              v15 = 561211770;
+              v14 = 561211770;
               if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
               {
-                goto LABEL_151;
+                return v14;
               }
 
               *buf = 136315906;
@@ -7664,13 +10099,13 @@ LABEL_113:
               *&buf[14] = 681;
               *&buf[18] = 2080;
               *&buf[20] = "inDataSize >= sizeof(Float32)";
-              v40 = 2080;
-              v41 = "BadPropertySize";
-              v16 = MEMORY[0x277D86220];
+              v38 = 2080;
+              v39 = "BadPropertySize";
+              v15 = MEMORY[0x277D86220];
               goto LABEL_51;
             }
 
-            v14 = *(this + 291);
+            v13 = *(this + 291);
             goto LABEL_66;
           }
 
@@ -7680,17 +10115,11 @@ LABEL_113:
             goto LABEL_147;
           }
 
-LABEL_140:
-          v17 = 561211770;
-          goto LABEL_141;
+          return 561211770;
         }
       }
 
-LABEL_54:
-      v17 = -10879;
-LABEL_141:
-      v34 = v17;
-      goto LABEL_150;
+      return -10879;
     }
 
     if (a2 <= 1634300530)
@@ -7704,10 +10133,10 @@ LABEL_141:
             goto LABEL_147;
           }
 
-          v15 = 561211770;
+          v14 = 561211770;
           if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
           {
-            goto LABEL_151;
+            return v14;
           }
 
           *buf = 136315906;
@@ -7716,22 +10145,22 @@ LABEL_141:
           *&buf[14] = 379;
           *&buf[18] = 2080;
           *&buf[20] = "inDataSize >= sizeof(UInt32)";
-          v40 = 2080;
-          v41 = "BadPropertySize";
-          v16 = MEMORY[0x277D86220];
+          v38 = 2080;
+          v39 = "BadPropertySize";
+          v15 = MEMORY[0x277D86220];
           goto LABEL_51;
         case 32769:
           if (a4 > 3)
           {
             *a5 = 4;
-            v24 = (*(this + 4696) & 2) != 0 && *(this + 414) != 0;
+            v23 = (*(this + 4696) & 2) != 0 && *(this + 414) != 0;
             goto LABEL_143;
           }
 
-          v15 = 561211770;
+          v14 = 561211770;
           if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
           {
-            goto LABEL_151;
+            return v14;
           }
 
           *buf = 136315906;
@@ -7740,9 +10169,9 @@ LABEL_141:
           *&buf[14] = 397;
           *&buf[18] = 2080;
           *&buf[20] = "inDataSize >= sizeof(UInt32)";
-          v40 = 2080;
-          v41 = "BadPropertySize";
-          v16 = MEMORY[0x277D86220];
+          v38 = 2080;
+          v39 = "BadPropertySize";
+          v15 = MEMORY[0x277D86220];
           goto LABEL_51;
         case 32772:
           if (a4 > 3)
@@ -7751,10 +10180,10 @@ LABEL_141:
             goto LABEL_147;
           }
 
-          v15 = 561211770;
+          v14 = 561211770;
           if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
           {
-            goto LABEL_151;
+            return v14;
           }
 
           *buf = 136315906;
@@ -7763,9 +10192,9 @@ LABEL_141:
           *&buf[14] = 385;
           *&buf[18] = 2080;
           *&buf[20] = "inDataSize >= sizeof(UInt32)";
-          v40 = 2080;
-          v41 = "BadPropertySize";
-          v16 = MEMORY[0x277D86220];
+          v38 = 2080;
+          v39 = "BadPropertySize";
+          v15 = MEMORY[0x277D86220];
           goto LABEL_51;
         case 32773:
           if (a4 == 4)
@@ -7774,10 +10203,10 @@ LABEL_141:
             goto LABEL_147;
           }
 
-          v15 = 561211770;
+          v14 = 561211770;
           if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
           {
-            goto LABEL_151;
+            return v14;
           }
 
           *buf = 136315906;
@@ -7786,25 +10215,25 @@ LABEL_141:
           *&buf[14] = 441;
           *&buf[18] = 2080;
           *&buf[20] = "inDataSize == sizeof(UInt32)";
-          v40 = 2080;
-          v41 = "BadPropertySize";
-          v16 = MEMORY[0x277D86220];
+          v38 = 2080;
+          v39 = "BadPropertySize";
+          v15 = MEMORY[0x277D86220];
           goto LABEL_51;
         case 32780:
-          v25 = *(this + 263);
-          v26 = *(this + 264) - v25;
-          if (v26 <= a4)
+          v24 = *(this + 263);
+          v25 = *(this + 264) - v24;
+          if (v25 <= a4)
           {
-            memcpy(a3, v25, v26);
-            v22 = *(this + 528);
-            v23 = *(this + 526);
+            memcpy(a3, v24, v25);
+            v21 = *(this + 528);
+            v22 = *(this + 526);
             goto LABEL_79;
           }
 
-          v15 = 561211770;
+          v14 = 561211770;
           if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
           {
-            goto LABEL_151;
+            return v14;
           }
 
           *buf = 136315906;
@@ -7813,27 +10242,27 @@ LABEL_141:
           *&buf[14] = 453;
           *&buf[18] = 2080;
           *&buf[20] = "inDataSize >= (mMicTrimGainsDB.size() * sizeof(Float32))";
-          v40 = 2080;
-          v41 = "BadPropertySize";
-          v16 = MEMORY[0x277D86220];
+          v38 = 2080;
+          v39 = "BadPropertySize";
+          v15 = MEMORY[0x277D86220];
           goto LABEL_51;
         case 32781:
-          v20 = *(this + 267);
-          v21 = *(this + 268) - v20;
-          if (v21 <= a4)
+          v19 = *(this + 267);
+          v20 = *(this + 268) - v19;
+          if (v20 <= a4)
           {
-            memcpy(a3, v20, v21);
-            v22 = *(this + 536);
-            v23 = *(this + 534);
+            memcpy(a3, v19, v20);
+            v21 = *(this + 536);
+            v22 = *(this + 534);
 LABEL_79:
-            v27 = (v22 - v23) & 0xFFFFFFFC;
+            v26 = (v21 - v22) & 0xFFFFFFFC;
             goto LABEL_149;
           }
 
-          v15 = 561211770;
+          v14 = 561211770;
           if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
           {
-            goto LABEL_151;
+            return v14;
           }
 
           *buf = 136315906;
@@ -7842,20 +10271,20 @@ LABEL_79:
           *&buf[14] = 468;
           *&buf[18] = 2080;
           *&buf[20] = "inDataSize >= (mRefTrimGainsDB.size() * sizeof(Float32))";
-          v40 = 2080;
-          v41 = "BadPropertySize";
-          v16 = MEMORY[0x277D86220];
+          v38 = 2080;
+          v39 = "BadPropertySize";
+          v15 = MEMORY[0x277D86220];
           goto LABEL_51;
         case 32783:
           if (a4 == 8)
           {
-            v19 = *(this + 278);
-            if (v19)
+            v18 = *(this + 278);
+            if (v18)
             {
               goto LABEL_86;
             }
 
-            v15 = 561406316;
+            v14 = 561406316;
             if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
             {
               *buf = 136315906;
@@ -7864,19 +10293,19 @@ LABEL_79:
               *&buf[14] = 510;
               *&buf[18] = 2080;
               *&buf[20] = "mTelephonyMicDSPSettingsDict != nullptr";
-              v40 = 2080;
-              v41 = "InvalidPropertyValue";
-              v16 = MEMORY[0x277D86220];
+              v38 = 2080;
+              v39 = "InvalidPropertyValue";
+              v15 = MEMORY[0x277D86220];
               goto LABEL_51;
             }
 
-            goto LABEL_151;
+            return v14;
           }
 
-          v15 = 561211770;
+          v14 = 561211770;
           if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
           {
-            goto LABEL_151;
+            return v14;
           }
 
           *buf = 136315906;
@@ -7885,17 +10314,17 @@ LABEL_79:
           *&buf[14] = 509;
           *&buf[18] = 2080;
           *&buf[20] = "inDataSize == sizeof(CFDictionaryRef)";
-          v40 = 2080;
-          v41 = "BadPropertySize";
-          v16 = MEMORY[0x277D86220];
+          v38 = 2080;
+          v39 = "BadPropertySize";
+          v15 = MEMORY[0x277D86220];
           goto LABEL_51;
         case 32784:
           if (a4 != 8)
           {
-            v15 = 561211770;
+            v14 = 561211770;
             if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
             {
-              goto LABEL_151;
+              return v14;
             }
 
             *buf = 136315906;
@@ -7904,19 +10333,19 @@ LABEL_79:
             *&buf[14] = 517;
             *&buf[18] = 2080;
             *&buf[20] = "inDataSize == sizeof(CFDictionaryRef)";
-            v40 = 2080;
-            v41 = "BadPropertySize";
-            v16 = MEMORY[0x277D86220];
+            v38 = 2080;
+            v39 = "BadPropertySize";
+            v15 = MEMORY[0x277D86220];
             goto LABEL_51;
           }
 
-          v19 = *(this + 279);
-          if (v19)
+          v18 = *(this + 279);
+          if (v18)
           {
             goto LABEL_86;
           }
 
-          v15 = 561406316;
+          v14 = 561406316;
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
           {
             *buf = 136315906;
@@ -7925,27 +10354,27 @@ LABEL_79:
             *&buf[14] = 518;
             *&buf[18] = 2080;
             *&buf[20] = "mTelephonyRefDSPSettingsDict != nullptr";
-            v40 = 2080;
-            v41 = "InvalidPropertyValue";
-            v16 = MEMORY[0x277D86220];
+            v38 = 2080;
+            v39 = "InvalidPropertyValue";
+            v15 = MEMORY[0x277D86220];
             goto LABEL_51;
           }
 
-          goto LABEL_151;
+          return v14;
         case 32786:
           if (a4 > 3)
           {
             *a5 = 4;
-            v24 = *(this + 688);
+            v23 = *(this + 688);
 LABEL_143:
-            *a3 = v24;
-            goto LABEL_150;
+            *a3 = v23;
+            return v32;
           }
 
-          v15 = 561211770;
+          v14 = 561211770;
           if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
           {
-            goto LABEL_151;
+            return v14;
           }
 
           *buf = 136315906;
@@ -7954,9 +10383,9 @@ LABEL_143:
           *&buf[14] = 539;
           *&buf[18] = 2080;
           *&buf[20] = "inDataSize >= sizeof(UInt32)";
-          v40 = 2080;
-          v41 = "BadPropertySize";
-          v16 = MEMORY[0x277D86220];
+          v38 = 2080;
+          v39 = "BadPropertySize";
+          v15 = MEMORY[0x277D86220];
           goto LABEL_51;
         case 32787:
           if (a4 > 3)
@@ -7965,10 +10394,10 @@ LABEL_143:
             goto LABEL_147;
           }
 
-          v15 = 561211770;
+          v14 = 561211770;
           if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
           {
-            goto LABEL_151;
+            return v14;
           }
 
           *buf = 136315906;
@@ -7977,9 +10406,9 @@ LABEL_143:
           *&buf[14] = 545;
           *&buf[18] = 2080;
           *&buf[20] = "inDataSize >= sizeof(UInt32)";
-          v40 = 2080;
-          v41 = "BadPropertySize";
-          v16 = MEMORY[0x277D86220];
+          v38 = 2080;
+          v39 = "BadPropertySize";
+          v15 = MEMORY[0x277D86220];
           goto LABEL_51;
         case 32788:
           if (a4 > 3)
@@ -7988,10 +10417,10 @@ LABEL_143:
             goto LABEL_147;
           }
 
-          v15 = 561211770;
+          v14 = 561211770;
           if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
           {
-            goto LABEL_151;
+            return v14;
           }
 
           *buf = 136315906;
@@ -8000,9 +10429,9 @@ LABEL_143:
           *&buf[14] = 447;
           *&buf[18] = 2080;
           *&buf[20] = "inDataSize >= sizeof(UInt32)";
-          v40 = 2080;
-          v41 = "BadPropertySize";
-          v16 = MEMORY[0x277D86220];
+          v38 = 2080;
+          v39 = "BadPropertySize";
+          v15 = MEMORY[0x277D86220];
           goto LABEL_51;
         case 32792:
           if (a4 > 3)
@@ -8011,10 +10440,10 @@ LABEL_143:
             goto LABEL_147;
           }
 
-          v15 = 561211770;
+          v14 = 561211770;
           if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
           {
-            goto LABEL_151;
+            return v14;
           }
 
           *buf = 136315906;
@@ -8023,9 +10452,9 @@ LABEL_143:
           *&buf[14] = 583;
           *&buf[18] = 2080;
           *&buf[20] = "inDataSize >= sizeof(UInt32)";
-          v40 = 2080;
-          v41 = "BadPropertySize";
-          v16 = MEMORY[0x277D86220];
+          v38 = 2080;
+          v39 = "BadPropertySize";
+          v15 = MEMORY[0x277D86220];
           goto LABEL_51;
         case 32794:
           if (a4 > 3)
@@ -8034,10 +10463,10 @@ LABEL_143:
             goto LABEL_147;
           }
 
-          v15 = 561211770;
+          v14 = 561211770;
           if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
           {
-            goto LABEL_151;
+            return v14;
           }
 
           *buf = 136315906;
@@ -8046,23 +10475,23 @@ LABEL_143:
           *&buf[14] = 391;
           *&buf[18] = 2080;
           *&buf[20] = "inDataSize >= sizeof(UInt32)";
-          v40 = 2080;
-          v41 = "BadPropertySize";
-          v16 = MEMORY[0x277D86220];
+          v38 = 2080;
+          v39 = "BadPropertySize";
+          v15 = MEMORY[0x277D86220];
           goto LABEL_51;
         case 32796:
-          v28 = 4 * *(this + 552);
-          if (v28 <= a4)
+          v27 = 4 * *(this + 552);
+          if (v27 <= a4)
           {
-            memcpy(a3, *(this + 275), v28);
-            v27 = 4 * *(this + 552);
+            memcpy(a3, *(this + 275), v27);
+            v26 = 4 * *(this + 552);
             goto LABEL_149;
           }
 
-          v15 = 561211770;
+          v14 = 561211770;
           if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
           {
-            goto LABEL_151;
+            return v14;
           }
 
           *buf = 136315906;
@@ -8071,17 +10500,17 @@ LABEL_143:
           *&buf[14] = 551;
           *&buf[18] = 2080;
           *&buf[20] = "inDataSize >= (mNumSpeakerInputDataSource * sizeof(UInt32))";
-          v40 = 2080;
-          v41 = "BadPropertySize";
-          v16 = MEMORY[0x277D86220];
+          v38 = 2080;
+          v39 = "BadPropertySize";
+          v15 = MEMORY[0x277D86220];
           goto LABEL_51;
         case 32798:
           if (a4 <= 7)
           {
-            v15 = 561211770;
+            v14 = 561211770;
             if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
             {
-              goto LABEL_151;
+              return v14;
             }
 
             *buf = 136315906;
@@ -8090,25 +10519,25 @@ LABEL_143:
             *&buf[14] = 524;
             *&buf[18] = 2080;
             *&buf[20] = "inDataSize >= sizeof(CFDictionaryRef)";
-            v40 = 2080;
-            v41 = "BadPropertySize";
-            v16 = MEMORY[0x277D86220];
+            v38 = 2080;
+            v39 = "BadPropertySize";
+            v15 = MEMORY[0x277D86220];
           }
 
           else
           {
-            v19 = *(this + 280);
-            if (v19)
+            v18 = *(this + 280);
+            if (v18)
             {
 LABEL_86:
-              Copy = CFDictionaryCreateCopy(*MEMORY[0x277CBECE8], v19);
+              Copy = CFDictionaryCreateCopy(*MEMORY[0x277CBECE8], v18);
               goto LABEL_87;
             }
 
-            v15 = 561406316;
+            v14 = 561406316;
             if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
             {
-              goto LABEL_151;
+              return v14;
             }
 
             *buf = 136315906;
@@ -8117,9 +10546,9 @@ LABEL_86:
             *&buf[14] = 525;
             *&buf[18] = 2080;
             *&buf[20] = "mPowerBudget != nullptr";
-            v40 = 2080;
-            v41 = "InvalidPropertyValue";
-            v16 = MEMORY[0x277D86220];
+            v38 = 2080;
+            v39 = "InvalidPropertyValue";
+            v15 = MEMORY[0x277D86220];
           }
 
           goto LABEL_51;
@@ -8135,10 +10564,10 @@ LABEL_86:
             goto LABEL_111;
           }
 
-          v15 = 561211770;
+          v14 = 561211770;
           if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
           {
-            goto LABEL_151;
+            return v14;
           }
 
           *buf = 136315906;
@@ -8147,9 +10576,9 @@ LABEL_86:
           *&buf[14] = 458;
           *&buf[18] = 2080;
           *&buf[20] = "inDataSize == sizeof(CFArrayRef)";
-          v40 = 2080;
-          v41 = "BadPropertySize";
-          v16 = MEMORY[0x277D86220];
+          v38 = 2080;
+          v39 = "BadPropertySize";
+          v15 = MEMORY[0x277D86220];
           goto LABEL_51;
         case 32800:
           if (a4 == 8)
@@ -8163,10 +10592,10 @@ LABEL_86:
             goto LABEL_111;
           }
 
-          v15 = 561211770;
+          v14 = 561211770;
           if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
           {
-            goto LABEL_151;
+            return v14;
           }
 
           *buf = 136315906;
@@ -8175,9 +10604,9 @@ LABEL_86:
           *&buf[14] = 473;
           *&buf[18] = 2080;
           *&buf[20] = "inDataSize == sizeof(CFArrayRef)";
-          v40 = 2080;
-          v41 = "BadPropertySize";
-          v16 = MEMORY[0x277D86220];
+          v38 = 2080;
+          v39 = "BadPropertySize";
+          v15 = MEMORY[0x277D86220];
           goto LABEL_51;
         case 32801:
           if (a4 == 8)
@@ -8191,10 +10620,10 @@ LABEL_86:
             goto LABEL_111;
           }
 
-          v15 = 561211770;
+          v14 = 561211770;
           if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
           {
-            goto LABEL_151;
+            return v14;
           }
 
           *buf = 136315906;
@@ -8203,12 +10632,12 @@ LABEL_86:
           *&buf[14] = 483;
           *&buf[18] = 2080;
           *&buf[20] = "inDataSize == sizeof(CFDictionaryRef)";
-          v40 = 2080;
-          v41 = "BadPropertySize";
-          v16 = MEMORY[0x277D86220];
+          v38 = 2080;
+          v39 = "BadPropertySize";
+          v15 = MEMORY[0x277D86220];
           break;
         default:
-          goto LABEL_119;
+          return 2003332927;
       }
 
       goto LABEL_51;
@@ -8221,18 +10650,18 @@ LABEL_86:
 
     if (a2 == 1634300531)
     {
-      v31 = 8 * *(this + 544);
-      if (v31 <= a4)
+      v30 = 8 * *(this + 544);
+      if (v30 <= a4)
       {
-        memcpy(a3, *(this + 271), v31);
-        v27 = 8 * *(this + 544);
+        memcpy(a3, *(this + 271), v30);
+        v26 = 8 * *(this + 544);
         goto LABEL_149;
       }
 
-      v15 = 561211770;
+      v14 = 561211770;
       if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        goto LABEL_151;
+        return v14;
       }
 
       *buf = 136315906;
@@ -8241,20 +10670,19 @@ LABEL_86:
       *&buf[14] = 490;
       *&buf[18] = 2080;
       *&buf[20] = "inDataSize >= (mNumMetricsReporterIDs * sizeof(CAReporterID))";
-      v40 = 2080;
-      v41 = "BadPropertySize";
-      v16 = MEMORY[0x277D86220];
+      v38 = 2080;
+      v39 = "BadPropertySize";
+      v15 = MEMORY[0x277D86220];
 LABEL_51:
-      _os_log_impl(&dword_2724B4000, v16, OS_LOG_TYPE_ERROR, "%25s:%-5d  ca_require: %s %s", buf, 0x26u);
-      goto LABEL_151;
+      _os_log_impl(&dword_2724B4000, v15, OS_LOG_TYPE_ERROR, "%25s:%-5d  ca_require: %s %s", buf, 0x26u);
+      return v14;
     }
 
     if (a2 != 1634758259)
     {
-      goto LABEL_119;
+      return 2003332927;
     }
 
-    v13 = *MEMORY[0x277D85DE8];
     a2 = 1634758502;
   }
 
@@ -8262,7 +10690,7 @@ LABEL_51:
   {
     if (a4 <= 3)
     {
-      goto LABEL_140;
+      return 561211770;
     }
 
     v10 = *(this + 4152);
@@ -8271,7 +10699,7 @@ LABEL_51:
 
   if (a2 != 1635085677)
   {
-    goto LABEL_119;
+    return 2003332927;
   }
 
   if (a4 == 4)
@@ -8281,7 +10709,7 @@ LABEL_51:
     goto LABEL_49;
   }
 
-  v15 = 561211770;
+  v14 = 561211770;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     *buf = 136315906;
@@ -8290,5844 +10718,11 @@ LABEL_51:
     *&buf[14] = 730;
     *&buf[18] = 2080;
     *&buf[20] = "inDataSize == sizeof(UInt32)";
-    v40 = 2080;
-    v41 = "BadPropertySize";
-    v16 = MEMORY[0x277D86220];
+    v38 = 2080;
+    v39 = "BadPropertySize";
+    v15 = MEMORY[0x277D86220];
     goto LABEL_51;
   }
 
-LABEL_151:
-  v32 = *MEMORY[0x277D85DE8];
-  return v15;
-}
-
-void sub_27257F488(_Unwind_Exception *a1, int a2)
-{
-  if (!a2)
-  {
-    _Unwind_Resume(a1);
-  }
-
-  __clang_call_terminate(a1);
-}
-
-unsigned int ***caulk::function_ref<void ()(unsigned char const*,unsigned long)>::functor_invoker<VoiceProcessorV2::GetPropertyInternal(unsigned int,void *,unsigned int,unsigned int *)::$_0>(unsigned int ***result, const void *a2, size_t a3)
-{
-  v3 = *result;
-  if (***result >= a3)
-  {
-    return memcpy(**(v3 + 16), a2, a3);
-  }
-
-  **(v3 + 8) = 561211770;
-  return result;
-}
-
-uint64_t VoiceProcessorV2::SetProperty(VoiceProcessorV2 *this, int a2, float *theDict, void *a4)
-{
-  v586 = *MEMORY[0x277D85DE8];
-  v5 = 1651532146;
-  if (!theDict)
-  {
-    goto LABEL_442;
-  }
-
-  v6 = a4;
-  if (!a4)
-  {
-    goto LABEL_442;
-  }
-
-  v7 = theDict;
-  v10 = this + 15881;
-  v574 = this + 15881;
-  if (a2 != 1937141091)
-  {
-    if (a2 != 1936747876)
-    {
-      if (a2 == 32798)
-      {
-        v5 = 0;
-        v11 = *(this + 19);
-        if (v11 <= 0x30 && ((0x1FFFE67E7FFDEuLL >> v11) & 1) != 0)
-        {
-          if (a4 > 7)
-          {
-            v12 = (this + 2240);
-            v13 = *(this + 280);
-            if (v13)
-            {
-              CFRelease(v13);
-              *v12 = 0;
-            }
-
-            Copy = CFDictionaryCreateCopy(*MEMORY[0x277CBECE8], v7);
-            *v12 = Copy;
-            if (Copy)
-            {
-              v573 = this + 11000;
-              v15 = this;
-              v16 = this + 3512;
-              v17 = &dword_27275A050;
-              v18 = 36;
-              while (1)
-              {
-                v20 = *(v17 - 2);
-                v19 = *(v17 - 1);
-                v21 = *v17;
-                AUPropAndParamHelper::AddItemToAUPropsList(&v573[24 * v20], v19, *v17, 0, 8uLL, v12, 1);
-                if (v20 >= 0x40)
-                {
-                  std::__throw_out_of_range[abi:ne200100]("bitset test argument out of range");
-                }
-
-                v22 = 1 << v20;
-                v23 = 0x5FFFFFFFC7FFFFFFuLL >> v20;
-                if ((*(v15 + 1108) & (1 << v20)) != 0 && (v23 & 1) != 0 && *&v16[8 * v20])
-                {
-                  if (VPLogScope(void)::once != -1)
-                  {
-                    dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                  }
-
-                  v24 = VPLogScope(void)::scope;
-                  if (VPLogScope(void)::scope && CALegacyLog::LogEnabled(3, VPLogScope(void)::scope, 0))
-                  {
-                    v25 = (*v24 ? *v24 : MEMORY[0x277D86220]);
-                    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
-                    {
-                      Count = CFDictionaryGetCount(*v12);
-                      *buf = 136315906;
-                      *&buf[4] = "vpProperties.cpp";
-                      *&buf[12] = 1024;
-                      *&buf[14] = 786;
-                      *&buf[18] = 1024;
-                      *&buf[20] = v20;
-                      *&buf[24] = 1024;
-                      *&buf[26] = Count;
-                      _os_log_impl(&dword_2724B4000, v25, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> setproperty: thermal budget on AU (%d); count = %u", buf, 0x1Eu);
-                    }
-                  }
-
-                  v27 = *(v15 + 1588);
-                  if (v27 && ((*v574 & 1) != 0 || v574[1] == 1))
-                  {
-                    if (VPLogScope(void)::once != -1)
-                    {
-                      dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                    }
-
-                    v28 = VPLogScope(void)::scope;
-                    v29 = CFDictionaryGetCount(*v12);
-                    CALegacyLog::log(v27, 3, v28, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 786, "SetProperty", "setproperty: thermal budget on AU (%d); count = %u", v20, v29);
-                  }
-
-                  AudioUnitSetProperty(*&v16[8 * v20], v19, v21, 0, v12, 8u);
-                }
-
-                else
-                {
-                  if (VPLogScope(void)::once != -1)
-                  {
-                    dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                  }
-
-                  v30 = v574;
-                  v31 = VPLogScope(void)::scope;
-                  if (VPLogScope(void)::scope && CALegacyLog::LogEnabled(4, VPLogScope(void)::scope, 0))
-                  {
-                    v32 = (*v31 ? *v31 : MEMORY[0x277D86220]);
-                    if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
-                    {
-                      v33 = v23 & 1;
-                      v34 = *&v16[8 * v20];
-                      if ((*(v15 + 1108) & v22) == 0)
-                      {
-                        v33 = 0;
-                      }
-
-                      *buf = 136316162;
-                      *&buf[4] = "vpProperties.cpp";
-                      *&buf[12] = 1024;
-                      *&buf[14] = 793;
-                      *&buf[18] = 1024;
-                      *&buf[20] = v20;
-                      *&buf[24] = 1024;
-                      *&buf[26] = v33;
-                      *&buf[30] = 1024;
-                      *&buf[32] = v34 != 0;
-                      _os_log_impl(&dword_2724B4000, v32, OS_LOG_TYPE_INFO, "%25s:%-5d  <vp> setproperty: AU (%d) enabled = %d, null = %d", buf, 0x24u);
-                    }
-                  }
-
-                  v35 = *(v15 + 1588);
-                  if (!v35 || (*v574 & 1) == 0 && v574[1] != 1)
-                  {
-                    goto LABEL_54;
-                  }
-
-                  if (VPLogScope(void)::once != -1)
-                  {
-                    dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                  }
-
-                  if ((*(v15 + 1108) & v22) != 0)
-                  {
-                    v36 = v23 & 1;
-                  }
-
-                  else
-                  {
-                    v36 = 0;
-                  }
-
-                  CALegacyLog::log(v35, 4, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 793, "SetProperty", "setproperty: AU (%d) enabled = %d, null = %d", v20, v36, *&v16[8 * v20] != 0);
-                }
-
-                v30 = v574;
-LABEL_54:
-                v17 += 3;
-                v18 -= 12;
-                if (!v18)
-                {
-                  if (*v30)
-                  {
-                    VoiceProcessorV2::PListWriteSetPropertyParameters(v15, 32798);
-                  }
-
-                  goto LABEL_441;
-                }
-              }
-            }
-
-            if (VPLogScope(void)::once != -1)
-            {
-              dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-            }
-
-            v86 = VPLogScope(void)::scope;
-            if (VPLogScope(void)::scope && CALegacyLog::LogEnabled(4, VPLogScope(void)::scope, 0))
-            {
-              v87 = (*v86 ? *v86 : MEMORY[0x277D86220]);
-              if (os_log_type_enabled(v87, OS_LOG_TYPE_INFO))
-              {
-                *buf = 136315394;
-                *&buf[4] = "vpProperties.cpp";
-                *&buf[12] = 1024;
-                *&buf[14] = 798;
-                _os_log_impl(&dword_2724B4000, v87, OS_LOG_TYPE_INFO, "%25s:%-5d  <vp> setproperty: thermal budget dict is empty", buf, 0x12u);
-              }
-            }
-
-            v88 = *(this + 1588);
-            if (v88 && ((*v574 & 1) != 0 || v574[1] == 1))
-            {
-              if (VPLogScope(void)::once != -1)
-              {
-                dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-              }
-
-              CALegacyLog::log(v88, 4, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 798, "SetProperty", "setproperty: thermal budget dict is empty");
-            }
-
-            goto LABEL_441;
-          }
-
-          if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-          {
-            *buf = 136315906;
-            *&buf[4] = "vpProperties.cpp";
-            *&buf[12] = 1024;
-            *&buf[14] = 763;
-            *&buf[18] = 2080;
-            *&buf[20] = "inDataSize >= sizeof(CFDictionaryRef)";
-            *&buf[28] = 2080;
-            *&buf[30] = "BadPropertySize";
-            v546 = MEMORY[0x277D86220];
-            goto LABEL_1584;
-          }
-
-          goto LABEL_1638;
-        }
-
-        goto LABEL_442;
-      }
-
-      v580 = this + 2408;
-      v47 = (*(*(this + 301) + 16))();
-      v581 = v47;
-      atomic_fetch_add(this + 624, 1u);
-      while (*(this + 625))
-      {
-        v47 = usleep(0x1F4u);
-      }
-
-      v49 = 0;
-      v5 = 4294956417;
-      if (a2 <= 1701868401)
-      {
-        if (a2 <= 1634300530)
-        {
-          v50 = (this + 2104);
-          switch(a2)
-          {
-            case 32768:
-              v5 = 561211770;
-              if (v6 < 4 || *v7 > 1u)
-              {
-                goto LABEL_1253;
-              }
-
-              *(this + 480) = *v7;
-              v51 = VPLogScope(void)::once;
-              if (*(v574 + 655))
-              {
-                if (VPLogScope(void)::once != -1)
-                {
-                  dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                }
-
-                v52 = CALog::LogObjIfEnabled(3, VPLogScope(void)::scope);
-                if (v52)
-                {
-                  v53 = v52;
-                  if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
-                  {
-                    *buf = 136315394;
-                    *&buf[4] = "vpProperties.cpp";
-                    *&buf[12] = 1024;
-                    *&buf[14] = 846;
-                    _os_log_impl(&dword_2724B4000, v53, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> Forcing bypass to false due to chat flavor", buf, 0x12u);
-                  }
-                }
-
-                v54 = *(this + 1588);
-                if (v54 && ((*v574 & 1) != 0 || v574[1] == 1))
-                {
-                  if (VPLogScope(void)::once != -1)
-                  {
-                    dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                  }
-
-                  CALegacyLog::log(v54, 3, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 846, "SetProperty", "Forcing bypass to false due to chat flavor");
-                }
-
-                *(this + 480) = 0;
-                v51 = VPLogScope(void)::once;
-              }
-
-              if (v51 != -1)
-              {
-                dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-              }
-
-              v55 = CALog::LogObjIfEnabled(3, VPLogScope(void)::scope);
-              if (v55)
-              {
-                v57 = v55;
-                if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
-                {
-                  v58 = *(this + 480);
-                  *buf = 136315650;
-                  *&buf[4] = "vpProperties.cpp";
-                  *&buf[12] = 1024;
-                  *&buf[14] = 849;
-                  *&buf[18] = 1024;
-                  *&buf[20] = v58;
-                  _os_log_impl(&dword_2724B4000, v57, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> setproperty: bypass =%d", buf, 0x18u);
-                }
-              }
-
-              v59 = *(this + 1588);
-              if (v59 && ((*v574 & 1) != 0 || v574[1] == 1))
-              {
-                if (VPLogScope(void)::once != -1)
-                {
-                  dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                }
-
-                CALegacyLog::log(v59, 3, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 849, "SetProperty", "setproperty: bypass =%d", *(this + 480));
-              }
-
-              VoiceProcessorV2::ReadAndApplyDefaultsOverride(this, @"vp_bypass", 0, this + 120, v56);
-              v60 = *(this + 1573);
-              if (*(this + 480) == 1)
-              {
-                if (!v60)
-                {
-                  goto LABEL_1367;
-                }
-
-                v60(*(this + 1572), 0, 0, 0, 0, *(this + 1139));
-                v61 = 4556;
-              }
-
-              else
-              {
-                if (!v60)
-                {
-                  goto LABEL_1367;
-                }
-
-                v60(*(this + 1572), 0, 0, 0, 0, *(this + 1137));
-                v61 = 4552;
-              }
-
-              (*(this + 1573))(*(this + 1572), 8, 0, 0, 0, *(this + v61));
-LABEL_1367:
-              if (VoiceProcessorV2::ShouldInteractWithControlCenter(this))
-              {
-                (*(*this + 600))(this, 1);
-              }
-
-              VoiceProcessorV2::ReportMetrics(this);
-              goto LABEL_1630;
-            case 32769:
-              v5 = 561211770;
-              if (v6 < 4)
-              {
-                goto LABEL_1253;
-              }
-
-              v207 = *v7;
-              if (*v7 > 1u)
-              {
-                goto LABEL_1253;
-              }
-
-              v585[0] = v207 == 1;
-              if (VPLogScope(void)::once != -1)
-              {
-                dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-              }
-
-              v208 = CALog::LogObjIfEnabled(5, VPLogScope(void)::scope);
-              if (v208)
-              {
-                v210 = v208;
-                if (os_log_type_enabled(v208, OS_LOG_TYPE_DEBUG))
-                {
-                  v211 = *(this + 1174);
-                  v212 = *(this + 576);
-                  v213 = *(this + 414);
-                  *buf = 136316418;
-                  *&buf[4] = "vpProperties.cpp";
-                  *&buf[12] = 1024;
-                  *&buf[14] = 928;
-                  *&buf[18] = 1024;
-                  *&buf[20] = v207 == 1;
-                  *&buf[24] = 1024;
-                  *&buf[26] = (v211 >> 1) & 1;
-                  *&buf[30] = 1024;
-                  *&buf[32] = v212;
-                  *&buf[36] = 2048;
-                  *&buf[38] = v213;
-                  _os_log_impl(&dword_2724B4000, v210, OS_LOG_TYPE_DEBUG, "%25s:%-5d  <vp> setproperty: enableagc=%d (currently: enableagcdefault=%d, clientsetenableagc=%d, agc=%p).", buf, 0x2Eu);
-                }
-              }
-
-              v214 = *(this + 1588);
-              if (v214 && ((*v574 & 1) != 0 || v574[1] == 1))
-              {
-                if (VPLogScope(void)::once != -1)
-                {
-                  dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                }
-
-                CALegacyLog::log(v214, 5, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 928, "SetProperty", "setproperty: enableagc=%d (currently: enableagcdefault=%d, clientsetenableagc=%d, agc=%p).", v207 == 1, (*(this + 1174) >> 1) & 1, *(this + 576), *(this + 414));
-              }
-
-              *(this + 576) = *v7;
-              VoiceProcessorV2::ReadAndApplyDefaultsOverride(this, @"vp_enable_agc", 0, v585, v209);
-              if (*v574 == 1)
-              {
-                VoiceProcessorV2::PListWriteSetPropertyParameters(this, 32769);
-              }
-
-              v215 = *(this + 587);
-              if (v585[0] == 1)
-              {
-                *(this + 587) = v215 | 2;
-                VoiceProcessorV2::InstantiateAndConfigureEffectAU(this, 0x41u, 1);
-              }
-
-              else
-              {
-                *(this + 587) = v215 & 0xFFFFFFFFFFFFFFFDLL;
-                VoiceProcessorV2::DisposeAU(this, 1635083896, 1634165554, this + 414, 1);
-              }
-
-              goto LABEL_1630;
-            case 32772:
-              v5 = 561211770;
-              if (v6 < 4 || *v7 > 1u)
-              {
-                goto LABEL_1253;
-              }
-
-              *(this + 2088) = *v7;
-              if (VPLogScope(void)::once != -1)
-              {
-                dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-              }
-
-              v216 = CALog::LogObjIfEnabled(3, VPLogScope(void)::scope);
-              if (v216)
-              {
-                v218 = v216;
-                if (os_log_type_enabled(v216, OS_LOG_TYPE_DEFAULT))
-                {
-                  v219 = *(this + 2088);
-                  *buf = 136315650;
-                  *&buf[4] = "vpProperties.cpp";
-                  *&buf[12] = 1024;
-                  *&buf[14] = 888;
-                  *&buf[18] = 1024;
-                  *&buf[20] = v219;
-                  _os_log_impl(&dword_2724B4000, v218, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> setproperty: mute uplink output =%d", buf, 0x18u);
-                }
-              }
-
-              v220 = *(this + 1588);
-              if (v220 && ((*v574 & 1) != 0 || v574[1] == 1))
-              {
-                if (VPLogScope(void)::once != -1)
-                {
-                  dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                }
-
-                CALegacyLog::log(v220, 3, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 888, "SetProperty", "setproperty: mute uplink output =%d", *(this + 2088));
-              }
-
-              VoiceProcessorV2::ReadAndApplyDefaultsOverride(this, @"vp_mute_output", 0, this + 522, v217);
-              if (*v574 == 1)
-              {
-                VoiceProcessorV2::PListWriteSetPropertyParameters(this, 32772);
-              }
-
-              AudioIssueDetectorClientSetUplinkMute(*(this + 2088));
-              if (*(this + 2053))
-              {
-                applesauce::CF::TypeRef::TypeRef(v585, "Muted");
-                if (*(this + 2088))
-                {
-                  v221 = MEMORY[0x277CBED28];
-                }
-
-                else
-                {
-                  v221 = MEMORY[0x277CBED10];
-                }
-
-                *&v585[8] = *v221;
-                *buf = v585;
-                *&buf[8] = 1;
-                __p[0] = applesauce::CF::details::make_CFDictionaryRef(buf);
-                applesauce::CF::TypeRefPair::~TypeRefPair(v585);
-                PLLogRegisteredEvent();
-                applesauce::CF::DictionaryRef::~DictionaryRef(__p);
-              }
-
-              goto LABEL_1630;
-            case 32773:
-              if (v6 != 4)
-              {
-                if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-                {
-                  goto LABEL_1706;
-                }
-
-                *buf = 136315906;
-                *&buf[4] = "vpProperties.cpp";
-                *&buf[12] = 1024;
-                *&buf[14] = 1143;
-                *&buf[18] = 2080;
-                *&buf[20] = "inDataSize == sizeof(UInt32)";
-                *&buf[28] = 2080;
-                *&buf[30] = "BadPropertySize";
-                v563 = MEMORY[0x277D86220];
-                goto LABEL_1705;
-              }
-
-              v261 = *v7;
-              if (*v7 < 2u)
-              {
-                if (v261 != *(this + 2091))
-                {
-                  *(this + 2091) = v261;
-                  VoiceProcessorV2::ReadAndApplyDefaultsOverride(this, @"vp_disable_vp", 0, (this + 2091), v48);
-                  if ((v574[280] & 1) == 0)
-                  {
-                    if (VPLogScope(void)::once != -1)
-                    {
-                      dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                    }
-
-                    v262 = CALog::LogObjIfEnabled(3, VPLogScope(void)::scope);
-                    if (v262)
-                    {
-                      v263 = v262;
-                      if (os_log_type_enabled(v262, OS_LOG_TYPE_DEFAULT))
-                      {
-                        *buf = 136315394;
-                        *&buf[4] = "vpProperties.cpp";
-                        *&buf[12] = 1024;
-                        *&buf[14] = 1151;
-                        _os_log_impl(&dword_2724B4000, v263, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> Begin self-reinit (kVPProperty_DisableVP)", buf, 0x12u);
-                      }
-                    }
-
-                    v264 = *(this + 1588);
-                    if (v264 && ((*v574 & 1) != 0 || v574[1] == 1))
-                    {
-                      if (VPLogScope(void)::once != -1)
-                      {
-                        dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                      }
-
-                      CALegacyLog::log(v264, 3, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 1151, "SetProperty", "Begin self-reinit (kVPProperty_DisableVP)");
-                    }
-
-                    if (*(this + 485) == 1)
-                    {
-                      VoiceProcessorV2::InitializeDLP(this);
-                    }
-
-                    if (*(this + 484) == 1)
-                    {
-                      (*(*this + 240))(this);
-                    }
-
-                    if (VPLogScope(void)::once != -1)
-                    {
-                      dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                    }
-
-                    v265 = CALog::LogObjIfEnabled(3, VPLogScope(void)::scope);
-                    if (v265)
-                    {
-                      v266 = v265;
-                      if (os_log_type_enabled(v265, OS_LOG_TYPE_DEFAULT))
-                      {
-                        *buf = 136315394;
-                        *&buf[4] = "vpProperties.cpp";
-                        *&buf[12] = 1024;
-                        *&buf[14] = 1156;
-                        _os_log_impl(&dword_2724B4000, v266, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> End self-reinit (kVPProperty_DisableVP)", buf, 0x12u);
-                      }
-                    }
-
-                    v267 = *(this + 1588);
-                    if (v267 && ((*v574 & 1) != 0 || v574[1] == 1))
-                    {
-                      if (VPLogScope(void)::once != -1)
-                      {
-                        dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                      }
-
-                      CALegacyLog::log(v267, 3, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 1156, "SetProperty", "End self-reinit (kVPProperty_DisableVP)");
-                    }
-                  }
-
-                  if (VPLogScope(void)::once != -1)
-                  {
-                    dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                  }
-
-                  v268 = CALog::LogObjIfEnabled(3, VPLogScope(void)::scope);
-                  if (v268)
-                  {
-                    v269 = v268;
-                    if (os_log_type_enabled(v268, OS_LOG_TYPE_DEFAULT))
-                    {
-                      v270 = "FALSE";
-                      v271 = *(this + 2091);
-                      *&buf[4] = "vpProperties.cpp";
-                      *buf = 136315650;
-                      if (v271)
-                      {
-                        v270 = "TRUE";
-                      }
-
-                      *&buf[12] = 1024;
-                      *&buf[14] = 1159;
-                      *&buf[18] = 2080;
-                      *&buf[20] = v270;
-                      _os_log_impl(&dword_2724B4000, v269, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> setproperty: disable vp = %s.  ", buf, 0x1Cu);
-                    }
-                  }
-
-                  v272 = *(this + 1588);
-                  if (v272 && ((*v574 & 1) != 0 || v574[1] == 1))
-                  {
-                    if (VPLogScope(void)::once != -1)
-                    {
-                      dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                    }
-
-                    if (*(this + 2091))
-                    {
-                      v273 = "TRUE";
-                    }
-
-                    else
-                    {
-                      v273 = "FALSE";
-                    }
-
-                    CALegacyLog::log(v272, 3, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 1159, "SetProperty", "setproperty: disable vp = %s.  ", v273);
-                  }
-                }
-
-                if (*v574 == 1)
-                {
-                  VoiceProcessorV2::PListWriteSetPropertyParameters(this, 32773);
-                }
-
-                goto LABEL_1630;
-              }
-
-              if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-              {
-                goto LABEL_1568;
-              }
-
-              *buf = 136315906;
-              *&buf[4] = "vpProperties.cpp";
-              *&buf[12] = 1024;
-              *&buf[14] = 1145;
-              *&buf[18] = 2080;
-              *&buf[20] = "disableVP <= 1";
-              *&buf[28] = 2080;
-              *&buf[30] = "InvalidPropertyValue";
-              v547 = MEMORY[0x277D86220];
-              goto LABEL_1567;
-            case 32780:
-              if ((v6 & 3) == 0)
-              {
-                memset(buf, 0, 24);
-                std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(buf, v7, v7 + v6, v6 >> 2);
-                v295 = *v50;
-                if (*v50)
-                {
-                  *(this + 264) = v295;
-                  operator delete(v295);
-                  *v50 = 0;
-                  *(this + 264) = 0;
-                  *(this + 265) = 0;
-                }
-
-                *v50 = *buf;
-                *(this + 265) = *&buf[16];
-                if (*v574 == 1)
-                {
-                  VoiceProcessorV2::PListWriteMicTrimGainParameters(this, this + 263);
-                }
-
-                goto LABEL_1630;
-              }
-
-              if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-              {
-                goto LABEL_1706;
-              }
-
-              *buf = 136315906;
-              *&buf[4] = "vpProperties.cpp";
-              *&buf[12] = 1024;
-              *&buf[14] = 1190;
-              *&buf[18] = 2080;
-              *&buf[20] = "(inDataSize % sizeof(Float32)) == 0";
-              *&buf[28] = 2080;
-              *&buf[30] = "BadPropertySize";
-              v563 = MEMORY[0x277D86220];
-              goto LABEL_1705;
-            case 32781:
-              if ((v6 & 3) == 0)
-              {
-                memset(buf, 0, 24);
-                std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(buf, v7, v7 + v6, v6 >> 2);
-                v197 = (this + 2136);
-                v196 = *(this + 267);
-                if (v196)
-                {
-                  *(this + 268) = v196;
-                  operator delete(v196);
-                  *v197 = 0;
-                  *(this + 268) = 0;
-                  *(this + 269) = 0;
-                }
-
-                v198 = *buf;
-                *v197 = *buf;
-                *(this + 269) = *&buf[16];
-                if (*(this + 485) == 1 && (*(this + 8866) & 0x20) != 0)
-                {
-                  v199 = v198;
-                  if (v198 != *(&v198 + 1))
-                  {
-                    v200 = (v198 + 4);
-                    if (v198 + 4 != *(&v198 + 1))
-                    {
-                      v201 = *v198;
-                      v202 = v199 + 1;
-                      do
-                      {
-                        v203 = *v202++;
-                        v204 = v203;
-                        if (v203 < v201)
-                        {
-                          v201 = v204;
-                          v199 = v200;
-                        }
-
-                        v200 = v202;
-                      }
-
-                      while (v202 != *(&v198 + 1));
-                    }
-                  }
-
-                  v205 = fmaxf(*v199, 0.0);
-                  AUPropAndParamHelper::AddItemToAUParamList(this + 1173, 1, v205);
-                  v206 = *(this + 460);
-                  if (v206)
-                  {
-                    AudioUnitSetParameter(v206, 1u, 0, 0, v205, 0);
-                  }
-                }
-
-                if (*v574 == 1)
-                {
-                  VoiceProcessorV2::PListWriteRefTrimGainParameters(this, this + 267);
-                }
-
-                goto LABEL_1630;
-              }
-
-              if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-              {
-                goto LABEL_1706;
-              }
-
-              *buf = 136315906;
-              *&buf[4] = "vpProperties.cpp";
-              *&buf[12] = 1024;
-              *&buf[14] = 1223;
-              *&buf[18] = 2080;
-              *&buf[20] = "(inDataSize % sizeof(Float32)) == 0";
-              *&buf[28] = 2080;
-              *&buf[30] = "BadPropertySize";
-              v563 = MEMORY[0x277D86220];
-              goto LABEL_1705;
-            case 32783:
-              if (v6 == 8)
-              {
-                v222 = *(this + 278);
-                if (v222)
-                {
-                  CFRelease(v222);
-                  *(this + 278) = 0;
-                }
-
-                if (*v7)
-                {
-                  *(this + 278) = CFDictionaryCreateCopy(*MEMORY[0x277CBECE8], *v7);
-                  if (*(this + 484) == 1 && (v574[280] & 1) == 0)
-                  {
-                    if (VPLogScope(void)::once != -1)
-                    {
-                      dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                    }
-
-                    v223 = CALog::LogObjIfEnabled(3, VPLogScope(void)::scope);
-                    if (v223)
-                    {
-                      v224 = v223;
-                      if (os_log_type_enabled(v223, OS_LOG_TYPE_DEFAULT))
-                      {
-                        *buf = 136315394;
-                        *&buf[4] = "vpProperties.cpp";
-                        *&buf[12] = 1024;
-                        *&buf[14] = 1441;
-                        _os_log_impl(&dword_2724B4000, v224, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> Begin self-reinit (kVPProperty_TelephonyMicDSPSettings)", buf, 0x12u);
-                      }
-                    }
-
-                    v225 = *(this + 1588);
-                    if (v225 && ((*v574 & 1) != 0 || v574[1] == 1))
-                    {
-                      if (VPLogScope(void)::once != -1)
-                      {
-                        dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                      }
-
-                      CALegacyLog::log(v225, 3, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 1441, "SetProperty", "Begin self-reinit (kVPProperty_TelephonyMicDSPSettings)");
-                    }
-
-                    (*(*this + 240))(this);
-                    if (VPLogScope(void)::once != -1)
-                    {
-                      dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                    }
-
-                    v226 = CALog::LogObjIfEnabled(3, VPLogScope(void)::scope);
-                    if (v226)
-                    {
-                      v227 = v226;
-                      if (os_log_type_enabled(v226, OS_LOG_TYPE_DEFAULT))
-                      {
-                        *buf = 136315394;
-                        *&buf[4] = "vpProperties.cpp";
-                        *&buf[12] = 1024;
-                        *&buf[14] = 1444;
-                        _os_log_impl(&dword_2724B4000, v227, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> End self-reinit (kVPProperty_TelephonyMicDSPSettings)", buf, 0x12u);
-                      }
-                    }
-
-                    v228 = *(this + 1588);
-                    if (v228 && ((*v574 & 1) != 0 || v574[1] == 1))
-                    {
-                      if (VPLogScope(void)::once != -1)
-                      {
-                        dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                      }
-
-                      CALegacyLog::log(v228, 3, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 1444, "SetProperty", "End self-reinit (kVPProperty_TelephonyMicDSPSettings)");
-                    }
-                  }
-
-                  if (VPLogScope(void)::once != -1)
-                  {
-                    dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                  }
-
-                  v229 = CALog::LogObjIfEnabled(3, VPLogScope(void)::scope);
-                  if (v229)
-                  {
-                    v230 = v229;
-                    if (os_log_type_enabled(v229, OS_LOG_TYPE_DEFAULT))
-                    {
-                      *buf = 136315394;
-                      *&buf[4] = "vpProperties.cpp";
-                      *&buf[12] = 1024;
-                      *&buf[14] = 1452;
-                      _os_log_impl(&dword_2724B4000, v230, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> setproperty: mic custom dsp settings", buf, 0x12u);
-                    }
-                  }
-
-                  v231 = *(this + 1588);
-                  if (v231 && ((*v574 & 1) != 0 || v574[1] == 1))
-                  {
-                    if (VPLogScope(void)::once != -1)
-                    {
-                      dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                    }
-
-                    CALegacyLog::log(v231, 3, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 1452, "SetProperty", "setproperty: mic custom dsp settings");
-                  }
-
-                  if (*v574 == 1)
-                  {
-                    VoiceProcessorV2::PListWriteSetPropertyParameters(this, 32783);
-                  }
-                }
-
-                goto LABEL_1630;
-              }
-
-              if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-              {
-                goto LABEL_1706;
-              }
-
-              *buf = 136315906;
-              *&buf[4] = "vpProperties.cpp";
-              *&buf[12] = 1024;
-              *&buf[14] = 1428;
-              *&buf[18] = 2080;
-              *&buf[20] = "inDataSize == sizeof(CFDictionaryRef)";
-              *&buf[28] = 2080;
-              *&buf[30] = "BadPropertySize";
-              v563 = MEMORY[0x277D86220];
-              goto LABEL_1705;
-            case 32784:
-              if (v6 == 8)
-              {
-                v285 = *(this + 279);
-                if (v285)
-                {
-                  CFRelease(v285);
-                  *(this + 279) = 0;
-                }
-
-                if (*v7)
-                {
-                  *(this + 279) = CFDictionaryCreateCopy(*MEMORY[0x277CBECE8], *v7);
-                  if (*(this + 485) == 1 && (v574[280] & 1) == 0)
-                  {
-                    if (VPLogScope(void)::once != -1)
-                    {
-                      dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                    }
-
-                    v286 = CALog::LogObjIfEnabled(3, VPLogScope(void)::scope);
-                    if (v286)
-                    {
-                      v287 = v286;
-                      if (os_log_type_enabled(v286, OS_LOG_TYPE_DEFAULT))
-                      {
-                        *buf = 136315394;
-                        *&buf[4] = "vpProperties.cpp";
-                        *&buf[12] = 1024;
-                        *&buf[14] = 1471;
-                        _os_log_impl(&dword_2724B4000, v287, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> Begin self-reinit (kVPProperty_TelephonyRefDSPSettings)", buf, 0x12u);
-                      }
-                    }
-
-                    v288 = *(this + 1588);
-                    if (v288 && ((*v574 & 1) != 0 || v574[1] == 1))
-                    {
-                      if (VPLogScope(void)::once != -1)
-                      {
-                        dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                      }
-
-                      CALegacyLog::log(v288, 3, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 1471, "SetProperty", "Begin self-reinit (kVPProperty_TelephonyRefDSPSettings)");
-                    }
-
-                    VoiceProcessorV2::InitializeDLP(this);
-                    if (VPLogScope(void)::once != -1)
-                    {
-                      dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                    }
-
-                    v289 = CALog::LogObjIfEnabled(3, VPLogScope(void)::scope);
-                    if (v289)
-                    {
-                      v290 = v289;
-                      if (os_log_type_enabled(v289, OS_LOG_TYPE_DEFAULT))
-                      {
-                        *buf = 136315394;
-                        *&buf[4] = "vpProperties.cpp";
-                        *&buf[12] = 1024;
-                        *&buf[14] = 1474;
-                        _os_log_impl(&dword_2724B4000, v290, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> End self-reinit (kVPProperty_TelephonyRefDSPSettings)", buf, 0x12u);
-                      }
-                    }
-
-                    v291 = *(this + 1588);
-                    if (v291 && ((*v574 & 1) != 0 || v574[1] == 1))
-                    {
-                      if (VPLogScope(void)::once != -1)
-                      {
-                        dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                      }
-
-                      CALegacyLog::log(v291, 3, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 1474, "SetProperty", "End self-reinit (kVPProperty_TelephonyRefDSPSettings)");
-                    }
-                  }
-
-                  if (VPLogScope(void)::once != -1)
-                  {
-                    dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                  }
-
-                  v292 = CALog::LogObjIfEnabled(3, VPLogScope(void)::scope);
-                  if (v292)
-                  {
-                    v293 = v292;
-                    if (os_log_type_enabled(v292, OS_LOG_TYPE_DEFAULT))
-                    {
-                      *buf = 136315394;
-                      *&buf[4] = "vpProperties.cpp";
-                      *&buf[12] = 1024;
-                      *&buf[14] = 1482;
-                      _os_log_impl(&dword_2724B4000, v293, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> setproperty: ref custom dsp settings", buf, 0x12u);
-                    }
-                  }
-
-                  v294 = *(this + 1588);
-                  if (v294 && ((*v574 & 1) != 0 || v574[1] == 1))
-                  {
-                    if (VPLogScope(void)::once != -1)
-                    {
-                      dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                    }
-
-                    CALegacyLog::log(v294, 3, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 1482, "SetProperty", "setproperty: ref custom dsp settings");
-                  }
-
-                  if (*v574 == 1)
-                  {
-                    VoiceProcessorV2::PListWriteSetPropertyParameters(this, 32784);
-                  }
-                }
-
-                goto LABEL_1630;
-              }
-
-              if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-              {
-                goto LABEL_1706;
-              }
-
-              *buf = 136315906;
-              *&buf[4] = "vpProperties.cpp";
-              *&buf[12] = 1024;
-              *&buf[14] = 1458;
-              *&buf[18] = 2080;
-              *&buf[20] = "inDataSize == sizeof(CFDictionaryRef)";
-              *&buf[28] = 2080;
-              *&buf[30] = "BadPropertySize";
-              v563 = MEMORY[0x277D86220];
-              goto LABEL_1705;
-            case 32786:
-              if (v6 <= 3)
-              {
-                if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-                {
-                  goto LABEL_1706;
-                }
-
-                *buf = 136315906;
-                *&buf[4] = "vpProperties.cpp";
-                *&buf[12] = 1024;
-                *&buf[14] = 1499;
-                *&buf[18] = 2080;
-                *&buf[20] = "inDataSize >= sizeof(UInt32)";
-                *&buf[28] = 2080;
-                *&buf[30] = "BadPropertySize";
-                v563 = MEMORY[0x277D86220];
-                goto LABEL_1705;
-              }
-
-              v274 = *v7;
-              if (*v7 < 2u)
-              {
-                v275 = (this + 2752);
-                *(this + 688) = v274;
-                VoiceProcessorV2::ReadAndApplyDefaultsOverride(this, @"vp_beam_direction", 1, this + 688, v48);
-                if (VPLogScope(void)::once != -1)
-                {
-                  dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                }
-
-                v276 = CALog::LogObjIfEnabled(3, VPLogScope(void)::scope);
-                if (v276)
-                {
-                  v277 = v276;
-                  if (os_log_type_enabled(v276, OS_LOG_TYPE_DEFAULT))
-                  {
-                    v278 = "top back mic";
-                    v279 = *v275;
-                    *&buf[4] = "vpProperties.cpp";
-                    *buf = 136315650;
-                    if (!v279)
-                    {
-                      v278 = "top front mic";
-                    }
-
-                    *&buf[12] = 1024;
-                    *&buf[14] = 1509;
-                    *&buf[18] = 2080;
-                    *&buf[20] = v278;
-                    _os_log_impl(&dword_2724B4000, v277, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> setproperty: beam former direction = %s", buf, 0x1Cu);
-                  }
-                }
-
-                v280 = *(this + 1588);
-                if (v280 && ((*v574 & 1) != 0 || v574[1] == 1))
-                {
-                  if (VPLogScope(void)::once != -1)
-                  {
-                    dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                  }
-
-                  if (*v275)
-                  {
-                    v281 = "top back mic";
-                  }
-
-                  else
-                  {
-                    v281 = "top front mic";
-                  }
-
-                  CALegacyLog::log(v280, 3, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 1509, "SetProperty", "setproperty: beam former direction = %s", v281);
-                }
-
-                v5 = VoiceProcessorV2::ApplyBeamDirection(this);
-                if (v5)
-                {
-                  if (VPLogScope(void)::once != -1)
-                  {
-                    dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                  }
-
-                  v282 = CALog::LogObjIfEnabled(1, VPLogScope(void)::scope);
-                  if (v282)
-                  {
-                    v283 = v282;
-                    if (os_log_type_enabled(v282, OS_LOG_TYPE_ERROR))
-                    {
-                      *buf = 136315650;
-                      *&buf[4] = "vpProperties.cpp";
-                      *&buf[12] = 1024;
-                      *&buf[14] = 1513;
-                      *&buf[18] = 1024;
-                      *&buf[20] = v5;
-                      _os_log_impl(&dword_2724B4000, v283, OS_LOG_TYPE_ERROR, "%25s:%-5d  >vp> Error %d from applying beam direction", buf, 0x18u);
-                    }
-                  }
-
-                  v284 = *(this + 1588);
-                  if (v284 && ((*v574 & 1) != 0 || v574[1] == 1))
-                  {
-                    if (VPLogScope(void)::once != -1)
-                    {
-                      dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                    }
-
-                    CALegacyLog::log(v284, 1, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 1513, "SetProperty", "Error %d from applying beam direction", v5);
-                  }
-                }
-
-                goto LABEL_1253;
-              }
-
-              if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-              {
-                goto LABEL_1568;
-              }
-
-              *buf = 136315906;
-              *&buf[4] = "vpProperties.cpp";
-              *&buf[12] = 1024;
-              *&buf[14] = 1503;
-              *&buf[18] = 2080;
-              *&buf[20] = "(beamDirection == kAUBeam2BeamIndex_Front) || (beamDirection == kAUBeam2BeamIndex_Back)";
-              *&buf[28] = 2080;
-              *&buf[30] = "InvalidPropertyValue";
-              v547 = MEMORY[0x277D86220];
-              goto LABEL_1567;
-            case 32787:
-              if (v6 > 3)
-              {
-                v5 = (*(*this + 96))(this, *v7);
-                goto LABEL_1253;
-              }
-
-              if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-              {
-                goto LABEL_1706;
-              }
-
-              *buf = 136315906;
-              *&buf[4] = "vpProperties.cpp";
-              *&buf[12] = 1024;
-              *&buf[14] = 1518;
-              *&buf[18] = 2080;
-              *&buf[20] = "inDataSize >= sizeof(UInt32)";
-              *&buf[28] = 2080;
-              *&buf[30] = "BadPropertySize";
-              v563 = MEMORY[0x277D86220];
-              goto LABEL_1705;
-            case 32788:
-              if (v6 < 4 || (v301 = *v7, *v7 >= 2u))
-              {
-                if (VPLogScope(void)::once != -1)
-                {
-                  dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                }
-
-                v302 = CALog::LogObjIfEnabled(2, VPLogScope(void)::scope);
-                if (v302)
-                {
-                  v303 = v302;
-                  if (os_log_type_enabled(v302, OS_LOG_TYPE_DEFAULT))
-                  {
-                    *buf = 136315394;
-                    *&buf[4] = "vpProperties.cpp";
-                    *&buf[12] = 1024;
-                    *&buf[14] = 1166;
-                    _os_log_impl(&dword_2724B4000, v303, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  >vp> setproperty: HwHasVP got invalid data", buf, 0x12u);
-                  }
-                }
-
-                v5 = 561211770;
-                v304 = *(this + 1588);
-                if (v304 && ((*v574 & 1) != 0 || v574[1] == 1))
-                {
-                  if (VPLogScope(void)::once != -1)
-                  {
-                    dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                  }
-
-                  CALegacyLog::log(v304, 2, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 1166, "SetProperty", "setproperty: HwHasVP got invalid data");
-                }
-
-                goto LABEL_1253;
-              }
-
-              if (v301 != *(this + 2093))
-              {
-                *(this + 2093) = v301 == 1;
-                VoiceProcessorV2::ReadAndApplyDefaultsOverride(this, @"vp_hw_has_vp", 0, (this + 2093), v48);
-                if (VPLogScope(void)::once != -1)
-                {
-                  dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                }
-
-                v462 = CALog::LogObjIfEnabled(3, VPLogScope(void)::scope);
-                if (v462)
-                {
-                  v463 = v462;
-                  if (os_log_type_enabled(v462, OS_LOG_TYPE_DEFAULT))
-                  {
-                    *buf = 136315394;
-                    *&buf[4] = "vpProperties.cpp";
-                    *&buf[12] = 1024;
-                    *&buf[14] = 1175;
-                    _os_log_impl(&dword_2724B4000, v463, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> Begin self-reinit (kVPProperty_HwHasVP)", buf, 0x12u);
-                  }
-                }
-
-                v464 = *(this + 1588);
-                if (v464 && ((*v574 & 1) != 0 || v574[1] == 1))
-                {
-                  if (VPLogScope(void)::once != -1)
-                  {
-                    dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                  }
-
-                  CALegacyLog::log(v464, 3, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 1175, "SetProperty", "Begin self-reinit (kVPProperty_HwHasVP)");
-                }
-
-                if (*(this + 485) == 1)
-                {
-                  VoiceProcessorV2::InitializeDLP(this);
-                }
-
-                if (*(this + 484) == 1)
-                {
-                  (*(*this + 240))(this);
-                }
-
-                if (VPLogScope(void)::once != -1)
-                {
-                  dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                }
-
-                v465 = CALog::LogObjIfEnabled(3, VPLogScope(void)::scope);
-                if (v465)
-                {
-                  v466 = v465;
-                  if (os_log_type_enabled(v465, OS_LOG_TYPE_DEFAULT))
-                  {
-                    *buf = 136315394;
-                    *&buf[4] = "vpProperties.cpp";
-                    *&buf[12] = 1024;
-                    *&buf[14] = 1180;
-                    _os_log_impl(&dword_2724B4000, v466, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> End self-reinit (kVPProperty_HwHasVP)", buf, 0x12u);
-                  }
-                }
-
-                v467 = *(this + 1588);
-                if (v467 && ((*v574 & 1) != 0 || v574[1] == 1))
-                {
-                  if (VPLogScope(void)::once != -1)
-                  {
-                    dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                  }
-
-                  CALegacyLog::log(v467, 3, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 1180, "SetProperty", "End self-reinit (kVPProperty_HwHasVP)");
-                }
-
-                if (VPLogScope(void)::once != -1)
-                {
-                  dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                }
-
-                v468 = CALog::LogObjIfEnabled(3, VPLogScope(void)::scope);
-                if (v468)
-                {
-                  v469 = v468;
-                  if (os_log_type_enabled(v468, OS_LOG_TYPE_DEFAULT))
-                  {
-                    v470 = "FALSE";
-                    v471 = *(this + 2093);
-                    *&buf[4] = "vpProperties.cpp";
-                    *buf = 136315650;
-                    if (v471)
-                    {
-                      v470 = "TRUE";
-                    }
-
-                    *&buf[12] = 1024;
-                    *&buf[14] = 1183;
-                    *&buf[18] = 2080;
-                    *&buf[20] = v470;
-                    _os_log_impl(&dword_2724B4000, v469, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> setproperty: hw has vp = %s.  ", buf, 0x1Cu);
-                  }
-                }
-
-                v472 = *(this + 1588);
-                if (v472 && ((*v574 & 1) != 0 || v574[1] == 1))
-                {
-                  if (VPLogScope(void)::once != -1)
-                  {
-                    dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                  }
-
-                  if (*(this + 2093))
-                  {
-                    v473 = "TRUE";
-                  }
-
-                  else
-                  {
-                    v473 = "FALSE";
-                  }
-
-                  CALegacyLog::log(v472, 3, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 1183, "SetProperty", "setproperty: hw has vp = %s.  ", v473);
-                }
-              }
-
-              if (*v574 == 1)
-              {
-                VoiceProcessorV2::PListWriteSetPropertyParameters(this, 32788);
-              }
-
-              goto LABEL_1630;
-            case 32792:
-              if (v6 < 4)
-              {
-                goto LABEL_1168;
-              }
-
-              v296 = *v7 != 0;
-              if (*(this + 288) != v296)
-              {
-                *(this + 288) = v296;
-                if (*v574 == 1)
-                {
-                  VoiceProcessorV2::PListWriteSetPropertyParameters(this, 32792);
-                }
-
-                if (VPLogScope(void)::once != -1)
-                {
-                  dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                }
-
-                v297 = CALog::LogObjIfEnabled(3, VPLogScope(void)::scope);
-                if (v297)
-                {
-                  v298 = v297;
-                  if (os_log_type_enabled(v297, OS_LOG_TYPE_DEFAULT))
-                  {
-                    v299 = *(this + 288);
-                    *buf = 136315650;
-                    *&buf[4] = "vpProperties.cpp";
-                    *&buf[12] = 1024;
-                    *&buf[14] = 1662;
-                    *&buf[18] = 1024;
-                    *&buf[20] = v299;
-                    _os_log_impl(&dword_2724B4000, v298, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> setproperty: is tap stream enabled  = %d", buf, 0x18u);
-                  }
-                }
-
-                v300 = *(this + 1588);
-                if (v300 && ((*v574 & 1) != 0 || v574[1] == 1))
-                {
-                  if (VPLogScope(void)::once != -1)
-                  {
-                    dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                  }
-
-                  CALegacyLog::log(v300, 3, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 1662, "SetProperty", "setproperty: is tap stream enabled  = %d", *(this + 288));
-                }
-              }
-
-              goto LABEL_1630;
-            case 32794:
-              v5 = 561211770;
-              if (v6 < 4 || *v7 > 1u)
-              {
-                goto LABEL_1253;
-              }
-
-              *(this + 2090) = *v7;
-              if (VPLogScope(void)::once != -1)
-              {
-                dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-              }
-
-              v181 = CALog::LogObjIfEnabled(3, VPLogScope(void)::scope);
-              if (v181)
-              {
-                v183 = v181;
-                if (os_log_type_enabled(v181, OS_LOG_TYPE_DEFAULT))
-                {
-                  v184 = *(this + 2090);
-                  *buf = 136315650;
-                  *&buf[4] = "vpProperties.cpp";
-                  *&buf[12] = 1024;
-                  *&buf[14] = 913;
-                  *&buf[18] = 1024;
-                  *&buf[20] = v184;
-                  _os_log_impl(&dword_2724B4000, v183, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> setproperty: mute downlink voice =%d", buf, 0x18u);
-                }
-              }
-
-              v185 = *(this + 1588);
-              if (v185 && ((*v574 & 1) != 0 || v574[1] == 1))
-              {
-                if (VPLogScope(void)::once != -1)
-                {
-                  dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                }
-
-                CALegacyLog::log(v185, 3, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 913, "SetProperty", "setproperty: mute downlink voice =%d", *(this + 2090));
-              }
-
-              VoiceProcessorV2::ReadAndApplyDefaultsOverride(this, @"vp_mute_downlink_voice", 0, (this + 2090), v182);
-              if (*v574 == 1)
-              {
-                VoiceProcessorV2::PListWriteSetPropertyParameters(this, 32794);
-              }
-
-              goto LABEL_1630;
-            case 32796:
-              CADeprecated::CAAutoFree<long long>::allocBytes(this + 275, v6);
-              v195 = *(this + 275);
-              if (v195)
-              {
-                memcpy(v195, v7, v6);
-                *(this + 552) = v6 >> 2;
-                if (*v574 == 1)
-                {
-                  VoiceProcessorV2::PListWriteSpkInputDataSrcParameters(this, *(this + 275), v6 >> 2);
-                }
-              }
-
-              goto LABEL_1630;
-            case 32797:
-              if (v6 <= 3)
-              {
-                if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-                {
-                  goto LABEL_1706;
-                }
-
-                *buf = 136315906;
-                *&buf[4] = "vpProperties.cpp";
-                *&buf[12] = 1024;
-                *&buf[14] = 1584;
-                *&buf[18] = 2080;
-                *&buf[20] = "inDataSize >= sizeof(Float32)";
-                *&buf[28] = 2080;
-                *&buf[30] = "BadPropertySize";
-                v563 = MEMORY[0x277D86220];
-                goto LABEL_1705;
-              }
-
-              v232 = *v7;
-              v233 = this;
-              *(this + 564) = *v7;
-              v234 = v574;
-              if (VPLogScope(void)::once != -1)
-              {
-                dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-              }
-
-              v6 = &unk_28133C000;
-              v235 = CALog::LogObjIfEnabled(3, VPLogScope(void)::scope);
-              if (v235)
-              {
-                v236 = v235;
-                if (os_log_type_enabled(v235, OS_LOG_TYPE_DEFAULT))
-                {
-                  *buf = 136315650;
-                  *&buf[4] = "vpProperties.cpp";
-                  *&buf[12] = 1024;
-                  *&buf[14] = 1587;
-                  *&buf[18] = 2048;
-                  *&buf[20] = v232;
-                  _os_log_impl(&dword_2724B4000, v236, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> setproperty: hardware volume =%f dB", buf, 0x1Cu);
-                }
-              }
-
-              v237 = *(this + 1588);
-              if (v237 && ((*v574 & 1) != 0 || v574[1] == 1))
-              {
-                if (VPLogScope(void)::once != -1)
-                {
-                  dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                }
-
-                CALegacyLog::log(v237, 3, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 1587, "SetProperty", "setproperty: hardware volume =%f dB", v232);
-              }
-
-              if (*v574 == 1)
-              {
-                VoiceProcessorV2::PListWriteSetPropertyParameters(this, 32797);
-              }
-
-              v238 = *(this + 1108);
-              if ((v238 & 0x200000000000) != 0 && *(this + 484))
-              {
-                if (VPLogScope(void)::once != -1)
-                {
-                  dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                }
-
-                v239 = CALog::LogObjIfEnabled(3, VPLogScope(void)::scope);
-                if (v239)
-                {
-                  v240 = v239;
-                  if (os_log_type_enabled(v239, OS_LOG_TYPE_DEFAULT))
-                  {
-                    *buf = 136315650;
-                    *&buf[4] = "vpProperties.cpp";
-                    *&buf[12] = 1024;
-                    *&buf[14] = 1591;
-                    *&buf[18] = 2048;
-                    *&buf[20] = v232;
-                    _os_log_impl(&dword_2724B4000, v240, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> AU HLC exists in the VP chain applying HW vol =>%f", buf, 0x1Cu);
-                  }
-                }
-
-                v241 = *(this + 1588);
-                if (v241 && ((*v574 & 1) != 0 || v574[1] == 1))
-                {
-                  if (VPLogScope(void)::once != -1)
-                  {
-                    dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                  }
-
-                  CALegacyLog::log(v241, 3, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 1591, "SetProperty", "AU HLC exists in the VP chain applying HW vol =>%f", v232);
-                }
-
-                AudioUnitSetParameter(*(this + 484), 0x19u, 0, 0, v232, 0);
-                v238 = *(this + 1108);
-              }
-
-              if ((v238 & 0x4000000000000) == 0 || !*(this + 489))
-              {
-                goto LABEL_1630;
-              }
-
-              if (VPLogScope(void)::once != -1)
-              {
-                dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-              }
-
-              v242 = CALog::LogObjIfEnabled(3, VPLogScope(void)::scope);
-              if (v242)
-              {
-                v243 = v242;
-                if (os_log_type_enabled(v242, OS_LOG_TYPE_DEFAULT))
-                {
-                  *buf = 136315650;
-                  *&buf[4] = "vpProperties.cpp";
-                  *&buf[12] = 1024;
-                  *&buf[14] = 1598;
-                  *&buf[18] = 2048;
-                  *&buf[20] = v232;
-                  _os_log_impl(&dword_2724B4000, v243, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> [VolumeLimit] AUSPLMeter exists in the VP chain; applying HW vol =>%f", buf, 0x1Cu);
-                }
-              }
-
-              v244 = *(this + 1588);
-              if (v244 && ((*v574 & 1) != 0 || v574[1] == 1))
-              {
-                if (VPLogScope(void)::once != -1)
-                {
-                  dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                }
-
-                CALegacyLog::log(v244, 3, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 1598, "SetProperty", "[VolumeLimit] AUSPLMeter exists in the VP chain; applying HW vol =>%f", v232);
-              }
-
-              AudioUnitSetParameter(*(this + 489), 0, 0, 0, v232, 0);
-              if ((*(this + 8869) & 0x40) == 0 || !*(this + 485))
-              {
-                goto LABEL_1630;
-              }
-
-              *v585 = 0;
-              if (*(this + 586) <= 0.0)
-              {
-                v245 = 100.0;
-              }
-
-              else
-              {
-                v245 = *(this + 586);
-              }
-
-              if (VPLogScope(void)::once != -1)
-              {
-                dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-              }
-
-              v246 = CALog::LogObjIfEnabled(3, VPLogScope(void)::scope);
-              if (v246)
-              {
-                v247 = v246;
-                if (os_log_type_enabled(v246, OS_LOG_TYPE_DEFAULT))
-                {
-                  *buf = 136315650;
-                  *&buf[4] = "vpProperties.cpp";
-                  *&buf[12] = 1024;
-                  *&buf[14] = 1607;
-                  *&buf[18] = 2048;
-                  *&buf[20] = v245;
-                  _os_log_impl(&dword_2724B4000, v247, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> [VolumeLimit] SPLTarget update %f", buf, 0x1Cu);
-                }
-              }
-
-              v248 = *(this + 1588);
-              if (v248 && ((*v574 & 1) != 0 || v574[1] == 1))
-              {
-                if (VPLogScope(void)::once != -1)
-                {
-                  dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                }
-
-                v233 = this;
-                CALegacyLog::log(v248, 3, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 1607, "SetProperty", "[VolumeLimit] SPLTarget update %f", v245);
-                v234 = v574;
-              }
-
-              Parameter = AudioUnitGetParameter(*(v233 + 489), 0xBu, 0, 0, v585);
-              if (Parameter)
-              {
-                if (VPLogScope(void)::once != -1)
-                {
-                  dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                }
-
-                v250 = CALog::LogObjIfEnabled(1, VPLogScope(void)::scope);
-                if (v250)
-                {
-                  v251 = v250;
-                  if (os_log_type_enabled(v250, OS_LOG_TYPE_ERROR))
-                  {
-                    *buf = 136315650;
-                    *&buf[4] = "vpProperties.cpp";
-                    *&buf[12] = 1024;
-                    *&buf[14] = 1621;
-                    *&buf[18] = 1024;
-                    *&buf[20] = Parameter;
-                    _os_log_impl(&dword_2724B4000, v251, OS_LOG_TYPE_ERROR, "%25s:%-5d  >vp> [VolumeLimit] Failed to et LKFS from AUSPLMeter. Error = %d", buf, 0x18u);
-                  }
-                }
-
-                v252 = *(v233 + 1588);
-                if (v252 && ((*v234 & 1) != 0 || v234[1] == 1))
-                {
-                  if (VPLogScope(void)::once != -1)
-                  {
-                    dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                  }
-
-                  CALegacyLog::log(v252, 1, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 1621, "SetProperty", "[VolumeLimit] Failed to et LKFS from AUSPLMeter. Error = %d", Parameter);
-                }
-
-                goto LABEL_1630;
-              }
-
-              v516 = v245 - *v585;
-              if (VPLogScope(void)::once != -1)
-              {
-                dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-              }
-
-              v4 = v516 + -2.5;
-              v517 = CALog::LogObjIfEnabled(3, VPLogScope(void)::scope);
-              if (v517)
-              {
-                v518 = v517;
-                if (os_log_type_enabled(v517, OS_LOG_TYPE_DEFAULT))
-                {
-                  *buf = 136315650;
-                  *&buf[4] = "vpProperties.cpp";
-                  *&buf[12] = 1024;
-                  *&buf[14] = 1615;
-                  *&buf[18] = 2048;
-                  *&buf[20] = v4;
-                  _os_log_impl(&dword_2724B4000, v518, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> [VolumeLimit] Setting target LKFS on LDNM to %f", buf, 0x1Cu);
-                }
-              }
-
-              v519 = this;
-              v7 = *(this + 1588);
-              if (v7 && ((*v574 & 1) != 0 || v574[1] == 1))
-              {
-                if (VPLogScope(void)::once != -1)
-                {
-                  goto LABEL_1718;
-                }
-
-                goto LABEL_1474;
-              }
-
-              goto LABEL_1475;
-            case 32799:
-              if (v6 == 8)
-              {
-                applesauce::CF::ArrayRef::from_get_noexcept(&theArray, *v7);
-                if (theArray)
-                {
-                  v172 = this;
-                  v173 = applesauce::CF::ArrayRef::operator->(&theArray);
-                  if (applesauce::CF::ArrayRef_proxy::get_size(*v173))
-                  {
-                    memset(v585, 0, 24);
-                    applesauce::CF::ArrayRef_iterator<applesauce::CF::DictionaryRef>::ArrayRef_iterator(__p, theArray);
-                    applesauce::CF::ArrayRef_iterator<applesauce::CF::DictionaryRef>::ArrayRef_iterator(&cf, theArray);
-                    v174 = v578;
-                    v577 = v578;
-                    v175 = __p[1];
-                    while (1)
-                    {
-                      if (__p[0])
-                      {
-                        v176 = v175 == v583;
-                      }
-
-                      else
-                      {
-                        v176 = 1;
-                      }
-
-                      if (v176 && (cf ? (v177 = v174 == v578) : (v177 = 1), v177) || (__p[0] == cf ? (v178 = v175 == v174) : (v178 = 0), v178))
-                      {
-                        applesauce::CF::ArrayRef::operator=(v172 + 262, theArray);
-                        v419 = *(v172 + 263);
-                        if (v419)
-                        {
-                          *(v172 + 264) = v419;
-                          operator delete(v419);
-                          *v50 = 0;
-                          *(this + 264) = 0;
-                          *(this + 265) = 0;
-                        }
-
-                        *v50 = *v585;
-                        *(v172 + 265) = *&v585[16];
-                        if (*v574)
-                        {
-                          VoiceProcessorV2::PListWriteMicTrimGainParameters(v172, this + 263);
-                        }
-
-                        goto LABEL_1207;
-                      }
-
-                      applesauce::CF::details::at_to<applesauce::CF::DictionaryRef>(&v575, __p[0], v175);
-                      if (!v575)
-                      {
-                        exception = __cxa_allocate_exception(0x10uLL);
-                        std::runtime_error::runtime_error(exception, "Could not construct");
-                      }
-
-                      if (!applesauce::CF::details::has_key<char const(&)[25]>(v575))
-                      {
-                        break;
-                      }
-
-                      if (!v575)
-                      {
-                        v568 = __cxa_allocate_exception(0x10uLL);
-                        std::runtime_error::runtime_error(v568, "Could not construct");
-                      }
-
-                      if (!applesauce::CF::details::has_key<char const(&)[13]>(v575))
-                      {
-                        if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-                        {
-                          *buf = 136315906;
-                          *&buf[4] = "vpProperties.cpp";
-                          *&buf[12] = 1024;
-                          *&buf[14] = 1210;
-                          *&buf[18] = 2080;
-                          *&buf[20] = "value->has_key(kVirtualAudioPortPropertyTrimGainsCFGainDBKey)";
-                          *&buf[28] = 2080;
-                          *&buf[30] = "InvalidPropertyValue";
-                          v180 = MEMORY[0x277D86220];
-LABEL_474:
-                          _os_log_impl(&dword_2724B4000, v180, OS_LOG_TYPE_ERROR, "%25s:%-5d  ca_require: %s %s", buf, 0x26u);
-                        }
-
-                        goto LABEL_475;
-                      }
-
-                      if (!v575)
-                      {
-                        v569 = __cxa_allocate_exception(0x10uLL);
-                        std::runtime_error::runtime_error(v569, "Could not construct");
-                      }
-
-                      *buf = applesauce::CF::details::find_at_key<float,char const(&)[13]>(v575);
-                      std::vector<float>::push_back[abi:ne200100](v585, buf);
-                      v49 = 0;
-                      v179 = 1;
-LABEL_466:
-                      if (v575)
-                      {
-                        CFRelease(v575);
-                      }
-
-                      if (!v179)
-                      {
-                        goto LABEL_1183;
-                      }
-
-                      v175 = ++__p[1];
-                      v174 = v577;
-                      v172 = this;
-                    }
-
-                    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-                    {
-                      *buf = 136315906;
-                      *&buf[4] = "vpProperties.cpp";
-                      *&buf[12] = 1024;
-                      *&buf[14] = 1209;
-                      *&buf[18] = 2080;
-                      *&buf[20] = "value->has_key(kVirtualAudioPortPropertyTrimGainsCFDataSourceIDKey)";
-                      *&buf[28] = 2080;
-                      *&buf[30] = "InvalidPropertyValue";
-                      v180 = MEMORY[0x277D86220];
-                      goto LABEL_474;
-                    }
-
-LABEL_475:
-                    v179 = 0;
-                    v49 = 164;
-                    goto LABEL_466;
-                  }
-
-                  if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-                  {
-                    goto LABEL_1675;
-                  }
-
-                  *buf = 136315906;
-                  *&buf[4] = "vpProperties.cpp";
-                  *&buf[12] = 1024;
-                  *&buf[14] = 1204;
-                  *&buf[18] = 2080;
-                  *&buf[20] = "micTrimGainsCF->get_size() != 0";
-                  *&buf[28] = 2080;
-                  *&buf[30] = "InvalidPropertyValue";
-                  v564 = MEMORY[0x277D86220];
-                }
-
-                else
-                {
-                  if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-                  {
-                    goto LABEL_1675;
-                  }
-
-                  *buf = 136315906;
-                  *&buf[4] = "vpProperties.cpp";
-                  *&buf[12] = 1024;
-                  *&buf[14] = 1203;
-                  *&buf[18] = 2080;
-                  *&buf[20] = "micTrimGainsCF.is_valid()";
-                  *&buf[28] = 2080;
-                  *&buf[30] = "InvalidPropertyValue";
-                  v564 = MEMORY[0x277D86220];
-                }
-
-                goto LABEL_1674;
-              }
-
-              if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-              {
-                goto LABEL_1706;
-              }
-
-              *buf = 136315906;
-              *&buf[4] = "vpProperties.cpp";
-              *&buf[12] = 1024;
-              *&buf[14] = 1199;
-              *&buf[18] = 2080;
-              *&buf[20] = "inDataSize == sizeof(CFArrayRef)";
-              *&buf[28] = 2080;
-              *&buf[30] = "BadPropertySize";
-              v563 = MEMORY[0x277D86220];
-              goto LABEL_1705;
-            case 32800:
-              if (v6 == 8)
-              {
-                applesauce::CF::ArrayRef::from_get_noexcept(&theArray, *v7);
-                if (theArray)
-                {
-                  v186 = this;
-                  v187 = applesauce::CF::ArrayRef::operator->(&theArray);
-                  if (applesauce::CF::ArrayRef_proxy::get_size(*v187))
-                  {
-                    memset(v585, 0, 24);
-                    applesauce::CF::ArrayRef_iterator<applesauce::CF::DictionaryRef>::ArrayRef_iterator(__p, theArray);
-                    applesauce::CF::ArrayRef_iterator<applesauce::CF::DictionaryRef>::ArrayRef_iterator(&cf, theArray);
-                    v188 = v578;
-                    v577 = v578;
-                    v189 = __p[1];
-                    while (1)
-                    {
-                      if (__p[0])
-                      {
-                        v190 = v189 == v583;
-                      }
-
-                      else
-                      {
-                        v190 = 1;
-                      }
-
-                      if (v190 && (cf ? (v191 = v188 == v578) : (v191 = 1), v191) || (__p[0] == cf ? (v192 = v189 == v188) : (v192 = 0), v192))
-                      {
-                        applesauce::CF::ArrayRef::operator=(v186 + 266, theArray);
-                        v420 = *(v186 + 267);
-                        if (v420)
-                        {
-                          *(v186 + 268) = v420;
-                          operator delete(v420);
-                          *(this + 267) = 0;
-                          *(this + 268) = 0;
-                          *(this + 269) = 0;
-                        }
-
-                        v421 = *v585;
-                        *(this + 2136) = *v585;
-                        *(v186 + 269) = *&v585[16];
-                        if (*(v186 + 485) == 1 && (*(v186 + 8866) & 0x20) != 0)
-                        {
-                          v422 = v421;
-                          v423 = (v421 + 4);
-                          if (v421 != *(&v421 + 1) && v423 != *(&v421 + 1))
-                          {
-                            v425 = *v421;
-                            v426 = v423;
-                            do
-                            {
-                              v427 = *v426++;
-                              v428 = v427;
-                              if (v427 < v425)
-                              {
-                                v425 = v428;
-                                v422 = v423;
-                              }
-
-                              v423 = v426;
-                            }
-
-                            while (v426 != *(&v421 + 1));
-                          }
-
-                          v429 = fmaxf(*v422, 0.0);
-                          AUPropAndParamHelper::AddItemToAUParamList(v186 + 1173, 1, v429);
-                          v430 = *(v186 + 460);
-                          if (v430)
-                          {
-                            AudioUnitSetParameter(v430, 1u, 0, 0, v429, 0);
-                          }
-                        }
-
-                        if (*v574 == 1)
-                        {
-                          VoiceProcessorV2::PListWriteRefTrimGainParameters(v186, this + 267);
-                        }
-
-                        goto LABEL_1207;
-                      }
-
-                      applesauce::CF::details::at_to<applesauce::CF::DictionaryRef>(&v575, __p[0], v189);
-                      if (!v575)
-                      {
-                        v566 = __cxa_allocate_exception(0x10uLL);
-                        std::runtime_error::runtime_error(v566, "Could not construct");
-                      }
-
-                      if (!applesauce::CF::details::has_key<char const(&)[25]>(v575))
-                      {
-                        break;
-                      }
-
-                      if (!v575)
-                      {
-                        v567 = __cxa_allocate_exception(0x10uLL);
-                        std::runtime_error::runtime_error(v567, "Could not construct");
-                      }
-
-                      if (!applesauce::CF::details::has_key<char const(&)[13]>(v575))
-                      {
-                        if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-                        {
-                          *buf = 136315906;
-                          *&buf[4] = "vpProperties.cpp";
-                          *&buf[12] = 1024;
-                          *&buf[14] = 1258;
-                          *&buf[18] = 2080;
-                          *&buf[20] = "value->has_key(kVirtualAudioPortPropertyTrimGainsCFGainDBKey)";
-                          *&buf[28] = 2080;
-                          *&buf[30] = "InvalidPropertyValue";
-                          v194 = MEMORY[0x277D86220];
-LABEL_524:
-                          _os_log_impl(&dword_2724B4000, v194, OS_LOG_TYPE_ERROR, "%25s:%-5d  ca_require: %s %s", buf, 0x26u);
-                        }
-
-                        goto LABEL_525;
-                      }
-
-                      if (!v575)
-                      {
-                        v570 = __cxa_allocate_exception(0x10uLL);
-                        std::runtime_error::runtime_error(v570, "Could not construct");
-                      }
-
-                      *buf = applesauce::CF::details::find_at_key<float,char const(&)[13]>(v575);
-                      std::vector<float>::push_back[abi:ne200100](v585, buf);
-                      v49 = 0;
-                      v193 = 1;
-LABEL_516:
-                      if (v575)
-                      {
-                        CFRelease(v575);
-                      }
-
-                      if (!v193)
-                      {
-LABEL_1183:
-                        if (*v585)
-                        {
-                          operator delete(*v585);
-                        }
-
-                        if (v49)
-                        {
-LABEL_1186:
-                          applesauce::CF::ArrayRef::~ArrayRef(&theArray);
-                          goto LABEL_1631;
-                        }
-
-LABEL_1207:
-                        applesauce::CF::ArrayRef::~ArrayRef(&theArray);
-                        goto LABEL_1630;
-                      }
-
-                      v189 = ++__p[1];
-                      v188 = v577;
-                      v186 = this;
-                    }
-
-                    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-                    {
-                      *buf = 136315906;
-                      *&buf[4] = "vpProperties.cpp";
-                      *&buf[12] = 1024;
-                      *&buf[14] = 1257;
-                      *&buf[18] = 2080;
-                      *&buf[20] = "value->has_key(kVirtualAudioPortPropertyTrimGainsCFDataSourceIDKey)";
-                      *&buf[28] = 2080;
-                      *&buf[30] = "InvalidPropertyValue";
-                      v194 = MEMORY[0x277D86220];
-                      goto LABEL_524;
-                    }
-
-LABEL_525:
-                    v193 = 0;
-                    v49 = 164;
-                    goto LABEL_516;
-                  }
-
-                  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-                  {
-                    *buf = 136315906;
-                    *&buf[4] = "vpProperties.cpp";
-                    *&buf[12] = 1024;
-                    *&buf[14] = 1252;
-                    *&buf[18] = 2080;
-                    *&buf[20] = "refTrimGainsCF->get_size() != 0";
-                    *&buf[28] = 2080;
-                    *&buf[30] = "InvalidPropertyValue";
-                    v564 = MEMORY[0x277D86220];
-                    goto LABEL_1674;
-                  }
-                }
-
-                else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-                {
-                  *buf = 136315906;
-                  *&buf[4] = "vpProperties.cpp";
-                  *&buf[12] = 1024;
-                  *&buf[14] = 1251;
-                  *&buf[18] = 2080;
-                  *&buf[20] = "refTrimGainsCF.is_valid()";
-                  *&buf[28] = 2080;
-                  *&buf[30] = "InvalidPropertyValue";
-                  v564 = MEMORY[0x277D86220];
-LABEL_1674:
-                  _os_log_impl(&dword_2724B4000, v564, OS_LOG_TYPE_ERROR, "%25s:%-5d  ca_require: %s %s", buf, 0x26u);
-                }
-
-LABEL_1675:
-                v49 = 164;
-                goto LABEL_1186;
-              }
-
-              if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-              {
-                goto LABEL_1706;
-              }
-
-              *buf = 136315906;
-              *&buf[4] = "vpProperties.cpp";
-              *&buf[12] = 1024;
-              *&buf[14] = 1247;
-              *&buf[18] = 2080;
-              *&buf[20] = "inDataSize == sizeof(CFArrayRef)";
-              *&buf[28] = 2080;
-              *&buf[30] = "BadPropertySize";
-              v563 = MEMORY[0x277D86220];
-              break;
-            case 32801:
-              if (v6 == 8)
-              {
-                v253 = *v7;
-                applesauce::CF::details::Retain<__CFArray const*>(v253);
-                applesauce::CF::ArrayRef::ArrayRef(buf, v253);
-                v254 = *(this + 270);
-                *(this + 270) = *buf;
-                *buf = v254;
-                applesauce::CF::ArrayRef::~ArrayRef(buf);
-                if ((v574[280] & 1) == 0 && *(this + 485) == 1)
-                {
-                  if (VPLogScope(void)::once != -1)
-                  {
-                    dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                  }
-
-                  v255 = CALog::LogObjIfEnabled(3, VPLogScope(void)::scope);
-                  if (v255)
-                  {
-                    v256 = v255;
-                    if (os_log_type_enabled(v255, OS_LOG_TYPE_DEFAULT))
-                    {
-                      *buf = 136315394;
-                      *&buf[4] = "vpProperties.cpp";
-                      *&buf[12] = 1024;
-                      *&buf[14] = 1291;
-                      _os_log_impl(&dword_2724B4000, v256, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> Begin self-reinit (kVPProperty_SpeakerCalibrationDataCF)", buf, 0x12u);
-                    }
-                  }
-
-                  v257 = *(this + 1588);
-                  if (v257 && ((*v574 & 1) != 0 || v574[1] == 1))
-                  {
-                    if (VPLogScope(void)::once != -1)
-                    {
-                      dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                    }
-
-                    CALegacyLog::log(v257, 3, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 1291, "SetProperty", "Begin self-reinit (kVPProperty_SpeakerCalibrationDataCF)");
-                  }
-
-                  VoiceProcessorV2::InitializeDLP(this);
-                  if (VPLogScope(void)::once != -1)
-                  {
-                    dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                  }
-
-                  v258 = CALog::LogObjIfEnabled(3, VPLogScope(void)::scope);
-                  if (v258)
-                  {
-                    v259 = v258;
-                    if (os_log_type_enabled(v258, OS_LOG_TYPE_DEFAULT))
-                    {
-                      *buf = 136315394;
-                      *&buf[4] = "vpProperties.cpp";
-                      *&buf[12] = 1024;
-                      *&buf[14] = 1294;
-                      _os_log_impl(&dword_2724B4000, v259, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> End self-reinit (kVPProperty_SpeakerCalibrationDataCF)", buf, 0x12u);
-                    }
-                  }
-
-                  v260 = *(this + 1588);
-                  if (v260 && ((*v574 & 1) != 0 || v574[1] == 1))
-                  {
-                    if (VPLogScope(void)::once != -1)
-                    {
-                      dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                    }
-
-                    CALegacyLog::log(v260, 3, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 1294, "SetProperty", "End self-reinit (kVPProperty_SpeakerCalibrationDataCF)");
-                  }
-                }
-
-                if (*v574 == 1)
-                {
-                  VoiceProcessorV2::PListWriteSpeakerCalibrationParameters(this, *(this + 270));
-                }
-
-                goto LABEL_1630;
-              }
-
-              if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-              {
-                goto LABEL_1706;
-              }
-
-              *buf = 136315906;
-              *&buf[4] = "vpProperties.cpp";
-              *&buf[12] = 1024;
-              *&buf[14] = 1286;
-              *&buf[18] = 2080;
-              *&buf[20] = "inDataSize == sizeof(CFArrayRef)";
-              *&buf[28] = 2080;
-              *&buf[30] = "BadPropertySize";
-              v563 = MEMORY[0x277D86220];
-              goto LABEL_1705;
-            default:
-              goto LABEL_1182;
-          }
-
-          goto LABEL_1705;
-        }
-
-        if (a2 > 1635085676)
-        {
-          if (a2 <= 1685483377)
-          {
-            if (a2 != 1635085677)
-            {
-              if (a2 == 1684305512)
-              {
-                goto LABEL_1632;
-              }
-
-              goto LABEL_1182;
-            }
-
-            if (!VoiceProcessorV2::IsDeviceSupportingAdvancedChatFlavors(v47))
-            {
-              if (VPLogScope(void)::once != -1)
-              {
-                dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-              }
-
-              v431 = CALog::LogObjIfEnabled(3, VPLogScope(void)::scope);
-              if (v431)
-              {
-                v432 = v431;
-                if (os_log_type_enabled(v431, OS_LOG_TYPE_DEFAULT))
-                {
-                  *buf = 136315394;
-                  *&buf[4] = "vpProperties.cpp";
-                  *&buf[12] = 1024;
-                  *&buf[14] = 2021;
-                  _os_log_impl(&dword_2724B4000, v432, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> Advance chat flavors are not supported, ignoring incoming property", buf, 0x12u);
-                }
-              }
-
-              v433 = *(this + 1588);
-              if (v433 && ((*v574 & 1) != 0 || v574[1] == 1))
-              {
-                if (VPLogScope(void)::once != -1)
-                {
-                  dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                }
-
-                CALegacyLog::log(v433, 3, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 2021, "SetProperty", "Advance chat flavors are not supported, ignoring incoming property");
-              }
-
-              goto LABEL_1630;
-            }
-
-            if (v6 == 4)
-            {
-              v305 = *v7;
-              v306 = *v7 != 0;
-              if (*(this + 2288) == v306)
-              {
-                goto LABEL_1630;
-              }
-
-              if (v574[687])
-              {
-                AutomaticChatFlavor = 0;
-              }
-
-              else if (*(this + 2262))
-              {
-                AutomaticChatFlavor = 2;
-              }
-
-              else if (*(this + 2288))
-              {
-                AutomaticChatFlavor = VoiceProcessorV2::GetAutomaticChatFlavor(this);
-              }
-
-              else
-              {
-                AutomaticChatFlavor = *(v574 + 655);
-              }
-
-              if (VPLogScope(void)::once != -1)
-              {
-                dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-              }
-
-              v520 = CALog::LogObjIfEnabled(3, VPLogScope(void)::scope);
-              if (v520)
-              {
-                v521 = v520;
-                if (os_log_type_enabled(v520, OS_LOG_TYPE_DEFAULT))
-                {
-                  v522 = "false";
-                  v523 = *(this + 2288);
-                  *&buf[4] = "vpProperties.cpp";
-                  *&buf[12] = 1024;
-                  *&buf[14] = 1996;
-                  if (v523)
-                  {
-                    v524 = "true";
-                  }
-
-                  else
-                  {
-                    v524 = "false";
-                  }
-
-                  *buf = 136315906;
-                  if (v305)
-                  {
-                    v522 = "true";
-                  }
-
-                  *&buf[18] = 2080;
-                  *&buf[20] = v524;
-                  *&buf[28] = 2080;
-                  *&buf[30] = v522;
-                  _os_log_impl(&dword_2724B4000, v521, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> setproperty: current state of enable automatic chat flavor = [%s], new state of enable automatic chat flavor = [%s]", buf, 0x26u);
-                }
-              }
-
-              v525 = *(this + 1588);
-              if (v525 && ((*v574 & 1) != 0 || v574[1] == 1))
-              {
-                if (VPLogScope(void)::once != -1)
-                {
-                  dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                }
-
-                v526 = "false";
-                if (*(this + 2288))
-                {
-                  v527 = "true";
-                }
-
-                else
-                {
-                  v527 = "false";
-                }
-
-                if (v305)
-                {
-                  v526 = "true";
-                }
-
-                CALegacyLog::log(v525, 3, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 1996, "SetProperty", "setproperty: current state of enable automatic chat flavor = [%s], new state of enable automatic chat flavor = [%s]", v527, v526);
-              }
-
-              *(this + 2288) = v306;
-              if (*v574 == 1)
-              {
-                VoiceProcessorV2::PListWriteSetPropertyParameters(this, 1635085677);
-              }
-
-              if (VPLogScope(void)::once != -1)
-              {
-                dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-              }
-
-              v528 = CALog::LogObjIfEnabled(3, VPLogScope(void)::scope);
-              if (v528)
-              {
-                v529 = v528;
-                if (os_log_type_enabled(v528, OS_LOG_TYPE_DEFAULT))
-                {
-                  v530 = *(this + 2288);
-                  *buf = 136315650;
-                  *&buf[4] = "vpProperties.cpp";
-                  *&buf[12] = 1024;
-                  *&buf[14] = 2001;
-                  *&buf[18] = 1024;
-                  *&buf[20] = v530;
-                  _os_log_impl(&dword_2724B4000, v529, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> setproperty: enable automatic chat flavor value changed to = [%d]", buf, 0x18u);
-                }
-              }
-
-              v531 = *(this + 1588);
-              if (v531 && ((*v574 & 1) != 0 || v574[1] == 1))
-              {
-                if (VPLogScope(void)::once != -1)
-                {
-                  dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                }
-
-                CALegacyLog::log(v531, 3, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 2001, "SetProperty", "setproperty: enable automatic chat flavor value changed to = [%d]", *(this + 2288));
-              }
-
-              if (v574[687])
-              {
-                v532 = 0;
-              }
-
-              else if (*(this + 2262))
-              {
-                v532 = 2;
-              }
-
-              else if (*(this + 2288) == 1)
-              {
-                v532 = VoiceProcessorV2::GetAutomaticChatFlavor(this);
-              }
-
-              else
-              {
-                v532 = *(v574 + 655);
-              }
-
-              if (v532 != AutomaticChatFlavor)
-              {
-                if (VPLogScope(void)::once != -1)
-                {
-                  dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                }
-
-                v535 = CALog::LogObjIfEnabled(3, VPLogScope(void)::scope);
-                if (v535)
-                {
-                  v536 = v535;
-                  if (os_log_type_enabled(v535, OS_LOG_TYPE_DEFAULT))
-                  {
-                    *buf = 136315394;
-                    *&buf[4] = "vpProperties.cpp";
-                    *&buf[12] = 1024;
-                    *&buf[14] = 2007;
-                    _os_log_impl(&dword_2724B4000, v536, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> Begin self-reinit (kVPProperty_EnableAutomaticMicMode)", buf, 0x12u);
-                  }
-                }
-
-                v537 = *(this + 1588);
-                if (v537 && ((*v574 & 1) != 0 || v574[1] == 1))
-                {
-                  if (VPLogScope(void)::once != -1)
-                  {
-                    dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                  }
-
-                  CALegacyLog::log(v537, 3, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 2007, "SetProperty", "Begin self-reinit (kVPProperty_EnableAutomaticMicMode)");
-                }
-
-                if (VPLogScope(void)::once != -1)
-                {
-                  dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                }
-
-                v538 = CALog::LogObjIfEnabled(3, VPLogScope(void)::scope);
-                if (v538)
-                {
-                  v541 = v538;
-                  if (os_log_type_enabled(v538, OS_LOG_TYPE_DEFAULT))
-                  {
-                    *buf = 136315906;
-                    *&buf[4] = "vpProperties.cpp";
-                    *&buf[12] = 1024;
-                    *&buf[14] = 2010;
-                    *&buf[18] = 1024;
-                    *&buf[20] = AutomaticChatFlavor;
-                    *&buf[24] = 1024;
-                    *&buf[26] = v532;
-                    _os_log_impl(&dword_2724B4000, v541, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> current chat flavor = [%d], new chat flavor = [%d]", buf, 0x1Eu);
-                  }
-                }
-
-                v542 = *(this + 1588);
-                if (v542 && ((*v574 & 1) != 0 || v574[1] == 1))
-                {
-                  if (VPLogScope(void)::once != -1)
-                  {
-                    dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                  }
-
-                  CALegacyLog::log(v542, 3, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 2010, "SetProperty", "current chat flavor = [%d], new chat flavor = [%d]", AutomaticChatFlavor, v532);
-                }
-
-                VoiceProcessorV2::ResetTimestampsAndInitializeVP(this, 1, v539, v540);
-                if (VPLogScope(void)::once != -1)
-                {
-                  dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                }
-
-                v543 = CALog::LogObjIfEnabled(3, VPLogScope(void)::scope);
-                if (v543)
-                {
-                  v544 = v543;
-                  if (os_log_type_enabled(v543, OS_LOG_TYPE_DEFAULT))
-                  {
-                    *buf = 136315394;
-                    *&buf[4] = "vpProperties.cpp";
-                    *&buf[12] = 1024;
-                    *&buf[14] = 2013;
-                    _os_log_impl(&dword_2724B4000, v544, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> End self-reinit (kVPProperty_EnableAutomaticMicMode)", buf, 0x12u);
-                  }
-                }
-
-                v545 = *(this + 1588);
-                if (v545 && ((*v574 & 1) != 0 || v574[1] == 1))
-                {
-                  if (VPLogScope(void)::once != -1)
-                  {
-                    dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                  }
-
-                  CALegacyLog::log(v545, 3, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 2013, "SetProperty", "End self-reinit (kVPProperty_EnableAutomaticMicMode)");
-                }
-
-                goto LABEL_1630;
-              }
-
-              if (VPLogScope(void)::once != -1)
-              {
-                dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-              }
-
-              v533 = CALog::LogObjIfEnabled(3, VPLogScope(void)::scope);
-              if (v533)
-              {
-                v534 = v533;
-                if (os_log_type_enabled(v533, OS_LOG_TYPE_DEFAULT))
-                {
-                  *buf = 136315650;
-                  *&buf[4] = "vpProperties.cpp";
-                  *&buf[12] = 1024;
-                  *&buf[14] = 2016;
-                  *&buf[18] = 1024;
-                  *&buf[20] = AutomaticChatFlavor;
-                  _os_log_impl(&dword_2724B4000, v534, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> No self-reinit required, chat flavor remains %d", buf, 0x18u);
-                }
-              }
-
-              v5 = *(this + 1588);
-              if (v5)
-              {
-                if ((*v574 & 1) != 0 || v574[1] == 1)
-                {
-                  if (VPLogScope(void)::once != -1)
-                  {
-                    dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                  }
-
-                  CALegacyLog::log(v5, 3, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 2016, "SetProperty", "No self-reinit required, chat flavor remains %d", AutomaticChatFlavor);
-                }
-
-                goto LABEL_1630;
-              }
-
-              goto LABEL_1253;
-            }
-
-            if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-            {
-              *buf = 136315906;
-              *&buf[4] = "vpProperties.cpp";
-              *&buf[12] = 1024;
-              *&buf[14] = 1987;
-              *&buf[18] = 2080;
-              *&buf[20] = "inDataSize == sizeof(UInt32)";
-              *&buf[28] = 2080;
-              *&buf[30] = "BadPropertySize";
-              v563 = MEMORY[0x277D86220];
-              goto LABEL_1705;
-            }
-
-LABEL_1706:
-            v5 = 0;
-            v49 = 4;
-            goto LABEL_1632;
-          }
-
-          if (a2 == 1685483378)
-          {
-            goto LABEL_1632;
-          }
-
-          if (a2 != 1701864051)
-          {
-            goto LABEL_1182;
-          }
-
-          if (v6 >= 4)
-          {
-            v49 = 0;
-            v5 = 0;
-            *(this + 4048) = *v7;
-            goto LABEL_1632;
-          }
-
-LABEL_1168:
-          v49 = 0;
-          v5 = 561211770;
-          goto LABEL_1632;
-        }
-
-        switch(a2)
-        {
-          case 1634300531:
-            CADeprecated::CAAutoFree<long long>::allocBytes(this + 271, v6);
-            v412 = *(this + 271);
-            if (!v412)
-            {
-              goto LABEL_1630;
-            }
-
-            memcpy(v412, v7, v6);
-            v413 = v6 >> 3;
-            *(this + 544) = v413;
-            *buf = 0;
-            std::vector<long long>::vector[abi:ne200100](v585, v413);
-            memcpy(*v585, v7, v6);
-            AudioIssueDetectorClientUpdateReportingSessions(*(this + 1992), v585);
-            AudioIssueDetectorClientUpdateReportingSessions(*(this + 1993), v585);
-            v414 = *v585;
-            v415 = *&v585[8];
-            if (*v585 == *&v585[8])
-            {
-              goto LABEL_1397;
-            }
-
-            while (1)
-            {
-              v416 = *v414;
-              if (AudioStatisticsLibraryLoader(void)::once != -1)
-              {
-                dispatch_once(&AudioStatisticsLibraryLoader(void)::once, &__block_literal_global_209);
-              }
-
-              if (AudioStatisticsLibraryLoader(void)::libSym && (AudioStatisticsLibraryLoader(void)::libSym(v416) & 0xFFFFFFFD) == 0)
-              {
-                v417 = AudioStatisticsCopyConfiguration(v416);
-                applesauce::CF::DictionaryRef::from_create(&cf, v417);
-                if (cf)
-                {
-                  applesauce::CF::DictionaryRef_proxy::DictionaryRef_proxy(buf, &cf);
-                  v418 = *buf;
-                  *buf = 0;
-                  applesauce::CF::at_or<applesauce::CF::StringRef,__CFString const*>(&theArray, *v418, @"HostApplicationDisplayID", buf);
-                  applesauce::CF::StringRef::~StringRef(buf);
-                  if (theArray)
-                  {
-                    if (VPLogScope(void)::once != -1)
-                    {
-                      dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                    }
-
-                    v478 = this;
-                    v479 = v574;
-                    v480 = CALog::LogObjIfEnabled(3, VPLogScope(void)::scope);
-                    if (v480)
-                    {
-                      v481 = v480;
-                      if (os_log_type_enabled(v480, OS_LOG_TYPE_DEFAULT))
-                      {
-                        v482 = applesauce::CF::StringRef::operator->(&theArray);
-                        applesauce::CF::convert_to<std::string,0>(__p, *v482);
-                        if (SHIBYTE(v583) >= 0)
-                        {
-                          v483 = __p;
-                        }
-
-                        else
-                        {
-                          v483 = __p[0];
-                        }
-
-                        *buf = 136315650;
-                        *&buf[4] = "vpProperties.cpp";
-                        *&buf[12] = 1024;
-                        *&buf[14] = 1322;
-                        *&buf[18] = 2080;
-                        *&buf[20] = v483;
-                        _os_log_impl(&dword_2724B4000, v481, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> HostApplicationDisplayID = %s", buf, 0x1Cu);
-                        if (SHIBYTE(v583) < 0)
-                        {
-                          operator delete(__p[0]);
-                        }
-
-                        v478 = this;
-                        v479 = v574;
-                      }
-                    }
-
-                    v484 = *(v478 + 1588);
-                    if (v484 && ((*v479 & 1) != 0 || v479[1] == 1))
-                    {
-                      if (VPLogScope(void)::once != -1)
-                      {
-                        dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                      }
-
-                      v485 = VPLogScope(void)::scope;
-                      v486 = applesauce::CF::StringRef::operator->(&theArray);
-                      applesauce::CF::convert_to<std::string,0>(buf, *v486);
-                      if (buf[23] >= 0)
-                      {
-                        v487 = buf;
-                      }
-
-                      else
-                      {
-                        v487 = *buf;
-                      }
-
-                      CALegacyLog::log(v484, 3, v485, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 1322, "SetProperty", "HostApplicationDisplayID = %s", v487);
-                      if ((buf[23] & 0x80000000) != 0)
-                      {
-                        operator delete(*buf);
-                      }
-
-                      v478 = this;
-                    }
-
-                    applesauce::CF::StringRef::operator=(v478 + 273, theArray);
-                    applesauce::CF::StringRef::operator=(v478 + 274, theArray);
-                    applesauce::CF::StringRef::~StringRef(&theArray);
-                    applesauce::CF::DictionaryRef::~DictionaryRef(&cf);
-LABEL_1397:
-                    if (*v585)
-                    {
-                      *&v585[8] = *v585;
-                      operator delete(*v585);
-                    }
-
-                    goto LABEL_1630;
-                  }
-
-                  applesauce::CF::StringRef::~StringRef(&theArray);
-                }
-
-                applesauce::CF::DictionaryRef::~DictionaryRef(&cf);
-              }
-
-              if (++v414 == v415)
-              {
-                goto LABEL_1397;
-              }
-            }
-
-          case 1634758259:
-            (*(*this + 56))(this, 1634758502, v7, v6);
-            goto LABEL_1630;
-          case 1634758502:
-            if (v6 == 4)
-            {
-              v107 = v574 + 727;
-              if (*v7 != *(v574 + 727))
-              {
-                *v107 = *v7;
-                if (VPLogScope(void)::once != -1)
-                {
-                  dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                }
-
-                v108 = CALog::LogObjIfEnabled(3, VPLogScope(void)::scope);
-                if (v108)
-                {
-                  v109 = v108;
-                  if (os_log_type_enabled(v108, OS_LOG_TYPE_DEFAULT))
-                  {
-                    v110 = *v107;
-                    *buf = 136315650;
-                    *&buf[4] = "vpProperties.cpp";
-                    *&buf[12] = 1024;
-                    *&buf[14] = 1565;
-                    *&buf[18] = 1024;
-                    *&buf[20] = v110;
-                    _os_log_impl(&dword_2724B4000, v109, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> setproperty: AirPods offload = %u", buf, 0x18u);
-                  }
-                }
-
-                v111 = *(this + 1588);
-                if (v111 && ((*v574 & 1) != 0 || v574[1] == 1))
-                {
-                  if (VPLogScope(void)::once != -1)
-                  {
-                    dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                  }
-
-                  CALegacyLog::log(v111, 3, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 1565, "SetProperty", "setproperty: AirPods offload = %u", *v107);
-                }
-
-                if (*v574 == 1)
-                {
-                  VoiceProcessorV2::PListWriteSetPropertyParameters(this, 1634758502);
-                }
-              }
-
-              goto LABEL_1630;
-            }
-
-            if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-            {
-              goto LABEL_1706;
-            }
-
-            *buf = 136315906;
-            *&buf[4] = "vpProperties.cpp";
-            *&buf[12] = 1024;
-            *&buf[14] = 1560;
-            *&buf[18] = 2080;
-            *&buf[20] = "inDataSize == sizeof(UInt32)";
-            *&buf[28] = 2080;
-            *&buf[30] = "BadPropertySize";
-            v563 = MEMORY[0x277D86220];
-            goto LABEL_1705;
-        }
-
-        goto LABEL_1182;
-      }
-
-      if (a2 > 1953915763)
-      {
-        if (a2 > 1987209579)
-        {
-          if (a2 > 1987211118)
-          {
-            switch(a2)
-            {
-              case 1987211119:
-                if (v6 >= 4)
-                {
-                  v49 = 0;
-                  v5 = 0;
-                  *(this + 296) = *v7;
-                  goto LABEL_1632;
-                }
-
-                goto LABEL_1168;
-              case 1987211365:
-                if (v6 >= 4)
-                {
-                  v49 = 0;
-                  v5 = 0;
-                  *(this + 601) = *v7;
-                  goto LABEL_1632;
-                }
-
-                goto LABEL_1168;
-              case 1987211379:
-                if (v6 >= 4)
-                {
-                  v49 = 0;
-                  v5 = 0;
-                  *(this + 600) = *v7;
-                  goto LABEL_1632;
-                }
-
-                goto LABEL_1168;
-            }
-          }
-
-          else
-          {
-            switch(a2)
-            {
-              case 1987209580:
-                if (v6 >= 4)
-                {
-                  v49 = 0;
-                  v5 = 0;
-                  *(this + 289) = *v7;
-                  goto LABEL_1632;
-                }
-
-                goto LABEL_1168;
-              case 1987209583:
-                if (v6 >= 4)
-                {
-                  v49 = 0;
-                  v5 = 0;
-                  *(this + 290) = *v7;
-                  goto LABEL_1632;
-                }
-
-                goto LABEL_1168;
-              case 1987211116:
-                if (v6 >= 4)
-                {
-                  v49 = 0;
-                  v5 = 0;
-                  *(this + 294) = *v7;
-                  goto LABEL_1632;
-                }
-
-                goto LABEL_1168;
-            }
-          }
-        }
-
-        else if (a2 > 1986881899)
-        {
-          switch(a2)
-          {
-            case 1986881900:
-              if (v6 >= 4)
-              {
-                v49 = 0;
-                v5 = 0;
-                *(this + 293) = *v7;
-                goto LABEL_1632;
-              }
-
-              goto LABEL_1168;
-            case 1986881903:
-              if (v6 >= 4)
-              {
-                v49 = 0;
-                v5 = 0;
-                *(this + 295) = *v7;
-                goto LABEL_1632;
-              }
-
-              goto LABEL_1168;
-            case 1987208053:
-              if (v6 >= 4)
-              {
-                v49 = 0;
-                v5 = 0;
-                *(this + 291) = *v7;
-                goto LABEL_1632;
-              }
-
-              goto LABEL_1168;
-          }
-        }
-
-        else
-        {
-          switch(a2)
-          {
-            case 1953915764:
-              if (v6 == 4)
-              {
-                v361 = *v7;
-                if (*v7 != *(this + 553))
-                {
-                  v362 = (this + 2212);
-                  *(this + 553) = v361;
-                  VoiceProcessorV2::ReadAndApplyDefaultsOverride(this, @"vp_vocoder_type_int", 1, this + 553, v48);
-                  if ((v574[280] & 1) == 0 && (*(*this + 112))(this) <= 5)
-                  {
-                    if (VPLogScope(void)::once != -1)
-                    {
-                      dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                    }
-
-                    v363 = CALog::LogObjIfEnabled(3, VPLogScope(void)::scope);
-                    if (v363)
-                    {
-                      v364 = v363;
-                      if (os_log_type_enabled(v363, OS_LOG_TYPE_DEFAULT))
-                      {
-                        *buf = 136315394;
-                        *&buf[4] = "vpProperties.cpp";
-                        *&buf[12] = 1024;
-                        *&buf[14] = 1351;
-                        _os_log_impl(&dword_2724B4000, v364, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> Begin self-reinit (kVPProperty_PrimaryCodecType)", buf, 0x12u);
-                      }
-                    }
-
-                    v365 = *(this + 1588);
-                    if (v365 && ((*v574 & 1) != 0 || v574[1] == 1))
-                    {
-                      if (VPLogScope(void)::once != -1)
-                      {
-                        dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                      }
-
-                      CALegacyLog::log(v365, 3, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 1351, "SetProperty", "Begin self-reinit (kVPProperty_PrimaryCodecType)");
-                    }
-
-                    if (*(this + 485) == 1)
-                    {
-                      VoiceProcessorV2::InitializeDLP(this);
-                    }
-
-                    if (*(this + 484) == 1)
-                    {
-                      (*(*this + 240))(this);
-                    }
-
-                    if (VPLogScope(void)::once != -1)
-                    {
-                      dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                    }
-
-                    v366 = CALog::LogObjIfEnabled(3, VPLogScope(void)::scope);
-                    if (v366)
-                    {
-                      v367 = v366;
-                      if (os_log_type_enabled(v366, OS_LOG_TYPE_DEFAULT))
-                      {
-                        *buf = 136315394;
-                        *&buf[4] = "vpProperties.cpp";
-                        *&buf[12] = 1024;
-                        *&buf[14] = 1356;
-                        _os_log_impl(&dword_2724B4000, v367, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> End self-reinit (kVPProperty_PrimaryCodecType)", buf, 0x12u);
-                      }
-                    }
-
-                    v368 = *(this + 1588);
-                    if (v368 && ((*v574 & 1) != 0 || v574[1] == 1))
-                    {
-                      if (VPLogScope(void)::once != -1)
-                      {
-                        dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                      }
-
-                      CALegacyLog::log(v368, 3, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 1356, "SetProperty", "End self-reinit (kVPProperty_PrimaryCodecType)");
-                    }
-                  }
-
-                  VoiceProcessorV2::ReportMetrics(this);
-                  if (VPLogScope(void)::once != -1)
-                  {
-                    dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                  }
-
-                  v369 = CALog::LogObjIfEnabled(3, VPLogScope(void)::scope);
-                  if (v369)
-                  {
-                    v370 = v369;
-                    if (os_log_type_enabled(v369, OS_LOG_TYPE_DEFAULT))
-                    {
-                      CAX4CCString::CAX4CCString(v585, *v362);
-                      v371 = *v362;
-                      *buf = 136315906;
-                      *&buf[4] = "vpProperties.cpp";
-                      *&buf[12] = 1024;
-                      *&buf[14] = 1368;
-                      *&buf[18] = 2080;
-                      *&buf[20] = v585;
-                      *&buf[28] = 1024;
-                      *&buf[30] = v371;
-                      _os_log_impl(&dword_2724B4000, v370, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> setproperty: primary audio vocoder type = %s(%d) ", buf, 0x22u);
-                    }
-                  }
-
-                  v372 = *(this + 1588);
-                  if (v372 && ((*v574 & 1) != 0 || v574[1] == 1))
-                  {
-                    if (VPLogScope(void)::once != -1)
-                    {
-                      dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                    }
-
-                    v373 = VPLogScope(void)::scope;
-                    CAX4CCString::CAX4CCString(buf, *v362);
-                    CALegacyLog::log(v372, 3, v373, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 1368, "SetProperty", "setproperty: primary audio vocoder type = %s(%d) ", buf, *v362);
-                  }
-
-                  if (*v574 == 1)
-                  {
-                    VoiceProcessorV2::PListWriteSetPropertyParameters(this, 1953915764);
-                  }
-                }
-
-                goto LABEL_1630;
-              }
-
-              if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-              {
-                goto LABEL_1706;
-              }
-
-              *buf = 136315906;
-              *&buf[4] = "vpProperties.cpp";
-              *&buf[12] = 1024;
-              *&buf[14] = 1336;
-              *&buf[18] = 2080;
-              *&buf[20] = "inDataSize == sizeof(UInt32)";
-              *&buf[28] = 2080;
-              *&buf[30] = "BadPropertySize";
-              v563 = MEMORY[0x277D86220];
-              goto LABEL_1705;
-            case 1969844082:
-              goto LABEL_1632;
-            case 1986097261:
-              if (v6 > 3)
-              {
-                v82 = *v7;
-                *(v574 + 691) = *v7;
-                if (VPLogScope(void)::once != -1)
-                {
-                  dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                }
-
-                v83 = CALog::LogObjIfEnabled(3, VPLogScope(void)::scope);
-                if (v83)
-                {
-                  v84 = v83;
-                  if (os_log_type_enabled(v83, OS_LOG_TYPE_DEFAULT))
-                  {
-                    *buf = 136315650;
-                    *&buf[4] = "vpProperties.cpp";
-                    *&buf[12] = 1024;
-                    *&buf[14] = 1548;
-                    *&buf[18] = 1024;
-                    *&buf[20] = v82;
-                    _os_log_impl(&dword_2724B4000, v84, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> setproperty: VirtualAudio plug-in mode = %u", buf, 0x18u);
-                  }
-                }
-
-                v85 = *(this + 1588);
-                if (v85 && ((*v574 & 1) != 0 || v574[1] == 1))
-                {
-                  if (VPLogScope(void)::once != -1)
-                  {
-                    dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                  }
-
-                  CALegacyLog::log(v85, 3, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 1548, "SetProperty", "setproperty: VirtualAudio plug-in mode = %u", v82);
-                }
-
-                goto LABEL_1630;
-              }
-
-              if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-              {
-                goto LABEL_1706;
-              }
-
-              *buf = 136315906;
-              *&buf[4] = "vpProperties.cpp";
-              *&buf[12] = 1024;
-              *&buf[14] = 1545;
-              *&buf[18] = 2080;
-              *&buf[20] = "inDataSize >= sizeof(UInt32)";
-              *&buf[28] = 2080;
-              *&buf[30] = "BadPropertySize";
-              v563 = MEMORY[0x277D86220];
-              goto LABEL_1705;
-          }
-        }
-
-LABEL_1182:
-        v49 = 0;
-        v5 = 2003332927;
-        goto LABEL_1632;
-      }
-
-      if (a2 > 1836266092)
-      {
-        if (a2 <= 1936744802)
-        {
-          switch(a2)
-          {
-            case 1836266093:
-              if (v6 == 4)
-              {
-                v374 = *v7 == 1;
-                if (v574[407] != v374)
-                {
-                  v574[407] = v374;
-                  if (VPLogScope(void)::once != -1)
-                  {
-                    dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                  }
-
-                  v375 = CALog::LogObjIfEnabled(3, VPLogScope(void)::scope);
-                  if (v375)
-                  {
-                    v378 = v375;
-                    if (os_log_type_enabled(v375, OS_LOG_TYPE_DEFAULT))
-                    {
-                      v379 = "False";
-                      v380 = v574[407];
-                      *&buf[4] = "vpProperties.cpp";
-                      *buf = 136315650;
-                      if (v380)
-                      {
-                        v379 = "True";
-                      }
-
-                      *&buf[12] = 1024;
-                      *&buf[14] = 1963;
-                      *&buf[18] = 2080;
-                      *&buf[20] = v379;
-                      _os_log_impl(&dword_2724B4000, v378, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> Begin self-reinit (kVPProperty_MixStereoToMono [%s])", buf, 0x1Cu);
-                    }
-                  }
-
-                  v381 = *(this + 1588);
-                  if (v381 && ((*v574 & 1) != 0 || v574[1] == 1))
-                  {
-                    if (VPLogScope(void)::once != -1)
-                    {
-                      dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                    }
-
-                    if (v574[407])
-                    {
-                      v382 = "True";
-                    }
-
-                    else
-                    {
-                      v382 = "False";
-                    }
-
-                    CALegacyLog::log(v381, 3, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 1963, "SetProperty", "Begin self-reinit (kVPProperty_MixStereoToMono [%s])", v382);
-                  }
-
-                  VoiceProcessorV2::ResetTimestampsAndInitializeVP(this, 0, v376, v377);
-                  if (VPLogScope(void)::once != -1)
-                  {
-                    dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                  }
-
-                  v383 = CALog::LogObjIfEnabled(3, VPLogScope(void)::scope);
-                  if (v383)
-                  {
-                    v384 = v383;
-                    if (os_log_type_enabled(v383, OS_LOG_TYPE_DEFAULT))
-                    {
-                      v385 = "False";
-                      v386 = v574[407];
-                      *&buf[4] = "vpProperties.cpp";
-                      *buf = 136315650;
-                      if (v386)
-                      {
-                        v385 = "True";
-                      }
-
-                      *&buf[12] = 1024;
-                      *&buf[14] = 1966;
-                      *&buf[18] = 2080;
-                      *&buf[20] = v385;
-                      _os_log_impl(&dword_2724B4000, v384, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> End self-reinit (kVPProperty_MixStereoToMono [%s]", buf, 0x1Cu);
-                    }
-                  }
-
-                  v387 = *(this + 1588);
-                  if (v387 && ((*v574 & 1) != 0 || v574[1] == 1))
-                  {
-                    if (VPLogScope(void)::once != -1)
-                    {
-                      dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                    }
-
-                    if (v574[407])
-                    {
-                      v388 = "True";
-                    }
-
-                    else
-                    {
-                      v388 = "False";
-                    }
-
-                    CALegacyLog::log(v387, 3, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 1966, "SetProperty", "End self-reinit (kVPProperty_MixStereoToMono [%s]", v388);
-                  }
-                }
-
-                goto LABEL_1630;
-              }
-
-              if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-              {
-                goto LABEL_1706;
-              }
-
-              *buf = 136315906;
-              *&buf[4] = "vpProperties.cpp";
-              *&buf[12] = 1024;
-              *&buf[14] = 1958;
-              *&buf[18] = 2080;
-              *&buf[20] = "inDataSize == sizeof(UInt32)";
-              *&buf[28] = 2080;
-              *&buf[30] = "BadPropertySize";
-              v563 = MEMORY[0x277D86220];
-              goto LABEL_1705;
-            case 1836278117:
-              if (_os_feature_enabled_impl())
-              {
-                if (v6 == 8)
-                {
-                  VoiceProcessorV2::CreateMessenger(this);
-                  v312 = *(this + 2025);
-                  if (v312)
-                  {
-                    caulk::concurrent::messenger::drain(v312);
-                  }
-
-                  vp::Block<void({block_pointer})(AUVoiceIOSpeechActivityEvent)>::Block<void({block_pointer} const&)(AUVoiceIOSpeechActivityEvent)>(buf, *v7);
-                  std::__destroy_at[abi:ne200100]<vp::Block<void ()(AUVoiceIOSpeechActivityEvent)>,0>(this + 2053);
-                  v313 = *buf;
-                  *buf = 0;
-                  *(this + 2053) = v313;
-                  vp::Block<void({block_pointer})(AUVoiceIOSpeechActivityEvent)>::~Block(buf);
-                  if (*(this + 2053))
-                  {
-                    if (VPLogScope(void)::once != -1)
-                    {
-                      dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                    }
-
-                    v314 = CALog::LogObjIfEnabled(3, VPLogScope(void)::scope);
-                    if (v314)
-                    {
-                      v315 = v314;
-                      if (os_log_type_enabled(v314, OS_LOG_TYPE_DEFAULT))
-                      {
-                        *buf = 136315394;
-                        *&buf[4] = "vpProperties.cpp";
-                        *&buf[12] = 1024;
-                        *&buf[14] = 1882;
-                        _os_log_impl(&dword_2724B4000, v315, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> registered muted speech activity event listener", buf, 0x12u);
-                      }
-                    }
-
-                    v316 = *(this + 1588);
-                    if (v316 && ((*v574 & 1) != 0 || v574[1] == 1))
-                    {
-                      if (VPLogScope(void)::once != -1)
-                      {
-                        dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                      }
-
-                      CALegacyLog::log(v316, 3, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 1882, "SetProperty", "registered muted speech activity event listener");
-                    }
-                  }
-
-                  goto LABEL_1630;
-                }
-
-                if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-                {
-                  goto LABEL_1706;
-                }
-
-                *buf = 136315906;
-                *&buf[4] = "vpProperties.cpp";
-                *&buf[12] = 1024;
-                *&buf[14] = 1877;
-                *&buf[18] = 2080;
-                *&buf[20] = "inDataSize == sizeof(AUVoiceIOMutedSpeechActivityEventListener *)";
-                *&buf[28] = 2080;
-                *&buf[30] = "BadPropertySize";
-                v563 = MEMORY[0x277D86220];
-                goto LABEL_1705;
-              }
-
-              break;
-            case 1868653667:
-              v89 = this;
-              v90 = v574;
-              if (_os_feature_enabled_impl() && (*(this + 2260) & 1) == 0 && (*(this + 2264) & 1) == 0)
-              {
-                if (v6 == 8)
-                {
-                  v91 = *(v7 + 1);
-                  if (v91 <= 0x1E && ((1 << v91) & 0x40100401) != 0)
-                  {
-                    v92 = *v7;
-                    if (VPLogScope(void)::once != -1)
-                    {
-                      dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                    }
-
-                    v93 = CALog::LogObjIfEnabled(3, VPLogScope(void)::scope);
-                    if (v93)
-                    {
-                      v94 = v93;
-                      if (os_log_type_enabled(v93, OS_LOG_TYPE_DEFAULT))
-                      {
-                        v95 = *(v574 + 683);
-                        v96 = v574[680];
-                        *buf = 136316418;
-                        *&buf[4] = "vpProperties.cpp";
-                        *&buf[12] = 1024;
-                        *&buf[14] = 1907;
-                        *&buf[18] = 1024;
-                        *&buf[20] = v95;
-                        *&buf[24] = 1024;
-                        *&buf[26] = v91;
-                        *&buf[30] = 1024;
-                        *&buf[32] = v96;
-                        *&buf[36] = 1024;
-                        *&buf[38] = v92;
-                        _os_log_impl(&dword_2724B4000, v94, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> setproperty: current mClientSetDuckingLevel = %u, new value = %u,  current mClientSetEnableDynamicDucking = %d, new value = %d", buf, 0x2Au);
-                      }
-                    }
-
-                    v97 = *(this + 1588);
-                    if (v97 && ((*v574 & 1) != 0 || v574[1] == 1))
-                    {
-                      if (VPLogScope(void)::once != -1)
-                      {
-                        dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                      }
-
-                      v90 = v574;
-                      v89 = this;
-                      CALegacyLog::log(v97, 3, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 1907, "SetProperty", "setproperty: current mClientSetDuckingLevel = %u, new value = %u,  current mClientSetEnableDynamicDucking = %d, new value = %d", *(v574 + 683), v91, v574[680], v92);
-                    }
-
-                    if (*(v90 + 683) != v91)
-                    {
-                      *(v90 + 683) = v91;
-                      if ((*(v89 + 8865) & 0x80) != 0)
-                      {
-                        *buf = v91;
-                        AUPropAndParamHelper::AddItemToAUPropsList(v89 + 1420, 0x6E65706Cu, 0, 0, 4uLL, buf, 1);
-                        v98 = *(v89 + 454);
-                        if (v98)
-                        {
-                          AudioUnitSetProperty(v98, 0x6E65706Cu, 0, 0, buf, 4u);
-                        }
-                      }
-                    }
-
-                    if (v90[680] != v92)
-                    {
-                      v90[680] = v92 != 0;
-                      if (VPLogScope(void)::once != -1)
-                      {
-                        dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                      }
-
-                      v99 = CALog::LogObjIfEnabled(3, VPLogScope(void)::scope);
-                      if (v99)
-                      {
-                        v102 = v99;
-                        if (os_log_type_enabled(v99, OS_LOG_TYPE_DEFAULT))
-                        {
-                          *buf = 136315394;
-                          *&buf[4] = "vpProperties.cpp";
-                          *&buf[12] = 1024;
-                          *&buf[14] = 1933;
-                          _os_log_impl(&dword_2724B4000, v102, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> Begin self-reinit (kVPProperty_OtherAudioDuckingConfiguration)", buf, 0x12u);
-                        }
-                      }
-
-                      v103 = *(v89 + 1588);
-                      if (v103 && ((*v90 & 1) != 0 || v90[1] == 1))
-                      {
-                        if (VPLogScope(void)::once != -1)
-                        {
-                          dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                        }
-
-                        v89 = this;
-                        CALegacyLog::log(v103, 3, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 1933, "SetProperty", "Begin self-reinit (kVPProperty_OtherAudioDuckingConfiguration)");
-                        v90 = v574;
-                      }
-
-                      VoiceProcessorV2::ResetTimestampsAndInitializeVP(v89, 0, v100, v101);
-                      if (VPLogScope(void)::once != -1)
-                      {
-                        dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                      }
-
-                      v104 = CALog::LogObjIfEnabled(3, VPLogScope(void)::scope);
-                      if (v104)
-                      {
-                        v105 = v104;
-                        if (os_log_type_enabled(v104, OS_LOG_TYPE_DEFAULT))
-                        {
-                          *buf = 136315394;
-                          *&buf[4] = "vpProperties.cpp";
-                          *&buf[12] = 1024;
-                          *&buf[14] = 1936;
-                          _os_log_impl(&dword_2724B4000, v105, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> End self-reinit (kVPProperty_OtherAudioDuckingConfiguration)", buf, 0x12u);
-                        }
-                      }
-
-                      v106 = *(v89 + 1588);
-                      if (v106 && ((*v90 & 1) != 0 || v90[1] == 1))
-                      {
-                        if (VPLogScope(void)::once != -1)
-                        {
-                          dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                        }
-
-                        v89 = this;
-                        CALegacyLog::log(v106, 3, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 1936, "SetProperty", "End self-reinit (kVPProperty_OtherAudioDuckingConfiguration)");
-                        v90 = v574;
-                      }
-                    }
-
-                    if (*v90 == 1)
-                    {
-                      VoiceProcessorV2::PListWriteSetPropertyParameters(v89, 1868653667);
-                    }
-
-                    goto LABEL_1630;
-                  }
-
-                  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-                  {
-                    *buf = 136315906;
-                    *&buf[4] = "vpProperties.cpp";
-                    *&buf[12] = 1024;
-                    *&buf[14] = 1899;
-                    *&buf[18] = 2080;
-                    *&buf[20] = "requestedDuckingConfig.mDuckingLevel == kAUVoiceIOOtherAudioDuckingLevelDefault || requestedDuckingConfig.mDuckingLevel == kAUVoiceIOOtherAudioDuckingLevelMin || requestedDuckingConfig.mDuckingLevel == kAUVoiceIOOtherAudioDuckingLevelMid || requestedDuckingConfig.mDuckingLevel == kAUVoiceIOOtherAudioDuckingLevelMax";
-                    *&buf[28] = 2080;
-                    *&buf[30] = "InvalidPropertyValue";
-                    v547 = MEMORY[0x277D86220];
-LABEL_1567:
-                    _os_log_impl(&dword_2724B4000, v547, OS_LOG_TYPE_ERROR, "%25s:%-5d  ca_require: %s %s", buf, 0x26u);
-                  }
-
-LABEL_1568:
-                  v5 = 0;
-                  v49 = 164;
-LABEL_1632:
-                  atomic_fetch_add(this + 624, 0xFFFFFFFF);
-                  if (v581 == 1)
-                  {
-                    (*(*v580 + 24))(v580);
-                  }
-
-                  if (v49)
-                  {
-                    if (v49 == 4)
-                    {
-                      goto LABEL_1638;
-                    }
-
-                    if (v49 == 164)
-                    {
-                      v5 = 561406316;
-                    }
-
-                    else
-                    {
-                      v5 = 4294956417;
-                    }
-                  }
-
-                  goto LABEL_442;
-                }
-
-                if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-                {
-                  *buf = 136315906;
-                  *&buf[4] = "vpProperties.cpp";
-                  *&buf[12] = 1024;
-                  *&buf[14] = 1891;
-                  *&buf[18] = 2080;
-                  *&buf[20] = "inDataSize == sizeof(AUVoiceIOOtherAudioDuckingConfiguration)";
-                  *&buf[28] = 2080;
-                  *&buf[30] = "BadPropertySize";
-                  v563 = MEMORY[0x277D86220];
-                  goto LABEL_1705;
-                }
-
-                goto LABEL_1706;
-              }
-
-              break;
-            default:
-              goto LABEL_1182;
-          }
-
-          v49 = 0;
-          v5 = 4294956417;
-          goto LABEL_1632;
-        }
-
-        if (a2 != 1936744803)
-        {
-          if (a2 == 1936746595)
-          {
-            if (v6 == 8)
-            {
-              v337 = *(v574 + 503);
-              v338 = v574[507];
-              if (*v7 != v337 || *(v7 + 4) != (v338 & 1))
-              {
-                if (VPLogScope(void)::once != -1)
-                {
-                  dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                }
-
-                v339 = CALog::LogObjIfEnabled(3, VPLogScope(void)::scope);
-                if (v339)
-                {
-                  v340 = v339;
-                  if (os_log_type_enabled(v339, OS_LOG_TYPE_DEFAULT))
-                  {
-                    v341 = *v7;
-                    if (*(v7 + 4))
-                    {
-                      v342 = "on";
-                    }
-
-                    else
-                    {
-                      v342 = "off";
-                    }
-
-                    *buf = 136315906;
-                    *&buf[4] = "vpProperties.cpp";
-                    *&buf[12] = 1024;
-                    *&buf[14] = 1082;
-                    *&buf[18] = 1024;
-                    *&buf[20] = v341;
-                    *&buf[24] = 2080;
-                    *&buf[26] = v342;
-                    _os_log_impl(&dword_2724B4000, v340, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> setproperty: spatial head tracking configuration with mode %u and head tracking %s", buf, 0x22u);
-                  }
-                }
-
-                v343 = *(this + 1588);
-                if (v343 && ((*v574 & 1) != 0 || v574[1] == 1))
-                {
-                  if (VPLogScope(void)::once != -1)
-                  {
-                    dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                  }
-
-                  v344 = "off";
-                  if (*(v7 + 4))
-                  {
-                    v344 = "on";
-                  }
-
-                  CALegacyLog::log(v343, 3, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 1082, "SetProperty", "setproperty: spatial head tracking configuration with mode %u and head tracking %s", *v7, v344);
-                }
-
-                *(this + 2048) = *v7;
-                if (*v574 == 1)
-                {
-                  VoiceProcessorV2::PListWriteSetPropertyParameters(this, 1936746595);
-                }
-
-                v345 = *v7;
-                if ((v337 == 0) == (*v7 == 0))
-                {
-                  v446 = *(v7 + 4);
-                  if (v446 != (v338 & 1))
-                  {
-                    if (VPLogScope(void)::once != -1)
-                    {
-                      dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                    }
-
-                    v447 = CALog::LogObjIfEnabled(3, VPLogScope(void)::scope);
-                    if (v447)
-                    {
-                      v450 = v447;
-                      if (os_log_type_enabled(v447, OS_LOG_TYPE_DEFAULT))
-                      {
-                        v451 = "Off";
-                        *&buf[4] = "vpProperties.cpp";
-                        *&buf[12] = 1024;
-                        *&buf[14] = 1105;
-                        if (v338)
-                        {
-                          v452 = "On";
-                        }
-
-                        else
-                        {
-                          v452 = "Off";
-                        }
-
-                        *buf = 136315906;
-                        *&buf[20] = v452;
-                        *&buf[18] = 2080;
-                        if (v446)
-                        {
-                          v451 = "On";
-                        }
-
-                        *&buf[28] = 2080;
-                        *&buf[30] = v451;
-                        _os_log_impl(&dword_2724B4000, v450, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> Begin self-reinit (kVPProperty_SpatialHeadTrackingConfiguration [Headtracking %s => %s])", buf, 0x26u);
-                      }
-                    }
-
-                    v453 = *(this + 1588);
-                    if (v453 && ((*v574 & 1) != 0 || v574[1] == 1))
-                    {
-                      if (VPLogScope(void)::once != -1)
-                      {
-                        dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                      }
-
-                      v454 = "Off";
-                      if (v338)
-                      {
-                        v455 = "On";
-                      }
-
-                      else
-                      {
-                        v455 = "Off";
-                      }
-
-                      if (v446)
-                      {
-                        v454 = "On";
-                      }
-
-                      CALegacyLog::log(v453, 3, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 1105, "SetProperty", "Begin self-reinit (kVPProperty_SpatialHeadTrackingConfiguration [Headtracking %s => %s])", v455, v454);
-                    }
-
-                    VoiceProcessorV2::ResetTimestampsAndInitializeVP(this, 0, v448, v449);
-                    if (VPLogScope(void)::once != -1)
-                    {
-                      dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                    }
-
-                    v456 = CALog::LogObjIfEnabled(3, VPLogScope(void)::scope);
-                    if (v456)
-                    {
-                      v457 = v456;
-                      if (os_log_type_enabled(v456, OS_LOG_TYPE_DEFAULT))
-                      {
-                        v458 = "Off";
-                        *&buf[4] = "vpProperties.cpp";
-                        *&buf[12] = 1024;
-                        *&buf[14] = 1109;
-                        if (v338)
-                        {
-                          v459 = "On";
-                        }
-
-                        else
-                        {
-                          v459 = "Off";
-                        }
-
-                        *buf = 136315906;
-                        *&buf[20] = v459;
-                        *&buf[18] = 2080;
-                        if (v446)
-                        {
-                          v458 = "On";
-                        }
-
-                        *&buf[28] = 2080;
-                        *&buf[30] = v458;
-                        _os_log_impl(&dword_2724B4000, v457, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> End self-reinit (kVPProperty_SpatialHeadTrackingConfiguration [Headtracking %s => %s ]", buf, 0x26u);
-                      }
-                    }
-
-                    v460 = *(this + 1588);
-                    if (v460 && ((*v574 & 1) != 0 || v574[1] == 1))
-                    {
-                      if (VPLogScope(void)::once != -1)
-                      {
-                        dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                      }
-
-                      if (v338)
-                      {
-                        v461 = "On";
-                      }
-
-                      else
-                      {
-                        v461 = "Off";
-                      }
-
-                      CALegacyLog::log(v460, 3, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 1109, "SetProperty", "End self-reinit (kVPProperty_SpatialHeadTrackingConfiguration [Headtracking %s => %s ]", v461);
-                    }
-                  }
-                }
-
-                else
-                {
-                  if (VPLogScope(void)::once != -1)
-                  {
-                    dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                  }
-
-                  v346 = CALog::LogObjIfEnabled(3, VPLogScope(void)::scope);
-                  if (v346)
-                  {
-                    v349 = v346;
-                    if (os_log_type_enabled(v346, OS_LOG_TYPE_DEFAULT))
-                    {
-                      v350 = "On";
-                      *&buf[4] = "vpProperties.cpp";
-                      *&buf[12] = 1024;
-                      *&buf[14] = 1097;
-                      if (v337)
-                      {
-                        v351 = "On";
-                      }
-
-                      else
-                      {
-                        v351 = "Off";
-                      }
-
-                      *buf = 136315906;
-                      *&buf[20] = v351;
-                      *&buf[18] = 2080;
-                      if (!v345)
-                      {
-                        v350 = "Off";
-                      }
-
-                      *&buf[28] = 2080;
-                      *&buf[30] = v350;
-                      _os_log_impl(&dword_2724B4000, v349, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> Begin self-reinit (kVPProperty_SpatialHeadTrackingConfiguration [SpatialMode %s => %s])", buf, 0x26u);
-                    }
-                  }
-
-                  v352 = *(this + 1588);
-                  if (v352 && ((*v574 & 1) != 0 || v574[1] == 1))
-                  {
-                    if (VPLogScope(void)::once != -1)
-                    {
-                      dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                    }
-
-                    v353 = "On";
-                    if (v337)
-                    {
-                      v354 = "On";
-                    }
-
-                    else
-                    {
-                      v354 = "Off";
-                    }
-
-                    if (!v345)
-                    {
-                      v353 = "Off";
-                    }
-
-                    CALegacyLog::log(v352, 3, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 1097, "SetProperty", "Begin self-reinit (kVPProperty_SpatialHeadTrackingConfiguration [SpatialMode %s => %s])", v354, v353);
-                  }
-
-                  VoiceProcessorV2::ResetTimestampsAndInitializeVP(this, 0, v347, v348);
-                  if (VPLogScope(void)::once != -1)
-                  {
-                    dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                  }
-
-                  v355 = CALog::LogObjIfEnabled(3, VPLogScope(void)::scope);
-                  if (v355)
-                  {
-                    v356 = v355;
-                    if (os_log_type_enabled(v355, OS_LOG_TYPE_DEFAULT))
-                    {
-                      v357 = "On";
-                      *&buf[4] = "vpProperties.cpp";
-                      *&buf[12] = 1024;
-                      *&buf[14] = 1101;
-                      if (v337)
-                      {
-                        v358 = "On";
-                      }
-
-                      else
-                      {
-                        v358 = "Off";
-                      }
-
-                      *buf = 136315906;
-                      *&buf[20] = v358;
-                      *&buf[18] = 2080;
-                      if (!v345)
-                      {
-                        v357 = "Off";
-                      }
-
-                      *&buf[28] = 2080;
-                      *&buf[30] = v357;
-                      _os_log_impl(&dword_2724B4000, v356, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> End self-reinit (kVPProperty_SpatialHeadTrackingConfiguration [SpatialMode %s => %s ]", buf, 0x26u);
-                    }
-                  }
-
-                  v359 = *(this + 1588);
-                  if (v359 && ((*v574 & 1) != 0 || v574[1] == 1))
-                  {
-                    if (VPLogScope(void)::once != -1)
-                    {
-                      dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                    }
-
-                    if (v337)
-                    {
-                      v360 = "On";
-                    }
-
-                    else
-                    {
-                      v360 = "Off";
-                    }
-
-                    CALegacyLog::log(v359, 3, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 1101, "SetProperty", "End self-reinit (kVPProperty_SpatialHeadTrackingConfiguration [SpatialMode %s => %s ]", v360);
-                  }
-                }
-              }
-
-              goto LABEL_1630;
-            }
-
-            if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-            {
-              goto LABEL_1706;
-            }
-
-            *buf = 136315906;
-            *&buf[4] = "vpProperties.cpp";
-            *&buf[12] = 1024;
-            *&buf[14] = 1074;
-            *&buf[18] = 2080;
-            *&buf[20] = "inDataSize == sizeof(SpatialHeadTrackingConfiguration)";
-            *&buf[28] = 2080;
-            *&buf[30] = "BadPropertySize";
-            v563 = MEMORY[0x277D86220];
-            goto LABEL_1705;
-          }
-
-          if (a2 == 1953915762)
-          {
-            if (v6 == 8)
-            {
-              v128 = *v7;
-              if (vabdd_f64(*v7, *(this + 554)) > 0.000000001)
-              {
-                v129 = (this + 2216);
-                v130 = v128;
-                *(this + 554) = v130;
-                VoiceProcessorV2::ReadAndApplyDefaultsOverride(this, @"vp_vocoder_sample_rate", 2, this + 554, v48);
-                v131 = VPLogScope(void)::once;
-                if ((v574[280] & 1) == 0)
-                {
-                  if (VPLogScope(void)::once != -1)
-                  {
-                    dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                  }
-
-                  v132 = CALog::LogObjIfEnabled(3, VPLogScope(void)::scope);
-                  if (v132)
-                  {
-                    v133 = v132;
-                    if (os_log_type_enabled(v132, OS_LOG_TYPE_DEFAULT))
-                    {
-                      *buf = 136315394;
-                      *&buf[4] = "vpProperties.cpp";
-                      *&buf[12] = 1024;
-                      *&buf[14] = 1384;
-                      _os_log_impl(&dword_2724B4000, v133, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> Begin self-reinit (kVPProperty_PrimaryCodecSampleRate)", buf, 0x12u);
-                    }
-                  }
-
-                  v134 = *(this + 1588);
-                  if (v134 && ((*v574 & 1) != 0 || v574[1] == 1))
-                  {
-                    if (VPLogScope(void)::once != -1)
-                    {
-                      dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                    }
-
-                    CALegacyLog::log(v134, 3, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 1384, "SetProperty", "Begin self-reinit (kVPProperty_PrimaryCodecSampleRate)");
-                  }
-
-                  if (*(this + 485) == 1)
-                  {
-                    VoiceProcessorV2::InitializeDLP(this);
-                  }
-
-                  v135 = *(this + 129);
-                  v136 = *(this + 114);
-                  if (*(this + 484) == 1)
-                  {
-                    (*(*this + 240))(this);
-                  }
-
-                  if (VPLogScope(void)::once != -1)
-                  {
-                    dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                  }
-
-                  v137 = CALog::LogObjIfEnabled(3, VPLogScope(void)::scope);
-                  if (v137)
-                  {
-                    v138 = v137;
-                    if (os_log_type_enabled(v137, OS_LOG_TYPE_DEFAULT))
-                    {
-                      *buf = 136315394;
-                      *&buf[4] = "vpProperties.cpp";
-                      *&buf[12] = 1024;
-                      *&buf[14] = 1392;
-                      _os_log_impl(&dword_2724B4000, v138, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> End self-reinit (kVPProperty_PrimaryCodecSampleRate)", buf, 0x12u);
-                    }
-                  }
-
-                  v139 = *(this + 1588);
-                  if (v139 && ((*v574 & 1) != 0 || v574[1] == 1))
-                  {
-                    if (VPLogScope(void)::once != -1)
-                    {
-                      dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                    }
-
-                    CALegacyLog::log(v139, 3, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 1392, "SetProperty", "End self-reinit (kVPProperty_PrimaryCodecSampleRate)");
-                  }
-
-                  LODWORD(__p[0]) = *(this + 129);
-                  v140 = *(this + 114);
-                  *v585 = v140;
-                  if (v135 != LODWORD(__p[0]) || v136 != v140)
-                  {
-                    if (VPLogScope(void)::once != -1)
-                    {
-                      dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                    }
-
-                    v141 = CALog::LogObjIfEnabled(3, VPLogScope(void)::scope);
-                    if (v141)
-                    {
-                      v142 = v141;
-                      if (os_log_type_enabled(v141, OS_LOG_TYPE_DEFAULT))
-                      {
-                        *buf = 136316418;
-                        *&buf[4] = "vpProperties.cpp";
-                        *&buf[12] = 1024;
-                        *&buf[14] = 1400;
-                        *&buf[18] = 1024;
-                        *&buf[20] = v135;
-                        *&buf[24] = 1024;
-                        *&buf[26] = __p[0];
-                        *&buf[30] = 2048;
-                        *&buf[32] = v136;
-                        *&buf[40] = 2048;
-                        *&buf[42] = v140;
-                        _os_log_impl(&dword_2724B4000, v142, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> setproperty: re-initializing speech enhancer; old ul blk sz = %u; new ul blk size = %u; old ul sr = %lf; new ul sr = %lf", buf, 0x32u);
-                      }
-                    }
-
-                    v143 = *(this + 1588);
-                    if (v143 && ((*v574 & 1) != 0 || v574[1] == 1))
-                    {
-                      if (VPLogScope(void)::once != -1)
-                      {
-                        dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                      }
-
-                      CALegacyLog::log(v143, 3, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 1400, "SetProperty", "setproperty: re-initializing speech enhancer; old ul blk sz = %u; new ul blk size = %u; old ul sr = %lf; new ul sr = %lf", v135, LODWORD(__p[0]), v136, v140);
-                    }
-
-                    if ((*(this + 8864) & 0x80) != 0)
-                    {
-                      AUPropAndParamHelper::AddItemToAUPropsList(this + 1396, 0x3EBu, 0, 0, 8uLL, v585, 1);
-                      AUPropAndParamHelper::AddItemToAUPropsList(this + 1396, 0x3ECu, 0, 0, 4uLL, __p, 1);
-                      VoiceProcessorV2::InstantiateAndConfigureEffectAU(this, 7u, 0);
-                    }
-                  }
-
-                  v131 = VPLogScope(void)::once;
-                }
-
-                if (v131 != -1)
-                {
-                  dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                }
-
-                v144 = CALog::LogObjIfEnabled(3, VPLogScope(void)::scope);
-                if (v144)
-                {
-                  v145 = v144;
-                  if (os_log_type_enabled(v144, OS_LOG_TYPE_DEFAULT))
-                  {
-                    v146 = *v129;
-                    *buf = 136315650;
-                    *&buf[4] = "vpProperties.cpp";
-                    *&buf[12] = 1024;
-                    *&buf[14] = 1422;
-                    *&buf[18] = 2048;
-                    *&buf[20] = v146;
-                    _os_log_impl(&dword_2724B4000, v145, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> setproperty: primary vocoder sample rate = %f ", buf, 0x1Cu);
-                  }
-                }
-
-                v147 = *(this + 1588);
-                if (v147 && ((*v574 & 1) != 0 || v574[1] == 1))
-                {
-                  if (VPLogScope(void)::once != -1)
-                  {
-                    dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                  }
-
-                  CALegacyLog::log(v147, 3, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 1422, "SetProperty", "setproperty: primary vocoder sample rate = %f ", *v129);
-                }
-
-                if (*v574 == 1)
-                {
-                  VoiceProcessorV2::PListWriteSetPropertyParameters(this, 1953915762);
-                }
-              }
-
-              goto LABEL_1630;
-            }
-
-            if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-            {
-              goto LABEL_1706;
-            }
-
-            *buf = 136315906;
-            *&buf[4] = "vpProperties.cpp";
-            *&buf[12] = 1024;
-            *&buf[14] = 1374;
-            *&buf[18] = 2080;
-            *&buf[20] = "inDataSize == sizeof(Float64)";
-            *&buf[28] = 2080;
-            *&buf[30] = "BadPropertySize";
-            v563 = MEMORY[0x277D86220];
-            goto LABEL_1705;
-          }
-
-          goto LABEL_1182;
-        }
-
-        if (v6 == 4)
-        {
-          v393 = (*(*this + 112))(this);
-          if (v393 >= 6)
-          {
-            v394 = *v7;
-            v395 = *v7 != 0;
-            if (*(this + 2261) != v395)
-            {
-              if (VPLogScope(void)::once != -1)
-              {
-                dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-              }
-
-              v396 = CALog::LogObjIfEnabled(3, VPLogScope(void)::scope);
-              if (v396)
-              {
-                v397 = v396;
-                if (os_log_type_enabled(v396, OS_LOG_TYPE_DEFAULT))
-                {
-                  v398 = "false";
-                  v399 = *(this + 2261);
-                  *&buf[4] = "vpProperties.cpp";
-                  *&buf[12] = 1024;
-                  *&buf[14] = 1057;
-                  if (v399)
-                  {
-                    v400 = "true";
-                  }
-
-                  else
-                  {
-                    v400 = "false";
-                  }
-
-                  *buf = 136315906;
-                  if (v394)
-                  {
-                    v398 = "true";
-                  }
-
-                  *&buf[18] = 2080;
-                  *&buf[20] = v400;
-                  *&buf[28] = 2080;
-                  *&buf[30] = v398;
-                  _os_log_impl(&dword_2724B4000, v397, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> setproperty: current state of spatial chat = [%s], new state of spatial chat = [%s]", buf, 0x26u);
-                }
-              }
-
-              v401 = *(this + 1588);
-              if (v401 && ((*v574 & 1) != 0 || v574[1] == 1))
-              {
-                if (VPLogScope(void)::once != -1)
-                {
-                  dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                }
-
-                v402 = "false";
-                if (*(this + 2261))
-                {
-                  v403 = "true";
-                }
-
-                else
-                {
-                  v403 = "false";
-                }
-
-                if (v394)
-                {
-                  v402 = "true";
-                }
-
-                CALegacyLog::log(v401, 3, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 1057, "SetProperty", "setproperty: current state of spatial chat = [%s], new state of spatial chat = [%s]", v403, v402);
-              }
-
-              *(this + 2261) = v395;
-              if (*v574 == 1)
-              {
-                VoiceProcessorV2::PListWriteSetPropertyParameters(this, 1936744803);
-              }
-
-              if (VPLogScope(void)::once != -1)
-              {
-                dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-              }
-
-              v404 = CALog::LogObjIfEnabled(3, VPLogScope(void)::scope);
-              if (v404)
-              {
-                v407 = v404;
-                if (os_log_type_enabled(v404, OS_LOG_TYPE_DEFAULT))
-                {
-                  *buf = 136315394;
-                  *&buf[4] = "vpProperties.cpp";
-                  *&buf[12] = 1024;
-                  *&buf[14] = 1060;
-                  _os_log_impl(&dword_2724B4000, v407, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> Begin self-reinit (kVPProperty_EnableSpatialChat)", buf, 0x12u);
-                }
-              }
-
-              v408 = *(this + 1588);
-              if (v408 && ((*v574 & 1) != 0 || v574[1] == 1))
-              {
-                if (VPLogScope(void)::once != -1)
-                {
-                  dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                }
-
-                CALegacyLog::log(v408, 3, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 1060, "SetProperty", "Begin self-reinit (kVPProperty_EnableSpatialChat)");
-              }
-
-              VoiceProcessorV2::ResetTimestampsAndInitializeVP(this, 0, v405, v406);
-              if (VPLogScope(void)::once != -1)
-              {
-                dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-              }
-
-              v409 = CALog::LogObjIfEnabled(3, VPLogScope(void)::scope);
-              if (v409)
-              {
-                v410 = v409;
-                if (os_log_type_enabled(v409, OS_LOG_TYPE_DEFAULT))
-                {
-                  *buf = 136315394;
-                  *&buf[4] = "vpProperties.cpp";
-                  *&buf[12] = 1024;
-                  *&buf[14] = 1062;
-                  _os_log_impl(&dword_2724B4000, v410, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> End self-reinit (kVPProperty_EnableSpatialChat)", buf, 0x12u);
-                }
-              }
-
-              v411 = *(this + 1588);
-              if (v411 && ((*v574 & 1) != 0 || v574[1] == 1))
-              {
-                if (VPLogScope(void)::once != -1)
-                {
-                  dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                }
-
-                CALegacyLog::log(v411, 3, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 1062, "SetProperty", "End self-reinit (kVPProperty_EnableSpatialChat)");
-              }
-            }
-
-            goto LABEL_1630;
-          }
-
-          if (VPLogScope(void)::once != -1)
-          {
-            dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-          }
-
-          v440 = CALog::LogObjIfEnabled(1, VPLogScope(void)::scope);
-          if (v440)
-          {
-            v441 = v440;
-            if (os_log_type_enabled(v440, OS_LOG_TYPE_ERROR))
-            {
-              *buf = 136315650;
-              *&buf[4] = "vpProperties.cpp";
-              *&buf[12] = 1024;
-              *&buf[14] = 1067;
-              *&buf[18] = 1024;
-              *&buf[20] = v393;
-              _os_log_impl(&dword_2724B4000, v441, OS_LOG_TYPE_ERROR, "%25s:%-5d  >vp> setproperty: spatial chat for vp version = %u is not supported", buf, 0x18u);
-            }
-          }
-
-          v5 = 561406316;
-          v442 = *(this + 1588);
-          if (v442 && ((*v574 & 1) != 0 || v574[1] == 1))
-          {
-            if (VPLogScope(void)::once != -1)
-            {
-              dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-            }
-
-            CALegacyLog::log(v442, 1, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 1067, "SetProperty", "setproperty: spatial chat for vp version = %u is not supported", v393);
-          }
-
-          goto LABEL_1253;
-        }
-
-        if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-        {
-          goto LABEL_1706;
-        }
-
-        *buf = 136315906;
-        *&buf[4] = "vpProperties.cpp";
-        *&buf[12] = 1024;
-        *&buf[14] = 1048;
-        *&buf[18] = 2080;
-        *&buf[20] = "inDataSize == sizeof(UInt32)";
-        *&buf[28] = 2080;
-        *&buf[30] = "BadPropertySize";
-        v563 = MEMORY[0x277D86220];
-      }
-
-      else
-      {
-        v70 = this;
-        if (a2 > 1768514914)
-        {
-          v112 = v574;
-          if (a2 == 1768514915)
-          {
-            if (v6 > 3)
-            {
-              v389 = *v7;
-              VoiceProcessorV2::SetEmergencyCallStatus(this, *v7 != 0);
-              if (VPLogScope(void)::once != -1)
-              {
-                dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-              }
-
-              v390 = CALog::LogObjIfEnabled(3, VPLogScope(void)::scope);
-              if (v390)
-              {
-                v391 = v390;
-                if (os_log_type_enabled(v390, OS_LOG_TYPE_DEFAULT))
-                {
-                  *buf = 136315650;
-                  *&buf[4] = "vpProperties.cpp";
-                  *&buf[12] = 1024;
-                  *&buf[14] = 1538;
-                  *&buf[18] = 1024;
-                  *&buf[20] = v389 != 0;
-                  _os_log_impl(&dword_2724B4000, v391, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> setproperty: is in emergency call = %u", buf, 0x18u);
-                }
-              }
-
-              v392 = *(this + 1588);
-              if (v392 && ((*v574 & 1) != 0 || v574[1] == 1))
-              {
-                if (VPLogScope(void)::once != -1)
-                {
-                  dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                }
-
-                CALegacyLog::log(v392, 3, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 1538, "SetProperty", "setproperty: is in emergency call = %u", v389 != 0);
-              }
-
-              goto LABEL_1630;
-            }
-
-            if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-            {
-              goto LABEL_1706;
-            }
-
-            *buf = 136315906;
-            *&buf[4] = "vpProperties.cpp";
-            *&buf[12] = 1024;
-            *&buf[14] = 1533;
-            *&buf[18] = 2080;
-            *&buf[20] = "inDataSize >= sizeof(UInt32)";
-            *&buf[28] = 2080;
-            *&buf[30] = "BadPropertySize";
-            v563 = MEMORY[0x277D86220];
-            goto LABEL_1705;
-          }
-
-          if (a2 != 1835361379)
-          {
-            if (a2 == 1836082532)
-            {
-              if (!VoiceProcessorV2::IsDeviceSupportingAdvancedChatFlavors(v47))
-              {
-                if (VPLogScope(void)::once != -1)
-                {
-                  dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                }
-
-                v434 = CALog::LogObjIfEnabled(3, VPLogScope(void)::scope);
-                if (v434)
-                {
-                  v435 = v434;
-                  if (os_log_type_enabled(v434, OS_LOG_TYPE_DEFAULT))
-                  {
-                    *buf = 136315394;
-                    *&buf[4] = "vpProperties.cpp";
-                    *&buf[12] = 1024;
-                    *&buf[14] = 1138;
-                    _os_log_impl(&dword_2724B4000, v435, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> Voice isolation not supported, ignoring incoming property", buf, 0x12u);
-                  }
-                }
-
-                v436 = *(this + 1588);
-                if (v436 && ((*v574 & 1) != 0 || v574[1] == 1))
-                {
-                  if (VPLogScope(void)::once != -1)
-                  {
-                    dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                  }
-
-                  CALegacyLog::log(v436, 3, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 1138, "SetProperty", "Voice isolation not supported, ignoring incoming property");
-                }
-
-                goto LABEL_1630;
-              }
-
-              if (v6 == 4)
-              {
-                v113 = *v7;
-                v114 = *v7 != 0;
-                v115 = v574;
-                if (*(this + 2262) != v114)
-                {
-                  v116 = this;
-                  if (VPLogScope(void)::once != -1)
-                  {
-                    dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                  }
-
-                  v117 = CALog::LogObjIfEnabled(3, VPLogScope(void)::scope);
-                  if (v117)
-                  {
-                    v118 = v117;
-                    if (os_log_type_enabled(v117, OS_LOG_TYPE_DEFAULT))
-                    {
-                      v119 = "false";
-                      v120 = *(this + 2262);
-                      *&buf[4] = "vpProperties.cpp";
-                      *&buf[12] = 1024;
-                      *&buf[14] = 1124;
-                      if (v120)
-                      {
-                        v121 = "true";
-                      }
-
-                      else
-                      {
-                        v121 = "false";
-                      }
-
-                      *buf = 136315906;
-                      if (v113)
-                      {
-                        v119 = "true";
-                      }
-
-                      *&buf[18] = 2080;
-                      *&buf[20] = v121;
-                      *&buf[28] = 2080;
-                      *&buf[30] = v119;
-                      _os_log_impl(&dword_2724B4000, v118, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> setproperty: current state of media playback on external device = [%s], new state of media playback on external device = [%s]", buf, 0x26u);
-                    }
-                  }
-
-                  v122 = *(this + 1588);
-                  if (v122 && ((*v574 & 1) != 0 || v574[1] == 1))
-                  {
-                    if (VPLogScope(void)::once != -1)
-                    {
-                      dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                    }
-
-                    v123 = "false";
-                    if (*(this + 2262))
-                    {
-                      v124 = "true";
-                    }
-
-                    else
-                    {
-                      v124 = "false";
-                    }
-
-                    if (v113)
-                    {
-                      v123 = "true";
-                    }
-
-                    CALegacyLog::log(v122, 3, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 1124, "SetProperty", "setproperty: current state of media playback on external device = [%s], new state of media playback on external device = [%s]", v124, v123);
-                  }
-
-                  *(this + 2262) = v114;
-                  if (*v574 == 1)
-                  {
-                    VoiceProcessorV2::PListWriteSetPropertyParameters(this, 1836082532);
-                  }
-
-                  if (VPLogScope(void)::once != -1)
-                  {
-                    dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                  }
-
-                  v125 = CALog::LogObjIfEnabled(3, VPLogScope(void)::scope);
-                  if (v125)
-                  {
-                    v126 = v125;
-                    if (os_log_type_enabled(v125, OS_LOG_TYPE_DEFAULT))
-                    {
-                      if (v574[687])
-                      {
-                        v127 = 0;
-                      }
-
-                      else if (*(this + 2262))
-                      {
-                        v127 = 2;
-                      }
-
-                      else if (*(this + 2288) == 1)
-                      {
-                        v116 = this;
-                        v127 = VoiceProcessorV2::GetAutomaticChatFlavor(this);
-                        v115 = v574;
-                      }
-
-                      else
-                      {
-                        v115 = v574;
-                        v127 = *(v574 + 655);
-                        v116 = this;
-                      }
-
-                      std::to_string(v585, v127);
-                      v550 = v585[23] >= 0 ? v585 : *v585;
-                      *buf = 136315650;
-                      *&buf[4] = "vpProperties.cpp";
-                      *&buf[12] = 1024;
-                      *&buf[14] = 1129;
-                      *&buf[18] = 2080;
-                      *&buf[20] = v550;
-                      _os_log_impl(&dword_2724B4000, v126, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> setproperty: chat flavor value changed to = [%s]", buf, 0x1Cu);
-                      if ((v585[23] & 0x80000000) != 0)
-                      {
-                        operator delete(*v585);
-                      }
-                    }
-                  }
-
-                  v551 = *(v116 + 1588);
-                  if (v551 && ((*v115 & 1) != 0 || v115[1] == 1))
-                  {
-                    if (VPLogScope(void)::once != -1)
-                    {
-                      dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                    }
-
-                    v552 = VPLogScope(void)::scope;
-                    if (v115[687])
-                    {
-                      v553 = 0;
-                    }
-
-                    else if (*(v116 + 2262))
-                    {
-                      v553 = 2;
-                    }
-
-                    else if (*(v116 + 2288) == 1)
-                    {
-                      v553 = VoiceProcessorV2::GetAutomaticChatFlavor(v116);
-                    }
-
-                    else
-                    {
-                      v553 = *(v115 + 655);
-                    }
-
-                    std::to_string(buf, v553);
-                    if (buf[23] >= 0)
-                    {
-                      v554 = buf;
-                    }
-
-                    else
-                    {
-                      v554 = *buf;
-                    }
-
-                    CALegacyLog::log(v551, 3, v552, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 1129, "SetProperty", "setproperty: chat flavor value changed to = [%s]", v554);
-                    if ((buf[23] & 0x80000000) != 0)
-                    {
-                      operator delete(*buf);
-                    }
-                  }
-
-                  if (VPLogScope(void)::once != -1)
-                  {
-                    dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                  }
-
-                  v555 = CALog::LogObjIfEnabled(3, VPLogScope(void)::scope);
-                  if (v555)
-                  {
-                    v558 = v555;
-                    if (os_log_type_enabled(v555, OS_LOG_TYPE_DEFAULT))
-                    {
-                      *buf = 136315394;
-                      *&buf[4] = "vpProperties.cpp";
-                      *&buf[12] = 1024;
-                      *&buf[14] = 1131;
-                      _os_log_impl(&dword_2724B4000, v558, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> Begin self-reinit (kVPProperty_MediaPlaybackOnExternalDevice)", buf, 0x12u);
-                    }
-                  }
-
-                  v559 = *(v116 + 1588);
-                  if (v559 && ((*v115 & 1) != 0 || v115[1] == 1))
-                  {
-                    if (VPLogScope(void)::once != -1)
-                    {
-                      dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                    }
-
-                    CALegacyLog::log(v559, 3, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 1131, "SetProperty", "Begin self-reinit (kVPProperty_MediaPlaybackOnExternalDevice)");
-                  }
-
-                  VoiceProcessorV2::ResetTimestampsAndInitializeVP(v116, 0, v556, v557);
-                  if (VPLogScope(void)::once != -1)
-                  {
-                    dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                  }
-
-                  v560 = CALog::LogObjIfEnabled(3, VPLogScope(void)::scope);
-                  if (v560)
-                  {
-                    v561 = v560;
-                    if (os_log_type_enabled(v560, OS_LOG_TYPE_DEFAULT))
-                    {
-                      *buf = 136315394;
-                      *&buf[4] = "vpProperties.cpp";
-                      *&buf[12] = 1024;
-                      *&buf[14] = 1134;
-                      _os_log_impl(&dword_2724B4000, v561, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> End self-reinit (kVPProperty_MediaPlaybackOnExternalDevice)", buf, 0x12u);
-                    }
-                  }
-
-                  v562 = *(v116 + 1588);
-                  if (v562 && ((*v115 & 1) != 0 || v115[1] == 1))
-                  {
-                    if (VPLogScope(void)::once != -1)
-                    {
-                      dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                    }
-
-                    CALegacyLog::log(v562, 3, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 1134, "SetProperty", "End self-reinit (kVPProperty_MediaPlaybackOnExternalDevice)");
-                  }
-                }
-
-                goto LABEL_1630;
-              }
-
-              if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-              {
-                goto LABEL_1706;
-              }
-
-              *buf = 136315906;
-              *&buf[4] = "vpProperties.cpp";
-              *&buf[12] = 1024;
-              *&buf[14] = 1116;
-              *&buf[18] = 2080;
-              *&buf[20] = "inDataSize == sizeof(UInt32)";
-              *&buf[28] = 2080;
-              *&buf[30] = "BadPropertySize";
-              v563 = MEMORY[0x277D86220];
-              goto LABEL_1705;
-            }
-
-            goto LABEL_1182;
-          }
-
-          if (v6 == 4)
-          {
-            v317 = (*(*this + 112))(this);
-            if (v317 < 3)
-            {
-              if (VPLogScope(void)::once != -1)
-              {
-                dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-              }
-
-              v437 = CALog::LogObjIfEnabled(1, VPLogScope(void)::scope);
-              if (v437)
-              {
-                v438 = v437;
-                if (os_log_type_enabled(v437, OS_LOG_TYPE_ERROR))
-                {
-                  *buf = 136315650;
-                  *&buf[4] = "vpProperties.cpp";
-                  *&buf[12] = 1024;
-                  *&buf[14] = 1043;
-                  *&buf[18] = 1024;
-                  *&buf[20] = v317;
-                  _os_log_impl(&dword_2724B4000, v438, OS_LOG_TYPE_ERROR, "%25s:%-5d  >vp> setproperty: media chat for vp version = %u is not supported", buf, 0x18u);
-                }
-              }
-
-              v439 = *(this + 1588);
-              if (v439 && ((*v574 & 1) != 0 || v574[1] == 1))
-              {
-                if (VPLogScope(void)::once != -1)
-                {
-                  dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                }
-
-                CALegacyLog::log(v439, 1, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 1043, "SetProperty", "setproperty: media chat for vp version = %u is not supported", v317);
-              }
-
-              goto LABEL_1630;
-            }
-
-            if (_os_feature_enabled_impl())
-            {
-              if ((*(*this + 112))(this) > 9 || (v318 = *(this + 20), v318 == 2) || v318 == 4)
-              {
-                v319 = *v7;
-                v320 = *v7 != 0;
-                if (*(this + 2260) != v320)
-                {
-                  if (VPLogScope(void)::once != -1)
-                  {
-                    dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                  }
-
-                  v321 = CALog::LogObjIfEnabled(3, VPLogScope(void)::scope);
-                  if (v321)
-                  {
-                    v322 = v321;
-                    if (os_log_type_enabled(v321, OS_LOG_TYPE_DEFAULT))
-                    {
-                      v323 = "false";
-                      v324 = *(this + 2260);
-                      *&buf[4] = "vpProperties.cpp";
-                      *&buf[12] = 1024;
-                      *&buf[14] = 1027;
-                      if (v324)
-                      {
-                        v325 = "true";
-                      }
-
-                      else
-                      {
-                        v325 = "false";
-                      }
-
-                      *buf = 136315906;
-                      if (v319)
-                      {
-                        v323 = "true";
-                      }
-
-                      *&buf[18] = 2080;
-                      *&buf[20] = v325;
-                      *&buf[28] = 2080;
-                      *&buf[30] = v323;
-                      _os_log_impl(&dword_2724B4000, v322, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> setproperty: current state of media chat = [%s], new state of media chat = [%s]", buf, 0x26u);
-                    }
-                  }
-
-                  v326 = *(this + 1588);
-                  if (v326 && ((*v574 & 1) != 0 || v574[1] == 1))
-                  {
-                    if (VPLogScope(void)::once != -1)
-                    {
-                      dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                    }
-
-                    v70 = this;
-                    v327 = "false";
-                    if (*(this + 2260))
-                    {
-                      v328 = "true";
-                    }
-
-                    else
-                    {
-                      v328 = "false";
-                    }
-
-                    if (v319)
-                    {
-                      v327 = "true";
-                    }
-
-                    CALegacyLog::log(v326, 3, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 1027, "SetProperty", "setproperty: current state of media chat = [%s], new state of media chat = [%s]", v328, v327);
-                    v112 = v574;
-                  }
-
-                  *(v70 + 2260) = v320;
-                  if (*v112 == 1)
-                  {
-                    VoiceProcessorV2::PListWriteSetPropertyParameters(v70, 1835361379);
-                  }
-
-                  if (VPLogScope(void)::once != -1)
-                  {
-                    dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                  }
-
-                  v329 = CALog::LogObjIfEnabled(3, VPLogScope(void)::scope);
-                  if (v329)
-                  {
-                    v332 = v329;
-                    if (os_log_type_enabled(v329, OS_LOG_TYPE_DEFAULT))
-                    {
-                      *buf = 136315394;
-                      *&buf[4] = "vpProperties.cpp";
-                      *&buf[12] = 1024;
-                      *&buf[14] = 1031;
-                      _os_log_impl(&dword_2724B4000, v332, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> Begin self-reinit (kVPProperty_EnableMediaChat)", buf, 0x12u);
-                    }
-                  }
-
-                  v333 = *(v70 + 1588);
-                  if (v333 && ((*v112 & 1) != 0 || v112[1] == 1))
-                  {
-                    if (VPLogScope(void)::once != -1)
-                    {
-                      dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                    }
-
-                    v70 = this;
-                    CALegacyLog::log(v333, 3, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 1031, "SetProperty", "Begin self-reinit (kVPProperty_EnableMediaChat)");
-                    v112 = v574;
-                  }
-
-                  VoiceProcessorV2::ResetTimestampsAndInitializeVP(v70, 0, v330, v331);
-                  if (VPLogScope(void)::once != -1)
-                  {
-                    dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                  }
-
-                  v334 = CALog::LogObjIfEnabled(3, VPLogScope(void)::scope);
-                  if (v334)
-                  {
-                    v335 = v334;
-                    if (os_log_type_enabled(v334, OS_LOG_TYPE_DEFAULT))
-                    {
-                      *buf = 136315394;
-                      *&buf[4] = "vpProperties.cpp";
-                      *&buf[12] = 1024;
-                      *&buf[14] = 1033;
-                      _os_log_impl(&dword_2724B4000, v335, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> End self-reinit (kVPProperty_EnableMediaChat)", buf, 0x12u);
-                    }
-                  }
-
-                  v336 = *(v70 + 1588);
-                  if (v336 && ((*v112 & 1) != 0 || v112[1] == 1))
-                  {
-                    if (VPLogScope(void)::once != -1)
-                    {
-                      dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                    }
-
-                    CALegacyLog::log(v336, 3, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 1033, "SetProperty", "End self-reinit (kVPProperty_EnableMediaChat)");
-                  }
-                }
-
-                goto LABEL_1630;
-              }
-
-              if (_os_feature_enabled_impl())
-              {
-                v488 = *v7;
-                v489 = *v7 != 0;
-                if (*(this + 2264) != v489)
-                {
-                  if (VPLogScope(void)::once != -1)
-                  {
-                    dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                  }
-
-                  v490 = CALog::LogObjIfEnabled(3, VPLogScope(void)::scope);
-                  if (v490)
-                  {
-                    v491 = v490;
-                    if (os_log_type_enabled(v490, OS_LOG_TYPE_DEFAULT))
-                    {
-                      v492 = "false";
-                      v493 = *(this + 2264);
-                      *&buf[4] = "vpProperties.cpp";
-                      *&buf[12] = 1024;
-                      *&buf[14] = 970;
-                      if (v493)
-                      {
-                        v494 = "true";
-                      }
-
-                      else
-                      {
-                        v494 = "false";
-                      }
-
-                      *buf = 136315906;
-                      if (v488)
-                      {
-                        v492 = "true";
-                      }
-
-                      *&buf[18] = 2080;
-                      *&buf[20] = v494;
-                      *&buf[28] = 2080;
-                      *&buf[30] = v492;
-                      _os_log_impl(&dword_2724B4000, v491, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> setproperty: current state of media chat = [%s], new state of media chat = [%s]", buf, 0x26u);
-                    }
-                  }
-
-                  v495 = *(this + 1588);
-                  if (v495 && ((*v574 & 1) != 0 || v574[1] == 1))
-                  {
-                    if (VPLogScope(void)::once != -1)
-                    {
-                      dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                    }
-
-                    v496 = "false";
-                    if (*(this + 2264))
-                    {
-                      v497 = "true";
-                    }
-
-                    else
-                    {
-                      v497 = "false";
-                    }
-
-                    if (v488)
-                    {
-                      v496 = "true";
-                    }
-
-                    CALegacyLog::log(v495, 3, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 970, "SetProperty", "setproperty: current state of media chat = [%s], new state of media chat = [%s]", v497, v496);
-                  }
-
-                  *(this + 2264) = v489;
-                  v498 = (v574 + 683);
-                  v499 = *(v574 + 683);
-                  v500 = v574[680];
-                  if (v488)
-                  {
-                    v501 = 10;
-                  }
-
-                  else
-                  {
-                    v501 = 0;
-                  }
-
-                  *v498 = v501;
-                  v574[680] = v489;
-                  if (VPLogScope(void)::once != -1)
-                  {
-                    dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                  }
-
-                  v502 = CALog::LogObjIfEnabled(3, VPLogScope(void)::scope);
-                  if (v502)
-                  {
-                    v503 = v502;
-                    if (os_log_type_enabled(v502, OS_LOG_TYPE_DEFAULT))
-                    {
-                      v504 = *v498;
-                      v505 = v574[680];
-                      *buf = 136316418;
-                      *&buf[4] = "vpProperties.cpp";
-                      *&buf[12] = 1024;
-                      *&buf[14] = 988;
-                      *&buf[18] = 1024;
-                      *&buf[20] = v499;
-                      *&buf[24] = 1024;
-                      *&buf[26] = v504;
-                      *&buf[30] = 1024;
-                      *&buf[32] = v500;
-                      *&buf[36] = 1024;
-                      *&buf[38] = v505;
-                      _os_log_impl(&dword_2724B4000, v503, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> setproperty: current mClientSetDuckingLevel = %u, new value = %u,  current mClientSetEnableDynamicDucking = %d, new value = %d", buf, 0x2Au);
-                    }
-                  }
-
-                  v506 = *(this + 1588);
-                  if (v506 && ((*v574 & 1) != 0 || v574[1] == 1))
-                  {
-                    if (VPLogScope(void)::once != -1)
-                    {
-                      dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                    }
-
-                    CALegacyLog::log(v506, 3, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 988, "SetProperty", "setproperty: current mClientSetDuckingLevel = %u, new value = %u,  current mClientSetEnableDynamicDucking = %d, new value = %d", v499, *v498, v500, v574[680]);
-                  }
-
-                  if ((*(this + 8865) & 0x80) != 0)
-                  {
-                    *buf = *v498;
-                    AUPropAndParamHelper::AddItemToAUPropsList(this + 1420, 0x6E65706Cu, 0, 0, 4uLL, buf, 1);
-                    v507 = *(this + 454);
-                    if (v507)
-                    {
-                      AudioUnitSetProperty(v507, 0x6E65706Cu, 0, 0, buf, 4u);
-                    }
-                  }
-
-                  if (*v574 == 1)
-                  {
-                    VoiceProcessorV2::PListWriteSetPropertyParameters(this, 1835361379);
-                  }
-
-                  if (VPLogScope(void)::once != -1)
-                  {
-                    dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                  }
-
-                  v508 = CALog::LogObjIfEnabled(3, VPLogScope(void)::scope);
-                  if (v508)
-                  {
-                    v511 = v508;
-                    if (os_log_type_enabled(v508, OS_LOG_TYPE_DEFAULT))
-                    {
-                      *buf = 136315394;
-                      *&buf[4] = "vpProperties.cpp";
-                      *&buf[12] = 1024;
-                      *&buf[14] = 1007;
-                      _os_log_impl(&dword_2724B4000, v511, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> Begin self-reinit (kVPProperty_EnableMediaChat)", buf, 0x12u);
-                    }
-                  }
-
-                  v512 = *(this + 1588);
-                  if (v512 && ((*v574 & 1) != 0 || v574[1] == 1))
-                  {
-                    if (VPLogScope(void)::once != -1)
-                    {
-                      dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                    }
-
-                    CALegacyLog::log(v512, 3, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 1007, "SetProperty", "Begin self-reinit (kVPProperty_EnableMediaChat)");
-                  }
-
-                  VoiceProcessorV2::ResetTimestampsAndInitializeVP(this, 0, v509, v510);
-                  if (VPLogScope(void)::once != -1)
-                  {
-                    dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                  }
-
-                  v513 = CALog::LogObjIfEnabled(3, VPLogScope(void)::scope);
-                  if (v513)
-                  {
-                    v514 = v513;
-                    if (os_log_type_enabled(v513, OS_LOG_TYPE_DEFAULT))
-                    {
-                      *buf = 136315394;
-                      *&buf[4] = "vpProperties.cpp";
-                      *&buf[12] = 1024;
-                      *&buf[14] = 1010;
-                      _os_log_impl(&dword_2724B4000, v514, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> End self-reinit (kVPProperty_EnableMediaChat)", buf, 0x12u);
-                    }
-                  }
-
-                  v515 = *(this + 1588);
-                  if (v515 && ((*v574 & 1) != 0 || v574[1] == 1))
-                  {
-                    if (VPLogScope(void)::once != -1)
-                    {
-                      dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                    }
-
-                    CALegacyLog::log(v515, 3, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 1010, "SetProperty", "End self-reinit (kVPProperty_EnableMediaChat)");
-                  }
-                }
-
-                goto LABEL_1630;
-              }
-
-              if (VPLogScope(void)::once != -1)
-              {
-                dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-              }
-
-              v548 = CALog::LogObjIfEnabled(2, VPLogScope(void)::scope);
-              if (v548)
-              {
-                v549 = v548;
-                if (os_log_type_enabled(v548, OS_LOG_TYPE_DEFAULT))
-                {
-                  *buf = 136315394;
-                  *&buf[4] = "vpProperties.cpp";
-                  *&buf[12] = 1024;
-                  *&buf[14] = 1016;
-                  _os_log_impl(&dword_2724B4000, v549, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  >vp> setproperty: feature was not enabled", buf, 0x12u);
-                }
-              }
-
-              v476 = *(this + 1588);
-              if (!v476 || (*v574 & 1) == 0 && v574[1] != 1)
-              {
-LABEL_1630:
-                v49 = 0;
-LABEL_1631:
-                v5 = 0;
-                goto LABEL_1632;
-              }
-
-              if (VPLogScope(void)::once != -1)
-              {
-                dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-              }
-
-              v477 = 1016;
-            }
-
-            else
-            {
-              if (VPLogScope(void)::once != -1)
-              {
-                dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-              }
-
-              v474 = CALog::LogObjIfEnabled(2, VPLogScope(void)::scope);
-              if (v474)
-              {
-                v475 = v474;
-                if (os_log_type_enabled(v474, OS_LOG_TYPE_DEFAULT))
-                {
-                  *buf = 136315394;
-                  *&buf[4] = "vpProperties.cpp";
-                  *&buf[12] = 1024;
-                  *&buf[14] = 1037;
-                  _os_log_impl(&dword_2724B4000, v475, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  >vp> setproperty: feature was not enabled", buf, 0x12u);
-                }
-              }
-
-              v476 = *(this + 1588);
-              if (!v476 || (*v574 & 1) == 0 && v574[1] != 1)
-              {
-                goto LABEL_1630;
-              }
-
-              if (VPLogScope(void)::once != -1)
-              {
-                dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-              }
-
-              v477 = 1037;
-            }
-
-            CALegacyLog::log(v476, 2, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", v477, "SetProperty", "setproperty: feature was not enabled");
-            goto LABEL_1630;
-          }
-
-          if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-          {
-            goto LABEL_1706;
-          }
-
-          *buf = 136315906;
-          *&buf[4] = "vpProperties.cpp";
-          *&buf[12] = 1024;
-          *&buf[14] = 946;
-          *&buf[18] = 2080;
-          *&buf[20] = "inDataSize == sizeof(UInt32)";
-          *&buf[28] = 2080;
-          *&buf[30] = "BadPropertySize";
-          v563 = MEMORY[0x277D86220];
-        }
-
-        else
-        {
-          switch(a2)
-          {
-            case 1701868402:
-              if (v6 >= 4)
-              {
-                v49 = 0;
-                v5 = 0;
-                *(this + 4049) = *v7;
-                goto LABEL_1632;
-              }
-
-              goto LABEL_1168;
-            case 1718384242:
-              if (v6 > 3)
-              {
-                v308 = *v7;
-                v5 = (*(*this + 568))(this, v308);
-                if (VPLogScope(void)::once != -1)
-                {
-                  dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                }
-
-                v309 = CALog::LogObjIfEnabled(3, VPLogScope(void)::scope);
-                if (v309)
-                {
-                  v310 = v309;
-                  if (os_log_type_enabled(v309, OS_LOG_TYPE_DEFAULT))
-                  {
-                    *buf = 136315650;
-                    *&buf[4] = "vpProperties.cpp";
-                    *&buf[12] = 1024;
-                    *&buf[14] = 1527;
-                    *&buf[18] = 1024;
-                    *&buf[20] = v308;
-                    _os_log_impl(&dword_2724B4000, v310, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> setproperty: preferred chat flavor = %u", buf, 0x18u);
-                  }
-                }
-
-                v311 = *(this + 1588);
-                if (v311 && ((*v574 & 1) != 0 || v574[1] == 1))
-                {
-                  if (VPLogScope(void)::once != -1)
-                  {
-                    dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                  }
-
-                  CALegacyLog::log(v311, 3, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 1527, "SetProperty", "setproperty: preferred chat flavor = %u", v308);
-                }
-
-LABEL_1253:
-                v49 = 0;
-                goto LABEL_1632;
-              }
-
-              if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-              {
-                goto LABEL_1706;
-              }
-
-              *buf = 136315906;
-              *&buf[4] = "vpProperties.cpp";
-              *&buf[12] = 1024;
-              *&buf[14] = 1523;
-              *&buf[18] = 2080;
-              *&buf[20] = "inDataSize >= sizeof(UInt32)";
-              *&buf[28] = 2080;
-              *&buf[30] = "BadPropertySize";
-              v563 = MEMORY[0x277D86220];
-              break;
-            case 1751214436:
-              if (v6 == 8)
-              {
-                v71 = *v7;
-                if (v71)
-                {
-                  if (VPLogScope(void)::once != -1)
-                  {
-                    dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                  }
-
-                  v72 = CALog::LogObjIfEnabled(3, VPLogScope(void)::scope);
-                  if (v72)
-                  {
-                    v73 = v72;
-                    if (os_log_type_enabled(v72, OS_LOG_TYPE_DEFAULT))
-                    {
-                      v74 = applesauce::CF::StringRef::operator->(this + 274);
-                      applesauce::CF::convert_to<std::string,0>(v585, *v74);
-                      v75 = v585[23] >= 0 ? v585 : *v585;
-                      *buf = 136315650;
-                      *&buf[4] = "vpProperties.cpp";
-                      *&buf[12] = 1024;
-                      *&buf[14] = 2029;
-                      *&buf[18] = 2080;
-                      *&buf[20] = v75;
-                      _os_log_impl(&dword_2724B4000, v73, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> Setting host application display ID to %s", buf, 0x1Cu);
-                      if ((v585[23] & 0x80000000) != 0)
-                      {
-                        operator delete(*v585);
-                      }
-                    }
-                  }
-
-                  v76 = *(this + 1588);
-                  if (v76 && ((*v574 & 1) != 0 || v574[1] == 1))
-                  {
-                    if (VPLogScope(void)::once != -1)
-                    {
-                      dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                    }
-
-                    v77 = VPLogScope(void)::scope;
-                    v78 = applesauce::CF::StringRef::operator->(this + 274);
-                    applesauce::CF::convert_to<std::string,0>(buf, *v78);
-                    if (buf[23] >= 0)
-                    {
-                      v79 = buf;
-                    }
-
-                    else
-                    {
-                      v79 = *buf;
-                    }
-
-                    CALegacyLog::log(v76, 3, v77, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 2029, "SetProperty", "Setting host application display ID to %s", v79);
-                    if ((buf[23] & 0x80000000) != 0)
-                    {
-                      operator delete(*buf);
-                    }
-                  }
-
-                  v80 = CFStringCreateCopy(*MEMORY[0x277CBECE8], v71);
-                  applesauce::CF::StringRef::StringRef(buf, v80);
-                  v81 = *(this + 274);
-                  *(this + 274) = *buf;
-                  *buf = v81;
-                  applesauce::CF::StringRef::~StringRef(buf);
-                  goto LABEL_1630;
-                }
-
-                if (VPLogScope(void)::once != -1)
-                {
-                  dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                }
-
-                v443 = CALog::LogObjIfEnabled(1, VPLogScope(void)::scope);
-                if (v443)
-                {
-                  v444 = v443;
-                  if (os_log_type_enabled(v443, OS_LOG_TYPE_ERROR))
-                  {
-                    *buf = 136315394;
-                    *&buf[4] = "vpProperties.cpp";
-                    *&buf[12] = 1024;
-                    *&buf[14] = 2033;
-                    _os_log_impl(&dword_2724B4000, v444, OS_LOG_TYPE_ERROR, "%25s:%-5d  >vp> Failed to set null host application display DI", buf, 0x12u);
-                  }
-                }
-
-                v445 = *(this + 1588);
-                if (!v445 || (*v574 & 1) == 0 && v574[1] != 1)
-                {
-                  v5 = 0;
-                  v49 = 1;
-                  goto LABEL_1632;
-                }
-
-                if (VPLogScope(void)::once != -1)
-                {
-                  dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-                }
-
-                v49 = 1;
-                CALegacyLog::log(v445, 1, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 2033, "SetProperty", "Failed to set null host application display DI");
-                goto LABEL_1631;
-              }
-
-              if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-              {
-                goto LABEL_1706;
-              }
-
-              *buf = 136315906;
-              *&buf[4] = "vpProperties.cpp";
-              *&buf[12] = 1024;
-              *&buf[14] = 2025;
-              *&buf[18] = 2080;
-              *&buf[20] = "inDataSize == sizeof(CFStringRef)";
-              *&buf[28] = 2080;
-              *&buf[30] = "BadPropertySize";
-              v563 = MEMORY[0x277D86220];
-              break;
-            default:
-              goto LABEL_1182;
-          }
-        }
-      }
-
-LABEL_1705:
-      _os_log_impl(&dword_2724B4000, v563, OS_LOG_TYPE_ERROR, "%25s:%-5d  ca_require: %s %s", buf, 0x26u);
-      goto LABEL_1706;
-    }
-
-    if (VPLogScope(void)::once != -1)
-    {
-      dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-    }
-
-    v37 = os_log_type_enabled(*VPLogScope(void)::scope, OS_LOG_TYPE_DEBUG);
-    v38 = VPLogScope(void)::scope;
-    if (v37)
-    {
-      if (VPLogScope(void)::scope && CALegacyLog::LogEnabled(4, VPLogScope(void)::scope, 0))
-      {
-        v39 = (*v38 ? *v38 : MEMORY[0x277D86220]);
-        if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
-        {
-          vp::utility::encode_to_base_64(buf, v7, v6);
-          v40 = buf[24];
-          if (buf[24] == 1)
-          {
-            *__p = *buf;
-            v583 = *&buf[16];
-            memset(buf, 0, 24);
-          }
-
-          else
-          {
-            std::string::basic_string[abi:ne200100]<0>(__p, "???");
-          }
-
-          v148 = __p;
-          if (SHIBYTE(v583) < 0)
-          {
-            v148 = __p[0];
-          }
-
-          *v585 = 136315650;
-          *&v585[4] = "vpProperties.cpp";
-          *&v585[12] = 1024;
-          *&v585[14] = 806;
-          *&v585[18] = 2080;
-          *&v585[20] = v148;
-          _os_log_impl(&dword_2724B4000, v39, OS_LOG_TYPE_INFO, "%25s:%-5d  <vp> setproperty: spatial metadata = %s", v585, 0x1Cu);
-          if (SHIBYTE(v583) < 0)
-          {
-            operator delete(__p[0]);
-          }
-
-          if (v40 && (buf[23] & 0x80000000) != 0)
-          {
-            operator delete(*buf);
-          }
-        }
-      }
-
-      v149 = *(this + 1588);
-      if (v149 && ((*v574 & 1) != 0 || v574[1] == 1))
-      {
-        if (VPLogScope(void)::once != -1)
-        {
-          dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-        }
-
-        v150 = VPLogScope(void)::scope;
-        vp::utility::encode_to_base_64(buf, v7, v6);
-        v151 = buf[24];
-        if (buf[24] == 1)
-        {
-          *v585 = *buf;
-          *&v585[16] = *&buf[16];
-          memset(buf, 0, 24);
-        }
-
-        else
-        {
-          std::string::basic_string[abi:ne200100]<0>(v585, "???");
-        }
-
-        v152 = v585;
-        if (v585[23] < 0)
-        {
-          v152 = *v585;
-        }
-
-        CALegacyLog::log(v149, 4, v150, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 806, "SetProperty", "setproperty: spatial metadata = %s", v152);
-        if ((v585[23] & 0x80000000) != 0)
-        {
-          operator delete(*v585);
-        }
-
-        if (v151 && (buf[23] & 0x80000000) != 0)
-        {
-          operator delete(*buf);
-        }
-      }
-    }
-
-    else
-    {
-      if (VPLogScope(void)::scope && CALegacyLog::LogEnabled(4, VPLogScope(void)::scope, 0))
-      {
-        v62 = (*v38 ? *v38 : MEMORY[0x277D86220]);
-        if (os_log_type_enabled(v62, OS_LOG_TYPE_INFO))
-        {
-          *buf = 136315394;
-          *&buf[4] = "vpProperties.cpp";
-          *&buf[12] = 1024;
-          *&buf[14] = 808;
-          _os_log_impl(&dword_2724B4000, v62, OS_LOG_TYPE_INFO, "%25s:%-5d  <vp> setproperty: spatial metadata", buf, 0x12u);
-        }
-      }
-
-      v63 = *(this + 1588);
-      if (v63 && ((*v574 & 1) != 0 || v574[1] == 1))
-      {
-        if (VPLogScope(void)::once != -1)
-        {
-          dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-        }
-
-        CALegacyLog::log(v63, 4, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 808, "SetProperty", "setproperty: spatial metadata");
-      }
-    }
-
-    os_unfair_lock_lock(this + 4075);
-    v153 = caulk::concurrent::details::lf_read_sync_write_impl::begin_mutate((this + 16296));
-    v154 = this + 16304;
-    if ((*(this + v153 + 16304) & 1) == 0)
-    {
-      __break(1u);
-LABEL_1718:
-      dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-LABEL_1474:
-      v519 = this;
-      CALegacyLog::log(v7, 3, v6[115], "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 1615, "SetProperty", "[VolumeLimit] Setting target LKFS on LDNM to %f", v4);
-LABEL_1475:
-      AudioUnitSetParameter(*(v519 + 485), 2u, 0, 0, v4, 0);
-      goto LABEL_1630;
-    }
-
-    v155 = v153;
-    v156 = this;
-    v157 = this + 16312;
-    v158 = this + 32 * v153 + 16312;
-    buf[0] = 0;
-    buf[24] = 0;
-    v159 = v158[24];
-    if (v159 == 1)
-    {
-      memset(buf, 0, 24);
-      std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(buf, *v158, *(v158 + 1), *(v158 + 1) - *v158);
-    }
-
-    v160 = v6;
-    v161 = v155 == 0;
-    if (v155)
-    {
-      v162 = v154;
-    }
-
-    else
-    {
-      v162 = v154 + 1;
-    }
-
-    v163 = &v157[32 * v161];
-    if (*v162 == 1)
-    {
-      if (v163[24] == 1)
-      {
-        v164 = *v163;
-        if (*v163)
-        {
-          *(v163 + 1) = v164;
-          operator delete(v164);
-        }
-      }
-    }
-
-    else
-    {
-      v154[v161] = 1;
-    }
-
-    *v163 = 0;
-    v163[24] = 0;
-    if (v159)
-    {
-      *v163 = *buf;
-      *(v163 + 2) = *&buf[16];
-      memset(buf, 0, 24);
-    }
-
-    else
-    {
-      *v163 = 0;
-      *(v163 + 1) = 0;
-      *(v163 + 2) = 0;
-    }
-
-    v163[24] = 1;
-    std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(v163, v7, v7 + v160, v160);
-    caulk::concurrent::details::lf_read_sync_write_impl::end_mutate((v156 + 16296));
-    v154[v155] = 0;
-    if (v158[24] == 1)
-    {
-      v165 = *v158;
-      if (*v158)
-      {
-        *(v158 + 1) = v165;
-        operator delete(v165);
-      }
-    }
-
-    os_unfair_lock_unlock(v156 + 4075);
-    atomic_fetch_add(v156 + 2047, 1uLL);
-    if (*v574)
-    {
-      if (*(v156 + 1906))
-      {
-        *buf = 0;
-        VoiceProcessorV2::PListCopyDictionaryForWrite(v156, buf);
-        v166 = *buf;
-        if (*buf)
-        {
-          v167 = CFDataCreate(0, v7, v160);
-          v168 = v167;
-          if (!v167)
-          {
-            v571 = __cxa_allocate_exception(0x10uLL);
-            applesauce::CF::construct_error(v571);
-          }
-
-          *v585 = v167;
-          v169 = CFGetTypeID(v167);
-          if (v169 != CFDataGetTypeID())
-          {
-            v572 = __cxa_allocate_exception(0x10uLL);
-            std::runtime_error::runtime_error(v572, "Could not construct");
-          }
-
-          __p[0] = v168;
-          VPGetPropsPListStringForKey(&cf, 70);
-          WriteItemToDictionary(buf, &cf, 4, 8uLL, __p);
-          if (cf)
-          {
-            CFRelease(cf);
-          }
-
-          CFRelease(v166);
-          *buf = 0;
-          if (*v585)
-          {
-            CFRelease(*v585);
-          }
-        }
-      }
-    }
-
-LABEL_441:
-    v5 = 0;
-    goto LABEL_442;
-  }
-
-  if (a4 != 4)
-  {
-    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136315906;
-      *&buf[4] = "vpProperties.cpp";
-      *&buf[12] = 1024;
-      *&buf[14] = 817;
-      *&buf[18] = 2080;
-      *&buf[20] = "inDataSize == sizeof(Float32)";
-      *&buf[28] = 2080;
-      *&buf[30] = "BadPropertySize";
-      v546 = MEMORY[0x277D86220];
-LABEL_1584:
-      _os_log_impl(&dword_2724B4000, v546, OS_LOG_TYPE_ERROR, "%25s:%-5d  ca_require: %s %s", buf, 0x26u);
-    }
-
-LABEL_1638:
-    v5 = 561211770;
-    goto LABEL_442;
-  }
-
-  v5 = 0;
-  v41 = *theDict;
-  v42 = COERCE_FLOAT(atomic_load(this + 567));
-  if (v41 <= 1.0)
-  {
-    v43 = v42;
-    if (v41 >= 0.0 && v41 != v42)
-    {
-      v45 = *theDict;
-      while (1)
-      {
-        v46 = v43;
-        atomic_compare_exchange_strong(this + 567, &v46, LODWORD(v45));
-        if (LODWORD(v46) == LODWORD(v43))
-        {
-          break;
-        }
-
-        v43 = v46;
-        sched_yield();
-      }
-
-      if (VPLogScope(void)::once != -1)
-      {
-        dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-      }
-
-      v64 = VPLogScope(void)::scope;
-      if (VPLogScope(void)::scope && CALegacyLog::LogEnabled(3, VPLogScope(void)::scope, 0))
-      {
-        v65 = (*v64 ? *v64 : MEMORY[0x277D86220]);
-        if (os_log_type_enabled(v65, OS_LOG_TYPE_DEFAULT))
-        {
-          v66 = COERCE_FLOAT(atomic_load(this + 567));
-          *buf = 136315906;
-          *&buf[4] = "vpProperties.cpp";
-          *&buf[12] = 1024;
-          *&buf[14] = 829;
-          *&buf[18] = 2048;
-          *&buf[20] = v43;
-          *&buf[28] = 2048;
-          *&buf[30] = v66;
-          _os_log_impl(&dword_2724B4000, v65, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> setproperty: media chat old volume:[%f], new volume:[%f]", buf, 0x26u);
-        }
-      }
-
-      v67 = *(this + 1588);
-      if (v67 && ((*v10 & 1) != 0 || v10[1] == 1))
-      {
-        if (VPLogScope(void)::once != -1)
-        {
-          dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-        }
-
-        v68 = VPLogScope(void)::scope;
-        v69 = COERCE_FLOAT(atomic_load(this + 567));
-        CALegacyLog::log(v67, 3, v68, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpProperties.cpp", 829, "SetProperty", "setproperty: media chat old volume:[%f], new volume:[%f]", v43, v69);
-        v10 = v574;
-      }
-
-      if (*v10 == 1)
-      {
-        VoiceProcessorV2::PListWriteSetPropertyParameters(this, 1937141091);
-      }
-
-      goto LABEL_441;
-    }
-  }
-
-LABEL_442:
-  v170 = *MEMORY[0x277D85DE8];
-  return v5;
+  return v14;
 }

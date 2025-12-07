@@ -3,6 +3,8 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)pushPriorityAsString:(int)string;
+- (id)requestFlagAsString:(int)string;
 - (int)StringAsPushPriority:(id)priority;
 - (int)StringAsRequestFlag:(id)flag;
 - (int)pushPriority;
@@ -43,6 +45,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFB | v3;
+}
+
+- (id)requestFlagAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27843DF28[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsRequestFlag:(id)flag
@@ -97,6 +114,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)pushPriorityAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27843DF40[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsPushPriority:(id)priority
@@ -216,56 +248,53 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v8 = toCopy;
+  v5 = toCopy;
   if (self->_authCredential)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v8;
+    toCopy = v5;
   }
 
   if (self->_channelIdentity)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v8;
+    toCopy = v5;
   }
 
   if ((*&self->_has & 4) != 0)
   {
-    requestFlag = self->_requestFlag;
     PBDataWriterWriteInt32Field();
-    toCopy = v8;
+    toCopy = v5;
   }
 
   if (self->_uuid)
   {
     PBDataWriterWriteDataField();
-    toCopy = v8;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    clientTimestampSeconds = self->_clientTimestampSeconds;
     PBDataWriterWriteUint64Field();
-    toCopy = v8;
+    toCopy = v5;
   }
 
   if (self->_encryptedParticipantPayload)
   {
     PBDataWriterWriteDataField();
-    toCopy = v8;
+    toCopy = v5;
   }
 
   if (self->_adopter)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v5;
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    pushPriority = self->_pushPriority;
     PBDataWriterWriteInt32Field();
-    toCopy = v8;
+    toCopy = v5;
   }
 }
 
@@ -393,7 +422,6 @@
   }
 
   has = self->_has;
-  v8 = *(equalCopy + 64);
   if ((has & 4) != 0)
   {
     if ((*(equalCopy + 64) & 4) == 0 || self->_requestFlag != *(equalCopy + 13))
@@ -413,14 +441,13 @@
     if (![(NSData *)uuid isEqual:?])
     {
 LABEL_27:
-      v13 = 0;
+      v11 = 0;
       goto LABEL_28;
     }
 
     has = self->_has;
   }
 
-  v10 = *(equalCopy + 64);
   if (has)
   {
     if ((*(equalCopy + 64) & 1) == 0 || self->_clientTimestampSeconds != *(equalCopy + 1))
@@ -449,7 +476,7 @@ LABEL_27:
     }
   }
 
-  v13 = (*(equalCopy + 64) & 2) == 0;
+  v11 = (*(equalCopy + 64) & 2) == 0;
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 64) & 2) == 0 || self->_pushPriority != *(equalCopy + 12))
@@ -457,12 +484,12 @@ LABEL_27:
       goto LABEL_27;
     }
 
-    v13 = 1;
+    v11 = 1;
   }
 
 LABEL_28:
 
-  return v13;
+  return v11;
 }
 
 - (unint64_t)hash

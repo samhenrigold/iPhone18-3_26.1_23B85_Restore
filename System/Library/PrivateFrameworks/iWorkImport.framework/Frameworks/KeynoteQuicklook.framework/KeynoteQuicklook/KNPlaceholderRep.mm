@@ -8,23 +8,23 @@
 - (id)textureForDescription:(id)description
 {
   descriptionCopy = description;
-  v7 = objc_msgSend_layout(self, v5, v6);
-  v10 = objc_msgSend_info(v7, v8, v9);
-  v13 = objc_msgSend_textStorage(v10, v11, v12);
+  layout = [(TSDRep *)self layout];
+  info = [layout info];
+  textStorage = [info textStorage];
 
-  v16 = objc_msgSend_copy(descriptionCopy, v14, v15);
-  objc_msgSend_setShouldNotAddShapeAttributes_(v16, v17, 1);
-  if (!objc_msgSend_length(v13, v18, v19))
+  v8 = [descriptionCopy copy];
+  [v8 setShouldNotAddShapeAttributes:1];
+  if (![textStorage length])
   {
-    v22 = objc_msgSend_layout(self, v20, v21);
-    v25 = objc_msgSend_info(v22, v23, v24);
-    if (objc_msgSend_displaysInstructionalText(v25, v26, v27))
+    layout2 = [(TSDRep *)self layout];
+    info2 = [layout2 info];
+    if ([info2 displaysInstructionalText])
     {
-      v30 = objc_msgSend_canvas(self, v28, v29);
-      v33 = objc_msgSend_layout(self, v31, v32);
-      shouldShowInstructionalTextForLayout = objc_msgSend_shouldShowInstructionalTextForLayout_(v30, v34, v33);
+      canvas = [(TSDRep *)self canvas];
+      layout3 = [(TSDRep *)self layout];
+      v13 = [canvas shouldShowInstructionalTextForLayout:layout3];
 
-      if (shouldShowInstructionalTextForLayout)
+      if (v13)
       {
         goto LABEL_7;
       }
@@ -34,24 +34,24 @@
     {
     }
 
-    objc_msgSend_setShouldNotAddText_(v16, v36, 1);
+    [v8 setShouldNotAddText:1];
   }
 
 LABEL_7:
-  v39.receiver = self;
-  v39.super_class = KNPlaceholderRep;
-  v37 = [(TSWPShapeRep *)&v39 textureForDescription:v16];
+  v16.receiver = self;
+  v16.super_class = KNPlaceholderRep;
+  v14 = [(TSWPShapeRep *)&v16 textureForDescription:v8];
 
-  return v37;
+  return v14;
 }
 
 + (id)mixableObjectClasses
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = objc_opt_class();
-  v3 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v2, v5, 1);
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = objc_opt_class();
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
 
-  return v3;
+  return v2;
 }
 
 @end

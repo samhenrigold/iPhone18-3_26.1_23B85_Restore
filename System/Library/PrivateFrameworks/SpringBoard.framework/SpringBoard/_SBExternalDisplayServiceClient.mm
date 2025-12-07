@@ -45,8 +45,8 @@ LABEL_3:
 
 - (int)pid
 {
-  auditToken = [(_SBExternalDisplayServiceClient *)self auditToken];
-  v3 = [auditToken pid];
+  v2 = objc_msgSend_auditToken(self, a2);
+  v3 = [v2 pid];
 
   return v3;
 }

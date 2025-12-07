@@ -8,6 +8,7 @@
 - (BOOL)ghostbustByMidEnabled;
 - (BOOL)ghostbustBySerialEnabled;
 - (BOOL)isFullPeer;
+- (BOOL)persistSendingMetricsPermitted:(id)permitted sendingMetricsPermitted:(BOOL)metricsPermitted error:(id *)error;
 - (BOOL)waitForReady:(id)ready wait:(int64_t)wait;
 - (NSXPCProxyCreating)cuttlefishXPCConnection;
 - (OTManager)init;
@@ -15,7 +16,9 @@
 - (OTManager)initWithSOSAdapter:(id)adapter lockStateTracker:(id)tracker personaAdapter:(id)personaAdapter cloudKitClassDependencies:(id)dependencies;
 - (id)cdpContextTypes;
 - (id)ckksAccountSyncForContainer:(id)container contextID:(id)d possibleAccount:(id)account;
+- (id)ckksForClientRPC:(id)c createIfMissing:(BOOL)missing allowNonPrimaryAccounts:(BOOL)accounts error:(id *)error;
 - (id)contextForClientRPC:(id)c createIfMissing:(BOOL)missing allowNonPrimaryAccounts:(BOOL)accounts error:(id *)error;
+- (id)contextForClientRPC:(id)c createIfMissing:(BOOL)missing error:(id *)error;
 - (id)contextForClientRPCWithActiveAccount:(id)account createIfMissing:(BOOL)missing allowNonPrimaryAccounts:(BOOL)accounts error:(id *)error;
 - (id)contextForContainerName:(id)name contextID:(id)d possibleAccount:(id)account;
 - (id)contextForContainerName:(id)name contextID:(id)d possibleAccount:(id)account createIfMissing:(BOOL)missing sosAdapter:(id)adapter accountsAdapter:(id)accountsAdapter authKitAdapter:(id)kitAdapter tooManyPeersAdapter:(id)self0 tapToRadarAdapter:(id)self1 lockStateTracker:(id)self2 deviceInformationAdapter:(id)self3;
@@ -30,14 +33,17 @@
 - (void)checkCustodianRecoveryKey:(id)key uuid:(id)uuid reply:(id)reply;
 - (void)checkInheritanceKey:(id)key uuid:(id)uuid reply:(id)reply;
 - (void)clearAllContexts;
+- (void)clearCliqueFromAccount:(id)account resetReason:(int64_t)reason isGuitarfish:(BOOL)guitarfish reply:(id)reply;
 - (void)createCustodianRecoveryKey:(id)key uuid:(id)uuid reply:(id)reply;
 - (void)createInheritanceKey:(id)key uuid:(id)uuid claimTokenData:(id)data wrappingKeyData:(id)keyData reply:(id)reply;
 - (void)createInheritanceKey:(id)key uuid:(id)uuid reply:(id)reply;
 - (void)createRecoveryKey:(id)key recoveryKey:(id)recoveryKey reply:(id)reply;
 - (void)dealloc;
 - (void)ensureRampsInitialized;
+- (void)escrowCheck:(id)check isBackgroundCheck:(BOOL)backgroundCheck reply:(id)reply;
 - (void)establish:(id)establish reply:(id)reply;
 - (void)fetchAccountSettings:(id)settings reply:(id)reply;
+- (void)fetchAccountWideSettingsWithForceFetch:(BOOL)fetch arguments:(id)arguments reply:(id)reply;
 - (void)fetchAllViableBottles:(id)bottles source:(int64_t)source reply:(id)reply;
 - (void)fetchCliqueStatus:(id)status configuration:(id)configuration reply:(id)reply;
 - (void)fetchEgoPeerID:(id)d reply:(id)reply;
@@ -49,6 +55,7 @@
 - (void)generateInheritanceKey:(id)key uuid:(id)uuid reply:(id)reply;
 - (void)getAccountMetadata:(id)metadata reply:(id)reply;
 - (void)getCDPStatus:(id)status reply:(id)reply;
+- (void)healthCheck:(id)check skipRateLimitingCheck:(BOOL)limitingCheck repair:(BOOL)repair danglingPeerCleanup:(BOOL)cleanup caesarPeerCleanup:(BOOL)peerCleanup updateIdMS:(BOOL)s reply:(id)reply;
 - (void)icscRepairReset:(id)reset reply:(id)reply;
 - (void)initializeOctagon;
 - (void)invalidateEscrowCache:(id)cache reply:(id)reply;
@@ -60,6 +67,7 @@
 - (void)moveToCheckTrustedStateForArguments:(id)arguments;
 - (void)notifyIDMSTrustLevelChangeForAltDSID:(id)d reply:(id)reply;
 - (void)peerDeviceNamesByPeerID:(id)d reply:(id)reply;
+- (void)performCKServerUnreadableDataRemoval:(id)removal isGuitarfish:(BOOL)guitarfish accountIsW:(BOOL)w altDSID:(id)d reply:(id)reply;
 - (void)postCDPFollowupResult:(id)result success:(BOOL)success type:(id)type error:(id)error reply:(id)reply;
 - (void)preflightJoinWithCustodianRecoveryKey:(id)key custodianRecoveryKey:(id)recoveryKey reply:(id)reply;
 - (void)preflightJoinWithInheritanceKey:(id)key inheritanceKey:(id)inheritanceKey reply:(id)reply;
@@ -76,6 +84,7 @@
 - (void)removeLocalSecureElementIdentityPeerID:(id)d secureElementIdentityPeerID:(id)iD reply:(id)reply;
 - (void)removeRecoveryKey:(id)key reply:(id)reply;
 - (void)reroll:(id)reroll reply:(id)reply;
+- (void)resetAccountCDPContents:(id)contents idmsTargetContext:(id)context idmsCuttlefishPassword:(id)password notifyIdMS:(BOOL)s reply:(id)reply;
 - (void)resetAndEstablish:(id)establish resetReason:(int64_t)reason idmsTargetContext:(id)context idmsCuttlefishPassword:(id)password notifyIdMS:(BOOL)s accountSettings:(id)settings isGuitarfish:(BOOL)guitarfish accountIsW:(BOOL)self0 reply:(id)self1;
 - (void)resetAndEstablish:(id)establish resetReason:(int64_t)reason isGuitarfish:(BOOL)guitarfish accountIsW:(BOOL)w reply:(id)reply;
 - (void)restoreFromBottle:(id)bottle entropy:(id)entropy bottleID:(id)d reply:(id)reply;
@@ -88,6 +97,7 @@
 - (void)setLocalSecureElementIdentity:(id)identity secureElementIdentity:(id)elementIdentity reply:(id)reply;
 - (void)setMachineIDOverride:(id)override machineID:(id)d reply:(id)reply;
 - (void)setPasscodeStashAvailableForArguments:(id)arguments aksEventContext:(id)context;
+- (void)setUserControllableViewsSyncStatus:(id)status enabled:(BOOL)enabled reply:(id)reply;
 - (void)setupAnalytics;
 - (void)simulateReceivePush:(id)push reply:(id)reply;
 - (void)simulateReceiveTDLChangePush:(id)push reply:(id)reply;
@@ -452,6 +462,53 @@
   }
 }
 
+- (void)fetchAccountWideSettingsWithForceFetch:(BOOL)fetch arguments:(id)arguments reply:(id)reply
+{
+  fetchCopy = fetch;
+  argumentsCopy = arguments;
+  v19 = 0;
+  replyCopy = reply;
+  v10 = [(OTManager *)self contextForClientRPC:argumentsCopy error:&v19];
+  v11 = v19;
+  v12 = v11;
+  if (!v10 || v11)
+  {
+    v18 = sub_100006274("octagon");
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412546;
+      v21 = argumentsCopy;
+      v22 = 2112;
+      v23 = v12;
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Rejecting a fetchAccountWideSettings RPC for arguments (%@): %@", buf, 0x16u);
+    }
+
+    replyCopy[2](replyCopy, 0, v12);
+  }
+
+  else
+  {
+    v13 = [OTMetricsSessionData alloc];
+    flowID = [argumentsCopy flowID];
+    deviceSessionID = [argumentsCopy deviceSessionID];
+    v16 = [(OTMetricsSessionData *)v13 initWithFlowID:flowID deviceSessionID:deviceSessionID];
+    [v10 setSessionMetrics:v16];
+
+    if ([argumentsCopy canSendMetrics])
+    {
+      v17 = 1;
+    }
+
+    else
+    {
+      v17 = 2;
+    }
+
+    [v10 setShouldSendMetricsForOctagon:v17];
+    [v10 rpcAccountWideSettingsWithForceFetch:fetchCopy reply:replyCopy];
+  }
+}
+
 - (void)fetchAccountSettings:(id)settings reply:(id)reply
 {
   settingsCopy = settings;
@@ -600,6 +657,43 @@
   }
 }
 
+- (void)resetAccountCDPContents:(id)contents idmsTargetContext:(id)context idmsCuttlefishPassword:(id)password notifyIdMS:(BOOL)s reply:(id)reply
+{
+  sCopy = s;
+  contentsCopy = contents;
+  contextCopy = context;
+  passwordCopy = password;
+  replyCopy = reply;
+  v22 = 0;
+  v16 = [(OTManager *)self contextForClientRPC:contentsCopy error:&v22];
+  v17 = v22;
+  v18 = v17;
+  if (!v16 || v17)
+  {
+    v19 = sub_100006274("octagon");
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412546;
+      v24 = contentsCopy;
+      v25 = 2112;
+      v26 = v18;
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Rejecting a resetAccountCDPContents RPC for arguments (%@): %@", buf, 0x16u);
+    }
+
+    replyCopy[2](replyCopy, v18);
+  }
+
+  else
+  {
+    v20[0] = _NSConcreteStackBlock;
+    v20[1] = 3221225472;
+    v20[2] = sub_1000B1ED4;
+    v20[3] = &unk_100337928;
+    v21 = replyCopy;
+    [v16 rpcResetAccountCDPContentsWithIdmsTargetContext:contextCopy idmsCuttlefishPassword:passwordCopy notifyIdMS:sCopy reply:v20];
+  }
+}
+
 - (void)fetchUserControllableViewsSyncStatus:(id)status reply:(id)reply
 {
   statusCopy = status;
@@ -631,6 +725,41 @@
     v12[3] = &unk_100337BD8;
     v13 = replyCopy;
     [v8 rpcFetchUserControllableViewsSyncingStatus:v12];
+  }
+}
+
+- (void)setUserControllableViewsSyncStatus:(id)status enabled:(BOOL)enabled reply:(id)reply
+{
+  enabledCopy = enabled;
+  statusCopy = status;
+  replyCopy = reply;
+  v16 = 0;
+  v10 = [(OTManager *)self contextForClientRPC:statusCopy error:&v16];
+  v11 = v16;
+  v12 = v11;
+  if (!v10 || v11)
+  {
+    v13 = sub_100006274("octagon");
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412546;
+      v18 = statusCopy;
+      v19 = 2112;
+      v20 = v12;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Rejecting a setUserControllableViewsSyncStatus RPC for arguments (%@): %@", buf, 0x16u);
+    }
+
+    replyCopy[2](replyCopy, 0, v12);
+  }
+
+  else
+  {
+    v14[0] = _NSConcreteStackBlock;
+    v14[1] = 3221225472;
+    v14[2] = sub_1000B24AC;
+    v14[3] = &unk_100337BD8;
+    v15 = replyCopy;
+    [v10 rpcSetUserControllableViewsSyncingStatus:enabledCopy reply:v14];
   }
 }
 
@@ -1187,6 +1316,138 @@ LABEL_15:
   }
 
   (replyCopy)[2](replyCopy, v12);
+}
+
+- (void)escrowCheck:(id)check isBackgroundCheck:(BOOL)backgroundCheck reply:(id)reply
+{
+  backgroundCheckCopy = backgroundCheck;
+  checkCopy = check;
+  v20 = 0;
+  replyCopy = reply;
+  v10 = [(OTManager *)self contextForClientRPC:checkCopy error:&v20];
+  v11 = v20;
+  v12 = v11;
+  if (!v10 || v11)
+  {
+    v16 = sub_100006274("octagon");
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412546;
+      v22 = checkCopy;
+      v23 = 2112;
+      v24 = v12;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Rejecting a escrowCheck RPC for arguments (%@): %@", buf, 0x16u);
+    }
+
+    replyCopy[2](replyCopy, 0, v12);
+  }
+
+  else
+  {
+    flowID = [checkCopy flowID];
+
+    if (flowID)
+    {
+      flowID = [checkCopy flowID];
+    }
+
+    deviceSessionID = [checkCopy deviceSessionID];
+
+    if (deviceSessionID)
+    {
+      deviceSessionID2 = [checkCopy deviceSessionID];
+    }
+
+    else
+    {
+      altDSID = [checkCopy altDSID];
+      v18 = [AAFAnalyticsEventSecurity fetchDeviceSessionIDFromAuthKit:altDSID];
+
+      deviceSessionID2 = 0;
+    }
+
+    v19 = [[OTMetricsSessionData alloc] initWithFlowID:flowID deviceSessionID:deviceSessionID2];
+    [v10 setSessionMetrics:v19];
+
+    [v10 checkEscrowCheck:backgroundCheckCopy reply:replyCopy];
+    replyCopy = flowID;
+  }
+}
+
+- (void)healthCheck:(id)check skipRateLimitingCheck:(BOOL)limitingCheck repair:(BOOL)repair danglingPeerCleanup:(BOOL)cleanup caesarPeerCleanup:(BOOL)peerCleanup updateIdMS:(BOOL)s reply:(id)reply
+{
+  sCopy = s;
+  peerCleanupCopy = peerCleanup;
+  cleanupCopy = cleanup;
+  repairCopy = repair;
+  limitingCheckCopy = limitingCheck;
+  checkCopy = check;
+  v31 = 0;
+  replyCopy = reply;
+  v17 = [(OTManager *)self contextForClientRPC:checkCopy error:&v31];
+  v18 = v31;
+  v19 = v18;
+  if (!v17 || v18)
+  {
+    v22 = sub_100006274("octagon");
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412546;
+      v33 = checkCopy;
+      v34 = 2112;
+      v35 = v19;
+      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Rejecting a healthCheck RPC for arguments (%@): %@", buf, 0x16u);
+    }
+
+    replyCopy[2](replyCopy, 0, v19);
+  }
+
+  else
+  {
+    HIDWORD(v29) = sCopy;
+    flowID = [checkCopy flowID];
+
+    if (flowID)
+    {
+      flowID2 = [checkCopy flowID];
+    }
+
+    else
+    {
+      flowID2 = 0;
+    }
+
+    LODWORD(v29) = peerCleanupCopy;
+    deviceSessionID = [checkCopy deviceSessionID];
+
+    if (deviceSessionID)
+    {
+      deviceSessionID2 = [checkCopy deviceSessionID];
+    }
+
+    else
+    {
+      altDSID = [checkCopy altDSID];
+      v26 = [AAFAnalyticsEventSecurity fetchDeviceSessionIDFromAuthKit:altDSID];
+
+      deviceSessionID2 = 0;
+    }
+
+    v27 = [[OTMetricsSessionData alloc] initWithFlowID:flowID2 deviceSessionID:deviceSessionID2];
+    [v17 setSessionMetrics:v27];
+
+    v28 = sub_100006274("octagon");
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "notifying container of change", buf, 2u);
+    }
+
+    [v17 notifyContainerChange:0];
+    [v17 checkOctagonHealth:limitingCheckCopy repair:repairCopy danglingPeerCleanup:cleanupCopy caesarPeerCleanup:v30 updateIdMS:HIDWORD(v30) reply:replyCopy];
+
+    replyCopy = flowID2;
+  }
 }
 
 - (void)xpc24HrNotification
@@ -2337,6 +2598,47 @@ LABEL_15:
   objc_destroyWeak(&location);
 }
 
+- (BOOL)persistSendingMetricsPermitted:(id)permitted sendingMetricsPermitted:(BOOL)metricsPermitted error:(id *)error
+{
+  metricsPermittedCopy = metricsPermitted;
+  permittedCopy = permitted;
+  v16 = 0;
+  v9 = [(OTManager *)self contextForClientRPC:permittedCopy error:&v16];
+  v10 = v16;
+  v11 = v10;
+  if (!v9 || v10)
+  {
+    v13 = sub_100006274("octagon");
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412546;
+      v18 = permittedCopy;
+      v19 = 2112;
+      v20 = v11;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Rejecting a fetchSendingMetricsPermitted for arguments (%@): %@", buf, 0x16u);
+    }
+
+    if (error)
+    {
+      v14 = v11;
+      v12 = 0;
+      *error = v11;
+    }
+
+    else
+    {
+      v12 = 0;
+    }
+  }
+
+  else
+  {
+    v12 = [v9 persistSendingMetricsPermitted:metricsPermittedCopy error:error];
+  }
+
+  return v12;
+}
+
 - (BOOL)fetchSendingMetricsPermitted:(id)permitted error:(id *)error
 {
   permittedCopy = permitted;
@@ -2489,7 +2791,7 @@ LABEL_15:
       goto LABEL_30;
     }
 
-    if (!sub_1000BAF48())
+    if (!sub_1000BAF48(0))
     {
       goto LABEL_21;
     }
@@ -3155,6 +3457,109 @@ LABEL_31:
   }
 }
 
+- (void)performCKServerUnreadableDataRemoval:(id)removal isGuitarfish:(BOOL)guitarfish accountIsW:(BOOL)w altDSID:(id)d reply:(id)reply
+{
+  wCopy = w;
+  guitarfishCopy = guitarfish;
+  removalCopy = removal;
+  dCopy = d;
+  replyCopy = reply;
+  v26 = 0;
+  v15 = [(OTManager *)self contextForClientRPC:removalCopy error:&v26];
+  v16 = v26;
+  v17 = v16;
+  if (!v15 || v16)
+  {
+    v23 = sub_100006274("octagon");
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412546;
+      v28 = removalCopy;
+      v29 = 2112;
+      v30 = v17;
+      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Rejecting a performCKServerUnreadableDataRemoval RPC for arguments (%@): %@", buf, 0x16u);
+    }
+
+    replyCopy[2](replyCopy, v17);
+  }
+
+  else
+  {
+    v18 = [OTMetricsSessionData alloc];
+    flowID = [removalCopy flowID];
+    deviceSessionID = [removalCopy deviceSessionID];
+    v21 = [(OTMetricsSessionData *)v18 initWithFlowID:flowID deviceSessionID:deviceSessionID];
+    [v15 setSessionMetrics:v21];
+
+    if ([removalCopy canSendMetrics])
+    {
+      v22 = 1;
+    }
+
+    else
+    {
+      v22 = 2;
+    }
+
+    [v15 setShouldSendMetricsForOctagon:v22];
+    [v15 startOctagonStateMachine];
+    v24[0] = _NSConcreteStackBlock;
+    v24[1] = 3221225472;
+    v24[2] = sub_1000BD610;
+    v24[3] = &unk_100337928;
+    v25 = replyCopy;
+    [v15 performCKServerUnreadableDataRemoval:guitarfishCopy accountIsW:wCopy altDSID:dCopy reply:v24];
+  }
+}
+
+- (void)clearCliqueFromAccount:(id)account resetReason:(int64_t)reason isGuitarfish:(BOOL)guitarfish reply:(id)reply
+{
+  guitarfishCopy = guitarfish;
+  accountCopy = account;
+  v21 = 0;
+  replyCopy = reply;
+  v12 = [(OTManager *)self contextForClientRPC:accountCopy error:&v21];
+  v13 = v21;
+  v14 = v13;
+  if (!v12 || v13)
+  {
+    v20 = sub_100006274("octagon");
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412546;
+      v23 = accountCopy;
+      v24 = 2112;
+      v25 = v14;
+      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Rejecting a resetAndEstablish RPC for arguments (%@): %@", buf, 0x16u);
+    }
+
+    replyCopy[2](replyCopy, v14);
+  }
+
+  else
+  {
+    v15 = [OTMetricsSessionData alloc];
+    flowID = [accountCopy flowID];
+    deviceSessionID = [accountCopy deviceSessionID];
+    v18 = [(OTMetricsSessionData *)v15 initWithFlowID:flowID deviceSessionID:deviceSessionID];
+    [v12 setSessionMetrics:v18];
+
+    if ([accountCopy canSendMetrics])
+    {
+      v19 = 1;
+    }
+
+    else
+    {
+      v19 = 2;
+    }
+
+    [v12 setShouldSendMetricsForOctagon:v19];
+    [v12 startOctagonStateMachine];
+    [v12 rpcReset:reason isGuitarfish:guitarfishCopy reply:replyCopy];
+  }
+}
+
 - (void)resetAndEstablish:(id)establish resetReason:(int64_t)reason idmsTargetContext:(id)context idmsCuttlefishPassword:(id)password notifyIdMS:(BOOL)s accountSettings:(id)settings isGuitarfish:(BOOL)guitarfish accountIsW:(BOOL)self0 reply:(id)self1
 {
   sCopy = s;
@@ -3446,6 +3851,80 @@ LABEL_31:
   }
 }
 
+- (id)ckksForClientRPC:(id)c createIfMissing:(BOOL)missing allowNonPrimaryAccounts:(BOOL)accounts error:(id *)error
+{
+  accountsCopy = accounts;
+  missingCopy = missing;
+  cCopy = c;
+  personaAdapter = [(OTManager *)self personaAdapter];
+  currentThreadPersonaUniqueString = [personaAdapter currentThreadPersonaUniqueString];
+
+  v13 = sub_100006274("ckkspersona");
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+  {
+    v22 = 138412290;
+    v23 = currentThreadPersonaUniqueString;
+    _os_log_debug_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEBUG, "ckksForClientRPC: thread persona is %@", &v22, 0xCu);
+  }
+
+  v14 = [(OTManager *)self contextForClientRPC:cCopy createIfMissing:missingCopy allowNonPrimaryAccounts:accountsCopy error:error];
+
+  if (v14)
+  {
+    ckks = [v14 ckks];
+
+    if (ckks)
+    {
+      ckks2 = [v14 ckks];
+      goto LABEL_17;
+    }
+
+    if (error)
+    {
+      v17 = @"ckks does not exist";
+      v18 = 61;
+      goto LABEL_10;
+    }
+
+    v19 = sub_100006274("ckkspersona");
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    {
+      v22 = 138412290;
+      v23 = currentThreadPersonaUniqueString;
+      v20 = "ckksForClientRPC: no CKKSKeychainView found for persona %@";
+      goto LABEL_15;
+    }
+  }
+
+  else
+  {
+    if (error)
+    {
+      v17 = @"Context does not exist";
+      v18 = 31;
+LABEL_10:
+      [NSError errorWithDomain:@"com.apple.security.octagon" code:v18 description:v17];
+      *error = ckks2 = 0;
+      goto LABEL_17;
+    }
+
+    v19 = sub_100006274("ckkspersona");
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    {
+      v22 = 138412290;
+      v23 = currentThreadPersonaUniqueString;
+      v20 = "ckksForClientRPC: no OTCuttlefishContext found for persona %@";
+LABEL_15:
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, v20, &v22, 0xCu);
+    }
+  }
+
+  ckks2 = 0;
+LABEL_17:
+
+  return ckks2;
+}
+
 - (id)contextForClientRPC:(id)c createIfMissing:(BOOL)missing allowNonPrimaryAccounts:(BOOL)accounts error:(id *)error
 {
   accountsCopy = accounts;
@@ -3667,6 +4146,61 @@ LABEL_35:
   }
 
   return v18;
+}
+
+- (id)contextForClientRPC:(id)c createIfMissing:(BOOL)missing error:(id *)error
+{
+  missingCopy = missing;
+  cCopy = c;
+  personaAdapter = [(OTManager *)self personaAdapter];
+  currentThreadIsForPrimaryiCloudAccount = [personaAdapter currentThreadIsForPrimaryiCloudAccount];
+
+  if (qword_10039E108 != -1)
+  {
+    dispatch_once(&qword_10039E108, &stru_1003420B8);
+  }
+
+  v11 = byte_10039E100;
+  if (byte_10039E100 == 1)
+  {
+    v12 = sub_100006274("SecWarning");
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "octagon-account: Supporting non-primary accounts on possibly-unsupported platform", buf, 2u);
+    }
+
+    goto LABEL_8;
+  }
+
+  if (currentThreadIsForPrimaryiCloudAccount)
+  {
+LABEL_8:
+    v13 = [(OTManager *)self contextForClientRPC:cCopy createIfMissing:missingCopy allowNonPrimaryAccounts:v11 error:error];
+    goto LABEL_9;
+  }
+
+  v15 = sub_100006274("octagon");
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  {
+    *v16 = 0;
+    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Rejecting client RPC for non-primary persona", v16, 2u);
+  }
+
+  if (error)
+  {
+    [NSError errorWithDomain:@"com.apple.security.octagon" code:29 description:@"Octagon APIs do not support non-primary users"];
+    *error = v13 = 0;
+  }
+
+  else
+  {
+    v13 = 0;
+  }
+
+LABEL_9:
+
+  return v13;
 }
 
 - (id)contextForContainerName:(id)name contextID:(id)d possibleAccount:(id)account

@@ -10,7 +10,7 @@
 
 - (id)allDeclarationKeysForScope:(int64_t)scope error:(id *)error
 {
-  v4 = sub_100000F14();
+  v4 = sub_100000F14(self, a2);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     *v11 = 0;
@@ -39,43 +39,43 @@
 {
   keysCopy = keys;
   configurationCopy = configuration;
-  v11 = sub_100000F14();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+  v12 = sub_100000F14(configurationCopy, v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
-    *v22 = 0;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "Applying extensions configuration", v22, 2u);
+    *v23 = 0;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "Applying extensions configuration", v23, 2u);
   }
 
-  v12 = [configurationCopy serializeWithType:0];
+  v13 = [configurationCopy serializeWithType:0];
 
-  v13 = &__NSDictionary0__struct;
-  if (v12)
+  v14 = &__NSDictionary0__struct;
+  if (v13)
   {
-    v13 = v12;
+    v14 = v13;
   }
 
-  v14 = v13;
+  v15 = v14;
 
-  v15 = +[NSMutableDictionary dictionary];
-  [v15 setObject:v14 forKeyedSubscript:WBSManagedExtensionSettingsKey];
+  v16 = +[NSMutableDictionary dictionary];
+  [v16 setObject:v15 forKeyedSubscript:WBSManagedExtensionSettingsKey];
 
   allObjects = [keysCopy allObjects];
 
-  v17 = [allObjects safari_mapAndFilterObjectsUsingBlock:&stru_1000082E0];
-  [v15 setObject:v17 forKeyedSubscript:WBSManagedExtensionsDeclarationKeysKey];
+  v18 = [allObjects safari_mapAndFilterObjectsUsingBlock:&stru_1000082E0];
+  [v16 setObject:v18 forKeyedSubscript:WBSManagedExtensionsDeclarationKeysKey];
 
-  v18 = +[WBSManagedExtensionsController managedExtensionsConfigurationURL];
-  v19 = [v15 writeToURL:v18 error:error];
+  v19 = +[WBSManagedExtensionsController managedExtensionsConfigurationURL];
+  v20 = [v16 writeToURL:v19 error:error];
 
-  v20 = +[NSDistributedNotificationCenter defaultCenter];
-  [v20 postNotificationName:WBSManagedExtensionsConfigurationDidChangeNotification object:0 userInfo:0 deliverImmediately:1];
+  v21 = +[NSDistributedNotificationCenter defaultCenter];
+  [v21 postNotificationName:WBSManagedExtensionsConfigurationDidChangeNotification object:0 userInfo:0 deliverImmediately:1];
 
-  return v19;
+  return v20;
 }
 
 - (BOOL)removeCombinedConfigurationForScope:(int64_t)scope error:(id *)error
 {
-  v5 = sub_100000F14();
+  v5 = sub_100000F14(self, a2);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -89,26 +89,26 @@
 
   if (v9)
   {
-    v10 = +[NSFileManager defaultManager];
-    v11 = +[WBSManagedExtensionsController managedExtensionsConfigurationURL];
-    v12 = [v10 removeItemAtURL:v11 error:error];
+    v12 = +[NSFileManager defaultManager];
+    v13 = +[WBSManagedExtensionsController managedExtensionsConfigurationURL];
+    v14 = [v12 removeItemAtURL:v13 error:error];
 
-    v13 = +[NSDistributedNotificationCenter defaultCenter];
-    [v13 postNotificationName:WBSManagedExtensionsConfigurationDidChangeNotification object:0 userInfo:0 deliverImmediately:1];
+    v15 = +[NSDistributedNotificationCenter defaultCenter];
+    [v15 postNotificationName:WBSManagedExtensionsConfigurationDidChangeNotification object:0 userInfo:0 deliverImmediately:1];
   }
 
   else
   {
-    v14 = sub_100000F14();
-    v12 = 1;
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+    v16 = sub_100000F14(v10, v11);
+    v14 = 1;
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
-      *v16 = 0;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "Configuration doesn't exist, removal succeeded", v16, 2u);
+      *v18 = 0;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "Configuration doesn't exist, removal succeeded", v18, 2u);
     }
   }
 
-  return v12;
+  return v14;
 }
 
 - (id)declarationKeyForConfiguration:(id)configuration
@@ -122,80 +122,80 @@
 {
   handlerCopy = handler;
   declaration = [configuration declaration];
-  v8 = sub_100000F14();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  v9 = sub_100000F14(declaration, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
-    v9 = v8;
+    v10 = v9;
     declarationIdentifier = [declaration declarationIdentifier];
     *buf = 138543362;
-    v46 = declarationIdentifier;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "Getting extensions configuration UI for: %{public}@", buf, 0xCu);
+    v47 = declarationIdentifier;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "Getting extensions configuration UI for: %{public}@", buf, 0xCu);
   }
 
   +[NSMutableArray array];
-  v37 = v36 = declaration;
+  v38 = v37 = declaration;
   payloadManagedExtensions = [declaration payloadManagedExtensions];
   payloadDictionary = [payloadManagedExtensions payloadDictionary];
 
-  v40 = 0u;
   v41 = 0u;
-  v38 = 0u;
+  v42 = 0u;
   v39 = 0u;
-  v13 = payloadDictionary;
-  v14 = [v13 countByEnumeratingWithState:&v38 objects:v44 count:16];
-  v15 = v13;
-  if (!v14)
+  v40 = 0u;
+  v14 = payloadDictionary;
+  v15 = [v14 countByEnumeratingWithState:&v39 objects:v45 count:16];
+  v16 = v14;
+  if (!v15)
   {
     goto LABEL_19;
   }
 
-  v16 = v14;
-  v35 = handlerCopy;
-  v17 = 0;
-  v18 = *v39;
+  v17 = v15;
+  v36 = handlerCopy;
+  v18 = 0;
+  v19 = *v40;
   do
   {
-    for (i = 0; i != v16; i = i + 1)
+    for (i = 0; i != v17; i = i + 1)
     {
-      if (*v39 != v18)
+      if (*v40 != v19)
       {
-        objc_enumerationMutation(v13);
+        objc_enumerationMutation(v14);
       }
 
-      v20 = *(*(&v38 + 1) + 8 * i);
-      v21 = [v13 objectForKeyedSubscript:v20];
-      payloadState = [v21 payloadState];
-      v23 = sub_1000017FC(payloadState);
+      v21 = *(*(&v39 + 1) + 8 * i);
+      v22 = [v14 objectForKeyedSubscript:v21];
+      payloadState = [v22 payloadState];
+      v24 = sub_1000017FC(payloadState);
 
-      if (v23)
+      if (v24)
       {
-        if ([v20 isEqualToString:@"*"])
+        if ([v21 isEqualToString:@"*"])
         {
-          v17 = 1;
+          v18 = 1;
         }
 
         else
         {
-          v24 = [v20 componentsSeparatedByString:@" "];
-          firstObject = [v24 firstObject];
+          v25 = [v21 componentsSeparatedByString:@" "];
+          firstObject = [v25 firstObject];
 
-          v43[0] = firstObject;
-          v43[1] = v23;
-          v26 = [NSArray arrayWithObjects:v43 count:2];
-          [v37 addObject:v26];
+          v44[0] = firstObject;
+          v44[1] = v24;
+          v27 = [NSArray arrayWithObjects:v44 count:2];
+          [v38 addObject:v27];
         }
       }
     }
 
-    v16 = [v13 countByEnumeratingWithState:&v38 objects:v44 count:16];
+    v17 = [v14 countByEnumeratingWithState:&v39 objects:v45 count:16];
   }
 
-  while (v16);
+  while (v17);
 
-  handlerCopy = v35;
-  if (v17)
+  handlerCopy = v36;
+  if (v18)
   {
-    if ([v37 count])
+    if ([v38 count])
     {
       WBSManagedExtensionsConfigurationDisplayAllOtherExtensionsText();
     }
@@ -204,25 +204,25 @@
     {
       WBSManagedExtensionsConfigurationDisplayAllExtensionsText();
     }
-    v15 = ;
-    v27 = [v13 objectForKeyedSubscript:@"*"];
-    payloadState2 = [v27 payloadState];
-    v29 = sub_1000017FC(payloadState2);
+    v16 = ;
+    v28 = [v14 objectForKeyedSubscript:@"*"];
+    payloadState2 = [v28 payloadState];
+    v30 = sub_1000017FC(payloadState2);
 
-    v42[0] = v15;
-    v42[1] = v29;
-    v30 = [NSArray arrayWithObjects:v42 count:2];
-    [v37 addObject:v30];
+    v43[0] = v16;
+    v43[1] = v30;
+    v31 = [NSArray arrayWithObjects:v43 count:2];
+    [v38 addObject:v31];
 
 LABEL_19:
   }
 
-  v31 = WBSManagedExtensionsConfigurationDisplayTitle();
-  v32 = WBSManagedExtensionsConfigurationDisplayDescription();
-  v33 = [v37 copy];
-  v34 = [RMConfigurationUIDetails configurationUIWithTitle:v31 description:v32 details:v33];
+  v32 = WBSManagedExtensionsConfigurationDisplayTitle();
+  v33 = WBSManagedExtensionsConfigurationDisplayDescription();
+  v34 = [v38 copy];
+  v35 = [RMConfigurationUIDetails configurationUIWithTitle:v32 description:v33 details:v34];
 
-  handlerCopy[2](handlerCopy, 1, v34, 0);
+  handlerCopy[2](handlerCopy, 1, v35, 0);
 }
 
 @end

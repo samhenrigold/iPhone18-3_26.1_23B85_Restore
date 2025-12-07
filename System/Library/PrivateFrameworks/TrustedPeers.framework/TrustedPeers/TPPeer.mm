@@ -5,6 +5,7 @@
 - (NSString)peerID;
 - (TPPeer)initWithPermanentInfo:(id)info;
 - (TPPeer)initWithPermanentInfo:(id)info stableInfo:(id)stableInfo dynamicInfo:(id)dynamicInfo;
+- (TPPeer)initWithPermanentInfo:(id)info stableInfo:(id)stableInfo dynamicInfo:(id)dynamicInfo checkSig:(BOOL)sig error:(id *)error;
 - (TPPeer)peerWithUpdatedDynamicInfo:(id)info error:(id *)error;
 - (TPPeer)peerWithUpdatedStableInfo:(id)info error:(id *)error;
 - (id)calculateHmacWithHmacKey:(id)key;
@@ -16,25 +17,24 @@
 
 - (id)description
 {
-  v15[3] = *MEMORY[0x277D85DE8];
+  v14[3] = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
-  v14[0] = @"permanentInfo";
+  v13[0] = @"permanentInfo";
   permanentInfo = [(TPPeer *)self permanentInfo];
   dictionaryRepresentation = [permanentInfo dictionaryRepresentation];
-  v15[0] = dictionaryRepresentation;
-  v14[1] = @"stableInfo";
+  v14[0] = dictionaryRepresentation;
+  v13[1] = @"stableInfo";
   stableInfo = [(TPPeer *)self stableInfo];
   dictionaryRepresentation2 = [stableInfo dictionaryRepresentation];
-  v15[1] = dictionaryRepresentation2;
-  v14[2] = @"dynamicInfo";
+  v14[1] = dictionaryRepresentation2;
+  v13[2] = @"dynamicInfo";
   dynamicInfo = [(TPPeer *)self dynamicInfo];
   dictionaryRepresentation3 = [dynamicInfo dictionaryRepresentation];
-  v15[2] = dictionaryRepresentation3;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:3];
+  v14[2] = dictionaryRepresentation3;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:3];
   v11 = [v10 description];
 
   objc_autoreleasePoolPop(v3);
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -188,6 +188,71 @@ LABEL_13:
   v15 = [TPPeer calculateHmacWithHmacKey:keyCopy permanentInfoData:data permanentInfoSig:v6 stableInfoData:data2 stableInfoSig:v9 dynamicInfoData:data3 dynamicInfoSig:v13];
 
   return v15;
+}
+
+- (TPPeer)initWithPermanentInfo:(id)info stableInfo:(id)stableInfo dynamicInfo:(id)dynamicInfo checkSig:(BOOL)sig error:(id *)error
+{
+  sigCopy = sig;
+  infoCopy = info;
+  stableInfoCopy = stableInfo;
+  dynamicInfoCopy = dynamicInfo;
+  v15 = dynamicInfoCopy;
+  if (!sigCopy)
+  {
+    goto LABEL_10;
+  }
+
+  if (stableInfoCopy)
+  {
+    sigCopy = [infoCopy signingPubKey];
+    if (([stableInfoCopy checkSignatureWithKey:sigCopy] & 1) == 0)
+    {
+
+      goto LABEL_13;
+    }
+
+    if (!v15)
+    {
+
+LABEL_10:
+      self = [(TPPeer *)self initWithPermanentInfo:infoCopy stableInfo:stableInfoCopy dynamicInfo:v15];
+      selfCopy = self;
+      goto LABEL_11;
+    }
+  }
+
+  else if (!dynamicInfoCopy)
+  {
+    goto LABEL_10;
+  }
+
+  signingPubKey = [infoCopy signingPubKey];
+  v17 = [v15 checkSignatureWithKey:signingPubKey];
+
+  if (stableInfoCopy)
+  {
+  }
+
+  if (v17)
+  {
+    goto LABEL_10;
+  }
+
+LABEL_13:
+  if (error)
+  {
+    [MEMORY[0x277CCA9B8] errorWithDomain:TPResultErrorDomain code:1 userInfo:0];
+    *error = selfCopy = 0;
+  }
+
+  else
+  {
+    selfCopy = 0;
+  }
+
+LABEL_11:
+
+  return selfCopy;
 }
 
 - (id)copyWithZone:(_NSZone *)zone

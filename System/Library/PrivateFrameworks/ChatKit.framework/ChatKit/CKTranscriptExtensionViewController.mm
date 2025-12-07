@@ -14,7 +14,7 @@
 
 + (void)initialize
 {
-  if (CKIsRunningInMessagesTranscriptExtension())
+  if (CKIsRunningInMessagesTranscriptExtension(self))
   {
     if (initialize_token != -1)
     {

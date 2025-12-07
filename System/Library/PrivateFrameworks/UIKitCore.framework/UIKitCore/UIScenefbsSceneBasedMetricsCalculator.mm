@@ -27,11 +27,11 @@ uint64_t __75___UIScenefbsSceneBasedMetricsCalculator__updateMetricsOnWindows_an
     v11 = [v6 screen];
     WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 8));
     v13 = [WeakRetained screen];
-    v14 = [v11 isEqual:v13];
+    isEqual = objc_msgSend_isEqual_(v11);
 
     if (v9)
     {
-      v10 = v14 & v7 & (v8 ^ 1u);
+      v10 = isEqual & v7 & (v8 ^ 1u);
     }
 
     else

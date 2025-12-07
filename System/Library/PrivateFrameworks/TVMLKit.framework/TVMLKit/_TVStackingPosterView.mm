@@ -327,7 +327,7 @@ LABEL_39:
       [(TVCellMetrics *)selfCopy maxBoundsSize];
     }
 
-    self = [(TVCellMetrics *)selfCopy _cellMetricsForMaxSize:v8, v9];
+    self = objc_msgSend__cellMetricsForMaxSize_(selfCopy, v8, v9);
     *&v4->cellInsetAlt.bottom = v22;
     *&v4->cellMargin.top = v23;
     *&v4->cellMargin.bottom = v24;
@@ -431,7 +431,7 @@ LABEL_39:
 
 - (CGSize)sizeThatFits:(CGSize)fits
 {
-  [(_TVStackingPosterView *)self _cellMetricsForMaxSize:fits.width, fits.height];
+  objc_msgSend__cellMetricsForMaxSize_(self, a2, fits.width, fits.height);
   v3 = v5;
   v4 = v6;
   result.height = v4;
@@ -470,7 +470,7 @@ LABEL_39:
       v13 = v12;
       if (![(_TVStackingPosterView *)self configuresForCollectionViewCell])
       {
-        [(_TVStackingPosterView *)self cellMetrics:0];
+        objc_msgSend_cellMetrics(self, 0, 0);
         v7 = 0.0;
         v9 = 0.0;
         v11 = v11 - (0.0 + 0.0);
@@ -676,7 +676,7 @@ LABEL_27:
 
 - (UIEdgeInsets)tv_alignmentInsetsForExpectedWidth:(double)width
 {
-  [(_TVStackingPosterView *)self _cellMetricsForMaxSize:width, 0.0];
+  objc_msgSend__cellMetricsForMaxSize_(self, a2, width, 0.0);
   v3 = v7;
   v4 = v8;
   v5 = v9;
@@ -854,7 +854,7 @@ LABEL_27:
   v82 = 0u;
   v83 = 0u;
   v81 = 0u;
-  [(_TVStackingPosterView *)self cellMetrics];
+  objc_msgSend_cellMetrics(self);
   configuresForCollectionViewCell = [(_TVStackingPosterView *)self configuresForCollectionViewCell];
   v73 = *&v81;
   array = [MEMORY[0x277CBEB18] array];
@@ -1120,7 +1120,7 @@ LABEL_33:
   v58 = 0u;
   v59 = 0u;
   v57 = 0u;
-  [(_TVStackingPosterView *)self cellMetrics];
+  objc_msgSend_cellMetrics(self);
   v50 = *&v57;
   v8 = MEMORY[0x277CBEB18];
   visibleLabelWidths = [(_TVStackingPosterView *)self visibleLabelWidths];

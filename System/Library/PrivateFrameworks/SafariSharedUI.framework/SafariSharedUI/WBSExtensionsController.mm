@@ -1313,7 +1313,7 @@ id __112__WBSExtensionsController__validateAndLoadExtensionIfNecessary_attemptRe
 
 - (BOOL)_extensionShouldBeEnabled:(id)enabled
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   enabledCopy = enabled;
   if (!self->_extensionIdentifierToStateMap)
   {
@@ -1342,40 +1342,40 @@ id __112__WBSExtensionsController__validateAndLoadExtensionIfNecessary_attemptRe
   mEMORY[0x1E69C88C8] = [MEMORY[0x1E69C88C8] sharedController];
   v15 = [mEMORY[0x1E69C88C8] managedExtensionStateForComposedIdentifier:v13];
 
-  v16 = (v15 != 1) | v12;
+  v18 = (v15 != 1) | v12;
   if (!((v15 != 1) | v12 & 1))
   {
-    v19 = WBS_LOG_CHANNEL_PREFIXManagedExtensions();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+    v21 = WBS_LOG_CHANNEL_PREFIXManagedExtensions(v16, v17);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
     {
-      v21 = 138477827;
-      v22 = v13;
-      _os_log_impl(&dword_1C6968000, v19, OS_LOG_TYPE_INFO, "Enabling extension %{private}@ due to managed extension configuration", &v21, 0xCu);
+      v23 = 138477827;
+      v24 = v13;
+      _os_log_impl(&dword_1C6968000, v21, OS_LOG_TYPE_INFO, "Enabling extension %{private}@ due to managed extension configuration", &v23, 0xCu);
     }
 
-    v18 = [v8 mutableCopy];
-    [v18 setObject:MEMORY[0x1E695E118] forKeyedSubscript:v9];
-    [v18 setObject:MEMORY[0x1E695E118] forKeyedSubscript:*MEMORY[0x1E69C9638]];
-    [(WBSExtensionsController *)self _setExtensionState:v18 forExtension:enabledCopy];
+    v20 = [v8 mutableCopy];
+    [v20 setObject:MEMORY[0x1E695E118] forKeyedSubscript:v9];
+    [v20 setObject:MEMORY[0x1E695E118] forKeyedSubscript:*MEMORY[0x1E69C9638]];
+    [(WBSExtensionsController *)self _setExtensionState:v20 forExtension:enabledCopy];
     goto LABEL_14;
   }
 
   if (((v15 == 2) & v12) == 1)
   {
-    v17 = WBS_LOG_CHANNEL_PREFIXManagedExtensions();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+    v19 = WBS_LOG_CHANNEL_PREFIXManagedExtensions(v16, v17);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
     {
-      v21 = 138477827;
-      v22 = v13;
-      _os_log_impl(&dword_1C6968000, v17, OS_LOG_TYPE_INFO, "Disabling extension %{private}@ due to managed extension configuration", &v21, 0xCu);
+      v23 = 138477827;
+      v24 = v13;
+      _os_log_impl(&dword_1C6968000, v19, OS_LOG_TYPE_INFO, "Disabling extension %{private}@ due to managed extension configuration", &v23, 0xCu);
     }
 
-    v18 = [v8 mutableCopy];
-    [v18 setObject:MEMORY[0x1E695E110] forKeyedSubscript:v9];
-    [(WBSExtensionsController *)self _setExtensionState:v18 forExtension:enabledCopy];
+    v20 = [v8 mutableCopy];
+    [v20 setObject:MEMORY[0x1E695E110] forKeyedSubscript:v9];
+    [(WBSExtensionsController *)self _setExtensionState:v20 forExtension:enabledCopy];
 LABEL_14:
 
-    v12 = v16 ^ 1;
+    v12 = v18 ^ 1;
   }
 
   return v12 & 1;
@@ -2892,18 +2892,18 @@ id __62__WBSExtensionsController_cloudExtensionStateForStateManager___block_invo
   {
     v8 = [v6 mutableCopy];
     v9 = [v7 safari_containingAppAdamID];
-    if (v9 || ([v7 safari_containingAppIsTestFlightApp] & 1) != 0)
+    if (v9 || (v10 = [v7 safari_containingAppIsTestFlightApp], (v10 & 1) != 0))
     {
-      v10 = [v7 safari_correspondingMacOSExtensionBundleIdentifier];
-      if (v10)
+      v12 = [v7 safari_correspondingMacOSExtensionBundleIdentifier];
+      if (v12)
       {
-        [v8 setObject:v10 forKeyedSubscript:*MEMORY[0x1E69C9620]];
+        [v8 setObject:v12 forKeyedSubscript:*MEMORY[0x1E69C9620]];
       }
 
-      v11 = [v7 safari_correspondingMacOSContainingAppBundleIdentifier];
-      if (v11)
+      v13 = [v7 safari_correspondingMacOSContainingAppBundleIdentifier];
+      if (v13)
       {
-        [v8 setObject:v11 forKeyedSubscript:*MEMORY[0x1E69C9618]];
+        [v8 setObject:v13 forKeyedSubscript:*MEMORY[0x1E69C9618]];
       }
 
       if (v9)
@@ -2911,20 +2911,20 @@ id __62__WBSExtensionsController_cloudExtensionStateForStateManager___block_invo
         [v8 setObject:v9 forKeyedSubscript:*MEMORY[0x1E69C95A8]];
       }
 
-      v12 = [*(a1 + 32) extensionDataForExtension:v7];
-      v13 = [v12 displayName];
-      if (v13)
+      v14 = [*(a1 + 32) extensionDataForExtension:v7];
+      v15 = [v14 displayName];
+      if (v15)
       {
-        [v8 setObject:v13 forKeyedSubscript:*MEMORY[0x1E69C95E0]];
+        [v8 setObject:v15 forKeyedSubscript:*MEMORY[0x1E69C95E0]];
       }
     }
 
     else
     {
-      v15 = WBS_LOG_CHANNEL_PREFIXCloudExtensions();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v17 = WBS_LOG_CHANNEL_PREFIXCloudExtensions(v10, v11);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        __62__WBSExtensionsController_cloudExtensionStateForStateManager___block_invoke_cold_1(v5, v15);
+        __62__WBSExtensionsController_cloudExtensionStateForStateManager___block_invoke_cold_1(v5, v17);
       }
 
       v8 = 0;
@@ -2966,44 +2966,45 @@ uint64_t __62__WBSExtensionsController_hasExtensionWithComposedIdentifier___bloc
 - (void)setExtensionWithComposedIdentifier:(id)identifier isEnabledInCloud:(BOOL)cloud
 {
   cloudCopy = cloud;
-  v24 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   allDiscoveredExtensions = self->_allDiscoveredExtensions;
-  v14 = MEMORY[0x1E69E9820];
-  v15 = 3221225472;
-  v16 = __79__WBSExtensionsController_setExtensionWithComposedIdentifier_isEnabledInCloud___block_invoke;
-  v17 = &unk_1E8283FD0;
+  v16 = MEMORY[0x1E69E9820];
+  v17 = 3221225472;
+  v18 = __79__WBSExtensionsController_setExtensionWithComposedIdentifier_isEnabledInCloud___block_invoke;
+  v19 = &unk_1E8283FD0;
   selfCopy = self;
   v8 = identifierCopy;
-  v19 = v8;
-  v9 = [(NSArray *)allDiscoveredExtensions safari_firstObjectPassingTest:&v14];
-  if ([(WBSExtensionsController *)self extensionIsEnabled:v9, v14, v15, v16, v17, selfCopy]== cloudCopy)
+  v21 = v8;
+  v9 = [(NSArray *)allDiscoveredExtensions safari_firstObjectPassingTest:&v16];
+  selfCopy = [(WBSExtensionsController *)self extensionIsEnabled:v9, v16, v17, v18, v19, selfCopy];
+  if (selfCopy == cloudCopy)
   {
-    v13 = WBS_LOG_CHANNEL_PREFIXCloudExtensions();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    v15 = WBS_LOG_CHANNEL_PREFIXCloudExtensions(selfCopy, v11);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
       *buf = 138477827;
-      v21 = v8;
-      _os_log_impl(&dword_1C6968000, v13, OS_LOG_TYPE_INFO, "Skipping changing state of %{private}@ because it is current state", buf, 0xCu);
+      v23 = v8;
+      _os_log_impl(&dword_1C6968000, v15, OS_LOG_TYPE_INFO, "Skipping changing state of %{private}@ because it is current state", buf, 0xCu);
     }
   }
 
   else
   {
-    v10 = WBS_LOG_CHANNEL_PREFIXCloudExtensions();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    v12 = WBS_LOG_CHANNEL_PREFIXCloudExtensions(selfCopy, v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      v11 = @"OFF";
+      v13 = @"OFF";
       if (cloudCopy)
       {
-        v11 = @"ON";
+        v13 = @"ON";
       }
 
       *buf = 138478083;
-      v21 = v8;
-      v22 = 2113;
-      v23 = v11;
-      _os_log_impl(&dword_1C6968000, v10, OS_LOG_TYPE_INFO, "Setting extension %{private}@ to %{private}@ from cloud data", buf, 0x16u);
+      v23 = v8;
+      v24 = 2113;
+      v25 = v13;
+      _os_log_impl(&dword_1C6968000, v12, OS_LOG_TYPE_INFO, "Setting extension %{private}@ to %{private}@ from cloud data", buf, 0x16u);
     }
 
     [(WBSExtensionsController *)self setExtension:v9 isEnabled:cloudCopy dueToUserGesture:0 skipSavingToStorage:0];
@@ -3158,50 +3159,52 @@ uint64_t __48__WBSExtensionsController_extensionsWithAdamID___block_invoke(uint6
 
 - (void)_managedExtensionStateDidChange
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   enabledExtensions = self->_enabledExtensions;
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __58__WBSExtensionsController__managedExtensionStateDidChange__block_invoke;
-  v17[3] = &unk_1E8283FF8;
-  v17[4] = self;
-  [(NSMutableSet *)enabledExtensions safari_mapAndFilterObjectsUsingBlock:v17];
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __58__WBSExtensionsController__managedExtensionStateDidChange__block_invoke;
+  v19[3] = &unk_1E8283FF8;
+  v19[4] = self;
+  [(NSMutableSet *)enabledExtensions safari_mapAndFilterObjectsUsingBlock:v19];
+  v17 = 0u;
+  v18 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
-  v4 = v14 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v13 objects:v20 count:16];
+  v4 = v16 = 0u;
+  v5 = [v4 countByEnumeratingWithState:&v15 objects:v22 count:16];
+  v8 = v5;
   if (v5)
   {
-    v7 = *v14;
-    *&v6 = 138477827;
-    v12 = v6;
+    v9 = *v16;
+    *&v7 = 138477827;
+    v14 = v7;
     do
     {
-      v8 = 0;
+      v10 = 0;
       do
       {
-        if (*v14 != v7)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * v8);
-        v10 = WBS_LOG_CHANNEL_PREFIXManagedExtensions();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+        v11 = *(*(&v15 + 1) + 8 * v10);
+        v12 = WBS_LOG_CHANNEL_PREFIXManagedExtensions(v5, v6);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
         {
-          v11 = [(WBSExtensionsController *)self composedIdentifierForExtensionStateForExtension:v9];
-          *buf = v12;
-          v19 = v11;
-          _os_log_impl(&dword_1C6968000, v10, OS_LOG_TYPE_INFO, "Unloading extension %{private}@ due to managed extension configuration", buf, 0xCu);
+          v13 = [(WBSExtensionsController *)self composedIdentifierForExtensionStateForExtension:v11];
+          *buf = v14;
+          v21 = v13;
+          _os_log_impl(&dword_1C6968000, v12, OS_LOG_TYPE_INFO, "Unloading extension %{private}@ due to managed extension configuration", buf, 0xCu);
         }
 
-        [(WBSExtensionsController *)self unloadExtensionIfNecessary:v9];
-        ++v8;
+        v5 = [(WBSExtensionsController *)self unloadExtensionIfNecessary:v11];
+        ++v10;
       }
 
-      while (v5 != v8);
-      v5 = [v4 countByEnumeratingWithState:&v13 objects:v20 count:16];
+      while (v8 != v10);
+      v5 = [v4 countByEnumeratingWithState:&v15 objects:v22 count:16];
+      v8 = v5;
     }
 
     while (v5);
@@ -3209,7 +3212,7 @@ uint64_t __48__WBSExtensionsController_extensionsWithAdamID___block_invoke(uint6
 
   if (self->_loadEnabledExtensionsWasCalled || self->_forceExtensionLoadingAfterDiscovery)
   {
-    [(WBSExtensionsController *)self _loadExtensions:self->_allDiscoveredExtensions skipEqualityCheck:1, v12, v13];
+    [(WBSExtensionsController *)self _loadExtensions:self->_allDiscoveredExtensions skipEqualityCheck:1, v14, v15];
   }
 
   [(WBSExtensionsController *)self _updateManagedWebsiteAccessForAllExtensions];

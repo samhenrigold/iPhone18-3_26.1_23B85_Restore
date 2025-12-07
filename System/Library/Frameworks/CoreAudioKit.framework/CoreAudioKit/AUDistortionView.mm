@@ -15,7 +15,7 @@
 - (CGRect)bounds
 {
   v6.receiver = self;
-  v6.super_class = type metadata accessor for AUDistortionView();
+  v6.super_class = type metadata accessor for AUDistortionView(0);
   [(AUDistortionView *)&v6 bounds];
   result.size.height = v5;
   result.size.width = v4;

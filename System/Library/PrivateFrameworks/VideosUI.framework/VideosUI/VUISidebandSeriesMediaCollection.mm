@@ -51,17 +51,17 @@ LABEL_4:
   v13 = +[VUIMediaEntityType show];
   v14 = [(VUISidebandMediaEntityIdentifier *)v11 initWithManagedObjectID:objectID mediaEntityType:v13];
 
-  v15 = VUISidebandSeriesMediaCollectionKind();
-  v18.receiver = self;
-  v18.super_class = VUISidebandSeriesMediaCollection;
-  v16 = [(VUIMediaEntity *)&v18 initWithMediaLibrary:libraryCopy identifier:v14 requestedProperties:propertiesCopy kind:v15];
+  v16 = VUISidebandSeriesMediaCollectionKind(v15);
+  v19.receiver = self;
+  v19.super_class = VUISidebandSeriesMediaCollection;
+  v17 = [(VUIMediaEntity *)&v19 initWithMediaLibrary:libraryCopy identifier:v14 requestedProperties:propertiesCopy kind:v16];
 
-  if (v16)
+  if (v17)
   {
-    objc_storeStrong(&v16->_seriesManagedObject, object);
+    objc_storeStrong(&v17->_seriesManagedObject, object);
   }
 
-  return v16;
+  return v17;
 }
 
 - (id)canonicalID

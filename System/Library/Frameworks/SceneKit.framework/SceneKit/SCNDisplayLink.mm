@@ -86,7 +86,7 @@ void __52__SCNDisplayLink_initWithQueue_screen_policy_block___block_invoke(uint6
 {
   if (!self->_invalidated)
   {
-    v3 = scn_default_log();
+    v3 = scn_default_log(self, a2);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
       [(SCNDisplayLink *)v3 dealloc];
@@ -159,7 +159,7 @@ void __52__SCNDisplayLink_initWithQueue_screen_policy_block___block_invoke(uint6
   return v11;
 }
 
-uint64_t __57__SCNDisplayLink_setPaused_nextFrameTimeHint_lastUpdate___block_invoke(uint64_t a1)
+void *__57__SCNDisplayLink_setPaused_nextFrameTimeHint_lastUpdate___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _isInvalidated];
   if ((result & 1) == 0)

@@ -171,11 +171,11 @@ void __41__HMDManagedStagedValue__commitIfStaged___block_invoke(uint64_t a1, uin
   if (v8)
   {
     v8->_lock._os_unfair_lock_opaque = 0;
-    v10 = [valueCopy copy];
+    v10 = objc_msgSend_copy(valueCopy);
     initialValue = v9->_initialValue;
     v9->_initialValue = v10;
 
-    v12 = [blockCopy copy];
+    v12 = objc_msgSend_copy(blockCopy);
     commitBlock = v9->_commitBlock;
     v9->_commitBlock = v12;
 

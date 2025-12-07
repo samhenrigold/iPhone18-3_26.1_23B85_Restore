@@ -63,7 +63,7 @@
 
 - (BOOL)startDecodingVideoURL:(id)l error:(id *)error
 {
-  v55[1] = *MEMORY[0x1E69E9840];
+  v54[1] = *MEMORY[0x1E69E9840];
   lCopy = l;
   [(SCMLVideoDecoder *)self reset];
   v7 = [objc_alloc(MEMORY[0x1E6988168]) initWithURL:lCopy options:0];
@@ -74,12 +74,12 @@
     if ([v9 count])
     {
       memset(&preferredTimescale, 0, sizeof(preferredTimescale));
-      [v8 duration];
+      objc_msgSend_duration(v8);
       time = preferredTimescale;
       [(SCMLVideoDecoder *)self setDurationInSeconds:CMTimeGetSeconds(&time)];
-      v51 = 0;
-      v10 = [MEMORY[0x1E6987E78] assetReaderWithAsset:v8 error:&v51];
-      lCopy = v51;
+      v50 = 0;
+      v10 = [MEMORY[0x1E6987E78] assetReaderWithAsset:v8 error:&v50];
+      lCopy = v50;
       if (lCopy)
       {
         if (!error)
@@ -118,18 +118,18 @@
       }
 
       v22 = *MEMORY[0x1E695E480];
-      v50 = time;
-      v23 = CMTimeCopyAsDictionary(&v50, v22);
+      v49 = time;
+      v23 = CMTimeCopyAsDictionary(&v49, v22);
       v24 = [MEMORY[0x1E695DF90] dictionaryWithObjectsAndKeys:{&unk_1F37519A8, *MEMORY[0x1E6966130], &unk_1F37519C0, *MEMORY[0x1E6966208], &unk_1F37519C0, *MEMORY[0x1E69660B8], 0}];
-      v49 = v24;
+      v48 = v24;
       if ([(SCMLVideoDecoder *)self useKeyFrame])
       {
         v25 = MEMORY[0x1E696AD98];
         config = [(SCMLVideoDecoder *)self config];
         v27 = [v25 numberWithUnsignedInteger:{objc_msgSend(config, "framesPerSync")}];
-        [v49 setObject:v27 forKeyedSubscript:*MEMORY[0x1E6987D38]];
+        [v48 setObject:v27 forKeyedSubscript:*MEMORY[0x1E6987D38]];
 
-        v24 = v49;
+        v24 = v48;
         v28 = MEMORY[0x1E6987C68];
       }
 
@@ -176,20 +176,20 @@ LABEL_22:
 
       else
       {
-        v46 = MEMORY[0x1E696ABC0];
+        v45 = MEMORY[0x1E696ABC0];
         v37 = SCMLErrorDomain;
         [(SCMLVideoDecoder *)self assetReader];
-        v38 = v47 = v16;
+        v38 = v46 = v16;
         [v38 error];
-        v39 = v48 = v10;
+        v39 = v47 = v10;
         [v39 userInfo];
         v41 = v40 = v23;
-        lCopy = [v46 errorWithDomain:v37 code:13 userInfo:v41];
+        lCopy = [v45 errorWithDomain:v37 code:13 userInfo:v41];
 
         v23 = v40;
-        v10 = v48;
+        v10 = v47;
 
-        v16 = v47;
+        v16 = v46;
       }
 
       if (!error)
@@ -233,10 +233,10 @@ LABEL_28:
   {
     v12 = MEMORY[0x1E696ABC0];
     v13 = SCMLErrorDomain;
-    v54 = *MEMORY[0x1E696A578];
+    v53 = *MEMORY[0x1E696A578];
     lCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to load video at %@", lCopy];
-    v55[0] = lCopy;
-    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v55 forKeys:&v54 count:1];
+    v54[0] = lCopy;
+    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v54 forKeys:&v53 count:1];
     *error = [v12 errorWithDomain:v13 code:13 userInfo:v14];
 
     v15 = 0;
@@ -248,7 +248,6 @@ LABEL_32:
   v15 = 0;
 LABEL_33:
 
-  v44 = *MEMORY[0x1E69E9840];
   return v15;
 }
 

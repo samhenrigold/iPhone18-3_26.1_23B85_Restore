@@ -585,7 +585,7 @@ LABEL_15:
   }
 }
 
-uint64_t __59__STUIStatusBarCellularSignalView__updateCycleAnimationNow__block_invoke(uint64_t a1)
+void *__59__STUIStatusBarCellularSignalView__updateCycleAnimationNow__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) signalMode];
   if (result == 1)
@@ -640,7 +640,7 @@ uint64_t __59__STUIStatusBarCellularSignalView__updateCycleAnimationNow__block_i
   }
 }
 
-uint64_t __51__STUIStatusBarCellularSignalView__updateFromMode___block_invoke(uint64_t a1)
+void *__51__STUIStatusBarCellularSignalView__updateFromMode___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) signalMode];
   if (result != 1)

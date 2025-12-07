@@ -88,7 +88,7 @@ uint64_t __48__HKLiveWorkoutDataSource_currentCollectedTypes__block_invoke(uint6
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (NSSet)typesToCollect
@@ -120,7 +120,7 @@ uint64_t __41__HKLiveWorkoutDataSource_typesToCollect__block_invoke(uint64_t a1)
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (void)enableCollectionForType:(HKQuantityType *)quantityType predicate:(NSPredicate *)predicate
@@ -171,11 +171,11 @@ void __61__HKLiveWorkoutDataSource_enableCollectionForType_predicate___block_inv
 
 void __61__HKLiveWorkoutDataSource_enableCollectionForType_predicate___block_invoke_3(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  _HKInitializeLogging();
+  v2 = a2;
+  _HKInitializeLogging(v2, v3);
   if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_ERROR))
   {
-    __61__HKLiveWorkoutDataSource_enableCollectionForType_predicate___block_invoke_3_cold_1(a1);
+    __61__HKLiveWorkoutDataSource_enableCollectionForType_predicate___block_invoke_3_cold_1();
   }
 }
 
@@ -217,11 +217,11 @@ void __52__HKLiveWorkoutDataSource_disableCollectionForType___block_invoke(uint6
 
 void __52__HKLiveWorkoutDataSource_disableCollectionForType___block_invoke_3(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  _HKInitializeLogging();
+  v2 = a2;
+  _HKInitializeLogging(v2, v3);
   if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_ERROR))
   {
-    __61__HKLiveWorkoutDataSource_enableCollectionForType_predicate___block_invoke_3_cold_1(a1);
+    __61__HKLiveWorkoutDataSource_enableCollectionForType_predicate___block_invoke_3_cold_1();
   }
 }
 
@@ -336,11 +336,11 @@ void __48__HKLiveWorkoutDataSource_connectionInterrupted__block_invoke(uint64_t 
 
 void __48__HKLiveWorkoutDataSource_connectionInterrupted__block_invoke_3(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  _HKInitializeLogging();
+  v2 = a2;
+  _HKInitializeLogging(v2, v3);
   if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_ERROR))
   {
-    __48__HKLiveWorkoutDataSource_connectionInterrupted__block_invoke_3_cold_1(a1);
+    __48__HKLiveWorkoutDataSource_connectionInterrupted__block_invoke_3_cold_1();
   }
 }
 
@@ -385,45 +385,41 @@ void __106__HKLiveWorkoutDataSource_clientRemote_didUpdateDataSourceConfiguratio
 
 - (void)_queue_finishSetup
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_19197B000, a2, OS_LOG_TYPE_ERROR, "Error getting activity mode %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_19197B000, a2, OS_LOG_TYPE_ERROR, "Error getting activity mode %@", &v2, 0xCu);
 }
 
 void __45__HKLiveWorkoutDataSource__queue_finishSetup__block_invoke_2(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  _HKInitializeLogging();
+  v2 = a2;
+  _HKInitializeLogging(v2, v3);
   if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_ERROR))
   {
-    __45__HKLiveWorkoutDataSource__queue_finishSetup__block_invoke_2_cold_1(a1);
+    __45__HKLiveWorkoutDataSource__queue_finishSetup__block_invoke_2_cold_1();
   }
 }
 
-void __61__HKLiveWorkoutDataSource_enableCollectionForType_predicate___block_invoke_3_cold_1(uint64_t a1)
+void __61__HKLiveWorkoutDataSource_enableCollectionForType_predicate___block_invoke_3_cold_1()
 {
-  OUTLINED_FUNCTION_2_5(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2_5(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0_6();
-  OUTLINED_FUNCTION_1(&dword_19197B000, v1, v2, "Unable to set data source %@ configuration with error: %@");
-  v3 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_19197B000, v0, v1, "Unable to set data source %@ configuration with error: %@");
 }
 
-void __48__HKLiveWorkoutDataSource_connectionInterrupted__block_invoke_3_cold_1(uint64_t a1)
+void __48__HKLiveWorkoutDataSource_connectionInterrupted__block_invoke_3_cold_1()
 {
-  OUTLINED_FUNCTION_2_5(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2_5(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0_6();
-  OUTLINED_FUNCTION_1(&dword_19197B000, v1, v2, "Unable to fetch data source %@ proxy after interrupted connection with error: %@");
-  v3 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_19197B000, v0, v1, "Unable to fetch data source %@ proxy after interrupted connection with error: %@");
 }
 
-void __45__HKLiveWorkoutDataSource__queue_finishSetup__block_invoke_2_cold_1(uint64_t a1)
+void __45__HKLiveWorkoutDataSource__queue_finishSetup__block_invoke_2_cold_1()
 {
-  OUTLINED_FUNCTION_2_5(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2_5(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0_6();
-  OUTLINED_FUNCTION_1(&dword_19197B000, v1, v2, "Unable to start task server %@ with error: %@");
-  v3 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_19197B000, v0, v1, "Unable to start task server %@ with error: %@");
 }
 
 @end

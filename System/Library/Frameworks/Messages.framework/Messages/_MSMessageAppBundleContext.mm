@@ -468,7 +468,7 @@ LABEL_6:
     v9 = hostContext2;
     if (hostContext2)
     {
-      [hostContext2 _extensionHostAuditToken];
+      objc_msgSend__extensionHostAuditToken(hostContext2);
     }
 
     else
@@ -488,7 +488,7 @@ LABEL_6:
     result = task_info(*MEMORY[0x1E69E9A60], 0xFu, retstr, &v13);
     if (result)
     {
-      v11 = ms_traceLog();
+      v11 = ms_traceLog(result);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
         [(_MSMessageAppBundleContext *)v11 balloonHostAuditToken];

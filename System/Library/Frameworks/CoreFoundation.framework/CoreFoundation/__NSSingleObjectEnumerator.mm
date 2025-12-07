@@ -20,35 +20,32 @@
 
 - (void)dealloc
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
 
-  v4.receiver = self;
-  v4.super_class = __NSSingleObjectEnumerator;
-  [(__NSSingleObjectEnumerator *)&v4 dealloc];
-  v3 = *MEMORY[0x1E69E9840];
+  v3.receiver = self;
+  v3.super_class = __NSSingleObjectEnumerator;
+  [(__NSSingleObjectEnumerator *)&v3 dealloc];
 }
 
 - (__NSSingleObjectEnumerator)initWithObject:(id)object collection:(id)collection
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (object)
   {
-    v10.receiver = self;
-    v10.super_class = __NSSingleObjectEnumerator;
-    v6 = [(__NSSingleObjectEnumerator *)&v10 init];
+    v8.receiver = self;
+    v8.super_class = __NSSingleObjectEnumerator;
+    v6 = [(__NSSingleObjectEnumerator *)&v8 init];
     if (v6)
     {
       v6->_theObjectToReturn = object;
       v6->_theCollection = collection;
     }
 
-    v7 = *MEMORY[0x1E69E9840];
     return v6;
   }
 
   else
   {
-    v9 = *MEMORY[0x1E69E9840];
 
     return [(__NSSingleObjectEnumerator *)self init];
   }
@@ -63,27 +60,25 @@
 
 - (id)description
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   Mutable = CFStringCreateMutable(0, 0);
   if (self->_theObjectToReturn)
   {
-    v9.receiver = self;
-    v9.super_class = __NSSingleObjectEnumerator;
-    v6 = [&v9 description];
-    CFStringAppendFormat(Mutable, 0, @"%@ that will yield %@", v6, self->_theObjectToReturn);
+    v8.receiver = self;
+    v8.super_class = __NSSingleObjectEnumerator;
+    v5 = [&v8 description];
+    CFStringAppendFormat(Mutable, 0, @"%@ that will yield %@", v5, self->_theObjectToReturn);
   }
 
   else
   {
-    v8.receiver = self;
-    v8.super_class = __NSSingleObjectEnumerator;
-    v7 = [&v8 description];
-    CFStringAppendFormat(Mutable, 0, @"%@ that yielded its object", v7);
+    v7.receiver = self;
+    v7.super_class = __NSSingleObjectEnumerator;
+    v6 = [&v7 description];
+    CFStringAppendFormat(Mutable, 0, @"%@ that yielded its object", v6);
   }
 
-  result = CFAutorelease(Mutable);
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  return CFAutorelease(Mutable);
 }
 
 @end

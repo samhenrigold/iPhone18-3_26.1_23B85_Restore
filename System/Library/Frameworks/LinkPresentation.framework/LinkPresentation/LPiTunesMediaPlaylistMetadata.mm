@@ -318,11 +318,11 @@
 
   else
   {
-    v7 = LPLogChannelUI();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v9 = LPLogChannelUI(v4, v5);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      *v9 = 0;
-      _os_log_impl(&dword_1AE886000, v7, OS_LOG_TYPE_DEFAULT, "Failed to get active iTunes user state.", v9, 2u);
+      *v11 = 0;
+      _os_log_impl(&dword_1AE886000, v9, OS_LOG_TYPE_DEFAULT, "Failed to get active iTunes user state.", v11, 2u);
     }
 
     handle = 0;
@@ -333,43 +333,45 @@
 
 - (id)statusForTransformer:(id)transformer
 {
-  v35[2] = *MEMORY[0x1E69E9840];
+  v41[2] = *MEMORY[0x1E69E9840];
   transformerCopy = transformer;
   v5 = +[LPiTunesStoreInformation shared];
   storeFrontIdentifier = [(LPiTunesMediaPlaylistMetadata *)self storeFrontIdentifier];
   v7 = [v5 userStateForMediaStorefrontIdentifier:storeFrontIdentifier];
 
   v8 = subscribeToAppleMusicStatus(v7);
+  v10 = v8;
   if (v8)
   {
-    v9 = LPLogChannelUI();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v11 = LPLogChannelUI(v8, v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1AE886000, v9, OS_LOG_TYPE_DEFAULT, "Failed to show playlist transformer status label; showing subscription status text instead.", buf, 2u);
+      _os_log_impl(&dword_1AE886000, v11, OS_LOG_TYPE_DEFAULT, "Failed to show playlist transformer status label; showing subscription status text instead.", buf, 2u);
     }
 
-    v10 = [LPiTunesMediaSongMetadata statusForText:v8 withTransformer:transformerCopy];
+    v12 = [LPiTunesMediaSongMetadata statusForText:v10 withTransformer:transformerCopy];
     goto LABEL_25;
   }
 
   if (!v7)
   {
-    v13 = LPLogChannelUI();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v17 = LPLogChannelUI(0, v9);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v14 = "Failed to show playlist transformer status label; unknown iTunes Store user state.";
+      v18 = "Failed to show playlist transformer status label; unknown iTunes Store user state.";
 LABEL_18:
-      _os_log_impl(&dword_1AE886000, v13, OS_LOG_TYPE_DEFAULT, v14, buf, 2u);
+      _os_log_impl(&dword_1AE886000, v17, OS_LOG_TYPE_DEFAULT, v18, buf, 2u);
     }
 
 LABEL_19:
-    v10 = 0;
+    v12 = 0;
     goto LABEL_25;
   }
 
   curator = [(LPiTunesMediaPlaylistMetadata *)self curator];
+  v15 = curator;
   if (!curator)
   {
     goto LABEL_16;
@@ -386,11 +388,11 @@ LABEL_19:
     }
 
 LABEL_16:
-    v13 = LPLogChannelUI();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v17 = LPLogChannelUI(curator, v14);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v14 = "Failed to show playlist transformer status label; no curator name and/or no profile url or handle.";
+      v18 = "Failed to show playlist transformer status label; no curator name and/or no profile url or handle.";
       goto LABEL_18;
     }
 
@@ -403,15 +405,15 @@ LABEL_12:
   {
     _activeUserStateHandle = [(LPiTunesMediaPlaylistMetadata *)self _activeUserStateHandle];
     curatorHandle3 = [(LPiTunesMediaPlaylistMetadata *)self curatorHandle];
-    v19 = [_activeUserStateHandle isEqual:curatorHandle3];
+    v23 = [_activeUserStateHandle isEqual:curatorHandle3];
 
-    if (v19)
+    if (v23)
     {
-      v13 = LPLogChannelUI();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v17 = LPLogChannelUI(v24, v25);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        v14 = "Failed to show playlist transformer status label; user is sharing own playlist.";
+        v18 = "Failed to show playlist transformer status label; user is sharing own playlist.";
         goto LABEL_18;
       }
 
@@ -419,30 +421,30 @@ LABEL_12:
     }
   }
 
-  v34[0] = *MEMORY[0x1E69DB648];
+  v40[0] = *MEMORY[0x1E69DB648];
   transcriptBoldTextFont = [objc_opt_class() transcriptBoldTextFont];
-  v35[0] = transcriptBoldTextFont;
-  v34[1] = *MEMORY[0x1E69DB650];
+  v41[0] = transcriptBoldTextFont;
+  v40[1] = *MEMORY[0x1E69DB650];
   systemBlueColor = [MEMORY[0x1E69DC888] systemBlueColor];
-  v35[1] = systemBlueColor;
-  v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v35 forKeys:v34 count:2];
+  v41[1] = systemBlueColor;
+  v38 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v41 forKeys:v40 count:2];
 
-  v22 = objc_alloc_init(MEMORY[0x1E696ADF8]);
+  v28 = objc_alloc_init(MEMORY[0x1E696ADF8]);
   curator2 = [(LPiTunesMediaPlaylistMetadata *)self curator];
-  v24 = [v22 personNameComponentsFromString:curator2];
+  v30 = [v28 personNameComponentsFromString:curator2];
 
-  givenName = [v24 givenName];
-  v26 = objc_alloc(MEMORY[0x1E696AD40]);
-  v27 = MEMORY[0x1E696AEC0];
-  v28 = LPLocalizedString(@"Follow %@ on Apple Music");
+  givenName = [v30 givenName];
+  v32 = objc_alloc(MEMORY[0x1E696AD40]);
+  v33 = MEMORY[0x1E696AEC0];
+  v34 = LPLocalizedString(@"Follow %@ on Apple Music");
   curator3 = givenName;
   if (!givenName)
   {
     curator3 = [(LPiTunesMediaPlaylistMetadata *)self curator];
   }
 
-  v30 = [v27 localizedStringWithFormat:v28, curator3];
-  v10 = [v26 initWithString:v30 attributes:v32];
+  v36 = [v33 localizedStringWithFormat:v34, curator3];
+  v12 = [v32 initWithString:v36 attributes:v38];
 
   if (!givenName)
   {
@@ -450,7 +452,7 @@ LABEL_12:
 
 LABEL_25:
 
-  return v10;
+  return v12;
 }
 
 - (id)actionURLForTransformer:(id)transformer

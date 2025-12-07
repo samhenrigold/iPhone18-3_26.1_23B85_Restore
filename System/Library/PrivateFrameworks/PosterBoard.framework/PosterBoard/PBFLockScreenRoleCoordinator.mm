@@ -58,7 +58,7 @@
           focusConfiguration = [v13 focusConfiguration];
 
           v15 = [v12 objectForKey:v7];
-          v16 = PBFLogRoleCoordinator();
+          v16 = PBFLogRoleCoordinator(v15);
           if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
           {
             role = [(PBFPosterRoleCoordinator *)selfCopy role];
@@ -123,7 +123,7 @@ LABEL_15:
 
 - (id)determineActivePosterConfigurationForStorage:(id)storage context:(id)context
 {
-  v74 = *MEMORY[0x277D85DE8];
+  v78 = *MEMORY[0x277D85DE8];
   storageCopy = storage;
   contextCopy = context;
   if (storageCopy)
@@ -139,179 +139,179 @@ LABEL_15:
   role = [(PBFPosterRoleCoordinator *)self role];
   v10 = [contextCopy pbf_desiredActiveConfigurationForRole:role];
 
-  v60 = 0;
-  v61 = &v60;
-  v62 = 0x3032000000;
-  v63 = __Block_byref_object_copy__9;
-  v64 = __Block_byref_object_dispose__9;
-  v65 = [v8 posterWithUUID:v10];
-  v52 = [(PBFPosterRoleCoordinator *)self posterConfigurationsSortedByLastActivatedDate:v8];
+  v64 = 0;
+  v65 = &v64;
+  v66 = 0x3032000000;
+  v67 = __Block_byref_object_copy__9;
+  v68 = __Block_byref_object_dispose__9;
+  v69 = [v8 posterWithUUID:v10];
+  v11 = [(PBFPosterRoleCoordinator *)self posterConfigurationsSortedByLastActivatedDate:v8];
+  v56 = v11;
   if (v10)
   {
-    v11 = PBFLogRoleCoordinator();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = PBFLogRoleCoordinator(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       role2 = [(PBFPosterRoleCoordinator *)self role];
-      v13 = v61[5];
+      v14 = v65[5];
       *buf = 138543874;
-      v67 = role2;
-      v68 = 2114;
-      v69 = v13;
-      v70 = 2114;
-      v71 = v10;
-      _os_log_impl(&dword_21B526000, v11, OS_LOG_TYPE_DEFAULT, "[%{public}@] Choosing active poster: %{public}@/%{public}@ as active poster configuration", buf, 0x20u);
+      v71 = role2;
+      v72 = 2114;
+      v73 = v14;
+      v74 = 2114;
+      v75 = v10;
+      _os_log_impl(&dword_21B526000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}@] Choosing active poster: %{public}@/%{public}@ as active poster configuration", buf, 0x20u);
     }
   }
 
   pbf_activeFocusMode = [contextCopy pbf_activeFocusMode];
   if (v10)
   {
-    v15 = 1;
+    v16 = 1;
   }
 
   else
   {
-    v15 = pbf_activeFocusMode == 0;
+    v16 = pbf_activeFocusMode == 0;
   }
 
-  v16 = !v15;
+  v17 = !v16;
 
-  if (v16)
+  if (v17)
   {
     pbf_activeFocusMode2 = [contextCopy pbf_activeFocusMode];
     activityUniqueIdentifier = [pbf_activeFocusMode2 activityUniqueIdentifier];
 
-    v56[0] = MEMORY[0x277D85DD0];
-    v56[1] = 3221225472;
-    v56[2] = __85__PBFLockScreenRoleCoordinator_determineActivePosterConfigurationForStorage_context___block_invoke;
-    v56[3] = &unk_2782C9328;
-    v19 = v8;
-    v57 = v19;
-    v20 = activityUniqueIdentifier;
-    v58 = v20;
-    v59 = &v60;
-    [v52 enumerateObjectsWithOptions:2 usingBlock:v56];
-    if (v61[5])
+    v60[0] = MEMORY[0x277D85DD0];
+    v60[1] = 3221225472;
+    v60[2] = __85__PBFLockScreenRoleCoordinator_determineActivePosterConfigurationForStorage_context___block_invoke;
+    v60[3] = &unk_2782C9328;
+    v20 = v8;
+    v61 = v20;
+    v21 = activityUniqueIdentifier;
+    v62 = v21;
+    v63 = &v64;
+    v22 = [v56 enumerateObjectsWithOptions:2 usingBlock:v60];
+    if (v65[5])
     {
-      v21 = PBFLogRoleCoordinator();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      v23 = PBFLogRoleCoordinator(v22);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
-        v49 = v20;
-        v50 = storageCopy;
+        v53 = v21;
+        v54 = storageCopy;
         role3 = [(PBFPosterRoleCoordinator *)self role];
-        v22 = v61[5];
-        v23 = [v19 configuredPropertiesForPoster:v22];
-        focusConfiguration = [v23 focusConfiguration];
+        v24 = v65[5];
+        v25 = [v20 configuredPropertiesForPoster:v24];
+        focusConfiguration = [v25 focusConfiguration];
         pbf_activeFocusMode3 = [contextCopy pbf_activeFocusMode];
         activityUniqueIdentifier2 = [pbf_activeFocusMode3 activityUniqueIdentifier];
         *buf = 138544130;
-        v67 = role3;
-        v68 = 2112;
-        v69 = v22;
-        v70 = 2112;
-        v71 = focusConfiguration;
+        v71 = role3;
         v72 = 2112;
-        v73 = activityUniqueIdentifier2;
-        _os_log_impl(&dword_21B526000, v21, OS_LOG_TYPE_DEFAULT, "[%{public}@] Choosing active poster: %@ with focus configuration: %@ associated with active focus mode identifier: %@ as active poster configuration", buf, 0x2Au);
+        v73 = v24;
+        v74 = 2112;
+        v75 = focusConfiguration;
+        v76 = 2112;
+        v77 = activityUniqueIdentifier2;
+        _os_log_impl(&dword_21B526000, v23, OS_LOG_TYPE_DEFAULT, "[%{public}@] Choosing active poster: %@ with focus configuration: %@ associated with active focus mode identifier: %@ as active poster configuration", buf, 0x2Au);
 
-        v20 = v49;
-        storageCopy = v50;
+        v21 = v53;
+        storageCopy = v54;
       }
     }
 
     else
     {
-      v21 = PBFLogRoleCoordinator();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      v23 = PBFLogRoleCoordinator(v22);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
-        v27 = v20;
+        v29 = v21;
         role4 = [(PBFPosterRoleCoordinator *)self role];
         pbf_activeFocusMode4 = [contextCopy pbf_activeFocusMode];
         activityUniqueIdentifier3 = [pbf_activeFocusMode4 activityUniqueIdentifier];
         *buf = 138543618;
-        v67 = role4;
-        v68 = 2112;
-        v69 = activityUniqueIdentifier3;
-        _os_log_impl(&dword_21B526000, v21, OS_LOG_TYPE_DEFAULT, "[%{public}@] Choosing active poster: did not find poster associated with active focus mode identifier: %@", buf, 0x16u);
+        v71 = role4;
+        v72 = 2112;
+        v73 = activityUniqueIdentifier3;
+        _os_log_impl(&dword_21B526000, v23, OS_LOG_TYPE_DEFAULT, "[%{public}@] Choosing active poster: did not find poster associated with active focus mode identifier: %@", buf, 0x16u);
 
-        v20 = v27;
+        v21 = v29;
       }
     }
   }
 
-  if (!v61[5])
+  if (!v65[5])
   {
     selectedPoster = [v8 selectedPoster];
-    v32 = selectedPoster == 0;
+    v34 = selectedPoster == 0;
 
-    if (!v32)
+    if (!v34)
     {
       selectedPoster2 = [v8 selectedPoster];
-      v34 = v61[5];
-      v61[5] = selectedPoster2;
+      v36 = v65[5];
+      v65[5] = selectedPoster2;
 
-      v35 = PBFLogRoleCoordinator();
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+      v38 = PBFLogRoleCoordinator(v37);
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
       {
         role5 = [(PBFPosterRoleCoordinator *)self role];
-        v37 = v61[5];
+        v40 = v65[5];
         *buf = 138543618;
-        v67 = role5;
-        v68 = 2112;
-        v69 = v37;
-        _os_log_impl(&dword_21B526000, v35, OS_LOG_TYPE_DEFAULT, "[%{public}@] Choosing active poster: using selected poster: %@ as active poster configuration", buf, 0x16u);
+        v71 = role5;
+        v72 = 2112;
+        v73 = v40;
+        _os_log_impl(&dword_21B526000, v38, OS_LOG_TYPE_DEFAULT, "[%{public}@] Choosing active poster: using selected poster: %@ as active poster configuration", buf, 0x16u);
       }
 
-      v38 = [v8 configuredPropertiesForPoster:v61[5]];
-      focusConfiguration2 = [v38 focusConfiguration];
+      v41 = [v8 configuredPropertiesForPoster:v65[5]];
+      focusConfiguration2 = [v41 focusConfiguration];
 
       if (focusConfiguration2)
       {
-        v40 = PBFLogRoleCoordinator();
-        if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+        v44 = PBFLogRoleCoordinator(v43);
+        if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
         {
           role6 = [(PBFPosterRoleCoordinator *)self role];
-          v42 = v61[5];
+          v46 = v65[5];
           *buf = 138543618;
-          v67 = role6;
-          v68 = 2112;
-          v69 = v42;
-          _os_log_impl(&dword_21B526000, v40, OS_LOG_TYPE_DEFAULT, "[%{public}@] Choosing active poster: selected poster: %@ is still tied to a focus", buf, 0x16u);
+          v71 = role6;
+          v72 = 2112;
+          v73 = v46;
+          _os_log_impl(&dword_21B526000, v44, OS_LOG_TYPE_DEFAULT, "[%{public}@] Choosing active poster: selected poster: %@ is still tied to a focus", buf, 0x16u);
         }
       }
     }
   }
 
-  v43 = v61[5];
-  if (!v43)
+  v47 = v65[5];
+  if (!v47)
   {
-    v53[0] = MEMORY[0x277D85DD0];
-    v53[1] = 3221225472;
-    v53[2] = __85__PBFLockScreenRoleCoordinator_determineActivePosterConfigurationForStorage_context___block_invoke_5;
-    v53[3] = &unk_2782C9350;
-    v54 = v8;
-    v55 = &v60;
-    [v52 enumerateObjectsWithOptions:2 usingBlock:v53];
-    v44 = PBFLogRoleCoordinator();
-    if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+    v57[0] = MEMORY[0x277D85DD0];
+    v57[1] = 3221225472;
+    v57[2] = __85__PBFLockScreenRoleCoordinator_determineActivePosterConfigurationForStorage_context___block_invoke_5;
+    v57[3] = &unk_2782C9350;
+    v58 = v8;
+    v59 = &v64;
+    v48 = PBFLogRoleCoordinator([v56 enumerateObjectsWithOptions:2 usingBlock:v57]);
+    if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
     {
       role7 = [(PBFPosterRoleCoordinator *)self role];
-      v46 = v61[5];
+      v50 = v65[5];
       *buf = 138543618;
-      v67 = role7;
-      v68 = 2112;
-      v69 = v46;
-      _os_log_impl(&dword_21B526000, v44, OS_LOG_TYPE_DEFAULT, "[%{public}@] Choosing active poster: using most recently used poster: %@ with no focus as active poster configuration", buf, 0x16u);
+      v71 = role7;
+      v72 = 2112;
+      v73 = v50;
+      _os_log_impl(&dword_21B526000, v48, OS_LOG_TYPE_DEFAULT, "[%{public}@] Choosing active poster: using most recently used poster: %@ with no focus as active poster configuration", buf, 0x16u);
     }
 
-    v43 = v61[5];
+    v47 = v65[5];
   }
 
-  v47 = v43;
+  v51 = v47;
 
-  _Block_object_dispose(&v60, 8);
+  _Block_object_dispose(&v64, 8);
 
-  return v47;
+  return v51;
 }
 
 void __85__PBFLockScreenRoleCoordinator_determineActivePosterConfigurationForStorage_context___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
@@ -677,12 +677,12 @@ LABEL_40:
 
 - (BOOL)_prepareAttributesForIngestionForPoster:(id)poster existingAttributes:(id)attributes incomingAttributes:(id)incomingAttributes proposedAttributesToDelete:(id *)delete proposedAttributesToUpdate:(id *)update storage:(id)storage currentCollection:(id)collection error:(id *)self0
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   posterCopy = poster;
   collectionCopy = collection;
-  v29.receiver = self;
-  v29.super_class = PBFLockScreenRoleCoordinator;
-  v18 = [(PBFPosterRoleCoordinator *)&v29 _prepareAttributesForIngestionForPoster:posterCopy existingAttributes:attributes incomingAttributes:incomingAttributes proposedAttributesToDelete:delete proposedAttributesToUpdate:update storage:storage currentCollection:collectionCopy error:error];
+  v30.receiver = self;
+  v30.super_class = PBFLockScreenRoleCoordinator;
+  v18 = [(PBFPosterRoleCoordinator *)&v30 _prepareAttributesForIngestionForPoster:posterCopy existingAttributes:attributes incomingAttributes:incomingAttributes proposedAttributesToDelete:delete proposedAttributesToUpdate:update storage:storage currentCollection:collectionCopy error:error];
   if (v18 && [*delete containsObject:*MEMORY[0x277D3EEB8]])
   {
     v19 = [collectionCopy posterWithUUID:posterCopy];
@@ -690,43 +690,43 @@ LABEL_40:
     _path = [v19 _path];
     v22 = [v20 removeFocusConfigurationForPath:_path error:error];
 
-    v23 = PBFLogRoleCoordinator();
-    v24 = v23;
+    v24 = PBFLogRoleCoordinator(v23);
+    v25 = v24;
     if (v22)
     {
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         role = [(PBFPosterRoleCoordinator *)self role];
         role2 = role;
         if (error)
         {
-          v27 = *error;
+          v28 = *error;
         }
 
         else
         {
-          v27 = @"[unknown error]";
+          v28 = @"[unknown error]";
         }
 
         *buf = 138543874;
-        v31 = role;
-        v32 = 2114;
-        v33 = posterCopy;
-        v34 = 2114;
-        v35 = v27;
-        _os_log_error_impl(&dword_21B526000, v24, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to remove focus configuration after attribute deletion for poster %{public}@: %{public}@", buf, 0x20u);
+        v32 = role;
+        v33 = 2114;
+        v34 = posterCopy;
+        v35 = 2114;
+        v36 = v28;
+        _os_log_error_impl(&dword_21B526000, v25, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to remove focus configuration after attribute deletion for poster %{public}@: %{public}@", buf, 0x20u);
         goto LABEL_9;
       }
     }
 
-    else if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    else if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
       role2 = [(PBFPosterRoleCoordinator *)self role];
       *buf = 138543618;
-      v31 = role2;
-      v32 = 2114;
-      v33 = posterCopy;
-      _os_log_impl(&dword_21B526000, v24, OS_LOG_TYPE_DEFAULT, "[%{public}@] Successfully removed focus configuration after attribute deletion for poster %{public}@", buf, 0x16u);
+      v32 = role2;
+      v33 = 2114;
+      v34 = posterCopy;
+      _os_log_impl(&dword_21B526000, v25, OS_LOG_TYPE_DEFAULT, "[%{public}@] Successfully removed focus configuration after attribute deletion for poster %{public}@", buf, 0x16u);
 LABEL_9:
     }
   }

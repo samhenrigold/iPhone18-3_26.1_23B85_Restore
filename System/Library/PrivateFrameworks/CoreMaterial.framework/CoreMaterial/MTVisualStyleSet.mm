@@ -33,28 +33,28 @@
 
   [MTVisualStyleSet recipeNameForRecipeFromStyle:a2 fromStyleSetWithName:self];
 LABEL_3:
-  styleCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@.%@.generatedRecipe", v9, styleCopy];
+  styleCopy = [MEMORY[0x1E696AEC0] stringWithFormat:v9, styleCopy];
 
   return styleCopy;
 }
 
 - (MTVisualStyleSet)initWithName:(id)name visualStyleSetDescription:(id)description andDescendantDescriptions:(id)descriptions
 {
-  v85 = *MEMORY[0x1E69E9840];
+  v63 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   descriptionCopy = description;
   descriptionsCopy = descriptions;
-  v79.receiver = self;
-  v79.super_class = MTVisualStyleSet;
-  v11 = [(MTVisualStyleSet *)&v79 init];
+  v61.receiver = self;
+  v61.super_class = MTVisualStyleSet;
+  v11 = [(MTVisualStyleSet *)&v61 init];
   if (v11)
   {
-    v55 = nameCopy;
+    v53 = nameCopy;
     v12 = [nameCopy copy];
     visualStyleSetName = v11->_visualStyleSetName;
     v11->_visualStyleSetName = v12;
 
-    v14 = [descriptionCopy objectForKey:@"visualStyleSetVersion"];
+    v14 = [descriptionCopy objectForKey:?];
     v11->_visualStyleSetVersion = [v14 integerValue];
 
     v15 = objc_alloc_init(MEMORY[0x1E695DF90]);
@@ -65,163 +65,144 @@ LABEL_3:
     styleNamesToVisualStylings = v11->_styleNamesToVisualStylings;
     v11->_styleNamesToVisualStylings = v17;
 
-    v61 = descriptionCopy;
-    v19 = [descriptionCopy objectForKey:@"styles"];
+    v59 = descriptionCopy;
+    v19 = [descriptionCopy objectForKey:?];
     v20 = objc_alloc(MEMORY[0x1E695DFA8]);
-    v56 = v19;
+    v54 = v19;
     allKeys = [v19 allKeys];
-    v22 = [v20 initWithArray:allKeys];
+    v22 = [v20 initWithArray:?];
 
-    v60 = descriptionsCopy;
-    [descriptionsCopy valueForKey:@"styles"];
-    v75 = 0u;
-    v76 = 0u;
-    v77 = 0u;
-    obj = v78 = 0u;
-    v23 = [obj countByEnumeratingWithState:&v75 objects:v84 count:16];
+    v58 = descriptionsCopy;
+    obj = [descriptionsCopy valueForKey:?];
+    v23 = [obj countByEnumeratingWithState:? objects:? count:?];
     if (v23)
     {
       v24 = v23;
-      v25 = *v76;
+      v25 = MEMORY[0];
       do
       {
-        for (i = 0; i != v24; ++i)
+        for (i = 0; i != v24; i = (i + 1))
         {
-          if (*v76 != v25)
+          if (MEMORY[0] != v25)
           {
             objc_enumerationMutation(obj);
           }
 
-          allKeys2 = [*(*(&v75 + 1) + 8 * i) allKeys];
-          [v22 addObjectsFromArray:allKeys2];
+          allKeys2 = [*(8 * i) allKeys];
+          [v22 addObjectsFromArray:?];
         }
 
-        v24 = [obj countByEnumeratingWithState:&v75 objects:v84 count:16];
+        v24 = [obj countByEnumeratingWithState:? objects:? count:?];
       }
 
       while (v24);
     }
 
-    v73 = 0u;
-    v74 = 0u;
-    v71 = 0u;
-    v72 = 0u;
-    v58 = v22;
-    v28 = [v58 countByEnumeratingWithState:&v71 objects:v83 count:16];
+    v56 = v22;
+    v28 = [v56 countByEnumeratingWithState:? objects:? count:?];
     if (v28)
     {
       v29 = v28;
-      v30 = *v72;
+      v30 = MEMORY[0];
       do
       {
-        for (j = 0; j != v29; ++j)
+        for (j = 0; j != v29; j = (j + 1))
         {
-          if (*v72 != v30)
+          if (MEMORY[0] != v30)
           {
-            objc_enumerationMutation(v58);
+            objc_enumerationMutation(v56);
           }
 
-          v32 = *(*(&v71 + 1) + 8 * j);
-          v33 = [v56 objectForKey:v32];
-          v34 = [obj valueForKey:v32];
-          v35 = v34;
-          if (v33 || [v34 count])
+          v32 = [v54 objectForKey:?];
+          v33 = [obj valueForKey:?];
+          v34 = v33;
+          if (v32 || [v33 count])
           {
-            v36 = [[MTCoreMaterialVisualStyling alloc] initWithVisualStyleSet:v11 styleName:v32 description:v33 andDescendantDescriptions:v35];
-            if (v36)
+            v35 = [MTCoreMaterialVisualStyling initWithVisualStyleSet:"initWithVisualStyleSet:styleName:description:andDescendantDescriptions:" styleName:? description:? andDescendantDescriptions:?];
+            if (v35)
             {
-              v37 = v36;
-              [(NSMutableDictionary *)v11->_styleNamesToVisualStylings setObject:v36 forKey:v32];
+              v36 = v35;
+              [NSMutableDictionary setObject:"setObject:forKey:" forKey:?];
             }
           }
         }
 
-        v29 = [v58 countByEnumeratingWithState:&v71 objects:v83 count:16];
+        v29 = [v56 countByEnumeratingWithState:? objects:? count:?];
       }
 
       while (v29);
     }
 
-    v69 = 0u;
-    v70 = 0u;
-    v67 = 0u;
-    v68 = 0u;
-    v38 = MTAllOrdinalVisualStyles();
-    v39 = MTAllPlatformColorVisualStyles();
-    v40 = [v38 arrayByAddingObjectsFromArray:v39];
+    v38 = MTAllOrdinalVisualStyles(v37);
+    v39 = MTAllPlatformColorVisualStyles(v38);
+    v40 = [v38 arrayByAddingObjectsFromArray:?];
 
-    v57 = v40;
-    v41 = [v40 countByEnumeratingWithState:&v67 objects:v82 count:16];
-    descriptionsCopy = v60;
-    descriptionCopy = v61;
+    v55 = v40;
+    v41 = [v40 countByEnumeratingWithState:? objects:? count:?];
+    descriptionsCopy = v58;
+    descriptionCopy = v59;
     if (v41)
     {
       v42 = v41;
-      v59 = *v68;
+      v57 = MEMORY[0];
       do
       {
-        for (k = 0; k != v42; ++k)
+        for (k = 0; k != v42; k = (k + 1))
         {
-          if (*v68 != v59)
+          if (MEMORY[0] != v57)
           {
-            objc_enumerationMutation(v57);
+            objc_enumerationMutation(v55);
           }
 
-          v44 = *(*(&v67 + 1) + 8 * k);
-          v63 = 0u;
-          v64 = 0u;
-          v65 = 0u;
-          v66 = 0u;
-          v80 = descriptionCopy;
-          v45 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v80 count:1];
-          v46 = [v45 arrayByAddingObjectsFromArray:descriptionsCopy];
+          v62 = descriptionCopy;
+          v44 = [MEMORY[0x1E695DEC8] arrayWithObjects:? count:?];
+          v45 = [v44 arrayByAddingObjectsFromArray:?];
 
-          v47 = [v46 countByEnumeratingWithState:&v63 objects:v81 count:16];
-          if (v47)
+          v46 = [v45 countByEnumeratingWithState:? objects:? count:?];
+          if (v46)
           {
-            v48 = v47;
-            v49 = *v64;
+            v47 = v46;
+            v48 = MEMORY[0];
             do
             {
-              for (m = 0; m != v48; ++m)
+              for (m = 0; m != v47; m = (m + 1))
               {
-                if (*v64 != v49)
+                if (MEMORY[0] != v48)
                 {
-                  objc_enumerationMutation(v46);
+                  objc_enumerationMutation(v45);
                 }
 
-                v51 = [*(*(&v63 + 1) + 8 * m) objectForKey:v44];
-                if (v51)
+                v50 = [*(8 * m) objectForKey:?];
+                if (v50)
                 {
-                  v52 = [(NSMutableDictionary *)v11->_styleNamesToVisualStylings objectForKey:v51];
+                  v51 = [(NSMutableDictionary *)v11->_styleNamesToVisualStylings objectForKey:?];
 
-                  if (v52)
+                  if (v51)
                   {
-                    [(NSMutableDictionary *)v11->_visualStylesToStyleNames setObject:v51 forKey:v44];
+                    [NSMutableDictionary setObject:"setObject:forKey:" forKey:?];
                   }
                 }
               }
 
-              v48 = [v46 countByEnumeratingWithState:&v63 objects:v81 count:16];
+              v47 = [v45 countByEnumeratingWithState:? objects:? count:?];
             }
 
-            while (v48);
+            while (v47);
           }
 
-          descriptionsCopy = v60;
-          descriptionCopy = v61;
+          descriptionsCopy = v58;
+          descriptionCopy = v59;
         }
 
-        v42 = [v57 countByEnumeratingWithState:&v67 objects:v82 count:16];
+        v42 = [v55 countByEnumeratingWithState:? objects:? count:?];
       }
 
       while (v42);
     }
 
-    nameCopy = v55;
+    nameCopy = v53;
   }
 
-  v53 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -229,7 +210,7 @@ LABEL_3:
 {
   visualStylesToStyleNames = self->_visualStylesToStyleNames;
   styleCopy = style;
-  v6 = [(NSMutableDictionary *)visualStylesToStyleNames objectForKey:styleCopy];
+  v6 = [(NSMutableDictionary *)visualStylesToStyleNames objectForKey:?];
   v7 = v6;
   if (v6)
   {
@@ -243,7 +224,7 @@ LABEL_3:
 
   v9 = v8;
 
-  v10 = [(NSMutableDictionary *)self->_styleNamesToVisualStylings objectForKey:v9];
+  v10 = [(NSMutableDictionary *)self->_styleNamesToVisualStylings objectForKey:?];
 
   return v10;
 }
@@ -251,126 +232,120 @@ LABEL_3:
 - (id)_materialDescriptionForStyle:(id)style withProvidedStyles:(id)styles
 {
   stylesCopy = styles;
-  v7 = [(MTVisualStyleSet *)self visualStylingForStyle:style];
-  v8 = v7;
-  if (v7 && (([v7 tintColorDescription], v9 = objc_claimAutoreleasedReturnValue(), v9, v9) || _CanGenerateMaterialDescriptionForFilteringFromVisualStyling(v8)))
+  v6 = [(MTVisualStyleSet *)self visualStylingForStyle:?];
+  v7 = v6;
+  if (v6 && (([v6 tintColorDescription], v8 = objc_claimAutoreleasedReturnValue(), v8, v8) || _CanGenerateMaterialDescriptionForFilteringFromVisualStyling(v7)))
   {
+    v9 = objc_alloc_init(MEMORY[0x1E695DF90]);
     v10 = objc_alloc_init(MEMORY[0x1E695DF90]);
-    v11 = objc_alloc_init(MEMORY[0x1E695DF90]);
-    [v10 setObject:v11 forKey:@"baseMaterial"];
-    tintColorDescription = [v8 tintColorDescription];
+    [v9 setObject:? forKey:?];
+    tintColorDescription = [v7 tintColorDescription];
 
     if (tintColorDescription)
     {
-      tintColorDescription2 = [v8 tintColorDescription];
-      [v11 setObject:tintColorDescription2 forKey:@"tinting"];
+      tintColorDescription2 = [v7 tintColorDescription];
+      [v10 setObject:? forKey:?];
     }
 
-    if (_CanGenerateMaterialDescriptionForFilteringFromVisualStyling(v8))
+    if (_CanGenerateMaterialDescriptionForFilteringFromVisualStyling(v7))
     {
-      v14 = objc_alloc_init(MEMORY[0x1E695DF90]);
-      [v11 setObject:v14 forKey:@"materialFiltering"];
-      filterType = [v8 filterType];
-      v16 = [filterType isEqualToString:*MEMORY[0x1E6979D78]];
+      v13 = objc_alloc_init(MEMORY[0x1E695DF90]);
+      [v10 setObject:? forKey:?];
+      filterType = [v7 filterType];
+      v15 = [filterType isEqualToString:?];
 
-      if (v16)
+      if (v15)
       {
-        filterProperties = [v8 filterProperties];
-        v18 = [filterProperties objectForKey:@"inputColorMatrix"];
-        [v14 setObject:v18 forKey:@"colorMatrix"];
+        filterProperties = [v7 filterProperties];
+        v17 = [filterProperties objectForKey:?];
+        [v13 setObject:? forKey:?];
       }
     }
 
-    [v10 setObject:&unk_1F3E017B8 forKey:@"materialSettingsVersion"];
+    [v9 setObject:? forKey:?];
     if (stylesCopy)
     {
-      [v10 setObject:stylesCopy forKey:@"styles"];
+      [v9 setObject:? forKey:?];
     }
   }
 
   else
   {
-    v10 = 0;
+    v9 = 0;
   }
 
-  return v10;
+  return v9;
 }
 
 - (id)_newMaterialSettingsForStyle:(id)style withProvidedStyles:(id)styles
 {
   styleCopy = style;
-  v7 = [(MTVisualStyleSet *)self _materialDescriptionForStyle:styleCopy withProvidedStyles:styles];
-  if (v7)
+  v6 = [MTVisualStyleSet _materialDescriptionForStyle:"_materialDescriptionForStyle:withProvidedStyles:" withProvidedStyles:?];
+  if (v6)
   {
-    v8 = [MTRecipeMaterialSettings alloc];
-    v9 = objc_opt_class();
+    v7 = [MTRecipeMaterialSettings alloc];
+    v8 = objc_opt_class();
     visualStyleSetName = [(MTVisualStyleSet *)self visualStyleSetName];
-    v11 = [v9 recipeNameForRecipeFromStyle:styleCopy fromStyleSetWithName:visualStyleSetName];
-    v12 = [(MTRecipeMaterialSettings *)v8 initWithRecipeName:v11 andDescription:v7 descendantDescriptions:0 bundle:0];
+    v10 = [v8 recipeNameForRecipeFromStyle:? fromStyleSetWithName:?];
+    v11 = [MTRecipeMaterialSettings initWithRecipeName:v7 andDescription:"initWithRecipeName:andDescription:descendantDescriptions:bundle:" descendantDescriptions:? bundle:?];
   }
 
   else
   {
-    v12 = 0;
+    v11 = 0;
   }
 
-  return v12;
+  return v11;
 }
 
 - (NSString)description
 {
-  v19 = *MEMORY[0x1E69E9840];
-  v3 = [MEMORY[0x1E696AD60] stringWithFormat:@"<%@: %p styleName: %@; visualStyleSetVersion: %ld", objc_opt_class(), self, self->_visualStyleSetName, self->_visualStyleSetVersion];;
-  v14 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  v17 = 0u;
+  v3 = [MEMORY[0x1E696AD60] stringWithFormat:objc_opt_class(), self, self->_visualStyleSetName, self->_visualStyleSetVersion];
   v4 = self->_styleNamesToVisualStylings;
-  v5 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [NSMutableDictionary countByEnumeratingWithState:v4 objects:"countByEnumeratingWithState:objects:count:" count:?];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = MEMORY[0];
     do
     {
-      for (i = 0; i != v6; ++i)
+      for (i = 0; i != v6; i = (i + 1))
       {
-        if (*v15 != v7)
+        if (MEMORY[0] != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
-        v10 = [(NSMutableDictionary *)self->_styleNamesToVisualStylings objectForKey:v9];
+        v9 = *(8 * i);
+        v10 = [(NSMutableDictionary *)self->_styleNamesToVisualStylings objectForKey:?];
         v11 = v10;
         if (v10)
         {
-          [v3 appendFormat:@"; %@: %@", v9, v10];
+          [v3 appendFormat:v9, v10];
         }
       }
 
-      v6 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [NSMutableDictionary countByEnumeratingWithState:v4 objects:"countByEnumeratingWithState:objects:count:" count:?];
     }
 
     while (v6);
   }
 
-  [v3 appendString:@">"];
-  v12 = *MEMORY[0x1E69E9840];
+  [v3 appendString:?];
 
   return v3;
 }
 
 + (void)recipeNameForRecipeFromStyle:(uint64_t)a1 fromStyleSetWithName:(uint64_t)a2 .cold.1(uint64_t a1, uint64_t a2)
 {
-  v4 = [MEMORY[0x1E696AAA8] currentHandler];
-  [v4 handleFailureInMethod:a1 object:a2 file:@"MTVisualStyleSet.m" lineNumber:32 description:{@"Invalid parameter not satisfying: %@", @"visualStyle"}];
+  v2 = [MEMORY[0x1E696AAA8] currentHandler];
+  [v2 handleFailureInMethod:@"visualStyle" object:? file:? lineNumber:? description:?];
 }
 
 + (void)recipeNameForRecipeFromStyle:(uint64_t)a1 fromStyleSetWithName:(uint64_t)a2 .cold.2(uint64_t a1, uint64_t a2)
 {
-  v4 = [MEMORY[0x1E696AAA8] currentHandler];
-  [v4 handleFailureInMethod:a1 object:a2 file:@"MTVisualStyleSet.m" lineNumber:33 description:{@"Invalid parameter not satisfying: %@", @"styleSetName"}];
+  v2 = [MEMORY[0x1E696AAA8] currentHandler];
+  [v2 handleFailureInMethod:@"styleSetName" object:? file:? lineNumber:? description:?];
 }
 
 @end

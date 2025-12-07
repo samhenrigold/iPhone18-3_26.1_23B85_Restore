@@ -1,5 +1,5 @@
 @interface _NSXPCConnectionRequestedReplies
-- (id)progressForSequence:(id)result;
+- (char)progressForSequence:(char *)result;
 - (void)beginTransactionForSequence:(const char *)sequence selector:(const void *)selector reply:(const void *)reply withProgress:;
 - (void)dealloc;
 - (void)endTransactionForSequence:(uint64_t)sequence completionHandler:;
@@ -158,13 +158,13 @@
   }
 }
 
-- (id)progressForSequence:(id)result
+- (char)progressForSequence:(char *)result
 {
   if (result)
   {
     v3 = result;
     os_unfair_lock_lock_with_options();
-    if (*(v3 + 36) || (v5 = *(v3 + 3)) == 0)
+    if (v3[36] || (v5 = *(v3 + 3)) == 0)
     {
       v4 = 0;
     }

@@ -33,21 +33,21 @@
   v5 = encodingCopy;
   if (encodingCopy && MEMORY[0x1DA6E0380](encodingCopy) == MEMORY[0x1E69E9E80])
   {
-    v14.receiver = self;
-    v14.super_class = SSVCloudServiceAPITokenResponse;
-    v6 = [(SSVCloudServiceAPITokenResponse *)&v14 init];
+    v15.receiver = self;
+    v15.super_class = SSVCloudServiceAPITokenResponse;
+    v6 = [(SSVCloudServiceAPITokenResponse *)&v15 init];
     if (v6)
     {
-      objc_opt_class();
-      v8 = SSXPCDictionaryCopyCFObjectWithClass(v5, "0");
+      v8 = objc_opt_class();
+      v9 = SSXPCDictionaryCopyCFObjectWithClass(v5, "0", v8);
       apiToken = v6->_apiToken;
-      v6->_apiToken = v8;
+      v6->_apiToken = v9;
 
-      v10 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v11 = xpc_dictionary_get_value(v5, "1");
-      v12 = [v10 initWithXPCEncoding:v11];
+      v11 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v12 = xpc_dictionary_get_value(v5, "1");
+      v13 = [v11 initWithXPCEncoding:v12];
       error = v6->_error;
-      v6->_error = v12;
+      v6->_error = v13;
     }
   }
 

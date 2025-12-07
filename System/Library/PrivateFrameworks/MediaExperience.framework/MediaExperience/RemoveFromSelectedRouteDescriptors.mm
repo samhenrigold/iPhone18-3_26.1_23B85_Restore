@@ -7,16 +7,13 @@ uint64_t __routingContextResilientRemote_RemoveFromSelectedRouteDescriptors_bloc
 {
   v3 = *(a1 + 32);
   v4 = *(a1 + 40);
-  VTable = CMBaseObjectGetVTable();
-  v6 = *(*(VTable + 16) + 104);
-  if (!v6)
+  v5 = *(*(CMBaseObjectGetVTable() + 16) + 104);
+  if (!v5)
   {
     return 4294954514;
   }
 
-  v7 = *(VTable + 16) + 104;
-
-  return v6(a2, v3, v4);
+  return v5(a2, v3, v4);
 }
 
 void __routingContext_RemoveFromSelectedRouteDescriptors_block_invoke(uint64_t a1)
@@ -40,8 +37,8 @@ void __routingContext_RemoveFromSelectedRouteDescriptors_block_invoke(uint64_t a
   if (*v4 > 0xDu)
   {
 LABEL_10:
-    v11 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+    v9 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
     goto LABEL_22;
   }
@@ -50,9 +47,9 @@ LABEL_10:
   {
     if (v5 == 9)
     {
-      v10 = MXSystemRemotePool_RemoveEndpointFromContext(v2, v4[1], *(a1 + 72));
+      v8 = MXSystemRemotePool_RemoveEndpointFromContext(v2, v4[1], *(a1 + 72));
 LABEL_17:
-      *(*(*(a1 + 32) + 8) + 24) = v10;
+      *(*(*(a1 + 32) + 8) + 24) = v8;
       goto LABEL_22;
     }
 
@@ -61,36 +58,35 @@ LABEL_17:
 
   FigPredictedRouting_ResetSelectedRouteDescriptor(v4[1], 5);
   v6 = *(a1 + 48);
-  if (*v6 != 13 || (FigRoutingManagerCopyPickedRouteDescriptorForRoutingContext(*(v6 + 8), cf), FigCFDictionaryGetValue(), v7 = *(a1 + 40), FigCFDictionaryGetValue(), v8 = *(a1 + 40), FigCFDictionaryGetValue(), !FigCFEqual()) && FigCFEqual())
+  if (*v6 != 13 || (FigRoutingManagerCopyPickedRouteDescriptorForRoutingContext(*(v6 + 8), cf), FigCFDictionaryGetValue(), FigCFDictionaryGetValue(), FigCFDictionaryGetValue(), !FigCFEqual()) && FigCFEqual())
   {
-    v12 = *MEMORY[0x1E69626D8];
-    if (FigRoutingManagerIsEndpointOfType(v3) && FigRoutingManagerIsEndpointWHAGroupable(v3))
+    if (FigRoutingManagerIsEndpointOfType(v3, *MEMORY[0x1E69626D8]) && FigRoutingManagerIsEndpointWHAGroupable(v3))
     {
-      v13 = FigRoutingManagerCopyLocalAirPlayEndpoint();
+      v10 = FigRoutingManagerCopyLocalAirPlayEndpoint();
       if (dword_1EB75DF40)
       {
-        v14 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-        os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
+        v11 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+        os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
         fig_log_call_emit_and_clean_up_after_send_and_compose();
       }
 
-      if (!v13)
+      if (!v10)
       {
-        v15 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-        os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
+        v12 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+        os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
         fig_log_call_emit_and_clean_up_after_send_and_compose();
       }
 
-      *(*(*(a1 + 32) + 8) + 24) = FigRoutingManager_iOSRemoveEndpointFromContext(*(*(a1 + 48) + 8), v13, *(a1 + 72));
-      if (v13)
+      *(*(*(a1 + 32) + 8) + 24) = FigRoutingManager_iOSRemoveEndpointFromContext(*(*(a1 + 48) + 8), v10, *(a1 + 72));
+      if (v10)
       {
-        CFRelease(v13);
+        CFRelease(v10);
       }
 
       goto LABEL_22;
     }
 
-    v10 = FigRoutingManager_iOSRemoveEndpointFromContext(*(*(a1 + 48) + 8), v3, *(a1 + 72));
+    v8 = FigRoutingManager_iOSRemoveEndpointFromContext(*(*(a1 + 48) + 8), v3, *(a1 + 72));
     goto LABEL_17;
   }
 
@@ -98,30 +94,28 @@ LABEL_17:
 LABEL_22:
   CFRelease(v3);
 LABEL_23:
-  v16 = *(a1 + 80);
-  if (v16)
+  v13 = *(a1 + 80);
+  if (v13)
   {
-    CFRelease(v16);
+    CFRelease(v13);
   }
 
-  v17 = *(a1 + 40);
-  if (v17)
+  v14 = *(a1 + 40);
+  if (v14)
   {
-    CFRelease(v17);
+    CFRelease(v14);
   }
 
-  v18 = *(a1 + 72);
-  if (v18)
+  v15 = *(a1 + 72);
+  if (v15)
   {
-    CFRelease(v18);
+    CFRelease(v15);
   }
 
   if (cf[0])
   {
     CFRelease(cf[0]);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 @end

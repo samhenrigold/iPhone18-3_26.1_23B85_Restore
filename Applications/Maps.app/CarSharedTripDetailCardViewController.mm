@@ -429,7 +429,7 @@ LABEL_7:
   stopUpdatesButton = self->_stopUpdatesButton;
   if (stopUpdatesButton)
   {
-    [(CarCardRoundedButton *)stopUpdatesButton buttonMetrics];
+    objc_msgSend_buttonMetrics(stopUpdatesButton);
     v58 = v65;
   }
 
@@ -587,7 +587,7 @@ LABEL_7:
   v42 = self->_stopUpdatesButton;
   if (v42)
   {
-    [(CarCardRoundedButton *)v42 buttonMetrics];
+    objc_msgSend_buttonMetrics(v42);
     v43 = *(&v52 + 1);
   }
 

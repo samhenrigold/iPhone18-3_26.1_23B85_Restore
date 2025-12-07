@@ -68,7 +68,7 @@
   fhirIdentifier = self->_fhirIdentifier;
   self->_fhirIdentifier = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, fhirIdentifier);
 }
 
 - (void)_setSignedClinicalDataRecordIdentifier:(id)identifier
@@ -77,7 +77,7 @@
   signedClinicalDataRecordIdentifier = self->_signedClinicalDataRecordIdentifier;
   self->_signedClinicalDataRecordIdentifier = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, signedClinicalDataRecordIdentifier);
 }
 
 + (id)unitTesting_identifierWithNeitherPropertyAllocated

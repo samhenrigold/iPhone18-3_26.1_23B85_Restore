@@ -63,26 +63,28 @@
   {
     unsignedIntegerValue = [indexCopy unsignedIntegerValue];
     v12 = [(TPSSIMApplicationsController *)self localizedSubtitlesForSubscriptionContext:contextCopy];
-    if (unsignedIntegerValue >= [v12 count])
+    v13 = [v12 count];
+    if (unsignedIntegerValue >= v13)
     {
-      v13 = 0;
+      v15 = 0;
     }
 
     else
     {
       v13 = [v12 objectAtIndexedSubscript:unsignedIntegerValue];
+      v15 = v13;
     }
 
-    v14 = TPSSIMApplicationsLog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v16 = TPSSIMApplicationsLog(v13, v14);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      v15 = 138412802;
-      v16 = v13;
-      v17 = 2112;
-      v18 = contextCopy;
+      v17 = 138412802;
+      v18 = v15;
       v19 = 2112;
-      v20 = v10;
-      _os_log_error_impl(&dword_0, v14, OS_LOG_TYPE_ERROR, "Opening SIM application %@ for subscription context %@ failed with error %@", &v15, 0x20u);
+      v20 = contextCopy;
+      v21 = 2112;
+      v22 = v10;
+      _os_log_error_impl(&dword_0, v16, OS_LOG_TYPE_ERROR, "Opening SIM application %@ for subscription context %@ failed with error %@", &v17, 0x20u);
     }
   }
 }
@@ -98,9 +100,9 @@
   {
     telephonyController = [(TPSSIMApplicationsController *)self telephonyController];
     telephonyClient = [telephonyController telephonyClient];
-    v14 = 0;
-    v10 = [telephonyClient getSIMToolkitMenu:contextCopy menu:&v14];
-    v7 = v14;
+    v16 = 0;
+    v10 = [telephonyClient getSIMToolkitMenu:contextCopy menu:&v16];
+    v7 = v16;
 
     if (v7)
     {
@@ -118,7 +120,7 @@ LABEL_8:
         goto LABEL_9;
       }
 
-      subscriptionContextUUIDToSIMToolkitMenu2 = TPSSIMApplicationsLog();
+      subscriptionContextUUIDToSIMToolkitMenu2 = TPSSIMApplicationsLog(v11, v12);
       if (os_log_type_enabled(subscriptionContextUUIDToSIMToolkitMenu2, OS_LOG_TYPE_ERROR))
       {
         sub_1B24(contextCopy, v10, subscriptionContextUUIDToSIMToolkitMenu2);

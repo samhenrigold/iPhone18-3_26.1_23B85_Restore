@@ -116,63 +116,63 @@
 
 + (id)allSupportedItemProperties
 {
-  v53[1] = *MEMORY[0x277D85DE8];
+  v52[1] = *MEMORY[0x277D85DE8];
   v2 = objc_alloc(MEMORY[0x277CD6018]);
-  v52 = *MEMORY[0x277CD5B80];
+  v51 = *MEMORY[0x277CD5B80];
   allSupportedProperties = [MEMORY[0x277CD60C0] allSupportedProperties];
-  v53[0] = allSupportedProperties;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v53 forKeys:&v52 count:1];
+  v52[0] = allSupportedProperties;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v52 forKeys:&v51 count:1];
   v5 = MEMORY[0x277CBEBF8];
-  v40 = [v2 initWithProperties:MEMORY[0x277CBEBF8] relationships:v4];
+  v39 = [v2 initWithProperties:MEMORY[0x277CBEBF8] relationships:v4];
 
   v6 = objc_alloc(MEMORY[0x277CD6018]);
-  v50 = *MEMORY[0x277CD5B70];
+  v49 = *MEMORY[0x277CD5B70];
   allSupportedProperties2 = [MEMORY[0x277CD60B0] allSupportedProperties];
-  v51 = allSupportedProperties2;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v51 forKeys:&v50 count:1];
+  v50 = allSupportedProperties2;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v50 forKeys:&v49 count:1];
   v9 = [v6 initWithProperties:v5 relationships:v8];
 
   v10 = objc_alloc(MEMORY[0x277CD6018]);
-  v48 = *MEMORY[0x277CD5B78];
+  v47 = *MEMORY[0x277CD5B78];
   allSupportedProperties3 = [MEMORY[0x277CD60B8] allSupportedProperties];
-  v49 = allSupportedProperties3;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v49 forKeys:&v48 count:1];
+  v48 = allSupportedProperties3;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v48 forKeys:&v47 count:1];
   v13 = [v10 initWithProperties:v5 relationships:v12];
 
   v14 = objc_alloc(MEMORY[0x277CD6018]);
-  v46 = *MEMORY[0x277CD5BB0];
+  v45 = *MEMORY[0x277CD5BB0];
   allSupportedProperties4 = [MEMORY[0x277CD60D8] allSupportedProperties];
-  v47 = allSupportedProperties4;
-  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v47 forKeys:&v46 count:1];
+  v46 = allSupportedProperties4;
+  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v46 forKeys:&v45 count:1];
   v17 = [v14 initWithProperties:v5 relationships:v16];
 
   v18 = objc_alloc(MEMORY[0x277CD6018]);
-  v44 = *MEMORY[0x277CD5B90];
+  v43 = *MEMORY[0x277CD5B90];
   allSupportedProperties5 = [MEMORY[0x277CD60C8] allSupportedProperties];
-  v45 = allSupportedProperties5;
-  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v45 forKeys:&v44 count:1];
+  v44 = allSupportedProperties5;
+  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v44 forKeys:&v43 count:1];
   v21 = [v18 initWithProperties:v5 relationships:v20];
 
   v22 = objc_alloc(MEMORY[0x277CD6018]);
-  v42 = *MEMORY[0x277CD5B98];
+  v41 = *MEMORY[0x277CD5B98];
   v23 = MEMORY[0x277CD6018];
   v24 = *MEMORY[0x277CD5A88];
-  v41[0] = *MEMORY[0x277CD5AA8];
-  v41[1] = v24;
+  v40[0] = *MEMORY[0x277CD5AA8];
+  v40[1] = v24;
   v25 = *MEMORY[0x277CD5A90];
-  v41[2] = *MEMORY[0x277CD5AA0];
-  v41[3] = v25;
+  v40[2] = *MEMORY[0x277CD5AA0];
+  v40[3] = v25;
   v26 = *MEMORY[0x277CD5A98];
-  v41[4] = *MEMORY[0x277CD5A80];
-  v41[5] = v26;
-  v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:6];
+  v40[4] = *MEMORY[0x277CD5A80];
+  v40[5] = v26;
+  v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:6];
   v28 = [v23 propertySetWithProperties:v27];
-  v43 = v28;
-  v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v43 forKeys:&v42 count:1];
+  v42 = v28;
+  v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
   v30 = [v22 initWithProperties:v5 relationships:v29];
 
   emptyPropertySet = [MEMORY[0x277CD6018] emptyPropertySet];
-  v32 = [emptyPropertySet propertySetByCombiningWithPropertySet:v40];
+  v32 = [emptyPropertySet propertySetByCombiningWithPropertySet:v39];
 
   v33 = [v32 propertySetByCombiningWithPropertySet:v9];
 
@@ -184,41 +184,39 @@
 
   v37 = [v36 propertySetByCombiningWithPropertySet:v30];
 
-  v38 = *MEMORY[0x277D85DE8];
-
   return v37;
 }
 
 + (id)allSupportedSectionProperties
 {
-  v33[1] = *MEMORY[0x277D85DE8];
+  v32[1] = *MEMORY[0x277D85DE8];
   v2 = objc_alloc(MEMORY[0x277CD6018]);
-  v32 = *MEMORY[0x277CD5B80];
+  v31 = *MEMORY[0x277CD5B80];
   allSupportedProperties = [MEMORY[0x277CD60C0] allSupportedProperties];
-  v33[0] = allSupportedProperties;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:&v32 count:1];
+  v32[0] = allSupportedProperties;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:&v31 count:1];
   v5 = MEMORY[0x277CBEBF8];
   v6 = [v2 initWithProperties:MEMORY[0x277CBEBF8] relationships:v4];
 
   v7 = objc_alloc(MEMORY[0x277CD6018]);
-  v30 = *MEMORY[0x277CD5B70];
+  v29 = *MEMORY[0x277CD5B70];
   allSupportedProperties2 = [MEMORY[0x277CD60B0] allSupportedProperties];
-  v31 = allSupportedProperties2;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
+  v30 = allSupportedProperties2;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
   v10 = [v7 initWithProperties:v5 relationships:v9];
 
   v11 = objc_alloc(MEMORY[0x277CD6018]);
-  v28 = *MEMORY[0x277CD5B78];
+  v27 = *MEMORY[0x277CD5B78];
   allSupportedProperties3 = [MEMORY[0x277CD60B8] allSupportedProperties];
-  v29 = allSupportedProperties3;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+  v28 = allSupportedProperties3;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
   v14 = [v11 initWithProperties:v5 relationships:v13];
 
   v15 = objc_alloc(MEMORY[0x277CD6018]);
-  v26 = *MEMORY[0x277CD5B90];
+  v25 = *MEMORY[0x277CD5B90];
   allSupportedProperties4 = [MEMORY[0x277CD60C8] allSupportedProperties];
-  v27 = allSupportedProperties4;
-  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+  v26 = allSupportedProperties4;
+  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
   v18 = [v15 initWithProperties:v5 relationships:v17];
 
   emptyPropertySet = [MEMORY[0x277CD6018] emptyPropertySet];
@@ -229,8 +227,6 @@
   v22 = [v21 propertySetByCombiningWithPropertySet:v14];
 
   v23 = [v22 propertySetByCombiningWithPropertySet:v18];
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v23;
 }

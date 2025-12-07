@@ -31,19 +31,19 @@
 
 - (MCProfileServiceProfile)initWithDictionary:(id)dictionary signerCerts:(id)certs allowEmptyPayload:(BOOL)payload outError:(id *)error
 {
-  v64 = *MEMORY[0x1E69E9840];
+  v61 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v58.receiver = self;
-  v58.super_class = MCProfileServiceProfile;
-  v10 = [(MCProfile *)&v58 initWithDictionary:dictionaryCopy signerCerts:certs allowEmptyPayload:1 outError:error];
+  v55.receiver = self;
+  v55.super_class = MCProfileServiceProfile;
+  v10 = [(MCProfile *)&v55 initWithDictionary:dictionaryCopy signerCerts:certs allowEmptyPayload:1 outError:error];
   if (!v10)
   {
     goto LABEL_24;
   }
 
-  v57 = 0;
-  v11 = [MCProfile removeRequiredObjectInDictionary:dictionaryCopy key:@"PayloadContent" type:objc_opt_class() errorDomain:@"MCProfileErrorDomain" missingDataCode:1002 missingDataErrorString:@"ERROR_PROFILE_REQUIRED_FIELD_MISSING_P_FIELD" invalidDataCode:1003 invalidDataErrorString:@"ERROR_PROFILE_FIELD_INVALID_P_FIELD" outError:&v57];
-  v12 = v57;
+  v54 = 0;
+  v11 = [MCProfile removeRequiredObjectInDictionary:dictionaryCopy key:@"PayloadContent" type:objc_opt_class() errorDomain:@"MCProfileErrorDomain" missingDataCode:1002 missingDataErrorString:@"ERROR_PROFILE_REQUIRED_FIELD_MISSING_P_FIELD" invalidDataCode:1003 invalidDataErrorString:@"ERROR_PROFILE_FIELD_INVALID_P_FIELD" outError:&v54];
+  v12 = v54;
   if ([(MCProfile *)v10 isStub])
   {
     if (v12)
@@ -51,9 +51,9 @@
       goto LABEL_12;
     }
 
-    v56 = 0;
-    v13 = [MCProfile removeOptionalObjectInDictionary:v11 key:@"EnrollmentIdentityPersistentID" type:objc_opt_class() errorDomain:@"MCProfileErrorDomain" invalidDataCode:1003 invalidDataErrorString:@"ERROR_PROFILE_FIELD_INVALID_P_FIELD" outError:&v56];
-    v12 = v56;
+    v53 = 0;
+    v13 = [MCProfile removeOptionalObjectInDictionary:v11 key:@"EnrollmentIdentityPersistentID" type:objc_opt_class() errorDomain:@"MCProfileErrorDomain" invalidDataCode:1003 invalidDataErrorString:@"ERROR_PROFILE_FIELD_INVALID_P_FIELD" outError:&v53];
+    v12 = v53;
     enrollmentIdentityPersistentID = v10->_enrollmentIdentityPersistentID;
     v10->_enrollmentIdentityPersistentID = v13;
 
@@ -75,11 +75,10 @@
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        v17 = v10->_challenge;
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
-          v23 = [(MCProfileServiceProfile *)v10 _badDataTypeErrorWithFieldName:@"Challenge"];
+          v22 = [(MCProfileServiceProfile *)v10 _badDataTypeErrorWithFieldName:@"Challenge"];
           goto LABEL_18;
         }
       }
@@ -91,83 +90,82 @@
     }
   }
 
-  v55 = 0;
-  v18 = [MCProfile removeRequiredNonZeroLengthStringInDictionary:v11 key:@"URL" errorDomain:@"MCProfileErrorDomain" missingDataCode:1002 missingDataErrorString:@"ERROR_PROFILE_REQUIRED_FIELD_MISSING_P_FIELD" invalidDataCode:1003 invalidDataErrorString:@"ERROR_PROFILE_FIELD_INVALID_P_FIELD" outError:&v55];
-  v12 = v55;
+  v52 = 0;
+  v17 = [MCProfile removeRequiredNonZeroLengthStringInDictionary:v11 key:@"URL" errorDomain:@"MCProfileErrorDomain" missingDataCode:1002 missingDataErrorString:@"ERROR_PROFILE_REQUIRED_FIELD_MISSING_P_FIELD" invalidDataCode:1003 invalidDataErrorString:@"ERROR_PROFILE_FIELD_INVALID_P_FIELD" outError:&v52];
+  v12 = v52;
   URLString = v10->_URLString;
-  v10->_URLString = v18;
+  v10->_URLString = v17;
 
   if (!v12)
   {
-    v54 = 0;
-    v20 = [MCProfile removeOptionalObjectInDictionary:v11 key:@"DeviceAttributes" type:objc_opt_class() errorDomain:@"MCProfileErrorDomain" invalidDataCode:1003 invalidDataErrorString:@"ERROR_PROFILE_FIELD_INVALID_P_FIELD" outError:&v54];
-    v12 = v54;
+    v51 = 0;
+    v19 = [MCProfile removeOptionalObjectInDictionary:v11 key:@"DeviceAttributes" type:objc_opt_class() errorDomain:@"MCProfileErrorDomain" invalidDataCode:1003 invalidDataErrorString:@"ERROR_PROFILE_FIELD_INVALID_P_FIELD" outError:&v51];
+    v12 = v51;
     deviceAttributes = v10->_deviceAttributes;
-    v10->_deviceAttributes = v20;
+    v10->_deviceAttributes = v19;
 
     if (!v12)
     {
-      v53 = 0;
-      v22 = [MCProfile removeOptionalObjectInDictionary:v11 key:@"ConfirmInstallation" type:objc_opt_class() errorDomain:@"MCProfileErrorDomain" invalidDataCode:1003 invalidDataErrorString:@"ERROR_PROFILE_FIELD_INVALID_P_FIELD" outError:&v53];
-      v12 = v53;
+      v50 = 0;
+      v21 = [MCProfile removeOptionalObjectInDictionary:v11 key:@"ConfirmInstallation" type:objc_opt_class() errorDomain:@"MCProfileErrorDomain" invalidDataCode:1003 invalidDataErrorString:@"ERROR_PROFILE_FIELD_INVALID_P_FIELD" outError:&v50];
+      v12 = v50;
       goto LABEL_13;
     }
   }
 
 LABEL_12:
-  v22 = 0;
+  v21 = 0;
 LABEL_13:
-  v10->_confirmInstallation = [v22 BOOLValue];
+  v10->_confirmInstallation = [v21 BOOLValue];
   if (v12)
   {
-    v23 = v12;
+    v22 = v12;
   }
 
   else
   {
-    v52 = 0;
-    v24 = [MCProfile removeOptionalObjectInDictionary:v11 key:@"SupportedServerVersion" type:objc_opt_class() errorDomain:@"MCProfileErrorDomain" invalidDataCode:1003 invalidDataErrorString:@"ERROR_PROFILE_FIELD_INVALID_P_FIELD" outError:&v52];
-    v23 = v52;
+    v49 = 0;
+    v23 = [MCProfile removeOptionalObjectInDictionary:v11 key:@"SupportedServerVersion" type:objc_opt_class() errorDomain:@"MCProfileErrorDomain" invalidDataCode:1003 invalidDataErrorString:@"ERROR_PROFILE_FIELD_INVALID_P_FIELD" outError:&v49];
+    v22 = v49;
 
-    v22 = v24;
+    v21 = v23;
   }
 
-  v10->_supportedServerVersion = [v22 BOOLValue];
-  if (!v23)
+  v10->_supportedServerVersion = [v21 BOOLValue];
+  if (!v22)
   {
-    v36 = v10->_deviceAttributes;
-    if (v36)
+    v34 = v10->_deviceAttributes;
+    if (v34)
     {
-      v50 = 0u;
-      v51 = 0u;
+      v47 = 0u;
       v48 = 0u;
-      v49 = 0u;
-      v37 = v36;
-      v23 = [(NSArray *)v37 countByEnumeratingWithState:&v48 objects:v63 count:16];
-      if (v23)
+      v45 = 0u;
+      v46 = 0u;
+      v35 = v34;
+      v22 = [(NSArray *)v35 countByEnumeratingWithState:&v45 objects:v60 count:16];
+      if (v22)
       {
         errorCopy = error;
-        v38 = *v49;
+        v36 = *v46;
         while (2)
         {
-          for (i = 0; i != v23; i = i + 1)
+          for (i = 0; i != v22; ++i)
           {
-            if (*v49 != v38)
+            if (*v46 != v36)
             {
-              objc_enumerationMutation(v37);
+              objc_enumerationMutation(v35);
             }
 
-            v40 = *(*(&v48 + 1) + 8 * i);
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
-              v23 = [(MCProfileServiceProfile *)v10 _badDataTypeErrorWithFieldName:@"DeviceAttributes"];
+              v22 = [(MCProfileServiceProfile *)v10 _badDataTypeErrorWithFieldName:@"DeviceAttributes"];
               goto LABEL_37;
             }
           }
 
-          v23 = [(NSArray *)v37 countByEnumeratingWithState:&v48 objects:v63 count:16];
-          if (v23)
+          v22 = [(NSArray *)v35 countByEnumeratingWithState:&v45 objects:v60 count:16];
+          if (v22)
           {
             continue;
           }
@@ -182,77 +180,76 @@ LABEL_37:
 
     else
     {
-      v23 = 0;
+      v22 = 0;
     }
 
     if ([v11 count])
     {
-      v41 = _MCLogObjects;
+      v38 = _MCLogObjects;
       if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_INFO))
       {
-        v42 = v41;
+        v39 = v38;
         friendlyName = [(MCProfile *)v10 friendlyName];
         *buf = 138543618;
-        v60 = friendlyName;
-        v61 = 2114;
-        v62 = v11;
-        _os_log_impl(&dword_1A795B000, v42, OS_LOG_TYPE_INFO, "PayloadContent for profile “%{public}@” has entries that are being ignored. They are:%{public}@", buf, 0x16u);
+        v57 = friendlyName;
+        v58 = 2114;
+        v59 = v11;
+        _os_log_impl(&dword_1A795B000, v39, OS_LOG_TYPE_INFO, "PayloadContent for profile “%{public}@” has entries that are being ignored. They are:%{public}@", buf, 0x16u);
       }
     }
 
     if ([dictionaryCopy count])
     {
-      v44 = _MCLogObjects;
+      v41 = _MCLogObjects;
       if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_INFO))
       {
-        v45 = v44;
+        v42 = v41;
         friendlyName2 = [(MCProfile *)v10 friendlyName];
         *buf = 138543618;
-        v60 = friendlyName2;
-        v61 = 2114;
-        v62 = dictionaryCopy;
-        _os_log_impl(&dword_1A795B000, v45, OS_LOG_TYPE_INFO, "Profile “%{public}@” has entries that are being ignored. They are:%{public}@", buf, 0x16u);
+        v57 = friendlyName2;
+        v58 = 2114;
+        v59 = dictionaryCopy;
+        _os_log_impl(&dword_1A795B000, v42, OS_LOG_TYPE_INFO, "Profile “%{public}@” has entries that are being ignored. They are:%{public}@", buf, 0x16u);
       }
     }
   }
 
-  v12 = v22;
+  v12 = v21;
 LABEL_18:
 
-  if (!v23)
+  if (!v22)
   {
 LABEL_24:
-    v33 = v10;
+    v32 = v10;
     goto LABEL_25;
   }
 
-  v25 = [(MCProfile *)v10 malformedProfileErrorWithError:v23];
-  v26 = v25;
+  v24 = [(MCProfile *)v10 malformedProfileErrorWithError:v22];
+  v25 = v24;
   if (error)
   {
-    v27 = v25;
-    *error = v26;
+    v26 = v24;
+    *error = v25;
   }
 
-  v28 = _MCLogObjects;
+  v27 = _MCLogObjects;
   if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_ERROR))
   {
-    v29 = v28;
-    v30 = objc_opt_class();
-    v31 = v30;
-    mCVerboseDescription = [v26 MCVerboseDescription];
+    v28 = v27;
+    v29 = objc_opt_class();
+    v30 = v29;
+    mCVerboseDescription = [v25 MCVerboseDescription];
     *buf = 138543618;
-    v60 = v30;
-    v61 = 2114;
-    v62 = mCVerboseDescription;
-    _os_log_impl(&dword_1A795B000, v29, OS_LOG_TYPE_ERROR, "%{public}@ Can't parse profile: %{public}@", buf, 0x16u);
+    v57 = v29;
+    v58 = 2114;
+    v59 = mCVerboseDescription;
+    _os_log_impl(&dword_1A795B000, v28, OS_LOG_TYPE_ERROR, "%{public}@ Can't parse profile: %{public}@", buf, 0x16u);
   }
 
-  v33 = 0;
+  v32 = 0;
 LABEL_25:
 
-  v34 = *MEMORY[0x1E69E9840];
-  return v33;
+  return v32;
 }
 
 - (id)localizedPayloadSummaryByType

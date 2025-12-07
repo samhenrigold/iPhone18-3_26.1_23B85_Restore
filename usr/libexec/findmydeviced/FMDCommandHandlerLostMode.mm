@@ -7,7 +7,7 @@
 
 - (void)handleCommand
 {
-  v85 = qword_100312AF8;
+  v90 = qword_100312AF8;
   commandParams = [(FMDCommandHandler *)self commandParams];
   v4 = [commandParams objectForKeyedSubscript:@"ownerNbr"];
 
@@ -31,194 +31,198 @@
   bOOLValue3 = [v17 BOOLValue];
 
   provider = [(FMDCommandHandler *)self provider];
+  v20 = provider;
   if (bOOLValue3)
   {
     commandParams7 = [(FMDCommandHandler *)self commandParams];
-    v21 = [commandParams7 objectForKeyedSubscript:@"passcode"];
+    v22 = [commandParams7 objectForKeyedSubscript:@"passcode"];
 
-    if (v21)
+    if (v22)
     {
-      v22 = sub_100002880();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+      v24 = sub_100002880(v23);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
       {
-        sub_1002296E0(v21, v22);
+        sub_1002296E0(v22, v24);
       }
     }
 
-    if ([provider setPasscodeLock:v21 statusCode:&v85])
+    v25 = [v20 setPasscodeLock:v22 statusCode:&v90];
+    if (v25)
     {
-      v81 = intValue;
-      v83 = bOOLValue;
-      v23 = +[NSMutableDictionary dictionary];
+      v86 = intValue;
+      v88 = bOOLValue;
+      v26 = +[NSMutableDictionary dictionary];
       commandParams8 = [(FMDCommandHandler *)self commandParams];
-      v25 = [commandParams8 objectForKeyedSubscript:@"loc.timeout"];
-      [v23 fm_safelyMapKey:@"timeout" toObject:v25];
+      v28 = [commandParams8 objectForKeyedSubscript:@"loc.timeout"];
+      [v26 fm_safelyMapKey:@"timeout" toObject:v28];
 
       commandParams9 = [(FMDCommandHandler *)self commandParams];
-      v27 = [commandParams9 objectForKeyedSubscript:@"loc.startThreshold"];
-      [v23 fm_safelyMapKey:@"startThreshold" toObject:v27];
+      v30 = [commandParams9 objectForKeyedSubscript:@"loc.startThreshold"];
+      [v26 fm_safelyMapKey:@"startThreshold" toObject:v30];
 
       commandParams10 = [(FMDCommandHandler *)self commandParams];
-      v29 = [commandParams10 objectForKeyedSubscript:@"loc.endThreshold"];
-      [v23 fm_safelyMapKey:@"endThreshold" toObject:v29];
+      v32 = [commandParams10 objectForKeyedSubscript:@"loc.endThreshold"];
+      [v26 fm_safelyMapKey:@"endThreshold" toObject:v32];
 
       commandParams11 = [(FMDCommandHandler *)self commandParams];
-      v31 = [commandParams11 objectForKeyedSubscript:@"loc.decayFactor"];
-      [v23 fm_safelyMapKey:@"decayFactor" toObject:v31];
+      v34 = [commandParams11 objectForKeyedSubscript:@"loc.decayFactor"];
+      [v26 fm_safelyMapKey:@"decayFactor" toObject:v34];
 
       commandParams12 = [(FMDCommandHandler *)self commandParams];
-      v33 = [commandParams12 objectForKeyedSubscript:@"loc.desiredAccuracy"];
-      [v23 fm_safelyMapKey:@"desiredAccuracy" toObject:v33];
+      v36 = [commandParams12 objectForKeyedSubscript:@"loc.desiredAccuracy"];
+      [v26 fm_safelyMapKey:@"desiredAccuracy" toObject:v36];
 
       commandParams13 = [(FMDCommandHandler *)self commandParams];
-      v35 = [commandParams13 objectForKeyedSubscript:@"loc.validityDuration"];
-      [v23 fm_safelyMapKey:@"validityDuration" toObject:v35];
+      v38 = [commandParams13 objectForKeyedSubscript:@"loc.validityDuration"];
+      [v26 fm_safelyMapKey:@"validityDuration" toObject:v38];
 
       commandParams14 = [(FMDCommandHandler *)self commandParams];
-      v37 = [commandParams14 objectForKeyedSubscript:@"track.minSLCThresholdInMeters"];
+      v40 = [commandParams14 objectForKeyedSubscript:@"track.minSLCThresholdInMeters"];
 
-      v80 = bOOLValue2;
-      v82 = v37;
-      if (v37)
+      v85 = bOOLValue2;
+      v87 = v40;
+      if (v40)
       {
-        [v37 doubleValue];
-        v39 = v38;
+        [v40 doubleValue];
+        v42 = v41;
       }
 
       else
       {
-        v39 = 400.0;
+        v42 = 400.0;
       }
 
       commandParams15 = [(FMDCommandHandler *)self commandParams];
-      v43 = [commandParams15 objectForKeyedSubscript:@"track.maxTrackedLocationsCount"];
-      intValue2 = [v43 intValue];
+      v46 = [commandParams15 objectForKeyedSubscript:@"track.maxTrackedLocationsCount"];
+      intValue2 = [v46 intValue];
 
       commandParams16 = [(FMDCommandHandler *)self commandParams];
-      v45 = [commandParams16 objectForKeyedSubscript:@"track.locCacheDurationInSecs"];
-      [v45 doubleValue];
-      v47 = v46;
+      v48 = [commandParams16 objectForKeyedSubscript:@"track.locCacheDurationInSecs"];
+      [v48 doubleValue];
+      v50 = v49;
 
       commandParams17 = [(FMDCommandHandler *)self commandParams];
-      v49 = [commandParams17 objectForKeyedSubscript:@"track.maxCallbackTimeInSecs"];
-      [v49 doubleValue];
-      v51 = v50;
+      v52 = [commandParams17 objectForKeyedSubscript:@"track.maxCallbackTimeInSecs"];
+      [v52 doubleValue];
+      v54 = v53;
 
       commandParams18 = [(FMDCommandHandler *)self commandParams];
-      v53 = [commandParams18 objectForKeyedSubscript:@"track.minDistanceThresholdInMeters"];
-      [v53 doubleValue];
-      v55 = v54;
+      v56 = [commandParams18 objectForKeyedSubscript:@"track.minDistanceThresholdInMeters"];
+      [v56 doubleValue];
+      v58 = v57;
 
       commandParams19 = [(FMDCommandHandler *)self commandParams];
-      v57 = [commandParams19 objectForKeyedSubscript:@"track.minTimeBetweenLocationsInSecs"];
-      [v57 doubleValue];
-      v59 = v58;
+      v60 = [commandParams19 objectForKeyedSubscript:@"track.minTimeBetweenLocationsInSecs"];
+      [v60 doubleValue];
+      v62 = v61;
 
       commandParams20 = [(FMDCommandHandler *)self commandParams];
-      v61 = [commandParams20 objectForKeyedSubscript:@"track.minCallbackTimeInSecs"];
-      [v61 doubleValue];
-      v63 = v62;
+      v64 = [commandParams20 objectForKeyedSubscript:@"track.minCallbackTimeInSecs"];
+      [v64 doubleValue];
+      v66 = v65;
 
       commandParams21 = [(FMDCommandHandler *)self commandParams];
-      v65 = [commandParams21 objectForKeyedSubscript:@"enableLocationServices"];
-      bOOLValue4 = [v65 BOOLValue];
+      v68 = [commandParams21 objectForKeyedSubscript:@"enableLocationServices"];
+      bOOLValue4 = [v68 BOOLValue];
 
-      v67 = +[FMDLostModeManager sharedInstance];
-      lostModeEnabled = [v67 lostModeEnabled];
+      v70 = +[FMDLostModeManager sharedInstance];
+      lostModeEnabled = [v70 lostModeEnabled];
 
-      v69 = 0;
+      v72 = 0;
       if (lostModeEnabled)
       {
-        v41 = 0;
+        v44 = 0;
       }
 
       else
       {
-        v41 = 0;
+        v44 = 0;
         if (bOOLValue4)
         {
-          v70 = +[CLLocationManager locationServicesEnabled];
-          if ((v70 & 1) == 0)
+          v73 = +[CLLocationManager locationServicesEnabled];
+          v74 = v73;
+          if ((v73 & 1) == 0)
           {
-            v71 = sub_100002880();
-            if (os_log_type_enabled(v71, OS_LOG_TYPE_DEFAULT))
+            v75 = sub_100002880(v73);
+            if (os_log_type_enabled(v75, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&_mh_execute_header, v71, OS_LOG_TYPE_DEFAULT, "Location services is off. Reporting to the server that we will turn it on", buf, 2u);
+              _os_log_impl(&_mh_execute_header, v75, OS_LOG_TYPE_DEFAULT, "Location services is off. Reporting to the server that we will turn it on", buf, 2u);
             }
           }
 
-          v41 = v70 ^ 1;
-          if (([CLLocationManager isStatusBarIconEnabledForLocationEntityClass:4]& 1) != 0)
+          v44 = v74 ^ 1;
+          v76 = [CLLocationManager isStatusBarIconEnabledForLocationEntityClass:4];
+          if (v76)
           {
-            v69 = 0;
+            v72 = 0;
           }
 
           else
           {
-            v72 = sub_100002880();
-            if (os_log_type_enabled(v72, OS_LOG_TYPE_DEFAULT))
+            v77 = sub_100002880(v76);
+            if (os_log_type_enabled(v77, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&_mh_execute_header, v72, OS_LOG_TYPE_DEFAULT, "Turning on status bar icon since its off & the lost command asks us to turn on location services", buf, 2u);
+              _os_log_impl(&_mh_execute_header, v77, OS_LOG_TYPE_DEFAULT, "Turning on status bar icon since its off & the lost command asks us to turn on location services", buf, 2u);
             }
 
-            v69 = 1;
+            v72 = 1;
             [CLLocationManager setStatusBarIconEnabled:1 forLocationEntityClass:4];
           }
         }
       }
 
-      v73 = +[FMDLostModeManager sharedInstance];
-      [v73 enableLostModeWithMessage:v9 ownerNumber:v4 facetimeCapable:v83 enableLocationServices:bOOLValue4 turnOffStatusBarIconAfterLostMode:v69];
+      v78 = +[FMDLostModeManager sharedInstance];
+      [v78 enableLostModeWithMessage:v9 ownerNumber:v4 facetimeCapable:v88 enableLocationServices:bOOLValue4 turnOffStatusBarIconAfterLostMode:v72];
 
-      locationTracker = [provider locationTracker];
+      locationTracker = [v20 locationTracker];
 
       if (locationTracker)
       {
-        locationTracker2 = [provider locationTracker];
-        [locationTracker2 updateLocationTrackingInfoWithTrackingStatus:v81 minSLCAccuracyThreshold:v23 locateParams:v80 trackNotifyEnabled:intValue2 maxLocations:v39 keepAlive:v47 periodicCheckInterval:v51 minDistanceBetweenLocations:v55 minTimeBetweenLocations:v59 minTimeBetweenServerCalls:v63];
+        locationTracker2 = [v20 locationTracker];
+        [locationTracker2 updateLocationTrackingInfoWithTrackingStatus:v86 minSLCAccuracyThreshold:v26 locateParams:v85 trackNotifyEnabled:intValue2 maxLocations:v42 keepAlive:v50 periodicCheckInterval:v54 minDistanceBetweenLocations:v58 minTimeBetweenLocations:v62 minTimeBetweenServerCalls:v66];
       }
     }
 
     else
     {
-      v23 = sub_100002880();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+      v26 = sub_100002880(v25);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Lock failed. Ignoring the lost mode command.", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "Lock failed. Ignoring the lost mode command.", buf, 2u);
       }
 
-      v41 = 0;
+      v44 = 0;
     }
   }
 
   else
   {
-    v40 = sub_100002880();
-    if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+    v43 = sub_100002880(provider);
+    if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "Lost mode cannot be disabled from the server. There seems to be some bug in the server. Not honouring this lost mode command", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_DEFAULT, "Lost mode cannot be disabled from the server. There seems to be some bug in the server. Not honouring this lost mode command", buf, 2u);
     }
 
-    v41 = 0;
-    v85 = qword_100312AE8;
+    v44 = 0;
+    v90 = qword_100312AE8;
   }
 
-  [provider registerDeviceWithCause:@"LostModeCommand" force:0];
-  v76 = +[NSMutableDictionary dictionary];
-  v77 = v76;
-  if (v41)
+  [v20 registerDeviceWithCause:@"LostModeCommand" force:0];
+  v81 = +[NSMutableDictionary dictionary];
+  v82 = v81;
+  if (v44)
   {
-    [v76 setObject:&__kCFBooleanTrue forKeyedSubscript:@"locationServicesStateChanged"];
+    [v81 setObject:&__kCFBooleanTrue forKeyedSubscript:@"locationServicesStateChanged"];
   }
 
-  v78 = [NSNumber numberWithInteger:v85];
-  [v77 setObject:v78 forKeyedSubscript:@"status"];
+  v83 = [NSNumber numberWithInteger:v90];
+  [v82 setObject:v83 forKeyedSubscript:@"status"];
 
-  [(FMDCommandHandler *)self didHandleCommandWithAckData:v77];
+  [(FMDCommandHandler *)self didHandleCommandWithAckData:v82];
 }
 
 - (void)sendAckWithCompletion:(id)completion
@@ -235,30 +239,31 @@
   v11 = [commandParams objectForKeyedSubscript:@"ackURL"];
 
   provider = [(FMDCommandHandler *)self provider];
+  v13 = provider;
   if (v11)
   {
-    v13 = intValue;
-    v14 = [NSURL URLWithString:v11];
-    v15 = [FMDRequestAckLost alloc];
+    v14 = intValue;
+    v15 = [NSURL URLWithString:v11];
+    v16 = [FMDRequestAckLost alloc];
     commandParams2 = [(FMDCommandHandler *)self commandParams];
-    v17 = [(FMDRequestAckLost *)v15 initWithProvider:provider lostCommand:commandParams2 cmdStatusCode:v13 locationServicesStateChanged:bOOLValue ackURL:v14];
+    v18 = [(FMDRequestAckLost *)v16 initWithProvider:v13 lostCommand:commandParams2 cmdStatusCode:v14 locationServicesStateChanged:bOOLValue ackURL:v15];
 
-    v19[0] = _NSConcreteStackBlock;
-    v19[1] = 3221225472;
-    v19[2] = sub_100167044;
-    v19[3] = &unk_1002CD1D0;
-    v20 = completionCopy;
-    [(FMDRequest *)v17 setCompletionHandler:v19];
-    [provider enqueueRequest:v17];
+    v20[0] = _NSConcreteStackBlock;
+    v20[1] = 3221225472;
+    v20[2] = sub_100167044;
+    v20[3] = &unk_1002CD1D0;
+    v21 = completionCopy;
+    [(FMDRequest *)v18 setCompletionHandler:v20];
+    [v13 enqueueRequest:v18];
   }
 
   else
   {
-    v14 = sub_100002880();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = sub_100002880(provider);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      *v18 = 0;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Not acking the lost command because there is no ack URL", v18, 2u);
+      *v19 = 0;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Not acking the lost command because there is no ack URL", v19, 2u);
     }
   }
 }

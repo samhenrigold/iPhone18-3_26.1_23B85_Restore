@@ -3,11 +3,12 @@
 
 @implementation DKCoreDataStorage
 
-void __86___DKCoreDataStorage_initWithDirectory_databaseName_modelURL_readOnly_localOnly_sync___block_invoke(uint64_t a1, void *a2, int a3)
+void __86___DKCoreDataStorage_initWithDirectory_databaseName_modelURL_readOnly_localOnly_sync___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
+  v3 = a3;
   v5 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  [(_DKCoreDataStorage *)WeakRetained handleDataProtectionChangeFor:v5 willBeAvailable:a3];
+  [(_DKCoreDataStorage *)WeakRetained handleDataProtectionChangeFor:v5 willBeAvailable:v3];
 }
 
 void __45___DKCoreDataStorage_handleClientCallForHelp__block_invoke(void *a1)
@@ -103,7 +104,7 @@ void __57___DKCoreDataStorage_managedObjectContextFor_identifier___block_invoke(
 
 void __146___DKCoreDataStorage_deleteObjectsInContext_entityName_predicate_sortDescriptors_fetchOffset_fetchLimit_includeSubentities_includePendingChanges___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v2 = objc_alloc_init(MEMORY[0x1E695D5E0]);
   v3 = [MEMORY[0x1E695D5B8] entityForName:*(a1 + 32) inManagedObjectContext:*(a1 + 40)];
   [v2 setEntity:v3];
@@ -138,7 +139,7 @@ void __146___DKCoreDataStorage_deleteObjectsInContext_entityName_predicate_sortD
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      __146___DKCoreDataStorage_deleteObjectsInContext_entityName_predicate_sortDescriptors_fetchOffset_fetchLimit_includeSubentities_includePendingChanges___block_invoke_cold_1(a1 + 64);
+      __146___DKCoreDataStorage_deleteObjectsInContext_entityName_predicate_sortDescriptors_fetchOffset_fetchLimit_includeSubentities_includePendingChanges___block_invoke_cold_1();
     }
 
     v11 = [*(*(*v6 + 8) + 40) domain];
@@ -181,8 +182,6 @@ LABEL_19:
   }
 
   [*(a1 + 40) reset];
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __106___DKCoreDataStorage_countObjectsInContext_entityName_predicate_includeSubentities_includePendingChanges___block_invoke(uint64_t a1)
@@ -207,49 +206,49 @@ void __106___DKCoreDataStorage_countObjectsInContext_entityName_predicate_includ
 
 void __145___DKCoreDataStorage_updateObjectsInContext_entityName_predicate_sortDescriptors_batchFetchLimit_totalFetchLimit_includeSubentities_updateBlock___block_invoke(uint64_t a1)
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) setUndoManager:0];
-  v29 = objc_alloc_init(MEMORY[0x1E695D5E0]);
-  v28 = [MEMORY[0x1E695D5B8] entityForName:*(a1 + 40) inManagedObjectContext:*(a1 + 32)];
-  [v29 setEntity:v28];
-  [v29 setFetchLimit:*(a1 + 80)];
-  [v29 setFetchBatchSize:*(a1 + 88)];
-  [v29 setIncludesSubentities:*(a1 + 96)];
-  [v29 setIncludesPropertyValues:0];
-  [v29 setRelationshipKeyPathsForPrefetching:&unk_1F05EF548];
+  v28 = objc_alloc_init(MEMORY[0x1E695D5E0]);
+  v27 = [MEMORY[0x1E695D5B8] entityForName:*(a1 + 40) inManagedObjectContext:*(a1 + 32)];
+  [v28 setEntity:v27];
+  [v28 setFetchLimit:*(a1 + 80)];
+  [v28 setFetchBatchSize:*(a1 + 88)];
+  [v28 setIncludesSubentities:*(a1 + 96)];
+  [v28 setIncludesPropertyValues:0];
+  [v28 setRelationshipKeyPathsForPrefetching:&unk_1F05EF548];
   if (*(a1 + 48))
   {
-    [v29 setPredicate:?];
+    [v28 setPredicate:?];
   }
 
   v2 = *(a1 + 56);
   if (v2 && [v2 count])
   {
-    [v29 setSortDescriptors:*(a1 + 56)];
+    [v28 setSortDescriptors:*(a1 + 56)];
   }
 
-  v27 = [MEMORY[0x1E695DF00] date];
+  v26 = [MEMORY[0x1E695DF00] date];
   v3 = *(a1 + 32);
-  v31 = 0;
-  v4 = [v3 executeFetchRequest:v29 error:&v31];
-  v26 = v31;
+  v30 = 0;
+  v4 = [v3 executeFetchRequest:v28 error:&v30];
+  v25 = v30;
   v5 = +[_CDLogging instrumentationChannel];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v20 = [v29 fetchLimit];
-    [v27 timeIntervalSinceNow];
-    v22 = v21;
-    v23 = [v4 count];
-    v24 = [v29 predicate];
-    v25 = [v24 cd_sanitizeForLogging];
+    v19 = [v28 fetchLimit];
+    [v26 timeIntervalSinceNow];
+    v21 = v20;
+    v22 = [v4 count];
+    v23 = [v28 predicate];
+    v24 = [v23 cd_sanitizeForLogging];
     *buf = 134218754;
-    v33 = v20;
-    v34 = 2048;
-    v35 = -v22;
-    v36 = 2048;
-    v37 = v23;
-    v38 = 2112;
-    v39 = v25;
+    v32 = v19;
+    v33 = 2048;
+    v34 = -v21;
+    v35 = 2048;
+    v36 = v22;
+    v37 = 2112;
+    v38 = v24;
     _os_log_debug_impl(&dword_191750000, v5, OS_LOG_TYPE_DEBUG, "updateObjectsInContext finished executeFetchRequest, fetchLimit %lu object(s),elapsed %f(sec), returned %lu object(s), Predicate: %@ ", buf, 0x2Au);
   }
 
@@ -285,7 +284,7 @@ void __145___DKCoreDataStorage_updateObjectsInContext_entityName_predicate_sortD
         do
         {
           v15 = *(a1 + 64);
-          v16 = [v4 objectAtIndexedSubscript:{v12, v26}];
+          v16 = [v4 objectAtIndexedSubscript:{v12, v25}];
           LODWORD(v15) = (*(v15 + 16))(v15, v16);
 
           if (v15)
@@ -302,12 +301,12 @@ void __145___DKCoreDataStorage_updateObjectsInContext_entityName_predicate_sortD
       if ([*(a1 + 32) hasChanges])
       {
         v17 = *(a1 + 32);
-        v30 = 0;
-        [v17 save:&v30];
-        v18 = v30;
+        v29 = 0;
+        [v17 save:&v29];
+        v18 = v29;
         if (v18 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
-          __145___DKCoreDataStorage_updateObjectsInContext_entityName_predicate_sortDescriptors_batchFetchLimit_totalFetchLimit_includeSubentities_updateBlock___block_invoke_cold_2(buf, v18, &v33);
+          __145___DKCoreDataStorage_updateObjectsInContext_entityName_predicate_sortDescriptors_batchFetchLimit_totalFetchLimit_includeSubentities_updateBlock___block_invoke_cold_2(buf, v18, &v32);
         }
       }
 
@@ -319,8 +318,6 @@ void __145___DKCoreDataStorage_updateObjectsInContext_entityName_predicate_sortD
 
     while (v7 != v6);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __45___DKCoreDataStorage_handleClientCallForHelp__block_invoke_2(uint64_t a1)
@@ -334,7 +331,7 @@ void __45___DKCoreDataStorage_handleClientCallForHelp__block_invoke_2(uint64_t a
 
 void __49___DKCoreDataStorage_copyStorageFor_toDirectory___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) hasChanges])
   {
     [*(a1 + 32) save:0];
@@ -343,16 +340,16 @@ void __49___DKCoreDataStorage_copyStorageFor_toDirectory___block_invoke(uint64_t
   [*(a1 + 32) reset];
   v2 = [(_DKCoreDataStorage *)*(a1 + 40) databasePathFor:?];
   v3 = [(_DKCoreDataStorage *)*(a1 + 56) databasePathFor:?];
-  v14 = 0;
-  [_DKCoreDataStorage forceCopyItemAtPath:v2 toPath:v3 error:&v14];
-  v4 = v14;
+  v13 = 0;
+  [_DKCoreDataStorage forceCopyItemAtPath:v2 toPath:v3 error:&v13];
+  v4 = v13;
   if (v4)
   {
     v5 = v4;
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v16 = v5;
+      v15 = v5;
       _os_log_error_impl(&dword_191750000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed copy: %@", buf, 0xCu);
     }
   }
@@ -363,9 +360,9 @@ void __49___DKCoreDataStorage_copyStorageFor_toDirectory___block_invoke(uint64_t
     v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@-wal", v3];
     if ([*(*(a1 + 40) + 48) fileExistsAtPath:v6])
     {
-      v13 = 0;
-      [_DKCoreDataStorage forceCopyItemAtPath:v6 toPath:v7 error:&v13];
-      v5 = v13;
+      v12 = 0;
+      [_DKCoreDataStorage forceCopyItemAtPath:v6 toPath:v7 error:&v12];
+      v5 = v12;
     }
 
     else
@@ -377,45 +374,36 @@ void __49___DKCoreDataStorage_copyStorageFor_toDirectory___block_invoke(uint64_t
     v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@-shm", v3];
     if ([*(*(a1 + 40) + 48) fileExistsAtPath:v8])
     {
-      v12 = v5;
-      [_DKCoreDataStorage forceCopyItemAtPath:v8 toPath:v9 error:&v12];
-      v10 = v12;
+      v11 = v5;
+      [_DKCoreDataStorage forceCopyItemAtPath:v8 toPath:v9 error:&v11];
+      v10 = v11;
 
       v5 = v10;
     }
 
     *(*(*(a1 + 64) + 8) + 24) = 1;
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __68___DKCoreDataStorage__addStoresToCoordinator_protectionClass_error___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __68___DKCoreDataStorage__addStoresToCoordinator_protectionClass_error___block_invoke_75_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-void __146___DKCoreDataStorage_deleteObjectsInContext_entityName_predicate_sortDescriptors_fetchOffset_fetchLimit_includeSubentities_includePendingChanges___block_invoke_cold_1(uint64_t a1)
+void __146___DKCoreDataStorage_deleteObjectsInContext_entityName_predicate_sortDescriptors_fetchOffset_fetchLimit_includeSubentities_includePendingChanges___block_invoke_cold_1()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = *(*(*a1 + 8) + 40);
   OUTLINED_FUNCTION_6_1();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void __146___DKCoreDataStorage_deleteObjectsInContext_entityName_predicate_sortDescriptors_fetchOffset_fetchLimit_includeSubentities_includePendingChanges___block_invoke_cold_2(uint64_t a1, void *a2, uint8_t *buf)
@@ -427,54 +415,30 @@ void __146___DKCoreDataStorage_deleteObjectsInContext_entityName_predicate_sortD
   _os_log_fault_impl(&dword_191750000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "Invalid predicate on %@: %@", buf, 0x16u);
 }
 
-void __146___DKCoreDataStorage_deleteObjectsInContext_entityName_predicate_sortDescriptors_fetchOffset_fetchLimit_includeSubentities_includePendingChanges___block_invoke_cold_3()
-{
-  v7 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_9(&dword_191750000, MEMORY[0x1E69E9C10], v0, "Encountered exception while deleting objects: %@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void __146___DKCoreDataStorage_deleteObjectsInContext_entityName_predicate_sortDescriptors_fetchOffset_fetchLimit_includeSubentities_includePendingChanges___block_invoke_cold_4()
-{
-  v7 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_9(&dword_191750000, MEMORY[0x1E69E9C10], v0, "Ignoring %@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
 void __106___DKCoreDataStorage_countObjectsInContext_entityName_predicate_includeSubentities_includePendingChanges___block_invoke_cold_1(void *a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  objc_begin_catch(a1);
+  v1 = objc_begin_catch(a1);
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT))
   {
-    OUTLINED_FUNCTION_0_9(&dword_191750000, MEMORY[0x1E69E9C10], v1, "Caught %@", v2, v3, v4, v5, 2u);
+    LODWORD(v7) = 138412290;
+    *(&v7 + 4) = v1;
+    OUTLINED_FUNCTION_0_9(&dword_191750000, MEMORY[0x1E69E9C10], v2, "Caught %@", v3, v4, v5, v6, v7, DWORD2(v7));
   }
 
   objc_end_catch();
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __106___DKCoreDataStorage_countObjectsInContext_entityName_predicate_includeSubentities_includePendingChanges___block_invoke_cold_2()
-{
-  v7 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_9(&dword_191750000, MEMORY[0x1E69E9C10], v0, "Encountered exception while counting objects: %@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __145___DKCoreDataStorage_updateObjectsInContext_entityName_predicate_sortDescriptors_batchFetchLimit_totalFetchLimit_includeSubentities_updateBlock___block_invoke_cold_1(void *a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  objc_begin_catch(a1);
+  v1 = objc_begin_catch(a1);
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT))
   {
-    OUTLINED_FUNCTION_0_9(&dword_191750000, MEMORY[0x1E69E9C10], v1, "updateObjectsInContext: %@", v2, v3, v4, v5, 2u);
+    LODWORD(v7) = 138412290;
+    *(&v7 + 4) = v1;
+    OUTLINED_FUNCTION_0_9(&dword_191750000, MEMORY[0x1E69E9C10], v2, "updateObjectsInContext: %@", v3, v4, v5, v6, v7, DWORD2(v7));
   }
 
   objc_end_catch();
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __145___DKCoreDataStorage_updateObjectsInContext_entityName_predicate_sortDescriptors_batchFetchLimit_totalFetchLimit_includeSubentities_updateBlock___block_invoke_cold_2(uint8_t *buf, uint64_t a2, void *a3)
@@ -482,14 +446,6 @@ void __145___DKCoreDataStorage_updateObjectsInContext_entityName_predicate_sortD
   *buf = 138412290;
   *a3 = a2;
   _os_log_error_impl(&dword_191750000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Update commit failure: %@", buf, 0xCu);
-}
-
-void __145___DKCoreDataStorage_updateObjectsInContext_entityName_predicate_sortDescriptors_batchFetchLimit_totalFetchLimit_includeSubentities_updateBlock___block_invoke_cold_3()
-{
-  v7 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_9(&dword_191750000, MEMORY[0x1E69E9C10], v0, "Encountered exception while updating objects: %@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

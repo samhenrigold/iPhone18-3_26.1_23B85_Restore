@@ -1968,7 +1968,7 @@ LABEL_6:
   goto LABEL_6;
 }
 
-void faiss::get_extra_distance_computer(uint64_t a1, int a2)
+void faiss::get_extra_distance_computer(uint64_t a1, int a2, uint64_t a3, uint64_t a4, float a5)
 {
   if (a2 <= 3)
   {
@@ -2010,8 +2010,8 @@ void faiss::get_extra_distance_computer(uint64_t a1, int a2)
   }
 
   exception = __cxa_allocate_exception(0x20uLL);
-  std::string::basic_string[abi:ne200100]<0>(v3, "metric type not implemented");
-  faiss::FaissException::FaissException(exception, v3, "DistanceComputer *faiss::get_extra_distance_computer(size_t, MetricType, float, size_t, const float *)", "/Library/Caches/com.apple.xbs/Sources/VisualLookUp/VisualIntelligence/VisualIntelligence/Vendor/faiss_search/faiss/faiss/utils/extra_distances.cpp", 217);
+  std::string::basic_string[abi:ne200100]<0>(v6, "metric type not implemented");
+  faiss::FaissException::FaissException(exception, v6, "DistanceComputer *faiss::get_extra_distance_computer(size_t, MetricType, float, size_t, const float *)", "/Library/Caches/com.apple.xbs/Sources/VisualLookUp/VisualIntelligence/VisualIntelligence/Vendor/faiss_search/faiss/faiss/utils/extra_distances.cpp", 217);
 }
 
 void sub_1D9C3B0D0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -2765,20 +2765,22 @@ uint64_t faiss::hammings<512ul>(uint64_t result, uint64_t a2, uint64_t a3, uint6
   return result;
 }
 
-void faiss::hammings_knn_mc(faiss *this, const unsigned __int8 *a2, const unsigned __int8 *a3, unint64_t a4, unint64_t a5, uint64_t a6, unint64_t a7, int *a8, uint64_t *a9)
+void faiss::hammings_knn_mc(faiss *this, const unsigned __int8 *a2, const unsigned __int8 *a3, unint64_t a4, unint64_t a5, uint64_t a6, uint64_t a7, int *a8, uint64_t *a9)
 {
   v9 = __ROR8__(a6 - 4, 2);
   if (v9 > 2)
   {
     if (v9 == 3)
     {
-      std::vector<int>::vector[abi:ne200100](&v10, 129 * a3);
+      LODWORD(__p) = 0;
+      std::vector<int>::vector[abi:ne200100](&v11, 129 * a3, &__p);
       operator new[]();
     }
 
     if (v9 == 7)
     {
-      std::vector<int>::vector[abi:ne200100](&v10, 257 * a3);
+      LODWORD(__p) = 0;
+      std::vector<int>::vector[abi:ne200100](&v11, 257 * a3, &__p);
       operator new[]();
     }
   }
@@ -2787,18 +2789,21 @@ void faiss::hammings_knn_mc(faiss *this, const unsigned __int8 *a2, const unsign
   {
     if (!v9)
     {
-      std::vector<int>::vector[abi:ne200100](&v10, 33 * a3);
+      LODWORD(__p) = 0;
+      std::vector<int>::vector[abi:ne200100](&v11, 33 * a3, &__p);
       operator new[]();
     }
 
     if (v9 == 1)
     {
-      std::vector<int>::vector[abi:ne200100](&v10, 65 * a3);
+      LODWORD(__p) = 0;
+      std::vector<int>::vector[abi:ne200100](&v11, 65 * a3, &__p);
       operator new[]();
     }
   }
 
-  std::vector<int>::vector[abi:ne200100](&v10, ((8 * a6) | 1) * a3);
+  LODWORD(__p) = 0;
+  std::vector<int>::vector[abi:ne200100](&v11, ((8 * a6) | 1) * a3, &__p);
   operator new[]();
 }
 
@@ -2933,7 +2938,7 @@ void faiss::hamming_range_search(faiss *this, int8x16_t *a2, const unsigned __in
             v42 = a2;
             do
             {
-              v39.i32[0] = *v42 ^ v37;
+              v39.i32[0] = v42->i32[0] ^ v37;
               v39 = vcnt_s8(v39);
               v39.i16[0] = vaddlv_u8(v39);
               if (v39.i32[0] < a5)
@@ -2941,7 +2946,7 @@ void faiss::hamming_range_search(faiss *this, int8x16_t *a2, const unsigned __in
                 faiss::RangeQueryResult::add(v40, v39.u32[0], v41);
               }
 
-              v42 += a6;
+              v42 = (v42 + a6);
               ++v41;
             }
 
@@ -2979,14 +2984,14 @@ void faiss::hamming_range_search(faiss *this, int8x16_t *a2, const unsigned __in
             v19 = a2;
             do
             {
-              v20 = vcnt_s8((*v19 ^ v15));
+              v20 = vcnt_s8((v19->i64[0] ^ v15));
               v20.i16[0] = vaddlv_u8(v20);
               if (v20.i32[0] < a5)
               {
                 faiss::RangeQueryResult::add(v17, v20.u32[0], v18);
               }
 
-              v19 += a6;
+              v19 = (v19 + a6);
               ++v18;
             }
 
@@ -3029,7 +3034,7 @@ LABEL_54:
             faiss::RangeQueryResult::add(v32, v35, v33);
           }
 
-          v34 += a6;
+          v34 = (v34 + a6);
           ++v33;
         }
 
@@ -3053,14 +3058,14 @@ LABEL_55:
   faiss::BufferList::~BufferList(v57);
 }
 
-void sub_1D9C3DD80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_1D9C3DD80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   faiss::RangeSearchPartialResult::~RangeSearchPartialResult(va);
   _Unwind_Resume(a1);
 }
 
-int8x16_t *faiss::hamming_count_thres(int8x16_t *this, int8x16_t *a2, const unsigned __int8 *a3, uint64_t a4, __int32 a5, uint64_t a6, void *a7, unint64_t *a8)
+int8x16_t *faiss::hamming_count_thres(int8x16_t *this, int8x16_t *a2, const unsigned __int8 *a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, unint64_t *a8)
 {
   v8 = __ROR8__(a6 - 8, 3);
   if (v8 > 2)
@@ -3260,7 +3265,7 @@ int8x16_t *faiss::hamming_count_thres<128ul>(int8x16_t *result, int8x16_t *a2, u
   return result;
 }
 
-int8x16_t *faiss::crosshamming_count_thres(int8x16_t *this, const unsigned __int8 *a2, int a3, uint64_t a4, void *a5, unint64_t *a6)
+int8x16_t *faiss::crosshamming_count_thres(int8x16_t *this, const unsigned __int8 *a2, uint64_t a3, uint64_t a4, void *a5, unint64_t *a6)
 {
   v6 = __ROR8__(a4 - 8, 3);
   if (v6 > 2)
@@ -3409,7 +3414,7 @@ int8x16_t *faiss::crosshamming_count_thres<128ul>(int8x16_t *result, unint64_t a
   return result;
 }
 
-uint64_t faiss::crosshamming_count_thres<256ul>(uint64_t result, unint64_t a2, int a3, void *a4)
+int8x16_t *faiss::crosshamming_count_thres<256ul>(int8x16_t *result, unint64_t a2, int a3, void *a4)
 {
   if (a2)
   {
@@ -3499,7 +3504,7 @@ uint64_t faiss::crosshamming_count_thres<512ul>(uint64_t result, unint64_t a2, i
   return result;
 }
 
-uint64_t faiss::match_hamming_thres(int8x16_t *this, int8x16_t *a2, const unsigned __int8 *a3, uint64_t a4, int a5, uint64_t a6, const unsigned __int8 **a7, uint64_t *a8, int *a9)
+uint64_t faiss::match_hamming_thres(int8x16_t *this, int8x16_t *a2, const unsigned __int8 *a3, const unsigned __int8 *a4, uint64_t a5, uint64_t a6, const unsigned __int8 **a7, uint64_t *a8, int *a9)
 {
   v9 = __ROR8__(a6 - 8, 3);
   if (v9 > 2)
@@ -3633,7 +3638,7 @@ uint64_t faiss::match_hamming_thres<128ul>(int8x16_t *a1, uint64_t a2, uint64_t 
   return v7;
 }
 
-uint64_t faiss::match_hamming_thres<256ul>(int8x16_t *a1, int8x16_t *a2, uint64_t a3, uint64_t a4, int a5, void *a6, _DWORD *a7)
+uint64_t faiss::match_hamming_thres<256ul>(int8x16_t *a1, int8x16_t *a2, uint64_t a3, uint64_t a4, int a5, void *a6, int *a7)
 {
   if (!a3)
   {
@@ -3718,7 +3723,7 @@ uint64_t faiss::match_hamming_thres<512ul>(uint64_t a1, uint64_t a2, uint64_t a3
   return v7;
 }
 
-void *faiss::generalized_hammings_knn_hc(void *result, uint64_t a2, int8x16_t *a3, uint64_t a4, uint64_t a5, int a6)
+void *faiss::generalized_hammings_knn_hc(void *result, uint64_t a2, int8x16_t *a3, int8x16_t *a4, uint64_t a5, int a6)
 {
   if (a6)
   {
@@ -4056,7 +4061,8 @@ LABEL_84:
       v27 = a3;
       do
       {
-        v28 = *v27++;
+        v28 = v27->i64[0];
+        v27 = (v27 + 8);
         v29 = v28 ^ v24 | ((v28 ^ v24) >> 1) | ((v28 ^ v24 | ((v28 ^ v24) >> 1)) >> 2);
         v30 = vcnt_s8(((v29 | (v29 >> 4)) & 0x101010101010101));
         v30.i16[0] = vaddlv_u8(v30);
@@ -4123,7 +4129,7 @@ LABEL_23:
         *&v25[4 * v37] = v30.i32[0];
         *(v26 + 8 * v37) = v23;
 LABEL_24:
-        ++v23;
+        v23 = (v23 + 1);
       }
 
       while (v23 != a4);
@@ -4438,7 +4444,7 @@ int8x16_t *faiss::HCounterState<faiss::HammingComputer16>::update_counter(int8x1
 {
   v3 = vmovn_s64(vpaddlq_u32(vpaddlq_u16(vpaddlq_u8(vcntq_s8(veorq_s8(result[1], *a2))))));
   v4 = vadd_s32(vdup_lane_s32(v3, 1), v3).u32[0];
-  v5 = result[2].u32[0];
+  v5 = result[2].i32[0];
   if (v4 <= v5)
   {
     v6 = result[2].i32[3];
@@ -4505,7 +4511,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<faiss::HCounterState<
 int8x16_t *faiss::HCounterState<faiss::HammingComputer32>::update_counter(int8x16_t *result, int8x16_t *a2, uint64_t a3)
 {
   v3 = vaddvq_s32(vuzp1q_s32(vpaddlq_u32(vpaddlq_u16(vpaddlq_u8(vcntq_s8(veorq_s8(result[1], *a2))))), vpaddlq_u32(vpaddlq_u16(vpaddlq_u8(vcntq_s8(veorq_s8(result[2], a2[1])))))));
-  v4 = result[3].u32[0];
+  v4 = result[3].i32[0];
   if (v3 <= v4)
   {
     v5 = result[3].i32[3];
@@ -4648,7 +4654,7 @@ void faiss::RangeSearchPartialResult::~RangeSearchPartialResult(faiss::RangeSear
   faiss::BufferList::~BufferList(this);
 }
 
-float faiss::partitioning::partition_fuzzy_median3<faiss::CMin<float,long long>>(float *a1, void *a2, unint64_t a3, unint64_t a4, unint64_t a5, unint64_t *a6)
+float faiss::partitioning::partition_fuzzy_median3<faiss::CMin<float,long long>>(float *a1, void *a2, unint64_t a3, std::string::size_type a4, unint64_t a5, unint64_t *a6)
 {
   if (!a4)
   {
@@ -4847,7 +4853,7 @@ void sub_1D9C3F98C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-float faiss::partitioning::partition_fuzzy_median3<faiss::CMax<float,long long>>(float *a1, void *a2, unint64_t a3, unint64_t a4, unint64_t a5, unint64_t *a6)
+float faiss::partitioning::partition_fuzzy_median3<faiss::CMax<float,long long>>(float *a1, void *a2, unint64_t a3, std::string::size_type a4, unint64_t a5, unint64_t *a6)
 {
   if (!a4)
   {
@@ -5046,7 +5052,7 @@ void sub_1D9C3FC74(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t faiss::partitioning::partition_fuzzy_median3<faiss::CMin<unsigned short,long long>>(unsigned __int16 *a1, void *a2, unint64_t a3, unint64_t a4, unint64_t a5, unint64_t *a6)
+uint64_t faiss::partitioning::partition_fuzzy_median3<faiss::CMin<unsigned short,long long>>(unsigned __int16 *a1, void *a2, unint64_t a3, std::string::size_type a4, unint64_t a5, unint64_t *a6)
 {
   if (!a4)
   {
@@ -5248,7 +5254,7 @@ void sub_1D9C3FF48(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t faiss::partitioning::partition_fuzzy_median3<faiss::CMax<unsigned short,long long>>(unsigned __int16 *a1, void *a2, unint64_t a3, unint64_t a4, unint64_t a5, unint64_t *a6)
+uint64_t faiss::partitioning::partition_fuzzy_median3<faiss::CMax<unsigned short,long long>>(unsigned __int16 *a1, void *a2, unint64_t a3, std::string::size_type a4, unint64_t a5, unint64_t *a6)
 {
   if (!a4)
   {
@@ -5447,7 +5453,7 @@ void sub_1D9C40210(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t faiss::partitioning::partition_fuzzy_median3<faiss::CMin<unsigned short,int>>(unsigned __int16 *a1, _DWORD *a2, unint64_t a3, unint64_t a4, unint64_t a5, unint64_t *a6)
+uint64_t faiss::partitioning::partition_fuzzy_median3<faiss::CMin<unsigned short,int>>(unsigned __int16 *a1, _DWORD *a2, unint64_t a3, std::string::size_type a4, unint64_t a5, unint64_t *a6)
 {
   if (!a4)
   {
@@ -5649,7 +5655,7 @@ void sub_1D9C404E4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t faiss::partitioning::partition_fuzzy_median3<faiss::CMax<unsigned short,int>>(unsigned __int16 *a1, _DWORD *a2, unint64_t a3, unint64_t a4, unint64_t a5, unint64_t *a6)
+uint64_t faiss::partitioning::partition_fuzzy_median3<faiss::CMax<unsigned short,int>>(unsigned __int16 *a1, _DWORD *a2, unint64_t a3, std::string::size_type a4, unint64_t a5, unint64_t *a6)
 {
   if (!a4)
   {
@@ -6035,7 +6041,7 @@ void *faiss::PartitionStats::reset(void *this)
 
 uint64_t *faiss::PartitionStats::get_partition_stats(faiss::PartitionStats *this)
 {
-  if ((atomic_load_explicit(&_MergedGlobals_0, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(_MergedGlobals_0, memory_order_acquire) & 1) == 0)
   {
     faiss::PartitionStats::get_partition_stats();
   }
@@ -6648,12 +6654,12 @@ void faiss::partitioning::partition_fuzzy_median3<faiss::CMin<float,long long>>(
 
 void faiss::PartitionStats::get_partition_stats()
 {
-  if (__cxa_guard_acquire(&_MergedGlobals_0))
+  if (__cxa_guard_acquire(_MergedGlobals_0))
   {
     qword_1ECB70E10 = 0;
     unk_1ECB70E18 = 0;
 
-    __cxa_guard_release(&_MergedGlobals_0);
+    __cxa_guard_release(_MergedGlobals_0);
   }
 }
 
@@ -6676,35 +6682,35 @@ void faiss::WorkerThread::WorkerThread(faiss::WorkerThread *this)
   faiss::WorkerThread::startThread(this);
 }
 
-void sub_1D9C41264(_Unwind_Exception *a1, atomic_ullong *a2, ...)
+void sub_1D9C41264(_Unwind_Exception *a1, atomic_ullong *a2, atomic_ullong *a3, ...)
 {
-  va_start(va, a2);
-  if (a2)
+  va_start(va, a3);
+  if (a3)
   {
-    if (!atomic_fetch_add(a2 + 1, 0xFFFFFFFFFFFFFFFFLL))
+    if (!atomic_fetch_add(a3 + 1, 0xFFFFFFFFFFFFFFFFLL))
     {
-      (*(*a2 + 16))(a2);
+      (*(*a3 + 16))(a3, a2);
     }
   }
 
   std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](va);
-  std::deque<std::pair<std::function<void ()(void)>,std::promise<BOOL>>>::~deque[abi:ne200100](v5);
-  std::condition_variable::~condition_variable(v4);
-  std::mutex::~mutex(v3);
-  std::thread::~thread(v2);
+  std::deque<std::pair<std::function<void ()(void)>,std::promise<BOOL>>>::~deque[abi:ne200100](v6);
+  std::condition_variable::~condition_variable(v5);
+  std::mutex::~mutex(v4);
+  std::thread::~thread(v3);
   _Unwind_Resume(a1);
 }
 
-void sub_1D9C413C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1D9C413C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::unique_ptr<std::__thread_struct>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
 void faiss::WorkerThread::add(uint64_t a1)
 {
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   std::mutex::lock((a1 + 8));
   if (*(a1 + 120) == 1)
   {
@@ -6714,26 +6720,26 @@ void faiss::WorkerThread::add(uint64_t a1)
   operator new();
 }
 
-void sub_1D9C415D4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1D9C415D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va2, a2);
-  va_start(va1, a2);
-  va_start(va, a2);
-  v6 = va_arg(va1, void);
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v7 = va_arg(va1, void);
   va_copy(va2, va1);
-  v8 = va_arg(va2, void);
-  v10 = va_arg(va2, void);
+  v9 = va_arg(va2, void);
   v11 = va_arg(va2, void);
   v12 = va_arg(va2, void);
+  v13 = va_arg(va2, void);
   std::promise<BOOL>::~promise(va2);
   std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](va1);
-  if (!atomic_fetch_add(v4, 0xFFFFFFFFFFFFFFFFLL))
+  if (!atomic_fetch_add(v5, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (*(*v3 + 16))(v3);
+    (*(*v4 + 16))(v4);
   }
 
   std::promise<BOOL>::~promise(va);
-  std::mutex::unlock((v2 + 8));
+  std::mutex::unlock((v3 + 8));
   _Unwind_Resume(a1);
 }
 
@@ -6799,7 +6805,7 @@ void std::promise<BOOL>::set_value(uint64_t *a1, _BYTE *a2)
   std::__assoc_state<BOOL>::set_value<BOOL>(v3, a2);
 }
 
-uint64_t std::deque<std::pair<std::function<void ()(void)>,std::promise<BOOL>>>::emplace_back<std::pair<std::function<void ()(void)>,std::promise<BOOL>>>(void *a1, uint64_t a2)
+uint64_t std::deque<std::pair<std::function<void ()(void)>,std::promise<BOOL>>>::emplace_back<std::pair<std::function<void ()(void)>,std::promise<BOOL>>>(unint64_t *a1, uint64_t a2)
 {
   v4 = a1[1];
   v5 = a1[2];
@@ -7162,9 +7168,9 @@ void std::__thread_proxy[abi:ne200100]<std::tuple<std::unique_ptr<std::__thread_
   faiss::WorkerThread::threadMain(v4[1]);
 }
 
-void sub_1D9C42484(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1D9C42484(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::tuple<std::unique_ptr<std::__thread_struct>,faiss::WorkerThread::startThread(void)::$_0>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -7276,19 +7282,19 @@ void std::__assoc_sub_state::__attach_future[abi:ne200100](uint64_t a1)
   std::mutex::unlock((a1 + 24));
 }
 
-void *std::deque<std::pair<std::function<void ()(void)>,std::promise<BOOL>>>::__add_back_capacity(void *a1)
+void std::deque<std::pair<std::function<void ()(void)>,std::promise<BOOL>>>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x66;
   v3 = v1 - 102;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -7296,25 +7302,25 @@ void *std::deque<std::pair<std::function<void ()(void)>,std::promise<BOOL>>>::__
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    std::__allocate_at_least[abi:ne200100]<std::allocator<faiss::RangeSearchPartialResult *>>(a1, v9);
+    v10 = a1;
+    std::__allocate_at_least[abi:ne200100]<std::allocator<faiss::RangeSearchPartialResult *>>(a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<std::pair<std::function<void ()(void)>,std::promise<BOOL>> *,std::allocator<std::pair<std::function<void ()(void)>,std::promise<BOOL>> *>>::emplace_back<std::pair<std::function<void ()(void)>,std::promise<BOOL>> *&>(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<std::pair<std::function<void ()(void)>,std::promise<BOOL>> *,std::allocator<std::pair<std::function<void ()(void)>,std::promise<BOOL>> *>>::emplace_back<std::pair<std::function<void ()(void)>,std::promise<BOOL>> *&>(a1, &v9);
 }
 
 void sub_1D9C429D8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -7328,27 +7334,26 @@ void sub_1D9C429D8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::__split_buffer<std::pair<std::function<void ()(void)>,std::promise<BOOL>> *,std::allocator<std::pair<std::function<void ()(void)>,std::promise<BOOL>> *>>::emplace_back<std::pair<std::function<void ()(void)>,std::promise<BOOL>> *&>(void *result, void *a2)
+void std::__split_buffer<std::pair<std::function<void ()(void)>,std::promise<BOOL>> *,std::allocator<std::pair<std::function<void ()(void)>,std::promise<BOOL>> *>>::emplace_back<std::pair<std::function<void ()(void)>,std::promise<BOOL>> *&>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<faiss::RangeSearchPartialResult *>>(result, v11);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<faiss::RangeSearchPartialResult *>>(a1, v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -7357,28 +7362,26 @@ void *std::__split_buffer<std::pair<std::function<void ()(void)>,std::promise<BO
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
-const void **std::__split_buffer<std::pair<std::function<void ()(void)>,std::promise<BOOL>> *,std::allocator<std::pair<std::function<void ()(void)>,std::promise<BOOL>> *>>::emplace_front<std::pair<std::function<void ()(void)>,std::promise<BOOL>> *>(const void **result, void *a2)
+void std::__split_buffer<std::pair<std::function<void ()(void)>,std::promise<BOOL>> *,std::allocator<std::pair<std::function<void ()(void)>,std::promise<BOOL>> *>>::emplace_front<std::pair<std::function<void ()(void)>,std::promise<BOOL>> *>(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -7391,52 +7394,50 @@ const void **std::__split_buffer<std::pair<std::function<void ()(void)>,std::pro
         v9 = (v7 - v4) >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<faiss::RangeSearchPartialResult *>>(result, v9);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<faiss::RangeSearchPartialResult *>>(a1, v9);
     }
 
     v8 = (((v7 - v6) >> 3) + 1) / 2;
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = (v6 + 8 * v8);
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
-  *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  *(v5 - 8) = *a2;
+  a1[1] = a1[1] - 8;
 }
 
-void *std::__split_buffer<std::pair<std::function<void ()(void)>,std::promise<BOOL>> *,std::allocator<std::pair<std::function<void ()(void)>,std::promise<BOOL>> *> &>::emplace_back<std::pair<std::function<void ()(void)>,std::promise<BOOL>> *>(void *result, void *a2)
+void std::__split_buffer<std::pair<std::function<void ()(void)>,std::promise<BOOL>> *,std::allocator<std::pair<std::function<void ()(void)>,std::promise<BOOL>> *> &>::emplace_back<std::pair<std::function<void ()(void)>,std::promise<BOOL>> *>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<faiss::RangeSearchPartialResult *>>(result[4], v11);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<faiss::RangeSearchPartialResult *>>(a1[4], v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -7445,28 +7446,26 @@ void *std::__split_buffer<std::pair<std::function<void ()(void)>,std::promise<BO
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
-const void **std::__split_buffer<std::pair<std::function<void ()(void)>,std::promise<BOOL>> *,std::allocator<std::pair<std::function<void ()(void)>,std::promise<BOOL>> *> &>::emplace_front<std::pair<std::function<void ()(void)>,std::promise<BOOL>> *&>(const void **result, void *a2)
+void std::__split_buffer<std::pair<std::function<void ()(void)>,std::promise<BOOL>> *,std::allocator<std::pair<std::function<void ()(void)>,std::promise<BOOL>> *> &>::emplace_front<std::pair<std::function<void ()(void)>,std::promise<BOOL>> *&>(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -7479,29 +7478,28 @@ const void **std::__split_buffer<std::pair<std::function<void ()(void)>,std::pro
         v9 = (v7 - v4) >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<faiss::RangeSearchPartialResult *>>(result[4], v9);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<faiss::RangeSearchPartialResult *>>(a1[4], v9);
     }
 
     v8 = (((v7 - v6) >> 3) + 1) / 2;
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = &v6[8 * v8];
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
   *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  a1[1] = a1[1] - 8;
 }
 
 uint64_t std::__function::__value_func<void ()(void)>::operator=[abi:ne200100](uint64_t a1, uint64_t a2)
@@ -7710,7 +7708,7 @@ float faiss::Clustering::post_process_centroids(faiss::Clustering *this, uint64_
   return result;
 }
 
-uint64_t faiss::Clustering::train_encoded(faiss::Clustering *this, unint64_t a2, const unsigned __int8 *a3, const faiss::Index *a4, faiss::Index *a5, const float *a6)
+const unsigned __int8 *faiss::Clustering::train_encoded(faiss::Clustering *this, unint64_t a2, const unsigned __int8 *a3, const faiss::Index *a4, faiss::Index *a5, const float *a6)
 {
   v7 = *(this + 7);
   if (v7 > a2)
@@ -7952,7 +7950,7 @@ void sub_1D9C446F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(a56);
   }
 
-  MEMORY[0x1DA73F3F0](v56, 0x1000C8052888210);
+  MEMORY[0x1DA73F3F0](v56, 0x1000C8052888210, a3, a4, a5, a6, a7, a8);
   MEMORY[0x1DA73F3F0](a43, 0x1000C8000313F17);
   if (a18)
   {
@@ -8065,10 +8063,11 @@ float faiss::kmeans_clustering(faiss *this, unint64_t a2, uint64_t a3, const uns
   return v11;
 }
 
-void sub_1D9C44B54(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17)
+void sub_1D9C44B54(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
+  va_start(va, a16);
   faiss::IndexFlatL2::~IndexFlatL2(&a9);
-  faiss::Clustering::~Clustering(&a17);
+  faiss::Clustering::~Clustering(va);
   _Unwind_Resume(a1);
 }
 
@@ -8171,7 +8170,7 @@ double faiss::ProgressiveDimClustering::ProgressiveDimClustering(faiss::Progress
   return result;
 }
 
-void faiss::ProgressiveDimClustering::train(faiss::ProgressiveDimClustering *this, int *a2, const float *a3, faiss::ProgressiveDimIndexFactory *a4)
+void faiss::ProgressiveDimClustering::train(faiss::ProgressiveDimClustering *this, _anonymous_namespace_ *a2, const float *begin, faiss::ProgressiveDimIndexFactory *a4)
 {
   faiss::PCAMatrix::PCAMatrix(v46, *(this + 14), *(this + 14), 0.0, 0);
   memset(&v45, 0, sizeof(v45));
@@ -8182,7 +8181,7 @@ void faiss::ProgressiveDimClustering::train(faiss::ProgressiveDimClustering *thi
       puts("Training PCA transform");
     }
 
-    faiss::PCAMatrix::train(v46, a2, a3);
+    faiss::PCAMatrix::train(v46, a2, begin);
   }
 
   v6 = *(this + 12);
@@ -8264,7 +8263,7 @@ void faiss::ProgressiveDimClustering::train(faiss::ProgressiveDimClustering *thi
         v23 = __p[0];
         v24 = 4 * v22;
         v25 = 4 * v21;
-        v26 = a3;
+        v26 = begin;
         v27 = v32;
         do
         {
@@ -8283,7 +8282,7 @@ void faiss::ProgressiveDimClustering::train(faiss::ProgressiveDimClustering *thi
         std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(v35, __dst, *(&__dst + 1), (*(&__dst + 1) - __dst) >> 2);
       }
 
-      std::vector<faiss::ClusteringIterationStats>::__insert_with_size[abi:ne200100]<std::__wrap_iter<faiss::ClusteringIterationStats*>,std::__wrap_iter<faiss::ClusteringIterationStats*>>(this + 96, *(this + 13), *(&v43 + 1), v44, 0xCCCCCCCCCCCCCCCDLL * ((v44 - *(&v43 + 1)) >> 3));
+      std::vector<faiss::ClusteringIterationStats>::__insert_with_size[abi:ne200100]<std::__wrap_iter<faiss::ClusteringIterationStats*>,std::__wrap_iter<faiss::ClusteringIterationStats*>>(this + 12, *(this + 13), *(&v43 + 1), v44, 0xCCCCCCCCCCCCCCCDLL * ((v44 - *(&v43 + 1)) >> 3));
       if (__p[0])
       {
         __p[1] = __p[0];
@@ -8351,8 +8350,9 @@ void faiss::ProgressiveDimClustering::train(faiss::ProgressiveDimClustering *thi
   faiss::LinearTransform::~LinearTransform(v46);
 }
 
-void sub_1D9C45244(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, uint64_t a20, void *__p, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, void *a35, uint64_t a36, uint64_t a37, char a38)
+void sub_1D9C45244(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, uint64_t a20, void *__p, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, void *a35, uint64_t a36, uint64_t a37, ...)
 {
+  va_start(va, a37);
   if (__p)
   {
     operator delete(__p);
@@ -8363,7 +8363,7 @@ void sub_1D9C45244(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     operator delete(a35);
   }
 
-  faiss::PCAMatrix::~PCAMatrix(&a38);
+  faiss::PCAMatrix::~PCAMatrix(va);
   _Unwind_Resume(a1);
 }
 
@@ -8401,7 +8401,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<faiss::ClusteringIter
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void *std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -8476,7 +8476,7 @@ void *std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(void
   return result;
 }
 
-void *std::vector<faiss::ClusteringIterationStats>::__assign_with_size[abi:ne200100]<faiss::ClusteringIterationStats*,faiss::ClusteringIterationStats*>(void *result, char *__src, char *a3, unint64_t a4)
+void **std::vector<faiss::ClusteringIterationStats>::__assign_with_size[abi:ne200100]<faiss::ClusteringIterationStats*,faiss::ClusteringIterationStats*>(void **result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -8552,7 +8552,7 @@ void *std::vector<faiss::ClusteringIterationStats>::__assign_with_size[abi:ne200
   return result;
 }
 
-void std::vector<faiss::ClusteringIterationStats>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<faiss::ClusteringIterationStats>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x666666666666667)
   {
@@ -8562,7 +8562,7 @@ void std::vector<faiss::ClusteringIterationStats>::__vallocate[abi:ne200100](uin
   std::vector<long long>::__throw_length_error[abi:ne200100]();
 }
 
-char *std::vector<faiss::ClusteringIterationStats>::__insert_with_size[abi:ne200100]<std::__wrap_iter<faiss::ClusteringIterationStats*>,std::__wrap_iter<faiss::ClusteringIterationStats*>>(uint64_t a1, char *__dst, char *__src, char *a4, uint64_t a5)
+char *std::vector<faiss::ClusteringIterationStats>::__insert_with_size[abi:ne200100]<std::__wrap_iter<faiss::ClusteringIterationStats*>,std::__wrap_iter<faiss::ClusteringIterationStats*>>(void *a1, char *__dst, char *__src, char *a4, uint64_t a5)
 {
   v5 = __dst;
   if (a5 < 1)
@@ -8571,8 +8571,8 @@ char *std::vector<faiss::ClusteringIterationStats>::__insert_with_size[abi:ne200
   }
 
   v7 = __src;
-  v10 = *(a1 + 8);
-  v9 = *(a1 + 16);
+  v10 = a1[1];
+  v9 = a1[2];
   if ((0xCCCCCCCCCCCCCCCDLL * ((v9 - v10) >> 3)) < a5)
   {
     v11 = *a1;
@@ -8620,17 +8620,17 @@ char *std::vector<faiss::ClusteringIterationStats>::__insert_with_size[abi:ne200
     }
 
     while (v37);
-    memcpy((v36 + 40 * a5), v5, *(a1 + 8) - v5);
+    memcpy((v36 + 40 * a5), v5, a1[1] - v5);
     v41 = *a1;
-    v42 = v36 + 40 * a5 + *(a1 + 8) - v5;
-    *(a1 + 8) = v5;
+    v42 = v36 + 40 * a5 + a1[1] - v5;
+    a1[1] = v5;
     v43 = v5 - v41;
     v44 = (v36 - (v5 - v41));
     memcpy(v44, v41, v43);
     v45 = *a1;
     *a1 = v44;
-    *(a1 + 8) = v42;
-    *(a1 + 16) = 0;
+    a1[1] = v42;
+    a1[2] = 0;
     if (v45)
     {
       operator delete(v45);
@@ -8645,7 +8645,7 @@ char *std::vector<faiss::ClusteringIterationStats>::__insert_with_size[abi:ne200
     v30 = 5 * a5;
     v31 = &__dst[40 * a5];
     v32 = v10 - 40 * a5;
-    v33 = *(a1 + 8);
+    v33 = a1[1];
     while (v32 < v10)
     {
       v34 = *v32;
@@ -8657,7 +8657,7 @@ char *std::vector<faiss::ClusteringIterationStats>::__insert_with_size[abi:ne200
       v33 += 40;
     }
 
-    *(a1 + 8) = v33;
+    a1[1] = v33;
     if (v10 != v31)
     {
       memmove(&__dst[40 * a5], __dst, v10 - v31);
@@ -8672,11 +8672,11 @@ char *std::vector<faiss::ClusteringIterationStats>::__insert_with_size[abi:ne200
   v18 = a4 - &__src[v16];
   if (a4 != &__src[v16])
   {
-    memmove(*(a1 + 8), &__src[v16], a4 - &__src[v16]);
+    memmove(a1[1], &__src[v16], a4 - &__src[v16]);
   }
 
   v19 = (v10 + v18);
-  *(a1 + 8) = v10 + v18;
+  a1[1] = v10 + v18;
   if (v16 >= 1)
   {
     v20 = &v5[40 * a5];
@@ -8701,7 +8701,7 @@ char *std::vector<faiss::ClusteringIterationStats>::__insert_with_size[abi:ne200
       v21 = v22 - v7;
     }
 
-    *(a1 + 8) = v21;
+    a1[1] = v21;
     if (v19 != v20)
     {
       memmove(&v5[40 * a5], v5, v19 - v20);
@@ -9480,7 +9480,7 @@ uint64_t faiss::fourcc_inv(uint64_t this, uint64_t a2, char *a3)
   return this;
 }
 
-_BYTE *faiss::fourcc_inv@<X0>(faiss *this@<X0>, _BYTE *a2@<X8>)
+void *faiss::fourcc_inv@<X0>(faiss *this@<X0>, void *a2@<X8>)
 {
   *__s = this;
   LOBYTE(vars0) = 0;
@@ -9624,17 +9624,17 @@ void faiss::BufferedIOReader::~BufferedIOReader(faiss::BufferedIOReader *this)
   JUMPOUT(0x1DA73F410);
 }
 
-void *std::vector<char>::vector[abi:ne200100](void *result, uint64_t a2)
+uint64_t *std::vector<char>::vector[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<unsigned char>::__vallocate[abi:ne200100](result, a2);
+    std::vector<unsigned char>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_1D9C4714C(_Unwind_Exception *exception_object)
@@ -9817,19 +9817,19 @@ uint64_t faiss::IndexIVFFlat::sa_decode(faiss::IndexIVFFlat *this, uint64_t a2, 
   return result;
 }
 
-void faiss::IndexIVFFlat::get_InvertedListScanner(faiss::IndexIVFFlat *this)
+void faiss::IndexIVFFlat::get_InvertedListScanner(faiss::IndexIVFFlat *this, char a2)
 {
-  v1 = *(this + 7);
-  if (v1 != 1)
+  v2 = *(this + 7);
+  if (v2 != 1)
   {
-    if (!v1)
+    if (!v2)
     {
       operator new();
     }
 
     exception = __cxa_allocate_exception(0x20uLL);
-    std::string::basic_string[abi:ne200100]<0>(v3, "metric type not supported");
-    faiss::FaissException::FaissException(exception, v3, "virtual InvertedListScanner *faiss::IndexIVFFlat::get_InvertedListScanner(BOOL) const", "/Library/Caches/com.apple.xbs/Sources/VisualLookUp/VisualIntelligence/VisualIntelligence/Vendor/faiss_search/faiss/faiss/IndexIVFFlat.cpp", 208);
+    std::string::basic_string[abi:ne200100]<0>(v4, "metric type not supported");
+    faiss::FaissException::FaissException(exception, v4, "virtual InvertedListScanner *faiss::IndexIVFFlat::get_InvertedListScanner(BOOL) const", "/Library/Caches/com.apple.xbs/Sources/VisualLookUp/VisualIntelligence/VisualIntelligence/Vendor/faiss_search/faiss/faiss/IndexIVFFlat.cpp", 208);
   }
 
   operator new();
@@ -9858,7 +9858,7 @@ LABEL_6:
 
 void *faiss::IndexIVFFlat::reconstruct_from_offset(faiss::IndexIVFFlat *this, uint64_t a2, uint64_t a3, float *a4)
 {
-  v6 = (*(**(this + 14) + 48))(*(this + 14));
+  v6 = (*(**(this + 14) + 48))(*(this + 14), a2, a3);
   v7 = *(this + 16);
 
   return memcpy(a4, v6, v7);

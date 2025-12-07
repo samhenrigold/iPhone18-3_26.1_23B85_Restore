@@ -99,8 +99,8 @@
     v8 = self->_checkmarkView;
     self->_checkmarkView = v7;
 
-    contentView = [(EKCalendarChooserCell *)self contentView];
-    [contentView addSubview:self->_checkmarkView];
+    v9 = objc_msgSend_contentView(self);
+    [v9 addSubview:self->_checkmarkView];
 
     [(UIImageView *)self->_checkmarkView setAlpha:0.0];
   }
@@ -267,8 +267,8 @@ LABEL_6:
     labelColor = [MEMORY[0x1E69DC888] labelColor];
     [(UIImageView *)self->_colorDotView setTintColor:labelColor];
 
-    contentView = [(EKCalendarChooserCell *)self contentView];
-    [contentView addSubview:self->_colorDotView];
+    v24 = objc_msgSend_contentView(self);
+    [v24 addSubview:self->_colorDotView];
   }
 
 LABEL_7:
@@ -444,10 +444,11 @@ LABEL_7:
   v5 = 0.0;
   if (![(EKCalendarChooserCell *)self multiSelectStyle])
   {
-    if ([(EKCalendarChooserCell *)self showCheckmarksOnLeft])
+    showCheckmarksOnLeft = [(EKCalendarChooserCell *)self showCheckmarksOnLeft];
+    if (showCheckmarksOnLeft)
     {
       [(UIImageView *)self->_checkmarkView frame];
-      v5 = v6 + 11.0 + 10.0;
+      v5 = v8 + 11.0 + 10.0;
     }
 
     else
@@ -455,16 +456,16 @@ LABEL_7:
       v5 = 16.0;
       if (v4)
       {
-        IsLeftToRight = CalInterfaceIsLeftToRight();
+        IsLeftToRight = CalInterfaceIsLeftToRight(showCheckmarksOnLeft, v7);
         [(EKCalendarChooserCell *)self layoutMargins];
         if (IsLeftToRight)
         {
-          v5 = v8;
+          v5 = v10;
         }
 
         else
         {
-          v5 = v9;
+          v5 = v11;
         }
 
         [(EKCalendarChooserCell *)self showsColorDot];
@@ -476,7 +477,7 @@ LABEL_7:
   if (!(v4 | ![(EKCalendarChooserCell *)self showsColorDot]) && ![(EKCalendarChooserCell *)self multiSelectStyle])
   {
     [(UIImage *)self->_colorDot size];
-    v5 = v5 + v18 + 10.0;
+    v5 = v5 + v22 + 10.0;
     goto LABEL_17;
   }
 
@@ -486,25 +487,25 @@ LABEL_11:
 
   if (image)
   {
-    if (CalInterfaceIsLeftToRight())
+    if (CalInterfaceIsLeftToRight(v14, v15))
     {
       imageView2 = [(EKCalendarChooserCell *)self imageView];
       [imageView2 frame];
-      v14 = v13;
+      v18 = v17;
     }
 
     else
     {
       [(EKCalendarChooserCell *)self bounds];
-      v16 = v15;
+      v20 = v19;
       imageView2 = [(EKCalendarChooserCell *)self imageView];
       [imageView2 frame];
-      v14 = v16 - CGRectGetMaxX(v21);
+      v18 = v20 - CGRectGetMaxX(v25);
     }
 
     imageView3 = [(EKCalendarChooserCell *)self imageView];
     [imageView3 bounds];
-    v5 = v14 + CGRectGetWidth(v22) + 10.0;
+    v5 = v18 + CGRectGetWidth(v26) + 10.0;
   }
 
 LABEL_17:
@@ -543,92 +544,92 @@ LABEL_17:
   }
 }
 
-uint64_t __39__EKCalendarChooserCell_layoutSubviews__block_invoke(uint64_t a1)
+void *__39__EKCalendarChooserCell_layoutSubviews__block_invoke(uint64_t a1)
 {
-  v40.receiver = *(a1 + 32);
-  v40.super_class = EKCalendarChooserCell;
-  objc_msgSendSuper2(&v40, sel_layoutSubviews);
-  IsLeftToRight = CalInterfaceIsLeftToRight();
-  v3 = [*(a1 + 32) textLabel];
-  [v3 frame];
-  v5 = v4;
-  v6 = [*(a1 + 32) textLabel];
-  [v6 _capOffsetFromBoundsTop];
-  v8 = v5 + v7;
-  v9 = [*(a1 + 32) textLabel];
-  v10 = [v9 font];
-  [v10 capHeight];
-  CalRoundToScreenScale(v8 + v11 * 0.5);
-  v13 = v12;
+  v42.receiver = *(a1 + 32);
+  v42.super_class = EKCalendarChooserCell;
+  v2 = objc_msgSendSuper2(&v42, sel_layoutSubviews);
+  IsLeftToRight = CalInterfaceIsLeftToRight(v2, v3);
+  v5 = [*(a1 + 32) textLabel];
+  [v5 frame];
+  v7 = v6;
+  v8 = [*(a1 + 32) textLabel];
+  [v8 _capOffsetFromBoundsTop];
+  v10 = v7 + v9;
+  v11 = [*(a1 + 32) textLabel];
+  v12 = [v11 font];
+  [v12 capHeight];
+  CalRoundToScreenScale(v10 + v13 * 0.5);
+  v15 = v14;
 
   [*(*(a1 + 32) + 1120) sizeToFit];
   [*(*(a1 + 32) + 1120) bounds];
-  Height = CGRectGetHeight(v41);
-  CalRoundToScreenScale(v13 - Height * 0.5);
-  v16 = v15;
-  v17 = 11.0;
+  Height = CGRectGetHeight(v43);
+  CalRoundToScreenScale(v15 - Height * 0.5);
+  v18 = v17;
+  v19 = 11.0;
   if ((IsLeftToRight & 1) == 0)
   {
-    v18 = [*(a1 + 32) contentView];
-    [v18 bounds];
-    v20 = v19;
+    v20 = objc_msgSend_contentView(*(a1 + 32));
+    [v20 bounds];
+    v22 = v21;
     [*(*(a1 + 32) + 1120) frame];
-    v17 = v20 - v21 + -11.0;
+    v19 = v22 - v23 + -11.0;
   }
 
   [*(*(a1 + 32) + 1120) frame];
-  [*(*(a1 + 32) + 1120) setFrame:{v17, v16}];
+  [*(*(a1 + 32) + 1120) setFrame:{v19, v18}];
   if ([*(a1 + 32) showCheckmarksOnLeft])
   {
     [*(*(a1 + 32) + 1120) frame];
     if (IsLeftToRight)
     {
-      v26 = CGRectGetMaxX(*&v22) + 10.0;
+      v28 = CGRectGetMaxX(*&v24) + 10.0;
 LABEL_7:
       [*(a1 + 32) safeAreaInsets];
-      v28 = v26 + v27;
+      v30 = v28 + v29;
       goto LABEL_11;
     }
 
-    v26 = CGRectGetMinX(*&v22) + -10.0;
+    v28 = CGRectGetMinX(*&v24) + -10.0;
   }
 
   else
   {
-    v26 = 16.0;
+    v28 = 16.0;
     if (IsLeftToRight)
     {
       goto LABEL_7;
     }
 
-    v29 = [*(a1 + 32) contentView];
-    [v29 bounds];
-    v26 = v30 + -16.0;
+    v31 = objc_msgSend_contentView(*(a1 + 32));
+    [v31 bounds];
+    v28 = v32 + -16.0;
   }
 
-  v31 = [*(a1 + 32) contentView];
-  [v31 bounds];
-  v33 = v32 - v26;
+  v33 = objc_msgSend_contentView(*(a1 + 32));
+  [v33 bounds];
+  v35 = v34 - v28;
   [*(a1 + 32) safeAreaInsets];
-  v28 = v33 + v34;
+  v30 = v35 + v36;
 
 LABEL_11:
-  [*(a1 + 32) setSeparatorInset:{0.0, v28, 0.0, 0.0}];
+  [*(a1 + 32) setSeparatorInset:{0.0, v30, 0.0, 0.0}];
   result = [*(a1 + 32) showsColorDot];
   if (result)
   {
     if (!IsLeftToRight)
     {
       [*(*(a1 + 32) + 1112) frame];
-      v26 = v26 - v36;
+      v28 = v28 - v38;
     }
 
     [*(*(a1 + 32) + 1112) bounds];
-    v37 = CGRectGetHeight(v42);
-    CalRoundToScreenScale(v13 + v37 * -0.5);
-    v39 = v38;
+    v39 = CGRectGetHeight(v44);
+    CalRoundToScreenScale(v15 + v39 * -0.5);
+    v41 = v40;
     [*(*(a1 + 32) + 1112) frame];
-    return [*(*(a1 + 32) + 1112) setFrame:{v26, v39}];
+    return [*(*(a1 + 32) + 1112) setFrame:{v28, v41}];
   }
 
   return result;

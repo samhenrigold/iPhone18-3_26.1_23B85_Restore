@@ -16,7 +16,7 @@
 
 + (NSArray)allStores
 {
-  v2 = allStores();
+  v2 = allStores(self);
   allObjects = [v2 allObjects];
 
   return allObjects;
@@ -72,19 +72,19 @@
 
 - (WBSContentBlockerStatisticsInMemoryStore)init
 {
-  v8.receiver = self;
-  v8.super_class = WBSContentBlockerStatisticsInMemoryStore;
-  v2 = [(WBSContentBlockerStatisticsInMemoryStore *)&v8 init];
+  v9.receiver = self;
+  v9.super_class = WBSContentBlockerStatisticsInMemoryStore;
+  v2 = [(WBSContentBlockerStatisticsInMemoryStore *)&v9 init];
   if (v2)
   {
     dictionary = [MEMORY[0x1E695DF90] dictionary];
     firstPartiesByBlockedThirdParty = v2->_firstPartiesByBlockedThirdParty;
     v2->_firstPartiesByBlockedThirdParty = dictionary;
 
-    v5 = allStores();
-    [v5 addObject:v2];
+    v6 = allStores(v5);
+    [v6 addObject:v2];
 
-    v6 = v2;
+    v7 = v2;
   }
 
   return v2;
@@ -92,7 +92,7 @@
 
 - (void)dealloc
 {
-  v3 = allStores();
+  v3 = allStores(self);
   [v3 removeObject:self];
 
   defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
@@ -274,10 +274,10 @@ uint64_t __70__WBSContentBlockerStatisticsInMemoryStore_clearStatisticsForDomain
 
   if ((v4 & 1) == 0)
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXContentBlockers();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = WBS_LOG_CHANNEL_PREFIXContentBlockers(v5, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __70__WBSContentBlockerStatisticsInMemoryStore_clearStatisticsForDomains___block_invoke_cold_1(v2, v5);
+      __70__WBSContentBlockerStatisticsInMemoryStore_clearStatisticsForDomains___block_invoke_cold_1(v2, v7);
     }
   }
 

@@ -12,43 +12,43 @@ void KB::LikelihoodInfo::~LikelihoodInfo(void **this)
   }
 }
 
-id GetMultitapSequenceTable(void)
+id GetMultitapSequenceTable(uint64_t a1)
 {
   if (GetMultitapSequenceTable(void)::__onceToken != -1)
   {
     GetMultitapSequenceTable();
   }
 
-  v1 = GetMultitapSequenceTable(void)::__multitapMap;
+  v2 = GetMultitapSequenceTable(void)::__multitapMap;
 
-  return v1;
+  return v2;
 }
 
 void ___ZL24GetMultitapSequenceTablev_block_invoke()
 {
-  v19 = *MEMORY[0x29EDCA608];
+  v18 = *MEMORY[0x29EDCA608];
   v0 = [MEMORY[0x29EDB8E00] dictionary];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v1 = [&unk_2A25295D0 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v1 = [&unk_2A25295D0 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v1)
   {
     v2 = v1;
-    v3 = *v15;
+    v3 = *v14;
     do
     {
       for (i = 0; i != v2; ++i)
       {
-        if (*v15 != v3)
+        if (*v14 != v3)
         {
           objc_enumerationMutation(&unk_2A25295D0);
         }
 
-        v5 = *(*(&v14 + 1) + 8 * i);
-        v13 = [v5 characterAtIndex:0];
-        v6 = [MEMORY[0x29EDBA0F8] stringWithCharacters:&v13 length:1];
+        v5 = *(*(&v13 + 1) + 8 * i);
+        v12 = [v5 characterAtIndex:0];
+        v6 = [MEMORY[0x29EDBA0F8] stringWithCharacters:&v12 length:1];
         v7 = v6;
         if ([v5 length] >= 2)
         {
@@ -56,8 +56,8 @@ void ___ZL24GetMultitapSequenceTablev_block_invoke()
           v9 = 1;
           do
           {
-            v13 = [v5 characterAtIndex:v9];
-            v7 = [MEMORY[0x29EDBA0F8] stringWithCharacters:&v13 length:1];
+            v12 = [v5 characterAtIndex:v9];
+            v7 = [MEMORY[0x29EDBA0F8] stringWithCharacters:&v12 length:1];
             [v0 setObject:v7 forKey:v8];
 
             ++v9;
@@ -70,7 +70,7 @@ void ___ZL24GetMultitapSequenceTablev_block_invoke()
         [v0 setObject:v6 forKey:v7];
       }
 
-      v2 = [&unk_2A25295D0 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v2 = [&unk_2A25295D0 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v2);
@@ -79,8 +79,6 @@ void ___ZL24GetMultitapSequenceTablev_block_invoke()
   v10 = [v0 copy];
   v11 = GetMultitapSequenceTable(void)::__multitapMap;
   GetMultitapSequenceTable(void)::__multitapMap = v10;
-
-  v12 = *MEMORY[0x29EDCA608];
 }
 
 void _GLOBAL__sub_I_TIKeyboardInputManager_ja_Kana_mm()

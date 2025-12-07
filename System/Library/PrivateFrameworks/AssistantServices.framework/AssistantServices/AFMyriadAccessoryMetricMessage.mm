@@ -11,15 +11,15 @@
 
 - (BOOL)_decodeMetricDataPayload:(id)payload decodedPayload:(MyriadMetricsDataV1 *)decodedPayload
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   payloadCopy = payload;
   v6 = payloadCopy;
   if (payloadCopy && [payloadCopy length])
   {
-    v14 = 0;
-    [v6 getBytes:&v14 range:{0, 1}];
-    v7 = v14 != 0;
-    if (v14)
+    v13 = 0;
+    [v6 getBytes:&v13 range:{0, 1}];
+    v7 = v13 != 0;
+    if (v13)
     {
       v8 = [v6 length];
       *&decodedPayload->version = 0u;
@@ -52,14 +52,14 @@
 
     else
     {
-      v13 = AFSiriLogContextConnection;
+      v12 = AFSiriLogContextConnection;
       if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v16 = "[AFMyriadAccessoryMetricMessage _decodeMetricDataPayload:decodedPayload:]";
-        v17 = 1024;
-        LODWORD(v18) = 0;
-        _os_log_error_impl(&dword_1912FE000, v13, OS_LOG_TYPE_ERROR, "%s Analytics data has a invalid version %d", buf, 0x12u);
+        v15 = "[AFMyriadAccessoryMetricMessage _decodeMetricDataPayload:decodedPayload:]";
+        v16 = 1024;
+        LODWORD(v17) = 0;
+        _os_log_error_impl(&dword_1912FE000, v12, OS_LOG_TYPE_ERROR, "%s Analytics data has a invalid version %d", buf, 0x12u);
       }
     }
   }
@@ -70,16 +70,15 @@
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v16 = "[AFMyriadAccessoryMetricMessage _decodeMetricDataPayload:decodedPayload:]";
-      v17 = 2112;
-      v18 = v6;
+      v15 = "[AFMyriadAccessoryMetricMessage _decodeMetricDataPayload:decodedPayload:]";
+      v16 = 2112;
+      v17 = v6;
       _os_log_error_impl(&dword_1912FE000, v10, OS_LOG_TYPE_ERROR, "%s Invalid analytics data payload: %@", buf, 0x16u);
     }
 
     v7 = 0;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v7;
 }
 

@@ -32,7 +32,7 @@
   selfCopy = self;
   sub_26A84ABF8();
 
-  VisualResponseProvider.viewController(for:mode:)();
+  VisualResponseProvider.viewController(for:mode:)(v7);
 }
 
 - (id)viewControllerForSnippetModel:(id)model bundleName:(id)name mode:(int64_t)mode
@@ -43,7 +43,7 @@
   sub_26A84ABF8();
 
   sub_26A8517B8();
-  VisualResponseProvider.viewController(for:bundleName:mode:)();
+  VisualResponseProvider.viewController(for:bundleName:mode:)(v10);
 }
 
 - (id)viewForModel:(id)model mode:(int64_t)mode overload:(int64_t)overload
@@ -84,8 +84,8 @@
   selfCopy = self;
   sub_26A84ABF8();
 
-  swift_allocObject();
-  VisualResponseProvider.viewController(for:mode:completion:)();
+  v9 = swift_allocObject();
+  VisualResponseProvider.viewController(for:mode:completion:)(v9);
 }
 
 - (void)reset
@@ -105,7 +105,7 @@
   sub_26A513D40(v8, v10);
   if (v11)
   {
-    sub_26A4EC5B0(0, &unk_2803B1CB0);
+    sub_26A4EC5B0(0, &unk_2803B1CB0, &off_279C9FA40);
     v12 = sub_26A851A88();
   }
 

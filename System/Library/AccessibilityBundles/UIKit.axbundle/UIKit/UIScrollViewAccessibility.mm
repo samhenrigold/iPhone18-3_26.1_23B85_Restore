@@ -210,10 +210,10 @@
   if (self)
   {
     _axVerticalScrollIndicator = [(UIScrollViewAccessibility *)selfCopy _axVerticalScrollIndicator];
-    [_UIScrollViewScrollIndicatorAccessibility setAccessibilityScrollDirection:_axVerticalScrollIndicator];
+    [(_UIScrollViewScrollIndicatorAccessibility *)_axVerticalScrollIndicator setAccessibilityScrollDirection:?];
     [(_UIScrollViewScrollIndicatorAccessibility *)_axVerticalScrollIndicator setAccessibilityScrollIndicatorDelegate:selfCopy];
     _axHorizontalScrollIndicator = [(UIScrollViewAccessibility *)selfCopy _axHorizontalScrollIndicator];
-    [_UIScrollViewScrollIndicatorAccessibility setAccessibilityScrollDirection:_axHorizontalScrollIndicator];
+    [(_UIScrollViewScrollIndicatorAccessibility *)_axHorizontalScrollIndicator setAccessibilityScrollDirection:?];
     [(_UIScrollViewScrollIndicatorAccessibility *)_axHorizontalScrollIndicator setAccessibilityScrollIndicatorDelegate:selfCopy];
     objc_storeStrong(&_axHorizontalScrollIndicator, 0);
     objc_storeStrong(&_axVerticalScrollIndicator, 0);
@@ -1899,10 +1899,10 @@ LABEL_48:
 
 - (void)_accessibilityCurrentPage:(uint64_t *)page totalPages:(int)pages type:
 {
-  if (self)
+  if (result)
   {
     pagesCopy = 1;
-    v6 = [self _accessibilityValueForKey:@"kUIScrollViewScrollVerticalStorageKey"];
+    v6 = [result _accessibilityValueForKey:@"kUIScrollViewScrollVerticalStorageKey"];
     intValue = [v6 intValue];
     *&v4 = MEMORY[0x29EDC9740](v6).n128_u64[0];
     if (intValue)
@@ -1919,7 +1919,7 @@ LABEL_48:
 
       else
       {
-        if ([self _accessibilityScrollStatusPrefersVertical])
+        if ([result _accessibilityScrollStatusPrefersVertical])
         {
           v5 = 1;
         }
@@ -1933,7 +1933,7 @@ LABEL_48:
       }
     }
 
-    [(UIScrollViewAccessibility *)self _accessibilityCurrentPage:a2 totalPages:page forVerticalDirection:pagesCopy == 1];
+    [(UIScrollViewAccessibility *)result _accessibilityCurrentPage:a2 totalPages:page forVerticalDirection:pagesCopy == 1];
   }
 }
 
@@ -3176,13 +3176,13 @@ void __113__UIScrollViewAccessibility_accessibilityApplyScrollContent_sendScroll
   objc_storeStrong(v16, 0);
 }
 
-uint64_t __113__UIScrollViewAccessibility_accessibilityApplyScrollContent_sendScrollStatus_animateWithDuration_animationCurve___block_invoke_4(uint64_t result)
+id *__113__UIScrollViewAccessibility_accessibilityApplyScrollContent_sendScrollStatus_animateWithDuration_animationCurve___block_invoke_4(id *result)
 {
   v1 = result;
-  if (*(result + 48))
+  if (result[6])
   {
-    [*(result + 32) _accessibilitySendScrollStatus];
-    return [*(v1 + 40) _setContentOffsetRoundingEnabled:*(v1 + 49) & 1];
+    [result[4] _accessibilitySendScrollStatus];
+    return [v1[5] _setContentOffsetRoundingEnabled:*(v1 + 49) & 1];
   }
 
   return result;
@@ -3764,7 +3764,8 @@ void __64__UIScrollViewAccessibility__scrollViewAnimationEnded_finished___block_
   v70.size.width = v11;
   v70.size.height = v12;
   v69 = (*(v72 + 2))(v73.origin.x, v73.origin.y, v73.size.width, v73.size.height, v9, v10, v11, v12);
-  *v68 = 0uLL;
+  v68[0] = 0.0;
+  v68[1] = 0.0;
   *v68 = *MEMORY[0x29EDB90E8];
   if (!(*(v72 + 2))(v73.origin.x, v73.origin.y, v73.size.width, v73.size.height, v70.origin.x, v70.origin.y, v70.size.width, v70.size.height))
   {
@@ -3805,7 +3806,7 @@ void __64__UIScrollViewAccessibility__scrollViewAnimationEnded_finished___block_
         layer2 = [v63 layer];
         if (layer2)
         {
-          [layer2 cornerRadii];
+          objc_msgSend_cornerRadii(layer2);
         }
 
         else
@@ -3820,7 +3821,7 @@ void __64__UIScrollViewAccessibility__scrollViewAnimationEnded_finished___block_
         layer3 = [v63 layer];
         if (layer3)
         {
-          [layer3 cornerRadii];
+          objc_msgSend_cornerRadii(layer3);
         }
 
         else
@@ -3835,7 +3836,7 @@ void __64__UIScrollViewAccessibility__scrollViewAnimationEnded_finished___block_
         layer4 = [v63 layer];
         if (layer4)
         {
-          [layer4 cornerRadii];
+          objc_msgSend_cornerRadii(layer4);
         }
 
         else
@@ -3850,7 +3851,7 @@ void __64__UIScrollViewAccessibility__scrollViewAnimationEnded_finished___block_
         layer5 = [v63 layer];
         if (layer5)
         {
-          [layer5 cornerRadii];
+          objc_msgSend_cornerRadii(layer5);
         }
 
         else
@@ -3862,7 +3863,7 @@ void __64__UIScrollViewAccessibility__scrollViewAnimationEnded_finished___block_
         v28 = [v31 valueWithCGSize:v58[1]];
         v103[3] = v28;
         v27 = [MEMORY[0x29EDB8D80] arrayWithObjects:v103 count:4];
-        v102 = [v39 roundedRectBezierPath:v40 withRoundedCorners:v79.origin.x withCornerRadii:{v79.origin.y, v79.size.width, v79.size.height}];
+        v102 = [v39 roundedRectBezierPath:v40 withRoundedCorners:*&v79.origin withCornerRadii:*&v79.size];
         MEMORY[0x29EDC9740](v27);
         MEMORY[0x29EDC9740](v28);
         MEMORY[0x29EDC9740](layer5);
@@ -3928,7 +3929,7 @@ LABEL_44:
 
   v68[1] = v68[0];
 LABEL_45:
-  v102 = [MEMORY[0x29EDC7948] bezierPathWithRoundedRect:v69 byRoundingCorners:v79.origin.x cornerRadii:{v79.origin.y, v79.size.width, v79.size.height, v68[0], v68[1]}];
+  v102 = [MEMORY[0x29EDC7948] bezierPathWithRoundedRect:v69 byRoundingCorners:*&v79.origin cornerRadii:{*&v79.size, v68[0], v68[1]}];
 LABEL_46:
   objc_storeStrong(&_accessibilityWindow, 0);
   objc_storeStrong(&v72, 0);
@@ -4047,7 +4048,7 @@ uint64_t __46__UIScrollViewAccessibility_accessibilityPath__block_invoke_4(void 
     v11 = 1;
     if (v5)
     {
-      [v5 cornerRadii];
+      objc_msgSend_cornerRadii(v5);
     }
 
     else

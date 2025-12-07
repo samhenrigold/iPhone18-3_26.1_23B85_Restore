@@ -343,64 +343,58 @@ LABEL_47:
 
 - (void)flushDiskCacheWithRequest:(id)request
 {
-  shifter = self->_shifter;
-  v4 = objc_opt_class();
+  v3 = objc_opt_class();
 
-  [v4 flushDiskCache];
+  [v3 flushDiskCache];
 }
 
 - (void)pruneDiskCacheWithRequest:(id)request
 {
-  shifter = self->_shifter;
-  v4 = objc_opt_class();
+  v3 = objc_opt_class();
 
-  [v4 pruneDiskCache];
+  [v3 pruneDiskCache];
 }
 
 - (void)functionVersionWithRequest:(id)request
 {
   requestCopy = request;
-  v6 = [[GEOLocationShiftingVersionResponse alloc] initWithRequest:requestCopy];
+  v4 = [[GEOLocationShiftingVersionResponse alloc] initWithRequest:requestCopy];
 
-  shifter = self->_shifter;
-  [v6 setVersion:{objc_msgSend(objc_opt_class(), "locationShiftFunctionVersion")}];
-  [v6 send];
+  [v4 setVersion:{objc_msgSend(objc_opt_class(), "locationShiftFunctionVersion")}];
+  [v4 send];
 }
 
 - (void)isRequiredForRegionWithRequest:(id)request
 {
   requestCopy = request;
-  v8 = [[GEOLocationShiftingIsRequiredResponse alloc] initWithRequest:requestCopy];
-  shifter = self->_shifter;
-  v6 = objc_opt_class();
+  v6 = [[GEOLocationShiftingIsRequiredResponse alloc] initWithRequest:requestCopy];
+  v4 = objc_opt_class();
   region = [requestCopy region];
 
-  [v8 setRequired:{objc_msgSend(v6, "isLocationShiftRequiredForRegion:", region)}];
-  [v8 send];
+  [v6 setRequired:{objc_msgSend(v4, "isLocationShiftRequiredForRegion:", region)}];
+  [v6 send];
 }
 
 - (void)isRequiredForCoordinateWithRequest:(id)request
 {
   requestCopy = request;
-  v11 = [[GEOLocationShiftingIsRequiredResponse alloc] initWithRequest:requestCopy];
-  shifter = self->_shifter;
-  v6 = objc_opt_class();
+  v9 = [[GEOLocationShiftingIsRequiredResponse alloc] initWithRequest:requestCopy];
+  v4 = objc_opt_class();
   [requestCopy coordinate];
+  v6 = v5;
   v8 = v7;
-  v10 = v9;
 
-  [v11 setRequired:{objc_msgSend(v6, "isLocationShiftRequiredForCoordinate:", v8, v10)}];
-  [v11 send];
+  [v9 setRequired:{objc_msgSend(v4, "isLocationShiftRequiredForCoordinate:", v6, v8)}];
+  [v9 send];
 }
 
 - (void)isEnabledWithRequest:(id)request
 {
   requestCopy = request;
-  v6 = [[GEOLocationShiftingEnabledResponse alloc] initWithRequest:requestCopy];
+  v4 = [[GEOLocationShiftingEnabledResponse alloc] initWithRequest:requestCopy];
 
-  shifter = self->_shifter;
-  [v6 setEnabled:{objc_msgSend(objc_opt_class(), "isLocationShiftEnabled")}];
-  [v6 send];
+  [v4 setEnabled:{objc_msgSend(objc_opt_class(), "isLocationShiftEnabled")}];
+  [v4 send];
 }
 
 - (void)fetchCachedFunctionWithRequest:(id)request

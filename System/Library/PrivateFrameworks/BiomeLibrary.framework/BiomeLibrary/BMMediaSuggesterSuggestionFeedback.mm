@@ -251,7 +251,7 @@ LABEL_45:
 
 - (id)jsonDictionary
 {
-  v45[11] = *MEMORY[0x1E69E9840];
+  v44[11] = *MEMORY[0x1E69E9840];
   sessionIdentifier = [(BMMediaSuggesterSuggestionFeedback *)self sessionIdentifier];
   if (![(BMMediaSuggesterSuggestionFeedback *)self hasNumberOfVisibleSuggestions]|| ([(BMMediaSuggesterSuggestionFeedback *)self numberOfVisibleSuggestions], fabs(v4) == INFINITY))
   {
@@ -296,12 +296,12 @@ LABEL_45:
   targetBundleID = [(BMMediaSuggesterSuggestionFeedback *)self targetBundleID];
   if ([(BMMediaSuggesterSuggestionFeedback *)self hasWorkoutType])
   {
-    v42 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMMediaSuggesterSuggestionFeedback workoutType](self, "workoutType")}];
+    v41 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMMediaSuggesterSuggestionFeedback workoutType](self, "workoutType")}];
   }
 
   else
   {
-    v42 = 0;
+    v41 = 0;
   }
 
   if ([(BMMediaSuggesterSuggestionFeedback *)self hasIsNowPlaying])
@@ -316,106 +316,106 @@ LABEL_45:
 
   _allowedBundleIDsJSONArray = [(BMMediaSuggesterSuggestionFeedback *)self _allowedBundleIDsJSONArray];
   _suggestionsIntentJSONArray = [(BMMediaSuggesterSuggestionFeedback *)self _suggestionsIntentJSONArray];
-  v44[0] = @"sessionIdentifier";
+  v43[0] = @"sessionIdentifier";
   null = sessionIdentifier;
   if (!sessionIdentifier)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v35 = null;
-  v45[0] = null;
-  v44[1] = @"numberOfVisibleSuggestions";
+  v34 = null;
+  v44[0] = null;
+  v43[1] = @"numberOfVisibleSuggestions";
   null2 = v6;
   if (!v6)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v34 = null2;
-  v45[1] = null2;
-  v44[2] = @"indexSelected";
+  v33 = null2;
+  v44[1] = null2;
+  v43[2] = @"indexSelected";
   null3 = v7;
   if (!v7)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v33 = null3;
-  v45[2] = null3;
-  v44[3] = @"intent";
+  v32 = null3;
+  v44[2] = null3;
+  v43[3] = @"intent";
   null4 = jsonDictionary;
   if (!jsonDictionary)
   {
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v40 = v6;
-  v41 = sessionIdentifier;
-  v32 = null4;
-  v45[3] = null4;
-  v44[4] = @"engagementType";
+  v39 = v6;
+  v40 = sessionIdentifier;
+  v31 = null4;
+  v44[3] = null4;
+  v43[4] = @"engagementType";
   null5 = v10;
   if (!v10)
   {
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v39 = v7;
-  v31 = null5;
-  v45[4] = null5;
-  v44[5] = @"suggestionsRequestDate";
+  v38 = v7;
+  v30 = null5;
+  v44[4] = null5;
+  v43[5] = @"suggestionsRequestDate";
   null6 = v13;
   if (!v13)
   {
     null6 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v38 = jsonDictionary;
-  v45[5] = null6;
-  v44[6] = @"targetBundleID";
+  v37 = jsonDictionary;
+  v44[5] = null6;
+  v43[6] = @"targetBundleID";
   null7 = targetBundleID;
   if (!targetBundleID)
   {
     null7 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v37 = v10;
-  v45[6] = null7;
-  v44[7] = @"workoutType";
-  null8 = v42;
-  if (!v42)
+  v36 = v10;
+  v44[6] = null7;
+  v43[7] = @"workoutType";
+  null8 = v41;
+  if (!v41)
   {
     null8 = [MEMORY[0x1E695DFB0] null];
   }
 
   v25 = v13;
-  v45[7] = null8;
-  v44[8] = @"isNowPlaying";
+  v44[7] = null8;
+  v43[8] = @"isNowPlaying";
   null9 = v14;
   if (!v14)
   {
     null9 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v45[8] = null9;
-  v44[9] = @"allowedBundleIDs";
+  v44[8] = null9;
+  v43[9] = @"allowedBundleIDs";
   null10 = _allowedBundleIDsJSONArray;
   if (!_allowedBundleIDsJSONArray)
   {
     null10 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v45[9] = null10;
-  v44[10] = @"suggestionsIntent";
+  v44[9] = null10;
+  v43[10] = @"suggestionsIntent";
   null11 = _suggestionsIntentJSONArray;
   if (!_suggestionsIntentJSONArray)
   {
     null11 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v45[10] = null11;
-  v36 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v45 forKeys:v44 count:11];
+  v44[10] = null11;
+  v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v44 forKeys:v43 count:11];
   if (_suggestionsIntentJSONArray)
   {
     if (_allowedBundleIDsJSONArray)
@@ -447,7 +447,7 @@ LABEL_42:
 LABEL_60:
 
 LABEL_43:
-  if (!v42)
+  if (!v41)
   {
   }
 
@@ -459,13 +459,13 @@ LABEL_43:
   {
   }
 
-  if (!v37)
+  if (!v36)
   {
   }
 
-  if (v38)
+  if (v37)
   {
-    if (v39)
+    if (v38)
     {
       goto LABEL_53;
     }
@@ -474,17 +474,17 @@ LABEL_43:
   else
   {
 
-    if (v39)
+    if (v38)
     {
 LABEL_53:
-      if (v40)
+      if (v39)
       {
         goto LABEL_54;
       }
 
 LABEL_63:
 
-      if (v41)
+      if (v40)
       {
         goto LABEL_55;
       }
@@ -493,13 +493,13 @@ LABEL_63:
     }
   }
 
-  if (!v40)
+  if (!v39)
   {
     goto LABEL_63;
   }
 
 LABEL_54:
-  if (v41)
+  if (v40)
   {
     goto LABEL_55;
   }
@@ -507,50 +507,11 @@ LABEL_54:
 LABEL_64:
 
 LABEL_55:
-  v29 = *MEMORY[0x1E69E9840];
 
-  return v36;
+  return v35;
 }
 
 - (id)_suggestionsIntentJSONArray
-{
-  v17 = *MEMORY[0x1E69E9840];
-  v3 = objc_opt_new();
-  v12 = 0u;
-  v13 = 0u;
-  v14 = 0u;
-  v15 = 0u;
-  suggestionsIntent = [(BMMediaSuggesterSuggestionFeedback *)self suggestionsIntent];
-  v5 = [suggestionsIntent countByEnumeratingWithState:&v12 objects:v16 count:16];
-  if (v5)
-  {
-    v6 = v5;
-    v7 = *v13;
-    do
-    {
-      for (i = 0; i != v6; ++i)
-      {
-        if (*v13 != v7)
-        {
-          objc_enumerationMutation(suggestionsIntent);
-        }
-
-        jsonDictionary = [*(*(&v12 + 1) + 8 * i) jsonDictionary];
-        [v3 addObject:jsonDictionary];
-      }
-
-      v6 = [suggestionsIntent countByEnumeratingWithState:&v12 objects:v16 count:16];
-    }
-
-    while (v6);
-  }
-
-  v10 = *MEMORY[0x1E69E9840];
-
-  return v3;
-}
-
-- (id)_allowedBundleIDsJSONArray
 {
   v16 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
@@ -558,8 +519,8 @@ LABEL_55:
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  allowedBundleIDs = [(BMMediaSuggesterSuggestionFeedback *)self allowedBundleIDs];
-  v5 = [allowedBundleIDs countByEnumeratingWithState:&v11 objects:v15 count:16];
+  suggestionsIntent = [(BMMediaSuggesterSuggestionFeedback *)self suggestionsIntent];
+  v5 = [suggestionsIntent countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
@@ -570,26 +531,60 @@ LABEL_55:
       {
         if (*v12 != v7)
         {
-          objc_enumerationMutation(allowedBundleIDs);
+          objc_enumerationMutation(suggestionsIntent);
         }
 
-        [v3 addObject:*(*(&v11 + 1) + 8 * i)];
+        jsonDictionary = [*(*(&v11 + 1) + 8 * i) jsonDictionary];
+        [v3 addObject:jsonDictionary];
       }
 
-      v6 = [allowedBundleIDs countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [suggestionsIntent countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
 
-  v9 = *MEMORY[0x1E69E9840];
+  return v3;
+}
+
+- (id)_allowedBundleIDsJSONArray
+{
+  v15 = *MEMORY[0x1E69E9840];
+  v3 = objc_opt_new();
+  v10 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  allowedBundleIDs = [(BMMediaSuggesterSuggestionFeedback *)self allowedBundleIDs];
+  v5 = [allowedBundleIDs countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v5)
+  {
+    v6 = v5;
+    v7 = *v11;
+    do
+    {
+      for (i = 0; i != v6; ++i)
+      {
+        if (*v11 != v7)
+        {
+          objc_enumerationMutation(allowedBundleIDs);
+        }
+
+        [v3 addObject:*(*(&v10 + 1) + 8 * i)];
+      }
+
+      v6 = [allowedBundleIDs countByEnumeratingWithState:&v10 objects:v14 count:16];
+    }
+
+    while (v6);
+  }
 
   return v3;
 }
 
 - (BMMediaSuggesterSuggestionFeedback)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v201[1] = *MEMORY[0x1E69E9840];
+  v200[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"sessionIdentifier"];
   if (v7 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
@@ -602,10 +597,10 @@ LABEL_55:
         v22 = objc_alloc(MEMORY[0x1E696ABC0]);
         errorCopy = error;
         v24 = *MEMORY[0x1E698F240];
-        v200 = *MEMORY[0x1E696A578];
+        v199 = *MEMORY[0x1E696A578];
         v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"sessionIdentifier"];
-        v201[0] = v10;
-        v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v201 forKeys:&v200 count:1];
+        v200[0] = v10;
+        v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v200 forKeys:&v199 count:1];
         v25 = [v22 initWithDomain:v24 code:2 userInfo:v9];
         v8 = 0;
         v19 = 0;
@@ -639,13 +634,13 @@ LABEL_55:
         v27 = objc_alloc(MEMORY[0x1E696ABC0]);
         errorCopy2 = error;
         v29 = *MEMORY[0x1E698F240];
-        v198 = *MEMORY[0x1E696A578];
+        v197 = *MEMORY[0x1E696A578];
         v20 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"numberOfVisibleSuggestions"];
-        v199 = v20;
-        v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v199 forKeys:&v198 count:1];
+        v198 = v20;
+        v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v198 forKeys:&v197 count:1];
         v31 = v27;
         v8 = v26;
-        v157 = v30;
+        v156 = v30;
         v10 = 0;
         v19 = 0;
         *errorCopy2 = [v31 initWithDomain:v29 code:2 userInfo:?];
@@ -667,8 +662,8 @@ LABEL_55:
   }
 
   v11 = [dictionaryCopy objectForKeyedSubscript:@"indexSelected"];
-  v159 = v10;
-  v157 = v11;
+  v158 = v10;
+  v156 = v11;
   if (v11 && (v12 = v11, objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
   {
     objc_opt_class();
@@ -681,21 +676,21 @@ LABEL_55:
         goto LABEL_148;
       }
 
-      v154 = v8;
+      v153 = v8;
       v32 = objc_alloc(MEMORY[0x1E696ABC0]);
       errorCopy3 = error;
       v34 = *MEMORY[0x1E698F240];
-      v196 = *MEMORY[0x1E696A578];
+      v195 = *MEMORY[0x1E696A578];
       v35 = v10;
       v36 = objc_alloc(MEMORY[0x1E696AEC0]);
-      v130 = objc_opt_class();
+      v129 = objc_opt_class();
       v37 = v36;
       v10 = v35;
-      v17 = [v37 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v130, @"indexSelected"];
-      v197 = v17;
-      v38 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v197 forKeys:&v196 count:1];
+      v17 = [v37 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v129, @"indexSelected"];
+      v196 = v17;
+      v38 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v196 forKeys:&v195 count:1];
       v39 = v32;
-      v8 = v154;
+      v8 = v153;
       v40 = v34;
       v21 = v38;
       v20 = 0;
@@ -706,19 +701,19 @@ LABEL_37:
       goto LABEL_146;
     }
 
-    v155 = v12;
+    v154 = v12;
   }
 
   else
   {
-    v155 = 0;
+    v154 = 0;
   }
 
   v13 = [dictionaryCopy objectForKeyedSubscript:@"intent"];
   if (!v13 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
-    v151 = 0;
-    v153 = v8;
+    v150 = 0;
+    v152 = v8;
     goto LABEL_13;
   }
 
@@ -729,37 +724,37 @@ LABEL_37:
     if (!error)
     {
       v19 = 0;
-      v20 = v155;
+      v20 = v154;
       v17 = v41;
       self = selfCopy;
       goto LABEL_147;
     }
 
-    v152 = objc_alloc(MEMORY[0x1E696ABC0]);
+    v151 = objc_alloc(MEMORY[0x1E696ABC0]);
     errorCopy4 = error;
     v43 = *MEMORY[0x1E698F240];
-    v194 = *MEMORY[0x1E696A578];
+    v193 = *MEMORY[0x1E696A578];
     v44 = objc_alloc(MEMORY[0x1E696AEC0]);
-    v131 = objc_opt_class();
+    v130 = objc_opt_class();
     v45 = v44;
-    v10 = v159;
-    v46 = [v45 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", v131, @"intent"];
-    v195 = v46;
-    v47 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v195 forKeys:&v194 count:1];
+    v10 = v158;
+    v46 = [v45 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", v130, @"intent"];
+    v194 = v46;
+    v47 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v194 forKeys:&v193 count:1];
     v48 = v43;
     v21 = v46;
-    *errorCopy4 = [v152 initWithDomain:v48 code:2 userInfo:v47];
+    *errorCopy4 = [v151 initWithDomain:v48 code:2 userInfo:v47];
 
     v19 = 0;
     v17 = v13;
-    v20 = v155;
+    v20 = v154;
     goto LABEL_37;
   }
 
   v17 = v13;
-  v169 = 0;
-  v151 = [[BMMediaSuggesterSuggestionFeedbackMediaIntent alloc] initWithJSONDictionary:v17 error:&v169];
-  v18 = v169;
+  v168 = 0;
+  v150 = [[BMMediaSuggesterSuggestionFeedbackMediaIntent alloc] initWithJSONDictionary:v17 error:&v168];
+  v18 = v168;
   if (v18)
   {
     if (error)
@@ -769,23 +764,23 @@ LABEL_37:
     }
 
     v19 = 0;
-    v20 = v155;
-    v21 = v151;
+    v20 = v154;
+    v21 = v150;
     goto LABEL_146;
   }
 
-  v153 = v8;
+  v152 = v8;
 LABEL_13:
   v14 = [dictionaryCopy objectForKeyedSubscript:@"engagementType"];
   errorCopy5 = error;
-  v148 = v13;
+  v147 = v13;
   if (v14 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
       v15 = v9;
-      v146 = v14;
+      v145 = v14;
     }
 
     else
@@ -795,32 +790,32 @@ LABEL_13:
       {
         if (error)
         {
-          v150 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v149 = objc_alloc(MEMORY[0x1E696ABC0]);
           v97 = *MEMORY[0x1E698F240];
-          v192 = *MEMORY[0x1E696A578];
-          v147 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"engagementType"];
-          v193 = v147;
-          v98 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v193 forKeys:&v192 count:1];
-          v99 = v150;
-          v149 = v98;
+          v191 = *MEMORY[0x1E696A578];
+          v146 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"engagementType"];
+          v192 = v146;
+          v98 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v192 forKeys:&v191 count:1];
+          v99 = v149;
+          v148 = v98;
           v100 = [v99 initWithDomain:v97 code:2 userInfo:?];
           v75 = 0;
           v19 = 0;
           *error = v100;
-          v20 = v155;
-          v21 = v151;
+          v20 = v154;
+          v21 = v150;
           goto LABEL_144;
         }
 
         v75 = 0;
         v19 = 0;
-        v20 = v155;
-        v21 = v151;
+        v20 = v154;
+        v21 = v150;
         goto LABEL_145;
       }
 
       v15 = v9;
-      v146 = [MEMORY[0x1E696AD98] numberWithInt:BMMediaSuggesterSuggestionFeedbackEngagementTypeFromString(v14)];
+      v145 = [MEMORY[0x1E696AD98] numberWithInt:BMMediaSuggesterSuggestionFeedbackEngagementTypeFromString(v14)];
     }
 
     v16 = v7;
@@ -830,11 +825,11 @@ LABEL_13:
   {
     v15 = v9;
     v16 = v7;
-    v146 = 0;
+    v145 = 0;
   }
 
   v49 = [dictionaryCopy objectForKeyedSubscript:@"suggestionsRequestDate"];
-  v149 = v49;
+  v148 = v49;
   if (v49 && (v50 = v49, objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
   {
     objc_opt_class();
@@ -846,50 +841,50 @@ LABEL_13:
         v68 = objc_alloc(MEMORY[0x1E696ABC0]);
         errorCopy6 = error;
         v70 = *MEMORY[0x1E698F240];
-        v190 = *MEMORY[0x1E696A578];
+        v189 = *MEMORY[0x1E696A578];
         v71 = objc_alloc(MEMORY[0x1E696AEC0]);
-        v132 = objc_opt_class();
+        v131 = objc_opt_class();
         v72 = v71;
-        v10 = v159;
-        v144 = [v72 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v132, @"suggestionsRequestDate"];
-        v191 = v144;
-        v73 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v191 forKeys:&v190 count:1];
+        v10 = v158;
+        v143 = [v72 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v131, @"suggestionsRequestDate"];
+        v190 = v143;
+        v73 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v190 forKeys:&v189 count:1];
         v74 = v68;
         v14 = v67;
-        v145 = v73;
-        v147 = 0;
+        v144 = v73;
+        v146 = 0;
         v19 = 0;
         *errorCopy6 = [v74 initWithDomain:v70 code:2 userInfo:?];
-        v20 = v155;
-        v21 = v151;
-        v75 = v146;
+        v20 = v154;
+        v21 = v150;
+        v75 = v145;
         v7 = v16;
         v9 = v15;
         goto LABEL_143;
       }
 
-      v147 = 0;
+      v146 = 0;
       v19 = 0;
-      v20 = v155;
-      v21 = v151;
-      v75 = v146;
+      v20 = v154;
+      v21 = v150;
+      v75 = v145;
       v7 = v16;
       v9 = v15;
       goto LABEL_144;
     }
 
-    v147 = v50;
+    v146 = v50;
   }
 
   else
   {
-    v147 = 0;
+    v146 = 0;
   }
 
   v51 = [dictionaryCopy objectForKeyedSubscript:@"targetBundleID"];
   v7 = v16;
-  v142 = v14;
-  v145 = v51;
+  v141 = v14;
+  v144 = v51;
   if (v51)
   {
     objc_opt_class();
@@ -906,26 +901,26 @@ LABEL_13:
       {
         if (!error)
         {
-          v144 = 0;
+          v143 = 0;
           v19 = 0;
-          v20 = v155;
-          v21 = v151;
-          v75 = v146;
+          v20 = v154;
+          v21 = v150;
+          v75 = v145;
           goto LABEL_143;
         }
 
         v81 = objc_alloc(MEMORY[0x1E696ABC0]);
         v82 = *MEMORY[0x1E698F240];
-        v188 = *MEMORY[0x1E696A578];
-        v141 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"targetBundleID"];
-        v189 = v141;
-        v52 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v189 forKeys:&v188 count:1];
+        v187 = *MEMORY[0x1E696A578];
+        v140 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"targetBundleID"];
+        v188 = v140;
+        v52 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v188 forKeys:&v187 count:1];
         v83 = [v81 initWithDomain:v82 code:2 userInfo:v52];
-        v144 = 0;
+        v143 = 0;
         v19 = 0;
-        v20 = v155;
+        v20 = v154;
         *errorCopy5 = v83;
-        v21 = v151;
+        v21 = v150;
         goto LABEL_121;
       }
 
@@ -939,7 +934,7 @@ LABEL_13:
   }
 
   v52 = [dictionaryCopy objectForKeyedSubscript:@"workoutType"];
-  v144 = v51;
+  v143 = v51;
   if (v52)
   {
     objc_opt_class();
@@ -948,7 +943,7 @@ LABEL_13:
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v141 = v52;
+        v140 = v52;
         goto LABEL_55;
       }
 
@@ -957,37 +952,37 @@ LABEL_13:
         v86 = v14;
         v87 = objc_alloc(MEMORY[0x1E696ABC0]);
         v88 = *MEMORY[0x1E698F240];
-        v186 = *MEMORY[0x1E696A578];
+        v185 = *MEMORY[0x1E696A578];
         v89 = objc_alloc(MEMORY[0x1E696AEC0]);
-        v133 = objc_opt_class();
+        v132 = objc_opt_class();
         v90 = v89;
-        v10 = v159;
-        v135 = [v90 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v133, @"workoutType"];
-        v187 = v135;
-        v91 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v187 forKeys:&v186 count:1];
+        v10 = v158;
+        v134 = [v90 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v132, @"workoutType"];
+        v186 = v134;
+        v91 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v186 forKeys:&v185 count:1];
         v92 = v87;
         v14 = v86;
-        v136 = v91;
-        v141 = 0;
+        v135 = v91;
+        v140 = 0;
         v19 = 0;
         *errorCopy5 = [v92 initWithDomain:v88 code:2 userInfo:?];
         goto LABEL_123;
       }
 
-      v141 = 0;
+      v140 = 0;
       v19 = 0;
-      v20 = v155;
-      v21 = v151;
+      v20 = v154;
+      v21 = v150;
 LABEL_121:
-      v75 = v146;
+      v75 = v145;
       goto LABEL_142;
     }
   }
 
-  v141 = 0;
+  v140 = 0;
 LABEL_55:
   v53 = [dictionaryCopy objectForKeyedSubscript:@"isNowPlaying"];
-  v136 = v53;
+  v135 = v53;
   if (v53)
   {
     v54 = v53;
@@ -997,7 +992,7 @@ LABEL_55:
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v135 = v54;
+        v134 = v54;
         goto LABEL_58;
       }
 
@@ -1006,32 +1001,32 @@ LABEL_55:
         v93 = objc_alloc(MEMORY[0x1E696ABC0]);
         v94 = v52;
         v95 = *MEMORY[0x1E698F240];
-        v184 = *MEMORY[0x1E696A578];
+        v183 = *MEMORY[0x1E696A578];
         v55 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"isNowPlaying"];
-        v185 = v55;
-        v58 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v185 forKeys:&v184 count:1];
+        v184 = v55;
+        v58 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v184 forKeys:&v183 count:1];
         v96 = v95;
         v52 = v94;
-        v135 = 0;
+        v134 = 0;
         v19 = 0;
-        v20 = v155;
+        v20 = v154;
         *errorCopy5 = [v93 initWithDomain:v96 code:2 userInfo:v58];
-        v21 = v151;
-        v75 = v146;
+        v21 = v150;
+        v75 = v145;
         goto LABEL_139;
       }
 
-      v135 = 0;
+      v134 = 0;
       v19 = 0;
 LABEL_123:
-      v20 = v155;
-      v21 = v151;
-      v75 = v146;
+      v20 = v154;
+      v21 = v150;
+      v75 = v145;
       goto LABEL_141;
     }
   }
 
-  v135 = 0;
+  v134 = 0;
 LABEL_58:
   v55 = [dictionaryCopy objectForKeyedSubscript:@"allowedBundleIDs"];
   null = [MEMORY[0x1E695DFB0] null];
@@ -1039,8 +1034,8 @@ LABEL_58:
 
   if (v57)
   {
-    v143 = v9;
-    v137 = v7;
+    v142 = v9;
+    v136 = v7;
 
     v55 = 0;
   }
@@ -1055,61 +1050,61 @@ LABEL_58:
         if (!errorCopy5)
         {
           v19 = 0;
-          v20 = v155;
-          v21 = v151;
-          v75 = v146;
+          v20 = v154;
+          v21 = v150;
+          v75 = v145;
           goto LABEL_140;
         }
 
         v116 = objc_alloc(MEMORY[0x1E696ABC0]);
         v117 = v52;
         v118 = *MEMORY[0x1E698F240];
-        v182 = *MEMORY[0x1E696A578];
+        v181 = *MEMORY[0x1E696A578];
         v58 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Expecting %@ as an array", @"allowedBundleIDs"];
-        v183 = v58;
-        v119 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v183 forKeys:&v182 count:1];
+        v182 = v58;
+        v119 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v182 forKeys:&v181 count:1];
         v120 = v118;
         v52 = v117;
         obj = v119;
         v19 = 0;
         *errorCopy5 = [v116 initWithDomain:v120 code:2 userInfo:?];
 LABEL_117:
-        v20 = v155;
-        v21 = v151;
-        v75 = v146;
+        v20 = v154;
+        v21 = v150;
+        v75 = v145;
         goto LABEL_138;
       }
     }
 
-    v143 = v9;
-    v137 = v7;
+    v142 = v9;
+    v136 = v7;
   }
 
   v58 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v55, "count")}];
+  v164 = 0u;
   v165 = 0u;
   v166 = 0u;
   v167 = 0u;
-  v168 = 0u;
   v55 = v55;
-  v59 = [v55 countByEnumeratingWithState:&v165 objects:v181 count:16];
+  v59 = [v55 countByEnumeratingWithState:&v164 objects:v180 count:16];
   if (!v59)
   {
     goto LABEL_72;
   }
 
   v60 = v59;
-  v61 = *v166;
-  v134 = v52;
+  v61 = *v165;
+  v133 = v52;
   do
   {
     for (i = 0; i != v60; ++i)
     {
-      if (*v166 != v61)
+      if (*v165 != v61)
       {
         objc_enumerationMutation(v55);
       }
 
-      v63 = *(*(&v165 + 1) + 8 * i);
+      v63 = *(*(&v164 + 1) + 8 * i);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
@@ -1117,10 +1112,10 @@ LABEL_117:
         {
           v76 = objc_alloc(MEMORY[0x1E696ABC0]);
           v77 = *MEMORY[0x1E698F240];
-          v179 = *MEMORY[0x1E696A578];
-          v139 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type null for element of %@, must not be null", @"allowedBundleIDs"];
-          v180 = v139;
-          v78 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v180 forKeys:&v179 count:1];
+          v178 = *MEMORY[0x1E696A578];
+          v138 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type null for element of %@, must not be null", @"allowedBundleIDs"];
+          v179 = v138;
+          v78 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v179 forKeys:&v178 count:1];
           v79 = v76;
           v80 = v77;
           goto LABEL_87;
@@ -1128,12 +1123,12 @@ LABEL_117:
 
 LABEL_92:
         v19 = 0;
-        v7 = v137;
-        v9 = v143;
-        v20 = v155;
-        v21 = v151;
-        v75 = v146;
-        v52 = v134;
+        v7 = v136;
+        v9 = v142;
+        v20 = v154;
+        v21 = v150;
+        v75 = v145;
+        v52 = v133;
 
         goto LABEL_139;
       }
@@ -1145,24 +1140,24 @@ LABEL_92:
         {
           v84 = objc_alloc(MEMORY[0x1E696ABC0]);
           v85 = *MEMORY[0x1E698F240];
-          v177 = *MEMORY[0x1E696A578];
-          v139 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"allowedBundleIDs"];
-          v178 = v139;
-          v78 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v178 forKeys:&v177 count:1];
+          v176 = *MEMORY[0x1E696A578];
+          v138 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"allowedBundleIDs"];
+          v177 = v138;
+          v78 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v177 forKeys:&v176 count:1];
           v79 = v84;
           v80 = v85;
 LABEL_87:
-          v9 = v143;
-          v20 = v155;
+          v9 = v142;
+          v20 = v154;
           *errorCopy5 = [v79 initWithDomain:v80 code:2 userInfo:v78];
 
           v19 = 0;
           obj = v55;
-          v7 = v137;
+          v7 = v136;
 LABEL_136:
-          v21 = v151;
-          v75 = v146;
-          v52 = v134;
+          v21 = v150;
+          v75 = v145;
+          v52 = v133;
           goto LABEL_137;
         }
 
@@ -1172,8 +1167,8 @@ LABEL_136:
       [v58 addObject:v63];
     }
 
-    v60 = [v55 countByEnumeratingWithState:&v165 objects:v181 count:16];
-    v52 = v134;
+    v60 = [v55 countByEnumeratingWithState:&v164 objects:v180 count:16];
+    v52 = v133;
   }
 
   while (v60);
@@ -1197,24 +1192,24 @@ LABEL_72:
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
       obj = v64;
-      v7 = v137;
-      v9 = v143;
+      v7 = v136;
+      v9 = v142;
       if (errorCopy5)
       {
         v102 = objc_alloc(MEMORY[0x1E696ABC0]);
         v103 = *MEMORY[0x1E698F240];
-        v175 = *MEMORY[0x1E696A578];
-        v140 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Expecting %@ as an array", @"suggestionsIntent"];
-        v176 = v140;
-        [MEMORY[0x1E695DF20] dictionaryWithObjects:&v176 forKeys:&v175 count:1];
+        v174 = *MEMORY[0x1E696A578];
+        v139 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Expecting %@ as an array", @"suggestionsIntent"];
+        v175 = v139;
+        [MEMORY[0x1E695DF20] dictionaryWithObjects:&v175 forKeys:&v174 count:1];
         v105 = v104 = v52;
         *errorCopy5 = [v102 initWithDomain:v103 code:2 userInfo:v105];
 
         v52 = v104;
         v19 = 0;
-        v20 = v155;
-        v21 = v151;
-        v75 = v146;
+        v20 = v154;
+        v21 = v150;
+        v75 = v145;
 
         goto LABEL_138;
       }
@@ -1230,13 +1225,13 @@ LABEL_103:
     v101 = errorCopy5;
   }
 
-  v139 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v64, "count")}];
+  v138 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v64, "count")}];
+  v160 = 0u;
   v161 = 0u;
   v162 = 0u;
   v163 = 0u;
-  v164 = 0u;
   v106 = v64;
-  v107 = [v106 countByEnumeratingWithState:&v161 objects:v174 count:16];
+  v107 = [v106 countByEnumeratingWithState:&v160 objects:v173 count:16];
   obj = v106;
   if (!v107)
   {
@@ -1244,35 +1239,35 @@ LABEL_103:
   }
 
   v108 = v107;
-  v109 = *v162;
-  v134 = v52;
+  v109 = *v161;
+  v133 = v52;
   while (2)
   {
     v110 = 0;
     while (2)
     {
-      if (*v162 != v109)
+      if (*v161 != v109)
       {
         objc_enumerationMutation(obj);
       }
 
-      v111 = *(*(&v161 + 1) + 8 * v110);
+      v111 = *(*(&v160 + 1) + 8 * v110);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v7 = v137;
-        v9 = v143;
-        v20 = v155;
+        v7 = v136;
+        v9 = v142;
+        v20 = v154;
         if (v101)
         {
           v121 = objc_alloc(MEMORY[0x1E696ABC0]);
           v122 = *MEMORY[0x1E698F240];
-          v172 = *MEMORY[0x1E696A578];
+          v171 = *MEMORY[0x1E696A578];
           v112 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type null for element of %@, must not be null", @"suggestionsIntent"];
-          v173 = v112;
+          v172 = v112;
           v123 = MEMORY[0x1E695DF20];
-          v124 = &v173;
-          v125 = &v172;
+          v124 = &v172;
+          v125 = &v171;
 LABEL_130:
           v126 = [v123 dictionaryWithObjects:v124 forKeys:v125 count:1];
           *errorCopy5 = [v121 initWithDomain:v122 code:2 userInfo:v126];
@@ -1288,19 +1283,19 @@ LABEL_135:
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        v7 = v137;
-        v9 = v143;
-        v20 = v155;
+        v7 = v136;
+        v9 = v142;
+        v20 = v154;
         if (v101)
         {
           v121 = objc_alloc(MEMORY[0x1E696ABC0]);
           v122 = *MEMORY[0x1E698F240];
-          v170 = *MEMORY[0x1E696A578];
+          v169 = *MEMORY[0x1E696A578];
           v112 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"suggestionsIntent"];
-          v171 = v112;
+          v170 = v112;
           v123 = MEMORY[0x1E695DF20];
-          v124 = &v171;
-          v125 = &v170;
+          v124 = &v170;
+          v125 = &v169;
           goto LABEL_130;
         }
 
@@ -1309,9 +1304,9 @@ LABEL_135:
 
       v112 = v111;
       v113 = [BMMediaSuggesterSuggestionFeedbackMediaIntent alloc];
-      v160 = 0;
-      v114 = [(BMMediaSuggesterSuggestionFeedbackMediaIntent *)v113 initWithJSONDictionary:v112 error:&v160];
-      v115 = v160;
+      v159 = 0;
+      v114 = [(BMMediaSuggesterSuggestionFeedbackMediaIntent *)v113 initWithJSONDictionary:v112 error:&v159];
+      v115 = v159;
       if (v115)
       {
         v126 = v115;
@@ -1321,13 +1316,13 @@ LABEL_135:
           *errorCopy5 = v126;
         }
 
-        v7 = v137;
-        v9 = v143;
-        v20 = v155;
+        v7 = v136;
+        v9 = v142;
+        v20 = v154;
         goto LABEL_134;
       }
 
-      [v139 addObject:v114];
+      [v138 addObject:v114];
 
       ++v110;
       v101 = errorCopy5;
@@ -1340,8 +1335,8 @@ LABEL_135:
     }
 
     v106 = obj;
-    v108 = [obj countByEnumeratingWithState:&v161 objects:v174 count:16];
-    v52 = v134;
+    v108 = [obj countByEnumeratingWithState:&v160 objects:v173 count:16];
+    v52 = v133;
     if (v108)
     {
       continue;
@@ -1352,21 +1347,21 @@ LABEL_135:
 
 LABEL_114:
 
-  v75 = v146;
-  v20 = v155;
-  v21 = v151;
-  v19 = -[BMMediaSuggesterSuggestionFeedback initWithSessionIdentifier:numberOfVisibleSuggestions:indexSelected:intent:engagementType:suggestionsRequestDate:targetBundleID:workoutType:isNowPlaying:allowedBundleIDs:suggestionsIntent:](selfCopy, "initWithSessionIdentifier:numberOfVisibleSuggestions:indexSelected:intent:engagementType:suggestionsRequestDate:targetBundleID:workoutType:isNowPlaying:allowedBundleIDs:suggestionsIntent:", v153, v159, v155, v151, [v146 intValue], v147, v144, v141, v135, v58, v139);
+  v75 = v145;
+  v20 = v154;
+  v21 = v150;
+  v19 = -[BMMediaSuggesterSuggestionFeedback initWithSessionIdentifier:numberOfVisibleSuggestions:indexSelected:intent:engagementType:suggestionsRequestDate:targetBundleID:workoutType:isNowPlaying:allowedBundleIDs:suggestionsIntent:](selfCopy, "initWithSessionIdentifier:numberOfVisibleSuggestions:indexSelected:intent:engagementType:suggestionsRequestDate:targetBundleID:workoutType:isNowPlaying:allowedBundleIDs:suggestionsIntent:", v152, v158, v154, v150, [v145 intValue], v146, v143, v140, v134, v58, v138);
   selfCopy = v19;
-  v7 = v137;
-  v9 = v143;
+  v7 = v136;
+  v9 = v142;
 LABEL_137:
 
 LABEL_138:
 LABEL_139:
 
 LABEL_140:
-  v10 = v159;
-  v14 = v142;
+  v10 = v158;
+  v14 = v141;
 LABEL_141:
 
 LABEL_142:
@@ -1375,9 +1370,9 @@ LABEL_143:
 LABEL_144:
 LABEL_145:
 
-  v17 = v148;
+  v17 = v147;
   self = selfCopy;
-  v8 = v153;
+  v8 = v152;
 LABEL_146:
 
 LABEL_147:
@@ -1386,7 +1381,6 @@ LABEL_148:
 LABEL_149:
 LABEL_150:
 
-  v128 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
@@ -1401,7 +1395,7 @@ LABEL_150:
 
 - (void)writeTo:(id)to
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if (self->_sessionIdentifier)
   {
@@ -1410,29 +1404,25 @@ LABEL_150:
 
   if (self->_hasNumberOfVisibleSuggestions)
   {
-    numberOfVisibleSuggestions = self->_numberOfVisibleSuggestions;
     PBDataWriterWriteDoubleField();
   }
 
   if (self->_hasIndexSelected)
   {
-    indexSelected = self->_indexSelected;
     PBDataWriterWriteInt32Field();
   }
 
   if (self->_intent)
   {
-    v32 = 0;
+    v24 = 0;
     PBDataWriterPlaceMark();
     [(BMMediaSuggesterSuggestionFeedbackMediaIntent *)self->_intent writeTo:toCopy];
     PBDataWriterRecallMark();
   }
 
-  engagementType = self->_engagementType;
   PBDataWriterWriteUint32Field();
   if (self->_hasSuggestionsRequestDate)
   {
-    suggestionsRequestDate = self->_suggestionsRequestDate;
     PBDataWriterWriteDoubleField();
   }
 
@@ -1443,84 +1433,79 @@ LABEL_150:
 
   if (self->_hasWorkoutType)
   {
-    workoutType = self->_workoutType;
     PBDataWriterWriteInt32Field();
   }
 
   if (self->_hasIsNowPlaying)
   {
-    isNowPlaying = self->_isNowPlaying;
     PBDataWriterWriteBOOLField();
   }
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
-  v29 = 0u;
-  v11 = self->_allowedBundleIDs;
-  v12 = [(NSArray *)v11 countByEnumeratingWithState:&v28 objects:v34 count:16];
-  if (v12)
+  v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v5 = self->_allowedBundleIDs;
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v20 objects:v26 count:16];
+  if (v6)
   {
-    v13 = v12;
-    v14 = *v29;
+    v7 = v6;
+    v8 = *v21;
     do
     {
-      v15 = 0;
+      v9 = 0;
       do
       {
-        if (*v29 != v14)
+        if (*v21 != v8)
         {
-          objc_enumerationMutation(v11);
+          objc_enumerationMutation(v5);
         }
 
-        v16 = *(*(&v28 + 1) + 8 * v15);
         PBDataWriterWriteStringField();
-        ++v15;
+        ++v9;
       }
 
-      while (v13 != v15);
-      v13 = [(NSArray *)v11 countByEnumeratingWithState:&v28 objects:v34 count:16];
+      while (v7 != v9);
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v20 objects:v26 count:16];
     }
 
-    while (v13);
+    while (v7);
   }
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
-  v25 = 0u;
-  v17 = self->_suggestionsIntent;
-  v18 = [(NSArray *)v17 countByEnumeratingWithState:&v24 objects:v33 count:16];
-  if (v18)
+  v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v10 = self->_suggestionsIntent;
+  v11 = [(NSArray *)v10 countByEnumeratingWithState:&v16 objects:v25 count:16];
+  if (v11)
   {
-    v19 = v18;
-    v20 = *v25;
+    v12 = v11;
+    v13 = *v17;
     do
     {
-      v21 = 0;
+      v14 = 0;
       do
       {
-        if (*v25 != v20)
+        if (*v17 != v13)
         {
-          objc_enumerationMutation(v17);
+          objc_enumerationMutation(v10);
         }
 
-        v22 = *(*(&v24 + 1) + 8 * v21);
-        v32 = 0;
+        v15 = *(*(&v16 + 1) + 8 * v14);
+        v24 = 0;
         PBDataWriterPlaceMark();
-        [v22 writeTo:{toCopy, v24}];
+        [v15 writeTo:{toCopy, v16}];
         PBDataWriterRecallMark();
-        ++v21;
+        ++v14;
       }
 
-      while (v19 != v21);
-      v19 = [(NSArray *)v17 countByEnumeratingWithState:&v24 objects:v33 count:16];
+      while (v12 != v14);
+      v12 = [(NSArray *)v10 countByEnumeratingWithState:&v16 objects:v25 count:16];
     }
 
-    while (v19);
+    while (v12);
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (id)initByReadFrom:(id)from
@@ -2073,94 +2058,90 @@ LABEL_111:
 
 + (id)protoFields
 {
-  v16[11] = *MEMORY[0x1E69E9840];
-  v15 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"sessionIdentifier" number:1 type:13 subMessageClass:0];
-  v16[0] = v15;
-  v14 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"numberOfVisibleSuggestions" number:2 type:0 subMessageClass:0];
-  v16[1] = v14;
+  v15[11] = *MEMORY[0x1E69E9840];
+  v14 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"sessionIdentifier" number:1 type:13 subMessageClass:0];
+  v15[0] = v14;
+  v13 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"numberOfVisibleSuggestions" number:2 type:0 subMessageClass:0];
+  v15[1] = v13;
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"indexSelected" number:3 type:2 subMessageClass:0];
-  v16[2] = v2;
+  v15[2] = v2;
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"intent" number:4 type:14 subMessageClass:objc_opt_class()];
-  v16[3] = v3;
+  v15[3] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"engagementType" number:5 type:4 subMessageClass:0];
-  v16[4] = v4;
+  v15[4] = v4;
   v5 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"suggestionsRequestDate" number:6 type:0 subMessageClass:0];
-  v16[5] = v5;
+  v15[5] = v5;
   v6 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"targetBundleID" number:7 type:13 subMessageClass:0];
-  v16[6] = v6;
+  v15[6] = v6;
   v7 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"workoutType" number:8 type:2 subMessageClass:0];
-  v16[7] = v7;
+  v15[7] = v7;
   v8 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"isNowPlaying" number:9 type:12 subMessageClass:0];
-  v16[8] = v8;
+  v15[8] = v8;
   v9 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"allowedBundleIDs" number:10 type:13 subMessageClass:0];
-  v16[9] = v9;
+  v15[9] = v9;
   v10 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"suggestionsIntent" number:11 type:14 subMessageClass:objc_opt_class()];
-  v16[10] = v10;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:11];
-
-  v12 = *MEMORY[0x1E69E9840];
+  v15[10] = v10;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:11];
 
   return v11;
 }
 
 + (id)columns
 {
-  v16[11] = *MEMORY[0x1E69E9840];
+  v15[11] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"sessionIdentifier" dataType:2 requestOnly:0 fieldNumber:1 protoDataType:13 convertedType:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"numberOfVisibleSuggestions" dataType:1 requestOnly:0 fieldNumber:2 protoDataType:0 convertedType:0];
   v4 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"indexSelected" dataType:0 requestOnly:0 fieldNumber:3 protoDataType:2 convertedType:0];
   v5 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"intent_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_226_103829];
   v6 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"engagementType" dataType:0 requestOnly:0 fieldNumber:5 protoDataType:4 convertedType:0];
-  v14 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"suggestionsRequestDate" dataType:1 requestOnly:0 fieldNumber:6 protoDataType:0 convertedType:0];
+  v13 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"suggestionsRequestDate" dataType:1 requestOnly:0 fieldNumber:6 protoDataType:0 convertedType:0];
   v7 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"targetBundleID" dataType:2 requestOnly:0 fieldNumber:7 protoDataType:13 convertedType:0];
-  v15 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"workoutType" dataType:0 requestOnly:0 fieldNumber:8 protoDataType:2 convertedType:0];
+  v14 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"workoutType" dataType:0 requestOnly:0 fieldNumber:8 protoDataType:2 convertedType:0];
   v8 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"isNowPlaying" dataType:0 requestOnly:0 fieldNumber:9 protoDataType:12 convertedType:0];
   v9 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"allowedBundleIDs_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_228_103830];
   v10 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"suggestionsIntent_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_230_103831];
-  v16[0] = v2;
-  v16[1] = v3;
-  v16[2] = v4;
-  v16[3] = v5;
-  v16[4] = v6;
-  v16[5] = v14;
-  v16[6] = v7;
-  v16[7] = v15;
-  v16[8] = v8;
-  v16[9] = v9;
-  v16[10] = v10;
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:11];
+  v15[0] = v2;
+  v15[1] = v3;
+  v15[2] = v4;
+  v15[3] = v5;
+  v15[4] = v6;
+  v15[5] = v13;
+  v15[6] = v7;
+  v15[7] = v14;
+  v15[8] = v8;
+  v15[9] = v9;
+  v15[10] = v10;
+  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:11];
 
-  v11 = *MEMORY[0x1E69E9840];
-
-  return v13;
+  return v12;
 }
 
-id __45__BMMediaSuggesterSuggestionFeedback_columns__block_invoke_3(uint64_t a1, void *a2)
+id __45__BMMediaSuggesterSuggestionFeedback_columns__block_invoke_3(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 _suggestionsIntentJSONArray];
-  v4 = BMConvertObjectToJSONString();
-
-  return v4;
-}
-
-id __45__BMMediaSuggesterSuggestionFeedback_columns__block_invoke_2(uint64_t a1, void *a2)
-{
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 _allowedBundleIDsJSONArray];
-  v4 = BMConvertObjectToJSONString();
-
-  return v4;
-}
-
-id __45__BMMediaSuggesterSuggestionFeedback_columns__block_invoke(uint64_t a1, void *a2)
-{
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 intent];
-  v4 = [v3 jsonDictionary];
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 _suggestionsIntentJSONArray];
   v5 = BMConvertObjectToJSONString();
 
   return v5;
+}
+
+id __45__BMMediaSuggesterSuggestionFeedback_columns__block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
+{
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 _allowedBundleIDsJSONArray];
+  v5 = BMConvertObjectToJSONString();
+
+  return v5;
+}
+
+id __45__BMMediaSuggesterSuggestionFeedback_columns__block_invoke(uint64_t a1, void *a2, uint64_t a3)
+{
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 intent];
+  v5 = [v4 jsonDictionary];
+  v6 = BMConvertObjectToJSONString();
+
+  return v6;
 }
 
 + (id)eventWithData:(id)data dataVersion:(unsigned int)version

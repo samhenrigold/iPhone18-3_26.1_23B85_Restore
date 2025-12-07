@@ -5,6 +5,10 @@
 - (id)tableViewCellForTableView:(id)view indexPath:(id)path;
 - (int64_t)numberOfRowsInSection;
 - (int64_t)selectedAmount;
+- (void)amountControl;
+- (void)numberOfRowsInSection;
+- (void)selectedAmount;
+- (void)selectedAmountString;
 - (void)tableView:(id)view willDisplayCell:(id)cell forIndexPath:(id)path;
 @end
 
@@ -131,6 +135,30 @@
   backgroundColor = [view backgroundColor];
   [(SKUIGiftAmountControl *)self->_amountControl setBackgroundColor:backgroundColor];
   [cellCopy setBackgroundColor:backgroundColor];
+}
+
+- (void)amountControl
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIGiftAmountSection amountControl]";
+}
+
+- (void)selectedAmount
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIGiftAmountSection selectedAmount]";
+}
+
+- (void)selectedAmountString
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIGiftAmountSection selectedAmountString]";
+}
+
+- (void)numberOfRowsInSection
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIGiftAmountSection numberOfRowsInSection]";
 }
 
 @end

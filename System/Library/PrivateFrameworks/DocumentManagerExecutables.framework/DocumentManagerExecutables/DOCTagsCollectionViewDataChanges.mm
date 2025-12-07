@@ -10,7 +10,7 @@
 - (NSArray)deletions
 {
   swift_beginAccess();
-  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for DOCTag);
+  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for DOCTag, 0x277D06260);
 
   v2.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
@@ -19,7 +19,7 @@
 
 - (void)setDeletions:(id)deletions
 {
-  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for DOCTag);
+  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for DOCTag, 0x277D06260);
   v4 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   v5 = OBJC_IVAR____TtC26DocumentManagerExecutables32DOCTagsCollectionViewDataChanges_deletions;
   swift_beginAccess();

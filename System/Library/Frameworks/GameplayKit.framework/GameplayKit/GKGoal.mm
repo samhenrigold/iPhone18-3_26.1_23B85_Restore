@@ -4,6 +4,7 @@
 + (GKGoal)goalToAvoidObstacles:(NSArray *)obstacles maxPredictionTime:(NSTimeInterval)maxPredictionTime;
 + (GKGoal)goalToCohereWithAgents:(NSArray *)agents maxDistance:(float)maxDistance maxAngle:(float)maxAngle;
 + (GKGoal)goalToFleeAgent:(GKAgent *)agent;
++ (GKGoal)goalToFollowPath:(GKPath *)path maxPredictionTime:(NSTimeInterval)maxPredictionTime forward:(BOOL)forward;
 + (GKGoal)goalToInterceptAgent:(GKAgent *)target maxPredictionTime:(NSTimeInterval)maxPredictionTime;
 + (GKGoal)goalToReachTargetSpeed:(float)targetSpeed;
 + (GKGoal)goalToSeekAgent:(GKAgent *)agent;
@@ -62,22 +63,21 @@
 
 - (id)initToSeekAgent:(id)agent
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   agentCopy = agent;
-  v11.receiver = self;
-  v11.super_class = GKGoal;
-  v5 = [(GKGoal *)&v11 init];
+  v10.receiver = self;
+  v10.super_class = GKGoal;
+  v5 = [(GKGoal *)&v10 init];
   v6 = v5;
   if (v5)
   {
     v5->_type = 1;
-    v12[0] = agentCopy;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+    v11[0] = agentCopy;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
     agents = v6->_agents;
     v6->_agents = v7;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -91,22 +91,21 @@
 
 - (id)initToFleeAgent:(id)agent
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   agentCopy = agent;
-  v11.receiver = self;
-  v11.super_class = GKGoal;
-  v5 = [(GKGoal *)&v11 init];
+  v10.receiver = self;
+  v10.super_class = GKGoal;
+  v5 = [(GKGoal *)&v10 init];
   v6 = v5;
   if (v5)
   {
     v5->_type = 2;
-    v12[0] = agentCopy;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+    v11[0] = agentCopy;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
     agents = v6->_agents;
     v6->_agents = v7;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -309,24 +308,32 @@
 
 - (id)initToInterceptAgent:(id)agent maxPredictionTime:(double)time
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   agentCopy = agent;
-  v13.receiver = self;
-  v13.super_class = GKGoal;
-  v7 = [(GKGoal *)&v13 init];
+  v12.receiver = self;
+  v12.super_class = GKGoal;
+  v7 = [(GKGoal *)&v12 init];
   v8 = v7;
   if (v7)
   {
     v7->_type = 10;
-    v14[0] = agentCopy;
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
+    v13[0] = agentCopy;
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
     agents = v8->_agents;
     v8->_agents = v9;
 
     v8->_time = time;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
+  return v8;
+}
+
++ (GKGoal)goalToFollowPath:(GKPath *)path maxPredictionTime:(NSTimeInterval)maxPredictionTime forward:(BOOL)forward
+{
+  v5 = forward;
+  v7 = path;
+  v8 = [[GKGoal alloc] initToFollowPath:v7 maxPredictionTime:v5 forward:maxPredictionTime];
+
   return v8;
 }
 

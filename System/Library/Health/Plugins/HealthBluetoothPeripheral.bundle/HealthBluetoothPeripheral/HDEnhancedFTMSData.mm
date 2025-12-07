@@ -1,6 +1,5 @@
 @interface HDEnhancedFTMSData
 + (id)_buildWithBinaryValue:(id)value error:(id *)error;
-- (id)description;
 - (id)generateDatums:(id)datums;
 @end
 
@@ -73,13 +72,6 @@
   }
 
   return v5;
-}
-
-- (id)description
-{
-  v3 = objc_opt_class();
-  instantaneousSpeed = self->_instantaneousSpeed;
-  return [NSString stringWithFormat:@"<%@: instantaneousSpeed=%@, averageSpeed=%@>", v3, instantaneousSpeed, self->_averageSpeed];
 }
 
 @end

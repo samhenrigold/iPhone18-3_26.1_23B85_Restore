@@ -119,45 +119,45 @@ void __34__EDCategorizationSyncManager_log__block_invoke(uint64_t a1)
 
 - (void)_syncRuleToWebForMessages:(id)messages withCategory:(id)category atTimestamp:(id)timestamp
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   messagesCopy = messages;
   categoryCopy = category;
   timestampCopy = timestamp;
-  v37 = objc_opt_new();
-  v30 = objc_alloc_init(getMCCSecretAgentControllerClass());
+  v36 = objc_opt_new();
+  v29 = objc_alloc_init(getMCCSecretAgentControllerClass());
   RCOverrideRuleClass = getRCOverrideRuleClass();
   Property = class_getProperty(RCOverrideRuleClass, "xAppleRequestHeader");
   Name = property_getName(Property);
   v9 = getRCOverrideRuleClass();
   v10 = class_getProperty(v9, "messageIdHeader");
-  v35 = property_getName(v10);
+  v34 = property_getName(v10);
   v11 = getRCOverrideRuleClass();
   v12 = class_getProperty(v11, "category");
-  v33 = property_getName(v12);
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
+  v32 = property_getName(v12);
   v40 = 0u;
+  v41 = 0u;
+  v38 = 0u;
+  v39 = 0u;
   obj = messagesCopy;
-  v13 = [obj countByEnumeratingWithState:&v39 objects:v43 count:16];
+  v13 = [obj countByEnumeratingWithState:&v38 objects:v42 count:16];
   if (v13)
   {
-    v32 = *v40;
+    v31 = *v39;
     v14 = *MEMORY[0x1E699B190];
     do
     {
       v15 = 0;
       do
       {
-        if (*v40 != v32)
+        if (*v39 != v31)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v39 + 1) + 8 * v15);
+        v16 = *(*(&v38 + 1) + 8 * v15);
         v17 = objc_alloc_init(getRCOverrideRuleClass());
         messageIDHeader = [v16 messageIDHeader];
-        v19 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v35];
+        v19 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v34];
         [v17 setValue:messageIDHeader forKey:v19];
 
         headers = [v16 headers];
@@ -187,7 +187,7 @@ void __34__EDCategorizationSyncManager_log__block_invoke(uint64_t a1)
           v24 = &stru_1F45B4608;
         }
 
-        v25 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v33];
+        v25 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v32];
         [v17 setValue:v24 forKey:v25];
 
         v26 = MEMORY[0x1E696AD98];
@@ -195,24 +195,22 @@ void __34__EDCategorizationSyncManager_log__block_invoke(uint64_t a1)
         v27 = [v26 numberWithDouble:?];
         [v17 setCategoryUpdateTime:v27];
 
-        [v37 addObject:v17];
+        [v36 addObject:v17];
         ++v15;
       }
 
       while (v13 != v15);
-      v13 = [obj countByEnumeratingWithState:&v39 objects:v43 count:16];
+      v13 = [obj countByEnumeratingWithState:&v38 objects:v42 count:16];
     }
 
     while (v13);
   }
 
-  [v30 syncRecategorizationRules:v37 completion:&__block_literal_global_14];
-  v28 = *MEMORY[0x1E69E9840];
+  [v29 syncRecategorizationRules:v36 completion:&__block_literal_global_14];
 }
 
 void __82__EDCategorizationSyncManager__syncRuleToWebForMessages_withCategory_atTimestamp___block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v7 = *MEMORY[0x1E69E9840];
   v4 = a3;
   if ((a2 & 1) == 0)
   {
@@ -224,37 +222,35 @@ void __82__EDCategorizationSyncManager__syncRuleToWebForMessages_withCategory_at
       __82__EDCategorizationSyncManager__syncRuleToWebForMessages_withCategory_atTimestamp___block_invoke_cold_1();
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_findMessagesForAddressIDs:(id)ds
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   v5 = objc_opt_new();
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v6 = dsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v17 objects:v23 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v16 objects:v22 count:16];
   if (v7)
   {
-    v9 = *v18;
+    v9 = *v17;
     *&v8 = 138543362;
-    v16 = v8;
+    v15 = v8;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v17 + 1) + 8 * i);
-        v12 = [(EDCategorizationSyncManager *)self _messageForSenderInICloud:v11, v16, v17];
+        v11 = *(*(&v16 + 1) + 8 * i);
+        v12 = [(EDCategorizationSyncManager *)self _messageForSenderInICloud:v11, v15, v16];
         if (v12)
         {
           [v5 addObject:v12];
@@ -265,69 +261,67 @@ void __82__EDCategorizationSyncManager__syncRuleToWebForMessages_withCategory_at
           v13 = +[EDCategorizationSyncManager log];
           if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
           {
-            *buf = v16;
-            v22 = v11;
+            *buf = v15;
+            v21 = v11;
             _os_log_impl(&dword_1C61EF000, v13, OS_LOG_TYPE_INFO, "Failed to find any messages for address %{public}@", buf, 0xCu);
           }
         }
       }
 
-      v7 = [v6 countByEnumeratingWithState:&v17 objects:v23 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v16 objects:v22 count:16];
     }
 
     while (v7);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 - (id)_messageForSenderInICloud:(id)cloud
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   cloudCopy = cloud;
   accountsProvider = [(EDCategorizationSyncManager *)self accountsProvider];
   mailAccounts = [accountsProvider mailAccounts];
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v7 = mailAccounts;
-  v8 = [v7 countByEnumeratingWithState:&v19 objects:v24 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v18 objects:v23 count:16];
   if (v8)
   {
-    v9 = *v20;
+    v9 = *v19;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v20 != v9)
+        if (*v19 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        v11 = *(*(&v19 + 1) + 8 * i);
+        v11 = *(*(&v18 + 1) + 8 * i);
         if ([v11 primaryiCloudAccount])
         {
           messagePersistence = [(EDCategorizationSyncManager *)self messagePersistence];
-          v23 = cloudCopy;
-          v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v23 count:1];
+          v22 = cloudCopy;
+          v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v22 count:1];
           v15 = [messagePersistence persistedMessagesFromSendersWithAddressIDs:v14 temporarilyUnavailableMessageObjectIDs:0];
 
-          v18[0] = MEMORY[0x1E69E9820];
-          v18[1] = 3221225472;
-          v18[2] = __57__EDCategorizationSyncManager__messageForSenderInICloud___block_invoke;
-          v18[3] = &unk_1E8251360;
-          v18[4] = v11;
-          v12 = [v15 ef_firstObjectPassingTest:v18];
+          v17[0] = MEMORY[0x1E69E9820];
+          v17[1] = 3221225472;
+          v17[2] = __57__EDCategorizationSyncManager__messageForSenderInICloud___block_invoke;
+          v17[3] = &unk_1E8251360;
+          v17[4] = v11;
+          v12 = [v15 ef_firstObjectPassingTest:v17];
 
           goto LABEL_11;
         }
       }
 
-      v8 = [v7 countByEnumeratingWithState:&v19 objects:v24 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v18 objects:v23 count:16];
       if (v8)
       {
         continue;
@@ -339,8 +333,6 @@ void __82__EDCategorizationSyncManager__syncRuleToWebForMessages_withCategory_at
 
   v12 = 0;
 LABEL_11:
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -357,39 +349,39 @@ BOOL __57__EDCategorizationSyncManager__messageForSenderInICloud___block_invoke(
 
 - (void)categoryRulesController:(id)controller didReceiveOverrideRules:(id)rules
 {
-  v61 = *MEMORY[0x1E69E9840];
+  v60 = *MEMORY[0x1E69E9840];
   rulesCopy = rules;
   v4 = +[EDCategorizationSyncManager log];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    LODWORD(v56) = [rulesCopy count];
+    LODWORD(v55) = [rulesCopy count];
     _os_log_impl(&dword_1C61EF000, v4, OS_LOG_TYPE_DEFAULT, "Syncing %d rules from web", buf, 8u);
   }
 
   if (_os_feature_enabled_impl())
   {
-    v52 = 0u;
-    v53 = 0u;
-    v50 = 0u;
     v51 = 0u;
+    v52 = 0u;
+    v49 = 0u;
+    v50 = 0u;
     obj = rulesCopy;
-    v5 = [obj countByEnumeratingWithState:&v50 objects:v60 count:16];
+    v5 = [obj countByEnumeratingWithState:&v49 objects:v59 count:16];
     if (v5)
     {
-      v44 = *MEMORY[0x1E699A728];
-      v45 = *v51;
+      v43 = *MEMORY[0x1E699A728];
+      v44 = *v50;
       do
       {
-        v46 = v5;
-        for (i = 0; i != v46; ++i)
+        v45 = v5;
+        for (i = 0; i != v45; ++i)
         {
-          if (*v51 != v45)
+          if (*v50 != v44)
           {
             objc_enumerationMutation(obj);
           }
 
-          v7 = *(*(&v50 + 1) + 8 * i);
+          v7 = *(*(&v49 + 1) + 8 * i);
           category = [v7 category];
           v9 = [category isEqualToString:&stru_1F45B4608];
 
@@ -410,7 +402,7 @@ BOOL __57__EDCategorizationSyncManager__messageForSenderInICloud___block_invoke(
           v19 = emailAddressValue;
           if (emailAddressValue)
           {
-            v49 = emailAddressValue;
+            v48 = emailAddressValue;
           }
 
           else
@@ -427,18 +419,18 @@ BOOL __57__EDCategorizationSyncManager__messageForSenderInICloud___block_invoke(
               v22 = v15;
             }
 
-            v49 = v22;
+            v48 = v22;
           }
 
           messagePersistence = [(EDCategorizationSyncManager *)self messagePersistence];
-          v24 = [messagePersistence findAddressIDForAddress:v49];
+          v24 = [messagePersistence findAddressIDForAddress:v48];
 
-          if (v24 == v44)
+          if (v24 == v43)
           {
             v25 = +[EDCategorizationSyncManager log];
             if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
             {
-              [MEMORY[0x1E699B858] ec_partiallyRedactedStringForAddress:v49];
+              [MEMORY[0x1E699B858] ec_partiallyRedactedStringForAddress:v48];
               objc_claimAutoreleasedReturnValue();
               [EDCategorizationSyncManager categoryRulesController:didReceiveOverrideRules:];
             }
@@ -470,7 +462,7 @@ BOOL __57__EDCategorizationSyncManager__messageForSenderInICloud___block_invoke(
               if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 134217984;
-                v56 = v24;
+                v55 = v24;
                 _os_log_impl(&dword_1C61EF000, v30, OS_LOG_TYPE_DEFAULT, "AddressID: %lld", buf, 0xCu);
               }
 
@@ -485,8 +477,8 @@ BOOL __57__EDCategorizationSyncManager__messageForSenderInICloud___block_invoke(
 
                 businessPersistence2 = [(EDCategorizationSyncManager *)self businessPersistence];
                 v33 = [MEMORY[0x1E696AD98] numberWithLongLong:v24];
-                v59 = v33;
-                v34 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v59 count:1];
+                v58 = v33;
+                v34 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v58 count:1];
                 [businessPersistence2 removeUserOverrideForAddressIDs:v34 timestamp:v29 originator:1 userInitiated:0];
               }
 
@@ -496,25 +488,25 @@ BOOL __57__EDCategorizationSyncManager__messageForSenderInICloud___block_invoke(
                 if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
                 {
                   category3 = [v7 category];
-                  v37 = [MEMORY[0x1E699B858] ec_partiallyRedactedStringForAddress:v49];
+                  v37 = [MEMORY[0x1E699B858] ec_partiallyRedactedStringForAddress:v48];
                   *buf = 138412546;
-                  v56 = category3;
-                  v57 = 2112;
-                  v58 = v37;
+                  v55 = category3;
+                  v56 = 2112;
+                  v57 = v37;
                   _os_log_impl(&dword_1C61EF000, v35, OS_LOG_TYPE_DEFAULT, "Setting to %@ for address: %@", buf, 0x16u);
                 }
 
                 businessPersistence2 = [(EDCategorizationSyncManager *)self businessPersistence];
                 v38 = [MEMORY[0x1E696AD98] numberWithLongLong:v24];
-                v54 = v38;
-                v39 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v54 count:1];
+                v53 = v38;
+                v39 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v53 count:1];
                 [businessPersistence2 insertOrUpdateUserOverrideForAddressIDs:v39 category:v11 timestamp:v29 originator:1];
               }
             }
           }
         }
 
-        v5 = [obj countByEnumeratingWithState:&v50 objects:v60 count:16];
+        v5 = [obj countByEnumeratingWithState:&v49 objects:v59 count:16];
       }
 
       while (v5);
@@ -527,75 +519,71 @@ BOOL __57__EDCategorizationSyncManager__messageForSenderInICloud___block_invoke(
     *buf = 0;
     _os_log_impl(&dword_1C61EF000, v40, OS_LOG_TYPE_DEFAULT, "Syncing completed.", buf, 2u);
   }
-
-  v41 = *MEMORY[0x1E69E9840];
 }
 
 - (void)categoryRulesController:(id)controller didReceiveSyncAllOverrideRules:(id)rules
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   rulesCopy = rules;
   v6 = +[EDCategorizationSyncManager log];
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    v13 = [rulesCopy count];
+    v12 = [rulesCopy count];
     _os_log_impl(&dword_1C61EF000, v6, OS_LOG_TYPE_DEFAULT, "Sync all overrides - syncing %d rules from webmail with native", buf, 8u);
   }
 
   icloudSyncScheduler = self->_icloudSyncScheduler;
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __86__EDCategorizationSyncManager_categoryRulesController_didReceiveSyncAllOverrideRules___block_invoke;
-  v10[3] = &unk_1E8250128;
-  v10[4] = self;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __86__EDCategorizationSyncManager_categoryRulesController_didReceiveSyncAllOverrideRules___block_invoke;
+  v9[3] = &unk_1E8250128;
+  v9[4] = self;
   v8 = rulesCopy;
-  v11 = v8;
-  [(EFScheduler *)icloudSyncScheduler performBlock:v10];
-
-  v9 = *MEMORY[0x1E69E9840];
+  v10 = v8;
+  [(EFScheduler *)icloudSyncScheduler performBlock:v9];
 }
 
 void __86__EDCategorizationSyncManager_categoryRulesController_didReceiveSyncAllOverrideRules___block_invoke(uint64_t a1)
 {
-  v70 = *MEMORY[0x1E69E9840];
-  v47 = objc_opt_new();
-  v48 = [*(a1 + 32) _nativeOverrideRulesMap];
-  v64 = 0u;
-  v65 = 0u;
-  v62 = 0u;
+  v69 = *MEMORY[0x1E69E9840];
+  v46 = objc_opt_new();
+  v47 = [*(a1 + 32) _nativeOverrideRulesMap];
   v63 = 0u;
+  v64 = 0u;
+  v61 = 0u;
+  v62 = 0u;
   obj = *(a1 + 40);
-  v2 = [obj countByEnumeratingWithState:&v62 objects:v69 count:16];
-  v54 = a1;
+  v2 = [obj countByEnumeratingWithState:&v61 objects:v68 count:16];
+  v53 = a1;
   if (v2)
   {
-    v49 = *MEMORY[0x1E699A728];
-    v50 = *v63;
+    v48 = *MEMORY[0x1E699A728];
+    v49 = *v62;
     do
     {
-      v51 = v2;
-      for (i = 0; i != v51; ++i)
+      v50 = v2;
+      for (i = 0; i != v50; ++i)
       {
-        if (*v63 != v50)
+        if (*v62 != v49)
         {
           objc_enumerationMutation(obj);
         }
 
-        v4 = *(*(&v62 + 1) + 8 * i);
+        v4 = *(*(&v61 + 1) + 8 * i);
         v5 = [v4 category];
-        v53 = [v5 isEqualToString:&stru_1F45B4608];
+        v52 = [v5 isEqualToString:&stru_1F45B4608];
 
         v6 = [v4 category];
-        v52 = EMCategoryTypeFromString();
+        v51 = EMCategoryTypeFromString();
 
         v7 = [v4 address];
-        v55 = [v7 emailAddress];
+        v54 = [v7 emailAddress];
 
         v8 = [v4 address];
         v9 = [v8 displayName];
 
-        v10 = v55;
+        v10 = v54;
         v11 = v9;
         v12 = [objc_alloc(MEMORY[0x1E699B248]) initWithString:v10];
         [v12 setDisplayName:v11];
@@ -603,7 +591,7 @@ void __86__EDCategorizationSyncManager_categoryRulesController_didReceiveSyncAll
         v14 = v13;
         if (v13)
         {
-          v57 = v13;
+          v56 = v13;
         }
 
         else
@@ -620,26 +608,26 @@ void __86__EDCategorizationSyncManager_categoryRulesController_didReceiveSyncAll
             v17 = v10;
           }
 
-          v57 = v17;
+          v56 = v17;
         }
 
-        v18 = [*(v54 + 32) messagePersistence];
-        v19 = [v18 findAddressIDForAddress:v57];
+        v18 = [*(v53 + 32) messagePersistence];
+        v19 = [v18 findAddressIDForAddress:v56];
 
         v20 = +[EDCategorizationSyncManager log];
         if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134217984;
-          v68 = v19;
+          v67 = v19;
           _os_log_impl(&dword_1C61EF000, v20, OS_LOG_TYPE_DEFAULT, "AddressID: %lld", buf, 0xCu);
         }
 
-        if (v19 == v49)
+        if (v19 == v48)
         {
           v21 = +[EDCategorizationSyncManager log];
           if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
           {
-            [MEMORY[0x1E699B858] ec_partiallyRedactedStringForAddress:v57];
+            [MEMORY[0x1E699B858] ec_partiallyRedactedStringForAddress:v56];
             objc_claimAutoreleasedReturnValue();
             __86__EDCategorizationSyncManager_categoryRulesController_didReceiveSyncAllOverrideRules___block_invoke_cold_1();
           }
@@ -650,27 +638,27 @@ void __86__EDCategorizationSyncManager_categoryRulesController_didReceiveSyncAll
           v22 = [MEMORY[0x1E696AD98] numberWithLongLong:v19];
           v21 = [v22 stringValue];
 
-          v56 = [v48 objectForKeyedSubscript:v21];
+          v55 = [v47 objectForKeyedSubscript:v21];
           v23 = MEMORY[0x1E695DF00];
           v24 = [v4 categoryUpdateTime];
           [v24 doubleValue];
           v25 = [v23 dateWithTimeIntervalSince1970:?];
 
-          if (!v56)
+          if (!v55)
           {
             goto LABEL_25;
           }
 
-          v26 = [v56 date];
+          v26 = [v55 date];
           v27 = [v25 ef_isLaterThanDate:v26];
           if ((v27 & 1) == 0 && [v26 ef_isLaterThanDate:v25])
           {
-            v28 = [v56 category];
+            v28 = [v55 category];
 
             if (v28)
             {
-              v44 = [v56 category];
-              [v44 unsignedIntegerValue];
+              v43 = [v55 category];
+              [v43 unsignedIntegerValue];
               v29 = EMStringFromCategoryType();
 
               v30 = v29;
@@ -681,18 +669,18 @@ void __86__EDCategorizationSyncManager_categoryRulesController_didReceiveSyncAll
               v30 = &stru_1F45B4608;
             }
 
-            v45 = v30;
+            v44 = v30;
             [v4 setCategory:?];
             v31 = MEMORY[0x1E696AD98];
-            v43 = [v56 date];
-            [v43 timeIntervalSince1970];
+            v42 = [v55 date];
+            [v42 timeIntervalSince1970];
             v32 = [v31 numberWithDouble:?];
             [v4 setCategoryUpdateTime:v32];
 
-            [v47 addObject:v4];
+            [v46 addObject:v4];
           }
 
-          [v48 removeObjectForKey:v21];
+          [v47 removeObjectForKey:v21];
 
           if ((v27 & 1) == 0)
           {
@@ -707,54 +695,52 @@ void __86__EDCategorizationSyncManager_categoryRulesController_didReceiveSyncAll
           else
           {
 LABEL_25:
-            [*(v54 + 32) _updateServerRuleToDevice:v4 addressID:v19 withTimestamp:v25 withCategory:v52 withAddress:v57 shouldRestoreCategory:v53];
+            [*(v53 + 32) _updateServerRuleToDevice:v4 addressID:v19 withTimestamp:v25 withCategory:v51 withAddress:v56 shouldRestoreCategory:v52];
           }
         }
       }
 
-      v2 = [obj countByEnumeratingWithState:&v62 objects:v69 count:16];
+      v2 = [obj countByEnumeratingWithState:&v61 objects:v68 count:16];
     }
 
     while (v2);
   }
 
-  v60 = 0u;
-  v61 = 0u;
-  v58 = 0u;
   v59 = 0u;
-  v34 = v48;
-  v35 = [v34 countByEnumeratingWithState:&v58 objects:v66 count:16];
+  v60 = 0u;
+  v57 = 0u;
+  v58 = 0u;
+  v34 = v47;
+  v35 = [v34 countByEnumeratingWithState:&v57 objects:v65 count:16];
   if (v35)
   {
-    v36 = *v59;
+    v36 = *v58;
     do
     {
       for (j = 0; j != v35; ++j)
       {
-        if (*v59 != v36)
+        if (*v58 != v36)
         {
           objc_enumerationMutation(v34);
         }
 
-        v38 = [v34 objectForKeyedSubscript:*(*(&v58 + 1) + 8 * j)];
+        v38 = [v34 objectForKeyedSubscript:*(*(&v57 + 1) + 8 * j)];
         if (v38)
         {
-          v39 = [*(v54 + 32) _overrideRuleFromRecord:v38];
-          [v47 addObject:v39];
+          v39 = [*(v53 + 32) _overrideRuleFromRecord:v38];
+          [v46 addObject:v39];
         }
       }
 
-      v35 = [v34 countByEnumeratingWithState:&v58 objects:v66 count:16];
+      v35 = [v34 countByEnumeratingWithState:&v57 objects:v65 count:16];
     }
 
     while (v35);
   }
 
-  v40 = *(v54 + 32);
-  v41 = [MEMORY[0x1E695DEC8] arrayWithArray:v47];
+  v40 = *(v53 + 32);
+  v41 = [MEMORY[0x1E695DEC8] arrayWithArray:v46];
   [v40 _syncNativeRulesToServer:v41];
-
-  v42 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_syncNativeRulesToServer:(id)server
@@ -772,7 +758,6 @@ LABEL_25:
 
 void __56__EDCategorizationSyncManager__syncNativeRulesToServer___block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v7 = *MEMORY[0x1E69E9840];
   v4 = a3;
   if ((a2 & 1) == 0)
   {
@@ -784,14 +769,12 @@ void __56__EDCategorizationSyncManager__syncNativeRulesToServer___block_invoke(u
       __56__EDCategorizationSyncManager__syncNativeRulesToServer___block_invoke_cold_1();
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateServerRuleToDevice:(id)device addressID:(int64_t)d withTimestamp:(id)timestamp withCategory:(unint64_t)category withAddress:(id)address shouldRestoreCategory:(BOOL)restoreCategory
 {
   restoreCategoryCopy = restoreCategory;
-  v30[1] = *MEMORY[0x1E69E9840];
+  v29[1] = *MEMORY[0x1E69E9840];
   deviceCopy = device;
   timestampCopy = timestamp;
   addressCopy = address;
@@ -806,8 +789,8 @@ void __56__EDCategorizationSyncManager__syncNativeRulesToServer___block_invoke(u
 
     businessPersistence = [(EDCategorizationSyncManager *)self businessPersistence];
     v19 = [MEMORY[0x1E696AD98] numberWithLongLong:d];
-    v30[0] = v19;
-    v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:1];
+    v29[0] = v19;
+    v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:1];
     [businessPersistence removeUserOverrideForAddressIDs:v20 timestamp:timestampCopy originator:1 userInitiated:0];
   }
 
@@ -819,20 +802,18 @@ void __56__EDCategorizationSyncManager__syncNativeRulesToServer___block_invoke(u
       category = [deviceCopy category];
       v23 = [MEMORY[0x1E699B858] ec_partiallyRedactedStringForAddress:addressCopy];
       *buf = 138412546;
-      v27 = category;
-      v28 = 2112;
-      v29 = v23;
+      v26 = category;
+      v27 = 2112;
+      v28 = v23;
       _os_log_impl(&dword_1C61EF000, v21, OS_LOG_TYPE_DEFAULT, "Setting to %@ for address: %@", buf, 0x16u);
     }
 
     businessPersistence = [(EDCategorizationSyncManager *)self businessPersistence];
     v19 = [MEMORY[0x1E696AD98] numberWithLongLong:d];
-    v25 = v19;
-    v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v25 count:1];
+    v24 = v19;
+    v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v24 count:1];
     [businessPersistence insertOrUpdateUserOverrideForAddressIDs:v20 category:category timestamp:timestampCopy originator:1];
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_nativeOverrideRulesMap
@@ -857,30 +838,30 @@ void __56__EDCategorizationSyncManager__syncNativeRulesToServer___block_invoke(u
 
 void __54__EDCategorizationSyncManager__nativeOverrideRulesMap__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v5 = a2;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v6 = a3;
-  v7 = [v6 countByEnumeratingWithState:&v17 objects:v23 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v16 objects:v22 count:16];
   if (v7)
   {
-    v9 = *v18;
+    v9 = *v17;
     *&v8 = 138543362;
-    v16 = v8;
+    v15 = v8;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v17 + 1) + 8 * i);
-        v12 = [*(a1 + 32) _messageForSenderInICloud:{v11, v16, v17}];
+        v11 = *(*(&v16 + 1) + 8 * i);
+        v12 = [*(a1 + 32) _messageForSenderInICloud:{v11, v15, v16}];
         if (v12)
         {
           v13 = [*(a1 + 32) _overrideRuleRecordForMessage:v12 forAddressID:v11];
@@ -893,20 +874,18 @@ void __54__EDCategorizationSyncManager__nativeOverrideRulesMap__block_invoke(uin
           v13 = +[EDCategorizationSyncManager log];
           if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
           {
-            *buf = v16;
-            v22 = v5;
+            *buf = v15;
+            v21 = v5;
             _os_log_impl(&dword_1C61EF000, v13, OS_LOG_TYPE_INFO, "Failed to find any messages for address %{public}@", buf, 0xCu);
           }
         }
       }
 
-      v7 = [v6 countByEnumeratingWithState:&v17 objects:v23 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v16 objects:v22 count:16];
     }
 
     while (v7);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_overrideRuleRecordForMessage:(id)message forAddressID:(id)d
@@ -985,7 +964,7 @@ void __54__EDCategorizationSyncManager__nativeOverrideRulesMap__block_invoke(uin
 
 - (void)persistenceDidChangeCategoryOverrideForAddressIDs:(id)ds category:(id)category timestamp:(id)timestamp originator:(unint64_t)originator
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   categoryCopy = category;
   timestampCopy = timestamp;
@@ -995,31 +974,26 @@ void __54__EDCategorizationSyncManager__nativeOverrideRulesMap__block_invoke(uin
     if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       *buf = 138543362;
-      v21 = dsCopy;
+      v20 = dsCopy;
       _os_log_impl(&dword_1C61EF000, v13, OS_LOG_TYPE_INFO, "persistenceDidChangeCategoryOverrideForAddressIDs for %{public}@", buf, 0xCu);
     }
 
     icloudSyncScheduler = self->_icloudSyncScheduler;
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __111__EDCategorizationSyncManager_persistenceDidChangeCategoryOverrideForAddressIDs_category_timestamp_originator___block_invoke;
-    v16[3] = &unk_1E8250AB8;
-    v16[4] = self;
-    v17 = dsCopy;
-    v18 = categoryCopy;
-    v19 = timestampCopy;
-    [(EFScheduler *)icloudSyncScheduler performBlock:v16];
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __111__EDCategorizationSyncManager_persistenceDidChangeCategoryOverrideForAddressIDs_category_timestamp_originator___block_invoke;
+    v15[3] = &unk_1E8250AB8;
+    v15[4] = self;
+    v16 = dsCopy;
+    v17 = categoryCopy;
+    v18 = timestampCopy;
+    [(EFScheduler *)icloudSyncScheduler performBlock:v15];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __111__EDCategorizationSyncManager_persistenceDidChangeCategoryOverrideForAddressIDs_category_timestamp_originator___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) _findMessagesForAddressIDs:*(a1 + 40)];
-  v3 = *(a1 + 48);
-  v4 = *(a1 + 56);
-  v5 = v2;
   [*(a1 + 32) _syncRuleToWebForMessages:? withCategory:? atTimestamp:?];
 }
 
@@ -1052,15 +1026,15 @@ void __84__EDCategorizationSyncManager_persistenceDidClearAllCategoryOverridesWi
 
 void __84__EDCategorizationSyncManager_persistenceDidClearAllCategoryOverridesWithTimestamp___block_invoke_2(uint64_t a1, char a2, void *a3)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v4 = a3;
   if (a2)
   {
     v5 = +[EDCategorizationSyncManager log];
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_1C61EF000, v5, OS_LOG_TYPE_INFO, "Successfully cleared all overrides", v7, 2u);
+      *v6 = 0;
+      _os_log_impl(&dword_1C61EF000, v5, OS_LOG_TYPE_INFO, "Successfully cleared all overrides", v6, 2u);
     }
   }
 
@@ -1074,8 +1048,6 @@ void __84__EDCategorizationSyncManager_persistenceDidClearAllCategoryOverridesWi
       __84__EDCategorizationSyncManager_persistenceDidClearAllCategoryOverridesWithTimestamp___block_invoke_2_cold_1();
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __82__EDCategorizationSyncManager__syncRuleToWebForMessages_withCategory_atTimestamp___block_invoke_cold_1()

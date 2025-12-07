@@ -14,6 +14,7 @@
 - (void)_setupAppConfigurationCoordinatorIfNecessary;
 - (void)emitNavigationEvent;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
 
@@ -350,6 +351,14 @@ LABEL_5:
   [(CameraSettingsBaseController *)&v4 viewDidLoad];
   v3 = sub_747C(@"CAMERA_BUTTON_TITLE");
   [(CameraButtonSettingsController *)self setTitle:v3];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = CameraButtonSettingsController;
+  [(CameraButtonSettingsController *)&v4 viewDidAppear:appear];
+  [(CameraButtonSettingsController *)self emitNavigationEvent];
 }
 
 - (void)emitNavigationEvent

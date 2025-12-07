@@ -51,22 +51,21 @@
 - (id)description
 {
   v3 = MEMORY[0x1E696AEC0];
-  referenceCoordinate = self->_referenceCoordinate;
-  v5 = GEOPolylineCoordinateAsShortString();
-  v6 = v5;
+  v4 = GEOPolylineCoordinateAsShortString();
+  v5 = v4;
   if (self->_allowsShifting)
   {
-    v7 = @"YES";
+    v6 = @"YES";
   }
 
   else
   {
-    v7 = @"NO";
+    v6 = @"NO";
   }
 
-  v8 = [v3 stringWithFormat:@"coordinate: [%@] | allowsShifting: %@", v5, v7];
+  v7 = [v3 stringWithFormat:@"coordinate: [%@] | allowsShifting: %@", v4, v6];
 
-  return v8;
+  return v7;
 }
 
 - (BOOL)shouldActivateForLocation:(id)location
@@ -81,27 +80,27 @@
 
 - (void)setReferenceCoordinate:(id)coordinate
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (self->_allowsShifting)
   {
     goto LABEL_2;
   }
 
-  v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Attemped to change referenceCoordinate of MNTrafficIncidentTriggerPoint when shifting is now allowed. Ignoring change."];
-  v7 = GEOFindOrCreateLog();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Attemped to change referenceCoordinate of MNTrafficIncidentTriggerPoint when shifting is now allowed. Ignoring change."];
+  v6 = GEOFindOrCreateLog();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    v8 = 136316162;
-    v9 = "[MNTrafficIncidentTriggerPoint setReferenceCoordinate:]";
-    v10 = 2080;
-    v11 = "/Library/Caches/com.apple.xbs/Sources/Navigation/TrafficETA/MNTrafficIncidentTriggerPoint.m";
-    v12 = 1024;
-    v13 = 34;
-    v14 = 2080;
-    v15 = "_allowsShifting";
-    v16 = 2112;
-    v17 = v6;
-    _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", &v8, 0x30u);
+    v7 = 136316162;
+    v8 = "[MNTrafficIncidentTriggerPoint setReferenceCoordinate:]";
+    v9 = 2080;
+    v10 = "/Library/Caches/com.apple.xbs/Sources/Navigation/TrafficETA/MNTrafficIncidentTriggerPoint.m";
+    v11 = 1024;
+    v12 = 34;
+    v13 = 2080;
+    v14 = "_allowsShifting";
+    v15 = 2112;
+    v16 = v5;
+    _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", &v7, 0x30u);
   }
 
   if (self->_allowsShifting)
@@ -109,8 +108,6 @@
 LABEL_2:
     self->_referenceCoordinate = coordinate;
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (MNTrafficIncidentTriggerPoint)initWithReferenceCoordinate:(id)coordinate allowsShifting:(BOOL)shifting

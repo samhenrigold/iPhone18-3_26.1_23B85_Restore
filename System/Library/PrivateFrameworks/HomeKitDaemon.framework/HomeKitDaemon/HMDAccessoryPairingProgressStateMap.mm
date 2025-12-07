@@ -32,7 +32,7 @@
 - (NSString)lastProgressState
 {
   os_unfair_lock_lock_with_options();
-  v3 = [(NSString *)self->_lastProgressState copy];
+  v3 = objc_msgSend_copy(self->_lastProgressState);
   os_unfair_lock_unlock(&self->_accessoryPairingProgressStateMapLock);
 
   return v3;
@@ -41,7 +41,7 @@
 - (NSString)longestProgressState
 {
   os_unfair_lock_lock_with_options();
-  v3 = [(NSString *)self->_longestProgressState copy];
+  v3 = objc_msgSend_copy(self->_longestProgressState);
   os_unfair_lock_unlock(&self->_accessoryPairingProgressStateMapLock);
 
   return v3;
@@ -49,7 +49,7 @@
 
 - (void)updateWithProgressState:(id)state date:(id)date
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   dateCopy = date;
   os_unfair_lock_lock_with_options();
@@ -76,13 +76,13 @@
     {
       v16 = HMFGetLogIdentifier();
       progressStateMap = selfCopy->_progressStateMap;
-      v36 = 138543874;
-      v37 = v16;
-      v38 = 2112;
-      v39 = stateCopy;
-      v40 = 2112;
-      v41 = progressStateMap;
-      _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_DEBUG, "%{public}@Successfully added progress state: %@ to the pairing progress state map: %@", &v36, 0x20u);
+      v35 = 138543874;
+      v36 = v16;
+      v37 = 2112;
+      v38 = stateCopy;
+      v39 = 2112;
+      v40 = progressStateMap;
+      _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_DEBUG, "%{public}@Successfully added progress state: %@ to the pairing progress state map: %@", &v35, 0x20u);
     }
 
 LABEL_9:
@@ -112,11 +112,11 @@ LABEL_9:
     {
       v29 = HMFGetLogIdentifier();
       longestProgressState = selfCopy2->_longestProgressState;
-      v36 = 138543618;
-      v37 = v29;
-      v38 = 2112;
-      v39 = longestProgressState;
-      _os_log_impl(&dword_229538000, v28, OS_LOG_TYPE_DEBUG, "%{public}@Updated longest progress state to: %@", &v36, 0x16u);
+      v35 = 138543618;
+      v36 = v29;
+      v37 = 2112;
+      v38 = longestProgressState;
+      _os_log_impl(&dword_229538000, v28, OS_LOG_TYPE_DEBUG, "%{public}@Updated longest progress state to: %@", &v35, 0x16u);
     }
 
     objc_autoreleasePoolPop(v26);
@@ -136,32 +136,30 @@ LABEL_9:
     {
       v21 = HMFGetLogIdentifier();
       v22 = [MEMORY[0x277CCABB0] numberWithDouble:v9];
-      v36 = 138543618;
-      v37 = v21;
-      v38 = 2112;
-      v39 = v22;
-      _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_DEBUG, "%{public}@Successfully updated duration of last progress state to: %@", &v36, 0x16u);
+      v35 = 138543618;
+      v36 = v21;
+      v37 = 2112;
+      v38 = v22;
+      _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_DEBUG, "%{public}@Successfully updated duration of last progress state to: %@", &v35, 0x16u);
     }
 
     goto LABEL_9;
   }
 
-  v32 = objc_autoreleasePoolPush();
+  v31 = objc_autoreleasePoolPush();
   selfCopy4 = self;
-  v34 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
+  v33 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
   {
-    v35 = HMFGetLogIdentifier();
-    v36 = 138543362;
-    v37 = v35;
-    _os_log_impl(&dword_229538000, v34, OS_LOG_TYPE_DEBUG, "%{public}@No previous state information to update last state duration", &v36, 0xCu);
+    v34 = HMFGetLogIdentifier();
+    v35 = 138543362;
+    v36 = v34;
+    _os_log_impl(&dword_229538000, v33, OS_LOG_TYPE_DEBUG, "%{public}@No previous state information to update last state duration", &v35, 0xCu);
   }
 
-  objc_autoreleasePoolPop(v32);
+  objc_autoreleasePoolPop(v31);
 LABEL_17:
   os_unfair_lock_unlock(&self->_accessoryPairingProgressStateMapLock);
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDAccessoryPairingProgressStateMap)initWithDate:(id)date

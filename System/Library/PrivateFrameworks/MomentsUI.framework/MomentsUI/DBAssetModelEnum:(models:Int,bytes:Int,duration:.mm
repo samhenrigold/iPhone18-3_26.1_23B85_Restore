@@ -8,12 +8,12 @@
 {
   if (!lazy cache variable for type metadata for [DBAssetModelEnum : (models: Int, bytes: Int, duration: Double)])
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSi6models_Si5bytesSd8durationtMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSi6models_Si5bytesSd8durationtMd, &_sSi6models_Si5bytesSd8durationtMR);
     lazy protocol witness table accessor for type DBAssetModelEnum and conformance DBAssetModelEnum();
-    v0 = type metadata accessor for Dictionary();
-    if (!v1)
+    v1 = type metadata accessor for Dictionary();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for [DBAssetModelEnum : (models: Int, bytes: Int, duration: Double)]);
+      atomic_store(v1, &lazy cache variable for type metadata for [DBAssetModelEnum : (models: Int, bytes: Int, duration: Double)]);
     }
   }
 }

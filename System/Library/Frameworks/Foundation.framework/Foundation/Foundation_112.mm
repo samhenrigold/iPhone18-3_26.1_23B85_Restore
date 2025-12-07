@@ -5,11 +5,11 @@ uint64_t specialized Sequence._copySequenceContents(initializing:)(uint64_t a1, 
   v333 = a2;
   v301 = a1;
   v415 = *MEMORY[0x1E69E9840];
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMR);
   v360 = *(v5 - 8);
   MEMORY[0x1EEE9AC00](v5);
   v7 = &v301 - v6;
-  v328 = type metadata accessor for AttributedString.Runs();
+  v328 = type metadata accessor for AttributedString.Runs(0);
   MEMORY[0x1EEE9AC00](v328);
   v9 = (&v301 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0));
   v340 = type metadata accessor for AttributedString.Runs.NSAttributesSlice(0);
@@ -112,7 +112,7 @@ LABEL_266:
     _s10Foundation16AttributedStringV4RunsV17NSAttributesSliceVWOcTm_0(v338, v310, type metadata accessor for AttributedString.Runs.NSAttributesSlice.Iterator);
     _s10Foundation16AttributedStringV4RunsV17NSAttributesSliceVWOcTm_0(v37, v9, type metadata accessor for AttributedString.Runs);
     outlined destroy of AttributedString.Runs.NSAttributesSlice(v37, type metadata accessor for AttributedString.Runs.NSAttributesSlice);
-    v361 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMd);
+    v361 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMd, &_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMR);
     RangeSet.ranges.getter();
     v31 = RangeSet.Ranges.count.getter();
     v360 = *v362;
@@ -328,7 +328,7 @@ LABEL_88:
     v79 = v64[12];
     *&v371 = v70;
     *(&v371 + 1) = v71;
-    v80 = (v358 + 1);
+    v80 = v358 + 1;
     v308 = (v352 + 40);
     *&v372 = v72;
     v345 = v74;
@@ -542,14 +542,14 @@ LABEL_80:
       outlined init with copy of AttributedString._AttributeValue?(v381, &v376);
       if (!*(&v372 + 1))
       {
-        outlined destroy of TermOfAddress?(v381, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
-        outlined destroy of TermOfAddress?(&v382, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+        outlined destroy of TermOfAddress?(v381, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
+        outlined destroy of TermOfAddress?(&v382, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
         if (*(&v377 + 1))
         {
           goto LABEL_90;
         }
 
-        outlined destroy of TermOfAddress?(&v371, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+        outlined destroy of TermOfAddress?(&v371, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
         goto LABEL_68;
       }
 
@@ -583,12 +583,12 @@ LABEL_80:
         if (!v122)
         {
           v123(v121, 1, 1, v109);
-          outlined destroy of TermOfAddress?(v381, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
-          outlined destroy of TermOfAddress?(&v382, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+          outlined destroy of TermOfAddress?(v381, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
+          outlined destroy of TermOfAddress?(&v382, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
           (*(v119 + 8))(v121, v118);
           outlined destroy of AttributedString._AttributeValue(&v363);
           outlined destroy of AttributedString._AttributeValue(v368);
-          outlined destroy of TermOfAddress?(&v371, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+          outlined destroy of TermOfAddress?(&v371, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
           goto LABEL_92;
         }
 
@@ -596,11 +596,11 @@ LABEL_80:
         (*(v111 + 32))(v113, v121, v109);
         v124 = dispatch thunk of static Equatable.== infix(_:_:)();
         (*(v111 + 8))(v113, v109);
-        outlined destroy of TermOfAddress?(v381, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
-        outlined destroy of TermOfAddress?(&v382, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+        outlined destroy of TermOfAddress?(v381, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
+        outlined destroy of TermOfAddress?(&v382, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
         outlined destroy of AttributedString._AttributeValue(&v363);
         outlined destroy of AttributedString._AttributeValue(v368);
-        outlined destroy of TermOfAddress?(&v371, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+        outlined destroy of TermOfAddress?(&v371, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
         v74 = v345;
         v96 = v346;
         v101 = v355;
@@ -643,11 +643,11 @@ LABEL_68:
       break;
     }
 
-    outlined destroy of TermOfAddress?(v381, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
-    outlined destroy of TermOfAddress?(&v382, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+    outlined destroy of TermOfAddress?(v381, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
+    outlined destroy of TermOfAddress?(&v382, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
     outlined destroy of AttributedString._AttributeValue(v368);
 LABEL_90:
-    outlined destroy of TermOfAddress?(&v371, &_s10Foundation16AttributedStringV15_AttributeValueVSg_AFtMd);
+    outlined destroy of TermOfAddress?(&v371, &_s10Foundation16AttributedStringV15_AttributeValueVSg_AFtMd, &_s10Foundation16AttributedStringV15_AttributeValueVSg_AFtMR);
 LABEL_92:
 
     v5 = v334;
@@ -1351,7 +1351,7 @@ LABEL_189:
       v257 = v350;
       LOBYTE(v253) = specialized Sequence.contains(where:)(partial apply for specialized closure #1 in Collection<>.split(separator:maxSplits:omittingEmptySubsequences:), (&v301 - 4), v256);
       v350 = v257;
-      outlined destroy of TermOfAddress?(&v371, &_sSS3key_10Foundation16AttributedStringV15_AttributeValueV5valuetMd);
+      outlined destroy of TermOfAddress?(&v371, &_sSS3key_10Foundation16AttributedStringV15_AttributeValueV5valuetMd, &_sSS3key_10Foundation16AttributedStringV15_AttributeValueV5valuetMR);
       outlined destroy of AttributedString._AttributeValue(&v382);
 
       if (v253)
@@ -1442,7 +1442,7 @@ LABEL_265:
 
       else
       {
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMd, &_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMR);
         v259 = static _DictionaryStorage.allocate(capacity:)();
         v266 = 0;
         v267 = *v354;
@@ -1615,88 +1615,7 @@ LABEL_198:
   return result;
 }
 
-{
-  v23 = *(v3 + 32);
-  result = BigString.Index.init(_utf8Offset:)();
-  v8 = result;
-  v10 = v9;
-  v12 = v11;
-  v14 = v13;
-  if (!a2)
-  {
-LABEL_10:
-    a3 = 0;
-    goto LABEL_14;
-  }
-
-  if (!a3)
-  {
-LABEL_14:
-    v20 = *(v3 + 16);
-    *a1 = *v3;
-    *(a1 + 16) = v20;
-    *(a1 + 32) = *(v3 + 32);
-    *(a1 + 40) = v8;
-    *(a1 + 48) = v10;
-    *(a1 + 56) = v12;
-    *(a1 + 64) = v14;
-    *(a1 + 72) = v23;
-    return a3;
-  }
-
-  if ((a3 & 0x8000000000000000) == 0)
-  {
-    v21 = v3;
-    v22 = a1;
-    v3 = BigString.Index.init(_utf8Offset:)();
-    a1 = 1;
-    while (1)
-    {
-      if ((v8 ^ v3) < 0x400)
-      {
-        a3 = a1 - 1;
-        goto LABEL_13;
-      }
-
-      Substring.index(after:)();
-      v15 = BigString.Index.init(_utf8Offset:)();
-      *a2 = v8;
-      a2[1] = v10;
-      a2[2] = v12;
-      a2[3] = v14;
-      a2[4] = v23;
-      if (a3 == a1)
-      {
-        break;
-      }
-
-      a2 += 5;
-      v10 = v16;
-      v12 = v17;
-      v14 = v18;
-      v8 = v15;
-      if (__OFADD__(a1++, 1))
-      {
-        __break(1u);
-        goto LABEL_10;
-      }
-    }
-
-    v8 = v15;
-    v10 = v16;
-    v12 = v17;
-    v14 = v18;
-LABEL_13:
-    v3 = v21;
-    a1 = v22;
-    goto LABEL_14;
-  }
-
-  __break(1u);
-  return result;
-}
-
-uint64_t specialized Sequence._copySequenceContents(initializing:)(uint64_t result, uint64_t *a2, uint64_t a3, void *a4, uint64_t a5, uint64_t a6)
+void *specialized Sequence._copySequenceContents(initializing:)(void *result, uint64_t *a2, uint64_t a3, void *a4, uint64_t a5, uint64_t a6)
 {
   v6 = a4[9];
   if (v6)
@@ -2907,6 +2826,88 @@ LABEL_18:
   return result;
 }
 
+unint64_t specialized Sequence._copySequenceContents(initializing:)(uint64_t a1, unint64_t *a2, uint64_t a3)
+{
+  v23 = *(v3 + 32);
+  result = BigString.Index.init(_utf8Offset:)();
+  v8 = result;
+  v10 = v9;
+  v12 = v11;
+  v14 = v13;
+  if (!a2)
+  {
+LABEL_10:
+    a3 = 0;
+    goto LABEL_14;
+  }
+
+  if (!a3)
+  {
+LABEL_14:
+    v20 = *(v3 + 16);
+    *a1 = *v3;
+    *(a1 + 16) = v20;
+    *(a1 + 32) = *(v3 + 32);
+    *(a1 + 40) = v8;
+    *(a1 + 48) = v10;
+    *(a1 + 56) = v12;
+    *(a1 + 64) = v14;
+    *(a1 + 72) = v23;
+    return a3;
+  }
+
+  if ((a3 & 0x8000000000000000) == 0)
+  {
+    v21 = v3;
+    v22 = a1;
+    v3 = BigString.Index.init(_utf8Offset:)();
+    a1 = 1;
+    while (1)
+    {
+      if ((v8 ^ v3) < 0x400)
+      {
+        a3 = a1 - 1;
+        goto LABEL_13;
+      }
+
+      Substring.index(after:)();
+      v15 = BigString.Index.init(_utf8Offset:)();
+      *a2 = v8;
+      a2[1] = v10;
+      a2[2] = v12;
+      a2[3] = v14;
+      a2[4] = v23;
+      if (a3 == a1)
+      {
+        break;
+      }
+
+      a2 += 5;
+      v10 = v16;
+      v12 = v17;
+      v14 = v18;
+      v8 = v15;
+      if (__OFADD__(a1++, 1))
+      {
+        __break(1u);
+        goto LABEL_10;
+      }
+    }
+
+    v8 = v15;
+    v10 = v16;
+    v12 = v17;
+    v14 = v18;
+LABEL_13:
+    v3 = v21;
+    a1 = v22;
+    goto LABEL_14;
+  }
+
+  __break(1u);
+  return result;
+}
+
 unint64_t specialized Sequence._copySequenceContents(initializing:)(unint64_t result, uint64_t *a2, uint64_t a3)
 {
   v5 = result;
@@ -3365,7 +3366,7 @@ uint64_t outlined destroy of AttributedString.Runs.NSAttributesSlice(uint64_t a1
 
 uint64_t outlined init with take of IndexingIterator<AttributedString.Runs>(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVy10Foundation16AttributedStringV4RunsVGMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVy10Foundation16AttributedStringV4RunsVGMd, &_ss16IndexingIteratorVy10Foundation16AttributedStringV4RunsVGMR);
   (*(*(v4 - 8) + 32))(a2, a1, v4);
   return a2;
 }
@@ -3452,7 +3453,7 @@ uint64_t static TimeZone.abbreviationDictionary.getter()
   return v1;
 }
 
-uint64_t static TimeZone.default.setter(uint64_t a1)
+uint64_t static TimeZone.default.setter(__int128 *a1)
 {
   if (one-time initialization token for cache != -1)
   {
@@ -3559,7 +3560,7 @@ void key path setter for static TimeZone.default : TimeZone.Type(uint64_t a1)
   LocaleNotifications.reset()();
 }
 
-uint64_t (*static TimeZone.default.modify(void *a1))(uint64_t a1, char a2)
+uint64_t (*static TimeZone.default.modify(void *a1))()
 {
   if (one-time initialization token for cache != -1)
   {
@@ -3603,9 +3604,9 @@ uint64_t (*static TimeZone.default.modify(void *a1))(uint64_t a1, char a2)
   return static TimeZone.default.modify;
 }
 
-uint64_t static TimeZone.default.modify(uint64_t a1, char a2)
+uint64_t static TimeZone.default.modify(void *a1, char a2)
 {
-  v2 = *(a1 + 16);
+  v2 = a1[2];
   if (a2)
   {
     swift_unknownObjectRetain();
@@ -3657,20 +3658,20 @@ void key path getter for static TimeZone.abbreviationDictionary : TimeZone.Type(
   *a1 = v3;
 }
 
-uint64_t key path setter for static TimeZone.abbreviationDictionary : TimeZone.Type()
+uint64_t key path setter for static TimeZone.abbreviationDictionary : TimeZone.Type(void *a1)
 {
-  v0 = one-time initialization token for cache;
+  v1 = one-time initialization token for cache;
 
-  if (v0 != -1)
+  if (v1 != -1)
   {
-    v1 = swift_once();
+    v2 = swift_once();
   }
 
-  v2 = static TimeZoneCache.cache;
-  MEMORY[0x1EEE9AC00](v1);
-  os_unfair_lock_lock(v2 + 30);
-  closure #1 in TimeZoneCache.setTimeZoneAbbreviations(_:)partial apply(&v2[4]);
-  os_unfair_lock_unlock(v2 + 30);
+  v3 = static TimeZoneCache.cache;
+  MEMORY[0x1EEE9AC00](v2);
+  os_unfair_lock_lock(v3 + 30);
+  closure #1 in TimeZoneCache.setTimeZoneAbbreviations(_:)partial apply(&v3[4]);
+  os_unfair_lock_unlock(v3 + 30);
 }
 
 uint64_t static TimeZone.abbreviationDictionary.setter(uint64_t a1)
@@ -3687,7 +3688,7 @@ uint64_t static TimeZone.abbreviationDictionary.setter(uint64_t a1)
   os_unfair_lock_unlock(v1 + 30);
 }
 
-uint64_t (*static TimeZone.abbreviationDictionary.modify(void *a1))(uint64_t a1, char a2)
+uint64_t (*static TimeZone.abbreviationDictionary.modify(void *a1))()
 {
   if (one-time initialization token for cache != -1)
   {
@@ -3709,9 +3710,9 @@ uint64_t (*static TimeZone.abbreviationDictionary.modify(void *a1))(uint64_t a1,
   return static TimeZone.abbreviationDictionary.modify;
 }
 
-uint64_t static TimeZone.abbreviationDictionary.modify(uint64_t a1, char a2)
+uint64_t static TimeZone.abbreviationDictionary.modify(void *a1, char a2)
 {
-  v2 = *(a1 + 8);
+  v2 = a1[1];
   if (a2)
   {
 
@@ -3762,12 +3763,12 @@ uint64_t TimeZone.customMirror.getter@<X0>(uint64_t a1@<X8>)
   v4 = *(v3 - 8);
   MEMORY[0x1EEE9AC00](v3);
   v6 = v26 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6MirrorV12DisplayStyleOSgMd);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6MirrorV12DisplayStyleOSgMd, &_ss6MirrorV12DisplayStyleOSgMR);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = v26 - v8;
   v10 = *v1;
   v11 = v2[1];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSSg5label_yp5valuetGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSSg5label_yp5valuetGMd, &_ss23_ContiguousArrayStorageCySSSg5label_yp5valuetGMR);
   v12 = swift_allocObject();
   *(v12 + 16) = xmmword_1812354D0;
   *(v12 + 32) = xmmword_181231A50;
@@ -3787,7 +3788,7 @@ uint64_t TimeZone.customMirror.getter@<X0>(uint64_t a1@<X8>)
   *&__tp.tv_sec = __tp.tv_sec + -978307200.0 + __tp.tv_nsec * 0.000000001;
   v16 = (*(v11 + 64))(&__tp, ObjectType, v11);
   v18 = v17;
-  *(v12 + 168) = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSSSgMd);
+  *(v12 + 168) = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSSSgMd, &_sSSSgMR);
   *(v12 + 144) = v16;
   *(v12 + 152) = v18;
   *(v12 + 176) = xmmword_1812DAC70;
@@ -3818,7 +3819,7 @@ uint64_t TimeZone.customMirror.getter@<X0>(uint64_t a1@<X8>)
   (*(v24 + 56))(v9, 0, 1, v23);
   (*(v4 + 104))(v6, *MEMORY[0x1E69E75D8], v3);
   swift_unknownObjectRetain();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSSg5label_yp5valuetGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSSg5label_yp5valuetGMd, &_sSaySSSg5label_yp5valuetGMR);
   lazy protocol witness table accessor for type [(label: String?, value: Any)] and conformance [A]();
   return Mirror.init<A, B>(_:children:displayStyle:ancestorRepresentation:)();
 }
@@ -3888,7 +3889,7 @@ id static TimeZone._forceBridgeFromObjectiveC(_:result:)(void *a1, uint64_t *a2)
     type metadata accessor for _TimeZoneBridged();
     v5 = swift_allocObject();
     *(v5 + 16) = a1;
-    v6 = _s10Foundation16_TimeZoneBridgedCAcA01_bC8ProtocolAAWlTm_1(&lazy protocol witness table cache variable for type _TimeZoneBridged and conformance _TimeZoneBridged, type metadata accessor for _TimeZoneBridged);
+    v6 = _s10Foundation16_TimeZoneBridgedCAcA01_bC8ProtocolAAWlTm_1(&lazy protocol witness table cache variable for type _TimeZoneBridged and conformance _TimeZoneBridged, type metadata accessor for _TimeZoneBridged, &protocol conformance descriptor for _TimeZoneBridged);
     result = a1;
   }
 
@@ -3914,7 +3915,7 @@ uint64_t static TimeZone._conditionallyBridgeFromObjectiveC(_:result:)(void *a1,
     type metadata accessor for _TimeZoneBridged();
     v5 = swift_allocObject();
     *(v5 + 16) = a1;
-    v6 = _s10Foundation16_TimeZoneBridgedCAcA01_bC8ProtocolAAWlTm_1(&lazy protocol witness table cache variable for type _TimeZoneBridged and conformance _TimeZoneBridged, type metadata accessor for _TimeZoneBridged);
+    v6 = _s10Foundation16_TimeZoneBridgedCAcA01_bC8ProtocolAAWlTm_1(&lazy protocol witness table cache variable for type _TimeZoneBridged and conformance _TimeZoneBridged, type metadata accessor for _TimeZoneBridged, &protocol conformance descriptor for _TimeZoneBridged);
     v7 = a1;
   }
 
@@ -3947,7 +3948,7 @@ id protocol witness for static _ObjectiveCBridgeable._forceBridgeFromObjectiveC(
     type metadata accessor for _TimeZoneBridged();
     v5 = swift_allocObject();
     *(v5 + 16) = a1;
-    v6 = _s10Foundation16_TimeZoneBridgedCAcA01_bC8ProtocolAAWlTm_1(&lazy protocol witness table cache variable for type _TimeZoneBridged and conformance _TimeZoneBridged, type metadata accessor for _TimeZoneBridged);
+    v6 = _s10Foundation16_TimeZoneBridgedCAcA01_bC8ProtocolAAWlTm_1(&lazy protocol witness table cache variable for type _TimeZoneBridged and conformance _TimeZoneBridged, type metadata accessor for _TimeZoneBridged, &protocol conformance descriptor for _TimeZoneBridged);
     result = a1;
   }
 
@@ -3973,7 +3974,7 @@ uint64_t protocol witness for static _ObjectiveCBridgeable._conditionallyBridgeF
     type metadata accessor for _TimeZoneBridged();
     v5 = swift_allocObject();
     *(v5 + 16) = a1;
-    v6 = _s10Foundation16_TimeZoneBridgedCAcA01_bC8ProtocolAAWlTm_1(&lazy protocol witness table cache variable for type _TimeZoneBridged and conformance _TimeZoneBridged, type metadata accessor for _TimeZoneBridged);
+    v6 = _s10Foundation16_TimeZoneBridgedCAcA01_bC8ProtocolAAWlTm_1(&lazy protocol witness table cache variable for type _TimeZoneBridged and conformance _TimeZoneBridged, type metadata accessor for _TimeZoneBridged, &protocol conformance descriptor for _TimeZoneBridged);
     v7 = a1;
   }
 
@@ -4001,7 +4002,7 @@ id protocol witness for static _ObjectiveCBridgeable._unconditionallyBridgeFromO
       type metadata accessor for _TimeZoneBridged();
       v5 = swift_allocObject();
       *(v5 + 16) = v2;
-      v6 = _s10Foundation16_TimeZoneBridgedCAcA01_bC8ProtocolAAWlTm_1(&lazy protocol witness table cache variable for type _TimeZoneBridged and conformance _TimeZoneBridged, type metadata accessor for _TimeZoneBridged);
+      v6 = _s10Foundation16_TimeZoneBridgedCAcA01_bC8ProtocolAAWlTm_1(&lazy protocol witness table cache variable for type _TimeZoneBridged and conformance _TimeZoneBridged, type metadata accessor for _TimeZoneBridged, &protocol conformance descriptor for _TimeZoneBridged);
       result = v2;
     }
 
@@ -4029,7 +4030,7 @@ uint64_t NSTimeZone._toCustomAnyHashable()()
   {
     type metadata accessor for _TimeZoneBridged();
     *(swift_allocObject() + 16) = v0;
-    _s10Foundation16_TimeZoneBridgedCAcA01_bC8ProtocolAAWlTm_1(&lazy protocol witness table cache variable for type _TimeZoneBridged and conformance _TimeZoneBridged, type metadata accessor for _TimeZoneBridged);
+    _s10Foundation16_TimeZoneBridgedCAcA01_bC8ProtocolAAWlTm_1(&lazy protocol witness table cache variable for type _TimeZoneBridged and conformance _TimeZoneBridged, type metadata accessor for _TimeZoneBridged, &protocol conformance descriptor for _TimeZoneBridged);
     v1 = v0;
   }
 
@@ -4050,7 +4051,7 @@ void protocol witness for _HasCustomAnyHashableRepresentation._toCustomAnyHashab
   {
     type metadata accessor for _TimeZoneBridged();
     *(swift_allocObject() + 16) = v1;
-    _s10Foundation16_TimeZoneBridgedCAcA01_bC8ProtocolAAWlTm_1(&lazy protocol witness table cache variable for type _TimeZoneBridged and conformance _TimeZoneBridged, type metadata accessor for _TimeZoneBridged);
+    _s10Foundation16_TimeZoneBridgedCAcA01_bC8ProtocolAAWlTm_1(&lazy protocol witness table cache variable for type _TimeZoneBridged and conformance _TimeZoneBridged, type metadata accessor for _TimeZoneBridged, &protocol conformance descriptor for _TimeZoneBridged);
     v2 = v1;
   }
 
@@ -4093,7 +4094,7 @@ uint64_t specialized static TimeZone.identifierForAbbreviation(_:)(uint64_t a1, 
   else
   {
 
-    v10 = specialized static TimeZone.tryParseGMTName(_:)();
+    v10 = specialized static TimeZone.tryParseGMTName(_:)(a1, a2);
     if (v11)
     {
       return 0;
@@ -4277,7 +4278,7 @@ LABEL_18:
     goto LABEL_36;
   }
 
-  v3 = lazy protocol witness table accessor for type _TimeZoneAutoupdating and conformance _TimeZoneAutoupdating(&lazy protocol witness table cache variable for type _TimeZoneGMTICU and conformance _TimeZoneGMTICU, type metadata accessor for _TimeZoneGMTICU);
+  v3 = lazy protocol witness table accessor for type _TimeZoneAutoupdating and conformance _TimeZoneAutoupdating(&lazy protocol witness table cache variable for type _TimeZoneGMTICU and conformance _TimeZoneGMTICU, type metadata accessor for _TimeZoneGMTICU, &protocol conformance descriptor for _TimeZoneGMTICU);
   if (__ROR8__(0xFEDCBA987654321 * v10 + 0x91A2B3C4D5E6F8, 3) > 0x2468ACF13579BEuLL)
   {
     goto LABEL_36;
@@ -4334,7 +4335,7 @@ LABEL_34:
 
 LABEL_19:
   v33 = v7;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySi10Foundation17_TimeZoneProtocol_pGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySi10Foundation17_TimeZoneProtocol_pGMd, &_ss18_DictionaryStorageCySi10Foundation17_TimeZoneProtocol_pGMR);
   v20 = static _DictionaryStorage.copy(original:)();
   v17 = v20;
   if (!*(v4 + 16))
@@ -4416,7 +4417,7 @@ uint64_t closure #1 in TimeZoneCache.setTimeZoneAbbreviations(_:)(uint64_t a1, u
   return result;
 }
 
-uint64_t destroy for TimeZoneCache()
+uint64_t destroy for TimeZoneCache(uint64_t a1)
 {
 
   return swift_unknownObjectRelease();
@@ -4514,7 +4515,7 @@ void *_TimeZoneGMT.__allocating_init(secondsFromGMT:)(uint64_t a1)
   return v2;
 }
 
-void *_TimeZoneGMT.init(secondsFromGMT:)(uint64_t a1)
+uint64_t *_TimeZoneGMT.init(secondsFromGMT:)(uint64_t a1)
 {
   v3 = specialized static TimeZone.nameForSecondsFromGMT(_:)(a1);
   if (v4)
@@ -4558,56 +4559,56 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
   return 0x7366666F20746D67;
 }
 
-uint64_t specialized static TimeZone.tryParseGMTName(_:)()
+uint64_t specialized static TimeZone.tryParseGMTName(_:)(uint64_t a1, uint64_t a2)
 {
-  v0 = String.count.getter();
-  if ((v0 - 10) < 0xFFFFFFFFFFFFFFF9)
+  v4 = String.count.getter();
+  if ((v4 - 10) < 0xFFFFFFFFFFFFFFF9)
   {
     return 0;
   }
 
-  v1 = v0;
-  v2 = specialized Sequence<>.starts<A>(with:)();
-  v3 = specialized Sequence<>.starts<A>(with:)();
-  if ((v2 & 1) == 0 && (v3 & 1) == 0)
+  v5 = v4;
+  v6 = specialized Sequence<>.starts<A>(with:)(5524807, 0xE300000000000000, a1, a2);
+  v7 = specialized Sequence<>.starts<A>(with:)(4412501, 0xE300000000000000, a1, a2);
+  if ((v6 & 1) == 0 && (v7 & 1) == 0)
   {
     return 0;
   }
 
-  if (v1 == 3)
+  if (v5 == 3)
   {
     return 0;
   }
 
-  if (v1 < 5)
+  if (v5 < 5)
   {
     return 0;
   }
 
   String.index(_:offsetBy:)();
-  v5 = String.subscript.getter();
-  v7 = v6;
-  if (v5 == 43 && v6 == 0xE100000000000000)
+  v9 = String.subscript.getter();
+  v11 = v10;
+  if (v9 == 43 && v10 == 0xE100000000000000)
   {
-    v8 = 1;
+    v12 = 1;
   }
 
   else
   {
-    v11 = v5;
-    v8 = _stringCompareWithSmolCheck(_:_:expecting:)();
-    if (v11 == 45 && v7 == 0xE100000000000000)
+    v15 = v9;
+    v12 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    if (v15 == 45 && v11 == 0xE100000000000000)
     {
 
-      v10 = 1;
+      v14 = 1;
       goto LABEL_18;
     }
   }
 
-  v9 = _stringCompareWithSmolCheck(_:_:expecting:)();
+  v13 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-  v10 = v8 ^ 1 | v9;
-  if ((v8 & 1) == 0 && (v9 & 1) == 0)
+  v14 = v12 ^ 1 | v13;
+  if ((v12 & 1) == 0 && (v13 & 1) == 0)
   {
     return 0;
   }
@@ -4615,84 +4616,84 @@ uint64_t specialized static TimeZone.tryParseGMTName(_:)()
 LABEL_18:
   String.index(after:)();
   String.subscript.getter();
-  v12 = Character.asciiValue.getter();
+  v16 = Character.asciiValue.getter();
 
   result = 0;
-  if ((v12 & 0x100) != 0 || (v12 - 58) < 0xF6u)
+  if ((v16 & 0x100) != 0 || (v16 - 58) < 0xF6u)
   {
     return result;
   }
 
-  v13 = (v12 - 48);
-  if (v1 == 5)
+  v17 = (v16 - 48);
+  if (v5 == 5)
   {
-    if (v10)
+    if (v14)
     {
-      return -3600 * v13;
+      return -3600 * v17;
     }
 
-    return 3600 * v13;
+    return 3600 * v17;
   }
 
   String.index(after:)();
   String.subscript.getter();
-  v14 = Character.asciiValue.getter();
+  v18 = Character.asciiValue.getter();
 
-  if ((v14 & 0x100) != 0)
+  if ((v18 & 0x100) != 0)
   {
     return 0;
   }
 
-  if (v14 >= 0x30u)
+  if (v18 >= 0x30u)
   {
-    if (v14 != 58)
+    if (v18 != 58)
     {
-      if (v14 > 0x39u)
+      if (v18 > 0x39u)
       {
         return 0;
       }
 
-      v13 = 10 * v13 + (v14 - 48);
-      if (v13 > 0x12)
+      v17 = 10 * v17 + (v18 - 48);
+      if (v17 > 0x12)
       {
         return 0;
       }
 
-      if (v1 == 6)
+      if (v5 == 6)
       {
-        if (v10)
+        if (v14)
         {
-          return -3600 * v13;
+          return -3600 * v17;
         }
 
-        return 3600 * v13;
+        return 3600 * v17;
       }
     }
   }
 
-  else if (v14 != 46)
+  else if (v18 != 46)
   {
     return 0;
   }
 
-  if (v1 < 8)
+  if (v5 < 8)
   {
     return 0;
   }
 
   String.index(after:)();
   String.subscript.getter();
-  v15 = Character.asciiValue.getter();
+  v19 = Character.asciiValue.getter();
 
-  if ((v15 & 0x100) != 0)
+  if ((v19 & 0x100) != 0)
   {
     return 0;
   }
 
-  if (v15 < 0x30u)
+  if (v19 < 0x30u)
   {
     result = 0;
-    if (v1 != 9 || v15 != 46)
+    if (v5 != 9 || v19 != 46)
     {
       return result;
     }
@@ -4700,9 +4701,9 @@ LABEL_18:
     goto LABEL_41;
   }
 
-  if (v15 == 58)
+  if (v19 == 58)
   {
-    if (v1 == 9)
+    if (v5 == 9)
     {
 LABEL_41:
       String.index(after:)();
@@ -4713,69 +4714,69 @@ LABEL_41:
   }
 
   result = 0;
-  if (v1 != 8 || v15 >= 0x36u)
+  if (v5 != 8 || v19 >= 0x36u)
   {
     return result;
   }
 
 LABEL_44:
   String.subscript.getter();
-  v16 = Character.asciiValue.getter();
+  v20 = Character.asciiValue.getter();
 
   String.index(after:)();
   String.subscript.getter();
-  v17 = Character.asciiValue.getter();
+  v21 = Character.asciiValue.getter();
 
   result = 0;
-  if ((v17 & 0x100) != 0 || (v17 - 58) < 0xF6u)
+  if ((v21 & 0x100) != 0 || (v21 - 58) < 0xF6u)
   {
     return result;
   }
 
-  if ((v16 & 0x100) != 0)
+  if ((v20 & 0x100) != 0)
   {
-    v18 = 0;
+    v22 = 0;
   }
 
   else
   {
-    v18 = v16;
+    v22 = v20;
   }
 
-  v19 = v18 - 48;
-  if ((v19 & 0xFFFFFF00) != 0)
+  v23 = v22 - 48;
+  if ((v23 & 0xFFFFFF00) != 0)
   {
     __break(1u);
     goto LABEL_59;
   }
 
-  v20 = 10 * v19;
-  if ((v20 & 0xF00) != 0)
+  v24 = 10 * v23;
+  if ((v24 & 0xF00) != 0)
   {
 LABEL_59:
     __break(1u);
     goto LABEL_60;
   }
 
-  v21 = v20 + (v17 - 48);
-  if ((v21 >> 8))
+  v25 = v24 + (v21 - 48);
+  if ((v25 >> 8))
   {
 LABEL_60:
     __break(1u);
     return result;
   }
 
-  if (v13 == 18 && v21)
+  if (v17 == 18 && v25)
   {
     return 0;
   }
 
-  if (v10)
+  if (v14)
   {
-    return -3600 * v13 - 60 * v21;
+    return -3600 * v17 - 60 * v25;
   }
 
-  return 3600 * v13 + 60 * v21;
+  return 3600 * v17 + 60 * v25;
 }
 
 uint64_t specialized static _TimeZoneGMT.abbreviation(for:)(uint64_t a1)
@@ -4828,14 +4829,14 @@ uint64_t specialized static _TimeZoneGMT.abbreviation(for:)(uint64_t a1)
   return result;
 }
 
-unint64_t instantiation function for generic protocol witness table for _TimeZoneGMT(uint64_t a1)
+unint64_t instantiation function for generic protocol witness table for _TimeZoneGMT(uint64_t a1, uint64_t a2)
 {
-  result = lazy protocol witness table accessor for type _TimeZoneGMT and conformance _TimeZoneGMT();
+  result = lazy protocol witness table accessor for type _TimeZoneGMT and conformance _TimeZoneGMT(a1, a2);
   *(a1 + 8) = result;
   return result;
 }
 
-unint64_t lazy protocol witness table accessor for type _TimeZoneGMT and conformance _TimeZoneGMT()
+unint64_t lazy protocol witness table accessor for type _TimeZoneGMT and conformance _TimeZoneGMT(uint64_t a1, uint64_t a2)
 {
   result = lazy protocol witness table cache variable for type _TimeZoneGMT and conformance _TimeZoneGMT;
   if (!lazy protocol witness table cache variable for type _TimeZoneGMT and conformance _TimeZoneGMT)
@@ -4862,7 +4863,7 @@ NSTimeZone __swiftcall _TimeZoneProtocol.bridgeToNSTimeZone()()
   v5 = &v4[OBJC_IVAR____NSSwiftTimeZone_timeZone];
   *v5 = v1;
   *(v5 + 1) = v2;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation11LockedStateV7_Buffer33_5DF18145B0159EAD96B3D87D9CD90006LLCyAA16_NSSwiftTimeZoneC0C0V_GMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation11LockedStateV7_Buffer33_5DF18145B0159EAD96B3D87D9CD90006LLCyAA16_NSSwiftTimeZoneC0C0V_GMd, &_s10Foundation11LockedStateV7_Buffer33_5DF18145B0159EAD96B3D87D9CD90006LLCyAA16_NSSwiftTimeZoneC0C0V_GMR);
   v6 = swift_allocObject();
   *(v6 + 32) = 0;
   *(v6 + 16) = xmmword_18122E880;
@@ -4880,7 +4881,7 @@ id protocol witness for _TimeZoneProtocol.bridgeToNSTimeZone() in conformance _T
   v6 = &v5[OBJC_IVAR____NSSwiftTimeZone_timeZone];
   *v6 = v2;
   *(v6 + 1) = a2;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation11LockedStateV7_Buffer33_5DF18145B0159EAD96B3D87D9CD90006LLCyAA16_NSSwiftTimeZoneC0C0V_GMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation11LockedStateV7_Buffer33_5DF18145B0159EAD96B3D87D9CD90006LLCyAA16_NSSwiftTimeZoneC0C0V_GMd, &_s10Foundation11LockedStateV7_Buffer33_5DF18145B0159EAD96B3D87D9CD90006LLCyAA16_NSSwiftTimeZoneC0C0V_GMR);
   v7 = swift_allocObject();
   *(v7 + 32) = 0;
   *(v7 + 16) = xmmword_18122E880;
@@ -5228,7 +5229,7 @@ uint64_t specialized URLResourceValues._get<A>(_:)@<X0>(void *a1@<X0>, uint64_t 
     memset(v8, 0, sizeof(v8));
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sypSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sypSgMd, &_sypSgMR);
   result = swift_dynamicCast();
   if ((result & 1) == 0)
   {
@@ -5247,7 +5248,7 @@ void URLResourceValues._set(_:newValue:)(void *a1, uint64_t a2, uint64_t a3)
   if (a3)
   {
     v5 = String._bridgeToObjectiveCImpl()();
-    v6 = type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSString);
+    v6 = type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSString, off_1E69EE918);
   }
 
   else
@@ -5280,7 +5281,7 @@ void URLResourceValues._set(_:newValue:)(void *a1, uint64_t a2, char a3)
     v7 = objc_allocWithZone(NSNumber);
     v8 = v5;
     v9 = [v7 initWithInteger_];
-    *(&v11 + 1) = type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSNumber);
+    *(&v11 + 1) = type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSNumber, off_1E69EE6D0);
     *&v10 = v9;
     v6 = v8;
   }
@@ -5356,7 +5357,7 @@ uint64_t (*URLResourceValues.creationDate.modify(uint64_t *a1))()
     *(v4 + 16) = 0u;
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sypSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sypSgMd, &_sypSgMR);
   v9 = swift_dynamicCast();
   if ((v9 & 1) == 0)
   {
@@ -5385,7 +5386,7 @@ void URLResourceValues.creationDate.setter(uint64_t a1, id *a2)
   else
   {
     v5 = [objc_allocWithZone(MEMORY[0x1E695DF00]) initWithTimeIntervalSinceReferenceDate_];
-    v6 = type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSDate);
+    v6 = type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSDate, 0x1E695DF00);
   }
 
   v7[0] = v5;
@@ -5422,7 +5423,7 @@ uint64_t (*URLResourceValues.contentAccessDate.modify(uint64_t *a1))()
     *(v4 + 16) = 0u;
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sypSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sypSgMd, &_sypSgMR);
   v9 = swift_dynamicCast();
   if ((v9 & 1) == 0)
   {
@@ -5451,7 +5452,7 @@ void URLResourceValues.creationDate.modify(uint64_t a1)
   else
   {
     v4 = [objc_allocWithZone(MEMORY[0x1E695DF00]) initWithTimeIntervalSinceReferenceDate_];
-    v5 = type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSDate);
+    v5 = type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSDate, 0x1E695DF00);
   }
 
   v6 = v1[7];
@@ -5491,7 +5492,7 @@ uint64_t (*URLResourceValues.contentModificationDate.modify(uint64_t *a1))()
     *(v4 + 16) = 0u;
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sypSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sypSgMd, &_sypSgMR);
   v9 = swift_dynamicCast();
   if ((v9 & 1) == 0)
   {
@@ -5515,14 +5516,14 @@ void URLResourceValues.fileSecurity.setter(void *a1)
   specialized URLResourceValues.fileSecurity.setter(a1);
 }
 
-void (*URLResourceValues.fileSecurity.modify(uint64_t *a1))(uint64_t *a1, char a2)
+void (*URLResourceValues.fileSecurity.modify(uint64_t *a1))(id *a1, char a2)
 {
   a1[1] = v1;
   *a1 = specialized URLResourceValues._get<A>(_:)(*MEMORY[0x1E695DB48], *v1);
   return URLResourceValues.fileSecurity.modify;
 }
 
-void URLResourceValues.fileSecurity.modify(uint64_t *a1, char a2)
+void URLResourceValues.fileSecurity.modify(id *a1, char a2)
 {
   v4 = *a1;
   if (a2)
@@ -5560,8 +5561,8 @@ uint64_t URLResourceValues.fileResourceIdentifier.getter(void **a1)
     memset(v6, 0, sizeof(v6));
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sypSgMd);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo9NSCopying_So14NSSecureCodingSo8NSObjectpMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sypSgMd, &_sypSgMR);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo9NSCopying_So14NSSecureCodingSo8NSObjectpMd, &_sSo9NSCopying_So14NSSecureCodingSo8NSObjectpMR);
   if (swift_dynamicCast())
   {
     return v7;
@@ -5573,7 +5574,7 @@ uint64_t URLResourceValues.fileResourceIdentifier.getter(void **a1)
   }
 }
 
-uint64_t URLResourceValues.fileProtection.getter(void **a1, void (*a2)(void))
+uint64_t URLResourceValues.fileProtection.getter(void **a1, uint64_t (*a2)(void))
 {
   v4 = *v2;
   if (*(v4 + 16) && (v5 = specialized __RawDictionaryStorage.find<A>(_:)(*a1), (v6 & 1) != 0))
@@ -5586,7 +5587,7 @@ uint64_t URLResourceValues.fileProtection.getter(void **a1, void (*a2)(void))
     memset(v8, 0, sizeof(v8));
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sypSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sypSgMd, &_sypSgMR);
   a2(0);
   if (swift_dynamicCast())
   {
@@ -5599,28 +5600,28 @@ uint64_t URLResourceValues.fileProtection.getter(void **a1, void (*a2)(void))
   }
 }
 
-uint64_t URLResourceValues.fileIdentifier.getter(void **a1)
+uint64_t URLResourceValues.fileIdentifier.getter(void **a1, uint64_t a2)
 {
-  v2 = *v1;
-  if (*(v2 + 16) && (v3 = specialized __RawDictionaryStorage.find<A>(_:)(*a1), (v4 & 1) != 0))
+  v3 = *v2;
+  if (*(v3 + 16) && (v4 = specialized __RawDictionaryStorage.find<A>(_:)(*a1), (v5 & 1) != 0))
   {
-    outlined init with copy of Any(*(v2 + 56) + 32 * v3, v8);
+    outlined init with copy of Any(*(v3 + 56) + 32 * v4, v9);
   }
 
   else
   {
-    memset(v8, 0, sizeof(v8));
+    memset(v9, 0, sizeof(v9));
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sypSgMd);
-  v5 = swift_dynamicCast();
-  v6 = v9;
-  if (!v5)
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sypSgMd, &_sypSgMR);
+  v6 = swift_dynamicCast();
+  v7 = v10;
+  if (!v6)
   {
     return 0;
   }
 
-  return v6;
+  return v7;
 }
 
 uint64_t URLResourceValues.name.setter(uint64_t a1, uint64_t a2, id *a3)
@@ -5631,7 +5632,7 @@ uint64_t URLResourceValues.name.setter(uint64_t a1, uint64_t a2, id *a3)
   if (a2)
   {
     v5 = String._bridgeToObjectiveCImpl()();
-    v6 = type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSString);
+    v6 = type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSString, off_1E69EE918);
   }
 
   else
@@ -5671,7 +5672,7 @@ uint64_t URLResourceValues.name.modify(uint64_t a1, char a2)
     if (v2)
     {
       v5 = String._bridgeToObjectiveCImpl()();
-      v6 = type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSString);
+      v6 = type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSString, off_1E69EE918);
     }
 
     else
@@ -5695,7 +5696,7 @@ uint64_t URLResourceValues.name.modify(uint64_t a1, char a2)
     if (v2)
     {
       v8 = String._bridgeToObjectiveCImpl()();
-      v9 = type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSString);
+      v9 = type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSString, off_1E69EE918);
     }
 
     else
@@ -5712,24 +5713,24 @@ uint64_t URLResourceValues.name.modify(uint64_t a1, char a2)
   }
 }
 
-uint64_t URLResourceValues.fileSecurity.getter(void **a1, unint64_t *a2)
+uint64_t URLResourceValues.fileSecurity.getter(void **a1, unint64_t *a2, void *a3)
 {
-  v4 = *v2;
-  if (*(v4 + 16) && (v5 = specialized __RawDictionaryStorage.find<A>(_:)(*a1), (v6 & 1) != 0))
+  v6 = *v3;
+  if (*(v6 + 16) && (v7 = specialized __RawDictionaryStorage.find<A>(_:)(*a1), (v8 & 1) != 0))
   {
-    outlined init with copy of Any(*(v4 + 56) + 32 * v5, v8);
+    outlined init with copy of Any(*(v6 + 56) + 32 * v7, v10);
   }
 
   else
   {
-    memset(v8, 0, sizeof(v8));
+    memset(v10, 0, sizeof(v10));
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sypSgMd);
-  type metadata accessor for NSMorphologyPronoun(0, a2);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sypSgMd, &_sypSgMR);
+  type metadata accessor for NSMorphologyPronoun(0, a2, a3);
   if (swift_dynamicCast())
   {
-    return v9;
+    return v11;
   }
 
   else
@@ -5758,7 +5759,7 @@ uint64_t URLResourceValues.ubiquitousSharedItemOwnerNameComponents.getter@<X0>(v
     memset(v8, 0, sizeof(v8));
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sypSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sypSgMd, &_sypSgMR);
   result = swift_dynamicCast();
   if ((result & 1) == 0)
   {
@@ -5768,8 +5769,9 @@ uint64_t URLResourceValues.ubiquitousSharedItemOwnerNameComponents.getter@<X0>(v
   return result;
 }
 
-uint64_t URL.init(stringOrEmpty:relativeTo:)@<X0>(uint64_t *a1@<X8>)
+uint64_t URL.init(stringOrEmpty:relativeTo:)@<X0>(uint64_t *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>, __int128 *a4@<X2>)
 {
+  v13 = *a4;
   if (one-time initialization token for compatibility2 != -1)
   {
     swift_once();
@@ -5777,36 +5779,37 @@ uint64_t URL.init(stringOrEmpty:relativeTo:)@<X0>(uint64_t *a1@<X8>)
 
   if (static URL.compatibility2 == 1 || (_foundation_swift_url_feature_enabled() & 1) == 0)
   {
-    v2 = type metadata accessor for _BridgedURL();
-    v3 = &protocol witness table for _BridgedURL;
+    v7 = type metadata accessor for _BridgedURL();
+    v8 = &protocol witness table for _BridgedURL;
   }
 
   else
   {
-    v2 = type metadata accessor for _SwiftURL();
-    v3 = &protocol witness table for _SwiftURL;
+    v7 = type metadata accessor for _SwiftURL();
+    v8 = &protocol witness table for _SwiftURL;
   }
 
-  result = (v3[4])();
+  v14 = v13;
+  result = (v8[4])(a2, a3, &v14);
   if (result)
   {
-    v5 = (v3[56])(v2, v3);
-    v7 = v6;
+    v10 = (v8[56])(v7, v8);
+    v12 = v11;
     result = swift_unknownObjectRelease();
   }
 
   else
   {
-    v5 = 0;
-    v7 = 0;
+    v10 = 0;
+    v12 = 0;
   }
 
-  *a1 = v5;
-  a1[1] = v7;
+  *a1 = v10;
+  a1[1] = v12;
   return result;
 }
 
-uint64_t URL.init(string:relativeTo:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, __int128 *a3@<X2>, uint64_t *a4@<X8>)
+uint64_t URL.init(string:relativeTo:)@<X0>(uint64_t a1@<X0>, unint64_t a2@<X1>, __int128 *a3@<X2>, uint64_t *a4@<X8>)
 {
   v14 = *a3;
   if (one-time initialization token for compatibility2 != -1)
@@ -5830,7 +5833,7 @@ uint64_t URL.init(string:relativeTo:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _
   v9 = v8[2];
   swift_unknownObjectRetain();
 
-  result = v9(a1, a2, &v15, v7, v8);
+  result = v9(a1, a2, &v15);
   if (result)
   {
     v11 = (v8[56])(v7, v8);
@@ -6285,7 +6288,7 @@ LABEL_24:
 
 void URL.init(resolvingAliasFileAt:options:)(__int128 *a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
 {
-  type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSURL);
+  type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSURL, 0x1E695DFF8);
   v25 = *a1;
   swift_unknownObjectRetain();
   v7 = @nonobjc NSURL.__allocating_init(resolvingAliasFileAt:options:)(&v25, a2);
@@ -6337,10 +6340,10 @@ LABEL_8:
   }
 }
 
-id @nonobjc NSURL.__allocating_init(resolvingAliasFileAt:options:)(uint64_t a1, uint64_t a2)
+id @nonobjc NSURL.__allocating_init(resolvingAliasFileAt:options:)(uint64_t *a1, uint64_t a2)
 {
   v10[1] = *MEMORY[0x1E69E9840];
-  v3 = *(a1 + 8);
+  v3 = a1[1];
   ObjectType = swift_getObjectType();
   v5 = (*(v3 + 432))(ObjectType, v3);
   v10[0] = 0;
@@ -6596,7 +6599,7 @@ Swift::Void __swiftcall URL.removeAllCachedResourceValues()()
 
 void *URL.bookmarkData(options:includingResourceValuesForKeys:relativeTo:)(uint64_t a1, void *a2, uint64_t *a3)
 {
-  v25[5] = *MEMORY[0x1E69E9840];
+  v26[5] = *MEMORY[0x1E69E9840];
   v8 = *a3;
   v7 = a3[1];
   v9 = *(v3 + 8);
@@ -6608,20 +6611,21 @@ void *URL.bookmarkData(options:includingResourceValuesForKeys:relativeTo:)(uint6
     v13 = a2[2];
     if (v13)
     {
-      v21 = v11;
-      v22 = a1;
-      v23 = v4;
-      v14 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCSi_Tt1g5Tm(v13, 0, &_ss23_ContiguousArrayStorageCySo16NSURLResourceKeyaGMd);
-      v24 = specialized Sequence._copyContents(initializing:)(v25, v14 + 4, v13, a2);
+      v22 = v11;
+      v23 = a1;
+      v24 = v4;
+      v14 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCSi_Tt1g5Tm(v13, 0, &_ss23_ContiguousArrayStorageCySo16NSURLResourceKeyaGMd, &_ss23_ContiguousArrayStorageCySo16NSURLResourceKeyaGMR);
+      v25 = specialized Sequence._copyContents(initializing:)(v26, v14 + 4, v13, a2);
+      v15 = v26[0];
 
-      outlined consume of Set<AnyKeyPath>.Iterator._Variant();
-      if (v24 != v13)
+      outlined consume of Set<AnyKeyPath>.Iterator._Variant(v15);
+      if (v25 != v13)
       {
         __break(1u);
         goto LABEL_18;
       }
 
-      v12 = v21;
+      v12 = v22;
     }
 
     type metadata accessor for NSURLResourceKey(0);
@@ -6630,8 +6634,8 @@ void *URL.bookmarkData(options:includingResourceValuesForKeys:relativeTo:)(uint6
 
   if (v8)
   {
-    v15 = swift_getObjectType();
-    v14 = (*(v7 + 432))(v15, v7);
+    v16 = swift_getObjectType();
+    v14 = (*(v7 + 432))(v16, v7);
   }
 
   else
@@ -6639,14 +6643,14 @@ void *URL.bookmarkData(options:includingResourceValuesForKeys:relativeTo:)(uint6
     v14 = 0;
   }
 
-  v25[0] = 0;
-  v16 = [v12 bookmarkDataWithOptions:a1 includingResourceValuesForKeys:a2 relativeToURL:v14 error:{v25, v21, v22, v23}];
+  v26[0] = 0;
+  v17 = [v12 bookmarkDataWithOptions:a1 includingResourceValuesForKeys:a2 relativeToURL:v14 error:{v26, v22, v23, v24}];
 
-  if (!v16)
+  if (!v17)
   {
-    if (v25[0])
+    if (v26[0])
     {
-      v25[0];
+      v26[0];
 LABEL_15:
       swift_willThrow();
       return v14;
@@ -6655,7 +6659,7 @@ LABEL_15:
     if (one-time initialization token for _nilObjCError == -1)
     {
 LABEL_14:
-      v19 = _nilObjCError;
+      v20 = _nilObjCError;
       goto LABEL_15;
     }
 
@@ -6664,9 +6668,9 @@ LABEL_18:
     goto LABEL_14;
   }
 
-  v17 = v25[0];
-  v18 = v16;
-  v14 = specialized Data.init(referencing:)(v18);
+  v18 = v26[0];
+  v19 = v17;
+  v14 = specialized Data.init(referencing:)(v19);
 
   return v14;
 }
@@ -6674,14 +6678,15 @@ LABEL_18:
 void static URL.resourceValues(forKeys:fromBookmarkData:)(uint64_t a1@<X0>, uint64_t a2@<X1>, unint64_t a3@<X2>, uint64_t *a4@<X8>)
 {
   v4 = a3;
-  v26 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v8 = *(a1 + 16);
   if (v8)
   {
-    v9 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCSi_Tt1g5Tm(v8, 0, &_ss23_ContiguousArrayStorageCySo16NSURLResourceKeyaGMd);
-    v10 = specialized Sequence._copyContents(initializing:)(&v20, v9 + 4, v8, a1);
+    v9 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCSi_Tt1g5Tm(v8, 0, &_ss23_ContiguousArrayStorageCySo16NSURLResourceKeyaGMd, &_ss23_ContiguousArrayStorageCySo16NSURLResourceKeyaGMR);
+    v10 = specialized Sequence._copyContents(initializing:)(&v21, v9 + 4, v8, a1);
+    v11 = v21;
 
-    outlined consume of Set<AnyKeyPath>.Iterator._Variant();
+    outlined consume of Set<AnyKeyPath>.Iterator._Variant(v11);
     if (v10 != v8)
     {
       __break(1u);
@@ -6692,24 +6697,24 @@ void static URL.resourceValues(forKeys:fromBookmarkData:)(uint64_t a1@<X0>, uint
   }
 
   type metadata accessor for NSURLResourceKey(0);
-  v11 = _ContiguousArrayBuffer._asCocoaArray()();
-  v12 = v4 >> 62;
+  v12 = _ContiguousArrayBuffer._asCocoaArray()();
+  v13 = v4 >> 62;
   if ((v4 >> 62) <= 1)
   {
-    if (!v12)
+    if (!v13)
     {
-      v20 = a2;
-      v21 = v4;
-      v22 = BYTE2(v4);
-      v23 = BYTE3(v4);
-      v24 = BYTE4(v4);
-      v25 = BYTE5(v4);
-      v13 = [objc_allocWithZone(MEMORY[0x1E695DEF0]) initWithBytes:&v20 length:BYTE6(v4)];
+      v21 = a2;
+      v22 = v4;
+      v23 = BYTE2(v4);
+      v24 = BYTE3(v4);
+      v25 = BYTE4(v4);
+      v26 = BYTE5(v4);
+      v14 = [objc_allocWithZone(MEMORY[0x1E695DEF0]) initWithBytes:&v21 length:BYTE6(v4)];
       goto LABEL_12;
     }
 
-    v14 = a2;
-    v15 = a2 >> 32;
+    v15 = a2;
+    v16 = a2 >> 32;
     if (a2 >> 32 >= a2)
     {
       goto LABEL_10;
@@ -6719,30 +6724,30 @@ LABEL_17:
     __break(1u);
   }
 
-  if (v12 == 2)
+  if (v13 == 2)
   {
-    v14 = *(a2 + 16);
-    v15 = *(a2 + 24);
+    v15 = *(a2 + 16);
+    v16 = *(a2 + 24);
 LABEL_10:
-    v13 = __DataStorage.bridgedReference(_:)(v14, v15);
+    v14 = __DataStorage.bridgedReference(_:)(v15, v16);
     goto LABEL_12;
   }
 
-  v13 = [objc_allocWithZone(MEMORY[0x1E695DEF0]) init];
+  v14 = [objc_allocWithZone(MEMORY[0x1E695DEF0]) init];
 LABEL_12:
-  v16 = v13;
-  v17 = [objc_opt_self() resourceValuesForKeys:v11 fromBookmarkData:v13];
+  v17 = v14;
+  v18 = [objc_opt_self() resourceValuesForKeys:v12 fromBookmarkData:v14];
   swift_unknownObjectRelease();
 
-  if (v17)
+  if (v18)
   {
-    v20 = 0;
-    _sSD10FoundationE26_forceBridgeFromObjectiveC_6resultySo12NSDictionaryC_SDyxq_GSgztFZSo16NSURLResourceKeya_ypTt1g5(v17, &v20);
-    v18 = v20;
-    if (v20)
+    v21 = 0;
+    _sSD10FoundationE26_forceBridgeFromObjectiveC_6resultySo12NSDictionaryC_SDyxq_GSgztFZSo16NSURLResourceKeya_ypTt1g5(v18, &v21);
+    v19 = v21;
+    if (v21)
     {
 
-      *a4 = v18;
+      *a4 = v19;
       a4[1] = a1;
     }
 
@@ -6914,70 +6919,70 @@ void *URL.append<A>(component:directoryHint:)(uint64_t a1, char *a2, uint64_t a3
   return result;
 }
 
-uint64_t URL.appending(queryItems:)@<X0>(uint64_t *a1@<X8>)
+uint64_t URL.appending(queryItems:)@<X0>(uint64_t *a2@<X8>)
 {
-  v3 = *v1;
-  v4 = v1[1];
+  v4 = *v2;
+  v5 = v2[1];
   ObjectType = swift_getObjectType();
-  v6 = (*(v4 + 112))(ObjectType, v4);
-  specialized URLComponents._URLComponents.init(string:encodingInvalidCharacters:)(v6, v7, 1, &v33);
-  if (_s10Foundation13URLComponentsV01_B0VSgWOg(&v33) == 1)
+  v7 = (*(v5 + 112))(ObjectType, v5);
+  specialized URLComponents._URLComponents.init(string:encodingInvalidCharacters:)(v7, v8, 1, &v34);
+  if (_s10Foundation13URLComponentsV01_B0VSgWOg(&v34) == 1)
   {
-    *a1 = v3;
-    a1[1] = v4;
+    *a2 = v4;
+    a2[1] = v5;
     return swift_unknownObjectRetain();
   }
 
   else
   {
-    v30 = v39;
     v31 = v40;
-    v32[0] = v41[0];
-    *(v32 + 10) = *(v41 + 10);
-    v26 = v35;
+    v32 = v41;
+    v33[0] = v42[0];
+    *(v33 + 10) = *(v42 + 10);
     v27 = v36;
     v28 = v37;
     v29 = v38;
-    *&v24[1] = v33;
-    v25 = v34;
-    v41[8] = v39;
-    v41[9] = v40;
-    v42[0] = v41[0];
-    *(v42 + 10) = *(v41 + 10);
-    v41[4] = v35;
-    v41[5] = v36;
-    v41[6] = v37;
-    v41[7] = v38;
-    v41[2] = v33;
-    v41[3] = v34;
-    v9 = URLComponents._URLComponents.queryItems(percentEncoded:)(0);
-    v10 = MEMORY[0x1E69E7CC0];
-    if (v9)
+    v30 = v39;
+    *&v25[1] = v34;
+    v26 = v35;
+    v42[8] = v40;
+    v42[9] = v41;
+    v43[0] = v42[0];
+    *(v43 + 10) = *(v42 + 10);
+    v42[4] = v36;
+    v42[5] = v37;
+    v42[6] = v38;
+    v42[7] = v39;
+    v42[2] = v34;
+    v42[3] = v35;
+    v10 = URLComponents._URLComponents.queryItems(percentEncoded:)(0);
+    v11 = MEMORY[0x1E69E7CC0];
+    if (v10)
     {
-      v10 = v9;
+      v11 = v10;
     }
 
-    v24[0] = v10;
+    v25[0] = v11;
 
-    specialized Array.append<A>(contentsOf:)(v11);
-    v43.value._rawValue = v24[0];
-    URLComponents._URLComponents.setQueryItems(_:)(v43);
+    specialized Array.append<A>(contentsOf:)(v12);
+    v44.value._rawValue = v25[0];
+    URLComponents._URLComponents.setQueryItems(_:)(v44);
 
-    v21 = v30;
     v22 = v31;
-    v23[0] = v32[0];
-    *(v23 + 10) = *(v32 + 10);
-    v17 = v26;
+    v23 = v32;
+    v24[0] = v33[0];
+    *(v24 + 10) = *(v33 + 10);
     v18 = v27;
     v19 = v28;
     v20 = v29;
-    v15 = *&v24[1];
-    v16 = v25;
-    URLComponents.url.getter(v14);
-    if (v14[0])
+    v21 = v30;
+    v16 = *&v25[1];
+    v17 = v26;
+    URLComponents.url.getter(v15);
+    if (v15[0])
     {
-      v4 = v14[1];
-      v3 = v14[0];
+      v5 = v15[1];
+      v4 = v15[0];
     }
 
     else
@@ -6985,19 +6990,19 @@ uint64_t URL.appending(queryItems:)@<X0>(uint64_t *a1@<X8>)
       swift_unknownObjectRetain();
     }
 
-    *a1 = v3;
-    a1[1] = v4;
-    v12[6] = v30;
-    v12[7] = v31;
-    v13[0] = v32[0];
-    *(v13 + 10) = *(v32 + 10);
-    v12[2] = v26;
-    v12[3] = v27;
-    v12[4] = v28;
-    v12[5] = v29;
-    v12[0] = *&v24[1];
-    v12[1] = v25;
-    return outlined destroy of URLComponents(v12);
+    *a2 = v4;
+    a2[1] = v5;
+    v13[6] = v31;
+    v13[7] = v32;
+    v14[0] = v33[0];
+    *(v14 + 10) = *(v33 + 10);
+    v13[2] = v27;
+    v13[3] = v28;
+    v13[4] = v29;
+    v13[5] = v30;
+    v13[0] = *&v25[1];
+    v13[1] = v26;
+    return outlined destroy of URLComponents(v13);
   }
 }
 
@@ -7573,48 +7578,48 @@ LABEL_7:
   return 1;
 }
 
-uint64_t NSURL._toCustomAnyHashable()()
+uint64_t NSURL._toCustomAnyHashable()(uint64_t a1)
 {
   if (!_foundation_swift_nsurl_feature_enabled())
   {
-    v7 = type metadata accessor for _BridgedURL();
-    v8 = objc_allocWithZone(v7);
-    *&v8[OBJC_IVAR____TtC10Foundation11_BridgedURL__url] = v0;
-    v20.receiver = v8;
-    v20.super_class = v7;
-    v9 = v0;
-    v10 = objc_msgSendSuper2(&v20, sel_init, v17.receiver, v17.super_class);
+    v8 = type metadata accessor for _BridgedURL();
+    v9 = objc_allocWithZone(v8);
+    *&v9[OBJC_IVAR____TtC10Foundation11_BridgedURL__url] = v1;
+    v21.receiver = v9;
+    v21.super_class = v8;
+    v10 = v1;
+    v11 = objc_msgSendSuper2(&v21, sel_init, v18.receiver, v18.super_class);
 LABEL_6:
-    v14 = v10;
-    v4 = _BridgedURL.convertingFileReference()();
-    v6 = v15;
+    v15 = v11;
+    v5 = _BridgedURL.convertingFileReference()();
+    v7 = v16;
 
     goto LABEL_7;
   }
 
   type metadata accessor for _NSSwiftURL();
-  v1 = swift_dynamicCastClass();
-  if (!v1)
+  v2 = swift_dynamicCastClass();
+  if (!v2)
   {
-    v11 = type metadata accessor for _BridgedURL();
-    v12 = objc_allocWithZone(v11);
-    *&v12[OBJC_IVAR____TtC10Foundation11_BridgedURL__url] = v0;
-    v17.receiver = v12;
-    v13 = v0;
-    v10 = objc_msgSendSuper2(&v17, sel_init, v17.receiver, v11);
+    v12 = type metadata accessor for _BridgedURL();
+    v13 = objc_allocWithZone(v12);
+    *&v13[OBJC_IVAR____TtC10Foundation11_BridgedURL__url] = v1;
+    v18.receiver = v13;
+    v14 = v1;
+    v11 = objc_msgSendSuper2(&v18, sel_init, v18.receiver, v12);
     goto LABEL_6;
   }
 
-  v2 = v1;
+  v3 = v2;
   type metadata accessor for _BridgedNSSwiftURL();
-  *(swift_allocObject() + 16) = v2;
-  v3 = v0;
-  v4 = _BridgedNSSwiftURL.convertingFileReference()();
-  v6 = v5;
+  *(swift_allocObject() + 16) = v3;
+  v4 = v1;
+  v5 = _BridgedNSSwiftURL.convertingFileReference()();
+  v7 = v6;
 
 LABEL_7:
-  v18 = v4;
-  v19 = v6;
+  v19 = v5;
+  v20 = v7;
   lazy protocol witness table accessor for type URL and conformance URL();
   return AnyHashable.init<A>(_:)();
 }
@@ -7622,7 +7627,7 @@ LABEL_7:
 void protocol witness for _HasCustomAnyHashableRepresentation._toCustomAnyHashable() in conformance NSURL()
 {
   v1 = *v0;
-  NSURL._toCustomAnyHashable()();
+  NSURL._toCustomAnyHashable()(*v0);
 }
 
 uint64_t URL.customPlaygroundQuickLook.getter@<X0>(uint64_t a1@<X8>)
@@ -7732,7 +7737,7 @@ void *_ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_
     return MEMORY[0x1E69E7CC0];
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys7UnicodeO6ScalarVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys7UnicodeO6ScalarVGMd, &_ss23_ContiguousArrayStorageCys7UnicodeO6ScalarVGMR);
   v4 = swift_allocObject();
   v5 = _swift_stdlib_malloc_size(v4);
   result = v4;
@@ -7766,7 +7771,7 @@ void *_ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_
     return MEMORY[0x1E69E7CC0];
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation6LocaleV15NumberingSystemVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation6LocaleV15NumberingSystemVGMd, &_ss23_ContiguousArrayStorageCy10Foundation6LocaleV15NumberingSystemVGMR);
   v4 = swift_allocObject();
   v5 = _swift_stdlib_malloc_size(v4);
   result = v4;
@@ -7800,7 +7805,7 @@ void *_ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_
     return MEMORY[0x1E69E7CC0];
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation18AttributeContainerV_SnyAC16AttributedStringV5IndexVGtGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation18AttributeContainerV_SnyAC16AttributedStringV5IndexVGtGMd, &_ss23_ContiguousArrayStorageCy10Foundation18AttributeContainerV_SnyAC16AttributedStringV5IndexVGtGMR);
   v4 = swift_allocObject();
   v5 = _swift_stdlib_malloc_size(v4);
   result = v4;
@@ -7827,7 +7832,7 @@ void *_ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_
     return MEMORY[0x1E69E7CC0];
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation16AttributedStringV12_InternalRunVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation16AttributedStringV12_InternalRunVGMd, &_ss23_ContiguousArrayStorageCy10Foundation16AttributedStringV12_InternalRunVGMR);
   v4 = swift_allocObject();
   v5 = _swift_stdlib_malloc_size(v4);
   result = v4;
@@ -7854,7 +7859,7 @@ void *_ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_
     return MEMORY[0x1E69E7CC0];
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
   v4 = swift_allocObject();
   v5 = _swift_stdlib_malloc_size(v4);
   result = v4;
@@ -7871,30 +7876,30 @@ void *_ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_
   return result;
 }
 
-void *_ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC10Foundation16AttributedStringV4RunsV3RunV_Tt1g5Tm(uint64_t a1, uint64_t a2, uint64_t *a3)
+void *_ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC10Foundation16AttributedStringV4RunsV3RunV_Tt1g5Tm(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
   if (a2 <= a1)
   {
-    v3 = a1;
+    v4 = a1;
   }
 
   else
   {
-    v3 = a2;
+    v4 = a2;
   }
 
-  if (!v3)
+  if (!v4)
   {
     return MEMORY[0x1E69E7CC0];
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(a3);
-  v5 = swift_allocObject();
-  v6 = _swift_stdlib_malloc_size(v5);
-  result = v5;
-  v8 = ((v6 - 32) * 0x2E8BA2E8BA2E8BA3) >> 64;
-  v5[2] = a1;
-  v5[3] = 2 * ((v8 >> 4) + (v8 >> 63));
+  __swift_instantiateConcreteTypeFromMangledNameV2(a3, a4);
+  v6 = swift_allocObject();
+  v7 = _swift_stdlib_malloc_size(v6);
+  result = v6;
+  v9 = ((v7 - 32) * 0x2E8BA2E8BA2E8BA3) >> 64;
+  v6[2] = a1;
+  v6[3] = 2 * ((v9 >> 4) + (v9 >> 63));
   return result;
 }
 
@@ -7915,7 +7920,7 @@ void *_ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_
     return MEMORY[0x1E69E7CC0];
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation14InflectionRuleOSg_SnyAC16AttributedStringV5IndexVGtGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation14InflectionRuleOSg_SnyAC16AttributedStringV5IndexVGtGMd, &_ss23_ContiguousArrayStorageCy10Foundation14InflectionRuleOSg_SnyAC16AttributedStringV5IndexVGtGMR);
   v4 = swift_allocObject();
   v5 = _swift_stdlib_malloc_size(v4);
   result = v4;
@@ -8459,7 +8464,7 @@ LABEL_19:
 
   v7 = *v3;
   v8 = v7 + 32 + 16 * result;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_syycMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_syycMd, &_syycMR);
   result = swift_arrayDestroy();
   v9 = __OFSUB__(a3, v4);
   v10 = a3 - v4;
@@ -8700,13 +8705,13 @@ LABEL_19:
   return result;
 }
 
-uint64_t specialized URLResourceValues.fileSecurity.setter(uint64_t a1)
+uint64_t specialized URLResourceValues.fileSecurity.setter(void *a1)
 {
   v1 = a1;
   v2 = *MEMORY[0x1E695DB48];
   if (a1)
   {
-    a1 = type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSFileSecurity);
+    a1 = type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSFileSecurity, 0x1E695DF40);
     v3 = v1;
   }
 
@@ -9461,7 +9466,7 @@ LABEL_30:
   return v25;
 }
 
-id _BridgedURL.init(fileURLWithFileSystemRepresentation:isDirectory:relativeTo:)(uint64_t a1, char a2, void *a3)
+id _BridgedURL.init(fileURLWithFileSystemRepresentation:isDirectory:relativeTo:)(uint64_t a1, char a2, uint64_t *a3)
 {
   v4 = v3;
   ObjectType = swift_getObjectType();
@@ -9610,7 +9615,7 @@ LABEL_44:
           v46 = v44(v25, v31);
           v48 = v47;
 
-          __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCys5UInt8VGMd);
+          __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCys5UInt8VGMd, &_ss11_SetStorageCys5UInt8VGMR);
           v49 = static _SetStorage.allocate(capacity:)();
           v50 = v49 + 56;
           v51 = *(v49 + 40);

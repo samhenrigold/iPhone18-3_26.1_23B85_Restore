@@ -627,14 +627,14 @@ LABEL_96:
 
 - (id)formattedDescription:(unint64_t)description
 {
-  v34[5] = *MEMORY[0x1E69E9840];
+  v33[5] = *MEMORY[0x1E69E9840];
   v4 = [@"\n" stringByPaddingToLength:description + 4 withString:@" " startingAtIndex:0];
   v5 = [MEMORY[0x1E695DF70] arrayWithCapacity:8];
   for (i = 0; i != 8; ++i)
   {
-    v32[0] = v4;
-    v32[1] = [MEMORY[0x1E696AEC0] stringWithFormat:@"Color Attachment %u", i];
-    [v5 addObjectsFromArray:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v32, 2)}];
+    v31[0] = v4;
+    v31[1] = [MEMORY[0x1E696AEC0] stringWithFormat:@"Color Attachment %u", i];
+    [v5 addObjectsFromArray:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v31, 2)}];
     v7 = self->_private.attachments->_color_descriptors[i];
     if (v7)
     {
@@ -649,8 +649,8 @@ LABEL_96:
     [v5 addObject:{colorAttachmentFormattedDescription(description + 4, p_private)}];
   }
 
-  v31[0] = v4;
-  v31[1] = @"Depth Attachment:";
+  v30[0] = v4;
+  v30[1] = @"Depth Attachment:";
   depth_descriptor = self->_private.attachments->_depth_descriptor;
   if (depth_descriptor)
   {
@@ -662,9 +662,9 @@ LABEL_96:
     v10 = &defaultDepthAttachmentPrivate;
   }
 
-  v31[2] = depthAttachmentFormattedDescription(description + 4, v10);
-  v31[3] = v4;
-  v31[4] = @"Stencil Attachment:";
+  v30[2] = depthAttachmentFormattedDescription(description + 4, v10);
+  v30[3] = v4;
+  v30[4] = @"Stencil Attachment:";
   stencil_descriptor = self->_private.attachments->_stencil_descriptor;
   if (stencil_descriptor)
   {
@@ -676,9 +676,9 @@ LABEL_96:
     v12 = &defaultStencilAttachmentPrivate;
   }
 
-  v31[5] = stencilAttachmentFormattedDescription(description + 4, v12);
-  v31[6] = v4;
-  v31[7] = @"visibilityResultBuffer =";
+  v30[5] = stencilAttachmentFormattedDescription(description + 4, v12);
+  v30[6] = v4;
+  v30[7] = @"visibilityResultBuffer =";
   visibilityResultBuffer = self->_private.visibilityResultBuffer;
   if (visibilityResultBuffer)
   {
@@ -690,18 +690,18 @@ LABEL_96:
     v14 = @"<null>";
   }
 
-  v31[8] = v14;
-  v31[9] = v4;
-  v31[10] = @"renderTargetArrayLength =";
-  v31[11] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_private.renderTargetArrayLength];
-  v31[12] = v4;
-  v31[13] = @"renderTargetWidth =";
-  v31[14] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_private.renderTargetWidth];
-  v31[15] = v4;
-  v31[16] = @"renderTargetHeight =";
-  v31[17] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_private.renderTargetHeight];
-  v31[18] = v4;
-  v31[19] = @"rasterizationRateMap =";
+  v30[8] = v14;
+  v30[9] = v4;
+  v30[10] = @"renderTargetArrayLength =";
+  v30[11] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_private.renderTargetArrayLength];
+  v30[12] = v4;
+  v30[13] = @"renderTargetWidth =";
+  v30[14] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_private.renderTargetWidth];
+  v30[15] = v4;
+  v30[16] = @"renderTargetHeight =";
+  v30[17] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_private.renderTargetHeight];
+  v30[18] = v4;
+  v30[19] = @"rasterizationRateMap =";
   rasterizationRateMap = self->_private.rasterizationRateMap;
   if (rasterizationRateMap)
   {
@@ -713,18 +713,18 @@ LABEL_96:
     v16 = @"<null>";
   }
 
-  v31[20] = v16;
-  v31[21] = v4;
+  v30[20] = v16;
+  v30[21] = v4;
   v17 = @"Reset";
   if (self->_private.visibilityResultType)
   {
     v17 = @"Accumulate";
   }
 
-  v31[22] = @"visibilityResultType =";
-  v31[23] = v17;
-  v31[24] = v4;
-  v31[25] = @"supportColorAttachmentMapping =";
+  v30[22] = @"visibilityResultType =";
+  v30[23] = v17;
+  v30[24] = v4;
+  v30[25] = @"supportColorAttachmentMapping =";
   if (self->_private.supportColorAttachmentMapping)
   {
     v18 = @"YES";
@@ -735,36 +735,36 @@ LABEL_96:
     v18 = @"NO";
   }
 
-  v31[26] = v18;
-  [v5 addObjectsFromArray:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v31, 27)}];
+  v30[26] = v18;
+  [v5 addObjectsFromArray:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v30, 27)}];
   v19 = [@"\n" stringByPaddingToLength:description + 4 withString:@" " startingAtIndex:0];
   v20 = [@"\n" stringByPaddingToLength:description + 8 withString:@" " startingAtIndex:0];
   v21 = [MEMORY[0x1E695DF70] arrayWithCapacity:69];
-  v34[0] = v19;
-  v34[1] = @"Custom Sample Positions:";
-  v34[2] = v20;
-  v34[3] = @"number of positions = ";
-  v34[4] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_private.numCustomSamplePositions];
-  [v21 addObjectsFromArray:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v34, 5)}];
+  v33[0] = v19;
+  v33[1] = @"Custom Sample Positions:";
+  v33[2] = v20;
+  v33[3] = @"number of positions = ";
+  v33[4] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_private.numCustomSamplePositions];
+  [v21 addObjectsFromArray:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v33, 5)}];
   if (self->_private.numCustomSamplePositions)
   {
     v22 = 0;
     p_y = &self->_private.customSamplePositions[0].y;
     do
     {
-      v33[0] = v20;
-      v33[1] = @"sample ";
-      v33[2] = [MEMORY[0x1E696AD98] numberWithInt:v22];
-      v33[3] = @": <";
+      v32[0] = v20;
+      v32[1] = @"sample ";
+      v32[2] = [MEMORY[0x1E696AD98] numberWithInt:v22];
+      v32[3] = @": <";
       *&v24 = *(p_y - 1);
-      v33[4] = [MEMORY[0x1E696AD98] numberWithFloat:v24];
-      v33[5] = @",";
+      v32[4] = [MEMORY[0x1E696AD98] numberWithFloat:v24];
+      v32[5] = @",";
       v25 = *p_y;
       p_y += 2;
       LODWORD(v26) = v25;
-      v33[6] = [MEMORY[0x1E696AD98] numberWithFloat:v26];
-      v33[7] = @">";
-      [v21 addObjectsFromArray:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v33, 8)}];
+      v32[6] = [MEMORY[0x1E696AD98] numberWithFloat:v26];
+      v32[7] = @">";
+      [v21 addObjectsFromArray:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v32, 8)}];
       ++v22;
     }
 
@@ -772,11 +772,9 @@ LABEL_96:
   }
 
   [v5 addObject:{objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"%@\n", objc_msgSend(v21, "componentsJoinedByString:", &stru_1EF478240))}];
-  v30.receiver = self;
-  v30.super_class = MTLRenderPassDescriptorInternal;
-  result = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%@", -[MTLRenderPassDescriptorInternal description](&v30, sel_description), objc_msgSend(v5, "componentsJoinedByString:", @" "];
-  v28 = *MEMORY[0x1E69E9840];
-  return result;
+  v29.receiver = self;
+  v29.super_class = MTLRenderPassDescriptorInternal;
+  return [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%@", -[MTLRenderPassDescriptorInternal description](&v29, sel_description), objc_msgSend(v5, "componentsJoinedByString:", @" "];
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -991,10 +989,10 @@ LABEL_6:
 
 - (void)setVisibilityResultBuffer:(uint64_t)a3 .cold.1(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
-  if (([a1 conformsToProtocol:&unk_1EF5054C8] & 1) == 0)
+  if (([a1 conformsToProtocol:{&unk_1EF5054C8, a4, a5, a6, a7, a8}] & 1) == 0)
   {
 
-    MTLReportFailure(1, "[MTLRenderPassDescriptorInternal setVisibilityResultBuffer:]", 2157, @"buffer is not a MTLBuffer.", v9, v10, v11, v12, a9);
+    MTLReportFailure(1uLL, "[MTLRenderPassDescriptorInternal setVisibilityResultBuffer:]", 2157, @"buffer is not a MTLBuffer.", v9, v10, v11, v12, a9);
   }
 }
 

@@ -89,7 +89,7 @@
 
 - ($94F468A8D4C62B317260615823C2B210)lifeSpanAtIndexPoint:(CGPoint)point
 {
-  [(KNBuildAnvilSmokeSystem *)self duration:point.x];
+  objc_msgSend_duration(self, a2, point.x, point.y);
   v5 = v4;
   randomGenerator = [(KNBuildAnvilSmokeSystem *)self randomGenerator];
   [randomGenerator doubleBetween:0.15 :1.0];

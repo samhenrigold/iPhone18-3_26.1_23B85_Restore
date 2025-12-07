@@ -7,131 +7,131 @@
 + (id)evaluateForArgsWithContext:(id)context functionSpec:(id)spec arguments:(const void *)arguments
 {
   v8 = **arguments;
-  v168 = 0;
-  v10 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(v8, v9, context, spec, 0, &v168);
-  v11 = v168;
+  v135 = 0;
+  v10 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(v8, v9, context, spec, 0, &v135);
+  v11 = v135;
   if (v11)
   {
-    v15 = v11;
-    v16 = objc_msgSend_raiseErrorOrConvert_(context, v12, v11, v13, v14);
+    v14 = v11;
+    v15 = objc_msgSend_raiseErrorOrConvert_(context, v12, v11, v13);
     goto LABEL_25;
   }
 
-  v21 = sub_22119E890(context, v10);
-  if (*(arguments + 1) - *arguments < 9uLL || (objc_msgSend_isTokenOrEmptyArg(*(*arguments + 8), v17, v18, v19, v20) & 1) != 0)
+  v19 = sub_22119E890(context, v10);
+  if (*(arguments + 1) - *arguments < 9uLL || (objc_msgSend_isTokenOrEmptyArg(*(*arguments + 8), v16, v17, v18) & 1) != 0)
   {
-    v22 = objc_msgSend_nilValue(TSCENilValue, v17, v18, v19, v20);
-    v23 = sub_22119E890(context, v22);
+    v20 = objc_msgSend_nilValue(TSCENilValue, v16, v17, v18);
+    v21 = sub_22119E890(context, v20);
 LABEL_6:
 
-    v28 = objc_msgSend_locale(context, v24, v25, v26, v27);
-    v33 = objc_msgSend_locale(v28, v29, v30, v31, v32);
-    v37 = objc_msgSend_uppercaseStringWithLocale_(v21, v34, v33, v35, v36);
+    v25 = objc_msgSend_locale(context, v22, v23, v24);
+    v29 = objc_msgSend_locale(v25, v26, v27, v28);
+    v32 = objc_msgSend_uppercaseStringWithLocale_(v19, v30, v29, v31);
 
-    v42 = objc_msgSend_locale(context, v38, v39, v40, v41);
-    v47 = objc_msgSend_locale(v42, v43, v44, v45, v46);
-    v51 = objc_msgSend_uppercaseStringWithLocale_(v23, v48, v47, v49, v50);
+    v36 = objc_msgSend_locale(context, v33, v34, v35);
+    v40 = objc_msgSend_locale(v36, v37, v38, v39);
+    v43 = objc_msgSend_uppercaseStringWithLocale_(v21, v41, v40, v42);
 
-    if (objc_msgSend_isEqualToString_(v51, v52, v37, v53, v54))
+    if (objc_msgSend_isEqualToString_(v43, v44, v32, v45))
     {
-      if (objc_msgSend_hasUnits(v10, v55, v56, v57, v58) && objc_msgSend_dimension(v10, v59, v60, v61, v62) == 4)
+      if (objc_msgSend_hasUnits(v10, v46, v47, v48) && objc_msgSend_dimension(v10, v49, v50, v51) == 4)
       {
-        v64 = objc_msgSend_unit(v10, v59, v63, v61, v62);
+        v53 = objc_msgSend_unit(v10, v49, v52, v51);
       }
 
       else
       {
-        v64 = 0;
+        v53 = 0;
       }
 
-      v105 = objc_msgSend_unitForCurrencyCode_(TSCEUnitRegistry, v59, v51, v61, v62);
-      if (v64 == v105)
+      v85 = objc_msgSend_unitForCurrencyCode_(TSCEUnitRegistry, v49, v43, v51);
+      if (v53 == v85)
       {
-        v106 = v10;
+        v86 = v10;
       }
 
       else
       {
-        v169 = objc_msgSend_decimalRepresentation(v10, v101, v102, v103, v104);
-        v170 = v112;
-        v106 = objc_msgSend_numberWithDecimal_baseUnit_(TSCENumberValue, v112, &v169, v105, v113);
+        v136 = objc_msgSend_decimalRepresentation(v10, v82, v83, v84);
+        v137 = v91;
+        v86 = objc_msgSend_numberWithDecimal_baseUnit_(TSCENumberValue, v91, &v136, v85);
       }
 
-      v16 = v106;
+      v15 = v86;
     }
 
     else
     {
-      v164 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v55, @"%@%@=X", v57, v58, v37, v51);
-      v165 = objc_msgSend_specifierWithFunctionIndex_symbol_attribute_(TSCERemoteDataSpecifier, v65, 300, v164, 24);
-      objc_msgSend_addRemoteDataSpecifierInterestedIn_(context, v66, v165, v67, v68);
-      v73 = objc_msgSend_calcEngine(context, v69, v70, v71, v72);
-      v78 = objc_msgSend_remoteDataStore(v73, v74, v75, v76, v77);
+      v131 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v46, @"%@%@=X", v48, v32, v43);
+      v132 = objc_msgSend_specifierWithFunctionIndex_symbol_attribute_(TSCERemoteDataSpecifier, v54, 300, v131, 24);
+      objc_msgSend_addRemoteDataSpecifierInterestedIn_(context, v55, v132, v56);
+      v60 = objc_msgSend_calcEngine(context, v57, v58, v59);
+      v64 = objc_msgSend_remoteDataStore(v60, v61, v62, v63);
 
-      v163 = v78;
-      v82 = objc_msgSend_valueForRemoteData_(v78, v79, v165, v80, v81);
-      v87 = objc_msgSend_asErrorValue(v82, v83, v84, v85, v86);
-      v92 = objc_msgSend_error(v87, v88, v89, v90, v91);
-      LODWORD(v78) = objc_msgSend_isNotReadyError(v92, v93, v94, v95, v96);
+      v130 = v64;
+      v67 = objc_msgSend_valueForRemoteData_(v64, v65, v132, v66);
+      v71 = objc_msgSend_asErrorValue(v67, v68, v69, v70);
+      v75 = objc_msgSend_error(v71, v72, v73, v74);
+      LODWORD(v64) = objc_msgSend_isNotReadyError(v75, v76, v77, v78);
 
-      if (v78)
+      if (v64)
       {
-        v16 = v82;
+        v15 = v67;
       }
 
-      else if (objc_msgSend_nativeType(v82, v97, v98, v99, v100) == 5)
+      else if (objc_msgSend_nativeType(v67, v79, v80, v81) == 5)
       {
-        v118 = objc_msgSend_number(v82, v114, v115, v116, v117);
-        v166[2] = objc_msgSend_decimalRepresentation(v118, v119, v120, v121, v122);
-        v166[3] = v123;
+        v95 = objc_msgSend_number(v67, v92, v93, v94);
+        v133[2] = objc_msgSend_decimalRepresentation(v95, v96, v97, v98);
+        v133[3] = v99;
 
-        v128 = objc_msgSend_decimalRepresentation(v10, v124, v125, v126, v127);
-        v130 = v129;
-        v134 = objc_msgSend_locale(context, v129, v131, v132, v133);
-        v139 = objc_msgSend_locale(v134, v135, v136, v137, v138);
-        v143 = objc_msgSend_uppercaseStringWithLocale_(v51, v140, v139, v141, v142);
+        v103 = objc_msgSend_decimalRepresentation(v10, v100, v101, v102);
+        v105 = v104;
+        v108 = objc_msgSend_locale(context, v104, v106, v107);
+        v112 = objc_msgSend_locale(v108, v109, v110, v111);
+        v115 = objc_msgSend_uppercaseStringWithLocale_(v43, v113, v112, v114);
 
-        v147 = objc_msgSend_unitForCurrencyCode_(TSCEUnitRegistry, v144, v143, v145, v146);
-        v169 = v128;
-        v170 = v130;
+        v118 = objc_msgSend_unitForCurrencyCode_(TSCEUnitRegistry, v116, v115, v117);
+        v136 = v103;
+        v137 = v105;
         TSUDecimal::operator*=();
-        v166[0] = v169;
-        v166[1] = v170;
-        v16 = objc_msgSend_numberWithDecimal_baseUnit_(TSCENumberValue, v148, v166, v147, v149);
+        v133[0] = v136;
+        v133[1] = v137;
+        v15 = objc_msgSend_numberWithDecimal_baseUnit_(TSCENumberValue, v119, v133, v118);
       }
 
       else
       {
-        v150 = objc_msgSend_attribute(v165, v114, v115, v116, v117);
-        v154 = sub_22119DAB0(v150, spec, v151, v152, v153);
-        v158 = objc_msgSend_remoteDataUnavailableErrorWithAttribute_(TSCEError, v155, v154, v156, v157);
-        v16 = objc_msgSend_raiseErrorOrConvert_(context, v159, v158, v160, v161);
+        v120 = objc_msgSend_attribute(v132, v92, v93, v94);
+        v123 = sub_22119DAB0(v120, spec, v121, v122);
+        v126 = objc_msgSend_remoteDataUnavailableErrorWithAttribute_(TSCEError, v124, v123, v125);
+        v15 = objc_msgSend_raiseErrorOrConvert_(context, v127, v126, v128);
       }
     }
 
-    v15 = 0;
+    v14 = 0;
     goto LABEL_24;
   }
 
-  v22 = *(*arguments + 8);
-  v167 = 0;
-  v51 = objc_msgSend_asString_functionSpec_argumentIndex_outError_(v22, v107, context, spec, 1, &v167);
-  v108 = v167;
-  if (!v108)
+  v20 = *(*arguments + 8);
+  v134 = 0;
+  v43 = objc_msgSend_asString_functionSpec_argumentIndex_outError_(v20, v87, context, spec, 1, &v134);
+  v88 = v134;
+  if (!v88)
   {
-    v23 = v51;
+    v21 = v43;
     goto LABEL_6;
   }
 
-  v15 = v108;
-  v16 = objc_msgSend_raiseErrorOrConvert_(context, v109, v108, v110, v111);
+  v14 = v88;
+  v15 = objc_msgSend_raiseErrorOrConvert_(context, v89, v88, v90);
 
-  v37 = v21;
+  v32 = v19;
 LABEL_24:
 
 LABEL_25:
 
-  return v16;
+  return v15;
 }
 
 @end

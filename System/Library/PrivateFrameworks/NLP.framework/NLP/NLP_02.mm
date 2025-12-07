@@ -74,7 +74,7 @@ void *std::set<std::string>::set[abi:ne200100](void *a1, const void ***a2)
   return a1;
 }
 
-uint64_t std::set<std::string>::insert[abi:ne200100]<std::__tree_const_iterator<std::string,std::__tree_node<std::string,void *> *,long>>(uint64_t result, const void **a2, const void ***a3)
+void *std::set<std::string>::insert[abi:ne200100]<std::__tree_const_iterator<std::string,std::__tree_node<std::string,void *> *,long>>(void *result, const void **a2, const void ***a3)
 {
   if (a2 != a3)
   {
@@ -82,7 +82,7 @@ uint64_t std::set<std::string>::insert[abi:ne200100]<std::__tree_const_iterator<
     v5 = result;
     do
     {
-      result = std::__tree<std::string>::__emplace_hint_unique_key_args<std::string,std::string const&>(v5, (v5 + 1), v4 + 4);
+      result = std::__tree<std::string>::__emplace_hint_unique_key_args<std::string,std::string const&>(v5, v5 + 1, v4 + 4, (v4 + 4));
       v6 = v4[1];
       if (v6)
       {
@@ -116,9 +116,9 @@ uint64_t std::set<std::string>::insert[abi:ne200100]<std::__tree_const_iterator<
   return result;
 }
 
-uint64_t std::__tree<std::string>::__emplace_hint_unique_key_args<std::string,std::string const&>(void *a1, uint64_t a2, const void **a3)
+uint64_t std::__tree<std::string>::__emplace_hint_unique_key_args<std::string,std::string const&>(void *a1, void *a2, const void **a3, uint64_t a4)
 {
-  result = *std::__tree<std::string>::__find_equal<std::string>(a1, a2, &v5, &v4, a3);
+  result = *std::__tree<std::string>::__find_equal<std::string>(a1, a2, &v6, &v5, a3);
   if (!result)
   {
     std::__tree<std::string>::__construct_node<std::string const&>();
@@ -127,23 +127,23 @@ uint64_t std::__tree<std::string>::__emplace_hint_unique_key_args<std::string,st
   return result;
 }
 
-uint64_t std::__tree<std::string>::__find_equal<std::string>(void *a1, uint64_t a2, uint64_t *a3, uint64_t *a4, const void **a5)
+uint64_t *std::__tree<std::string>::__find_equal<std::string>(void *a1, void *a2, uint64_t *a3, uint64_t *a4, const void **a5)
 {
-  v9 = (a1 + 1);
-  if (a1 + 1 != a2 && !std::less<std::string>::operator()[abi:ne200100](a1, a5, (a2 + 32)))
+  v9 = a1 + 1;
+  if (a1 + 1 != a2 && !std::less<std::string>::operator()[abi:ne200100](a1, a5, a2 + 4))
   {
-    if (!std::less<std::string>::operator()[abi:ne200100](a1, (a2 + 32), a5))
+    if (!std::less<std::string>::operator()[abi:ne200100](a1, a2 + 4, a5))
     {
       *a3 = a2;
       *a4 = a2;
       return a4;
     }
 
-    a4 = (a2 + 8);
-    v13 = *(a2 + 8);
+    a4 = a2 + 1;
+    v13 = a2[1];
     if (v13)
     {
-      v14 = *(a2 + 8);
+      v14 = a2[1];
       do
       {
         v15 = v14;
@@ -197,7 +197,7 @@ LABEL_16:
     if (*a2)
     {
       *a3 = v12;
-      return v12 + 8;
+      return v12 + 1;
     }
 
     else
@@ -213,7 +213,7 @@ LABEL_16:
     do
     {
       v12 = v11;
-      v11 = *(v11 + 8);
+      v11 = v11[1];
     }
 
     while (v11);
@@ -224,7 +224,7 @@ LABEL_16:
     v16 = a2;
     do
     {
-      v12 = *(v16 + 16);
+      v12 = v16[2];
       v17 = *v12 == v16;
       v16 = v12;
     }
@@ -232,7 +232,7 @@ LABEL_16:
     while (v17);
   }
 
-  if (std::less<std::string>::operator()[abi:ne200100](a1, (v12 + 32), a5))
+  if (std::less<std::string>::operator()[abi:ne200100](a1, v12 + 4, a5))
   {
     goto LABEL_16;
   }
@@ -249,7 +249,7 @@ void sub_22CD3E3C0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t *std::__tree<std::string>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *std::__tree<std::string>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -387,12 +387,12 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -406,22 +406,22 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -455,13 +455,13 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -693,7 +693,7 @@ void *std::map<std::string,std::string>::map[abi:ne200100](void *a1, const void 
   return a1;
 }
 
-uint64_t std::map<std::string,std::string>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<std::string,std::string>,std::__tree_node<std::__value_type<std::string,std::string>,void *> *,long>>>(uint64_t result, const void **a2, const void ***a3)
+void *std::map<std::string,std::string>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<std::string,std::string>,std::__tree_node<std::__value_type<std::string,std::string>,void *> *,long>>>(void *result, const void **a2, const void ***a3)
 {
   if (a2 != a3)
   {
@@ -701,7 +701,7 @@ uint64_t std::map<std::string,std::string>::insert[abi:ne200100]<std::__map_cons
     v5 = result;
     do
     {
-      result = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,std::string> const&>(v5, (v5 + 1), v4 + 4);
+      result = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,std::string> const&>(v5, (v5 + 8), v4 + 4, (v4 + 4));
       v6 = v4[1];
       if (v6)
       {
@@ -735,15 +735,15 @@ uint64_t std::map<std::string,std::string>::insert[abi:ne200100]<std::__map_cons
   return result;
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,std::string> const&>(void *a1, uint64_t a2, const void **a3)
+void *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,std::string> const&>(uint64_t **a1, void *a2, const void **a3, uint64_t a4)
 {
-  v3 = *std::__tree<std::string>::__find_equal<std::string>(a1, a2, &v6, &v5, a3);
-  if (!v3)
+  v4 = *std::__tree<std::string>::__find_equal<std::string>(a1, a2, &v7, &v6, a3);
+  if (!v4)
   {
     std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__construct_node<std::pair<std::string const,std::string> const&>();
   }
 
-  return v3;
+  return v4;
 }
 
 uint64_t std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::string>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
@@ -811,7 +811,7 @@ void *std::map<std::string,NLSearchParseResultModifier>::map[abi:ne200100](void 
   return a1;
 }
 
-uint64_t std::map<std::string,NLSearchParseResultModifier>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<std::string,NLSearchParseResultModifier>,std::__tree_node<std::__value_type<std::string,NLSearchParseResultModifier>,void *> *,long>>>(uint64_t result, const void **a2, const void ***a3)
+void *std::map<std::string,NLSearchParseResultModifier>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<std::string,NLSearchParseResultModifier>,std::__tree_node<std::__value_type<std::string,NLSearchParseResultModifier>,void *> *,long>>>(void *result, const void **a2, const void ***a3)
 {
   if (a2 != a3)
   {
@@ -819,7 +819,7 @@ uint64_t std::map<std::string,NLSearchParseResultModifier>::insert[abi:ne200100]
     v5 = result;
     do
     {
-      result = std::__tree<std::__value_type<std::string,NLSearchParseResultModifier>,std::__map_value_compare<std::string,std::__value_type<std::string,NLSearchParseResultModifier>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,NLSearchParseResultModifier>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,NLSearchParseResultModifier> const&>(v5, (v5 + 1), v4 + 4);
+      result = std::__tree<std::__value_type<std::string,NLSearchParseResultModifier>,std::__map_value_compare<std::string,std::__value_type<std::string,NLSearchParseResultModifier>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,NLSearchParseResultModifier>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,NLSearchParseResultModifier> const&>(v5, (v5 + 8), v4 + 4, (v4 + 4));
       v6 = v4[1];
       if (v6)
       {
@@ -853,9 +853,9 @@ uint64_t std::map<std::string,NLSearchParseResultModifier>::insert[abi:ne200100]
   return result;
 }
 
-uint64_t std::__tree<std::__value_type<std::string,NLSearchParseResultModifier>,std::__map_value_compare<std::string,std::__value_type<std::string,NLSearchParseResultModifier>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,NLSearchParseResultModifier>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,NLSearchParseResultModifier> const&>(void *a1, uint64_t a2, const void **a3)
+void *std::__tree<std::__value_type<std::string,NLSearchParseResultModifier>,std::__map_value_compare<std::string,std::__value_type<std::string,NLSearchParseResultModifier>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,NLSearchParseResultModifier>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,NLSearchParseResultModifier> const&>(uint64_t **a1, void *a2, const void **a3, uint64_t a4)
 {
-  result = *std::__tree<std::string>::__find_equal<std::string>(a1, a2, &v5, &v4, a3);
+  result = *std::__tree<std::string>::__find_equal<std::string>(a1, a2, &v6, &v5, a3);
   if (!result)
   {
     std::__tree<std::__value_type<std::string,NLSearchParseResultModifier>,std::__map_value_compare<std::string,std::__value_type<std::string,NLSearchParseResultModifier>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,NLSearchParseResultModifier>>>::__construct_node<std::pair<std::string const,NLSearchParseResultModifier> const&>();
@@ -871,7 +871,7 @@ void sub_22CD3F05C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t std::string::basic_string[abi:ne200100](uint64_t result, unint64_t a2)
+uint64_t std::string::basic_string[abi:ne200100](uint64_t a1, unint64_t a2)
 {
   if (a2 >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -883,11 +883,11 @@ uint64_t std::string::basic_string[abi:ne200100](uint64_t result, unint64_t a2)
     operator new();
   }
 
-  *(result + 8) = 0;
-  *(result + 16) = 0;
-  *result = 0;
-  *(result + 23) = a2;
-  return result;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
+  *a1 = 0;
+  *(a1 + 23) = a2;
+  return a1;
 }
 
 void nlp::CFScopedPtr<__CFAttributedString *>::reset(const void **a1, const void *a2)
@@ -912,15 +912,15 @@ void nlp::CFScopedPtr<__CFSet const*>::reset(const void **a1, const void *a2)
   *a1 = a2;
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t a1, const void **a2)
+uint64_t std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t **a1, const void **a2, uint64_t a3, _OWORD **a4)
 {
-  v2 = *std::__tree<std::string>::__find_equal<std::string>(a1, &v4, a2);
-  if (!v2)
+  v4 = *std::__tree<std::string>::__find_equal<std::string>(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
 uint64_t std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::map<std::string,std::string>>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,std::map<std::string,std::string>>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
@@ -940,26 +940,26 @@ uint64_t std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::map
   return a1;
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t a1, const void **a2)
+uint64_t std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t **a1, const void **a2, uint64_t a3, _OWORD **a4)
 {
-  v2 = *std::__tree<std::string>::__find_equal<std::string>(a1, &v4, a2);
-  if (!v2)
+  v4 = *std::__tree<std::string>::__find_equal<std::string>(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::map<std::string,NLSearchParseResultModifier>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,NLSearchParseResultModifier>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,NLSearchParseResultModifier>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t a1, const void **a2)
+uint64_t std::__tree<std::__value_type<std::string,std::map<std::string,NLSearchParseResultModifier>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,NLSearchParseResultModifier>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,NLSearchParseResultModifier>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t **a1, const void **a2, uint64_t a3, _OWORD **a4)
 {
-  v2 = *std::__tree<std::string>::__find_equal<std::string>(a1, &v4, a2);
-  if (!v2)
+  v4 = *std::__tree<std::string>::__find_equal<std::string>(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
 uint64_t std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::map<std::string,NLSearchParseResultModifier>>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,std::map<std::string,NLSearchParseResultModifier>>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
@@ -979,15 +979,15 @@ uint64_t std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::map
   return a1;
 }
 
-uint64_t std::__tree<std::__value_type<std::string,NLSearchParseResultModifier>,std::__map_value_compare<std::string,std::__value_type<std::string,NLSearchParseResultModifier>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,NLSearchParseResultModifier>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t a1, const void **a2)
+uint64_t std::__tree<std::__value_type<std::string,NLSearchParseResultModifier>,std::__map_value_compare<std::string,std::__value_type<std::string,NLSearchParseResultModifier>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,NLSearchParseResultModifier>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t **a1, const void **a2, uint64_t a3, _OWORD **a4)
 {
-  v2 = *std::__tree<std::string>::__find_equal<std::string>(a1, &v4, a2);
-  if (!v2)
+  v4 = *std::__tree<std::string>::__find_equal<std::string>(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
 uint64_t createEmojiPredictorWrapper(NLEmojiGenerator *a1)
@@ -1328,28 +1328,28 @@ CFMutableStringRef NLGujaratiOrthographyChecker::stringByCorrectingIllegalVowelL
   v12 = @"અા";
   v13 = v14;
   v15 = &v12;
-  std::__tree<std::__value_type<__CFString const*,__CFString const*>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,__CFString const*>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,__CFString const*>>>::__emplace_unique_key_args<__CFString const*,std::piecewise_construct_t const&,std::tuple<__CFString const*&&>,std::tuple<>>(&v13, &v12)[5] = @"આ";
+  std::__tree<std::__value_type<__CFString const*,__CFString const*>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,__CFString const*>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,__CFString const*>>>::__emplace_unique_key_args<__CFString const*,std::piecewise_construct_t const&,std::tuple<__CFString const*&&>,std::tuple<>>(&v13, &v12, &std::piecewise_construct, &v15)[5] = @"આ";
   v12 = @"અો";
   v15 = &v12;
-  std::__tree<std::__value_type<__CFString const*,__CFString const*>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,__CFString const*>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,__CFString const*>>>::__emplace_unique_key_args<__CFString const*,std::piecewise_construct_t const&,std::tuple<__CFString const*&&>,std::tuple<>>(&v13, &v12)[5] = @"ઓ";
+  std::__tree<std::__value_type<__CFString const*,__CFString const*>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,__CFString const*>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,__CFString const*>>>::__emplace_unique_key_args<__CFString const*,std::piecewise_construct_t const&,std::tuple<__CFString const*&&>,std::tuple<>>(&v13, &v12, &std::piecewise_construct, &v15)[5] = @"ઓ";
   v12 = @"અાે";
   v15 = &v12;
-  std::__tree<std::__value_type<__CFString const*,__CFString const*>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,__CFString const*>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,__CFString const*>>>::__emplace_unique_key_args<__CFString const*,std::piecewise_construct_t const&,std::tuple<__CFString const*&&>,std::tuple<>>(&v13, &v12)[5] = @"ઓ";
+  std::__tree<std::__value_type<__CFString const*,__CFString const*>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,__CFString const*>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,__CFString const*>>>::__emplace_unique_key_args<__CFString const*,std::piecewise_construct_t const&,std::tuple<__CFString const*&&>,std::tuple<>>(&v13, &v12, &std::piecewise_construct, &v15)[5] = @"ઓ";
   v12 = @"આે";
   v15 = &v12;
-  std::__tree<std::__value_type<__CFString const*,__CFString const*>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,__CFString const*>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,__CFString const*>>>::__emplace_unique_key_args<__CFString const*,std::piecewise_construct_t const&,std::tuple<__CFString const*&&>,std::tuple<>>(&v13, &v12)[5] = @"ઓ";
+  std::__tree<std::__value_type<__CFString const*,__CFString const*>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,__CFString const*>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,__CFString const*>>>::__emplace_unique_key_args<__CFString const*,std::piecewise_construct_t const&,std::tuple<__CFString const*&&>,std::tuple<>>(&v13, &v12, &std::piecewise_construct, &v15)[5] = @"ઓ";
   v12 = @"અૌ";
   v15 = &v12;
-  std::__tree<std::__value_type<__CFString const*,__CFString const*>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,__CFString const*>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,__CFString const*>>>::__emplace_unique_key_args<__CFString const*,std::piecewise_construct_t const&,std::tuple<__CFString const*&&>,std::tuple<>>(&v13, &v12)[5] = @"ઔ";
+  std::__tree<std::__value_type<__CFString const*,__CFString const*>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,__CFString const*>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,__CFString const*>>>::__emplace_unique_key_args<__CFString const*,std::piecewise_construct_t const&,std::tuple<__CFString const*&&>,std::tuple<>>(&v13, &v12, &std::piecewise_construct, &v15)[5] = @"ઔ";
   v12 = @"અાૈ";
   v15 = &v12;
-  std::__tree<std::__value_type<__CFString const*,__CFString const*>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,__CFString const*>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,__CFString const*>>>::__emplace_unique_key_args<__CFString const*,std::piecewise_construct_t const&,std::tuple<__CFString const*&&>,std::tuple<>>(&v13, &v12)[5] = @"ઔ";
+  std::__tree<std::__value_type<__CFString const*,__CFString const*>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,__CFString const*>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,__CFString const*>>>::__emplace_unique_key_args<__CFString const*,std::piecewise_construct_t const&,std::tuple<__CFString const*&&>,std::tuple<>>(&v13, &v12, &std::piecewise_construct, &v15)[5] = @"ઔ";
   v12 = @"આૈ";
   v15 = &v12;
-  std::__tree<std::__value_type<__CFString const*,__CFString const*>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,__CFString const*>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,__CFString const*>>>::__emplace_unique_key_args<__CFString const*,std::piecewise_construct_t const&,std::tuple<__CFString const*&&>,std::tuple<>>(&v13, &v12)[5] = @"ઔ";
+  std::__tree<std::__value_type<__CFString const*,__CFString const*>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,__CFString const*>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,__CFString const*>>>::__emplace_unique_key_args<__CFString const*,std::piecewise_construct_t const&,std::tuple<__CFString const*&&>,std::tuple<>>(&v13, &v12, &std::piecewise_construct, &v15)[5] = @"ઔ";
   v12 = @"અૈ";
   v15 = &v12;
-  std::__tree<std::__value_type<__CFString const*,__CFString const*>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,__CFString const*>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,__CFString const*>>>::__emplace_unique_key_args<__CFString const*,std::piecewise_construct_t const&,std::tuple<__CFString const*&&>,std::tuple<>>(&v13, &v12)[5] = @"ઐ";
+  std::__tree<std::__value_type<__CFString const*,__CFString const*>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,__CFString const*>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,__CFString const*>>>::__emplace_unique_key_args<__CFString const*,std::piecewise_construct_t const&,std::tuple<__CFString const*&&>,std::tuple<>>(&v13, &v12, &std::piecewise_construct, &v15)[5] = @"ઐ";
   Length = CFStringGetLength(a2);
   MutableCopy = CFStringCreateMutableCopy(0, Length, a2);
   v5 = v13;
@@ -1400,12 +1400,12 @@ CFMutableStringRef NLGujaratiOrthographyChecker::stringByCorrectingIllegalVowelL
 
 BOOL NLGujaratiOrthographyChecker::checkSpelling(NLGujaratiOrthographyChecker *this, CFStringRef theString, const __CFString **a3, const __CFString **a4)
 {
-  v75 = *MEMORY[0x277D85DE8];
+  v74 = *MEMORY[0x277D85DE8];
   Length = CFStringGetLength(theString);
   result = xmmword_22CDDE300;
-  v76.location = 0;
-  v76.length = Length;
-  if (CFStringFindCharacterFromSet(theString, *(this + 3), v76, 0, &result))
+  v75.location = 0;
+  v75.length = Length;
+  if (CFStringFindCharacterFromSet(theString, *(this + 3), v75, 0, &result))
   {
     v9 = 0;
     location = 0x7FFFFFFFFFFFFFFFLL;
@@ -1418,9 +1418,9 @@ BOOL NLGujaratiOrthographyChecker::checkSpelling(NLGujaratiOrthographyChecker *t
 
       if (location != 0x7FFFFFFFFFFFFFFFLL && result.location == v9 + location)
       {
-        v77.location = location;
-        v77.length = v9;
-        v11 = CFStringCreateWithSubstring(0, theString, v77);
+        v76.location = location;
+        v76.length = v9;
+        v11 = CFStringCreateWithSubstring(0, theString, v76);
         v12 = CFStringCreateWithSubstring(0, theString, result);
         if ((CFStringCompare(v11, *(this + 1), 0) || CFStringCompare(v12, *(this + 1), 0) == kCFCompareEqualTo) && (CFStringCompare(v12, @"ં", 0) || !NLGujaratiOrthographyChecker::isVowelSign(0, v11)) && (CFStringCompare(v12, @"ઁ", 0) || !NLGujaratiOrthographyChecker::canCandrabinduFollowVowelSign(0, v11)))
         {
@@ -1453,23 +1453,23 @@ LABEL_43:
 
       location = result.location;
       v9 = result.length;
-      v78.location = result.length + result.location;
-      v78.length = Length - (result.length + result.location);
+      v77.location = result.length + result.location;
+      v77.length = Length - (result.length + result.location);
     }
 
-    while (CFStringFindCharacterFromSet(theString, *(this + 3), v78, 0, &result));
+    while (CFStringFindCharacterFromSet(theString, *(this + 3), v77, 0, &result));
   }
 
   result = xmmword_22CDDE300;
-  v79.location = 0;
-  v79.length = Length;
-  if (CFStringFindWithOptions(theString, *(this + 1), v79, 0, &result))
+  v78.location = 0;
+  v78.length = Length;
+  if (CFStringFindWithOptions(theString, *(this + 1), v78, 0, &result))
   {
     if (result.location)
     {
-      v80.location = result.location - 1;
-      v80.length = 1;
-      v13 = CFStringCreateWithSubstring(0, theString, v80);
+      v79.location = result.location - 1;
+      v79.length = 1;
+      v13 = CFStringCreateWithSubstring(0, theString, v79);
       if (v13)
       {
         CFRelease(v13);
@@ -1482,9 +1482,9 @@ LABEL_43:
   }
 
   result = xmmword_22CDDE300;
-  v81.location = 0;
-  v81.length = Length;
-  if (CFStringFindWithOptions(theString, @"્", v81, 0, &result))
+  v80.location = 0;
+  v80.length = Length;
+  if (CFStringFindWithOptions(theString, @"્", v80, 0, &result))
   {
     do
     {
@@ -1493,9 +1493,9 @@ LABEL_43:
         goto LABEL_48;
       }
 
-      v82.location = result.location - 1;
-      v82.length = 1;
-      v16 = CFStringCreateWithSubstring(0, theString, v82);
+      v81.location = result.location - 1;
+      v81.length = 1;
+      v16 = CFStringCreateWithSubstring(0, theString, v81);
       if (result.location + 1 >= Length)
       {
         v17 = 0;
@@ -1521,9 +1521,9 @@ LABEL_48:
 
       else
       {
-        v83.length = 1;
-        v83.location = result.location + 1;
-        v17 = CFStringCreateWithSubstring(0, theString, v83);
+        v82.length = 1;
+        v82.location = result.location + 1;
+        v17 = CFStringCreateWithSubstring(0, theString, v82);
         if (!NLGujaratiOrthographyChecker::canViramaFollowLetter(this, v16))
         {
           goto LABEL_44;
@@ -1560,11 +1560,11 @@ LABEL_34:
         CFRelease(v17);
       }
 
-      v84.location = result.length + result.location;
-      v84.length = Length - (result.length + result.location);
+      v83.location = result.length + result.location;
+      v83.length = Length - (result.length + result.location);
     }
 
-    while (CFStringFindWithOptions(theString, @"્", v84, 0, &result));
+    while (CFStringFindWithOptions(theString, @"્", v83, 0, &result));
   }
 
   if (a3)
@@ -1578,11 +1578,11 @@ LABEL_34:
   }
 
   v20 = CFStringGetLength(theString);
-  v85.location = 0;
-  v85.length = v20;
-  v67 = a3;
+  v84.location = 0;
+  v84.length = v20;
+  v66 = a3;
   theArray = Mutable;
-  if (!CFStringFindCharacterFromSet(theString, *(this + 5), v85, 0, &range))
+  if (!CFStringFindCharacterFromSet(theString, *(this + 5), v84, 0, &range))
   {
     if (!Mutable)
     {
@@ -1594,8 +1594,8 @@ LABEL_34:
 LABEL_92:
     if (CFArrayGetCount(Mutable) >= 1)
     {
-      v65 = v21;
-      v66 = a4;
+      v64 = v21;
+      v65 = a4;
       MutableCopy = CFStringCreateMutableCopy(0, 0, theString);
       Count = CFArrayGetCount(Mutable);
       if (Count >= 1)
@@ -1630,10 +1630,10 @@ LABEL_92:
         while (v37 > 1);
       }
 
-      a4 = v66;
-      a3 = v67;
-      *v67 = MutableCopy;
-      v21 = v65;
+      a4 = v65;
+      a3 = v66;
+      *v66 = MutableCopy;
+      v21 = v64;
     }
 
     CFRelease(Mutable);
@@ -1677,7 +1677,7 @@ LABEL_134:
           goto LABEL_71;
         }
 
-        a3 = v67;
+        a3 = v66;
         if (!v24)
         {
           v25 = *(this + 7);
@@ -1687,7 +1687,7 @@ LABEL_134:
         goto LABEL_81;
       }
 
-      a3 = v67;
+      a3 = v66;
       if (v24)
       {
         goto LABEL_81;
@@ -1707,7 +1707,7 @@ LABEL_78:
 
     if (CharacterAtIndex == 2723)
     {
-      a3 = v67;
+      a3 = v66;
       if (v24)
       {
         goto LABEL_81;
@@ -1720,7 +1720,7 @@ LABEL_78:
     if (CharacterAtIndex != 2728 || !CFCharacterSetIsCharacterMember(*(this + 6), v23) && !CFCharacterSetIsCharacterMember(*(this + 7), v23) && !CFCharacterSetIsCharacterMember(*(this + 8), v23) || range.location >= 1 && CFStringGetCharacterAtIndex(theString, range.location) == 2765)
     {
 LABEL_71:
-      a3 = v67;
+      a3 = v66;
       if (v21)
       {
         goto LABEL_78;
@@ -1729,15 +1729,15 @@ LABEL_71:
       goto LABEL_81;
     }
 
-    a3 = v67;
+    a3 = v66;
     if (Mutable)
     {
       result = xmmword_27873FCA0;
-      v74 = @"replacement";
+      v73 = @"replacement";
       valuePtr = range.location;
-      v70 = 2;
+      v69 = 2;
       v26 = CFNumberCreate(0, kCFNumberCFIndexType, &valuePtr);
-      v27 = CFNumberCreate(0, kCFNumberCFIndexType, &v70);
+      v27 = CFNumberCreate(0, kCFNumberCFIndexType, &v69);
       values[0] = v26;
       values[1] = v27;
       values[2] = @"ं";
@@ -1745,7 +1745,7 @@ LABEL_71:
       v29 = CFDictionaryCreate(0, &result, values, 3, MEMORY[0x277CBED60], MEMORY[0x277CBF150]);
       CFRelease(v26);
       v30 = v27;
-      a3 = v67;
+      a3 = v66;
       CFRelease(v30);
       CFArrayAppendValue(theArray, v29);
       v31 = v29;
@@ -1757,9 +1757,9 @@ LABEL_71:
 LABEL_81:
     if (!v15)
     {
-      v86.location = range.location;
-      v86.length = 3;
-      v32 = CFStringCreateWithSubstring(0, theString, v86);
+      v85.location = range.location;
+      v85.length = 3;
+      v32 = CFStringCreateWithSubstring(0, theString, v85);
       v33 = CFStringCreateWithFormat(0, 0, @"invalid nasal combination '%@'", v32);
       v34 = v32;
       v15 = v33;
@@ -1779,11 +1779,11 @@ LABEL_85:
       break;
     }
 
-    v87.location = range.location + 1;
-    v87.length = v20 - (range.location + 1);
+    v86.location = range.location + 1;
+    v86.length = v20 - (range.location + 1);
   }
 
-  while (CFStringFindCharacterFromSet(theString, *(this + 5), v87, 0, &range));
+  while (CFStringFindCharacterFromSet(theString, *(this + 5), v86, 0, &range));
   if (Mutable)
   {
     goto LABEL_92;
@@ -1801,9 +1801,9 @@ LABEL_103:
   v44 = CFCharacterSetCreateCopy(0, *(this + 3));
   v45 = CFCharacterSetCreateWithCharactersInString(0, @"ઁં");
   v46 = CFStringGetLength(theString);
-  v88.location = 0;
-  v88.length = v46;
-  if (CFStringFindCharacterFromSet(theString, Copy, v88, 0, &result))
+  v87.location = 0;
+  v87.length = v46;
+  if (CFStringFindCharacterFromSet(theString, Copy, v87, 0, &result))
   {
     while (1)
     {
@@ -1820,21 +1820,21 @@ LABEL_103:
         }
       }
 
-      v89.location = result.length + result.location;
-      v89.length = v46 - (result.length + result.location);
-      if (!CFStringFindCharacterFromSet(theString, Copy, v89, 0, &result))
+      v88.location = result.length + result.location;
+      v88.length = v46 - (result.length + result.location);
+      if (!CFStringFindCharacterFromSet(theString, Copy, v88, 0, &result))
       {
         v49 = 1;
-        a3 = v67;
+        a3 = v66;
         goto LABEL_114;
       }
     }
 
-    a3 = v67;
+    a3 = v66;
     v49 = 0;
-    if (v67)
+    if (v66)
     {
-      *v67 = NLGujaratiOrthographyChecker::stringByCorrectingIllegalVowelLetters(IsCharacterMember, theString);
+      *v66 = NLGujaratiOrthographyChecker::stringByCorrectingIllegalVowelLetters(IsCharacterMember, theString);
     }
 
     Mutable = @"illegal diacritic after vowel letter";
@@ -1877,26 +1877,26 @@ LABEL_114:
 
 LABEL_125:
       v55 = *(this + 2);
-      v90.length = CFStringGetLength(theString);
-      v90.location = 0;
-      if (CFStringFindWithOptions(theString, v55, v90, 0, &result))
+      v89.length = CFStringGetLength(theString);
+      v89.location = 0;
+      if (CFStringFindWithOptions(theString, v55, v89, 0, &result))
       {
         do
         {
           if (result.location)
           {
-            v91.length = result.location - 1;
-            v91.location = 0;
-            v56 = CFStringCreateWithSubstring(0, theString, v91);
+            v90.length = result.location - 1;
+            v90.location = 0;
+            v56 = CFStringCreateWithSubstring(0, theString, v90);
             CFRelease(v56);
           }
 
           v57 = *(this + 2);
-          v92.length = CFStringGetLength(theString);
-          v92.location = 0;
+          v91.length = CFStringGetLength(theString);
+          v91.location = 0;
         }
 
-        while (CFStringFindWithOptions(theString, v57, v92, 0, &result));
+        while (CFStringFindWithOptions(theString, v57, v91, 0, &result));
         if (!a3)
         {
           v15 = @"invalid sequence with ZWJ";
@@ -1918,15 +1918,15 @@ LABEL_125:
 
       else
       {
-        v93.length = CFStringGetLength(theString);
-        v93.location = 0;
-        CharacterFromSet = CFStringFindCharacterFromSet(theString, *(this + 12), v93, 0, &result);
+        v92.length = CFStringGetLength(theString);
+        v92.location = 0;
+        CharacterFromSet = CFStringFindCharacterFromSet(theString, *(this + 12), v92, 0, &result);
         v14 = CharacterFromSet == 0;
         if (CharacterFromSet)
         {
-          v64 = CFStringCreateWithSubstring(0, theString, result);
-          v15 = CFStringCreateWithFormat(0, 0, @"invalid letter '%@'", v64);
-          CFRelease(v64);
+          v63 = CFStringCreateWithSubstring(0, theString, result);
+          v15 = CFStringCreateWithFormat(0, 0, @"invalid letter '%@'", v63);
+          CFRelease(v63);
         }
       }
     }
@@ -1964,7 +1964,6 @@ LABEL_135:
     *a4 = v15;
   }
 
-  v61 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -1979,41 +1978,41 @@ void std::__tree<std::__value_type<__CFString const*,__CFString const*>,std::__m
   }
 }
 
-void *std::__tree<std::__value_type<__CFString const*,__CFString const*>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,__CFString const*>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,__CFString const*>>>::__emplace_unique_key_args<__CFString const*,std::piecewise_construct_t const&,std::tuple<__CFString const*&&>,std::tuple<>>(uint64_t a1, unint64_t *a2)
+void *std::__tree<std::__value_type<__CFString const*,__CFString const*>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,__CFString const*>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,__CFString const*>>>::__emplace_unique_key_args<__CFString const*,std::piecewise_construct_t const&,std::tuple<__CFString const*&&>,std::tuple<>>(uint64_t a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = v4[4];
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
@@ -2065,7 +2064,7 @@ void NLAbstractTransMappings::loadMappings(NLAbstractTransMappings *this, const 
       Mutable = CFStringCreateMutable(0, 0);
       CFStringAppend(Mutable, Value);
       CFStringAppend(Mutable, @"-Mappings.plist");
-      getPathForResource(Mutable, &v14);
+      getPathForResource(&v14, Mutable);
       v8 = *MEMORY[0x277CBECE8];
       if ((v14.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
@@ -2134,69 +2133,67 @@ void NLAbstractTransMappings::loadStaticMap(NLAbstractTransMappings *this, CFDic
     for (i = 0; i != Count; ++i)
     {
       v6 = v4[i];
-      getUTF8StringFromCFString(v6, v30);
+      getUTF8StringFromCFString(v29, v6);
       Value = CFDictionaryGetValue(theDict, v6);
       v8 = CFArrayGetCount(Value);
+      v26 = 0;
       v27 = 0;
       v28 = 0;
-      v29 = 0;
       if (v8 >= 1)
       {
         for (j = 0; j != v8; ++j)
         {
           ValueAtIndex = CFArrayGetValueAtIndex(Value, j);
           v11 = CFArrayGetValueAtIndex(ValueAtIndex, 0);
-          getUTF8StringFromCFString(v11, v25);
+          getUTF8StringFromCFString(v24, v11);
           v12 = CFArrayGetValueAtIndex(ValueAtIndex, 1);
           valuePtr = 0;
           CFNumberGetValue(v12, kCFNumberSInt8Type, &valuePtr);
           v13 = CFArrayGetValueAtIndex(ValueAtIndex, 2);
-          v23 = 0.0;
-          CFNumberGetValue(v13, kCFNumberDoubleType, &v23);
-          NLExtendedString::NLExtendedString(__p, v25, valuePtr, v23);
-          v14 = v28;
-          if (v28 >= v29)
+          v22 = 0.0;
+          CFNumberGetValue(v13, kCFNumberDoubleType, &v22);
+          NLExtendedString::NLExtendedString(&__p, v24, valuePtr, v22);
+          v14 = v27;
+          if (v27 >= v28)
           {
-            v28 = std::vector<NLExtendedString>::__emplace_back_slow_path<NLExtendedString>(&v27, __p);
-            if (SHIBYTE(v20) < 0)
+            v27 = std::vector<NLExtendedString>::__emplace_back_slow_path<NLExtendedString>(&v26, &__p);
+            if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(__p[0]);
+              operator delete(__p.__r_.__value_.__l.__data_);
             }
           }
 
           else
           {
-            v15 = *__p;
-            v28->__r_.__value_.__r.__words[2] = v20;
+            v15 = *&__p.__r_.__value_.__l.__data_;
+            v27->__r_.__value_.__r.__words[2] = __p.__r_.__value_.__r.__words[2];
             *&v14->__r_.__value_.__l.__data_ = v15;
-            __p[1] = 0;
-            v20 = 0;
-            __p[0] = 0;
-            v16 = v22;
-            *&v14[1].__r_.__value_.__l.__data_ = v21;
+            memset(&__p, 0, sizeof(__p));
+            v16 = v21;
+            *&v14[1].__r_.__value_.__l.__data_ = v20;
             v14[1].__r_.__value_.__s.__data_[16] = v16;
-            v28 = v14 + 2;
+            v27 = v14 + 2;
           }
 
-          if (v26 < 0)
+          if (v25 < 0)
           {
-            operator delete(v25[0]);
+            operator delete(v24[0]);
           }
         }
       }
 
-      v25[0] = v30;
-      v17 = (std::__hash_table<std::__hash_value_type<std::string,std::vector<NLExtendedString>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<NLExtendedString>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<NLExtendedString>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<NLExtendedString>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 16, v30) + 5);
-      if (v17 != &v27)
+      v24[0] = v29;
+      v17 = (std::__hash_table<std::__hash_value_type<std::string,std::vector<NLExtendedString>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<NLExtendedString>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<NLExtendedString>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<NLExtendedString>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 32, v29, &std::piecewise_construct, v24, &v22) + 5);
+      if (v17 != &v26)
       {
-        std::vector<NLExtendedString>::__assign_with_size[abi:ne200100]<NLExtendedString*,NLExtendedString*>(v17, v27, v28, 0xAAAAAAAAAAAAAAABLL * ((v28 - v27) >> 4));
+        std::vector<NLExtendedString>::__assign_with_size[abi:ne200100]<NLExtendedString*,NLExtendedString*>(v17, v26, v27, 0xAAAAAAAAAAAAAAABLL * ((v27 - v26) >> 4));
       }
 
-      __p[0] = &v27;
-      std::vector<NLExtendedString>::__destroy_vector::operator()[abi:ne200100](__p);
-      if (v31 < 0)
+      __p.__r_.__value_.__r.__words[0] = &v26;
+      std::vector<NLExtendedString>::__destroy_vector::operator()[abi:ne200100](&__p);
+      if (v30 < 0)
       {
-        operator delete(v30[0]);
+        operator delete(v29[0]);
       }
     }
   }
@@ -2249,69 +2246,67 @@ void NLAbstractTransMappings::loadMappingsFromPlist(NLAbstractTransMappings *thi
     for (i = 0; i != Count; ++i)
     {
       v6 = v4[i];
-      getUTF8StringFromCFString(v6, v30);
+      getUTF8StringFromCFString(v29, v6);
       Value = CFDictionaryGetValue(MyPropertyListFromFile, v6);
       v8 = CFArrayGetCount(Value);
+      v26 = 0;
       v27 = 0;
       v28 = 0;
-      v29 = 0;
       if (v8 >= 1)
       {
         for (j = 0; j != v8; ++j)
         {
           ValueAtIndex = CFArrayGetValueAtIndex(Value, j);
           v11 = CFArrayGetValueAtIndex(ValueAtIndex, 0);
-          getUTF8StringFromCFString(v11, v25);
+          getUTF8StringFromCFString(v24, v11);
           v12 = CFArrayGetValueAtIndex(ValueAtIndex, 1);
           valuePtr = 0;
           CFNumberGetValue(v12, kCFNumberSInt8Type, &valuePtr);
           v13 = CFArrayGetValueAtIndex(ValueAtIndex, 2);
-          v23 = 0.0;
-          CFNumberGetValue(v13, kCFNumberDoubleType, &v23);
-          NLExtendedString::NLExtendedString(__p, v25, valuePtr, v23);
-          v14 = v28;
-          if (v28 >= v29)
+          v22 = 0.0;
+          CFNumberGetValue(v13, kCFNumberDoubleType, &v22);
+          NLExtendedString::NLExtendedString(&__p, v24, valuePtr, v22);
+          v14 = v27;
+          if (v27 >= v28)
           {
-            v28 = std::vector<NLExtendedString>::__emplace_back_slow_path<NLExtendedString>(&v27, __p);
-            if (SHIBYTE(v20) < 0)
+            v27 = std::vector<NLExtendedString>::__emplace_back_slow_path<NLExtendedString>(&v26, &__p);
+            if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(__p[0]);
+              operator delete(__p.__r_.__value_.__l.__data_);
             }
           }
 
           else
           {
-            v15 = *__p;
-            v28->__r_.__value_.__r.__words[2] = v20;
+            v15 = *&__p.__r_.__value_.__l.__data_;
+            v27->__r_.__value_.__r.__words[2] = __p.__r_.__value_.__r.__words[2];
             *&v14->__r_.__value_.__l.__data_ = v15;
-            __p[1] = 0;
-            v20 = 0;
-            __p[0] = 0;
-            v16 = v22;
-            *&v14[1].__r_.__value_.__l.__data_ = v21;
+            memset(&__p, 0, sizeof(__p));
+            v16 = v21;
+            *&v14[1].__r_.__value_.__l.__data_ = v20;
             v14[1].__r_.__value_.__s.__data_[16] = v16;
-            v28 = v14 + 2;
+            v27 = v14 + 2;
           }
 
-          if (v26 < 0)
+          if (v25 < 0)
           {
-            operator delete(v25[0]);
+            operator delete(v24[0]);
           }
         }
       }
 
-      v25[0] = v30;
-      v17 = (std::__hash_table<std::__hash_value_type<std::string,std::vector<NLExtendedString>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<NLExtendedString>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<NLExtendedString>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<NLExtendedString>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 16, v30) + 5);
-      if (v17 != &v27)
+      v24[0] = v29;
+      v17 = (std::__hash_table<std::__hash_value_type<std::string,std::vector<NLExtendedString>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<NLExtendedString>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<NLExtendedString>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<NLExtendedString>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 32, v29, &std::piecewise_construct, v24, &v22) + 5);
+      if (v17 != &v26)
       {
-        std::vector<NLExtendedString>::__assign_with_size[abi:ne200100]<NLExtendedString*,NLExtendedString*>(v17, v27, v28, 0xAAAAAAAAAAAAAAABLL * ((v28 - v27) >> 4));
+        std::vector<NLExtendedString>::__assign_with_size[abi:ne200100]<NLExtendedString*,NLExtendedString*>(v17, v26, v27, 0xAAAAAAAAAAAAAAABLL * ((v27 - v26) >> 4));
       }
 
-      __p[0] = &v27;
-      std::vector<NLExtendedString>::__destroy_vector::operator()[abi:ne200100](__p);
-      if (v31 < 0)
+      __p.__r_.__value_.__r.__words[0] = &v26;
+      std::vector<NLExtendedString>::__destroy_vector::operator()[abi:ne200100](&__p);
+      if (v30 < 0)
       {
-        operator delete(v30[0]);
+        operator delete(v29[0]);
       }
     }
   }
@@ -2337,7 +2332,7 @@ void sub_22CD41F60(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void NLAbstractTransMappings::addDynamicMapping(uint64_t a1, const void **a2, uint64_t a3)
+void NLAbstractTransMappings::addDynamicMapping(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   v6 = std::__hash_table<std::__hash_value_type<std::string,std::vector<NLExtendedString>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<NLExtendedString>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<NLExtendedString>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<NLExtendedString>>>>::find<std::string>((a1 + 8), a2);
   v26 = 0;
@@ -2398,19 +2393,19 @@ LABEL_28:
 
   if (v27 != v26)
   {
-    v29 = a2;
-    v23 = (std::__hash_table<std::__hash_value_type<std::string,std::vector<NLExtendedString>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<NLExtendedString>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<NLExtendedString>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<NLExtendedString>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 8), a2) + 5);
+    v30 = a2;
+    v23 = (std::__hash_table<std::__hash_value_type<std::string,std::vector<NLExtendedString>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<NLExtendedString>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<NLExtendedString>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<NLExtendedString>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 8), a2, &std::piecewise_construct, &v30, &v29) + 5);
     if (v23 != &v26)
     {
       std::vector<NLExtendedString>::__assign_with_size[abi:ne200100]<NLExtendedString*,NLExtendedString*>(v23, v26, v27, 0xAAAAAAAAAAAAAAABLL * ((v27 - v26) >> 4));
     }
   }
 
-  v30 = &v26;
-  std::vector<NLExtendedString>::__destroy_vector::operator()[abi:ne200100](&v30);
+  v31 = &v26;
+  std::vector<NLExtendedString>::__destroy_vector::operator()[abi:ne200100](&v31);
 }
 
-void sub_22CD421F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void **a14)
+void sub_22CD421F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t *a14)
 {
   a14 = &a9;
   std::vector<NLExtendedString>::__destroy_vector::operator()[abi:ne200100](&a14);
@@ -2435,32 +2430,32 @@ uint64_t std::vector<NLExtendedString>::push_back[abi:ne200100](uint64_t a1, __i
   return result;
 }
 
-__int128 *NLAbstractTransMappings::findMatches@<X0>(void *a1@<X0>, const void **a2@<X1>, void *a3@<X8>)
+__int128 *NLAbstractTransMappings::findMatches@<X0>(void *a1@<X0>, void *a2@<X8>, uint64_t *a3@<X1>)
 {
-  *a3 = 0;
-  a3[1] = 0;
-  a3[2] = 0;
-  result = std::__hash_table<std::__hash_value_type<std::string,std::vector<NLExtendedString>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<NLExtendedString>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<NLExtendedString>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<NLExtendedString>>>>::find<std::string>(a1 + 16, a2);
+  *a2 = 0;
+  a2[1] = 0;
+  a2[2] = 0;
+  result = std::__hash_table<std::__hash_value_type<std::string,std::vector<NLExtendedString>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<NLExtendedString>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<NLExtendedString>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<NLExtendedString>>>>::find<std::string>(a1 + 16, a3);
   if (result)
   {
-    result = std::vector<NLExtendedString>::__insert_with_size[abi:ne200100]<std::__wrap_iter<NLExtendedString*>,std::__wrap_iter<NLExtendedString*>>(a3, 0, *(result + 5), *(result + 6), 0xAAAAAAAAAAAAAAABLL * ((*(result + 6) - *(result + 5)) >> 4));
+    result = std::vector<NLExtendedString>::__insert_with_size[abi:ne200100]<std::__wrap_iter<NLExtendedString*>,std::__wrap_iter<NLExtendedString*>>(a2, 0, *(result + 5), *(result + 6), 0xAAAAAAAAAAAAAAABLL * ((*(result + 6) - *(result + 5)) >> 4));
   }
 
   if (a1[4])
   {
-    result = std::__hash_table<std::__hash_value_type<std::string,std::vector<NLExtendedString>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<NLExtendedString>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<NLExtendedString>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<NLExtendedString>>>>::find<std::string>(a1 + 1, a2);
+    result = std::__hash_table<std::__hash_value_type<std::string,std::vector<NLExtendedString>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<NLExtendedString>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<NLExtendedString>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<NLExtendedString>>>>::find<std::string>(a1 + 1, a3);
     if (result)
     {
-      return std::vector<NLExtendedString>::__insert_with_size[abi:ne200100]<std::__wrap_iter<NLExtendedString*>,std::__wrap_iter<NLExtendedString*>>(a3, a3[1], *(result + 5), *(result + 6), 0xAAAAAAAAAAAAAAABLL * ((*(result + 6) - *(result + 5)) >> 4));
+      return std::vector<NLExtendedString>::__insert_with_size[abi:ne200100]<std::__wrap_iter<NLExtendedString*>,std::__wrap_iter<NLExtendedString*>>(a2, a2[1], *(result + 5), *(result + 6), 0xAAAAAAAAAAAAAAABLL * ((*(result + 6) - *(result + 5)) >> 4));
     }
   }
 
   return result;
 }
 
-void sub_22CD42310(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_22CD42310(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<NLExtendedString>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -2564,21 +2559,21 @@ void std::vector<NLExtendedString>::clear[abi:ne200100](void ***a1)
   a1[1] = v2;
 }
 
-uint64_t std::vector<NLExtendedString>::__emplace_back_slow_path<NLExtendedString>(uint64_t a1, __int128 *a2)
+uint64_t std::vector<NLExtendedString>::__emplace_back_slow_path<NLExtendedString>(unint64_t *a1, __int128 *a2)
 {
-  v2 = 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 8) - *a1) >> 4);
+  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 4);
   v3 = v2 + 1;
   if (v2 + 1 > 0x555555555555555)
   {
     std::vector<NLExtendedString>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0x5555555555555556 * ((*(a1 + 16) - *a1) >> 4) > v3)
+  if (0x5555555555555556 * ((a1[2] - *a1) >> 4) > v3)
   {
-    v3 = 0x5555555555555556 * ((*(a1 + 16) - *a1) >> 4);
+    v3 = 0x5555555555555556 * ((a1[2] - *a1) >> 4);
   }
 
-  if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *a1) >> 4) >= 0x2AAAAAAAAAAAAAALL)
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 4) >= 0x2AAAAAAAAAAAAAALL)
   {
     v6 = 0x555555555555555;
   }
@@ -2608,14 +2603,14 @@ uint64_t std::vector<NLExtendedString>::__emplace_back_slow_path<NLExtendedStrin
   *(v7 + 40) = *(a2 + 40);
   *(v7 + 24) = v9;
   *&v18 = 48 * v2 + 48;
-  v10 = *(a1 + 8);
+  v10 = a1[1];
   v11 = 48 * v2 + *a1 - v10;
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<NLExtendedString>,NLExtendedString*>(a1, *a1, v10, v11);
   v12 = *a1;
   *a1 = v11;
-  v13 = *(a1 + 16);
+  v13 = a1[2];
   v15 = v18;
-  *(a1 + 8) = v18;
+  *(a1 + 1) = v18;
   *&v18 = v12;
   *(&v18 + 1) = v13;
   v16 = v12;
@@ -2624,9 +2619,9 @@ uint64_t std::vector<NLExtendedString>::__emplace_back_slow_path<NLExtendedStrin
   return v15;
 }
 
-void sub_22CD42654(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_22CD42654(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<NLExtendedString>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -2754,35 +2749,35 @@ void std::__split_buffer<NLExtendedString>::__destruct_at_end[abi:ne200100](uint
   }
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,std::vector<NLExtendedString>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<NLExtendedString>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<NLExtendedString>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<NLExtendedString>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,std::vector<NLExtendedString>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<NLExtendedString>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<NLExtendedString>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<NLExtendedString>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(float *a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v7 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v8 = v7;
+  v9 = *(a1 + 2);
+  if (!*&v9)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v10 = vcnt_s8(v9);
+  v10.i16[0] = vaddlv_u8(v10);
+  v11 = v10.u32[0];
+  if (v10.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v12 = v7;
+    if (v7 >= *&v9)
     {
-      v9 = v4 % *&v6;
+      v12 = v7 % *&v9;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v12 = (*&v9 - 1) & v7;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v13 = *(*a1 + 8 * v12);
+  if (!v13 || (v14 = *v13) == 0)
   {
 LABEL_18:
     std::__hash_table<std::__hash_value_type<std::string,std::vector<NLExtendedString>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<NLExtendedString>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<NLExtendedString>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<NLExtendedString>>>>::__construct_node_hash<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>();
@@ -2790,49 +2785,49 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v15 = v14[1];
+    if (v15 == v8)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v11 > 1)
     {
-      if (v12 >= *&v6)
+      if (v15 >= *&v9)
       {
-        v12 %= *&v6;
+        v15 %= *&v9;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v15 &= *&v9 - 1;
     }
 
-    if (v12 != v9)
+    if (v15 != v12)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v14 = *v14;
+    if (!v14)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v14 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v14;
 }
 
-void sub_22CD42B44(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_22CD42B44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::vector<NLExtendedString>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::vector<NLExtendedString>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -2854,9 +2849,9 @@ uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std
   return a1;
 }
 
-unint64_t std::__string_hash<char>::operator()[abi:ne200100](uint64_t a1, uint64_t a2)
+unint64_t std::__string_hash<char>::operator()[abi:ne200100](uint64_t a1, uint64_t *a2)
 {
-  v2 = *(a2 + 8);
+  v2 = a2[1];
   if (*(a2 + 23) >= 0)
   {
     v3 = *(a2 + 23);
@@ -3053,7 +3048,7 @@ BOOL std::equal_to<std::string>::operator()[abi:ne200100](uint64_t a1, const voi
   return memcmp(v7, v8, v3) == 0;
 }
 
-void std::__hash_table<std::__hash_value_type<std::string,std::vector<NLExtendedString>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<NLExtendedString>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<NLExtendedString>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<NLExtendedString>>>>::__rehash<true>(uint64_t a1, size_t __n)
+void std::__hash_table<std::__hash_value_type<std::string,std::vector<NLExtendedString>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<NLExtendedString>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<NLExtendedString>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<NLExtendedString>>>>::__rehash<true>(uint64_t result, size_t __n)
 {
   if (__n == 1)
   {
@@ -3069,7 +3064,7 @@ void std::__hash_table<std::__hash_value_type<std::string,std::vector<NLExtended
     }
   }
 
-  v4 = *(a1 + 8);
+  v4 = *(result + 8);
   if (prime > *&v4)
   {
     goto LABEL_6;
@@ -3077,7 +3072,7 @@ void std::__hash_table<std::__hash_value_type<std::string,std::vector<NLExtended
 
   if (prime < *&v4)
   {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+    v5 = vcvtps_u32_f32(*(result + 24) / *(result + 32));
     if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
     {
       v5 = std::__next_prime(v5);
@@ -3101,7 +3096,7 @@ void std::__hash_table<std::__hash_value_type<std::string,std::vector<NLExtended
     {
 LABEL_6:
 
-      std::__hash_table<std::__hash_value_type<std::string,std::vector<NLExtendedString>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<NLExtendedString>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<NLExtendedString>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<NLExtendedString>>>>::__do_rehash<true>(a1, prime);
+      std::__hash_table<std::__hash_value_type<std::string,std::vector<NLExtendedString>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<NLExtendedString>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<NLExtendedString>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<NLExtendedString>>>>::__do_rehash<true>(result, prime);
     }
   }
 }
@@ -3226,7 +3221,7 @@ void std::vector<NLExtendedString>::__vdeallocate(uint64_t a1)
   }
 }
 
-void std::vector<NLExtendedString>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<NLExtendedString>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x555555555555556)
   {
@@ -3280,7 +3275,7 @@ std::string *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocat
   return v4;
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,std::vector<NLExtendedString>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<NLExtendedString>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<NLExtendedString>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<NLExtendedString>>>>::find<std::string>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,std::vector<NLExtendedString>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<NLExtendedString>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<NLExtendedString>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<NLExtendedString>>>>::find<std::string>(void *a1, uint64_t *a2)
 {
   v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
   v5 = a1[1];
@@ -3441,9 +3436,9 @@ uint64_t std::vector<NLExtendedString>::__emplace_back_slow_path<NLExtendedStrin
   return v17;
 }
 
-void sub_22CD439A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_22CD439A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<NLExtendedString>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -3481,7 +3476,7 @@ void std::__hash_table<std::__hash_value_type<std::string,std::vector<NLExtended
   }
 }
 
-__int128 *std::vector<NLExtendedString>::__insert_with_size[abi:ne200100]<std::__wrap_iter<NLExtendedString*>,std::__wrap_iter<NLExtendedString*>>(void *a1, uint64_t a2, __int128 *a3, __int128 *a4, uint64_t a5)
+__int128 *std::vector<NLExtendedString>::__insert_with_size[abi:ne200100]<std::__wrap_iter<NLExtendedString*>,std::__wrap_iter<NLExtendedString*>>(void *a1, __int128 *a2, __int128 *a3, __int128 *a4, uint64_t a5)
 {
   v5 = a2;
   if (a5 >= 1)
@@ -3495,7 +3490,7 @@ __int128 *std::vector<NLExtendedString>::__insert_with_size[abi:ne200100]<std::_
       if ((0xAAAAAAAAAAAAAAABLL * ((v10 - a2) >> 4)) >= a5)
       {
         v20 = 3 * a5;
-        std::vector<NLExtendedString>::__move_range(a1, a2, a1[1], a2 + 48 * a5);
+        std::vector<NLExtendedString>::__move_range(a1, a2, a1[1], &a2[3 * a5]);
         v21 = &v7[v20];
         v22 = v5;
         do
@@ -3715,38 +3710,40 @@ double NLTransliterationCandidate::getTotalScore(NLTransliterationCandidate *thi
 
 void ___ZNK26NLTransliterationCandidate13getTotalScoreEv_block_invoke()
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:@"com.apple.NLP"];
   v1 = [v0 URLForResource:@"CandidateRankingParameters" withExtension:@"plist"];
 
-  v11 = 0;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfURL:v1 error:&v11];
-  v3 = v11;
+  v18 = 0;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfURL:v1 error:&v18];
+  v3 = v18;
+  v5 = v3;
   if (v2)
   {
-    v4 = [v2 objectForKey:@"LMDistributionModulatingFactor"];
+    v6 = [v2 objectForKey:@"LMDistributionModulatingFactor"];
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v5 = v4;
-      [v5 doubleValue];
-      if (v6 >= 0.0 && ([v5 doubleValue], v7 <= 1.0))
+      v9 = v6;
+      v10 = [v9 doubleValue];
+      if (v12 >= 0.0 && (v10 = [v9 doubleValue], v13 <= 1.0))
       {
-        [v5 doubleValue];
-        NLTransliterationCandidate::getTotalScore(void)const::lmDistributionModulatingFactor = v9;
-        v8 = _nlpDefaultLog();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+        v15 = [v9 doubleValue];
+        NLTransliterationCandidate::getTotalScore(void)const::lmDistributionModulatingFactor = v16;
+        v14 = _nlpDefaultLog(v15, v17);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
         {
           *buf = 134217984;
-          v13 = NLTransliterationCandidate::getTotalScore(void)const::lmDistributionModulatingFactor;
-          _os_log_impl(&dword_22CD0B000, v8, OS_LOG_TYPE_INFO, "Using LM distribution modulating factor value of: %f", buf, 0xCu);
+          v20 = NLTransliterationCandidate::getTotalScore(void)const::lmDistributionModulatingFactor;
+          _os_log_impl(&dword_22CD0B000, v14, OS_LOG_TYPE_INFO, "Using LM distribution modulating factor value of: %f", buf, 0xCu);
         }
       }
 
       else
       {
-        v8 = _nlpDefaultLog();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+        v14 = _nlpDefaultLog(v10, v11);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
         {
           ___ZNK26NLTransliterationCandidate13getTotalScoreEv_block_invoke_cold_2();
         }
@@ -3755,8 +3752,8 @@ void ___ZNK26NLTransliterationCandidate13getTotalScoreEv_block_invoke()
 
     else
     {
-      v5 = _nlpDefaultLog();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v9 = _nlpDefaultLog(isKindOfClass, v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         ___ZNK26NLTransliterationCandidate13getTotalScoreEv_block_invoke_cold_1();
       }
@@ -3765,26 +3762,24 @@ void ___ZNK26NLTransliterationCandidate13getTotalScoreEv_block_invoke()
 
   else
   {
-    v4 = _nlpDefaultLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = _nlpDefaultLog(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      ___ZNK26NLTransliterationCandidate13getTotalScoreEv_block_invoke_cold_3(v1, v3, v4);
+      ___ZNK26NLTransliterationCandidate13getTotalScoreEv_block_invoke_cold_3(v1, v5, v6);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t NLTransliterationCandidate::copyMetadata(NLTransliterationCandidate *this)
 {
-  v10[3] = *MEMORY[0x277D85DE8];
-  v9[0] = kNLTransliteratorCandidateMetadataLMScoreKey[0];
+  v9[3] = *MEMORY[0x277D85DE8];
+  v8[0] = kNLTransliteratorCandidateMetadataLMScoreKey[0];
   v2 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 7)];
-  v10[0] = v2;
-  v9[1] = kNLTransliteratorCandidateMetadataSeq2SeqScoreKey[0];
+  v9[0] = v2;
+  v8[1] = kNLTransliteratorCandidateMetadataSeq2SeqScoreKey[0];
   v3 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 8)];
-  v10[1] = v3;
-  v9[2] = kNLTransliteratorCandidateMetadataTotalScoreKey;
+  v9[1] = v3;
+  v8[2] = kNLTransliteratorCandidateMetadataTotalScoreKey;
   v4 = MEMORY[0x277CCABB0];
   if (NLTransliterationCandidate::getTotalScore(void)const::once != -1)
   {
@@ -3792,10 +3787,9 @@ uint64_t NLTransliterationCandidate::copyMetadata(NLTransliterationCandidate *th
   }
 
   v5 = [v4 numberWithDouble:*(this + 8) + *&NLTransliterationCandidate::getTotalScore(void)const::lmDistributionModulatingFactor * *(this + 7)];
-  v10[2] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:3];
+  v9[2] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -3811,7 +3805,7 @@ BOOL NLTransliteratorUtils::checkMetaFlags(NLTransliteratorUtils *this, NLTransl
   return (v2 & 2) == 0;
 }
 
-BOOL NLTransliteratorUtils::greater_than_key(NLTransliteratorUtils *this, const NLTransliterationCandidate *a2, const NLTransliterationCandidate *a3)
+uint64_t NLTransliteratorUtils::greater_than_key(NLTransliteratorUtils *this, const NLTransliterationCandidate *a2, const NLTransliterationCandidate *a3)
 {
   LMScore = NLTransliterationCandidate::getLMScore(this);
   v6 = NLTransliterationCandidate::getLMScore(a2);
@@ -4028,9 +4022,9 @@ uint64_t std::wstring_convert<std::codecvt_utf8<char32_t,1114111ul,(std::codecvt
   return a1;
 }
 
-void std::wstring_convert<std::codecvt_utf8<char32_t,1114111ul,(std::codecvt_mode)0>,char32_t,std::allocator<char32_t>,std::allocator<char>>::from_bytes(uint64_t a1@<X0>, std::basic_string<char32_t> *a2@<X1>, std::basic_string<char32_t> *a3@<X2>, uint64_t a4@<X8>)
+void std::wstring_convert<std::codecvt_utf8<char32_t,1114111ul,(std::codecvt_mode)0>,char32_t,std::allocator<char32_t>,std::allocator<char>>::from_bytes(uint64_t a1@<X0>, std::basic_string<char32_t> *a2@<X1>, std::basic_string<char32_t> *a3@<X2>, std::basic_string<char32_t> *a4@<X8>)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   *(a1 + 184) = 0;
   if (!*(a1 + 48))
   {
@@ -4049,61 +4043,61 @@ void std::wstring_convert<std::codecvt_utf8<char32_t,1114111ul,(std::codecvt_mod
     std::__allocate_at_least[abi:ne200100]<std::allocator<char32_t>>(a4, v8 + 2);
   }
 
-  *(a4 + 23) = v8;
+  *(&a4->__r_.__value_.__s + 23) = v8;
   if (a3 != a2)
   {
     bzero(a4, 8 * (a3 - a2));
   }
 
-  *(a4 + 4 * v8) = 0;
+  a4->__r_.__value_.__s.__data_[v8] = 0;
   if (v7 != a3)
   {
-    if (*(a4 + 23) >= 0)
+    if ((a4->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
       v9 = 4;
     }
 
     else
     {
-      v9 = (*(a4 + 16) & 0x7FFFFFFFFFFFFFFFLL) - 1;
+      v9 = (a4->__r_.__value_.__r.__words[2] & 0x7FFFFFFFFFFFFFFFLL) - 1;
     }
 
     std::basic_string<char32_t>::resize(a4, v9, 0);
     v10 = *(a1 + 136);
-    v31[4] = *(a1 + 120);
-    v31[5] = v10;
+    v30[4] = *(a1 + 120);
+    v30[5] = v10;
     v11 = *(a1 + 168);
-    v31[6] = *(a1 + 152);
-    v31[7] = v11;
+    v30[6] = *(a1 + 152);
+    v30[7] = v11;
     v12 = *(a1 + 72);
-    v31[0] = *(a1 + 56);
-    v31[1] = v12;
+    v30[0] = *(a1 + 56);
+    v30[1] = v12;
     v13 = *(a1 + 88);
     v14 = *(a1 + 104);
-    v15 = *(a4 + 23);
-    if ((v15 & 0x80u) == 0)
+    size = HIBYTE(a4->__r_.__value_.__r.__words[2]);
+    if ((size & 0x80u) == 0)
     {
       v16 = a4;
     }
 
     else
     {
-      v16 = *a4;
+      v16 = a4->__r_.__value_.__r.__words[0];
     }
 
-    if ((v15 & 0x80u) != 0)
+    if ((size & 0x80u) != 0)
     {
-      v15 = *(a4 + 8);
+      size = a4->__r_.__value_.__l.__size_;
     }
 
-    v17 = &v16[4 * v15];
-    v31[2] = *(a1 + 88);
-    v31[3] = v14;
-    while (1)
+    v17 = v16 + 4 * size;
+    v30[2] = *(a1 + 88);
+    v30[3] = v14;
+    do
     {
-      v18 = (*(**(a1 + 48) + 32))(*(a1 + 48), v31, v7, a3, &v30, v16, v17, &v29, v13);
-      v19 = v30 == v7;
-      *(a1 + 184) += v30 - v7;
+      v18 = (*(**(a1 + 48) + 32))(*(a1 + 48), v30, v7, a3, &v29, v16, v17, &v28, v13);
+      v19 = v29 == v7;
+      *(a1 + 184) += v29 - v7;
       if (v19)
       {
         goto LABEL_40;
@@ -4111,24 +4105,66 @@ void std::wstring_convert<std::codecvt_utf8<char32_t,1114111ul,(std::codecvt_mod
 
       if (v18 != 1)
       {
-        break;
+        if (v18)
+        {
+          if (v18 != 3)
+          {
+LABEL_40:
+            if ((*(&a4->__r_.__value_.__s + 23) & 0x80) != 0)
+            {
+              goto LABEL_41;
+            }
+
+            goto LABEL_29;
+          }
+
+          if ((a4->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          {
+            v25 = a4;
+          }
+
+          else
+          {
+            v25 = a4->__r_.__value_.__r.__words[0];
+          }
+
+          std::basic_string<char32_t>::resize(a4, (v16 - v25) >> 2, 0);
+          std::basic_string<char32_t>::append<char32_t const*,0>(a4, v7, a3);
+        }
+
+        else
+        {
+          if ((a4->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          {
+            v27 = a4;
+          }
+
+          else
+          {
+            v27 = a4->__r_.__value_.__r.__words[0];
+          }
+
+          std::basic_string<char32_t>::resize(a4, (v28 - v27) >> 2, 0);
+        }
+
+        return;
       }
 
-      if (*(a4 + 23) >= 0)
+      if ((a4->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
         v20 = a4;
       }
 
       else
       {
-        v20 = *a4;
+        v20 = a4->__r_.__value_.__r.__words[0];
       }
 
-      v21 = v29 - v20;
-      std::basic_string<char32_t>::resize(a4, (v29 - v20) >> 1, 0);
-      v22 = *(a4 + 23);
+      v21 = v28 - v20;
+      std::basic_string<char32_t>::resize(a4, (v28 - v20) >> 1, 0);
+      v22 = HIBYTE(a4->__r_.__value_.__r.__words[2]);
       v23 = v22;
-      v24 = *a4;
+      v24 = a4->__r_.__value_.__r.__words[0];
       if ((v22 & 0x80u) == 0)
       {
         v24 = a4;
@@ -4137,87 +4173,43 @@ void std::wstring_convert<std::codecvt_utf8<char32_t,1114111ul,(std::codecvt_mod
       v16 = (v24 + v21);
       if ((v22 & 0x80u) != 0)
       {
-        v22 = *(a4 + 8);
+        v22 = a4->__r_.__value_.__l.__size_;
       }
 
-      v17 = (v24 + 4 * v22);
-      v7 = v30;
-      if (v30 >= a3)
-      {
-        if ((v23 & 0x80) == 0)
-        {
-          goto LABEL_29;
-        }
+      v17 = v24 + 4 * v22;
+      v7 = v29;
+    }
+
+    while (v29 < a3);
+    if ((v23 & 0x80) == 0)
+    {
+      goto LABEL_29;
+    }
 
 LABEL_41:
-        operator delete(*a4);
+    operator delete(a4->__r_.__value_.__l.__data_);
 LABEL_29:
-        if (*(a1 + 47) < 0)
-        {
-          v26 = *(a1 + 32);
-          if (v26)
-          {
-            std::basic_string<char32_t>::__init_copy_ctor_external(a4, *(a1 + 24), v26);
-            goto LABEL_46;
-          }
-        }
-
-        else if (*(a1 + 47))
-        {
-          *a4 = *(a1 + 24);
-          *(a4 + 16) = *(a1 + 40);
-          goto LABEL_46;
-        }
-
-        std::__throw_range_error[abi:ne200100]("wstring_convert: from_bytes error");
-      }
-    }
-
-    if (v18)
+    if ((*(a1 + 47) & 0x80000000) == 0)
     {
-      if (v18 != 3)
+      if (*(a1 + 47))
       {
-LABEL_40:
-        if ((*(a4 + 23) & 0x80) != 0)
-        {
-          goto LABEL_41;
-        }
-
-        goto LABEL_29;
+        *&a4->__r_.__value_.__l.__data_ = *(a1 + 24);
+        a4->__r_.__value_.__r.__words[2] = *(a1 + 40);
+        return;
       }
 
-      if (*(a4 + 23) >= 0)
-      {
-        v25 = a4;
-      }
-
-      else
-      {
-        v25 = *a4;
-      }
-
-      std::basic_string<char32_t>::resize(a4, (v16 - v25) >> 2, 0);
-      std::basic_string<char32_t>::append<char32_t const*,0>(a4, v7, a3);
+LABEL_48:
+      std::__throw_range_error[abi:ne200100]("wstring_convert: from_bytes error");
     }
 
-    else
+    v26 = *(a1 + 32);
+    if (!v26)
     {
-      if (*(a4 + 23) >= 0)
-      {
-        v27 = a4;
-      }
-
-      else
-      {
-        v27 = *a4;
-      }
-
-      std::basic_string<char32_t>::resize(a4, (v29 - v27) >> 2, 0);
+      goto LABEL_48;
     }
+
+    std::basic_string<char32_t>::__init_copy_ctor_external(a4, *(a1 + 24), v26);
   }
-
-LABEL_46:
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void sub_22CD4502C(_Unwind_Exception *exception_object)
@@ -4464,45 +4456,40 @@ void std::basic_string<char32_t>::__grow_by(std::basic_string<char32_t> *this, s
 {
   if (0x3FFFFFFFFFFFFFF7 - __old_cap >= __delta_cap)
   {
-    if (SHIBYTE(this->__r_.__value_.__r.__words[2]) < 0)
-    {
-      v7 = this->__r_.__value_.__r.__words[0];
-    }
-
-    v8 = __delta_cap + __old_cap;
+    v7 = __delta_cap + __old_cap;
     if (__delta_cap + __old_cap <= 2 * __old_cap)
     {
-      v8 = 2 * __old_cap;
+      v7 = 2 * __old_cap;
     }
 
-    if ((v8 | 1) == 5)
+    if ((v7 | 1) == 5)
     {
-      v9 = 7;
+      v8 = 7;
     }
 
     else
     {
-      v9 = (v8 | 1) + 1;
+      v8 = (v7 | 1) + 1;
     }
 
-    v10 = v8 >= 5;
-    v11 = 5;
-    if (v10)
+    v9 = v7 >= 5;
+    v10 = 5;
+    if (v9)
     {
-      v11 = v9;
+      v10 = v8;
     }
 
     if (__old_cap <= 0x1FFFFFFFFFFFFFF2)
     {
-      v12 = v11;
+      v11 = v10;
     }
 
     else
     {
-      v12 = 0x3FFFFFFFFFFFFFF7;
+      v11 = 0x3FFFFFFFFFFFFFF7;
     }
 
-    std::__allocate_at_least[abi:ne200100]<std::allocator<char32_t>>(this, v12);
+    std::__allocate_at_least[abi:ne200100]<std::allocator<char32_t>>(this, v11);
   }
 
   std::string::__throw_length_error[abi:ne200100]();
@@ -4595,45 +4582,40 @@ void std::basic_string<char32_t>::__grow_by_and_replace(std::basic_string<char32
 {
   if (0x3FFFFFFFFFFFFFF6 - __old_cap >= __delta_cap)
   {
-    if (SHIBYTE(this->__r_.__value_.__r.__words[2]) < 0)
-    {
-      v8 = this->__r_.__value_.__r.__words[0];
-    }
-
-    v9 = __delta_cap + __old_cap;
+    v8 = __delta_cap + __old_cap;
     if (__delta_cap + __old_cap <= 2 * __old_cap)
     {
-      v9 = 2 * __old_cap;
+      v8 = 2 * __old_cap;
     }
 
-    if ((v9 | 1) == 5)
+    if ((v8 | 1) == 5)
     {
-      v10 = 7;
+      v9 = 7;
     }
 
     else
     {
-      v10 = (v9 | 1) + 1;
+      v9 = (v8 | 1) + 1;
     }
 
-    v11 = v9 >= 5;
-    v12 = 5;
-    if (v11)
+    v10 = v8 >= 5;
+    v11 = 5;
+    if (v10)
     {
-      v12 = v10;
+      v11 = v9;
     }
 
     if (__old_cap > 0x1FFFFFFFFFFFFFF2)
     {
-      v13 = 0x3FFFFFFFFFFFFFF7;
+      v12 = 0x3FFFFFFFFFFFFFF7;
     }
 
     else
     {
-      v13 = v12;
+      v12 = v11;
     }
 
-    std::__allocate_at_least[abi:ne200100]<std::allocator<char32_t>>(this, v13);
+    std::__allocate_at_least[abi:ne200100]<std::allocator<char32_t>>(this, v12);
   }
 
   std::string::__throw_length_error[abi:ne200100]();
@@ -4705,7 +4687,7 @@ void std::vector<std::string>::clear[abi:ne200100](void ***a1)
 
 void std::wstring_convert<std::codecvt_utf8<char32_t,1114111ul,(std::codecvt_mode)0>,char32_t,std::allocator<char32_t>,std::allocator<char>>::to_bytes(uint64_t a1@<X0>, std::string *a2@<X1>, std::string *a3@<X2>, std::string *a4@<X8>)
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   *(a1 + 184) = 0;
   if (!*(a1 + 48))
   {
@@ -4734,17 +4716,17 @@ void std::wstring_convert<std::codecvt_utf8<char32_t,1114111ul,(std::codecvt_mod
   if (v7 == a3)
   {
     v24 = *(a1 + 136);
-    v54 = *(a1 + 120);
-    v55 = v24;
+    v53 = *(a1 + 120);
+    v54 = v24;
     v25 = *(a1 + 168);
-    v56 = *(a1 + 152);
-    v57 = v25;
+    v55 = *(a1 + 152);
+    v56 = v25;
     v26 = *(a1 + 72);
-    v50 = *(a1 + 56);
-    v51 = v26;
+    v49 = *(a1 + 56);
+    v50 = v26;
     v27 = *(a1 + 104);
-    v52 = *(a1 + 88);
-    v53 = v27;
+    v51 = *(a1 + 88);
+    v52 = v27;
   }
 
   else
@@ -4761,14 +4743,14 @@ void std::wstring_convert<std::codecvt_utf8<char32_t,1114111ul,(std::codecvt_mod
 
     std::string::resize(a4, v9, 0);
     v10 = *(a1 + 136);
-    v54 = *(a1 + 120);
-    v55 = v10;
+    v53 = *(a1 + 120);
+    v54 = v10;
     v11 = *(a1 + 168);
-    v56 = *(a1 + 152);
-    v57 = v11;
+    v55 = *(a1 + 152);
+    v56 = v11;
     v12 = *(a1 + 72);
-    v50 = *(a1 + 56);
-    v51 = v12;
+    v49 = *(a1 + 56);
+    v50 = v12;
     v13 = *(a1 + 88);
     v14 = *(a1 + 104);
     size = HIBYTE(a4->__r_.__value_.__r.__words[2]);
@@ -4787,14 +4769,14 @@ void std::wstring_convert<std::codecvt_utf8<char32_t,1114111ul,(std::codecvt_mod
       size = a4->__r_.__value_.__l.__size_;
     }
 
-    v17 = &v16[size];
-    v52 = *(a1 + 88);
-    v53 = v14;
+    v17 = v16 + size;
+    v51 = *(a1 + 88);
+    v52 = v14;
     while (1)
     {
-      v18 = (*(**(a1 + 48) + 24))(*(a1 + 48), &v50, v7, a3, &v49, v16, v17, &v48, v13);
-      v19 = v49 == v7;
-      *(a1 + 184) += (v49 - v7) >> 2;
+      v18 = (*(**(a1 + 48) + 24))(*(a1 + 48), &v49, v7, a3, &v48, v16, v17, &v47, v13);
+      v19 = v48 == v7;
+      *(a1 + 184) += (v48 - v7) >> 2;
       if (v19)
       {
         goto LABEL_66;
@@ -4815,8 +4797,8 @@ void std::wstring_convert<std::codecvt_utf8<char32_t,1114111ul,(std::codecvt_mod
         v20 = a4->__r_.__value_.__r.__words[0];
       }
 
-      v21 = v48 - v20;
-      std::string::resize(a4, 2 * (v48 - v20), 0);
+      v21 = v47 - v20;
+      std::string::resize(a4, 2 * (v47 - v20), 0);
       v22 = HIBYTE(a4->__r_.__value_.__r.__words[2]);
       if ((v22 & 0x80u) == 0)
       {
@@ -4828,15 +4810,15 @@ void std::wstring_convert<std::codecvt_utf8<char32_t,1114111ul,(std::codecvt_mod
         v23 = a4->__r_.__value_.__r.__words[0];
       }
 
-      v16 = v23 + v21;
+      v16 = (v23 + v21);
       if ((v22 & 0x80u) != 0)
       {
         v22 = a4->__r_.__value_.__l.__size_;
       }
 
       v17 = v23 + v22;
-      v7 = v49;
-      if (v49 >= a3)
+      v7 = v48;
+      if (v48 >= a3)
       {
         goto LABEL_66;
       }
@@ -4875,7 +4857,7 @@ void std::wstring_convert<std::codecvt_utf8<char32_t,1114111ul,(std::codecvt_mod
         v29 = a4->__r_.__value_.__r.__words[0];
       }
 
-      std::string::resize(a4, v48 - v29, 0);
+      std::string::resize(a4, v47 - v29, 0);
     }
   }
 
@@ -4914,7 +4896,7 @@ void std::wstring_convert<std::codecvt_utf8<char32_t,1114111ul,(std::codecvt_mod
     v36 = a4->__r_.__value_.__r.__words[0];
   }
 
-  v37 = (v36 + v33);
+  v37 = v36 + v33;
   if (v35)
   {
     v38 = a4->__r_.__value_.__l.__size_;
@@ -4925,9 +4907,9 @@ void std::wstring_convert<std::codecvt_utf8<char32_t,1114111ul,(std::codecvt_mod
     v38 = HIBYTE(a4->__r_.__value_.__r.__words[2]);
   }
 
-  for (i = v37 + v38; ; i = v44 + v43)
+  for (i = &v37[v38]; ; i = v44 + v43)
   {
-    v40 = (*(**(a1 + 48) + 40))(*(a1 + 48), &v50, v37, i, &v49);
+    v40 = (*(**(a1 + 48) + 40))(*(a1 + 48), &v49, v37, i, &v48);
     if (v40 != 1)
     {
       break;
@@ -4943,8 +4925,8 @@ void std::wstring_convert<std::codecvt_utf8<char32_t,1114111ul,(std::codecvt_mod
       v41 = a4->__r_.__value_.__r.__words[0];
     }
 
-    v42 = (v49 - v41);
-    std::string::resize(a4, 2 * (v49 - v41), 0);
+    v42 = v48 - v41;
+    std::string::resize(a4, 2 * (v48 - v41), 0);
     v43 = HIBYTE(a4->__r_.__value_.__r.__words[2]);
     if ((v43 & 0x80u) == 0)
     {
@@ -4956,63 +4938,63 @@ void std::wstring_convert<std::codecvt_utf8<char32_t,1114111ul,(std::codecvt_mod
       v44 = a4->__r_.__value_.__r.__words[0];
     }
 
-    v37 = &v42[v44];
+    v37 = v44 + v42;
     if ((v43 & 0x80u) != 0)
     {
       v43 = a4->__r_.__value_.__l.__size_;
     }
   }
 
-  if (v40)
+  if (!v40)
   {
-    if (v40 != 3)
+    v37 = v48;
+    goto LABEL_74;
+  }
+
+  if (v40 == 3)
+  {
+LABEL_74:
+    if ((a4->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
+      v46 = a4;
+    }
+
+    else
+    {
+      v46 = a4->__r_.__value_.__r.__words[0];
+    }
+
+    std::string::resize(a4, v37 - v46, 0);
+    return;
+  }
+
 LABEL_66:
-      if (SHIBYTE(a4->__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(a4->__r_.__value_.__l.__data_);
-      }
+  if (SHIBYTE(a4->__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(a4->__r_.__value_.__l.__data_);
+  }
 
 LABEL_68:
-      if (*(a1 + 23) < 0)
-      {
-        v45 = *(a1 + 8);
-        if (v45)
-        {
-          std::string::__init_copy_ctor_external(a4, *a1, v45);
-          goto LABEL_78;
-        }
-      }
-
-      else if (*(a1 + 23))
-      {
-        *&a4->__r_.__value_.__l.__data_ = *a1;
-        a4->__r_.__value_.__r.__words[2] = *(a1 + 16);
-        goto LABEL_78;
-      }
-
-      std::__throw_range_error[abi:ne200100]("wstring_convert: to_bytes error");
+  if ((*(a1 + 23) & 0x80000000) == 0)
+  {
+    if (*(a1 + 23))
+    {
+      *&a4->__r_.__value_.__l.__data_ = *a1;
+      a4->__r_.__value_.__r.__words[2] = *(a1 + 16);
+      return;
     }
+
+LABEL_79:
+    std::__throw_range_error[abi:ne200100]("wstring_convert: to_bytes error");
   }
 
-  else
+  v45 = *(a1 + 8);
+  if (!v45)
   {
-    v37 = v49;
+    goto LABEL_79;
   }
 
-  if ((a4->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-  {
-    v46 = a4;
-  }
-
-  else
-  {
-    v46 = a4->__r_.__value_.__r.__words[0];
-  }
-
-  std::string::resize(a4, v37 - v46, 0);
-LABEL_78:
-  v47 = *MEMORY[0x277D85DE8];
+  std::string::__init_copy_ctor_external(a4, *a1, v45);
 }
 
 void sub_22CD45D7C(_Unwind_Exception *exception_object)
@@ -5132,7 +5114,7 @@ void sub_22CD45F18(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::string::__init_with_size[abi:ne200100]<char const*,char const*>(_BYTE *__dst, _BYTE *__src, _BYTE *a3, unint64_t a4)
+void *std::string::__init_with_size[abi:ne200100]<char const*,char const*>(void *__dst, _BYTE *__src, _BYTE *a3, unint64_t a4)
 {
   if (a4 >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -5145,14 +5127,14 @@ _BYTE *std::string::__init_with_size[abi:ne200100]<char const*,char const*>(_BYT
     operator new();
   }
 
-  __dst[23] = a4;
+  *(__dst + 23) = a4;
   v5 = a3 - __src;
   if (a3 != __src)
   {
     __dst = memmove(__dst, __src, v5);
   }
 
-  v4[v5] = 0;
+  *(v4 + v5) = 0;
   return __dst;
 }
 
@@ -5391,7 +5373,7 @@ void NLGujaratiCharLanguageModeler::NLGujaratiCharLanguageModeler(NLGujaratiChar
   }
 }
 
-double NLGujaratiCharLanguageModeler::logProbability(uint64_t a1)
+double NLGujaratiCharLanguageModeler::logProbability(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
 {
   if (!*(a1 + 8))
   {
@@ -5549,12 +5531,12 @@ LABEL_10:
   return 0;
 }
 
-void NLMorphologicalAnalyzerEnumerateLemmasForToken(uint64_t a1, __CFString *a2, uint64_t a3)
+void NLMorphologicalAnalyzerEnumerateLemmasForToken(uint64_t result, __CFString *a2, uint64_t a3)
 {
-  if (a1)
+  if (result)
   {
-    v4 = *(a1 + 24);
-    getUTF8StringFromCFString(a2, __p);
+    v4 = *(result + 24);
+    getUTF8StringFromCFString(__p, a2);
     (*(*v4 + 16))(&v11, v4, __p);
     if (v10 < 0)
     {
@@ -5602,12 +5584,12 @@ void sub_22CD46CC4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void NLMorphologicalAnalyzerEnumerateVariantsForToken(uint64_t a1, __CFString *a2, uint64_t a3)
+void NLMorphologicalAnalyzerEnumerateVariantsForToken(uint64_t result, __CFString *a2, uint64_t a3)
 {
-  if (a1)
+  if (result)
   {
-    v4 = *(a1 + 24);
-    getUTF8StringFromCFString(a2, __p);
+    v4 = *(result + 24);
+    getUTF8StringFromCFString(__p, a2);
     (*(*v4 + 24))(&v11, v4, __p);
     if (v10 < 0)
     {
@@ -5714,51 +5696,54 @@ void std::allocator<std::pair<std::string,std::string>>::destroy[abi:ne200100](u
   }
 }
 
-void NL::Resource::enumerateAssetResourcesWithContentType()
+void NL::Resource::enumerateAssetResourcesWithContentType(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v0[0] = 0;
-  v0[1] = v0;
-  v0[2] = 0x2000000000;
-  v1 = 0;
+  v3[0] = 0;
+  v3[1] = v3;
+  v3[2] = 0x2000000000;
+  v4 = 0;
   LDEnumerateAssetDataItems();
-  _Block_object_dispose(v0, 8);
+  _Block_object_dispose(v3, 8);
 }
 
-BOOL ___ZN2NL8Resource38enumerateAssetResourcesWithContentTypeEPK10__CFLocalePK10__CFStringU13block_pointerFvPS0_PbE_block_invoke(uint64_t a1, const __CFURL *a2, uint64_t a3, uint64_t a4, const __CFString *a5)
+void ___ZN2NL8Resource38enumerateAssetResourcesWithContentTypeEPK10__CFLocalePK10__CFStringU13block_pointerFvPS0_PbE_block_invoke(void *a1, const __CFURL *a2, uint64_t a3, const void *a4, const __CFString *a5, _BYTE *a6)
 {
-  result = CFStringsAreEqual(a5, *(a1 + 48));
-  if (result)
+  if (CFStringsAreEqual(a5, a1[6]))
   {
     CFURLCopyLastPathComponent(a2);
     operator new();
   }
-
-  return result;
 }
 
-void sub_22CD471A0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_22CD471A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  MEMORY[0x2318C0600](v2, 0x10E1C40F75B5662);
+  va_start(va, a3);
+  MEMORY[0x2318C0600](v3, 0x10E1C40F75B5662);
   nlp::CFScopedPtr<__CFString const*>::reset(va, 0);
   _Unwind_Resume(a1);
 }
 
 uint64_t NL::Resource::createAssetResource(NL::Resource *this, const __CFLocale *a2, const __CFString *a3, const __CFString *a4)
 {
-  v6 = 0;
-  v7 = &v6;
-  v8 = 0x2000000000;
-  v9 = 0;
-  NL::Resource::enumerateAssetResourcesWithContentType();
-  v4 = v7[3];
-  _Block_object_dispose(&v6, 8);
+  v7 = 0;
+  v8 = &v7;
+  v9 = 0x2000000000;
+  v10 = 0;
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 0x40000000;
+  v6[2] = ___ZN2NL8Resource19createAssetResourceEPK10__CFLocalePK10__CFStringS6__block_invoke;
+  v6[3] = &unk_27873FCE0;
+  v6[4] = &v7;
+  v6[5] = a3;
+  NL::Resource::enumerateAssetResourcesWithContentType(this, a2, v6);
+  v4 = v8[3];
+  _Block_object_dispose(&v7, 8);
   return v4;
 }
 
-void sub_22CD4727C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22CD4727C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5879,8 +5864,8 @@ void NLHindiWordLanguageModeler::loadLanguageModel(NLHindiWordLanguageModeler *t
   v5 = CFNumberCreate(0, kCFNumberDoubleType, &valuePtr);
   CFDictionarySetValue(v4, *MEMORY[0x277D230A8], v5);
   CFRelease(v5);
-  v13 = 1;
-  v6 = CFNumberCreate(0, kCFNumberLongType, &v13);
+  v17 = 1;
+  v6 = CFNumberCreate(0, kCFNumberLongType, &v17);
   CFDictionarySetValue(v4, *MEMORY[0x277D230B0], v6);
   CFDictionarySetValue(v4, *MEMORY[0x277D230C0], v6);
   CFDictionarySetValue(v4, *MEMORY[0x277D230B8], v6);
@@ -5889,41 +5874,41 @@ void NLHindiWordLanguageModeler::loadLanguageModel(NLHindiWordLanguageModeler *t
   TypeID = CFStringGetTypeID();
   if (TypeID == CFGetTypeID(@"hi"))
   {
-    applesauce::CF::details::CFString_get_value<false>(@"hi", __p);
+    v8 = applesauce::CF::details::CFString_get_value<false>(@"hi", __p);
   }
 
   else
   {
-    std::string::basic_string[abi:ne200100]<0>(__p, "");
+    v8 = std::string::basic_string[abi:ne200100]<0>(__p, "");
   }
 
-  v8 = _nlpDefaultLog();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v10 = _nlpDefaultLog(v8, v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    NLHindiWordLanguageModeler::loadLanguageModel(__p);
+    NLHindiWordLanguageModeler::loadLanguageModel();
   }
 
   *(this + 1) = LMLanguageModelCreate();
   CFRelease(v4);
   if (*(this + 1))
   {
-    v9 = _nlpDefaultLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v13 = _nlpDefaultLog(v11, v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
-      NLHindiWordLanguageModeler::loadLanguageModel(__p);
+      NLHindiWordLanguageModeler::loadLanguageModel();
     }
   }
 
   else
   {
-    v10 = _nlpDefaultLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v14 = _nlpDefaultLog(v11, v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      NLHindiWordLanguageModeler::loadLanguageModel(__p);
+      NLHindiWordLanguageModeler::loadLanguageModel();
     }
   }
 
-  if (v12 < 0)
+  if (v16 < 0)
   {
     operator delete(__p[0]);
   }
@@ -5948,8 +5933,7 @@ void NLHindiWordLanguageModeler::removeDiacritics(uint64_t a1@<X1>, char a2@<W2>
 
   else
   {
-    *&a3->__r_.__value_.__l.__data_ = *a1;
-    a3->__r_.__value_.__r.__words[2] = *(a1 + 16);
+    *a3 = *a1;
   }
 
   std::string::basic_string[abi:ne200100]<0>(v7, "ँ");
@@ -6055,7 +6039,7 @@ void NLHindiWordLanguageModeler::~NLHindiWordLanguageModeler(NLHindiWordLanguage
   JUMPOUT(0x2318C0600);
 }
 
-_BYTE *applesauce::CF::details::CFString_get_value<false>@<X0>(const __CFString *a1@<X0>, _BYTE *a2@<X8>)
+void *applesauce::CF::details::CFString_get_value<false>@<X0>(const __CFString *a1@<X0>, uint64_t a2@<X8>)
 {
   CStringPtr = CFStringGetCStringPtr(a1, 0x8000100u);
   if (CStringPtr)
@@ -6079,14 +6063,14 @@ _BYTE *applesauce::CF::details::CFString_get_value<false>@<X0>(const __CFString 
     operator new();
   }
 
-  a2[23] = maxBufLen;
+  *(a2 + 23) = maxBufLen;
   if (v7)
   {
     bzero(a2, v7);
   }
 
-  a2[v7] = 0;
-  if (a2[23] >= 0)
+  *(a2 + v7) = 0;
+  if (*(a2 + 23) >= 0)
   {
     v8 = a2;
   }
@@ -6101,17 +6085,6 @@ _BYTE *applesauce::CF::details::CFString_get_value<false>@<X0>(const __CFString 
   return CFStringGetBytes(a1, v11, 0x8000100u, 0, 0, v8, maxBufLen, &maxBufLen);
 }
 
-uint64_t *OUTLINED_FUNCTION_0_0@<X0>(uint64_t *result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  if (*(result + 23) < 0)
-  {
-    v3 = *result;
-  }
-
-  return result;
-}
-
 void NLAbstractOrthographyConvertor::convertToModernOrthography(uint64_t a1@<X1>, std::string *a2@<X8>)
 {
   if (*(a1 + 23) < 0)
@@ -6121,8 +6094,7 @@ void NLAbstractOrthographyConvertor::convertToModernOrthography(uint64_t a1@<X1>
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *a1;
-    a2->__r_.__value_.__r.__words[2] = *(a1 + 16);
+    *a2 = *a1;
   }
 }
 
@@ -6139,37 +6111,37 @@ void NLConvertBW2UTF::NLConvertBW2UTF(NLConvertBW2UTF *this)
 uint64_t NLConvertBW2UTF::loadBw2utf(void *a1, uint64_t *a2)
 {
   v24[19] = *MEMORY[0x277D85DE8];
-  std::ifstream::basic_ifstream(v22, a2);
+  std::ifstream::basic_ifstream(v22, a2, 8);
   __p[0] = 0;
   __p[1] = 0;
-  v21 = 0;
+  v20 = 0;
   v3 = MEMORY[0x277D82680];
   while (1)
   {
     std::ios_base::getloc((v22 + *(v22[0] - 24)));
-    v4 = std::locale::use_facet(v18, v3);
+    v4 = std::locale::use_facet(v17, v3);
     v5 = (v4->__vftable[2].~facet_0)(v4, 10);
-    std::locale::~locale(v18);
+    std::locale::~locale(v17);
     v6 = std::getline[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v22, __p, v5);
     if ((*(v6 + *(*v6 - 24) + 32) & 5) != 0)
     {
       break;
     }
 
-    trim(__p, v18);
-    if (SHIBYTE(v21) < 0)
+    trim(__p, v17);
+    if (SHIBYTE(v20) < 0)
     {
       operator delete(__p[0]);
     }
 
-    *__p = *&v18[0].__locale_;
-    v21 = v19;
-    std::string::basic_string[abi:ne200100]<0>(v18, ";");
-    v7 = startswith(__p, v18);
+    *__p = *&v17[0].__locale_;
+    v20 = v18;
+    std::string::basic_string[abi:ne200100]<0>(v17, ";");
+    v7 = startswith(__p, v17);
     v8 = v7;
-    if (SHIBYTE(v19) < 0)
+    if (SHIBYTE(v18) < 0)
     {
-      operator delete(v18[0].__locale_);
+      operator delete(v17[0].__locale_);
       if (!v8)
       {
         goto LABEL_9;
@@ -6179,28 +6151,28 @@ uint64_t NLConvertBW2UTF::loadBw2utf(void *a1, uint64_t *a2)
     else if (!v7)
     {
 LABEL_9:
-      v18[0].__locale_ = 0;
-      v18[1].__locale_ = 0;
-      v19 = 0;
-      splitWithChar(__p, 9u, v18);
-      if (*(v18[0].__locale_ + 23) < 0)
+      v17[0].__locale_ = 0;
+      v17[1].__locale_ = 0;
+      v18 = 0;
+      splitWithChar(__p, 9u, v17);
+      if (*(v17[0].__locale_ + 23) < 0)
       {
-        std::string::__init_copy_ctor_external(&v17, *v18[0].__locale_, *(v18[0].__locale_ + 1));
+        std::string::__init_copy_ctor_external(&v16, *v17[0].__locale_, *(v17[0].__locale_ + 1));
       }
 
       else
       {
-        v9 = *v18[0].__locale_;
-        v17.__r_.__value_.__r.__words[2] = *(v18[0].__locale_ + 2);
-        *&v17.__r_.__value_.__l.__data_ = v9;
+        v9 = *v17[0].__locale_;
+        v16.__r_.__value_.__r.__words[2] = *(v17[0].__locale_ + 2);
+        *&v16.__r_.__value_.__l.__data_ = v9;
       }
 
-      std::string::basic_string[abi:ne200100]<0>(&__str, "\");
-      std::string::basic_string[abi:ne200100]<0>(v14, "");
-      replaceAll(&v17, &__str, v14);
-      if (v15 < 0)
+      std::string::basic_string[abi:ne200100]<0>(&__str, "\"");
+      std::string::basic_string[abi:ne200100]<0>(v13, "");
+      replaceAll(&v16, &__str, v13);
+      if (v14 < 0)
       {
-        operator delete(v14[0]);
+        operator delete(v13[0]);
       }
 
       if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
@@ -6208,34 +6180,34 @@ LABEL_9:
         operator delete(__str.__r_.__value_.__l.__data_);
       }
 
-      if (*(v18[0].__locale_ + 47) < 0)
+      if (*(v17[0].__locale_ + 47) < 0)
       {
-        std::string::__init_copy_ctor_external(&__str, *(v18[0].__locale_ + 3), *(v18[0].__locale_ + 4));
+        std::string::__init_copy_ctor_external(&__str, *(v17[0].__locale_ + 3), *(v17[0].__locale_ + 4));
       }
 
       else
       {
-        __str = *(v18[0].__locale_ + 1);
+        __str = *(v17[0].__locale_ + 1);
       }
 
-      v14[0] = &v17;
-      v10 = std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1, &v17.__r_.__value_.__l.__data_);
+      v13[0] = &v16;
+      v10 = std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1, &v16, &std::piecewise_construct, v13, &v21);
       std::string::operator=((v10 + 5), &__str);
-      v14[0] = &__str;
-      v11 = std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1 + 5, &__str.__r_.__value_.__l.__data_);
-      std::string::operator=((v11 + 5), &v17);
+      v13[0] = &__str;
+      v11 = std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1 + 5, &__str, &std::piecewise_construct, v13, &v21);
+      std::string::operator=((v11 + 5), &v16);
       if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__str.__r_.__value_.__l.__data_);
       }
 
-      if (SHIBYTE(v17.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v16.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v17.__r_.__value_.__l.__data_);
+        operator delete(v16.__r_.__value_.__l.__data_);
       }
 
-      v17.__r_.__value_.__r.__words[0] = v18;
-      std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v17);
+      v16.__r_.__value_.__r.__words[0] = v17;
+      std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v16);
     }
   }
 
@@ -6244,7 +6216,7 @@ LABEL_9:
     std::ios_base::clear((v22 + *(v22[0] - 24)), *&v23[*(v22[0] - 24) + 16] | 4);
   }
 
-  if (SHIBYTE(v21) < 0)
+  if (SHIBYTE(v20) < 0)
   {
     operator delete(__p[0]);
   }
@@ -6253,12 +6225,10 @@ LABEL_9:
   *(v22 + *(v22[0] - 24)) = *(MEMORY[0x277D82808] + 24);
   MEMORY[0x2318C03D0](v23);
   std::istream::~istream();
-  result = MEMORY[0x2318C0570](v24);
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
+  return MEMORY[0x2318C0570](v24);
 }
 
-uint64_t *std::ifstream::basic_ifstream(uint64_t *a1, uint64_t *a2)
+uint64_t *std::ifstream::basic_ifstream(uint64_t *a1, uint64_t *a2, int a3)
 {
   a1[59] = 0;
   v4 = MEMORY[0x277D82858] + 64;
@@ -6276,11 +6246,6 @@ uint64_t *std::ifstream::basic_ifstream(uint64_t *a1, uint64_t *a2)
   *a1 = v8;
   a1[53] = v4;
   MEMORY[0x2318C03C0](a1 + 2);
-  if (*(a2 + 23) < 0)
-  {
-    v9 = *a2;
-  }
-
   if (!std::filebuf::open())
   {
     std::ios_base::clear((a1 + *(*a1 - 24)), *(a1 + *(*a1 - 24) + 32) | 4);
@@ -6674,11 +6639,11 @@ LABEL_64:
       break;
     }
 
-    std::string::basic_string(&v33, a2, i, 1uLL, &v34);
-    if (std::__hash_table<std::__hash_value_type<std::string,std::vector<NLExtendedString>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<NLExtendedString>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<NLExtendedString>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<NLExtendedString>>>>::find<std::string>(a1, &v33.__r_.__value_.__l.__data_))
+    std::string::basic_string(&v33, a2, i, 1uLL, &v35);
+    if (std::__hash_table<std::__hash_value_type<std::string,std::vector<NLExtendedString>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<NLExtendedString>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<NLExtendedString>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<NLExtendedString>>>>::find<std::string>(a1, &v33))
     {
-      v34 = &v33;
-      v26 = std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1, &v33.__r_.__value_.__l.__data_);
+      v35 = &v33;
+      v26 = std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1, &v33, &std::piecewise_construct, &v35, &v34);
       v29 = v26[5];
       v27 = v26 + 5;
       v28 = v29;
@@ -6745,179 +6710,179 @@ void sub_22CD486D4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void NLConvertBW2UTF::utf2bw(std::string *a1@<X1>, _BYTE *a2@<X8>)
+void NLConvertBW2UTF::utf2bw(std::string *a2@<X1>, void *a6@<X8>)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  std::string::basic_string[abi:ne200100]<0>(v6, "\u202B");
+  v12 = *MEMORY[0x277D85DE8];
+  std::string::basic_string[abi:ne200100]<0>(v10, "\u202B");
   std::string::basic_string[abi:ne200100]<0>(&__p, "");
-  replaceAll(a1, v6, &__p);
-  if (v5 < 0)
+  replaceAll(a2, v10, &__p);
+  if (v9 < 0)
   {
     operator delete(__p);
   }
 
-  if (v7 < 0)
+  if (v11 < 0)
   {
-    operator delete(v6[0]);
+    operator delete(v10[0]);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(v6, "\u202C");
+  std::string::basic_string[abi:ne200100]<0>(v10, "\u202C");
   std::string::basic_string[abi:ne200100]<0>(&__p, "");
-  replaceAll(a1, v6, &__p);
-  if (v5 < 0)
+  replaceAll(a2, v10, &__p);
+  if (v9 < 0)
   {
     operator delete(__p);
   }
 
-  if (v7 < 0)
+  if (v11 < 0)
   {
-    operator delete(v6[0]);
+    operator delete(v10[0]);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(v6, "\u200F");
+  std::string::basic_string[abi:ne200100]<0>(v10, "\u200F");
   std::string::basic_string[abi:ne200100]<0>(&__p, "");
-  replaceAll(a1, v6, &__p);
-  if (v5 < 0)
+  replaceAll(a2, v10, &__p);
+  if (v9 < 0)
   {
     operator delete(__p);
   }
 
-  if (v7 < 0)
+  if (v11 < 0)
   {
-    operator delete(v6[0]);
+    operator delete(v10[0]);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(v6, "٠");
+  std::string::basic_string[abi:ne200100]<0>(v10, "٠");
   std::string::basic_string[abi:ne200100]<0>(&__p, "");
-  replaceAll(a1, v6, &__p);
-  if (v5 < 0)
+  replaceAll(a2, v10, &__p);
+  if (v9 < 0)
   {
     operator delete(__p);
   }
 
-  if (v7 < 0)
+  if (v11 < 0)
   {
-    operator delete(v6[0]);
+    operator delete(v10[0]);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(v6, "١");
+  std::string::basic_string[abi:ne200100]<0>(v10, "١");
   std::string::basic_string[abi:ne200100]<0>(&__p, "");
-  replaceAll(a1, v6, &__p);
-  if (v5 < 0)
+  replaceAll(a2, v10, &__p);
+  if (v9 < 0)
   {
     operator delete(__p);
   }
 
-  if (v7 < 0)
+  if (v11 < 0)
   {
-    operator delete(v6[0]);
+    operator delete(v10[0]);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(v6, "٢");
+  std::string::basic_string[abi:ne200100]<0>(v10, "٢");
   std::string::basic_string[abi:ne200100]<0>(&__p, "");
-  replaceAll(a1, v6, &__p);
-  if (v5 < 0)
+  replaceAll(a2, v10, &__p);
+  if (v9 < 0)
   {
     operator delete(__p);
   }
 
-  if (v7 < 0)
+  if (v11 < 0)
   {
-    operator delete(v6[0]);
+    operator delete(v10[0]);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(v6, "٣");
+  std::string::basic_string[abi:ne200100]<0>(v10, "٣");
   std::string::basic_string[abi:ne200100]<0>(&__p, "");
-  replaceAll(a1, v6, &__p);
-  if (v5 < 0)
+  replaceAll(a2, v10, &__p);
+  if (v9 < 0)
   {
     operator delete(__p);
   }
 
-  if (v7 < 0)
+  if (v11 < 0)
   {
-    operator delete(v6[0]);
+    operator delete(v10[0]);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(v6, "٤");
+  std::string::basic_string[abi:ne200100]<0>(v10, "٤");
   std::string::basic_string[abi:ne200100]<0>(&__p, "");
-  replaceAll(a1, v6, &__p);
-  if (v5 < 0)
+  replaceAll(a2, v10, &__p);
+  if (v9 < 0)
   {
     operator delete(__p);
   }
 
-  if (v7 < 0)
+  if (v11 < 0)
   {
-    operator delete(v6[0]);
+    operator delete(v10[0]);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(v6, "٥");
+  std::string::basic_string[abi:ne200100]<0>(v10, "٥");
   std::string::basic_string[abi:ne200100]<0>(&__p, "");
-  replaceAll(a1, v6, &__p);
-  if (v5 < 0)
+  replaceAll(a2, v10, &__p);
+  if (v9 < 0)
   {
     operator delete(__p);
   }
 
-  if (v7 < 0)
+  if (v11 < 0)
   {
-    operator delete(v6[0]);
+    operator delete(v10[0]);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(v6, "٦");
+  std::string::basic_string[abi:ne200100]<0>(v10, "٦");
   std::string::basic_string[abi:ne200100]<0>(&__p, "");
-  replaceAll(a1, v6, &__p);
-  if (v5 < 0)
+  replaceAll(a2, v10, &__p);
+  if (v9 < 0)
   {
     operator delete(__p);
   }
 
-  if (v7 < 0)
+  if (v11 < 0)
   {
-    operator delete(v6[0]);
+    operator delete(v10[0]);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(v6, "٧");
+  std::string::basic_string[abi:ne200100]<0>(v10, "٧");
   std::string::basic_string[abi:ne200100]<0>(&__p, "");
-  replaceAll(a1, v6, &__p);
-  if (v5 < 0)
+  replaceAll(a2, v10, &__p);
+  if (v9 < 0)
   {
     operator delete(__p);
   }
 
-  if (v7 < 0)
+  if (v11 < 0)
   {
-    operator delete(v6[0]);
+    operator delete(v10[0]);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(v6, "٨");
+  std::string::basic_string[abi:ne200100]<0>(v10, "٨");
   std::string::basic_string[abi:ne200100]<0>(&__p, "");
-  replaceAll(a1, v6, &__p);
-  if (v5 < 0)
+  replaceAll(a2, v10, &__p);
+  if (v9 < 0)
   {
     operator delete(__p);
   }
 
-  if (v7 < 0)
+  if (v11 < 0)
   {
-    operator delete(v6[0]);
+    operator delete(v10[0]);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(v6, "٩");
+  std::string::basic_string[abi:ne200100]<0>(v10, "٩");
   std::string::basic_string[abi:ne200100]<0>(&__p, "");
-  replaceAll(a1, v6, &__p);
-  if (v5 < 0)
+  replaceAll(a2, v10, &__p);
+  if (v9 < 0)
   {
     operator delete(__p);
   }
 
-  if (v7 < 0)
+  if (v11 < 0)
   {
-    operator delete(v6[0]);
+    operator delete(v10[0]);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(a2, "");
+  std::string::basic_string[abi:ne200100]<0>(a6, "");
   operator new();
 }
 
@@ -7025,35 +6990,35 @@ void sub_22CD492A8(void *a1)
   __cxa_rethrow();
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v7 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v8 = v7;
+  v9 = a1[1];
+  if (!*&v9)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v10 = vcnt_s8(v9);
+  v10.i16[0] = vaddlv_u8(v10);
+  v11 = v10.u32[0];
+  if (v10.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v12 = v7;
+    if (v7 >= *&v9)
     {
-      v9 = v4 % *&v6;
+      v12 = v7 % *&v9;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v12 = (*&v9 - 1) & v7;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v13 = *(*a1 + 8 * v12);
+  if (!v13 || (v14 = *v13) == 0)
   {
 LABEL_18:
     std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__construct_node_hash<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>();
@@ -7061,49 +7026,49 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v15 = v14[1];
+    if (v15 == v8)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v11 > 1)
     {
-      if (v12 >= *&v6)
+      if (v15 >= *&v9)
       {
-        v12 %= *&v6;
+        v15 %= *&v9;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v15 &= *&v9 - 1;
     }
 
-    if (v12 != v9)
+    if (v15 != v12)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v14 = *v14;
+    if (!v14)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v14 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v14;
 }
 
-void sub_22CD49598(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_22CD49598(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -7165,7 +7130,7 @@ uint64_t NLCompositeTransliteratorException::loadExceptionList(NLCompositeTransl
       CFStringAppend(Mutable, Value);
       CFStringAppend(v8, @"_exceptions.dat");
       v23 = CFURLCreateCopyAppendingPathComponent(v6, a3, v8, 0);
-      getFileSystemRepresentationFromCFURL(v23);
+      getFileSystemRepresentationFromCFURL();
     }
   }
 
@@ -7182,12 +7147,12 @@ uint64_t NLCompositeTransliteratorException::loadExceptionList(NLCompositeTransl
   v9 = v25[5];
   if (v9)
   {
-    getUTF8StringFromCFString(v9, __p);
-    NL::StringMap::createWithFile();
+    getUTF8StringFromCFString(__p, v9);
+    NL::StringMap::createWithFile(__p);
   }
 
   std::string::basic_string[abi:ne200100]<0>(v14, "Could not locate exception list for: ");
-  composeErrorMessageForLocale(locale, v14, __p);
+  composeErrorMessageForLocale(__p, locale, v14);
   if (v15 < 0)
   {
     operator delete(v14[0]);
@@ -7258,73 +7223,73 @@ void ___ZN34NLCompositeTransliteratorException17loadExceptionListEPK10__CFLocale
   }
 }
 
-void sub_22CD49C30(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_22CD49C30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   nlp::CFScopedPtr<__CFString const*>::reset(va, 0);
   _Unwind_Resume(a1);
 }
 
-void NLCompositeTransliteratorException::exceptionCandidatesForInput(uint64_t *a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+void NLCompositeTransliteratorException::exceptionCandidatesForInput(uint64_t ***a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
 {
-  NLOSSignPostexceptionCandidatesForInput::NLOSSignPostexceptionCandidatesForInput(&v15);
+  NLOSSignPostexceptionCandidatesForInput::NLOSSignPostexceptionCandidatesForInput(&v16, a2);
   *a3 = 0;
   a3[1] = 0;
   a3[2] = 0;
   if (*a1)
   {
-    v6 = *(a2 + 23);
-    if ((v6 & 0x80u) != 0)
+    v7 = *(a2 + 23);
+    if ((v7 & 0x80u) != 0)
     {
-      v6 = *(a2 + 8);
+      v7 = *(a2 + 8);
     }
 
-    if (v6)
+    if (v7)
     {
-      NL::StringMap::get(*a1, a2, &v14);
-      size = HIBYTE(v14.__r_.__value_.__r.__words[2]);
-      v8 = HIBYTE(v14.__r_.__value_.__r.__words[2]);
-      if ((v14.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+      NL::StringMap::get(*a1, a2, &v15);
+      size = HIBYTE(v15.__r_.__value_.__r.__words[2]);
+      v9 = HIBYTE(v15.__r_.__value_.__r.__words[2]);
+      if ((v15.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
       {
-        size = v14.__r_.__value_.__l.__size_;
+        size = v15.__r_.__value_.__l.__size_;
       }
 
       if (size)
       {
-        v11 = 0;
         v12 = 0;
         v13 = 0;
-        splitWithChar(&v14, 0x2Cu, &v11);
-        if (v11 != v12)
+        v14 = 0;
+        splitWithChar(&v15, 0x2Cu, &v12);
+        if (v12 != v13)
         {
-          if (*(v11 + 23) < 0)
+          if (*(v12 + 23) < 0)
           {
-            std::string::__init_copy_ctor_external(&__p, *v11, *(v11 + 1));
+            std::string::__init_copy_ctor_external(&__p, *v12, *(v12 + 1));
           }
 
           else
           {
-            v9 = *v11;
-            __p.__r_.__value_.__r.__words[2] = *(v11 + 2);
-            *&__p.__r_.__value_.__l.__data_ = v9;
+            v10 = *v12;
+            __p.__r_.__value_.__r.__words[2] = *(v12 + 2);
+            *&__p.__r_.__value_.__l.__data_ = v10;
           }
 
           operator new();
         }
 
-        __p.__r_.__value_.__r.__words[0] = &v11;
+        __p.__r_.__value_.__r.__words[0] = &v12;
         std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&__p);
-        v8 = HIBYTE(v14.__r_.__value_.__r.__words[2]);
+        v9 = HIBYTE(v15.__r_.__value_.__r.__words[2]);
       }
 
-      if (v8 < 0)
+      if (v9 < 0)
       {
-        operator delete(v14.__r_.__value_.__l.__data_);
+        operator delete(v15.__r_.__value_.__l.__data_);
       }
     }
   }
 
-  NLOSSignPostexceptionCandidatesForInput::~NLOSSignPostexceptionCandidatesForInput(&v15);
+  NLOSSignPostexceptionCandidatesForInput::~NLOSSignPostexceptionCandidatesForInput(&v16, v6);
 }
 
 void sub_22CD49E5C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, char *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, os_signpost_id_t a24)
@@ -7336,45 +7301,46 @@ void sub_22CD49E5C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     operator delete(__p);
   }
 
-  v26 = *v24;
+  v27 = *v24;
   if (*v24)
   {
-    *(v24 + 8) = v26;
-    operator delete(v26);
+    *(v24 + 8) = v27;
+    operator delete(v27);
   }
 
-  NLOSSignPostexceptionCandidatesForInput::~NLOSSignPostexceptionCandidatesForInput(&a24);
+  NLOSSignPostexceptionCandidatesForInput::~NLOSSignPostexceptionCandidatesForInput(&a24, v26);
   _Unwind_Resume(a1);
 }
 
-void NLOSSignPostexceptionCandidatesForInput::NLOSSignPostexceptionCandidatesForInput(NLOSSignPostexceptionCandidatesForInput *this)
+void NLOSSignPostexceptionCandidatesForInput::NLOSSignPostexceptionCandidatesForInput(NLOSSignPostexceptionCandidatesForInput *this, uint64_t a2)
 {
-  v2 = _nlpSignpostLog();
-  *this = os_signpost_id_make_with_pointer(v2, this);
-  v3 = _nlpSignpostLog();
-  v4 = *this;
+  v3 = _nlpSignpostLog(this, a2);
+  v4 = os_signpost_id_make_with_pointer(v3, this);
+  *this = v4;
+  v6 = _nlpSignpostLog(v4, v5);
+  v7 = *this;
   if ((*this - 1) <= 0xFFFFFFFFFFFFFFFDLL)
+  {
+    v8 = v6;
+    if (os_signpost_enabled(v6))
+    {
+      *v9 = 0;
+      _os_signpost_emit_with_name_impl(&dword_22CD0B000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v7, "exceptionCandidatesForInput", &unk_22CDFA99D, v9, 2u);
+    }
+  }
+}
+
+void NLOSSignPostexceptionCandidatesForInput::~NLOSSignPostexceptionCandidatesForInput(os_signpost_id_t *this, uint64_t a2)
+{
+  v3 = _nlpSignpostLog(this, a2);
+  v4 = *this;
+  if (*this - 1 <= 0xFFFFFFFFFFFFFFFDLL)
   {
     v5 = v3;
     if (os_signpost_enabled(v3))
     {
       *v6 = 0;
-      _os_signpost_emit_with_name_impl(&dword_22CD0B000, v5, OS_SIGNPOST_INTERVAL_BEGIN, v4, "exceptionCandidatesForInput", &unk_22CDFA99D, v6, 2u);
-    }
-  }
-}
-
-void NLOSSignPostexceptionCandidatesForInput::~NLOSSignPostexceptionCandidatesForInput(os_signpost_id_t *this)
-{
-  v2 = _nlpSignpostLog();
-  v3 = *this;
-  if (*this - 1 <= 0xFFFFFFFFFFFFFFFDLL)
-  {
-    v4 = v2;
-    if (os_signpost_enabled(v2))
-    {
-      *v5 = 0;
-      _os_signpost_emit_with_name_impl(&dword_22CD0B000, v4, OS_SIGNPOST_INTERVAL_END, v3, "exceptionCandidatesForInput", &unk_22CDFA99D, v5, 2u);
+      _os_signpost_emit_with_name_impl(&dword_22CD0B000, v5, OS_SIGNPOST_INTERVAL_END, v4, "exceptionCandidatesForInput", &unk_22CDFA99D, v6, 2u);
     }
   }
 }
@@ -7427,41 +7393,41 @@ uint64_t std::unordered_map<std::string,std::string>::unordered_map(uint64_t a1,
   std::__hash_table<std::__hash_value_type<std::string,std::vector<NLExtendedString>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<NLExtendedString>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<NLExtendedString>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<NLExtendedString>>>>::__rehash<true>(a1, *(a2 + 8));
   for (i = *(a2 + 16); i; i = *i)
   {
-    std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::string> const&>(a1, i + 2);
+    std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::string> const&>(a1, i + 2, (i + 2));
   }
 
   return a1;
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::string> const&>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::string> const&>(void *a1, uint64_t *a2, uint64_t a3)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__construct_node_hash<std::pair<std::string const,std::string> const&>();
@@ -7469,49 +7435,49 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v12 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v12;
 }
 
-void sub_22CD4A3E0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_22CD4A3E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -7549,8 +7515,8 @@ void std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__un
     {
       do
       {
-        std::string::operator=((v8 + 16), (v4 + 2));
-        std::string::operator=((v8 + 40), (v4 + 5));
+        std::string::operator=((v8 + 2), (v4 + 2));
+        std::string::operator=((v8 + 5), (v4 + 5));
         v10 = *v8;
         std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__node_insert_multi(a1, v8);
         v4 = *v4;
@@ -7570,7 +7536,7 @@ void std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__un
 
   if (v4 != a3)
   {
-    std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_multi<std::pair<std::string const,std::string> const&>();
+    std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_multi<std::pair<std::string const,std::string> const&>(a1);
   }
 }
 
@@ -7581,16 +7547,16 @@ void sub_22CD4A548(void *a1)
   __cxa_rethrow();
 }
 
-uint64_t std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__node_insert_multi(void *a1, uint64_t a2)
+void *std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__node_insert_multi(void *a1, void *a2)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2 + 16);
-  *(a2 + 8) = v4;
-  inserted = std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__node_insert_multi_prepare(a1, v4, (a2 + 16));
+  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2 + 2);
+  a2[1] = v4;
+  inserted = std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__node_insert_multi_prepare(a1, v4, a2 + 2);
   std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__node_insert_multi_perform(a1, a2, inserted);
   return a2;
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__node_insert_multi_prepare(uint64_t a1, unint64_t a2, const void **a3)
+const void **std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__node_insert_multi_prepare(unint64_t a1, unint64_t a2, const void **a3)
 {
   v6 = *(a1 + 8);
   v7 = (*(a1 + 24) + 1);
@@ -7760,7 +7726,7 @@ LABEL_19:
   return result;
 }
 
-void std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__rehash<false>(uint64_t a1, size_t __n)
+void std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__rehash<false>(unint64_t result, size_t __n)
 {
   if (__n == 1)
   {
@@ -7776,7 +7742,7 @@ void std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__un
     }
   }
 
-  v4 = *(a1 + 8);
+  v4 = *(result + 8);
   if (prime > *&v4)
   {
     goto LABEL_6;
@@ -7784,7 +7750,7 @@ void std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__un
 
   if (prime < *&v4)
   {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+    v5 = vcvtps_u32_f32(*(result + 24) / *(result + 32));
     if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
     {
       v5 = std::__next_prime(v5);
@@ -7808,12 +7774,12 @@ void std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__un
     {
 LABEL_6:
 
-      std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__do_rehash<false>(a1, prime);
+      std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__do_rehash<false>(result, prime);
     }
   }
 }
 
-void std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__do_rehash<false>(uint64_t a1, unint64_t a2)
+void std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__do_rehash<false>(void **a1, unint64_t a2)
 {
   if (a2)
   {
@@ -7832,12 +7798,12 @@ void std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__un
     operator delete(v3);
   }
 
-  *(a1 + 8) = 0;
+  a1[1] = 0;
 }
 
-void sub_22CD4AB30(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_22CD4AB30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -7874,7 +7840,7 @@ uint64_t NL::CFLogger::sharedInstance(NL::CFLogger *this)
 void NL::CFLogger::log(NL::CFLogger *this, uint64_t a2, const char *a3, ...)
 {
   va_start(va, a3);
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (*(this + 2) >= a2)
   {
     vsnprintf(__str, 0x400uLL, a3, va);
@@ -7882,11 +7848,9 @@ void NL::CFLogger::log(NL::CFLogger *this, uint64_t a2, const char *a3, ...)
     (*(*this + 24))(this, a2, v5);
     CFRelease(v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t NL::CFLogger::log(uint64_t this, int a2, const __CFString *a3)
+uint64_t NL::CFLogger::log(uint64_t this, uint64_t a2, const __CFString *a3)
 {
   if (*(this + 8) >= a2)
   {
@@ -7947,7 +7911,7 @@ void NL::ParseBuilder::ParseBuilder(NL::ParseBuilder *a1, void *a2, void *a3)
     atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  NL::EntityConverter::EntityConverter(a1 + 64, &v7);
+  NL::EntityConverter::EntityConverter(a1 + 8, &v7);
   if (v8)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v8);
@@ -8632,7 +8596,7 @@ LABEL_143:
       }
     }
 
-    if (v24->__words[0] == 0x544E455352455355)
+    if (v24->__r_.__value_.__r.__words[0] == 0x544E455352455355)
     {
       if (std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a3, "Contact"))
       {
@@ -8898,7 +8862,7 @@ BOOL std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<ch
   return 0;
 }
 
-unint64_t std::string::find[abi:ne200100](uint64_t *a1, char *__s, unint64_t a3)
+int64_t std::string::find[abi:ne200100](uint64_t *a1, char *__s, unint64_t a3)
 {
   v5 = a1;
   v6 = *(a1 + 23);
@@ -8918,10 +8882,10 @@ unint64_t std::string::find[abi:ne200100](uint64_t *a1, char *__s, unint64_t a3)
   v9 = v7;
   if (v7)
   {
-    v10 = (v5 + v6);
+    v10 = v5 + v6;
     if (v8 >= v7)
     {
-      v13 = (v5 + a3);
+      v13 = v5 + a3;
       v14 = *__s;
       do
       {
@@ -8959,55 +8923,55 @@ LABEL_8:
 
     else
     {
-      return &v11[-v5];
+      return v11 - v5;
     }
   }
 
   return a3;
 }
 
-void NL::ParseBuilder::getAttributeForBranchAtIndex(uint64_t a1@<X0>, CFArrayRef *a2@<X1>, CFArrayRef *a3@<X2>, void *a4@<X8>)
+void NL::ParseBuilder::getAttributeForBranchAtIndex(uint64_t a1@<X0>, CFArrayRef *a2@<X1>, CFArrayRef *a3@<X2>, void *a5@<X8>)
 {
-  *a4 = 0;
-  a4[1] = 0;
-  v7 = *(a1 + 48);
+  *a5 = 0;
+  a5[1] = 0;
+  v8 = *(a1 + 48);
   Root = NLBranchGetRoot(a2);
-  Symbol = NL::SearchGrammar::getSymbol(v7, Root);
-  NL::SearchGrammar::getValidRootName(Symbol, &v27);
-  v10 = *(a1 + 48);
+  Symbol = NL::SearchGrammar::getSymbol(v8, Root);
+  NL::SearchGrammar::getValidRootName(Symbol, &v28);
+  v11 = *(a1 + 48);
   Leaf = NLBranchGetLeaf(a2);
-  v12 = NL::SearchGrammar::getSymbol(v10, Leaf);
-  NL::SearchGrammar::getValidLeafName(v12, &__p);
+  v13 = NL::SearchGrammar::getSymbol(v11, Leaf);
+  NL::SearchGrammar::getValidLeafName(v13, &__p);
   if (!a3)
   {
     goto LABEL_11;
   }
 
-  v13 = *(a1 + 48);
-  v14 = NLBranchGetRoot(a2);
-  v15 = NLBranchGetRoot(a3);
-  if (!NL::SearchGrammar::isEquivalent(v13, v14, v15))
+  v14 = *(a1 + 48);
+  v15 = NLBranchGetRoot(a2);
+  v16 = NLBranchGetRoot(a3);
+  if (!NL::SearchGrammar::isEquivalent(v14, v15, v16))
   {
     TokenSpan = NLBranchGetTokenSpan(a2);
-    v18 = v17;
-    v19 = NLBranchGetTokenSpan(a3);
-    if (TokenSpan <= v19)
+    v19 = v18;
+    v20 = NLBranchGetTokenSpan(a3);
+    if (TokenSpan <= v20)
     {
-      v21 = v19;
+      v22 = v20;
     }
 
     else
     {
-      v21 = TokenSpan;
+      v22 = TokenSpan;
     }
 
-    v22 = TokenSpan + v18;
-    if (TokenSpan + v18 >= v19 + v20)
+    v23 = TokenSpan + v19;
+    if (TokenSpan + v19 >= v20 + v21)
     {
-      v22 = v19 + v20;
+      v23 = v20 + v21;
     }
 
-    if (v21 == -1 || v22 <= v21 || (NLBranchGetTokenSpan(a2), v24 = v23, NLBranchGetTokenSpan(a3), v24 >= v25))
+    if (v22 == -1 || v23 <= v22 || (NLBranchGetTokenSpan(a2), v25 = v24, NLBranchGetTokenSpan(a3), v25 >= v26))
     {
 LABEL_11:
       NLBranchGetTokenSpan(a2);
@@ -9022,9 +8986,9 @@ LABEL_11:
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v27.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v28.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v27.__r_.__value_.__l.__data_);
+    operator delete(v28.__r_.__value_.__l.__data_);
   }
 }
 
@@ -9429,10 +9393,10 @@ LABEL_99:
   }
 }
 
-void NL::ParseBuilder::getQuoteAttributeForEntity(void *a1@<X8>)
+void NL::ParseBuilder::getQuoteAttributeForEntity(void *a2@<X8>)
 {
-  *a1 = 0;
-  a1[1] = 0;
+  *a2 = 0;
+  a2[1] = 0;
   operator new();
 }
 
@@ -9487,47 +9451,47 @@ uint64_t NL::ParseBuilder::getFunctionTokenCountForSpan(NL::ParseBuilder *this, 
   return result;
 }
 
-void NL::ParseBuilder::updateIntentsForParseAtIndex()
+void NL::ParseBuilder::updateIntentsForParseAtIndex(NL::ParseBuilder *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
+  v10[0] = 0;
+  v10[1] = v10;
+  v10[2] = 0x2000000000;
+  v11 = 0;
+  v9[0] = 0;
+  v9[1] = v9;
+  v9[2] = 0x2000000000;
+  v9[3] = 0;
+  v8[0] = 0;
+  v8[1] = v8;
+  v8[2] = 0x2000000000;
+  v8[3] = 0;
+  v7[0] = 0;
+  v7[1] = v7;
+  v7[2] = 0x2000000000;
+  v7[3] = 0;
   v6[0] = 0;
   v6[1] = v6;
-  v6[2] = 0x2000000000;
-  v7 = 0;
+  v6[2] = 0x3802000000;
+  v6[3] = __Block_byref_object_copy__1;
+  v6[6] = 0;
+  v6[4] = __Block_byref_object_dispose__1;
+  v6[5] = 0;
   v5[0] = 0;
   v5[1] = v5;
-  v5[2] = 0x2000000000;
-  v5[3] = 0;
+  v5[2] = 0x3802000000;
+  v5[3] = __Block_byref_object_copy__42;
+  v5[6] = 0;
+  v5[4] = __Block_byref_object_dispose__43;
+  v5[5] = 0;
   v4[0] = 0;
   v4[1] = v4;
-  v4[2] = 0x2000000000;
-  v4[3] = 0;
-  v3[0] = 0;
-  v3[1] = v3;
-  v3[2] = 0x2000000000;
-  v3[3] = 0;
-  v2[0] = 0;
-  v2[1] = v2;
-  v2[2] = 0x3802000000;
-  v2[3] = __Block_byref_object_copy__1;
-  v2[6] = 0;
-  v2[4] = __Block_byref_object_dispose__1;
-  v2[5] = 0;
-  v1[0] = 0;
-  v1[1] = v1;
-  v1[2] = 0x3802000000;
-  v1[3] = __Block_byref_object_copy__42;
-  v1[6] = 0;
-  v1[4] = __Block_byref_object_dispose__43;
-  v1[5] = 0;
-  v0[0] = 0;
-  v0[1] = v0;
-  v0[2] = 0x3802000000;
-  v0[3] = __Block_byref_object_copy__44;
-  v0[4] = __Block_byref_object_dispose__45;
+  v4[2] = 0x3802000000;
+  v4[3] = __Block_byref_object_copy__44;
+  v4[4] = __Block_byref_object_dispose__45;
   _ZNSt3__115allocate_sharedB8ne200100IN2NL11ParseIntentENS_9allocatorIS2_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_();
 }
 
-void sub_22CD4D2C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, char a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, void *__p, uint64_t a51, uint64_t a52, char a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, char a61, uint64_t a62, uint64_t a63)
+void sub_22CD4D2C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, void *__p, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   std::__tree<std::string>::destroy(&a13, a14);
   _Block_object_dispose(&a41, 8);
@@ -9542,22 +9506,22 @@ void sub_22CD4D2C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   a45 = a10;
   std::vector<std::shared_ptr<NL::ParseAttribute>>::__destroy_vector::operator()[abi:ne200100](&a45);
   _Block_object_dispose(&a61, 8);
-  if (a67)
+  if (a65)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a67);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a65);
   }
 
-  _Block_object_dispose(&a68, 8);
+  _Block_object_dispose(&a66, 8);
   if (STACK[0x208])
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](STACK[0x208]);
   }
 
   _Block_object_dispose(&STACK[0x210], 8);
-  _Block_object_dispose((v68 - 232), 8);
-  _Block_object_dispose((v68 - 200), 8);
-  _Block_object_dispose((v68 - 168), 8);
-  _Block_object_dispose((v68 - 136), 8);
+  _Block_object_dispose((v66 - 232), 8);
+  _Block_object_dispose((v66 - 200), 8);
+  _Block_object_dispose((v66 - 168), 8);
+  _Block_object_dispose((v66 - 136), 8);
   _Unwind_Resume(a1);
 }
 
@@ -9822,4 +9786,14 @@ LABEL_40:
 
     *(*(a1[5] + 8) + 24) = NLBranchRetain(a2);
   }
+}
+
+void sub_22CD4D7C8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, std::__shared_weak_count *a12)
+{
+  if (a12)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](a12);
+  }
+
+  _Unwind_Resume(exception_object);
 }

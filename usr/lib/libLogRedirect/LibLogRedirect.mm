@@ -3,8 +3,9 @@
 
 @implementation LibLogRedirect
 
-void __LibLogRedirect_OSLogHook_block_invoke(uint64_t a1, int a2, int *a3)
+void __LibLogRedirect_OSLogHook_block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
+  v4 = a2;
   mach_get_times();
   if (LibLogRedirect_OSLogHook_prevLogHook)
   {
@@ -17,12 +18,12 @@ void __LibLogRedirect_OSLogHook_block_invoke(uint64_t a1, int a2, int *a3)
     return;
   }
 
-  if ((hookMode & 0x200) != 0 || ((v7 = *a3, *(a3 + 16)) || *(a3 + 17) || (v19 = *(a3 + 4)) == 0 ? (v8 = 0) : (v8 = strstr(v19, "/System/Library/Frameworks/Foundation.framework") != 0), (a2 & 0xFE) == 0x10 || (v7 & 0xE0000) == 0x20000 || v8))
+  if ((hookMode & 0x200) != 0 || ((v7 = *a3, a3[16]) || a3[17] || (v19 = a3[4]) == 0 ? (v8 = 0) : (v8 = strstr(v19, "/System/Library/Frameworks/Foundation.framework") != 0), (v4 & 0xFE) == 0x10 || (v7 & 0xE0000) == 0x20000 || v8))
   {
 LABEL_16:
-    if (a2 == 17 && (v6 & 0x400) == 0)
+    if (v4 == 17 && (v6 & 0x400) == 0)
     {
-      if ((v12 = *(a3 + 16), v13 = *(a3 + 17), v14 = *(a3 + 11), v12) && !strcmp(v12, "com.apple.runtime-issues") || v13 && !strcmp(v13, "RuntimeIssues"))
+      if ((v12 = a3[16], v13 = a3[17], v14 = a3[11], v12) && !strcmp(v12, "com.apple.runtime-issues") || v13 && !strcmp(v13, "RuntimeIssues"))
       {
         if (v14 && strstr(v14, "xcode:text-backtrace"))
         {
@@ -54,166 +55,165 @@ LABEL_24:
     pthread_setspecific(logRedirectThreadLockFlagsKey, (v18 | v17));
     v20 = HookHandleLogMessage_lastOutputSuccessful;
     HookHandleLogMessage_lastOutputSuccessful = 0;
-    v26 = HookBufferAppend((v15 + 16), *(v15 + 56), "%c %llx ", v21, v22, v23, v24, v25, 76);
+    v21 = HookBufferAppend((v15 + 16), *(v15 + 56), "%c %llx ", 76, HookHandleLogMessage_logSequenceNum);
     ++HookHandleLogMessage_logSequenceNum;
-    if (!v26)
+    if (!v21)
     {
-      v32 = *__error();
-      v33 = "Failed to update flags for log message";
+      v22 = *__error();
+      v23 = "Failed to update flags for log message";
 LABEL_142:
-      v34 = v15;
+      v24 = v15;
       goto LABEL_143;
     }
 
     if (!v16)
     {
-      v33 = "Failed to copy log message content";
-      v34 = v15;
-      v32 = 94;
+      v23 = "Failed to copy log message content";
+      v24 = v15;
+      v22 = 94;
 LABEL_143:
-      HookWriteError(v34, v32, v33);
+      HookWriteError(v24, v22, v23);
       goto LABEL_144;
     }
 
-    v119 = v26;
-    v35 = v20 ^ 1;
+    v75 = v21;
+    v25 = v20 ^ 1;
     if ((*(v15 + 68) & 1) == 0)
     {
-      v36 = *(a3 + 5);
-      if (!v36)
+      v26 = a3[5];
+      if (!v26)
       {
-        v36 = 0;
-        *(a3 + 5) = 0;
-        a3[12] = 0;
+        v26 = 0;
+        a3[5] = 0;
+        *(a3 + 12) = 0;
       }
 
-      v122 = v36;
-      memset(&v123, 0, sizeof(v123));
-      localtime_r(&v122, &v123);
-      tm_isdst = v123.tm_isdst;
-      v38 = ((v123.tm_gmtoff * 0x7777777777777777) >> 64) - v123.tm_gmtoff;
-      a3[14] = (v38 >> 5) + (v38 >> 63) + 60 * v123.tm_isdst;
-      a3[15] = tm_isdst;
+      v78 = v26;
+      memset(&v79, 0, sizeof(v79));
+      localtime_r(&v78, &v79);
+      tm_isdst = v79.tm_isdst;
+      v28 = ((v79.tm_gmtoff * 0x7777777777777777) >> 64) - v79.tm_gmtoff;
+      *(a3 + 14) = (v28 >> 5) + (v28 >> 63) + 60 * v79.tm_isdst;
+      *(a3 + 15) = tm_isdst;
     }
 
-    v121 = hookMode;
-    v118 = a3[12];
-    v39 = HookBufferAppend((v15 + 32), 0, "{t:%ld.%06d", v27, v28, v29, v30, v31, *(a3 + 5));
-    if (!v39)
+    v77 = hookMode;
+    v29 = HookBufferAppend((v15 + 32), 0, "{t:%ld.%06d", a3[5], *(a3 + 12));
+    if (!v29)
     {
       goto LABEL_141;
     }
 
-    v45 = v39;
-    v120 = v35 | ((v121 & 0x100) >> 8);
-    if (v120)
+    v30 = v29;
+    v76 = v25 | ((v77 & 0x100) >> 8);
+    if (v76)
     {
-      v46 = a3[14];
+      v31 = *(a3 + 14);
     }
 
     else
     {
-      v46 = a3[14];
-      if (HookBufferFillMetadata_last_0 == v46)
+      v31 = *(a3 + 14);
+      if (HookBufferFillMetadata_last_0 == v31)
       {
         goto LABEL_51;
       }
     }
 
-    v47 = HookBufferAppend((v15 + 32), v39, ",tz:%d", v40, v41, v42, v43, v44, v46);
-    if (!v47)
+    v32 = HookBufferAppend((v15 + 32), v29, ",tz:%d", v31);
+    if (!v32)
     {
       goto LABEL_141;
     }
 
-    v45 = v47;
-    if (v121 & 0x100) != 0 || (HookBufferFillMetadata_last_0 = a3[14], (v120))
+    v30 = v32;
+    if (v77 & 0x100) != 0 || (HookBufferFillMetadata_last_0 = *(a3 + 14), (v76))
     {
-      v48 = a3[15];
+      v33 = *(a3 + 15);
 LABEL_52:
-      v49 = HookBufferAppend((v15 + 32), v45, ",tzDST:%d", v40, v41, v42, v43, v44, v48);
-      if (!v49)
+      v34 = HookBufferAppend((v15 + 32), v30, ",tzDST:%d", v33);
+      if (!v34)
       {
         goto LABEL_141;
       }
 
-      v45 = v49;
-      if (v121 & 0x100) != 0 || (HookBufferFillMetadata_last_1 = a3[15], (v120))
+      v30 = v34;
+      if (v77 & 0x100) != 0 || (HookBufferFillMetadata_last_1 = *(a3 + 15), (v76))
       {
-        v50 = *(a3 + 2);
+        v35 = a3[2];
 LABEL_57:
-        v51 = HookBufferAppend((v15 + 32), v45, ",tid:0x%llx", v40, v41, v42, v43, v44, v50);
-        if (!v51)
+        v36 = HookBufferAppend((v15 + 32), v30, ",tid:0x%llx", v35);
+        if (!v36)
         {
           goto LABEL_141;
         }
 
-        v45 = v51;
-        if ((v121 & 0x100) == 0)
+        v30 = v36;
+        if ((v77 & 0x100) == 0)
         {
-          HookBufferFillMetadata_last_2 = *(a3 + 2);
+          HookBufferFillMetadata_last_2 = a3[2];
         }
 
 LABEL_60:
         name = os_log_type_get_name();
-        appended = HookBufferAppendEscapedString((v15 + 32), v45, v120 & 1, ",type:", name, HookBufferFillMetadata_last_3, v53, v54);
+        appended = HookBufferAppendEscapedString((v15 + 32), v30, v76 & 1, ",type:", name, HookBufferFillMetadata_last_3);
         if (!appended)
         {
           goto LABEL_141;
         }
 
-        v58 = appended;
-        if ((v121 & 0x100) == 0)
+        v39 = appended;
+        if ((v77 & 0x100) == 0)
         {
           free(HookBufferFillMetadata_last_3);
           if (name)
           {
-            v59 = strdup(name);
+            v40 = strdup(name);
           }
 
           else
           {
-            v59 = 0;
+            v40 = 0;
           }
 
-          HookBufferFillMetadata_last_3 = v59;
+          HookBufferFillMetadata_last_3 = v40;
         }
 
-        v60 = HookBufferAppendEscapedString((v15 + 32), v58, v120 & 1, ",subsystem:", *(a3 + 16), HookBufferFillMetadata_last_4, v56, v57);
-        if (!v60)
+        v41 = HookBufferAppendEscapedString((v15 + 32), v39, v76 & 1, ",subsystem:", a3[16], HookBufferFillMetadata_last_4);
+        if (!v41)
         {
           goto LABEL_141;
         }
 
-        v63 = v60;
-        if ((v121 & 0x100) == 0)
+        v42 = v41;
+        if ((v77 & 0x100) == 0)
         {
           free(HookBufferFillMetadata_last_4);
-          v64 = *(a3 + 16);
-          if (v64)
+          v43 = a3[16];
+          if (v43)
           {
-            v64 = strdup(v64);
+            v43 = strdup(v43);
           }
 
-          HookBufferFillMetadata_last_4 = v64;
+          HookBufferFillMetadata_last_4 = v43;
         }
 
-        v65 = HookBufferAppendEscapedString((v15 + 32), v63, v120 & 1, ",category:", *(a3 + 17), HookBufferFillMetadata_last_5, v61, v62);
-        if (!v65)
+        v44 = HookBufferAppendEscapedString((v15 + 32), v42, v76 & 1, ",category:", a3[17], HookBufferFillMetadata_last_5);
+        if (!v44)
         {
           goto LABEL_141;
         }
 
-        v71 = v65;
-        if ((v121 & 0x100) != 0)
+        v45 = v44;
+        if ((v77 & 0x100) != 0)
         {
           if ((hookMode & 2) == 0)
           {
             goto LABEL_96;
           }
 
-          v71 = HookBufferAppend((v15 + 32), v65, ",offset:0x%llx", v66, v67, v68, v69, v70, *(a3 + 8));
-          if (!v71)
+          v45 = HookBufferAppend((v15 + 32), v44, ",offset:0x%llx", a3[8]);
+          if (!v45)
           {
             goto LABEL_141;
           }
@@ -222,202 +222,202 @@ LABEL_60:
         }
 
         free(HookBufferFillMetadata_last_5);
-        v72 = *(a3 + 17);
-        if (v72)
+        v46 = a3[17];
+        if (v46)
         {
-          v72 = strdup(v72);
+          v46 = strdup(v46);
         }
 
-        HookBufferFillMetadata_last_5 = v72;
+        HookBufferFillMetadata_last_5 = v46;
         if ((hookMode & 2) == 0)
         {
           goto LABEL_96;
         }
 
-        if (v120)
+        if (v76)
         {
-          v73 = *(a3 + 8);
+          v47 = a3[8];
         }
 
         else
         {
-          v73 = *(a3 + 8);
-          if (HookBufferFillMetadata_last_6 == v73)
+          v47 = a3[8];
+          if (HookBufferFillMetadata_last_6 == v47)
           {
 LABEL_84:
-            v75 = *(a3 + 3);
-            if (v75)
+            v49 = a3[3];
+            if (v49)
             {
-              memset(&v123, 0, 37);
-              uuid_unparse(v75, &v123);
-              v78 = HookBufferAppendEscapedString((v15 + 32), v71, v120 & 1, ",imgUUID:", &v123, HookBufferFillMetadata_last_7, v76, v77);
-              if (!v78)
+              memset(&v79, 0, 37);
+              uuid_unparse(v49, &v79);
+              v50 = HookBufferAppendEscapedString((v15 + 32), v45, v76 & 1, ",imgUUID:", &v79, HookBufferFillMetadata_last_7);
+              if (!v50)
               {
                 goto LABEL_141;
               }
 
-              v81 = v78;
-              if ((v121 & 0x100) == 0)
+              v51 = v50;
+              if ((v77 & 0x100) == 0)
               {
                 free(HookBufferFillMetadata_last_7);
-                HookBufferFillMetadata_last_7 = strdup(&v123);
+                HookBufferFillMetadata_last_7 = strdup(&v79);
               }
             }
 
             else
             {
-              v82 = HookBufferAppendEscapedString((v15 + 32), v71, v120 & 1, ",imgUUID:", 0, HookBufferFillMetadata_last_7, v69, v70);
-              if (!v82)
+              v52 = HookBufferAppendEscapedString((v15 + 32), v45, v76 & 1, ",imgUUID:", 0, HookBufferFillMetadata_last_7);
+              if (!v52)
               {
                 goto LABEL_141;
               }
 
-              v81 = v82;
-              if ((v121 & 0x100) == 0)
+              v51 = v52;
+              if ((v77 & 0x100) == 0)
               {
                 free(HookBufferFillMetadata_last_7);
                 HookBufferFillMetadata_last_7 = 0;
               }
             }
 
-            v83 = HookBufferAppendEscapedString((v15 + 32), v81, v120 & 1, ",imgPath:", *(a3 + 4), HookBufferFillMetadata_last_8, v79, v80);
-            if (!v83)
+            v53 = HookBufferAppendEscapedString((v15 + 32), v51, v76 & 1, ",imgPath:", a3[4], HookBufferFillMetadata_last_8);
+            if (!v53)
             {
               goto LABEL_141;
             }
 
-            v71 = v83;
-            if ((v121 & 0x100) == 0)
+            v45 = v53;
+            if ((v77 & 0x100) == 0)
             {
               free(HookBufferFillMetadata_last_8);
-              v84 = *(a3 + 4);
-              if (v84)
+              v54 = a3[4];
+              if (v54)
               {
-                v84 = strdup(v84);
+                v54 = strdup(v54);
               }
 
-              HookBufferFillMetadata_last_8 = v84;
+              HookBufferFillMetadata_last_8 = v54;
             }
 
 LABEL_96:
             if ((hookMode & 4) != 0)
             {
-              v88 = getprogname();
-              v91 = HookBufferAppendEscapedString((v15 + 32), v71, v120 & 1, ",procName:", v88, HookBufferFillMetadata_last_9, v89, v90);
-              if (!v91)
+              v58 = getprogname();
+              v59 = HookBufferAppendEscapedString((v15 + 32), v45, v76 & 1, ",procName:", v58, HookBufferFillMetadata_last_9);
+              if (!v59)
               {
                 goto LABEL_141;
               }
 
-              v71 = v91;
-              if ((v121 & 0x100) != 0)
+              v45 = v59;
+              if ((v77 & 0x100) != 0)
               {
                 goto LABEL_152;
               }
 
               free(HookBufferFillMetadata_last_9);
-              v92 = getprogname();
-              if (v92)
+              v60 = getprogname();
+              if (v60)
               {
-                v93 = getprogname();
-                v92 = strdup(v93);
+                v61 = getprogname();
+                v60 = strdup(v61);
               }
 
-              HookBufferFillMetadata_last_9 = v92;
-              if ((v120 & 1) != 0 || (v94 = HookBufferFillMetadata_last_10, v94 != getpid()))
+              HookBufferFillMetadata_last_9 = v60;
+              if ((v76 & 1) != 0 || (v62 = HookBufferFillMetadata_last_10, v62 != getpid()))
               {
 LABEL_152:
-                v95 = getpid();
-                v101 = HookBufferAppend((v15 + 32), v71, ",pid:%d", v96, v97, v98, v99, v100, v95);
-                if (!v101)
+                v63 = getpid();
+                v64 = HookBufferAppend((v15 + 32), v45, ",pid:%d", v63);
+                if (!v64)
                 {
                   goto LABEL_141;
                 }
 
-                v71 = v101;
-                if ((v121 & 0x100) != 0)
+                v45 = v64;
+                if ((v77 & 0x100) != 0)
                 {
                   goto LABEL_116;
                 }
 
                 HookBufferFillMetadata_last_10 = getpid();
-                if (v120)
+                if (v76)
                 {
                   goto LABEL_116;
                 }
               }
 
-              v102 = HookBufferFillMetadata_last_11;
-              if (v102 != geteuid())
+              v65 = HookBufferFillMetadata_last_11;
+              if (v65 != geteuid())
               {
 LABEL_116:
-                v103 = geteuid();
-                v109 = HookBufferAppend((v15 + 32), v71, ",uid:%u", v104, v105, v106, v107, v108, v103);
-                if (!v109)
+                v66 = geteuid();
+                v67 = HookBufferAppend((v15 + 32), v45, ",uid:%u", v66);
+                if (!v67)
                 {
                   goto LABEL_141;
                 }
 
-                v71 = v109;
-                if ((v121 & 0x100) == 0)
+                v45 = v67;
+                if ((v77 & 0x100) == 0)
                 {
                   HookBufferFillMetadata_last_11 = geteuid();
                 }
               }
             }
 
-            v85 = hookMode;
+            v55 = hookMode;
             if ((hookMode & 8) != 0)
             {
-              v86 = HookBufferAppend((v15 + 32), v71, ",cTime:0x%llx", v66, v67, v68, v69, v70, *(a3 + 1));
-              if (!v86)
+              v56 = HookBufferAppend((v15 + 32), v45, ",cTime:0x%llx", a3[1]);
+              if (!v56)
               {
                 goto LABEL_141;
               }
 
-              v71 = v86;
-              v85 = hookMode;
+              v45 = v56;
+              v55 = hookMode;
             }
 
-            if ((v85 & 0x10) != 0)
+            if ((v55 & 0x10) != 0)
             {
-              v87 = HookBufferAppendEscapedString((v15 + 32), v71, v120 & 1, ",format:", *(a3 + 11), HookBufferFillMetadata_last_12, v69, v70);
-              if (!v87)
+              v57 = HookBufferAppendEscapedString((v15 + 32), v45, v76 & 1, ",format:", a3[11], HookBufferFillMetadata_last_12);
+              if (!v57)
               {
                 goto LABEL_141;
               }
 
-              v71 = v87;
-              if ((v121 & 0x100) != 0)
+              v45 = v57;
+              if ((v77 & 0x100) != 0)
               {
                 if ((hookMode & 0x20) == 0)
                 {
                   goto LABEL_138;
                 }
 
-                v71 = HookBufferAppend((v15 + 32), v87, ",traceID:0x%llx", v66, v67, v68, v69, v70, *a3);
-                if (!v71)
+                v45 = HookBufferAppend((v15 + 32), v57, ",traceID:0x%llx", *a3);
+                if (!v45)
                 {
                   goto LABEL_141;
                 }
 
 LABEL_127:
-                *&v123.tm_sec = 0;
-                identifier = os_activity_get_identifier(&_os_activity_current, &v123);
-                if (v120 & 1 | (HookBufferFillMetadata_last_14 != identifier))
+                *&v79.tm_sec = 0;
+                identifier = os_activity_get_identifier(&_os_activity_current, &v79);
+                if (v76 & 1 | (HookBufferFillMetadata_last_14 != identifier))
                 {
-                  v113 = identifier;
-                  v114 = HookBufferAppend((v15 + 32), v71, ",act:0x%llx", v66, v67, v68, v69, v70, identifier);
-                  if (!v114)
+                  v71 = identifier;
+                  v72 = HookBufferAppend((v15 + 32), v45, ",act:0x%llx", identifier);
+                  if (!v72)
                   {
                     goto LABEL_141;
                   }
 
-                  v71 = v114;
-                  if ((v121 & 0x100) != 0)
+                  v45 = v72;
+                  if ((v77 & 0x100) != 0)
                   {
-                    v71 = HookBufferAppend((v15 + 32), v114, ",parentAct:0x%llx", v66, v67, v68, v69, v70, v123.tm_sec);
-                    if (!v71)
+                    v45 = HookBufferAppend((v15 + 32), v72, ",parentAct:0x%llx", *&v79.tm_sec);
+                    if (!v45)
                     {
                       goto LABEL_141;
                     }
@@ -425,29 +425,29 @@ LABEL_127:
                     goto LABEL_138;
                   }
 
-                  HookBufferFillMetadata_last_14 = v113;
+                  HookBufferFillMetadata_last_14 = v71;
                 }
 
-                if (!(v120 & 1 | (HookBufferFillMetadata_last_15 != *&v123.tm_sec)))
+                if (!(v76 & 1 | (HookBufferFillMetadata_last_15 != *&v79.tm_sec)))
                 {
                   goto LABEL_138;
                 }
 
-                v115 = HookBufferAppend((v15 + 32), v71, ",parentAct:0x%llx", v66, v67, v68, v69, v70, v123.tm_sec);
-                v71 = v115;
-                if (v115 && (v121 & 0x100) == 0)
+                v73 = HookBufferAppend((v15 + 32), v45, ",parentAct:0x%llx", *&v79.tm_sec);
+                v45 = v73;
+                if (v73 && (v77 & 0x100) == 0)
                 {
-                  HookBufferFillMetadata_last_15 = *&v123.tm_sec;
+                  HookBufferFillMetadata_last_15 = *&v79.tm_sec;
                   goto LABEL_138;
                 }
 
-                if (v115)
+                if (v73)
                 {
 LABEL_138:
-                  v116 = HookBufferAppendMetadataEndWithLineCount((v15 + 32), v71, v16, v66, v67, v68, v69, v70, v117);
-                  if (v116)
+                  v74 = HookBufferAppendMetadataEndWithLineCount((v15 + 32), v45, v16);
+                  if (v74)
                   {
-                    if ((HookWrite(v15, v119, v116, v16) & 0x80000000) == 0)
+                    if ((HookWrite(v15, v75, v74, v16) & 0x80000000) == 0)
                     {
                       HookHandleLogMessage_lastOutputSuccessful = 1;
 LABEL_144:
@@ -464,44 +464,44 @@ LABEL_144:
                       return;
                     }
 
-                    v32 = *__error();
-                    v33 = "Failed to write log message";
+                    v22 = *__error();
+                    v23 = "Failed to write log message";
                     goto LABEL_142;
                   }
                 }
 
 LABEL_141:
-                v32 = *__error();
-                v33 = "Failed to copy log message metadata";
+                v22 = *__error();
+                v23 = "Failed to copy log message metadata";
                 goto LABEL_142;
               }
 
               free(HookBufferFillMetadata_last_12);
-              v110 = *(a3 + 11);
-              if (v110)
+              v68 = a3[11];
+              if (v68)
               {
-                v110 = strdup(v110);
+                v68 = strdup(v68);
               }
 
-              HookBufferFillMetadata_last_12 = v110;
-              v85 = hookMode;
+              HookBufferFillMetadata_last_12 = v68;
+              v55 = hookMode;
             }
 
-            if ((v85 & 0x20) == 0)
+            if ((v55 & 0x20) == 0)
             {
               goto LABEL_138;
             }
 
-            if (v120 & 1 | (HookBufferFillMetadata_last_13 != *a3))
+            if (v76 & 1 | (HookBufferFillMetadata_last_13 != *a3))
             {
-              v111 = HookBufferAppend((v15 + 32), v71, ",traceID:0x%llx", v66, v67, v68, v69, v70, *a3);
-              if (!v111)
+              v69 = HookBufferAppend((v15 + 32), v45, ",traceID:0x%llx", *a3);
+              if (!v69)
               {
                 goto LABEL_141;
               }
 
-              v71 = v111;
-              if ((v121 & 0x100) == 0)
+              v45 = v69;
+              if ((v77 & 0x100) == 0)
               {
                 HookBufferFillMetadata_last_13 = *a3;
               }
@@ -511,20 +511,20 @@ LABEL_141:
           }
         }
 
-        v74 = HookBufferAppend((v15 + 32), v71, ",offset:0x%llx", v66, v67, v68, v69, v70, v73);
-        if (!v74)
+        v48 = HookBufferAppend((v15 + 32), v45, ",offset:0x%llx", v47);
+        if (!v48)
         {
           goto LABEL_141;
         }
 
-        v71 = v74;
-        HookBufferFillMetadata_last_6 = *(a3 + 8);
+        v45 = v48;
+        HookBufferFillMetadata_last_6 = a3[8];
         goto LABEL_84;
       }
 
 LABEL_56:
-      v50 = *(a3 + 2);
-      if (HookBufferFillMetadata_last_2 == v50)
+      v35 = a3[2];
+      if (HookBufferFillMetadata_last_2 == v35)
       {
         goto LABEL_60;
       }
@@ -533,8 +533,8 @@ LABEL_56:
     }
 
 LABEL_51:
-    v48 = a3[15];
-    if (HookBufferFillMetadata_last_1 == v48)
+    v33 = *(a3 + 15);
+    if (HookBufferFillMetadata_last_1 == v33)
     {
       goto LABEL_56;
     }
@@ -547,7 +547,7 @@ LABEL_51:
     return;
   }
 
-  v9 = *(a3 + 4);
+  v9 = a3[4];
   if (!v9)
   {
     goto LABEL_24;

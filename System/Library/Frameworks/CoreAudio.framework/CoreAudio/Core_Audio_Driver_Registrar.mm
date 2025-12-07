@@ -62,7 +62,7 @@
   currentConnection = [MEMORY[0x1E696B0B8] currentConnection];
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  [(Core_Audio_Driver_Registrar *)selfCopy connection_infos];
+  objc_msgSend_connection_infos(selfCopy);
   for (i = **buf; i != *(*buf + 8); i += 2)
   {
     if (currentConnection == i[1])
@@ -226,7 +226,7 @@ LABEL_7:
   [v7 setInvalidationHandler:v28];
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  [(Core_Audio_Driver_Registrar *)selfCopy connection_infos];
+  objc_msgSend_connection_infos(selfCopy);
   v10 = v26[1];
   v9 = v26[2];
   if (v10 >= v9)

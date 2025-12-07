@@ -30,7 +30,7 @@
 
 - (void)approveFromAnotherDeviceWithCompletion:(id)completion
 {
-  v3 = _CDPLogSystem();
+  v3 = _CDPLogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     [CDPRecoveryKeySecretValidatorProxyImpl approveFromAnotherDeviceWithCompletion:];
@@ -39,7 +39,7 @@
 
 - (void)cancelApproveFromAnotherDevice
 {
-  v2 = _CDPLogSystem();
+  v2 = _CDPLogSystem(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     [CDPRecoveryKeySecretValidatorProxyImpl approveFromAnotherDeviceWithCompletion:];
@@ -48,7 +48,7 @@
 
 - (void)cancelValidationWithError:(id)error
 {
-  v3 = _CDPLogSystem();
+  v3 = _CDPLogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     [CDPRecoveryKeySecretValidatorProxyImpl approveFromAnotherDeviceWithCompletion:];
@@ -57,7 +57,7 @@
 
 - (void)resetAccountCDPStateWithEscapeOptionsOffered:(unint64_t)offered
 {
-  v3 = _CDPLogSystem();
+  v3 = _CDPLogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     [CDPRecoveryKeySecretValidatorProxyImpl approveFromAnotherDeviceWithCompletion:];
@@ -66,7 +66,7 @@
 
 - (void)resetAccountCDPStateWithEscapeOptionsOffered:(unint64_t)offered andSetSecret:(id)secret
 {
-  v4 = _CDPLogSystem();
+  v4 = _CDPLogSystem(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     [CDPRecoveryKeySecretValidatorProxyImpl approveFromAnotherDeviceWithCompletion:];
@@ -75,7 +75,7 @@
 
 - (void)supportedEscapeOfferMaskCompletion:(id)completion
 {
-  v3 = _CDPLogSystem();
+  v3 = _CDPLogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     [CDPRecoveryKeySecretValidatorProxyImpl approveFromAnotherDeviceWithCompletion:];
@@ -84,7 +84,7 @@
 
 - (void)validateCustodianRecoveryInfo:(id)info withCompletion:(id)completion
 {
-  v4 = _CDPLogSystem();
+  v4 = _CDPLogSystem(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     [CDPRecoveryKeySecretValidatorProxyImpl approveFromAnotherDeviceWithCompletion:];
@@ -133,7 +133,7 @@ uint64_t __77__CDPRecoveryKeySecretValidatorProxyImpl_validateRecoveryKey_withCo
 
 - (void)validateSecret:(id)secret devices:(id)devices type:(unint64_t)type withCompletion:(id)completion
 {
-  v6 = _CDPLogSystem();
+  v6 = _CDPLogSystem(self);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     [CDPRecoveryKeySecretValidatorProxyImpl approveFromAnotherDeviceWithCompletion:];

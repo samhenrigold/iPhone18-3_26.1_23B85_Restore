@@ -2,6 +2,7 @@
 - (WRM_recommendationSimulator)init;
 - (void)dealloc;
 - (void)handleMessage:(id)message;
+- (void)sendMessageForProcess:(unint64_t)process withArgs:(id)args forProcess:(int)forProcess;
 - (void)triggerSetMeadowModeTimer:(id)timer;
 - (void)triggerTerminiousRecommendation:(id)recommendation;
 @end
@@ -129,6 +130,30 @@
   xpc_release(v12);
 
   xpc_release(v8);
+}
+
+- (void)sendMessageForProcess:(unint64_t)process withArgs:(id)args forProcess:(int)forProcess
+{
+  v5 = *&forProcess;
+  *keys = *off_10023DD20;
+  values[0] = xpc_uint64_create(process);
+  values[1] = args;
+  v7 = xpc_dictionary_create(keys, values, 2uLL);
+  v8 = [+[WCM_Server singleton](WCM_Server "singleton")];
+  if (v8)
+  {
+    [WCM_Logging logLevel:26 message:@"WRM_recommendationSimulator: found session-> Sending message: %@", v7];
+    [v8 sendMessage:v7];
+  }
+
+  else
+  {
+    [WCM_Logging logLevel:26 message:@"WRM_recommendationSimulator: Sending message: %@", v7];
+    [WCM_Logging logLevel:26 message:@"no session for process id: %d", v5];
+  }
+
+  xpc_release(values[0]);
+  xpc_release(v7);
 }
 
 @end

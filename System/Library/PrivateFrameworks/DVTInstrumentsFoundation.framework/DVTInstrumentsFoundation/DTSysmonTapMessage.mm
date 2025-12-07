@@ -2,6 +2,7 @@
 - (id)sessionMetadata;
 - (unsigned)tapVersion;
 - (void)setSessionMetadata:(id)metadata;
+- (void)setTapVersion:(unsigned int)version;
 @end
 
 @implementation DTSysmonTapMessage
@@ -13,6 +14,14 @@
   unsignedIntValue = [v3 unsignedIntValue];
 
   return unsignedIntValue;
+}
+
+- (void)setTapVersion:(unsigned int)version
+{
+  v3 = *&version;
+  plist = [(DTTapMessage *)self plist];
+  v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v3];
+  [plist setObject:v4 forKey:@"tv"];
 }
 
 - (id)sessionMetadata

@@ -33,6 +33,7 @@
 - (void)handler:(id)handler incomingEnrollMeRequest:(id)request toIdentifier:(id)identifier fromIdentifier:(id)fromIdentifier fromToken:(id)token messageGUID:(id)d timeStamp:(id)stamp storageContext:(id)self0;
 - (void)handler:(id)handler incomingResponseForApproval:(id)approval toIdentifier:(id)identifier fromIdentifier:(id)fromIdentifier fromToken:(id)token messageGUID:(id)d timeStamp:(id)stamp storageContext:(id)self0;
 - (void)sendApprovalEnrollMe;
+- (void)sendApprovalResponseToDevice:(id)device enteredCorrectly:(BOOL)correctly wasCancelled:(BOOL)cancelled;
 - (void)sendUnApproveToDevice:(id)device extraKeys:(id)keys;
 - (void)setHasBeenRemoteApproved:(BOOL)approved;
 - (void)unEnrollDeviceInSMSRelay:(id)relay;
@@ -102,7 +103,7 @@
 
 - (void)enrollDeviceInSMSRelay:(id)relay
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   relayCopy = relay;
   v5 = IMOSLoggingEnabled();
   if (relayCopy)
@@ -112,9 +113,9 @@
       v6 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
-        v12 = 138412290;
-        v13 = relayCopy;
-        _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_INFO, "SMS Service Session Received Request To Enroll %@ Into SMS Relay ", &v12, 0xCu);
+        v11 = 138412290;
+        v12 = relayCopy;
+        _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_INFO, "SMS Service Session Received Request To Enroll %@ Into SMS Relay ", &v11, 0xCu);
       }
     }
 
@@ -128,9 +129,9 @@
         v9 = OSLogHandleForIMFoundationCategory();
         if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
         {
-          v12 = 138412290;
-          v13 = v8;
-          _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "Automatically enrolling HSA trusted device %@ ", &v12, 0xCu);
+          v11 = 138412290;
+          v12 = v8;
+          _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "Automatically enrolling HSA trusted device %@ ", &v11, 0xCu);
         }
       }
 
@@ -148,17 +149,15 @@
     v10 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v12) = 0;
-      _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "empty deviceID passed in", &v12, 2u);
+      LOWORD(v11) = 0;
+      _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "empty deviceID passed in", &v11, 2u);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unEnrollDeviceInSMSRelay:(id)relay
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   relayCopy = relay;
   v5 = IMOSLoggingEnabled();
   if (relayCopy)
@@ -168,9 +167,9 @@
       v6 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
-        v12 = 138412290;
-        v13 = relayCopy;
-        _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_INFO, "SMS Service Session Received Request To Un Enroll %@ Into SMS Relay ", &v12, 0xCu);
+        v11 = 138412290;
+        v12 = relayCopy;
+        _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_INFO, "SMS Service Session Received Request To Un Enroll %@ Into SMS Relay ", &v11, 0xCu);
       }
     }
 
@@ -188,12 +187,10 @@
     v10 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v12) = 0;
-      _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "empty deviceID passed in", &v12, 2u);
+      LOWORD(v11) = 0;
+      _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "empty deviceID passed in", &v11, 2u);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enrollSelfDeviceInSMSRelay
@@ -213,80 +210,78 @@
 
 - (id)_allowedDevicesforSMSRelay
 {
-  v2 = *MEMORY[0x277D1A4F8];
-  v3 = IMGetCachedDomainValueForKey();
-  v4 = v3;
-  if (v3)
+  v2 = IMGetCachedDomainValueForKey();
+  v3 = v2;
+  if (v2)
   {
-    v5 = v3;
+    v4 = v2;
   }
 
-  return v4;
+  return v3;
 }
 
 - (id)_allowedIDSDevicesforSMSRelay
 {
-  v33 = *MEMORY[0x277D85DE8];
-  v3 = *MEMORY[0x277D1A4F8];
-  v22 = IMGetCachedDomainValueForKey();
-  if (v22)
+  v31 = *MEMORY[0x277D85DE8];
+  v20 = IMGetCachedDomainValueForKey();
+  if (v20)
   {
-    v21 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v19 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v25 = 0u;
+    v26 = 0u;
     v27 = 0u;
     v28 = 0u;
-    v29 = 0u;
-    v30 = 0u;
     serviceDelegate = [(IMDRelayEnrollmentController *)self serviceDelegate];
     peerDevices = [serviceDelegate peerDevices];
 
     obj = peerDevices;
-    v6 = [peerDevices countByEnumeratingWithState:&v27 objects:v32 count:16];
-    if (v6)
+    v5 = [peerDevices countByEnumeratingWithState:&v25 objects:v30 count:16];
+    if (v5)
     {
-      v7 = v6;
-      v8 = *v28;
+      v6 = v5;
+      v7 = *v26;
       do
       {
-        for (i = 0; i != v7; ++i)
+        for (i = 0; i != v6; ++i)
         {
-          if (*v28 != v8)
+          if (*v26 != v7)
           {
             objc_enumerationMutation(obj);
           }
 
-          v10 = *(*(&v27 + 1) + 8 * i);
+          v9 = *(*(&v25 + 1) + 8 * i);
+          v21 = 0u;
+          v22 = 0u;
           v23 = 0u;
           v24 = 0u;
-          v25 = 0u;
-          v26 = 0u;
-          v11 = v22;
-          v12 = [v11 countByEnumeratingWithState:&v23 objects:v31 count:16];
-          if (v12)
+          v10 = v20;
+          v11 = [v10 countByEnumeratingWithState:&v21 objects:v29 count:16];
+          if (v11)
           {
-            v13 = v12;
-            v14 = *v24;
+            v12 = v11;
+            v13 = *v22;
             while (2)
             {
-              for (j = 0; j != v13; ++j)
+              for (j = 0; j != v12; ++j)
               {
-                if (*v24 != v14)
+                if (*v22 != v13)
                 {
-                  objc_enumerationMutation(v11);
+                  objc_enumerationMutation(v10);
                 }
 
-                v16 = *(*(&v23 + 1) + 8 * j);
-                uniqueID = [v10 uniqueID];
-                LODWORD(v16) = [uniqueID isEqualToString:v16];
+                v15 = *(*(&v21 + 1) + 8 * j);
+                uniqueID = [v9 uniqueID];
+                LODWORD(v15) = [uniqueID isEqualToString:v15];
 
-                if (v16)
+                if (v15)
                 {
-                  [v21 addObject:v10];
+                  [v19 addObject:v9];
                   goto LABEL_17;
                 }
               }
 
-              v13 = [v11 countByEnumeratingWithState:&v23 objects:v31 count:16];
-              if (v13)
+              v12 = [v10 countByEnumeratingWithState:&v21 objects:v29 count:16];
+              if (v12)
               {
                 continue;
               }
@@ -298,99 +293,95 @@
 LABEL_17:
         }
 
-        v7 = [obj countByEnumeratingWithState:&v27 objects:v32 count:16];
+        v6 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
       }
 
-      while (v7);
+      while (v6);
     }
   }
 
   else
   {
-    v21 = 0;
+    v19 = 0;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-
-  return v21;
+  return v19;
 }
 
 - (id)_ignoredDevicesforSMSRelay
 {
-  v2 = *MEMORY[0x277D1A4F8];
-  v3 = IMGetCachedDomainValueForKey();
-  v4 = v3;
-  if (v3)
+  v2 = IMGetCachedDomainValueForKey();
+  v3 = v2;
+  if (v2)
   {
-    v5 = v3;
+    v4 = v2;
   }
 
-  return v4;
+  return v3;
 }
 
 - (id)_ignoredIDSDevicesforSMSRelay
 {
-  v33 = *MEMORY[0x277D85DE8];
-  v3 = *MEMORY[0x277D1A4F8];
-  v22 = IMGetCachedDomainValueForKey();
-  if (v22)
+  v31 = *MEMORY[0x277D85DE8];
+  v20 = IMGetCachedDomainValueForKey();
+  if (v20)
   {
-    v21 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v19 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v25 = 0u;
+    v26 = 0u;
     v27 = 0u;
     v28 = 0u;
-    v29 = 0u;
-    v30 = 0u;
     serviceDelegate = [(IMDRelayEnrollmentController *)self serviceDelegate];
     peerDevices = [serviceDelegate peerDevices];
 
     obj = peerDevices;
-    v6 = [peerDevices countByEnumeratingWithState:&v27 objects:v32 count:16];
-    if (v6)
+    v5 = [peerDevices countByEnumeratingWithState:&v25 objects:v30 count:16];
+    if (v5)
     {
-      v7 = v6;
-      v8 = *v28;
+      v6 = v5;
+      v7 = *v26;
       do
       {
-        for (i = 0; i != v7; ++i)
+        for (i = 0; i != v6; ++i)
         {
-          if (*v28 != v8)
+          if (*v26 != v7)
           {
             objc_enumerationMutation(obj);
           }
 
-          v10 = *(*(&v27 + 1) + 8 * i);
+          v9 = *(*(&v25 + 1) + 8 * i);
+          v21 = 0u;
+          v22 = 0u;
           v23 = 0u;
           v24 = 0u;
-          v25 = 0u;
-          v26 = 0u;
-          v11 = v22;
-          v12 = [v11 countByEnumeratingWithState:&v23 objects:v31 count:16];
-          if (v12)
+          v10 = v20;
+          v11 = [v10 countByEnumeratingWithState:&v21 objects:v29 count:16];
+          if (v11)
           {
-            v13 = v12;
-            v14 = *v24;
+            v12 = v11;
+            v13 = *v22;
             while (2)
             {
-              for (j = 0; j != v13; ++j)
+              for (j = 0; j != v12; ++j)
               {
-                if (*v24 != v14)
+                if (*v22 != v13)
                 {
-                  objc_enumerationMutation(v11);
+                  objc_enumerationMutation(v10);
                 }
 
-                v16 = *(*(&v23 + 1) + 8 * j);
-                uniqueID = [v10 uniqueID];
-                LODWORD(v16) = [uniqueID isEqualToString:v16];
+                v15 = *(*(&v21 + 1) + 8 * j);
+                uniqueID = [v9 uniqueID];
+                LODWORD(v15) = [uniqueID isEqualToString:v15];
 
-                if (v16)
+                if (v15)
                 {
-                  [v21 addObject:v10];
+                  [v19 addObject:v9];
                   goto LABEL_17;
                 }
               }
 
-              v13 = [v11 countByEnumeratingWithState:&v23 objects:v31 count:16];
-              if (v13)
+              v12 = [v10 countByEnumeratingWithState:&v21 objects:v29 count:16];
+              if (v12)
               {
                 continue;
               }
@@ -402,99 +393,95 @@ LABEL_17:
 LABEL_17:
         }
 
-        v7 = [obj countByEnumeratingWithState:&v27 objects:v32 count:16];
+        v6 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
       }
 
-      while (v7);
+      while (v6);
     }
   }
 
   else
   {
-    v21 = 0;
+    v19 = 0;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-
-  return v21;
+  return v19;
 }
 
 - (id)_challengedDevicesforSMSRelay
 {
-  v2 = *MEMORY[0x277D1A4F8];
-  v3 = IMGetCachedDomainValueForKey();
-  v4 = v3;
-  if (v3)
+  v2 = IMGetCachedDomainValueForKey();
+  v3 = v2;
+  if (v2)
   {
-    v5 = v3;
+    v4 = v2;
   }
 
-  return v4;
+  return v3;
 }
 
 - (id)_challengedIDSDevicesforSMSRelay
 {
-  v33 = *MEMORY[0x277D85DE8];
-  v3 = *MEMORY[0x277D1A4F8];
-  v22 = IMGetCachedDomainValueForKey();
-  if (v22)
+  v31 = *MEMORY[0x277D85DE8];
+  v20 = IMGetCachedDomainValueForKey();
+  if (v20)
   {
-    v21 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v19 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v25 = 0u;
+    v26 = 0u;
     v27 = 0u;
     v28 = 0u;
-    v29 = 0u;
-    v30 = 0u;
     serviceDelegate = [(IMDRelayEnrollmentController *)self serviceDelegate];
     peerDevices = [serviceDelegate peerDevices];
 
     obj = peerDevices;
-    v6 = [peerDevices countByEnumeratingWithState:&v27 objects:v32 count:16];
-    if (v6)
+    v5 = [peerDevices countByEnumeratingWithState:&v25 objects:v30 count:16];
+    if (v5)
     {
-      v7 = v6;
-      v8 = *v28;
+      v6 = v5;
+      v7 = *v26;
       do
       {
-        for (i = 0; i != v7; ++i)
+        for (i = 0; i != v6; ++i)
         {
-          if (*v28 != v8)
+          if (*v26 != v7)
           {
             objc_enumerationMutation(obj);
           }
 
-          v10 = *(*(&v27 + 1) + 8 * i);
+          v9 = *(*(&v25 + 1) + 8 * i);
+          v21 = 0u;
+          v22 = 0u;
           v23 = 0u;
           v24 = 0u;
-          v25 = 0u;
-          v26 = 0u;
-          v11 = v22;
-          v12 = [v11 countByEnumeratingWithState:&v23 objects:v31 count:16];
-          if (v12)
+          v10 = v20;
+          v11 = [v10 countByEnumeratingWithState:&v21 objects:v29 count:16];
+          if (v11)
           {
-            v13 = v12;
-            v14 = *v24;
+            v12 = v11;
+            v13 = *v22;
             while (2)
             {
-              for (j = 0; j != v13; ++j)
+              for (j = 0; j != v12; ++j)
               {
-                if (*v24 != v14)
+                if (*v22 != v13)
                 {
-                  objc_enumerationMutation(v11);
+                  objc_enumerationMutation(v10);
                 }
 
-                v16 = *(*(&v23 + 1) + 8 * j);
-                uniqueID = [v10 uniqueID];
-                LODWORD(v16) = [uniqueID isEqualToString:v16];
+                v15 = *(*(&v21 + 1) + 8 * j);
+                uniqueID = [v9 uniqueID];
+                LODWORD(v15) = [uniqueID isEqualToString:v15];
 
-                if (v16)
+                if (v15)
                 {
-                  [v21 addObject:v10];
+                  [v19 addObject:v9];
                   goto LABEL_17;
                 }
               }
 
-              v13 = [v11 countByEnumeratingWithState:&v23 objects:v31 count:16];
-              if (v13)
+              v12 = [v10 countByEnumeratingWithState:&v21 objects:v29 count:16];
+              if (v12)
               {
                 continue;
               }
@@ -506,71 +493,67 @@ LABEL_17:
 LABEL_17:
         }
 
-        v7 = [obj countByEnumeratingWithState:&v27 objects:v32 count:16];
+        v6 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
       }
 
-      while (v7);
+      while (v6);
     }
   }
 
   else
   {
-    v21 = 0;
+    v19 = 0;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-
-  return v21;
+  return v19;
 }
 
 - (void)_noteDeviceHasMICForSMSRelay:(id)relay
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   relayCopy = relay;
-  v4 = *MEMORY[0x277D1A4F8];
-  v5 = *MEMORY[0x277D1A4F0];
-  v6 = IMGetCachedDomainValueForKey();
-  v7 = [MEMORY[0x277CBEB18] arrayWithArray:v6];
-  if (v7)
+  v4 = IMGetCachedDomainValueForKey();
+  v5 = [MEMORY[0x277CBEB18] arrayWithArray:v4];
+  if (v5)
   {
     uniqueID = [relayCopy uniqueID];
-    if ([v7 containsObject:uniqueID])
+    if ([v5 containsObject:uniqueID])
     {
       if (IMOSLoggingEnabled())
       {
-        v9 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+        v7 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
         {
-          LOWORD(v14[0]) = 0;
-          _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "Told to add an item but we already have its ID, ignoring and moving on.", v14, 2u);
+          LOWORD(v11[0]) = 0;
+          _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Told to add an item but we already have its ID, ignoring and moving on.", v11, 2u);
         }
       }
     }
 
     else
     {
-      [v7 addObject:uniqueID];
-      v10 = [v7 count];
-      if (v10 < [v6 count] && IMOSLoggingEnabled())
+      [v5 addObject:uniqueID];
+      v8 = [v5 count];
+      if (v8 < [v4 count] && IMOSLoggingEnabled())
       {
-        v11 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+        v9 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
         {
-          v14[0] = 67109376;
-          v14[1] = [v7 count];
-          v15 = 1024;
-          v16 = [v6 count];
-          _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "_addDeviceToAllowedSMSRelay: newAllowedDeviceUUIDs count: %d allowedDeviceUUIDs count: %d", v14, 0xEu);
+          v11[0] = 67109376;
+          v11[1] = [v5 count];
+          v12 = 1024;
+          v13 = [v4 count];
+          _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "_addDeviceToAllowedSMSRelay: newAllowedDeviceUUIDs count: %d allowedDeviceUUIDs count: %d", v11, 0xEu);
         }
       }
 
-      if (![v7 count] && IMOSLoggingEnabled())
+      if (![v5 count] && IMOSLoggingEnabled())
       {
-        v12 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+        v10 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
         {
-          LOWORD(v14[0]) = 0;
-          _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_INFO, "_addDeviceToAllowedSMSRelay: going to write an empty dictionary to the kSMSDefaultsAllowedKey", v14, 2u);
+          LOWORD(v11[0]) = 0;
+          _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "_addDeviceToAllowedSMSRelay: going to write an empty dictionary to the kSMSDefaultsAllowedKey", v11, 2u);
         }
       }
 
@@ -578,66 +561,62 @@ LABEL_17:
       IMSyncronizeAppPreferences();
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_removeDeviceHasMICForSMSRelay:(id)relay
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   relayCopy = relay;
-  v3 = *MEMORY[0x277D1A4F8];
-  v4 = *MEMORY[0x277D1A4F0];
-  v5 = IMGetCachedDomainValueForKey();
-  v6 = [MEMORY[0x277CBEB18] arrayWithArray:v5];
-  if (v6)
+  v3 = IMGetCachedDomainValueForKey();
+  v4 = [MEMORY[0x277CBEB18] arrayWithArray:v3];
+  if (v4)
   {
     uniqueID = [relayCopy uniqueID];
-    v22 = 0u;
-    v23 = 0u;
+    v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
-    v8 = v6;
-    v9 = [v8 countByEnumeratingWithState:&v20 objects:v28 count:16];
-    if (v9)
+    v17 = 0u;
+    v18 = 0u;
+    v6 = v4;
+    v7 = [v6 countByEnumeratingWithState:&v17 objects:v25 count:16];
+    if (v7)
     {
-      v10 = *v21;
+      v8 = *v18;
       while (2)
       {
-        for (i = 0; i != v9; ++i)
+        for (i = 0; i != v7; ++i)
         {
-          if (*v21 != v10)
+          if (*v18 != v8)
           {
-            objc_enumerationMutation(v8);
+            objc_enumerationMutation(v6);
           }
 
-          v12 = *(*(&v20 + 1) + 8 * i);
-          if ([v12 isEqualToString:uniqueID])
+          v10 = *(*(&v17 + 1) + 8 * i);
+          if ([v10 isEqualToString:uniqueID])
           {
-            [v8 removeObject:v12];
-            v13 = [v8 count];
-            if (v13 < [v5 count] && IMOSLoggingEnabled())
+            [v6 removeObject:v10];
+            v11 = [v6 count];
+            if (v11 < [v3 count] && IMOSLoggingEnabled())
             {
-              v14 = OSLogHandleForIMFoundationCategory();
-              if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+              v12 = OSLogHandleForIMFoundationCategory();
+              if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
               {
-                v15 = [v8 count];
-                v16 = [v5 count];
+                v13 = [v6 count];
+                v14 = [v3 count];
                 *buf = 67109376;
-                v25 = v15;
-                v26 = 1024;
-                v27 = v16;
-                _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_INFO, "_removeDeviceFromMICSMSRelay: newAllowedDeviceUUIDs count: %d allowedDeviceUUIDs count: %d", buf, 0xEu);
+                v22 = v13;
+                v23 = 1024;
+                v24 = v14;
+                _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_INFO, "_removeDeviceFromMICSMSRelay: newAllowedDeviceUUIDs count: %d allowedDeviceUUIDs count: %d", buf, 0xEu);
               }
             }
 
-            if (![v8 count] && IMOSLoggingEnabled())
+            if (![v6 count] && IMOSLoggingEnabled())
             {
-              v17 = OSLogHandleForIMFoundationCategory();
-              if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+              v15 = OSLogHandleForIMFoundationCategory();
+              if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
               {
                 *buf = 0;
-                _os_log_impl(&dword_22B4CC000, v17, OS_LOG_TYPE_INFO, "_removeDeviceFromMICSMSRelay: going to write an empty dictionary to the kSMSDefaultsAllowedKey", buf, 2u);
+                _os_log_impl(&dword_22B4CC000, v15, OS_LOG_TYPE_INFO, "_removeDeviceFromMICSMSRelay: going to write an empty dictionary to the kSMSDefaultsAllowedKey", buf, 2u);
               }
             }
 
@@ -647,8 +626,8 @@ LABEL_17:
           }
         }
 
-        v9 = [v8 countByEnumeratingWithState:&v20 objects:v28 count:16];
-        if (v9)
+        v7 = [v6 countByEnumeratingWithState:&v17 objects:v25 count:16];
+        if (v7)
         {
           continue;
         }
@@ -659,58 +638,55 @@ LABEL_17:
 
 LABEL_22:
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_addDeviceToAllowedSMSRelay:(id)relay shouldSendApproval:(BOOL)approval
 {
   approvalCopy = approval;
-  v21 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   relayCopy = relay;
-  v7 = *MEMORY[0x277D1A4F8];
-  v8 = IMGetCachedDomainValueForKey();
-  v9 = [MEMORY[0x277CBEB18] arrayWithArray:v8];
-  if (v9)
+  v7 = IMGetCachedDomainValueForKey();
+  v8 = [MEMORY[0x277CBEB18] arrayWithArray:v7];
+  if (v8)
   {
     uniqueID = [relayCopy uniqueID];
-    if ([v9 containsObject:uniqueID])
+    if ([v8 containsObject:uniqueID])
     {
       if (IMOSLoggingEnabled())
       {
-        v11 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+        v10 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
         {
-          LOWORD(v18[0]) = 0;
-          _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "Told to add an item but we allready have its ID, moving on", v18, 2u);
+          LOWORD(v16[0]) = 0;
+          _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "Told to add an item but we allready have its ID, moving on", v16, 2u);
         }
       }
     }
 
     else
     {
-      [v9 addObject:uniqueID];
-      v12 = [v9 count];
-      if (v12 < [v8 count] && IMOSLoggingEnabled())
+      [v8 addObject:uniqueID];
+      v11 = [v8 count];
+      if (v11 < [v7 count] && IMOSLoggingEnabled())
+      {
+        v12 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+        {
+          v16[0] = 67109376;
+          v16[1] = [v8 count];
+          v17 = 1024;
+          v18 = [v7 count];
+          _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_INFO, "_addDeviceToAllowedSMSRelay: newAllowedDeviceUUIDs count: %d allowedDeviceUUIDs count: %d", v16, 0xEu);
+        }
+      }
+
+      if (![v8 count] && IMOSLoggingEnabled())
       {
         v13 = OSLogHandleForIMFoundationCategory();
         if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
         {
-          v18[0] = 67109376;
-          v18[1] = [v9 count];
-          v19 = 1024;
-          v20 = [v8 count];
-          _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, "_addDeviceToAllowedSMSRelay: newAllowedDeviceUUIDs count: %d allowedDeviceUUIDs count: %d", v18, 0xEu);
-        }
-      }
-
-      if (![v9 count] && IMOSLoggingEnabled())
-      {
-        v14 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
-        {
-          LOWORD(v18[0]) = 0;
-          _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_INFO, "_addDeviceToAllowedSMSRelay: going to write an empty dictionary to the kSMSDefaultsAllowedKey", v18, 2u);
+          LOWORD(v16[0]) = 0;
+          _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, "_addDeviceToAllowedSMSRelay: going to write an empty dictionary to the kSMSDefaultsAllowedKey", v16, 2u);
         }
       }
 
@@ -720,16 +696,16 @@ LABEL_22:
       {
         if (IMOSLoggingEnabled())
         {
-          v15 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+          v14 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
           {
-            LOWORD(v18[0]) = 0;
-            _os_log_impl(&dword_22B4CC000, v15, OS_LOG_TYPE_INFO, "Added device for relay. Relaying current SMS Filtering settings.", v18, 2u);
+            LOWORD(v16[0]) = 0;
+            _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_INFO, "Added device for relay. Relaying current SMS Filtering settings.", v16, 2u);
           }
         }
 
-        v16 = +[IMDFilteringController sharedInstance];
-        [v16 _relayCurrentSMSFilteringSettings];
+        v15 = +[IMDFilteringController sharedInstance];
+        [v15 _relayCurrentSMSFilteringSettings];
       }
     }
   }
@@ -738,65 +714,62 @@ LABEL_22:
   {
     [(IMDRelayEnrollmentController *)self sendApprovalResponseToDevice:relayCopy enteredCorrectly:1 wasCancelled:0];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_removeDeviceFromAllowedSMSRelay:(id)relay
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   relayCopy = relay;
-  v4 = *MEMORY[0x277D1A4F8];
-  v5 = IMGetCachedDomainValueForKey();
-  v6 = [MEMORY[0x277CBEB18] arrayWithArray:v5];
-  if (v6)
+  v4 = IMGetCachedDomainValueForKey();
+  v5 = [MEMORY[0x277CBEB18] arrayWithArray:v4];
+  if (v5)
   {
     uniqueID = [relayCopy uniqueID];
-    v21 = 0u;
-    v22 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v8 = v6;
-    v9 = [v8 countByEnumeratingWithState:&v19 objects:v27 count:16];
-    if (v9)
+    v17 = 0u;
+    v18 = 0u;
+    v7 = v5;
+    v8 = [v7 countByEnumeratingWithState:&v17 objects:v25 count:16];
+    if (v8)
     {
-      v10 = *v20;
+      v9 = *v18;
       while (2)
       {
-        for (i = 0; i != v9; ++i)
+        for (i = 0; i != v8; ++i)
         {
-          if (*v20 != v10)
+          if (*v18 != v9)
           {
-            objc_enumerationMutation(v8);
+            objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v19 + 1) + 8 * i);
-          if ([v12 isEqualToString:{uniqueID, v19}])
+          v11 = *(*(&v17 + 1) + 8 * i);
+          if ([v11 isEqualToString:{uniqueID, v17}])
           {
-            [v8 removeObject:v12];
-            v13 = [v8 count];
-            if (v13 < [v5 count] && IMOSLoggingEnabled())
+            [v7 removeObject:v11];
+            v12 = [v7 count];
+            if (v12 < [v4 count] && IMOSLoggingEnabled())
             {
-              v14 = OSLogHandleForIMFoundationCategory();
-              if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+              v13 = OSLogHandleForIMFoundationCategory();
+              if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
               {
-                v15 = [v8 count];
-                v16 = [v5 count];
+                v14 = [v7 count];
+                v15 = [v4 count];
                 *buf = 67109376;
+                v22 = v14;
+                v23 = 1024;
                 v24 = v15;
-                v25 = 1024;
-                v26 = v16;
-                _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_INFO, "_removeDeviceFromAllowedSMSRelay: newAllowedDeviceUUIDs count: %d allowedDeviceUUIDs count: %d", buf, 0xEu);
+                _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, "_removeDeviceFromAllowedSMSRelay: newAllowedDeviceUUIDs count: %d allowedDeviceUUIDs count: %d", buf, 0xEu);
               }
             }
 
-            if (![v8 count] && IMOSLoggingEnabled())
+            if (![v7 count] && IMOSLoggingEnabled())
             {
-              v17 = OSLogHandleForIMFoundationCategory();
-              if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+              v16 = OSLogHandleForIMFoundationCategory();
+              if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
               {
                 *buf = 0;
-                _os_log_impl(&dword_22B4CC000, v17, OS_LOG_TYPE_INFO, "_removeDeviceFromAllowedSMSRelay: going to write an empty dictionary to the kSMSDefaultsAllowedKey", buf, 2u);
+                _os_log_impl(&dword_22B4CC000, v16, OS_LOG_TYPE_INFO, "_removeDeviceFromAllowedSMSRelay: going to write an empty dictionary to the kSMSDefaultsAllowedKey", buf, 2u);
               }
             }
 
@@ -806,8 +779,8 @@ LABEL_22:
           }
         }
 
-        v9 = [v8 countByEnumeratingWithState:&v19 objects:v27 count:16];
-        if (v9)
+        v8 = [v7 countByEnumeratingWithState:&v17 objects:v25 count:16];
+        if (v8)
         {
           continue;
         }
@@ -818,57 +791,54 @@ LABEL_22:
 
 LABEL_22:
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_addDeviceToIgnoredSMSRelay:(id)relay
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   relayCopy = relay;
-  v4 = *MEMORY[0x277D1A4F8];
-  v5 = IMGetCachedDomainValueForKey();
-  v6 = [MEMORY[0x277CBEB18] arrayWithArray:v5];
-  if (v6)
+  v4 = IMGetCachedDomainValueForKey();
+  v5 = [MEMORY[0x277CBEB18] arrayWithArray:v4];
+  if (v5)
   {
     uniqueID = [relayCopy uniqueID];
-    if ([v6 containsObject:uniqueID])
+    if ([v5 containsObject:uniqueID])
     {
       if (IMOSLoggingEnabled())
       {
-        v8 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+        v7 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
         {
-          LOWORD(v13[0]) = 0;
-          _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Told to add an iteam but we allready have its ID, moving on", v13, 2u);
+          LOWORD(v11[0]) = 0;
+          _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Told to add an iteam but we allready have its ID, moving on", v11, 2u);
         }
       }
     }
 
     else
     {
-      [v6 addObject:uniqueID];
-      v9 = [v6 count];
-      if (v9 < [v5 count] && IMOSLoggingEnabled())
+      [v5 addObject:uniqueID];
+      v8 = [v5 count];
+      if (v8 < [v4 count] && IMOSLoggingEnabled())
+      {
+        v9 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+        {
+          v11[0] = 67109376;
+          v11[1] = [v5 count];
+          v12 = 1024;
+          v13 = [v4 count];
+          _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "_addDeviceToAllowedSMSRelay: newIgnoredDeviceUUIDs count: %d ignoredDeviceUUIDs count: %d", v11, 0xEu);
+        }
+      }
+
+      if (![v5 count] && IMOSLoggingEnabled())
       {
         v10 = OSLogHandleForIMFoundationCategory();
         if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
         {
-          v13[0] = 67109376;
-          v13[1] = [v6 count];
-          v14 = 1024;
-          v15 = [v5 count];
-          _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "_addDeviceToAllowedSMSRelay: newIgnoredDeviceUUIDs count: %d ignoredDeviceUUIDs count: %d", v13, 0xEu);
-        }
-      }
-
-      if (![v6 count] && IMOSLoggingEnabled())
-      {
-        v11 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
-        {
-          LOWORD(v13[0]) = 0;
-          _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "_addDeviceToIgnoredSMSRelay: going to write an empty dictionary to the kSMSDefaultsAllowedKey", v13, 2u);
+          LOWORD(v11[0]) = 0;
+          _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "_addDeviceToIgnoredSMSRelay: going to write an empty dictionary to the kSMSDefaultsAllowedKey", v11, 2u);
         }
       }
 
@@ -876,65 +846,62 @@ LABEL_22:
       IMSyncronizeAppPreferences();
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_removeDeviceFromIgnoredSMSRelay:(id)relay
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   relayCopy = relay;
-  v4 = *MEMORY[0x277D1A4F8];
-  v5 = IMGetCachedDomainValueForKey();
-  v6 = [MEMORY[0x277CBEB18] arrayWithArray:v5];
-  if (v6)
+  v4 = IMGetCachedDomainValueForKey();
+  v5 = [MEMORY[0x277CBEB18] arrayWithArray:v4];
+  if (v5)
   {
     uniqueID = [relayCopy uniqueID];
-    v21 = 0u;
-    v22 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v8 = v6;
-    v9 = [v8 countByEnumeratingWithState:&v19 objects:v27 count:16];
-    if (v9)
+    v17 = 0u;
+    v18 = 0u;
+    v7 = v5;
+    v8 = [v7 countByEnumeratingWithState:&v17 objects:v25 count:16];
+    if (v8)
     {
-      v10 = *v20;
+      v9 = *v18;
       while (2)
       {
-        for (i = 0; i != v9; ++i)
+        for (i = 0; i != v8; ++i)
         {
-          if (*v20 != v10)
+          if (*v18 != v9)
           {
-            objc_enumerationMutation(v8);
+            objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v19 + 1) + 8 * i);
-          if ([v12 isEqualToString:{uniqueID, v19}])
+          v11 = *(*(&v17 + 1) + 8 * i);
+          if ([v11 isEqualToString:{uniqueID, v17}])
           {
-            [v8 removeObject:v12];
-            v13 = [v8 count];
-            if (v13 < [v5 count] && IMOSLoggingEnabled())
+            [v7 removeObject:v11];
+            v12 = [v7 count];
+            if (v12 < [v4 count] && IMOSLoggingEnabled())
             {
-              v14 = OSLogHandleForIMFoundationCategory();
-              if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+              v13 = OSLogHandleForIMFoundationCategory();
+              if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
               {
-                v15 = [v8 count];
-                v16 = [v5 count];
+                v14 = [v7 count];
+                v15 = [v4 count];
                 *buf = 67109376;
+                v22 = v14;
+                v23 = 1024;
                 v24 = v15;
-                v25 = 1024;
-                v26 = v16;
-                _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_INFO, "_removeDeviceFromIgnoredSMSRelay: newIgnoredDeviceUUIDs count: %d ignoredDeviceUUIDs count: %d", buf, 0xEu);
+                _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, "_removeDeviceFromIgnoredSMSRelay: newIgnoredDeviceUUIDs count: %d ignoredDeviceUUIDs count: %d", buf, 0xEu);
               }
             }
 
-            if (![v8 count] && IMOSLoggingEnabled())
+            if (![v7 count] && IMOSLoggingEnabled())
             {
-              v17 = OSLogHandleForIMFoundationCategory();
-              if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+              v16 = OSLogHandleForIMFoundationCategory();
+              if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
               {
                 *buf = 0;
-                _os_log_impl(&dword_22B4CC000, v17, OS_LOG_TYPE_INFO, "_removeDeviceFromIgnoredSMSRelay: going to write an empty dictionary to the kSMSDefaultsAllowedKey", buf, 2u);
+                _os_log_impl(&dword_22B4CC000, v16, OS_LOG_TYPE_INFO, "_removeDeviceFromIgnoredSMSRelay: going to write an empty dictionary to the kSMSDefaultsAllowedKey", buf, 2u);
               }
             }
 
@@ -944,8 +911,8 @@ LABEL_22:
           }
         }
 
-        v9 = [v8 countByEnumeratingWithState:&v19 objects:v27 count:16];
-        if (v9)
+        v8 = [v7 countByEnumeratingWithState:&v17 objects:v25 count:16];
+        if (v8)
         {
           continue;
         }
@@ -956,13 +923,11 @@ LABEL_22:
 
 LABEL_22:
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_addDefaultPairedDeviceToAllowedSMSRelayList
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (IMOSLoggingEnabled())
   {
     v3 = OSLogHandleForIMEventCategory();
@@ -973,29 +938,29 @@ LABEL_22:
     }
   }
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   serviceDelegate = [(IMDRelayEnrollmentController *)self serviceDelegate];
   peerDevices = [serviceDelegate peerDevices];
 
-  v6 = [peerDevices countByEnumeratingWithState:&v14 objects:v20 count:16];
+  v6 = [peerDevices countByEnumeratingWithState:&v13 objects:v19 count:16];
   if (v6)
   {
-    v8 = *v15;
+    v8 = *v14;
     *&v7 = 138412290;
-    v13 = v7;
+    v12 = v7;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(peerDevices);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
+        v10 = *(*(&v13 + 1) + 8 * i);
         if ([v10 isDefaultPairedDevice])
         {
           [(IMDRelayEnrollmentController *)self _addDeviceToAllowedSMSRelay:v10 shouldSendApproval:0];
@@ -1004,70 +969,67 @@ LABEL_22:
             v11 = OSLogHandleForIMEventCategory();
             if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
             {
-              *buf = v13;
-              v19 = v10;
+              *buf = v12;
+              v18 = v10;
               _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "Added to paired list %@", buf, 0xCu);
             }
           }
         }
       }
 
-      v6 = [peerDevices countByEnumeratingWithState:&v14 objects:v20 count:16];
+      v6 = [peerDevices countByEnumeratingWithState:&v13 objects:v19 count:16];
     }
 
     while (v6);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_addDeviceToChallengedSMSRelay:(id)relay
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   relayCopy = relay;
-  v4 = *MEMORY[0x277D1A4F8];
-  v5 = IMGetCachedDomainValueForKey();
-  v6 = [MEMORY[0x277CBEB18] arrayWithArray:v5];
-  if (v6)
+  v4 = IMGetCachedDomainValueForKey();
+  v5 = [MEMORY[0x277CBEB18] arrayWithArray:v4];
+  if (v5)
   {
     uniqueID = [relayCopy uniqueID];
-    if ([v6 containsObject:uniqueID])
+    if ([v5 containsObject:uniqueID])
     {
       if (IMOSLoggingEnabled())
       {
-        v8 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+        v7 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
         {
-          LOWORD(v13[0]) = 0;
-          _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Told to add an iteam but we allready have its ID, moving on", v13, 2u);
+          LOWORD(v11[0]) = 0;
+          _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Told to add an iteam but we allready have its ID, moving on", v11, 2u);
         }
       }
     }
 
     else
     {
-      [v6 addObject:uniqueID];
-      v9 = [v6 count];
-      if (v9 < [v5 count] && IMOSLoggingEnabled())
+      [v5 addObject:uniqueID];
+      v8 = [v5 count];
+      if (v8 < [v4 count] && IMOSLoggingEnabled())
+      {
+        v9 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+        {
+          v11[0] = 67109376;
+          v11[1] = [v5 count];
+          v12 = 1024;
+          v13 = [v4 count];
+          _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "_addDeviceToAllowedSMSRelay: newAllowedDeviceUUIDs count: %d allowedDeviceUUIDs count: %d", v11, 0xEu);
+        }
+      }
+
+      if (![v5 count] && IMOSLoggingEnabled())
       {
         v10 = OSLogHandleForIMFoundationCategory();
         if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
         {
-          v13[0] = 67109376;
-          v13[1] = [v6 count];
-          v14 = 1024;
-          v15 = [v5 count];
-          _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "_addDeviceToAllowedSMSRelay: newAllowedDeviceUUIDs count: %d allowedDeviceUUIDs count: %d", v13, 0xEu);
-        }
-      }
-
-      if (![v6 count] && IMOSLoggingEnabled())
-      {
-        v11 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
-        {
-          LOWORD(v13[0]) = 0;
-          _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "_addDeviceToIgnoredSMSRelay: going to write an empty dictionary to the kSMSDefaultsAllowedKey", v13, 2u);
+          LOWORD(v11[0]) = 0;
+          _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "_addDeviceToIgnoredSMSRelay: going to write an empty dictionary to the kSMSDefaultsAllowedKey", v11, 2u);
         }
       }
 
@@ -1075,65 +1037,62 @@ LABEL_22:
       IMSyncronizeAppPreferences();
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_removeDeviceFromChallengedSMSRelay:(id)relay
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   relayCopy = relay;
-  v4 = *MEMORY[0x277D1A4F8];
-  v5 = IMGetCachedDomainValueForKey();
-  v6 = [MEMORY[0x277CBEB18] arrayWithArray:v5];
-  if (v6)
+  v4 = IMGetCachedDomainValueForKey();
+  v5 = [MEMORY[0x277CBEB18] arrayWithArray:v4];
+  if (v5)
   {
     uniqueID = [relayCopy uniqueID];
-    v21 = 0u;
-    v22 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v8 = v6;
-    v9 = [v8 countByEnumeratingWithState:&v19 objects:v27 count:16];
-    if (v9)
+    v17 = 0u;
+    v18 = 0u;
+    v7 = v5;
+    v8 = [v7 countByEnumeratingWithState:&v17 objects:v25 count:16];
+    if (v8)
     {
-      v10 = *v20;
+      v9 = *v18;
       while (2)
       {
-        for (i = 0; i != v9; ++i)
+        for (i = 0; i != v8; ++i)
         {
-          if (*v20 != v10)
+          if (*v18 != v9)
           {
-            objc_enumerationMutation(v8);
+            objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v19 + 1) + 8 * i);
-          if ([v12 isEqualToString:{uniqueID, v19}])
+          v11 = *(*(&v17 + 1) + 8 * i);
+          if ([v11 isEqualToString:{uniqueID, v17}])
           {
-            [v8 removeObject:v12];
-            v13 = [v8 count];
-            if (v13 < [v5 count] && IMOSLoggingEnabled())
+            [v7 removeObject:v11];
+            v12 = [v7 count];
+            if (v12 < [v4 count] && IMOSLoggingEnabled())
             {
-              v14 = OSLogHandleForIMFoundationCategory();
-              if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+              v13 = OSLogHandleForIMFoundationCategory();
+              if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
               {
-                v15 = [v8 count];
-                v16 = [v5 count];
+                v14 = [v7 count];
+                v15 = [v4 count];
                 *buf = 67109376;
+                v22 = v14;
+                v23 = 1024;
                 v24 = v15;
-                v25 = 1024;
-                v26 = v16;
-                _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_INFO, "_addDeviceToAllowedSMSRelay: newAllowedDeviceUUIDs count: %d allowedDeviceUUIDs count: %d", buf, 0xEu);
+                _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, "_addDeviceToAllowedSMSRelay: newAllowedDeviceUUIDs count: %d allowedDeviceUUIDs count: %d", buf, 0xEu);
               }
             }
 
-            if (![v8 count] && IMOSLoggingEnabled())
+            if (![v7 count] && IMOSLoggingEnabled())
             {
-              v17 = OSLogHandleForIMFoundationCategory();
-              if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+              v16 = OSLogHandleForIMFoundationCategory();
+              if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
               {
                 *buf = 0;
-                _os_log_impl(&dword_22B4CC000, v17, OS_LOG_TYPE_INFO, "_addDeviceToIgnoredSMSRelay: going to write an empty dictionary to the kSMSDefaultsAllowedKey", buf, 2u);
+                _os_log_impl(&dword_22B4CC000, v16, OS_LOG_TYPE_INFO, "_addDeviceToIgnoredSMSRelay: going to write an empty dictionary to the kSMSDefaultsAllowedKey", buf, 2u);
               }
             }
 
@@ -1143,8 +1102,8 @@ LABEL_22:
           }
         }
 
-        v9 = [v8 countByEnumeratingWithState:&v19 objects:v27 count:16];
-        if (v9)
+        v8 = [v7 countByEnumeratingWithState:&v17 objects:v25 count:16];
+        if (v8)
         {
           continue;
         }
@@ -1155,13 +1114,11 @@ LABEL_22:
 
 LABEL_22:
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sendPinCodeToDeviceAndPromptForResponse:(id)response
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   serviceDelegate = [(IMDRelayEnrollmentController *)self serviceDelegate];
   v6 = [serviceDelegate idsDeviceFromUniqueID:responseCopy];
@@ -1172,7 +1129,7 @@ LABEL_22:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v33 = responseCopy;
+      v35 = responseCopy;
       _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Tried to enroll a device that doesnt excist in our set of devices or was nil %@", buf, 0xCu);
     }
   }
@@ -1181,55 +1138,53 @@ LABEL_22:
   {
     v8 = MEMORY[0x277D19238];
     modelIdentifier = [v6 modelIdentifier];
-    v29 = [v8 marketingNameForModel:modelIdentifier];
+    v31 = [v8 marketingNameForModel:modelIdentifier];
 
     name = [v6 name];
-    v10 = IMDaemonCoreBundle();
-    v27 = [v10 __im_localizedStringForKey:@"ENTER_THE_CODE_SHOWN_ON_YOUR_DEVICE_FOR_SMS_RELAY"];
+    v10 = IMDaemonCoreBundle(name);
+    v29 = [v10 __im_localizedStringForKey:@"ENTER_THE_CODE_SHOWN_ON_YOUR_DEVICE_FOR_SMS_RELAY"];
 
-    v11 = IMDaemonCoreBundle();
-    v26 = [v11 __im_localizedStringForKey:@"RELAY_ENROLLMENT_TEXT_MESSAGE_FORWARDING"];
+    v12 = IMDaemonCoreBundle(v11);
+    v28 = [v12 __im_localizedStringForKey:@"RELAY_ENROLLMENT_TEXT_MESSAGE_FORWARDING"];
 
-    v12 = IMDaemonCoreBundle();
-    v13 = [v12 __im_localizedStringForKey:@"RELAY_ENROLLMENT_ALLOW"];
+    v14 = IMDaemonCoreBundle(v13);
+    v15 = [v14 __im_localizedStringForKey:@"RELAY_ENROLLMENT_ALLOW"];
 
-    v14 = IMDaemonCoreBundle();
-    v15 = [v14 __im_localizedStringForKey:@"RELAY_ENROLLMENT_CANCEL"];
+    v17 = IMDaemonCoreBundle(v16);
+    v18 = [v17 __im_localizedStringForKey:@"RELAY_ENROLLMENT_CANCEL"];
 
-    v16 = MEMORY[0x277CBEAC0];
-    v17 = [MEMORY[0x277CCACA8] stringWithFormat:v27, v29, name];
-    v18 = [MEMORY[0x277CBEA60] arrayWithObject:&stru_283F23018];
-    v19 = [MEMORY[0x277CBEA60] arrayWithObject:&stru_283F23018];
-    v20 = [MEMORY[0x277CCABB0] numberWithInt:5];
-    v21 = [v16 dictionaryWithObjectsAndKeys:{v26, *MEMORY[0x277D19228], v17, *MEMORY[0x277D19208], v18, *MEMORY[0x277D19220], v19, *MEMORY[0x277D19218], v13, *MEMORY[0x277D191F8], v15, *MEMORY[0x277D191F0], v20, *MEMORY[0x277CBF1F8], 0}];
+    v19 = MEMORY[0x277CBEAC0];
+    v20 = [MEMORY[0x277CCACA8] stringWithFormat:v29, v31, name];
+    v21 = [MEMORY[0x277CBEA60] arrayWithObject:&stru_283F23018];
+    v22 = [MEMORY[0x277CBEA60] arrayWithObject:&stru_283F23018];
+    v23 = [MEMORY[0x277CCABB0] numberWithInt:5];
+    v24 = [v19 dictionaryWithObjectsAndKeys:{v28, *MEMORY[0x277D19228], v20, *MEMORY[0x277D19208], v21, *MEMORY[0x277D19220], v22, *MEMORY[0x277D19218], v15, *MEMORY[0x277D191F8], v18, *MEMORY[0x277D191F0], v23, *MEMORY[0x277CBF1F8], 0}];
 
-    v22 = [MEMORY[0x277D192D0] userNotificationWithIdentifier:@"SMSRelayCodeInput" timeout:3 alertLevel:0 displayFlags:v21 displayInformation:0.0];
+    v25 = [MEMORY[0x277D192D0] userNotificationWithIdentifier:@"SMSRelayCodeInput" timeout:3 alertLevel:0 displayFlags:v24 displayInformation:0.0];
     mEMORY[0x277D192D8] = [MEMORY[0x277D192D8] sharedInstance];
-    v30[0] = MEMORY[0x277D85DD0];
-    v30[1] = 3221225472;
-    v30[2] = sub_22B547A54;
-    v30[3] = &unk_2787040C0;
-    v30[4] = self;
-    v31 = v6;
-    [mEMORY[0x277D192D8] addUserNotification:v22 listener:0 completionHandler:v30];
+    v32[0] = MEMORY[0x277D85DD0];
+    v32[1] = 3221225472;
+    v32[2] = sub_22B547A54;
+    v32[3] = &unk_2787040C0;
+    v32[4] = self;
+    v33 = v6;
+    [mEMORY[0x277D192D8] addUserNotification:v25 listener:0 completionHandler:v32];
   }
 
   else if (IMOSLoggingEnabled())
   {
-    v24 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+    v27 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_22B4CC000, v24, OS_LOG_TYPE_INFO, "We were unable to send the PIN to the other device to be displayed, Sorry", buf, 2u);
+      _os_log_impl(&dword_22B4CC000, v27, OS_LOG_TYPE_INFO, "We were unable to send the PIN to the other device to be displayed, Sorry", buf, 2u);
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)sendApprovalDisplayPinToDevice:(id)device
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   randomSixDigitCode = [(IMDRelayEnrollmentController *)self randomSixDigitCode];
   if (!self->_pendingCodesToDevicesForApproval)
@@ -1272,7 +1227,7 @@ LABEL_22:
     {
       name = [deviceCopy name];
       *buf = 138412290;
-      v29 = name;
+      v28 = name;
       _os_log_impl(&dword_22B4CC000, v22, OS_LOG_TYPE_INFO, "Sending a Pin Code To Device %@  to display to enroll them into SMS Relay", buf, 0xCu);
     }
   }
@@ -1280,13 +1235,12 @@ LABEL_22:
   dispatchDelegate = [(IMDRelayEnrollmentController *)self dispatchDelegate];
   v25 = [dispatchDelegate sendEnrollmentRelatedMessageOverIDS:v21 deviceToSendTo:deviceCopy];
 
-  v26 = *MEMORY[0x277D85DE8];
   return v25;
 }
 
 - (void)sendApprovalEnrollMe
 {
-  v38[1] = *MEMORY[0x277D85DE8];
+  v37[1] = *MEMORY[0x277D85DE8];
   if (IMOSLoggingEnabled())
   {
     v3 = OSLogHandleForIMFoundationCategory();
@@ -1398,9 +1352,9 @@ LABEL_46:
       }
     }
 
-    v37 = IMDRelayMICStateKey;
-    v38[0] = &unk_283F4E510;
-    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:&v37 count:1];
+    v36 = IMDRelayMICStateKey;
+    v37[0] = &unk_283F4E510;
+    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:&v36 count:1];
     v20 = JWEncodeDictionary();
     _FTCopyGzippedData = [v20 _FTCopyGzippedData];
   }
@@ -1434,7 +1388,7 @@ LABEL_46:
       {
         name = [v29 name];
         *buf = 138412290;
-        v36 = name;
+        v35 = name;
         _os_log_impl(&dword_22B4CC000, v30, OS_LOG_TYPE_INFO, "Asking for device %@  to enroll me into SMS Relay", buf, 0xCu);
       }
     }
@@ -1444,12 +1398,52 @@ LABEL_46:
   }
 
 LABEL_51:
-  v34 = *MEMORY[0x277D85DE8];
+}
+
+- (void)sendApprovalResponseToDevice:(id)device enteredCorrectly:(BOOL)correctly wasCancelled:(BOOL)cancelled
+{
+  cancelledCopy = cancelled;
+  correctlyCopy = correctly;
+  v31 = *MEMORY[0x277D85DE8];
+  deviceCopy = device;
+  v9 = MEMORY[0x277CBEAC0];
+  v10 = [MEMORY[0x277CCABB0] numberWithBool:correctlyCopy];
+  v11 = IMDRelayApprovalResponseKey;
+  v12 = [MEMORY[0x277CCABB0] numberWithBool:cancelledCopy];
+  v13 = [v9 dictionaryWithObjectsAndKeys:{v10, v11, v12, IMDRelayApprovalWasCancelledKey, 0}];
+
+  v14 = JWEncodeDictionary();
+  _FTCopyGzippedData = [v14 _FTCopyGzippedData];
+  v16 = StringGUID();
+  v17 = MEMORY[0x277CBEB38];
+  v18 = [MEMORY[0x277CCABB0] numberWithInteger:145];
+  v19 = IDSGetUUIDData();
+  v20 = [MEMORY[0x277CCABB0] numberWithDouble:*MEMORY[0x277D18828]];
+  v21 = [v17 dictionaryWithObjectsAndKeys:{*MEMORY[0x277D18660], MEMORY[0x277CBEC38], *MEMORY[0x277D18648], MEMORY[0x277CBEC28], *MEMORY[0x277D185A0], v18, *MEMORY[0x277D18588], v19, *MEMORY[0x277D18668], _FTCopyGzippedData, *MEMORY[0x277D18598], v20, *MEMORY[0x277D18650], 0}];
+
+  if (IMOSLoggingEnabled())
+  {
+    v22 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+    {
+      name = [deviceCopy name];
+      *buf = 138412802;
+      v26 = name;
+      v27 = 2112;
+      v28 = v16;
+      v29 = 2112;
+      v30 = v13;
+      _os_log_impl(&dword_22B4CC000, v22, OS_LOG_TYPE_INFO, "Sending an Approval response message to device %@ message guid %@ with information %@ ", buf, 0x20u);
+    }
+  }
+
+  dispatchDelegate = [(IMDRelayEnrollmentController *)self dispatchDelegate];
+  [dispatchDelegate sendEnrollmentRelatedMessageOverIDS:v21 deviceToSendTo:deviceCopy];
 }
 
 - (void)sendUnApproveToDevice:(id)device extraKeys:(id)keys
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   keysCopy = keys;
   v6 = MEMORY[0x277CBEC38];
@@ -1484,17 +1478,15 @@ LABEL_51:
     {
       name = [deviceCopy name];
       *buf = 138412546;
-      v25 = name;
-      v26 = 2112;
-      v27 = v12;
+      v24 = name;
+      v25 = 2112;
+      v26 = v12;
       _os_log_impl(&dword_22B4CC000, v18, OS_LOG_TYPE_INFO, "Sending an Un-Approve message to device %@ message guid %@", buf, 0x16u);
     }
   }
 
   dispatchDelegate = [(IMDRelayEnrollmentController *)self dispatchDelegate];
   [dispatchDelegate sendEnrollmentRelatedMessageOverIDS:v17 deviceToSendTo:deviceCopy];
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_approveSelfForSMSRelay
@@ -1526,46 +1518,44 @@ LABEL_51:
 
 - (void)_migrateSMSRelayForMICIfNeeded
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (IMOSLoggingEnabled())
   {
     v3 = OSLogHandleForIMEventCategory();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v17) = 0;
-      _os_log_impl(&dword_22B4CC000, v3, OS_LOG_TYPE_INFO, "Checking if we need to enroll as an SMS relay device.", &v17, 2u);
+      LOWORD(v14) = 0;
+      _os_log_impl(&dword_22B4CC000, v3, OS_LOG_TYPE_INFO, "Checking if we need to enroll as an SMS relay device.", &v14, 2u);
     }
   }
 
-  v4 = *MEMORY[0x277D1A4F8];
-  v5 = *MEMORY[0x277D1A500];
-  v6 = IMGetCachedDomainValueForKey();
+  v4 = IMGetCachedDomainValueForKey();
   mEMORY[0x277D07DB0] = [MEMORY[0x277D07DB0] sharedInstance];
   productVersion = [mEMORY[0x277D07DB0] productVersion];
 
-  v9 = [productVersion isEqualToString:v6];
+  v7 = [productVersion isEqualToString:v4];
   if (IMOSLoggingEnabled())
   {
-    v10 = OSLogHandleForIMEventCategory();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    v8 = OSLogHandleForIMEventCategory();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v17 = 138412546;
-      v18 = v6;
-      v19 = 2112;
-      v20 = productVersion;
-      _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "> Last migration was for {%@}, currently {%@}.", &v17, 0x16u);
+      v14 = 138412546;
+      v15 = v4;
+      v16 = 2112;
+      v17 = productVersion;
+      _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "> Last migration was for {%@}, currently {%@}.", &v14, 0x16u);
     }
   }
 
-  if (v9)
+  if (v7)
   {
     if (IMOSLoggingEnabled())
     {
-      v11 = OSLogHandleForIMEventCategory();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+      v9 = OSLogHandleForIMEventCategory();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v17) = 0;
-        _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "> We have already completed SMS MiC relay migration.", &v17, 2u);
+        LOWORD(v14) = 0;
+        _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "> We have already completed SMS MiC relay migration.", &v14, 2u);
       }
 
 LABEL_23:
@@ -1576,66 +1566,64 @@ LABEL_23:
   {
     IMSetDomainValueForKey();
     IMSyncronizeAppPreferences();
-    v12 = +[IMDCKUtilities sharedInstance];
-    cloudKitSyncingEnabled = [v12 cloudKitSyncingEnabled];
+    v10 = +[IMDCKUtilities sharedInstance];
+    cloudKitSyncingEnabled = [v10 cloudKitSyncingEnabled];
 
-    v14 = IMOSLoggingEnabled();
+    v12 = IMOSLoggingEnabled();
     if (cloudKitSyncingEnabled)
     {
-      if (v14)
+      if (v12)
       {
-        v15 = OSLogHandleForIMEventCategory();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+        v13 = OSLogHandleForIMEventCategory();
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
         {
-          LOWORD(v17) = 0;
-          _os_log_impl(&dword_22B4CC000, v15, OS_LOG_TYPE_INFO, "> Beginning flow to enroll device in SMS relay.", &v17, 2u);
+          LOWORD(v14) = 0;
+          _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, "> Beginning flow to enroll device in SMS relay.", &v14, 2u);
         }
       }
 
       [(IMDRelayEnrollmentController *)self enrollSelfDeviceInSMSRelay];
     }
 
-    else if (v14)
+    else if (v12)
     {
-      v11 = OSLogHandleForIMEventCategory();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+      v9 = OSLogHandleForIMEventCategory();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v17) = 0;
-        _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "> MiC is disabled, so no need to enroll device for SMS relay.", &v17, 2u);
+        LOWORD(v14) = 0;
+        _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "> MiC is disabled, so no need to enroll device for SMS relay.", &v14, 2u);
       }
 
       goto LABEL_23;
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_areiMessageAndiCloudAccountTheSame:(id)same
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   sameCopy = same;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   serviceDelegate = [(IMDRelayEnrollmentController *)self serviceDelegate];
   accounts = [serviceDelegate accounts];
 
-  v7 = [accounts countByEnumeratingWithState:&v17 objects:v25 count:16];
+  v7 = [accounts countByEnumeratingWithState:&v16 objects:v24 count:16];
   if (v7)
   {
-    v8 = *v18;
+    v8 = *v17;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v18 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(accounts);
         }
 
-        v10 = *(*(&v17 + 1) + 8 * i);
+        v10 = *(*(&v16 + 1) + 8 * i);
         if ([v10 accountType] == 1 && objc_msgSend(v10, "isActive"))
         {
           profileID = [v10 profileID];
@@ -1646,9 +1634,9 @@ LABEL_23:
             if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
             {
               *buf = 138412546;
-              v22 = sameCopy;
-              v23 = 2112;
-              v24 = profileID;
+              v21 = sameCopy;
+              v22 = 2112;
+              v23 = profileID;
               _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, "iCloud DSID is %@, imessage DSID is %@", buf, 0x16u);
             }
           }
@@ -1663,7 +1651,7 @@ LABEL_23:
         }
       }
 
-      v7 = [accounts countByEnumeratingWithState:&v17 objects:v25 count:16];
+      v7 = [accounts countByEnumeratingWithState:&v16 objects:v24 count:16];
       if (v7)
       {
         continue;
@@ -1675,17 +1663,15 @@ LABEL_23:
 
 LABEL_17:
 
-  v15 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (void)_enableSMSRelayForDevice:(id)device
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
-  v5 = *MEMORY[0x277D1A4F8];
-  v6 = IMGetCachedDomainValueForKey();
-  v7 = [MEMORY[0x277CBEB18] arrayWithArray:v6];
+  v5 = IMGetCachedDomainValueForKey();
+  v6 = [MEMORY[0x277CBEB18] arrayWithArray:v5];
   uniqueID = [deviceCopy uniqueID];
   if (![(IMDRelayEnrollmentController *)self _isDeviceATrustedHSA2Device:deviceCopy])
   {
@@ -1694,27 +1680,27 @@ LABEL_17:
       goto LABEL_16;
     }
 
-    v9 = OSLogHandleForIMEventCategory();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v8 = OSLogHandleForIMEventCategory();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v12 = 138412290;
-      v13 = deviceCopy;
-      _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "Device is not on HSA2 trusted list, not approving it for SMS relay %@", &v12, 0xCu);
+      v10 = 138412290;
+      v11 = deviceCopy;
+      _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Device is not on HSA2 trusted list, not approving it for SMS relay %@", &v10, 0xCu);
     }
 
     goto LABEL_6;
   }
 
-  if ([v6 containsObject:uniqueID])
+  if ([v5 containsObject:uniqueID])
   {
     if (IMOSLoggingEnabled())
     {
-      v9 = OSLogHandleForIMEventCategory();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+      v8 = OSLogHandleForIMEventCategory();
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
-        v12 = 138412290;
-        v13 = deviceCopy;
-        _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "(HSA2 Trusted) Already added device to paired list once %@", &v12, 0xCu);
+        v10 = 138412290;
+        v11 = deviceCopy;
+        _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "(HSA2 Trusted) Already added device to paired list once %@", &v10, 0xCu);
       }
 
 LABEL_6:
@@ -1726,23 +1712,21 @@ LABEL_6:
     [(IMDRelayEnrollmentController *)self _addDeviceToAllowedSMSRelay:deviceCopy shouldSendApproval:1];
     if (IMOSLoggingEnabled())
     {
-      v10 = OSLogHandleForIMEventCategory();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+      v9 = OSLogHandleForIMEventCategory();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
-        v12 = 138412290;
-        v13 = deviceCopy;
-        _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "(HSA2 Trusted) Added to paired list %@", &v12, 0xCu);
+        v10 = 138412290;
+        v11 = deviceCopy;
+        _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "(HSA2 Trusted) Added to paired list %@", &v10, 0xCu);
       }
     }
 
-    [v7 addObject:uniqueID];
+    [v6 addObject:uniqueID];
     IMSetDomainValueForKey();
     IMSyncronizeAppPreferences();
   }
 
 LABEL_16:
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_shouldAutoEnableDevicesforSMSRelay:(id)relay
@@ -1783,7 +1767,6 @@ LABEL_16:
 
 - (void)setHasBeenRemoteApproved:(BOOL)approved
 {
-  v3 = *MEMORY[0x277D1A4F8];
   IMSetDomainBoolForKey();
 
   IMSyncronizeAppPreferences();
@@ -1791,7 +1774,7 @@ LABEL_16:
 
 - (id)_bestAccountWithAlias:(id)alias
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   aliasCopy = alias;
   v4 = +[IMDServiceController sharedController];
   v5 = [v4 serviceWithName:*MEMORY[0x277D1A610]];
@@ -1800,26 +1783,26 @@ LABEL_16:
   v7 = [v6 accountsForService:v5];
 
   firstObject = [v7 firstObject];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v9 = v7;
-  v10 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v21;
+    v12 = *v20;
     while (2)
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v21 != v12)
+        if (*v20 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v20 + 1) + 8 * i);
+        v14 = *(*(&v19 + 1) + 8 * i);
         aliases = [v14 aliases];
         v16 = [aliases containsObject:aliasCopy];
 
@@ -1832,7 +1815,7 @@ LABEL_16:
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
       if (v11)
       {
         continue;
@@ -1844,14 +1827,12 @@ LABEL_16:
 
 LABEL_11:
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return firstObject;
 }
 
 - (void)handler:(id)handler incomingDisplayPinCode:(id)code toIdentifier:(id)identifier fromIdentifier:(id)fromIdentifier fromToken:(id)token messageGUID:(id)d timeStamp:(id)stamp storageContext:(id)self0
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   codeCopy = code;
   identifierCopy = identifier;
@@ -1866,14 +1847,14 @@ LABEL_11:
     if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
       *buf = 138412546;
-      v47 = fromIdentifierCopy;
-      v48 = 2112;
-      v49 = identifierCopy;
+      v48 = fromIdentifierCopy;
+      v49 = 2112;
+      v50 = identifierCopy;
       _os_log_impl(&dword_22B4CC000, v18, OS_LOG_TYPE_INFO, "SMS Service Session Received an incomming approval request from:%@ to:%@", buf, 0x16u);
     }
   }
 
-  v40 = codeCopy;
+  v41 = codeCopy;
   v19 = [codeCopy _numberForKey:IMDRelayApprovalKeyKey];
   serviceDelegate = [(IMDRelayEnrollmentController *)self serviceDelegate];
   v21 = [serviceDelegate idsDeviceFromPushToken:tokenCopy];
@@ -1887,23 +1868,23 @@ LABEL_11:
     v25 = IMFormattedDisplayStringForID();
     stringWithLTREmbedding = [v25 stringWithLTREmbedding];
 
-    v27 = IMDaemonCoreBundle();
-    v28 = [v27 __im_localizedStringForKey:@"RELAY_ENROLLMENT_CANCEL"];
+    v28 = IMDaemonCoreBundle(v27);
+    v29 = [v28 __im_localizedStringForKey:@"RELAY_ENROLLMENT_CANCEL"];
 
-    v29 = IMDaemonCoreBundle();
-    v30 = [v29 __im_localizedStringForKey:@"TO_SEND_AND_RECEIVE_YOUR_IPHONE_TEXT_MESSAGES"];
+    v31 = IMDaemonCoreBundle(v30);
+    v32 = [v31 __im_localizedStringForKey:@"TO_SEND_AND_RECEIVE_YOUR_IPHONE_TEXT_MESSAGES"];
 
-    v31 = MEMORY[0x277D192D0];
+    v33 = MEMORY[0x277D192D0];
     uniqueID = [v21 uniqueID];
-    v33 = [MEMORY[0x277CCACA8] stringWithFormat:v30, stringWithLTREmbedding, v19];
-    v34 = [v31 userNotificationWithIdentifier:uniqueID title:v33 message:0 defaultButton:v28 alternateButton:0 otherButton:0];
+    v35 = [MEMORY[0x277CCACA8] stringWithFormat:v32, stringWithLTREmbedding, v19];
+    v36 = [v33 userNotificationWithIdentifier:uniqueID title:v35 message:0 defaultButton:v29 alternateButton:0 otherButton:0];
 
-    if (v34)
+    if (v36)
     {
-      [v34 setUsesNotificationCenter:0];
-      [v34 setRepresentedApplicationBundle:*MEMORY[0x277D192F0]];
+      [v36 setUsesNotificationCenter:0];
+      [v36 setRepresentedApplicationBundle:*MEMORY[0x277D192F0]];
       mEMORY[0x277D192D8] = [MEMORY[0x277D192D8] sharedInstance];
-      [mEMORY[0x277D192D8] addUserNotification:v34 listener:0 completionHandler:&unk_283F19A48];
+      [mEMORY[0x277D192D8] addUserNotification:v36 listener:0 completionHandler:&unk_283F19A48];
     }
   }
 
@@ -1911,32 +1892,30 @@ LABEL_11:
   {
     if (IMOSLoggingEnabled())
     {
-      v36 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
+      v38 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_22B4CC000, v36, OS_LOG_TYPE_INFO, "********** We received an imcomming pin code alert from a non SMS Device", buf, 2u);
+        _os_log_impl(&dword_22B4CC000, v38, OS_LOG_TYPE_INFO, "********** We received an imcomming pin code alert from a non SMS Device", buf, 2u);
       }
     }
 
     if (IMOSLoggingEnabled())
     {
-      v37 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
+      v39 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v47 = v21;
-        _os_log_impl(&dword_22B4CC000, v37, OS_LOG_TYPE_INFO, "The device that sent this request was %@", buf, 0xCu);
+        v48 = v21;
+        _os_log_impl(&dword_22B4CC000, v39, OS_LOG_TYPE_INFO, "The device that sent this request was %@", buf, 0xCu);
       }
     }
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handler:(id)handler incomingEnrollMeRequest:(id)request toIdentifier:(id)identifier fromIdentifier:(id)fromIdentifier fromToken:(id)token messageGUID:(id)d timeStamp:(id)stamp storageContext:(id)self0
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   requestCopy = request;
   identifierCopy = identifier;
@@ -1951,9 +1930,9 @@ LABEL_11:
     if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
     {
       *buf = 138412546;
-      v48 = fromIdentifierCopy;
-      v49 = 2112;
-      v50 = identifierCopy;
+      v47 = fromIdentifierCopy;
+      v48 = 2112;
+      v49 = identifierCopy;
       _os_log_impl(&dword_22B4CC000, v20, OS_LOG_TYPE_INFO, "SMS Service Session Received a request to enroll a device into SMS Relay from:%@ to:%@", buf, 0x16u);
     }
   }
@@ -1966,16 +1945,16 @@ LABEL_11:
     {
       v23 = @"YES";
       *buf = 138412802;
-      v48 = fromIdentifierCopy;
-      v49 = 2112;
+      v47 = fromIdentifierCopy;
+      v48 = 2112;
       if (!v21)
       {
         v23 = @"NO";
       }
 
-      v50 = identifierCopy;
-      v51 = 2112;
-      v52 = v23;
+      v49 = identifierCopy;
+      v50 = 2112;
+      v51 = v23;
       _os_log_impl(&dword_22B4CC000, v22, OS_LOG_TYPE_INFO, "SMS Service Session Received a request to enroll a device into SMS Relay from:%@ to:%@, micIsOn:%@", buf, 0x20u);
     }
   }
@@ -2051,7 +2030,7 @@ LABEL_11:
         if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v48 = v25;
+          v47 = v25;
           _os_log_impl(&dword_22B4CC000, v38, OS_LOG_TYPE_INFO, "Automatically enrolling for SMS relay with requesting device: %@", buf, 0xCu);
         }
       }
@@ -2100,7 +2079,7 @@ LABEL_42:
       if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v48 = 0;
+        v47 = 0;
         _os_log_impl(&dword_22B4CC000, v32, OS_LOG_TYPE_INFO, "The device that sent this request was %@", buf, 0xCu);
       }
 
@@ -2109,35 +2088,33 @@ LABEL_30:
   }
 
 LABEL_49:
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_deviceAllowedToDisableRelay:(id)relay
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   relayCopy = relay;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   serviceDelegate = [(IMDRelayEnrollmentController *)self serviceDelegate];
   peerDevices = [serviceDelegate peerDevices];
 
-  v7 = [peerDevices countByEnumeratingWithState:&v18 objects:v24 count:16];
+  v7 = [peerDevices countByEnumeratingWithState:&v17 objects:v23 count:16];
   if (v7)
   {
-    v8 = *v19;
+    v8 = *v18;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v19 != v8)
+        if (*v18 != v8)
         {
           objc_enumerationMutation(peerDevices);
         }
 
-        uniqueID = [*(*(&v18 + 1) + 8 * i) uniqueID];
+        uniqueID = [*(*(&v17 + 1) + 8 * i) uniqueID];
         uniqueID2 = [relayCopy uniqueID];
         v12 = [uniqueID isEqualToString:uniqueID2];
 
@@ -2157,7 +2134,7 @@ LABEL_49:
         }
       }
 
-      v7 = [peerDevices countByEnumeratingWithState:&v18 objects:v24 count:16];
+      v7 = [peerDevices countByEnumeratingWithState:&v17 objects:v23 count:16];
       if (v7)
       {
         continue;
@@ -2174,7 +2151,7 @@ LABEL_49:
     {
       name = [relayCopy name];
       *buf = 138412290;
-      v23 = name;
+      v22 = name;
       _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, "Device %@ was not found in our relay service!", buf, 0xCu);
     }
   }
@@ -2182,13 +2159,12 @@ LABEL_49:
   supportsMMSRelay = 0;
 LABEL_18:
 
-  v16 = *MEMORY[0x277D85DE8];
   return supportsMMSRelay;
 }
 
 - (void)handler:(id)handler incomingResponseForApproval:(id)approval toIdentifier:(id)identifier fromIdentifier:(id)fromIdentifier fromToken:(id)token messageGUID:(id)d timeStamp:(id)stamp storageContext:(id)self0
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   approvalCopy = approval;
   identifierCopy = identifier;
@@ -2203,9 +2179,9 @@ LABEL_18:
     if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
     {
       *buf = 138412546;
-      v57 = fromIdentifierCopy;
-      v58 = 2112;
-      v59 = identifierCopy;
+      v55 = fromIdentifierCopy;
+      v56 = 2112;
+      v57 = identifierCopy;
       _os_log_impl(&dword_22B4CC000, v21, OS_LOG_TYPE_INFO, "SMS Service Session Received an incomming approval response from:%@ to:%@", buf, 0x16u);
     }
   }
@@ -2232,48 +2208,47 @@ LABEL_18:
         {
           name = [v23 name];
           *buf = 138412290;
-          v57 = name;
+          v55 = name;
           _os_log_impl(&dword_22B4CC000, v30, OS_LOG_TYPE_INFO, "Device %@ Told us that they have turned off SMS Relay for us, revoking them now ", buf, 0xCu);
         }
       }
 
-      v32 = *MEMORY[0x277D1A4F8];
       IMSetDomainBoolForKey();
       [(IMDRelayEnrollmentController *)self setHasBeenRemoteApproved:0];
       if (bOOLValue2)
       {
         if (IMOSLoggingEnabled())
         {
-          v33 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
+          v32 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
           {
             *buf = 0;
-            _os_log_impl(&dword_22B4CC000, v33, OS_LOG_TYPE_INFO, "This response indicated to us that we tried to send when we shouldnt have tried to send, Pulling out the guid and marking that message as a failure ", buf, 2u);
+            _os_log_impl(&dword_22B4CC000, v32, OS_LOG_TYPE_INFO, "This response indicated to us that we tried to send when we shouldnt have tried to send, Pulling out the guid and marking that message as a failure ", buf, 2u);
           }
         }
 
-        v34 = [approvalCopy _stringForKey:IMDRelayMessageDictionaryGUIDKey];
-        if (v34)
+        v33 = [approvalCopy _stringForKey:IMDRelayMessageDictionaryGUIDKey];
+        if (v33)
         {
           if (IMOSLoggingEnabled())
           {
-            v35 = OSLogHandleForIMFoundationCategory();
-            if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
+            v34 = OSLogHandleForIMFoundationCategory();
+            if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
             {
               *buf = 138412290;
-              v57 = v34;
-              _os_log_impl(&dword_22B4CC000, v35, OS_LOG_TYPE_INFO, "Telling message GUID %@ that it's a failure", buf, 0xCu);
+              v55 = v33;
+              _os_log_impl(&dword_22B4CC000, v34, OS_LOG_TYPE_INFO, "Telling message GUID %@ that it's a failure", buf, 0xCu);
             }
           }
 
           serviceDelegate2 = [(IMDRelayEnrollmentController *)self serviceDelegate];
-          [serviceDelegate2 didReceiveMessageError:v34];
+          [serviceDelegate2 didReceiveMessageError:v33];
         }
       }
 
-      v37 = +[IMDFilteringController sharedInstance];
+      v36 = +[IMDFilteringController sharedInstance];
       uniqueIDOverride = [v23 uniqueIDOverride];
-      [v37 _checkAndUpdateSMSFilteringSettingsForDeviceID:uniqueIDOverride smsFilterCapabilitiesOptions:0 filterExtensionName:0];
+      [v36 _checkAndUpdateSMSFilteringSettingsForDeviceID:uniqueIDOverride smsFilterCapabilitiesOptions:0 filterExtensionName:0];
 
       serviceDelegate3 = [(IMDRelayEnrollmentController *)self serviceDelegate];
       [serviceDelegate3 updateRelayStatus];
@@ -2281,51 +2256,51 @@ LABEL_18:
 
     else if (v29)
     {
-      v50 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v50, OS_LOG_TYPE_INFO))
+      v49 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v49, OS_LOG_TYPE_INFO))
       {
         name2 = [v23 name];
         *buf = 138412290;
-        v57 = name2;
-        _os_log_impl(&dword_22B4CC000, v50, OS_LOG_TYPE_INFO, "Device %@ Told us that they have turned off SMS Relay for us, but we determined they are not allowed to. Ignoring!", buf, 0xCu);
+        v55 = name2;
+        _os_log_impl(&dword_22B4CC000, v49, OS_LOG_TYPE_INFO, "Device %@ Told us that they have turned off SMS Relay for us, but we determined they are not allowed to. Ignoring!", buf, 0xCu);
       }
     }
   }
 
   else
   {
-    v40 = [approvalCopy objectForKey:IMDRelayApprovalResponseKey];
-    bOOLValue3 = [v40 BOOLValue];
+    v39 = [approvalCopy objectForKey:IMDRelayApprovalResponseKey];
+    bOOLValue3 = [v39 BOOLValue];
 
-    v42 = [approvalCopy objectForKey:IMDRelayApprovalWasCancelledKey];
-    bOOLValue4 = [v42 BOOLValue];
+    v41 = [approvalCopy objectForKey:IMDRelayApprovalWasCancelledKey];
+    bOOLValue4 = [v41 BOOLValue];
 
     if (IMOSLoggingEnabled())
     {
-      v44 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
+      v43 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
       {
-        v45 = @"NO";
+        v44 = @"NO";
         if (bOOLValue3)
-        {
-          v46 = @"YES";
-        }
-
-        else
-        {
-          v46 = @"NO";
-        }
-
-        if (bOOLValue4)
         {
           v45 = @"YES";
         }
 
+        else
+        {
+          v45 = @"NO";
+        }
+
+        if (bOOLValue4)
+        {
+          v44 = @"YES";
+        }
+
         *buf = 138412546;
-        v57 = v46;
-        v58 = 2112;
-        v59 = v45;
-        _os_log_impl(&dword_22B4CC000, v44, OS_LOG_TYPE_INFO, "The response was %@ Was it a cancelation/revokation? %@ ", buf, 0x16u);
+        v55 = v45;
+        v56 = 2112;
+        v57 = v44;
+        _os_log_impl(&dword_22B4CC000, v43, OS_LOG_TYPE_INFO, "The response was %@ Was it a cancelation/revokation? %@ ", buf, 0x16u);
       }
     }
 
@@ -2337,8 +2312,6 @@ LABEL_18:
     uniqueID = [v23 uniqueID];
     [mEMORY[0x277D192D8] removeNotificationsForServiceIdentifier:uniqueID];
   }
-
-  v52 = *MEMORY[0x277D85DE8];
 }
 
 @end

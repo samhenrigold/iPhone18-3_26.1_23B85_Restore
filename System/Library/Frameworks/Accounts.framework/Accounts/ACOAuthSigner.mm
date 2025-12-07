@@ -37,7 +37,7 @@ void __48__ACOAuthSigner_initWithAccount_remoteEndpoint___block_invoke(uint64_t 
 {
   if (a3)
   {
-    v3 = _ACLogSystem();
+    v3 = _ACLogSystem(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __48__ACOAuthSigner_initWithAccount_remoteEndpoint___block_invoke_cold_1(v3);
@@ -93,12 +93,13 @@ void __69__ACOAuthSigner_signedURLRequestWithURLRequest_callingPID_timestamp___b
 {
   v6 = a2;
   v7 = a3;
+  v8 = v7;
   if (v7)
   {
-    v8 = _ACLogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = _ACLogSystem(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __69__ACOAuthSigner_signedURLRequestWithURLRequest_callingPID_timestamp___block_invoke_cold_1(v7, v8);
+      __69__ACOAuthSigner_signedURLRequestWithURLRequest_callingPID_timestamp___block_invoke_cold_1(v8, v9);
     }
   }
 
@@ -144,12 +145,13 @@ void __72__ACOAuthSigner_signedURLRequestWithURLRequest_applicationID_timestamp_
 {
   v6 = a2;
   v7 = a3;
+  v8 = v7;
   if (v7)
   {
-    v8 = _ACLogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = _ACLogSystem(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __69__ACOAuthSigner_signedURLRequestWithURLRequest_callingPID_timestamp___block_invoke_cold_1(v7, v8);
+      __69__ACOAuthSigner_signedURLRequestWithURLRequest_callingPID_timestamp___block_invoke_cold_1(v8, v9);
     }
   }
 
@@ -189,23 +191,22 @@ void __72__ACOAuthSigner_signedURLRequestWithURLRequest_applicationID_timestamp_
   [(NSXPCConnection *)self->_connection resume];
 }
 
-void __58__ACOAuthSigner__connectToRemoteOAuthSignerUsingEndpoint___block_invoke()
+void __58__ACOAuthSigner__connectToRemoteOAuthSignerUsingEndpoint___block_invoke(uint64_t a1)
 {
-  v0 = _ACLogSystem();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = _ACLogSystem(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1AC3CD000, v0, OS_LOG_TYPE_DEFAULT, "The connection to ACDOAuthSigner was interrupted.", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_1AC3CD000, v1, OS_LOG_TYPE_DEFAULT, "The connection to ACDOAuthSigner was interrupted.", v2, 2u);
   }
 }
 
 void __69__ACOAuthSigner_signedURLRequestWithURLRequest_callingPID_timestamp___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1AC3CD000, a2, OS_LOG_TYPE_ERROR, "Error signing request: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1AC3CD000, a2, OS_LOG_TYPE_ERROR, "Error signing request: %@", &v2, 0xCu);
 }
 
 @end

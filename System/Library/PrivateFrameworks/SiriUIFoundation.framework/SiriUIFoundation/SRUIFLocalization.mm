@@ -100,11 +100,10 @@ LABEL_7:
 
 - (void)localizedStringForLanguageCode:(os_log_t)log key:.cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[SRUIFLocalization localizedStringForLanguageCode:key:]";
-  _os_log_error_impl(&dword_26951F000, log, OS_LOG_TYPE_ERROR, "%s Language code not provided", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[SRUIFLocalization localizedStringForLanguageCode:key:]";
+  _os_log_error_impl(&dword_26951F000, log, OS_LOG_TYPE_ERROR, "%s Language code not provided", &v1, 0xCu);
 }
 
 @end

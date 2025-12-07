@@ -107,123 +107,8 @@
 {
   oCopy = o;
   v5 = oCopy;
-  if (!oCopy)
+  if (!oCopy || (v6 = self->_date == 0, [oCopy date], v7 = objc_claimAutoreleasedReturnValue(), v8 = v7 != 0, v7, v6 == v8) || (date = self->_date) != 0 && (objc_msgSend(v5, "date"), v10 = objc_claimAutoreleasedReturnValue(), v11 = -[NSDate isEqual:](date, "isEqual:", v10), v10, !v11) || (v12 = self->_candidateIdentifier == 0, objc_msgSend(v5, "candidateIdentifier"), v13 = objc_claimAutoreleasedReturnValue(), v14 = v13 != 0, v13, v12 == v14) || (candidateIdentifier = self->_candidateIdentifier) != 0 && (objc_msgSend(v5, "candidateIdentifier"), v16 = objc_claimAutoreleasedReturnValue(), v17 = -[NSString isEqual:](candidateIdentifier, "isEqual:", v16), v16, !v17) || (v18 = self->_event == 0, objc_msgSend(v5, "event"), v19 = objc_claimAutoreleasedReturnValue(), v20 = v19 != 0, v19, v18 == v20) || (event = self->_event) != 0 && (objc_msgSend(v5, "event"), v22 = objc_claimAutoreleasedReturnValue(), v23 = -[IREventDO isEqual:](event, "isEqual:", v22), v22, !v23) || (v24 = self->_miloPredictionEvent == 0, objc_msgSend(v5, "miloPredictionEvent"), v25 = objc_claimAutoreleasedReturnValue(), v26 = v25 != 0, v25, v24 == v26) || (miloPredictionEvent = self->_miloPredictionEvent) != 0 && (objc_msgSend(v5, "miloPredictionEvent"), v28 = objc_claimAutoreleasedReturnValue(), v29 = -[IRMiLoPredictionEventDO isEqual:](miloPredictionEvent, "isEqual:", v28), v28, !v29) || (v30 = self->_systemState == 0, objc_msgSend(v5, "systemState"), v31 = objc_claimAutoreleasedReturnValue(), v32 = v31 != 0, v31, v30 == v32) || (systemState = self->_systemState) != 0 && (objc_msgSend(v5, "systemState"), v34 = objc_claimAutoreleasedReturnValue(), v35 = -[IRSystemStateDO isEqual:](systemState, "isEqual:", v34), v34, !v35) || (v36 = self->_sharingPolicy == 0, objc_msgSend(v5, "sharingPolicy"), v37 = objc_claimAutoreleasedReturnValue(), v38 = v37 != 0, v37, v36 == v38))
   {
-    goto LABEL_20;
-  }
-
-  v6 = self->_date == 0;
-  date = [oCopy date];
-  v8 = date != 0;
-
-  if (v6 == v8)
-  {
-    goto LABEL_20;
-  }
-
-  date = self->_date;
-  if (date)
-  {
-    date2 = [v5 date];
-    v11 = [(NSDate *)date isEqual:date2];
-
-    if (!v11)
-    {
-      goto LABEL_20;
-    }
-  }
-
-  v12 = self->_candidateIdentifier == 0;
-  candidateIdentifier = [v5 candidateIdentifier];
-  v14 = candidateIdentifier != 0;
-
-  if (v12 == v14)
-  {
-    goto LABEL_20;
-  }
-
-  candidateIdentifier = self->_candidateIdentifier;
-  if (candidateIdentifier)
-  {
-    candidateIdentifier2 = [v5 candidateIdentifier];
-    v17 = [(NSString *)candidateIdentifier isEqual:candidateIdentifier2];
-
-    if (!v17)
-    {
-      goto LABEL_20;
-    }
-  }
-
-  v18 = self->_event == 0;
-  event = [v5 event];
-  v20 = event != 0;
-
-  if (v18 == v20)
-  {
-    goto LABEL_20;
-  }
-
-  event = self->_event;
-  if (event)
-  {
-    event2 = [v5 event];
-    v23 = [(IREventDO *)event isEqual:event2];
-
-    if (!v23)
-    {
-      goto LABEL_20;
-    }
-  }
-
-  v24 = self->_miloPredictionEvent == 0;
-  miloPredictionEvent = [v5 miloPredictionEvent];
-  v26 = miloPredictionEvent != 0;
-
-  if (v24 == v26)
-  {
-    goto LABEL_20;
-  }
-
-  miloPredictionEvent = self->_miloPredictionEvent;
-  if (miloPredictionEvent)
-  {
-    miloPredictionEvent2 = [v5 miloPredictionEvent];
-    v29 = [(IRMiLoPredictionEventDO *)miloPredictionEvent isEqual:miloPredictionEvent2];
-
-    if (!v29)
-    {
-      goto LABEL_20;
-    }
-  }
-
-  v30 = self->_systemState == 0;
-  systemState = [v5 systemState];
-  v32 = systemState != 0;
-
-  if (v30 == v32)
-  {
-    goto LABEL_20;
-  }
-
-  systemState = self->_systemState;
-  if (systemState)
-  {
-    systemState2 = [v5 systemState];
-    v35 = [(IRSystemStateDO *)systemState isEqual:systemState2];
-
-    if (!v35)
-    {
-      goto LABEL_20;
-    }
-  }
-
-  v36 = self->_sharingPolicy == 0;
-  sharingPolicy = [v5 sharingPolicy];
-  v38 = sharingPolicy != 0;
-
-  if (v36 == v38)
-  {
-LABEL_20:
     v41 = 0;
   }
 
@@ -232,8 +117,8 @@ LABEL_20:
     sharingPolicy = self->_sharingPolicy;
     if (sharingPolicy)
     {
-      sharingPolicy2 = [v5 sharingPolicy];
-      v41 = [(NSString *)sharingPolicy isEqual:sharingPolicy2];
+      sharingPolicy = [v5 sharingPolicy];
+      v41 = [(NSString *)sharingPolicy isEqual:sharingPolicy];
     }
 
     else
@@ -274,7 +159,7 @@ LABEL_20:
 
 - (IRHistoryEventDO)initWithCoder:(id)coder
 {
-  v37[1] = *MEMORY[0x277D85DE8];
+  v36[1] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"date"];
   if (v5)
@@ -287,9 +172,9 @@ LABEL_20:
       v8 = objc_opt_class();
       v9 = NSStringFromClass(v8);
       v10 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for IRHistoryEventDO key date (expected %@, decoded %@)", v7, v9, 0];
-      v36 = *MEMORY[0x277CCA450];
-      v37[0] = v10;
-      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:&v36 count:1];
+      v35 = *MEMORY[0x277CCA450];
+      v36[0] = v10;
+      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:&v35 count:1];
       v12 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"IRHistoryEventDOOCNTErrorDomain" code:3 userInfo:v11];
       [coderCopy failWithError:v12];
 LABEL_9:
@@ -317,9 +202,9 @@ LABEL_6:
         v16 = objc_opt_class();
         v10 = NSStringFromClass(v16);
         v11 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for IRHistoryEventDO key candidateIdentifier (expected %@, decoded %@)", v9, v10, 0];
-        v34 = *MEMORY[0x277CCA450];
-        v35 = v11;
-        v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
+        v33 = *MEMORY[0x277CCA450];
+        v34 = v11;
+        v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
         v17 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"IRHistoryEventDOOCNTErrorDomain" code:3 userInfo:v12];
         [coderCopy failWithError:v17];
 
@@ -380,16 +265,16 @@ LABEL_6:
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
+        v20 = objc_opt_class();
+        v30 = NSStringFromClass(v20);
         v21 = objc_opt_class();
-        v31 = NSStringFromClass(v21);
-        v22 = objc_opt_class();
-        v30 = NSStringFromClass(v22);
-        v29 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for IRHistoryEventDO key sharingPolicy (expected %@, decoded %@)", v31, v30, 0];
-        v32 = *MEMORY[0x277CCA450];
-        v33 = v29;
-        v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
-        v24 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"IRHistoryEventDOOCNTErrorDomain" code:3 userInfo:v23];
-        [coderCopy failWithError:v24];
+        v29 = NSStringFromClass(v21);
+        v28 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for IRHistoryEventDO key sharingPolicy (expected %@, decoded %@)", v30, v29, 0];
+        v31 = *MEMORY[0x277CCA450];
+        v32 = v28;
+        v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
+        v23 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"IRHistoryEventDOOCNTErrorDomain" code:3 userInfo:v22];
+        [coderCopy failWithError:v23];
 
         goto LABEL_9;
       }
@@ -420,7 +305,6 @@ LABEL_6:
   selfCopy = 0;
 LABEL_15:
 
-  v18 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -473,11 +357,9 @@ LABEL_15:
 
 - (id)description
 {
-  v3 = objc_alloc(MEMORY[0x277CCACA8]);
-  v4 = *&self->_date;
-  v5 = [v3 initWithFormat:@"<IRHistoryEventDO | date:%@ candidateIdentifier:%@ event:%@ miloPredictionEvent:%@ systemState:%@ sharingPolicy:%@>", self->_date, self->_candidateIdentifier, self->_event, self->_miloPredictionEvent, self->_systemState, self->_sharingPolicy];
+  v2 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"<IRHistoryEventDO | date:%@ candidateIdentifier:%@ event:%@ miloPredictionEvent:%@ systemState:%@ sharingPolicy:%@>", self->_date, self->_candidateIdentifier, self->_event, self->_miloPredictionEvent, self->_systemState, self->_sharingPolicy];
 
-  return v5;
+  return v2;
 }
 
 @end

@@ -24,7 +24,7 @@
 
 + (id)localizedMenuString:(int)string
 {
-  v3 = KNBundle();
+  v3 = KNBundle(self);
   v4 = [v3 localizedStringForKey:@"Fade and Scale" value:@"Fade and Scale" table:@"Keynote"];
 
   return v4;
@@ -40,43 +40,43 @@
 
 + (id)customAttributes
 {
-  v18[0] = @"KNBuildCustomAttributesShine";
-  v17[0] = &off_49D3D8;
-  v17[1] = &off_49D3F0;
-  v2 = KNBundle();
+  v19[0] = @"KNBuildCustomAttributesShine";
+  v18[0] = &off_49D3D8;
+  v18[1] = &off_49D3F0;
+  v2 = KNBundle(self);
   v3 = [v2 localizedStringForKey:@"Shine *Fade and Scale Build*" value:@"Shine" table:@"Keynote"];
-  v18[1] = v3;
-  v18[2] = &off_49D420;
-  v17[2] = &off_49D408;
-  v17[3] = &off_49D438;
-  v4 = KNBundle();
+  v19[1] = v3;
+  v19[2] = &off_49D420;
+  v18[2] = &off_49D408;
+  v18[3] = &off_49D438;
+  v4 = KNBundle(v3);
   v5 = [v4 localizedStringForKey:@"Select to use a shine effect during the build." value:&stru_471858 table:@"Keynote"];
-  v18[3] = v5;
-  v6 = [NSDictionary dictionaryWithObjects:v18 forKeys:v17 count:4];
+  v19[3] = v5;
+  v6 = [NSDictionary dictionaryWithObjects:v19 forKeys:v18 count:4];
 
-  v16[0] = @"KNBuildCustomAttributesScaleAmount";
-  v15[0] = &off_49D3D8;
-  v15[1] = &off_49D3F0;
-  v7 = KNBundle();
-  v8 = [v7 localizedStringForKey:@"Scale *Fade and Scale Build*" value:@"Scale" table:@"Keynote"];
-  v16[1] = v8;
-  v16[2] = &off_49D450;
-  v15[2] = &off_49D408;
-  v15[3] = &off_49D468;
-  v16[3] = &off_49D480;
-  v16[4] = &off_49D4B0;
-  v15[4] = &off_49D498;
-  v15[5] = &off_49D438;
-  v9 = KNBundle();
-  v10 = [v9 localizedStringForKey:@"Adjust how much the object\\U2019s size changes." value:&stru_471858 table:@"Keynote"];
-  v16[5] = v10;
-  v11 = [NSDictionary dictionaryWithObjects:v16 forKeys:v15 count:6];
+  v17[0] = @"KNBuildCustomAttributesScaleAmount";
+  v16[0] = &off_49D3D8;
+  v16[1] = &off_49D3F0;
+  v8 = KNBundle(v7);
+  v9 = [v8 localizedStringForKey:@"Scale *Fade and Scale Build*" value:@"Scale" table:@"Keynote"];
+  v17[1] = v9;
+  v17[2] = &off_49D450;
+  v16[2] = &off_49D408;
+  v16[3] = &off_49D468;
+  v17[3] = &off_49D480;
+  v17[4] = &off_49D4B0;
+  v16[4] = &off_49D498;
+  v16[5] = &off_49D438;
+  v10 = KNBundle(v9);
+  v11 = [v10 localizedStringForKey:@"Adjust how much the object\\U2019s size changes." value:&stru_471858 table:@"Keynote"];
+  v17[5] = v11;
+  v12 = [NSDictionary dictionaryWithObjects:v17 forKeys:v16 count:6];
 
-  v14[0] = v6;
-  v14[1] = v11;
-  v12 = [NSArray arrayWithObjects:v14 count:2];
+  v15[0] = v6;
+  v15[1] = v12;
+  v13 = [NSArray arrayWithObjects:v15 count:2];
 
-  return v12;
+  return v13;
 }
 
 + (void)upgradeAttributes:(id *)attributes animationName:(id)name warning:(id *)warning type:(int)type isFromClassic:(BOOL)classic version:(unint64_t)version
@@ -98,7 +98,7 @@
   {
     v8 = *&type;
     *name = @"apple:dissolve";
-    v13 = KNBundle();
+    v13 = KNBundle(self);
     v11 = [v13 localizedStringForKey:@"%@ builds were exported as Dissolve." value:&stru_471858 table:@"Keynote"];
     v12 = [self localizedMenuString:v8];
     *warning = [NSString stringWithFormat:v11, v12];
@@ -107,20 +107,21 @@
 
 - (KNBuildFromDarkness)initWithAnimationContext:(id)context
 {
-  v9.receiver = self;
-  v9.super_class = KNBuildFromDarkness;
-  v3 = [(KNAnimationEffect *)&v9 initWithAnimationContext:context];
+  v10.receiver = self;
+  v10.super_class = KNBuildFromDarkness;
+  v3 = [(KNAnimationEffect *)&v10 initWithAnimationContext:context];
+  v4 = v3;
   if (v3)
   {
-    v4 = KNBundle();
-    v5 = [v4 pathForResource:@"FromDarkness" ofType:@"parameterGroup"];
+    v5 = KNBundle(v3);
+    v6 = [v5 pathForResource:@"FromDarkness" ofType:@"parameterGroup"];
 
-    v6 = [KNAnimParameterGroup parameterGroupForFile:v5];
-    parameterGroup = v3->_parameterGroup;
-    v3->_parameterGroup = v6;
+    v7 = [KNAnimParameterGroup parameterGroupForFile:v6];
+    parameterGroup = v4->_parameterGroup;
+    v4->_parameterGroup = v7;
   }
 
-  return v3;
+  return v4;
 }
 
 - (CGRect)frameOfEffectWithContext:(id)context
@@ -297,7 +298,7 @@
   animatedBuild = [contextCopy animatedBuild];
   [contextCopy percent];
   v8 = v7;
-  [animatedBuild duration];
+  objc_msgSend_duration(animatedBuild);
   animatedBuild2 = [contextCopy animatedBuild];
 
   LODWORD(contextCopy) = [animatedBuild2 isBuildOut];
@@ -318,7 +319,7 @@
     v15 = 1.0 - v15;
   }
 
-  [(KNBuildFromDarkness *)self p_transformForPercent:v15 centerPoint:v12, v14];
+  objc_msgSend_p_transformForPercent_centerPoint_(self, v15, v12, v14);
   if (BYTE1(self->_scaleMin) == 1)
   {
     TSUClamp();
@@ -328,7 +329,7 @@
       v16 = 1.0 - v16;
     }
 
-    [(KNBuildFromDarkness *)self p_transformForPercent:v16 centerPoint:v12, v14];
+    objc_msgSend_p_transformForPercent_centerPoint_(self, v16, v12, v14);
     [(TSDMetalMotionBlurEffect *)self->_metalMotionBlurEffect velocityScale];
     v18.f64[1] = v17;
     *&self->_anon_140[135] = vcvt_f32_f64(v18);
@@ -568,65 +569,53 @@
 
 - (void)p_setupMetalTransformWithContext:(id)context texturedRect:(id)rect
 {
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
-  [(KNAnimationEffect *)self mvpMatrixWithContext:context, rect];
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  objc_msgSend_mvpMatrixWithContext_(self, a2, context, rect);
   if (BYTE1(self->_scaleMin) == 1)
   {
     metalMotionBlurEffect = self->_metalMotionBlurEffect;
     if (metalMotionBlurEffect)
     {
-      v10[4] = v23;
-      v10[5] = v24;
-      v10[6] = v25;
-      v10[7] = v26;
-      v10[0] = v19;
-      v10[1] = v20;
-      v10[2] = v21;
-      v10[3] = v22;
-      [(TSDMetalMotionBlurEffect *)metalMotionBlurEffect adjustTransformForMotionBlurBuffer:v10];
+      objc_msgSend_adjustTransformForMotionBlurBuffer_(metalMotionBlurEffect, 0, 0, 0, 0, 0, 0, 0, 0);
     }
 
     else
     {
-      v17 = 0u;
-      v18 = 0u;
-      v15 = 0u;
-      v16 = 0u;
-      v13 = 0u;
-      v14 = 0u;
-      v11 = 0u;
       v12 = 0u;
+      v13 = 0u;
+      v10 = 0u;
+      v11 = 0u;
+      v8 = 0u;
+      v9 = 0u;
+      v6 = 0u;
+      v7 = 0u;
     }
 
-    v23 = v15;
-    v24 = v16;
-    v25 = v17;
-    v26 = v18;
+    v18 = v10;
     v19 = v11;
     v20 = v12;
     v21 = v13;
-    v22 = v14;
+    v14 = v6;
+    v15 = v7;
+    v16 = v8;
+    v17 = v9;
   }
 
-  v6 = v24;
-  *&self->_baseTransform.m31 = v23;
-  *&self->_baseTransform.m33 = v6;
-  v7 = v26;
-  *&self->_baseTransform.m41 = v25;
-  *&self->_baseTransform.m43 = v7;
-  v8 = v20;
-  *&self->_baseTransform.m11 = v19;
-  *&self->_baseTransform.m13 = v8;
-  v9 = v22;
-  *&self->_baseTransform.m21 = v21;
-  *&self->_baseTransform.m23 = v9;
+  *&self->_baseTransform.m31 = v18;
+  *&self->_baseTransform.m33 = v19;
+  *&self->_baseTransform.m41 = v20;
+  *&self->_baseTransform.m43 = v21;
+  *&self->_baseTransform.m11 = v14;
+  *&self->_baseTransform.m13 = v15;
+  *&self->_baseTransform.m21 = v16;
+  *&self->_baseTransform.m23 = v17;
 }
 
 - (void)p_setupAnimationWithContext:(id)context
@@ -702,65 +691,53 @@
       [v6 handleFailureInFunction:v7 file:v8 lineNumber:538 description:{@"Effect expects one texture. Passed (%lu) textures.", objc_msgSend(textures, "count")}];
     }
 
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
-    [(KNAnimationEffect *)self mvpMatrixWithContext:contextCopy];
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
+    objc_msgSend_mvpMatrixWithContext_(self);
     if (BYTE1(self->_scaleMin) == 1)
     {
       metalMotionBlurEffect = self->_metalMotionBlurEffect;
       if (metalMotionBlurEffect)
       {
-        v14[4] = v27;
-        v14[5] = v28;
-        v14[6] = v29;
-        v14[7] = v30;
-        v14[0] = v23;
-        v14[1] = v24;
-        v14[2] = v25;
-        v14[3] = v26;
-        [(TSDMetalMotionBlurEffect *)metalMotionBlurEffect adjustTransformForMotionBlurBuffer:v14];
+        objc_msgSend_adjustTransformForMotionBlurBuffer_(metalMotionBlurEffect);
       }
 
       else
       {
-        v21 = 0u;
-        v22 = 0u;
-        v19 = 0u;
-        v20 = 0u;
-        v17 = 0u;
-        v18 = 0u;
-        v15 = 0u;
         v16 = 0u;
+        v17 = 0u;
+        v14 = 0u;
+        v15 = 0u;
+        v12 = 0u;
+        v13 = 0u;
+        v10 = 0u;
+        v11 = 0u;
       }
 
-      v27 = v19;
-      v28 = v20;
-      v29 = v21;
-      v30 = v22;
+      v22 = v14;
       v23 = v15;
       v24 = v16;
       v25 = v17;
-      v26 = v18;
+      v18 = v10;
+      v19 = v11;
+      v20 = v12;
+      v21 = v13;
     }
 
-    v10 = v28;
-    *&self->_baseTransform.m31 = v27;
-    *&self->_baseTransform.m33 = v10;
-    v11 = v30;
-    *&self->_baseTransform.m41 = v29;
-    *&self->_baseTransform.m43 = v11;
-    v12 = v24;
-    *&self->_baseTransform.m11 = v23;
-    *&self->_baseTransform.m13 = v12;
-    v13 = v26;
-    *&self->_baseTransform.m21 = v25;
-    *&self->_baseTransform.m23 = v13;
+    *&self->_baseTransform.m31 = v22;
+    *&self->_baseTransform.m33 = v23;
+    *&self->_baseTransform.m41 = v24;
+    *&self->_baseTransform.m43 = v25;
+    *&self->_baseTransform.m11 = v18;
+    *&self->_baseTransform.m13 = v19;
+    *&self->_baseTransform.m21 = v20;
+    *&self->_baseTransform.m23 = v21;
     self->_isMetalSetupComplete = 1;
   }
 }

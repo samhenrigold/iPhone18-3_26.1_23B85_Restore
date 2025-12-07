@@ -1129,7 +1129,6 @@ LABEL_97:
   has = self->_has;
   if (*&has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((*&has & 0x8000) == 0)
@@ -1149,7 +1148,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  periodSeconds = self->_periodSeconds;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x800) == 0)
@@ -1164,7 +1162,6 @@ LABEL_4:
   }
 
 LABEL_99:
-  numTotalCallsCdma = self->_numTotalCallsCdma;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 2) == 0)
@@ -1179,90 +1176,85 @@ LABEL_5:
   }
 
 LABEL_100:
-  numConnectedCallsCdma = self->_numConnectedCallsCdma;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x80) != 0)
   {
 LABEL_6:
-    numNormalReleaseCallsCdma = self->_numNormalReleaseCallsCdma;
     PBDataWriterWriteUint32Field();
   }
 
 LABEL_7:
-  v127 = 0u;
-  v128 = 0u;
-  v125 = 0u;
-  v126 = 0u;
-  v7 = self->_endStatusCountConnectedCdmas;
-  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v125 objects:v138 count:16];
-  if (v8)
+  v98 = 0u;
+  v99 = 0u;
+  v96 = 0u;
+  v97 = 0u;
+  v6 = self->_endStatusCountConnectedCdmas;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v96 objects:v109 count:16];
+  if (v7)
   {
-    v9 = v8;
-    v10 = *v126;
+    v8 = v7;
+    v9 = *v97;
     do
     {
-      v11 = 0;
+      v10 = 0;
       do
       {
-        if (*v126 != v10)
+        if (*v97 != v9)
         {
-          objc_enumerationMutation(v7);
+          objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v125 + 1) + 8 * v11);
         PBDataWriterWriteSubmessage();
-        v11 = v11 + 1;
+        ++v10;
       }
 
-      while (v9 != v11);
-      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v125 objects:v138 count:16];
+      while (v8 != v10);
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v96 objects:v109 count:16];
     }
 
-    while (v9);
+    while (v8);
   }
 
-  v123 = 0u;
-  v124 = 0u;
-  v121 = 0u;
-  v122 = 0u;
-  v13 = self->_endStatusCountNotConnectedCdmas;
-  v14 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v121 objects:v137 count:16];
-  if (v14)
+  v94 = 0u;
+  v95 = 0u;
+  v92 = 0u;
+  v93 = 0u;
+  v11 = self->_endStatusCountNotConnectedCdmas;
+  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v92 objects:v108 count:16];
+  if (v12)
   {
-    v15 = v14;
-    v16 = *v122;
+    v13 = v12;
+    v14 = *v93;
     do
     {
-      v17 = 0;
+      v15 = 0;
       do
       {
-        if (*v122 != v16)
+        if (*v93 != v14)
         {
-          objc_enumerationMutation(v13);
+          objc_enumerationMutation(v11);
         }
 
-        v18 = *(*(&v121 + 1) + 8 * v17);
         PBDataWriterWriteSubmessage();
-        v17 = v17 + 1;
+        ++v15;
       }
 
-      while (v15 != v17);
-      v15 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v121 objects:v137 count:16];
+      while (v13 != v15);
+      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v92 objects:v108 count:16];
     }
 
-    while (v15);
+    while (v13);
   }
 
-  v19 = self->_has;
-  if ((*&v19 & 0x10000) != 0)
+  v16 = self->_has;
+  if ((*&v16 & 0x10000) != 0)
   {
-    totalConnectedSecondsCdma = self->_totalConnectedSecondsCdma;
     PBDataWriterWriteUint32Field();
-    v19 = self->_has;
-    if ((*&v19 & 0x40) == 0)
+    v16 = self->_has;
+    if ((*&v16 & 0x40) == 0)
     {
 LABEL_23:
-      if ((*&v19 & 0x20) == 0)
+      if ((*&v16 & 0x20) == 0)
       {
         goto LABEL_25;
       }
@@ -1271,95 +1263,90 @@ LABEL_23:
     }
   }
 
-  else if ((*&v19 & 0x40) == 0)
+  else if ((*&v16 & 0x40) == 0)
   {
     goto LABEL_23;
   }
 
-  numMultiRabEverCalls = self->_numMultiRabEverCalls;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x20) != 0)
   {
 LABEL_24:
-    numMultiRabEndCalls = self->_numMultiRabEndCalls;
     PBDataWriterWriteUint32Field();
   }
 
 LABEL_25:
-  v119 = 0u;
-  v120 = 0u;
-  v117 = 0u;
-  v118 = 0u;
-  v21 = self->_releaseCauseCountConnecteds;
-  v22 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v117 objects:v136 count:16];
-  if (v22)
+  v90 = 0u;
+  v91 = 0u;
+  v88 = 0u;
+  v89 = 0u;
+  v17 = self->_releaseCauseCountConnecteds;
+  v18 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v88 objects:v107 count:16];
+  if (v18)
   {
-    v23 = v22;
-    v24 = *v118;
+    v19 = v18;
+    v20 = *v89;
     do
     {
-      v25 = 0;
+      v21 = 0;
       do
       {
-        if (*v118 != v24)
+        if (*v89 != v20)
         {
-          objc_enumerationMutation(v21);
+          objc_enumerationMutation(v17);
         }
 
-        v26 = *(*(&v117 + 1) + 8 * v25);
         PBDataWriterWriteSubmessage();
-        v25 = v25 + 1;
+        ++v21;
       }
 
-      while (v23 != v25);
-      v23 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v117 objects:v136 count:16];
+      while (v19 != v21);
+      v19 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v88 objects:v107 count:16];
     }
 
-    while (v23);
+    while (v19);
   }
 
-  v115 = 0u;
-  v116 = 0u;
-  v113 = 0u;
-  v114 = 0u;
-  v27 = self->_releaseCauseCountNotConnecteds;
-  v28 = [(NSMutableArray *)v27 countByEnumeratingWithState:&v113 objects:v135 count:16];
-  if (v28)
+  v86 = 0u;
+  v87 = 0u;
+  v84 = 0u;
+  v85 = 0u;
+  v22 = self->_releaseCauseCountNotConnecteds;
+  v23 = [(NSMutableArray *)v22 countByEnumeratingWithState:&v84 objects:v106 count:16];
+  if (v23)
   {
-    v29 = v28;
-    v30 = *v114;
+    v24 = v23;
+    v25 = *v85;
     do
     {
-      v31 = 0;
+      v26 = 0;
       do
       {
-        if (*v114 != v30)
+        if (*v85 != v25)
         {
-          objc_enumerationMutation(v27);
+          objc_enumerationMutation(v22);
         }
 
-        v32 = *(*(&v113 + 1) + 8 * v31);
         PBDataWriterWriteSubmessage();
-        v31 = v31 + 1;
+        ++v26;
       }
 
-      while (v29 != v31);
-      v29 = [(NSMutableArray *)v27 countByEnumeratingWithState:&v113 objects:v135 count:16];
+      while (v24 != v26);
+      v24 = [(NSMutableArray *)v22 countByEnumeratingWithState:&v84 objects:v106 count:16];
     }
 
-    while (v29);
+    while (v24);
   }
 
-  v33 = self->_has;
-  if ((*&v33 & 0x2000) != 0)
+  v27 = self->_has;
+  if ((*&v27 & 0x2000) != 0)
   {
-    numTotalCallsGw = self->_numTotalCallsGw;
     PBDataWriterWriteUint32Field();
-    v33 = self->_has;
-    if ((*&v33 & 8) == 0)
+    v27 = self->_has;
+    if ((*&v27 & 8) == 0)
     {
 LABEL_41:
-      if ((*&v33 & 0x200) == 0)
+      if ((*&v27 & 0x200) == 0)
       {
         goto LABEL_43;
       }
@@ -1368,95 +1355,90 @@ LABEL_41:
     }
   }
 
-  else if ((*&v33 & 8) == 0)
+  else if ((*&v27 & 8) == 0)
   {
     goto LABEL_41;
   }
 
-  numConnectedCallsGw = self->_numConnectedCallsGw;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x200) != 0)
   {
 LABEL_42:
-    numNormalReleaseCallsGw = self->_numNormalReleaseCallsGw;
     PBDataWriterWriteUint32Field();
   }
 
 LABEL_43:
-  v111 = 0u;
-  v112 = 0u;
-  v109 = 0u;
-  v110 = 0u;
-  v35 = self->_endStatusCountConnectedGws;
-  v36 = [(NSMutableArray *)v35 countByEnumeratingWithState:&v109 objects:v134 count:16];
-  if (v36)
+  v82 = 0u;
+  v83 = 0u;
+  v80 = 0u;
+  v81 = 0u;
+  v28 = self->_endStatusCountConnectedGws;
+  v29 = [(NSMutableArray *)v28 countByEnumeratingWithState:&v80 objects:v105 count:16];
+  if (v29)
   {
-    v37 = v36;
-    v38 = *v110;
+    v30 = v29;
+    v31 = *v81;
     do
     {
-      v39 = 0;
+      v32 = 0;
       do
       {
-        if (*v110 != v38)
+        if (*v81 != v31)
         {
-          objc_enumerationMutation(v35);
+          objc_enumerationMutation(v28);
         }
 
-        v40 = *(*(&v109 + 1) + 8 * v39);
         PBDataWriterWriteSubmessage();
-        v39 = v39 + 1;
+        ++v32;
       }
 
-      while (v37 != v39);
-      v37 = [(NSMutableArray *)v35 countByEnumeratingWithState:&v109 objects:v134 count:16];
+      while (v30 != v32);
+      v30 = [(NSMutableArray *)v28 countByEnumeratingWithState:&v80 objects:v105 count:16];
     }
 
-    while (v37);
+    while (v30);
   }
 
-  v107 = 0u;
-  v108 = 0u;
-  v105 = 0u;
-  v106 = 0u;
-  v41 = self->_endStatusCountNotConnectedGws;
-  v42 = [(NSMutableArray *)v41 countByEnumeratingWithState:&v105 objects:v133 count:16];
-  if (v42)
+  v78 = 0u;
+  v79 = 0u;
+  v76 = 0u;
+  v77 = 0u;
+  v33 = self->_endStatusCountNotConnectedGws;
+  v34 = [(NSMutableArray *)v33 countByEnumeratingWithState:&v76 objects:v104 count:16];
+  if (v34)
   {
-    v43 = v42;
-    v44 = *v106;
+    v35 = v34;
+    v36 = *v77;
     do
     {
-      v45 = 0;
+      v37 = 0;
       do
       {
-        if (*v106 != v44)
+        if (*v77 != v36)
         {
-          objc_enumerationMutation(v41);
+          objc_enumerationMutation(v33);
         }
 
-        v46 = *(*(&v105 + 1) + 8 * v45);
         PBDataWriterWriteSubmessage();
-        v45 = v45 + 1;
+        ++v37;
       }
 
-      while (v43 != v45);
-      v43 = [(NSMutableArray *)v41 countByEnumeratingWithState:&v105 objects:v133 count:16];
+      while (v35 != v37);
+      v35 = [(NSMutableArray *)v33 countByEnumeratingWithState:&v76 objects:v104 count:16];
     }
 
-    while (v43);
+    while (v35);
   }
 
-  v47 = self->_has;
-  if ((*&v47 & 0x1000) != 0)
+  v38 = self->_has;
+  if ((*&v38 & 0x1000) != 0)
   {
-    numTotalCallsGsm = self->_numTotalCallsGsm;
     PBDataWriterWriteUint32Field();
-    v47 = self->_has;
-    if ((*&v47 & 4) == 0)
+    v38 = self->_has;
+    if ((*&v38 & 4) == 0)
     {
 LABEL_59:
-      if ((*&v47 & 0x100) == 0)
+      if ((*&v38 & 0x100) == 0)
       {
         goto LABEL_61;
       }
@@ -1465,95 +1447,90 @@ LABEL_59:
     }
   }
 
-  else if ((*&v47 & 4) == 0)
+  else if ((*&v38 & 4) == 0)
   {
     goto LABEL_59;
   }
 
-  numConnectedCallsGsm = self->_numConnectedCallsGsm;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x100) != 0)
   {
 LABEL_60:
-    numNormalReleaseCallsGsm = self->_numNormalReleaseCallsGsm;
     PBDataWriterWriteUint32Field();
   }
 
 LABEL_61:
-  v103 = 0u;
-  v104 = 0u;
-  v101 = 0u;
-  v102 = 0u;
-  v49 = self->_releaseCauseCountConnectedGsms;
-  v50 = [(NSMutableArray *)v49 countByEnumeratingWithState:&v101 objects:v132 count:16];
-  if (v50)
+  v74 = 0u;
+  v75 = 0u;
+  v72 = 0u;
+  v73 = 0u;
+  v39 = self->_releaseCauseCountConnectedGsms;
+  v40 = [(NSMutableArray *)v39 countByEnumeratingWithState:&v72 objects:v103 count:16];
+  if (v40)
   {
-    v51 = v50;
-    v52 = *v102;
+    v41 = v40;
+    v42 = *v73;
     do
     {
-      v53 = 0;
+      v43 = 0;
       do
       {
-        if (*v102 != v52)
+        if (*v73 != v42)
         {
-          objc_enumerationMutation(v49);
+          objc_enumerationMutation(v39);
         }
 
-        v54 = *(*(&v101 + 1) + 8 * v53);
         PBDataWriterWriteSubmessage();
-        v53 = v53 + 1;
+        ++v43;
       }
 
-      while (v51 != v53);
-      v51 = [(NSMutableArray *)v49 countByEnumeratingWithState:&v101 objects:v132 count:16];
+      while (v41 != v43);
+      v41 = [(NSMutableArray *)v39 countByEnumeratingWithState:&v72 objects:v103 count:16];
     }
 
-    while (v51);
+    while (v41);
   }
 
-  v99 = 0u;
-  v100 = 0u;
-  v97 = 0u;
-  v98 = 0u;
-  v55 = self->_releaseCauseCountNotConnectedGsms;
-  v56 = [(NSMutableArray *)v55 countByEnumeratingWithState:&v97 objects:v131 count:16];
-  if (v56)
+  v70 = 0u;
+  v71 = 0u;
+  v68 = 0u;
+  v69 = 0u;
+  v44 = self->_releaseCauseCountNotConnectedGsms;
+  v45 = [(NSMutableArray *)v44 countByEnumeratingWithState:&v68 objects:v102 count:16];
+  if (v45)
   {
-    v57 = v56;
-    v58 = *v98;
+    v46 = v45;
+    v47 = *v69;
     do
     {
-      v59 = 0;
+      v48 = 0;
       do
       {
-        if (*v98 != v58)
+        if (*v69 != v47)
         {
-          objc_enumerationMutation(v55);
+          objc_enumerationMutation(v44);
         }
 
-        v60 = *(*(&v97 + 1) + 8 * v59);
         PBDataWriterWriteSubmessage();
-        v59 = v59 + 1;
+        ++v48;
       }
 
-      while (v57 != v59);
-      v57 = [(NSMutableArray *)v55 countByEnumeratingWithState:&v97 objects:v131 count:16];
+      while (v46 != v48);
+      v46 = [(NSMutableArray *)v44 countByEnumeratingWithState:&v68 objects:v102 count:16];
     }
 
-    while (v57);
+    while (v46);
   }
 
-  v61 = self->_has;
-  if ((*&v61 & 0x20000) != 0)
+  v49 = self->_has;
+  if ((*&v49 & 0x20000) != 0)
   {
-    totalConnectedSecondsGsm = self->_totalConnectedSecondsGsm;
     PBDataWriterWriteUint32Field();
-    v61 = self->_has;
-    if ((*&v61 & 0x4000) == 0)
+    v49 = self->_has;
+    if ((*&v49 & 0x4000) == 0)
     {
 LABEL_77:
-      if ((*&v61 & 0x10) == 0)
+      if ((*&v49 & 0x10) == 0)
       {
         goto LABEL_78;
       }
@@ -1562,18 +1539,17 @@ LABEL_77:
     }
   }
 
-  else if ((*&v61 & 0x4000) == 0)
+  else if ((*&v49 & 0x4000) == 0)
   {
     goto LABEL_77;
   }
 
-  numTotalCallsWcdma = self->_numTotalCallsWcdma;
   PBDataWriterWriteUint32Field();
-  v61 = self->_has;
-  if ((*&v61 & 0x10) == 0)
+  v49 = self->_has;
+  if ((*&v49 & 0x10) == 0)
   {
 LABEL_78:
-    if ((*&v61 & 0x400) == 0)
+    if ((*&v49 & 0x400) == 0)
     {
       goto LABEL_80;
     }
@@ -1582,83 +1558,78 @@ LABEL_78:
   }
 
 LABEL_113:
-  numConnectedCallsWcdma = self->_numConnectedCallsWcdma;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x400) != 0)
   {
 LABEL_79:
-    numNormalReleaseCallsWcdma = self->_numNormalReleaseCallsWcdma;
     PBDataWriterWriteUint32Field();
   }
 
 LABEL_80:
-  v95 = 0u;
-  v96 = 0u;
-  v93 = 0u;
-  v94 = 0u;
-  v63 = self->_releaseCauseCountConnectedWcdmas;
-  v64 = [(NSMutableArray *)v63 countByEnumeratingWithState:&v93 objects:v130 count:16];
-  if (v64)
+  v66 = 0u;
+  v67 = 0u;
+  v64 = 0u;
+  v65 = 0u;
+  v50 = self->_releaseCauseCountConnectedWcdmas;
+  v51 = [(NSMutableArray *)v50 countByEnumeratingWithState:&v64 objects:v101 count:16];
+  if (v51)
   {
-    v65 = v64;
-    v66 = *v94;
+    v52 = v51;
+    v53 = *v65;
     do
     {
-      v67 = 0;
+      v54 = 0;
       do
       {
-        if (*v94 != v66)
+        if (*v65 != v53)
         {
-          objc_enumerationMutation(v63);
+          objc_enumerationMutation(v50);
         }
 
-        v68 = *(*(&v93 + 1) + 8 * v67);
         PBDataWriterWriteSubmessage();
-        v67 = v67 + 1;
+        ++v54;
       }
 
-      while (v65 != v67);
-      v65 = [(NSMutableArray *)v63 countByEnumeratingWithState:&v93 objects:v130 count:16];
+      while (v52 != v54);
+      v52 = [(NSMutableArray *)v50 countByEnumeratingWithState:&v64 objects:v101 count:16];
     }
 
-    while (v65);
+    while (v52);
   }
 
-  v91 = 0u;
-  v92 = 0u;
-  v89 = 0u;
-  v90 = 0u;
-  v69 = self->_releaseCauseCountNotConnectedWcdmas;
-  v70 = [(NSMutableArray *)v69 countByEnumeratingWithState:&v89 objects:v129 count:16];
-  if (v70)
+  v62 = 0u;
+  v63 = 0u;
+  v60 = 0u;
+  v61 = 0u;
+  v55 = self->_releaseCauseCountNotConnectedWcdmas;
+  v56 = [(NSMutableArray *)v55 countByEnumeratingWithState:&v60 objects:v100 count:16];
+  if (v56)
   {
-    v71 = v70;
-    v72 = *v90;
+    v57 = v56;
+    v58 = *v61;
     do
     {
-      v73 = 0;
+      v59 = 0;
       do
       {
-        if (*v90 != v72)
+        if (*v61 != v58)
         {
-          objc_enumerationMutation(v69);
+          objc_enumerationMutation(v55);
         }
 
-        v74 = *(*(&v89 + 1) + 8 * v73);
         PBDataWriterWriteSubmessage();
-        v73 = v73 + 1;
+        ++v59;
       }
 
-      while (v71 != v73);
-      v71 = [(NSMutableArray *)v69 countByEnumeratingWithState:&v89 objects:v129 count:16];
+      while (v57 != v59);
+      v57 = [(NSMutableArray *)v55 countByEnumeratingWithState:&v60 objects:v100 count:16];
     }
 
-    while (v71);
+    while (v57);
   }
 
   if ((*(&self->_has + 2) & 4) != 0)
   {
-    totalConnectedSecondsWcdma = self->_totalConnectedSecondsWcdma;
     PBDataWriterWriteUint32Field();
   }
 }

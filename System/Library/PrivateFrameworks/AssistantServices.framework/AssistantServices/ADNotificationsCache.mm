@@ -101,7 +101,7 @@
 - (void)removeBulletinWithInternalID:(id)d
 {
   dCopy = d;
-  v5 = [(NSCache *)self->_allBulletins objectForKey:dCopy];
+  v5 = objc_msgSend_objectForKey_(self->_allBulletins);
   if (v5)
   {
     [(ADNotificationsCache *)self removeBulletinItem:v5];
@@ -184,14 +184,14 @@
     v8 = *v19;
     do
     {
-      for (i = 0; i != v7; i = i + 1)
+      for (i = 0; i != v7; ++i)
       {
         if (*v19 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = [(NSCache *)self->_allBulletins objectForKey:*(*(&v18 + 1) + 8 * i), v18];
+        v10 = objc_msgSend_objectForKey_(self->_allBulletins, v18);
         object = [v10 object];
 
         if (object)
@@ -266,7 +266,7 @@ LABEL_8:
 
 - (id)bulletinForInternalID:(id)d
 {
-  v3 = [(NSCache *)self->_allBulletins objectForKey:d];
+  v3 = objc_msgSend_objectForKey_(self->_allBulletins, a2, d);
   object = [v3 object];
 
   return object;

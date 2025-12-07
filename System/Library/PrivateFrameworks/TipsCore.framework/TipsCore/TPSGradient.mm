@@ -13,11 +13,11 @@
 
 - (TPSGradient)initWithDictionary:(id)dictionary
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v30.receiver = self;
-  v30.super_class = TPSGradient;
-  v5 = [(TPSSerializableObject *)&v30 initWithDictionary:dictionaryCopy];
+  v29.receiver = self;
+  v29.super_class = TPSGradient;
+  v5 = [(TPSSerializableObject *)&v29 initWithDictionary:dictionaryCopy];
   if (!v5)
   {
     goto LABEL_15;
@@ -41,32 +41,32 @@
   v11 = [v10 count];
   if (v11)
   {
-    v25 = v9;
+    v24 = v9;
     v12 = [MEMORY[0x1E695DF70] arrayWithCapacity:v11];
+    v25 = 0u;
     v26 = 0u;
     v27 = 0u;
     v28 = 0u;
-    v29 = 0u;
     v13 = v10;
-    v14 = [v13 countByEnumeratingWithState:&v26 objects:v31 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v25 objects:v30 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v27;
+      v16 = *v26;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v27 != v16)
+          if (*v26 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          v18 = [[TPSGradientStop alloc] initWithDictionary:*(*(&v26 + 1) + 8 * i)];
+          v18 = [[TPSGradientStop alloc] initWithDictionary:*(*(&v25 + 1) + 8 * i)];
           [v12 addObject:v18];
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v26 objects:v31 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v25 objects:v30 count:16];
       }
 
       while (v15);
@@ -76,7 +76,7 @@
     stops = v5->_stops;
     v5->_stops = v19;
 
-    v9 = v25;
+    v9 = v24;
   }
 
   v21 = [(NSArray *)v5->_stops count];
@@ -92,17 +92,16 @@ LABEL_15:
     v22 = v5;
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return v22;
 }
 
 - (TPSGradient)initWithColorStrings:(id)strings
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   stringsCopy = strings;
-  v25.receiver = self;
-  v25.super_class = TPSGradient;
-  v5 = [(TPSGradient *)&v25 init];
+  v24.receiver = self;
+  v24.super_class = TPSGradient;
+  v5 = [(TPSGradient *)&v24 init];
   if (!v5)
   {
     goto LABEL_12;
@@ -112,36 +111,36 @@ LABEL_15:
   if (v6 > 0)
   {
     v7 = [MEMORY[0x1E695DF70] arrayWithCapacity:v6];
+    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v24 = 0u;
     v8 = stringsCopy;
-    v9 = [v8 countByEnumeratingWithState:&v21 objects:v26 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v20 objects:v25 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v22;
+      v11 = *v21;
       do
       {
         v12 = 0;
         do
         {
-          if (*v22 != v11)
+          if (*v21 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v21 + 1) + 8 * v12);
+          v13 = *(*(&v20 + 1) + 8 * v12);
           v14 = [TPSGradientStop alloc];
-          v15 = [(TPSGradientStop *)v14 initWithColorString:v13, v21];
+          v15 = [(TPSGradientStop *)v14 initWithColorString:v13, v20];
           [v7 addObject:v15];
 
           ++v12;
         }
 
         while (v10 != v12);
-        v10 = [v8 countByEnumeratingWithState:&v21 objects:v26 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v20 objects:v25 count:16];
       }
 
       while (v10);
@@ -163,7 +162,6 @@ LABEL_12:
     v18 = v5;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
@@ -222,16 +220,16 @@ LABEL_12:
   return v5;
 }
 
-id __26__TPSGradient_na_identity__block_invoke()
+id __26__TPSGradient_na_identity__block_invoke(uint64_t a1)
 {
   if (TPSGradientStopsKey_block_invoke_na_once_token_0 != -1)
   {
     __26__TPSGradient_na_identity__block_invoke_cold_1();
   }
 
-  v1 = TPSGradientStopsKey_block_invoke_na_once_object_0;
+  v2 = TPSGradientStopsKey_block_invoke_na_once_object_0;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __26__TPSGradient_na_identity__block_invoke_2()

@@ -127,17 +127,7 @@
             v29 = v28;
 
             [v63 removeObjectForKey:v20];
-            if (!*(*&v100[8] + 40))
-            {
-              goto LABEL_20;
-            }
-
-            adapter3 = [(AccountApplicator *)self adapter];
-            v31 = [adapter3 combinedServerTokensFromConfiguration:v14];
-            v32 = [*(*&v100[8] + 40) objectForKeyedSubscript:@"RemoteManagementServerTokens"];
-            v33 = [v31 isEqualToString:v32];
-
-            if (v33)
+            if (*(*&v100[8] + 40) && (-[AccountApplicator adapter](self, "adapter"), v30 = objc_claimAutoreleasedReturnValue(), [v30 combinedServerTokensFromConfiguration:v14], v31 = objc_claimAutoreleasedReturnValue(), objc_msgSend(*(*&v100[8] + 40), "objectForKeyedSubscript:", @"RemoteManagementServerTokens"), v32 = objc_claimAutoreleasedReturnValue(), v33 = objc_msgSend(v31, "isEqualToString:", v32), v32, v31, v30, v33))
             {
               v34 = +[RMLog accountApplicator];
               if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
@@ -154,7 +144,6 @@
 
             else
             {
-LABEL_20:
               v37 = +[RMLog accountApplicator];
               if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
               {
@@ -165,7 +154,7 @@ LABEL_20:
                 _os_log_debug_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEBUG, "Processing configuration: %{public}@", buf, 0xCu);
               }
 
-              adapter4 = [(AccountApplicator *)self adapter];
+              adapter3 = [(AccountApplicator *)self adapter];
               v39 = *(*&v100[8] + 40);
               v79[0] = _NSConcreteStackBlock;
               v79[1] = 3221225472;
@@ -179,7 +168,7 @@ LABEL_20:
               v83 = v29;
               selfCopy = self;
               scopeCopy = scope;
-              [adapter4 accountPropertiesFromConfiguration:v14 account:v39 completionHandler:v79];
+              [adapter3 accountPropertiesFromConfiguration:v14 account:v39 completionHandler:v79];
             }
 
             _Block_object_dispose(v100, 8);
@@ -252,7 +241,7 @@ LABEL_20:
             _os_log_debug_impl(&_mh_execute_header, v50, OS_LOG_TYPE_DEBUG, "Removing account: %{public}@ of type %{public}@", v100, 0x16u);
           }
 
-          adapter5 = [(AccountApplicator *)self adapter];
+          adapter4 = [(AccountApplicator *)self adapter];
           v71[0] = _NSConcreteStackBlock;
           v71[1] = 3221225472;
           v71[2] = sub_1000034C4;
@@ -262,7 +251,7 @@ LABEL_20:
           v74 = group;
           v52 = accountTypeDescription2;
           v53 = identifier2;
-          [adapter5 removeAccount:v46 scope:scope completionHandler:v71];
+          [adapter4 removeAccount:v46 scope:scope completionHandler:v71];
 
           v45 = v45 + 1;
         }

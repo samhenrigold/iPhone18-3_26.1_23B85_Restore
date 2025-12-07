@@ -123,7 +123,7 @@
 
 - (BOOL)_validateWithContainerIdentity:(id)identity
 {
-  v91 = *MEMORY[0x277D85DE8];
+  v94 = *MEMORY[0x277D85DE8];
   identityCopy = identity;
   if (!identityCopy)
   {
@@ -144,29 +144,29 @@
   selfCopy = self;
   if (v9)
   {
-    v61 = identityCopy;
+    v64 = identityCopy;
     obj = v9;
     v10 = [defaultManager enumeratorAtPath:v9];
-    v77 = 0u;
-    v78 = 0u;
-    v79 = 0u;
     v80 = 0u;
-    v11 = [v10 countByEnumeratingWithState:&v77 objects:v90 count:16];
+    v81 = 0u;
+    v82 = 0u;
+    v83 = 0u;
+    v11 = [v10 countByEnumeratingWithState:&v80 objects:v93 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v78;
+      v13 = *v81;
       v14 = *MEMORY[0x277CCA1F0];
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v78 != v13)
+          if (*v81 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v16 = *(*(&v77 + 1) + 8 * i);
+          v16 = *(*(&v80 + 1) + 8 * i);
           fileAttributes = [v10 fileAttributes];
           fileType = [fileAttributes fileType];
           v19 = [fileType isEqualToString:v14];
@@ -177,7 +177,7 @@
           }
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v77 objects:v90 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v80 objects:v93 count:16];
       }
 
       while (v12);
@@ -185,34 +185,35 @@
 
     self = selfCopy;
     v9 = obj;
-    identityCopy = v61;
+    identityCopy = v64;
   }
 
   v20 = [(NSMutableSet *)self->_snapshots copy];
-  v73[0] = MEMORY[0x277D85DD0];
-  v73[1] = 3221225472;
-  v73[2] = __61__XBApplicationSnapshotGroup__validateWithContainerIdentity___block_invoke;
-  v73[3] = &unk_279CF9D20;
+  v76[0] = MEMORY[0x277D85DD0];
+  v76[1] = 3221225472;
+  v76[2] = __61__XBApplicationSnapshotGroup__validateWithContainerIdentity___block_invoke;
+  v76[3] = &unk_279CF9D20;
   v21 = identityCopy;
-  v74 = v21;
+  v77 = v21;
   selfCopy2 = self;
   v22 = v8;
-  v76 = v22;
-  [v20 enumerateObjectsUsingBlock:v73];
+  v79 = v22;
+  [v20 enumerateObjectsUsingBlock:v76];
 
-  if ([(NSMutableSet *)self->_snapshots count])
+  v23 = [(NSMutableSet *)self->_snapshots count];
+  if (v23)
   {
     if (v9)
     {
-      v23 = self->_identifier == 0;
+      v24 = self->_identifier == 0;
     }
 
     else
     {
-      v23 = 1;
+      v24 = 1;
     }
 
-    v24 = !v23;
+    v25 = !v24;
     if (!v9)
     {
       goto LABEL_33;
@@ -221,41 +222,41 @@
 
   else
   {
-    v24 = 0;
+    v25 = 0;
     if (!v9)
     {
       goto LABEL_33;
     }
   }
 
-  if (!v24)
+  if (!v25)
   {
-    v25 = XBLogFileManifest();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+    v26 = XBLogFileManifest(v23);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
       containerIdentity2 = [(XBApplicationSnapshotGroup *)self containerIdentity];
       bundleIdentifier = [containerIdentity2 bundleIdentifier];
       identifier = self->_identifier;
       *buf = 138543874;
-      v83 = bundleIdentifier;
-      v84 = 2114;
-      v85 = identifier;
-      v86 = 2114;
-      v87 = v9;
-      _os_log_impl(&dword_26B5EF000, v25, OS_LOG_TYPE_DEFAULT, "[%{public}@] Group %{public}@ deleting container with no valid snapshots: %{public}@", buf, 0x20u);
+      v86 = bundleIdentifier;
+      v87 = 2114;
+      v88 = identifier;
+      v89 = 2114;
+      v90 = v9;
+      _os_log_impl(&dword_26B5EF000, v26, OS_LOG_TYPE_DEFAULT, "[%{public}@] Group %{public}@ deleting container with no valid snapshots: %{public}@", buf, 0x20u);
     }
 
-    v72 = 0;
-    v29 = [defaultManager removeItemAtPath:v9 error:&v72];
-    v30 = v72;
-    obja = v30;
-    if ((v29 & 1) == 0)
+    v75 = 0;
+    v30 = [defaultManager removeItemAtPath:v9 error:&v75];
+    v31 = v75;
+    obja = v31;
+    if ((v30 & 1) == 0)
     {
-      v31 = v30;
-      domain = [v30 domain];
+      v32 = v31;
+      domain = [v31 domain];
       if ([domain isEqualToString:*MEMORY[0x277CCA050]])
       {
-        code = [v31 code];
+        code = [v32 code];
 
         if (code == 4)
         {
@@ -267,21 +268,21 @@
       {
       }
 
-      v53 = XBLogFileManifest();
-      if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
+      v56 = XBLogFileManifest(v35);
+      if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
       {
         containerIdentity3 = [(XBApplicationSnapshotGroup *)self containerIdentity];
         bundleIdentifier2 = [containerIdentity3 bundleIdentifier];
-        v57 = self->_identifier;
+        v60 = self->_identifier;
         *buf = 138544130;
-        v83 = bundleIdentifier2;
-        v84 = 2114;
-        v85 = v57;
-        v86 = 2114;
-        v87 = v9;
-        v88 = 2114;
-        v89 = obja;
-        _os_log_error_impl(&dword_26B5EF000, v53, OS_LOG_TYPE_ERROR, "[%{public}@] Error with Group %{public}@ deleting container with no valid snapshots at %{public}@: %{public}@", buf, 0x2Au);
+        v86 = bundleIdentifier2;
+        v87 = 2114;
+        v88 = v60;
+        v89 = 2114;
+        v90 = v9;
+        v91 = 2114;
+        v92 = obja;
+        _os_log_error_impl(&dword_26B5EF000, v56, OS_LOG_TYPE_ERROR, "[%{public}@] Error with Group %{public}@ deleting container with no valid snapshots at %{public}@: %{public}@", buf, 0x2Au);
       }
     }
 
@@ -289,57 +290,57 @@
   }
 
 LABEL_33:
-  v70 = 0u;
+  v73 = 0u;
+  v74 = 0u;
   v71 = 0u;
-  v68 = 0u;
-  v69 = 0u;
+  v72 = 0u;
   obja = v22;
-  v34 = [obja countByEnumeratingWithState:&v68 objects:v81 count:16];
-  if (v34)
+  v36 = [obja countByEnumeratingWithState:&v71 objects:v84 count:16];
+  if (v36)
   {
-    v35 = v34;
-    v58 = v24;
-    v59 = v21;
-    v36 = v9;
-    v37 = *v69;
-    v62 = *MEMORY[0x277CCA050];
-    v38 = obja;
+    v37 = v36;
+    v61 = v25;
+    v62 = v21;
+    v38 = v9;
+    v39 = *v72;
+    v65 = *MEMORY[0x277CCA050];
+    v40 = obja;
     while (1)
     {
-      for (j = 0; j != v35; ++j)
+      for (j = 0; j != v37; ++j)
       {
-        if (*v69 != v37)
+        if (*v72 != v39)
         {
-          objc_enumerationMutation(v38);
+          objc_enumerationMutation(v40);
         }
 
-        v40 = [v36 stringByAppendingPathComponent:*(*(&v68 + 1) + 8 * j)];
-        v41 = XBLogFileManifest();
-        if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+        v42 = [v38 stringByAppendingPathComponent:*(*(&v71 + 1) + 8 * j)];
+        v43 = XBLogFileManifest(v42);
+        if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
         {
           containerIdentity4 = [(XBApplicationSnapshotGroup *)selfCopy containerIdentity];
           bundleIdentifier3 = [containerIdentity4 bundleIdentifier];
-          v44 = selfCopy->_identifier;
-          v38 = obja;
+          v46 = selfCopy->_identifier;
+          v40 = obja;
           *buf = 138543874;
-          v83 = bundleIdentifier3;
-          v84 = 2114;
-          v85 = v44;
-          v86 = 2114;
-          v87 = v40;
-          _os_log_impl(&dword_26B5EF000, v41, OS_LOG_TYPE_DEFAULT, "[%{public}@] Group %{public}@ deleting unreferenced file: %{public}@", buf, 0x20u);
+          v86 = bundleIdentifier3;
+          v87 = 2114;
+          v88 = v46;
+          v89 = 2114;
+          v90 = v42;
+          _os_log_impl(&dword_26B5EF000, v43, OS_LOG_TYPE_DEFAULT, "[%{public}@] Group %{public}@ deleting unreferenced file: %{public}@", buf, 0x20u);
         }
 
-        v67 = 0;
-        v45 = [defaultManager removeItemAtPath:v40 error:&v67];
-        v46 = v67;
-        v47 = v46;
-        if ((v45 & 1) == 0)
+        v70 = 0;
+        v47 = [defaultManager removeItemAtPath:v42 error:&v70];
+        v48 = v70;
+        v49 = v48;
+        if ((v47 & 1) == 0)
         {
-          domain2 = [v46 domain];
-          if ([domain2 isEqualToString:v62])
+          domain2 = [v48 domain];
+          if ([domain2 isEqualToString:v65])
           {
-            code2 = [v47 code];
+            code2 = [v49 code];
 
             if (code2 == 4)
             {
@@ -351,34 +352,34 @@ LABEL_33:
           {
           }
 
-          v50 = XBLogFileManifest();
-          if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
+          v53 = XBLogFileManifest(v52);
+          if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
           {
             containerIdentity5 = [(XBApplicationSnapshotGroup *)selfCopy containerIdentity];
             bundleIdentifier4 = [containerIdentity5 bundleIdentifier];
-            v52 = selfCopy->_identifier;
-            v38 = obja;
+            v55 = selfCopy->_identifier;
+            v40 = obja;
             *buf = 138544130;
-            v83 = bundleIdentifier4;
-            v84 = 2114;
-            v85 = v52;
-            v86 = 2114;
-            v87 = v40;
-            v88 = 2114;
-            v89 = v47;
-            _os_log_error_impl(&dword_26B5EF000, v50, OS_LOG_TYPE_ERROR, "[%{public}@] Error with Group %{public}@ deleting unreferenced file at %{public}@: %{public}@", buf, 0x2Au);
+            v86 = bundleIdentifier4;
+            v87 = 2114;
+            v88 = v55;
+            v89 = 2114;
+            v90 = v42;
+            v91 = 2114;
+            v92 = v49;
+            _os_log_error_impl(&dword_26B5EF000, v53, OS_LOG_TYPE_ERROR, "[%{public}@] Error with Group %{public}@ deleting unreferenced file at %{public}@: %{public}@", buf, 0x2Au);
           }
         }
 
 LABEL_48:
       }
 
-      v35 = [v38 countByEnumeratingWithState:&v68 objects:v81 count:16];
-      if (!v35)
+      v37 = [v40 countByEnumeratingWithState:&v71 objects:v84 count:16];
+      if (!v37)
       {
-        v9 = v36;
-        v21 = v59;
-        LOBYTE(v24) = v58;
+        v9 = v38;
+        v21 = v62;
+        LOBYTE(v25) = v61;
         break;
       }
     }
@@ -386,7 +387,7 @@ LABEL_48:
 
 LABEL_55:
 
-  return v24;
+  return v25;
 }
 
 void __61__XBApplicationSnapshotGroup__validateWithContainerIdentity___block_invoke(void *a1, void *a2)

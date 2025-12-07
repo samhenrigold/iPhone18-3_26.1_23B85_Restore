@@ -3,7 +3,7 @@
 
 @implementation CFBundleCreateMappedBPlistFile
 
-uint64_t ___CFBundleCreateMappedBPlistFile_block_invoke(uint64_t a1, const void *a2)
+CFIndex ___CFBundleCreateMappedBPlistFile_block_invoke(uint64_t a1, const void *a2)
 {
   if (!*(a1 + 32))
   {

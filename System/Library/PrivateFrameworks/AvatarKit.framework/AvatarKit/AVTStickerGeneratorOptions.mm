@@ -31,9 +31,8 @@
 
 + (id)optionsWithCorrectClipping:(BOOL)clipping
 {
-  clippingCopy = clipping;
   defaultOptions = [self defaultOptions];
-  [defaultOptions setContentMode:clippingCopy];
+  [defaultOptions setContentMode:?];
 
   return defaultOptions;
 }

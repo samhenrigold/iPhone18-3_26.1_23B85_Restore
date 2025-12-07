@@ -39,57 +39,58 @@
 
 - (DisplayManager)init
 {
-  v14.receiver = self;
-  v14.super_class = DisplayManager;
-  v2 = [(DisplayManager *)&v14 init];
+  v15.receiver = self;
+  v15.super_class = DisplayManager;
+  v2 = [(DisplayManager *)&v15 init];
+  v3 = v2;
   if (v2)
   {
-    v3 = sub_100012608();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100012608(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446210;
-      v16 = "[DisplayManager init]";
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%{public}s: [DisplayManager] Registering idle timer notifications…", buf, 0xCu);
+      v17 = "[DisplayManager init]";
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%{public}s: [DisplayManager] Registering idle timer notifications…", buf, 0xCu);
     }
 
-    v4 = objc_alloc_init(NSMutableSet);
-    idleTimerDisabledReasons = v2->_idleTimerDisabledReasons;
-    v2->_idleTimerDisabledReasons = v4;
+    v5 = objc_alloc_init(NSMutableSet);
+    idleTimerDisabledReasons = v3->_idleTimerDisabledReasons;
+    v3->_idleTimerDisabledReasons = v5;
 
-    v6 = [(DisplayManager *)v2 configurationWithAttentionLostTimeout:30.0];
-    v7 = objc_alloc_init(AWAttentionAwarenessClient);
-    attentionAwarenessClient = v2->_attentionAwarenessClient;
-    v2->_attentionAwarenessClient = v7;
+    v7 = [(DisplayManager *)v3 configurationWithAttentionLostTimeout:30.0];
+    v8 = objc_alloc_init(AWAttentionAwarenessClient);
+    attentionAwarenessClient = v3->_attentionAwarenessClient;
+    v3->_attentionAwarenessClient = v8;
 
-    [(AWAttentionAwarenessClient *)v2->_attentionAwarenessClient setConfiguration:v6 shouldReset:1];
-    [(DisplayManager *)v2 _initTapToWake];
-    objc_initWeak(buf, v2);
-    v9 = v2->_attentionAwarenessClient;
-    v10 = &_dispatch_main_q;
-    v12[0] = _NSConcreteStackBlock;
-    v12[1] = 3221225472;
-    v12[2] = sub_100005058;
-    v12[3] = &unk_100028820;
-    objc_copyWeak(&v13, buf);
-    [(AWAttentionAwarenessClient *)v9 setEventHandlerWithQueue:&_dispatch_main_q block:v12];
+    [(AWAttentionAwarenessClient *)v3->_attentionAwarenessClient setConfiguration:v7 shouldReset:1];
+    [(DisplayManager *)v3 _initTapToWake];
+    objc_initWeak(buf, v3);
+    v10 = v3->_attentionAwarenessClient;
+    v11 = &_dispatch_main_q;
+    v13[0] = _NSConcreteStackBlock;
+    v13[1] = 3221225472;
+    v13[2] = sub_100005058;
+    v13[3] = &unk_100028820;
+    objc_copyWeak(&v14, buf);
+    [(AWAttentionAwarenessClient *)v10 setEventHandlerWithQueue:&_dispatch_main_q block:v13];
 
     BKSHIDServicesAmbientLightSensorEnableAutoBrightness();
-    v2->_displayDim = 0;
-    [(DisplayManager *)v2 _undimDisplay];
-    objc_destroyWeak(&v13);
+    v3->_displayDim = 0;
+    [(DisplayManager *)v3 _undimDisplay];
+    objc_destroyWeak(&v14);
     objc_destroyWeak(buf);
   }
 
-  return v2;
+  return v3;
 }
 
 - (void)dealloc
 {
-  v3 = sub_100012608();
+  v3 = sub_100012608(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446210;
-    v9 = "[DisplayManager dealloc]";
+    v10 = "[DisplayManager dealloc]";
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%{public}s: [DisplayManager] Dealloc was called", buf, 0xCu);
   }
 
@@ -98,12 +99,12 @@
   p_rootDomainConnect = &self->_rootDomainConnect;
   if (self->_rootDomainConnect)
   {
-    v6 = sub_100012608();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_100012608(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446210;
-      v9 = "[DisplayManager dealloc]";
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}s: [DisplayManager] Deregistering and closing connection", buf, 0xCu);
+      v10 = "[DisplayManager dealloc]";
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%{public}s: [DisplayManager] Deregistering and closing connection", buf, 0xCu);
     }
 
     IODeregisterForSystemPower(&self->_rootDomainConnect);
@@ -111,9 +112,9 @@
     *p_rootDomainConnect = 0;
   }
 
-  v7.receiver = self;
-  v7.super_class = DisplayManager;
-  [(DisplayManager *)&v7 dealloc];
+  v8.receiver = self;
+  v8.super_class = DisplayManager;
+  [(DisplayManager *)&v8 dealloc];
 }
 
 - (id)configurationWithAttentionLostTimeout:(double)timeout
@@ -131,7 +132,7 @@
   if (byte_100031918 != state)
   {
     stateCopy = state;
-    v4 = sub_100012608();
+    v4 = sub_100012608(self);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = 136446466;
@@ -152,12 +153,11 @@
   [v3 postNotificationName:@"DRScreenWillUndimNotification" object:0];
 
   [NSObject cancelPreviousPerformRequestsWithTarget:self selector:"_screenBlanked" object:0];
-  [(DisplayManager *)self _disableTapToWake];
-  v4 = sub_100012608();
+  v4 = sub_100012608([(DisplayManager *)self _disableTapToWake]);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446210;
-    v12 = "[DisplayManager _undimDisplay]";
+    v13 = "[DisplayManager _undimDisplay]";
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%{public}s: [DisplayManager] Undimming display…", buf, 0xCu);
   }
 
@@ -165,13 +165,14 @@
   BKSHIDServicesSetBacklightFactorWithFadeDuration();
   [(DisplayManager *)self setDisplayDim:0];
   attentionAwarenessClient = self->_attentionAwarenessClient;
-  v10 = 0;
-  v6 = [(AWAttentionAwarenessClient *)attentionAwarenessClient resumeWithError:&v10];
-  v7 = v10;
+  v11 = 0;
+  v6 = [(AWAttentionAwarenessClient *)attentionAwarenessClient resumeWithError:&v11];
+  v7 = v11;
+  v8 = v7;
   if ((v6 & 1) == 0)
   {
-    v8 = sub_100012608();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = sub_100012608(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_100012740();
     }
@@ -179,20 +180,21 @@
 
   [(DisplayManager *)self _preventIdleSleep];
   [(DisplayManager *)self _setHIDUILockedState:0];
-  v9 = +[NSNotificationCenter defaultCenter];
-  [v9 postNotificationName:@"DRScreenDidUndimNotification" object:0];
+  v10 = +[NSNotificationCenter defaultCenter];
+  [v10 postNotificationName:@"DRScreenDidUndimNotification" object:0];
 }
 
 - (void)undimDisplay
 {
-  if ([(DisplayManager *)self isDisplayDim])
+  isDisplayDim = [(DisplayManager *)self isDisplayDim];
+  if (isDisplayDim)
   {
-    v3 = sub_100012608();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100012608(isDisplayDim);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = 136446210;
-      v5 = "[DisplayManager undimDisplay]";
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%{public}s: [DisplayManager] Display is off. Turning display on…", &v4, 0xCu);
+      v5 = 136446210;
+      v6 = "[DisplayManager undimDisplay]";
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%{public}s: [DisplayManager] Display is off. Turning display on…", &v5, 0xCu);
     }
 
     [(DisplayManager *)self _undimDisplay];
@@ -202,15 +204,16 @@
 - (void)toggleDisplay
 {
   isDisplayDim = [(DisplayManager *)self isDisplayDim];
-  v4 = sub_100012608();
-  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
-  if (isDisplayDim)
+  v4 = isDisplayDim;
+  v5 = sub_100012608(isDisplayDim);
+  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
+  if (v4)
   {
-    if (v5)
+    if (v6)
     {
-      v6 = 136446210;
-      v7 = "[DisplayManager toggleDisplay]";
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%{public}s: [DisplayManager] Toggling display. Display is off, undimming display…", &v6, 0xCu);
+      v7 = 136446210;
+      v8 = "[DisplayManager toggleDisplay]";
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}s: [DisplayManager] Toggling display. Display is off, undimming display…", &v7, 0xCu);
     }
 
     [(DisplayManager *)self undimDisplay];
@@ -218,11 +221,11 @@
 
   else
   {
-    if (v5)
+    if (v6)
     {
-      v6 = 136446210;
-      v7 = "[DisplayManager toggleDisplay]";
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%{public}s: [DisplayManager] Toggling display. Display is on, dimming display…", &v6, 0xCu);
+      v7 = 136446210;
+      v8 = "[DisplayManager toggleDisplay]";
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}s: [DisplayManager] Toggling display. Display is on, dimming display…", &v7, 0xCu);
     }
 
     [(DisplayManager *)self dimDisplay];
@@ -236,38 +239,39 @@
     v3 = +[NSNotificationCenter defaultCenter];
     [v3 postNotificationName:@"DRScreenWillDimNotification" object:0];
 
-    v4 = sub_100012608();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_100012608(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446210;
-      v15 = "[DisplayManager dimDisplay]";
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%{public}s: [DisplayManager] Dimming display…", buf, 0xCu);
+      v17 = "[DisplayManager dimDisplay]";
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}s: [DisplayManager] Dimming display…", buf, 0xCu);
     }
 
     BKSHIDServicesSetBacklightFactorWithFadeDuration();
     [(DisplayManager *)self setDisplayDim:1];
     attentionAwarenessClient = self->_attentionAwarenessClient;
-    v12 = 0;
-    v6 = [(AWAttentionAwarenessClient *)attentionAwarenessClient suspendWithError:&v12];
-    v7 = v12;
-    if ((v6 & 1) == 0)
+    v14 = 0;
+    v7 = [(AWAttentionAwarenessClient *)attentionAwarenessClient suspendWithError:&v14];
+    v8 = v14;
+    v10 = v8;
+    if ((v7 & 1) == 0)
     {
-      v9 = sub_100012608();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v11 = sub_100012608(v8);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         sub_1000127BC();
       }
     }
 
-    LODWORD(v8) = 1.0;
-    [(DisplayManager *)self _preventIdleSleepForNumberOfSeconds:v8];
+    LODWORD(v9) = 1.0;
+    [(DisplayManager *)self _preventIdleSleepForNumberOfSeconds:v9];
     [(DisplayManager *)self _setHIDUILockedState:1];
-    v13 = NSRunLoopCommonModes;
-    v10 = [NSArray arrayWithObjects:&v13 count:1];
-    [(DisplayManager *)self performSelector:"_screenBlanked" withObject:0 afterDelay:v10 inModes:0.25];
+    v15 = NSRunLoopCommonModes;
+    v12 = [NSArray arrayWithObjects:&v15 count:1];
+    [(DisplayManager *)self performSelector:"_screenBlanked" withObject:0 afterDelay:v12 inModes:0.25];
 
-    v11 = +[NSNotificationCenter defaultCenter];
-    [v11 postNotificationName:@"DRScreenDidDimNotification" object:0];
+    v13 = +[NSNotificationCenter defaultCenter];
+    [v13 postNotificationName:@"DRScreenDidDimNotification" object:0];
   }
 }
 
@@ -280,7 +284,7 @@
 
 - (void)_allowIdleSleep
 {
-  v3 = sub_100012608();
+  v3 = sub_100012608(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 136446210;
@@ -294,7 +298,7 @@
 
 - (void)_preventIdleSleep
 {
-  v3 = sub_100012608();
+  v3 = sub_100012608(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 136446210;
@@ -308,116 +312,117 @@
 
 - (void)_preventIdleSleepForNumberOfSeconds:(float)seconds
 {
-  if ([(DisplayManager *)self isDisplayDim])
+  isDisplayDim = [(DisplayManager *)self isDisplayDim];
+  if (isDisplayDim)
   {
-    v5 = sub_100012608();
+    v6 = sub_100012608(isDisplayDim);
     secondsCopy = seconds;
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446466;
-      v10 = "[DisplayManager _preventIdleSleepForNumberOfSeconds:]";
-      v11 = 2048;
-      v12 = secondsCopy;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}s: [DisplayManager] Preventing idle sleep for %f seconds…", buf, 0x16u);
+      v11 = "[DisplayManager _preventIdleSleepForNumberOfSeconds:]";
+      v12 = 2048;
+      v13 = secondsCopy;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}s: [DisplayManager] Preventing idle sleep for %f seconds…", buf, 0x16u);
     }
 
     [(DisplayManager *)self _preventIdleSleep];
-    v8 = NSRunLoopCommonModes;
-    v7 = [NSArray arrayWithObjects:&v8 count:1];
-    [(DisplayManager *)self performSelector:"_allowIdleSleep" withObject:0 afterDelay:v7 inModes:secondsCopy];
+    v9 = NSRunLoopCommonModes;
+    v8 = [NSArray arrayWithObjects:&v9 count:1];
+    [(DisplayManager *)self performSelector:"_allowIdleSleep" withObject:0 afterDelay:v8 inModes:secondsCopy];
   }
 }
 
 - (void)_powerChangedOnService:(unsigned int)service messageType:(unsigned int)type messageArgument:(void *)argument
 {
-  v8 = sub_100012608();
+  v8 = sub_100012608(self);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 136446466;
-    v17 = "[DisplayManager _powerChangedOnService:messageType:messageArgument:]";
-    v18 = 1024;
+    v17 = 136446466;
+    v18 = "[DisplayManager _powerChangedOnService:messageType:messageArgument:]";
+    v19 = 1024;
     typeCopy = type;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}s: [DisplayManager] Received power notification %u", &v16, 0x12u);
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}s: [DisplayManager] Received power notification %u", &v17, 0x12u);
   }
 
-  HIDWORD(v10) = type + 536870288;
-  LODWORD(v10) = type + 536870288;
-  v9 = v10 >> 4;
-  if (v9 > 1)
+  HIDWORD(v11) = type + 536870288;
+  LODWORD(v11) = type + 536870288;
+  v10 = v11 >> 4;
+  if (v10 > 1)
   {
-    switch(v9)
+    switch(v10)
     {
       case 2:
-        v11 = sub_100012608();
-        if (!os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+        v12 = sub_100012608(v9);
+        if (!os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
 LABEL_19:
 
           return;
         }
 
-        v16 = 136446210;
-        v17 = "[DisplayManager _powerChangedOnService:messageType:messageArgument:]";
-        v12 = "%{public}s: [DisplayManager] Received kIOMessageSystemWillNotSleep";
+        v17 = 136446210;
+        v18 = "[DisplayManager _powerChangedOnService:messageType:messageArgument:]";
+        v13 = "%{public}s: [DisplayManager] Received kIOMessageSystemWillNotSleep";
         break;
       case 9:
-        v15 = sub_100012608();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+        v16 = sub_100012608(v9);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
-          v16 = 136446210;
-          v17 = "[DisplayManager _powerChangedOnService:messageType:messageArgument:]";
-          _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%{public}s: [DisplayManager] Received kIOMessageSystemHasPoweredOn", &v16, 0xCu);
+          v17 = 136446210;
+          v18 = "[DisplayManager _powerChangedOnService:messageType:messageArgument:]";
+          _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "%{public}s: [DisplayManager] Received kIOMessageSystemHasPoweredOn", &v17, 0xCu);
         }
 
-        v11 = +[NSNotificationCenter defaultCenter];
-        [v11 postNotificationName:@"DRDidWakeFromSleepNotification" object:0 userInfo:0];
+        v12 = +[NSNotificationCenter defaultCenter];
+        [v12 postNotificationName:@"DRDidWakeFromSleepNotification" object:0 userInfo:0];
         goto LABEL_19;
       case 11:
-        v11 = sub_100012608();
-        if (!os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+        v12 = sub_100012608(v9);
+        if (!os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_19;
         }
 
-        v16 = 136446210;
-        v17 = "[DisplayManager _powerChangedOnService:messageType:messageArgument:]";
-        v12 = "%{public}s: [DisplayManager] Received kIOMessageSystemWillPowerOn";
+        v17 = 136446210;
+        v18 = "[DisplayManager _powerChangedOnService:messageType:messageArgument:]";
+        v13 = "%{public}s: [DisplayManager] Received kIOMessageSystemWillPowerOn";
         break;
       default:
         return;
     }
 
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, v12, &v16, 0xCu);
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, v13, &v17, 0xCu);
     goto LABEL_19;
   }
 
-  if (v9)
+  if (v10)
   {
-    if (v9 != 1)
+    if (v10 != 1)
     {
       return;
     }
 
-    v13 = sub_100012608();
-    if (!os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = sub_100012608(v9);
+    if (!os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_23;
     }
 
-    v16 = 136446210;
-    v17 = "[DisplayManager _powerChangedOnService:messageType:messageArgument:]";
-    v14 = "%{public}s: [DisplayManager] Received kIOMessageSystemWillSleep";
+    v17 = 136446210;
+    v18 = "[DisplayManager _powerChangedOnService:messageType:messageArgument:]";
+    v15 = "%{public}s: [DisplayManager] Received kIOMessageSystemWillSleep";
     goto LABEL_22;
   }
 
-  v13 = sub_100012608();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v14 = sub_100012608(v9);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 136446210;
-    v17 = "[DisplayManager _powerChangedOnService:messageType:messageArgument:]";
-    v14 = "%{public}s: [DisplayManager] Received kIOMessageCanSystemSleep";
+    v17 = 136446210;
+    v18 = "[DisplayManager _powerChangedOnService:messageType:messageArgument:]";
+    v15 = "%{public}s: [DisplayManager] Received kIOMessageCanSystemSleep";
 LABEL_22:
-    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, v14, &v16, 0xCu);
+    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, v15, &v17, 0xCu);
   }
 
 LABEL_23:
@@ -427,7 +432,7 @@ LABEL_23:
 
 - (void)enableIdleSleep
 {
-  v3 = sub_100012608();
+  v3 = sub_100012608(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446210;
@@ -449,7 +454,7 @@ LABEL_23:
 
   else
   {
-    v8 = sub_100012608();
+    v8 = sub_100012608(v5);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_100012838();
@@ -471,34 +476,34 @@ LABEL_23:
 {
   sleepCopy = sleep;
   reasonCopy = reason;
-  v7 = sub_100012608();
+  v7 = sub_100012608(reasonCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 136446722;
-    v15 = "[DisplayManager setPreventIdleSleep:forReason:]";
-    v16 = 1024;
-    v17 = sleepCopy;
-    v18 = 2112;
-    v19 = reasonCopy;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%{public}s: [DisplayManager] Preventing idle sleep (%d) for reason: %@", &v14, 0x1Cu);
+    v15 = 136446722;
+    v16 = "[DisplayManager setPreventIdleSleep:forReason:]";
+    v17 = 1024;
+    v18 = sleepCopy;
+    v19 = 2112;
+    v20 = reasonCopy;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%{public}s: [DisplayManager] Preventing idle sleep (%d) for reason: %@", &v15, 0x1Cu);
   }
 
-  [(DisplayManager *)self finishedBoot];
+  finishedBoot = [(DisplayManager *)self finishedBoot];
   if (reasonCopy)
   {
-    v8 = qword_100032138;
+    v9 = qword_100032138;
     if (sleepCopy)
     {
       if (!qword_100032138)
       {
-        v9 = [[NSMutableSet alloc] initWithCapacity:2];
-        v10 = qword_100032138;
-        qword_100032138 = v9;
+        v10 = [[NSMutableSet alloc] initWithCapacity:2];
+        v11 = qword_100032138;
+        qword_100032138 = v10;
 
-        v8 = qword_100032138;
+        v9 = qword_100032138;
       }
 
-      [v8 addObject:reasonCopy];
+      finishedBoot = [v9 addObject:reasonCopy];
       goto LABEL_12;
     }
 
@@ -510,40 +515,41 @@ LABEL_23:
     goto LABEL_12;
   }
 
-  if (![qword_100032138 count])
+  finishedBoot = [qword_100032138 count];
+  if (!finishedBoot)
   {
     if (byte_100032140 != 1)
     {
       goto LABEL_17;
     }
 
-    v13 = sub_100012608();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = sub_100012608(0);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 136446210;
-      v15 = "[DisplayManager setPreventIdleSleep:forReason:]";
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "%{public}s: [DisplayManager] Releasing kIOPMAssertionTypeNoIdleSleep assertion", &v14, 0xCu);
+      v15 = 136446210;
+      v16 = "[DisplayManager setPreventIdleSleep:forReason:]";
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "%{public}s: [DisplayManager] Releasing kIOPMAssertionTypeNoIdleSleep assertion", &v15, 0xCu);
     }
 
     IOPMAssertionRelease(dword_100032130);
-    v12 = 0;
+    v13 = 0;
     goto LABEL_16;
   }
 
 LABEL_12:
   if ((byte_100032140 & 1) == 0)
   {
-    v11 = sub_100012608();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = sub_100012608(finishedBoot);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 136446210;
-      v15 = "[DisplayManager setPreventIdleSleep:forReason:]";
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%{public}s: [DisplayManager] Taking out kIOPMAssertionTypeNoIdleSleep assertion", &v14, 0xCu);
+      v15 = 136446210;
+      v16 = "[DisplayManager setPreventIdleSleep:forReason:]";
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%{public}s: [DisplayManager] Taking out kIOPMAssertionTypeNoIdleSleep assertion", &v15, 0xCu);
     }
 
-    v12 = IOPMAssertionCreateWithName(@"NoIdleSleepAssertion", 0xFFu, @"com.apple.DeviceRecovery.idle", &dword_100032130) == 0;
+    v13 = IOPMAssertionCreateWithName(@"NoIdleSleepAssertion", 0xFFu, @"com.apple.DeviceRecovery.idle", &dword_100032130) == 0;
 LABEL_16:
-    byte_100032140 = v12;
+    byte_100032140 = v13;
   }
 
 LABEL_17:
@@ -552,13 +558,13 @@ LABEL_17:
 - (void)resetIdleTimerAndUndim:(BOOL)undim
 {
   undimCopy = undim;
-  v5 = sub_100012608();
+  v5 = sub_100012608(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v16 = "[DisplayManager resetIdleTimerAndUndim:]";
-    v17 = 1024;
-    LODWORD(v18) = undimCopy;
+    v17 = "[DisplayManager resetIdleTimerAndUndim:]";
+    v18 = 1024;
+    LODWORD(v19) = undimCopy;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}s: [DisplayManager] Resetting idle timer and undim %d", buf, 0x12u);
   }
 
@@ -581,25 +587,25 @@ LABEL_17:
     }
 
     v8 = [(DisplayManager *)self configurationWithAttentionLostTimeout:v7];
-    v9 = sub_100012608();
+    v9 = sub_100012608(v8);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446466;
-      v16 = "[DisplayManager resetIdleTimerAndUndim:]";
-      v17 = 2048;
-      v18 = v7;
+      v17 = "[DisplayManager resetIdleTimerAndUndim:]";
+      v18 = 2048;
+      v19 = v7;
       _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%{public}s: [DisplayManager] Setting a new attention awareness configuration with timeout: %f", buf, 0x16u);
     }
 
     attentionAwarenessClient = [(DisplayManager *)self attentionAwarenessClient];
-    v14 = 0;
-    v11 = [attentionAwarenessClient setConfiguration:v8 shouldReset:1 error:&v14];
-    v12 = v14;
+    v15 = 0;
+    v11 = [attentionAwarenessClient setConfiguration:v8 shouldReset:1 error:&v15];
+    v12 = v15;
 
     if ((v11 & 1) == 0)
     {
-      v13 = sub_100012608();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v14 = sub_100012608(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         sub_1000128B8();
       }
@@ -611,33 +617,33 @@ LABEL_17:
 {
   disabledCopy = disabled;
   reasonCopy = reason;
-  v7 = sub_100012608();
+  v7 = sub_100012608(reasonCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 136446466;
-    v15 = "[DisplayManager setIdleTimerDisabled:forReason:]";
-    v16 = 1024;
-    LODWORD(v17) = disabledCopy;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%{public}s: [DisplayManager] Attempting to set idle timer disabled to %d", &v14, 0x12u);
+    v16 = 136446466;
+    v17 = "[DisplayManager setIdleTimerDisabled:forReason:]";
+    v18 = 1024;
+    LODWORD(v19) = disabledCopy;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%{public}s: [DisplayManager] Attempting to set idle timer disabled to %d", &v16, 0x12u);
   }
 
   if (reasonCopy)
   {
     idleTimerDisabledReasons = [(DisplayManager *)self idleTimerDisabledReasons];
-    v9 = [idleTimerDisabledReasons containsObject:reasonCopy];
+    v10 = [idleTimerDisabledReasons containsObject:reasonCopy];
 
     if (disabledCopy)
     {
-      if ((v9 & 1) == 0)
+      if ((v10 & 1) == 0)
       {
-        v10 = sub_100012608();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+        v12 = sub_100012608(v11);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
-          v14 = 136446466;
-          v15 = "[DisplayManager setIdleTimerDisabled:forReason:]";
-          v16 = 2112;
-          v17 = reasonCopy;
-          _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%{public}s: [DisplayManager] Adding idle timer disabled reason: %@", &v14, 0x16u);
+          v16 = 136446466;
+          v17 = "[DisplayManager setIdleTimerDisabled:forReason:]";
+          v18 = 2112;
+          v19 = reasonCopy;
+          _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%{public}s: [DisplayManager] Adding idle timer disabled reason: %@", &v16, 0x16u);
         }
 
         idleTimerDisabledReasons2 = [(DisplayManager *)self idleTimerDisabledReasons];
@@ -648,16 +654,16 @@ LABEL_16:
       }
     }
 
-    else if (v9)
+    else if (v10)
     {
-      v13 = sub_100012608();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v15 = sub_100012608(v11);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = 136446466;
-        v15 = "[DisplayManager setIdleTimerDisabled:forReason:]";
-        v16 = 2112;
-        v17 = reasonCopy;
-        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "%{public}s: [DisplayManager] Removing idle timer disabled reason: %@", &v14, 0x16u);
+        v16 = 136446466;
+        v17 = "[DisplayManager setIdleTimerDisabled:forReason:]";
+        v18 = 2112;
+        v19 = reasonCopy;
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%{public}s: [DisplayManager] Removing idle timer disabled reason: %@", &v16, 0x16u);
       }
 
       idleTimerDisabledReasons2 = [(DisplayManager *)self idleTimerDisabledReasons];
@@ -668,24 +674,24 @@ LABEL_16:
 
   else
   {
-    v12 = sub_100012608();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v14 = sub_100012608(v8);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 136446210;
-      v15 = "[DisplayManager setIdleTimerDisabled:forReason:]";
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%{public}s: [DisplayManager] Ignoring request since idle timer disabled reason was not specified…", &v14, 0xCu);
+      v16 = 136446210;
+      v17 = "[DisplayManager setIdleTimerDisabled:forReason:]";
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "%{public}s: [DisplayManager] Ignoring request since idle timer disabled reason was not specified…", &v16, 0xCu);
     }
   }
 }
 
 - (void)_initTapToWake
 {
-  v3 = sub_100012608();
+  v3 = sub_100012608(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 136446210;
-    v15 = "[DisplayManager _initTapToWake]";
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%{public}s: [DisplayManager] Initializing tap to wake", &v14, 0xCu);
+    v16 = 136446210;
+    v17 = "[DisplayManager _initTapToWake]";
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%{public}s: [DisplayManager] Initializing tap to wake", &v16, 0xCu);
   }
 
   v4 = MGGetBoolAnswer();
@@ -709,16 +715,16 @@ LABEL_16:
     displayIdentity = [v7 displayIdentity];
     [v6 addGestureRecognizer:v10 toDisplayWithIdentity:displayIdentity];
 
-    v12 = sub_100012608();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = sub_100012608(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 136446210;
-      v15 = "[DisplayManager _initTapToWake]";
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%{public}s: [DisplayManager] Tap to wake is supported and has been set up.", &v14, 0xCu);
+      v16 = 136446210;
+      v17 = "[DisplayManager _initTapToWake]";
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "%{public}s: [DisplayManager] Tap to wake is supported and has been set up.", &v16, 0xCu);
     }
 
-    v13 = sub_100012608();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v15 = sub_100012608(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       sub_100012934();
     }
@@ -726,12 +732,12 @@ LABEL_16:
 
   else
   {
-    v6 = sub_100012608();
+    v6 = sub_100012608(v4);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 136446210;
-      v15 = "[DisplayManager _initTapToWake]";
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}s: [DisplayManager] Hardware does not support tap to wake.", &v14, 0xCu);
+      v16 = 136446210;
+      v17 = "[DisplayManager _initTapToWake]";
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}s: [DisplayManager] Hardware does not support tap to wake.", &v16, 0xCu);
     }
   }
 }
@@ -740,7 +746,7 @@ LABEL_16:
 {
   if ([wake state] == 3)
   {
-    v4 = sub_100012608();
+    v4 = sub_100012608(3);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = 136446210;
@@ -763,12 +769,12 @@ LABEL_16:
     tapToWakeGestureRecognizer = [(DisplayManager *)self tapToWakeGestureRecognizer];
     [tapToWakeGestureRecognizer setEnabled:1];
 
-    v4 = sub_100012608();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_100012608(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = 136446210;
-      v6 = "[DisplayManager _enableTapToWake]";
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%{public}s: [DisplayManager] Tap to Wake enabled", &v5, 0xCu);
+      v6 = 136446210;
+      v7 = "[DisplayManager _enableTapToWake]";
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}s: [DisplayManager] Tap to Wake enabled", &v6, 0xCu);
     }
   }
 }
@@ -781,12 +787,12 @@ LABEL_16:
     [tapToWakeGestureRecognizer setEnabled:0];
 
     dispatch_async(&_dispatch_main_q, &stru_100028860);
-    v4 = sub_100012608();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_100012608(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = 136446210;
-      v6 = "[DisplayManager _disableTapToWake]";
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%{public}s: [DisplayManager] Tap to Wake disabled", &v5, 0xCu);
+      v6 = 136446210;
+      v7 = "[DisplayManager _disableTapToWake]";
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}s: [DisplayManager] Tap to Wake disabled", &v6, 0xCu);
     }
   }
 }

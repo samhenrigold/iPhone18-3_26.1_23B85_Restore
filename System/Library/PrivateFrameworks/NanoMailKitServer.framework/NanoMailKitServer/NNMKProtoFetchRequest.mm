@@ -106,50 +106,47 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v8 = toCopy;
+  v5 = toCopy;
   if (*&self->_has)
   {
-    fullSyncVersion = self->_fullSyncVersion;
     PBDataWriterWriteUint32Field();
-    toCopy = v8;
+    toCopy = v5;
   }
 
   if (self->_conversationId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v5;
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    wantsBatchedResponse = self->_wantsBatchedResponse;
     PBDataWriterWriteBOOLField();
-    toCopy = v8;
+    toCopy = v5;
   }
 
   if (self->_currentMessageIdsAndStatus)
   {
     PBDataWriterWriteDataField();
-    toCopy = v8;
+    toCopy = v5;
   }
 
   if (self->_currentDateForRequestingMoreMessages)
   {
     PBDataWriterWriteDataField();
-    toCopy = v8;
+    toCopy = v5;
   }
 
   if ((*&self->_has & 4) != 0)
   {
-    willTrimDatabaseAfterResults = self->_willTrimDatabaseAfterResults;
     PBDataWriterWriteBOOLField();
-    toCopy = v8;
+    toCopy = v5;
   }
 
   if (self->_mailboxId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v5;
   }
 }
 
@@ -250,7 +247,6 @@
   }
 
   has = self->_has;
-  v6 = *(equalCopy + 52);
   if (has)
   {
     if ((*(equalCopy + 52) & 1) == 0 || self->_fullSyncVersion != *(equalCopy + 8))
@@ -275,7 +271,6 @@
     has = self->_has;
   }
 
-  v8 = *(equalCopy + 52);
   if ((has & 2) != 0)
   {
     if ((*(equalCopy + 52) & 2) == 0)
@@ -283,7 +278,6 @@
       goto LABEL_21;
     }
 
-    v15 = *(equalCopy + 48);
     if (self->_wantsBatchedResponse)
     {
       if ((*(equalCopy + 48) & 1) == 0)
@@ -318,7 +312,6 @@
     }
   }
 
-  v11 = *(equalCopy + 52);
   if ((*&self->_has & 4) == 0)
   {
     if ((*(equalCopy + 52) & 4) == 0)
@@ -327,7 +320,7 @@
     }
 
 LABEL_21:
-    v13 = 0;
+    v10 = 0;
     goto LABEL_22;
   }
 
@@ -336,7 +329,6 @@ LABEL_21:
     goto LABEL_21;
   }
 
-  v16 = *(equalCopy + 49);
   if (self->_willTrimDatabaseAfterResults)
   {
     if ((*(equalCopy + 49) & 1) == 0)
@@ -354,17 +346,17 @@ LABEL_18:
   mailboxId = self->_mailboxId;
   if (mailboxId | *(equalCopy + 5))
   {
-    v13 = [(NSString *)mailboxId isEqual:?];
+    v10 = [(NSString *)mailboxId isEqual:?];
   }
 
   else
   {
-    v13 = 1;
+    v10 = 1;
   }
 
 LABEL_22:
 
-  return v13;
+  return v10;
 }
 
 - (unint64_t)hash

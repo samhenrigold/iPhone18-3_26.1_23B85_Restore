@@ -21,7 +21,7 @@
 {
   environmentCopy = environment;
   environmentCopy2 = environment;
-  LOBYTE(environmentCopy) = sub_10016268C(environmentCopy);
+  LOBYTE(environmentCopy) = sub_10016268C(environmentCopy, v5);
 
   return environmentCopy & 1;
 }
@@ -37,20 +37,20 @@
 + (id)windowDurationOverrideForEnvironment:(id)environment
 {
   environmentCopy = environment;
-  sub_100162794(environment);
-  v6 = v5;
+  sub_100162794(environment, v5);
+  v7 = v6;
 
-  if (v6)
+  if (v7)
   {
-    v7 = String._bridgeToObjectiveC()();
+    v8 = String._bridgeToObjectiveC()();
   }
 
   else
   {
-    v7 = 0;
+    v8 = 0;
   }
 
-  return v7;
+  return v8;
 }
 
 + (id)shouldUseProxyOverrideForEnvironment:(id)environment

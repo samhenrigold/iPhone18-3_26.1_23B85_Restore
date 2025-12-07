@@ -25,7 +25,7 @@
       goto LABEL_10;
     }
 
-    v11 = DefaultLog();
+    v11 = DefaultLog(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [DDSTrialClient createWithWorkQueue:queryCopy query:?];
@@ -34,7 +34,7 @@
 
   else
   {
-    v8 = DefaultLog();
+    v8 = DefaultLog(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [DDSTrialClient createWithWorkQueue:queryCopy query:?];
@@ -147,7 +147,7 @@ void __23__DDSTrialClient_start__block_invoke_2(uint64_t a1, void *a2)
 
 - (void)fetchAssetWithCallback:(id)callback
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   callbackCopy = callback;
   workQueue = [(DDSTrialClient *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -160,84 +160,85 @@ void __23__DDSTrialClient_start__block_invoke_2(uint64_t a1, void *a2)
   {
     triClient2 = [(DDSTrialClient *)self triClient];
     triNamespaceName2 = [(DDSTrialClient *)self triNamespaceName];
-    v11 = [triClient2 levelForFactor:@"languageAsset" withNamespaceName:triNamespaceName2];
+    v12 = [triClient2 levelForFactor:@"languageAsset" withNamespaceName:triNamespaceName2];
 
-    if (v11)
+    if (v12)
     {
-      directoryValue = [v11 directoryValue];
+      directoryValue = [v12 directoryValue];
       if ([directoryValue hasPath])
       {
-        directoryValue2 = [v11 directoryValue];
+        directoryValue2 = [v12 directoryValue];
         hasAsset = [directoryValue2 hasAsset];
 
         if (hasAsset)
         {
-          directoryValue3 = [v11 directoryValue];
+          directoryValue3 = [v12 directoryValue];
           path = [directoryValue3 path];
 
           defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-          v39 = 0;
-          v18 = [defaultManager contentsOfDirectoryAtPath:path error:&v39];
-          v19 = v39;
+          v43 = 0;
+          v21 = [defaultManager contentsOfDirectoryAtPath:path error:&v43];
+          v22 = v43;
 
-          if (v18)
+          if (v21)
           {
-            if ([v18 count] == 1)
+            v24 = [v21 count];
+            if (v24 == 1)
             {
-              firstObject = [v18 firstObject];
-              v21 = [path stringByAppendingPathComponent:firstObject];
+              firstObject = [v21 firstObject];
+              v26 = [path stringByAppendingPathComponent:firstObject];
 
-              v22 = [DDSTrialExperimentIdentifiers alloc];
+              v27 = [DDSTrialExperimentIdentifiers alloc];
               experimentId = [v8 experimentId];
               deploymentId = [v8 deploymentId];
               treatmentId = [v8 treatmentId];
-              v26 = [(TRIExperimentIdentifiers *)v22 initWithExperimentId:experimentId deploymentId:deploymentId treatmentId:treatmentId];
+              v31 = [(TRIExperimentIdentifiers *)v27 initWithExperimentId:experimentId deploymentId:deploymentId treatmentId:treatmentId];
 
-              v27 = [MEMORY[0x1E695DFF8] fileURLWithPath:v21];
-              v28 = [DDSTrialAsset createWithExperimentIdentifiers:v26 localURL:v27];
-              if (v28)
+              v32 = [MEMORY[0x1E695DFF8] fileURLWithPath:v26];
+              v33 = [DDSTrialAsset createWithExperimentIdentifiers:v31 localURL:v32];
+              if (v33)
               {
-                callbackCopy[2](callbackCopy, v28, 0);
+                callbackCopy[2](callbackCopy, v33, 0);
               }
 
               else
               {
-                v37 = DefaultLog();
-                if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+                v41 = DefaultLog(0);
+                if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
                 {
                   [DDSTrialClient fetchAssetWithCallback:];
                 }
 
-                v38 = DDSTrialErrorWithCode(4);
-                (callbackCopy)[2](callbackCopy, 0, v38);
+                v42 = DDSTrialErrorWithCode(4);
+                (callbackCopy)[2](callbackCopy, 0, v42);
               }
 
-              path = v21;
+              path = v26;
               goto LABEL_33;
             }
 
-            v36 = DefaultLog();
-            if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+            v40 = DefaultLog(v24);
+            if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
             {
-              [DDSTrialClient fetchAssetWithCallback:v18];
+              [DDSTrialClient fetchAssetWithCallback:v21];
             }
 
-            v35 = 3;
+            v39 = 3;
           }
 
           else
           {
-            v34 = DefaultLog();
-            if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+            v38 = DefaultLog(v23);
+            if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
             {
               [DDSTrialClient fetchAssetWithCallback:];
             }
 
-            v35 = 5;
+            v39 = 5;
           }
 
-          v26 = DDSTrialErrorWithCode(v35);
-          (callbackCopy)[2](callbackCopy, 0, v26);
+          v31 = DDSTrialErrorWithCode(v39);
+          (callbackCopy)[2](callbackCopy, 0, v31);
 LABEL_33:
 
           goto LABEL_20;
@@ -248,47 +249,45 @@ LABEL_33:
       {
       }
 
-      v32 = DefaultLog();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+      v37 = DefaultLog(v17);
+      if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
       {
-        [(DDSTrialClient *)v11 fetchAssetWithCallback:v32];
+        [(DDSTrialClient *)v12 fetchAssetWithCallback:v37];
       }
 
-      v31 = 5;
+      v36 = 5;
     }
 
     else
     {
-      v30 = DefaultLog();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+      v35 = DefaultLog(v13);
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v41 = @"languageAsset";
-        _os_log_impl(&dword_1DF7C6000, v30, OS_LOG_TYPE_INFO, "Missing value for trial parameter: %@", buf, 0xCu);
+        v45 = @"languageAsset";
+        _os_log_impl(&dword_1DF7C6000, v35, OS_LOG_TYPE_INFO, "Missing value for trial parameter: %@", buf, 0xCu);
       }
 
-      v31 = 2;
+      v36 = 2;
     }
 
-    path = DDSTrialErrorWithCode(v31);
+    path = DDSTrialErrorWithCode(v36);
     (callbackCopy)[2](callbackCopy, 0, path);
 LABEL_20:
 
     goto LABEL_21;
   }
 
-  v29 = DefaultLog();
-  if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
+  v34 = DefaultLog(v9);
+  if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_1DF7C6000, v29, OS_LOG_TYPE_INFO, "No experiment identifiers found, device is not enrolled in trial experiment", buf, 2u);
+    _os_log_impl(&dword_1DF7C6000, v34, OS_LOG_TYPE_INFO, "No experiment identifiers found, device is not enrolled in trial experiment", buf, 2u);
   }
 
-  v11 = DDSTrialErrorWithCode(1);
-  (callbackCopy)[2](callbackCopy, 0, v11);
+  v12 = DDSTrialErrorWithCode(1);
+  (callbackCopy)[2](callbackCopy, 0, v12);
 LABEL_21:
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
@@ -312,54 +311,31 @@ LABEL_21:
 
 + (void)createWithWorkQueue:(void *)a1 query:.cold.1(void *a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
   [a1 namespaceId];
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 + (void)createWithWorkQueue:(void *)a1 query:.cold.2(void *a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
   [a1 projectId];
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchAssetWithCallback:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1DF7C6000, a2, OS_LOG_TYPE_ERROR, "Path for the asset parameter is empty: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1DF7C6000, a2, OS_LOG_TYPE_ERROR, "Path for the asset parameter is empty: %@", &v2, 0xCu);
 }
 
 - (void)fetchAssetWithCallback:(void *)a1 .cold.2(void *a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
   [a1 count];
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)fetchAssetWithCallback:.cold.3()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_3();
-  OUTLINED_FUNCTION_1_0(&dword_1DF7C6000, v0, v1, "Failed to create trial asset with %@:%@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)fetchAssetWithCallback:.cold.4()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_3();
-  OUTLINED_FUNCTION_1_0(&dword_1DF7C6000, v0, v1, "Failed to get contents of directory at path %@:%@");
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 @end

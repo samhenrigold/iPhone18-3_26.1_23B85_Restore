@@ -1,5 +1,5 @@
 @interface CarMediaSourceFetcher
-- (uint64_t)mediaSourceService:didUpdateIdentifier:;
+- (uint64_t)mediaSourceService:(uint64_t)service didUpdateIdentifier:(uint64_t)identifier;
 - (void)mediaSourceService:(id)service didUpdateMediaItems:(id)items;
 @end
 
@@ -13,7 +13,7 @@
   sub_97EF0(serviceCopy, items);
 }
 
-- (uint64_t)mediaSourceService:didUpdateIdentifier:
+- (uint64_t)mediaSourceService:(uint64_t)service didUpdateIdentifier:(uint64_t)identifier
 {
   sub_16A664();
 }

@@ -32,25 +32,23 @@
 
 + (void)activateWithDomainIdentifier:(id)identifier noteIdentifier:(id)noteIdentifier completion:(id)completion
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v9 = 0;
   if (identifier && noteIdentifier)
   {
-    v17[0] = identifier;
+    v16[0] = identifier;
     v10 = MEMORY[0x277CBEA60];
     noteIdentifierCopy = noteIdentifier;
     identifierCopy = identifier;
-    v13 = [v10 arrayWithObjects:v17 count:1];
-    v16 = noteIdentifierCopy;
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v16 count:1];
+    v13 = [v10 arrayWithObjects:v16 count:1];
+    v15 = noteIdentifierCopy;
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v15 count:1];
 
     v9 = SYMakeEditNoteUserActivity(v13, v14);
   }
 
   [self _activateWithActivity:v9 completion:completionCopy];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_activateWithActivity:(id)activity completion:(id)completion
@@ -164,32 +162,32 @@ void __70__SYNotesActivationCommandInAppImpl__activateWithActivity_completion___
 
 + (void)_launchNotesWithUserActivity:(id)activity completion:(id)completion
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   activityCopy = activity;
   completionCopy = completion;
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __77__SYNotesActivationCommandInAppImpl__launchNotesWithUserActivity_completion___block_invoke;
-  v21[3] = &unk_27856BFE0;
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __77__SYNotesActivationCommandInAppImpl__launchNotesWithUserActivity_completion___block_invoke;
+  v20[3] = &unk_27856BFE0;
   v7 = activityCopy;
-  v22 = v7;
+  v21 = v7;
   v8 = completionCopy;
-  v23 = v8;
-  v9 = MEMORY[0x22AA6A360](v21);
+  v22 = v8;
+  v9 = MEMORY[0x22AA6A360](v20);
   if (v7)
   {
-    v20 = 0;
-    v10 = [objc_alloc(MEMORY[0x277CC1E70]) initWithBundleIdentifier:@"com.apple.mobilenotes" allowPlaceholder:1 error:&v20];
-    v11 = v20;
+    v19 = 0;
+    v10 = [objc_alloc(MEMORY[0x277CC1E70]) initWithBundleIdentifier:@"com.apple.mobilenotes" allowPlaceholder:1 error:&v19];
+    v11 = v19;
     if (v11)
     {
       v12 = os_log_create("com.apple.synapse", "");
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v25 = v11;
-        v26 = 2112;
-        v27 = v7;
+        v24 = v11;
+        v25 = 2112;
+        v26 = v7;
         _os_log_impl(&dword_225901000, v12, OS_LOG_TYPE_DEFAULT, "Failed to create System Notes application record with error: %@, to launch for activity: %@", buf, 0x16u);
       }
     }
@@ -197,12 +195,12 @@ void __70__SYNotesActivationCommandInAppImpl__activateWithActivity_completion___
     if (v10)
     {
       defaultWorkspace = [MEMORY[0x277CC1E80] defaultWorkspace];
-      v18[0] = MEMORY[0x277D85DD0];
-      v18[1] = 3221225472;
-      v18[2] = __77__SYNotesActivationCommandInAppImpl__launchNotesWithUserActivity_completion___block_invoke_10;
-      v18[3] = &unk_27856B738;
-      v19 = v9;
-      [defaultWorkspace openUserActivity:v7 usingApplicationRecord:v10 configuration:0 completionHandler:v18];
+      v17[0] = MEMORY[0x277D85DD0];
+      v17[1] = 3221225472;
+      v17[2] = __77__SYNotesActivationCommandInAppImpl__launchNotesWithUserActivity_completion___block_invoke_10;
+      v17[3] = &unk_27856B738;
+      v18 = v9;
+      [defaultWorkspace openUserActivity:v7 usingApplicationRecord:v10 configuration:0 completionHandler:v17];
     }
 
     else if (v8)
@@ -214,22 +212,20 @@ void __70__SYNotesActivationCommandInAppImpl__activateWithActivity_completion___
   else
   {
     defaultWorkspace2 = [MEMORY[0x277CC1E80] defaultWorkspace];
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __77__SYNotesActivationCommandInAppImpl__launchNotesWithUserActivity_completion___block_invoke_2;
-    v16[3] = &unk_27856B738;
-    v17 = v9;
-    [defaultWorkspace2 openApplicationWithBundleIdentifier:@"com.apple.mobilenotes" usingConfiguration:0 completionHandler:v16];
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __77__SYNotesActivationCommandInAppImpl__launchNotesWithUserActivity_completion___block_invoke_2;
+    v15[3] = &unk_27856B738;
+    v16 = v9;
+    [defaultWorkspace2 openApplicationWithBundleIdentifier:@"com.apple.mobilenotes" usingConfiguration:0 completionHandler:v15];
 
-    v11 = v17;
+    v11 = v16;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __77__SYNotesActivationCommandInAppImpl__launchNotesWithUserActivity_completion___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (v5)
   {
@@ -237,20 +233,20 @@ void __77__SYNotesActivationCommandInAppImpl__launchNotesWithUserActivity_comple
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = *(a1 + 32);
-      v11 = 138412546;
-      v12 = v5;
-      v13 = 2112;
-      v14 = v7;
-      _os_log_impl(&dword_225901000, v6, OS_LOG_TYPE_DEFAULT, "Error received requesting System Notes presentation: %@, activity: %@", &v11, 0x16u);
+      v10 = 138412546;
+      v11 = v5;
+      v12 = 2112;
+      v13 = v7;
+      _os_log_impl(&dword_225901000, v6, OS_LOG_TYPE_DEFAULT, "Error received requesting System Notes presentation: %@, activity: %@", &v10, 0x16u);
     }
   }
 
   v8 = os_log_create("com.apple.synapse", "");
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 67109120;
-    LODWORD(v12) = a2;
-    _os_log_impl(&dword_225901000, v8, OS_LOG_TYPE_DEFAULT, "System Notes presentation request succeeded: %d", &v11, 8u);
+    v10 = 67109120;
+    LODWORD(v11) = a2;
+    _os_log_impl(&dword_225901000, v8, OS_LOG_TYPE_DEFAULT, "System Notes presentation request succeeded: %d", &v10, 8u);
   }
 
   v9 = *(a1 + 40);
@@ -258,8 +254,6 @@ void __77__SYNotesActivationCommandInAppImpl__launchNotesWithUserActivity_comple
   {
     (*(v9 + 16))(v9, v5);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -243,7 +243,7 @@
   [layer3 setAnchorPoint:{0.5, v19}];
 }
 
-uint64_t __50__PKCompactNavigationContainerController_loadView__block_invoke(uint64_t a1, uint64_t a2, double a3)
+void *__50__PKCompactNavigationContainerController_loadView__block_invoke(uint64_t a1, uint64_t a2, double a3)
 {
   [*(a1 + 32) setMasksToBounds:1];
   [*(a1 + 32) setCornerCurve:*MEMORY[0x1E69796E8]];
@@ -329,9 +329,9 @@ uint64_t __50__PKCompactNavigationContainerController_loadView__block_invoke(uin
 
 - (void)viewWillLayoutSubviews
 {
-  v72.receiver = self;
-  v72.super_class = PKCompactNavigationContainerController;
-  [(PKCompactNavigationContainerController *)&v72 viewWillLayoutSubviews];
+  v95.receiver = self;
+  v95.super_class = PKCompactNavigationContainerController;
+  [(PKCompactNavigationContainerController *)&v95 viewWillLayoutSubviews];
   [(PKCompactNavigationContainerController *)self _beginLayoutGroup];
   ++self->_contentSizeUpdateDeferralCounter;
   view = [(PKCompactNavigationContainerController *)self view];
@@ -350,8 +350,8 @@ uint64_t __50__PKCompactNavigationContainerController_loadView__block_invoke(uin
 
   else
   {
-    v56 = *(MEMORY[0x1E695F050] + 16);
-    v57 = *MEMORY[0x1E695F050];
+    v77 = *(MEMORY[0x1E695F050] + 16);
+    v78 = *MEMORY[0x1E695F050];
     if (!CGRectIsNull(self->_keyboardFrame))
     {
       window = [view window];
@@ -362,13 +362,13 @@ uint64_t __50__PKCompactNavigationContainerController_loadView__block_invoke(uin
         [view convertRect:0 fromView:?];
         v17.y = v16;
         v19.height = v18;
-        v56 = v19;
-        v57 = v17;
+        v77 = v19;
+        v78 = v17;
       }
     }
 
-    size = v56;
-    origin = v57;
+    size = v77;
+    origin = v78;
   }
 
   self->_lastKeyboardFrame.origin = origin;
@@ -378,44 +378,53 @@ uint64_t __50__PKCompactNavigationContainerController_loadView__block_invoke(uin
   remainder.origin.y = v7;
   remainder.size.width = v9;
   remainder.size.height = v11;
+  v80 = *&v11;
   if (self->_centeredCard)
   {
     [MEMORY[0x1E69DCCD8] defaultFormSheetSize];
-    PKSizeAlignedInRect();
-    self->_maximumModalPresentationFrame.origin.x = v22;
-    self->_maximumModalPresentationFrame.origin.y = v23;
-    self->_maximumModalPresentationFrame.size.width = v24;
-    self->_maximumModalPresentationFrame.size.height = v25;
+    v22.n128_f64[0] = v5;
+    v23.n128_f64[0] = v7;
+    v24.n128_f64[0] = v9;
+    v25.n128_f64[0] = v11;
+    PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v26, v27, v22, v23, v24, v25, v28);
+    self->_maximumModalPresentationFrame.origin.x = v29;
+    self->_maximumModalPresentationFrame.origin.y = v30;
+    self->_maximumModalPresentationFrame.size.width = v31;
+    self->_maximumModalPresentationFrame.size.height = v32;
   }
 
   else
   {
-    v73.origin.x = v5;
-    v73.origin.y = v7;
-    v73.size.width = v9;
-    v73.size.height = v11;
-    CGRectDivide(v73, &slice, &remainder, fmax(v13, self->_statusBarFrame.size.height), CGRectMinYEdge);
-    v26 = remainder.size;
+    v96.origin.x = v5;
+    v96.origin.y = v7;
+    v96.size.width = v9;
+    v96.size.height = v11;
+    CGRectDivide(v96, &slice, &remainder, fmax(v13, self->_statusBarFrame.size.height), CGRectMinYEdge);
+    v33 = remainder.size;
     self->_maximumModalPresentationFrame.origin = remainder.origin;
-    self->_maximumModalPresentationFrame.size = v26;
+    self->_maximumModalPresentationFrame.size = v33;
   }
 
   view2 = [(PKCompactNavigationContainedNavigationWrapperViewController *)self->_presentationContextVC view];
-  v28 = *&self->_topVCInfo.minimumNavigationHeight;
-  v69[0] = self->_topVCInfo.preferredContentSize;
-  v69[1] = v28;
-  [(PKCompactNavigationContainerController *)self _targetNavigationControllerFrameForInfo:v69];
-  v30 = v29;
-  v32 = v31;
-  v34 = v33;
-  v36 = v35;
+  v35 = *&self->_topVCInfo.minimumNavigationHeight;
+  v92[0] = self->_topVCInfo.preferredContentSize;
+  v92[1] = v35;
+  [(PKCompactNavigationContainerController *)self _targetNavigationControllerFrameForInfo:v92];
+  v37 = v36;
+  v39 = v38;
+  v41 = v40;
+  v43 = v42;
   [(UIView *)self->_maskingContainerView setFrame:?];
   [(UIView *)self->_maskingContainerView bounds];
   [view2 setFrame:?];
-  [view2 convertRect:view fromView:{v30, v32, v34, v36}];
+  [view2 convertRect:view fromView:{v37, v39, v41, v43}];
+  v45 = v44;
+  v47 = v46;
+  v49 = v48;
+  v79 = v50;
   if (self->_topVCIsExpectedClass)
   {
-    [(UIViewController *)self->_topVC setTargetNavigationHeight:v36];
+    [(UIViewController *)self->_topVC setTargetNavigationHeight:v43];
     if (self->_topVCIsInInitialLayout)
     {
       self->_topVCIsInInitialLayout = 1;
@@ -431,56 +440,62 @@ uint64_t __50__PKCompactNavigationContainerController_loadView__block_invoke(uin
       }
     }
 
-    v68[0] = MEMORY[0x1E69E9820];
-    v68[1] = 3221225472;
-    v68[2] = __64__PKCompactNavigationContainerController_viewWillLayoutSubviews__block_invoke;
-    v68[3] = &unk_1E8010970;
-    v68[4] = self;
-    [MEMORY[0x1E69DD250] performWithoutAnimation:v68];
+    v91[0] = MEMORY[0x1E69E9820];
+    v91[1] = 3221225472;
+    v91[2] = __64__PKCompactNavigationContainerController_viewWillLayoutSubviews__block_invoke;
+    v91[3] = &unk_1E8010970;
+    v91[4] = self;
+    [MEMORY[0x1E69DD250] performWithoutAnimation:v91];
   }
 
 LABEL_16:
   view3 = [(PKCompactNavigationContainedNavigationController *)self->_containedNavigationController view];
   [view3 frame];
-  v40 = v39;
-  v42 = v41;
-  v44 = v43;
-  v46 = v45;
-  PKSizeAlignedInRect();
-  v48 = v47;
-  v50 = v49;
-  v52 = v51;
   v54 = v53;
-  v74.origin.x = v40;
-  v74.origin.y = v42;
-  v74.size.width = v44;
-  v74.size.height = v46;
-  v75.origin.x = v48;
-  v75.origin.y = v50;
-  v75.size.width = v52;
-  v75.size.height = v54;
-  if (!CGRectEqualToRect(v74, v75))
+  v56 = v55;
+  v58 = v57;
+  v60 = v59;
+  v61.n128_f64[0] = v41;
+  v62.n128_u64[0] = v80;
+  v63.n128_u64[0] = v45;
+  v64.n128_u64[0] = v47;
+  v65.n128_u64[0] = v49;
+  v66.n128_u64[0] = v79;
+  PKSizeAlignedInRect(1, v61, v62, v63, v64, v65, v66, v67);
+  v69 = v68;
+  v71 = v70;
+  v73 = v72;
+  v75 = v74;
+  v97.origin.x = v54;
+  v97.origin.y = v56;
+  v97.size.width = v58;
+  v97.size.height = v60;
+  v98.origin.x = v69;
+  v98.origin.y = v71;
+  v98.size.width = v73;
+  v98.size.height = v75;
+  if (!CGRectEqualToRect(v97, v98))
   {
-    if (!self->_presentingNavigationController || v44 == *MEMORY[0x1E695F060] && v46 == *(MEMORY[0x1E695F060] + 8))
+    if (!self->_presentingNavigationController || v58 == *MEMORY[0x1E695F060] && v60 == *(MEMORY[0x1E695F060] + 8))
     {
-      v55 = MEMORY[0x1E69DD250];
-      v58[0] = MEMORY[0x1E69E9820];
-      v58[1] = 3221225472;
-      v58[2] = __64__PKCompactNavigationContainerController_viewWillLayoutSubviews__block_invoke_2;
-      v58[3] = &unk_1E801FCD8;
-      v59 = view3;
-      v60 = v40;
-      v61 = v42;
-      v62 = v44;
-      v63 = v46;
-      v64 = v48;
-      v65 = v50;
-      v66 = v52;
-      v67 = v54;
-      [v55 performWithoutAnimation:v58];
+      v76 = MEMORY[0x1E69DD250];
+      v81[0] = MEMORY[0x1E69E9820];
+      v81[1] = 3221225472;
+      v81[2] = __64__PKCompactNavigationContainerController_viewWillLayoutSubviews__block_invoke_2;
+      v81[3] = &unk_1E801FCD8;
+      v82 = view3;
+      v83 = v54;
+      v84 = v56;
+      v85 = v58;
+      v86 = v60;
+      v87 = v69;
+      v88 = v71;
+      v89 = v73;
+      v90 = v75;
+      [v76 performWithoutAnimation:v81];
     }
 
-    [view3 setFrame:{v48, v50, v52, v54}];
+    [view3 setFrame:{v69, v71, v73, v75}];
   }
 }
 
@@ -534,32 +549,51 @@ uint64_t __64__PKCompactNavigationContainerController_viewWillLayoutSubviews__bl
     v17 = v16;
     v19 = v18;
     [v11 safeAreaInsets];
-    v42 = v20;
+    v57 = v26.n128_f64[0];
     size = self->_maximumModalPresentationFrame.size;
     remainder.origin = self->_maximumModalPresentationFrame.origin;
     remainder.size = size;
+    v26.n128_u64[1] = 0;
     memset(&slice, 0, sizeof(slice));
     if (self->_centeredCard)
     {
-      PKSizeAlignedInRect();
-      slice.origin.x = v22;
-      slice.origin.y = v23;
-      slice.size.width = v24;
-      slice.size.height = v25;
+      v20.n128_u64[0] = *&remainder.origin.x;
+      v21.n128_u64[0] = *&remainder.origin.y;
+      v22.n128_u64[0] = *&remainder.size.width;
+      v23.n128_u64[0] = *&remainder.size.height;
+      v26.n128_u64[0] = v7;
+      size.n128_f64[0] = v9;
+      PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v26, size, v20, v21, v22, v23, v24);
+      v30.n128_u64[0] = v27.n128_u64[0];
+      v31.n128_u64[0] = v33.n128_u64[0];
+      v32.n128_u64[0] = v28.n128_u64[0];
+      v33.n128_u64[0] = v29.n128_u64[0];
+      *&slice.origin.x = v27.n128_u64[0];
+      *&slice.origin.y = v31.n128_u64[0];
+      *&slice.size.width = v28.n128_u64[0];
+      *&slice.size.height = v29.n128_u64[0];
     }
 
     else
     {
       CGRectDivide(remainder, &slice, &remainder, v9, CGRectMaxYEdge);
+      v30.n128_u64[0] = *&slice.origin.x;
+      v31.n128_u64[0] = *&slice.origin.y;
+      v32.n128_u64[0] = *&slice.size.width;
+      v33.n128_u64[0] = *&slice.size.height;
     }
 
-    PKSizeAlignedInRect();
-    v27 = v29;
-    v7 = v30;
-    v9 = v31;
+    v27.n128_u64[0] = v7;
+    v28.n128_u64[0] = v30.n128_u64[0];
+    v29.n128_u64[0] = v31.n128_u64[0];
+    v31.n128_u64[0] = v33.n128_u64[0];
+    PKSizeAlignedInRect(1, v27, v33, v28, v29, v32, v31, v30);
+    v35 = v37;
+    v7 = v38;
+    v9 = v39;
     if (self->_presentingNavigationController)
     {
-      MaxY = v28;
+      MaxY = v36;
       if (self->_centeredCard)
       {
         p_lastKeyboardFrame = &self->_lastKeyboardFrame;
@@ -569,47 +603,53 @@ uint64_t __64__PKCompactNavigationContainerController_viewWillLayoutSubviews__bl
           remainder.origin.y = v15;
           remainder.size.width = v17;
           remainder.size.height = v19;
-          v45.origin.x = v13;
-          v45.origin.y = v15;
-          v45.size.width = v17;
-          v45.size.height = v19;
-          v33 = fmax(CGRectGetMaxY(v45) - p_lastKeyboardFrame->origin.y, 0.0);
-          CGRectDivide(remainder, &remainder, &slice, v33, CGRectMaxYEdge);
-          PKSizeAlignedInRect();
-          v27 = v34;
-          MaxY = v35;
-          v7 = v36;
-          v9 = v37;
+          v60.origin.x = v13;
+          v60.origin.y = v15;
+          v60.size.width = v17;
+          v60.size.height = v19;
+          v41 = fmax(CGRectGetMaxY(v60) - p_lastKeyboardFrame->origin.y, 0.0);
+          CGRectDivide(remainder, &remainder, &slice, v41, CGRectMaxYEdge);
+          v42.n128_u64[0] = *&slice.origin.x;
+          v43.n128_u64[0] = *&slice.origin.y;
+          v44.n128_u64[0] = *&slice.size.width;
+          v45.n128_u64[0] = *&slice.size.height;
+          v46.n128_u64[0] = v7;
+          v47.n128_f64[0] = v9;
+          PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v46, v47, v42, v43, v44, v45, v48);
+          v35 = v49;
+          MaxY = v50;
+          v7 = v51;
+          v9 = v52;
         }
 
-        MaxY = fmax(v15 + v42, MaxY);
+        MaxY = fmax(v15 + v57, MaxY);
       }
     }
 
     else
     {
-      v46.origin.x = v13;
-      v46.origin.y = v15;
-      v46.size.width = v17;
-      v46.size.height = v19;
-      MaxY = CGRectGetMaxY(v46);
+      v61.origin.x = v13;
+      v61.origin.y = v15;
+      v61.size.width = v17;
+      v61.size.height = v19;
+      MaxY = CGRectGetMaxY(v61);
     }
   }
 
   else
   {
-    v27 = *MEMORY[0x1E695EFF8];
+    v35 = *MEMORY[0x1E695EFF8];
     MaxY = *(MEMORY[0x1E695EFF8] + 8);
   }
 
-  v38 = v27;
-  v39 = MaxY;
-  v40 = v7;
-  v41 = v9;
-  result.size.height = v41;
-  result.size.width = v40;
-  result.origin.y = v39;
-  result.origin.x = v38;
+  v53 = v35;
+  v54 = MaxY;
+  v55 = *&v7;
+  v56 = v9;
+  result.size.height = v56;
+  result.size.width = v55;
+  result.origin.y = v54;
+  result.origin.x = v53;
   return result;
 }
 
@@ -635,7 +675,17 @@ uint64_t __64__PKCompactNavigationContainerController_viewWillLayoutSubviews__bl
 
 - (CGSize)childViewControllerPreferredContentSizeForSize:(CGSize)size isRoot:(BOOL)root
 {
-  PKSizeRoundToPixel();
+  if (size.width <= 0.0)
+  {
+    size.width = self->_topVCInfo.preferredContentSize.width;
+  }
+
+  if (size.height <= 0.0)
+  {
+    size.height = self->_topVCInfo.preferredContentSize.height;
+  }
+
+  PKSizeRoundToPixel(size.width, size.height);
   result.height = v5;
   result.width = v4;
   return result;
@@ -821,7 +871,7 @@ uint64_t __64__PKCompactNavigationContainerController_viewWillLayoutSubviews__bl
     self->_deferredContentSizeUpdate = 0;
     v15 = 0;
     v16 = 0u;
-    [(PKCompactNavigationContainerController *)self _infoForViewController:self->_topVC];
+    objc_msgSend__infoForViewController_(self, a2, self->_topVC);
     v8 = self->_updateChildViewControllerSizeCounter + 1;
     self->_updateChildViewControllerSizeCounter = v8;
     if (update || (self->_topVCInfo.preferredContentSize.width == v15.width ? (v9 = self->_topVCInfo.preferredContentSize.height == v15.height) : (v9 = 0), !v9 || self->_topVCInfo.minimumNavigationHeight != *&v16 || self->_topVCInfo.isRoot != BYTE8(v16)))
@@ -874,12 +924,12 @@ uint64_t __64__PKCompactNavigationContainerController_viewWillLayoutSubviews__bl
   }
 }
 
-uint64_t __81__PKCompactNavigationContainerController__updateTopViewControllerAsync_animated___block_invoke(uint64_t result)
+unsigned __int8 *__81__PKCompactNavigationContainerController__updateTopViewControllerAsync_animated___block_invoke(unsigned __int8 *result)
 {
-  v1 = *(result + 32);
-  if (*(v1 + 1160) == *(result + 40))
+  v1 = *(result + 4);
+  if (*(v1 + 1160) == *(result + 5))
   {
-    return [*(result + 32) _updateTopViewController:*(v1 + 1152) animated:*(result + 48)];
+    return [*(result + 4) _updateTopViewController:*(v1 + 1152) animated:result[48]];
   }
 
   return result;

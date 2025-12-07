@@ -68,7 +68,7 @@
 - (void)viewDidLayoutSubviews
 {
   selfCopy = self;
-  sub_23BFD5D88();
+  sub_23BFD5D88(v2);
 }
 
 - (id)_sectionForEditOptionCollection:(id)collection
@@ -98,20 +98,20 @@
 - (NSString)reasonFaceCanNotBeAddedToLibrary
 {
   selfCopy = self;
-  sub_23BFD672C();
-  v4 = v3;
+  sub_23BFD672C(v3);
+  v5 = v4;
 
-  if (v4)
+  if (v5)
   {
-    v5 = sub_23BFFA2C0();
+    v6 = sub_23BFFA2C0();
   }
 
   else
   {
-    v5 = 0;
+    v6 = 0;
   }
 
-  return v5;
+  return v6;
 }
 
 - (void)showLoadingIndicatorWithProgress:(double)progress

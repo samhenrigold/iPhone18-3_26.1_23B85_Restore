@@ -179,7 +179,7 @@ LABEL_12:
         break;
       }
 
-      [(WKDataListSuggestionsControl *)self suggestionAtIndex:v4];
+      objc_msgSend_suggestionAtIndex_(self);
       v6 = v26;
       if (!v26)
       {
@@ -231,7 +231,7 @@ LABEL_18:
         goto LABEL_18;
       }
 
-      [(WKDataListSuggestionsControl *)self suggestionLabelAtIndex:v4];
+      objc_msgSend_suggestionLabelAtIndex_(self);
       v14 = v27;
       if (v27)
       {

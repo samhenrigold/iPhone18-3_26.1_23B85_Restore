@@ -27,33 +27,35 @@
 
 - (BOOL)publishReportForCase:(id)case options:(id)options
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   caseCopy = case;
-  if ([caseCopy dampeningType] == -1)
+  dampeningType = [caseCopy dampeningType];
+  if (dampeningType == -1)
   {
-    dictionary = diagcaseLogHandle();
+    dictionary = diagcaseLogHandle(dampeningType);
     if (os_log_type_enabled(dictionary, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v31 = "Skip publishing report to CrashReporter since this is a transient case.";
+      v35 = "Skip publishing report to CrashReporter since this is a transient case.";
 LABEL_18:
-      _os_log_impl(&dword_241804000, dictionary, OS_LOG_TYPE_DEFAULT, v31, buf, 2u);
+      _os_log_impl(&dword_241804000, dictionary, OS_LOG_TYPE_DEFAULT, v35, buf, 2u);
     }
   }
 
   else
   {
     writeIPSFile = [caseCopy writeIPSFile];
-    v7 = diagcaseLogHandle();
-    dictionary = v7;
-    if (writeIPSFile)
+    v8 = writeIPSFile;
+    v9 = diagcaseLogHandle(writeIPSFile);
+    dictionary = v9;
+    if (v8)
     {
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
         caseId = [caseCopy caseId];
         uUIDString = [caseId UUIDString];
         *buf = 138412290;
-        v41 = uUIDString;
+        v44 = uUIDString;
         _os_log_impl(&dword_241804000, dictionary, OS_LOG_TYPE_DEBUG, "Publishing report of case %@ to CrashReporter", buf, 0xCu);
       }
 
@@ -67,11 +69,11 @@ LABEL_18:
       attachments = [caseCopy attachments];
       [dictionary setObject:attachments forKeyedSubscript:@"attachments"];
 
-      v14 = MEMORY[0x277CBEAC0];
+      v16 = MEMORY[0x277CBEAC0];
       caseDampeningTypeString = [caseCopy caseDampeningTypeString];
       caseClosureTypeString = [caseCopy caseClosureTypeString];
-      v17 = [v14 dictionaryWithObjectsAndKeys:{caseDampeningTypeString, @"dampening_type", caseClosureTypeString, @"closure_type", 0}];
-      [dictionary setObject:v17 forKeyedSubscript:@"case_status"];
+      v19 = [v16 dictionaryWithObjectsAndKeys:{caseDampeningTypeString, @"dampening_type", caseClosureTypeString, @"closure_type", 0}];
+      [dictionary setObject:v19 forKeyedSubscript:@"case_status"];
 
       dictionary2 = [MEMORY[0x277CBEB38] dictionary];
       caseId2 = [caseCopy caseId];
@@ -85,68 +87,70 @@ LABEL_18:
       }
 
       [caseCopy caseOpenedTime];
-      if (v23 != 0.0)
+      if (v25 != 0.0)
       {
-        v24 = MEMORY[0x277CCABB0];
+        v26 = MEMORY[0x277CCABB0];
         [caseCopy caseOpenedTime];
-        v25 = [v24 numberWithDouble:?];
-        [dictionary2 setObject:v25 forKey:@"triggerTime"];
+        v27 = [v26 numberWithDouble:?];
+        [dictionary2 setObject:v27 forKey:@"triggerTime"];
       }
 
       [dictionary setObject:dictionary2 forKeyedSubscript:@"case_header"];
-      v26 = sanitizedJSONCollectionObject(dictionary, 1);
-      if (![MEMORY[0x277CCAAA0] isValidJSONObject:v26])
+      v28 = sanitizedJSONCollectionObject(dictionary, 1);
+      v29 = [MEMORY[0x277CCAAA0] isValidJSONObject:v28];
+      if (!v29)
       {
-        v28 = diagcaseLogHandle();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+        v32 = diagcaseLogHandle(v29);
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412546;
-          v41 = caseCopy;
-          v42 = 2112;
-          v43 = v26;
-          _os_log_impl(&dword_241804000, v28, OS_LOG_TYPE_ERROR, "CrashReport content dictionary for case %@ is not JSON compatible. (content=%@)", buf, 0x16u);
+          v44 = caseCopy;
+          v45 = 2112;
+          v46 = v28;
+          _os_log_impl(&dword_241804000, v32, OS_LOG_TYPE_ERROR, "CrashReport content dictionary for case %@ is not JSON compatible. (content=%@)", buf, 0x16u);
         }
 
-        v30 = 0;
+        v34 = 0;
         goto LABEL_27;
       }
 
-      v39 = 0;
-      v27 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v26 options:0 error:&v39];
-      v28 = v39;
-      if (v28)
+      v42 = 0;
+      v30 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v28 options:0 error:&v42];
+      v31 = v42;
+      v32 = v31;
+      if (v31)
       {
-        v29 = diagcaseLogHandle();
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+        v33 = diagcaseLogHandle(v31);
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412802;
-          v41 = caseCopy;
-          v42 = 2112;
-          v43 = v28;
-          v44 = 2112;
-          v45 = v26;
-          _os_log_impl(&dword_241804000, v29, OS_LOG_TYPE_ERROR, "Failed JSON serialization of CrashReport content dictionary for case %@: %@ (content=%@)", buf, 0x20u);
+          v44 = caseCopy;
+          v45 = 2112;
+          v46 = v32;
+          v47 = 2112;
+          v48 = v28;
+          _os_log_impl(&dword_241804000, v33, OS_LOG_TYPE_ERROR, "Failed JSON serialization of CrashReport content dictionary for case %@: %@ (content=%@)", buf, 0x20u);
         }
 
-        v30 = 0;
+        v34 = 0;
       }
 
       else
       {
-        if (!v27)
+        if (!v30)
         {
-          v30 = 0;
+          v34 = 0;
           goto LABEL_26;
         }
 
         signature2 = [caseCopy signature];
-        v32 = [signature2 objectForKeyedSubscript:@"domain"];
+        v36 = [signature2 objectForKeyedSubscript:@"domain"];
         signature3 = [caseCopy signature];
-        v34 = [signature3 objectForKeyedSubscript:@"detected"];
-        v29 = [(CrashReportOutlet *)self descriptiveFilenameWithPrefix:@"AutoBugCapture" domain:v32 process:v34];
+        v38 = [signature3 objectForKeyedSubscript:@"detected"];
+        v33 = [(CrashReportOutlet *)self descriptiveFilenameWithPrefix:@"AutoBugCapture" domain:v36 process:v38];
 
-        v38 = v27;
-        v30 = OSAWriteLogForSubmission();
+        v41 = v30;
+        v34 = OSAWriteLogForSubmission();
       }
 
 LABEL_26:
@@ -155,19 +159,18 @@ LABEL_27:
       goto LABEL_28;
     }
 
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v31 = "Skip publishing report to CrashReporter since we surpassed the daily file count limit.";
+      v35 = "Skip publishing report to CrashReporter since we surpassed the daily file count limit.";
       goto LABEL_18;
     }
   }
 
-  v30 = 0;
+  v34 = 0;
 LABEL_28:
 
-  v35 = *MEMORY[0x277D85DE8];
-  return v30;
+  return v34;
 }
 
 @end

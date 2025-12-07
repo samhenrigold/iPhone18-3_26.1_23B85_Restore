@@ -5,6 +5,7 @@
 - (HFAccessoryNetworkInfoItem)initWithAccessory:(id)accessory home:(id)home;
 - (id)_currentDeviceNetworkSSID;
 - (id)_extractWiFiInfo:(id)info;
+- (id)_getSignalStrengthIcon:(id)icon forFastUpdate:(BOOL)update;
 - (id)_localizedDescriptionForType:(unint64_t)type;
 - (id)_localizedTitleForType:(unint64_t)type;
 - (id)_subclass_updateWithOptions:(id)options;
@@ -45,8 +46,8 @@
 - (BOOL)supportsWiFiStrengthDisplay
 {
   accessory = [(HFAccessoryInfoItem *)self accessory];
-  home = [accessory home];
-  hf_currentUserIsAdministrator = [home hf_currentUserIsAdministrator];
+  v4 = objc_msgSend_home(accessory);
+  hf_currentUserIsAdministrator = [v4 hf_currentUserIsAdministrator];
 
   if (!hf_currentUserIsAdministrator)
   {
@@ -88,40 +89,38 @@ LABEL_8:
 
 - (id)_subclass_updateWithOptions:(id)options
 {
-  v23[2] = *MEMORY[0x277D85DE8];
+  v22[2] = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   objc_initWeak(&location, self);
-  v21.receiver = self;
-  v21.super_class = HFAccessoryNetworkInfoItem;
-  v6 = [(HFAccessoryInfoItem *)&v21 _subclass_updateWithOptions:optionsCopy];
-  v23[0] = v6;
+  v20.receiver = self;
+  v20.super_class = HFAccessoryNetworkInfoItem;
+  v6 = [(HFAccessoryInfoItem *)&v20 _subclass_updateWithOptions:optionsCopy];
+  v22[0] = v6;
   _updateAccessoryWifiInfo = [(HFAccessoryNetworkInfoItem *)self _updateAccessoryWifiInfo];
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __58__HFAccessoryNetworkInfoItem__subclass_updateWithOptions___block_invoke;
-  v20[3] = &unk_277DF3FD0;
-  v20[4] = self;
-  v8 = [_updateAccessoryWifiInfo flatMap:v20];
-  v23[1] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __58__HFAccessoryNetworkInfoItem__subclass_updateWithOptions___block_invoke;
+  v19[3] = &unk_277DF3FD0;
+  v19[4] = self;
+  v8 = [_updateAccessoryWifiInfo flatMap:v19];
+  v22[1] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
 
   v10 = MEMORY[0x277D2C900];
   immediateScheduler = [MEMORY[0x277D2C938] immediateScheduler];
   v12 = [v10 combineAllFutures:v9 scheduler:immediateScheduler];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __58__HFAccessoryNetworkInfoItem__subclass_updateWithOptions___block_invoke_2;
-  v17[3] = &unk_277DF8750;
-  objc_copyWeak(v19, &location);
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __58__HFAccessoryNetworkInfoItem__subclass_updateWithOptions___block_invoke_2;
+  v16[3] = &unk_277DF8750;
+  objc_copyWeak(v18, &location);
   v13 = optionsCopy;
-  v18 = v13;
-  v19[1] = a2;
-  v14 = [v12 flatMap:v17];
+  v17 = v13;
+  v18[1] = a2;
+  v14 = [v12 flatMap:v16];
 
-  objc_destroyWeak(v19);
+  objc_destroyWeak(v18);
   objc_destroyWeak(&location);
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -166,7 +165,7 @@ id __58__HFAccessoryNetworkInfoItem__subclass_updateWithOptions___block_invoke_2
   [v8 setObject:v10 forKeyedSubscript:@"description"];
 
   LOBYTE(v10) = [WeakRetained _hiddenForType:{objc_msgSend(WeakRetained, "networkInfoType")}];
-  v11 = [WeakRetained home];
+  v11 = objc_msgSend_home(WeakRetained);
   LOBYTE(v10) = [v11 hf_currentUserIsRestrictedGuest] | v10;
 
   v12 = [MEMORY[0x277CCABB0] numberWithBool:v10 & 1];
@@ -240,20 +239,20 @@ uint64_t __58__HFAccessoryNetworkInfoItem__subclass_updateWithOptions___block_in
 
 id __58__HFAccessoryNetworkInfoItem__subclass_updateWithOptions___block_invoke_4(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = HFLogForCategory(0);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
     v6 = NSStringFromSelector(*(a1 + 48));
-    v13 = 138412802;
-    v14 = v5;
-    v15 = 2112;
-    v16 = v6;
-    v17 = 2112;
-    v18 = v3;
-    _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "%@:%@ Failed to get wifiInfo with error %@", &v13, 0x20u);
+    v12 = 138412802;
+    v13 = v5;
+    v14 = 2112;
+    v15 = v6;
+    v16 = 2112;
+    v17 = v3;
+    _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "%@:%@ Failed to get wifiInfo with error %@", &v12, 0x20u);
   }
 
   v7 = *(a1 + 32);
@@ -262,8 +261,6 @@ id __58__HFAccessoryNetworkInfoItem__subclass_updateWithOptions___block_invoke_4
   [*(a1 + 40) setObject:v9 forKeyedSubscript:@"icon"];
 
   v10 = [MEMORY[0x277D2C900] futureWithResult:*(a1 + 40)];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -406,6 +403,34 @@ LABEL_9:
   }
 
   return v6;
+}
+
+- (id)_getSignalStrengthIcon:(id)icon forFastUpdate:(BOOL)update
+{
+  updateCopy = update;
+  v6 = MEMORY[0x277D755D0];
+  v7 = MEMORY[0x277D75348];
+  iconCopy = icon;
+  systemGrayColor = [v7 systemGrayColor];
+  v10 = [v6 configurationWithHierarchicalColor:systemGrayColor];
+
+  v11 = [MEMORY[0x277D755D0] configurationWithTextStyle:*MEMORY[0x277D76918]];
+  v12 = [v11 configurationByApplyingConfiguration:v10];
+  v13 = [(HFAccessoryNetworkInfoItem *)self _getWiFiStrength:iconCopy forFastUpdate:updateCopy];
+
+  if (v13 == -1)
+  {
+    v14 = [[HFImageIconDescriptor alloc] initWithSystemImageNamed:@"wifi.exclamationmark" configuration:v12];
+  }
+
+  else
+  {
+    v14 = [[HFVariableImageIconDescriptor alloc] initWithSystemImageNamed:@"wifi" variableValue:v12 configuration:v13 / 3.0];
+  }
+
+  v15 = v14;
+
+  return v15;
 }
 
 - (int64_t)_getWiFiStrength:(id)strength forFastUpdate:(BOOL)update
@@ -576,7 +601,7 @@ LABEL_9:
 
 id __54__HFAccessoryNetworkInfoItem__updateAccessoryWifiInfo__block_invoke(uint64_t a1, void *a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (v3 && [v3 count])
@@ -593,56 +618,52 @@ id __54__HFAccessoryNetworkInfoItem__updateAccessoryWifiInfo__block_invoke(uint6
     v9 = [WeakRetained accessory];
     v10 = [v9 uniqueIdentifier];
     v11 = [WeakRetained wifiInfo];
-    v15 = 138413570;
-    v16 = WeakRetained;
-    v17 = 2112;
-    v18 = v6;
-    v19 = 2112;
-    v20 = v8;
-    v21 = 2112;
-    v22 = v10;
-    v23 = 2112;
-    v24 = v3;
-    v25 = 2112;
-    v26 = v11;
-    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "%@:%@ received result for accessory %@[%@]: result: %@, wifiInfo: %@", &v15, 0x3Eu);
+    v14 = 138413570;
+    v15 = WeakRetained;
+    v16 = 2112;
+    v17 = v6;
+    v18 = 2112;
+    v19 = v8;
+    v20 = 2112;
+    v21 = v10;
+    v22 = 2112;
+    v23 = v3;
+    v24 = 2112;
+    v25 = v11;
+    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "%@:%@ received result for accessory %@[%@]: result: %@, wifiInfo: %@", &v14, 0x3Eu);
   }
 
   v12 = [MEMORY[0x277D2C900] futureWithResult:v3];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
 
 id __54__HFAccessoryNetworkInfoItem__updateAccessoryWifiInfo__block_invoke_55(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = HFLogForCategory(0);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
     v6 = NSStringFromSelector(*(a1 + 40));
-    v10 = 138412802;
-    v11 = v5;
-    v12 = 2112;
-    v13 = v6;
-    v14 = 2112;
-    v15 = v3;
-    _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "%@:%@ _extractWifiInfo failed with error: %@", &v10, 0x20u);
+    v9 = 138412802;
+    v10 = v5;
+    v11 = 2112;
+    v12 = v6;
+    v13 = 2112;
+    v14 = v3;
+    _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "%@:%@ _extractWifiInfo failed with error: %@", &v9, 0x20u);
   }
 
   v7 = [MEMORY[0x277D2C900] futureWithResult:MEMORY[0x277CBEC10]];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
 - (id)_extractWiFiInfo:(id)info
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   if ([infoCopy hf_isHomePod])
   {
@@ -659,10 +680,10 @@ id __54__HFAccessoryNetworkInfoItem__updateAccessoryWifiInfo__block_invoke_55(ui
         v11 = NSStringFromSelector(a2);
         *buf = 138412802;
         selfCopy3 = self;
-        v32 = 2112;
-        v33 = v11;
-        v34 = 2112;
-        v35 = mediaProfile;
+        v31 = 2112;
+        v32 = v11;
+        v33 = 2112;
+        v34 = mediaProfile;
         _os_log_impl(&dword_20D9BF000, v10, OS_LOG_TYPE_DEFAULT, "%@:%@ Preparing to send extract WiFi message to accessory: %@", buf, 0x20u);
       }
 
@@ -673,16 +694,16 @@ id __54__HFAccessoryNetworkInfoItem__updateAccessoryWifiInfo__block_invoke_55(ui
     {
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        v24 = NSStringFromSelector(a2);
-        v25 = [MEMORY[0x277CCA9B8] hf_errorWithCode:25];
+        v23 = NSStringFromSelector(a2);
+        v24 = [MEMORY[0x277CCA9B8] hf_errorWithCode:25];
         *buf = 138413058;
         selfCopy3 = self;
-        v32 = 2112;
-        v33 = v24;
-        v34 = 2112;
-        v35 = infoCopy;
-        v36 = 2112;
-        v37 = v25;
+        v31 = 2112;
+        v32 = v23;
+        v33 = 2112;
+        v34 = infoCopy;
+        v35 = 2112;
+        v36 = v24;
         _os_log_error_impl(&dword_20D9BF000, v10, OS_LOG_TYPE_ERROR, "%@:%@ Device options adapter missing for accessory %@: %@", buf, 0x2Au);
       }
 
@@ -705,24 +726,24 @@ id __54__HFAccessoryNetworkInfoItem__updateAccessoryWifiInfo__block_invoke_55(ui
         v17 = NSStringFromSelector(a2);
         *buf = 138412802;
         selfCopy3 = self;
-        v32 = 2112;
-        v33 = v17;
-        v34 = 2112;
-        v35 = infoCopy;
+        v31 = 2112;
+        v32 = v17;
+        v33 = 2112;
+        v34 = infoCopy;
         _os_log_impl(&dword_20D9BF000, v16, OS_LOG_TYPE_DEFAULT, "%@:%@ Preparing to call extract WiFi api to homekit for accessory: %@", buf, 0x20u);
       }
 
-      v26[0] = MEMORY[0x277D85DD0];
-      v26[1] = 3221225472;
-      v26[2] = __47__HFAccessoryNetworkInfoItem__extractWiFiInfo___block_invoke;
-      v26[3] = &unk_277DF87C8;
-      v26[4] = self;
-      v29 = a2;
-      v27 = infoCopy;
+      v25[0] = MEMORY[0x277D85DD0];
+      v25[1] = 3221225472;
+      v25[2] = __47__HFAccessoryNetworkInfoItem__extractWiFiInfo___block_invoke;
+      v25[3] = &unk_277DF87C8;
+      v25[4] = self;
+      v28 = a2;
+      v26 = infoCopy;
       v18 = v15;
-      v28 = v18;
-      [v27 queryLinkQualityWithCompletion:v26];
-      v19 = v28;
+      v27 = v18;
+      [v26 queryLinkQualityWithCompletion:v25];
+      v19 = v27;
       v20 = v18;
     }
 
@@ -733,14 +754,12 @@ id __54__HFAccessoryNetworkInfoItem__updateAccessoryWifiInfo__block_invoke_55(ui
     }
   }
 
-  v22 = *MEMORY[0x277D85DE8];
-
   return v20;
 }
 
 void __47__HFAccessoryNetworkInfoItem__extractWiFiInfo___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -751,17 +770,17 @@ void __47__HFAccessoryNetworkInfoItem__extractWiFiInfo___block_invoke(uint64_t a
       v8 = *(a1 + 32);
       v9 = NSStringFromSelector(*(a1 + 56));
       v10 = *(a1 + 40);
-      v20 = 138413058;
-      v21 = v8;
-      v22 = 2112;
-      v23 = v9;
-      v24 = 2112;
-      v25 = v10;
-      v26 = 2112;
-      v27 = v6;
+      v19 = 138413058;
+      v20 = v8;
+      v21 = 2112;
+      v22 = v9;
+      v23 = 2112;
+      v24 = v10;
+      v25 = 2112;
+      v26 = v6;
       v11 = "%@:%@ Failed to extract WiFi info for accessory: %@ error: %@";
 LABEL_8:
-      _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEFAULT, v11, &v20, 0x2Au);
+      _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEFAULT, v11, &v19, 0x2Au);
 
       goto LABEL_9;
     }
@@ -777,14 +796,14 @@ LABEL_8:
       v17 = *(a1 + 32);
       v9 = NSStringFromSelector(*(a1 + 56));
       v18 = *(a1 + 40);
-      v20 = 138413058;
-      v21 = v17;
-      v22 = 2112;
-      v23 = v9;
-      v24 = 2112;
-      v25 = v18;
-      v26 = 2112;
-      v27 = 0;
+      v19 = 138413058;
+      v20 = v17;
+      v21 = 2112;
+      v22 = v9;
+      v23 = 2112;
+      v24 = v18;
+      v25 = 2112;
+      v26 = 0;
       v11 = "%@:%@ WiFi info is not supported for accessory: %@ error: %@";
       goto LABEL_8;
     }
@@ -810,13 +829,11 @@ LABEL_9:
 
   [*(a1 + 48) finishWithResult:v12];
 LABEL_10:
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_currentDeviceNetworkSSID
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   forceCurrentDeviceNetworkSSID = [(HFAccessoryNetworkInfoItem *)self forceCurrentDeviceNetworkSSID];
 
   if (forceCurrentDeviceNetworkSSID)
@@ -835,24 +852,22 @@ LABEL_10:
       v8 = HFLogForCategory(0);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        v11 = NSStringFromSelector(a2);
+        v10 = NSStringFromSelector(a2);
         networkName2 = [v6 networkName];
-        v13 = 138413058;
+        v12 = 138413058;
         selfCopy = self;
-        v15 = 2112;
-        v16 = v11;
-        v17 = 2112;
-        v18 = v6;
-        v19 = 2112;
-        v20 = networkName2;
-        _os_log_error_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_ERROR, "%@:%@ Can't find WiFi network SSID name: interface = %@, name = %@", &v13, 0x2Au);
+        v14 = 2112;
+        v15 = v10;
+        v16 = 2112;
+        v17 = v6;
+        v18 = 2112;
+        v19 = networkName2;
+        _os_log_error_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_ERROR, "%@:%@ Can't find WiFi network SSID name: interface = %@, name = %@", &v12, 0x2Au);
       }
     }
 
     [v6 invalidate];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return forceCurrentDeviceNetworkSSID2;
 }
@@ -1013,8 +1028,8 @@ LABEL_13:
     if (type == 2)
     {
       accessory = [(HFAccessoryInfoItem *)self accessory];
-      home = [accessory home];
-      if (![home hf_isNetworkCredentialManagementEnabled])
+      v10 = objc_msgSend_home(accessory);
+      if (![v10 hf_isNetworkCredentialManagementEnabled])
       {
         accessory2 = [(HFAccessoryInfoItem *)self accessory];
         hf_hasManagedNetworkCredential = [accessory2 hf_hasManagedNetworkCredential];

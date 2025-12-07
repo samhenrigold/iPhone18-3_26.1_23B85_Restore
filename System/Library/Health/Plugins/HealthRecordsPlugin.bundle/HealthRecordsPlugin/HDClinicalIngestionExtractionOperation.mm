@@ -636,7 +636,7 @@ LABEL_17:
     v11 = HKLogHealthRecords;
     if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_DEBUG))
     {
-      sub_9D4C8(v11, self);
+      sub_9D4C8(v11, self, v10);
     }
   }
 

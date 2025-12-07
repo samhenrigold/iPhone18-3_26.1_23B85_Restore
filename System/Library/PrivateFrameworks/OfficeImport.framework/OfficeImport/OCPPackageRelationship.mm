@@ -45,7 +45,7 @@ LABEL_7:
         v11 = [objc_alloc(MEMORY[0x277CCAB68]) tc_initWithValueOfXmlAttribute:properties];
         if (([v11 isEqualToString:@"NULL"] & 1) == 0)
         {
-          [v11 replaceOccurrencesOfString:@"\\" withString:@"/" options:0 range:{0, objc_msgSend(v11, "length"")}];
+          [v11 replaceOccurrencesOfString:@"\ withString:@"/" options:0 range:{0, objc_msgSend(v11, "length"")}];
           v12 = [objc_alloc(MEMORY[0x277CBEBC0]) initWithString:v11 relativeToURL:locationCopy];
           mTargetLocation = self->mTargetLocation;
           self->mTargetLocation = v12;

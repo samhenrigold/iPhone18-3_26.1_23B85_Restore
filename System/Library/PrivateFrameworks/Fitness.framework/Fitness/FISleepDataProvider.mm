@@ -125,14 +125,14 @@
 
 - (void)_initialLoadSleepUserDay
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v3 = MEMORY[0x277CCC290];
   v4 = *MEMORY[0x277CCC290];
   if (os_log_type_enabled(*MEMORY[0x277CCC290], OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v23) = 0;
-    _os_log_impl(&dword_24B35E000, v4, OS_LOG_TYPE_DEFAULT, "Sleep data provider - initial load sleep user day", &v23, 2u);
+    LOWORD(v22) = 0;
+    _os_log_impl(&dword_24B35E000, v4, OS_LOG_TYPE_DEFAULT, "Sleep data provider - initial load sleep user day", &v22, 2u);
   }
 
   _fetchCachedSleepUserDay = [(FISleepDataProvider *)self _fetchCachedSleepUserDay];
@@ -155,11 +155,11 @@
   {
     v16 = v15;
     creationDate3 = [_fetchCachedSleepUserDay creationDate];
-    v23 = 138412546;
-    v24 = creationDate3;
-    v25 = 1024;
-    LODWORD(v26) = v14;
-    _os_log_impl(&dword_24B35E000, v16, OS_LOG_TYPE_DEFAULT, "Sleep data provider - cached sleep user day creation date %@; is valid %d", &v23, 0x12u);
+    v22 = 138412546;
+    v23 = creationDate3;
+    v24 = 1024;
+    LODWORD(v25) = v14;
+    _os_log_impl(&dword_24B35E000, v16, OS_LOG_TYPE_DEFAULT, "Sleep data provider - cached sleep user day creation date %@; is valid %d", &v22, 0x12u);
   }
 
   if (v14)
@@ -171,11 +171,11 @@
       v19 = v18;
       startOfDay = [_fetchCachedSleepUserDay startOfDay];
       endOfDay = [_fetchCachedSleepUserDay endOfDay];
-      v23 = 138412546;
-      v24 = startOfDay;
-      v25 = 2112;
-      v26 = endOfDay;
-      _os_log_impl(&dword_24B35E000, v19, OS_LOG_TYPE_DEFAULT, "Sleep data provider - cached sleep user day start of day (%@) end of day (%@)", &v23, 0x16u);
+      v22 = 138412546;
+      v23 = startOfDay;
+      v24 = 2112;
+      v25 = endOfDay;
+      _os_log_impl(&dword_24B35E000, v19, OS_LOG_TYPE_DEFAULT, "Sleep data provider - cached sleep user day start of day (%@) end of day (%@)", &v22, 0x16u);
     }
 
     if ([_fetchCachedSleepUserDay isEmpty])
@@ -193,13 +193,11 @@
   {
     [(FISleepDataProvider *)self _updateSleepUserDay];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateSleepUserDay
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v3 = MEMORY[0x277CCC290];
   v4 = *MEMORY[0x277CCC290];
@@ -213,9 +211,9 @@
   currentDate = [WeakRetained currentDate];
 
   sleepStore = self->_sleepStore;
-  v21 = 0;
-  v8 = [(HKSPSleepStore *)sleepStore nextEventDueAfterDate:currentDate error:&v21];
-  v9 = v21;
+  v20 = 0;
+  v8 = [(HKSPSleepStore *)sleepStore nextEventDueAfterDate:currentDate error:&v20];
+  v9 = v20;
   v10 = v9;
   if (!v8 || v9)
   {
@@ -226,9 +224,9 @@
       v16 = v15;
       localizedDescription = [v10 localizedDescription];
       *buf = 138412546;
-      v23 = v8;
-      v24 = 2112;
-      v25 = localizedDescription;
+      v22 = v8;
+      v23 = 2112;
+      v24 = localizedDescription;
       v18 = "Sleep data provider - did not find sleep event (%@) error (%@)";
 LABEL_16:
       _os_log_impl(&dword_24B35E000, v16, OS_LOG_TYPE_DEFAULT, v18, buf, 0x16u);
@@ -251,9 +249,9 @@ LABEL_17:
       v16 = v19;
       localizedDescription = [v8 dueDate];
       *buf = 138412546;
-      v23 = localizedDescription;
-      v24 = 2112;
-      v25 = currentDate;
+      v22 = localizedDescription;
+      v23 = 2112;
+      v24 = currentDate;
       v18 = "Sleep data provider - next event (%@) > 24 hours from current date (%@)";
       goto LABEL_16;
     }
@@ -267,7 +265,7 @@ LABEL_17:
   if (os_log_type_enabled(*v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v23 = identifier;
+    v22 = identifier;
     _os_log_impl(&dword_24B35E000, v14, OS_LOG_TYPE_DEFAULT, "Sleep data provider - updating with identifier %@", buf, 0xCu);
   }
 
@@ -282,19 +280,18 @@ LABEL_17:
   }
 
 LABEL_20:
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateSleepUserDayFromWakeUp:(id)up currentDate:(id)date
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   upCopy = up;
   dateCopy = date;
   sleepStore = self->_sleepStore;
   dueDate = [upCopy dueDate];
-  v23 = 0;
-  v10 = [(HKSPSleepStore *)sleepStore nextEventDueAfterDate:dueDate error:&v23];
-  v11 = v23;
+  v22 = 0;
+  v10 = [(HKSPSleepStore *)sleepStore nextEventDueAfterDate:dueDate error:&v22];
+  v11 = v22;
 
   if (v10)
   {
@@ -315,9 +312,9 @@ LABEL_20:
       v14 = v13;
       localizedDescription = [v11 localizedDescription];
       *buf = 138412546;
-      v25 = v10;
-      v26 = 2112;
-      v27 = localizedDescription;
+      v24 = v10;
+      v25 = 2112;
+      v26 = localizedDescription;
       v16 = "Sleep data provider - error fetching next event after wake up (%@) error (%@)";
 LABEL_11:
       _os_log_impl(&dword_24B35E000, v14, OS_LOG_TYPE_DEFAULT, v16, buf, 0x16u);
@@ -340,9 +337,9 @@ LABEL_11:
       v14 = v21;
       localizedDescription = [v10 dueDate];
       *buf = 138412546;
-      v25 = localizedDescription;
-      v26 = 2112;
-      v27 = dateCopy;
+      v24 = localizedDescription;
+      v25 = 2112;
+      v26 = dateCopy;
       v16 = "Sleep data provider - next event after wake up (%@) > 24 hours from current date (%@)";
       goto LABEL_11;
     }
@@ -357,17 +354,16 @@ LABEL_12:
   [(FISleepDataProvider *)self _setSleepUserDayWithStartOfDay:dueDate3 endOfDay:dueDate4];
 
 LABEL_13:
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateSleepUserDayFromWindDownOrBedtime:(id)bedtime currentDate:(id)date
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   sleepStore = self->_sleepStore;
-  v26 = 0;
-  v7 = [(HKSPSleepStore *)sleepStore sleepScheduleModelWithError:&v26];
-  v8 = v26;
+  v25 = 0;
+  v7 = [(HKSPSleepStore *)sleepStore sleepScheduleModelWithError:&v25];
+  v8 = v25;
   if (!v8)
   {
     v13 = [v7 previousEventWithIdentifier:*MEMORY[0x277D621E0] dueBeforeDate:dateCopy];
@@ -376,9 +372,9 @@ LABEL_13:
       if ([(FISleepDataProvider *)self _isDate:v13 within24HoursOfDate:dateCopy])
       {
         v14 = self->_sleepStore;
-        v25 = 0;
-        v15 = [(HKSPSleepStore *)v14 nextEventDueAfterDate:v13 error:&v25];
-        v9 = v25;
+        v24 = 0;
+        v15 = [(HKSPSleepStore *)v14 nextEventDueAfterDate:v13 error:&v24];
+        v9 = v24;
         if (v9)
         {
           _HKInitializeLogging();
@@ -388,7 +384,7 @@ LABEL_13:
             v17 = v16;
             localizedDescription = [v9 localizedDescription];
             *buf = 138412290;
-            v28 = localizedDescription;
+            v27 = localizedDescription;
             _os_log_impl(&dword_24B35E000, v17, OS_LOG_TYPE_DEFAULT, "Sleep data provider - error fetching next event after previous wake up event (%@)", buf, 0xCu);
           }
 
@@ -409,9 +405,9 @@ LABEL_13:
       if (os_log_type_enabled(*MEMORY[0x277CCC290], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v28 = v13;
-        v29 = 2112;
-        v30 = dateCopy;
+        v27 = v13;
+        v28 = 2112;
+        v29 = dateCopy;
         _os_log_impl(&dword_24B35E000, v22, OS_LOG_TYPE_DEFAULT, "Sleep data provider - previous wake up event before wind down or bedtime (%@) > 24 hours from current date (%@)", buf, 0x16u);
       }
     }
@@ -425,9 +421,9 @@ LABEL_13:
         v20 = v19;
         localizedDescription2 = [0 localizedDescription];
         *buf = 138412546;
-        v28 = 0;
-        v29 = 2112;
-        v30 = localizedDescription2;
+        v27 = 0;
+        v28 = 2112;
+        v29 = localizedDescription2;
         _os_log_impl(&dword_24B35E000, v20, OS_LOG_TYPE_DEFAULT, "Sleep data provider - error fetching next event after 24 hours before wind down or bedtime (%@) error (%@)", buf, 0x16u);
       }
     }
@@ -447,13 +443,11 @@ LABEL_17:
     v11 = v10;
     localizedDescription3 = [v9 localizedDescription];
     *buf = 138412290;
-    v28 = localizedDescription3;
+    v27 = localizedDescription3;
     _os_log_impl(&dword_24B35E000, v11, OS_LOG_TYPE_DEFAULT, "Sleep data provider - error fetching sleep model for wind down or bedtime event error (%@)", buf, 0xCu);
   }
 
 LABEL_18:
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_clearSleepUserDay
@@ -483,24 +477,22 @@ LABEL_18:
 
 - (void)_setSleepUserDayWithStartOfDay:(id)day endOfDay:(id)ofDay
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   dayCopy = day;
   ofDayCopy = ofDay;
   _HKInitializeLogging();
   v8 = *MEMORY[0x277CCC290];
   if (os_log_type_enabled(*MEMORY[0x277CCC290], OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412546;
-    v12 = dayCopy;
-    v13 = 2112;
-    v14 = ofDayCopy;
-    _os_log_impl(&dword_24B35E000, v8, OS_LOG_TYPE_DEFAULT, "Sleep data provider - setting sleep user start of day (%@) end of day (%@)", &v11, 0x16u);
+    v10 = 138412546;
+    v11 = dayCopy;
+    v12 = 2112;
+    v13 = ofDayCopy;
+    _os_log_impl(&dword_24B35E000, v8, OS_LOG_TYPE_DEFAULT, "Sleep data provider - setting sleep user start of day (%@) end of day (%@)", &v10, 0x16u);
   }
 
   v9 = [[FISleepUserDay alloc] initWithStartOfDay:dayCopy endOfDay:ofDayCopy];
   [(FISleepDataProvider *)self _setSleepUserDay:v9];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setSleepUserDay:(id)day
@@ -517,18 +509,15 @@ LABEL_18:
 
 - (void)_fetchLastGoodMorningDismissedDate
 {
-  v12 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   localizedDescription = [OUTLINED_FUNCTION_2_0() localizedDescription];
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_0(&dword_24B35E000, v4, v5, "Sleep data provider - failed to fetch current sleep event record (%@)", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_24B35E000, v4, v5, "Sleep data provider - failed to fetch current sleep event record (%@)", v6, v7, v8, v9);
 }
 
 - (BOOL)_updateLastGoodMorningDismissedDateIfNeeded:(id)needed
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   neededCopy = needed;
   os_unfair_lock_lock(&self->_lock);
   v6 = [(NSDate *)self->_lastGoodMorningDismissedDate isEqualToDate:neededCopy];
@@ -539,11 +528,11 @@ LABEL_18:
     if (os_log_type_enabled(*MEMORY[0x277CCC290], OS_LOG_TYPE_DEFAULT))
     {
       lastGoodMorningDismissedDate = self->_lastGoodMorningDismissedDate;
-      v11 = 138412546;
-      v12 = lastGoodMorningDismissedDate;
-      v13 = 2112;
-      v14 = neededCopy;
-      _os_log_impl(&dword_24B35E000, v7, OS_LOG_TYPE_DEFAULT, "Sleep data provider - last good morning dismissed date (%@ -> %@)", &v11, 0x16u);
+      v10 = 138412546;
+      v11 = lastGoodMorningDismissedDate;
+      v12 = 2112;
+      v13 = neededCopy;
+      _os_log_impl(&dword_24B35E000, v7, OS_LOG_TYPE_DEFAULT, "Sleep data provider - last good morning dismissed date (%@ -> %@)", &v10, 0x16u);
     }
 
     objc_storeStrong(&self->_lastGoodMorningDismissedDate, needed);
@@ -551,25 +540,21 @@ LABEL_18:
 
   os_unfair_lock_unlock(&self->_lock);
 
-  v9 = *MEMORY[0x277D85DE8];
   return !v6;
 }
 
 - (void)_fetchGoodMorningAlertNotificationEnabled
 {
-  v12 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   localizedDescription = [OUTLINED_FUNCTION_2_0() localizedDescription];
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_0(&dword_24B35E000, v4, v5, "Sleep data provider - failed to fetch current sleep schedule model (%@)", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_24B35E000, v4, v5, "Sleep data provider - failed to fetch current sleep schedule model (%@)", v6, v7, v8, v9);
 }
 
 - (BOOL)_updateGoodMorningAlertNotificationEnabledIfNeeded:(BOOL)needed
 {
   neededCopy = needed;
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   isGoodMorningAlertNotificationEnabled = self->_isGoodMorningAlertNotificationEnabled;
   if (isGoodMorningAlertNotificationEnabled != neededCopy)
@@ -579,35 +564,31 @@ LABEL_18:
     if (os_log_type_enabled(*MEMORY[0x277CCC290], OS_LOG_TYPE_DEFAULT))
     {
       v7 = self->_isGoodMorningAlertNotificationEnabled;
-      v10[0] = 67109376;
-      v10[1] = v7;
-      v11 = 1024;
-      v12 = neededCopy;
-      _os_log_impl(&dword_24B35E000, v6, OS_LOG_TYPE_DEFAULT, "Sleep data provider - updated good morning alert notification enabled (%d -> %d)", v10, 0xEu);
+      v9[0] = 67109376;
+      v9[1] = v7;
+      v10 = 1024;
+      v11 = neededCopy;
+      _os_log_impl(&dword_24B35E000, v6, OS_LOG_TYPE_DEFAULT, "Sleep data provider - updated good morning alert notification enabled (%d -> %d)", v9, 0xEu);
     }
 
     self->_isGoodMorningAlertNotificationEnabled = neededCopy;
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v8 = *MEMORY[0x277D85DE8];
   return isGoodMorningAlertNotificationEnabled != neededCopy;
 }
 
 - (void)_fetchLastAlarmWakeUpDate
 {
-  v12 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   localizedDescription = [OUTLINED_FUNCTION_2_0() localizedDescription];
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_0(&dword_24B35E000, v4, v5, "Sleep data provider - failed to fetch current sleep event record for wake up date (%@)", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_24B35E000, v4, v5, "Sleep data provider - failed to fetch current sleep event record for wake up date (%@)", v6, v7, v8, v9);
 }
 
 - (BOOL)_updateLastAlarmWakeUpDateIfNeeded:(id)needed
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   neededCopy = needed;
   os_unfair_lock_lock(&self->_lock);
   v6 = [(NSDate *)self->_lastAlarmWakeUpDate isEqualToDate:neededCopy];
@@ -618,11 +599,11 @@ LABEL_18:
     if (os_log_type_enabled(*MEMORY[0x277CCC290], OS_LOG_TYPE_DEFAULT))
     {
       lastAlarmWakeUpDate = self->_lastAlarmWakeUpDate;
-      v11 = 138412546;
-      v12 = lastAlarmWakeUpDate;
-      v13 = 2112;
-      v14 = neededCopy;
-      _os_log_impl(&dword_24B35E000, v7, OS_LOG_TYPE_DEFAULT, "Sleep data provider - updated last alarm wake up date (%@ -> %@)", &v11, 0x16u);
+      v10 = 138412546;
+      v11 = lastAlarmWakeUpDate;
+      v12 = 2112;
+      v13 = neededCopy;
+      _os_log_impl(&dword_24B35E000, v7, OS_LOG_TYPE_DEFAULT, "Sleep data provider - updated last alarm wake up date (%@ -> %@)", &v10, 0x16u);
     }
 
     objc_storeStrong(&self->_lastAlarmWakeUpDate, needed);
@@ -630,19 +611,15 @@ LABEL_18:
 
   os_unfair_lock_unlock(&self->_lock);
 
-  v9 = *MEMORY[0x277D85DE8];
   return !v6;
 }
 
 - (void)_updateCurrentSleepScheduleState
 {
-  v12 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   localizedDescription = [OUTLINED_FUNCTION_2_0() localizedDescription];
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_0(&dword_24B35E000, v4, v5, "Sleep data provider - failed to fetch current sleep schedule state update, setting state to disabled (%@)", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_24B35E000, v4, v5, "Sleep data provider - failed to fetch current sleep schedule state update, setting state to disabled (%@)", v6, v7, v8, v9);
 }
 
 - (void)_clearCurrentSleepScheduleState
@@ -655,19 +632,19 @@ LABEL_18:
 
 - (id)_fetchCachedSleepUserDay
 {
-  v11[2] = *MEMORY[0x277D85DE8];
+  v10[2] = *MEMORY[0x277D85DE8];
   v2 = [(NSUserDefaults *)self->_userDefaults valueForKey:@"cachedSleepUserDay"];
   if (v2)
   {
     v3 = MEMORY[0x277CBEB98];
-    v11[0] = objc_opt_class();
-    v11[1] = objc_opt_class();
-    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
+    v10[0] = objc_opt_class();
+    v10[1] = objc_opt_class();
+    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
     v5 = [v3 setWithArray:v4];
 
-    v10 = 0;
-    v6 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClasses:v5 fromData:v2 error:&v10];
-    v7 = v10;
+    v9 = 0;
+    v6 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClasses:v5 fromData:v2 error:&v9];
+    v7 = v9;
     if (v7)
     {
       _HKInitializeLogging();
@@ -682,8 +659,6 @@ LABEL_18:
   {
     v6 = 0;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -868,18 +843,16 @@ LABEL_18:
 
 - (void)_fetchCachedSleepUserDay
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(&dword_24B35E000, v0, OS_LOG_TYPE_ERROR, "Sleep data provider - failed to fetch cached sleep user day %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_24B35E000, v0, OS_LOG_TYPE_ERROR, "Sleep data provider - failed to fetch cached sleep user day %@", v1, 0xCu);
 }
 
 - (void)_cacheSleepUserDay:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(&dword_24B35E000, v0, OS_LOG_TYPE_ERROR, "Sleep data provider - failed to cache sleep user day %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_24B35E000, v0, OS_LOG_TYPE_ERROR, "Sleep data provider - failed to cache sleep user day %@", v1, 0xCu);
 }
 
 @end

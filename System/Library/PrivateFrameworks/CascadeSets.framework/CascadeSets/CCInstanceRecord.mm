@@ -27,14 +27,12 @@
 
 + (id)genSQLCreateStatements
 {
-  v7[2] = *MEMORY[0x1E69E9840];
+  v6[2] = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"CREATE TABLE IF NOT EXISTS %@ (%@ integer NOT NULL, %@ integer NOT NULL, %@ integer NOT NULL, PRIMARY KEY (%@) FOREIGN KEY (%@) REFERENCES %@ (%@) ON UPDATE CASCADE ON DELETE CASCADE)", @"instance", @"source_item_id_hash", @"provenance_row_id", @"modified", @"source_item_id_hash", @"provenance_row_id", @"provenance", @"provenance_row_id"];;
-  v7[0] = v2;
+  v6[0] = v2;
   v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"CREATE INDEX %@ ON %@ (%@ ASC)", @"idx_instance_modified", @"instance", @"modified"];;
-  v7[1] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v6[1] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:2];
 
   return v4;
 }

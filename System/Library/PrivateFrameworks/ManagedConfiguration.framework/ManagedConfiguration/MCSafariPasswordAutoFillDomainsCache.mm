@@ -108,38 +108,38 @@ void __44__MCSafariPasswordAutoFillDomainsCache_init__block_invoke(uint64_t a1)
 
 void __78__MCSafariPasswordAutoFillDomainsCache_isSafariPasswordAutoFillAllowedForURL___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) memberQueueCache];
 
   if (v2)
   {
-    v13 = 0u;
-    v14 = 0u;
     v11 = 0u;
     v12 = 0u;
+    v9 = 0u;
+    v10 = 0u;
     v3 = [*(a1 + 32) memberQueueCache];
-    v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v12;
+      v6 = *v10;
       while (2)
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v12 != v6)
+          if (*v10 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          if ([*(*(&v11 + 1) + 8 * i) matchesURL:*(a1 + 40)])
+          if ([*(*(&v9 + 1) + 8 * i) matchesURL:*(a1 + 40)])
           {
             *(*(*(a1 + 48) + 8) + 24) = 1;
             goto LABEL_12;
           }
         }
 
-        v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
         if (v5)
         {
           continue;
@@ -150,15 +150,12 @@ void __78__MCSafariPasswordAutoFillDomainsCache_isSafariPasswordAutoFillAllowedF
     }
 
 LABEL_12:
-
-    v8 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v10 = [MEMORY[0x1E69AD420] sharedConfiguration];
-    *(*(*(a1 + 48) + 8) + 24) = [v10 userMode] != 1;
-    v9 = *MEMORY[0x1E69E9840];
+    v8 = [MEMORY[0x1E69AD420] sharedConfiguration];
+    *(*(*(a1 + 48) + 8) + 24) = [v8 userMode] != 1;
   }
 }
 
@@ -175,7 +172,7 @@ LABEL_12:
 
 - (void)memberQueueRereadCache
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = +[MCRestrictionManager sharedManager];
   v4 = [v3 effectiveUnionValuesForSetting:@"allowedSafariPasswordAutoFillDomains"];
 
@@ -196,26 +193,26 @@ LABEL_12:
     }
 
     v7 = [v4 sortedArrayUsingComparator:&__block_literal_global_9];
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
-    v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v16;
+      v10 = *v15;
       do
       {
         v11 = 0;
         do
         {
-          if (*v16 != v10)
+          if (*v15 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = [[MCDomainsCacheEntry alloc] initWithPattern:*(*(&v15 + 1) + 8 * v11)];
+          v12 = [[MCDomainsCacheEntry alloc] initWithPattern:*(*(&v14 + 1) + 8 * v11)];
           memberQueueCache3 = [(MCSafariPasswordAutoFillDomainsCache *)self memberQueueCache];
           [memberQueueCache3 addObject:v12];
 
@@ -223,7 +220,7 @@ LABEL_12:
         }
 
         while (v9 != v11);
-        v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v9);
@@ -234,8 +231,6 @@ LABEL_12:
   {
     [(MCSafariPasswordAutoFillDomainsCache *)self setMemberQueueCache:0];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __62__MCSafariPasswordAutoFillDomainsCache_memberQueueRereadCache__block_invoke(uint64_t a1, void *a2, void *a3)

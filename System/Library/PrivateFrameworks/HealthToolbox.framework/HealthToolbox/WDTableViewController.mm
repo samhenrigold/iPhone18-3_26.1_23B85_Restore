@@ -15,10 +15,13 @@
 - (void)applicationDidEnterBackground;
 - (void)applicationWillEnterForeground;
 - (void)dealloc;
+- (void)pushViewController:(id)controller animated:(BOOL)animated;
+- (void)reloadSection:(unint64_t)section animated:(BOOL)animated;
 - (void)reloadTable;
 - (void)tableView:(id)view accessoryButtonTappedForRowWithIndexPath:(id)path;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation WDTableViewController
@@ -83,114 +86,148 @@
   [(WDTableViewController *)&v4 dealloc];
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v16 = *MEMORY[0x277D85DE8];
+  v14.receiver = self;
+  v14.super_class = WDTableViewController;
+  [(WDTableViewController *)&v14 viewWillAppear:?];
+  v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  v5 = self->_tableSections;
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v10 objects:v15 count:16];
+  if (v6)
+  {
+    v7 = v6;
+    v8 = *v11;
+    do
+    {
+      v9 = 0;
+      do
+      {
+        if (*v11 != v8)
+        {
+          objc_enumerationMutation(v5);
+        }
+
+        [*(*(&v10 + 1) + 8 * v9++) viewWillAppear:{appearCopy, v10}];
+      }
+
+      while (v7 != v9);
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v10 objects:v15 count:16];
+    }
+
+    while (v7);
+  }
+}
+
 - (void)applicationWillEnterForeground
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = self->_tableSections;
-  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(*(&v8 + 1) + 8 * v6++) applicationWillEnterForeground];
+        [*(*(&v7 + 1) + 8 * v6++) applicationWillEnterForeground];
       }
 
       while (v4 != v6);
-      v4 = [(NSArray *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [(NSArray *)v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)applicationDidEnterBackground
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = self->_tableSections;
-  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(*(&v8 + 1) + 8 * v6++) applicationDidEnterBackground];
+        [*(*(&v7 + 1) + 8 * v6++) applicationDidEnterBackground];
       }
 
       while (v4 != v6);
-      v4 = [(NSArray *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [(NSArray *)v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)viewDidLoad
 {
-  v23 = *MEMORY[0x277D85DE8];
-  v21.receiver = self;
-  v21.super_class = WDTableViewController;
-  [(HKTableViewController *)&v21 viewDidLoad];
+  v22 = *MEMORY[0x277D85DE8];
+  v20.receiver = self;
+  v20.super_class = WDTableViewController;
+  [(HKTableViewController *)&v20 viewDidLoad];
   tableView = [(WDTableViewController *)self tableView];
   tableView2 = [(WDTableViewController *)self tableView];
   [tableView2 rowHeight];
   [tableView setEstimatedRowHeight:?];
 
   array = [MEMORY[0x277CBEB18] array];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   tableViewSectionClasses = [objc_opt_class() tableViewSectionClasses];
-  v7 = [tableViewSectionClasses countByEnumeratingWithState:&v17 objects:v22 count:16];
+  v7 = [tableViewSectionClasses countByEnumeratingWithState:&v16 objects:v21 count:16];
   if (v7)
   {
     v8 = v7;
     v9 = 0;
-    v10 = *v18;
+    v10 = *v17;
     do
     {
       v11 = 0;
       v12 = v9;
       do
       {
-        if (*v18 != v10)
+        if (*v17 != v10)
         {
           objc_enumerationMutation(tableViewSectionClasses);
         }
 
         v9 = v12 + 1;
-        v13 = [objc_alloc(*(*(&v17 + 1) + 8 * v11)) initWithDelegate:self atSection:v12];
+        v13 = [objc_alloc(*(*(&v16 + 1) + 8 * v11)) initWithDelegate:self atSection:v12];
         [v13 setUpWithTableViewController:self];
         [array addObject:v13];
 
@@ -199,7 +236,7 @@
       }
 
       while (v8 != v11);
-      v8 = [tableViewSectionClasses countByEnumeratingWithState:&v17 objects:v22 count:16];
+      v8 = [tableViewSectionClasses countByEnumeratingWithState:&v16 objects:v21 count:16];
     }
 
     while (v8);
@@ -210,7 +247,6 @@
   self->_tableSections = v14;
 
   [(WDTableViewController *)self reloadTable];
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reloadTable
@@ -371,6 +407,39 @@ void __59__WDTableViewController_tableView_didSelectRowAtIndexPath___block_invok
   v6 = [tableView indexPathForCell:cellCopy];
 
   return v6;
+}
+
+- (void)reloadSection:(unint64_t)section animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  areAnimationsEnabled = [MEMORY[0x277D75D18] areAnimationsEnabled];
+  if (areAnimationsEnabled == animatedCopy)
+  {
+    tableView = [(WDTableViewController *)self tableView];
+    v12 = [MEMORY[0x277CCAA78] indexSetWithIndex:section];
+    [tableView reloadSections:v12 withRowAnimation:5];
+  }
+
+  else
+  {
+    v8 = areAnimationsEnabled;
+    [MEMORY[0x277D75D18] setAnimationsEnabled:animatedCopy];
+    tableView2 = [(WDTableViewController *)self tableView];
+    v10 = [MEMORY[0x277CCAA78] indexSetWithIndex:section];
+    [tableView2 reloadSections:v10 withRowAnimation:5];
+
+    v11 = MEMORY[0x277D75D18];
+
+    [v11 setAnimationsEnabled:v8];
+  }
+}
+
+- (void)pushViewController:(id)controller animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  controllerCopy = controller;
+  navigationController = [(WDTableViewController *)self navigationController];
+  [navigationController pushViewController:controllerCopy animated:animatedCopy];
 }
 
 @end

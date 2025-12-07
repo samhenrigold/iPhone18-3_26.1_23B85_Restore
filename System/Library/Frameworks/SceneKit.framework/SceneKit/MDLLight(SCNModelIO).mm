@@ -35,24 +35,24 @@
   [a3 spotOuterAngle];
   *&v12 = v12;
   [v4 setOuterConeAngle:v12];
-  if ([objc_msgSend(a3 "type")])
+  if (objc_msgSend_isEqualToString_([a3 type]))
   {
     v13 = 1;
   }
 
-  else if ([objc_msgSend(a3 "type")])
+  else if (objc_msgSend_isEqualToString_([a3 type]))
   {
     v13 = 3;
   }
 
-  else if ([objc_msgSend(a3 "type")])
+  else if (objc_msgSend_isEqualToString_([a3 type]))
   {
     v13 = 2;
   }
 
   else
   {
-    if (![objc_msgSend(a3 "type")])
+    if (!objc_msgSend_isEqualToString_([a3 type]))
     {
       goto LABEL_12;
     }

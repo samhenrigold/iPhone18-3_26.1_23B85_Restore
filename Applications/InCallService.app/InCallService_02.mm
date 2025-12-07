@@ -1,3 +1,39 @@
+void sub_100097D60(uint64_t a1)
+{
+  [*(*(a1 + 32) + 16) removeFromSuperview];
+  v2 = [*(a1 + 32) delegate];
+  if (v2)
+  {
+    v3 = v2;
+    v4 = [*(a1 + 32) delegate];
+    v5 = objc_opt_respondsToSelector();
+
+    if (v5)
+    {
+      v6 = [*(a1 + 32) delegate];
+      [v6 didFinishSlideForSlidingButton:*(a1 + 32)];
+    }
+  }
+}
+
+void sub_1000996C0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, id location)
+{
+  objc_destroyWeak((v19 + 32));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_100099700(uint64_t a1)
+{
+  WeakRetained = objc_loadWeakRetained((a1 + 32));
+  if (WeakRetained)
+  {
+    v2 = WeakRetained;
+    [WeakRetained startVoiceLoopMessagePlaybackWithMessageType:103];
+    WeakRetained = v2;
+  }
+}
+
 void sub_100099748(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -97,7 +133,7 @@ void sub_10009AC5C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 void sub_10009AC80(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = sub_100004F84();
+  v4 = sub_100004F84(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -119,47 +155,48 @@ void sub_10009AC80(uint64_t a1, void *a2)
 void sub_10009AD7C(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v3 = WeakRetained;
   if (WeakRetained)
   {
-    v3 = *(a1 + 32);
-    v4 = sub_100004F84();
-    v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
-    if (!v3)
+    v4 = *(a1 + 32);
+    v5 = sub_100004F84(WeakRetained);
+    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
+    if (!v4)
     {
-      if (v5)
+      if (v6)
       {
-        LOWORD(v14[0]) = 0;
-        _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "PHSlidingView,CMMotionActivity,null", v14, 2u);
+        LOWORD(v15[0]) = 0;
+        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "PHSlidingView,CMMotionActivity,null", v15, 2u);
       }
 
       goto LABEL_9;
     }
 
-    if (v5)
+    if (v6)
     {
-      v6 = [*(a1 + 32) isMounted];
+      v7 = [*(a1 + 32) isMounted];
       [*(a1 + 32) mountedProbability];
-      v14[0] = 67109376;
-      v14[1] = v6;
-      v15 = 2048;
-      v16 = v7;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "PHSlidingView,CMMotionActivity,isMounted:%d,mountedProbability:%lf", v14, 0x12u);
+      v15[0] = 67109376;
+      v15[1] = v7;
+      v16 = 2048;
+      v17 = v8;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "PHSlidingView,CMMotionActivity,isMounted:%d,mountedProbability:%lf", v15, 0x12u);
     }
 
-    v8 = [WeakRetained motionActivityList];
-    v9 = [PHSlidingViewMotionActivity alloc];
-    v10 = [*(a1 + 32) isMounted];
+    v9 = [v3 motionActivityList];
+    v10 = [PHSlidingViewMotionActivity alloc];
+    v11 = [*(a1 + 32) isMounted];
     [*(a1 + 32) mountedProbability];
-    v11 = [(PHSlidingViewMotionActivity *)v9 initWithIsMounted:v10 probability:?];
-    [v8 addObject:v11];
+    v12 = [(PHSlidingViewMotionActivity *)v10 initWithIsMounted:v11 probability:?];
+    [v9 addObject:v12];
 
-    v12 = [WeakRetained motionActivityList];
-    v13 = [v12 count];
+    v13 = [v3 motionActivityList];
+    v14 = [v13 count];
 
-    if (v13 >= 5)
+    if (v14 >= 5)
     {
-      v4 = [WeakRetained motionActivityList];
-      [v4 removeObjectAtIndex:0];
+      v5 = [v3 motionActivityList];
+      [v5 removeObjectAtIndex:0];
 LABEL_9:
     }
   }
@@ -218,7 +255,7 @@ void sub_10009B468(uint64_t a1)
     return;
   }
 
-  v2 = sub_100004F84();
+  v2 = sub_100004F84(1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v11 = 0;
@@ -405,7 +442,7 @@ id sub_10009D25C(uint64_t a1)
 
 void sub_10009D388(id a1)
 {
-  v1 = sub_100004F84();
+  v1 = sub_100004F84(a1);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -435,32 +472,32 @@ void sub_10009D924(uint64_t a1)
 
   if (v3)
   {
-    v4 = [*(a1 + 32) avCaptureDevice];
-    [v4 lockForConfiguration:0];
-
     v5 = [*(a1 + 32) avCaptureDevice];
-    [v5 setTorchMode:1];
+    [v5 lockForConfiguration:0];
 
     v6 = [*(a1 + 32) avCaptureDevice];
-    [v6 unlockForConfiguration];
+    [v6 setTorchMode:1];
 
-    v7 = dispatch_time(0, 500000000);
-    v8 = [*(a1 + 32) avCaptureDispatchQueue];
+    v7 = [*(a1 + 32) avCaptureDevice];
+    [v7 unlockForConfiguration];
+
+    v8 = dispatch_time(0, 500000000);
+    v9 = [*(a1 + 32) avCaptureDispatchQueue];
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_10009DA90;
     block[3] = &unk_100356988;
     block[4] = *(a1 + 32);
-    dispatch_after(v7, v8, block);
+    dispatch_after(v8, v9, block);
   }
 
   else
   {
-    v9 = sub_100004F84();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_100004F84(v4);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "PHSlidingView,torch not available", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "PHSlidingView,torch not available", buf, 2u);
     }
   }
 }
@@ -472,29 +509,29 @@ void sub_10009DB38(uint64_t a1)
 
   if (v3)
   {
-    v4 = [*(a1 + 32) avCaptureDevice];
-    [v4 lockForConfiguration:0];
-
     v5 = [*(a1 + 32) avCaptureDevice];
-    v6 = [v5 torchMode];
+    [v5 lockForConfiguration:0];
 
-    if (v6 == 1)
+    v6 = [*(a1 + 32) avCaptureDevice];
+    v7 = [v6 torchMode];
+
+    if (v7 == 1)
     {
-      v7 = [*(a1 + 32) avCaptureDevice];
-      [v7 setTorchMode:0];
+      v8 = [*(a1 + 32) avCaptureDevice];
+      [v8 setTorchMode:0];
     }
 
-    v9 = [*(a1 + 32) avCaptureDevice];
-    [v9 unlockForConfiguration];
+    v10 = [*(a1 + 32) avCaptureDevice];
+    [v10 unlockForConfiguration];
   }
 
   else
   {
-    v8 = sub_100004F84();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_100004F84(v4);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "PHSlidingView,torch not available", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "PHSlidingView,torch not available", buf, 2u);
     }
   }
 }
@@ -511,52 +548,52 @@ void sub_10009DD4C(id a1)
 
   if (v1)
   {
-    v11 = CFGetTypeID(v1);
-    if (v11 == CFDataGetTypeID())
+    v12 = CFGetTypeID(v1);
+    if (v12 == CFDataGetTypeID())
     {
       BytePtr = CFDataGetBytePtr(v1);
-      v13 = *(BytePtr + 1);
+      v14 = *(BytePtr + 1);
       *ymmword_1003B0D30 = *BytePtr;
-      *&ymmword_1003B0D30[16] = v13;
+      *&ymmword_1003B0D30[16] = v14;
     }
 
-    v31.origin.x = v4;
-    v31.origin.y = v6;
-    v31.size.width = v8;
-    v31.size.height = v10;
-    v14 = CGRectGetWidth(v31) * *ymmword_1003B0D30;
-    v15 = floorf(v14);
     v32.origin.x = v4;
     v32.origin.y = v6;
     v32.size.width = v8;
     v32.size.height = v10;
-    Height = CGRectGetHeight(v32);
-    v28 = *&ymmword_1003B0D30[8];
+    v15 = CGRectGetWidth(v32) * *ymmword_1003B0D30;
+    v16 = floorf(v15);
     v33.origin.x = v4;
     v33.origin.y = v6;
     v33.size.width = v8;
     v33.size.height = v10;
-    Width = CGRectGetWidth(v33);
-    v17.f64[0] = Height;
-    v17.f64[1] = Width;
-    v29 = vcvtq_f64_f32(vrndm_f32(vcvt_f32_f64(vmulq_f64(v17, __PAIR128__(*&ymmword_1003B0D30[16], v28)))));
-    v18 = v4;
-    v17.f64[0] = v6;
-    v19 = v8;
-    v20 = v10;
-    v21 = CGRectGetHeight(*(&v17 - 8));
-    v22 = v29;
-    *&v21 = v21 * *&ymmword_1003B0D30[24];
-    v23 = floorf(*&v21);
+    Height = CGRectGetHeight(v33);
+    v29 = *&ymmword_1003B0D30[8];
+    v34.origin.x = v4;
+    v34.origin.y = v6;
+    v34.size.width = v8;
+    v34.size.height = v10;
+    Width = CGRectGetWidth(v34);
+    v18.f64[0] = Height;
+    v18.f64[1] = Width;
+    v30 = vcvtq_f64_f32(vrndm_f32(vcvt_f32_f64(vmulq_f64(v18, __PAIR128__(*&ymmword_1003B0D30[16], v29)))));
+    v19 = v4;
+    v18.f64[0] = v6;
+    v20 = v8;
+    v21 = v10;
+    v22 = CGRectGetHeight(*(&v18 - 8));
+    v23 = v30;
+    *&v22 = v22 * *&ymmword_1003B0D30[24];
+    v24 = floorf(*&v22);
   }
 
   else
   {
-    v24 = sub_100004F84();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+    v25 = sub_100004F84(v11);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "PHSlidingView,lockButtonDimension,lock button details not found", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "PHSlidingView,lockButtonDimension,lock button details not found", buf, 2u);
     }
 
     if (qword_1003B0D60 != -1)
@@ -566,32 +603,32 @@ void sub_10009DD4C(id a1)
 
     if ((byte_1003B0D58 & 1) != 0 || (byte_1003B0D59 & 1) != 0 || byte_1003B0D5C == 1)
     {
-      v34.origin.x = v4;
-      v34.origin.y = v6;
-      v34.size.width = v8;
-      v34.size.height = v10;
-      v25 = CGRectGetWidth(v34);
-      v15 = floorf(v25);
-      v22 = xmmword_1002F91A0;
-    }
-
-    else
-    {
       v35.origin.x = v4;
       v35.origin.y = v6;
       v35.size.width = v8;
       v35.size.height = v10;
       v26 = CGRectGetWidth(v35);
-      v15 = floorf(v26);
-      v22 = xmmword_1002F9190;
+      v16 = floorf(v26);
+      v23 = xmmword_1002F91A0;
     }
 
-    v23 = 70.0;
+    else
+    {
+      v36.origin.x = v4;
+      v36.origin.y = v6;
+      v36.size.width = v8;
+      v36.size.height = v10;
+      v27 = CGRectGetWidth(v36);
+      v16 = floorf(v27);
+      v23 = xmmword_1002F9190;
+    }
+
+    v24 = 70.0;
   }
 
-  *ymmword_1003B0D30 = v15;
-  *&ymmword_1003B0D30[8] = v22;
-  *&ymmword_1003B0D30[24] = v23;
+  *ymmword_1003B0D30 = v16;
+  *&ymmword_1003B0D30[8] = v23;
+  *&ymmword_1003B0D30[24] = v24;
 }
 
 void sub_10009DFB4(id a1)
@@ -613,30 +650,30 @@ void sub_10009E4F8(CGRect *a1)
     if (v4 == CFDataGetTypeID())
     {
       BytePtr = CFDataGetBytePtr(v3);
-      v6 = BytePtr[1];
-      xmmword_1003B0D80 = *BytePtr;
-      *&qword_1003B0D90 = v6;
+      v6 = *(BytePtr + 1);
+      *ymmword_1003B0D80 = *BytePtr;
+      *&ymmword_1003B0D80[16] = v6;
     }
 
     Width = CGRectGetWidth(a1[1]);
-    v30 = xmmword_1003B0D80;
+    v30 = *ymmword_1003B0D80;
     Height = CGRectGetHeight(a1[1]);
-    v31 = __PAIR128__(*(&xmmword_1003B0D80 + 1), v30);
+    v31 = __PAIR128__(*&ymmword_1003B0D80[8], v30);
     v22 = CGRectGetWidth(a1[1]);
-    v24 = qword_1003B0D90;
+    v24 = *&ymmword_1003B0D80[16];
     v7 = CGRectGetHeight(a1[1]);
     v8.f64[0] = Width;
     v8.f64[1] = Height;
     v9.f64[0] = v22;
     v9.f64[1] = v7;
-    v10 = vrndmq_f32(vcvt_hight_f32_f64(vcvt_f32_f64(vmulq_f64(v8, v31)), vmulq_f64(v9, __PAIR128__(qword_1003B0D98, v24))));
-    xmmword_1003B0D80 = vcvtq_f64_f32(*v10.f32);
-    *&qword_1003B0D90 = vcvt_hight_f64_f32(v10);
+    v10 = vrndmq_f32(vcvt_hight_f32_f64(vcvt_f32_f64(vmulq_f64(v8, v31)), vmulq_f64(v9, __PAIR128__(*&ymmword_1003B0D80[24], v24))));
+    *ymmword_1003B0D80 = vcvtq_f64_f32(*v10.f32);
+    *&ymmword_1003B0D80[16] = vcvt_hight_f64_f32(v10);
   }
 
   else
   {
-    v11 = sub_100004F84();
+    v11 = sub_100004F84(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_1002559F8(v11);
@@ -651,30 +688,30 @@ void sub_10009E4F8(CGRect *a1)
     if (v14 == CFDataGetTypeID())
     {
       v15 = CFDataGetBytePtr(v13);
-      v16 = v15[1];
-      xmmword_1003B0DA0 = *v15;
-      *&qword_1003B0DB0 = v16;
+      v16 = *(v15 + 1);
+      *ymmword_1003B0DA0 = *v15;
+      *&ymmword_1003B0DA0[16] = v16;
     }
 
     v29 = CGRectGetWidth(a1[1]);
-    v32 = xmmword_1003B0DA0;
+    v32 = *ymmword_1003B0DA0;
     v27 = CGRectGetHeight(a1[1]);
-    v33 = __PAIR128__(*(&xmmword_1003B0DA0 + 1), v32);
+    v33 = __PAIR128__(*&ymmword_1003B0DA0[8], v32);
     v23 = CGRectGetWidth(a1[1]);
-    v25 = qword_1003B0DB0;
+    v25 = *&ymmword_1003B0DA0[16];
     v17 = CGRectGetHeight(a1[1]);
     v18.f64[0] = v29;
     v18.f64[1] = v27;
     v19.f64[0] = v23;
     v19.f64[1] = v17;
-    v20 = vrndmq_f32(vcvt_hight_f32_f64(vcvt_f32_f64(vmulq_f64(v18, v33)), vmulq_f64(v19, __PAIR128__(qword_1003B0DB8, v25))));
-    xmmword_1003B0DA0 = vcvtq_f64_f32(*v20.f32);
-    *&qword_1003B0DB0 = vcvt_hight_f64_f32(v20);
+    v20 = vrndmq_f32(vcvt_hight_f32_f64(vcvt_f32_f64(vmulq_f64(v18, v33)), vmulq_f64(v19, __PAIR128__(*&ymmword_1003B0DA0[24], v25))));
+    *ymmword_1003B0DA0 = vcvtq_f64_f32(*v20.f32);
+    *&ymmword_1003B0DA0[16] = vcvt_hight_f64_f32(v20);
   }
 
   else
   {
-    v21 = sub_100004F84();
+    v21 = sub_100004F84(0);
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       sub_100255A3C(v21);
@@ -688,13 +725,14 @@ void sub_10009FC40(id a1)
   byte_1003B0DC8 = [v1 BOOLForKey:@"shouldTraceSignposts"];
 }
 
-uint64_t sub_1000A0944(uint64_t a1, int a2)
+uint64_t sub_1000A0944(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_100009960();
+  v2 = a2;
+  v4 = sub_100009960(a1, a2);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v6[0] = 67109120;
-    v6[1] = a2;
+    v6[1] = v2;
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Handled user-initiated device lock event, didConsumeEvent: %d", v6, 8u);
   }
 
@@ -704,6 +742,7 @@ uint64_t sub_1000A0944(uint64_t a1, int a2)
 void sub_1000A2DF0(uint64_t a1, void *a2, uint64_t a3)
 {
   v5 = a2;
+  v6 = v5;
   if (!v5 || a3)
   {
     (*(*(a1 + 32) + 16))();
@@ -711,26 +750,28 @@ void sub_1000A2DF0(uint64_t a1, void *a2, uint64_t a3)
 
   else
   {
-    v6 = sub_100004F84();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_100004F84(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = NSStringFromClass(*(a1 + 40));
-      v9 = 138412290;
-      v10 = v7;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Received remote view controller from %@", &v9, 0xCu);
+      v8 = NSStringFromClass(*(a1 + 40));
+      v10 = 138412290;
+      v11 = v8;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Received remote view controller from %@", &v10, 0xCu);
     }
 
-    v8 = objc_alloc_init(PHPhoneRemoteHostViewController);
-    [(PHPhoneRemoteHostViewController *)v8 setUpRemoteViewController:v5];
+    v9 = objc_alloc_init(PHPhoneRemoteHostViewController);
+    [(PHPhoneRemoteHostViewController *)v9 setUpRemoteViewController:v6];
     (*(*(a1 + 32) + 16))();
   }
 }
 
 uint64_t sub_1000A36B0(uint64_t a1)
 {
-  qword_1003B0DD8 = objc_alloc_init(*(a1 + 32));
+  v1 = objc_alloc_init(*(a1 + 32));
+  v2 = qword_1003B0DD8;
+  qword_1003B0DD8 = v1;
 
-  return _objc_release_x1();
+  return _objc_release_x1(v1, v2);
 }
 
 void sub_1000A390C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location)
@@ -838,9 +879,11 @@ void sub_1000A40D0(uint64_t a1)
 
 void sub_1000A4494(id a1)
 {
-  qword_1003B0DE8 = objc_alloc_init(PHAudioDeviceController);
+  v1 = objc_alloc_init(PHAudioDeviceController);
+  v2 = qword_1003B0DE8;
+  qword_1003B0DE8 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_1000A4790(uint64_t a1)
@@ -893,9 +936,9 @@ void sub_1000A58BC(id a1)
   objc_storeStrong(&qword_1003B0DF8, v2);
 }
 
-void sub_1000A5DD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000A5DD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -922,7 +965,7 @@ void sub_1000A5FD0(id a1)
 
 void sub_1000A629C(id a1)
 {
-  v1 = sub_100004F84();
+  v1 = sub_100004F84(a1);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
     v3 = 138412290;
@@ -934,54 +977,58 @@ void sub_1000A629C(id a1)
   [v2 postNotificationName:@"PHAudioDeviceControllerAudioRoutesChangedNotification" object:0];
 }
 
-id sub_1000A68B8()
+id sub_1000A68B8(uint64_t a1)
 {
   if (qword_1003B0E10 != -1)
   {
     sub_100255CF8();
   }
 
-  v1 = qword_1003B0E08;
+  v2 = qword_1003B0E08;
 
-  return v1;
+  return v2;
 }
 
 void sub_1000A68FC(id a1)
 {
-  qword_1003B0E08 = os_log_create("com.apple.calls.mobilephone", "Default");
+  v1 = os_log_create("com.apple.calls.mobilephone", "Default");
+  v2 = qword_1003B0E08;
+  qword_1003B0E08 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
-id sub_1000A6940()
+id sub_1000A6940(uint64_t a1)
 {
   if (qword_1003B0E20 != -1)
   {
     sub_100255D0C();
   }
 
-  v1 = qword_1003B0E18;
+  v2 = qword_1003B0E18;
 
-  return v1;
+  return v2;
 }
 
 void sub_1000A6984(id a1)
 {
-  qword_1003B0E18 = os_log_create("com.apple.calls.mobilephone", "Oversized");
+  v1 = os_log_create("com.apple.calls.mobilephone", "Oversized");
+  v2 = qword_1003B0E18;
+  qword_1003B0E18 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
-id sub_1000A69C8()
+id sub_1000A69C8(uint64_t a1)
 {
   if (qword_1003B0E30 != -1)
   {
     sub_100255D20();
   }
 
-  v1 = qword_1003B0E28;
+  v2 = qword_1003B0E28;
 
-  return v1;
+  return v2;
 }
 
 void sub_1000A6A0C(id a1)
@@ -1079,7 +1126,7 @@ id sub_1000A7C04(uint64_t a1, void *a2, void *a3)
   if ([v5 dialType] == 1 && objc_msgSend(*(a1 + 40), "canMakeEmergencyCallForSenderIdentity:", v6))
   {
     v11 = v6;
-    v12 = sub_100004F84();
+    v12 = sub_100004F84(v11);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       v16 = 138412546;
@@ -1157,13 +1204,13 @@ void sub_1000AB4C4(uint64_t a1)
 
   if (v3)
   {
-    v4 = sub_100004F84();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_100004F84(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = *(*(*(a1 + 40) + 8) + 40);
-      v6 = 138412290;
-      v7 = v5;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Setting image: %@ on button", &v6, 0xCu);
+      v6 = *(*(*(a1 + 40) + 8) + 40);
+      v7 = 138412290;
+      v8 = v6;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Setting image: %@ on button", &v7, 0xCu);
     }
 
     [*(a1 + 32) setControlImage:*(*(*(a1 + 40) + 8) + 40)];
@@ -1198,9 +1245,9 @@ uint64_t sub_1000AB67C(uint64_t a1)
   return result;
 }
 
-void sub_1000ABAC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_1000ABAC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1211,14 +1258,14 @@ void sub_1000ABAE0(uint64_t a1, void *a2)
   v4 = [v3 iconView];
   v5 = [v3 iconImage];
 
-  if (v4 && [*(a1 + 32) usesGlass])
+  if (v4 && (v6 = [*(a1 + 32) usesGlass], v6))
   {
-    v6 = sub_100004F84();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_100004F84(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 138412290;
-      v13 = v4;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Setting view: %@ on button", &v12, 0xCu);
+      v13 = 138412290;
+      v14 = v4;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Setting view: %@ on button", &v13, 0xCu);
     }
 
     [*(a1 + 32) setControlView:v4];
@@ -1226,15 +1273,15 @@ void sub_1000ABAE0(uint64_t a1, void *a2)
 
   else
   {
-    v7 = sub_100004F84();
-    v8 = v7;
+    v8 = sub_100004F84(v6);
+    v9 = v8;
     if (v5)
     {
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = 138412290;
-        v13 = v5;
-        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Setting image: %@ on button", &v12, 0xCu);
+        v13 = 138412290;
+        v14 = v5;
+        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Setting image: %@ on button", &v13, 0xCu);
       }
 
       [*(a1 + 32) setControlImage:v5];
@@ -1242,17 +1289,17 @@ void sub_1000ABAE0(uint64_t a1, void *a2)
 
     else
     {
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        sub_100255F2C(v8);
+        sub_100255F2C(v9);
       }
     }
   }
 
-  v9 = *(a1 + 32);
-  v10 = [*(a1 + 40) delegate];
-  v11 = [v10 titleForControlType:*(a1 + 48)];
-  [v9 setTitle:v11 forState:0];
+  v10 = *(a1 + 32);
+  v11 = [*(a1 + 40) delegate];
+  v12 = [v11 titleForControlType:*(a1 + 48)];
+  [v10 setTitle:v12 forState:0];
 
   [*(a1 + 32) setControlType:*(a1 + 48)];
 }
@@ -1260,7 +1307,7 @@ void sub_1000ABAE0(uint64_t a1, void *a2)
 void sub_1000ABCA8(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = sub_100004F84();
+  v4 = sub_100004F84(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 138412290;
@@ -1441,29 +1488,29 @@ id sub_1000AEFE8(uint64_t a1)
 
   if (WeakRetained)
   {
-    v3 = [PHDeclineWithReminderController alloc];
-    v4 = *(a1 + 32);
-    v5 = objc_loadWeakRetained((a1 + 40));
-    v6 = [(PHDeclineWithReminderController *)v3 initWithCall:v4 presenter:v5];
+    v4 = [PHDeclineWithReminderController alloc];
+    v5 = *(a1 + 32);
+    v6 = objc_loadWeakRetained((a1 + 40));
+    v7 = [(PHDeclineWithReminderController *)v4 initWithCall:v5 presenter:v6];
 
-    v7 = +[NSBundle mainBundle];
-    v8 = [v7 localizedStringForKey:@"REMIND_ME_LATER" value:&stru_100361FD0 table:@"InCallService"];
-    v9 = [(PHDeclineWithReminderController *)v6 menuActions];
-    v10 = [UIMenu menuWithTitle:v8 children:v9];
+    v8 = +[NSBundle mainBundle];
+    v9 = [v8 localizedStringForKey:@"REMIND_ME_LATER" value:&stru_100361FD0 table:@"InCallService"];
+    v10 = [(PHDeclineWithReminderController *)v7 menuActions];
+    v11 = [UIMenu menuWithTitle:v9 children:v10];
   }
 
   else
   {
-    v11 = sub_100004F84();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = sub_100004F84(v3);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       sub_100255F70();
     }
 
-    v10 = 0;
+    v11 = 0;
   }
 
-  return v10;
+  return v11;
 }
 
 id sub_1000AF83C(uint64_t a1)
@@ -1531,7 +1578,7 @@ uint64_t sub_1000AFB20(uint64_t result, uint64_t a2, int a3)
 
 void sub_1000B07AC(id a1)
 {
-  v1 = sub_100004F84();
+  v1 = sub_100004F84(a1);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     sub_100256024();
@@ -1559,7 +1606,7 @@ void sub_1000B08B0(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
-  v50 = v5;
+  v53 = v5;
   if (v6 || ![v5 count])
   {
     v7 = +[NSBundle mainBundle];
@@ -1568,8 +1615,8 @@ void sub_1000B08B0(uint64_t a1, void *a2, void *a3)
 
   else
   {
-    v28 = [v5 firstObject];
-    v7 = [v28 postalAddress];
+    v29 = [v5 firstObject];
+    v7 = [v29 postalAddress];
 
     if (!v7)
     {
@@ -1607,53 +1654,53 @@ LABEL_4:
 
   if (v19)
   {
-    v20 = [*(a1 + 40) call];
-    v21 = [v20 provider];
-    v22 = [v21 isSystemProvider];
+    v21 = [*(a1 + 40) call];
+    v22 = [v21 provider];
+    v23 = [v22 isSystemProvider];
 
-    if (v22)
+    if (v23)
     {
-      v23 = [v12 calendar];
-      v24 = [v23 source];
-      v25 = [v24 constraints];
-      v26 = [v25 supportsReminderActions];
+      v24 = [v12 calendar];
+      v25 = [v24 source];
+      v26 = [v25 constraints];
+      v27 = [v26 supportsReminderActions];
 
-      if (!v26)
+      if (!v27)
       {
 LABEL_18:
-        v34 = [EKAlarm alarmWithRelativeOffset:0.0];
-        [v34 setProximity:2];
-        [v34 setStructuredLocation:v10];
+        v35 = [EKAlarm alarmWithRelativeOffset:0.0];
+        [v35 setProximity:2];
+        [v35 setStructuredLocation:v10];
         [v12 setStructuredLocation:v10];
-        v35 = [NSArray arrayWithObject:v34];
-        [v12 setAlarms:v35];
+        v36 = [NSArray arrayWithObject:v35];
+        [v12 setAlarms:v36];
 
-        v36 = sub_100004F84();
-        if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+        v38 = sub_100004F84(v37);
+        if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
         {
-          v37 = *(a1 + 32);
+          v39 = *(a1 + 32);
           *buf = 138412290;
-          v53 = v37;
-          _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "About to save a reminder for CLLocation %@", buf, 0xCu);
+          v56 = v39;
+          _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "About to save a reminder for CLLocation %@", buf, 0xCu);
         }
 
-        v51 = 0;
-        v38 = [v11 saveReminder:v12 commit:1 error:&v51];
-        v39 = v51;
-        v40 = v39;
-        if (v38)
+        v54 = 0;
+        v40 = [v11 saveReminder:v12 commit:1 error:&v54];
+        v41 = v54;
+        v42 = v41;
+        if (v40)
         {
 
-          v41 = [NSUUID alloc];
-          v33 = [v12 uniqueID];
-          v32 = [v41 initWithUUIDString:v33];
-          v42 = [*(a1 + 40) call];
-          [v42 setReminderUUID:v32];
+          v43 = [NSUUID alloc];
+          v34 = [v12 uniqueID];
+          v33 = [v43 initWithUUIDString:v34];
+          v44 = [*(a1 + 40) call];
+          [v44 setReminderUUID:v33];
           goto LABEL_27;
         }
 
-        v43 = sub_100004F84();
-        if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+        v45 = sub_100004F84(v41);
+        if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
         {
           sub_100255FB0();
         }
@@ -1661,59 +1708,59 @@ LABEL_18:
         goto LABEL_25;
       }
 
-      v27 = [*(a1 + 40) reminderAction];
-      [v12 setAction:v27];
+      v28 = [*(a1 + 40) reminderAction];
+      [v12 setAction:v28];
     }
 
     else
     {
-      v27 = [*(a1 + 40) reminderActivity];
-      [v12 setAppLink:v27];
+      v28 = [*(a1 + 40) reminderActivity];
+      [v12 setAppLink:v28];
     }
 
     goto LABEL_18;
   }
 
-  v29 = sub_100004F84();
-  if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+  v30 = sub_100004F84(v20);
+  if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "[WARN] Reminder failed because calendar doesn't support location-based reminders", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "[WARN] Reminder failed because calendar doesn't support location-based reminders", buf, 2u);
   }
 
-  v30 = +[NSBundle mainBundle];
-  v31 = [v30 localizedStringForKey:@"REMINDER_FAILED_NO_LOCATION_BASED_REMINDERS" value:&stru_100361FD0 table:@"InCallService"];
+  v31 = +[NSBundle mainBundle];
+  v32 = [v31 localizedStringForKey:@"REMINDER_FAILED_NO_LOCATION_BASED_REMINDERS" value:&stru_100361FD0 table:@"InCallService"];
 
-  if (!v31)
+  if (!v32)
   {
 LABEL_25:
-    v44 = +[NSBundle mainBundle];
-    v32 = [v44 localizedStringForKey:@"REMINDER_FAILED_TRY_LATER" value:&stru_100361FD0 table:@"InCallService"];
+    v46 = +[NSBundle mainBundle];
+    v33 = [v46 localizedStringForKey:@"REMINDER_FAILED_TRY_LATER" value:&stru_100361FD0 table:@"InCallService"];
 
-    v33 = 0;
+    v34 = 0;
     goto LABEL_26;
   }
 
-  v32 = v31;
   v33 = v32;
+  v34 = v33;
 LABEL_26:
-  v45 = *(a1 + 40);
-  v42 = +[NSBundle mainBundle];
-  v46 = [v42 localizedStringForKey:@"ERROR" value:&stru_100361FD0 table:@"InCallService"];
-  [v45 presentAlertWithTitle:v46 message:v32];
+  v47 = *(a1 + 40);
+  v44 = +[NSBundle mainBundle];
+  v48 = [v44 localizedStringForKey:@"ERROR" value:&stru_100361FD0 table:@"InCallService"];
+  [v47 presentAlertWithTitle:v48 message:v33];
 
 LABEL_27:
-  v47 = sub_100004F84();
-  if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+  v50 = sub_100004F84(v49);
+  if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
   {
-    v48 = *(a1 + 48);
+    v51 = *(a1 + 48);
     *buf = 134217984;
-    v53 = v48;
-    _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, "PHDeclineWithReminderController.createReminderForWhenILeave endBackgroundTask %lu", buf, 0xCu);
+    v56 = v51;
+    _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_DEFAULT, "PHDeclineWithReminderController.createReminderForWhenILeave endBackgroundTask %lu", buf, 0xCu);
   }
 
-  v49 = +[UIApplication sharedApplication];
-  [v49 endBackgroundTask:*(a1 + 48)];
+  v52 = +[UIApplication sharedApplication];
+  [v52 endBackgroundTask:*(a1 + 48)];
 }
 
 id sub_1000B1AD0(uint64_t a1)
@@ -1738,9 +1785,11 @@ id sub_1000B1D4C(uint64_t a1)
 
 uint64_t sub_1000B237C(uint64_t a1)
 {
-  qword_1003B0E58 = objc_alloc_init(*(a1 + 32));
+  v1 = objc_alloc_init(*(a1 + 32));
+  v2 = qword_1003B0E58;
+  qword_1003B0E58 = v1;
 
-  return _objc_release_x1();
+  return _objc_release_x1(v1, v2);
 }
 
 void sub_1000B24C4(uint64_t a1)
@@ -1780,9 +1829,9 @@ void sub_1000B24C4(uint64_t a1)
   [*(a1 + 32) setInitializationBlockQueued:0];
 }
 
-void sub_1000B28D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_1000B28D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1805,21 +1854,27 @@ uint64_t sub_1000B2948(uint64_t result, uint64_t a2)
 
 uint64_t sub_1000B2960(uint64_t a1)
 {
-  *(*(*(a1 + 40) + 8) + 40) = (*(*(a1 + 32) + 16))();
+  v2 = (*(*(a1 + 32) + 16))();
+  v3 = *(*(a1 + 40) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return _objc_release_x1();
+  return _objc_release_x1(v2, v4);
 }
 
 uint64_t sub_1000B2A9C(uint64_t a1)
 {
-  *(*(*(a1 + 40) + 8) + 40) = (*(*(a1 + 32) + 16))();
+  v2 = (*(*(a1 + 32) + 16))();
+  v3 = *(*(a1 + 40) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return _objc_release_x1();
+  return _objc_release_x1(v2, v4);
 }
 
-void sub_1000B2D00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_1000B2D00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1835,14 +1890,17 @@ id sub_1000B2D18(uint64_t a1)
 
 uint64_t sub_1000B2D74(uint64_t a1)
 {
-  *(*(*(a1 + 40) + 8) + 40) = (*(*(a1 + 32) + 16))();
+  v2 = (*(*(a1 + 32) + 16))();
+  v3 = *(*(a1 + 40) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return _objc_release_x1();
+  return _objc_release_x1(v2, v4);
 }
 
-void sub_1000B2FCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_1000B2FCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1858,14 +1916,17 @@ id sub_1000B2FE4(uint64_t a1)
 
 uint64_t sub_1000B3040(uint64_t a1)
 {
-  *(*(*(a1 + 40) + 8) + 40) = (*(*(a1 + 32) + 16))();
+  v2 = (*(*(a1 + 32) + 16))();
+  v3 = *(*(a1 + 40) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return _objc_release_x1();
+  return _objc_release_x1(v2, v4);
 }
 
-void sub_1000B3298(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_1000B3298(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1881,9 +1942,12 @@ id sub_1000B32B0(uint64_t a1)
 
 uint64_t sub_1000B330C(uint64_t a1)
 {
-  *(*(*(a1 + 40) + 8) + 40) = (*(*(a1 + 32) + 16))();
+  v2 = (*(*(a1 + 32) + 16))();
+  v3 = *(*(a1 + 40) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return _objc_release_x1();
+  return _objc_release_x1(v2, v4);
 }
 
 void sub_1000B39B4(uint64_t a1, void *a2)
@@ -1915,7 +1979,7 @@ void sub_1000B45DC(uint64_t a1, void *a2, void *a3)
   v7 = v6;
   if (*(*(a1 + 32) + 8) == 1)
   {
-    v8 = sub_100004F84();
+    v8 = sub_100004F84(v6);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -1927,7 +1991,7 @@ void sub_1000B45DC(uint64_t a1, void *a2, void *a3)
   {
     if (v6)
     {
-      v9 = sub_100004F84();
+      v9 = sub_100004F84(v6);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         sub_100256064(v7, v9);
@@ -1977,7 +2041,7 @@ void sub_1000B45DC(uint64_t a1, void *a2, void *a3)
         goto LABEL_10;
       }
 
-      v9 = sub_100004F84();
+      v9 = sub_100004F84(0);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         sub_1002560DC(v9);
@@ -2000,52 +2064,52 @@ void sub_1000B51F4(uint64_t a1)
     v3 = +[_PHMeCardGeocoderPreferences sharedPreferences];
     v4 = [v3 hasValidNetworkPreferences];
 
-    v5 = sub_100004F84();
-    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
+    v6 = sub_100004F84(v5);
+    v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
     if (v4)
     {
-      if (v6)
+      if (v7)
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "We have valid network preferences.  Rebuilding address array now.", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "We have valid network preferences.  Rebuilding address array now.", buf, 2u);
       }
 
-      v7 = *(*(a1 + 32) + 16);
+      v8 = *(*(a1 + 32) + 16);
       block[0] = _NSConcreteStackBlock;
       block[1] = 3221225472;
       block[2] = sub_1000B53D8;
       block[3] = &unk_100356988;
-      v15 = WeakRetained;
-      dispatch_async(v7, block);
-      v8 = v15;
+      v16 = WeakRetained;
+      dispatch_async(v8, block);
+      v9 = v16;
     }
 
     else
     {
-      if (v6)
+      if (v7)
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "We do not have valid network preferences.  Waiting until we have some or 2 minutes, whichever comes first.", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "We do not have valid network preferences.  Waiting until we have some or 2 minutes, whichever comes first.", buf, 2u);
       }
 
-      v9 = +[NSNotificationCenter defaultCenter];
-      [v9 addObserver:WeakRetained selector:"_networkPreferencesLoaded" name:@"com.apple.MobilePhone.PHMeCardGeocoder.PreferencesChanged" object:0];
+      v10 = +[NSNotificationCenter defaultCenter];
+      [v10 addObserver:WeakRetained selector:"_networkPreferencesLoaded" name:@"com.apple.MobilePhone.PHMeCardGeocoder.PreferencesChanged" object:0];
 
-      v10 = [[PCPersistentTimer alloc] initWithTimeInterval:@"com.apple.MobilePHone.PHMeCardGeocoder" serviceIdentifier:WeakRetained target:"_networkPreferencesLoaded" selector:0 userInfo:120.0];
-      v11 = *(a1 + 32);
-      v12 = *(v11 + 32);
-      *(v11 + 32) = v10;
+      v11 = [[PCPersistentTimer alloc] initWithTimeInterval:@"com.apple.MobilePHone.PHMeCardGeocoder" serviceIdentifier:WeakRetained target:"_networkPreferencesLoaded" selector:0 userInfo:120.0];
+      v12 = *(a1 + 32);
+      v13 = *(v12 + 32);
+      *(v12 + 32) = v11;
 
-      v13 = *(*(a1 + 32) + 32);
-      v8 = +[NSRunLoop mainRunLoop];
-      [v13 scheduleInRunLoop:v8];
+      v14 = *(*(a1 + 32) + 32);
+      v9 = +[NSRunLoop mainRunLoop];
+      [v14 scheduleInRunLoop:v9];
     }
   }
 }
 
 id sub_1000B5454(uint64_t a1)
 {
-  v2 = sub_100004F84();
+  v2 = sub_100004F84(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = +[_PHMeCardGeocoderPreferences sharedPreferences];
@@ -2102,7 +2166,7 @@ void sub_1000B5650(uint64_t a1)
 void sub_1000B5DD0(uint64_t a1, char a2, void *a3)
 {
   v5 = a3;
-  v6 = sub_100004F84();
+  v6 = sub_100004F84(v5);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
   if (a2)
   {
@@ -2139,14 +2203,15 @@ id sub_1000B62F4(uint64_t a1)
 {
   [*(a1 + 32) _unschedulePerformGeocodesWakeTaskIfEarlierThan:0];
   v2 = [*(a1 + 32) _isNetworkAvailable];
-  v3 = sub_100004F84();
-  v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
-  if (v2)
+  v3 = v2;
+  v4 = sub_100004F84(v2);
+  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
+  if (v3)
   {
-    if (v4)
+    if (v5)
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "xpc_activity callback: Network available, doing some work...", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "xpc_activity callback: Network available, doing some work...", buf, 2u);
     }
 
     return [*(a1 + 32) _doWork];
@@ -2154,10 +2219,10 @@ id sub_1000B62F4(uint64_t a1)
 
   else
   {
-    if (v4)
+    if (v5)
     {
-      *v6 = 0;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "xpc_activity callback: No network available now, scheduling next wake...", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "xpc_activity callback: No network available now, scheduling next wake...", v7, 2u);
     }
 
     return [*(a1 + 32) _scheduleNextGeocode];
@@ -2166,7 +2231,7 @@ id sub_1000B62F4(uint64_t a1)
 
 id sub_1000B6A3C(uint64_t a1)
 {
-  v2 = sub_100004F84();
+  v2 = sub_100004F84(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -2199,9 +2264,9 @@ void sub_1000B7438(uint64_t a1)
   _Block_object_dispose(&v4, 8);
 }
 
-void sub_1000B74FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000B74FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2226,9 +2291,11 @@ void sub_1000B7514(uint64_t a1, void *a2)
 
 void sub_1000B7830(id a1)
 {
-  qword_1003B0E70 = objc_alloc_init(_PHMeCardGeocoderPreferences);
+  v1 = objc_alloc_init(_PHMeCardGeocoderPreferences);
+  v2 = qword_1003B0E70;
+  qword_1003B0E70 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 id sub_1000BA8E8(uint64_t a1)
@@ -2367,28 +2434,36 @@ void sub_1000BEE80(uint64_t a1)
 
 uint64_t sub_1000BFF70()
 {
-  v4 = 0;
-  v5 = &v4;
-  v6 = 0x2020000000;
+  v5 = 0;
+  v6 = &v5;
+  v7 = 0x2020000000;
   v0 = off_1003B0E78;
-  v7 = off_1003B0E78;
+  v8 = off_1003B0E78;
   if (!off_1003B0E78)
   {
     v1 = sub_1000C3800();
-    v5[3] = dlsym(v1, "MSNMonitorEndException");
-    off_1003B0E78 = v5[3];
-    v0 = v5[3];
+    v6[3] = dlsym(v1, "MSNMonitorEndException");
+    off_1003B0E78 = v6[3];
+    v0 = v6[3];
   }
 
-  _Block_object_dispose(&v4, 8);
+  _Block_object_dispose(&v5, 8);
   if (!v0)
   {
-    v3 = sub_10025485C();
-    _Block_object_dispose(&v4, 8);
-    _Unwind_Resume(v3);
+    sub_10025485C();
+    v4 = v3;
+    _Block_object_dispose(&v5, 8);
+    _Unwind_Resume(v4);
   }
 
   return v0("emergency");
+}
+
+void sub_1000C0B98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 id sub_1000C0BB8(uint64_t a1)
@@ -2519,7 +2594,7 @@ id *sub_1000C2454(id *result, int a2)
   if (a2)
   {
     v2 = result;
-    v3 = sub_100004F84();
+    v3 = sub_100004F84(result);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v4[0] = 0;
@@ -2532,9 +2607,9 @@ id *sub_1000C2454(id *result, int a2)
   return result;
 }
 
-void sub_1000C2B30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1000C2B30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2581,7 +2656,7 @@ void sub_1000C2BD0(uint64_t a1, int a2)
 
   else
   {
-    v4 = sub_100004F84();
+    v4 = sub_100004F84(a1);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -2618,7 +2693,7 @@ uint64_t sub_1000C3800()
   v1 = v3[0];
   if (!qword_1003B0E80)
   {
-    v1 = abort_report_np();
+    v1 = abort_report_np("%s", v3[0]);
     goto LABEL_7;
   }
 
@@ -2631,7 +2706,7 @@ LABEL_7:
   return v0;
 }
 
-uint64_t sub_1000C3900()
+uint64_t sub_1000C3900(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1003B0E80 = result;
@@ -2710,10 +2785,10 @@ void sub_1000C4510(uint64_t a1)
   v8 = [v5 secondaryString];
   v9 = [v5 isCallIdentification];
   v10 = [*(a1 + 32) dataSource];
-  v30 = [v10 phoneCallContainer:*(a1 + 32) subtitleColorForViewCellAtIndex:*(a1 + 48)];
+  v31 = [v10 phoneCallContainer:*(a1 + 32) subtitleColorForViewCellAtIndex:*(a1 + 48)];
 
   v11 = [*(a1 + 32) dataSource];
-  v31 = [v11 phoneCallContainer:*(a1 + 32) localizedSenderIdentityForViewCellAtIndex:*(a1 + 48)];
+  v32 = [v11 phoneCallContainer:*(a1 + 32) localizedSenderIdentityForViewCellAtIndex:*(a1 + 48)];
 
   v12 = [*(a1 + 32) visibleCells];
   if ([v12 count] == 1)
@@ -2730,7 +2805,7 @@ void sub_1000C4510(uint64_t a1)
   v15 = [*(a1 + 32) dataSource];
   v16 = [v15 phoneCallContainer:*(a1 + 32) cellIsDimmedAtIndex:*(a1 + 48)];
 
-  if (v3 || v6 || v31)
+  if (v3 || v6 || v32)
   {
     [*(a1 + 40) setDimmed:v16 animated:1];
     if (v9)
@@ -2764,10 +2839,10 @@ void sub_1000C4510(uint64_t a1)
     v21 = v3;
     v19 = v6;
 LABEL_15:
-    [v18 setTitle:v21 subtitle:v19 source:v7 subtitleColor:v30 localizedSenderIdentityTitle:v31 animated:v20];
+    [v18 setTitle:v21 subtitle:v19 source:v7 subtitleColor:v31 localizedSenderIdentityTitle:v32 animated:v20];
   }
 
-  v29 = v3;
+  v30 = v3;
   v22 = v7;
   v23 = [*(a1 + 40) avatarViewController];
   v24 = [v23 contacts];
@@ -2776,13 +2851,13 @@ LABEL_15:
 
   if ((v26 & 1) == 0)
   {
-    v27 = sub_100004F84();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+    v28 = sub_100004F84(v27);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
     {
-      v28 = [v14 contacts];
+      v29 = [v14 contacts];
       *buf = 138412290;
-      v33 = v28;
-      _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "Updating CarPlay InCallService AvatarViewController with contacts: %@", buf, 0xCu);
+      v34 = v29;
+      _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "Updating CarPlay InCallService AvatarViewController with contacts: %@", buf, 0xCu);
     }
 
     [*(a1 + 40) setAvatarViewController:v14];
@@ -2842,7 +2917,7 @@ void sub_1000C5E08(id a1)
   _objc_release_x1(v1, v2);
 }
 
-void sub_1000C746C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, id location)
+void sub_1000C746C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, id location)
 {
   objc_destroyWeak((v21 + 40));
   objc_destroyWeak(&location);
@@ -2854,76 +2929,80 @@ void sub_1000C74C8(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = WeakRetained;
-  if (WeakRetained && ([WeakRetained pauseTimer] & 1) == 0)
+  if (WeakRetained)
   {
-    if (--*(*(*(a1 + 32) + 8) + 24))
+    v4 = [WeakRetained pauseTimer];
+    if ((v4 & 1) == 0)
     {
-      v4 = [v3 countdownViewModel];
-      if ([v4 playsSound])
+      if (--*(*(*(a1 + 32) + 8) + 24))
       {
-      }
-
-      else
-      {
-        v8 = [v3 countdownViewModel];
-        v9 = [v8 playsHaptics];
-
-        if (!v9)
+        v5 = [v3 countdownViewModel];
+        if ([v5 playsSound])
         {
+        }
+
+        else
+        {
+          v9 = [v3 countdownViewModel];
+          v10 = [v9 playsHaptics];
+
+          if (!v10)
+          {
 LABEL_15:
-          v15 = [v3 countdownLabel];
-          v17[0] = _NSConcreteStackBlock;
-          v17[1] = 3221225472;
-          v17[2] = sub_1000C7738;
-          v17[3] = &unk_100358E90;
-          v16 = *(a1 + 32);
-          v17[4] = v3;
-          v17[5] = v16;
-          [UIView transitionWithView:v15 duration:5242880 options:v17 animations:0 completion:0.200000003];
+            v16 = [v3 countdownLabel];
+            v18[0] = _NSConcreteStackBlock;
+            v18[1] = 3221225472;
+            v18[2] = sub_1000C7738;
+            v18[3] = &unk_100358E90;
+            v17 = *(a1 + 32);
+            v18[4] = v3;
+            v18[5] = v17;
+            [UIView transitionWithView:v16 duration:5242880 options:v18 animations:0 completion:0.200000003];
 
-          goto LABEL_16;
+            goto LABEL_16;
+          }
         }
-      }
 
-      v10 = [v3 countdownViewModel];
-      if ([v10 playsSound])
-      {
-        v11 = *(*(*(a1 + 32) + 8) + 24);
-        v12 = *(a1 + 48);
-
-        v13 = [v3 alertController];
-        [v13 playAlertWithAudio:v11 <= v12 alertTopic:TLAlertTopicSOSCountdownTick];
-
-        if (v11 <= v12)
+        v11 = [v3 countdownViewModel];
+        if ([v11 playsSound])
         {
-          [v3 toggleFlash];
+          v12 = *(*(*(a1 + 32) + 8) + 24);
+          v13 = *(a1 + 48);
+
+          v14 = [v3 alertController];
+          [v14 playAlertWithAudio:v12 <= v13 alertTopic:TLAlertTopicSOSCountdownTick];
+
+          if (v12 <= v13)
+          {
+            [v3 toggleFlash];
+          }
         }
+
+        else
+        {
+
+          v15 = [v3 alertController];
+          [v15 playAlertWithAudio:0 alertTopic:TLAlertTopicSOSCountdownTick];
+        }
+
+        goto LABEL_15;
       }
 
-      else
+      v6 = sub_100004F84(v4);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-
-        v14 = [v3 alertController];
-        [v14 playAlertWithAudio:0 alertTopic:TLAlertTopicSOSCountdownTick];
+        *buf = 0;
+        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Countdown has finished! Calling completion.", buf, 2u);
       }
 
-      goto LABEL_15;
-    }
-
-    v5 = sub_100004F84();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Countdown has finished! Calling completion.", buf, 2u);
-    }
-
-    [v3 stop];
-    v6 = [v3 completion];
-
-    if (v6)
-    {
+      [v3 stop];
       v7 = [v3 completion];
-      v7[2](v7, 0);
+
+      if (v7)
+      {
+        v8 = [v3 completion];
+        v8[2](v8, 0);
+      }
     }
   }
 
@@ -2945,32 +3024,32 @@ void sub_1000C8398(uint64_t a1)
 
   if (v3)
   {
-    v4 = [*(a1 + 32) avCaptureDevice];
-    [v4 lockForConfiguration:0];
-
     v5 = [*(a1 + 32) avCaptureDevice];
-    [v5 setTorchMode:1];
+    [v5 lockForConfiguration:0];
 
     v6 = [*(a1 + 32) avCaptureDevice];
-    [v6 unlockForConfiguration];
+    [v6 setTorchMode:1];
 
-    v7 = dispatch_time(0, 500000000);
-    v8 = [*(a1 + 32) avCaptureDispatchQueue];
+    v7 = [*(a1 + 32) avCaptureDevice];
+    [v7 unlockForConfiguration];
+
+    v8 = dispatch_time(0, 500000000);
+    v9 = [*(a1 + 32) avCaptureDispatchQueue];
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_1000C8504;
     block[3] = &unk_100356988;
     block[4] = *(a1 + 32);
-    dispatch_after(v7, v8, block);
+    dispatch_after(v8, v9, block);
   }
 
   else
   {
-    v9 = sub_100004F84();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_100004F84(v4);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "PHSlidingView,torch not available", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "PHSlidingView,torch not available", buf, 2u);
     }
   }
 }
@@ -2982,29 +3061,29 @@ void sub_1000C85AC(uint64_t a1)
 
   if (v3)
   {
-    v4 = [*(a1 + 32) avCaptureDevice];
-    [v4 lockForConfiguration:0];
-
     v5 = [*(a1 + 32) avCaptureDevice];
-    v6 = [v5 torchMode];
+    [v5 lockForConfiguration:0];
 
-    if (v6 == 1)
+    v6 = [*(a1 + 32) avCaptureDevice];
+    v7 = [v6 torchMode];
+
+    if (v7 == 1)
     {
-      v7 = [*(a1 + 32) avCaptureDevice];
-      [v7 setTorchMode:0];
+      v8 = [*(a1 + 32) avCaptureDevice];
+      [v8 setTorchMode:0];
     }
 
-    v9 = [*(a1 + 32) avCaptureDevice];
-    [v9 unlockForConfiguration];
+    v10 = [*(a1 + 32) avCaptureDevice];
+    [v10 unlockForConfiguration];
   }
 
   else
   {
-    v8 = sub_100004F84();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_100004F84(v4);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "PHSlidingView,torch not available", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "PHSlidingView,torch not available", buf, 2u);
     }
   }
 }
@@ -3026,33 +3105,33 @@ void sub_1000C9B6C(id *a1)
 
   if (v2)
   {
-    v3 = [a1[6] sharedUtilityProvider];
-    v4 = [a1[4] UUIDString];
-    v5 = [v3 conversationForCallUID:v4];
+    v4 = [a1[6] sharedUtilityProvider];
+    v5 = [a1[4] UUIDString];
+    v6 = [v4 conversationForCallUID:v5];
 
-    if (v5)
+    if (v6)
     {
       block[0] = _NSConcreteStackBlock;
       block[1] = 3221225472;
       block[2] = sub_1000C9CF4;
       block[3] = &unk_100358F10;
-      objc_copyWeak(&v9, a1 + 5);
-      v5 = v5;
-      v7 = v5;
-      v8 = a1[4];
+      objc_copyWeak(&v10, a1 + 5);
+      v6 = v6;
+      v8 = v6;
+      v9 = a1[4];
       dispatch_async(&_dispatch_main_q, block);
 
-      objc_destroyWeak(&v9);
+      objc_destroyWeak(&v10);
     }
   }
 
   else
   {
-    v5 = sub_100004F84();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100004F84(v3);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Stopped fetchRTTConversationForCallUUID because MPRTTTranscriptionMessage was deallocated before starting", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Stopped fetchRTTConversationForCallUUID because MPRTTTranscriptionMessage was deallocated before starting", buf, 2u);
     }
   }
 
@@ -3065,8 +3144,7 @@ void sub_1000C9CF4(uint64_t a1)
   v3 = WeakRetained;
   if (WeakRetained)
   {
-    [WeakRetained setConversation:*(a1 + 32)];
-    v4 = sub_100004F84();
+    v4 = sub_100004F84([WeakRetained setConversation:*(a1 + 32)]);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *v8 = 0;
@@ -3083,7 +3161,7 @@ void sub_1000C9CF4(uint64_t a1)
 
   else
   {
-    v5 = sub_100004F84();
+    v5 = sub_100004F84(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *v8 = 0;
@@ -3102,25 +3180,26 @@ void sub_1000CA17C(uint64_t a1)
   v3 = *(a1 + 32);
   v2 = a1 + 32;
   v4 = off_1003B0EB0(*(v2 + 8), *(v2 + 12), v3);
-  v5 = sub_100004F84();
-  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_ERROR);
-  if (v4)
+  v5 = v4;
+  v6 = sub_100004F84(v4);
+  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_ERROR);
+  if (v5)
   {
-    if (v6)
+    if (v7)
     {
-      sub_1002564E0(v2, v5);
+      sub_1002564E0(v2, v6);
     }
   }
 
-  else if (v6)
+  else if (v7)
   {
-    sub_100256464(v2, v5);
+    sub_100256464(v2, v6);
   }
 }
 
 void sub_1000CACC4(uint64_t a1)
 {
-  v2 = sub_100004F84();
+  v2 = sub_100004F84(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -3531,8 +3610,7 @@ void sub_1000D5A48(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (!a3)
   {
-    [*(a1 + 32) setHasInvertedUIElementColorsBasedOnPoster:1];
-    v5 = sub_100004F84();
+    v5 = sub_100004F84([*(a1 + 32) setHasInvertedUIElementColorsBasedOnPoster:1]);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v9[0] = 67109120;
@@ -3553,8 +3631,7 @@ void sub_1000D5CB4(uint64_t a1, int a2, uint64_t a3)
 {
   if (!a3)
   {
-    [*(a1 + 32) setHasInvertedUIElementColorsBasedOnPoster:1];
-    v5 = sub_100004F84();
+    v5 = sub_100004F84([*(a1 + 32) setHasInvertedUIElementColorsBasedOnPoster:1]);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v8[0] = 67109120;
@@ -3582,8 +3659,7 @@ id *sub_1000D5F98(id *result, int a2, uint64_t a3)
   if (!a3)
   {
     v4 = result;
-    [result[4] setHasInvertedUIElementColorsBasedOnPoster:1];
-    v5 = sub_100004F84();
+    v5 = sub_100004F84([result[4] setHasInvertedUIElementColorsBasedOnPoster:1]);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v7[0] = 67109120;
@@ -3734,7 +3810,7 @@ void sub_1000D9C84(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void sub_1000D9CA0(uint64_t a1)
 {
-  v2 = sub_100004F84();
+  v2 = sub_100004F84(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v8 = 0;
@@ -3751,44 +3827,46 @@ void sub_1000D9CA0(uint64_t a1)
   [v7 setEnabled:1];
 }
 
-void sub_1000DA564(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, char a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_1000DA564(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
 {
+  va_start(va, a32);
   _Block_object_dispose(&a22, 8);
-  _Block_object_dispose((v34 - 176), 8);
-  objc_destroyWeak((v33 + 40));
-  _Block_object_dispose(&a33, 8);
+  _Block_object_dispose((v33 - 176), 8);
+  objc_destroyWeak((v32 + 40));
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void sub_1000DA5C4(uint64_t a1, int a2)
 {
   WeakRetained = objc_loadWeakRetained((*(*(a1 + 32) + 8) + 40));
+  v5 = WeakRetained;
   if (WeakRetained)
   {
-    v5 = a2 ^ 1u;
-    v6 = *(*(a1 + 40) + 8);
-    if (*(v6 + 24) != v5)
+    v6 = a2 ^ 1u;
+    v7 = *(*(a1 + 40) + 8);
+    if (*(v7 + 24) != v6)
     {
-      *(v6 + 24) = v5;
-      v7 = sub_100004F84();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      *(v7 + 24) = v6;
+      v8 = sub_100004F84(WeakRetained);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         if (*(*(*(a1 + 40) + 8) + 24))
         {
-          v8 = @"YES";
+          v9 = @"YES";
         }
 
         else
         {
-          v8 = @"NO";
+          v9 = @"NO";
         }
 
-        v9 = 138412290;
-        v10 = v8;
-        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Audio: setCurrentState: stateChangeLockObservation: wasUnlocked: %@", &v9, 0xCu);
+        v10 = 138412290;
+        v11 = v9;
+        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Audio: setCurrentState: stateChangeLockObservation: wasUnlocked: %@", &v10, 0xCu);
       }
 
-      [WeakRetained setScreeningState:*(a1 + 48) animated:1 overrideWithIsUnlocked:v5];
+      [v5 setScreeningState:*(a1 + 48) animated:1 overrideWithIsUnlocked:v6];
     }
   }
 }
@@ -3808,21 +3886,21 @@ void sub_1000DA6E4(uint64_t a1)
       v7 = [v3 traitCollection];
       *(*(*(a1 + 40) + 8) + 24) = [v7 _backlightLuminance];
 
-      v8 = sub_100004F84();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = sub_100004F84(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v9 = @"YES";
+        v10 = @"YES";
         if (!*(*(*(a1 + 48) + 8) + 24))
         {
-          v9 = @"NO";
+          v10 = @"NO";
         }
 
-        v10 = *(*(*(a1 + 40) + 8) + 24);
-        v11 = 138412546;
-        v12 = v9;
-        v13 = 2048;
-        v14 = v10;
-        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Audio: setCurrentState: stateDisplayChangedObservation: wasUnlocked: %@ with luminance: %ld", &v11, 0x16u);
+        v11 = *(*(*(a1 + 40) + 8) + 24);
+        v12 = 138412546;
+        v13 = v10;
+        v14 = 2048;
+        v15 = v11;
+        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Audio: setCurrentState: stateDisplayChangedObservation: wasUnlocked: %@ with luminance: %ld", &v12, 0x16u);
       }
 
       [v3 setScreeningState:*(a1 + 56) animated:1 overrideWithIsUnlocked:*(*(*(a1 + 48) + 8) + 24)];
@@ -4010,43 +4088,42 @@ void sub_1000E1914(uint64_t a1, int a2)
 
       if (!v5)
       {
-        v5 = sub_100004F84();
+        v5 = sub_100004F84(v7);
         if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
         {
-          v14 = [*(a1 + 32) callCenter];
-          v15 = [v14 currentCalls];
-          v16 = 138412290;
-          v17 = v15;
-          _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "[WARN] Was told to request video presentation but no active or held call was found in calls: %@", &v16, 0xCu);
+          v15 = [*(a1 + 32) callCenter];
+          v16 = [v15 currentCalls];
+          v17 = 138412290;
+          v18 = v16;
+          _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "[WARN] Was told to request video presentation but no active or held call was found in calls: %@", &v17, 0xCu);
         }
 
         goto LABEL_8;
       }
     }
 
-    v7 = [v5 provider];
-    v8 = [[TUDialRequest alloc] initWithProvider:v7];
-    v9 = [v5 handle];
-    [v8 setHandle:v9];
+    v8 = [v5 provider];
+    v9 = [[TUDialRequest alloc] initWithProvider:v8];
+    v10 = [v5 handle];
+    [v9 setHandle:v10];
 
-    v10 = [v5 contactIdentifier];
-    [v8 setContactIdentifier:v10];
+    v11 = [v5 contactIdentifier];
+    [v9 setContactIdentifier:v11];
 
-    v11 = [v5 localSenderIdentityUUID];
-    [v8 setLocalSenderIdentityUUID:v11];
+    v12 = [v5 localSenderIdentityUUID];
+    [v9 setLocalSenderIdentityUUID:v12];
 
-    [v8 setVideo:1];
-    [v8 setOriginatingUIType:1];
-    v12 = sub_100004F84();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    [v9 setVideo:1];
+    v13 = sub_100004F84([v9 setOriginatingUIType:1]);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 138412290;
-      v17 = v8;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Requesting video via dial request: %@", &v16, 0xCu);
+      v17 = 138412290;
+      v18 = v9;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Requesting video via dial request: %@", &v17, 0xCu);
     }
 
-    v13 = [*(a1 + 32) callCenter];
-    [v13 launchAppForDialRequest:v8 completion:0];
+    v14 = [*(a1 + 32) callCenter];
+    [v14 launchAppForDialRequest:v9 completion:0];
 
 LABEL_8:
   }
@@ -4077,7 +4154,7 @@ void sub_1000E4E40(_Unwind_Exception *a1)
 
 void sub_1000E4E94(uint64_t a1, int a2)
 {
-  v4 = sub_100004F84();
+  v4 = sub_100004F84(a1);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
   if (a2)
   {
@@ -4126,36 +4203,37 @@ void sub_1000E4FF8(uint64_t a1, char a2)
 
   if ((a2 & 1) == 0)
   {
-    v15 = sub_100004F84();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = sub_100004F84(WeakRetained);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v22) = 0;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Not performing live reply with device locked.", &v22, 2u);
+      LOWORD(v23) = 0;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Not performing live reply with device locked.", &v23, 2u);
     }
 
     goto LABEL_14;
   }
 
-  if (![WeakRetained usesCompactMulticallUI] || (objc_msgSend(v5, "callCenter"), v6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "currentCallGroups"), v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v7, "count"), v7, v6, v8 < 2))
+  v6 = [WeakRetained usesCompactMulticallUI];
+  if (!v6 || ([v5 callCenter], v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "currentCallGroups"), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v8, "count"), v8, v7, v9 < 2))
   {
-    v16 = sub_100004F84();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v17 = sub_100004F84(v6);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = [*(a1 + 32) frontmostCall];
-      v22 = 138412290;
-      v23 = v17;
-      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Answering screened call with live reply: %@", &v22, 0xCu);
+      v18 = [*(a1 + 32) frontmostCall];
+      v23 = 138412290;
+      v24 = v18;
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Answering screened call with live reply: %@", &v23, 0xCu);
     }
 
-    v15 = [v5 frontmostCall];
-    if (v15)
+    v16 = [v5 frontmostCall];
+    if (v16)
     {
       [v5 setSendToLiveReply:1];
-      v18 = +[UIApplication sharedApplication];
-      v19 = [v18 delegate];
-      v20 = [v19 answeringMachine];
-      v21 = [v15 callUUID];
-      [v20 screenCallWithUUID:v21 manualScreening:1 receptionist:1 completion:&stru_100359298];
+      v19 = +[UIApplication sharedApplication];
+      v20 = [v19 delegate];
+      v21 = [v20 answeringMachine];
+      v22 = [v16 callUUID];
+      [v21 screenCallWithUUID:v22 manualScreening:1 receptionist:1 completion:&stru_100359298];
     }
 
 LABEL_14:
@@ -4163,19 +4241,19 @@ LABEL_14:
     goto LABEL_15;
   }
 
-  v9 = [v5 callCenter];
-  v10 = [v9 currentCallCount];
+  v10 = [v5 callCenter];
+  v11 = [v10 currentCallCount];
 
-  if (v10 >= 2)
+  if (v11 >= 2)
   {
-    v11 = [v5 analyticsReporter];
-    [v11 reportMultipleCallsWaitingUIAction:4];
+    v12 = [v5 analyticsReporter];
+    [v12 reportMultipleCallsWaitingUIAction:4];
   }
 
-  v12 = [v5 callCenter];
-  v13 = [*(a1 + 32) callCenter];
-  v14 = [v13 incomingCall];
-  [v12 disconnectCall:v14 withReason:2];
+  v13 = [v5 callCenter];
+  v14 = [*(a1 + 32) callCenter];
+  v15 = [v14 incomingCall];
+  [v13 disconnectCall:v15 withReason:2];
 
 LABEL_15:
 }
@@ -4224,12 +4302,12 @@ void sub_1000E5C04(uint64_t a1, void *a2)
   objc_destroyWeak(&to);
 }
 
-void sub_1000E605C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_1000E605C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
-  objc_destroyWeak((v16 + 56));
+  va_start(va, a23);
+  objc_destroyWeak((v23 + 56));
   objc_destroyWeak(va);
-  objc_destroyWeak((v17 - 112));
+  objc_destroyWeak((v24 - 112));
   _Unwind_Resume(a1);
 }
 
@@ -4325,11 +4403,12 @@ void sub_1000E88B0(uint64_t a1)
   [v2 _testing_finishedAnimatingToActiveCallState:v1];
 }
 
-void sub_1000E9C10(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location, char a17)
+void sub_1000E9C10(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location, ...)
 {
-  objc_destroyWeak((v17 + 40));
+  va_start(va, location);
+  objc_destroyWeak((v16 + 40));
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a17, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -4345,17 +4424,17 @@ void sub_1000E9C40(uint64_t a1)
       v4 = [WeakRetained alertCountDownTimer];
       [v4 invalidate];
 
-      v5 = sub_100004F84();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v6 = sub_100004F84(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        *v8 = 0;
-        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "alertCountDownTimer invalidated, triggering alert", v8, 2u);
+        *v9 = 0;
+        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "alertCountDownTimer invalidated, triggering alert", v9, 2u);
       }
 
       [v3 setAlertTriggeredByAutoCountdown:1];
-      v6 = objc_loadWeakRetained((a1 + 40));
-      v7 = [v6 bottomBar];
-      [v3 bottomBarActionPerformed:38 withCompletionState:1 fromBar:v7];
+      v7 = objc_loadWeakRetained((a1 + 40));
+      v8 = [v7 bottomBar];
+      [v3 bottomBarActionPerformed:38 withCompletionState:1 fromBar:v8];
 
       [v3 setAlertTriggeredByAutoCountdown:0];
     }
@@ -4454,12 +4533,12 @@ void sub_1000EAE24(uint64_t a1)
   [WeakRetained restartCallBufferTimer];
 }
 
-void sub_1000EB170(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_1000EB170(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
-  objc_destroyWeak((v8 + 40));
+  va_start(va, a15);
+  objc_destroyWeak((v15 + 40));
   _Block_object_dispose(va, 8);
-  objc_destroyWeak((v9 - 40));
+  objc_destroyWeak((v16 - 40));
   _Unwind_Resume(a1);
 }
 
@@ -4690,7 +4769,7 @@ LABEL_18:
 
 id sub_1000F2978(uint64_t a1)
 {
-  v2 = sub_100004F84();
+  v2 = sub_100004F84(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -4765,7 +4844,7 @@ void sub_1000F3550(uint64_t a1)
 
 void sub_1000F3620(uint64_t a1)
 {
-  v2 = sub_100004F84();
+  v2 = sub_100004F84(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -4789,15 +4868,15 @@ void sub_1000F39EC(uint64_t a1)
   v2 = [*(a1 + 32) view];
   v3 = [v2 window];
 
-  v4 = sub_100004F84();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = sub_100004F84(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = *(a1 + 32);
-    v6 = 138412546;
-    v7 = v5;
-    v8 = 2112;
-    v9 = v3;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Completed transition to %@. Presented in window %@.", &v6, 0x16u);
+    v6 = *(a1 + 32);
+    v7 = 138412546;
+    v8 = v6;
+    v9 = 2112;
+    v10 = v3;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Completed transition to %@. Presented in window %@.", &v7, 0x16u);
   }
 }
 
@@ -4840,11 +4919,11 @@ void sub_1000F46B8(id a1)
 
   DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
   CFNotificationCenterPostNotification(DarwinNotifyCenter, TUCallCenterInCallServiceDidAppearNotification, 0, 0, 1u);
-  v3 = sub_100004F84();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v4 = sub_100004F84(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "TUCallCenterInCallServiceDidAppearNotification: Posted in ", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "TUCallCenterInCallServiceDidAppearNotification: Posted in ", v5, 2u);
   }
 }
 
@@ -4965,7 +5044,7 @@ uint64_t sub_1000F5EAC(uint64_t result, int a2)
 
 uint64_t sub_1000F64E8(uint64_t a1)
 {
-  v2 = sub_100004F84();
+  v2 = sub_100004F84(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 48);
@@ -4975,8 +5054,7 @@ uint64_t sub_1000F64E8(uint64_t a1)
   }
 
   [*(a1 + 32) setContactsViewController:0];
-  [*(a1 + 32) updateDesiredSpringboardBehavior];
-  v4 = sub_100004F84();
+  v4 = sub_100004F84([*(a1 + 32) updateDesiredSpringboardBehavior]);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 48);
@@ -5004,15 +5082,14 @@ uint64_t sub_1000F6610(uint64_t a1)
 
 uint64_t sub_1000F67B4(uint64_t a1)
 {
-  v2 = sub_100004F84();
+  v2 = sub_100004F84(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "dismissed contact details (before updateDesiredSpringboardBehavior)", buf, 2u);
   }
 
-  [*(a1 + 32) updateDesiredSpringboardBehavior];
-  v3 = sub_100004F84();
+  v3 = sub_100004F84([*(a1 + 32) updateDesiredSpringboardBehavior]);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -5030,7 +5107,7 @@ uint64_t sub_1000F67B4(uint64_t a1)
 
 uint64_t sub_1000F70EC(uint64_t a1)
 {
-  v2 = sub_100004F84();
+  v2 = sub_100004F84(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -5048,7 +5125,7 @@ uint64_t sub_1000F70EC(uint64_t a1)
 
 void sub_1000F73A4(uint64_t a1)
 {
-  v2 = sub_100004F84();
+  v2 = sub_100004F84(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v3 = 0;
@@ -5060,7 +5137,7 @@ void sub_1000F73A4(uint64_t a1)
 
 void sub_1000F7418(uint64_t a1)
 {
-  v2 = sub_100004F84();
+  v2 = sub_100004F84(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v3 = 0;
@@ -5072,7 +5149,7 @@ void sub_1000F7418(uint64_t a1)
 
 void sub_1000F748C(uint64_t a1)
 {
-  v2 = sub_100004F84();
+  v2 = sub_100004F84(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v3 = 0;
@@ -5084,7 +5161,7 @@ void sub_1000F748C(uint64_t a1)
 
 uint64_t sub_1000F7500(uint64_t a1)
 {
-  v2 = sub_100004F84();
+  v2 = sub_100004F84(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -5102,7 +5179,7 @@ uint64_t sub_1000F7500(uint64_t a1)
 
 void sub_1000F7D18(uint64_t a1)
 {
-  v2 = sub_100004F84();
+  v2 = sub_100004F84(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) videoCallNavigationController];
@@ -5119,7 +5196,7 @@ void sub_1000F8358(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
-  v7 = sub_100004F84();
+  v7 = sub_100004F84(v6);
   v8 = v7;
   if (!v5 || v6)
   {
@@ -5198,7 +5275,7 @@ void sub_1000F8604(uint64_t a1)
 
 uint64_t sub_1000F8858(uint64_t a1)
 {
-  v2 = sub_100004F84();
+  v2 = sub_100004F84(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 48);
@@ -5208,8 +5285,7 @@ uint64_t sub_1000F8858(uint64_t a1)
   }
 
   [*(a1 + 32) setRemoteHostViewController:0];
-  [*(a1 + 32) updateDesiredSpringboardBehavior];
-  v4 = sub_100004F84();
+  v4 = sub_100004F84([*(a1 + 32) updateDesiredSpringboardBehavior]);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 48);
@@ -5244,7 +5320,7 @@ void sub_1000FA8A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void sub_1000FA8D0(uint64_t a1)
 {
-  v2 = sub_100004F84();
+  v2 = sub_100004F84(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -5254,19 +5330,19 @@ void sub_1000FA8D0(uint64_t a1)
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
-    v5[0] = _NSConcreteStackBlock;
-    v5[1] = 3221225472;
-    v5[2] = sub_1000FAA0C;
-    v5[3] = &unk_100356D38;
-    v6 = *(a1 + 32);
-    [WeakRetained prepareForDeviceLockWithCompletion:v5];
-    v4 = v6;
+    v6[0] = _NSConcreteStackBlock;
+    v6[1] = 3221225472;
+    v6[2] = sub_1000FAA0C;
+    v6[3] = &unk_100356D38;
+    v7 = *(a1 + 32);
+    [WeakRetained prepareForDeviceLockWithCompletion:v6];
+    v4 = v7;
   }
 
   else
   {
-    (*(*(a1 + 32) + 16))();
-    v4 = sub_100004F84();
+    v5 = (*(*(a1 + 32) + 16))();
+    v4 = sub_100004F84(v5);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -5277,18 +5353,18 @@ void sub_1000FA8D0(uint64_t a1)
 
 void sub_1000FAA0C(uint64_t a1)
 {
-  (*(*(a1 + 32) + 16))();
-  v1 = sub_100004F84();
-  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
+  v1 = (*(*(a1 + 32) + 16))();
+  v2 = sub_100004F84(v1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    *v2 = 0;
-    _os_log_impl(&_mh_execute_header, v1, OS_LOG_TYPE_DEFAULT, "did allowDeviceToLock (after prepareForDeviceLock)", v2, 2u);
+    *v3 = 0;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "did allowDeviceToLock (after prepareForDeviceLock)", v3, 2u);
   }
 }
 
 uint64_t sub_1000FAA88(uint64_t a1)
 {
-  v2 = sub_100004F84();
+  v2 = sub_100004F84(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -5378,26 +5454,26 @@ void sub_1000FE350(uint64_t a1)
   [v1 requestTransitionToPresentationMode:2 shouldDismissCMASAlerts:0 analyticsSource:SBSUIInCallTransitionAnalyticsSourceBannerTap];
 }
 
-id sub_1000FFD68()
+id sub_1000FFD68(uint64_t a1)
 {
-  v0 = sub_100004F84();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = sub_100004F84(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = 138412290;
-    v5 = @"PHMulitwayCallAssertionReason";
-    _os_log_impl(&_mh_execute_header, v0, OS_LOG_TYPE_DEFAULT, "Releasing %@ since the call has ended with no bottom controls showing", &v4, 0xCu);
+    v5 = 138412290;
+    v6 = @"PHMulitwayCallAssertionReason";
+    _os_log_impl(&_mh_execute_header, v1, OS_LOG_TYPE_DEFAULT, "Releasing %@ since the call has ended with no bottom controls showing", &v5, 0xCu);
   }
 
-  v1 = +[UIApplication sharedApplication];
-  v2 = [v1 delegate];
-  [v2 setMostRecentlyDisconnectedVideoCall:0];
+  v2 = +[UIApplication sharedApplication];
+  v3 = [v2 delegate];
+  [v3 setMostRecentlyDisconnectedVideoCall:0];
 
   return [objc_opt_class() releaseDismissalAssertionForReason:@"PHMulitwayCallAssertionReason"];
 }
 
 id sub_10010148C(uint64_t a1)
 {
-  v2 = sub_100004F84();
+  v2 = sub_100004F84(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -5414,7 +5490,7 @@ id *sub_10010153C(id *result, int a2)
   if (a2)
   {
     v2 = result;
-    v3 = sub_100004F84();
+    v3 = sub_100004F84(result);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v5[0] = 0;
@@ -5436,7 +5512,7 @@ id *sub_1001015F0(id *result, int a2)
   if (a2)
   {
     v2 = result;
-    v3 = sub_100004F84();
+    v3 = sub_100004F84(result);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v5[0] = 0;
@@ -5459,7 +5535,7 @@ id sub_100101C20(uint64_t a1)
   v3 = result;
   if (*(a1 + 40))
   {
-    v4 = sub_100004F84();
+    v4 = sub_100004F84(result);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -5472,7 +5548,7 @@ id sub_100101C20(uint64_t a1)
 
   else if (*(a1 + 48))
   {
-    v5 = sub_100004F84();
+    v5 = sub_100004F84(result);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *v8 = 0;
@@ -5484,7 +5560,7 @@ id sub_100101C20(uint64_t a1)
 
   if (v3 <= 1)
   {
-    v6 = sub_100004F84();
+    v6 = sub_100004F84(result);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *v7 = 0;
@@ -5505,7 +5581,7 @@ void sub_100101D80(id a1)
 
 id sub_100101F78(uint64_t a1)
 {
-  v2 = sub_100004F84();
+  v2 = sub_100004F84(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -5676,17 +5752,17 @@ _DWORD *sub_100103BFC(_DWORD *result, int a2)
 
 void sub_100104D44(uint64_t a1)
 {
-  v2 = sub_100004F84();
+  v2 = sub_100004F84(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) isViewLoaded];
     v4 = [*(a1 + 32) view];
     v5 = [v4 window];
-    v10 = 67109378;
-    LODWORD(v11[0]) = v3;
-    WORD2(v11[0]) = 2112;
-    *(v11 + 6) = v5;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Inside block: self.isViewLoaded: %d, self.view.window: %@", &v10, 0x12u);
+    v11 = 67109378;
+    LODWORD(v12[0]) = v3;
+    WORD2(v12[0]) = 2112;
+    *(v12 + 6) = v5;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Inside block: self.isViewLoaded: %d, self.view.window: %@", &v11, 0x12u);
   }
 
   if ([*(a1 + 32) isViewLoaded])
@@ -5696,16 +5772,16 @@ void sub_100104D44(uint64_t a1)
 
     if (v7)
     {
-      v8 = sub_100004F84();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = sub_100004F84(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = 138412290;
-        v11[0] = @"PHSuppressInCallStatusBarForFullscreenUIReason";
-        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "remove status bar suppression %@", &v10, 0xCu);
+        v11 = 138412290;
+        v12[0] = @"PHSuppressInCallStatusBarForFullscreenUIReason";
+        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "remove status bar suppression %@", &v11, 0xCu);
       }
 
-      v9 = +[PHInCallUtilities sharedInstance];
-      [v9 stopSuppressingInCallStatusBarForReason:@"PHSuppressInCallStatusBarForFullscreenUIReason"];
+      v10 = +[PHInCallUtilities sharedInstance];
+      [v10 stopSuppressingInCallStatusBarForReason:@"PHSuppressInCallStatusBarForFullscreenUIReason"];
     }
   }
 }
@@ -5777,7 +5853,7 @@ void sub_100106718(uint64_t a1, void *a2, void *a3)
 void sub_1001067F0(uint64_t a1)
 {
   v2 = *(a1 + 32);
-  v3 = sub_100004F84();
+  v3 = sub_100004F84(a1);
   v4 = v3;
   if (v2)
   {
@@ -5812,7 +5888,7 @@ void sub_1001067F0(uint64_t a1)
 
 id sub_100106974(uint64_t a1, int a2)
 {
-  v4 = sub_100004F84();
+  v4 = sub_100004F84(a1);
   v5 = v4;
   if (a2)
   {
@@ -5925,7 +6001,7 @@ void sub_100109CE0(uint64_t a1, int a2)
     v28 = FBSOpenApplicationOptionKeyUnlockDevice;
     v29 = &__kCFBooleanTrue;
     v16 = [NSDictionary dictionaryWithObjects:&v29 forKeys:&v28 count:1];
-    v17 = sub_100004F84();
+    v17 = sub_100004F84(v16);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
@@ -5951,7 +6027,7 @@ void sub_100109CE0(uint64_t a1, int a2)
 void sub_100109FE0(uint64_t a1, int a2, void *a3)
 {
   v5 = a3;
-  v6 = sub_100004F84();
+  v6 = sub_100004F84(v5);
   v7 = v6;
   if (a2)
   {
@@ -5977,7 +6053,7 @@ void sub_10010A88C(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
-  v7 = sub_100004F84();
+  v7 = sub_100004F84(v6);
   v8 = v7;
   if (!v5 || v6)
   {
@@ -6004,7 +6080,7 @@ void sub_10010A88C(uint64_t a1, void *a2, void *a3)
     memset(buf, 0, 32);
     if (v9)
     {
-      [v9 auditToken];
+      objc_msgSend_auditToken(v9);
     }
 
     v11 = *(a1 + 40);
@@ -6021,8 +6097,7 @@ void sub_10010A88C(uint64_t a1, void *a2, void *a3)
     v18[3] = &unk_1003599C8;
     v15 = v13;
     v19 = v15;
-    [v15 handleIntent:v14 withCompletion:v18];
-    v16 = sub_100004F84();
+    v16 = sub_100004F84([v15 handleIntent:v14 withCompletion:v18]);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       v17 = *(a1 + 40);
@@ -6036,7 +6111,7 @@ void sub_10010A88C(uint64_t a1, void *a2, void *a3)
 void sub_10010AAE0(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = sub_100004F84();
+  v3 = sub_100004F84(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_100256E9C();
@@ -6049,7 +6124,7 @@ void sub_10010AB34(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
   v10 = a3;
   v11 = a4;
   v12 = a5;
-  v13 = sub_100004F84();
+  v13 = sub_100004F84(v12);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     v14 = 138413058;
@@ -6104,22 +6179,22 @@ void sub_10010C1C4(uint64_t a1, void *a2)
   objc_destroyWeak(&v7);
 }
 
-void sub_10010C28C(uint64_t a1)
+void sub_10010C28C(uint64_t a1, uint64_t a2)
 {
-  v2 = sub_1000314C4();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = sub_1000314C4(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    sub_100256F04(a1, v2);
+    sub_100256F04(a1, v3);
   }
 
-  v3 = [*(a1 + 32) imageWithRenderingMode:1];
+  v4 = [*(a1 + 32) imageWithRenderingMode:1];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
-  v5 = [WeakRetained infoView];
-  [v5 setAvatarImage:v3];
+  v6 = [WeakRetained infoView];
+  [v6 setAvatarImage:v4];
 
-  v6 = objc_loadWeakRetained((a1 + 48));
-  v7 = [v6 pipController];
-  [v7 setScreenSharingTitle:*(a1 + 40) andAvatarIfNeeded:v3];
+  v7 = objc_loadWeakRetained((a1 + 48));
+  v8 = [v7 pipController];
+  [v8 setScreenSharingTitle:*(a1 + 40) andAvatarIfNeeded:v4];
 }
 
 void sub_10010C434(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location)
@@ -6153,7 +6228,7 @@ void sub_10010D680(id a1)
   _objc_release_x1(v1, v2);
 }
 
-uint64_t sub_10010D6C4()
+uint64_t sub_10010D6C4(uint64_t a1, uint64_t a2)
 {
   if (qword_1003B0F28 != -1)
   {
@@ -6199,7 +6274,7 @@ void sub_10010D7C8(id a1)
   _objc_release_x1(v1, v2);
 }
 
-uint64_t sub_10010D80C()
+uint64_t sub_10010D80C(uint64_t a1, uint64_t a2)
 {
   if (qword_1003B0F68 != -1)
   {
@@ -6218,7 +6293,7 @@ void sub_10010D844(id a1)
   _objc_release_x1(v1, v2);
 }
 
-uint64_t sub_10010D888()
+uint64_t sub_10010D888(uint64_t a1, uint64_t a2)
 {
   if (qword_1003B0F78 != -1)
   {
@@ -6237,7 +6312,7 @@ void sub_10010D8C0(id a1)
   _objc_release_x1(v1, v2);
 }
 
-uint64_t sub_10010D904()
+uint64_t sub_10010D904(uint64_t a1, uint64_t a2)
 {
   if (qword_1003B0F88 != -1)
   {
@@ -6282,7 +6357,7 @@ void sub_10010F3D4(uint64_t a1, void *a2)
 {
   v2 = a2;
   v3 = [v2 isSpringBoardInterfaceOrientationLocked];
-  v4 = sub_100004F84();
+  v4 = sub_100004F84(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = @"NO";
@@ -6291,9 +6366,9 @@ void sub_10010F3D4(uint64_t a1, void *a2)
       v5 = @"YES";
     }
 
-    v15 = 138412290;
-    v16 = v5;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "SpringBoardOrientationLockChangedNotification: Orientation is locked: %@", &v15, 0xCu);
+    v16 = 138412290;
+    v17 = v5;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "SpringBoardOrientationLockChangedNotification: Orientation is locked: %@", &v16, 0xCu);
   }
 
   if (v3)
@@ -6302,45 +6377,11 @@ void sub_10010F3D4(uint64_t a1, void *a2)
     v7 = +[UIDevice currentDevice];
     v8 = [v7 userInterfaceIdiom];
 
-    v9 = sub_100004F84();
-    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+    v10 = sub_100004F84(v9);
+    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
     if ((v8 & 0xFFFFFFFFFFFFFFFBLL) == 1)
     {
-      if (v10)
-      {
-        if (v6 == 1)
-        {
-          v11 = @"UIInterfaceOrientationPortrait";
-        }
-
-        else if (v6 == 3)
-        {
-          v11 = @"UIInterfaceOrientationLandscapeRight";
-        }
-
-        else if (v6 == 4)
-        {
-          v11 = @"UIInterfaceOrientationLandscapeLeft";
-        }
-
-        else
-        {
-          v11 = @"UIInterfaceOrientationPortraitUpsideDown";
-          if (v6 != 2)
-          {
-            v11 = 0;
-          }
-        }
-
-        v15 = 138412290;
-        v16 = v11;
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "SpringBoardOrientationLockChangedNotification: SpringBoard is locked to %@", &v15, 0xCu);
-      }
-    }
-
-    else
-    {
-      if (v10)
+      if (v11)
       {
         if (v6 == 1)
         {
@@ -6357,46 +6398,80 @@ void sub_10010F3D4(uint64_t a1, void *a2)
           v12 = @"UIInterfaceOrientationLandscapeLeft";
         }
 
-        else if (v6 == 2)
-        {
-          v12 = @"UIInterfaceOrientationPortraitUpsideDown";
-        }
-
         else
         {
-          v12 = 0;
+          v12 = @"UIInterfaceOrientationPortraitUpsideDown";
+          if (v6 != 2)
+          {
+            v12 = 0;
+          }
         }
 
-        if ([v2 currentOrientation] == 1)
+        v16 = 138412290;
+        v17 = v12;
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "SpringBoardOrientationLockChangedNotification: SpringBoard is locked to %@", &v16, 0xCu);
+      }
+    }
+
+    else
+    {
+      if (v11)
+      {
+        if (v6 == 1)
         {
           v13 = @"UIInterfaceOrientationPortrait";
         }
 
-        else if ([v2 currentOrientation] == 4)
-        {
-          v13 = @"UIInterfaceOrientationLandscapeLeft";
-        }
-
-        else if ([v2 currentOrientation] == 3)
+        else if (v6 == 3)
         {
           v13 = @"UIInterfaceOrientationLandscapeRight";
         }
 
+        else if (v6 == 4)
+        {
+          v13 = @"UIInterfaceOrientationLandscapeLeft";
+        }
+
+        else if (v6 == 2)
+        {
+          v13 = @"UIInterfaceOrientationPortraitUpsideDown";
+        }
+
         else
         {
-          v14 = [v2 currentOrientation];
-          v13 = @"UIInterfaceOrientationPortraitUpsideDown";
-          if (v14 != 2)
+          v13 = 0;
+        }
+
+        if ([v2 currentOrientation] == 1)
+        {
+          v14 = @"UIInterfaceOrientationPortrait";
+        }
+
+        else if ([v2 currentOrientation] == 4)
+        {
+          v14 = @"UIInterfaceOrientationLandscapeLeft";
+        }
+
+        else if ([v2 currentOrientation] == 3)
+        {
+          v14 = @"UIInterfaceOrientationLandscapeRight";
+        }
+
+        else
+        {
+          v15 = [v2 currentOrientation];
+          v14 = @"UIInterfaceOrientationPortraitUpsideDown";
+          if (v15 != 2)
           {
-            v13 = 0;
+            v14 = 0;
           }
         }
 
-        v15 = 138412546;
-        v16 = v12;
-        v17 = 2112;
-        v18 = v13;
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "SpringBoardOrientationLockChangedNotification: SpringBoard is locked to %@, but using %@", &v15, 0x16u);
+        v16 = 138412546;
+        v17 = v13;
+        v18 = 2112;
+        v19 = v14;
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "SpringBoardOrientationLockChangedNotification: SpringBoard is locked to %@, but using %@", &v16, 0x16u);
       }
 
       v6 = [v2 currentOrientation];
@@ -6419,9 +6494,11 @@ uint64_t sub_100110160(uint64_t a1)
 
 uint64_t sub_1001101CC(uint64_t a1)
 {
-  qword_1003B0FC0 = objc_alloc_init(*(a1 + 32));
+  v1 = objc_alloc_init(*(a1 + 32));
+  v2 = qword_1003B0FC0;
+  qword_1003B0FC0 = v1;
 
-  return _objc_release_x1();
+  return _objc_release_x1(v1, v2);
 }
 
 void sub_100111590(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location)
@@ -6753,7 +6830,7 @@ void sub_100119B5C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void sub_100119B78(uint64_t a1)
 {
-  v2 = sub_100004F84();
+  v2 = sub_100004F84(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v8 = 0;
@@ -6770,44 +6847,46 @@ void sub_100119B78(uint64_t a1)
   [v7 setEnabled:1];
 }
 
-void sub_10011ABA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, char a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_10011ABA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
 {
+  va_start(va, a32);
   _Block_object_dispose(&a22, 8);
-  _Block_object_dispose((v34 - 176), 8);
-  objc_destroyWeak((v33 + 40));
-  _Block_object_dispose(&a33, 8);
+  _Block_object_dispose((v33 - 176), 8);
+  objc_destroyWeak((v32 + 40));
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void sub_10011AC04(uint64_t a1, int a2)
 {
   WeakRetained = objc_loadWeakRetained((*(*(a1 + 32) + 8) + 40));
+  v5 = WeakRetained;
   if (WeakRetained)
   {
-    v5 = a2 ^ 1u;
-    v6 = *(*(a1 + 40) + 8);
-    if (*(v6 + 24) != v5)
+    v6 = a2 ^ 1u;
+    v7 = *(*(a1 + 40) + 8);
+    if (*(v7 + 24) != v6)
     {
-      *(v6 + 24) = v5;
-      v7 = sub_100004F84();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      *(v7 + 24) = v6;
+      v8 = sub_100004F84(WeakRetained);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         if (*(*(*(a1 + 40) + 8) + 24))
         {
-          v8 = @"YES";
+          v9 = @"YES";
         }
 
         else
         {
-          v8 = @"NO";
+          v9 = @"NO";
         }
 
-        v9 = 138412290;
-        v10 = v8;
-        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Audio: setCurrentState: stateChangeLockObservation: wasUnlocked: %@", &v9, 0xCu);
+        v10 = 138412290;
+        v11 = v9;
+        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Audio: setCurrentState: stateChangeLockObservation: wasUnlocked: %@", &v10, 0xCu);
       }
 
-      [WeakRetained setScreeningState:*(a1 + 48) animated:1 overrideWithIsUnlocked:v5];
+      [v5 setScreeningState:*(a1 + 48) animated:1 overrideWithIsUnlocked:v6];
     }
   }
 }
@@ -6827,21 +6906,21 @@ void sub_10011AD24(uint64_t a1)
       v7 = [v3 traitCollection];
       *(*(*(a1 + 40) + 8) + 24) = [v7 _backlightLuminance];
 
-      v8 = sub_100004F84();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = sub_100004F84(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v9 = @"YES";
+        v10 = @"YES";
         if (!*(*(*(a1 + 48) + 8) + 24))
         {
-          v9 = @"NO";
+          v10 = @"NO";
         }
 
-        v10 = *(*(*(a1 + 40) + 8) + 24);
-        v11 = 138412546;
-        v12 = v9;
-        v13 = 2048;
-        v14 = v10;
-        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Audio: setCurrentState: stateDisplayChangedObservation: wasUnlocked: %@ with luminance: %ld", &v11, 0x16u);
+        v11 = *(*(*(a1 + 40) + 8) + 24);
+        v12 = 138412546;
+        v13 = v10;
+        v14 = 2048;
+        v15 = v11;
+        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Audio: setCurrentState: stateDisplayChangedObservation: wasUnlocked: %@ with luminance: %ld", &v12, 0x16u);
       }
 
       [v3 setScreeningState:*(a1 + 56) animated:1 overrideWithIsUnlocked:*(*(*(a1 + 48) + 8) + 24)];
@@ -7087,20 +7166,20 @@ LABEL_5:
 
   if (v5)
   {
-    v9 = *(a1 + 32);
-    v10 = [[UIImage alloc] initWithData:v5];
-    [v9 updateBackgroundContactImageViewWithImage:v10 animated:1];
+    v10 = *(a1 + 32);
+    v11 = [[UIImage alloc] initWithData:v5];
+    [v10 updateBackgroundContactImageViewWithImage:v11 animated:1];
 
     [*(a1 + 32) updateLegacyBackgroundImageVisibilityWithShouldShowWallpaper:0];
   }
 
   else
   {
-    v11 = sub_100004F84();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = sub_100004F84(v9);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      *v12 = 0;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "SNAP: Fading out poster, but there is no contact image data either, setting up default blur background in this case", v12, 2u);
+      *v13 = 0;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "SNAP: Fading out poster, but there is no contact image data either, setting up default blur background in this case", v13, 2u);
     }
 
     [*(a1 + 32) addDefaultBackgroundGradientView];
@@ -7237,43 +7316,42 @@ void sub_10012302C(uint64_t a1, int a2)
 
       if (!v5)
       {
-        v5 = sub_100004F84();
+        v5 = sub_100004F84(v7);
         if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
         {
-          v14 = [*(a1 + 32) callCenter];
-          v15 = [v14 currentCalls];
-          v16 = 138412290;
-          v17 = v15;
-          _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "[WARN] Was told to request video presentation but no active or held call was found in calls: %@", &v16, 0xCu);
+          v15 = [*(a1 + 32) callCenter];
+          v16 = [v15 currentCalls];
+          v17 = 138412290;
+          v18 = v16;
+          _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "[WARN] Was told to request video presentation but no active or held call was found in calls: %@", &v17, 0xCu);
         }
 
         goto LABEL_8;
       }
     }
 
-    v7 = [v5 provider];
-    v8 = [[TUDialRequest alloc] initWithProvider:v7];
-    v9 = [v5 handle];
-    [v8 setHandle:v9];
+    v8 = [v5 provider];
+    v9 = [[TUDialRequest alloc] initWithProvider:v8];
+    v10 = [v5 handle];
+    [v9 setHandle:v10];
 
-    v10 = [v5 contactIdentifier];
-    [v8 setContactIdentifier:v10];
+    v11 = [v5 contactIdentifier];
+    [v9 setContactIdentifier:v11];
 
-    v11 = [v5 localSenderIdentityUUID];
-    [v8 setLocalSenderIdentityUUID:v11];
+    v12 = [v5 localSenderIdentityUUID];
+    [v9 setLocalSenderIdentityUUID:v12];
 
-    [v8 setVideo:1];
-    [v8 setOriginatingUIType:1];
-    v12 = sub_100004F84();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    [v9 setVideo:1];
+    v13 = sub_100004F84([v9 setOriginatingUIType:1]);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 138412290;
-      v17 = v8;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Requesting video via dial request: %@", &v16, 0xCu);
+      v17 = 138412290;
+      v18 = v9;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Requesting video via dial request: %@", &v17, 0xCu);
     }
 
-    v13 = [*(a1 + 32) callCenter];
-    [v13 launchAppForDialRequest:v8 completion:0];
+    v14 = [*(a1 + 32) callCenter];
+    [v14 launchAppForDialRequest:v9 completion:0];
 
 LABEL_8:
   }
@@ -7421,35 +7499,35 @@ void sub_100127CB0(uint64_t a1)
 {
   v2 = *(a1 + 32);
   v3 = *&CGAffineTransformIdentity.c;
-  *v15 = *&CGAffineTransformIdentity.a;
-  *&v15[16] = v3;
-  v16 = *&CGAffineTransformIdentity.tx;
-  [v2 setTransform:v15];
+  *v16 = *&CGAffineTransformIdentity.a;
+  *&v16[16] = v3;
+  v17 = *&CGAffineTransformIdentity.tx;
+  [v2 setTransform:v16];
   [*(a1 + 32) removeFromSuperview];
   [*(a1 + 32) setAlpha:1.0];
   v4 = *(a1 + 48);
   if (v4)
   {
-    (*(v4 + 16))(v4, 1);
-    v5 = sub_100004F84();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v5 = (*(v4 + 16))(v4, 1);
+    v6 = sub_100004F84(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = [*(a1 + 40) buttonsViewController];
-      v7 = [v6 view];
-      v8 = [*(a1 + 40) buttonsViewController];
-      v9 = [v8 view];
-      [v9 alpha];
-      v11 = v10;
-      v12 = [*(a1 + 40) buttonsViewController];
-      v13 = [v12 view];
-      v14 = [v13 superview];
-      *v15 = 138412802;
-      *&v15[4] = v7;
-      *&v15[12] = 2048;
-      *&v15[14] = v11;
-      *&v15[22] = 2112;
-      *&v15[24] = v14;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "After setting middleViewState to buttons from screening, six-up view is: %@, six-up view alpha is: %f, six-up view parent view is: %@", v15, 0x20u);
+      v7 = [*(a1 + 40) buttonsViewController];
+      v8 = [v7 view];
+      v9 = [*(a1 + 40) buttonsViewController];
+      v10 = [v9 view];
+      [v10 alpha];
+      v12 = v11;
+      v13 = [*(a1 + 40) buttonsViewController];
+      v14 = [v13 view];
+      v15 = [v14 superview];
+      *v16 = 138412802;
+      *&v16[4] = v8;
+      *&v16[12] = 2048;
+      *&v16[14] = v12;
+      *&v16[22] = 2112;
+      *&v16[24] = v15;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "After setting middleViewState to buttons from screening, six-up view is: %@, six-up view alpha is: %f, six-up view parent view is: %@", v16, 0x20u);
     }
   }
 }
@@ -7674,10 +7752,10 @@ void sub_100128458(uint64_t a1)
   v4 = *(a1 + 48);
   if (v4)
   {
-    (*(v4 + 16))(v4, 1);
+    v4 = (*(v4 + 16))(v4, 1);
   }
 
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = [*(a1 + 40) buttonsViewController];
@@ -7728,10 +7806,10 @@ void sub_10012869C(uint64_t a1)
   v4 = *(a1 + 48);
   if (v4)
   {
-    (*(v4 + 16))(v4, 1);
+    v4 = (*(v4 + 16))(v4, 1);
   }
 
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = [*(a1 + 40) buttonsViewController];
@@ -7762,7 +7840,7 @@ void sub_10012A0B8(_Unwind_Exception *a1)
 
 void sub_10012A10C(uint64_t a1, int a2)
 {
-  v4 = sub_100004F84();
+  v4 = sub_100004F84(a1);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
   if (a2)
   {
@@ -7808,56 +7886,57 @@ void sub_10012A260(uint64_t a1, char a2)
   {
     if ((a2 & 1) == 0)
     {
-      v11 = sub_100004F84();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v12 = sub_100004F84(WeakRetained);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v18) = 0;
-        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Not performing live reply with device locked.", &v18, 2u);
+        LOWORD(v19) = 0;
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Not performing live reply with device locked.", &v19, 2u);
       }
 
       goto LABEL_15;
     }
 
-    if ([WeakRetained usesCompactMulticallUI] && (objc_msgSend(v4, "callCenter"), v5 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "currentCallGroups"), v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v6, "count"), v6, v5, v7 >= 2))
+    v5 = [WeakRetained usesCompactMulticallUI];
+    if (v5 && ([v4 callCenter], v6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "currentCallGroups"), v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v7, "count"), v7, v6, v8 >= 2))
     {
-      v8 = [v4 callCenter];
-      v9 = [v8 currentCallCount];
+      v9 = [v4 callCenter];
+      v10 = [v9 currentCallCount];
 
-      if (v9 >= 2)
+      if (v10 >= 2)
       {
-        v10 = [v4 analyticsReporter];
-        [v10 reportMultipleCallsWaitingUIAction:4];
+        v11 = [v4 analyticsReporter];
+        [v11 reportMultipleCallsWaitingUIAction:4];
       }
 
-      v11 = [v4 callCenter];
       v12 = [v4 callCenter];
-      v13 = [v12 incomingCall];
-      [v11 disconnectCall:v13 withReason:2];
+      v13 = [v4 callCenter];
+      v14 = [v13 incomingCall];
+      [v12 disconnectCall:v14 withReason:2];
     }
 
     else
     {
-      v14 = sub_100004F84();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v15 = sub_100004F84(v5);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        v15 = [v4 frontmostCall];
-        v18 = 138412290;
-        v19 = v15;
-        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Answering screened call with live reply: %@", &v18, 0xCu);
+        v16 = [v4 frontmostCall];
+        v19 = 138412290;
+        v20 = v16;
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Answering screened call with live reply: %@", &v19, 0xCu);
       }
 
-      v11 = [v4 frontmostCall];
-      if (!v11)
+      v12 = [v4 frontmostCall];
+      if (!v12)
       {
         goto LABEL_15;
       }
 
       [v4 setSendToLiveReply:1];
-      v12 = +[UIApplication sharedApplication];
-      v13 = [v12 delegate];
-      v16 = [v13 answeringMachine];
-      v17 = [v11 callUUID];
-      [v16 screenCallWithUUID:v17 manualScreening:1 receptionist:1 completion:&stru_100359D70];
+      v13 = +[UIApplication sharedApplication];
+      v14 = [v13 delegate];
+      v17 = [v14 answeringMachine];
+      v18 = [v12 callUUID];
+      [v17 screenCallWithUUID:v18 manualScreening:1 receptionist:1 completion:&stru_100359D70];
     }
 
 LABEL_15:
@@ -7974,11 +8053,12 @@ void sub_10012D088(uint64_t a1)
   [v2 _testing_finishedAnimatingToActiveCallState:v1];
 }
 
-void sub_10012E1CC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location, char a17)
+void sub_10012E1CC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location, ...)
 {
-  objc_destroyWeak((v17 + 40));
+  va_start(va, location);
+  objc_destroyWeak((v16 + 40));
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a17, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -7994,17 +8074,17 @@ void sub_10012E1FC(uint64_t a1)
       v4 = [WeakRetained alertCountDownTimer];
       [v4 invalidate];
 
-      v5 = sub_100004F84();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v6 = sub_100004F84(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        *v8 = 0;
-        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "alertCountDownTimer invalidated, triggering alert", v8, 2u);
+        *v9 = 0;
+        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "alertCountDownTimer invalidated, triggering alert", v9, 2u);
       }
 
       [v3 setAlertTriggeredByAutoCountdown:1];
-      v6 = objc_loadWeakRetained((a1 + 40));
-      v7 = [v6 bottomBar];
-      [v3 bottomBarActionPerformed:38 withCompletionState:1 fromBar:v7];
+      v7 = objc_loadWeakRetained((a1 + 40));
+      v8 = [v7 bottomBar];
+      [v3 bottomBarActionPerformed:38 withCompletionState:1 fromBar:v8];
 
       [v3 setAlertTriggeredByAutoCountdown:0];
     }
@@ -8103,12 +8183,12 @@ void sub_10012F3DC(uint64_t a1)
   [WeakRetained restartCallBufferTimer];
 }
 
-void sub_10012F728(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_10012F728(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
-  objc_destroyWeak((v8 + 40));
+  va_start(va, a15);
+  objc_destroyWeak((v15 + 40));
   _Block_object_dispose(va, 8);
-  objc_destroyWeak((v9 - 40));
+  objc_destroyWeak((v16 - 40));
   _Unwind_Resume(a1);
 }
 
@@ -8715,78 +8795,4 @@ NSArray *__cdecl sub_100140034(id a1, UIButton *a2)
   }
 
   return v3;
-}
-
-uint64_t sub_100140FFC(uint64_t a1)
-{
-  v1 = [objc_alloc(*(a1 + 32)) initWithInterval:1.0];
-  v2 = qword_1003B1020;
-  qword_1003B1020 = v1;
-
-  return _objc_release_x1(v1, v2);
-}
-
-id sub_10014128C(uint64_t a1)
-{
-  v2 = [*(a1 + 32) observers];
-  [v2 addObject:*(a1 + 40)];
-
-  v3 = +[NSNotificationCenter defaultCenter];
-  [v3 addObserver:*(a1 + 40) selector:*(a1 + 48) name:@"PHIntervalTimerNotification" object:*(a1 + 32)];
-
-  v4 = *(a1 + 32);
-
-  return [v4 _createTimerIfNecessary];
-}
-
-id sub_1001413BC(uint64_t a1)
-{
-  v2 = [*(a1 + 32) observers];
-  [v2 removeObject:*(a1 + 40)];
-
-  v3 = +[NSNotificationCenter defaultCenter];
-  [v3 removeObserver:*(a1 + 40) name:@"PHIntervalTimerNotification" object:*(a1 + 32)];
-
-  v4 = *(a1 + 32);
-
-  return [v4 _invalidateTimerIfNecessary];
-}
-
-void sub_1001414BC(uint64_t a1)
-{
-  v1 = [*(a1 + 32) timer];
-  [v1 fire];
-}
-
-void sub_100141588(uint64_t a1)
-{
-  v2 = sub_100004F84();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
-  {
-    *v4 = 0;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Pausing interval timer", v4, 2u);
-  }
-
-  v3 = [*(a1 + 32) timer];
-  [v3 invalidate];
-}
-
-void sub_100141694(uint64_t a1)
-{
-  v2 = sub_100004F84();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
-  {
-    *v6 = 0;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Resuming interval timer", v6, 2u);
-  }
-
-  [*(a1 + 32) _createTimerIfNecessary];
-  v3 = [*(a1 + 32) timer];
-  v4 = [v3 isValid];
-
-  if (v4)
-  {
-    v5 = [*(a1 + 32) timer];
-    [v5 fire];
-  }
 }

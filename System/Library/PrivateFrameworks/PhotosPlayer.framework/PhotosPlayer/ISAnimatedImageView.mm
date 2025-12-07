@@ -10,6 +10,7 @@
 - (void)didMoveToWindow;
 - (void)displayLayer:(id)layer;
 - (void)setAlpha:(double)alpha;
+- (void)setHidden:(BOOL)hidden;
 - (void)setImage:(id)image;
 - (void)setPlaceholderImageView:(id)view;
 - (void)setPlayer:(id)player;
@@ -104,6 +105,14 @@
 {
   layer = [(ISAnimatedImageView *)self layer];
   [layer setNeedsDisplay];
+}
+
+- (void)setHidden:(BOOL)hidden
+{
+  v4.receiver = self;
+  v4.super_class = ISAnimatedImageView;
+  [(ISAnimatedImageView *)&v4 setHidden:hidden];
+  [(ISAnimatedImagePlayer *)self->_player updateAnimation];
 }
 
 - (void)setAlpha:(double)alpha

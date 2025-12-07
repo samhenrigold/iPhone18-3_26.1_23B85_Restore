@@ -100,26 +100,31 @@
 
 - (id)description
 {
+  v6 = 0;
   category = self->_category;
-  if (category <= 5)
+  if (category > 5)
+  {
+    v3 = "?";
+  }
+
+  else
   {
     v3 = off_278CDDFA0[category];
   }
 
-  timeoutSeconds = self->_timeoutSeconds;
-  clientID = self->_clientID;
-  NSAppendPrintF();
+  NSAppendPrintF(&v6, "BTAudioSession, CID 0x%X, Category %s, Timeout %.3f seconds", self->_clientID, v3, self->_timeoutSeconds);
+  v4 = v6;
 
-  return 0;
+  return v4;
 }
 
 - (void)setLabel:(id)label
 {
   objc_storeStrong(&self->_label, label);
   labelCopy = label;
-  v4 = labelCopy;
-  [labelCopy UTF8String];
-  LogCategoryReplaceF();
+  v5 = qword_27E547688;
+  v6 = labelCopy;
+  LogCategoryReplaceF(&self->_ucat, "%s-%s", v5, [labelCopy UTF8String]);
 }
 
 - (void)activateWithCompletion:(id)completion
@@ -141,8 +146,7 @@ void __41__BTAudioSession_activateWithCompletion___block_invoke(uint64_t a1)
   v2 = *(a1 + 32);
   if (*(v2 + 8) == 1)
   {
-    v3 = *MEMORY[0x277CCA590];
-    v8 = NSErrorF();
+    v7 = NSErrorF(*MEMORY[0x277CCA590], 4294960575, "Activate already called");
     if (gLogCategory_BTAudioSession <= 90 && (gLogCategory_BTAudioSession != -1 || _LogCategory_Initialize()))
     {
       __41__BTAudioSession_activateWithCompletion___block_invoke_cold_1();
@@ -154,37 +158,25 @@ void __41__BTAudioSession_activateWithCompletion___block_invoke(uint64_t a1)
   else
   {
     *(v2 + 8) = 1;
-    v4 = MEMORY[0x245CE9060](*(a1 + 40));
-    v5 = *(a1 + 32);
-    v6 = *(v5 + 16);
-    *(v5 + 16) = v4;
+    v3 = MEMORY[0x245CE9060](*(a1 + 40));
+    v4 = *(a1 + 32);
+    v5 = *(v4 + 16);
+    *(v4 + 16) = v3;
 
-    v7 = *(a1 + 32);
+    v6 = *(a1 + 32);
 
-    [v7 _activate];
+    [v6 _activate];
   }
 }
 
 - (void)_activate
 {
   var0 = self->_ucat->var0;
-  if (var0 <= 30)
+  if (var0 <= 30 && (var0 != -1 || _LogCategory_Initialize()))
   {
-    if (var0 != -1)
-    {
-LABEL_3:
-      LogPrintF();
-      goto LABEL_5;
-    }
-
-    if (_LogCategory_Initialize())
-    {
-      ucat = self->_ucat;
-      goto LABEL_3;
-    }
+    LogPrintF();
   }
 
-LABEL_5:
   timeoutTimer = self->_timeoutTimer;
   if (timeoutTimer)
   {
@@ -205,7 +197,6 @@ LABEL_5:
   handler[4] = v7;
   handler[5] = self;
   dispatch_source_set_event_handler(v7, handler);
-  self->_timeoutSeconds;
   CUDispatchTimerSet();
   dispatch_activate(v7);
   _ensureXPCStarted = [(BTAudioSession *)self _ensureXPCStarted];
@@ -217,39 +208,39 @@ LABEL_5:
   else
   {
     xpcCnx = self->_xpcCnx;
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __27__BTAudioSession__activate__block_invoke_2;
-    v14[3] = &unk_278CDD750;
-    v14[4] = self;
-    v11 = [(NSXPCConnection *)xpcCnx remoteObjectProxyWithErrorHandler:v14];
     v13[0] = MEMORY[0x277D85DD0];
     v13[1] = 3221225472;
-    v13[2] = __27__BTAudioSession__activate__block_invoke_3;
+    v13[2] = __27__BTAudioSession__activate__block_invoke_2;
     v13[3] = &unk_278CDD750;
     v13[4] = self;
-    [v11 audioSessionActivate:self completion:v13];
+    v11 = [(NSXPCConnection *)xpcCnx remoteObjectProxyWithErrorHandler:v13];
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __27__BTAudioSession__activate__block_invoke_3;
+    v12[3] = &unk_278CDD750;
+    v12[4] = self;
+    [v11 audioSessionActivate:self completion:v12];
   }
 }
 
-void __27__BTAudioSession__activate__block_invoke(uint64_t a1)
+void __27__BTAudioSession__activate__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v2 = *(a1 + 32);
-  v3 = *(*(a1 + 40) + 32);
-  if (v2 == v3)
+  v9 = *(a1 + 32);
+  v10 = *(*(a1 + 40) + 32);
+  if (v9 == v10)
   {
-    if (v2)
+    if (v9)
     {
-      v5 = v3;
-      dispatch_source_cancel(v5);
-      v6 = *(a1 + 40);
-      v7 = *(v6 + 32);
-      *(v6 + 32) = 0;
+      v12 = v10;
+      dispatch_source_cancel(v12);
+      v13 = *(a1 + 40);
+      v14 = *(v13 + 32);
+      *(v13 + 32) = 0;
     }
 
-    v8 = *(a1 + 40);
-    v9 = BTErrorF();
-    [v8 _reportError:v9];
+    v15 = *(a1 + 40);
+    v17 = BTErrorF(4294960574, "Timeout", a3, a4, a5, a6, a7, a8, v16);
+    [v15 _reportError:v17];
   }
 }
 
@@ -258,15 +249,15 @@ void __27__BTAudioSession__activate__block_invoke_2(uint64_t a1, void *a2)
   v3 = a2;
   v4 = *(a1 + 32);
   v5 = *v4[5];
-  v9 = v3;
+  v8 = v3;
   if (v5 <= 90)
   {
     if (v5 != -1)
     {
 LABEL_3:
-      v8 = v3;
+      v7 = v3;
       LogPrintF();
-      v3 = v9;
+      v3 = v8;
       v4 = *(a1 + 32);
       goto LABEL_6;
     }
@@ -275,23 +266,22 @@ LABEL_3:
     v4 = *(a1 + 32);
     if (v6)
     {
-      v7 = v4[5];
-      v3 = v9;
+      v3 = v8;
       goto LABEL_3;
     }
 
-    v3 = v9;
+    v3 = v8;
   }
 
 LABEL_6:
-  [v4 _reportError:{v3, v8}];
+  [v4 _reportError:{v3, v7}];
 }
 
 void __27__BTAudioSession__activate__block_invoke_3(uint64_t a1, void *a2)
 {
   v3 = a2;
   v4 = *(a1 + 32);
-  v21 = v3;
+  v19 = v3;
   if (v3)
   {
     v5 = v3;
@@ -304,22 +294,21 @@ void __27__BTAudioSession__activate__block_invoke_3(uint64_t a1, void *a2)
         v4 = *(a1 + 32);
         if (!v13)
         {
-          v5 = v21;
+          v5 = v19;
           goto LABEL_12;
         }
 
-        v18 = *(v4 + 40);
-        v5 = v21;
+        v5 = v19;
       }
 
-      v20 = v5;
+      v18 = v5;
       LogPrintF();
-      v5 = v21;
+      v5 = v19;
       v4 = *(a1 + 32);
     }
 
 LABEL_12:
-    [v4 _reportError:{v5, v20}];
+    [v4 _reportError:{v5, v18}];
     goto LABEL_17;
   }
 
@@ -337,23 +326,13 @@ LABEL_12:
   v12 = **(v11 + 40);
   if (v12 <= 30)
   {
-    if (v12 == -1)
+    if (v12 != -1 || (v14 = _LogCategory_Initialize(), v11 = *(a1 + 32), v14))
     {
-      v14 = _LogCategory_Initialize();
+      LogPrintF();
       v11 = *(a1 + 32);
-      if (!v14)
-      {
-        goto LABEL_14;
-      }
-
-      v19 = *(v11 + 40);
     }
-
-    LogPrintF();
-    v11 = *(a1 + 32);
   }
 
-LABEL_14:
   v15 = MEMORY[0x245CE9060](*(v11 + 16));
   v16 = *(a1 + 32);
   v17 = *(v16 + 16);
@@ -430,8 +409,8 @@ uint64_t __35__BTAudioSession__ensureXPCStarted__block_invoke_2(uint64_t a1)
     [BTAudioSession _interrupted];
   }
 
-  v3 = BTErrorF();
-  [(BTAudioSession *)self _reportError:v3];
+  v10 = BTErrorF(4294960596, "XPC interrupted", v2, v3, v4, v5, v6, v7, v9);
+  [(BTAudioSession *)self _reportError:v10];
 }
 
 - (void)invalidate
@@ -474,15 +453,15 @@ void __28__BTAudioSession_invalidate__block_invoke(uint64_t a1)
       v8 = *(a1 + 32);
     }
 
-    v13 = MEMORY[0x245CE9060](*(v8 + 16));
+    v20 = MEMORY[0x245CE9060](*(v8 + 16));
     v10 = *(a1 + 32);
     v11 = *(v10 + 16);
     *(v10 + 16) = 0;
 
-    if (v13)
+    if (v20)
     {
-      v12 = BTErrorF();
-      v13[2](v13, v12);
+      v18 = BTErrorF(4294896148, "Invalidate called", v12, v13, v14, v15, v16, v17, v19);
+      v20[2](v20, v18);
     }
 
     [*(a1 + 32) _invalidated];
@@ -500,31 +479,31 @@ void __28__BTAudioSession_invalidate__block_invoke(uint64_t a1)
 
     if (!self->_xpcCnx)
     {
-      v11 = MEMORY[0x245CE9060](self->_activateCompletion, a2);
+      v18 = MEMORY[0x245CE9060](self->_activateCompletion, a2);
       activateCompletion = self->_activateCompletion;
       self->_activateCompletion = 0;
 
-      if (v11)
+      if (v18)
       {
-        v4 = BTErrorF();
-        v11[2](v11, v4);
+        v10 = BTErrorF(4294896148, "Unexpectedly invalidated", v4, v5, v6, v7, v8, v9, v17);
+        v18[2](v18, v10);
       }
 
-      v5 = MEMORY[0x245CE9060](self->_invalidationHandler);
+      v11 = MEMORY[0x245CE9060](self->_invalidationHandler);
       invalidationHandler = self->_invalidationHandler;
       self->_invalidationHandler = 0;
 
-      if (v5)
+      if (v11)
       {
-        v5[2](v5);
+        v11[2](v11);
       }
 
       timeoutTimer = self->_timeoutTimer;
       if (timeoutTimer)
       {
-        v8 = timeoutTimer;
-        dispatch_source_cancel(v8);
-        v9 = self->_timeoutTimer;
+        v14 = timeoutTimer;
+        dispatch_source_cancel(v14);
+        v15 = self->_timeoutTimer;
         self->_timeoutTimer = 0;
       }
 

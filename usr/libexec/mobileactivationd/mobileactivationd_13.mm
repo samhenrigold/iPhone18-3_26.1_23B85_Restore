@@ -254,11 +254,11 @@ LABEL_15:
   return v18;
 }
 
-void sub_100326A30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100326A30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 80), 8);
+  _Block_object_dispose((v16 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -269,27 +269,27 @@ uint64_t __Block_byref_object_copy__7(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_100326EF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100326EF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 80), 8);
+  _Block_object_dispose((v16 - 80), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_100327298(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100327298(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 80), 8);
+  _Block_object_dispose((v16 - 80), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_100327638(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100327638(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 80), 8);
+  _Block_object_dispose((v16 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -378,9 +378,9 @@ id getMSUDataAccessorClass()
   return v1;
 }
 
-void sub_1003289BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1003289BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -398,7 +398,7 @@ Class __getMSUDataAccessorClass_block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t __MSUDataAccessorLibraryCore_block_invoke()
+uint64_t __MSUDataAccessorLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   MSUDataAccessorLibraryCore_frameworkLibrary = result;
@@ -1860,7 +1860,7 @@ BOOL clientNameSuffixIsValid(void *a1, NSError **a2)
   return v7;
 }
 
-uint64_t is_erase_installed_build()
+uint64_t is_erase_installed_build(uint64_t a1, uint64_t a2)
 {
   if (copyUserDataDisposition_onceToken != -1)
   {
@@ -1870,7 +1870,7 @@ uint64_t is_erase_installed_build()
   return copyUserDataDisposition_dataDisposition & 1;
 }
 
-uint64_t is_upgrade_installed_build()
+uint64_t is_upgrade_installed_build(uint64_t a1, uint64_t a2)
 {
   if (copyUserDataDisposition_onceToken != -1)
   {
@@ -2002,7 +2002,7 @@ id getAKAccountManagerClass()
   v6 = getAKAccountManagerClass_softClass;
   if (!getAKAccountManagerClass_softClass)
   {
-    AuthKitLibraryCore();
+    AuthKitLibraryCore(0);
     v4[3] = objc_getClass("AKAccountManager");
     getAKAccountManagerClass_softClass = v4[3];
     v0 = v4[3];
@@ -2014,9 +2014,9 @@ id getAKAccountManagerClass()
   return v1;
 }
 
-void sub_10032BE24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10032BE24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2377,11 +2377,12 @@ LABEL_56:
   return v31;
 }
 
-void sub_10032CA38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32)
+void sub_10032CA38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
 {
+  va_start(va, a31);
   _Block_object_dispose(&a26, 8);
-  _Block_object_dispose(&a32, 8);
-  _Block_object_dispose((v32 - 136), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v31 - 136), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2401,7 +2402,7 @@ id getAKAppleIDAuthenticationControllerClass()
   v6 = getAKAppleIDAuthenticationControllerClass_softClass;
   if (!getAKAppleIDAuthenticationControllerClass_softClass)
   {
-    AuthKitLibraryCore();
+    AuthKitLibraryCore(0);
     v4[3] = objc_getClass("AKAppleIDAuthenticationController");
     getAKAppleIDAuthenticationControllerClass_softClass = v4[3];
     v0 = v4[3];
@@ -2413,9 +2414,9 @@ id getAKAppleIDAuthenticationControllerClass()
   return v1;
 }
 
-void sub_10032CB6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10032CB6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2429,7 +2430,7 @@ id getAKAppleIDAuthenticationContextClass()
   v6 = getAKAppleIDAuthenticationContextClass_softClass;
   if (!getAKAppleIDAuthenticationContextClass_softClass)
   {
-    AuthKitLibraryCore();
+    AuthKitLibraryCore(0);
     v4[3] = objc_getClass("AKAppleIDAuthenticationContext");
     getAKAppleIDAuthenticationContextClass_softClass = v4[3];
     v0 = v4[3];
@@ -2441,9 +2442,9 @@ id getAKAppleIDAuthenticationContextClass()
   return v1;
 }
 
-void sub_10032CC70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10032CC70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2515,9 +2516,9 @@ id getAKAuthenticationPasswordKey()
   return v2;
 }
 
-void sub_10032CEC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10032CEC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2548,23 +2549,23 @@ id getAKAuthenticationUsernameKey()
   return v2;
 }
 
-void sub_10032CFCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10032CFCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 Class __getAKAccountManagerClass_block_invoke(uint64_t a1)
 {
-  AuthKitLibraryCore();
+  AuthKitLibraryCore(0);
   result = objc_getClass("AKAccountManager");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getAKAccountManagerClass_softClass = *(*(*(a1 + 32) + 8) + 24);
   return result;
 }
 
-uint64_t AuthKitLibraryCore()
+uint64_t AuthKitLibraryCore(uint64_t a1)
 {
   if (!AuthKitLibraryCore_frameworkLibrary)
   {
@@ -2574,7 +2575,7 @@ uint64_t AuthKitLibraryCore()
   return AuthKitLibraryCore_frameworkLibrary;
 }
 
-uint64_t __AuthKitLibraryCore_block_invoke()
+uint64_t __AuthKitLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   AuthKitLibraryCore_frameworkLibrary = result;
@@ -2583,7 +2584,7 @@ uint64_t __AuthKitLibraryCore_block_invoke()
 
 Class __getAKAppleIDAuthenticationControllerClass_block_invoke(uint64_t a1)
 {
-  AuthKitLibraryCore();
+  AuthKitLibraryCore(0);
   result = objc_getClass("AKAppleIDAuthenticationController");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getAKAppleIDAuthenticationControllerClass_softClass = *(*(*(a1 + 32) + 8) + 24);
@@ -2592,7 +2593,7 @@ Class __getAKAppleIDAuthenticationControllerClass_block_invoke(uint64_t a1)
 
 Class __getAKAppleIDAuthenticationContextClass_block_invoke(uint64_t a1)
 {
-  AuthKitLibraryCore();
+  AuthKitLibraryCore(0);
   result = objc_getClass("AKAppleIDAuthenticationContext");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getAKAppleIDAuthenticationContextClass_softClass = *(*(*(a1 + 32) + 8) + 24);
@@ -2610,14 +2611,20 @@ void *__getAKAuthenticationPasswordKeySymbolLoc_block_invoke(uint64_t a1)
 
 uint64_t AuthKitLibrary()
 {
-  v1 = 0;
-  result = AuthKitLibraryCore();
-  if (!result)
+  v3 = 0;
+  v0 = AuthKitLibraryCore(&v3);
+  if (!v0)
   {
-    AuthKitLibrary_cold_1(&v1);
+    AuthKitLibrary_cold_1(&v3);
   }
 
-  return result;
+  v1 = v0;
+  if (v3)
+  {
+    free(v3);
+  }
+
+  return v1;
 }
 
 void *__getAKAuthenticationUsernameKeySymbolLoc_block_invoke(uint64_t a1)
@@ -2648,7 +2655,7 @@ LABEL_16:
     goto LABEL_17;
   }
 
-  if (!AppleVirtualPlatformLibraryCore())
+  if (!AppleVirtualPlatformLibraryCore(0))
   {
     MobileActivationError = createMobileActivationError("libavp_send_host_message", 65, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Virtualization library not loaded on this platform.");
     goto LABEL_15;
@@ -2756,9 +2763,9 @@ LABEL_17:
   return v14;
 }
 
-void sub_10032D764(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10032D764(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2776,7 +2783,7 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  if (!AppleVirtualPlatformLibraryCore())
+  if (!AppleVirtualPlatformLibraryCore(0))
   {
     MobileActivationError = createMobileActivationError("libavp_copy_strong_identity_data", 131, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Virtualization library not loaded on this platform.");
     goto LABEL_9;
@@ -2967,9 +2974,9 @@ LABEL_36:
   return v13;
 }
 
-void sub_10032DDB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10032DDB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2992,7 +2999,7 @@ LABEL_18:
     goto LABEL_19;
   }
 
-  if (!AppleVirtualPlatformLibraryCore())
+  if (!AppleVirtualPlatformLibraryCore(0))
   {
     MobileActivationError = createMobileActivationError("libavp_copy_host_key_and_certs_with_data", 197, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Virtualization library not loaded on this platform.");
     goto LABEL_17;
@@ -3035,7 +3042,7 @@ LABEL_19:
     v30[3] = __getAppleVirtualPlatformHostCertificateClass_block_invoke;
     v30[4] = &__block_descriptor_40_e8_32r_e5_v8__0l;
     v31 = &v32;
-    AppleVirtualPlatformLibraryCore();
+    AppleVirtualPlatformLibraryCore(0);
     v33[3] = objc_getClass("AppleVirtualPlatformHostCertificate");
     getAppleVirtualPlatformHostCertificateClass_softClass = *(v31[1] + 24);
     v11 = v33[3];
@@ -3154,9 +3161,9 @@ LABEL_24:
   return v25;
 }
 
-void sub_10032E308(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10032E308(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3169,7 +3176,7 @@ uint64_t libavp_guest_has_host_key(NSError **a1)
     goto LABEL_10;
   }
 
-  if (!AppleVirtualPlatformLibraryCore())
+  if (!AppleVirtualPlatformLibraryCore(0))
   {
     MobileActivationError = createMobileActivationError("libavp_guest_has_host_key", 290, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Virtualization library not loaded on this platform.");
 LABEL_10:
@@ -3219,14 +3226,14 @@ LABEL_13:
   return v4;
 }
 
-void sub_10032E4A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10032E4A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t AppleVirtualPlatformLibraryCore()
+uint64_t AppleVirtualPlatformLibraryCore(uint64_t a1)
 {
   if (!AppleVirtualPlatformLibraryCore_frameworkLibrary)
   {
@@ -3236,7 +3243,7 @@ uint64_t AppleVirtualPlatformLibraryCore()
   return AppleVirtualPlatformLibraryCore_frameworkLibrary;
 }
 
-uint64_t __AppleVirtualPlatformLibraryCore_block_invoke()
+uint64_t __AppleVirtualPlatformLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   AppleVirtualPlatformLibraryCore_frameworkLibrary = result;
@@ -3254,14 +3261,20 @@ void *__getAppleVirtualPlatformSendSubsystemMessageToHostSymbolLoc_block_invoke(
 
 uint64_t AppleVirtualPlatformLibrary()
 {
-  v1 = 0;
-  result = AppleVirtualPlatformLibraryCore();
-  if (!result)
+  v3 = 0;
+  v0 = AppleVirtualPlatformLibraryCore(&v3);
+  if (!v0)
   {
-    AppleVirtualPlatformLibrary_cold_1(&v1);
+    AppleVirtualPlatformLibrary_cold_1(&v3);
   }
 
-  return result;
+  v1 = v0;
+  if (v3)
+  {
+    free(v3);
+  }
+
+  return v1;
 }
 
 void *__getkAppleVirtualPlatformGuestStrongIdentityOptionSynchronousSymbolLoc_block_invoke(uint64_t a1)
@@ -3302,7 +3315,7 @@ void *__getAppleVirtualPlatformGuestCopyStrongIdentityDataSymbolLoc_block_invoke
 
 Class __getAppleVirtualPlatformHostCertificateClass_block_invoke(uint64_t a1)
 {
-  AppleVirtualPlatformLibraryCore();
+  AppleVirtualPlatformLibraryCore(0);
   result = objc_getClass("AppleVirtualPlatformHostCertificate");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getAppleVirtualPlatformHostCertificateClass_softClass = *(*(*(a1 + 32) + 8) + 24);
@@ -3318,12 +3331,13 @@ void *__getAppleVirtualPlatformGuestHasHostKeySymbolLoc_block_invoke(uint64_t a1
   return result;
 }
 
-void sub_10032F984(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, char a36, uint64_t a37, uint64_t a38, uint64_t a39, char a40)
+void sub_10032F984(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, ...)
 {
+  va_start(va, a39);
   _Block_object_dispose(&a36, 8);
-  _Block_object_dispose(&a40, 8);
-  _Block_object_dispose((v40 - 200), 8);
-  _Block_object_dispose((v40 - 152), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v39 - 200), 8);
+  _Block_object_dispose((v39 - 152), 8);
   _Unwind_Resume(a1);
 }
 
@@ -3353,21 +3367,22 @@ void __destroy_helper_block_e8_32s40s48s56r64r(uint64_t a1)
   v2 = *(a1 + 32);
 }
 
-void sub_10033009C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_10033009C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 96), 8);
+  _Block_object_dispose((v18 - 96), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_100331E7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37, uint64_t a38, uint64_t a39, uint64_t a40, char a41, uint64_t a42, uint64_t a43, uint64_t a44, char a45)
+void sub_100331E7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, ...)
 {
+  va_start(va, a44);
   _Block_object_dispose(&a37, 8);
   _Block_object_dispose(&a41, 8);
-  _Block_object_dispose(&a45, 8);
-  _Block_object_dispose((v45 - 240), 8);
-  _Block_object_dispose((v45 - 208), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v44 - 240), 8);
+  _Block_object_dispose((v44 - 208), 8);
   _Unwind_Resume(a1);
 }
 
@@ -3409,9 +3424,9 @@ void __copy_helper_block_e8_32s40s48s56s64b72r(uint64_t a1, uint64_t a2)
   _Block_object_assign((a1 + 72), v8, 8);
 }
 
-void sub_100332C08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_100332C08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3435,10 +3450,11 @@ void __copy_helper_block_e8_32s40s48b56r(uint64_t a1, uint64_t a2)
   _Block_object_assign((a1 + 56), v6, 8);
 }
 
-void sub_100336CB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26)
+void sub_100336CB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
 {
-  _Block_object_dispose(&a26, 8);
-  _Block_object_dispose((v26 - 136), 8);
+  va_start(va, a25);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v25 - 136), 8);
   _Unwind_Resume(a1);
 }
 
@@ -3460,6 +3476,13 @@ void __destroy_helper_block_e8_32s40s48r56r(uint64_t a1)
   v2 = *(a1 + 32);
 }
 
+void sub_1003381B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
+{
+  va_start(va, a30);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 void __copy_helper_block_e8_32s40s48s56b64r(uint64_t a1, uint64_t a2)
 {
   v4 = *(a2 + 32);
@@ -3471,10 +3494,11 @@ void __copy_helper_block_e8_32s40s48s56b64r(uint64_t a1, uint64_t a2)
   _Block_object_assign((a1 + 64), v7, 8);
 }
 
-void sub_10033938C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_10033938C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
 {
-  _Block_object_dispose(&a33, 8);
-  _Block_object_dispose((v33 - 160), 8);
+  va_start(va, a32);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v32 - 160), 8);
   _Unwind_Resume(a1);
 }
 
@@ -3512,9 +3536,9 @@ void __destroy_helper_block_e8_32s40s48s56s64s72s80s88s96r104r(uint64_t a1)
   v2 = *(a1 + 32);
 }
 
-void sub_10033D838(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_10033D838(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3731,16 +3755,16 @@ LABEL_9:
   return v10;
 }
 
-id copySignpostLoggingHandle()
+id copySignpostLoggingHandle(uint64_t a1)
 {
   if (copySignpostLoggingHandle_onceToken != -1)
   {
     copySignpostLoggingHandle_cold_1();
   }
 
-  v1 = copySignpostLoggingHandle_logHandle;
+  v2 = copySignpostLoggingHandle_logHandle;
 
-  return v1;
+  return v2;
 }
 
 void __copySignpostLoggingHandle_block_invoke(id a1)
@@ -3750,7 +3774,7 @@ void __copySignpostLoggingHandle_block_invoke(id a1)
   copySignpostLoggingHandle_logHandle = v1;
 }
 
-uint64_t libaks_ref_key_create(int a1, unsigned int a2, NSError **a3)
+uint64_t libaks_ref_key_create(uint64_t a1, uint64_t a2, NSError **a3)
 {
   v12 = 0;
   if (a1 == 13)
@@ -3898,19 +3922,19 @@ id libaks_system_key_collection(uint64_t a1, uint64_t a2, unsigned int a3, id a4
 {
   v9 = a4;
   v12 = v9;
-  v39[0] = a3;
-  v37 = 0;
-  v38 = 0;
-  v35 = 0;
-  v36 = 0;
-  v34 = 0;
+  v45 = a3;
+  v43 = 0;
+  v44 = 0;
+  v41 = 0;
+  v42 = 0;
+  v40 = 0;
   if (a3 <= 0x7F && (a1 - 16) >= 0xFFFFFFF1 && (a2 - 4) > 0xFFFFFFFC)
   {
     if (a3 || v9)
     {
-      v21 = aks_params_create(0);
+      v21 = aks_params_create(0, 0);
       v13 = v21;
-      v38 = v21;
+      v44 = v21;
       if (!v21)
       {
         v23 = @"Failed to create aks params.";
@@ -3920,10 +3944,10 @@ id libaks_system_key_collection(uint64_t a1, uint64_t a2, unsigned int a3, id a4
 
       if (a3)
       {
-        v22 = aks_params_set_number(v21, 18, v39);
+        v22 = aks_params_set_number(v21, 18, &v45);
         if (v22)
         {
-          v30 = v22;
+          v36 = v22;
           v23 = @"Failed to set aks data: 0x%08x";
           v24 = 226;
           goto LABEL_24;
@@ -3932,29 +3956,29 @@ id libaks_system_key_collection(uint64_t a1, uint64_t a2, unsigned int a3, id a4
 
       if (v12)
       {
-        [v12 bytes];
-        [v12 length];
-        aks_params_set_data();
-        if (v27)
+        v27 = [v12 bytes];
+        v28 = [v12 length];
+        aks_params_set_data(v13, 3, v27, v28, v29, v30, v31, v32, v36, v37, v38, v39, v40, v41, v42, v43, v44, v45, v46, v47, v48, v49);
+        if (v33)
         {
-          v30 = v27;
+          v36 = v33;
           v23 = @"Failed to set aks data: 0x%08x";
           v24 = 234;
           goto LABEL_24;
         }
       }
 
-      der = aks_params_get_der(v13, &v37, &v36);
+      der = aks_params_get_der(v13, &v43, &v42);
       if (der)
       {
-        v30 = der;
+        v36 = der;
         v23 = @"Failed to get DER encoded aks params: 0x%08x";
         v24 = 241;
         goto LABEL_24;
       }
 
-      v14 = v36;
-      v15 = v37;
+      v14 = v42;
+      v15 = v43;
     }
 
     else
@@ -3964,18 +3988,18 @@ id libaks_system_key_collection(uint64_t a1, uint64_t a2, unsigned int a3, id a4
       v15 = 0;
     }
 
-    v16 = aks_system_key_collection(a1, a2, v15, v14, &v35, &v34, v10, v11, v30, v31, v32, v33, v34, v35, v36, v37, v38, v39[0], v39[1], v39[2], v39[3], v39[4], v39[5], v39[6]);
+    v16 = aks_system_key_collection(a1, a2, v15, v14, &v41, &v40, v10, v11, v36, v37, v38, v39, v40, v41, v42, v43, v44, v45, v46, v47, v48, v49, v50, v51);
     if (v16)
     {
-      MobileActivationError = createMobileActivationError("libaks_system_key_collection", 248, @"com.apple.MobileActivation.ErrorDomain", -11, 0, @"Failed to perform system key (%d / %d) collection (options=%lld): 0x%08x", a1, a2, v39[0], v16);
+      MobileActivationError = createMobileActivationError("libaks_system_key_collection", 248, @"com.apple.MobileActivation.ErrorDomain", -11, 0, @"Failed to perform system key (%d / %d) collection (options=%lld): 0x%08x", a1, a2, v45, v16);
       goto LABEL_25;
     }
 
     v25 = [NSData alloc];
-    v26 = [v25 initWithBytesNoCopy:v35 length:v34];
+    v26 = [v25 initWithBytesNoCopy:v41 length:v40];
     if (v26)
     {
-      v35 = 0;
+      v41 = 0;
       v20 = v26;
       v18 = 0;
       goto LABEL_27;
@@ -3984,7 +4008,7 @@ id libaks_system_key_collection(uint64_t a1, uint64_t a2, unsigned int a3, id a4
     v23 = @"Failed to create data.";
     v24 = 254;
 LABEL_24:
-    MobileActivationError = createMobileActivationError("libaks_system_key_collection", v24, @"com.apple.MobileActivation.ErrorDomain", -1, 0, v23, v30, v31, v32, v33);
+    MobileActivationError = createMobileActivationError("libaks_system_key_collection", v24, @"com.apple.MobileActivation.ErrorDomain", -1, 0, v23, v36, v37, v38, v39);
 LABEL_25:
     v18 = MobileActivationError;
     if (!a5)
@@ -4011,26 +4035,26 @@ LABEL_26:
 LABEL_27:
   if (v13)
   {
-    aks_params_free(&v38);
+    aks_params_free(&v44);
   }
 
-  if (v35)
+  if (v41)
   {
-    free(v35);
+    free(v41);
   }
 
-  v35 = 0;
-  if (v37)
+  v41 = 0;
+  if (v43)
   {
-    free(v37);
+    free(v43);
   }
 
-  v37 = 0;
+  v43 = 0;
 
   return v20;
 }
 
-uint64_t isRunningInDiagnosticsMode()
+uint64_t isRunningInDiagnosticsMode(uint64_t a1, uint64_t a2)
 {
   if (isRunningInDiagnosticsMode_onceToken != -1)
   {
@@ -4736,9 +4760,9 @@ NSMutableString *formatURLResponse(void *a1, uint64_t a2, void *a3)
 int main(int argc, const char **argv, const char **envp)
 {
   v3 = objc_autoreleasePoolPush();
-  memset(&v127, 0, sizeof(v127));
-  v126 = 0;
-  bzero(v135, 0x400uLL);
+  memset(&v132, 0, sizeof(v132));
+  v131 = 0;
+  bzero(v140, 0x400uLL);
   v4 = os_transaction_create();
   [NSError _setFileNameLocalizationEnabled:0];
   if (setiopolicy_np(9, 0, 1))
@@ -4752,145 +4776,134 @@ int main(int argc, const char **argv, const char **envp)
     main_cold_2();
   }
 
-  signal(30, 1);
-  v5 = copy_system_container_path();
-  v6 = copy_group_container_path([@"systemgroup.com.apple.regulatory_images" UTF8String]);
-  v7 = copy_group_container_path([@"systemgroup.com.apple.pisco.suinfo" UTF8String]);
-  v8 = copy_group_container_path([@"systemgroup.com.apple.mobileactivationd" UTF8String]);
-  if (!v5 || !v6 || !v7 || !v8)
+  v5 = signal(30, 1);
+  v6 = copy_system_container_path(v5);
+  v7 = copy_group_container_path([@"systemgroup.com.apple.regulatory_images" UTF8String]);
+  v8 = copy_group_container_path([@"systemgroup.com.apple.pisco.suinfo" UTF8String]);
+  v9 = copy_group_container_path([@"systemgroup.com.apple.mobileactivationd" UTF8String]);
+  if (!v6 || !v7 || !v8 || !v9)
   {
     main_cold_3();
   }
 
-  v110 = v4;
+  v115 = v4;
   context = v3;
-  v112 = v6;
-  v113 = v5;
-  v134[0] = v5;
-  v134[1] = v6;
-  v108 = v8;
-  v109 = v7;
-  v134[2] = v7;
-  v134[3] = v8;
-  v122 = 0u;
-  v123 = 0u;
-  v124 = 0u;
-  v125 = 0u;
-  obj = [NSArray arrayWithObjects:v134 count:4];
-  v9 = [(NSArray *)obj countByEnumeratingWithState:&v122 objects:v133 count:16];
-  if (v9)
+  v117 = v7;
+  v118 = v6;
+  v139[0] = v6;
+  v139[1] = v7;
+  v113 = v9;
+  v114 = v8;
+  v139[2] = v8;
+  v139[3] = v9;
+  v127 = 0u;
+  v128 = 0u;
+  v129 = 0u;
+  v130 = 0u;
+  obj = [NSArray arrayWithObjects:v139 count:4];
+  v10 = [(NSArray *)obj countByEnumeratingWithState:&v127 objects:v138 count:16];
+  if (v10)
   {
-    v10 = v9;
-    v11 = 0;
+    v11 = v10;
     v12 = 0;
     v13 = 0;
-    v14 = *v123;
+    v14 = 0;
+    v15 = *v128;
     do
     {
-      for (i = 0; i != v10; i = i + 1)
+      for (i = 0; i != v11; i = i + 1)
       {
-        v16 = v13;
-        if (*v123 != v14)
+        v17 = v14;
+        if (*v128 != v15)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = [NSURL fileURLWithPath:*(*(&v122 + 1) + 8 * i)];
+        v18 = [NSURL fileURLWithPath:*(*(&v127 + 1) + 8 * i)];
 
-        v120 = 0;
-        v121 = 0;
-        v18 = [(NSURL *)v17 getResourceValue:&v121 forKey:NSURLIsExcludedFromBackupKey error:&v120];
-        v13 = v121;
+        v125 = 0;
+        v126 = 0;
+        v19 = [(NSURL *)v18 getResourceValue:&v126 forKey:NSURLIsExcludedFromBackupKey error:&v125];
+        v14 = v126;
 
-        v19 = v120;
-        if ((v18 & 1) == 0)
+        v20 = v125;
+        if ((v19 & 1) == 0)
         {
-          main_cold_4(v19);
+          main_cold_4(v20);
         }
 
-        v11 = v17;
-        v20 = isNSNumber(v13);
-        if (v20 && (v21 = v20, v22 = [v13 BOOLValue], v21, (v22 & 1) != 0))
+        v12 = v18;
+        v21 = isNSNumber(v14);
+        if (v21 && (v22 = v21, v23 = [v14 BOOLValue], v22, (v23 & 1) != 0))
         {
-          v12 = v19;
+          v13 = v20;
         }
 
         else
         {
-          v119 = v19;
-          v23 = [(NSURL *)v11 setResourceValue:&__kCFBooleanTrue forKey:NSURLIsExcludedFromBackupKey error:&v119];
-          v12 = v119;
+          v124 = v20;
+          v24 = [(NSURL *)v12 setResourceValue:&__kCFBooleanTrue forKey:NSURLIsExcludedFromBackupKey error:&v124];
+          v13 = v124;
 
-          if ((v23 & 1) == 0)
+          if ((v24 & 1) == 0)
           {
-            main_cold_5(v12);
+            main_cold_5(v13);
           }
         }
       }
 
-      v10 = [(NSArray *)obj countByEnumeratingWithState:&v122 objects:v133 count:16];
+      v11 = [(NSArray *)obj countByEnumeratingWithState:&v127 objects:v138 count:16];
     }
 
-    while (v10);
+    while (v11);
   }
 
   else
   {
-    v11 = 0;
     v12 = 0;
     v13 = 0;
+    v14 = 0;
   }
 
-  v107 = v13;
+  v112 = v14;
 
-  v24 = getuid();
-  if (getpwuid_r(v24, &v127, v135, 0x400uLL, &v126) || !v126)
+  v25 = getuid();
+  if (getpwuid_r(v25, &v132, v140, 0x400uLL, &v131) || !v131)
   {
     main_cold_6();
   }
 
   maLog("main", 0, @"____________________ Mobile Activation Startup _____________________");
-  v25 = +[GestaltHlpr getSharedInstance];
-  v26 = [v25 copyAnswer:@"BuildVersion"];
-  maLog("main", 0, @"build_version: %@", v26);
+  v26 = +[GestaltHlpr getSharedInstance];
+  v27 = [v26 copyAnswer:@"BuildVersion"];
+  maLog("main", 0, @"build_version: %@", v27);
 
   if (is_internal_build())
   {
-    v27 = "true";
+    v28 = "true";
   }
 
   else
   {
-    v27 = "false";
+    v28 = "false";
   }
 
-  maLog("main", 0, @"internal_build: %s", v27);
-  maLog("main", 0, @"uid: %d", v126->pw_uid);
-  maLog("main", 0, @"user_name: %s", v126->pw_name);
-  maLog("main", 0, @"system_container_path: %@", v113);
-  maLog("main", 0, @"regulatory_images_path: %@", v112);
-  v28 = +[GestaltHlpr getSharedInstance];
-  v29 = [v28 copyAnswer:@"HWModelStr"];
-  maLog("main", 0, @"hardware_model: %@", v29);
+  maLog("main", 0, @"internal_build: %s", v28);
+  maLog("main", 0, @"uid: %d", v131->pw_uid);
+  maLog("main", 0, @"user_name: %s", v131->pw_name);
+  maLog("main", 0, @"system_container_path: %@", v118);
+  maLog("main", 0, @"regulatory_images_path: %@", v117);
+  v29 = +[GestaltHlpr getSharedInstance];
+  v30 = [v29 copyAnswer:@"HWModelStr"];
+  maLog("main", 0, @"hardware_model: %@", v30);
 
-  v30 = get_device_type();
-  maLog("main", 0, @"product_type: %@", v30);
+  v31 = get_device_type();
+  maLog("main", 0, @"product_type: %@", v31);
 
-  v31 = get_device_class();
-  maLog("main", 0, @"device_class: %@", v31);
+  v32 = get_device_class();
+  maLog("main", 0, @"device_class: %@", v32);
 
   if (is_product_cellular())
-  {
-    v32 = "true";
-  }
-
-  else
-  {
-    v32 = "false";
-  }
-
-  maLog("main", 0, @"has_baseband: %s", v32);
-  if (use_hactivation())
   {
     v33 = "true";
   }
@@ -4900,8 +4913,8 @@ int main(int argc, const char **argv, const char **envp)
     v33 = "false";
   }
 
-  maLog("main", 0, @"should_hactivate: %s", v33);
-  if (is_product_fpga())
+  maLog("main", 0, @"has_baseband: %s", v33);
+  if (use_hactivation())
   {
     v34 = "true";
   }
@@ -4911,8 +4924,8 @@ int main(int argc, const char **argv, const char **envp)
     v34 = "false";
   }
 
-  maLog("main", 0, @"is_fpga: %s", v34);
-  if (is_devfused_undemoted())
+  maLog("main", 0, @"should_hactivate: %s", v34);
+  if (is_product_fpga())
   {
     v35 = "true";
   }
@@ -4922,8 +4935,8 @@ int main(int argc, const char **argv, const char **envp)
     v35 = "false";
   }
 
-  maLog("main", 0, @"is_devfused_undemoted: %s", v35);
-  if (is_prodfused_demoted())
+  maLog("main", 0, @"is_fpga: %s", v35);
+  if (is_devfused_undemoted())
   {
     v36 = "true";
   }
@@ -4933,185 +4946,200 @@ int main(int argc, const char **argv, const char **envp)
     v36 = "false";
   }
 
-  maLog("main", 0, @"is_prodfused_demoted: %s", v36);
-  v37 = copy_soc_generation();
-  maLog("main", 0, @"soc_generation: %@", v37);
+  maLog("main", 0, @"is_devfused_undemoted: %s", v36);
+  if (is_prodfused_demoted())
+  {
+    v37 = "true";
+  }
+
+  else
+  {
+    v37 = "false";
+  }
+
+  maLog("main", 0, @"is_prodfused_demoted: %s", v37);
+  v38 = copy_soc_generation();
+  maLog("main", 0, @"soc_generation: %@", v38);
 
   maLog("main", 0, @"____________________________________________________________________");
-  v38 = copyMobileActivationSerialQueue();
-  if (!v38)
+  v40 = copyMobileActivationSerialQueue(v39);
+  if (!v40)
   {
     main_cold_13();
   }
 
-  v39 = v38;
-  v40 = [DataArk alloc];
-  v41 = copy_data_ark_directory_path();
-  v42 = [(DataArk *)v40 initWithPath:v41];
+  v41 = v40;
+  v42 = [DataArk alloc];
+  v43 = copy_data_ark_directory_path(v42);
+  v44 = [(DataArk *)v42 initWithPath:v43];
 
-  if (!v42)
+  if (!v44)
   {
     main_cold_12();
   }
 
-  v43 = v42;
-  v105 = v39;
+  v45 = v44;
+  v110 = v41;
   if (!is_internal_build())
   {
-    v63 = 0;
-    v106 = 0;
-    v62 = 0;
+    v65 = 0;
+    v111 = 0;
+    v64 = 0;
     goto LABEL_78;
   }
 
-  v44 = [NSUserDefaults alloc];
-  v45 = [v44 persistentDomainForName:@"com.apple.mobileactivationd"];
+  v46 = [NSUserDefaults alloc];
+  v47 = [v46 persistentDomainForName:@"com.apple.mobileactivationd"];
 
-  v46 = [v45 objectForKey:@"DeleteExistingUCRT"];
-  v47 = isNSNumber(v46);
+  v48 = [v47 objectForKey:@"DeleteExistingUCRT"];
+  v49 = isNSNumber(v48);
 
-  if (v47)
+  if (v49)
   {
-    v48 = [v45 objectForKey:@"DeleteExistingUCRT"];
-    v49 = [v48 BOOLValue];
+    v50 = [v47 objectForKey:@"DeleteExistingUCRT"];
+    v51 = [v50 BOOLValue];
 
-    if (v49)
+    if (v51)
     {
       maLog("perform_boot_initialization_tasks", 0, @"OVERRIDE: Deleting existing UCRT (OOB)");
-      deleteUCRT(v43, 0);
-      data_ark_remove(v43, 0, @"UCRTOOBForbidden");
+      deleteUCRT(v45, 0);
+      data_ark_remove(v45, 0, @"UCRTOOBForbidden");
     }
   }
 
-  v50 = [v45 objectForKey:@"UCRTHealingRequired"];
-  v51 = isNSNumber(v50);
+  v52 = [v47 objectForKey:@"UCRTHealingRequired"];
+  v53 = isNSNumber(v52);
 
-  if (v51)
+  if (v53)
   {
-    v52 = [v45 objectForKey:@"UCRTHealingRequired"];
-    v53 = [v52 BOOLValue];
+    v54 = [v47 objectForKey:@"UCRTHealingRequired"];
+    v55 = [v54 BOOLValue];
 
-    if (v53)
+    if (v55)
     {
       maLog("perform_boot_initialization_tasks", 0, @"OVERRIDE: Deleting existing UCRT (Healing)");
-      deleteUCRT(v43, 0);
-      data_ark_remove(v43, 0, @"UCRTOOBForbidden");
-      data_ark_set(v43, 0, @"UCRTHealingRequired", &__kCFBooleanTrue, 1);
+      deleteUCRT(v45, 0);
+      data_ark_remove(v45, 0, @"UCRTOOBForbidden");
+      data_ark_set(v45, 0, @"UCRTHealingRequired", &__kCFBooleanTrue, 1);
     }
   }
 
-  v54 = [v45 objectForKey:@"DeleteExistingDCRT"];
-  v55 = isNSNumber(v54);
+  v56 = [v47 objectForKey:@"DeleteExistingDCRT"];
+  v57 = isNSNumber(v56);
 
-  if (v55 && (v56 = [v45 objectForKey:@"DeleteExistingDCRT"], v57 = objc_msgSend(v56, "BOOLValue"), v56, v57))
+  if (v57 && (v58 = [v47 objectForKey:@"DeleteExistingDCRT"], v59 = objc_msgSend(v58, "BOOLValue"), v58, v59))
   {
     maLog("perform_boot_initialization_tasks", 0, @"OVERRIDE: Deleting existing DCRT");
-    deleteDCRT(v43, 0, 0);
-    data_ark_remove(v43, 0, @"DCRTOOBForbidden");
-    v132 = 0;
-    v58 = libaks_system_key_operate(9, 1, &v132);
-    v59 = v132;
-    v60 = v59;
-    if ((v58 & 1) == 0 && (mobileactivationErrorHasDomainAndErrorCode(v59, @"com.apple.MobileActivation.ErrorDomain", 0xFFFFFFFFFFFFFFFDLL) & 1) == 0)
+    deleteDCRT(v45, 0, 0);
+    data_ark_remove(v45, 0, @"DCRTOOBForbidden");
+    v137 = 0;
+    v60 = libaks_system_key_operate(9, 1, &v137);
+    v61 = v137;
+    v62 = v61;
+    if ((v60 & 1) == 0 && (mobileactivationErrorHasDomainAndErrorCode(v61, @"com.apple.MobileActivation.ErrorDomain", 0xFFFFFFFFFFFFFFFDLL) & 1) == 0)
     {
-      maLog("perform_boot_initialization_tasks", 0, @"Failed to bump DAK: %@", v60);
+      maLog("perform_boot_initialization_tasks", 0, @"Failed to bump DAK: %@", v62);
     }
 
-    v131 = v60;
-    v61 = libaks_system_key_operate(9, 2, &v131);
-    v62 = v131;
+    v136 = v62;
+    v63 = libaks_system_key_operate(9, 2, &v136);
+    v64 = v136;
 
-    if ((v61 & 1) == 0 && (mobileactivationErrorHasDomainAndErrorCode(v62, @"com.apple.MobileActivation.ErrorDomain", 0xFFFFFFFFFFFFFFFDLL) & 1) == 0)
+    if ((v63 & 1) == 0 && (mobileactivationErrorHasDomainAndErrorCode(v64, @"com.apple.MobileActivation.ErrorDomain", 0xFFFFFFFFFFFFFFFDLL) & 1) == 0)
     {
-      maLog("perform_boot_initialization_tasks", 0, @"Failed to commit DAK: %@", v62);
+      maLog("perform_boot_initialization_tasks", 0, @"Failed to commit DAK: %@", v64);
     }
   }
 
   else
   {
-    v62 = 0;
+    v64 = 0;
   }
 
-  v64 = [v45 objectForKey:@"DeleteExistingSDCRT"];
-  v65 = isNSNumber(v64);
+  v66 = [v47 objectForKey:@"DeleteExistingSDCRT"];
+  v67 = isNSNumber(v66);
 
-  if (v65)
+  if (v67)
   {
-    v66 = [v45 objectForKey:@"DeleteExistingSDCRT"];
-    v67 = [v66 BOOLValue];
+    v68 = [v47 objectForKey:@"DeleteExistingSDCRT"];
+    v69 = [v68 BOOLValue];
 
-    if (v67)
+    if (v69)
     {
       maLog("perform_boot_initialization_tasks", 0, @"OVERRIDE: Deleting existing SDCRT");
-      v141 = @"sdcrtAttestation";
-      v142 = &__kCFBooleanTrue;
-      v68 = [NSDictionary dictionaryWithObjects:&v142 forKeys:&v141 count:1];
-      deleteDCRT(v43, v68, 0);
+      v146 = @"sdcrtAttestation";
+      v147 = &__kCFBooleanTrue;
+      v70 = [NSDictionary dictionaryWithObjects:&v147 forKeys:&v146 count:1];
+      deleteDCRT(v45, v70, 0);
 
-      data_ark_remove(v43, 0, @"SDCRTOOBForbidden");
-      v130 = v62;
-      v69 = libaks_system_key_operate(10, 1, &v130);
-      v70 = v130;
+      data_ark_remove(v45, 0, @"SDCRTOOBForbidden");
+      v135 = v64;
+      v71 = libaks_system_key_operate(10, 1, &v135);
+      v72 = v135;
 
-      if ((v69 & 1) == 0 && (mobileactivationErrorHasDomainAndErrorCode(v70, @"com.apple.MobileActivation.ErrorDomain", 0xFFFFFFFFFFFFFFFDLL) & 1) == 0)
+      if ((v71 & 1) == 0)
       {
-        v71 = copyLoggingHandle();
-        if (os_log_type_enabled(v71, OS_LOG_TYPE_DEFAULT))
+        HasDomainAndErrorCode = mobileactivationErrorHasDomainAndErrorCode(v72, @"com.apple.MobileActivation.ErrorDomain", 0xFFFFFFFFFFFFFFFDLL);
+        if ((HasDomainAndErrorCode & 1) == 0)
         {
-          LODWORD(buf) = 138412290;
-          *(&buf + 4) = v70;
-          _os_log_impl(&_mh_execute_header, v71, OS_LOG_TYPE_DEFAULT, "Failed to bump SDAK: %@", &buf, 0xCu);
+          v74 = copyLoggingHandle(HasDomainAndErrorCode);
+          if (os_log_type_enabled(v74, OS_LOG_TYPE_DEFAULT))
+          {
+            LODWORD(buf) = 138412290;
+            *(&buf + 4) = v72;
+            _os_log_impl(&_mh_execute_header, v74, OS_LOG_TYPE_DEFAULT, "Failed to bump SDAK: %@", &buf, 0xCu);
+          }
         }
       }
 
-      v129 = v70;
-      v72 = libaks_system_key_operate(10, 2, &v129);
-      v62 = v129;
+      v134 = v72;
+      v75 = libaks_system_key_operate(10, 2, &v134);
+      v64 = v134;
 
-      if ((v72 & 1) == 0 && (mobileactivationErrorHasDomainAndErrorCode(v62, @"com.apple.MobileActivation.ErrorDomain", 0xFFFFFFFFFFFFFFFDLL) & 1) == 0)
+      if ((v75 & 1) == 0 && (mobileactivationErrorHasDomainAndErrorCode(v64, @"com.apple.MobileActivation.ErrorDomain", 0xFFFFFFFFFFFFFFFDLL) & 1) == 0)
       {
-        maLog("perform_boot_initialization_tasks", 0, @"Failed to commit SDAK: %@", v62);
+        maLog("perform_boot_initialization_tasks", 0, @"Failed to commit SDAK: %@", v64);
       }
     }
   }
 
-  v73 = [v45 objectForKey:@"DeleteExistingPCRT"];
-  v74 = v45;
-  v75 = isNSNumber(v73);
+  v76 = [v47 objectForKey:@"DeleteExistingPCRT"];
+  v77 = v47;
+  v78 = isNSNumber(v76);
 
-  if (v75)
+  if (v78)
   {
-    v76 = v74;
-    v77 = [v74 objectForKey:@"DeleteExistingPCRT"];
-    v78 = [v77 BOOLValue];
+    v79 = v77;
+    v80 = [v77 objectForKey:@"DeleteExistingPCRT"];
+    v81 = [v80 BOOLValue];
 
-    if (v78)
+    if (v81)
     {
       maLog("perform_boot_initialization_tasks", 0, @"OVERRIDE: Deleting existing PCRT");
-      v79 = copy_suinfo_directory_path();
-      v80 = [v79 stringByAppendingPathComponent:@"psc.sui"];
+      v83 = copy_suinfo_directory_path(v82);
+      v84 = [v83 stringByAppendingPathComponent:@"psc.sui"];
 
-      if (v80)
+      if (v84)
       {
-        v81 = +[NSFileManager defaultManager];
-        [(NSFileManager *)v81 removeItemAtPath:v80 error:0];
+        v85 = +[NSFileManager defaultManager];
+        [(NSFileManager *)v85 removeItemAtPath:v84 error:0];
       }
 
-      v106 = v80;
-      data_ark_remove(v43, 0, @"PCRTToken");
-      data_ark_remove(v43, 0, @"CollectionLastPerformed");
-      data_ark_remove(v43, 0, @"PCRTCollectionString");
-      data_ark_remove(v43, 0, @"PCRTCollectionStringBuild");
+      v111 = v84;
+      data_ark_remove(v45, 0, @"PCRTToken");
+      data_ark_remove(v45, 0, @"CollectionLastPerformed");
+      data_ark_remove(v45, 0, @"PCRTCollectionString");
+      data_ark_remove(v45, 0, @"PCRTCollectionStringBuild");
       goto LABEL_77;
     }
   }
 
   else
   {
-    v76 = v74;
+    v79 = v77;
   }
 
-  v106 = 0;
+  v111 = 0;
 LABEL_77:
   CFPreferencesSetAppValue(@"DeleteExistingUCRT", kCFBooleanFalse, @"com.apple.mobileactivationd");
   CFPreferencesSetAppValue(@"UCRTHealingRequired", kCFBooleanFalse, @"com.apple.mobileactivationd");
@@ -5119,149 +5147,149 @@ LABEL_77:
   CFPreferencesSetAppValue(@"DeleteExistingDCRT", kCFBooleanFalse, @"com.apple.mobileactivationd");
   CFPreferencesSetAppValue(@"DeleteExistingSDCRT", kCFBooleanFalse, @"com.apple.mobileactivationd");
   CFPreferencesAppSynchronize(@"com.apple.mobileactivationd");
-  v63 = v76;
+  v65 = v79;
 LABEL_78:
-  v82 = data_ark_copy(v43, 0, @"BootSessionUUID");
-  v83 = isNSString(v82);
+  v86 = data_ark_copy(v45, 0, @"BootSessionUUID");
+  v87 = isNSString(v86);
 
-  if (!v83)
+  if (!v87)
   {
 
-    v82 = &stru_1003F3678;
+    v86 = &stru_1003F3678;
   }
 
-  v84 = copy_bootsession_uuid();
-  v85 = v84;
-  if (!v84)
+  v88 = copy_bootsession_uuid();
+  v89 = v88;
+  if (!v88)
   {
-    v87 = createMobileActivationError("perform_boot_initialization_tasks", 156, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Failed to retrieve boot session UUID.");
+    v91 = createMobileActivationError("perform_boot_initialization_tasks", 156, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Failed to retrieve boot session UUID.");
 LABEL_87:
 
-    v90 = v87;
-    v86 = 0;
-    v88 = v87;
+    v95 = v91;
+    v90 = 0;
+    v92 = v91;
     goto LABEL_91;
   }
 
-  if ([v84 isEqualToString:v82])
+  if ([v88 isEqualToString:v86])
   {
-    v86 = 1;
-    v87 = v12;
-    v88 = v62;
+    v90 = 1;
+    v91 = v13;
+    v92 = v64;
     goto LABEL_91;
   }
 
-  v128 = v62;
-  is_legacy = security_committed_uik_is_legacy(&v128);
-  v88 = v128;
+  v133 = v64;
+  is_legacy = security_committed_uik_is_legacy(&v133);
+  v92 = v133;
 
-  if (!is_legacy && v88)
+  if (!is_legacy && v92)
   {
-    v87 = createMobileActivationError("perform_boot_initialization_tasks", 163, @"com.apple.MobileActivation.ErrorDomain", -1, v88, @"Failed to query legacy UIK support.");
-    v62 = v88;
+    v91 = createMobileActivationError("perform_boot_initialization_tasks", 163, @"com.apple.MobileActivation.ErrorDomain", -1, v92, @"Failed to query legacy UIK support.");
+    v64 = v92;
     goto LABEL_87;
   }
 
   if (is_legacy)
   {
-    data_ark_set(v43, 0, @"UIKUpgradeRequired", &__kCFBooleanTrue, 1);
+    v94 = data_ark_set(v45, 0, @"UIKUpgradeRequired", &__kCFBooleanTrue, 1);
   }
 
-  v91 = copyRTCResetSerialQueue();
+  v96 = copyRTCResetSerialQueue(v94);
   *&buf = _NSConcreteStackBlock;
   *(&buf + 1) = 3254779904;
-  v137 = __perform_boot_initialization_tasks_block_invoke;
-  v138 = &__block_descriptor_48_e8_32s40s_e5_v8__0l;
-  v92 = v43;
-  v139 = v92;
-  v140 = v85;
-  dispatch_async(v91, &buf);
+  v142 = __perform_boot_initialization_tasks_block_invoke;
+  v143 = &__block_descriptor_48_e8_32s40s_e5_v8__0l;
+  v97 = v45;
+  v144 = v97;
+  v145 = v89;
+  dispatch_async(v96, &buf);
 
-  data_ark_remove(v92, 0, @"UCRTOOBForbidden");
-  data_ark_remove(v92, 0, @"UCRTOOBForbiddenCount");
-  data_ark_remove(v92, 0, @"DCRTOOBForbidden");
-  data_ark_remove(v92, 0, @"DCRTOOBForbiddenCount");
-  data_ark_remove(v92, 0, @"SDCRTOOBForbidden");
-  data_ark_remove(v92, 0, @"SDCRTOOBForbiddenCount");
+  data_ark_remove(v97, 0, @"UCRTOOBForbidden");
+  data_ark_remove(v97, 0, @"UCRTOOBForbiddenCount");
+  data_ark_remove(v97, 0, @"DCRTOOBForbidden");
+  data_ark_remove(v97, 0, @"DCRTOOBForbiddenCount");
+  data_ark_remove(v97, 0, @"SDCRTOOBForbidden");
+  data_ark_remove(v97, 0, @"SDCRTOOBForbiddenCount");
 
-  v86 = 1;
-  v87 = v12;
+  v90 = 1;
+  v91 = v13;
 LABEL_91:
 
-  v93 = v87;
-  if ((v86 & 1) == 0)
+  v98 = v91;
+  if ((v90 & 1) == 0)
   {
-    main_cold_7(v93);
+    main_cold_7(v98);
   }
 
-  if (!data_migration_supported() || preSydroDataMigrationCompleted(v43))
+  if (!data_migration_supported() || preSydroDataMigrationCompleted(v45))
   {
-    v118 = v93;
-    v94 = performMigration(v43, &v118);
-    v95 = v118;
+    v123 = v98;
+    v99 = performMigration(v45, &v123);
+    v100 = v123;
 
-    v96 = v105;
-    if ((v94 & 1) == 0)
+    v101 = v110;
+    if ((v99 & 1) == 0)
     {
-      main_cold_8(v95);
+      main_cold_8(v100);
     }
 
-    v93 = v95;
+    v98 = v100;
     goto LABEL_96;
   }
 
-  v96 = v105;
+  v101 = v110;
   if (!data_migration_supported())
   {
 LABEL_96:
-    v97 = v113;
+    v102 = v118;
     goto LABEL_97;
   }
 
-  v97 = v113;
-  if ((preSydroDataMigrationCompleted(v43) & 1) == 0)
+  v102 = v118;
+  if ((preSydroDataMigrationCompleted(v45) & 1) == 0)
   {
-    v104 = dispatch_get_global_queue(0, 0);
+    v109 = dispatch_get_global_queue(0, 0);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3254779904;
     block[2] = __main_block_invoke;
     block[3] = &__block_descriptor_48_e8_32s40s_e5_v8__0l;
-    v116 = v105;
-    v117 = v43;
-    dispatch_async(v104, block);
+    v121 = v110;
+    v122 = v45;
+    dispatch_async(v109, block);
   }
 
 LABEL_97:
-  v98 = [[MobileActivationDaemon alloc] initWithContext:v43 Queue:v96];
-  if (!v98)
+  v103 = [[MobileActivationDaemon alloc] initWithContext:v45 Queue:v101];
+  if (!v103)
   {
     main_cold_11();
   }
 
-  v99 = v98;
+  v104 = v103;
   [@"com.apple.mobileactivationd" UTF8String];
-  if ((os_variant_is_darwinos() & 1) == 0 && !init_lockdown_server(v99, v96))
+  if ((os_variant_is_darwinos() & 1) == 0 && !init_lockdown_server(v104, v101))
   {
     main_cold_9();
   }
 
-  v100 = copyNotificationSerialQueue_onceToken;
-  v101 = v43;
-  if (v100 != -1)
+  v105 = copyNotificationSerialQueue_onceToken;
+  v106 = v45;
+  if (v105 != -1)
   {
     main_cold_10();
   }
 
   *&buf = _NSConcreteStackBlock;
   *(&buf + 1) = 3254779904;
-  v137 = __register_for_darwin_notifications_block_invoke;
-  v138 = &__block_descriptor_40_e8_32s_e33_v16__0__NSObject_OS_xpc_object__8l;
-  v139 = v101;
+  v142 = __register_for_darwin_notifications_block_invoke;
+  v143 = &__block_descriptor_40_e8_32s_e33_v16__0__NSObject_OS_xpc_object__8l;
+  v144 = v106;
   xpc_set_event_stream_handler("com.apple.notifyd.matching", copyNotificationSerialQueue_queue, &buf);
 
-  v102 = [[NSXPCListener alloc] initWithMachServiceName:@"com.apple.mobileactivationd"];
-  [v102 setDelegate:v99];
-  [v102 resume];
+  v107 = [[NSXPCListener alloc] initWithMachServiceName:@"com.apple.mobileactivationd"];
+  [v107 setDelegate:v104];
+  [v107 resume];
 
   objc_autoreleasePoolPop(context);
   CFRunLoopRun();
@@ -5297,47 +5325,48 @@ void __main_block_invoke_2(uint64_t a1)
 void __perform_boot_initialization_tasks_block_invoke(uint64_t a1)
 {
   v2 = copyRTCResetCount();
-  v15 = 0;
-  v3 = copyMonotonicClockTimeInterval(&v15);
-  v4 = v15;
+  v16 = 0;
+  v3 = copyMonotonicClockTimeInterval(&v16);
+  v4 = v16;
+  v5 = v4;
   if (v3 <= 0.0)
   {
-    v5 = copyLoggingHandle();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    v6 = copyLoggingHandle(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
-      __perform_boot_initialization_tasks_block_invoke_cold_1(v4, v5);
+      __perform_boot_initialization_tasks_block_invoke_cold_1(v5, v6);
     }
   }
 
-  v6 = data_ark_copy(*(a1 + 32), 0, @"LastBootClockTime");
-  v7 = isNSNumber(v6);
+  v7 = data_ark_copy(*(a1 + 32), 0, @"LastBootClockTime");
+  v8 = isNSNumber(v7);
 
-  if (!v7)
+  if (!v8)
   {
 
-    v6 = &off_1003FBE40;
+    v7 = &off_1003FBE40;
   }
 
-  v8 = data_ark_copy(*(a1 + 32), 0, @"TotalRTCResetCount");
-  v9 = isNSNumber(v8);
+  v9 = data_ark_copy(*(a1 + 32), 0, @"TotalRTCResetCount");
+  v10 = isNSNumber(v9);
 
-  if (!v9)
+  if (!v10)
   {
 
-    v8 = &off_1003FBE40;
+    v9 = &off_1003FBE40;
   }
 
-  if (v2 || v3 <= 0.0 || ([v6 doubleValue], v10 > 0.0) && (objc_msgSend(v6, "doubleValue"), v11 > v3))
+  if (v2 || v3 <= 0.0 || ([v7 doubleValue], v11 > 0.0) && (objc_msgSend(v7, "doubleValue"), v12 > v3))
   {
-    v12 = [NSNumber numberWithUnsignedInt:[(NSNumber *)v8 unsignedIntValue]+ 1];
+    v13 = [NSNumber numberWithUnsignedInt:[(NSNumber *)v9 unsignedIntValue]+ 1];
 
-    v8 = v12;
+    v9 = v13;
   }
 
-  data_ark_set(*(a1 + 32), 0, @"TotalRTCResetCount", v8, 1);
-  v13 = *(a1 + 32);
-  v14 = [NSNumber numberWithDouble:v3];
-  data_ark_set(v13, 0, @"LastBootClockTime", v14, 1);
+  data_ark_set(*(a1 + 32), 0, @"TotalRTCResetCount", v9, 1);
+  v14 = *(a1 + 32);
+  v15 = [NSNumber numberWithDouble:v3];
+  data_ark_set(v14, 0, @"LastBootClockTime", v15, 1);
 
   data_ark_set(*(a1 + 32), 0, @"BootSessionUUID", *(a1 + 40), 1);
 }
@@ -5348,20 +5377,20 @@ void __register_for_darwin_notifications_block_invoke(uint64_t a1, xpc_object_t 
   if (string && !strcmp("com.apple.os-eligibility-domain.input-needed", string))
   {
     v4 = *(a1 + 32);
-    v5 = copyLoggingHandle();
+    v5 = copyLoggingHandle(v4);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v7[0]) = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Processing eligibility notification...", v7, 2u);
+      LOWORD(v8[0]) = 0;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Processing eligibility notification...", v8, 2u);
     }
 
-    v6 = copyMobileActivationSerialQueue();
-    v7[0] = _NSConcreteStackBlock;
-    v7[1] = 3254779904;
-    v7[2] = __handle_eligibility_domain_input_needed_notification_block_invoke;
-    v7[3] = &__block_descriptor_40_e8_32s_e5_v8__0l;
-    v7[4] = v4;
-    dispatch_async(v6, v7);
+    v7 = copyMobileActivationSerialQueue(v6);
+    v8[0] = _NSConcreteStackBlock;
+    v8[1] = 3254779904;
+    v8[2] = __handle_eligibility_domain_input_needed_notification_block_invoke;
+    v8[3] = &__block_descriptor_40_e8_32s_e5_v8__0l;
+    v8[4] = v4;
+    dispatch_async(v7, v8);
   }
 }
 
@@ -5391,7 +5420,7 @@ void __handle_eligibility_domain_input_needed_notification_block_invoke_2(uint64
   v7 = 0;
   v2 = set_eligibility_input(v1, &v7);
   v3 = v7;
-  v4 = copyLoggingHandle();
+  v4 = copyLoggingHandle(v3);
   v5 = v4;
   if (v2)
   {
@@ -7256,13 +7285,13 @@ uint64_t OUTLINED_FUNCTION_6(void *a1)
   return memset_s(a1, 8uLL, 0, 8uLL);
 }
 
-uint64_t OUTLINED_FUNCTION_11(uint64_t a1, uint64_t a2, ...)
+uint64_t OUTLINED_FUNCTION_11(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v5 = va_arg(va1, void);
+  va_start(va1, a4);
+  va_start(va, a4);
+  v7 = va_arg(va1, void);
 
-  return encode_list_dict(v2, va, va1);
+  return encode_list_dict(v4, va, va1);
 }
 
 uint64_t OUTLINED_FUNCTION_12(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, rsize_t __n)
@@ -7383,7 +7412,7 @@ uint64_t OUTLINED_FUNCTION_23(mach_port_t a1, uint32_t a2, const uint64_t *a3, u
 
 BOOL _dict_find_value_cb(const void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v8 = der_equal(*a5, *a5 + *(*a5 + 1) + 2, a1);
+  v8 = der_equal(*a5, *a5 + *(*a5 + 1) + 2, a1, a1 + a2);
   if (v8)
   {
     *(a5 + 24) = 1;
@@ -7424,7 +7453,7 @@ uint64_t encode_list_free(void **a1)
   return 0;
 }
 
-uint64_t encode_list_remove_key(void *a1, unsigned __int8 *a2)
+uint64_t encode_list_remove_key(void **a1, unsigned __int8 *a2)
 {
   if (!a1)
   {
@@ -7471,7 +7500,8 @@ void *_encode_list_find_key(void *a1, unsigned __int8 *a2)
     do
     {
       v6 = v2[1];
-      if (ccder_blob_decode_sequence_tl() && der_equal(a2, &v4[a2[1]], v6))
+      v7 = v6 + v2[2];
+      if (ccder_blob_decode_sequence_tl() && der_equal(a2, &v4[a2[1]], v6, v7))
       {
         break;
       }
@@ -7485,7 +7515,7 @@ void *_encode_list_find_key(void *a1, unsigned __int8 *a2)
   return v2;
 }
 
-uint64_t _merge_dict_cb(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
+uint64_t _merge_dict_cb(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void **a5)
 {
   if (ccder_blob_decode_tl())
   {
@@ -7519,7 +7549,7 @@ uint64_t OUTLINED_FUNCTION_3_2(void *a1)
   return result;
 }
 
-uint64_t OUTLINED_FUNCTION_7_0()
+uint64_t OUTLINED_FUNCTION_7_0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
 {
 
   return ccder_blob_encode_body();
@@ -7531,7 +7561,7 @@ uint64_t OUTLINED_FUNCTION_12_0()
   return memset_s(v1, v0, 0, v0);
 }
 
-uint64_t OUTLINED_FUNCTION_13_0()
+uint64_t OUTLINED_FUNCTION_13_0(void x0_0, void x1_0, void x2_0, void x3_0, void x4_0, void a6, void a7, void a8, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
 
   return ccder_blob_encode_tl();
@@ -7555,7 +7585,7 @@ void *OUTLINED_FUNCTION_27_0(size_t a1)
   return calloc(a1, 1uLL);
 }
 
-uint64_t OUTLINED_FUNCTION_33()
+uint64_t OUTLINED_FUNCTION_33(__n128 a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, __n128 a12, uint64_t a10, uint64_t a11)
 {
 
   return ccder_blob_decode_range();
@@ -7563,12 +7593,12 @@ uint64_t OUTLINED_FUNCTION_33()
 
 char *aks_copy_packed_data(_DWORD *a1, const void *a2, int a3)
 {
-  v3 = (a1 + 1);
+  v3 = a1 + 1;
   if (a2)
   {
     *a1 = a3;
     memcpy(a1 + 1, a2, a3);
-    v3 += a3;
+    v3 = (v3 + a3);
     v5 = -a3;
     v6 = -a3 & 3;
     if ((v5 & 3) != 0)
@@ -7576,7 +7606,7 @@ char *aks_copy_packed_data(_DWORD *a1, const void *a2, int a3)
       __s = 0;
       memset_s(&__s, 4uLL, 0, 4uLL);
       memcpy(v3, &__s, v6);
-      v3 += v6;
+      return v3 + v6;
     }
   }
 
@@ -7798,7 +7828,7 @@ uint64_t xtiKg(uint64_t a1, uint64_t a2, int a3, uint64_t a4, int a5)
   v12 = v5 ^ a3;
   v13 = a4;
   v15 = sub_1001C90C8 - v5;
-  (*(&off_1003E7570 + (unk_1003B078C ^ 0xCu) + 1929))(&v8);
+  sub_1001C9044(&v8);
   return v11;
 }
 
@@ -8344,7 +8374,7 @@ unint64_t validateSignatureRSA(unint64_t result, uint64_t a2, uint64_t a3, uint6
   v22 = v10 + v9;
   if (v9)
   {
-    result = ccder_blob_check_null();
+    result = ccder_blob_check_null(&v21);
     if (!result)
     {
       goto LABEL_23;
@@ -8453,7 +8483,7 @@ LABEL_36:
   return result;
 }
 
-uint64_t validateOIDs(uint64_t result, uint64_t a2, uint64_t a3)
+unint64_t validateOIDs(unint64_t result, uint64_t a2, uint64_t a3)
 {
   v5 = result;
   v6 = 0;
@@ -8690,7 +8720,7 @@ uint64_t ccec_cp_for_oid(int **a1)
   return _ccec_cp_521();
 }
 
-uint64_t compressECPublicKey(uint64_t a1, int **a2, uint64_t a3, uint64_t a4)
+uint64_t compressECPublicKey(void *a1, int **a2, uint64_t a3, uint64_t a4)
 {
   v6 = ccec_cp_for_oid(a2);
   if (!v6)
@@ -9340,7 +9370,7 @@ LABEL_14:
   return 3;
 }
 
-uint64_t CTEvaluateDAK(unint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, void *a6, unint64_t a7)
+unint64_t CTEvaluateDAK(unint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, void *a6, unint64_t a7)
 {
   v7 = a1 + a2;
   if (a1 + a2 < a1)
@@ -10702,7 +10732,7 @@ LABEL_14:
     goto LABEL_184;
   }
 
-  v19 = &v18[v17];
+  v19 = v18 + v17;
   if (v18 > v19)
   {
     goto LABEL_183;
@@ -10770,7 +10800,7 @@ LABEL_145:
       goto LABEL_147;
     }
 
-    if ((v81 - v24) < 9)
+    if (v81 - v24 < 9)
     {
       goto LABEL_183;
     }
@@ -11823,7 +11853,7 @@ LABEL_18:
   return result;
 }
 
-uint64_t CMSAttributeParseContentType(char **a1)
+uint64_t CMSAttributeParseContentType(const void **a1)
 {
   result = ccder_blob_decode_tl();
   if (result)
@@ -11853,19 +11883,19 @@ uint64_t CMSAttributeParseContentType(char **a1)
   return result;
 }
 
-uint64_t CMSAttributeParseMessageDigest(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t CMSAttributeParseMessageDigest(const void **a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = ccder_blob_decode_tl();
   if (result)
   {
-    if (*a1 >= 0x5555555555555556uLL)
+    if (*a1 >= 0x5555555555555556)
     {
       __break(0x5513u);
     }
 
     else
     {
-      if (*a1 - 0x5555555555555556 != *(a1 + 8))
+      if (*a1 - 0x5555555555555556 != a1[1])
       {
         return 0;
       }
@@ -11890,7 +11920,7 @@ uint64_t CMSAttributeParseMessageDigest(uint64_t a1, uint64_t a2, uint64_t a3, u
           goto LABEL_14;
         }
 
-        v7 = *(a1 + 8);
+        v7 = a1[1];
         v8 = v7 >= *a1;
         v9 = v7 - *a1;
         if (v8 && *(a4 + 136) >= 0xAAAAAAAAAAAAAAAALL && v9 >= 0xAAAAAAAAAAAAAAAALL)
@@ -12122,7 +12152,7 @@ LABEL_20:
   return result;
 }
 
-uint64_t ccder_blob_decode_Time(void *a1)
+uint64_t ccder_blob_decode_Time(unint64_t *a1, unint64_t *a2)
 {
   if (*a1 > a1[1])
   {
@@ -12365,7 +12395,7 @@ uint64_t CTParseCertificateSet(unint64_t a1, unint64_t a2, _OWORD *a3, uint64_t 
 
       a1 = v15;
       a2 = v16;
-      if (v15 > v16 || v10 < a3 || (v10 + 1) > v11 || v10 > v10 + 1)
+      if (v15 > v16 || v10 < a3 || v10 + 1 > v11 || v10 > v10 + 1)
       {
         __break(0x5519u);
       }
@@ -14147,7 +14177,7 @@ LABEL_189:
           return v49;
         }
 
-        result = X509ExtensionParseKeyUsage();
+        result = X509ExtensionParseKeyUsage(&v54, (a1 + 264));
         if ((result & 1) == 0)
         {
           return v49;
@@ -14259,7 +14289,7 @@ LABEL_133:
       }
 
       v54 += v68;
-      if (v57 == 1)
+      if (v57)
       {
         *(a1 + 266) = v57;
       }
@@ -14326,7 +14356,7 @@ LABEL_157:
   }
 }
 
-uint64_t der_get_BOOLean(void *a1, int a2, _BYTE *a3)
+uint64_t der_get_BOOLean(unint64_t *a1, int a2, BOOL *a3)
 {
   if (*a1 > a1[1])
   {
@@ -14346,7 +14376,7 @@ uint64_t der_get_BOOLean(void *a1, int a2, _BYTE *a3)
   return 1;
 }
 
-uint64_t X509ExtensionParseKeyUsage()
+uint64_t X509ExtensionParseKeyUsage(uint64_t a1, _BYTE *a2)
 {
   result = ccder_blob_decode_bitstring();
   if (result)
@@ -14357,7 +14387,7 @@ uint64_t X509ExtensionParseKeyUsage()
   return result;
 }
 
-uint64_t X509ExtensionParseBasicConstraints(void *a1, void *a2, _BYTE *a3)
+uint64_t X509ExtensionParseBasicConstraints(unint64_t *a1, unint64_t *a2, BOOL *a3)
 {
   result = ccder_blob_decode_tl();
   if (result)
@@ -14370,7 +14400,7 @@ uint64_t X509ExtensionParseBasicConstraints(void *a1, void *a2, _BYTE *a3)
         return 1;
       }
 
-      if (*a3 == 1)
+      if (*a3)
       {
         *a2 = 0xAAAAAAAAAAAAAAAALL;
         *a2 = 0xAAAAAAAAAAAAAAABLL;
@@ -14384,7 +14414,7 @@ uint64_t X509ExtensionParseBasicConstraints(void *a1, void *a2, _BYTE *a3)
   return result;
 }
 
-uint64_t X509ExtensionParseAuthorityKeyIdentifier(unint64_t *a1, unint64_t *a2, void *a3)
+uint64_t X509ExtensionParseAuthorityKeyIdentifier(unint64_t *a1, unint64_t *a2, unint64_t *a3)
 {
   result = ccder_blob_decode_tl();
   if (result)
@@ -14443,7 +14473,7 @@ LABEL_16:
   return result;
 }
 
-uint64_t X509ExtensionParseSubjectKeyIdentifier(unint64_t *a1, unint64_t *a2, void *a3)
+uint64_t X509ExtensionParseSubjectKeyIdentifier(unint64_t *a1, unint64_t *a2, unint64_t *a3)
 {
   result = ccder_blob_decode_tl();
   if (result)
@@ -14478,7 +14508,7 @@ LABEL_13:
   return result;
 }
 
-uint64_t X509ExtensionParseExtendedKeyUsage(unint64_t *a1, unint64_t *a2, void *a3)
+uint64_t X509ExtensionParseExtendedKeyUsage(unint64_t *a1, unint64_t *a2, unint64_t *a3)
 {
   v6 = ccder_blob_decode_tl();
   result = 0;
@@ -14524,7 +14554,7 @@ LABEL_11:
   return result;
 }
 
-uint64_t X509ExtensionParseSubjectAltName(unint64_t *a1, unint64_t *a2, void *a3)
+uint64_t X509ExtensionParseSubjectAltName(unint64_t *a1, unint64_t *a2, unint64_t *a3)
 {
   result = ccder_blob_decode_tl();
   if (result == 1)
@@ -14591,7 +14621,7 @@ uint64_t X509CertificateVerifyOnlyOneAppleExtension(uint64_t result, uint64_t a2
   return result;
 }
 
-uint64_t X509ExtensionParseAppleExtension(uint64_t result, unint64_t a2, unint64_t a3, uint64_t *a4, unint64_t *a5, int a6)
+uint64_t X509ExtensionParseAppleExtension(uint64_t result, unint64_t a2, unint64_t a3, unint64_t *a4, unint64_t *a5, int a6)
 {
   if (a6)
   {
@@ -14634,14 +14664,14 @@ uint64_t X509ExtensionParseAppleExtension(uint64_t result, unint64_t a2, unint64
       if (*a2 == 0x66463F78648862ALL && *(a2 + 8) == 36)
       {
 
-        return X509ExtensionParseMFIAuthv3Leaf(result);
+        return X509ExtensionParseMFIAuthv3Leaf(result, a4, a5);
       }
 
       if (*a2 != 0x66463F78648862ALL || *(a2 + 8) != 22)
       {
         if (*a2 == 0xC6463F78648862ALL && *(a2 + 8) == 19)
         {
-          result = ccder_blob_check_null();
+          result = ccder_blob_check_null(result);
           if (!result)
           {
             return result;
@@ -14660,7 +14690,7 @@ uint64_t X509ExtensionParseAppleExtension(uint64_t result, unint64_t a2, unint64
 
           if (*a2 == 0x66463F78648862ALL && *(a2 + 8) == 29)
           {
-            result = ccder_blob_check_null();
+            result = ccder_blob_check_null(result);
             if (!result)
             {
               return result;
@@ -14681,7 +14711,7 @@ uint64_t X509ExtensionParseAppleExtension(uint64_t result, unint64_t a2, unint64
               return X509ExtensionParseDeviceAttestationIdentity(result, a4, a5);
             }
 
-            result = ccder_blob_check_null();
+            result = ccder_blob_check_null(result);
             if (!result)
             {
               return result;
@@ -14696,7 +14726,7 @@ LABEL_282:
         return 1;
       }
 
-      result = ccder_blob_check_null();
+      result = ccder_blob_check_null(result);
       if (!result)
       {
         return result;
@@ -14708,7 +14738,7 @@ LABEL_282:
     case 0xAuLL:
       if (*a2 == 0x66463F78648862ALL && *(a2 + 8) == 5122)
       {
-        result = ccder_blob_check_null();
+        result = ccder_blob_check_null(result);
         if (!result)
         {
           return result;
@@ -14729,7 +14759,7 @@ LABEL_282:
 
           if (*a2 == 0x66463F78648862ALL && *(a2 + 8) == 4610)
           {
-            result = ccder_blob_check_null();
+            result = ccder_blob_check_null(result);
             if (!result)
             {
               return result;
@@ -14741,7 +14771,7 @@ LABEL_282:
 
           if (*a2 == 0x66463F78648862ALL && *(a2 + 8) == 278)
           {
-            result = ccder_blob_check_null();
+            result = ccder_blob_check_null(result);
             if (!result)
             {
               return result;
@@ -14753,7 +14783,7 @@ LABEL_282:
 
           if (*a2 == 0x66463F78648862ALL && *(a2 + 8) == 3073)
           {
-            result = ccder_blob_check_null();
+            result = ccder_blob_check_null(result);
             if (!result)
             {
               return result;
@@ -14765,7 +14795,7 @@ LABEL_282:
 
           if (*a2 == 0x66463F78648862ALL && *(a2 + 8) == 1793)
           {
-            result = ccder_blob_check_null();
+            result = ccder_blob_check_null(result);
             if (!result)
             {
               return result;
@@ -14778,7 +14808,7 @@ LABEL_282:
           if (*a2 == 0x66463F78648862ALL && *(a2 + 8) == 3329)
           {
 LABEL_214:
-            result = ccder_blob_check_null();
+            result = ccder_blob_check_null(result);
             if (!result)
             {
               return result;
@@ -14790,7 +14820,7 @@ LABEL_214:
 
           if (*a2 == 0x66463F78648862ALL && *(a2 + 8) == 2305)
           {
-            result = ccder_blob_check_null();
+            result = ccder_blob_check_null(result);
             if (!result)
             {
               return result;
@@ -14802,7 +14832,7 @@ LABEL_214:
 
           if (*a2 == 0x66463F78648862ALL && *(a2 + 8) == 513)
           {
-            result = ccder_blob_check_null();
+            result = ccder_blob_check_null(result);
             if (!result)
             {
               return result;
@@ -14814,7 +14844,7 @@ LABEL_214:
 
           if (*a2 == 0x66463F78648862ALL && *(a2 + 8) == 1025)
           {
-            result = ccder_blob_check_null();
+            result = ccder_blob_check_null(result);
             if (!result)
             {
               return result;
@@ -14826,7 +14856,7 @@ LABEL_214:
 
           if (*a2 == 0x66463F78648862ALL && *(a2 + 8) == 769)
           {
-            result = ccder_blob_check_null();
+            result = ccder_blob_check_null(result);
             if (!result)
             {
               return result;
@@ -14838,7 +14868,7 @@ LABEL_214:
 
           if (*a2 == 0x66463F78648862ALL && *(a2 + 8) == 1537)
           {
-            result = ccder_blob_check_null();
+            result = ccder_blob_check_null(result);
             if (!result)
             {
               return result;
@@ -14850,7 +14880,7 @@ LABEL_214:
 
           if (*a2 == 0x66463F78648862ALL && *(a2 + 8) == 6145)
           {
-            result = ccder_blob_check_null();
+            result = ccder_blob_check_null(result);
             if (!result)
             {
               return result;
@@ -14862,7 +14892,7 @@ LABEL_214:
 
           if (*a2 == 0x66463F78648862ALL && *(a2 + 8) == 9217)
           {
-            result = ccder_blob_check_null();
+            result = ccder_blob_check_null(result);
             if (!result)
             {
               return result;
@@ -14874,7 +14904,7 @@ LABEL_214:
 
           if (*a2 == 0x66463F78648862ALL && *(a2 + 8) == 8193)
           {
-            result = ccder_blob_check_null();
+            result = ccder_blob_check_null(result);
             if (!result)
             {
               return result;
@@ -14886,7 +14916,7 @@ LABEL_214:
 
           if (*a2 == 0x66463F78648862ALL && *(a2 + 8) == 8705)
           {
-            result = ccder_blob_check_null();
+            result = ccder_blob_check_null(result);
             if (!result)
             {
               return result;
@@ -14904,7 +14934,7 @@ LABEL_214:
 
           if (*a2 == 0x66463F78648862ALL && *(a2 + 8) == 3074)
           {
-            result = ccder_blob_check_null();
+            result = ccder_blob_check_null(result);
             if (!result)
             {
               return result;
@@ -14917,14 +14947,14 @@ LABEL_214:
           if (*a2 == 0x66463F78648862ALL && *(a2 + 8) == 304)
           {
 
-            return X509ExtensionParseGenericSSLMarker();
+            return X509ExtensionParseGenericSSLMarker(result, a4, a5);
           }
 
           v35 = 1;
           goto LABEL_165;
         }
 
-        result = ccder_blob_check_null();
+        result = ccder_blob_check_null(result);
         if (!result)
         {
           return result;
@@ -14940,7 +14970,7 @@ LABEL_204:
     case 0xBuLL:
       if (*a2 == 0x66463F78648862ALL && *(a2 + 3) == 0x10901066463F786)
       {
-        result = ccder_blob_check_null();
+        result = ccder_blob_check_null(result);
         if (!result)
         {
           return result;
@@ -14952,7 +14982,7 @@ LABEL_204:
 
       if (*a2 == 0x66463F78648862ALL && *(a2 + 3) == 0x10301066463F786)
       {
-        result = ccder_blob_check_null();
+        result = ccder_blob_check_null(result);
         if (!result)
         {
           return result;
@@ -14964,7 +14994,7 @@ LABEL_204:
 
       if (*a2 == 0x66463F78648862ALL && *(a2 + 3) == 0x10601066463F786)
       {
-        result = ccder_blob_check_null();
+        result = ccder_blob_check_null(result);
         if (!result)
         {
           return result;
@@ -14976,7 +15006,7 @@ LABEL_204:
 
       if (*a2 == 0x66463F78648862ALL && *(a2 + 3) == 0x11801066463F786)
       {
-        result = ccder_blob_check_null();
+        result = ccder_blob_check_null(result);
         if (!result)
         {
           return result;
@@ -14988,7 +15018,7 @@ LABEL_204:
 
       if (*a2 == 0x66463F78648862ALL && *(a2 + 3) == 0x12401066463F786)
       {
-        result = ccder_blob_check_null();
+        result = ccder_blob_check_null(result);
         if (!result)
         {
           return result;
@@ -15000,7 +15030,7 @@ LABEL_204:
 
       if (*a2 == 0x66463F78648862ALL && *(a2 + 3) == 0x11901066463F786)
       {
-        result = ccder_blob_check_null();
+        result = ccder_blob_check_null(result);
         if (!result)
         {
           return result;
@@ -15012,7 +15042,7 @@ LABEL_204:
 
       if (*a2 == 0x66463F78648862ALL && *(a2 + 3) == 0x21901066463F786)
       {
-        result = ccder_blob_check_null();
+        result = ccder_blob_check_null(result);
         if (!result)
         {
           return result;
@@ -15052,7 +15082,7 @@ LABEL_165:
 
   if (*a2 == 0x66463F78648862ALL && *(a2 + 8) == 832)
   {
-    result = ccder_blob_check_null();
+    result = ccder_blob_check_null(result);
     if (!result)
     {
       return result;
@@ -15064,7 +15094,7 @@ LABEL_165:
 
   if (*a2 == 0x66463F78648862ALL && *(a2 + 8) == 3586)
   {
-    result = ccder_blob_check_null();
+    result = ccder_blob_check_null(result);
     if (!result)
     {
       return result;
@@ -15077,7 +15107,7 @@ LABEL_165:
 
   if (*a2 == 0x66463F78648862ALL && *(a2 + 8) == 4354)
   {
-    result = ccder_blob_check_null();
+    result = ccder_blob_check_null(result);
     if (!result)
     {
       return result;
@@ -15178,7 +15208,7 @@ LABEL_12:
   return result;
 }
 
-uint64_t X509CertificateParseSPKI(unint64_t *a1, unint64_t *a2, unint64_t *a3, void *a4)
+uint64_t X509CertificateParseSPKI(unint64_t *a1, unint64_t *a2, unint64_t *a3, unint64_t *a4)
 {
   v4 = *a1;
   v5 = a1[1];
@@ -15757,7 +15787,7 @@ unint64_t X509CertificateGetNotBefore(uint64_t a1, time_t *a2)
 {
   v4[0] = 0xAAAAAAAAAAAAAAAALL;
   v4[1] = 0xAAAAAAAAAAAAAAAALL;
-  result = X509CertificateParseValidity(a1);
+  result = X509CertificateParseValidity(a1, v4, 0);
   if (!result)
   {
     return X509TimeConvert(v4, a2);
@@ -15770,7 +15800,7 @@ unint64_t X509CertificateGetNotAfter(uint64_t a1, time_t *a2)
 {
   v4[0] = 0xAAAAAAAAAAAAAAAALL;
   v4[1] = 0xAAAAAAAAAAAAAAAALL;
-  result = X509CertificateParseValidity(a1);
+  result = X509CertificateParseValidity(a1, 0, v4);
   if (!result)
   {
     return X509TimeConvert(v4, a2);
@@ -15786,39 +15816,39 @@ BOOL X509CertificateIsValid(uint64_t a1)
   return X509CertificateValidAtTime(a1, v2);
 }
 
-uint64_t X509CertificateParseValidity(uint64_t result)
+uint64_t X509CertificateParseValidity(uint64_t result, unint64_t *a2, unint64_t *a3)
 {
-  v1 = 720906;
+  v3 = 720906;
   if (!result)
   {
-    return v1;
+    return v3;
   }
 
-  v2 = *(result + 72);
-  v3 = *(result + 80);
-  if (!v2 || v3 == 0)
+  v4 = *(result + 72);
+  v5 = *(result + 80);
+  if (!v4 || v5 == 0)
   {
-    return v1;
+    return v3;
   }
 
-  if (__CFADD__(v2, v3))
+  if (__CFADD__(v4, v5))
   {
     __break(0x5513u);
   }
 
   else
   {
-    v5 = v2 + v3;
-    if (v2 <= v5)
+    v7 = v4 + v5;
+    if (v4 <= v7)
     {
-      v6[0] = *(result + 72);
-      v6[1] = v5;
-      if (!ccder_blob_decode_Time(v6))
+      v9[0] = *(result + 72);
+      v9[1] = v7;
+      if (!ccder_blob_decode_Time(v9, a2))
       {
         return 720907;
       }
 
-      if (ccder_blob_decode_Time(v6))
+      if (ccder_blob_decode_Time(v9, a3))
       {
         return 0;
       }
@@ -15831,7 +15861,7 @@ uint64_t X509CertificateParseValidity(uint64_t result)
   return result;
 }
 
-unint64_t X509TimeConvert(uint64_t a1, time_t *a2)
+unint64_t X509TimeConvert(void *a1, time_t *a2)
 {
   v2 = 720909;
   if (!a1)
@@ -15839,7 +15869,7 @@ unint64_t X509TimeConvert(uint64_t a1, time_t *a2)
     return v2;
   }
 
-  v4 = *(a1 + 8);
+  v4 = a1[1];
   if ((v4 | 2) != 0xF)
   {
     return v2;
@@ -15896,7 +15926,7 @@ LABEL_24:
   }
 
 LABEL_15:
-  v9 = *(a1 + 8);
+  v9 = a1[1];
   if (v9 >= 0x11)
   {
 LABEL_26:
@@ -16019,7 +16049,7 @@ LABEL_20:
   return v7 == v10;
 }
 
-uint64_t X509ExtensionParseCertifiedChipIntermediate(unint64_t *a1, void *a2, unint64_t *a3)
+uint64_t X509ExtensionParseCertifiedChipIntermediate(unint64_t *a1, unint64_t *a2, unint64_t *a3)
 {
   result = ccder_blob_decode_tl();
   if (result)
@@ -16062,12 +16092,12 @@ LABEL_12:
   return result;
 }
 
-uint64_t X509ExtensionParseMFIAuthv3Leaf(unint64_t *a1)
+uint64_t X509ExtensionParseMFIAuthv3Leaf(unint64_t *a1, void *a2, unint64_t *a3)
 {
   result = ccder_blob_decode_tl();
   if (result)
   {
-    v3 = *a1;
+    v5 = *a1;
     if (*a1 >= 0x5555555555555556)
     {
       __break(0x5513u);
@@ -16075,15 +16105,15 @@ uint64_t X509ExtensionParseMFIAuthv3Leaf(unint64_t *a1)
 
     else
     {
-      v4 = a1[1];
-      if (v4 != v3 - 0x5555555555555556)
+      v6 = a1[1];
+      if (v6 != v5 - 0x5555555555555556)
       {
         return 0;
       }
 
-      if (v3 <= v4)
+      if (v5 <= v6)
       {
-        *a1 = v3 - 0x5555555555555556;
+        *a1 = v5 - 0x5555555555555556;
         return 1;
       }
     }
@@ -16141,7 +16171,7 @@ LABEL_13:
 
 uint64_t X509ExtensionParseServerAuthMarker(uint64_t a1, unint64_t a2, uint64_t a3, void *a4, unint64_t *a5)
 {
-  result = ccder_blob_check_null();
+  result = ccder_blob_check_null(a1);
   if (result)
   {
     if (a2 > 0xFFFFFFFFFFFFFFF6)
@@ -16344,7 +16374,7 @@ LABEL_34:
     v10 = 0;
     v11 = a2 + 304 * a3;
     v12 = ~a2;
-    v13 = (a4 + 1);
+    v13 = a4 + 1;
     v14 = a3 - 1;
     v15 = (a2 + 272);
     while ((v10 * 304) >> 64 == (304 * v10) >> 63 && 304 * v10 <= v12)
@@ -16515,7 +16545,7 @@ unint64_t X509ChainBuildPathPartial(unint64_t result, unint64_t *a2, unint64_t *
   }
 
   *a3 = 0;
-  v5 = (a3 + 1);
+  v5 = a3 + 1;
   if (a3 + 1 < a3 || (v6 = result, a3[1] = a3, *(result + 288) = 0, result + 288 > result + 296) || (*a3 = result, a3[1] = result + 288, *(result + 296) = a3, result + 304 < result) || (v7 = result + 120, result + 120 > result + 136))
   {
 LABEL_38:
@@ -16526,24 +16556,24 @@ LABEL_38:
   {
     while (1)
     {
-      result = compare_octet_string(v7, (v6 + 13));
+      result = compare_octet_string(v7, v6 + 104);
       if (!result)
       {
         break;
       }
 
-      v10 = (v6 + 21);
-      if (!v6[22])
+      v10 = v6 + 168;
+      if (!*(v6 + 176))
       {
         goto LABEL_13;
       }
 
-      if (v10 > (v6 + 23))
+      if (v10 > v6 + 184)
       {
         goto LABEL_38;
       }
 
-      result = X509ChainGetCertificateUsingKeyIdentifier(a2, (v6 + 21));
+      result = X509ChainGetCertificateUsingKeyIdentifier(a2, v6 + 168);
       if (!result)
       {
         goto LABEL_13;
@@ -16589,17 +16619,17 @@ LABEL_13:
           while (v11);
         }
 
-        if (v10 > (v6 + 23))
+        if (v10 > v6 + 184)
         {
           goto LABEL_38;
         }
 
-        if (X509ChainGetAppleRootUsingKeyIdentifier((v6 + 21), 1))
+        if (X509ChainGetAppleRootUsingKeyIdentifier(v6 + 168, 1))
         {
           return 0;
         }
 
-        BAARootUsingKeyIdentifier = X509ChainGetBAARootUsingKeyIdentifier((v6 + 21));
+        BAARootUsingKeyIdentifier = X509ChainGetBAARootUsingKeyIdentifier(v6 + 168);
         if (a4)
         {
           v16 = 0;
@@ -16647,7 +16677,7 @@ LABEL_22:
         if (v11 <= v11 + 38)
         {
           *v14 = v11;
-          *v5 = v11 + 36;
+          *v5 = (v11 + 36);
           v7 = (v11 + 15);
           if (v11 + 15 <= v11 + 17)
           {
@@ -16663,7 +16693,7 @@ LABEL_22:
   return result;
 }
 
-uint64_t X509ChainGetAppleRootUsingKeyIdentifier(uint64_t result, int a2)
+unint64_t X509ChainGetAppleRootUsingKeyIdentifier(unint64_t result, int a2)
 {
   v2 = &numAppleRoots;
   if (!a2)
@@ -16719,7 +16749,7 @@ uint64_t X509ChainGetAppleRootUsingKeyIdentifier(uint64_t result, int a2)
   return result;
 }
 
-uint64_t X509ChainGetBAARootUsingKeyIdentifier(uint64_t result)
+unint64_t X509ChainGetBAARootUsingKeyIdentifier(unint64_t result)
 {
   v1 = numBAARoots;
   if (numBAARoots)
@@ -17194,28 +17224,28 @@ void __issueClientCertificateWithReferenceKey_block_invoke_4_cold_1()
 {
   OUTLINED_FUNCTION_1(__stack_chk_guard);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&_mh_execute_header, v0, v1, "Failed to enable cellular bootstrap assertion: %@", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_0(&_mh_execute_header, v0, v1, "Failed to enable cellular bootstrap assertion: %@", v2, v3, v4, v5);
 }
 
 void __issueClientCertificateWithReferenceKey_block_invoke_4_cold_2()
 {
   OUTLINED_FUNCTION_1(__stack_chk_guard);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&_mh_execute_header, v0, v1, "Failed to enable cellular OTA assertion: %@", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_0(&_mh_execute_header, v0, v1, "Failed to enable cellular OTA assertion: %@", v2, v3, v4, v5);
 }
 
 void __issueClientCertificateWithReferenceKey_block_invoke_4_cold_3()
 {
   OUTLINED_FUNCTION_1(__stack_chk_guard);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&_mh_execute_header, v0, v1, "Failed to disable cellular bootstrap assertion: %@", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_0(&_mh_execute_header, v0, v1, "Failed to disable cellular bootstrap assertion: %@", v2, v3, v4, v5);
 }
 
 void __issueClientCertificateWithReferenceKey_block_invoke_4_cold_4()
 {
   OUTLINED_FUNCTION_1(__stack_chk_guard);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&_mh_execute_header, v0, v1, "Failed to disable cellular OTA assertion: %@", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_0(&_mh_execute_header, v0, v1, "Failed to disable cellular OTA assertion: %@", v2, v3, v4, v5);
 }
 
 void __ucrt_oob_activity_handler_block_invoke_3_cold_2()
@@ -17630,25 +17660,25 @@ void __handle_eligibility_domain_input_needed_notification_block_invoke_2_cold_1
   _os_log_fault_impl(&_mh_execute_header, a2, OS_LOG_TYPE_FAULT, "Failed to set eligibility input: %@", &v2, 0xCu);
 }
 
-void *aks_params_create(uint64_t a1)
+void *aks_params_create(uint64_t a1, uint64_t a2)
 {
-  v2 = OUTLINED_FUNCTION_28();
-  v3 = v2;
-  if (v2)
+  v3 = OUTLINED_FUNCTION_28();
+  v4 = v3;
+  if (v3)
   {
-    *v2 = 0;
+    *v3 = 0;
     if (a1)
     {
-      if (encode_list_merge_dict(v2))
+      if (encode_list_merge_dict(v3))
       {
-        OUTLINED_FUNCTION_6(v3);
-        free(v3);
+        OUTLINED_FUNCTION_6(v4);
+        free(v4);
         return 0;
       }
     }
   }
 
-  return v3;
+  return v4;
 }
 
 uint64_t aks_params_set_number(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -17675,17 +17705,17 @@ uint64_t aks_params_set_number(uint64_t a1, uint64_t a2, uint64_t a3)
   return v3;
 }
 
-void aks_params_set_data()
+void aks_params_set_data(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22)
 {
   OUTLINED_FUNCTION_46();
-  v1 = v0;
-  v3 = v2;
-  v5 = v4;
+  v23 = v22;
+  v25 = v24;
+  v27 = v26;
   OUTLINED_FUNCTION_7();
-  der_key = _params_get_der_key(v6, 2);
-  if (der_key && !encode_list_remove_key(v5, der_key) && v1)
+  der_key = _params_get_der_key(v28, 2);
+  if (der_key && !encode_list_remove_key(v27, der_key) && v23)
   {
-    if (v3 == 1 || v3 == 2)
+    if (v25 == 1 || v25 == 2)
     {
       ccder_blob_decode_tag();
     }
@@ -17719,8 +17749,10 @@ uint64_t aks_params_free(void ***a1)
   return result;
 }
 
-uint64_t aks_ref_key_create(uint64_t a1, int a2, unsigned int a3, uint64_t a4, uint64_t a5, void *a6)
+uint64_t aks_ref_key_create(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6)
 {
+  v8 = a3;
+  v9 = a2;
   v10 = 3758097090;
   v11 = OUTLINED_FUNCTION_28();
   *v11 = 0;
@@ -17744,7 +17776,7 @@ uint64_t aks_ref_key_create(uint64_t a1, int a2, unsigned int a3, uint64_t a4, u
 
   v13 = v12;
   OUTLINED_FUNCTION_29(v12);
-  if (a4 && encode_list_merge_dict(v11) || encode_list_add_number(v11, der_key_keybag_class, a2) || encode_list_add_number(v11, der_key_type, a3) || encode_list_dict(v11, &v25, &v26))
+  if (a4 && encode_list_merge_dict(v11) || encode_list_add_number(v11, der_key_keybag_class, v9) || encode_list_add_number(v11, der_key_type, v8) || encode_list_dict(v11, &v25, &v26))
   {
 LABEL_17:
     aks_ref_key_free(&v22);
@@ -17831,7 +17863,7 @@ uint64_t aks_ref_key_create_with_blob()
       v6 = v4;
       v7 = v2;
       v8 = v1;
-      if (der_get_sizeof(v2) == v3)
+      if (der_get_sizeof(v2, v2 + v3) == v3)
       {
         OUTLINED_FUNCTION_45();
         v9 = OUTLINED_FUNCTION_59();
@@ -17874,7 +17906,7 @@ uint64_t _aks_operation()
     {
       v11 = aks_client_connection;
       v12 = 3758097090;
-      if (der_get_sizeof(v8) == v6)
+      if (der_get_sizeof(v8, v8 + v6) == v6)
       {
         bzero(__src, 0x8000uLL);
         __count = 0x8000;
@@ -17915,7 +17947,7 @@ uint64_t _aks_operation()
   return v12;
 }
 
-uint64_t _set_blob(uint64_t a1, const void *a2, size_t a3)
+uint64_t _set_blob(uint64_t a1, char *a2, size_t a3)
 {
   OUTLINED_FUNCTION_16();
   if (!der_dict_find_value(v6, v7, v8))
@@ -18022,7 +18054,7 @@ uint64_t aks_sik_collection()
   return v0;
 }
 
-uint64_t der_get_sizeof(uint64_t a1)
+uint64_t der_get_sizeof(uint64_t a1, uint64_t a2)
 {
   if (ccder_blob_decode_tag() && ccder_blob_decode_len())
   {
@@ -18132,13 +18164,13 @@ uint64_t der_get_number()
 
 __n128 der_utils_decode_implicit_raw_octet_string(uint64_t a1, uint64_t a2, _DWORD *a3, void *a4)
 {
-  OUTLINED_FUNCTION_18(a1);
-  if (OUTLINED_FUNCTION_33())
+  v7 = OUTLINED_FUNCTION_18(a1);
+  if (OUTLINED_FUNCTION_33(v7, v8, v9, v10, v11, v12, v13, v14, v15, v16, v18, v20))
   {
-    *a4 = v8;
-    *a3 = v9 - v8;
-    result = v10;
-    *v4 = v10;
+    *a4 = v19;
+    *a3 = v21 - v19;
+    result = v22;
+    *v4 = v22;
   }
 
   return result;
@@ -18263,7 +18295,7 @@ uint64_t encode_list_add_der()
   result = OUTLINED_FUNCTION_32_0();
   if (v0 && v3 && v4 && v5)
   {
-    if (der_get_sizeof(v4) <= (v5 - v4))
+    if (der_get_sizeof(v4, v5) <= (v5 - v4))
     {
       v6 = ccder_sizeof();
       if (!OUTLINED_FUNCTION_27_0(v6))
@@ -18272,18 +18304,19 @@ uint64_t encode_list_add_der()
       }
 
       OUTLINED_FUNCTION_14();
-      if (ccder_blob_encode_body())
+      v7 = ccder_blob_encode_body();
+      if (v7)
       {
-        OUTLINED_FUNCTION_7_0();
+        OUTLINED_FUNCTION_7_0(v7, v8, v9, v10, v11, v12, v13, v14, v25, v27, v29, v31);
         OUTLINED_FUNCTION_5_0();
-        OUTLINED_FUNCTION_13_0();
+        OUTLINED_FUNCTION_13_0(v15, v16, v17, v18, v19, v20, v21, v22, v26, v28, v30, v32);
         OUTLINED_FUNCTION_5_0();
-        if (v7 == v1)
+        if (v23 == v1)
         {
-          v8 = OUTLINED_FUNCTION_26_0();
-          if (v8)
+          v24 = OUTLINED_FUNCTION_26_0();
+          if (v24)
           {
-            return OUTLINED_FUNCTION_3_2(v8);
+            return OUTLINED_FUNCTION_3_2(v24);
           }
         }
       }
@@ -18309,9 +18342,9 @@ uint64_t encode_list_add_data()
     {
       OUTLINED_FUNCTION_14();
       v6 = ccder_blob_encode_body();
-      if (v6 && (OUTLINED_FUNCTION_23_0(v6, v7, v8, v9, v10, v11, v12, v13, v16), ccder_blob_encode_tl()) && (OUTLINED_FUNCTION_7_0(), OUTLINED_FUNCTION_5_0(), OUTLINED_FUNCTION_13_0(), OUTLINED_FUNCTION_5_0(), v14 == v1) && (v15 = OUTLINED_FUNCTION_26_0()) != 0)
+      if (v6 && (OUTLINED_FUNCTION_23_0(v6, v7, v8, v9, v10, v11, v12, v13, v32), v14 = ccder_blob_encode_tl(), v14) && (OUTLINED_FUNCTION_7_0(v14, v15, v16, v17, v18, v19, v20, v21, v33, v35, v37, v39), OUTLINED_FUNCTION_5_0(), OUTLINED_FUNCTION_13_0(v22, v23, v24, v25, v26, v27, v28, v29, v34, v36, v38, v40), OUTLINED_FUNCTION_5_0(), v30 == v1) && (v31 = OUTLINED_FUNCTION_26_0()) != 0)
       {
-        return OUTLINED_FUNCTION_3_2(v15);
+        return OUTLINED_FUNCTION_3_2(v31);
       }
 
       else
@@ -18331,7 +18364,7 @@ uint64_t encode_list_add_data()
   return result;
 }
 
-uint64_t encode_list_add_number(void *a1, uint64_t a2, uint64_t a3)
+uint64_t encode_list_add_number(void *a1, uint64_t a2, unint64_t a3)
 {
   v3 = a3;
   v5 = HIBYTE(a3);

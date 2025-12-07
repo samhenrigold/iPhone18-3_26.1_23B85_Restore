@@ -120,7 +120,7 @@ void __42__TKAdaptiveResourceManager_removeObject___block_invoke(void *a1, void 
   objc_storeStrong(&location, 0);
 }
 
-uint64_t __34__TKAdaptiveResourceManager_setup__block_invoke(uint64_t a1)
+void *__34__TKAdaptiveResourceManager_setup__block_invoke(uint64_t a1)
 {
   v1 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:64];
   v2 = _references;

@@ -2041,7 +2041,7 @@ LABEL_12:
 {
   v23 = *MEMORY[0x1E69E9840];
   MEMORY[0x1E128B590](&dword_1DB56E000, "[AVCAudioStream start]");
-  if (![(AVCAudioStream *)self configuration])
+  if (!objc_msgSend_configuration(self))
   {
     start = [MEMORY[0x1E696ABC0] AVConferenceServiceError:32016 detailCode:0 description:@"AVCAudioStream hasn't been configured"];
     opaqueStream = self->_opaqueStream;
@@ -2731,9 +2731,9 @@ LABEL_12:
     }
   }
 
-  if ([(AVCMediaStreamConfig *)[(AVCAudioStream *)self configuration] jitterBufferMode]!= v3)
+  if ([objc_msgSend_configuration(self) jitterBufferMode] != v3)
   {
-    [(AVCMediaStreamConfig *)[(AVCAudioStream *)self configuration] setJitterBufferMode:v3];
+    [objc_msgSend_configuration(self) setJitterBufferMode:v3];
     v7 = [AVCMediaStreamConfig streamJitterBufferModeWithClientJitterBufferMode:v3];
     if (self->_isInProcess)
     {
@@ -2753,9 +2753,9 @@ LABEL_12:
 
 - (unsigned)jitterBufferMode
 {
-  configuration = [(AVCAudioStream *)self configuration];
+  v2 = objc_msgSend_configuration(self, a2);
 
-  return [(AVCMediaStreamConfig *)configuration jitterBufferMode];
+  return [v2 jitterBufferMode];
 }
 
 - (void)setDirection:(int64_t)direction
@@ -2779,9 +2779,9 @@ LABEL_12:
     }
   }
 
-  if ([(AVCMediaStreamConfig *)[(AVCAudioStream *)self configuration] direction]!= direction)
+  if ([objc_msgSend_configuration(self) direction] != direction)
   {
-    [(AVCMediaStreamConfig *)[(AVCAudioStream *)self configuration] setDirection:direction];
+    [objc_msgSend_configuration(self) setDirection:direction];
     if (self->_isInProcess)
     {
       [(VCAudioStream *)self->_opaqueStream setStreamDirection:[AVCMediaStreamConfig streamDirectionWithClientDirection:direction]];
@@ -2800,9 +2800,9 @@ LABEL_12:
 
 - (int64_t)direction
 {
-  configuration = [(AVCAudioStream *)self configuration];
+  v2 = objc_msgSend_configuration(self, a2);
 
-  return [(AVCMediaStreamConfig *)configuration direction];
+  return [v2 direction];
 }
 
 - (void)setRtcpEnabled:(BOOL)enabled
@@ -2827,9 +2827,9 @@ LABEL_12:
     }
   }
 
-  if ([(AVCMediaStreamConfig *)[(AVCAudioStream *)self configuration] isRTCPEnabled]!= enabledCopy)
+  if ([objc_msgSend_configuration(self) isRTCPEnabled] != enabledCopy)
   {
-    [(AVCMediaStreamConfig *)[(AVCAudioStream *)self configuration] setRtcpEnabled:enabledCopy];
+    [objc_msgSend_configuration(self) setRtcpEnabled:enabledCopy];
     if (self->_isInProcess)
     {
       [(VCMediaStream *)self->_opaqueStream setRtcpEnabled:enabledCopy];
@@ -2848,9 +2848,9 @@ LABEL_12:
 
 - (BOOL)isRTCPEnabled
 {
-  configuration = [(AVCAudioStream *)self configuration];
+  v2 = objc_msgSend_configuration(self, a2);
 
-  return [(AVCMediaStreamConfig *)configuration isRTCPEnabled];
+  return [v2 isRTCPEnabled];
 }
 
 - (void)setRtpTimeOutEnabled:(BOOL)enabled
@@ -2875,9 +2875,9 @@ LABEL_12:
     }
   }
 
-  if ([(AVCMediaStreamConfig *)[(AVCAudioStream *)self configuration] isRTPTimeOutEnabled]!= enabledCopy)
+  if ([objc_msgSend_configuration(self) isRTPTimeOutEnabled] != enabledCopy)
   {
-    [(AVCMediaStreamConfig *)[(AVCAudioStream *)self configuration] setRtpTimeOutEnabled:enabledCopy];
+    [objc_msgSend_configuration(self) setRtpTimeOutEnabled:enabledCopy];
     if (self->_isInProcess)
     {
       [(VCMediaStream *)self->_opaqueStream setRtpTimeOutEnabled:enabledCopy];
@@ -2896,9 +2896,9 @@ LABEL_12:
 
 - (BOOL)isRTPTimeOutEnabled
 {
-  configuration = [(AVCAudioStream *)self configuration];
+  v2 = objc_msgSend_configuration(self, a2);
 
-  return [(AVCMediaStreamConfig *)configuration isRTPTimeOutEnabled];
+  return [v2 isRTPTimeOutEnabled];
 }
 
 - (void)setRtcpTimeOutEnabled:(BOOL)enabled
@@ -2923,9 +2923,9 @@ LABEL_12:
     }
   }
 
-  if ([(AVCMediaStreamConfig *)[(AVCAudioStream *)self configuration] isRTCPTimeOutEnabled]!= enabledCopy)
+  if ([objc_msgSend_configuration(self) isRTCPTimeOutEnabled] != enabledCopy)
   {
-    [(AVCMediaStreamConfig *)[(AVCAudioStream *)self configuration] setRtcpTimeOutEnabled:enabledCopy];
+    [objc_msgSend_configuration(self) setRtcpTimeOutEnabled:enabledCopy];
     if (self->_isInProcess)
     {
       [(VCMediaStream *)self->_opaqueStream setRtcpTimeOutEnabled:enabledCopy];
@@ -2944,9 +2944,9 @@ LABEL_12:
 
 - (BOOL)isRTCPTimeOutEnabled
 {
-  configuration = [(AVCAudioStream *)self configuration];
+  v2 = objc_msgSend_configuration(self, a2);
 
-  return [(AVCMediaStreamConfig *)configuration isRTCPTimeOutEnabled];
+  return [v2 isRTCPTimeOutEnabled];
 }
 
 - (void)setRtpTimeOutIntervalSec:(double)sec
@@ -2970,10 +2970,10 @@ LABEL_12:
     }
   }
 
-  [(AVCMediaStreamConfig *)[(AVCAudioStream *)self configuration] rtpTimeOutInterval];
+  [objc_msgSend_configuration(self) rtpTimeOutInterval];
   if (v7 != sec)
   {
-    [(AVCMediaStreamConfig *)[(AVCAudioStream *)self configuration] setRtpTimeOutInterval:sec];
+    [objc_msgSend_configuration(self) setRtpTimeOutInterval:sec];
     if (self->_isInProcess)
     {
       [(VCMediaStream *)self->_opaqueStream setRtpTimeOutInterval:sec];
@@ -2992,9 +2992,9 @@ LABEL_12:
 
 - (double)rtpTimeOutIntervalSec
 {
-  configuration = [(AVCAudioStream *)self configuration];
+  v2 = objc_msgSend_configuration(self, a2);
 
-  [(AVCMediaStreamConfig *)configuration rtpTimeOutInterval];
+  [v2 rtpTimeOutInterval];
   return result;
 }
 
@@ -3019,10 +3019,10 @@ LABEL_12:
     }
   }
 
-  [(AVCMediaStreamConfig *)[(AVCAudioStream *)self configuration] rtcpTimeOutInterval];
+  [objc_msgSend_configuration(self) rtcpTimeOutInterval];
   if (v7 != sec)
   {
-    [(AVCMediaStreamConfig *)[(AVCAudioStream *)self configuration] setRtcpTimeOutInterval:sec];
+    [objc_msgSend_configuration(self) setRtcpTimeOutInterval:sec];
     if (self->_isInProcess)
     {
       [(VCMediaStream *)self->_opaqueStream setRtcpTimeOutInterval:sec];
@@ -3041,9 +3041,9 @@ LABEL_12:
 
 - (double)rtcpTimeOutIntervalSec
 {
-  configuration = [(AVCAudioStream *)self configuration];
+  v2 = objc_msgSend_configuration(self, a2);
 
-  [(AVCMediaStreamConfig *)configuration rtcpTimeOutInterval];
+  [v2 rtcpTimeOutInterval];
   return result;
 }
 
@@ -3068,10 +3068,10 @@ LABEL_12:
     }
   }
 
-  [(AVCMediaStreamConfig *)[(AVCAudioStream *)self configuration] rtcpSendInterval];
+  [objc_msgSend_configuration(self) rtcpSendInterval];
   if (v7 != sec)
   {
-    [(AVCMediaStreamConfig *)[(AVCAudioStream *)self configuration] setRtcpSendInterval:sec];
+    [objc_msgSend_configuration(self) setRtcpSendInterval:sec];
     if (self->_isInProcess)
     {
       [(VCMediaStream *)self->_opaqueStream setRtcpSendInterval:sec];
@@ -3090,17 +3090,17 @@ LABEL_12:
 
 - (double)rtcpSendIntervalSec
 {
-  configuration = [(AVCAudioStream *)self configuration];
+  v2 = objc_msgSend_configuration(self, a2);
 
-  [(AVCMediaStreamConfig *)configuration rtcpSendInterval];
+  [v2 rtcpSendInterval];
   return result;
 }
 
 - (float)volume
 {
-  audio = [(AVCMediaStreamConfig *)[(AVCAudioStream *)self configuration] audio];
+  v2 = [objc_msgSend_configuration(self a2)];
 
-  [(AVCAudioStreamConfig *)audio volume];
+  [v2 volume];
   return result;
 }
 
@@ -3125,7 +3125,7 @@ LABEL_12:
     }
   }
 
-  [(AVCAudioStreamConfig *)[(AVCMediaStreamConfig *)[(AVCAudioStream *)self configuration] audio] volume];
+  [objc_msgSend(objc_msgSend_configuration(self) "audio")];
   if (*&v7 != volume)
   {
     LODWORD(v7) = 0;
@@ -3144,9 +3144,9 @@ LABEL_12:
 
     else
     {
-      audio = [(AVCMediaStreamConfig *)[(AVCAudioStream *)self configuration:v7] audio];
+      v10 = [objc_msgSend_configuration(self v7];
       *&v11 = volume;
-      [(AVCAudioStreamConfig *)audio setVolume:v11];
+      [v10 setVolume:v11];
       if (self->_isInProcess)
       {
         *&v12 = volume;
@@ -4743,19 +4743,19 @@ LABEL_16:
 
 - (BOOL)addRemoteEndpoint:(id)endpoint error:(id *)error
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   if (VRTraceGetErrorLogLevelForModule() >= 6)
   {
-    __str = 0;
+    __str[0] = 0;
     v7 = endpoint ? [objc_msgSend(endpoint "description")] : "<nil>";
     v8 = *error ? [objc_msgSend(*error "description")] : "<nil>";
-    asprintf(&__str, "addRemoteEndpoint=%s, error=%s", v7, v8);
-    if (__str)
+    asprintf(__str, "addRemoteEndpoint=%s, error=%s", v7, v8);
+    if (__str[0])
     {
       errorCopy = error;
       selfCopy = self;
       __lasts = 0;
-      strtok_r(__str, "\n", &__lasts);
+      strtok_r(__str[0], "\n", &__lasts);
       *&v9 = 136316162;
       v35 = v9;
       do
@@ -4767,15 +4767,15 @@ LABEL_16:
           if (v10)
           {
             OUTLINED_FUNCTION_22_6(v10, v11, v12, v13, v14, v15, v16, v17, v27, v29, errorCopy, selfCopy, v35);
-            *(&v41 + 6) = "[AVCAudioStream addRemoteEndpoint:error:]";
-            HIWORD(v41) = 1024;
-            OUTLINED_FUNCTION_15_13(536, v28, v30, v32, v34, v36, v37, __lasts, __str, v40, v41, *(&v41 + 1), v42, v43, v44);
+            *(&v40 + 6) = "[AVCAudioStream addRemoteEndpoint:error:]";
+            HIWORD(v40) = 1024;
+            OUTLINED_FUNCTION_15_13(536, v28, v30, v32, v34, v36, v37, __lasts, __str[0], __str[1], v40, *(&v40 + 1), v41, v42, v43);
           }
         }
       }
 
       while (strtok_r(0, "\n", &__lasts));
-      free(__str);
+      free(__str[0]);
       self = selfCopy;
     }
   }
@@ -4807,10 +4807,10 @@ LABEL_16:
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
     {
       OUTLINED_FUNCTION_21_8();
-      *(&v41 + 6) = "[AVCAudioStream addRemoteEndpoint:error:]";
-      HIWORD(v41) = 1024;
+      *(&v40 + 6) = "[AVCAudioStream addRemoteEndpoint:error:]";
+      HIWORD(v40) = 1024;
       OUTLINED_FUNCTION_12_11();
-      OUTLINED_FUNCTION_23_6(&dword_1DB56E000, v20, v21, "AVCAudioStream [%s] %s:%d @:@ AVCAudioStream-addRemoteEndpoint (%p) didSucceed=%d, error=%@", v22, v23, v24, v25, v27, v29, errorCopy, selfCopy, v35, *(&v35 + 1), __lasts, __str, v40);
+      OUTLINED_FUNCTION_23_6(&dword_1DB56E000, v20, v21, "AVCAudioStream [%s] %s:%d @:@ AVCAudioStream-addRemoteEndpoint (%p) didSucceed=%d, error=%@", v22, v23, v24, v25, v27, v29, errorCopy, selfCopy, v35, *(&v35 + 1), __lasts, __str[0]);
     }
   }
 
@@ -4819,19 +4819,19 @@ LABEL_16:
 
 - (BOOL)removeRemoteEndpoint:(id)endpoint error:(id *)error
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   if (VRTraceGetErrorLogLevelForModule() >= 6)
   {
-    __str = 0;
+    __str[0] = 0;
     v7 = endpoint ? [objc_msgSend(endpoint "description")] : "<nil>";
     v8 = *error ? [objc_msgSend(*error "description")] : "<nil>";
-    asprintf(&__str, "removeRemoteEndpoint=%s, error=%s", v7, v8);
-    if (__str)
+    asprintf(__str, "removeRemoteEndpoint=%s, error=%s", v7, v8);
+    if (__str[0])
     {
       errorCopy = error;
       selfCopy = self;
       __lasts = 0;
-      strtok_r(__str, "\n", &__lasts);
+      strtok_r(__str[0], "\n", &__lasts);
       *&v9 = 136316162;
       v35 = v9;
       do
@@ -4843,15 +4843,15 @@ LABEL_16:
           if (v10)
           {
             OUTLINED_FUNCTION_22_6(v10, v11, v12, v13, v14, v15, v16, v17, v27, v29, errorCopy, selfCopy, v35);
-            *(&v41 + 6) = "[AVCAudioStream removeRemoteEndpoint:error:]";
-            HIWORD(v41) = 1024;
-            OUTLINED_FUNCTION_15_13(552, v28, v30, v32, v34, v36, v37, __lasts, __str, v40, v41, *(&v41 + 1), v42, v43, v44);
+            *(&v40 + 6) = "[AVCAudioStream removeRemoteEndpoint:error:]";
+            HIWORD(v40) = 1024;
+            OUTLINED_FUNCTION_15_13(552, v28, v30, v32, v34, v36, v37, __lasts, __str[0], __str[1], v40, *(&v40 + 1), v41, v42, v43);
           }
         }
       }
 
       while (strtok_r(0, "\n", &__lasts));
-      free(__str);
+      free(__str[0]);
       self = selfCopy;
     }
   }
@@ -4883,10 +4883,10 @@ LABEL_16:
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
     {
       OUTLINED_FUNCTION_21_8();
-      *(&v41 + 6) = "[AVCAudioStream removeRemoteEndpoint:error:]";
-      HIWORD(v41) = 1024;
+      *(&v40 + 6) = "[AVCAudioStream removeRemoteEndpoint:error:]";
+      HIWORD(v40) = 1024;
       OUTLINED_FUNCTION_12_11();
-      OUTLINED_FUNCTION_23_6(&dword_1DB56E000, v20, v21, "AVCAudioStream [%s] %s:%d @:@ AVCAudioStream-removeRemoteEndpoint (%p) didSucceed=%d, error=%@", v22, v23, v24, v25, v27, v29, errorCopy, selfCopy, v35, *(&v35 + 1), __lasts, __str, v40);
+      OUTLINED_FUNCTION_23_6(&dword_1DB56E000, v20, v21, "AVCAudioStream [%s] %s:%d @:@ AVCAudioStream-removeRemoteEndpoint (%p) didSucceed=%d, error=%@", v22, v23, v24, v25, v27, v29, errorCopy, selfCopy, v35, *(&v35 + 1), __lasts, __str[0]);
     }
   }
 
@@ -5069,7 +5069,7 @@ LABEL_7:
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "AVCAudioStream [%s] %s:%d AVCAudioStream: clientSessionID in the options is not of NSUUIDtype", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "AVCAudioStream [%s] %s:%d AVCAudioStream: clientSessionID in the options is not of NSUUIDtype", v2, v3, v4, v5);
 }
 
 - (void)initWithLocalAddress:(void *)a1 networkSockets:IDSDestination:rtpConnectionClientID:rtcpConnectionClientID:localEndpoint:callID:options:error:.cold.3(void *a1)
@@ -5206,14 +5206,14 @@ LABEL_12:
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_6_16(&dword_1DB56E000, v0, v1, "AVCAudioStream [%s] %s:%d Server died", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_6_16(&dword_1DB56E000, v0, v1, "AVCAudioStream [%s] %s:%d Server died", v2, v3, v4, v5);
 }
 
 - (void)validateInitializeConnectionResult:.cold.2()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "AVCAudioStream [%s] %s:%d Server died", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "AVCAudioStream [%s] %s:%d Server died", v2, v3, v4, v5);
 }
 
 - (void)validateInitializeConnectionResult:.cold.3()
@@ -5261,42 +5261,42 @@ LABEL_12:
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_6_16(&dword_1DB56E000, v0, v1, "AVCAudioStream [%s] %s:%d Missing stream token for the downlink", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_6_16(&dword_1DB56E000, v0, v1, "AVCAudioStream [%s] %s:%d Missing stream token for the downlink", v2, v3, v4, v5);
 }
 
 - (void)validateInitializeConnectionResult:.cold.8()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "AVCAudioStream [%s] %s:%d Missing stream token for the downlink", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "AVCAudioStream [%s] %s:%d Missing stream token for the downlink", v2, v3, v4, v5);
 }
 
 - (void)validateInitializeConnectionResult:.cold.9()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_6_16(&dword_1DB56E000, v0, v1, "AVCAudioStream [%s] %s:%d Missing stream token for the uplink", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_6_16(&dword_1DB56E000, v0, v1, "AVCAudioStream [%s] %s:%d Missing stream token for the uplink", v2, v3, v4, v5);
 }
 
 - (void)validateInitializeConnectionResult:.cold.10()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "AVCAudioStream [%s] %s:%d Missing stream token for the uplink", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "AVCAudioStream [%s] %s:%d Missing stream token for the uplink", v2, v3, v4, v5);
 }
 
 - (void)validateInitializeConnectionResult:.cold.11()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_6_16(&dword_1DB56E000, v0, v1, "AVCAudioStream [%s] %s:%d Missing stream token", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_6_16(&dword_1DB56E000, v0, v1, "AVCAudioStream [%s] %s:%d Missing stream token", v2, v3, v4, v5);
 }
 
 - (void)validateInitializeConnectionResult:.cold.12()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "AVCAudioStream [%s] %s:%d Missing stream token", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "AVCAudioStream [%s] %s:%d Missing stream token", v2, v3, v4, v5);
 }
 
 - (void)validateInitializeConnectionResult:.cold.13()
@@ -5322,14 +5322,14 @@ LABEL_12:
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_6_16(&dword_1DB56E000, v0, v1, "AVCAudioStream [%s] %s:%d Missing result dictionary", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_6_16(&dword_1DB56E000, v0, v1, "AVCAudioStream [%s] %s:%d Missing result dictionary", v2, v3, v4, v5);
 }
 
 - (void)validateInitializeConnectionResult:.cold.16()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "AVCAudioStream [%s] %s:%d Missing result dictionary", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "AVCAudioStream [%s] %s:%d Missing result dictionary", v2, v3, v4, v5);
 }
 
 - (void)configure:(uint64_t)a1 error:(id *)a2 .cold.1(uint64_t a1, id *a2)
@@ -5410,14 +5410,14 @@ void __56__AVCAudioStream_registerBlocksForDelegateNotifications__block_invoke_c
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "AVCAudioStream [%s] %s:%d AVCAudioStream: AVC server died, notifying client", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "AVCAudioStream [%s] %s:%d AVCAudioStream: AVC server died, notifying client", v2, v3, v4, v5);
 }
 
 void __56__AVCAudioStream_registerBlocksForDelegateNotifications__block_invoke_cold_2()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "AVCAudioStream [%s] %s:%d AVCAudioStream: Media server died, notifying client", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "AVCAudioStream [%s] %s:%d AVCAudioStream: Media server died, notifying client", v2, v3, v4, v5);
 }
 
 void __56__AVCAudioStream_registerBlocksForDelegateNotifications__block_invoke_292_cold_1()

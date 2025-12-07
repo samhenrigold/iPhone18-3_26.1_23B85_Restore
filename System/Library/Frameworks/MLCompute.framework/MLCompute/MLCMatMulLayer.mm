@@ -35,7 +35,7 @@
 
 - (BOOL)compileForDevice:(id)device sourceTensors:(id)tensors resultTensor:(id)tensor
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   tensorsCopy = tensors;
   tensorCopy = tensor;
@@ -88,15 +88,15 @@
     v19 = +[MLCLog framework];
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      v52 = NSStringFromSelector(a2);
+      v51 = NSStringFromSelector(a2);
       *buf = 138413058;
-      v58 = v52;
-      v59 = 2048;
-      v60 = v15;
-      v61 = 1024;
-      v62 = dataType;
-      v63 = 2112;
-      v64 = deviceCopy;
+      v57 = v51;
+      v58 = 2048;
+      v59 = v15;
+      v60 = 1024;
+      v61 = dataType;
+      v62 = 2112;
+      v63 = deviceCopy;
       _os_log_error_impl(&dword_238C1D000, v19, OS_LOG_TYPE_ERROR, "%@: sourceTensor[%lu] uses unsupported data type = %d on a device = %@", buf, 0x26u);
     }
 
@@ -106,33 +106,22 @@
 LABEL_7:
   if ([tensorsCopy count] > 1)
   {
-    v54 = a2;
+    v53 = a2;
     v20 = selfCopy;
     v21 = [(MLCMatMulLayer *)selfCopy resultTensorFromSources:tensorsCopy];
     v19 = v21;
-    if (!v21)
-    {
-      goto LABEL_33;
-    }
-
-    descriptor2 = [v21 descriptor];
-    shape = [descriptor2 shape];
-    descriptor3 = [v12 descriptor];
-    shape2 = [descriptor3 shape];
-    v26 = [shape isEqualToArray:shape2];
-
-    if (v26)
+    if (v21 && (-[NSObject descriptor](v21, "descriptor"), v22 = objc_claimAutoreleasedReturnValue(), [v22 shape], v23 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v12, "descriptor"), v24 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v24, "shape"), v25 = objc_claimAutoreleasedReturnValue(), v26 = objc_msgSend(v23, "isEqualToArray:", v25), v25, v24, v23, v22, (v26 & 1) != 0))
     {
       if ([tensorsCopy count] == 3)
       {
         v27 = [tensorsCopy objectAtIndexedSubscript:2];
-        descriptor4 = [v27 descriptor];
-        shape3 = [descriptor4 shape];
-        v30 = [shape3 mutableCopy];
+        descriptor2 = [v27 descriptor];
+        shape = [descriptor2 shape];
+        v30 = [shape mutableCopy];
 
         v31 = [v30 count];
-        descriptor5 = [v12 descriptor];
-        dimensionCount = [descriptor5 dimensionCount];
+        descriptor3 = [v12 descriptor];
+        dimensionCount = [descriptor3 dimensionCount];
 
         if (v31 < dimensionCount)
         {
@@ -140,17 +129,17 @@ LABEL_7:
           {
             [v30 insertObject:&unk_284BA5E70 atIndex:0];
             ++v31;
-            descriptor6 = [v12 descriptor];
-            dimensionCount2 = [descriptor6 dimensionCount];
+            descriptor4 = [v12 descriptor];
+            dimensionCount2 = [descriptor4 dimensionCount];
           }
 
           while (v31 < dimensionCount2);
         }
 
-        descriptor7 = [v12 descriptor];
-        shape4 = [descriptor7 shape];
+        descriptor5 = [v12 descriptor];
+        shape2 = [descriptor5 shape];
 
-        if ([shape4 count])
+        if ([shape2 count])
         {
           v38 = 0;
           while (1)
@@ -158,7 +147,7 @@ LABEL_7:
             v39 = [v30 objectAtIndexedSubscript:v38];
             unsignedIntegerValue = [v39 unsignedIntegerValue];
 
-            v41 = [shape4 objectAtIndexedSubscript:v38];
+            v41 = [shape2 objectAtIndexedSubscript:v38];
             unsignedIntegerValue2 = [v41 unsignedIntegerValue];
 
             if (unsignedIntegerValue2 != 1 && unsignedIntegerValue != 1 && unsignedIntegerValue != unsignedIntegerValue2)
@@ -166,16 +155,16 @@ LABEL_7:
               break;
             }
 
-            if (++v38 >= [shape4 count])
+            if (++v38 >= [shape2 count])
             {
               goto LABEL_25;
             }
           }
 
-          v53 = +[MLCLog framework];
-          if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
+          v52 = +[MLCLog framework];
+          if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
           {
-            [MLCMatMulLayer compileForDevice:v54 sourceTensors:? resultTensor:?];
+            [MLCMatMulLayer compileForDevice:v53 sourceTensors:? resultTensor:?];
           }
 
           goto LABEL_35;
@@ -187,38 +176,37 @@ LABEL_25:
       }
 
       computeEngine = [deviceCopy computeEngine];
-      descriptor8 = [(MLCMatMulLayer *)v20 descriptor];
+      descriptor6 = [(MLCMatMulLayer *)v20 descriptor];
       v45 = v20;
-      v46 = descriptor8;
-      v30 = [computeEngine matMulLayerWithDescriptor:descriptor8 sourceTensors:tensorsCopy resultTensor:v12 inferenceOnly:{-[MLCLayer compileForInferenceOnly](v45, "compileForInferenceOnly")}];
+      v46 = descriptor6;
+      v30 = [computeEngine matMulLayerWithDescriptor:descriptor6 sourceTensors:tensorsCopy resultTensor:v12 inferenceOnly:{-[MLCLayer compileForInferenceOnly](v45, "compileForInferenceOnly")}];
 
       if (v30 && [v30 count])
       {
         computeEngine2 = [deviceCopy computeEngine];
         v48 = [computeEngine2 compileLayerDeviceOps:v30 sourceTensors:tensorsCopy resultTensor:v12];
 
-        v56.receiver = selfCopy;
-        v56.super_class = MLCMatMulLayer;
-        [(MLCLayer *)&v56 bindDevice:deviceCopy deviceOps:v30];
+        v55.receiver = selfCopy;
+        v55.super_class = MLCMatMulLayer;
+        [(MLCLayer *)&v55 bindDevice:deviceCopy deviceOps:v30];
 LABEL_36:
 
         goto LABEL_32;
       }
 
-      v51 = +[MLCLog framework];
-      if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+      v50 = +[MLCLog framework];
+      if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
       {
-        [MLCScatterLayer compileForDevice:v54 sourceTensors:? resultTensor:?];
+        [MLCScatterLayer compileForDevice:v53 sourceTensors:? resultTensor:?];
       }
     }
 
     else
     {
-LABEL_33:
       v30 = +[MLCLog framework];
       if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
-        [MLCMatMulLayer compileForDevice:v54 sourceTensors:? resultTensor:?];
+        [MLCMatMulLayer compileForDevice:v53 sourceTensors:? resultTensor:?];
       }
     }
 
@@ -237,13 +225,12 @@ LABEL_31:
   v48 = 0;
 LABEL_32:
 
-  v49 = *MEMORY[0x277D85DE8];
   return v48;
 }
 
 - (id)resultTensorFromSources:(id)sources
 {
-  v75 = *MEMORY[0x277D85DE8];
+  v74 = *MEMORY[0x277D85DE8];
   sourcesCopy = sources;
   v5 = [sourcesCopy objectAtIndexedSubscript:0];
   descriptor = [v5 descriptor];
@@ -317,7 +304,7 @@ LABEL_32:
   unsignedIntegerValue4 = [v27 unsignedIntegerValue];
 
   descriptor3 = [(MLCMatMulLayer *)self descriptor];
-  v68 = sourcesCopy;
+  v67 = sourcesCopy;
   if ([descriptor3 transposesX])
   {
     descriptor4 = [(MLCMatMulLayer *)self descriptor];
@@ -391,8 +378,8 @@ LABEL_20:
     {
 LABEL_30:
       v54 = [v13 copy];
-      v55 = v68;
-      v56 = [v68 objectAtIndexedSubscript:0];
+      v55 = v67;
+      v56 = [v67 objectAtIndexedSubscript:0];
       descriptor7 = [v56 descriptor];
       v58 = +[MLCTensorDescriptor descriptorWithShape:dataType:](MLCTensorDescriptor, "descriptorWithShape:dataType:", v54, [descriptor7 dataType]);
 
@@ -437,13 +424,13 @@ LABEL_30:
     v60 = +[MLCLog framework];
     if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
     {
-      v63 = NSStringFromSelector(a2);
+      v62 = NSStringFromSelector(a2);
       *buf = 138412802;
-      v70 = v63;
-      v71 = 2048;
-      v72 = unsignedIntegerValue8;
-      v73 = 2048;
-      v74 = unsignedIntegerValue9;
+      v69 = v62;
+      v70 = 2048;
+      v71 = unsignedIntegerValue8;
+      v72 = 2048;
+      v73 = unsignedIntegerValue9;
       _os_log_error_impl(&dword_238C1D000, v60, OS_LOG_TYPE_ERROR, "%@: the shapes of source tensors do not allow broadcast, [%lu] != [%lu]", buf, 0x20u);
     }
   }
@@ -458,10 +445,8 @@ LABEL_30:
   }
 
   v59 = 0;
-  v55 = v68;
+  v55 = v67;
 LABEL_37:
-
-  v61 = *MEMORY[0x277D85DE8];
 
   return v59;
 }
@@ -522,57 +507,42 @@ LABEL_37:
 
 - (void)compileForDevice:(const char *)a1 sourceTensors:resultTensor:.cold.1(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)compileForDevice:(const char *)a1 sourceTensors:resultTensor:.cold.3(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)compileForDevice:(const char *)a1 sourceTensors:resultTensor:.cold.4(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)compileForDevice:(const char *)a1 sourceTensors:resultTensor:.cold.5(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resultTensorFromSources:(const char *)a1 .cold.1(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

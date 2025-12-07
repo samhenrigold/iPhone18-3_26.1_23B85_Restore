@@ -53,10 +53,10 @@
 
 - (AVPlayerLooper)initWithPlayer:(AVQueuePlayer *)player templateItem:(AVPlayerItem *)itemToLoop timeRange:(CMTimeRange *)loopRange existingItemsOrdering:(AVPlayerLooperItemOrdering)itemOrdering
 {
-  v61.receiver = self;
-  v61.super_class = AVPlayerLooper;
-  v62 = [[AVTelemetryInterval alloc] initAndStartWith:75];
-  v11 = [(AVPlayerLooper *)&v61 init];
+  v62.receiver = self;
+  v62.super_class = AVPlayerLooper;
+  v63 = [[AVTelemetryInterval alloc] initAndStartWith:75];
+  v11 = [(AVPlayerLooper *)&v62 init];
   v12 = v11;
   if (!v11)
   {
@@ -65,24 +65,24 @@
 
   if (!player)
   {
-    v25 = v11;
-    v26 = MEMORY[0x1E695DF30];
-    v32 = AVMethodExceptionReasonWithObjectAndSelector(v12, a2, @"invalid parameter not satisfying: %s", v27, v28, v29, v30, v31, "player != nil");
+    v26 = v11;
+    v27 = MEMORY[0x1E695DF30];
+    v33 = AVMethodExceptionReasonWithObjectAndSelector(v12, a2, @"invalid parameter not satisfying: %s", v28, v29, v30, v31, v32, "player != nil");
     goto LABEL_23;
   }
 
   if (!itemToLoop)
   {
-    v33 = v11;
-    v26 = MEMORY[0x1E695DF30];
-    v32 = AVMethodExceptionReasonWithObjectAndSelector(v12, a2, @"invalid parameter not satisfying: %s", v34, v35, v36, v37, v38, "itemToLoop != nil");
+    v34 = v11;
+    v27 = MEMORY[0x1E695DF30];
+    v33 = AVMethodExceptionReasonWithObjectAndSelector(v12, a2, @"invalid parameter not satisfying: %s", v35, v36, v37, v38, v39, "itemToLoop != nil");
     goto LABEL_23;
   }
 
   if ((loopRange->start.flags & 1) != 0 && (loopRange->duration.flags & 1) != 0 && !loopRange->duration.epoch && (loopRange->duration.value & 0x8000000000000000) == 0)
   {
     time1 = loopRange->duration;
-    v57 = *MEMORY[0x1E6960CC0];
+    v58 = *MEMORY[0x1E6960CC0];
     *&time2.value = *MEMORY[0x1E6960CC0];
     v13 = *(MEMORY[0x1E6960CC0] + 16);
     time2.epoch = v13;
@@ -91,66 +91,66 @@
       flags = loopRange->start.flags;
       if (flags & 1) != 0 && (v15 = loopRange->duration.flags, (v15) && !loopRange->duration.epoch && (loopRange->duration.value & 0x8000000000000000) == 0 && ((v15 | flags) & 0x10) != 0)
       {
-        v51 = v12;
-        v26 = MEMORY[0x1E695DF30];
-        v32 = AVMethodExceptionReasonWithObjectAndSelector(v12, a2, @"invalid parameter not satisfying: %s", v52, v53, v54, v55, v56, "! CMTIMERANGE_IS_INDEFINITE(loopRange)");
+        v52 = v12;
+        v27 = MEMORY[0x1E695DF30];
+        v33 = AVMethodExceptionReasonWithObjectAndSelector(v12, a2, @"invalid parameter not satisfying: %s", v53, v54, v55, v56, v57, "! CMTIMERANGE_IS_INDEFINITE(loopRange)");
       }
 
       else
       {
         time1 = loopRange->start;
-        *&time2.value = v57;
+        *&time2.value = v58;
         time2.epoch = v13;
         if ((CMTimeCompare(&time1, &time2) & 0x80000000) == 0)
         {
           goto LABEL_15;
         }
 
-        v45 = v12;
-        v26 = MEMORY[0x1E695DF30];
-        v32 = AVMethodExceptionReasonWithObjectAndSelector(v12, a2, @"invalid parameter not satisfying: %s", v46, v47, v48, v49, v50, "CMTIME_COMPARE_INLINE(loopRange.start, >=, kCMTimeZero)");
+        v46 = v12;
+        v27 = MEMORY[0x1E695DF30];
+        v33 = AVMethodExceptionReasonWithObjectAndSelector(v12, a2, @"invalid parameter not satisfying: %s", v47, v48, v49, v50, v51, "CMTIME_COMPARE_INLINE(loopRange.start, >=, kCMTimeZero)");
       }
     }
 
     else
     {
-      v39 = v12;
-      v26 = MEMORY[0x1E695DF30];
-      v32 = AVMethodExceptionReasonWithObjectAndSelector(v12, a2, @"invalid parameter not satisfying: %s", v40, v41, v42, v43, v44, "! CMTIMERANGE_IS_EMPTY(loopRange)");
+      v40 = v12;
+      v27 = MEMORY[0x1E695DF30];
+      v33 = AVMethodExceptionReasonWithObjectAndSelector(v12, a2, @"invalid parameter not satisfying: %s", v41, v42, v43, v44, v45, "! CMTIMERANGE_IS_EMPTY(loopRange)");
     }
 
 LABEL_23:
-    objc_exception_throw([v26 exceptionWithName:*MEMORY[0x1E695D940] reason:v32 userInfo:0]);
+    objc_exception_throw([v27 exceptionWithName:*MEMORY[0x1E695D940] reason:v33 userInfo:0]);
   }
 
 LABEL_15:
   v16 = objc_alloc_init(AVPlayerLooperInternal);
   v12->_looper = v16;
-  if (v16 && (v12->_looper->ivarAccessQueue = av_readwrite_dispatch_queue_create("com.apple.avplayerlooper.ivars")) != 0 && (v12->_looper->loopingItemCopies = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:0], v17 = v12->_looper, v17->loopingItemCopies))
+  if (v16 && (v12->_looper->ivarAccessQueue = av_readwrite_dispatch_queue_create("com.apple.avplayerlooper.ivars", v17)) != 0 && (v12->_looper->loopingItemCopies = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:0], v18 = v12->_looper, v18->loopingItemCopies))
   {
-    v17->status = 0;
+    v18->status = 0;
     v12->_looper->loopCount = 0;
     looper = v12->_looper;
-    v19 = MEMORY[0x1E6960CC0];
+    v20 = MEMORY[0x1E6960CC0];
     *&looper->forwardPlaybackStartTime.value = *MEMORY[0x1E6960CC0];
-    looper->forwardPlaybackStartTime.epoch = *(v19 + 16);
+    looper->forwardPlaybackStartTime.epoch = *(v20 + 16);
     v12->_looper->loopingPlayer = player;
     v12->_looper->loopingItem = itemToLoop;
-    v20 = v12->_looper;
-    v21 = *&loopRange->start.value;
-    v22 = *&loopRange->duration.timescale;
-    *&v20->loopRange.start.epoch = *&loopRange->start.epoch;
-    *&v20->loopRange.duration.timescale = v22;
-    *&v20->loopRange.start.value = v21;
+    v21 = v12->_looper;
+    v22 = *&loopRange->start.value;
+    v23 = *&loopRange->duration.timescale;
+    *&v21->loopRange.start.epoch = *&loopRange->start.epoch;
+    *&v21->loopRange.duration.timescale = v23;
+    *&v21->loopRange.start.value = v22;
     v12->_looper->weakReference = [[AVWeakReference alloc] initWithReferencedObject:v12];
     v12->_looper->existingItemsPrecede = itemOrdering == AVPlayerLooperItemOrderingLoopingItemsPrecedeExistingItems;
     asset = [(AVPlayerItem *)v12->_looper->loopingItem asset];
-    v58[0] = MEMORY[0x1E69E9820];
-    v58[1] = 3221225472;
-    v58[2] = __78__AVPlayerLooper_initWithPlayer_templateItem_timeRange_existingItemsOrdering___block_invoke;
-    v58[3] = &unk_1E7460C00;
-    v58[4] = v12;
-    [(AVAsset *)asset loadValuesAsynchronouslyForKeys:&unk_1F0AD3610 completionHandler:v58];
+    v59[0] = MEMORY[0x1E69E9820];
+    v59[1] = 3221225472;
+    v59[2] = __78__AVPlayerLooper_initWithPlayer_templateItem_timeRange_existingItemsOrdering___block_invoke;
+    v59[3] = &unk_1E7460C00;
+    v59[4] = v12;
+    [(AVAsset *)asset loadValuesAsynchronouslyForKeys:&unk_1F0AD3610 completionHandler:v59];
   }
 
   else
@@ -160,7 +160,7 @@ LABEL_15:
   }
 
 LABEL_20:
-  AVTelemetryIntervalEnd(&v62);
+  AVTelemetryIntervalEnd(&v63);
   return v12;
 }
 
@@ -175,7 +175,7 @@ void __78__AVPlayerLooper_initWithPlayer_templateItem_timeRange_existingItemsOrd
   AVSerializeOnQueueAsyncIfNecessary(v2, v3);
 }
 
-uint64_t __78__AVPlayerLooper_initWithPlayer_templateItem_timeRange_existingItemsOrdering___block_invoke_2(uint64_t a1)
+void *__78__AVPlayerLooper_initWithPlayer_templateItem_timeRange_existingItemsOrdering___block_invoke_2(uint64_t a1)
 {
   v6 = 0;
   if ([objc_msgSend(*(*(*(a1 + 32) + 8) + 16) "asset")] == 2)
@@ -290,7 +290,7 @@ uint64_t __78__AVPlayerLooper_initWithPlayer_templateItem_timeRange_existingItem
   [(AVPlayerLooper *)&v16 dealloc];
 }
 
-uint64_t __25__AVPlayerLooper_dealloc__block_invoke(uint64_t a1)
+void *__25__AVPlayerLooper_dealloc__block_invoke(uint64_t a1)
 {
   v12 = *MEMORY[0x1E69E9840];
   v7 = 0u;
@@ -313,7 +313,8 @@ uint64_t __25__AVPlayerLooper_dealloc__block_invoke(uint64_t a1)
           objc_enumerationMutation(v2);
         }
 
-        [*(a1 + 40) removeItem:*(*(&v7 + 1) + 8 * v6++)];
+        [*(a1 + 40) removeItem:*(*(&v7 + 1) + 8 * v6)];
+        v6 = v6 + 1;
       }
 
       while (v4 != v6);
@@ -395,14 +396,14 @@ id __23__AVPlayerLooper_error__block_invoke(uint64_t a1)
   [(AVPlayerLooper *)self didChangeValueForKey:@"status"];
 }
 
-uint64_t __49__AVPlayerLooper__changeStatusToFailedWithError___block_invoke(uint64_t result)
+id *__49__AVPlayerLooper__changeStatusToFailedWithError___block_invoke(id *result)
 {
-  if (*(*(*(result + 32) + 8) + 144) != 2)
+  if (*(*(result[4] + 1) + 144) != 2)
   {
     v1 = result;
-    result = [*(result + 40) copy];
-    *(*(*(v1 + 32) + 8) + 152) = result;
-    *(*(*(v1 + 32) + 8) + 144) = 2;
+    result = [result[5] copy];
+    *(*(v1[4] + 1) + 152) = result;
+    *(*(v1[4] + 1) + 144) = 2;
   }
 
   return result;
@@ -455,7 +456,7 @@ uint64_t __49__AVPlayerLooper__changeStatusToFailedWithError___block_invoke(uint
   return v3;
 }
 
-uint64_t __36__AVPlayerLooper_loopingPlayerItems__block_invoke(uint64_t a1)
+void *__36__AVPlayerLooper_loopingPlayerItems__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x1E695DEC8] arrayWithArray:*(*(*(a1 + 32) + 8) + 24)];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -501,13 +502,13 @@ uint64_t __36__AVPlayerLooper_loopingPlayerItems__block_invoke(uint64_t a1)
   loopingItem = looper->loopingItem;
   if (loopingItem)
   {
-    [(AVPlayerItem *)loopingItem duration];
+    objc_msgSend_duration(loopingItem, a2);
     if ((v9 & 0x1D) == 1)
     {
       v6 = self->_looper->loopingItem;
       if (v6)
       {
-        [(AVPlayerItem *)v6 duration];
+        objc_msgSend_duration(v6);
       }
 
       else
@@ -561,14 +562,14 @@ uint64_t __36__AVPlayerLooper_loopingPlayerItems__block_invoke(uint64_t a1)
     loopingItem = looper->loopingItem;
     if (loopingItem)
     {
-      [(AVPlayerItem *)loopingItem duration];
+      objc_msgSend_duration(loopingItem);
       if ((BYTE4(v63) & 0x1D) == 1)
       {
         v43 = self->_looper;
         v44 = v43->loopingItem;
         if (v44)
         {
-          [(AVPlayerItem *)v44 duration];
+          objc_msgSend_duration(v44);
         }
 
         else
@@ -601,7 +602,7 @@ uint64_t __36__AVPlayerLooper_loopingPlayerItems__block_invoke(uint64_t a1)
         v47 = self->_looper->loopingItem;
         if (v47)
         {
-          [(AVPlayerItem *)v47 duration];
+          objc_msgSend_duration(v47);
         }
 
         else

@@ -81,14 +81,14 @@
 
 - (id)description
 {
-  [(CLIndoorLocation *)self location];
-  [(CLIndoorLocation *)self location];
-  [(CLIndoorLocation *)self location];
+  objc_msgSend_location(self, a2);
+  objc_msgSend_location(self);
+  objc_msgSend_location(self);
   locationId = [(CLIndoorLocation *)self locationId];
   locationDescription = [(CLIndoorLocation *)self locationDescription];
-  [(CLIndoorLocation *)self location];
+  objc_msgSend_location(self);
   requestsGpsAssistance = [(CLIndoorLocation *)self requestsGpsAssistance];
-  [(CLIndoorLocation *)self location];
+  objc_msgSend_location(self);
   v6 = "no";
   if (requestsGpsAssistance)
   {
@@ -191,9 +191,9 @@
     v9 = 0u;
     v10 = 0u;
     v8 = 0u;
-    [estimateCopy gpsLocation];
+    objc_msgSend_gpsLocation(estimateCopy);
     memset(__src, 0, 512);
-    [estimateCopy gpsLocationPrivate];
+    objc_msgSend_gpsLocationPrivate(estimateCopy);
     *(v12 + 12) = 0;
     *(&__src[21] + 1) = 0;
     *&__src[2] = 0;

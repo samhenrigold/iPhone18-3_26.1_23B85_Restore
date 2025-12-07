@@ -2330,7 +2330,7 @@ LABEL_26:
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "11. Setting SMS status to: IDSSMSIdentificationStatusWaitingSMSIdentityVerificationResponse", buf, 2u);
     }
 
-    [timeoutCopy doubleValue];
+    objc_msgSend_doubleValue(timeoutCopy);
     if (v8 <= 5.0)
     {
       v11 = 1800.0;
@@ -2346,7 +2346,7 @@ LABEL_26:
         _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Using telephony-provided timeout { telephonyTimeout: %@ }", buf, 0xCu);
       }
 
-      [timeoutCopy doubleValue];
+      objc_msgSend_doubleValue(timeoutCopy);
       v11 = v10;
     }
 

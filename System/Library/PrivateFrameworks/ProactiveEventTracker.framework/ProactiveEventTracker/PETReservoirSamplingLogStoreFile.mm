@@ -39,7 +39,7 @@
 
 - (BOOL)lock
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   fd = self->_fd;
   if (fd < 0 || !flock(fd, 2))
   {
@@ -54,35 +54,34 @@
       v4 = *__error();
       v5 = __error();
       v6 = strerror(*v5);
-      v9[0] = 67109378;
-      v9[1] = v4;
-      v10 = 2080;
-      v11 = v6;
-      _os_log_error_impl(&dword_1DF726000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Could not lock file: [%i] %s", v9, 0x12u);
+      v8[0] = 67109378;
+      v8[1] = v4;
+      v9 = 2080;
+      v10 = v6;
+      _os_log_error_impl(&dword_1DF726000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Could not lock file: [%i] %s", v8, 0x12u);
       LOBYTE(v3) = 0;
     }
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
 - (BOOL)attemptToRecreate
 {
-  *&v25[13] = *MEMORY[0x1E69E9840];
+  *&v24[13] = *MEMORY[0x1E69E9840];
   path = self->_path;
-  v21 = 0;
-  v4 = [MEMORY[0x1E69C5D28] mkstempWithPrefix:path error:&v21];
-  v5 = v21;
+  v20 = 0;
+  v4 = [MEMORY[0x1E69C5D28] mkstempWithPrefix:path error:&v20];
+  v5 = v20;
   if (!v4)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v20 = self->_path;
+      v19 = self->_path;
       *buf = 138412546;
-      v23 = v20;
-      v24 = 2112;
-      *v25 = v5;
+      v22 = v19;
+      v23 = 2112;
+      *v24 = v5;
       _os_log_error_impl(&dword_1DF726000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Could not create tempfile with prefix %@: %@", buf, 0x16u);
     }
 
@@ -100,15 +99,15 @@
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
       fileSystemRepresentation3 = [(NSString *)self->_path fileSystemRepresentation];
-      v17 = *__error();
-      v18 = __error();
-      v19 = strerror(*v18);
+      v16 = *__error();
+      v17 = __error();
+      v18 = strerror(*v17);
       *buf = 136315650;
-      v23 = fileSystemRepresentation3;
-      v24 = 1024;
-      *v25 = v17;
-      v25[2] = 2080;
-      *&v25[3] = v19;
+      v22 = fileSystemRepresentation3;
+      v23 = 1024;
+      *v24 = v16;
+      v24[2] = 2080;
+      *&v24[3] = v18;
       _os_log_error_impl(&dword_1DF726000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Could not overwrite %s: [%i] %s", buf, 0x1Cu);
     }
 
@@ -133,13 +132,12 @@ LABEL_8:
   v12 = 1;
 LABEL_12:
 
-  v14 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
 - (BOOL)appendData:(id)data andReturnMapPointer:(id *)pointer
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   if (lseek(self->_fd, 0, 2) == -1)
   {
@@ -151,14 +149,14 @@ LABEL_12:
     v9 = *__error();
     v10 = __error();
     v11 = strerror(*v10);
-    v19 = 67109378;
-    v20 = v9;
-    v21 = 2080;
-    v22 = v11;
+    v18 = 67109378;
+    v19 = v9;
+    v20 = 2080;
+    v21 = v11;
     v12 = MEMORY[0x1E69E9C10];
     v13 = "Could not seek to eof: [%i] %s";
 LABEL_14:
-    _os_log_error_impl(&dword_1DF726000, v12, OS_LOG_TYPE_ERROR, v13, &v19, 0x12u);
+    _os_log_error_impl(&dword_1DF726000, v12, OS_LOG_TYPE_ERROR, v13, &v18, 0x12u);
     goto LABEL_7;
   }
 
@@ -171,13 +169,13 @@ LABEL_14:
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v16 = *__error();
-    v17 = __error();
-    v18 = strerror(*v17);
-    v19 = 67109378;
-    v20 = v16;
-    v21 = 2080;
-    v22 = v18;
+    v15 = *__error();
+    v16 = __error();
+    v17 = strerror(*v16);
+    v18 = 67109378;
+    v19 = v15;
+    v20 = 2080;
+    v21 = v17;
     v12 = MEMORY[0x1E69E9C10];
     v13 = "Could not write: [%i] %s";
     goto LABEL_14;
@@ -196,29 +194,26 @@ LABEL_8:
     *pointer = self->_ptr;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 - (BOOL)changeLength:(unint64_t)length
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = ftruncate(self->_fd, length);
   if (v3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v6 = *__error();
-    v7 = __error();
-    v8 = strerror(*v7);
-    v9[0] = 67109378;
-    v9[1] = v6;
-    v10 = 2080;
-    v11 = v8;
-    _os_log_error_impl(&dword_1DF726000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Could not change file size: [%i] %s", v9, 0x12u);
+    v5 = *__error();
+    v6 = __error();
+    v7 = strerror(*v6);
+    v8[0] = 67109378;
+    v8[1] = v5;
+    v9 = 2080;
+    v10 = v7;
+    _os_log_error_impl(&dword_1DF726000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Could not change file size: [%i] %s", v8, 0x12u);
   }
 
-  result = v3 == 0;
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  return v3 == 0;
 }
 
 - ($BC5B52E09B2B7D90AC3928E0EFF6AC05)headerMap:(unint64_t *)map
@@ -239,7 +234,7 @@ LABEL_8:
 
 - ($BC5B52E09B2B7D90AC3928E0EFF6AC05)remap:(unint64_t *)remap
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   [(PETReservoirSamplingLogStoreFile *)self _unmap];
   currentLength = [(PETReservoirSamplingLogStoreFile *)self currentLength];
   self->_mapLen = currentLength;
@@ -248,14 +243,14 @@ LABEL_8:
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v8 = *__error();
-      v9 = __error();
-      v10 = strerror(*v9);
-      v11[0] = 67109378;
-      v11[1] = v8;
-      v12 = 2080;
-      v13 = v10;
-      _os_log_error_impl(&dword_1DF726000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Could not map header: [%i] %s", v11, 0x12u);
+      v7 = *__error();
+      v8 = __error();
+      v9 = strerror(*v8);
+      v10[0] = 67109378;
+      v10[1] = v7;
+      v11 = 2080;
+      v12 = v9;
+      _os_log_error_impl(&dword_1DF726000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Could not map header: [%i] %s", v10, 0x12u);
     }
 
     result = 0;
@@ -267,7 +262,6 @@ LABEL_8:
     *remap = self->_mapLen;
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -300,24 +294,24 @@ LABEL_8:
 
 - (PETReservoirSamplingLogStoreFile)initWithPath:(id)path
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   pathCopy = path;
-  v15.receiver = self;
-  v15.super_class = PETReservoirSamplingLogStoreFile;
-  v5 = [(PETReservoirSamplingLogStoreFile *)&v15 init];
+  v14.receiver = self;
+  v14.super_class = PETReservoirSamplingLogStoreFile;
+  v5 = [(PETReservoirSamplingLogStoreFile *)&v14 init];
   if (v5 && (v6 = [pathCopy copy], path = v5->_path, v5->_path = v6, path, v8 = open(objc_msgSend(pathCopy, "fileSystemRepresentation"), 514, 384), v5->_fd = v8, v8 < 0))
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v12 = *__error();
-      v13 = __error();
-      v14 = strerror(*v13);
+      v11 = *__error();
+      v12 = __error();
+      v13 = strerror(*v12);
       *buf = 138412802;
-      v17 = pathCopy;
-      v18 = 1024;
-      v19 = v12;
-      v20 = 2080;
-      v21 = v14;
+      v16 = pathCopy;
+      v17 = 1024;
+      v18 = v11;
+      v19 = 2080;
+      v20 = v13;
       _os_log_error_impl(&dword_1DF726000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Could not open sampled log at %@: [%i] %s", buf, 0x1Cu);
     }
 
@@ -329,7 +323,6 @@ LABEL_8:
     v9 = v5;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 

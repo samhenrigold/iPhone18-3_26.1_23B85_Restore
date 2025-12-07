@@ -141,17 +141,17 @@ uint64_t __42__QLThumbnailAdditionCache_sharedInstance__block_invoke(uint64_t a1
     v10 = _log_0();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
-      [(QLThumbnailAdditionCache *)v6 purgeCachedAdditionForItemAtURL:?];
+      [QLThumbnailAdditionCache purgeCachedAdditionForItemAtURL:];
     }
 
-    [*p_additionsCache removeObjectForKey:v6];
+    [(NSCache *)*p_additionsCache removeObjectForKey:v6];
     objc_sync_exit(v9);
   }
 }
 
 - (void)cacheAddition:(id)addition forDocumentID:(id)d
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   additionCopy = addition;
   dCopy = d;
   v8 = [[QLThumbnailCachedAddition alloc] initWithAddition:additionCopy];
@@ -164,58 +164,41 @@ uint64_t __42__QLThumbnailAdditionCache_sharedInstance__block_invoke(uint64_t a1
     {
       additionsCache = self->_additionsCache;
       userInfo = [additionCopy userInfo];
-      v14 = 138413058;
-      v15 = additionCopy;
-      v16 = 2112;
-      v17 = dCopy;
-      v18 = 2112;
-      v19 = additionsCache;
-      v20 = 2112;
-      v21 = userInfo;
-      _os_log_debug_impl(&dword_1CA1E7000, v10, OS_LOG_TYPE_DEBUG, "Storing addition %@ for docID %@ in cache %@, user info %@", &v14, 0x2Au);
+      v13 = 138413058;
+      v14 = additionCopy;
+      v15 = 2112;
+      v16 = dCopy;
+      v17 = 2112;
+      v18 = additionsCache;
+      v19 = 2112;
+      v20 = userInfo;
+      _os_log_debug_impl(&dword_1CA1E7000, v10, OS_LOG_TYPE_DEBUG, "Storing addition %@ for docID %@ in cache %@, user info %@", &v13, 0x2Au);
     }
 
     [(NSCache *)self->_additionsCache setObject:v8 forKey:dCopy];
     objc_sync_exit(v9);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)thumbnailAdditionForItemAtURL:error:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)thumbnailAdditionForItemAtURL:error:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)thumbnailAdditionForItemAtURL:error:.cold.3()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)purgeCachedAdditionForItemAtURL:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t *a2)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  v2 = *a2;
-  OUTLINED_FUNCTION_3_0();
-  OUTLINED_FUNCTION_8(&dword_1CA1E7000, v3, v4, "Removing entry for key %@ in cache %@");
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

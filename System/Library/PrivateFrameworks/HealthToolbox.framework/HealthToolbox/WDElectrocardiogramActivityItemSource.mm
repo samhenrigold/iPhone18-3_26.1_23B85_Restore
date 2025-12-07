@@ -64,7 +64,7 @@
     [v26 setGivenName:nameCopy];
     [v26 setFamilyName:lastNameCopy];
     v27 = [MEMORY[0x277CCAC08] localizedStringFromPersonNameComponents:v26 style:2 options:0];
-    v28 = [MEMORY[0x277CCA900] characterSetWithCharactersInString:@":/\\""];
+    v28 = [MEMORY[0x277CCA900] characterSetWithCharactersInString:@":/\"];
     v29 = [MEMORY[0x277CCACA8] stringWithUTF8String:{objc_msgSend(v27, "UTF8String")}];
     v30 = [v29 hk_stringByRemovingCharactersInSet:v28];
   }
@@ -153,23 +153,11 @@
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   LODWORD(v20) = [defaultManager fileExistsAtPath:v21];
 
-  if (!v20)
+  if (!v20 || ([MEMORY[0x277CCAA00] defaultManager], v25 = objc_claimAutoreleasedReturnValue(), -[WDElectrocardiogramActivityItemSource pdfTemporaryFileURL](v17, "pdfTemporaryFileURL"), v26 = objc_claimAutoreleasedReturnValue(), v36 = 0, objc_msgSend(v25, "removeItemAtURL:error:", v26, &v36), v27 = v36, v26, v25, !v27))
   {
-    goto LABEL_6;
-  }
-
-  defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
-  pdfTemporaryFileURL = [(WDElectrocardiogramActivityItemSource *)v17 pdfTemporaryFileURL];
-  v36 = 0;
-  [defaultManager2 removeItemAtURL:pdfTemporaryFileURL error:&v36];
-  v27 = v36;
-
-  if (!v27)
-  {
-LABEL_6:
-    pdfTemporaryFileURL2 = [(WDElectrocardiogramActivityItemSource *)v17 pdfTemporaryFileURL];
+    pdfTemporaryFileURL = [(WDElectrocardiogramActivityItemSource *)v17 pdfTemporaryFileURL];
     v35 = 0;
-    [dataCopy writeToURL:pdfTemporaryFileURL2 options:536870913 error:&v35];
+    [dataCopy writeToURL:pdfTemporaryFileURL options:536870913 error:&v35];
     v27 = v35;
 
     if (v27)
@@ -230,20 +218,18 @@ LABEL_12:
 
 - (void)initWithPDFData:(uint64_t)a1 sampleDate:(NSObject *)a2 firstName:lastName:provenance:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_251E85000, a2, OS_LOG_TYPE_ERROR, "Could not delete existing PDF temporary file: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_251E85000, a2, OS_LOG_TYPE_ERROR, "Could not delete existing PDF temporary file: %@", &v2, 0xCu);
 }
 
 - (void)initWithPDFData:(uint64_t)a1 sampleDate:(NSObject *)a2 firstName:lastName:provenance:.cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_251E85000, a2, OS_LOG_TYPE_ERROR, "Could not write PDF temporary file: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_251E85000, a2, OS_LOG_TYPE_ERROR, "Could not write PDF temporary file: %@", &v2, 0xCu);
 }
 
 @end

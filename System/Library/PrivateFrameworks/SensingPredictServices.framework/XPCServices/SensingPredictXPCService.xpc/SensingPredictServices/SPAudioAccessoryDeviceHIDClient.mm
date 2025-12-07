@@ -39,7 +39,7 @@
   *v7 = v6;
   v7[1] = v4;
   selfCopy = self;
-  sub_100005CBC(v8);
+  sub_100005CBC(v8, v9);
 }
 
 @end

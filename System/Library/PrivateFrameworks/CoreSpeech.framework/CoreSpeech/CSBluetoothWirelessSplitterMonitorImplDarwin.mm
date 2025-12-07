@@ -2,6 +2,7 @@
 - (CSBluetoothWirelessSplitterMonitorImplDarwin)init;
 - (unint64_t)splitterState;
 - (void)_didReceiveWirelessSplitterStateChange;
+- (void)_notifyObserver:(id)observer splitterState:(unint64_t)state shouldDisableSpeakerVerificationInSplitterMode:(BOOL)mode;
 - (void)_startMonitoringWithQueue:(id)queue;
 - (void)_stopMonitoring;
 - (void)splitterState:(id)state;
@@ -9,6 +10,17 @@
 @end
 
 @implementation CSBluetoothWirelessSplitterMonitorImplDarwin
+
+- (void)_notifyObserver:(id)observer splitterState:(unint64_t)state shouldDisableSpeakerVerificationInSplitterMode:(BOOL)mode
+{
+  modeCopy = mode;
+  observerCopy = observer;
+  [(CSBluetoothWirelessSplitterMonitorImplDarwin *)self notifyObserver:observerCopy];
+  if (objc_opt_respondsToSelector())
+  {
+    [observerCopy CSBluetoothWirelessSplitterMonitor:self didReceiveSplitterStateChange:state shouldDisableSpeakerVerificationInSplitterMode:modeCopy];
+  }
+}
 
 - (void)_didReceiveWirelessSplitterStateChange
 {
@@ -87,7 +99,7 @@
 
   self->_splitterState = state;
   self->_shouldDisableSpeakerVerificationInSplitterMode = modeCopy;
-  [(CSBluetoothWirelessSplitterMonitorImplDarwin *)self _didReceiveWirelessSplitterStateChange];
+  [(CSBluetoothWirelessSplitterMonitorImplDarwin *)self _didReceiveWirelessSplitterStateChange:*v9];
 }
 
 - (CSBluetoothWirelessSplitterMonitorImplDarwin)init

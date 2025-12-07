@@ -20,24 +20,24 @@
 
 - (IMSyncedSettingsManager)init
 {
-  v20.receiver = self;
-  v20.super_class = IMSyncedSettingsManager;
-  v4 = [(IMSyncedSettingsManager *)&v20 init];
-  if (v4)
+  v11.receiver = self;
+  v11.super_class = IMSyncedSettingsManager;
+  v2 = [(IMSyncedSettingsManager *)&v11 init];
+  if (v2)
   {
-    v5 = objc_msgSend_sharedController(IMDaemonController, v2, v3);
-    v7 = objc_msgSend_multiplexedConnectionWithLabel_capabilities_context_(v5, v6, @"IMSyncedSettingsManager", 0x20000000, 0);
+    v3 = +[IMDaemonController sharedController];
+    v4 = [v3 multiplexedConnectionWithLabel:@"IMSyncedSettingsManager" capabilities:0x20000000 context:0];
 
-    objc_msgSend_connectWithCompletion_(v7, v8, &unk_1F1B6E2A0);
-    v9 = [IMSyncedSettingsManager_Impl alloc];
-    v12 = objc_msgSend_sharedController(IMDaemonController, v10, v11);
-    v15 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v13, v14);
-    v17 = objc_msgSend_initWithDaemonController_connection_notificationCenter_(v9, v16, v12, v7, v15);
-    impl = v4->_impl;
-    v4->_impl = v17;
+    [v4 connectWithCompletion:&unk_1F1B6E2A0];
+    v5 = [IMSyncedSettingsManager_Impl alloc];
+    v6 = +[IMDaemonController sharedController];
+    defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
+    v8 = [(IMSyncedSettingsManager_Impl *)v5 initWithDaemonController:v6 connection:v4 notificationCenter:defaultCenter];
+    impl = v2->_impl;
+    v2->_impl = v8;
   }
 
-  return v4;
+  return v2;
 }
 
 - (id)settingValueForKey:(int64_t)key
@@ -54,7 +54,7 @@
   v6[2] = sub_1A82C2CB4;
   v6[3] = &unk_1E78114F8;
   v6[4] = &v7;
-  objc_msgSend_settingValueForKey_reply_(impl, a2, key, v6);
+  [(IMSyncedSettingsManager_Impl *)impl settingValueForKey:key reply:v6];
   v4 = v8[5];
   _Block_object_dispose(&v7, 8);
 

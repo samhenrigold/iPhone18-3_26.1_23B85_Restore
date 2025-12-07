@@ -16,44 +16,46 @@ void __WBSafariDirectoryPath_block_invoke()
   [v2 _web_createDirectoryAtPathWithIntermediateDirectories:WBSafariDirectoryPath_safariDirectoryPath attributes:0];
 }
 
-id bookmarksCollectionQueue(void)
+id bookmarksCollectionQueue(uint64_t a1)
 {
   if (bookmarksCollectionQueue(void)::onceToken != -1)
   {
     bookmarksCollectionQueue();
   }
 
-  v1 = bookmarksCollectionQueue(void)::bookmarksCollectionQueue;
+  v2 = bookmarksCollectionQueue(void)::bookmarksCollectionQueue;
 
-  return v1;
+  return v2;
 }
 
-void sub_272C2228C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_272C2228C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t WebContentAnalysisLibraryCore()
+uint64_t WebContentAnalysisLibraryCore(uint64_t a1)
 {
-  v2 = *MEMORY[0x277D85DE8];
   if (!WebContentAnalysisLibraryCore_frameworkLibrary)
   {
     WebContentAnalysisLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
-  result = WebContentAnalysisLibraryCore_frameworkLibrary;
-  v1 = *MEMORY[0x277D85DE8];
-  return result;
+  return WebContentAnalysisLibraryCore_frameworkLibrary;
 }
 
 Class __getWFUserSettingsClass_block_invoke(uint64_t a1)
 {
   v3 = 0;
-  if (!WebContentAnalysisLibraryCore())
+  if (!WebContentAnalysisLibraryCore(&v3))
   {
     __getWFUserSettingsClass_block_invoke_cold_2(&v3);
+  }
+
+  if (v3)
+  {
+    free(v3);
   }
 
   result = objc_getClass("WFUserSettings");
@@ -125,9 +127,9 @@ uint64_t WebBookmarks::BookmarkSQLStatement::executeSQL(WebBookmarks::BookmarkSQ
   return v3;
 }
 
-void sub_272C22EF8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_272C22EF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
   _Unwind_Resume(a1);
 }
@@ -165,78 +167,76 @@ uint64_t WebBookmarks::BookmarkSQLStatement::selectInt(WebBookmarks::BookmarkSQL
   return v3;
 }
 
-void sub_272C23234(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_272C23234(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
   _Unwind_Resume(a1);
 }
 
-id BookmarkSQLiteColumns()
+id BookmarkSQLiteColumns(uint64_t a1)
 {
   if (BookmarkSQLiteColumns_onceToken != -1)
   {
     BookmarkSQLiteColumns_cold_1();
   }
 
-  v1 = BookmarkSQLiteColumns_columns;
+  v2 = BookmarkSQLiteColumns_columns;
 
-  return v1;
+  return v2;
 }
 
-id BookmarkSQLiteColumnNames()
+id BookmarkSQLiteColumnNames(uint64_t a1)
 {
   if (BookmarkSQLiteColumnNames_onceToken != -1)
   {
     BookmarkSQLiteColumnNames_cold_1();
   }
 
-  v1 = BookmarkSQLiteColumnNames_columns;
+  v2 = BookmarkSQLiteColumnNames_columns;
 
-  return v1;
+  return v2;
 }
 
-void __BookmarkSQLiteColumns_block_invoke()
+void __BookmarkSQLiteColumns_block_invoke(uint64_t a1)
 {
-  v2 = BookmarkSQLiteColumnNames();
-  v0 = [v2 componentsJoinedByString:{@", "}];
-  v1 = BookmarkSQLiteColumns_columns;
-  BookmarkSQLiteColumns_columns = v0;
+  v3 = BookmarkSQLiteColumnNames(a1);
+  v1 = [v3 componentsJoinedByString:{@", "}];
+  v2 = BookmarkSQLiteColumns_columns;
+  BookmarkSQLiteColumns_columns = v1;
 }
 
 void __BookmarkSQLiteColumnNames_block_invoke()
 {
-  v3[25] = *MEMORY[0x277D85DE8];
-  v3[0] = @"bookmarks.type";
-  v3[1] = @"bookmarks.title";
-  v3[2] = @"bookmarks.url";
-  v3[3] = @"bookmarks.id";
-  v3[4] = @"bookmarks.editable";
-  v3[5] = @"bookmarks.deletable";
-  v3[6] = @"bookmarks.hidden";
-  v3[7] = @"bookmarks.parent";
-  v3[8] = @"bookmarks.order_index";
-  v3[9] = @"bookmarks.external_uuid";
-  v3[10] = @"bookmarks.special_id";
-  v3[11] = @"bookmarks.server_id";
-  v3[12] = @"bookmarks.sync_key";
-  v3[13] = @"bookmarks.sync_data";
-  v3[14] = @"bookmarks.extra_attributes";
-  v3[15] = @"bookmarks.local_attributes";
-  v3[16] = @"bookmarks.fetched_icon";
-  v3[17] = @"bookmarks.icon";
-  v3[18] = @"bookmarks.locally_added";
-  v3[19] = @"bookmarks.archive_status";
-  v3[20] = @"bookmarks.syncable";
-  v3[21] = @"bookmarks.web_filter_status";
-  v3[22] = @"bookmarks.modified_attributes";
-  v3[23] = @"bookmarks.last_selected_child";
-  v3[24] = @"bookmarks.subtype";
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:25];
+  v2[25] = *MEMORY[0x277D85DE8];
+  v2[0] = @"bookmarks.type";
+  v2[1] = @"bookmarks.title";
+  v2[2] = @"bookmarks.url";
+  v2[3] = @"bookmarks.id";
+  v2[4] = @"bookmarks.editable";
+  v2[5] = @"bookmarks.deletable";
+  v2[6] = @"bookmarks.hidden";
+  v2[7] = @"bookmarks.parent";
+  v2[8] = @"bookmarks.order_index";
+  v2[9] = @"bookmarks.external_uuid";
+  v2[10] = @"bookmarks.special_id";
+  v2[11] = @"bookmarks.server_id";
+  v2[12] = @"bookmarks.sync_key";
+  v2[13] = @"bookmarks.sync_data";
+  v2[14] = @"bookmarks.extra_attributes";
+  v2[15] = @"bookmarks.local_attributes";
+  v2[16] = @"bookmarks.fetched_icon";
+  v2[17] = @"bookmarks.icon";
+  v2[18] = @"bookmarks.locally_added";
+  v2[19] = @"bookmarks.archive_status";
+  v2[20] = @"bookmarks.syncable";
+  v2[21] = @"bookmarks.web_filter_status";
+  v2[22] = @"bookmarks.modified_attributes";
+  v2[23] = @"bookmarks.last_selected_child";
+  v2[24] = @"bookmarks.subtype";
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:25];
   v1 = BookmarkSQLiteColumnNames_columns;
   BookmarkSQLiteColumnNames_columns = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 void performBlockExclusively(void *a1)
@@ -254,9 +254,11 @@ void performBlockExclusively(void *a1)
 
 uint64_t ___ZL23performBlockExclusivelyU13block_pointerFvvE_block_invoke()
 {
-  performBlockExclusively(void({block_pointer})(void))::mutex = dispatch_semaphore_create(1);
+  v0 = dispatch_semaphore_create(1);
+  v1 = performBlockExclusively(void({block_pointer})(void))::mutex;
+  performBlockExclusively(void({block_pointer})(void))::mutex = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 id collectionTypeToDeviceIdentifierDictionary(void)
@@ -334,7 +336,14 @@ uint64_t WBS_LOG_CHANNEL_PREFIXBookmarks()
   return WBS_LOG_CHANNEL_PREFIXBookmarks_log;
 }
 
-uint64_t WBS_LOG_CHANNEL_PREFIXTabGroup()
+void sub_272C24CD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, ...)
+{
+  va_start(va, a54);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t WBS_LOG_CHANNEL_PREFIXTabGroup(uint64_t a1, uint64_t a2)
 {
   if (WBS_LOG_CHANNEL_PREFIXTabGroup_onceToken != -1)
   {
@@ -414,28 +423,28 @@ uint64_t WebBookmarks::BookmarkSQLStatement::BookmarkSQLStatement(uint64_t this,
 
 id commaSeparatedIDStringForBookmarkIDs(void *a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = [MEMORY[0x277CCAB68] string];
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v3 = v1;
-  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
-    v5 = *v12;
+    v5 = *v11;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(v3);
         }
 
-        v7 = *(*(&v11 + 1) + 8 * i);
+        v7 = *(*(&v10 + 1) + 8 * i);
         if ([v2 length])
         {
           v8 = [v7 stringValue];
@@ -449,13 +458,11 @@ id commaSeparatedIDStringForBookmarkIDs(void *a1)
         }
       }
 
-      v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v4);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
@@ -498,7 +505,7 @@ id WBObjectFromColumn(sqlite3_stmt *a1, int a2)
 
 WebBookmarks::BookmarkSQLWriteTransaction *WebBookmarks::BookmarkSQLWriteTransaction::BookmarkSQLWriteTransaction(WebBookmarks::BookmarkSQLWriteTransaction *this, sqlite3 *a2, const char *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   *(this + 8) = 0;
   *this = &unk_288258A68;
   *(this + 1) = a2;
@@ -558,12 +565,11 @@ WebBookmarks::BookmarkSQLWriteTransaction *WebBookmarks::BookmarkSQLWriteTransac
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         v13 = [MEMORY[0x277CCACC8] callStackSymbols];
-        WebBookmarks::BookmarkSQLReadTransaction::BookmarkSQLReadTransaction(v13, &v16);
+        WebBookmarks::BookmarkSQLReadTransaction::BookmarkSQLReadTransaction(v13, &v15);
       }
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return this;
 }
 
@@ -624,12 +630,12 @@ void WebBookmarks::BookmarkSQLTransaction::~BookmarkSQLTransaction(WebBookmarks:
 
 void WBSetupTabGroupSyncAgentProtocolInterface(void *a1)
 {
-  v7[2] = *MEMORY[0x277D85DE8];
+  v6[2] = *MEMORY[0x277D85DE8];
   v1 = MEMORY[0x277CBEB98];
   v2 = a1;
-  v7[0] = objc_opt_class();
-  v7[1] = objc_opt_class();
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:2];
+  v6[0] = objc_opt_class();
+  v6[1] = objc_opt_class();
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:2];
   v4 = [v1 setWithArray:v3];
 
   [v2 setClasses:v4 forSelector:sel_userDidAcceptTabGroupShareWithMetadata_inProfileWithIdentifier_completionHandler_ argumentIndex:1 ofReply:1];
@@ -638,8 +644,6 @@ void WBSetupTabGroupSyncAgentProtocolInterface(void *a1)
   v5 = WBTabGroupSyncAgentSyncObserverInterface();
   [v2 setInterface:v5 forSelector:sel_addSyncObserver_ argumentIndex:0 ofReply:0];
   [v2 setInterface:v5 forSelector:sel_removeSyncObserver_ argumentIndex:0 ofReply:0];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 id WBTabGroupSyncAgentSyncObserverInterface()
@@ -654,9 +658,9 @@ id WBTabGroupSyncAgentSyncObserverInterface()
   return v0;
 }
 
-void sub_272C26B24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_272C26B24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -738,40 +742,44 @@ uint64_t __Block_byref_object_copy__9(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_272C26DE4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_272C26DE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   SafariShared::SuddenTerminationDisabler::~SuddenTerminationDisabler(va);
   _Unwind_Resume(a1);
 }
 
-id syncLockQueue(void)
+id syncLockQueue(uint64_t a1)
 {
   if (syncLockQueue(void)::onceToken != -1)
   {
     syncLockQueue();
   }
 
-  v1 = syncLockQueue(void)::syncLockQueue;
+  v2 = syncLockQueue(void)::syncLockQueue;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ___ZL13syncLockQueuev_block_invoke()
 {
-  syncLockQueue(void)::syncLockQueue = dispatch_queue_create("come.apple.WebBookmarks.syncLockQueue", MEMORY[0x277D85CD8]);
+  v0 = dispatch_queue_create("come.apple.WebBookmarks.syncLockQueue", MEMORY[0x277D85CD8]);
+  v1 = syncLockQueue(void)::syncLockQueue;
+  syncLockQueue(void)::syncLockQueue = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 uint64_t ___ZL19syncFlagsDictionaryv_block_invoke()
 {
-  syncFlagsDictionary(void)::syncFlagsDictionary = [MEMORY[0x277CCAB00] strongToStrongObjectsMapTable];
+  v0 = [MEMORY[0x277CCAB00] strongToStrongObjectsMapTable];
+  v1 = syncFlagsDictionary(void)::syncFlagsDictionary;
+  syncFlagsDictionary(void)::syncFlagsDictionary = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
-uint64_t WBS_LOG_CHANNEL_PREFIXBookmarkSync()
+uint64_t WBS_LOG_CHANNEL_PREFIXBookmarkSync(uint64_t a1, uint64_t a2)
 {
   if (WBS_LOG_CHANNEL_PREFIXBookmarkSync_onceToken != -1)
   {
@@ -788,9 +796,9 @@ void sub_272C28158(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_272C28BF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_272C28BF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -806,7 +814,7 @@ uint64_t WebBookmarks::BookmarkSQLStatement::executeSQL(WebBookmarks::BookmarkSQ
 
 uint64_t bindAttributesToSQLStatement(sqlite3_stmt *a1, int a2, void *a3)
 {
-  v14[4] = *MEMORY[0x277D85DE8];
+  v13[4] = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (!v5)
   {
@@ -817,9 +825,9 @@ LABEL_9:
   }
 
   v6 = objc_autoreleasePoolPush();
-  v14[0] = 0;
-  v7 = [MEMORY[0x277CCAC58] dataWithPropertyList:v5 format:200 options:0 error:v14];
-  v8 = v14[0];
+  v13[0] = 0;
+  v7 = [MEMORY[0x277CCAC58] dataWithPropertyList:v5 format:200 options:0 error:v13];
+  v8 = v13[0];
   if (v7)
   {
     v9 = [v7 length];
@@ -846,7 +854,6 @@ LABEL_9:
 
 LABEL_10:
 
-  v12 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -867,7 +874,6 @@ void bindNullableDataToSQLStatement(sqlite3_stmt *a1, int a2, void *a3)
 
 Class __getTIWordTokenizerClass_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
   if (!TextInputLibraryCore_frameworkLibrary)
   {
     TextInputLibraryCore_frameworkLibrary = _sl_dlopen();
@@ -876,7 +882,6 @@ Class __getTIWordTokenizerClass_block_invoke(uint64_t a1)
   result = objc_getClass("TIWordTokenizer");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getTIWordTokenizerClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -900,10 +905,11 @@ uint64_t __cjkIdeographCharacterSet_block_invoke()
   return [v2 addCharactersInRange:{194560, 544}];
 }
 
-void OUTLINED_FUNCTION_5(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_5(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, v9, OS_LOG_TYPE_FAULT, a4, &a9, 0x16u);
+  _os_log_fault_impl(a1, v8, OS_LOG_TYPE_FAULT, a4, va, 0x16u);
 }
 
 uint64_t OUTLINED_FUNCTION_5_0(uint64_t result, uint64_t a2, float a3)
@@ -913,10 +919,11 @@ uint64_t OUTLINED_FUNCTION_5_0(uint64_t result, uint64_t a2, float a3)
   return result;
 }
 
-void OUTLINED_FUNCTION_3(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_3(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0x16u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0x16u);
 }
 
 void OUTLINED_FUNCTION_3_0(void *a1, int a2, os_log_t log, const char *a4, uint8_t *a5)
@@ -925,10 +932,11 @@ void OUTLINED_FUNCTION_3_0(void *a1, int a2, os_log_t log, const char *a4, uint8
   _os_log_error_impl(a1, log, OS_LOG_TYPE_ERROR, a4, a5, 0xCu);
 }
 
-void OUTLINED_FUNCTION_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, v9, OS_LOG_TYPE_FAULT, a4, &a9, 0xCu);
+  _os_log_fault_impl(a1, v8, OS_LOG_TYPE_FAULT, a4, va, 0xCu);
 }
 
 void OUTLINED_FUNCTION_3_1(void *a1, int a2, os_log_t log, const char *a4, uint8_t *a5)
@@ -937,10 +945,11 @@ void OUTLINED_FUNCTION_3_1(void *a1, int a2, os_log_t log, const char *a4, uint8
   _os_log_error_impl(a1, log, OS_LOG_TYPE_ERROR, a4, a5, 0x12u);
 }
 
-void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 uint64_t OUTLINED_FUNCTION_1_1(uint64_t result, uint64_t a2, uint64_t a3, float a4)
@@ -961,16 +970,18 @@ uint64_t OUTLINED_FUNCTION_1_2(uint64_t result, uint64_t a2, int a3, float a4)
   return result;
 }
 
-void OUTLINED_FUNCTION_6_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_6_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, &a9, 0xCu);
+  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, va, 0xCu);
 }
 
-void OUTLINED_FUNCTION_6_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_6_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 void sub_272C2B2A8(_Unwind_Exception *a1)
@@ -987,9 +998,9 @@ void sub_272C2E5B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_272C2F818(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, uint64_t a8, uint64_t a9, ...)
+void sub_272C2F818(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -1004,24 +1015,22 @@ void sub_272C2FA8C(_Unwind_Exception *a1)
 
 id makeSettingDictionary(NSString *a1, objc_object *a2)
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = a2;
   v5 = v4;
   v6 = *MEMORY[0x277D4A158];
-  v11[0] = *MEMORY[0x277D4A150];
-  v11[1] = v6;
+  v10[0] = *MEMORY[0x277D4A150];
+  v10[1] = v6;
   v7 = &stru_288259858;
   if (v4)
   {
     v7 = v4;
   }
 
-  v12[0] = v3;
-  v12[1] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v11[0] = v3;
+  v11[1] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
 
   return v8;
 }
@@ -1033,15 +1042,16 @@ void sub_272C30800(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_0_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 2u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 2u);
 }
 
 uint64_t CKBABookmarkTypeForBookmark(void *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v1 = a1;
   if ([v1 isReadingListItem])
   {
@@ -1049,10 +1059,10 @@ uint64_t CKBABookmarkTypeForBookmark(void *a1)
     v3 = 1;
     if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
     {
-      v9 = 136315138;
-      v10 = "CKBABookmarkTypeForBookmark";
+      v8 = 136315138;
+      v9 = "CKBABookmarkTypeForBookmark";
       v3 = 1;
-      _os_log_impl(&dword_272C20000, v2, OS_LOG_TYPE_INFO, "<- %s -> CKBABookmarkTypeReadingListItem", &v9, 0xCu);
+      _os_log_impl(&dword_272C20000, v2, OS_LOG_TYPE_INFO, "<- %s -> CKBABookmarkTypeReadingListItem", &v8, 0xCu);
     }
   }
 
@@ -1065,9 +1075,9 @@ uint64_t CKBABookmarkTypeForBookmark(void *a1)
     {
       if (v6)
       {
-        v9 = 136315138;
-        v10 = "CKBABookmarkTypeForBookmark";
-        _os_log_impl(&dword_272C20000, v5, OS_LOG_TYPE_INFO, "<- %s -> CKBABookmarkTypeTabGroupScopedBookmark", &v9, 0xCu);
+        v8 = 136315138;
+        v9 = "CKBABookmarkTypeForBookmark";
+        _os_log_impl(&dword_272C20000, v5, OS_LOG_TYPE_INFO, "<- %s -> CKBABookmarkTypeTabGroupScopedBookmark", &v8, 0xCu);
       }
 
       v3 = 2;
@@ -1077,16 +1087,15 @@ uint64_t CKBABookmarkTypeForBookmark(void *a1)
     {
       if (v6)
       {
-        v9 = 136315138;
-        v10 = "CKBABookmarkTypeForBookmark";
-        _os_log_impl(&dword_272C20000, v5, OS_LOG_TYPE_INFO, "<- %s -> CKBABookmarkTypeRegular", &v9, 0xCu);
+        v8 = 136315138;
+        v9 = "CKBABookmarkTypeForBookmark";
+        _os_log_impl(&dword_272C20000, v5, OS_LOG_TYPE_INFO, "<- %s -> CKBABookmarkTypeRegular", &v8, 0xCu);
       }
 
       v3 = 0;
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -1645,7 +1654,7 @@ LABEL_152:
   return v8;
 }
 
-uint64_t __CKBAItemSetModifiedAttributes_block_invoke(uint64_t a1)
+void *__CKBAItemSetModifiedAttributes_block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isInserted];
   if (result)
@@ -1670,15 +1679,16 @@ id bookmarkURLWithString(void *a1)
   return a1;
 }
 
-void OUTLINED_FUNCTION_2_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_2_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0x16u);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0x16u);
 }
 
-void sub_272C396D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_272C396D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1706,31 +1716,31 @@ void __WBBookmarkSyncModifiedAttributesForKey_block_invoke()
 
 uint64_t WBBookmarkSyncModifiedAttributesForKeys(void *a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v1 = a1;
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
-  v2 = [v1 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v2)
   {
     v3 = v2;
     v4 = 0;
-    v5 = *v10;
+    v5 = *v9;
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v1);
         }
 
-        v4 |= WBBookmarkSyncModifiedAttributesForKey(*(*(&v9 + 1) + 8 * i));
+        v4 |= WBBookmarkSyncModifiedAttributesForKey(*(*(&v8 + 1) + 8 * i));
       }
 
-      v3 = [v1 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v3 = [v1 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v3);
@@ -1741,12 +1751,12 @@ uint64_t WBBookmarkSyncModifiedAttributesForKeys(void *a1)
     v4 = 0;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
-id WBKeysForBookmarkSyncModifiedAttributes(int a1)
+id WBKeysForBookmarkSyncModifiedAttributes(uint64_t a1)
 {
+  v1 = a1;
   v2 = [MEMORY[0x277CBEB58] set];
   v6[0] = MEMORY[0x277D85DD0];
   v6[1] = 3221225472;
@@ -1754,7 +1764,7 @@ id WBKeysForBookmarkSyncModifiedAttributes(int a1)
   v6[3] = &unk_279E75600;
   v7 = v2;
   v3 = v2;
-  _keysForModifiedAttributeMaskUsingBlock(a1, v6);
+  _keysForModifiedAttributeMaskUsingBlock(v1, v6);
   v4 = [v3 copy];
 
   return v4;
@@ -1983,11 +1993,11 @@ void sub_272C3B320(_Unwind_Exception *exception_object, int a2, ...)
   if (a2 == 1)
   {
     v2 = objc_begin_catch(exception_object);
-    v3 = WBS_LOG_CHANNEL_PREFIXCloudBookmarks();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = WBS_LOG_CHANNEL_PREFIXCloudBookmarks(v2, v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v4 = [v2 name];
-      [(WBBookmarkSyncData *)v4 positionFromContentsOfData:v3];
+      v5 = [v2 name];
+      [(WBBookmarkSyncData *)v5 positionFromContentsOfData:v4];
     }
 
     objc_end_catch();
@@ -1997,37 +2007,21 @@ void sub_272C3B320(_Unwind_Exception *exception_object, int a2, ...)
   _Unwind_Resume(exception_object);
 }
 
-void sub_272C41388(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, void *a4, void *a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_272C41388(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, void *a4, void *a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v13 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v20 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
 
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va1);
   _Unwind_Resume(a1);
 }
 
-void sub_272C41CB4(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-
-  WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_272C41E00(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-
-  WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_272C42660(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_272C41CB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
   va_start(va, a3);
 
@@ -2035,9 +2029,26 @@ void sub_272C42660(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
   _Unwind_Resume(a1);
 }
 
-void sub_272C42CD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, void *a12, void *a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, char a43)
+void sub_272C41E00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  _Block_object_dispose(&a43, 8);
+  va_start(va, a3);
+
+  WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_272C42660(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+{
+  va_start(va, a5);
+
+  WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_272C42CD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, void *a12, void *a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, ...)
+{
+  va_start(va, a42);
+  _Block_object_dispose(va, 8);
 
   _Unwind_Resume(a1);
 }
@@ -2063,109 +2074,109 @@ void sub_272C43CA0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_272C44E9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_272C44E9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
 
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
   _Unwind_Resume(a1);
 }
 
-void sub_272C45FE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_272C45FE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
 
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
   _Unwind_Resume(a1);
 }
 
-void sub_272C4611C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_272C4611C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
 
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
   _Unwind_Resume(a1);
 }
 
-void sub_272C4624C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_272C4624C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
 
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
   _Unwind_Resume(a1);
 }
 
-void sub_272C4632C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_272C4632C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
   _Unwind_Resume(a1);
 }
 
-void sub_272C466AC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_272C466AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
-
-  _Unwind_Resume(a1);
-}
-
-void sub_272C468A4(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
+  va_start(va, a3);
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
 
   _Unwind_Resume(a1);
 }
 
-void sub_272C46A7C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_272C468A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
 
   _Unwind_Resume(a1);
 }
 
-void sub_272C46F3C(_Unwind_Exception *a1, uint64_t a2, void *a3, void *a4, uint64_t a5, uint64_t a6, uint64_t a7, void *a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_272C46A7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a12);
+  va_start(va, a3);
+  WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
+
+  _Unwind_Resume(a1);
+}
+
+void sub_272C46F3C(_Unwind_Exception *a1, uint64_t a2, void *a3, void *a4, uint64_t a5, uint64_t a6, uint64_t a7, void *a8, uint64_t a9, void *a10, void *a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
+{
+  va_start(va, a19);
 
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
   _Unwind_Resume(a1);
 }
 
-void sub_272C474A4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_272C474A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
 
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
   _Unwind_Resume(a1);
 }
 
-void sub_272C47644(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_272C47644(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
   _Unwind_Resume(a1);
 }
 
-void sub_272C4775C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_272C4775C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
   _Unwind_Resume(a1);
 }
 
-void sub_272C47844(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_272C47844(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
   _Unwind_Resume(a1);
 }
 
-void sub_272C47940(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_272C47940(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
   _Unwind_Resume(a1);
 }
@@ -2177,38 +2188,7 @@ void sub_272C47FB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_272C48FE4(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
-
-  _Unwind_Resume(a1);
-}
-
-void sub_272C490D8(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_272C491F0(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
-
-  _Unwind_Resume(a1);
-}
-
-void sub_272C49320(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
-{
-  va_start(va, a4);
-  WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
-
-  _Unwind_Resume(a1);
-}
-
-void sub_272C4952C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_272C48FE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
   va_start(va, a3);
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
@@ -2216,24 +2196,55 @@ void sub_272C4952C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
   _Unwind_Resume(a1);
 }
 
-void sub_272C4AE10(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_272C490D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
+  WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_272C491F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
+
+  _Unwind_Resume(a1);
+}
+
+void sub_272C49320(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+{
+  va_start(va, a7);
+  WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
+
+  _Unwind_Resume(a1);
+}
+
+void sub_272C4952C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+{
+  va_start(va, a5);
+  WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
+
+  _Unwind_Resume(a1);
+}
+
+void sub_272C4AE10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
 
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
   _Unwind_Resume(a1);
 }
 
-void sub_272C4B30C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_272C4B30C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
   _Unwind_Resume(a1);
 }
 
 WebBookmarks::BookmarkSQLReadTransaction *WebBookmarks::BookmarkSQLReadTransaction::BookmarkSQLReadTransaction(WebBookmarks::BookmarkSQLReadTransaction *this, sqlite3 *a2, const char *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   *(this + 8) = 0;
   *this = &unk_288258A48;
   *(this + 1) = a2;
@@ -2293,12 +2304,11 @@ WebBookmarks::BookmarkSQLReadTransaction *WebBookmarks::BookmarkSQLReadTransacti
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         v14 = [MEMORY[0x277CCACC8] callStackSymbols];
-        WebBookmarks::BookmarkSQLReadTransaction::BookmarkSQLReadTransaction(v14, &v17);
+        WebBookmarks::BookmarkSQLReadTransaction::BookmarkSQLReadTransaction(v14, &v16);
       }
     }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return this;
 }
 
@@ -2328,10 +2338,11 @@ void WebBookmarks::BookmarkSQLReadTransaction::~BookmarkSQLReadTransaction(WebBo
   JUMPOUT(0x2743D62C0);
 }
 
-void OUTLINED_FUNCTION_0_3(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_3(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 __CFString *WBStringFromBookmarkSyncState(unint64_t a1)
@@ -2349,40 +2360,40 @@ __CFString *WBStringFromBookmarkSyncState(unint64_t a1)
   return v2;
 }
 
-void sub_272C533DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_272C533DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 96), 8);
+  _Block_object_dispose((v18 - 96), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_272C5666C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
-{
-  va_start(va, a8);
-
-  WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_272C56920(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-
-  WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_272C56B04(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_272C56EF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_272C5666C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
   va_start(va, a15);
+
+  WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_272C56920(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+
+  WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_272C56B04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_272C56EF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
+{
+  va_start(va, a22);
 
   SafariShared::SuddenTerminationDisabler::~SuddenTerminationDisabler(va);
   _Unwind_Resume(a1);
@@ -2395,17 +2406,18 @@ void sub_272C572BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_272C57B70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, void *a16, void *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35)
+void sub_272C57B70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, void *a16, void *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
 {
-  WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement((v38 - 256));
+  va_start(va, a34);
+  WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement((v37 - 256));
 
-  WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(&a35);
+  WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
   _Unwind_Resume(a1);
 }
 
-void sub_272C587E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_272C587E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
   _Unwind_Resume(a1);
 }
@@ -2424,71 +2436,71 @@ void sub_272C591FC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_272C59A3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_272C59A3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
 
-  WebBookmarks::BookmarkSQLReadTransaction::~BookmarkSQLReadTransaction(va);
+  WebBookmarks::BookmarkSQLReadTransaction::~BookmarkSQLReadTransaction(va, v22, v23);
   _Unwind_Resume(a1);
 }
 
-void sub_272C5A21C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_272C5A21C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
   _Unwind_Resume(a1);
 }
 
-void sub_272C5A330(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_272C5A330(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
-
-  _Unwind_Resume(a1);
-}
-
-void sub_272C5A550(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_272C5A6F4(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
+  va_start(va, a3);
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
 
   _Unwind_Resume(a1);
 }
 
-void sub_272C5A7F4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_272C5A550(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
+  WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_272C5A6F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
 
   _Unwind_Resume(a1);
 }
 
-void sub_272C5B6D8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_272C5A7F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
 
   _Unwind_Resume(a1);
 }
 
-void sub_272C5B7CC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_272C5B6D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
 
   _Unwind_Resume(a1);
 }
 
-void sub_272C5BBFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30)
+void sub_272C5B7CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  WebBookmarks::BookmarkSQLWriteTransaction::~BookmarkSQLWriteTransaction(&a30);
+  va_start(va, a3);
+  WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
+
+  _Unwind_Resume(a1);
+}
+
+void sub_272C5BBFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, WebBookmarks::BookmarkSQLStatement *a30)
+{
+  WebBookmarks::BookmarkSQLWriteTransaction::~BookmarkSQLWriteTransaction(&a30, v32, v33);
 
   _Unwind_Resume(a1);
 }
@@ -2500,21 +2512,21 @@ void sub_272C5C26C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_272C5C9E4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_272C5C9E4(_Unwind_Exception *a1, uint64_t a2, const char *a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a2);
-  WebBookmarks::BookmarkSQLWriteTransaction::~BookmarkSQLWriteTransaction(va);
+  va_start(va, a5);
+  WebBookmarks::BookmarkSQLWriteTransaction::~BookmarkSQLWriteTransaction(va, a2, a3);
 
   _Unwind_Resume(a1);
 }
 
-void sub_272C5CDA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_272C5CDA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va1, a3);
-  va_start(va, a3);
-  v7 = va_arg(va1, void);
+  va_start(va1, a5);
+  va_start(va, a5);
   v9 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
+  v11 = va_arg(va1, void);
+  v12 = va_arg(va1, void);
 
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va1);
@@ -2529,7 +2541,7 @@ void sub_272C5DB7C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_272C5E658(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, void *a11, void *a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, void *a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, id a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, id a46, char a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, id a52)
+void sub_272C5E658(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, void *a11, void *a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, void *a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, id a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, id a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, id a52)
 {
   _Block_object_dispose(&a47, 8);
 
@@ -2537,65 +2549,66 @@ void sub_272C5E658(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_272C5EED4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_272C5EED4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va1, a4);
-  va_start(va, a4);
-  v6 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
+  va_start(va1, a7);
+  va_start(va, a7);
   v9 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
   v11 = va_arg(va1, void);
   v12 = va_arg(va1, void);
   v13 = va_arg(va1, void);
+  v14 = va_arg(va1, void);
+  v15 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
 
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va1);
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
   _Unwind_Resume(a1);
 }
 
-void sub_272C5F9A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, void *a14, void *a15, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, void *a45, uint64_t a46, char a47)
+void sub_272C5F9A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, void *a14, void *a15, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, void *a45, uint64_t a46, ...)
 {
-  _Block_object_dispose(&a47, 8);
+  va_start(va, a46);
 
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_272C5FFC0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_272C5FFC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
 
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
   _Unwind_Resume(a1);
 }
 
-void sub_272C60F70(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_272C60F70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
 
   _Unwind_Resume(a1);
 }
 
-void sub_272C61018(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_272C61018(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
 
   _Unwind_Resume(a1);
 }
 
-void sub_272C6112C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_272C6112C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
 
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
   _Unwind_Resume(a1);
 }
 
-void sub_272C61258(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_272C61258(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
 
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
   _Unwind_Resume(a1);
@@ -2608,215 +2621,215 @@ void sub_272C61724(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_272C61870(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_272C61870(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
 
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
   _Unwind_Resume(a1);
 }
 
-void sub_272C61988(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_272C61988(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
   _Unwind_Resume(a1);
 }
 
-void sub_272C61A84(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_272C61A84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-
-  WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_272C61C20(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
+  va_start(va, a3);
 
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
   _Unwind_Resume(a1);
 }
 
-void sub_272C61FF8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_272C61C20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
-
-  _Unwind_Resume(a1);
-}
-
-void sub_272C6262C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
-{
-  va_start(va, a4);
-  WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
-
-  _Unwind_Resume(a1);
-}
-
-void sub_272C627AC(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_272C629D4(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
+  va_start(va, a3);
 
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
   _Unwind_Resume(a1);
 }
 
-void sub_272C62B14(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_272C61FF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
+  WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
+
+  _Unwind_Resume(a1);
+}
+
+void sub_272C6262C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+{
+  va_start(va, a7);
+  WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
+
+  _Unwind_Resume(a1);
+}
+
+void sub_272C627AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_272C629D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
 
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
   _Unwind_Resume(a1);
 }
 
-void sub_272C635C0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_272C62B14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_272C63798(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
-{
-  va_start(va, a4);
-  WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_272C639FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
-{
-  va_start(va, a6);
-  WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_272C63B04(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_272C640F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
+  va_start(va, a3);
 
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
   _Unwind_Resume(a1);
 }
 
-void sub_272C64A20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, ...)
+void sub_272C635C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a6);
-
+  va_start(va, a3);
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
   _Unwind_Resume(a1);
 }
 
-void sub_272C64CA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_272C63798(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
   _Unwind_Resume(a1);
 }
 
-void sub_272C6528C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, void *a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_272C639FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va1, a11);
   va_start(va, a11);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-
-  WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
-  WebBookmarks::BookmarkSQLWriteTransaction::~BookmarkSQLWriteTransaction(va1);
-  _Unwind_Resume(a1);
-}
-
-void sub_272C654DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
-{
-  va_start(va, a4);
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
   _Unwind_Resume(a1);
 }
 
-void sub_272C65750(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_272C63B04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a4);
-  v9 = v8;
-
-  WebBookmarks::BookmarkSQLWriteTransaction::~BookmarkSQLWriteTransaction(va);
+  va_start(va, a3);
+  WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
   _Unwind_Resume(a1);
 }
 
-void sub_272C66AFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_272C640F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a4);
-  va_start(va, a4);
-  v11 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
+  va_start(va, a16);
+
+  WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_272C64A20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, ...)
+{
+  va_start(va, a11);
+
+  WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_272C64CA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+{
+  va_start(va, a7);
+  WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_272C6528C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, void *a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
+{
+  va_start(va1, a18);
+  va_start(va, a18);
+  v21 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+
+  WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
+  WebBookmarks::BookmarkSQLWriteTransaction::~BookmarkSQLWriteTransaction(va1, v19, v20);
+  _Unwind_Resume(a1);
+}
+
+void sub_272C654DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+{
+  va_start(va, a7);
+  WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_272C65750(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+{
+  va_start(va, a7);
+  v12 = v11;
+
+  WebBookmarks::BookmarkSQLWriteTransaction::~BookmarkSQLWriteTransaction(va, v14, v15);
+  _Unwind_Resume(a1);
+}
+
+void sub_272C66AFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+{
+  va_start(va1, a7);
+  va_start(va, a7);
   v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
   v16 = va_arg(va1, void);
   v17 = va_arg(va1, void);
   v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
 
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va1);
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
 
-  WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement((v9 - 128));
+  WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement((v12 - 128));
   _Unwind_Resume(a1);
 }
 
-void sub_272C670EC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_272C670EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
   _Unwind_Resume(a1);
 }
 
-void sub_272C67184(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_272C67184(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
   _Unwind_Resume(a1);
 }
 
-void sub_272C67444(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_272C67444(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_272C67680(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
-{
-  va_start(va, a6);
-
-  WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_272C68300(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
-
-  _Unwind_Resume(a1);
-}
-
-void sub_272C6908C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, void *a4, void *a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_272C67680(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
   va_start(va, a11);
+
+  WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_272C68300(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
+
+  _Unwind_Resume(a1);
+}
+
+void sub_272C6908C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, void *a4, void *a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
+{
+  va_start(va, a18);
 
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
   _Unwind_Resume(a1);
@@ -2829,42 +2842,42 @@ void sub_272C69320(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_272C6AB3C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_272C6AB3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
 
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
   _Unwind_Resume(a1);
 }
 
-void sub_272C6ADD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_272C6ADD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
 
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
   _Unwind_Resume(a1);
 }
 
-void sub_272C6B014(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_272C6B014(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
 
   _Unwind_Resume(a1);
 }
 
-void sub_272C6B568(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_272C6B568(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va2, a4);
-  va_start(va1, a4);
-  va_start(va, a4);
-  v7 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
+  va_start(va2, a7);
+  va_start(va1, a7);
+  va_start(va, a7);
   v10 = va_arg(va1, void);
+  v12 = va_arg(va1, void);
+  v13 = va_arg(va1, void);
   va_copy(va2, va1);
-  v11 = va_arg(va2, void);
-  v13 = va_arg(va2, void);
   v14 = va_arg(va2, void);
+  v16 = va_arg(va2, void);
+  v17 = va_arg(va2, void);
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
 
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va1);
@@ -2873,36 +2886,36 @@ void sub_272C6B568(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_272C6B7E8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_272C6B7E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
 
   _Unwind_Resume(a1);
 }
 
-void sub_272C6B950(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
+void sub_272C6B950(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
 {
   _Block_object_dispose(&a17, 8);
 
   _Unwind_Resume(a1);
 }
 
-void sub_272C6C028(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_272C6C028(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
 
   _Unwind_Resume(a1);
 }
 
-void sub_272C6C2E8(_Unwind_Exception *a1, uint64_t a2, void *a3, void *a4, void *a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_272C6C2E8(_Unwind_Exception *a1, uint64_t a2, void *a3, void *a4, void *a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, void *a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va1, a13);
-  va_start(va, a13);
-  v14 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
+  va_start(va1, a20);
+  va_start(va, a20);
+  v21 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
 
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va1);
@@ -2910,25 +2923,26 @@ void sub_272C6C2E8(_Unwind_Exception *a1, uint64_t a2, void *a3, void *a4, void 
   _Unwind_Resume(a1);
 }
 
-void sub_272C6C4A0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_272C6C4A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
 
   _Unwind_Resume(a1);
 }
 
-void sub_272C6C610(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_272C6C610(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
 
   _Unwind_Resume(a1);
 }
 
-void sub_272C6CA90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, void *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, char a34)
+void sub_272C6CA90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, void *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, ...)
 {
-  WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(&a34);
+  va_start(va, a33);
+  WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
 
   _Unwind_Resume(a1);
 }
@@ -2960,71 +2974,71 @@ uint64_t compareBookmarksByOrder(void *a1, void *a2, void *a3)
   return v7;
 }
 
-void sub_272C6CE18(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_272C6CE18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
 
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
   _Unwind_Resume(a1);
 }
 
-void sub_272C6CF18(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_272C6CF18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
   _Unwind_Resume(a1);
 }
 
-void sub_272C6D26C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_272C6D26C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
-
-  WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_272C6D464(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
+  va_start(va, a7);
 
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
   _Unwind_Resume(a1);
 }
 
-void sub_272C6D9DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_272C6D464(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a4);
+  va_start(va, a3);
 
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
   _Unwind_Resume(a1);
 }
 
-void sub_272C6DAC4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_272C6D9DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a2);
+  va_start(va, a7);
+
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
   _Unwind_Resume(a1);
 }
 
-void sub_272C6DB80(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_272C6DAC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
+  WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_272C6DB80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
 
   _Unwind_Resume(a1);
 }
 
-void sub_272C6DE20(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_272C6DE20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
 
   _Unwind_Resume(a1);
 }
 
-void sub_272C6DEC8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_272C6DEC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
   _Unwind_Resume(a1);
 }
@@ -3039,15 +3053,16 @@ void BookmarksFileChanged(__CFNotificationCenter *a1, void *a2, const __CFString
   }
 
   v7 = a2;
+  v8 = v7;
   if (v7)
   {
-    v8 = bookmarksCollectionQueue();
+    v9 = bookmarksCollectionQueue(v7);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = ___ZL20BookmarksFileChangedP22__CFNotificationCenterPvPK10__CFStringPKvPK14__CFDictionary_block_invoke;
     block[3] = &unk_279E757C8;
-    v10 = v7;
-    dispatch_sync(v8, block);
+    v11 = v8;
+    dispatch_sync(v9, block);
   }
 }
 
@@ -3058,43 +3073,43 @@ void sub_272C6E544(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_272C6E630(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_272C6E630(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
   _Unwind_Resume(a1);
 }
 
-void sub_272C6E724(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_272C6E724(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
 
-  WebBookmarks::BookmarkSQLWriteTransaction::~BookmarkSQLWriteTransaction(va);
+  WebBookmarks::BookmarkSQLWriteTransaction::~BookmarkSQLWriteTransaction(va, v6, v7);
   _Unwind_Resume(a1);
 }
 
-void sub_272C6EE4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_272C6EE4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
   _Unwind_Resume(a1);
 }
 
-void sub_272C6F798(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_272C6F798(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
 
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
   _Unwind_Resume(a1);
 }
 
-void sub_272C6FC00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_272C6FC00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va1, a10);
-  va_start(va, a10);
-  v13 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a17);
+  va_start(va, a17);
+  v20 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
 
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va1);
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
@@ -3102,24 +3117,24 @@ void sub_272C6FC00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_272C6FD04(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_272C6FD04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
   _Unwind_Resume(a1);
 }
 
-void sub_272C6FFB4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_272C6FFB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
 
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
   _Unwind_Resume(a1);
 }
 
-void sub_272C700E4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_272C700E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
   _Unwind_Resume(a1);
 }
@@ -3131,18 +3146,18 @@ void sub_272C70B14(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_272C71B90(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_272C71B90(_Unwind_Exception *a1, uint64_t a2, const char *a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a2);
-  WebBookmarks::BookmarkSQLWriteTransaction::~BookmarkSQLWriteTransaction(va);
+  va_start(va, a5);
+  WebBookmarks::BookmarkSQLWriteTransaction::~BookmarkSQLWriteTransaction(va, a2, a3);
   _Unwind_Resume(a1);
 }
 
-void sub_272C72A20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, void *a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, void *a37, uint64_t a38, uint64_t a39, void *a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, char a62, uint64_t a63)
+void sub_272C72A20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, void *a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, void *a37, uint64_t a38, uint64_t a39, void *a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(&a62);
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(&a65);
-  WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(&a68);
+  WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(&a66);
   (*(*a18 + 8))(a18);
   (*(*a23 + 8))(a23);
 
@@ -3158,30 +3173,77 @@ void sub_272C72A20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_272C72EF8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_272C72EF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
   _Unwind_Resume(a1);
 }
 
-void sub_272C7320C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_272C7320C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
-  WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
-
-  _Unwind_Resume(a1);
-}
-
-void sub_272C73CAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
-{
-  va_start(va, a4);
+  va_start(va, a23);
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
 
   _Unwind_Resume(a1);
 }
 
-void sub_272C7448C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_272C73CAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+{
+  va_start(va, a7);
+  WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
+
+  _Unwind_Resume(a1);
+}
+
+void sub_272C7448C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+{
+  va_start(va, a5);
+
+  WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_272C74614(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
+
+  _Unwind_Resume(a1);
+}
+
+void sub_272C747A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  v6 = v5;
+
+  WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_272C74944(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_272C74AC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_272C7518C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
+  _Block_object_dispose((v3 - 64), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_272C75344(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
   va_start(va, a3);
 
@@ -3189,70 +3251,23 @@ void sub_272C7448C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
   _Unwind_Resume(a1);
 }
 
-void sub_272C74614(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_272C75608(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a2);
-  WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
-
-  _Unwind_Resume(a1);
-}
-
-void sub_272C747A0(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  v5 = v4;
-
-  WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_272C74944(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_272C74AC4(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_272C7518C(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
-  _Block_object_dispose((v2 - 64), 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_272C75344(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-
-  WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_272C75608(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_272C762E4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_272C762E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
   _Unwind_Resume(a1);
 }
 
-void sub_272C76714(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_272C76714(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
 
   _Unwind_Resume(a1);
@@ -3287,9 +3302,11 @@ uint64_t ___ZL33prefixEndingWithFirstWordOfStringP8NSString_block_invoke()
   v1 = prefixEndingWithFirstWordOfString(NSString *)::tokenizer;
   prefixEndingWithFirstWordOfString(NSString *)::tokenizer = v0;
 
-  prefixEndingWithFirstWordOfString(NSString *)::tokenizerAccessQueue = dispatch_queue_create("com.apple.WebBookmarks.titleWordTokenizerAccess", 0);
+  v2 = dispatch_queue_create("com.apple.WebBookmarks.titleWordTokenizerAccess", 0);
+  v3 = prefixEndingWithFirstWordOfString(NSString *)::tokenizerAccessQueue;
+  prefixEndingWithFirstWordOfString(NSString *)::tokenizerAccessQueue = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v3);
 }
 
 __n128 __Block_byref_object_copy__1855(__n128 *a1, __n128 *a2)
@@ -3299,7 +3316,7 @@ __n128 __Block_byref_object_copy__1855(__n128 *a1, __n128 *a2)
   return result;
 }
 
-uint64_t ___ZL33prefixEndingWithFirstWordOfStringP8NSString_block_invoke_1858(uint64_t a1)
+void *___ZL33prefixEndingWithFirstWordOfStringP8NSString_block_invoke_1858(uint64_t a1)
 {
   [prefixEndingWithFirstWordOfString(NSString *)::tokenizer setString:*(a1 + 32)];
   result = [prefixEndingWithFirstWordOfString(NSString *)::tokenizer advanceToNextToken];
@@ -3349,7 +3366,7 @@ void ___ZL20BookmarksFileChangedP22__CFNotificationCenterPvPK10__CFStringPKvPK14
 
 void _SetErrorFromSQLiteResult(uint64_t a1, void *a2)
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   if (a2)
   {
     if ((a1 - 1) > 0x19)
@@ -3363,27 +3380,25 @@ void _SetErrorFromSQLiteResult(uint64_t a1, void *a2)
     }
 
     v4 = MEMORY[0x277CCA9B8];
-    v8 = @"SQLiteResult";
+    v7 = @"SQLiteResult";
     v5 = [MEMORY[0x277CCABB0] numberWithInt:a1];
-    v9[0] = v5;
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+    v8[0] = v5;
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
     *a2 = [v4 errorWithDomain:@"com.apple.WebBookmarks.ErrorDomain" code:v3 userInfo:v6];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
-void sub_272C786C4(_Unwind_Exception *a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_272C786C4(_Unwind_Exception *a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
 
-  WebBookmarks::BookmarkSQLReadTransaction::~BookmarkSQLReadTransaction(va);
+  WebBookmarks::BookmarkSQLReadTransaction::~BookmarkSQLReadTransaction(va, v20, v21);
   _Unwind_Resume(a1);
 }
 
-void sub_272C79014(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_272C79014(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
 
   _Unwind_Resume(a1);
@@ -3396,41 +3411,41 @@ void sub_272C792D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_272C79400(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_272C79400(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
 
   _Unwind_Resume(a1);
 }
 
-void sub_272C79588(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_272C79588(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
 
   _Unwind_Resume(a1);
 }
 
-void sub_272C796B0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_272C796B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
 
   _Unwind_Resume(a1);
 }
 
-void sub_272C79848(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_272C79848(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
 
   _Unwind_Resume(a1);
 }
 
-void sub_272C79970(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_272C79970(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
 
   _Unwind_Resume(a1);
@@ -3461,34 +3476,29 @@ void webFilterConfigurationChanged(uint64_t a1, void *a2)
 
 uint64_t __WebContentAnalysisLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   WebContentAnalysisLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __TextInputLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   TextInputLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void sub_272C7ED30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, void *a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32)
+void sub_272C7ED30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, void *a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
 {
-  WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(&a32);
+  va_start(va, a31);
+  WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
 
   _Unwind_Resume(a1);
 }
 
 uint64_t bookmarkMatchesFilter(void *a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = a2;
   if (bookmarkMatchesFilter(WebBookmark *,NSArray<NSString *> *)::onceToken != -1)
@@ -3501,39 +3511,39 @@ uint64_t bookmarkMatchesFilter(void *a1, void *a2)
     v5 = [v3 title];
     v6 = [v5 componentsSeparatedByCharactersInSet:{bookmarkMatchesFilter(WebBookmark *, NSArray<NSString *> *)::tokenizationCharacterSet}];
 
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v7 = v4;
-    v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v8)
     {
-      v15 = v3;
-      v9 = *v18;
+      v14 = v3;
+      v9 = *v17;
       while (2)
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v18 != v9)
+          if (*v17 != v9)
           {
             objc_enumerationMutation(v7);
           }
 
-          v11 = *(*(&v17 + 1) + 8 * i);
-          v16[0] = MEMORY[0x277D85DD0];
-          v16[1] = 3221225472;
-          v16[2] = ___ZL21bookmarkMatchesFilterP11WebBookmarkP7NSArrayIP8NSStringE_block_invoke_2;
-          v16[3] = &unk_279E766A0;
-          v16[4] = v11;
-          if ([v6 indexOfObjectPassingTest:{v16, v15}] == 0x7FFFFFFFFFFFFFFFLL)
+          v11 = *(*(&v16 + 1) + 8 * i);
+          v15[0] = MEMORY[0x277D85DD0];
+          v15[1] = 3221225472;
+          v15[2] = ___ZL21bookmarkMatchesFilterP11WebBookmarkP7NSArrayIP8NSStringE_block_invoke_2;
+          v15[3] = &unk_279E766A0;
+          v15[4] = v11;
+          if ([v6 indexOfObjectPassingTest:{v15, v14}] == 0x7FFFFFFFFFFFFFFFLL)
           {
             v12 = 0;
             goto LABEL_14;
           }
         }
 
-        v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
         if (v8)
         {
           continue;
@@ -3544,7 +3554,7 @@ uint64_t bookmarkMatchesFilter(void *a1, void *a2)
 
       v12 = 1;
 LABEL_14:
-      v3 = v15;
+      v3 = v14;
     }
 
     else
@@ -3558,14 +3568,14 @@ LABEL_14:
     v12 = 1;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
-void sub_272C8035C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, void *a15, void *a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21, void *a22, void *a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, char a55)
+void sub_272C8035C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, void *a15, void *a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21, void *a22, void *a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, ...)
 {
-  WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(&a55);
+  va_start(va, a54);
 
+  WebBookmarks::BookmarkSQLStatement::~BookmarkSQLStatement(va);
   _Unwind_Resume(a1);
 }
 
@@ -3589,9 +3599,9 @@ void sub_272C809F8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_272C80EA4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_272C80EA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   SafariShared::SuddenTerminationDisabler::~SuddenTerminationDisabler(va);
 
   _Unwind_Resume(a1);
@@ -3702,7 +3712,7 @@ void sub_272C85F04(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_272C86274(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, id a42)
+void sub_272C86274(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, id a42)
 {
   _Block_object_dispose(&a17, 8);
 
@@ -3744,7 +3754,7 @@ void sub_272C8C0E4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_272C8C474(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, id a34, char a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, id a40)
+void sub_272C8C474(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, id a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, id a40)
 {
   _Block_object_dispose(&a29, 8);
 
@@ -3752,7 +3762,7 @@ void sub_272C8C474(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_272C8C770(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24)
+void sub_272C8C770(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24)
 {
   _Block_object_dispose(&a19, 8);
 
@@ -3808,12 +3818,12 @@ void sub_272C8F4E8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_272C8FE74(_Unwind_Exception *a1, uint64_t a2, void *a3, void *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_272C8FE74(_Unwind_Exception *a1, uint64_t a2, void *a3, void *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, void *a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, void *a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
 
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v23 - 136), 8);
+  _Block_object_dispose((v30 - 136), 8);
 
   _Unwind_Resume(a1);
 }
@@ -3827,64 +3837,67 @@ uint64_t OUTLINED_FUNCTION_0_4(uint64_t result, uint64_t a2, int a3, float a4)
   return result;
 }
 
-id BookmarkSQLiteColumnsWithoutIcon()
+id BookmarkSQLiteColumnsWithoutIcon(uint64_t a1)
 {
   if (BookmarkSQLiteColumnsWithoutIcon_onceToken != -1)
   {
     BookmarkSQLiteColumnsWithoutIcon_cold_1();
   }
 
-  v1 = BookmarkSQLiteColumnsWithoutIcon_columnsStringWithoutIcon;
-
-  return v1;
-}
-
-void __BookmarkSQLiteColumnsWithoutIcon_block_invoke()
-{
-  v0 = BookmarkSQLiteColumnNames();
-  v3 = [v0 mutableCopy];
-
-  [v3 removeObject:@"bookmarks.icon"];
-  v1 = [v3 componentsJoinedByString:{@", "}];
   v2 = BookmarkSQLiteColumnsWithoutIcon_columnsStringWithoutIcon;
-  BookmarkSQLiteColumnsWithoutIcon_columnsStringWithoutIcon = v1;
+
+  return v2;
 }
 
-id BookmarkInFolderWithoutIconColumnsSelectQuery()
+void __BookmarkSQLiteColumnsWithoutIcon_block_invoke(uint64_t a1)
+{
+  v1 = BookmarkSQLiteColumnNames(a1);
+  v4 = [v1 mutableCopy];
+
+  [v4 removeObject:@"bookmarks.icon"];
+  v2 = [v4 componentsJoinedByString:{@", "}];
+  v3 = BookmarkSQLiteColumnsWithoutIcon_columnsStringWithoutIcon;
+  BookmarkSQLiteColumnsWithoutIcon_columnsStringWithoutIcon = v2;
+}
+
+id BookmarkInFolderWithoutIconColumnsSelectQuery(uint64_t a1)
 {
   if (BookmarkInFolderWithoutIconColumnsSelectQuery_onceToken != -1)
   {
     BookmarkInFolderWithoutIconColumnsSelectQuery_cold_1();
   }
 
-  v1 = BookmarkInFolderWithoutIconColumnsSelectQuery_query;
+  v2 = BookmarkInFolderWithoutIconColumnsSelectQuery_query;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __BookmarkInFolderWithoutIconColumnsSelectQuery_block_invoke()
 {
-  BookmarkInFolderWithoutIconColumnsSelectQuery_query = BookmarkInFolderWithoutIconColumnsSelectQueryWithOptions(0);
+  v0 = BookmarkInFolderWithoutIconColumnsSelectQueryWithOptions(0);
+  v1 = BookmarkInFolderWithoutIconColumnsSelectQuery_query;
+  BookmarkInFolderWithoutIconColumnsSelectQuery_query = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
-id BookmarkInFolderWithoutIconColumnsSelectQueryWithOptions(char a1)
+id BookmarkInFolderWithoutIconColumnsSelectQueryWithOptions(uint64_t a1)
 {
-  v2 = BookmarkSQLiteColumnsWithoutIcon();
+  v1 = a1;
+  v2 = BookmarkSQLiteColumnsWithoutIcon(a1);
   v3 = &stru_288259858;
   v4 = @"AND hidden = 0 ";
-  if (a1)
+  if (v1)
   {
     v4 = &stru_288259858;
   }
 
-  if ((a1 & 6) == 2)
+  if ((v1 & 6) == 2)
   {
     v3 = @"AND type = 0 ";
   }
 
-  if ((a1 & 6) == 4)
+  if ((v1 & 6) == 4)
   {
     v3 = @"AND type = 1 ";
   }
@@ -3894,100 +3907,98 @@ id BookmarkInFolderWithoutIconColumnsSelectQueryWithOptions(char a1)
   return v5;
 }
 
-id WBSafariPreferencesDomain()
+id WBSafariPreferencesDomain(uint64_t a1)
 {
   if (WBSafariPreferencesDomain_onceToken != -1)
   {
     WBSafariPreferencesDomain_cold_1();
   }
 
-  v1 = WBSafariPreferencesDomain_domain;
+  v2 = WBSafariPreferencesDomain_domain;
 
-  return v1;
+  return v2;
 }
 
-void __WBSafariPreferencesDomain_block_invoke()
+void __WBSafariPreferencesDomain_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = WBCurrentProcessContainerPath();
+  v2 = WBCurrentProcessContainerPath(a1);
 
-  if (v0)
+  if (v2)
   {
-    v1 = WBSafariPreferencesDomain_domain;
+    v4 = WBSafariPreferencesDomain_domain;
     WBSafariPreferencesDomain_domain = @"com.apple.mobilesafari";
   }
 
   else
   {
-    v2 = WBSafariContainerPath();
-    v5 = v2;
-    if (v2)
+    v5 = WBSafariContainerPath(v3);
+    v8 = v5;
+    if (v5)
     {
-      v3 = [v2 stringByAppendingPathComponent:@"Library/Preferences/com.apple.mobilesafari"];
+      v6 = [v5 stringByAppendingPathComponent:@"Library/Preferences/com.apple.mobilesafari"];
     }
 
     else
     {
-      v3 = @"com.apple.mobilesafari";
+      v6 = @"com.apple.mobilesafari";
     }
 
-    v4 = WBSafariPreferencesDomain_domain;
-    WBSafariPreferencesDomain_domain = v3;
+    v7 = WBSafariPreferencesDomain_domain;
+    WBSafariPreferencesDomain_domain = v6;
 
-    v1 = v5;
+    v4 = v8;
   }
 }
 
-id WBCurrentProcessContainerPath()
+id WBCurrentProcessContainerPath(uint64_t a1)
 {
   if (WBCurrentProcessContainerPath_onceToken != -1)
   {
     WBCurrentProcessContainerPath_cold_1();
   }
 
-  v1 = WBCurrentProcessContainerPath_containerPath;
+  v2 = WBCurrentProcessContainerPath_containerPath;
 
-  return v1;
+  return v2;
 }
 
-id WBSafariContainerPath()
+id WBSafariContainerPath(uint64_t a1)
 {
   if (WBSafariContainerPath_onceToken != -1)
   {
     WBSafariContainerPath_cold_1();
   }
 
-  v1 = WBSafariContainerPath_containerPath;
+  v2 = WBSafariContainerPath_containerPath;
 
-  return v1;
+  return v2;
 }
 
 void __WBCurrentProcessContainerPath_block_invoke()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   getpid();
   if (!sandbox_container_path_for_pid())
   {
-    v0 = [MEMORY[0x277CCACA8] stringWithUTF8String:v3];
+    v0 = [MEMORY[0x277CCACA8] stringWithUTF8String:v2];
     v1 = WBCurrentProcessContainerPath_containerPath;
     WBCurrentProcessContainerPath_containerPath = v0;
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
-void __WBSafariContainerPath_block_invoke()
+void __WBSafariContainerPath_block_invoke(uint64_t a1)
 {
-  v0 = WBCurrentProcessContainerPath();
-  v1 = WBSafariContainerPath_containerPath;
-  WBSafariContainerPath_containerPath = v0;
+  v1 = WBCurrentProcessContainerPath(a1);
+  v2 = WBSafariContainerPath_containerPath;
+  WBSafariContainerPath_containerPath = v1;
 
   if (!WBSafariContainerPath_containerPath)
   {
-    v5 = [MEMORY[0x277CC1E60] applicationProxyForIdentifier:@"com.apple.mobilesafari" placeholder:0];
-    v2 = [v5 dataContainerURL];
-    v3 = [v2 path];
-    v4 = WBSafariContainerPath_containerPath;
-    WBSafariContainerPath_containerPath = v3;
+    v6 = [MEMORY[0x277CC1E60] applicationProxyForIdentifier:@"com.apple.mobilesafari" placeholder:0];
+    v3 = [v6 dataContainerURL];
+    v4 = [v3 path];
+    v5 = WBSafariContainerPath_containerPath;
+    WBSafariContainerPath_containerPath = v4;
   }
 }
 
@@ -4023,7 +4034,7 @@ __CFString *WBNSStringFromCollectionStoreOwner(uint64_t a1)
   }
 }
 
-uint64_t WBS_LOG_CHANNEL_PREFIXCloudBookmarks()
+uint64_t WBS_LOG_CHANNEL_PREFIXCloudBookmarks(uint64_t a1, uint64_t a2)
 {
   if (WBS_LOG_CHANNEL_PREFIXCloudBookmarks_onceToken != -1)
   {
@@ -4033,7 +4044,7 @@ uint64_t WBS_LOG_CHANNEL_PREFIXCloudBookmarks()
   return WBS_LOG_CHANNEL_PREFIXCloudBookmarks_log;
 }
 
-uint64_t WBS_LOG_CHANNEL_PREFIXCycler()
+uint64_t WBS_LOG_CHANNEL_PREFIXCycler(uint64_t a1, uint64_t a2)
 {
   if (WBS_LOG_CHANNEL_PREFIXCycler_onceToken != -1)
   {
@@ -4043,7 +4054,7 @@ uint64_t WBS_LOG_CHANNEL_PREFIXCycler()
   return WBS_LOG_CHANNEL_PREFIXCycler_log;
 }
 
-uint64_t WBS_LOG_CHANNEL_PREFIXDataMigration()
+uint64_t WBS_LOG_CHANNEL_PREFIXDataMigration(uint64_t a1, uint64_t a2)
 {
   if (WBS_LOG_CHANNEL_PREFIXDataMigration_onceToken != -1)
   {
@@ -4053,7 +4064,7 @@ uint64_t WBS_LOG_CHANNEL_PREFIXDataMigration()
   return WBS_LOG_CHANNEL_PREFIXDataMigration_log;
 }
 
-uint64_t WBS_LOG_CHANNEL_PREFIXReadingList()
+uint64_t WBS_LOG_CHANNEL_PREFIXReadingList(uint64_t a1, uint64_t a2)
 {
   if (WBS_LOG_CHANNEL_PREFIXReadingList_onceToken != -1)
   {
@@ -4063,7 +4074,7 @@ uint64_t WBS_LOG_CHANNEL_PREFIXReadingList()
   return WBS_LOG_CHANNEL_PREFIXReadingList_log;
 }
 
-uint64_t WBS_LOG_CHANNEL_PREFIXReadingListIcons()
+uint64_t WBS_LOG_CHANNEL_PREFIXReadingListIcons(uint64_t a1, uint64_t a2)
 {
   if (WBS_LOG_CHANNEL_PREFIXReadingListIcons_onceToken != -1)
   {
@@ -4073,7 +4084,7 @@ uint64_t WBS_LOG_CHANNEL_PREFIXReadingListIcons()
   return WBS_LOG_CHANNEL_PREFIXReadingListIcons_log;
 }
 
-uint64_t WBS_LOG_CHANNEL_PREFIXTabs()
+uint64_t WBS_LOG_CHANNEL_PREFIXTabs(uint64_t a1, uint64_t a2)
 {
   if (WBS_LOG_CHANNEL_PREFIXTabs_onceToken != -1)
   {
@@ -4083,7 +4094,7 @@ uint64_t WBS_LOG_CHANNEL_PREFIXTabs()
   return WBS_LOG_CHANNEL_PREFIXTabs_log;
 }
 
-uint64_t WBS_LOG_CHANNEL_PREFIXWebBookmarkServer()
+uint64_t WBS_LOG_CHANNEL_PREFIXWebBookmarkServer(uint64_t a1, uint64_t a2)
 {
   if (WBS_LOG_CHANNEL_PREFIXWebBookmarkServer_onceToken != -1)
   {
@@ -4093,7 +4104,7 @@ uint64_t WBS_LOG_CHANNEL_PREFIXWebBookmarkServer()
   return WBS_LOG_CHANNEL_PREFIXWebBookmarkServer_log;
 }
 
-uint64_t WBS_LOG_CHANNEL_PREFIXWebsiteData()
+uint64_t WBS_LOG_CHANNEL_PREFIXWebsiteData(uint64_t a1, uint64_t a2)
 {
   if (WBS_LOG_CHANNEL_PREFIXWebsiteData_onceToken != -1)
   {
@@ -4103,7 +4114,7 @@ uint64_t WBS_LOG_CHANNEL_PREFIXWebsiteData()
   return WBS_LOG_CHANNEL_PREFIXWebsiteData_log;
 }
 
-uint64_t WBS_LOG_CHANNEL_PREFIXCloudSettings()
+uint64_t WBS_LOG_CHANNEL_PREFIXCloudSettings(uint64_t a1, uint64_t a2)
 {
   if (WBS_LOG_CHANNEL_PREFIXCloudSettings_onceToken != -1)
   {
@@ -4113,7 +4124,7 @@ uint64_t WBS_LOG_CHANNEL_PREFIXCloudSettings()
   return WBS_LOG_CHANNEL_PREFIXCloudSettings_log;
 }
 
-uint64_t WBS_LOG_CHANNEL_PREFIXProfiles()
+uint64_t WBS_LOG_CHANNEL_PREFIXProfiles(uint64_t a1, uint64_t a2)
 {
   if (WBS_LOG_CHANNEL_PREFIXProfiles_onceToken != -1)
   {
@@ -4123,7 +4134,7 @@ uint64_t WBS_LOG_CHANNEL_PREFIXProfiles()
   return WBS_LOG_CHANNEL_PREFIXProfiles_log;
 }
 
-uint64_t WBS_LOG_CHANNEL_PREFIXImport()
+uint64_t WBS_LOG_CHANNEL_PREFIXImport(uint64_t a1, uint64_t a2)
 {
   if (WBS_LOG_CHANNEL_PREFIXImport_onceToken != -1)
   {
@@ -4133,7 +4144,7 @@ uint64_t WBS_LOG_CHANNEL_PREFIXImport()
   return WBS_LOG_CHANNEL_PREFIXImport_log;
 }
 
-uint64_t WBS_LOG_CHANNEL_PREFIXExport()
+uint64_t WBS_LOG_CHANNEL_PREFIXExport(uint64_t a1, uint64_t a2)
 {
   if (WBS_LOG_CHANNEL_PREFIXExport_onceToken != -1)
   {
@@ -4169,14 +4180,14 @@ void __processAccessLevel_block_invoke()
   }
 }
 
-void sub_272C9B33C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_272C9B33C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_272C9CB3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_272C9CB3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -4189,11 +4200,11 @@ void sub_272C9CD34(_Unwind_Exception *exception_object, int a2, ...)
   if (a2 == 1)
   {
     v2 = objc_begin_catch(exception_object);
-    v3 = WBS_LOG_CHANNEL_PREFIXCloudBookmarks();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = WBS_LOG_CHANNEL_PREFIXCloudBookmarks(v2, v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v4 = [v2 name];
-      [(WBBookmarkDatabaseSyncData *)v4 databaseSyncDataWithContentsOfData:v3];
+      v5 = [v2 name];
+      [(WBBookmarkDatabaseSyncData *)v5 databaseSyncDataWithContentsOfData:v4];
     }
 
     objc_end_catch();
@@ -4203,10 +4214,11 @@ void sub_272C9CD34(_Unwind_Exception *exception_object, int a2, ...)
   _Unwind_Resume(exception_object);
 }
 
-void OUTLINED_FUNCTION_0_5(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_5(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
 void sub_272CA0498(_Unwind_Exception *a1)
@@ -4223,9 +4235,9 @@ void sub_272CA07A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_272CA0E2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_272CA0E2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4247,9 +4259,9 @@ uint64_t _tabGroupManagerProfilesChanged(uint64_t a1, void *a2)
   return [a2 _reloadProfilesAndTabGroupsAndNotify:1 withCompletionHandler:0];
 }
 
-void sub_272CB1AAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_272CB1AAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4279,9 +4291,9 @@ void sub_272CB9204(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_272CB98FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_272CB98FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4293,35 +4305,33 @@ void sub_272CB9C08(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_0_7(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_7(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 uint64_t sub_272CBD6D8()
 {
-  v1 = *(v0 + 24);
 
   return MEMORY[0x2821FE8D8](v0, 32, 7);
 }
 
 void WebBookmarks::BookmarkSQLStatement::BookmarkSQLStatement(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_error_impl(&dword_272C20000, a2, OS_LOG_TYPE_ERROR, "Prepare statement failed (%i)", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_error_impl(&dword_272C20000, a2, OS_LOG_TYPE_ERROR, "Prepare statement failed (%i)", v2, 8u);
 }
 
 void WebBookmarks::BookmarkSQLReadTransaction::BookmarkSQLReadTransaction(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_error_impl(&dword_272C20000, a2, OS_LOG_TYPE_ERROR, "WebBookmarks could not start a deferred transaction; bailing. Result code was: %d", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_error_impl(&dword_272C20000, a2, OS_LOG_TYPE_ERROR, "WebBookmarks could not start a deferred transaction; bailing. Result code was: %d", v2, 8u);
 }
 
 void WebBookmarks::BookmarkSQLReadTransaction::BookmarkSQLReadTransaction(void *a1, uint64_t a2)
@@ -4332,11 +4342,10 @@ void WebBookmarks::BookmarkSQLReadTransaction::BookmarkSQLReadTransaction(void *
 
 void WebBookmarks::BookmarkSQLWriteTransaction::BookmarkSQLWriteTransaction(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_error_impl(&dword_272C20000, a2, OS_LOG_TYPE_ERROR, "WebBookmarks could not start an immediate transaction; bailing. Result code was: %d", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_error_impl(&dword_272C20000, a2, OS_LOG_TYPE_ERROR, "WebBookmarks could not start an immediate transaction; bailing. Result code was: %d", v2, 8u);
 }
 
 void bindAttributesToSQLStatement_cold_1()

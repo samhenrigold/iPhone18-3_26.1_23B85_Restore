@@ -24,7 +24,7 @@
 
 - (id)additionalMetadataForCollector:(id)collector
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   collectorCopy = collector;
   v5 = [collectorCopy sourceForDataAggregator:self];
   bundleIdentifier = [v5 bundleIdentifier];
@@ -37,20 +37,18 @@
 
     if (currentWorkoutConfiguration && [currentWorkoutConfiguration activityType] == 13 && objc_msgSend(currentWorkoutConfiguration, "locationType") == 2)
     {
-      v14 = *MEMORY[0x277CCC4C0];
-      v15[0] = MEMORY[0x277CBEC38];
-      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+      v13 = *MEMORY[0x277CCC4C0];
+      v14[0] = MEMORY[0x277CBEC38];
+      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
 
       goto LABEL_8;
     }
   }
 
-  v13.receiver = self;
-  v13.super_class = HDCyclingDistanceDataAggregator;
-  v10 = [(HDActiveQuantityDataAggregator *)&v13 additionalMetadataForCollector:collectorCopy];
+  v12.receiver = self;
+  v12.super_class = HDCyclingDistanceDataAggregator;
+  v10 = [(HDActiveQuantityDataAggregator *)&v12 additionalMetadataForCollector:collectorCopy];
 LABEL_8:
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

@@ -267,13 +267,13 @@ void __94__PLDeviceRestoreMigrationSupport_waitForDataMigratorPrerequisitesForTr
   }
 }
 
-void __94__PLDeviceRestoreMigrationSupport_waitForDataMigratorPrerequisitesForTrackingRestoreFromCloud__block_invoke_2()
+void __94__PLDeviceRestoreMigrationSupport_waitForDataMigratorPrerequisitesForTrackingRestoreFromCloud__block_invoke_2(uint64_t a1)
 {
-  v0 = PLMigrationGetLog();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+  v1 = PLMigrationGetLog();
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_19BF1F000, v0, OS_LOG_TYPE_DEBUG, "running data migration prequisites complete block", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_19BF1F000, v1, OS_LOG_TYPE_DEBUG, "running data migration prequisites complete block", v2, 2u);
   }
 }
 
@@ -688,7 +688,7 @@ uint64_t __58__PLDeviceRestoreMigrationSupport__linkAsideAlbumMetadata__block_in
   if (v13)
   {
     fileManager = [MEMORY[0x1E69BF238] fileManager];
-    if ([v13 count])
+    if (objc_msgSend_count(v13))
     {
       modelMigrator = [(PLLibraryServicesManager *)self->_libraryServicesManager modelMigrator];
       generatePathToAssetUUIDRecoveryMapping = [modelMigrator generatePathToAssetUUIDRecoveryMapping];
@@ -726,7 +726,7 @@ LABEL_11:
 
     else if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
-      v27 = [v13 count];
+      v27 = objc_msgSend_count(v13);
       *buf = 134217984;
       v35 = v27;
       v24 = "Fix %lu cloudMaster nil original filename";
@@ -783,9 +783,9 @@ void __103__PLDeviceRestoreMigrationSupport__setAssetsToOTARestoreAsIncompleteWi
     }
 
     v13 = [v3 albums];
-    if ([v13 count])
+    if (objc_msgSend_count(v13))
     {
-      v14 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v13, "count")}];
+      v14 = [MEMORY[0x1E695DF70] arrayWithCapacity:objc_msgSend_count(v13)];
       v23 = 0u;
       v24 = 0u;
       v25 = 0u;
@@ -896,7 +896,7 @@ void __103__PLDeviceRestoreMigrationSupport__setAssetsToOTARestoreAsIncompleteWi
         }
 
         assets = [v11 assets];
-        v15 = [assets count];
+        v15 = objc_msgSend_count(assets);
 
         [v11 setPendingItemsCount:v15];
         [v11 setPendingItemsType:4];
@@ -1095,7 +1095,7 @@ uint64_t __68__PLDeviceRestoreMigrationSupport__prepareDatabaseForOTAAssetsPhase
   return needsToPrepareForBackgroundRestore;
 }
 
-uint64_t __92__PLDeviceRestoreMigrationSupport_prepareDatabaseForOTARestoreIfNecessaryWithMigrationType___block_invoke(uint64_t a1)
+void *__92__PLDeviceRestoreMigrationSupport_prepareDatabaseForOTARestoreIfNecessaryWithMigrationType___block_invoke(uint64_t a1)
 {
   v2 = PLMigrationGetLog();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))

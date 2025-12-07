@@ -17,22 +17,20 @@
 
 + (id)classes
 {
-  v7[10] = *MEMORY[0x277D85DE8];
+  v6[10] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEB98];
-  v7[0] = objc_opt_class();
-  v7[1] = objc_opt_class();
-  v7[2] = objc_opt_class();
-  v7[3] = objc_opt_class();
-  v7[4] = objc_opt_class();
-  v7[5] = objc_opt_class();
-  v7[6] = objc_opt_class();
-  v7[7] = objc_opt_class();
-  v7[8] = objc_opt_class();
-  v7[9] = objc_opt_class();
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:10];
+  v6[0] = objc_opt_class();
+  v6[1] = objc_opt_class();
+  v6[2] = objc_opt_class();
+  v6[3] = objc_opt_class();
+  v6[4] = objc_opt_class();
+  v6[5] = objc_opt_class();
+  v6[6] = objc_opt_class();
+  v6[7] = objc_opt_class();
+  v6[8] = objc_opt_class();
+  v6[9] = objc_opt_class();
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:10];
   v4 = [v2 setWithArray:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

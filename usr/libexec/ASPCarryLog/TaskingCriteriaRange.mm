@@ -41,64 +41,62 @@
     return 0;
   }
 
-  v34 = 0u;
-  v35 = 0u;
   v32 = 0u;
   v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   myTaskingCriteria2 = [(TaskingCriteriaRange *)self myTaskingCriteria];
-  v7 = [myTaskingCriteria2 countByEnumeratingWithState:&v32 objects:v37 count:16];
+  v7 = [myTaskingCriteria2 countByEnumeratingWithState:&v30 objects:v35 count:16];
   if (v7)
   {
     v8 = v7;
     v9 = 0;
-    v10 = &MSURetrievePreviousRestoreDate_ptr;
-    v11 = *v33;
+    v10 = *v31;
     while (2)
     {
       for (i = 0; i != v8; i = i + 1)
       {
-        if (*v33 != v11)
+        if (*v31 != v10)
         {
           objc_enumerationMutation(myTaskingCriteria2);
         }
 
-        v13 = *(*(&v32 + 1) + 8 * i);
+        v12 = *(*(&v30 + 1) + 8 * i);
 
-        v14 = v10[237];
         objc_opt_class();
-        if ((objc_opt_isKindOfClass() & 1) == 0 || [v13 count] - 5 < 0xFFFFFFFFFFFFFFFCLL)
+        if ((objc_opt_isKindOfClass() & 1) == 0 || [v12 count] - 5 < 0xFFFFFFFFFFFFFFFCLL)
         {
           v5 = 0;
           goto LABEL_32;
         }
 
-        v30 = 0u;
-        v31 = 0u;
         v28 = 0u;
         v29 = 0u;
-        v9 = v13;
-        v15 = [v9 countByEnumeratingWithState:&v28 objects:v36 count:16];
-        if (v15)
+        v26 = 0u;
+        v27 = 0u;
+        v9 = v12;
+        v13 = [v9 countByEnumeratingWithState:&v26 objects:v34 count:16];
+        if (v13)
         {
-          v16 = v15;
-          v24 = i;
-          v25 = v11;
-          v26 = v8;
-          v27 = myTaskingCriteria2;
-          v17 = 0;
-          v18 = *v29;
+          v14 = v13;
+          v22 = i;
+          v23 = v10;
+          v24 = v8;
+          v25 = myTaskingCriteria2;
+          v15 = 0;
+          v16 = *v27;
           while (2)
           {
-            v19 = 0;
-            v20 = v17;
+            v17 = 0;
+            v18 = v15;
             do
             {
-              if (*v29 != v18)
+              if (*v27 != v16)
               {
                 objc_enumerationMutation(v9);
               }
 
-              v17 = *(*(&v28 + 1) + 8 * v19);
+              v15 = *(*(&v26 + 1) + 8 * v17);
 
               objc_opt_class();
               if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -106,47 +104,47 @@
                 goto LABEL_31;
               }
 
-              v21 = [v17 objectForKeyedSubscript:@"START_RANGE"];
+              v19 = [v15 objectForKeyedSubscript:@"START_RANGE"];
 
-              if (v21)
+              if (v19)
               {
-                if (![(TaskingCriteriaRange *)self _validateElement:@"START_RANGE" isOptional:0 forCriteriaDict:v17])
+                if (![(TaskingCriteriaRange *)self _validateElement:@"START_RANGE" isOptional:0 forCriteriaDict:v15])
                 {
                   goto LABEL_31;
                 }
               }
 
-              v22 = [v17 objectForKeyedSubscript:{@"END_RANGE", v24, v25, v26}];
+              v20 = [v15 objectForKeyedSubscript:{@"END_RANGE", v22, v23, v24}];
 
-              if (v22)
+              if (v20)
               {
-                if (![(TaskingCriteriaRange *)self _validateElement:@"END_RANGE" isOptional:0 forCriteriaDict:v17])
+                if (![(TaskingCriteriaRange *)self _validateElement:@"END_RANGE" isOptional:0 forCriteriaDict:v15])
                 {
                   goto LABEL_31;
                 }
               }
 
-              else if (!v21)
+              else if (!v19)
               {
                 goto LABEL_31;
               }
 
-              if (![(TaskingCriteriaRange *)self _validateElement:@"A" isOptional:0 forCriteriaDict:v17]|| ![(TaskingCriteriaRange *)self _validateElement:@"B" isOptional:0 forCriteriaDict:v17]|| ![(TaskingCriteriaRange *)self _validateElement:@"C" isOptional:1 forCriteriaDict:v17])
+              if (![(TaskingCriteriaRange *)self _validateElement:@"A" isOptional:0 forCriteriaDict:v15]|| ![(TaskingCriteriaRange *)self _validateElement:@"B" isOptional:0 forCriteriaDict:v15]|| ![(TaskingCriteriaRange *)self _validateElement:@"C" isOptional:1 forCriteriaDict:v15])
               {
 LABEL_31:
 
                 v5 = 0;
-                myTaskingCriteria2 = v27;
+                myTaskingCriteria2 = v25;
                 goto LABEL_32;
               }
 
-              v19 = v19 + 1;
-              v20 = v17;
+              v17 = v17 + 1;
+              v18 = v15;
             }
 
-            while (v16 != v19);
-            v16 = [v9 countByEnumeratingWithState:&v28 objects:v36 count:16];
-            if (v16)
+            while (v14 != v17);
+            v14 = [v9 countByEnumeratingWithState:&v26 objects:v34 count:16];
+            if (v14)
             {
               continue;
             }
@@ -154,15 +152,14 @@ LABEL_31:
             break;
           }
 
-          v8 = v26;
-          myTaskingCriteria2 = v27;
-          v10 = &MSURetrievePreviousRestoreDate_ptr;
-          i = v24;
-          v11 = v25;
+          v8 = v24;
+          myTaskingCriteria2 = v25;
+          i = v22;
+          v10 = v23;
         }
       }
 
-      v8 = [myTaskingCriteria2 countByEnumeratingWithState:&v32 objects:v37 count:16];
+      v8 = [myTaskingCriteria2 countByEnumeratingWithState:&v30 objects:v35 count:16];
       if (v8)
       {
         continue;
@@ -508,17 +505,7 @@ LABEL_6:
   refCopy = ref;
   dictCopy = dict;
   v10 = [dictCopy objectForKeyedSubscript:checkCopy];
-  if (!v10)
-  {
-    goto LABEL_4;
-  }
-
-  v11 = v10;
-  v12 = [dictCopy objectForKeyedSubscript:checkCopy];
-  v13 = [v12 objectForKeyedSubscript:@"TYPE"];
-  v14 = [v13 isEqualToString:@"TYPE_STAT"];
-
-  if (v14)
+  if (v10 && (v11 = v10, [dictCopy objectForKeyedSubscript:checkCopy], v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v12, "objectForKeyedSubscript:", @"TYPE"), v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v13, "isEqualToString:", @"TYPE_STAT"), v13, v12, v11, v14))
   {
     v15 = [dictCopy objectForKeyedSubscript:checkCopy];
     v16 = [v15 objectForKeyedSubscript:@"STAT_ID"];
@@ -527,7 +514,6 @@ LABEL_6:
 
   else
   {
-LABEL_4:
     v17 = 1;
   }
 

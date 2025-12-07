@@ -11,18 +11,17 @@
 
 - (BOOL)isAcceptableRecord:(id)record
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   recordCopy = record;
   v5 = objc_autoreleasePoolPush();
   entity = [recordCopy entity];
-  v11[0] = entity;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+  v10[0] = entity;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
 
   objc_autoreleasePoolPop(v5);
   v8 = [(PPNamedEntityFilter *)self _filterNamedEntities:v7];
   LOBYTE(self) = [v8 count] == 1;
 
-  v9 = *MEMORY[0x277D85DE8];
   return self;
 }
 
@@ -68,7 +67,7 @@
 
 void __44__PPNamedEntityFilter__filterNamedEntities___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = [v5 name];
   IsWellFormed = PPStringIsWellFormed();
@@ -76,9 +75,9 @@ void __44__PPNamedEntityFilter__filterNamedEntities___block_invoke(uint64_t a1, 
   if (IsWellFormed)
   {
     v8 = *(*(a1 + 32) + 8);
-    v35 = 0;
-    v9 = [v8 predictionFromFeatures:v5 error:&v35];
-    v10 = v35;
+    v34 = 0;
+    v9 = [v8 predictionFromFeatures:v5 error:&v34];
+    v10 = v34;
     if (v9)
     {
       v11 = *(a1 + 32);
@@ -86,31 +85,31 @@ void __44__PPNamedEntityFilter__filterNamedEntities___block_invoke(uint64_t a1, 
       v13 = v12;
       if (v11)
       {
-        v38 = 0u;
-        v39 = 0u;
-        v36 = 0u;
         v37 = 0u;
+        v38 = 0u;
+        v35 = 0u;
+        v36 = 0u;
         obj = [v12 featureNames];
-        v14 = [obj countByEnumeratingWithState:&v36 objects:v42 count:16];
+        v14 = [obj countByEnumeratingWithState:&v35 objects:v41 count:16];
         if (v14)
         {
           v15 = v14;
-          v16 = *v37;
-          v32 = v10;
-          v33 = v9;
-          v30 = a3;
-          v31 = a1;
+          v16 = *v36;
+          v31 = v10;
+          v32 = v9;
+          v29 = a3;
+          v30 = a1;
           while (2)
           {
             v17 = 0;
             do
             {
-              if (*v37 != v16)
+              if (*v36 != v16)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v18 = *(*(&v36 + 1) + 8 * v17);
+              v18 = *(*(&v35 + 1) + 8 * v17);
               v19 = objc_autoreleasePoolPush();
               v20 = v13;
               v21 = [v13 featureValueForName:v18];
@@ -126,9 +125,9 @@ void __44__PPNamedEntityFilter__filterNamedEntities___block_invoke(uint64_t a1, 
                 }
 
 LABEL_26:
-                v10 = v32;
-                v9 = v33;
-                a3 = v30;
+                v10 = v31;
+                v9 = v32;
+                a3 = v29;
 
                 objc_autoreleasePoolPop(v19);
                 goto LABEL_27;
@@ -139,7 +138,7 @@ LABEL_26:
                 v23 = 0;
                 while (1)
                 {
-                  v24 = [v22 objectAtIndexedSubscript:{v23, v30}];
+                  v24 = [v22 objectAtIndexedSubscript:{v23, v29}];
                   [v24 doubleValue];
                   v26 = v25;
 
@@ -158,7 +157,7 @@ LABEL_26:
                 if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138412290;
-                  v41 = v18;
+                  v40 = v18;
                   _os_log_impl(&dword_23224A000, v28, OS_LOG_TYPE_DEFAULT, "PPNamedEntityFilter: filtering based on output of feature %@", buf, 0xCu);
                 }
 
@@ -173,9 +172,9 @@ LABEL_15:
             }
 
             while (v17 != v15);
-            v15 = [obj countByEnumeratingWithState:&v36 objects:v42 count:16];
-            v10 = v32;
-            v9 = v33;
+            v15 = [obj countByEnumeratingWithState:&v35 objects:v41 count:16];
+            v10 = v31;
+            v9 = v32;
             if (v15)
             {
               continue;
@@ -188,10 +187,10 @@ LABEL_15:
 
       else
       {
-        v31 = a1;
+        v30 = a1;
 
 LABEL_27:
-        [*(v31 + 40) removeIndex:{a3, v30}];
+        [*(v30 + 40) removeIndex:{a3, v29}];
       }
     }
 
@@ -200,9 +199,9 @@ LABEL_27:
       v27 = pp_entities_log_handle();
       if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
-        *v42 = 138412290;
-        v43 = v10;
-        _os_log_error_impl(&dword_23224A000, v27, OS_LOG_TYPE_ERROR, "PPNamedEntityFilter: encountered error in filtering %@", v42, 0xCu);
+        *v41 = 138412290;
+        v42 = v10;
+        _os_log_error_impl(&dword_23224A000, v27, OS_LOG_TYPE_ERROR, "PPNamedEntityFilter: encountered error in filtering %@", v41, 0xCu);
       }
     }
   }
@@ -211,8 +210,6 @@ LABEL_27:
   {
     [*(a1 + 40) removeIndex:a3];
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (id)filterNamedEntityRecords:(id)records
@@ -261,37 +258,25 @@ LABEL_27:
 
 - (PPNamedEntityFilter)init
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = +[PPTrialWrapper sharedInstance];
-  v14 = 0;
-  v4 = [v3 mlModelForModelName:@"PPModel_NE_Filtering.mlmodelc" namespaceName:@"PERSONALIZATION_PORTRAIT_NAMED_ENTITIES" error:&v14];
-  v5 = v14;
+  v13 = 0;
+  v4 = [v3 mlModelForModelName:@"PPModel_NE_Filtering.mlmodelc" namespaceName:@"PERSONALIZATION_PORTRAIT_NAMED_ENTITIES" error:&v13];
+  v5 = v13;
 
-  if (!v4)
+  if (!v4 || ([v4 modelDescription], v6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "outputDescriptionsByName"), v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "allKeys"), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v8, "containsObject:", @"computed_filterScore"), v8, v7, v6, v9))
   {
-    goto LABEL_3;
-  }
-
-  modelDescription = [v4 modelDescription];
-  outputDescriptionsByName = [modelDescription outputDescriptionsByName];
-  allKeys = [outputDescriptionsByName allKeys];
-  v9 = [allKeys containsObject:@"computed_filterScore"];
-
-  if (v9)
-  {
-LABEL_3:
     v10 = pp_default_log_handle();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
       *buf = 138412290;
-      v16 = v5;
+      v15 = v5;
       _os_log_fault_impl(&dword_23224A000, v10, OS_LOG_TYPE_FAULT, "PPNamedEntityFilter: unable to initialize correct model from Trial: %@", buf, 0xCu);
     }
   }
 
   v11 = [(PPNamedEntityFilter *)self initWithModel:v4];
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 

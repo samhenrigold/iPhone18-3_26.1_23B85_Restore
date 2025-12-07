@@ -77,7 +77,7 @@
 
 + (id)createDeviceInfoFromTXTRecord:(id)record
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696AEC0];
   recordCopy = record;
   v5 = [v3 alloc];
@@ -143,12 +143,10 @@
   v31 = _MRLogForCategory(3uLL);
   if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
   {
-    v34 = 138412290;
-    v35 = v29;
-    _os_log_impl(&dword_1A2860000, v31, OS_LOG_TYPE_DEFAULT, "decoded txtData: %@", &v34, 0xCu);
+    v33 = 138412290;
+    v34 = v29;
+    _os_log_impl(&dword_1A2860000, v31, OS_LOG_TYPE_DEFAULT, "decoded txtData: %@", &v33, 0xCu);
   }
-
-  v32 = *MEMORY[0x1E69E9840];
 
   return v29;
 }

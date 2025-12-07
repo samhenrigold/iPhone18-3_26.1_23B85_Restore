@@ -659,7 +659,7 @@ id __44__AVPlayerLayer__addObserversForVideoLayer___block_invoke_2(uint64_t a1)
   }
 }
 
-uint64_t __21__AVPlayerLayer_init__block_invoke(uint64_t a1)
+void *__21__AVPlayerLayer_init__block_invoke(uint64_t a1)
 {
   result = [*(*(*(a1 + 32) + 48) + 8) hudEnabled];
   if (result)
@@ -922,7 +922,7 @@ uint64_t __116__AVPlayerLayer__addSublayerTransformAnimationToLayer_fromTransfor
   -[AVPlayerLayer _addPositionAnimationToLayer:usingAnimation:forKey:](self, "_addPositionAnimationToLayer:usingAnimation:forKey:", _closedCaptionLayer, layer, [MEMORY[0x1E696AEC0] stringWithFormat:@"AVPlayerLayer_ClosedCaptionLayer_Position_%@", key]);
   if (_closedCaptionLayer)
   {
-    [_closedCaptionLayer sublayerTransform];
+    objc_msgSend_sublayerTransform(_closedCaptionLayer);
   }
 
   else
@@ -942,7 +942,7 @@ uint64_t __116__AVPlayerLayer__addSublayerTransformAnimationToLayer_fromTransfor
   -[AVPlayerLayer _addPositionAnimationToLayer:usingAnimation:forKey:](self, "_addPositionAnimationToLayer:usingAnimation:forKey:", _videoLayer, layer, [MEMORY[0x1E696AEC0] stringWithFormat:@"AVPlayerLayer_VideoLayer_Position_%@", key]);
   if (_videoLayer)
   {
-    [_videoLayer sublayerTransform];
+    objc_msgSend_sublayerTransform(_videoLayer);
   }
 
   else
@@ -2114,7 +2114,7 @@ LABEL_4:
   dispatch_async(MEMORY[0x1E69E96A0], v3);
 }
 
-uint64_t __59__AVPlayerLayer__updatePreferredDynamicRangeWithAnimation___block_invoke(uint64_t a1)
+void *__59__AVPlayerLayer__updatePreferredDynamicRangeWithAnimation___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) _associatedRemoteModeLayer];
   v7 = 0;
@@ -2254,7 +2254,7 @@ id __38__AVPlayerLayer_pixelBufferAttributes__block_invoke(uint64_t a1)
   _Block_object_dispose(&v7, 8);
 }
 
-uint64_t __42__AVPlayerLayer_setPixelBufferAttributes___block_invoke(uint64_t a1)
+void *__42__AVPlayerLayer_setPixelBufferAttributes___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 40);
   v3 = *(*(*(a1 + 32) + 48) + 96);
@@ -2555,7 +2555,7 @@ id __56__AVPlayerLayer__setShowInterstitialInstead_afterDelay___block_invoke(uin
 
 uint64_t __56__AVPlayerLayer__setShowInterstitialInstead_afterDelay___block_invoke_3(uint64_t a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) willChangeValueForKey:@"videoRect"];
   [MEMORY[0x1E6979518] begin];
   if (dword_1ED5AC278)
@@ -2565,7 +2565,7 @@ uint64_t __56__AVPlayerLayer__setShowInterstitialInstead_afterDelay___block_invo
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  [MEMORY[0x1E6979518] setDisableActions:{1, v4, v5}];
+  [MEMORY[0x1E6979518] setDisableActions:1];
   [*(a1 + 48) setHidden:*(a1 + 72)];
   [*(a1 + 40) setHidden:*(a1 + 72) == 0];
   [*(a1 + 32) setNeedsLayout];
@@ -2594,7 +2594,7 @@ uint64_t __56__AVPlayerLayer__setShowInterstitialInstead_afterDelay___block_invo
   return v4;
 }
 
-uint64_t __49__AVPlayerLayer_isOverscanSubtitleSupportEnabled__block_invoke(uint64_t a1)
+void *__49__AVPlayerLayer_isOverscanSubtitleSupportEnabled__block_invoke(uint64_t a1)
 {
   result = [*(*(*(a1 + 32) + 48) + 136) isOverscanSubtitleSupportEnabled];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -2936,7 +2936,7 @@ uint64_t __49__AVPlayerLayer_isOverscanSubtitleSupportEnabled__block_invoke(uint
 
 uint64_t __35__AVPlayerLayer__stashClientLayers__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  NSLog(&cfstr_LayerIsNotAPer.isa, a3);
+  NSLog(&cfstr_LayerIsNotAPer.isa, a2, a3);
 
   return [a3 removeFromSuperlayer];
 }

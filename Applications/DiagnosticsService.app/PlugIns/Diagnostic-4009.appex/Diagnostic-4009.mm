@@ -159,10 +159,11 @@ void sub_100004574(uint64_t a1)
   }
 }
 
-void sub_100004864(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100004864(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void sub_100005D58(id a1)
@@ -199,14 +200,14 @@ void sub_1000074D8(uint64_t a1, uint64_t a2, __int128 *a3, uint64_t a4)
   [WeakRetained _receivedEvent:a2 timestamp:&v8 info:a4];
 }
 
-void sub_1000079C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000079C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
+  va_start(va1, a13);
+  va_start(va, a13);
+  v14 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -230,6 +231,27 @@ void sub_100007E0C(uint64_t a1)
   v2 = *(a1 + 40);
 
   CVPixelBufferRelease(v2);
+}
+
+void sub_100008330(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  sub_100004864(&_mh_execute_header, a2, a3, "Failed with error: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10000839C(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  sub_100004864(&_mh_execute_header, a2, a3, "Requested minimum framerate %@ is not supported by this camera. Unable to proceed", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100008408(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  sub_100004864(&_mh_execute_header, a2, a3, "Unable to get supported camera formats to validate minimum framerate support with error: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_100008514(uint64_t a1, NSObject *a2)

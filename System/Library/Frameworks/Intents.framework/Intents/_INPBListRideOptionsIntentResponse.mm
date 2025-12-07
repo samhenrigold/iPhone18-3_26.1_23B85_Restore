@@ -16,7 +16,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   expirationDate = [(_INPBListRideOptionsIntentResponse *)self expirationDate];
   dictionaryRepresentation = [expirationDate dictionaryRepresentation];
@@ -25,30 +25,30 @@
   if ([(NSArray *)self->_paymentMethods count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v26 = 0u;
     v27 = 0u;
     v28 = 0u;
     v29 = 0u;
-    v30 = 0u;
     v7 = self->_paymentMethods;
-    v8 = [(NSArray *)v7 countByEnumeratingWithState:&v27 objects:v32 count:16];
+    v8 = [(NSArray *)v7 countByEnumeratingWithState:&v26 objects:v31 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v28;
+      v10 = *v27;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v28 != v10)
+          if (*v27 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          dictionaryRepresentation2 = [*(*(&v27 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation2 = [*(*(&v26 + 1) + 8 * i) dictionaryRepresentation];
           [array addObject:dictionaryRepresentation2];
         }
 
-        v9 = [(NSArray *)v7 countByEnumeratingWithState:&v27 objects:v32 count:16];
+        v9 = [(NSArray *)v7 countByEnumeratingWithState:&v26 objects:v31 count:16];
       }
 
       while (v9);
@@ -60,30 +60,30 @@
   if ([(NSArray *)self->_rideOptions count])
   {
     array2 = [MEMORY[0x1E695DF70] array];
+    v22 = 0u;
     v23 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
     v14 = self->_rideOptions;
-    v15 = [(NSArray *)v14 countByEnumeratingWithState:&v23 objects:v31 count:16];
+    v15 = [(NSArray *)v14 countByEnumeratingWithState:&v22 objects:v30 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v24;
+      v17 = *v23;
       do
       {
         for (j = 0; j != v16; ++j)
         {
-          if (*v24 != v17)
+          if (*v23 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          dictionaryRepresentation3 = [*(*(&v23 + 1) + 8 * j) dictionaryRepresentation];
+          dictionaryRepresentation3 = [*(*(&v22 + 1) + 8 * j) dictionaryRepresentation];
           [array2 addObject:dictionaryRepresentation3];
         }
 
-        v16 = [(NSArray *)v14 countByEnumeratingWithState:&v23 objects:v31 count:16];
+        v16 = [(NSArray *)v14 countByEnumeratingWithState:&v22 objects:v30 count:16];
       }
 
       while (v16);
@@ -97,8 +97,6 @@
     v20 = [MEMORY[0x1E696AD98] numberWithBool:{-[_INPBListRideOptionsIntentResponse supportsApplePayForPayment](self, "supportsApplePayForPayment")}];
     [dictionary setObject:v20 forKeyedSubscript:@"supportsApplePayForPayment"];
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -269,7 +267,7 @@ LABEL_18:
 
 - (void)writeTo:(id)to
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   toCopy = to;
   expirationDate = [(_INPBListRideOptionsIntentResponse *)self expirationDate];
 
@@ -279,77 +277,72 @@ LABEL_18:
     PBDataWriterWriteSubmessage();
   }
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
-  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v7 = self->_paymentMethods;
-  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v25 objects:v30 count:16];
+  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v21 objects:v26 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v26;
+    v10 = *v22;
     do
     {
       v11 = 0;
       do
       {
-        if (*v26 != v10)
+        if (*v22 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v25 + 1) + 8 * v11);
         PBDataWriterWriteSubmessage();
         ++v11;
       }
 
       while (v9 != v11);
-      v9 = [(NSArray *)v7 countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v9 = [(NSArray *)v7 countByEnumeratingWithState:&v21 objects:v26 count:16];
     }
 
     while (v9);
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
-  v22 = 0u;
-  v13 = self->_rideOptions;
-  v14 = [(NSArray *)v13 countByEnumeratingWithState:&v21 objects:v29 count:16];
-  if (v14)
+  v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v12 = self->_rideOptions;
+  v13 = [(NSArray *)v12 countByEnumeratingWithState:&v17 objects:v25 count:16];
+  if (v13)
   {
-    v15 = v14;
-    v16 = *v22;
+    v14 = v13;
+    v15 = *v18;
     do
     {
-      v17 = 0;
+      v16 = 0;
       do
       {
-        if (*v22 != v16)
+        if (*v18 != v15)
         {
-          objc_enumerationMutation(v13);
+          objc_enumerationMutation(v12);
         }
 
-        v18 = *(*(&v21 + 1) + 8 * v17);
         PBDataWriterWriteSubmessage();
-        ++v17;
+        ++v16;
       }
 
-      while (v15 != v17);
-      v15 = [(NSArray *)v13 countByEnumeratingWithState:&v21 objects:v29 count:16];
+      while (v14 != v16);
+      v14 = [(NSArray *)v12 countByEnumeratingWithState:&v17 objects:v25 count:16];
     }
 
-    while (v15);
+    while (v14);
   }
 
   if ([(_INPBListRideOptionsIntentResponse *)self hasSupportsApplePayForPayment])
   {
-    supportsApplePayForPayment = self->_supportsApplePayForPayment;
     PBDataWriterWriteBOOLField();
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addRideOptions:(id)options

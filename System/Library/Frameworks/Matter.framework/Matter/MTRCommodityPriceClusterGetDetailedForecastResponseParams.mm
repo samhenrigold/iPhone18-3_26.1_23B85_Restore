@@ -55,11 +55,11 @@
     goto LABEL_10;
   }
 
-  [MTRBaseDevice _responseDataForCommand:valueCopy clusterID:149 commandID:3 error:error];
+  objc_msgSend__responseDataForCommand_clusterID_commandID_error_(MTRBaseDevice);
   if (v14)
   {
     sub_2393C5AAC(v13);
-    sub_2393C5ADC(v13, *(v14 + 1), *(v14 + 3));
+    sub_2393C5ADC(v13, *(v14 + 8), *(v14 + 24));
     v8 = sub_2393C6FD0(v13, 256);
     if (!v8)
     {
@@ -115,18 +115,18 @@ LABEL_6:
 - (ChipError)_setFieldsFromDecodableStruct:(const void *)struct
 {
   selfCopy = self;
-  v27 = objc_opt_new();
-  sub_238EA275C(v35, struct);
-  v26 = "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/zap-generated/MTRCommandPayloadsObjc.mm";
-  while (sub_238EA1A80(v35) && sub_238EA27B8(v35))
+  v33 = objc_opt_new();
+  sub_238EA275C(v41, struct);
+  v32 = "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/zap-generated/MTRCommandPayloadsObjc.mm";
+  while (sub_238EA1A80(v41) && sub_238EA27B8(v41))
   {
     v4 = objc_opt_new();
-    v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v36];
+    v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v42];
     [v4 setPeriodStart:v5];
 
-    if (v38)
+    if (v44)
     {
-      v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v37];
+      v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v43];
       [v4 setPeriodEnd:v6];
     }
 
@@ -135,10 +135,10 @@ LABEL_6:
       [v4 setPeriodEnd:0];
     }
 
-    if (v39[0] == 1)
+    if (v45[0] == 1)
     {
-      v7 = [MEMORY[0x277CCABB0] numberWithLongLong:*sub_238DE36B8(v39)];
-      [v4 setPrice:v7];
+      v8 = [MEMORY[0x277CCABB0] numberWithLongLong:{*sub_238DE36B8(v45, v7)}];
+      [v4 setPrice:v8];
     }
 
     else
@@ -146,10 +146,10 @@ LABEL_6:
       [v4 setPrice:0];
     }
 
-    if (v40[0] == 1)
+    if (v46[0] == 1)
     {
-      v8 = [MEMORY[0x277CCABB0] numberWithShort:*sub_238E0A934(v40)];
-      [v4 setPriceLevel:v8];
+      v10 = [MEMORY[0x277CCABB0] numberWithShort:{SLOWORD(sub_238E0A934(v46, v9)->super.isa)}];
+      [v4 setPriceLevel:v10];
     }
 
     else
@@ -157,18 +157,18 @@ LABEL_6:
       [v4 setPriceLevel:0];
     }
 
-    if (v41[0] == 1)
+    if (v47[0] == 1)
     {
-      v9 = sub_238DE36B8(v41);
-      v10 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:*v9 length:v9[1] encoding:4];
-      [v4 setDescriptionString:v10];
+      v12 = sub_238DE36B8(v47, v11);
+      v13 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:*v12 length:v12[1] encoding:4];
+      [v4 setDescriptionString:v13];
 
       descriptionString = [v4 descriptionString];
 
       if (!descriptionString)
       {
-        v23 = 0x410A00000000;
-        v24 = 47;
+        v29 = 0x410A00000000;
+        v30 = 47;
         goto LABEL_35;
       }
     }
@@ -178,107 +178,107 @@ LABEL_6:
       [v4 setDescriptionString:0];
     }
 
-    if (v42[0] == 1)
+    if (v48[0] == 1)
     {
-      v12 = objc_opt_new();
-      v13 = sub_238DE36B8(v42);
-      sub_2393C5AAC(v30);
-      v28 = 0;
-      v29 = 0;
-      sub_2393C5BDC(v30, v13);
-      v31 = 0;
-      v32 = 0;
-      v33[0] = 0;
-      v34[0] = 0;
-      while (sub_238EA1A80(&v28) && sub_238EA2704(&v28))
+      v15 = objc_opt_new();
+      v17 = sub_238DE36B8(v48, v16);
+      sub_2393C5AAC(v36);
+      v34 = 0;
+      v35 = 0;
+      sub_2393C5BDC(v36, v17);
+      v37 = 0;
+      v38 = 0;
+      v39[0] = 0;
+      v40[0] = 0;
+      while (sub_238EA1A80(&v34) && sub_238EA2704(&v34))
       {
-        v14 = objc_opt_new();
-        v15 = [MEMORY[0x277CCABB0] numberWithLongLong:v31];
-        [v14 setPrice:v15];
+        v18 = objc_opt_new();
+        v19 = [MEMORY[0x277CCABB0] numberWithLongLong:v37];
+        [v18 setPrice:v19];
 
-        v16 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:v32];
-        [v14 setSource:v16];
+        v20 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:v38];
+        [v18 setSource:v20];
 
-        if (v33[0] == 1)
+        if (v39[0] == 1)
         {
-          v17 = sub_238DE36B8(v33);
-          v18 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:*v17 length:v17[1] encoding:4];
-          [v14 setDescriptionString:v18];
+          v22 = sub_238DE36B8(v39, v21);
+          v23 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:*v22 length:v22[1] encoding:4];
+          [v18 setDescriptionString:v23];
 
-          descriptionString2 = [v14 descriptionString];
+          descriptionString2 = [v18 descriptionString];
 
           if (!descriptionString2)
           {
 
-            v23 = 0x411D00000000;
-            v26 = "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/zap-generated/MTRCommandPayloadsObjc.mm";
-            v24 = 47;
+            v29 = 0x411D00000000;
+            v32 = "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/zap-generated/MTRCommandPayloadsObjc.mm";
+            v30 = 47;
             goto LABEL_34;
           }
         }
 
         else
         {
-          [v14 setDescriptionString:0];
+          [v18 setDescriptionString:0];
         }
 
-        if (v34[0] == 1)
+        if (v40[0] == 1)
         {
-          v20 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*sub_238DE3698(v34)];
-          [v14 setTariffComponentID:v20];
+          v26 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{*sub_238DE3698(v40, v25)}];
+          [v18 setTariffComponentID:v26];
         }
 
         else
         {
-          [v14 setTariffComponentID:0];
+          [v18 setTariffComponentID:0];
         }
 
-        [v12 addObject:{v14, selfCopy}];
+        [v15 addObject:{v18, selfCopy}];
       }
 
-      if (v28 == 33 || (v24 = v28, !v28))
+      if (v34 == 33 || (v30 = v34, !v34))
       {
-        [v4 setComponents:{v12, selfCopy}];
+        [v4 setComponents:{v15, selfCopy}];
 
         goto LABEL_33;
       }
 
-      v26 = v29;
-      v23 = v28 & 0xFFFFFFFF00000000;
+      v32 = v35;
+      v29 = v34 & 0xFFFFFFFF00000000;
 LABEL_34:
 
 LABEL_35:
 LABEL_36:
 
-      v21 = v24 | v23;
-      v22 = v26;
+      v27 = v30 | v29;
+      v28 = v32;
       goto LABEL_43;
     }
 
     [v4 setComponents:0];
 LABEL_33:
-    [v27 addObject:{v4, selfCopy}];
+    [v33 addObject:{v4, selfCopy}];
   }
 
-  if (LODWORD(v35[0]) != 33)
+  if (LODWORD(v41[0]) != 33)
   {
-    v24 = LODWORD(v35[0]);
-    if (LODWORD(v35[0]))
+    v30 = LODWORD(v41[0]);
+    if (LODWORD(v41[0]))
     {
-      v26 = v35[1];
-      v23 = v35[0] & 0xFFFFFFFF00000000;
+      v32 = v41[1];
+      v29 = v41[0] & 0xFFFFFFFF00000000;
       goto LABEL_36;
     }
   }
 
-  [(MTRCommodityPriceClusterGetDetailedForecastResponseParams *)selfCopy setPriceForecast:v27, selfCopy];
+  [(MTRCommodityPriceClusterGetDetailedForecastResponseParams *)selfCopy setPriceForecast:v33, selfCopy];
 
-  v22 = 0;
-  v21 = 0;
+  v28 = 0;
+  v27 = 0;
 LABEL_43:
-  result.mFile = v22;
-  result.mError = v21;
-  result.mLine = HIDWORD(v21);
+  result.mFile = v28;
+  result.mError = v27;
+  result.mLine = HIDWORD(v27);
   return result;
 }
 

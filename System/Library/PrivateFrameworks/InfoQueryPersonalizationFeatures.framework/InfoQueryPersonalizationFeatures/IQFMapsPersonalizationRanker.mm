@@ -94,44 +94,45 @@ void __57__IQFMapsPersonalizationRanker_rankedEventsForLocations___block_invoke(
 
 - (void)rankedEventsForLocations:(id)locations completionHandler:(id)handler
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   locationsCopy = locations;
   handlerCopy = handler;
   v8 = objc_opt_new();
-  v33 = 0u;
-  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
+  v37 = 0u;
+  v38 = 0u;
   v9 = locationsCopy;
-  v10 = [v9 countByEnumeratingWithState:&v33 objects:v37 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v35 objects:v39 count:16];
   if (v10)
   {
-    v11 = *v34;
+    v11 = *v36;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v34 != v11)
+        if (*v36 != v11)
         {
           objc_enumerationMutation(v9);
         }
 
-        muid = [*(*(&v33 + 1) + 8 * i) muid];
+        muid = [*(*(&v35 + 1) + 8 * i) muid];
         [v8 addObject:muid];
       }
 
-      v10 = [v9 countByEnumeratingWithState:&v33 objects:v37 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v35 objects:v39 count:16];
     }
 
     while (v10);
   }
 
   v14 = [(NSSet *)self->_cachedMUIDs isEqualToSet:v8];
-  v15 = IQFLogCategoryDefault();
-  v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG);
-  if (v14)
+  v15 = v14;
+  v16 = IQFLogCategoryDefault(v14);
+  v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG);
+  if (v15)
   {
-    if (v16)
+    if (v17)
     {
       [IQFMapsPersonalizationRanker rankedEventsForLocations:completionHandler:];
     }
@@ -141,63 +142,62 @@ void __57__IQFMapsPersonalizationRanker_rankedEventsForLocations___block_invoke(
 
   else
   {
-    if (v16)
+    if (v17)
     {
       [IQFMapsPersonalizationRanker rankedEventsForLocations:completionHandler:];
     }
 
-    v17 = IQFLogCategoryDefault();
-    v18 = os_signpost_id_generate(v17);
-    v19 = v17;
-    v20 = v19;
-    if ((v18 - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
+    v19 = IQFLogCategoryDefault(v18);
+    v20 = os_signpost_id_generate(v19);
+    v21 = v19;
+    v22 = v21;
+    if ((v20 - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v21))
     {
       LOWORD(buf[0]) = 0;
-      _os_signpost_emit_with_name_impl(&dword_254B9D000, v20, OS_SIGNPOST_INTERVAL_BEGIN, v18, "rankedEventsForLocations", " enableTelemetry=YES ", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_254B9D000, v22, OS_SIGNPOST_INTERVAL_BEGIN, v20, "rankedEventsForLocations", " enableTelemetry=YES ", buf, 2u);
     }
 
     objc_initWeak(buf, self);
-    v21 = +[IQFMapsPersonalizationLookup sharedMapsPersonalizationLookup];
-    if (v21)
+    v23 = +[IQFMapsPersonalizationLookup sharedMapsPersonalizationLookup];
+    v24 = v23;
+    if (v23)
     {
-      v22 = IQFLogCategoryDefault();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+      v25 = IQFLogCategoryDefault(v23);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
       {
         [IQFMapsPersonalizationRanker rankedEventsForLocations:completionHandler:];
       }
 
-      v26[0] = MEMORY[0x277D85DD0];
-      v26[1] = 3221225472;
-      v26[2] = __75__IQFMapsPersonalizationRanker_rankedEventsForLocations_completionHandler___block_invoke;
-      v26[3] = &unk_2797ACE68;
-      v27 = v20;
-      v31[1] = v18;
-      objc_copyWeak(v31, buf);
-      v30 = handlerCopy;
-      v28 = v8;
-      v29 = v9;
-      [v21 eventsAtLocations:v29 completionHandler:v26];
+      v28[0] = MEMORY[0x277D85DD0];
+      v28[1] = 3221225472;
+      v28[2] = __75__IQFMapsPersonalizationRanker_rankedEventsForLocations_completionHandler___block_invoke;
+      v28[3] = &unk_2797ACE68;
+      v29 = v22;
+      v33[1] = v20;
+      objc_copyWeak(v33, buf);
+      v32 = handlerCopy;
+      v30 = v8;
+      v31 = v9;
+      [v24 eventsAtLocations:v31 completionHandler:v28];
 
-      objc_destroyWeak(v31);
-      v23 = v27;
+      objc_destroyWeak(v33);
+      v26 = v29;
     }
 
     else
     {
-      v24 = IQFLogCategoryDefault();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      v27 = IQFLogCategoryDefault(0);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
         [IQFMapsPersonalizationRanker rankedEventsForLocations:completionHandler:];
       }
 
-      v23 = objc_opt_new();
-      handlerCopy[2](handlerCopy, v23, 0);
+      v26 = objc_opt_new();
+      handlerCopy[2](handlerCopy, v26, 0);
     }
 
     objc_destroyWeak(buf);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __75__IQFMapsPersonalizationRanker_rankedEventsForLocations_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -218,8 +218,7 @@ void __75__IQFMapsPersonalizationRanker_rankedEventsForLocations_completionHandl
   if (WeakRetained)
   {
     v12 = [WeakRetained _sortedResults:v5];
-    [v11 _updateCachedMUIDs:*(a1 + 40) rankedResults:v12];
-    v13 = IQFLogCategoryDefault();
+    v13 = IQFLogCategoryDefault([v11 _updateCachedMUIDs:*(a1 + 40) rankedResults:v12]);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
       __75__IQFMapsPersonalizationRanker_rankedEventsForLocations_completionHandler___block_invoke_cold_1(v12);
@@ -345,7 +344,7 @@ LABEL_29:
         goto LABEL_29;
       }
 
-      v15 = IQFLogCategoryDefault();
+      v15 = IQFLogCategoryDefault(10);
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
         [IQFMapsPersonalizationRanker isResultCandidateForPromotion:];
@@ -381,7 +380,7 @@ LABEL_31:
           goto LABEL_29;
         }
 
-        v15 = IQFLogCategoryDefault();
+        v15 = IQFLogCategoryDefault(1);
         if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
         {
           [IQFMapsPersonalizationRanker isResultCandidateForPromotion:];
@@ -390,7 +389,7 @@ LABEL_31:
 
       else
       {
-        v15 = IQFLogCategoryDefault();
+        v15 = IQFLogCategoryDefault(0);
         if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
         {
           [IQFMapsPersonalizationRanker isResultCandidateForPromotion:promotionCopy];
@@ -503,19 +502,8 @@ LABEL_7:
   [startEventDate timeIntervalSinceNow];
   v6 = v5;
 
-  if (v6 >= 0.0)
+  if (v6 >= 0.0 || ([MEMORY[0x277CBEA80] currentCalendar], v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(resultCopy, "startEventDate"), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v7, "isDateInToday:", v8), v8, v7, v10 = 0.0, v9))
   {
-    goto LABEL_3;
-  }
-
-  currentCalendar = [MEMORY[0x277CBEA80] currentCalendar];
-  startEventDate2 = [resultCopy startEventDate];
-  v9 = [currentCalendar isDateInToday:startEventDate2];
-
-  v10 = 0.0;
-  if (v9)
-  {
-LABEL_3:
     v10 = exp2(fabs(v6) / -2592000.0);
   }
 
@@ -580,18 +568,16 @@ LABEL_3:
 
 void __75__IQFMapsPersonalizationRanker_rankedEventsForLocations_completionHandler___block_invoke_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  [a1 count];
-  OUTLINED_FUNCTION_2_0(&dword_254B9D000, v1, v2, "IQFMapsParsecRanker: fetched %ld new ranked events & updated cache", v3, v4, v5, v6, 0);
-  v7 = *MEMORY[0x277D85DE8];
+  LODWORD(v7) = 134217984;
+  *(&v7 + 4) = [a1 count];
+  OUTLINED_FUNCTION_2_0(&dword_254B9D000, v1, v2, "IQFMapsParsecRanker: fetched %ld new ranked events & updated cache", v3, v4, v5, v6, v7, DWORD2(v7));
 }
 
 - (void)isResultCandidateForPromotion:(void *)a1 .cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  [a1 resultType];
-  OUTLINED_FUNCTION_2_0(&dword_254B9D000, v1, v2, "IQFMapsPersonalizationRanker received unknown result type: %lu", v3, v4, v5, v6, 0);
-  v7 = *MEMORY[0x277D85DE8];
+  LODWORD(v7) = 134217984;
+  *(&v7 + 4) = [a1 resultType];
+  OUTLINED_FUNCTION_2_0(&dword_254B9D000, v1, v2, "IQFMapsPersonalizationRanker received unknown result type: %lu", v3, v4, v5, v6, v7, DWORD2(v7));
 }
 
 @end

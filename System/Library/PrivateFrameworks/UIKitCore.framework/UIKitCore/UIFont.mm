@@ -18,7 +18,7 @@
 
     if ([a2 length])
     {
-      if (!v7 || ([a2 isEqualToString:v7] & 1) == 0)
+      if (!v7 || (objc_msgSend_isEqualToString_(a2) & 1) == 0)
       {
         fontDescriptor2 = [(__CTFont *)languageCopy fontDescriptor];
         v16 = v6;
@@ -107,9 +107,9 @@ LABEL_13:
 
       else
       {
-        v12 = [v8 isEqual:v9];
+        isEqual = objc_msgSend_isEqual_(v8);
 
-        if (v12)
+        if (isEqual)
         {
           goto LABEL_12;
         }

@@ -82,7 +82,7 @@
     {
       if ((~LODWORD(v12->var2) & 3) == 0)
       {
-        v18 = sub_100017508(item, v12, &v33);
+        v18 = sub_100017508(item, &v12->var0, &v33);
         if (!v18)
         {
           goto LABEL_19;

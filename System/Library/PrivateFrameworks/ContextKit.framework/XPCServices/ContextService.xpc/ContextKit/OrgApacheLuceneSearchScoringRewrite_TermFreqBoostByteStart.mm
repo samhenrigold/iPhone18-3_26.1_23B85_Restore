@@ -9,9 +9,9 @@
 
 - (id)init__
 {
-  v22.receiver = self;
-  v22.super_class = OrgApacheLuceneSearchScoringRewrite_TermFreqBoostByteStart;
-  init__ = [(OrgApacheLuceneUtilBytesRefHash_DirectBytesStartArray *)&v22 init__];
+  v23.receiver = self;
+  v23.super_class = OrgApacheLuceneSearchScoringRewrite_TermFreqBoostByteStart;
+  init__ = [(OrgApacheLuceneUtilBytesRefHash_DirectBytesStartArray *)&v23 init__];
   if (!init__)
   {
     JreThrowNullPointerException();
@@ -27,16 +27,16 @@
   }
 
   v19 = OrgApacheLuceneUtilArrayUtil_oversizeWithInt_withInt_(v18, OrgApacheLuceneUtilRamUsageEstimator_NUM_BYTES_OBJECT_REF_, v12, v13, v14, v15, v16, v17);
-  v20 = [IOSObjectArray newArrayWithLength:v19 type:OrgApacheLuceneIndexTermContext_class_()];
-  JreStrongAssignAndConsume(&self->termState_, v20);
+  v21 = [IOSObjectArray newArrayWithLength:v19 type:OrgApacheLuceneIndexTermContext_class_(v19, v20)];
+  JreStrongAssignAndConsume(&self->termState_, v21);
   return v10;
 }
 
 - (id)grow
 {
-  v23.receiver = self;
-  v23.super_class = OrgApacheLuceneSearchScoringRewrite_TermFreqBoostByteStart;
-  grow = [(OrgApacheLuceneUtilBytesRefHash_DirectBytesStartArray *)&v23 grow];
+  v24.receiver = self;
+  v24.super_class = OrgApacheLuceneSearchScoringRewrite_TermFreqBoostByteStart;
+  grow = [(OrgApacheLuceneUtilBytesRefHash_DirectBytesStartArray *)&v24 grow];
   if (!grow || (v10 = grow, v11 = OrgApacheLuceneUtilArrayUtil_growWithFloatArray_withInt_(self->boost_, grow[2], v4, v5, v6, v7, v8, v9), JreStrongAssign(&self->boost_, v11), (termState = self->termState_) == 0))
   {
     JreThrowNullPointerException();
@@ -51,9 +51,9 @@
     }
 
     v20 = OrgApacheLuceneUtilArrayUtil_oversizeWithInt_withInt_(v19, OrgApacheLuceneUtilRamUsageEstimator_NUM_BYTES_OBJECT_REF_, v12, v13, v14, v15, v16, v17);
-    v21 = [IOSObjectArray arrayWithLength:v20 type:OrgApacheLuceneIndexTermContext_class_()];
-    JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(self->termState_, 0, v21, 0, self->termState_->super.size_);
-    JreStrongAssign(&self->termState_, v21);
+    v22 = [IOSObjectArray arrayWithLength:v20 type:OrgApacheLuceneIndexTermContext_class_(v20, v21)];
+    JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(self->termState_, 0, v22, 0, self->termState_->super.size_);
+    JreStrongAssign(&self->termState_, v22);
   }
 
   return v10;

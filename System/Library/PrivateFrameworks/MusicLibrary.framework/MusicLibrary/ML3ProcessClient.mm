@@ -44,9 +44,11 @@
 
 uint64_t __39__ML3ProcessClient_sharedProcessClient__block_invoke()
 {
-  sharedProcessClient___sharedProcessClient = objc_alloc_init(ML3ProcessClient);
+  v0 = objc_alloc_init(ML3ProcessClient);
+  v1 = sharedProcessClient___sharedProcessClient;
+  sharedProcessClient___sharedProcessClient = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

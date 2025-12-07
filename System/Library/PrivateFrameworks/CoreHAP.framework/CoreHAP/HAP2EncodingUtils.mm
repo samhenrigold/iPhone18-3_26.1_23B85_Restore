@@ -8,7 +8,7 @@
 
 + (BOOL)parseAddOrRemovePairingRequestResponse:(id)response error:(id *)error
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v5 = [HAP2TLVAddOrRemovePairingResponse parsedFromData:response error:?];
   v6 = v5;
   if (!v5)
@@ -31,9 +31,9 @@
         v14 = 0;
       }
 
-      v25 = 138412290;
-      v26 = v14;
-      _os_log_error_impl(&dword_22AADC000, v13, OS_LOG_TYPE_ERROR, "Pairing request response failed to parse: %@", &v25, 0xCu);
+      v24 = 138412290;
+      v25 = v14;
+      _os_log_error_impl(&dword_22AADC000, v13, OS_LOG_TYPE_ERROR, "Pairing request response failed to parse: %@", &v24, 0xCu);
     }
 
     goto LABEL_27;
@@ -55,9 +55,9 @@
       v17 = v15;
       state2 = [v6 state];
       v19 = HAP2TLVPairingStateAsString([state2 value]);
-      v25 = 138412290;
-      v26 = v19;
-      _os_log_error_impl(&dword_22AADC000, v17, OS_LOG_TYPE_ERROR, "Pairing request response had invalid state: %@", &v25, 0xCu);
+      v24 = 138412290;
+      v25 = v19;
+      _os_log_error_impl(&dword_22AADC000, v17, OS_LOG_TYPE_ERROR, "Pairing request response had invalid state: %@", &v24, 0xCu);
 
       if (!error)
       {
@@ -94,9 +94,9 @@
     v20 = v10;
     responseError2 = [v6 responseError];
     v22 = HAP2TLVErrorsAsString([responseError2 value]);
-    v25 = 138412290;
-    v26 = v22;
-    _os_log_error_impl(&dword_22AADC000, v20, OS_LOG_TYPE_ERROR, "Pairing request response had an error: %@", &v25, 0xCu);
+    v24 = 138412290;
+    v25 = v22;
+    _os_log_error_impl(&dword_22AADC000, v20, OS_LOG_TYPE_ERROR, "Pairing request response had an error: %@", &v24, 0xCu);
 
     if (error)
     {
@@ -121,13 +121,12 @@ LABEL_19:
   *error = v16 = 0;
 LABEL_28:
 
-  v23 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
 + (id)addPairingRequestWithIdentity:(id)identity error:(id *)error
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   identityCopy = identity;
   v6 = [[HAP2TLVPairingStateWrapper alloc] initWithValue:1];
   v7 = [[HAP2TLVPairingMethodWrapper alloc] initWithValue:3];
@@ -161,28 +160,26 @@ LABEL_28:
     {
       if (error)
       {
-        v22 = *error;
+        v21 = *error;
       }
 
       else
       {
-        v22 = 0;
+        v21 = 0;
       }
 
-      v23 = 138412290;
-      v24 = v22;
-      _os_log_error_impl(&dword_22AADC000, v19, OS_LOG_TYPE_ERROR, "Couldn't serialize request TLVs: %@", &v23, 0xCu);
+      v22 = 138412290;
+      v23 = v21;
+      _os_log_error_impl(&dword_22AADC000, v19, OS_LOG_TYPE_ERROR, "Couldn't serialize request TLVs: %@", &v22, 0xCu);
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
 
 + (id)removePairingRequestWithIdentifier:(id)identifier error:(id *)error
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v6 = [[HAP2TLVPairingStateWrapper alloc] initWithValue:1];
   v7 = [[HAP2TLVPairingMethodWrapper alloc] initWithValue:4];
@@ -207,21 +204,19 @@ LABEL_28:
     {
       if (error)
       {
-        v15 = *error;
+        v14 = *error;
       }
 
       else
       {
-        v15 = 0;
+        v14 = 0;
       }
 
-      v16 = 138412290;
-      v17 = v15;
-      _os_log_error_impl(&dword_22AADC000, v12, OS_LOG_TYPE_ERROR, "Couldn't serialize request TLVs: %@", &v16, 0xCu);
+      v15 = 138412290;
+      v16 = v14;
+      _os_log_error_impl(&dword_22AADC000, v12, OS_LOG_TYPE_ERROR, "Couldn't serialize request TLVs: %@", &v15, 0xCu);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

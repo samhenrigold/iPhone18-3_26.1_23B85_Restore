@@ -1,7 +1,7 @@
 @interface SFSafariLaunchPlaceholderView
 + (id)blankPlaceholder;
 + (id)compatibilityPlaceholderWithAppName:(id)name destinationURL:(id)l forAuthentication:(BOOL)authentication dismissalHandler:(id)handler openHandler:(id)openHandler;
-- (uint64_t)initWithAppName:(void *)name destinationURL:(char)l forAuthentication:(void *)authentication dismissalHandler:(void *)handler openHandler:;
+- (id)initWithAppName:(void *)name destinationURL:(char)l forAuthentication:(void *)authentication dismissalHandler:(void *)handler openHandler:;
 - (void)_dismissTapped:(id)tapped;
 - (void)_openTapped:(id)tapped;
 - (void)_setUpExplanationViewIfNeeded;
@@ -132,7 +132,7 @@
   }
 }
 
-- (uint64_t)initWithAppName:(void *)name destinationURL:(char)l forAuthentication:(void *)authentication dismissalHandler:(void *)handler openHandler:
+- (id)initWithAppName:(void *)name destinationURL:(char)l forAuthentication:(void *)authentication dismissalHandler:(void *)handler openHandler:
 {
   v51[3] = *MEMORY[0x1E69E9840];
   v11 = a2;
@@ -147,14 +147,14 @@
     self = v15;
     if (v15)
     {
-      v15[408] = l;
+      *(v15 + 408) = l;
       systemBackgroundColor = [MEMORY[0x1E69DC888] systemBackgroundColor];
       [self setBackgroundColor:systemBackgroundColor];
 
       OUTLINED_FUNCTION_4_0(objc_alloc_init(MEMORY[0x1E69DCCC0]), 464);
-      [*(self + 464) setDelegate:self];
-      [*(self + 464) _setAlwaysUseDefaultMetrics:1];
-      [self addSubview:*(self + 464)];
+      [self[58] setDelegate:self];
+      [self[58] _setAlwaysUseDefaultMetrics:1];
+      [self addSubview:self[58]];
       if (nameCopy)
       {
         v18 = _Block_copy(authenticationCopy);
@@ -173,7 +173,7 @@
           v21 = 3;
         }
 
-        textContainer = [*(self + 448) textContainer];
+        textContainer = [self[56] textContainer];
         [textContainer setMaximumNumberOfLines:v21];
 
         OUTLINED_FUNCTION_3_2();
@@ -187,18 +187,18 @@
           v24 = 5;
         }
 
-        textContainer2 = [*(self + 448) textContainer];
+        textContainer2 = [self[56] textContainer];
         [textContainer2 setLineBreakMode:v24];
 
         v26 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"globe"];
-        [*(self + 424) setImage:v26];
+        [self[53] setImage:v26];
 
         v27 = [MEMORY[0x1E69DCAD8] configurationWithTextStyle:*MEMORY[0x1E69DDD58] scale:3];
-        [*(self + 424) setPreferredSymbolConfiguration:v27];
+        [self[53] setPreferredSymbolConfiguration:v27];
 
         OUTLINED_FUNCTION_3_2();
         v28 = _WBSLocalizedString();
-        [*(self + 456) setText:v28];
+        [self[57] setText:v28];
 
         OUTLINED_FUNCTION_3_2();
         v29 = MEMORY[0x1E696AEC0];
@@ -221,7 +221,7 @@
         [v35 setAlignment:1];
         v36 = objc_alloc(MEMORY[0x1E696AD40]);
         v50[0] = *MEMORY[0x1E69DB648];
-        font = [*(self + 448) font];
+        font = [self[56] font];
         v51[0] = font;
         v50[1] = *MEMORY[0x1E69DB650];
         secondaryLabelColor = [MEMORY[0x1E69DC888] secondaryLabelColor];
@@ -239,14 +239,14 @@
           [v39 safari_replaceOccurrenceOfString:@"{some-url}" withString:safari_userVisibleString link:nameCopy];
         }
 
-        [*(self + 448) setAttributedText:v39];
+        [self[56] setAttributedText:v39];
         [(SFSafariLaunchPlaceholderView *)self _updateLargeButton];
         v42 = objc_alloc_init(MEMORY[0x1E69DCCE0]);
         OUTLINED_FUNCTION_4_0([objc_alloc(MEMORY[0x1E69DC708]) initWithTitle:&stru_1F4FE9E38 style:2 target:self action:sel__dismissTapped_], 472);
         mEMORY[0x1E69DC668] = [MEMORY[0x1E69DC668] sharedApplication];
         safari_prefersRTLLayout = [mEMORY[0x1E69DC668] safari_prefersRTLLayout];
 
-        v45 = *(self + 472);
+        v45 = self[59];
         if (safari_prefersRTLLayout)
         {
           [v42 setRightBarButtonItem:v45];
@@ -257,13 +257,13 @@
           [v42 setLeftBarButtonItem:v45];
         }
 
-        [*(self + 464) pushNavigationItem:v42 animated:0];
+        [self[58] pushNavigationItem:v42 animated:0];
       }
 
       else
       {
         OUTLINED_FUNCTION_4_0(objc_alloc_init(MEMORY[0x1E69DD180]), 416);
-        [self addSubview:*(self + 416)];
+        [self addSubview:self[52]];
       }
     }
   }

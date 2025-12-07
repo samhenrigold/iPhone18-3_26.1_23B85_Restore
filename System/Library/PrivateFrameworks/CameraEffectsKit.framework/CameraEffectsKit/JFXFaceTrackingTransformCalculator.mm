@@ -93,11 +93,11 @@
 
 - (uint64_t)billboardTransform
 {
-  [x0_0 cameraTransform];
+  [self cameraTransform];
   pv_simd_matrix_get_rotation_matrix(v5);
-  arMetadata = [x0_0 arMetadata];
+  arMetadata = [self arMetadata];
   [arMetadata anchorTransform];
-  [x0_0 pixelsPerUnit];
+  [self pixelsPerUnit];
 
   return pv_simd_matrix_translate();
 }

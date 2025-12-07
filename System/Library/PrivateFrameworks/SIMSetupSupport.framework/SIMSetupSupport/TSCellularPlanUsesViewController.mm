@@ -16,6 +16,7 @@
 - (void)tableView:(id)view willDisplayFooterView:(id)footerView forSection:(int64_t)section;
 - (void)viewDidLayoutSubviews;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation TSCellularPlanUsesViewController
@@ -113,10 +114,10 @@ LABEL_16:
 
 - (void)viewDidLoad
 {
-  v34[1] = *MEMORY[0x277D85DE8];
-  v33.receiver = self;
-  v33.super_class = TSCellularPlanUsesViewController;
-  [(TSOBTableWelcomeController *)&v33 viewDidLoad];
+  v33[1] = *MEMORY[0x277D85DE8];
+  v32.receiver = self;
+  v32.super_class = TSCellularPlanUsesViewController;
+  [(TSOBTableWelcomeController *)&v32 viewDidLoad];
   hasDoneButton = self->_hasDoneButton;
   v4 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v5 = v4;
@@ -187,12 +188,24 @@ LABEL_16:
     self->_heightConstraint = v28;
 
     v30 = MEMORY[0x277CCAAD0];
-    v34[0] = self->_heightConstraint;
-    v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:1];
+    v33[0] = self->_heightConstraint;
+    v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:1];
     [v30 activateConstraints:v31];
   }
+}
 
-  v32 = *MEMORY[0x277D85DE8];
+- (void)viewWillAppear:(BOOL)appear
+{
+  v6.receiver = self;
+  v6.super_class = TSCellularPlanUsesViewController;
+  [(OBTableWelcomeController *)&v6 viewWillAppear:appear];
+  view = [(TSCellularPlanUsesViewController *)self view];
+  [view setUserInteractionEnabled:1];
+
+  buttonTray = [(TSCellularPlanUsesViewController *)self buttonTray];
+  [buttonTray showButtonsAvailable];
+
+  [(TSCellularPlanUsesViewController *)self _maybeEnableDoneButton];
 }
 
 - (void)viewDidLayoutSubviews
@@ -233,38 +246,38 @@ LABEL_16:
 
 + (id)sGetSelectedPlanItems
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = +[TSCellularPlanManagerCache sharedInstance];
   planItems = [v2 planItems];
 
   array = [MEMORY[0x277CBEB18] array];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v5 = planItems;
-  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
+        v10 = *(*(&v13 + 1) + 8 * i);
         if ([v10 isSelected])
         {
           [array addObject:v10];
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
@@ -272,40 +285,38 @@ LABEL_16:
 
   v11 = [array sortedArrayUsingSelector:sel_compare_];
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 + (BOOL)sInPrivateNetworkMode:(id)mode
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   modeCopy = mode;
-  v4 = [modeCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [modeCopy countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
-    v5 = *v10;
+    v5 = *v9;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(modeCopy);
         }
 
-        if ([TSCellularPlanUsesViewController sInPrivateNetworkModeForItem:*(*(&v9 + 1) + 8 * i), v9])
+        if ([TSCellularPlanUsesViewController sInPrivateNetworkModeForItem:*(*(&v8 + 1) + 8 * i), v8])
         {
           LOBYTE(v4) = 1;
           goto LABEL_11;
         }
       }
 
-      v4 = [modeCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [modeCopy countByEnumeratingWithState:&v8 objects:v12 count:16];
       if (v4)
       {
         continue;
@@ -317,7 +328,6 @@ LABEL_16:
 
 LABEL_11:
 
-  v7 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -326,7 +336,7 @@ LABEL_11:
   prepareCopy = prepare;
   if (!prepareCopy)
   {
-    v10 = _TSLogDomain();
+    v10 = _TSLogDomain(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [(TSCellularPlanUsesViewController *)self prepare:v10];
@@ -357,16 +367,16 @@ LABEL_11:
     else
     {
       objc_initWeak(&location, self);
-      v15 = +[TSCoreTelephonyClientCache sharedInstance];
-      v16[0] = MEMORY[0x277D85DD0];
-      v16[1] = 3221225472;
-      v16[2] = __44__TSCellularPlanUsesViewController_prepare___block_invoke;
-      v16[3] = &unk_279B44750;
-      objc_copyWeak(&v18, &location);
-      v17 = prepareCopy;
-      [v15 getSubscriptionInfo:v16];
+      v16 = +[TSCoreTelephonyClientCache sharedInstance];
+      v17[0] = MEMORY[0x277D85DD0];
+      v17[1] = 3221225472;
+      v17[2] = __44__TSCellularPlanUsesViewController_prepare___block_invoke;
+      v17[3] = &unk_279B44750;
+      objc_copyWeak(&v19, &location);
+      v18 = prepareCopy;
+      [v16 getSubscriptionInfo:v17];
 
-      objc_destroyWeak(&v18);
+      objc_destroyWeak(&v19);
       objc_destroyWeak(&location);
     }
 
@@ -375,12 +385,13 @@ LABEL_13:
     goto LABEL_14;
   }
 
-  if ([(NSArray *)self->_selectedPlanItems count]>= 3)
+  v14 = [(NSArray *)self->_selectedPlanItems count];
+  if (v14 >= 3)
   {
-    v14 = _TSLogDomain();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = _TSLogDomain(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      [(TSCellularPlanUsesViewController *)&self->_selectedPlanItems prepare:v14];
+      [(TSCellularPlanUsesViewController *)&self->_selectedPlanItems prepare:v15];
     }
   }
 
@@ -390,40 +401,40 @@ LABEL_14:
 
 void __44__TSCellularPlanUsesViewController_prepare___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v5 = a2;
-  v24 = a1;
-  v25 = a3;
+  v23 = a1;
+  v24 = a3;
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v7 = [WeakRetained selectedPlanItems];
 
-  v8 = [v7 countByEnumeratingWithState:&v30 objects:v35 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v29 objects:v34 count:16];
   if (v8)
   {
     v9 = v8;
     v10 = 0;
-    v11 = *v31;
-    v26 = 1;
+    v11 = *v30;
+    v25 = 1;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v31 != v11)
+        if (*v30 != v11)
         {
           objc_enumerationMutation(v7);
         }
 
-        v13 = *(*(&v30 + 1) + 8 * i);
+        v13 = *(*(&v29 + 1) + 8 * i);
         v14 = [v5 subscriptions];
         v15 = [TSUtilities findSubscriptionContextForCellularPlanItem:v13 fromSubscriptionContexts:v14];
 
         if ([v15 isSimDataOnly])
         {
-          v26 = 0;
+          v25 = 0;
         }
 
         else
@@ -434,7 +445,7 @@ void __44__TSCellularPlanUsesViewController_prepare___block_invoke(uint64_t a1, 
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v30 objects:v35 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v29 objects:v34 count:16];
     }
 
     while (v9);
@@ -443,19 +454,19 @@ void __44__TSCellularPlanUsesViewController_prepare___block_invoke(uint64_t a1, 
   else
   {
     v10 = 0;
-    v26 = 1;
+    v25 = 1;
   }
 
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __44__TSCellularPlanUsesViewController_prepare___block_invoke_2;
   block[3] = &unk_279B44728;
-  v28 = *(v24 + 32);
-  v29 = v26 & 1;
+  v27 = *(v23 + 32);
+  v28 = v25 & 1;
   dispatch_async(MEMORY[0x277D85CD0], block);
-  if ((v26 & 1) == 0 && v10)
+  if ((v25 & 1) == 0 && v10)
   {
-    v17 = objc_loadWeakRetained((v24 + 40));
+    v17 = objc_loadWeakRetained((v23 + 40));
     v18 = [v17 usesType];
 
     if (!v18)
@@ -465,21 +476,19 @@ void __44__TSCellularPlanUsesViewController_prepare___block_invoke(uint64_t a1, 
       goto LABEL_19;
     }
 
-    v19 = objc_loadWeakRetained((v24 + 40));
+    v19 = objc_loadWeakRetained((v23 + 40));
     v20 = [v19 usesType];
 
     if (v20 == 2)
     {
       v21 = +[TSCellularPlanManagerCache sharedInstance];
-      v34 = v10;
-      v22 = [MEMORY[0x277CBEA60] arrayWithObjects:&v34 count:1];
+      v33 = v10;
+      v22 = [MEMORY[0x277CBEA60] arrayWithObjects:&v33 count:1];
       [v21 selectPlansForIMessage:v22];
 
 LABEL_19:
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (id)tableView:(id)view titleForFooterInSection:(int64_t)section
@@ -787,71 +796,71 @@ LABEL_10:
 
 - (void)saveDefaultUse:(id)use
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   useCopy = use;
   v5 = +[TSCellularPlanManagerCache sharedInstance];
   v6 = +[TSCoreTelephonyClientCache sharedInstance];
   v7 = v6;
   if (self->_usesType == 2)
   {
-    v21 = v6;
+    v22 = v6;
     v8 = objc_opt_new();
-    v22 = 0u;
     v23 = 0u;
     v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
     v9 = self->_chosenUseIndexPaths;
-    v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v23;
+      v12 = *v24;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v23 != v12)
+          if (*v24 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = -[NSArray objectAtIndex:](self->_selectedPlanItems, "objectAtIndex:", [*(*(&v22 + 1) + 8 * i) row]);
+          v14 = -[NSArray objectAtIndex:](self->_selectedPlanItems, "objectAtIndex:", [*(*(&v23 + 1) + 8 * i) row]);
           [v8 addObject:v14];
         }
 
-        v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
       }
 
       while (v11);
     }
 
-    [v5 selectPlansForIMessage:v8];
-    v15 = _TSLogDomain();
+    v15 = _TSLogDomain([v5 selectPlansForIMessage:v8]);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
       [TSCellularPlanUsesViewController saveDefaultUse:];
     }
 
-    v7 = v21;
+    v7 = v22;
   }
 
   else
   {
-    v8 = [(NSArray *)self->_selectedPlanItems objectAtIndex:[(NSIndexPath *)self->_chosenUseIndexPath row]];
+    v16 = [(NSArray *)self->_selectedPlanItems objectAtIndex:[(NSIndexPath *)self->_chosenUseIndexPath row]];
+    v8 = v16;
     if (self->_usesType)
     {
       if (!self->_inPrivateNetworkMode)
       {
-        [v5 selectPlanForData:v8];
+        v16 = [v5 selectPlanForData:v16];
       }
     }
 
     else
     {
-      [v5 selectPlanForVoice:v8];
+      v16 = [v5 selectPlanForVoice:v16];
     }
 
-    v15 = _TSLogDomain();
+    v15 = _TSLogDomain(v16);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
       [TSCellularPlanUsesViewController saveDefaultUse:];
@@ -860,15 +869,15 @@ LABEL_10:
 
   if (self->_usesType == 1)
   {
-    v16 = [(NSArray *)self->_selectedPlanItems objectAtIndex:[(NSIndexPath *)self->_chosenUseIndexPath row]== 0];
+    v17 = [(NSArray *)self->_selectedPlanItems objectAtIndex:[(NSIndexPath *)self->_chosenUseIndexPath row]== 0];
     dataSwitchEnabled = self->_dataSwitchEnabled;
-    iccid = [v16 iccid];
+    iccid = [v17 iccid];
     [v7 setDataFallbackEnabled:dataSwitchEnabled forIccid:iccid];
 
-    v19 = _TSLogDomain();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+    v21 = _TSLogDomain(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
     {
-      [(TSCellularPlanUsesViewController *)&self->_dataSwitchEnabled saveDefaultUse:v16, v19];
+      [(TSCellularPlanUsesViewController *)&self->_dataSwitchEnabled saveDefaultUse:v17, v21];
     }
   }
 
@@ -876,8 +885,6 @@ LABEL_10:
   {
     useCopy[2](useCopy);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (TSSIMSetupFlowDelegate)delegate
@@ -889,38 +896,35 @@ LABEL_10:
 
 - (void)prepare:(id *)a1 .cold.1(id *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   [*a1 count];
   OUTLINED_FUNCTION_0();
-  v5 = "[TSCellularPlanUsesViewController prepare:]";
-  _os_log_error_impl(&dword_262AA8000, a2, OS_LOG_TYPE_ERROR, "[E]Too many select items. %lu @%s", v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v4 = "[TSCellularPlanUsesViewController prepare:]";
+  _os_log_error_impl(&dword_262AA8000, a2, OS_LOG_TYPE_ERROR, "[E]Too many select items. %lu @%s", v3, 0x16u);
 }
 
 - (void)prepare:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 1296);
-  v4 = 134218242;
-  v5 = v2;
-  v6 = 2080;
-  v7 = "[TSCellularPlanUsesViewController prepare:]";
-  _os_log_error_impl(&dword_262AA8000, a2, OS_LOG_TYPE_ERROR, "[E]missing completion for prepare uses view : %lu @%s", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 134218242;
+  v4 = v2;
+  v5 = 2080;
+  v6 = "[TSCellularPlanUsesViewController prepare:]";
+  _os_log_error_impl(&dword_262AA8000, a2, OS_LOG_TYPE_ERROR, "[E]missing completion for prepare uses view : %lu @%s", &v3, 0x16u);
 }
 
 - (void)saveDefaultUse:.cold.1()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  v3 = "[TSCellularPlanUsesViewController saveDefaultUse:]";
-  _os_log_debug_impl(&dword_262AA8000, v0, OS_LOG_TYPE_DEBUG, "[Db] %@ @%s", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  v2 = "[TSCellularPlanUsesViewController saveDefaultUse:]";
+  _os_log_debug_impl(&dword_262AA8000, v0, OS_LOG_TYPE_DEBUG, "[Db] %@ @%s", v1, 0x16u);
 }
 
 - (void)saveDefaultUse:(os_log_t)log .cold.3(_BYTE *a1, uint64_t a2, os_log_t log)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (*a1)
   {
     v3 = @"Yes";
@@ -931,14 +935,13 @@ LABEL_10:
     v3 = @"No";
   }
 
-  v5 = 138412802;
-  v6 = v3;
-  v7 = 2112;
-  v8 = a2;
-  v9 = 2080;
-  v10 = "[TSCellularPlanUsesViewController saveDefaultUse:]";
-  _os_log_debug_impl(&dword_262AA8000, log, OS_LOG_TYPE_DEBUG, "[Db] data switch set to %@, non data preferred plan: %@ @%s", &v5, 0x20u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412802;
+  v5 = v3;
+  v6 = 2112;
+  v7 = a2;
+  v8 = 2080;
+  v9 = "[TSCellularPlanUsesViewController saveDefaultUse:]";
+  _os_log_debug_impl(&dword_262AA8000, log, OS_LOG_TYPE_DEBUG, "[Db] data switch set to %@, non data preferred plan: %@ @%s", &v4, 0x20u);
 }
 
 @end

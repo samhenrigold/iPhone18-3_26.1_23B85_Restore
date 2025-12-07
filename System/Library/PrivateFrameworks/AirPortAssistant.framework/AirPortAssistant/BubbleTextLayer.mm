@@ -26,33 +26,33 @@
 
 - (BubbleTextLayer)initWithOwningView:(id)view
 {
-  v17.receiver = self;
-  v17.super_class = BubbleTextLayer;
-  v4 = [(BubbleTextLayer *)&v17 init];
-  v6 = v4;
+  v22.receiver = self;
+  v22.super_class = BubbleTextLayer;
+  v4 = [(BubbleTextLayer *)&v22 init];
+  v7 = v4;
   if (v4)
   {
-    objc_msgSend_setOwningView_(v4, v5, view);
-    objc_msgSend_setNeedsDisplayOnBoundsChange_(v6, v7, 1);
-    v8 = sub_23EBFD680(0.0, 0.0, 0.0, 0.0);
-    objc_msgSend_setFillColor_(v6, v9, v8);
-    CGColorRelease(v8);
-    if (sub_23EC132F8(v10, v11, v12))
+    objc_msgSend_setOwningView_(v4, v5, view, v6);
+    objc_msgSend_setNeedsDisplayOnBoundsChange_(v7, v8, 1, v9);
+    v10 = sub_23EBFD680(0.0, 0.0, 0.0, 0.0);
+    objc_msgSend_setFillColor_(v7, v11, v10, v12);
+    CGColorRelease(v10);
+    if (sub_23EC132F8(v13, v14, v15, v16))
     {
-      v15 = 0;
+      v20 = 0;
     }
 
     else
     {
-      v15 = sub_23EBFD680(1.0, 1.0, 1.0, 1.0);
+      v20 = sub_23EBFD680(1.0, 1.0, 1.0, 1.0);
     }
 
-    v6->_whiteShadowColor = v15;
-    v6->_generalShadowColor = 0;
-    objc_msgSend_setFontSize_(v6, v13, v14, 17.0);
+    v7->_whiteShadowColor = v20;
+    v7->_generalShadowColor = 0;
+    objc_msgSend_setFontSize_(v7, v17, v18, v19, 17.0);
   }
 
-  return v6;
+  return v7;
 }
 
 - (void)dealloc
@@ -93,18 +93,18 @@
 - (void)addAnnotationPoint:(CGPoint)point
 {
   DictionaryRepresentation = CGPointCreateDictionaryRepresentation(point);
-  objc_msgSend_addObject_(self->_annotationPoints, v5, DictionaryRepresentation);
+  objc_msgSend_addObject_(self->_annotationPoints, v5, DictionaryRepresentation, v6);
 
-  objc_msgSend_setNeedsLayout(self, v6, v7);
+  objc_msgSend_setNeedsLayout(self, v7, v8, v9);
 }
 
 - (void)setOwningView:(id)view
 {
   self->_owningView = view;
-  v4 = objc_msgSend_mainScreen(MEMORY[0x277D759A0], a2, view);
-  objc_msgSend_scale(v4, v5, v6);
+  v5 = objc_msgSend_mainScreen(MEMORY[0x277D759A0], a2, view, v3);
+  objc_msgSend_scale(v5, v6, v7, v8);
 
-  MEMORY[0x2821F9670](self, sel_setContentsScale_, v7);
+  MEMORY[0x2821F9670](self, sel_setContentsScale_, v9, v10);
 }
 
 - (CGImage)image
@@ -112,7 +112,7 @@
   result = self->_leftImageLayer;
   if (result)
   {
-    return objc_msgSend_contents(result, a2, v2);
+    return objc_msgSend_contents(result, a2, v2, v3);
   }
 
   return result;
@@ -122,48 +122,48 @@
 {
   if (!self->_leftImageLayer)
   {
-    v5 = objc_msgSend_layer(MEMORY[0x277CD9ED0], a2, image);
-    self->_leftImageLayer = v5;
-    objc_msgSend_addSublayer_(self, v6, v5);
+    v6 = objc_msgSend_layer(MEMORY[0x277CD9ED0], a2, image, v3);
+    self->_leftImageLayer = v6;
+    objc_msgSend_addSublayer_(self, v7, v6, v8);
   }
 
-  objc_msgSend_begin(MEMORY[0x277CD9FF0], a2, image);
-  v7 = MEMORY[0x277CD9FF0];
-  v10 = objc_msgSend_numberWithFloat_(MEMORY[0x277CCABB0], v8, v9, 0.0);
-  objc_msgSend_setValue_forKey_(v7, v11, v10, *MEMORY[0x277CDA908]);
-  objc_msgSend_setContents_(self->_leftImageLayer, v12, image);
-  objc_msgSend_setNeedsLayout(self, v13, v14);
-  v16 = MEMORY[0x277CD9FF0];
+  objc_msgSend_begin(MEMORY[0x277CD9FF0], a2, image, v3);
+  v9 = MEMORY[0x277CD9FF0];
+  v13 = objc_msgSend_numberWithFloat_(MEMORY[0x277CCABB0], v10, v11, v12, 0.0);
+  objc_msgSend_setValue_forKey_(v9, v14, v13, *MEMORY[0x277CDA908]);
+  objc_msgSend_setContents_(self->_leftImageLayer, v15, image, v16);
+  objc_msgSend_setNeedsLayout(self, v17, v18, v19);
+  v22 = MEMORY[0x277CD9FF0];
 
-  MEMORY[0x2821F9670](v16, sel_commit, v15);
+  MEMORY[0x2821F9670](v22, sel_commit, v20, v21);
 }
 
 - (void)setRightAccessoryLayer:(id)layer
 {
   if (layer && self->_rightAccessoryLayer != layer)
   {
-    objc_msgSend_addSublayer_(self, a2, layer);
+    objc_msgSend_addSublayer_(self, a2, layer, v3);
   }
 
   rightAccessoryLayer = self->_rightAccessoryLayer;
   if (rightAccessoryLayer)
   {
-    v6 = rightAccessoryLayer == layer;
+    v7 = rightAccessoryLayer == layer;
   }
 
   else
   {
-    v6 = 1;
+    v7 = 1;
   }
 
-  if (!v6)
+  if (!v7)
   {
-    objc_msgSend_removeFromSuperlayer(rightAccessoryLayer, a2, layer);
+    objc_msgSend_removeFromSuperlayer(rightAccessoryLayer, a2, layer, v3);
   }
 
   self->_rightAccessoryLayer = layer;
 
-  objc_msgSend_setNeedsLayout(self, a2, layer);
+  objc_msgSend_setNeedsLayout(self, a2, layer, v3);
 }
 
 - (void)setFont:(id)font
@@ -172,40 +172,40 @@
   {
     if (dword_27E382F28 != -1 || sub_23EB74AC8(&dword_27E382F28, 0x320u))
     {
-      sub_23EB75374(&dword_27E382F28, "[BubbleTextLayer setFont:]", 800, "%@\n", v3, v4, v5, v6, self);
+      sub_23EB75374(&dword_27E382F28, "[BubbleTextLayer setFont:]", 800, "%@\n", self);
     }
 
     if (dword_27E382F28 <= 800 && (dword_27E382F28 != -1 || sub_23EB74AC8(&dword_27E382F28, 0x320u)))
     {
-      sub_23EB75374(&dword_27E382F28, "[BubbleTextLayer setFont:]", 800, "%@\n", v3, v4, v5, v6, font);
+      sub_23EB75374(&dword_27E382F28, "[BubbleTextLayer setFont:]", 800, "%@\n", font);
     }
   }
 
-  v9 = CFGetTypeID(font);
-  if (v9 == CGFontGetTypeID())
+  v5 = CFGetTypeID(font);
+  if (v5 == CGFontGetTypeID())
   {
-    objc_msgSend_fontSize(self, v10, v11);
-    v13 = CTFontCreateWithGraphicsFont(font, v12, 0, 0);
+    objc_msgSend_fontSize(self, v6, v7, v8);
+    v10 = CTFontCreateWithGraphicsFont(font, v9, 0, 0);
   }
 
-  else if (v9 == CFStringGetTypeID())
+  else if (v5 == CFStringGetTypeID())
   {
-    objc_msgSend_fontSize(self, v16, v17);
-    v13 = CTFontCreateWithName(font, v18, 0);
+    objc_msgSend_fontSize(self, v14, v15, v16);
+    v10 = CTFontCreateWithName(font, v17, 0);
   }
 
   else
   {
-    if (v9 != CTFontGetTypeID())
+    if (v5 != CTFontGetTypeID())
     {
       return;
     }
 
-    v13 = CFRetain(font);
+    v10 = CFRetain(font);
   }
 
-  v19 = v13;
-  if (v13)
+  v18 = v10;
+  if (v10)
   {
     curCTFont = self->_curCTFont;
     if (curCTFont)
@@ -213,9 +213,9 @@
       CFRelease(curCTFont);
     }
 
-    self->_curCTFont = v19;
+    self->_curCTFont = v18;
 
-    objc_msgSend_setNeedsLayout(self, v14, v15);
+    objc_msgSend_setNeedsLayout(self, v11, v12, v13);
   }
 }
 
@@ -225,13 +225,13 @@
   width = constraint.width;
   if (dword_27E382F28 <= 800 && (dword_27E382F28 != -1 || sub_23EB74AC8(&dword_27E382F28, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382F28, "[BubbleTextLayer setBoundsSizeConstraint:]", 800, "%@  constraint = (w = %.2f h = %.2f)\n", v4, v5, v6, v7, self);
+    sub_23EB75374(&dword_27E382F28, "[BubbleTextLayer setBoundsSizeConstraint:]", 800, "%@  constraint = (w = %.2f h = %.2f)\n", self, *&width, *&height);
   }
 
   self->_boundsSizeConstraint.width = width;
   self->_boundsSizeConstraint.height = height;
 
-  objc_msgSend_layoutSublayers(self, a2, v3);
+  objc_msgSend_layoutSublayers(self, a2, v3, v4);
 }
 
 - (CGSize)boundsSizeConstraint
@@ -247,36 +247,36 @@
 {
   if (dword_27E382F28 <= 800 && (dword_27E382F28 != -1 || sub_23EB74AC8(&dword_27E382F28, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382F28, "[BubbleTextLayer getImagePreferredSize]", 800, "%@\n", v3, v4, v5, v6, self);
+    sub_23EB75374(&dword_27E382F28, "[BubbleTextLayer getImagePreferredSize]", 800, "%@\n", self);
   }
 
-  v8 = objc_msgSend_contents(self->_leftImageLayer, a2, v2);
-  if (v8)
+  v5 = objc_msgSend_contents(self->_leftImageLayer, a2, v2, v3);
+  if (v5)
   {
-    v13 = v8;
-    Width = CGImageGetWidth(v8);
-    objc_msgSend_contentsScale(self, v15, v16);
-    v18 = Width / v17;
-    Height = CGImageGetHeight(v13);
-    objc_msgSend_contentsScale(self, v20, v21);
-    v23 = Height / v22;
+    v6 = v5;
+    Width = CGImageGetWidth(v5);
+    objc_msgSend_contentsScale(self, v8, v9, v10);
+    v12 = Width / v11;
+    Height = CGImageGetHeight(v6);
+    objc_msgSend_contentsScale(self, v14, v15, v16);
+    v18 = Height / v17;
   }
 
   else
   {
-    v18 = *MEMORY[0x277CBF3A8];
-    v23 = *(MEMORY[0x277CBF3A8] + 8);
+    v12 = *MEMORY[0x277CBF3A8];
+    v18 = *(MEMORY[0x277CBF3A8] + 8);
   }
 
   if (dword_27E382F28 <= 800 && (dword_27E382F28 != -1 || sub_23EB74AC8(&dword_27E382F28, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382F28, "[BubbleTextLayer getImagePreferredSize]", 800, "image layer size w = %.1f h = %.1f\n", v9, v10, v11, v12, *&v18);
+    sub_23EB75374(&dword_27E382F28, "[BubbleTextLayer getImagePreferredSize]", 800, "image layer size w = %.1f h = %.1f\n", v12, v18);
   }
 
-  v24 = v18;
-  v25 = v23;
-  result.height = v25;
-  result.width = v24;
+  v19 = v12;
+  v20 = v18;
+  result.height = v20;
+  result.width = v19;
   return result;
 }
 
@@ -285,17 +285,17 @@
   rightAccessoryLayer = self->_rightAccessoryLayer;
   if (rightAccessoryLayer)
   {
-    objc_msgSend_preferredFrameSize(rightAccessoryLayer, a2, v2);
+    objc_msgSend_preferredFrameSize(rightAccessoryLayer, a2, v2, v3);
   }
 
   else
   {
-    v4 = *MEMORY[0x277CBF3A8];
-    v5 = *(MEMORY[0x277CBF3A8] + 8);
+    v5 = *MEMORY[0x277CBF3A8];
+    v6 = *(MEMORY[0x277CBF3A8] + 8);
   }
 
-  result.height = v5;
-  result.width = v4;
+  result.height = v6;
+  result.width = v5;
   return result;
 }
 
@@ -304,7 +304,7 @@
   annotationPoints = self->_annotationPoints;
   if (annotationPoints)
   {
-    LOBYTE(annotationPoints) = objc_msgSend_count(annotationPoints, a2, v2) != 0;
+    LOBYTE(annotationPoints) = objc_msgSend_count(annotationPoints, a2, v2, v3) != 0;
   }
 
   return annotationPoints;
@@ -314,11 +314,11 @@
 {
   height = size.height;
   width = size.width;
-  objc_msgSend_string(self, a2, v3);
+  objc_msgSend_string(self, a2, v3, v4);
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
-  v10 = MEMORY[0x277CC4838];
-  v11 = MEMORY[0x277CC49C0];
+  v12 = MEMORY[0x277CC4838];
+  v13 = MEMORY[0x277CC49C0];
   if (isKindOfClass)
   {
     theLine = self->_theLine;
@@ -327,28 +327,28 @@
       CFRelease(theLine);
     }
 
-    v13 = objc_msgSend_string(self, v8, v9);
-    self->_theLine = CTLineCreateWithAttributedString(v13);
+    v15 = objc_msgSend_string(self, v9, v10, v11);
+    self->_theLine = CTLineCreateWithAttributedString(v15);
   }
 
   else
   {
-    v14 = objc_alloc(MEMORY[0x277CBEAC0]);
+    v16 = objc_alloc(MEMORY[0x277CBEAC0]);
     curCTFont = self->_curCTFont;
-    v16 = *v10;
-    v19 = objc_msgSend_foregroundColor(self, v17, v18);
-    v21 = objc_msgSend_initWithObjectsAndKeys_(v14, v20, curCTFont, v16, v19, *v11, 0);
-    v24 = objc_msgSend_string(self, v22, v23);
-    v25 = CFAttributedStringCreate(0, v24, v21);
-    v26 = self->_theLine;
-    if (v26)
+    v18 = *v12;
+    v22 = objc_msgSend_foregroundColor(self, v19, v20, v21);
+    v25 = objc_msgSend_initWithObjectsAndKeys_(v16, v23, curCTFont, v24, v18, v22, *v13, 0);
+    v29 = objc_msgSend_string(self, v26, v27, v28);
+    v30 = CFAttributedStringCreate(0, v29, v25);
+    v31 = self->_theLine;
+    if (v31)
     {
-      CFRelease(v26);
+      CFRelease(v31);
     }
 
-    self->_theLine = CTLineCreateWithAttributedString(v25);
-    CFRelease(v21);
+    self->_theLine = CTLineCreateWithAttributedString(v30);
     CFRelease(v25);
+    CFRelease(v30);
   }
 
   if (width == *MEMORY[0x277CBF3A8] && height == *(MEMORY[0x277CBF3A8] + 8))
@@ -358,51 +358,66 @@
 
   else
   {
-    v28 = objc_alloc(MEMORY[0x277CBEAC0]);
-    v29 = self->_curCTFont;
-    v30 = *v10;
-    v33 = objc_msgSend_foregroundColor(self, v31, v32);
-    v35 = objc_msgSend_initWithObjectsAndKeys_(v28, v34, v29, v30, v33, *v11, 0);
-    v36 = CFAttributedStringCreate(0, @"…", v35);
-    v37 = CTLineCreateWithAttributedString(v36);
-    TruncatedLine = CTLineCreateTruncatedLine(self->_theLine, width, kCTLineTruncationMiddle, v37);
-    if (v35)
+    v33 = objc_alloc(MEMORY[0x277CBEAC0]);
+    v34 = self->_curCTFont;
+    v35 = *v12;
+    v39 = objc_msgSend_foregroundColor(self, v36, v37, v38);
+    v42 = objc_msgSend_initWithObjectsAndKeys_(v33, v40, v34, v41, v35, v39, *v13, 0);
+    v43 = CFAttributedStringCreate(0, @"…", v42);
+    v44 = CTLineCreateWithAttributedString(v43);
+    TruncatedLine = CTLineCreateTruncatedLine(self->_theLine, width, kCTLineTruncationMiddle, v44);
+    if (v42)
     {
-      CFRelease(v35);
+      CFRelease(v42);
     }
 
-    if (v36)
+    if (v43)
     {
-      CFRelease(v36);
+      CFRelease(v43);
     }
 
-    if (v37)
+    if (v44)
     {
-      CFRelease(v37);
+      CFRelease(v44);
     }
 
-    v39 = self->_theLine;
-    if (v39)
+    v46 = self->_theLine;
+    if (v46)
     {
-      CFRelease(v39);
+      CFRelease(v46);
     }
 
     self->_theLine = TruncatedLine;
   }
 
   TypographicBounds = CTLineGetTypographicBounds(TruncatedLine, &self->_ascent, &self->_descent, &self->_leading);
-  *&v45 = ceilf(TypographicBounds);
-  v46 = self->_ascent + self->_descent;
-  v47 = ceilf(v46);
-  if (dword_27E382F28 <= 800 && (dword_27E382F28 != -1 || sub_23EB74AC8(&dword_27E382F28, 0x320u)))
+  v48 = ceilf(TypographicBounds);
+  ascent = self->_ascent;
+  descent = self->_descent;
+  v51 = ascent + descent;
+  v52 = ceilf(v51);
+  if (dword_27E382F28 <= 800)
   {
-    sub_23EB75374(&dword_27E382F28, "[BubbleTextLayer textPreferredFrameSizeForLayerSize:]", 800, "width = %.2f  height = %.2f  ascent = %.2f  descent = %.2f  leading = %.2f\n", v40, v41, v42, v43, v45);
+    if (dword_27E382F28 != -1)
+    {
+LABEL_26:
+      sub_23EB75374(&dword_27E382F28, "[BubbleTextLayer textPreferredFrameSizeForLayerSize:]", 800, "width = %.2f  height = %.2f  ascent = %.2f  descent = %.2f  leading = %.2f\n", v48, v52, ascent, descent, self->_leading);
+      goto LABEL_27;
+    }
+
+    if (sub_23EB74AC8(&dword_27E382F28, 0x320u))
+    {
+      ascent = self->_ascent;
+      descent = self->_descent;
+      goto LABEL_26;
+    }
   }
 
-  v48 = *&v45;
-  v49 = v47;
-  result.height = v49;
-  result.width = v48;
+LABEL_27:
+  v53 = v48;
+  v54 = v52;
+  result.height = v54;
+  result.width = v53;
   return result;
 }
 
@@ -410,40 +425,40 @@
 {
   if (dword_27E382F28 <= 800 && (dword_27E382F28 != -1 || sub_23EB74AC8(&dword_27E382F28, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382F28, "[BubbleTextLayer calculatePreferredSubframeSizes]", 800, "\n", v3, v4, v5, v6, v47);
+    sub_23EB75374(&dword_27E382F28, "[BubbleTextLayer calculatePreferredSubframeSizes]", 800, "\n");
   }
 
-  objc_msgSend_boundsSizeConstraint(self, a2, v2);
-  v9 = v8;
-  v11 = v10;
+  objc_msgSend_boundsSizeConstraint(self, a2, v2, v3);
+  v6 = v5;
+  v8 = v7;
   p_leftImageLayerSize = &self->_leftImageLayerSize;
-  objc_msgSend_getImagePreferredSize(self, v13, v14);
-  self->_leftImageLayerSize.width = v15;
-  self->_leftImageLayerSize.height = v16;
+  objc_msgSend_getImagePreferredSize(self, v10, v11, v12);
+  self->_leftImageLayerSize.width = v13;
+  self->_leftImageLayerSize.height = v14;
   p_rightAccessoryLayerSize = &self->_rightAccessoryLayerSize;
-  objc_msgSend_getRightAccessoryLayerPreferredSize(self, v18, v19);
+  objc_msgSend_getRightAccessoryLayerPreferredSize(self, v16, v17, v18);
   self->_rightAccessoryLayerSize.width = v22;
   self->_rightAccessoryLayerSize.height = v23;
-  if (v9 != *MEMORY[0x277CBF3A8] || v11 != *(MEMORY[0x277CBF3A8] + 8))
+  if (v6 != *MEMORY[0x277CBF3A8] || v8 != *(MEMORY[0x277CBF3A8] + 8))
   {
     if (self->_leftImageLayer)
     {
-      v9 = v9 - (*p_leftImageLayerSize + 7.0);
+      v6 = v6 - (p_leftImageLayerSize->width + 7.0);
     }
 
-    v25 = v9 - (v22 + 7.0);
+    v25 = v6 - (v22 + 7.0);
     if (!self->_rightAccessoryLayer)
     {
-      v25 = v9;
+      v25 = v6;
     }
 
-    v9 = v25 + -16.0;
+    v6 = v25 + -16.0;
   }
 
   p_textSize = &self->_textSize;
-  objc_msgSend_textPreferredFrameSizeForLayerSize_(self, v20, v21, v9, v11);
+  objc_msgSend_textPreferredFrameSizeForLayerSize_(self, v19, v20, v21, v6, v8);
   self->_textSize.width = width;
-  self->_textSize.height = v34;
+  self->_textSize.height = height;
   if (dword_27E382F28 <= 800)
   {
     if (dword_27E382F28 == -1)
@@ -454,58 +469,59 @@
       }
 
       width = p_textSize->width;
+      height = self->_textSize.height;
     }
 
-    sub_23EB75374(&dword_27E382F28, "[BubbleTextLayer calculatePreferredSubframeSizes]", 800, "text area size w = %.1f h = %.1f\n", v29, v30, v31, v32, *&width);
+    sub_23EB75374(&dword_27E382F28, "[BubbleTextLayer calculatePreferredSubframeSizes]", 800, "text area size w = %.1f h = %.1f\n", width, height);
 LABEL_19:
     if (dword_27E382F28 <= 800)
     {
       if (dword_27E382F28 != -1 || sub_23EB74AC8(&dword_27E382F28, 0x320u))
       {
-        sub_23EB75374(&dword_27E382F28, "[BubbleTextLayer calculatePreferredSubframeSizes]", 800, "image layer size w = %.1f h = %.1f\n", v29, v30, v31, v32, *p_leftImageLayerSize);
+        sub_23EB75374(&dword_27E382F28, "[BubbleTextLayer calculatePreferredSubframeSizes]", 800, "image layer size w = %.1f h = %.1f\n", p_leftImageLayerSize->width, self->_leftImageLayerSize.height);
       }
 
       if (dword_27E382F28 <= 800 && (dword_27E382F28 != -1 || sub_23EB74AC8(&dword_27E382F28, 0x320u)))
       {
-        sub_23EB75374(&dword_27E382F28, "[BubbleTextLayer calculatePreferredSubframeSizes]", 800, "right accessory layer size w = %.1f h = %.1f\n", v29, v30, v31, v32, *p_rightAccessoryLayerSize);
+        sub_23EB75374(&dword_27E382F28, "[BubbleTextLayer calculatePreferredSubframeSizes]", 800, "right accessory layer size w = %.1f h = %.1f\n", p_rightAccessoryLayerSize->width, self->_rightAccessoryLayerSize.height);
       }
     }
   }
 
-  v35 = p_textSize->width;
+  v32 = p_textSize->width;
   if (self->_leftImageLayer)
   {
-    v35 = v35 + *p_leftImageLayerSize + 7.0;
+    v32 = v32 + p_leftImageLayerSize->width + 7.0;
   }
 
   if (self->_rightAccessoryLayer)
   {
-    v35 = v35 + *p_rightAccessoryLayerSize + 7.0;
+    v32 = v32 + p_rightAccessoryLayerSize->width + 7.0;
   }
 
-  height = self->_textSize.height;
-  self->_contentSize.width = v35;
-  self->_contentSize.height = height;
-  v37 = height + 12.0;
-  v38 = v35 + 16.0;
-  if (objc_msgSend_isAnnotationBubble(self, v27, v28))
+  v33 = self->_textSize.height;
+  self->_contentSize.width = v32;
+  self->_contentSize.height = v33;
+  v34 = v33 + 12.0;
+  v35 = v32 + 16.0;
+  if (objc_msgSend_isAnnotationBubble(self, v27, v28, v29))
   {
-    v37 = v37 + 16.0;
+    v34 = v34 + 16.0;
   }
 
   if (dword_27E382F28 <= 800 && (dword_27E382F28 != -1 || sub_23EB74AC8(&dword_27E382F28, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382F28, "[BubbleTextLayer calculatePreferredSubframeSizes]", 800, "final bubble size w = %.1f h = %.1f\n", v39, v40, v41, v42, *&v38);
+    sub_23EB75374(&dword_27E382F28, "[BubbleTextLayer calculatePreferredSubframeSizes]", 800, "final bubble size w = %.1f h = %.1f\n", v35, v34);
   }
 
-  self->_bubbleSize.width = v38;
-  self->_bubbleSize.height = v37;
-  v43 = v37 + 4.0;
-  v44 = ceilf(v43);
-  v45 = v38 + 2.0;
-  v46 = ceilf(v45);
-  result.height = v44;
-  result.width = v46;
+  self->_bubbleSize.width = v35;
+  self->_bubbleSize.height = v34;
+  v36 = v34 + 4.0;
+  v37 = ceilf(v36);
+  v38 = v35 + 2.0;
+  v39 = ceilf(v38);
+  result.height = v37;
+  result.width = v39;
   return result;
 }
 
@@ -513,12 +529,12 @@ LABEL_19:
 {
   if (dword_27E382F28 <= 800 && (dword_27E382F28 != -1 || sub_23EB74AC8(&dword_27E382F28, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382F28, "[BubbleTextLayer preferredFrameSize]", 800, "\n", v3, v4, v5, v6, v10);
+    sub_23EB75374(&dword_27E382F28, "[BubbleTextLayer preferredFrameSize]", 800, "\n");
   }
 
-  objc_msgSend_calculatePreferredSubframeSizes(self, a2, v2);
-  result.height = v9;
-  result.width = v8;
+  objc_msgSend_calculatePreferredSubframeSizes(self, a2, v2, v3);
+  result.height = v6;
+  result.width = v5;
   return result;
 }
 
@@ -542,7 +558,7 @@ LABEL_19:
   {
     if (dword_27E382F28 <= 800 && (dword_27E382F28 != -1 || sub_23EB74AC8(&dword_27E382F28, 0x320u)))
     {
-      sub_23EB75374(&dword_27E382F28, "[BubbleTextLayer textBaselineOffset]", 800, "returning %.2f\n", v2, v3, v4, v5, *&self->_ascent);
+      sub_23EB75374(&dword_27E382F28, "[BubbleTextLayer textBaselineOffset]", 800, "returning %.2f\n", self->_ascent);
     }
 
     return self->_ascent;
@@ -557,96 +573,119 @@ LABEL_19:
   {
     if (dword_27E382F28 != -1 || sub_23EB74AC8(&dword_27E382F28, 0x320u))
     {
-      sub_23EB75374(&dword_27E382F28, "[BubbleTextLayer layoutSublayers]", 800, "%@\n", v3, v4, v5, v6, self);
+      sub_23EB75374(&dword_27E382F28, "[BubbleTextLayer layoutSublayers]", 800, "%@\n", self);
     }
 
     if (dword_27E382F28 <= 800)
     {
       if (dword_27E382F28 != -1 || sub_23EB74AC8(&dword_27E382F28, 0x320u))
       {
-        objc_msgSend_frame(self, a2, v2);
-        v9 = v8;
-        objc_msgSend_frame(self, v10, v11);
-        objc_msgSend_frame(self, v12, v13);
-        objc_msgSend_frame(self, v14, v15);
-        sub_23EB75374(&dword_27E382F28, "[BubbleTextLayer layoutSublayers]", 800, "bubble layer frame=(x = %.1f, y = %.1f, w = %.1f, h = %.1f)\n", v16, v17, v18, v19, v9);
+        objc_msgSend_frame(self, a2, v2, v3);
+        v6 = v5;
+        objc_msgSend_frame(self, v7, v8, v9);
+        v11 = v10;
+        objc_msgSend_frame(self, v12, v13, v14);
+        v16 = v15;
+        objc_msgSend_frame(self, v17, v18, v19);
+        sub_23EB75374(&dword_27E382F28, "[BubbleTextLayer layoutSublayers]", 800, "bubble layer frame=(x = %.1f, y = %.1f, w = %.1f, h = %.1f)\n", v6, v11, v16, v20);
       }
 
       if (dword_27E382F28 <= 800 && (dword_27E382F28 != -1 || sub_23EB74AC8(&dword_27E382F28, 0x320u)))
       {
-        objc_msgSend_boundsSizeConstraint(self, a2, v2);
-        v21 = v20;
-        objc_msgSend_boundsSizeConstraint(self, v22, v23);
-        sub_23EB75374(&dword_27E382F28, "[BubbleTextLayer layoutSublayers]", 800, "constraint = (w = %.2f h = %.2f)\n", v24, v25, v26, v27, v21);
+        objc_msgSend_boundsSizeConstraint(self, a2, v2, v3);
+        v22 = v21;
+        objc_msgSend_boundsSizeConstraint(self, v23, v24, v25);
+        sub_23EB75374(&dword_27E382F28, "[BubbleTextLayer layoutSublayers]", 800, "constraint = (w = %.2f h = %.2f)\n", v22, v26);
       }
     }
   }
 
-  objc_msgSend_frame(self, a2, v2);
+  objc_msgSend_frame(self, a2, v2, v3);
   if (v31 != *MEMORY[0x277CBF3A8] || v30 != *(MEMORY[0x277CBF3A8] + 8))
   {
-    objc_msgSend_calculatePreferredSubframeSizes(self, v28, v29);
-    objc_msgSend_bounds(self, v33, v34);
-    v36 = v35;
-    objc_msgSend_bounds(self, v37, v38);
+    objc_msgSend_calculatePreferredSubframeSizes(self, v27, v28, v29);
+    objc_msgSend_bounds(self, v33, v34, v35);
+    v37 = v36;
+    objc_msgSend_bounds(self, v38, v39, v40);
     self->_bubbleFrame.origin.y = 0.0;
     bubbleSize = self->_bubbleSize;
-    self->_bubbleFrame.origin.x = ceil(v36 + (v40 - bubbleSize.width) * 0.5);
+    self->_bubbleFrame.origin.x = ceil(v37 + (v42 - bubbleSize.width) * 0.5);
     self->_bubbleFrame.size = bubbleSize;
-    objc_msgSend_bounds(self, v41, v42);
-    v46 = (v45 - self->_contentSize.width) * 0.5;
-    v47 = floorf(v46);
+    objc_msgSend_bounds(self, v43, v44, v45);
+    v50 = (v49 - self->_contentSize.width) * 0.5;
+    v51 = floorf(v50);
     p_textFrame = &self->_textFrame;
-    self->_textFrame.origin.x = v47;
+    self->_textFrame.origin.x = v51;
     if (self->_leftImageLayer)
     {
-      *p_textFrame = self->_leftImageLayerSize.width + 7.0 + -1.0 + v47;
+      p_textFrame->origin.x = self->_leftImageLayerSize.width + 7.0 + -1.0 + v51;
     }
 
-    objc_msgSend_bounds(self, v43, v44);
-    v50 = v49 - self->_ascent;
-    objc_msgSend_bounds(self, v51, v52);
+    objc_msgSend_bounds(self, v46, v47, v48);
+    v54 = v53 - self->_ascent;
+    objc_msgSend_bounds(self, v55, v56, v57);
     width = self->_textSize.width;
     height = self->_textSize.height;
-    v62 = v50 + (v61 - height) * -0.5;
-    self->_textFrame.origin.y = ceilf(v62);
+    v64 = v54 + (v63 - height) * -0.5;
+    y = ceilf(v64);
+    self->_textFrame.origin.y = y;
     self->_textFrame.size.width = width;
     self->_textFrame.size.height = height;
-    if (dword_27E382F28 <= 800 && (dword_27E382F28 != -1 || sub_23EB74AC8(&dword_27E382F28, 0x320u)))
+    if (dword_27E382F28 > 800)
     {
-      sub_23EB75374(&dword_27E382F28, "[BubbleTextLayer layoutSublayers]", 800, "_textFrame placed at frame=(x = %.1f, y = %.1f, w = %.1f, h = %.1f)\n", v55, v56, v57, v58, *p_textFrame);
+      goto LABEL_24;
     }
 
+    if (dword_27E382F28 == -1)
+    {
+      if (!sub_23EB74AC8(&dword_27E382F28, 0x320u))
+      {
+        goto LABEL_24;
+      }
+
+      y = self->_textFrame.origin.y;
+      width = self->_textFrame.size.width;
+      height = self->_textFrame.size.height;
+    }
+
+    sub_23EB75374(&dword_27E382F28, "[BubbleTextLayer layoutSublayers]", 800, "_textFrame placed at frame=(x = %.1f, y = %.1f, w = %.1f, h = %.1f)\n", p_textFrame->origin.x, y, width, height);
+LABEL_24:
     if (self->_leftImageLayer)
     {
-      objc_msgSend_bounds(self, v53, v54);
-      v64 = (v63 - self->_contentSize.width) * 0.5;
-      *&v65 = ceilf(v64);
-      v66 = (self->_bubbleSize.height - self->_leftImageLayerSize.height) * 0.5;
-      objc_msgSend_setFrame_(self->_leftImageLayer, v67, v68, *&v65, ceilf(v66), self->_leftImageLayerSize.width, self->_leftImageLayerSize.height);
+      objc_msgSend_bounds(self, v58, v59, v60);
+      v68 = self->_leftImageLayerSize.width;
+      v67 = self->_leftImageLayerSize.height;
+      v69 = (v66 - self->_contentSize.width) * 0.5;
+      v70 = ceilf(v69);
+      v71 = (self->_bubbleSize.height - v67) * 0.5;
+      v72 = ceilf(v71);
+      objc_msgSend_setFrame_(self->_leftImageLayer, v73, v74, v75, v70, v72, v68, v67);
       if (dword_27E382F28 <= 800 && (dword_27E382F28 != -1 || sub_23EB74AC8(&dword_27E382F28, 0x320u)))
       {
-        sub_23EB75374(&dword_27E382F28, "[BubbleTextLayer layoutSublayers]", 800, "_leftImageLayer placed at frame=(x = %.1f, y = %.1f, w = %.1f, h = %.1f)\n", v69, v70, v71, v72, v65);
+        sub_23EB75374(&dword_27E382F28, "[BubbleTextLayer layoutSublayers]", 800, "_leftImageLayer placed at frame=(x = %.1f, y = %.1f, w = %.1f, h = %.1f)\n", v70, v72, v68, v67);
       }
     }
 
     if (self->_rightAccessoryLayer)
     {
-      *&v84.origin.x = *p_textFrame;
-      v84.origin.y = self->_textFrame.origin.y;
-      v84.size.width = self->_textFrame.size.width;
-      v84.size.height = self->_textFrame.size.height;
-      v73 = CGRectGetMaxX(v84) + 7.0;
-      objc_msgSend_bounds(self, v74, v75);
-      MaxY = CGRectGetMaxY(v85);
-      objc_msgSend_setFrame_(self->_rightAccessoryLayer, v77, v78, v73, MaxY - self->_rightAccessoryLayerSize.height, self->_rightAccessoryLayerSize.width, self->_rightAccessoryLayerSize.height);
+      v88.origin.x = p_textFrame->origin.x;
+      v88.origin.y = self->_textFrame.origin.y;
+      v88.size.width = self->_textFrame.size.width;
+      v88.size.height = self->_textFrame.size.height;
+      v76 = CGRectGetMaxX(v88) + 7.0;
+      objc_msgSend_bounds(self, v77, v78, v79);
+      MaxY = CGRectGetMaxY(v89);
+      v82 = self->_rightAccessoryLayerSize.width;
+      v81 = self->_rightAccessoryLayerSize.height;
+      v83 = MaxY - v81;
+      objc_msgSend_setFrame_(self->_rightAccessoryLayer, v84, v85, v86, v76, MaxY - v81, v82, v81);
       if (dword_27E382F28 <= 800 && (dword_27E382F28 != -1 || sub_23EB74AC8(&dword_27E382F28, 0x320u)))
       {
-        sub_23EB75374(&dword_27E382F28, "[BubbleTextLayer layoutSublayers]", 800, "_rightAccessoryLayer placed at frame=(x = %.1f, y = %.1f, w = %.1f, h = %.1f)\n", v79, v80, v81, v82, *&v73);
+        sub_23EB75374(&dword_27E382F28, "[BubbleTextLayer layoutSublayers]", 800, "_rightAccessoryLayer placed at frame=(x = %.1f, y = %.1f, w = %.1f, h = %.1f)\n", v76, v83, v82, v81);
       }
     }
 
-    objc_msgSend_setNeedsDisplay(self, v53, v54);
+    objc_msgSend_setNeedsDisplay(self, v58, v59, v60);
   }
 }
 
@@ -654,11 +693,11 @@ LABEL_19:
 {
   if (dword_27E382F28 <= 800 && (dword_27E382F28 != -1 || sub_23EB74AC8(&dword_27E382F28, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382F28, "[BubbleTextLayer drawInContext:]", 800, "\n", v3, v4, v5, v6, v47);
+    sub_23EB75374(&dword_27E382F28, "[BubbleTextLayer drawInContext:]", 800, "\n");
   }
 
   CGContextSaveGState(context);
-  if (objc_msgSend_isAnnotationBubble(self, v9, v10))
+  if (objc_msgSend_isAnnotationBubble(self, v5, v6, v7))
   {
     sub_23EBFD864(context, self->_bubbleFrame.origin.x, self->_bubbleFrame.origin.y, self->_bubbleFrame.size.width, self->_bubbleFrame.size.height, self->_bubbleFrame.size.height * 0.5, 16.0);
   }
@@ -672,105 +711,105 @@ LABEL_19:
   generalShadowColor = self->_generalShadowColor;
   if (generalShadowColor)
   {
-    v48.width = 0.0;
-    v48.height = 1.0;
-    CGContextSetShadowWithColor(context, v48, 1.0, generalShadowColor);
+    v54.width = 0.0;
+    v54.height = 1.0;
+    CGContextSetShadowWithColor(context, v54, 1.0, generalShadowColor);
   }
 
   p_bubbleFrame = &self->_bubbleFrame;
   CGContextBeginTransparencyLayerWithRect(context, self->_bubbleFrame, 0);
-  if (objc_msgSend_fillColor(self, v13, v14) && objc_msgSend_fillColor2(self, v15, v16))
+  if (objc_msgSend_fillColor(self, v10, v11, v12) && objc_msgSend_fillColor2(self, v13, v14, v15))
   {
     DeviceRGB = CGColorSpaceCreateDeviceRGB();
-    v18 = MEMORY[0x277CBEA60];
-    v21 = objc_msgSend_fillColor(self, v19, v20);
-    v24 = objc_msgSend_fillColor2(self, v22, v23);
-    v26 = objc_msgSend_arrayWithObjects_(v18, v25, v21, v24, 0);
-    v27 = CGGradientCreateWithColors(DeviceRGB, v26, 0);
+    v17 = MEMORY[0x277CBEA60];
+    v21 = objc_msgSend_fillColor(self, v18, v19, v20);
+    v25 = objc_msgSend_fillColor2(self, v22, v23, v24);
+    v28 = objc_msgSend_arrayWithObjects_(v17, v26, v21, v27, v25, 0);
+    v29 = CGGradientCreateWithColors(DeviceRGB, v28, 0);
     CGContextClip(context);
-    v55.origin.x = p_bubbleFrame->origin.x;
-    v55.origin.y = self->_bubbleFrame.origin.y;
-    v55.size.width = self->_bubbleFrame.size.width;
-    v55.size.height = self->_bubbleFrame.size.height;
-    MidX = CGRectGetMidX(v55);
-    v56.origin.x = p_bubbleFrame->origin.x;
-    v56.origin.y = self->_bubbleFrame.origin.y;
-    v56.size.width = self->_bubbleFrame.size.width;
-    v56.size.height = self->_bubbleFrame.size.height;
-    v29 = CGRectGetMidX(v56);
-    v57.origin.x = p_bubbleFrame->origin.x;
-    v57.origin.y = self->_bubbleFrame.origin.y;
-    v57.size.width = self->_bubbleFrame.size.width;
-    v57.size.height = self->_bubbleFrame.size.height;
-    v54.y = CGRectGetMaxY(v57);
-    v49.y = 0.0;
-    v49.x = MidX;
-    v54.x = v29;
-    CGContextDrawLinearGradient(context, v27, v49, v54, 0);
-    CGGradientRelease(v27);
+    v61.origin.x = p_bubbleFrame->origin.x;
+    v61.origin.y = self->_bubbleFrame.origin.y;
+    v61.size.width = self->_bubbleFrame.size.width;
+    v61.size.height = self->_bubbleFrame.size.height;
+    MidX = CGRectGetMidX(v61);
+    v62.origin.x = p_bubbleFrame->origin.x;
+    v62.origin.y = self->_bubbleFrame.origin.y;
+    v62.size.width = self->_bubbleFrame.size.width;
+    v62.size.height = self->_bubbleFrame.size.height;
+    v31 = CGRectGetMidX(v62);
+    v63.origin.x = p_bubbleFrame->origin.x;
+    v63.origin.y = self->_bubbleFrame.origin.y;
+    v63.size.width = self->_bubbleFrame.size.width;
+    v63.size.height = self->_bubbleFrame.size.height;
+    v60.y = CGRectGetMaxY(v63);
+    v55.y = 0.0;
+    v55.x = MidX;
+    v60.x = v31;
+    CGContextDrawLinearGradient(context, v29, v55, v60, 0);
+    CGGradientRelease(v29);
     CGColorSpaceRelease(DeviceRGB);
   }
 
   else
   {
-    v30 = objc_msgSend_fillColor(self, v15, v16);
-    CGContextSetFillColorWithColor(context, v30);
+    v32 = objc_msgSend_fillColor(self, v13, v14, v15);
+    CGContextSetFillColorWithColor(context, v32);
     CGContextDrawPath(context, kCGPathFill);
   }
 
   CGContextEndTransparencyLayer(context);
-  v50.width = 0.0;
-  v50.height = 0.0;
-  CGContextSetShadowWithColor(context, v50, 0.0, 0);
-  objc_msgSend_frameWidth(self, v31, v32);
-  if (v35 != 0.0 && objc_msgSend_frameColor(self, v33, v34))
+  v56.width = 0.0;
+  v56.height = 0.0;
+  CGContextSetShadowWithColor(context, v56, 0.0, 0);
+  objc_msgSend_frameWidth(self, v33, v34, v35);
+  if (v39 != 0.0 && objc_msgSend_frameColor(self, v36, v37, v38))
   {
-    objc_msgSend_frameWidth(self, v36, v37);
-    CGContextSetLineWidth(context, v38);
-    v41 = objc_msgSend_frameColor(self, v39, v40);
-    CGContextSetStrokeColorWithColor(context, v41);
+    objc_msgSend_frameWidth(self, v40, v41, v42);
+    CGContextSetLineWidth(context, v43);
+    v47 = objc_msgSend_frameColor(self, v44, v45, v46);
+    CGContextSetStrokeColorWithColor(context, v47);
     CGContextDrawPath(context, kCGPathStroke);
   }
 
   CGContextSetShouldSmoothFonts(context, 0);
   CGContextSetAllowsFontSmoothing(context, 0);
   CGContextSetTextPosition(context, self->_textFrame.origin.x, self->_textFrame.origin.y);
-  objc_msgSend_bounds(self, v42, v43);
-  CGContextTranslateCTM(context, 0.0, v44);
+  objc_msgSend_bounds(self, v48, v49, v50);
+  CGContextTranslateCTM(context, 0.0, v51);
   CGContextScaleCTM(context, 1.0, -1.0);
-  v45 = self->_generalShadowColor;
-  if (v45)
+  v52 = self->_generalShadowColor;
+  if (v52)
   {
-    v51.width = 0.0;
-    v51.height = -1.0;
-    CGContextSetShadowWithColor(context, v51, 1.0, v45);
+    v57.width = 0.0;
+    v57.height = -1.0;
+    CGContextSetShadowWithColor(context, v57, 1.0, v52);
   }
 
   whiteShadowColor = self->_whiteShadowColor;
   if (whiteShadowColor)
   {
-    v52.width = 0.0;
-    v52.height = 1.0;
-    CGContextSetShadowWithColor(context, v52, 0.0, whiteShadowColor);
+    v58.width = 0.0;
+    v58.height = 1.0;
+    CGContextSetShadowWithColor(context, v58, 0.0, whiteShadowColor);
   }
 
   CTLineDraw(self->_theLine, context);
-  v53.width = 0.0;
-  v53.height = 0.0;
-  CGContextSetShadowWithColor(context, v53, 0.0, 0);
+  v59.width = 0.0;
+  v59.height = 0.0;
+  CGContextSetShadowWithColor(context, v59, 0.0, 0);
   CGContextRestoreGState(context);
 }
 
 + (BOOL)needsDisplayForKey:(id)key
 {
-  if (objc_msgSend_isEqualToString_(key, a2, @"foregroundColor") & 1) != 0 || (objc_msgSend_isEqualToString_(key, v5, @"fillColor") & 1) != 0 || (objc_msgSend_isEqualToString_(key, v6, @"fillColor2") & 1) != 0 || (objc_msgSend_isEqualToString_(key, v7, @"frameColor") & 1) != 0 || (objc_msgSend_isEqualToString_(key, v8, @"frameWidth") & 1) != 0 || (objc_msgSend_isEqualToString_(key, v9, @"fontSize") & 1) != 0 || (objc_msgSend_isEqualToString_(key, v10, @"string"))
+  if (objc_msgSend_isEqualToString_(key, a2, @"foregroundColor", v3) & 1) != 0 || (objc_msgSend_isEqualToString_(key, v6, @"fillColor", v7) & 1) != 0 || (objc_msgSend_isEqualToString_(key, v8, @"fillColor2", v9) & 1) != 0 || (objc_msgSend_isEqualToString_(key, v10, @"frameColor", v11) & 1) != 0 || (objc_msgSend_isEqualToString_(key, v12, @"frameWidth", v13) & 1) != 0 || (objc_msgSend_isEqualToString_(key, v14, @"fontSize", v15) & 1) != 0 || (objc_msgSend_isEqualToString_(key, v16, @"string", v17))
   {
     return 1;
   }
 
-  v12.receiver = self;
-  v12.super_class = &OBJC_METACLASS___BubbleTextLayer;
-  return objc_msgSendSuper2(&v12, sel_needsDisplayForKey_, key);
+  v19.receiver = self;
+  v19.super_class = &OBJC_METACLASS___BubbleTextLayer;
+  return objc_msgSendSuper2(&v19, sel_needsDisplayForKey_, key);
 }
 
 @end

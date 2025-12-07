@@ -9,7 +9,7 @@
 
 - (void)startCollectingWithCompletion:(id)completion
 {
-  v29[1] = *MEMORY[0x277D85DE8];
+  v28[1] = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v5 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v6 = objc_alloc_init(MEMORY[0x277CBEB38]);
@@ -30,21 +30,21 @@
 
     objc_initWeak(&location, self);
     interface = [(NPTAWDLCollector *)self interface];
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __50__NPTAWDLCollector_startCollectingWithCompletion___block_invoke;
-    v26[3] = &unk_2789D4200;
-    objc_copyWeak(&v27, &location);
-    [interface setEventHandler:v26];
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __50__NPTAWDLCollector_startCollectingWithCompletion___block_invoke;
+    v25[3] = &unk_2789D4200;
+    objc_copyWeak(&v26, &location);
+    [interface setEventHandler:v25];
 
     v13 = objc_alloc_init(MEMORY[0x277CBEB18]);
     interface2 = [(NPTAWDLCollector *)self interface];
     [interface2 activate];
 
     interface3 = [(NPTAWDLCollector *)self interface];
-    v25 = 0;
-    [interface3 startMonitoringEventType:17 error:&v25];
-    v16 = v25;
+    v24 = 0;
+    [interface3 startMonitoringEventType:17 error:&v24];
+    v16 = v24;
 
     fetchAWDLData = [(NPTAWDLCollector *)self fetchAWDLData];
     [v5 addEntriesFromDictionary:fetchAWDLData];
@@ -62,7 +62,7 @@
       completionCopy[2](completionCopy, v5, v19);
     }
 
-    objc_destroyWeak(&v27);
+    objc_destroyWeak(&v26);
     objc_destroyWeak(&location);
   }
 
@@ -74,13 +74,11 @@
     v22 = v21;
     if (completionCopy)
     {
-      v29[0] = v21;
-      v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:1];
+      v28[0] = v21;
+      v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:1];
       completionCopy[2](completionCopy, v5, v23);
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __50__NPTAWDLCollector_startCollectingWithCompletion___block_invoke(uint64_t a1, void *a2)
@@ -242,9 +240,9 @@ LABEL_10:
 
   if (aWDLStrategy)
   {
-    v26 = *([aWDLStrategy bytes] + 8);
-    v27 = W5DescriptionForAWDLScheduleState();
-    [v3 setObject:v27 forKeyedSubscript:@"awdl_schedule"];
+    [aWDLStrategy bytes];
+    v26 = W5DescriptionForAWDLScheduleState();
+    [v3 setObject:v26 forKeyedSubscript:@"awdl_schedule"];
   }
 
   else

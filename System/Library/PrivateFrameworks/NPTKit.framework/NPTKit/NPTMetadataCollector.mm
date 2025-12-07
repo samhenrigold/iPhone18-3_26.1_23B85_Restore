@@ -117,25 +117,24 @@
 
 - (NPTMetadataCollector)init
 {
-  v7[8] = *MEMORY[0x277D85DE8];
-  v7[0] = objc_opt_class();
-  v7[1] = objc_opt_class();
-  v7[2] = objc_opt_class();
-  v7[3] = objc_opt_class();
-  v7[4] = objc_opt_class();
-  v7[5] = objc_opt_class();
-  v7[6] = objc_opt_class();
-  v7[7] = objc_opt_class();
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:8];
+  v6[8] = *MEMORY[0x277D85DE8];
+  v6[0] = objc_opt_class();
+  v6[1] = objc_opt_class();
+  v6[2] = objc_opt_class();
+  v6[3] = objc_opt_class();
+  v6[4] = objc_opt_class();
+  v6[5] = objc_opt_class();
+  v6[6] = objc_opt_class();
+  v6[7] = objc_opt_class();
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:8];
   v4 = [(NPTMetadataCollector *)self initWithCollectorTypes:v3];
 
-  v5 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 - (NPTMetadataCollector)initWithCollectorTypes:(id)types
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   typesCopy = types;
   v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
   [(NPTMetadataCollector *)self setCollectors:v5];
@@ -144,27 +143,27 @@
   [(NPTMetadataCollector *)self setBackgroundQueue:v6];
 
   [(NPTMetadataCollector *)self setIsCollectingMetadata:1];
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v7 = typesCopy;
-  v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v18;
+    v10 = *v17;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v18 != v10)
+        if (*v17 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v17 + 1) + 8 * i);
-        if ([(NPTMetadataCollector *)self knownCollectionType:v12, v17])
+        v12 = *(*(&v16 + 1) + 8 * i);
+        if ([(NPTMetadataCollector *)self knownCollectionType:v12, v16])
         {
           collectors = [(NPTMetadataCollector *)self collectors];
           v14 = objc_alloc_init(v12);
@@ -172,13 +171,12 @@
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v9);
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return self;
 }
 
@@ -211,7 +209,7 @@
 
 void __54__NPTMetadataCollector_startCollectingWithCompletion___block_invoke(uint64_t a1)
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   v1 = [MEMORY[0x277CBEAA8] now];
   [*(a1 + 32) setStartDate:v1];
 
@@ -222,39 +220,39 @@ void __54__NPTMetadataCollector_startCollectingWithCompletion___block_invoke(uin
   v4 = [*(a1 + 32) cachedMetadata];
   [v4 setObject:v3 forKeyedSubscript:@"device_states"];
 
-  v51[0] = 0;
-  v51[1] = v51;
-  v51[2] = 0x3032000000;
-  v51[3] = __Block_byref_object_copy__0;
-  v51[4] = __Block_byref_object_dispose__0;
-  v52 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v28 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v50[0] = 0;
+  v50[1] = v50;
+  v50[2] = 0x3032000000;
+  v50[3] = __Block_byref_object_copy__0;
+  v50[4] = __Block_byref_object_dispose__0;
+  v51 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v27 = objc_alloc_init(MEMORY[0x277CBEB38]);
   objc_initWeak(&location, *(a1 + 32));
-  v48[0] = MEMORY[0x277D85DD0];
-  v48[1] = 3221225472;
-  v48[2] = __54__NPTMetadataCollector_startCollectingWithCompletion___block_invoke_86;
-  v48[3] = &unk_2789D4508;
-  objc_copyWeak(&v49, &location);
-  [*(a1 + 32) setMetadataDidChangeHandlerForCollectors:v48];
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
+  v47[0] = MEMORY[0x277D85DD0];
+  v47[1] = 3221225472;
+  v47[2] = __54__NPTMetadataCollector_startCollectingWithCompletion___block_invoke_86;
+  v47[3] = &unk_2789D4508;
+  objc_copyWeak(&v48, &location);
+  [*(a1 + 32) setMetadataDidChangeHandlerForCollectors:v47];
   v45 = 0u;
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
   v5 = [*(a1 + 32) collectors];
-  v6 = [v5 countByEnumeratingWithState:&v44 objects:v55 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v43 objects:v54 count:16];
   if (v6)
   {
-    v7 = *v45;
+    v7 = *v44;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v45 != v7)
+        if (*v44 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v44 + 1) + 8 * i);
+        v9 = *(*(&v43 + 1) + 8 * i);
         if ([v9 conformsToProtocol:&unk_2848D1670])
         {
           v10 = [*(a1 + 32) metadataDidChangeHandlerForCollectors];
@@ -262,80 +260,80 @@ void __54__NPTMetadataCollector_startCollectingWithCompletion___block_invoke(uin
 
           v11 = dispatch_semaphore_create(0);
           v12 = [objc_opt_class() collectorName];
-          [v28 setObject:v11 forKeyedSubscript:v12];
+          [v27 setObject:v11 forKeyedSubscript:v12];
         }
       }
 
-      v6 = [v5 countByEnumeratingWithState:&v44 objects:v55 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v43 objects:v54 count:16];
     }
 
     while (v6);
   }
 
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
   v41 = 0u;
+  v42 = 0u;
+  v39 = 0u;
+  v40 = 0u;
   v13 = [*(a1 + 32) collectors];
-  v14 = [v13 countByEnumeratingWithState:&v40 objects:v54 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v39 objects:v53 count:16];
   if (v14)
   {
-    v15 = *v41;
+    v15 = *v40;
     do
     {
       for (j = 0; j != v14; ++j)
       {
-        if (*v41 != v15)
+        if (*v40 != v15)
         {
           objc_enumerationMutation(v13);
         }
 
-        v17 = *(*(&v40 + 1) + 8 * j);
+        v17 = *(*(&v39 + 1) + 8 * j);
         if ([v17 conformsToProtocol:&unk_2848D1670])
         {
-          v37[0] = MEMORY[0x277D85DD0];
-          v37[1] = 3221225472;
-          v37[2] = __54__NPTMetadataCollector_startCollectingWithCompletion___block_invoke_91;
-          v37[3] = &unk_2789D4530;
+          v36[0] = MEMORY[0x277D85DD0];
+          v36[1] = 3221225472;
+          v36[2] = __54__NPTMetadataCollector_startCollectingWithCompletion___block_invoke_91;
+          v36[3] = &unk_2789D4530;
           v18 = *(a1 + 32);
-          v37[4] = v17;
-          v37[5] = v18;
-          v39 = v51;
-          v38 = v28;
-          [v17 startCollectingWithCompletion:v37];
+          v36[4] = v17;
+          v36[5] = v18;
+          v38 = v50;
+          v37 = v27;
+          [v17 startCollectingWithCompletion:v36];
         }
       }
 
-      v14 = [v13 countByEnumeratingWithState:&v40 objects:v54 count:16];
+      v14 = [v13 countByEnumeratingWithState:&v39 objects:v53 count:16];
     }
 
     while (v14);
   }
 
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
   v34 = 0u;
-  v19 = [v28 allValues];
-  v20 = [v19 countByEnumeratingWithState:&v33 objects:v53 count:16];
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
+  v19 = [v27 allValues];
+  v20 = [v19 countByEnumeratingWithState:&v32 objects:v52 count:16];
   if (v20)
   {
-    v21 = *v34;
+    v21 = *v33;
     do
     {
       for (k = 0; k != v20; ++k)
       {
-        if (*v34 != v21)
+        if (*v33 != v21)
         {
           objc_enumerationMutation(v19);
         }
 
-        v23 = *(*(&v33 + 1) + 8 * k);
+        v23 = *(*(&v32 + 1) + 8 * k);
         v24 = dispatch_time(0, 5000000000);
         dispatch_semaphore_wait(v23, v24);
       }
 
-      v20 = [v19 countByEnumeratingWithState:&v33 objects:v53 count:16];
+      v20 = [v19 countByEnumeratingWithState:&v32 objects:v52 count:16];
     }
 
     while (v20);
@@ -348,15 +346,14 @@ void __54__NPTMetadataCollector_startCollectingWithCompletion___block_invoke(uin
   block[3] = &unk_2789D4558;
   v26 = *(a1 + 40);
   block[4] = *(a1 + 32);
-  v31 = v26;
-  v32 = v51;
+  v30 = v26;
+  v31 = v50;
   dispatch_async(v25, block);
 
-  objc_destroyWeak(&v49);
+  objc_destroyWeak(&v48);
   objc_destroyWeak(&location);
 
-  _Block_object_dispose(v51, 8);
-  v27 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v50, 8);
 }
 
 void __54__NPTMetadataCollector_startCollectingWithCompletion___block_invoke_86(uint64_t a1, void *a2, void *a3)
@@ -435,74 +432,71 @@ LABEL_13:
 
 void __54__NPTMetadataCollector_startCollectingWithCompletion___block_invoke_91(uint64_t a1, void *a2, void *a3)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v7 = *(a1 + 32);
-  v8 = [objc_opt_class() collectorName];
-  v9 = *(a1 + 40);
-  objc_sync_enter(v9);
+  v7 = [objc_opt_class() collectorName];
+  v8 = *(a1 + 40);
+  objc_sync_enter(v8);
   [*(*(*(a1 + 56) + 8) + 40) addObjectsFromArray:v6];
-  v10 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v11 = [*(a1 + 40) cachedMetadata];
-  v12 = [v11 objectForKeyedSubscript:@"device_states"];
-  [v12 setObject:v10 forKeyedSubscript:v8];
+  v9 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v10 = [*(a1 + 40) cachedMetadata];
+  v11 = [v10 objectForKeyedSubscript:@"device_states"];
+  [v11 setObject:v9 forKeyedSubscript:v7];
 
-  v13 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v34 = 0u;
-  v35 = 0u;
+  v12 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v32 = 0u;
   v33 = 0u;
-  v14 = v6;
-  v15 = [v14 countByEnumeratingWithState:&v32 objects:v36 count:16];
-  if (v15)
+  v30 = 0u;
+  v31 = 0u;
+  v13 = v6;
+  v14 = [v13 countByEnumeratingWithState:&v30 objects:v34 count:16];
+  if (v14)
   {
-    v16 = *v33;
+    v15 = *v31;
     do
     {
-      v17 = 0;
+      v16 = 0;
       do
       {
-        if (*v33 != v16)
+        if (*v31 != v15)
         {
-          objc_enumerationMutation(v14);
+          objc_enumerationMutation(v13);
         }
 
-        v18 = [*(*(&v32 + 1) + 8 * v17) localizedDescription];
-        [v13 addObject:v18];
+        v17 = [*(*(&v30 + 1) + 8 * v16) localizedDescription];
+        [v12 addObject:v17];
 
-        ++v17;
+        ++v16;
       }
 
-      while (v15 != v17);
-      v15 = [v14 countByEnumeratingWithState:&v32 objects:v36 count:16];
+      while (v14 != v16);
+      v14 = [v13 countByEnumeratingWithState:&v30 objects:v34 count:16];
     }
 
-    while (v15);
+    while (v14);
   }
 
-  v19 = [v13 copy];
-  v20 = [*(a1 + 40) cachedMetadata];
-  v21 = [v20 objectForKeyedSubscript:@"device_states"];
-  v22 = [v21 objectForKeyedSubscript:v8];
-  [v22 setObject:v19 forKeyedSubscript:@"errors"];
+  v18 = [v12 copy];
+  v19 = [*(a1 + 40) cachedMetadata];
+  v20 = [v19 objectForKeyedSubscript:@"device_states"];
+  v21 = [v20 objectForKeyedSubscript:v7];
+  [v21 setObject:v18 forKeyedSubscript:@"errors"];
 
-  v23 = [*(a1 + 40) cachedMetadata];
-  v24 = [v23 objectForKeyedSubscript:@"device_states"];
-  v25 = [v24 objectForKeyedSubscript:v8];
-  [v25 setObject:v5 forKeyedSubscript:@"initial_state"];
+  v22 = [*(a1 + 40) cachedMetadata];
+  v23 = [v22 objectForKeyedSubscript:@"device_states"];
+  v24 = [v23 objectForKeyedSubscript:v7];
+  [v24 setObject:v5 forKeyedSubscript:@"initial_state"];
 
-  v26 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v27 = [*(a1 + 40) cachedMetadata];
-  v28 = [v27 objectForKeyedSubscript:@"device_states"];
-  v29 = [v28 objectForKeyedSubscript:v8];
-  [v29 setObject:v26 forKeyedSubscript:@"events"];
+  v25 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v26 = [*(a1 + 40) cachedMetadata];
+  v27 = [v26 objectForKeyedSubscript:@"device_states"];
+  v28 = [v27 objectForKeyedSubscript:v7];
+  [v28 setObject:v25 forKeyedSubscript:@"events"];
 
-  objc_sync_exit(v9);
-  v30 = [*(a1 + 48) objectForKeyedSubscript:v8];
-  dispatch_semaphore_signal(v30);
-
-  v31 = *MEMORY[0x277D85DE8];
+  objc_sync_exit(v8);
+  v29 = [*(a1 + 48) objectForKeyedSubscript:v7];
+  dispatch_semaphore_signal(v29);
 }
 
 void __54__NPTMetadataCollector_startCollectingWithCompletion___block_invoke_2(uint64_t a1)
@@ -541,42 +535,40 @@ void __54__NPTMetadataCollector_startCollectingWithCompletion___block_invoke_2(u
 
 uint64_t __38__NPTMetadataCollector_stopCollecting__block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v2 = [*(a1 + 32) collectors];
-  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v11;
+    v5 = *v10;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v10 + 1) + 8 * i);
+        v7 = *(*(&v9 + 1) + 8 * i);
         if ([v7 conformsToProtocol:&unk_2848D1670])
         {
           [v7 stopCollecting];
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v4);
   }
 
-  result = [*(a1 + 32) setCollectors:0];
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) setCollectors:0];
 }
 
 + (id)fetchWRMMetrics
@@ -703,24 +695,21 @@ intptr_t __41__NPTMetadataCollector_fetchCellularData__block_invoke(uint64_t a1,
 
 + (void)fetch
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   localizedDescription = [self localizedDescription];
-  v5 = 138543362;
-  v6 = localizedDescription;
-  _os_log_error_impl(&dword_233421000, a2, OS_LOG_TYPE_ERROR, "Failed to create W5Status: %{public}@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138543362;
+  v5 = localizedDescription;
+  _os_log_error_impl(&dword_233421000, a2, OS_LOG_TYPE_ERROR, "Failed to create W5Status: %{public}@", &v4, 0xCu);
 }
 
 void __54__NPTMetadataCollector_startCollectingWithCompletion___block_invoke_86_cold_2(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_233421000, log, OS_LOG_TYPE_ERROR, "Failure: %@, Error %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_233421000, log, OS_LOG_TYPE_ERROR, "Failure: %@, Error %@", &v3, 0x16u);
 }
 
 @end

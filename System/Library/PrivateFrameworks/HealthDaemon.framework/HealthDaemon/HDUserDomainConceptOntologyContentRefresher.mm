@@ -196,7 +196,7 @@ uint64_t __116__HDUserDomainConceptOntologyContentRefresher_refreshOntologyConte
 
 + (int64_t)_performAutomaticGrouperPromotionForConcept:(id)concept userDomainConcept:(id)domainConcept outConcept:(id *)outConcept ontologyTransaction:(id)transaction error:(id *)error
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   conceptCopy = concept;
   domainConceptCopy = domainConcept;
   transactionCopy = transaction;
@@ -210,9 +210,9 @@ uint64_t __116__HDUserDomainConceptOntologyContentRefresher_refreshOntologyConte
   if (v15 != 2)
   {
     internalContentDatabaseManager = [transactionCopy internalContentDatabaseManager];
-    v35 = 0;
-    v24 = [objc_opt_class() grouperConceptForOntologyConcept:conceptCopy ontologyTransaction:transactionCopy grouperConceptOut:&v35 error:error];
-    v25 = v35;
+    v34 = 0;
+    v24 = [objc_opt_class() grouperConceptForOntologyConcept:conceptCopy ontologyTransaction:transactionCopy grouperConceptOut:&v34 error:error];
+    v25 = v34;
     v26 = v25;
     v16 = 0;
     if (v24)
@@ -242,8 +242,8 @@ uint64_t __116__HDUserDomainConceptOntologyContentRefresher_refreshOntologyConte
           hk_shortRepresentation = [uUID hk_shortRepresentation];
           *buf = 138543618;
           selfCopy2 = self;
-          v38 = 2114;
-          v39 = hk_shortRepresentation;
+          v37 = 2114;
+          v38 = hk_shortRepresentation;
           _os_log_impl(&dword_228986000, v30, OS_LOG_TYPE_INFO, "%{public}@: UDC %{public}@ will be refreshed with a new mercury grouper concept, since this generator class supports automatic grouper concept promotion.", buf, 0x16u);
         }
 
@@ -268,8 +268,8 @@ LABEL_18:
       hk_shortRepresentation2 = [uUID2 hk_shortRepresentation];
       *buf = 138543618;
       selfCopy2 = self;
-      v38 = 2114;
-      v39 = hk_shortRepresentation2;
+      v37 = 2114;
+      v38 = hk_shortRepresentation2;
       _os_log_impl(&dword_228986000, v19, OS_LOG_TYPE_INFO, "%{public}@: UDC %{public}@ is already a grouper concept, so we will not proceed with promoting it, even though this generator class supports automatic grouper promotion.", buf, 0x16u);
     }
   }
@@ -283,7 +283,6 @@ LABEL_18:
   v16 = 1;
 LABEL_20:
 
-  v33 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -315,7 +314,7 @@ LABEL_20:
 
 + (id)_refreshUserDomainConcept:(id)concept withOntologyConcept:(id)ontologyConcept codings:(id)codings ontologyTransaction:(id)transaction error:(id *)error
 {
-  v72 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   conceptCopy = concept;
   ontologyConceptCopy = ontologyConcept;
   codingsCopy = codings;
@@ -349,12 +348,12 @@ LABEL_20:
           propertyCollection2 = [v16 propertyCollection];
           *buf = 138544130;
           selfCopy2 = self;
-          v62 = 2114;
-          v63 = hk_shortRepresentation;
-          v64 = 2048;
-          v65 = [propertyCollection2 count];
-          v66 = 2048;
-          v67 = [v19 count];
+          v61 = 2114;
+          v62 = hk_shortRepresentation;
+          v63 = 2048;
+          v64 = [propertyCollection2 count];
+          v65 = 2048;
+          v66 = [v19 count];
           _os_log_impl(&dword_228986000, v22, OS_LOG_TYPE_INFO, "%{public}@: Update UDC %{public}@ with new property collection (%ld -> %ld)", buf, 0x2Au);
         }
       }
@@ -378,7 +377,7 @@ LABEL_20:
     codingCollection = [v17 codingCollection];
     codingsSet = [codingCollection codingsSet];
     v31 = codingsSet;
-    v59 = codingsCopy;
+    v58 = codingsCopy;
     if (codingsSet == v28)
     {
     }
@@ -406,22 +405,22 @@ LABEL_24:
             allObjects = [codingsSet2 allObjects];
             v42 = [allObjects componentsJoinedByString:{@", "}];
             codingCollection3 = [v17 codingCollection];
-            v49 = [codingCollection3 count];
+            v48 = [codingCollection3 count];
             allObjects2 = [v28 allObjects];
             v44 = [allObjects2 componentsJoinedByString:{@", "}];
             v45 = [v28 count];
             *buf = 138544642;
             selfCopy2 = self;
-            v62 = 2114;
-            v63 = hk_shortRepresentation2;
-            v64 = 2112;
-            v65 = v42;
-            v66 = 2048;
-            v67 = v49;
-            v68 = 2112;
-            v69 = v44;
-            v70 = 2048;
-            v71 = v45;
+            v61 = 2114;
+            v62 = hk_shortRepresentation2;
+            v63 = 2112;
+            v64 = v42;
+            v65 = 2048;
+            v66 = v48;
+            v67 = 2112;
+            v68 = v44;
+            v69 = 2048;
+            v70 = v45;
             _os_log_impl(&dword_228986000, v41, OS_LOG_TYPE_INFO, "%{public}@: Update UDC %{public}@ with new medical codings set[%@]%ld -> set[%@]%ld", buf, 0x3Eu);
           }
         }
@@ -439,14 +438,14 @@ LABEL_24:
       v34 = ontologyConceptCopy;
       selfCopy3 = self;
       v37 = v36 = conceptCopy;
-      v57 = [v37 isEqualToSet:v28];
+      v56 = [v37 isEqualToSet:v28];
 
       conceptCopy = v36;
       self = selfCopy3;
       ontologyConceptCopy = v34;
       v15 = v33;
 
-      if (!v57)
+      if (!v56)
       {
         goto LABEL_24;
       }
@@ -455,7 +454,7 @@ LABEL_24:
     v25 = v17;
 LABEL_29:
 
-    codingsCopy = v59;
+    codingsCopy = v58;
     goto LABEL_30;
   }
 
@@ -463,7 +462,6 @@ LABEL_29:
 LABEL_30:
 
 LABEL_31:
-  v47 = *MEMORY[0x277D85DE8];
 
   return v25;
 }

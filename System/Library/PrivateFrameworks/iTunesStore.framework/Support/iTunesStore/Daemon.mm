@@ -176,34 +176,33 @@
         v12 = shouldLog;
       }
 
-      if (os_log_type_enabled([v10 OSLogObject], OS_LOG_TYPE_DEFAULT))
+      oSLogObject = [v10 OSLogObject];
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = v12;
+        v14 = v12;
       }
 
       else
       {
-        v13 = v12 & 2;
+        v14 = v12 & 2;
       }
 
-      if (v13)
+      if (v14)
       {
         v23 = 138543362;
         v24 = v9;
-        LODWORD(v19) = 12;
-        v18 = &v23;
-        v14 = _os_log_send_and_compose_impl();
-        if (v14)
+        v15 = _os_log_send_and_compose_impl(v14, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "Removing unused cached data at: %{public}@", &v23, 12);
+        if (v15)
         {
-          v15 = v14;
-          v16 = [NSString stringWithCString:v14 encoding:4, &v23, v19];
-          free(v15);
-          v18 = v16;
+          v16 = v15;
+          v17 = [NSString stringWithCString:v15 encoding:4];
+          free(v16);
+          v19 = v17;
           SSFileLog();
         }
       }
 
-      [(NSFileManager *)v8 removeItemAtPath:v9 error:0, v18];
+      [(NSFileManager *)v8 removeItemAtPath:v9 error:0, v19];
     }
   }
 
@@ -277,61 +276,62 @@
         v11 = shouldLog;
       }
 
-      if (os_log_type_enabled([v9 OSLogObject], OS_LOG_TYPE_DEFAULT))
+      oSLogObject = [v9 OSLogObject];
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = v11;
+        v13 = v11;
       }
 
       else
       {
-        v12 = v11 & 2;
+        v13 = v11 & 2;
       }
 
-      if (v12)
+      if (v13)
       {
-        v21 = 138543362;
-        v22 = v6;
-        LODWORD(v19) = 12;
+        v22 = 138543362;
+        v23 = v6;
+        v14 = _os_log_send_and_compose_impl(v13, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "Added background task: %{public}@", &v22, 12);
         goto LABEL_19;
       }
     }
 
     else
     {
-      v13 = +[SSLogConfig sharedConfig];
-      shouldLog2 = [v13 shouldLog];
-      if ([v13 shouldLogToDisk])
+      v15 = +[SSLogConfig sharedConfig];
+      shouldLog2 = [v15 shouldLog];
+      if ([v15 shouldLogToDisk])
       {
-        v15 = shouldLog2 | 2;
+        v17 = shouldLog2 | 2;
       }
 
       else
       {
-        v15 = shouldLog2;
+        v17 = shouldLog2;
       }
 
-      if (os_log_type_enabled([v13 OSLogObject], OS_LOG_TYPE_ERROR))
+      oSLogObject2 = [v15 OSLogObject];
+      if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
       {
-        v16 = v15;
+        v19 = v17;
       }
 
       else
       {
-        v16 = v15 & 2;
+        v19 = v17 & 2;
       }
 
-      if (v16)
+      if (v19)
       {
-        v21 = 138543362;
-        v22 = v6;
-        LODWORD(v19) = 12;
+        v22 = 138543362;
+        v23 = v6;
+        v14 = _os_log_send_and_compose_impl(v19, 0, 0, 0, &_mh_execute_header, oSLogObject2, 16, "No criteria for background task: %{public}@", &v22, 12);
 LABEL_19:
-        v17 = _os_log_send_and_compose_impl();
-        if (v17)
+        if (v14)
         {
-          v18 = v17;
-          [NSString stringWithCString:v17 encoding:4, &v21, v19];
-          free(v18);
+          v20 = v14;
+          [NSString stringWithCString:v14 encoding:4];
+          free(v20);
           SSFileLog();
         }
       }
@@ -530,36 +530,40 @@ LABEL_19:
   shouldLog = [v3 shouldLog];
   if ([v3 shouldLogToDisk])
   {
-    v5 = shouldLog | 2;
+    LODWORD(v5) = shouldLog | 2;
   }
 
   else
   {
-    v5 = shouldLog;
+    LODWORD(v5) = shouldLog;
   }
 
-  if (!os_log_type_enabled([v3 OSLogObject], OS_LOG_TYPE_INFO))
+  oSLogObject = [v3 OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  {
+    v5 = v5;
+  }
+
+  else
   {
     v5 &= 2u;
   }
 
   if (v5)
   {
-    v43 = 138412802;
-    v44 = objc_opt_class();
-    v45 = 2080;
-    v46 = "Oct 22 2025";
-    v47 = 2080;
-    v48 = "21:33:20";
-    LODWORD(v36) = 32;
-    v34 = &v43;
-    v6 = _os_log_send_and_compose_impl();
-    if (v6)
+    v46 = 138412802;
+    v47 = objc_opt_class();
+    v48 = 2080;
+    v49 = "Oct 22 2025";
+    v50 = 2080;
+    v51 = "21:33:20";
+    v7 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Starting... (Built: %s %s)", &v46, 32);
+    if (v7)
     {
-      v7 = v6;
-      v8 = [NSString stringWithCString:v6 encoding:4, &v43, v36];
-      free(v7);
-      v34 = v8;
+      v8 = v7;
+      v9 = [NSString stringWithCString:v7 encoding:4];
+      free(v8);
+      v37 = v9;
       SSFileLog();
     }
   }
@@ -570,159 +574,170 @@ LABEL_19:
   [(Daemon *)self _initBackgroundTaskAgent];
   [(Daemon *)self _observeNotifications];
   +[UserNotificationManager sharedManager];
-  v9 = +[SSXPCServer mainServer];
-  v10 = +[DownloadController controller];
-  [v10 observeXPCServer:v9];
-  v11 = +[MicroPaymentQueue paymentQueue];
-  [v11 observeXPCServer:v9];
-  [AccountPasswordSettingsController observeXPCServer:v9];
-  [AppReceiptController observeXPCServer:v9];
-  [DaemonBiometricKeychain observeXPCServer:v9];
-  [DaemonBiometricStore observeXPCServer:v9];
-  [DirectUploadController observeXPCServer:v9];
-  [DistributedNotificationCenter observeXPCServer:v9];
-  [ErrorHandlerManager observeXPCServer:v9];
-  [EventDispatcher observeXPCServer:v9];
-  [KeyValueStore observeXPCServer:v9];
-  [IPodLibrary observeXPCServer:v9];
-  [+[MetricsController sharedInstance](MetricsController observeXPCServer:"observeXPCServer:", v9];
-  [PurchaseController observeXPCServer:v9];
-  [PurchaseManifest observeXPCServer:v9];
-  [+[PushNotificationController sharedInstance](PushNotificationController observeXPCServer:"observeXPCServer:", v9];
-  [SoftwareUpdatesStore observeXPCServer:v9];
-  [SpringBoardUtility observeXPCServer:v9];
-  [StoreDownloadQueue observeXPCServer:v9];
-  [StorePreorderQueue observeXPCServer:v9];
-  [+[StoreServicesRequestQueue sharedInstance](StoreServicesRequestQueue observeXPCServer:"observeXPCServer:", v9];
-  [NetworkRequestQueue observeXPCServer:v9];
-  [v9 addObserver:self selector:"_getShowingDialogWithMessage:connection:" forMessage:131];
-  v12 = +[SSLogConfig sharedDaemonConfig];
-  if (!v12)
+  v10 = +[SSXPCServer mainServer];
+  v11 = +[DownloadController controller];
+  [v11 observeXPCServer:v10];
+  v12 = +[MicroPaymentQueue paymentQueue];
+  [v12 observeXPCServer:v10];
+  [AccountPasswordSettingsController observeXPCServer:v10];
+  [AppReceiptController observeXPCServer:v10];
+  [DaemonBiometricKeychain observeXPCServer:v10];
+  [DaemonBiometricStore observeXPCServer:v10];
+  [DirectUploadController observeXPCServer:v10];
+  [DistributedNotificationCenter observeXPCServer:v10];
+  [ErrorHandlerManager observeXPCServer:v10];
+  [EventDispatcher observeXPCServer:v10];
+  [KeyValueStore observeXPCServer:v10];
+  [IPodLibrary observeXPCServer:v10];
+  [+[MetricsController sharedInstance](MetricsController observeXPCServer:"observeXPCServer:", v10];
+  [PurchaseController observeXPCServer:v10];
+  [PurchaseManifest observeXPCServer:v10];
+  [+[PushNotificationController sharedInstance](PushNotificationController observeXPCServer:"observeXPCServer:", v10];
+  [SoftwareUpdatesStore observeXPCServer:v10];
+  [SpringBoardUtility observeXPCServer:v10];
+  [StoreDownloadQueue observeXPCServer:v10];
+  [StorePreorderQueue observeXPCServer:v10];
+  [+[StoreServicesRequestQueue sharedInstance](StoreServicesRequestQueue observeXPCServer:"observeXPCServer:", v10];
+  [NetworkRequestQueue observeXPCServer:v10];
+  [v10 addObserver:self selector:"_getShowingDialogWithMessage:connection:" forMessage:131];
+  v13 = +[SSLogConfig sharedDaemonConfig];
+  if (!v13)
   {
-    v12 = +[SSLogConfig sharedConfig];
+    v13 = +[SSLogConfig sharedConfig];
   }
 
-  shouldLog2 = [v12 shouldLog];
-  if ([v12 shouldLogToDisk])
+  shouldLog2 = [v13 shouldLog];
+  if ([v13 shouldLogToDisk])
   {
-    v14 = shouldLog2 | 2;
+    LODWORD(v15) = shouldLog2 | 2;
   }
 
   else
   {
-    v14 = shouldLog2;
+    LODWORD(v15) = shouldLog2;
   }
 
-  if (!os_log_type_enabled([v12 OSLogObject], OS_LOG_TYPE_INFO))
+  oSLogObject2 = [v13 OSLogObject];
+  if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
   {
-    v14 &= 2u;
+    v15 = v15;
   }
 
-  if (v14)
+  else
   {
-    v15 = objc_opt_class();
-    v43 = 138412290;
-    v44 = v15;
-    LODWORD(v36) = 12;
-    v35 = &v43;
-    v16 = _os_log_send_and_compose_impl();
-    if (v16)
+    v15 &= 2u;
+  }
+
+  if (v15)
+  {
+    v17 = objc_opt_class();
+    v46 = 138412290;
+    v47 = v17;
+    LODWORD(v39) = 12;
+    v18 = _os_log_send_and_compose_impl(v15, 0, 0, 0, &_mh_execute_header, oSLogObject2, 1, "%@: Starting XPC server", &v46, v39);
+    if (v18)
     {
-      v17 = v16;
-      v18 = [NSString stringWithCString:v16 encoding:4, &v43, v36];
-      free(v17);
-      v35 = v18;
+      v19 = v18;
+      v20 = [NSString stringWithCString:v18 encoding:4];
+      free(v19);
+      v38 = v20;
       SSFileLog();
     }
   }
 
-  [v9 start];
+  [v10 start];
   [(Daemon *)self takeKeepAliveAssertion:@"com.apple.itunesstored.launch"];
-  v19 = dispatch_time(0, 10000000000);
+  v21 = dispatch_time(0, 10000000000);
   dispatchQueue = self->_dispatchQueue;
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_1001CF548;
   block[3] = &unk_100327378;
   block[4] = self;
-  dispatch_after(v19, dispatchQueue, block);
-  [v10 start];
+  dispatch_after(v21, dispatchQueue, block);
   [v11 start];
+  [v12 start];
   [+[PurchaseController sharedController](PurchaseController "sharedController")];
   [+[AppReceiptController sharedController](AppReceiptController "sharedController")];
   [+[DirectUploadController sharedController](DirectUploadController "sharedController")];
   [+[CacheDeleteCoordinator sharedInstance](CacheDeleteCoordinator updatePurgeableStorage];
-  v39 = 0u;
+  v42 = 0u;
+  v43 = 0u;
   v40 = 0u;
-  v37 = 0u;
-  v38 = 0u;
+  v41 = 0u;
   bagTimers = self->_bagTimers;
-  v22 = [(NSMutableArray *)bagTimers countByEnumeratingWithState:&v37 objects:v42 count:16];
-  if (v22)
+  v24 = [(NSMutableArray *)bagTimers countByEnumeratingWithState:&v40 objects:v45 count:16];
+  if (v24)
   {
-    v23 = v22;
-    v24 = *v38;
+    v25 = v24;
+    v26 = *v41;
     do
     {
-      for (i = 0; i != v23; i = i + 1)
+      for (i = 0; i != v25; i = i + 1)
       {
-        if (*v38 != v24)
+        if (*v41 != v26)
         {
           objc_enumerationMutation(bagTimers);
         }
 
-        [*(*(&v37 + 1) + 8 * i) start];
+        [*(*(&v40 + 1) + 8 * i) start];
       }
 
-      v23 = [(NSMutableArray *)bagTimers countByEnumeratingWithState:&v37 objects:v42 count:16];
+      v25 = [(NSMutableArray *)bagTimers countByEnumeratingWithState:&v40 objects:v45 count:16];
     }
 
-    while (v23);
+    while (v25);
   }
 
   +[ExplicitPreferenceManager sharedManager];
-  v26 = [[BatterySaverWatcher alloc] initWithDelegate:self];
-  self->_batterySaverWatcher = v26;
-  [(Daemon *)self batterySaverWatcherDidChangeState:v26];
+  v28 = [[BatterySaverWatcher alloc] initWithDelegate:self];
+  self->_batterySaverWatcher = v28;
+  [(Daemon *)self batterySaverWatcherDidChangeState:v28];
   +[PurchaseActionsManager registerInstallAttributionDatabaseCleanTask];
   +[PurchaseActionsManager registerInstallAttributionPingbackRetryTask];
   -[NSUserDefaults registerDefaults:](+[NSUserDefaults standardUserDefaults](NSUserDefaults, "standardUserDefaults"), "registerDefaults:", +[NSDictionary dictionaryWithContentsOfURL:](NSDictionary, "dictionaryWithContentsOfURL:", [+[NSBundle mainBundle](NSBundle URLForResource:"URLForResource:withExtension:" withExtension:@"Defaults", @"plist"]));
   DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
   CFNotificationCenterPostNotification(DarwinNotifyCenter, kSSDaemonLaunchedNotification, 0, 0, 1u);
-  v28 = +[SSLogConfig sharedDaemonConfig];
-  if (!v28)
+  v30 = +[SSLogConfig sharedDaemonConfig];
+  if (!v30)
   {
-    v28 = +[SSLogConfig sharedConfig];
+    v30 = +[SSLogConfig sharedConfig];
   }
 
-  shouldLog3 = [v28 shouldLog];
-  if ([v28 shouldLogToDisk])
+  shouldLog3 = [v30 shouldLog];
+  if ([v30 shouldLogToDisk])
   {
-    v30 = shouldLog3 | 2;
+    LODWORD(v32) = shouldLog3 | 2;
   }
 
   else
   {
-    v30 = shouldLog3;
+    LODWORD(v32) = shouldLog3;
   }
 
-  if (!os_log_type_enabled([v28 OSLogObject], OS_LOG_TYPE_INFO))
+  oSLogObject3 = [v30 OSLogObject];
+  if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_INFO))
   {
-    v30 &= 2u;
+    v32 = v32;
   }
 
-  if (v30)
+  else
   {
-    v31 = objc_opt_class();
-    v43 = 138412290;
-    v44 = v31;
-    LODWORD(v36) = 12;
-    v32 = _os_log_send_and_compose_impl();
-    if (v32)
+    v32 &= 2u;
+  }
+
+  if (v32)
+  {
+    v34 = objc_opt_class();
+    v46 = 138412290;
+    v47 = v34;
+    LODWORD(v39) = 12;
+    v35 = _os_log_send_and_compose_impl(v32, 0, 0, 0, &_mh_execute_header, oSLogObject3, 1, "%@: Started", &v46, v39);
+    if (v35)
     {
-      v33 = v32;
-      [NSString stringWithCString:v32 encoding:4, &v43, v36];
-      free(v33);
+      v36 = v35;
+      [NSString stringWithCString:v35 encoding:4];
+      free(v36);
       SSFileLog();
     }
   }
@@ -756,41 +771,45 @@ LABEL_19:
   shouldLog = [v6 shouldLog];
   if ([v6 shouldLogToDisk])
   {
-    v8 = shouldLog | 2;
+    LODWORD(v8) = shouldLog | 2;
   }
 
   else
   {
-    v8 = shouldLog;
+    LODWORD(v8) = shouldLog;
   }
 
-  if (!os_log_type_enabled([v6 OSLogObject], OS_LOG_TYPE_ERROR))
+  oSLogObject = [v6 OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  {
+    v8 = v8;
+  }
+
+  else
   {
     v8 &= 2u;
   }
 
   if (v8)
   {
-    v9 = objc_opt_class();
-    v10 = AMSLogableError();
+    v10 = objc_opt_class();
+    v11 = AMSLogableError();
     v18 = 138543618;
-    v19 = v9;
+    v19 = v10;
     v20 = 2114;
-    v21 = v10;
-    LODWORD(v15) = 22;
-    v14 = &v18;
-    v11 = _os_log_send_and_compose_impl();
-    if (v11)
+    v21 = v11;
+    v12 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &_mh_execute_header, oSLogObject, 16, "%{public}@: Failed to get the change-language URL from the bag. error = %{public}@", &v18, 22);
+    if (v12)
     {
-      v12 = v11;
-      v13 = [NSString stringWithCString:v11 encoding:4, &v18, v15];
-      free(v12);
-      v14 = v13;
+      v13 = v12;
+      v14 = [NSString stringWithCString:v12 encoding:4];
+      free(v13);
+      v15 = v14;
       SSFileLog();
     }
   }
 
-  return [AMSBagValue failingBagValueWithKey:@"change-language" valueType:5 error:v16, v14];
+  return [AMSBagValue failingBagValueWithKey:@"change-language" valueType:5 error:v16, v15];
 }
 
 - (AMSBagValue)trustedDomains
@@ -821,41 +840,45 @@ LABEL_19:
   shouldLog = [v6 shouldLog];
   if ([v6 shouldLogToDisk])
   {
-    v8 = shouldLog | 2;
+    LODWORD(v8) = shouldLog | 2;
   }
 
   else
   {
-    v8 = shouldLog;
+    LODWORD(v8) = shouldLog;
   }
 
-  if (!os_log_type_enabled([v6 OSLogObject], OS_LOG_TYPE_ERROR))
+  oSLogObject = [v6 OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  {
+    v8 = v8;
+  }
+
+  else
   {
     v8 &= 2u;
   }
 
   if (v8)
   {
-    v9 = objc_opt_class();
-    v10 = AMSLogableError();
+    v10 = objc_opt_class();
+    v11 = AMSLogableError();
     v18 = 138543618;
-    v19 = v9;
+    v19 = v10;
     v20 = 2114;
-    v21 = v10;
-    LODWORD(v15) = 22;
-    v14 = &v18;
-    v11 = _os_log_send_and_compose_impl();
-    if (v11)
+    v21 = v11;
+    v12 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &_mh_execute_header, oSLogObject, 16, "%{public}@: Failed to get the trustedDomains from the bag. error = %{public}@", &v18, 22);
+    if (v12)
     {
-      v12 = v11;
-      v13 = [NSString stringWithCString:v11 encoding:4, &v18, v15];
-      free(v12);
-      v14 = v13;
+      v13 = v12;
+      v14 = [NSString stringWithCString:v12 encoding:4];
+      free(v13);
+      v15 = v14;
       SSFileLog();
     }
   }
 
-  return [AMSBagValue failingBagValueWithKey:@"trustedDomains" valueType:0 error:v16, v14];
+  return [AMSBagValue failingBagValueWithKey:@"trustedDomains" valueType:0 error:v16, v15];
 }
 
 - (void)batterySaverWatcherDidChangeState:(id)state
@@ -873,32 +896,36 @@ LABEL_19:
     shouldLog = [v5 shouldLog];
     if ([v5 shouldLogToDisk])
     {
-      v7 = shouldLog | 2;
+      LODWORD(v7) = shouldLog | 2;
     }
 
     else
     {
-      v7 = shouldLog;
+      LODWORD(v7) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v5 OSLogObject], OS_LOG_TYPE_INFO))
+    oSLogObject = [v5 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    {
+      v7 = v7;
+    }
+
+    else
     {
       v7 &= 2u;
     }
 
     if (v7)
     {
-      v18 = 138412290;
-      v19 = objc_opt_class();
-      LODWORD(v17) = 12;
-      v16 = &v18;
-      v8 = _os_log_send_and_compose_impl();
-      if (v8)
+      v19 = 138412290;
+      v20 = objc_opt_class();
+      v9 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: battery saver mode started", &v19, 12);
+      if (v9)
       {
-        v9 = v8;
-        v10 = [NSString stringWithCString:v8 encoding:4, &v18, v17];
-        free(v9);
-        v16 = v10;
+        v10 = v9;
+        v11 = [NSString stringWithCString:v9 encoding:4];
+        free(v10);
+        v18 = v11;
         SSFileLog();
       }
     }
@@ -916,32 +943,36 @@ LABEL_19:
     shouldLog2 = [v5 shouldLog];
     if ([v5 shouldLogToDisk])
     {
-      v12 = shouldLog2 | 2;
+      LODWORD(v13) = shouldLog2 | 2;
     }
 
     else
     {
-      v12 = shouldLog2;
+      LODWORD(v13) = shouldLog2;
     }
 
-    if (!os_log_type_enabled([v5 OSLogObject], OS_LOG_TYPE_INFO))
+    oSLogObject2 = [v5 OSLogObject];
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
     {
-      v12 &= 2u;
+      v13 = v13;
     }
 
-    if (v12)
+    else
     {
-      v18 = 138412290;
-      v19 = objc_opt_class();
-      LODWORD(v17) = 12;
-      v16 = &v18;
-      v13 = _os_log_send_and_compose_impl();
-      if (v13)
+      v13 &= 2u;
+    }
+
+    if (v13)
+    {
+      v19 = 138412290;
+      v20 = objc_opt_class();
+      v15 = _os_log_send_and_compose_impl(v13, 0, 0, 0, &_mh_execute_header, oSLogObject2, 1, "%@: battery saver mode ended", &v19, 12);
+      if (v15)
       {
-        v14 = v13;
-        v15 = [NSString stringWithCString:v13 encoding:4, &v18, v17];
-        free(v14);
         v16 = v15;
+        v17 = [NSString stringWithCString:v15 encoding:4];
+        free(v16);
+        v18 = v17;
         SSFileLog();
       }
     }
@@ -1019,15 +1050,21 @@ LABEL_19:
   shouldLog = [v8 shouldLog];
   if ([v8 shouldLogToDisk])
   {
-    v10 = shouldLog | 2;
+    LODWORD(v10) = shouldLog | 2;
   }
 
   else
   {
-    v10 = shouldLog;
+    LODWORD(v10) = shouldLog;
   }
 
-  if (!os_log_type_enabled([v8 OSLogObject], OS_LOG_TYPE_INFO))
+  oSLogObject = [v8 OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  {
+    v10 = v10;
+  }
+
+  else
   {
     v10 &= 2u;
   }
@@ -1038,59 +1075,57 @@ LABEL_19:
     v31 = objc_opt_class();
     v32 = 2080;
     nameCopy = name;
-    LODWORD(v22) = 22;
-    v21 = &v30;
-    v11 = _os_log_send_and_compose_impl();
-    if (v11)
+    v12 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Background task status changed: [%s]", &v30, 22);
+    if (v12)
     {
-      v12 = v11;
-      v13 = [NSString stringWithCString:v11 encoding:4, &v30, v22];
-      free(v12);
-      v21 = v13;
+      v13 = v12;
+      v14 = [NSString stringWithCString:v12 encoding:4];
+      free(v13);
+      v22 = v14;
       SSFileLog();
     }
   }
 
-  v14 = objc_alloc_init(NSMutableSet);
+  v15 = objc_alloc_init(NSMutableSet);
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   backgroundTaskObservers = self->_backgroundTaskObservers;
-  v16 = [(NSMutableDictionary *)backgroundTaskObservers countByEnumeratingWithState:&v25 objects:v29 count:16];
-  if (v16)
+  v17 = [(NSMutableDictionary *)backgroundTaskObservers countByEnumeratingWithState:&v25 objects:v29 count:16];
+  if (v17)
   {
-    v17 = v16;
-    v18 = *v26;
+    v18 = v17;
+    v19 = *v26;
     do
     {
-      for (i = 0; i != v17; i = i + 1)
+      for (i = 0; i != v18; i = i + 1)
       {
-        if (*v26 != v18)
+        if (*v26 != v19)
         {
           objc_enumerationMutation(backgroundTaskObservers);
         }
 
-        v20 = *(*(&v25 + 1) + 8 * i);
-        if ([v7 hasPrefix:{v20, v21}])
+        v21 = *(*(&v25 + 1) + 8 * i);
+        if ([v7 hasPrefix:{v21, v22}])
         {
-          [v14 unionSet:{-[NSMutableDictionary objectForKey:](self->_backgroundTaskObservers, "objectForKey:", v20)}];
+          [v15 unionSet:{-[NSMutableDictionary objectForKey:](self->_backgroundTaskObservers, "objectForKey:", v21)}];
         }
       }
 
-      v17 = [(NSMutableDictionary *)backgroundTaskObservers countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v18 = [(NSMutableDictionary *)backgroundTaskObservers countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
-    while (v17);
+    while (v18);
   }
 
-  if ([v14 count])
+  if ([v15 count])
   {
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_1001D023C;
     block[3] = &unk_10032AE90;
-    block[4] = v14;
+    block[4] = v15;
     block[5] = v7;
     block[6] = job;
     v24 = dispatch_queue_create("com.apple.itunesstored.Daemon.observers", 0);
@@ -1129,9 +1164,9 @@ LABEL_19:
   handler[1] = 3221225472;
   handler[2] = sub_1001D091C;
   handler[3] = &unk_10032BB40;
-  v18 = -1;
-  v8 = notify_register_dispatch("com.apple.mobile.keybagd.first_unlock", &out_token, dispatchQueue, handler);
-  if (!v8)
+  v19 = -1;
+  v10 = notify_register_dispatch("com.apple.mobile.keybagd.first_unlock", &out_token, dispatchQueue, handler);
+  if (!v10)
   {
     if (MKBDeviceUnlockedSinceBoot() != 1)
     {
@@ -1149,10 +1184,12 @@ LABEL_3:
 
       shouldLog = [v3 shouldLog];
       v5 = [v3 shouldLogToDisk] ? shouldLog | 2 : shouldLog;
-      if (os_log_type_enabled([v3 OSLogObject], OS_LOG_TYPE_ERROR) ? v5 : v5 & 2)
+      oSLogObject = [v3 OSLogObject];
+      v7 = os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR) ? v5 : v5 & 2u;
+      if (v7)
       {
-        LOWORD(v20[0]) = 0;
-        LODWORD(v16) = 2;
+        LOWORD(v21[0]) = 0;
+        v8 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &_mh_execute_header, oSLogObject, 16, "Data Protection migration to class C failed");
         goto LABEL_25;
       }
     }
@@ -1160,46 +1197,46 @@ LABEL_3:
     return;
   }
 
-  v9 = v8;
-  v10 = +[SSLogConfig sharedDaemonConfig];
-  if (!v10)
+  v11 = v10;
+  v12 = +[SSLogConfig sharedDaemonConfig];
+  if (!v12)
   {
-    v10 = +[SSLogConfig sharedConfig];
+    v12 = +[SSLogConfig sharedConfig];
   }
 
-  shouldLog2 = [v10 shouldLog];
-  if ([v10 shouldLogToDisk])
+  shouldLog2 = [v12 shouldLog];
+  if ([v12 shouldLogToDisk])
   {
-    v12 = shouldLog2 | 2;
-  }
-
-  else
-  {
-    v12 = shouldLog2;
-  }
-
-  if (os_log_type_enabled([v10 OSLogObject], OS_LOG_TYPE_ERROR))
-  {
-    v13 = v12;
+    v14 = shouldLog2 | 2;
   }
 
   else
   {
-    v13 = v12 & 2;
+    v14 = shouldLog2;
   }
 
-  if (v13)
+  oSLogObject2 = [v12 OSLogObject];
+  if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
   {
-    v20[0] = 67109120;
-    v20[1] = v9;
-    LODWORD(v16) = 8;
+    v16 = v14;
+  }
+
+  else
+  {
+    v16 = v14 & 2;
+  }
+
+  if (v16)
+  {
+    v21[0] = 67109120;
+    v21[1] = v11;
+    v8 = _os_log_send_and_compose_impl(v16, 0, 0, 0, &_mh_execute_header, oSLogObject2, 16, "Registration for device first unlock notification failed: %u", v21);
 LABEL_25:
-    v14 = _os_log_send_and_compose_impl();
-    if (v14)
+    if (v8)
     {
-      v15 = v14;
-      [NSString stringWithCString:v14 encoding:4, v20, v16];
-      free(v15);
+      v17 = v8;
+      [NSString stringWithCString:v8 encoding:4];
+      free(v17);
       SSFileLog();
     }
   }

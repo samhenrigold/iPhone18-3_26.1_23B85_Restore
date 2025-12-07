@@ -1,36 +1,36 @@
-uint64_t AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,4u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)3>::compressSubblock(unint64_t a1, _BYTE *a2, uint64_t a3, uint64_t a4, unsigned int a5, unsigned int a6, int a7)
+unint64_t AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,4u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)3>::compressSubblock(unint64_t a1, _BYTE *a2, int32x4_t *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
-  v11 = *(a3 + 16);
-  v9 = *(a3 + 32);
-  v10 = *(a3 + 48);
-  v12 = vsubq_s32(*(a3 + 64), *a3);
-  v262 = vsubq_s32(*(a3 + 80), *a3);
-  v13 = vsubq_s32(*(a3 + 96), *a3);
-  v14 = vsubq_s32(*(a3 + 112), *a3);
+  v11 = a3[1];
+  v9 = a3[2];
+  v10 = a3[3];
+  v12 = vsubq_s32(a3[4], *a3);
+  v262 = vsubq_s32(a3[5], *a3);
+  v13 = vsubq_s32(a3[6], *a3);
+  v14 = vsubq_s32(a3[7], *a3);
   v15 = vsubq_s32(*(a3 + a4), *a3);
-  v16 = vsubq_s32(*(a3 + a4 + 16), *a3);
-  v17 = vsubq_s32(*(a3 + a4 + 32), *a3);
-  v18 = vsubq_s32(*(a3 + a4 + 48), *a3);
-  v19 = vsubq_s32(*(a3 + a4 + 64), *a3);
-  v20 = vsubq_s32(*(a3 + a4 + 80), *a3);
-  v21 = vsubq_s32(*(a3 + a4 + 96), *a3);
-  v22 = vsubq_s32(*(a3 + a4 + 112), *a3);
-  v23 = vsubq_s32(*(a3 + 144), *a3);
-  v263 = vsubq_s32(*(a3 + 128), *a3);
-  v264 = vsubq_s32(*(a3 + 160), *a3);
-  v24 = vsubq_s32(*(a3 + 176), *a3);
-  v25 = vsubq_s32(*(a3 + 192), *a3);
-  v26 = vsubq_s32(*(a3 + 208), *a3);
-  v27 = vsubq_s32(*(a3 + 224), *a3);
-  v28 = vsubq_s32(*(a3 + 240), *a3);
-  v29 = vsubq_s32(*(a3 + a4 + 128), *a3);
-  v30 = vsubq_s32(*(a3 + a4 + 144), *a3);
-  v31 = vsubq_s32(*(a3 + a4 + 160), *a3);
-  v32 = vsubq_s32(*(a3 + a4 + 176), *a3);
-  v33 = vsubq_s32(*(a3 + a4 + 192), *a3);
-  v34 = vsubq_s32(*(a3 + a4 + 208), *a3);
-  v35 = vsubq_s32(*(a3 + a4 + 224), *a3);
-  v36 = vsubq_s32(*(a3 + a4 + 240), *a3);
+  v16 = vsubq_s32(*(&a3[1] + a4), *a3);
+  v17 = vsubq_s32(*(&a3[2] + a4), *a3);
+  v18 = vsubq_s32(*(&a3[3] + a4), *a3);
+  v19 = vsubq_s32(*(&a3[4] + a4), *a3);
+  v20 = vsubq_s32(*(&a3[5] + a4), *a3);
+  v21 = vsubq_s32(*(&a3[6] + a4), *a3);
+  v22 = vsubq_s32(*(&a3[7] + a4), *a3);
+  v23 = vsubq_s32(a3[9], *a3);
+  v263 = vsubq_s32(a3[8], *a3);
+  v264 = vsubq_s32(a3[10], *a3);
+  v24 = vsubq_s32(a3[11], *a3);
+  v25 = vsubq_s32(a3[12], *a3);
+  v26 = vsubq_s32(a3[13], *a3);
+  v27 = vsubq_s32(a3[14], *a3);
+  v28 = vsubq_s32(a3[15], *a3);
+  v29 = vsubq_s32(*(&a3[8] + a4), *a3);
+  v30 = vsubq_s32(*(&a3[9] + a4), *a3);
+  v31 = vsubq_s32(*(&a3[10] + a4), *a3);
+  v32 = vsubq_s32(*(&a3[11] + a4), *a3);
+  v33 = vsubq_s32(*(&a3[12] + a4), *a3);
+  v34 = vsubq_s32(*(&a3[13] + a4), *a3);
+  v35 = vsubq_s32(*(&a3[14] + a4), *a3);
+  v36 = vsubq_s32(*(&a3[15] + a4), *a3);
   v339 = *a3;
   v308 = vsubq_s32(v11, v339);
   v309 = vsubq_s32(v9, v339);
@@ -124,6 +124,9 @@ uint64_t AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::Pixel
   v307 = 0u;
   if (vmaxvq_s32(v62))
   {
+    v74 = a5;
+    v75 = a6;
+    v76 = a7;
     v77.i64[0] = 0x8000000080000000;
     v77.i64[1] = 0x8000000080000000;
     v78.i64[0] = 0x8000000080000000;
@@ -274,7 +277,7 @@ uint64_t AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::Pixel
     v338 = vaddq_s32(v338, v117);
     if (((((vpaddq_s16(v126, v126).i16[0] + 175) >> 3) + 1) & 0x3FFFFFFFFFFFFFFELL) > 0x100)
     {
-      AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,4u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)3>::compressLossyCompressedSubblock(a1, a2, a3, a4, a5, a6, a7);
+      AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,4u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)3>::compressLossyCompressedSubblock(a1, a2, a3, a4, v74, v75, v76);
       return 256;
     }
 
@@ -2610,39 +2613,39 @@ LABEL_416:
   return result;
 }
 
-uint64_t AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,8u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)3>::compressSubblock(unint64_t a1, _BYTE *a2, uint64_t a3, uint64_t a4, unsigned int a5, unsigned int a6, int a7)
+unint64_t AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,8u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)3>::compressSubblock(unint64_t a1, _BYTE *a2, int32x4_t *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
-  v11 = *(a3 + 16);
-  v9 = *(a3 + 32);
-  v10 = *(a3 + 48);
-  v12 = vsubq_s32(*(a3 + 64), *a3);
-  v13 = vsubq_s32(*(a3 + 80), *a3);
-  v264 = vsubq_s32(*(a3 + 96), *a3);
-  v14 = vsubq_s32(*(a3 + 112), *a3);
-  v15 = vsubq_s32(*(a3 + 128), *a3);
-  v16 = vsubq_s32(*(a3 + 144), *a3);
-  v17 = vsubq_s32(*(a3 + 160), *a3);
-  v18 = vsubq_s32(*(a3 + 176), *a3);
-  v19 = vsubq_s32(*(a3 + 192), *a3);
-  v20 = vsubq_s32(*(a3 + 208), *a3);
-  v21 = vsubq_s32(*(a3 + 224), *a3);
-  v22 = vsubq_s32(*(a3 + 240), *a3);
+  v11 = a3[1];
+  v9 = a3[2];
+  v10 = a3[3];
+  v12 = vsubq_s32(a3[4], *a3);
+  v13 = vsubq_s32(a3[5], *a3);
+  v264 = vsubq_s32(a3[6], *a3);
+  v14 = vsubq_s32(a3[7], *a3);
+  v15 = vsubq_s32(a3[8], *a3);
+  v16 = vsubq_s32(a3[9], *a3);
+  v17 = vsubq_s32(a3[10], *a3);
+  v18 = vsubq_s32(a3[11], *a3);
+  v19 = vsubq_s32(a3[12], *a3);
+  v20 = vsubq_s32(a3[13], *a3);
+  v21 = vsubq_s32(a3[14], *a3);
+  v22 = vsubq_s32(a3[15], *a3);
   v23 = vsubq_s32(*(a3 + a4), *a3);
-  v24 = vsubq_s32(*(a3 + a4 + 16), *a3);
-  v25 = vsubq_s32(*(a3 + a4 + 32), *a3);
-  v26 = vsubq_s32(*(a3 + a4 + 48), *a3);
-  v27 = vsubq_s32(*(a3 + a4 + 64), *a3);
-  v28 = vsubq_s32(*(a3 + a4 + 80), *a3);
-  v29 = vsubq_s32(*(a3 + a4 + 96), *a3);
-  v30 = vsubq_s32(*(a3 + a4 + 112), *a3);
-  v265 = vsubq_s32(*(a3 + a4 + 144), *a3);
-  v266 = vsubq_s32(*(a3 + a4 + 128), *a3);
-  v267 = vsubq_s32(*(a3 + a4 + 160), *a3);
-  v31 = vsubq_s32(*(a3 + a4 + 176), *a3);
-  v32 = vsubq_s32(*(a3 + a4 + 192), *a3);
-  v33 = vsubq_s32(*(a3 + a4 + 208), *a3);
-  v34 = vsubq_s32(*(a3 + a4 + 224), *a3);
-  v35 = vsubq_s32(*(a3 + a4 + 240), *a3);
+  v24 = vsubq_s32(*(&a3[1] + a4), *a3);
+  v25 = vsubq_s32(*(&a3[2] + a4), *a3);
+  v26 = vsubq_s32(*(&a3[3] + a4), *a3);
+  v27 = vsubq_s32(*(&a3[4] + a4), *a3);
+  v28 = vsubq_s32(*(&a3[5] + a4), *a3);
+  v29 = vsubq_s32(*(&a3[6] + a4), *a3);
+  v30 = vsubq_s32(*(&a3[7] + a4), *a3);
+  v265 = vsubq_s32(*(&a3[9] + a4), *a3);
+  v266 = vsubq_s32(*(&a3[8] + a4), *a3);
+  v267 = vsubq_s32(*(&a3[10] + a4), *a3);
+  v31 = vsubq_s32(*(&a3[11] + a4), *a3);
+  v32 = vsubq_s32(*(&a3[12] + a4), *a3);
+  v33 = vsubq_s32(*(&a3[13] + a4), *a3);
+  v34 = vsubq_s32(*(&a3[14] + a4), *a3);
+  v35 = vsubq_s32(*(&a3[15] + a4), *a3);
   v342 = *a3;
   v311 = vsubq_s32(v11, v342);
   v312 = vsubq_s32(v9, v342);
@@ -2739,6 +2742,9 @@ uint64_t AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::Pixel
   v310 = 0u;
   if (vmaxvq_s32(v65))
   {
+    v77 = a5;
+    v78 = a6;
+    v79 = a7;
     v277 = vsubq_s32(v319, vqtbl1q_s8(v319, xmmword_29D2F11D0));
     v278 = vsubq_s32(v320, vqtbl1q_s8(v320, xmmword_29D2F11D0));
     v279 = vsubq_s32(v321, vqtbl1q_s8(v321, xmmword_29D2F11D0));
@@ -2886,7 +2892,7 @@ uint64_t AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::Pixel
     v341 = vaddq_s32(v341, v119);
     if (((((vpaddq_s16(v128, v128).i16[0] + 175) >> 3) + 1) & 0x3FFFFFFFFFFFFFFELL) > 0x100)
     {
-      AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,8u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)3>::compressLossyCompressedSubblock(a1, a2, a3, a4, a5, a6, a7);
+      AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,8u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)3>::compressLossyCompressedSubblock(a1, a2, a3, a4, v77, v78, v79);
       return 256;
     }
 
@@ -5293,7 +5299,7 @@ void *AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFor
   return result;
 }
 
-uint64_t AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)9,1u,(unsigned char)1,(AGX::AppleCompressionGen2::SubblockOrder)0,(AGXTextureFootprint)0>::decompressLosslessCompressedSubblock(int32x4_t *a1, uint64_t a2, uint64_t a3, unsigned int a4)
+uint64_t AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)9,1u,(unsigned char)1,(AGX::AppleCompressionGen2::SubblockOrder)0,(AGXTextureFootprint)0>::decompressLosslessCompressedSubblock(int32x4_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v305 = 0;
   v304 = (8 * (a3 & 7)) | 0x200;
@@ -6061,7 +6067,7 @@ uint64_t AGX::AppleCompressionGen2::readHeader<(AGX::AppleCompressionGen2::Pixel
   return a5 + 1;
 }
 
-unint64_t AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)9,1u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)0,(AGXTextureFootprint)0>::compressSubblock(uint16x8_t *a1, char *a2, int32x4_t *a3, uint64_t a4, unsigned int a5, unsigned int a6)
+unint64_t AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)9,1u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)0,(AGXTextureFootprint)0>::compressSubblock(unint64_t a1, char *a2, int32x4_t *a3, uint64_t a4, unsigned int a5, unsigned int a6)
 {
   v6 = *(a3 + a4);
   v7 = vzip1q_s32(*a3, v6);
@@ -6149,7 +6155,7 @@ unint64_t AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::Pixe
   v76 = vminq_s8(v75, v73);
   if (!vmaxvq_s8(v76))
   {
-    a1->i16[0] = a3->i16[0];
+    *a1 = a3->i16[0];
     v167 = 1;
     result = 2;
     goto LABEL_91;
@@ -6483,10 +6489,10 @@ LABEL_16:
   if ((vpaddq_s16(v265, v265).i16[0] + 55) > 0x1FF)
   {
     *a1 = v547;
-    a1[1] = v546;
+    *(a1 + 16) = v546;
     v167 = 63;
-    a1[2] = v162;
-    a1[3] = v548;
+    *(a1 + 32) = v162;
+    *(a1 + 48) = v548;
     result = 64;
   }
 
@@ -7090,7 +7096,7 @@ LABEL_91:
   return result;
 }
 
-unint64_t AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)9,1u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)0,(AGXTextureFootprint)0>::compressMacroblock(unint64_t result, uint64_t a2, uint16x8_t *a3, char *a4, unsigned int a5, unsigned int a6)
+int32x4_t *AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)9,1u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)0,(AGXTextureFootprint)0>::compressMacroblock(int32x4_t *result, uint64_t a2, uint16x8_t *a3, char *a4, unsigned int a5, unsigned int a6)
 {
   v6 = a6;
   v7 = a5;
@@ -7109,7 +7115,7 @@ unint64_t AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::Pixe
     }
 
     result = AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)9,1u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)0,(AGXTextureFootprint)0>::compressSubblock(a3, a4, result, a2, a5, a6);
-    v9 = (v9 + result);
+    v9 = &result->i8[v9];
   }
 
   else
@@ -7142,7 +7148,7 @@ unint64_t AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::Pixe
     }
 
     result = AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)9,1u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)0,(AGXTextureFootprint)0>::compressSubblock(v9, a4 + 1, (v11 + v12), a2, v15, v14);
-    v9 = (v9 + result);
+    v9 = &result->i8[v9];
   }
 
   else
@@ -7174,7 +7180,7 @@ unint64_t AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::Pixe
     }
 
     result = AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)9,1u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)0,(AGXTextureFootprint)0>::compressSubblock(v9, a4 + 2, v11 + 1, a2, v18, v17);
-    v9 = (v9 + result);
+    v9 = &result->i8[v9];
   }
 
   else
@@ -7209,7 +7215,7 @@ unint64_t AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::Pixe
     }
 
     result = AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)9,1u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)0,(AGXTextureFootprint)0>::compressSubblock(v9, a4 + 3, (v11 + v12 + 16), a2, v20, v19);
-    v9 = (v9 + result);
+    v9 = &result->i8[v9];
     v21 = v6 - 8;
     goto LABEL_38;
   }
@@ -7257,7 +7263,7 @@ LABEL_46:
   }
 
   result = AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)9,1u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)0,(AGXTextureFootprint)0>::compressSubblock(v9, a4 + 4, (v11 + 8 * a2), a2, v23, v22);
-  v9 = (v9 + result);
+  v9 = &result->i8[v9];
   v24 = v6 - 12;
 LABEL_47:
   if (v6 >= 0xD)
@@ -7283,7 +7289,7 @@ LABEL_47:
     }
 
     result = AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)9,1u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)0,(AGXTextureFootprint)0>::compressSubblock(v9, a4 + 5, (v11 + 12 * a2), a2, v26, v25);
-    v9 = (v9 + result);
+    v9 = &result->i8[v9];
     if (v7 < 9)
     {
       goto LABEL_65;
@@ -7323,7 +7329,7 @@ LABEL_57:
     }
 
     result = AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)9,1u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)0,(AGXTextureFootprint)0>::compressSubblock(v9, a4 + 6, (v11 + 8 * a2 + 16), a2, v28, v27);
-    v9 = (v9 + result);
+    v9 = &result->i8[v9];
     goto LABEL_66;
   }
 
@@ -8130,7 +8136,7 @@ LABEL_132:
   return result;
 }
 
-unint64_t AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)9,2u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)0,(AGXTextureFootprint)0>::compressSubblock(uint16x8_t *a1, char *a2, int64x2_t *a3, uint64_t a4, unsigned int a5, unsigned int a6)
+unint64_t AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)9,2u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)0,(AGXTextureFootprint)0>::compressSubblock(unint64_t a1, char *a2, int64x2_t *a3, uint64_t a4, unsigned int a5, unsigned int a6)
 {
   v6 = *(a3 + a4);
   v7 = vzip1q_s64(*a3, v6);
@@ -8218,7 +8224,7 @@ unint64_t AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::Pixe
   v76 = vminq_s8(v75, v73);
   if (!vmaxvq_s8(v76))
   {
-    a1->i16[0] = a3->i16[0];
+    *a1 = a3->i16[0];
     v167 = 1;
     result = 2;
     goto LABEL_91;
@@ -8552,10 +8558,10 @@ LABEL_16:
   if ((vpaddq_s16(v265, v265).i16[0] + 55) > 0x1FF)
   {
     *a1 = v547;
-    a1[1] = v546;
+    *(a1 + 16) = v546;
     v167 = 63;
-    a1[2] = v162;
-    a1[3] = v548;
+    *(a1 + 32) = v162;
+    *(a1 + 48) = v548;
     result = 64;
   }
 
@@ -9159,7 +9165,7 @@ LABEL_91:
   return result;
 }
 
-unint64_t AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)9,2u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)0,(AGXTextureFootprint)0>::compressMacroblock(unint64_t result, uint64_t a2, uint16x8_t *a3, char *a4, unsigned int a5, unsigned int a6)
+int64x2_t *AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)9,2u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)0,(AGXTextureFootprint)0>::compressMacroblock(int64x2_t *result, uint64_t a2, uint16x8_t *a3, char *a4, unsigned int a5, unsigned int a6)
 {
   v6 = a6;
   v7 = a5;
@@ -9178,7 +9184,7 @@ unint64_t AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::Pixe
     }
 
     result = AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)9,2u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)0,(AGXTextureFootprint)0>::compressSubblock(a3, a4, result, a2, a5, a6);
-    v9 = (v9 + result);
+    v9 = &result->i8[v9];
   }
 
   else
@@ -9210,7 +9216,7 @@ unint64_t AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::Pixe
     }
 
     result = AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)9,2u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)0,(AGXTextureFootprint)0>::compressSubblock(v9, a4 + 1, v11 + 1, a2, v14, v13);
-    v9 = (v9 + result);
+    v9 = &result->i8[v9];
   }
 
   else
@@ -9243,7 +9249,7 @@ unint64_t AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::Pixe
     }
 
     result = AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)9,2u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)0,(AGXTextureFootprint)0>::compressSubblock(v9, a4 + 2, (v11 + v15), a2, v18, v17);
-    v9 = (v9 + result);
+    v9 = &result->i8[v9];
     if (v7 < 5)
     {
       goto LABEL_38;
@@ -9282,7 +9288,7 @@ unint64_t AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::Pixe
     }
 
     result = AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)9,2u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)0,(AGXTextureFootprint)0>::compressSubblock(v9, a4 + 3, (v11 + v15 + 16), a2, v20, v19);
-    v9 = (v9 + result);
+    v9 = &result->i8[v9];
     goto LABEL_39;
   }
 
@@ -9313,7 +9319,7 @@ LABEL_39:
     }
 
     result = AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)9,2u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)0,(AGXTextureFootprint)0>::compressSubblock(v9, a4 + 4, v11 + 2, a2, v23, v22);
-    v9 = (v9 + result);
+    v9 = &result->i8[v9];
   }
 
   else
@@ -9345,7 +9351,7 @@ LABEL_39:
     }
 
     result = AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)9,2u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)0,(AGXTextureFootprint)0>::compressSubblock(v9, a4 + 5, v11 + 3, a2, v26, v25);
-    v9 = (v9 + result);
+    v9 = &result->i8[v9];
   }
 
   else
@@ -9380,7 +9386,7 @@ LABEL_39:
     }
 
     result = AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)9,2u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)0,(AGXTextureFootprint)0>::compressSubblock(v9, a4 + 6, (v11 + v15 + 32), a2, v28, v27);
-    v9 = (v9 + result);
+    v9 = &result->i8[v9];
     if (v7 < 0xD)
     {
       goto LABEL_79;
@@ -9513,7 +9519,7 @@ uint64_t AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::Pixel
     v17 = vld1q_dup_s16(a3);
     *a1 = v17;
     a1[1] = v17;
-    v18 = &a1->i8[a2];
+    v18 = (a1 + a2);
     *v18 = v17;
     v18[1] = v17;
     return 2;

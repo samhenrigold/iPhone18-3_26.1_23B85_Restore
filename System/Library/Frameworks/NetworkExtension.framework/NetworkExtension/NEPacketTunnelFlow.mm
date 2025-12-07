@@ -11,7 +11,7 @@
 
 - (BOOL)writePacketObjects:(NSArray *)packets
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v4 = packets;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -42,9 +42,9 @@
         v15 = ne_log_obj();
         if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
-          v20 = 136315138;
-          v21 = "[NEPacketTunnelFlow writePacketObjects:]";
-          _os_log_error_impl(&dword_1BA83C000, v15, OS_LOG_TYPE_ERROR, "%s: Failed to allocate memory for packet lengths", &v20, 0xCu);
+          v19 = 136315138;
+          v20 = "[NEPacketTunnelFlow writePacketObjects:]";
+          _os_log_error_impl(&dword_1BA83C000, v15, OS_LOG_TYPE_ERROR, "%s: Failed to allocate memory for packet lengths", &v19, 0xCu);
         }
       }
 
@@ -53,9 +53,9 @@
         v15 = ne_log_obj();
         if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
-          v20 = 136315138;
-          v21 = "[NEPacketTunnelFlow writePacketObjects:]";
-          _os_log_error_impl(&dword_1BA83C000, v15, OS_LOG_TYPE_ERROR, "%s: Failed to allocate memory for packet protocols", &v20, 0xCu);
+          v19 = 136315138;
+          v20 = "[NEPacketTunnelFlow writePacketObjects:]";
+          _os_log_error_impl(&dword_1BA83C000, v15, OS_LOG_TYPE_ERROR, "%s: Failed to allocate memory for packet protocols", &v19, 0xCu);
         }
       }
     }
@@ -65,9 +65,9 @@
       v15 = ne_log_obj();
       if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        v20 = 136315138;
-        v21 = "[NEPacketTunnelFlow writePacketObjects:]";
-        _os_log_error_impl(&dword_1BA83C000, v15, OS_LOG_TYPE_ERROR, "%s: Failed to allocate memory for packet data pointers", &v20, 0xCu);
+        v19 = 136315138;
+        v20 = "[NEPacketTunnelFlow writePacketObjects:]";
+        _os_log_error_impl(&dword_1BA83C000, v15, OS_LOG_TYPE_ERROR, "%s: Failed to allocate memory for packet data pointers", &v19, 0xCu);
       }
     }
 
@@ -105,11 +105,11 @@ LABEL_8:
     v17 = ne_log_obj();
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      v20 = 136315394;
-      v21 = "[NEPacketTunnelFlow writePacketObjects:]";
-      v22 = 2048;
-      v23 = i;
-      _os_log_error_impl(&dword_1BA83C000, v17, OS_LOG_TYPE_ERROR, "%s: object at index %lu of packets array is not an NSData", &v20, 0x16u);
+      v19 = 136315394;
+      v20 = "[NEPacketTunnelFlow writePacketObjects:]";
+      v21 = 2048;
+      v22 = i;
+      _os_log_error_impl(&dword_1BA83C000, v17, OS_LOG_TYPE_ERROR, "%s: object at index %lu of packets array is not an NSData", &v19, 0x16u);
     }
 
     goto LABEL_29;
@@ -120,13 +120,12 @@ LABEL_22:
 LABEL_30:
   objc_sync_exit(selfCopy);
 
-  v18 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
 - (BOOL)writePackets:(NSArray *)packets withProtocols:(NSArray *)protocols
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v6 = packets;
   v7 = protocols;
   selfCopy = self;
@@ -144,13 +143,13 @@ LABEL_30:
       v18 = ne_log_obj();
       if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
-        v23 = 136315650;
-        v24 = "[NEPacketTunnelFlow writePackets:withProtocols:]";
-        v25 = 2048;
-        v26 = [(NSArray *)v6 count];
-        v27 = 2048;
-        v28 = [(NSArray *)v7 count];
-        _os_log_error_impl(&dword_1BA83C000, v18, OS_LOG_TYPE_ERROR, "%s: packets count (%lu) does not equal protocols count (%lu)", &v23, 0x20u);
+        v22 = 136315650;
+        v23 = "[NEPacketTunnelFlow writePackets:withProtocols:]";
+        v24 = 2048;
+        v25 = [(NSArray *)v6 count];
+        v26 = 2048;
+        v27 = [(NSArray *)v7 count];
+        _os_log_error_impl(&dword_1BA83C000, v18, OS_LOG_TYPE_ERROR, "%s: packets count (%lu) does not equal protocols count (%lu)", &v22, 0x20u);
       }
 
       goto LABEL_38;
@@ -178,9 +177,9 @@ LABEL_10:
         v18 = ne_log_obj();
         if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
-          v23 = 136315138;
-          v24 = "[NEPacketTunnelFlow writePackets:withProtocols:]";
-          _os_log_error_impl(&dword_1BA83C000, v18, OS_LOG_TYPE_ERROR, "%s: Failed to allocate memory for packet lengths", &v23, 0xCu);
+          v22 = 136315138;
+          v23 = "[NEPacketTunnelFlow writePackets:withProtocols:]";
+          _os_log_error_impl(&dword_1BA83C000, v18, OS_LOG_TYPE_ERROR, "%s: Failed to allocate memory for packet lengths", &v22, 0xCu);
         }
 
         goto LABEL_38;
@@ -196,9 +195,9 @@ LABEL_10:
       v18 = ne_log_obj();
       if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
-        v23 = 136315138;
-        v24 = "[NEPacketTunnelFlow writePackets:withProtocols:]";
-        _os_log_error_impl(&dword_1BA83C000, v18, OS_LOG_TYPE_ERROR, "%s: Failed to allocate memory for packet protocols", &v23, 0xCu);
+        v22 = 136315138;
+        v23 = "[NEPacketTunnelFlow writePackets:withProtocols:]";
+        _os_log_error_impl(&dword_1BA83C000, v18, OS_LOG_TYPE_ERROR, "%s: Failed to allocate memory for packet protocols", &v22, 0xCu);
       }
     }
 
@@ -207,9 +206,9 @@ LABEL_10:
       v18 = ne_log_obj();
       if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
-        v23 = 136315138;
-        v24 = "[NEPacketTunnelFlow writePackets:withProtocols:]";
-        _os_log_error_impl(&dword_1BA83C000, v18, OS_LOG_TYPE_ERROR, "%s: Failed to allocate memory for packet data pointers", &v23, 0xCu);
+        v22 = 136315138;
+        v23 = "[NEPacketTunnelFlow writePackets:withProtocols:]";
+        _os_log_error_impl(&dword_1BA83C000, v18, OS_LOG_TYPE_ERROR, "%s: Failed to allocate memory for packet data pointers", &v22, 0xCu);
       }
     }
 
@@ -248,11 +247,11 @@ LABEL_12:
           v20 = ne_log_obj();
           if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
           {
-            v23 = 136315394;
-            v24 = "[NEPacketTunnelFlow writePackets:withProtocols:]";
-            v25 = 2048;
-            v26 = i;
-            _os_log_error_impl(&dword_1BA83C000, v20, OS_LOG_TYPE_ERROR, "%s: object at index %lu of protocols array is not an NSNumber", &v23, 0x16u);
+            v22 = 136315394;
+            v23 = "[NEPacketTunnelFlow writePackets:withProtocols:]";
+            v24 = 2048;
+            v25 = i;
+            _os_log_error_impl(&dword_1BA83C000, v20, OS_LOG_TYPE_ERROR, "%s: object at index %lu of protocols array is not an NSNumber", &v22, 0x16u);
           }
 
           goto LABEL_42;
@@ -265,11 +264,11 @@ LABEL_12:
     v17 = ne_log_obj();
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      v23 = 136315394;
-      v24 = "[NEPacketTunnelFlow writePackets:withProtocols:]";
-      v25 = 2048;
-      v26 = i;
-      _os_log_error_impl(&dword_1BA83C000, v17, OS_LOG_TYPE_ERROR, "%s: object at index %lu of packets array is not an NSData", &v23, 0x16u);
+      v22 = 136315394;
+      v23 = "[NEPacketTunnelFlow writePackets:withProtocols:]";
+      v24 = 2048;
+      v25 = i;
+      _os_log_error_impl(&dword_1BA83C000, v17, OS_LOG_TYPE_ERROR, "%s: object at index %lu of packets array is not an NSData", &v22, 0x16u);
     }
 
 LABEL_42:
@@ -282,7 +281,6 @@ LABEL_33:
 LABEL_44:
   objc_sync_exit(selfCopy);
 
-  v21 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
@@ -350,7 +348,7 @@ LABEL_44:
 
 void __61__NEPacketTunnelFlow_readPacketObjectsWithCompletionHandler___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3, uint64_t a4, uint64_t *a5, uint64_t *a6, unsigned int a7)
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v12 = WeakRetained;
   if (WeakRetained)
@@ -363,20 +361,20 @@ void __61__NEPacketTunnelFlow_readPacketObjectsWithCompletionHandler___block_inv
 
     if (v15)
     {
-      memset(v40, 0, sizeof(v40));
+      memset(v39, 0, sizeof(v39));
       if (a7 > 0x40)
       {
         __assert_rtn("[NEPacketTunnelFlow readPacketObjectsWithCompletionHandler:]_block_invoke", "NEPacketTunnelFlow.m", 227, "num_packets <= NEVPNPluginMaxPendingPackets");
       }
 
-      v35 = v12;
-      v36 = a7;
-      v37 = v15;
+      v34 = v12;
+      v35 = a7;
+      v36 = v15;
       if (a7)
       {
-        v17 = v40;
+        v17 = v39;
         v18 = a4;
-        v19 = v36;
+        v19 = v35;
         do
         {
           if (a4)
@@ -424,19 +422,17 @@ void __61__NEPacketTunnelFlow_readPacketObjectsWithCompletionHandler___block_inv
         while (v19);
       }
 
-      v32 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithObjects:v40 count:v36];
-      v37[2](v37, v32);
+      v32 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithObjects:v39 count:v35];
+      v36[2](v36, v32);
 
       for (i = 504; i != -8; i -= 8)
       {
       }
 
-      v12 = v35;
-      v15 = v37;
+      v12 = v34;
+      v15 = v36;
     }
   }
-
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 - (void)readPacketsWithCompletionHandler:(void *)completionHandler
@@ -503,7 +499,7 @@ void __61__NEPacketTunnelFlow_readPacketObjectsWithCompletionHandler___block_inv
 
 void __55__NEPacketTunnelFlow_readPacketsWithCompletionHandler___block_invoke(uint64_t a1, uint64_t a2, unsigned int *a3, uint64_t a4, void *a5, uint64_t *a6, unsigned int a7)
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v13 = WeakRetained;
   if (WeakRetained)
@@ -516,20 +512,20 @@ void __55__NEPacketTunnelFlow_readPacketsWithCompletionHandler___block_invoke(ui
 
     if (v16)
     {
-      memset(v37, 0, sizeof(v37));
       memset(v36, 0, sizeof(v36));
+      memset(v35, 0, sizeof(v35));
       if (a7 > 0x40)
       {
         __assert_rtn("[NEPacketTunnelFlow readPacketsWithCompletionHandler:]_block_invoke", "NEPacketTunnelFlow.m", 170, "num_packets <= NEVPNPluginMaxPendingPackets");
       }
 
-      v34 = v16;
-      v35 = a7;
+      v33 = v16;
+      v34 = a7;
       if (a7)
       {
-        v18 = v36;
-        v19 = v37;
-        v20 = v35;
+        v18 = v35;
+        v19 = v36;
+        v20 = v34;
         do
         {
           v21 = objc_alloc(MEMORY[0x1E695DEF0]);
@@ -559,17 +555,17 @@ void __55__NEPacketTunnelFlow_readPacketsWithCompletionHandler___block_invoke(ui
       v28 = *(a1 + 32);
       if (v28 && *(v28 + 80) == 1)
       {
-        v16 = v34;
-        v29 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithObjects:v36 count:v35];
+        v16 = v33;
+        v29 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithObjects:v35 count:v34];
       }
 
       else
       {
         v29 = objc_alloc_init(MEMORY[0x1E695DEC8]);
-        v16 = v34;
+        v16 = v33;
       }
 
-      v30 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithObjects:v37 count:v35];
+      v30 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithObjects:v36 count:v34];
       v16[2](v16, v30, v29);
 
       for (i = 504; i != -8; i -= 8)
@@ -581,8 +577,6 @@ void __55__NEPacketTunnelFlow_readPacketsWithCompletionHandler___block_invoke(ui
       }
     }
   }
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc

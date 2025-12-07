@@ -29,7 +29,7 @@
 
 - (uint64_t)canProcessEventForRecord:()Items bundleIdentifier:
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = a4;
   if (v7 && [&unk_2846E84C0 containsObject:v7])
@@ -42,11 +42,11 @@
         v9 = SKGLogInit();
         if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
         {
-          v27[0] = 67109376;
-          v27[1] = v8 != 0;
-          v28 = 1024;
-          v29 = [self recordContainsValue:v6 key:@"_kMDItemContentURLFileID"];
-          _os_log_debug_impl(&dword_231B25000, v9, OS_LOG_TYPE_DEBUG, "SKGProcessor+Items#canProcessRecord copyContentURLFromRecordNotNil:%d recordContainsValue:%d", v27, 0xEu);
+          v26[0] = 67109376;
+          v26[1] = v8 != 0;
+          v27 = 1024;
+          v28 = [self recordContainsValue:v6 key:@"_kMDItemContentURLFileID"];
+          _os_log_debug_impl(&dword_231B25000, v9, OS_LOG_TYPE_DEBUG, "SKGProcessor+Items#canProcessRecord copyContentURLFromRecordNotNil:%d recordContainsValue:%d", v26, 0xEu);
         }
       }
 
@@ -76,10 +76,10 @@
 
     if (SKGLogGetCurrentLoggingLevel() >= 7)
     {
-      v20 = SKGLogInit();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+      v19 = SKGLogInit();
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
       {
-        [(SKGProcessor(Items) *)v10 canProcessEvent:v20];
+        [(SKGProcessor(Items) *)v10 canProcessEvent:v19];
       }
     }
   }
@@ -89,7 +89,6 @@
     v10 = 1;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -249,19 +248,19 @@ LABEL_17:
 
 - (uint64_t)enumerateProcessedItemsFromRecord:()Items referenceIdentifier:bundleIdentifier:protectionClass:processorFlags:workCost:fetchCachedLanguageBlock:cacheLanguageBlock:processedItemBlock:cancelBlock:
 {
-  v81 = *MEMORY[0x277D85DE8];
+  v79 = *MEMORY[0x277D85DE8];
   v17 = a3;
   v18 = a4;
   v19 = a5;
   v20 = a6;
-  v60 = a9;
-  v61 = a10;
-  v59 = a11;
+  v58 = a9;
+  v59 = a10;
+  v57 = a11;
   v21 = a12;
-  v69 = 0;
-  v70 = &v69;
-  v71 = 0x2020000000;
-  v72 = 1;
+  v67 = 0;
+  v68 = &v67;
+  v69 = 0x2020000000;
+  v70 = 1;
   context = objc_autoreleasePoolPush();
   v22 = [self itemFromRecord:v17 referenceIdentifier:v18 bundleIdentifier:v19 protectionClass:v20];
   if (!v22)
@@ -293,22 +292,22 @@ LABEL_17:
         v28 = 1;
       }
 
-      v62[0] = MEMORY[0x277D85DD0];
-      v62[1] = 3221225472;
-      v62[2] = __209__SKGProcessor_Items__enumerateProcessedItemsFromRecord_referenceIdentifier_bundleIdentifier_protectionClass_processorFlags_workCost_fetchCachedLanguageBlock_cacheLanguageBlock_processedItemBlock_cancelBlock___block_invoke;
-      v62[3] = &unk_27893EEA0;
-      v68 = &v69;
-      v62[4] = self;
-      v63 = v17;
-      v64 = v22;
-      v65 = v60;
-      v66 = v61;
-      v67 = v21;
-      [v27 profileCodeWithType:@"GenerateEmbeddings-LID" kind:v28 block:v62];
+      v60[0] = MEMORY[0x277D85DD0];
+      v60[1] = 3221225472;
+      v60[2] = __209__SKGProcessor_Items__enumerateProcessedItemsFromRecord_referenceIdentifier_bundleIdentifier_protectionClass_processorFlags_workCost_fetchCachedLanguageBlock_cacheLanguageBlock_processedItemBlock_cancelBlock___block_invoke;
+      v60[3] = &unk_27893EEA0;
+      v66 = &v67;
+      v60[4] = self;
+      v61 = v17;
+      v62 = v22;
+      v63 = v58;
+      v64 = v59;
+      v65 = v21;
+      [v27 profileCodeWithType:@"GenerateEmbeddings-LID" kind:v28 block:v60];
     }
   }
 
-  if (*(v70 + 24) != 1)
+  if (*(v68 + 24) != 1)
   {
     goto LABEL_48;
   }
@@ -323,7 +322,7 @@ LABEL_17:
 
   if (!semanticSearchEnabled)
   {
-    if ((v70[3] & 1) == 0)
+    if ((v68[3] & 1) == 0)
     {
       goto LABEL_37;
     }
@@ -350,23 +349,23 @@ LABEL_36:
     v34 = SKGLogInit();
     if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
     {
-      v53 = v34;
+      v51 = v34;
       textContentLanguage2 = [v22 textContentLanguage];
-      v52 = [textContentLanguage2 length];
+      v50 = [textContentLanguage2 length];
       textContentLanguage3 = [v22 textContentLanguage];
       textContentLanguage4 = [v22 textContentLanguage];
-      v51 = [supportedSemanticLanguages containsObject:textContentLanguage4];
+      v49 = [supportedSemanticLanguages containsObject:textContentLanguage4];
       *buf = 138413058;
-      v74 = supportedSemanticLanguages;
-      v75 = 2048;
-      v76 = v52;
-      v77 = 2112;
-      v78 = textContentLanguage3;
-      v79 = 1024;
-      v80 = v51 ^ 1;
-      _os_log_debug_impl(&dword_231B25000, v53, OS_LOG_TYPE_DEBUG, "SKGProcessor+Items#enumerateProcessedItemsFromRecord supportedSemanticLanguages=%@ textContentLanguage=%lu textContentLanguage=%@ isContentLanguageSupported=%d", buf, 0x26u);
+      v72 = supportedSemanticLanguages;
+      v73 = 2048;
+      v74 = v50;
+      v75 = 2112;
+      v76 = textContentLanguage3;
+      v77 = 1024;
+      v78 = v49 ^ 1;
+      _os_log_debug_impl(&dword_231B25000, v51, OS_LOG_TYPE_DEBUG, "SKGProcessor+Items#enumerateProcessedItemsFromRecord supportedSemanticLanguages=%@ textContentLanguage=%lu textContentLanguage=%@ isContentLanguageSupported=%d", buf, 0x26u);
 
-      v34 = v53;
+      v34 = v51;
     }
   }
 
@@ -403,7 +402,7 @@ LABEL_30:
 LABEL_31:
 
 LABEL_32:
-  if ((v70[3] & 1) == 0)
+  if ((v68[3] & 1) == 0)
   {
     goto LABEL_37;
   }
@@ -417,7 +416,7 @@ LABEL_32:
   [v41 addEventForItem:5 bundleID:v19 identifier:v18];
 
   v42 = [self generateEmbeddingsForRecord:v17 processedItem:v22 isPriority:(a7 >> 6) & 1 workCost:a8 cancelBlock:v21];
-  *(v70 + 24) = v42;
+  *(v68 + 24) = v42;
   if ((v42 & 1) == 0)
   {
     goto LABEL_48;
@@ -428,11 +427,11 @@ LABEL_37:
   {
     v43 = dispatch_time(0, 0);
     v44 = [self generateKeyphrasesForRecord:v17 processedItem:v22 processorFlags:a7 cancelBlock:v21];
-    *(v70 + 24) = v44;
+    *(v68 + 24) = v44;
     if (a8)
     {
       *a8 += dispatch_time(0, 0) - v43;
-      if ((v70[3] & 1) == 0)
+      if ((v68[3] & 1) == 0)
       {
         goto LABEL_48;
       }
@@ -444,24 +443,23 @@ LABEL_37:
     }
   }
 
-  v45 = *(v70 + 24);
   if ((a7 & 8) != 0)
   {
-    if (*(v70 + 24))
+    if (*(v68 + 24))
     {
-      v46 = [self generatePeopleForRecord:v17 processedItem:v22 processedItemBlock:v59 cancelBlock:v21];
+      v45 = [self generatePeopleForRecord:v17 processedItem:v22 processedItemBlock:v57 cancelBlock:v21];
       v39 = 0;
 LABEL_47:
       v38 = (a7 >> 3) & 1;
-      *(v70 + 24) = v46;
+      *(v68 + 24) = v45;
       goto LABEL_49;
     }
   }
 
-  else if (*(v70 + 24))
+  else if (*(v68 + 24))
   {
-    v46 = v59[2](v59, v22);
-    v39 = v46;
+    v45 = v57[2](v57, v22);
+    v39 = v45;
     goto LABEL_47;
   }
 
@@ -473,27 +471,26 @@ LABEL_49:
   objc_autoreleasePoolPop(context);
   if (v38)
   {
-    v39 = *(v70 + 24);
+    v39 = *(v68 + 24);
   }
 
-  _Block_object_dispose(&v69, 8);
+  _Block_object_dispose(&v67, 8);
 
-  v47 = *MEMORY[0x277D85DE8];
   return v39 & 1;
 }
 
 - (void)canProcessEvent
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_13(&dword_231B25000, a2, a3, "SKGProcessor+Items#canProcessRecord canProcess:%d", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = self & 1;
+  OUTLINED_FUNCTION_0_13(&dword_231B25000, a2, a3, "SKGProcessor+Items#canProcessRecord canProcess:%d", a5, a6, a7, a8, v8);
 }
 
 - (void)canProcessEventForRecord:()Items bundleIdentifier:.cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_13(&dword_231B25000, a2, a3, "SKGProcessor+Items#canProcessRecord NOT recordMatchesContentURLOnDisk:%d", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = (a1 & 1) == 0;
+  OUTLINED_FUNCTION_0_13(&dword_231B25000, a2, a3, "SKGProcessor+Items#canProcessRecord NOT recordMatchesContentURLOnDisk:%d", a5, a6, a7, a8, v8);
 }
 
 @end

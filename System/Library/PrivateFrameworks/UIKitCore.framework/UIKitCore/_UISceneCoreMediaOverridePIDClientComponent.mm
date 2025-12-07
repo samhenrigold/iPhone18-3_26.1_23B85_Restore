@@ -38,8 +38,8 @@
       v8 = +[_UICoreMediaOverridePIDManager sharedInstance];
       clientScene2 = [self clientScene];
       hostHandle = [clientScene2 hostHandle];
-      auditToken = [hostHandle auditToken];
-      v12 = -[_UICoreMediaOverridePIDManager acquireOverrideAssertionWithPID:forReason:](v8, [auditToken pid], stringRepresentation);
+      v11 = objc_msgSend_auditToken(hostHandle);
+      v12 = -[_UICoreMediaOverridePIDManager acquireOverrideAssertionWithPID:forReason:](v8, [v11 pid], stringRepresentation);
       v13 = self[3];
       self[3] = v12;
 

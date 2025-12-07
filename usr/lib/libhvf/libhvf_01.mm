@@ -1,194 +1,3 @@
-void *HVF::SwiftShapeShim::SwiftShapeShim(void *this, const HVF::SwiftShapeShim *a2)
-{
-  *this = 0;
-  this[1] = 0;
-  this[2] = 0;
-  v2 = *(a2 + 1);
-  if (v2 != *a2)
-  {
-    if (((v2 - *a2) & 0x8000000000000000) == 0)
-    {
-      operator new();
-    }
-
-    std::vector<double,default_init_allocator<double,std::allocator<double>>>::__throw_length_error[abi:ne200100]();
-  }
-
-  this[3] = 0;
-  this[4] = 0;
-  this[5] = 0;
-  v4 = *(a2 + 3);
-  v3 = *(a2 + 4);
-  if (v3 != v4)
-  {
-    if (((v3 - v4) & 0x8000000000000000) == 0)
-    {
-      operator new();
-    }
-
-    std::vector<double,default_init_allocator<double,std::allocator<double>>>::__throw_length_error[abi:ne200100]();
-  }
-
-  this[6] = 0;
-  this[7] = 0;
-  this[8] = 0;
-  v6 = *(a2 + 6);
-  v5 = *(a2 + 7);
-  if (v5 != v6)
-  {
-    if (((v5 - v6) & 0x8000000000000000) == 0)
-    {
-      operator new();
-    }
-
-    std::vector<simd::double3x3>::__throw_length_error[abi:ne200100]();
-  }
-
-  this[9] = 0;
-  this[10] = 0;
-  this[11] = 0;
-  v8 = *(a2 + 9);
-  v7 = *(a2 + 10);
-  if (v7 != v8)
-  {
-    if (((v7 - v8) & 0x8000000000000000) == 0)
-    {
-      operator new();
-    }
-
-    std::vector<double,default_init_allocator<double,std::allocator<double>>>::__throw_length_error[abi:ne200100]();
-  }
-
-  return this;
-}
-
-void sub_298ACB840(_Unwind_Exception *exception_object)
-{
-  v6 = *v4;
-  if (*v4)
-  {
-    *(v1 + 80) = v6;
-    operator delete(v6);
-    v7 = *v3;
-    if (!*v3)
-    {
-LABEL_3:
-      v8 = *v2;
-      if (!*v2)
-      {
-        goto LABEL_4;
-      }
-
-      goto LABEL_9;
-    }
-  }
-
-  else
-  {
-    v7 = *v3;
-    if (!*v3)
-    {
-      goto LABEL_3;
-    }
-  }
-
-  *(v1 + 56) = v7;
-  operator delete(v7);
-  v8 = *v2;
-  if (!*v2)
-  {
-LABEL_4:
-    v9 = *v1;
-    if (!*v1)
-    {
-      goto LABEL_6;
-    }
-
-    goto LABEL_5;
-  }
-
-LABEL_9:
-  *(v1 + 32) = v8;
-  operator delete(v8);
-  v9 = *v1;
-  if (!*v1)
-  {
-LABEL_6:
-    _Unwind_Resume(exception_object);
-  }
-
-LABEL_5:
-  *(v1 + 8) = v9;
-  operator delete(v9);
-  goto LABEL_6;
-}
-
-void sub_298ACB8C8()
-{
-  if (!*v0)
-  {
-    JUMPOUT(0x298ACB86CLL);
-  }
-
-  JUMPOUT(0x298ACB864);
-}
-
-uint64_t std::__split_buffer<std::any>::~__split_buffer(uint64_t a1)
-{
-  v3 = *(a1 + 8);
-  v2 = *(a1 + 16);
-  while (v2 != v3)
-  {
-    v5 = *(v2 - 32);
-    v2 -= 32;
-    v4 = v5;
-    *(a1 + 16) = v2;
-    if (v5)
-    {
-      v4(0);
-      v2 = *(a1 + 16);
-    }
-  }
-
-  if (*a1)
-  {
-    operator delete(*a1);
-  }
-
-  return a1;
-}
-
-void HVF::SwiftShapeShim::~SwiftShapeShim(HVF::SwiftShapeShim *this)
-{
-  v2 = *(this + 9);
-  if (v2)
-  {
-    *(this + 10) = v2;
-    operator delete(v2);
-  }
-
-  v3 = *(this + 6);
-  if (v3)
-  {
-    *(this + 7) = v3;
-    operator delete(v3);
-  }
-
-  v4 = *(this + 3);
-  if (v4)
-  {
-    *(this + 4) = v4;
-    operator delete(v4);
-  }
-
-  v5 = *this;
-  if (*this)
-  {
-    *(this + 1) = v5;
-    operator delete(v5);
-  }
-}
-
 void HVF::Composite::~Composite(HVF::Composite *this)
 {
   HVF::Part::~Part(this);
@@ -203,27 +12,7 @@ uint64_t HVF::Composite::shim(HVF::Composite *this)
   v2 = (this + 8);
   if (v3 == v4)
   {
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
-    v12 = 0u;
-    v9 = 0u;
-    v10 = 0u;
-    v7 = 0u;
-    v8 = 0u;
-    v6 = 0u;
+    memset(v6, 0, sizeof(v6));
     if (v3 < *(this + 3))
     {
       *v4 = 0;
@@ -231,7 +20,7 @@ uint64_t HVF::Composite::shim(HVF::Composite *this)
       operator new();
     }
 
-    std::vector<std::any>::__emplace_back_slow_path<HVF::SwiftCompositeShim>(v2);
+    std::vector<std::any>::__emplace_back_slow_path<HVF::SwiftCompositeShim>(v2, v6);
   }
 
   return (*v3)(3);
@@ -322,9 +111,9 @@ uint64_t HVF::Composite::finalizeShim(HVF::Composite *this)
     return 0;
   }
 
-  v74 = v2[39];
-  v75 = v2[40];
-  if (v75 - v74 != v2[37] - v2[36])
+  v70 = v2[39];
+  v71 = v2[40];
+  if (v71 - v70 != v2[37] - v2[36])
   {
     return 0;
   }
@@ -336,19 +125,15 @@ uint64_t HVF::Composite::finalizeShim(HVF::Composite *this)
     if (v19 <= v28 && v22 <= v28)
     {
       v29 = v15 * v28;
-      if (v25 <= v29 && v75 - v74 <= v29)
+      if (v25 <= v29 && v71 - v70 <= v29)
       {
         if (*(this + 12) <= 2 * v5)
         {
           v66 = v2[3];
-          v70 = v2[30];
           v68 = (v2[7] - v2[6]) >> 1;
           v69 = (v17 - v18) >> 3;
           v64 = *v2;
           v65 = *(this + 9);
-          v71 = v2[33];
-          v72 = v2[34];
-          v73 = v2[21];
           v67 = v2;
           if (v9 == v10)
           {
@@ -360,9 +145,9 @@ LABEL_43:
               if (v21 == v20)
               {
 LABEL_54:
-                v39 = v74;
-                v38 = v75;
-                if (v74 == v75)
+                v39 = v70;
+                v38 = v71;
+                if (v70 == v71)
                 {
 LABEL_75:
                   if (std::none_of[abi:ne200100]<std::__wrap_iter<HVF::Composite::Translation *>,HVF::Composite::finalizeShim(void)::$_0>(v18, v17) && std::none_of[abi:ne200100]<std::__wrap_iter<HVF::Composite::Translation *>,HVF::Composite::finalizeShim(void)::$_0>(v24, v23))
@@ -423,7 +208,7 @@ LABEL_75:
                   {
                     while (*v39 == 0.0)
                     {
-                      if (++v39 == v75)
+                      if (++v39 == v71)
                       {
                         goto LABEL_65;
                       }
@@ -438,14 +223,14 @@ LABEL_75:
                     ++v39;
                   }
 
-                  while (v40 >= 1.1755e-38 && v39 != v75);
+                  while (v40 >= 1.1755e-38 && v39 != v71);
                   if (v40 < 1.1755e-38)
                   {
                     return 0;
                   }
 
 LABEL_65:
-                  v42 = v74;
+                  v42 = v70;
                   while (1)
                   {
                     while (*v42 == 0.0)
@@ -463,8 +248,8 @@ LABEL_65:
                     }
 
                     ++v42;
-                    v38 = v75;
-                    if (v43 < 1.1755e-38 || v42 == v75)
+                    v38 = v71;
+                    if (v43 < 1.1755e-38 || v42 == v71)
                     {
                       if (v43 < 1.1755e-38)
                       {
@@ -616,31 +401,31 @@ uint64_t std::none_of[abi:ne200100]<std::__wrap_iter<HVF::Composite::Translation
   return 0;
 }
 
-void std::vector<std::any>::__emplace_back_slow_path<HVF::SwiftCompositeShim>(void *a1)
+void std::vector<std::any>::__emplace_back_slow_path<HVF::SwiftCompositeShim>(char **a1, uint64_t a2)
 {
-  v1 = (a1[1] - *a1) >> 5;
-  v2 = v1 + 1;
-  if (!((v1 + 1) >> 59))
+  v2 = (a1[1] - *a1) >> 5;
+  v3 = v2 + 1;
+  if (!((v2 + 1) >> 59))
   {
-    v3 = a1[2] - *a1;
-    if (v3 >> 4 > v2)
+    v4 = a1[2] - *a1;
+    if (v4 >> 4 > v3)
     {
-      v2 = v3 >> 4;
+      v3 = v4 >> 4;
     }
 
-    if (v3 >= 0x7FFFFFFFFFFFFFE0)
+    if (v4 >= 0x7FFFFFFFFFFFFFE0)
     {
-      v4 = 0x7FFFFFFFFFFFFFFLL;
+      v5 = 0x7FFFFFFFFFFFFFFLL;
     }
 
     else
     {
-      v4 = v2;
+      v5 = v3;
     }
 
-    if (v4)
+    if (v5)
     {
-      if (!(v4 >> 59))
+      if (!(v5 >> 59))
       {
         operator new();
       }
@@ -648,18 +433,18 @@ void std::vector<std::any>::__emplace_back_slow_path<HVF::SwiftCompositeShim>(vo
       std::__throw_bad_array_new_length[abi:ne200100]();
     }
 
-    v5 = (32 * v1);
-    *v5 = 0;
-    v5[1] = 0;
+    v6 = (32 * v2);
+    *v6 = 0;
+    v6[1] = 0;
     operator new();
   }
 
   std::vector<double,default_init_allocator<double,std::allocator<double>>>::__throw_length_error[abi:ne200100]();
 }
 
-void sub_298ACC348(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_298ACC348(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<std::any>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -670,7 +455,6 @@ void *std::__any_imp::_LargeHandler<HVF::SwiftCompositeShim>::__handle[abi:ne200
   {
     if (a1)
     {
-      v10 = *(a2 + 8);
       operator new();
     }
 
@@ -707,10 +491,10 @@ void *std::__any_imp::_LargeHandler<HVF::SwiftCompositeShim>::__handle[abi:ne200
           return 0;
         }
 
-        v11 = a2;
-        v12 = strcmp((v5 & 0x7FFFFFFFFFFFFFFFLL), ("N3HVF18SwiftCompositeShimE" & 0x7FFFFFFFFFFFFFFFLL));
-        a2 = v11;
-        if (v12)
+        v10 = a2;
+        v11 = strcmp((v5 & 0x7FFFFFFFFFFFFFFFLL), ("N3HVF18SwiftCompositeShimE" & 0x7FFFFFFFFFFFFFFFLL));
+        a2 = v10;
+        if (v11)
         {
           return 0;
         }
@@ -846,11 +630,11 @@ __n128 HVF::SwiftCompositeShim::SwiftCompositeShim(void *a1, uint64_t a2)
   return result;
 }
 
-void *HVF::SwiftCompositeShim::SwiftCompositeShim(void *this, const HVF::SwiftCompositeShim *a2)
+HVF::SwiftCompositeShim *HVF::SwiftCompositeShim::SwiftCompositeShim(HVF::SwiftCompositeShim *this, const HVF::SwiftCompositeShim *a2)
 {
   *this = 0;
-  this[1] = 0;
-  this[2] = 0;
+  *(this + 1) = 0;
+  *(this + 2) = 0;
   v2 = *(a2 + 1);
   if (v2 != *a2)
   {
@@ -862,9 +646,9 @@ void *HVF::SwiftCompositeShim::SwiftCompositeShim(void *this, const HVF::SwiftCo
     std::vector<double,default_init_allocator<double,std::allocator<double>>>::__throw_length_error[abi:ne200100]();
   }
 
-  this[3] = 0;
-  this[4] = 0;
-  this[5] = 0;
+  *(this + 3) = 0;
+  *(this + 4) = 0;
+  *(this + 5) = 0;
   v4 = *(a2 + 3);
   v3 = *(a2 + 4);
   if (v3 != v4)
@@ -877,9 +661,9 @@ void *HVF::SwiftCompositeShim::SwiftCompositeShim(void *this, const HVF::SwiftCo
     std::vector<double,default_init_allocator<double,std::allocator<double>>>::__throw_length_error[abi:ne200100]();
   }
 
-  this[6] = 0;
-  this[7] = 0;
-  this[8] = 0;
+  *(this + 6) = 0;
+  *(this + 7) = 0;
+  *(this + 8) = 0;
   v6 = *(a2 + 6);
   v5 = *(a2 + 7);
   if (v5 != v6)
@@ -892,9 +676,9 @@ void *HVF::SwiftCompositeShim::SwiftCompositeShim(void *this, const HVF::SwiftCo
     std::vector<double,default_init_allocator<double,std::allocator<double>>>::__throw_length_error[abi:ne200100]();
   }
 
-  this[9] = 0;
-  this[10] = 0;
-  this[11] = 0;
+  *(this + 9) = 0;
+  *(this + 10) = 0;
+  *(this + 11) = 0;
   v8 = *(a2 + 9);
   v7 = *(a2 + 10);
   if (v7 != v8)
@@ -907,9 +691,9 @@ void *HVF::SwiftCompositeShim::SwiftCompositeShim(void *this, const HVF::SwiftCo
     std::vector<double,default_init_allocator<double,std::allocator<double>>>::__throw_length_error[abi:ne200100]();
   }
 
-  this[12] = 0;
-  this[13] = 0;
-  this[14] = 0;
+  *(this + 12) = 0;
+  *(this + 13) = 0;
+  *(this + 14) = 0;
   v10 = *(a2 + 12);
   v9 = *(a2 + 13);
   if (v9 != v10)
@@ -922,9 +706,9 @@ void *HVF::SwiftCompositeShim::SwiftCompositeShim(void *this, const HVF::SwiftCo
     std::vector<simd::double3x3>::__throw_length_error[abi:ne200100]();
   }
 
-  this[15] = 0;
-  this[16] = 0;
-  this[17] = 0;
+  *(this + 15) = 0;
+  *(this + 16) = 0;
+  *(this + 17) = 0;
   v12 = *(a2 + 15);
   v11 = *(a2 + 16);
   if (v11 != v12)
@@ -937,9 +721,9 @@ void *HVF::SwiftCompositeShim::SwiftCompositeShim(void *this, const HVF::SwiftCo
     std::vector<simd::double3x3>::__throw_length_error[abi:ne200100]();
   }
 
-  this[18] = 0;
-  this[19] = 0;
-  this[20] = 0;
+  *(this + 18) = 0;
+  *(this + 19) = 0;
+  *(this + 20) = 0;
   v14 = *(a2 + 18);
   v13 = *(a2 + 19);
   if (v13 != v14)
@@ -952,9 +736,9 @@ void *HVF::SwiftCompositeShim::SwiftCompositeShim(void *this, const HVF::SwiftCo
     std::vector<double,default_init_allocator<double,std::allocator<double>>>::__throw_length_error[abi:ne200100]();
   }
 
-  this[21] = 0;
-  this[22] = 0;
-  this[23] = 0;
+  *(this + 21) = 0;
+  *(this + 22) = 0;
+  *(this + 23) = 0;
   v16 = *(a2 + 21);
   v15 = *(a2 + 22);
   if (v15 != v16)
@@ -967,9 +751,9 @@ void *HVF::SwiftCompositeShim::SwiftCompositeShim(void *this, const HVF::SwiftCo
     std::vector<simd::double3x3>::__throw_length_error[abi:ne200100]();
   }
 
-  this[24] = 0;
-  this[25] = 0;
-  this[26] = 0;
+  *(this + 24) = 0;
+  *(this + 25) = 0;
+  *(this + 26) = 0;
   v18 = *(a2 + 24);
   v17 = *(a2 + 25);
   if (v17 != v18)
@@ -982,9 +766,9 @@ void *HVF::SwiftCompositeShim::SwiftCompositeShim(void *this, const HVF::SwiftCo
     std::vector<double,default_init_allocator<double,std::allocator<double>>>::__throw_length_error[abi:ne200100]();
   }
 
-  this[27] = 0;
-  this[28] = 0;
-  this[29] = 0;
+  *(this + 27) = 0;
+  *(this + 28) = 0;
+  *(this + 29) = 0;
   v20 = *(a2 + 27);
   v19 = *(a2 + 28);
   if (v19 != v20)
@@ -997,9 +781,9 @@ void *HVF::SwiftCompositeShim::SwiftCompositeShim(void *this, const HVF::SwiftCo
     std::vector<simd::double3x3>::__throw_length_error[abi:ne200100]();
   }
 
-  this[30] = 0;
-  this[31] = 0;
-  this[32] = 0;
+  *(this + 30) = 0;
+  *(this + 31) = 0;
+  *(this + 32) = 0;
   v22 = *(a2 + 30);
   v21 = *(a2 + 31);
   if (v21 != v22)
@@ -1012,9 +796,9 @@ void *HVF::SwiftCompositeShim::SwiftCompositeShim(void *this, const HVF::SwiftCo
     std::vector<simd::double3x3>::__throw_length_error[abi:ne200100]();
   }
 
-  this[33] = 0;
-  this[34] = 0;
-  this[35] = 0;
+  *(this + 33) = 0;
+  *(this + 34) = 0;
+  *(this + 35) = 0;
   v24 = *(a2 + 33);
   v23 = *(a2 + 34);
   if (v23 != v24)
@@ -1027,9 +811,9 @@ void *HVF::SwiftCompositeShim::SwiftCompositeShim(void *this, const HVF::SwiftCo
     std::vector<simd::double3x3>::__throw_length_error[abi:ne200100]();
   }
 
-  this[36] = 0;
-  this[37] = 0;
-  this[38] = 0;
+  *(this + 36) = 0;
+  *(this + 37) = 0;
+  *(this + 38) = 0;
   v26 = *(a2 + 36);
   v25 = *(a2 + 37);
   if (v25 != v26)
@@ -1042,9 +826,9 @@ void *HVF::SwiftCompositeShim::SwiftCompositeShim(void *this, const HVF::SwiftCo
     std::vector<simd::double3x3>::__throw_length_error[abi:ne200100]();
   }
 
-  this[39] = 0;
-  this[40] = 0;
-  this[41] = 0;
+  *(this + 39) = 0;
+  *(this + 40) = 0;
+  *(this + 41) = 0;
   v28 = *(a2 + 39);
   v27 = *(a2 + 40);
   if (v27 != v28)
@@ -1403,7 +1187,7 @@ double HVF::BlendContext::setBlendValues(uint64_t a1, uint64_t a2)
 
   else
   {
-    std::vector<double,default_init_allocator<double,std::allocator<double>>>::__append(a1 + 48, 2 * v5 - v6);
+    std::vector<double,default_init_allocator<double,std::allocator<double>>>::__append((a1 + 48), 2 * v5 - v6);
     v3 = *v4;
     v5 = *(a2 + 8);
   }
@@ -1442,19 +1226,19 @@ double HVF::BlendContext::setBlendValues(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void std::vector<double,default_init_allocator<double,std::allocator<double>>>::__append(uint64_t a1, unint64_t a2)
+void std::vector<double,default_init_allocator<double,std::allocator<double>>>::__append(char **a1, unint64_t a2)
 {
-  v3 = *(a1 + 8);
-  v2 = *(a1 + 16);
+  v3 = a1[1];
+  v2 = a1[2];
   if (a2 <= (v2 - v3) >> 3)
   {
-    *(a1 + 8) = &v3[8 * a2];
+    a1[1] = &v3[8 * a2];
   }
 
   else
   {
     v4 = *a1;
-    v5 = &v3[-*a1];
+    v5 = v3 - *a1;
     v6 = v5 >> 3;
     v7 = (v5 >> 3) + a2;
     if (v7 >> 61)
@@ -1489,7 +1273,7 @@ void std::vector<double,default_init_allocator<double,std::allocator<double>>>::
     }
 
     v10 = v5 >> 3;
-    v11 = 8 * v6 + 8 * a2;
+    v11 = (8 * v6 + 8 * a2);
     if (v4 != v3)
     {
       v12 = v3 - v4 - 8;
@@ -1540,8 +1324,8 @@ LABEL_28:
     }
 
     *a1 = 0;
-    *(a1 + 8) = v11;
-    *(a1 + 16) = 0;
+    a1[1] = v11;
+    a1[2] = 0;
     if (v4)
     {
 
@@ -1561,36 +1345,36 @@ uint64_t HVF::wrapContext@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, void *a3@
 
 uint64_t HVF::PartTransformRenderer::PartTransformRenderer(uint64_t a1, char *a2, uint64_t a3, char a4)
 {
-  v12 = *MEMORY[0x29EDCA608];
+  v11 = *MEMORY[0x29EDCA608];
   v7 = *(a3 + 24);
   if (v7)
   {
     if (v7 == a3)
     {
-      v11 = v10;
-      (*(*v7 + 24))(v7, v10);
+      v10 = v9;
+      (*(*v7 + 24))(v7, v9);
     }
 
     else
     {
-      v11 = (*(*v7 + 16))(v7);
+      v10 = (*(*v7 + 16))(v7);
     }
   }
 
   else
   {
-    v11 = 0;
+    v10 = 0;
   }
 
-  HVF::FlatPartCache::FlatPartCache(a1, v10);
-  if (v11 == v10)
+  HVF::FlatPartCache::FlatPartCache(a1, v9);
+  if (v10 == v9)
   {
-    (*(*v11 + 32))(v11);
+    (*(*v10 + 32))(v10);
   }
 
-  else if (v11)
+  else if (v10)
   {
-    (*(*v11 + 40))();
+    (*(*v10 + 40))();
   }
 
   *(a1 + 64) = a4;
@@ -1605,7 +1389,6 @@ uint64_t HVF::PartTransformRenderer::PartTransformRenderer(uint64_t a1, char *a2
   *(a1 + 200) = 0u;
   *(a1 + 216) = 0u;
   HVF::PartTransformRenderer::setRenderPart(a1, a2);
-  v8 = *MEMORY[0x29EDCA608];
   return a1;
 }
 
@@ -1623,9 +1406,9 @@ void sub_298ACD31C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_298ACD354(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_298ACD354(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::function<HVF::Part const* ()(unsigned long,HVF::PartCache &)>::~function(va);
   _Unwind_Resume(a1);
 }
@@ -1638,12 +1421,10 @@ void HVF::PartTransformRenderer::setRenderPart(HVF::PartTransformRenderer *this,
   if (v3)
   {
     v4 = (*(*v3 + 72))(v3);
-    v5 = *(this + 23);
-    if (v4 > (*(this + 25) - v5) >> 3)
+    if (v4 > (*(this + 25) - *(this + 23)) >> 3)
     {
       if (!(v4 >> 61))
       {
-        v6 = *(this + 24) - v5;
         operator new();
       }
 
@@ -1652,118 +1433,116 @@ void HVF::PartTransformRenderer::setRenderPart(HVF::PartTransformRenderer *this,
 
     if (*(this + 64) == 1)
     {
-      v7 = (*(**(this + 9) + 48))(*(this + 9));
-      v8 = *(this + 17);
-      v9 = (*(this + 18) - v8) >> 3;
-      if (v7 <= v9)
+      v5 = (*(**(this + 9) + 48))(*(this + 9));
+      v6 = *(this + 17);
+      v7 = (*(this + 18) - v6) >> 3;
+      if (v5 <= v7)
       {
-        if (v7 < v9)
+        if (v5 < v7)
         {
-          *(this + 18) = v8 + 8 * v7;
+          *(this + 18) = v6 + 8 * v5;
         }
       }
 
       else
       {
-        std::vector<double,default_init_allocator<double,std::allocator<double>>>::__append(this + 136, v7 - v9);
+        std::vector<double,default_init_allocator<double,std::allocator<double>>>::__append(this + 17, v5 - v7);
       }
 
-      v10 = (*(**(this + 9) + 56))(*(this + 9));
-      v11 = *(this + 20);
-      v12 = 0xAAAAAAAAAAAAAAABLL * ((*(this + 21) - v11) >> 5);
-      if (v10 <= v12)
+      v8 = (*(**(this + 9) + 56))(*(this + 9));
+      v9 = *(this + 20);
+      v10 = 0xAAAAAAAAAAAAAAABLL * ((*(this + 21) - v9) >> 5);
+      if (v8 <= v10)
       {
-        if (v10 < v12)
+        if (v8 < v10)
         {
-          *(this + 21) = v11 + 96 * v10;
+          *(this + 21) = v9 + 96 * v8;
         }
       }
 
       else
       {
-        std::vector<simd::double3x3>::__append(this + 160, v10 - v12);
+        std::vector<simd::double3x3>::__append(this + 160, v8 - v10);
       }
     }
 
-    v13 = (*(**(this + 9) + 48))(*(this + 9));
-    v14 = *(this + 11);
-    v15 = *(this + 12);
-    v16 = (v15 - v14) >> 3;
-    if (v13 <= v16)
+    v11 = (*(**(this + 9) + 48))(*(this + 9));
+    v12 = *(this + 11);
+    v13 = *(this + 12);
+    v14 = (v13 - v12) >> 3;
+    if (v11 <= v14)
     {
-      if (v13 < v16)
+      if (v11 < v14)
       {
-        v15 = &v14[8 * v13];
-        *(this + 12) = v15;
+        v13 = &v12[8 * v11];
+        *(this + 12) = v13;
       }
     }
 
     else
     {
-      std::vector<double,default_init_allocator<double,std::allocator<double>>>::__append(this + 88, v13 - v16);
-      v14 = *(this + 11);
-      v15 = *(this + 12);
+      std::vector<double,default_init_allocator<double,std::allocator<double>>>::__append(this + 11, v11 - v14);
+      v12 = *(this + 11);
+      v13 = *(this + 12);
     }
 
-    bzero(v14, v15 - v14);
+    bzero(v12, v13 - v12);
     *(this + 15) = *(this + 14);
-    v17 = (*(**(this + 9) + 56))(*(this + 9));
-    v18 = *(MEMORY[0x29EDCA918] + 48);
+    v15 = (*(**(this + 9) + 56))(*(this + 9));
+    v16 = *(MEMORY[0x29EDCA918] + 48);
     var30[2] = *(MEMORY[0x29EDCA918] + 32);
-    var30[3] = v18;
-    v22 = *(MEMORY[0x29EDCA918] + 64);
-    v23 = *(MEMORY[0x29EDCA918] + 80);
-    v19 = *(MEMORY[0x29EDCA918] + 16);
+    var30[3] = v16;
+    v17 = *(MEMORY[0x29EDCA918] + 16);
     var30[0] = *MEMORY[0x29EDCA918];
-    var30[1] = v19;
-    v20 = 0xAAAAAAAAAAAAAAABLL * ((*(this + 15) - *(this + 14)) >> 5);
-    if (v17 <= v20)
+    var30[1] = v17;
+    v18 = 0xAAAAAAAAAAAAAAABLL * ((*(this + 15) - *(this + 14)) >> 5);
+    if (v15 <= v18)
     {
-      if (v17 < v20)
+      if (v15 < v18)
       {
-        *(this + 15) = *(this + 14) + 96 * v17;
+        *(this + 15) = *(this + 14) + 96 * v15;
       }
     }
 
     else
     {
-      std::vector<simd::double3x3>::__append(this + 112, v17 - v20, var30);
+      std::vector<simd::double3x3>::__append(this + 112, v15 - v18, var30);
     }
   }
 }
 
 uint64_t HVF::PartTransformRenderer::PartTransformRenderer(uint64_t a1, uint64_t a2, char a3)
 {
-  v10 = *MEMORY[0x29EDCA608];
+  v9 = *MEMORY[0x29EDCA608];
   v5 = *(a2 + 24);
   if (v5)
   {
     if (v5 == a2)
     {
-      v9 = v8;
-      (*(*v5 + 24))(v5, v8);
+      v8 = v7;
+      (*(*v5 + 24))(v5, v7);
     }
 
     else
     {
-      v9 = (*(*v5 + 16))(v5);
+      v8 = (*(*v5 + 16))(v5);
     }
   }
 
   else
   {
-    v9 = 0;
+    v8 = 0;
   }
 
-  HVF::FlatPartCache::FlatPartCache(a1, v8);
-  if (v9 == v8)
+  HVF::FlatPartCache::FlatPartCache(a1, v7);
+  if (v8 == v7)
   {
-    (*(*v9 + 32))(v9);
+    (*(*v8 + 32))(v8);
   }
 
-  else if (v9)
+  else if (v8)
   {
-    (*(*v9 + 40))();
+    (*(*v8 + 40))();
   }
 
   *(a1 + 64) = a3;
@@ -1777,13 +1556,12 @@ uint64_t HVF::PartTransformRenderer::PartTransformRenderer(uint64_t a1, uint64_t
   *(a1 + 184) = 0u;
   *(a1 + 200) = 0u;
   *(a1 + 216) = 0u;
-  v6 = *MEMORY[0x29EDCA608];
   return a1;
 }
 
-void sub_298ACD838(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_298ACD838(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::function<HVF::Part const* ()(unsigned long,HVF::PartCache &)>::~function(va);
   _Unwind_Resume(a1);
 }
@@ -1793,14 +1571,6 @@ void HVF::PartTransformRenderer::clearCache(unsigned int **this)
   this[9] = 0;
   this[10] = -1;
   HVF::FlatPartCache::clear(this);
-}
-
-double HVF::PartTransformRenderer::getPartTranslation(HVF::PartTransformRenderer *this)
-{
-  v1 = *(this + 14);
-  result = *(v1 + 16);
-  v3 = *(v1 + 48);
-  return result;
 }
 
 double HVF::PartTransformRenderer::setPartTranslation(uint64_t a1, uint64_t a2)
@@ -1926,9 +1696,7 @@ double HVF::PartTransformRenderer::getSubpartTranslationAtIndex(HVF::PartTransfo
   result = 0.0;
   if (0xAAAAAAAAAAAAAAABLL * ((*(this + 15) - v2) >> 5) > a2)
   {
-    v4 = v2 + 96 * a2;
-    result = *(v4 + 16);
-    v5 = *(v4 + 48);
+    return *(v2 + 96 * a2 + 16);
   }
 
   return result;
@@ -1965,9 +1733,7 @@ double HVF::PartTransformRenderer::getBlendedTranslationAtIndex(HVF::PartTransfo
   result = 0.0;
   if (0xAAAAAAAAAAAAAAABLL * ((v3 - v2) >> 5) > a2)
   {
-    v5 = v2 + 96 * a2;
-    result = *(v5 + 16);
-    v6 = *(v5 + 48);
+    return *(v2 + 96 * a2 + 16);
   }
 
   return result;
@@ -2138,7 +1904,7 @@ double HVF::PartTransformRenderer::getBlendedAxisValueAtIndex(HVF::PartTransform
   return result;
 }
 
-uint64_t HVF::PartTransformRenderer::blendedAxisValueBounds(uint64_t this)
+double HVF::PartTransformRenderer::blendedAxisValueBounds(HVF::PartTransformRenderer *this)
 {
   v1 = 88;
   if (*(this + 64))
@@ -2146,20 +1912,19 @@ uint64_t HVF::PartTransformRenderer::blendedAxisValueBounds(uint64_t this)
     v1 = 136;
   }
 
-  v2 = (this + v1);
+  v2 = this + v1;
   v4 = *v2;
-  v3 = v2[1];
+  v3 = *(v2 + 1);
   v5 = v4 + 1;
   if (v4 == v3 || v5 == v3)
   {
     v7 = v4;
-    v5 = v4;
   }
 
   else
   {
-    v10 = v4[1];
-    if (v10 >= *v4)
+    v9 = v4[1];
+    if (v9 >= *v4)
     {
       v7 = v4;
     }
@@ -2169,36 +1934,58 @@ uint64_t HVF::PartTransformRenderer::blendedAxisValueBounds(uint64_t this)
       v7 = v4 + 1;
     }
 
-    if (v10 < *v4)
+    if (v9 < *v4)
     {
       v5 = v4;
     }
 
-    v11 = v4 + 2;
+    v10 = v4 + 2;
     if (v4 + 2 != v3)
     {
-      if (v10 >= *v4)
+      if (v9 >= *v4)
       {
-        v10 = *v4;
+        v9 = *v4;
       }
 
       while (1)
       {
-        v13 = v11;
-        v14 = v11 + 1;
-        if (v14 == v3)
+        v12 = v10;
+        v13 = v10 + 1;
+        if (v13 == v3)
         {
           break;
         }
 
-        v16 = *v13;
-        v15 = v13[1];
-        if (v15 >= *v13)
+        v15 = *v12;
+        v14 = v12[1];
+        if (v14 >= *v12)
         {
-          v12 = v4 + 3;
-          if (v16 < v10)
+          v11 = v4 + 3;
+          if (v15 < v9)
           {
-            v10 = *v13;
+            v9 = *v12;
+            v7 = v12;
+          }
+
+          if (v14 >= *v5)
+          {
+            v5 = v11;
+          }
+
+          v10 = v12 + 2;
+          v4 = v12;
+          if (v12 + 2 == v3)
+          {
+            goto LABEL_9;
+          }
+        }
+
+        else
+        {
+          v9 = *v7;
+          if (v14 < *v7)
+          {
+            v9 = v12[1];
             v7 = v13;
           }
 
@@ -2207,64 +1994,30 @@ uint64_t HVF::PartTransformRenderer::blendedAxisValueBounds(uint64_t this)
             v5 = v12;
           }
 
-          v11 = v13 + 2;
-          v4 = v13;
-          if (v13 + 2 == v3)
-          {
-            goto LABEL_9;
-          }
-        }
-
-        else
-        {
-          v10 = *v7;
-          if (v15 < *v7)
-          {
-            v10 = v13[1];
-            v7 = v14;
-          }
-
-          if (v16 >= *v5)
-          {
-            v5 = v13;
-          }
-
-          v11 = v13 + 2;
-          v4 = v13;
-          if (v13 + 2 == v3)
+          v10 = v12 + 2;
+          v4 = v12;
+          if (v12 + 2 == v3)
           {
             goto LABEL_9;
           }
         }
       }
 
-      if (*v13 >= *v7)
+      if (*v12 < *v7)
       {
-        if (*v13 >= *v5)
-        {
-          v5 = v13;
-        }
-      }
-
-      else
-      {
-        v7 = v13;
+        v7 = v12;
       }
     }
   }
 
 LABEL_9:
+  result = 0.0;
   if (v7 != v3)
   {
-    v8 = *v7;
+    return *v7;
   }
 
-  if (v5 != v3)
-  {
-    v9 = *v5;
-  }
-
-  return this;
+  return result;
 }
 
 uint64_t HVF::PartTransformRenderer::partIndexAtSubpartIndex(HVF::PartTransformRenderer *this, char *a2, unint64_t a3)
@@ -2343,16 +2096,15 @@ uint64_t HVF::PartTransformRenderer::subpartCountForPart(HVF::PartTransformRende
 
 uint64_t HVF::PartTransformRenderer::renderToContext(uint64_t a1, uint64_t a2, size_t a3)
 {
-  v24 = *MEMORY[0x29EDCA608];
+  v23 = *MEMORY[0x29EDCA608];
   v3 = *(a1 + 72);
   if (!v3)
   {
-    result = 0;
-    goto LABEL_17;
+    return 0;
   }
 
+  v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   if (*(a1 + 64) == 1)
   {
     v5 = a2;
@@ -2371,10 +2123,10 @@ uint64_t HVF::PartTransformRenderer::renderToContext(uint64_t a1, uint64_t a2, s
     v9 = 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 168) - v8) >> 5);
     v10 = *(a1 + 136);
     v11 = (*(a1 + 144) - v10) >> 3;
-    *&v20 = v8;
-    *(&v20 + 1) = v9;
-    *&v21 = v10;
-    *(&v21 + 1) = v11;
+    *&v19 = v8;
+    *(&v19 + 1) = v9;
+    *&v20 = v10;
+    *(&v20 + 1) = v11;
     v3 = *(a1 + 72);
     v12 = *(a1 + 80);
     v13 = *(a2 + 24);
@@ -2382,86 +2134,86 @@ uint64_t HVF::PartTransformRenderer::renderToContext(uint64_t a1, uint64_t a2, s
     {
       goto LABEL_6;
     }
+
+LABEL_10:
+    v22 = 0;
+    goto LABEL_12;
+  }
+
+  v15 = 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 120) - *(a1 + 112)) >> 5);
+  v16 = *(a1 + 88);
+  v17 = (*(a1 + 96) - v16) >> 3;
+  *&v19 = *(a1 + 112);
+  *(&v19 + 1) = v15;
+  *&v20 = v16;
+  *(&v20 + 1) = v17;
+  v12 = *(a1 + 80);
+  v13 = *(a2 + 24);
+  if (!v13)
+  {
+    goto LABEL_10;
+  }
+
+LABEL_6:
+  if (v13 == a2)
+  {
+    v22 = v21;
+    (*(*v13 + 24))(v13, v21, a3);
   }
 
   else
   {
-    v15 = 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 120) - *(a1 + 112)) >> 5);
-    v16 = *(a1 + 88);
-    v17 = (*(a1 + 96) - v16) >> 3;
-    *&v20 = *(a1 + 112);
-    *(&v20 + 1) = v15;
-    *&v21 = v16;
-    *(&v21 + 1) = v17;
-    v12 = *(a1 + 80);
-    v13 = *(a2 + 24);
-    if (v13)
-    {
-LABEL_6:
-      if (v13 == a2)
-      {
-        v23 = v22;
-        (*(*v13 + 24))(v13, v22, a3);
-      }
-
-      else
-      {
-        v23 = (*(*v13 + 16))(v13);
-      }
-
-      goto LABEL_12;
-    }
+    v22 = (*(*v13 + 16))(v13);
   }
 
-  v23 = 0;
 LABEL_12:
-  result = HVF::PartTransformRenderer::render(a1, v12, v3, &v20, v22);
-  if (v23 == v22)
+  result = HVF::PartTransformRenderer::render(a1, v12, v3, &v19, v21);
+  if (v22 == v21)
   {
     v18 = result;
-    (*(*v23 + 32))(v23);
-    goto LABEL_16;
+    (*(*v22 + 32))(v22);
   }
 
-  if (v23)
+  else
   {
+    if (!v22)
+    {
+      return result;
+    }
+
     v18 = result;
-    (*(*v23 + 40))(v23);
-LABEL_16:
-    result = v18;
+    (*(*v22 + 40))(v22);
   }
 
-LABEL_17:
-  v19 = *MEMORY[0x29EDCA608];
-  return result;
+  return v18;
 }
 
-void sub_298ACE42C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_298ACE42C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::function<HVFPartRenderAction ()(HVFPartRenderInstruction,HVFPartRenderParameters const*)>::~function(va);
   _Unwind_Resume(a1);
 }
 
 uint64_t HVF::PartTransformRenderer::render(HVF::FlatPartCache *a1, uint64_t a2, void *a3, int64x2_t **a4, uint64_t a5)
 {
-  v28 = *MEMORY[0x29EDCA608];
-  v19 = 0u;
-  v20 = 0u;
-  v18 = a2;
-  v23 = 0;
+  v26 = *MEMORY[0x29EDCA608];
+  v17 = 0u;
+  v18 = 0u;
+  v16 = a2;
   v21 = 0;
-  v22 = &v18;
+  v19 = 0;
+  v20 = &v16;
   v6 = *(a5 + 24);
   if (!v6)
   {
     std::__throw_bad_function_call[abi:ne200100]();
   }
 
-  v10 = (*(*v6 + 48))(v6, &v23, &v22);
+  v10 = (*(*v6 + 48))(v6, &v21, &v20);
   if (v10 == 2)
   {
-    goto LABEL_18;
+    return 0;
   }
 
   if (v10 || ((*(*a3 + 32))(a3) & 1) != 0)
@@ -2477,35 +2229,35 @@ uint64_t HVF::PartTransformRenderer::render(HVF::FlatPartCache *a1, uint64_t a2,
     {
       if (v12 == a5)
       {
-        v25 = v24;
-        (*(*v12 + 24))(v12, v24);
+        v23 = v22;
+        (*(*v12 + 24))(v12, v22);
       }
 
       else
       {
-        v25 = (*(*v12 + 16))(v12);
+        v23 = (*(*v12 + 16))(v12);
       }
     }
 
     else
     {
-      v25 = 0;
+      v23 = 0;
     }
 
-    v13 = HVF::PartTransformRenderer::renderShape(a1, a3, a4, v24);
-    v14 = v25;
-    if (v25 == v24)
+    v13 = HVF::PartTransformRenderer::renderShape(a1, a3, a4, v22);
+    v14 = v23;
+    if (v23 == v22)
     {
-      (*(*v25 + 32))(v25);
+      (*(*v23 + 32))(v23);
       if ((v13 & 1) == 0)
       {
-        goto LABEL_18;
+        return 0;
       }
 
       goto LABEL_25;
     }
 
-    if (!v25)
+    if (!v23)
     {
       goto LABEL_17;
     }
@@ -2514,7 +2266,7 @@ LABEL_24:
     (*(*v14 + 40))(v14);
     if ((v13 & 1) == 0)
     {
-      goto LABEL_18;
+      return 0;
     }
 
     goto LABEL_25;
@@ -2524,35 +2276,35 @@ LABEL_24:
   {
     if (v12 == a5)
     {
-      v27 = v26;
-      (*(*v12 + 24))(v12, v26);
+      v25 = v24;
+      (*(*v12 + 24))(v12, v24);
     }
 
     else
     {
-      v27 = (*(*v12 + 16))(v12);
+      v25 = (*(*v12 + 16))(v12);
     }
   }
 
   else
   {
-    v27 = 0;
+    v25 = 0;
   }
 
-  v13 = HVF::PartTransformRenderer::renderComposite(a1, a3, a4, v26);
-  v14 = v27;
-  if (v27 == v26)
+  v13 = HVF::PartTransformRenderer::renderComposite(a1, a3, a4, v24);
+  v14 = v25;
+  if (v25 == v24)
   {
-    (*(*v27 + 32))(v27);
+    (*(*v25 + 32))(v25);
     if ((v13 & 1) == 0)
     {
-      goto LABEL_18;
+      return 0;
     }
 
     goto LABEL_25;
   }
 
-  if (v27)
+  if (v25)
   {
     goto LABEL_24;
   }
@@ -2560,182 +2312,170 @@ LABEL_24:
 LABEL_17:
   if (!v13)
   {
-LABEL_18:
-    result = 0;
-    v16 = *MEMORY[0x29EDCA608];
-    return result;
+    return 0;
   }
 
 LABEL_25:
-  HVF::PartTransformRenderer::render(&v18, (a5 + 24));
-  result = 1;
-  v17 = *MEMORY[0x29EDCA608];
-  return result;
+  HVF::PartTransformRenderer::render(&v16, (a5 + 24));
+  return 1;
 }
 
-void sub_298ACE760(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_298ACE760(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   std::function<HVFPartRenderAction ()(HVFPartRenderInstruction,HVFPartRenderParameters const*)>::~function(va);
   _Unwind_Resume(a1);
 }
 
 uint64_t HVF::PartTransformRenderer::renderComposite(HVF::FlatPartCache *a1, void *a2, float64x2_t **a3, uint64_t a4)
 {
-  v47 = *MEMORY[0x29EDCA608];
+  v46 = *MEMORY[0x29EDCA608];
   HVF::PartTransformRenderer::blendComposite(a1, a2, a3);
   v8 = a2[8];
-  if (v8)
+  if (!v8)
   {
-    v9 = a2[7];
-    v43 = &v9[2 * v8];
-    while (1)
+    return 1;
+  }
+
+  v9 = a2[7];
+  v42 = &v9[2 * v8];
+  while (1)
+  {
+    v10 = *v9;
+    v11 = *(v9 + 2);
+    v12 = *(v9 + 3);
+    v13 = HVF::FlatPartCache::partAtIndex(a1, v10);
+    v14 = v13;
+    if (!v13)
     {
-      v10 = *v9;
-      v11 = *(v9 + 2);
-      v12 = *(v9 + 3);
-      v13 = HVF::FlatPartCache::partAtIndex(a1, v10);
-      v14 = v13;
-      if (!v13)
+      break;
+    }
+
+    if (((*(*v13 + 32))(v13) & 1) == 0)
+    {
+      v15 = (*(*a2 + 40))(a2);
+      if (a3[1] <= v11)
       {
-        break;
+        return 0;
       }
 
-      if (((*(*v13 + 32))(v13) & 1) == 0)
+      v16 = v11 + 1;
+      v17 = v15 + v12;
+      v18 = (*(*v14 + 56))(v14) + v16 > a3[1] || v17 > a3[3];
+      if (v18 || (*(*v14 + 48))(v14) + v17 > a3[3])
       {
-        v15 = (*(*a2 + 40))(a2);
-        if (a3[1] <= v11)
-        {
-          break;
-        }
+        return 0;
+      }
 
-        v16 = v11 + 1;
-        v17 = v15 + v12;
-        v18 = (*(*v14 + 56))(v14) + v16 > a3[1] || v17 > a3[3];
-        if (v18 || (*(*v14 + 48))(v14) + v17 > a3[3])
-        {
-          break;
-        }
+      v19 = (*(*v14 + 56))(v14);
+      v20 = a3[1] - v16;
+      if (v19 != -1)
+      {
+        v20 = v19;
+      }
 
-        v19 = (*(*v14 + 56))(v14);
-        v20 = a3[1] - v16;
-        if (v19 != -1)
-        {
-          v20 = v19;
-        }
+      v43[0] = &(*a3)[6 * v16];
+      v43[1] = v20;
+      v21 = (*(*v14 + 48))(v14);
+      v22 = a3[3] - v17;
+      if (v21 != -1)
+      {
+        v22 = v21;
+      }
 
-        v44[0] = &(*a3)[6 * v16];
-        v44[1] = v20;
-        v21 = (*(*v14 + 48))(v14);
-        v22 = a3[3] - v17;
-        if (v21 != -1)
+      v43[2] = a3[2] + 8 * v17;
+      v43[3] = v22;
+      v23 = v43[0];
+      v24 = *(v43[0] + 16);
+      v26 = *(v43[0] + 32);
+      v25 = *(v43[0] + 48);
+      v27 = *(v43[0] + 64);
+      v28 = *(v43[0] + 80);
+      v30 = **a3;
+      v29 = (*a3)[1];
+      v32 = (*a3)[2];
+      v31 = (*a3)[3];
+      v34 = (*a3)[4];
+      v33 = (*a3)[5];
+      v35 = vmlaq_n_f64(vmlaq_laneq_f64(vmulq_n_f64(v24, v30.f64[0]), v25, v30, 1), v28, v29.f64[0]);
+      v36 = vmlaq_n_f64(vmlaq_laneq_f64(vmulq_n_f64(*v43[0], v30.f64[0]), v26, v30, 1), v27, v29.f64[0]);
+      v37 = vmlaq_n_f64(vmlaq_laneq_f64(vmulq_n_f64(*v43[0], v32.f64[0]), v26, v32, 1), v27, v31.f64[0]);
+      v38 = vmlaq_n_f64(vmlaq_laneq_f64(vmulq_n_f64(*v43[0], v34.f64[0]), v26, v34, 1), v27, v33.f64[0]);
+      *v43[0] = v36;
+      v23[1] = v35;
+      v23[2] = v37;
+      v23[3] = vmlaq_n_f64(vmlaq_laneq_f64(vmulq_n_f64(v24, v32.f64[0]), v25, v32, 1), v28, v31.f64[0]);
+      v23[4] = v38;
+      v23[5] = vmlaq_n_f64(vmlaq_laneq_f64(vmulq_n_f64(v24, v34.f64[0]), v25, v34, 1), v28, v33.f64[0]);
+      v39 = *(a4 + 24);
+      if (v39)
+      {
+        if (v39 == a4)
         {
-          v22 = v21;
-        }
-
-        v44[2] = a3[2] + 8 * v17;
-        v44[3] = v22;
-        v23 = v44[0];
-        v24 = *(v44[0] + 16);
-        v26 = *(v44[0] + 32);
-        v25 = *(v44[0] + 48);
-        v27 = *(v44[0] + 64);
-        v28 = *(v44[0] + 80);
-        v30 = **a3;
-        v29 = (*a3)[1];
-        v32 = (*a3)[2];
-        v31 = (*a3)[3];
-        v34 = (*a3)[4];
-        v33 = (*a3)[5];
-        v35 = vmlaq_n_f64(vmlaq_laneq_f64(vmulq_n_f64(v24, v30.f64[0]), v25, v30, 1), v28, v29.f64[0]);
-        v36 = vmlaq_n_f64(vmlaq_laneq_f64(vmulq_n_f64(*v44[0], v30.f64[0]), v26, v30, 1), v27, v29.f64[0]);
-        v37 = vmlaq_n_f64(vmlaq_laneq_f64(vmulq_n_f64(*v44[0], v32.f64[0]), v26, v32, 1), v27, v31.f64[0]);
-        v38 = vmlaq_n_f64(vmlaq_laneq_f64(vmulq_n_f64(*v44[0], v34.f64[0]), v26, v34, 1), v27, v33.f64[0]);
-        *v44[0] = v36;
-        v23[1] = v35;
-        v23[2] = v37;
-        v23[3] = vmlaq_n_f64(vmlaq_laneq_f64(vmulq_n_f64(v24, v32.f64[0]), v25, v32, 1), v28, v31.f64[0]);
-        v23[4] = v38;
-        v23[5] = vmlaq_n_f64(vmlaq_laneq_f64(vmulq_n_f64(v24, v34.f64[0]), v25, v34, 1), v28, v33.f64[0]);
-        v39 = *(a4 + 24);
-        if (v39)
-        {
-          if (v39 == a4)
-          {
-            v46 = v45;
-            (*(*v39 + 24))(v39, v45);
-          }
-
-          else
-          {
-            v46 = (*(*v39 + 16))(v39);
-          }
+          v45 = v44;
+          (*(*v39 + 24))(v39, v44);
         }
 
         else
         {
-          v46 = 0;
-        }
-
-        v40 = HVF::PartTransformRenderer::render(a1, v10, v14, v44, v45);
-        if (v46 == v45)
-        {
-          (*(*v46 + 32))(v46);
-          if ((v40 & 1) == 0)
-          {
-            break;
-          }
-        }
-
-        else
-        {
-          if (v46)
-          {
-            (*(*v46 + 40))();
-          }
-
-          if ((v40 & 1) == 0)
-          {
-            break;
-          }
+          v45 = (*(*v39 + 16))(v39);
         }
       }
 
-      v9 += 2;
-      if (v9 == v43)
+      else
       {
-        goto LABEL_27;
+        v45 = 0;
+      }
+
+      v40 = HVF::PartTransformRenderer::render(a1, v10, v14, v43, v44);
+      if (v45 == v44)
+      {
+        (*(*v45 + 32))(v45);
+        if ((v40 & 1) == 0)
+        {
+          return 0;
+        }
+      }
+
+      else
+      {
+        if (v45)
+        {
+          (*(*v45 + 40))();
+        }
+
+        if ((v40 & 1) == 0)
+        {
+          return 0;
+        }
       }
     }
 
-    result = 0;
+    v9 += 2;
+    if (v9 == v42)
+    {
+      return 1;
+    }
   }
 
-  else
-  {
-LABEL_27:
-    result = 1;
-  }
-
-  v42 = *MEMORY[0x29EDCA608];
-  return result;
+  return 0;
 }
 
-void sub_298ACEB34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_298ACEB34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::function<HVFPartRenderAction ()(HVFPartRenderInstruction,HVFPartRenderParameters const*)>::~function(va);
   _Unwind_Resume(a1);
 }
 
-BOOL HVF::PartTransformRenderer::renderShape(void *a1, uint64_t a2, int64x2_t **a3, uint64_t a4)
+BOOL HVF::PartTransformRenderer::renderShape(uint64_t a1, uint64_t a2, int64x2_t **a3, uint64_t a4)
 {
   HVF::PartTransformRenderer::blendShape(a1, a2, a3);
   v7 = 1;
   if (*(a2 + 56))
   {
     v8 = 0;
-    v9 = a1[26];
+    v9 = *(a1 + 208);
     v10 = *(a2 + 48);
     while (1)
     {
@@ -2872,32 +2612,32 @@ LABEL_37:
   return v7;
 }
 
-void HVF::PartTransformRenderer::blendShape(void *a1, uint64_t a2, int64x2_t **a3)
+void HVF::PartTransformRenderer::blendShape(uint64_t a1, uint64_t a2, int64x2_t **a3)
 {
-  HVF::BlendContext::setBlendValues((a1 + 17), (a3 + 2));
-  v6 = a1[26];
+  HVF::BlendContext::setBlendValues(a1 + 136, (a3 + 2));
+  v6 = *(a1 + 208);
   v7 = *(a2 + 88);
-  v8 = (a1[27] - v6) >> 3;
+  v8 = (*(a1 + 216) - v6) >> 3;
   if (v7 <= v8)
   {
     if (v7 < v8)
     {
-      a1[27] = &v6[8 * v7];
+      *(a1 + 216) = &v6[8 * v7];
     }
   }
 
   else
   {
-    std::vector<double,default_init_allocator<double,std::allocator<double>>>::__append((a1 + 26), v7 - v8);
+    std::vector<double,default_init_allocator<double,std::allocator<double>>>::__append((a1 + 208), v7 - v8);
     v7 = *(a2 + 88);
-    v6 = a1[26];
+    v6 = *(a1 + 208);
   }
 
   v9 = memcpy(v6, *(a2 + 80), 8 * v7);
-  v11 = a1[26];
-  v10 = a1[27];
-  v13 = a1[23];
-  v12 = a1[24];
+  v11 = *(a1 + 208);
+  v10 = *(a1 + 216);
+  v13 = *(a1 + 184);
+  v12 = *(a1 + 192);
   if (v12 != v13)
   {
     v14 = (v10 - v11) >> 3;
@@ -3022,8 +2762,8 @@ LABEL_27:
     }
 
     while (v36);
-    v11 = a1[26];
-    v10 = a1[27];
+    v11 = *(a1 + 208);
+    v10 = *(a1 + 216);
   }
 
   if (v11 != v10)
@@ -3063,12 +2803,12 @@ void HVF::PartTransformRenderer::adjustShapePoints(uint64_t a1, float64x2_t **a2
   if (!**a3)
   {
     v10 = 1.0;
-    if (*v5 <= 1.0)
+    if (v5->f64[0] <= 1.0)
     {
-      v10 = *v5;
+      v10 = v5->f64[0];
     }
 
-    if (*v5 >= 0.0)
+    if (v5->f64[0] >= 0.0)
     {
       v11 = v10;
     }
@@ -3112,13 +2852,13 @@ LABEL_13:
 
 LABEL_16:
   v12 = 0;
-  v13 = v6 + 1;
+  v13 = (v6 + 1);
   v14 = 8;
   do
   {
     v18 = &v5[v12];
-    v19 = *&v5[v12 + 2];
-    v20 = *&v5[v12 + 6];
+    v19 = v5[v12 + 1];
+    v20 = v5[v12 + 3];
     v22 = *v13++;
     v21 = v22;
     if (v22)
@@ -3136,12 +2876,12 @@ LABEL_16:
         }
 
         v24 = &v5[v12];
-        v25 = &v5[v23];
+        v25 = (v5 + 8 * v23);
         v26 = v25[1];
         v27 = vpmaxq_f64(vabdq_f64(v26, v19));
         if (v27 == INFINITY || (*&v27 & 0x7FFFFFFFFFFFFFFFLL) == 0)
         {
-          v38 = *&v5[v12 + 2];
+          v38 = v5[v12 + 1];
         }
 
         else
@@ -3199,10 +2939,10 @@ LABEL_16:
 
     else
     {
-      v15 = v18[4];
+      v15 = v18[2].f64[0];
       if (v15 <= 1.0)
       {
-        v16 = v18[4];
+        v16 = v18[2].f64[0];
       }
 
       else
@@ -3220,11 +2960,11 @@ LABEL_16:
         v17 = 0.0;
       }
 
-      *(v18 + 2) = vmlaq_n_f64(v19, vsubq_f64(v20, v19), v17);
+      v18[2] = vmlaq_n_f64(v19, vsubq_f64(v20, v19), v17);
     }
 
     v14 += 4;
-    v12 += 4;
+    v12 += 2;
     --v4;
   }
 
@@ -4148,7 +3888,6 @@ void HVF::PartTransformRenderer::~PartTransformRenderer(HVF::PartTransformRender
   if (v8 == (this + 8))
   {
     (*(*v8 + 32))(v8);
-    v9 = this;
   }
 
   else
@@ -4157,11 +3896,9 @@ void HVF::PartTransformRenderer::~PartTransformRenderer(HVF::PartTransformRender
     {
       (*(*v8 + 40))(v8);
     }
-
-    v9 = this;
   }
 
-  destructiveProjectEnumData for AxisExtremum(v9);
+  destructiveProjectEnumData for AxisExtremum();
 }
 
 void std::vector<simd::double3x3>::__append(uint64_t a1, unint64_t a2)
@@ -4381,58 +4118,54 @@ double OUTLINED_FUNCTION_0(float64x2_t a1, float64x2_t a2, double a3, float64x2_
   return result;
 }
 
-void HVFPartRenderer::HVFPartRenderer(HVFPartRenderer *this, const void *a2, unint64_t a3, const void *a4, unint64_t a5)
+void HVFPartRenderer::HVFPartRenderer(HVFPartRenderer *this, unsigned __int16 *a2, unint64_t a3, unsigned int *a4, unint64_t a5)
 {
-  v9 = *MEMORY[0x29EDCA608];
-  v6 = &unk_2A1F1A100;
-  v7 = HVF::LoaderHVGL::LoaderHVGL(this, a2, a3, a4, a5);
-  v8 = &v6;
-  HVF::PartTransformRenderer::PartTransformRenderer(v7 + 136, &v6, 0);
-  if (v8 == &v6)
+  v8 = *MEMORY[0x29EDCA608];
+  v5 = &unk_2A1F1A100;
+  v6 = HVF::LoaderHVGL::LoaderHVGL(this, a2, a3, a4, a5);
+  v7 = &v5;
+  HVF::PartTransformRenderer::PartTransformRenderer(v6 + 136, &v5, 0);
+  if (v7 == &v5)
   {
-    (*(*v8 + 4))(v8);
+    (*(*v7 + 4))(v7);
   }
 
-  else if (v8)
+  else if (v7)
   {
-    (*(*v8 + 5))();
+    (*(*v7 + 5))();
   }
-
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 {
-  v9 = *MEMORY[0x29EDCA608];
-  v6 = &unk_2A1F1A100;
-  v7 = HVF::LoaderHVGL::LoaderHVGL(this, a2, a3, a4, a5);
-  v8 = &v6;
-  HVF::PartTransformRenderer::PartTransformRenderer(v7 + 136, &v6, 0);
-  if (v8 == &v6)
+  v8 = *MEMORY[0x29EDCA608];
+  v5 = &unk_2A1F1A100;
+  v6 = HVF::LoaderHVGL::LoaderHVGL(this, a2, a3, a4, a5);
+  v7 = &v5;
+  HVF::PartTransformRenderer::PartTransformRenderer(v6 + 136, &v5, 0);
+  if (v7 == &v5)
   {
-    (*(*v8 + 4))(v8);
+    (*(*v7 + 4))(v7);
   }
 
-  else if (v8)
+  else if (v7)
   {
-    (*(*v8 + 5))();
+    (*(*v7 + 5))();
   }
-
-  v5 = *MEMORY[0x29EDCA608];
 }
 
-void sub_298AD07F8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_298AD07F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::function<HVF::Part const* ()(unsigned long,HVF::PartCache &)>::~function(va);
-  HVF::LoaderHVGL::~LoaderHVGL(v2);
+  HVF::LoaderHVGL::~LoaderHVGL(v3);
   _Unwind_Resume(a1);
 }
 
-void sub_298AD0904(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_298AD0904(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::function<HVF::Part const* ()(unsigned long,HVF::PartCache &)>::~function(va);
-  HVF::LoaderHVGL::~LoaderHVGL(v2);
+  HVF::LoaderHVGL::~LoaderHVGL(v3);
   _Unwind_Resume(a1);
 }
 
@@ -4443,36 +4176,34 @@ void HVFPartRenderer::~HVFPartRenderer(HVFPartRenderer *this)
   HVF::LoaderHVGL::~LoaderHVGL(this);
 }
 
-uint64_t HVF_open_part_renderer(void *a1, unint64_t a2, void *a3, unint64_t a4, HVF::LoaderHVGL *this, unint64_t a6, int a7, int a8, uint64_t a9, char a10)
+uint64_t HVF_open_part_renderer(unsigned __int16 *a1, unint64_t a2, unsigned int *a3, unint64_t a4, HVF::LoaderHVGL *this, unint64_t a6, int a7, int a8, uint64_t a9, char a10)
 {
-  v20 = *MEMORY[0x29EDCA608];
+  v18 = *MEMORY[0x29EDCA608];
   result = 0xFFFFFFFFLL;
-  if (a6 < 0x170 || (this & 7) != 0)
+  if (a6 >= 0x170 && (this & 7) == 0)
   {
-    goto LABEL_8;
+    HVF::LoaderHVGL::LoaderHVGL(this, a1, a2, a3, a4);
+    v16[0] = &unk_2A1F1A100;
+    v16[1] = this;
+    v17 = v16;
+    HVF::PartTransformRenderer::PartTransformRenderer(this + 136, v16, 0);
+    if (v17 == v16)
+    {
+      (*(*v17 + 32))(v17);
+      return 0;
+    }
+
+    else
+    {
+      if (v17)
+      {
+        (*(*v17 + 40))();
+      }
+
+      return 0;
+    }
   }
 
-  HVF::LoaderHVGL::LoaderHVGL(this, a1, a2, a3, a4);
-  v18[0] = &unk_2A1F1A100;
-  v18[1] = this;
-  v19 = v18;
-  HVF::PartTransformRenderer::PartTransformRenderer(this + 136, v18, 0);
-  if (v19 == v18)
-  {
-    (*(*v19 + 32))(v19);
-    result = 0;
-LABEL_8:
-    v17 = *MEMORY[0x29EDCA608];
-    return result;
-  }
-
-  if (v19)
-  {
-    (*(*v19 + 40))();
-  }
-
-  result = 0;
-  v16 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -4533,26 +4264,25 @@ uint64_t HVF_set_axis_value(uint64_t a1, int a2, double a3)
 
 uint64_t HVF_render_current_part(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v10 = *MEMORY[0x29EDCA608];
-  HVF::wrapContext(a2, a3, v8);
-  v5 = HVF::PartTransformRenderer::renderToContext(a1 + 136, v8, v4);
-  if (v9 == v8)
+  v9 = *MEMORY[0x29EDCA608];
+  HVF::wrapContext(a2, a3, v7);
+  v5 = HVF::PartTransformRenderer::renderToContext(a1 + 136, v7, v4);
+  if (v8 == v7)
   {
-    (*(*v9 + 32))(v9);
+    (*(*v8 + 32))(v8);
   }
 
-  else if (v9)
+  else if (v8)
   {
-    (*(*v9 + 40))();
+    (*(*v8 + 40))();
   }
 
-  v6 = *MEMORY[0x29EDCA608];
   return (v5 - 1);
 }
 
-void sub_298AD0D0C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_298AD0D0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::function<HVFPartRenderAction ()(HVFPartRenderInstruction,HVFPartRenderParameters const*)>::~function(va);
   _Unwind_Resume(a1);
 }

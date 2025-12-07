@@ -8,7 +8,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_24E084BE4();
+  sub_24E084BE4(selfCopy, v2);
 }
 
 - (void)didMoveToWindow

@@ -124,27 +124,27 @@
 
 - (void)encodeIntoProtobufTimestamp:(void *)timestamp coder:(id)coder
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   allKeys = [(NSMutableDictionary *)self->_clock allKeys];
-  v8 = [allKeys countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v8 = [allKeys countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v8)
   {
-    v9 = *v22;
+    v9 = *v21;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v22 != v9)
+        if (*v21 != v9)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v11 = *(*(&v21 + 1) + 8 * i);
+        v11 = *(*(&v20 + 1) + 8 * i);
         v12 = [(NSMutableDictionary *)self->_clock objectForKeyedSubscript:v11];
         v13 = *(timestamp + 13);
         v14 = *(timestamp + 12);
@@ -152,7 +152,7 @@
         {
           if (v13 == *(timestamp + 14))
           {
-            google::protobuf::internal::RepeatedPtrFieldBase::Reserve(timestamp + 5, v13 + 1);
+            google::protobuf::internal::RepeatedPtrFieldBase::Reserve(timestamp + 10, v13 + 1);
           }
 
           google::protobuf::internal::GenericTypeHandler<CRDT::VectorTimestamp_Element>::New();
@@ -179,13 +179,11 @@
         }
       }
 
-      v8 = [allKeys countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v8 = [allKeys countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v8);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -297,7 +295,7 @@
 
 - (unint64_t)compare:(id)compare
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   compareCopy = compare;
   v5 = MEMORY[0x1E695DFA8];
   allUUIDs = [(CRVectorTimestamp *)self allUUIDs];
@@ -306,12 +304,12 @@
   allUUIDs2 = [compareCopy allUUIDs];
   [v7 addObjectsFromArray:allUUIDs2];
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   obj = v7;
-  v9 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v9 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (!v9)
   {
 
@@ -319,23 +317,23 @@
     goto LABEL_20;
   }
 
-  v25 = v7;
+  v24 = v7;
   v10 = 0;
   v11 = 0;
-  v12 = *v30;
-  v27 = 1;
-  v26 = 4;
+  v12 = *v29;
+  v26 = 1;
+  v25 = 4;
   do
   {
     for (i = 0; i != v9; ++i)
     {
-      if (*v30 != v12)
+      if (*v29 != v12)
       {
         objc_enumerationMutation(obj);
       }
 
-      v14 = *(*(&v29 + 1) + 8 * i);
-      v15 = [(CRVectorTimestamp *)self clockElementForUUID:v14, v25];
+      v14 = *(*(&v28 + 1) + 8 * i);
+      v15 = [(CRVectorTimestamp *)self clockElementForUUID:v14, v24];
       v16 = [compareCopy clockElementForUUID:v14];
       clock = [v15 clock];
       if (clock < [v16 clock])
@@ -371,7 +369,7 @@ LABEL_12:
       }
     }
 
-    v9 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+    v9 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
   }
 
   while (v9);
@@ -381,40 +379,39 @@ LABEL_12:
     v21 = 0;
   }
 
-  v26 = v21;
-  v27 = v11 & 1;
+  v25 = v21;
+  v26 = v11 & 1;
 LABEL_18:
 
-  v22 = v26 | v27;
+  v22 = v25 | v26;
 LABEL_20:
 
-  v23 = *MEMORY[0x1E69E9840];
   return v22;
 }
 
 - (void)minusVectorTimestamp:(id)timestamp
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   timestampCopy = timestamp;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   allUUIDs = [timestampCopy allUUIDs];
-  v6 = [allUUIDs countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [allUUIDs countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
-    v7 = *v17;
+    v7 = *v16;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(allUUIDs);
         }
 
-        v9 = *(*(&v16 + 1) + 8 * i);
+        v9 = *(*(&v15 + 1) + 8 * i);
         v10 = [(CRVectorTimestamp *)self clockElementForUUID:v9];
         v11 = [timestampCopy clockElementForUUID:v9];
         clock = [v10 clock];
@@ -424,38 +421,36 @@ LABEL_20:
         }
       }
 
-      v6 = [allUUIDs countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [allUUIDs countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v6);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)mergeWith:(id)with
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   withCopy = with;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   allUUIDs = [withCopy allUUIDs];
-  v6 = [allUUIDs countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v6 = [allUUIDs countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v6)
   {
-    v7 = *v19;
+    v7 = *v18;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v19 != v7)
+        if (*v18 != v7)
         {
           objc_enumerationMutation(allUUIDs);
         }
 
-        v9 = *(*(&v18 + 1) + 8 * i);
+        v9 = *(*(&v17 + 1) + 8 * i);
         v10 = [(CRVectorTimestamp *)self clockElementForUUID:v9];
         v11 = [withCopy clockElementForUUID:v9];
         clock = [v10 clock];
@@ -474,13 +469,11 @@ LABEL_20:
         [(CRVectorTimestamp *)self setClock:clock2 subclock:subclock forUUID:v9];
       }
 
-      v6 = [allUUIDs countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v6 = [allUUIDs countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v6);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (id)deltaSince:(id)since in:(id)in
@@ -499,36 +492,36 @@ LABEL_20:
 
 - (id)shortDescription
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if ([(CRVectorTimestamp *)self count])
   {
     v3 = objc_alloc_init(MEMORY[0x1E696AD60]);
     [(__CFString *)v3 appendFormat:@"{"];
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     sortedUUIDs = [(CRVectorTimestamp *)self sortedUUIDs];
-    v5 = [sortedUUIDs countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v5 = [sortedUUIDs countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v5)
     {
-      v6 = *v14;
+      v6 = *v13;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v14 != v6)
+          if (*v13 != v6)
           {
             objc_enumerationMutation(sortedUUIDs);
           }
 
-          v8 = *(*(&v13 + 1) + 8 * i);
+          v8 = *(*(&v12 + 1) + 8 * i);
           v9 = [(CRVectorTimestamp *)self clockElementForUUID:v8];
           cR_shortDescription = [v8 CR_shortDescription];
           -[__CFString appendFormat:](v3, "appendFormat:", @"%@:%lu ", cR_shortDescription, [v9 clock]);
         }
 
-        v5 = [sortedUUIDs countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v5 = [sortedUUIDs countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v5);
@@ -542,50 +535,47 @@ LABEL_20:
     v3 = @"{}";
   }
 
-  v11 = *MEMORY[0x1E69E9840];
-
   return v3;
 }
 
 - (NSString)description
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E696AD60]);
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
   objc_msgSend(v3, "appendFormat:", @"<%@ %p (\n"), v5, self;
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   sortedUUIDs = [(CRVectorTimestamp *)self sortedUUIDs];
-  v7 = [sortedUUIDs countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [sortedUUIDs countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(sortedUUIDs);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
+        v10 = *(*(&v13 + 1) + 8 * i);
         v11 = [(CRVectorTimestamp *)self clockElementForUUID:v10];
         [v3 appendFormat:@"  %@:%lu.%lu\n", v10, objc_msgSend(v11, "clock"), objc_msgSend(v11, "subclock")];
       }
 
-      v7 = [sortedUUIDs countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [sortedUUIDs countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
   }
 
   [v3 appendString:@">"]);
-  v12 = *MEMORY[0x1E69E9840];
 
   return v3;
 }

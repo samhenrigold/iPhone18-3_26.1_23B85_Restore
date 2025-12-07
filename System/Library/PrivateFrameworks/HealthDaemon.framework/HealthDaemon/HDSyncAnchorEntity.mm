@@ -28,9 +28,9 @@
 + (int64_t)minimumFrozenAnchorInEpochs:(id)epochs store:(id)store entityIdentifier:(id)identifier profile:(id)profile error:(id *)error;
 + (int64_t)syncAnchorOfType:(int64_t)type entityIdentifier:(id)identifier store:(id)store profile:(id)profile error:(id *)error;
 + (uint64_t)_getAnchorsForProperty:(void *)property anchorMap:(void *)map store:(void *)store profile:(uint64_t)profile error:;
-+ (uint64_t)_setAnchorsWithMap:(void *)map updateDate:(void *)date store:(uint64_t)store updateOptions:(uint64_t)options updatePolicy:(char)policy resetInvalid:(void *)invalid profile:(uint64_t)profile error:;
-+ (uint64_t)_setSyncAnchor:(uint64_t)anchor updateDate:(uint64_t)date options:(uint64_t)options updatePolicy:(void *)policy entityIdentifier:(void *)identifier store:(void *)store profile:(uint64_t)profile error:;
-+ (uint64_t)_setSyncAnchor:(uint64_t)anchor updateDate:(uint64_t)date options:(uint64_t)options updatePolicy:(void *)policy entityIdentifier:(void *)identifier store:(void *)store transaction:(uint64_t)transaction error:;
++ (uint64_t)_setAnchorsWithMap:(void *)map updateDate:(uint64_t)date store:(uint64_t)store updateOptions:(char)options updatePolicy:(void *)policy resetInvalid:(uint64_t)invalid profile:(double)profile error:;
++ (uint64_t)_setSyncAnchor:(uint64_t)anchor updateDate:(uint64_t)date options:(void *)options updatePolicy:(void *)policy entityIdentifier:(void *)identifier store:(uint64_t)store profile:(double)profile error:;
++ (uint64_t)_setSyncAnchor:(uint64_t)anchor updateDate:(uint64_t)date options:(void *)options updatePolicy:(void *)policy entityIdentifier:(void *)identifier store:(uint64_t)store transaction:(double)transaction error:;
 @end
 
 @implementation HDSyncAnchorEntity
@@ -59,39 +59,39 @@
 
 uint64_t __81__HDSyncAnchorEntity_prepareSyncAnchorsForEntityIdentifiers_store_profile_error___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = objc_alloc_init(HDSyncAnchorMap);
   if ([(HDSyncAnchorEntity *)*(a1 + 56) _getAnchorsForProperty:v6 anchorMap:*(a1 + 32) store:*(a1 + 40) profile:a3 error:?])
   {
-    v32 = v5;
+    v31 = v5;
     v7 = [v5 databaseForEntityClass:*(a1 + 56)];
     v8 = [objc_alloc(MEMORY[0x277CBEB98]) initWithArray:*(a1 + 48)];
     v9 = objc_alloc_init(MEMORY[0x277CBEB58]);
-    v41[0] = MEMORY[0x277D85DD0];
-    v41[1] = 3221225472;
-    v41[2] = __81__HDSyncAnchorEntity_prepareSyncAnchorsForEntityIdentifiers_store_profile_error___block_invoke_2;
-    v41[3] = &unk_2786264B0;
-    v31 = v8;
-    v42 = v31;
+    v40[0] = MEMORY[0x277D85DD0];
+    v40[1] = 3221225472;
+    v40[2] = __81__HDSyncAnchorEntity_prepareSyncAnchorsForEntityIdentifiers_store_profile_error___block_invoke_2;
+    v40[3] = &unk_2786264B0;
+    v30 = v8;
+    v41 = v30;
     v10 = v9;
-    v43 = v10;
-    [(HDSyncAnchorMap *)v6 enumerateAnchorsAndEntityIdentifiersWithBlock:v41];
-    v39 = 0u;
-    v40 = 0u;
-    v37 = 0u;
+    v42 = v10;
+    [(HDSyncAnchorMap *)v6 enumerateAnchorsAndEntityIdentifiersWithBlock:v40];
     v38 = 0u;
+    v39 = 0u;
+    v36 = 0u;
+    v37 = 0u;
     v11 = v10;
-    v12 = [v11 countByEnumeratingWithState:&v37 objects:v45 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v36 objects:v44 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v38;
+      v14 = *v37;
       while (2)
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v38 != v14)
+          if (*v37 != v14)
           {
             objc_enumerationMutation(v11);
           }
@@ -104,13 +104,13 @@ uint64_t __81__HDSyncAnchorEntity_prepareSyncAnchorsForEntityIdentifiers_store_p
             v26 = v11;
             v25 = 0;
             v18 = v26;
-            v27 = v31;
-            v5 = v32;
+            v27 = v30;
+            v5 = v31;
             goto LABEL_25;
           }
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v37 objects:v45 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v36 objects:v44 count:16];
         if (v13)
         {
           continue;
@@ -120,28 +120,28 @@ uint64_t __81__HDSyncAnchorEntity_prepareSyncAnchorsForEntityIdentifiers_store_p
       }
     }
 
-    v30 = v11;
+    v29 = v11;
 
-    v35 = 0u;
-    v36 = 0u;
-    v33 = 0u;
     v34 = 0u;
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
     v18 = *(a1 + 48);
-    v19 = [v18 countByEnumeratingWithState:&v33 objects:v44 count:16];
+    v19 = [v18 countByEnumeratingWithState:&v32 objects:v43 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v34;
+      v21 = *v33;
       while (2)
       {
         for (j = 0; j != v20; ++j)
         {
-          if (*v34 != v21)
+          if (*v33 != v21)
           {
             objc_enumerationMutation(v18);
           }
 
-          v23 = *(*(&v33 + 1) + 8 * j);
+          v23 = *(*(&v32 + 1) + 8 * j);
           v24 = [(HDSyncAnchorMap *)v6 anchorIfPresentForSyncEntityIdentifier:v23];
           if (!v24 && ![*(a1 + 56) updateSyncAnchor:0 type:0 entityIdentifier:v23 store:*(a1 + 32) updatePolicy:1 profile:*(a1 + 40) error:a3])
           {
@@ -150,7 +150,7 @@ uint64_t __81__HDSyncAnchorEntity_prepareSyncAnchorsForEntityIdentifiers_store_p
           }
         }
 
-        v20 = [v18 countByEnumeratingWithState:&v33 objects:v44 count:16];
+        v20 = [v18 countByEnumeratingWithState:&v32 objects:v43 count:16];
         v25 = 1;
         if (v20)
         {
@@ -167,9 +167,9 @@ uint64_t __81__HDSyncAnchorEntity_prepareSyncAnchorsForEntityIdentifiers_store_p
     }
 
 LABEL_24:
-    v27 = v31;
-    v5 = v32;
-    v26 = v30;
+    v27 = v30;
+    v5 = v31;
+    v26 = v29;
 LABEL_25:
   }
 
@@ -178,7 +178,6 @@ LABEL_25:
     v25 = 0;
   }
 
-  v28 = *MEMORY[0x277D85DE8];
   return v25;
 }
 
@@ -341,33 +340,33 @@ LABEL_3:
   identifierCopy = identifier;
   Current = CFAbsoluteTimeGetCurrent();
   _HDSyncAnchorUpdateOptionsForType(type);
-  LOBYTE(policy) = [(HDSyncAnchorEntity *)Current _setSyncAnchor:self updateDate:anchor options:v19 updatePolicy:policy entityIdentifier:identifierCopy store:storeCopy profile:profileCopy error:error];
+  LOBYTE(policy) = [(HDSyncAnchorEntity *)self _setSyncAnchor:anchor updateDate:v19 options:policy updatePolicy:identifierCopy entityIdentifier:storeCopy store:profileCopy profile:error error:Current];
 
   return policy;
 }
 
-+ (uint64_t)_setSyncAnchor:(uint64_t)anchor updateDate:(uint64_t)date options:(uint64_t)options updatePolicy:(void *)policy entityIdentifier:(void *)identifier store:(void *)store profile:(uint64_t)profile error:
++ (uint64_t)_setSyncAnchor:(uint64_t)anchor updateDate:(uint64_t)date options:(void *)options updatePolicy:(void *)policy entityIdentifier:(void *)identifier store:(uint64_t)store profile:(double)profile error:
 {
+  optionsCopy = options;
   policyCopy = policy;
   identifierCopy = identifier;
-  storeCopy = store;
   v19 = objc_opt_self();
-  database = [storeCopy database];
+  database = [identifierCopy database];
 
   v25[0] = MEMORY[0x277D85DD0];
   v25[1] = 3221225472;
   v25[2] = __106__HDSyncAnchorEntity__setSyncAnchor_updateDate_options_updatePolicy_entityIdentifier_store_profile_error___block_invoke;
   v25[3] = &unk_27862C700;
   v28 = v19;
+  v29 = a2;
+  profileCopy = profile;
   anchorCopy = anchor;
-  selfCopy = self;
   dateCopy = date;
-  optionsCopy = options;
-  v26 = policyCopy;
-  v27 = identifierCopy;
-  v21 = identifierCopy;
-  v22 = policyCopy;
-  v23 = [v19 performWriteTransactionWithHealthDatabase:database error:profile block:v25];
+  v26 = optionsCopy;
+  v27 = policyCopy;
+  v21 = policyCopy;
+  v22 = optionsCopy;
+  v23 = [v19 performWriteTransactionWithHealthDatabase:database error:store block:v25];
 
   return v23;
 }
@@ -379,33 +378,33 @@ LABEL_3:
   mapCopy = map;
   Current = CFAbsoluteTimeGetCurrent();
   _HDSyncAnchorUpdateOptionsForType(type);
-  v20 = [(HDSyncAnchorEntity *)Current _setAnchorsWithMap:self updateDate:mapCopy store:storeCopy updateOptions:v19 updatePolicy:policy resetInvalid:invalid profile:profileCopy error:error];
+  v20 = [(HDSyncAnchorEntity *)self _setAnchorsWithMap:mapCopy updateDate:storeCopy store:v19 updateOptions:policy updatePolicy:invalid resetInvalid:profileCopy profile:error error:Current];
 
   return v20;
 }
 
-+ (uint64_t)_setAnchorsWithMap:(void *)map updateDate:(void *)date store:(uint64_t)store updateOptions:(uint64_t)options updatePolicy:(char)policy resetInvalid:(void *)invalid profile:(uint64_t)profile error:
++ (uint64_t)_setAnchorsWithMap:(void *)map updateDate:(uint64_t)date store:(uint64_t)store updateOptions:(char)options updatePolicy:(void *)policy resetInvalid:(uint64_t)invalid profile:(double)profile error:
 {
+  v16 = a2;
   mapCopy = map;
-  dateCopy = date;
-  invalidCopy = invalid;
+  policyCopy = policy;
   v19 = objc_opt_self();
-  database = [invalidCopy database];
+  database = [policyCopy database];
 
   v25[0] = MEMORY[0x277D85DD0];
   v25[1] = 3221225472;
   v25[2] = __112__HDSyncAnchorEntity__setAnchorsWithMap_updateDate_store_updateOptions_updatePolicy_resetInvalid_profile_error___block_invoke;
   v25[3] = &unk_27862C808;
-  v26 = dateCopy;
-  v27 = mapCopy;
-  policyCopy = policy;
-  v28 = v19;
-  selfCopy = self;
-  storeCopy = store;
+  v26 = mapCopy;
+  v27 = v16;
   optionsCopy = options;
-  v21 = mapCopy;
-  v22 = dateCopy;
-  v23 = [v19 performWriteTransactionWithHealthDatabase:database error:profile block:v25];
+  v28 = v19;
+  profileCopy = profile;
+  dateCopy = date;
+  storeCopy = store;
+  v21 = v16;
+  v22 = mapCopy;
+  v23 = [v19 performWriteTransactionWithHealthDatabase:database error:invalid block:v25];
 
   return v23;
 }
@@ -418,7 +417,7 @@ LABEL_3:
   [date timeIntervalSinceReferenceDate];
   v21 = v20;
   _HDSyncAnchorUpdateOptionsForType(type);
-  LOBYTE(policy) = [(HDSyncAnchorEntity *)v21 _setSyncAnchor:self updateDate:anchor options:v22 updatePolicy:policy entityIdentifier:identifierCopy store:storeCopy profile:profileCopy error:error];
+  LOBYTE(policy) = [(HDSyncAnchorEntity *)self _setSyncAnchor:anchor updateDate:v22 options:policy updatePolicy:identifierCopy entityIdentifier:storeCopy store:profileCopy profile:error error:v21];
 
   return policy;
 }
@@ -431,7 +430,7 @@ LABEL_3:
   [date timeIntervalSinceReferenceDate];
   v21 = v20;
   _HDSyncAnchorUpdateOptionsForType(type);
-  v23 = [(HDSyncAnchorEntity *)v21 _setAnchorsWithMap:self updateDate:mapCopy store:storeCopy updateOptions:v22 updatePolicy:policy resetInvalid:invalid profile:profileCopy error:error];
+  v23 = [(HDSyncAnchorEntity *)self _setAnchorsWithMap:mapCopy updateDate:storeCopy store:v22 updateOptions:policy updatePolicy:invalid resetInvalid:profileCopy profile:error error:v21];
 
   return v23;
 }
@@ -545,29 +544,28 @@ uint64_t __87__HDSyncAnchorEntity_getMinimumSyncAnchorsOfType_anchorMap_updatedS
   return error;
 }
 
-BOOL __65__HDSyncAnchorEntity_resetSyncAnchorsOfType_store_profile_error___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+BOOL __65__HDSyncAnchorEntity_resetSyncAnchorsOfType_store_profile_error___block_invoke(void *a1, void *a2, uint64_t a3)
 {
-  v15[1] = *MEMORY[0x277D85DE8];
-  v5 = [a2 databaseForEntityClass:*(a1 + 40)];
-  v6 = _HDSyncAnchorPropertyForType(*(a1 + 48));
-  v15[0] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
-  v8 = [(HDSyncAnchorEntity *)*(a1 + 40) _predicateForSyncStore:?];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __65__HDSyncAnchorEntity_resetSyncAnchorsOfType_store_profile_error___block_invoke_2;
-  v13[3] = &unk_278614508;
-  v14 = v6;
+  v14[1] = *MEMORY[0x277D85DE8];
+  v5 = [a2 databaseForEntityClass:a1[5]];
+  v6 = _HDSyncAnchorPropertyForType(a1[6]);
+  v14[0] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
+  v8 = [(HDSyncAnchorEntity *)a1[5] _predicateForSyncStore:?];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __65__HDSyncAnchorEntity_resetSyncAnchorsOfType_store_profile_error___block_invoke_2;
+  v12[3] = &unk_278614508;
+  v13 = v6;
   v9 = v6;
-  v10 = [(HDSQLiteEntity *)HDSyncAnchorEntity updateProperties:v7 predicate:v8 database:v5 error:a3 bindingHandler:v13];
+  v10 = [(HDSQLiteEntity *)HDSyncAnchorEntity updateProperties:v7 predicate:v8 database:v5 error:a3 bindingHandler:v12];
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 + (id)_predicateForSyncStore:(uint64_t)store
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   v2 = a2;
   objc_opt_self();
   if (v2)
@@ -581,9 +579,9 @@ BOOL __65__HDSyncAnchorEntity_resetSyncAnchorsOfType_store_profile_error___block
     v8 = [v6 predicateWithProperty:@"epoch" equalToValue:v7];
 
     v9 = MEMORY[0x277D10B20];
-    v14[0] = v5;
-    v14[1] = v8;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
+    v13[0] = v5;
+    v13[1] = v8;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
     falsePredicate = [v9 predicateMatchingAllPredicates:v10];
   }
 
@@ -592,30 +590,27 @@ BOOL __65__HDSyncAnchorEntity_resetSyncAnchorsOfType_store_profile_error___block
     falsePredicate = [MEMORY[0x277D10B48] falsePredicate];
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return falsePredicate;
 }
 
 + (BOOL)resetAllSyncAnchorsOfType:(int64_t)type syncProvenances:(id)provenances transaction:(id)transaction error:(id *)error
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   provenancesCopy = provenances;
   v11 = [transaction databaseForEntityClass:self];
   v12 = _HDSyncAnchorPropertyForType(type);
-  v20[0] = v12;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
+  v19[0] = v12;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
   v14 = [MEMORY[0x277D10B28] containsPredicateWithProperty:@"store" values:provenancesCopy];
 
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __82__HDSyncAnchorEntity_resetAllSyncAnchorsOfType_syncProvenances_transaction_error___block_invoke;
-  v18[3] = &unk_278614508;
-  v19 = v12;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __82__HDSyncAnchorEntity_resetAllSyncAnchorsOfType_syncProvenances_transaction_error___block_invoke;
+  v17[3] = &unk_278614508;
+  v18 = v12;
   v15 = v12;
-  LOBYTE(error) = [(HDSQLiteEntity *)HDSyncAnchorEntity updateProperties:v13 predicate:v14 database:v11 error:error bindingHandler:v18];
+  LOBYTE(error) = [(HDSQLiteEntity *)HDSyncAnchorEntity updateProperties:v13 predicate:v14 database:v11 error:error bindingHandler:v17];
 
-  v16 = *MEMORY[0x277D85DE8];
   return error;
 }
 
@@ -645,36 +640,35 @@ BOOL __65__HDSyncAnchorEntity_resetSyncAnchorsOfType_store_profile_error___block
   storeCopy = store;
   mapCopy = map;
   Current = CFAbsoluteTimeGetCurrent();
-  v19 = [(HDSyncAnchorEntity *)Current _setAnchorsWithMap:self updateDate:mapCopy store:storeCopy updateOptions:v13 updatePolicy:v14 resetInvalid:invalid profile:profileCopy error:error];
+  v19 = [(HDSyncAnchorEntity *)self _setAnchorsWithMap:mapCopy updateDate:storeCopy store:v13 updateOptions:v14 updatePolicy:invalid resetInvalid:profileCopy profile:error error:Current];
 
   return v19;
 }
 
 uint64_t __75__HDSyncAnchorEntity__getAnchorsForProperty_anchorMap_store_profile_error___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v15[3] = *MEMORY[0x277D85DE8];
+  v14[3] = *MEMORY[0x277D85DE8];
   v5 = [(HDSyncAnchorEntity *)*(a1 + 64) _predicateForSyncStore:?];
-  v15[0] = @"schema";
-  v15[1] = @"type";
-  v15[2] = *(a1 + 40);
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:3];
+  v14[0] = @"schema";
+  v14[1] = @"type";
+  v14[2] = *(a1 + 40);
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:3];
   v7 = *(a1 + 64);
   v8 = [*(a1 + 48) database];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __75__HDSyncAnchorEntity__getAnchorsForProperty_anchorMap_store_profile_error___block_invoke_2;
-  v12[3] = &unk_27861E428;
-  v13 = *(a1 + 48);
-  v14 = *(a1 + 56);
-  v9 = [v7 enumerateProperties:v6 withPredicate:v5 healthDatabase:v8 error:a3 enumerationHandler:v12];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __75__HDSyncAnchorEntity__getAnchorsForProperty_anchorMap_store_profile_error___block_invoke_2;
+  v11[3] = &unk_27861E428;
+  v12 = *(a1 + 48);
+  v13 = *(a1 + 56);
+  v9 = [v7 enumerateProperties:v6 withPredicate:v5 healthDatabase:v8 error:a3 enumerationHandler:v11];
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 uint64_t __75__HDSyncAnchorEntity__getAnchorsForProperty_anchorMap_store_profile_error___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v5 = MEMORY[0x22AAC6C90](a4, 0);
+  v5 = MEMORY[0x22AAC6C90](a4, 0, a3);
   if ([v5 isEqualToString:@"main"])
   {
 
@@ -767,22 +761,22 @@ uint64_t __76__HDSyncAnchorEntity_enumerateSyncAnchorsForStoreID_database_error_
   return 1;
 }
 
-+ (uint64_t)_setSyncAnchor:(uint64_t)anchor updateDate:(uint64_t)date options:(uint64_t)options updatePolicy:(void *)policy entityIdentifier:(void *)identifier store:(void *)store transaction:(uint64_t)transaction error:
++ (uint64_t)_setSyncAnchor:(uint64_t)anchor updateDate:(uint64_t)date options:(void *)options updatePolicy:(void *)policy entityIdentifier:(void *)identifier store:(uint64_t)store transaction:(double)transaction error:
 {
-  v96[19] = *MEMORY[0x277D85DE8];
+  v95[19] = *MEMORY[0x277D85DE8];
+  optionsCopy = options;
   policyCopy = policy;
   identifierCopy = identifier;
-  storeCopy = store;
   v19 = objc_opt_self();
-  if (anchor < 0)
+  if (a2 < 0)
   {
     currentHandler = [MEMORY[0x277CCA890] currentHandler];
     [currentHandler handleFailureInMethod:sel__setSyncAnchor_updateDate_options_updatePolicy_entityIdentifier_store_transaction_error_ object:v19 file:@"HDSyncAnchorEntity.m" lineNumber:514 description:{@"Invalid parameter not satisfying: %@", @"HDSyncAnchorIsValid(anchor)"}];
   }
 
-  if ((date & 0x3F) != 0)
+  if ((anchor & 0x3F) != 0)
   {
-    if (policyCopy)
+    if (optionsCopy)
     {
       goto LABEL_5;
     }
@@ -791,7 +785,7 @@ LABEL_16:
     currentHandler2 = [MEMORY[0x277CCA890] currentHandler];
     [currentHandler2 handleFailureInMethod:sel__setSyncAnchor_updateDate_options_updatePolicy_entityIdentifier_store_transaction_error_ object:v19 file:@"HDSyncAnchorEntity.m" lineNumber:516 description:{@"Invalid parameter not satisfying: %@", @"entityIdentifier != nil"}];
 
-    if (identifierCopy)
+    if (policyCopy)
     {
       goto LABEL_6;
     }
@@ -802,13 +796,13 @@ LABEL_16:
   currentHandler3 = [MEMORY[0x277CCA890] currentHandler];
   [currentHandler3 handleFailureInMethod:sel__setSyncAnchor_updateDate_options_updatePolicy_entityIdentifier_store_transaction_error_ object:v19 file:@"HDSyncAnchorEntity.m" lineNumber:515 description:{@"Invalid parameter not satisfying: %@", @"(options & HDSyncAnchorUpdateOptionsNext) || (options & HDSyncAnchorUpdateOptionsAcked) || (options & HDSyncAnchorUpdateOptionsReceived) || (options & HDSyncAnchorUpdateOptionsFrozen) || (options & HDSyncAnchorUpdateOptionsExpected) || (options & HDSyncAnchorUpdateOptionsValidated)"}];
 
-  if (!policyCopy)
+  if (!optionsCopy)
   {
     goto LABEL_16;
   }
 
 LABEL_5:
-  if (identifierCopy)
+  if (policyCopy)
   {
     goto LABEL_6;
   }
@@ -818,8 +812,8 @@ LABEL_17:
   [currentHandler4 handleFailureInMethod:sel__setSyncAnchor_updateDate_options_updatePolicy_entityIdentifier_store_transaction_error_ object:v19 file:@"HDSyncAnchorEntity.m" lineNumber:517 description:{@"Invalid parameter not satisfying: %@", @"store != nil"}];
 
 LABEL_6:
-  v45 = policyCopy;
-  schemaIdentifier = [policyCopy schemaIdentifier];
+  v44 = optionsCopy;
+  schemaIdentifier = [optionsCopy schemaIdentifier];
   v21 = schemaIdentifier;
   v22 = @"main";
   if (schemaIdentifier)
@@ -829,19 +823,15 @@ LABEL_6:
 
   v23 = v22;
 
-  [storeCopy databaseForEntityClass:objc_opt_class()];
-  optionsCopy = options;
+  [identifierCopy databaseForEntityClass:objc_opt_class()];
   dateCopy = date;
-  v90 = 0;
-  v91 = &v90;
-  v92 = 0x3032000000;
-  v93 = __Block_byref_object_copy__183;
-  v94 = __Block_byref_object_dispose__183;
-  v95 = 0;
-  v89[0] = 0;
-  v89[1] = v89;
-  v89[2] = 0x2020000000;
-  v89[3] = 0;
+  anchorCopy = anchor;
+  v89 = 0;
+  v90 = &v89;
+  v91 = 0x3032000000;
+  v92 = __Block_byref_object_copy__183;
+  v93 = __Block_byref_object_dispose__183;
+  v94 = 0;
   v88[0] = 0;
   v88[1] = v88;
   v88[2] = 0x2020000000;
@@ -861,11 +851,11 @@ LABEL_6:
   v84[0] = 0;
   v84[1] = v84;
   v84[2] = 0x2020000000;
-  v24 = v84[3] = 0;
+  v84[3] = 0;
   v83[0] = 0;
   v83[1] = v83;
   v83[2] = 0x2020000000;
-  v83[3] = 0;
+  v24 = v83[3] = 0;
   v82[0] = 0;
   v82[1] = v82;
   v82[2] = 0x2020000000;
@@ -886,136 +876,141 @@ LABEL_6:
   v78[1] = v78;
   v78[2] = 0x2020000000;
   v78[3] = 0;
-  v77[0] = MEMORY[0x277D85DD0];
-  v77[1] = 3221225472;
-  v77[2] = __110__HDSyncAnchorEntity__setSyncAnchor_updateDate_options_updatePolicy_entityIdentifier_store_transaction_error___block_invoke;
-  v77[3] = &__block_descriptor_40_e15___NSString_8__0l;
-  v77[4] = v19;
-  v73[0] = MEMORY[0x277D85DD0];
-  v73[1] = 3221225472;
-  v73[2] = __110__HDSyncAnchorEntity__setSyncAnchor_updateDate_options_updatePolicy_entityIdentifier_store_transaction_error___block_invoke_2;
-  v73[3] = &unk_278613528;
-  v25 = v23;
-  v74 = v25;
-  v26 = v45;
-  v75 = v26;
-  v27 = identifierCopy;
-  v76 = v27;
+  v77[0] = 0;
+  v77[1] = v77;
+  v77[2] = 0x2020000000;
+  v77[3] = 0;
+  v76[0] = MEMORY[0x277D85DD0];
+  v76[1] = 3221225472;
+  v76[2] = __110__HDSyncAnchorEntity__setSyncAnchor_updateDate_options_updatePolicy_entityIdentifier_store_transaction_error___block_invoke;
+  v76[3] = &__block_descriptor_40_e15___NSString_8__0l;
+  v76[4] = v19;
   v72[0] = MEMORY[0x277D85DD0];
   v72[1] = 3221225472;
-  v72[2] = __110__HDSyncAnchorEntity__setSyncAnchor_updateDate_options_updatePolicy_entityIdentifier_store_transaction_error___block_invoke_3;
-  v72[3] = &unk_27862C728;
-  v72[4] = &v90;
-  v72[5] = v89;
-  v72[6] = v88;
-  v72[7] = v87;
-  v72[8] = v86;
-  v72[9] = v85;
-  v72[10] = v84;
-  v72[11] = v83;
-  v72[12] = v82;
-  v72[13] = v81;
-  v72[14] = v80;
-  v72[15] = v79;
-  v72[16] = v78;
-  if ([v24 executeCachedStatementForKey:&_setSyncAnchor_updateDate_options_updatePolicy_entityIdentifier_store_transaction_error__lookupKey error:transaction SQLGenerator:v77 bindingHandler:v73 enumerationHandler:v72])
+  v72[2] = __110__HDSyncAnchorEntity__setSyncAnchor_updateDate_options_updatePolicy_entityIdentifier_store_transaction_error___block_invoke_2;
+  v72[3] = &unk_278613528;
+  v25 = v23;
+  v73 = v25;
+  v26 = v44;
+  v74 = v26;
+  v27 = policyCopy;
+  v75 = v27;
+  v71[0] = MEMORY[0x277D85DD0];
+  v71[1] = 3221225472;
+  v71[2] = __110__HDSyncAnchorEntity__setSyncAnchor_updateDate_options_updatePolicy_entityIdentifier_store_transaction_error___block_invoke_3;
+  v71[3] = &unk_27862C728;
+  v71[4] = &v89;
+  v71[5] = v88;
+  v71[6] = v87;
+  v71[7] = v86;
+  v71[8] = v85;
+  v71[9] = v84;
+  v71[10] = v83;
+  v71[11] = v82;
+  v71[12] = v81;
+  v71[13] = v80;
+  v71[14] = v79;
+  v71[15] = v78;
+  v71[16] = v77;
+  if ([v24 executeCachedStatementForKey:&_setSyncAnchor_updateDate_options_updatePolicy_entityIdentifier_store_transaction_error__lookupKey error:store SQLGenerator:v76 bindingHandler:v72 enumerationHandler:v71])
   {
-    v28 = storeCopy;
-    if (v91[5])
+    v28 = identifierCopy;
+    if (v90[5])
     {
       aBlock[0] = MEMORY[0x277D85DD0];
       aBlock[1] = 3221225472;
       aBlock[2] = __110__HDSyncAnchorEntity__setSyncAnchor_updateDate_options_updatePolicy_entityIdentifier_store_transaction_error___block_invoke_6;
       aBlock[3] = &__block_descriptor_48_e8_q16__0q8l;
-      aBlock[4] = optionsCopy;
-      aBlock[5] = anchor;
+      aBlock[4] = dateCopy;
+      aBlock[5] = a2;
       v29 = _Block_copy(aBlock);
-      v62[0] = MEMORY[0x277D85DD0];
-      v62[1] = 3221225472;
-      v62[2] = __110__HDSyncAnchorEntity__setSyncAnchor_updateDate_options_updatePolicy_entityIdentifier_store_transaction_error___block_invoke_7;
-      v62[3] = &unk_27862C7B8;
-      v63[1] = dateCopy;
-      v30 = v29;
-      v63[0] = v30;
-      *&v63[2] = self;
-      v31 = _Block_copy(v62);
       v61[0] = MEMORY[0x277D85DD0];
       v61[1] = 3221225472;
-      v61[2] = __110__HDSyncAnchorEntity__setSyncAnchor_updateDate_options_updatePolicy_entityIdentifier_store_transaction_error___block_invoke_8;
-      v61[3] = &__block_descriptor_40_e15___NSString_8__0l;
-      v61[4] = v19;
-      v46[0] = MEMORY[0x277D85DD0];
-      v46[1] = 3221225472;
-      v46[2] = __110__HDSyncAnchorEntity__setSyncAnchor_updateDate_options_updatePolicy_entityIdentifier_store_transaction_error___block_invoke_9;
-      v46[3] = &unk_27862C7E0;
+      v61[2] = __110__HDSyncAnchorEntity__setSyncAnchor_updateDate_options_updatePolicy_entityIdentifier_store_transaction_error___block_invoke_7;
+      v61[3] = &unk_27862C7B8;
+      v62[1] = anchorCopy;
+      v30 = v29;
+      v62[0] = v30;
+      *&v62[2] = transaction;
+      v31 = _Block_copy(v61);
+      v60[0] = MEMORY[0x277D85DD0];
+      v60[1] = 3221225472;
+      v60[2] = __110__HDSyncAnchorEntity__setSyncAnchor_updateDate_options_updatePolicy_entityIdentifier_store_transaction_error___block_invoke_8;
+      v60[3] = &__block_descriptor_40_e15___NSString_8__0l;
+      v60[4] = v19;
+      v45[0] = MEMORY[0x277D85DD0];
+      v45[1] = 3221225472;
+      v45[2] = __110__HDSyncAnchorEntity__setSyncAnchor_updateDate_options_updatePolicy_entityIdentifier_store_transaction_error___block_invoke_9;
+      v45[3] = &unk_27862C7E0;
       v32 = v31;
-      v47 = v32;
-      v48 = v89;
-      v49 = v88;
-      v50 = v87;
-      v51 = v86;
-      v52 = v85;
-      v53 = v84;
-      v54 = v83;
-      v55 = v82;
-      v56 = v81;
-      v57 = v80;
-      v58 = v79;
-      v59 = v78;
-      v60 = &v90;
-      v33 = [v24 executeCachedStatementForKey:&_setSyncAnchor_updateDate_options_updatePolicy_entityIdentifier_store_transaction_error__updateKey error:transaction SQLGenerator:v61 bindingHandler:v46 enumerationHandler:0];
+      v46 = v32;
+      v47 = v88;
+      v48 = v87;
+      v49 = v86;
+      v50 = v85;
+      v51 = v84;
+      v52 = v83;
+      v53 = v82;
+      v54 = v81;
+      v55 = v80;
+      v56 = v79;
+      v57 = v78;
+      v58 = v77;
+      v59 = &v89;
+      v33 = [v24 executeCachedStatementForKey:&_setSyncAnchor_updateDate_options_updatePolicy_entityIdentifier_store_transaction_error__updateKey error:store SQLGenerator:v60 bindingHandler:v45 enumerationHandler:0];
 
-      v34 = v63;
+      v34 = v62;
     }
 
     else
     {
-      v96[0] = @"next";
-      v96[1] = @"next_updated_date";
-      v96[2] = @"acked";
-      v96[3] = @"acked_updated_date";
-      v96[4] = @"frozen";
-      v96[5] = @"frozen_updated_date";
-      v96[6] = @"received";
-      v96[7] = @"received_updated_date";
-      v96[8] = @"expected";
-      v96[9] = @"expected_updated_date";
-      v96[10] = @"validated";
-      v96[11] = @"validated_updated_date";
-      v96[12] = @"schema";
-      v96[13] = @"type";
-      v96[14] = @"store";
-      v96[15] = @"epoch";
-      v96[16] = @"local_version";
-      v96[17] = @"received_version";
-      v96[18] = @"requested_version";
-      v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v96 count:19];
-      v65[0] = MEMORY[0x277D85DD0];
-      v65[1] = 3221225472;
-      v65[2] = __110__HDSyncAnchorEntity__setSyncAnchor_updateDate_options_updatePolicy_entityIdentifier_store_transaction_error___block_invoke_4;
-      v65[3] = &unk_27862C770;
-      v69 = dateCopy;
-      anchorCopy = anchor;
-      selfCopy = self;
-      v66 = v25;
-      v67 = v26;
-      v68 = v27;
-      v35 = [v19 insertOrReplaceEntity:0 database:v24 properties:v30 error:transaction bindingHandler:v65];
-      v36 = v91[5];
-      v91[5] = v35;
+      v95[0] = @"next";
+      v95[1] = @"next_updated_date";
+      v95[2] = @"acked";
+      v95[3] = @"acked_updated_date";
+      v95[4] = @"frozen";
+      v95[5] = @"frozen_updated_date";
+      v95[6] = @"received";
+      v95[7] = @"received_updated_date";
+      v95[8] = @"expected";
+      v95[9] = @"expected_updated_date";
+      v95[10] = @"validated";
+      v95[11] = @"validated_updated_date";
+      v95[12] = @"schema";
+      v95[13] = @"type";
+      v95[14] = @"store";
+      v95[15] = @"epoch";
+      v95[16] = @"local_version";
+      v95[17] = @"received_version";
+      v95[18] = @"requested_version";
+      v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v95 count:19];
+      v64[0] = MEMORY[0x277D85DD0];
+      v64[1] = 3221225472;
+      v64[2] = __110__HDSyncAnchorEntity__setSyncAnchor_updateDate_options_updatePolicy_entityIdentifier_store_transaction_error___block_invoke_4;
+      v64[3] = &unk_27862C770;
+      v68 = anchorCopy;
+      v69 = a2;
+      transactionCopy = transaction;
+      v65 = v25;
+      v66 = v26;
+      v67 = v27;
+      v35 = [v19 insertOrReplaceEntity:0 database:v24 properties:v30 error:store bindingHandler:v64];
+      v36 = v90[5];
+      v90[5] = v35;
 
-      v33 = v91[5] != 0;
-      v34 = &v66;
-      v32 = v67;
+      v33 = v90[5] != 0;
+      v34 = &v65;
+      v32 = v66;
     }
   }
 
   else
   {
     v33 = 0;
-    v28 = storeCopy;
+    v28 = identifierCopy;
   }
 
+  _Block_object_dispose(v77, 8);
   _Block_object_dispose(v78, 8);
   _Block_object_dispose(v79, 8);
   _Block_object_dispose(v80, 8);
@@ -1027,10 +1022,8 @@ LABEL_6:
   _Block_object_dispose(v86, 8);
   _Block_object_dispose(v87, 8);
   _Block_object_dispose(v88, 8);
-  _Block_object_dispose(v89, 8);
-  _Block_object_dispose(&v90, 8);
+  _Block_object_dispose(&v89, 8);
 
-  v37 = *MEMORY[0x277D85DE8];
   return v33;
 }
 
@@ -1045,13 +1038,12 @@ id __110__HDSyncAnchorEntity__setSyncAnchor_updateDate_options_updatePolicy_enti
 
 uint64_t __110__HDSyncAnchorEntity__setSyncAnchor_updateDate_options_updatePolicy_entityIdentifier_store_transaction_error___block_invoke_2(uint64_t a1, sqlite3_stmt *a2)
 {
-  v4 = *(a1 + 32);
   HDSQLiteBindStringToStatement();
   sqlite3_bind_int64(a2, 2, [*(a1 + 40) entityIdentifier]);
   sqlite3_bind_int64(a2, 3, [*(a1 + 48) syncProvenance]);
-  v5 = [*(a1 + 48) syncEpoch];
+  v4 = [*(a1 + 48) syncEpoch];
 
-  return sqlite3_bind_int64(a2, 4, v5);
+  return sqlite3_bind_int64(a2, 4, v4);
 }
 
 uint64_t __110__HDSyncAnchorEntity__setSyncAnchor_updateDate_options_updatePolicy_entityIdentifier_store_transaction_error___block_invoke_3(void *a1, uint64_t a2)
@@ -1200,51 +1192,45 @@ id __110__HDSyncAnchorEntity__setSyncAnchor_updateDate_options_updatePolicy_enti
 
 uint64_t __110__HDSyncAnchorEntity__setSyncAnchor_updateDate_options_updatePolicy_entityIdentifier_store_transaction_error___block_invoke_9(void *a1, sqlite3_stmt *a2)
 {
-  v4 = *(*(a1[5] + 8) + 24);
   (*(a1[4] + 16))(*(*(a1[6] + 8) + 24));
-  v5 = *(*(a1[7] + 8) + 24);
   (*(a1[4] + 16))(*(*(a1[8] + 8) + 24));
-  v6 = *(*(a1[9] + 8) + 24);
   (*(a1[4] + 16))(*(*(a1[10] + 8) + 24));
-  v7 = *(*(a1[11] + 8) + 24);
   (*(a1[4] + 16))(*(*(a1[12] + 8) + 24));
-  v8 = *(*(a1[13] + 8) + 24);
   (*(a1[4] + 16))(*(*(a1[14] + 8) + 24));
-  v9 = *(*(a1[15] + 8) + 24);
   (*(a1[4] + 16))(*(*(a1[16] + 8) + 24));
-  v10 = [*(*(a1[17] + 8) + 40) persistentID];
+  v4 = [*(*(a1[17] + 8) + 40) persistentID];
 
-  return sqlite3_bind_int64(a2, 13, v10);
+  return sqlite3_bind_int64(a2, 13, v4);
 }
 
 uint64_t __112__HDSyncAnchorEntity__setAnchorsWithMap_updateDate_store_updateOptions_updatePolicy_resetInvalid_profile_error___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v5 = a2;
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v6 = [*(a1 + 32) orderedSyncEntities];
-  v7 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (!v7)
   {
     goto LABEL_14;
   }
 
   v8 = v7;
-  v9 = *v21;
+  v9 = *v20;
   do
   {
     v10 = 0;
     do
     {
-      if (*v21 != v9)
+      if (*v20 != v9)
       {
         objc_enumerationMutation(v6);
       }
 
-      v11 = *(*(&v20 + 1) + 8 * v10);
+      v11 = *(*(&v19 + 1) + 8 * v10);
       v12 = [v11 syncEntityIdentifier];
       v13 = [*(a1 + 40) anchorForSyncEntityClass:v11];
       v14 = v13;
@@ -1259,7 +1245,7 @@ uint64_t __112__HDSyncAnchorEntity__setAnchorsWithMap_updateDate_store_updateOpt
         goto LABEL_10;
       }
 
-      v15 = [(HDSyncAnchorEntity *)*(a1 + 56) _setSyncAnchor:v14 updateDate:*(a1 + 64) options:*(a1 + 72) updatePolicy:v12 entityIdentifier:*(a1 + 32) store:v5 transaction:a3 error:?];
+      v15 = [(HDSyncAnchorEntity *)*(a1 + 48) _setSyncAnchor:v14 updateDate:*(a1 + 64) options:*(a1 + 72) updatePolicy:v12 entityIdentifier:*(a1 + 32) store:v5 transaction:a3 error:*(a1 + 56)];
 
       if (!v15)
       {
@@ -1272,7 +1258,7 @@ LABEL_10:
     }
 
     while (v8 != v10);
-    v16 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v16 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
     v8 = v16;
   }
 
@@ -1281,7 +1267,6 @@ LABEL_14:
   v17 = 1;
 LABEL_16:
 
-  v18 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
@@ -1306,35 +1291,34 @@ uint64_t __88__HDSyncAnchorEntity_resetNextAnchorsIfNeededForStore_profile_minim
 {
   v5 = a2;
   Current = CFAbsoluteTimeGetCurrent();
-  v7 = *(a1 + 40);
-  v8 = *(a1 + 48);
-  v9 = *(a1 + 32);
-  v10 = v5;
-  v11 = objc_opt_self();
-  if (!v9)
+  v7 = *(a1 + 48);
+  v8 = *(a1 + 32);
+  v9 = v5;
+  v10 = objc_opt_self();
+  if (!v8)
   {
-    v16 = [MEMORY[0x277CCA890] currentHandler];
-    [v16 handleFailureInMethod:sel__resetNextAnchorsForStore_updateDate_minimumElapsedTime_transaction_error_ object:v11 file:@"HDSyncAnchorEntity.m" lineNumber:754 description:{@"Invalid parameter not satisfying: %@", @"store != nil"}];
+    v15 = [MEMORY[0x277CCA890] currentHandler];
+    [v15 handleFailureInMethod:sel__resetNextAnchorsForStore_updateDate_minimumElapsedTime_transaction_error_ object:v10 file:@"HDSyncAnchorEntity.m" lineNumber:754 description:{@"Invalid parameter not satisfying: %@", @"store != nil"}];
   }
 
-  v12 = [v10 databaseForEntityClass:objc_opt_class()];
+  v11 = [v9 databaseForEntityClass:objc_opt_class()];
 
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __96__HDSyncAnchorEntity__resetNextAnchorsForStore_updateDate_minimumElapsedTime_transaction_error___block_invoke;
-  v21[3] = &__block_descriptor_40_e15___NSString_8__0l;
-  v21[4] = v11;
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __96__HDSyncAnchorEntity__resetNextAnchorsForStore_updateDate_minimumElapsedTime_transaction_error___block_invoke_2;
-  v17[3] = &unk_278619A20;
-  v19 = Current;
-  v20 = v8;
-  v18 = v9;
-  v13 = v9;
-  v14 = [v12 executeCachedStatementForKey:&_resetNextAnchorsForStore_updateDate_minimumElapsedTime_transaction_error__updateKey error:a3 SQLGenerator:v21 bindingHandler:v17 enumerationHandler:0];
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __96__HDSyncAnchorEntity__resetNextAnchorsForStore_updateDate_minimumElapsedTime_transaction_error___block_invoke;
+  v20[3] = &__block_descriptor_40_e15___NSString_8__0l;
+  v20[4] = v10;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __96__HDSyncAnchorEntity__resetNextAnchorsForStore_updateDate_minimumElapsedTime_transaction_error___block_invoke_2;
+  v16[3] = &unk_278619A20;
+  v18 = Current;
+  v19 = v7;
+  v17 = v8;
+  v12 = v8;
+  v13 = [v11 executeCachedStatementForKey:&_resetNextAnchorsForStore_updateDate_minimumElapsedTime_transaction_error__updateKey error:a3 SQLGenerator:v20 bindingHandler:v16 enumerationHandler:0];
 
-  return v14;
+  return v13;
 }
 
 id __96__HDSyncAnchorEntity__resetNextAnchorsForStore_updateDate_minimumElapsedTime_transaction_error___block_invoke(uint64_t a1)
@@ -1368,13 +1352,12 @@ id __87__HDSyncAnchorEntity__initializeLocalVersion_entityIdentifier_store_trans
 uint64_t __87__HDSyncAnchorEntity__initializeLocalVersion_entityIdentifier_store_transaction_error___block_invoke_2(uint64_t a1, sqlite3_stmt *a2)
 {
   sqlite3_bind_int(a2, 1, *(a1 + 56));
-  v4 = *(a1 + 32);
   HDSQLiteBindFoundationValueToStatement();
   sqlite3_bind_int64(a2, 3, [*(a1 + 40) entityIdentifier]);
   sqlite3_bind_int64(a2, 4, [*(a1 + 48) syncProvenance]);
-  v5 = [*(a1 + 48) syncEpoch];
+  v4 = [*(a1 + 48) syncEpoch];
 
-  return sqlite3_bind_int64(a2, 5, v5);
+  return sqlite3_bind_int64(a2, 5, v4);
 }
 
 id __108__HDSyncAnchorEntity__resetAnchorsToValidateAndUpdateLocalVersion_entityIdentifier_store_transaction_error___block_invoke(uint64_t a1)
@@ -1391,13 +1374,12 @@ uint64_t __108__HDSyncAnchorEntity__resetAnchorsToValidateAndUpdateLocalVersion_
   sqlite3_bind_int64(a2, 1, *(a1 + 64));
   sqlite3_bind_double(a2, 2, *(a1 + 56));
   sqlite3_bind_double(a2, 3, *(a1 + 56));
-  v4 = *(a1 + 32);
   HDSQLiteBindFoundationValueToStatement();
   sqlite3_bind_int64(a2, 5, [*(a1 + 40) entityIdentifier]);
   sqlite3_bind_int64(a2, 6, [*(a1 + 48) syncProvenance]);
-  v5 = [*(a1 + 48) syncEpoch];
+  v4 = [*(a1 + 48) syncEpoch];
 
-  return sqlite3_bind_int64(a2, 7, v5);
+  return sqlite3_bind_int64(a2, 7, v4);
 }
 
 id __92__HDSyncAnchorEntity__primitiveUpdateLocalVersion_entityIdentifier_store_transaction_error___block_invoke(uint64_t a1)
@@ -1412,18 +1394,17 @@ id __92__HDSyncAnchorEntity__primitiveUpdateLocalVersion_entityIdentifier_store_
 uint64_t __92__HDSyncAnchorEntity__primitiveUpdateLocalVersion_entityIdentifier_store_transaction_error___block_invoke_2(uint64_t a1, sqlite3_stmt *a2)
 {
   sqlite3_bind_int64(a2, 1, *(a1 + 56));
-  v4 = *(a1 + 32);
   HDSQLiteBindFoundationValueToStatement();
   sqlite3_bind_int64(a2, 3, [*(a1 + 40) entityIdentifier]);
   sqlite3_bind_int64(a2, 4, [*(a1 + 48) syncProvenance]);
-  v5 = [*(a1 + 48) syncEpoch];
+  v4 = [*(a1 + 48) syncEpoch];
 
-  return sqlite3_bind_int64(a2, 5, v5);
+  return sqlite3_bind_int64(a2, 5, v4);
 }
 
 + (BOOL)updateLocalVersion:(int)version entityIdentifier:(id)identifier store:(id)store transaction:(id)transaction error:(id *)error
 {
-  v96 = *MEMORY[0x277D85DE8];
+  v95 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   storeCopy = store;
   transactionCopy = transaction;
@@ -1444,47 +1425,47 @@ uint64_t __92__HDSyncAnchorEntity__primitiveUpdateLocalVersion_entityIdentifier_
   v17 = v16;
 
   v18 = [transactionCopy databaseForEntityClass:objc_opt_class()];
-  v82 = 0;
-  v83 = &v82;
-  v84 = 0x2020000000;
-  v85 = -1;
-  v78 = 0;
-  v79 = &v78;
-  v80 = 0x2020000000;
-  v81 = -1;
-  v74 = 0;
-  v75 = &v74;
-  v76 = 0x2020000000;
+  v81 = 0;
+  v82 = &v81;
+  v83 = 0x2020000000;
+  v84 = -1;
   v77 = 0;
-  v73[0] = MEMORY[0x277D85DD0];
-  v73[1] = 3221225472;
-  v73[2] = __82__HDSyncAnchorEntity_updateLocalVersion_entityIdentifier_store_transaction_error___block_invoke;
-  v73[3] = &__block_descriptor_40_e15___NSString_8__0l;
-  v73[4] = self;
-  v69[0] = MEMORY[0x277D85DD0];
-  v69[1] = 3221225472;
-  v69[2] = __82__HDSyncAnchorEntity_updateLocalVersion_entityIdentifier_store_transaction_error___block_invoke_2;
-  v69[3] = &unk_278613528;
-  v19 = v17;
-  v70 = v19;
-  v20 = identifierCopy;
-  v71 = v20;
-  v21 = storeCopy;
-  v72 = v21;
+  v78 = &v77;
+  v79 = 0x2020000000;
+  v80 = -1;
+  v73 = 0;
+  v74 = &v73;
+  v75 = 0x2020000000;
+  v76 = 0;
+  v72[0] = MEMORY[0x277D85DD0];
+  v72[1] = 3221225472;
+  v72[2] = __82__HDSyncAnchorEntity_updateLocalVersion_entityIdentifier_store_transaction_error___block_invoke;
+  v72[3] = &__block_descriptor_40_e15___NSString_8__0l;
+  v72[4] = self;
   v68[0] = MEMORY[0x277D85DD0];
   v68[1] = 3221225472;
-  v68[2] = __82__HDSyncAnchorEntity_updateLocalVersion_entityIdentifier_store_transaction_error___block_invoke_3;
-  v68[3] = &unk_278627FD0;
-  v68[4] = &v82;
-  v68[5] = &v78;
-  v68[6] = &v74;
-  if ([v18 executeCachedStatementForKey:&updateLocalVersion_entityIdentifier_store_transaction_error__lookupKey error:error SQLGenerator:v73 bindingHandler:v69 enumerationHandler:v68])
+  v68[2] = __82__HDSyncAnchorEntity_updateLocalVersion_entityIdentifier_store_transaction_error___block_invoke_2;
+  v68[3] = &unk_278613528;
+  v19 = v17;
+  v69 = v19;
+  v20 = identifierCopy;
+  v70 = v20;
+  v21 = storeCopy;
+  v71 = v21;
+  v67[0] = MEMORY[0x277D85DD0];
+  v67[1] = 3221225472;
+  v67[2] = __82__HDSyncAnchorEntity_updateLocalVersion_entityIdentifier_store_transaction_error___block_invoke_3;
+  v67[3] = &unk_278627FD0;
+  v67[4] = &v81;
+  v67[5] = &v77;
+  v67[6] = &v73;
+  if ([v18 executeCachedStatementForKey:&updateLocalVersion_entityIdentifier_store_transaction_error__lookupKey error:error SQLGenerator:v72 bindingHandler:v68 enumerationHandler:v67])
   {
-    v22 = *(v83 + 6);
+    v22 = *(v82 + 6);
     if (v22 < 0)
     {
       v38 = v20;
-      v64 = v21;
+      v63 = v21;
       v39 = transactionCopy;
       v40 = objc_opt_self();
       schemaIdentifier2 = [v38 schemaIdentifier];
@@ -1495,27 +1476,27 @@ uint64_t __92__HDSyncAnchorEntity__primitiveUpdateLocalVersion_entityIdentifier_
         v42 = schemaIdentifier2;
       }
 
-      v61 = v42;
+      v60 = v42;
 
       v43 = [v39 databaseForEntityClass:objc_opt_class()];
-      LODWORD(v31) = [(HDSyncAnchorEntity *)0.0 _setSyncAnchor:v40 updateDate:0 options:4 updatePolicy:1 entityIdentifier:v38 store:v64 transaction:v39 error:error];
+      LODWORD(v31) = [(HDSyncAnchorEntity *)v40 _setSyncAnchor:4 updateDate:1 options:v38 updatePolicy:v63 entityIdentifier:v39 store:error transaction:0.0 error:?];
 
       if (v31)
       {
-        v86 = MEMORY[0x277D85DD0];
-        v87 = 3221225472;
-        v88 = __87__HDSyncAnchorEntity__initializeLocalVersion_entityIdentifier_store_transaction_error___block_invoke;
-        v89 = &__block_descriptor_40_e15___NSString_8__0l;
-        v90 = v40;
+        v85 = MEMORY[0x277D85DD0];
+        v86 = 3221225472;
+        v87 = __87__HDSyncAnchorEntity__initializeLocalVersion_entityIdentifier_store_transaction_error___block_invoke;
+        v88 = &__block_descriptor_40_e15___NSString_8__0l;
+        v89 = v40;
         *buf = MEMORY[0x277D85DD0];
         *&buf[8] = 3221225472;
         *&buf[16] = __87__HDSyncAnchorEntity__initializeLocalVersion_entityIdentifier_store_transaction_error___block_invoke_2;
-        *v92 = &unk_27862C830;
-        LODWORD(v94) = version;
-        *&v92[8] = v61;
-        *&v92[16] = v38;
-        v93 = v64;
-        LOBYTE(v31) = [v43 executeCachedStatementForKey:&_initializeLocalVersion_entityIdentifier_store_transaction_error__setInitialKey error:error SQLGenerator:&v86 bindingHandler:buf enumerationHandler:0];
+        *v91 = &unk_27862C830;
+        LODWORD(v93) = version;
+        *&v91[8] = v60;
+        *&v91[16] = v38;
+        v92 = v63;
+        LOBYTE(v31) = [v43 executeCachedStatementForKey:&_initializeLocalVersion_entityIdentifier_store_transaction_error__setInitialKey error:error SQLGenerator:&v85 bindingHandler:buf enumerationHandler:0];
       }
     }
 
@@ -1524,30 +1505,30 @@ uint64_t __92__HDSyncAnchorEntity__primitiveUpdateLocalVersion_entityIdentifier_
       LOBYTE(v31) = 1;
     }
 
-    else if (v22 >= *(v79 + 6))
+    else if (v22 >= *(v78 + 6))
     {
       _HKInitializeLogging();
       v44 = *MEMORY[0x277CCC328];
       if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
       {
-        v45 = *(v83 + 6);
+        v45 = *(v82 + 6);
         v46 = [v20 description];
-        v47 = *(v79 + 6);
+        v47 = *(v78 + 6);
         *buf = 138544386;
         *&buf[4] = self;
         *&buf[12] = 1026;
         *&buf[14] = v45;
         *&buf[18] = 1026;
         *&buf[20] = version;
-        *v92 = 2114;
-        *&v92[2] = v46;
-        *&v92[10] = 1026;
-        *&v92[12] = v47;
+        *v91 = 2114;
+        *&v91[2] = v46;
+        *&v91[10] = 1026;
+        *&v91[12] = v47;
         _os_log_impl(&dword_228986000, v44, OS_LOG_TYPE_DEFAULT, "%{public}@: Local entity sync version change (%{public}d -> %{public}d) for %{public}@; no anchor reset needed (highest received version: %{public}d)", buf, 0x28u);
       }
 
       v48 = v20;
-      v62 = v21;
+      v61 = v21;
       v49 = transactionCopy;
       v50 = objc_opt_self();
       schemaIdentifier3 = [v48 schemaIdentifier];
@@ -1560,25 +1541,25 @@ uint64_t __92__HDSyncAnchorEntity__primitiveUpdateLocalVersion_entityIdentifier_
 
       v53 = v52;
 
-      v65 = [v49 databaseForEntityClass:objc_opt_class()];
+      v64 = [v49 databaseForEntityClass:objc_opt_class()];
 
-      v86 = MEMORY[0x277D85DD0];
-      v87 = 3221225472;
-      v88 = __92__HDSyncAnchorEntity__primitiveUpdateLocalVersion_entityIdentifier_store_transaction_error___block_invoke;
-      v89 = &__block_descriptor_40_e15___NSString_8__0l;
-      v90 = v50;
+      v85 = MEMORY[0x277D85DD0];
+      v86 = 3221225472;
+      v87 = __92__HDSyncAnchorEntity__primitiveUpdateLocalVersion_entityIdentifier_store_transaction_error___block_invoke;
+      v88 = &__block_descriptor_40_e15___NSString_8__0l;
+      v89 = v50;
       *buf = MEMORY[0x277D85DD0];
       *&buf[8] = 3221225472;
       *&buf[16] = __92__HDSyncAnchorEntity__primitiveUpdateLocalVersion_entityIdentifier_store_transaction_error___block_invoke_2;
-      *v92 = &unk_27862C830;
-      LODWORD(v94) = version;
-      *&v92[8] = v53;
-      *&v92[16] = v48;
-      v93 = v62;
-      v54 = v62;
+      *v91 = &unk_27862C830;
+      LODWORD(v93) = version;
+      *&v91[8] = v53;
+      *&v91[16] = v48;
+      v92 = v61;
+      v54 = v61;
       v55 = v48;
       v56 = v53;
-      LOBYTE(v31) = [v65 executeCachedStatementForKey:&_primitiveUpdateLocalVersion_entityIdentifier_store_transaction_error__updateKey error:error SQLGenerator:&v86 bindingHandler:buf enumerationHandler:0];
+      LOBYTE(v31) = [v64 executeCachedStatementForKey:&_primitiveUpdateLocalVersion_entityIdentifier_store_transaction_error__updateKey error:error SQLGenerator:&v85 bindingHandler:buf enumerationHandler:0];
     }
 
     else
@@ -1587,24 +1568,24 @@ uint64_t __92__HDSyncAnchorEntity__primitiveUpdateLocalVersion_entityIdentifier_
       v23 = *MEMORY[0x277CCC328];
       if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
-        v24 = *(v83 + 6);
+        v24 = *(v82 + 6);
         v25 = [v20 description];
-        v26 = v75[3];
+        v26 = v74[3];
         *buf = 138544386;
         *&buf[4] = self;
         *&buf[12] = 1026;
         *&buf[14] = v24;
         *&buf[18] = 1026;
         *&buf[20] = version;
-        *v92 = 2114;
-        *&v92[2] = v25;
-        *&v92[10] = 2050;
-        *&v92[12] = v26;
+        *v91 = 2114;
+        *&v91[2] = v25;
+        *&v91[10] = 2050;
+        *&v91[12] = v26;
         _os_log_impl(&dword_228986000, v23, OS_LOG_TYPE_DEFAULT, "%{public}@: Local entity sync version change (%{public}d -> %{public}d) for %{public}@; resetting received and expected anchors to %{public}lld", buf, 0x2Cu);
       }
 
       v27 = v20;
-      v60 = v21;
+      v59 = v21;
       v28 = transactionCopy;
       v29 = objc_opt_self();
       schemaIdentifier4 = [v27 schemaIdentifier];
@@ -1617,27 +1598,27 @@ uint64_t __92__HDSyncAnchorEntity__primitiveUpdateLocalVersion_entityIdentifier_
 
       v33 = v32;
 
-      v63 = [v28 databaseForEntityClass:objc_opt_class()];
+      v62 = [v28 databaseForEntityClass:objc_opt_class()];
 
       Current = CFAbsoluteTimeGetCurrent();
-      v86 = MEMORY[0x277D85DD0];
-      v87 = 3221225472;
-      v88 = __108__HDSyncAnchorEntity__resetAnchorsToValidateAndUpdateLocalVersion_entityIdentifier_store_transaction_error___block_invoke;
-      v89 = &__block_descriptor_40_e15___NSString_8__0l;
-      v90 = v29;
+      v85 = MEMORY[0x277D85DD0];
+      v86 = 3221225472;
+      v87 = __108__HDSyncAnchorEntity__resetAnchorsToValidateAndUpdateLocalVersion_entityIdentifier_store_transaction_error___block_invoke;
+      v88 = &__block_descriptor_40_e15___NSString_8__0l;
+      v89 = v29;
       *buf = MEMORY[0x277D85DD0];
       *&buf[8] = 3221225472;
       *&buf[16] = __108__HDSyncAnchorEntity__resetAnchorsToValidateAndUpdateLocalVersion_entityIdentifier_store_transaction_error___block_invoke_2;
-      *v92 = &unk_27862C858;
+      *v91 = &unk_27862C858;
       versionCopy = version;
-      v94 = Current;
-      *&v92[8] = v33;
-      *&v92[16] = v27;
-      v93 = v60;
-      v35 = v60;
+      v93 = Current;
+      *&v91[8] = v33;
+      *&v91[16] = v27;
+      v92 = v59;
+      v35 = v59;
       v36 = v27;
       v37 = v33;
-      LOBYTE(v31) = [v63 executeCachedStatementForKey:&_resetAnchorsToValidateAndUpdateLocalVersion_entityIdentifier_store_transaction_error__updateKey error:error SQLGenerator:&v86 bindingHandler:buf enumerationHandler:0];
+      LOBYTE(v31) = [v62 executeCachedStatementForKey:&_resetAnchorsToValidateAndUpdateLocalVersion_entityIdentifier_store_transaction_error__updateKey error:error SQLGenerator:&v85 bindingHandler:buf enumerationHandler:0];
     }
   }
 
@@ -1646,11 +1627,10 @@ uint64_t __92__HDSyncAnchorEntity__primitiveUpdateLocalVersion_entityIdentifier_
     LOBYTE(v31) = 0;
   }
 
-  _Block_object_dispose(&v74, 8);
-  _Block_object_dispose(&v78, 8);
-  _Block_object_dispose(&v82, 8);
+  _Block_object_dispose(&v73, 8);
+  _Block_object_dispose(&v77, 8);
+  _Block_object_dispose(&v81, 8);
 
-  v57 = *MEMORY[0x277D85DE8];
   return v31;
 }
 
@@ -1665,16 +1645,15 @@ id __82__HDSyncAnchorEntity_updateLocalVersion_entityIdentifier_store_transactio
 
 uint64_t __82__HDSyncAnchorEntity_updateLocalVersion_entityIdentifier_store_transaction_error___block_invoke_2(uint64_t a1, sqlite3_stmt *a2)
 {
-  v4 = *(a1 + 32);
   HDSQLiteBindFoundationValueToStatement();
   sqlite3_bind_int64(a2, 2, [*(a1 + 40) entityIdentifier]);
   sqlite3_bind_int64(a2, 3, [*(a1 + 48) syncProvenance]);
-  v5 = [*(a1 + 48) syncEpoch];
+  v4 = [*(a1 + 48) syncEpoch];
 
-  return sqlite3_bind_int64(a2, 4, v5);
+  return sqlite3_bind_int64(a2, 4, v4);
 }
 
-uint64_t __82__HDSyncAnchorEntity_updateLocalVersion_entityIdentifier_store_transaction_error___block_invoke_3(void *a1)
+uint64_t __82__HDSyncAnchorEntity_updateLocalVersion_entityIdentifier_store_transaction_error___block_invoke_3(void *a1, uint64_t a2)
 {
   *(*(a1[4] + 8) + 24) = HDSQLiteColumnAsInt64();
   *(*(a1[5] + 8) + 24) = HDSQLiteColumnAsInt64();
@@ -1738,13 +1717,12 @@ uint64_t __85__HDSyncAnchorEntity_updateReceivedVersion_entityIdentifier_store_t
 {
   sqlite3_bind_int64(a2, 1, *(a1 + 56));
   sqlite3_bind_int64(a2, 2, *(a1 + 56));
-  v4 = *(a1 + 32);
   HDSQLiteBindFoundationValueToStatement();
   sqlite3_bind_int64(a2, 4, [*(a1 + 40) entityIdentifier]);
   sqlite3_bind_int64(a2, 5, [*(a1 + 48) syncProvenance]);
-  v5 = [*(a1 + 48) syncEpoch];
+  v4 = [*(a1 + 48) syncEpoch];
 
-  return sqlite3_bind_int64(a2, 6, v5);
+  return sqlite3_bind_int64(a2, 6, v4);
 }
 
 + (BOOL)getRequestedVersion:(id *)version entityIdentifier:(id)identifier store:(id)store transaction:(id)transaction error:(id *)error
@@ -1822,13 +1800,12 @@ id __83__HDSyncAnchorEntity_getRequestedVersion_entityIdentifier_store_transacti
 
 uint64_t __83__HDSyncAnchorEntity_getRequestedVersion_entityIdentifier_store_transaction_error___block_invoke_2(uint64_t a1, sqlite3_stmt *a2)
 {
-  v4 = *(a1 + 32);
   HDSQLiteBindFoundationValueToStatement();
   sqlite3_bind_int64(a2, 2, [*(a1 + 40) entityIdentifier]);
   sqlite3_bind_int64(a2, 3, [*(a1 + 48) syncProvenance]);
-  v5 = [*(a1 + 48) syncEpoch];
+  v4 = [*(a1 + 48) syncEpoch];
 
-  return sqlite3_bind_int64(a2, 4, v5);
+  return sqlite3_bind_int64(a2, 4, v4);
 }
 
 uint64_t __83__HDSyncAnchorEntity_getRequestedVersion_entityIdentifier_store_transaction_error___block_invoke_3(uint64_t a1, uint64_t a2)
@@ -1896,13 +1873,12 @@ id __86__HDSyncAnchorEntity_updateRequestedVersion_entityIdentifier_store_transa
 uint64_t __86__HDSyncAnchorEntity_updateRequestedVersion_entityIdentifier_store_transaction_error___block_invoke_2(uint64_t a1, sqlite3_stmt *a2)
 {
   sqlite3_bind_int64(a2, 1, *(a1 + 56));
-  v4 = *(a1 + 32);
   HDSQLiteBindFoundationValueToStatement();
   sqlite3_bind_int64(a2, 3, [*(a1 + 40) entityIdentifier]);
   sqlite3_bind_int64(a2, 4, [*(a1 + 48) syncProvenance]);
-  v5 = [*(a1 + 48) syncEpoch];
+  v4 = [*(a1 + 48) syncEpoch];
 
-  return sqlite3_bind_int64(a2, 5, v5);
+  return sqlite3_bind_int64(a2, 5, v4);
 }
 
 uint64_t __82__HDSyncAnchorEntity__syncAnchorForProperty_entityIdentifier_store_profile_error___block_invoke(uint64_t a1, void *a2, uint64_t a3)
@@ -1928,13 +1904,12 @@ uint64_t __82__HDSyncAnchorEntity__syncAnchorForProperty_entityIdentifier_store_
 
 + (id)uniquedColumns
 {
-  v5[4] = *MEMORY[0x277D85DE8];
-  v5[0] = @"store";
-  v5[1] = @"epoch";
-  v5[2] = @"type";
-  v5[3] = @"schema";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:4];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[4] = *MEMORY[0x277D85DE8];
+  v4[0] = @"store";
+  v4[1] = @"epoch";
+  v4[2] = @"type";
+  v4[3] = @"schema";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:4];
 
   return v2;
 }
@@ -1968,7 +1943,7 @@ uint64_t __82__HDSyncAnchorEntity__syncAnchorForProperty_entityIdentifier_store_
 
 + (id)unitTest_predicateForStoreType:(int64_t)type
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v4 = objc_alloc_init(MEMORY[0x277D10B80]);
   [v4 setEntityClass:objc_opt_class()];
   v5 = MEMORY[0x277D10B18];
@@ -1977,11 +1952,9 @@ uint64_t __82__HDSyncAnchorEntity__syncAnchorForProperty_entityIdentifier_store_
   [v4 setPredicate:v7];
 
   v8 = MEMORY[0x277D10B18];
-  v13[0] = *MEMORY[0x277D10A40];
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+  v12[0] = *MEMORY[0x277D10A40];
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
   v10 = [v8 predicateWithProperty:@"store" comparisonType:7 subqueryDescriptor:v4 subqueryProperties:v9];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

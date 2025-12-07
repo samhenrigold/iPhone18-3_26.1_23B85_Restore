@@ -109,38 +109,39 @@ void __80__SBMotionDetectionWakeController_acquireMotionDetectionWakeAssertionFo
   v10 = *MEMORY[0x277D85DE8];
   if (self->_enabled != enabled)
   {
+    selfCopy = self;
     self->_enabled = enabled;
     if (enabled && !self->_triggerManager)
     {
       v4 = objc_alloc_init(MEMORY[0x277CEA5E8]);
-      triggerManager = self->_triggerManager;
-      self->_triggerManager = v4;
+      triggerManager = selfCopy->_triggerManager;
+      selfCopy->_triggerManager = v4;
 
-      [(AMMotionDetectionTriggerManager *)self->_triggerManager addObserver:self queue:MEMORY[0x277D85CD0]];
+      self = [(AMMotionDetectionTriggerManager *)selfCopy->_triggerManager addObserver:selfCopy queue:MEMORY[0x277D85CD0]];
     }
 
-    v6 = SBLogBacklight();
+    v6 = SBLogBacklight(self);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      enabled = self->_enabled;
+      enabled = selfCopy->_enabled;
       v9[0] = 67109120;
       v9[1] = enabled;
       _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "setting motion detection trigger enabled = %{BOOL}u", v9, 8u);
     }
 
-    [(AMMotionDetectionTriggerManager *)self->_triggerManager setMotionDetectionEnabled:self->_enabled];
-    if (self->_enabled)
+    [(AMMotionDetectionTriggerManager *)selfCopy->_triggerManager setMotionDetectionEnabled:selfCopy->_enabled];
+    if (selfCopy->_enabled)
     {
       v8 = 1;
     }
 
     else
     {
-      [(SBMotionDetectionWakeController *)self _setMotionDetected:0];
-      v8 = self->_enabled;
+      [(SBMotionDetectionWakeController *)selfCopy _setMotionDetected:0];
+      v8 = selfCopy->_enabled;
     }
 
-    SBWorkspaceSetPreventIdleSleepForReason(v8, @"motion-to-wake");
+    SBWorkspaceSetPreventIdleSleepForReason(v8 & 1, @"motion-to-wake");
   }
 }
 
@@ -156,23 +157,24 @@ void __80__SBMotionDetectionWakeController_acquireMotionDetectionWakeAssertionFo
 
 - (void)motionDetectionManager:(id)manager didUpdateMotionDetectionTriggerState:(unint64_t)state
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v6 = SBLogBacklight();
+  v11 = *MEMORY[0x277D85DE8];
+  v6 = SBLogBacklight(self);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 134217984;
+    v9 = 134217984;
     stateCopy = state;
-    _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "didUpdateMotionDetectionTriggerState: 0x%llx", &v8, 0xCu);
+    _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "didUpdateMotionDetectionTriggerState: 0x%llx", &v9, 0xCu);
   }
 
-  if ([(SBMotionDetectionWakeController *)self _isEnabled])
+  _isEnabled = [(SBMotionDetectionWakeController *)self _isEnabled];
+  if (_isEnabled)
   {
     if ((state & 0xFFFFFFFFFFFFFE31) != 0)
     {
-      v7 = SBLogBacklight();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = SBLogBacklight(_isEnabled);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        [SBMotionDetectionWakeController motionDetectionManager:state didUpdateMotionDetectionTriggerState:v7];
+        [SBMotionDetectionWakeController motionDetectionManager:state didUpdateMotionDetectionTriggerState:v8];
       }
     }
 

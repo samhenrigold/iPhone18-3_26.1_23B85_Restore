@@ -24,7 +24,7 @@
   if (tokenCopy)
   {
     storeTokens = [tokenCopy storeTokens];
-    if ([storeTokens count] == 1)
+    if (objc_msgSend_count(storeTokens) == 1)
     {
       allValues = [storeTokens allValues];
       firstObject = [allValues firstObject];

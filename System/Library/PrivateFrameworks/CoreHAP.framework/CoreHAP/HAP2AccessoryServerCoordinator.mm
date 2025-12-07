@@ -43,7 +43,7 @@
 
 - (id)_createPairedAccessoryServerWithAccessoryInfo:(id)info transport:(id)transport operationQueue:(id)queue
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   transportCopy = transport;
   queueCopy = queue;
@@ -83,17 +83,17 @@
         v26 = hap2Log_accessory;
         if (os_log_type_enabled(hap2Log_accessory, OS_LOG_TYPE_ERROR))
         {
-          v29 = v26;
+          v28 = v26;
           name = [v12 name];
           deviceID = [v12 deviceID];
           protocolVersion2 = [v12 protocolVersion];
-          v33 = 138412802;
-          v34 = name;
-          v35 = 2112;
-          v36 = deviceID;
-          v37 = 2112;
-          v38 = protocolVersion2;
-          _os_log_error_impl(&dword_22AADC000, v29, OS_LOG_TYPE_ERROR, "Coordinator: Paired server [%@/%@] has invalid or unexpected version %@", &v33, 0x20u);
+          v32 = 138412802;
+          v33 = name;
+          v34 = 2112;
+          v35 = deviceID;
+          v36 = 2112;
+          v37 = protocolVersion2;
+          _os_log_error_impl(&dword_22AADC000, v28, OS_LOG_TYPE_ERROR, "Coordinator: Paired server [%@/%@] has invalid or unexpected version %@", &v32, 0x20u);
         }
 
         v22 = 0;
@@ -118,22 +118,20 @@
     {
       v24 = v23;
       deviceID2 = [infoCopy deviceID];
-      v33 = 138412290;
-      v34 = deviceID2;
-      _os_log_impl(&dword_22AADC000, v24, OS_LOG_TYPE_DEFAULT, "Coordinator: Ignoring discovered paired accessory %@ with no transport", &v33, 0xCu);
+      v32 = 138412290;
+      v33 = deviceID2;
+      _os_log_impl(&dword_22AADC000, v24, OS_LOG_TYPE_DEFAULT, "Coordinator: Ignoring discovered paired accessory %@ with no transport", &v32, 0xCu);
     }
 
     v22 = 0;
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return v22;
 }
 
 - (id)_createUnpairedAccessoryServerWithAccessoryInfo:(id)info transport:(id)transport operationQueue:(id)queue
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   transportCopy = transport;
   queueCopy = queue;
@@ -155,7 +153,7 @@
         v17 = [encodingFactory createEncodingWithOperationQueue:queueCopy accessoryServerMetadata:v12 encodingFeatures:v15];
 
         [(HAP2AccessoryServerCoordinator *)self secureTransportFactory];
-        v18 = v37 = browser;
+        v18 = v36 = browser;
         v19 = [v18 createSecureTransportWithTransport:transportCopy isPaired:0 encryptedSession:0];
 
         controllerFactory = [(HAP2AccessoryServerCoordinator *)self controllerFactory];
@@ -165,8 +163,8 @@
         secureTransportFactory = [(HAP2AccessoryServerCoordinator *)self secureTransportFactory];
         v24 = [pairingFactory createPairingDriverWithAccessoryInfo:infoCopy transport:transportCopy secureTransportFactory:secureTransportFactory encoding:v17 operationQueue:queueCopy];
 
-        browser = v37;
-        v25 = [HAP2AccessoryServer unpairedAccessoryServerWithMetadata:v12 browser:v37 controller:v21 pairingDriver:v24 operationQueue:queueCopy];
+        browser = v36;
+        v25 = [HAP2AccessoryServer unpairedAccessoryServerWithMetadata:v12 browser:v36 controller:v21 pairingDriver:v24 operationQueue:queueCopy];
       }
 
       else
@@ -179,20 +177,20 @@
         v29 = hap2Log_accessory;
         if (os_log_type_enabled(hap2Log_accessory, OS_LOG_TYPE_ERROR))
         {
-          v32 = v29;
+          v31 = v29;
           name = [v12 name];
           deviceID = [v12 deviceID];
           [v12 protocolVersion];
-          v36 = v35 = browser;
+          v35 = v34 = browser;
           *buf = 138412802;
-          v39 = name;
-          v40 = 2112;
-          v41 = deviceID;
-          v42 = 2112;
-          v43 = v36;
-          _os_log_error_impl(&dword_22AADC000, v32, OS_LOG_TYPE_ERROR, "Coordinator: Unpaired server [%@/%@] has invalid or unexpected version %@", buf, 0x20u);
+          v38 = name;
+          v39 = 2112;
+          v40 = deviceID;
+          v41 = 2112;
+          v42 = v35;
+          _os_log_error_impl(&dword_22AADC000, v31, OS_LOG_TYPE_ERROR, "Coordinator: Unpaired server [%@/%@] has invalid or unexpected version %@", buf, 0x20u);
 
-          browser = v35;
+          browser = v34;
         }
 
         v25 = 0;
@@ -218,14 +216,12 @@
       v27 = v26;
       deviceID2 = [infoCopy deviceID];
       *buf = 138412290;
-      v39 = deviceID2;
+      v38 = deviceID2;
       _os_log_impl(&dword_22AADC000, v27, OS_LOG_TYPE_DEFAULT, "Coordinator: Ignoring discovered unpaired accessory %@ with no transport", buf, 0xCu);
     }
 
     v25 = 0;
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 
   return v25;
 }
@@ -269,7 +265,7 @@
 
 - (void)_didDiscoverPairedAccessory:(id)accessory transport:(id)transport operationQueue:(id)queue completion:(id)completion
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   transportCopy = transport;
   queueCopy = queue;
@@ -291,9 +287,9 @@
       v17 = hap2Log_accessory;
       if (os_log_type_enabled(hap2Log_accessory, OS_LOG_TYPE_DEFAULT))
       {
-        v22 = 138412290;
-        v23 = v16;
-        _os_log_impl(&dword_22AADC000, v17, OS_LOG_TYPE_DEFAULT, "Coordinator: Discovered paired accessory %@", &v22, 0xCu);
+        v21 = 138412290;
+        v22 = v16;
+        _os_log_impl(&dword_22AADC000, v17, OS_LOG_TYPE_DEFAULT, "Coordinator: Discovered paired accessory %@", &v21, 0xCu);
       }
 
       [delegate coordinator:self didCreatePairedAccessoryServer:v16];
@@ -312,22 +308,20 @@
     v18 = hap2Log_accessory;
     if (os_log_type_enabled(hap2Log_accessory, OS_LOG_TYPE_DEBUG))
     {
-      v20 = v18;
+      v19 = v18;
       deviceID = [accessoryCopy deviceID];
-      v22 = 138412290;
-      v23 = deviceID;
-      _os_log_debug_impl(&dword_22AADC000, v20, OS_LOG_TYPE_DEBUG, "Coordinator: Ignoring discovered paired accessory %@ with no delegate", &v22, 0xCu);
+      v21 = 138412290;
+      v22 = deviceID;
+      _os_log_debug_impl(&dword_22AADC000, v19, OS_LOG_TYPE_DEBUG, "Coordinator: Ignoring discovered paired accessory %@ with no delegate", &v21, 0xCu);
     }
 
     completionCopy[2](completionCopy);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_didDiscoverUnpairedAccessory:(id)accessory transport:(id)transport operationQueue:(id)queue completion:(id)completion
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   transportCopy = transport;
   queueCopy = queue;
@@ -349,9 +343,9 @@
       v17 = hap2Log_accessory;
       if (os_log_type_enabled(hap2Log_accessory, OS_LOG_TYPE_DEFAULT))
       {
-        v22 = 138412290;
-        v23 = v16;
-        _os_log_impl(&dword_22AADC000, v17, OS_LOG_TYPE_DEFAULT, "Coordinator: Discovered unpaired accessory %@", &v22, 0xCu);
+        v21 = 138412290;
+        v22 = v16;
+        _os_log_impl(&dword_22AADC000, v17, OS_LOG_TYPE_DEFAULT, "Coordinator: Discovered unpaired accessory %@", &v21, 0xCu);
       }
 
       [delegate coordinator:self didCreateUnpairedAccessoryServer:v16];
@@ -370,22 +364,20 @@
     v18 = hap2Log_accessory;
     if (os_log_type_enabled(hap2Log_accessory, OS_LOG_TYPE_DEBUG))
     {
-      v20 = v18;
+      v19 = v18;
       deviceID = [accessoryCopy deviceID];
-      v22 = 138412290;
-      v23 = deviceID;
-      _os_log_debug_impl(&dword_22AADC000, v20, OS_LOG_TYPE_DEBUG, "Coordinator: Ignoring discovered unpaired accessory %@ with no delegate", &v22, 0xCu);
+      v21 = 138412290;
+      v22 = deviceID;
+      _os_log_debug_impl(&dword_22AADC000, v19, OS_LOG_TYPE_DEBUG, "Coordinator: Ignoring discovered unpaired accessory %@ with no delegate", &v21, 0xCu);
     }
 
     completionCopy[2](completionCopy);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_didLoseAccessory:(id)accessory error:(id)error
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   errorCopy = error;
   operationQueue = [(HAP2AccessoryServerCoordinator *)self operationQueue];
@@ -399,16 +391,16 @@
   v9 = hap2Log_accessory;
   if (os_log_type_enabled(hap2Log_accessory, OS_LOG_TYPE_DEBUG))
   {
-    v17 = v9;
+    v16 = v9;
     [(HAP2AccessoryServerCoordinator *)self isDiscovering];
-    v18 = HMFBooleanToString();
-    v21 = 138412802;
-    v22 = accessoryCopy;
-    v23 = 2112;
-    v24 = errorCopy;
-    v25 = 2112;
-    v26 = v18;
-    _os_log_debug_impl(&dword_22AADC000, v17, OS_LOG_TYPE_DEBUG, "Coordinator: lost accessory: %@ with error: %@ and isDiscovering: %@", &v21, 0x20u);
+    v17 = HMFBooleanToString();
+    v20 = 138412802;
+    v21 = accessoryCopy;
+    v22 = 2112;
+    v23 = errorCopy;
+    v24 = 2112;
+    v25 = v17;
+    _os_log_debug_impl(&dword_22AADC000, v16, OS_LOG_TYPE_DEBUG, "Coordinator: lost accessory: %@ with error: %@ and isDiscovering: %@", &v20, 0x20u);
   }
 
   if ([(HAP2AccessoryServerCoordinator *)self isDiscovering])
@@ -434,11 +426,11 @@
       v15 = hap2Log_accessory;
       if (os_log_type_enabled(hap2Log_accessory, OS_LOG_TYPE_DEBUG))
       {
-        v19 = v15;
+        v18 = v15;
         deviceID2 = [accessoryCopy deviceID];
-        v21 = 138412290;
-        v22 = deviceID2;
-        _os_log_debug_impl(&dword_22AADC000, v19, OS_LOG_TYPE_DEBUG, "Coordinator: Ignoring lost unpaired accessory %@ with no delegate", &v21, 0xCu);
+        v20 = 138412290;
+        v21 = deviceID2;
+        _os_log_debug_impl(&dword_22AADC000, v18, OS_LOG_TYPE_DEBUG, "Coordinator: Ignoring lost unpaired accessory %@ with no delegate", &v20, 0xCu);
       }
     }
   }
@@ -453,18 +445,16 @@
     v14 = hap2Log_accessory;
     if (os_log_type_enabled(hap2Log_accessory, OS_LOG_TYPE_DEBUG))
     {
-      LOWORD(v21) = 0;
-      _os_log_debug_impl(&dword_22AADC000, v14, OS_LOG_TYPE_DEBUG, "Coordinator: Ignoring lost accessory while not discovering", &v21, 2u);
+      LOWORD(v20) = 0;
+      _os_log_debug_impl(&dword_22AADC000, v14, OS_LOG_TYPE_DEBUG, "Coordinator: Ignoring lost accessory while not discovering", &v20, 2u);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_didDeterminePairingStateForAccessory:(id)accessory isPaired:(BOOL)paired completion:(id)completion
 {
   pairedCopy = paired;
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   completionCopy = completion;
   operationQueue = [(HAP2AccessoryServerCoordinator *)self operationQueue];
@@ -500,15 +490,13 @@
     v17 = hap2Log_accessory;
     if (os_log_type_enabled(hap2Log_accessory, OS_LOG_TYPE_DEBUG))
     {
-      v19 = 138412290;
-      v20 = deviceID;
-      _os_log_debug_impl(&dword_22AADC000, v17, OS_LOG_TYPE_DEBUG, "Coordinator: Ignoring discovered accessory %@ while not discovering", &v19, 0xCu);
+      v18 = 138412290;
+      v19 = deviceID;
+      _os_log_debug_impl(&dword_22AADC000, v17, OS_LOG_TYPE_DEBUG, "Coordinator: Ignoring discovered accessory %@ while not discovering", &v18, 0xCu);
     }
 
     completionCopy[2](completionCopy);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_didDiscoverAccessory:(id)accessory completion:(id)completion
@@ -532,18 +520,18 @@
         [discoveredAccessoryServers setObject:accessoryCopy forKeyedSubscript:deviceID];
 
         objc_initWeak(location, self);
-        v24[0] = MEMORY[0x277D85DD0];
-        v24[1] = 3221225472;
-        v24[2] = __67__HAP2AccessoryServerCoordinator__didDiscoverAccessory_completion___block_invoke;
-        v24[3] = &unk_2786D25F8;
+        v23[0] = MEMORY[0x277D85DD0];
+        v23[1] = 3221225472;
+        v23[2] = __67__HAP2AccessoryServerCoordinator__didDiscoverAccessory_completion___block_invoke;
+        v23[3] = &unk_2786D25F8;
         v13 = deviceID;
-        v25 = v13;
-        v27 = completionCopy;
-        objc_copyWeak(&v28, location);
-        v26 = accessoryCopy;
-        [browser accessoryWithDeviceIDIsPaired:v13 completion:v24];
+        v24 = v13;
+        v26 = completionCopy;
+        objc_copyWeak(&v27, location);
+        v25 = accessoryCopy;
+        [browser accessoryWithDeviceIDIsPaired:v13 completion:v23];
 
-        objc_destroyWeak(&v28);
+        objc_destroyWeak(&v27);
         objc_destroyWeak(location);
       }
 
@@ -557,11 +545,11 @@
         v16 = hap2Log_accessory;
         if (os_log_type_enabled(hap2Log_accessory, OS_LOG_TYPE_DEBUG))
         {
-          v22 = v16;
+          v21 = v16;
           deviceID2 = [accessoryCopy deviceID];
           LODWORD(location[0]) = 138412290;
           *(location + 4) = deviceID2;
-          _os_log_debug_impl(&dword_22AADC000, v22, OS_LOG_TYPE_DEBUG, "Coordinator: Ignoring discovered accessory %@ after browser has died", location, 0xCu);
+          _os_log_debug_impl(&dword_22AADC000, v21, OS_LOG_TYPE_DEBUG, "Coordinator: Ignoring discovered accessory %@ after browser has died", location, 0xCu);
         }
 
         completionCopy[2](completionCopy);
@@ -578,11 +566,11 @@
       v15 = hap2Log_accessory;
       if (os_log_type_enabled(hap2Log_accessory, OS_LOG_TYPE_DEBUG))
       {
-        v20 = v15;
+        v19 = v15;
         deviceID3 = [accessoryCopy deviceID];
         LODWORD(location[0]) = 138412290;
         *(location + 4) = deviceID3;
-        _os_log_debug_impl(&dword_22AADC000, v20, OS_LOG_TYPE_DEBUG, "Coordinator: Ignoring discovered accessory %@ with no delegate", location, 0xCu);
+        _os_log_debug_impl(&dword_22AADC000, v19, OS_LOG_TYPE_DEBUG, "Coordinator: Ignoring discovered accessory %@ with no delegate", location, 0xCu);
       }
 
       completionCopy[2](completionCopy);
@@ -599,22 +587,20 @@
     v14 = hap2Log_accessory;
     if (os_log_type_enabled(hap2Log_accessory, OS_LOG_TYPE_DEBUG))
     {
-      v18 = v14;
+      v17 = v14;
       deviceID4 = [accessoryCopy deviceID];
       LODWORD(location[0]) = 138412290;
       *(location + 4) = deviceID4;
-      _os_log_debug_impl(&dword_22AADC000, v18, OS_LOG_TYPE_DEBUG, "Coordinator: Ignoring discovered accessory %@ while not discovering", location, 0xCu);
+      _os_log_debug_impl(&dword_22AADC000, v17, OS_LOG_TYPE_DEBUG, "Coordinator: Ignoring discovered accessory %@ while not discovering", location, 0xCu);
     }
 
     completionCopy[2](completionCopy);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __67__HAP2AccessoryServerCoordinator__didDiscoverAccessory_completion___block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (v5)
   {
@@ -626,11 +612,11 @@ void __67__HAP2AccessoryServerCoordinator__didDiscoverAccessory_completion___blo
     v6 = hap2Log_accessory;
     if (os_log_type_enabled(hap2Log_accessory, OS_LOG_TYPE_ERROR))
     {
-      v10 = *(a1 + 32);
+      v9 = *(a1 + 32);
       *buf = 138412546;
-      v17 = v10;
-      v18 = 2112;
-      v19 = v5;
+      v16 = v9;
+      v17 = 2112;
+      v18 = v5;
       _os_log_error_impl(&dword_22AADC000, v6, OS_LOG_TYPE_ERROR, "Coordinator: Failed to determine if discovered accessory %@ is paired: %@", buf, 0x16u);
     }
 
@@ -641,20 +627,18 @@ void __67__HAP2AccessoryServerCoordinator__didDiscoverAccessory_completion___blo
   {
     WeakRetained = objc_loadWeakRetained((a1 + 56));
     v8 = [WeakRetained operationQueue];
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __67__HAP2AccessoryServerCoordinator__didDiscoverAccessory_completion___block_invoke_13;
-    v11[3] = &unk_2786D25D0;
-    objc_copyWeak(&v14, (a1 + 56));
-    v12 = *(a1 + 40);
-    v15 = a2;
-    v13 = *(a1 + 48);
-    [v8 addBlock:v11];
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __67__HAP2AccessoryServerCoordinator__didDiscoverAccessory_completion___block_invoke_13;
+    v10[3] = &unk_2786D25D0;
+    objc_copyWeak(&v13, (a1 + 56));
+    v11 = *(a1 + 40);
+    v14 = a2;
+    v12 = *(a1 + 48);
+    [v8 addBlock:v10];
 
-    objc_destroyWeak(&v14);
+    objc_destroyWeak(&v13);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __67__HAP2AccessoryServerCoordinator__didDiscoverAccessory_completion___block_invoke_13(uint64_t a1)
@@ -665,7 +649,7 @@ void __67__HAP2AccessoryServerCoordinator__didDiscoverAccessory_completion___blo
 
 - (void)_didStopDiscoveringWithError:(id)error
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   operationQueue = [(HAP2AccessoryServerCoordinator *)self operationQueue];
   [operationQueue assertCurrentQueue];
@@ -685,16 +669,16 @@ void __67__HAP2AccessoryServerCoordinator__didDiscoverAccessory_completion___blo
   {
     if (os_log_type_enabled(hap2Log_accessory, OS_LOG_TYPE_ERROR))
     {
-      v10 = 138412290;
-      v11 = errorCopy;
-      _os_log_error_impl(&dword_22AADC000, v7, OS_LOG_TYPE_ERROR, "Coordinator: Failed to stop discovering: %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = errorCopy;
+      _os_log_error_impl(&dword_22AADC000, v7, OS_LOG_TYPE_ERROR, "Coordinator: Failed to stop discovering: %@", &v9, 0xCu);
     }
   }
 
   else if (os_log_type_enabled(hap2Log_accessory, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v10) = 0;
-    _os_log_impl(&dword_22AADC000, v7, OS_LOG_TYPE_INFO, "Coordinator: Stopped discovering", &v10, 2u);
+    LOWORD(v9) = 0;
+    _os_log_impl(&dword_22AADC000, v7, OS_LOG_TYPE_INFO, "Coordinator: Stopped discovering", &v9, 2u);
   }
 
   delegate = [(HAP2AccessoryServerCoordinator *)self delegate];
@@ -702,13 +686,11 @@ void __67__HAP2AccessoryServerCoordinator__didDiscoverAccessory_completion___blo
   {
     [delegate coordinator:self didStopDiscoveringWithError:errorCopy];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_didStartDiscoveringWithError:(id)error
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   operationQueue = [(HAP2AccessoryServerCoordinator *)self operationQueue];
   [operationQueue assertCurrentQueue];
@@ -724,16 +706,16 @@ void __67__HAP2AccessoryServerCoordinator__didDiscoverAccessory_completion___blo
   {
     if (os_log_type_enabled(hap2Log_accessory, OS_LOG_TYPE_ERROR))
     {
-      v9 = 138412290;
-      v10 = errorCopy;
-      _os_log_error_impl(&dword_22AADC000, v6, OS_LOG_TYPE_ERROR, "Coordinator: Failed to start discovering: %@", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = errorCopy;
+      _os_log_error_impl(&dword_22AADC000, v6, OS_LOG_TYPE_ERROR, "Coordinator: Failed to start discovering: %@", &v8, 0xCu);
     }
   }
 
   else if (os_log_type_enabled(hap2Log_accessory, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v9) = 0;
-    _os_log_impl(&dword_22AADC000, v6, OS_LOG_TYPE_INFO, "Coordinator: Started discovering", &v9, 2u);
+    LOWORD(v8) = 0;
+    _os_log_impl(&dword_22AADC000, v6, OS_LOG_TYPE_INFO, "Coordinator: Started discovering", &v8, 2u);
   }
 
   [(HAP2AccessoryServerCoordinator *)self setDiscovering:errorCopy == 0];
@@ -742,8 +724,6 @@ void __67__HAP2AccessoryServerCoordinator__didDiscoverAccessory_completion___blo
   {
     [delegate coordinator:self didStartDiscoveringWithError:errorCopy];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_stopDiscovering
@@ -1264,10 +1244,7 @@ void __50__HAP2AccessoryServerCoordinator_startDiscovering__block_invoke(uint64_
 
 uint64_t __42__HAP2AccessoryServerCoordinator_delegate__block_invoke(uint64_t a1)
 {
-  WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 16));
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = WeakRetained;
+  *(*(*(a1 + 40) + 8) + 40) = objc_loadWeakRetained((*(a1 + 32) + 16));
 
   return MEMORY[0x2821F96F8]();
 }

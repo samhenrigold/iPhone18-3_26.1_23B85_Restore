@@ -16,16 +16,16 @@
 
 + (id)_mapsui_sectionHeaderButton
 {
-  v0 = [MEMORY[0x1E69DC738] buttonWithType:MapKitIdiomIsMacCatalyst() ^ 1];
+  v2 = [MEMORY[0x1E69DC738] buttonWithType:MapKitIdiomIsMacCatalyst() ^ 1];
 
-  return v0;
+  return v2;
 }
 
 + (id)_mapsui_sectionButton
 {
-  v0 = [MEMORY[0x1E69DC738] buttonWithType:MapKitIdiomIsMacCatalyst() ^ 1];
+  v2 = [MEMORY[0x1E69DC738] buttonWithType:MapKitIdiomIsMacCatalyst() ^ 1];
 
-  return v0;
+  return v2;
 }
 
 @end

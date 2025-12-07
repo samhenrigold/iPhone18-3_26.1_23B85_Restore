@@ -28,7 +28,7 @@
 
   else
   {
-    v9 = sub_100030FE4();
+    v9 = sub_100030FE4(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_10000358C(v9, v10, v11, v12, v13, v14, v15, v16);
@@ -42,29 +42,29 @@
 
 - (void)checkIn
 {
-  v3 = sub_100030FE4();
+  v3 = sub_100030FE4(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     identifier = self->_identifier;
-    v13 = 136315395;
-    v14 = "[MSDBackgroundActivityTask checkIn]";
-    v15 = 2113;
-    v16 = identifier;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%s Checking-in with identifier %{private}@", &v13, 0x16u);
+    v14 = 136315395;
+    v15 = "[MSDBackgroundActivityTask checkIn]";
+    v16 = 2113;
+    v17 = identifier;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%s Checking-in with identifier %{private}@", &v14, 0x16u);
   }
 
   if (self->_activityBlock)
   {
-    v5 = [[NSBackgroundActivityScheduler alloc] initWithIdentifier:self->_identifier];
-    [v5 setPreregistered:1];
+    v6 = [[NSBackgroundActivityScheduler alloc] initWithIdentifier:self->_identifier];
+    [v6 setPreregistered:1];
   }
 
   else
   {
-    v5 = sub_100030FE4();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = sub_100030FE4(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      sub_1000035C4(v5, v6, v7, v8, v9, v10, v11, v12);
+      sub_1000035C4(v6, v7, v8, v9, v10, v11, v12, v13);
     }
   }
 }
@@ -78,7 +78,7 @@
 - (void)schedule
 {
   activityBlock = self->_activityBlock;
-  v4 = sub_100030FE4();
+  v4 = sub_100030FE4(self);
   v5 = v4;
   if (activityBlock)
   {

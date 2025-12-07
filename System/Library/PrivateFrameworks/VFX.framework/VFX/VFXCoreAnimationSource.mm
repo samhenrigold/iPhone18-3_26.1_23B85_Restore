@@ -10,16 +10,16 @@
 - (id)textureSource
 {
   v3 = objc_alloc_init(VFXTextureCoreAnimationSource);
-  v7 = objc_msgSend_layer(self, v4, v5, v6);
-  objc_msgSend_setLayer_(v3, v8, v7, v9);
+  v6 = objc_msgSend_layer(self, v4, v5);
+  objc_msgSend_setLayer_(v3, v7, v6);
   return v3;
 }
 
 - (BOOL)isOpaque
 {
-  v4 = objc_msgSend_layer(self, a2, v2, v3);
+  v3 = objc_msgSend_layer(self, a2, v2);
 
-  return objc_msgSend_isOpaque(v4, v5, v6, v7);
+  return objc_msgSend_isOpaque(v3, v4, v5);
 }
 
 - (void)dealloc

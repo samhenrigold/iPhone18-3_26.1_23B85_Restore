@@ -71,11 +71,11 @@
 
 - (MTSThreadNetworkCredential)initWithCoder:(id)coder
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v21.receiver = self;
-  v21.super_class = MTSThreadNetworkCredential;
-  v5 = [(MTSThreadNetworkCredential *)&v21 init];
+  v20.receiver = self;
+  v20.super_class = MTSThreadNetworkCredential;
+  v5 = [(MTSThreadNetworkCredential *)&v20 init];
   v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"ds"];
   dataset = v5->_dataset;
   v5->_dataset = v6;
@@ -91,7 +91,7 @@
 
     v17 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v23 = v17;
+    v22 = v17;
     v18 = "%{public}@Failed to decode MTSThreadNetworkCredentialOperationalDatasetCodingKey";
 LABEL_13:
     _os_log_impl(&dword_239824000, v16, OS_LOG_TYPE_ERROR, v18, buf, 0xCu);
@@ -115,7 +115,7 @@ LABEL_13:
 
     v17 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v23 = v17;
+    v22 = v17;
     v18 = "%{public}@Failed to decode MTSThreadNetworkCredentialBorderAgentEUICodingKey";
     goto LABEL_13;
   }
@@ -133,7 +133,7 @@ LABEL_13:
     {
       v17 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v23 = v17;
+      v22 = v17;
       v18 = "%{public}@Failed to decode MTSThreadNetworkCredentialBorderAgentIDCodingKey";
       goto LABEL_13;
     }
@@ -148,7 +148,6 @@ LABEL_14:
   v14 = v5;
 LABEL_15:
 
-  v19 = *MEMORY[0x277D85DE8];
   return v14;
 }
 

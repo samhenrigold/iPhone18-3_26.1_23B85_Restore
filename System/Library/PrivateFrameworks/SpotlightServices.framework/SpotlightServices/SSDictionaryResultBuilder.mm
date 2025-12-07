@@ -52,14 +52,12 @@
 
 - (id)buildDescriptions
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E69CA3A0];
   definitionString = [(SSDictionaryResultBuilder *)self definitionString];
   v4 = [v2 textWithString:definitionString];
-  v8[0] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v7[0] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
 
   return v5;
 }
@@ -99,7 +97,7 @@
     selfCopy = self;
     definitions = [(SSDictionaryResultBuilder *)self definitions];
     v7 = objc_opt_new();
-    if ([definitions count])
+    if (objc_msgSend_count(definitions))
     {
       v8 = 0;
       v9 = 0;
@@ -111,7 +109,7 @@
         }
 
         v10 = &stru_1F556FE60;
-        if ([definitions count] >= 2)
+        if (objc_msgSend_count(definitions) >= 2)
         {
           v11 = MEMORY[0x1E696AEC0];
           v12 = definitionString_numberFormatter;
@@ -123,7 +121,7 @@
         v15 = &stru_1F556FE60;
         if (v8)
         {
-          v16 = [definitions count];
+          v16 = objc_msgSend_count(definitions);
           v15 = @"…";
           if (v16 <= 2)
           {
@@ -138,7 +136,7 @@
 
         [v7 addObject:v20];
         v21 = v9 + 1;
-        v22 = [definitions count];
+        v22 = objc_msgSend_count(definitions);
         v23 = 2;
         if (v22 < 2)
         {

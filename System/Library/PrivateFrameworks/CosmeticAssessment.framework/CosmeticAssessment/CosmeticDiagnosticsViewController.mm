@@ -46,7 +46,7 @@
 {
   appearCopy = appear;
   ObjectType = swift_getObjectType();
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EE62FF0);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EE62FF0, &qword_247D23250);
   MEMORY[0x28223BE20](v6 - 8);
   v8 = &v15 - v7;
   sub_247D1FEA8();

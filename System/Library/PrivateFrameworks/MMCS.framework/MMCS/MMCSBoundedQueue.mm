@@ -80,18 +80,18 @@ uint64_t __44__MMCSBoundedQueue__sync_aggregateByteCount__block_invoke(uint64_t 
       bytesErrorLevel = self->_bytesErrorLevel;
       if (bytesErrorLevel)
       {
-        v10 = v8 + _sync_aggregateByteCount;
+        v11 = v8 + _sync_aggregateByteCount;
         if (v8 + _sync_aggregateByteCount > bytesErrorLevel)
         {
-          v11 = mmcs_logging_logger_default();
-          if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+          v12 = mmcs_logging_logger_default(v8, v9);
+          if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
           {
-            v12 = self->_bytesErrorLevel;
+            v13 = self->_bytesErrorLevel;
             *buf = 134218240;
-            v16 = v10;
+            v16 = v11;
             v17 = 2048;
-            v18 = v12;
-            _os_log_impl(&dword_2577D8000, v11, OS_LOG_TYPE_DEFAULT, "data size %llu exceeded error level %llu", buf, 0x16u);
+            v18 = v13;
+            _os_log_impl(&dword_2577D8000, v12, OS_LOG_TYPE_DEFAULT, "data size %llu exceeded error level %llu", buf, 0x16u);
           }
         }
       }
@@ -110,16 +110,14 @@ uint64_t __44__MMCSBoundedQueue__sync_aggregateByteCount__block_invoke(uint64_t 
 
     if (self->_isValid)
     {
-      v13 = self->_entries;
-      objc_sync_enter(v13);
+      v14 = self->_entries;
+      objc_sync_enter(v14);
       [(NSMutableArray *)self->_entries addObject:dataCopy];
-      objc_sync_exit(v13);
+      objc_sync_exit(v14);
     }
   }
 
 LABEL_11:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeNextDataWithBlock:(id)block

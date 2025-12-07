@@ -25,7 +25,7 @@
     v10 = idCopy;
     v17 = v10;
     v11 = [v9 remoteObjectProxyWithErrorHandler:v15];
-    v12 = sub_10000BE38();
+    v12 = sub_10000BE38(v11);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218498;
@@ -42,7 +42,7 @@
 
   else
   {
-    v13 = sub_10000BE38();
+    v13 = sub_10000BE38(0);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       sub_10022B298(idCopy, v13);
@@ -63,21 +63,21 @@
 
   if (v8)
   {
-    v9 = [v8 connectWithDelegate:delegateCopy];
+    v10 = [v8 connectWithDelegate:delegateCopy];
   }
 
   else
   {
-    v10 = sub_10000BE38();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = sub_10000BE38(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      sub_10022B39C(dCopy, v10);
+      sub_10022B39C(dCopy, v11);
     }
 
-    v9 = 0;
+    v10 = 0;
   }
 
-  return v9;
+  return v10;
 }
 
 + (id)getAllExtensions
@@ -117,7 +117,7 @@
 
   else
   {
-    v9 = sub_10000BE38();
+    v9 = sub_10000BE38(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_10022B428();
@@ -143,7 +143,7 @@
       goto LABEL_9;
     }
 
-    v12 = sub_10000BE38();
+    v12 = sub_10000BE38(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       sub_10022B498();
@@ -152,7 +152,7 @@
 
   else
   {
-    v12 = sub_10000BE38();
+    v12 = sub_10000BE38(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       sub_10022B428();

@@ -79,10 +79,10 @@
 
 - (id)runAction
 {
-  v31 = *MEMORY[0x1E69E9840];
-  v26.receiver = self;
-  v26.super_class = AMSUIWebAuthorizeApplePayEnrollmentAction;
-  runAction = [(AMSUIWebAction *)&v26 runAction];
+  v30 = *MEMORY[0x1E69E9840];
+  v25.receiver = self;
+  v25.super_class = AMSUIWebAuthorizeApplePayEnrollmentAction;
+  runAction = [(AMSUIWebAction *)&v25 runAction];
   context = [(AMSUIWebAction *)self context];
   v5 = [context bag];
 
@@ -94,14 +94,14 @@
       v7 = [v5 stringForKey:@"currentStorefrontCountryCodeISO2A"];
       valuePromise = [v7 valuePromise];
 
-      v22[0] = MEMORY[0x1E69E9820];
-      v22[1] = 3221225472;
-      v22[2] = __54__AMSUIWebAuthorizeApplePayEnrollmentAction_runAction__block_invoke;
-      v22[3] = &unk_1E7F25B78;
-      v23 = v5;
+      v21[0] = MEMORY[0x1E69E9820];
+      v21[1] = 3221225472;
+      v21[2] = __54__AMSUIWebAuthorizeApplePayEnrollmentAction_runAction__block_invoke;
+      v21[3] = &unk_1E7F25B78;
+      v22 = v5;
       selfCopy = self;
-      v25 = paymentSession;
-      v9 = [valuePromise thenWithBlock:v22];
+      v24 = paymentSession;
+      v9 = [valuePromise thenWithBlock:v21];
     }
 
     else
@@ -118,9 +118,9 @@
         v17 = objc_opt_class();
         v18 = AMSLogKey();
         *buf = 138543618;
-        v28 = v17;
-        v29 = 2114;
-        v30 = v18;
+        v27 = v17;
+        v28 = 2114;
+        v29 = v18;
         _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed for bad arguments.", buf, 0x16u);
       }
 
@@ -144,9 +144,9 @@
       v12 = objc_opt_class();
       v13 = AMSLogKey();
       *buf = 138543618;
-      v28 = v12;
-      v29 = 2114;
-      v30 = v13;
+      v27 = v12;
+      v28 = 2114;
+      v29 = v13;
       _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed for feature not enabled.", buf, 0x16u);
     }
 
@@ -154,8 +154,6 @@
     paymentSession = AMSError();
     v9 = [v14 promiseWithError:paymentSession];
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -186,7 +184,7 @@ id __54__AMSUIWebAuthorizeApplePayEnrollmentAction_runAction__block_invoke(uint6
 
 void __54__AMSUIWebAuthorizeApplePayEnrollmentAction_runAction__block_invoke_2(id *a1, void *a2, void *a3)
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v5)
@@ -203,72 +201,68 @@ void __54__AMSUIWebAuthorizeApplePayEnrollmentAction_runAction__block_invoke_2(i
   v8 = [v7 OSLogObject];
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = a1[4];
-    v10 = objc_opt_class();
-    v11 = AMSLogKey();
+    v9 = objc_opt_class();
+    v10 = AMSLogKey();
     *buf = 138543618;
-    v37 = v10;
-    v38 = 2114;
-    v39 = v11;
+    v34 = v9;
+    v35 = 2114;
+    v36 = v10;
     _os_log_impl(&dword_1BB036000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] No currency code, falling back to device locale", buf, 0x16u);
   }
 
-  v12 = [MEMORY[0x1E695DF58] currentLocale];
-  v5 = [v12 currencyCode];
+  v11 = [MEMORY[0x1E695DF58] currentLocale];
+  v5 = [v11 currencyCode];
 
   if (v5)
   {
 LABEL_7:
-    v13 = [a1[4] presentingSceneIdentifierPromise];
-    v14 = [a1[4] presentingSceneBundleIdentifierPromise];
-    v15 = MEMORY[0x1E698CAD0];
-    v35[0] = v13;
-    v35[1] = v14;
-    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v35 count:2];
-    v17 = [v15 promiseWithAll:v16];
+    v12 = [a1[4] presentingSceneIdentifierPromise];
+    v13 = [a1[4] presentingSceneBundleIdentifierPromise];
+    v14 = MEMORY[0x1E698CAD0];
+    v32[0] = v12;
+    v32[1] = v13;
+    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:2];
+    v16 = [v14 promiseWithAll:v15];
 
-    v29[0] = MEMORY[0x1E69E9820];
-    v29[1] = 3221225472;
-    v29[2] = __54__AMSUIWebAuthorizeApplePayEnrollmentAction_runAction__block_invoke_37;
-    v29[3] = &unk_1E7F25B28;
-    v18 = a1[6];
-    v19 = a1[4];
-    v30 = v18;
-    v31 = v19;
-    v32 = a1[7];
-    v33 = v5;
-    v34 = a1[5];
-    v20 = v5;
-    v21 = [v17 thenWithBlock:v29];
+    v26[0] = MEMORY[0x1E69E9820];
+    v26[1] = 3221225472;
+    v26[2] = __54__AMSUIWebAuthorizeApplePayEnrollmentAction_runAction__block_invoke_37;
+    v26[3] = &unk_1E7F25B28;
+    v17 = a1[6];
+    v18 = a1[4];
+    v27 = v17;
+    v28 = v18;
+    v29 = a1[7];
+    v30 = v5;
+    v31 = a1[5];
+    v19 = v5;
+    v20 = [v16 thenWithBlock:v26];
   }
 
   else
   {
-    v23 = [MEMORY[0x1E698C968] sharedWebUIConfig];
-    if (!v23)
+    v21 = [MEMORY[0x1E698C968] sharedWebUIConfig];
+    if (!v21)
     {
-      v23 = [MEMORY[0x1E698C968] sharedConfig];
+      v21 = [MEMORY[0x1E698C968] sharedConfig];
     }
 
-    v24 = [v23 OSLogObject];
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    v22 = [v21 OSLogObject];
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      v25 = a1[4];
-      v26 = objc_opt_class();
-      v27 = AMSLogKey();
+      v23 = objc_opt_class();
+      v24 = AMSLogKey();
       *buf = 138543618;
-      v37 = v26;
-      v38 = 2114;
-      v39 = v27;
-      _os_log_impl(&dword_1BB036000, v24, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed for bad arguments.", buf, 0x16u);
+      v34 = v23;
+      v35 = 2114;
+      v36 = v24;
+      _os_log_impl(&dword_1BB036000, v22, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed for bad arguments.", buf, 0x16u);
     }
 
-    v28 = a1[5];
-    v20 = AMSError();
-    [v28 finishWithError:v20];
+    v25 = a1[5];
+    v19 = AMSError();
+    [v25 finishWithError:v19];
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 id __54__AMSUIWebAuthorizeApplePayEnrollmentAction_runAction__block_invoke_37(uint64_t a1, void *a2)
@@ -315,18 +309,16 @@ id __54__AMSUIWebAuthorizeApplePayEnrollmentAction_runAction__block_invoke_37(ui
 
 void __54__AMSUIWebAuthorizeApplePayEnrollmentAction_runAction__block_invoke_2_39(uint64_t a1, void *a2)
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   v3 = [a2 token];
   v4 = [v3 paymentData];
 
   v5 = [v4 base64EncodedStringWithOptions:0];
   v6 = *(a1 + 32);
-  v9 = @"payment";
-  v10[0] = v5;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8 = @"payment";
+  v9[0] = v5;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   [v6 finishWithResult:v7];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 @end

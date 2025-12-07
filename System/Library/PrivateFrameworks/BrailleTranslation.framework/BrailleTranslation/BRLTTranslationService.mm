@@ -86,11 +86,11 @@
 + (id)connectionForServiceIdentifier:(id)identifier
 {
   v4 = [objc_alloc(MEMORY[0x277CCAE80]) initWithServiceName:@"com.apple.accessibility.BrailleTranslation.BrailleTranslationService"];
-  v5 = BRLTTranslationServiceInterface();
+  v5 = BRLTTranslationServiceInterface(v4);
   [v4 setRemoteObjectInterface:v5];
 
-  v6 = BRLTTranslationServiceClientInterface();
-  [v4 setExportedInterface:v6];
+  v7 = BRLTTranslationServiceClientInterface(v6);
+  [v4 setExportedInterface:v7];
 
   [v4 setExportedObject:self];
 
@@ -110,8 +110,8 @@
   v10 = +[BRLTSTranslationService exportedInterface];
   [v9 setRemoteObjectInterface:v10];
 
-  v11 = BRLTTranslationServiceClientInterface();
-  [v9 setExportedInterface:v11];
+  v12 = BRLTTranslationServiceClientInterface(v11);
+  [v9 setExportedInterface:v12];
 
   [v9 setExportedObject:self];
 
@@ -195,26 +195,26 @@ uint64_t __63__BRLTTranslationService_initWithServiceIdentifier_connection___blo
 
 - (void)_queue_resume
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   queue = [(BRLTTranslationService *)self queue];
   dispatch_assert_queue_V2(queue);
 
   objc_initWeak(&location, self);
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __39__BRLTTranslationService__queue_resume__block_invoke;
-  v11[3] = &unk_278D20A18;
-  objc_copyWeak(&v12, &location);
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __39__BRLTTranslationService__queue_resume__block_invoke;
+  v10[3] = &unk_278D20A18;
+  objc_copyWeak(&v11, &location);
   queue_connection = [(BRLTTranslationService *)self queue_connection];
-  [queue_connection setInterruptionHandler:v11];
+  [queue_connection setInterruptionHandler:v10];
 
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __39__BRLTTranslationService__queue_resume__block_invoke_19;
-  v9[3] = &unk_278D20A18;
-  objc_copyWeak(&v10, &location);
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __39__BRLTTranslationService__queue_resume__block_invoke_19;
+  v8[3] = &unk_278D20A18;
+  objc_copyWeak(&v9, &location);
   queue_connection2 = [(BRLTTranslationService *)self queue_connection];
-  [queue_connection2 setInvalidationHandler:v9];
+  [queue_connection2 setInvalidationHandler:v8];
 
   v6 = BRLTLog();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
@@ -227,28 +227,25 @@ uint64_t __63__BRLTTranslationService_initWithServiceIdentifier_connection___blo
   queue_connection3 = [(BRLTTranslationService *)self queue_connection];
   [queue_connection3 resume];
 
-  objc_destroyWeak(&v10);
-  objc_destroyWeak(&v12);
+  objc_destroyWeak(&v9);
+  objc_destroyWeak(&v11);
   objc_destroyWeak(&location);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __39__BRLTTranslationService__queue_resume__block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = BRLTLog();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     WeakRetained = objc_loadWeakRetained((a1 + 32));
-    v6 = 138412290;
-    v7 = WeakRetained;
-    _os_log_impl(&dword_241DFD000, v2, OS_LOG_TYPE_DEFAULT, "Connection to service interrupted. service:%@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = WeakRetained;
+    _os_log_impl(&dword_241DFD000, v2, OS_LOG_TYPE_DEFAULT, "Connection to service interrupted. service:%@", &v5, 0xCu);
   }
 
   v4 = objc_loadWeakRetained((a1 + 32));
   [v4 setInterrupted:1];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __39__BRLTTranslationService__queue_resume__block_invoke_19(uint64_t a1)
@@ -477,25 +474,22 @@ void __62__BRLTTranslationService_textForBraille_parameters_withReply___block_in
 
 void __39__BRLTTranslationService__queue_resume__block_invoke_19_cold_1(id *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained(a1);
-  v5 = 138412290;
-  v6 = WeakRetained;
-  _os_log_error_impl(&dword_241DFD000, a2, OS_LOG_TYPE_ERROR, "Connection to service invalidated. service:%@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = WeakRetained;
+  _os_log_error_impl(&dword_241DFD000, a2, OS_LOG_TYPE_ERROR, "Connection to service invalidated. service:%@", &v4, 0xCu);
 }
 
 void __45__BRLTTranslationService__queue_serviceProxy__block_invoke_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
-  v5 = 138412546;
-  v6 = v3;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_error_impl(&dword_241DFD000, log, OS_LOG_TYPE_ERROR, "Couldn't get remote object proxy. service:%@ / %@", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412546;
+  v5 = v3;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_error_impl(&dword_241DFD000, log, OS_LOG_TYPE_ERROR, "Couldn't get remote object proxy. service:%@ / %@", &v4, 0x16u);
 }
 
 @end

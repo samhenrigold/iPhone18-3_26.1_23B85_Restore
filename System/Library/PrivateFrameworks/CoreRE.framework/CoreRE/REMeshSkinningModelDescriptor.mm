@@ -13,62 +13,82 @@
 
 - (REMeshSkinningModelDescriptor)initWithMeshSkinningData:(const void *)data meshParts:(Slice<re:(id)parts :(void *)a6 MeshAssetPart>)a4 inverseBindPoseAttributes:(void *)attributes deformerBuilders:payloadBuilder:
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   partsCopy = parts;
   *(a6 + 1) = 0;
   *(a6 + 2) = 0;
-  v26 = a6;
-  v25 = *(data + 2);
-  if (v25)
+  v29 = a6;
+  v28 = *(data + 2);
+  if (v28)
   {
     v9 = 0;
     v10 = 0;
     do
     {
-      if (*(data + 2) <= v10)
+      v11 = *(data + 2);
+      if (v11 <= v10)
       {
-        v30 = 0u;
-        v31 = 0u;
-        v28 = 0u;
-        v29 = 0u;
-        v27 = 0u;
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        _os_log_send_and_compose_impl();
+        v30 = 0;
+        v42 = 0u;
+        v43 = 0u;
+        v40 = 0u;
+        v41 = 0u;
+        v39 = 0u;
+        v23 = MEMORY[0x1E69E9C10];
+        v31 = 136315906;
+        v32 = "operator[]";
+        v33 = 1024;
+        if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+        {
+          v24 = 3;
+        }
+
+        else
+        {
+          v24 = 2;
+        }
+
+        v34 = 797;
+        v35 = 2048;
+        v36 = v10;
+        v37 = 2048;
+        v38 = v11;
+        _os_log_send_and_compose_impl(v24, &v30, &v39, 80, &dword_1E1C61000, v23, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v31, 38, attributes, partsCopy);
         _os_crash_msg();
         __break(1u);
       }
 
-      v11 = (*(data + 4) + v9);
-      v12 = *v11;
-      v13 = *(v11 + 2);
-      v14 = *(v11 + 3);
-      v16 = *(v11 + 5);
-      v15 = *(v11 + 6);
-      v18 = *(v11 + 8);
-      v17 = *(v11 + 9);
-      v19 = re::BucketArray<re::SkinningModelBuilder::RawSkinnedMeshPartData,4ul>::addUninitialized((v26 + 3));
-      *v19 = v12;
-      *(v19 + 8) = v14;
-      *(v19 + 16) = v13;
-      *(v19 + 24) = v15;
-      *(v19 + 32) = v16;
+      v12 = (*(data + 4) + v9);
+      v13 = *v12;
+      v14 = *(v12 + 2);
+      v15 = *(v12 + 3);
+      v17 = *(v12 + 5);
+      v16 = *(v12 + 6);
+      v19 = *(v12 + 8);
+      v18 = *(v12 + 9);
+      v20 = re::BucketArray<re::SkinningModelBuilder::RawSkinnedMeshPartData,4ul>::addUninitialized((v29 + 3));
+      *v20 = v13;
+      *(v20 + 8) = v15;
+      *(v20 + 16) = v14;
+      *(v20 + 24) = v16;
+      *(v20 + 32) = v17;
       ++v10;
       v9 += 144;
-      *(v19 + 40) = v17;
-      *(v19 + 48) = v18;
+      *(v20 + 40) = v18;
+      *(v20 + 48) = v19;
     }
 
-    while (v25 != v10);
+    while (v28 != v10);
   }
 
-  *&v29 = 0;
-  v27 = 0u;
-  v28 = 0u;
-  re::SkinningModelBuilder::buildAttributeDescriptor(v26, &v27);
-  v20 = [(REMeshSkinningModelDescriptor *)self initWithSkinningAttributeDescriptor:&v27 inverseBindPoseAttributes:partsCopy payloadBuilder:attributes];
-  re::FixedArray<re::SkinningModelBuilder::AttributeDescriptor::SkinnedPartAttribute>::deinit(&v28);
+  *&v41 = 0;
+  v39 = 0u;
+  v40 = 0u;
+  re::SkinningModelBuilder::buildAttributeDescriptor(v29, &v39);
+  v21 = [(REMeshSkinningModelDescriptor *)self initWithSkinningAttributeDescriptor:&v39 inverseBindPoseAttributes:partsCopy payloadBuilder:attributes];
+  re::FixedArray<re::SkinningModelBuilder::AttributeDescriptor::SkinnedPartAttribute>::deinit(&v40);
 
-  return v20;
+  return v21;
 }
 
 - (REMeshSkinningModelDescriptor)initWithSkinningData:(const void *)data inverseBindPoseAttributes:(id)attributes deformerBuilders:(void *)builders payloadBuilder:(void *)builder

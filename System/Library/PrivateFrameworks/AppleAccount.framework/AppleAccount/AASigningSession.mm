@@ -56,7 +56,7 @@
 
 - (void)establishSession
 {
-  v3 = _AALogSystem();
+  v3 = _AALogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -81,7 +81,7 @@
 
 void __36__AASigningSession_establishSession__block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -90,7 +90,7 @@ void __36__AASigningSession_establishSession__block_invoke(uint64_t a1, void *a2
   {
     if (v9)
     {
-      v12 = _AALogSystem();
+      v12 = _AALogSystem(v9);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         v13 = [v10 localizedDescription];
@@ -101,12 +101,12 @@ void __36__AASigningSession_establishSession__block_invoke(uint64_t a1, void *a2
     }
 
     *buf = 0;
-    v28 = 0;
+    v24 = 0;
     if (!v7)
     {
-      v19 = -1;
+      v16 = -1;
 LABEL_19:
-      *(*(a1 + 32) + 32) = v19;
+      *(*(a1 + 32) + 32) = v16;
       dispatch_semaphore_signal(*(a1 + 40));
       goto LABEL_20;
     }
@@ -114,7 +114,7 @@ LABEL_19:
 
   else
   {
-    v11 = _AALogSystem();
+    v11 = _AALogSystem(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
@@ -123,25 +123,22 @@ LABEL_19:
     }
 
     *buf = 0;
-    v28 = 0;
+    v24 = 0;
   }
 
-  v14 = _AALogSystem();
+  v14 = _AALogSystem(v9);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
-    *v27 = 0;
-    _os_log_impl(&dword_1B6F6A000, v14, OS_LOG_TYPE_DEFAULT, "Initializing absinthe session", v27, 2u);
+    *v23 = 0;
+    _os_log_impl(&dword_1B6F6A000, v14, OS_LOG_TYPE_DEFAULT, "Initializing absinthe session", v23, 2u);
   }
 
-  v15 = [v7 bytes];
-  v16 = [v7 length];
-  v17 = *(a1 + 32);
-  KxmB0CKvgWt(v15, v16);
-  if (v18)
+  KxmB0CKvgWt([v7 bytes], objc_msgSend(v7, "length"));
+  if (v15)
   {
-    v19 = v18;
-    v20 = _AALogSystem();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v16 = v15;
+    v17 = _AALogSystem(v15);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       __36__AASigningSession_establishSession__block_invoke_cold_1();
     }
@@ -149,31 +146,31 @@ LABEL_19:
     goto LABEL_19;
   }
 
-  v21 = [MEMORY[0x1E695DEF0] dataWithBytes:*buf length:v28];
+  v18 = [MEMORY[0x1E695DEF0] dataWithBytes:*buf length:v24];
   Be81a395Bf0(*buf);
-  v22 = [[AASigningSessionRequest alloc] initWithURLString:*(*(a1 + 32) + 24) sessionInfoRequestData:v21];
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v25[2] = __36__AASigningSession_establishSession__block_invoke_66;
-  v25[3] = &unk_1E7C9BD68;
-  v23 = *(a1 + 40);
-  v25[4] = *(a1 + 32);
-  v26 = v23;
-  [(AARequest *)v22 performRequestWithHandler:v25];
+  v19 = [[AASigningSessionRequest alloc] initWithURLString:*(*(a1 + 32) + 24) sessionInfoRequestData:v18];
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = __36__AASigningSession_establishSession__block_invoke_66;
+  v21[3] = &unk_1E7C9BD68;
+  v20 = *(a1 + 40);
+  v21[4] = *(a1 + 32);
+  v22 = v20;
+  [(AARequest *)v19 performRequestWithHandler:v21];
 
 LABEL_20:
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 void __36__AASigningSession_establishSession__block_invoke_66(uint64_t a1, void *a2, void *a3, void *a4)
 {
   v7 = a2;
   v8 = a3;
-  v9 = a4;
-  if (v9 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+  isKindOfClass = a4;
+  v10 = isKindOfClass;
+  if (isKindOfClass || (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) == 0))
   {
-    v15 = _AALogSystem();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v17 = _AALogSystem(isKindOfClass);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       __36__AASigningSession_establishSession__block_invoke_66_cold_1();
     }
@@ -183,27 +180,28 @@ void __36__AASigningSession_establishSession__block_invoke_66(uint64_t a1, void 
 
   else
   {
-    v10 = [v8 sessionData];
-    if (v10)
+    v11 = [v8 sessionData];
+    v12 = v11;
+    if (v11)
     {
-      v11 = _AALogSystem();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v13 = _AALogSystem(v11);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        *v16 = 0;
-        _os_log_impl(&dword_1B6F6A000, v11, OS_LOG_TYPE_DEFAULT, "Initialized absinthe session, establishing key", v16, 2u);
+        *v18 = 0;
+        _os_log_impl(&dword_1B6F6A000, v13, OS_LOG_TYPE_DEFAULT, "Initialized absinthe session, establishing key", v18, 2u);
       }
 
-      nDYmeMqvWb(*(*(a1 + 32) + 8), [v10 bytes], objc_msgSend(v10, "length"));
-      if (v12)
+      nDYmeMqvWb(*(*(a1 + 32) + 8), [v12 bytes], objc_msgSend(v12, "length"));
+      if (v14)
       {
-        v13 = v12;
-        v14 = _AALogSystem();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+        v15 = v14;
+        v16 = _AALogSystem(v14);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
           __36__AASigningSession_establishSession__block_invoke_cold_1();
         }
 
-        *(*(a1 + 32) + 32) = v13;
+        *(*(a1 + 32) + 32) = v15;
       }
     }
   }
@@ -218,7 +216,7 @@ void __36__AASigningSession_establishSession__block_invoke_66(uint64_t a1, void 
     v16 = 0;
     v15 = 0;
     dataCopy = data;
-    v5 = _AALogSystem();
+    v5 = _AALogSystem(dataCopy);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *v14 = 0;
@@ -233,7 +231,7 @@ void __36__AASigningSession_establishSession__block_invoke_66(uint64_t a1, void 
     if (v9)
     {
       v10 = v9;
-      v11 = _AALogSystem();
+      v11 = _AALogSystem(v9);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         __36__AASigningSession_establishSession__block_invoke_cold_1();
@@ -264,22 +262,6 @@ void __36__AASigningSession_establishSession__block_invoke_66(uint64_t a1, void 
   v3.receiver = self;
   v3.super_class = AASigningSession;
   [(AASigningSession *)&v3 dealloc];
-}
-
-void __36__AASigningSession_establishSession__block_invoke_cold_1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void __36__AASigningSession_establishSession__block_invoke_66_cold_1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -1,6 +1,7 @@
 @interface RTTSettings
 + (id)sharedInstance;
 + (void)initialize;
+- (BOOL)BOOLValueForKey:(id)key andContext:(id)context withDefaultValue:(BOOL)value;
 - (BOOL)BOOLValueForKey:(id)key withDefaultValue:(BOOL)value;
 - (BOOL)TTYHardwareEnabled;
 - (BOOL)TTYSoftwareEnabled;
@@ -37,13 +38,32 @@
 - (void)migrateSettings;
 - (void)registerUpdateBlock:(id)block forRetrieveSelector:(SEL)selector withListener:(id)listener;
 - (void)resetCannedResponses;
+- (void)setAnswerRTTCallsAsMuted:(BOOL)muted;
+- (void)setAnswerRTTCallsAsMuted:(BOOL)muted forContext:(id)context;
 - (void)setCannedResponses:(id)responses;
+- (void)setContinuityEmergencyRTTIsSupported:(BOOL)supported;
+- (void)setContinuityRTTIsSupported:(BOOL)supported;
+- (void)setHasReceivedRTTCall:(BOOL)call;
+- (void)setIncomingCallsTTY:(BOOL)y;
+- (void)setIncomingCallsTTY:(BOOL)y forContext:(id)context;
 - (void)setIncomingTTYCallCount:(int64_t)count;
+- (void)setInternalOverrideTTYAvailability:(BOOL)availability;
+- (void)setIsRelayCallingEnabled:(BOOL)enabled;
 - (void)setLastCallCountReset:(double)reset;
 - (void)setLastDBVacuum:(double)vacuum;
 - (void)setOutgoingTTYCallCount:(int64_t)count;
 - (void)setPreferredRelayNumber:(id)number;
+- (void)setRTTLiveTranscriptionsEnabled:(BOOL)enabled forContext:(id)context;
+- (void)setRttInlineAbbreviationBarEnabled:(BOOL)enabled;
 - (void)setSettingsVersion:(int64_t)version;
+- (void)setShowsRTTNotifications:(BOOL)notifications forContext:(id)context;
+- (void)setSupportsRelayCalling:(BOOL)calling;
+- (void)setTTYHardwareEnabled:(BOOL)enabled;
+- (void)setTTYHardwareEnabled:(BOOL)enabled forContext:(id)context;
+- (void)setTTYShouldBeRealtime:(BOOL)realtime forContext:(id)context;
+- (void)setTTYSoftwareEnabled:(BOOL)enabled;
+- (void)setTTYSoftwareEnabled:(BOOL)enabled forContext:(id)context;
+- (void)setTtyShouldBeRealtime:(BOOL)realtime;
 - (void)updateGizmoValueIfNeeded:(id)needed forPreferenceKey:(id)key;
 @end
 
@@ -397,7 +417,7 @@ void __40__RTTSettings__registerForNotification___block_invoke_2(uint64_t a1)
 
 - (void)registerUpdateBlock:(id)block forRetrieveSelector:(SEL)selector withListener:(id)listener
 {
-  v25[2] = *MEMORY[0x277D85DE8];
+  v24[2] = *MEMORY[0x277D85DE8];
   blockCopy = block;
   listenerCopy = listener;
   v10 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:listenerCopy];
@@ -411,11 +431,11 @@ void __40__RTTSettings__registerForNotification___block_invoke_2(uint64_t a1)
   if (blockCopy)
   {
     v15 = _Block_copy(blockCopy);
-    v22 = v10;
-    v25[0] = v10;
+    v21 = v10;
+    v24[0] = v10;
     v16 = _Block_copy(v15);
-    v25[1] = v16;
-    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:2];
+    v24[1] = v16;
+    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:2];
 
     if (!array)
     {
@@ -433,23 +453,23 @@ void __40__RTTSettings__registerForNotification___block_invoke_2(uint64_t a1)
     [(AXRTTSettingsListenerHelper *)v18 addSelectorKey:selector];
     [(RTTSettings *)self _registerForNotification:v13];
 
-    v10 = v22;
+    v10 = v21;
   }
 
   else
   {
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __68__RTTSettings_registerUpdateBlock_forRetrieveSelector_withListener___block_invoke;
-    v23[3] = &unk_279AE8248;
-    v24 = v10;
-    v19 = [array indexesOfObjectsPassingTest:v23];
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __68__RTTSettings_registerUpdateBlock_forRetrieveSelector_withListener___block_invoke;
+    v22[3] = &unk_279AE8248;
+    v23 = v10;
+    v19 = [array indexesOfObjectsPassingTest:v22];
     if ([v19 count])
     {
       [array removeObjectsAtIndexes:v19];
     }
 
-    v15 = v24;
+    v15 = v23;
   }
 
   [(NSLock *)self->_synchronizeDomainsLock lock];
@@ -457,7 +477,6 @@ void __40__RTTSettings__registerForNotification___block_invoke_2(uint64_t a1)
   [updateBlocks2 setObject:array forKey:v13];
 
   [(NSLock *)self->_synchronizeDomainsLock unlock];
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __68__RTTSettings_registerUpdateBlock_forRetrieveSelector_withListener___block_invoke(uint64_t a1, void *a2)
@@ -524,7 +543,7 @@ void __57__RTTSettings_updateGizmoValueIfNeeded_forPreferenceKey___block_invoke(
 
 - (void)_setValue:(id)value forPreferenceKey:(id)key andContext:(id)context
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   keyCopy = key;
   contextCopy = context;
@@ -532,13 +551,13 @@ void __57__RTTSettings_updateGizmoValueIfNeeded_forPreferenceKey___block_invoke(
   v12 = AXLogRTT();
   if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
-    v17 = 138412802;
-    v18 = keyCopy;
-    v19 = 2112;
-    v20 = valueCopy;
-    v21 = 2112;
-    v22 = contextCopy;
-    _os_log_impl(&dword_261754000, v12, OS_LOG_TYPE_INFO, "Setting %@=%@ for context: %@", &v17, 0x20u);
+    v16 = 138412802;
+    v17 = keyCopy;
+    v18 = 2112;
+    v19 = valueCopy;
+    v20 = 2112;
+    v21 = contextCopy;
+    _os_log_impl(&dword_261754000, v12, OS_LOG_TYPE_INFO, "Setting %@=%@ for context: %@", &v16, 0x20u);
   }
 
   if ([v11 length])
@@ -556,20 +575,18 @@ void __57__RTTSettings_updateGizmoValueIfNeeded_forPreferenceKey___block_invoke(
     v15 = AXLogRTT();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
-      v17 = 138412546;
-      v18 = keyCopy;
-      v19 = 2112;
-      v20 = contextCopy;
-      _os_log_impl(&dword_261754000, v15, OS_LOG_TYPE_INFO, "Not setting value for %@ and context %@", &v17, 0x16u);
+      v16 = 138412546;
+      v17 = keyCopy;
+      v18 = 2112;
+      v19 = contextCopy;
+      _os_log_impl(&dword_261754000, v15, OS_LOG_TYPE_INFO, "Not setting value for %@ and context %@", &v16, 0x16u);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setValue:(id)value forPreferenceKey:(id)key
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v6 = MEMORY[0x277D81E48];
   v7 = *MEMORY[0x277D81E48];
   v8 = *MEMORY[0x277CBF030];
@@ -591,13 +608,11 @@ void __57__RTTSettings_updateGizmoValueIfNeeded_forPreferenceKey___block_invoke(
     v13 = AXLogRTT();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
-      v15 = 138412290;
-      v16 = v11;
-      _os_log_impl(&dword_261754000, v13, OS_LOG_TYPE_INFO, "Posting RTT setting notification for: %@", &v15, 0xCu);
+      v14 = 138412290;
+      v15 = v11;
+      _os_log_impl(&dword_261754000, v13, OS_LOG_TYPE_INFO, "Posting RTT setting notification for: %@", &v14, 0xCu);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_synchronizeIfNecessary:(id)necessary
@@ -626,6 +641,31 @@ void __57__RTTSettings_updateGizmoValueIfNeeded_forPreferenceKey___block_invoke(
   return value;
 }
 
+- (BOOL)BOOLValueForKey:(id)key andContext:(id)context withDefaultValue:(BOOL)value
+{
+  valueCopy = value;
+  keyCopy = key;
+  contextCopy = context;
+  v10 = AXLogRTT();
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  {
+    [RTTSettings BOOLValueForKey:andContext:withDefaultValue:];
+  }
+
+  v11 = objc_opt_class();
+  v12 = [MEMORY[0x277CCABB0] numberWithBool:valueCopy];
+  v13 = [(RTTSettings *)self objectValueForKey:keyCopy andContext:contextCopy withClass:v11 andDefaultValue:v12];
+
+  v14 = AXLogRTT();
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+  {
+    [RTTSettings BOOLValueForKey:andContext:withDefaultValue:];
+  }
+
+  bOOLValue = [v13 BOOLValue];
+  return bOOLValue;
+}
+
 - (BOOL)BOOLValueForKey:(id)key withDefaultValue:(BOOL)value
 {
   v5 = [(RTTSettings *)self valueForPreferenceKey:key];
@@ -640,7 +680,7 @@ void __57__RTTSettings_updateGizmoValueIfNeeded_forPreferenceKey___block_invoke(
 
 - (id)objectValueForKey:(id)key andContext:(id)context withClass:(Class)class andDefaultValue:(id)value
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   contextCopy = context;
   valueCopy = value;
@@ -651,7 +691,7 @@ void __57__RTTSettings_updateGizmoValueIfNeeded_forPreferenceKey___block_invoke(
     v15 = valueCopy;
     if ([v13 length])
     {
-      v42 = [v14 objectForKey:v13];
+      v41 = [v14 objectForKey:v13];
       isKindOfClass = objc_opt_isKindOfClass();
       v17 = AXLogRTT();
       v18 = os_log_type_enabled(v17, OS_LOG_TYPE_INFO);
@@ -660,13 +700,13 @@ void __57__RTTSettings_updateGizmoValueIfNeeded_forPreferenceKey___block_invoke(
         if (v18)
         {
           *buf = 138412546;
-          v50 = keyCopy;
-          v51 = 2112;
-          v52 = v42;
+          v49 = keyCopy;
+          v50 = 2112;
+          v51 = v41;
           _os_log_impl(&dword_261754000, v17, OS_LOG_TYPE_INFO, "Returning setting: [%@] = '%@'", buf, 0x16u);
         }
 
-        v19 = v42;
+        v19 = v41;
         v15 = v19;
       }
 
@@ -675,54 +715,54 @@ void __57__RTTSettings_updateGizmoValueIfNeeded_forPreferenceKey___block_invoke(
         if (v18)
         {
           *buf = 138413314;
-          v50 = keyCopy;
-          v51 = 2112;
-          v52 = v42;
-          v53 = 2112;
-          *v54 = class;
-          *&v54[8] = 2112;
-          v55 = v14;
-          v56 = 2112;
-          v57 = v13;
+          v49 = keyCopy;
+          v50 = 2112;
+          v51 = v41;
+          v52 = 2112;
+          *v53 = class;
+          *&v53[8] = 2112;
+          v54 = v14;
+          v55 = 2112;
+          v56 = v13;
           _os_log_impl(&dword_261754000, v17, OS_LOG_TYPE_INFO, "Slot value is wrong kind: [%@] %@ > %@ (%@ -> %@)", buf, 0x34u);
         }
 
-        v46 = 0u;
-        v47 = 0u;
-        v44 = 0u;
         v45 = 0u;
+        v46 = 0u;
+        v43 = 0u;
+        v44 = 0u;
         obj = v14;
-        v23 = [obj countByEnumeratingWithState:&v44 objects:v48 count:16];
+        v23 = [obj countByEnumeratingWithState:&v43 objects:v47 count:16];
         if (v23)
         {
           v24 = v23;
-          v40 = contextCopy;
+          v39 = contextCopy;
           classCopy = class;
-          v39 = valueCopy;
-          v25 = *v45;
+          v38 = valueCopy;
+          v25 = *v44;
           while (2)
           {
             for (i = 0; i != v24; ++i)
             {
-              if (*v45 != v25)
+              if (*v44 != v25)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v27 = *(*(&v44 + 1) + 8 * i);
+              v27 = *(*(&v43 + 1) + 8 * i);
               v28 = AXLogRTT();
               if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
               {
                 v29 = [v13 isEqualToString:@"RTTWildcardContext"];
                 v30 = [v27 hasPrefix:@"00000000-"];
                 *buf = 138413058;
-                v50 = v27;
-                v51 = 2112;
-                v52 = v13;
-                v53 = 1024;
-                *v54 = v29;
-                *&v54[4] = 1024;
-                *&v54[6] = v30;
+                v49 = v27;
+                v50 = 2112;
+                v51 = v13;
+                v52 = 1024;
+                *v53 = v29;
+                *&v53[4] = 1024;
+                *&v53[6] = v30;
                 _os_log_impl(&dword_261754000, v28, OS_LOG_TYPE_INFO, "check: %@ %@ %d %d", buf, 0x22u);
               }
 
@@ -738,19 +778,19 @@ LABEL_32:
                 {
                   v35 = objc_opt_class();
                   *buf = 138413058;
-                  v50 = v27;
-                  v51 = 2112;
-                  v52 = v15;
-                  v53 = 2112;
-                  *v54 = v35;
-                  *&v54[8] = 2112;
-                  v55 = classCopy;
+                  v49 = v27;
+                  v50 = 2112;
+                  v51 = v15;
+                  v52 = 2112;
+                  *v53 = v35;
+                  *&v53[8] = 2112;
+                  v54 = classCopy;
                   v36 = v35;
                   _os_log_impl(&dword_261754000, v34, OS_LOG_TYPE_INFO, "Found another id with value: [%@], contextUUID mismatch: [%@] [cls: %@, expected: %@]", buf, 0x2Au);
                 }
 
-                valueCopy = v39;
-                contextCopy = v40;
+                valueCopy = v38;
+                contextCopy = v39;
                 if (objc_opt_isKindOfClass())
                 {
                   v19 = v33;
@@ -781,7 +821,7 @@ LABEL_32:
               }
             }
 
-            v24 = [obj countByEnumeratingWithState:&v44 objects:v48 count:16];
+            v24 = [obj countByEnumeratingWithState:&v43 objects:v47 count:16];
             if (v24)
             {
               continue;
@@ -790,11 +830,11 @@ LABEL_32:
             break;
           }
 
-          valueCopy = v39;
-          contextCopy = v40;
+          valueCopy = v38;
+          contextCopy = v39;
         }
 
-        v19 = v42;
+        v19 = v41;
 LABEL_37:
       }
     }
@@ -805,7 +845,7 @@ LABEL_37:
       if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v50 = contextCopy;
+        v49 = contextCopy;
         _os_log_impl(&dword_261754000, v19, OS_LOG_TYPE_INFO, "Not retrieving setting. Context is wrong: %@", buf, 0xCu);
       }
     }
@@ -819,18 +859,16 @@ LABEL_37:
       v21 = objc_opt_class();
       v22 = NSStringFromClass(v21);
       *buf = 138412802;
-      v50 = keyCopy;
-      v51 = 2112;
-      v52 = v22;
-      v53 = 2112;
-      *v54 = v14;
+      v49 = keyCopy;
+      v50 = 2112;
+      v51 = v22;
+      v52 = 2112;
+      *v53 = v14;
       _os_log_impl(&dword_261754000, v20, OS_LOG_TYPE_INFO, "Preference group wrong: [%@] = |%@| '%@'", buf, 0x20u);
     }
 
     v15 = valueCopy;
   }
-
-  v37 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -851,7 +889,7 @@ LABEL_37:
 
 - (id)valueForPreferenceKey:(id)key andContext:(id)context
 {
-  v27[2] = *MEMORY[0x277D85DE8];
+  v26[2] = *MEMORY[0x277D85DE8];
   keyCopy = key;
   contextCopy = context;
   [(RTTSettings *)self _synchronizeIfNecessary:keyCopy];
@@ -871,11 +909,11 @@ LABEL_37:
         v10 = AXLogRTT();
         if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
         {
-          v22 = 138412546;
-          v23 = v8;
-          v24 = 2112;
-          v25 = keyCopy;
-          _os_log_impl(&dword_261754000, v10, OS_LOG_TYPE_INFO, "Returning cached version: %@: %@", &v22, 0x16u);
+          v21 = 138412546;
+          v22 = v8;
+          v23 = 2112;
+          v24 = keyCopy;
+          _os_log_impl(&dword_261754000, v10, OS_LOG_TYPE_INFO, "Returning cached version: %@: %@", &v21, 0x16u);
         }
 
         v11 = v8;
@@ -886,13 +924,13 @@ LABEL_37:
     v12 = AXLogRTT();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      v22 = 138412802;
-      v23 = v8;
-      v24 = 2112;
-      v25 = contextCopy;
-      v26 = 2112;
-      v27[0] = keyCopy;
-      _os_log_impl(&dword_261754000, v12, OS_LOG_TYPE_INFO, "Cached setting missing right context: %@ > [%@]%@", &v22, 0x20u);
+      v21 = 138412802;
+      v22 = v8;
+      v23 = 2112;
+      v24 = contextCopy;
+      v25 = 2112;
+      v26[0] = keyCopy;
+      _os_log_impl(&dword_261754000, v12, OS_LOG_TYPE_INFO, "Cached setting missing right context: %@ > [%@]%@", &v21, 0x20u);
     }
   }
 
@@ -936,21 +974,19 @@ LABEL_37:
     {
       v18 = valueForPreferenceKey_andContext__mobileUID;
       v19 = geteuid();
-      v22 = 138413058;
-      v23 = keyCopy;
-      v24 = 2112;
-      v25 = v11;
-      v26 = 1024;
-      LODWORD(v27[0]) = v18;
-      WORD2(v27[0]) = 1024;
-      *(v27 + 6) = v19;
-      _os_log_impl(&dword_261754000, v17, OS_LOG_TYPE_INFO, "Not mobile: asked heard for setting: %@: Result: [%@] {mobile UID %d, my UID %d}", &v22, 0x22u);
+      v21 = 138413058;
+      v22 = keyCopy;
+      v23 = 2112;
+      v24 = v11;
+      v25 = 1024;
+      LODWORD(v26[0]) = v18;
+      WORD2(v26[0]) = 1024;
+      *(v26 + 6) = v19;
+      _os_log_impl(&dword_261754000, v17, OS_LOG_TYPE_INFO, "Not mobile: asked heard for setting: %@: Result: [%@] {mobile UID %d, my UID %d}", &v21, 0x22u);
     }
   }
 
 LABEL_21:
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -971,14 +1007,14 @@ LABEL_21:
 
 - (void)clearServerSettingsCacheForKey:(id)key
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   v5 = AXLogRTT();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v9 = 138412290;
-    v10 = keyCopy;
-    _os_log_impl(&dword_261754000, v5, OS_LOG_TYPE_INFO, "Clearing server settings cache for: %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = keyCopy;
+    _os_log_impl(&dword_261754000, v5, OS_LOG_TYPE_INFO, "Clearing server settings cache for: %@", &v8, 0xCu);
   }
 
   [(NSLock *)self->_synchronizeDomainsLock lock];
@@ -990,8 +1026,22 @@ LABEL_21:
     LocalCenter = CFNotificationCenterGetLocalCenter();
     CFNotificationCenterPostNotification(LocalCenter, v6, 0, 0, 1u);
   }
+}
 
-  v8 = *MEMORY[0x277D85DE8];
+- (void)setTTYHardwareEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v6 = +[RTTTelephonyUtilities sharedUtilityProvider];
+  defaultVoiceContext = [v6 defaultVoiceContext];
+  [(RTTSettings *)self setTTYHardwareEnabled:enabledCopy forContext:defaultVoiceContext];
+}
+
+- (void)setTTYSoftwareEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v6 = +[RTTTelephonyUtilities sharedUtilityProvider];
+  defaultVoiceContext = [v6 defaultVoiceContext];
+  [(RTTSettings *)self setTTYSoftwareEnabled:enabledCopy forContext:defaultVoiceContext];
 }
 
 - (BOOL)incomingCallsTTY
@@ -1001,6 +1051,14 @@ LABEL_21:
   LOBYTE(self) = [(RTTSettings *)self incomingCallsTTYForContext:defaultVoiceContext];
 
   return self;
+}
+
+- (void)setIncomingCallsTTY:(BOOL)y
+{
+  yCopy = y;
+  v6 = +[RTTTelephonyUtilities sharedUtilityProvider];
+  defaultVoiceContext = [v6 defaultVoiceContext];
+  [(RTTSettings *)self setIncomingCallsTTY:yCopy forContext:defaultVoiceContext];
 }
 
 - (void)setIncomingTTYCallCount:(int64_t)count
@@ -1043,6 +1101,14 @@ LABEL_21:
   return self;
 }
 
+- (void)setTtyShouldBeRealtime:(BOOL)realtime
+{
+  realtimeCopy = realtime;
+  v6 = +[RTTTelephonyUtilities sharedUtilityProvider];
+  defaultVoiceContext = [v6 defaultVoiceContext];
+  [(RTTSettings *)self setTTYShouldBeRealtime:realtimeCopy forContext:defaultVoiceContext];
+}
+
 - (NSString)preferredRelayNumber
 {
   v3 = +[RTTTelephonyUtilities sharedUtilityProvider];
@@ -1069,6 +1135,14 @@ LABEL_21:
   return self;
 }
 
+- (void)setAnswerRTTCallsAsMuted:(BOOL)muted
+{
+  mutedCopy = muted;
+  v6 = +[RTTTelephonyUtilities sharedUtilityProvider];
+  defaultVoiceContext = [v6 defaultVoiceContext];
+  [(RTTSettings *)self setAnswerRTTCallsAsMuted:mutedCopy forContext:defaultVoiceContext];
+}
+
 - (BOOL)showsRTTNotifications
 {
   v3 = +[RTTTelephonyUtilities sharedUtilityProvider];
@@ -1087,10 +1161,94 @@ LABEL_21:
   return self;
 }
 
+- (void)setTTYHardwareEnabled:(BOOL)enabled forContext:(id)context
+{
+  enabledCopy = enabled;
+  v6 = MEMORY[0x277CCABB0];
+  contextCopy = context;
+  v8 = [v6 numberWithBool:enabledCopy];
+  [(RTTSettings *)self _setValue:v8 forPreferenceKey:kAXSTTYHardwareEnabledPreference andContext:contextCopy];
+}
+
+- (void)setTTYSoftwareEnabled:(BOOL)enabled forContext:(id)context
+{
+  enabledCopy = enabled;
+  v20 = *MEMORY[0x277D85DE8];
+  contextCopy = context;
+  v7 = AXLogRTT();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  {
+    *buf = 67109378;
+    v17 = enabledCopy;
+    v18 = 2112;
+    v19 = contextCopy;
+    _os_log_impl(&dword_261754000, v7, OS_LOG_TYPE_INFO, "Set software enabled: %d for context: %@", buf, 0x12u);
+  }
+
+  if ([(RTTSettings *)self TTYSoftwareEnabledForContext:contextCopy]== enabledCopy)
+  {
+    v13 = AXLogRTT();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_261754000, v13, OS_LOG_TYPE_INFO, "TTY software has the same value, no need to set again", buf, 2u);
+    }
+  }
+
+  else
+  {
+    v8 = [MEMORY[0x277CCABB0] numberWithBool:enabledCopy];
+    [(RTTSettings *)self _setValue:v8 forPreferenceKey:kAXSTTYSoftwareEnabledPreference andContext:contextCopy];
+
+    additionalInfoForPrefenceUpdate = [MEMORY[0x277D12B58] additionalInfoForPrefenceUpdate];
+    v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@%@", kAXSTTYSoftwareEnabledPreference, @"_UpdateInfo"];
+    [(RTTSettings *)self _setValue:additionalInfoForPrefenceUpdate forPreferenceKey:v10];
+
+    v11 = +[RTTTelephonyUtilities TTYSoftwareEnabledForAnyActiveContext];
+    v12 = dispatch_get_global_queue(0, 0);
+    block[0] = MEMORY[0x277D85DD0];
+    block[1] = 3221225472;
+    block[2] = __48__RTTSettings_setTTYSoftwareEnabled_forContext___block_invoke;
+    block[3] = &__block_descriptor_33_e5_v8__0l;
+    v15 = v11;
+    dispatch_async(v12, block);
+
+    _AXSSoftwareTTYSetEnabled();
+  }
+}
+
 void __48__RTTSettings_setTTYSoftwareEnabled_forContext___block_invoke(uint64_t a1)
 {
   v2 = +[RTTTelephonyUtilities sharedUtilityProvider];
   [v2 setTTYDictionaryAvailability:*(a1 + 32)];
+}
+
+- (void)setIncomingCallsTTY:(BOOL)y forContext:(id)context
+{
+  yCopy = y;
+  v12 = *MEMORY[0x277D85DE8];
+  contextCopy = context;
+  v7 = AXLogRTT();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  {
+    v9[0] = 67109378;
+    v9[1] = yCopy;
+    v10 = 2112;
+    v11 = contextCopy;
+    _os_log_impl(&dword_261754000, v7, OS_LOG_TYPE_INFO, "Set incoming calls: %d context: %@", v9, 0x12u);
+  }
+
+  v8 = [MEMORY[0x277CCABB0] numberWithBool:yCopy];
+  [(RTTSettings *)self _setValue:v8 forPreferenceKey:kAXSTTYIncomingCallsTTYPreference andContext:contextCopy];
+}
+
+- (void)setTTYShouldBeRealtime:(BOOL)realtime forContext:(id)context
+{
+  realtimeCopy = realtime;
+  v6 = MEMORY[0x277CCABB0];
+  contextCopy = context;
+  v8 = [v6 numberWithBool:realtimeCopy];
+  [(RTTSettings *)self _setValue:v8 forPreferenceKey:kAXSTTYShouldBeRealtimePreference andContext:contextCopy];
 }
 
 - (id)preferredRelayNumberForContext:(id)context
@@ -1100,6 +1258,63 @@ void __48__RTTSettings_setTTYSoftwareEnabled_forContext___block_invoke(uint64_t 
   v6 = [(RTTSettings *)self objectValueForKey:v4 andContext:contextCopy withClass:objc_opt_class() andDefaultValue:&stru_2873FC590];
 
   return v6;
+}
+
+- (void)setAnswerRTTCallsAsMuted:(BOOL)muted forContext:(id)context
+{
+  mutedCopy = muted;
+  v6 = MEMORY[0x277CCABB0];
+  contextCopy = context;
+  v8 = [v6 numberWithBool:mutedCopy];
+  [(RTTSettings *)self _setValue:v8 forPreferenceKey:kAXSRTTAnswerAllRTTCallsAsMutedPreference andContext:contextCopy];
+}
+
+- (void)setShowsRTTNotifications:(BOOL)notifications forContext:(id)context
+{
+  notificationsCopy = notifications;
+  v6 = MEMORY[0x277CCABB0];
+  contextCopy = context;
+  v8 = [v6 numberWithBool:notificationsCopy];
+  [(RTTSettings *)self _setValue:v8 forPreferenceKey:kAXSRTTShowsNotificationsPreference andContext:contextCopy];
+}
+
+- (void)setHasReceivedRTTCall:(BOOL)call
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:call];
+  [(RTTSettings *)self _setValue:v4 forPreferenceKey:@"TTYReceivedRTTCallPreference"];
+}
+
+- (void)setRTTLiveTranscriptionsEnabled:(BOOL)enabled forContext:(id)context
+{
+  enabledCopy = enabled;
+  v6 = MEMORY[0x277CCABB0];
+  contextCopy = context;
+  v8 = [v6 numberWithBool:enabledCopy];
+  [(RTTSettings *)self _setValue:v8 forPreferenceKey:@"RTTLiveTranscriptionEnabledPreference" andContext:contextCopy];
+}
+
+- (void)setContinuityRTTIsSupported:(BOOL)supported
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:supported];
+  [(RTTSettings *)self _setValue:v4 forPreferenceKey:@"RTTContinuityRTTIsSupportedPreference"];
+}
+
+- (void)setContinuityEmergencyRTTIsSupported:(BOOL)supported
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:supported];
+  [(RTTSettings *)self _setValue:v4 forPreferenceKey:@"RTTContinuityEmergencyRTTIsSupportedPreference"];
+}
+
+- (void)setSupportsRelayCalling:(BOOL)calling
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:calling];
+  [(RTTSettings *)self _setValue:v4 forPreferenceKey:@"TUSupportsRelayCallingPreference"];
+}
+
+- (void)setIsRelayCallingEnabled:(BOOL)enabled
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:enabled];
+  [(RTTSettings *)self _setValue:v4 forPreferenceKey:@"TUIsRelayCallingEnabledPreference"];
 }
 
 - (NSArray)cannedResponses
@@ -1232,6 +1447,12 @@ void __34__RTTSettings_setCannedResponses___block_invoke_203(uint64_t a1, void *
   return v2;
 }
 
+- (void)setRttInlineAbbreviationBarEnabled:(BOOL)enabled
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:enabled];
+  [(RTTSettings *)self _setValue:v4 forPreferenceKey:@"RTTInlineAbbreviationBar"];
+}
+
 - (BOOL)rttLiveTranscriptionsFeatureFlagEnabled
 {
   v2 = _os_feature_enabled_impl();
@@ -1244,30 +1465,19 @@ void __34__RTTSettings_setCannedResponses___block_invoke_203(uint64_t a1, void *
   return v2;
 }
 
+- (void)setInternalOverrideTTYAvailability:(BOOL)availability
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:availability];
+  [(RTTSettings *)self _setValue:v4 forPreferenceKey:@"InternalOverrideTTYAvailabilityPreference"];
+}
+
 void __40__RTTSettings__registerForNotification___block_invoke_2_cold_1(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_debug_impl(&dword_261754000, a2, OS_LOG_TYPE_DEBUG, "Registered for %@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-- (void)BOOLValueForKey:andContext:withDefaultValue:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_1(&dword_261754000, v0, v1, "Requesting BOOL value: %@ [%@]");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)BOOLValueForKey:andContext:withDefaultValue:.cold.2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_1(&dword_261754000, v0, v1, "Retrieved BOOL value: %@=%@");
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_debug_impl(&dword_261754000, a2, OS_LOG_TYPE_DEBUG, "Registered for %@", &v3, 0xCu);
 }
 
 @end

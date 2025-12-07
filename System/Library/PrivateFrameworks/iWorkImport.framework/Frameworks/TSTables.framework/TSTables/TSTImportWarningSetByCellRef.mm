@@ -75,7 +75,8 @@
   self->_coordinates.__end_ = v11;
   if (warningCopy)
   {
-    v23 = sub_2215930C4(&self->_warningSetForCoordinate.__table_.__bucket_list_.__ptr_, ref);
+    refCopy = ref;
+    v23 = sub_2215930C4(&self->_warningSetForCoordinate.__table_.__bucket_list_.__ptr_, ref, &unk_2217F2FC1, &refCopy);
     objc_storeStrong(v23 + 5, warning);
   }
 }
@@ -107,9 +108,9 @@
 
 - (id)initFromArchive:(const void *)archive
 {
-  v23.receiver = self;
-  v23.super_class = TSTImportWarningSetByCellRef;
-  v4 = [(TSTImportWarningSetByCellRef *)&v23 init];
+  v20.receiver = self;
+  v20.super_class = TSTImportWarningSetByCellRef;
+  v4 = [(TSTImportWarningSetByCellRef *)&v20 init];
   if (v4)
   {
     v5 = *(archive + 6);
@@ -118,10 +119,10 @@
       v6 = 8;
       do
       {
-        TST::CellRefImportWarningSetPairArchive::CellRefImportWarningSetPairArchive(v20, *(*(archive + 4) + v6));
-        if (v21)
+        TST::CellRefImportWarningSetPairArchive::CellRefImportWarningSetPairArchive(v17, *(*(archive + 4) + v6));
+        if (v18)
         {
-          v7 = v21;
+          v7 = v18;
         }
 
         else
@@ -129,30 +130,30 @@
           v7 = TSCE::_CellReferenceArchive_default_instance_;
         }
 
-        sub_221269DB8(v7, v19);
-        if ((v20[16] & 2) != 0)
+        sub_221269DB8(v7, v16);
+        if ((v17[16] & 2) != 0)
         {
-          v10 = [TSTImportWarningSet alloc];
-          if (v22)
+          v9 = [TSTImportWarningSet alloc];
+          if (v19)
           {
-            v14 = objc_msgSend_initFromArchive_(v10, v11, v22, v12, v13);
+            v12 = objc_msgSend_initFromArchive_(v9, v10, v19, v11);
           }
 
           else
           {
-            v14 = objc_msgSend_initFromArchive_(v10, v11, &TST::_ImportWarningSetArchive_default_instance_, v12, v13);
+            v12 = objc_msgSend_initFromArchive_(v9, v10, &TST::_ImportWarningSetArchive_default_instance_, v11);
           }
 
-          v17 = v14;
-          objc_msgSend_addWarning_atCellRef_(v4, v15, v14, v19, v16);
+          v14 = v12;
+          objc_msgSend_addWarning_atCellRef_(v4, v13, v12, v16);
         }
 
         else
         {
-          objc_msgSend_addWarning_atCellRef_(v4, v8, 0, v19, v9);
+          objc_msgSend_addWarning_atCellRef_(v4, v8, 0, v16);
         }
 
-        TST::CellRefImportWarningSetPairArchive::~CellRefImportWarningSetPairArchive(v20);
+        TST::CellRefImportWarningSetPairArchive::~CellRefImportWarningSetPairArchive(v17);
         v6 += 8;
         --v5;
       }
@@ -166,85 +167,85 @@
 
 - (void)saveToArchive:(void *)archive
 {
-  v7 = objc_msgSend_count(self, a2, archive, v3, v4);
-  if (v7)
+  v6 = objc_msgSend_count(self, a2, archive, v3);
+  if (v6)
   {
-    v11 = v7;
-    v12 = 0;
+    v9 = v6;
+    v10 = 0;
     while (1)
     {
-      objc_msgSend_cellRefForIndex_(self, v8, v12, v9, v10);
-      v16 = objc_msgSend_warningSetAtCellRef_(self, v13, v30, v14, v15);
-      v17 = *(archive + 4);
-      if (!v17)
+      objc_msgSend_cellRefForIndex_(self, v7, v10, v8);
+      v13 = objc_msgSend_warningSetAtCellRef_(self, v11, v26, v12);
+      v14 = *(archive + 4);
+      if (!v14)
       {
         goto LABEL_8;
       }
 
-      v18 = *(archive + 6);
-      v19 = *v17;
-      if (v18 >= *v17)
+      v15 = *(archive + 6);
+      v16 = *v14;
+      if (v15 >= *v14)
       {
         break;
       }
 
-      *(archive + 6) = v18 + 1;
-      v20 = *&v17[2 * v18 + 2];
+      *(archive + 6) = v15 + 1;
+      v17 = *&v14[2 * v15 + 2];
 LABEL_10:
-      *(v20 + 16) |= 1u;
-      v23 = *(v20 + 24);
-      if (!v23)
+      *(v17 + 16) |= 1u;
+      v20 = *(v17 + 24);
+      if (!v20)
       {
-        v24 = *(v20 + 8);
-        if (v24)
+        v21 = *(v17 + 8);
+        if (v21)
         {
-          v24 = *(v24 & 0xFFFFFFFFFFFFFFFELL);
+          v21 = *(v21 & 0xFFFFFFFFFFFFFFFELL);
         }
 
-        v23 = google::protobuf::Arena::CreateMaybeMessage<TSCE::CellReferenceArchive>(v24);
-        *(v20 + 24) = v23;
+        v20 = google::protobuf::Arena::CreateMaybeMessage<TSCE::CellReferenceArchive>(v21);
+        *(v17 + 24) = v20;
       }
 
-      sub_221269A28(v30, v23);
-      if (v16)
+      sub_221269A28(v26, v20);
+      if (v13)
       {
-        *(v20 + 16) |= 2u;
-        v28 = *(v20 + 32);
-        if (!v28)
+        *(v17 + 16) |= 2u;
+        v24 = *(v17 + 32);
+        if (!v24)
         {
-          v29 = *(v20 + 8);
-          if (v29)
+          v25 = *(v17 + 8);
+          if (v25)
           {
-            v29 = *(v29 & 0xFFFFFFFFFFFFFFFELL);
+            v25 = *(v25 & 0xFFFFFFFFFFFFFFFELL);
           }
 
-          v28 = google::protobuf::Arena::CreateMaybeMessage<TST::ImportWarningSetArchive>(v29);
-          *(v20 + 32) = v28;
+          v24 = google::protobuf::Arena::CreateMaybeMessage<TST::ImportWarningSetArchive>(v25);
+          *(v17 + 32) = v24;
         }
 
-        objc_msgSend_saveToArchive_(v16, v25, v28, v26, v27);
+        objc_msgSend_saveToArchive_(v13, v22, v24, v23);
       }
 
-      if (v11 == ++v12)
+      if (v9 == ++v10)
       {
         return;
       }
     }
 
-    if (v19 == *(archive + 7))
+    if (v16 == *(archive + 7))
     {
 LABEL_8:
       google::protobuf::internal::RepeatedPtrFieldBase::Reserve((archive + 16));
-      v17 = *(archive + 4);
-      v19 = *v17;
+      v14 = *(archive + 4);
+      v16 = *v14;
     }
 
-    *v17 = v19 + 1;
-    v20 = google::protobuf::Arena::CreateMaybeMessage<TST::CellRefImportWarningSetPairArchive>(*(archive + 2));
-    v21 = *(archive + 6);
-    v22 = *(archive + 4) + 8 * v21;
-    *(archive + 6) = v21 + 1;
-    *(v22 + 8) = v20;
+    *v14 = v16 + 1;
+    v17 = google::protobuf::Arena::CreateMaybeMessage<TST::CellRefImportWarningSetPairArchive>(*(archive + 2));
+    v18 = *(archive + 6);
+    v19 = *(archive + 4) + 8 * v18;
+    *(archive + 6) = v18 + 1;
+    *(v19 + 8) = v17;
     goto LABEL_10;
   }
 }

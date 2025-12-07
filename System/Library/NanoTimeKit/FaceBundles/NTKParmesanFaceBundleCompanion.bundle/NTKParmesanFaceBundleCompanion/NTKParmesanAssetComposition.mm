@@ -19,9 +19,9 @@
 - (int64_t)hash
 {
   selfCopy = self;
-  v3 = sub_23BF8C428();
+  v4 = sub_23BF8C428(selfCopy, v3);
 
-  return v3;
+  return v4;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -43,7 +43,7 @@
   sub_23BF6D608(v11, v9);
   if (!v10)
   {
-    sub_23BF4B2D4(v9, &qword_27E1E0530);
+    sub_23BF4B2D4(v9, &qword_27E1E0530, &qword_23C001D50);
     goto LABEL_8;
   }
 
@@ -59,7 +59,7 @@ LABEL_8:
   v6 = sub_23BF8CAC4(self, v8);
 
 LABEL_9:
-  sub_23BF4B2D4(v11, &qword_27E1E0530);
+  sub_23BF4B2D4(v11, &qword_27E1E0530, &qword_23C001D50);
   return v6;
 }
 

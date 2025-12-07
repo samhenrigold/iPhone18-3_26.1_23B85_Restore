@@ -4,7 +4,7 @@
 - (void)_onQueue_updateLightDirection:(uint64_t)direction;
 - (void)_start;
 - (void)dealloc;
-- (void)updateLightDirection:(uint64_t)direction;
+- (void)updateLightDirection:(uint64_t)result;
 @end
 
 @implementation LSSXPCService
@@ -52,7 +52,7 @@ LABEL_5:
 
 void __23__LSSXPCService__start__block_invoke(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = MEMORY[0x259C502B0]();
   if (v4 == MEMORY[0x277D86450])
@@ -79,20 +79,20 @@ void __23__LSSXPCService__start__block_invoke(uint64_t a1, void *a2)
       xpc_connection_set_finalizer_f(v7, _connection_finalizer);
       xpc_connection_set_target_queue(v7, v6[16]);
       objc_initWeak(&buf, v7);
-      v13[0] = MEMORY[0x277D85DD0];
-      v13[1] = 3221225472;
-      v13[2] = __23__LSSXPCService__start__block_invoke_1;
-      v13[3] = &unk_279812A38;
-      objc_copyWeak(&v16, &buf);
-      v17 = pid;
+      v12[0] = MEMORY[0x277D85DD0];
+      v12[1] = 3221225472;
+      v12[2] = __23__LSSXPCService__start__block_invoke_1;
+      v12[3] = &unk_279812A38;
+      objc_copyWeak(&v15, &buf);
+      v16 = pid;
       v10 = v6;
-      v14 = v10;
+      v13 = v10;
       v11 = v7;
-      v15 = v11;
-      xpc_connection_set_event_handler(v11, v13);
+      v14 = v11;
+      xpc_connection_set_event_handler(v11, v12);
       xpc_connection_activate(v11);
 
-      objc_destroyWeak(&v16);
+      objc_destroyWeak(&v15);
       objc_destroyWeak(&buf);
     }
   }
@@ -122,13 +122,11 @@ void __23__LSSXPCService__start__block_invoke(uint64_t a1, void *a2)
       __23__LSSXPCService__start__block_invoke_cold_2();
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __23__LSSXPCService__start__block_invoke_1(uint64_t a1, void *a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (!WeakRetained)
@@ -164,9 +162,9 @@ LABEL_43:
     }
 
     v7 = *(a1 + 56);
-    v24[0] = 67109120;
-    v24[1] = v7;
-    _os_log_impl(&dword_255E8B000, v6, OS_LOG_TYPE_DEFAULT, "Removed connection from pid: %d", v24, 8u);
+    v22[0] = 67109120;
+    v22[1] = v7;
+    _os_log_impl(&dword_255E8B000, v6, OS_LOG_TYPE_DEFAULT, "Removed connection from pid: %d", v22, 8u);
     goto LABEL_10;
   }
 
@@ -178,7 +176,7 @@ LABEL_43:
     {
       if (qword_280D2F5E0 == -1)
       {
-        v19 = _MergedGlobals_12;
+        v18 = _MergedGlobals_12;
         if (!os_log_type_enabled(_MergedGlobals_12, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_17;
@@ -188,15 +186,14 @@ LABEL_43:
       else
       {
         LSSLogXPCService_cold_1();
-        v19 = _MergedGlobals_12;
+        v18 = _MergedGlobals_12;
         if (!os_log_type_enabled(_MergedGlobals_12, OS_LOG_TYPE_DEFAULT))
         {
 LABEL_17:
-          v10 = *(a1 + 40);
           [@"com.apple.lightsourcesupport.outputAssertion" UTF8String];
-          v11 = xpc_connection_copy_entitlement_value();
-          v12 = v11;
-          if (!v11 || MEMORY[0x259C502B0](v11) != MEMORY[0x277D86448])
+          v10 = xpc_connection_copy_entitlement_value();
+          v11 = v10;
+          if (!v10 || MEMORY[0x259C502B0](v10) != MEMORY[0x277D86448])
           {
             if (qword_280D2F5E0 == -1)
             {
@@ -228,18 +225,18 @@ LABEL_21:
           if (string)
           {
 LABEL_22:
-            v14 = [MEMORY[0x277CCACA8] stringWithUTF8String:string];
-            v15 = [v8 addAssertion:(int64 - 1) reason:v14];
-            v16 = v15;
-            if (v15)
+            v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:string];
+            v14 = [v8 addAssertion:(int64 - 1) reason:v13];
+            v15 = v14;
+            if (v14)
             {
-              xpc_connection_set_context(*(a1 + 40), v15);
+              xpc_connection_set_context(*(a1 + 40), v14);
             }
 
             else
             {
-              v17 = LSSLogXPCService();
-              if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+              v16 = LSSLogXPCService(0);
+              if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
               {
                 __23__LSSXPCService__start__block_invoke_1_cold_4();
               }
@@ -275,23 +272,23 @@ LABEL_41:
         }
       }
 
-      LOWORD(v24[0]) = 0;
-      _os_log_impl(&dword_255E8B000, v19, OS_LOG_TYPE_DEFAULT, "configure assertion", v24, 2u);
+      LOWORD(v22[0]) = 0;
+      _os_log_impl(&dword_255E8B000, v18, OS_LOG_TYPE_DEFAULT, "configure assertion", v22, 2u);
       goto LABEL_17;
     }
 
     if (qword_280D2F5E0 == -1)
     {
-      v22 = _MergedGlobals_12;
+      v20 = _MergedGlobals_12;
       if (!os_log_type_enabled(_MergedGlobals_12, OS_LOG_TYPE_DEFAULT))
       {
 LABEL_32:
         [(LSSXPCService *)*(a1 + 32) _onQueue_resendLastTo:?];
         [*(*(a1 + 32) + 16) addObject:*(a1 + 40)];
-        v12 = xpc_connection_get_context(*(a1 + 40));
-        v18 = [LSSInvalidatableSet addAssertionsForOptions:xpc_dictionary_get_int64(v3 reason:"options") to:@"xpc client", v8];
-        xpc_connection_set_context(*(a1 + 40), v18);
-        [v12 invalidate];
+        v11 = xpc_connection_get_context(*(a1 + 40));
+        v17 = [LSSInvalidatableSet addAssertionsForOptions:xpc_dictionary_get_int64(v3 reason:"options") to:@"xpc client", v8];
+        xpc_connection_set_context(*(a1 + 40), v17);
+        [v11 invalidate];
 LABEL_42:
 
         goto LABEL_43;
@@ -301,21 +298,19 @@ LABEL_42:
     else
     {
       LSSLogXPCService_cold_1();
-      v22 = _MergedGlobals_12;
+      v20 = _MergedGlobals_12;
       if (!os_log_type_enabled(_MergedGlobals_12, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_32;
       }
     }
 
-    LOWORD(v24[0]) = 0;
-    _os_log_impl(&dword_255E8B000, v22, OS_LOG_TYPE_DEFAULT, "configure subscription", v24, 2u);
+    LOWORD(v22[0]) = 0;
+    _os_log_impl(&dword_255E8B000, v20, OS_LOG_TYPE_DEFAULT, "configure subscription", v22, 2u);
     goto LABEL_32;
   }
 
 LABEL_44:
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -333,32 +328,30 @@ LABEL_44:
   [(LSSXPCService *)&v5 dealloc];
 }
 
-- (void)updateLightDirection:(uint64_t)direction
+- (void)updateLightDirection:(uint64_t)result
 {
-  v3[17] = *MEMORY[0x277D85DE8];
-  if (direction)
+  v2[17] = *MEMORY[0x277D85DE8];
+  if (result)
   {
     if (*__src < 0.0)
     {
       [LSSXPCService updateLightDirection:];
     }
 
-    [(LSSXPCService *)direction updateLightDirection:v3, __src];
+    [(LSSXPCService *)result updateLightDirection:v2, __src];
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (id)initWithTargetQueue:(void *)queue subscriber:
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v5 = a2;
   queueCopy = queue;
   if (self)
   {
-    v22.receiver = self;
-    v22.super_class = LSSXPCService;
-    self = objc_msgSendSuper2(&v22, sel_init);
+    v20.receiver = self;
+    v20.super_class = LSSXPCService;
+    self = objc_msgSendSuper2(&v20, sel_init);
     if (self)
     {
       v7 = [MEMORY[0x277CBEB58] set];
@@ -385,7 +378,6 @@ LABEL_44:
         v17 = *(self + 1);
         *(self + 1) = mach_service;
 
-        v18 = *(self + 1);
         xpc_connection_set_peer_requirement();
         [(LSSXPCService *)self _start];
       }
@@ -397,11 +389,11 @@ LABEL_44:
           dispatch_once(&qword_280D2F5E0, &__block_literal_global_12);
         }
 
-        v19 = _MergedGlobals_12;
+        v18 = _MergedGlobals_12;
         if (os_log_type_enabled(_MergedGlobals_12, OS_LOG_TYPE_FAULT))
         {
           *buf = 0;
-          _os_log_fault_impl(&dword_255E8B000, v19, OS_LOG_TYPE_FAULT, "failed to create peer requirement", buf, 2u);
+          _os_log_fault_impl(&dword_255E8B000, v18, OS_LOG_TYPE_FAULT, "failed to create peer requirement", buf, 2u);
         }
 
         self = 0;
@@ -409,13 +401,12 @@ LABEL_44:
     }
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return self;
 }
 
 - (void)_onQueue_resendLastTo:(uint64_t)to
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (to)
   {
@@ -430,13 +421,13 @@ LABEL_44:
       v4 = _MergedGlobals_12;
       if (os_signpost_enabled(_MergedGlobals_12))
       {
-        *v8 = 0;
-        _os_signpost_emit_with_name_impl(&dword_255E8B000, v4, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "new connection", &unk_255E9DB2B, v8, 2u);
+        *v7 = 0;
+        _os_signpost_emit_with_name_impl(&dword_255E8B000, v4, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "new connection", &unk_255E9DB2B, v7, 2u);
       }
 
       v5 = *(to + 24);
-      memcpy(v8, (to + 32), 0x60uLL);
-      xpc_dictionary_set_data(v5, "s", v8, 0x60uLL);
+      memcpy(v7, (to + 32), 0x60uLL);
+      xpc_dictionary_set_data(v5, "s", v7, 0x60uLL);
       xpc_connection_send_message(v3, *(to + 24));
       if (qword_280D2F5E0 != -1)
       {
@@ -446,18 +437,16 @@ LABEL_44:
       v6 = _MergedGlobals_12;
       if (os_signpost_enabled(_MergedGlobals_12))
       {
-        *v8 = 0;
-        _os_signpost_emit_with_name_impl(&dword_255E8B000, v6, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "new connection", &unk_255E9DB2B, v8, 2u);
+        *v7 = 0;
+        _os_signpost_emit_with_name_impl(&dword_255E8B000, v6, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "new connection", &unk_255E9DB2B, v7, 2u);
       }
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_onQueue_updateLightDirection:(uint64_t)direction
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   if (direction)
   {
     dispatch_assert_queue_V2(*(direction + 128));
@@ -480,29 +469,29 @@ LABEL_44:
       v10 = *(direction + 24);
       memcpy(__dst, a2, 0x60uLL);
       xpc_dictionary_set_data(v10, "s", __dst, 0x60uLL);
+      v22 = 0u;
       v23 = 0u;
       v24 = 0u;
       v25 = 0u;
-      v26 = 0u;
       v11 = *(direction + 16);
-      v12 = [v11 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
       if (v12)
       {
         v13 = v12;
-        v14 = *v24;
+        v14 = *v23;
         do
         {
           for (i = 0; i != v13; ++i)
           {
-            if (*v24 != v14)
+            if (*v23 != v14)
             {
               objc_enumerationMutation(v11);
             }
 
-            xpc_connection_send_message(*(*(&v23 + 1) + 8 * i), *(direction + 24));
+            xpc_connection_send_message(*(*(&v22 + 1) + 8 * i), *(direction + 24));
           }
 
-          v13 = [v11 countByEnumeratingWithState:&v23 objects:v27 count:16];
+          v13 = [v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
         }
 
         while (v13);
@@ -522,33 +511,14 @@ LABEL_44:
       }
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __38__LSSXPCService_updateLightDirection___block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 128);
-  memcpy(v3, (a1 + 32), 0x60uLL);
-  [(LSSXPCService *)v1 _onQueue_updateLightDirection:v3];
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-void __23__LSSXPCService__start__block_invoke_cold_2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_4();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __23__LSSXPCService__start__block_invoke_cold_4()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_4();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  memcpy(v2, (a1 + 32), 0x60uLL);
+  [(LSSXPCService *)v1 _onQueue_updateLightDirection:v2];
 }
 
 - (void)updateLightDirection:(void *)__src .cold.2(uint64_t a1, void *a2, void *__src)

@@ -18,7 +18,7 @@
   storageCopy = storage;
   if (self->_storage != storageCopy)
   {
-    objc_msgSend_willModify(self, v5, v6, v7, v8);
+    objc_msgSend_willModify(self, v5, v6, v7);
     objc_storeStrong(&self->_storage, storage);
   }
 }
@@ -27,79 +27,79 @@
 {
   storageCopy = storage;
   v4 = objc_alloc(objc_opt_class());
-  v9 = objc_msgSend_context(storageCopy, v5, v6, v7, v8);
-  v12 = objc_msgSend_initWithContext_storage_(v4, v10, v9, storageCopy, v11);
+  v8 = objc_msgSend_context(storageCopy, v5, v6, v7);
+  v10 = objc_msgSend_initWithContext_storage_(v4, v9, v8, storageCopy);
 
-  return v12;
+  return v10;
 }
 
 - (TSTRichTextPayload)initWithStorage:(id)storage
 {
   storageCopy = storage;
-  v9 = objc_msgSend_context(storageCopy, v5, v6, v7, v8);
-  v12 = objc_msgSend_initWithContext_storage_(self, v10, v9, storageCopy, v11);
+  v8 = objc_msgSend_context(storageCopy, v5, v6, v7);
+  v10 = objc_msgSend_initWithContext_storage_(self, v9, v8, storageCopy);
 
-  return v12;
+  return v10;
 }
 
 - (TSTRichTextPayload)initWithContext:(id)context storage:(id)storage
 {
   contextCopy = context;
   storageCopy = storage;
-  v24.receiver = self;
-  v24.super_class = TSTRichTextPayload;
-  v11 = [(TSTRichTextPayload *)&v24 initWithContext:contextCopy];
-  if (v11)
+  v21.receiver = self;
+  v21.super_class = TSTRichTextPayload;
+  v10 = [(TSTRichTextPayload *)&v21 initWithContext:contextCopy];
+  if (v10)
   {
     if (!storageCopy)
     {
-      v12 = MEMORY[0x277D81150];
-      v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "[TSTRichTextPayload initWithContext:storage:]", v9, v10);
-      v17 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTRichTextPayload.mm", v15, v16);
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v12, v18, v13, v17, 52, 0, "invalid nil value for '%{public}s'", "storage");
+      v11 = MEMORY[0x277D81150];
+      v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "[TSTRichTextPayload initWithContext:storage:]", v9);
+      v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTRichTextPayload.mm", v14);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v11, v16, v12, v15, 52, 0, "invalid nil value for '%{public}s'", "storage");
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v19, v20, v21, v22);
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v17, v18, v19);
     }
 
-    objc_storeStrong(&v11->_storage, storage);
+    objc_storeStrong(&v10->_storage, storage);
   }
 
-  return v11;
+  return v10;
 }
 
 - (id)copyWithContext:(id)context
 {
   contextCopy = context;
   v5 = objc_alloc(objc_opt_class());
-  v10 = objc_msgSend_storage(self, v6, v7, v8, v9);
-  v14 = objc_msgSend_copyWithContext_(v10, v11, contextCopy, v12, v13);
-  v18 = objc_msgSend_initWithStorage_(v5, v15, v14, v16, v17);
+  v9 = objc_msgSend_storage(self, v6, v7, v8);
+  v12 = objc_msgSend_copyWithContext_(v9, v10, contextCopy, v11);
+  v15 = objc_msgSend_initWithStorage_(v5, v13, v12, v14);
 
-  return v18;
+  return v15;
 }
 
 - (void)loadFromUnarchiver:(id)unarchiver
 {
   unarchiverCopy = unarchiver;
   google::protobuf::internal::AssignDescriptors();
-  v8 = objc_msgSend_messageWithDescriptor_(unarchiverCopy, v5, off_2812E4498[284], v6, v7);
+  v7 = objc_msgSend_messageWithDescriptor_(unarchiverCopy, v5, off_2812E4498[284], v6);
 
-  v9 = *(v8 + 24);
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = sub_221427BC8;
-  v13[3] = &unk_27845E090;
-  v13[4] = self;
-  v10 = unarchiverCopy;
-  v12 = objc_opt_class();
-  if (v9)
+  v8 = *(v7 + 24);
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = sub_221427BC8;
+  v12[3] = &unk_27845E090;
+  v12[4] = self;
+  v9 = unarchiverCopy;
+  v11 = objc_opt_class();
+  if (v8)
   {
-    objc_msgSend_readReferenceMessage_class_protocol_completion_(v10, v11, v9, v12, 0, v13);
+    objc_msgSend_readReferenceMessage_class_protocol_completion_(v9, v10, v8, v11, 0, v12);
   }
 
   else
   {
-    objc_msgSend_readReferenceMessage_class_protocol_completion_(v10, v11, MEMORY[0x277D80A18], v12, 0, v13);
+    objc_msgSend_readReferenceMessage_class_protocol_completion_(v9, v10, MEMORY[0x277D80A18], v11, 0, v12);
   }
 }
 
@@ -107,67 +107,67 @@
 {
   archiverCopy = archiver;
   google::protobuf::internal::AssignDescriptors();
-  v6 = objc_msgSend_messageWithNewFunction_descriptor_(archiverCopy, v4, sub_221427D7C, off_2812E4498[284], v5);
+  v5 = objc_msgSend_messageWithNewFunction_descriptor_(archiverCopy, v4, sub_221427D7C, off_2812E4498[284]);
 
   storage = self->_storage;
-  *(v6 + 16) |= 1u;
-  v10 = *(v6 + 24);
+  *(v5 + 16) |= 1u;
+  v8 = *(v5 + 24);
+  if (!v8)
+  {
+    v9 = *(v5 + 8);
+    if (v9)
+    {
+      v9 = *(v9 & 0xFFFFFFFFFFFFFFFELL);
+    }
+
+    v8 = MEMORY[0x223DA0390](v9);
+    *(v5 + 24) = v8;
+  }
+
+  objc_msgSend_setStrongReference_message_(archiverCopy, v6, storage, v8);
+  *(v5 + 16) |= 4u;
+  v10 = *(v5 + 40);
   if (!v10)
   {
-    v11 = *(v6 + 8);
+    v11 = *(v5 + 8);
     if (v11)
     {
       v11 = *(v11 & 0xFFFFFFFFFFFFFFFELL);
     }
 
-    v10 = MEMORY[0x223DA0390](v11);
-    *(v6 + 24) = v10;
+    v10 = google::protobuf::Arena::CreateMaybeMessage<TST::CellID>(v11);
+    *(v5 + 40) = v10;
   }
 
-  objc_msgSend_setStrongReference_message_(archiverCopy, v7, storage, v10, v8);
-  *(v6 + 16) |= 4u;
-  v12 = *(v6 + 40);
-  if (!v12)
-  {
-    v13 = *(v6 + 8);
-    if (v13)
-    {
-      v13 = *(v13 & 0xFFFFFFFFFFFFFFFELL);
-    }
-
-    v12 = google::protobuf::Arena::CreateMaybeMessage<TST::CellID>(v13);
-    *(v6 + 40) = v12;
-  }
-
-  sub_221123904(0x7FFF7FFFFFFFuLL, v12);
+  sub_221123904(0x7FFF7FFFFFFFuLL, v10);
 }
 
 - (id)string
 {
-  v5 = objc_msgSend_storage(self, a2, v2, v3, v4);
-  v10 = objc_msgSend_stringValue(v5, v6, v7, v8, v9);
+  v4 = objc_msgSend_storage(self, a2, v2, v3);
+  v8 = objc_msgSend_stringValue(v4, v5, v6, v7);
 
-  return v10;
+  return v8;
 }
 
 - (unint64_t)tst_dataObjectHash
 {
-  v5 = objc_msgSend_storage(self, a2, v2, v3, v4);
-  v10 = objc_msgSend_hash(v5, v6, v7, v8, v9);
+  v4 = objc_msgSend_storage(self, a2, v2, v3);
+  v8 = objc_msgSend_hash(v4, v5, v6, v7);
 
-  return v10;
+  return v8;
 }
 
 - (BOOL)tst_dataObjectIsEqual:(id)equal
 {
   equalCopy = equal;
   objc_opt_class();
-  v9 = TSUDynamicCast();
-  if (v9)
+  v8 = TSUDynamicCast();
+  if (v8)
   {
-    v10 = objc_msgSend_storage(self, v5, v6, v7, v8);
-    v15 = objc_msgSend_storage(v9, v11, v12, v13, v14);
-    isEqual = objc_msgSend_isEqual_(v10, v16, v15, v17, v18);
+    v9 = objc_msgSend_storage(self, v5, v6, v7);
+    v13 = objc_msgSend_storage(v8, v10, v11, v12);
+    isEqual = objc_msgSend_isEqual_(v9, v14, v13, v15);
   }
 
   else

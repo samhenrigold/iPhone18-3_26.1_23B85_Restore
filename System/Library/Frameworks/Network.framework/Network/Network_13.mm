@@ -11,7 +11,7 @@ uint64_t nw_endpoint_handler_get_minimize_logging(void *a1)
   v4 = __nwlog_obj();
   *buf = 136446210;
   v15 = "nw_endpoint_handler_get_minimize_logging";
-  v5 = _os_log_send_and_compose_impl();
+  v5 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v4, 16, "%{public}s called with null handler", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v12 = 0;
@@ -100,7 +100,7 @@ id nw_endpoint_handler_copy_current_path(void *a1)
   v5 = __nwlog_obj();
   *buf = 136446210;
   v16 = "nw_endpoint_handler_copy_current_path";
-  v6 = _os_log_send_and_compose_impl();
+  v6 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v5, 16, "%{public}s called with null handler", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v13 = 0;
@@ -182,7 +182,7 @@ void nw_endpoint_handler_start(void *a1)
     v40 = __nwlog_obj();
     *buf = 136446210;
     v66 = "nw_endpoint_handler_start";
-    v41 = _os_log_send_and_compose_impl();
+    v41 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v40, 16, "%{public}s called with null handler", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v63 = 0;
@@ -307,11 +307,11 @@ LABEL_101:
 
     v11 = v2;
     v12 = v11;
-    os_unfair_lock_opaque = v11[29]._os_unfair_lock_opaque;
+    v13 = *(v11 + 29);
     log = v4;
-    if (os_unfair_lock_opaque > 2)
+    if (v13 > 2)
     {
-      switch(os_unfair_lock_opaque)
+      switch(v13)
       {
         case 3:
           v14 = logging_description;
@@ -333,7 +333,7 @@ LABEL_101:
 
     else
     {
-      switch(os_unfair_lock_opaque)
+      switch(v13)
       {
         case 0:
           v14 = logging_description;
@@ -348,7 +348,7 @@ LABEL_101:
         case 2:
           v14 = logging_description;
           v15 = v5;
-          v16 = nw_endpoint_flow_mode_string(*&v11[66]._os_unfair_lock_opaque);
+          v16 = nw_endpoint_flow_mode_string(v11[33]);
 LABEL_30:
 
           v17 = v12;
@@ -570,7 +570,7 @@ LABEL_72:
           v37 = "resolver";
           goto LABEL_71;
         case 2:
-          v37 = nw_endpoint_flow_mode_string(*&v34[66]._os_unfair_lock_opaque);
+          v37 = nw_endpoint_flow_mode_string(v34[33]);
 LABEL_71:
 
           v38 = v35;
@@ -638,7 +638,7 @@ id nw_endpoint_handler_copy_endpoint(void *a1)
     v8 = __nwlog_obj();
     *buf = 136446210;
     v19 = "nw_endpoint_handler_copy_endpoint";
-    v9 = _os_log_send_and_compose_impl();
+    v9 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v8, 16, "%{public}s called with null handler", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v16 = 0;
@@ -764,7 +764,7 @@ const char *nw_endpoint_handler_state_string(void *a1)
   v5 = __nwlog_obj();
   *buf = 136446210;
   v16 = "nw_endpoint_handler_state_string";
-  v6 = _os_log_send_and_compose_impl();
+  v6 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v5, 16, "%{public}s called with null handler", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v13 = 0;
@@ -887,13 +887,13 @@ void sub_181B37B14(uint64_t a1@<X8>)
   }
 }
 
-uint64_t sub_181B37BFC(uint64_t a1)
+uint64_t sub_181B37BFC(char *a1)
 {
   v2 = *a1;
-  v3 = *(a1 + 1);
-  v5 = *(a1 + 8);
-  v4 = *(a1 + 16);
-  v6 = *(a1 + 24);
+  v3 = a1[1];
+  v5 = *(a1 + 1);
+  v4 = *(a1 + 2);
+  v6 = a1[24];
   v8 = *v1;
   v7 = v1[1];
   v9 = v7 >> 61;
@@ -1000,7 +1000,7 @@ void sub_181B37DA0(void *a1, NSObject *a2)
 uint64_t QUICConnectionProtocol.QUICConnectionOptions.deepCopy()()
 {
   v1 = v0;
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EA8394B0);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EA8394B0, &unk_182AF9540);
   MEMORY[0x1EEE9AC00](v2 - 8);
   v4 = &v62[-v3];
   v5 = swift_allocObject();
@@ -1410,14 +1410,14 @@ LABEL_84:
 
 uint64_t sub_181B38538(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EA8394B0);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EA8394B0, &unk_182AF9540);
   (*(*(v4 - 8) + 40))(a2, a1, v4);
   return a2;
 }
 
 uint64_t sub_181B385A8(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EA8394B0);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EA8394B0, &unk_182AF9540);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
@@ -1468,7 +1468,7 @@ LABEL_21:
 
       if ((v3 & 0x1000000000000000) != 0)
       {
-        v4 = sub_18224FE14();
+        v4 = sub_18224FE14(v4, v3);
         v15 = v14;
 
         v3 = v15;
@@ -1613,7 +1613,7 @@ void nw_connection_set_state_on_nw_queue(NWConcrete_nw_connection *a1, unsigned 
   v12 = __nwlog_obj();
   *buf = 136446210;
   v23 = "nw_connection_set_state_on_nw_queue";
-  v13 = _os_log_send_and_compose_impl();
+  v13 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v12, 16, "%{public}s called with null connection", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v20 = 0;
@@ -1845,7 +1845,7 @@ LABEL_23:
       v38 = __nwlog_obj();
       *buf = 136446210;
       *&buf[4] = "nw_parameters_get_skip_stack_trace_capture";
-      v39 = _os_log_send_and_compose_impl();
+      v39 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v38, 16, "%{public}s called with null parameters", buf, 12);
 
       v40 = v14;
       type = OS_LOG_TYPE_ERROR;
@@ -2056,32 +2056,32 @@ id nw_context_copy_registered_endpoint_internal(void *a1, void *a2, int a3)
             v21 = 1000000 * v20;
             v22 = dispatch_time(0x8000000000000000, 1000000 * v20);
             nw_queue_set_timer_values(source, v22, v21, v21);
-            nw_queue_activate_source(*(v11[3] + 56), v23);
+            nw_queue_activate_source(*(v11[3] + 56));
             goto LABEL_26;
           }
 
           pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
           networkd_settings_init();
-          v24 = gLogObj;
+          v23 = gLogObj;
           *buf = 136446210;
           v144 = "nw_context_start_purge_timer";
-          v25 = _os_log_send_and_compose_impl();
+          v24 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v23, 16, "%{public}s nw_queue_context_create_source failed", buf, 12);
 
           type = OS_LOG_TYPE_ERROR;
           v138 = 0;
-          if (__nwlog_fault(v25, &type, &v138))
+          if (__nwlog_fault(v24, &type, &v138))
           {
             if (type == OS_LOG_TYPE_FAULT)
             {
               pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
               networkd_settings_init();
-              v26 = gLogObj;
-              v27 = type;
-              if (os_log_type_enabled(v26, type))
+              v25 = gLogObj;
+              v26 = type;
+              if (os_log_type_enabled(v25, type))
               {
                 *buf = 136446210;
                 v144 = "nw_context_start_purge_timer";
-                _os_log_impl(&dword_181A37000, v26, v27, "%{public}s nw_queue_context_create_source failed", buf, 0xCu);
+                _os_log_impl(&dword_181A37000, v25, v26, "%{public}s nw_queue_context_create_source failed", buf, 0xCu);
               }
             }
 
@@ -2090,22 +2090,22 @@ id nw_context_copy_registered_endpoint_internal(void *a1, void *a2, int a3)
               backtrace_string = __nw_create_backtrace_string();
               if (backtrace_string)
               {
-                v57 = backtrace_string;
+                v56 = backtrace_string;
                 pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
                 networkd_settings_init();
-                v58 = gLogObj;
-                v59 = type;
-                if (os_log_type_enabled(v58, type))
+                v57 = gLogObj;
+                v58 = type;
+                if (os_log_type_enabled(v57, type))
                 {
                   *buf = 136446466;
                   v144 = "nw_context_start_purge_timer";
                   v145 = 2082;
-                  v146 = v57;
-                  _os_log_impl(&dword_181A37000, v58, v59, "%{public}s nw_queue_context_create_source failed, dumping backtrace:%{public}s", buf, 0x16u);
+                  v146 = v56;
+                  _os_log_impl(&dword_181A37000, v57, v58, "%{public}s nw_queue_context_create_source failed, dumping backtrace:%{public}s", buf, 0x16u);
                 }
 
-                free(v57);
-                if (!v25)
+                free(v56);
+                if (!v24)
                 {
                   goto LABEL_26;
                 }
@@ -2113,13 +2113,13 @@ id nw_context_copy_registered_endpoint_internal(void *a1, void *a2, int a3)
                 goto LABEL_25;
               }
 
-              v26 = __nwlog_obj();
-              v79 = type;
-              if (os_log_type_enabled(v26, type))
+              v25 = __nwlog_obj();
+              v78 = type;
+              if (os_log_type_enabled(v25, type))
               {
                 *buf = 136446210;
                 v144 = "nw_context_start_purge_timer";
-                _os_log_impl(&dword_181A37000, v26, v79, "%{public}s nw_queue_context_create_source failed, no backtrace", buf, 0xCu);
+                _os_log_impl(&dword_181A37000, v25, v78, "%{public}s nw_queue_context_create_source failed, no backtrace", buf, 0xCu);
               }
             }
 
@@ -2127,18 +2127,18 @@ id nw_context_copy_registered_endpoint_internal(void *a1, void *a2, int a3)
             {
               pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
               networkd_settings_init();
-              v26 = gLogObj;
-              v74 = type;
-              if (os_log_type_enabled(v26, type))
+              v25 = gLogObj;
+              v73 = type;
+              if (os_log_type_enabled(v25, type))
               {
                 *buf = 136446210;
                 v144 = "nw_context_start_purge_timer";
-                _os_log_impl(&dword_181A37000, v26, v74, "%{public}s nw_queue_context_create_source failed, backtrace limit exceeded", buf, 0xCu);
+                _os_log_impl(&dword_181A37000, v25, v73, "%{public}s nw_queue_context_create_source failed, backtrace limit exceeded", buf, 0xCu);
               }
             }
           }
 
-          if (!v25)
+          if (!v24)
           {
 LABEL_26:
 
@@ -2146,77 +2146,77 @@ LABEL_26:
           }
 
 LABEL_25:
-          free(v25);
+          free(v24);
           goto LABEL_26;
         }
 
-        v123 = __nwlog_obj();
+        v122 = __nwlog_obj();
         *v140 = 136446210;
         *&v140[4] = "nw_context_start_purge_timer";
-        v124 = _os_log_send_and_compose_impl();
+        v123 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v122, 16, "%{public}s called with null (context->is_implicit || nw_context_get_isolate_protocol_cache(context))", v140, 12);
 
         buf[0] = 16;
         type = OS_LOG_TYPE_DEFAULT;
-        if (__nwlog_fault(v124, buf, &type))
+        if (__nwlog_fault(v123, buf, &type))
         {
           if (buf[0] == 17)
           {
-            v125 = __nwlog_obj();
-            v126 = buf[0];
-            if (os_log_type_enabled(v125, buf[0]))
+            v124 = __nwlog_obj();
+            v125 = buf[0];
+            if (os_log_type_enabled(v124, buf[0]))
             {
               *v140 = 136446210;
               *&v140[4] = "nw_context_start_purge_timer";
-              _os_log_impl(&dword_181A37000, v125, v126, "%{public}s called with null (context->is_implicit || nw_context_get_isolate_protocol_cache(context))", v140, 0xCu);
+              _os_log_impl(&dword_181A37000, v124, v125, "%{public}s called with null (context->is_implicit || nw_context_get_isolate_protocol_cache(context))", v140, 0xCu);
             }
           }
 
           else if (type == OS_LOG_TYPE_INFO)
           {
-            v133 = __nw_create_backtrace_string();
-            v125 = __nwlog_obj();
-            v134 = buf[0];
-            v135 = os_log_type_enabled(v125, buf[0]);
-            if (v133)
+            v132 = __nw_create_backtrace_string();
+            v124 = __nwlog_obj();
+            v133 = buf[0];
+            v134 = os_log_type_enabled(v124, buf[0]);
+            if (v132)
             {
-              if (v135)
+              if (v134)
               {
                 *v140 = 136446466;
                 *&v140[4] = "nw_context_start_purge_timer";
                 *&v140[12] = 2082;
-                *&v140[14] = v133;
-                _os_log_impl(&dword_181A37000, v125, v134, "%{public}s called with null (context->is_implicit || nw_context_get_isolate_protocol_cache(context)), dumping backtrace:%{public}s", v140, 0x16u);
+                *&v140[14] = v132;
+                _os_log_impl(&dword_181A37000, v124, v133, "%{public}s called with null (context->is_implicit || nw_context_get_isolate_protocol_cache(context)), dumping backtrace:%{public}s", v140, 0x16u);
               }
 
-              free(v133);
+              free(v132);
               goto LABEL_201;
             }
 
-            if (v135)
+            if (v134)
             {
               *v140 = 136446210;
               *&v140[4] = "nw_context_start_purge_timer";
-              _os_log_impl(&dword_181A37000, v125, v134, "%{public}s called with null (context->is_implicit || nw_context_get_isolate_protocol_cache(context)), no backtrace", v140, 0xCu);
+              _os_log_impl(&dword_181A37000, v124, v133, "%{public}s called with null (context->is_implicit || nw_context_get_isolate_protocol_cache(context)), no backtrace", v140, 0xCu);
             }
           }
 
           else
           {
-            v125 = __nwlog_obj();
-            v136 = buf[0];
-            if (os_log_type_enabled(v125, buf[0]))
+            v124 = __nwlog_obj();
+            v135 = buf[0];
+            if (os_log_type_enabled(v124, buf[0]))
             {
               *v140 = 136446210;
               *&v140[4] = "nw_context_start_purge_timer";
-              _os_log_impl(&dword_181A37000, v125, v136, "%{public}s called with null (context->is_implicit || nw_context_get_isolate_protocol_cache(context)), backtrace limit exceeded", v140, 0xCu);
+              _os_log_impl(&dword_181A37000, v124, v135, "%{public}s called with null (context->is_implicit || nw_context_get_isolate_protocol_cache(context)), backtrace limit exceeded", v140, 0xCu);
             }
           }
         }
 
 LABEL_201:
-        if (v124)
+        if (v123)
         {
-          free(v124);
+          free(v123);
         }
 
 LABEL_27:
@@ -2224,35 +2224,35 @@ LABEL_27:
         node = nw_hash_table_get_node(v15, v12, 0);
         if (node)
         {
-          v29 = *(node + 16);
-          v30 = nw_hash_table_get_node(v29, v12, 0);
-          if (v30)
+          v28 = node[2];
+          v29 = nw_hash_table_get_node(v28, v12, 0);
+          if (v29)
           {
-            v31 = *(v30 + 16);
+            v30 = v29[2];
 
 LABEL_125:
-            v102 = v137;
+            v101 = v137;
             goto LABEL_126;
           }
 
           buf[0] = 0;
-          v39 = v12;
-          v40 = _nw_endpoint_copy(v39);
+          v38 = v12;
+          v39 = _nw_endpoint_copy(v38);
 
-          nw_endpoint_set_context(v40, v17);
-          nw_endpoint_set_is_registered(v40);
-          v31 = v40;
-          nw_hash_table_add_object(v29, v31, buf);
+          nw_endpoint_set_context(v39, v17);
+          nw_endpoint_set_is_registered(v39);
+          v30 = v39;
+          nw_hash_table_add_object(v28, v30, buf);
           if ((buf[0] & 1) == 0)
           {
             pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
             networkd_settings_init();
-            v41 = gLogObj;
-            v42 = v31;
-            v43 = v42;
-            if (v42)
+            v40 = gLogObj;
+            v41 = v30;
+            v42 = v41;
+            if (v41)
             {
-              logging_description = _nw_endpoint_get_logging_description(v42);
+              logging_description = _nw_endpoint_get_logging_description(v41);
             }
 
             else
@@ -2266,30 +2266,31 @@ LABEL_125:
             *&v140[14] = v17;
             *&v140[22] = 2082;
             v141 = logging_description;
-            v64 = _os_log_send_and_compose_impl();
+            LODWORD(v136) = 32;
+            v63 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v40, 16, "%{public}s %{public}@ failed to add endpoint %{public}s", v140, v136);
 
             type = OS_LOG_TYPE_ERROR;
             v138 = 0;
-            if (__nwlog_fault(v64, &type, &v138))
+            if (__nwlog_fault(v63, &type, &v138))
             {
               if (type == OS_LOG_TYPE_FAULT)
               {
                 pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
                 networkd_settings_init();
-                v65 = gLogObj;
-                v66 = type;
-                if (os_log_type_enabled(v65, type))
+                v64 = gLogObj;
+                v65 = type;
+                if (os_log_type_enabled(v64, type))
                 {
-                  v67 = v43;
-                  v68 = v67;
-                  if (v43)
+                  v66 = v42;
+                  v67 = v66;
+                  if (v42)
                   {
-                    v69 = _nw_endpoint_get_logging_description(v67);
+                    v68 = _nw_endpoint_get_logging_description(v66);
                   }
 
                   else
                   {
-                    v69 = "<NULL>";
+                    v68 = "<NULL>";
                   }
 
                   *v140 = 136446722;
@@ -2297,47 +2298,47 @@ LABEL_125:
                   *&v140[12] = 2114;
                   *&v140[14] = v17;
                   *&v140[22] = 2082;
-                  v141 = v69;
-                  _os_log_impl(&dword_181A37000, v65, v66, "%{public}s %{public}@ failed to add endpoint %{public}s", v140, 0x20u);
+                  v141 = v68;
+                  _os_log_impl(&dword_181A37000, v64, v65, "%{public}s %{public}@ failed to add endpoint %{public}s", v140, 0x20u);
                 }
               }
 
               else if (v138 == 1)
               {
-                v70 = __nw_create_backtrace_string();
-                v65 = __nwlog_obj();
-                v71 = type;
-                v72 = os_log_type_enabled(v65, type);
-                if (v70)
+                v69 = __nw_create_backtrace_string();
+                v64 = __nwlog_obj();
+                v70 = type;
+                v71 = os_log_type_enabled(v64, type);
+                if (v69)
                 {
-                  if (v72)
+                  if (v71)
                   {
-                    v73 = nw_endpoint_get_logging_description(v43);
+                    v72 = nw_endpoint_get_logging_description(v42);
                     *v140 = 136446978;
                     *&v140[4] = "nw_context_copy_registered_endpoint_internal";
                     *&v140[12] = 2114;
                     *&v140[14] = v17;
                     *&v140[22] = 2082;
-                    v141 = v73;
+                    v141 = v72;
                     LOWORD(v142[0]) = 2082;
-                    *(v142 + 2) = v70;
-                    _os_log_impl(&dword_181A37000, v65, v71, "%{public}s %{public}@ failed to add endpoint %{public}s, dumping backtrace:%{public}s", v140, 0x2Au);
+                    *(v142 + 2) = v69;
+                    _os_log_impl(&dword_181A37000, v64, v70, "%{public}s %{public}@ failed to add endpoint %{public}s, dumping backtrace:%{public}s", v140, 0x2Au);
                   }
 
-                  free(v70);
+                  free(v69);
                   goto LABEL_85;
                 }
 
-                if (v72)
+                if (v71)
                 {
-                  v80 = nw_endpoint_get_logging_description(v43);
+                  v79 = nw_endpoint_get_logging_description(v42);
                   *v140 = 136446722;
                   *&v140[4] = "nw_context_copy_registered_endpoint_internal";
                   *&v140[12] = 2114;
                   *&v140[14] = v17;
                   *&v140[22] = 2082;
-                  v141 = v80;
-                  _os_log_impl(&dword_181A37000, v65, v71, "%{public}s %{public}@ failed to add endpoint %{public}s, no backtrace", v140, 0x20u);
+                  v141 = v79;
+                  _os_log_impl(&dword_181A37000, v64, v70, "%{public}s %{public}@ failed to add endpoint %{public}s, no backtrace", v140, 0x20u);
                 }
               }
 
@@ -2345,26 +2346,26 @@ LABEL_125:
               {
                 pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
                 networkd_settings_init();
-                v65 = gLogObj;
-                v75 = type;
-                if (os_log_type_enabled(v65, type))
+                v64 = gLogObj;
+                v74 = type;
+                if (os_log_type_enabled(v64, type))
                 {
-                  v76 = nw_endpoint_get_logging_description(v43);
+                  v75 = nw_endpoint_get_logging_description(v42);
                   *v140 = 136446722;
                   *&v140[4] = "nw_context_copy_registered_endpoint_internal";
                   *&v140[12] = 2114;
                   *&v140[14] = v17;
                   *&v140[22] = 2082;
-                  v141 = v76;
-                  _os_log_impl(&dword_181A37000, v65, v75, "%{public}s %{public}@ failed to add endpoint %{public}s, backtrace limit exceeded", v140, 0x20u);
+                  v141 = v75;
+                  _os_log_impl(&dword_181A37000, v64, v74, "%{public}s %{public}@ failed to add endpoint %{public}s, backtrace limit exceeded", v140, 0x20u);
                 }
               }
             }
 
 LABEL_85:
-            if (v64)
+            if (v63)
             {
-              free(v64);
+              free(v63);
             }
           }
 
@@ -2374,14 +2375,14 @@ LABEL_124:
         }
 
         internal = nw_hash_table_create_internal(0x11u, 0, nw_context_object_get_key, nw_context_endpoint_key_hash, nw_context_endpoint_matches_key, nw_context_object_release, 0);
-        v33 = v12;
-        v34 = _nw_endpoint_copy(v33);
+        v32 = v12;
+        v33 = _nw_endpoint_copy(v32);
 
-        nw_endpoint_set_context(v34, v17);
-        nw_endpoint_set_is_registered(v34);
+        nw_endpoint_set_context(v33, v17);
+        nw_endpoint_set_is_registered(v33);
         buf[0] = 0;
-        v31 = v34;
-        nw_hash_table_add_object(internal, v31, buf);
+        v30 = v33;
+        nw_hash_table_add_object(internal, v30, buf);
         if (buf[0])
         {
 LABEL_96:
@@ -2393,17 +2394,17 @@ LABEL_96:
 
           pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
           networkd_settings_init();
-          v81 = gLogObj;
-          v82 = v31;
-          v83 = v82;
-          if (v82)
+          v80 = gLogObj;
+          v81 = v30;
+          v82 = v81;
+          if (v81)
           {
-            v84 = _nw_endpoint_get_logging_description(v82);
+            v83 = _nw_endpoint_get_logging_description(v81);
           }
 
           else
           {
-            v84 = "<NULL>";
+            v83 = "<NULL>";
           }
 
           *v140 = 136446722;
@@ -2411,31 +2412,32 @@ LABEL_96:
           *&v140[12] = 2114;
           *&v140[14] = v17;
           *&v140[22] = 2082;
-          v141 = v84;
-          v85 = _os_log_send_and_compose_impl();
+          v141 = v83;
+          LODWORD(v136) = 32;
+          v84 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v80, 16, "%{public}s %{public}@ failed to add hash table for endpoint %{public}s", v140, v136);
 
           type = OS_LOG_TYPE_ERROR;
           v138 = 0;
-          if (__nwlog_fault(v85, &type, &v138))
+          if (__nwlog_fault(v84, &type, &v138))
           {
             if (type == OS_LOG_TYPE_FAULT)
             {
               pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
               networkd_settings_init();
-              v86 = gLogObj;
-              v87 = type;
-              if (os_log_type_enabled(v86, type))
+              v85 = gLogObj;
+              v86 = type;
+              if (os_log_type_enabled(v85, type))
               {
-                v88 = v83;
-                v89 = v88;
-                if (v83)
+                v87 = v82;
+                v88 = v87;
+                if (v82)
                 {
-                  v90 = _nw_endpoint_get_logging_description(v88);
+                  v89 = _nw_endpoint_get_logging_description(v87);
                 }
 
                 else
                 {
-                  v90 = "<NULL>";
+                  v89 = "<NULL>";
                 }
 
                 *v140 = 136446722;
@@ -2443,51 +2445,51 @@ LABEL_96:
                 *&v140[12] = 2114;
                 *&v140[14] = v17;
                 *&v140[22] = 2082;
-                v141 = v90;
-                _os_log_impl(&dword_181A37000, v86, v87, "%{public}s %{public}@ failed to add hash table for endpoint %{public}s", v140, 0x20u);
+                v141 = v89;
+                _os_log_impl(&dword_181A37000, v85, v86, "%{public}s %{public}@ failed to add hash table for endpoint %{public}s", v140, 0x20u);
               }
             }
 
             else if (v138 == 1)
             {
-              v91 = __nw_create_backtrace_string();
-              if (v91)
+              v90 = __nw_create_backtrace_string();
+              if (v90)
               {
-                v92 = v91;
+                v91 = v90;
                 pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
                 networkd_settings_init();
-                v93 = gLogObj;
-                v94 = type;
-                if (os_log_type_enabled(v93, type))
+                v92 = gLogObj;
+                v93 = type;
+                if (os_log_type_enabled(v92, type))
                 {
-                  v95 = nw_endpoint_get_logging_description(v83);
+                  v94 = nw_endpoint_get_logging_description(v82);
                   *v140 = 136446978;
                   *&v140[4] = "nw_context_copy_registered_endpoint_internal";
                   *&v140[12] = 2114;
                   *&v140[14] = v17;
                   *&v140[22] = 2082;
-                  v141 = v95;
+                  v141 = v94;
                   LOWORD(v142[0]) = 2082;
-                  *(v142 + 2) = v92;
-                  _os_log_impl(&dword_181A37000, v93, v94, "%{public}s %{public}@ failed to add hash table for endpoint %{public}s, dumping backtrace:%{public}s", v140, 0x2Au);
+                  *(v142 + 2) = v91;
+                  _os_log_impl(&dword_181A37000, v92, v93, "%{public}s %{public}@ failed to add hash table for endpoint %{public}s, dumping backtrace:%{public}s", v140, 0x2Au);
                 }
 
-                free(v92);
+                free(v91);
                 goto LABEL_122;
               }
 
-              v86 = __nwlog_obj();
-              v100 = type;
-              if (os_log_type_enabled(v86, type))
+              v85 = __nwlog_obj();
+              v99 = type;
+              if (os_log_type_enabled(v85, type))
               {
-                v101 = nw_endpoint_get_logging_description(v83);
+                v100 = nw_endpoint_get_logging_description(v82);
                 *v140 = 136446722;
                 *&v140[4] = "nw_context_copy_registered_endpoint_internal";
                 *&v140[12] = 2114;
                 *&v140[14] = v17;
                 *&v140[22] = 2082;
-                v141 = v101;
-                _os_log_impl(&dword_181A37000, v86, v100, "%{public}s %{public}@ failed to add hash table for endpoint %{public}s, no backtrace", v140, 0x20u);
+                v141 = v100;
+                _os_log_impl(&dword_181A37000, v85, v99, "%{public}s %{public}@ failed to add hash table for endpoint %{public}s, no backtrace", v140, 0x20u);
               }
             }
 
@@ -2495,20 +2497,20 @@ LABEL_96:
             {
               pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
               networkd_settings_init();
-              v86 = gLogObj;
-              v96 = type;
-              if (os_log_type_enabled(v86, type))
+              v85 = gLogObj;
+              v95 = type;
+              if (os_log_type_enabled(v85, type))
               {
-                v97 = v83;
-                v98 = v97;
-                if (v83)
+                v96 = v82;
+                v97 = v96;
+                if (v82)
                 {
-                  v99 = _nw_endpoint_get_logging_description(v97);
+                  v98 = _nw_endpoint_get_logging_description(v96);
                 }
 
                 else
                 {
-                  v99 = "<NULL>";
+                  v98 = "<NULL>";
                 }
 
                 *v140 = 136446722;
@@ -2516,16 +2518,16 @@ LABEL_96:
                 *&v140[12] = 2114;
                 *&v140[14] = v17;
                 *&v140[22] = 2082;
-                v141 = v99;
-                _os_log_impl(&dword_181A37000, v86, v96, "%{public}s %{public}@ failed to add hash table for endpoint %{public}s, backtrace limit exceeded", v140, 0x20u);
+                v141 = v98;
+                _os_log_impl(&dword_181A37000, v85, v95, "%{public}s %{public}@ failed to add hash table for endpoint %{public}s, backtrace limit exceeded", v140, 0x20u);
               }
             }
           }
 
 LABEL_122:
-          if (v85)
+          if (v84)
           {
-            free(v85);
+            free(v84);
           }
 
           goto LABEL_124;
@@ -2533,17 +2535,17 @@ LABEL_122:
 
         pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
         networkd_settings_init();
-        v35 = gLogObj;
-        v36 = v31;
-        v37 = v36;
-        if (v36)
+        v34 = gLogObj;
+        v35 = v30;
+        v36 = v35;
+        if (v35)
         {
-          v38 = _nw_endpoint_get_logging_description(v36);
+          v37 = _nw_endpoint_get_logging_description(v35);
         }
 
         else
         {
-          v38 = "<NULL>";
+          v37 = "<NULL>";
         }
 
         *v140 = 136446722;
@@ -2551,31 +2553,32 @@ LABEL_122:
         *&v140[12] = 2114;
         *&v140[14] = v17;
         *&v140[22] = 2082;
-        v141 = v38;
-        v45 = _os_log_send_and_compose_impl();
+        v141 = v37;
+        LODWORD(v136) = 32;
+        v44 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v34, 16, "%{public}s %{public}@ failed to add endpoint %{public}s", v140, v136);
 
         type = OS_LOG_TYPE_ERROR;
         v138 = 0;
-        if (__nwlog_fault(v45, &type, &v138))
+        if (__nwlog_fault(v44, &type, &v138))
         {
           if (type == OS_LOG_TYPE_FAULT)
           {
             pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
             networkd_settings_init();
-            v46 = gLogObj;
-            v47 = type;
-            if (os_log_type_enabled(v46, type))
+            v45 = gLogObj;
+            v46 = type;
+            if (os_log_type_enabled(v45, type))
             {
-              v48 = v37;
-              v49 = v48;
-              if (v37)
+              v47 = v36;
+              v48 = v47;
+              if (v36)
               {
-                v50 = _nw_endpoint_get_logging_description(v48);
+                v49 = _nw_endpoint_get_logging_description(v47);
               }
 
               else
               {
-                v50 = "<NULL>";
+                v49 = "<NULL>";
               }
 
               *v140 = 136446722;
@@ -2583,51 +2586,51 @@ LABEL_122:
               *&v140[12] = 2114;
               *&v140[14] = v17;
               *&v140[22] = 2082;
-              v141 = v50;
-              _os_log_impl(&dword_181A37000, v46, v47, "%{public}s %{public}@ failed to add endpoint %{public}s", v140, 0x20u);
+              v141 = v49;
+              _os_log_impl(&dword_181A37000, v45, v46, "%{public}s %{public}@ failed to add endpoint %{public}s", v140, 0x20u);
             }
           }
 
           else if (v138 == 1)
           {
-            v51 = __nw_create_backtrace_string();
-            if (v51)
+            v50 = __nw_create_backtrace_string();
+            if (v50)
             {
-              v52 = v51;
+              v51 = v50;
               pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
               networkd_settings_init();
-              v53 = gLogObj;
-              v54 = type;
-              if (os_log_type_enabled(v53, type))
+              v52 = gLogObj;
+              v53 = type;
+              if (os_log_type_enabled(v52, type))
               {
-                v55 = nw_endpoint_get_logging_description(v37);
+                v54 = nw_endpoint_get_logging_description(v36);
                 *v140 = 136446978;
                 *&v140[4] = "nw_context_copy_registered_endpoint_internal";
                 *&v140[12] = 2114;
                 *&v140[14] = v17;
                 *&v140[22] = 2082;
-                v141 = v55;
+                v141 = v54;
                 LOWORD(v142[0]) = 2082;
-                *(v142 + 2) = v52;
-                _os_log_impl(&dword_181A37000, v53, v54, "%{public}s %{public}@ failed to add endpoint %{public}s, dumping backtrace:%{public}s", v140, 0x2Au);
+                *(v142 + 2) = v51;
+                _os_log_impl(&dword_181A37000, v52, v53, "%{public}s %{public}@ failed to add endpoint %{public}s, dumping backtrace:%{public}s", v140, 0x2Au);
               }
 
-              free(v52);
+              free(v51);
               goto LABEL_94;
             }
 
-            v46 = __nwlog_obj();
-            v77 = type;
-            if (os_log_type_enabled(v46, type))
+            v45 = __nwlog_obj();
+            v76 = type;
+            if (os_log_type_enabled(v45, type))
             {
-              v78 = nw_endpoint_get_logging_description(v37);
+              v77 = nw_endpoint_get_logging_description(v36);
               *v140 = 136446722;
               *&v140[4] = "nw_context_copy_registered_endpoint_internal";
               *&v140[12] = 2114;
               *&v140[14] = v17;
               *&v140[22] = 2082;
-              v141 = v78;
-              _os_log_impl(&dword_181A37000, v46, v77, "%{public}s %{public}@ failed to add endpoint %{public}s, no backtrace", v140, 0x20u);
+              v141 = v77;
+              _os_log_impl(&dword_181A37000, v45, v76, "%{public}s %{public}@ failed to add endpoint %{public}s, no backtrace", v140, 0x20u);
             }
           }
 
@@ -2635,20 +2638,20 @@ LABEL_122:
           {
             pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
             networkd_settings_init();
-            v46 = gLogObj;
-            v60 = type;
-            if (os_log_type_enabled(v46, type))
+            v45 = gLogObj;
+            v59 = type;
+            if (os_log_type_enabled(v45, type))
             {
-              v61 = v37;
-              v62 = v61;
-              if (v37)
+              v60 = v36;
+              v61 = v60;
+              if (v36)
               {
-                v63 = _nw_endpoint_get_logging_description(v61);
+                v62 = _nw_endpoint_get_logging_description(v60);
               }
 
               else
               {
-                v63 = "<NULL>";
+                v62 = "<NULL>";
               }
 
               *v140 = 136446722;
@@ -2656,246 +2659,246 @@ LABEL_122:
               *&v140[12] = 2114;
               *&v140[14] = v17;
               *&v140[22] = 2082;
-              v141 = v63;
-              _os_log_impl(&dword_181A37000, v46, v60, "%{public}s %{public}@ failed to add endpoint %{public}s, backtrace limit exceeded", v140, 0x20u);
+              v141 = v62;
+              _os_log_impl(&dword_181A37000, v45, v59, "%{public}s %{public}@ failed to add endpoint %{public}s, backtrace limit exceeded", v140, 0x20u);
             }
           }
         }
 
 LABEL_94:
-        if (v45)
+        if (v44)
         {
-          free(v45);
+          free(v44);
         }
 
         goto LABEL_96;
       }
 
-      v108 = v7;
-      v113 = __nwlog_obj();
+      v107 = v7;
+      v112 = __nwlog_obj();
       *v140 = 136446210;
       *&v140[4] = "nw_context_copy_registered_endpoint_internal";
-      v114 = _os_log_send_and_compose_impl();
+      v113 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v112, 16, "%{public}s called with null hash_table", v140, 12);
 
       buf[0] = 16;
       type = OS_LOG_TYPE_DEFAULT;
-      if (!__nwlog_fault(v114, buf, &type))
+      if (!__nwlog_fault(v113, buf, &type))
       {
         goto LABEL_194;
       }
 
       if (buf[0] == 17)
       {
-        v115 = __nwlog_obj();
-        v116 = buf[0];
-        if (os_log_type_enabled(v115, buf[0]))
+        v114 = __nwlog_obj();
+        v115 = buf[0];
+        if (os_log_type_enabled(v114, buf[0]))
         {
           *v140 = 136446210;
           *&v140[4] = "nw_context_copy_registered_endpoint_internal";
-          _os_log_impl(&dword_181A37000, v115, v116, "%{public}s called with null hash_table", v140, 0xCu);
+          _os_log_impl(&dword_181A37000, v114, v115, "%{public}s called with null hash_table", v140, 0xCu);
         }
       }
 
       else if (type == OS_LOG_TYPE_INFO)
       {
-        v127 = __nw_create_backtrace_string();
-        v115 = __nwlog_obj();
-        v128 = buf[0];
-        v129 = os_log_type_enabled(v115, buf[0]);
-        if (v127)
+        v126 = __nw_create_backtrace_string();
+        v114 = __nwlog_obj();
+        v127 = buf[0];
+        v128 = os_log_type_enabled(v114, buf[0]);
+        if (v126)
         {
-          if (v129)
+          if (v128)
           {
             *v140 = 136446466;
             *&v140[4] = "nw_context_copy_registered_endpoint_internal";
             *&v140[12] = 2082;
-            *&v140[14] = v127;
-            _os_log_impl(&dword_181A37000, v115, v128, "%{public}s called with null hash_table, dumping backtrace:%{public}s", v140, 0x16u);
+            *&v140[14] = v126;
+            _os_log_impl(&dword_181A37000, v114, v127, "%{public}s called with null hash_table, dumping backtrace:%{public}s", v140, 0x16u);
           }
 
-          free(v127);
+          free(v126);
           goto LABEL_194;
         }
 
-        if (v129)
+        if (v128)
         {
           *v140 = 136446210;
           *&v140[4] = "nw_context_copy_registered_endpoint_internal";
-          _os_log_impl(&dword_181A37000, v115, v128, "%{public}s called with null hash_table, no backtrace", v140, 0xCu);
+          _os_log_impl(&dword_181A37000, v114, v127, "%{public}s called with null hash_table, no backtrace", v140, 0xCu);
         }
       }
 
       else
       {
-        v115 = __nwlog_obj();
-        v132 = buf[0];
-        if (os_log_type_enabled(v115, buf[0]))
+        v114 = __nwlog_obj();
+        v131 = buf[0];
+        if (os_log_type_enabled(v114, buf[0]))
         {
           *v140 = 136446210;
           *&v140[4] = "nw_context_copy_registered_endpoint_internal";
-          _os_log_impl(&dword_181A37000, v115, v132, "%{public}s called with null hash_table, backtrace limit exceeded", v140, 0xCu);
+          _os_log_impl(&dword_181A37000, v114, v131, "%{public}s called with null hash_table, backtrace limit exceeded", v140, 0xCu);
         }
       }
 
 LABEL_194:
-      if (v114)
+      if (v113)
       {
-        free(v114);
+        free(v113);
       }
 
 LABEL_197:
-      v31 = 0;
-      v102 = v108;
+      v30 = 0;
+      v101 = v107;
       goto LABEL_126;
     }
 
-    v108 = 0;
-    v109 = __nwlog_obj();
+    v107 = 0;
+    v108 = __nwlog_obj();
     *v140 = 136446210;
     *&v140[4] = "nw_context_copy_registered_endpoint_internal";
-    v110 = _os_log_send_and_compose_impl();
+    v109 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v108, 16, "%{public}s called with null endpoint", v140, 12);
 
     buf[0] = 16;
     type = OS_LOG_TYPE_DEFAULT;
-    if (__nwlog_fault(v110, buf, &type))
+    if (__nwlog_fault(v109, buf, &type))
     {
       if (buf[0] == 17)
       {
-        v111 = __nwlog_obj();
-        v112 = buf[0];
-        if (os_log_type_enabled(v111, buf[0]))
+        v110 = __nwlog_obj();
+        v111 = buf[0];
+        if (os_log_type_enabled(v110, buf[0]))
         {
           *v140 = 136446210;
           *&v140[4] = "nw_context_copy_registered_endpoint_internal";
-          _os_log_impl(&dword_181A37000, v111, v112, "%{public}s called with null endpoint", v140, 0xCu);
+          _os_log_impl(&dword_181A37000, v110, v111, "%{public}s called with null endpoint", v140, 0xCu);
         }
       }
 
       else if (type == OS_LOG_TYPE_INFO)
       {
-        v120 = __nw_create_backtrace_string();
-        v111 = __nwlog_obj();
-        v121 = buf[0];
-        v122 = os_log_type_enabled(v111, buf[0]);
-        if (v120)
+        v119 = __nw_create_backtrace_string();
+        v110 = __nwlog_obj();
+        v120 = buf[0];
+        v121 = os_log_type_enabled(v110, buf[0]);
+        if (v119)
         {
-          if (v122)
+          if (v121)
           {
             *v140 = 136446466;
             *&v140[4] = "nw_context_copy_registered_endpoint_internal";
             *&v140[12] = 2082;
-            *&v140[14] = v120;
-            _os_log_impl(&dword_181A37000, v111, v121, "%{public}s called with null endpoint, dumping backtrace:%{public}s", v140, 0x16u);
+            *&v140[14] = v119;
+            _os_log_impl(&dword_181A37000, v110, v120, "%{public}s called with null endpoint, dumping backtrace:%{public}s", v140, 0x16u);
           }
 
-          free(v120);
+          free(v119);
           goto LABEL_188;
         }
 
-        if (v122)
+        if (v121)
         {
           *v140 = 136446210;
           *&v140[4] = "nw_context_copy_registered_endpoint_internal";
-          _os_log_impl(&dword_181A37000, v111, v121, "%{public}s called with null endpoint, no backtrace", v140, 0xCu);
+          _os_log_impl(&dword_181A37000, v110, v120, "%{public}s called with null endpoint, no backtrace", v140, 0xCu);
         }
       }
 
       else
       {
-        v111 = __nwlog_obj();
-        v131 = buf[0];
-        if (os_log_type_enabled(v111, buf[0]))
+        v110 = __nwlog_obj();
+        v130 = buf[0];
+        if (os_log_type_enabled(v110, buf[0]))
         {
           *v140 = 136446210;
           *&v140[4] = "nw_context_copy_registered_endpoint_internal";
-          _os_log_impl(&dword_181A37000, v111, v131, "%{public}s called with null endpoint, backtrace limit exceeded", v140, 0xCu);
+          _os_log_impl(&dword_181A37000, v110, v130, "%{public}s called with null endpoint, backtrace limit exceeded", v140, 0xCu);
         }
       }
     }
 
 LABEL_188:
-    if (v110)
+    if (v109)
     {
-      free(v110);
+      free(v109);
     }
 
     goto LABEL_197;
   }
 
-  v102 = v6;
-  v104 = __nwlog_obj();
+  v101 = v6;
+  v103 = __nwlog_obj();
   *v140 = 136446210;
   *&v140[4] = "nw_context_copy_registered_endpoint_internal";
-  v105 = _os_log_send_and_compose_impl();
+  v104 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v103, 16, "%{public}s called with null context", v140, 12);
 
   buf[0] = 16;
   type = OS_LOG_TYPE_DEFAULT;
-  if (__nwlog_fault(v105, buf, &type))
+  if (__nwlog_fault(v104, buf, &type))
   {
     if (buf[0] == 17)
     {
-      v106 = __nwlog_obj();
-      v107 = buf[0];
-      if (os_log_type_enabled(v106, buf[0]))
+      v105 = __nwlog_obj();
+      v106 = buf[0];
+      if (os_log_type_enabled(v105, buf[0]))
       {
         *v140 = 136446210;
         *&v140[4] = "nw_context_copy_registered_endpoint_internal";
-        _os_log_impl(&dword_181A37000, v106, v107, "%{public}s called with null context", v140, 0xCu);
+        _os_log_impl(&dword_181A37000, v105, v106, "%{public}s called with null context", v140, 0xCu);
       }
     }
 
     else if (type == OS_LOG_TYPE_INFO)
     {
-      v117 = __nw_create_backtrace_string();
-      v106 = __nwlog_obj();
-      v118 = buf[0];
-      v119 = os_log_type_enabled(v106, buf[0]);
-      if (v117)
+      v116 = __nw_create_backtrace_string();
+      v105 = __nwlog_obj();
+      v117 = buf[0];
+      v118 = os_log_type_enabled(v105, buf[0]);
+      if (v116)
       {
-        if (v119)
+        if (v118)
         {
           *v140 = 136446466;
           *&v140[4] = "nw_context_copy_registered_endpoint_internal";
           *&v140[12] = 2082;
-          *&v140[14] = v117;
-          _os_log_impl(&dword_181A37000, v106, v118, "%{public}s called with null context, dumping backtrace:%{public}s", v140, 0x16u);
+          *&v140[14] = v116;
+          _os_log_impl(&dword_181A37000, v105, v117, "%{public}s called with null context, dumping backtrace:%{public}s", v140, 0x16u);
         }
 
-        free(v117);
+        free(v116);
         goto LABEL_182;
       }
 
-      if (v119)
+      if (v118)
       {
         *v140 = 136446210;
         *&v140[4] = "nw_context_copy_registered_endpoint_internal";
-        _os_log_impl(&dword_181A37000, v106, v118, "%{public}s called with null context, no backtrace", v140, 0xCu);
+        _os_log_impl(&dword_181A37000, v105, v117, "%{public}s called with null context, no backtrace", v140, 0xCu);
       }
     }
 
     else
     {
-      v106 = __nwlog_obj();
-      v130 = buf[0];
-      if (os_log_type_enabled(v106, buf[0]))
+      v105 = __nwlog_obj();
+      v129 = buf[0];
+      if (os_log_type_enabled(v105, buf[0]))
       {
         *v140 = 136446210;
         *&v140[4] = "nw_context_copy_registered_endpoint_internal";
-        _os_log_impl(&dword_181A37000, v106, v130, "%{public}s called with null context, backtrace limit exceeded", v140, 0xCu);
+        _os_log_impl(&dword_181A37000, v105, v129, "%{public}s called with null context, backtrace limit exceeded", v140, 0xCu);
       }
     }
   }
 
 LABEL_182:
-  if (v105)
+  if (v104)
   {
-    free(v105);
+    free(v104);
   }
 
-  v31 = 0;
+  v30 = 0;
 LABEL_126:
 
-  return v31;
+  return v30;
 }
 
 uint64_t nw_endpoint_handler_get_next_top_id()
@@ -2935,7 +2938,7 @@ _BYTE *nw_parameters_get_effective_bundle_id(char *a1)
   v2 = __nwlog_obj();
   *buf = 136446210;
   v12 = "nw_parameters_get_effective_bundle_id";
-  v3 = _os_log_send_and_compose_impl();
+  v3 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v2, 16, "%{public}s called with null parameters", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v9 = 0;
@@ -3025,7 +3028,7 @@ uint64_t nw_endpoint_flow_should_not_use_path(void *a1)
   v4 = __nwlog_obj();
   *buf = 136446210;
   v15 = "nw_endpoint_flow_should_not_use_path";
-  v5 = _os_log_send_and_compose_impl();
+  v5 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v4, 16, "%{public}s called with null endpoint_flow", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v12 = 0;
@@ -3120,7 +3123,7 @@ void __nw_connection_set_queue_block_invoke(uint64_t a1)
         v28 = "nw_connection_set_queue_block_invoke";
         v29 = 1024;
         v30 = v5;
-        v6 = _os_log_send_and_compose_impl();
+        v6 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v4, 16, "%{public}s [C%u] Error in client: nw_connection_set_queue called after nw_connection_start", buf, 18);
 
         type = OS_LOG_TYPE_ERROR;
         v25 = 0;
@@ -3285,7 +3288,7 @@ void nw_connection_set_queue(nw_connection_t connection, dispatch_queue_t queue)
     v6 = __nwlog_obj();
     *buf = 136446210;
     v26 = "nw_connection_set_queue";
-    v7 = _os_log_send_and_compose_impl();
+    v7 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v6, 16, "%{public}s called with null connection", buf, 12);
 
     v24 = OS_LOG_TYPE_ERROR;
     v23 = 0;
@@ -3378,7 +3381,7 @@ LABEL_37:
   v10 = __nwlog_obj();
   *buf = 136446210;
   v26 = "nw_connection_set_queue";
-  v7 = _os_log_send_and_compose_impl();
+  v7 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v10, 16, "%{public}s called with null queue", buf, 12);
 
   v24 = OS_LOG_TYPE_ERROR;
   v23 = 0;
@@ -3567,7 +3570,7 @@ void nw_connection_start(nw_connection_t connection)
   v10 = __nwlog_obj();
   *buf = 136446210;
   *v24 = "nw_connection_start";
-  v11 = _os_log_send_and_compose_impl();
+  v11 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v10, 16, "%{public}s called with null connection", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v21 = 0;
@@ -3656,7 +3659,7 @@ void nw_parameters_add_proxy_options(void *a1, void *a2)
     v6 = __nwlog_obj();
     *buf = 136446210;
     v19 = "nw_parameters_add_proxy_options";
-    v7 = _os_log_send_and_compose_impl();
+    v7 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v6, 16, "%{public}s called with null parameters", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v16 = 0;
@@ -3744,7 +3747,7 @@ LABEL_33:
   v11 = __nwlog_obj();
   *buf = 136446210;
   v19 = "nw_parameters_add_proxy_options";
-  v7 = _os_log_send_and_compose_impl();
+  v7 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v11, 16, "%{public}s called with null proxy_options", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v16 = 0;
@@ -3835,7 +3838,7 @@ nw_connection_t nw_connection_create(nw_endpoint_t endpoint, nw_parameters_t par
     v12 = __nwlog_obj();
     *buf = 136446210;
     v24 = "nw_connection_create";
-    v9 = _os_log_send_and_compose_impl();
+    v9 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v12, 16, "%{public}s called with null parameters", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v21 = 0;
@@ -3905,7 +3908,7 @@ LABEL_36:
     v8 = __nwlog_obj();
     *buf = 136446210;
     v24 = "nw_connection_create";
-    v9 = _os_log_send_and_compose_impl();
+    v9 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v8, 16, "%{public}s called with null endpoint", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v21 = 0;
@@ -3982,21 +3985,21 @@ LABEL_4:
   return v6;
 }
 
-uint64_t sub_181B3CD80(char a1, uint64_t a2)
+uint64_t sub_181B3CD80(char a1, uint64_t a2, char a3)
 {
-  v3 = *v2;
-  v4 = (*v2 + 16);
-  v5 = *v4;
-  if (*v4 >= a2)
+  v4 = *v3;
+  v5 = (*v3 + 16);
+  v6 = *v5;
+  if (*v5 >= a2)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA8387A0);
-    v8 = swift_allocObject();
-    v11 = *(v3 + 24);
-    *(v8 + 16) = v5;
-    *(v8 + 24) = v11;
-    if (v11 >= 1)
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA8387A0, &qword_182AE4C28);
+    v9 = swift_allocObject();
+    v12 = *(v4 + 24);
+    *(v9 + 16) = v6;
+    *(v9 + 24) = v12;
+    if (v12 >= 1)
     {
-      sub_1820E5194(v8 + 16, v8 + 40, v4, v3 + 40);
+      sub_1820E5194(v9 + 16, v9 + 40, v5, v4 + 40);
     }
   }
 
@@ -4005,49 +4008,49 @@ uint64_t sub_181B3CD80(char a1, uint64_t a2)
     sub_182AD2398();
     if (a1)
     {
-      v7 = *(v3 + 24);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA8387A0);
-      v8 = swift_allocObject();
-      v9 = _swift_stdlib_malloc_size(v8);
-      v10 = v9 - 40;
-      if (v9 < 40)
+      v8 = *(v4 + 24);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA8387A0, &qword_182AE4C28);
+      v9 = swift_allocObject();
+      v10 = _swift_stdlib_malloc_size(v9);
+      v11 = v10 - 40;
+      if (v10 < 40)
       {
-        v10 = v9 - 25;
+        v11 = v10 - 25;
       }
 
-      *(v8 + 16) = v10 >> 4;
-      *(v8 + 24) = v7;
-      *(v8 + 32) = 0;
-      if (v7 >= 1)
+      *(v9 + 16) = v11 >> 4;
+      *(v9 + 24) = v8;
+      *(v9 + 32) = 0;
+      if (v8 >= 1)
       {
-        sub_181EDDEE0(v8 + 16, (v8 + 40), v4, (v3 + 40));
-        *(v3 + 24) = 0;
+        sub_181EDDEE0(v9 + 16, (v9 + 40), v5, (v4 + 40));
+        *(v4 + 24) = 0;
       }
     }
 
     else
     {
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA8387A0);
-      v8 = swift_allocObject();
-      v12 = _swift_stdlib_malloc_size(v8);
-      v13 = v12 - 40;
-      if (v12 < 40)
+      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA8387A0, &qword_182AE4C28);
+      v9 = swift_allocObject();
+      v13 = _swift_stdlib_malloc_size(v9);
+      v14 = v13 - 40;
+      if (v13 < 40)
       {
-        v13 = v12 - 25;
+        v14 = v13 - 25;
       }
 
-      v14 = *(v3 + 24);
-      *(v8 + 16) = v13 >> 4;
-      *(v8 + 24) = v14;
-      *(v8 + 32) = 0;
-      if (v14 >= 1)
+      v15 = *(v4 + 24);
+      *(v9 + 16) = v14 >> 4;
+      *(v9 + 24) = v15;
+      *(v9 + 32) = 0;
+      if (v15 >= 1)
       {
-        sub_181F4727C(v8 + 16, v8 + 40, v4, v3 + 40);
+        sub_181F4727C(v9 + 16, v9 + 40, v5, v4 + 40);
       }
     }
   }
 
-  *v2 = v8;
+  *v3 = v9;
   return result;
 }
 
@@ -4103,8 +4106,9 @@ LABEL_13:
   return result;
 }
 
-id *nw_endpoint_handler_create_inner(void *a1, void *a2, void *a3, void *a4, void *a5, unsigned int a6, unsigned __int8 *a7, int a8)
+NWConcrete_nw_endpoint_handler *nw_endpoint_handler_create_inner(void *a1, void *a2, void *a3, void *a4, void *a5, uint64_t a6, unsigned __int8 *a7, int a8)
 {
+  v10 = a6;
   v102 = *MEMORY[0x1E69E9840];
   v15 = a1;
   v16 = a2;
@@ -4117,7 +4121,7 @@ id *nw_endpoint_handler_create_inner(void *a1, void *a2, void *a3, void *a4, voi
     v59 = __nwlog_obj();
     LODWORD(buf[0]) = 136446210;
     *(buf + 4) = "nw_endpoint_handler_create_inner";
-    v60 = _os_log_send_and_compose_impl();
+    v60 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v59, 16, "%{public}s called with null endpoint", buf, 12);
 
     type[0] = OS_LOG_TYPE_ERROR;
     v94 = 0;
@@ -4187,7 +4191,7 @@ id *nw_endpoint_handler_create_inner(void *a1, void *a2, void *a3, void *a4, voi
     v63 = __nwlog_obj();
     LODWORD(buf[0]) = 136446210;
     *(buf + 4) = "nw_endpoint_handler_create_inner";
-    v60 = _os_log_send_and_compose_impl();
+    v60 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v63, 16, "%{public}s called with null parameters", buf, 12);
 
     type[0] = OS_LOG_TYPE_ERROR;
     v94 = 0;
@@ -4265,7 +4269,7 @@ LABEL_76:
     v65 = __nwlog_obj();
     LODWORD(buf[0]) = 136446210;
     *(buf + 4) = "nw_endpoint_handler_create_inner";
-    v60 = _os_log_send_and_compose_impl();
+    v60 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v65, 16, "%{public}s called with null report_callback", buf, 12);
 
     type[0] = OS_LOG_TYPE_ERROR;
     v94 = 0;
@@ -4403,7 +4407,7 @@ LABEL_110:
     v32 = _nw_endpoint_copy(v31);
 
     nw_endpoint_set_public_keys(v32, 0);
-    v33 = _nw_parameters_copy_default_protocol_stack(v90);
+    v33 = _nw_parameters_copy_default_protocol_stack();
     iterate_block[0] = MEMORY[0x1E69E9820];
     iterate_block[1] = 3221225472;
     iterate_block[2] = ___ZL32nw_endpoint_handler_create_innerPU25objcproto14OS_nw_endpoint8NSObjectPU27objcproto16OS_nw_parametersS_PFbP30NWConcrete_nw_endpoint_handler26nw_endpoint_handler_mode_t21nw_connection_state_tP27nw_endpoint_handler_event_sPU22objcproto11OS_nw_errorS_PU23objcproto12OS_nw_objectS_ESD_S5_jPhb_block_invoke;
@@ -4415,7 +4419,7 @@ LABEL_110:
     v29 = v32;
   }
 
-  v34 = [[NWConcrete_nw_endpoint_handler alloc] initWithEndpoint:v29 parameters:v90 reportCallback:a3 context:v87 parent:v89 identifier:a6 connection_uuid:a7];
+  v34 = [[NWConcrete_nw_endpoint_handler alloc] initWithEndpoint:v29 parameters:v90 reportCallback:a3 context:v87 parent:v89 identifier:v10 connection_uuid:a7];
   v35 = v34;
   if (!v34)
   {
@@ -4424,7 +4428,7 @@ LABEL_110:
     v46 = gLogObj;
     LODWORD(buf[0]) = 136446210;
     *(buf + 4) = "nw_endpoint_handler_create_inner";
-    v47 = _os_log_send_and_compose_impl();
+    v47 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v46, 16, "%{public}s [nw_endpoint_handler initWithEndpoint:parameters:] failed", buf, 12);
 
     type[0] = OS_LOG_TYPE_ERROR;
     v94 = 0;
@@ -4519,37 +4523,37 @@ LABEL_49:
   {
     if (v89 || (*(v35 + 284) & 1) != 0)
     {
-      *(v35 + 29) = 0;
+      v35->mode = 0;
     }
 
     else
     {
-      *(v35 + 29) = 2;
+      v35->mode = 2;
       v50 = objc_alloc_init(NWConcrete_nw_endpoint_flow);
       *(v50 + 32) = *(v50 + 32) & 0xFC | 1;
-      *v50->connection_uuid = *(v35 + 148);
-      v51 = v35[33];
-      v35[33] = v50;
+      *v50->connection_uuid = *v35->connection_uuid;
+      mode_handler = v35->mode_handler;
+      v35->mode_handler = v50;
     }
 
     goto LABEL_35;
   }
 
-  *(v35 + 29) = 2;
-  v36 = v35[9];
+  v35->mode = 2;
+  parent_handler = v35->parent_handler;
   v37 = objc_alloc_init(NWConcrete_nw_endpoint_flow);
   v38 = *(v37 + 32) & 0xFC;
-  if (!v36)
+  if (!parent_handler)
   {
     ++v38;
   }
 
   *(v37 + 32) = v38 | 2;
-  *v37->connection_uuid = *(v35 + 148);
-  v39 = v35[33];
-  v35[33] = v37;
+  *v37->connection_uuid = *v35->connection_uuid;
+  v39 = v35->mode_handler;
+  v35->mode_handler = v37;
 
-  v40 = v35[33];
+  v40 = v35->mode_handler;
   v41 = v35;
   v42 = v40;
   v43 = v42;
@@ -4558,7 +4562,7 @@ LABEL_49:
     v75 = __nwlog_obj();
     LODWORD(buf[0]) = 136446210;
     *(buf + 4) = "nw_endpoint_flow_set_custom_protocols_only";
-    v76 = _os_log_send_and_compose_impl();
+    v76 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v75, 16, "%{public}s called with null endpoint_flow", buf, 12);
 
     type[0] = OS_LOG_TYPE_ERROR;
     v94 = 0;
@@ -4633,8 +4637,8 @@ LABEL_120:
 
   *(v42 + 34) |= 2u;
   v44 = nw_endpoint_handler_copy_endpoint(v41);
-  v45 = v43[121];
-  v43[121] = v44;
+  v45 = *(v43 + 121);
+  *(v43 + 121) = v44;
 
 LABEL_25:
 LABEL_35:
@@ -4656,7 +4660,7 @@ void nw_endpoint_enumerate_alternatives(void *a1, void *a2)
     v6 = __nwlog_obj();
     *buf = 136446210;
     v23 = "nw_endpoint_enumerate_alternatives";
-    v7 = _os_log_send_and_compose_impl();
+    v7 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v6, 16, "%{public}s called with null endpoint", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v20 = 0;
@@ -4740,7 +4744,7 @@ LABEL_37:
   v10 = __nwlog_obj();
   *buf = 136446210;
   v23 = "nw_endpoint_enumerate_alternatives";
-  v7 = _os_log_send_and_compose_impl();
+  v7 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v10, 16, "%{public}s called with null enumerate_block", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v20 = 0;
@@ -4834,7 +4838,7 @@ void nw_connection_set_state_changed_handler(nw_connection_t connection, nw_conn
   v5 = __nwlog_obj();
   *buf = 136446210;
   v19 = "nw_connection_set_state_changed_handler";
-  v6 = _os_log_send_and_compose_impl();
+  v6 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v5, 16, "%{public}s called with null connection", buf, 12);
 
   v17 = OS_LOG_TYPE_ERROR;
   v16 = 0;
@@ -4924,7 +4928,7 @@ void nw_connection_set_read_close_handler(void *a1, void *a2)
   v5 = __nwlog_obj();
   *buf = 136446210;
   v19 = "nw_connection_set_read_close_handler";
-  v6 = _os_log_send_and_compose_impl();
+  v6 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v5, 16, "%{public}s called with null connection", buf, 12);
 
   v17 = OS_LOG_TYPE_ERROR;
   v16 = 0;
@@ -5014,7 +5018,7 @@ void nw_connection_set_write_close_handler(void *a1, void *a2)
   v5 = __nwlog_obj();
   *buf = 136446210;
   v19 = "nw_connection_set_write_close_handler";
-  v6 = _os_log_send_and_compose_impl();
+  v6 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v5, 16, "%{public}s called with null connection", buf, 12);
 
   v17 = OS_LOG_TYPE_ERROR;
   v16 = 0;
@@ -5094,7 +5098,7 @@ void __nw_connection_set_write_close_handler_block_invoke(uint64_t a1)
     v22 = __nwlog_obj();
     *buf = 136446210;
     v31 = "nw_endpoint_handler_set_write_close_handler";
-    v11 = _os_log_send_and_compose_impl();
+    v11 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v22, 16, "%{public}s called with null handler", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v28 = 0;
@@ -5199,7 +5203,7 @@ LABEL_37:
   v33 = v10;
   v34 = 2082;
   v35 = "flow";
-  v11 = _os_log_send_and_compose_impl();
+  v11 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v9, 16, "%{public}s Handler is in mode %{public}s, expected %{public}s", buf, 32);
 
   type = OS_LOG_TYPE_ERROR;
   v28 = 0;
@@ -5355,7 +5359,7 @@ void nw_connection_set_alternate_path_state_handler(void *a1, void *a2)
   v5 = __nwlog_obj();
   *buf = 136446210;
   v19 = "nw_connection_set_alternate_path_state_handler";
-  v6 = _os_log_send_and_compose_impl();
+  v6 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v5, 16, "%{public}s called with null connection", buf, 12);
 
   v17 = OS_LOG_TYPE_ERROR;
   v16 = 0;
@@ -5453,7 +5457,7 @@ void nw_connection_set_viability_changed_handler(nw_connection_t connection, nw_
   v5 = __nwlog_obj();
   *buf = 136446210;
   v19 = "nw_connection_set_viability_changed_handler";
-  v6 = _os_log_send_and_compose_impl();
+  v6 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v5, 16, "%{public}s called with null connection", buf, 12);
 
   v17 = OS_LOG_TYPE_ERROR;
   v16 = 0;
@@ -5542,7 +5546,7 @@ void nw_endpoint_add_alternative(void *a1, void *a2, void *a3)
     v10 = __nwlog_obj();
     *buf = 136446210;
     v32 = "nw_endpoint_add_alternative";
-    v11 = _os_log_send_and_compose_impl();
+    v11 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v10, 16, "%{public}s called with null endpoint", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v29 = 0;
@@ -5622,7 +5626,7 @@ LABEL_59:
     v14 = __nwlog_obj();
     *buf = 136446210;
     v32 = "nw_endpoint_add_alternative";
-    v11 = _os_log_send_and_compose_impl();
+    v11 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v14, 16, "%{public}s called with null alternative_endpoint", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v29 = 0;
@@ -5692,7 +5696,7 @@ LABEL_59:
     v16 = __nwlog_obj();
     *buf = 136446210;
     v32 = "nw_endpoint_add_alternative";
-    v11 = _os_log_send_and_compose_impl();
+    v11 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v16, 16, "%{public}s called with null (endpoint != alternative_endpoint)", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v29 = 0;
@@ -5796,22 +5800,22 @@ uint64_t _nw_endpoint_add_alternative(void *a1, void *a2, NSObject *a3)
   return swift_unknownObjectRelease();
 }
 
-uint64_t sub_181B403B4(uint64_t a1, id a2, void **a3)
+uint64_t sub_181B403B4(uint64_t a1, id a2, NSObject **a3)
 {
   v5 = OBJC_IVAR____TtC7Network8Endpoint_alternativeEndpoints;
   swift_beginAccess();
   v29 = v5;
-  v6 = *(*&v5[a1] + 16);
+  v6 = (*(&v5->isa + a1))[2];
   if (!v6)
   {
 LABEL_30:
     v5 = *a3;
     swift_beginAccess();
-    v8 = *&v29[a1];
+    v8 = *(&v29->isa + a1);
     swift_unknownObjectRetain();
     a2 = a2;
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    *&v29[a1] = v8;
+    *(&v29->isa + a1) = v8;
     if ((isUniquelyReferenced_nonNull_native & 1) == 0)
     {
       goto LABEL_37;
@@ -5825,7 +5829,7 @@ LABEL_30:
   v9 = 16 * v6 + 32;
   while (1)
   {
-    v10 = *&v29[a1];
+    v10 = *(&v29->isa + a1);
     if (v7 - 2 >= *(v10 + 16))
     {
       break;
@@ -5848,13 +5852,13 @@ LABEL_30:
       {
         v5 = v29;
         swift_beginAccess();
-        v16 = *&v29[a1];
+        v16 = *(&v29->isa + a1);
         v17 = swift_isUniquelyReferenced_nonNull_native();
-        *&v29[a1] = v16;
+        *(&v29->isa + a1) = v16;
         if ((v17 & 1) == 0)
         {
           v16 = sub_182083534(v16);
-          *&v29[a1] = v16;
+          *(&v29->isa + a1) = v16;
         }
 
         v18 = *(v16 + 2);
@@ -5867,7 +5871,7 @@ LABEL_30:
         v5 = *&v16[v9 - 16];
         memmove(&v16[v9 - 16], &v16[v9], 16 * &v8[v18]);
         *(v16 + 2) = v19;
-        *&v29[a1] = v16;
+        *(&v29->isa + a1) = v16;
         swift_endAccess();
         swift_unknownObjectRelease();
 
@@ -5954,7 +5958,7 @@ LABEL_36:
   __break(1u);
 LABEL_37:
   v8 = sub_181B406CC(0, *(v8 + 2) + 1, 1, v8);
-  *&v29[a1] = v8;
+  *(&v29->isa + a1) = v8;
 LABEL_31:
   v25 = *(v8 + 2);
   v24 = *(v8 + 3);
@@ -5967,7 +5971,7 @@ LABEL_31:
   v26 = &v8[16 * v25];
   *(v26 + 4) = a2;
   *(v26 + 5) = v5;
-  *&v29[a1] = v8;
+  *(&v29->isa + a1) = v8;
   return swift_endAccess();
 }
 
@@ -6012,7 +6016,7 @@ char *sub_181B406CC(char *result, int64_t a2, char a3, char *a4)
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA838948);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA838948, &qword_182AE6028);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -6182,11 +6186,11 @@ LABEL_31:
   return 1;
 }
 
-uint64_t sub_181B40B4C(uint64_t a1, uint64_t (*a2)(uint64_t))
+uint64_t sub_181B40B4C(uint64_t a1, uint64_t (*a2)(__n128))
 {
   v55 = a2;
   v3 = v2;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA838E00);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA838E00, &qword_182AFE8E0);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v54 = &v49 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v7);
@@ -6239,7 +6243,7 @@ uint64_t sub_181B40B4C(uint64_t a1, uint64_t (*a2)(uint64_t))
   {
     sub_181F49A24(v22, v23, v24);
 
-    v27 = v55(v26);
+    v27 = (v55)(v26);
   }
 
   else
@@ -6269,12 +6273,12 @@ uint64_t sub_181B40B4C(uint64_t a1, uint64_t (*a2)(uint64_t))
   swift_beginAccess();
   v35 = a1 + v34;
   v36 = v58;
-  sub_181AB5D28(v35, v58, &qword_1EA838E00);
+  sub_181AB5D28(v35, v58, &qword_1EA838E00, &qword_182AFE8E0);
   v37 = v56;
   v38 = v61;
   if ((*(v56 + 48))(v36, 1, v61) == 1)
   {
-    sub_181F49A88(v36, &qword_1EA838E00);
+    sub_181F49A88(v36, &qword_1EA838E00, &qword_182AFE8E0);
   }
 
   else
@@ -6425,7 +6429,7 @@ uint64_t ___ZL34nw_endpoint_transform_add_childrenP30NWConcrete_nw_endpoint_hand
         objc_storeStrong(v127 + 5, *(*(a1 + 40) + 56));
       }
 
-      v105 = _nw_parameters_copy(*(a1 + 32));
+      v105 = _nw_parameters_copy();
       nw_protocol_transform_modify_parameters(v4, v105);
       if (nw_parameters_get_upper_transport_protocol(v105) != 253)
       {
@@ -6885,7 +6889,7 @@ LABEL_79:
   return 1;
 }
 
-void sub_181B420A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, void *a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *a18, void *a19, uint64_t a20, uint64_t a21, char a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, id a44)
+void sub_181B420A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, void *a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *a18, void *a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, id a44)
 {
   _Block_object_dispose(&a22, 8);
 
@@ -6895,7 +6899,7 @@ void sub_181B420A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-id nw_protocol_transform_copy_endpoint(uint64_t a1)
+id nw_protocol_transform_copy_endpoint(void *a1)
 {
   v15 = *MEMORY[0x1E69E9840];
   if (a1)
@@ -6907,7 +6911,7 @@ id nw_protocol_transform_copy_endpoint(uint64_t a1)
   v2 = __nwlog_obj();
   *buf = 136446210;
   v12 = "nw_protocol_transform_copy_endpoint";
-  v3 = _os_log_send_and_compose_impl();
+  v3 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v2, 16, "%{public}s called with null transform", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v9 = 0;
@@ -7034,7 +7038,7 @@ LABEL_18:
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
   if (*(v10 + 16) < v12 || (isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    sub_181B3CD80(isUniquelyReferenced_nonNull_native, v12);
+    sub_181B3CD80(isUniquelyReferenced_nonNull_native, v12, 0);
   }
 
   sub_181B3CF2C((v10 + 16), v10 + 40, v13, v14);
@@ -7052,46 +7056,47 @@ LABEL_18:
   *(v16 + 16) = v10;
 }
 
-id nw_connection_create_with_id(void *a1, void *a2, int a3, int a4)
+id nw_connection_create_with_id(void *a1, void *a2, int a3, uint64_t a4)
 {
-  *&v72[13] = *MEMORY[0x1E69E9840];
+  v4 = a4;
+  *&v73[13] = *MEMORY[0x1E69E9840];
   v7 = a1;
   v8 = a2;
-  nw_allow_use_of_dispatch_internal();
+  nw_allow_use_of_dispatch_internal(v8);
   if (!v7)
   {
-    v54 = __nwlog_obj();
+    v55 = __nwlog_obj();
     *buf = 136446210;
-    v70 = "nw_connection_create_with_id";
-    v11 = _os_log_send_and_compose_impl();
+    v71 = "nw_connection_create_with_id";
+    v11 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v55, 16, "%{public}s called with null endpoint", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
-    v67 = 0;
-    if (__nwlog_fault(v11, &type, &v67))
+    v68 = 0;
+    if (__nwlog_fault(v11, &type, &v68))
     {
       if (type == OS_LOG_TYPE_FAULT)
       {
         v12 = __nwlog_obj();
-        v55 = type;
+        v56 = type;
         if (os_log_type_enabled(v12, type))
         {
           *buf = 136446210;
-          v70 = "nw_connection_create_with_id";
-          _os_log_impl(&dword_181A37000, v12, v55, "%{public}s called with null endpoint", buf, 0xCu);
+          v71 = "nw_connection_create_with_id";
+          _os_log_impl(&dword_181A37000, v12, v56, "%{public}s called with null endpoint", buf, 0xCu);
         }
 
         goto LABEL_74;
       }
 
-      if (v67 != 1)
+      if (v68 != 1)
       {
         v12 = __nwlog_obj();
-        v63 = type;
+        v64 = type;
         if (os_log_type_enabled(v12, type))
         {
           *buf = 136446210;
-          v70 = "nw_connection_create_with_id";
-          _os_log_impl(&dword_181A37000, v12, v63, "%{public}s called with null endpoint, backtrace limit exceeded", buf, 0xCu);
+          v71 = "nw_connection_create_with_id";
+          _os_log_impl(&dword_181A37000, v12, v64, "%{public}s called with null endpoint, backtrace limit exceeded", buf, 0xCu);
         }
 
         goto LABEL_74;
@@ -7099,27 +7104,27 @@ id nw_connection_create_with_id(void *a1, void *a2, int a3, int a4)
 
       backtrace_string = __nw_create_backtrace_string();
       v12 = __nwlog_obj();
-      v59 = type;
-      v60 = os_log_type_enabled(v12, type);
+      v60 = type;
+      v61 = os_log_type_enabled(v12, type);
       if (!backtrace_string)
       {
-        if (v60)
+        if (v61)
         {
           *buf = 136446210;
-          v70 = "nw_connection_create_with_id";
-          _os_log_impl(&dword_181A37000, v12, v59, "%{public}s called with null endpoint, no backtrace", buf, 0xCu);
+          v71 = "nw_connection_create_with_id";
+          _os_log_impl(&dword_181A37000, v12, v60, "%{public}s called with null endpoint, no backtrace", buf, 0xCu);
         }
 
         goto LABEL_74;
       }
 
-      if (v60)
+      if (v61)
       {
         *buf = 136446466;
-        v70 = "nw_connection_create_with_id";
-        v71 = 2082;
-        *v72 = backtrace_string;
-        _os_log_impl(&dword_181A37000, v12, v59, "%{public}s called with null endpoint, dumping backtrace:%{public}s", buf, 0x16u);
+        v71 = "nw_connection_create_with_id";
+        v72 = 2082;
+        *v73 = backtrace_string;
+        _os_log_impl(&dword_181A37000, v12, v60, "%{public}s called with null endpoint, dumping backtrace:%{public}s", buf, 0x16u);
       }
 
       goto LABEL_97;
@@ -7129,7 +7134,7 @@ LABEL_75:
     if (!v11)
     {
 LABEL_77:
-      v36 = 0;
+      v37 = 0;
       goto LABEL_71;
     }
 
@@ -7140,24 +7145,24 @@ LABEL_76:
 
   if (!v8)
   {
-    v56 = __nwlog_obj();
+    v57 = __nwlog_obj();
     *buf = 136446210;
-    v70 = "nw_connection_create_with_id";
-    v11 = _os_log_send_and_compose_impl();
+    v71 = "nw_connection_create_with_id";
+    v11 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v57, 16, "%{public}s called with null parameters", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
-    v67 = 0;
-    if (__nwlog_fault(v11, &type, &v67))
+    v68 = 0;
+    if (__nwlog_fault(v11, &type, &v68))
     {
       if (type == OS_LOG_TYPE_FAULT)
       {
         v12 = __nwlog_obj();
-        v57 = type;
+        v58 = type;
         if (os_log_type_enabled(v12, type))
         {
           *buf = 136446210;
-          v70 = "nw_connection_create_with_id";
-          _os_log_impl(&dword_181A37000, v12, v57, "%{public}s called with null parameters", buf, 0xCu);
+          v71 = "nw_connection_create_with_id";
+          _os_log_impl(&dword_181A37000, v12, v58, "%{public}s called with null parameters", buf, 0xCu);
         }
 
 LABEL_74:
@@ -7165,15 +7170,15 @@ LABEL_74:
         goto LABEL_75;
       }
 
-      if (v67 != 1)
+      if (v68 != 1)
       {
         v12 = __nwlog_obj();
-        v64 = type;
+        v65 = type;
         if (os_log_type_enabled(v12, type))
         {
           *buf = 136446210;
-          v70 = "nw_connection_create_with_id";
-          _os_log_impl(&dword_181A37000, v12, v64, "%{public}s called with null parameters, backtrace limit exceeded", buf, 0xCu);
+          v71 = "nw_connection_create_with_id";
+          _os_log_impl(&dword_181A37000, v12, v65, "%{public}s called with null parameters, backtrace limit exceeded", buf, 0xCu);
         }
 
         goto LABEL_74;
@@ -7181,27 +7186,27 @@ LABEL_74:
 
       backtrace_string = __nw_create_backtrace_string();
       v12 = __nwlog_obj();
-      v61 = type;
-      v62 = os_log_type_enabled(v12, type);
+      v62 = type;
+      v63 = os_log_type_enabled(v12, type);
       if (!backtrace_string)
       {
-        if (v62)
+        if (v63)
         {
           *buf = 136446210;
-          v70 = "nw_connection_create_with_id";
-          _os_log_impl(&dword_181A37000, v12, v61, "%{public}s called with null parameters, no backtrace", buf, 0xCu);
+          v71 = "nw_connection_create_with_id";
+          _os_log_impl(&dword_181A37000, v12, v62, "%{public}s called with null parameters, no backtrace", buf, 0xCu);
         }
 
         goto LABEL_74;
       }
 
-      if (v62)
+      if (v63)
       {
         *buf = 136446466;
-        v70 = "nw_connection_create_with_id";
-        v71 = 2082;
-        *v72 = backtrace_string;
-        _os_log_impl(&dword_181A37000, v12, v61, "%{public}s called with null parameters, dumping backtrace:%{public}s", buf, 0x16u);
+        v71 = "nw_connection_create_with_id";
+        v72 = 2082;
+        *v73 = backtrace_string;
+        _os_log_impl(&dword_181A37000, v12, v62, "%{public}s called with null parameters, dumping backtrace:%{public}s", buf, 0x16u);
       }
 
 LABEL_97:
@@ -7220,19 +7225,19 @@ LABEL_97:
 
   if (a3)
   {
-    v9 = _nw_parameters_copy(v8);
+    v9 = _nw_parameters_copy();
     if (!v9)
     {
       pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
       networkd_settings_init();
       v10 = gLogObj;
       *buf = 136446210;
-      v70 = "nw_connection_create_with_id";
-      v11 = _os_log_send_and_compose_impl();
+      v71 = "nw_connection_create_with_id";
+      v11 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v10, 16, "%{public}s nw_parameters_copy failed", buf, 12);
 
       type = OS_LOG_TYPE_ERROR;
-      v67 = 0;
-      if (!__nwlog_fault(v11, &type, &v67))
+      v68 = 0;
+      if (!__nwlog_fault(v11, &type, &v68))
       {
         goto LABEL_75;
       }
@@ -7246,31 +7251,31 @@ LABEL_97:
         if (os_log_type_enabled(v12, type))
         {
           *buf = 136446210;
-          v70 = "nw_connection_create_with_id";
+          v71 = "nw_connection_create_with_id";
           _os_log_impl(&dword_181A37000, v12, v13, "%{public}s nw_parameters_copy failed", buf, 0xCu);
         }
       }
 
-      else if (v67 == 1)
+      else if (v68 == 1)
       {
-        v46 = __nw_create_backtrace_string();
-        if (v46)
+        v47 = __nw_create_backtrace_string();
+        if (v47)
         {
-          v47 = v46;
+          v48 = v47;
           pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
           networkd_settings_init();
-          v48 = gLogObj;
-          v49 = type;
-          if (os_log_type_enabled(v48, type))
+          v49 = gLogObj;
+          v50 = type;
+          if (os_log_type_enabled(v49, type))
           {
             *buf = 136446466;
-            v70 = "nw_connection_create_with_id";
-            v71 = 2082;
-            *v72 = v47;
-            _os_log_impl(&dword_181A37000, v48, v49, "%{public}s nw_parameters_copy failed, dumping backtrace:%{public}s", buf, 0x16u);
+            v71 = "nw_connection_create_with_id";
+            v72 = 2082;
+            *v73 = v48;
+            _os_log_impl(&dword_181A37000, v49, v50, "%{public}s nw_parameters_copy failed, dumping backtrace:%{public}s", buf, 0x16u);
           }
 
-          free(v47);
+          free(v48);
           if (!v11)
           {
             goto LABEL_77;
@@ -7280,12 +7285,12 @@ LABEL_97:
         }
 
         v12 = __nwlog_obj();
-        v53 = type;
+        v54 = type;
         if (os_log_type_enabled(v12, type))
         {
           *buf = 136446210;
-          v70 = "nw_connection_create_with_id";
-          _os_log_impl(&dword_181A37000, v12, v53, "%{public}s nw_parameters_copy failed, no backtrace", buf, 0xCu);
+          v71 = "nw_connection_create_with_id";
+          _os_log_impl(&dword_181A37000, v12, v54, "%{public}s nw_parameters_copy failed, no backtrace", buf, 0xCu);
         }
       }
 
@@ -7294,12 +7299,12 @@ LABEL_97:
         pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
         networkd_settings_init();
         v12 = gLogObj;
-        v51 = type;
+        v52 = type;
         if (os_log_type_enabled(v12, type))
         {
           *buf = 136446210;
-          v70 = "nw_connection_create_with_id";
-          _os_log_impl(&dword_181A37000, v12, v51, "%{public}s nw_parameters_copy failed, backtrace limit exceeded", buf, 0xCu);
+          v71 = "nw_connection_create_with_id";
+          _os_log_impl(&dword_181A37000, v12, v52, "%{public}s nw_parameters_copy failed, backtrace limit exceeded", buf, 0xCu);
         }
       }
 
@@ -7316,55 +7321,55 @@ LABEL_97:
   v15 = v7;
   v16 = _nw_endpoint_copy(v15);
 
-  v17 = [(NWConcrete_nw_connection *)&v14->super.isa initWithEndpoint:v16 parameters:v9 identifier:a4];
+  v17 = [(NWConcrete_nw_connection *)&v14->super.isa initWithEndpoint:v16 parameters:v9 identifier:v4];
   if (!v17)
   {
     pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
     networkd_settings_init();
-    v37 = gLogObj;
+    v38 = gLogObj;
     *buf = 136446210;
-    v70 = "nw_connection_create_with_id";
-    v38 = _os_log_send_and_compose_impl();
+    v71 = "nw_connection_create_with_id";
+    v39 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v38, 16, "%{public}s [nw_connection initWithEndpoint:parameters:] failed", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
-    v67 = 0;
-    if (__nwlog_fault(v38, &type, &v67))
+    v68 = 0;
+    if (__nwlog_fault(v39, &type, &v68))
     {
       if (type == OS_LOG_TYPE_FAULT)
       {
         pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
         networkd_settings_init();
-        v39 = gLogObj;
-        v40 = type;
-        if (os_log_type_enabled(v39, type))
+        v40 = gLogObj;
+        v41 = type;
+        if (os_log_type_enabled(v40, type))
         {
           *buf = 136446210;
-          v70 = "nw_connection_create_with_id";
-          _os_log_impl(&dword_181A37000, v39, v40, "%{public}s [nw_connection initWithEndpoint:parameters:] failed", buf, 0xCu);
+          v71 = "nw_connection_create_with_id";
+          _os_log_impl(&dword_181A37000, v40, v41, "%{public}s [nw_connection initWithEndpoint:parameters:] failed", buf, 0xCu);
         }
       }
 
-      else if (v67 == 1)
+      else if (v68 == 1)
       {
-        v43 = __nw_create_backtrace_string();
+        v44 = __nw_create_backtrace_string();
         pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
         networkd_settings_init();
-        v39 = gLogObj;
-        v44 = type;
-        v45 = os_log_type_enabled(v39, type);
-        if (v43)
+        v40 = gLogObj;
+        v45 = type;
+        v46 = os_log_type_enabled(v40, type);
+        if (v44)
         {
-          if (v45)
+          if (v46)
           {
             *buf = 136446466;
-            v70 = "nw_connection_create_with_id";
-            v71 = 2082;
-            *v72 = v43;
-            _os_log_impl(&dword_181A37000, v39, v44, "%{public}s [nw_connection initWithEndpoint:parameters:] failed, dumping backtrace:%{public}s", buf, 0x16u);
+            v71 = "nw_connection_create_with_id";
+            v72 = 2082;
+            *v73 = v44;
+            _os_log_impl(&dword_181A37000, v40, v45, "%{public}s [nw_connection initWithEndpoint:parameters:] failed, dumping backtrace:%{public}s", buf, 0x16u);
           }
 
-          free(v43);
-          if (!v38)
+          free(v44);
+          if (!v39)
           {
             goto LABEL_69;
           }
@@ -7372,11 +7377,11 @@ LABEL_97:
           goto LABEL_68;
         }
 
-        if (v45)
+        if (v46)
         {
           *buf = 136446210;
-          v70 = "nw_connection_create_with_id";
-          _os_log_impl(&dword_181A37000, v39, v44, "%{public}s [nw_connection initWithEndpoint:parameters:] failed, no backtrace", buf, 0xCu);
+          v71 = "nw_connection_create_with_id";
+          _os_log_impl(&dword_181A37000, v40, v45, "%{public}s [nw_connection initWithEndpoint:parameters:] failed, no backtrace", buf, 0xCu);
         }
       }
 
@@ -7384,72 +7389,72 @@ LABEL_97:
       {
         pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
         networkd_settings_init();
-        v39 = gLogObj;
-        v50 = type;
-        if (os_log_type_enabled(v39, type))
+        v40 = gLogObj;
+        v51 = type;
+        if (os_log_type_enabled(v40, type))
         {
           *buf = 136446210;
-          v70 = "nw_connection_create_with_id";
-          _os_log_impl(&dword_181A37000, v39, v50, "%{public}s [nw_connection initWithEndpoint:parameters:] failed, backtrace limit exceeded", buf, 0xCu);
+          v71 = "nw_connection_create_with_id";
+          _os_log_impl(&dword_181A37000, v40, v51, "%{public}s [nw_connection initWithEndpoint:parameters:] failed, backtrace limit exceeded", buf, 0xCu);
         }
       }
     }
 
-    if (!v38)
+    if (!v39)
     {
       goto LABEL_69;
     }
 
 LABEL_68:
-    free(v38);
+    free(v39);
     goto LABEL_69;
   }
 
-  v18 = *(v17 + 8);
-  v19 = *(v17 + 16);
-  nw_allow_use_of_dispatch_internal();
+  v19 = *(v17 + 8);
+  v20 = *(v17 + 16);
+  nw_allow_use_of_dispatch_internal(v18);
   if (has_modifiers == 1)
   {
     os_unfair_lock_lock(&nw_protocol_modify_lock);
-    v20 = g_modifier_list;
+    v21 = g_modifier_list;
     if (g_modifier_list)
     {
       while (1)
       {
-        v21 = v20[2];
-        if (v21)
+        v22 = v21[2];
+        if (v22)
         {
-          if (v21(v18, v19))
+          if (v22(v19, v20))
           {
             break;
           }
         }
 
-        v20 = *v20;
-        if (!v20)
+        v21 = *v21;
+        if (!v21)
         {
           goto LABEL_14;
         }
       }
 
       os_unfair_lock_unlock(&nw_protocol_modify_lock);
-      v22 = *(v17 + 16);
-      if (v22 && !_nw_parameters_get_logging_disabled(v22))
+      v23 = *(v17 + 16);
+      if (v23 && !_nw_parameters_get_logging_disabled(v23))
       {
         if (__nwlog_connection_log::onceToken[0] != -1)
         {
           dispatch_once(__nwlog_connection_log::onceToken, &__block_literal_global_28_47435);
         }
 
-        v23 = gconnectionLogObj;
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+        v24 = gconnectionLogObj;
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
         {
-          v24 = *(v17 + 448);
+          v25 = *(v17 + 448);
           *buf = 136446466;
-          v70 = "nw_connection_create_with_id";
-          v71 = 1024;
-          *v72 = v24;
-          _os_log_impl(&dword_181A37000, v23, OS_LOG_TYPE_DEBUG, "%{public}s [C%u] Connection parameters were modified", buf, 0x12u);
+          v71 = "nw_connection_create_with_id";
+          v72 = 1024;
+          *v73 = v25;
+          _os_log_impl(&dword_181A37000, v24, OS_LOG_TYPE_DEBUG, "%{public}s [C%u] Connection parameters were modified", buf, 0x12u);
         }
       }
     }
@@ -7462,78 +7467,78 @@ LABEL_14:
   }
 
   inner = nw_endpoint_handler_create_inner(*(v17 + 8), *(v17 + 16), nw_connection_endpoint_report_on_nw_queue, v17, 0, *(v17 + 448), (v17 + 452), 0);
-  v26 = *(v17 + 144);
+  v27 = *(v17 + 144);
   *(v17 + 144) = inner;
 
-  v27 = *(v17 + 16);
+  v28 = *(v17 + 16);
   if (*(v17 + 144))
   {
-    v28 = _nw_parameters_copy_immutable(v27);
-    v29 = *(v17 + 16);
-    *(v17 + 16) = v28;
-
+    v29 = _nw_parameters_copy_immutable(v28);
     v30 = *(v17 + 16);
-    if (v30 && !_nw_parameters_get_logging_disabled(v30))
+    *(v17 + 16) = v29;
+
+    v31 = *(v17 + 16);
+    if (v31 && !_nw_parameters_get_logging_disabled(v31))
     {
       if (__nwlog_connection_log::onceToken[0] != -1)
       {
         dispatch_once(__nwlog_connection_log::onceToken, &__block_literal_global_28_47435);
       }
 
-      v31 = gconnectionLogObj;
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
+      v32 = gconnectionLogObj;
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
       {
-        v32 = *(v17 + 448);
-        v33 = v15;
-        logging_description = _nw_endpoint_get_logging_description(v33);
+        v33 = *(v17 + 448);
+        v34 = v15;
+        logging_description = _nw_endpoint_get_logging_description(v34);
 
         *buf = 136446722;
-        v70 = "nw_connection_create_with_id";
-        v71 = 1024;
-        *v72 = v32;
-        v72[2] = 2082;
-        *&v72[3] = logging_description;
-        _os_log_impl(&dword_181A37000, v31, OS_LOG_TYPE_INFO, "%{public}s [C%u] create connection to %{public}s", buf, 0x1Cu);
+        v71 = "nw_connection_create_with_id";
+        v72 = 1024;
+        *v73 = v33;
+        v73[2] = 2082;
+        *&v73[3] = logging_description;
+        _os_log_impl(&dword_181A37000, v32, OS_LOG_TYPE_INFO, "%{public}s [C%u] create connection to %{public}s", buf, 0x1Cu);
       }
     }
 
-    v65[0] = MEMORY[0x1E69E9820];
-    v65[1] = 3221225472;
-    v65[2] = __nw_connection_create_with_id_block_invoke;
-    v65[3] = &unk_1E6A2EBE0;
-    v35 = v17;
-    v66 = v35;
-    nw_endpoint_enumerate_alternatives(v15, v65);
-    v36 = v35;
+    v66[0] = MEMORY[0x1E69E9820];
+    v66[1] = 3221225472;
+    v66[2] = __nw_connection_create_with_id_block_invoke;
+    v66[3] = &unk_1E6A2EBE0;
+    v36 = v17;
+    v67 = v36;
+    nw_endpoint_enumerate_alternatives(v15, v66);
+    v37 = v36;
 
     goto LABEL_70;
   }
 
-  if (v27 && !_nw_parameters_get_logging_disabled(v27))
+  if (v28 && !_nw_parameters_get_logging_disabled(v28))
   {
     if (__nwlog_connection_log::onceToken[0] != -1)
     {
       dispatch_once(__nwlog_connection_log::onceToken, &__block_literal_global_28_47435);
     }
 
-    v41 = gconnectionLogObj;
-    if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+    v42 = gconnectionLogObj;
+    if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
     {
-      v42 = *(v17 + 448);
+      v43 = *(v17 + 448);
       *buf = 136446466;
-      v70 = "nw_connection_create_with_id";
-      v71 = 1024;
-      *v72 = v42;
-      _os_log_impl(&dword_181A37000, v41, OS_LOG_TYPE_ERROR, "%{public}s [C%u] Failed to create parent endpoint handler", buf, 0x12u);
+      v71 = "nw_connection_create_with_id";
+      v72 = 1024;
+      *v73 = v43;
+      _os_log_impl(&dword_181A37000, v42, OS_LOG_TYPE_ERROR, "%{public}s [C%u] Failed to create parent endpoint handler", buf, 0x12u);
     }
   }
 
 LABEL_69:
-  v36 = 0;
+  v37 = 0;
 LABEL_70:
 
 LABEL_71:
-  return v36;
+  return v37;
 }
 
 void __nw_connection_set_read_close_handler_block_invoke(uint64_t a1)
@@ -7547,7 +7552,7 @@ void __nw_connection_set_read_close_handler_block_invoke(uint64_t a1)
     v22 = __nwlog_obj();
     *buf = 136446210;
     v31 = "nw_endpoint_handler_set_read_close_handler";
-    v11 = _os_log_send_and_compose_impl();
+    v11 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v22, 16, "%{public}s called with null handler", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v28 = 0;
@@ -7652,7 +7657,7 @@ LABEL_37:
   v33 = v10;
   v34 = 2082;
   v35 = "flow";
-  v11 = _os_log_send_and_compose_impl();
+  v11 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v9, 16, "%{public}s Handler is in mode %{public}s, expected %{public}s", buf, 32);
 
   type = OS_LOG_TYPE_ERROR;
   v28 = 0;
@@ -7833,7 +7838,7 @@ void nw_endpoint_handler_inherit_from_parent(NWConcrete_nw_endpoint_handler *a1,
                                     v9 = __nwlog_obj();
                                     *buf = 136446210;
                                     v23 = "nw_endpoint_handler_inherit_from_parent";
-                                    v10 = _os_log_send_and_compose_impl();
+                                    v10 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v9, 16, "%{public}s reached maximum endpoint handler depth", buf, 12);
 
                                     type = OS_LOG_TYPE_ERROR;
                                     v20 = 0;
@@ -8080,7 +8085,7 @@ void *sub_181B440D4()
 {
   v1 = v0;
   ObjectType = swift_getObjectType();
-  v3 = type metadata accessor for URLEndpoint();
+  v3 = type metadata accessor for URLEndpoint(0);
   MEMORY[0x1EEE9AC00](v3 - 8);
   v5 = &v29 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v6);
@@ -8191,48 +8196,48 @@ void *ProtocolOptions.init(from:)(uint64_t a1)
 {
   v2 = v1;
   v4 = *v1;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA838E00);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA838E00, &qword_182AFE8E0);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v68 = &v59 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v69 = &v60 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v7);
-  v81 = &v59 - v8;
+  v82 = &v60 - v8;
   v9 = sub_182AD2738();
   v10 = *(v9 - 8);
   MEMORY[0x1EEE9AC00](v9);
-  v67 = &v59 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v68 = &v60 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v12);
-  v66 = &v59 - v13;
+  v67 = &v60 - v13;
   v14 = *(v4 + 88);
-  v61 = *(v4 + 80);
-  v62 = v14;
+  v62 = *(v4 + 80);
+  v63 = v14;
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
   v16 = *(AssociatedTypeWitness - 8);
   MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v60 = &v59 - v17;
-  v76 = sub_182AD39B8();
-  v74 = *(v76 - 8);
-  MEMORY[0x1EEE9AC00](v76);
-  v73 = &v59 - v18;
+  v61 = &v60 - v17;
+  v77 = sub_182AD39B8();
+  v75 = *(v77 - 8);
+  MEMORY[0x1EEE9AC00](v77);
+  v74 = &v60 - v18;
   *(v2 + 3) = xmmword_182AE8E90;
-  v80 = v10;
+  v81 = v10;
   v19 = *(v10 + 56);
-  v64 = v10 + 56;
-  v65 = qword_1ED411A90;
-  v82 = v9;
-  v63 = v19;
+  v65 = v10 + 56;
+  v66 = qword_1ED411A90;
+  v83 = v9;
+  v64 = v19;
   v19(v2 + qword_1ED411A90, 1, 1, v9);
-  v79 = qword_1ED411A88;
+  v80 = qword_1ED411A88;
   *(v2 + qword_1ED411A88) = 0;
   v20 = *(*v2 + 128);
   v21 = *(v16 + 56);
-  v70 = v16 + 56;
-  v71 = v20;
-  v69 = v21;
+  v71 = v16 + 56;
+  v72 = v20;
+  v70 = v21;
   v21(v2 + v20, 1, 1, AssociatedTypeWitness);
-  v72 = *(*v2 + 136);
-  *(v2 + v72) = 0;
-  v75 = *(*v2 + 144);
-  *(v2 + v75) = 0;
+  v73 = *(*v2 + 136);
+  *(v2 + v73) = 0;
+  v76 = *(*v2 + 144);
+  *(v2 + v76) = 0;
   v22 = v2 + *(*v2 + 152);
   *v22 = 0;
   v22[8] = 1;
@@ -8242,10 +8247,10 @@ void *ProtocolOptions.init(from:)(uint64_t a1)
   v24 = (v2 + *(*v2 + 168));
   *v24 = 0;
   v24[1] = 0;
-  v77 = *(*v2 + 176);
-  *(v2 + v77) = 0;
-  v78 = *(*v2 + 184);
+  v78 = *(*v2 + 176);
   *(v2 + v78) = 0;
+  v79 = *(*v2 + 184);
+  *(v2 + v79) = 0;
   swift_beginAccess();
   v26 = *(a1 + 24);
   v25 = *(a1 + 32);
@@ -8259,90 +8264,90 @@ void *ProtocolOptions.init(from:)(uint64_t a1)
   v29 = v16;
   if ((*(v16 + 48))(a1 + v28, 1, AssociatedTypeWitness))
   {
-    v30 = v73;
-    v69(v73, 1, 1, AssociatedTypeWitness);
+    v30 = v74;
+    v70(v74, 1, 1, AssociatedTypeWitness);
     sub_181F49A24(v26, v25, v27);
   }
 
   else
   {
-    v59 = v16;
-    v31 = v60;
-    (*(v29 + 16))(v60, a1 + v28, AssociatedTypeWitness);
+    v60 = v16;
+    v31 = v61;
+    (*(v29 + 16))(v61, a1 + v28, AssociatedTypeWitness);
     AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-    v62 = *(AssociatedConformanceWitness + 32);
-    sub_181F49A24(v26, v25, v27);
-    v33 = v73;
-    v62(AssociatedTypeWitness, AssociatedConformanceWitness);
-    v34 = v31;
-    v30 = v33;
-    (*(v59 + 8))(v34, AssociatedTypeWitness);
-    v69(v33, 0, 1, AssociatedTypeWitness);
+    v63 = *(AssociatedConformanceWitness + 32);
+    v33 = sub_181F49A24(v26, v25, v27);
+    v34 = v74;
+    v63(AssociatedTypeWitness, AssociatedConformanceWitness, v33);
+    v35 = v31;
+    v30 = v34;
+    (*(v60 + 8))(v35, AssociatedTypeWitness);
+    v70(v34, 0, 1, AssociatedTypeWitness);
   }
 
-  v35 = v71;
+  v36 = v72;
   swift_beginAccess();
-  (*(v74 + 40))(v2 + v35, v30, v76);
+  (*(v75 + 40))(v2 + v36, v30, v77);
   swift_endAccess();
-  v36 = *(*a1 + 136);
+  v37 = *(*a1 + 136);
   swift_beginAccess();
-  v37 = *(a1 + v36);
-  v38 = v72;
+  v38 = *(a1 + v37);
+  v39 = v73;
   swift_beginAccess();
-  v39 = *(v2 + v38);
-  *(v2 + v38) = v37;
-  v40 = v37;
+  v40 = *(v2 + v39);
+  *(v2 + v39) = v38;
+  v41 = v38;
 
-  v41 = *(*a1 + 144);
+  v42 = *(*a1 + 144);
   swift_beginAccess();
-  v42 = *(a1 + v41);
-  v43 = v75;
+  v43 = *(a1 + v42);
+  v44 = v76;
   swift_beginAccess();
-  *(v2 + v43) = v42;
+  *(v2 + v44) = v43;
 
-  v44 = qword_1ED411A90;
+  v45 = qword_1ED411A90;
   swift_beginAccess();
-  v45 = a1 + v44;
-  v46 = v81;
-  sub_181AACF84(v45, v81);
-  v47 = v80;
-  v48 = v82;
-  if ((*(v80 + 48))(v46, 1, v82) == 1)
+  v46 = a1 + v45;
+  v47 = v82;
+  sub_181AACF84(v46, v82);
+  v48 = v81;
+  v49 = v83;
+  if ((*(v81 + 48))(v47, 1, v83) == 1)
   {
-    sub_181F49A88(v46, &qword_1EA838E00);
+    sub_181F49A88(v47, &qword_1EA838E00, &qword_182AFE8E0);
   }
 
   else
   {
-    v49 = *(v47 + 32);
-    v50 = v66;
-    v49(v66, v46, v48);
+    v50 = *(v48 + 32);
     v51 = v67;
+    v50(v67, v47, v49);
+    v52 = v68;
     sub_182AD2728();
     sub_182AD2718();
-    (*(v47 + 8))(v50, v48);
-    v52 = v68;
-    v49(v68, v51, v48);
-    v63(v52, 0, 1, v48);
-    v53 = v65;
+    (*(v48 + 8))(v51, v49);
+    v53 = v69;
+    v50(v69, v52, v49);
+    v64(v53, 0, 1, v49);
+    v54 = v66;
     swift_beginAccess();
-    sub_181B2D2D8(v52, v2 + v53);
+    sub_181B2D2D8(v53, v2 + v54);
     swift_endAccess();
   }
 
-  *(v2 + v79) = *(a1 + qword_1ED411A88);
-  v54 = *(*a1 + 176);
+  *(v2 + v80) = *(a1 + qword_1ED411A88);
+  v55 = *(*a1 + 176);
   swift_beginAccess();
-  LOBYTE(v54) = *(a1 + v54);
-  v55 = v77;
+  LOBYTE(v55) = *(a1 + v55);
+  v56 = v78;
   swift_beginAccess();
-  *(v2 + v55) = v54;
-  v56 = *(*a1 + 184);
+  *(v2 + v56) = v55;
+  v57 = *(*a1 + 184);
   swift_beginAccess();
-  LOBYTE(v56) = *(a1 + v56);
-  v57 = v78;
+  LOBYTE(v57) = *(a1 + v57);
+  v58 = v79;
   swift_beginAccess();
-  *(v2 + v57) = v56;
+  *(v2 + v58) = v57;
   return v2;
 }
 
@@ -8360,7 +8365,7 @@ unint64_t sub_181B44D28()
   v89 = &v83[-((v1 + 15) & 0xFFFFFFFFFFFFFFF0)];
   MEMORY[0x1EEE9AC00](v2);
   v4 = &v83[-v3];
-  v5 = type metadata accessor for URLEndpoint();
+  v5 = type metadata accessor for URLEndpoint(0);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v86 = &v83[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0)];
   MEMORY[0x1EEE9AC00](v7);
@@ -8695,7 +8700,7 @@ LABEL_32:
   }
 
 LABEL_33:
-  v70 = sub_181FB974C();
+  v70 = sub_181FB974C(7564404, 0xE300000000000000);
   v71 = v70 == 39;
   if (v70 == 39)
   {
@@ -9079,110 +9084,110 @@ LABEL_80:
 uint64_t sub_181B45AB4()
 {
   v1 = *v0;
-  v349 = v0[1];
-  v350 = v1;
+  v363 = v0[1];
+  v364 = v1;
   v2 = v0[2];
-  v347 = v0[3];
-  v348 = v2;
+  v361 = v0[3];
+  v362 = v2;
   v3 = v0[4];
-  v345 = v0[5];
-  v346 = v3;
-  v377 = v0[6];
-  v376 = v0[7];
-  v375 = v0[8];
-  v374 = v0[9];
-  v373 = v0[10];
+  v359 = v0[5];
+  v360 = v3;
+  v391 = v0[6];
+  v390 = v0[7];
+  v389 = v0[8];
+  v388 = v0[9];
+  v387 = v0[10];
   v4 = v0[11];
-  v371 = v0[12];
-  v372 = v4;
+  v385 = v0[12];
+  v386 = v4;
   v5 = v0[13];
-  v369 = v0[14];
-  v370 = v5;
-  v368 = v0[15];
+  v383 = v0[14];
+  v384 = v5;
+  v382 = v0[15];
   v6 = v0[16];
-  v363 = v0[17];
-  v364 = v6;
+  v377 = v0[17];
+  v378 = v6;
   v7 = v0[18];
-  v361 = v0[19];
-  v362 = v7;
+  v375 = v0[19];
+  v376 = v7;
   v8 = v0[20];
-  v359 = v0[21];
-  v360 = v8;
+  v373 = v0[21];
+  v374 = v8;
   v9 = v0[22];
-  v357 = v0[23];
-  v358 = v9;
+  v371 = v0[23];
+  v372 = v9;
   v10 = v0[24];
-  v343 = v0[25];
-  v344 = v10;
+  v357 = v0[25];
+  v358 = v10;
   v11 = v0[26];
-  v341 = v0[27];
-  v342 = v11;
-  v433 = v0[48];
-  v432[0] = *(v0 + 49);
-  *(v432 + 3) = *(v0 + 13);
-  v431 = v0[64];
-  v429 = *(v0 + 65);
-  v430 = v0[67];
-  *&v392 = 0;
-  *(&v392 + 1) = 0xE000000000000000;
-  v383 = v0[28];
-  v382 = v0[29];
-  v381 = v0[30];
-  v380 = v0[31];
+  v355 = v0[27];
+  v356 = v11;
+  v447 = v0[48];
+  v446[0] = *(v0 + 49);
+  *(v446 + 3) = *(v0 + 13);
+  v445 = v0[64];
+  v443 = *(v0 + 65);
+  v444 = v0[67];
+  *&v406 = 0;
+  *(&v406 + 1) = 0xE000000000000000;
+  v397 = v0[28];
+  v396 = v0[29];
+  v395 = v0[30];
+  v394 = v0[31];
   v12 = *(v0 + 4);
-  v329 = *(v0 + 5);
-  v330 = v12;
-  v331 = *(v0 + 7);
+  v343 = *(v0 + 5);
+  v344 = v12;
+  v345 = *(v0 + 7);
   LODWORD(v12) = *(v0 + 17);
-  v355 = *(v0 + 18);
-  v356 = v12;
-  v354 = *(v0 + 19);
-  v379 = v0[80];
+  v369 = *(v0 + 18);
+  v370 = v12;
+  v368 = *(v0 + 19);
+  v393 = v0[80];
   LODWORD(v12) = v0[81];
-  v378 = v0[82];
+  v392 = v0[82];
   v13 = v0[83];
-  v339 = v12;
-  v340 = v13;
+  v353 = v12;
+  v354 = v13;
   LODWORD(v12) = v0[84];
-  v337 = v0[85];
-  v338 = v12;
-  v336 = v0[86];
-  v387 = v0[87];
+  v351 = v0[85];
+  v352 = v12;
+  v350 = v0[86];
+  v401 = v0[87];
   v14 = *(v0 + 44);
-  v367 = v0[90];
-  v385 = v0[91];
+  v381 = v0[90];
+  v399 = v0[91];
   v15 = *(v0 + 46);
   v16 = *(v0 + 47);
   v18 = *(v0 + 12);
   v17 = *(v0 + 13);
   v19 = *(v0 + 14);
-  v333 = *(v0 + 15);
-  v334 = v17;
+  v347 = *(v0 + 15);
+  v348 = v17;
   v20 = *(v0 + 17);
-  v365 = *(v0 + 16);
-  v366 = v19;
-  v332 = v20;
+  v379 = *(v0 + 16);
+  v380 = v19;
+  v346 = v20;
   v21 = *(v0 + 18);
   v22 = *(v0 + 19);
   v23 = *(v0 + 21);
-  v351 = *(v0 + 20);
-  v352 = v21;
-  v335 = v23;
+  v365 = *(v0 + 20);
+  v366 = v21;
+  v349 = v23;
   sub_182AD3BA8();
 
-  strcpy(&v392, "context: ");
-  HIDWORD(v392) = -385875968;
+  strcpy(&v406, "context: ");
+  HIDWORD(v406) = -385875968;
   nw_context_get_identifier(*(v22 + 16));
   v24 = sub_182AD3158();
   MEMORY[0x1865D9CA0](v24);
 
   MEMORY[0x1865D9CA0](10272, 0xE200000000000000);
-  v353 = v22;
+  v367 = v22;
   v25 = sub_181B48EB4();
-  v384 = v18;
-  v327 = v16;
-  v328 = v14;
-  v386 = v15;
+  v398 = v18;
+  v341 = v16;
+  v342 = v14;
+  v400 = v15;
   if (v25 > 1)
   {
     if (v25 == 2)
@@ -9214,132 +9219,132 @@ uint64_t sub_181B45AB4()
 
   v28 = MEMORY[0x1865D9CA0](0x3A636F7270202C29, 0xE900000000000020);
   MEMORY[0x1EEE9AC00](v28);
-  v309 = v350;
-  v310 = v349;
-  v311 = v348;
-  v312 = v347;
-  v313 = v346;
-  v314 = v345;
-  v315 = v377;
-  v316 = v376;
-  v317 = v375;
-  v318 = v374;
-  v319 = v373;
-  v320 = v372;
-  v321 = v371;
-  v322 = v370;
-  v323 = v369;
-  v324 = v368;
+  v323 = v364;
+  v324 = v363;
+  v325 = v362;
+  v326 = v361;
+  v327 = v360;
+  v328 = v359;
+  v329 = v391;
+  v330 = v390;
+  v331 = v389;
+  v332 = v388;
+  v333 = v387;
+  v334 = v386;
+  v335 = v385;
+  v336 = v384;
+  v337 = v383;
+  v338 = v382;
   v29 = 0;
   v30 = sub_182AD30D8();
   MEMORY[0x1865D9CA0](v30);
 
-  v428 = v392;
-  LOBYTE(v392) = v350;
-  BYTE1(v392) = v349;
-  BYTE2(v392) = v348;
-  BYTE3(v392) = v347;
-  BYTE4(v392) = v346;
-  BYTE5(v392) = v345;
-  BYTE6(v392) = v377;
-  BYTE7(v392) = v376;
-  BYTE8(v392) = v375;
-  BYTE9(v392) = v374;
-  BYTE10(v392) = v373;
-  BYTE11(v392) = v372;
-  BYTE12(v392) = v371;
-  BYTE13(v392) = v370;
-  BYTE14(v392) = v369;
-  HIBYTE(v392) = v368;
-  LOBYTE(v390) = v364;
-  BYTE1(v390) = v363;
-  BYTE2(v390) = v362;
-  BYTE3(v390) = v361;
-  BYTE4(v390) = v360;
-  BYTE5(v390) = v359;
-  BYTE6(v390) = v358;
-  BYTE7(v390) = v357;
-  v32 = v343;
-  v31 = v344;
-  BYTE8(v390) = v344;
-  BYTE9(v390) = v343;
-  v34 = v341;
-  v33 = v342;
-  BYTE10(v390) = v342;
-  BYTE11(v390) = v341;
-  v35 = v383;
-  BYTE12(v390) = v383;
-  v36 = v382;
-  BYTE13(v390) = v382;
-  v37 = v381;
-  BYTE14(v390) = v381;
-  v38 = v380;
-  HIBYTE(v390) = v380;
-  v39 = _s7Network10SystemUUIDV2eeoiySbAC_ACtFZ_0(&v392, &v390);
+  v442 = v406;
+  LOBYTE(v406) = v364;
+  BYTE1(v406) = v363;
+  BYTE2(v406) = v362;
+  BYTE3(v406) = v361;
+  BYTE4(v406) = v360;
+  BYTE5(v406) = v359;
+  BYTE6(v406) = v391;
+  BYTE7(v406) = v390;
+  BYTE8(v406) = v389;
+  BYTE9(v406) = v388;
+  BYTE10(v406) = v387;
+  BYTE11(v406) = v386;
+  BYTE12(v406) = v385;
+  BYTE13(v406) = v384;
+  BYTE14(v406) = v383;
+  HIBYTE(v406) = v382;
+  LOBYTE(v404) = v378;
+  BYTE1(v404) = v377;
+  BYTE2(v404) = v376;
+  BYTE3(v404) = v375;
+  BYTE4(v404) = v374;
+  BYTE5(v404) = v373;
+  BYTE6(v404) = v372;
+  BYTE7(v404) = v371;
+  v32 = v357;
+  v31 = v358;
+  BYTE8(v404) = v358;
+  BYTE9(v404) = v357;
+  v34 = v355;
+  v33 = v356;
+  BYTE10(v404) = v356;
+  BYTE11(v404) = v355;
+  v35 = v397;
+  BYTE12(v404) = v397;
+  v36 = v396;
+  BYTE13(v404) = v396;
+  v37 = v395;
+  BYTE14(v404) = v395;
+  v38 = v394;
+  HIBYTE(v404) = v394;
+  v39 = _s7Network10SystemUUIDV2eeoiySbAC_ACtFZ_0(&v406, &v404);
   if (!v39)
   {
-    v326 = &v325;
-    *&v392 = 0xD000000000000012;
-    *(&v392 + 1) = 0x8000000182BE2AF0;
+    v340 = &v339;
+    *&v406 = 0xD000000000000012;
+    *(&v406 + 1) = 0x8000000182BE2AF0;
     MEMORY[0x1EEE9AC00](v39);
-    v309 = v364;
-    v310 = v363;
-    v311 = v362;
-    v312 = v361;
-    v313 = v360;
-    v314 = v359;
-    v315 = v358;
-    v316 = v357;
-    v317 = v31;
-    v318 = v32;
-    v319 = v33;
-    v320 = v34;
-    v321 = v35;
-    v322 = v36;
-    v323 = v37;
-    v324 = v38;
+    v323 = v378;
+    v324 = v377;
+    v325 = v376;
+    v326 = v375;
+    v327 = v374;
+    v328 = v373;
+    v329 = v372;
+    v330 = v371;
+    v331 = v31;
+    v332 = v32;
+    v333 = v33;
+    v334 = v34;
+    v335 = v35;
+    v336 = v36;
+    v337 = v37;
+    v338 = v38;
     v40 = sub_182AD30D8();
     MEMORY[0x1865D9CA0](v40);
 
-    MEMORY[0x1865D9CA0](v392, *(&v392 + 1));
+    MEMORY[0x1865D9CA0](v406, *(&v406 + 1));
   }
 
-  v41 = v379;
-  v42 = v339;
-  if ((v433 & 1) == 0)
+  v41 = v393;
+  v42 = v353;
+  if ((v447 & 1) == 0)
   {
-    v47 = v329;
-    v46 = v330;
-    v48 = HIWORD(v329);
-    strcpy(&v392, ", persona: ");
-    HIDWORD(v392) = -352321536;
-    v49 = HIBYTE(v329);
-    MEMORY[0x1EEE9AC00](HIWORD(v330));
-    v308[-16] = v46;
-    v308[-15] = v50;
-    v308[-14] = v51;
-    v308[-13] = v52;
-    v308[-12] = v53;
-    v308[-11] = v54;
-    v308[-10] = v55;
-    v308[-9] = v56;
-    v308[-8] = v47;
-    v308[-7] = v57;
-    v308[-6] = v58;
-    v308[-5] = v59;
-    v308[-4] = v60;
-    v308[-3] = v61;
-    v308[-2] = v48;
-    v308[-1] = v49;
+    v47 = v343;
+    v46 = v344;
+    v48 = HIWORD(v343);
+    strcpy(&v406, ", persona: ");
+    HIDWORD(v406) = -352321536;
+    v49 = HIBYTE(v343);
+    MEMORY[0x1EEE9AC00](HIWORD(v344));
+    v322[-16] = v46;
+    v322[-15] = v50;
+    v322[-14] = v51;
+    v322[-13] = v52;
+    v322[-12] = v53;
+    v322[-11] = v54;
+    v322[-10] = v55;
+    v322[-9] = v56;
+    v322[-8] = v47;
+    v322[-7] = v57;
+    v322[-6] = v58;
+    v322[-5] = v59;
+    v322[-4] = v60;
+    v322[-3] = v61;
+    v322[-2] = v48;
+    v322[-1] = v49;
     v62 = sub_182AD30D8();
     MEMORY[0x1865D9CA0](v62);
 
-    MEMORY[0x1865D9CA0](v392, *(&v392 + 1));
+    MEMORY[0x1865D9CA0](v406, *(&v406 + 1));
 
-    v43 = v378;
-    v44 = v354;
-    v45 = v384;
-    if (v431)
+    v43 = v392;
+    v44 = v368;
+    v45 = v398;
+    if (v445)
     {
       goto LABEL_15;
     }
@@ -9347,47 +9352,47 @@ uint64_t sub_181B45AB4()
     goto LABEL_14;
   }
 
-  v43 = v378;
-  v44 = v354;
-  v45 = v384;
-  if ((v431 & 1) == 0)
+  v43 = v392;
+  v44 = v368;
+  v45 = v398;
+  if ((v445 & 1) == 0)
   {
 LABEL_14:
-    *&v392 = 0xD000000000000012;
-    *(&v392 + 1) = 0x8000000182BE2FB0;
-    *&v390 = v331;
+    *&v406 = 0xD000000000000012;
+    *(&v406 + 1) = 0x8000000182BE2FB0;
+    *&v404 = v345;
     v63 = sub_182AD41B8();
     MEMORY[0x1865D9CA0](v63);
 
-    MEMORY[0x1865D9CA0](v392, *(&v392 + 1));
+    MEMORY[0x1865D9CA0](v406, *(&v406 + 1));
 
-    v44 = v354;
+    v44 = v368;
   }
 
 LABEL_15:
   if (v44)
   {
-    *&v392 = 0xD000000000000011;
-    *(&v392 + 1) = 0x8000000182BD4940;
-    LODWORD(v390) = v44;
+    *&v406 = 0xD000000000000011;
+    *(&v406 + 1) = 0x8000000182BD4940;
+    LODWORD(v404) = v44;
     v64 = sub_182AD41B8();
     MEMORY[0x1865D9CA0](v64);
 
-    MEMORY[0x1865D9CA0](v392, *(&v392 + 1));
+    MEMORY[0x1865D9CA0](v406, *(&v406 + 1));
   }
 
-  if (v356 != getpid())
+  if (v370 != getpid())
   {
-    strcpy(&v392, ", pid: ");
-    *(&v392 + 1) = 0xE700000000000000;
-    LODWORD(v390) = v356;
+    strcpy(&v406, ", pid: ");
+    *(&v406 + 1) = 0xE700000000000000;
+    LODWORD(v404) = v370;
     v65 = sub_182AD41B8();
     MEMORY[0x1865D9CA0](v65);
 
-    MEMORY[0x1865D9CA0](v392, *(&v392 + 1));
+    MEMORY[0x1865D9CA0](v406, *(&v406 + 1));
   }
 
-  if (v355 == getuid())
+  if (v369 == getuid())
   {
     if (v41 == 5)
     {
@@ -9397,13 +9402,13 @@ LABEL_15:
 
   else
   {
-    strcpy(&v392, ", uid: ");
-    *(&v392 + 1) = 0xE700000000000000;
-    LODWORD(v390) = v355;
+    strcpy(&v406, ", uid: ");
+    *(&v406 + 1) = 0xE700000000000000;
+    LODWORD(v404) = v369;
     v66 = sub_182AD41B8();
     MEMORY[0x1865D9CA0](v66);
 
-    MEMORY[0x1865D9CA0](v392, *(&v392 + 1));
+    MEMORY[0x1865D9CA0](v406, *(&v406 + 1));
 
     if (v41 == 5)
     {
@@ -9417,8 +9422,8 @@ LABEL_21:
     }
   }
 
-  *&v392 = 0xD00000000000001BLL;
-  *(&v392 + 1) = 0x8000000182BE2F90;
+  *&v406 = 0xD00000000000001BLL;
+  *(&v406 + 1) = 0x8000000182BE2F90;
   if (v41 <= 1)
   {
     if (v41)
@@ -9454,13 +9459,13 @@ LABEL_21:
 
   MEMORY[0x1865D9CA0](v67, v68);
 
-  MEMORY[0x1865D9CA0](v392, *(&v392 + 1));
+  MEMORY[0x1865D9CA0](v406, *(&v406 + 1));
 
   if (v42 != 5)
   {
 LABEL_34:
-    *&v392 = 0xD00000000000001ELL;
-    *(&v392 + 1) = 0x8000000182BE2F70;
+    *&v406 = 0xD00000000000001ELL;
+    *(&v406 + 1) = 0x8000000182BE2F70;
     if (v42 <= 1)
     {
       if (v42)
@@ -9496,15 +9501,15 @@ LABEL_34:
 
     MEMORY[0x1865D9CA0](v69, v70);
 
-    MEMORY[0x1865D9CA0](v392, *(&v392 + 1));
+    MEMORY[0x1865D9CA0](v406, *(&v406 + 1));
   }
 
 LABEL_44:
-  v71 = v337;
-  v72 = v336;
-  if (v338 == 5)
+  v71 = v351;
+  v72 = v350;
+  if (v352 == 5)
   {
-    if (v337 == 5)
+    if (v351 == 5)
     {
       goto LABEL_46;
     }
@@ -9512,11 +9517,11 @@ LABEL_44:
 
   else
   {
-    *&v392 = 0xD000000000000024;
-    *(&v392 + 1) = 0x8000000182BE2F40;
-    if (v338 <= 1)
+    *&v406 = 0xD000000000000024;
+    *(&v406 + 1) = 0x8000000182BE2F40;
+    if (v352 <= 1)
     {
-      if (v338)
+      if (v352)
       {
         v92 = 0xE400000000000000;
         v91 = 1768319351;
@@ -9529,13 +9534,13 @@ LABEL_44:
       }
     }
 
-    else if (v338 == 2)
+    else if (v352 == 2)
     {
       v92 = 0xE800000000000000;
       v91 = 0x72616C756C6C6563;
     }
 
-    else if (v338 == 3)
+    else if (v352 == 3)
     {
       v91 = 0x7465206465726977;
       v92 = 0xEE0074656E726568;
@@ -9549,12 +9554,12 @@ LABEL_44:
 
     MEMORY[0x1865D9CA0](v91, v92);
 
-    MEMORY[0x1865D9CA0](v392, *(&v392 + 1));
+    MEMORY[0x1865D9CA0](v406, *(&v406 + 1));
 
     if (v71 == 5)
     {
 LABEL_46:
-      if (!v367)
+      if (!v381)
       {
         goto LABEL_47;
       }
@@ -9563,46 +9568,46 @@ LABEL_46:
     }
   }
 
-  *&v392 = 0xD000000000000027;
-  *(&v392 + 1) = 0x8000000182BE2F10;
+  *&v406 = 0xD000000000000027;
+  *(&v406 + 1) = 0x8000000182BE2F10;
   if (v71 <= 1)
   {
     if (v71)
     {
-      v305 = 0x8000000182BD71B0;
-      v304 = 0xD000000000000013;
+      v319 = 0x8000000182BD71B0;
+      v318 = 0xD000000000000013;
     }
 
     else
     {
-      v305 = 0xE500000000000000;
-      v304 = 0x726568746FLL;
+      v319 = 0xE500000000000000;
+      v318 = 0x726568746FLL;
     }
   }
 
   else if (v71 == 2)
   {
-    v304 = 0x6477615F69666977;
-    v305 = 0xE90000000000006CLL;
+    v318 = 0x6477615F69666977;
+    v319 = 0xE90000000000006CLL;
   }
 
   else if (v71 == 3)
   {
-    v304 = 0x7365636F72706F63;
-    v305 = 0xEB00000000726F73;
+    v318 = 0x7365636F72706F63;
+    v319 = 0xEB00000000726F73;
   }
 
   else
   {
-    v304 = 0x6F696E61706D6F63;
-    v305 = 0xE90000000000006ELL;
+    v318 = 0x6F696E61706D6F63;
+    v319 = 0xE90000000000006ELL;
   }
 
-  MEMORY[0x1865D9CA0](v304, v305);
+  MEMORY[0x1865D9CA0](v318, v319);
 
-  MEMORY[0x1865D9CA0](v392, *(&v392 + 1));
+  MEMORY[0x1865D9CA0](v406, *(&v406 + 1));
 
-  if (!v367)
+  if (!v381)
   {
 LABEL_47:
     if (!v43)
@@ -9614,50 +9619,50 @@ LABEL_47:
   }
 
 LABEL_488:
-  *&v392 = 0xD000000000000015;
-  *(&v392 + 1) = 0x8000000182BD4960;
-  if (v367 <= 2)
+  *&v406 = 0xD000000000000015;
+  *(&v406 + 1) = 0x8000000182BD4960;
+  if (v381 <= 2)
   {
-    if (v367 == 1)
+    if (v381 == 1)
     {
-      v306 = 0xE800000000000000;
-      v307 = 0x7265766F646E6168;
+      v320 = 0xE800000000000000;
+      v321 = 0x7265766F646E6168;
     }
 
     else
     {
-      v306 = 0xEB00000000657669;
-      v307 = 0x7463617265746E69;
+      v320 = 0xEB00000000657669;
+      v321 = 0x7463617265746E69;
     }
   }
 
-  else if (v367 == 3)
+  else if (v381 == 3)
   {
-    v306 = 0xE900000000000065;
-    v307 = 0x7461676572676761;
+    v320 = 0xE900000000000065;
+    v321 = 0x7461676572676761;
   }
 
-  else if (v367 == 4)
+  else if (v381 == 4)
   {
-    v306 = 0xEB00000000646573;
-    v307 = 0x6142746567726174;
+    v320 = 0xEB00000000646573;
+    v321 = 0x6142746567726174;
   }
 
   else
   {
-    v306 = 0xEC0000007265766FLL;
-    v307 = 0x646E614865727570;
+    v320 = 0xEC0000007265766FLL;
+    v321 = 0x646E614865727570;
   }
 
-  MEMORY[0x1865D9CA0](v307, v306);
+  MEMORY[0x1865D9CA0](v321, v320);
 
-  MEMORY[0x1865D9CA0](v392, *(&v392 + 1));
+  MEMORY[0x1865D9CA0](v406, *(&v406 + 1));
 
   if (v43)
   {
 LABEL_48:
-    *&v392 = 0xD000000000000018;
-    *(&v392 + 1) = 0x8000000182BD4980;
+    *&v406 = 0xD000000000000018;
+    *(&v406 + 1) = 0x8000000182BD4980;
     if (v43 == 2)
     {
       v73 = 0x64696F7661;
@@ -9680,15 +9685,15 @@ LABEL_48:
 
     MEMORY[0x1865D9CA0](v73, v74);
 
-    MEMORY[0x1865D9CA0](v392, *(&v392 + 1));
+    MEMORY[0x1865D9CA0](v406, *(&v406 + 1));
   }
 
 LABEL_55:
-  if (v340)
+  if (v354)
   {
-    *&v392 = 0xD000000000000025;
-    *(&v392 + 1) = 0x8000000182BE2B10;
-    if (v340 == 2)
+    *&v406 = 0xD000000000000025;
+    *(&v406 + 1) = 0x8000000182BE2B10;
+    if (v354 == 2)
     {
       v75 = 0x70752069662D6977;
     }
@@ -9698,7 +9703,7 @@ LABEL_55:
       v75 = 0xD000000000000011;
     }
 
-    if (v340 == 2)
+    if (v354 == 2)
     {
       v76 = 0xED00006564617267;
     }
@@ -9710,7 +9715,7 @@ LABEL_55:
 
     MEMORY[0x1865D9CA0](v75, v76);
 
-    MEMORY[0x1865D9CA0](v392, *(&v392 + 1));
+    MEMORY[0x1865D9CA0](v406, *(&v406 + 1));
   }
 
   if (v72)
@@ -9719,7 +9724,7 @@ LABEL_55:
     if ((v72 & 2) == 0)
     {
 LABEL_65:
-      if ((v387 & 1) == 0)
+      if ((v401 & 1) == 0)
       {
         goto LABEL_66;
       }
@@ -9734,10 +9739,10 @@ LABEL_65:
   }
 
   MEMORY[0x1865D9CA0](0xD000000000000016, 0x8000000182BE2ED0);
-  if ((v387 & 1) == 0)
+  if ((v401 & 1) == 0)
   {
 LABEL_66:
-    if ((v387 & 2) == 0)
+    if ((v401 & 2) == 0)
     {
       goto LABEL_67;
     }
@@ -9747,10 +9752,10 @@ LABEL_66:
 
 LABEL_107:
   MEMORY[0x1865D9CA0](0xD000000000000019, 0x8000000182BD4CB0);
-  if ((v387 & 2) == 0)
+  if ((v401 & 2) == 0)
   {
 LABEL_67:
-    if ((v385 & 1) == 0)
+    if ((v399 & 1) == 0)
     {
       goto LABEL_68;
     }
@@ -9760,10 +9765,10 @@ LABEL_67:
 
 LABEL_108:
   MEMORY[0x1865D9CA0](0xD000000000000012, 0x8000000182BE2EB0);
-  if ((v385 & 1) == 0)
+  if ((v399 & 1) == 0)
   {
 LABEL_68:
-    if ((v386 & 2) == 0)
+    if ((v400 & 2) == 0)
     {
       goto LABEL_69;
     }
@@ -9773,10 +9778,10 @@ LABEL_68:
 
 LABEL_109:
   MEMORY[0x1865D9CA0](0x6F7270206F6E202CLL, 0xEA00000000007978);
-  if ((v386 & 2) == 0)
+  if ((v400 & 2) == 0)
   {
 LABEL_69:
-    if ((v386 & 4) == 0)
+    if ((v400 & 4) == 0)
     {
       goto LABEL_70;
     }
@@ -9786,10 +9791,10 @@ LABEL_69:
 
 LABEL_110:
   MEMORY[0x1865D9CA0](0x776120657375202CLL, 0xEA00000000006C64);
-  if ((v386 & 4) == 0)
+  if ((v400 & 4) == 0)
   {
 LABEL_70:
-    if ((v386 & 8) == 0)
+    if ((v400 & 8) == 0)
     {
       goto LABEL_71;
     }
@@ -9799,10 +9804,10 @@ LABEL_70:
 
 LABEL_111:
   MEMORY[0x1865D9CA0](0x327020657375202CLL, 0xE900000000000070);
-  if ((v386 & 8) == 0)
+  if ((v400 & 8) == 0)
   {
 LABEL_71:
-    if ((v386 & 0x10) == 0)
+    if ((v400 & 0x10) == 0)
     {
       goto LABEL_72;
     }
@@ -9812,10 +9817,10 @@ LABEL_71:
 
 LABEL_112:
   MEMORY[0x1865D9CA0](0xD000000000000013, 0x8000000182BE2E90);
-  if ((v386 & 0x10) == 0)
+  if ((v400 & 0x10) == 0)
   {
 LABEL_72:
-    if ((v385 & 2) == 0)
+    if ((v399 & 2) == 0)
     {
       goto LABEL_73;
     }
@@ -9825,7 +9830,7 @@ LABEL_72:
 
 LABEL_113:
   MEMORY[0x1865D9CA0](0xD00000000000001CLL, 0x8000000182BE2E70);
-  if ((v385 & 2) == 0)
+  if ((v399 & 2) == 0)
   {
 LABEL_73:
     if ((v72 & 4) == 0)
@@ -9841,7 +9846,7 @@ LABEL_114:
   if ((v72 & 4) == 0)
   {
 LABEL_74:
-    if ((v387 & 4) == 0)
+    if ((v401 & 4) == 0)
     {
       goto LABEL_75;
     }
@@ -9851,10 +9856,10 @@ LABEL_74:
 
 LABEL_115:
   MEMORY[0x1865D9CA0](0xD000000000000015, 0x8000000182BE2E30);
-  if ((v387 & 4) == 0)
+  if ((v401 & 4) == 0)
   {
 LABEL_75:
-    if ((v385 & 4) == 0)
+    if ((v399 & 4) == 0)
     {
       goto LABEL_76;
     }
@@ -9864,10 +9869,10 @@ LABEL_75:
 
 LABEL_116:
   MEMORY[0x1865D9CA0](0xD00000000000001CLL, 0x8000000182BE2E10);
-  if ((v385 & 4) == 0)
+  if ((v399 & 4) == 0)
   {
 LABEL_76:
-    if ((v385 & 8) == 0)
+    if ((v399 & 8) == 0)
     {
       goto LABEL_77;
     }
@@ -9877,7 +9882,7 @@ LABEL_76:
 
 LABEL_117:
   MEMORY[0x1865D9CA0](0xD000000000000011, 0x8000000182BD4C90);
-  if ((v385 & 8) == 0)
+  if ((v399 & 8) == 0)
   {
 LABEL_77:
     if ((v72 & 8) == 0)
@@ -9906,7 +9911,7 @@ LABEL_119:
   if ((v72 & 0x20) == 0)
   {
 LABEL_79:
-    if ((v385 & 0x10) == 0)
+    if ((v399 & 0x10) == 0)
     {
       goto LABEL_81;
     }
@@ -9916,22 +9921,22 @@ LABEL_79:
 
 LABEL_120:
   MEMORY[0x1865D9CA0](0xD00000000000001ALL, 0x8000000182BD4C30);
-  if ((v385 & 0x10) != 0)
+  if ((v399 & 0x10) != 0)
   {
 LABEL_80:
     MEMORY[0x1865D9CA0](0xD000000000000023, 0x8000000182BD4C00);
   }
 
 LABEL_81:
-  v77 = v386;
-  v78 = v335;
-  if ((v387 & 8) != 0)
+  v77 = v400;
+  v78 = v349;
+  if ((v401 & 8) != 0)
   {
     MEMORY[0x1865D9CA0](0xD000000000000018, 0x8000000182BD4BE0);
-    if ((v387 & 0x10) == 0)
+    if ((v401 & 0x10) == 0)
     {
 LABEL_83:
-      if ((v387 & 0x20) == 0)
+      if ((v401 & 0x20) == 0)
       {
         goto LABEL_84;
       }
@@ -9940,13 +9945,13 @@ LABEL_83:
     }
   }
 
-  else if ((v387 & 0x10) == 0)
+  else if ((v401 & 0x10) == 0)
   {
     goto LABEL_83;
   }
 
   MEMORY[0x1865D9CA0](0xD000000000000012, 0x8000000182BD4BC0);
-  if ((v387 & 0x20) == 0)
+  if ((v401 & 0x20) == 0)
   {
 LABEL_84:
     if ((v77 & 0x40) == 0)
@@ -10053,7 +10058,7 @@ LABEL_131:
   if ((v77 & 0x2000) == 0)
   {
 LABEL_92:
-    if (!v366)
+    if (!v380)
     {
       goto LABEL_93;
     }
@@ -10063,7 +10068,7 @@ LABEL_92:
 
 LABEL_132:
   MEMORY[0x1865D9CA0](0xD000000000000020, 0x8000000182BE2DA0);
-  if (!v366)
+  if (!v380)
   {
 LABEL_93:
     if (!v78)
@@ -10075,21 +10080,21 @@ LABEL_93:
   }
 
 LABEL_133:
-  sensitive_redacted = nw_context_get_sensitive_redacted(*(v353 + 16));
-  strcpy(&v392, ", account id: ");
-  HIBYTE(v392) = -18;
+  sensitive_redacted = nw_context_get_sensitive_redacted(*(v367 + 16));
+  strcpy(&v406, ", account id: ");
+  HIBYTE(v406) = -18;
   if (sensitive_redacted)
   {
-    v94 = sub_181CFDB48();
+    v94 = sub_181CFDB48(v348);
     MEMORY[0x1865D9CA0](v94);
   }
 
   else
   {
-    MEMORY[0x1865D9CA0](v334, v366);
+    MEMORY[0x1865D9CA0](v348, v380);
   }
 
-  MEMORY[0x1865D9CA0](v392, *(&v392 + 1));
+  MEMORY[0x1865D9CA0](v406, *(&v406 + 1));
 
   if (!v78)
   {
@@ -10097,17 +10102,17 @@ LABEL_133:
   }
 
 LABEL_94:
-  *&v392 = 0xD000000000000011;
-  *(&v392 + 1) = 0x8000000182BE2D80;
+  *&v406 = 0xD000000000000011;
+  *(&v406 + 1) = 0x8000000182BE2D80;
   v79 = v78;
   v80 = [v79 description];
   v81 = sub_182AD2F88();
   v83 = v82;
 
   MEMORY[0x1865D9CA0](v81, v83);
-  v45 = v384;
+  v45 = v398;
 
-  MEMORY[0x1865D9CA0](v392, *(&v392 + 1));
+  MEMORY[0x1865D9CA0](v406, *(&v406 + 1));
 
 LABEL_95:
   if (v45)
@@ -10115,76 +10120,76 @@ LABEL_95:
     v84 = v45[2];
     if (v84)
     {
-      *&v392 = 0xD000000000000016;
-      *(&v392 + 1) = 0x8000000182BE2D60;
+      *&v406 = 0xD000000000000016;
+      *(&v406 + 1) = 0x8000000182BE2D60;
       v85 = v84[5];
       v86 = v84[6];
 
       MEMORY[0x1865D9CA0](v85, v86);
-      v45 = v384;
+      v45 = v398;
 
       MEMORY[0x1865D9CA0](40, 0xE100000000000000);
-      *&v390 = v84[2];
+      *&v404 = v84[2];
       v87 = sub_182AD41B8();
       MEMORY[0x1865D9CA0](v87);
 
       MEMORY[0x1865D9CA0](41, 0xE100000000000000);
-      MEMORY[0x1865D9CA0](v392, *(&v392 + 1));
+      MEMORY[0x1865D9CA0](v406, *(&v406 + 1));
     }
   }
 
-  v88 = v379;
-  if (v365)
+  v88 = v393;
+  if (v379)
   {
-    v89 = nw_context_get_sensitive_redacted(*(v353 + 16));
-    *&v392 = 0xD000000000000017;
-    *(&v392 + 1) = 0x8000000182BE2D40;
+    v89 = nw_context_get_sensitive_redacted(*(v367 + 16));
+    *&v406 = 0xD000000000000017;
+    *(&v406 + 1) = 0x8000000182BE2D40;
     if (v89)
     {
-      v90 = sub_181CFDB48();
+      v90 = sub_181CFDB48(v347);
       MEMORY[0x1865D9CA0](v90);
     }
 
     else
     {
-      MEMORY[0x1865D9CA0](v333, v365);
+      MEMORY[0x1865D9CA0](v347, v379);
     }
 
-    MEMORY[0x1865D9CA0](v392, *(&v392 + 1));
+    MEMORY[0x1865D9CA0](v406, *(&v406 + 1));
   }
 
-  v95 = v352;
-  if (v352)
+  v95 = v366;
+  if (v366)
   {
-    *&v392 = 0xD000000000000015;
-    *(&v392 + 1) = 0x8000000182BE2D20;
-    MEMORY[0x1865D9CA0](v332, v352);
-    MEMORY[0x1865D9CA0](v392, *(&v392 + 1));
-    v95 = v352;
+    *&v406 = 0xD000000000000015;
+    *(&v406 + 1) = 0x8000000182BE2D20;
+    MEMORY[0x1865D9CA0](v346, v366);
+    MEMORY[0x1865D9CA0](v406, *(&v406 + 1));
+    v95 = v366;
   }
 
   if (!v45)
   {
-    v114 = v363;
-    v113 = v364;
-    v116 = v361;
-    v115 = v362;
-    v118 = v359;
-    v117 = v360;
-    v120 = v357;
-    v119 = v358;
-    v121 = v343;
-    v122 = v344;
-    v124 = v341;
-    v123 = v342;
+    v114 = v377;
+    v113 = v378;
+    v116 = v375;
+    v115 = v376;
+    v118 = v373;
+    v117 = v374;
+    v120 = v371;
+    v119 = v372;
+    v121 = v357;
+    v122 = v358;
+    v124 = v355;
+    v123 = v356;
     goto LABEL_433;
   }
 
   v96 = v45[3];
-  v97 = v383;
-  v98 = v382;
-  v99 = v381;
-  v100 = v380;
+  v97 = v397;
+  v98 = v396;
+  v99 = v395;
+  v100 = v394;
   if (!v96)
   {
     goto LABEL_247;
@@ -10193,310 +10198,310 @@ LABEL_95:
   if (!v96[3])
   {
 LABEL_170:
-    if ((v386 & 0x1000) != 0)
+    if ((v400 & 0x1000) != 0)
     {
 
-      MEMORY[0x1865D9CA0](0xD000000000000010, 0x8000000182BE2CE0);
-      v125 = byte_1EEF96978;
-      if ((sub_181F44098(byte_1EEF96978, v96) & 1) == 0)
+      v125.n128_f64[0] = MEMORY[0x1865D9CA0](0xD000000000000010, 0x8000000182BE2CE0);
+      v126 = byte_1EEF96978;
+      if ((sub_181F44098(byte_1EEF96978, v96, v125) & 1) == 0)
       {
-        *&v392 = 32;
-        *(&v392 + 1) = 0xE100000000000000;
-        v126 = 0xE400000000000000;
-        v127 = 0xE800000000000000;
-        v128 = 0x72616C756C6C6563;
-        v129 = 0x7465206465726977;
-        v130 = 0xEE0074656E726568;
-        if (v125 != 3)
+        *&v406 = 32;
+        *(&v406 + 1) = 0xE100000000000000;
+        v128 = 0xE400000000000000;
+        v129 = 0xE800000000000000;
+        v130 = 0x72616C756C6C6563;
+        v131 = 0x7465206465726977;
+        v132 = 0xEE0074656E726568;
+        if (v126 != 3)
         {
-          v129 = 0x6B636162706F6F6CLL;
-          v130 = 0xE800000000000000;
+          v131 = 0x6B636162706F6F6CLL;
+          v132 = 0xE800000000000000;
         }
 
-        if (v125 != 2)
+        if (v126 != 2)
         {
-          v128 = v129;
-          v127 = v130;
+          v130 = v131;
+          v129 = v132;
         }
 
-        v131 = 0x726568746FLL;
-        if (v125)
+        v133 = 0x726568746FLL;
+        if (v126)
         {
-          v131 = 1768319351;
-        }
-
-        else
-        {
-          v126 = 0xE500000000000000;
-        }
-
-        if (v125 <= 1)
-        {
-          v132 = v131;
+          v133 = 1768319351;
         }
 
         else
         {
-          v132 = v128;
+          v128 = 0xE500000000000000;
         }
 
-        if (v125 <= 1)
+        if (v126 <= 1)
         {
-          v133 = v126;
+          v134 = v133;
         }
 
         else
         {
-          v133 = v127;
+          v134 = v130;
         }
 
-        MEMORY[0x1865D9CA0](v132, v133);
+        if (v126 <= 1)
+        {
+          v135 = v128;
+        }
 
-        MEMORY[0x1865D9CA0](v392, *(&v392 + 1));
+        else
+        {
+          v135 = v129;
+        }
+
+        MEMORY[0x1865D9CA0](v134, v135);
+
+        MEMORY[0x1865D9CA0](v406, *(&v406 + 1));
       }
 
-      v134 = byte_1EEF96979;
-      if ((sub_181F44098(byte_1EEF96979, v96) & 1) == 0)
+      v136 = byte_1EEF96979;
+      if ((sub_181F44098(byte_1EEF96979, v96, v127) & 1) == 0)
       {
-        *&v392 = 32;
-        *(&v392 + 1) = 0xE100000000000000;
-        v135 = 0xE400000000000000;
-        v136 = 0xE800000000000000;
-        v137 = 0x72616C756C6C6563;
-        v138 = 0x7465206465726977;
-        v139 = 0xEE0074656E726568;
-        if (v134 != 3)
+        *&v406 = 32;
+        *(&v406 + 1) = 0xE100000000000000;
+        v138 = 0xE400000000000000;
+        v139 = 0xE800000000000000;
+        v140 = 0x72616C756C6C6563;
+        v141 = 0x7465206465726977;
+        v142 = 0xEE0074656E726568;
+        if (v136 != 3)
         {
-          v138 = 0x6B636162706F6F6CLL;
-          v139 = 0xE800000000000000;
+          v141 = 0x6B636162706F6F6CLL;
+          v142 = 0xE800000000000000;
         }
 
-        if (v134 != 2)
+        if (v136 != 2)
         {
-          v137 = v138;
-          v136 = v139;
+          v140 = v141;
+          v139 = v142;
         }
 
-        v140 = 0x726568746FLL;
-        if (v134)
+        v143 = 0x726568746FLL;
+        if (v136)
         {
-          v140 = 1768319351;
-        }
-
-        else
-        {
-          v135 = 0xE500000000000000;
-        }
-
-        if (v134 <= 1)
-        {
-          v141 = v140;
+          v143 = 1768319351;
         }
 
         else
         {
-          v141 = v137;
+          v138 = 0xE500000000000000;
         }
 
-        if (v134 <= 1)
+        if (v136 <= 1)
         {
-          v142 = v135;
+          v144 = v143;
         }
 
         else
         {
-          v142 = v136;
+          v144 = v140;
         }
 
-        MEMORY[0x1865D9CA0](v141, v142);
+        if (v136 <= 1)
+        {
+          v145 = v138;
+        }
 
-        MEMORY[0x1865D9CA0](v392, *(&v392 + 1));
+        else
+        {
+          v145 = v139;
+        }
+
+        MEMORY[0x1865D9CA0](v144, v145);
+
+        MEMORY[0x1865D9CA0](v406, *(&v406 + 1));
       }
 
-      v143 = byte_1EEF9697A;
-      if ((sub_181F44098(byte_1EEF9697A, v96) & 1) == 0)
+      v146 = byte_1EEF9697A;
+      if ((sub_181F44098(byte_1EEF9697A, v96, v137) & 1) == 0)
       {
-        *&v392 = 32;
-        *(&v392 + 1) = 0xE100000000000000;
-        v144 = 0xE400000000000000;
-        v145 = 0xE800000000000000;
-        v146 = 0x72616C756C6C6563;
-        v147 = 0x7465206465726977;
-        v148 = 0xEE0074656E726568;
-        if (v143 != 3)
+        *&v406 = 32;
+        *(&v406 + 1) = 0xE100000000000000;
+        v148 = 0xE400000000000000;
+        v149 = 0xE800000000000000;
+        v150 = 0x72616C756C6C6563;
+        v151 = 0x7465206465726977;
+        v152 = 0xEE0074656E726568;
+        if (v146 != 3)
         {
-          v147 = 0x6B636162706F6F6CLL;
-          v148 = 0xE800000000000000;
+          v151 = 0x6B636162706F6F6CLL;
+          v152 = 0xE800000000000000;
         }
 
-        if (v143 != 2)
+        if (v146 != 2)
         {
-          v146 = v147;
-          v145 = v148;
+          v150 = v151;
+          v149 = v152;
         }
 
-        v149 = 0x726568746FLL;
-        if (v143)
+        v153 = 0x726568746FLL;
+        if (v146)
         {
-          v149 = 1768319351;
-        }
-
-        else
-        {
-          v144 = 0xE500000000000000;
-        }
-
-        if (v143 <= 1)
-        {
-          v150 = v149;
+          v153 = 1768319351;
         }
 
         else
         {
-          v150 = v146;
+          v148 = 0xE500000000000000;
         }
 
-        if (v143 <= 1)
+        if (v146 <= 1)
         {
-          v151 = v144;
+          v154 = v153;
         }
 
         else
         {
-          v151 = v145;
+          v154 = v150;
         }
 
-        MEMORY[0x1865D9CA0](v150, v151);
+        if (v146 <= 1)
+        {
+          v155 = v148;
+        }
 
-        MEMORY[0x1865D9CA0](v392, *(&v392 + 1));
+        else
+        {
+          v155 = v149;
+        }
+
+        MEMORY[0x1865D9CA0](v154, v155);
+
+        MEMORY[0x1865D9CA0](v406, *(&v406 + 1));
       }
 
-      v152 = byte_1EEF9697B;
-      if ((sub_181F44098(byte_1EEF9697B, v96) & 1) == 0)
+      v156 = byte_1EEF9697B;
+      if ((sub_181F44098(byte_1EEF9697B, v96, v147) & 1) == 0)
       {
-        *&v392 = 32;
-        *(&v392 + 1) = 0xE100000000000000;
-        v153 = 0xE400000000000000;
-        v154 = 0xE800000000000000;
-        v155 = 0x72616C756C6C6563;
-        v156 = 0x7465206465726977;
-        v157 = 0xEE0074656E726568;
-        if (v152 != 3)
+        *&v406 = 32;
+        *(&v406 + 1) = 0xE100000000000000;
+        v158 = 0xE400000000000000;
+        v159 = 0xE800000000000000;
+        v160 = 0x72616C756C6C6563;
+        v161 = 0x7465206465726977;
+        v162 = 0xEE0074656E726568;
+        if (v156 != 3)
         {
-          v156 = 0x6B636162706F6F6CLL;
-          v157 = 0xE800000000000000;
+          v161 = 0x6B636162706F6F6CLL;
+          v162 = 0xE800000000000000;
         }
 
-        if (v152 != 2)
+        if (v156 != 2)
         {
-          v155 = v156;
-          v154 = v157;
+          v160 = v161;
+          v159 = v162;
         }
 
-        v158 = 0x726568746FLL;
-        if (v152)
+        v163 = 0x726568746FLL;
+        if (v156)
         {
-          v158 = 1768319351;
-        }
-
-        else
-        {
-          v153 = 0xE500000000000000;
-        }
-
-        if (v152 <= 1)
-        {
-          v159 = v158;
+          v163 = 1768319351;
         }
 
         else
         {
-          v159 = v155;
+          v158 = 0xE500000000000000;
         }
 
-        if (v152 <= 1)
+        if (v156 <= 1)
         {
-          v160 = v153;
+          v164 = v163;
         }
 
         else
         {
-          v160 = v154;
+          v164 = v160;
         }
 
-        MEMORY[0x1865D9CA0](v159, v160);
+        if (v156 <= 1)
+        {
+          v165 = v158;
+        }
 
-        MEMORY[0x1865D9CA0](v392, *(&v392 + 1));
+        else
+        {
+          v165 = v159;
+        }
+
+        MEMORY[0x1865D9CA0](v164, v165);
+
+        MEMORY[0x1865D9CA0](v406, *(&v406 + 1));
       }
 
-      v161 = byte_1EEF9697C;
-      if ((sub_181F44098(byte_1EEF9697C, v96) & 1) == 0)
+      v166 = byte_1EEF9697C;
+      if ((sub_181F44098(byte_1EEF9697C, v96, v157) & 1) == 0)
       {
-        *&v392 = 32;
-        *(&v392 + 1) = 0xE100000000000000;
-        v162 = 0xE400000000000000;
-        v163 = 0xE800000000000000;
-        v164 = 0x72616C756C6C6563;
-        v165 = 0x7465206465726977;
-        v166 = 0xEE0074656E726568;
-        if (v161 != 3)
+        *&v406 = 32;
+        *(&v406 + 1) = 0xE100000000000000;
+        v167 = 0xE400000000000000;
+        v168 = 0xE800000000000000;
+        v169 = 0x72616C756C6C6563;
+        v170 = 0x7465206465726977;
+        v171 = 0xEE0074656E726568;
+        if (v166 != 3)
         {
-          v165 = 0x6B636162706F6F6CLL;
-          v166 = 0xE800000000000000;
+          v170 = 0x6B636162706F6F6CLL;
+          v171 = 0xE800000000000000;
         }
 
-        if (v161 != 2)
+        if (v166 != 2)
         {
-          v164 = v165;
-          v163 = v166;
+          v169 = v170;
+          v168 = v171;
         }
 
-        v167 = 0x726568746FLL;
-        if (v161)
+        v172 = 0x726568746FLL;
+        if (v166)
         {
-          v167 = 1768319351;
-        }
-
-        else
-        {
-          v162 = 0xE500000000000000;
-        }
-
-        if (v161 <= 1)
-        {
-          v168 = v167;
+          v172 = 1768319351;
         }
 
         else
         {
-          v168 = v164;
+          v167 = 0xE500000000000000;
         }
 
-        if (v161 <= 1)
+        if (v166 <= 1)
         {
-          v169 = v162;
+          v173 = v172;
         }
 
         else
         {
-          v169 = v163;
+          v173 = v169;
         }
 
-        MEMORY[0x1865D9CA0](v168, v169);
+        if (v166 <= 1)
+        {
+          v174 = v167;
+        }
 
-        MEMORY[0x1865D9CA0](v392, *(&v392 + 1));
+        else
+        {
+          v174 = v168;
+        }
+
+        MEMORY[0x1865D9CA0](v173, v174);
+
+        MEMORY[0x1865D9CA0](v406, *(&v406 + 1));
       }
 
-      v97 = v383;
-      v98 = v382;
-      v99 = v381;
-      v100 = v380;
+      v97 = v397;
+      v98 = v396;
+      v99 = v395;
+      v100 = v394;
     }
 
     goto LABEL_247;
   }
 
-  v326 = 0;
+  v340 = 0;
 
   MEMORY[0x1865D9CA0](0xD000000000000013, 0x8000000182BE2D00);
   v101 = v96[4];
@@ -10510,12 +10515,12 @@ LABEL_170:
     v102 = v96[2];
   }
 
-  *&v392 = v96;
-  *(&v392 + 1) = v101;
-  *&v393 = v102;
+  *&v406 = v96;
+  *(&v406 + 1) = v101;
+  *&v407 = v102;
 
   v104 = v96;
-  v325 = v96;
+  v339 = v96;
   while (1)
   {
     if (v101 != v102)
@@ -10528,14 +10533,14 @@ LABEL_170:
       break;
     }
 
-    v101 = *(&v392 + 1);
-    v104 = v392;
+    v101 = *(&v406 + 1);
+    v104 = v406;
 LABEL_146:
     v105 = v104 + v101++;
-    *(&v392 + 1) = v101;
+    *(&v406 + 1) = v101;
     v106 = v105[40];
-    *&v390 = 32;
-    *(&v390 + 1) = 0xE100000000000000;
+    *&v404 = 32;
+    *(&v404 + 1) = 0xE100000000000000;
     v107 = 0x7465206465726977;
     if (v106 != 3)
     {
@@ -10588,105 +10593,53 @@ LABEL_146:
 
     MEMORY[0x1865D9CA0](v111, v112);
 
-    MEMORY[0x1865D9CA0](v390, *(&v390 + 1));
+    MEMORY[0x1865D9CA0](v404, *(&v404 + 1));
 
-    v102 = v393;
+    v102 = v407;
   }
 
-  v45 = v384;
-  v96 = v384[3];
-  v29 = v326;
-  LOBYTE(v43) = v378;
-  v88 = v379;
-  v97 = v383;
-  v98 = v382;
-  v99 = v381;
-  v100 = v380;
+  v45 = v398;
+  v96 = v398[3];
+  v29 = v340;
+  LOBYTE(v43) = v392;
+  v88 = v393;
+  v97 = v397;
+  v98 = v396;
+  v99 = v395;
+  v100 = v394;
   if (v96)
   {
     goto LABEL_170;
   }
 
 LABEL_247:
-  v170 = v45[4];
-  if (!v170)
+  v175 = v45[4];
+  if (!v175)
   {
     goto LABEL_344;
   }
 
-  if (!v170[3])
+  if (!v175[3])
   {
 LABEL_272:
-    if ((v386 & 0x2000) != 0)
+    if ((v400 & 0x2000) != 0)
     {
 
-      MEMORY[0x1865D9CA0](0xD000000000000013, 0x8000000182BE2CA0);
-      v183 = byte_1EEF969A0;
-      if ((sub_181F44168(byte_1EEF969A0, v170) & 1) == 0)
+      v188.n128_f64[0] = MEMORY[0x1865D9CA0](0xD000000000000013, 0x8000000182BE2CA0);
+      v189 = byte_1EEF969A0;
+      if ((sub_181F44168(byte_1EEF969A0, v175, v188) & 1) == 0)
       {
-        *&v392 = 32;
-        *(&v392 + 1) = 0xE100000000000000;
-        v184 = 0x7365636F72706F63;
-        v185 = 0xEB00000000726F73;
-        if (v183 != 3)
-        {
-          v184 = 0x6F696E61706D6F63;
-          v185 = 0xE90000000000006ELL;
-        }
-
-        if (v183 == 2)
-        {
-          v184 = 0x6477615F69666977;
-          v185 = 0xE90000000000006CLL;
-        }
-
-        v186 = 0xE500000000000000;
-        v187 = 0x726568746FLL;
-        if (v183)
-        {
-          v187 = 0xD000000000000013;
-          v186 = 0x8000000182BD71B0;
-        }
-
-        if (v183 <= 1)
-        {
-          v188 = v187;
-        }
-
-        else
-        {
-          v188 = v184;
-        }
-
-        if (v183 <= 1)
-        {
-          v189 = v186;
-        }
-
-        else
-        {
-          v189 = v185;
-        }
-
-        MEMORY[0x1865D9CA0](v188, v189);
-
-        MEMORY[0x1865D9CA0](v392, *(&v392 + 1));
-      }
-
-      v190 = byte_1EEF969A1;
-      if ((sub_181F44168(byte_1EEF969A1, v170) & 1) == 0)
-      {
-        *&v392 = 32;
-        *(&v392 + 1) = 0xE100000000000000;
+        *&v406 = 32;
+        *(&v406 + 1) = 0xE100000000000000;
         v191 = 0x7365636F72706F63;
         v192 = 0xEB00000000726F73;
-        if (v190 != 3)
+        if (v189 != 3)
         {
           v191 = 0x6F696E61706D6F63;
           v192 = 0xE90000000000006ELL;
         }
 
-        if (v190 == 2)
+        if (v189 == 2)
         {
           v191 = 0x6477615F69666977;
           v192 = 0xE90000000000006CLL;
@@ -10694,13 +10647,13 @@ LABEL_272:
 
         v193 = 0xE500000000000000;
         v194 = 0x726568746FLL;
-        if (v190)
+        if (v189)
         {
           v194 = 0xD000000000000013;
           v193 = 0x8000000182BD71B0;
         }
 
-        if (v190 <= 1)
+        if (v189 <= 1)
         {
           v195 = v194;
         }
@@ -10710,7 +10663,7 @@ LABEL_272:
           v195 = v191;
         }
 
-        if (v190 <= 1)
+        if (v189 <= 1)
         {
           v196 = v193;
         }
@@ -10722,49 +10675,39 @@ LABEL_272:
 
         MEMORY[0x1865D9CA0](v195, v196);
 
-        MEMORY[0x1865D9CA0](v392, *(&v392 + 1));
+        MEMORY[0x1865D9CA0](v406, *(&v406 + 1));
       }
 
-      v197 = byte_1EEF969A2;
-      if ((sub_181F44168(byte_1EEF969A2, v170) & 1) == 0)
+      v197 = byte_1EEF969A1;
+      if ((sub_181F44168(byte_1EEF969A1, v175, v190) & 1) == 0)
       {
-        *&v392 = 32;
-        *(&v392 + 1) = 0xE100000000000000;
-        v198 = 0x7365636F72706F63;
-        v199 = 0xEB00000000726F73;
+        *&v406 = 32;
+        *(&v406 + 1) = 0xE100000000000000;
+        v199 = 0x7365636F72706F63;
+        v200 = 0xEB00000000726F73;
         if (v197 != 3)
         {
-          v198 = 0x6F696E61706D6F63;
-          v199 = 0xE90000000000006ELL;
+          v199 = 0x6F696E61706D6F63;
+          v200 = 0xE90000000000006ELL;
         }
 
         if (v197 == 2)
         {
-          v198 = 0x6477615F69666977;
-          v199 = 0xE90000000000006CLL;
+          v199 = 0x6477615F69666977;
+          v200 = 0xE90000000000006CLL;
         }
 
-        v200 = 0xE500000000000000;
-        v201 = 0x726568746FLL;
+        v201 = 0xE500000000000000;
+        v202 = 0x726568746FLL;
         if (v197)
         {
-          v201 = 0xD000000000000013;
-          v200 = 0x8000000182BD71B0;
+          v202 = 0xD000000000000013;
+          v201 = 0x8000000182BD71B0;
         }
 
         if (v197 <= 1)
         {
-          v202 = v201;
-        }
-
-        else
-        {
-          v202 = v198;
-        }
-
-        if (v197 <= 1)
-        {
-          v203 = v200;
+          v203 = v202;
         }
 
         else
@@ -10772,846 +10715,908 @@ LABEL_272:
           v203 = v199;
         }
 
-        MEMORY[0x1865D9CA0](v202, v203);
+        if (v197 <= 1)
+        {
+          v204 = v201;
+        }
 
-        MEMORY[0x1865D9CA0](v392, *(&v392 + 1));
+        else
+        {
+          v204 = v200;
+        }
+
+        MEMORY[0x1865D9CA0](v203, v204);
+
+        MEMORY[0x1865D9CA0](v406, *(&v406 + 1));
       }
 
-      v204 = byte_1EEF969A3;
-      if ((sub_181F44168(byte_1EEF969A3, v170) & 1) == 0)
+      v205 = byte_1EEF969A2;
+      if ((sub_181F44168(byte_1EEF969A2, v175, v198) & 1) == 0)
       {
-        *&v392 = 32;
-        *(&v392 + 1) = 0xE100000000000000;
-        v205 = 0x7365636F72706F63;
-        v206 = 0xEB00000000726F73;
-        if (v204 != 3)
+        *&v406 = 32;
+        *(&v406 + 1) = 0xE100000000000000;
+        v207 = 0x7365636F72706F63;
+        v208 = 0xEB00000000726F73;
+        if (v205 != 3)
         {
-          v205 = 0x6F696E61706D6F63;
-          v206 = 0xE90000000000006ELL;
+          v207 = 0x6F696E61706D6F63;
+          v208 = 0xE90000000000006ELL;
         }
 
-        if (v204 == 2)
+        if (v205 == 2)
         {
-          v205 = 0x6477615F69666977;
-          v206 = 0xE90000000000006CLL;
+          v207 = 0x6477615F69666977;
+          v208 = 0xE90000000000006CLL;
         }
 
-        v207 = 0xE500000000000000;
-        v208 = 0x726568746FLL;
-        if (v204)
+        v209 = 0xE500000000000000;
+        v210 = 0x726568746FLL;
+        if (v205)
         {
-          v208 = 0xD000000000000013;
-          v207 = 0x8000000182BD71B0;
+          v210 = 0xD000000000000013;
+          v209 = 0x8000000182BD71B0;
         }
 
-        if (v204 <= 1)
+        if (v205 <= 1)
         {
-          v209 = v208;
-        }
-
-        else
-        {
-          v209 = v205;
-        }
-
-        if (v204 <= 1)
-        {
-          v210 = v207;
+          v211 = v210;
         }
 
         else
         {
-          v210 = v206;
+          v211 = v207;
         }
 
-        MEMORY[0x1865D9CA0](v209, v210);
+        if (v205 <= 1)
+        {
+          v212 = v209;
+        }
 
-        MEMORY[0x1865D9CA0](v392, *(&v392 + 1));
+        else
+        {
+          v212 = v208;
+        }
+
+        MEMORY[0x1865D9CA0](v211, v212);
+
+        MEMORY[0x1865D9CA0](v406, *(&v406 + 1));
       }
 
-      v211 = byte_1EEF969A4;
-      if ((sub_181F44168(byte_1EEF969A4, v170) & 1) == 0)
+      v213 = byte_1EEF969A3;
+      if ((sub_181F44168(byte_1EEF969A3, v175, v206) & 1) == 0)
       {
-        *&v392 = 32;
-        *(&v392 + 1) = 0xE100000000000000;
-        v212 = 0x7365636F72706F63;
-        v213 = 0xEB00000000726F73;
-        if (v211 != 3)
+        *&v406 = 32;
+        *(&v406 + 1) = 0xE100000000000000;
+        v215 = 0x7365636F72706F63;
+        v216 = 0xEB00000000726F73;
+        if (v213 != 3)
         {
-          v212 = 0x6F696E61706D6F63;
-          v213 = 0xE90000000000006ELL;
+          v215 = 0x6F696E61706D6F63;
+          v216 = 0xE90000000000006ELL;
         }
 
-        if (v211 == 2)
+        if (v213 == 2)
         {
-          v212 = 0x6477615F69666977;
-          v213 = 0xE90000000000006CLL;
+          v215 = 0x6477615F69666977;
+          v216 = 0xE90000000000006CLL;
         }
 
-        v214 = 0xE500000000000000;
-        v215 = 0x726568746FLL;
-        if (v211)
+        v217 = 0xE500000000000000;
+        v218 = 0x726568746FLL;
+        if (v213)
         {
-          v215 = 0xD000000000000013;
-          v214 = 0x8000000182BD71B0;
+          v218 = 0xD000000000000013;
+          v217 = 0x8000000182BD71B0;
         }
 
-        if (v211 <= 1)
+        if (v213 <= 1)
         {
-          v216 = v215;
-        }
-
-        else
-        {
-          v216 = v212;
-        }
-
-        if (v211 <= 1)
-        {
-          v217 = v214;
+          v219 = v218;
         }
 
         else
         {
-          v217 = v213;
+          v219 = v215;
         }
 
-        MEMORY[0x1865D9CA0](v216, v217);
+        if (v213 <= 1)
+        {
+          v220 = v217;
+        }
 
-        MEMORY[0x1865D9CA0](v392, *(&v392 + 1));
+        else
+        {
+          v220 = v216;
+        }
+
+        MEMORY[0x1865D9CA0](v219, v220);
+
+        MEMORY[0x1865D9CA0](v406, *(&v406 + 1));
       }
 
-      LOBYTE(v43) = v378;
-      v97 = v383;
-      v98 = v382;
-      v99 = v381;
-      v100 = v380;
+      v221 = byte_1EEF969A4;
+      if ((sub_181F44168(byte_1EEF969A4, v175, v214) & 1) == 0)
+      {
+        *&v406 = 32;
+        *(&v406 + 1) = 0xE100000000000000;
+        v222 = 0x7365636F72706F63;
+        v223 = 0xEB00000000726F73;
+        if (v221 != 3)
+        {
+          v222 = 0x6F696E61706D6F63;
+          v223 = 0xE90000000000006ELL;
+        }
+
+        if (v221 == 2)
+        {
+          v222 = 0x6477615F69666977;
+          v223 = 0xE90000000000006CLL;
+        }
+
+        v224 = 0xE500000000000000;
+        v225 = 0x726568746FLL;
+        if (v221)
+        {
+          v225 = 0xD000000000000013;
+          v224 = 0x8000000182BD71B0;
+        }
+
+        if (v221 <= 1)
+        {
+          v226 = v225;
+        }
+
+        else
+        {
+          v226 = v222;
+        }
+
+        if (v221 <= 1)
+        {
+          v227 = v224;
+        }
+
+        else
+        {
+          v227 = v223;
+        }
+
+        MEMORY[0x1865D9CA0](v226, v227);
+
+        MEMORY[0x1865D9CA0](v406, *(&v406 + 1));
+      }
+
+      LOBYTE(v43) = v392;
+      v97 = v397;
+      v98 = v396;
+      v99 = v395;
+      v100 = v394;
     }
 
     goto LABEL_344;
   }
 
-  v326 = v29;
+  v340 = v29;
 
-  v171 = v170;
+  v176 = v175;
   MEMORY[0x1865D9CA0](0xD000000000000016, 0x8000000182BE2CC0);
-  v172 = v170[4];
-  if (v171[2] >= v171[3] + v172)
+  v177 = v175[4];
+  if (v176[2] >= v176[3] + v177)
   {
-    v173 = v170[3] + v172;
+    v178 = v175[3] + v177;
   }
 
   else
   {
-    v173 = v170[2];
+    v178 = v175[2];
   }
 
-  *&v392 = v170;
-  *(&v392 + 1) = v172;
-  *&v393 = v173;
+  *&v406 = v175;
+  *(&v406 + 1) = v177;
+  *&v407 = v178;
 
-  v325 = v170;
+  v339 = v175;
   while (2)
   {
-    if (v172 != v173)
+    if (v177 != v178)
     {
 LABEL_253:
-      v175 = v171 + v172++;
-      *(&v392 + 1) = v172;
-      v176 = v175[40];
-      *&v390 = 32;
-      *(&v390 + 1) = 0xE100000000000000;
-      v177 = 0xE90000000000006ELL;
-      v178 = 0x7365636F72706F63;
-      if (v176 == 3)
+      v180 = v176 + v177++;
+      *(&v406 + 1) = v177;
+      v181 = v180[40];
+      *&v404 = 32;
+      *(&v404 + 1) = 0xE100000000000000;
+      v182 = 0xE90000000000006ELL;
+      v183 = 0x7365636F72706F63;
+      if (v181 == 3)
       {
-        v177 = 0xEB00000000726F73;
+        v182 = 0xEB00000000726F73;
       }
 
       else
       {
-        v178 = 0x6F696E61706D6F63;
+        v183 = 0x6F696E61706D6F63;
       }
 
-      if (v176 == 2)
+      if (v181 == 2)
       {
-        v178 = 0x6477615F69666977;
-        v177 = 0xE90000000000006CLL;
+        v183 = 0x6477615F69666977;
+        v182 = 0xE90000000000006CLL;
       }
 
-      v179 = 0x726568746FLL;
-      if (v176)
+      v184 = 0x726568746FLL;
+      if (v181)
       {
-        v179 = 0xD000000000000013;
-        v180 = 0x8000000182BD71B0;
+        v184 = 0xD000000000000013;
+        v185 = 0x8000000182BD71B0;
       }
 
       else
       {
-        v180 = 0xE500000000000000;
+        v185 = 0xE500000000000000;
       }
 
-      if (v176 <= 1)
+      if (v181 <= 1)
       {
-        v181 = v179;
+        v186 = v184;
       }
 
       else
       {
-        v181 = v178;
+        v186 = v183;
       }
 
-      if (v176 <= 1)
+      if (v181 <= 1)
       {
-        v182 = v180;
+        v187 = v185;
       }
 
       else
       {
-        v182 = v177;
+        v187 = v182;
       }
 
-      MEMORY[0x1865D9CA0](v181, v182);
+      MEMORY[0x1865D9CA0](v186, v187);
 
-      MEMORY[0x1865D9CA0](v390, *(&v390 + 1));
+      MEMORY[0x1865D9CA0](v404, *(&v404 + 1));
 
-      v173 = v393;
+      v178 = v407;
       continue;
     }
 
     break;
   }
 
-  if (sub_181AC81FC(v174))
+  if (sub_181AC81FC(v179))
   {
-    v172 = *(&v392 + 1);
-    v171 = v392;
+    v177 = *(&v406 + 1);
+    v176 = v406;
     goto LABEL_253;
   }
 
-  v45 = v384;
-  v170 = v384[4];
-  v29 = v326;
-  LOBYTE(v43) = v378;
-  v88 = v379;
-  v97 = v383;
-  v98 = v382;
-  v99 = v381;
-  v100 = v380;
-  if (v170)
+  v45 = v398;
+  v175 = v398[4];
+  v29 = v340;
+  LOBYTE(v43) = v392;
+  v88 = v393;
+  v97 = v397;
+  v98 = v396;
+  v99 = v395;
+  v100 = v394;
+  if (v175)
   {
     goto LABEL_272;
   }
 
 LABEL_344:
-  v218 = v45[5];
-  if (v218 && v218[3])
+  v228 = v45[5];
+  if (v228 && v228[3])
   {
-    v326 = v29;
+    v340 = v29;
 
     MEMORY[0x1865D9CA0](0xD000000000000015, 0x8000000182BE2C80);
-    v219 = v218[4];
-    if (v218[2] >= v218[3] + v219)
+    v229 = v228[4];
+    if (v228[2] >= v228[3] + v229)
     {
-      v220 = v218[3] + v219;
+      v230 = v228[3] + v229;
     }
 
     else
     {
-      v220 = v218[2];
+      v230 = v228[2];
     }
 
-    *&v392 = v218;
-    *(&v392 + 1) = v219;
-    *&v393 = v220;
+    *&v406 = v228;
+    *(&v406 + 1) = v229;
+    *&v407 = v230;
 
-    v222 = v218;
-    v325 = v218;
+    v232 = v228;
+    v339 = v228;
     while (1)
     {
-      if (v219 == v220)
+      if (v229 == v230)
       {
-        if ((sub_181AC81FC(v221) & 1) == 0)
+        if ((sub_181AC81FC(v231) & 1) == 0)
         {
 
-          v45 = v384;
-          v29 = v326;
-          LOBYTE(v43) = v378;
-          v88 = v379;
-          v97 = v383;
-          v98 = v382;
-          v99 = v381;
-          v100 = v380;
+          v45 = v398;
+          v29 = v340;
+          LOBYTE(v43) = v392;
+          v88 = v393;
+          v97 = v397;
+          v98 = v396;
+          v99 = v395;
+          v100 = v394;
           break;
         }
 
-        v219 = *(&v392 + 1);
-        v222 = v392;
+        v229 = *(&v406 + 1);
+        v232 = v406;
       }
 
-      v223 = v222 + v219++;
-      *(&v392 + 1) = v219;
-      v224 = v223[40];
-      *&v390 = 32;
-      *(&v390 + 1) = 0xE100000000000000;
-      v225 = 0xE90000000000006ELL;
-      v226 = 0x7365636F72706F63;
-      if (v224 == 3)
+      v233 = v232 + v229++;
+      *(&v406 + 1) = v229;
+      v234 = v233[40];
+      *&v404 = 32;
+      *(&v404 + 1) = 0xE100000000000000;
+      v235 = 0xE90000000000006ELL;
+      v236 = 0x7365636F72706F63;
+      if (v234 == 3)
       {
-        v225 = 0xEB00000000726F73;
+        v235 = 0xEB00000000726F73;
       }
 
       else
       {
-        v226 = 0x6F696E61706D6F63;
+        v236 = 0x6F696E61706D6F63;
       }
 
-      if (v224 == 2)
+      if (v234 == 2)
       {
-        v226 = 0x6477615F69666977;
-        v225 = 0xE90000000000006CLL;
+        v236 = 0x6477615F69666977;
+        v235 = 0xE90000000000006CLL;
       }
 
-      v227 = 0x726568746FLL;
-      if (v224)
+      v237 = 0x726568746FLL;
+      if (v234)
       {
-        v227 = 0xD000000000000013;
-        v228 = 0x8000000182BD71B0;
+        v237 = 0xD000000000000013;
+        v238 = 0x8000000182BD71B0;
       }
 
       else
       {
-        v228 = 0xE500000000000000;
+        v238 = 0xE500000000000000;
       }
 
-      if (v224 <= 1)
+      if (v234 <= 1)
       {
-        v229 = v227;
+        v239 = v237;
       }
 
       else
       {
-        v229 = v226;
+        v239 = v236;
       }
 
-      if (v224 <= 1)
+      if (v234 <= 1)
       {
-        v230 = v228;
+        v240 = v238;
       }
 
       else
       {
-        v230 = v225;
+        v240 = v235;
       }
 
-      MEMORY[0x1865D9CA0](v229, v230);
+      MEMORY[0x1865D9CA0](v239, v240);
 
-      MEMORY[0x1865D9CA0](v390, *(&v390 + 1));
+      MEMORY[0x1865D9CA0](v404, *(&v404 + 1));
 
-      v220 = v393;
+      v230 = v407;
     }
   }
 
-  v231 = v45[6];
-  if (v231 && v231[3])
+  v241 = v45[6];
+  if (v241 && v241[3])
   {
-    v326 = v29;
+    v340 = v29;
 
     MEMORY[0x1865D9CA0](0xD000000000000018, 0x8000000182BE2C60);
-    v232 = v231[4];
-    if (v231[2] >= v231[3] + v232)
+    v242 = v241[4];
+    if (v241[2] >= v241[3] + v242)
     {
-      v233 = v231[3] + v232;
+      v243 = v241[3] + v242;
     }
 
     else
     {
-      v233 = v231[2];
+      v243 = v241[2];
     }
 
-    *&v392 = v231;
-    *(&v392 + 1) = v232;
-    *&v393 = v233;
-    v325 = v231;
+    *&v406 = v241;
+    *(&v406 + 1) = v242;
+    *&v407 = v243;
+    v339 = v241;
 
     while (1)
     {
-      if (v232 == v233)
+      if (v242 == v243)
       {
-        v241 = sub_181AC81FC(v234);
-        v235 = v392;
-        if ((v241 & 1) == 0)
+        v251 = sub_181AC81FC(v244);
+        v245 = v406;
+        if ((v251 & 1) == 0)
         {
 
-          v45 = v384;
-          LOBYTE(v43) = v378;
-          v88 = v379;
-          v97 = v383;
-          v98 = v382;
-          v99 = v381;
-          v100 = v380;
+          v45 = v398;
+          LOBYTE(v43) = v392;
+          v88 = v393;
+          v97 = v397;
+          v98 = v396;
+          v99 = v395;
+          v100 = v394;
           break;
         }
       }
 
       else
       {
-        v235 = v392;
+        v245 = v406;
       }
 
-      v236 = *(&v392 + 1);
-      v232 = ++*(&v392 + 1);
-      v237 = *(v235 + 8 * v236 + 40);
-      *&v390 = 32;
-      *(&v390 + 1) = 0xE100000000000000;
-      v238 = v237[5];
-      v239 = v237[6];
+      v246 = *(&v406 + 1);
+      v242 = ++*(&v406 + 1);
+      v247 = *(v245 + 8 * v246 + 40);
+      *&v404 = 32;
+      *(&v404 + 1) = 0xE100000000000000;
+      v248 = v247[5];
+      v249 = v247[6];
 
-      MEMORY[0x1865D9CA0](v238, v239);
+      MEMORY[0x1865D9CA0](v248, v249);
 
       MEMORY[0x1865D9CA0](40, 0xE100000000000000);
-      v388 = v237[2];
-      v240 = sub_182AD41B8();
-      MEMORY[0x1865D9CA0](v240);
+      v402 = v247[2];
+      v250 = sub_182AD41B8();
+      MEMORY[0x1865D9CA0](v250);
 
       MEMORY[0x1865D9CA0](41, 0xE100000000000000);
-      MEMORY[0x1865D9CA0](v390, *(&v390 + 1));
+      MEMORY[0x1865D9CA0](v404, *(&v404 + 1));
 
-      v233 = v393;
+      v243 = v407;
     }
   }
 
-  v242 = v45[7];
-  if (v242 && v242[3])
+  v252 = v45[7];
+  if (v252 && v252[3])
   {
 
     MEMORY[0x1865D9CA0](0xD00000000000001CLL, 0x8000000182BE2C40);
-    v243 = v242[4];
-    if (v242[2] >= v242[3] + v243)
+    v253 = v252[4];
+    if (v252[2] >= v252[3] + v253)
     {
-      v244 = v242[3] + v243;
+      v254 = v252[3] + v253;
     }
 
     else
     {
-      v244 = v242[2];
+      v254 = v252[2];
     }
 
-    *&v390 = v242;
-    *(&v390 + 1) = v243;
-    v391 = v244;
+    *&v404 = v252;
+    *(&v404 + 1) = v253;
+    v405 = v254;
 
     while (1)
     {
-      if (v243 == v244)
+      if (v253 == v254)
       {
-        v250 = sub_181AC81FC(v245);
-        v246 = v390;
-        if ((v250 & 1) == 0)
+        v260 = sub_181AC81FC(v255);
+        v256 = v404;
+        if ((v260 & 1) == 0)
         {
 
-          v45 = v384;
-          LOBYTE(v43) = v378;
-          v88 = v379;
-          v97 = v383;
-          v98 = v382;
-          v99 = v381;
-          v100 = v380;
+          v45 = v398;
+          LOBYTE(v43) = v392;
+          v88 = v393;
+          v97 = v397;
+          v98 = v396;
+          v99 = v395;
+          v100 = v394;
           break;
         }
       }
 
       else
       {
-        v246 = v390;
+        v256 = v404;
       }
 
-      v247 = *(&v390 + 1);
-      v243 = ++*(&v390 + 1);
-      v248 = v246 + 32 * v247;
-      v388 = 32;
-      v389 = 0xE100000000000000;
-      v392 = *(v248 + 40);
-      v393 = *(v248 + 56);
-      v249 = NetworkAgentType.description.getter();
-      MEMORY[0x1865D9CA0](v249);
+      v257 = *(&v404 + 1);
+      v253 = ++*(&v404 + 1);
+      v258 = v256 + 32 * v257;
+      v402 = 32;
+      v403 = 0xE100000000000000;
+      v406 = *(v258 + 40);
+      v407 = *(v258 + 56);
+      v259 = NetworkAgentType.description.getter();
+      MEMORY[0x1865D9CA0](v259);
 
-      MEMORY[0x1865D9CA0](v388, v389);
+      MEMORY[0x1865D9CA0](v402, v403);
 
-      v244 = v391;
+      v254 = v405;
     }
   }
 
-  v251 = v45[8];
-  if (v251 && v251[3])
+  v261 = v45[8];
+  if (v261 && v261[3])
   {
 
     MEMORY[0x1865D9CA0](0xD00000000000001CLL, 0x8000000182BE2C20);
-    v252 = v251[4];
-    if (v251[2] >= v251[3] + v252)
+    v262 = v261[4];
+    if (v261[2] >= v261[3] + v262)
     {
-      v253 = v251[3] + v252;
+      v263 = v261[3] + v262;
     }
 
     else
     {
-      v253 = v251[2];
+      v263 = v261[2];
     }
 
-    *&v392 = v251;
-    *(&v392 + 1) = v252;
-    *&v393 = v253;
+    *&v406 = v261;
+    *(&v406 + 1) = v262;
+    *&v407 = v263;
 
     while (1)
     {
-      if (v252 == v253)
+      if (v262 == v263)
       {
-        v254 = sub_181AC81FC(v254);
-        if ((v254 & 1) == 0)
+        v264 = sub_181AC81FC(v265);
+        if ((v264 & 1) == 0)
         {
           break;
         }
       }
 
-      v252 = ++*(&v392 + 1);
-      *&v390 = 32;
-      *(&v390 + 1) = 0xE100000000000000;
-      *&v255 = MEMORY[0x1EEE9AC00](v254);
-      *&v308[-16] = v255;
-      v256 = sub_182AD30D8();
-      MEMORY[0x1865D9CA0](v256);
+      v262 = ++*(&v406 + 1);
+      *&v404 = 32;
+      *(&v404 + 1) = 0xE100000000000000;
+      *&v266 = MEMORY[0x1EEE9AC00](v264);
+      *&v322[-16] = v266;
+      v267 = sub_182AD30D8();
+      MEMORY[0x1865D9CA0](v267);
 
-      MEMORY[0x1865D9CA0](v390, *(&v390 + 1));
+      MEMORY[0x1865D9CA0](v404, *(&v404 + 1));
 
-      v253 = v393;
+      v263 = v407;
     }
 
-    v45 = v384;
-    LOBYTE(v43) = v378;
-    v88 = v379;
-    v97 = v383;
-    v98 = v382;
-    v99 = v381;
-    v100 = v380;
+    v45 = v398;
+    LOBYTE(v43) = v392;
+    v88 = v393;
+    v97 = v397;
+    v98 = v396;
+    v99 = v395;
+    v100 = v394;
   }
 
-  v257 = v45[9];
-  if (v257 && v257[3])
+  v268 = v45[9];
+  if (v268 && v268[3])
   {
 
     MEMORY[0x1865D9CA0](0xD00000000000001ALL, 0x8000000182BE2C00);
-    v258 = v257[4];
-    if (v257[2] >= v257[3] + v258)
+    v269 = v268[4];
+    if (v268[2] >= v268[3] + v269)
     {
-      v259 = v257[3] + v258;
+      v270 = v268[3] + v269;
     }
 
     else
     {
-      v259 = v257[2];
+      v270 = v268[2];
     }
 
-    *&v390 = v257;
-    *(&v390 + 1) = v258;
-    v391 = v259;
+    *&v404 = v268;
+    *(&v404 + 1) = v269;
+    v405 = v270;
 
     while (1)
     {
-      if (v258 == v259)
+      if (v269 == v270)
       {
-        v265 = sub_181AC81FC(v260);
-        v261 = v390;
-        if ((v265 & 1) == 0)
+        v276 = sub_181AC81FC(v271);
+        v272 = v404;
+        if ((v276 & 1) == 0)
         {
 
-          v45 = v384;
-          LOBYTE(v43) = v378;
-          v88 = v379;
-          v97 = v383;
-          v98 = v382;
-          v99 = v381;
-          v100 = v380;
+          v45 = v398;
+          LOBYTE(v43) = v392;
+          v88 = v393;
+          v97 = v397;
+          v98 = v396;
+          v99 = v395;
+          v100 = v394;
           break;
         }
       }
 
       else
       {
-        v261 = v390;
+        v272 = v404;
       }
 
-      v262 = *(&v390 + 1);
-      v258 = ++*(&v390 + 1);
-      v263 = v261 + 32 * v262;
-      v388 = 32;
-      v389 = 0xE100000000000000;
-      v392 = *(v263 + 40);
-      v393 = *(v263 + 56);
-      v264 = NetworkAgentType.description.getter();
-      MEMORY[0x1865D9CA0](v264);
+      v273 = *(&v404 + 1);
+      v269 = ++*(&v404 + 1);
+      v274 = v272 + 32 * v273;
+      v402 = 32;
+      v403 = 0xE100000000000000;
+      v406 = *(v274 + 40);
+      v407 = *(v274 + 56);
+      v275 = NetworkAgentType.description.getter();
+      MEMORY[0x1865D9CA0](v275);
 
-      MEMORY[0x1865D9CA0](v388, v389);
+      MEMORY[0x1865D9CA0](v402, v403);
 
-      v259 = v391;
+      v270 = v405;
     }
   }
 
-  v266 = v45[10];
-  if (v266 && v266[3])
+  v277 = v45[10];
+  if (v277 && v277[3])
   {
 
     MEMORY[0x1865D9CA0](0xD00000000000001ALL, 0x8000000182BE2BE0);
-    v267 = v266[4];
-    if (v266[2] >= v266[3] + v267)
+    v278 = v277[4];
+    if (v277[2] >= v277[3] + v278)
     {
-      v268 = v266[3] + v267;
+      v279 = v277[3] + v278;
     }
 
     else
     {
-      v268 = v266[2];
+      v279 = v277[2];
     }
 
-    *&v392 = v266;
-    *(&v392 + 1) = v267;
-    *&v393 = v268;
+    *&v406 = v277;
+    *(&v406 + 1) = v278;
+    *&v407 = v279;
 
     while (1)
     {
-      if (v267 == v268)
+      if (v278 == v279)
       {
-        v269 = sub_181AC81FC(v269);
-        if ((v269 & 1) == 0)
+        v280 = sub_181AC81FC(v281);
+        if ((v280 & 1) == 0)
         {
           break;
         }
       }
 
-      v267 = ++*(&v392 + 1);
-      *&v390 = 32;
-      *(&v390 + 1) = 0xE100000000000000;
-      *&v270 = MEMORY[0x1EEE9AC00](v269);
-      *&v308[-16] = v270;
-      v271 = sub_182AD30D8();
-      MEMORY[0x1865D9CA0](v271);
+      v278 = ++*(&v406 + 1);
+      *&v404 = 32;
+      *(&v404 + 1) = 0xE100000000000000;
+      *&v282 = MEMORY[0x1EEE9AC00](v280);
+      *&v322[-16] = v282;
+      v283 = sub_182AD30D8();
+      MEMORY[0x1865D9CA0](v283);
 
-      MEMORY[0x1865D9CA0](v390, *(&v390 + 1));
+      MEMORY[0x1865D9CA0](v404, *(&v404 + 1));
 
-      v268 = v393;
+      v279 = v407;
     }
 
-    v45 = v384;
-    LOBYTE(v43) = v378;
-    v88 = v379;
-    v97 = v383;
-    v98 = v382;
-    v99 = v381;
-    v100 = v380;
+    v45 = v398;
+    LOBYTE(v43) = v392;
+    v88 = v393;
+    v97 = v397;
+    v98 = v396;
+    v99 = v395;
+    v100 = v394;
   }
 
-  v272 = v45[11];
-  if (!v272 || !v272[3])
+  v284 = v45[11];
+  if (!v284 || !v284[3])
   {
-    v114 = v363;
-    v113 = v364;
-    v116 = v361;
-    v115 = v362;
-    v118 = v359;
-    v117 = v360;
-    v120 = v357;
-    v119 = v358;
-    v121 = v343;
-    v122 = v344;
-    v124 = v341;
-    v123 = v342;
-    v95 = v352;
+    v114 = v377;
+    v113 = v378;
+    v116 = v375;
+    v115 = v376;
+    v118 = v373;
+    v117 = v374;
+    v120 = v371;
+    v119 = v372;
+    v121 = v357;
+    v122 = v358;
+    v124 = v355;
+    v123 = v356;
+    v95 = v366;
     goto LABEL_435;
   }
 
   MEMORY[0x1865D9CA0](0xD00000000000001BLL, 0x8000000182BE2BC0);
-  v273 = v272[4];
-  if (v272[2] >= v272[3] + v273)
+  v285 = v284[4];
+  if (v284[2] >= v284[3] + v285)
   {
-    v274 = v272[3] + v273;
+    v286 = v284[3] + v285;
   }
 
   else
   {
-    v274 = v272[2];
+    v286 = v284[2];
   }
 
-  *&v390 = v272;
-  *(&v390 + 1) = v273;
-  v391 = v274;
+  *&v404 = v284;
+  *(&v404 + 1) = v285;
+  v405 = v286;
 
   while (2)
   {
-    if (v273 != v274)
+    if (v285 != v286)
     {
-      v276 = v390;
+      v288 = v404;
 LABEL_429:
-      v277 = *(&v390 + 1);
-      v273 = ++*(&v390 + 1);
-      v278 = v276 + 32 * v277;
-      v388 = 32;
-      v389 = 0xE100000000000000;
-      v392 = *(v278 + 40);
-      v393 = *(v278 + 56);
-      v279 = NetworkAgentType.description.getter();
-      MEMORY[0x1865D9CA0](v279);
+      v289 = *(&v404 + 1);
+      v285 = ++*(&v404 + 1);
+      v290 = v288 + 32 * v289;
+      v402 = 32;
+      v403 = 0xE100000000000000;
+      v406 = *(v290 + 40);
+      v407 = *(v290 + 56);
+      v291 = NetworkAgentType.description.getter();
+      MEMORY[0x1865D9CA0](v291);
 
-      MEMORY[0x1865D9CA0](v388, v389);
+      MEMORY[0x1865D9CA0](v402, v403);
 
-      v274 = v391;
+      v286 = v405;
       continue;
     }
 
     break;
   }
 
-  v280 = sub_181AC81FC(v275);
-  v276 = v390;
-  if (v280)
+  v292 = sub_181AC81FC(v287);
+  v288 = v404;
+  if (v292)
   {
     goto LABEL_429;
   }
 
-  v45 = v384;
-  v114 = v363;
-  v113 = v364;
-  v116 = v361;
-  v115 = v362;
-  v118 = v359;
-  v117 = v360;
-  v120 = v357;
-  v119 = v358;
-  v121 = v343;
-  v122 = v344;
-  v124 = v341;
-  v123 = v342;
-  LOBYTE(v43) = v378;
-  v88 = v379;
-  v95 = v352;
+  v45 = v398;
+  v114 = v377;
+  v113 = v378;
+  v116 = v375;
+  v115 = v376;
+  v118 = v373;
+  v117 = v374;
+  v120 = v371;
+  v119 = v372;
+  v121 = v357;
+  v122 = v358;
+  v124 = v355;
+  v123 = v356;
+  LOBYTE(v43) = v392;
+  v88 = v393;
+  v95 = v366;
 LABEL_433:
-  v97 = v383;
-  v98 = v382;
-  v99 = v381;
-  v100 = v380;
+  v97 = v397;
+  v98 = v396;
+  v99 = v395;
+  v100 = v394;
 LABEL_435:
-  LOBYTE(v392) = v350;
-  BYTE1(v392) = v349;
-  BYTE2(v392) = v348;
-  BYTE3(v392) = v347;
-  BYTE4(v392) = v346;
-  BYTE5(v392) = v345;
-  BYTE6(v392) = v377;
-  BYTE7(v392) = v376;
-  BYTE8(v392) = v375;
-  BYTE9(v392) = v374;
-  BYTE10(v392) = v373;
-  BYTE11(v392) = v372;
-  BYTE12(v392) = v371;
-  BYTE13(v392) = v370;
-  BYTE14(v392) = v369;
-  HIBYTE(v392) = v368;
-  LOBYTE(v393) = v113;
-  BYTE1(v393) = v114;
-  BYTE2(v393) = v115;
-  BYTE3(v393) = v116;
-  BYTE4(v393) = v117;
-  BYTE5(v393) = v118;
-  BYTE6(v393) = v119;
-  BYTE7(v393) = v120;
-  BYTE8(v393) = v122;
-  BYTE9(v393) = v121;
-  BYTE10(v393) = v123;
-  BYTE11(v393) = v124;
-  BYTE12(v393) = v97;
-  BYTE13(v393) = v98;
-  BYTE14(v393) = v99;
-  HIBYTE(v393) = v100;
-  v394 = v330;
-  v395 = v329;
-  v396 = v433;
-  *v397 = v432[0];
-  *&v397[3] = *(v432 + 3);
-  v398 = v331;
-  v399 = v431;
-  v400 = v429;
-  v401 = v430;
-  v402 = v356;
-  v403 = v355;
-  v404 = v354;
-  v405 = v88;
-  v406 = v339;
-  v407 = v43;
-  v408 = v340;
-  v409 = v338;
-  v410 = v337;
-  v411 = v336;
-  v412 = v387;
-  v413 = v328;
-  v414 = v367;
-  v415 = v385;
-  v416 = v386;
-  v417 = v327;
-  v418 = v45;
-  v419 = v334;
-  v420 = v366;
-  v421 = v333;
-  v422 = v365;
-  v423 = v332;
-  v424 = v95;
-  v425 = v353;
-  v426 = v351;
-  v427 = v335;
-  v281 = sub_1822696A8();
-  if (v281)
+  LOBYTE(v406) = v364;
+  BYTE1(v406) = v363;
+  BYTE2(v406) = v362;
+  BYTE3(v406) = v361;
+  BYTE4(v406) = v360;
+  BYTE5(v406) = v359;
+  BYTE6(v406) = v391;
+  BYTE7(v406) = v390;
+  BYTE8(v406) = v389;
+  BYTE9(v406) = v388;
+  BYTE10(v406) = v387;
+  BYTE11(v406) = v386;
+  BYTE12(v406) = v385;
+  BYTE13(v406) = v384;
+  BYTE14(v406) = v383;
+  HIBYTE(v406) = v382;
+  LOBYTE(v407) = v113;
+  BYTE1(v407) = v114;
+  BYTE2(v407) = v115;
+  BYTE3(v407) = v116;
+  BYTE4(v407) = v117;
+  BYTE5(v407) = v118;
+  BYTE6(v407) = v119;
+  BYTE7(v407) = v120;
+  BYTE8(v407) = v122;
+  BYTE9(v407) = v121;
+  BYTE10(v407) = v123;
+  BYTE11(v407) = v124;
+  BYTE12(v407) = v97;
+  BYTE13(v407) = v98;
+  BYTE14(v407) = v99;
+  HIBYTE(v407) = v100;
+  v408 = v344;
+  v409 = v343;
+  v410 = v447;
+  *v411 = v446[0];
+  *&v411[3] = *(v446 + 3);
+  v412 = v345;
+  v413 = v445;
+  v414 = v443;
+  v415 = v444;
+  v416 = v370;
+  v417 = v369;
+  v418 = v368;
+  v419 = v88;
+  v420 = v353;
+  v421 = v43;
+  v422 = v354;
+  v423 = v352;
+  v424 = v351;
+  v425 = v350;
+  v426 = v401;
+  v427 = v342;
+  v428 = v381;
+  v429 = v399;
+  v430 = v400;
+  v431 = v341;
+  v432 = v45;
+  v433 = v348;
+  v434 = v380;
+  v435 = v347;
+  v436 = v379;
+  v437 = v346;
+  v438 = v95;
+  v439 = v367;
+  v440 = v365;
+  v441 = v349;
+  sub_1822696A8();
+  if (v293)
   {
-    v282 = v281;
-    if (*(v281 + 24))
+    v294 = v293;
+    if (v293[3])
     {
       MEMORY[0x1865D9CA0](0xD00000000000001BLL, 0x8000000182BE2BA0);
-      v283 = v282[4];
-      if (v282[2] >= v282[3] + v283)
+      v295 = v294[4];
+      if (v294[2] >= v294[3] + v295)
       {
-        v284 = v282[3] + v283;
+        v296 = v294[3] + v295;
       }
 
       else
       {
-        v284 = v282[2];
+        v296 = v294[2];
       }
 
-      *&v392 = v282;
-      *(&v392 + 1) = v283;
-      *&v393 = v284;
+      *&v406 = v294;
+      *(&v406 + 1) = v295;
+      *&v407 = v296;
 
       while (1)
       {
-        if (v283 == v284)
+        if (v295 == v296)
         {
-          v285 = sub_181AC81FC(v285);
-          if ((v285 & 1) == 0)
+          v297 = sub_181AC81FC(v298);
+          if ((v297 & 1) == 0)
           {
             break;
           }
         }
 
-        v283 = ++*(&v392 + 1);
-        *&v390 = 32;
-        *(&v390 + 1) = 0xE100000000000000;
-        *&v286 = MEMORY[0x1EEE9AC00](v285);
-        *&v308[-16] = v286;
-        v287 = sub_182AD30D8();
-        MEMORY[0x1865D9CA0](v287);
+        v295 = ++*(&v406 + 1);
+        *&v404 = 32;
+        *(&v404 + 1) = 0xE100000000000000;
+        *&v299 = MEMORY[0x1EEE9AC00](v297);
+        *&v322[-16] = v299;
+        v300 = sub_182AD30D8();
+        MEMORY[0x1865D9CA0](v300);
 
-        MEMORY[0x1865D9CA0](v390, *(&v390 + 1));
+        MEMORY[0x1865D9CA0](v404, *(&v404 + 1));
 
-        v284 = v393;
+        v296 = v407;
       }
 
-      v45 = v384;
+      v45 = v398;
       goto LABEL_445;
     }
 
@@ -11630,112 +11635,112 @@ LABEL_445:
     }
   }
 
-  v288 = v45[13];
-  if (!v288 || !v288[3])
+  v301 = v45[13];
+  if (!v301 || !v301[3])
   {
     goto LABEL_457;
   }
 
   MEMORY[0x1865D9CA0](0xD000000000000019, 0x8000000182BE2B80);
-  v289 = v288[4];
-  if (v288[2] >= v288[3] + v289)
+  v302 = v301[4];
+  if (v301[2] >= v301[3] + v302)
   {
-    v290 = v288[3] + v289;
+    v303 = v301[3] + v302;
   }
 
   else
   {
-    v290 = v288[2];
+    v303 = v301[2];
   }
 
-  *&v390 = v288;
-  *(&v390 + 1) = v289;
-  v391 = v290;
+  *&v404 = v301;
+  *(&v404 + 1) = v302;
+  v405 = v303;
 
   while (2)
   {
-    if (v289 != v290)
+    if (v302 != v303)
     {
-      v292 = v390;
+      v305 = v404;
 LABEL_453:
-      v293 = *(&v390 + 1);
-      v289 = ++*(&v390 + 1);
-      v294 = v292 + 32 * v293;
-      v388 = 32;
-      v389 = 0xE100000000000000;
-      v392 = *(v294 + 40);
-      v393 = *(v294 + 56);
-      v295 = NetworkAgentType.description.getter();
-      MEMORY[0x1865D9CA0](v295);
+      v306 = *(&v404 + 1);
+      v302 = ++*(&v404 + 1);
+      v307 = v305 + 32 * v306;
+      v402 = 32;
+      v403 = 0xE100000000000000;
+      v406 = *(v307 + 40);
+      v407 = *(v307 + 56);
+      v308 = NetworkAgentType.description.getter();
+      MEMORY[0x1865D9CA0](v308);
 
-      MEMORY[0x1865D9CA0](v388, v389);
+      MEMORY[0x1865D9CA0](v402, v403);
 
-      v290 = v391;
+      v303 = v405;
       continue;
     }
 
     break;
   }
 
-  v296 = sub_181AC81FC(v291);
-  v292 = v390;
-  if (v296)
+  v309 = sub_181AC81FC(v304);
+  v305 = v404;
+  if (v309)
   {
     goto LABEL_453;
   }
 
-  v45 = v384;
+  v45 = v398;
 LABEL_457:
-  v297 = v45[14];
-  if (v297 && v297[3])
+  v310 = v45[14];
+  if (v310 && v310[3])
   {
 
     MEMORY[0x1865D9CA0](0xD000000000000019, 0x8000000182BE2B60);
-    v298 = v297[4];
-    if (v297[2] >= v297[3] + v298)
+    v311 = v310[4];
+    if (v310[2] >= v310[3] + v311)
     {
-      v299 = v297[3] + v298;
+      v312 = v310[3] + v311;
     }
 
     else
     {
-      v299 = v297[2];
+      v312 = v310[2];
     }
 
-    *&v392 = v297;
-    *(&v392 + 1) = v298;
-    *&v393 = v299;
+    *&v406 = v310;
+    *(&v406 + 1) = v311;
+    *&v407 = v312;
 
     while (1)
     {
-      if (v298 == v299)
+      if (v311 == v312)
       {
-        v300 = sub_181AC81FC(v300);
-        if ((v300 & 1) == 0)
+        v313 = sub_181AC81FC(v314);
+        if ((v313 & 1) == 0)
         {
           break;
         }
       }
 
-      v298 = ++*(&v392 + 1);
-      *&v390 = 32;
-      *(&v390 + 1) = 0xE100000000000000;
-      *&v301 = MEMORY[0x1EEE9AC00](v300);
-      *&v308[-16] = v301;
-      v302 = sub_182AD30D8();
-      MEMORY[0x1865D9CA0](v302);
+      v311 = ++*(&v406 + 1);
+      *&v404 = 32;
+      *(&v404 + 1) = 0xE100000000000000;
+      *&v315 = MEMORY[0x1EEE9AC00](v313);
+      *&v322[-16] = v315;
+      v316 = sub_182AD30D8();
+      MEMORY[0x1865D9CA0](v316);
 
-      MEMORY[0x1865D9CA0](v390, *(&v390 + 1));
+      MEMORY[0x1865D9CA0](v404, *(&v404 + 1));
 
-      v299 = v393;
+      v312 = v407;
     }
   }
 
 LABEL_468:
-  if (v351 && *(v351 + 48) >= 2uLL)
+  if (v365 && *(v365 + 48) >= 2uLL)
   {
     MEMORY[0x1865D9CA0](0xD000000000000013, 0x8000000182BE2B40);
   }
 
-  return v428;
+  return v442;
 }

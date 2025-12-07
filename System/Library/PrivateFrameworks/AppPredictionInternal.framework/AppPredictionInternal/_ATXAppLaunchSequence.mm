@@ -1,4 +1,6 @@
 @interface _ATXAppLaunchSequence
+- (_ATXAppLaunchSequence)initWithPreviousAppActionLaunch:(id)launch dataStore:(id)store allowSimulatedCrashes:(BOOL)crashes;
+- (_ATXAppLaunchSequence)initWithPreviousLaunch:(id)launch dataStore:(id)store allowSimulatedCrashes:(BOOL)crashes;
 - (_ATXAppLaunchSequence)initWithPreviousLaunch:(id)launch subsequentLaunchCounts:(id)counts dataStore:(id)store allowSimulatedCrashes:(BOOL)crashes launchType:(int)type;
 - (double)launchCount:(id)count;
 - (double)likelihoodForLaunch:(id)launch;
@@ -22,13 +24,11 @@
     launchType = self->_launchType;
     if (launchType == 1)
     {
-      previousLaunch = self->_previousLaunch;
       [_ATXDataStore writeAppActionLaunches:"writeAppActionLaunches:followingAppAction:" followingAppAction:?];
     }
 
     else if (!launchType)
     {
-      v3 = self->_previousLaunch;
       [_ATXDataStore writeLaunches:"writeLaunches:followingBundle:" followingBundle:?];
     }
   }
@@ -42,27 +42,38 @@
   [(_ATXAppLaunchSequence *)&v3 dealloc];
 }
 
+- (_ATXAppLaunchSequence)initWithPreviousLaunch:(id)launch dataStore:(id)store allowSimulatedCrashes:(BOOL)crashes
+{
+  crashesCopy = crashes;
+  storeCopy = store;
+  launchCopy = launch;
+  v10 = [storeCopy loadLaunchesFollowingBundle:launchCopy];
+  v11 = [(_ATXAppLaunchSequence *)self initWithPreviousLaunch:launchCopy subsequentLaunchCounts:v10 dataStore:storeCopy allowSimulatedCrashes:crashesCopy launchType:0];
+
+  return v11;
+}
+
 - (_ATXAppLaunchSequence)initWithPreviousLaunch:(id)launch subsequentLaunchCounts:(id)counts dataStore:(id)store allowSimulatedCrashes:(BOOL)crashes launchType:(int)type
 {
   crashesCopy = crashes;
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   launchCopy = launch;
   countsCopy = counts;
   storeCopy = store;
-  v40.receiver = self;
-  v40.super_class = _ATXAppLaunchSequence;
-  v16 = [(_ATXAppLaunchSequence *)&v40 init];
+  v39.receiver = self;
+  v39.super_class = _ATXAppLaunchSequence;
+  v16 = [(_ATXAppLaunchSequence *)&v39 init];
   v17 = v16;
   if (!v16)
   {
     goto LABEL_17;
   }
 
-  v34 = storeCopy;
+  v33 = storeCopy;
   v16->_launchType = type;
   objc_storeStrong(&v16->_previousLaunch, launch);
   objc_storeStrong(&v17->_datastore, store);
-  v35 = countsCopy;
+  v34 = countsCopy;
   v18 = [countsCopy mutableCopy];
   subsequentLaunchCountMap = v17->_subsequentLaunchCountMap;
   v17->_subsequentLaunchCountMap = v18;
@@ -71,29 +82,29 @@
   pthread_rwlock_init(&v17->_rwlock, 0);
   v20 = objc_opt_new();
   v17->_subsequentLaunchTotalCount = 0.0;
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
   v37 = 0u;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
   v21 = v17->_subsequentLaunchCountMap;
-  v22 = [(NSMutableDictionary *)v21 countByEnumeratingWithState:&v36 objects:v41 count:16];
+  v22 = [(NSMutableDictionary *)v21 countByEnumeratingWithState:&v35 objects:v40 count:16];
   if (!v22)
   {
     goto LABEL_14;
   }
 
   v23 = v22;
-  v24 = *v37;
+  v24 = *v36;
   do
   {
     for (i = 0; i != v23; ++i)
     {
-      if (*v37 != v24)
+      if (*v36 != v24)
       {
         objc_enumerationMutation(v21);
       }
 
-      v26 = *(*(&v36 + 1) + 8 * i);
+      v26 = *(*(&v35 + 1) + 8 * i);
       v27 = [(NSMutableDictionary *)v17->_subsequentLaunchCountMap objectForKeyedSubscript:v26];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
@@ -118,7 +129,7 @@
 LABEL_12:
     }
 
-    v23 = [(NSMutableDictionary *)v21 countByEnumeratingWithState:&v36 objects:v41 count:16];
+    v23 = [(NSMutableDictionary *)v21 countByEnumeratingWithState:&v35 objects:v40 count:16];
   }
 
   while (v23);
@@ -133,12 +144,22 @@ LABEL_14:
     [(_ATXAppLaunchSequence *)v17 save];
   }
 
-  countsCopy = v35;
-  storeCopy = v34;
+  countsCopy = v34;
+  storeCopy = v33;
 LABEL_17:
 
-  v32 = *MEMORY[0x277D85DE8];
   return v17;
+}
+
+- (_ATXAppLaunchSequence)initWithPreviousAppActionLaunch:(id)launch dataStore:(id)store allowSimulatedCrashes:(BOOL)crashes
+{
+  crashesCopy = crashes;
+  storeCopy = store;
+  launchCopy = launch;
+  v10 = [storeCopy loadAppActionLaunchesFollowing:launchCopy];
+  v11 = [(_ATXAppLaunchSequence *)self initWithPreviousAppActionLaunch:launchCopy subsequentAppActionLaunchCounts:v10 dataStore:storeCopy allowSimulatedCrashes:crashesCopy];
+
+  return v11;
 }
 
 - (void)addSubsequentLaunch:(id)launch
@@ -175,34 +196,34 @@ LABEL_17:
 
 - (void)deleteDataForLaunches:(id)launches
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   launchesCopy = launches;
   pthread_rwlock_wrlock(&self->_rwlock);
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v5 = launchesCopy;
-  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [(_ATXAppLaunchSequence *)self _deleteDataForLaunchLocked:*(*(&v11 + 1) + 8 * v9++), v11];
+        [(_ATXAppLaunchSequence *)self _deleteDataForLaunchLocked:*(*(&v10 + 1) + 8 * v9++), v10];
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
@@ -210,8 +231,6 @@ LABEL_17:
 
   [(_ATXAppLaunchSequence *)self save];
   pthread_rwlock_unlock(&self->_rwlock);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_deleteDataForLaunchLocked:(id)locked
@@ -266,31 +285,31 @@ LABEL_17:
 
 - (void)decayByFactor:(double)factor
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   pthread_rwlock_wrlock(&self->_rwlock);
   if (!self->_previousAppDeleted)
   {
     v5 = objc_autoreleasePoolPush();
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     allKeys = [(NSMutableDictionary *)self->_subsequentLaunchCountMap allKeys];
-    v7 = [allKeys countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v7 = [allKeys countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v18;
+      v9 = *v17;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v18 != v9)
+          if (*v17 != v9)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v11 = *(*(&v17 + 1) + 8 * i);
+          v11 = *(*(&v16 + 1) + 8 * i);
           v12 = [(NSMutableDictionary *)self->_subsequentLaunchCountMap objectForKeyedSubscript:v11];
           [v12 doubleValue];
           v14 = v13;
@@ -299,7 +318,7 @@ LABEL_17:
           [(NSMutableDictionary *)self->_subsequentLaunchCountMap setObject:factor forKeyedSubscript:v11];
         }
 
-        v8 = [allKeys countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v8 = [allKeys countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v8);
@@ -311,7 +330,6 @@ LABEL_17:
   }
 
   pthread_rwlock_unlock(&self->_rwlock);
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)decayWithHalfLifeInDays:(double)days

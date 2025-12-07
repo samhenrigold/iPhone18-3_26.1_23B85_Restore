@@ -26,51 +26,50 @@
 
 - (void)handleSampleBuffer:(opaqueCMSampleBuffer *)buffer
 {
-  memset(&v20, 0, sizeof(v20));
-  CMSampleBufferGetPresentationTimeStamp(&v20, buffer);
-  if ((v20.flags & 1) == 0)
+  memset(&v18, 0, sizeof(v18));
+  CMSampleBufferGetPresentationTimeStamp(&v18, buffer);
+  if ((v18.flags & 1) == 0)
   {
-    v10 = MEMORY[0x277CBEAD8];
-    v11 = *MEMORY[0x277CBE658];
-    v12 = MEMORY[0x277CCACA8];
-    time = v20;
-    v13 = CMTimeCopyDescription(0, &time);
-    v14 = [v12 stringWithFormat:@"Sample buffer has an invalid presentation time stamp: %@", v13];
-    v15 = [v10 exceptionWithName:v11 reason:v14 userInfo:0];
-    v16 = v15;
+    v9 = MEMORY[0x277CBEAD8];
+    v10 = MEMORY[0x277CCACA8];
+    time = v18;
+    v11 = CMTimeCopyDescription(0, &time);
+    v12 = [v10 stringWithFormat:v11];
+    v13 = [v9 exceptionWithName:? reason:? userInfo:?];
+    v14 = v13;
 
-    objc_exception_throw(v15);
+    objc_exception_throw(v13);
   }
 
   p_firstPTS = &self->_firstPTS;
   if ((self->_firstPTS.flags & 1) == 0)
   {
-    *&p_firstPTS->value = *&v20.value;
-    self->_firstPTS.epoch = v20.epoch;
+    *&p_firstPTS->value = *&v18.value;
+    self->_firstPTS.epoch = v18.epoch;
   }
 
-  lhs = v20;
+  lhs = v18;
   *&rhs.value = *&p_firstPTS->value;
   rhs.epoch = self->_firstPTS.epoch;
   CMTimeSubtract(&time, &lhs, &rhs);
   lhs = self->_interval;
-  v6 = CMTimeDivide();
+  v5 = CMTimeDivide();
   lastSampledIntervalIndex = self->_lastSampledIntervalIndex;
   delegate = [(HMIVideoFrameSampler *)self delegate];
-  v9 = delegate;
-  if (v6 <= lastSampledIntervalIndex)
+  v8 = delegate;
+  if (v5 <= lastSampledIntervalIndex)
   {
     if (objc_opt_respondsToSelector())
     {
-      [v9 frameSampler:self didDropFrame:buffer];
+      [v8 frameSampler:? didDropFrame:?];
     }
   }
 
   else
   {
-    [delegate frameSampler:self didSampleFrame:buffer];
+    [delegate frameSampler:? didSampleFrame:?];
 
-    self->_lastSampledIntervalIndex = v6;
+    self->_lastSampledIntervalIndex = v5;
   }
 }
 

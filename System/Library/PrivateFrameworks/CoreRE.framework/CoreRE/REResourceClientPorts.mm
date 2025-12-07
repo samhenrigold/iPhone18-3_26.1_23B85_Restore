@@ -10,9 +10,9 @@
 
 - (REResourceClientPorts)init
 {
-  v8.receiver = self;
-  v8.super_class = REResourceClientPorts;
-  v2 = [(REResourceClientPorts *)&v8 init];
+  v9.receiver = self;
+  v9.super_class = REResourceClientPorts;
+  v2 = [(REResourceClientPorts *)&v9 init];
   v3 = v2;
   if (!v2)
   {
@@ -20,13 +20,14 @@
   }
 
   v2->_taskIdentifierToken = 0;
-  if (!task_create_identity_token(*MEMORY[0x1E69E9A60], &v2->_taskIdentifierToken))
+  identity_token = task_create_identity_token(*MEMORY[0x1E69E9A60], &v2->_taskIdentifierToken);
+  if (!identity_token)
   {
     return v3;
   }
 
-  v5 = abort_report_np();
-  return [(REResourceClientPorts *)v5 initWithCoder:v6, v7];
+  v6 = abort_report_np("The task cannot get its own task identifier port, the task may be corrupt. %d", identity_token);
+  return [(REResourceClientPorts *)v6 initWithCoder:v7, v8];
 }
 
 - (REResourceClientPorts)initWithCoder:(id)coder
@@ -49,7 +50,7 @@
 
   else
   {
-    v8 = abort_report_np();
+    v8 = abort_report_np("This object may only be decoded by an NSXPCCoder.");
     [(REResourceClientPorts *)v8 dealloc];
   }
 
@@ -81,7 +82,7 @@
 
   else
   {
-    v4 = abort_report_np();
+    v4 = abort_report_np("This object may only be encoded by an NSXPCCoder.");
     [(REResourceClientPorts *)v4 description];
   }
 }

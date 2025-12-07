@@ -44,29 +44,29 @@
   [v8 setObject:timestamp forKeyedSubscript:0x1F29BE1A0];
   [v8 setObject:&unk_1F29D51E0 forKeyedSubscript:0x1F29BE1C0];
   v18 = +[SKServiceBroker defaultBroker];
-  v29[0] = MEMORY[0x1E69E9820];
-  v29[1] = 3221225472;
-  v29[2] = __49__SKAdNetwork_startImpression_completionHandler___block_invoke;
-  v29[3] = &__block_descriptor_40_e17_v16__0__NSError_8l;
-  v29[4] = self;
-  v19 = [v18 storeKitSynchronousServiceWithErrorHandler:v29];
+  v30[0] = MEMORY[0x1E69E9820];
+  v30[1] = 3221225472;
+  v30[2] = __49__SKAdNetwork_startImpression_completionHandler___block_invoke;
+  v30[3] = &__block_descriptor_40_e17_v16__0__NSError_8l;
+  v30[4] = self;
+  v19 = [v18 storeKitSynchronousServiceWithErrorHandler:v30];
 
-  v20 = _SKAdNetworkGetImpressionQueue();
+  v21 = _SKAdNetworkGetImpressionQueue(v20);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __49__SKAdNetwork_startImpression_completionHandler___block_invoke_34;
   block[3] = &unk_1E7B27FD8;
-  v25 = v19;
-  v26 = v8;
-  v27 = v6;
+  v26 = v19;
+  v27 = v8;
+  v28 = v6;
   selfCopy = self;
-  v21 = v6;
-  v22 = v8;
-  v23 = v19;
-  dispatch_async(v20, block);
+  v22 = v6;
+  v23 = v8;
+  v24 = v19;
+  dispatch_async(v21, block);
 }
 
-void __49__SKAdNetwork_startImpression_completionHandler___block_invoke()
+void __49__SKAdNetwork_startImpression_completionHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
@@ -149,29 +149,29 @@ void __49__SKAdNetwork_startImpression_completionHandler___block_invoke_2(uint64
   [v8 setObject:timestamp forKeyedSubscript:0x1F29BE1A0];
   [v8 setObject:&unk_1F29D51E0 forKeyedSubscript:0x1F29BE1C0];
   v18 = +[SKServiceBroker defaultBroker];
-  v29[0] = MEMORY[0x1E69E9820];
-  v29[1] = 3221225472;
-  v29[2] = __47__SKAdNetwork_endImpression_completionHandler___block_invoke;
-  v29[3] = &__block_descriptor_40_e17_v16__0__NSError_8l;
-  v29[4] = self;
-  v19 = [v18 storeKitSynchronousServiceWithErrorHandler:v29];
+  v30[0] = MEMORY[0x1E69E9820];
+  v30[1] = 3221225472;
+  v30[2] = __47__SKAdNetwork_endImpression_completionHandler___block_invoke;
+  v30[3] = &__block_descriptor_40_e17_v16__0__NSError_8l;
+  v30[4] = self;
+  v19 = [v18 storeKitSynchronousServiceWithErrorHandler:v30];
 
-  v20 = _SKAdNetworkGetImpressionQueue();
+  v21 = _SKAdNetworkGetImpressionQueue(v20);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __47__SKAdNetwork_endImpression_completionHandler___block_invoke_36;
   block[3] = &unk_1E7B27FD8;
-  v25 = v19;
-  v26 = v8;
-  v27 = v6;
+  v26 = v19;
+  v27 = v8;
+  v28 = v6;
   selfCopy = self;
-  v21 = v6;
-  v22 = v8;
-  v23 = v19;
-  dispatch_async(v20, block);
+  v22 = v6;
+  v23 = v8;
+  v24 = v19;
+  dispatch_async(v21, block);
 }
 
-void __47__SKAdNetwork_endImpression_completionHandler___block_invoke()
+void __47__SKAdNetwork_endImpression_completionHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
@@ -246,7 +246,7 @@ void __49__SKAdNetwork_registerAppForAdNetworkAttribution__block_invoke(uint64_t
   [v3 registerForInstallAttribution];
 }
 
-void __49__SKAdNetwork_registerAppForAdNetworkAttribution__block_invoke_2()
+void __49__SKAdNetwork_registerAppForAdNetworkAttribution__block_invoke_2(uint64_t a1, uint64_t a2)
 {
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
@@ -268,7 +268,7 @@ void __49__SKAdNetwork_registerAppForAdNetworkAttribution__block_invoke_2()
   [v6 updateConversionValue:v7];
 }
 
-void __37__SKAdNetwork_updateConversionValue___block_invoke()
+void __37__SKAdNetwork_updateConversionValue___block_invoke(uint64_t a1, uint64_t a2)
 {
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
@@ -280,28 +280,28 @@ void __37__SKAdNetwork_updateConversionValue___block_invoke()
 {
   v6 = completion;
   v7 = +[SKServiceBroker defaultBroker];
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __63__SKAdNetwork_updatePostbackConversionValue_completionHandler___block_invoke;
-  v17[3] = &__block_descriptor_40_e17_v16__0__NSError_8l;
-  v17[4] = self;
-  v8 = [v7 storeKitSynchronousServiceWithErrorHandler:v17];
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __63__SKAdNetwork_updatePostbackConversionValue_completionHandler___block_invoke;
+  v18[3] = &__block_descriptor_40_e17_v16__0__NSError_8l;
+  v18[4] = self;
+  v8 = [v7 storeKitSynchronousServiceWithErrorHandler:v18];
 
-  v9 = _SKAdNetworkGetImpressionQueue();
+  v10 = _SKAdNetworkGetImpressionQueue(v9);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __63__SKAdNetwork_updatePostbackConversionValue_completionHandler___block_invoke_39;
   block[3] = &unk_1E7B28000;
-  v15 = conversionValue;
+  v16 = conversionValue;
   selfCopy = self;
-  v13 = v8;
-  v14 = v6;
-  v10 = v6;
-  v11 = v8;
-  dispatch_async(v9, block);
+  v14 = v8;
+  v15 = v6;
+  v11 = v6;
+  v12 = v8;
+  dispatch_async(v10, block);
 }
 
-void __63__SKAdNetwork_updatePostbackConversionValue_completionHandler___block_invoke()
+void __63__SKAdNetwork_updatePostbackConversionValue_completionHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
@@ -342,30 +342,30 @@ void __63__SKAdNetwork_updatePostbackConversionValue_completionHandler___block_i
   v8 = coarseValue;
   v9 = completion;
   v10 = +[SKServiceBroker defaultBroker];
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = __75__SKAdNetwork_updatePostbackConversionValue_coarseValue_completionHandler___block_invoke;
-  v22[3] = &__block_descriptor_40_e17_v16__0__NSError_8l;
-  v22[4] = self;
-  v11 = [v10 storeKitSynchronousServiceWithErrorHandler:v22];
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __75__SKAdNetwork_updatePostbackConversionValue_coarseValue_completionHandler___block_invoke;
+  v23[3] = &__block_descriptor_40_e17_v16__0__NSError_8l;
+  v23[4] = self;
+  v11 = [v10 storeKitSynchronousServiceWithErrorHandler:v23];
 
-  v12 = _SKAdNetworkGetImpressionQueue();
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __75__SKAdNetwork_updatePostbackConversionValue_coarseValue_completionHandler___block_invoke_40;
-  v16[3] = &unk_1E7B28028;
-  v17 = v11;
-  v18 = v8;
-  v20 = fineValue;
+  v13 = _SKAdNetworkGetImpressionQueue(v12);
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __75__SKAdNetwork_updatePostbackConversionValue_coarseValue_completionHandler___block_invoke_40;
+  v17[3] = &unk_1E7B28028;
+  v18 = v11;
+  v19 = v8;
+  v21 = fineValue;
   selfCopy = self;
-  v19 = v9;
-  v13 = v9;
-  v14 = v8;
-  v15 = v11;
-  dispatch_async(v12, v16);
+  v20 = v9;
+  v14 = v9;
+  v15 = v8;
+  v16 = v11;
+  dispatch_async(v13, v17);
 }
 
-void __75__SKAdNetwork_updatePostbackConversionValue_coarseValue_completionHandler___block_invoke()
+void __75__SKAdNetwork_updatePostbackConversionValue_coarseValue_completionHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
@@ -407,31 +407,31 @@ void __75__SKAdNetwork_updatePostbackConversionValue_coarseValue_completionHandl
   v10 = coarseValue;
   v11 = completion;
   v12 = +[SKServiceBroker defaultBroker];
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v25[2] = __86__SKAdNetwork_updatePostbackConversionValue_coarseValue_lockWindow_completionHandler___block_invoke;
-  v25[3] = &__block_descriptor_40_e17_v16__0__NSError_8l;
-  v25[4] = self;
-  v13 = [v12 storeKitSynchronousServiceWithErrorHandler:v25];
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = __86__SKAdNetwork_updatePostbackConversionValue_coarseValue_lockWindow_completionHandler___block_invoke;
+  v26[3] = &__block_descriptor_40_e17_v16__0__NSError_8l;
+  v26[4] = self;
+  v13 = [v12 storeKitSynchronousServiceWithErrorHandler:v26];
 
-  v14 = _SKAdNetworkGetImpressionQueue();
+  v15 = _SKAdNetworkGetImpressionQueue(v14);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __86__SKAdNetwork_updatePostbackConversionValue_coarseValue_lockWindow_completionHandler___block_invoke_41;
   block[3] = &unk_1E7B28050;
-  v19 = v13;
-  v20 = v10;
-  v24 = lockWindow;
-  v22 = fineValue;
+  v20 = v13;
+  v21 = v10;
+  v25 = lockWindow;
+  v23 = fineValue;
   selfCopy = self;
-  v21 = v11;
-  v15 = v11;
-  v16 = v10;
-  v17 = v13;
-  dispatch_async(v14, block);
+  v22 = v11;
+  v16 = v11;
+  v17 = v10;
+  v18 = v13;
+  dispatch_async(v15, block);
 }
 
-void __86__SKAdNetwork_updatePostbackConversionValue_coarseValue_lockWindow_completionHandler___block_invoke()
+void __86__SKAdNetwork_updatePostbackConversionValue_coarseValue_lockWindow_completionHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
@@ -473,49 +473,49 @@ void __49__SKAdNetwork_startImpression_completionHandler___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_1B23EF000, MEMORY[0x1E69E9C10], v0, "%{public}@: Error in remote proxy while starting view-through impression: %{public}@", v1, v2, v3, v4, v5);
+  OUTLINED_FUNCTION_1(&dword_1B23EF000, MEMORY[0x1E69E9C10], v0, "%{public}@: Error in remote proxy while starting view-through impression: %{public}@", v1, v2, v3, v4);
 }
 
 void __49__SKAdNetwork_startImpression_completionHandler___block_invoke_2_cold_1()
 {
   OUTLINED_FUNCTION_3(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_1B23EF000, MEMORY[0x1E69E9C10], v0, "%{public}@: Error in remote proxy while starting view-through impression: %{public}@", v1, v2, v3, v4, v5);
+  OUTLINED_FUNCTION_1(&dword_1B23EF000, MEMORY[0x1E69E9C10], v0, "%{public}@: Error in remote proxy while starting view-through impression: %{public}@", v1, v2, v3, v4);
 }
 
 void __47__SKAdNetwork_endImpression_completionHandler___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_1B23EF000, MEMORY[0x1E69E9C10], v0, "%{public}@: Error in remote proxy while ending view-through impression: %{public}@", v1, v2, v3, v4, v5);
+  OUTLINED_FUNCTION_1(&dword_1B23EF000, MEMORY[0x1E69E9C10], v0, "%{public}@: Error in remote proxy while ending view-through impression: %{public}@", v1, v2, v3, v4);
 }
 
 void __47__SKAdNetwork_endImpression_completionHandler___block_invoke_2_cold_1()
 {
   OUTLINED_FUNCTION_3(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_1B23EF000, MEMORY[0x1E69E9C10], v0, "%{public}@: Error in remote proxy while ending\a view-through impression: %{public}@", v1, v2, v3, v4, v5);
+  OUTLINED_FUNCTION_1(&dword_1B23EF000, MEMORY[0x1E69E9C10], v0, "%{public}@: Error in remote proxy while ending\a view-through impression: %{public}@", v1, v2, v3, v4);
 }
 
 void __49__SKAdNetwork_registerAppForAdNetworkAttribution__block_invoke_2_cold_1()
 {
   OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_1B23EF000, MEMORY[0x1E69E9C10], v0, "%{public}@: Error in remote proxy while registering SKAdNetwork: %{public}@", v1, v2, v3, v4, v5);
+  OUTLINED_FUNCTION_1(&dword_1B23EF000, MEMORY[0x1E69E9C10], v0, "%{public}@: Error in remote proxy while registering SKAdNetwork: %{public}@", v1, v2, v3, v4);
 }
 
 void __37__SKAdNetwork_updateConversionValue___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_1B23EF000, MEMORY[0x1E69E9C10], v0, "%{public}@: Error in remote proxy while updating SKAdNetwork conversion value: %{public}@", v1, v2, v3, v4, v5);
+  OUTLINED_FUNCTION_1(&dword_1B23EF000, MEMORY[0x1E69E9C10], v0, "%{public}@: Error in remote proxy while updating SKAdNetwork conversion value: %{public}@", v1, v2, v3, v4);
 }
 
 void __63__SKAdNetwork_updatePostbackConversionValue_completionHandler___block_invoke_2_cold_1()
 {
   OUTLINED_FUNCTION_3(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_1B23EF000, MEMORY[0x1E69E9C10], v0, "%{public}@: Error while updating conversion value: %{public}@", v1, v2, v3, v4, v5);
+  OUTLINED_FUNCTION_1(&dword_1B23EF000, MEMORY[0x1E69E9C10], v0, "%{public}@: Error while updating conversion value: %{public}@", v1, v2, v3, v4);
 }
 
 @end

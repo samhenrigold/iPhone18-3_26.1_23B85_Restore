@@ -60,9 +60,9 @@ id __63___UIKeyShortcutHUDMenuViewController__configureCollectionView__block_inv
 {
   v7 = a4;
   v8 = a2;
-  v9 = [a3 isEqualToString:@"UICollectionElementKindSectionHeader"];
+  isEqualToString = objc_msgSend_isEqualToString_(a3);
   v10 = 40;
-  if (v9)
+  if (isEqualToString)
   {
     v10 = 32;
   }

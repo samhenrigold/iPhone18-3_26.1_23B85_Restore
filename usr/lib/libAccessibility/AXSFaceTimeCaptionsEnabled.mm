@@ -3,7 +3,7 @@
 
 @implementation AXSFaceTimeCaptionsEnabled
 
-uint64_t ___AXSFaceTimeCaptionsEnabled_block_invoke()
+void *___AXSFaceTimeCaptionsEnabled_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

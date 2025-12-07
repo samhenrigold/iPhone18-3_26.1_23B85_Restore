@@ -5,9 +5,9 @@ void sub_100007020(id a1)
   _objc_release_x1();
 }
 
-void sub_10000737C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10000737C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -23,9 +23,9 @@ id sub_100007394(uint64_t a1)
   return result;
 }
 
-void sub_100007674(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100007674(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -49,9 +49,9 @@ id sub_10000768C(uint64_t a1)
   return result;
 }
 
-void sub_100007F94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100007F94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -75,9 +75,9 @@ id sub_100007FAC(uint64_t a1)
   return result;
 }
 
-void sub_1000082EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1000082EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -191,7 +191,7 @@ BOOL sub_100009E38(id a1, NSURL *a2, NSError *a3)
 BOOL sub_10000C2C4(id a1, NSURL *a2, NSError *a3)
 {
   v3 = a3;
-  v4 = sub_1000278E8();
+  v4 = sub_1000278E8(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [(NSError *)v3 localizedDescription];
@@ -205,6 +205,25 @@ BOOL sub_10000C2C4(id a1, NSURL *a2, NSError *a3)
   [v6 logWithSubsystem:"com.apple.sysdiagnose" category:"containers" msg:{@"Error expanding user home directories: %@\n", v7}];
 
   return 1;
+}
+
+int sub_10000D738(id a1, const char *a2, int a3)
+{
+  v3 = *&a3;
+  v5 = sub_1000278E8(a1);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 67109378;
+    v9 = v3;
+    v10 = 2080;
+    v11 = a2;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Glob Error (%d) %s ", buf, 0x12u);
+  }
+
+  v6 = +[SDResourceManager sharedResourceManager];
+  [v6 logWithSubsystem:"com.apple.sysdiagnose" category:"containers" msg:{@"Glob Error (%d) %s ", v3, a2}];
+
+  return v3;
 }
 
 void sub_10000E6C0(id a1)
@@ -228,8 +247,9 @@ void sub_10000E6C0(id a1)
   }
 }
 
-void sub_100011B10(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100011B10(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }

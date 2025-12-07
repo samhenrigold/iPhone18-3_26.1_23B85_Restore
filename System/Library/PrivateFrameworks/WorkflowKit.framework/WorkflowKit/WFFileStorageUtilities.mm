@@ -37,7 +37,7 @@ void __61__WFFileStorageUtilities_createDocumentsDirectoryIfNecessary__block_inv
   _Block_object_dispose(&v4, 8);
 }
 
-uint64_t __61__WFFileStorageUtilities_createDocumentsDirectoryIfNecessary__block_invoke_2(uint64_t a1, void *a2)
+void *__61__WFFileStorageUtilities_createDocumentsDirectoryIfNecessary__block_invoke_2(uint64_t a1, void *a2)
 {
   result = [a2 checkPromisedItemIsReachableAndReturnError:0];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -56,7 +56,7 @@ void __61__WFFileStorageUtilities_createDocumentsDirectoryIfNecessary__block_inv
 
 + (id)documentsDirectoryWithError:(id *)error
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   containerIdentifier = [self containerIdentifier];
   v7 = [defaultManager URLForUbiquityContainerIdentifier:containerIdentifier];
@@ -84,17 +84,15 @@ void __61__WFFileStorageUtilities_createDocumentsDirectoryIfNecessary__block_inv
 
     v14 = MEMORY[0x1E696ABC0];
     v15 = *MEMORY[0x1E696A250];
-    v20 = *MEMORY[0x1E696A578];
+    v19 = *MEMORY[0x1E696A578];
     v16 = WFLocalizedString(@"The iCloud Container could not be found.");
-    v21[0] = v16;
-    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+    v20[0] = v16;
+    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:&v19 count:1];
     *error = [v14 errorWithDomain:v15 code:4 userInfo:v17];
   }
 
   error = 0;
 LABEL_8:
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return error;
 }

@@ -1,8 +1,11 @@
 @interface AWDMETRICSKCellularPowerLogLteCaConfigActivateStatsMBin
 - (BOOL)isEqual:(id)equal;
+- (id)ccActivatedAsString:(int)string;
+- (id)ccConfiguredAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)directionAsString:(int)string;
 - (int)StringAsCcActivated:(id)activated;
 - (int)StringAsCcConfigured:(id)configured;
 - (int)StringAsDirection:(id)direction;
@@ -46,6 +49,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)ccConfiguredAsString:(int)string
+{
+  if (string >= 0xA)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_2782611B0[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsCcConfigured:(id)configured
@@ -120,6 +138,21 @@
   {
     return 0;
   }
+}
+
+- (id)ccActivatedAsString:(int)string
+{
+  if (string >= 0xA)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_2782611B0[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsCcActivated:(id)activated
@@ -224,6 +257,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFB | v3;
+}
+
+- (id)directionAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278261200[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsDirection:(id)direction
@@ -360,7 +408,6 @@ LABEL_19:
   has = self->_has;
   if ((has & 2) != 0)
   {
-    ccConfigured = self->_ccConfigured;
     PBDataWriterWriteInt32Field();
     has = self->_has;
     if ((has & 1) == 0)
@@ -380,7 +427,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  ccActivated = self->_ccActivated;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -395,12 +441,10 @@ LABEL_4:
   }
 
 LABEL_11:
-  duration = self->_duration;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 4) != 0)
   {
 LABEL_5:
-    direction = self->_direction;
     PBDataWriterWriteInt32Field();
   }
 

@@ -36,7 +36,7 @@
 
 - (SSREnrollmentSamplingMetaData)initWithDictionary:(id)dictionary
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   v5 = dictionaryCopy;
   if (!dictionaryCopy)
@@ -47,11 +47,11 @@
       goto LABEL_12;
     }
 
-    v15 = 136315138;
-    v16 = "[SSREnrollmentSamplingMetaData initWithDictionary:]";
+    v14 = 136315138;
+    v15 = "[SSREnrollmentSamplingMetaData initWithDictionary:]";
     v12 = "%s invalid input from dictionary";
 LABEL_11:
-    _os_log_error_impl(&dword_225E12000, v11, OS_LOG_TYPE_ERROR, v12, &v15, 0xCu);
+    _os_log_error_impl(&dword_225E12000, v11, OS_LOG_TYPE_ERROR, v12, &v14, 0xCu);
     goto LABEL_12;
   }
 
@@ -65,8 +65,8 @@ LABEL_11:
       goto LABEL_12;
     }
 
-    v15 = 136315138;
-    v16 = "[SSREnrollmentSamplingMetaData initWithDictionary:]";
+    v14 = 136315138;
+    v15 = "[SSREnrollmentSamplingMetaData initWithDictionary:]";
     v12 = "%s invalid voiceProfileIdKey";
     goto LABEL_11;
   }
@@ -78,8 +78,8 @@ LABEL_11:
     v11 = *MEMORY[0x277D01970];
     if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
     {
-      v15 = 136315138;
-      v16 = "[SSREnrollmentSamplingMetaData initWithDictionary:]";
+      v14 = 136315138;
+      v15 = "[SSREnrollmentSamplingMetaData initWithDictionary:]";
       v12 = "%s invalid selection state";
       goto LABEL_11;
     }
@@ -96,18 +96,17 @@ LABEL_12:
   selfCopy = self;
 LABEL_13:
 
-  v13 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
 - (SSREnrollmentSamplingMetaData)initWithSelectionStatus:(id)status voiceProfileId:(id)id
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   statusCopy = status;
   idCopy = id;
-  v15.receiver = self;
-  v15.super_class = SSREnrollmentSamplingMetaData;
-  v9 = [(SSREnrollmentSamplingMetaData *)&v15 init];
+  v14.receiver = self;
+  v14.super_class = SSREnrollmentSamplingMetaData;
+  v9 = [(SSREnrollmentSamplingMetaData *)&v14 init];
   p_isa = &v9->super.isa;
   if (!v9)
   {
@@ -127,18 +126,17 @@ LABEL_5:
   if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
   {
     *buf = 136315650;
-    v17 = "[SSREnrollmentSamplingMetaData initWithSelectionStatus:voiceProfileId:]";
-    v18 = 2112;
-    v19 = statusCopy;
-    v20 = 2112;
-    v21 = idCopy;
+    v16 = "[SSREnrollmentSamplingMetaData initWithSelectionStatus:voiceProfileId:]";
+    v17 = 2112;
+    v18 = statusCopy;
+    v19 = 2112;
+    v20 = idCopy;
     _os_log_error_impl(&dword_225E12000, v12, OS_LOG_TYPE_ERROR, "%s initializing samplingMetaData with nil inputs: %@, %@", buf, 0x20u);
   }
 
   v11 = 0;
 LABEL_9:
 
-  v13 = *MEMORY[0x277D85DE8];
   return v11;
 }
 

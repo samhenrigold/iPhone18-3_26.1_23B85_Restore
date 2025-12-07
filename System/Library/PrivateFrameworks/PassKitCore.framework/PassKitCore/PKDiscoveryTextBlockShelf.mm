@@ -33,17 +33,17 @@
     v6->_sectionHeaderLineKey = v11;
 
     v13 = [dictionaryCopy PKStringForKey:@"style"];
-    if ([@"standard" isEqualToString:v13])
+    if (objc_msgSend_isEqualToString_(@"standard"))
     {
-      v14 = 0;
+      isEqualToString = 0;
     }
 
     else
     {
-      v14 = [@"legal" isEqualToString:v13];
+      isEqualToString = objc_msgSend_isEqualToString_(@"legal");
     }
 
-    v6->_style = v14;
+    v6->_style = isEqualToString;
   }
 
   return v6;

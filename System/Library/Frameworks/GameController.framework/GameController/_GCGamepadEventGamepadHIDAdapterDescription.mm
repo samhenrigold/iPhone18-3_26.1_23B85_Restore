@@ -27,22 +27,23 @@
 - (_GCGamepadEventGamepadHIDAdapterDescription)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v12.receiver = self;
-  v12.super_class = _GCGamepadEventGamepadHIDAdapterDescription;
-  v5 = [(_GCGamepadEventGamepadHIDAdapterDescription *)&v12 init];
+  v13.receiver = self;
+  v13.super_class = _GCGamepadEventGamepadHIDAdapterDescription;
+  v5 = [(_GCGamepadEventGamepadHIDAdapterDescription *)&v13 init];
+  v6 = v5;
   if (v5)
   {
-    v6 = _GCHIDEventSourceDescription_Classes();
-    v7 = [coderCopy decodeObjectOfClasses:v6 forKey:@"source"];
-    sourceDescription = v5->_sourceDescription;
-    v5->_sourceDescription = v7;
+    v7 = _GCHIDEventSourceDescription_Classes(v5);
+    v8 = [coderCopy decodeObjectOfClasses:v7 forKey:@"source"];
+    sourceDescription = v6->_sourceDescription;
+    v6->_sourceDescription = v8;
 
-    v9 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"service"];
-    serviceDescription = v5->_serviceDescription;
-    v5->_serviceDescription = v9;
+    v10 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"service"];
+    serviceDescription = v6->_serviceDescription;
+    v6->_serviceDescription = v10;
   }
 
-  return v5;
+  return v6;
 }
 
 - (void)encodeWithCoder:(id)coder

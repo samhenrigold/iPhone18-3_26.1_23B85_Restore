@@ -33,39 +33,39 @@ void __27__EDNonAcceptingServer_log__block_invoke(uint64_t a1)
 
 - (EDNonAcceptingServer)initWithMachServiceNames:(id)names
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   namesCopy = names;
-  v21.receiver = self;
-  v21.super_class = EDNonAcceptingServer;
-  v5 = [(EDNonAcceptingServer *)&v21 init];
+  v20.receiver = self;
+  v20.super_class = EDNonAcceptingServer;
+  v5 = [(EDNonAcceptingServer *)&v20 init];
   if (v5)
   {
     v6 = objc_opt_new();
     listeners = v5->_listeners;
     v5->_listeners = v6;
 
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v8 = namesCopy;
-    v9 = [v8 countByEnumeratingWithState:&v17 objects:v22 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v16 objects:v21 count:16];
     if (v9)
     {
-      v10 = *v18;
+      v10 = *v17;
       do
       {
         v11 = 0;
         do
         {
-          if (*v18 != v10)
+          if (*v17 != v10)
           {
             objc_enumerationMutation(v8);
           }
 
-          v12 = *(*(&v17 + 1) + 8 * v11);
+          v12 = *(*(&v16 + 1) + 8 * v11);
           v13 = objc_alloc(MEMORY[0x1E696B0D8]);
-          v14 = [v13 initWithMachServiceName:{v12, v17}];
+          v14 = [v13 initWithMachServiceName:{v12, v16}];
           [v14 setDelegate:v5];
           [(NSMutableArray *)v5->_listeners addObject:v14];
           [v14 resume];
@@ -74,30 +74,28 @@ void __27__EDNonAcceptingServer_log__block_invoke(uint64_t a1)
         }
 
         while (v9 != v11);
-        v9 = [v8 countByEnumeratingWithState:&v17 objects:v22 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v16 objects:v21 count:16];
       }
 
       while (v9);
     }
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   v5 = +[EDNonAcceptingServer log];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = connectionCopy;
-    _os_log_impl(&dword_1C61EF000, v5, OS_LOG_TYPE_DEFAULT, "Not accepting %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = connectionCopy;
+    _os_log_impl(&dword_1C61EF000, v5, OS_LOG_TYPE_DEFAULT, "Not accepting %@", &v7, 0xCu);
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return 0;
 }
 

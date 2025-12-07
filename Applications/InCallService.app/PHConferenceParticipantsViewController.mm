@@ -162,14 +162,15 @@
 - (void)callStatusChanged:(id)changed
 {
   object = [changed object];
-  if ([object status] == 6)
+  status = [object status];
+  if (status == 6)
   {
-    v5 = sub_100004F84();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100004F84(status);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138412290;
-      v10 = object;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Call was disconnected, we'll remove that call and pop %@", &v9, 0xCu);
+      v11 = 138412290;
+      v12 = object;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Call was disconnected, we'll remove that call and pop %@", &v11, 0xCu);
     }
 
     [(PHConferenceParticipantsViewController *)self removeCall:object];
@@ -177,15 +178,16 @@
 
   else
   {
-    status = [object status];
-    v7 = sub_100004F84();
-    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
-    if (status == 4)
+    status2 = [object status];
+    v8 = status2;
+    v9 = sub_100004F84(status2);
+    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+    if (v8 == 4)
     {
-      if (v8)
+      if (v10)
       {
-        LOWORD(v9) = 0;
-        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Saw an incoming call, we'll pop", &v9, 2u);
+        LOWORD(v11) = 0;
+        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Saw an incoming call, we'll pop", &v11, 2u);
       }
 
       [(PHConferenceParticipantsViewController *)self dismissConferenceView];
@@ -193,11 +195,11 @@
 
     else
     {
-      if (v8)
+      if (v10)
       {
-        v9 = 138412290;
-        v10 = object;
-        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Saw a call change but won't do anything with it: %@", &v9, 0xCu);
+        v11 = 138412290;
+        v12 = object;
+        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Saw a call change but won't do anything with it: %@", &v11, 0xCu);
       }
     }
   }
@@ -206,11 +208,11 @@
 - (void)handleCallModelChangedNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v14 = notificationCopy;
+    v15 = notificationCopy;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
   }
 
@@ -222,11 +224,11 @@
 
     if (v8 == 0x7FFFFFFFFFFFFFFFLL)
     {
-      conferenceTable = sub_100004F84();
+      conferenceTable = sub_100004F84(v9);
       if (os_log_type_enabled(conferenceTable, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v14 = object;
+        v15 = object;
         _os_log_impl(&_mh_execute_header, conferenceTable, OS_LOG_TYPE_DEFAULT, "Skipping table row reload, did not find a call in the conference participants list that matches (%@).", buf, 0xCu);
       }
     }
@@ -234,10 +236,10 @@
     else
     {
       conferenceTable = [(PHConferenceParticipantsViewController *)self conferenceTable];
-      v10 = [NSIndexPath indexPathForRow:v8 inSection:0];
-      v12 = v10;
-      v11 = [NSArray arrayWithObjects:&v12 count:1];
-      [conferenceTable reloadRowsAtIndexPaths:v11 withRowAnimation:0];
+      v11 = [NSIndexPath indexPathForRow:v8 inSection:0];
+      v13 = v11;
+      v12 = [NSArray arrayWithObjects:&v13 count:1];
+      [conferenceTable reloadRowsAtIndexPaths:v12 withRowAnimation:0];
     }
   }
 }
@@ -362,16 +364,16 @@
   conferenceParticipantCalls = [(PHConferenceParticipantsViewController *)self conferenceParticipantCalls];
   v8 = [conferenceParticipantCalls objectAtIndex:{objc_msgSend(v6, "row")}];
 
-  v9 = sub_100004F84();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = sub_100004F84(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412290;
-    v12 = v8;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "End call requested for %@", &v11, 0xCu);
+    v12 = 138412290;
+    v13 = v8;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "End call requested for %@", &v12, 0xCu);
   }
 
-  v10 = +[TUCallCenter sharedInstance];
-  [v10 disconnectCall:v8];
+  v11 = +[TUCallCenter sharedInstance];
+  [v11 disconnectCall:v8];
 }
 
 - (void)conferenceParticipantCellRequestedTakeCallPrivate:(id)private
@@ -391,12 +393,12 @@
   v11 = +[TUCallCenter sharedInstance];
   [v11 ungroupCall:v10];
 
-  v12 = sub_100004F84();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v13 = sub_100004F84(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 138412290;
-    v14 = v10;
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Take call private requested for %@", &v13, 0xCu);
+    v14 = 138412290;
+    v15 = v10;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Take call private requested for %@", &v14, 0xCu);
   }
 
   [UIApp setIgnoresInteractionEvents:1];

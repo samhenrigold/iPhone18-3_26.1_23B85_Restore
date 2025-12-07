@@ -31,7 +31,7 @@
 
 + (id)tips
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   currentDevice = [MEMORY[0x277D75418] currentDevice];
   userInterfaceIdiom = [currentDevice userInterfaceIdiom];
 
@@ -56,8 +56,8 @@
       v8 = @"4Z";
     }
 
-    v38 = v8;
-    v39 = v7;
+    v37 = v8;
+    v38 = v7;
     [v5 addObject:@"GoHome"];
     [v6 addObject:@"AppSwitcher"];
     [v6 addObject:@"ControlCenter"];
@@ -83,8 +83,8 @@
       v10 = @"2Y";
     }
 
-    v38 = v10;
-    v39 = v9;
+    v37 = v10;
+    v38 = v9;
     if (!+[WLDeviceCapability hasHomeButton])
     {
       [v6 addObject:@"GoHome"];
@@ -110,178 +110,176 @@
 LABEL_20:
   [v6 addObject:v11];
   [v6 addObject:@"Screenshot"];
-  v40 = +[WLTipAssetRemoteDocumentIdentifier documentIDs];
-  v41 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v39 = +[WLTipAssetRemoteDocumentIdentifier documentIDs];
+  v40 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v61 = 0u;
   v62 = 0u;
   v63 = 0u;
   v64 = 0u;
-  v65 = 0u;
   obj = v6;
-  v42 = [obj countByEnumeratingWithState:&v62 objects:v66 count:16];
-  if (v42)
+  v41 = [obj countByEnumeratingWithState:&v61 objects:v65 count:16];
+  if (v41)
   {
-    v37 = *v63;
+    v36 = *v62;
     do
     {
       v12 = 0;
       do
       {
-        if (*v63 != v37)
+        if (*v62 != v36)
         {
           objc_enumerationMutation(obj);
         }
 
-        v61 = v12;
-        v13 = *(*(&v62 + 1) + 8 * v12);
+        v60 = v12;
+        v13 = *(*(&v61 + 1) + 8 * v12);
         v14 = MEMORY[0x277CCACA8];
         uppercaseString = [v13 uppercaseString];
         v16 = [v14 stringWithFormat:@"TIPS_%@_TITLE", uppercaseString];
-        v60 = WLLocalizedString();
+        v59 = WLLocalizedString();
 
         v17 = MEMORY[0x277CCACA8];
         uppercaseString2 = [v13 uppercaseString];
-        v19 = [v17 stringWithFormat:@"TIPS_%@_DESCRIPTION_%@", uppercaseString2, v39];
-        v53 = WLLocalizedString();
+        v19 = [v17 stringWithFormat:@"TIPS_%@_DESCRIPTION_%@", uppercaseString2, v38];
+        v52 = WLLocalizedString();
 
-        v59 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@-%@~%@_T.png", v13, v38, @"L"];
-        v55 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@-%@~%@.jpg", v13, v38, @"L"];
-        v54 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@-%@~%@.mp4", v13, v38, @"L"];
-        v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@-%@~%@_T.png", v13, v38, @"D"];
-        v58 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@-%@~%@.jpg", v13, v38, @"D"];
-        v21 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@-%@~%@.mp4", v13, v38, @"D"];
-        v22 = [v40 objectForKeyedSubscript:v59];
-        v51 = [WLTipAssetRemoteDocumentIdentifier url:v22];
+        v58 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@-%@~%@_T.png", v13, v37, @"L"];
+        v54 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@-%@~%@.jpg", v13, v37, @"L"];
+        v53 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@-%@~%@.mp4", v13, v37, @"L"];
+        v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@-%@~%@_T.png", v13, v37, @"D"];
+        v57 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@-%@~%@.jpg", v13, v37, @"D"];
+        v21 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@-%@~%@.mp4", v13, v37, @"D"];
+        v22 = [v39 objectForKeyedSubscript:v58];
+        v50 = [WLTipAssetRemoteDocumentIdentifier url:v22];
 
-        v52 = v20;
-        v23 = [v40 objectForKeyedSubscript:v20];
-        v50 = [WLTipAssetRemoteDocumentIdentifier url:v23];
+        v51 = v20;
+        v23 = [v39 objectForKeyedSubscript:v20];
+        v49 = [WLTipAssetRemoteDocumentIdentifier url:v23];
 
-        v24 = [v40 objectForKeyedSubscript:v55];
-        v57 = [WLTipAssetRemoteDocumentIdentifier url:v24];
+        v24 = [v39 objectForKeyedSubscript:v54];
+        v56 = [WLTipAssetRemoteDocumentIdentifier url:v24];
 
-        v25 = [v40 objectForKeyedSubscript:v58];
-        v56 = [WLTipAssetRemoteDocumentIdentifier url:v25];
+        v25 = [v39 objectForKeyedSubscript:v57];
+        v55 = [WLTipAssetRemoteDocumentIdentifier url:v25];
 
-        v26 = [v40 objectForKeyedSubscript:v54];
-        v47 = [WLTipAssetRemoteDocumentIdentifier url:v26];
+        v26 = [v39 objectForKeyedSubscript:v53];
+        v46 = [WLTipAssetRemoteDocumentIdentifier url:v26];
 
-        v45 = v21;
-        v27 = [v40 objectForKeyedSubscript:v21];
-        v46 = [WLTipAssetRemoteDocumentIdentifier url:v27];
+        v44 = v21;
+        v27 = [v39 objectForKeyedSubscript:v21];
+        v45 = [WLTipAssetRemoteDocumentIdentifier url:v27];
 
-        v49 = [[WLAsset alloc] initWithName:v59 remoteURL:v51];
-        v48 = [[WLAsset alloc] initWithName:v20 remoteURL:v50];
-        v43 = [[WLInterfaceStyleAsset alloc] initWithLight:v49 dark:v48];
-        v44 = [[WLAsset alloc] initWithName:v55 remoteURL:v57];
-        v28 = [[WLAsset alloc] initWithName:v58 remoteURL:v56];
-        v29 = [[WLInterfaceStyleAsset alloc] initWithLight:v44 dark:v28];
-        v30 = [[WLAsset alloc] initWithName:v54 remoteURL:v47];
-        v31 = [[WLAsset alloc] initWithName:v21 remoteURL:v46];
+        v48 = [[WLAsset alloc] initWithName:v58 remoteURL:v50];
+        v47 = [[WLAsset alloc] initWithName:v20 remoteURL:v49];
+        v42 = [[WLInterfaceStyleAsset alloc] initWithLight:v48 dark:v47];
+        v43 = [[WLAsset alloc] initWithName:v54 remoteURL:v56];
+        v28 = [[WLAsset alloc] initWithName:v57 remoteURL:v55];
+        v29 = [[WLInterfaceStyleAsset alloc] initWithLight:v43 dark:v28];
+        v30 = [[WLAsset alloc] initWithName:v53 remoteURL:v46];
+        v31 = [[WLAsset alloc] initWithName:v21 remoteURL:v45];
         v32 = [[WLInterfaceStyleAsset alloc] initWithLight:v30 dark:v31];
-        v33 = [[WLTips alloc] initWithTitle:v60 desc:v53 thumbnail:v43 image:v29 video:v32];
-        [v41 addObject:v33];
+        v33 = [[WLTips alloc] initWithTitle:v59 desc:v52 thumbnail:v42 image:v29 video:v32];
+        [v40 addObject:v33];
 
-        v12 = v61 + 1;
+        v12 = v60 + 1;
       }
 
-      while (v42 != v61 + 1);
-      v42 = [obj countByEnumeratingWithState:&v62 objects:v66 count:16];
+      while (v41 != v60 + 1);
+      v41 = [obj countByEnumeratingWithState:&v61 objects:v65 count:16];
     }
 
-    while (v42);
+    while (v41);
   }
 
-  v34 = *MEMORY[0x277D85DE8];
-
-  return v41;
+  return v40;
 }
 
 + (BOOL)download
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   +[WLTips tips];
+  v53 = 0u;
   v54 = 0u;
   v55 = 0u;
-  v56 = 0u;
-  v2 = v57 = 0u;
-  v3 = [v2 countByEnumeratingWithState:&v54 objects:v62 count:16];
+  v2 = v56 = 0u;
+  v3 = [v2 countByEnumeratingWithState:&v53 objects:v61 count:16];
   if (v3)
   {
     v4 = 0;
-    v5 = *v55;
+    v5 = *v54;
     v6 = 0x277CBE000uLL;
     do
     {
       v7 = 0;
-      v41 = v3;
+      v40 = v3;
       do
       {
-        if (*v55 != v5)
+        if (*v54 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v43 = v7;
-        v8 = *(*(&v54 + 1) + 8 * v7);
+        v42 = v7;
+        v8 = *(*(&v53 + 1) + 8 * v7);
+        v49 = 0u;
         v50 = 0u;
         v51 = 0u;
         v52 = 0u;
-        v53 = 0u;
         thumbnail = [v8 thumbnail];
-        v60[0] = thumbnail;
+        v59[0] = thumbnail;
         image = [v8 image];
-        v60[1] = image;
+        v59[1] = image;
         video = [v8 video];
-        v60[2] = video;
-        v12 = [*(v6 + 2656) arrayWithObjects:v60 count:3];
+        v59[2] = video;
+        v12 = [*(v6 + 2656) arrayWithObjects:v59 count:3];
 
-        v13 = [v12 countByEnumeratingWithState:&v50 objects:v61 count:16];
+        v13 = [v12 countByEnumeratingWithState:&v49 objects:v60 count:16];
         if (v13)
         {
           v14 = v13;
-          v15 = *v51;
-          v42 = v2;
-          v38 = *v51;
-          v39 = v5;
-          v45 = v12;
+          v15 = *v50;
+          v41 = v2;
+          v37 = *v50;
+          v38 = v5;
+          v44 = v12;
           while (2)
           {
             v16 = 0;
             do
             {
-              if (*v51 != v15)
+              if (*v50 != v15)
               {
                 objc_enumerationMutation(v12);
               }
 
-              v44 = v16;
-              v17 = *(*(&v50 + 1) + 8 * v16);
+              v43 = v16;
+              v17 = *(*(&v49 + 1) + 8 * v16);
+              v45 = 0u;
               v46 = 0u;
               v47 = 0u;
               v48 = 0u;
-              v49 = 0u;
               light = [v17 light];
-              v58[0] = light;
+              v57[0] = light;
               dark = [v17 dark];
-              v58[1] = dark;
-              v20 = [*(v6 + 2656) arrayWithObjects:v58 count:2];
+              v57[1] = dark;
+              v20 = [*(v6 + 2656) arrayWithObjects:v57 count:2];
 
-              v21 = [v20 countByEnumeratingWithState:&v46 objects:v59 count:16];
+              v21 = [v20 countByEnumeratingWithState:&v45 objects:v58 count:16];
               if (v21)
               {
                 v22 = v21;
-                v40 = v14;
-                v23 = *v47;
+                v39 = v14;
+                v23 = *v46;
                 while (2)
                 {
                   for (i = 0; i != v22; ++i)
                   {
-                    if (*v47 != v23)
+                    if (*v46 != v23)
                     {
                       objc_enumerationMutation(v20);
                     }
 
-                    v25 = *(*(&v46 + 1) + 8 * i);
+                    v25 = *(*(&v45 + 1) + 8 * i);
                     name = [v25 name];
                     remoteURL = [v25 remoteURL];
                     localFile = [v25 localFile];
@@ -291,20 +289,20 @@ LABEL_20:
                     name2 = [v25 name];
                     remoteURL2 = [v25 remoteURL];
                     localFile2 = [v25 localFile];
-                    v37 = download;
-                    v33 = name2;
-                    v34 = remoteURL2;
+                    v36 = download;
+                    v32 = name2;
+                    v33 = remoteURL2;
                     _WLLog();
 
                     if ((download & 1) == 0)
                     {
 
-                      v2 = v42;
+                      v2 = v41;
                       goto LABEL_29;
                     }
                   }
 
-                  v22 = [v20 countByEnumeratingWithState:&v46 objects:v59 count:{16, name2, remoteURL2, localFile2, download}];
+                  v22 = [v20 countByEnumeratingWithState:&v45 objects:v58 count:{16, name2, remoteURL2, localFile2, download}];
                   if (v22)
                   {
                     continue;
@@ -313,11 +311,11 @@ LABEL_20:
                   break;
                 }
 
-                v2 = v42;
-                v15 = v38;
-                v5 = v39;
+                v2 = v41;
+                v15 = v37;
+                v5 = v38;
                 v6 = 0x277CBE000;
-                v14 = v40;
+                v14 = v39;
               }
 
               else
@@ -331,13 +329,13 @@ LABEL_29:
                 }
               }
 
-              v12 = v45;
-              v16 = v44 + 1;
+              v12 = v44;
+              v16 = v43 + 1;
               v4 = 1;
             }
 
-            while (v44 + 1 != v14);
-            v14 = [v45 countByEnumeratingWithState:&v50 objects:v61 count:16];
+            while (v43 + 1 != v14);
+            v14 = [v44 countByEnumeratingWithState:&v49 objects:v60 count:16];
             if (v14)
             {
               continue;
@@ -356,12 +354,12 @@ LABEL_29:
           }
         }
 
-        v7 = v43 + 1;
+        v7 = v42 + 1;
         v4 = 1;
       }
 
-      while (v43 + 1 != v41);
-      v3 = [v2 countByEnumeratingWithState:&v54 objects:v62 count:16];
+      while (v42 + 1 != v40);
+      v3 = [v2 countByEnumeratingWithState:&v53 objects:v61 count:16];
     }
 
     while (v3);
@@ -373,7 +371,6 @@ LABEL_30:
     v4 = 0;
   }
 
-  v31 = *MEMORY[0x277D85DE8];
   return v4;
 }
 

@@ -53,56 +53,8 @@
   v16.super_class = W5XPCConnection;
   v4 = [(W5XPCConnection *)&v16 init];
   v5 = v4;
-  if (!connection)
+  if (!connection || !v4 || (v6 = connection, v5->_connection = v6, bzero(buffer, 0x1000uLL), proc_pidpath(-[NSXPCConnection processIdentifier](v6, "processIdentifier"), buffer, 0x1000u) < 1) || (v7 = [[NSString alloc] initWithCString:buffer encoding:4]) == 0 || (v8 = objc_msgSend(objc_msgSend(v7, "lastPathComponent"), "copy"), (v5->_processName = v8) == 0) || (v9 = dispatch_queue_create("com.apple.wifivelocity.xpc-connection", 0), (v5->_queue = v9) == 0) || (v10 = objc_alloc_init(NSMutableArray), (v5->_mutableActiveRequests = v10) == 0) || (v11 = objc_alloc_init(NSMutableArray), (v5->_mutableEventIDs = v11) == 0) || (v12 = objc_alloc_init(NSMutableSet), (v5->_mutableFaultEventMonitoringPeers = v12) == 0) || (v13 = objc_alloc_init(NSDateFormatter), (v5->_formatter = v13) == 0) || (-[NSDateFormatter setDateFormat:](v13, "setDateFormat:", @"MM/dd/yy HH:mm:ss.SSS"), v14 = +[NSUUID UUID](NSUUID, "UUID"), (v5->_uuid = v14) == 0))
   {
-    goto LABEL_12;
-  }
-
-  if (!v4)
-  {
-    goto LABEL_12;
-  }
-
-  connectionCopy = connection;
-  v5->_connection = connectionCopy;
-  bzero(buffer, 0x1000uLL);
-  if (proc_pidpath([(NSXPCConnection *)connectionCopy processIdentifier], buffer, 0x1000u) < 1)
-  {
-    goto LABEL_12;
-  }
-
-  v7 = [[NSString alloc] initWithCString:buffer encoding:4];
-  if (!v7)
-  {
-    goto LABEL_12;
-  }
-
-  v8 = [objc_msgSend(v7 "lastPathComponent")];
-  v5->_processName = v8;
-  if (!v8)
-  {
-    goto LABEL_12;
-  }
-
-  v9 = dispatch_queue_create("com.apple.wifivelocity.xpc-connection", 0);
-  v5->_queue = v9;
-  if (!v9)
-  {
-    goto LABEL_12;
-  }
-
-  v10 = objc_alloc_init(NSMutableArray);
-  v5->_mutableActiveRequests = v10;
-  if (!v10)
-  {
-    goto LABEL_12;
-  }
-
-  v11 = objc_alloc_init(NSMutableArray);
-  v5->_mutableEventIDs = v11;
-  if (!v11 || (v12 = objc_alloc_init(NSMutableSet), (v5->_mutableFaultEventMonitoringPeers = v12) == 0) || (v13 = objc_alloc_init(NSDateFormatter), (v5->_formatter = v13) == 0) || ([(NSDateFormatter *)v13 setDateFormat:@"MM/dd/yy HH:mm:ss.SSS"], v14 = +[NSUUID UUID], (v5->_uuid = v14) == 0))
-  {
-LABEL_12:
 
     return 0;
   }

@@ -272,26 +272,26 @@
 
 - (TUCloudCallingDevice)defaultPairedDevice
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   cloudCallingDevices = [(TUCallCapabilitiesState *)self cloudCallingDevices];
-  v3 = [cloudCallingDevices countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [cloudCallingDevices countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
-    v4 = *v10;
+    v4 = *v9;
     while (2)
     {
       for (i = 0; i != v3; i = i + 1)
       {
-        if (*v10 != v4)
+        if (*v9 != v4)
         {
           objc_enumerationMutation(cloudCallingDevices);
         }
 
-        v6 = *(*(&v9 + 1) + 8 * i);
+        v6 = *(*(&v8 + 1) + 8 * i);
         if ([v6 isDefaultPairedDevice])
         {
           v3 = v6;
@@ -299,7 +299,7 @@
         }
       }
 
-      v3 = [cloudCallingDevices countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v3 = [cloudCallingDevices countByEnumeratingWithState:&v8 objects:v12 count:16];
       if (v3)
       {
         continue;
@@ -311,14 +311,12 @@
 
 LABEL_11:
 
-  v7 = *MEMORY[0x1E69E9840];
-
   return v3;
 }
 
 - (TUCallCapabilitiesState)initWithCoder:(id)coder
 {
-  v24[3] = *MEMORY[0x1E69E9840];
+  v23[3] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [(TUCallCapabilitiesState *)self init];
   if (v5)
@@ -339,10 +337,10 @@ LABEL_11:
     -[TUCallCapabilitiesState setRelayCallingEnabled:](v5, "setRelayCallingEnabled:", [coderCopy decodeBoolForKey:@"relayCallingEnabled"]);
     -[TUCallCapabilitiesState setRelayCallingAvailability:](v5, "setRelayCallingAvailability:", [coderCopy decodeIntForKey:@"relayCallingAvailability"]);
     v6 = MEMORY[0x1E695DFD8];
-    v24[0] = objc_opt_class();
-    v24[1] = objc_opt_class();
-    v24[2] = objc_opt_class();
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:3];
+    v23[0] = objc_opt_class();
+    v23[1] = objc_opt_class();
+    v23[2] = objc_opt_class();
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:3];
     v8 = [v6 setWithArray:v7];
     v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"relayCallingDisabledForDeviceID"];
     [(TUCallCapabilitiesState *)v5 setRelayCallingDisabledForDeviceID:v9];
@@ -354,9 +352,9 @@ LABEL_11:
     [(TUCallCapabilitiesState *)v5 setOutgoingRelayCallerID:v10];
 
     v11 = MEMORY[0x1E695DFD8];
-    v23[0] = objc_opt_class();
-    v23[1] = objc_opt_class();
-    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:2];
+    v22[0] = objc_opt_class();
+    v22[1] = objc_opt_class();
+    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:2];
     v13 = [v11 setWithArray:v12];
     v14 = [coderCopy decodeObjectOfClasses:v13 forKey:@"cloudCallingDevices"];
     [(TUCallCapabilitiesState *)v5 setCloudCallingDevices:v14];
@@ -364,17 +362,16 @@ LABEL_11:
     -[TUCallCapabilitiesState setEmergencyCallbackModeEnabled:](v5, "setEmergencyCallbackModeEnabled:", [coderCopy decodeBoolForKey:@"emergencyCallbackModeEnabled"]);
     -[TUCallCapabilitiesState setEmergencyCallbackPossible:](v5, "setEmergencyCallbackPossible:", [coderCopy decodeBoolForKey:@"emergencyCallbackPossible"]);
     v15 = MEMORY[0x1E695DFD8];
-    v22[0] = objc_opt_class();
-    v22[1] = objc_opt_class();
-    v22[2] = objc_opt_class();
-    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:3];
+    v21[0] = objc_opt_class();
+    v21[1] = objc_opt_class();
+    v21[2] = objc_opt_class();
+    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:3];
     v17 = [v15 setWithArray:v16];
     v18 = NSStringFromSelector(sel_senderIdentityCapabilitiesStateByUUID);
     v19 = [coderCopy decodeObjectOfClasses:v17 forKey:v18];
     [(TUCallCapabilitiesState *)v5 setSenderIdentityCapabilitiesStateByUUID:v19];
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -439,7 +436,7 @@ LABEL_11:
 
 - (id)publiclyAccessibleCopyWithZone:(_NSZone *)zone
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v4 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   [v4 setSupportsPrimaryCalling:{-[TUCallCapabilitiesState supportsPrimaryCalling](self, "supportsPrimaryCalling")}];
   [v4 setSupportsBasebandCalling:{-[TUCallCapabilitiesState supportsBasebandCalling](self, "supportsBasebandCalling")}];
@@ -458,48 +455,47 @@ LABEL_11:
   [v4 setRelayCallingAvailability:{-[TUCallCapabilitiesState relayCallingAvailability](self, "relayCallingAvailability")}];
   [v4 setSupportsTelephonyRelayCalling:{-[TUCallCapabilitiesState supportsTelephonyRelayCalling](self, "supportsTelephonyRelayCalling")}];
   [v4 setSupportsFaceTimeAudioRelayCalling:{-[TUCallCapabilitiesState supportsFaceTimeAudioRelayCalling](self, "supportsFaceTimeAudioRelayCalling")}];
-  v19 = v4;
+  v18 = v4;
   [v4 setSupportsFaceTimeVideoRelayCalling:{-[TUCallCapabilitiesState supportsFaceTimeVideoRelayCalling](self, "supportsFaceTimeVideoRelayCalling")}];
   v5 = objc_alloc(MEMORY[0x1E695DF90]);
   senderIdentityCapabilitiesStateByUUID = [(TUCallCapabilitiesState *)self senderIdentityCapabilitiesStateByUUID];
   v7 = [v5 initWithCapacity:{objc_msgSend(senderIdentityCapabilitiesStateByUUID, "count")}];
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   senderIdentityCapabilitiesStateByUUID2 = [(TUCallCapabilitiesState *)self senderIdentityCapabilitiesStateByUUID];
-  v9 = [senderIdentityCapabilitiesStateByUUID2 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v9 = [senderIdentityCapabilitiesStateByUUID2 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v21;
+    v11 = *v20;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v21 != v11)
+        if (*v20 != v11)
         {
           objc_enumerationMutation(senderIdentityCapabilitiesStateByUUID2);
         }
 
-        v13 = *(*(&v20 + 1) + 8 * i);
+        v13 = *(*(&v19 + 1) + 8 * i);
         senderIdentityCapabilitiesStateByUUID3 = [(TUCallCapabilitiesState *)self senderIdentityCapabilitiesStateByUUID];
         v15 = [senderIdentityCapabilitiesStateByUUID3 objectForKeyedSubscript:v13];
         publiclyAccessibleCopy = [v15 publiclyAccessibleCopy];
         [v7 setObject:publiclyAccessibleCopy forKeyedSubscript:v13];
       }
 
-      v10 = [senderIdentityCapabilitiesStateByUUID2 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v10 = [senderIdentityCapabilitiesStateByUUID2 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v10);
   }
 
-  [v19 setSenderIdentityCapabilitiesStateByUUID:v7];
-  v17 = *MEMORY[0x1E69E9840];
+  [v18 setSenderIdentityCapabilitiesStateByUUID:v7];
 
-  return v19;
+  return v18;
 }
 
 @end

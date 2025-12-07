@@ -28,11 +28,23 @@
 - (void)pushLocalHearingAidsToiCloud;
 - (void)removeDeviceIDFromCloudDenylist:(id)denylist;
 - (void)setAvailableHearingDeviceName:(id)name;
+- (void)setAvailableInputEars:(int)ears;
 - (void)setCallAudioRoute:(int64_t)route;
+- (void)setClearPartialPairing:(BOOL)pairing;
 - (void)setComplicationPreferredDisplayMode:(int64_t)mode;
+- (void)setEarsSupportingWatch:(int)watch;
+- (void)setExportsLiveListenToFile:(BOOL)file;
+- (void)setIndependentHearingAidSettings:(BOOL)settings;
+- (void)setLiveHeadphoneLevelEnabled:(BOOL)enabled;
 - (void)setLocalHearingAidsFromiCloud:(id)cloud;
 - (void)setMediaAudioRoute:(int64_t)route;
+- (void)setMultideviceAudioEnabled:(BOOL)enabled;
+- (void)setMultideviceSettingsEnabled:(BOOL)enabled;
 - (void)setPairedHearingAids:(id)aids;
+- (void)setPreferredInputEar:(int)ear;
+- (void)setShouldStreamSystemSounds:(BOOL)sounds;
+- (void)setShouldStreamToLeftAid:(BOOL)aid;
+- (void)setShouldStreamToRightAid:(BOOL)aid;
 - (void)setUsedHearingFeatures:(unint64_t)features;
 - (void)shouldUseiCloud;
 - (void)updateStreamingPreference;
@@ -137,9 +149,11 @@
 
 uint64_t __38__HUHearingAidSettings_sharedInstance__block_invoke()
 {
-  sharedInstance_Settings_1 = objc_alloc_init(HUHearingAidSettings);
+  v0 = objc_alloc_init(HUHearingAidSettings);
+  v1 = sharedInstance_Settings_1;
+  sharedInstance_Settings_1 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (HUHearingAidSettings)init
@@ -210,7 +224,7 @@ void __28__HUHearingAidSettings_init__block_invoke_76(uint64_t a1)
 
 - (void)_initializeICloudSetup
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if ([(HUHearingAidSettings *)self shouldUseiCloud]&& !self->_finishediCloudSetup)
   {
     self->_finishediCloudSetup = 1;
@@ -219,7 +233,7 @@ void __28__HUHearingAidSettings_init__block_invoke_76(uint64_t a1)
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v14 = pairedHearingAids;
+      v13 = pairedHearingAids;
       _os_log_impl(&dword_1DA5E2000, v4, OS_LOG_TYPE_DEFAULT, "HearingAidSettings: init iCloud, Paired Hearing Aids from local plist %@", buf, 0xCu);
     }
 
@@ -248,87 +262,79 @@ void __28__HUHearingAidSettings_init__block_invoke_76(uint64_t a1)
       _AXSHearingSetDevicePairedEars();
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __46__HUHearingAidSettings__initializeICloudSetup__block_invoke(uint64_t a1, void *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = HCLogHearingAids();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5[0] = 67109120;
-    v5[1] = [v2 count];
-    _os_log_impl(&dword_1DA5E2000, v3, OS_LOG_TYPE_DEFAULT, "HearingAidSettings: iCloud Account: %d", v5, 8u);
+    v4[0] = 67109120;
+    v4[1] = [v2 count];
+    _os_log_impl(&dword_1DA5E2000, v3, OS_LOG_TYPE_DEFAULT, "HearingAidSettings: iCloud Account: %d", v4, 8u);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)accountWasAdded:(id)added
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v4 = HCLogHearingAids();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     monitoredAccounts = [(ACMonitoredAccountStore *)self->_accountStore monitoredAccounts];
-    v7 = 138412290;
-    v8 = monitoredAccounts;
-    _os_log_impl(&dword_1DA5E2000, v4, OS_LOG_TYPE_DEFAULT, "iCloud: Account was added: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = monitoredAccounts;
+    _os_log_impl(&dword_1DA5E2000, v4, OS_LOG_TYPE_DEFAULT, "iCloud: Account was added: %@", &v6, 0xCu);
   }
 
   [(HUHearingAidSettings *)self iCloudAccountDidChange:0];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)accountWasModified:(id)modified
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v4 = HCLogHearingAids();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     monitoredAccounts = [(ACMonitoredAccountStore *)self->_accountStore monitoredAccounts];
-    v7 = 138412290;
-    v8 = monitoredAccounts;
-    _os_log_impl(&dword_1DA5E2000, v4, OS_LOG_TYPE_DEFAULT, "iCloud: Account was modified: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = monitoredAccounts;
+    _os_log_impl(&dword_1DA5E2000, v4, OS_LOG_TYPE_DEFAULT, "iCloud: Account was modified: %@", &v6, 0xCu);
   }
 
   [(HUHearingAidSettings *)self iCloudAccountDidChange:0];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)accountWasRemoved:(id)removed
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v4 = HCLogHearingAids();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     monitoredAccounts = [(ACMonitoredAccountStore *)self->_accountStore monitoredAccounts];
-    v7 = 138412290;
-    v8 = monitoredAccounts;
-    _os_log_impl(&dword_1DA5E2000, v4, OS_LOG_TYPE_DEFAULT, "iCloud: Account was removed: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = monitoredAccounts;
+    _os_log_impl(&dword_1DA5E2000, v4, OS_LOG_TYPE_DEFAULT, "iCloud: Account was removed: %@", &v6, 0xCu);
   }
 
   [(HUHearingAidSettings *)self iCloudAccountDidChange:0];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)accountCredentialChanged:(id)changed
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v4 = HCLogHearingAids();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     monitoredAccounts = [(ACMonitoredAccountStore *)self->_accountStore monitoredAccounts];
-    v7 = 138412290;
-    v8 = monitoredAccounts;
-    _os_log_impl(&dword_1DA5E2000, v4, OS_LOG_TYPE_DEFAULT, "iCloud: Account credential has changed: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = monitoredAccounts;
+    _os_log_impl(&dword_1DA5E2000, v4, OS_LOG_TYPE_DEFAULT, "iCloud: Account credential has changed: %@", &v6, 0xCu);
   }
 
   [(HUHearingAidSettings *)self iCloudAccountDidChange:0];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)pairedWatchDidChange:(id)change
@@ -451,7 +457,7 @@ LABEL_13:
 
 - (id)convertPersistentRepresentation:(id)representation fromVersion:(float)version toVersion:(float)toVersion
 {
-  v49[2] = *MEMORY[0x1E69E9840];
+  v48[2] = *MEMORY[0x1E69E9840];
   representationCopy = representation;
   v8 = representationCopy;
   if (version == toVersion)
@@ -474,18 +480,18 @@ LABEL_13:
     if ([v12 length] && objc_msgSend(v13, "length"))
     {
       stringValue = [&unk_1F5623D28 stringValue];
-      v47[1] = v13;
-      v48[0] = stringValue;
-      v47[0] = v13;
-      v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v47 count:2];
-      v49[0] = v15;
+      v46[1] = v13;
+      v47[0] = stringValue;
+      v46[0] = v13;
+      v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v46 count:2];
+      v48[0] = v15;
       stringValue2 = [&unk_1F5623D40 stringValue];
-      v48[1] = stringValue2;
-      v46[0] = v12;
-      v46[1] = v12;
-      v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v46 count:2];
-      v49[1] = v17;
-      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v49 forKeys:v48 count:2];
+      v47[1] = stringValue2;
+      v45[0] = v12;
+      v45[1] = v12;
+      v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v45 count:2];
+      v48[1] = v17;
+      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v48 forKeys:v47 count:2];
       [dictionary setObject:v18 forKey:@"ax_hearing_device_man_model_key"];
     }
 
@@ -495,13 +501,13 @@ LABEL_13:
       [dictionary setObject:v19 forKey:@"ax_hearing_device_lr_key"];
     }
 
-    v44[0] = MEMORY[0x1E69E9820];
-    v44[1] = 3221225472;
-    v44[2] = __78__HUHearingAidSettings_convertPersistentRepresentation_fromVersion_toVersion___block_invoke;
-    v44[3] = &unk_1E85CA6C0;
+    v43[0] = MEMORY[0x1E69E9820];
+    v43[1] = 3221225472;
+    v43[2] = __78__HUHearingAidSettings_convertPersistentRepresentation_fromVersion_toVersion___block_invoke;
+    v43[3] = &unk_1E85CA6C0;
     dictionary = dictionary;
-    v45 = dictionary;
-    [v8 enumerateKeysAndObjectsUsingBlock:v44];
+    v44 = dictionary;
+    [v8 enumerateKeysAndObjectsUsingBlock:v43];
   }
 
   else if (version == 2.0)
@@ -581,7 +587,6 @@ LABEL_25:
 LABEL_26:
 
 LABEL_27:
-  v42 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -678,7 +683,7 @@ void __78__HUHearingAidSettings_convertPersistentRepresentation_fromVersion_toVe
 
 void __55__HUHearingAidSettings_icloudHearingSettingsDidChange___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E696AFB8] defaultStore];
   v3 = [v2 dictionaryForKey:kAXSCloudHearingAidsPreference];
 
@@ -688,9 +693,9 @@ void __55__HUHearingAidSettings_icloudHearingSettingsDidChange___block_invoke(ui
   v6 = HCLogHearingAids();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 138412290;
-    v15 = v5;
-    _os_log_impl(&dword_1DA5E2000, v6, OS_LOG_TYPE_DEFAULT, "Paired Hearing Aids from iCloud %@", &v14, 0xCu);
+    v13 = 138412290;
+    v14 = v5;
+    _os_log_impl(&dword_1DA5E2000, v6, OS_LOG_TYPE_DEFAULT, "Paired Hearing Aids from iCloud %@", &v13, 0xCu);
   }
 
   v7 = [*(a1 + 32) pairedHearingAids];
@@ -719,20 +724,18 @@ void __55__HUHearingAidSettings_icloudHearingSettingsDidChange___block_invoke(ui
       }
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __47__HUHearingAidSettings_iCloudAccountDidChange___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = HCLogHearingAids();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) shouldUseiCloud];
-    v9[0] = 67109120;
-    v9[1] = v3;
-    _os_log_impl(&dword_1DA5E2000, v2, OS_LOG_TYPE_DEFAULT, "HearingAidSettings, iCloudAccountDidChange (using=%d)", v9, 8u);
+    v8[0] = 67109120;
+    v8[1] = v3;
+    _os_log_impl(&dword_1DA5E2000, v2, OS_LOG_TYPE_DEFAULT, "HearingAidSettings, iCloudAccountDidChange (using=%d)", v8, 8u);
   }
 
   if ([*(a1 + 32) shouldUseiCloud])
@@ -753,20 +756,18 @@ void __47__HUHearingAidSettings_iCloudAccountDidChange___block_invoke(uint64_t a
   v6 = *(a1 + 32);
   v7 = *(v6 + 64);
   *(v6 + 64) = 0;
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setLocalHearingAidsFromiCloud:(id)cloud
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   cloudCopy = cloud;
   v5 = HCLogHearingAids();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138412290;
-    v10 = cloudCopy;
-    _os_log_impl(&dword_1DA5E2000, v5, OS_LOG_TYPE_DEFAULT, "Set Paired Hearing Aids from iCloud %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = cloudCopy;
+    _os_log_impl(&dword_1DA5E2000, v5, OS_LOG_TYPE_DEFAULT, "Set Paired Hearing Aids from iCloud %@", &v8, 0xCu);
   }
 
   v6 = [(HUHearingAidSettings *)self deviceIDForPairingInformation:cloudCopy];
@@ -776,23 +777,21 @@ void __47__HUHearingAidSettings_iCloudAccountDidChange___block_invoke(uint64_t a
   {
     [(HUHearingAidSettings *)self setPairedHearingAids:cloudCopy];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)pushLocalHearingAidsToiCloud
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v3 = HCLogHearingAids();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = 67109632;
-    *v20 = [(HUHearingAidSettings *)self shouldUseiCloud];
-    *&v20[4] = 1024;
-    *&v20[6] = [(HUHearingAidSettings *)self shouldPushLocalAidsToiCloud];
-    v21 = 1024;
+    v18 = 67109632;
+    *v19 = [(HUHearingAidSettings *)self shouldUseiCloud];
+    *&v19[4] = 1024;
+    *&v19[6] = [(HUHearingAidSettings *)self shouldPushLocalAidsToiCloud];
+    v20 = 1024;
     isPairedWithFakeHearingAids = [(HUHearingAidSettings *)self isPairedWithFakeHearingAids];
-    _os_log_impl(&dword_1DA5E2000, v3, OS_LOG_TYPE_DEFAULT, "HearingAidSettings: pushLocalHearingAidsToiCloud, Using iCloud: %d, will push local Hearing Aids: %d, fake: %d", &v19, 0x14u);
+    _os_log_impl(&dword_1DA5E2000, v3, OS_LOG_TYPE_DEFAULT, "HearingAidSettings: pushLocalHearingAidsToiCloud, Using iCloud: %d, will push local Hearing Aids: %d, fake: %d", &v18, 0x14u);
   }
 
   if ([(HUHearingAidSettings *)self shouldUseiCloud]&& [(HUHearingAidSettings *)self shouldPushLocalAidsToiCloud]&& ![(HUHearingAidSettings *)self isPairedWithFakeHearingAids])
@@ -801,9 +800,9 @@ void __47__HUHearingAidSettings_iCloudAccountDidChange___block_invoke(uint64_t a
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       pairedHearingAids = [(HUHearingAidSettings *)self pairedHearingAids];
-      v19 = 138412290;
-      *v20 = pairedHearingAids;
-      _os_log_impl(&dword_1DA5E2000, v4, OS_LOG_TYPE_DEFAULT, "iCloud: Pushing local aids to iCloud %@", &v19, 0xCu);
+      v18 = 138412290;
+      *v19 = pairedHearingAids;
+      _os_log_impl(&dword_1DA5E2000, v4, OS_LOG_TYPE_DEFAULT, "iCloud: Pushing local aids to iCloud %@", &v18, 0xCu);
     }
 
     defaultStore = [MEMORY[0x1E696AFB8] defaultStore];
@@ -836,14 +835,14 @@ void __47__HUHearingAidSettings_iCloudAccountDidChange___block_invoke(uint64_t a
       {
 LABEL_15:
 
-        goto LABEL_16;
+        return;
       }
 
       v16 = HCLogHearingAids();
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v19) = 0;
-        _os_log_impl(&dword_1DA5E2000, v16, OS_LOG_TYPE_DEFAULT, "iCloud: Removing Hearing Aids from iCloud", &v19, 2u);
+        LOWORD(v18) = 0;
+        _os_log_impl(&dword_1DA5E2000, v16, OS_LOG_TYPE_DEFAULT, "iCloud: Removing Hearing Aids from iCloud", &v18, 2u);
       }
 
       defaultStore6 = [MEMORY[0x1E696AFB8] defaultStore];
@@ -855,9 +854,6 @@ LABEL_15:
 
     goto LABEL_15;
   }
-
-LABEL_16:
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (id)preferenceDomainForPreferenceKey:(id)key
@@ -877,17 +873,15 @@ LABEL_16:
 
 - (void)logMessage:(id)message
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   v4 = HCLogHearingAids();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
-    v7 = messageCopy;
-    _os_log_impl(&dword_1DA5E2000, v4, OS_LOG_TYPE_DEFAULT, "%@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = messageCopy;
+    _os_log_impl(&dword_1DA5E2000, v4, OS_LOG_TYPE_DEFAULT, "%@", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (id)preferenceKeyForSelector:(SEL)selector
@@ -1029,18 +1023,18 @@ void __49__HUHearingAidSettings_preferenceKeyForSelector___block_invoke()
 - (id)deviceIDForPairingInformation:(id)information
 {
   informationCopy = information;
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x3032000000;
-  v28 = __Block_byref_object_copy__2;
-  v29 = __Block_byref_object_dispose__2;
-  v30 = 0;
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x3032000000;
-  v22 = __Block_byref_object_copy__2;
-  v23 = __Block_byref_object_dispose__2;
   v24 = 0;
+  v25 = &v24;
+  v26 = 0x3032000000;
+  v27 = __Block_byref_object_copy__2;
+  v28 = __Block_byref_object_dispose__2;
+  v29 = 0;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x3032000000;
+  v21 = __Block_byref_object_copy__2;
+  v22 = __Block_byref_object_dispose__2;
+  v23 = 0;
   v4 = [informationCopy objectForKey:@"ax_hearing_device_left_peripheral_key"];
   v5 = [informationCopy objectForKey:@"ax_hearing_device_right_peripheral_key"];
   if ([v4 count])
@@ -1049,12 +1043,12 @@ void __49__HUHearingAidSettings_preferenceKeyForSelector___block_invoke()
     v7 = @"ax_hearing_device_hiidother_key";
     v8 = v4;
 LABEL_5:
-    v9 = v26[5];
-    v26[5] = v6;
+    v9 = v25[5];
+    v25[5] = v6;
 
     v10 = [v8 objectForKey:v7];
-    v11 = v20[5];
-    v20[5] = v10;
+    v11 = v19[5];
+    v19[5] = v10;
 
     goto LABEL_6;
   }
@@ -1068,39 +1062,38 @@ LABEL_5:
   }
 
 LABEL_6:
-  if (![v26[5] length] || !objc_msgSend(v20[5], "length"))
+  if (![v25[5] length] || !objc_msgSend(v19[5], "length"))
   {
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __54__HUHearingAidSettings_deviceIDForPairingInformation___block_invoke;
-    v18[3] = &unk_1E85CB920;
-    v18[4] = &v25;
-    v18[5] = &v19;
-    [informationCopy enumerateKeysAndObjectsUsingBlock:v18];
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __54__HUHearingAidSettings_deviceIDForPairingInformation___block_invoke;
+    v17[3] = &unk_1E85CB920;
+    v17[4] = &v24;
+    v17[5] = &v18;
+    [informationCopy enumerateKeysAndObjectsUsingBlock:v17];
   }
 
-  v12 = [v26[5] length];
-  v13 = v20[5];
+  v12 = [v25[5] length];
+  v13 = v19[5];
   if (v12)
   {
     if ([v13 length])
     {
-      v14 = v26[5];
-      v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@_%@", v14, v20[5]];
+      v14 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@_%@", v25[5], v19[5]];
       goto LABEL_14;
     }
 
-    v13 = v26[5];
+    v13 = v25[5];
   }
 
-  v15 = v13;
+  v14 = v13;
 LABEL_14:
-  v16 = v15;
+  v15 = v14;
 
-  _Block_object_dispose(&v19, 8);
-  _Block_object_dispose(&v25, 8);
+  _Block_object_dispose(&v18, 8);
+  _Block_object_dispose(&v24, 8);
 
-  return v16;
+  return v15;
 }
 
 void __54__HUHearingAidSettings_deviceIDForPairingInformation___block_invoke(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
@@ -1147,13 +1140,13 @@ void __54__HUHearingAidSettings_deviceIDForPairingInformation___block_invoke(uin
 
 - (void)setPairedHearingAids:(id)aids
 {
-  v56 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   aidsCopy = aids;
   v5 = HCLogHearingAids();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v55 = aidsCopy;
+    v54 = aidsCopy;
     _os_log_impl(&dword_1DA5E2000, v5, OS_LOG_TYPE_DEFAULT, "HearingAidsSettings: Setting paired hearing aids %@", buf, 0xCu);
   }
 
@@ -1192,18 +1185,18 @@ void __54__HUHearingAidSettings_deviceIDForPairingInformation___block_invoke(uin
   v13 = [v7 objectForKey:@"ax_hearing_device_right_peripheral_key"];
   v14 = [v12 objectForKey:@"ax_hearing_device_uuid_key"];
   v15 = *MEMORY[0x1E69A4538];
-  v50 = v13;
+  v49 = v13;
   if (([v14 hasPrefix:*MEMORY[0x1E69A4538]] & 1) == 0)
   {
 
 LABEL_15:
-    v49 = v6;
+    v48 = v6;
     v18 = [aidsCopy valueForKey:{@"ax_hearing_device_man_model_key", v12}];
     stringValue = [&unk_1F5623D28 stringValue];
     v20 = [v18 objectForKey:stringValue];
 
     v21 = [aidsCopy valueForKey:@"ax_hearing_device_left_peripheral_key"];
-    v51 = [v21 valueForKey:@"ax_hearing_device_uuid_key"];
+    v50 = [v21 valueForKey:@"ax_hearing_device_uuid_key"];
 
     v22 = [aidsCopy valueForKey:@"ax_hearing_device_right_peripheral_key"];
     v23 = [v22 valueForKey:@"ax_hearing_device_uuid_key"];
@@ -1218,7 +1211,7 @@ LABEL_15:
       if (v27)
       {
         array = [MEMORY[0x1E695DF70] array];
-        [array hcSafeAddObject:v51];
+        [array hcSafeAddObject:v50];
         [array hcSafeAddObject:v23];
         if (![array count])
         {
@@ -1227,16 +1220,16 @@ LABEL_15:
         }
 
         firstObject3 = [v20 firstObject];
-        v52 = firstObject3;
-        v53 = array;
-        dictionary = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v53 forKeys:&v52 count:1];
+        v51 = firstObject3;
+        v52 = array;
+        dictionary = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v52 forKeys:&v51 count:1];
 LABEL_28:
 
 LABEL_29:
         _AXSHearingSetDevicePairedUUIDs();
 
-        v6 = v49;
-        v12 = v48;
+        v6 = v48;
+        v12 = v47;
         goto LABEL_30;
       }
     }
@@ -1246,7 +1239,7 @@ LABEL_29:
     }
 
     array = [MEMORY[0x1E695DF70] array];
-    [array hcSafeAddObject:v51];
+    [array hcSafeAddObject:v50];
     firstObject3 = [MEMORY[0x1E695DF70] array];
     [firstObject3 hcSafeAddObject:v23];
     dictionary = [MEMORY[0x1E695DF90] dictionary];
@@ -1320,7 +1313,7 @@ LABEL_30:
       if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        LODWORD(v55) = v38 != 0;
+        LODWORD(v54) = v38 != 0;
         _os_log_impl(&dword_1DA5E2000, v41, OS_LOG_TYPE_DEFAULT, "Setting Announce Notifications on Hearing Aids Supported: %d", buf, 8u);
       }
 
@@ -1351,8 +1344,12 @@ LABEL_30:
 
   v46 = +[HUUtilities sharedUtilities];
   [v46 updateHearingFeatureUsage];
+}
 
-  v47 = *MEMORY[0x1E69E9840];
+- (void)setClearPartialPairing:(BOOL)pairing
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:pairing];
+  [(HCSettings *)self setValue:v4 forPreferenceKey:kAXSClearPartialPairingPreference];
 }
 
 - (NSDictionary)knownPeripheralUUIDs
@@ -1361,6 +1358,28 @@ LABEL_30:
   v4 = objc_opt_class();
 
   return [(HCSettings *)self objectValueForKey:v3 withClass:v4 andDefaultValue:0];
+}
+
+- (void)setIndependentHearingAidSettings:(BOOL)settings
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:settings];
+  [(HCSettings *)self setValue:v4 forPreferenceKey:kAXSHearingAidEarIndependencePreference];
+}
+
+- (void)setShouldStreamToLeftAid:(BOOL)aid
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:aid];
+  [(HCSettings *)self setValue:v4 forPreferenceKey:kAXSHearingAidsStreamToLeftPreference];
+
+  [(HUHearingAidSettings *)self updateStreamingPreference];
+}
+
+- (void)setShouldStreamToRightAid:(BOOL)aid
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:aid];
+  [(HCSettings *)self setValue:v4 forPreferenceKey:kAXSHearingAidsStreamToRightPreference];
+
+  [(HUHearingAidSettings *)self updateStreamingPreference];
 }
 
 - (void)setCallAudioRoute:(int64_t)route
@@ -1375,15 +1394,57 @@ LABEL_30:
   [(HCSettings *)self setValue:v4 forPreferenceKey:kAXSHearingAidsMediaAudioRoutePreference];
 }
 
+- (void)setExportsLiveListenToFile:(BOOL)file
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:file];
+  [(HCSettings *)self setValue:v4 forPreferenceKey:kAXSHearingAidsLiveListenExportPreference];
+}
+
+- (void)setMultideviceSettingsEnabled:(BOOL)enabled
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:enabled];
+  [(HCSettings *)self setValue:v4 forPreferenceKey:kAXSHearingAidMultideviceSettingsPreference];
+}
+
+- (void)setMultideviceAudioEnabled:(BOOL)enabled
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:enabled];
+  [(HCSettings *)self setValue:v4 forPreferenceKey:kAXSHearingAidMultideviceAudioPreference];
+}
+
+- (void)setShouldStreamSystemSounds:(BOOL)sounds
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:sounds];
+  [(HCSettings *)self setValue:v4 forPreferenceKey:kAXSHearingAidSystemSoundsStreamPreference];
+}
+
 - (void)setComplicationPreferredDisplayMode:(int64_t)mode
 {
   v4 = [MEMORY[0x1E696AD98] numberWithInteger:mode];
   [(HCSettings *)self setValue:v4 forPreferenceKey:kAXSHearingAidComplicationPreferredDisplayModePreference];
 }
 
+- (void)setAvailableInputEars:(int)ears
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:*&ears];
+  [(HCSettings *)self setValue:v4 forPreferenceKey:kAXSHearingAidAvailableInputEarPreference];
+}
+
+- (void)setEarsSupportingWatch:(int)watch
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:*&watch];
+  [(HCSettings *)self setValue:v4 forPreferenceKey:kAXSHearingAidEarsSupportingWatchPreference];
+}
+
+- (void)setPreferredInputEar:(int)ear
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:*&ear];
+  [(HCSettings *)self setValue:v4 forPreferenceKey:kAXSHearingAidInputEarPreference];
+}
+
 - (void)setAvailableHearingDeviceName:(id)name
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   availableHearingDeviceName = [(HUHearingAidSettings *)self availableHearingDeviceName];
   if (([availableHearingDeviceName isEqualToString:nameCopy] & 1) == 0 && nameCopy | availableHearingDeviceName)
@@ -1391,15 +1452,13 @@ LABEL_30:
     v6 = HCLogHearingHandoff();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 138412290;
-      v9 = nameCopy;
-      _os_log_impl(&dword_1DA5E2000, v6, OS_LOG_TYPE_DEFAULT, "Set AvailableHearingDeviceName: %@", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = nameCopy;
+      _os_log_impl(&dword_1DA5E2000, v6, OS_LOG_TYPE_DEFAULT, "Set AvailableHearingDeviceName: %@", &v7, 0xCu);
     }
 
     [(HCSettings *)self setValue:nameCopy forPreferenceKey:kAXSAvailableHearingDeviceNamePreference];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setUsedHearingFeatures:(unint64_t)features
@@ -1473,12 +1532,17 @@ LABEL_30:
   return v6;
 }
 
+- (void)setLiveHeadphoneLevelEnabled:(BOOL)enabled
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:enabled];
+  [(HCSettings *)self setValue:v4 forPreferenceKey:kAXSLiveHeadphoneLevelEnabledPreference];
+}
+
 - (void)shouldUseiCloud
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9 = HIDWORD(*self);
-  OUTLINED_FUNCTION_0_0(&dword_1DA5E2000, a2, a3, "Unable to get entitlements for client task. Error: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *self;
+  OUTLINED_FUNCTION_0_0(&dword_1DA5E2000, a2, a3, "Unable to get entitlements for client task. Error: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

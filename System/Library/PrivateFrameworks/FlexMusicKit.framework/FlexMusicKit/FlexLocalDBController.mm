@@ -13,11 +13,11 @@
 
 - (FlexLocalDBController)initWithDestinationURL:(id)l
 {
-  v53[1] = *MEMORY[0x277D85DE8];
+  v52[1] = *MEMORY[0x277D85DE8];
   lCopy = l;
-  v52.receiver = self;
-  v52.super_class = FlexLocalDBController;
-  v6 = [(FlexLocalDBController *)&v52 init];
+  v51.receiver = self;
+  v51.super_class = FlexLocalDBController;
+  v6 = [(FlexLocalDBController *)&v51 init];
   v7 = v6;
   if (v6)
   {
@@ -37,20 +37,19 @@
     v33 = objc_msgSend_URLByAppendingPathExtension_(v29, v30, @"sqlite", v31, v32);
 
     v37 = objc_msgSend_persistentStoreDescriptionWithURL_(MEMORY[0x277CBE4E0], v34, v33, v35, v36);
-    v53[0] = v37;
-    v40 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v38, v53, 1, v39);
+    v52[0] = v37;
+    v40 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v38, v52, 1, v39);
     objc_msgSend_setPersistentStoreDescriptions_(v7->_localSongDatabase, v41, v40, v42, v43);
 
     v44 = v7->_localSongDatabase;
-    v50[0] = MEMORY[0x277D85DD0];
-    v50[1] = 3221225472;
-    v50[2] = sub_24B7F7120;
-    v50[3] = &unk_27900EE30;
-    v51 = v7;
-    objc_msgSend_loadPersistentStoresWithCompletionHandler_(v44, v45, v50, v46, v47);
+    v49[0] = MEMORY[0x277D85DD0];
+    v49[1] = 3221225472;
+    v49[2] = sub_24B7F7120;
+    v49[3] = &unk_27900EE30;
+    v50 = v7;
+    objc_msgSend_loadPersistentStoresWithCompletionHandler_(v44, v45, v49, v46, v47);
   }
 
-  v48 = *MEMORY[0x277D85DE8];
   return v7;
 }
 

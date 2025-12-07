@@ -8,10 +8,10 @@
 {
   if (a3)
   {
-    return [self setValue:? forHTTPHeaderField:?];
+    return [result setValue:? forHTTPHeaderField:?];
   }
 
-  return self;
+  return result;
 }
 
 @end

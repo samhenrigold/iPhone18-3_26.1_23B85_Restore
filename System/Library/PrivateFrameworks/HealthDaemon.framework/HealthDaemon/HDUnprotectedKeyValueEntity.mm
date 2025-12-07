@@ -8,14 +8,14 @@
 
 + (id)badgeForDomain:(int64_t)domain profile:(id)profile error:(id *)error
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   profileCopy = profile;
   v9 = [(HDUnprotectedKeyValueEntity *)self _keyForNotificationDomain:domain error:error];
   if (v9)
   {
-    v22 = 0;
-    v10 = [self numberForKey:v9 domain:&stru_283BF39C8 category:2 profile:profileCopy entity:0 error:&v22];
-    v11 = v22;
+    v21 = 0;
+    v10 = [self numberForKey:v9 domain:&stru_283BF39C8 category:2 profile:profileCopy entity:0 error:&v21];
+    v11 = v21;
     v12 = v11;
     if (v10)
     {
@@ -38,13 +38,13 @@
       v15 = *MEMORY[0x277CCC2A0];
       if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
       {
-        v20 = v15;
-        v21 = NSStringFromHKNotificationDomain();
+        v19 = v15;
+        v20 = NSStringFromHKNotificationDomain();
         *buf = 138412546;
-        v24 = v21;
-        v25 = 2114;
-        v26 = v12;
-        _os_log_error_impl(&dword_228986000, v20, OS_LOG_TYPE_ERROR, "Failed to get badge for notification domain %@: %{public}@", buf, 0x16u);
+        v23 = v20;
+        v24 = 2114;
+        v25 = v12;
+        _os_log_error_impl(&dword_228986000, v19, OS_LOG_TYPE_ERROR, "Failed to get badge for notification domain %@: %{public}@", buf, 0x16u);
       }
 
       if (error)
@@ -66,8 +66,6 @@
   {
     v14 = [MEMORY[0x277CCD068] badgeFromKeyValueRepresentation:0];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v14;
 }

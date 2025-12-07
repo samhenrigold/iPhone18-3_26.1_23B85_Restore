@@ -238,9 +238,9 @@ LABEL_21:
     {
       v27 = [CCPodcastPlaylist alloc];
       v28 = CCPBReaderReadDataNoCopy();
-      v41 = 0;
-      v29 = [(CCItemMessage *)v27 initWithData:v28 error:&v41];
-      v10 = v41;
+      v39 = 0;
+      v29 = [(CCItemMessage *)v27 initWithData:v28 error:&v39];
+      v10 = v39;
       playlist = self->_playlist;
       self->_playlist = v29;
 
@@ -257,9 +257,9 @@ LABEL_21:
     {
       v22 = [CCPodcastShow alloc];
       v23 = CCPBReaderReadDataNoCopy();
-      v42 = 0;
-      v24 = [(CCItemMessage *)v22 initWithData:v23 error:&v42];
-      v10 = v42;
+      v40 = 0;
+      v24 = [(CCItemMessage *)v22 initWithData:v23 error:&v40];
+      v10 = v40;
       v25 = self->_show;
       self->_show = v24;
 
@@ -280,7 +280,6 @@ LABEL_21:
     {
       v32 = objc_opt_class();
       v33 = NSStringFromClass(v32);
-      v34 = *&v6[*v9];
       v10 = CCSkipFieldErrorForMessage();
     }
   }
@@ -297,24 +296,23 @@ LABEL_33:
     if (!*&v6[*v9])
     {
       v10 = 0;
-      v39 = 1;
+      v37 = 1;
       goto LABEL_37;
     }
 
 LABEL_34:
-    v35 = objc_opt_class();
-    v36 = NSStringFromClass(v35);
-    v37 = *&v6[*v9];
-    v38 = CCInvalidBufferErrorForMessage();
+    v34 = objc_opt_class();
+    v35 = NSStringFromClass(v34);
+    v36 = CCInvalidBufferErrorForMessage();
     CCSetError();
 
     v10 = 0;
   }
 
-  v39 = 0;
+  v37 = 0;
 LABEL_37:
 
-  return v39;
+  return v37;
 }
 
 - (CCPodcastContent)initWithEntity:(id)entity entityType:(unsigned int)type error:(id *)error

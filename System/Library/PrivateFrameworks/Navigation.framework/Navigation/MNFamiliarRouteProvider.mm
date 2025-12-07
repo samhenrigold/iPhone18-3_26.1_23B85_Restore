@@ -151,22 +151,22 @@ id __55__MNFamiliarRouteProvider__descriptionForLearnedRoute___block_invoke(uint
 
 - (id)_familiarRouteForLearnedRoute:(id)route
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   routeCopy = route;
   travelModeRoutes = [routeCopy travelModeRoutes];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __57__MNFamiliarRouteProvider__familiarRouteForLearnedRoute___block_invoke;
-  v15[3] = &unk_1E842FC60;
-  v15[4] = self;
-  v6 = [travelModeRoutes _geo_compactMap:v15];
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __57__MNFamiliarRouteProvider__familiarRouteForLearnedRoute___block_invoke;
+  v14[3] = &unk_1E842FC60;
+  v14[4] = self;
+  v6 = [travelModeRoutes _geo_compactMap:v14];
 
   v7 = MNGetMNFamiliarRouteProviderLog();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = [v6 count];
     *buf = 67109120;
-    v17 = v8;
+    v16 = v8;
     _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_INFO, "Creating familiar route with %d segments.", buf, 8u);
   }
 
@@ -175,8 +175,6 @@ id __55__MNFamiliarRouteProvider__descriptionForLearnedRoute___block_invoke(uint
 
   uUIDString = [learnedRouteIdentifier UUIDString];
   v12 = [v9 initWithFamiliarRouteUUID:uUIDString segments:v6];
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -259,7 +257,7 @@ id __57__MNFamiliarRouteProvider__familiarRouteForLearnedRoute___block_invoke(ui
 
 - (void)_fetchFamiliarRouteWithWaypoints:(id)waypoints handler:(id)handler
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   waypointsCopy = waypoints;
   v8 = [(MNFamiliarRouteProvider *)self _fetchOptionsForWaypoints:waypointsCopy];
@@ -283,39 +281,36 @@ id __57__MNFamiliarRouteProvider__familiarRouteForLearnedRoute___block_invoke(ui
     reason = self->_reason;
     v22 = [v19 stringFromDate:self->_date];
     *buf = 138413571;
-    v29 = reason;
-    v30 = 2049;
-    v31 = v11;
-    v32 = 2049;
-    v33 = v13;
-    v34 = 2049;
-    v35 = v16;
-    v36 = 2049;
-    v37 = v18;
-    v38 = 2112;
-    v39 = v22;
+    v28 = reason;
+    v29 = 2049;
+    v30 = v11;
+    v31 = 2049;
+    v32 = v13;
+    v33 = 2049;
+    v34 = v16;
+    v35 = 2049;
+    v36 = v18;
+    v37 = 2112;
+    v38 = v22;
     _os_log_impl(&dword_1D311E000, v20, OS_LOG_TYPE_DEFAULT, "Checking learned routes for reason %@, from %{private}0.6f, %{private}0.6f to %{private}0.6f, %{private}0.6f on %@.", buf, 0x3Eu);
   }
 
   defaultManager = [getRTRoutineManagerClass() defaultManager];
-  v26[0] = MEMORY[0x1E69E9820];
-  v26[1] = 3221225472;
-  v26[2] = __68__MNFamiliarRouteProvider__fetchFamiliarRouteWithWaypoints_handler___block_invoke;
-  v26[3] = &unk_1E842FC38;
-  v26[4] = self;
-  v27 = handlerCopy;
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 3221225472;
+  v25[2] = __68__MNFamiliarRouteProvider__fetchFamiliarRouteWithWaypoints_handler___block_invoke;
+  v25[3] = &unk_1E842FC38;
+  v25[4] = self;
+  v26 = handlerCopy;
   v24 = handlerCopy;
-  [defaultManager fetchLearnedRoutesWithOptions:v8 handler:v26];
-
-  v25 = *MEMORY[0x1E69E9840];
+  [defaultManager fetchLearnedRoutesWithOptions:v8 handler:v25];
 }
 
 void __68__MNFamiliarRouteProvider__fetchFamiliarRouteWithWaypoints_handler___block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
   v6 = a2;
   v9 = a4;
-  v11 = *(a1 + 40);
-  v10 = *(a1 + 32);
+  v10 = *(a1 + 40);
   v7 = v6;
   v8 = v9;
   geo_dispatch_async_qos();
@@ -323,7 +318,7 @@ void __68__MNFamiliarRouteProvider__fetchFamiliarRouteWithWaypoints_handler___bl
 
 void __68__MNFamiliarRouteProvider__fetchFamiliarRouteWithWaypoints_handler___block_invoke_2(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = MNGetMNFamiliarRouteProviderLog();
   v4 = v3;
@@ -332,9 +327,9 @@ void __68__MNFamiliarRouteProvider__fetchFamiliarRouteWithWaypoints_handler___bl
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       v5 = *(a1 + 32);
-      v13 = 138412290;
-      v14 = v5;
-      _os_log_impl(&dword_1D311E000, v4, OS_LOG_TYPE_ERROR, "Error fetching learned routes: %@", &v13, 0xCu);
+      v12 = 138412290;
+      v13 = v5;
+      _os_log_impl(&dword_1D311E000, v4, OS_LOG_TYPE_ERROR, "Error fetching learned routes: %@", &v12, 0xCu);
     }
 
     (*(*(a1 + 56) + 16))();
@@ -345,9 +340,9 @@ void __68__MNFamiliarRouteProvider__fetchFamiliarRouteWithWaypoints_handler___bl
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v6 = [*(a1 + 40) _descriptionForLearnedRoutes:*(a1 + 48)];
-      v13 = 138477827;
-      v14 = v6;
-      _os_log_impl(&dword_1D311E000, v4, OS_LOG_TYPE_DEFAULT, "%{private}@", &v13, 0xCu);
+      v12 = 138477827;
+      v13 = v6;
+      _os_log_impl(&dword_1D311E000, v4, OS_LOG_TYPE_DEFAULT, "%{private}@", &v12, 0xCu);
     }
 
     v7 = [*(a1 + 48) firstObject];
@@ -367,8 +362,6 @@ void __68__MNFamiliarRouteProvider__fetchFamiliarRouteWithWaypoints_handler___bl
       (*(*(a1 + 56) + 16))();
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchFamiliarRouteWithWaypoints:(id)waypoints handler:(id)handler

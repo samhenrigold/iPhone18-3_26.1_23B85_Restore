@@ -20,20 +20,20 @@
   identifierCopy = identifier;
   frameIdentifierCopy = frameIdentifier;
   dataCopy = data;
-  v127.receiver = self;
-  v127.super_class = ASCAuthorizationPresentationContext;
-  v16 = [(ASCAuthorizationPresentationContext *)&v127 init];
+  v129.receiver = self;
+  v129.super_class = ASCAuthorizationPresentationContext;
+  v16 = [(ASCAuthorizationPresentationContext *)&v129 init];
   if (!v16)
   {
     goto LABEL_45;
   }
 
-  v123 = dataCopy;
+  v125 = dataCopy;
   v17 = [identifierCopy copy];
   appIdentifier = v16->_appIdentifier;
   v16->_appIdentifier = v17;
 
-  v124 = frameIdentifierCopy;
+  v126 = frameIdentifierCopy;
   v19 = [frameIdentifierCopy copy];
   frameIdentifier = v16->_frameIdentifier;
   v16->_frameIdentifier = v19;
@@ -60,9 +60,9 @@ LABEL_16:
   if ([identifierCopy length])
   {
     v28 = v16->_appIdentifier;
-    v126 = 0;
-    v29 = [MEMORY[0x1E6963620] bundleRecordWithApplicationIdentifier:v28 error:&v126];
-    teamIdentifier = v126;
+    v128 = 0;
+    v29 = [MEMORY[0x1E6963620] bundleRecordWithApplicationIdentifier:v28 error:&v128];
+    teamIdentifier = v128;
     if (v29)
     {
       v30 = v29;
@@ -72,34 +72,34 @@ LABEL_16:
     {
       v31 = objc_alloc(MEMORY[0x1E69635D0]);
       v32 = v16->_appIdentifier;
-      v125 = teamIdentifier;
-      v30 = [v31 safari_initWithExtensionApplicationIdentifier:v32 error:&v125];
-      v33 = v125;
+      v127 = teamIdentifier;
+      v30 = [v31 safari_initWithExtensionApplicationIdentifier:v32 error:&v127];
+      v33 = v127;
 
       teamIdentifier = v33;
     }
 
     if (teamIdentifier)
     {
-      v34 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+      v36 = WBS_LOG_CHANNEL_PREFIXAuthorization(v34, v35);
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
       {
-        [ASCAuthorizationPresentationContext initWithRequestContext:v34 appIdentifier:teamIdentifier frameIdentifier:? shouldUseRelyingPartyForServiceName:? auditTokenData:?];
+        [ASCAuthorizationPresentationContext initWithRequestContext:v36 appIdentifier:teamIdentifier frameIdentifier:? shouldUseRelyingPartyForServiceName:? auditTokenData:?];
       }
     }
 
     bundleIdentifier = [v30 bundleIdentifier];
-    v36 = v16->_bundleIdentifier;
+    v38 = v16->_bundleIdentifier;
     v16->_bundleIdentifier = bundleIdentifier;
 
     teamIdentifier = [v30 teamIdentifier];
-    v38 = v16->_teamIdentifier;
+    v40 = v16->_teamIdentifier;
     v16->_teamIdentifier = teamIdentifier;
 
     if (!v16->_serviceName)
     {
       localizedName = [v30 localizedName];
-      v40 = v16->_serviceName;
+      v42 = v16->_serviceName;
       v16->_serviceName = localizedName;
 
       if (!v16->_serviceName)
@@ -109,7 +109,7 @@ LABEL_16:
         {
           containingBundleRecord = [v30 containingBundleRecord];
           localizedName2 = [containingBundleRecord localizedName];
-          v43 = v16->_serviceName;
+          v45 = v16->_serviceName;
           v16->_serviceName = localizedName2;
         }
       }
@@ -120,9 +120,9 @@ LABEL_16:
 
 LABEL_17:
   v16->_serviceType = 0;
-  v44 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v46 = objc_alloc_init(MEMORY[0x1E695DF70]);
   loginChoices = v16->_loginChoices;
-  v16->_loginChoices = v44;
+  v16->_loginChoices = v46;
 
   appleIDAuthorizationRequest = [contextCopy appleIDAuthorizationRequest];
   appleIDAuthorizationRequest = v16->_appleIDAuthorizationRequest;
@@ -132,40 +132,40 @@ LABEL_17:
   {
     platformKeyCredentialAssertionOptions = [contextCopy platformKeyCredentialAssertionOptions];
     origin = [platformKeyCredentialAssertionOptions origin];
-    v50 = [origin length];
+    v52 = [origin length];
 
-    if (v50)
+    if (v52)
     {
-      v51 = MEMORY[0x1E695DFF8];
+      v53 = MEMORY[0x1E695DFF8];
       platformKeyCredentialAssertionOptions2 = [contextCopy platformKeyCredentialAssertionOptions];
       origin2 = [platformKeyCredentialAssertionOptions2 origin];
-      relyingPartyIdentifier2 = [v51 URLWithString:origin2];
+      relyingPartyIdentifier2 = [v53 URLWithString:origin2];
 
       host = [relyingPartyIdentifier2 host];
       safari_highLevelDomainForPasswordManager = [host safari_highLevelDomainForPasswordManager];
-      v57 = safari_highLevelDomainForPasswordManager;
+      v59 = safari_highLevelDomainForPasswordManager;
       if (safari_highLevelDomainForPasswordManager)
       {
-        v58 = safari_highLevelDomainForPasswordManager;
+        v60 = safari_highLevelDomainForPasswordManager;
         relyingPartyIdentifier = v16->_serviceName;
-        v16->_serviceName = v58;
+        v16->_serviceName = v60;
       }
 
       else
       {
         relyingPartyIdentifier = [contextCopy relyingPartyIdentifier];
-        v61 = [relyingPartyIdentifier copy];
-        v62 = v16->_serviceName;
-        v16->_serviceName = v61;
+        v63 = [relyingPartyIdentifier copy];
+        v64 = v16->_serviceName;
+        v16->_serviceName = v63;
       }
     }
 
     else
     {
       relyingPartyIdentifier2 = [contextCopy relyingPartyIdentifier];
-      v60 = [relyingPartyIdentifier2 copy];
+      v62 = [relyingPartyIdentifier2 copy];
       host = v16->_serviceName;
-      v16->_serviceName = v60;
+      v16->_serviceName = v62;
     }
 
     v16->_serviceType = 1;
@@ -173,16 +173,16 @@ LABEL_17:
 
   platformKeyCredentialCreationOptions = [contextCopy platformKeyCredentialCreationOptions];
   platformKeyCredentialAssertionOptions3 = [contextCopy platformKeyCredentialAssertionOptions];
-  v65 = platformKeyCredentialAssertionOptions3;
+  v67 = platformKeyCredentialAssertionOptions3;
   if (platformKeyCredentialCreationOptions)
   {
     userVerificationPreference = [platformKeyCredentialCreationOptions userVerificationPreference];
     platformUserVerificationPreference = v16->_platformUserVerificationPreference;
     v16->_platformUserVerificationPreference = userVerificationPreference;
 
-    v68 = [platformKeyCredentialCreationOptions copy];
+    v70 = [platformKeyCredentialCreationOptions copy];
     passkeyCreationOptionsForExternalProvider = v16->_passkeyCreationOptionsForExternalProvider;
-    v16->_passkeyCreationOptionsForExternalProvider = v68;
+    v16->_passkeyCreationOptionsForExternalProvider = v70;
   }
 
   else
@@ -192,8 +192,8 @@ LABEL_17:
     v16->_platformUserVerificationPreference = userVerificationPreference2;
   }
 
-  objc_storeStrong(&v16->_passkeyAssertionOptionsForExternalProvider, v65);
-  if (platformKeyCredentialCreationOptions | v65)
+  objc_storeStrong(&v16->_passkeyAssertionOptionsForExternalProvider, v67);
+  if (platformKeyCredentialCreationOptions | v67)
   {
     isCABLEAuthenticatorRequest = 1;
   }
@@ -204,7 +204,7 @@ LABEL_17:
   }
 
   v16->_isPasskeyRequest = isCABLEAuthenticatorRequest;
-  destinationSiteForCrossSiteAssertion = [v65 destinationSiteForCrossSiteAssertion];
+  destinationSiteForCrossSiteAssertion = [v67 destinationSiteForCrossSiteAssertion];
   destinationSiteForCrossSiteAssertion = v16->_destinationSiteForCrossSiteAssertion;
   v16->_destinationSiteForCrossSiteAssertion = destinationSiteForCrossSiteAssertion;
 
@@ -216,34 +216,34 @@ LABEL_17:
   {
     securityKeyCredentialAssertionOptions = [contextCopy securityKeyCredentialAssertionOptions];
     destinationSiteForCrossSiteAssertion2 = [securityKeyCredentialAssertionOptions destinationSiteForCrossSiteAssertion];
-    v78 = v16->_destinationSiteForCrossSiteAssertion;
+    v80 = v16->_destinationSiteForCrossSiteAssertion;
     v16->_destinationSiteForCrossSiteAssertion = destinationSiteForCrossSiteAssertion2;
   }
 
-  v122 = identifierCopy;
+  v124 = identifierCopy;
   v16->_isProxiedRequest = [contextCopy isProxiedRequest];
   proxiedAssociatedDomains = [contextCopy proxiedAssociatedDomains];
-  v80 = [proxiedAssociatedDomains copy];
+  v82 = [proxiedAssociatedDomains copy];
   proxiedAssociatedDomains = v16->_proxiedAssociatedDomains;
-  v16->_proxiedAssociatedDomains = v80;
+  v16->_proxiedAssociatedDomains = v82;
 
   proxiedIconData = [contextCopy proxiedIconData];
-  v83 = [proxiedIconData copy];
+  v85 = [proxiedIconData copy];
   proxiedIconData = v16->_proxiedIconData;
-  v16->_proxiedIconData = v83;
+  v16->_proxiedIconData = v85;
 
   proxiedIconScale = [contextCopy proxiedIconScale];
-  v86 = [proxiedIconScale copy];
+  v88 = [proxiedIconScale copy];
   proxiedIconScale = v16->_proxiedIconScale;
-  v16->_proxiedIconScale = v86;
+  v16->_proxiedIconScale = v88;
 
   proxiedOriginDeviceName = [contextCopy proxiedOriginDeviceName];
-  v89 = [proxiedOriginDeviceName copy];
+  v91 = [proxiedOriginDeviceName copy];
   proxiedOriginDeviceName = v16->_proxiedOriginDeviceName;
-  v16->_proxiedOriginDeviceName = v89;
+  v16->_proxiedOriginDeviceName = v91;
 
   v16->_isCABLEAuthenticatorRequest = [contextCopy isCABLEAuthenticatorRequest];
-  v91 = nameCopy;
+  v93 = nameCopy;
   if ([contextCopy requestStyle] == 1)
   {
     securityKeyCredentialAssertionOptions2 = [contextCopy securityKeyCredentialAssertionOptions];
@@ -255,9 +255,9 @@ LABEL_17:
     v16->_shouldAllowSecurityKeysFromCABLEView = 0;
   }
 
-  v93 = contextCopy;
-  platformKeyCredentialAssertionOptions4 = [v93 platformKeyCredentialAssertionOptions];
-  v95 = platformKeyCredentialAssertionOptions4;
+  v95 = contextCopy;
+  platformKeyCredentialAssertionOptions4 = [v95 platformKeyCredentialAssertionOptions];
+  v97 = platformKeyCredentialAssertionOptions4;
   if (platformKeyCredentialAssertionOptions4)
   {
     extensions = [platformKeyCredentialAssertionOptions4 extensions];
@@ -266,7 +266,7 @@ LABEL_17:
 
   else
   {
-    platformKeyCredentialCreationOptions2 = [v93 platformKeyCredentialCreationOptions];
+    platformKeyCredentialCreationOptions2 = [v95 platformKeyCredentialCreationOptions];
     extensions = platformKeyCredentialCreationOptions2;
     if (platformKeyCredentialCreationOptions2)
     {
@@ -281,32 +281,32 @@ LABEL_17:
   }
 
   v16->_cableAuthenticatorRequirement = caBLEAuthenticatorMinimumRequirement;
-  proxySheetHeaderOverride = [v93 proxySheetHeaderOverride];
+  proxySheetHeaderOverride = [v95 proxySheetHeaderOverride];
   overrideHeader = v16->_overrideHeader;
   v16->_overrideHeader = proxySheetHeaderOverride;
 
-  proxySheetTitleOverride = [v93 proxySheetTitleOverride];
+  proxySheetTitleOverride = [v95 proxySheetTitleOverride];
   overrideTitle = v16->_overrideTitle;
   v16->_overrideTitle = proxySheetTitleOverride;
 
-  proxySheetSubtitleOverride = [v93 proxySheetSubtitleOverride];
+  proxySheetSubtitleOverride = [v95 proxySheetSubtitleOverride];
   overrideSubtitle = v16->_overrideSubtitle;
   v16->_overrideSubtitle = proxySheetSubtitleOverride;
 
-  proxySheetNoCredentialsErrorTitleOverride = [v93 proxySheetNoCredentialsErrorTitleOverride];
+  proxySheetNoCredentialsErrorTitleOverride = [v95 proxySheetNoCredentialsErrorTitleOverride];
   overrideNoCredentialsErrorTitle = v16->_overrideNoCredentialsErrorTitle;
   v16->_overrideNoCredentialsErrorTitle = proxySheetNoCredentialsErrorTitleOverride;
 
-  proxySheetNoCredentialsErrorMessageOverride = [v93 proxySheetNoCredentialsErrorMessageOverride];
+  proxySheetNoCredentialsErrorMessageOverride = [v95 proxySheetNoCredentialsErrorMessageOverride];
   overrideNoCredentialsErrorMessage = v16->_overrideNoCredentialsErrorMessage;
   v16->_overrideNoCredentialsErrorMessage = proxySheetNoCredentialsErrorMessageOverride;
 
-  v16->_useAlternativeSecurityKeysIcon = [v93 useAlternativeSecurityKeysIcon];
-  if (v91)
+  v16->_useAlternativeSecurityKeysIcon = [v95 useAlternativeSecurityKeysIcon];
+  if (v93)
   {
-    v110 = +[ASFeatureManager sharedManager];
-    relyingPartyIdentifier3 = [v93 relyingPartyIdentifier];
-    v16->_shouldUseFallbackPasskeyUI = [v110 shouldUseFallbackUIForRelyingParty:relyingPartyIdentifier3];
+    v112 = +[ASFeatureManager sharedManager];
+    relyingPartyIdentifier3 = [v95 relyingPartyIdentifier];
+    v16->_shouldUseFallbackPasskeyUI = [v112 shouldUseFallbackUIForRelyingParty:relyingPartyIdentifier3];
   }
 
   else
@@ -314,26 +314,26 @@ LABEL_17:
     v16->_shouldUseFallbackPasskeyUI = 0;
   }
 
-  securityKeyCredentialAssertionOptions3 = [v93 securityKeyCredentialAssertionOptions];
+  securityKeyCredentialAssertionOptions3 = [v95 securityKeyCredentialAssertionOptions];
   allowedCredentials = [securityKeyCredentialAssertionOptions3 allowedCredentials];
-  v114 = [allowedCredentials safari_filterObjectsUsingBlock:&__block_literal_global_387];
+  v116 = [allowedCredentials safari_filterObjectsUsingBlock:&__block_literal_global_387];
 
   allowedCredentialsForSecurityKeyAssertion = v16->_allowedCredentialsForSecurityKeyAssertion;
-  v16->_allowedCredentialsForSecurityKeyAssertion = v114;
+  v16->_allowedCredentialsForSecurityKeyAssertion = v116;
 
-  windowSceneIdentifier = [v93 windowSceneIdentifier];
+  windowSceneIdentifier = [v95 windowSceneIdentifier];
   windowSceneIdentifier = v16->_windowSceneIdentifier;
   v16->_windowSceneIdentifier = windowSceneIdentifier;
 
-  v16->_isConditionalRegistrationRequest = [v93 isConditionalRegistrationRequest];
-  dataCopy = v123;
-  v118 = [v123 copy];
+  v16->_isConditionalRegistrationRequest = [v95 isConditionalRegistrationRequest];
+  dataCopy = v125;
+  v120 = [v125 copy];
   auditTokenData = v16->_auditTokenData;
-  v16->_auditTokenData = v118;
+  v16->_auditTokenData = v120;
 
-  v120 = v16;
-  frameIdentifierCopy = v124;
-  identifierCopy = v122;
+  v122 = v16;
+  frameIdentifierCopy = v126;
+  identifierCopy = v124;
 LABEL_45:
 
   return v16;
@@ -371,44 +371,42 @@ LABEL_45:
 
 - (void)updateLoginChoices:(id)choices
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v4 = [choices mutableCopy];
   loginChoices = self->_loginChoices;
   self->_loginChoices = v4;
 
   [(NSMutableArray *)self->_loginChoices sortUsingComparator:&__block_literal_global_133];
   self->_requestTypes = 0;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v6 = self->_loginChoices;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        self->_requestTypes |= requestTypeForLoginChoice(*(*(&v12 + 1) + 8 * v10++));
+        self->_requestTypes |= requestTypeForLoginChoice(*(*(&v11 + 1) + 8 * v10++));
       }
 
       while (v8 != v10);
-      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __59__ASCAuthorizationPresentationContext_hasExternalPasswords__block_invoke(uint64_t a1, void *a2)
@@ -456,31 +454,31 @@ uint64_t __63__ASCAuthorizationPresentationContext_localAccountLoginChoices__blo
 
 - (void)_getPrimaryLoginChoices:(id *)choices otherLoginChoices:(id *)loginChoices
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   _passkeyLoginChoices = [(ASCAuthorizationPresentationContext *)self _passkeyLoginChoices];
   array = [MEMORY[0x1E695DF70] array];
   array2 = [MEMORY[0x1E695DF70] array];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   selfCopy = self;
   v8 = self->_loginChoices;
-  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v23;
+    v11 = *v22;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v23 != v11)
+        if (*v22 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v22 + 1) + 8 * i);
+        v13 = *(*(&v21 + 1) + 8 * i);
         if ([v13 loginChoiceKind] == 1 && objc_msgSend(_passkeyLoginChoices, "count") == 1)
         {
           firstObject = [_passkeyLoginChoices firstObject];
@@ -510,7 +508,7 @@ uint64_t __63__ASCAuthorizationPresentationContext_localAccountLoginChoices__blo
         [v16 addObject:v13];
       }
 
-      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v10);
@@ -528,8 +526,6 @@ uint64_t __63__ASCAuthorizationPresentationContext_localAccountLoginChoices__blo
   }
 
   *choicesCopy = [array2 copy];
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_passwordLoginChoice:(id)choice hasSameHighLevelDomainAndUsernameAsPasskeyLoginChoice:(id)loginChoice
@@ -557,55 +553,52 @@ uint64_t __63__ASCAuthorizationPresentationContext_localAccountLoginChoices__blo
 
 - (int64_t)iCloudKeychainPasskeyLoginChoiceCount
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = +[ASFeatureManager sharedManager];
   isDeviceConfiguredToAllowPasskeys = [v3 isDeviceConfiguredToAllowPasskeys];
 
-  if (isDeviceConfiguredToAllowPasskeys)
+  if (!isDeviceConfiguredToAllowPasskeys)
   {
-    objc_opt_class();
-    v15 = 0u;
-    v16 = 0u;
-    v17 = 0u;
-    v18 = 0u;
-    v5 = self->_loginChoices;
-    v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
-    if (v6)
+    return 0;
+  }
+
+  objc_opt_class();
+  v14 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v5 = self->_loginChoices;
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  if (v6)
+  {
+    v7 = v6;
+    v8 = 0;
+    v9 = *v15;
+    do
     {
-      v7 = v6;
-      v8 = 0;
-      v9 = *v16;
-      do
+      for (i = 0; i != v7; ++i)
       {
-        for (i = 0; i != v7; ++i)
+        if (*v15 != v9)
         {
-          if (*v16 != v9)
-          {
-            objc_enumerationMutation(v5);
-          }
-
-          v11 = *(*(&v15 + 1) + 8 * i);
-          if (objc_opt_isKindOfClass())
-          {
-            externalCredentialProviderName = [v11 externalCredentialProviderName];
-
-            if (!externalCredentialProviderName)
-            {
-              ++v8;
-            }
-          }
+          objc_enumerationMutation(v5);
         }
 
-        v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v11 = *(*(&v14 + 1) + 8 * i);
+        if (objc_opt_isKindOfClass())
+        {
+          externalCredentialProviderName = [v11 externalCredentialProviderName];
+
+          if (!externalCredentialProviderName)
+          {
+            ++v8;
+          }
+        }
       }
 
-      while (v7);
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
-    else
-    {
-      v8 = 0;
-    }
+    while (v7);
   }
 
   else
@@ -613,35 +606,34 @@ uint64_t __63__ASCAuthorizationPresentationContext_localAccountLoginChoices__blo
     v8 = 0;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 - (int64_t)externalPasskeyLoginChoiceCount
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   objc_opt_class();
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v3 = self->_loginChoices;
-  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v3);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * i);
+        v9 = *(*(&v12 + 1) + 8 * i);
         if (objc_opt_isKindOfClass())
         {
           externalCredentialProviderName = [v9 externalCredentialProviderName];
@@ -653,7 +645,7 @@ uint64_t __63__ASCAuthorizationPresentationContext_localAccountLoginChoices__blo
         }
       }
 
-      v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v5);
@@ -664,7 +656,6 @@ uint64_t __63__ASCAuthorizationPresentationContext_localAccountLoginChoices__blo
     v6 = 0;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -871,14 +862,12 @@ BOOL __64__ASCAuthorizationPresentationContext_otherAccountsLoginChoices__block_
 
 - (void)initWithRequestContext:(void *)a1 appIdentifier:(void *)a2 frameIdentifier:shouldUseRelyingPartyForServiceName:auditTokenData:.cold.1(void *a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = [a2 safari_privacyPreservingDescription];
-  v6 = 138543362;
-  v7 = v4;
-  _os_log_error_impl(&dword_1C20AD000, v3, OS_LOG_TYPE_ERROR, "Unable to fetch bundle record for app identifier on credential request context with error: %{public}@", &v6, 0xCu);
-
-  v5 = *MEMORY[0x1E69E9840];
+  v5 = 138543362;
+  v6 = v4;
+  _os_log_error_impl(&dword_1C20AD000, v3, OS_LOG_TYPE_ERROR, "Unable to fetch bundle record for app identifier on credential request context with error: %{public}@", &v5, 0xCu);
 }
 
 @end

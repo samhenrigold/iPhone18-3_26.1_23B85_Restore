@@ -135,7 +135,6 @@ LABEL_6:
   has = self->_has;
   if ((has & 2) != 0)
   {
-    x = self->_x;
     PBDataWriterWriteDoubleField();
     has = self->_has;
     if ((has & 4) == 0)
@@ -155,7 +154,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  y = self->_y;
   PBDataWriterWriteDoubleField();
   has = self->_has;
   if ((has & 8) == 0)
@@ -170,12 +168,10 @@ LABEL_4:
   }
 
 LABEL_11:
-  touchDown = self->_touchDown;
   PBDataWriterWriteBOOLField();
   if (*&self->_has)
   {
 LABEL_5:
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -340,7 +336,6 @@ LABEL_19:
     goto LABEL_19;
   }
 
-  v7 = *(equalCopy + 32);
   if (self->_touchDown)
   {
     if ((*(equalCopy + 32) & 1) == 0)

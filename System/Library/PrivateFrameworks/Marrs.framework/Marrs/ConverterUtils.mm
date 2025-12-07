@@ -31,31 +31,29 @@
 + (unique_ptr<sirinluinternalmention_resolver::MentionResolverRequest,)convertMentionResolverRequestFromObjCToCpp:(id)cpp
 {
   v5 = v3;
-  cppCopy = cpp;
-  if (cppCopy)
+  if (cpp)
   {
-    [self getCppReaderFromObjCObject:cppCopy];
+    objc_msgSend_getCppReaderFromObjCObject_(self);
     operator new();
   }
 
   *v5 = 0;
 
-  return v7;
+  return v6;
 }
 
 + (unique_ptr<sirinluinternalmention_detector::MentionDetectorRequest,)convertMentionDetectorRequestFromObjCToCpp:(id)cpp
 {
   v5 = v3;
-  cppCopy = cpp;
-  if (cppCopy)
+  if (cpp)
   {
-    [self getCppReaderFromObjCObject:cppCopy];
+    objc_msgSend_getCppReaderFromObjCObject_(self);
     operator new();
   }
 
   *v5 = 0;
 
-  return v7;
+  return v6;
 }
 
 + (Reader)getCppReaderFromObjCObject:(SEL)object

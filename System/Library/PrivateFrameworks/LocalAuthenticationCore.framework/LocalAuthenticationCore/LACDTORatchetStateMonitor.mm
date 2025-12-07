@@ -32,7 +32,8 @@
   stateCopy = state;
   dispatch_assert_queue_V2(self->_workQueue);
   p_ratchetState = &self->_ratchetState;
-  if ([(LACDTORatchetState *)self->_ratchetState isEqual:stateCopy])
+  v7 = [(LACDTORatchetState *)self->_ratchetState isEqual:stateCopy];
+  if (v7)
   {
     if (![(LACTimer *)self->_timer isRunning])
     {
@@ -42,36 +43,34 @@
 
   else
   {
-    v7 = LACLogDTOState();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = LACLogDTOState(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = *p_ratchetState;
+      v9 = *p_ratchetState;
       v14 = 138543618;
-      v15 = v8;
+      v15 = v9;
       v16 = 2114;
       v17 = stateCopy;
-      _os_log_impl(&dword_1B0233000, v7, OS_LOG_TYPE_DEFAULT, "Ratchet state changed from: %{public}@ to %{public}@", &v14, 0x16u);
+      _os_log_impl(&dword_1B0233000, v8, OS_LOG_TYPE_DEFAULT, "Ratchet state changed from: %{public}@ to %{public}@", &v14, 0x16u);
     }
 
-    v9 = *p_ratchetState;
+    v10 = *p_ratchetState;
     objc_storeStrong(&self->_ratchetState, state);
-    rawValue = [v9 rawValue];
-    if (rawValue != [*p_ratchetState rawValue])
+    v11 = objc_msgSend_rawValue(v10);
+    if (v11 != objc_msgSend_rawValue(*p_ratchetState))
     {
-      v11 = [[LACDTOEvent alloc] initWithRawValue:0 value:self->_ratchetState];
+      v12 = [[LACDTOEvent alloc] initWithRawValue:0 value:self->_ratchetState];
       eventBus = [(LACDTORatchetStateMonitor *)self eventBus];
-      [eventBus dispatchEvent:v11 sender:self];
+      [eventBus dispatchEvent:v12 sender:self];
     }
 
     [(LACDTORatchetStateMonitor *)self _scheduleNextStatusCheck];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleEvent:(id)event sender:(id)sender
 {
-  if ([event rawValue])
+  if (objc_msgSend_rawValue(event, a2))
   {
 
     [(LACDTORatchetStateMonitor *)self ratchetStateWithCompletion:&__block_literal_global_16];
@@ -169,31 +168,30 @@ void __65__LACDTORatchetStateMonitor_ratchetStateCompositeWithCompletion___block
   [ratchetState effectiveDuration];
   v8 = v7;
 
-  v9 = LACLogDTOTimers();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = LACLogDTOTimers(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
     v16 = v8;
-    _os_log_impl(&dword_1B0233000, v9, OS_LOG_TYPE_DEFAULT, "Schedule ratchet state check in %.2f", buf, 0xCu);
+    _os_log_impl(&dword_1B0233000, v10, OS_LOG_TYPE_DEFAULT, "Schedule ratchet state check in %.2f", buf, 0xCu);
   }
 
   objc_initWeak(buf, self);
-  v11 = self->_timer;
+  v12 = self->_timer;
   workQueue = self->_workQueue;
   v13[0] = MEMORY[0x1E69E9820];
   v13[1] = 3221225472;
   v13[2] = __53__LACDTORatchetStateMonitor__scheduleNextStatusCheck__block_invoke;
   v13[3] = &unk_1E7A95380;
   objc_copyWeak(&v14, buf);
-  [(LACTimer *)v11 dispatchAfter:workQueue inQueue:v13 block:v8];
+  [(LACTimer *)v12 dispatchAfter:workQueue inQueue:v13 block:v8];
   objc_destroyWeak(&v14);
   objc_destroyWeak(buf);
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __53__LACDTORatchetStateMonitor__scheduleNextStatusCheck__block_invoke(uint64_t a1)
 {
-  v2 = LACLogDTOTimers();
+  v2 = LACLogDTOTimers(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;

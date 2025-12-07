@@ -11,9 +11,9 @@
 {
   interactionCopy = interaction;
   selfCopy = self;
-  v7 = _s12NowPlayingUI0aB26ContextInteractionDelegateC011contextMenuE0_016configurationForH10AtLocationSo09UIContextH13ConfigurationCSgSo0mhE0C_So7CGPointVtF_0(interactionCopy);
+  v8 = _s12NowPlayingUI0aB26ContextInteractionDelegateC011contextMenuE0_016configurationForH10AtLocationSo09UIContextH13ConfigurationCSgSo0mhE0C_So7CGPointVtF_0(interactionCopy, v7);
 
-  return v7;
+  return v8;
 }
 
 - (id)contextMenuInteraction:(void *)interaction previewForHighlightingMenuWithConfiguration:(void *)configuration

@@ -4,6 +4,7 @@
 - (id)accessibilityLabel;
 - (id)accessibilityValue;
 - (unint64_t)accessibilityTraits;
+- (void)setExpanded:(BOOL)expanded;
 - (void)setSelectedOptionIndex:(int64_t)index;
 @end
 
@@ -87,6 +88,17 @@
   return result;
 }
 
+- (void)setExpanded:(BOOL)expanded
+{
+  v7.receiver = self;
+  v7.super_class = MediaControlsExpandableButtonAccessibility;
+  [(MediaControlsExpandableButtonAccessibility *)&v7 setExpanded:expanded];
+  v4 = *MEMORY[0x29EDC7ED8];
+  v5 = [(MediaControlsExpandableButtonAccessibility *)self safeArrayForKey:@"_buttons"];
+  firstObject = [v5 firstObject];
+  UIAccessibilityPostNotification(v4, firstObject);
+}
+
 - (void)setSelectedOptionIndex:(int64_t)index
 {
   v7.receiver = self;
@@ -105,20 +117,19 @@
 void __69__MediaControlsExpandableButtonAccessibility_setSelectedOptionIndex___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   v4 = *(a1 + 32);
-  v8 = a2;
-  v5 = [v8 accessibilityTraits];
-  v6 = *MEMORY[0x29EDC7FC0] | v5;
+  v7 = a2;
+  v5 = [v7 accessibilityTraits];
   if (v4 == a3)
   {
-    v7 = *MEMORY[0x29EDC7FC0] | v5;
+    v6 = *MEMORY[0x29EDC7FC0] | v5;
   }
 
   else
   {
-    v7 = v5 & ~*MEMORY[0x29EDC7FC0];
+    v6 = v5 & ~*MEMORY[0x29EDC7FC0];
   }
 
-  [v8 setAccessibilityTraits:v7];
+  [v7 setAccessibilityTraits:v6];
 }
 
 @end

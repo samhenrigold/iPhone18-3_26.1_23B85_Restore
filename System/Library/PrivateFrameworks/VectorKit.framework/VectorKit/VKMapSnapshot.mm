@@ -98,7 +98,7 @@
   vkCamera = self->_vkCamera;
   if (vkCamera)
   {
-    [(VKCamera *)vkCamera groundPointFromScreenPoint:self->_scale * point.x / self->_width, 1.0 - self->_scale * point.y / self->_height];
+    objc_msgSend_groundPointFromScreenPoint_(vkCamera, a2, self->_scale * point.x / self->_width, 1.0 - self->_scale * point.y / self->_height);
     v5 = v12 * 6.28318531;
     v6 = v13 * 6.28318531 + -3.14159265;
   }
@@ -124,7 +124,7 @@
   var1 = coordinate.var1;
   var0 = coordinate.var0;
   v49 = *MEMORY[0x1E69E9840];
-  v6 = *[(VKCamera *)self->_vkCamera position];
+  v6 = *objc_msgSend_position(self->_vkCamera, a2);
   v7 = tan(var0 * 0.00872664626 + 0.785398163);
   v8 = var1 * 0.00277777778;
   v9 = log(v7) * 0.159154943 + 0.5;
@@ -163,7 +163,7 @@
           v41[0] = v20;
           v41[1] = v21;
           [v16 tile];
-          [(VKCamera *)self->_vkCamera position];
+          objc_msgSend_position(self->_vkCamera);
           if (v20 >= 0.0 && v20 <= 1.0 && v21 >= 0.0 && v21 <= 1.0)
           {
             [v16 getElevationAtPoint:v41];
@@ -310,7 +310,7 @@ LABEL_27:
   vkCamera = self->_vkCamera;
   if (vkCamera)
   {
-    [(VKCamera *)vkCamera cameraState];
+    objc_msgSend_cameraState(vkCamera);
   }
 
   else

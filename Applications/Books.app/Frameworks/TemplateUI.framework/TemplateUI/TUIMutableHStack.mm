@@ -30,7 +30,7 @@
 {
   fittingCopy = fitting;
   layoutCopy = layout;
-  [layoutCopy computedTransformedSize];
+  objc_msgSend_computedTransformedSize(layoutCopy);
   v8 = v7;
   guideLayoutController = [(TUIHStack *)self guideLayoutController];
   [layoutCopy setGuideLayoutController:guideLayoutController];

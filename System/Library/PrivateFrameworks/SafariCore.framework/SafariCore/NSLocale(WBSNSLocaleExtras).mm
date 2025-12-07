@@ -45,9 +45,9 @@
     +[NSLocale(WBSNSLocaleExtras) safari_localeIdentifiersForMostWidelyUsedLanguages];
   }
 
-  v1 = safari_localeIdentifiersForMostWidelyUsedLanguages_identifiers;
+  v2 = safari_localeIdentifiersForMostWidelyUsedLanguages_identifiers;
 
-  return v1;
+  return v2;
 }
 
 - (__CFString)safari_localeStringInWebExtensionFormat

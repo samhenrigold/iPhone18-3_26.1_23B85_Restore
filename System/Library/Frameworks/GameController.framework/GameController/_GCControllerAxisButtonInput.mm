@@ -1,5 +1,6 @@
 @interface _GCControllerAxisButtonInput
 - (BOOL)_commitPendingValueOnQueue:(id)queue;
+- (BOOL)_setValue:(float)value queue:(id)queue;
 - (BOOL)_setValueFromAxisButton:(float)button queue:(id)queue;
 - (BOOL)isAnalog;
 - (GCControllerAxisInput)axis;
@@ -139,6 +140,17 @@
   v6 = [WeakRetained _commitPendingValueOnQueue:queueCopy];
 
   return v6;
+}
+
+- (BOOL)_setValue:(float)value queue:(id)queue
+{
+  if (self->_positive)
+  {
+    return [(GCControllerButtonInput *)&v7 _setValue:queue queue:*&value, v6.receiver, v6.super_class, self, _GCControllerAxisButtonInput];
+  }
+
+  *&v5 = -value;
+  return [(GCControllerButtonInput *)&v6 _setValue:queue queue:v5, self, _GCControllerAxisButtonInput, v7.receiver, v7.super_class];
 }
 
 - (float)value

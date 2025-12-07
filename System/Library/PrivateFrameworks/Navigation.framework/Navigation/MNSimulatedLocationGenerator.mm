@@ -81,7 +81,7 @@
 
 - (void)_updateStartState
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   routeToFollow = [(_MNLocationSimulationData *)self->_data routeToFollow];
 
   if (!routeToFollow)
@@ -89,8 +89,8 @@
     v14 = MNGetMNNavigationSimulationLog();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v19) = 0;
-      _os_log_impl(&dword_1D311E000, v14, OS_LOG_TYPE_DEFAULT, "Location simulation starting at end state because no route was provided.", &v19, 2u);
+      LOWORD(v18) = 0;
+      _os_log_impl(&dword_1D311E000, v14, OS_LOG_TYPE_DEFAULT, "Location simulation starting at end state because no route was provided.", &v18, 2u);
     }
 
     [(_MNLocationSimulationData *)self->_data setLastRouteCoordinate:*MEMORY[0x1E69A1918]];
@@ -108,7 +108,7 @@
       v6 = MNGetMNNavigationSimulationLog();
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v19) = 0;
+        LOWORD(v18) = 0;
       }
 
       [(_MNLocationSimulationData *)self->_data setLastRouteCoordinate:*MEMORY[0x1E69A1918]];
@@ -130,18 +130,18 @@ LABEL_13:
     if (v12)
     {
       v13 = GEOPolylineCoordinateAsFullString();
-      v19 = 138412546;
-      v20 = v13;
-      v21 = 1024;
-      v22 = v9;
-      _os_log_impl(&dword_1D311E000, v11, OS_LOG_TYPE_DEFAULT, "Location simulation starting on route due to debug settings. Route coordinate: [%@] | Leg: %d", &v19, 0x12u);
+      v18 = 138412546;
+      v19 = v13;
+      v20 = 1024;
+      v21 = v9;
+      _os_log_impl(&dword_1D311E000, v11, OS_LOG_TYPE_DEFAULT, "Location simulation starting on route due to debug settings. Route coordinate: [%@] | Leg: %d", &v18, 0x12u);
     }
   }
 
   else if (v12)
   {
-    LOWORD(v19) = 0;
-    _os_log_impl(&dword_1D311E000, v11, OS_LOG_TYPE_DEFAULT, "Location simulation starting on route because there is no initial location.", &v19, 2u);
+    LOWORD(v18) = 0;
+    _os_log_impl(&dword_1D311E000, v11, OS_LOG_TYPE_DEFAULT, "Location simulation starting on route because there is no initial location.", &v18, 2u);
   }
 
   if ([(_MNLocationSimulationData *)self->_data simulationType]== 4)
@@ -158,13 +158,11 @@ LABEL_13:
 LABEL_20:
   v17 = v15;
   [(MNSimulatedLocationGenerator *)self changeState:v15];
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)changeState:(id)state
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   stateCopy = state;
   p_currentState = &self->_currentState;
   type = [(_MNLocationSimulationState *)self->_currentState type];
@@ -198,30 +196,28 @@ LABEL_20:
         v12 = off_1E842BE18[type3];
       }
 
-      v14 = 138412546;
-      v15 = v10;
-      v16 = 2112;
-      v17 = v12;
+      v13 = 138412546;
+      v14 = v10;
+      v15 = 2112;
+      v16 = v12;
     }
 
     [(_MNLocationSimulationState *)*p_currentState onLeaveState];
     objc_storeStrong(p_currentState, state);
     [stateCopy onEnterState];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setSpeedOverride:(double)override
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (override >= 0.0)
   {
     [(_MNLocationSimulationData *)self->_data setSpeedOverride:override];
     v8 = MNGetMNNavigationSimulationLog();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 134217984;
+      v12 = 134217984;
       overrideCopy = override;
       v9 = "Setting speed override to %0.1f m/s.";
       goto LABEL_7;
@@ -238,7 +234,7 @@ LABEL_20:
       v8 = MNGetMNNavigationSimulationLog();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v13) = 0;
+        LOWORD(v12) = 0;
         v9 = "Removing speed override.";
         v10 = v8;
         v11 = 2;
@@ -253,18 +249,16 @@ LABEL_20:
       v8 = MNGetMNNavigationSimulationLog();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = 134217984;
+        v12 = 134217984;
         overrideCopy = v7;
 LABEL_7:
         v10 = v8;
         v11 = 12;
 LABEL_10:
-        _os_log_impl(&dword_1D311E000, v10, OS_LOG_TYPE_DEFAULT, v9, &v13, v11);
+        _os_log_impl(&dword_1D311E000, v10, OS_LOG_TYPE_DEFAULT, v9, &v12, v11);
       }
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (id)nextSimulatedLocationWithElapsedTime:(double)time
@@ -312,7 +306,7 @@ LABEL_10:
 
 - (void)updatePosition:(double)position
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v4 = fmin(fmax(position, 0.0), 1.0);
   routeToFollow = [(_MNLocationSimulationData *)self->_data routeToFollow];
   [routeToFollow distance];
@@ -326,13 +320,13 @@ LABEL_10:
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     v12 = GEOPolylineCoordinateAsShortString();
-    v16[0] = 67109634;
-    v16[1] = (v4 * 100.0);
-    v17 = 2112;
-    v18 = v12;
-    v19 = 2048;
-    v20 = v8;
-    _os_log_impl(&dword_1D311E000, v11, OS_LOG_TYPE_DEFAULT, "Setting simulation position to %d%% / [%@] / %0.1f meters.", v16, 0x1Cu);
+    v15[0] = 67109634;
+    v15[1] = (v4 * 100.0);
+    v16 = 2112;
+    v17 = v12;
+    v18 = 2048;
+    v19 = v8;
+    _os_log_impl(&dword_1D311E000, v11, OS_LOG_TYPE_DEFAULT, "Setting simulation position to %d%% / [%@] / %0.1f meters.", v15, 0x1Cu);
   }
 
   if ([(_MNLocationSimulationState *)self->_currentState type]== 2)
@@ -343,13 +337,11 @@ LABEL_10:
 
   v14 = [(_MNLocationSimulationState *)self->_currentState _followRouteStateWithStartRouteCoordinate:v10];
   [(MNSimulatedLocationGenerator *)self changeState:v14];
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateWithRouteInfo:(id)info rerouteReason:(unint64_t)reason
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   infoCopy = info;
   [(_MNLocationSimulationData *)self->_data setRouteInfo:infoCopy];
   route = [infoCopy route];
@@ -396,13 +388,13 @@ LABEL_10:
         v17 = off_1E842BE18[type];
       }
 
-      v19 = 138412802;
-      v20 = name;
-      v21 = 2112;
-      v22 = v14;
-      v23 = 2112;
-      v24 = v17;
-      _os_log_impl(&dword_1D311E000, v11, OS_LOG_TYPE_DEFAULT, "Route changed to %@. Reason: %@. Current state: %@", &v19, 0x20u);
+      v18 = 138412802;
+      v19 = name;
+      v20 = 2112;
+      v21 = v14;
+      v22 = 2112;
+      v23 = v17;
+      _os_log_impl(&dword_1D311E000, v11, OS_LOG_TYPE_DEFAULT, "Route changed to %@. Reason: %@. Current state: %@", &v18, 0x20u);
     }
 
     [(_MNLocationSimulationState *)self->_currentState updateWithRouteInfo:infoCopy rerouteReason:reason];
@@ -414,12 +406,10 @@ LABEL_10:
     v15 = MNGetMNNavigationSimulationLog();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v19) = 0;
-      _os_log_impl(&dword_1D311E000, v15, OS_LOG_TYPE_DEFAULT, "Route changed but no previous location.", &v19, 2u);
+      LOWORD(v18) = 0;
+      _os_log_impl(&dword_1D311E000, v15, OS_LOG_TYPE_DEFAULT, "Route changed but no previous location.", &v18, 2u);
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (MNSimulatedLocationGenerator)initWithSimulationParameters:(id)parameters

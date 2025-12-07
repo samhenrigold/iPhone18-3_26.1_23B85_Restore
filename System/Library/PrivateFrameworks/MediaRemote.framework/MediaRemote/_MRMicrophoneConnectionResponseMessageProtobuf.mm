@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)resultAsString:(int)string;
 - (int)StringAsResult:(id)result;
 - (int)result;
 - (unint64_t)hash;
@@ -26,20 +27,35 @@
   }
 }
 
+- (id)resultAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E769F8B8[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsResult:(id)result
 {
   resultCopy = result;
-  if ([resultCopy isEqualToString:@"NotConnected"])
+  if (objc_msgSend_isEqualToString_(resultCopy))
   {
     v4 = 0;
   }
 
-  else if ([resultCopy isEqualToString:@"NeedsGuestPairing"])
+  else if (objc_msgSend_isEqualToString_(resultCopy))
   {
     v4 = 1;
   }
 
-  else if ([resultCopy isEqualToString:@"Connected"])
+  else if (objc_msgSend_isEqualToString_(resultCopy))
   {
     v4 = 2;
   }
@@ -101,24 +117,23 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (*&self->_has)
   {
-    result = self->_result;
     PBDataWriterWriteInt32Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_rapportIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_pairingData)
   {
     PBDataWriterWriteDataField();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -174,7 +189,6 @@
     goto LABEL_11;
   }
 
-  v5 = *(equalCopy + 28);
   if (*&self->_has)
   {
     if ((*(equalCopy + 28) & 1) == 0 || self->_result != *(equalCopy + 6))
@@ -186,7 +200,7 @@
   else if (*(equalCopy + 28))
   {
 LABEL_11:
-    v8 = 0;
+    v7 = 0;
     goto LABEL_12;
   }
 
@@ -199,17 +213,17 @@ LABEL_11:
   pairingData = self->_pairingData;
   if (pairingData | *(equalCopy + 1))
   {
-    v8 = [(NSData *)pairingData isEqual:?];
+    v7 = [(NSData *)pairingData isEqual:?];
   }
 
   else
   {
-    v8 = 1;
+    v7 = 1;
   }
 
 LABEL_12:
 
-  return v8;
+  return v7;
 }
 
 - (unint64_t)hash

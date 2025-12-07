@@ -184,9 +184,9 @@
   if (text != textCopy)
   {
     v9 = textCopy;
-    v6 = [(NSString *)text isEqual:textCopy];
+    isEqual = objc_msgSend_isEqual_(text, textCopy, textCopy);
     textCopy = v9;
-    if ((v6 & 1) == 0)
+    if ((isEqual & 1) == 0)
     {
       v7 = [(NSString *)v9 copy];
       v8 = self->_text;
@@ -208,9 +208,9 @@
   if (textAttributes != attributesCopy)
   {
     v10 = attributesCopy;
-    v6 = [(NSDictionary *)textAttributes isEqual:attributesCopy];
+    isEqual = objc_msgSend_isEqual_(textAttributes, attributesCopy, attributesCopy);
     attributesCopy = v10;
-    if ((v6 & 1) == 0)
+    if ((isEqual & 1) == 0)
     {
       v7 = [(NSDictionary *)v10 copy];
       v8 = self->_textAttributes;

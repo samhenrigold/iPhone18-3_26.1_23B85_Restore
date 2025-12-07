@@ -87,33 +87,31 @@
 
 - (id)dictionary
 {
-  v13[6] = *MEMORY[0x277D85DE8];
+  v12[6] = *MEMORY[0x277D85DE8];
   BSSID = self->_BSSID;
   if (!BSSID)
   {
     BSSID = &stru_28521B010;
   }
 
-  v13[0] = BSSID;
-  v12[0] = @"BSSID";
-  v12[1] = @"RSSI";
+  v12[0] = BSSID;
+  v11[0] = @"BSSID";
+  v11[1] = @"RSSI";
   v4 = [MEMORY[0x277CCABB0] numberWithInt:self->_RSSI];
-  v13[1] = v4;
-  v12[2] = @"channel";
+  v12[1] = v4;
+  v11[2] = @"channel";
   v5 = [MEMORY[0x277CCABB0] numberWithInt:self->_channel];
-  v13[2] = v5;
-  v12[3] = @"channelFlags";
+  v12[2] = v5;
+  v11[3] = @"channelFlags";
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:self->_channelFlags];
-  v13[3] = v6;
-  v12[4] = @"isPersonalHotspot";
+  v12[3] = v6;
+  v11[4] = @"isPersonalHotspot";
   v7 = [MEMORY[0x277CCABB0] numberWithBool:self->_isPersonalHotspot];
-  v13[4] = v7;
-  v12[5] = @"timestamp";
+  v12[4] = v7;
+  v11[5] = @"timestamp";
   v8 = [MEMORY[0x277CCABB0] numberWithDouble:self->_timestamp];
-  v13[5] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:6];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v12[5] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:6];
 
   return v9;
 }

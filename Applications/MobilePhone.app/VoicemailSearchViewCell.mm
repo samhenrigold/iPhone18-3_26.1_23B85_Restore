@@ -34,7 +34,7 @@
 
 - (void)handleContentSizeCategoryDidChange:(id)change
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation12NotificationVSgMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation12NotificationVSgMd, &_s10Foundation12NotificationVSgMR);
   __chkstk_darwin(v5 - 8);
   v7 = &v11 - v6;
   if (change)
@@ -53,7 +53,7 @@
   selfCopy = self;
   VoicemailSearchViewCell.layoutForAccessibility()();
 
-  outlined destroy of (NSAttributedStringKey, Any)(v7, &_s10Foundation12NotificationVSgMd);
+  outlined destroy of (NSAttributedStringKey, Any)(v7, &_s10Foundation12NotificationVSgMd, &_s10Foundation12NotificationVSgMR);
 }
 
 @end

@@ -1,8 +1,26 @@
 @interface ELSWhitelistEntry
+- (ELSWhitelistEntry)initWithBundleIdentifier:(id)identifier parameterName:(id)name baseLocalizationKey:(id)key needsWAPIKeys:(BOOL)keys requiresFollowup:(BOOL)followup retry:(BOOL)retry platforms:(id)platforms;
 - (ELSWhitelistEntry)initWithBundleIdentifier:(id)identifier parameterName:(id)name displayNameLocalizationKey:(id)key descriptionLocalizationKey:(id)localizationKey sensitiveInformationLocalizationKey:(id)informationLocalizationKey needsWAPIKeys:(BOOL)keys requiresFollowup:(BOOL)followup retry:(BOOL)self0 platforms:(id)self1;
 @end
 
 @implementation ELSWhitelistEntry
+
+- (ELSWhitelistEntry)initWithBundleIdentifier:(id)identifier parameterName:(id)name baseLocalizationKey:(id)key needsWAPIKeys:(BOOL)keys requiresFollowup:(BOOL)followup retry:(BOOL)retry platforms:(id)platforms
+{
+  keysCopy = keys;
+  v16 = MEMORY[0x277CCACA8];
+  platformsCopy = platforms;
+  keyCopy = key;
+  nameCopy = name;
+  identifierCopy = identifier;
+  keyCopy = [v16 stringWithFormat:@"%@_DESCRIPTION", keyCopy];
+  keyCopy2 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@_SENSITIVE_INFORMATION", keyCopy];
+  BYTE1(v25) = retry;
+  LOBYTE(v25) = followup;
+  v23 = [(ELSWhitelistEntry *)self initWithBundleIdentifier:identifierCopy parameterName:nameCopy displayNameLocalizationKey:keyCopy descriptionLocalizationKey:keyCopy sensitiveInformationLocalizationKey:keyCopy2 needsWAPIKeys:keysCopy requiresFollowup:v25 retry:platformsCopy platforms:?];
+
+  return v23;
+}
 
 - (ELSWhitelistEntry)initWithBundleIdentifier:(id)identifier parameterName:(id)name displayNameLocalizationKey:(id)key descriptionLocalizationKey:(id)localizationKey sensitiveInformationLocalizationKey:(id)informationLocalizationKey needsWAPIKeys:(BOOL)keys requiresFollowup:(BOOL)followup retry:(BOOL)self0 platforms:(id)self1
 {

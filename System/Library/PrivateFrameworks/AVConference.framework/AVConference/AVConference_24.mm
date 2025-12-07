@@ -1,110 +1,3 @@
-CMSampleBufferRef _VCStreamInputUtil_DecodeDataSampleBuffer(void *a1, CMItemCount a2)
-{
-  blockBufferOut[1] = *MEMORY[0x1E69E9840];
-  v20 = 0;
-  blockBufferOut[0] = 0;
-  if (!xpc_dictionary_get_value(a1, "VCStreamInputBufferData"))
-  {
-    _VCStreamInputUtil_DecodeDataSampleBuffer_cold_8();
-LABEL_18:
-    _VCStreamInputUtil_DecodeDataSampleBuffer_cold_9();
-    return v20;
-  }
-
-  v4 = _CFXPCCreateCFObjectFromXPCObject();
-  if (!v4)
-  {
-    _VCStreamInputUtil_DecodeDataSampleBuffer_cold_7();
-    goto LABEL_18;
-  }
-
-  v5 = v4;
-  Length = CFDataGetLength(v4);
-  v7 = MEMORY[0x1E695E480];
-  if (Length <= 0)
-  {
-    _VCStreamInputUtil_DecodeDataSampleBuffer_cold_3();
-  }
-
-  else
-  {
-    v8 = *MEMORY[0x1E695E480];
-    v9 = MEMORY[0x1E1288880](*MEMORY[0x1E695E480], Length, 1414282716, 0);
-    if (v9)
-    {
-      v10 = v9;
-      v22.length = CFDataGetLength(v5);
-      v22.location = 0;
-      CFDataGetBytes(v5, v22, v10);
-      v11 = CMBlockBufferCreateWithMemoryBlock(v8, v10, Length, v8, 0, 0, Length, 0, blockBufferOut);
-      if (v11)
-      {
-        _VCStreamInputUtil_DecodeDataSampleBuffer_cold_1(v11, v8, v10);
-      }
-    }
-
-    else
-    {
-      _VCStreamInputUtil_DecodeDataSampleBuffer_cold_2();
-    }
-  }
-
-  CFRelease(v5);
-  v12 = blockBufferOut[0];
-  if (!blockBufferOut[0])
-  {
-    goto LABEL_18;
-  }
-
-  v13 = VCStreamInputUtil_DecodeFormatDescription(a1);
-  if (!v13)
-  {
-    _VCStreamInputUtil_DecodeDataSampleBuffer_cold_6(v12);
-    return v20;
-  }
-
-  v14 = v13;
-  memset(&v19, 170, sizeof(v19));
-  if (_VCStreamInputUtil_DecodeTime(a1, "VCStreamInputPresentationTime", &v19))
-  {
-    *&v15 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v15 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    *&sampleTimingArray.decodeTimeStamp.value = v15;
-    *&sampleTimingArray.duration.value = v15;
-    sampleTimingArray.duration.epoch = 0xAAAAAAAAAAAAAAAALL;
-    sampleTimingArray.presentationTimeStamp = v19;
-    sampleTimingArray.decodeTimeStamp.epoch = 0xAAAAAAAAAAAAAAAALL;
-    if (!CMSampleBufferCreate(*v7, v12, 1u, 0, 0, v14, a2, 1, &sampleTimingArray, 0, 0, &v20))
-    {
-      v16 = _VCStreamInputUtil_DecodeSampleBufferAttachments(a1);
-      if (v16)
-      {
-        CMSetAttachments(v20, v16, 1u);
-      }
-
-      goto LABEL_13;
-    }
-
-    _VCStreamInputUtil_DecodeDataSampleBuffer_cold_5();
-  }
-
-  else
-  {
-    _VCStreamInputUtil_DecodeDataSampleBuffer_cold_4();
-  }
-
-  v16 = blockBufferOut[0];
-LABEL_13:
-  CFRelease(v12);
-  CFRelease(v14);
-  if (v16)
-  {
-    CFRelease(v16);
-  }
-
-  return v20;
-}
-
 uint64_t _VCStreamInputUtil_AddUint32Value(void *a1, const char *a2, int a3)
 {
   v13 = *MEMORY[0x1E69E9840];
@@ -450,11 +343,11 @@ void VCRateControlBandwidthEstimator_SetRadioAccessTechnology(uint64_t a1, int a
   }
 }
 
-void VCRateControlBandwidthEstimator_SetEstimatedBandwidth(uint64_t a1, double a2)
+void VCRateControlBandwidthEstimator_SetEstimatedBandwidth(uint64_t result, double a2)
 {
-  if (a1)
+  if (result)
   {
-    *(a1 + 392) = a2;
+    *(result + 392) = a2;
   }
 
   else if (VRTraceGetErrorLogLevelForModule() >= 3)
@@ -525,66 +418,72 @@ void VCRateControlBandwidthEstimator_SetL4SHighDataRateEnabled(uint64_t a1, int 
   }
 }
 
-void VCRateControlBandwidthEstimator_CalculateBandwidthEstimationWithSendTime(uint64_t a1, unsigned int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, double a9, double a10)
+void VCRateControlBandwidthEstimator_CalculateBandwidthEstimationWithSendTime(uint64_t a1, unsigned int a2, int a3, int a4, int a5, __n128 a6, double a7, __n128 a8)
 {
   if (a1)
   {
-    v10 = a4;
+    v12 = a6.n128_f64[0];
     if ((*(a1 + 68) & 1) == 0)
     {
       *(a1 + 68) = 1;
       *(a1 + 76) = a4 - a3;
-      *(a1 + 80) = a9;
+      *(a1 + 80) = a6.n128_u64[0];
       *(a1 + 88) = 0;
     }
 
     if (a3 && *(a1 + 76) == a4)
     {
-      *(a1 + 16) = a9;
-      *(a1 + 24) = a10;
+      v14 = 0;
+      v15 = 0;
+      *(a1 + 16) = a6.n128_u64[0];
+      *(a1 + 24) = a7;
       *(a1 + 8) = vadd_s32(*(a1 + 8), (a2 | 0x100000000));
+      v16 = 0.0;
+      v17 = 0.0;
+      updated = 0.0;
 LABEL_36:
-      VRLogfilePrintWithTimestamp(*(a1 + 440), "Bandwidth Estimation: ArrivalTime:%.4f, probingID:%u, isProbing:%d, seq:%u, BWD:%.2f, state:%d, divergeCount:%d, prob_seq:[duration:%.4f, sendDuration:%.4f, send:%.4f, size:%d, count:%d], EstimatedBandwidth:%.2f\n", a3, a4, a5, a6, a7, a8, SLOBYTE(a9));
-      *(a1 + 72) = v10;
+      VRLogfilePrintWithTimestamp(*(a1 + 440), "Bandwidth Estimation: ArrivalTime:%.4f, probingID:%u, isProbing:%d, seq:%u, BWD:%.2f, state:%d, divergeCount:%d, prob_seq:[duration:%.4f, sendDuration:%.4f, send:%.4f, size:%d, count:%d], EstimatedBandwidth:%.2f\n", v12, *(a1 + 72), a3, a5, updated, *(a1 + 416), *(a1 + 88), v17, v16, a7, v14, v15, *(a1 + 392));
+      *(a1 + 72) = a4;
       return;
     }
 
     v14 = *(a1 + 8);
-    v15 = *(a1 + 432);
-    v16 = 0.0;
-    if (v14 <= v15)
+    v19 = *(a1 + 432);
+    v20 = 0.0;
+    if (v14 <= v19)
     {
-      v17 = 0;
+      v15 = 0;
       v14 = 0;
-      v21 = 0.0;
-      v18 = 0.0;
+      updated = 0.0;
+      v17 = 0.0;
+      v16 = 0.0;
       v22 = 0.0;
     }
 
     else
     {
-      v17 = *(a1 + 12);
-      v18 = *(a1 + 16) - *(a1 + 32);
-      v19 = *(a1 + 24) - *(a1 + 40);
-      v20 = 8 * v14;
-      if (v18 <= 0.0)
+      v15 = *(a1 + 12);
+      v17 = *(a1 + 16) - *(a1 + 32);
+      v16 = *(a1 + 24) - *(a1 + 40);
+      v21 = 8 * v14;
+      if (v17 <= 0.0)
       {
-        v21 = *(a1 + 376);
+        updated = *(a1 + 376);
       }
 
       else
       {
-        v21 = v20 / v18;
+        updated = v21 / v17;
       }
 
-      if (v19 <= 0.0)
+      if (v16 <= 0.0)
       {
         v22 = *(a1 + 376);
       }
 
       else
       {
-        v22 = v20 / v19;
+        v22 = v21 / v16;
       }
     }
 
@@ -602,7 +501,7 @@ LABEL_36:
     *(a1 + 76) = v23;
     if (a3)
     {
-      v24 = a9;
+      v24 = v12;
     }
 
     else
@@ -612,24 +511,24 @@ LABEL_36:
 
     if (a3)
     {
-      v16 = a10;
+      v20 = a7;
     }
 
     *(a1 + 32) = v24;
-    *(a1 + 40) = v16;
+    *(a1 + 40) = v20;
     *(a1 + 64) = a2;
     *(a1 + 16) = v24;
-    *(a1 + 24) = v16;
-    if (v21 <= 0.0)
+    *(a1 + 24) = v20;
+    if (updated <= 0.0)
     {
       goto LABEL_36;
     }
 
-    *(a1 + 400) = v21;
+    *(a1 + 400) = updated;
     if (*(a1 + 392) != 0.0)
     {
       v25 = 0.0;
-      if (*(a1 + 360) > v17 || v15 > v14)
+      if (*(a1 + 360) > v15 || v19 > v14)
       {
 LABEL_29:
         v26 = 0.0;
@@ -638,11 +537,11 @@ LABEL_29:
           v26 = v25;
         }
 
-        _VCRateControlBandwidthEstimator_UpdateBandwidthEstimation(a1, v26, a9);
+        updated = _VCRateControlBandwidthEstimator_UpdateBandwidthEstimation(a1, v26, v12);
         goto LABEL_36;
       }
 
-      if (*(a1 + 368) <= v18)
+      if (*(a1 + 368) <= v17)
       {
         *(a1 + 336) = 0;
       }
@@ -658,7 +557,7 @@ LABEL_29:
       }
     }
 
-    v25 = v21;
+    v25 = updated;
     goto LABEL_29;
   }
 
@@ -979,7 +878,7 @@ LABEL_9:
 
 void VCRateControlBandwidthEstimator_CalculateBandwidthEstimation(uint64_t a1, int a2, unsigned int a3, int a4, int a5, double a6)
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   if (a1)
   {
     if ((*(a1 + 68) & 1) == 0)
@@ -1083,15 +982,15 @@ LABEL_28:
             v26 = *(a1 + 56);
             v25 = *(a1 + 60);
             *buf = 136316162;
-            v36 = v23;
-            v37 = 2080;
-            v38 = "VCRateControlBandwidthEstimator_CalculateBandwidthEstimation";
-            v39 = 1024;
-            v40 = 294;
-            v41 = 1024;
-            v42 = v25;
-            v43 = 1024;
-            v44 = v26;
+            v31 = v23;
+            v32 = 2080;
+            v33 = "VCRateControlBandwidthEstimator_CalculateBandwidthEstimation";
+            v34 = 1024;
+            v35 = 294;
+            v36 = 1024;
+            v37 = v25;
+            v38 = 1024;
+            v39 = v26;
             _os_log_impl(&dword_1DB56E000, v24, OS_LOG_TYPE_DEFAULT, "VCRC [%s] %s:%d Probing sequence head is late, early probing sequence packet number: %d, bytes:%d", buf, 0x28u);
           }
         }
@@ -1122,9 +1021,9 @@ LABEL_36:
 
               else
               {
-                v34 = *(a1 + 336) + 1;
-                *(a1 + 336) = v34;
-                if (v34 < *(a1 + 384))
+                v29 = *(a1 + 336) + 1;
+                *(a1 + 336) = v29;
+                if (v29 < *(a1 + 384))
                 {
                   goto LABEL_41;
                 }
@@ -1133,8 +1032,8 @@ LABEL_36:
 
             v27 = v16;
 LABEL_41:
-            _VCRateControlBandwidthEstimator_UpdateBandwidthEstimation(a1, v27, a6);
-            VRLogfilePrintWithTimestamp(*(a1 + 440), "Bandwidth Estimation: ArrivalTime:%.4f, timestamp:%u, BWD:%.2f, state:%d, divergeCount:%d, prob_seq:[duration:%.4f, size:%d, count:%d], EstimatedBandwidth:%.2f\n", v28, v29, v30, v31, v32, v33, SLOBYTE(a6));
+            updated = _VCRateControlBandwidthEstimator_UpdateBandwidthEstimation(a1, v27, a6);
+            VRLogfilePrintWithTimestamp(*(a1 + 440), "Bandwidth Estimation: ArrivalTime:%.4f, timestamp:%u, BWD:%.2f, state:%d, divergeCount:%d, prob_seq:[duration:%.4f, size:%d, count:%d], EstimatedBandwidth:%.2f\n", a6, *(a1 + 72), updated, *(a1 + 416), *(a1 + 88), v17, v14, v15, *(a1 + 392));
           }
 
 LABEL_42:
@@ -1237,7 +1136,7 @@ void VCRateControlBandwidthEstimator_CalculateBandwidthEstimationForBandwidthSam
   }
 }
 
-uint64_t VCRateControlBandwidthEstimatorMap_BandwidthEstimator(uint64_t a1, uint64_t a2, int a3, int a4)
+VCRateControlBandwidthEstimator *VCRateControlBandwidthEstimatorMap_BandwidthEstimator(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 {
   v22 = *MEMORY[0x1E69E9840];
   if (!a1)
@@ -1308,7 +1207,7 @@ LABEL_23:
   }
 
 LABEL_24:
-  v10 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:a2];
+  v10 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{a2, a4}];
   if (![*(a1 + 40) objectForKeyedSubscript:v10])
   {
     if (VRTraceGetErrorLogLevelForModule() >= 7)
@@ -1657,11 +1556,11 @@ void VCRateControlBandwidthEstimatorMap_SetL4SHighDataRateEnabled(uint64_t a1, c
   }
 }
 
-void VCRateControlBandwidthEstimatorMap_EnableBWELogDump(uint64_t a1, uint64_t a2)
+void VCRateControlBandwidthEstimatorMap_EnableBWELogDump(uint64_t result, uint64_t a2)
 {
-  if (a1)
+  if (result)
   {
-    *(a1 + 80) = a2;
+    *(result + 80) = a2;
   }
 
   else if (VRTraceGetErrorLogLevelForModule() >= 3)
@@ -2586,13 +2485,13 @@ void VCFECHeader_SetNumberOfParityPackets(uint64_t a1, __int16 a2)
   }
 }
 
-void VCFECHeader_SetRedundantBitsForPayloadSize(uint64_t a1, __int16 a2)
+void VCFECHeader_SetRedundantBitsForPayloadSize(uint64_t result, __int16 a2)
 {
-  if (a1)
+  if (result)
   {
-    if ((*a1 & 3u) <= 1)
+    if ((*result & 3u) <= 1)
     {
-      if ((*a1 & 3) == 0)
+      if ((*result & 3) == 0)
       {
         if (VRTraceGetErrorLogLevelForModule() >= 3)
         {
@@ -2607,11 +2506,11 @@ void VCFECHeader_SetRedundantBitsForPayloadSize(uint64_t a1, __int16 a2)
       }
 
 LABEL_11:
-      *(a1 + 8) = a2;
+      *(result + 8) = a2;
       return;
     }
 
-    if ((*a1 & 3) == 2)
+    if ((*result & 3) == 2)
     {
       goto LABEL_11;
     }
@@ -2636,13 +2535,13 @@ LABEL_11:
   }
 }
 
-void VCFECHeader_SetParitySequenceNum(uint64_t a1, __int16 a2)
+void VCFECHeader_SetParitySequenceNum(uint64_t result, __int16 a2)
 {
-  if (a1)
+  if (result)
   {
-    if ((*a1 & 3u) <= 1)
+    if ((*result & 3u) <= 1)
     {
-      if ((*a1 & 3) == 0)
+      if ((*result & 3) == 0)
       {
         if (VRTraceGetErrorLogLevelForModule() >= 3)
         {
@@ -2657,11 +2556,11 @@ void VCFECHeader_SetParitySequenceNum(uint64_t a1, __int16 a2)
       }
 
 LABEL_11:
-      *(a1 + 10) = a2;
+      *(result + 10) = a2;
       return;
     }
 
-    if ((*a1 & 3) == 2)
+    if ((*result & 3) == 2)
     {
       goto LABEL_11;
     }
@@ -3508,40 +3407,41 @@ uint64_t VCTimescalePSOLA_PreEmptiveExpand(unsigned __int8 *a1, __int16 *a2)
   return result;
 }
 
-CFAllocatorRef VCAudioBufferAllocatorCreate(const __CFAllocator *a1, uint64_t a2, unsigned int a3)
+CFAllocatorRef VCAudioBufferAllocatorCreate(const __CFAllocator *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   if (!a2)
   {
-    VCAudioBufferAllocatorCreate_cold_6(v13);
-    return v13[0];
+    VCAudioBufferAllocatorCreate_cold_6(v18);
+    return v18[0];
   }
 
+  v8 = a3;
   if (!a3)
   {
-    VCAudioBufferAllocatorCreate_cold_5(v13);
-    return v13[0];
+    VCAudioBufferAllocatorCreate_cold_5(v18);
+    return v18[0];
   }
 
-  v12 = *byte_1F570DB80;
-  v4 = (a2 + 7) & 0xFFFFFFFFFFFFFFF8;
-  if (v4)
+  v17 = *byte_1F570DB80;
+  v9 = (a2 + 7) & 0xFFFFFFFFFFFFFFF8;
+  if (v9)
   {
-    v5 = (v4 + 16) * a3 + 40;
-    if (v5 <= v4)
+    v10 = (v9 + 16) * a3 + 40;
+    if (v10 <= v9)
     {
-      VCAudioBufferAllocatorCreate_cold_1((a2 + 7) & 0xFFFFFFFFFFFFFFF8, (v4 + 16) * a3 + 40);
+      VCAudioBufferAllocatorCreate_cold_1((a2 + 7) & 0xFFFFFFFFFFFFFFF8, (v9 + 16) * a3 + 40);
     }
 
     else
     {
-      v7 = MEMORY[0x1E1288880](a1, (v4 + 16) * a3 + 40, 0x10600400F72299BLL, 0);
-      if (v7)
+      v12 = MEMORY[0x1E1288880](a1, (v9 + 16) * a3 + 40, 0x10600400F72299BLL, 0, a5, a6, a7, a8, v17.version, v17.info, v17.retain, v17.release, v17.copyDescription, v17.allocate, v17.reallocate, v17.deallocate, v17.preferredSize);
+      if (v12)
       {
-        v8 = v7;
-        bzero(v7, (v4 + 16) * a3 + 40);
-        v8[4] = a3;
-        *(v8 + 1) = v4;
+        v13 = v12;
+        bzero(v12, (v9 + 16) * v8 + 40);
+        v13[4] = v8;
+        *(v13 + 1) = v9;
         if (a1)
         {
           Default = a1;
@@ -3552,10 +3452,10 @@ CFAllocatorRef VCAudioBufferAllocatorCreate(const __CFAllocator *a1, uint64_t a2
           Default = CFAllocatorGetDefault();
         }
 
-        *v8 = CFRetain(Default);
-        *(v8 + 3) = v5;
-        v12.info = v8;
-        return CFAllocatorCreate(a1, &v12);
+        *v13 = CFRetain(Default);
+        *(v13 + 3) = v10;
+        v17.info = v13;
+        return CFAllocatorCreate(a1, &v17);
       }
 
       VCAudioBufferAllocatorCreate_cold_2();
@@ -3569,10 +3469,10 @@ CFAllocatorRef VCAudioBufferAllocatorCreate(const __CFAllocator *a1, uint64_t a2
 
   if (VRTraceGetErrorLogLevelForModule() >= 3)
   {
-    v11 = VRTraceErrorLogLevelToCSTR();
+    v16 = VRTraceErrorLogLevelToCSTR();
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
     {
-      VCAudioBufferAllocatorCreate_cold_4(v11);
+      VCAudioBufferAllocatorCreate_cold_4(v16);
     }
   }
 
@@ -3590,7 +3490,7 @@ void VCAudioBufferAllocatorFreeContext(CFAllocatorRef *ptr)
   }
 }
 
-uint64_t VCAudioBufferAllocatorAlloc(uint64_t a1, uint64_t a2, uint64_t a3)
+atomic_uint *VCAudioBufferAllocatorAlloc(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v19 = *MEMORY[0x1E69E9840];
   v5 = (a1 + 7) & 0xFFFFFFFFFFFFFFF8;
@@ -3602,7 +3502,7 @@ uint64_t VCAudioBufferAllocatorAlloc(uint64_t a1, uint64_t a2, uint64_t a3)
     {
       v8 = 0;
       atomic_compare_exchange_strong_explicit(v7, &v8, 1u, memory_order_relaxed, memory_order_relaxed);
-      result = (v7 + 2);
+      result = v7 + 2;
       v10 = (v7 + *(a3 + 8) + 8);
       if (!v8)
       {
@@ -3677,9 +3577,9 @@ void VCAudioBufferAllocatorDealloc(void *ptr, unint64_t a2)
   }
 }
 
-void VCAudioBufferAllocatorCleanupBuffer(uint64_t a1, uint64_t a2)
+void VCAudioBufferAllocatorCleanupBuffer(uint64_t result, uint64_t a2)
 {
-  v3 = *(a1 + 8);
+  v3 = *(result + 8);
   if (*(a2 + v3) != -524416118)
   {
     if (VRTraceGetErrorLogLevelForModule() >= 3)
@@ -3691,7 +3591,7 @@ void VCAudioBufferAllocatorCleanupBuffer(uint64_t a1, uint64_t a2)
       }
     }
 
-    *(a1 + 32) = 1;
+    *(result + 32) = 1;
   }
 
   *(a2 + v3) = -524416118;
@@ -3705,12 +3605,12 @@ uint64_t _VCFECFeedbackAnalyzerClassRegister(uint64_t *a1)
   return result;
 }
 
-uint64_t _VCFECFeedbackAnalyzer_Configure(uint64_t a1, uint64_t a2)
+uint64_t _VCFECFeedbackAnalyzer_Configure(uint64_t a1, __int128 *a2)
 {
   v11 = *MEMORY[0x1E69E9840];
   v3 = *a2;
   *(a1 + 16) = *a2;
-  v4 = *(a2 + 16);
+  v4 = *(a2 + 4);
   *(a1 + 32) = v4;
   *(a1 + 40) = *(a2 + 24);
   if (*&v3 <= 0.0 || *&v3 > 1.0)
@@ -3721,7 +3621,7 @@ uint64_t _VCFECFeedbackAnalyzer_Configure(uint64_t a1, uint64_t a2)
 
   if ((v4 - 15001) <= 0xFFFFC567)
   {
-    _VCFECFeedbackAnalyzer_Configure_cold_1(a2 + 16, &v10);
+    _VCFECFeedbackAnalyzer_Configure_cold_1((a2 + 1), &v10);
     return v10;
   }
 
@@ -3740,23 +3640,23 @@ uint64_t _VCFECFeedbackAnalyzer_Configure(uint64_t a1, uint64_t a2)
 
   *v7 = v9;
   *(v7 + 520) = v8;
-  *(v7 + 524) = *(a2 + 44);
+  *(v7 + 524) = *(a2 + 11);
   return result;
 }
 
-uint64_t VCFECFeedbackAnalyzer_Create(uint64_t a1, uint64_t *a2, uint64_t a3)
+uint64_t VCFECFeedbackAnalyzer_Create(uint64_t a1, uint64_t *a2, __int128 *a3)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (!a2)
   {
     VCFECFeedbackAnalyzer_Create_cold_6();
-    return *v21;
+    return *v14;
   }
 
   if (!a3)
   {
     VCFECFeedbackAnalyzer_Create_cold_5();
-    return *v21;
+    return *v14;
   }
 
   if (_MergedGlobals_19 != -1)
@@ -3768,7 +3668,7 @@ uint64_t VCFECFeedbackAnalyzer_Create(uint64_t a1, uint64_t *a2, uint64_t a3)
   if (!Instance)
   {
     VCFECFeedbackAnalyzer_Create_cold_4();
-    return *v21;
+    return *v14;
   }
 
   v6 = Instance;
@@ -3779,11 +3679,11 @@ uint64_t VCFECFeedbackAnalyzer_Create(uint64_t a1, uint64_t *a2, uint64_t a3)
   {
     v8 = arc4random();
     *(v6 + 60) = v8;
-    memset(v21, 170, 12);
-    __sprintf_chk(v21, 0, 0xCuLL, "%010u", v8);
-    v9 = LogDump_OpenLog(v21, "com.apple.VideoConference.VCFECFeedbackAnalyzer", ".fecdump", "", 9, "");
+    memset(v14, 170, 12);
+    __sprintf_chk(v14, 0, 0xCuLL, "%010u", v8);
+    v9 = LogDump_OpenLog(v14, "com.apple.VideoConference.VCFECFeedbackAnalyzer", ".fecdump", "", 9, "");
     *(v6 + 64) = v9;
-    VRLogfilePrintSync(v9, "Time\tTimeMicro\tFrameSizeInPackets\tlostPackets\n", v10, v11, v12, v13, v14, v15, v20);
+    VRLogfilePrintSync(v9, "Time\tTimeMicro\tFrameSizeInPackets\tlostPackets\n");
   }
 
   if (_VCFECFeedbackAnalyzer_Configure(v6, a3))
@@ -3793,214 +3693,220 @@ uint64_t VCFECFeedbackAnalyzer_Create(uint64_t a1, uint64_t *a2, uint64_t a3)
 
   else
   {
-    v16 = malloc_type_calloc(*(v6 + 32), 0x10uLL, 0x1000040D9A13B51uLL);
-    *(v6 + 88) = v16;
-    if (v16)
+    v10 = malloc_type_calloc(*(v6 + 32), 0x10uLL, 0x1000040D9A13B51uLL);
+    *(v6 + 88) = v10;
+    if (v10)
     {
-      v17 = 0;
+      v11 = 0;
       *(v6 + 266380) = 0;
       *a2 = v6;
-      return v17;
+      return v11;
     }
 
     VCFECFeedbackAnalyzer_Create_cold_3();
   }
 
-  v17 = *v21;
-  v19 = *(v6 + 88);
-  if (v19)
+  v11 = *v14;
+  v13 = *(v6 + 88);
+  if (v13)
   {
-    free(v19);
+    free(v13);
   }
 
   CFRelease(v6);
-  return v17;
+  return v11;
 }
 
-uint64_t VCFECFeedbackAnalyzer_ProcessFeedback(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t VCFECFeedbackAnalyzer_ProcessFeedback(uint64_t ErrorLogLevelForModule, uint64_t a2, uint64_t a3)
 {
-  v46 = *MEMORY[0x1E69E9840];
-  if (!a1)
+  v34 = *MEMORY[0x1E69E9840];
+  if (!ErrorLogLevelForModule)
   {
     VCFECFeedbackAnalyzer_ProcessFeedback_cold_1();
     return *buf;
   }
 
-  v11 = *(a1 + 265864);
-  v12 = WORD1(a3);
-  v13 = v11 - 1;
-  if (WORD1(a3) >= v11 - 1)
+  v5 = ErrorLogLevelForModule;
+  v6 = *(ErrorLogLevelForModule + 265864);
+  v7 = WORD1(a3);
+  v8 = v6 - 1;
+  if (WORD1(a3) >= v6 - 1)
   {
-    LOWORD(v14) = v11 - 1;
+    LOWORD(v9) = v6 - 1;
   }
 
   else
   {
-    LOWORD(v14) = WORD1(a3);
+    LOWORD(v9) = WORD1(a3);
   }
 
-  v15 = a3;
-  if (a3 < v11)
+  v10 = a3;
+  if (a3 < v6)
   {
     goto LABEL_8;
   }
 
   if (a3)
   {
-    v14 = ((v11 / a3) * WORD1(a3));
+    v9 = ((v6 / a3) * WORD1(a3));
 LABEL_8:
-    if (a3 >= v13)
+    if (a3 >= v8)
     {
-      v16 = v11 - 1;
+      v11 = v6 - 1;
     }
 
     else
     {
-      v16 = a3;
+      v11 = a3;
     }
 
-    if (v13 <= v14)
+    if (v8 <= v9)
     {
-      v17 = v11 - 1;
+      v12 = v6 - 1;
     }
 
     else
     {
-      v17 = v14;
+      v12 = v9;
     }
 
-    if (VRTraceGetErrorLogLevelForModule() >= 8)
+    ErrorLogLevelForModule = VRTraceGetErrorLogLevelForModule();
+    if (ErrorLogLevelForModule >= 8)
     {
-      v18 = VRTraceErrorLogLevelToCSTR();
-      v19 = *MEMORY[0x1E6986650];
-      v20 = *MEMORY[0x1E6986650];
+      v13 = VRTraceErrorLogLevelToCSTR();
+      v14 = *MEMORY[0x1E6986650];
+      v15 = *MEMORY[0x1E6986650];
       if (*MEMORY[0x1E6986640] == 1)
       {
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+        ErrorLogLevelForModule = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
+        if (ErrorLogLevelForModule)
         {
-          v21 = *&a2;
-          v22 = *(a1 + 84);
-          v23 = *&a2 - *(a1 + 96);
+          v16 = *&a2;
+          v17 = *(v5 + 84);
+          v18 = *&a2 - *(v5 + 96);
           *buf = 136316930;
-          *&buf[4] = v18;
+          *&buf[4] = v13;
           *&buf[12] = 2080;
           *&buf[14] = "_VCFECFeedbackAnalyzer_RegisterFeedback";
           *&buf[22] = 1024;
           *&buf[24] = 209;
           *&buf[28] = 1024;
-          *&buf[30] = v15;
+          *&buf[30] = v10;
           *&buf[34] = 1024;
-          *&buf[36] = v12;
+          *&buf[36] = v7;
           *&buf[40] = 2048;
-          *&buf[42] = v21;
+          *&buf[42] = v16;
           *&buf[50] = 2048;
-          *&buf[52] = v23;
+          *&buf[52] = v18;
           *&buf[60] = 1024;
-          *&buf[62] = v22;
-          _os_log_impl(&dword_1DB56E000, v19, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d New feedback arrived fecFeedback.sizeInPackets=%d fecFeedback.lostPackets=%d time=%f timeDelta=%f bufferIndex=%d", buf, 0x42u);
+          *&buf[62] = v17;
+          _os_log_impl(&dword_1DB56E000, v14, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d New feedback arrived fecFeedback.sizeInPackets=%d fecFeedback.lostPackets=%d time=%f timeDelta=%f bufferIndex=%d", buf, 0x42u);
         }
       }
 
-      else if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+      else
       {
-        v42 = *&a2;
-        v43 = *(a1 + 84);
-        v44 = *&a2 - *(a1 + 96);
-        *buf = 136316930;
-        *&buf[4] = v18;
-        *&buf[12] = 2080;
-        *&buf[14] = "_VCFECFeedbackAnalyzer_RegisterFeedback";
-        *&buf[22] = 1024;
-        *&buf[24] = 209;
-        *&buf[28] = 1024;
-        *&buf[30] = v15;
-        *&buf[34] = 1024;
-        *&buf[36] = v12;
-        *&buf[40] = 2048;
-        *&buf[42] = v42;
-        *&buf[50] = 2048;
-        *&buf[52] = v44;
-        *&buf[60] = 1024;
-        *&buf[62] = v43;
-        _os_log_debug_impl(&dword_1DB56E000, v19, OS_LOG_TYPE_DEBUG, " [%s] %s:%d New feedback arrived fecFeedback.sizeInPackets=%d fecFeedback.lostPackets=%d time=%f timeDelta=%f bufferIndex=%d", buf, 0x42u);
+        ErrorLogLevelForModule = os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG);
+        if (ErrorLogLevelForModule)
+        {
+          v30 = *&a2;
+          v31 = *(v5 + 84);
+          v32 = *&a2 - *(v5 + 96);
+          *buf = 136316930;
+          *&buf[4] = v13;
+          *&buf[12] = 2080;
+          *&buf[14] = "_VCFECFeedbackAnalyzer_RegisterFeedback";
+          *&buf[22] = 1024;
+          *&buf[24] = 209;
+          *&buf[28] = 1024;
+          *&buf[30] = v10;
+          *&buf[34] = 1024;
+          *&buf[36] = v7;
+          *&buf[40] = 2048;
+          *&buf[42] = v30;
+          *&buf[50] = 2048;
+          *&buf[52] = v32;
+          *&buf[60] = 1024;
+          *&buf[62] = v31;
+          _os_log_debug_impl(&dword_1DB56E000, v14, OS_LOG_TYPE_DEBUG, " [%s] %s:%d New feedback arrived fecFeedback.sizeInPackets=%d fecFeedback.lostPackets=%d time=%f timeDelta=%f bufferIndex=%d", buf, 0x42u);
+        }
       }
     }
 
-    v24 = *(a1 + 88) + 16 * *(a1 + 84);
-    *v24 = *&a2;
-    *(v24 + 8) = v16;
-    *(v24 + 10) = v17;
-    v25 = *(a1 + 32);
-    *(a1 + 84) = (*(a1 + 84) + 1) % v25;
-    v26 = *(a1 + 82);
-    if (v26 + 1 < v25)
+    v19 = *(v5 + 88) + 16 * *(v5 + 84);
+    *v19 = *&a2;
+    *(v19 + 8) = v11;
+    *(v19 + 10) = v12;
+    v20 = *(v5 + 32);
+    *(v5 + 84) = (*(v5 + 84) + 1) % v20;
+    v21 = *(v5 + 82);
+    if (v21 + 1 < v20)
     {
-      v27 = v26 + 1;
+      v22 = v21 + 1;
     }
 
     else
     {
-      v27 = v25;
+      v22 = v20;
     }
 
-    *(a1 + 82) = v27;
-    *(a1 + 96) = *&a2;
-    *(a1 + 104) = a3;
+    *(v5 + 82) = v22;
+    *(v5 + 96) = *&a2;
+    *(v5 + 104) = a3;
   }
 
-  if (*(a1 + 56) == 1)
+  if (*(v5 + 56) == 1)
   {
-    if (*(a1 + 80) == 1)
+    if (*(v5 + 80) == 1)
     {
-      v28 = micro();
-      if (v28 - *(a1 + 72) >= 1.0)
+      v23 = micro(ErrorLogLevelForModule, a2);
+      if (v23 - *(v5 + 72) >= 1.0)
       {
-        *(a1 + 72) = v28;
+        *(v5 + 72) = v23;
         memcpy(buf, "histogram", sizeof(buf));
-        if (*(a1 + 265864))
+        if (*(v5 + 265864))
         {
-          v29 = 0;
-          v30 = a1 + 648;
+          v24 = 0;
+          v25 = v5 + 648;
           do
           {
-            __sprintf_chk(buf, 0, 0xAF0uLL, "{histogram:\t{size: %2d,\tbins:{", v29);
-            if (*(a1 + 265864))
+            __sprintf_chk(buf, 0, 0xAF0uLL, "{histogram:\t{size: %2d,\tbins:{", v24);
+            if (*(v5 + 265864))
             {
-              v37 = 0;
+              v26 = 0;
               do
               {
-                if (v37)
+                if (v26)
                 {
-                  v38 = ",";
+                  v27 = ",";
                 }
 
                 else
                 {
-                  v38 = "";
+                  v27 = "";
                 }
 
-                __sprintf_chk(buf, 0, 0xAF0uLL, "%s%s\t%d:%2.3f", buf, v38, v37, *(v30 + 4 * v37));
-                ++v37;
+                __sprintf_chk(buf, 0, 0xAF0uLL, "%s%s\t%d:%2.3f", buf, v27, v26, *(v25 + 4 * v26));
+                ++v26;
               }
 
-              while (v37 < *(a1 + 265864));
+              while (v26 < *(v5 + 265864));
             }
 
-            VRLogfilePrintWithTimestamp(*(a1 + 64), "%s}}}\n", v31, v32, v33, v34, v35, v36, buf);
-            ++v29;
-            v30 += 1036;
+            VRLogfilePrintWithTimestamp(*(v5 + 64), "%s}}}\n", buf);
+            ++v24;
+            v25 += 1036;
           }
 
-          while (v29 < *(a1 + 265864));
+          while (v24 < *(v5 + 265864));
         }
       }
     }
 
     else
     {
-      v39 = *(a1 + 96);
-      v40 = v39;
-      VRLogfilePrintWithTimestamp(*(a1 + 64), "%5.6f\t%d\t%d\n", a3, a4, a5, a6, a7, a8, SLOBYTE(v40));
+      v28 = *(v5 + 96);
+      VRLogfilePrintWithTimestamp(*(v5 + 64), "%5.6f\t%d\t%d\n", v28, *(v5 + 104), *(v5 + 106));
     }
   }
 
@@ -4009,7 +3915,7 @@ LABEL_8:
 
 uint64_t VCFECFeedbackAnalyzer_GetFECLevelVector(uint64_t a1, void *a2)
 {
-  v131 = *MEMORY[0x1E69E9840];
+  v107 = *MEMORY[0x1E69E9840];
   if (!a1)
   {
     VCFECFeedbackAnalyzer_GetFECLevelVector_cold_3();
@@ -4106,36 +4012,36 @@ uint64_t VCFECFeedbackAnalyzer_GetFECLevelVector(uint64_t a1, void *a2)
         v30 = *(a1 + 112);
         *buf = 136316418;
         *&buf[4] = v26;
-        v121 = 2080;
-        v122 = "_VCFECFeedbackAnalyzer_PopulateHistogram";
-        v123 = 1024;
-        v124 = 261;
-        v125 = 1024;
-        v126 = v9;
-        v127 = 2048;
-        v128 = v29;
-        v129 = 2048;
-        v130 = v30;
+        v97 = 2080;
+        v98 = "_VCFECFeedbackAnalyzer_PopulateHistogram";
+        v99 = 1024;
+        v100 = 261;
+        v101 = 1024;
+        v102 = v9;
+        v103 = 2048;
+        v104 = v29;
+        v105 = 2048;
+        v106 = v30;
         _os_log_impl(&dword_1DB56E000, v27, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Histogram has been populated countItems=%d currentTimeDelta=%f _lastComputedVPLR=%2.2f", buf, 0x36u);
       }
     }
 
     else if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
     {
-      v115 = v18;
-      v116 = *(a1 + 112);
+      v91 = v18;
+      v92 = *(a1 + 112);
       *buf = 136316418;
       *&buf[4] = v26;
-      v121 = 2080;
-      v122 = "_VCFECFeedbackAnalyzer_PopulateHistogram";
-      v123 = 1024;
-      v124 = 261;
-      v125 = 1024;
-      v126 = v9;
-      v127 = 2048;
-      v128 = v115;
-      v129 = 2048;
-      v130 = v116;
+      v97 = 2080;
+      v98 = "_VCFECFeedbackAnalyzer_PopulateHistogram";
+      v99 = 1024;
+      v100 = 261;
+      v101 = 1024;
+      v102 = v9;
+      v103 = 2048;
+      v104 = v91;
+      v105 = 2048;
+      v106 = v92;
       _os_log_debug_impl(&dword_1DB56E000, v27, OS_LOG_TYPE_DEBUG, " [%s] %s:%d Histogram has been populated countItems=%d currentTimeDelta=%f _lastComputedVPLR=%2.2f", buf, 0x36u);
     }
   }
@@ -4344,100 +4250,100 @@ uint64_t VCFECFeedbackAnalyzer_GetFECLevelVector(uint64_t a1, void *a2)
       __sprintf_chk(buf, 0, 0xAF0uLL, "{measuredLoss\t:{");
       if (*v4 >= 2u)
       {
-        v76 = (a1 + 2716);
-        v77 = 1;
+        v70 = (a1 + 2716);
+        v71 = 1;
         do
         {
-          if (v77 <= 1)
+          if (v71 <= 1)
           {
-            v78 = "";
+            v72 = "";
           }
 
           else
           {
-            v78 = ",";
+            v72 = ",";
           }
 
-          __sprintf_chk(buf, 0, 0xAF0uLL, "%s%s%d:%2d\t", buf, v78, v77++, *v76);
-          v76 += 518;
+          __sprintf_chk(buf, 0, 0xAF0uLL, "%s%s%d:%2d\t", buf, v72, v71++, *v70);
+          v70 += 518;
         }
 
-        while (v77 < *v4);
+        while (v71 < *v4);
       }
 
-      VRLogfilePrintWithTimestamp(*(a1 + 64), "%s}}\n", v70, v71, v72, v73, v74, v75, buf);
+      VRLogfilePrintWithTimestamp(*(a1 + 64), "%s}}\n", buf);
       RedundancyLevelFromPLR = _VCRedundancyControlAlgorithmVideo_GetRedundancyLevelFromPLR(*(a1 + 120));
-      v80 = FECUtil_FECPercentageToLevelofProtection(RedundancyLevelFromPLR);
-      v81 = FECUtil_ParityGroupTransmissionCountForFECLevel(v80);
-      v82 = *v4;
-      *(a1 + 128) = v82;
-      if (v82 >= 2)
+      v74 = FECUtil_FECPercentageToLevelofProtection(RedundancyLevelFromPLR);
+      v75 = FECUtil_ParityGroupTransmissionCountForFECLevel(v74);
+      v76 = *v4;
+      *(a1 + 128) = v76;
+      if (v76 >= 2)
       {
-        v83 = (a1 + 133);
-        v84 = 1;
+        v77 = (a1 + 133);
+        v78 = 1;
         do
         {
-          RealNumParity = FECUtil_GetRealNumParity(v84, v80);
-          *(v83 - 1) = v84;
-          *v83 = RealNumParity * v81;
-          v83 += 2;
-          ++v84;
+          RealNumParity = FECUtil_GetRealNumParity(v78, v74);
+          *(v77 - 1) = v78;
+          *v77 = RealNumParity * v75;
+          v77 += 2;
+          ++v78;
         }
 
-        while (v84 < *v4);
+        while (v78 < *v4);
       }
 
       __sprintf_chk(buf, 0, 0xAF0uLL, "{vector\t:{");
       if (*v4 >= 2u)
       {
-        v92 = (a1 + 2712);
-        v93 = 1;
+        v80 = (a1 + 2712);
+        v81 = 1;
         do
         {
-          if (v93 <= 1)
+          if (v81 <= 1)
           {
-            v94 = "";
+            v82 = "";
           }
 
           else
           {
-            v94 = ",";
+            v82 = ",";
           }
 
-          __sprintf_chk(buf, 0, 0xAF0uLL, "%s%s%d:%2d\t", buf, v94, v93++, v81 * *v92);
-          v92 += 518;
+          __sprintf_chk(buf, 0, 0xAF0uLL, "%s%s%d:%2d\t", buf, v82, v81++, v75 * *v80);
+          v80 += 518;
         }
 
-        while (v93 < *v4);
+        while (v81 < *v4);
       }
 
-      VRLogfilePrintWithTimestamp(*(a1 + 64), "%s}}\n", v86, v87, v88, v89, v90, v91, buf);
+      VRLogfilePrintWithTimestamp(*(a1 + 64), "%s}}\n", buf);
       __sprintf_chk(buf, 0, 0xAF0uLL, "{vectorPLR\t:{");
       if (*v4 >= 2u)
       {
-        v101 = (a1 + 133);
-        v102 = 1;
+        v83 = (a1 + 133);
+        v84 = 1;
         do
         {
-          if (v102 <= 1)
+          if (v84 <= 1)
           {
-            v103 = "";
+            v85 = "";
           }
 
           else
           {
-            v103 = ",";
+            v85 = ",";
           }
 
-          v104 = *v101;
-          v101 += 2;
-          __sprintf_chk(buf, 0, 0xAF0uLL, "%s%s%d:%2d\t", buf, v103, v102++, v104);
+          v86 = *v83;
+          v83 += 2;
+          __sprintf_chk(buf, 0, 0xAF0uLL, "%s%s%d:%2d\t", buf, v85, v84++, v86);
         }
 
-        while (v102 < *v4);
+        while (v84 < *v4);
       }
 
-      VRLogfilePrintWithTimestamp(*(a1 + 64), "%s}}\n", v95, v96, v97, v98, v99, v100, buf);
+      VRLogfilePrintWithTimestamp(*(a1 + 64), "%s}}\n");
     }
 
     else if (*(a1 + 81) == 1)
@@ -4446,60 +4352,60 @@ uint64_t VCFECFeedbackAnalyzer_GetFECLevelVector(uint64_t a1, void *a2)
       qmemcpy(buf, "-\t-\t-\t", 6);
       if (v60 >= 2)
       {
-        v105 = (a1 + 2714);
-        v106 = 1;
+        v87 = (a1 + 2714);
+        v88 = 1;
         do
         {
-          __sprintf_chk(buf, 0, 0xAF0uLL, "%s%d\t", buf, *v105);
-          ++v106;
-          v105 += 518;
+          __sprintf_chk(buf, 0, 0xAF0uLL, "%s%d\t", buf, *v87);
+          ++v88;
+          v87 += 518;
         }
 
-        while (v106 < *v4);
+        while (v88 < *v4);
       }
 
       __sprintf_chk(buf, 0, 0xAF0uLL, "%s\t", buf);
-      VRLogfilePrintWithTimestamp(*(a1 + 64), "%s\n", v107, v108, v109, v110, v111, v112, buf);
+      VRLogfilePrintWithTimestamp(*(a1 + 64), "%s\n");
     }
   }
 
   if (*(a1 + 81))
   {
     memcpy(a2, (a1 + 265866), 0x202uLL);
-    v113 = 0;
+    v89 = 0;
     *(a1 + 81) = 0;
   }
 
   else
   {
-    v113 = 2150826001;
+    v89 = 2150826001;
     if (VRTraceGetErrorLogLevelForModule() >= 8)
     {
-      v117 = VRTraceErrorLogLevelToCSTR();
-      v118 = *MEMORY[0x1E6986650];
-      v119 = *MEMORY[0x1E6986650];
+      v93 = VRTraceErrorLogLevelToCSTR();
+      v94 = *MEMORY[0x1E6986650];
+      v95 = *MEMORY[0x1E6986650];
       if (*MEMORY[0x1E6986640] == 1)
       {
-        if (os_log_type_enabled(v119, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v95, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315650;
-          *&buf[4] = v117;
-          v121 = 2080;
-          v122 = "VCFECFeedbackAnalyzer_GetFECLevelVector";
-          v123 = 1024;
-          v124 = 519;
-          _os_log_impl(&dword_1DB56E000, v118, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d output not ready", buf, 0x1Cu);
+          *&buf[4] = v93;
+          v97 = 2080;
+          v98 = "VCFECFeedbackAnalyzer_GetFECLevelVector";
+          v99 = 1024;
+          v100 = 519;
+          _os_log_impl(&dword_1DB56E000, v94, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d output not ready", buf, 0x1Cu);
         }
       }
 
-      else if (os_log_type_enabled(v119, OS_LOG_TYPE_DEBUG))
+      else if (os_log_type_enabled(v95, OS_LOG_TYPE_DEBUG))
       {
-        VCFECFeedbackAnalyzer_GetFECLevelVector_cold_1(v117);
+        VCFECFeedbackAnalyzer_GetFECLevelVector_cold_1(v93);
       }
     }
   }
 
-  return v113;
+  return v89;
 }
 
 uint64_t VCFECFeedbackAnalyzer_CleanHistory(uint64_t a1)
@@ -4569,11 +4475,11 @@ uint64_t VCFECFeedbackAnalyzer_CleanHistory(uint64_t a1)
   }
 }
 
-void VCFECFeedbackAnalyzer_UpdateTargetBitrate(uint64_t a1, unsigned int a2)
+void VCFECFeedbackAnalyzer_UpdateTargetBitrate(uint64_t result, uint64_t a2)
 {
-  if (a1)
+  if (result)
   {
-    atomic_store(a2, (a1 + 266380));
+    atomic_store(a2, (result + 266380));
   }
 
   else
@@ -4704,7 +4610,7 @@ uint64_t VCClientRelayVTPReceiveProc(void *a1)
   return 0;
 }
 
-uint64_t RTPProcessHEVCFragmentationHeader(unsigned __int8 *a1, int a2, unsigned int *a3, int *a4, _WORD *a5, _BYTE *a6, int a7, int *a8)
+uint64_t RTPProcessHEVCFragmentationHeader(unsigned __int8 *a1, uint64_t a2, unsigned int *a3, unsigned int *a4, _WORD *a5, _BYTE *a6, int a7, int *a8)
 {
   v27 = *MEMORY[0x1E69E9840];
   if (a2 > 0)
@@ -5405,15 +5311,15 @@ void VCAudioBufferList_ZeroMemory(uint64_t a1)
   }
 }
 
-void VCAudioBufferList_InvalidateStats(uint64_t a1)
+void VCAudioBufferList_InvalidateStats(uint64_t result)
 {
-  if (a1)
+  if (result)
   {
-    *(a1 + 80) = 0;
-    *(a1 + 84) = 0;
-    *(a1 + 72) = 1;
-    *(a1 + 76) = -1024458752;
-    *(a1 + 136) = 0;
+    *(result + 80) = 0;
+    *(result + 84) = 0;
+    *(result + 72) = 1;
+    *(result + 76) = -1024458752;
+    *(result + 136) = 0;
   }
 
   else if (VRTraceGetErrorLogLevelForModule() >= 3)
@@ -6035,7 +5941,7 @@ uint64_t VCAudioBufferList_GetSampleFormat(uint64_t a1)
   return 0;
 }
 
-uint64_t VCAudioBufferList_AppendSamples(uint64_t a1, uint64_t a2, unsigned int a3, int a4)
+uint64_t VCAudioBufferList_AppendSamples(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
 {
   v34 = *MEMORY[0x1E69E9840];
   if (!a1 || !a2)
@@ -6053,6 +5959,7 @@ uint64_t VCAudioBufferList_AppendSamples(uint64_t a1, uint64_t a2, unsigned int 
   }
 
   LODWORD(v5) = a4;
+  v6 = a3;
   if (memcmp((a1 + 8), (a2 + 8), 0x28uLL))
   {
     if (VRTraceGetErrorLogLevelForModule() >= 3)
@@ -6080,7 +5987,7 @@ uint64_t VCAudioBufferList_AppendSamples(uint64_t a1, uint64_t a2, unsigned int 
     return 0;
   }
 
-  v13 = *(a2 + 88) - a3;
+  v13 = *(a2 + 88) - v6;
   v14 = *(a1 + 88);
   if (v13 >= *(a1 + 96) - v14)
   {
@@ -6099,8 +6006,8 @@ uint64_t VCAudioBufferList_AppendSamples(uint64_t a1, uint64_t a2, unsigned int 
 
   if (v5)
   {
-    *(a1 + 64) = a3 / *(a2 + 8) + *(a2 + 64) - v14 / *(a1 + 8);
-    *(a1 + 56) = a3 - v14 + *(a2 + 56);
+    *(a1 + 64) = v6 / *(a2 + 8) + *(a2 + 64) - v14 / *(a1 + 8);
+    *(a1 + 56) = v6 - v14 + *(a2 + 56);
     if (*(a1 + 168))
     {
       v15 = 0;
@@ -6113,14 +6020,14 @@ uint64_t VCAudioBufferList_AppendSamples(uint64_t a1, uint64_t a2, unsigned int 
         v18 = v19;
         v20 = *v17;
         v17 += 2;
-        memcpy((v18 + (*(a1 + 24) * *(a1 + 88))), (v20 + *(a2 + 24) * a3), (*(a1 + 24) * v5));
+        memcpy((v18 + (*(a1 + 24) * *(a1 + 88))), (v20 + *(a2 + 24) * v6), (*(a1 + 24) * v5));
         ++v15;
       }
 
       while (v15 < *(a1 + 168));
     }
 
-    _VCAudioBufferList_ComputeVoiceActivityAppend(a1, a2, a3);
+    _VCAudioBufferList_ComputeVoiceActivityAppend(a1, a2, v6);
     VCAudioBufferList_SetSampleCount(a1, *(a1 + 88) + v5);
     *(a1 + 72) = 0;
     *(a1 + 104) = *(a2 + 104);
@@ -6657,7 +6564,7 @@ uint64_t VCAudioBufferListConverterCallback(uint64_t a1, int *a2, unsigned int *
             *v14 = *v13;
             *(v14 - 1) = *(v13 - 1);
             v13 += 2;
-            v14 += 2;
+            v14 += 4;
             --v12;
           }
 
@@ -6737,7 +6644,7 @@ uint64_t VCAudioBufferList_GetAudioBufferList(uint64_t a1)
   return 0;
 }
 
-uint64_t VCAudioBufferList_GetBufferAtIndex(uint64_t a1, unsigned int a2, _DWORD *a3)
+uint64_t VCAudioBufferList_GetBufferAtIndex(uint64_t a1, uint64_t a2, _DWORD *a3)
 {
   v4[3] = *MEMORY[0x1E69E9840];
   memset(v4, 0, 24);
@@ -6752,7 +6659,7 @@ uint64_t VCAudioBufferList_GetBufferAtIndex(uint64_t a1, unsigned int a2, _DWORD
   }
 }
 
-BOOL VCAudioBufferList_GetSizedBufferAtIndex(uint64_t a1, unsigned int a2, _DWORD *a3, void *a4)
+BOOL VCAudioBufferList_GetSizedBufferAtIndex(uint64_t a1, uint64_t a2, _DWORD *a3, void *a4)
 {
   if (a1 && *(a1 + 168) > a2)
   {
@@ -7147,11 +7054,11 @@ LABEL_43:
   return 0;
 }
 
-void VCAudioBufferList_InvalidateAveragePower(uint64_t a1)
+void VCAudioBufferList_InvalidateAveragePower(uint64_t result)
 {
-  if (a1)
+  if (result)
   {
-    *(a1 + 72) = 0;
+    *(result + 72) = 0;
   }
 
   else if (VRTraceGetErrorLogLevelForModule() >= 3)
@@ -7204,17 +7111,17 @@ uint64_t VCAudioBufferList_SetTimestamp(uint64_t result, int a2)
   return result;
 }
 
-void VCAudioBufferList_GetAudioTimestamp(uint64_t a1@<X0>, uint64_t a2@<X8>)
+void VCAudioBufferList_GetAudioTimestamp(uint64_t result@<X0>, uint64_t a2@<X8>)
 {
   *(a2 + 32) = 0u;
   *(a2 + 48) = 0u;
   *a2 = 0u;
   *(a2 + 16) = 0u;
-  if (a1)
+  if (result)
   {
-    v2 = *(a1 + 64);
+    v2 = *(result + 64);
     *(a2 + 8) = v2;
-    LODWORD(v2) = *(a1 + 56);
+    LODWORD(v2) = *(result + 56);
     *a2 = *&v2;
     *(a2 + 56) = 3;
   }
@@ -7300,12 +7207,12 @@ uint64_t VCAudioBufferList_GetVoiceActivity(uint64_t a1)
   }
 }
 
-void VCAudioBufferList_SetVoiceActivity(uint64_t a1, int a2)
+void VCAudioBufferList_SetVoiceActivity(uint64_t result, int a2)
 {
-  if (a1)
+  if (result)
   {
-    *(a1 + 80) = a2 != 0;
-    *(a1 + 84) = 0;
+    *(result + 80) = a2 != 0;
+    *(result + 84) = 0;
   }
 
   else if (VRTraceGetErrorLogLevelForModule() >= 3)
@@ -7384,11 +7291,11 @@ uint64_t VCAudioBufferList_GetChannelCount(uint64_t a1)
   return 0;
 }
 
-void VCAudioBufferList_SetSilenceInQueue(uint64_t a1, char a2)
+void VCAudioBufferList_SetSilenceInQueue(uint64_t result, char a2)
 {
-  if (a1)
+  if (result)
   {
-    *(a1 + 81) = a2;
+    *(result + 81) = a2;
   }
 
   else if (VRTraceGetErrorLogLevelForModule() >= 3)
@@ -7464,12 +7371,12 @@ float VCAudioBufferList_GetAveragePower(uint64_t a1)
   return NAN;
 }
 
-void VCAudioBufferList_SetAveragePower(uint64_t a1, float a2)
+void VCAudioBufferList_SetAveragePower(uint64_t result, float a2)
 {
-  if (a1)
+  if (result)
   {
-    *(a1 + 72) = 1;
-    *(a1 + 76) = a2;
+    *(result + 72) = 1;
+    *(result + 76) = a2;
   }
 
   else if (VRTraceGetErrorLogLevelForModule() >= 3)
@@ -7567,11 +7474,11 @@ uint64_t VCAudioBufferList_GetPriority(uint64_t a1)
   return 1;
 }
 
-void VCAudioBufferList_SetPriority(uint64_t a1, char a2)
+void VCAudioBufferList_SetPriority(uint64_t result, char a2)
 {
-  if (a1)
+  if (result)
   {
-    *(a1 + 104) = a2;
+    *(result + 104) = a2;
   }
 
   else if (VRTraceGetErrorLogLevelForModule() >= 3)
@@ -7584,13 +7491,13 @@ void VCAudioBufferList_SetPriority(uint64_t a1, char a2)
   }
 }
 
-void VCAudioBufferList_InvalidateNetworkTimestamp(uint64_t a1)
+void VCAudioBufferList_InvalidateNetworkTimestamp(uint64_t result)
 {
-  if (a1)
+  if (result)
   {
     v1 = MEMORY[0x1E6960C70];
-    *(a1 + 108) = *MEMORY[0x1E6960C70];
-    *(a1 + 124) = *(v1 + 16);
+    *(result + 108) = *MEMORY[0x1E6960C70];
+    *(result + 124) = *(v1 + 16);
   }
 
   else if (VRTraceGetErrorLogLevelForModule() >= 3)
@@ -7603,13 +7510,13 @@ void VCAudioBufferList_InvalidateNetworkTimestamp(uint64_t a1)
   }
 }
 
-void VCAudioBufferList_SetNetworkTimestamp(uint64_t a1, __int128 *a2)
+void VCAudioBufferList_SetNetworkTimestamp(uint64_t result, __int128 *a2)
 {
-  if (a1 && a2)
+  if (result && a2)
   {
     v2 = *a2;
-    *(a1 + 124) = *(a2 + 2);
-    *(a1 + 108) = v2;
+    *(result + 124) = *(a2 + 2);
+    *(result + 108) = v2;
   }
 
   else if (VRTraceGetErrorLogLevelForModule() >= 3)
@@ -7622,12 +7529,12 @@ void VCAudioBufferList_SetNetworkTimestamp(uint64_t a1, __int128 *a2)
   }
 }
 
-void VCAudioBufferList_GetNetworkTimestamp(uint64_t a1@<X0>, uint64_t a2@<X8>)
+void VCAudioBufferList_GetNetworkTimestamp(uint64_t result@<X0>, uint64_t a2@<X8>)
 {
-  if (a1)
+  if (result)
   {
-    *a2 = *(a1 + 108);
-    v3 = *(a1 + 124);
+    *a2 = *(result + 108);
+    v3 = *(result + 124);
   }
 
   else
@@ -7649,11 +7556,11 @@ void VCAudioBufferList_GetNetworkTimestamp(uint64_t a1@<X0>, uint64_t a2@<X8>)
   *(a2 + 16) = v3;
 }
 
-void VCAudioBufferList_SetSamplesAreLate(uint64_t a1, char a2)
+void VCAudioBufferList_SetSamplesAreLate(uint64_t result, char a2)
 {
-  if (a1)
+  if (result)
   {
-    *(a1 + 132) = a2;
+    *(result + 132) = a2;
   }
 
   else if (VRTraceGetErrorLogLevelForModule() >= 3)
@@ -7709,11 +7616,11 @@ double VCAudioBufferList_GetVoiceProbability(uint64_t a1)
   return NAN;
 }
 
-void VCAudioBufferList_SetVoiceProbability(uint64_t a1, double a2)
+void VCAudioBufferList_SetVoiceProbability(uint64_t result, double a2)
 {
-  if (a1)
+  if (result)
   {
-    *(a1 + 136) = a2;
+    *(result + 136) = a2;
   }
 
   else if (VRTraceGetErrorLogLevelForModule() >= 3)
@@ -7726,17 +7633,17 @@ void VCAudioBufferList_SetVoiceProbability(uint64_t a1, double a2)
   }
 }
 
-uint64_t VCNetworkAgentCell_AddCellularAssertion()
+uint64_t VCNetworkAgentCell_AddCellularAssertion(__n128 a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if (_VCNetworkAgentCell_SharedInstance_onceToken != -1)
   {
     VCNetworkAgentCell_AddCellularAssertion_cold_1();
   }
 
-  v0 = _VCNetworkAgentCell_SharedInstance_sharedInstance;
+  v1 = _VCNetworkAgentCell_SharedInstance_sharedInstance;
   VCObject_Lock(_VCNetworkAgentCell_SharedInstance_sharedInstance);
-  if (!*(v0 + 188) && ([*(v0 + 192) addNetworkAgentToInterfaceNamed:*(v0 + 200)] & 1) == 0 && VRTraceGetErrorLogLevelForModule() >= 3)
+  if (!*(v1 + 188) && ([*(v1 + 192) addNetworkAgentToInterfaceNamed:*(v1 + 200)] & 1) == 0 && VRTraceGetErrorLogLevelForModule() >= 3)
   {
     VRTraceErrorLogLevelToCSTR();
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
@@ -7745,75 +7652,75 @@ uint64_t VCNetworkAgentCell_AddCellularAssertion()
     }
   }
 
-  ++*(v0 + 188);
+  ++*(v1 + 188);
   if (VRTraceGetErrorLogLevelForModule() >= 6)
   {
-    v1 = VRTraceErrorLogLevelToCSTR();
-    v2 = *MEMORY[0x1E6986650];
+    v2 = VRTraceErrorLogLevelToCSTR();
+    v3 = *MEMORY[0x1E6986650];
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
     {
-      v3 = *(v0 + 188);
-      v4 = "Overwrite cellular as network status bar icon";
-      if (v3 != 1)
+      v4 = *(v1 + 188);
+      v5 = "Overwrite cellular as network status bar icon";
+      if (v4 != 1)
       {
-        v4 = "";
+        v5 = "";
       }
 
-      v6 = 136316418;
-      v7 = v1;
-      v8 = 2080;
-      v9 = "VCNetworkAgentCell_AddCellularAssertion";
-      v10 = 1024;
-      v11 = 130;
-      v12 = 2048;
-      v13 = v0;
-      v14 = 2080;
-      v15 = v4;
-      v16 = 1024;
-      v17 = v3;
-      _os_log_impl(&dword_1DB56E000, v2, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d instance=%p %s refcount = %d", &v6, 0x36u);
+      v7 = 136316418;
+      v8 = v2;
+      v9 = 2080;
+      v10 = "VCNetworkAgentCell_AddCellularAssertion";
+      v11 = 1024;
+      v12 = 130;
+      v13 = 2048;
+      v14 = v1;
+      v15 = 2080;
+      v16 = v5;
+      v17 = 1024;
+      v18 = v4;
+      _os_log_impl(&dword_1DB56E000, v3, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d instance=%p %s refcount = %d", &v7, 0x36u);
     }
   }
 
-  return VCObject_Unlock(v0);
+  return VCObject_Unlock(v1);
 }
 
-uint64_t VCNetworkAgentCell_RemoveCellularAssertion()
+uint64_t VCNetworkAgentCell_RemoveCellularAssertion(__n128 a1)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   if (_VCNetworkAgentCell_SharedInstance_onceToken != -1)
   {
     VCNetworkAgentCell_AddCellularAssertion_cold_1();
   }
 
-  v0 = _VCNetworkAgentCell_SharedInstance_sharedInstance;
+  v1 = _VCNetworkAgentCell_SharedInstance_sharedInstance;
   VCObject_Lock(_VCNetworkAgentCell_SharedInstance_sharedInstance);
-  v1 = *(v0 + 188);
-  v2 = __OFSUB__(v1, 1);
-  v3 = v1 - 1;
-  if (v3 < 0 == v2)
+  v2 = *(v1 + 188);
+  v3 = __OFSUB__(v2, 1);
+  v4 = v2 - 1;
+  if (v4 < 0 == v3)
   {
-    *(v0 + 188) = v3;
+    *(v1 + 188) = v4;
     if (VRTraceGetErrorLogLevelForModule() >= 7)
     {
-      v4 = VRTraceErrorLogLevelToCSTR();
-      v5 = *MEMORY[0x1E6986650];
+      v5 = VRTraceErrorLogLevelToCSTR();
+      v6 = *MEMORY[0x1E6986650];
       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
-        v6 = *(v0 + 188);
-        v12 = 136315906;
-        v13 = v4;
-        v14 = 2080;
-        v15 = "VCNetworkAgentCell_RemoveCellularAssertion";
-        v16 = 1024;
-        v17 = 142;
-        v18 = 1024;
-        LODWORD(v19) = v6;
-        _os_log_impl(&dword_1DB56E000, v5, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d VCNetworkAgentCell network status refcount is '%d'", &v12, 0x22u);
+        v7 = *(v1 + 188);
+        v13 = 136315906;
+        v14 = v5;
+        v15 = 2080;
+        v16 = "VCNetworkAgentCell_RemoveCellularAssertion";
+        v17 = 1024;
+        v18 = 142;
+        v19 = 1024;
+        LODWORD(v20) = v7;
+        _os_log_impl(&dword_1DB56E000, v6, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d VCNetworkAgentCell network status refcount is '%d'", &v13, 0x22u);
       }
     }
 
-    if (!*(v0 + 188) && ([*(v0 + 192) removeNetworkAgentFromInterfaceNamed:*(v0 + 200)] & 1) == 0 && VRTraceGetErrorLogLevelForModule() >= 3)
+    if (!*(v1 + 188) && ([*(v1 + 192) removeNetworkAgentFromInterfaceNamed:*(v1 + 200)] & 1) == 0 && VRTraceGetErrorLogLevelForModule() >= 3)
     {
       VRTraceErrorLogLevelToCSTR();
       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
@@ -7825,34 +7732,34 @@ uint64_t VCNetworkAgentCell_RemoveCellularAssertion()
 
   if (VRTraceGetErrorLogLevelForModule() >= 6)
   {
-    v7 = VRTraceErrorLogLevelToCSTR();
-    v8 = *MEMORY[0x1E6986650];
+    v8 = VRTraceErrorLogLevelToCSTR();
+    v9 = *MEMORY[0x1E6986650];
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
     {
-      v9 = *(v0 + 188);
-      v10 = "Remove overwrite cellular as network status bar icon";
-      if (v9)
+      v10 = *(v1 + 188);
+      v11 = "Remove overwrite cellular as network status bar icon";
+      if (v10)
       {
-        v10 = "";
+        v11 = "";
       }
 
-      v12 = 136316418;
-      v13 = v7;
-      v14 = 2080;
-      v15 = "VCNetworkAgentCell_RemoveCellularAssertion";
-      v16 = 1024;
-      v17 = 151;
-      v18 = 2048;
-      v19 = v0;
-      v20 = 2080;
-      v21 = v10;
-      v22 = 1024;
-      v23 = v9;
-      _os_log_impl(&dword_1DB56E000, v8, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d instance=%p %s refcount = %d", &v12, 0x36u);
+      v13 = 136316418;
+      v14 = v8;
+      v15 = 2080;
+      v16 = "VCNetworkAgentCell_RemoveCellularAssertion";
+      v17 = 1024;
+      v18 = 151;
+      v19 = 2048;
+      v20 = v1;
+      v21 = 2080;
+      v22 = v11;
+      v23 = 1024;
+      v24 = v10;
+      _os_log_impl(&dword_1DB56E000, v9, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d instance=%p %s refcount = %d", &v13, 0x36u);
     }
   }
 
-  return VCObject_Unlock(v0);
+  return VCObject_Unlock(v1);
 }
 
 BOOL VCNetworkAgentCell_CellularAssertionActive()
@@ -8343,10 +8250,11 @@ void *videoRulesForFormatList_1(uint64_t a1, unsigned int a2, uint64_t a3)
   return v6;
 }
 
-void OUTLINED_FUNCTION_6_40(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_6_40(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_DEFAULT, a4, &a9, 0x1Cu);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_DEFAULT, a4, va, 0x1Cu);
 }
 
 void OUTLINED_FUNCTION_8_34()
@@ -8527,9 +8435,9 @@ void VCAudioUnitMockMicThreadProc(uint64_t a1, uint64_t a2, _BYTE *a3)
 
   else
   {
-    [a1 runAudioCallback];
-    v5 = micro();
-    usleep(((*(a1 + 208) * 0.02 - (v5 - *(a1 + 200))) * 1000000.0 + 20000.0));
+    v5 = [a1 runAudioCallback];
+    v7 = micro(v5, v6);
+    usleep(((*(a1 + 208) * 0.02 - (v7 - *(a1 + 200))) * 1000000.0 + 20000.0));
     ++*(a1 + 208);
   }
 }
@@ -9099,9 +9007,9 @@ LABEL_10:
   }
 }
 
-uint64_t _AUIOMicProc(unsigned __int8 *a1, unsigned int *a2, const AudioTimeStamp *a3, unsigned int a4, unsigned int a5, AudioBufferList *a6)
+uint64_t _AUIOMicProc(unsigned __int8 *a1, unsigned int *a2, const AudioTimeStamp *a3, uint64_t a4, uint64_t a5, AudioBufferList *a6)
 {
-  v69 = *MEMORY[0x1E69E9840];
+  v71 = *MEMORY[0x1E69E9840];
   if (!a1)
   {
     if (VRTraceGetErrorLogLevelForModule() >= 3)
@@ -9116,13 +9024,14 @@ uint64_t _AUIOMicProc(unsigned __int8 *a1, unsigned int *a2, const AudioTimeStam
     return 0;
   }
 
+  v6 = a5;
   v9 = *(a1 + 55) * a3->mHostTime;
   kdebug_trace();
   ++*(a1 + 63);
   VCAudioBufferList_Reset(*(a1 + 30));
   VCAudioBufferList_GetAudioBufferList(*(a1 + 30));
-  HIDWORD(v57) = *(a1 + 112);
-  if (VCAudioBufferList_GetSampleCapacity(*(a1 + 30)) < a5 && VRTraceGetErrorLogLevelForModule() >= 3)
+  HIDWORD(v59) = *(a1 + 112);
+  if (VCAudioBufferList_GetSampleCapacity(*(a1 + 30)) < v6 && VRTraceGetErrorLogLevelForModule() >= 3)
   {
     v10 = VRTraceErrorLogLevelToCSTR();
     v11 = *MEMORY[0x1E6986650];
@@ -9130,26 +9039,26 @@ uint64_t _AUIOMicProc(unsigned __int8 *a1, unsigned int *a2, const AudioTimeStam
     {
       SampleCapacity = VCAudioBufferList_GetSampleCapacity(*(a1 + 30));
       *buf = 136316162;
-      v59 = v10;
-      v60 = 2080;
-      v61 = "_AUIOMicProc";
-      v62 = 1024;
-      v63 = 476;
+      v61 = v10;
+      v62 = 2080;
+      v63 = "_AUIOMicProc";
       v64 = 1024;
-      *v65 = a5;
-      *&v65[4] = 1024;
-      *&v65[6] = SampleCapacity;
+      v65 = 476;
+      v66 = 1024;
+      *v67 = v6;
+      *&v67[4] = 1024;
+      *&v67[6] = SampleCapacity;
       _os_log_error_impl(&dword_1DB56E000, v11, OS_LOG_TYPE_ERROR, "AUIO [%s] %s:%d Frame size changed with inNumberFrames=%d being greater than sample buffer size=%d", buf, 0x28u);
     }
   }
 
-  if (VCAudioBufferList_GetSampleCapacity(*(a1 + 30)) <= a5)
+  if (VCAudioBufferList_GetSampleCapacity(*(a1 + 30)) <= v6)
   {
-    a5 = VCAudioBufferList_GetSampleCapacity(*(a1 + 30));
+    v6 = VCAudioBufferList_GetSampleCapacity(*(a1 + 30));
   }
 
-  LODWORD(v57) = a5;
-  VCAudioBufferList_SetSampleCount(*(a1 + 30), a5);
+  LODWORD(v59) = v6;
+  VCAudioBufferList_SetSampleCount(*(a1 + 30), v6);
   if (a1[584])
   {
     goto LABEL_9;
@@ -9176,7 +9085,7 @@ LABEL_98:
 
 LABEL_9:
     v12 = VCAudioUnit_AudioUnitRender();
-    HIDWORD(v57) = 0;
+    HIDWORD(v59) = 0;
     goto LABEL_18;
   }
 
@@ -9200,8 +9109,8 @@ LABEL_18:
     return v12;
   }
 
-  v14 = HIDWORD(v57);
-  if (HIDWORD(v57) > *(a1 + 112))
+  v14 = HIDWORD(v59);
+  if (HIDWORD(v59) > *(a1 + 112))
   {
     if (VRTraceGetErrorLogLevelForModule() >= 3)
     {
@@ -9209,22 +9118,22 @@ LABEL_18:
       v16 = *MEMORY[0x1E6986650];
       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
       {
-        v52 = *(a1 + 112);
+        v54 = *(a1 + 112);
         *buf = 136316162;
-        v59 = v15;
-        v60 = 2080;
-        v61 = "_AUIOMicProc";
-        v62 = 1024;
-        v63 = 505;
+        v61 = v15;
+        v62 = 2080;
+        v63 = "_AUIOMicProc";
         v64 = 1024;
-        *v65 = v52;
-        *&v65[4] = 1024;
-        *&v65[6] = HIDWORD(v57);
+        v65 = 505;
+        v66 = 1024;
+        *v67 = v54;
+        *&v67[4] = 1024;
+        *&v67[6] = HIDWORD(v59);
         _os_log_error_impl(&dword_1DB56E000, v16, OS_LOG_TYPE_ERROR, "AUIO [%s] %s:%d STACK OVERFLOW: Please file a radar. MetaData buffer is too small (%d). Required:%d", buf, 0x28u);
       }
     }
 
-    v14 = HIDWORD(v57);
+    v14 = HIDWORD(v59);
   }
 
   v17 = *(a1 + 30);
@@ -9320,13 +9229,13 @@ LABEL_48:
   IsInternalOSInstalled = VRTraceIsInternalOSInstalled();
   if (IsInternalOSInstalled)
   {
-    v29 = micro();
+    v29 = micro(IsInternalOSInstalled, v31);
   }
 
   if (!a1[234])
   {
     ++*(a1 + 64);
-    if (LogProfileTimeOverLimit(v29, 0.00600000005, "IOProc: shenanigans mic proc"))
+    if (LogProfileTimeOverLimit(v29, 0.00600000005, "IOProc: shenanigans mic proc", v31))
     {
       ++*(a1 + 135);
     }
@@ -9335,25 +9244,25 @@ LABEL_48:
     return 0;
   }
 
-  if (LogProfileTimeOverLimitCompare(*(a1 + 66), v29, v31, IsInternalOSInstalled, *&v29, *(a1 + 66), v29 - *(a1 + 66), v57))
+  if (LogProfileTimeOverLimitCompare(*(a1 + 66), v29, v32, IsInternalOSInstalled, v31, *&v29, *(a1 + 66), v29 - *(a1 + 66), v59))
   {
     if (*(a1 + 98))
     {
       if (VRTraceGetErrorLogLevelForModule() >= 7)
       {
-        v32 = VRTraceErrorLogLevelToCSTR();
-        v33 = *MEMORY[0x1E6986650];
+        v33 = VRTraceErrorLogLevelToCSTR();
+        v34 = *MEMORY[0x1E6986650];
         if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315906;
-          v59 = v32;
-          v60 = 2080;
-          v61 = "_AUIOMicProcDetectDelayedSamples";
-          v62 = 1024;
-          v63 = 448;
-          v64 = 2048;
-          *v65 = a1;
-          _os_log_impl(&dword_1DB56E000, v33, OS_LOG_TYPE_DEFAULT, "AUIO [%s] %s:%d AUIO=%p received first non-silence audio frame", buf, 0x26u);
+          v61 = v33;
+          v62 = 2080;
+          v63 = "_AUIOMicProcDetectDelayedSamples";
+          v64 = 1024;
+          v65 = 448;
+          v66 = 2048;
+          *v67 = a1;
+          _os_log_impl(&dword_1DB56E000, v34, OS_LOG_TYPE_DEFAULT, "AUIO [%s] %s:%d AUIO=%p received first non-silence audio frame", buf, 0x26u);
         }
       }
     }
@@ -9368,19 +9277,19 @@ LABEL_48:
   {
     if (VRTraceGetErrorLogLevelForModule() >= 7)
     {
-      v34 = VRTraceErrorLogLevelToCSTR();
-      v35 = *MEMORY[0x1E6986650];
+      v35 = VRTraceErrorLogLevelToCSTR();
+      v36 = *MEMORY[0x1E6986650];
       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315906;
-        v59 = v34;
-        v60 = 2080;
-        v61 = "_AUIOMicProcDetectDelayedSamples";
-        v62 = 1024;
-        v63 = 451;
-        v64 = 2048;
-        *v65 = a1;
-        _os_log_impl(&dword_1DB56E000, v35, OS_LOG_TYPE_DEFAULT, "AUIO [%s] %s:%d AUIO=%p received first non-silence audio frame", buf, 0x26u);
+        v61 = v35;
+        v62 = 2080;
+        v63 = "_AUIOMicProcDetectDelayedSamples";
+        v64 = 1024;
+        v65 = 451;
+        v66 = 2048;
+        *v67 = a1;
+        _os_log_impl(&dword_1DB56E000, v36, OS_LOG_TYPE_DEFAULT, "AUIO [%s] %s:%d AUIO=%p received first non-silence audio frame", buf, 0x26u);
       }
     }
 
@@ -9392,74 +9301,74 @@ LABEL_48:
   VCAudioBufferList_SetTime(*(a1 + 30), mSampleTime, v9);
   if ((a3->mSampleTime == 0.0 || *(a1 + 104) == mSampleTime || *(a1 + 103) > mSampleTime) && VRTraceGetErrorLogLevelForModule() >= 5)
   {
-    v37 = VRTraceErrorLogLevelToCSTR();
-    v38 = *MEMORY[0x1E6986650];
+    v38 = VRTraceErrorLogLevelToCSTR();
+    v39 = *MEMORY[0x1E6986650];
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
     {
-      v39 = mSampleTime - *(a1 + 103);
-      v40 = a3->mSampleTime;
+      v40 = mSampleTime - *(a1 + 103);
       v41 = a3->mSampleTime;
+      v42 = a3->mSampleTime;
       mHostTime = a3->mHostTime;
       *buf = 136317186;
-      v59 = v37;
-      v60 = 2080;
-      v61 = "_AUIOLogAbnormalTimestamps";
-      v62 = 1024;
-      v63 = 270;
+      v61 = v38;
+      v62 = 2080;
+      v63 = "_AUIOLogAbnormalTimestamps";
       v64 = 1024;
-      *v65 = v39;
-      *&v65[4] = 2048;
-      *&v65[6] = v40;
-      v66 = 2048;
-      *v67 = v41;
-      *&v67[8] = 1024;
-      *v68 = mSampleTime;
-      *&v68[4] = 2048;
-      *&v68[6] = mHostTime;
-      *&v68[14] = 2048;
-      *&v68[16] = v9;
-      _os_log_impl(&dword_1DB56E000, v38, OS_LOG_TYPE_DEFAULT, "AUIO [%s] %s:%d inSampleTime - pAUIO->numBufferedMicSamples = %d, inTimeStamp = %f, converted %lld, inSampleTime %u, HostTime %lld %f", buf, 0x50u);
+      v65 = 270;
+      v66 = 1024;
+      *v67 = v40;
+      *&v67[4] = 2048;
+      *&v67[6] = v41;
+      v68 = 2048;
+      *v69 = v42;
+      *&v69[8] = 1024;
+      *v70 = mSampleTime;
+      *&v70[4] = 2048;
+      *&v70[6] = mHostTime;
+      *&v70[14] = 2048;
+      *&v70[16] = v9;
+      _os_log_impl(&dword_1DB56E000, v39, OS_LOG_TYPE_DEFAULT, "AUIO [%s] %s:%d inSampleTime - pAUIO->numBufferedMicSamples = %d, inTimeStamp = %f, converted %lld, inSampleTime %u, HostTime %lld %f", buf, 0x50u);
     }
   }
 
-  v43 = *(a1 + 104);
-  if (v43)
+  v44 = *(a1 + 104);
+  if (v44)
   {
-    v44 = *(a1 + 108);
-    if (v44)
+    v45 = *(a1 + 108);
+    if (v45)
     {
-      if (vabdd_f64(a3->mSampleTime, v43) > 2 * a5)
+      if (vabdd_f64(a3->mSampleTime, v44) > 2 * v6)
       {
-        *(a1 + 108) = (v44 - (a3->mSampleTime - v43));
+        *(a1 + 108) = (v45 - (a3->mSampleTime - v44));
         if (VRTraceGetErrorLogLevelForModule() >= 3)
         {
-          v45 = VRTraceErrorLogLevelToCSTR();
-          v46 = *MEMORY[0x1E6986650];
+          v46 = VRTraceErrorLogLevelToCSTR();
+          v47 = *MEMORY[0x1E6986650];
           if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
           {
-            v53 = *(a1 + 108);
-            v54 = *(a1 + 104);
-            v55 = a3->mSampleTime;
-            v56 = *(a1 + 53);
+            v55 = *(a1 + 108);
+            v56 = *(a1 + 104);
+            v57 = a3->mSampleTime;
+            v58 = *(a1 + 53);
             *buf = 136317186;
-            v59 = v45;
-            v60 = 2080;
-            v61 = "_AUIOMicProc";
-            v62 = 1024;
-            v63 = 537;
-            v64 = 2048;
-            *v65 = a1;
-            *&v65[8] = 1024;
-            *&v65[10] = v53;
-            v66 = 1024;
-            *v67 = v54;
-            *&v67[4] = 1024;
-            *&v67[6] = v55;
-            *v68 = 2048;
-            *&v68[2] = v56;
-            *&v68[10] = 2048;
-            *&v68[12] = v9;
-            _os_log_error_impl(&dword_1DB56E000, v46, OS_LOG_TYPE_ERROR, "AUIO [%s] %s:%d AUIO=%p Modifying timestamp delta to timeStampDelta=%d because mic also jumped latestMicTimeStamp=%d to latestMicTimeStamp=%d, hostTime jumped latestMicHostTime=%f to inHostTime=%f", buf, 0x4Cu);
+            v61 = v46;
+            v62 = 2080;
+            v63 = "_AUIOMicProc";
+            v64 = 1024;
+            v65 = 537;
+            v66 = 2048;
+            *v67 = a1;
+            *&v67[8] = 1024;
+            *&v67[10] = v55;
+            v68 = 1024;
+            *v69 = v56;
+            *&v69[4] = 1024;
+            *&v69[6] = v57;
+            *v70 = 2048;
+            *&v70[2] = v58;
+            *&v70[10] = 2048;
+            *&v70[12] = v9;
+            _os_log_error_impl(&dword_1DB56E000, v47, OS_LOG_TYPE_ERROR, "AUIO [%s] %s:%d AUIO=%p Modifying timestamp delta to timeStampDelta=%d because mic also jumped latestMicTimeStamp=%d to latestMicTimeStamp=%d, hostTime jumped latestMicHostTime=%f to inHostTime=%f", buf, 0x4Cu);
           }
         }
       }
@@ -9468,16 +9377,16 @@ LABEL_48:
 
   *(a1 + 104) = mSampleTime;
   *(a1 + 53) = v9;
-  if (*(a1 + 136) + *(a1 + 135) != *(a1 + 137) && vabdd_f64(a3->mSampleTime, mSampleTime) > (4 * a5))
+  if (*(a1 + 136) + *(a1 + 135) != *(a1 + 137) && vabdd_f64(a3->mSampleTime, mSampleTime) > (4 * v6))
   {
     ++*(a1 + 138);
   }
 
   kdebug_trace();
-  v47 = *(a1 + 30);
+  v48 = *(a1 + 30);
   if (a1[472])
   {
-    if (!PacketThread_SendSampleBuffer(*(a1 + 60), v47))
+    if (!PacketThread_SendSampleBuffer(*(a1 + 60), v48))
     {
       (*(a1 + 4))(*(a1 + 2), 2149253137);
     }
@@ -9485,19 +9394,19 @@ LABEL_48:
 
   else
   {
-    _AUIOSendMicSamples(a1, v47);
+    _AUIOSendMicSamples(a1, v48);
   }
 
   ++*(a1 + 64);
-  v48 = LogProfileTimeOverLimit(v29, 0.00600000005, "IOProc: shenanigans mic proc");
-  v49 = *(a1 + 135);
-  if (v48)
+  v50 = LogProfileTimeOverLimit(v29, 0.00600000005, "IOProc: shenanigans mic proc", v49);
+  v51 = *(a1 + 135);
+  if (v50)
   {
-    *(a1 + 135) = ++v49;
+    *(a1 + 135) = ++v51;
   }
 
   v12 = 0;
-  *(a1 + 137) = *(a1 + 136) + v49;
+  *(a1 + 137) = *(a1 + 136) + v51;
   return v12;
 }
 
@@ -9596,7 +9505,7 @@ LABEL_19:
   return v16;
 }
 
-uint64_t AUIOSetupRendererCallback(uint64_t a1, void *a2)
+uint64_t AUIOSetupRendererCallback(uint64_t a1, uint64_t (**a2)(void *, unsigned int *, const AudioTimeStamp *, unsigned int, unsigned int, AudioBufferList *))
 {
   v17 = *MEMORY[0x1E69E9840];
   v3 = _AUIOSpkrProc;
@@ -9645,4 +9554,126 @@ uint64_t AUIOSetupRendererCallback(uint64_t a1, void *a2)
   }
 
   return v5;
+}
+
+uint64_t AUIOCloseHandle(uint64_t a1)
+{
+  v28 = *MEMORY[0x1E69E9840];
+  v1 = CheckInHandleDebug();
+  ErrorLogLevelForModule = VRTraceGetErrorLogLevelForModule();
+  v3 = MEMORY[0x1E6986650];
+  if (ErrorLogLevelForModule >= 7)
+  {
+    v4 = VRTraceErrorLogLevelToCSTR();
+    v5 = *v3;
+    if (os_log_type_enabled(*v3, OS_LOG_TYPE_DEFAULT))
+    {
+      v18 = 136315906;
+      v19 = v4;
+      v20 = 2080;
+      v21 = "AUIOCloseHandle";
+      v22 = 1024;
+      v23 = 1206;
+      v24 = 2048;
+      v25 = v1;
+      _os_log_impl(&dword_1DB56E000, v5, OS_LOG_TYPE_DEFAULT, "AUIO [%s] %s:%d Destroying AUIO=%p", &v18, 0x26u);
+    }
+  }
+
+  if (!v1)
+  {
+    return 2149253122;
+  }
+
+  CheckOutHandleDebug();
+  VCAudioToolbox_AudioComponentInstanceDispose();
+  if (VRTraceGetErrorLogLevelForModule() >= 7)
+  {
+    v6 = VRTraceErrorLogLevelToCSTR();
+    v7 = *v3;
+    if (os_log_type_enabled(*v3, OS_LOG_TYPE_DEFAULT))
+    {
+      v8 = *(v1 + 48);
+      v18 = 136316162;
+      v19 = v6;
+      v20 = 2080;
+      v21 = "AUIOCloseHandle";
+      v22 = 1024;
+      v23 = 1236;
+      v24 = 2048;
+      v25 = v1;
+      v26 = 2048;
+      v27 = v8;
+      _os_log_impl(&dword_1DB56E000, v7, OS_LOG_TYPE_DEFAULT, "AUIO [%s] %s:%d Disposed AUIO=%p unit=%p", &v18, 0x30u);
+    }
+  }
+
+  pthread_mutex_destroy((v1 + 264));
+  v9 = *(v1 + 400);
+  if (v9)
+  {
+    free(v9);
+  }
+
+  VCAudioBufferList_Destroy((v1 + 248));
+  VCAudioBufferList_Destroy((v1 + 240));
+  v10 = *(v1 + 336);
+  if (v10)
+  {
+    MEMORY[0x1E128B440](v10, 0x1000C407AA769CALL);
+  }
+
+  v11 = *(v1 + 360);
+  if (v11)
+  {
+    MEMORY[0x1E128B440](v11, 0x1000C407AA769CALL);
+  }
+
+  v12 = *(v1 + 480);
+  if (v12)
+  {
+    PacketThread_Destroy(v12);
+  }
+
+  v13 = *(v1 + 576);
+  if (v13)
+  {
+    dispatch_source_cancel(v13);
+    v14 = *(v1 + 576);
+    if (v14)
+    {
+      dispatch_release(v14);
+      *(v1 + 576) = 0;
+    }
+  }
+
+  *(v1 + 488) = 0;
+  if (VCDefaults_GetBoolValueForKey(@"forceEnableAudioMockInputPathForAppleTV", 0))
+  {
+    [+[VCAudioToolboxAudioComponentMock sharedInstance](VCAudioToolboxAudioComponentMock stop];
+    [+[VCCoreAudio_AudioUnitMock sharedInstance](VCCoreAudio_AudioUnitMock stop];
+  }
+
+  free(*(v1 + 456));
+  free(v1);
+  if (VRTraceGetErrorLogLevelForModule() >= 7)
+  {
+    v15 = VRTraceErrorLogLevelToCSTR();
+    v16 = *v3;
+    result = os_log_type_enabled(*v3, OS_LOG_TYPE_DEFAULT);
+    if (!result)
+    {
+      return result;
+    }
+
+    v18 = 136315650;
+    v19 = v15;
+    v20 = 2080;
+    v21 = "AUIOCloseHandle";
+    v22 = 1024;
+    v23 = 1276;
+    _os_log_impl(&dword_1DB56E000, v16, OS_LOG_TYPE_DEFAULT, "AUIO [%s] %s:%d AUIO Closed Handle.", &v18, 0x1Cu);
+  }
+
+  return 0;
 }

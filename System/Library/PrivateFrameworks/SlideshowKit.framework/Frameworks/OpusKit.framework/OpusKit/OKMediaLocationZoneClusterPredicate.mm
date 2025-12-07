@@ -265,7 +265,7 @@ uint64_t __67__OKMediaLocationZoneClusterPredicate_evaluateItems_progressBlock__
   return 0;
 }
 
-uint64_t __67__OKMediaLocationZoneClusterPredicate_evaluateItems_progressBlock___block_invoke_2(uint64_t a1, void *a2)
+void *__67__OKMediaLocationZoneClusterPredicate_evaluateItems_progressBlock___block_invoke_2(uint64_t a1, void *a2)
 {
   result = [a2 isCancelled];
   if ((result & 1) == 0)

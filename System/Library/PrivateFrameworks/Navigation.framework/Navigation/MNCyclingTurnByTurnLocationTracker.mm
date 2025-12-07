@@ -17,21 +17,24 @@
 
 - (void)_updateForAlternateRoutes:(id)routes
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   routesCopy = routes;
   if ([(MNLocationTracker *)self state]!= 2)
   {
     lastMatchedLocation = [(MNLocationTracker *)self lastMatchedLocation];
     [lastMatchedLocation coordinate];
+    v7 = v6;
+    v9 = v8;
     navigationSession = [(MNLocationTracker *)self navigationSession];
     destination = [navigationSession destination];
 
     geoMapItem = [destination geoMapItem];
-    [geoMapItem centerCoordinate];
-    GEOCalculateDistance();
-    v10 = v9;
+    centerCoordinate = [geoMapItem centerCoordinate];
+    v34.var2 = v7;
+    v35.var0 = v9;
+    v15 = GEOCalculateDistance(centerCoordinate, v14, v34, v35);
 
-    if (v10 < 1000.0)
+    if (v15 < 1000.0)
     {
 
       routesCopy = 0;
@@ -49,41 +52,39 @@
     [delegate locationTracker:self didUpdateAlternateRoutes:alternateRoutes];
   }
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
-  v25 = 0u;
+  v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   alternateRoutes2 = [(MNAlternateRoutesUpdater *)self->_alternateRoutesUpdater alternateRoutes];
-  v17 = [alternateRoutes2 countByEnumeratingWithState:&v24 objects:v28 count:16];
-  if (v17)
+  v22 = [alternateRoutes2 countByEnumeratingWithState:&v28 objects:v32 count:16];
+  if (v22)
   {
-    v18 = v17;
-    v19 = *v25;
+    v23 = v22;
+    v24 = *v29;
     do
     {
-      v20 = 0;
+      v25 = 0;
       do
       {
-        if (*v25 != v19)
+        if (*v29 != v24)
         {
           objc_enumerationMutation(alternateRoutes2);
         }
 
-        v21 = *(*(&v24 + 1) + 8 * v20);
+        v26 = *(*(&v28 + 1) + 8 * v25);
         delegate2 = [(MNLocationTracker *)self delegate];
-        [delegate2 locationTracker:self didUpdateETAForRoute:v21];
+        [delegate2 locationTracker:self didUpdateETAForRoute:v26];
 
-        ++v20;
+        ++v25;
       }
 
-      while (v18 != v20);
-      v18 = [alternateRoutes2 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      while (v23 != v25);
+      v23 = [alternateRoutes2 countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
-    while (v18);
+    while (v23);
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)tunnelLocationProjector:(id)projector didUpdateLocation:(id)location
@@ -237,14 +238,14 @@ LABEL_17:
 
 - (id)_matchedLocationForLocation:(id)location
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   locationCopy = location;
   v5 = MNGetPuckTrackingLog();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     uuid = [locationCopy uuid];
     *buf = 138412290;
-    v32 = uuid;
+    v29 = uuid;
     _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_INFO, "[MN] [%@] - Processing - in MNCyclingLocationTracker::_matchedLocationForLocation:", buf, 0xCu);
   }
 
@@ -303,9 +304,9 @@ LABEL_12:
     }
   }
 
-  v30.receiver = self;
-  v30.super_class = MNCyclingTurnByTurnLocationTracker;
-  v16 = [(MNTurnByTurnLocationTracker *)&v30 _matchedLocationForLocation:locationCopy];
+  v27.receiver = self;
+  v27.super_class = MNCyclingTurnByTurnLocationTracker;
+  v16 = [(MNTurnByTurnLocationTracker *)&v27 _matchedLocationForLocation:locationCopy];
   v24 = v10;
   v25 = v24;
   if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v24))
@@ -314,8 +315,6 @@ LABEL_12:
     _os_signpost_emit_with_name_impl(&dword_1D311E000, v25, OS_SIGNPOST_INTERVAL_END, v8, "MatchedCyclingTBTLocationForLocation", "", buf, 2u);
   }
 
-  v26 = *MEMORY[0x1E69A19F8];
-  v27 = *(MEMORY[0x1E69A19F8] + 8);
   if (GEOConfigGetBOOL())
   {
     uuid2 = [locationCopy uuid];
@@ -324,8 +323,6 @@ LABEL_12:
   }
 
 LABEL_21:
-
-  v28 = *MEMORY[0x1E69E9840];
 
   return v16;
 }

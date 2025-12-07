@@ -14,34 +14,34 @@
 
 - (BiasEstimatorOutputs)initWithOuputProbabilities:(id)probabilities rawRange:(double)range correctedRange:(double)correctedRange
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   probabilitiesCopy = probabilities;
-  v24.receiver = self;
-  v24.super_class = BiasEstimatorOutputs;
-  v9 = [(BiasEstimatorOutputs *)&v24 init];
+  v23.receiver = self;
+  v23.super_class = BiasEstimatorOutputs;
+  v9 = [(BiasEstimatorOutputs *)&v23 init];
   if (v9)
   {
     v10 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     v11 = probabilitiesCopy;
-    v12 = [v11 countByEnumeratingWithState:&v20 objects:v25 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v19 objects:v24 count:16];
     if (v12)
     {
-      v13 = *v21;
+      v13 = *v20;
       do
       {
         v14 = 0;
         do
         {
-          if (*v21 != v13)
+          if (*v20 != v13)
           {
             objc_enumerationMutation(v11);
           }
 
-          v15 = *(*(&v20 + 1) + 8 * v14);
+          v15 = *(*(&v19 + 1) + 8 * v14);
           v16 = MEMORY[0x1E696AD98];
           [v15 doubleValue];
           v17 = [v16 numberWithDouble:?];
@@ -51,7 +51,7 @@
         }
 
         while (v12 != v14);
-        v12 = [v11 countByEnumeratingWithState:&v20 objects:v25 count:16];
+        v12 = [v11 countByEnumeratingWithState:&v19 objects:v24 count:16];
       }
 
       while (v12);
@@ -62,7 +62,6 @@
     [(BiasEstimatorOutputs *)v9 setCorrectedRange:correctedRange];
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v9;
 }
 

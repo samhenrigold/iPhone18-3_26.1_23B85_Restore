@@ -29,7 +29,7 @@ void __36__VUIAgeVerification_sharedInstance__block_invoke()
 {
   v12 = *MEMORY[0x1E69E9840];
   verificationCopy = verification;
-  v5 = VUIDefaultLogObject();
+  v5 = VUIDefaultLogObject(verificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = [verificationCopy description];
@@ -55,24 +55,24 @@ void __36__VUIAgeVerification_sharedInstance__block_invoke()
 
 - (void)performAgeGateVerificationWithRatingValue:(id)value ratingDomain:(id)domain adamId:(id)id resourceType:(id)type canonicalMeta:(id)meta completion:(id)completion
 {
-  v74 = *MEMORY[0x1E69E9840];
+  v76 = *MEMORY[0x1E69E9840];
   valueCopy = value;
   domainCopy = domain;
   idCopy = id;
   *&v17 = COERCE_DOUBLE(type);
   metaCopy = meta;
   completionCopy = completion;
-  v19 = VUIDefaultLogObject();
+  v19 = VUIDefaultLogObject(completionCopy);
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138413058;
-    v67 = idCopy;
-    v68 = 2112;
-    v69 = v17;
+    v69 = idCopy;
     v70 = 2112;
-    v71 = valueCopy;
+    v71 = v17;
     v72 = 2112;
-    v73 = domainCopy;
+    v73 = valueCopy;
+    v74 = 2112;
+    v75 = domainCopy;
     _os_log_impl(&dword_1E323F000, v19, OS_LOG_TYPE_DEFAULT, "VUIAgeVerificationManager::Checking content with rating:%@ for ratingDomain:%@ adamId:%@ resourceType:%@", buf, 0x2Au);
   }
 
@@ -96,112 +96,112 @@ void __36__VUIAgeVerification_sharedInstance__block_invoke()
 
   if (valueCopy && intValue >= intValue2)
   {
-    v53 = metaCopy;
+    v55 = metaCopy;
     activeAccount = [MEMORY[0x1E69D5920] activeAccount];
-    v25 = [activeAccount ams_accountFlagValueForAccountFlag:*MEMORY[0x1E698C498]];
-    [v25 doubleValue];
-    v27 = v26;
+    v26 = [activeAccount ams_accountFlagValueForAccountFlag:*MEMORY[0x1E698C498]];
+    [v26 doubleValue];
+    v28 = v27;
 
     date = [MEMORY[0x1E695DF00] date];
     [date timeIntervalSince1970];
-    v30 = v29;
+    v31 = v30;
 
-    v31 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+    v33 = VUIDefaultLogObject(v32);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218240;
-      v67 = v30;
-      v68 = 2048;
-      *&v69 = v27 / 1000.0;
-      _os_log_impl(&dword_1E323F000, v31, OS_LOG_TYPE_DEFAULT, "VUIAgeVerificationManager::Content is restricted - checking if user needs age verification. Timestamp = %f , AMSAccountFlagAgeVerificationExpiration = %f", buf, 0x16u);
+      v69 = v31;
+      v70 = 2048;
+      *&v71 = v28 / 1000.0;
+      _os_log_impl(&dword_1E323F000, v33, OS_LOG_TYPE_DEFAULT, "VUIAgeVerificationManager::Content is restricted - checking if user needs age verification. Timestamp = %f , AMSAccountFlagAgeVerificationExpiration = %f", buf, 0x16u);
     }
 
     aBlock[0] = MEMORY[0x1E69E9820];
     aBlock[1] = 3221225472;
     aBlock[2] = __122__VUIAgeVerification_performAgeGateVerificationWithRatingValue_ratingDomain_adamId_resourceType_canonicalMeta_completion___block_invoke;
     aBlock[3] = &unk_1E872E9F0;
-    v61 = completionCopy;
-    v32 = _Block_copy(aBlock);
+    v63 = completionCopy;
+    v34 = _Block_copy(aBlock);
     vui_defaultBag = [MEMORY[0x1E698C7D8] vui_defaultBag];
-    v33 = MEMORY[0x1E695DF90];
-    v34 = &stru_1F5DB25C0;
-    v64[0] = VUIAgeVerificationAdamId;
-    v64[1] = VUIAgeVerificationResourceType;
-    v51 = idCopy;
+    v35 = MEMORY[0x1E695DF90];
+    v36 = &stru_1F5DB25C0;
+    v66[0] = VUIAgeVerificationAdamId;
+    v66[1] = VUIAgeVerificationResourceType;
+    v53 = idCopy;
     if (idCopy)
     {
-      v35 = idCopy;
+      v37 = idCopy;
     }
 
     else
     {
-      v35 = &stru_1F5DB25C0;
+      v37 = &stru_1F5DB25C0;
     }
 
     if (*&v17 != 0.0)
     {
-      v34 = v17;
+      v36 = v17;
     }
 
-    v65[0] = v35;
-    v65[1] = v34;
-    v36 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v65 forKeys:v64 count:2];
-    v37 = [v33 dictionaryWithDictionary:v36];
+    v67[0] = v37;
+    v67[1] = v36;
+    v38 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v67 forKeys:v66 count:2];
+    v39 = [v35 dictionaryWithDictionary:v38];
 
-    if (v53)
+    if (v55)
     {
-      [v37 addEntriesFromDictionary:?];
+      [v39 addEntriesFromDictionary:?];
     }
 
-    v52 = domainCopy;
-    v50 = v17;
+    v54 = domainCopy;
+    v52 = v17;
     if ([MEMORY[0x1E69DF6F0] isTV])
     {
-      v38 = 0;
+      v40 = 0;
     }
 
     else
     {
-      v62 = VUIAgeVerificationClientFields;
-      v63 = v37;
-      v38 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v63 forKeys:&v62 count:1];
+      v64 = VUIAgeVerificationClientFields;
+      v65 = v39;
+      v40 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v65 forKeys:&v64 count:1];
     }
 
-    v41 = objc_alloc(MEMORY[0x1E698CC48]);
-    v42 = +[VUIPreflightManager defaultPreflightManager];
-    presentingController = [v42 presentingController];
-    v44 = [v41 initWithAccount:activeAccount bag:vui_defaultBag options:v38 viewController:presentingController];
+    v43 = objc_alloc(MEMORY[0x1E698CC48]);
+    v44 = +[VUIPreflightManager defaultPreflightManager];
+    presentingController = [v44 presentingController];
+    v46 = [v43 initWithAccount:activeAccount bag:vui_defaultBag options:v40 viewController:presentingController];
 
-    isVerificationNeeded = [v44 isVerificationNeeded];
-    v55[0] = MEMORY[0x1E69E9820];
-    v55[1] = 3221225472;
-    v55[2] = __122__VUIAgeVerification_performAgeGateVerificationWithRatingValue_ratingDomain_adamId_resourceType_canonicalMeta_completion___block_invoke_4;
-    v55[3] = &unk_1E8730950;
+    isVerificationNeeded = [v46 isVerificationNeeded];
+    v57[0] = MEMORY[0x1E69E9820];
+    v57[1] = 3221225472;
+    v57[2] = __122__VUIAgeVerification_performAgeGateVerificationWithRatingValue_ratingDomain_adamId_resourceType_canonicalMeta_completion___block_invoke_4;
+    v57[3] = &unk_1E8730950;
     selfCopy = self;
-    v58 = v32;
-    v56 = v44;
-    v59 = v30;
-    v46 = v44;
-    v47 = v32;
-    [isVerificationNeeded addFinishBlock:v55];
+    v60 = v34;
+    v58 = v46;
+    v61 = v31;
+    v48 = v46;
+    v49 = v34;
+    [isVerificationNeeded addFinishBlock:v57];
 
-    idCopy = v51;
-    domainCopy = v52;
-    v17 = v50;
-    metaCopy = v53;
-    v40 = completionCopy;
+    idCopy = v53;
+    domainCopy = v54;
+    v17 = v52;
+    metaCopy = v55;
+    v42 = completionCopy;
   }
 
   else
   {
-    v39 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+    v41 = VUIDefaultLogObject(v25);
+    if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1E323F000, v39, OS_LOG_TYPE_DEFAULT, "VUIAgeVerificationManager::content not restricted", buf, 2u);
+      _os_log_impl(&dword_1E323F000, v41, OS_LOG_TYPE_DEFAULT, "VUIAgeVerificationManager::content not restricted", buf, 2u);
     }
 
-    v40 = completionCopy;
+    v42 = completionCopy;
     (*(completionCopy + 2))(completionCopy, 1);
   }
 }
@@ -244,181 +244,211 @@ void __122__VUIAgeVerification_performAgeGateVerificationWithRatingValue_ratingD
 
 void __122__VUIAgeVerification_performAgeGateVerificationWithRatingValue_ratingDomain_adamId_resourceType_canonicalMeta_completion___block_invoke_4(uint64_t a1, void *a2, void *a3)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v5 = a3;
+  v6 = v5;
   if (v5)
   {
-    v6 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = VUIDefaultLogObject(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __122__VUIAgeVerification_performAgeGateVerificationWithRatingValue_ratingDomain_adamId_resourceType_canonicalMeta_completion___block_invoke_4_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
+      __122__VUIAgeVerification_performAgeGateVerificationWithRatingValue_ratingDomain_adamId_resourceType_canonicalMeta_completion___block_invoke_4_cold_1(v6, v7, v8, v9, v10, v11, v12, v13);
     }
   }
 
   else
   {
-    v14 = [a2 requiredType];
-    v15 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v15 = [a2 requiredType];
+    v16 = VUIDefaultLogObject(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v30 = v14;
-      _os_log_impl(&dword_1E323F000, v15, OS_LOG_TYPE_DEFAULT, "VUIAgeVerificationManager::AMSUIAgeVerificationTask isVerificationNeeded: resultType=%lu", buf, 0xCu);
+      v32 = v15;
+      _os_log_impl(&dword_1E323F000, v16, OS_LOG_TYPE_DEFAULT, "VUIAgeVerificationManager::AMSUIAgeVerificationTask isVerificationNeeded: resultType=%lu", buf, 0xCu);
     }
 
-    if (v14)
+    if (v15)
     {
-      if (v14 == 1)
+      if (v15 == 1)
       {
-        v13 = *(*(a1 + 48) + 16);
+        v14 = *(*(a1 + 48) + 16);
         goto LABEL_6;
       }
 
-      if ((v14 & 0xFFFFFFFFFFFFFFFELL) == 2)
+      if ((v15 & 0xFFFFFFFFFFFFFFFELL) == 2)
       {
-        v16 = [*(a1 + 32) performTask];
-        v25[0] = MEMORY[0x1E69E9820];
-        v25[1] = 3221225472;
-        v25[2] = __122__VUIAgeVerification_performAgeGateVerificationWithRatingValue_ratingDomain_adamId_resourceType_canonicalMeta_completion___block_invoke_30;
-        v25[3] = &unk_1E8730928;
-        v17 = *(a1 + 48);
-        v25[4] = *(a1 + 40);
-        v26 = v17;
-        v27 = *(a1 + 56);
-        v28 = v14;
-        [v16 addFinishBlock:v25];
+        v18 = [*(a1 + 32) performTask];
+        v27[0] = MEMORY[0x1E69E9820];
+        v27[1] = 3221225472;
+        v27[2] = __122__VUIAgeVerification_performAgeGateVerificationWithRatingValue_ratingDomain_adamId_resourceType_canonicalMeta_completion___block_invoke_30;
+        v27[3] = &unk_1E8730928;
+        v19 = *(a1 + 48);
+        v27[4] = *(a1 + 40);
+        v28 = v19;
+        v29 = *(a1 + 56);
+        v30 = v15;
+        [v18 addFinishBlock:v27];
 
         goto LABEL_7;
       }
 
-      v18 = VUIDefaultLogObject();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v20 = VUIDefaultLogObject(v17);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
-        __122__VUIAgeVerification_performAgeGateVerificationWithRatingValue_ratingDomain_adamId_resourceType_canonicalMeta_completion___block_invoke_4_cold_2(v14, v18, v19, v20, v21, v22, v23, v24);
+        __122__VUIAgeVerification_performAgeGateVerificationWithRatingValue_ratingDomain_adamId_resourceType_canonicalMeta_completion___block_invoke_4_cold_2(v15, v20, v21, v22, v23, v24, v25, v26);
       }
     }
   }
 
-  v13 = *(*(a1 + 48) + 16);
+  v14 = *(*(a1 + 48) + 16);
 LABEL_6:
-  v13();
+  v14();
 LABEL_7:
 }
 
 void __122__VUIAgeVerification_performAgeGateVerificationWithRatingValue_ratingDomain_adamId_resourceType_canonicalMeta_completion___block_invoke_30(void *a1, void *a2, void *a3)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v5 = a3;
+  v6 = v5;
   if (v5)
   {
-    v6 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = VUIDefaultLogObject(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __122__VUIAgeVerification_performAgeGateVerificationWithRatingValue_ratingDomain_adamId_resourceType_canonicalMeta_completion___block_invoke_30_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
+      __122__VUIAgeVerification_performAgeGateVerificationWithRatingValue_ratingDomain_adamId_resourceType_canonicalMeta_completion___block_invoke_30_cold_1(v6, v7, v8, v9, v10, v11, v12, v13);
     }
 
 LABEL_5:
-    v13 = *(a1[5] + 16);
+    v14 = *(a1[5] + 16);
 LABEL_6:
-    v13();
+    v14();
     goto LABEL_7;
   }
 
-  v14 = [a2 successType];
-  v15 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v15 = [a2 successType];
+  v16 = VUIDefaultLogObject(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v32 = v14;
-    _os_log_impl(&dword_1E323F000, v15, OS_LOG_TYPE_DEFAULT, "VUIAgeVerificationManager::AMSUIAgeVerificationTask performTask: successType=%lu", buf, 0xCu);
+    v34 = v15;
+    _os_log_impl(&dword_1E323F000, v16, OS_LOG_TYPE_DEFAULT, "VUIAgeVerificationManager::AMSUIAgeVerificationTask performTask: successType=%lu", buf, 0xCu);
   }
 
-  if (!v14)
+  if (!v15)
   {
     goto LABEL_5;
   }
 
-  if ((v14 & 0xFFFFFFFFFFFFFFFDLL) == 1)
+  if ((v15 & 0xFFFFFFFFFFFFFFFDLL) == 1)
   {
-    v13 = *(a1[5] + 16);
+    v14 = *(a1[5] + 16);
     goto LABEL_6;
   }
 
-  v16 = VUIDefaultLogObject();
-  v17 = v16;
-  if (v14 != 2)
+  v18 = VUIDefaultLogObject(v17);
+  v19 = v18;
+  if (v15 != 2)
   {
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      __122__VUIAgeVerification_performAgeGateVerificationWithRatingValue_ratingDomain_adamId_resourceType_canonicalMeta_completion___block_invoke_30_cold_2(a1, v17, v24, v25, v26, v27, v28, v29);
+      __122__VUIAgeVerification_performAgeGateVerificationWithRatingValue_ratingDomain_adamId_resourceType_canonicalMeta_completion___block_invoke_30_cold_2(a1, v19, v26, v27, v28, v29, v30, v31);
     }
 
     goto LABEL_5;
   }
 
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1E323F000, v17, OS_LOG_TYPE_DEFAULT, "VUIAgeVerificationManager::starting verification flow, adding observer for ACDAccountStoreDidChangeNotification", buf, 2u);
+    _os_log_impl(&dword_1E323F000, v19, OS_LOG_TYPE_DEFAULT, "VUIAgeVerificationManager::starting verification flow, adding observer for ACDAccountStoreDidChangeNotification", buf, 2u);
   }
 
   (*(a1[5] + 16))();
-  v18 = [MEMORY[0x1E696AD88] defaultCenter];
-  v19 = *MEMORY[0x1E6959968];
-  v20 = [MEMORY[0x1E696ADC8] mainQueue];
-  v30[0] = MEMORY[0x1E69E9820];
-  v30[1] = 3221225472;
-  v30[2] = __122__VUIAgeVerification_performAgeGateVerificationWithRatingValue_ratingDomain_adamId_resourceType_canonicalMeta_completion___block_invoke_32;
-  v30[3] = &unk_1E8730900;
-  v30[5] = a1[6];
-  v30[4] = a1[4];
-  v21 = [v18 addObserverForName:v19 object:0 queue:v20 usingBlock:v30];
-  v22 = a1[4];
-  v23 = *(v22 + 32);
-  *(v22 + 32) = v21;
+  v20 = [MEMORY[0x1E696AD88] defaultCenter];
+  v21 = *MEMORY[0x1E6959968];
+  v22 = [MEMORY[0x1E696ADC8] mainQueue];
+  v32[0] = MEMORY[0x1E69E9820];
+  v32[1] = 3221225472;
+  v32[2] = __122__VUIAgeVerification_performAgeGateVerificationWithRatingValue_ratingDomain_adamId_resourceType_canonicalMeta_completion___block_invoke_32;
+  v32[3] = &unk_1E8730900;
+  v32[5] = a1[6];
+  v32[4] = a1[4];
+  v23 = [v20 addObserverForName:v21 object:0 queue:v22 usingBlock:v32];
+  v24 = a1[4];
+  v25 = *(v24 + 32);
+  *(v24 + 32) = v23;
 
 LABEL_7:
 }
 
 void __122__VUIAgeVerification_performAgeGateVerificationWithRatingValue_ratingDomain_adamId_resourceType_canonicalMeta_completion___block_invoke_32(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E69D5920] activeAccount];
   v3 = [v2 ams_accountFlagValueForAccountFlag:*MEMORY[0x1E698C498]];
   [v3 doubleValue];
   v5 = v4 / 1000.0;
 
-  v6 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = VUIDefaultLogObject(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 134217984;
-    v11 = v5;
-    _os_log_impl(&dword_1E323F000, v6, OS_LOG_TYPE_DEFAULT, "VUIAgeVerificationManager::received ACDAccountStoreDidChangeNotification during age verification - rechecking AMSAccountFlagAgeVerificationExpiration=%f", &v10, 0xCu);
+    v12 = 134217984;
+    v13 = v5;
+    _os_log_impl(&dword_1E323F000, v7, OS_LOG_TYPE_DEFAULT, "VUIAgeVerificationManager::received ACDAccountStoreDidChangeNotification during age verification - rechecking AMSAccountFlagAgeVerificationExpiration=%f", &v12, 0xCu);
   }
 
-  v7 = *(a1 + 40);
-  v8 = VUIDefaultLogObject();
-  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
-  if (v5 <= v7)
+  v8 = *(a1 + 40);
+  v10 = VUIDefaultLogObject(v9);
+  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+  if (v5 <= v8)
   {
-    if (v9)
+    if (v11)
     {
-      LOWORD(v10) = 0;
-      _os_log_impl(&dword_1E323F000, v8, OS_LOG_TYPE_DEFAULT, "VUIAgeVerificationManager::user is still not age-verified", &v10, 2u);
+      LOWORD(v12) = 0;
+      _os_log_impl(&dword_1E323F000, v10, OS_LOG_TYPE_DEFAULT, "VUIAgeVerificationManager::user is still not age-verified", &v12, 2u);
     }
   }
 
   else
   {
-    if (v9)
+    if (v11)
     {
-      LOWORD(v10) = 0;
-      _os_log_impl(&dword_1E323F000, v8, OS_LOG_TYPE_DEFAULT, "VUIAgeVerificationManager::user is now age-verified. Use will need to retry playback", &v10, 2u);
+      LOWORD(v12) = 0;
+      _os_log_impl(&dword_1E323F000, v10, OS_LOG_TYPE_DEFAULT, "VUIAgeVerificationManager::user is now age-verified. Use will need to retry playback", &v12, 2u);
     }
 
-    v8 = [MEMORY[0x1E696AD88] defaultCenter];
-    [v8 removeObserver:*(*(a1 + 32) + 32)];
+    v10 = [MEMORY[0x1E696AD88] defaultCenter];
+    [v10 removeObserver:*(*(a1 + 32) + 32)];
   }
+}
+
+void __122__VUIAgeVerification_performAgeGateVerificationWithRatingValue_ratingDomain_adamId_resourceType_canonicalMeta_completion___block_invoke_4_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_0(&dword_1E323F000, a2, a3, "VUIAgeVerificationManager::Error returned in AMSUIAgeVerificationTask isVerificationNeeded: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __122__VUIAgeVerification_performAgeGateVerificationWithRatingValue_ratingDomain_adamId_resourceType_canonicalMeta_completion___block_invoke_4_cold_2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_0(&dword_1E323F000, a2, a3, "VUIAgeVerificationManager::Unknown resultType returned %lul", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __122__VUIAgeVerification_performAgeGateVerificationWithRatingValue_ratingDomain_adamId_resourceType_canonicalMeta_completion___block_invoke_30_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_0(&dword_1E323F000, a2, a3, "VUIAgeVerificationManager::AMSUIAgeVerificationTask performTask: error= %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __122__VUIAgeVerification_performAgeGateVerificationWithRatingValue_ratingDomain_adamId_resourceType_canonicalMeta_completion___block_invoke_30_cold_2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = *(a1 + 56);
+  OUTLINED_FUNCTION_0_0(&dword_1E323F000, a2, a3, "VUIAgeVerificationManager::Unknown successType returned %lul", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

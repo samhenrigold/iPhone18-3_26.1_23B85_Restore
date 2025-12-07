@@ -45,13 +45,13 @@
 
 - (AVContentKeyRequest)initWithContentKeySession:(id)session reportGroup:(id)group identifier:(id)identifier contentIdentifier:(id)contentIdentifier keyIDFromInitializationData:(id)data initializationData:(id)initializationData preloadingRequestOptions:(id)options providesPersistableKey:(BOOL)self0
 {
-  v33 = *MEMORY[0x1E69E9840];
-  v31.receiver = self;
-  v31.super_class = AVContentKeyRequest;
-  v17 = [(AVContentKeyRequest *)&v31 init];
+  v36 = *MEMORY[0x1E69E9840];
+  v34.receiver = self;
+  v34.super_class = AVContentKeyRequest;
+  v17 = [(AVContentKeyRequest *)&v34 init];
   if (!v17)
   {
-    if (!FigSignalErrorAtGM())
+    if (!FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v31, v32, v33))
     {
       return v17;
     }
@@ -77,8 +77,8 @@ LABEL_12:
   v17->_contentKeyRequest = v19;
   if (!v19)
   {
-    [AVContentKeyRequest initWithContentKeySession:v32 reportGroup:? identifier:? contentIdentifier:? keyIDFromInitializationData:? initializationData:? preloadingRequestOptions:? providesPersistableKey:?];
-    if (!v32[0])
+    [AVContentKeyRequest initWithContentKeySession:v35 reportGroup:? identifier:? contentIdentifier:? keyIDFromInitializationData:? initializationData:? preloadingRequestOptions:? providesPersistableKey:?];
+    if (!v35[0])
     {
       return v17;
     }
@@ -148,11 +148,12 @@ LABEL_12:
 
 - (AVContentKeyRequest)initWithContentKeySession:(id)session reportGroup:(id)group customURLHandler:(OpaqueFigCustomURLHandler *)handler identifier:(id)identifier requestInfo:(__CFDictionary *)info requestID:(unint64_t)d providesPersistableKey:(BOOL)key isRenewalRequest:(BOOL)self0
 {
-  LOBYTE(v19) = key;
-  v13 = [(AVContentKeyRequest *)self initWithContentKeySession:session reportGroup:group identifier:identifier contentIdentifier:0 keyIDFromInitializationData:0 initializationData:0 preloadingRequestOptions:0 providesPersistableKey:v19];
+  v23 = *MEMORY[0x1E69E9840];
+  LOBYTE(v20) = key;
+  v13 = [(AVContentKeyRequest *)self initWithContentKeySession:session reportGroup:group identifier:identifier contentIdentifier:0 keyIDFromInitializationData:0 initializationData:0 preloadingRequestOptions:0 providesPersistableKey:v20];
   if (!v13)
   {
-    if (!FigSignalErrorAtGM())
+    if (!FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v19, v21, v22))
     {
       return 0;
     }
@@ -209,8 +210,9 @@ LABEL_5:
 
 - (AVContentKeyRequest)initWithContentKeySession:(id)session contentKeyBoss:(OpaqueFigContentKeyBoss *)boss useContentKeyBoss:(BOOL)keyBoss keySpecifier:(OpaqueFigContentKeySpecifier *)specifier initializationData:(id)data keyIDFromInitializationData:(id)initializationData contentIdentifier:(id)identifier isRenewalRequest:(BOOL)self0 requestID:(unint64_t)self1 providesPersistableKey:(BOOL)self2 preloadingRequestOptions:(id)self3 identifier:(id)self4 supportsOfflineKey:(BOOL)self5 originatingRecipientIdentifier:(id)self6
 {
-  LOBYTE(v23) = key;
-  v18 = [(AVContentKeyRequest *)self initWithContentKeySession:session reportGroup:0 identifier:a14 contentIdentifier:identifier keyIDFromInitializationData:initializationData initializationData:data preloadingRequestOptions:options providesPersistableKey:v23];
+  v27 = *MEMORY[0x1E69E9840];
+  LOBYTE(v24) = key;
+  v18 = [(AVContentKeyRequest *)self initWithContentKeySession:session reportGroup:0 identifier:a14 contentIdentifier:identifier keyIDFromInitializationData:initializationData initializationData:data preloadingRequestOptions:options providesPersistableKey:v24];
   v19 = v18;
   if (v18)
   {
@@ -241,7 +243,7 @@ LABEL_5:
 
   else
   {
-    FigSignalErrorAtGM();
+    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v23, v25, v26);
   }
 
   return v19;
@@ -425,7 +427,7 @@ LABEL_16:
 
 uint64_t __33__AVContentKeyRequest__setError___block_invoke(uint64_t result, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   if (a2)
   {
     v3 = result;
@@ -439,7 +441,7 @@ uint64_t __33__AVContentKeyRequest__setError___block_invoke(uint64_t result, voi
         fig_log_call_emit_and_clean_up_after_send_and_compose();
       }
 
-      return [a2 contentKeySession:*(v3 + 32) contentKeyRequest:v5 didFailWithError:v6];
+      return [a2 contentKeySession:*(v3 + 32) contentKeyRequest:? didFailWithError:?];
     }
   }
 
@@ -492,6 +494,7 @@ uint64_t __33__AVContentKeyRequest__setError___block_invoke(uint64_t result, voi
 
 uint64_t __47__AVContentKeyRequest__handleKeyResponseError___block_invoke(uint64_t a1, void *a2)
 {
+  v7 = *MEMORY[0x1E69E9840];
   if (a2 && (objc_opt_respondsToSelector() & 1) != 0 && [a2 contentKeySession:*(a1 + 32) shouldRetryContentKeyRequest:*(a1 + 40) reason:*(a1 + 48)])
   {
     v4 = *(a1 + 40);
@@ -508,7 +511,7 @@ uint64_t __47__AVContentKeyRequest__handleKeyResponseError___block_invoke(uint64
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    return [*(a1 + 40) _setError:{AVLocalizedErrorWithUnderlyingOSStatus(-11835, 0)}];
+    return [*(a1 + 40) _setError:{AVLocalizedErrorWithUnderlyingOSStatus(4294955461, 0)}];
   }
 }
 
@@ -564,7 +567,7 @@ uint64_t __47__AVContentKeyRequest__handleKeyResponseError___block_invoke(uint64
 
 uint64_t __60__AVContentKeyRequest__handleKeyResponseSuccessWithCryptor___block_invoke(uint64_t result, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   if (a2)
   {
     v3 = result;
@@ -578,7 +581,7 @@ uint64_t __60__AVContentKeyRequest__handleKeyResponseSuccessWithCryptor___block_
         fig_log_call_emit_and_clean_up_after_send_and_compose();
       }
 
-      return [a2 contentKeySession:*(v3 + 32) contentKeyRequestDidSucceed:{*(v3 + 40), v5, v6}];
+      return [a2 contentKeySession:*(v3 + 32) contentKeyRequestDidSucceed:*(v3 + 40)];
     }
   }
 
@@ -892,7 +895,7 @@ LABEL_9:
     if (!v34)
     {
 LABEL_32:
-      v15 = -12782;
+      v15 = 4294954514;
       goto LABEL_33;
     }
 
@@ -998,7 +1001,7 @@ LABEL_11:
     }
 
     v20 = 0;
-    v19 = -12782;
+    v19 = 4294954514;
   }
 
   else
@@ -1103,9 +1106,9 @@ LABEL_11:
 
 uint64_t __108__AVContentKeyRequest_makeStreamingContentKeyRequestDataForApp_contentIdentifier_options_completionHandler___block_invoke(uint64_t a1)
 {
-  v5[26] = *MEMORY[0x1E69E9840];
-  v5[0] = 0;
-  v2 = [*(a1 + 32) _makeStreamingContentKeyRequestDataForApp:*(a1 + 40) contentIdentifier:*(*(*(a1 + 32) + 8) + 176) options:*(a1 + 48) error:v5];
+  v4[26] = *MEMORY[0x1E69E9840];
+  v4[0] = 0;
+  [*(a1 + 32) _makeStreamingContentKeyRequestDataForApp:*(a1 + 40) contentIdentifier:*(*(*(a1 + 32) + 8) + 176) options:*(a1 + 48) error:v4];
   if (dword_1EAEFCEB0)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -1113,41 +1116,40 @@ uint64_t __108__AVContentKeyRequest_makeStreamingContentKeyRequestDataForApp_con
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  return (*(*(a1 + 56) + 16))(*(a1 + 56), v2);
+  return (*(*(a1 + 56) + 16))();
 }
 
 uint64_t __108__AVContentKeyRequest_makeStreamingContentKeyRequestDataForApp_contentIdentifier_options_completionHandler___block_invoke_174(uint64_t a1)
 {
-  v7[1] = *MEMORY[0x1E69E9840];
-  v5 = 0;
+  v6[1] = *MEMORY[0x1E69E9840];
+  v4 = 0;
   if ([*(a1 + 32) status] >= 4)
   {
-    __108__AVContentKeyRequest_makeStreamingContentKeyRequestDataForApp_contentIdentifier_options_completionHandler___block_invoke_174_cold_2(&v6, v7, &v5);
-LABEL_8:
-    v2 = 0;
-    return (*(*(a1 + 56) + 16))(*(a1 + 56), v2);
+    __108__AVContentKeyRequest_makeStreamingContentKeyRequestDataForApp_contentIdentifier_options_completionHandler___block_invoke_174_cold_2(&v5, v6, &v4);
   }
 
-  if (([objc_msgSend(*(a1 + 32) "_keySystem")] & 1) == 0)
+  else if ([objc_msgSend(*(a1 + 32) "_keySystem")])
   {
-    __108__AVContentKeyRequest_makeStreamingContentKeyRequestDataForApp_contentIdentifier_options_completionHandler___block_invoke_174_cold_1(&v5);
-    goto LABEL_8;
+    [*(a1 + 32) contentKeyRequestDataForApp:*(a1 + 40) contentIdentifier:*(*(*(a1 + 32) + 8) + 176) options:*(a1 + 48) error:&v4];
+    if (dword_1EAEFCEB0)
+    {
+      os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
+      fig_log_call_emit_and_clean_up_after_send_and_compose();
+    }
   }
 
-  v2 = [*(a1 + 32) contentKeyRequestDataForApp:*(a1 + 40) contentIdentifier:*(*(*(a1 + 32) + 8) + 176) options:*(a1 + 48) error:&v5];
-  if (dword_1EAEFCEB0)
+  else
   {
-    os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-    fig_log_call_emit_and_clean_up_after_send_and_compose();
+    __108__AVContentKeyRequest_makeStreamingContentKeyRequestDataForApp_contentIdentifier_options_completionHandler___block_invoke_174_cold_1(&v4);
   }
 
-  return (*(*(a1 + 56) + 16))(*(a1 + 56), v2);
+  return (*(*(a1 + 56) + 16))();
 }
 
 - (BOOL)processContentKeyResponseData:(id)data renewalDate:(id)date error:(id *)error
 {
-  v36[1] = *MEMORY[0x1E69E9840];
+  v35[1] = *MEMORY[0x1E69E9840];
   figCryptor = [(AVContentKeyRequest *)self figCryptor];
   if (!data)
   {
@@ -1165,27 +1167,27 @@ LABEL_8:
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    [-[AVContentKeyRequest session](self session];
+    [-[AVContentKeyRequest session](self "session")];
     if (self->_contentKeyRequest->customURLHandler)
     {
       [(AVContentKeyRequest *)self _finishLoadingCustomURLRequestWithResponseData:data renewalDate:date];
 LABEL_10:
-      v20 = 0;
+      LODWORD(v20) = 0;
       return v20 == 0;
     }
 
-    v20 = [-[AVContentKeyRequest _keySystem](self "_keySystem")];
+    LODWORD(v20) = [-[AVContentKeyRequest _keySystem](self "_keySystem")];
     if (!v20)
     {
       return v20 == 0;
     }
 
-    LOBYTE(v33) = 0;
+    LOBYTE(v32) = 0;
     if (date)
     {
-      v31 = *MEMORY[0x1E6962B28];
+      v30 = *MEMORY[0x1E6962B28];
       dateCopy = date;
-      date = [MEMORY[0x1E695DF20] dictionaryWithObjects:&dateCopy forKeys:&v31 count:1];
+      date = [MEMORY[0x1E695DF20] dictionaryWithObjects:&dateCopy forKeys:&v30 count:1];
     }
 
     if (self->_contentKeyRequest->providesPersistableKey)
@@ -1216,14 +1218,14 @@ LABEL_29:
 
 LABEL_23:
           v25 = *(CMBaseObjectGetVTable() + 16);
-          if (*v25 < 6uLL || (v26 = v25[20]) == 0 || v26(v16, 2, 3, &v33, 0))
+          if (*v25 < 6uLL || (v26 = v25[20]) == 0 || v26(v16, 2, 3, &v32, 0))
           {
             v27 = 1769;
           }
 
           else
           {
-            if (v33)
+            if (v32)
             {
               goto LABEL_10;
             }
@@ -1231,8 +1233,8 @@ LABEL_23:
             v27 = 1770;
           }
 
-          [AVContentKeyRequest processContentKeyResponseData:v27 renewalDate:v34 error:?];
-          v20 = v34[0];
+          [AVContentKeyRequest processContentKeyResponseData:v27 renewalDate:v33 error:?];
+          v20 = v33[0];
           if (!error)
           {
             return v20 == 0;
@@ -1242,7 +1244,7 @@ LABEL_30:
           if (v20)
           {
             *error = AVLocalizedErrorWithUnderlyingOSStatus(v20, 0);
-            v20 = 1;
+            LODWORD(v20) = 1;
           }
 
           return v20 == 0;
@@ -1269,7 +1271,7 @@ LABEL_30:
       }
     }
 
-    v20 = -12782;
+    v20 = 4294954514;
     goto LABEL_29;
   }
 
@@ -1278,9 +1280,9 @@ LABEL_30:
     return 0;
   }
 
-  v35 = *MEMORY[0x1E695E618];
-  v36[0] = @"content key request cancelled or already failed";
-  v17 = AVLocalizedError(@"AVFoundationErrorDomain", -11862, [MEMORY[0x1E695DF20] dictionaryWithObjects:v36 forKeys:&v35 count:1]);
+  v34 = *MEMORY[0x1E695E618];
+  v35[0] = @"content key request cancelled or already failed";
+  v17 = AVLocalizedError(@"AVFoundationErrorDomain", -11862, [MEMORY[0x1E695DF20] dictionaryWithObjects:v35 forKeys:&v34 count:1]);
   result = 0;
   *error = v17;
   return result;
@@ -1299,7 +1301,7 @@ LABEL_30:
       v12 = *(*(CMBaseObjectGetVTable() + 16) + 32);
       if (!v12)
       {
-        v13 = -12782;
+        v13 = 4294954514;
 LABEL_7:
         CFRelease(v9);
         if (!error)
@@ -1335,8 +1337,8 @@ LABEL_8:
 
 - (void)processContentKeyResponse:(AVContentKeyResponse *)keyResponse
 {
-  v49[1] = *MEMORY[0x1E69E9840];
-  v47 = 0;
+  v48[1] = *MEMORY[0x1E69E9840];
+  v46 = 0;
   _keySystem = [(AVContentKeyRequest *)self _keySystem];
   if (!keyResponse)
   {
@@ -1437,7 +1439,7 @@ LABEL_62:
               goto LABEL_41;
             }
 
-            if (![(AVContentKeyRequest *)self ensureCryptorWithFormatDescription:0 error:&v47])
+            if (![(AVContentKeyRequest *)self ensureCryptorWithFormatDescription:0 error:&v46])
             {
               goto LABEL_43;
             }
@@ -1470,7 +1472,7 @@ LABEL_62:
               if (!v29)
               {
 LABEL_28:
-                if (![(AVContentKeyRequest *)self processContentKeyResponseData:keyResponse[1].super.isa renewalDate:0 error:&v47])
+                if (![(AVContentKeyRequest *)self processContentKeyResponseData:keyResponse[1].super.isa renewalDate:0 error:&v46])
                 {
                   goto LABEL_43;
                 }
@@ -1482,12 +1484,12 @@ LABEL_28:
             else
             {
 LABEL_30:
-              v29 = -12782;
+              v29 = 4294954514;
             }
 
 LABEL_31:
-            v23 = AVLocalizedErrorWithUnderlyingOSStatusAndUnderlyingError(v29, 0, v47, 1);
-            v47 = v23;
+            v23 = AVLocalizedErrorWithUnderlyingOSStatusAndUnderlyingError(v29, 0, v46, 1);
+            v46 = v23;
             if (!v23)
             {
               return;
@@ -1534,11 +1536,11 @@ LABEL_31:
             contentKeyRequest = self->_contentKeyRequest;
             if (!contentKeyRequest->requestID)
             {
-              if (![(AVContentKeyReportGroup *)contentKeyRequest->reportGroup _setAuthorizationToken:keyResponse[1].super.isa forIdentifier:contentKeyRequest->identifier error:&v47])
+              if (![(AVContentKeyReportGroup *)contentKeyRequest->reportGroup _setAuthorizationToken:keyResponse[1].super.isa forIdentifier:contentKeyRequest->identifier error:&v46])
               {
 LABEL_43:
-                v23 = v47;
-                if (!v47)
+                v23 = v46;
+                if (!v46)
                 {
                   return;
                 }
@@ -1547,13 +1549,13 @@ LABEL_43:
               }
 
 LABEL_42:
-              [(AVContentKeyRequest *)self _setStatus:1, v45];
+              [(AVContentKeyRequest *)self _setStatus:1];
               goto LABEL_43;
             }
 
             selfCopy3 = self;
 LABEL_41:
-            if (![AVContentKeyRequest _processContentKeyResponse:selfCopy3 renewalDate:"_processContentKeyResponse:renewalDate:initializationVector:error:" initializationVector:v45 error:v46])
+            if (![AVContentKeyRequest _processContentKeyResponse:selfCopy3 renewalDate:"_processContentKeyResponse:renewalDate:initializationVector:error:" initializationVector:? error:?])
             {
               goto LABEL_43;
             }
@@ -1587,11 +1589,11 @@ LABEL_60:
     goto LABEL_61;
   }
 
-  v48 = *MEMORY[0x1E695E618];
-  v49[0] = @"content key request cancelled or already failed";
-  v23 = AVLocalizedError(@"AVFoundationErrorDomain", -11862, [MEMORY[0x1E695DF20] dictionaryWithObjects:v49 forKeys:&v48 count:1]);
+  v47 = *MEMORY[0x1E695E618];
+  v48[0] = @"content key request cancelled or already failed";
+  v23 = AVLocalizedError(@"AVFoundationErrorDomain", -11862, [MEMORY[0x1E695DF20] dictionaryWithObjects:v48 forKeys:&v47 count:1]);
 LABEL_44:
-  [(AVContentKeyRequest *)self _handleKeyResponseError:v23, v45];
+  [(AVContentKeyRequest *)self _handleKeyResponseError:v23];
 }
 
 - (void)_processContentKeyResponseError:(id)error
@@ -1599,20 +1601,20 @@ LABEL_44:
   _copyContentKeyBoss = [(AVContentKeyRequest *)self _copyContentKeyBoss];
   if (_copyContentKeyBoss)
   {
-    v6 = _copyContentKeyBoss;
+    v13 = _copyContentKeyBoss;
     requestID = self->_contentKeyRequest->requestID;
-    v8 = *(*(CMBaseObjectGetVTable() + 16) + 40);
-    if (v8)
+    v15 = *(*(CMBaseObjectGetVTable() + 16) + 40);
+    if (v15)
     {
-      v8(v6, requestID, error);
+      v15(v13, requestID, error);
     }
 
-    CFRelease(v6);
+    CFRelease(v13);
   }
 
   else
   {
-    [AVContentKeyRequest _processContentKeyResponseError:];
+    [(AVContentKeyRequest *)0 _processContentKeyResponseError:v6, v7, v8, v9, v10, v11, v12, v16, v17, SHIDWORD(v17), v18];
   }
 }
 
@@ -1667,7 +1669,7 @@ LABEL_44:
 
 - (BOOL)respondByRequestingPersistableContentKeyRequestAndReturnError:(NSError *)outError
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   if (([-[AVContentKeyRequest _keySystem](self "_keySystem")] & 1) == 0)
   {
     v19 = MEMORY[0x1E695DF30];
@@ -1700,7 +1702,7 @@ LABEL_19:
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  if ([(AVContentKeyRequest *)self _canRespondByRequestingPersistableContentKeyRequest:v27])
+  if ([(AVContentKeyRequest *)self _canRespondByRequestingPersistableContentKeyRequest])
   {
     [(AVContentKeyRequest *)self _setStatus:4];
     contentKeyRequest = self->_contentKeyRequest;
@@ -1752,17 +1754,17 @@ LABEL_19:
 
 - (BOOL)willOutputBeObscuredDueToInsufficientExternalProtectionForDisplays:(id)displays
 {
-  v22 = 1;
+  v30 = 1;
   if (!displays)
   {
-    v20 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector(self userInfo:{a2, @"displays is nil", v3, v4, v5, v6, v7, v21), 0}];
-    objc_exception_throw(v20);
+    v27 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector(self userInfo:{a2, @"displays is nil", v3, v4, v5, v6, v7, v28), 0}];
+    objc_exception_throw(v27);
   }
 
   contentKeyRequest = self->_contentKeyRequest;
   if (!contentKeyRequest->hasAnyKeyRequestSucceeded)
   {
-    [AVContentKeyRequest(AVContentKeyRequest_ExternalProtectionStateSupport) willOutputBeObscuredDueToInsufficientExternalProtectionForDisplays:];
+    [(AVContentKeyRequest(AVContentKeyRequest_ExternalProtectionStateSupport) *)self willOutputBeObscuredDueToInsufficientExternalProtectionForDisplays:a2, displays, v3, v4, v5, v6, v7, v28, v29, v30, v31];
     goto LABEL_18;
   }
 
@@ -1771,55 +1773,55 @@ LABEL_19:
     figCryptor = contentKeyRequest->figCryptor;
     if (figCryptor)
     {
-      v17 = [(AVContentKeyReportGroup *)contentKeyRequest->reportGroup externalProtectionStatusForCryptor:figCryptor withDisplays:displays];
-      return v17 != 2;
+      v24 = [(AVContentKeyReportGroup *)contentKeyRequest->reportGroup externalProtectionStatusForCryptor:figCryptor withDisplays:displays];
+      return v24 != 2;
     }
 
-    [AVContentKeyRequest(AVContentKeyRequest_ExternalProtectionStateSupport) willOutputBeObscuredDueToInsufficientExternalProtectionForDisplays:];
+    [(AVContentKeyRequest(AVContentKeyRequest_ExternalProtectionStateSupport) *)self willOutputBeObscuredDueToInsufficientExternalProtectionForDisplays:a2, 0, displays, v4, v5, v6, v7, v28, v29, v30, v31];
 LABEL_18:
-    v17 = 1;
-    return v17 != 2;
+    v24 = 1;
+    return v24 != 2;
   }
 
   _copyContentKeyBoss = [(AVContentKeyRequest *)self _copyContentKeyBoss];
   if (!_copyContentKeyBoss)
   {
-    [AVContentKeyRequest(AVContentKeyRequest_ExternalProtectionStateSupport) willOutputBeObscuredDueToInsufficientExternalProtectionForDisplays:];
+    [(AVContentKeyRequest(AVContentKeyRequest_ExternalProtectionStateSupport) *)0 willOutputBeObscuredDueToInsufficientExternalProtectionForDisplays:v11, v12, v13, v14, v15, v16, v17, v28, v29, v30, v31];
     goto LABEL_18;
   }
 
-  v11 = _copyContentKeyBoss;
+  v18 = _copyContentKeyBoss;
   keySpecifier = self->_contentKeyRequest->keySpecifier;
-  v13 = *(CMBaseObjectGetVTable() + 16);
-  if (v13)
+  v20 = *(CMBaseObjectGetVTable() + 16);
+  if (v20)
   {
-    v14 = v13;
+    v21 = v20;
   }
 
   else
   {
-    v14 = 0;
+    v21 = 0;
   }
 
-  v18 = v14[14];
-  if (v18 && *v14 >= 3uLL)
+  v25 = v21[14];
+  if (v25 && *v21 >= 3uLL)
   {
-    v18(v11, keySpecifier, &v22);
+    v25(v18, keySpecifier, &v30);
   }
 
-  CFRelease(v11);
-  v17 = v22;
-  return v17 != 2;
+  CFRelease(v18);
+  v24 = v30;
+  return v24 != 2;
 }
 
 - (int64_t)externalContentProtectionStatus
 {
-  v8 = 1;
+  HIDWORD(v21) = 1;
   p_contentKeyRequest = &self->_contentKeyRequest;
   contentKeyRequest = self->_contentKeyRequest;
   if (!contentKeyRequest->hasAnyKeyRequestSucceeded)
   {
-    [AVContentKeyRequest(AVContentKeyRequest_ExternalProtectionStateSupport) externalContentProtectionStatus];
+    [(AVContentKeyRequest(AVContentKeyRequest_ExternalProtectionStateSupport) *)self externalContentProtectionStatus:a2];
     return 0;
   }
 
@@ -1829,34 +1831,35 @@ LABEL_18:
     if (_copyContentKeyBoss)
     {
       [(AVContentKeyRequest(AVContentKeyRequest_ExternalProtectionStateSupport) *)p_contentKeyRequest externalContentProtectionStatus:_copyContentKeyBoss];
-      return v9;
+      return v22;
     }
 
-    [AVContentKeyRequest(AVContentKeyRequest_ExternalProtectionStateSupport) externalContentProtectionStatus];
+    [(AVContentKeyRequest(AVContentKeyRequest_ExternalProtectionStateSupport) *)0 externalContentProtectionStatus:v14];
     return 0;
   }
 
   figCryptor = contentKeyRequest->figCryptor;
   if (!figCryptor)
   {
-    [AVContentKeyRequest(AVContentKeyRequest_ExternalProtectionStateSupport) externalContentProtectionStatus];
+    [(AVContentKeyRequest(AVContentKeyRequest_ExternalProtectionStateSupport) *)self externalContentProtectionStatus:a2];
     return 0;
   }
 
-  v5 = [(AVContentKeyReportGroup *)contentKeyRequest->reportGroup externalProtectionStatusForCryptor:figCryptor withDisplays:MEMORY[0x1E695E0F0]];
-  if (v5 == 2)
+  v11 = [(AVContentKeyReportGroup *)contentKeyRequest->reportGroup externalProtectionStatusForCryptor:figCryptor withDisplays:MEMORY[0x1E695E0F0]];
+  if (v11 == 2)
   {
     return 1;
   }
 
   else
   {
-    return 2 * (v5 == 3);
+    return 2 * (v11 == 3);
   }
 }
 
 - (BOOL)setReportGroup:(id)group
 {
+  v9 = *MEMORY[0x1E69E9840];
   FigSimpleMutexLock();
   contentKeyRequest = self->_contentKeyRequest;
   figCryptor = contentKeyRequest->figCryptor;

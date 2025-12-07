@@ -32,6 +32,7 @@
 - (void)resetRecovery:(id)recovery;
 - (void)saveSystemLogs;
 - (void)scanForIssues:(id)issues;
+- (void)setDiagnosticsSubmissionApproved:(BOOL)approved completion:(id)completion;
 - (void)shutdown:(id)shutdown andReboot:(BOOL)reboot andPrepareNeRDBoot:(BOOL)boot;
 - (void)userAuthenticated:(id)authenticated completion:(id)completion;
 @end
@@ -175,8 +176,7 @@
     if (v10 && !v11)
     {
       [(DeviceRecoveryService *)self setSystemDataVolumeMounted:1];
-      [(DeviceRecoveryService *)self setSystemDataVolumeMountPath:@"/private/var/mnt"];
-      v12 = sub_1000118BC();
+      v12 = sub_1000118BC([(DeviceRecoveryService *)self setSystemDataVolumeMountPath:@"/private/var/mnt"]);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         systemDataVolumeMountPath = [(DeviceRecoveryService *)self systemDataVolumeMountPath];
@@ -212,66 +212,67 @@ LABEL_12:
   {
     [connectionCopy processIdentifier];
     v9 = sub_10000EDB8();
-    v10 = sub_1000118BC();
+    v10 = sub_1000118BC(v9);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       v11 = qos_class_self();
       v12 = sub_10000EED4(v11);
       *buf = 136446722;
       *&buf[4] = "[DeviceRecoveryService listener:shouldAcceptNewConnection:]";
-      v30 = 2114;
-      v31 = v9;
-      v32 = 2112;
-      v33 = v12;
+      v32 = 2114;
+      v33 = v9;
+      v34 = 2112;
+      v35 = v12;
       _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%{public}s: Got connection from process %{public}@ at qos %@", buf, 0x20u);
     }
 
-    if ([(DeviceRecoveryService *)self clientHasRecoveryControlEntitlement:v8])
+    v13 = [(DeviceRecoveryService *)self clientHasRecoveryControlEntitlement:v8];
+    if (v13)
     {
       location = 0;
-      v13 = [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___DeviceRecoveryServiceInterface];
-      [v8 setExportedInterface:v13];
+      v14 = [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___DeviceRecoveryServiceInterface];
+      [v8 setExportedInterface:v14];
 
       exportedInterface = [v8 exportedInterface];
-      v15 = exportedInterface != 0;
+      v16 = exportedInterface != 0;
 
-      if (v15)
+      if (v16)
       {
         [v8 setExportedObject:self];
         serviceQueue = [(DeviceRecoveryService *)self serviceQueue];
         [v8 _setQueue:serviceQueue];
 
         objc_storeWeak(&location, v8);
-        v24[0] = _NSConcreteStackBlock;
-        v24[1] = 3221225472;
-        v24[2] = sub_1000045C8;
-        v24[3] = &unk_100034BD0;
-        v17 = v9;
-        v25 = v17;
+        v26[0] = _NSConcreteStackBlock;
+        v26[1] = 3221225472;
+        v26[2] = sub_1000045C8;
+        v26[3] = &unk_100034BD0;
+        v19 = v9;
+        v27 = v19;
         selfCopy = self;
-        objc_copyWeak(&v27, &location);
-        [v8 setInterruptionHandler:v24];
-        v20[0] = _NSConcreteStackBlock;
-        v20[1] = 3221225472;
-        v20[2] = sub_1000046A4;
-        v20[3] = &unk_100034BD0;
-        v21 = v17;
+        objc_copyWeak(&v29, &location);
+        [v8 setInterruptionHandler:v26];
+        v22[0] = _NSConcreteStackBlock;
+        v22[1] = 3221225472;
+        v22[2] = sub_1000046A4;
+        v22[3] = &unk_100034BD0;
+        v23 = v19;
         selfCopy2 = self;
-        objc_copyWeak(&v23, &location);
-        [v8 setInvalidationHandler:v20];
+        objc_copyWeak(&v25, &location);
+        [v8 setInvalidationHandler:v22];
         [v8 resume];
-        objc_destroyWeak(&v23);
+        objc_destroyWeak(&v25);
 
-        objc_destroyWeak(&v27);
-        v18 = v25;
+        objc_destroyWeak(&v29);
+        v20 = v27;
       }
 
       else
       {
-        sub_1000118BC();
+        sub_1000118BC(v17);
         objc_claimAutoreleasedReturnValue();
         sub_1000199BC();
-        v18 = *buf;
+        v20 = *buf;
       }
 
       objc_destroyWeak(&location);
@@ -279,8 +280,8 @@ LABEL_12:
 
     else
     {
-      sub_1000198F0();
-      v15 = 0;
+      sub_1000198F0(v13);
+      v16 = 0;
     }
   }
 
@@ -288,10 +289,10 @@ LABEL_12:
   {
     sub_100019A80();
     v9 = *buf;
-    v15 = location;
+    v16 = location;
   }
 
-  return v15;
+  return v16;
 }
 
 - (void)processOSRecoveryPhaseStateFile:(id)file
@@ -301,15 +302,15 @@ LABEL_12:
   {
     sub_100019DBC();
 LABEL_27:
-    v13 = 0;
+    v14 = 0;
     v5 = 0;
-    v21 = location;
-    v20 = *buf;
+    v23 = location;
+    v22 = *buf;
     goto LABEL_21;
   }
 
   v5 = [NSDictionary dictionaryWithContentsOfFile:@"/private/var/MobileSoftwareUpdate/DeviceRecoveryOSBootState.plist"];
-  v6 = sub_1000118BC();
+  v6 = sub_1000118BC(v5);
   v7 = v6;
   if (!v5)
   {
@@ -342,15 +343,16 @@ LABEL_27:
   v10 = [v5 objectForKeyedSubscript:@"OSBootRecoveryPhaseRequired"];
 
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
     bOOLValue = [v10 BOOLValue];
   }
 
   else
   {
-    v12 = sub_1000118BC();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = sub_1000118BC(isKindOfClass);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       sub_100019B54();
     }
@@ -358,18 +360,19 @@ LABEL_27:
     bOOLValue = 0;
   }
 
-  v13 = [v5 objectForKeyedSubscript:@"PostUnlockRecoveryPhaseRequired"];
+  v14 = [v5 objectForKeyedSubscript:@"PostUnlockRecoveryPhaseRequired"];
 
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  v15 = objc_opt_isKindOfClass();
+  if (v15)
   {
-    bOOLValue2 = [v13 BOOLValue];
+    bOOLValue2 = [v14 BOOLValue];
   }
 
   else
   {
-    v15 = sub_1000118BC();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v17 = sub_1000118BC(v15);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       sub_100019BEC();
     }
@@ -382,51 +385,51 @@ LABEL_27:
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v33 = sub_100004D88;
-    v34 = sub_100004D98;
-    v35 = 0;
-    v16 = os_transaction_create();
-    v17 = *(*&buf[8] + 40);
-    *(*&buf[8] + 40) = v16;
+    v35 = sub_100004D88;
+    v36 = sub_100004D98;
+    v37 = 0;
+    v18 = os_transaction_create();
+    v19 = *(*&buf[8] + 40);
+    *(*&buf[8] + 40) = v18;
 
-    v18 = +[NSFileManager defaultManager];
-    [v18 removeItemAtPath:@"/private/var/MobileSoftwareUpdate/DeviceRecoveryOSBootState.plist" error:0];
+    v20 = +[NSFileManager defaultManager];
+    [v20 removeItemAtPath:@"/private/var/MobileSoftwareUpdate/DeviceRecoveryOSBootState.plist" error:0];
 
     objc_initWeak(&location, self);
     serviceQueue2 = [(DeviceRecoveryService *)self serviceQueue];
-    v23[0] = _NSConcreteStackBlock;
-    v23[1] = 3221225472;
-    v23[2] = sub_100004DA0;
-    v23[3] = &unk_100034CC0;
-    objc_copyWeak(&v27, &location);
-    v26 = buf;
-    v25 = fileCopy;
-    v28 = bOOLValue;
+    v25[0] = _NSConcreteStackBlock;
+    v25[1] = 3221225472;
+    v25[2] = sub_100004DA0;
+    v25[3] = &unk_100034CC0;
+    objc_copyWeak(&v29, &location);
+    v28 = buf;
+    v27 = fileCopy;
+    v30 = bOOLValue;
     v5 = v5;
-    v24 = v5;
-    v29 = bOOLValue2;
-    dispatch_async(serviceQueue2, v23);
+    v26 = v5;
+    v31 = bOOLValue2;
+    dispatch_async(serviceQueue2, v25);
 
-    objc_destroyWeak(&v27);
+    objc_destroyWeak(&v29);
     objc_destroyWeak(&location);
     _Block_object_dispose(buf, 8);
 
-    v20 = 0;
+    v22 = 0;
     goto LABEL_24;
   }
 
-  v21 = [NSString stringWithFormat:@"state dict is present, but doesn't have '%@' or '%@' set to indicate a recovery phase needs to happen in the main OS", @"OSBootRecoveryPhaseRequired", @"PostUnlockRecoveryPhaseRequired"];
-  v20 = sub_100002034(@"DeviceRecoveryError", 1, v21, @"state dict is present, but doesn't have '%@' or '%@' set to indicate a recovery phase needs to happen in the main OS", 0, "[DeviceRecoveryService processOSRecoveryPhaseStateFile:]", "/Library/Caches/com.apple.xbs/Sources/DeviceRecovery/Daemon/DeviceRecoveryService.m", 0x2EFu);
+  v23 = [NSString stringWithFormat:@"state dict is present, but doesn't have '%@' or '%@' set to indicate a recovery phase needs to happen in the main OS", @"OSBootRecoveryPhaseRequired", @"PostUnlockRecoveryPhaseRequired"];
+  v22 = sub_100002034(@"DeviceRecoveryError", 1, v23, @"state dict is present, but doesn't have '%@' or '%@' set to indicate a recovery phase needs to happen in the main OS", 0, "[DeviceRecoveryService processOSRecoveryPhaseStateFile:]", "/Library/Caches/com.apple.xbs/Sources/DeviceRecovery/Daemon/DeviceRecoveryService.m", 0x2EFu);
 LABEL_21:
 
-  if (v20)
+  if (v22)
   {
-    v22 = [v20 description];
-    [(DeviceRecoveryService *)self generateAndSubmitRecoveryLog:@"Post deviceRecovery state file processing" withDescription:v22];
+    v24 = [v22 description];
+    [(DeviceRecoveryService *)self generateAndSubmitRecoveryLog:@"Post deviceRecovery state file processing" withDescription:v24];
 
     if (fileCopy)
     {
-      (*(fileCopy + 2))(fileCopy, v20);
+      (*(fileCopy + 2))(fileCopy, v22);
     }
   }
 
@@ -441,11 +444,11 @@ LABEL_24:
   {
     sub_10001A6C8();
 LABEL_20:
-    v12 = v17;
+    v14 = v20;
     v8 = *buf;
 LABEL_21:
 
-    v9 = 0;
+    v10 = 0;
     goto LABEL_7;
   }
 
@@ -458,14 +461,14 @@ LABEL_21:
   v7 = [clientCopy valueForEntitlement:entitlementCopy];
   if (!v7)
   {
-    v11 = sub_1000118BC();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = sub_1000118BC(0);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       sub_10001A4A0();
     }
 
-    v12 = sub_1000118BC();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v14 = sub_1000118BC(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       sub_10001A54C();
     }
@@ -476,30 +479,31 @@ LABEL_21:
 
   v8 = v7;
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v13 = sub_1000118BC();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v15 = sub_1000118BC(isKindOfClass);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       sub_10001A314();
     }
 
-    v12 = sub_1000118BC();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v14 = sub_1000118BC(v16);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [clientCopy processIdentifier];
-      v14 = sub_10000EDB8();
-      v15 = objc_opt_class();
-      v16 = NSStringFromClass(v15);
+      v17 = sub_10000EDB8();
+      v18 = objc_opt_class();
+      v19 = NSStringFromClass(v18);
       *buf = 136446978;
       *&buf[4] = "[DeviceRecoveryService client:hasBooleanEntitlement:]";
-      v19 = 2114;
-      v20 = entitlementCopy;
-      v21 = 2114;
-      v22 = v14;
-      v23 = 2114;
-      v24 = v16;
-      _os_log_error_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "%{public}s: entitlement '%{public}@' on client '%{public}@' is not an NSNumber: %{public}@", buf, 0x2Au);
+      v22 = 2114;
+      v23 = entitlementCopy;
+      v24 = 2114;
+      v25 = v17;
+      v26 = 2114;
+      v27 = v19;
+      _os_log_error_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "%{public}s: entitlement '%{public}@' on client '%{public}@' is not an NSNumber: %{public}@", buf, 0x2Au);
     }
 
     goto LABEL_21;
@@ -507,14 +511,14 @@ LABEL_21:
 
   if (([v8 BOOLValue] & 1) == 0)
   {
-    sub_10001A3C0(v8, &v17, buf);
+    sub_10001A3C0(v8, &v20, buf);
     goto LABEL_20;
   }
 
-  v9 = 1;
+  v10 = 1;
 LABEL_7:
 
-  return v9;
+  return v10;
 }
 
 - (id)brainServiceName
@@ -566,33 +570,35 @@ LABEL_7:
   if (!-[DeviceRecoveryService isInternalBuild](self, "isInternalBuild") || (-[DeviceRecoveryService overrideService](self, "overrideService"), v3 = objc_claimAutoreleasedReturnValue(), [v3 brainBundlePath], v4 = objc_claimAutoreleasedReturnValue(), v3, !v4))
   {
     brainServiceName = [(DeviceRecoveryService *)self brainServiceName];
-    if ([brainServiceName isEqualToString:@"com.apple.DeviceRecoveryBuiltinBrain"])
+    v9 = [brainServiceName isEqualToString:@"com.apple.DeviceRecoveryBuiltinBrain"];
+    if (v9)
     {
-      getLocalFileUrl2 = sub_1000118BC();
+      getLocalFileUrl2 = sub_1000118BC(v9);
       if (os_log_type_enabled(getLocalFileUrl2, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136446210;
-        v19 = "[DeviceRecoveryService getPathToBrainBundle]";
+        v22 = "[DeviceRecoveryService getPathToBrainBundle]";
         _os_log_impl(&_mh_execute_header, getLocalFileUrl2, OS_LOG_TYPE_DEFAULT, "%{public}s: [BrainBundlePath]: Attempting to load bundle for Builtin DeviceRecoveryBrain", buf, 0xCu);
       }
 
-      v9 = @"/System/Library/PrivateFrameworks/DeviceRecoveryBrainSupport.framework/XPCServices/com.apple.DeviceRecoveryBuiltinBrain.xpc";
+      v11 = @"/System/Library/PrivateFrameworks/DeviceRecoveryBrainSupport.framework/XPCServices/com.apple.DeviceRecoveryBuiltinBrain.xpc";
     }
 
     else
     {
-      if (![brainServiceName isEqualToString:@"com.apple.DeviceRecoveryBrain"])
+      v12 = [brainServiceName isEqualToString:@"com.apple.DeviceRecoveryBrain"];
+      if (!v12)
       {
-        v9 = @"/System/Library/PrivateFrameworks/DeviceRecoveryBrainSupport.framework/XPCServices/com.apple.DeviceRecoveryBuiltinBrain.xpc";
+        v11 = @"/System/Library/PrivateFrameworks/DeviceRecoveryBrainSupport.framework/XPCServices/com.apple.DeviceRecoveryBuiltinBrain.xpc";
         goto LABEL_16;
       }
 
-      v10 = sub_1000118BC();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v13 = sub_1000118BC(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136446210;
-        v19 = "[DeviceRecoveryService getPathToBrainBundle]";
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%{public}s: [BrainBundlePath]: Attempting to load bundle for *non* builtin DeviceRecoveryBrain", buf, 0xCu);
+        v22 = "[DeviceRecoveryService getPathToBrainBundle]";
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "%{public}s: [BrainBundlePath]: Attempting to load bundle for *non* builtin DeviceRecoveryBrain", buf, 0xCu);
       }
 
       recoveryBrainAsset = [(DeviceRecoveryService *)self recoveryBrainAsset];
@@ -603,33 +609,33 @@ LABEL_7:
 
       bzero(buf, 0x400uLL);
       [getLocalFileUrl2 getFileSystemRepresentation:buf maxLength:1023];
-      v14 = [NSString stringWithFormat:@"%s", buf];
-      stringByDeletingLastPathComponent = [v14 stringByDeletingLastPathComponent];
+      v17 = [NSString stringWithFormat:@"%s", buf];
+      stringByDeletingLastPathComponent = [v17 stringByDeletingLastPathComponent];
 
-      v16 = [stringByDeletingLastPathComponent stringByAppendingPathComponent:@".AssetData"];
-      v9 = [v16 stringByAppendingPathComponent:@"com.apple.DeviceRecoveryBrain.xpc"];
+      v19 = [stringByDeletingLastPathComponent stringByAppendingPathComponent:@".AssetData"];
+      v11 = [v19 stringByAppendingPathComponent:@"com.apple.DeviceRecoveryBrain.xpc"];
     }
 
 LABEL_16:
-    v6 = v9;
+    v7 = v11;
 
     goto LABEL_17;
   }
 
-  v5 = sub_1000118BC();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = sub_1000118BC(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v19 = "[DeviceRecoveryService getPathToBrainBundle]";
-    v20 = 2114;
-    v21 = v4;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}s: [BrainBundlePath]: Using path from defaults for DeviceRecoveryBrainBundle: %{public}@", buf, 0x16u);
+    v22 = "[DeviceRecoveryService getPathToBrainBundle]";
+    v23 = 2114;
+    v24 = v4;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}s: [BrainBundlePath]: Using path from defaults for DeviceRecoveryBrainBundle: %{public}@", buf, 0x16u);
   }
 
-  v6 = v4;
+  v7 = v4;
 LABEL_17:
 
-  return v6;
+  return v7;
 }
 
 - (id)connectToRecoveryBrain
@@ -644,33 +650,33 @@ LABEL_17:
 
   brainServiceName = [(DeviceRecoveryService *)self brainServiceName];
   getPathToBrainBundle = [(DeviceRecoveryService *)self getPathToBrainBundle];
-  v7 = sub_1000118BC();
+  v7 = sub_1000118BC(getPathToBrainBundle);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
     *&buf[4] = "[DeviceRecoveryService connectToRecoveryBrain]";
-    v28 = 2082;
+    v29 = 2082;
     fileSystemRepresentation = [getPathToBrainBundle fileSystemRepresentation];
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%{public}s: [ConnectToBrain]: Attempting to load brain bundle at path %{public}s", buf, 0x16u);
   }
 
   v8 = getPathToBrainBundle;
   [getPathToBrainBundle fileSystemRepresentation];
-  xpc_add_bundle();
-  v9 = sub_1000118BC();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v9 = xpc_add_bundle();
+  v10 = sub_1000118BC(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
     *&buf[4] = "[DeviceRecoveryService connectToRecoveryBrain]";
-    v28 = 2114;
+    v29 = 2114;
     fileSystemRepresentation = brainServiceName;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%{public}s: [ConnectToBrain]: Connecting to DeviceRecoveryBrain: %{public}@", buf, 0x16u);
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%{public}s: [ConnectToBrain]: Connecting to DeviceRecoveryBrain: %{public}@", buf, 0x16u);
   }
 
-  v10 = [NSXPCConnection alloc];
+  v11 = [NSXPCConnection alloc];
   brainServiceName2 = [(DeviceRecoveryService *)self brainServiceName];
-  v12 = [v10 initWithServiceName:brainServiceName2];
-  [(DeviceRecoveryService *)self setBrainConnection:v12];
+  v13 = [v11 initWithServiceName:brainServiceName2];
+  [(DeviceRecoveryService *)self setBrainConnection:v13];
 
   brainConnection2 = [(DeviceRecoveryService *)self brainConnection];
   LODWORD(brainServiceName2) = brainConnection2 == 0;
@@ -678,48 +684,48 @@ LABEL_17:
   if (brainServiceName2)
   {
     sub_10001A8C4();
-    v14 = v26[1];
+    v15 = v27[1];
 LABEL_16:
     v4 = *buf;
     goto LABEL_10;
   }
 
-  v14 = [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___DeviceRecoveryBrainServiceInterface];
-  if (!v14)
+  v15 = [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___DeviceRecoveryBrainServiceInterface];
+  if (!v15)
   {
     sub_10001A798(buf);
     goto LABEL_16;
   }
 
   brainConnection3 = [(DeviceRecoveryService *)self brainConnection];
-  [brainConnection3 setRemoteObjectInterface:v14];
+  [brainConnection3 setRemoteObjectInterface:v15];
 
   brainConnection4 = [(DeviceRecoveryService *)self brainConnection];
   serviceQueue = [(DeviceRecoveryService *)self serviceQueue];
   [brainConnection4 _setQueue:serviceQueue];
 
-  v18 = objc_initWeak(buf, self);
+  v19 = objc_initWeak(buf, self);
   brainConnection5 = [(DeviceRecoveryService *)self brainConnection];
-  v25[0] = _NSConcreteStackBlock;
-  v25[1] = 3221225472;
-  v25[2] = sub_100006188;
-  v25[3] = &unk_100034CE8;
-  objc_copyWeak(v26, buf);
-  [brainConnection5 setInterruptionHandler:v25];
+  v26[0] = _NSConcreteStackBlock;
+  v26[1] = 3221225472;
+  v26[2] = sub_100006188;
+  v26[3] = &unk_100034CE8;
+  objc_copyWeak(v27, buf);
+  [brainConnection5 setInterruptionHandler:v26];
 
   brainConnection6 = [(DeviceRecoveryService *)self brainConnection];
-  v23[0] = _NSConcreteStackBlock;
-  v23[1] = 3221225472;
-  v23[2] = sub_100006260;
-  v23[3] = &unk_100034CE8;
-  objc_copyWeak(&v24, buf);
-  [brainConnection6 setInvalidationHandler:v23];
+  v24[0] = _NSConcreteStackBlock;
+  v24[1] = 3221225472;
+  v24[2] = sub_100006260;
+  v24[3] = &unk_100034CE8;
+  objc_copyWeak(&v25, buf);
+  [brainConnection6 setInvalidationHandler:v24];
 
   brainConnection7 = [(DeviceRecoveryService *)self brainConnection];
   [brainConnection7 resume];
 
-  objc_destroyWeak(&v24);
-  objc_destroyWeak(v26);
+  objc_destroyWeak(&v25);
+  objc_destroyWeak(v27);
   objc_destroyWeak(buf);
   v4 = 0;
 LABEL_10:
@@ -743,12 +749,12 @@ LABEL_11:
       goto LABEL_3;
     }
 
-    sub_10001AA0C();
+    sub_10001AA0C(&v7);
   }
 
   else
   {
-    sub_10001AAD4();
+    sub_10001AAD4(&v7);
   }
 
   v5 = 0;
@@ -870,15 +876,16 @@ LABEL_3:
 {
   modeCopy = mode;
   testModeEnabled = [(DeviceRecoveryService *)self testModeEnabled];
-  v6 = sub_1000118BC();
-  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
-  if (testModeEnabled)
+  v6 = testModeEnabled;
+  v7 = sub_1000118BC(testModeEnabled);
+  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+  if (v6)
   {
-    if (v7)
+    if (v8)
     {
       *buf = 136446210;
-      v12 = "[DeviceRecoveryService enableTestMode:]";
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}s: [TEST MODE] already enabled", buf, 0xCu);
+      v13 = "[DeviceRecoveryService enableTestMode:]";
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%{public}s: [TEST MODE] already enabled", buf, 0xCu);
     }
 
     if (modeCopy)
@@ -890,69 +897,71 @@ LABEL_3:
 
   else
   {
-    if (v7)
+    if (v8)
     {
       *buf = 136446210;
-      v12 = "[DeviceRecoveryService enableTestMode:]";
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}s: Enabling [TEST MODE] - resetting recovery state", buf, 0xCu);
+      v13 = "[DeviceRecoveryService enableTestMode:]";
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%{public}s: Enabling [TEST MODE] - resetting recovery state", buf, 0xCu);
     }
 
-    v9[0] = _NSConcreteStackBlock;
-    v9[1] = 3221225472;
-    v9[2] = sub_100006D0C;
-    v9[3] = &unk_100034D30;
-    v9[4] = self;
-    v10 = modeCopy;
-    [(DeviceRecoveryService *)self resetRecovery:v9];
+    v10[0] = _NSConcreteStackBlock;
+    v10[1] = 3221225472;
+    v10[2] = sub_100006D0C;
+    v10[3] = &unk_100034D30;
+    v10[4] = self;
+    v11 = modeCopy;
+    [(DeviceRecoveryService *)self resetRecovery:v10];
   }
 }
 
 - (void)resetRecovery:(id)recovery
 {
   recoveryCopy = recovery;
-  v5 = sub_1000118BC();
+  v5 = sub_1000118BC(recoveryCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446210;
-    v30 = "[DeviceRecoveryService resetRecovery:]";
+    v34 = "[DeviceRecoveryService resetRecovery:]";
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}s: ", buf, 0xCu);
   }
 
   if ([(DeviceRecoveryService *)self isRunningInDeviceRecoveryEnvironment])
   {
-    if ([(DeviceRecoveryService *)self dataVolumeMounted])
+    dataVolumeMounted = [(DeviceRecoveryService *)self dataVolumeMounted];
+    if (dataVolumeMounted)
     {
-      v6 = sub_1000118BC();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v7 = sub_1000118BC(dataVolumeMounted);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136446210;
-        v30 = "[DeviceRecoveryService resetRecovery:]";
-        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}s: Unmounting User Data volume", buf, 0xCu);
+        v34 = "[DeviceRecoveryService resetRecovery:]";
+        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%{public}s: Unmounting User Data volume", buf, 0xCu);
       }
 
-      v7 = +[UMLManager sharedManager];
+      v8 = +[UMLManager sharedManager];
       systemDataVolumeMountPath = [(DeviceRecoveryService *)self systemDataVolumeMountPath];
-      [v7 unmountUserDataVolumeOnSystemDataAt:systemDataVolumeMountPath withError:0];
+      [v8 unmountUserDataVolumeOnSystemDataAt:systemDataVolumeMountPath withError:0];
     }
 
-    if ([(DeviceRecoveryService *)self systemDataVolumeMounted])
+    systemDataVolumeMounted = [(DeviceRecoveryService *)self systemDataVolumeMounted];
+    if (systemDataVolumeMounted)
     {
-      v9 = sub_1000118BC();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v11 = sub_1000118BC(systemDataVolumeMounted);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136446210;
-        v30 = "[DeviceRecoveryService resetRecovery:]";
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%{public}s: Unmounting System Data volume", buf, 0xCu);
+        v34 = "[DeviceRecoveryService resetRecovery:]";
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%{public}s: Unmounting System Data volume", buf, 0xCu);
       }
 
-      v10 = +[UMLManager sharedManager];
+      v12 = +[UMLManager sharedManager];
       systemDataVolumeMountPath2 = [(DeviceRecoveryService *)self systemDataVolumeMountPath];
-      [v10 unmountSystemDataVolumeAt:systemDataVolumeMountPath2 withError:0];
+      [v12 unmountSystemDataVolumeAt:systemDataVolumeMountPath2 withError:0];
     }
 
-    v12 = +[NSFileManager defaultManager];
+    v14 = +[NSFileManager defaultManager];
     systemDataVolumeMountPath3 = [(DeviceRecoveryService *)self systemDataVolumeMountPath];
-    [v12 removeItemAtPath:systemDataVolumeMountPath3 error:0];
+    [v14 removeItemAtPath:systemDataVolumeMountPath3 error:0];
 
     [(DeviceRecoveryService *)self setSystemDataVolumeMounted:0];
     [(DeviceRecoveryService *)self setSystemDataVolumeMountPath:0];
@@ -974,14 +983,14 @@ LABEL_3:
   [(DeviceRecoveryService *)self setRepairableIssuesFound:0];
   [(DeviceRecoveryService *)self setRecoveryComplete:0];
   [(DeviceRecoveryService *)self setUserDataVolumeMountPath:0];
-  v27[0] = _NSConcreteStackBlock;
-  v27[1] = 3221225472;
-  v27[2] = sub_1000072F0;
-  v27[3] = &unk_100034D58;
-  v15 = recoveryCopy;
-  v27[4] = self;
-  v28 = v15;
-  v16 = objc_retainBlock(v27);
+  v31[0] = _NSConcreteStackBlock;
+  v31[1] = 3221225472;
+  v31[2] = sub_1000072F0;
+  v31[3] = &unk_100034D58;
+  v17 = recoveryCopy;
+  v31[4] = self;
+  v32 = v17;
+  v18 = objc_retainBlock(v31);
   brainConnection = [(DeviceRecoveryService *)self brainConnection];
 
   if (!brainConnection)
@@ -990,54 +999,78 @@ LABEL_3:
   }
 
   brainConnection2 = [(DeviceRecoveryService *)self brainConnection];
-  v25[0] = _NSConcreteStackBlock;
-  v25[1] = 3221225472;
-  v25[2] = sub_10000736C;
-  v25[3] = &unk_100034C20;
-  v19 = v16;
-  v26 = v19;
-  v20 = [brainConnection2 remoteObjectProxyWithErrorHandler:v25];
+  v29[0] = _NSConcreteStackBlock;
+  v29[1] = 3221225472;
+  v29[2] = sub_10000736C;
+  v29[3] = &unk_100034C20;
+  v21 = v18;
+  v30 = v21;
+  v22 = [brainConnection2 remoteObjectProxyWithErrorHandler:v29];
 
-  v21 = sub_1000118BC();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+  v24 = sub_1000118BC(v23);
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v30 = "[DeviceRecoveryService resetRecovery:]";
-    v31 = 2114;
-    v32 = v20;
-    _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "%{public}s: brainService: %{public}@", buf, 0x16u);
+    v34 = "[DeviceRecoveryService resetRecovery:]";
+    v35 = 2114;
+    v36 = v22;
+    _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "%{public}s: brainService: %{public}@", buf, 0x16u);
   }
 
-  if (!v20)
+  if (!v22)
   {
 
 LABEL_22:
-    (v16[2])(v16, 0, 0);
+    (v18[2])(v18, 0, 0);
     goto LABEL_23;
   }
 
-  v22 = sub_1000118BC();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+  v26 = sub_1000118BC(v25);
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446210;
-    v30 = "[DeviceRecoveryService resetRecovery:]";
-    _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "%{public}s: calling reset on brain", buf, 0xCu);
+    v34 = "[DeviceRecoveryService resetRecovery:]";
+    _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "%{public}s: calling reset on brain", buf, 0xCu);
   }
 
-  v23[0] = _NSConcreteStackBlock;
-  v23[1] = 3221225472;
-  v23[2] = sub_1000073E4;
-  v23[3] = &unk_100034C48;
-  v24 = v19;
-  [v20 resetRecovery:v23];
+  v27[0] = _NSConcreteStackBlock;
+  v27[1] = 3221225472;
+  v27[2] = sub_1000073E4;
+  v27[3] = &unk_100034C48;
+  v28 = v21;
+  [v22 resetRecovery:v27];
 
 LABEL_23:
+}
+
+- (void)setDiagnosticsSubmissionApproved:(BOOL)approved completion:(id)completion
+{
+  approvedCopy = approved;
+  v7 = sub_1000118BC(self);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    v9 = 136446466;
+    v10 = "[DeviceRecoveryService setDiagnosticsSubmissionApproved:completion:]";
+    v11 = 1026;
+    v12 = approvedCopy;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%{public}s: %{public}d", &v9, 0x12u);
+  }
+
+  if (completion)
+  {
+    [(DeviceRecoveryService *)self setUserApprovedDiagnosticsSubmission:approvedCopy];
+  }
+
+  else
+  {
+    sub_10001AC94(v8);
+  }
 }
 
 - (void)fetchState:(id)state
 {
   stateCopy = state;
-  v5 = sub_1000118BC();
+  v5 = sub_1000118BC(stateCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v7 = 136446210;
@@ -1053,7 +1086,7 @@ LABEL_23:
 
   else
   {
-    sub_10001AD5C();
+    sub_10001AD5C(v7);
     attributeDict = *v7;
   }
 }
@@ -1061,7 +1094,7 @@ LABEL_23:
 - (void)configureBrain:(id)brain
 {
   brainCopy = brain;
-  v5 = sub_1000118BC();
+  v5 = sub_1000118BC(brainCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446210;
@@ -1071,7 +1104,7 @@ LABEL_23:
 
   if (!brainCopy)
   {
-    sub_10001B114();
+    sub_10001B114(buf);
     v12 = *buf;
     goto LABEL_11;
   }
@@ -1080,7 +1113,7 @@ LABEL_23:
   if (connectToRecoveryBrain)
   {
     v12 = connectToRecoveryBrain;
-    sub_10001AE24();
+    sub_10001AE24(connectToRecoveryBrain);
 LABEL_10:
     attributeDict = [(DeviceRecoveryService *)self attributeDict];
     brainCopy[2](brainCopy, v12, 0, attributeDict);
@@ -1147,13 +1180,13 @@ LABEL_12:
 
   if (updateVolumeMountPath)
   {
-    v34 = 0;
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
-    v29 = 0u;
+    v41 = 0;
+    v39 = 0u;
+    v40 = 0u;
+    v37 = 0u;
+    v38 = 0u;
+    v35 = 0u;
+    v36 = 0u;
     v4 = objc_opt_new();
     v5 = v4;
     if (v4)
@@ -1164,36 +1197,37 @@ LABEL_12:
       v8 = [v5 stringFromDate:v7];
       v9 = [NSString stringWithFormat:@"%@/Controller/NeRD/DRE-%@.logarchive", updateVolumeMountPath2, v8];
 
-      v10 = sub_1000118BC();
-      v11 = v10;
+      v11 = sub_1000118BC(v10);
+      v12 = v11;
       if (v9)
       {
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136446466;
           *&buf[4] = "[DeviceRecoveryService saveSystemLogs]";
-          v38 = 2114;
-          v39 = v9;
-          _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%{public}s: Saving logarchive to '%{public}@'", buf, 0x16u);
+          v45 = 2114;
+          v46 = v9;
+          _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%{public}s: Saving logarchive to '%{public}@'", buf, 0x16u);
         }
 
         [v9 UTF8String];
-        v26[1] = _NSConcreteStackBlock;
-        v26[2] = 3221225472;
-        v26[3] = sub_100008050;
-        v26[4] = &unk_100034DA8;
-        v12 = v9;
-        v27 = v12;
-        if (OSLogCreateArchive())
+        v33[1] = _NSConcreteStackBlock;
+        v33[2] = 3221225472;
+        v33[3] = sub_100008050;
+        v33[4] = &unk_100034DA8;
+        v13 = v9;
+        v34 = v13;
+        Archive = OSLogCreateArchive();
+        if (Archive)
         {
-          v22 = sub_1000118BC();
-          if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+          v26 = sub_1000118BC(Archive);
+          if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
           {
             sub_10001B258();
           }
 
-          v23 = sub_1000118BC();
-          if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+          v28 = sub_1000118BC(v27);
+          if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
           {
             sub_10001B304();
           }
@@ -1201,78 +1235,78 @@ LABEL_12:
 
         else
         {
-          v13 = [v12 stringByAppendingPathExtension:@"zip"];
-          if (v13)
+          v15 = [v13 stringByAppendingPathExtension:@"zip"];
+          if (v15)
           {
-            v14 = v13;
-            v15 = fopen([v13 UTF8String], "w+");
-            if (v15)
+            v16 = v15;
+            v17 = fopen([v15 UTF8String], "w+");
+            if (v17)
             {
-              v16 = v15;
-              v34 = 0;
-              v32 = 0u;
-              v33 = 0u;
-              *&v30 = 0;
-              v31 = 0u;
-              v28 = 0u;
-              v29 = 0u;
-              *(&v30 + 1) = v15;
-              v35[0] = kSZArchiverOptionCompressionOptions;
-              v35[1] = kSZArchiverOptionZlibCompressionLevel;
-              v36[0] = kSZArchiverCompressionOptionTryRecompress;
-              v36[1] = &off_100037A68;
-              v35[2] = kSZArchiverOptionSkipPrescan;
-              v35[3] = kSZArchiverOptionUncompressBloatedFiles;
-              v36[2] = &__kCFBooleanFalse;
-              v36[3] = &__kCFBooleanTrue;
-              v35[4] = kSZArchiverOptionNoCache;
-              v36[4] = &__kCFBooleanTrue;
-              v17 = [NSDictionary dictionaryWithObjects:v36 forKeys:v35 count:5];
-              [v12 UTF8String];
+              v18 = v17;
+              v41 = 0;
+              v39 = 0u;
+              v40 = 0u;
+              *&v37 = 0;
+              v38 = 0u;
+              v35 = 0u;
+              v36 = 0u;
+              *(&v37 + 1) = v17;
+              v42[0] = kSZArchiverOptionCompressionOptions;
+              v42[1] = kSZArchiverOptionZlibCompressionLevel;
+              v43[0] = kSZArchiverCompressionOptionTryRecompress;
+              v43[1] = &off_100037A68;
+              v42[2] = kSZArchiverOptionSkipPrescan;
+              v42[3] = kSZArchiverOptionUncompressBloatedFiles;
+              v43[2] = &__kCFBooleanFalse;
+              v43[3] = &__kCFBooleanTrue;
+              v42[4] = kSZArchiverOptionNoCache;
+              v43[4] = &__kCFBooleanTrue;
+              v19 = [NSDictionary dictionaryWithObjects:v43 forKeys:v42 count:5];
+              [v13 UTF8String];
               StreamableZip = SZArchiverCreateStreamableZip();
-              fclose(v16);
+              v21 = fclose(v18);
               if (StreamableZip)
               {
-                v19 = +[NSFileManager defaultManager];
-                v26[0] = 0;
-                [v19 removeItemAtPath:v12 error:v26];
-                v20 = v26[0];
+                v22 = +[NSFileManager defaultManager];
+                v33[0] = 0;
+                [v22 removeItemAtPath:v13 error:v33];
+                v23 = v33[0];
 
-                if (!v20)
+                if (!v23)
                 {
-                  v21 = 0;
+                  v25 = 0;
 LABEL_12:
 
 LABEL_13:
                   return;
                 }
 
-                v25 = sub_1000118BC();
-                if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+                v31 = sub_1000118BC(v24);
+                if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
                 {
                   sub_10001B4B8();
                 }
 
-                v23 = sub_1000118BC();
-                if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+                v28 = sub_1000118BC(v32);
+                if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
                 {
                   sub_10001B564();
                 }
 
 LABEL_37:
 
-                v21 = v20;
+                v25 = v23;
                 goto LABEL_12;
               }
 
-              v24 = sub_1000118BC();
-              if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+              v29 = sub_1000118BC(v21);
+              if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
               {
                 sub_10001B38C();
               }
 
-              v23 = sub_1000118BC();
-              if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+              v28 = sub_1000118BC(v30);
+              if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
               {
                 sub_10001B438();
               }
@@ -1280,29 +1314,29 @@ LABEL_37:
 
             else
             {
-              v23 = sub_1000118BC();
-              if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+              v28 = sub_1000118BC(0);
+              if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
               {
                 sub_10001B5E4();
               }
 
-              v17 = 0;
+              v19 = 0;
             }
 
-            v20 = 0;
+            v23 = 0;
             goto LABEL_37;
           }
 
-          v23 = sub_1000118BC();
-          if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+          v28 = sub_1000118BC(0);
+          if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
           {
             sub_10001B690();
           }
         }
 
-        v17 = 0;
-        v20 = 0;
-        v14 = 0;
+        v19 = 0;
+        v23 = 0;
+        v16 = 0;
         goto LABEL_37;
       }
 
@@ -1311,10 +1345,10 @@ LABEL_37:
 
     else
     {
-      sub_10001B800();
+      sub_10001B800(buf);
     }
 
-    v12 = *buf;
+    v13 = *buf;
     goto LABEL_13;
   }
 }
@@ -1325,51 +1359,53 @@ LABEL_37:
   rebootCopy = reboot;
   shutdownCopy = shutdown;
   v9 = dispatch_group_create();
-  v10 = sub_1000118BC();
+  v10 = sub_1000118BC(v9);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446722;
     *&buf[4] = "[DeviceRecoveryService shutdown:andReboot:andPrepareNeRDBoot:]";
-    v24 = 1024;
-    v25 = rebootCopy;
     v26 = 1024;
-    v27 = bootCopy;
+    v27 = rebootCopy;
+    v28 = 1024;
+    v29 = bootCopy;
     _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%{public}s: reboot:%d nerdBoot:%d", buf, 0x18u);
   }
 
-  if ([(DeviceRecoveryService *)self testModeEnabled])
+  testModeEnabled = [(DeviceRecoveryService *)self testModeEnabled];
+  if (testModeEnabled)
   {
-    v11 = sub_1000118BC();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = sub_1000118BC(testModeEnabled);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446210;
       *&buf[4] = "[DeviceRecoveryService shutdown:andReboot:andPrepareNeRDBoot:]";
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%{public}s: [TEST MODE] enabled - simulating reboot", buf, 0xCu);
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%{public}s: [TEST MODE] enabled - simulating reboot", buf, 0xCu);
     }
 
 LABEL_17:
-    v15 = 0;
+    v17 = 0;
     goto LABEL_18;
   }
 
-  v11 = +[NSXPCConnection currentConnection];
-  if (!v11)
+  v12 = +[NSXPCConnection currentConnection];
+  if (!v12)
   {
     sub_10001BC40();
     goto LABEL_26;
   }
 
-  if (![(DeviceRecoveryService *)self clientHasRebootEntitlement:v11])
+  v13 = [(DeviceRecoveryService *)self clientHasRebootEntitlement:v12];
+  if ((v13 & 1) == 0)
   {
-    v17 = sub_1000118BC();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v19 = sub_1000118BC(v13);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       sub_10001B95C();
     }
 
-    v18 = [(DeviceRecoveryService *)self clientProcessName:v11];
-    v19 = [NSString stringWithFormat:@"client %@ missing '%@' entitlement required for reboot", v18, @"com.apple.private.xpc.launchd.reboot"];
-    v15 = sub_100002034(@"DeviceRecoveryError", 5, v19, @"client %@ missing '%@' entitlement required for reboot", 0, "[DeviceRecoveryService shutdown:andReboot:andPrepareNeRDBoot:]", "/Library/Caches/com.apple.xbs/Sources/DeviceRecovery/Daemon/DeviceRecoveryService.m", 0x51Eu);
+    v20 = [(DeviceRecoveryService *)self clientProcessName:v12];
+    v21 = [NSString stringWithFormat:@"client %@ missing '%@' entitlement required for reboot", v20, @"com.apple.private.xpc.launchd.reboot"];
+    v17 = sub_100002034(@"DeviceRecoveryError", 5, v21, @"client %@ missing '%@' entitlement required for reboot", 0, "[DeviceRecoveryService shutdown:andReboot:andPrepareNeRDBoot:]", "/Library/Caches/com.apple.xbs/Sources/DeviceRecovery/Daemon/DeviceRecoveryService.m", 0x51Eu);
 
     goto LABEL_27;
   }
@@ -1384,7 +1420,7 @@ LABEL_17:
     block[2] = sub_100008484;
     block[3] = &unk_100034AC0;
     block[4] = self;
-    v21 = v9;
+    v23 = v9;
     dispatch_async(osaQueue, block);
   }
 
@@ -1398,12 +1434,12 @@ LABEL_17:
   {
 LABEL_14:
     [(DeviceRecoveryService *)self saveSystemLogs];
-    v13 = dispatch_time(0, 60000000000);
-    dispatch_group_wait(self->_logWaitGroup, v13);
+    v15 = dispatch_time(0, 60000000000);
+    dispatch_group_wait(self->_logWaitGroup, v15);
     if ([(DeviceRecoveryService *)self isRunningInDeviceRecoveryEnvironment])
     {
-      v14 = dispatch_time(0, 120000000000);
-      dispatch_group_wait(v9, v14);
+      v16 = dispatch_time(0, 120000000000);
+      dispatch_group_wait(v9, v16);
     }
 
     if (!reboot3())
@@ -1417,22 +1453,22 @@ LABEL_14:
 
   sub_10001BA08();
 LABEL_26:
-  v18 = v22;
-  v15 = *buf;
+  v20 = v24;
+  v17 = *buf;
 LABEL_27:
 
 LABEL_18:
   if (shutdownCopy)
   {
     attributeDict = [(DeviceRecoveryService *)self attributeDict];
-    shutdownCopy[2](shutdownCopy, v15, 0, attributeDict);
+    shutdownCopy[2](shutdownCopy, v17, 0, attributeDict);
   }
 }
 
 - (void)disableRecoveryAutoBoot:(id)boot
 {
   bootCopy = boot;
-  v5 = sub_1000118BC();
+  v5 = sub_1000118BC(bootCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446210;
@@ -1443,14 +1479,14 @@ LABEL_18:
   v6 = sub_10001087C(@"boot-args");
   if (!v6)
   {
-    v11 = [NSString stringWithFormat:@"%@ %@", @"-no_panic_dialog", @"launch_enable_dre=0"];
-    v7 = sub_1000118BC();
+    v13 = [NSString stringWithFormat:@"%@ %@", @"-no_panic_dialog", @"launch_enable_dre=0"];
+    v7 = sub_1000118BC(v13);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446466;
       *&buf[4] = "[DeviceRecoveryService disableRecoveryAutoBoot:]";
-      v16 = 2112;
-      v17 = v11;
+      v18 = 2112;
+      v19 = v13;
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%{public}s: No boot-args - setting them to: %@", buf, 0x16u);
     }
 
@@ -1458,46 +1494,48 @@ LABEL_18:
   }
 
   v7 = v6;
-  if (([v6 containsString:@"launch_enable_dre=0"]& 1) == 0)
+  v8 = [v6 containsString:@"launch_enable_dre=0"];
+  if ((v8 & 1) == 0)
   {
-    v8 = sub_1000118BC();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_1000118BC(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446466;
       *&buf[4] = "[DeviceRecoveryService disableRecoveryAutoBoot:]";
-      v16 = 2112;
-      v17 = @"launch_enable_dre=0";
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}s: Setting %@ in boot-args to disable launchd recovery auto-boot", buf, 0x16u);
+      v18 = 2112;
+      v19 = @"launch_enable_dre=0";
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%{public}s: Setting %@ in boot-args to disable launchd recovery auto-boot", buf, 0x16u);
     }
 
-    v9 = [v7 stringByAppendingFormat:@" %@", @"launch_enable_dre=0"];
+    v10 = [v7 stringByAppendingFormat:@" %@", @"launch_enable_dre=0"];
 
-    v7 = v9;
+    v7 = v10;
   }
 
-  if (([v7 containsString:@"-no_panic_dialog"]& 1) == 0)
+  v11 = [v7 containsString:@"-no_panic_dialog"];
+  if ((v11 & 1) == 0)
   {
-    v10 = sub_1000118BC();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v12 = sub_1000118BC(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446466;
       *&buf[4] = "[DeviceRecoveryService disableRecoveryAutoBoot:]";
-      v16 = 2112;
-      v17 = @"-no_panic_dialog";
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%{public}s: Setting %@ in boot-args to disable PanicMedic recovery auto-boot", buf, 0x16u);
+      v18 = 2112;
+      v19 = @"-no_panic_dialog";
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%{public}s: Setting %@ in boot-args to disable PanicMedic recovery auto-boot", buf, 0x16u);
     }
 
-    v11 = [v7 stringByAppendingFormat:@" %@", @"-no_panic_dialog"];
+    v13 = [v7 stringByAppendingFormat:@" %@", @"-no_panic_dialog"];
 LABEL_14:
 
-    v7 = v11;
+    v7 = v13;
   }
 
-  v12 = sub_100010708(@"boot-args", v7);
-  if (v12)
+  v14 = sub_100010708(@"boot-args", v7);
+  if (v14)
   {
-    sub_10001BD5C(v12, buf);
-    v13 = *buf;
+    sub_10001BD5C(v14, buf);
+    v15 = *buf;
     if (!bootCopy)
     {
       goto LABEL_18;
@@ -1506,12 +1544,12 @@ LABEL_14:
     goto LABEL_17;
   }
 
-  v13 = 0;
+  v15 = 0;
   if (bootCopy)
   {
 LABEL_17:
     attributeDict = [(DeviceRecoveryService *)self attributeDict];
-    bootCopy[2](bootCopy, v13, 0, attributeDict);
+    bootCopy[2](bootCopy, v15, 0, attributeDict);
   }
 
 LABEL_18:
@@ -1522,15 +1560,15 @@ LABEL_18:
   authenticatedCopy = authenticated;
   completionCopy = completion;
   v8 = +[NSXPCConnection currentConnection];
-  v54[0] = _NSConcreteStackBlock;
-  v54[1] = 3221225472;
-  v54[2] = sub_100009180;
-  v54[3] = &unk_100034DD0;
-  v54[4] = self;
+  v57[0] = _NSConcreteStackBlock;
+  v57[1] = 3221225472;
+  v57[2] = sub_100009180;
+  v57[3] = &unk_100034DD0;
+  v57[4] = self;
   v9 = completionCopy;
-  v55 = v9;
-  v10 = objc_retainBlock(v54);
-  v11 = sub_1000118BC();
+  v58 = v9;
+  v10 = objc_retainBlock(v57);
+  v11 = sub_1000118BC(v10);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446210;
@@ -1540,7 +1578,7 @@ LABEL_18:
 
   if (!v9)
   {
-    sub_10001C318();
+    sub_10001C318(buf);
     systemDataPath = *buf;
     goto LABEL_46;
   }
@@ -1549,7 +1587,7 @@ LABEL_18:
   {
     sub_10001C204();
 LABEL_52:
-    v20 = v56;
+    v20 = v59;
     systemDataPath = *buf;
     goto LABEL_44;
   }
@@ -1583,8 +1621,7 @@ LABEL_52:
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        -[DeviceRecoveryService setUserApprovedDiagnosticsSubmission:](self, "setUserApprovedDiagnosticsSubmission:", [v14 BOOLValue]);
-        v15 = sub_1000118BC();
+        v15 = sub_1000118BC(-[DeviceRecoveryService setUserApprovedDiagnosticsSubmission:](self, "setUserApprovedDiagnosticsSubmission:", [v14 BOOLValue]));
         if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
         {
           userApprovedDiagnosticsSubmission = [(DeviceRecoveryService *)self userApprovedDiagnosticsSubmission];
@@ -1596,8 +1633,8 @@ LABEL_52:
 
           *buf = 136446466;
           *&buf[4] = "[DeviceRecoveryService userAuthenticated:completion:]";
-          v62 = 2114;
-          v63 = v17;
+          v65 = 2114;
+          v66 = v17;
           _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%{public}s: Diagnostics Submission %{public}@", buf, 0x16u);
         }
       }
@@ -1617,14 +1654,15 @@ LABEL_52:
     }
   }
 
-  if ([(DeviceRecoveryService *)self testModeEnabled])
+  testModeEnabled = [(DeviceRecoveryService *)self testModeEnabled];
+  if (testModeEnabled)
   {
-    v22 = sub_1000118BC();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    v23 = sub_1000118BC(testModeEnabled);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446210;
       *&buf[4] = "[DeviceRecoveryService userAuthenticated:completion:]";
-      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "%{public}s: [TEST MODE] enabled - simulating user auth processing", buf, 0xCu);
+      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "%{public}s: [TEST MODE] enabled - simulating user auth processing", buf, 0xCu);
     }
 
     overrideService2 = [(DeviceRecoveryService *)self overrideService];
@@ -1638,45 +1676,45 @@ LABEL_52:
 
     if (systemDataPath)
     {
-      v28 = systemDataPath;
+      v29 = systemDataPath;
     }
 
     else
     {
-      v28 = @"/var";
+      v29 = @"/var";
     }
 
-    [(DeviceRecoveryService *)self setSystemDataVolumeMountPath:v28];
+    [(DeviceRecoveryService *)self setSystemDataVolumeMountPath:v29];
     if (userDataPath)
     {
-      v29 = userDataPath;
+      v30 = userDataPath;
     }
 
     else
     {
-      v29 = @"/var/mobile";
+      v30 = @"/var/mobile";
     }
 
-    [(DeviceRecoveryService *)self setUserDataVolumeMountPath:v29];
+    [(DeviceRecoveryService *)self setUserDataVolumeMountPath:v30];
     if (updateVolumePath)
     {
-      v30 = updateVolumePath;
+      v31 = updateVolumePath;
     }
 
     else
     {
-      v30 = @"/var/MobileSoftwareUpdate";
+      v31 = @"/var/MobileSoftwareUpdate";
     }
 
-    [(DeviceRecoveryService *)self setUpdateVolumeMountPath:v30];
-    v31 = dispatch_time(0, 2000000000);
+    [(DeviceRecoveryService *)self setUpdateVolumeMountPath:v31];
+    v32 = dispatch_time(0, 2000000000);
     serviceQueue = [(DeviceRecoveryService *)self serviceQueue];
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_10000961C;
     block[3] = &unk_100034DF8;
-    v52 = v10;
-    dispatch_after(v31, serviceQueue, block);
+    v55 = v10;
+    dispatch_after(v32, serviceQueue, block);
 
     goto LABEL_46;
   }
@@ -1698,93 +1736,92 @@ LABEL_43:
     mountSystemDataVolume = [(DeviceRecoveryService *)self mountSystemDataVolume];
   }
 
-  v34 = +[UMLManager sharedManager];
-  v53 = 0;
-  v35 = [v34 mountUserDataVolumeOnSystemDataAt:@"/private/var/mnt" withACMCredential:v20 withError:&v53];
-  v36 = v53;
+  v35 = +[UMLManager sharedManager];
+  v56 = 0;
+  v36 = [v35 mountUserDataVolumeOnSystemDataAt:@"/private/var/mnt" withACMCredential:v20 withError:&v56];
+  v37 = v56;
 
-  if (v35 && !v36)
+  if (v36 && !v37)
   {
     [(DeviceRecoveryService *)self setDataVolumeMounted:1];
-    [(DeviceRecoveryService *)self setUserDataVolumeMountPath:@"/private/var/mnt/mobile"];
-    v37 = sub_1000118BC();
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+    v39 = sub_1000118BC([(DeviceRecoveryService *)self setUserDataVolumeMountPath:@"/private/var/mnt/mobile"]);
+    if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
     {
       userDataVolumeMountPath = [(DeviceRecoveryService *)self userDataVolumeMountPath];
       *buf = 136446466;
       *&buf[4] = "[DeviceRecoveryService userAuthenticated:completion:]";
-      v62 = 2114;
-      v63 = userDataVolumeMountPath;
-      _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "%{public}s: Mounted User Data Volume: %{public}@", buf, 0x16u);
+      v65 = 2114;
+      v66 = userDataVolumeMountPath;
+      _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "%{public}s: Mounted User Data Volume: %{public}@", buf, 0x16u);
     }
 
     goto LABEL_43;
   }
 
-  v39 = sub_1000118BC();
-  if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+  v41 = sub_1000118BC(v38);
+  if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
   {
     sub_10001BFAC();
   }
 
-  domain = [v36 domain];
+  domain = [v37 domain];
   if ([domain isEqualToString:NSOSStatusErrorDomain])
   {
-    if ([v36 code] == -536870194)
+    if ([v37 code] == -536870194)
     {
 
 LABEL_61:
-      v59 = @"DeviceHandle";
-      v60 = &off_100037A50;
-      [NSDictionary dictionaryWithObjects:&v60 forKeys:&v59 count:1];
-      v50 = MKBGetDeviceLockStateInfo();
-      v44 = sub_1000118BC();
-      if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+      v62 = @"DeviceHandle";
+      v63 = &off_100037A50;
+      [NSDictionary dictionaryWithObjects:&v63 forKeys:&v62 count:1];
+      v53 = MKBGetDeviceLockStateInfo();
+      v46 = sub_1000118BC(v53);
+      if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136446466;
         *&buf[4] = "[DeviceRecoveryService userAuthenticated:completion:]";
-        v62 = 2112;
-        v63 = v50;
-        _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEFAULT, "%{public}s: LockStateInfo: %@", buf, 0x16u);
+        v65 = 2112;
+        v66 = v53;
+        _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_DEFAULT, "%{public}s: LockStateInfo: %@", buf, 0x16u);
       }
 
-      if (v50)
+      if (v53)
       {
-        v45 = [(__CFString *)v50 objectForKeyedSubscript:kMKBInfoBackOff];
-        [v45 doubleValue];
-        if (v46 <= 0.0)
+        v47 = [(__CFString *)v53 objectForKeyedSubscript:kMKBInfoBackOff];
+        doubleValue = [v47 doubleValue];
+        if (v49 <= 0.0)
         {
-          v41 = 0;
+          v43 = 0;
         }
 
         else
         {
-          v47 = sub_1000118BC();
-          if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+          v50 = sub_1000118BC(doubleValue);
+          if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
           {
-            sub_10001C058(v45);
+            sub_10001C058(v47);
           }
 
-          v57 = @"PasscodeBackOffEndDate";
-          [v45 doubleValue];
-          v48 = [NSDate dateWithTimeIntervalSinceNow:?];
-          v58 = v48;
-          v41 = [NSDictionary dictionaryWithObjects:&v58 forKeys:&v57 count:1];
+          v60 = @"PasscodeBackOffEndDate";
+          [v47 doubleValue];
+          v51 = [NSDate dateWithTimeIntervalSinceNow:?];
+          v61 = v51;
+          v43 = [NSDictionary dictionaryWithObjects:&v61 forKeys:&v60 count:1];
         }
       }
 
       else
       {
-        v41 = 0;
+        v43 = 0;
       }
 
-      v49 = [NSString stringWithFormat:@"Failed to mount user data volume - invalid passcode: %@", v36];
-      v42 = sub_100001DE0(@"DeviceRecoveryError", 15, v49, @"Failed to mount user data volume - invalid passcode: %@", v36, v41, "[DeviceRecoveryService userAuthenticated:completion:]", "/Library/Caches/com.apple.xbs/Sources/DeviceRecovery/Daemon/DeviceRecoveryService.m", 0x5E2u);
+      v52 = [NSString stringWithFormat:@"Failed to mount user data volume - invalid passcode: %@", v37];
+      v44 = sub_100001DE0(@"DeviceRecoveryError", 15, v52, @"Failed to mount user data volume - invalid passcode: %@", v37, v43, "[DeviceRecoveryService userAuthenticated:completion:]", "/Library/Caches/com.apple.xbs/Sources/DeviceRecovery/Daemon/DeviceRecoveryService.m", 0x5E2u);
 
       goto LABEL_72;
     }
 
-    code = [v36 code];
+    code = [v37 code];
 
     if (code == -536363000)
     {
@@ -1796,11 +1833,11 @@ LABEL_61:
   {
   }
 
-  v41 = [NSString stringWithFormat:@"Failed to mount user data volume: %@", v36];
-  v42 = sub_100002034(@"DeviceRecoveryError", 1, v41, @"Failed to mount user data volume: %@", v36, "[DeviceRecoveryService userAuthenticated:completion:]", "/Library/Caches/com.apple.xbs/Sources/DeviceRecovery/Daemon/DeviceRecoveryService.m", 0x5E4u);
+  v43 = [NSString stringWithFormat:@"Failed to mount user data volume: %@", v37];
+  v44 = sub_100002034(@"DeviceRecoveryError", 1, v43, @"Failed to mount user data volume: %@", v37, "[DeviceRecoveryService userAuthenticated:completion:]", "/Library/Caches/com.apple.xbs/Sources/DeviceRecovery/Daemon/DeviceRecoveryService.m", 0x5E4u);
 LABEL_72:
 
-  systemDataPath = v42;
+  systemDataPath = v44;
 LABEL_44:
 
   if (systemDataPath)
@@ -1814,15 +1851,15 @@ LABEL_46:
 {
   availabilityCopy = availability;
   v5 = +[NSXPCConnection currentConnection];
-  v20[0] = _NSConcreteStackBlock;
-  v20[1] = 3221225472;
-  v20[2] = sub_100009AA4;
-  v20[3] = &unk_100034DD0;
-  v20[4] = self;
+  v22[0] = _NSConcreteStackBlock;
+  v22[1] = 3221225472;
+  v22[2] = sub_100009AA4;
+  v22[3] = &unk_100034DD0;
+  v22[4] = self;
   v6 = availabilityCopy;
-  v21 = v6;
-  v7 = objc_retainBlock(v20);
-  v8 = sub_1000118BC();
+  v23 = v6;
+  v7 = objc_retainBlock(v22);
+  v8 = sub_1000118BC(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446210;
@@ -1832,7 +1869,7 @@ LABEL_46:
 
   if (!v6)
   {
-    sub_10001C8BC();
+    sub_10001C8BC(v9);
     goto LABEL_20;
   }
 
@@ -1840,13 +1877,13 @@ LABEL_46:
   {
     sub_10001C45C();
 LABEL_26:
-    v13 = v22;
-    v14 = *buf;
+    v14 = v24;
+    v15 = *buf;
 LABEL_13:
 
-    if (v14)
+    if (v15)
     {
-      (v7[2])(v7, v14, 0);
+      (v7[2])(v7, v15, 0);
     }
 
     goto LABEL_20;
@@ -1886,30 +1923,31 @@ LABEL_13:
 
     if (networkAvailableResult == 1)
     {
-      v13 = [NSString stringWithFormat:@"report network availability operation forced to fail"];
-      v14 = sub_100002034(@"DeviceRecoveryError", 4, v13, @"report network availability operation forced to fail", 0, "[DeviceRecoveryService reportNetworkAvailability:]", "/Library/Caches/com.apple.xbs/Sources/DeviceRecovery/Daemon/DeviceRecoveryService.m", 0x6D3u);
+      v14 = [NSString stringWithFormat:@"report network availability operation forced to fail"];
+      v15 = sub_100002034(@"DeviceRecoveryError", 4, v14, @"report network availability operation forced to fail", 0, "[DeviceRecoveryService reportNetworkAvailability:]", "/Library/Caches/com.apple.xbs/Sources/DeviceRecovery/Daemon/DeviceRecoveryService.m", 0x6D3u);
       goto LABEL_13;
     }
   }
 
-  if ([(DeviceRecoveryService *)self testModeEnabled])
+  testModeEnabled = [(DeviceRecoveryService *)self testModeEnabled];
+  if (testModeEnabled)
   {
-    v15 = sub_1000118BC();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v17 = sub_1000118BC(testModeEnabled);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446210;
       *&buf[4] = "[DeviceRecoveryService reportNetworkAvailability:]";
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%{public}s: [TEST MODE] enabled - simulating network availability report", buf, 0xCu);
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "%{public}s: [TEST MODE] enabled - simulating network availability report", buf, 0xCu);
     }
 
-    v16 = dispatch_time(0, 1000000000);
+    v18 = dispatch_time(0, 1000000000);
     serviceQueue = [(DeviceRecoveryService *)self serviceQueue];
-    v18[0] = _NSConcreteStackBlock;
-    v18[1] = 3221225472;
-    v18[2] = sub_100009D40;
-    v18[3] = &unk_100034DF8;
-    v19 = v7;
-    dispatch_after(v16, serviceQueue, v18);
+    v20[0] = _NSConcreteStackBlock;
+    v20[1] = 3221225472;
+    v20[2] = sub_100009D40;
+    v20[3] = &unk_100034DF8;
+    v21 = v7;
+    dispatch_after(v18, serviceQueue, v20);
   }
 
   else
@@ -1924,15 +1962,15 @@ LABEL_20:
 {
   brainCopy = brain;
   v5 = +[NSXPCConnection currentConnection];
-  v24[0] = _NSConcreteStackBlock;
-  v24[1] = 3221225472;
-  v24[2] = sub_10000A2FC;
-  v24[3] = &unk_100034DD0;
-  v24[4] = self;
+  v27[0] = _NSConcreteStackBlock;
+  v27[1] = 3221225472;
+  v27[2] = sub_10000A2FC;
+  v27[3] = &unk_100034DD0;
+  v27[4] = self;
   v6 = brainCopy;
-  v25 = v6;
-  v7 = objc_retainBlock(v24);
-  v8 = sub_1000118BC();
+  v28 = v6;
+  v7 = objc_retainBlock(v27);
+  v8 = sub_1000118BC(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446210;
@@ -1942,7 +1980,7 @@ LABEL_20:
 
   if (!v6)
   {
-    sub_10001D07C();
+    sub_10001D07C(buf);
     v14 = *buf;
     goto LABEL_34;
   }
@@ -1985,72 +2023,75 @@ LABEL_20:
             }
 
             shouldDownloadBrain = [(DeviceRecoveryService *)self shouldDownloadBrain];
-            v16 = sub_1000118BC();
-            v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
-            if (shouldDownloadBrain)
+            v16 = shouldDownloadBrain;
+            v17 = sub_1000118BC(shouldDownloadBrain);
+            v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
+            if (v16)
             {
-              if (v17)
+              if (v18)
               {
                 *buf = 136446210;
                 *&buf[4] = "[DeviceRecoveryService loadRecoveryBrain:]";
-                _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "%{public}s: [LoadRecoveryBrain]: Will attempt to download external brain", buf, 0xCu);
+                _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "%{public}s: [LoadRecoveryBrain]: Will attempt to download external brain", buf, 0xCu);
               }
 
               downloadRecoveryBrain = [(DeviceRecoveryService *)self downloadRecoveryBrain];
-              v19 = sub_1000118BC();
-              v16 = v19;
-              if (downloadRecoveryBrain)
+              v20 = downloadRecoveryBrain;
+              v21 = sub_1000118BC(downloadRecoveryBrain);
+              v17 = v21;
+              if (v20)
               {
-                if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+                if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 136446210;
                   *&buf[4] = "[DeviceRecoveryService loadRecoveryBrain:]";
-                  _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "%{public}s: [LoadRecoveryBrain]: Attempting to personalize and graft downloaded DeviceRecoveryBrain", buf, 0xCu);
+                  _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "%{public}s: [LoadRecoveryBrain]: Attempting to personalize and graft downloaded DeviceRecoveryBrain", buf, 0xCu);
                 }
 
                 personalizeAndGraftRecoveryBrain = [(DeviceRecoveryService *)self personalizeAndGraftRecoveryBrain];
-                v21 = sub_1000118BC();
-                v16 = v21;
-                if (personalizeAndGraftRecoveryBrain)
+                v23 = personalizeAndGraftRecoveryBrain;
+                v24 = sub_1000118BC(personalizeAndGraftRecoveryBrain);
+                v17 = v24;
+                if (v23)
                 {
-                  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+                  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 136446210;
                     *&buf[4] = "[DeviceRecoveryService loadRecoveryBrain:]";
-                    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "%{public}s: [LoadRecoveryBrain]: Successfully grafted downloaded DeviceRecoveryBrain", buf, 0xCu);
+                    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "%{public}s: [LoadRecoveryBrain]: Successfully grafted downloaded DeviceRecoveryBrain", buf, 0xCu);
                   }
 
                   [(DeviceRecoveryService *)self setDownloadedBrainIsAvailable:1];
                   goto LABEL_33;
                 }
 
-                if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+                if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
                 {
                   sub_10001CEE8();
                 }
               }
 
-              else if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+              else if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
               {
                 sub_10001CE68();
               }
             }
 
-            else if (v17)
+            else if (v18)
             {
               *buf = 136446210;
               *&buf[4] = "[DeviceRecoveryService loadRecoveryBrain:]";
-              _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "%{public}s: [LoadRecoveryBrain]: Will use builtin recovery brain", buf, 0xCu);
+              _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "%{public}s: [LoadRecoveryBrain]: Will use builtin recovery brain", buf, 0xCu);
             }
 
 LABEL_33:
-            v22[0] = _NSConcreteStackBlock;
-            v22[1] = 3221225472;
-            v22[2] = sub_10000A5FC;
-            v22[3] = &unk_100034E20;
-            v23 = v7;
-            [(DeviceRecoveryService *)self configureBrain:v22];
-            v14 = v23;
+            v25[0] = _NSConcreteStackBlock;
+            v25[1] = 3221225472;
+            v25[2] = sub_10000A5FC;
+            v25[3] = &unk_100034E20;
+            v26 = v7;
+            [(DeviceRecoveryService *)self configureBrain:v25];
+            v14 = v26;
             goto LABEL_34;
           }
 
@@ -2075,7 +2116,7 @@ LABEL_33:
     sub_10001CA00();
   }
 
-  v13 = v26;
+  v13 = v29;
   v14 = *buf;
 LABEL_14:
 
@@ -2178,15 +2219,15 @@ LABEL_14:
 {
   issuesCopy = issues;
   v5 = +[NSXPCConnection currentConnection];
-  v23[0] = _NSConcreteStackBlock;
-  v23[1] = 3221225472;
-  v23[2] = sub_10000ABB4;
-  v23[3] = &unk_100034DD0;
-  v23[4] = self;
+  v24[0] = _NSConcreteStackBlock;
+  v24[1] = 3221225472;
+  v24[2] = sub_10000ABB4;
+  v24[3] = &unk_100034DD0;
+  v24[4] = self;
   v6 = issuesCopy;
-  v24 = v6;
-  v7 = objc_retainBlock(v23);
-  v8 = sub_1000118BC();
+  v25 = v6;
+  v7 = objc_retainBlock(v24);
+  v8 = sub_1000118BC(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446210;
@@ -2196,8 +2237,8 @@ LABEL_14:
 
   if (!v6)
   {
-    sub_10001DC38();
-    v15 = 0;
+    sub_10001DC38(v9);
+    v16 = 0;
     goto LABEL_19;
   }
 
@@ -2232,34 +2273,34 @@ LABEL_14:
               if (controlClientConnection2 == v5)
               {
                 brainConnection2 = [(DeviceRecoveryService *)self brainConnection];
-                v21[0] = _NSConcreteStackBlock;
-                v21[1] = 3221225472;
-                v21[2] = sub_10000AF58;
-                v21[3] = &unk_100034C20;
-                v13 = v7;
-                v22 = v13;
-                v14 = [brainConnection2 remoteObjectProxyWithErrorHandler:v21];
+                v22[0] = _NSConcreteStackBlock;
+                v22[1] = 3221225472;
+                v22[2] = sub_10000AF58;
+                v22[3] = &unk_100034C20;
+                v14 = v7;
+                v23 = v14;
+                v15 = [brainConnection2 remoteObjectProxyWithErrorHandler:v22];
 
-                if (v14)
+                if (v15)
                 {
-                  v17[0] = _NSConcreteStackBlock;
-                  v17[1] = 3221225472;
-                  v17[2] = sub_10000B040;
-                  v17[3] = &unk_100034E98;
-                  v20 = v13;
-                  v18 = v14;
+                  v18[0] = _NSConcreteStackBlock;
+                  v18[1] = 3221225472;
+                  v18[2] = sub_10000B040;
+                  v18[3] = &unk_100034E98;
+                  v21 = v14;
+                  v19 = v15;
                   selfCopy = self;
-                  [(DeviceRecoveryService *)self configureBrain:v17];
+                  [(DeviceRecoveryService *)self configureBrain:v18];
 
-                  v15 = 0;
-                  v16 = v20;
+                  v16 = 0;
+                  v17 = v21;
                 }
 
                 else
                 {
                   sub_10001D8FC();
-                  v16 = v25;
-                  v15 = *buf;
+                  v17 = v26;
+                  v16 = *buf;
                 }
 
                 goto LABEL_16;
@@ -2298,13 +2339,13 @@ LABEL_14:
     sub_10001D378();
   }
 
-  v14 = v25;
-  v15 = *buf;
+  v15 = v26;
+  v16 = *buf;
 LABEL_16:
 
-  if (v7 && v15)
+  if (v7 && v16)
   {
-    (v7[2])(v7, v15, 0);
+    (v7[2])(v7, v16, 0);
   }
 
 LABEL_19:
@@ -2313,29 +2354,31 @@ LABEL_19:
 - (id)processRecoveryResults:(id)results
 {
   resultsCopy = results;
+  v4 = resultsCopy;
   if (resultsCopy)
   {
-    v4 = sub_1000118BC();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_1000118BC(resultsCopy);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 136446466;
-      v17 = "[DeviceRecoveryService processRecoveryResults:]";
-      v18 = 2114;
-      v19 = resultsCopy;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%{public}s: results = %{public}@", &v16, 0x16u);
+      v19 = 136446466;
+      v20 = "[DeviceRecoveryService processRecoveryResults:]";
+      v21 = 2114;
+      v22 = v4;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}s: results = %{public}@", &v19, 0x16u);
     }
 
-    v5 = [resultsCopy objectForKeyedSubscript:@"OSBootRecoveryPhaseRequired"];
+    v6 = [v4 objectForKeyedSubscript:@"OSBootRecoveryPhaseRequired"];
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      bOOLValue = [v5 BOOLValue];
+      bOOLValue = [v6 BOOLValue];
     }
 
     else
     {
-      v8 = sub_1000118BC();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v10 = sub_1000118BC(isKindOfClass);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         sub_10001DF6C();
       }
@@ -2343,18 +2386,19 @@ LABEL_19:
       bOOLValue = 0;
     }
 
-    v9 = [resultsCopy objectForKeyedSubscript:@"PostUnlockRecoveryPhaseRequired"];
+    v11 = [v4 objectForKeyedSubscript:@"PostUnlockRecoveryPhaseRequired"];
 
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    v12 = objc_opt_isKindOfClass();
+    if (v12)
     {
-      bOOLValue2 = [v9 BOOLValue];
+      bOOLValue2 = [v11 BOOLValue];
     }
 
     else
     {
-      v11 = sub_1000118BC();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v14 = sub_1000118BC(v12);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         sub_10001DF6C();
       }
@@ -2362,49 +2406,49 @@ LABEL_19:
       bOOLValue2 = 0;
     }
 
-    v12 = +[NSMutableDictionary dictionary];
-    [v12 setObject:&__kCFBooleanTrue forKeyedSubscript:@"PostRecoveryEvent"];
+    v15 = +[NSMutableDictionary dictionary];
+    [v15 setObject:&__kCFBooleanTrue forKeyedSubscript:@"PostRecoveryEvent"];
     if (bOOLValue)
     {
-      [v12 setObject:&__kCFBooleanTrue forKeyedSubscript:@"OSBootRecoveryPhaseRequired"];
+      [v15 setObject:&__kCFBooleanTrue forKeyedSubscript:@"OSBootRecoveryPhaseRequired"];
     }
 
     if (bOOLValue2)
     {
-      [v12 setObject:&__kCFBooleanTrue forKeyedSubscript:@"PostUnlockRecoveryPhaseRequired"];
+      [v15 setObject:&__kCFBooleanTrue forKeyedSubscript:@"PostUnlockRecoveryPhaseRequired"];
     }
 
-    v13 = [resultsCopy objectForKeyedSubscript:@"OSRecoveryState"];
+    v16 = [v4 objectForKeyedSubscript:@"OSRecoveryState"];
 
-    if (v13)
+    if (v16)
     {
-      v14 = [resultsCopy objectForKeyedSubscript:@"OSRecoveryState"];
-      [v12 setObject:v14 forKeyedSubscript:@"OSRecoveryState"];
+      v17 = [v4 objectForKeyedSubscript:@"OSRecoveryState"];
+      [v15 setObject:v17 forKeyedSubscript:@"OSRecoveryState"];
     }
 
-    [v12 writeToFile:@"/private/var/MobileSoftwareUpdate/DeviceRecoveryOSBootState.plist" atomically:1];
-    v7 = [resultsCopy mutableCopy];
+    [v15 writeToFile:@"/private/var/MobileSoftwareUpdate/DeviceRecoveryOSBootState.plist" atomically:1];
+    v9 = [v4 mutableCopy];
 
-    if (v7)
+    if (v9)
     {
-      [v7 removeObjectForKey:@"OSBootRecoveryPhaseRequired"];
-      [v7 removeObjectForKey:@"PostUnlockRecoveryPhaseRequired"];
-      [v7 removeObjectForKey:@"OSRecoveryState"];
+      [v9 removeObjectForKey:@"OSBootRecoveryPhaseRequired"];
+      [v9 removeObjectForKey:@"PostUnlockRecoveryPhaseRequired"];
+      [v9 removeObjectForKey:@"OSRecoveryState"];
     }
 
     else
     {
-      sub_10001E000(resultsCopy);
-      v7 = resultsCopy;
+      sub_10001E000(v4);
+      v9 = v4;
     }
   }
 
   else
   {
-    v7 = 0;
+    v9 = 0;
   }
 
-  return v7;
+  return v9;
 }
 
 - (void)recoverDevice:(id)device
@@ -2419,7 +2463,7 @@ LABEL_19:
   v6 = deviceCopy;
   v24 = v6;
   v7 = objc_retainBlock(v23);
-  v8 = sub_1000118BC();
+  v8 = sub_1000118BC(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446210;
@@ -2429,7 +2473,7 @@ LABEL_19:
 
   if (!v6)
   {
-    sub_10001EBDC();
+    sub_10001EBDC(buf);
     v15 = *buf;
     goto LABEL_20;
   }
@@ -2555,7 +2599,7 @@ LABEL_20:
 - (void)loadAccessibilitySettingsToDefaults:(id)defaults
 {
   defaultsCopy = defaults;
-  v5 = sub_1000118BC();
+  v5 = sub_1000118BC(defaultsCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 136446210;
@@ -2589,11 +2633,11 @@ LABEL_8:
 
 - (BOOL)_loadAccessibilitySettingsToDefaults
 {
-  v2 = sub_1000118BC();
+  v2 = sub_1000118BC(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446210;
-    v51 = "[DeviceRecoveryService _loadAccessibilitySettingsToDefaults]";
+    v52 = "[DeviceRecoveryService _loadAccessibilitySettingsToDefaults]";
     _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%{public}s: Attempting to restore accessibility settings from stash", buf, 0xCu);
   }
 
@@ -2601,182 +2645,182 @@ LABEL_8:
   v4 = v3;
   if (!v3)
   {
-    v5 = sub_1000118BC();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_1000118BC(0);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446210;
-      v51 = "[DeviceRecoveryService _loadAccessibilitySettingsToDefaults]";
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}s: No stashed accessibility preferences found", buf, 0xCu);
+      v52 = "[DeviceRecoveryService _loadAccessibilitySettingsToDefaults]";
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}s: No stashed accessibility preferences found", buf, 0xCu);
     }
 
-    v31 = 0;
+    v32 = 0;
     goto LABEL_50;
   }
 
-  v5 = [v3 objectForKeyedSubscript:@"AccessibilityDomains"];
-  if (!v5 || (v6 = &MASetPallasAudienceForType_ptr, objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+  isKindOfClass = [v3 objectForKeyedSubscript:@"AccessibilityDomains"];
+  v6 = isKindOfClass;
+  if (!isKindOfClass || (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) == 0))
   {
-    v32 = sub_1000118BC();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+    v33 = sub_1000118BC(isKindOfClass);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446210;
-      v51 = "[DeviceRecoveryService _loadAccessibilitySettingsToDefaults]";
-      _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "%{public}s: No accessibility domains found in stashed preferences", buf, 0xCu);
+      v52 = "[DeviceRecoveryService _loadAccessibilitySettingsToDefaults]";
+      _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "%{public}s: No accessibility domains found in stashed preferences", buf, 0xCu);
     }
 
-    v31 = 0;
+    v32 = 0;
     goto LABEL_46;
   }
 
-  v7 = sub_1000118BC();
+  v7 = sub_1000118BC(isKindOfClass);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = [v5 count];
+    v8 = [v6 count];
     v9 = [&off_100037AD8 count];
     *buf = 136446722;
-    v51 = "[DeviceRecoveryService _loadAccessibilitySettingsToDefaults]";
-    v52 = 2048;
-    v53 = v8;
-    v54 = 2048;
-    v55 = v9;
+    v52 = "[DeviceRecoveryService _loadAccessibilitySettingsToDefaults]";
+    v53 = 2048;
+    v54 = v8;
+    v55 = 2048;
+    v56 = v9;
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%{public}s: Found %lu total stashed domains, will selectively restore from %lu known domains", buf, 0x20u);
   }
 
-  v46 = 0u;
   v47 = 0u;
-  v44 = 0u;
+  v48 = 0u;
   v45 = 0u;
-  v10 = [&off_100037AD8 countByEnumeratingWithState:&v44 objects:v49 count:16];
+  v46 = 0u;
+  v10 = [&off_100037AD8 countByEnumeratingWithState:&v45 objects:v50 count:16];
   if (!v10)
   {
-    v31 = 1;
+    v32 = 1;
     goto LABEL_55;
   }
 
   v11 = v10;
-  v34 = 0;
-  v12 = *v45;
-  v38 = 1;
-  v35 = *v45;
-  v36 = v5;
+  v35 = 0;
+  v12 = *v46;
+  v39 = 1;
+  v36 = *v46;
+  v37 = v6;
   do
   {
     v13 = 0;
-    v37 = v11;
+    v38 = v11;
     do
     {
-      if (*v45 != v12)
+      if (*v46 != v12)
       {
         objc_enumerationMutation(&off_100037AD8);
       }
 
-      v14 = *(*(&v44 + 1) + 8 * v13);
-      v15 = [v5 objectForKeyedSubscript:v14];
+      v14 = *(*(&v45 + 1) + 8 * v13);
+      v15 = [v6 objectForKeyedSubscript:v14];
       if (v15)
       {
-        v16 = v6[269];
         objc_opt_class();
-        v39 = v15;
-        isKindOfClass = objc_opt_isKindOfClass();
-        v18 = sub_1000118BC();
+        v40 = v15;
+        v16 = objc_opt_isKindOfClass();
+        v17 = v16;
+        v18 = sub_1000118BC(v16);
         v19 = v18;
-        if ((isKindOfClass & 1) == 0)
+        if ((v17 & 1) == 0)
         {
           if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
           {
             *buf = 136446466;
-            v51 = "[DeviceRecoveryService _loadAccessibilitySettingsToDefaults]";
-            v52 = 2112;
-            v53 = v14;
+            v52 = "[DeviceRecoveryService _loadAccessibilitySettingsToDefaults]";
+            v53 = 2112;
+            v54 = v14;
             _os_log_error_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "%{public}s: Invalid preferences format for domain: %@", buf, 0x16u);
           }
 
-          v38 = 0;
+          v39 = 0;
           goto LABEL_32;
         }
 
         if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
-          v20 = [v39 count];
+          v20 = [v40 count];
           *buf = 136446722;
-          v51 = "[DeviceRecoveryService _loadAccessibilitySettingsToDefaults]";
-          v52 = 2048;
-          v53 = v20;
-          v54 = 2112;
-          v55 = v14;
+          v52 = "[DeviceRecoveryService _loadAccessibilitySettingsToDefaults]";
+          v53 = 2048;
+          v54 = v20;
+          v55 = 2112;
+          v56 = v14;
           _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "%{public}s: Restoring %lu preferences for domain: %@", buf, 0x20u);
         }
 
-        v42 = 0u;
         v43 = 0u;
-        v40 = 0u;
+        v44 = 0u;
         v41 = 0u;
-        v21 = v39;
-        v22 = [v21 countByEnumeratingWithState:&v40 objects:v48 count:16];
+        v42 = 0u;
+        v21 = v40;
+        v22 = [v21 countByEnumeratingWithState:&v41 objects:v49 count:16];
         if (v22)
         {
           v23 = v22;
-          v24 = *v41;
+          v24 = *v42;
           do
           {
             for (i = 0; i != v23; i = i + 1)
             {
-              if (*v41 != v24)
+              if (*v42 != v24)
               {
                 objc_enumerationMutation(v21);
               }
 
-              v26 = *(*(&v40 + 1) + 8 * i);
+              v26 = *(*(&v41 + 1) + 8 * i);
               v27 = [v21 objectForKeyedSubscript:v26];
               CFPreferencesSetValue(v26, v27, v14, @"mobile", kCFPreferencesAnyHost);
             }
 
-            v23 = [v21 countByEnumeratingWithState:&v40 objects:v48 count:16];
+            v23 = [v21 countByEnumeratingWithState:&v41 objects:v49 count:16];
           }
 
           while (v23);
         }
 
-        if (CFPreferencesSynchronize(v14, @"mobile", kCFPreferencesAnyHost))
+        v28 = CFPreferencesSynchronize(v14, @"mobile", kCFPreferencesAnyHost);
+        if (v28)
         {
-          v12 = v35;
-          v5 = v36;
-          v6 = &MASetPallasAudienceForType_ptr;
-          v11 = v37;
+          v12 = v36;
+          v6 = v37;
+          v11 = v38;
 LABEL_32:
-          v15 = v39;
+          v15 = v40;
           goto LABEL_33;
         }
 
-        v29 = sub_1000118BC();
-        v12 = v35;
-        v5 = v36;
-        v6 = &MASetPallasAudienceForType_ptr;
-        v11 = v37;
-        v15 = v39;
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+        v30 = sub_1000118BC(v28);
+        v12 = v36;
+        v6 = v37;
+        v11 = v38;
+        v15 = v40;
+        if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
         {
           *buf = 136446466;
-          v51 = "[DeviceRecoveryService _loadAccessibilitySettingsToDefaults]";
-          v52 = 2112;
-          v53 = v14;
-          _os_log_error_impl(&_mh_execute_header, v29, OS_LOG_TYPE_ERROR, "%{public}s: Warning: Failed to synchronize preferences for domain: %@", buf, 0x16u);
+          v52 = "[DeviceRecoveryService _loadAccessibilitySettingsToDefaults]";
+          v53 = 2112;
+          v54 = v14;
+          _os_log_error_impl(&_mh_execute_header, v30, OS_LOG_TYPE_ERROR, "%{public}s: Warning: Failed to synchronize preferences for domain: %@", buf, 0x16u);
         }
 
-        v38 = 0;
-        v34 = (v34 + 1);
+        v39 = 0;
+        v35 = (v35 + 1);
       }
 
       else
       {
-        v28 = sub_1000118BC();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+        v29 = sub_1000118BC(0);
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136446466;
-          v51 = "[DeviceRecoveryService _loadAccessibilitySettingsToDefaults]";
-          v52 = 2112;
-          v53 = v14;
-          _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "%{public}s: Domain %@ not found in stashed preferences, skipping", buf, 0x16u);
+          v52 = "[DeviceRecoveryService _loadAccessibilitySettingsToDefaults]";
+          v53 = 2112;
+          v54 = v14;
+          _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "%{public}s: Domain %@ not found in stashed preferences, skipping", buf, 0x16u);
         }
       }
 
@@ -2786,32 +2830,32 @@ LABEL_33:
     }
 
     while (v13 != v11);
-    v30 = [&off_100037AD8 countByEnumeratingWithState:&v44 objects:v49 count:16];
-    v11 = v30;
+    v31 = [&off_100037AD8 countByEnumeratingWithState:&v45 objects:v50 count:16];
+    v11 = v31;
   }
 
-  while (v30);
-  v31 = v38;
-  if ((v38 & (v34 != 0)) == 1)
+  while (v31);
+  v32 = v39;
+  if ((v39 & (v35 != 0)) == 1)
   {
-    v32 = sub_1000118BC();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+    v33 = sub_1000118BC(0);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446466;
-      v51 = "[DeviceRecoveryService _loadAccessibilitySettingsToDefaults]";
-      v52 = 2048;
-      v53 = v34;
-      _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "%{public}s: Successfully restored %lu accessibility domains from stash", buf, 0x16u);
+      v52 = "[DeviceRecoveryService _loadAccessibilitySettingsToDefaults]";
+      v53 = 2048;
+      v54 = v35;
+      _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "%{public}s: Successfully restored %lu accessibility domains from stash", buf, 0x16u);
     }
 
-    v31 = 1;
+    v32 = 1;
     goto LABEL_46;
   }
 
-  if (v34)
+  if (v35)
   {
-    v32 = sub_1000118BC();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+    v33 = sub_1000118BC(0);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
     {
       sub_10001EF18();
     }
@@ -2820,18 +2864,18 @@ LABEL_33:
   }
 
 LABEL_55:
-  v32 = sub_1000118BC();
-  if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+  v33 = sub_1000118BC(0);
+  if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446210;
-    v51 = "[DeviceRecoveryService _loadAccessibilitySettingsToDefaults]";
-    _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "%{public}s: No known accessibility domains were found in stashed preferences", buf, 0xCu);
+    v52 = "[DeviceRecoveryService _loadAccessibilitySettingsToDefaults]";
+    _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "%{public}s: No known accessibility domains were found in stashed preferences", buf, 0xCu);
   }
 
 LABEL_46:
 
 LABEL_50:
-  return v31 & 1;
+  return v32 & 1;
 }
 
 - (BOOL)downloadRecoveryBrain
@@ -2840,28 +2884,28 @@ LABEL_50:
   objc_sync_enter(obj);
   v2 = objc_opt_new();
   v3 = objc_opt_new();
-  v83 = 0;
-  v84[0] = &v83;
-  v84[1] = 0x3032000000;
-  v84[2] = sub_100004D88;
-  v84[3] = sub_100004D98;
-  v85 = 0;
-  v80 = 0;
-  v81[0] = &v80;
-  v81[1] = 0x3032000000;
-  v81[2] = sub_100004D88;
-  v81[3] = sub_100004D98;
-  v82 = 0;
-  v76 = 0;
-  v77 = &v76;
-  v78 = 0x2020000000;
-  v79 = 3;
-  v72 = 0;
-  v73 = &v72;
-  v74 = 0x2020000000;
-  v75 = 3;
+  v87 = 0;
+  v88 = &v87;
+  v89 = 0x3032000000;
+  v90 = sub_100004D88;
+  v91 = sub_100004D98;
+  v92 = 0;
+  v85[0] = 0;
+  v85[1] = v85;
+  v85[2] = 0x3032000000;
+  v85[3] = sub_100004D88;
+  v85[4] = sub_100004D98;
+  v86 = 0;
+  v81 = 0;
+  v82 = &v81;
+  v83 = 0x2020000000;
+  v84 = 3;
+  v77 = 0;
+  v78 = &v77;
+  v79 = 0x2020000000;
+  v80 = 3;
   v4 = dispatch_semaphore_create(0);
-  v62 = dispatch_semaphore_create(0);
+  v67 = dispatch_semaphore_create(0);
   [v2 setDiscretionary:0];
   [v2 setRequiresPowerPluggedIn:0];
   [v2 setAllowsCellularAccess:0];
@@ -2887,42 +2931,43 @@ LABEL_50:
   {
     v10 = [v8 objectForKeyedSubscript:@"BootedOSDREBrainAssetAudience"];
     v11 = [v9 objectForKeyedSubscript:@"BooteOSDREBrainAssetURL"];
+    v12 = v11;
     if (v10)
     {
-      v12 = sub_1000118BC();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v13 = sub_1000118BC(v11);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136446466;
-        v88 = "[DeviceRecoveryService downloadRecoveryBrain]";
-        v89 = 2112;
-        v90 = v10;
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%{public}s: [DownloadRecoveryBrain]: Updating asset audience for DeviceRecoveryBrain asset to '%@'", buf, 0x16u);
+        v95 = "[DeviceRecoveryService downloadRecoveryBrain]";
+        v96 = 2112;
+        v97 = v10;
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "%{public}s: [DownloadRecoveryBrain]: Updating asset audience for DeviceRecoveryBrain asset to '%@'", buf, 0x16u);
       }
 
-      MASetPallasAudienceForType();
+      v14 = MASetPallasAudienceForType();
     }
 
     else
     {
-      v13 = sub_1000118BC();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v15 = sub_1000118BC(v11);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136446210;
-        v88 = "[DeviceRecoveryService downloadRecoveryBrain]";
-        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "%{public}s: [DownloadRecoveryBrain]: No asset audience override found for DeviceRecoveryBrain. Using default asset audience for brain download", buf, 0xCu);
+        v95 = "[DeviceRecoveryService downloadRecoveryBrain]";
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%{public}s: [DownloadRecoveryBrain]: No asset audience override found for DeviceRecoveryBrain. Using default asset audience for brain download", buf, 0xCu);
       }
     }
 
-    if (v11)
+    if (v12)
     {
-      v14 = sub_1000118BC();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v16 = sub_1000118BC(v14);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136446466;
-        v88 = "[DeviceRecoveryService downloadRecoveryBrain]";
-        v89 = 2112;
-        v90 = v11;
-        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "%{public}s: [DownloadRecoveryBrain]: Updating URL for DeviceRecoveryBrain asset download to '%@'", buf, 0x16u);
+        v95 = "[DeviceRecoveryService downloadRecoveryBrain]";
+        v96 = 2112;
+        v97 = v12;
+        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "%{public}s: [DownloadRecoveryBrain]: Updating URL for DeviceRecoveryBrain asset download to '%@'", buf, 0x16u);
       }
 
       MASetServerUrlOverride();
@@ -2930,27 +2975,27 @@ LABEL_50:
 
     else
     {
-      v15 = sub_1000118BC();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v17 = sub_1000118BC(v14);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136446210;
-        v88 = "[DeviceRecoveryService downloadRecoveryBrain]";
-        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%{public}s: [DownloadRecoveryBrain]: No URL override found for DeviceRecoveryBrain asset download. Using default", buf, 0xCu);
+        v95 = "[DeviceRecoveryService downloadRecoveryBrain]";
+        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "%{public}s: [DownloadRecoveryBrain]: No URL override found for DeviceRecoveryBrain asset download. Using default", buf, 0xCu);
       }
     }
 
     if ([(DeviceRecoveryService *)self isInternalBuild])
     {
-      v16 = [v9 objectForKeyedSubscript:@"BootedOSHasPallasDisabled"];
-      v17 = v16;
-      if (v16 && [v16 isEqualToString:@"YES"])
+      v18 = [v9 objectForKeyedSubscript:@"BootedOSHasPallasDisabled"];
+      v19 = v18;
+      if (v18 && (v18 = [v18 isEqualToString:@"YES"], v18))
       {
-        v18 = sub_1000118BC();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+        v20 = sub_1000118BC(v18);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136446210;
-          v88 = "[DeviceRecoveryService downloadRecoveryBrain]";
-          _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "%{public}s: [DownloadRecoveryBrain]: Disabling pallas due to override", buf, 0xCu);
+          v95 = "[DeviceRecoveryService downloadRecoveryBrain]";
+          _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "%{public}s: [DownloadRecoveryBrain]: Disabling pallas due to override", buf, 0xCu);
         }
 
         MASetPallasEnabled();
@@ -2958,58 +3003,59 @@ LABEL_50:
 
       else
       {
-        v19 = sub_1000118BC();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+        v21 = sub_1000118BC(v18);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136446210;
-          v88 = "[DeviceRecoveryService downloadRecoveryBrain]";
-          _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "%{public}s: [DownloadRecoveryBrain]: Pallas is enabled", buf, 0xCu);
+          v95 = "[DeviceRecoveryService downloadRecoveryBrain]";
+          _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "%{public}s: [DownloadRecoveryBrain]: Pallas is enabled", buf, 0xCu);
         }
       }
     }
 
-    v20 = sub_100010688("IODeviceTree:/options", @"pallas-server-override");
-    v21 = v20;
-    if (!v20)
+    v22 = sub_100010688("IODeviceTree:/options", @"pallas-server-override");
+    v23 = v22;
+    if (!v22)
     {
       goto LABEL_42;
     }
 
-    if ([v20 isEqualToString:@"internal"])
+    if ([v22 isEqualToString:@"internal"])
     {
-      v22 = [NSURL URLWithString:@"https://gdmf-staging-int.apple.com/v2/assets"];
-      v23 = sub_1000118BC();
-      if (!os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+      v24 = [NSURL URLWithString:@"https://gdmf-staging-int.apple.com/v2/assets"];
+      v25 = sub_1000118BC(v24);
+      if (!os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_36;
       }
 
       *buf = 136446210;
-      v88 = "[DeviceRecoveryService downloadRecoveryBrain]";
-      v24 = "%{public}s: [DownloadRecoveryBrain]: Setting pallas URL to internal instance due to override";
+      v95 = "[DeviceRecoveryService downloadRecoveryBrain]";
+      v26 = "%{public}s: [DownloadRecoveryBrain]: Setting pallas URL to internal instance due to override";
     }
 
     else
     {
-      if (![v21 isEqualToString:@"customer"])
+      v27 = [v23 isEqualToString:@"customer"];
+      if (!v27)
       {
-        v25 = sub_1000118BC();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+        v28 = sub_1000118BC(v27);
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
         {
           sub_10001EF9C();
         }
 
-        v22 = 0;
+        v24 = 0;
         goto LABEL_41;
       }
 
-      v22 = [NSURL URLWithString:@"https://gdmf.apple.com/v2/assets"];
-      v23 = sub_1000118BC();
-      if (!os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+      v24 = [NSURL URLWithString:@"https://gdmf.apple.com/v2/assets"];
+      v25 = sub_1000118BC(v24);
+      if (!os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
 LABEL_36:
 
-        if (v22)
+        if (v24)
         {
           MASetPallasUrlForType();
         }
@@ -3021,115 +3067,117 @@ LABEL_42:
       }
 
       *buf = 136446210;
-      v88 = "[DeviceRecoveryService downloadRecoveryBrain]";
-      v24 = "%{public}s: [DownloadRecoveryBrain]: Setting pallas URL to customer instance due to override";
+      v95 = "[DeviceRecoveryService downloadRecoveryBrain]";
+      v26 = "%{public}s: [DownloadRecoveryBrain]: Setting pallas URL to customer instance due to override";
     }
 
-    _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, v24, buf, 0xCu);
+    _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, v26, buf, 0xCu);
     goto LABEL_36;
   }
 
-  v10 = sub_1000118BC();
+  v10 = sub_1000118BC(0);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446210;
-    v88 = "[DeviceRecoveryService downloadRecoveryBrain]";
+    v95 = "[DeviceRecoveryService downloadRecoveryBrain]";
     _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%{public}s: [DownloadRecoveryBrain]: No data passed in from BootedOS. Using default asset audience/URL for brain download", buf, 0xCu);
   }
 
 LABEL_43:
 
-  v26 = sub_1000118BC();
-  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+  v30 = sub_1000118BC(v29);
+  if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v88 = "[DeviceRecoveryService downloadRecoveryBrain]";
-    v89 = 2114;
-    v90 = v2;
-    _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "%{public}s: [DownloadRecoveryBrain]: Starting catalog download for DeviceRecoveryBrain | Options:%{public}@", buf, 0x16u);
+    v95 = "[DeviceRecoveryService downloadRecoveryBrain]";
+    v96 = 2114;
+    v97 = v2;
+    _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "%{public}s: [DownloadRecoveryBrain]: Starting catalog download for DeviceRecoveryBrain | Options:%{public}@", buf, 0x16u);
   }
 
-  v68[0] = _NSConcreteStackBlock;
-  v68[1] = 3221225472;
-  v68[2] = sub_10000D8B4;
-  v68[3] = &unk_100034EC0;
-  v70 = &v83;
-  v71 = &v76;
-  v27 = v4;
-  v69 = v27;
-  [MAAsset startCatalogDownload:@"com.apple.MobileAsset.DeviceRecoveryBrain" options:v2 completionWithError:v68];
-  v28 = dispatch_time(0, 300000000000);
-  if (!dispatch_semaphore_wait(v27, v28))
+  v73[0] = _NSConcreteStackBlock;
+  v73[1] = 3221225472;
+  v73[2] = sub_10000D8B4;
+  v73[3] = &unk_100034EC0;
+  v75 = &v87;
+  v76 = &v81;
+  v31 = v4;
+  v74 = v31;
+  [MAAsset startCatalogDownload:@"com.apple.MobileAsset.DeviceRecoveryBrain" options:v2 completionWithError:v73];
+  v32 = dispatch_time(0, 300000000000);
+  v33 = dispatch_semaphore_wait(v31, v32);
+  if (!v33)
   {
-    if (v77[3] || *(v84[0] + 40))
+    if (v82[3] || v88[5])
     {
-      v29 = sub_1000118BC();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+      v34 = sub_1000118BC(0);
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
       {
-        v30 = v77[3];
-        v31 = MAStringForMADownloadResult();
-        sub_10001F09C(v31, v84);
+        MAStringForMADownloadResult();
+        objc_claimAutoreleasedReturnValue();
+        sub_10001F09C();
       }
 
       goto LABEL_52;
     }
 
-    v35 = sub_1000118BC();
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+    v38 = sub_1000118BC(0);
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446210;
-      v88 = "[DeviceRecoveryService downloadRecoveryBrain]";
-      _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "%{public}s: [DownloadRecoveryBrian]: Successfully obtained catalog for DeviceRecoveryBrain", buf, 0xCu);
+      v95 = "[DeviceRecoveryService downloadRecoveryBrain]";
+      _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "%{public}s: [DownloadRecoveryBrian]: Successfully obtained catalog for DeviceRecoveryBrain", buf, 0xCu);
     }
 
-    v29 = [[MAAssetQuery alloc] initWithType:@"com.apple.MobileAsset.DeviceRecoveryBrain" andPurpose:@"DeviceRecoveryDaemonBrainDownloadRequest"];
-    [v29 returnTypes:5];
-    v36 = +[SUCoreDevice sharedDevice];
-    productType = [v36 productType];
+    v34 = [[MAAssetQuery alloc] initWithType:@"com.apple.MobileAsset.DeviceRecoveryBrain" andPurpose:@"DeviceRecoveryDaemonBrainDownloadRequest"];
+    [v34 returnTypes:5];
+    v39 = +[SUCoreDevice sharedDevice];
+    productType = [v39 productType];
 
-    v37 = +[NSNull null];
-    v86[0] = v37;
-    v38 = productType;
+    v40 = +[NSNull null];
+    v93[0] = v40;
+    v41 = productType;
     if (!productType)
     {
-      v38 = +[NSNull null];
+      v41 = +[NSNull null];
     }
 
-    v86[1] = v38;
-    v39 = [NSArray arrayWithObjects:v86 count:2];
-    v59 = [v39 mutableCopy];
-    v58 = v38;
+    v93[1] = v41;
+    v42 = [NSArray arrayWithObjects:v93 count:2];
+    v64 = [v42 mutableCopy];
+    v63 = v41;
 
     if (!productType)
     {
     }
 
-    [v29 addKeyValueArray:@"SupportedDevices" with:v59];
-    if ([v29 queryMetaDataSync])
+    [v34 addKeyValueArray:@"SupportedDevices" with:v64];
+    queryMetaDataSync = [v34 queryMetaDataSync];
+    if (queryMetaDataSync)
     {
-      v40 = sub_1000118BC();
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+      v44 = sub_1000118BC(queryMetaDataSync);
+      if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
       {
-        v41 = MAStringForMAQueryResult();
-        sub_10001F0F8(v41, buf, v40);
+        v45 = MAStringForMAQueryResult();
+        sub_10001F0F8(v45, buf, v44);
       }
 
 LABEL_63:
-      v32 = 0;
+      v35 = 0;
 LABEL_64:
-      v33 = 0;
+      v36 = 0;
 LABEL_65:
 
       goto LABEL_53;
     }
 
-    results = [v29 results];
-    v43 = [results count] == 0;
+    results = [v34 results];
+    v47 = [results count] == 0;
 
-    if (v43)
+    if (v47)
     {
-      v40 = sub_1000118BC();
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+      v44 = sub_1000118BC(v48);
+      if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
       {
         sub_10001F240();
       }
@@ -3137,63 +3185,63 @@ LABEL_65:
       goto LABEL_63;
     }
 
-    results2 = [v29 results];
-    v45 = [results2 count] > 1;
+    results2 = [v34 results];
+    v50 = [results2 count] > 1;
 
-    if (v45)
+    if (v50)
     {
-      v46 = sub_1000118BC();
-      if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
+      v52 = sub_1000118BC(v51);
+      if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136446210;
-        v88 = "[DeviceRecoveryService downloadRecoveryBrain]";
-        _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_DEFAULT, "%{public}s: [DownloadRecoveryBrain]: More than one DeviceRecoveryBrain asset returned from server. Picking first", buf, 0xCu);
+        v95 = "[DeviceRecoveryService downloadRecoveryBrain]";
+        _os_log_impl(&_mh_execute_header, v52, OS_LOG_TYPE_DEFAULT, "%{public}s: [DownloadRecoveryBrain]: More than one DeviceRecoveryBrain asset returned from server. Picking first", buf, 0xCu);
       }
     }
 
-    results3 = [v29 results];
-    v40 = [results3 objectAtIndexedSubscript:0];
+    results3 = [v34 results];
+    v44 = [results3 objectAtIndexedSubscript:0];
 
-    [v40 refreshState];
-    if ([v40 state]== 2)
+    [v44 refreshState];
+    if ([v44 state]== 2)
     {
-      v48 = sub_1000118BC();
-      if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
+      v54 = sub_1000118BC(2);
+      if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136446210;
-        v88 = "[DeviceRecoveryService downloadRecoveryBrain]";
-        _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_DEFAULT, "%{public}s: [DownloadRecoveryBrain]: Previous brain asset already installed", buf, 0xCu);
+        v95 = "[DeviceRecoveryService downloadRecoveryBrain]";
+        _os_log_impl(&_mh_execute_header, v54, OS_LOG_TYPE_DEFAULT, "%{public}s: [DownloadRecoveryBrain]: Previous brain asset already installed", buf, 0xCu);
       }
 
-      [(DeviceRecoveryService *)self setRecoveryBrainAsset:v40];
-      v32 = 0;
-      v33 = 1;
+      [(DeviceRecoveryService *)self setRecoveryBrainAsset:v44];
+      v35 = 0;
+      v36 = 1;
       goto LABEL_65;
     }
 
-    [v40 attachProgressCallBack:&stru_100034F00];
-    v49 = sub_1000118BC();
-    if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
+    v55 = sub_1000118BC([v44 attachProgressCallBack:&stru_100034F00]);
+    if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446210;
-      v88 = "[DeviceRecoveryService downloadRecoveryBrain]";
-      _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_DEFAULT, "%{public}s: [DownloadRecoveryBrain]: Starting download of DeviceRecoveryBrain asset", buf, 0xCu);
+      v95 = "[DeviceRecoveryService downloadRecoveryBrain]";
+      _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_DEFAULT, "%{public}s: [DownloadRecoveryBrain]: Starting download of DeviceRecoveryBrain asset", buf, 0xCu);
     }
 
-    v64[0] = _NSConcreteStackBlock;
-    v64[1] = 3221225472;
-    v64[2] = sub_10000DA88;
-    v64[3] = &unk_100034EC0;
-    v66 = &v80;
-    v67 = &v72;
-    v50 = v62;
-    v65 = v50;
-    [v40 startDownload:v3 completionWithError:v64];
-    v51 = dispatch_time(0, 300000000000);
-    if (dispatch_semaphore_wait(v50, v51))
+    v69[0] = _NSConcreteStackBlock;
+    v69[1] = 3221225472;
+    v69[2] = sub_10000DA88;
+    v69[3] = &unk_100034EC0;
+    v71 = v85;
+    v72 = &v77;
+    v56 = v67;
+    v70 = v56;
+    [v44 startDownload:v3 completionWithError:v69];
+    v57 = dispatch_time(0, 300000000000);
+    v58 = dispatch_semaphore_wait(v56, v57);
+    if (v58)
     {
-      v52 = sub_1000118BC();
-      if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
+      v59 = sub_1000118BC(v58);
+      if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
       {
         sub_10001F164();
       }
@@ -3201,59 +3249,59 @@ LABEL_65:
 
     else
     {
-      v53 = v73[3];
-      if (v53 == 10 || !v53)
+      v60 = v78[3];
+      if (v60 == 10 || !v60)
       {
-        v54 = sub_1000118BC();
-        if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
+        v61 = sub_1000118BC(0);
+        if (os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
         {
-          getLocalFileUrl = [v40 getLocalFileUrl];
+          getLocalFileUrl = [v44 getLocalFileUrl];
           *buf = 136446466;
-          v88 = "[DeviceRecoveryService downloadRecoveryBrain]";
-          v89 = 2114;
-          v90 = getLocalFileUrl;
-          _os_log_impl(&_mh_execute_header, v54, OS_LOG_TYPE_DEFAULT, "%{public}s: [DownloadRecoveryBrain]: Successfully downloaded DeviceRecoveryBrain at path %{public}@", buf, 0x16u);
+          v95 = "[DeviceRecoveryService downloadRecoveryBrain]";
+          v96 = 2114;
+          v97 = getLocalFileUrl;
+          _os_log_impl(&_mh_execute_header, v61, OS_LOG_TYPE_DEFAULT, "%{public}s: [DownloadRecoveryBrain]: Successfully downloaded DeviceRecoveryBrain at path %{public}@", buf, 0x16u);
         }
 
-        [(DeviceRecoveryService *)self setRecoveryBrainAsset:v40];
-        v32 = 1;
+        [(DeviceRecoveryService *)self setRecoveryBrainAsset:v44];
+        v35 = 1;
         goto LABEL_88;
       }
 
-      v52 = sub_1000118BC();
-      if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
+      v59 = sub_1000118BC(0);
+      if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
       {
-        v56 = v73[3];
-        v57 = MAStringForMADownloadResult();
-        sub_10001F1E4(v57, v81);
+        MAStringForMADownloadResult();
+        objc_claimAutoreleasedReturnValue();
+        sub_10001F1E4();
       }
     }
 
-    v32 = 0;
+    v35 = 0;
 LABEL_88:
 
     goto LABEL_64;
   }
 
-  v29 = sub_1000118BC();
-  if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+  v34 = sub_1000118BC(v33);
+  if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
   {
     sub_10001F01C();
   }
 
 LABEL_52:
-  v32 = 0;
-  v33 = 0;
+  v35 = 0;
+  v36 = 0;
 LABEL_53:
 
-  _Block_object_dispose(&v72, 8);
-  _Block_object_dispose(&v76, 8);
-  _Block_object_dispose(&v80, 8);
+  _Block_object_dispose(&v77, 8);
+  _Block_object_dispose(&v81, 8);
+  _Block_object_dispose(v85, 8);
 
-  _Block_object_dispose(&v83, 8);
+  _Block_object_dispose(&v87, 8);
   objc_sync_exit(obj);
 
-  return v32 | v33;
+  return v35 | v36;
 }
 
 - (BOOL)personalizeAndGraftRecoveryBrain
@@ -3263,15 +3311,16 @@ LABEL_53:
   recoveryBrainAsset = [(DeviceRecoveryService *)self recoveryBrainAsset];
   getLocalFileUrl = [recoveryBrainAsset getLocalFileUrl];
 
-  bzero(v25, 0x400uLL);
-  [getLocalFileUrl getFileSystemRepresentation:v25 maxLength:1023];
-  v6 = [NSString stringWithFormat:@"%s", v25];
+  bzero(v28, 0x400uLL);
+  [getLocalFileUrl getFileSystemRepresentation:v28 maxLength:1023];
+  v6 = [NSString stringWithFormat:@"%s", v28];
   stringByDeletingLastPathComponent = [v6 stringByDeletingLastPathComponent];
 
   v8 = objc_alloc_init(NSMutableDictionary);
   if ([(DeviceRecoveryService *)self isInternalBuild])
   {
     v9 = CFPreferencesCopyAppValue(@"SSOTokenFile", @"com.apple.DeviceRecoveryService");
+    v10 = v9;
     if (!v9)
     {
 LABEL_13:
@@ -3279,37 +3328,37 @@ LABEL_13:
       goto LABEL_14;
     }
 
-    v10 = sub_1000118BC();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = sub_1000118BC(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446466;
-      v22 = "[DeviceRecoveryService personalizeAndGraftRecoveryBrain]";
-      v23 = 2114;
-      v24 = v9;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%{public}s: [PersonalizeAndGraftBrain]: Attempting to read SSO token from %{public}@", buf, 0x16u);
+      v25 = "[DeviceRecoveryService personalizeAndGraftRecoveryBrain]";
+      v26 = 2114;
+      v27 = v10;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%{public}s: [PersonalizeAndGraftBrain]: Attempting to read SSO token from %{public}@", buf, 0x16u);
     }
 
-    v11 = [NSDictionary dictionaryWithContentsOfFile:v9];
-    v12 = v11;
-    if (v11)
+    v12 = [NSDictionary dictionaryWithContentsOfFile:v10];
+    v13 = v12;
+    if (v12)
     {
-      v13 = [v11 objectForKeyedSubscript:@"ssoToken"];
-      v14 = v13 == 0;
+      v14 = [v12 objectForKeyedSubscript:@"ssoToken"];
+      v15 = v14 == 0;
 
-      if (v14)
+      if (v15)
       {
-        [v8 addEntriesFromDictionary:v12];
+        [v8 addEntriesFromDictionary:v13];
         goto LABEL_12;
       }
 
-      v15 = [v12 objectForKeyedSubscript:@"ssoToken"];
-      [v8 setObject:v15 forKeyedSubscript:@"SecureMobileAssetBundleOptionSSO"];
+      v16 = [v13 objectForKeyedSubscript:@"ssoToken"];
+      [v8 setObject:v16 forKeyedSubscript:@"SecureMobileAssetBundleOptionSSO"];
     }
 
     else
     {
-      v15 = sub_1000118BC();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v16 = sub_1000118BC(0);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         sub_10001F2C0();
       }
@@ -3322,26 +3371,28 @@ LABEL_12:
 LABEL_14:
   [v8 setObject:stringByDeletingLastPathComponent forKeyedSubscript:@"SecureMobileAssetBundleOptionPath"];
   [v8 setObject:&__kCFBooleanTrue forKeyedSubscript:@"SecureMobileAssetDisableEarlyBootGraft"];
-  v16 = _SecureMABundleCommand();
-  if (v16)
+  v17 = _SecureMABundleCommand();
+  v18 = v17;
+  if (v17)
   {
-    v17 = sub_1000118BC();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v19 = sub_1000118BC(v17);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       sub_10001F340();
     }
 
-    v18 = 0;
+    v20 = 0;
   }
 
   else
   {
-    v17 = _SecureMABundleCommand();
-    v18 = v17 == 0;
-    if (v17)
+    v21 = _SecureMABundleCommand();
+    v19 = v21;
+    v20 = v21 == 0;
+    if (v21)
     {
-      v19 = sub_1000118BC();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v22 = sub_1000118BC(v21);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
         sub_10001F3C0();
       }
@@ -3349,113 +3400,113 @@ LABEL_14:
 
     else
     {
-      v19 = sub_1000118BC();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      v22 = sub_1000118BC(0);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136446466;
-        v22 = "[DeviceRecoveryService personalizeAndGraftRecoveryBrain]";
-        v23 = 2114;
-        v24 = getLocalFileUrl;
-        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "%{public}s: [PersonalizeAndGraftBrain]: Successfully grafted DeviceRecoveryBrain from path %{public}@", buf, 0x16u);
+        v25 = "[DeviceRecoveryService personalizeAndGraftRecoveryBrain]";
+        v26 = 2114;
+        v27 = getLocalFileUrl;
+        _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "%{public}s: [PersonalizeAndGraftBrain]: Successfully grafted DeviceRecoveryBrain from path %{public}@", buf, 0x16u);
       }
     }
   }
 
   objc_sync_exit(v3);
-  return v18;
+  return v20;
 }
 
 - (void)generateAndSubmitRecoveryLog:(id)log withDescription:(id)description
 {
   logCopy = log;
   descriptionCopy = description;
-  v8 = sub_1000118BC();
+  v8 = sub_1000118BC(descriptionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
-    *v32 = 136446978;
-    *&v32[4] = "[DeviceRecoveryService generateAndSubmitRecoveryLog:withDescription:]";
-    *&v32[12] = 2114;
-    *&v32[14] = logCopy;
-    *&v32[22] = 2114;
-    v33 = descriptionCopy;
-    LOWORD(v34) = 1026;
-    *(&v34 + 2) = [(DeviceRecoveryService *)self userApprovedDiagnosticsSubmission];
-    _os_log_error_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "%{public}s: failedOperation: %{public}@ - description: %{public}@ - diagnosticsSubmissionApproved: %{public}d", v32, 0x26u);
+    *v33 = 136446978;
+    *&v33[4] = "[DeviceRecoveryService generateAndSubmitRecoveryLog:withDescription:]";
+    *&v33[12] = 2114;
+    *&v33[14] = logCopy;
+    *&v33[22] = 2114;
+    v34 = descriptionCopy;
+    LOWORD(v35) = 1026;
+    *(&v35 + 2) = [(DeviceRecoveryService *)self userApprovedDiagnosticsSubmission];
+    _os_log_error_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "%{public}s: failedOperation: %{public}@ - description: %{public}@ - diagnosticsSubmissionApproved: %{public}d", v33, 0x26u);
   }
 
   if ([(DeviceRecoveryService *)self userApprovedDiagnosticsSubmission])
   {
-    *v32 = 0;
-    *&v32[8] = v32;
-    *&v32[16] = 0x3032000000;
-    v33 = sub_100004D88;
-    v34 = sub_100004D98;
-    v35 = 0;
-    v22 = 0;
-    v23 = &v22;
-    v24 = 0x3032000000;
-    v25 = sub_100004D88;
-    v26 = sub_100004D98;
-    v27 = 0;
+    *v33 = 0;
+    *&v33[8] = v33;
+    *&v33[16] = 0x3032000000;
+    v34 = sub_100004D88;
+    v35 = sub_100004D98;
+    v36 = 0;
+    v23 = 0;
+    v24 = &v23;
+    v25 = 0x3032000000;
+    v26 = sub_100004D88;
+    v27 = sub_100004D98;
+    v28 = 0;
     v9 = +[OSLogEventStore localStore];
-    v21[0] = _NSConcreteStackBlock;
-    v21[1] = 3221225472;
-    v21[2] = sub_10000E374;
-    v21[3] = &unk_100034F28;
-    v21[4] = &v22;
-    v21[5] = v32;
-    [v9 prepareWithCompletionHandler:v21];
-    if (*(*&v32[8] + 40))
+    v22[0] = _NSConcreteStackBlock;
+    v22[1] = 3221225472;
+    v22[2] = sub_10000E374;
+    v22[3] = &unk_100034F28;
+    v22[4] = &v23;
+    v22[5] = v33;
+    v10 = [v9 prepareWithCompletionHandler:v22];
+    if (*(*&v33[8] + 40))
     {
-      v10 = sub_1000118BC();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v11 = sub_1000118BC(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = [*(*&v32[8] + 40) description];
+        v12 = [*(*&v33[8] + 40) description];
         *buf = 136446466;
         *&buf[4] = "[DeviceRecoveryService generateAndSubmitRecoveryLog:withDescription:]";
         *&buf[12] = 2112;
-        *&buf[14] = v11;
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%{public}s: Error creating event source %@", buf, 0x16u);
+        *&buf[14] = v12;
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%{public}s: Error creating event source %@", buf, 0x16u);
       }
     }
 
     else
     {
-      v12 = [OSLogEventStream alloc];
-      v10 = [v12 initWithSource:v23[5]];
-      v13 = [NSPredicate predicateWithFormat:@"subsystem contains %@ OR process contains %@ OR process contains %@ OR process contains %@", @"com.apple.DeviceRecovery", @"devicerecoveryd", @"DeviceRecovery", @"Device Recovery Assistant"];
-      [v10 setFilterPredicate:v13];
+      v13 = [OSLogEventStream alloc];
+      v11 = [v13 initWithSource:v24[5]];
+      v14 = [NSPredicate predicateWithFormat:@"subsystem contains %@ OR process contains %@ OR process contains %@ OR process contains %@", @"com.apple.DeviceRecovery", @"devicerecoveryd", @"DeviceRecovery", @"Device Recovery Assistant"];
+      [v11 setFilterPredicate:v14];
 
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x3032000000;
-      v29 = sub_100004D88;
-      v30 = sub_100004D98;
-      v31 = objc_opt_new();
-      v20[0] = _NSConcreteStackBlock;
-      v20[1] = 3221225472;
-      v20[2] = sub_10000E3F8;
-      v20[3] = &unk_100034F50;
-      v20[4] = buf;
-      [v10 setEventHandler:v20];
-      v14[0] = _NSConcreteStackBlock;
-      v14[1] = 3221225472;
-      v14[2] = sub_10000E550;
-      v14[3] = &unk_100034FA0;
-      v18 = buf;
-      v15 = logCopy;
-      v19 = v32;
-      v16 = descriptionCopy;
+      v30 = sub_100004D88;
+      v31 = sub_100004D98;
+      v32 = objc_opt_new();
+      v21[0] = _NSConcreteStackBlock;
+      v21[1] = 3221225472;
+      v21[2] = sub_10000E3F8;
+      v21[3] = &unk_100034F50;
+      v21[4] = buf;
+      [v11 setEventHandler:v21];
+      v15[0] = _NSConcreteStackBlock;
+      v15[1] = 3221225472;
+      v15[2] = sub_10000E550;
+      v15[3] = &unk_100034FA0;
+      v19 = buf;
+      v16 = logCopy;
+      v20 = v33;
+      v17 = descriptionCopy;
       selfCopy = self;
-      [v10 setInvalidationHandler:v14];
+      [v11 setInvalidationHandler:v15];
       dispatch_group_enter(self->_logWaitGroup);
-      [v10 activateStreamFromLastBoot];
+      [v11 activateStreamFromLastBoot];
 
       _Block_object_dispose(buf, 8);
     }
 
-    _Block_object_dispose(&v22, 8);
-    _Block_object_dispose(v32, 8);
+    _Block_object_dispose(&v23, 8);
+    _Block_object_dispose(v33, 8);
   }
 }
 

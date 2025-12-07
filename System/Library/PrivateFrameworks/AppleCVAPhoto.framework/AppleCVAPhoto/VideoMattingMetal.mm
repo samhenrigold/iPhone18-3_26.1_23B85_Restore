@@ -7,6 +7,7 @@
 - (__CVBuffer)createCVBufferWithWidth:(unint64_t)width height:(unint64_t)height format:(unsigned int)format;
 - (id)disparityPostprocessingWithCanonicalDisparity:(const __CVBuffer *)disparity color:(const __CVBuffer *)color postProcessedDisparity:(__CVBuffer *)processedDisparity staticParams:(const VideoMattingStaticParams *)params dynamicParams:(const void *)dynamicParams postProcessingParams:(const VideoPostprocessingParams *)processingParams facesArray:(id)array faceModel:(id)self0 isFinalStage:(BOOL)self1 callbackQueue:(id)self2 callback:(id)self3;
 - (id)getPTTextureFromLuma:(id)luma chroma:(id)chroma;
+- (pair<float,)blurRadiusAndStdAtInfinityForFocalLength:(float)length focusCanonicalDisparity:(float)disparity fNumber:(float)number xResolution:(float)resolution useNewCoCFormula:(BOOL)formula;
 - (void)alphaMattingWithPostprocessedDisparity:(const __CVBuffer *)disparity source:(const __CVBuffer *)source inSegmentation:(__CVBuffer *)segmentation alpha:(__CVBuffer *)alpha staticParams:(const VideoMattingStaticParams *)params dynamicParams:(const void *)dynamicParams usePostprocessedDisparity:(BOOL)postprocessedDisparity isFinalStage:(BOOL)self0 dilateForegroundMask:(BOOL)self1 properties:(id)self2 callbackQueue:(id)self3 callback:(id)self4;
 - (void)cropFrame:(const __CVBuffer *)frame destination:(__CVBuffer *)destination rect:(CGRect)rect;
 - (void)dealloc;
@@ -30,6 +31,7 @@
 - (void)encodeFillAlphaToCommandBuffer:(id)buffer alpha:(id)alpha;
 - (void)encodeFillBackgroundDisparityToCommandBuffer:(id)buffer inputDisparity:(id)disparity inputFacemask:(id)facemask outputDistanceFromKnownDisparity:(id)knownDisparity outputDisparity:(id)outputDisparity backgroundDisparityValue:(float)value minimumDistanceFromValidDisparity:(float)validDisparity;
 - (void)encodeFilterCoefficientToBuffer:(id)buffer inputCoeff:(id)coeff prevCoeff:(id)prevCoeff outCoeff:(id)outCoeff inColorSim:(id)sim updateRate:(float)rate;
+- (void)encodeForegroundMaskToBuffer:(id)buffer disparity:(id)disparity inSegmentation:(id)segmentation useSegmentationOnly:(BOOL)only weight:(id)weight foregroundMask:(id)mask erodedForegroundMask:(id)foregroundMask disparityMin:(float)self0 focusDisparity:(float)self1 hardness:(float)self2 minDistToDeweight:(float)self3 unconfidentWeight:(float)self4 dilateForegroundMask:(BOOL)self5 foregroundMaskDilationRadius:(float)self6 properties:(id)self7 applyRotation:(BOOL)self8;
 - (void)encodeGuidedFilterWeightToCommandBuffer:(id)buffer inputDisparity:(id)disparity inputSegmentation:(id)segmentation useSegmentationOnly:(BOOL)only inputForegroundDistance:(id)distance outputForegroundMask:(id)mask outputWeight:(id)weight minDistToDeweight:(float)self0 unconfidentWeight:(float)self1 dilateForegroundMask:(BOOL)self2 foregroundMaskDilationRadius:(float)self3;
 - (void)encodeInvalidDisparityMaskToCommandBuffer:(id)buffer inputDisparity:(id)disparity outputMask:(id)mask;
 - (void)encodeOutputDisparityToCommandBuffer:(id)buffer inputDisparity:(id)disparity outputDisparity:(id)outputDisparity;
@@ -181,7 +183,6 @@ LABEL_3:
 {
   CVPixelBufferGetWidth(destination);
   CVPixelBufferGetHeight(destination);
-  hwScaler = self->_hwScaler;
   CVPixelBufferGetIOSurface(frame);
   CVPixelBufferGetIOSurface(destination);
   IOSurfaceAcceleratorTransformSurface();
@@ -215,11 +216,9 @@ LABEL_3:
   v16 = *MEMORY[0x1E695E4D0];
   CFDictionarySetValue(Mutable, *MEMORY[0x1E69A85B8], *MEMORY[0x1E695E4D0]);
   CFDictionarySetValue(Mutable, *MEMORY[0x1E69A8508], v16);
-  hwScaler = self->_hwScaler;
   CVPixelBufferGetIOSurface(source);
   CVPixelBufferGetIOSurface(self->_yuvSourceDownsampledBuffer);
   IOSurfaceAcceleratorTransformSurface();
-  v18 = self->_hwScaler;
   CVPixelBufferGetIOSurface(self->_yuvSourceDownsampledBuffer);
   CVPixelBufferGetIOSurface(destination);
   IOSurfaceAcceleratorTransformSurface();
@@ -320,18 +319,18 @@ LABEL_3:
 
 - (void)renderContinuousWithSource:(const __CVBuffer *)source segmentationPixelBuffer:(const __CVBuffer *)buffer alpha:(const __CVBuffer *)alpha canonicalDisparity:(const __CVBuffer *)disparity disparityInFocus:(float)focus focusCanonicalDisparity:(float)canonicalDisparity fNumber:(float)number infConvolutionScale:(float)self0 noiseBits:(float)self1 disparityUpdateRate:(float)self2 focusThresholdHardness:(float)self3 cubeIntensity:(float)self4 usePostprocessedDisparity:(BOOL)self5 dstColor:(__CVBuffer *)self6 isFinalStage:(BOOL)self7 properties:(id)self8 callbackQueue:(id)self9 withCallback:(id)callback
 {
-  v128[5] = *MEMORY[0x1E69E9840];
+  v127[5] = *MEMORY[0x1E69E9840];
   propertiesCopy = properties;
   queueCopy = queue;
   callbackCopy = callback;
   commandBuffer = [(MTLCommandQueue *)self->_commandQueue commandBuffer];
   postprocessedDisparityCopy = postprocessedDisparity;
   [commandBuffer setLabel:@"renderContinuousWithSource"];
+  v118 = 0;
   v119 = 0;
-  v120 = 0;
-  [VideoMattingMetal decomposeYuvPixelBuffer:color yTexture:&v120 uvTexture:&v119 textureCache:self->_textureCache];
-  [v120 setLabel:@"dstColorTextureY"];
-  [v119 setLabel:@"dstColorTextureUV"];
+  [VideoMattingMetal decomposeYuvPixelBuffer:color yTexture:&v119 uvTexture:&v118 textureCache:self->_textureCache];
+  [v119 setLabel:@"dstColorTextureY"];
+  [v118 setLabel:@"dstColorTextureUV"];
   CVPixelBufferRetain(source);
   CVPixelBufferRetain(alpha);
   CVPixelBufferRetain(disparity);
@@ -342,36 +341,36 @@ LABEL_3:
   {
     if (!self->_renderStateIsConfigured)
     {
-      v123 = 0;
-      v124 = &v123;
-      v125 = 0x2050000000;
+      v122 = 0;
+      v123 = &v122;
+      v124 = 0x2050000000;
       v35 = qword_1ECDE0FA0;
-      v126 = qword_1ECDE0FA0;
+      v125 = qword_1ECDE0FA0;
       if (!qword_1ECDE0FA0)
       {
         *__p = MEMORY[0x1E69E9820];
         *&__p[8] = 3221225472;
         *&__p[16] = sub_1DED5B864;
         *&__p[24] = &unk_1E869AD70;
-        v122 = &v123;
+        v121 = &v122;
         sub_1DED5B864(__p);
-        v35 = v124[3];
+        v35 = v123[3];
       }
 
       v36 = v35;
-      _Block_object_dispose(&v123, 8);
+      _Block_object_dispose(&v122, 8);
       v37 = [[v36 alloc] initWithDevice:self->_device version:objc_msgSend(sub_1DED5B5F4() colorSize:"latestVersion") disparitySize:{self->_width, self->_height, -[MTLTexture width](self->_disparityInScreenAspectRatio, "width"), -[MTLTexture height](self->_disparityInScreenAspectRatio, "height")}];
       [v37 setVerbose:0];
-      v127[0] = &unk_1F5A097D8;
-      v127[1] = &unk_1F5A097F0;
-      v128[0] = MEMORY[0x1E695E110];
-      v128[1] = &unk_1F5A09F10;
-      v127[2] = &unk_1F5A09808;
-      v127[3] = &unk_1F5A09820;
-      v128[2] = &unk_1F5A09F20;
-      v128[3] = &unk_1F5A09F00;
+      v126[0] = &unk_1F5A097D8;
+      v126[1] = &unk_1F5A097F0;
+      v127[0] = MEMORY[0x1E695E110];
+      v127[1] = &unk_1F5A09F10;
+      v126[2] = &unk_1F5A09808;
+      v126[3] = &unk_1F5A09820;
+      v127[2] = &unk_1F5A09F20;
+      v127[3] = &unk_1F5A09F00;
       deadzoneInCinematic = self->_deadzoneInCinematic;
-      v127[4] = &unk_1F5A09838;
+      v126[4] = &unk_1F5A09838;
       if (deadzoneInCinematic)
       {
         v39 = MEMORY[0x1E695E118];
@@ -382,8 +381,8 @@ LABEL_3:
         v39 = MEMORY[0x1E695E110];
       }
 
-      v128[4] = v39;
-      v40 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v128 forKeys:v127 count:5];
+      v127[4] = v39;
+      v40 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v127 forKeys:v126 count:5];
       [v37 setOptions:v40];
 
       v41 = [objc_alloc(sub_1DED5B5F4()) initWithDescriptor:v37];
@@ -394,47 +393,47 @@ LABEL_3:
       ptRenderState = self->_ptRenderState;
       self->_ptRenderState = v43;
 
-      v123 = 0;
-      v124 = &v123;
-      v125 = 0x2050000000;
+      v122 = 0;
+      v123 = &v122;
+      v124 = 0x2050000000;
       v45 = qword_1ECDE0F98;
-      v126 = qword_1ECDE0F98;
+      v125 = qword_1ECDE0F98;
       if (!qword_1ECDE0F98)
       {
         *__p = MEMORY[0x1E69E9820];
         *&__p[8] = 3221225472;
         *&__p[16] = sub_1DED5B79C;
         *&__p[24] = &unk_1E869AD70;
-        v122 = &v123;
+        v121 = &v122;
         sub_1DED5B79C(__p);
-        v45 = v124[3];
+        v45 = v123[3];
       }
 
       v46 = v45;
-      _Block_object_dispose(&v123, 8);
+      _Block_object_dispose(&v122, 8);
       v47 = [[v46 alloc] init];
       ptRenderRequest = self->_ptRenderRequest;
       self->_ptRenderRequest = v47;
 
       [(PTRenderState *)self->_ptRenderState setSourceColorBitDepth:8];
-      v123 = 0;
-      v124 = &v123;
-      v125 = 0x2050000000;
+      v122 = 0;
+      v123 = &v122;
+      v124 = 0x2050000000;
       v49 = qword_1ECDE0F88;
-      v126 = qword_1ECDE0F88;
+      v125 = qword_1ECDE0F88;
       if (!qword_1ECDE0F88)
       {
         *__p = MEMORY[0x1E69E9820];
         *&__p[8] = 3221225472;
         *&__p[16] = sub_1DED5B92C;
         *&__p[24] = &unk_1E869AD70;
-        v122 = &v123;
+        v121 = &v122;
         sub_1DED5B92C(__p);
-        v49 = v124[3];
+        v49 = v123[3];
       }
 
       v50 = v49;
-      _Block_object_dispose(&v123, 8);
+      _Block_object_dispose(&v122, 8);
       v51 = v50;
       if (qword_1ECDE10A0 != -1)
       {
@@ -447,15 +446,15 @@ LABEL_3:
       self->_renderStateIsConfigured = 1;
     }
 
-    v109 = [(VideoMattingMetal *)self getPTTextureFromLuma:v120 chroma:v119];
-    v123 = 0;
-    v118 = 0;
-    [VideoMattingMetal decomposeYuvPixelBuffer:source yTexture:&v123 uvTexture:&v118 textureCache:self->_textureCache];
+    v108 = [(VideoMattingMetal *)self getPTTextureFromLuma:v119 chroma:v118];
+    v122 = 0;
+    v117 = 0;
+    [VideoMattingMetal decomposeYuvPixelBuffer:source yTexture:&v122 uvTexture:&v117 textureCache:self->_textureCache];
     blitCommandEncoder = [commandBuffer blitCommandEncoder];
-    [blitCommandEncoder copyFromTexture:v123 toTexture:v120];
-    [blitCommandEncoder copyFromTexture:v118 toTexture:v119];
+    [blitCommandEncoder copyFromTexture:v122 toTexture:v119];
+    [blitCommandEncoder copyFromTexture:v117 toTexture:v118];
     [blitCommandEncoder endEncoding];
-    v54 = [(VideoMattingMetal *)self getPTTextureFromLuma:v123 chroma:v118];
+    v54 = [(VideoMattingMetal *)self getPTTextureFromLuma:v122 chroma:v117];
     v55 = sub_1DED6F954(disparity);
     colorCopy = color;
     v57 = [VideoMattingMetal textureFromCacheUsingPixelBuffer:disparity textureDescriptor:v55 plane:0 textureCache:self->_textureCache];
@@ -466,7 +465,7 @@ LABEL_3:
     [(PTRenderRequest *)self->_ptRenderRequest setRenderState:self->_ptRenderState];
     [(PTRenderRequest *)self->_ptRenderRequest setSourceColor:v54];
     [(PTRenderRequest *)self->_ptRenderRequest setSourceDisparity:self->_disparityInScreenAspectRatio];
-    [(PTRenderRequest *)self->_ptRenderRequest setDestinationColor:v109];
+    [(PTRenderRequest *)self->_ptRenderRequest setDestinationColor:v108];
     *&v58 = number;
     [(PTRenderRequest *)self->_ptRenderRequest setFNumber:v58];
     *&v59 = canonicalDisparity;
@@ -483,10 +482,10 @@ LABEL_3:
 
   if ((atomic_load_explicit(&qword_1ECDE1630, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1ECDE1630))
   {
-    v97 = +[CVAPreferenceManager defaults];
-    v98 = [v97 BOOLForKey:@"CVAPhotoDebugStyle"];
+    v96 = +[CVAPreferenceManager defaults];
+    v97 = [v96 BOOLForKey:@"CVAPhotoDebugStyle"];
 
-    byte_1ECDE1628 = v98;
+    byte_1ECDE1628 = v97;
     __cxa_guard_release(&qword_1ECDE1630);
   }
 
@@ -519,7 +518,7 @@ LABEL_21:
 LABEL_22:
   sub_1DED6FBF4(__p, source, alpha, self->_device);
   v62 = *&__p[8];
-  v109 = *__p;
+  v108 = *__p;
   Width = CVPixelBufferGetWidth(source);
   Height = CVPixelBufferGetHeight(source);
   advancedBuffer = [(CVAPhotoMTLRingBuffer *)self->_disparityConfig advancedBuffer];
@@ -612,7 +611,7 @@ LABEL_22:
     v86 = exp2f(bits - v84);
   }
 
-  [(CVAFilterColorAlphaToFgBg *)self->_colorAlphaToFgBg encodeToCommandBuffer:commandBuffer srcColorTex:v109 srcAlphaTex:v62 dstForegroundTex:0 dstBackgroundTex:self->_bg];
+  [(CVAFilterColorAlphaToFgBg *)self->_colorAlphaToFgBg encodeToCommandBuffer:commandBuffer srcColorTex:v108 srcAlphaTex:v62 dstForegroundTex:0 dstBackgroundTex:self->_bg];
   if (self->_renderingUsesPostprocessing && postprocessedDisparityCopy)
   {
     v87 = &OBJC_IVAR___VideoMattingMetal__smoothDisparity;
@@ -642,29 +641,29 @@ LABEL_22:
     v92 = 0;
   }
 
-  LODWORD(v99) = v85;
+  LODWORD(v98) = v85;
   *&v90 = v86;
   *&v91 = intensity;
-  [(CVAFilterRenderComposite *)self->_renderComposite encodeToCommandBuffer:commandBuffer srcForegroundTex:v109 srcBackgroundTex:v89 srcCocTex:self->_coc dstYTex:v120 dstUVTex:v119 fgColorLut:v90 bgColorLut:v91 frameNumber:self->_fgColorLut seedGeneratorFactor:self->_bgColorLut noiseBits:__PAIR64__(v83 noiseBitsFactor:frameIndex) cubeIntensity:v99 maxBlurRadius:v92 | v76];
+  [(CVAFilterRenderComposite *)self->_renderComposite encodeToCommandBuffer:commandBuffer srcForegroundTex:v108 srcBackgroundTex:v89 srcCocTex:self->_coc dstYTex:v119 dstUVTex:v118 fgColorLut:v90 bgColorLut:v91 frameNumber:self->_fgColorLut seedGeneratorFactor:self->_bgColorLut noiseBits:__PAIR64__(v83 noiseBitsFactor:frameIndex) cubeIntensity:v98 maxBlurRadius:v92 | v76];
 
   colorCopy = colorCopy2;
 LABEL_49:
 
   dispatch_semaphore_wait(self->_renderingCallbackSemaphore, 0xFFFFFFFFFFFFFFFFLL);
-  v111[0] = MEMORY[0x1E69E9820];
-  v111[1] = 3221225472;
-  v111[2] = sub_1DED63F6C;
-  v111[3] = &unk_1E869B040;
+  v110[0] = MEMORY[0x1E69E9820];
+  v110[1] = 3221225472;
+  v110[2] = sub_1DED63F6C;
+  v110[3] = &unk_1E869B040;
   alphaCopy = alpha;
-  v116 = disparityCopy;
-  v114 = pixelBuffer;
-  v111[4] = self;
+  v115 = disparityCopy;
+  v113 = pixelBuffer;
+  v110[4] = self;
   v93 = queueCopy;
-  v112 = v93;
+  v111 = v93;
   v94 = callbackCopy;
-  v113 = v94;
-  v117 = colorCopy;
-  [commandBuffer addCompletedHandler:v111];
+  v112 = v94;
+  v116 = colorCopy;
+  [commandBuffer addCompletedHandler:v110];
   [commandBuffer commit];
 
   self->_lastCommittedCommand = 3;
@@ -672,8 +671,6 @@ LABEL_49:
   {
     ++self->_frameIndex;
   }
-
-  v95 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateRenderRequestwithPerFrameMetadata:(id)metadata properties:(id)properties
@@ -824,6 +821,131 @@ LABEL_49:
   [computeCommandEncoder2 endEncoding];
 }
 
+- (pair<float,)blurRadiusAndStdAtInfinityForFocalLength:(float)length focusCanonicalDisparity:(float)disparity fNumber:(float)number xResolution:(float)resolution useNewCoCFormula:(BOOL)formula
+{
+  formulaCopy = formula;
+  if ((atomic_load_explicit(&qword_1ECDE1608, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1ECDE1608))
+  {
+    v27 = +[CVAPreferenceManager defaults];
+    v28 = [v27 BOOLForKey:@"CVAPhotoDebugCoC"];
+
+    byte_1ECDE1600 = v28;
+    __cxa_guard_release(&qword_1ECDE1608);
+  }
+
+  if (byte_1ECDE1600 == 1)
+  {
+    [MEMORY[0x1E696AEC0] stringWithFormat:@"f_mm = %f", length];
+
+    [MEMORY[0x1E696AEC0] stringWithFormat:@"disparity = %f", disparity];
+    [MEMORY[0x1E696AEC0] stringWithFormat:@"fDist_mm = %f", (1000.0 / disparity)];
+
+    [MEMORY[0x1E696AEC0] stringWithFormat:@"fN = %f", number];
+    [MEMORY[0x1E696AEC0] stringWithFormat:@"useNewCoCFormula = %d", formulaCopy];
+  }
+
+  if (disparity >= 2048.0)
+  {
+    v17 = 0.0;
+    if (byte_1ECDE1600 == 1)
+    {
+      [MEMORY[0x1E696AEC0] stringWithFormat:@"cocRadiusInPixels = %d", 0];
+
+      [MEMORY[0x1E696AEC0] stringWithFormat:@"maxBlurRadius = %d", 0];
+    }
+
+    v15 = 0.0;
+  }
+
+  else if (formulaCopy)
+  {
+    if ((atomic_load_explicit(&qword_1ECDE1618, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1ECDE1618))
+    {
+      LODWORD(v29) = 1057896676;
+      qword_1ECDE1610 = [MEMORY[0x1E696AD98] numberWithFloat:v29];
+      __cxa_guard_release(&qword_1ECDE1618);
+    }
+
+    if ((byte_1ECDE1620 & 1) == 0)
+    {
+      v31 = 9;
+      strcpy(__p, "blurScale");
+      sub_1DED2C8A0(&qword_1ECDE1610, __p);
+      if (v31 < 0)
+      {
+        operator delete(__p[0]);
+      }
+
+      byte_1ECDE1620 = 1;
+    }
+
+    v12 = ((resolution / 36.0) * (((length * length) * fmaxf(disparity, 0.0)) / (number * 1000.0))) * 0.5;
+    [qword_1ECDE1610 floatValue];
+    v15 = v12 * v14;
+    if ((v12 * v14) >= 2.0)
+    {
+      v16 = log2f(v15);
+    }
+
+    else
+    {
+      v16 = v15 * 0.5;
+    }
+
+    v22 = (pow(6.0, (v16 - floorf(v16))) + -1.0) / 5.0 + v13;
+    v17 = exp2f(v22 * 1.585) + 0.5;
+    if (byte_1ECDE1600 == 1)
+    {
+      [MEMORY[0x1E696AEC0] stringWithFormat:@"cocRadiusInPixels = %f", v12];
+
+      v23 = MEMORY[0x1E696AEC0];
+      [qword_1ECDE1610 floatValue];
+      [v23 stringWithFormat:@"blurScale = %f", v24];
+
+      [MEMORY[0x1E696AEC0] stringWithFormat:@"maxBlurRadiusStd = %f", v15];
+      [MEMORY[0x1E696AEC0] stringWithFormat:@"mipLevel = %f", v22];
+
+      [MEMORY[0x1E696AEC0] stringWithFormat:@"effectiveRadiusInPixels = %f", v17];
+      goto LABEL_25;
+    }
+  }
+
+  else
+  {
+    v18 = ((resolution / 36.0) * (((length * length) * fmaxf(disparity, 0.0)) / (number * 1000.0))) * 0.5;
+    v15 = v18 * 0.46111;
+    if ((v18 * 0.46111) >= 2.0)
+    {
+      v19 = log2f(v18 * 0.46111);
+    }
+
+    else
+    {
+      v19 = v15 * 0.5;
+    }
+
+    v17 = 0.0;
+    if (byte_1ECDE1600 == 1)
+    {
+      v20 = floorf(v19);
+      v21 = (pow(6.0, (v19 - v20)) + -1.0) / 5.0 + v20;
+      [MEMORY[0x1E696AEC0] stringWithFormat:@"cocRadiusInPixels = %f", v18];
+
+      [MEMORY[0x1E696AEC0] stringWithFormat:@"blurScale = %f", 0x3FDD82D840000000];
+      [MEMORY[0x1E696AEC0] stringWithFormat:@"maxBlurRadiusStd = %f", v15];
+
+      [MEMORY[0x1E696AEC0] stringWithFormat:@"mipLevel = %f", v21];
+LABEL_25:
+    }
+  }
+
+  v25 = v17;
+  v26 = v15;
+  result.var1 = v26;
+  result.var0 = v25;
+  return result;
+}
+
 - (void)encodeDisparityDecimateToCommandBuffer:(id)buffer canonicalDisparity:(__CVBuffer *)disparity disparityOut:(id)out
 {
   bufferCopy = buffer;
@@ -863,6 +985,46 @@ LABEL_49:
     v19 = 1;
     [computeCommandEncoder dispatchThreadgroups:v20 threadsPerThreadgroup:&v18];
     [computeCommandEncoder endEncoding];
+  }
+}
+
+- (void)encodeForegroundMaskToBuffer:(id)buffer disparity:(id)disparity inSegmentation:(id)segmentation useSegmentationOnly:(BOOL)only weight:(id)weight foregroundMask:(id)mask erodedForegroundMask:(id)foregroundMask disparityMin:(float)self0 focusDisparity:(float)self1 hardness:(float)self2 minDistToDeweight:(float)self3 unconfidentWeight:(float)self4 dilateForegroundMask:(BOOL)self5 foregroundMaskDilationRadius:(float)self6 properties:(id)self7 applyRotation:(BOOL)self8
+{
+  onlyCopy = only;
+  HIDWORD(v44) = dilateForegroundMask;
+  bufferCopy = buffer;
+  disparityCopy = disparity;
+  segmentationCopy = segmentation;
+  weightCopy = weight;
+  maskCopy = mask;
+  foregroundMaskCopy = foregroundMask;
+  propertiesCopy = properties;
+  sub_1DED2E328([propertiesCopy videoPipelineDevice]);
+  if (v35)
+  {
+    [(VideoMattingMetal *)self encodeRotateAndFitIntoRectWithCommandBuffer:bufferCopy inTexture:segmentationCopy outTexture:self->_correctlyRotatedAndReshapedSegmentation rotateClockwise:rotation];
+  }
+
+  else
+  {
+    objc_storeStrong(&self->_correctlyRotatedAndReshapedSegmentation, segmentation);
+  }
+
+  *&v36 = min;
+  *&v37 = focusDisparity;
+  *&v38 = hardness;
+  *&v39 = deweight;
+  *&v40 = unconfidentWeight;
+  [(VideoMattingMetal *)self encodeDisparityMasksToCommandBuffer:bufferCopy inputDisparity:disparityCopy inputSegmentation:self->_correctlyRotatedAndReshapedSegmentation useSegmentationOnly:onlyCopy outputForegroundMask:maskCopy outputIsForeground:self->_isForegroundTexture disparityMin:v36 focusDisparity:v37 hardness:v38 minDistToDeweight:v39 unconfidentWeight:v40];
+  [(CVAFilterDistanceTransform *)self->_distanceTransform encodeToCommandBuffer:bufferCopy sourceTexture:self->_isForegroundTexture destinationTexture:self->_distanceToForegroundTexture];
+  LOBYTE(v44) = BYTE4(v44);
+  *&v41 = deweight;
+  *&v42 = unconfidentWeight;
+  *&v43 = radius;
+  [(VideoMattingMetal *)self encodeGuidedFilterWeightToCommandBuffer:bufferCopy inputDisparity:disparityCopy inputSegmentation:self->_correctlyRotatedAndReshapedSegmentation useSegmentationOnly:onlyCopy inputForegroundDistance:self->_distanceToForegroundTexture outputForegroundMask:maskCopy outputWeight:v41 minDistToDeweight:v42 unconfidentWeight:v43 dilateForegroundMask:weightCopy foregroundMaskDilationRadius:v44];
+  if (foregroundMaskCopy)
+  {
+    [(MPSImageAreaMin *)self->_fgMaskErosionKernel encodeToCommandBuffer:bufferCopy sourceTexture:maskCopy destinationTexture:foregroundMaskCopy];
   }
 }
 
@@ -1015,15 +1177,14 @@ LABEL_49:
 
 - (__CVBuffer)createCVBufferWithWidth:(unint64_t)width height:(unint64_t)height format:(unsigned int)format
 {
-  v14[1] = *MEMORY[0x1E69E9840];
-  v12 = 0;
-  v13 = *MEMORY[0x1E69660D8];
-  v14[0] = MEMORY[0x1E695E0F8];
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
-  CVPixelBufferCreate(*MEMORY[0x1E695E480], width, height, format, v8, &v12);
-  v9 = v12;
+  v13[1] = *MEMORY[0x1E69E9840];
+  v11 = 0;
+  v12 = *MEMORY[0x1E69660D8];
+  v13[0] = MEMORY[0x1E695E0F8];
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  CVPixelBufferCreate(*MEMORY[0x1E695E480], width, height, format, v8, &v11);
+  v9 = v11;
 
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -1087,16 +1248,16 @@ LABEL_49:
   sourceCopy = source;
   v20 = [VideoMattingMetal textureFromCacheUsingPixelBuffer:source textureDescriptor:v19 plane:0 textureCache:self->_textureCache];
 
-  v73 = v20;
+  v68 = v20;
   if (segmentation)
   {
     v21 = sub_1DED6F954(segmentation);
-    v75 = [VideoMattingMetal textureFromCacheUsingPixelBuffer:segmentation textureDescriptor:v21 plane:0 textureCache:self->_textureCache];
+    v70 = [VideoMattingMetal textureFromCacheUsingPixelBuffer:segmentation textureDescriptor:v21 plane:0 textureCache:self->_textureCache];
   }
 
   else
   {
-    v75 = 0;
+    v70 = 0;
   }
 
   v22 = sub_1DED6F954(alpha);
@@ -1104,7 +1265,7 @@ LABEL_49:
 
   v24 = *(dynamicParams + 4);
   v25 = *(dynamicParams + 10);
-  v70 = v23;
+  v65 = v23;
   if (sub_1DED573AC())
   {
     [MEMORY[0x1E696AEC0] stringWithFormat:@"focusCanonicalDisparity = %5.3f", *(dynamicParams + 4)];
@@ -1121,55 +1282,46 @@ LABEL_49:
   }
 
   v30 = *(dynamicParams + 2);
-  v31 = *(dynamicParams + 9);
-  v32 = atan2f(*(dynamicParams + 8), *(dynamicParams + 7));
+  v31 = atan2f(*(dynamicParams + 8), *(dynamicParams + 7));
   commandBuffer = [(MTLCommandQueue *)self->_commandQueue commandBuffer];
   [commandBuffer setLabel:@"alphaMattingWithPostprocessedDisparity"];
-  *&v34 = 1.0 / ((((v30 / 255.0) * (v30 / 255.0)) + ((v30 / 255.0) * (v30 / 255.0))) * 3.0);
-  [(VideoMattingMetal *)self encodeColorSimToCommandBuffer:commandBuffer prevSource:self->_scaledSource[!(self->_frameIndex & 1)] currSource:self->_scaledSource[self->_frameIndex & 1] destination:self->_colorSim similarityScaleFactor:v34];
+  *&v33 = 1.0 / ((((v30 / 255.0) * (v30 / 255.0)) + ((v30 / 255.0) * (v30 / 255.0))) * 3.0);
+  [(VideoMattingMetal *)self encodeColorSimToCommandBuffer:commandBuffer prevSource:self->_scaledSource[!(self->_frameIndex & 1)] currSource:self->_scaledSource[self->_frameIndex & 1] destination:self->_colorSim similarityScaleFactor:v33];
   if (self->_mattingUsesPostprocessing && postprocessedDisparity)
   {
-    v41 = &OBJC_IVAR___VideoMattingMetal__smoothDisparity;
+    v40 = &OBJC_IVAR___VideoMattingMetal__smoothDisparity;
   }
 
   else
   {
-    v41 = &OBJC_IVAR___VideoMattingMetal__disparity;
+    v40 = &OBJC_IVAR___VideoMattingMetal__disparity;
   }
 
-  v42 = *(&self->super.super.isa + 8 * (self->_frameIndex & 1) + *v41);
-  if (v75)
-  {
-    isBgColorLutBlack = self->_isBgColorLutBlack;
-  }
-
-  gfWeight = self->_gfWeight;
-  gfForegroundMask = self->_gfForegroundMask;
-  LODWORD(v36) = *(dynamicParams + 4);
-  LODWORD(v37) = *(dynamicParams + 6);
-  *&v39 = params->guidedFilterUnconfidentWeight;
-  *&v38 = params->guidedFilterMinDistToDeweight;
-  *&v40 = params->foregroundMaskDilationRadius;
-  LOBYTE(v67) = *(dynamicParams + 81);
-  LOBYTE(v66) = mask;
-  *&v35 = v24 - v25;
-  [VideoMattingMetal encodeForegroundMaskToBuffer:"encodeForegroundMaskToBuffer:disparity:inSegmentation:useSegmentationOnly:weight:foregroundMask:erodedForegroundMask:disparityMin:focusDisparity:hardness:minDistToDeweight:unconfidentWeight:dilateForegroundMask:foregroundMaskDilationRadius:properties:applyRotation:" disparity:commandBuffer inSegmentation:v42 useSegmentationOnly:v35 weight:v36 foregroundMask:v37 erodedForegroundMask:v38 disparityMin:v39 focusDisparity:v40 hardness:0 minDistToDeweight:v66 unconfidentWeight:propertiesCopy dilateForegroundMask:v67 foregroundMaskDilationRadius:? properties:? applyRotation:?];
-  v46 = &qword_1ECDE1000;
+  LODWORD(v35) = *(dynamicParams + 4);
+  LODWORD(v36) = *(dynamicParams + 6);
+  *&v38 = params->guidedFilterUnconfidentWeight;
+  *&v37 = params->guidedFilterMinDistToDeweight;
+  *&v39 = params->foregroundMaskDilationRadius;
+  LOBYTE(v62) = *(dynamicParams + 81);
+  LOBYTE(v61) = mask;
+  *&v34 = v24 - v25;
+  [VideoMattingMetal encodeForegroundMaskToBuffer:"encodeForegroundMaskToBuffer:disparity:inSegmentation:useSegmentationOnly:weight:foregroundMask:erodedForegroundMask:disparityMin:focusDisparity:hardness:minDistToDeweight:unconfidentWeight:dilateForegroundMask:foregroundMaskDilationRadius:properties:applyRotation:" disparity:commandBuffer inSegmentation:*(&self->super.super.isa + 8 * (self->_frameIndex & 1) + *v40) useSegmentationOnly:v34 weight:v35 foregroundMask:v36 erodedForegroundMask:v37 disparityMin:v38 focusDisparity:v39 hardness:0 minDistToDeweight:v61 unconfidentWeight:propertiesCopy dilateForegroundMask:v62 foregroundMaskDilationRadius:? properties:? applyRotation:?];
+  v41 = &qword_1ECDE1000;
   if ((atomic_load_explicit(&qword_1ECDE15E8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1ECDE15E8))
   {
-    LODWORD(v64) = 1008981770;
-    qword_1ECDE15E0 = [MEMORY[0x1E696AD98] numberWithFloat:v64];
+    LODWORD(v59) = 1008981770;
+    qword_1ECDE15E0 = [MEMORY[0x1E696AD98] numberWithFloat:v59];
     __cxa_guard_release(&qword_1ECDE15E8);
   }
 
   if ((byte_1ECDE15F0 & 1) == 0)
   {
-    HIBYTE(v83[2]) = 20;
-    strcpy(v83, "alphaGuidedFilterEps");
-    sub_1DED2C8A0(&qword_1ECDE15E0, v83);
-    if (SHIBYTE(v83[2]) < 0)
+    BYTE7(v78[1]) = 20;
+    strcpy(v78, "alphaGuidedFilterEps");
+    sub_1DED2C8A0(&qword_1ECDE15E0, v78);
+    if (SBYTE7(v78[1]) < 0)
     {
-      operator delete(v83[0]);
+      operator delete(*&v78[0]);
     }
 
     byte_1ECDE15F0 = 1;
@@ -1177,59 +1329,59 @@ LABEL_49:
 
   if ((atomic_load_explicit(&qword_1ECDE15F8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1ECDE15F8))
   {
-    v65 = +[CVAPreferenceManager defaults];
-    v68 = [v65 BOOLForKey:@"CVAPhotoDebugStyle"];
+    v60 = +[CVAPreferenceManager defaults];
+    v63 = [v60 BOOLForKey:@"CVAPhotoDebugStyle"];
 
-    byte_1ECDE15F1 = v68;
+    byte_1ECDE15F1 = v63;
     __cxa_guard_release(&qword_1ECDE15F8);
-    v46 = &qword_1ECDE1000;
+    v41 = &qword_1ECDE1000;
   }
 
   if (byte_1ECDE15F1 == 1)
   {
-    v47 = v46;
-    v48 = MEMORY[0x1E696AEC0];
-    v49 = v47;
-    [v47[188] floatValue];
-    [v48 stringWithFormat:@"alphaGuidedFilterEps = %f", v50];
+    v42 = v41;
+    v43 = MEMORY[0x1E696AEC0];
+    v44 = v42;
+    [v42[188] floatValue];
+    [v43 stringWithFormat:@"alphaGuidedFilterEps = %f", v45];
 
-    v46 = v49;
+    v41 = v44;
   }
 
-  [v46[188] floatValue];
+  [v41[188] floatValue];
   [(MPSImageGuidedFilter *)self->_guidedFilter setEpsilon:?];
   [(MPSImageGuidedFilter *)self->_guidedFilter encodeRegressionToCommandBuffer:commandBuffer sourceTexture:self->_gfForegroundMask guidanceTexture:self->_scaledSource[self->_frameIndex & 1] weightsTexture:self->_gfWeight destinationCoefficientsTexture:self->_coeff];
-  v51 = self->_frameIndex & 1;
-  v52 = self->_coeffHistory[v51];
-  v53 = self->_coeffHistory[v51 ^ 1];
-  LODWORD(v54) = *dynamicParams;
-  [(VideoMattingMetal *)self encodeFilterCoefficientToBuffer:commandBuffer inputCoeff:self->_coeff prevCoeff:v53 outCoeff:v52 inColorSim:self->_colorSim updateRate:v54];
-  [(MPSImageGuidedFilter *)self->_guidedFilter encodeReconstructionToCommandBuffer:commandBuffer guidanceTexture:v73 coefficientsTexture:v52 destinationTexture:self->_alphaNoPostprocessing];
-  v55 = fabsf(*(dynamicParams + 9));
-  v56 = fmaxf(v55 * (v55 * (v55 * v55)), 0.1) * 0.5;
+  v46 = self->_frameIndex & 1;
+  v47 = self->_coeffHistory[v46];
+  v48 = self->_coeffHistory[v46 ^ 1];
+  LODWORD(v49) = *dynamicParams;
+  [(VideoMattingMetal *)self encodeFilterCoefficientToBuffer:commandBuffer inputCoeff:self->_coeff prevCoeff:v48 outCoeff:v47 inColorSim:self->_colorSim updateRate:v49];
+  [(MPSImageGuidedFilter *)self->_guidedFilter encodeReconstructionToCommandBuffer:commandBuffer guidanceTexture:v68 coefficientsTexture:v47 destinationTexture:self->_alphaNoPostprocessing];
+  v50 = fabsf(*(dynamicParams + 9));
+  v51 = fmaxf(v50 * (v50 * (v50 * v50)), 0.1) * 0.5;
   infConvolutionScale = self->_infConvolutionScale;
-  *&v58 = infConvolutionScale * (1.0 - v56);
-  *&v59 = infConvolutionScale * v56;
-  *&v60 = self->_gammaExponent;
-  *&v61 = v32;
-  [(CVAFilterGuided *)self->_cvaGuidedFilter encodePostProcessAlphaToCommandBuffer:commandBuffer source:self->_alphaNoPostprocessing destination:v70 alphaMaxLaplacian:self->_enableInfConvolution infConvOrientation:COERCE_DOUBLE(LODWORD(params->alphaMaxLaplacian)) infConvMajorRadius:v61 infConvMinorRadius:v58 gammaExponent:v59 enableInfConvolution:v60];
+  *&v53 = infConvolutionScale * (1.0 - v51);
+  *&v54 = infConvolutionScale * v51;
+  *&v55 = self->_gammaExponent;
+  *&v56 = v31;
+  [(CVAFilterGuided *)self->_cvaGuidedFilter encodePostProcessAlphaToCommandBuffer:commandBuffer source:self->_alphaNoPostprocessing destination:v65 alphaMaxLaplacian:self->_enableInfConvolution infConvOrientation:COERCE_DOUBLE(LODWORD(params->alphaMaxLaplacian)) infConvMajorRadius:v56 infConvMinorRadius:v53 gammaExponent:v54 enableInfConvolution:v55];
   CVPixelBufferRetain(sourceCopy);
   CVPixelBufferRetain(alpha);
   CVPixelBufferRetain(segmentation);
   dispatch_semaphore_wait(self->_mattingCallbackSemaphore, 0xFFFFFFFFFFFFFFFFLL);
-  v77[0] = MEMORY[0x1E69E9820];
-  v77[1] = 3221225472;
-  v77[2] = sub_1DED66914;
-  v77[3] = &unk_1E869AFF8;
-  v80 = sourceCopy;
+  v72[0] = MEMORY[0x1E69E9820];
+  v72[1] = 3221225472;
+  v72[2] = sub_1DED66914;
+  v72[3] = &unk_1E869AFF8;
+  v75 = sourceCopy;
   segmentationCopy = segmentation;
-  v77[4] = self;
-  v62 = queueCopy;
-  v78 = v62;
-  v63 = callbackCopy;
-  v79 = v63;
+  v72[4] = self;
+  v57 = queueCopy;
+  v73 = v57;
+  v58 = callbackCopy;
+  v74 = v58;
   alphaCopy = alpha;
-  [commandBuffer addCompletedHandler:v77];
+  [commandBuffer addCompletedHandler:v72];
   [commandBuffer commit];
 
   self->_lastCommittedCommand = 1;
@@ -2239,10 +2391,10 @@ LABEL_69:
 
 - (VideoMattingMetal)initWithStaticParams:(const VideoMattingStaticParams *)params renderingDisparityUpdateRate:(float)rate renderingDisparityBlurRadius:(float)radius renderingLensFocalLength_mm:(float)length_mm useTemporalConfidence:(BOOL)confidence metalContext:(void *)context error:(id *)error
 {
-  v328[1] = *MEMORY[0x1E69E9840];
-  v145.receiver = self;
-  v145.super_class = VideoMattingMetal;
-  v16 = [(ImageSaverRegistrator *)&v145 init];
+  v327[1] = *MEMORY[0x1E69E9840];
+  v144.receiver = self;
+  v144.super_class = VideoMattingMetal;
+  v16 = [(ImageSaverRegistrator *)&v144 init];
   v17 = v16;
   if (v16)
   {
@@ -2272,23 +2424,23 @@ LABEL_69:
       {
         v17->_infConvolutionScale = 1.0;
         v17->_doDisparityDiffusion = 1;
+        v28 = +[CVAPreferenceManager defaults];
+        v17->_enableInfConvolution = [v28 BOOLForKey:@"disableInfConvolution"] ^ 1;
+
         v29 = +[CVAPreferenceManager defaults];
-        v17->_enableInfConvolution = [v29 BOOLForKey:@"disableInfConvolution"] ^ 1;
+        v17->_mattingUsesPostprocessing = [v29 BOOLForKey:@"disablePostprocessingForMatting"] ^ 1;
 
         v30 = +[CVAPreferenceManager defaults];
-        v17->_mattingUsesPostprocessing = [v30 BOOLForKey:@"disablePostprocessingForMatting"] ^ 1;
+        v17->_renderingUsesPostprocessing = [v30 BOOLForKey:@"disablePostprocessingForRendering"] ^ 1;
 
         v31 = +[CVAPreferenceManager defaults];
-        v17->_renderingUsesPostprocessing = [v31 BOOLForKey:@"disablePostprocessingForRendering"] ^ 1;
+        v17->_doFaceMask = [v31 BOOLForKey:@"enableFaceMaskPostprocessing"];
 
-        v32 = +[CVAPreferenceManager defaults];
-        v17->_doFaceMask = [v32 BOOLForKey:@"enableFaceMaskPostprocessing"];
-
-        v144 = objc_opt_new();
-        [v144 setConstantValue:p_width2 type:29 withName:@"kDistanceTransformWidth"];
-        [v144 setConstantValue:&v17->_height2 type:29 withName:@"kDistanceTransformHeight"];
-        v143 = 0;
-        [v144 setConstantValue:&v143 type:53 withName:@"kDoVignetting"];
+        v143 = objc_opt_new();
+        [v143 setConstantValue:p_width2 type:29 withName:@"kDistanceTransformWidth"];
+        [v143 setConstantValue:&v17->_height2 type:29 withName:@"kDistanceTransformHeight"];
+        v142 = 0;
+        [v143 setConstantValue:&v142 type:53 withName:@"kDoVignetting"];
         objc_storeStrong(&v17->_device, *(context + 1));
         objc_storeStrong(&v17->_commandQueue, *(context + 2));
         objc_storeStrong(&v17->_defaultLibrary, *(context + 3));
@@ -2296,31 +2448,31 @@ LABEL_69:
         v17->_metalContext = context;
         if (v17->_sdofRenderingHasForegroundBlur)
         {
-          v33 = [[GlobalReductionAverage alloc] initWithFigMetalContext:*context textureSize:256.0, 192.0];
+          v32 = [[GlobalReductionAverage alloc] initWithFigMetalContext:*context textureSize:256.0, 192.0];
           globalReductionAverage = v17->_globalReductionAverage;
-          v17->_globalReductionAverage = v33;
+          v17->_globalReductionAverage = v32;
         }
 
         v17->_lastCommittedCommand = 0;
-        v327 = *MEMORY[0x1E6966000];
-        v328[0] = &unk_1F5A09F00;
-        v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v328 forKeys:&v327 count:1];
-        if (CVMetalTextureCacheCreate(*MEMORY[0x1E695E480], v35, v17->_device, 0, &v17->_textureCache))
+        v326 = *MEMORY[0x1E6966000];
+        v327[0] = &unk_1F5A09F00;
+        v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v327 forKeys:&v326 count:1];
+        if (CVMetalTextureCacheCreate(*MEMORY[0x1E695E480], v34, v17->_device, 0, &v17->_textureCache))
         {
-          v36 = 1;
+          v35 = 1;
         }
 
         else
         {
-          v36 = v17->_textureCache == 0;
+          v35 = v17->_textureCache == 0;
         }
 
-        v37 = MEMORY[0x1E696AEC0];
-        v38 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Error allocating texture cache"];
-        v39 = [v37 stringWithFormat:@"Assertion failure in %s at %s:%d -- %@", "-[VideoMattingMetal initWithStaticParams:renderingDisparityUpdateRate:renderingDisparityBlurRadius:renderingLensFocalLength_mm:useTemporalConfidence:metalContext:error:]", "/Library/Caches/com.apple.xbs/Sources/AppleCVAPhoto/module/sdof/src/pipeline/VideoMattingMetal.mm", 479, v38];
-        sub_1DED25D64(v36, error, 4294944382, v39);
+        v36 = MEMORY[0x1E696AEC0];
+        v37 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Error allocating texture cache"];
+        v38 = [v36 stringWithFormat:@"Assertion failure in %s at %s:%d -- %@", "-[VideoMattingMetal initWithStaticParams:renderingDisparityUpdateRate:renderingDisparityBlurRadius:renderingLensFocalLength_mm:useTemporalConfidence:metalContext:error:]", "/Library/Caches/com.apple.xbs/Sources/AppleCVAPhoto/module/sdof/src/pipeline/VideoMattingMetal.mm", 479, v37];
+        sub_1DED25D64(v35, error, 4294944382, v38);
 
-        if (v36)
+        if (v35)
         {
           goto LABEL_40;
         }
@@ -2330,27 +2482,27 @@ LABEL_69:
         v17->_renderingDisparityBlurRadius = radius;
         v17->_renderingLensFocalLength_mm = length_mm;
         v17->_useTemporalConfidence = confidence;
-        v40 = [[CVAPhotoMTLRingBuffer alloc] initWithLength:36 options:0 device:v17->_device];
+        v39 = [[CVAPhotoMTLRingBuffer alloc] initWithLength:36 options:0 device:v17->_device];
         disparityConfig = v17->_disparityConfig;
-        v17->_disparityConfig = v40;
+        v17->_disparityConfig = v39;
 
-        v42 = v17->_disparityConfig;
-        v43 = MEMORY[0x1E696AEC0];
-        v44 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[_Nonnull id<MTLDeviceSPI> newBufferWithLength:%lu] is nil", 36];
-        v45 = [v43 stringWithFormat:@"Assertion failure in %s at %s:%d -- %@", "-[VideoMattingMetal initWithStaticParams:renderingDisparityUpdateRate:renderingDisparityBlurRadius:renderingLensFocalLength_mm:useTemporalConfidence:metalContext:error:]", "/Library/Caches/com.apple.xbs/Sources/AppleCVAPhoto/module/sdof/src/pipeline/VideoMattingMetal.mm", 509, v44];
-        sub_1DED25D64(v42 == 0, error, 4294944382, v45);
+        v41 = v17->_disparityConfig;
+        v42 = MEMORY[0x1E696AEC0];
+        v43 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[_Nonnull id<MTLDeviceSPI> newBufferWithLength:%lu] is nil", 36];
+        v44 = [v42 stringWithFormat:@"Assertion failure in %s at %s:%d -- %@", "-[VideoMattingMetal initWithStaticParams:renderingDisparityUpdateRate:renderingDisparityBlurRadius:renderingLensFocalLength_mm:useTemporalConfidence:metalContext:error:]", "/Library/Caches/com.apple.xbs/Sources/AppleCVAPhoto/module/sdof/src/pipeline/VideoMattingMetal.mm", 509, v43];
+        sub_1DED25D64(v41 == 0, error, 4294944382, v44);
 
-        if (!v42)
+        if (!v41)
         {
           goto LABEL_40;
         }
 
-        v46 = [CVAFilterDiffusion alloc];
-        LODWORD(v47) = 998310275;
-        LODWORD(v48) = 1.0;
-        v49 = [(CVAFilterDiffusion *)v46 initWithFigMetalContext:*context bufferWidth:*p_width2 bufferHeight:v17->_height2 edgeVariance:error stepSize:v47 error:v48];
+        v45 = [CVAFilterDiffusion alloc];
+        LODWORD(v46) = 998310275;
+        LODWORD(v47) = 1.0;
+        v48 = [(CVAFilterDiffusion *)v45 initWithFigMetalContext:*context bufferWidth:*p_width2 bufferHeight:v17->_height2 edgeVariance:error stepSize:v46 error:v47];
         diffusion = v17->_diffusion;
-        v17->_diffusion = v49;
+        v17->_diffusion = v48;
 
         if (!v17->_diffusion)
         {
@@ -2363,116 +2515,15 @@ LABEL_69:
           _os_log_impl(&dword_1DED23000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "CVAPhoto: Facemask-based disparity post-processing has been deprecated.", buf, 2u);
         }
 
-        v51 = [CVAFilterDistanceTransform alloc];
-        v52 = *context;
-        v53 = v17->_height2;
-        *buf = *p_width2;
-        v147 = v53;
-        v148 = 1;
-        v54 = [(CVAFilterDistanceTransform *)v51 initWithFigMetalContext:v52 textureSize:buf error:error];
-        distanceTransform = v17->_distanceTransform;
-        v17->_distanceTransform = v54;
-
-        if (!v17->_distanceTransform)
-        {
-          goto LABEL_40;
-        }
-
-        v56 = [CVAFilterBox alloc];
-        v57 = *context;
-        v58 = v17->_height2;
-        *buf = *p_width2;
-        v147 = v58;
-        v148 = 1;
-        v59 = [(CVAFilterBox *)v56 initWithFigMetalContext:v57 textureSize:buf error:error];
-        boxFilter = v17->_boxFilter;
-        v17->_boxFilter = v59;
-
-        if (!v17->_boxFilter)
-        {
-          goto LABEL_40;
-        }
-
-        v61 = [[CVAFilterColorAlphaToFgBg alloc] initWithFigMetalContext:*context error:error];
-        colorAlphaToFgBg = v17->_colorAlphaToFgBg;
-        v17->_colorAlphaToFgBg = v61;
-
-        if (!v17->_colorAlphaToFgBg)
-        {
-          goto LABEL_40;
-        }
-
-        v63 = [[CVAFilterHybridResampling alloc] initWithFigMetalContext:*context commandQueue:v17->_commandQueue error:error];
-        hybridResampler = v17->_hybridResampler;
-        v17->_hybridResampler = v63;
-
-        if (!v17->_hybridResampler)
-        {
-          goto LABEL_40;
-        }
-
-        v135 = sub_1DED5D1F8(@"harvesting.enabled", @"com.apple.coremedia", 0);
-        v136 = ((floorf(((params->kernelSize * 0.5) * *p_width2) / params->alphaWidth) * 2.0) + 1.0);
-        if (!v135)
-        {
-          v65 = [objc_alloc(MEMORY[0x1E69745D0]) initWithDevice:v17->_device kernelDiameter:v136];
-          guidedFilter = v17->_guidedFilter;
-          v17->_guidedFilter = v65;
-
-          v67 = v17->_guidedFilter;
-          v68 = MEMORY[0x1E696AEC0];
-          v69 = [MEMORY[0x1E696AEC0] stringWithFormat:@"MPSImageGuidedFilter is nil"];
-          v70 = [v68 stringWithFormat:@"Assertion failure in %s at %s:%d -- %@", "-[VideoMattingMetal initWithStaticParams:renderingDisparityUpdateRate:renderingDisparityBlurRadius:renderingLensFocalLength_mm:useTemporalConfidence:metalContext:error:]", "/Library/Caches/com.apple.xbs/Sources/AppleCVAPhoto/module/sdof/src/pipeline/VideoMattingMetal.mm", 592, v69];
-          sub_1DED25D64(v67 == 0, error, 4294944382, v70);
-
-          if (!v67)
-          {
-            goto LABEL_40;
-          }
-        }
-
-        [(MPSImageGuidedFilter *)v17->_guidedFilter setRescaleCoefficients:0];
-        [(MPSImageGuidedFilter *)v17->_guidedFilter setReconstructionCoefficientsSampleBicubic:1];
-        v71 = [CVAFilterGuided alloc];
-        commandQueue = v17->_commandQueue;
-        v73 = *p_width2;
-        v74 = v17->_height2;
-        laplacianLimitingDownsampling = params->laplacianLimitingDownsampling;
-        infConvolutionDownsampling = params->infConvolutionDownsampling;
-        v77 = *&params->alphaWidth;
-        *&v78 = v77;
-        *(&v78 + 1) = HIDWORD(v77);
-        v141 = v78;
-        v79 = *context;
-        *buf = v73;
-        v147 = v74;
-        v148 = 1;
-        v142 = 1;
-        LODWORD(v133) = laplacianLimitingDownsampling;
-        HIDWORD(v133) = params->laplacianLimitingBlurSize;
-        v80 = [(CVAFilterGuided *)v71 initWithFigMetalContext:v79 commandQueue:commandQueue textureSize:buf alphaSize:&v141 kernelSize:v136 infConvolutionDownsampling:infConvolutionDownsampling laplacianLimitingDownsampling:v133 laplacianLimitingBlurSize:error error:?];
-        cvaGuidedFilter = v17->_cvaGuidedFilter;
-        v17->_cvaGuidedFilter = v80;
-
-        if (!v17->_cvaGuidedFilter)
-        {
-          goto LABEL_40;
-        }
-
-        v82 = [[CVAFilterMaskedVariableBlur alloc] initWithFigMetalContext:*context commandQueue:v17->_commandQueue kernelSize:7 error:error];
-        maskedVariableBlur = v17->_maskedVariableBlur;
-        v17->_maskedVariableBlur = v82;
-
-        if (!v17->_maskedVariableBlur)
-        {
-          goto LABEL_40;
-        }
-
-        v84 = [[CVAFilterRenderStagelight alloc] initWithFigMetalContext:*v17->_metalContext error:error];
-        stagelightFilter = v17->_stagelightFilter;
-        v17->_stagelightFilter = v84;
-
-        if (!v17->_stagelightFilter || (v86 = [[CVAFilterRenderComposite alloc] initWithFigMetalContext:*v17->_metalContext error:error], renderComposite = v17->_renderComposite, v17->_renderComposite = v86, renderComposite, !v17->_renderComposite))
+        if ((v50 = [CVAFilterDistanceTransform alloc], v51 = *context, v52 = v17->_height2, *buf = *p_width2, v146 = v52, v147 = 1, v53 = [(CVAFilterDistanceTransform *)v50 initWithFigMetalContext:v51 textureSize:buf error:error], distanceTransform = v17->_distanceTransform, v17->_distanceTransform = v53, distanceTransform, !v17->_distanceTransform)
+          || (v55 = [CVAFilterBox alloc], v56 = *context, v57 = v17->_height2, *buf = *p_width2, v146 = v57, v147 = 1, v58 = [(CVAFilterBox *)v55 initWithFigMetalContext:v56 textureSize:buf error:error], boxFilter = v17->_boxFilter, v17->_boxFilter = v58, boxFilter, !v17->_boxFilter)
+          || (v60 = [[CVAFilterColorAlphaToFgBg alloc] initWithFigMetalContext:*context error:error], colorAlphaToFgBg = v17->_colorAlphaToFgBg, v17->_colorAlphaToFgBg = v60, colorAlphaToFgBg, !v17->_colorAlphaToFgBg)
+          || (v62 = [[CVAFilterHybridResampling alloc] initWithFigMetalContext:*context commandQueue:v17->_commandQueue error:error], hybridResampler = v17->_hybridResampler, v17->_hybridResampler = v62, hybridResampler, !v17->_hybridResampler)
+          || (v134 = sub_1DED5D1F8(@"harvesting.enabled", @"com.apple.coremedia", 0), v135 = ((floorf(((params->kernelSize * 0.5) * *p_width2) / params->alphaWidth) * 2.0) + 1.0), !v134) && (v64 = [objc_alloc(MEMORY[0x1E69745D0]) initWithDevice:v17->_device kernelDiameter:v135], guidedFilter = v17->_guidedFilter, v17->_guidedFilter = v64, guidedFilter, v66 = v17->_guidedFilter, v67 = MEMORY[0x1E696AEC0], objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"MPSImageGuidedFilter is nil"), v68 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v67, "stringWithFormat:", @"Assertion failure in %s at %s:%d -- %@", "-[VideoMattingMetal initWithStaticParams:renderingDisparityUpdateRate:renderingDisparityBlurRadius:renderingLensFocalLength_mm:useTemporalConfidence:metalContext:error:]", "/Library/Caches/com.apple.xbs/Sources/AppleCVAPhoto/module/sdof/src/pipeline/VideoMattingMetal.mm", 592, v68), v69 = objc_claimAutoreleasedReturnValue(), sub_1DED25D64(v66 == 0, error, 4294944382, v69), v69, v68, !v66)
+          || ([(MPSImageGuidedFilter *)v17->_guidedFilter setRescaleCoefficients:0], [(MPSImageGuidedFilter *)v17->_guidedFilter setReconstructionCoefficientsSampleBicubic:1], v70 = [CVAFilterGuided alloc], commandQueue = v17->_commandQueue, v72 = *p_width2, v73 = v17->_height2, laplacianLimitingDownsampling = params->laplacianLimitingDownsampling, infConvolutionDownsampling = params->infConvolutionDownsampling, v76 = *&params->alphaWidth, *&v77 = v76, *(&v77 + 1) = HIDWORD(v76), v140 = v77, v78 = *context, *buf = v72, v146 = v73, v147 = 1, v141 = 1, LODWORD(v132) = laplacianLimitingDownsampling, HIDWORD(v132) = params->laplacianLimitingBlurSize, v79 = [(CVAFilterGuided *)v70 initWithFigMetalContext:v78 commandQueue:commandQueue textureSize:buf alphaSize:&v140 kernelSize:v135 infConvolutionDownsampling:infConvolutionDownsampling laplacianLimitingDownsampling:v132 laplacianLimitingBlurSize:error error:?], cvaGuidedFilter = v17->_cvaGuidedFilter, v17->_cvaGuidedFilter = v79, cvaGuidedFilter, !v17->_cvaGuidedFilter)
+          || (v81 = [[CVAFilterMaskedVariableBlur alloc] initWithFigMetalContext:*context commandQueue:v17->_commandQueue kernelSize:7 error:error], maskedVariableBlur = v17->_maskedVariableBlur, v17->_maskedVariableBlur = v81, maskedVariableBlur, !v17->_maskedVariableBlur)
+          || (v83 = [[CVAFilterRenderStagelight alloc] initWithFigMetalContext:*v17->_metalContext error:error], stagelightFilter = v17->_stagelightFilter, v17->_stagelightFilter = v83, stagelightFilter, !v17->_stagelightFilter)
+          || (v85 = [[CVAFilterRenderComposite alloc] initWithFigMetalContext:*v17->_metalContext error:error], renderComposite = v17->_renderComposite, v17->_renderComposite = v85, renderComposite, !v17->_renderComposite))
         {
 LABEL_40:
           v26 = 0;
@@ -2481,119 +2532,119 @@ LABEL_41:
           goto LABEL_5;
         }
 
-        v140 = &v144;
+        v139 = &v143;
         *buf = &v17->_disparityDecimateKernel;
-        v147 = @"disparityDecimate";
-        v148 = 0;
+        v146 = @"disparityDecimate";
+        v147 = 0;
         p_colorSimKernel = &v17->_colorSimKernel;
         coeffHistory = @"colorSim";
-        v151 = 0;
+        v150 = 0;
         p_colorSimL1Kernel = &v17->_colorSimL1Kernel;
-        v153 = @"colorSimL1";
-        v154 = 0;
+        v152 = @"colorSimL1";
+        v153 = 0;
         p_temporalCoefficientsFilterKernel = &v17->_temporalCoefficientsFilterKernel;
-        v156 = @"temporalFilterCoefficients";
-        v157 = 0;
+        v155 = @"temporalFilterCoefficients";
+        v156 = 0;
         p_guidedFilterWeightKernel = &v17->_guidedFilterWeightKernel;
-        v159 = @"guidedFilterWeight";
-        v160 = 0;
+        v158 = @"guidedFilterWeight";
+        v159 = 0;
         p_disparityConfidenceMaskKernel = &v17->_disparityConfidenceMaskKernel;
         p_gfForegroundMask = @"disparityConfidenceMask";
-        v163 = 0;
+        v162 = 0;
         p_disparityMasksKernel = &v17->_disparityMasksKernel;
-        v165 = @"disparityMasks";
+        v164 = @"disparityMasks";
         p_gfWeight = 0;
         p_disparityIsValidKernel = &v17->_disparityIsValidKernel;
-        v168 = @"disparityIsValid";
-        v169 = 0;
+        v167 = @"disparityIsValid";
+        v168 = 0;
         p_domainTransformXKernel = &v17->_domainTransformXKernel;
-        v171 = @"domainTransformX";
-        v172 = v144;
+        v170 = @"domainTransformX";
+        v171 = v143;
         p_domainTransformYKernel = &v17->_domainTransformYKernel;
-        v174 = @"domainTransformY";
-        v175 = v172;
+        v173 = @"domainTransformY";
+        v174 = v171;
         p_edgeAwareFillXKernel = &v17->_edgeAwareFillXKernel;
-        v177 = @"edgeAwareFillX";
-        disparity = v175;
+        v176 = @"edgeAwareFillX";
+        disparity = v174;
         p_edgeAwareFillYKernel = &v17->_edgeAwareFillYKernel;
-        v180 = @"edgeAwareFillY";
-        v181 = disparity;
+        v179 = @"edgeAwareFillY";
+        v180 = disparity;
         p_invalidDisparityMaskKernel = &v17->_invalidDisparityMaskKernel;
-        v183 = @"invalidDisparityMask";
-        v184 = 0;
+        v182 = @"invalidDisparityMask";
+        v183 = 0;
         p_bgFillXKernel = &v17->_bgFillXKernel;
         p_disparityInScreenAspectRatio = @"bgFillX";
-        v187 = 0;
+        v186 = 0;
         p_bgFillYKernel = &v17->_bgFillYKernel;
-        v189 = @"bgFillY";
+        v188 = @"bgFillY";
         p_facemaskDisparity = 0;
         p_internalDisparityToCanonicalDisparityKernel = &v17->_internalDisparityToCanonicalDisparityKernel;
-        v192 = @"internalDisparityToCanonicalDisparity";
-        v193 = 0;
+        v191 = @"internalDisparityToCanonicalDisparity";
+        v192 = 0;
         p_simpleConfidenceKernel = &v17->_simpleConfidenceKernel;
-        v195 = @"simpleConfidence";
-        v196 = 0;
+        v194 = @"simpleConfidence";
+        v195 = 0;
         p_roughDisparityKernel = &v17->_roughDisparityKernel;
         p_filledDisparityNoInvalidTexture = @"roughDisparity";
-        v199 = 0;
+        v198 = 0;
         p_diffusionMapKernel = &v17->_diffusionMapKernel;
-        v201 = @"diffusionMap";
+        v200 = @"diffusionMap";
         p_temporallyFilteredDisparity = 0;
         p_renderingDisparityDeweightKernel = &v17->_renderingDisparityDeweightKernel;
-        v204 = @"disparityDeweightFg";
-        v205 = 0;
+        v203 = @"disparityDeweightFg";
+        v204 = 0;
         p_renderingDisparityFillAndFilterKernel = &v17->_renderingDisparityFillAndFilterKernel;
-        v207 = @"disparityFillAndFilter";
-        v208 = 0;
+        v206 = @"disparityFillAndFilter";
+        v207 = 0;
         p_disparityCleanupKernel = &v17->_disparityCleanupKernel;
         smoothConfidence = @"disparityCleanup";
-        v211 = sub_1DED6C1F0(&v140, @"kFirstFrame", 0);
+        v210 = sub_1DED6C1F0(&v139, @"kFirstFrame", 0);
         p_disparityCleanupKernel_firstFrame = &v17->_disparityCleanupKernel_firstFrame;
-        v213 = @"disparityCleanup";
-        v214 = sub_1DED6C1F0(&v140, @"kFirstFrame", 1);
+        v212 = @"disparityCleanup";
+        v213 = sub_1DED6C1F0(&v139, @"kFirstFrame", 1);
         p_updateConfidenceAndLastValidDisparityKernel = &v17->_updateConfidenceAndLastValidDisparityKernel;
-        v216 = @"updateConfidenceAndLastValidDisparity";
-        v217 = sub_1DED6C1F0(&v140, @"kUseTemporalConfidence", 0);
+        v215 = @"updateConfidenceAndLastValidDisparity";
+        v216 = sub_1DED6C1F0(&v139, @"kUseTemporalConfidence", 0);
         p_updateConfidenceAndLastValidDisparityKernel_useTemporalConfidence = &v17->_updateConfidenceAndLastValidDisparityKernel_useTemporalConfidence;
-        v219 = @"updateConfidenceAndLastValidDisparity";
-        v220 = sub_1DED6C1F0(&v140, @"kUseTemporalConfidence", 1);
+        v218 = @"updateConfidenceAndLastValidDisparity";
+        v219 = sub_1DED6C1F0(&v139, @"kUseTemporalConfidence", 1);
         p_temporalDisparityFilterKernel = &v17->_temporalDisparityFilterKernel;
         smoothDisparity = @"temporalDisparityFilter";
-        v223 = sub_1DED6C1F0(&v140, @"kTemporalDisparityFallbackToInvalid", 0);
+        v222 = sub_1DED6C1F0(&v139, @"kTemporalDisparityFallbackToInvalid", 0);
         p_temporalDisparityFilterKernel_fallbackToInvalid = &v17->_temporalDisparityFilterKernel_fallbackToInvalid;
-        v225 = @"temporalDisparityFilter";
-        v226 = sub_1DED6C1F0(&v140, @"kTemporalDisparityFallbackToInvalid", 1);
+        v224 = @"temporalDisparityFilter";
+        v225 = sub_1DED6C1F0(&v139, @"kTemporalDisparityFallbackToInvalid", 1);
         p_fillBackgroundDisparityKernel = &v17->_fillBackgroundDisparityKernel;
-        v228 = @"fillBackgroundDisparity";
-        v229 = sub_1DED6C1F0(&v140, @"kUseFacemaskInFillBackgroundDisparity", 0);
+        v227 = @"fillBackgroundDisparity";
+        v228 = sub_1DED6C1F0(&v139, @"kUseFacemaskInFillBackgroundDisparity", 0);
         p_fillBackgroundDisparityKernel_faceMask = &v17->_fillBackgroundDisparityKernel_faceMask;
-        v231 = @"fillBackgroundDisparity";
-        v232 = sub_1DED6C1F0(&v140, @"kUseFacemaskInFillBackgroundDisparity", 1);
+        v230 = @"fillBackgroundDisparity";
+        v231 = sub_1DED6C1F0(&v139, @"kUseFacemaskInFillBackgroundDisparity", 1);
         p_halfDownSampler = &v17->_halfDownSampler;
         p_outputCanonicalDisparity = @"halfDownsample";
-        v235 = 0;
+        v234 = 0;
         p_alphaFillKernel = &v17->_alphaFillKernel;
-        v237 = @"fillAlpha";
+        v236 = @"fillAlpha";
         p_diffusionMapTexture = 0;
         p_rotateAndFitIntoRectKernel = &v17->_rotateAndFitIntoRectKernel;
-        v240 = @"rotateAndFitIntoRectKernel";
-        v241 = 0;
-        sub_1DED6C284(&v141, buf, 0x20uLL);
+        v239 = @"rotateAndFitIntoRectKernel";
+        v240 = 0;
+        sub_1DED6C284(&v140, buf, 0x20uLL);
 
-        v89 = *(&v141 + 1);
-        v88 = v141;
-        if (v141 != *(&v141 + 1))
+        v88 = *(&v140 + 1);
+        v87 = v140;
+        if (v140 != *(&v140 + 1))
         {
           while (1)
           {
-            sub_1DED422A0(*v88, *context, *(v88 + 8), *(v88 + 16));
-            if (!**v88)
+            sub_1DED422A0(*v87, *context, *(v87 + 8), *(v87 + 16));
+            if (!**v87)
             {
               break;
             }
 
-            v88 += 24;
-            if (v88 == v89)
+            v87 += 24;
+            if (v87 == v88)
             {
               goto LABEL_30;
             }
@@ -2605,330 +2656,330 @@ LABEL_41:
 
 LABEL_30:
         *buf = &v17->_coeff;
-        v147 = 125;
-        LODWORD(v148) = *p_width2;
-        HIDWORD(v148) = v17->_height2;
+        v146 = 125;
+        LODWORD(v147) = *p_width2;
+        HIDWORD(v147) = v17->_height2;
         p_colorSimKernel = 0;
         coeffHistory = v17->_coeffHistory;
-        v151 = 115;
+        v150 = 115;
         LODWORD(p_colorSimL1Kernel) = *p_width2;
         HIDWORD(p_colorSimL1Kernel) = v17->_height2;
-        v153 = 0;
-        v154 = &v17->_coeffHistory[1];
+        v152 = 0;
+        v153 = &v17->_coeffHistory[1];
         p_temporalCoefficientsFilterKernel = 115;
-        LODWORD(v156) = *p_width2;
-        HIDWORD(v156) = v17->_height2;
-        v157 = 0;
+        LODWORD(v155) = *p_width2;
+        HIDWORD(v155) = v17->_height2;
+        v156 = 0;
         p_guidedFilterWeightKernel = &v17->_alphaNoPostprocessing;
-        v159 = 10;
-        v160 = *&params->alphaWidth;
+        v158 = 10;
+        v159 = *&params->alphaWidth;
         p_disparityConfidenceMaskKernel = 0;
         p_gfForegroundMask = &v17->_gfForegroundMask;
-        v163 = 10;
+        v162 = 10;
         LODWORD(p_disparityMasksKernel) = *p_width2;
         HIDWORD(p_disparityMasksKernel) = v17->_height2;
-        v165 = 0;
+        v164 = 0;
         p_gfWeight = &v17->_gfWeight;
         p_disparityIsValidKernel = 25;
-        LODWORD(v168) = *p_width2;
-        HIDWORD(v168) = v17->_height2;
-        v169 = 0;
+        LODWORD(v167) = *p_width2;
+        HIDWORD(v167) = v17->_height2;
+        v168 = 0;
         p_domainTransformXKernel = v17->_disparityLastValidValue;
-        v171 = 25;
-        LODWORD(v172) = *p_width2;
-        HIDWORD(v172) = v17->_height2;
+        v170 = 25;
+        LODWORD(v171) = *p_width2;
+        HIDWORD(v171) = v17->_height2;
         p_domainTransformYKernel = 0;
-        v174 = &v17->_disparityLastValidValue[1];
-        v175 = 25;
+        v173 = &v17->_disparityLastValidValue[1];
+        v174 = 25;
         LODWORD(p_edgeAwareFillXKernel) = *p_width2;
         HIDWORD(p_edgeAwareFillXKernel) = v17->_height2;
-        v177 = 0;
+        v176 = 0;
         disparity = v17->_disparity;
         p_edgeAwareFillYKernel = 25;
-        LODWORD(v180) = *p_width2;
-        HIDWORD(v180) = v17->_height2;
-        v181 = 0;
+        LODWORD(v179) = *p_width2;
+        HIDWORD(v179) = v17->_height2;
+        v180 = 0;
         p_invalidDisparityMaskKernel = &v17->_disparity[1];
-        v183 = 25;
-        LODWORD(v184) = *p_width2;
-        HIDWORD(v184) = v17->_height2;
+        v182 = 25;
+        LODWORD(v183) = *p_width2;
+        HIDWORD(v183) = v17->_height2;
         p_bgFillXKernel = 0;
         p_disparityInScreenAspectRatio = &v17->_disparityInScreenAspectRatio;
-        v187 = 25;
+        v186 = 25;
         LODWORD(p_bgFillYKernel) = 2 * *p_width2;
         HIDWORD(p_bgFillYKernel) = 2 * v17->_height2;
-        v189 = 0;
+        v188 = 0;
         p_facemaskDisparity = &v17->_facemaskDisparity;
         p_internalDisparityToCanonicalDisparityKernel = 25;
-        LODWORD(v192) = *p_width2;
-        HIDWORD(v192) = v17->_height2;
-        v193 = 0;
+        LODWORD(v191) = *p_width2;
+        HIDWORD(v191) = v17->_height2;
+        v192 = 0;
         p_simpleConfidenceKernel = &v17->_filledDisparityTexture;
-        v195 = 25;
-        LODWORD(v196) = *p_width2;
-        HIDWORD(v196) = v17->_height2;
+        v194 = 25;
+        LODWORD(v195) = *p_width2;
+        HIDWORD(v195) = v17->_height2;
         p_roughDisparityKernel = 0;
         p_filledDisparityNoInvalidTexture = &v17->_filledDisparityNoInvalidTexture;
-        v199 = 25;
+        v198 = 25;
         LODWORD(p_diffusionMapKernel) = *p_width2;
         HIDWORD(p_diffusionMapKernel) = v17->_height2;
-        v201 = 0;
+        v200 = 0;
         p_temporallyFilteredDisparity = &v17->_temporallyFilteredDisparity;
         p_renderingDisparityDeweightKernel = 25;
-        LODWORD(v204) = *p_width2;
-        HIDWORD(v204) = v17->_height2;
-        v205 = 0;
+        LODWORD(v203) = *p_width2;
+        HIDWORD(v203) = v17->_height2;
+        v204 = 0;
         p_renderingDisparityFillAndFilterKernel = &v17->_disparityConfidenceMaskTexture;
-        v207 = 25;
-        LODWORD(v208) = *p_width2;
-        HIDWORD(v208) = v17->_height2;
+        v206 = 25;
+        LODWORD(v207) = *p_width2;
+        HIDWORD(v207) = v17->_height2;
         p_disparityCleanupKernel = 0;
         smoothConfidence = v17->_smoothConfidence;
-        v211 = 25;
+        v210 = 25;
         LODWORD(p_disparityCleanupKernel_firstFrame) = *p_width2;
         HIDWORD(p_disparityCleanupKernel_firstFrame) = v17->_height2;
-        v213 = 0;
-        v214 = &v17->_smoothConfidence[1];
+        v212 = 0;
+        v213 = &v17->_smoothConfidence[1];
         p_updateConfidenceAndLastValidDisparityKernel = 25;
-        LODWORD(v216) = *p_width2;
-        HIDWORD(v216) = v17->_height2;
-        v217 = 0;
+        LODWORD(v215) = *p_width2;
+        HIDWORD(v215) = v17->_height2;
+        v216 = 0;
         p_updateConfidenceAndLastValidDisparityKernel_useTemporalConfidence = &v17->_colorSim;
-        v219 = 10;
-        LODWORD(v220) = *p_width2;
-        HIDWORD(v220) = v17->_height2;
+        v218 = 10;
+        LODWORD(v219) = *p_width2;
+        HIDWORD(v219) = v17->_height2;
         p_temporalDisparityFilterKernel = 0;
         smoothDisparity = v17->_smoothDisparity;
-        v223 = 55;
+        v222 = 55;
         LODWORD(p_temporalDisparityFilterKernel_fallbackToInvalid) = *p_width2;
         HIDWORD(p_temporalDisparityFilterKernel_fallbackToInvalid) = v17->_height2;
-        v225 = 0;
-        v226 = &v17->_smoothDisparity[1];
+        v224 = 0;
+        v225 = &v17->_smoothDisparity[1];
         p_fillBackgroundDisparityKernel = 55;
-        LODWORD(v228) = *p_width2;
-        HIDWORD(v228) = v17->_height2;
-        v229 = 0;
+        LODWORD(v227) = *p_width2;
+        HIDWORD(v227) = v17->_height2;
+        v228 = 0;
         p_fillBackgroundDisparityKernel_faceMask = &v17->_roughDisparity;
-        v231 = 25;
-        LODWORD(v232) = *p_width2;
-        HIDWORD(v232) = v17->_height2;
+        v230 = 25;
+        LODWORD(v231) = *p_width2;
+        HIDWORD(v231) = v17->_height2;
         p_halfDownSampler = 0;
         p_outputCanonicalDisparity = &v17->_outputCanonicalDisparity;
-        v235 = 25;
+        v234 = 25;
         LODWORD(p_alphaFillKernel) = *p_width2;
         HIDWORD(p_alphaFillKernel) = v17->_height2;
-        v237 = 0;
+        v236 = 0;
         p_diffusionMapTexture = &v17->_diffusionMapTexture;
         p_rotateAndFitIntoRectKernel = 25;
-        LODWORD(v240) = *p_width2;
-        HIDWORD(v240) = v17->_height2;
-        v241 = 0;
+        LODWORD(v239) = *p_width2;
+        HIDWORD(v239) = v17->_height2;
+        v240 = 0;
         p_disparityIsValidTexture = &v17->_disparityIsValidTexture;
-        v243 = 13;
-        v244 = *p_width2;
-        v245 = v17->_height2;
-        v246 = 0;
+        v242 = 13;
+        v243 = *p_width2;
+        v244 = v17->_height2;
+        v245 = 0;
         p_distanceFromKnownDisparityTexture = &v17->_distanceFromKnownDisparityTexture;
-        v248 = 25;
-        v249 = *p_width2;
-        v250 = v17->_height2;
-        v251 = 0;
+        v247 = 25;
+        v248 = *p_width2;
+        v249 = v17->_height2;
+        v250 = 0;
         p_domainTransformXTexture = &v17->_domainTransformXTexture;
-        v253 = 25;
-        v254 = *p_width2;
-        v255 = v17->_height2;
-        v256 = 0;
+        v252 = 25;
+        v253 = *p_width2;
+        v254 = v17->_height2;
+        v255 = 0;
         p_domainTransformYTexture = &v17->_domainTransformYTexture;
-        v258 = 25;
-        v259 = *p_width2;
-        v260 = v17->_height2;
-        v261 = 0;
+        v257 = 25;
+        v258 = *p_width2;
+        v259 = v17->_height2;
+        v260 = 0;
         p_tempFloatR32FloatTexture = &v17->_tempFloatR32FloatTexture;
-        v263 = 55;
-        v264 = *p_width2;
-        v265 = v17->_height2;
-        v266 = 0;
+        v262 = 55;
+        v263 = *p_width2;
+        v264 = v17->_height2;
+        v265 = 0;
         p_edgeAwareFillTempTexture = &v17->_edgeAwareFillTempTexture;
-        v268 = 25;
-        v269 = *p_width2;
-        v270 = v17->_height2;
-        v271 = 0;
+        v267 = 25;
+        v268 = *p_width2;
+        v269 = v17->_height2;
+        v270 = 0;
         p_bgFillTempTexture = &v17->_bgFillTempTexture;
-        v273 = 25;
-        v274 = *p_width2;
-        v275 = v17->_height2;
-        v276 = 0;
+        v272 = 25;
+        v273 = *p_width2;
+        v274 = v17->_height2;
+        v275 = 0;
         p_invalidDisparityMaskTexture = &v17->_invalidDisparityMaskTexture;
-        v278 = 13;
-        v279 = *p_width2;
-        v280 = v17->_height2;
-        v281 = 0;
+        v277 = 13;
+        v278 = *p_width2;
+        v279 = v17->_height2;
+        v280 = 0;
         p_initDisparity = &v17->_initDisparity;
-        v283 = 25;
-        v284 = *p_width2;
-        v285 = v17->_height2;
-        v286 = 0;
+        v282 = 25;
+        v283 = *p_width2;
+        v284 = v17->_height2;
+        v285 = 0;
         p_isForegroundTexture = &v17->_isForegroundTexture;
-        v288 = 13;
-        v289 = *p_width2;
-        v290 = v17->_height2;
-        v291 = 0;
+        v287 = 13;
+        v288 = *p_width2;
+        v289 = v17->_height2;
+        v290 = 0;
         p_distanceToForegroundTexture = &v17->_distanceToForegroundTexture;
-        v293 = 25;
-        v294 = *p_width2;
-        v295 = v17->_height2;
-        v296 = 0;
+        v292 = 25;
+        v293 = *p_width2;
+        v294 = v17->_height2;
+        v295 = 0;
         p_correctlyRotatedAndReshapedSegmentation = &v17->_correctlyRotatedAndReshapedSegmentation;
-        v298 = 25;
-        v299 = *p_width2;
-        v300 = v17->_height2;
-        v301 = 0;
+        v297 = 25;
+        v298 = *p_width2;
+        v299 = v17->_height2;
+        v300 = 0;
         p_blurredBg = &v17->_blurredBg;
-        v303 = 70;
+        v302 = 70;
         width = v17->_width;
         height = v17->_height;
-        v306 = 0;
+        v305 = 0;
         p_deweightedDisparity = &v17->_deweightedDisparity;
-        v308 = 65;
-        v309 = *p_width2;
-        v310 = v17->_height2;
-        v311 = 0;
+        v307 = 65;
+        v308 = *p_width2;
+        v309 = v17->_height2;
+        v310 = 0;
         shift = v17->_shift;
-        v313 = 65;
-        v314 = *p_width2;
-        v315 = v17->_height2;
-        v316 = 0;
-        v317 = &v17->_shift[1];
-        v318 = 65;
-        v319 = *p_width2;
-        v320 = v17->_height2;
-        v321 = 0;
+        v312 = 65;
+        v313 = *p_width2;
+        v314 = v17->_height2;
+        v315 = 0;
+        v316 = &v17->_shift[1];
+        v317 = 65;
+        v318 = *p_width2;
+        v319 = v17->_height2;
+        v320 = 0;
         p_coc = &v17->_coc;
-        v323 = 10;
-        v324 = *p_width2;
-        v325 = v17->_height2;
-        v326 = 0;
+        v322 = 10;
+        v323 = *p_width2;
+        v324 = v17->_height2;
+        v325 = 0;
         sub_1DED6C348(&__p, buf, 0x29uLL);
-        v90 = __p;
-        v91 = v139;
-        if (__p != v139)
+        v89 = __p;
+        v90 = v138;
+        if (__p != v138)
         {
           do
           {
-            v92 = sub_1DED6FDC8(v17->_device, v90[1], *(v90 + 4), *(v90 + 5), v90[3], error);
-            v93 = **v90;
-            **v90 = v92;
+            v91 = sub_1DED6FDC8(v17->_device, v89[1], *(v89 + 4), *(v89 + 5), v89[3], error);
+            v92 = **v89;
+            **v89 = v91;
 
-            if (!**v90)
+            if (!**v89)
             {
               goto LABEL_46;
             }
 
-            v90 += 4;
+            v89 += 4;
           }
 
-          while (v90 != v91);
+          while (v89 != v90);
         }
 
-        v94 = [MEMORY[0x1E69741C0] texture2DDescriptorWithPixelFormat:25 width:*p_width2 height:v17->_height2 mipmapped:0];
-        [v94 setUsage:7];
-        v95 = [(MTLDeviceSPI *)v17->_device newTextureWithDescriptor:v94];
+        v93 = [MEMORY[0x1E69741C0] texture2DDescriptorWithPixelFormat:25 width:*p_width2 height:v17->_height2 mipmapped:0];
+        [v93 setUsage:7];
+        v94 = [(MTLDeviceSPI *)v17->_device newTextureWithDescriptor:v93];
         facemaskRegionTexture = v17->_facemaskRegionTexture;
-        v17->_facemaskRegionTexture = v95;
+        v17->_facemaskRegionTexture = v94;
 
-        v97 = v17->_facemaskRegionTexture;
-        v98 = MEMORY[0x1E696AEC0];
-        v99 = [MEMORY[0x1E696AEC0] stringWithFormat:@"_facemaskRegionTexture is nil"];
-        v100 = [v98 stringWithFormat:@"Assertion failure in %s at %s:%d -- %@", "-[VideoMattingMetal initWithStaticParams:renderingDisparityUpdateRate:renderingDisparityBlurRadius:renderingLensFocalLength_mm:useTemporalConfidence:metalContext:error:]", "/Library/Caches/com.apple.xbs/Sources/AppleCVAPhoto/module/sdof/src/pipeline/VideoMattingMetal.mm", 788, v99];
-        sub_1DED25D64(v97 == 0, error, 4294944382, v100);
+        v96 = v17->_facemaskRegionTexture;
+        v97 = MEMORY[0x1E696AEC0];
+        v98 = [MEMORY[0x1E696AEC0] stringWithFormat:@"_facemaskRegionTexture is nil"];
+        v99 = [v97 stringWithFormat:@"Assertion failure in %s at %s:%d -- %@", "-[VideoMattingMetal initWithStaticParams:renderingDisparityUpdateRate:renderingDisparityBlurRadius:renderingLensFocalLength_mm:useTemporalConfidence:metalContext:error:]", "/Library/Caches/com.apple.xbs/Sources/AppleCVAPhoto/module/sdof/src/pipeline/VideoMattingMetal.mm", 788, v98];
+        sub_1DED25D64(v96 == 0, error, 4294944382, v99);
 
-        if (v97)
+        if (v96)
         {
           if (v17->_height >= v17->_width)
           {
-            v101 = v17->_width;
+            v100 = v17->_width;
           }
 
           else
           {
-            v101 = v17->_height;
+            v100 = v17->_height;
           }
 
-          v102 = [MEMORY[0x1E69741C0] texture2DDescriptorWithPixelFormat:70 width:? height:? mipmapped:?];
-          [v102 setUsage:3];
-          [v102 setMipmapLevelCount:vcvtps_u32_f32(log2f((v101 >> 3)))];
-          v103 = [(MTLDeviceSPI *)v17->_device newTextureWithDescriptor:v102];
-          v104 = MEMORY[0x1E696AEC0];
-          v105 = [MEMORY[0x1E696AEC0] stringWithFormat:@"_bg is nil"];
-          v105 = [v104 stringWithFormat:@"Assertion failure in %s at %s:%d -- %@", "-[VideoMattingMetal initWithStaticParams:renderingDisparityUpdateRate:renderingDisparityBlurRadius:renderingLensFocalLength_mm:useTemporalConfidence:metalContext:error:]", "/Library/Caches/com.apple.xbs/Sources/AppleCVAPhoto/module/sdof/src/pipeline/VideoMattingMetal.mm", 802, v105];
-          sub_1DED25D64(v103 == 0, error, 4294944382, v105);
+          v101 = [MEMORY[0x1E69741C0] texture2DDescriptorWithPixelFormat:70 width:? height:? mipmapped:?];
+          [v101 setUsage:3];
+          [v101 setMipmapLevelCount:vcvtps_u32_f32(log2f((v100 >> 3)))];
+          v102 = [(MTLDeviceSPI *)v17->_device newTextureWithDescriptor:v101];
+          v103 = MEMORY[0x1E696AEC0];
+          v104 = [MEMORY[0x1E696AEC0] stringWithFormat:@"_bg is nil"];
+          v104 = [v103 stringWithFormat:@"Assertion failure in %s at %s:%d -- %@", "-[VideoMattingMetal initWithStaticParams:renderingDisparityUpdateRate:renderingDisparityBlurRadius:renderingLensFocalLength_mm:useTemporalConfidence:metalContext:error:]", "/Library/Caches/com.apple.xbs/Sources/AppleCVAPhoto/module/sdof/src/pipeline/VideoMattingMetal.mm", 802, v104];
+          sub_1DED25D64(v102 == 0, error, 4294944382, v104);
 
-          if (v103)
+          if (v102)
           {
             bg = v17->_bg;
-            v17->_bg = v103;
+            v17->_bg = v102;
 
-            if (v135)
+            if (v134)
             {
 LABEL_39:
-              v108 = dispatch_semaphore_create(0);
+              v107 = dispatch_semaphore_create(0);
               semaphore = v17->_semaphore;
-              v17->_semaphore = v108;
+              v17->_semaphore = v107;
 
-              v110 = dispatch_semaphore_create(5);
+              v109 = dispatch_semaphore_create(5);
               renderingCallbackSemaphore = v17->_renderingCallbackSemaphore;
-              v17->_renderingCallbackSemaphore = v110;
+              v17->_renderingCallbackSemaphore = v109;
 
-              v112 = dispatch_queue_create("_synchronousRenderingCallbackQueue", 0);
+              v111 = dispatch_queue_create("_synchronousRenderingCallbackQueue", 0);
               synchronousRenderingCallbackQueue = v17->_synchronousRenderingCallbackQueue;
-              v17->_synchronousRenderingCallbackQueue = v112;
+              v17->_synchronousRenderingCallbackQueue = v111;
 
-              v114 = dispatch_semaphore_create(5);
+              v113 = dispatch_semaphore_create(5);
               mattingCallbackSemaphore = v17->_mattingCallbackSemaphore;
-              v17->_mattingCallbackSemaphore = v114;
+              v17->_mattingCallbackSemaphore = v113;
 
-              v116 = dispatch_queue_create("_synchronousMattingCallbackQueue", 0);
+              v115 = dispatch_queue_create("_synchronousMattingCallbackQueue", 0);
               synchronousMattingCallbackQueue = v17->_synchronousMattingCallbackQueue;
-              v17->_synchronousMattingCallbackQueue = v116;
+              v17->_synchronousMattingCallbackQueue = v115;
 
               v26 = v17;
               goto LABEL_47;
             }
 
-            v118 = objc_alloc(MEMORY[0x1E69745C0]);
-            LODWORD(v119) = 1053609165;
-            v120 = [v118 initWithDevice:v17->_device sigma:v119];
+            v117 = objc_alloc(MEMORY[0x1E69745C0]);
+            LODWORD(v118) = 1053609165;
+            v119 = [v117 initWithDevice:v17->_device sigma:v118];
             smoothFilter = v17->_smoothFilter;
-            v17->_smoothFilter = v120;
+            v17->_smoothFilter = v119;
 
-            v122 = [objc_alloc(MEMORY[0x1E6974580]) initWithDevice:v17->_device kernelWidth:((v17->_renderingDisparityBlurRadius * 2.0) + 1.0) kernelHeight:((v17->_renderingDisparityBlurRadius * 2.0) + 1.0)];
+            v121 = [objc_alloc(MEMORY[0x1E6974580]) initWithDevice:v17->_device kernelWidth:((v17->_renderingDisparityBlurRadius * 2.0) + 1.0) kernelHeight:((v17->_renderingDisparityBlurRadius * 2.0) + 1.0)];
             disparityBlurBoxKernel = v17->_disparityBlurBoxKernel;
-            v17->_disparityBlurBoxKernel = v122;
+            v17->_disparityBlurBoxKernel = v121;
 
             [(MPSImageBox *)v17->_disparityBlurBoxKernel setEdgeMode:0];
-            v124 = [objc_alloc(MEMORY[0x1E6974580]) initWithDevice:v17->_device kernelWidth:7 kernelHeight:7];
+            v123 = [objc_alloc(MEMORY[0x1E6974580]) initWithDevice:v17->_device kernelWidth:7 kernelHeight:7];
             fgBlurBoxKernel = v17->_fgBlurBoxKernel;
-            v17->_fgBlurBoxKernel = v124;
+            v17->_fgBlurBoxKernel = v123;
 
             [(MPSImageBox *)v17->_fgBlurBoxKernel setEdgeMode:1];
-            v126 = [objc_alloc(MEMORY[0x1E6974570]) initWithDevice:v17->_device kernelWidth:3 kernelHeight:3];
+            v125 = [objc_alloc(MEMORY[0x1E6974570]) initWithDevice:v17->_device kernelWidth:3 kernelHeight:3];
             fgMaskErosionKernel = v17->_fgMaskErosionKernel;
-            v17->_fgMaskErosionKernel = v126;
+            v17->_fgMaskErosionKernel = v125;
 
             [(MPSImageAreaMin *)v17->_fgMaskErosionKernel setEdgeMode:0];
-            v128 = IOSurfaceAcceleratorCreate();
-            v129 = MEMORY[0x1E696AEC0];
-            v130 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to create IOAccelerator"];
-            v130 = [v129 stringWithFormat:@"Assertion failure in %s at %s:%d -- %@", "-[VideoMattingMetal initWithStaticParams:renderingDisparityUpdateRate:renderingDisparityBlurRadius:renderingLensFocalLength_mm:useTemporalConfidence:metalContext:error:]", "/Library/Caches/com.apple.xbs/Sources/AppleCVAPhoto/module/sdof/src/pipeline/VideoMattingMetal.mm", 836, v130];
-            sub_1DED25D64(v128 != 0, error, 4294944396, v130);
+            v127 = IOSurfaceAcceleratorCreate();
+            v128 = MEMORY[0x1E696AEC0];
+            v129 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to create IOAccelerator"];
+            v129 = [v128 stringWithFormat:@"Assertion failure in %s at %s:%d -- %@", "-[VideoMattingMetal initWithStaticParams:renderingDisparityUpdateRate:renderingDisparityBlurRadius:renderingLensFocalLength_mm:useTemporalConfidence:metalContext:error:]", "/Library/Caches/com.apple.xbs/Sources/AppleCVAPhoto/module/sdof/src/pipeline/VideoMattingMetal.mm", 836, v129];
+            sub_1DED25D64(v127 != 0, error, 4294944396, v129);
 
-            if (!v128)
+            if (!v127)
             {
               commandBuffer = [(MTLCommandQueue *)v17->_commandQueue commandBuffer];
               [commandBuffer setLabel:@"MPS-prewarming"];
               sub_1DED70534(v17->_disparityBlurBoxKernel, v17->_device, commandBuffer, [(MTLTexture *)v17->_deweightedDisparity pixelFormat]);
-              LODWORD(v134) = v17->_height2;
-              [(VideoMattingMetal *)v17 prewarmGuidedFilter:v17->_guidedFilter device:v17->_device commandBuffer:commandBuffer width:v17->_width height:v17->_height width2:*p_width2 height2:v134];
+              LODWORD(v133) = v17->_height2;
+              [(VideoMattingMetal *)v17 prewarmGuidedFilter:v17->_guidedFilter device:v17->_device commandBuffer:commandBuffer width:v17->_width height:v17->_height width2:*p_width2 height2:v133];
               [(VideoMattingMetal *)v17 encodeCopyTextureToCommandBuffer:commandBuffer inTexture:v17->_disparity[0] outTexture:v17->_disparity[1]];
               [commandBuffer commit];
 
@@ -2950,12 +3001,12 @@ LABEL_46:
 LABEL_47:
         if (__p)
         {
-          v139 = __p;
+          v138 = __p;
           operator delete(__p);
         }
 
 LABEL_49:
-        sub_1DED6C3E8(&v141);
+        sub_1DED6C3E8(&v140);
         goto LABEL_41;
       }
     }
@@ -2964,7 +3015,6 @@ LABEL_49:
   v26 = 0;
 LABEL_5:
 
-  v27 = *MEMORY[0x1E69E9840];
   return v26;
 }
 
@@ -3001,16 +3051,16 @@ LABEL_5:
 
 + (id)textureFromCacheUsingPixelBuffer:(__CVBuffer *)buffer textureDescriptor:(id)descriptor plane:(unint64_t)plane textureCache:(__CVMetalTextureCache *)cache
 {
-  v28[2] = *MEMORY[0x1E69E9840];
+  v27[2] = *MEMORY[0x1E69E9840];
   descriptorCopy = descriptor;
   image = 0;
-  v27[0] = *MEMORY[0x1E6966010];
+  v26[0] = *MEMORY[0x1E6966010];
   v11 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(descriptorCopy, "usage")}];
-  v28[0] = v11;
-  v27[1] = *MEMORY[0x1E6966008];
+  v27[0] = v11;
+  v26[1] = *MEMORY[0x1E6966008];
   v12 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(descriptorCopy, "storageMode")}];
-  v28[1] = v12;
-  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:v27 count:2];
+  v27[1] = v12;
+  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:v26 count:2];
   pixelFormat = [descriptorCopy pixelFormat];
   width = [descriptorCopy width];
   height = [descriptorCopy height];
@@ -3038,8 +3088,6 @@ LABEL_5:
     currentHandler3 = [MEMORY[0x1E696AAA8] currentHandler];
     [currentHandler3 handleFailureInMethod:a2 object:self file:@"VideoMattingMetal.mm" lineNumber:3357 description:@"Cannot get texture from textureRef"];
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v19;
 }

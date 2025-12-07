@@ -8,12 +8,12 @@
 
 - (_TtC18SecuritySubscriber18SecurityApplicator)init
 {
-  v3 = [objc_allocWithZone(type metadata accessor for SecurityAdapter()) init];
-  v6.receiver = self;
-  v6.super_class = type metadata accessor for SecurityApplicator();
-  v4 = [(SecurityApplicator *)&v6 initWithAdapter:v3 inPlaceUpdates:1];
+  v4 = [objc_allocWithZone(type metadata accessor for SecurityAdapter(0 a2];
+  v9.receiver = self;
+  v9.super_class = type metadata accessor for SecurityApplicator(v4, v5, v6);
+  v7 = [(SecurityApplicator *)&v9 initWithAdapter:v4 inPlaceUpdates:1];
 
-  return v4;
+  return v7;
 }
 
 + (id)supportedConfigurationTypes

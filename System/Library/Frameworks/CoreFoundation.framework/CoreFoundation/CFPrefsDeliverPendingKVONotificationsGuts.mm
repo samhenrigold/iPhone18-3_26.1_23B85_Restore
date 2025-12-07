@@ -35,13 +35,13 @@ void ___CFPrefsDeliverPendingKVONotificationsGuts_block_invoke(uint64_t a1, uint
 
       if (v12)
       {
-        v15[0] = MEMORY[0x1E69E9820];
-        v15[1] = 3221225472;
-        v15[2] = ___CFPrefsDeliverPendingKVONotificationsGuts_block_invoke_3;
-        v15[3] = &__block_descriptor_48_e25_v24__0____CFString__8_v16l;
-        v15[4] = Mutable;
-        v15[5] = v5;
-        CFDictionaryApplyFunction(v12, applyBlockApplier, v15);
+        v14[0] = MEMORY[0x1E69E9820];
+        v14[1] = 3221225472;
+        v14[2] = ___CFPrefsDeliverPendingKVONotificationsGuts_block_invoke_3;
+        v14[3] = &__block_descriptor_48_e25_v24__0____CFString__8_v16l;
+        v14[4] = Mutable;
+        v14[5] = v5;
+        CFDictionaryApplyFunction(v12, applyBlockApplier, v14);
       }
     }
   }
@@ -51,7 +51,6 @@ void ___CFPrefsDeliverPendingKVONotificationsGuts_block_invoke(uint64_t a1, uint
   objc_autoreleasePoolPop(v13);
   CFRelease(Mutable);
   CFRelease(v5);
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void ___CFPrefsDeliverPendingKVONotificationsGuts_block_invoke_3(uint64_t a1, const void *a2, const void *a3)

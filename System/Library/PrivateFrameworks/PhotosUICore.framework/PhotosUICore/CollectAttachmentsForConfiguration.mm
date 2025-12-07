@@ -3,7 +3,7 @@
 
 @implementation CollectAttachmentsForConfiguration
 
-uint64_t ___CollectAttachmentsForConfiguration_block_invoke(uint64_t a1, char a2)
+void ___CollectAttachmentsForConfiguration_block_invoke(uint64_t a1, char a2)
 {
   if (a2)
   {
@@ -14,7 +14,7 @@ uint64_t ___CollectAttachmentsForConfiguration_block_invoke(uint64_t a1, char a2
 
   v2 = *(*(a1 + 48) + 16);
 
-  return v2();
+  v2();
 }
 
 id ___CollectAttachmentsForConfiguration_block_invoke_2(uint64_t a1, void *a2)

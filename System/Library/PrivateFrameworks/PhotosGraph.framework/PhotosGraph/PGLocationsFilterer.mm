@@ -8,79 +8,79 @@
 
 - (id)_filteredSignificantLocationNodes
 {
-  v152 = *MEMORY[0x277D85DE8];
-  v88 = self->_locationNodes;
+  v151 = *MEMORY[0x277D85DE8];
+  v87 = self->_locationNodes;
   selfCopy = self;
-  v83 = self->_sortedMomentNodes;
-  firstObject = [(NSArray *)v83 firstObject];
+  v82 = self->_sortedMomentNodes;
+  firstObject = [(NSArray *)v82 firstObject];
   graph = [firstObject graph];
 
-  v86 = [graph version] >= 0xCE && +[PGUserDefaults useExtendedCurationAssetCountForLocationTitles](PGUserDefaults, "useExtendedCurationAssetCountForLocationTitles");
-  v95 = selfCopy->_incompleteLocationResolver;
-  if (![(NSArray *)v88 count])
+  v85 = [graph version] >= 0xCE && +[PGUserDefaults useExtendedCurationAssetCountForLocationTitles](PGUserDefaults, "useExtendedCurationAssetCountForLocationTitles");
+  v94 = selfCopy->_incompleteLocationResolver;
+  if (![(NSArray *)v87 count])
   {
-    v49 = v88;
+    v49 = v87;
     goto LABEL_94;
   }
 
-  firstObject2 = [(NSArray *)v88 firstObject];
+  firstObject2 = [(NSArray *)v87 firstObject];
   label = [firstObject2 label];
 
-  v91 = [PGCommonTitleUtility dimensionForLabel:label];
+  v90 = [PGCommonTitleUtility dimensionForLabel:label];
   strongToStrongObjectsMapTable = [MEMORY[0x277CCAB00] strongToStrongObjectsMapTable];
-  v92 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{-[NSArray count](v88, "count")}];
-  v143 = 0u;
-  v144 = 0u;
-  v141 = 0u;
+  v91 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{-[NSArray count](v87, "count")}];
   v142 = 0u;
-  obj = v83;
-  v93 = [(NSArray *)obj countByEnumeratingWithState:&v141 objects:v151 count:16];
-  if (v93)
+  v143 = 0u;
+  v140 = 0u;
+  v141 = 0u;
+  obj = v82;
+  v92 = [(NSArray *)obj countByEnumeratingWithState:&v140 objects:v150 count:16];
+  if (v92)
   {
-    v87 = 0;
-    v89 = *v142;
+    v86 = 0;
+    v88 = *v141;
     v6 = 0x277CCA000uLL;
     do
     {
       v7 = 0;
       do
       {
-        if (*v142 != v89)
+        if (*v141 != v88)
         {
           v8 = v7;
           objc_enumerationMutation(obj);
           v7 = v8;
         }
 
-        v96 = v7;
-        v9 = *(*(&v141 + 1) + 8 * v7);
+        v95 = v7;
+        v9 = *(*(&v140 + 1) + 8 * v7);
         context = objc_autoreleasePoolPush();
         strongToStrongObjectsMapTable2 = [MEMORY[0x277CCAB00] strongToStrongObjectsMapTable];
-        v137 = 0;
-        v138 = &v137;
-        v139 = 0x2020000000;
-        v140 = 0;
-        v133 = 0;
-        v134 = &v133;
-        v135 = 0x2020000000;
         v136 = 0;
-        v125[0] = MEMORY[0x277D85DD0];
-        v125[1] = 3221225472;
-        v125[2] = __56__PGLocationsFilterer__filteredSignificantLocationNodes__block_invoke;
-        v125[3] = &unk_278882E28;
-        v126 = label;
-        v127 = v95;
-        v132 = v91;
-        v11 = v92;
-        v128 = v11;
-        v130 = &v133;
-        v131 = &v137;
+        v137 = &v136;
+        v138 = 0x2020000000;
+        v139 = 0;
+        v132 = 0;
+        v133 = &v132;
+        v134 = 0x2020000000;
+        v135 = 0;
+        v124[0] = MEMORY[0x277D85DD0];
+        v124[1] = 3221225472;
+        v124[2] = __56__PGLocationsFilterer__filteredSignificantLocationNodes__block_invoke;
+        v124[3] = &unk_278882E28;
+        v125 = label;
+        v126 = v94;
+        v131 = v90;
+        v11 = v91;
+        v127 = v11;
+        v129 = &v132;
+        v130 = &v136;
         v12 = strongToStrongObjectsMapTable2;
-        v129 = v12;
-        [v9 enumerateAddressEdgesAndNodesUsingBlock:v125];
-        if (v138[3] > 0.0)
+        v128 = v12;
+        [v9 enumerateAddressEdgesAndNodesUsingBlock:v124];
+        if (v137[3] > 0.0)
         {
-          if (v86)
+          if (v85)
           {
             numberOfAssetsInExtendedCuration = [v9 numberOfAssetsInExtendedCuration];
           }
@@ -95,53 +95,53 @@
             numberOfAssetsInExtendedCuration = [v9 numberOfAssets];
           }
 
-          v90 = numberOfAssetsInExtendedCuration;
-          if (*(v134 + 24) == 1)
+          v89 = numberOfAssetsInExtendedCuration;
+          if (*(v133 + 24) == 1)
           {
-            v123 = 0u;
-            v124 = 0u;
-            v121 = 0u;
             v122 = 0u;
+            v123 = 0u;
+            v120 = 0u;
+            v121 = 0u;
             allValues = [v11 allValues];
-            v15 = [allValues countByEnumeratingWithState:&v121 objects:v150 count:16];
+            v15 = [allValues countByEnumeratingWithState:&v120 objects:v149 count:16];
             if (v15)
             {
-              v98 = allValues;
-              v99 = *v122;
+              v97 = allValues;
+              v98 = *v121;
               do
               {
-                v100 = v15;
-                for (i = 0; i != v100; ++i)
+                v99 = v15;
+                for (i = 0; i != v99; ++i)
                 {
-                  if (*v122 != v99)
+                  if (*v121 != v98)
                   {
-                    objc_enumerationMutation(v98);
+                    objc_enumerationMutation(v97);
                   }
 
-                  v17 = *(*(&v121 + 1) + 8 * i);
+                  v17 = *(*(&v120 + 1) + 8 * i);
                   if ([v17 count] >= 2)
                   {
-                    v119 = 0u;
-                    v120 = 0u;
-                    v117 = 0u;
                     v118 = 0u;
+                    v119 = 0u;
+                    v116 = 0u;
+                    v117 = 0u;
                     v18 = v17;
-                    v19 = [v18 countByEnumeratingWithState:&v117 objects:v149 count:16];
+                    v19 = [v18 countByEnumeratingWithState:&v116 objects:v148 count:16];
                     if (v19)
                     {
-                      v20 = *v118;
+                      v20 = *v117;
                       v21 = 0.0;
                       v22 = 0.0;
                       do
                       {
                         for (j = 0; j != v19; ++j)
                         {
-                          if (*v118 != v20)
+                          if (*v117 != v20)
                           {
                             objc_enumerationMutation(v18);
                           }
 
-                          v24 = [v12 objectForKey:*(*(&v117 + 1) + 8 * j)];
+                          v24 = [v12 objectForKey:*(*(&v116 + 1) + 8 * j)];
                           [v24 floatValue];
                           v26 = v25;
 
@@ -152,7 +152,7 @@
                           }
                         }
 
-                        v19 = [v18 countByEnumeratingWithState:&v117 objects:v149 count:16];
+                        v19 = [v18 countByEnumeratingWithState:&v116 objects:v148 count:16];
                       }
 
                       while (v19);
@@ -164,38 +164,38 @@
                       v22 = 0.0;
                     }
 
-                    v138[3] = v138[3] - (v22 - v21);
+                    v137[3] = v137[3] - (v22 - v21);
                     v27 = [v18 objectAtIndexedSubscript:0];
                     v28 = [*(v6 + 2992) numberWithDouble:v21];
                     [v12 setObject:v28 forKey:v27];
 
                     v29 = v6;
-                    v115 = 0u;
-                    v116 = 0u;
-                    v113 = 0u;
                     v114 = 0u;
+                    v115 = 0u;
+                    v112 = 0u;
+                    v113 = 0u;
                     v30 = v18;
-                    v31 = [v30 countByEnumeratingWithState:&v113 objects:v148 count:16];
+                    v31 = [v30 countByEnumeratingWithState:&v112 objects:v147 count:16];
                     if (v31)
                     {
-                      v32 = *v114;
+                      v32 = *v113;
                       do
                       {
                         for (k = 0; k != v31; ++k)
                         {
-                          if (*v114 != v32)
+                          if (*v113 != v32)
                           {
                             objc_enumerationMutation(v30);
                           }
 
-                          v34 = *(*(&v113 + 1) + 8 * k);
+                          v34 = *(*(&v112 + 1) + 8 * k);
                           if (([v34 isSameNodeAsNode:v27] & 1) == 0)
                           {
                             [v12 removeObjectForKey:v34];
                           }
                         }
 
-                        v31 = [v30 countByEnumeratingWithState:&v113 objects:v148 count:16];
+                        v31 = [v30 countByEnumeratingWithState:&v112 objects:v147 count:16];
                       }
 
                       while (v31);
@@ -205,68 +205,68 @@
                   }
                 }
 
-                allValues = v98;
-                v15 = [v98 countByEnumeratingWithState:&v121 objects:v150 count:16];
+                allValues = v97;
+                v15 = [v97 countByEnumeratingWithState:&v120 objects:v149 count:16];
               }
 
               while (v15);
             }
           }
 
-          v111 = 0u;
-          v112 = 0u;
-          v109 = 0u;
           v110 = 0u;
+          v111 = 0u;
+          v108 = 0u;
+          v109 = 0u;
           keyEnumerator = [v12 keyEnumerator];
-          v36 = [keyEnumerator countByEnumeratingWithState:&v109 objects:v147 count:16];
+          v36 = [keyEnumerator countByEnumeratingWithState:&v108 objects:v146 count:16];
           if (v36)
           {
-            v37 = *v110;
+            v37 = *v109;
             do
             {
               for (m = 0; m != v36; ++m)
               {
-                if (*v110 != v37)
+                if (*v109 != v37)
                 {
                   objc_enumerationMutation(keyEnumerator);
                 }
 
-                v39 = *(*(&v109 + 1) + 8 * m);
+                v39 = *(*(&v108 + 1) + 8 * m);
                 v40 = [v12 objectForKey:v39];
                 [v40 floatValue];
                 v42 = v41;
 
-                v43 = v138[3];
+                v43 = v137[3];
                 v44 = [strongToStrongObjectsMapTable objectForKey:v39];
                 [v44 floatValue];
                 v46 = v45;
 
-                v47 = [*(v6 + 2992) numberWithDouble:v42 / v43 * v90 + v46];
+                v47 = [*(v6 + 2992) numberWithDouble:v42 / v43 * v89 + v46];
                 [strongToStrongObjectsMapTable setObject:v47 forKey:v39];
               }
 
-              v36 = [keyEnumerator countByEnumeratingWithState:&v109 objects:v147 count:16];
+              v36 = [keyEnumerator countByEnumeratingWithState:&v108 objects:v146 count:16];
             }
 
             while (v36);
           }
 
-          v87 += v90;
+          v86 += v89;
         }
 
-        _Block_object_dispose(&v133, 8);
-        _Block_object_dispose(&v137, 8);
+        _Block_object_dispose(&v132, 8);
+        _Block_object_dispose(&v136, 8);
 
         objc_autoreleasePoolPop(context);
-        v7 = v96 + 1;
+        v7 = v95 + 1;
       }
 
-      while (v96 + 1 != v93);
-      v93 = [(NSArray *)obj countByEnumeratingWithState:&v141 objects:v151 count:16];
+      while (v95 + 1 != v92);
+      v92 = [(NSArray *)obj countByEnumeratingWithState:&v140 objects:v150 count:16];
     }
 
-    while (v93);
-    v48 = v87;
+    while (v92);
+    v48 = v86;
   }
 
   else
@@ -274,7 +274,7 @@
     v48 = 0.0;
   }
 
-  v49 = [(NSArray *)v88 mutableCopy];
+  v49 = [(NSArray *)v87 mutableCopy];
   v50 = [strongToStrongObjectsMapTable count];
   v51 = v50;
   if (v50 >= 2)
@@ -294,35 +294,35 @@
     {
       if (v50 != 2)
       {
-        v107 = 0u;
-        v108 = 0u;
-        v105 = 0u;
         v106 = 0u;
+        v107 = 0u;
+        v104 = 0u;
+        v105 = 0u;
         keyEnumerator2 = [strongToStrongObjectsMapTable keyEnumerator];
-        v57 = [keyEnumerator2 countByEnumeratingWithState:&v105 objects:v146 count:16];
+        v57 = [keyEnumerator2 countByEnumeratingWithState:&v104 objects:v145 count:16];
         v58 = v51;
         v59 = v48 / v51;
         if (v57)
         {
-          v60 = *v106;
+          v60 = *v105;
           v61 = 0.0;
           do
           {
             for (n = 0; n != v57; ++n)
             {
-              if (*v106 != v60)
+              if (*v105 != v60)
               {
                 objc_enumerationMutation(keyEnumerator2);
               }
 
-              v63 = [strongToStrongObjectsMapTable objectForKey:*(*(&v105 + 1) + 8 * n)];
+              v63 = [strongToStrongObjectsMapTable objectForKey:*(*(&v104 + 1) + 8 * n)];
               [v63 floatValue];
               v65 = v64;
 
               v61 = v61 + ((v65 - v59) * (v65 - v59));
             }
 
-            v57 = [keyEnumerator2 countByEnumeratingWithState:&v105 objects:v146 count:16];
+            v57 = [keyEnumerator2 countByEnumeratingWithState:&v104 objects:v145 count:16];
           }
 
           while (v57);
@@ -364,26 +364,26 @@ LABEL_67:
 
     v55 = ceilf(v53 * v48);
 LABEL_83:
-    v103 = 0u;
-    v104 = 0u;
-    v101 = 0u;
     v102 = 0u;
+    v103 = 0u;
+    v100 = 0u;
+    v101 = 0u;
     keyEnumerator3 = [strongToStrongObjectsMapTable keyEnumerator];
-    v72 = [keyEnumerator3 countByEnumeratingWithState:&v101 objects:v145 count:16];
+    v72 = [keyEnumerator3 countByEnumeratingWithState:&v100 objects:v144 count:16];
     if (v72)
     {
-      v73 = *v102;
+      v73 = *v101;
       v74 = v55;
       do
       {
         for (ii = 0; ii != v72; ++ii)
         {
-          if (*v102 != v73)
+          if (*v101 != v73)
           {
             objc_enumerationMutation(keyEnumerator3);
           }
 
-          v76 = *(*(&v101 + 1) + 8 * ii);
+          v76 = *(*(&v100 + 1) + 8 * ii);
           v77 = [strongToStrongObjectsMapTable objectForKey:v76];
           [v77 floatValue];
           v79 = v78;
@@ -394,7 +394,7 @@ LABEL_83:
           }
         }
 
-        v72 = [keyEnumerator3 countByEnumeratingWithState:&v101 objects:v145 count:16];
+        v72 = [keyEnumerator3 countByEnumeratingWithState:&v100 objects:v144 count:16];
       }
 
       while (v72);
@@ -402,14 +402,13 @@ LABEL_83:
   }
 
 LABEL_94:
-  v80 = *MEMORY[0x277D85DE8];
 
   return v49;
 }
 
 void __56__PGLocationsFilterer__filteredSignificantLocationNodes__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [v6 collection];
@@ -467,14 +466,13 @@ void __56__PGLocationsFilterer__filteredSignificantLocationNodes__block_invoke(u
 
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      v24 = 138412290;
-      v25 = v9;
-      _os_log_error_impl(&dword_22F0FC000, v22, OS_LOG_TYPE_ERROR, "Location Node has no name! %@", &v24, 0xCu);
+      v23 = 138412290;
+      v24 = v9;
+      _os_log_error_impl(&dword_22F0FC000, v22, OS_LOG_TYPE_ERROR, "Location Node has no name! %@", &v23, 0xCu);
     }
   }
 
 LABEL_17:
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (NSArray)filteredLocationNodes

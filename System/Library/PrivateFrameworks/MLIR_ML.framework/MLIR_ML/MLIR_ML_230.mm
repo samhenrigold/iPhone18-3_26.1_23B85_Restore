@@ -1,6 +1,6 @@
 void llvm::sys::DynamicLibrary::closeLibrary(void **this, llvm::sys::DynamicLibrary *a2)
 {
-  if ((atomic_load_explicit(&_MergedGlobals_19, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(_MergedGlobals_19, memory_order_acquire) & 1) == 0)
   {
     llvm::sys::DynamicLibrary::AddSymbol();
   }
@@ -56,7 +56,7 @@ void *llvm::sys::DynamicLibrary::getAddressOfSymbol(void **this, const char *a2)
 
 void *llvm::sys::DynamicLibrary::SearchForAddressOfSymbol(llvm::sys::DynamicLibrary *this, const char *a2)
 {
-  if ((atomic_load_explicit(&_MergedGlobals_19, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(_MergedGlobals_19, memory_order_acquire) & 1) == 0)
   {
     llvm::sys::DynamicLibrary::AddSymbol();
     std::recursive_mutex::lock(&stru_27F8757D0);
@@ -66,7 +66,7 @@ void *llvm::sys::DynamicLibrary::SearchForAddressOfSymbol(llvm::sys::DynamicLibr
     }
 
 LABEL_5:
-    v4 = 0;
+    v5 = 0;
     goto LABEL_6;
   }
 
@@ -77,26 +77,26 @@ LABEL_5:
   }
 
 LABEL_3:
-  v4 = strlen(this);
+  v5 = strlen(this);
 LABEL_6:
-  v5 = llvm::StringMapImpl::hash(this, v4, v3);
-  Key = llvm::StringMapImpl::FindKey(&qword_27F875778, this, v4, v5);
+  v6 = llvm::StringMapImpl::hash(this, v5, v3, v4);
+  Key = llvm::StringMapImpl::FindKey(&qword_27F875778, this, v5, v6);
   if (Key == -1 || Key == dword_27F875780)
   {
-    v7 = llvm::sys::DynamicLibrary::HandleSet::Lookup(&qword_27F875790, this, llvm::sys::DynamicLibrary::SearchOrder);
-    if (!v7)
+    v8 = llvm::sys::DynamicLibrary::HandleSet::Lookup(&qword_27F875790, this, llvm::sys::DynamicLibrary::SearchOrder);
+    if (!v8)
     {
-      v7 = llvm::sys::DynamicLibrary::HandleSet::Lookup(&qword_27F8757B0, this, llvm::sys::DynamicLibrary::SearchOrder);
+      v8 = llvm::sys::DynamicLibrary::HandleSet::Lookup(&qword_27F8757B0, this, llvm::sys::DynamicLibrary::SearchOrder);
     }
   }
 
   else
   {
-    v7 = *(*(qword_27F875778 + 8 * Key) + 8);
+    v8 = *(*(qword_27F875778 + 8 * Key) + 8);
   }
 
   std::recursive_mutex::unlock(&stru_27F8757D0);
-  return v7;
+  return v8;
 }
 
 void *llvm::sys::DynamicLibrary::HandleSet::Lookup(uint64_t a1, char *__symbol, char a3)
@@ -365,7 +365,7 @@ void OUTLINED_FUNCTION_1_22()
 
 uint64_t llvm::sys::StrError@<X0>(void *a1@<X8>)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   result = *__error();
   a1[1] = 0;
   a1[2] = 0;
@@ -396,8 +396,9 @@ uint64_t llvm::sys::StrError@<X0>(uint64_t this@<X0>, void *a2@<X8>)
   return this;
 }
 
-uint64_t llvm::sys::Memory::allocateMappedMemory@<X0>(uint64_t a1@<X0>, void *a2@<X1>, int a3@<W2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
+void *llvm::sys::Memory::allocateMappedMemory@<X0>(uint64_t a1@<X0>, void *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
 {
+  v6 = a3;
   result = std::system_category();
   *a4 = 0;
   *(a4 + 8) = result;
@@ -407,12 +408,12 @@ uint64_t llvm::sys::Memory::allocateMappedMemory@<X0>(uint64_t a1@<X0>, void *a2
   }
 
   v11 = result;
-  v12 = dword_2573A4560[(((a3 & 0x7000000u) - 0x1000000) >> 24)];
+  v12 = dword_2573A4560[(((v6 & 0x7000000u) - 0x1000000) >> 24)];
   if (a2)
   {
     v13 = a2[1] + *a2;
     v14 = a1 - 1;
-    if (atomic_load_explicit(&qword_27F875828, memory_order_acquire))
+    if (atomic_load_explicit(byte_27F875828, memory_order_acquire))
     {
       goto LABEL_4;
     }
@@ -422,7 +423,7 @@ uint64_t llvm::sys::Memory::allocateMappedMemory@<X0>(uint64_t a1@<X0>, void *a2
   {
     v13 = 0;
     v14 = a1 - 1;
-    if (atomic_load_explicit(&qword_27F875828, memory_order_acquire))
+    if (atomic_load_explicit(byte_27F875828, memory_order_acquire))
     {
       goto LABEL_4;
     }
@@ -462,8 +463,8 @@ LABEL_4:
 
   *a4 = 0;
   *(a4 + 8) = v11;
-  v20 = dword_2573A4560[(((a3 & 0x7000000u) - 0x1000000) >> 24)];
-  if ((atomic_load_explicit(&qword_27F875828, memory_order_acquire) & 1) == 0)
+  v20 = dword_2573A4560[(((v6 & 0x7000000u) - 0x1000000) >> 24)];
+  if ((atomic_load_explicit(byte_27F875828, memory_order_acquire) & 1) == 0)
   {
     v22 = v20;
     llvm::sys::Memory::allocateMappedMemory();
@@ -486,8 +487,8 @@ LABEL_20:
 LABEL_10:
     *&v23 = result;
     *(&v23 + 1) = qword_27F875820 * v15;
-    LODWORD(v24) = a3;
-    if ((a3 & 0x4000000) == 0 || (result = llvm::sys::Memory::protectMappedMemory(&v23, a3), *a4 = result, *(a4 + 8) = v18, v11 == v18) && !result)
+    LODWORD(v24) = v6;
+    if ((v6 & 0x4000000) == 0 || (result = llvm::sys::Memory::protectMappedMemory(&v23, v6), *a4 = result, *(a4 + 8) = v18, v11 == v18) && !result)
     {
       *a5 = v23;
       *(a5 + 16) = v24;
@@ -504,7 +505,7 @@ LABEL_21:
 
 uint64_t llvm::sys::Memory::protectMappedMemory(void *a1, int a2)
 {
-  if (atomic_load_explicit(&qword_27F875830, memory_order_acquire))
+  if (atomic_load_explicit(byte_27F875830, memory_order_acquire))
   {
     v2 = *a1;
     if (!*a1)
@@ -515,13 +516,13 @@ uint64_t llvm::sys::Memory::protectMappedMemory(void *a1, int a2)
 
   else
   {
-    v25 = a1;
-    v26 = a2;
+    v23 = a1;
+    v24 = a2;
     llvm::sys::Memory::protectMappedMemory();
-    a2 = v26;
-    a1 = v25;
-    v2 = *v25;
-    if (!*v25)
+    a2 = v24;
+    a1 = v23;
+    v2 = *v23;
+    if (!*v23)
     {
       goto LABEL_17;
     }
@@ -567,7 +568,7 @@ LABEL_15:
         v17 = *v11;
         v18 = v16[1];
         sys_icache_invalidate(v17, v18);
-        llvm::sys::ValgrindDiscardTranslations(v17, v18, v19);
+        llvm::sys::ValgrindDiscardTranslations(v17, v18);
         if (!mprotect(v14, v15, v13))
         {
           goto LABEL_17;
@@ -584,11 +585,11 @@ LABEL_14:
       goto LABEL_15;
     }
 
-    v21 = v11;
-    v22 = *v11;
-    v23 = v21[1];
-    sys_icache_invalidate(v22, v23);
-    llvm::sys::ValgrindDiscardTranslations(v22, v23, v24);
+    v20 = v11;
+    v21 = *v11;
+    v22 = v20[1];
+    sys_icache_invalidate(v21, v22);
+    llvm::sys::ValgrindDiscardTranslations(v21, v22);
   }
 
 LABEL_17:
@@ -596,7 +597,7 @@ LABEL_17:
   return 0;
 }
 
-uint64_t llvm::sys::Memory::releaseMappedMemory(void *a1)
+uint64_t llvm::sys::Memory::releaseMappedMemory(void **a1)
 {
   v2 = *a1;
   if (v2 && (v3 = a1[1]) != 0)
@@ -627,11 +628,11 @@ uint64_t llvm::sys::Memory::releaseMappedMemory(void *a1)
   return result;
 }
 
-uint64_t llvm::sys::Memory::InvalidateInstructionCache(llvm::sys::Memory *this, const void *a2)
+void llvm::sys::Memory::InvalidateInstructionCache(llvm::sys::Memory *this, const void *a2)
 {
   sys_icache_invalidate(this, a2);
 
-  return llvm::sys::ValgrindDiscardTranslations(this, a2, v4);
+  llvm::sys::ValgrindDiscardTranslations(this, a2);
 }
 
 unsigned __int8 *llvm::sys::path::begin@<X0>(unsigned __int8 *result@<X0>, unint64_t a2@<X1>, unsigned int a3@<W2>, uint64_t a4@<X8>)
@@ -1032,7 +1033,7 @@ LABEL_44:
   v18 = result[4];
   if (v18)
   {
-    v19 = first_of + 1;
+    v19 = (first_of + 1);
     v20 = result[4];
     while (v19 != v20)
     {
@@ -1072,7 +1073,7 @@ LABEL_60:
   v27 = v18[v23 - 1];
   if (v27 == 47 || (v27 == 92 ? (v28 = *(result + 10) >= 2u) : (v28 = 0), v28))
   {
-    if (first_of == -1 || v19 - 1 > first_of)
+    if (first_of == -1 || (v19 - 1) > first_of)
     {
       result[2] = ".";
       result[3] = 1;
@@ -1172,8 +1173,8 @@ LABEL_106:
     goto LABEL_107;
   }
 
-  v31 = v30 - 1;
-  v32 = v23[v30 - 1];
+  v31 = (v30 - 1);
+  v32 = v30[v23 - 1];
   if (v32 != 47 && (v29 < 2 || v32 != 92))
   {
     goto LABEL_81;
@@ -1206,7 +1207,7 @@ LABEL_107:
     v42 = v44;
   }
 
-  result[2] = &(*result)[v43];
+  result[2] = &v43[*result];
   result[3] = (v42 - v43);
   result[4] = v31;
   return result;
@@ -1426,7 +1427,7 @@ unsigned __int8 *llvm::sys::path::relative_path(unsigned __int8 *a1, unint64_t a
   return &a1[v6];
 }
 
-void llvm::sys::path::append(void *a1, llvm::Twine *a2, void **a3, void **a4, const char **a5, void **a6)
+void llvm::sys::path::append(void *a1, llvm::Twine *a2, void ***a3, void **a4, void ***a5, void **a6)
 {
   v72[4] = *MEMORY[0x277D85DE8];
   v70 = v72;
@@ -1716,7 +1717,7 @@ LABEL_56:
   }
 
 LABEL_66:
-  v40 = (v58 + 16 * v38);
+  v40 = v58 + 16 * v38;
   *v40 = v34;
   v40[1] = v36;
   v11 = v59 + 1;
@@ -1754,7 +1755,7 @@ LABEL_76:
 
   if (v13 == 4)
   {
-    v51 = (*a5)[23];
+    v51 = *(*a5 + 23);
     if (v51 >= 0)
     {
       v44 = *a5;
@@ -1767,12 +1768,12 @@ LABEL_76:
 
     if (v51 >= 0)
     {
-      v45 = (*a5)[23];
+      v45 = *(*a5 + 23);
     }
 
     else
     {
-      v45 = *(*a5 + 1);
+      v45 = (*a5)[1];
     }
 
     if (v11 < HIDWORD(v59))
@@ -2482,14 +2483,14 @@ LABEL_15:
     }
 
     v13 = v12 - 1;
-    v14 = v5[--v12];
+    v14 = (v12--)[(v5 - 1)];
   }
 
   while (v14 != 46);
   v27 = v5;
   v28 = v6;
-  v15 = v6 - 1;
-  v16 = v5[v6 - 1];
+  v15 = (v6 - 1);
+  v16 = v6[v5 - 1];
   if (v16 == 47 || a3 >= 2 && v16 == 92)
   {
     if (v13 < v15)
@@ -2555,7 +2556,7 @@ LABEL_23:
     v17 = a1[1];
     if (*v10 == 46)
     {
-      if (a1[2] >= v17 + v11)
+      if (a1[2] >= &v17[v11])
       {
         goto LABEL_26;
       }
@@ -2569,11 +2570,11 @@ LABEL_35:
       llvm::SmallVectorBase<unsigned long long>::grow_pod();
     }
 
-    (*a1)[v17] = 46;
+    v17[*a1] = 46;
     v18 = a1[2];
-    v17 = (a1[1] + 1);
+    v17 = a1[1] + 1;
     a1[1] = v17;
-    if (v18 < v17 + v11)
+    if (v18 < &v17[v11])
     {
       goto LABEL_35;
     }
@@ -2591,11 +2592,11 @@ LABEL_35:
 LABEL_26:
   if (v11)
   {
-    memcpy(&(*a1)[v17], v10, v11);
+    memcpy(&v17[*a1], v10, v11);
     v17 = a1[1];
   }
 
-  a1[1] = (v17 + v11);
+  a1[1] = &v17[v11];
   if (v29 != v31)
   {
     free(v29);
@@ -2718,7 +2719,7 @@ LABEL_36:
     v23[0] = a4;
     v23[1] = a5;
     v23[2] = &v7[v21];
-    v23[3] = v8 - v21;
+    v23[3] = &v8[-v21];
     v24 = 1285;
     v22 = a1;
     llvm::Twine::toVector(v23, &v25);
@@ -2734,12 +2735,13 @@ LABEL_36:
   return 0;
 }
 
-void llvm::sys::path::native(uint64_t a1, uint64_t a2, unsigned int a3)
+void llvm::sys::path::native(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a3;
   *(a2 + 8) = 0;
   llvm::Twine::toVector(a1, a2);
 
-  llvm::sys::path::native(a2, a3);
+  llvm::sys::path::native(a2, v3);
 }
 
 void llvm::sys::path::native(void **a1, unsigned int a2)
@@ -2862,7 +2864,7 @@ LABEL_97:
         goto LABEL_97;
       }
 
-      memcpy(*v13 + v22, __src + v22, v24 - v22);
+      memcpy(&v22[*v13], &v22[__src], v24 - v22);
     }
 
     v13 = a1;
@@ -3236,7 +3238,7 @@ LABEL_81:
   while (v6 != v21);
 }
 
-uint64_t llvm::sys::path::home_directory(uint64_t a1)
+uint64_t llvm::sys::path::home_directory(void **a1)
 {
   v2 = getenv("HOME");
   if (!v2)
@@ -3246,10 +3248,10 @@ uint64_t llvm::sys::path::home_directory(uint64_t a1)
   }
 
   v3 = v2;
-  *(a1 + 8) = 0;
+  a1[1] = 0;
   v4 = strlen(v2);
   v5 = v4;
-  if (*(a1 + 16) < v4)
+  if (a1[2] < v4)
   {
     llvm::SmallVectorBase<unsigned long long>::grow_pod();
   }
@@ -3258,10 +3260,10 @@ uint64_t llvm::sys::path::home_directory(uint64_t a1)
   if (v4)
   {
     memcpy(*a1, v3, v4);
-    v6 = *(a1 + 8);
+    v6 = a1[1];
   }
 
-  *(a1 + 8) = v6 + v5;
+  a1[1] = &v6[v5];
   return 1;
 }
 
@@ -3332,7 +3334,7 @@ LABEL_87:
   if (v7 < 8)
   {
 LABEL_83:
-    v17 = &v6[v7];
+    v17 = v6 + v7;
     do
     {
       if (*v8 == 92)
@@ -3571,14 +3573,14 @@ LABEL_46:
 
   if ((v7 & 8) == 0)
   {
-    v8 = &v6[v9];
+    v8 = v6 + v9;
     goto LABEL_83;
   }
 
 LABEL_24:
-  v8 = &v6[v7 & 0xFFFFFFFFFFFFFFF8];
+  v8 = v6 + (v7 & 0xFFFFFFFFFFFFFFF8);
   v10 = v9 - (v7 & 0xFFFFFFFFFFFFFFF8);
-  v11 = &v6[v9 + 3];
+  v11 = v6 + v9 + 3;
   while (2)
   {
     v12 = vceq_s8(*(v11 - 3), 0x5C5C5C5C5C5C5C5CLL);
@@ -3774,7 +3776,7 @@ const char *llvm::sys::path::get_separator(llvm::sys::path *this)
 {
   if (this == 3)
   {
-    return "\";
+    return "\"";
   }
 
   else
@@ -4875,7 +4877,7 @@ uint64_t llvm::sys::path::remove_dots(unsigned __int8 **a1, int a2, unsigned int
           v19 = v45;
         }
 
-        v20 = v45 - v19;
+        v20 = &v45[-v19];
         v21 = &v44[v19];
         v44 += v19;
         v45 -= v19;
@@ -5098,7 +5100,7 @@ LABEL_74:
   return v33;
 }
 
-uint64_t llvm::sys::fs::getUniqueID(uint64_t a1, void *a2)
+uint64_t llvm::sys::fs::getUniqueID(const char **a1, void *a2)
 {
   v12[16] = *MEMORY[0x277D85DE8];
   v10 = v12;
@@ -5142,7 +5144,7 @@ LABEL_4:
   return 0;
 }
 
-uint64_t llvm::sys::fs::status(llvm::sys::fs *this, const stat *a2, llvm::sys::fs::file_status *a3)
+uint64_t llvm::sys::fs::status(const char **this, const stat *a2, llvm::sys::fs::file_status *a3)
 {
   v3 = a3;
   v13[16] = *MEMORY[0x277D85DE8];
@@ -5168,11 +5170,6 @@ uint64_t llvm::sys::fs::status(llvm::sys::fs *this, const stat *a2, llvm::sys::f
   }
 
   return result;
-}
-
-{
-  v4 = fstat(this, &v7);
-  return llvm::sys::fs::fillStatus(v4, &v7.st_dev, a2, v5);
 }
 
 void llvm::sys::fs::createUniquePath(uint64_t a1, uint64_t a2, int a3)
@@ -5274,7 +5271,7 @@ void llvm::sys::fs::createUniquePath(uint64_t a1, uint64_t a2, int a3)
   }
 }
 
-size_t llvm::sys::path::system_temp_directory(int a1, uint64_t a2)
+unint64_t llvm::sys::path::system_temp_directory(int a1, uint64_t a2)
 {
   v3 = 65537;
   *(a2 + 8) = 0;
@@ -5370,8 +5367,9 @@ LABEL_26:
   return result;
 }
 
-unint64_t llvm::sys::fs::createUniqueFile(uint64_t a1, int *a2, void *a3, int a4, uint64_t a5)
+unint64_t llvm::sys::fs::createUniqueFile(uint64_t a1, int *a2, const char **a3, uint64_t a4, uint64_t a5)
 {
+  v6 = a4;
   v10 = 129;
   std::system_category();
   while (1)
@@ -5393,7 +5391,7 @@ unint64_t llvm::sys::fs::createUniqueFile(uint64_t a1, int *a2, void *a3, int a4
       }
 
       LOBYTE(v21) = v13;
-      v15 = llvm::sys::fs::openFile(&v20, a2, 1, 3, a4, a5);
+      v15 = llvm::sys::fs::openFile(&v20, a2, 1, 3, v6, a5);
       if (!v15)
       {
         v11 = 0;
@@ -5434,8 +5432,9 @@ LABEL_12:
   return v18 | v11;
 }
 
-void createUniqueEntity(uint64_t a1, int *a2, void *a3, int a4, int a5, int a6, uint64_t a7)
+void createUniqueEntity(uint64_t a1, int *a2, const char **a3, int a4, int a5, uint64_t a6, uint64_t a7)
 {
+  v8 = a6;
   v42 = *MEMORY[0x277D85DE8];
   v14 = std::system_category();
   if (a5 == 2)
@@ -5516,7 +5515,7 @@ LABEL_21:
       }
 
       LOBYTE(v41) = v17;
-      v19 = llvm::sys::fs::openFile(&v38, a2, 1, 3, a6, a7);
+      v19 = llvm::sys::fs::openFile(&v38, a2, 1, 3, v8, a7);
       if (!v19)
       {
         break;
@@ -5598,7 +5597,7 @@ LABEL_21:
   }
 }
 
-unint64_t llvm::sys::fs::createUniqueFile(uint64_t a1, void *a2, uint64_t a3)
+unint64_t llvm::sys::fs::createUniqueFile(uint64_t a1, const char **a2, uint64_t a3)
 {
   v16 = 0;
   v6 = 129;
@@ -5656,7 +5655,7 @@ LABEL_12:
   return v14 | v7;
 }
 
-void llvm::sys::fs::createTemporaryFile(uint64_t *a1, __int128 *a2, uint64_t a3, int *a4, void *a5, int a6, int a7)
+void llvm::sys::fs::createTemporaryFile(uint64_t *a1, const char *a2, uint64_t a3, int *a4, const char **a5, int a6, uint64_t a7)
 {
   v37[16] = *MEMORY[0x277D85DE8];
   v11 = "-%%%%%%";
@@ -5790,7 +5789,7 @@ LABEL_26:
   }
 }
 
-void llvm::sys::fs::createTemporaryFile(uint64_t *a1, __int128 *a2, uint64_t a3, void *a4, int a5)
+void llvm::sys::fs::createTemporaryFile(uint64_t *a1, const char *a2, uint64_t a3, const char **a4, uint64_t a5)
 {
   v6 = 0;
   llvm::sys::fs::createTemporaryFile(a1, a2, a3, &v6, a4, 1, a5);
@@ -5800,7 +5799,7 @@ void llvm::sys::fs::createTemporaryFile(uint64_t *a1, __int128 *a2, uint64_t a3,
   }
 }
 
-unint64_t llvm::sys::fs::createUniqueDirectory(uint64_t *a1, void *a2)
+unint64_t llvm::sys::fs::createUniqueDirectory(uint64_t **a1, const char **a2)
 {
   v3 = *(a1 + 32);
   if (*(a1 + 32))
@@ -5855,25 +5854,25 @@ unint64_t llvm::sys::fs::createUniqueDirectory(uint64_t *a1, void *a2)
     }
 
     LOBYTE(v20) = v8;
-    directory = llvm::sys::fs::create_directory(&v19, 0, 0x1F8u);
-    if (!directory)
+    v11 = llvm::sys::fs::create_directory(&v19, 0, 0x1F8u);
+    if (!v11)
     {
       break;
     }
 
     v12 = v10;
     v13 = std::generic_category();
-    if (directory == 17 && v13 == v12 && --v7 > 1)
+    if (v11 == 17 && v13 == v12 && --v7 > 1)
     {
       continue;
     }
 
-    v14 = directory & 0xFFFFFFFF00000000;
-    return v14 | directory;
+    v14 = v11 & 0xFFFFFFFF00000000;
+    return v14 | v11;
   }
 
   v14 = 0;
-  return v14 | directory;
+  return v14 | v11;
 }
 
 void llvm::sys::fs::make_absolute(uint64_t a1, unsigned __int8 ***a2)
@@ -6346,7 +6345,7 @@ LABEL_15:
   return directory;
 }
 
-uint64_t llvm::sys::fs::create_directory(uint64_t a1, char a2, mode_t a3)
+uint64_t llvm::sys::fs::create_directory(const char **a1, char a2, mode_t a3)
 {
   v11[16] = *MEMORY[0x277D85DE8];
   v9 = v11;
@@ -6377,7 +6376,7 @@ LABEL_5:
   return v6;
 }
 
-uint64_t llvm::sys::fs::copy_file(llvm::sys::fs *this, const llvm::Twine *a2)
+uint64_t llvm::sys::fs::copy_file(const char **this, const llvm::Twine *a2)
 {
   v3 = 0;
   result = llvm::sys::fs::openFile(this, &v3, 2, 1, 0, 438);
@@ -6390,7 +6389,7 @@ uint64_t llvm::sys::fs::copy_file(llvm::sys::fs *this, const llvm::Twine *a2)
   return result;
 }
 
-unint64_t llvm::sys::fs::openFileForRead(uint64_t a1, int *a2, int a3, void *a4)
+unint64_t llvm::sys::fs::openFileForRead(const char **a1, int *a2, uint64_t a3, void *a4)
 {
   v13 = *MEMORY[0x277D85DE8];
   v6 = llvm::sys::fs::openFile(a1, a2, 2, 1, a3, 438);
@@ -6431,29 +6430,29 @@ unint64_t llvm::sys::fs::openFileForRead(uint64_t a1, int *a2, int a3, void *a4)
   return v8 | v7;
 }
 
-void llvm::sys::fs::md5_contents(llvm::sys::fs *this)
+void llvm::sys::fs::md5_contents()
 {
-  v1[19] = *MEMORY[0x277D85DE8];
-  llvm::MD5::MD5(v1);
+  v2[19] = *MEMORY[0x277D85DE8];
+  llvm::MD5::MD5(v2);
   operator new();
 }
 
-uint64_t llvm::sys::fs::md5_contents@<X0>(llvm::sys::fs *this@<X0>, uint64_t a2@<X8>)
+uint64_t llvm::sys::fs::md5_contents@<X0>(const char **this@<X0>, uint64_t a2@<X8>)
 {
-  LODWORD(v6) = 0;
-  result = llvm::sys::fs::openFile(this, &v6, 2, 1, 0, 438);
+  LODWORD(v5) = 0;
+  result = llvm::sys::fs::openFile(this, &v5, 2, 1, 0, 438);
   if (!result)
   {
-    llvm::sys::fs::md5_contents(v6);
+    llvm::sys::fs::md5_contents();
   }
 
   *(a2 + 16) |= 1u;
   *a2 = result;
-  *(a2 + 8) = v5;
+  *(a2 + 8) = v4;
   return result;
 }
 
-uint64_t llvm::sys::fs::get_file_type(llvm::sys::fs *this, const llvm::Twine *a2)
+uint64_t llvm::sys::fs::get_file_type(const char **this, const llvm::Twine *a2)
 {
   v2 = a2;
   v12[16] = *MEMORY[0x277D85DE8];
@@ -6507,7 +6506,7 @@ LABEL_11:
   return v5;
 }
 
-uint64_t llvm::sys::fs::is_directory(llvm::sys::fs *this, const llvm::Twine *a2, BOOL *a3)
+uint64_t llvm::sys::fs::is_directory(const char **this, const llvm::Twine *a2, BOOL *a3)
 {
   v12[16] = *MEMORY[0x277D85DE8];
   v10 = v12;
@@ -6547,7 +6546,7 @@ LABEL_4:
   return v5;
 }
 
-uint64_t llvm::sys::fs::is_regular_file(llvm::sys::fs *this, const llvm::Twine *a2, BOOL *a3)
+uint64_t llvm::sys::fs::is_regular_file(const char **this, const llvm::Twine *a2, BOOL *a3)
 {
   v12[16] = *MEMORY[0x277D85DE8];
   v10 = v12;
@@ -6587,7 +6586,7 @@ LABEL_4:
   return v5;
 }
 
-uint64_t llvm::sys::fs::is_symlink_file(llvm::sys::fs *this, const llvm::Twine *a2, BOOL *a3)
+uint64_t llvm::sys::fs::is_symlink_file(const char **this, const llvm::Twine *a2, BOOL *a3)
 {
   v12[16] = *MEMORY[0x277D85DE8];
   v10 = v12;
@@ -6627,7 +6626,7 @@ LABEL_4:
   return v5;
 }
 
-uint64_t llvm::sys::fs::is_other(llvm::sys::fs *this, const llvm::Twine *a2, BOOL *a3)
+uint64_t llvm::sys::fs::is_other(const char **this, const llvm::Twine *a2, BOOL *a3)
 {
   v12[16] = *MEMORY[0x277D85DE8];
   v10 = v12;
@@ -6667,7 +6666,7 @@ LABEL_4:
   return v5;
 }
 
-void llvm::sys::fs::directory_entry::replace_filename(uint64_t a1, void **a2, int a3, __int128 *a4)
+void llvm::sys::fs::directory_entry::replace_filename(uint64_t a1, void ***a2, int a3, __int128 *a4)
 {
   v28[16] = *MEMORY[0x277D85DE8];
   v8 = *(a1 + 23);
@@ -6787,19 +6786,19 @@ LABEL_24:
   }
 }
 
-void llvm::sys::fs::getPermissions(llvm::sys::fs *this@<X0>, uint64_t a2@<X8>)
+void llvm::sys::fs::getPermissions(uint64_t *__return_ptr a1@<X8>, const char **this@<X0>)
 {
-  v13[16] = *MEMORY[0x277D85DE8];
-  v11 = v13;
-  v12 = xmmword_257371870;
-  v4 = llvm::Twine::toNullTerminatedStringRef(this, &v11);
-  if (stat(v4, &v10))
+  v12[16] = *MEMORY[0x277D85DE8];
+  v10 = v12;
+  v11 = xmmword_257371870;
+  v3 = llvm::Twine::toNullTerminatedStringRef(this, &v10);
+  if (stat(v3, &v9))
   {
-    v5 = *__error();
-    v6 = std::generic_category();
-    v7 = 0xFFFF;
-    v8 = v11;
-    if (v11 == v13)
+    v4 = *__error();
+    v5 = std::generic_category();
+    v6 = 0xFFFF;
+    v7 = v10;
+    if (v10 == v12)
     {
       goto LABEL_4;
     }
@@ -6807,33 +6806,33 @@ void llvm::sys::fs::getPermissions(llvm::sys::fs *this@<X0>, uint64_t a2@<X8>)
     goto LABEL_3;
   }
 
-  v7 = v10.st_mode & 0xFFF;
-  v6 = std::system_category();
-  v5 = 0;
-  v8 = v11;
-  if (v11 != v13)
+  v6 = v9.st_mode & 0xFFF;
+  v5 = std::system_category();
+  v4 = 0;
+  v7 = v10;
+  if (v10 != v12)
   {
 LABEL_3:
-    free(v8);
+    free(v7);
   }
 
 LABEL_4:
-  v9 = *(a2 + 16);
-  if (v5)
+  v8 = *(a1 + 16);
+  if (v4)
   {
-    *(a2 + 16) = v9 | 1;
-    *a2 = v5;
-    *(a2 + 8) = v6;
+    *(a1 + 16) = v8 | 1;
+    *a1 = v4;
+    a1[1] = v5;
   }
 
   else
   {
-    *(a2 + 16) = v9 & 0xFE;
-    *a2 = v7;
+    *(a1 + 16) = v8 & 0xFE;
+    *a1 = v6;
   }
 }
 
-ssize_t llvm::sys::fs::readNativeFileToEOF@<X0>(int a1@<W0>, uint64_t *a2@<X1>, unint64_t a3@<X2>, void *a4@<X8>)
+ssize_t llvm::sys::fs::readNativeFileToEOF@<X0>(int a1@<W0>, uint64_t *a2@<X1>, size_t a3@<X2>, void *a4@<X8>)
 {
   v8 = a2[1];
   if (a3 >= 0x7FFFFFFF)
@@ -6904,7 +6903,7 @@ LABEL_17:
   return result;
 }
 
-ssize_t llvm::sys::fs::readNativeFile@<X0>(int a1@<W0>, void *a2@<X1>, unint64_t a3@<X2>, uint64_t a4@<X8>)
+ssize_t llvm::sys::fs::readNativeFile@<X0>(int a1@<W0>, void *a2@<X1>, size_t a3@<X2>, uint64_t a4@<X8>)
 {
   if (a3 >= 0x7FFFFFFF)
   {
@@ -6943,7 +6942,7 @@ ssize_t llvm::sys::fs::readNativeFile@<X0>(int a1@<W0>, void *a2@<X1>, unint64_t
 
 unint64_t llvm::sys::fs::getMainExecutable@<X0>(_BYTE *a1@<X8>)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   bufsize = 1024;
   result = _NSGetExecutablePath(buf, &bufsize);
   if (result || (result = realpath_DARWIN_EXTSN(buf, __s)) == 0)
@@ -6960,7 +6959,7 @@ unint64_t llvm::sys::fs::getMainExecutable@<X0>(_BYTE *a1@<X8>)
       std::string::__throw_length_error[abi:nn200100]();
     }
 
-    v6 = result;
+    v3 = result;
     if (result >= 0x17)
     {
       operator new();
@@ -6972,7 +6971,7 @@ unint64_t llvm::sys::fs::getMainExecutable@<X0>(_BYTE *a1@<X8>)
       result = memcpy(a1, __s, result);
     }
 
-    a1[v6] = 0;
+    a1[v3] = 0;
   }
 
   return result;
@@ -6990,7 +6989,7 @@ unint64_t llvm::sys::fs::getExecutable@<X0>(llvm::sys::fs *this@<X0>, _BYTE *a2@
       std::string::__throw_length_error[abi:nn200100]();
     }
 
-    v6 = result;
+    v5 = result;
     if (result >= 0x17)
     {
       operator new();
@@ -7002,7 +7001,7 @@ unint64_t llvm::sys::fs::getExecutable@<X0>(llvm::sys::fs *this@<X0>, _BYTE *a2@
       result = memmove(a2, dli_fname, result);
     }
 
-    a2[v6] = 0;
+    a2[v5] = 0;
   }
 
   else
@@ -7014,55 +7013,55 @@ unint64_t llvm::sys::fs::getExecutable@<X0>(llvm::sys::fs *this@<X0>, _BYTE *a2@
   return result;
 }
 
-uint64_t llvm::sys::fs::disk_space@<X0>(llvm::formatv_object_base **this@<X0>, uint64_t a2@<X8>)
+uint64_t llvm::sys::fs::disk_space@<X0>(uint64_t *__return_ptr a1@<X8>, llvm::formatv_object_base **this@<X0>)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   llvm::Twine::str(this, __p);
-  if (v11 >= 0)
+  if (v10 >= 0)
   {
-    v4 = __p;
+    v3 = __p;
   }
 
   else
   {
-    v4 = __p[0];
+    v3 = __p[0];
   }
 
-  v5 = statfs(v4, &v12);
-  v6 = v5;
-  if (v11 < 0)
+  v4 = statfs(v3, &v11);
+  v5 = v4;
+  if (v10 < 0)
   {
     operator delete(__p[0]);
-    if (v6)
+    if (v5)
     {
       goto LABEL_6;
     }
 
 LABEL_8:
-    v7 = v12.f_blocks * v12.f_bsize;
-    result = v12.f_bfree * v12.f_bsize;
-    v9 = v12.f_bavail * v12.f_bsize;
-    *(a2 + 24) &= ~1u;
-    *(a2 + 16) = v9;
+    v6 = v11.f_blocks * v11.f_bsize;
+    result = v11.f_bfree * v11.f_bsize;
+    v8 = v11.f_bavail * v11.f_bsize;
+    *(a1 + 24) &= ~1u;
+    a1[2] = v8;
     goto LABEL_9;
   }
 
-  if (!v5)
+  if (!v4)
   {
     goto LABEL_8;
   }
 
 LABEL_6:
-  v7 = *__error();
+  v6 = *__error();
   result = std::generic_category();
-  *(a2 + 24) |= 1u;
+  *(a1 + 24) |= 1u;
 LABEL_9:
-  *a2 = v7;
-  *(a2 + 8) = result;
+  *a1 = v6;
+  a1[1] = result;
   return result;
 }
 
-uint64_t llvm::sys::fs::set_current_path(llvm::sys::fs *this, const llvm::Twine *a2)
+uint64_t llvm::sys::fs::set_current_path(const char **this, const llvm::Twine *a2)
 {
   v8[16] = *MEMORY[0x277D85DE8];
   v6 = v8;
@@ -7093,7 +7092,7 @@ LABEL_3:
   return v3;
 }
 
-uint64_t llvm::sys::fs::create_link(llvm::sys::fs *this, const llvm::Twine *a2, const llvm::Twine *a3)
+uint64_t llvm::sys::fs::create_link(const char **this, const char **a2, const llvm::Twine *a3)
 {
   v14[16] = *MEMORY[0x277D85DE8];
   v12 = v14;
@@ -7133,7 +7132,7 @@ LABEL_4:
   return v6;
 }
 
-uint64_t llvm::sys::fs::create_hard_link(llvm::sys::fs *this, const llvm::Twine *a2, const llvm::Twine *a3)
+uint64_t llvm::sys::fs::create_hard_link(const char **this, const char **a2, const llvm::Twine *a3)
 {
   v14[16] = *MEMORY[0x277D85DE8];
   v12 = v14;
@@ -7173,7 +7172,7 @@ LABEL_4:
   return v6;
 }
 
-uint64_t llvm::sys::fs::remove(llvm::sys::fs *this, const llvm::Twine *a2)
+uint64_t llvm::sys::fs::remove(const char **this, const llvm::Twine *a2)
 {
   v2 = a2;
   v12[16] = *MEMORY[0x277D85DE8];
@@ -7285,7 +7284,7 @@ uint64_t llvm::sys::fs::is_local(llvm::sys::fs *this, BOOL *a2, BOOL *a3)
   return v4;
 }
 
-uint64_t llvm::sys::fs::rename(llvm::sys::fs *this, const llvm::Twine *a2, const llvm::Twine *a3)
+uint64_t llvm::sys::fs::rename(const char **this, const char **a2, const llvm::Twine *a3)
 {
   v16[16] = *MEMORY[0x277D85DE8];
   v14 = v16;
@@ -7342,7 +7341,7 @@ uint64_t llvm::sys::fs::resize_file(llvm::sys::fs *this, off_t a2)
   }
 }
 
-uint64_t llvm::sys::fs::access(uint64_t a1, int a2)
+uint64_t llvm::sys::fs::access(const char **a1, int a2)
 {
   v11[16] = *MEMORY[0x277D85DE8];
   v9 = v11;
@@ -7406,7 +7405,7 @@ LABEL_11:
   return v5;
 }
 
-uint64_t llvm::sys::fs::equivalent(llvm::sys::fs *this, const llvm::Twine *a2, const llvm::Twine *a3, BOOL *a4)
+uint64_t llvm::sys::fs::equivalent(const char **this, const char **a2, const llvm::Twine *a3, BOOL *a4)
 {
   v21[16] = *MEMORY[0x277D85DE8];
   v19 = v21;
@@ -7484,12 +7483,12 @@ LABEL_8:
   return v7;
 }
 
-void llvm::sys::fs::expand_tilde(uint64_t a1, uint64_t *a2)
+void llvm::sys::fs::expand_tilde(uint64_t result, uint64_t *a2)
 {
   a2[1] = 0;
-  if (*(a1 + 32) >= 2u)
+  if (*(result + 32) >= 2u)
   {
-    llvm::Twine::toVector(a1, a2);
+    llvm::Twine::toVector(result, a2);
 
     llvm::sys::fs::expandTildeExpr(a2);
   }
@@ -7629,7 +7628,7 @@ uint64_t llvm::sys::fs::getUmask(llvm::sys::fs *this)
   return v1;
 }
 
-uint64_t llvm::sys::fs::setPermissions(uint64_t a1, mode_t a2)
+uint64_t llvm::sys::fs::setPermissions(const char **a1, mode_t a2)
 {
   v9[16] = *MEMORY[0x277D85DE8];
   v7 = v9;
@@ -8110,7 +8109,7 @@ uint64_t llvm::sys::fs::detail::directory_iterator_destruct(uint64_t a1)
   return 0;
 }
 
-void llvm::sys::fs::directory_entry::status(llvm::sys::fs::directory_entry *this@<X0>, uint64_t a2@<X8>)
+void llvm::sys::fs::directory_entry::status(uint64_t *__return_ptr a1@<X8>, llvm::sys::fs::directory_entry *this@<X0>)
 {
   v31[16] = *MEMORY[0x277D85DE8];
   v20 = 260;
@@ -8178,30 +8177,30 @@ LABEL_6:
   }
 
 LABEL_7:
-  v15 = *(a2 + 48);
+  v15 = *(a1 + 48);
   if (v6)
   {
-    *(a2 + 48) = v15 | 1;
+    *(a1 + 48) = v15 | 1;
     v11 = v8;
   }
 
   else
   {
-    *(a2 + 48) = v15 & 0xFE;
-    *(a2 + 16) = v10;
-    *(a2 + 20) = v18;
-    *(a2 + 24) = v17;
-    *(a2 + 32) = v9;
+    *(a1 + 48) = v15 & 0xFE;
+    *(a1 + 4) = v10;
+    *(a1 + 5) = v18;
+    a1[3] = v17;
+    a1[4] = v9;
     v6 = v12;
-    *(a2 + 40) = v7;
-    *(a2 + 44) = v13;
+    *(a1 + 10) = v7;
+    *(a1 + 11) = v13;
   }
 
-  *a2 = v6;
-  *(a2 + 8) = v11;
+  *a1 = v6;
+  a1[1] = v11;
 }
 
-uint64_t llvm::sys::fs::openFile(uint64_t a1, int *a2, int a3, int a4, int a5, uint64_t a6)
+uint64_t llvm::sys::fs::openFile(const char **a1, int *a2, int a3, int a4, int a5, uint64_t a6)
 {
   v21[16] = *MEMORY[0x277D85DE8];
   v8 = 2 * (a4 == 3);
@@ -8290,7 +8289,7 @@ LABEL_23:
   return v16;
 }
 
-llvm *llvm::sys::fs::openNativeFile@<X0>(uint64_t a1@<X0>, int a2@<W1>, int a3@<W2>, int a4@<W3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
+llvm *llvm::sys::fs::openNativeFile@<X0>(const char **a1@<X0>, int a2@<W1>, int a3@<W2>, int a4@<W3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
 {
   v10 = 0;
   result = llvm::sys::fs::openFile(a1, &v10, a2, a3, a4, a5);
@@ -8342,7 +8341,7 @@ uint64_t llvm::sys::fs::getRealPathFromHandle(int a1, void *a2)
   return v5;
 }
 
-llvm *llvm::sys::fs::openNativeFileForRead@<X0>(uint64_t a1@<X0>, int a2@<W1>, void *a3@<X2>, uint64_t a4@<X8>)
+llvm *llvm::sys::fs::openNativeFileForRead@<X0>(const char **a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, uint64_t a4@<X8>)
 {
   v8 = 0;
   result = llvm::sys::fs::openFileForRead(a1, &v8, a2, a3);
@@ -8362,7 +8361,7 @@ llvm *llvm::sys::fs::openNativeFileForRead@<X0>(uint64_t a1@<X0>, int a2@<W1>, v
   return result;
 }
 
-ssize_t llvm::sys::fs::readNativeFileSlice@<X0>(int a1@<W0>, void *a2@<X1>, unint64_t a3@<X2>, off_t a4@<X3>, uint64_t a5@<X8>)
+ssize_t llvm::sys::fs::readNativeFileSlice@<X0>(int a1@<W0>, void *a2@<X1>, size_t a3@<X2>, off_t a4@<X3>, uint64_t a5@<X8>)
 {
   if (a3 >= 0x7FFFFFFF)
   {
@@ -8523,7 +8522,7 @@ uint64_t llvm::sys::fs::closeFile(llvm::sys::fs *this, int *a2)
   return llvm::sys::Process::SafelyCloseFileDescriptor(v2);
 }
 
-void llvm::sys::fs::remove_directories(llvm::sys::fs *this, const llvm::Twine *a2)
+void llvm::sys::fs::remove_directories(void ***this, const llvm::Twine *a2)
 {
   v5 = *MEMORY[0x277D85DE8];
   v4.__val_ = 0;
@@ -8637,7 +8636,7 @@ LABEL_7:
   return v8;
 }
 
-uint64_t llvm::sys::path::user_config_directory(void *a1)
+uint64_t llvm::sys::path::user_config_directory(void **a1)
 {
   if (llvm::sys::path::home_directory(a1))
   {
@@ -8940,7 +8939,7 @@ void llvm::sys::fs::TempFile::~TempFile(void **this)
   }
 }
 
-uint64_t llvm::sys::fs::TempFile::discard@<X0>(llvm::sys::fs::TempFile *this@<X0>, void *a2@<X8>)
+uint64_t *llvm::sys::fs::TempFile::discard@<X0>(uint64_t *__return_ptr a1@<X8>, llvm::sys::fs::TempFile *this@<X0>)
 {
   *this = 1;
   v4 = *(this + 8);
@@ -8999,27 +8998,27 @@ LABEL_5:
     v12 = 0;
 LABEL_15:
     *&v11.__val_ = v5;
-    return llvm::errorCodeToError(v12, v11, a2);
+    return llvm::errorCodeToError(v12, v11, a1);
   }
 
   v14 = *__error();
   *&v15.__val_ = std::generic_category();
 
-  return llvm::errorCodeToError(v14, v15, a2);
+  return llvm::errorCodeToError(v14, v15, a1);
 }
 
-uint64_t llvm::sys::fs::TempFile::keep@<X0>(llvm::sys::fs::TempFile *this@<X0>, const llvm::Twine *a2@<X1>, const llvm::Twine *a3@<X2>, void *a4@<X8>)
+uint64_t *llvm::sys::fs::TempFile::keep@<X0>(uint64_t *__return_ptr a1@<X8>, llvm::sys::fs::TempFile *this@<X0>, const char **a3@<X1>, const llvm::Twine *a4@<X2>)
 {
   *this = 1;
   v7 = (this + 8);
   v19 = 260;
   v18[0] = (this + 8);
-  v10 = llvm::sys::fs::rename(v18, a2, a3);
+  v10 = llvm::sys::fs::rename(v18, a3, a4);
   if (v10)
   {
     v19 = 260;
     v18[0] = v7;
-    v10 = llvm::sys::fs::copy_file(v18, a2, v9);
+    v10 = llvm::sys::fs::copy_file(v18, a3, v9);
     v12 = v11;
     if (v10)
     {
@@ -9067,7 +9066,7 @@ uint64_t llvm::sys::fs::TempFile::keep@<X0>(llvm::sys::fs::TempFile *this@<X0>, 
 LABEL_15:
     v10 = *__error();
     *&v16.__val_ = std::generic_category();
-    return llvm::errorCodeToError(v10, v16, a4);
+    return llvm::errorCodeToError(v10, v16, a1);
   }
 
   if (close(*(this + 8)) == -1)
@@ -9078,7 +9077,7 @@ LABEL_15:
 LABEL_13:
   *(this + 8) = -1;
   *&v16.__val_ = v12;
-  return llvm::errorCodeToError(v10, v16, a4);
+  return llvm::errorCodeToError(v10, v16, a1);
 }
 
 uint64_t llvm::sys::fs::TempFile::keep@<X0>(llvm::sys::fs::TempFile *this@<X0>, void *a2@<X8>)
@@ -9542,9 +9541,9 @@ void llvm::sys::Process::Exit(llvm::sys::Process *this, uint64_t a2)
   llvm::CrashRecoveryContext::HandleExit(Current, this);
 }
 
-void llvm::sys::Process::getPageSize(uint64_t a1@<X8>)
+void llvm::sys::Process::getPageSize(uint64_t *__return_ptr a1@<X8>)
 {
-  if (atomic_load_explicit(&qword_27F875840, memory_order_acquire))
+  if (atomic_load_explicit(byte_27F875840, memory_order_acquire))
   {
     v3 = _MergedGlobals_21;
     if (_MergedGlobals_21 != -1)

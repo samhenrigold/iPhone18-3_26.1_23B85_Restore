@@ -16,7 +16,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   if (self->_accountIdentifier)
   {
@@ -28,30 +28,30 @@
   if ([(NSArray *)self->_contents count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v24 = 0u;
     v25 = 0u;
     v26 = 0u;
     v27 = 0u;
-    v28 = 0u;
     v7 = self->_contents;
-    v8 = [(NSArray *)v7 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v8 = [(NSArray *)v7 countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v26;
+      v10 = *v25;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v26 != v10)
+          if (*v25 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          dictionaryRepresentation = [*(*(&v25 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v24 + 1) + 8 * i) dictionaryRepresentation];
           [array addObject:dictionaryRepresentation];
         }
 
-        v9 = [(NSArray *)v7 countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v9 = [(NSArray *)v7 countByEnumeratingWithState:&v24 objects:v28 count:16];
       }
 
       while (v9);
@@ -82,8 +82,6 @@
   title = [(_INPBNote *)self title];
   dictionaryRepresentation5 = [title dictionaryRepresentation];
   [dictionary setObject:dictionaryRepresentation5 forKeyedSubscript:@"title"];
-
-  v23 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -346,46 +344,44 @@ LABEL_38:
 
 - (void)writeTo:(id)to
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   toCopy = to;
   accountIdentifier = [(_INPBNote *)self accountIdentifier];
 
   if (accountIdentifier)
   {
-    accountIdentifier = self->_accountIdentifier;
     PBDataWriterWriteStringField();
   }
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
-  v25 = 0u;
-  v7 = self->_contents;
-  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v24 objects:v28 count:16];
-  if (v8)
+  v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v6 = self->_contents;
+  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  if (v7)
   {
-    v9 = v8;
-    v10 = *v25;
+    v8 = v7;
+    v9 = *v21;
     do
     {
-      v11 = 0;
+      v10 = 0;
       do
       {
-        if (*v25 != v10)
+        if (*v21 != v9)
         {
-          objc_enumerationMutation(v7);
+          objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v24 + 1) + 8 * v11);
         PBDataWriterWriteSubmessage();
-        ++v11;
+        ++v10;
       }
 
-      while (v9 != v11);
-      v9 = [(NSArray *)v7 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      while (v8 != v10);
+      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
-    while (v9);
+    while (v8);
   }
 
   createdDateTime = [(_INPBNote *)self createdDateTime];
@@ -408,7 +404,6 @@ LABEL_38:
 
   if (identifier)
   {
-    identifier = self->_identifier;
     PBDataWriterWriteStringField();
   }
 
@@ -427,8 +422,6 @@ LABEL_38:
     title2 = [(_INPBNote *)self title];
     PBDataWriterWriteSubmessage();
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setIdentifier:(id)identifier

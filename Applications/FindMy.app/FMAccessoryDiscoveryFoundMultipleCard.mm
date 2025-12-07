@@ -19,7 +19,7 @@
   v7 = *(v6 - 8);
   __chkstk_darwin(v6);
   v9 = &v20 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = sub_10007EBC0(&unk_1006C2670);
+  v10 = sub_10007EBC0(&unk_1006C2670, &qword_10055DDB0);
   __chkstk_darwin(v10 - 8);
   v12 = &v20 - v11;
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
@@ -50,7 +50,7 @@
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  sub_10033E460();
+  sub_10033E460(v9);
 
   (*(v7 + 8))(v9, v6);
 }

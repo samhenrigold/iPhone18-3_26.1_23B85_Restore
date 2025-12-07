@@ -3,13 +3,13 @@
 - (__int16)_setColor:(float)_S0@<S0> colorSpace:(float)space@<S1>;
 - (id).cxx_construct;
 - (uint64_t)_setConicGradientCenter:(__n128)center angle:stopCount:colors:colorSpace:locations:flags:;
-- (uint64_t)_xmlAttributes:(uint64_t)result;
 - (void)_set9PartRBImage:(const void *)image transform:(__int128 *)transform destinationRect:(int)rect capInsets:(unsigned int)insets repeat:(int)repeat interpolation:(uint64_t)interpolation tintColor:(double)color colorSpace:(double)self0 flags:(double)self1;
 - (void)_setAngularGradientCenter:(__n128)center startAngle:endAngle:stopCount:colors:colorSpace:locations:flags:;
 - (void)_setAxialGradientStartPoint:(__n128)point endPoint:(float64_t)endPoint stopCount:(float64_t)count colors:colorSpace:locations:flags:;
 - (void)_setRBImage:(const void *)image transform:(uint64_t)transform interpolation:(unsigned int)interpolation tintColor:(int)color colorSpace:(uint64_t)space flags:(float)flags;
 - (void)_setRadialGradientStartCenter:(__n128)center startRadius:(double)radius endCenter:(float64_t)endCenter endRadius:(float64_t)endRadius stopCount:colors:colorSpace:locations:flags:;
 - (void)_setTiledRBImage:(const void *)image transform:(uint64_t)transform sourceRect:(unsigned int)rect interpolation:(int)interpolation tintColor:(uint64_t)color colorSpace:(float64_t)space flags:(float64_t)flags;
+- (void)_xmlAttributes:(uint64_t)attributes;
 - (void)concat:(CGAffineTransform *)concat;
 - (void)invalidateContents;
 - (void)set9PartImage:(CGImage *)image transform:(CGAffineTransform *)transform destinationRect:(CGRect)rect capInsets:(id)insets repeat:(BOOL)repeat interpolation:(int)interpolation tintColor:(id)color flags:(unsigned int)self0;
@@ -186,11 +186,11 @@
   }
 
   v25 = (LODWORD(_S9) << 32) | (LODWORD(_S8) << 48) | (LODWORD(_S10) << 16) | LODWORD(_S11);
-  v26 = 0;
-  v27 = rb_color_space(space);
+  LODWORD(v26) = 0;
+  WORD2(v26) = rb_color_space(space);
   RBFillData::apply<RB::DestroyAny>(&self->_data);
   self->_data.type = 0;
-  (RB::Fill::MeshGradient::MeshGradient)(&self->_data.data[12], typeCopy, count, width, positions, colors, &v25, flags);
+  RB::Fill::MeshGradient::MeshGradient(&self->_data.data[12], typeCopy, count, width, positions, colors, &v25, flags, v25, v26);
   self->_data.type = 3;
   self->_headroom = 0.0;
 }
@@ -314,37 +314,35 @@ RB::Device *__28__RBFill_invalidateContents__block_invoke(uint64_t a1)
   return result;
 }
 
-- (uint64_t)_xmlAttributes:(uint64_t)result
+- (void)_xmlAttributes:(uint64_t)attributes
 {
-  if (result)
+  if (attributes)
   {
-    switch(*(result + 16))
+    switch(*(attributes + 16))
     {
       case 1:
-        v1 = OUTLINED_FUNCTION_13();
+        v2 = OUTLINED_FUNCTION_13();
 
-        RB::Fill::Color::attributes(v1, v2);
+        RB::Fill::Color::attributes(v2, v3);
       case 2:
-        v9 = OUTLINED_FUNCTION_13();
+        v10 = OUTLINED_FUNCTION_13();
 
-        RB::Fill::Gradient::attributes(v9, v10);
+        RB::Fill::Gradient::attributes(v10, v11);
       case 3:
-        v5 = OUTLINED_FUNCTION_13();
+        v6 = OUTLINED_FUNCTION_13();
 
-        RB::Fill::MeshGradient::attributes(v5, v6);
+        RB::Fill::MeshGradient::attributes(v6, v7);
       case 4:
-        v7 = OUTLINED_FUNCTION_13();
-        RB::ImageTexture::attributes(v7, v8);
+        v8 = OUTLINED_FUNCTION_13();
+        RB::ImageTexture::attributes(v8, v9);
       case 5:
-        v3 = OUTLINED_FUNCTION_13();
+        v4 = OUTLINED_FUNCTION_13();
 
-        RB::Fill::Custom::attributes(v3, v4);
+        RB::Fill::Custom::attributes(v4, v5);
       default:
-        return result;
+        return;
     }
   }
-
-  return result;
 }
 
 - (__int16)_setColor:(float)_S0@<S0> colorSpace:(float)space@<S1>
@@ -382,27 +380,27 @@ RB::Device *__28__RBFill_invalidateContents__block_invoke(uint64_t a1)
 - (void)setAxialGradientStyle:(double)style startPoint:(double)point endPoint:(float64_t)endPoint
 {
   v29 = *MEMORY[0x1E69E9840];
-  if (self && *(self + 16) == 1)
+  if (result && *(result + 16) == 1)
   {
-    _H0 = *(self + 32);
+    _H0 = *(result + 32);
     __asm { FCVT            S12, H0 }
 
-    _H0 = *(self + 34);
+    _H0 = *(result + 34);
     __asm { FCVT            S13, H0 }
 
-    _H0 = *(self + 36);
+    _H0 = *(result + 36);
     __asm { FCVT            S14, H0 }
 
-    _H0 = *(self + 38);
+    _H0 = *(result + 38);
     __asm { FCVT            S15, H0 }
 
-    v24 = rb_color_space(*(self + 44));
+    v24 = rb_color_space(*(result + 44));
     if (RBColorMakeGradient(v24, a2, 2uLL, v28, v27, _S12, _S13, _S14, _S15))
     {
-      rb_color_space(*(self + 44));
+      rb_color_space(*(result + 44));
       v25.n128_f64[0] = style;
       v26.n128_f64[0] = point;
-      [RBFill _setAxialGradientStartPoint:self endPoint:v25 stopCount:v26 colors:endPoint colorSpace:a6 locations:? flags:?];
+      [RBFill _setAxialGradientStartPoint:v25 endPoint:v26 stopCount:endPoint colors:a6 colorSpace:? locations:? flags:?];
     }
   }
 }
@@ -770,13 +768,12 @@ RB::Device *__28__RBFill_invalidateContents__block_invoke(uint64_t a1)
   [(RBFill *)self _set9PartRBImage:image transform:v11 destinationRect:repeat capInsets:interpolation repeat:0 interpolation:*&color.var0 tintColor:rect.origin.x colorSpace:rect.origin.y flags:rect.size.width, rect.size.height, insets.var0, insets.var1, insets.var2, flags, v12, v13, v14];
 }
 
-- (uint64_t)setCGColor:(CGColor *)a1 .cold.1(CGColor *a1, uint64_t a2)
+- (void)setCGColor:(CGColor *)a1 .cold.1(CGColor *a1, uint64_t a2)
 {
   v3 = RBColorFromCGColor(a1, 0);
   [(RBFill *)a2 _setColor:*&v3 colorSpace:v4, v5, v6];
-  result = CGColorGetContentHeadroom();
-  *(a2 + 392) = v8;
-  return result;
+  CGColorGetContentHeadroom();
+  *(a2 + 392) = v7;
 }
 
 @end

@@ -73,7 +73,7 @@
 
 - (id)getAllMetadata
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v3 = 0x277CBE000uLL;
   iSOCountryCodes = [MEMORY[0x277CBEAF8] ISOCountryCodes];
   v5 = objc_alloc(MEMORY[0x277CBEB18]);
@@ -81,31 +81,31 @@
   v7 = v5;
   selfCopy = self;
   v9 = [v7 initWithCapacity:v6];
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
   obj = iSOCountryCodes;
-  v34 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
-  if (v34)
+  v33 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+  if (v33)
   {
-    v33 = *v36;
-    v32 = *MEMORY[0x277CBE690];
+    v32 = *v35;
+    v31 = *MEMORY[0x277CBE690];
     v10 = *MEMORY[0x277CBE6C0];
-    v31 = *MEMORY[0x277CBE6C0];
-    v29 = v9;
+    v30 = *MEMORY[0x277CBE6C0];
+    v28 = v9;
     do
     {
       v11 = 0;
       do
       {
-        if (*v36 != v33)
+        if (*v35 != v32)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v35 + 1) + 8 * v11);
-        v13 = [MEMORY[0x277CBEAC0] dictionaryWithObject:v12 forKey:{v32, v29}];
+        v12 = *(*(&v34 + 1) + 8 * v11);
+        v13 = [MEMORY[0x277CBEAC0] dictionaryWithObject:v12 forKey:{v31, v28}];
         v14 = [*(v3 + 2808) localeIdentifierFromComponents:v13];
         currentLocale = [*(v3 + 2808) currentLocale];
         v16 = [currentLocale displayNameForKey:v10 value:v14];
@@ -139,7 +139,7 @@ LABEL_8:
 
         selfCopy = v22;
         v3 = v23;
-        v9 = v29;
+        v9 = v28;
         if (v12)
         {
           goto LABEL_8;
@@ -155,18 +155,16 @@ LABEL_9:
         [v9 addObject:v19];
 
         ++v11;
-        v10 = v31;
+        v10 = v30;
       }
 
-      while (v34 != v11);
-      v26 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
-      v34 = v26;
+      while (v33 != v11);
+      v26 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+      v33 = v26;
     }
 
     while (v26);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

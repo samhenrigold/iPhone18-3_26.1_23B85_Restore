@@ -1873,26 +1873,24 @@ LABEL_24:
       if (integerValue2 && integerValue)
       {
         v12 = PULocalizedString(@"ONEUP_COMMENTS_TOGGLE_CONSOLIDATED_COMMENTS");
-        v13 = PULocalizedStringWithValidatedFormat(v12, @"%d");
+        v19 = PULocalizedStringWithValidatedFormat(v12, @"%d", v13, v14, v15, v16, v17, v18, integerValue2 + integerValue);
 
-        if (![v13 length] || !-[PUOneUpBarsController shouldUseCompactCommentsTitle](self, "shouldUseCompactCommentsTitle"))
+        if (![v19 length] || !-[PUOneUpBarsController shouldUseCompactCommentsTitle](self, "shouldUseCompactCommentsTitle"))
         {
-          v14 = [(PUOneUpBarsController *)self _attributedCommentTitleForTitle:v13 controlState:0];
+          v20 = [(PUOneUpBarsController *)self _attributedCommentTitleForTitle:v19 controlState:0];
           viewController = [(PUBarsController *)self viewController];
-          [v14 size];
-          v17 = v16;
+          [v20 size];
+          v23 = v22;
           view = [viewController view];
           [view bounds];
-          v20 = v19 * 0.5;
+          v26 = v25 * 0.5;
 
-          if (v17 < v20)
+          if (v23 < v26)
           {
-            v21 = PULocalizedString(@"ONEUP_COMMENTS_TOGGLE_COMMENTS_AND_LIKES");
-            v28 = integerValue2;
-            v29 = integerValue;
-            v22 = PULocalizedStringWithValidatedFormat(v21, @"%d %d");
+            v27 = PULocalizedString(@"ONEUP_COMMENTS_TOGGLE_COMMENTS_AND_LIKES");
+            v34 = PULocalizedStringWithValidatedFormat(v27, @"%d %d", v28, v29, v30, v31, v32, v33, integerValue2);
 
-            v13 = v22;
+            v19 = v34;
           }
         }
       }
@@ -1901,10 +1899,10 @@ LABEL_24:
       {
         if (!integerValue2 || integerValue)
         {
-          v13 = PULocalizedString(@"ONEUP_COMMENTS_TOGGLE_NO_COMMENTS");
-          v25 = 1;
+          v19 = PULocalizedString(@"ONEUP_COMMENTS_TOGGLE_NO_COMMENTS");
+          v49 = 1;
 LABEL_21:
-          [(PUOneUpBarsController *)self setShouldBeginEditingAfterShowingComments:v25, v28, v29];
+          [(PUOneUpBarsController *)self setShouldBeginEditingAfterShowingComments:v49];
           customView = [v9 customView];
           if (!customView || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
           {
@@ -1912,24 +1910,22 @@ LABEL_21:
             [currentHandler handleFailureInMethod:a2 object:self file:@"PUOneUpBarsController.m" lineNumber:2839 description:{@"Invalid parameter not satisfying: %@", @"commentsItemButton && [commentsItemButton isKindOfClass:UIButton.class]"}];
           }
 
-          [(PUOneUpBarsController *)self _updateCommentsButton:customView withTitle:v13];
+          [(PUOneUpBarsController *)self _updateCommentsButton:customView withTitle:v19];
 
           goto LABEL_24;
         }
 
-        v24 = PULocalizedString(@"ONEUP_COMMENTS_TOGGLE_LIKES_ONLY");
-        v28 = integerValue2;
-        v13 = PULocalizedStringWithValidatedFormat(v24, @"%d");
+        v42 = PULocalizedString(@"ONEUP_COMMENTS_TOGGLE_LIKES_ONLY");
+        v19 = PULocalizedStringWithValidatedFormat(v42, @"%d", v43, v44, v45, v46, v47, v48, integerValue2);
       }
 
       else
       {
-        v23 = PULocalizedString(@"ONEUP_COMMENTS_TOGGLE_COMMENTS_ONLY");
-        v28 = integerValue;
-        v13 = PULocalizedStringWithValidatedFormat(v23, @"%d");
+        v35 = PULocalizedString(@"ONEUP_COMMENTS_TOGGLE_COMMENTS_ONLY");
+        v19 = PULocalizedStringWithValidatedFormat(v35, @"%d", v36, v37, v38, v39, v40, v41, integerValue);
       }
 
-      v25 = 0;
+      v49 = 0;
       goto LABEL_21;
     }
 
@@ -2036,7 +2032,7 @@ LABEL_25:
 
           currentAssetReference2 = [asset currentAssetReference];
           assetsDataSource = [asset assetsDataSource];
-          v13 = [assetsDataSource indexPathForAssetReference:currentAssetReference2];
+          v13 = objc_msgSend_indexPathForAssetReference_(assetsDataSource);
           v14 = [MEMORY[0x1E696AC88] indexPathWithIndex:{objc_msgSend(v13, "section")}];
           v15 = [assetsDataSource numberOfSubItemsAtIndexPath:v14];
 
@@ -3689,14 +3685,14 @@ LABEL_8:
         v127 = 0u;
         v124 = 0u;
         v125 = 0u;
-        [PUReviewScreenUtilities reviewScreenTopBarGeometryForReferenceBounds:_windowInterfaceOrientation withOrientation:v63, v65, v67, v69];
+        objc_msgSend_reviewScreenTopBarGeometryForReferenceBounds_withOrientation_(PUReviewScreenUtilities, v63, v65, v67, v69);
         v122 = 0u;
         v123 = 0u;
         v120 = 0u;
         v121 = 0u;
         v118 = 0u;
         v119 = 0u;
-        [PUReviewScreenUtilities reviewScreenControlBarGeometryForReferenceBounds:_windowInterfaceOrientation withOrientation:v63, v65, v67, v69];
+        objc_msgSend_reviewScreenControlBarGeometryForReferenceBounds_withOrientation_(PUReviewScreenUtilities, v63, v65, v67, v69);
         v116 = 0u;
         v117 = 0u;
         v114 = 0u;
@@ -3705,7 +3701,7 @@ LABEL_8:
         v113 = 0u;
         v106 = v69;
         v107 = v67;
-        [PUReviewScreenUtilities reviewScreenScrubberBarGeometryForReferenceBounds:_windowInterfaceOrientation withOrientation:v63 safeAreaInsets:v65, v67, v69, v5, v109, v9, v110];
+        objc_msgSend_reviewScreenScrubberBarGeometryForReferenceBounds_withOrientation_safeAreaInsets_(PUReviewScreenUtilities, v63, v65, v67, v69, v5, v109, v9, v110);
         v75 = 0;
         *buf = 0u;
         memset(v132, 0, sizeof(v132));

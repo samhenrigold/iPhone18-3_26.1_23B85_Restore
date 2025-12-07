@@ -9,31 +9,31 @@
 
 - (STNotificationSettingsGateway)initWithBundleIdentifiers:(id)identifiers
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   v5 = [(STNotificationSettingsGateway *)self init];
   v6 = [(BBSettingsGateway *)v5->_notificationSettingsGateway sectionInfoForSectionIDs:identifiersCopy];
   v7 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(v6, "count")}];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v8 = v6;
-  v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v20;
+    v11 = *v19;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v20 != v11)
+        if (*v19 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v19 + 1) + 8 * i);
+        v13 = *(*(&v18 + 1) + 8 * i);
         if (([v13 suppressFromSettings] & 1) == 0)
         {
           sectionID = [v13 sectionID];
@@ -41,7 +41,7 @@
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v10);
@@ -51,7 +51,6 @@
   sectionInfoByBundleIdentifier = v5->_sectionInfoByBundleIdentifier;
   v5->_sectionInfoByBundleIdentifier = v15;
 
-  v17 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

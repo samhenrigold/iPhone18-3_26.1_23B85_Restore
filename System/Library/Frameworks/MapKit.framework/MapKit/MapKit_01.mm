@@ -1,3 +1,41 @@
+id geoAddressDictionaryFromContactsAddressDictionary(void *a1)
+{
+  v13[8] = *MEMORY[0x1E69E9840];
+  v12[0] = @"street";
+  v12[1] = @"city";
+  v13[0] = @"Street";
+  v13[1] = @"City";
+  v12[2] = @"state";
+  v12[3] = @"subAdministrativeArea";
+  v13[2] = @"State";
+  v13[3] = @"SubAdministrativeArea";
+  v12[4] = @"subLocality";
+  v12[5] = @"postalCode";
+  v13[4] = @"SubLocality";
+  v13[5] = @"ZIP";
+  v12[6] = @"country";
+  v12[7] = @"ISOCountryCode";
+  v13[6] = @"Country";
+  v13[7] = @"CountryCode";
+  v1 = MEMORY[0x1E695DF20];
+  v2 = a1;
+  v3 = [v1 dictionaryWithObjects:v13 forKeys:v12 count:8];
+  v4 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(v2, "count")}];
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __geoAddressDictionaryFromContactsAddressDictionary_block_invoke;
+  v9[3] = &unk_1E76C8830;
+  v10 = v3;
+  v11 = v4;
+  v5 = v4;
+  v6 = v3;
+  [v2 enumerateKeysAndObjectsUsingBlock:v9];
+
+  v7 = [v5 copy];
+
+  return v7;
+}
+
 void __geoAddressDictionaryFromContactsAddressDictionary_block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v9 = a2;
@@ -131,21 +169,21 @@ void _breadthFirstApply(const void *a1, void *a2)
   CFRelease(Mutable);
 }
 
-void sub_1A2FA3F60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1A2FA3F60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
 
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v12 - 64), 8);
+  _Block_object_dispose((v19 - 64), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A2FA40F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1A2FA40F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
 
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v12 - 64), 8);
+  _Block_object_dispose((v19 - 64), 8);
   _Unwind_Resume(a1);
 }
 
@@ -171,25 +209,25 @@ void MKQuadTrieNodeFree(void *a1)
   }
 }
 
-void sub_1A2FA4454(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A2FA4454(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A2FA5074(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, ...)
+void sub_1A2FA5074(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A2FA52F4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_1A2FA52F4(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = MKQuadTrie;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -290,9 +328,9 @@ void sub_1A2FAC060(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1A2FB0610(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1A2FB0610(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -304,9 +342,9 @@ uint64_t __Block_byref_object_copy__18536(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1A2FB160C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1A2FB160C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -492,7 +530,7 @@ uint64_t SecurityLibrary()
   v1 = v3[0];
   if (!v0)
   {
-    v1 = abort_report_np();
+    v1 = abort_report_np("%s", v3[0]);
     __break(1u);
     goto LABEL_7;
   }
@@ -506,9 +544,9 @@ LABEL_7:
   return v0;
 }
 
-void sub_1A2FB8F58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1A2FB8F58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -533,30 +571,30 @@ void *__getSecTaskCopyValueForEntitlementSymbolLoc_block_invoke(uint64_t a1)
 
 uint64_t mk_SecTaskCopyValueForEntitlement(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v11 = 0;
-  v12 = &v11;
-  v13 = 0x2020000000;
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x2020000000;
   v6 = getSecTaskCopyValueForEntitlementSymbolLoc_ptr;
-  v14 = getSecTaskCopyValueForEntitlementSymbolLoc_ptr;
+  v15 = getSecTaskCopyValueForEntitlementSymbolLoc_ptr;
   if (!getSecTaskCopyValueForEntitlementSymbolLoc_ptr)
   {
     v7 = SecurityLibrary();
-    v12[3] = dlsym(v7, "SecTaskCopyValueForEntitlement");
-    getSecTaskCopyValueForEntitlementSymbolLoc_ptr = v12[3];
-    v6 = v12[3];
+    v13[3] = dlsym(v7, "SecTaskCopyValueForEntitlement");
+    getSecTaskCopyValueForEntitlementSymbolLoc_ptr = v13[3];
+    v6 = v13[3];
   }
 
-  v10 = v6;
-  _Block_object_dispose(&v11, 8);
-  if (!v10)
+  v11 = v6;
+  _Block_object_dispose(&v12, 8);
+  if (!v11)
   {
-    dlerror();
-    v9 = abort_report_np();
-    _Block_object_dispose(&v11, 8);
-    _Unwind_Resume(v9);
+    v9 = dlerror();
+    v10 = abort_report_np("%s", v9);
+    _Block_object_dispose(&v12, 8);
+    _Unwind_Resume(v10);
   }
 
-  return v10(a1, a2, a3);
+  return v11(a1, a2, a3);
 }
 
 uint64_t _MKRAPIsAvailable()
@@ -631,26 +669,26 @@ LABEL_20:
 
 id getFBSOpenApplicationOptionKeyPromptUnlockDevice()
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x2020000000;
   v0 = getFBSOpenApplicationOptionKeyPromptUnlockDeviceSymbolLoc_ptr;
-  v8 = getFBSOpenApplicationOptionKeyPromptUnlockDeviceSymbolLoc_ptr;
+  v9 = getFBSOpenApplicationOptionKeyPromptUnlockDeviceSymbolLoc_ptr;
   if (!getFBSOpenApplicationOptionKeyPromptUnlockDeviceSymbolLoc_ptr)
   {
     v1 = FrontBoardServicesLibrary();
-    v6[3] = dlsym(v1, "FBSOpenApplicationOptionKeyPromptUnlockDevice");
-    getFBSOpenApplicationOptionKeyPromptUnlockDeviceSymbolLoc_ptr = v6[3];
-    v0 = v6[3];
+    v7[3] = dlsym(v1, "FBSOpenApplicationOptionKeyPromptUnlockDevice");
+    getFBSOpenApplicationOptionKeyPromptUnlockDeviceSymbolLoc_ptr = v7[3];
+    v0 = v7[3];
   }
 
-  _Block_object_dispose(&v5, 8);
+  _Block_object_dispose(&v6, 8);
   if (!v0)
   {
-    dlerror();
-    v4 = abort_report_np();
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    v4 = dlerror();
+    v5 = abort_report_np("%s", v4);
+    _Block_object_dispose(&v6, 8);
+    _Unwind_Resume(v5);
   }
 
   v2 = *v0;
@@ -696,7 +734,7 @@ uint64_t FrontBoardServicesLibrary()
   v1 = v3[0];
   if (!v0)
   {
-    v1 = abort_report_np();
+    v1 = abort_report_np("%s", v3[0]);
     __break(1u);
     goto LABEL_7;
   }
@@ -710,9 +748,9 @@ LABEL_7:
   return v0;
 }
 
-void sub_1A2FBA574(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1A2FBA574(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -737,7 +775,7 @@ Class __getTUCallCenterClass_block_invoke(uint64_t a1)
 
   else
   {
-    abort_report_np();
+    abort_report_np("Unable to find class %s", "TUCallCenter");
     return TelephonyUtilitiesLibrary();
   }
 
@@ -773,7 +811,7 @@ uint64_t TelephonyUtilitiesLibrary()
   v1 = v3[0];
   if (!v0)
   {
-    v1 = abort_report_np();
+    v1 = abort_report_np("%s", v3[0]);
     __break(1u);
     goto LABEL_7;
   }
@@ -787,9 +825,9 @@ LABEL_7:
   return v0;
 }
 
-void sub_1A2FBAE70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1A2FBAE70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -840,7 +878,7 @@ uint64_t SpringBoardServicesLibrary()
   v1 = v3[0];
   if (!v0)
   {
-    v1 = abort_report_np();
+    v1 = abort_report_np("%s", v3[0]);
     __break(1u);
     goto LABEL_7;
   }
@@ -854,9 +892,9 @@ LABEL_7:
   return v0;
 }
 
-void sub_1A2FBB0BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1A2FBB0BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -869,16 +907,16 @@ uint64_t __SpringBoardServicesLibraryCore_block_invoke(uint64_t a1)
   return result;
 }
 
-void sub_1A2FBC4F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1A2FBC4F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A2FBFA04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A2FBFA04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -899,30 +937,30 @@ void sub_1A2FC1FC8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t mk_CFPhoneNumberCreateString(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v11 = 0;
-  v12 = &v11;
-  v13 = 0x2020000000;
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x2020000000;
   v6 = getCFPhoneNumberCreateStringSymbolLoc_ptr;
-  v14 = getCFPhoneNumberCreateStringSymbolLoc_ptr;
+  v15 = getCFPhoneNumberCreateStringSymbolLoc_ptr;
   if (!getCFPhoneNumberCreateStringSymbolLoc_ptr)
   {
     v7 = PhoneNumbersLibrary();
-    v12[3] = dlsym(v7, "CFPhoneNumberCreateString");
-    getCFPhoneNumberCreateStringSymbolLoc_ptr = v12[3];
-    v6 = v12[3];
+    v13[3] = dlsym(v7, "CFPhoneNumberCreateString");
+    getCFPhoneNumberCreateStringSymbolLoc_ptr = v13[3];
+    v6 = v13[3];
   }
 
-  v10 = v6;
-  _Block_object_dispose(&v11, 8);
-  if (!v10)
+  v11 = v6;
+  _Block_object_dispose(&v12, 8);
+  if (!v11)
   {
-    dlerror();
-    v9 = abort_report_np();
-    _Block_object_dispose(&v11, 8);
-    _Unwind_Resume(v9);
+    v9 = dlerror();
+    v10 = abort_report_np("%s", v9);
+    _Block_object_dispose(&v12, 8);
+    _Unwind_Resume(v10);
   }
 
-  return v10(a1, a2, a3);
+  return v11(a1, a2, a3);
 }
 
 void *__getCFPhoneNumberCreateStringSymbolLoc_block_invoke(uint64_t a1)
@@ -958,16 +996,16 @@ void sub_1A2FC3FD8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1A2FC411C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A2FC411C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A2FC782C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_1A2FC782C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1009,16 +1047,16 @@ id -[MKTransitItemIncidentView _blockingImage](MKTransitItemIncidentView *self, 
   return v14;
 }
 
-void sub_1A2FCD33C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A2FCD33C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A2FCE838(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A2FCE838(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1042,11 +1080,12 @@ void __MKGetMKMapCameraLog_block_invoke()
   MKGetMKMapCameraLog_log = v0;
 }
 
-void sub_1A2FD1520(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30)
+void sub_1A2FD1520(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, ...)
 {
-  _Block_object_dispose(&a30, 8);
-  _Block_object_dispose((v30 - 176), 8);
-  _Block_object_dispose((v30 - 128), 8);
+  va_start(va, a29);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v29 - 176), 8);
+  _Block_object_dispose((v29 - 128), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1064,16 +1103,16 @@ uint64_t __Block_byref_object_copy__22635(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void sub_1A2FD9294(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A2FD9294(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A2FD9AC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A2FD9AC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1179,9 +1218,9 @@ LABEL_14:
   return v5;
 }
 
-void sub_1A2FE4CB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A2FE4CB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1240,13 +1279,14 @@ double MKCGRectFittingImageWithinSize(void *a1, double a2, double a3)
   return (a2 - v7) * 0.5;
 }
 
-id MKManeuverArrowImage(int a1, int a2, double *a3, void *a4, void *a5, float64x2_t *a6, CGFloat a7, CGFloat a8, CGFloat a9)
+id MKManeuverArrowImage(uint64_t a1, uint64_t a2, double *a3, void *a4, void *a5, float64x2_t *a6, CGFloat a7, CGFloat a8, CGFloat a9)
 {
+  v16 = a1;
   v107 = *MEMORY[0x1E69E9840];
   v17 = a4;
   v18 = a5;
-  v19 = a1 - 41;
-  if ((a1 - 41) <= 0x2F)
+  v19 = v16 - 41;
+  if ((v16 - 41) <= 0x2F)
   {
     if (((1 << v19) & 0x800003FFFFFFLL) != 0)
     {
@@ -1261,7 +1301,7 @@ LABEL_11:
       v99 = 0;
       v100 = 0;
       memcpy(__dst, a3, sizeof(__dst));
-      MKManeuverArrowPaths(a1, a2, __dst, a6, &v102, &v101, &v100, &v99, &v103);
+      MKManeuverArrowPaths(v16, a2, __dst, a6, &v102, &v101, &v100, &v99, &v103);
       v31 = v102;
       v32 = v101;
       v26 = v100;
@@ -1408,26 +1448,26 @@ LABEL_11:
   }
 
   v23 = 0;
-  if (a1 > 0x27)
+  if (v16 > 0x27)
   {
     goto LABEL_38;
   }
 
-  if (((1 << a1) & 0x8E7FB718FFLL) != 0)
+  if (((1 << v16) & 0x8E7FB718FFLL) != 0)
   {
     goto LABEL_11;
   }
 
-  if (a1 == 22)
+  if (v16 == 22)
   {
 LABEL_4:
     v20 = *a3;
     v21 = v17;
     v22 = v21;
     v23 = 0;
-    if (a1 > 81)
+    if (v16 > 81)
     {
-      switch(a1)
+      switch(v16)
       {
         case 'R':
           v24 = v18;
@@ -1511,12 +1551,12 @@ LABEL_4:
     {
       v24 = v18;
       v25 = 310002;
-      if (a1 != 22)
+      if (v16 != 22)
       {
         v26 = v21;
-        if (a1 != 80)
+        if (v16 != 80)
         {
-          if (a1 != 81)
+          if (v16 != 81)
           {
             v18 = v24;
             goto LABEL_37;
@@ -1602,8 +1642,9 @@ LABEL_38:
   return v23;
 }
 
-void MKManeuverArrowPaths(int a1, int a2, double *a3, float64x2_t *a4, void *a5, void *a6, void *a7, void *a8, char *a9)
+void MKManeuverArrowPaths(int a1, uint64_t a2, double *a3, float64x2_t *a4, void *a5, void *a6, void *a7, void *a8, char *a9)
 {
+  v11 = a2;
   v86 = *MEMORY[0x1E69E9840];
   v14 = *MEMORY[0x1E695EFF8];
   v13 = *(MEMORY[0x1E695EFF8] + 8);
@@ -1684,7 +1725,7 @@ void MKManeuverArrowPaths(int a1, int a2, double *a3, float64x2_t *a4, void *a5,
     case 88:
       v78 = 0;
       memcpy(__dst, a3, sizeof(__dst));
-      MKArrowAppendUTurnToPathInRect(v18, a2, __dst, &v78, v14, v13, v16, v15);
+      MKArrowAppendUTurnToPathInRect(v18, v11, __dst, &v78, v14, v13, v16, v15);
       v23 = v78;
       goto LABEL_11;
     case 8:
@@ -1715,7 +1756,7 @@ void MKManeuverArrowPaths(int a1, int a2, double *a3, float64x2_t *a4, void *a5,
     case 79:
       goto LABEL_13;
     case 11:
-      if (a2)
+      if (v11)
       {
         v74 = 0;
         memcpy(__dst, a3, sizeof(__dst));
@@ -1952,51 +1993,51 @@ LABEL_12:
   }
 }
 
-CGFloat _transformForFrames(CGAffineTransform *retstr, double a2, double a3, double a4, double a5, double a6, double a7, double a8, double a9, double a10, double a11)
+CGFloat _transformForFrames(CGAffineTransform *retstr, double a2, double a3, double a4, double a5, double a6, double a7, double a8, double a9, CGFloat a10, CGFloat a11)
 {
-  v23 = 1.0;
-  v24 = a4 / a8;
+  v16 = 1.0;
+  v17 = a4 / a8;
   if (a4 / a8 >= a5 / a9)
   {
-    v24 = a5 / a9;
+    v17 = a5 / a9;
   }
 
   if (a8 > a4 || a9 > a5)
   {
-    v23 = v24;
+    v16 = v17;
   }
 
-  v26 = a10 / a4;
+  v19 = a10 / a4;
   if (a10 / a4 >= a11 / a5)
   {
-    v26 = a11 / a5;
+    v19 = a11 / a5;
   }
 
   *&retstr->c = 0u;
   *&retstr->tx = 0u;
   *&retstr->a = 0u;
-  CGAffineTransformMakeScale(retstr, v26 * v23, v26 * v23);
-  v27 = *&retstr->c;
-  *&v30.a = *&retstr->a;
-  *&v30.c = v27;
-  *&v30.tx = *&retstr->tx;
-  CGAffineTransformInvert(&v31, &v30);
-  v32.origin.x = 0.0;
-  v32.origin.y = 0.0;
-  v32.size.width = a10;
-  v32.size.height = a11;
-  v33 = CGRectApplyAffineTransform(v32, &v31);
-  v33.origin.y = v33.origin.y + (v33.size.height - a9) * 0.5 - a7;
-  *&v33.size.height = *&retstr->c;
-  *&v30.a = *&retstr->a;
-  *&v30.c = *&v33.size.height;
-  *&v30.tx = *&retstr->tx;
-  CGAffineTransformTranslate(&v31, &v30, v33.origin.x + (v33.size.width - a8) * 0.5 - a6, v33.origin.y);
-  v28 = *&v31.c;
-  *&retstr->a = *&v31.a;
-  *&retstr->c = v28;
-  result = v31.tx;
-  *&retstr->tx = *&v31.tx;
+  CGAffineTransformMakeScale(retstr, v19 * v16, v19 * v16);
+  v20 = *&retstr->c;
+  *&v23.a = *&retstr->a;
+  *&v23.c = v20;
+  *&v23.tx = *&retstr->tx;
+  CGAffineTransformInvert(&v24, &v23);
+  v25.origin.x = 0.0;
+  v25.origin.y = 0.0;
+  v25.size.width = a10;
+  v25.size.height = a11;
+  v26 = CGRectApplyAffineTransform(v25, &v24);
+  v26.origin.y = v26.origin.y + (v26.size.height - a9) * 0.5 - a7;
+  *&v26.size.height = *&retstr->c;
+  *&v23.a = *&retstr->a;
+  *&v23.c = *&v26.size.height;
+  *&v23.tx = *&retstr->tx;
+  CGAffineTransformTranslate(&v24, &v23, v26.origin.x + (v26.size.width - a8) * 0.5 - a6, v26.origin.y);
+  v21 = *&v24.c;
+  *&retstr->a = *&v24.a;
+  *&retstr->c = v21;
+  result = v24.tx;
+  *&retstr->tx = *&v24.tx;
   return result;
 }
 
@@ -2269,10 +2310,11 @@ _MKMapItemAttribution *mkAttributionForAnnotatedList(void *a1)
   return v4;
 }
 
-void sub_1A2FF037C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28)
+void sub_1A2FF037C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, ...)
 {
+  va_start(va, a27);
   _Block_object_dispose(&a18, 8);
-  _Block_object_dispose(&a28, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -2380,13 +2422,6 @@ double __searchNextRequestInterval_block_invoke()
   return result;
 }
 
-uint64_t __searchReplaceRequestInterval_block_invoke()
-{
-  result = GEOConfigGetDouble();
-  searchReplaceRequestInterval_searchRequestInterval = v1;
-  return result;
-}
-
 void sub_1A302A5C8(_Unwind_Exception *a1)
 {
   objc_destroyWeak((v4 + 32));
@@ -2457,15 +2492,15 @@ LABEL_1:
 
     if (v11 == 2)
     {
-      v143 = *v9;
+      v142 = *v9;
       result = *(*v9 + 664);
-      v144 = *v10;
-      v145 = *(*v10 + 664);
-      if (result < v145 || v143 < v144 && result == v145)
+      v143 = *v10;
+      v144 = *(*v10 + 664);
+      if (result < v144 || v142 < v143 && result == v144)
       {
-        *v10 = v143;
+        *v10 = v142;
 LABEL_343:
-        *v9 = v144;
+        *v9 = v143;
         return result;
       }
 
@@ -2475,96 +2510,96 @@ LABEL_343:
 LABEL_9:
     if (v11 <= 23)
     {
-      v162 = v10 + 1;
-      v164 = v10 == a2 || v162 == a2;
+      v161 = v10 + 1;
+      v163 = v10 == a2 || v161 == a2;
       if (a4)
       {
-        if (!v164)
+        if (!v163)
         {
-          v165 = 0;
-          v166 = v10;
+          v164 = 0;
+          v165 = v10;
           do
           {
-            v167 = v162;
-            v169 = *v166;
-            v168 = v166[1];
-            result = *(v168 + 664);
-            v170 = *(*v166 + 664);
-            if (result < v170 || (v168 < v169 ? (v171 = result == v170) : (v171 = 0), v171))
+            v166 = v161;
+            v168 = *v165;
+            v167 = v165[1];
+            result = *(v167 + 664);
+            v169 = *(*v165 + 664);
+            if (result < v169 || (v167 < v168 ? (v170 = result == v169) : (v170 = 0), v170))
             {
-              v166[1] = v169;
-              v172 = v10;
-              if (v166 != v10)
+              v165[1] = v168;
+              v171 = v10;
+              if (v165 != v10)
               {
-                v173 = v165;
+                v172 = v164;
                 do
                 {
-                  result = *(v168 + 664);
-                  v174 = *(v10 + v173 - 8);
-                  v175 = *(v174 + 664);
-                  if (result >= v175 && (v168 >= v174 || result != v175))
+                  result = *(v167 + 664);
+                  v173 = *(v10 + v172 - 8);
+                  v174 = *(v173 + 664);
+                  if (result >= v174 && (v167 >= v173 || result != v174))
                   {
-                    v172 = (v10 + v173);
+                    v171 = (v10 + v172);
                     goto LABEL_271;
                   }
 
-                  *(v10 + v173) = v174;
-                  v173 -= 8;
+                  *(v10 + v172) = v173;
+                  v172 -= 8;
                 }
 
-                while (v173);
-                v172 = v10;
+                while (v172);
+                v171 = v10;
               }
 
 LABEL_271:
-              *v172 = v168;
+              *v171 = v167;
             }
 
-            v162 = v167 + 1;
-            v165 += 8;
-            v166 = v167;
+            v161 = v166 + 1;
+            v164 += 8;
+            v165 = v166;
           }
 
-          while (v167 + 1 != a2);
+          while (v166 + 1 != a2);
         }
       }
 
-      else if (!v164)
+      else if (!v163)
       {
         do
         {
-          v228 = v162;
-          v230 = *a1;
-          v229 = a1[1];
-          result = *(v229 + 664);
-          v231 = *(*a1 + 664);
-          if (result < v231 || (v229 < v230 ? (v232 = result == v231) : (v232 = 0), v232))
+          v227 = v161;
+          v229 = *a1;
+          v228 = a1[1];
+          result = *(v228 + 664);
+          v230 = *(*a1 + 664);
+          if (result < v230 || (v228 < v229 ? (v231 = result == v230) : (v231 = 0), v231))
           {
             do
             {
               do
               {
-                v233 = a1;
-                v234 = v230;
-                v235 = *--a1;
-                v230 = v235;
-                a1[2] = v234;
-                result = *(v229 + 664);
-                v236 = *(v235 + 664);
+                v232 = a1;
+                v233 = v229;
+                v234 = *--a1;
+                v229 = v234;
+                a1[2] = v233;
+                result = *(v228 + 664);
+                v235 = *(v234 + 664);
               }
 
-              while (result < v236);
+              while (result < v235);
             }
 
-            while (v229 < v230 && result == v236);
-            *v233 = v229;
+            while (v228 < v229 && result == v235);
+            *v232 = v228;
           }
 
-          v162 = v228 + 1;
-          a1 = v228;
+          v161 = v227 + 1;
+          a1 = v227;
         }
 
-        while (v228 + 1 != a2);
+        while (v227 + 1 != a2);
       }
 
       return result;
@@ -2574,158 +2609,158 @@ LABEL_271:
     {
       if (v10 != a2)
       {
-        v177 = (v11 - 2) >> 1;
-        v178 = v177;
+        v176 = (v11 - 2) >> 1;
+        v177 = v176;
         do
         {
-          v179 = v178;
-          if (v177 >= v178)
+          v178 = v177;
+          if (v176 >= v177)
           {
-            v180 = (2 * v178) | 1;
-            v181 = &v10[v180];
-            if (2 * v178 + 2 < v11)
+            v179 = (2 * v177) | 1;
+            v180 = &v10[v179];
+            if (2 * v177 + 2 < v11)
             {
-              v182 = v181[1];
-              v183 = *(*v181 + 664);
-              v184 = *(v182 + 664);
-              if (v183 < v184 || (*v181 < v182 ? (v185 = v183 == v184) : (v185 = 0), v185))
+              v181 = v180[1];
+              v182 = *(*v180 + 664);
+              v183 = *(v181 + 664);
+              if (v182 < v183 || (*v180 < v181 ? (v184 = v182 == v183) : (v184 = 0), v184))
               {
-                ++v181;
-                v180 = 2 * v178 + 2;
+                ++v180;
+                v179 = 2 * v177 + 2;
               }
             }
 
-            v186 = &v10[v178];
-            v187 = *v181;
-            result = *(*v181 + 664);
-            v188 = *v186;
-            v189 = *(*v186 + 664);
-            if (result >= v189 && (v187 >= v188 || result != v189))
+            v185 = &v10[v177];
+            v186 = *v180;
+            result = *(*v180 + 664);
+            v187 = *v185;
+            v188 = *(*v185 + 664);
+            if (result >= v188 && (v186 >= v187 || result != v188))
             {
               do
               {
-                *v186 = v187;
-                v186 = v181;
-                if (v177 < v180)
+                *v185 = v186;
+                v185 = v180;
+                if (v176 < v179)
                 {
                   break;
                 }
 
-                v191 = 2 * v180;
-                v180 = (2 * v180) | 1;
-                v181 = &v10[v180];
-                v192 = v191 + 2;
-                if (v192 < v11)
+                v190 = 2 * v179;
+                v179 = (2 * v179) | 1;
+                v180 = &v10[v179];
+                v191 = v190 + 2;
+                if (v191 < v11)
                 {
-                  v193 = v181[1];
-                  v194 = *(*v181 + 664);
-                  v195 = *(v193 + 664);
-                  if (v194 < v195 || (*v181 < v193 ? (v196 = v194 == v195) : (v196 = 0), v196))
+                  v192 = v180[1];
+                  v193 = *(*v180 + 664);
+                  v194 = *(v192 + 664);
+                  if (v193 < v194 || (*v180 < v192 ? (v195 = v193 == v194) : (v195 = 0), v195))
                   {
-                    ++v181;
-                    v180 = v192;
+                    ++v180;
+                    v179 = v191;
                   }
                 }
 
-                v187 = *v181;
-                result = *(*v181 + 664);
-                v197 = *(v188 + 664);
-                if (result < v197)
+                v186 = *v180;
+                result = *(*v180 + 664);
+                v196 = *(v187 + 664);
+                if (result < v196)
                 {
                   break;
                 }
               }
 
-              while (v187 >= v188 || result != v197);
-              *v186 = v188;
+              while (v186 >= v187 || result != v196);
+              *v185 = v187;
             }
           }
 
-          --v178;
+          --v177;
         }
 
-        while (v179);
+        while (v178);
         do
         {
-          v199 = 0;
-          v200 = *v10;
-          v201 = v10;
+          v198 = 0;
+          v199 = *v10;
+          v200 = v10;
           do
           {
-            v202 = v201;
-            v203 = &v201[v199];
-            v201 = v203 + 1;
-            v204 = 2 * v199;
-            v199 = (2 * v199) | 1;
-            v205 = v204 + 2;
-            if (v205 < v11)
+            v201 = v200;
+            v202 = &v200[v198];
+            v200 = v202 + 1;
+            v203 = 2 * v198;
+            v198 = (2 * v198) | 1;
+            v204 = v203 + 2;
+            if (v204 < v11)
             {
-              v208 = v203[2];
-              v206 = v203 + 2;
-              v207 = v208;
-              v209 = *(v206 - 1);
-              result = *(v209 + 664);
-              v210 = *(v208 + 664);
-              if (result < v210 || (v209 < v207 ? (v211 = result == v210) : (v211 = 0), v211))
+              v207 = v202[2];
+              v205 = v202 + 2;
+              v206 = v207;
+              v208 = *(v205 - 1);
+              result = *(v208 + 664);
+              v209 = *(v207 + 664);
+              if (result < v209 || (v208 < v206 ? (v210 = result == v209) : (v210 = 0), v210))
               {
-                v201 = v206;
-                v199 = v205;
+                v200 = v205;
+                v198 = v204;
               }
             }
 
-            *v202 = *v201;
+            *v201 = *v200;
           }
 
-          while (v199 <= (v11 - 2) / 2);
-          if (v201 == --a2)
+          while (v198 <= (v11 - 2) / 2);
+          if (v200 == --a2)
           {
-            *v201 = v200;
+            *v200 = v199;
           }
 
           else
           {
-            *v201 = *a2;
-            *a2 = v200;
-            v212 = (v201 - v10 + 8) >> 3;
-            v213 = v212 - 2;
-            if (v212 >= 2)
+            *v200 = *a2;
+            *a2 = v199;
+            v211 = (v200 - v10 + 8) >> 3;
+            v212 = v211 - 2;
+            if (v211 >= 2)
             {
-              v214 = v213 >> 1;
-              v215 = &v10[v213 >> 1];
-              v216 = *v215;
-              result = *(*v215 + 664);
-              v217 = *v201;
-              v218 = *(*v201 + 664);
-              if (result < v218 || (v216 < v217 ? (v219 = result == v218) : (v219 = 0), v219))
+              v213 = v212 >> 1;
+              v214 = &v10[v212 >> 1];
+              v215 = *v214;
+              result = *(*v214 + 664);
+              v216 = *v200;
+              v217 = *(*v200 + 664);
+              if (result < v217 || (v215 < v216 ? (v218 = result == v217) : (v218 = 0), v218))
               {
-                *v201 = v216;
-                if (v213 >= 2)
+                *v200 = v215;
+                if (v212 >= 2)
                 {
                   while (1)
                   {
-                    v221 = v214 - 1;
-                    v214 = (v214 - 1) >> 1;
-                    v220 = &v10[v214];
-                    v222 = *v220;
-                    result = *(*v220 + 664);
-                    v223 = *(v217 + 664);
-                    if (result >= v223 && (v222 >= v217 || result != v223))
+                    v220 = v213 - 1;
+                    v213 = (v213 - 1) >> 1;
+                    v219 = &v10[v213];
+                    v221 = *v219;
+                    result = *(*v219 + 664);
+                    v222 = *(v216 + 664);
+                    if (result >= v222 && (v221 >= v216 || result != v222))
                     {
                       break;
                     }
 
-                    *v215 = v222;
-                    v215 = &v10[v214];
-                    if (v221 <= 1)
+                    *v214 = v221;
+                    v214 = &v10[v213];
+                    if (v220 <= 1)
                     {
                       goto LABEL_335;
                     }
                   }
                 }
 
-                v220 = v215;
+                v219 = v214;
 LABEL_335:
-                *v220 = v217;
+                *v219 = v216;
               }
             }
           }
@@ -2810,12 +2845,12 @@ LABEL_52:
 
         v10[1] = v48;
         v10[v47] = v50;
-        v114 = *(a2 - 2);
-        v115 = *(v114 + 664);
-        v116 = *(v50 + 664);
-        if (v115 < v116 || v114 < v50 && v115 == v116)
+        v113 = *(a2 - 2);
+        v114 = *(v113 + 664);
+        v115 = *(v50 + 664);
+        if (v114 < v115 || v113 < v50 && v114 == v115)
         {
-          v10[v47] = v114;
+          v10[v47] = v113;
 LABEL_59:
           *(a2 - 2) = v50;
         }
@@ -2823,20 +2858,20 @@ LABEL_59:
 
       else
       {
-        v96 = *(a2 - 2);
-        v97 = *(v96 + 664);
-        if (v97 < v49 || v96 < v48 && v97 == v49)
+        v95 = *(a2 - 2);
+        v96 = *(v95 + 664);
+        if (v96 < v49 || v95 < v48 && v96 == v49)
         {
-          v10[v47] = v96;
+          v10[v47] = v95;
           *(a2 - 2) = v48;
-          v98 = v10[v47];
-          v99 = *(v98 + 664);
-          v100 = v10[1];
-          v101 = *(v100 + 664);
-          if (v99 < v101 || v98 < v100 && v99 == v101)
+          v97 = v10[v47];
+          v98 = *(v97 + 664);
+          v99 = v10[1];
+          v100 = *(v99 + 664);
+          if (v98 < v100 || v97 < v99 && v98 == v100)
           {
-            v10[1] = v98;
-            v10[v47] = v100;
+            v10[1] = v97;
+            v10[v47] = v99;
           }
         }
       }
@@ -2859,12 +2894,12 @@ LABEL_59:
 
         v10[2] = v55;
         *v54 = v58;
-        v117 = *(a2 - 3);
-        v118 = *(v117 + 664);
-        v119 = *(v58 + 664);
-        if (v118 < v119 || v117 < v58 && v118 == v119)
+        v116 = *(a2 - 3);
+        v117 = *(v116 + 664);
+        v118 = *(v58 + 664);
+        if (v117 < v118 || v116 < v58 && v117 == v118)
         {
-          *v54 = v117;
+          *v54 = v116;
 LABEL_67:
           *(a2 - 3) = v58;
         }
@@ -2872,20 +2907,20 @@ LABEL_67:
 
       else
       {
-        v102 = *(a2 - 3);
-        v103 = *(v102 + 664);
-        if (v103 < v57 || v102 < v55 && v103 == v57)
+        v101 = *(a2 - 3);
+        v102 = *(v101 + 664);
+        if (v102 < v57 || v101 < v55 && v102 == v57)
         {
-          *v54 = v102;
+          *v54 = v101;
           *(a2 - 3) = v55;
-          v104 = *v54;
-          v105 = *(*v54 + 664);
-          v106 = v10[2];
-          v107 = *(v106 + 664);
-          if (v105 < v107 || v104 < v106 && v105 == v107)
+          v103 = *v54;
+          v104 = *(*v54 + 664);
+          v105 = v10[2];
+          v106 = *(v105 + 664);
+          if (v104 < v106 || v103 < v105 && v104 == v106)
           {
-            v10[2] = v104;
-            *v54 = v106;
+            v10[2] = v103;
+            *v54 = v105;
           }
         }
       }
@@ -2913,9 +2948,9 @@ LABEL_72:
 
         v10[v47] = v62;
         *v14 = v64;
-        v120 = *(v66 + 664);
-        v121 = *(v64 + 664);
-        if (v120 < v121 || v66 < v64 && v120 == v121)
+        v119 = *(v66 + 664);
+        v120 = *(v64 + 664);
+        if (v119 < v120 || v66 < v64 && v119 == v120)
         {
           *v14 = v66;
           v62 = v66;
@@ -2931,14 +2966,14 @@ LABEL_76:
 
       else
       {
-        v108 = *(v66 + 664);
-        if (v108 < v63 || v66 < v62 && v108 == v63)
+        v107 = *(v66 + 664);
+        if (v107 < v63 || v66 < v62 && v107 == v63)
         {
           *v14 = v66;
           *v54 = v62;
-          v109 = *(v66 + 664);
-          v110 = *(v64 + 664);
-          if (v109 < v110 || v66 < v64 && v109 == v110)
+          v108 = *(v66 + 664);
+          v109 = *(v64 + 664);
+          if (v108 < v109 || v66 < v64 && v108 == v109)
           {
             v10[v47] = v66;
             v54 = v14;
@@ -2994,15 +3029,15 @@ LABEL_76:
     {
       *v14 = v27;
       *v10 = v29;
-      v111 = *v9;
-      v112 = *(*v9 + 664);
-      v113 = *(v30 + 8);
-      if (v112 >= v113 && (v111 >= v29 || v112 != v113))
+      v110 = *v9;
+      v111 = *(*v9 + 664);
+      v112 = *(v30 + 8);
+      if (v111 >= v112 && (v110 >= v29 || v111 != v112))
       {
         goto LABEL_78;
       }
 
-      *v10 = v111;
+      *v10 = v110;
     }
 
     *v9 = v29;
@@ -3082,13 +3117,13 @@ LABEL_109:
           *v87 = v86;
           v87 += 8;
           *v88 = v73;
-          v89 = *(v69 + 664);
+          result = *(v69 + 664);
           while (1)
           {
             v74 = (v87 - 8);
             v73 = *v87;
-            v90 = *(*v87 + 664);
-            if (v90 >= v89 && (v73 >= v69 || v90 != v89))
+            v89 = *(*v87 + 664);
+            if (v89 >= result && (v73 >= v69 || v89 != result))
             {
               break;
             }
@@ -3096,21 +3131,21 @@ LABEL_109:
             v87 += 8;
           }
 
-          v92 = v88 - 1;
+          v91 = v88 - 1;
           do
           {
-            v88 = v92;
-            v86 = *v92;
-            v93 = *(*v92 + 664);
-            if (v93 < v89)
+            v88 = v91;
+            v86 = *v91;
+            v92 = *(*v91 + 664);
+            if (v92 < result)
             {
               break;
             }
 
-            --v92;
+            --v91;
           }
 
-          while (v86 >= v69 || v93 != v89);
+          while (v86 >= v69 || v92 != result);
         }
 
         while (v87 < v88);
@@ -3127,12 +3162,12 @@ LABEL_109:
         goto LABEL_131;
       }
 
-      v95 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,_MKSpatialVertComp &,MKAnnotationView **>(v10, v74);
+      v94 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,_MKSpatialVertComp &,MKAnnotationView **>(v10, v74);
       v10 = v74 + 1;
       if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,_MKSpatialVertComp &,MKAnnotationView **>(v74 + 1, a2))
       {
         a2 = v74;
-        if (!v95)
+        if (!v94)
         {
           goto LABEL_1;
         }
@@ -3140,10 +3175,10 @@ LABEL_109:
         return result;
       }
 
-      if (!v95)
+      if (!v94)
       {
 LABEL_131:
-        std::__introsort<std::_ClassicAlgPolicy,_MKSpatialVertComp &,MKAnnotationView **,false>(a1, v74, a3, a4 & 1);
+        result = std::__introsort<std::_ClassicAlgPolicy,_MKSpatialVertComp &,MKAnnotationView **,false>(a1, v74, a3, a4 & 1, result);
         a4 = 0;
         v10 = v74 + 1;
       }
@@ -3159,113 +3194,113 @@ LABEL_131:
         goto LABEL_83;
       }
 
-      v122 = *v9;
-      v123 = *(*v9 + 664);
-      if (result < v123 || v69 < v122 && result == v123)
+      v121 = *v9;
+      v122 = *(*v9 + 664);
+      if (result < v122 || v69 < v121 && result == v122)
       {
-        v124 = v10 + 1;
+        v123 = v10 + 1;
         do
         {
-          v10 = v124;
-          v125 = *v124;
-          v126 = *(*v124 + 664);
-          if (result < v126)
+          v10 = v123;
+          v124 = *v123;
+          v125 = *(*v123 + 664);
+          if (result < v125)
           {
             break;
           }
 
-          ++v124;
+          ++v123;
         }
 
-        while (v69 >= v125 || result != v126);
+        while (v69 >= v124 || result != v125);
       }
 
       else
       {
-        v139 = v10 + 1;
+        v138 = (v10 + 1);
         do
         {
-          v10 = v139;
-          if (v139 >= a2)
+          v10 = v138;
+          if (v138 >= a2)
           {
             break;
           }
 
-          v140 = *v139;
-          v141 = *(*v139 + 664);
-          if (result < v141)
+          v139 = *v138;
+          v140 = *(*v138 + 664);
+          if (result < v140)
           {
             break;
           }
 
-          ++v139;
+          v138 += 8;
         }
 
-        while (v69 >= v140 || result != v141);
+        while (v69 >= v139 || result != v140);
       }
 
-      v128 = a2;
+      v127 = a2;
       if (v10 < a2)
       {
-        v128 = a2 - 1;
-        while (result < v123 || v69 < v122 && result == v123)
+        v127 = a2 - 1;
+        while (result < v122 || v69 < v121 && result == v122)
         {
-          v129 = *--v128;
-          v122 = v129;
-          v123 = *(v129 + 664);
+          v128 = *--v127;
+          v121 = v128;
+          v122 = *(v128 + 664);
         }
       }
 
-      if (v10 < v128)
+      if (v10 < v127)
       {
-        v130 = *v10;
-        v131 = *v128;
+        v129 = *v10;
+        v130 = *v127;
         do
         {
-          *v10 = v131;
-          *v128 = v130;
+          *v10 = v130;
+          *v127 = v129;
           result = *(v69 + 664);
-          v132 = v10 + 1;
+          v131 = v10 + 1;
           do
           {
-            v10 = v132;
-            v130 = *v132;
-            v133 = *(*v132 + 664);
-            if (result < v133)
+            v10 = v131;
+            v129 = *v131;
+            v132 = *(*v131 + 664);
+            if (result < v132)
             {
               break;
             }
 
-            ++v132;
+            ++v131;
           }
 
-          while (v69 >= v130 || result != v133);
+          while (v69 >= v129 || result != v132);
           do
           {
             do
             {
-              v135 = *--v128;
-              v131 = v135;
-              v136 = *(v135 + 664);
+              v134 = *--v127;
+              v130 = v134;
+              v135 = *(v134 + 664);
             }
 
-            while (result < v136);
+            while (result < v135);
           }
 
-          while (v69 < v131 && result == v136);
+          while (v69 < v130 && result == v135);
         }
 
-        while (v10 < v128);
+        while (v10 < v127);
       }
 
-      v138 = v10 - 1;
+      v137 = v10 - 1;
       if (v10 - 1 != a1)
       {
-        *a1 = *v138;
+        *a1 = *v137;
       }
 
       a4 = 0;
-      *v138 = v69;
+      *v137 = v69;
     }
   }
 
@@ -3281,92 +3316,92 @@ LABEL_131:
     if (v11 == 5)
     {
       std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,_MKSpatialVertComp &,MKAnnotationView **,0>(v10, v10 + 1, v10 + 2, v10 + 3);
-      v154 = *v9;
+      v153 = *v9;
       result = *(*v9 + 664);
-      v155 = v10[3];
-      v156 = *(v155 + 664);
-      if (result >= v156 && (v154 >= v155 || result != v156))
+      v154 = v10[3];
+      v155 = *(v154 + 664);
+      if (result >= v155 && (v153 >= v154 || result != v155))
       {
         return result;
       }
 
-      v10[3] = v154;
-      *v9 = v155;
-      v157 = v10[2];
-      v152 = v10[3];
-      result = *(v152 + 664);
-      v158 = *(v157 + 664);
-      if (result >= v158 && (v152 >= v157 || result != v158))
+      v10[3] = v153;
+      *v9 = v154;
+      v156 = v10[2];
+      v151 = v10[3];
+      result = *(v151 + 664);
+      v157 = *(v156 + 664);
+      if (result >= v157 && (v151 >= v156 || result != v157))
       {
         return result;
       }
 
-      v10[2] = v152;
-      v10[3] = v157;
-      result = *(v152 + 664);
-      v159 = v10[1];
-      v160 = *(v159 + 664);
-      if (result >= v160 && (v152 >= v159 || result != v160))
+      v10[2] = v151;
+      v10[3] = v156;
+      result = *(v151 + 664);
+      v158 = v10[1];
+      v159 = *(v158 + 664);
+      if (result >= v159 && (v151 >= v158 || result != v159))
       {
         return result;
       }
 
-      v10[1] = v152;
-      v10[2] = v159;
-      result = *(v152 + 664);
-      v153 = *v10;
+      v10[1] = v151;
+      v10[2] = v158;
+      result = *(v151 + 664);
+      v152 = *v10;
       goto LABEL_239;
     }
 
     goto LABEL_9;
   }
 
-  v144 = *v10;
-  v146 = v10[1];
-  result = *(v146 + 664);
-  v147 = *v10 + 656;
-  v148 = *(*v10 + 664);
-  if (result >= v148 && (v146 >= v144 || result != v148))
+  v143 = *v10;
+  v145 = v10[1];
+  result = *(v145 + 664);
+  v146 = *v10 + 656;
+  v147 = *(*v10 + 664);
+  if (result >= v147 && (v145 >= v143 || result != v147))
   {
-    v150 = *v9;
-    v151 = *(*v9 + 664);
-    if (v151 >= result && (v150 >= v146 || v151 != result))
+    v149 = *v9;
+    v150 = *(*v9 + 664);
+    if (v150 >= result && (v149 >= v145 || v150 != result))
     {
       return result;
     }
 
-    v10[1] = v150;
-    *v9 = v146;
-    v153 = *v10;
-    v152 = v10[1];
-    result = *(v152 + 664);
+    v10[1] = v149;
+    *v9 = v145;
+    v152 = *v10;
+    v151 = v10[1];
+    result = *(v151 + 664);
 LABEL_239:
-    v161 = *(v153 + 664);
-    if (result < v161 || v152 < v153 && result == v161)
+    v160 = *(v152 + 664);
+    if (result < v160 || v151 < v152 && result == v160)
     {
-      *v10 = v152;
-      v10[1] = v153;
+      *v10 = v151;
+      v10[1] = v152;
     }
 
     return result;
   }
 
-  v226 = *v9;
-  v227 = *(*v9 + 664);
-  if (v227 < result || v226 < v146 && v227 == result)
+  v225 = *v9;
+  v226 = *(*v9 + 664);
+  if (v226 < result || v225 < v145 && v226 == result)
   {
-    *v10 = v226;
+    *v10 = v225;
     goto LABEL_343;
   }
 
-  *v10 = v146;
-  v10[1] = v144;
-  v238 = *v9;
+  *v10 = v145;
+  v10[1] = v143;
+  v237 = *v9;
   result = *(*v9 + 664);
-  v239 = *(v147 + 8);
-  if (result < v239 || v238 < v144 && result == v239)
+  v238 = *(v146 + 8);
+  if (result < v238 || v237 < v143 && result == v238)
   {
-    v10[1] = v238;
+    v10[1] = v237;
     goto LABEL_343;
   }
 
@@ -4168,16 +4203,16 @@ LABEL_9:
   return v4;
 }
 
-void sub_1A3034A68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A3034A68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A303B02C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A303B02C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4291,7 +4326,7 @@ id _MKPerformShortURLTransformationIfNeeded(void *a1)
 
     if (v8)
     {
-      v9 = [v6 path];
+      v9 = objc_msgSend_path(v6);
       v10 = [@"/_shortened" stringByAppendingString:v9];
       [v6 setPath:v10];
 
@@ -4432,16 +4467,16 @@ void sub_1A304487C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1A3047B2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A3047B2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A304E088(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A304E088(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4470,9 +4505,9 @@ void _AddPathForPolygon(CGPath *a1, void *a2, double a3, double a4)
   }
 }
 
-void sub_1A3055208(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A3055208(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4484,12 +4519,13 @@ uint64_t __Block_byref_object_copy__33070(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1A3055FC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_1A3055FC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
 {
-  objc_destroyWeak((v34 + 40));
+  va_start(va, a32);
   objc_destroyWeak((v33 + 40));
-  objc_destroyWeak((v35 - 176));
-  _Block_object_dispose(&a33, 8);
+  objc_destroyWeak((v32 + 40));
+  objc_destroyWeak((v34 - 176));
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -4510,9 +4546,9 @@ void sub_1A305B164(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<gm::Matrix<double,2,1>>::reserve(void *result, unint64_t a2)
+void std::vector<gm::Matrix<double,2,1>>::reserve(__int128 **a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 4)
+  if (a2 > a1[2] - *a1)
   {
     if (!(a2 >> 60))
     {
@@ -4521,18 +4557,16 @@ void *std::vector<gm::Matrix<double,2,1>>::reserve(void *result, unint64_t a2)
 
     std::vector<VKRouteInfo * {__strong}>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
-uint64_t geo::Intersect::isSelfIntersecting<double>(void *a1)
+uint64_t geo::Intersect::isSelfIntersecting<double>(void *a1, int a2)
 {
-  v1 = (a1[1] - *a1) >> 4;
-  if (v1 >= 3)
+  v2 = (a1[1] - *a1) >> 4;
+  if (v2 >= 3)
   {
-    if (v1 <= 0xAAAAAAAAAAAAAAALL)
+    if (v2 <= 0xAAAAAAAAAAAAAAALL)
     {
-      std::__allocate_at_least[abi:ne200100]<std::allocator<BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo>>(v1);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo>>(v2);
     }
 
     std::vector<VKRouteInfo * {__strong}>::__throw_length_error[abi:ne200100]();
@@ -4562,32 +4596,32 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<gm::Matrix<double,2,1
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void std::__introsort<std::_ClassicAlgPolicy,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::{lambda(BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo const&,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo const&)#1} &,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo*,false>(uint64_t *a1, unint64_t a2, uint64_t **a3, uint64_t a4, char a5)
+void std::__introsort<std::_ClassicAlgPolicy,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::{lambda(BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo const&,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo const&)#1} &,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo*,false>(uint64_t *result, uint64_t *a2, uint64_t **a3, uint64_t a4, char a5)
 {
 LABEL_1:
-  v10 = (a2 - 24);
-  v215 = (a2 - 16);
-  v11 = a1;
+  v10 = a2 - 3;
+  v215 = a2 - 2;
+  v11 = result;
   while (1)
   {
-    a1 = v11;
+    result = v11;
     v12 = a2 - v11;
-    v13 = 0xAAAAAAAAAAAAAAABLL * ((a2 - v11) >> 3);
+    v13 = 0xAAAAAAAAAAAAAAABLL * (a2 - v11);
     if (v13 > 2)
     {
       switch(v13)
       {
         case 3:
 
-          std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::{lambda(BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo const&,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo const&)#1} &,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo*,0>(v11, (v11 + 24), (a2 - 24), a3);
+          std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::{lambda(BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo const&,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo const&)#1} &,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo*,0>(v11, v11 + 3, a2 - 3, a3);
           return;
         case 4:
 
-          std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::{lambda(BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo const&,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo const&)#1} &,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo*,0>(v11, v11 + 24, (v11 + 48), (a2 - 24), a3);
+          std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::{lambda(BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo const&,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo const&)#1} &,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo*,0>(v11, (v11 + 3), v11 + 6, a2 - 3, a3);
           return;
         case 5:
 
-          std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::{lambda(BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo const&,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo const&)#1} &,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo*,0>(v11, v11 + 24, v11 + 48, (v11 + 72), (a2 - 24), a3);
+          std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::{lambda(BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo const&,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo const&)#1} &,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo*,0>(v11, v11 + 3, (v11 + 6), v11 + 9, a2 - 3, a3);
           return;
       }
     }
@@ -4601,7 +4635,7 @@ LABEL_1:
 
       if (v13 == 2)
       {
-        v94 = *(a2 - 24);
+        v94 = *(a2 - 3);
         if (*(a2 - 8) == *(v11 + 16))
         {
           v95 = *v11;
@@ -4618,7 +4652,7 @@ LABEL_184:
         else
         {
           v95 = *v11;
-          if (v94 != *(v11 + 8) || *v215 != v95)
+          if (v94 != v11[1] || *v215 != v95)
           {
             goto LABEL_184;
           }
@@ -4629,7 +4663,7 @@ LABEL_184:
           }
         }
 
-        v225 = *(v11 + 16);
+        v225 = v11[2];
         v220 = *v11;
         v199 = *v10;
         *(v11 + 16) = *(a2 - 8);
@@ -4663,19 +4697,19 @@ LABEL_184:
         }
 
         v125 = (2 * v123) | 1;
-        v126 = v11 + 24 * v125;
+        v126 = &v11[3 * v125];
         if (2 * v124 + 2 < v13)
         {
           v127 = *v126;
           if (*(v126 + 16) == *(v126 + 40))
           {
-            v128 = *(v126 + 24);
+            v128 = v126[3];
           }
 
           else
           {
-            v128 = *(v126 + 24);
-            if (v127 == *(v126 + 32) && *(v126 + 8) == v128)
+            v128 = v126[3];
+            if (v127 == v126[4] && v126[1] == v128)
             {
               if (!*(v126 + 16))
               {
@@ -4683,7 +4717,7 @@ LABEL_184:
               }
 
 LABEL_249:
-              v126 += 24;
+              v126 += 3;
               v125 = 2 * v124 + 2;
               goto LABEL_250;
             }
@@ -4699,7 +4733,7 @@ LABEL_249:
         }
 
 LABEL_250:
-        v133 = v11 + 24 * v124;
+        v133 = &v11[3 * v124];
         v134 = *(v126 + 16);
         v135 = *(v133 + 16);
         v136 = *v126;
@@ -4719,7 +4753,7 @@ LABEL_256:
         }
 
         v137 = *v133;
-        if (v136 != *(v133 + 8) || *(v126 + 8) != v137)
+        if (v136 != v133[1] || v126[1] != v137)
         {
           goto LABEL_256;
         }
@@ -4730,7 +4764,7 @@ LABEL_256:
         }
 
 LABEL_261:
-        v142 = *(v133 + 8);
+        v142 = v133[1];
         do
         {
           while (1)
@@ -4746,14 +4780,14 @@ LABEL_261:
             v133 = v126;
             v144 = 2 * v125;
             v125 = (2 * v125) | 1;
-            v126 = v11 + 24 * v125;
+            v126 = &v11[3 * v125];
             v145 = v144 + 2;
             if (v145 < v13)
             {
               v146 = *v126;
               if (*(v126 + 16) == *(v126 + 40))
               {
-                v147 = *(v126 + 24);
+                v147 = v126[3];
 LABEL_270:
                 v149 = **a3;
                 v150 = (v149 + 16 * v146);
@@ -4764,13 +4798,13 @@ LABEL_270:
                 }
 
 LABEL_275:
-                v126 += 24;
+                v126 += 3;
                 v125 = v145;
                 goto LABEL_276;
               }
 
-              v147 = *(v126 + 24);
-              if (v146 != *(v126 + 32) || *(v126 + 8) != v147)
+              v147 = v126[3];
+              if (v146 != v126[4] || v126[1] != v147)
               {
                 goto LABEL_270;
               }
@@ -4789,7 +4823,7 @@ LABEL_276:
               break;
             }
 
-            if (v153 != v142 || *(v126 + 8) != v137)
+            if (v153 != v142 || v126[1] != v137)
             {
               break;
             }
@@ -4810,7 +4844,7 @@ LABEL_286:
         v126 = v133;
 LABEL_287:
         *v126 = v137;
-        *(v126 + 8) = v142;
+        v126[1] = v142;
         *(v126 + 16) = v135;
 LABEL_288:
         v123 = v124 - 1;
@@ -4820,7 +4854,7 @@ LABEL_288:
           while (1)
           {
             v159 = 0;
-            v224 = *(v11 + 16);
+            v224 = v11[2];
             v219 = *v11;
             v160 = v11;
             do
@@ -4878,7 +4912,7 @@ LABEL_304:
             }
 
             while (v159 <= (v158 - 2) / 2);
-            a2 -= 24;
+            a2 -= 3;
             if (v160 == a2)
             {
               *(v160 + 16) = v224;
@@ -4899,7 +4933,7 @@ LABEL_304:
 
             v178 = 0xAAAAAAAAAAAAAAABLL * (v177 >> 3) - 2;
             v179 = v178 >> 1;
-            v180 = v11 + 24 * (v178 >> 1);
+            v180 = &v11[3 * (v178 >> 1)];
             v181 = *(v160 + 16);
             v182 = *v180;
             if (*(v180 + 16) == v181)
@@ -4918,7 +4952,7 @@ LABEL_314:
             else
             {
               v183 = *v160;
-              if (v182 != v160[1] || *(v180 + 8) != v183)
+              if (v182 != v160[1] || v180[1] != v183)
               {
                 goto LABEL_314;
               }
@@ -4943,9 +4977,9 @@ LABEL_314:
               v190 = v180;
               v191 = v179 - 1;
               v179 = (v179 - 1) >> 1;
-              v180 = v11 + 24 * v179;
+              v180 = &v11[3 * v179];
               v192 = *v180;
-              if (*(v180 + 16) != v181 && v192 == v188 && *(v180 + 8) == v183)
+              if (*(v180 + 16) != v181 && v192 == v188 && v180[1] == v183)
               {
                 if (!*(v180 + 16))
                 {
@@ -4979,7 +5013,7 @@ LABEL_332:
             v180 = v190;
 LABEL_333:
             *v180 = v183;
-            *(v180 + 8) = v188;
+            v180[1] = v188;
             *(v180 + 16) = v181;
 LABEL_334:
             if (v158-- <= 2)
@@ -4992,26 +5026,26 @@ LABEL_334:
     }
 
     v14 = v13 >> 1;
-    v15 = v11 + 24 * (v13 >> 1);
+    v15 = &v11[3 * (v13 >> 1)];
     if (v12 < 0xC01)
     {
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::{lambda(BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo const&,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo const&)#1} &,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo*,0>(&a1[3 * v14], a1, (a2 - 24), a3);
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::{lambda(BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo const&,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo const&)#1} &,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo*,0>(&result[3 * v14], result, a2 - 3, a3);
     }
 
     else
     {
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::{lambda(BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo const&,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo const&)#1} &,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo*,0>(a1, &a1[3 * v14], (a2 - 24), a3);
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::{lambda(BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo const&,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo const&)#1} &,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo*,0>(result, &result[3 * v14], a2 - 3, a3);
       v16 = 3 * v14;
-      v17 = &a1[3 * v14 - 3];
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::{lambda(BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo const&,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo const&)#1} &,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo*,0>(a1 + 3, v17, (a2 - 48), a3);
-      v18 = &a1[v16 + 3];
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::{lambda(BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo const&,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo const&)#1} &,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo*,0>(a1 + 6, v18, (a2 - 72), a3);
+      v17 = &result[3 * v14 - 3];
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::{lambda(BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo const&,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo const&)#1} &,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo*,0>(result + 3, v17, a2 - 6, a3);
+      v18 = &result[v16 + 3];
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::{lambda(BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo const&,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo const&)#1} &,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo*,0>(result + 6, v18, a2 - 9, a3);
       std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::{lambda(BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo const&,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo const&)#1} &,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo*,0>(v17, v15, v18, a3);
-      v221 = a1[2];
-      v216 = *a1;
+      v221 = result[2];
+      v216 = *result;
       v19 = *(v15 + 16);
-      *a1 = *v15;
-      *(a1 + 16) = v19;
+      *result = *v15;
+      *(result + 16) = v19;
       *(v15 + 16) = v221;
       *v15 = v216;
     }
@@ -5019,12 +5053,12 @@ LABEL_334:
     --a4;
     if (a5)
     {
-      v20 = *a1;
-      v21 = *(a1 + 16);
+      v20 = *result;
+      v21 = *(result + 16);
 LABEL_21:
-      v27 = a1[1];
+      v27 = result[1];
       v28 = *a3;
-      for (i = a1 + 3; ; i += 3)
+      for (i = (result + 3); ; i += 24)
       {
         v30 = *i;
         if (*(i + 16) == v21)
@@ -5032,7 +5066,7 @@ LABEL_21:
           break;
         }
 
-        if (v30 != v27 || i[1] != v20)
+        if (v30 != v27 || *(i + 8) != v20)
         {
           break;
         }
@@ -5054,8 +5088,8 @@ LABEL_32:
       }
 
 LABEL_33:
-      j = a2 - 24;
-      if (i - 3 != a1)
+      j = (a2 - 3);
+      if ((i - 24) != result)
       {
         while (1)
         {
@@ -5086,7 +5120,7 @@ LABEL_33:
       j = a2;
       if (i < a2)
       {
-        for (j = a2 - 24; ; j -= 24)
+        for (j = (a2 - 3); ; j -= 24)
         {
           v40 = *(j + 16);
           v41 = *j;
@@ -5131,7 +5165,7 @@ LABEL_65:
         v46 = j;
         do
         {
-          v222 = *(v11 + 16);
+          v222 = v11[2];
           v217 = *v11;
           v47 = *v46;
           *(v11 + 16) = *(v46 + 16);
@@ -5143,9 +5177,9 @@ LABEL_65:
           {
             while (1)
             {
-              v11 += 24;
+              v11 += 3;
               v49 = *v11;
-              if (*(v11 + 16) != v21 && v49 == v27 && *(v11 + 8) == v20)
+              if (*(v11 + 16) != v21 && v49 == v27 && v11[1] == v20)
               {
                 break;
               }
@@ -5196,29 +5230,29 @@ LABEL_88:
         while (v11 < v46);
       }
 
-      if ((v11 - 24) != a1)
+      if (v11 - 3 != result)
       {
-        v58 = *(v11 - 24);
-        *(a1 + 16) = *(v11 - 8);
-        *a1 = v58;
+        v58 = *(v11 - 3);
+        *(result + 16) = *(v11 - 8);
+        *result = v58;
       }
 
-      *(v11 - 24) = v20;
-      *(v11 - 16) = v27;
+      *(v11 - 3) = v20;
+      *(v11 - 2) = v27;
       *(v11 - 8) = v21;
       if (i < j)
       {
 LABEL_94:
-        std::__introsort<std::_ClassicAlgPolicy,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::{lambda(BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo const&,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo const&)#1} &,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo*,false>(a1, v11 - 24, a3, a4, a5 & 1);
+        std::__introsort<std::_ClassicAlgPolicy,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::{lambda(BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo const&,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo const&)#1} &,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo*,false>(result, (v11 - 3), a3, a4, a5 & 1);
         a5 = 0;
       }
 
       else
       {
-        v59 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::{lambda(BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo const&,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo const&)#1} &,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo*>(a1, v11 - 24, a3);
+        v59 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::{lambda(BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo const&,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo const&)#1} &,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo*>(result, (v11 - 3), a3);
         if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::{lambda(BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo const&,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo const&)#1} &,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo*>(v11, a2, a3))
         {
-          a2 = v11 - 24;
+          a2 = v11 - 3;
           if (v59)
           {
             return;
@@ -5236,12 +5270,12 @@ LABEL_94:
 
     else
     {
-      v22 = *(a1 - 8);
-      v21 = *(a1 + 16);
-      v23 = *(a1 - 3);
+      v22 = *(result - 8);
+      v21 = *(result + 16);
+      v23 = *(result - 3);
       if (v22 == v21)
       {
-        v20 = *a1;
+        v20 = *result;
 LABEL_18:
         v24 = **a3;
         v25 = (v24 + 16 * v23);
@@ -5254,8 +5288,8 @@ LABEL_18:
         goto LABEL_98;
       }
 
-      v20 = *a1;
-      if (v23 != a1[1] || *(a1 - 2) != v20)
+      v20 = *result;
+      if (v23 != result[1] || *(result - 2) != v20)
       {
         goto LABEL_18;
       }
@@ -5266,7 +5300,7 @@ LABEL_18:
       }
 
 LABEL_98:
-      v60 = a1[1];
+      v60 = result[1];
       v61 = *(a2 - 8);
       if (v21 == v61)
       {
@@ -5278,11 +5312,11 @@ LABEL_98:
         v62 = *v10;
         if (v20 == *v215 && v60 == v62)
         {
-          if (*(a1 + 16))
+          if (*(result + 16))
           {
             v63 = *a3;
 LABEL_108:
-            v11 = (a1 + 3);
+            v11 = result + 3;
             while (2)
             {
               if (v21 == *(v11 + 16))
@@ -5300,7 +5334,7 @@ LABEL_115:
               else
               {
                 v67 = *v11;
-                if (v20 != *(v11 + 8) || v60 != v67)
+                if (v20 != v11[1] || v60 != v67)
                 {
                   goto LABEL_115;
                 }
@@ -5311,7 +5345,7 @@ LABEL_115:
                 }
               }
 
-              v11 += 24;
+              v11 += 3;
               continue;
             }
           }
@@ -5330,8 +5364,8 @@ LABEL_115:
       }
 
 LABEL_121:
-      v11 = (a1 + 3);
-      if ((a1 + 3) < a2)
+      v11 = result + 3;
+      if (result + 3 < a2)
       {
         v71 = *a3;
         do
@@ -5344,7 +5378,7 @@ LABEL_121:
           else
           {
             v72 = *v11;
-            if (v20 == *(v11 + 8) && v60 == v72)
+            if (v20 == v11[1] && v60 == v72)
             {
               if (v21)
               {
@@ -5363,7 +5397,7 @@ LABEL_121:
           }
 
 LABEL_134:
-          v11 += 24;
+          v11 += 3;
         }
 
         while (v11 < a2);
@@ -5377,7 +5411,7 @@ LABEL_135:
       }
 
       v77 = *a3;
-      v78 = (a2 - 16);
+      v78 = a2 - 2;
       while (v21 != v61)
       {
         v79 = *(v78 - 1);
@@ -5386,7 +5420,7 @@ LABEL_135:
           goto LABEL_143;
         }
 
-        if (!*(a1 + 16))
+        if (!*(result + 16))
         {
           goto LABEL_149;
         }
@@ -5406,11 +5440,11 @@ LABEL_143:
       }
 
 LABEL_149:
-      v76 = v78 - 1;
+      v76 = (v78 - 1);
 LABEL_173:
       if (v11 < v76)
       {
-        v223 = *(v11 + 16);
+        v223 = v11[2];
         v218 = *v11;
         v83 = *v76;
         *(v11 + 16) = *(v76 + 16);
@@ -5420,7 +5454,7 @@ LABEL_173:
         v84 = *a3;
         while (1)
         {
-          v11 += 24;
+          v11 += 3;
           if (v21 == *(v11 + 16))
           {
             v85 = *v11;
@@ -5432,7 +5466,7 @@ LABEL_157:
               while (1)
               {
 LABEL_164:
-                v76 -= 3;
+                v76 -= 24;
                 if (v21 == *(v76 + 16))
                 {
                   v89 = *v76;
@@ -5448,7 +5482,7 @@ LABEL_170:
                 else
                 {
                   v89 = *v76;
-                  if (v20 != v76[1] || v60 != v89)
+                  if (v20 != *(v76 + 8) || v60 != v89)
                   {
                     goto LABEL_170;
                   }
@@ -5465,7 +5499,7 @@ LABEL_170:
           else
           {
             v85 = *v11;
-            if (v20 != *(v11 + 8) || v60 != v85)
+            if (v20 != v11[1] || v60 != v85)
             {
               goto LABEL_157;
             }
@@ -5478,21 +5512,21 @@ LABEL_170:
         }
       }
 
-      if ((v11 - 24) != a1)
+      if (v11 - 3 != result)
       {
-        v93 = *(v11 - 24);
-        *(a1 + 16) = *(v11 - 8);
-        *a1 = v93;
+        v93 = *(v11 - 3);
+        *(result + 16) = *(v11 - 8);
+        *result = v93;
       }
 
       a5 = 0;
-      *(v11 - 24) = v20;
-      *(v11 - 16) = v60;
+      *(v11 - 3) = v20;
+      *(v11 - 2) = v60;
       *(v11 - 8) = v21;
     }
   }
 
-  v99 = (v11 + 24);
+  v99 = v11 + 3;
   v101 = v11 == a2 || v99 == a2;
   if ((a5 & 1) == 0)
   {
@@ -5503,8 +5537,8 @@ LABEL_170:
 
     while (1)
     {
-      v200 = a1;
-      a1 = v99;
+      v200 = result;
+      result = v99;
       v201 = *(v200 + 40);
       v202 = v200[3];
       if (v201 == *(v200 + 16))
@@ -5524,8 +5558,8 @@ LABEL_170:
       }
 
 LABEL_366:
-      v99 = a1 + 3;
-      if (a1 + 3 == a2)
+      v99 = result + 3;
+      if (result + 3 == a2)
       {
         return;
       }
@@ -5594,7 +5628,7 @@ LABEL_365:
     v104 = v103;
     v103 = v99;
     v105 = *(v104 + 40);
-    v106 = *(v104 + 24);
+    v106 = v104[3];
     if (v105 == *(v104 + 16))
     {
       v107 = *v104;
@@ -5611,7 +5645,7 @@ LABEL_209:
     else
     {
       v107 = *v104;
-      if (v106 != *(v104 + 8) || *(v104 + 32) != v107)
+      if (v106 != v104[1] || v104[4] != v107)
       {
         goto LABEL_209;
       }
@@ -5622,7 +5656,7 @@ LABEL_209:
       }
     }
 
-    v112 = *(v104 + 32);
+    v112 = v104[4];
     *v103 = *v104;
     *(v103 + 16) = *(v104 + 16);
     v113 = v11;
@@ -5653,7 +5687,7 @@ LABEL_222:
       }
 
       v117 = *v116;
-      if (v106 != *(v115 - 16) || v112 != v117)
+      if (v106 != *(v115 - 2) || v112 != v117)
       {
         goto LABEL_222;
       }
@@ -5661,9 +5695,9 @@ LABEL_222:
       if (v105)
       {
 LABEL_227:
-        v104 -= 24;
+        v104 -= 3;
         *v115 = *v116;
-        *(v115 + 16) = *(v11 + v114 - 8);
+        v115[16] = *(v11 + v114 - 8);
         v114 -= 24;
         if (!v114)
         {
@@ -5677,15 +5711,15 @@ LABEL_227:
       break;
     }
 
-    v113 = v11 + v114;
+    v113 = (v11 + v114);
 LABEL_231:
     *v113 = v106;
-    *(v113 + 8) = v112;
+    v113[1] = v112;
     *(v113 + 16) = v105;
 LABEL_232:
-    v99 = (v103 + 24);
+    v99 = v103 + 3;
     v102 += 24;
-    if (v103 + 24 != a2)
+    if (v103 + 3 != a2)
     {
       continue;
     }
@@ -5838,14 +5872,14 @@ LABEL_8:
 
   while (1)
   {
-    v12 = v7[2];
+    v12 = *(v7 + 16);
     v13 = *v12;
     if (*v12 == v7)
     {
       break;
     }
 
-    if ((v7[3] & 1) == 0)
+    if ((*(v7 + 24) & 1) == 0)
     {
       *(v7 + 24) = 1;
       *(v12 + 24) = 0;
@@ -5873,8 +5907,8 @@ LABEL_8:
     v17 = *v7;
     if (*v7 && *(v17 + 24) != 1)
     {
-      v18 = v7[1];
-      if (v18 && (v18[3] & 1) == 0)
+      v18 = *(v7 + 8);
+      if (v18 && (*(v18 + 24) & 1) == 0)
       {
 LABEL_58:
         v17 = v7;
@@ -5884,22 +5918,22 @@ LABEL_58:
       {
         *(v17 + 24) = 1;
         *(v7 + 24) = 0;
-        v26 = v17[1];
+        v26 = *(v17 + 8);
         *v7 = v26;
         if (v26)
         {
           *(v26 + 16) = v7;
         }
 
-        v27 = v7[2];
-        v17[2] = v27;
+        v27 = *(v7 + 16);
+        *(v17 + 16) = v27;
         v27[*v27 != v7] = v17;
-        v17[1] = v7;
-        v7[2] = v17;
+        *(v17 + 8) = v7;
+        *(v7 + 16) = v17;
         v18 = v7;
       }
 
-      v28 = v17[2];
+      v28 = *(v17 + 16);
       *(v17 + 24) = *(v28 + 24);
       *(v28 + 24) = 1;
       *(v18 + 24) = 1;
@@ -5918,14 +5952,14 @@ LABEL_58:
       goto LABEL_71;
     }
 
-    v18 = v7[1];
+    v18 = *(v7 + 8);
     if (v18 && *(v18 + 24) != 1)
     {
       goto LABEL_58;
     }
 
     *(v7 + 24) = 0;
-    v19 = v7[2];
+    v19 = *(v7 + 16);
     if (v19 == result || (v19[3] & 1) == 0)
     {
       goto LABEL_52;
@@ -5935,11 +5969,11 @@ LABEL_49:
     v7 = *(v19[2] + 8 * (*v19[2] == v19));
   }
 
-  if ((v7[3] & 1) == 0)
+  if ((*(v7 + 24) & 1) == 0)
   {
     *(v7 + 24) = 1;
     *(v12 + 24) = 0;
-    v20 = v13[1];
+    v20 = *(v13 + 8);
     *v12 = v20;
     if (v20)
     {
@@ -5947,11 +5981,11 @@ LABEL_49:
     }
 
     v21 = v12[2];
-    v13[2] = v21;
+    *(v13 + 16) = v21;
     v21[*v21 != v12] = v13;
-    v13[1] = v12;
+    *(v13 + 8) = v12;
     v12[2] = v13;
-    v22 = v7[1];
+    v22 = *(v7 + 8);
     if (result == v22)
     {
       result = v7;
@@ -5966,11 +6000,11 @@ LABEL_49:
     goto LABEL_67;
   }
 
-  v24 = v7[1];
+  v24 = *(v7 + 8);
   if (!v24 || *(v24 + 24) == 1)
   {
     *(v7 + 24) = 0;
-    v19 = v7[2];
+    v19 = *(v7 + 16);
     if (*(v19 + 24) != 1 || v19 == result)
     {
 LABEL_52:
@@ -5981,7 +6015,7 @@ LABEL_52:
     goto LABEL_49;
   }
 
-  if (v23 && (v23[3] & 1) == 0)
+  if (v23 && (*(v23 + 24) & 1) == 0)
   {
 LABEL_67:
     v24 = v7;
@@ -5991,20 +6025,20 @@ LABEL_67:
   *(v24 + 24) = 1;
   *(v7 + 24) = 0;
   v32 = *v24;
-  v7[1] = *v24;
+  *(v7 + 8) = *v24;
   if (v32)
   {
     *(v32 + 16) = v7;
   }
 
-  v33 = v7[2];
-  v24[2] = v33;
+  v33 = *(v7 + 16);
+  *(v24 + 16) = v33;
   v33[*v33 != v7] = v24;
   *v24 = v7;
-  v7[2] = v24;
+  *(v7 + 16) = v24;
   v23 = v7;
 LABEL_68:
-  v28 = v24[2];
+  v28 = *(v24 + 16);
   *(v24 + 24) = *(v28 + 24);
   *(v28 + 24) = 1;
   *(v23 + 24) = 1;
@@ -6088,12 +6122,12 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -6107,22 +6141,22 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -6156,13 +6190,13 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -6517,7 +6551,7 @@ LABEL_30:
   return result;
 }
 
-__n128 std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::{lambda(BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo const&,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo const&)#1} &,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo*,0>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t **a6)
+__n128 std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::{lambda(BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo const&,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo const&)#1} &,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo*,0>(uint64_t *a1, uint64_t *a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t **a6)
 {
   result.n128_u64[0] = std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::{lambda(BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo const&,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo const&)#1} &,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo*,0>(a1, a2, a3, a4, a6).n128_u64[0];
   v13 = *a5;
@@ -6599,7 +6633,7 @@ LABEL_21:
       else
       {
         v29 = *a2;
-        if (v28 == *(a2 + 8) && *(a3 + 8) == v29)
+        if (v28 == a2[1] && *(a3 + 8) == v29)
         {
           if (!*(a3 + 16))
           {
@@ -6630,7 +6664,7 @@ LABEL_21:
 
 LABEL_30:
       result = *a2;
-      v33 = *(a2 + 16);
+      v33 = a2[2];
       v34 = *(a3 + 16);
       *a2 = *a3;
       *(a2 + 16) = v34;
@@ -6645,7 +6679,7 @@ LABEL_30:
       else
       {
         v36 = *a1;
-        if (v35 == *(a1 + 8) && *(a2 + 8) == v36)
+        if (v35 == a1[1] && a2[1] == v36)
         {
           if (!*(a2 + 16))
           {
@@ -6676,7 +6710,7 @@ LABEL_30:
 
 LABEL_39:
       result = *a1;
-      v40 = *(a1 + 16);
+      v40 = a1[2];
       v41 = *(a2 + 16);
       *a1 = *a2;
       *(a1 + 16) = v41;
@@ -6707,7 +6741,7 @@ LABEL_39:
   return result;
 }
 
-BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::{lambda(BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo const&,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo const&)#1} &,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo*>(uint64_t a1, uint64_t a2, uint64_t **a3)
+BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::{lambda(BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo const&,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo const&)#1} &,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo*>(uint64_t *a1, __int128 *a2, uint64_t **a3)
 {
   v6 = 0xAAAAAAAAAAAAAAABLL * ((a2 - a1) >> 3);
   if (v6 > 2)
@@ -6715,13 +6749,13 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL 
     switch(v6)
     {
       case 3:
-        std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::{lambda(BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo const&,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo const&)#1} &,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo*,0>(a1, (a1 + 24), (a2 - 24), a3);
+        std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::{lambda(BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo const&,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo const&)#1} &,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo*,0>(a1, a1 + 3, a2 - 3, a3);
         return 1;
       case 4:
-        std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::{lambda(BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo const&,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo const&)#1} &,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo*,0>(a1, a1 + 24, (a1 + 48), (a2 - 24), a3);
+        std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::{lambda(BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo const&,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo const&)#1} &,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo*,0>(a1, (a1 + 3), a1 + 6, a2 - 3, a3);
         return 1;
       case 5:
-        std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::{lambda(BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo const&,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo const&)#1} &,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo*,0>(a1, a1 + 24, a1 + 48, (a1 + 72), (a2 - 24), a3);
+        std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::{lambda(BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo const&,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo const&)#1} &,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo*,0>(a1, a1 + 3, (a1 + 6), a1 + 9, a2 - 3, a3);
         return 1;
     }
   }
@@ -6736,7 +6770,7 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL 
     if (v6 == 2)
     {
       v7 = (a2 - 24);
-      v8 = *(a2 - 24);
+      v8 = *(a2 - 3);
       if (*(a2 - 8) == *(a1 + 16))
       {
         v9 = *a1;
@@ -6745,7 +6779,7 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL 
       else
       {
         v9 = *a1;
-        if (v8 == *(a1 + 8) && *(a2 - 16) == v9)
+        if (v8 == a1[1] && *(a2 - 2) == v9)
         {
           if (!*(a2 - 8))
           {
@@ -6766,7 +6800,7 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL 
 
 LABEL_50:
       v32 = *a1;
-      v33 = *(a1 + 16);
+      v33 = a1[2];
       v34 = *(a2 - 8);
       *a1 = *v7;
       *(a1 + 16) = v34;
@@ -6776,10 +6810,10 @@ LABEL_50:
     }
   }
 
-  v13 = a1 + 48;
-  std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::{lambda(BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo const&,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo const&)#1} &,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo*,0>(a1, (a1 + 24), (a1 + 48), a3);
-  v14 = a1 + 72;
-  if (a1 + 72 == a2)
+  v13 = (a1 + 6);
+  std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::{lambda(BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo const&,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo const&)#1} &,BOOL geo::Intersect::isSelfIntersecting<double>(std::vector<gm::Matrix<double,2,1>> const&,BOOL)::EventInfo*,0>(a1, a1 + 3, a1 + 6, a3);
+  v14 = (a1 + 9);
+  if (a1 + 9 == a2)
   {
     return 1;
   }
@@ -7039,18 +7073,17 @@ id getCNAvatarImageRendererClass()
   return v1;
 }
 
-void sub_1A3063D48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A3063D48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-Class __getCNAvatarImageRendererClass_block_invoke(uint64_t a1)
+void __getCNAvatarImageRendererClass_block_invoke(uint64_t a1)
 {
   ContactsUILibrary();
-  result = objc_getClass("CNAvatarImageRenderer");
-  *(*(*(a1 + 32) + 8) + 24) = result;
+  *(*(*(a1 + 32) + 8) + 24) = objc_getClass("CNAvatarImageRenderer");
   if (*(*(*(a1 + 32) + 8) + 24))
   {
     getCNAvatarImageRendererClass_softClass = *(*(*(a1 + 32) + 8) + 24);
@@ -7058,11 +7091,9 @@ Class __getCNAvatarImageRendererClass_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = abort_report_np();
-    return __getCNAvatarImageRenderingScopeClass_block_invoke(v3);
+    v2 = abort_report_np("Unable to find class %s", "CNAvatarImageRenderer");
+    __getCNAvatarImageRenderingScopeClass_block_invoke(v2);
   }
-
-  return result;
 }
 
 void __getCNAvatarImageRenderingScopeClass_block_invoke(uint64_t a1)
@@ -7076,7 +7107,7 @@ void __getCNAvatarImageRenderingScopeClass_block_invoke(uint64_t a1)
 
   else
   {
-    v2 = abort_report_np();
+    v2 = abort_report_np("Unable to find class %s", "CNAvatarImageRenderingScope");
     [(MKPlaceCollectionViewModel *)v2 .cxx_destruct];
   }
 }
@@ -7240,7 +7271,7 @@ double MKDefaultCompactManeuverMetrics@<D0>(uint64_t a1@<X8>)
   *(a1 + 40) = xmmword_1A30F7210;
   *(a1 + 56) = xmmword_1A30F7220;
   *(a1 + 72) = xmmword_1A30F7230;
-  *(a1 + 88) = xmmword_1A30F7190;
+  *(a1 + 88) = *&ymmword_1A30F7180[16];
   *(a1 + 104) = 0x401C000000000000;
   *(a1 + 112) = 3;
   *(a1 + 120) = xmmword_1A30F7240;
@@ -7369,8 +7400,9 @@ void MKArrowAppendRightAngleCurveToPath(void *a1, double *a2, _OWORD *a3)
   a3[2] = v20;
 }
 
-void MKArrowAppendCurveToPathWithOptions(void *a1, char a2, double *__src, _OWORD *a4, double *a5, double a6)
+void MKArrowAppendCurveToPathWithOptions(void *a1, uint64_t a2, double *__src, _OWORD *a4, double *a5, double a6)
 {
+  v8 = a2;
   if (fabs(a6 + 0.785398163) >= 0.000001 && fabs(a6 + 2.35619449) >= 0.000001)
   {
     if (fabs(a6 + -0.785398163) >= 0.000001 && fabs(a6 + 3.92699082) >= 0.000001)
@@ -7390,7 +7422,7 @@ void MKArrowAppendCurveToPathWithOptions(void *a1, char a2, double *__src, _OWOR
   v12 = __src[v11];
 LABEL_5:
   memcpy(v13, __src, sizeof(v13));
-  MKArrowAppendCurveToPathWithOptionsAndRadius(a1, a2, v13, a4, a5, a6, v12);
+  MKArrowAppendCurveToPathWithOptionsAndRadius(a1, v8, v13, a4, a5, a6, v12);
 }
 
 void MKArrowAppendCurveToPathWithOptionsAndRadius(void *a1, char a2, uint64_t a3, _OWORD *a4, double *a5, double a6, double a7)
@@ -7899,37 +7931,37 @@ void MKArrowAppendExitRoadLeftToPathInRect(void *a1, void *a2, const void *a3, v
   [v17 appendPath:v19];
 }
 
-void sub_1A306CEB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A306CEB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v7 - 64), 8);
+  _Block_object_dispose((v13 - 64), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A30725FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1A30725FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A3072AA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1A3072AA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A3075E94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A3075E94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8142,11 +8174,12 @@ LABEL_56:
   return v2;
 }
 
-void sub_1A307ADB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_1A307ADB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
 {
-  _Block_object_dispose(&a33, 8);
-  _Block_object_dispose((v33 - 192), 8);
-  _Block_object_dispose((v33 - 144), 8);
+  va_start(va, a32);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v32 - 192), 8);
+  _Block_object_dispose((v32 - 144), 8);
   _Unwind_Resume(a1);
 }
 
@@ -8157,9 +8190,9 @@ uint64_t __Block_byref_object_copy__37655(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1A307C5BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_1A307C5BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8180,17 +8213,18 @@ void sub_1A307F5C8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1A30819F0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_1A30819F0(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = _MKOverlayTileRequester;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
-id RequesterRegistry::lookup(RequesterRegistry *this, unsigned int a2)
+id RequesterRegistry::lookup(RequesterRegistry *this, uint64_t a2)
 {
+  v2 = a2;
   v12 = a2;
   std::mutex::lock((this + 24));
   v4 = *(this + 1);
@@ -8203,8 +8237,8 @@ id RequesterRegistry::lookup(RequesterRegistry *this, unsigned int a2)
   do
   {
     v6 = v4[8];
-    v7 = v6 >= a2;
-    v8 = v6 < a2;
+    v7 = v6 >= v2;
+    v8 = v6 < v2;
     if (v7)
     {
       v5 = v4;
@@ -8214,10 +8248,10 @@ id RequesterRegistry::lookup(RequesterRegistry *this, unsigned int a2)
   }
 
   while (v4);
-  if (v5 != (this + 8) && v5[8] <= a2)
+  if (v5 != (this + 8) && v5[8] <= v2)
   {
     v13 = &v12;
-    v11 = std::__tree<std::__value_type<unsigned int,objc_object  {objcproto24_MKOverlayTileDataSource}* {__weak}>,std::__map_value_compare<unsigned int,objc_object  {objcproto24_MKOverlayTileDataSource}* {__weak},std::less<unsigned int>,true>,std::allocator<objc_object  {objcproto24_MKOverlayTileDataSource}* {__weak}>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::piecewise_construct_t const&<>>(this, a2);
+    v11 = std::__tree<std::__value_type<unsigned int,objc_object  {objcproto24_MKOverlayTileDataSource}* {__weak}>,std::__map_value_compare<unsigned int,objc_object  {objcproto24_MKOverlayTileDataSource}* {__weak},std::less<unsigned int>,true>,std::allocator<objc_object  {objcproto24_MKOverlayTileDataSource}* {__weak}>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::piecewise_construct_t const&<>>(this, v2, &v13);
     WeakRetained = objc_loadWeakRetained(v11 + 5);
   }
 
@@ -8232,10 +8266,10 @@ LABEL_9:
   return WeakRetained;
 }
 
-uint64_t *std::__tree<std::__value_type<unsigned int,objc_object  {objcproto24_MKOverlayTileDataSource}* {__weak}>,std::__map_value_compare<unsigned int,objc_object  {objcproto24_MKOverlayTileDataSource}* {__weak},std::less<unsigned int>,true>,std::allocator<objc_object  {objcproto24_MKOverlayTileDataSource}* {__weak}>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::piecewise_construct_t const&<>>(uint64_t a1, unsigned int a2)
+uint64_t *std::__tree<std::__value_type<unsigned int,objc_object  {objcproto24_MKOverlayTileDataSource}* {__weak}>,std::__map_value_compare<unsigned int,objc_object  {objcproto24_MKOverlayTileDataSource}* {__weak},std::less<unsigned int>,true>,std::allocator<objc_object  {objcproto24_MKOverlayTileDataSource}* {__weak}>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::piecewise_construct_t const&<>>(uint64_t **a1, unsigned int a2, _DWORD **a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = a1[1];
+  if (!v3)
   {
 LABEL_7:
     operator new();
@@ -8245,27 +8279,27 @@ LABEL_7:
   {
     while (1)
     {
-      v3 = v2;
-      v4 = *(v2 + 32);
-      if (v4 <= a2)
+      v4 = v3;
+      v5 = *(v3 + 8);
+      if (v5 <= a2)
       {
         break;
       }
 
-      v2 = *v3;
-      if (!*v3)
+      v3 = *v4;
+      if (!*v4)
       {
         goto LABEL_7;
       }
     }
 
-    if (v4 >= a2)
+    if (v5 >= a2)
     {
-      return v3;
+      return v4;
     }
 
-    v2 = v3[1];
-    if (!v2)
+    v3 = v4[1];
+    if (!v3)
     {
       goto LABEL_7;
     }
@@ -8305,10 +8339,11 @@ void ___ZL22_tileRequesterWorkloopv_block_invoke()
   _tileRequesterWorkloop(void)::workloop = v0;
 }
 
-void sub_1A308558C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, id location, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_1A308558C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, id location, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
-  _Block_object_dispose(&a29, 8);
-  objc_destroyWeak((v29 + 56));
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
+  objc_destroyWeak((v28 + 56));
   objc_destroyWeak(&location);
   _Block_object_dispose(&a19, 8);
   _Unwind_Resume(a1);
@@ -8357,16 +8392,16 @@ __CFString *_MKPlaceCardFormattedStringForTimeInterval()
   return v4;
 }
 
-void sub_1A308F014(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1A308F014(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A308F2A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1A308F2A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8408,7 +8443,7 @@ uint64_t __Block_byref_object_copy__39689(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1A30926E8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *__p, uint64_t a21)
+void sub_1A30926E8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *__p, uint64_t a21)
 {
   _Block_object_dispose(&a14, 8);
   if (__p)
@@ -8422,14 +8457,12 @@ void sub_1A30926E8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 __n128 __Block_byref_object_copy__39884(__n128 *a1, __n128 *a2)
 {
-  a1[3].n128_u64[0] = 0;
-  a1[3].n128_u64[1] = 0;
+  a1[3] = 0uLL;
   a1[4].n128_u64[0] = 0;
   result = a2[3];
   a1[3] = result;
   a1[4].n128_u64[0] = a2[4].n128_u64[0];
-  a2[3].n128_u64[0] = 0;
-  a2[3].n128_u64[1] = 0;
+  a2[3] = 0uLL;
   a2[4].n128_u64[0] = 0;
   return result;
 }
@@ -8503,9 +8536,9 @@ void std::vector<GEOPosition2d>::push_back[abi:ne200100](uint64_t a1, _OWORD *a2
   *(a1 + 8) = v5;
 }
 
-void *std::vector<GEOPosition2d>::reserve(void *result, unint64_t a2)
+void std::vector<GEOPosition2d>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 4)
+  if (a2 > (a1[2] - *a1) >> 4)
   {
     if (!(a2 >> 60))
     {
@@ -8514,8 +8547,6 @@ void *std::vector<GEOPosition2d>::reserve(void *result, unint64_t a2)
 
     std::vector<VKRouteInfo * {__strong}>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 CGPath *_MKPolygonRendererCreateStrokeClipPathForPolygon(void *a1, double a2, double a3, double a4, double a5)
@@ -8605,9 +8636,9 @@ LABEL_18:
   return Mutable;
 }
 
-void sub_1A309A5B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1A309A5B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8619,14 +8650,14 @@ uint64_t __Block_byref_object_copy__40845(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1A309C808(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A309C808(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
+  va_start(va1, a13);
+  va_start(va, a13);
+  v14 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -8639,14 +8670,14 @@ uint64_t __Block_byref_object_copy__41191(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1A309C9E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A309C9E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
+  va_start(va1, a13);
+  va_start(va, a13);
+  v14 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -8707,10 +8738,10 @@ double MKClosestMapPointInLineSegmentFromMapPoint(double result, double a2, doub
   return result;
 }
 
-void MKCoordinatesForRegion(CLLocationCoordinate2D *a1, CLLocationCoordinate2D *a2)
+void MKCoordinatesForRegion(CLLocationCoordinate2D *a1, CLLocationCoordinate2D *a2, double a3, double a4, double a5, double a6)
 {
   GEOMapRectForCoordinateRegion();
-  if (v4 == INFINITY && v5 == INFINITY)
+  if (v8 == INFINITY && v9 == INFINITY)
   {
     *a1 = MKCoordinateInvalid;
     *a2 = MKCoordinateInvalid;
@@ -8718,12 +8749,12 @@ void MKCoordinatesForRegion(CLLocationCoordinate2D *a1, CLLocationCoordinate2D *
 
   else
   {
-    v9 = v4 + v6;
-    v10 = v5 + v7;
-    *a1 = MKCoordinateForMapPoint(*&v4);
-    v11.x = v9;
-    v11.y = v10;
-    *a2 = MKCoordinateForMapPoint(v11);
+    v13 = v8 + v10;
+    v14 = v9 + v11;
+    *a1 = MKCoordinateForMapPoint(*&v8);
+    v15.x = v13;
+    v15.y = v14;
+    *a2 = MKCoordinateForMapPoint(v15);
   }
 }
 
@@ -9326,15 +9357,15 @@ double MKMapRectBoundingMapPoints(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void _MKPolylineAddToPath(CGPath *a1, double *a2, unint64_t a3, float64_t a4, float64_t a5, double a6, double a7, double a8, double a9)
+void _MKPolylineAddToPath(CGPath *a1, float64x2_t *a2, unint64_t a3, float64_t a4, float64_t a5, double a6, double a7, double a8, double a9)
 {
   v9 = a3 - 2;
   if (a3 >= 2)
   {
     v17 = a7 == 0.0;
     v18 = a8 < 1.0 || a7 > 0.0;
-    v19 = *a2 - a4;
-    v20 = a2[1] - a5;
+    v19 = a2->f64[0] - a4;
+    v20 = a2->f64[1] - a5;
     CGPathMoveToPoint(a1, 0, v19, v20);
     v21 = a7 * a9;
     v22 = a8 * a9;
@@ -9349,7 +9380,7 @@ void _MKPolylineAddToPath(CGPath *a1, double *a2, unint64_t a3, float64_t a4, fl
       v27 = v24 >= 1.0;
       v28.f64[0] = a4;
       v28.f64[1] = a5;
-      v29 = (a2 + 2);
+      v29 = a2 + 1;
       v30 = 0.0;
       v31 = 1.0;
       v52 = v28;
@@ -9435,9 +9466,9 @@ LABEL_24:
 LABEL_28:
     v31 = 1.0;
 LABEL_29:
-    v40 = &a2[2 * v23];
-    v41 = *v40 - a4;
-    v42 = v40[1] - a5;
+    f64 = a2[v23].f64;
+    v41 = *f64 - a4;
+    v42 = f64[1] - a5;
     if (v49 >= v31)
     {
       if (!v17)
@@ -9446,8 +9477,8 @@ LABEL_29:
       }
 
       v43 = a1;
-      v44 = *v40 - a4;
-      v45 = v40[1] - a5;
+      v44 = *f64 - a4;
+      v45 = f64[1] - a5;
     }
 
     else
@@ -9574,9 +9605,9 @@ id MKTransitLiveDepartureColorForViewWithLiveStatus(void *a1, uint64_t a2)
   return v4;
 }
 
-void sub_1A30A66AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A30A66AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -9615,147 +9646,4 @@ void fillTemplate(NSMutableString *a1, NSString *a2, uint64_t a3)
   v5 = a2;
   v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%ld", a3];
   [(NSMutableString *)v7 replaceOccurrencesOfString:v5 withString:v6 options:0 range:0, [(NSMutableString *)v7 length]];
-}
-
-void sub_1A30A9D38(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
-{
-  a9.super_class = MKTileOverlay;
-  [(_Unwind_Exception *)&a9 dealloc];
-  _Unwind_Resume(a1);
-}
-
-double mapRectContainingMapItems(void *a1, double a2, double a3)
-{
-  v42 = *MEMORY[0x1E69E9840];
-  v5 = a1;
-  if ([v5 count] == 1)
-  {
-    v6 = [v5 firstObject];
-    if ([v6 _venueFeatureType])
-    {
-      [v6 _coordinate];
-      v8 = v7;
-      v10 = v9;
-      GEOConfigGetDouble();
-      MKCoordinateRegionMakeWithZoomLevel(v8, v10, v11, a2, a3);
-      GEOMapRectForCoordinateRegion();
-LABEL_42:
-      v16 = v12;
-      goto LABEL_43;
-    }
-
-    v13 = [v6 _displayMapRegion];
-
-    if (v13)
-    {
-      v14 = [v6 _displayMapRegion];
-      GEOMapRectForMapRegion();
-      v16 = v15;
-
-LABEL_43:
-      goto LABEL_44;
-    }
-  }
-
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
-  v38 = 0u;
-  v17 = v5;
-  v18 = [v17 countByEnumeratingWithState:&v37 objects:v41 count:16];
-  if (v18)
-  {
-    v19 = v18;
-    v20 = *v38;
-    v21 = 0.0;
-    v22 = 9.22337204e18;
-    v23 = 0.0;
-    v24 = 9.22337204e18;
-    do
-    {
-      for (i = 0; i != v19; ++i)
-      {
-        if (*v38 != v20)
-        {
-          objc_enumerationMutation(v17);
-        }
-
-        [*(*(&v37 + 1) + 8 * i) _coordinate];
-        v28 = MKTilePointForCoordinate(v26, v27, 21.0);
-        if (v24 >= v28)
-        {
-          v24 = v28;
-        }
-
-        if (v22 >= v29)
-        {
-          v22 = v29;
-        }
-
-        if (v21 <= v28)
-        {
-          v21 = v28;
-        }
-
-        if (v23 <= v29)
-        {
-          v23 = v29;
-        }
-      }
-
-      v19 = [v17 countByEnumeratingWithState:&v37 objects:v41 count:16];
-    }
-
-    while (v19);
-  }
-
-  else
-  {
-    v21 = 0.0;
-    v22 = 9.22337204e18;
-    v23 = 0.0;
-    v24 = 9.22337204e18;
-  }
-
-  if (v24 <= v21)
-  {
-    v30 = v21;
-  }
-
-  else
-  {
-    v30 = v24;
-  }
-
-  if (v24 >= v21)
-  {
-    v31 = v21;
-  }
-
-  else
-  {
-    v31 = v24;
-  }
-
-  if (v30 - v31 <= 0.0 || (v22 <= v23 ? (v32 = v23) : (v32 = v22), v22 >= v23 ? (v33 = v23) : (v33 = v22), v32 - v33 <= 0.0))
-  {
-    v6 = [v17 firstObject];
-    [v6 _coordinate];
-    v12 = MKMapRectMakeWithRadialDistance(v34, v35, 100.0);
-    goto LABEL_42;
-  }
-
-  if (v24 == INFINITY && v22 == INFINITY)
-  {
-    v16 = INFINITY;
-  }
-
-  else
-  {
-    v16 = v24 + 0.0;
-  }
-
-LABEL_44:
-
-  return v16;
 }

@@ -370,7 +370,7 @@ void *__58__CalDAVAccountPropertyRefreshOperation_refreshProperties__block_invok
 
 - (void)propFindTask:(id)task parsedResponses:(id)responses error:(id)error
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   responsesCopy = responses;
   errorCopy = error;
@@ -378,32 +378,32 @@ void *__58__CalDAVAccountPropertyRefreshOperation_refreshProperties__block_invok
   v12 = principal;
   if (!errorCopy)
   {
-    v29 = principal;
+    v28 = principal;
     selfCopy = self;
-    v31 = taskCopy;
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
+    v30 = taskCopy;
     v36 = 0u;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
     obj = responsesCopy;
-    v16 = [obj countByEnumeratingWithState:&v35 objects:v41 count:16];
+    v16 = [obj countByEnumeratingWithState:&v34 objects:v40 count:16];
     if (v16)
     {
       v17 = v16;
       errorCopy = 0;
-      v33 = *v36;
-      v34 = 0;
+      v32 = *v35;
+      v33 = 0;
       v18 = *MEMORY[0x277CFDDC0];
       do
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v36 != v33)
+          if (*v35 != v32)
           {
             objc_enumerationMutation(obj);
           }
 
-          successfulPropertiesToValues = [*(*(&v35 + 1) + 8 * i) successfulPropertiesToValues];
+          successfulPropertiesToValues = [*(*(&v34 + 1) + 8 * i) successfulPropertiesToValues];
           v21 = [successfulPropertiesToValues CDVObjectForKeyWithNameSpace:v18 andName:@"default-alarm-vevent-datetime"];
           v22 = v21;
           if (v21)
@@ -420,12 +420,12 @@ void *__58__CalDAVAccountPropertyRefreshOperation_refreshProperties__block_invok
             [v24 payloadAsString];
             v27 = v26 = errorCopy;
 
-            v34 = v27;
+            v33 = v27;
             errorCopy = v26;
           }
         }
 
-        v17 = [obj countByEnumeratingWithState:&v35 objects:v41 count:16];
+        v17 = [obj countByEnumeratingWithState:&v34 objects:v40 count:16];
       }
 
       while (v17);
@@ -433,22 +433,22 @@ void *__58__CalDAVAccountPropertyRefreshOperation_refreshProperties__block_invok
 
     else
     {
-      v34 = 0;
+      v33 = 0;
       errorCopy = 0;
     }
 
-    v12 = v29;
+    v12 = v28;
     if (objc_opt_respondsToSelector())
     {
-      [v29 setDefaultTimedAlarms:errorCopy];
+      [v28 setDefaultTimedAlarms:errorCopy];
     }
 
-    taskCopy = v31;
+    taskCopy = v30;
     self = selfCopy;
-    mEMORY[0x277CFDC18] = v34;
+    mEMORY[0x277CFDC18] = v33;
     if (objc_opt_respondsToSelector())
     {
-      [v29 setDefaultAllDayAlarms:v34];
+      [v28 setDefaultAllDayAlarms:v33];
     }
 
     goto LABEL_24;
@@ -462,7 +462,7 @@ void *__58__CalDAVAccountPropertyRefreshOperation_refreshProperties__block_invok
     if (v14 && os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v40 = errorCopy;
+      v39 = errorCopy;
       _os_log_impl(&dword_242742000, v15, OS_LOG_TYPE_ERROR, "Fetching default alarms failed. Ignoring and moving on. The error was %@", buf, 0xCu);
     }
 
@@ -472,8 +472,6 @@ LABEL_24:
 
   [*(&self->super.super.super.isa + *MEMORY[0x277CFDD58]) removeObject:taskCopy];
   [(CalDAVAccountPropertyRefreshOperation *)self _finishCalDAVAccountPropertyRefreshOperationWithError:errorCopy];
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)shouldKeepDefaultAlarmError:(id)error

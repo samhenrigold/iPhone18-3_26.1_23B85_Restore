@@ -16,7 +16,7 @@
 - (id)descriptionWithMultilinePrefix:(id)prefix;
 - (id)succinctDescription;
 - (id)succinctDescriptionBuilder;
-- (uint64_t)_appendDescriptionToStream:(uint64_t)result;
+- (void)_appendDescriptionToStream:(void *)result;
 - (void)_cleanupAfterDispatch;
 - (void)_gestureRecognizerNoLongerNeedsSendEvent:(id)event;
 - (void)_removeComponents:(int)components withCancellation:;
@@ -112,7 +112,7 @@
       if (self)
       {
 LABEL_4:
-        v6 = _UIEventHIDUIWindowForHIDEvent();
+        v6 = _UIEventHIDUIWindowForHIDEvent(event);
         if (!v6)
         {
           if (os_variant_has_internal_diagnostics())
@@ -1051,7 +1051,7 @@ LABEL_17:
   }
 }
 
-- (uint64_t)_appendDescriptionToStream:(uint64_t)result
+- (void)_appendDescriptionToStream:(void *)result
 {
   if (result)
   {

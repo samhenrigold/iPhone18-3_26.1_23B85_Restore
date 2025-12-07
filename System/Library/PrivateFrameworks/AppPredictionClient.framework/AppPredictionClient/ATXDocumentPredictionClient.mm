@@ -42,65 +42,67 @@
 
 + (id)_getDocumentsForDemoMode
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   _demoDocumentsPath = [self _demoDocumentsPath];
-  v19 = 0;
-  v3 = [MEMORY[0x1E695DEF0] dataWithContentsOfFile:_demoDocumentsPath options:0 error:&v19];
-  v4 = v19;
+  v21 = 0;
+  v3 = [MEMORY[0x1E695DEF0] dataWithContentsOfFile:_demoDocumentsPath options:0 error:&v21];
+  v4 = v21;
+  v5 = v4;
   if (v3)
   {
-    v18 = v4;
-    v5 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v3 options:0 error:&v18];
-    v6 = v18;
+    v20 = v4;
+    v6 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v3 options:0 error:&v20];
+    v7 = v20;
 
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v7 = [v5 objectForKeyedSubscript:@"Recents"];
-      v8 = [v5 objectForKeyedSubscript:@"Suggestions"];
-      v9 = __atxlog_handle_document_predictor();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v9 = [v6 objectForKeyedSubscript:@"Recents"];
+      v10 = [v6 objectForKeyedSubscript:@"Suggestions"];
+      v11 = __atxlog_handle_document_predictor(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v21 = v7;
-        v22 = 2112;
-        v23 = v8;
-        _os_log_impl(&dword_1BF549000, v9, OS_LOG_TYPE_DEFAULT, "[Demo] Recents: %@, Suggestions: %@", buf, 0x16u);
+        v23 = v9;
+        v24 = 2112;
+        v25 = v10;
+        _os_log_impl(&dword_1BF549000, v11, OS_LOG_TYPE_DEFAULT, "[Demo] Recents: %@, Suggestions: %@", buf, 0x16u);
       }
 
-      v10 = [v7 _pas_mappedArrayWithTransform:&__block_literal_global_107];
-      v11 = [v8 _pas_mappedArrayWithTransform:&__block_literal_global_30_0];
-      v12 = [objc_alloc(MEMORY[0x1E69C5D98]) initWithFirst:v11 second:v10];
+      v12 = [v9 _pas_mappedArrayWithTransform:&__block_literal_global_107];
+      v13 = [v10 _pas_mappedArrayWithTransform:&__block_literal_global_30_0];
+      v14 = [objc_alloc(MEMORY[0x1E69C5D98]) initWithFirst:v13 second:v12];
     }
 
     else
     {
-      v15 = __atxlog_handle_document_predictor();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v17 = __atxlog_handle_document_predictor(isKindOfClass);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        +[(ATXDocumentPredictionClient(Demo) *)v5];
+        +[(ATXDocumentPredictionClient(Demo) *)v6];
       }
 
-      v16 = objc_alloc(MEMORY[0x1E69C5D98]);
-      v12 = [v16 initWithFirst:MEMORY[0x1E695E0F0] second:MEMORY[0x1E695E0F0]];
+      v18 = objc_alloc(MEMORY[0x1E69C5D98]);
+      v14 = [v18 initWithFirst:MEMORY[0x1E695E0F0] second:MEMORY[0x1E695E0F0]];
     }
 
-    v4 = v6;
+    v5 = v7;
   }
 
   else
   {
-    v13 = __atxlog_handle_document_predictor();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v15 = __atxlog_handle_document_predictor(v4);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      +[(ATXDocumentPredictionClient(Demo) *)v4];
+      +[(ATXDocumentPredictionClient(Demo) *)v5];
     }
 
-    v14 = objc_alloc(MEMORY[0x1E69C5D98]);
-    v12 = [v14 initWithFirst:MEMORY[0x1E695E0F0] second:MEMORY[0x1E695E0F0]];
+    v16 = objc_alloc(MEMORY[0x1E69C5D98]);
+    v14 = [v16 initWithFirst:MEMORY[0x1E695E0F0] second:MEMORY[0x1E695E0F0]];
   }
 
-  return v12;
+  return v14;
 }
 
 @end

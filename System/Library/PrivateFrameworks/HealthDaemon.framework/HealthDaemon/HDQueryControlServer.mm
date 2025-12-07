@@ -5,6 +5,7 @@
 - (id)createQueryServerEndpointForIdentifier:(id)identifier queryUUID:(id)d configuration:(id)configuration forceReactivation:(BOOL)reactivation error:(id *)error;
 - (void)_lock_queryDidFinish:(uint64_t)finish;
 - (void)invalidate;
+- (void)queryServer:(id)server requestsAuthorizationWithContext:(id)context promptIfNeeded:(BOOL)needed completion:(id)completion;
 - (void)queryServer:(id)server shouldStartWithCompletion:(id)completion;
 - (void)queryServerDidFinish:(id)finish;
 - (void)taskServerDidFailToInitializeForUUID:(id)d;
@@ -47,7 +48,7 @@
 
 - (void)invalidate
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   allValues = [(NSMutableDictionary *)self->_queryServersByUUID allValues];
   queryServersByUUID = self->_queryServersByUUID;
@@ -58,93 +59,89 @@
   self->_queryServerEndpointsByUUID = 0;
 
   os_unfair_lock_unlock(&self->_lock);
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v7 = allValues;
-  v8 = [v7 countByEnumeratingWithState:&v24 objects:v29 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v23 objects:v28 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v25;
+    v10 = *v24;
     do
     {
       v11 = 0;
       do
       {
-        if (*v25 != v10)
+        if (*v24 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v24 + 1) + 8 * v11);
-        v23[0] = MEMORY[0x277D85DD0];
-        v23[1] = 3221225472;
-        v23[2] = __34__HDQueryControlServer_invalidate__block_invoke;
-        v23[3] = &unk_278613920;
-        v23[4] = self;
-        v23[5] = v12;
-        [v12 deactivateServerWithCompletion:v23];
+        v12 = *(*(&v23 + 1) + 8 * v11);
+        v22[0] = MEMORY[0x277D85DD0];
+        v22[1] = 3221225472;
+        v22[2] = __34__HDQueryControlServer_invalidate__block_invoke;
+        v22[3] = &unk_278613920;
+        v22[4] = self;
+        v22[5] = v12;
+        [v12 deactivateServerWithCompletion:v22];
         ++v11;
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v24 objects:v29 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v23 objects:v28 count:16];
     }
 
     while (v9);
   }
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v13 = allValues2;
-  v14 = [v13 countByEnumeratingWithState:&v19 objects:v28 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v18 objects:v27 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v20;
+    v16 = *v19;
     do
     {
       v17 = 0;
       do
       {
-        if (*v20 != v16)
+        if (*v19 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        [*(*(&v19 + 1) + 8 * v17++) invalidate];
+        [*(*(&v18 + 1) + 8 * v17++) invalidate];
       }
 
       while (v15 != v17);
-      v15 = [v13 countByEnumeratingWithState:&v19 objects:v28 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v18 objects:v27 count:16];
     }
 
     while (v15);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __34__HDQueryControlServer_invalidate__block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v2 = *MEMORY[0x277CCC308];
   if (os_log_type_enabled(*MEMORY[0x277CCC308], OS_LOG_TYPE_DEBUG))
   {
-    v4 = *(a1 + 40);
-    v5 = v2;
-    v6 = [v4 queryUUID];
-    v7 = 138412290;
-    v8 = v6;
-    _os_log_debug_impl(&dword_228986000, v5, OS_LOG_TYPE_DEBUG, "Stopped query server %@", &v7, 0xCu);
+    v3 = *(a1 + 40);
+    v4 = v2;
+    v5 = [v3 queryUUID];
+    v6 = 138412290;
+    v7 = v5;
+    _os_log_debug_impl(&dword_228986000, v4, OS_LOG_TYPE_DEBUG, "Stopped query server %@", &v6, 0xCu);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (id)createQueryServerEndpointForIdentifier:(id)identifier queryUUID:(id)d configuration:(id)configuration forceReactivation:(BOOL)reactivation error:(id *)error
@@ -329,9 +326,66 @@ void __53__HDQueryControlServer__startQueryServer_completion___block_invoke(void
   (*(a1[6] + 16))();
 }
 
+- (void)queryServer:(id)server requestsAuthorizationWithContext:(id)context promptIfNeeded:(BOOL)needed completion:(id)completion
+{
+  neededCopy = needed;
+  contextCopy = context;
+  completionCopy = completion;
+  WeakRetained = objc_loadWeakRetained(&self->_profile);
+  sourceManager = [WeakRetained sourceManager];
+  if (self)
+  {
+    client = self->_client;
+  }
+
+  else
+  {
+    client = 0;
+  }
+
+  v24 = 0;
+  v14 = client;
+  v15 = [sourceManager createOrUpdateSourceForClient:v14 error:&v24];
+  v16 = v24;
+
+  if (v15)
+  {
+    if (self)
+    {
+      v17 = self->_client;
+    }
+
+    else
+    {
+      v17 = 0;
+    }
+
+    v18 = v17;
+    authorizationOracle = [(HDHealthStoreClient *)v18 authorizationOracle];
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __95__HDQueryControlServer_queryServer_requestsAuthorizationWithContext_promptIfNeeded_completion___block_invoke;
+    v23[3] = &unk_278624360;
+    v23[4] = self;
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __95__HDQueryControlServer_queryServer_requestsAuthorizationWithContext_promptIfNeeded_completion___block_invoke_308;
+    v21[3] = &unk_278624388;
+    v20 = completionCopy;
+
+    v22 = v20;
+    [authorizationOracle enqueueObjectAuthorizationRequestWithContext:contextCopy sourceEntity:v15 promptIfNeeded:neededCopy authorizationNeededHandler:v23 completion:v21];
+  }
+
+  else
+  {
+    (*(completionCopy + 2))(completionCopy, 0, v16);
+  }
+}
+
 void __95__HDQueryControlServer_queryServer_requestsAuthorizationWithContext_promptIfNeeded_completion___block_invoke(uint64_t a1, void *a2, int a3, void *a4)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a4;
   v9 = v8;
@@ -369,22 +423,20 @@ LABEL_10:
     v11 = HKLogAuthorization();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v17 = 138543362;
-      v18 = v9;
-      _os_log_error_impl(&dword_228986000, v11, OS_LOG_TYPE_ERROR, "Failed to determine object authorization status: %{public}@", &v17, 0xCu);
+      v16 = 138543362;
+      v17 = v9;
+      _os_log_error_impl(&dword_228986000, v11, OS_LOG_TYPE_ERROR, "Failed to determine object authorization status: %{public}@", &v16, 0xCu);
     }
 
     goto LABEL_10;
   }
 
 LABEL_11:
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __95__HDQueryControlServer_queryServer_requestsAuthorizationWithContext_promptIfNeeded_completion___block_invoke_2(uint64_t a1, char a2, void *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v4 = a3;
   if ((a2 & 1) == 0)
   {
@@ -392,13 +444,11 @@ void __95__HDQueryControlServer_queryServer_requestsAuthorizationWithContext_pro
     v5 = HKLogAuthorization();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v7 = 138543362;
-      v8 = v4;
-      _os_log_error_impl(&dword_228986000, v5, OS_LOG_TYPE_ERROR, "Failed to handle object authorization request: %{public}@", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v4;
+      _os_log_error_impl(&dword_228986000, v5, OS_LOG_TYPE_ERROR, "Failed to handle object authorization request: %{public}@", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)queryServer:(id)server shouldStartWithCompletion:(id)completion

@@ -77,7 +77,7 @@
     [v20 setFont:v21];
 
     [v20 setNumberOfLines:0];
-    if (PhotosUICoreLibraryCore_0() && getPXTCCSettingsGridTitleSymbolLoc())
+    if (PhotosUICoreLibraryCore_0(0) && getPXTCCSettingsGridTitleSymbolLoc())
     {
       PXTCCSettingsGridTitleSymbolLoc = getPXTCCSettingsGridTitleSymbolLoc();
       if (!PXTCCSettingsGridTitleSymbolLoc)
@@ -99,7 +99,7 @@
     [v24 setTextColor:secondaryLabelColor];
 
     [v24 setNumberOfLines:0];
-    if (!PhotosUICoreLibraryCore_0() || !getPXTCCSettingsGridSubtitleSymbolLoc())
+    if (!PhotosUICoreLibraryCore_0(0) || !getPXTCCSettingsGridSubtitleSymbolLoc())
     {
       goto LABEL_16;
     }

@@ -2,6 +2,7 @@
 - (float)score;
 - (id)asTwoPhaseIterator;
 - (id)getChildren;
+- (int)advanceWithInt:(int)int;
 - (int)docID;
 - (int)freq;
 - (int)nextDoc;
@@ -31,6 +32,17 @@
   }
 
   return [(OrgApacheLuceneSearchScorer *)reqScorer nextDoc];
+}
+
+- (int)advanceWithInt:(int)int
+{
+  reqScorer = self->reqScorer_;
+  if (!reqScorer)
+  {
+    JreThrowNullPointerException();
+  }
+
+  return [(OrgApacheLuceneSearchScorer *)reqScorer advanceWithInt:*&int];
 }
 
 - (int)docID

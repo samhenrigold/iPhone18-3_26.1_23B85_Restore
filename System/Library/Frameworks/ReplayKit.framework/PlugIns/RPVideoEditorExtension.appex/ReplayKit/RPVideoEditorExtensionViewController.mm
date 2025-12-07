@@ -5,7 +5,9 @@
 - (void)setupVideoEditorController;
 - (void)tearDownChildViewControllers;
 - (void)videoEditor:(id)editor didFinishWithActivityTypes:(id)types;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation RPVideoEditorExtensionViewController
@@ -20,6 +22,31 @@
   self->_replyQueue = v3;
 
   [(RPVideoEditorExtensionViewController *)self setupChildViewControllers];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = RPVideoEditorExtensionViewController;
+  [(RPVideoEditorExtensionViewController *)&v4 viewWillAppear:appear];
+  if (!self->_videoEditorViewController)
+  {
+    [(RPVideoEditorExtensionViewController *)self setupVideoEditorController];
+  }
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = RPVideoEditorExtensionViewController;
+  [(RPVideoEditorExtensionViewController *)&v5 viewDidDisappear:disappear];
+  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  {
+    *v4 = 0;
+    _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "RPVideoEditorExtensionViewController -viewDidDisappear:", v4, 2u);
+  }
+
+  [(RPVideoEditorExtensionViewController *)self tearDownChildViewControllers];
 }
 
 - (void)setupChildViewControllers

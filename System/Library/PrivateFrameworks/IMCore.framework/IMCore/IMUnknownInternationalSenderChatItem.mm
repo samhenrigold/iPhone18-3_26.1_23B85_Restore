@@ -7,10 +7,10 @@
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = objc_alloc(objc_opt_class());
-  v7 = objc_msgSend__item(self, v5, v6);
-  v9 = objc_msgSend__initWithItem_(v4, v8, v7);
+  _item = [(IMChatItem *)self _item];
+  v6 = [v4 _initWithItem:_item];
 
-  return v9;
+  return v6;
 }
 
 @end

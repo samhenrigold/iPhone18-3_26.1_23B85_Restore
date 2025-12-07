@@ -114,9 +114,9 @@ id sub_100001C30(void *a1)
   return v5;
 }
 
-void sub_100001D70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100001D70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -358,90 +358,90 @@ void sub_100003130(uint64_t a1)
 {
   v1 = (a1 + 40);
   [*(a1 + 32) recordLastAccessTime:*(a1 + 40)];
-  v109 = objc_opt_new();
-  v96 = objc_opt_new();
+  v107 = objc_opt_new();
   v94 = objc_opt_new();
-  v108 = [NSMutableDictionary dictionaryWithCapacity:0];
-  v97 = sub_100001378(*v1);
-  v107 = [[FontRegistrationInfo alloc] initWithTargetDirectoryURL:v97];
-  v98 = +[NSFileManager defaultManager];
-  v152 = 0;
-  LODWORD(v1) = [v98 createDirectoryAtURL:v97 withIntermediateDirectories:1 attributes:0 error:&v152];
-  v93 = v152;
+  v92 = objc_opt_new();
+  v106 = [NSMutableDictionary dictionaryWithCapacity:0];
+  v95 = sub_100001378(*v1);
+  v105 = [[FontRegistrationInfo alloc] initWithTargetDirectoryURL:v95];
+  v96 = +[NSFileManager defaultManager];
+  v150 = 0;
+  LODWORD(v1) = [v96 createDirectoryAtURL:v95 withIntermediateDirectories:1 attributes:0 error:&v150];
+  v91 = v150;
   if (!v1)
   {
-    v32 = [v97 path];
+    v32 = [v95 path];
     v33 = *(a1 + 40);
-    v34 = [v93 domain];
-    v92 = [v93 code];
-    v85 = v32;
+    v34 = [v91 domain];
+    v90 = [v91 code];
+    v83 = v32;
     FSLog_Error();
 
     v2 = objc_opt_new();
-    v128 = 0u;
-    v129 = 0u;
     v126 = 0u;
     v127 = 0u;
+    v124 = 0u;
+    v125 = 0u;
     v35 = *(a1 + 48);
-    v36 = [v35 countByEnumeratingWithState:&v126 objects:v158 count:{16, v85, v33, v34, v92}];
+    v36 = [v35 countByEnumeratingWithState:&v124 objects:v156 count:{16, v83, v33, v34, v90}];
     if (v36)
     {
-      v37 = *v127;
+      v37 = *v125;
       do
       {
         for (i = 0; i != v36; i = i + 1)
         {
-          if (*v127 != v37)
+          if (*v125 != v37)
           {
             objc_enumerationMutation(v35);
           }
 
-          v39 = [*(*(&v126 + 1) + 8 * i) objectForKeyedSubscript:@"parameterIndexes"];
+          v39 = [*(*(&v124 + 1) + 8 * i) objectForKeyedSubscript:@"parameterIndexes"];
           [v2 addObjectsFromArray:v39];
         }
 
-        v36 = [v35 countByEnumeratingWithState:&v126 objects:v158 count:16];
+        v36 = [v35 countByEnumeratingWithState:&v124 objects:v156 count:16];
       }
 
       while (v36);
     }
 
-    v156 = @"FontProviderErrorUserInfoFontInfoParameterIndexesKey";
-    v157 = v2;
-    v40 = [NSDictionary dictionaryWithObjects:&v157 forKeys:&v156 count:1];
+    v154 = @"FontProviderErrorUserInfoFontInfoParameterIndexesKey";
+    v155 = v2;
+    v40 = [NSDictionary dictionaryWithObjects:&v155 forKeys:&v154 count:1];
     v41 = [NSError errorWithDomain:@"FontProviderErrorDomain" code:2 userInfo:v40];
 
-    [v109 addObject:v41];
+    [v107 addObject:v41];
     goto LABEL_36;
   }
 
-  v150 = 0u;
-  v151 = 0u;
   v148 = 0u;
   v149 = 0u;
+  v146 = 0u;
+  v147 = 0u;
   v2 = *(a1 + 48);
-  v103 = [v2 countByEnumeratingWithState:&v148 objects:v165 count:16];
-  if (!v103)
+  v101 = [v2 countByEnumeratingWithState:&v146 objects:v163 count:16];
+  if (!v101)
   {
 LABEL_36:
-    v99 = 0;
+    v97 = 0;
     goto LABEL_37;
   }
 
-  v99 = 0;
-  v101 = *v149;
-  v95 = v2;
+  v97 = 0;
+  v99 = *v147;
+  v93 = v2;
   do
   {
-    for (j = 0; j != v103; j = j + 1)
+    for (j = 0; j != v101; j = j + 1)
     {
-      if (*v149 != v101)
+      if (*v147 != v99)
       {
         objc_enumerationMutation(v2);
       }
 
-      v4 = *(*(&v148 + 1) + 8 * j);
-      v5 = [v4 objectForKey:{@"NSCTFontFileURLAttribute", v83}];
+      v4 = *(*(&v146 + 1) + 8 * j);
+      v5 = [v4 objectForKey:{@"NSCTFontFileURLAttribute", v81}];
       if (v5)
       {
         v6 = [v4 objectForKey:@"CTFontIgnoreURLLocationAttribute"];
@@ -450,129 +450,129 @@ LABEL_36:
         if (v7)
         {
           v8 = [v4 objectForKey:@"CTFontRegistrationUserInfoAttribute"];
-          if ([(FontRegistrationInfo *)v107 isKnownUserSpecifiedInfo:v8])
+          if ([(FontRegistrationInfo *)v105 isKnownUserSpecifiedInfo:v8])
           {
             FSLog_Error();
-            v163 = @"FontProviderErrorUserInfoFontInfoParameterIndexesKey";
+            v161 = @"FontProviderErrorUserInfoFontInfoParameterIndexesKey";
             v9 = [v4 objectForKeyedSubscript:{@"parameterIndexes", v8}];
-            v164 = v9;
-            v10 = [NSDictionary dictionaryWithObjects:&v164 forKeys:&v163 count:1];
+            v162 = v9;
+            v10 = [NSDictionary dictionaryWithObjects:&v162 forKeys:&v161 count:1];
             v11 = [NSError errorWithDomain:@"FontProviderErrorDomain" code:4 userInfo:v10];
 
-            [v109 addObject:v11];
+            [v107 addObject:v11];
 LABEL_24:
 
             goto LABEL_25;
           }
         }
 
-        v147 = 0;
-        v12 = [(FontRegistrationInfo *)v107 isKnownSourceFileURL:v5 uuid:&v147];
-        v8 = v147;
+        v145 = 0;
+        v12 = [(FontRegistrationInfo *)v105 isKnownSourceFileURL:v5 uuid:&v145];
+        v8 = v145;
         if (v12)
         {
-          v11 = [v97 URLByAppendingPathComponent:v8];
-          if (!v99)
+          v11 = [v95 URLByAppendingPathComponent:v8];
+          if (!v97)
           {
-            v99 = [*(a1 + 32) gsFontUserFontsCacheInfo];
-            if (!v99)
+            v97 = [*(a1 + 32) gsFontUserFontsCacheInfo];
+            if (!v97)
             {
               FSLog_Error();
-              v99 = 0;
+              v97 = 0;
             }
           }
 
           v13 = [v11 path];
-          v14 = [v99 objectForKey:v13];
+          v14 = [v97 objectForKey:v13];
 
           v15 = [v14 objectForKey:@"disabled"];
           v16 = *(a1 + 64) == [v15 BOOLValue];
 
           if (v16)
           {
-            [v94 addObject:v11];
+            [v92 addObject:v11];
             v17 = [v5 lastPathComponent];
-            v83 = v17;
+            v81 = v17;
             FSLog();
           }
 
           else
           {
-            v84 = [v5 lastPathComponent];
+            v82 = [v5 lastPathComponent];
             FSLog_Error();
 
-            v159 = @"FontProviderErrorUserInfoFontInfoParameterIndexesKey";
-            v26 = [v4 objectForKeyedSubscript:{@"parameterIndexes", v84}];
-            v160 = v26;
-            v27 = [NSDictionary dictionaryWithObjects:&v160 forKeys:&v159 count:1];
+            v157 = @"FontProviderErrorUserInfoFontInfoParameterIndexesKey";
+            v26 = [v4 objectForKeyedSubscript:{@"parameterIndexes", v82}];
+            v158 = v26;
+            v27 = [NSDictionary dictionaryWithObjects:&v158 forKeys:&v157 count:1];
             v17 = [NSError errorWithDomain:@"FontProviderErrorDomain" code:4 userInfo:v27];
 
-            [v109 addObject:v17];
+            [v107 addObject:v17];
           }
         }
 
         else
         {
-          v11 = [(FontRegistrationInfo *)v107 uuidNameForFontInfo:v4];
-          v18 = [v97 URLByAppendingPathComponent:v11];
+          v11 = [(FontRegistrationInfo *)v105 uuidNameForFontInfo:v4];
+          v18 = [v95 URLByAppendingPathComponent:v11];
           v19 = [v4 objectForKeyedSubscript:@"parameterIndexes"];
-          [v108 setObject:v19 forKey:v18];
+          [v106 setObject:v19 forKey:v18];
 
           cf = 0;
           p_cf = &cf;
-          v143 = 0x3032000000;
-          v144 = sub_100004184;
-          v145 = sub_100004194;
-          v146 = 0;
-          v137 = 0;
-          v138 = &v137;
-          v139 = 0x2020000000;
-          v140 = 0;
+          v141 = 0x3032000000;
+          v142 = sub_100004184;
+          v143 = sub_100004194;
+          v144 = 0;
+          v135 = 0;
+          v136 = &v135;
+          v137 = 0x2020000000;
+          v138 = 0;
           v20 = [v4 objectForKey:@"CTFontAssetDataAttribute"];
           v21 = [v4 objectForKey:@"sandbox"];
-          v130[0] = _NSConcreteStackBlock;
-          v130[1] = 3221225472;
-          v130[2] = sub_10000419C;
-          v130[3] = &unk_100010438;
+          v128[0] = _NSConcreteStackBlock;
+          v128[1] = 3221225472;
+          v128[2] = sub_10000419C;
+          v128[3] = &unk_100010438;
           v22 = v20;
-          v131 = v22;
-          v135 = &v137;
-          v132 = v98;
+          v129 = v22;
+          v133 = &v135;
+          v130 = v96;
           v23 = v5;
-          v133 = v23;
+          v131 = v23;
           v24 = v18;
-          v134 = v24;
-          v136 = &cf;
-          RunBlockWithSandboxExtension(v21, v130);
+          v132 = v24;
+          v134 = &cf;
+          RunBlockWithSandboxExtension(v21, v128);
 
-          if (*(v138 + 24) == 1)
+          if (*(v136 + 24) == 1)
           {
-            [v96 addObject:v24];
+            [v94 addObject:v24];
             v25 = [v23 lastPathComponent];
-            v83 = v25;
+            v81 = v25;
             FSLog();
           }
 
           else
           {
             v28 = [p_cf[5] domain];
-            v88 = [p_cf[5] code];
+            v86 = [p_cf[5] code];
             FSLog_Error();
 
-            v161[0] = @"FontProviderErrorUserInfoFontInfoParameterIndexesKey";
-            v29 = [v4 objectForKeyedSubscript:{@"parameterIndexes", v28, v88}];
-            v161[1] = NSUnderlyingErrorKey;
+            v159[0] = @"FontProviderErrorUserInfoFontInfoParameterIndexesKey";
+            v29 = [v4 objectForKeyedSubscript:{@"parameterIndexes", v28, v86}];
+            v159[1] = NSUnderlyingErrorKey;
             v30 = p_cf[5];
-            v162[0] = v29;
-            v162[1] = v30;
-            v31 = [NSDictionary dictionaryWithObjects:v162 forKeys:v161 count:2];
+            v160[0] = v29;
+            v160[1] = v30;
+            v31 = [NSDictionary dictionaryWithObjects:v160 forKeys:v159 count:2];
             v25 = [NSError errorWithDomain:@"FontProviderErrorDomain" code:3 userInfo:v31];
 
-            [v109 addObject:v25];
+            [v107 addObject:v25];
           }
 
-          v2 = v95;
-          _Block_object_dispose(&v137, 8);
+          v2 = v93;
+          _Block_object_dispose(&v135, 8);
           _Block_object_dispose(&cf, 8);
         }
 
@@ -582,72 +582,71 @@ LABEL_24:
 LABEL_25:
     }
 
-    v103 = [v2 countByEnumeratingWithState:&v148 objects:v165 count:16];
+    v101 = [v2 countByEnumeratingWithState:&v146 objects:v163 count:16];
   }
 
-  while (v103);
+  while (v101);
 LABEL_37:
 
-  if ([v96 count])
+  if ([v94 count])
   {
     cf = 0;
-    v42 = *(a1 + 64);
-    v104 = GSFontRegisterPersistentURLsWithEnableStatus2();
-    v124 = 0u;
-    v125 = 0u;
+    v102 = GSFontRegisterPersistentURLsWithEnableStatus2();
     v122 = 0u;
     v123 = 0u;
-    v43 = cf;
-    v44 = [v43 countByEnumeratingWithState:&v122 objects:v155 count:16];
-    if (v44)
+    v120 = 0u;
+    v121 = 0u;
+    v42 = cf;
+    v43 = [v42 countByEnumeratingWithState:&v120 objects:v153 count:16];
+    if (v43)
     {
-      v45 = *v123;
+      v44 = *v121;
       do
       {
-        for (k = 0; k != v44; k = k + 1)
+        for (k = 0; k != v43; k = k + 1)
         {
-          if (*v123 != v45)
+          if (*v121 != v44)
           {
-            objc_enumerationMutation(v43);
+            objc_enumerationMutation(v42);
           }
 
-          v47 = *(*(&v122 + 1) + 8 * k);
-          v48 = [v47 objectForKey:{@"result", v83}];
-          v49 = [v48 intValue] == 0;
+          v46 = *(*(&v120 + 1) + 8 * k);
+          v47 = [v46 objectForKey:{@"result", v81}];
+          v48 = [v47 intValue] == 0;
 
-          if (!v49)
+          if (!v48)
           {
-            v50 = [v47 objectForKey:@"url"];
-            v51 = *(a1 + 32);
-            v52 = [v108 objectForKeyedSubscript:v50];
-            v53 = [v51 errorForGSError:v47 withParamIndexes:v52];
+            v49 = [v46 objectForKey:@"url"];
+            v50 = *(a1 + 32);
+            v51 = [v106 objectForKeyedSubscript:v49];
+            v52 = [v50 errorForGSError:v46 withParamIndexes:v51];
 
-            [v109 addObject:v53];
-            v54 = [v47 objectForKey:@"faces"];
-            v55 = [v54 count] == 0;
+            [v107 addObject:v52];
+            v53 = [v46 objectForKey:@"faces"];
+            v54 = [v53 count] == 0;
 
-            if (v55)
+            if (v54)
             {
-              v56 = [v50 lastPathComponent];
-              [v98 removeItemAtURL:v50 error:0];
-              [(FontRegistrationInfo *)v107 removeUUIDName:v56];
-              v57 = [v50 path];
-              if (v50)
+              v55 = [v49 lastPathComponent];
+              [v96 removeItemAtURL:v49 error:0];
+              [(FontRegistrationInfo *)v105 removeUUIDName:v55];
+              v56 = [v49 path];
+              if (v49)
               {
-                [v96 removeObject:v57];
+                [v94 removeObject:v56];
               }
             }
           }
         }
 
-        v44 = [v43 countByEnumeratingWithState:&v122 objects:v155 count:16];
+        v43 = [v42 countByEnumeratingWithState:&v120 objects:v153 count:16];
       }
 
-      while (v44);
+      while (v43);
     }
 
-    v83 = v104;
-    v87 = cf;
+    v81 = v102;
+    v85 = cf;
     FSLog();
     if (cf)
     {
@@ -655,142 +654,141 @@ LABEL_37:
     }
   }
 
-  if ([v94 count])
+  if ([v92 count])
   {
     cf = 0;
-    v58 = *(a1 + 64);
     GSFontEnableOrDisablePersistentURLs2();
     if (cf)
     {
-      v120 = 0u;
-      v121 = 0u;
       v118 = 0u;
       v119 = 0u;
-      v59 = v94;
-      v60 = [v59 countByEnumeratingWithState:&v118 objects:v154 count:16];
-      if (v60)
+      v116 = 0u;
+      v117 = 0u;
+      v57 = v92;
+      v58 = [v57 countByEnumeratingWithState:&v116 objects:v152 count:16];
+      if (v58)
       {
-        v61 = *v119;
+        v59 = *v117;
         do
         {
-          for (m = 0; m != v60; m = m + 1)
+          for (m = 0; m != v58; m = m + 1)
           {
-            if (*v119 != v61)
+            if (*v117 != v59)
             {
-              objc_enumerationMutation(v59);
+              objc_enumerationMutation(v57);
             }
 
-            v63 = *(*(&v118 + 1) + 8 * m);
-            v64 = [NSMutableDictionary dictionaryWithCapacity:0];
-            v65 = [v108 objectForKeyedSubscript:v63];
-            if (v65)
+            v61 = *(*(&v116 + 1) + 8 * m);
+            v62 = [NSMutableDictionary dictionaryWithCapacity:0];
+            v63 = [v106 objectForKeyedSubscript:v61];
+            if (v63)
             {
-              [v64 setObject:v65 forKey:@"FontProviderErrorUserInfoFontInfoParameterIndexesKey"];
+              [v62 setObject:v63 forKey:@"FontProviderErrorUserInfoFontInfoParameterIndexesKey"];
             }
 
-            v66 = [NSError errorWithDomain:@"FontProviderErrorDomain" code:6 userInfo:v64];
-            [v109 addObject:v66];
+            v64 = [NSError errorWithDomain:@"FontProviderErrorDomain" code:6 userInfo:v62];
+            [v107 addObject:v64];
           }
 
-          v60 = [v59 countByEnumeratingWithState:&v118 objects:v154 count:16];
+          v58 = [v57 countByEnumeratingWithState:&v116 objects:v152 count:16];
         }
 
-        while (v60);
+        while (v58);
       }
 
       CFRelease(cf);
     }
   }
 
-  [(FontRegistrationInfo *)v107 update];
-  if (![(FontRegistrationInfo *)v107 count])
+  [(FontRegistrationInfo *)v105 update];
+  if (![(FontRegistrationInfo *)v105 count])
   {
-    v117 = 0;
-    v67 = [v98 removeItemAtURL:v97 error:&v117];
-    v68 = v117;
-    if (v67)
+    v115 = 0;
+    v65 = [v96 removeItemAtURL:v95 error:&v115];
+    v66 = v115;
+    if (v65)
     {
       [*(a1 + 32) forgetFontProvider:*(a1 + 40)];
     }
 
     else
     {
-      v69 = [v97 path];
-      v70 = *(a1 + 40);
-      v90 = [v68 domain];
-      v91 = [v68 code];
-      v86 = v69;
-      v89 = v70;
+      v67 = [v95 path];
+      v68 = *(a1 + 40);
+      v88 = [v66 domain];
+      v89 = [v66 code];
+      v84 = v67;
+      v87 = v68;
       FSLog_Error();
     }
   }
 
-  v105 = objc_opt_new();
-  v100 = [*(a1 + 32) filePathsFromFileURLs:v96];
-  v102 = [v100 mutableCopy];
-  v71 = [*(a1 + 32) filePathsFromFileURLs:v94];
-  [v102 unionSet:v71];
+  v103 = objc_opt_new();
+  v98 = [*(a1 + 32) filePathsFromFileURLs:v94];
+  v100 = [v98 mutableCopy];
+  v69 = [*(a1 + 32) filePathsFromFileURLs:v92];
+  [v100 unionSet:v69];
 
-  v72 = [*(a1 + 32) gsFontUserFontsCacheInfo];
+  v70 = [*(a1 + 32) gsFontUserFontsCacheInfo];
 
   if (*(a1 + 64) == 1)
   {
-    v115 = 0u;
-    v116 = 0u;
     v113 = 0u;
     v114 = 0u;
-    v73 = v102;
-    v74 = [v73 countByEnumeratingWithState:&v113 objects:v153 count:16];
-    if (v74)
+    v111 = 0u;
+    v112 = 0u;
+    v71 = v100;
+    v72 = [v71 countByEnumeratingWithState:&v111 objects:v151 count:16];
+    if (v72)
     {
-      v75 = *v114;
+      v73 = *v112;
       do
       {
-        for (n = 0; n != v74; n = n + 1)
+        for (n = 0; n != v72; n = n + 1)
         {
-          if (*v114 != v75)
+          if (*v112 != v73)
           {
-            objc_enumerationMutation(v73);
+            objc_enumerationMutation(v71);
           }
 
-          v77 = *(*(&v113 + 1) + 8 * n);
-          v78 = [v72 objectForKey:{v77, v86, v89, v90, v91}];
-          v79 = v78;
-          if (v78)
+          v75 = *(*(&v111 + 1) + 8 * n);
+          v76 = [v70 objectForKey:{v75, v84, v87, v88, v89}];
+          v77 = v76;
+          if (v76)
           {
-            v80 = [v78 objectForKey:@"disabled"];
-            v81 = [v80 BOOLValue];
+            v78 = [v76 objectForKey:@"disabled"];
+            v79 = [v78 BOOLValue];
 
-            if ((v81 & 1) == 0)
+            if ((v79 & 1) == 0)
             {
-              [v105 setObject:v79 forKey:v77];
+              [v103 setObject:v77 forKey:v75];
             }
           }
         }
 
-        v74 = [v73 countByEnumeratingWithState:&v113 objects:v153 count:16];
+        v72 = [v71 countByEnumeratingWithState:&v111 objects:v151 count:16];
       }
 
-      while (v74);
+      while (v72);
     }
   }
 
   else
   {
-    v110[0] = _NSConcreteStackBlock;
-    v110[1] = 3221225472;
-    v110[2] = sub_100004244;
-    v110[3] = &unk_100010410;
-    v111 = v102;
-    v112 = v105;
-    [v72 enumerateKeysAndObjectsUsingBlock:v110];
+    v108[0] = _NSConcreteStackBlock;
+    v108[1] = 3221225472;
+    v108[2] = sub_100004244;
+    v108[3] = &unk_100010410;
+    v109 = v100;
+    v110 = v103;
+    [v70 enumerateKeysAndObjectsUsingBlock:v108];
 
-    v73 = v111;
+    v71 = v109;
   }
 
   (*(*(a1 + 56) + 16))();
-  v82 = [*(a1 + 32) familyNamesForFilePaths:v100 inFontInfo:v72];
-  [*(a1 + 32) recordInstalledFontFamiliesCount:{objc_msgSend(v82, "count")}];
+  v80 = [*(a1 + 32) familyNamesForFilePaths:v98 inFontInfo:v70];
+  [*(a1 + 32) recordInstalledFontFamiliesCount:{objc_msgSend(v80, "count")}];
 }
 
 void sub_100004154(_Unwind_Exception *a1)
@@ -1598,7 +1596,6 @@ LABEL_7:
   v9 = [*(a1 + 40) fontFilesForFontProvider:*(a1 + 32) suspended:0];
   if ([v9 count])
   {
-    v10 = *(a1 + 32);
     FSLog();
     GSFontEnableOrDisablePersistentURLs2();
   }
@@ -2046,11 +2043,11 @@ void sub_10000848C(uint64_t a1, void *a2, void *a3)
   }
 }
 
-void sub_1000086F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000086F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 96), 8);
+  _Block_object_dispose((v16 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2070,9 +2067,9 @@ void sub_100008714(uint64_t a1, void *a2, void *a3, _BYTE *a4)
   }
 }
 
-void sub_1000089F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000089F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2136,7 +2133,7 @@ void StartAccessingFontAssetsWithHandler(void *a1)
   v3 = v1;
   if (byte_100014CE9)
   {
-    (*(v1 + 2))(v1);
+    v1[2](v1);
   }
 
   else
@@ -2238,7 +2235,7 @@ double sub_1000097C4(double result)
   return result;
 }
 
-double __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> sub_1000097E8(double a1)
+double sub_1000097E8(double a1)
 {
   dlopen("/System/Library/PrivateFrameworks/MobileAsset.framework/MobileAsset", 0);
   atomic_store(1u, &unk_100014CD8);

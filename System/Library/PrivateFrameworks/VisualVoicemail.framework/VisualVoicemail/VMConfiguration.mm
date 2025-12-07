@@ -10,80 +10,81 @@
 + (id)confidenceThresholdFromDefaultsForKey:(id)key;
 + (id)getVMConcatenationDelimiterforLocale:(int64_t)locale;
 + (id)metadataDictionaryForSpeechAssetWithLanguage:(id)language;
++ (int64_t)getVMLocaleSpeechAssetTypeforLocale:(id)locale gasrEnabled:(BOOL)enabled;
++ (int64_t)getVMLocaleSpeechAssetTypeforLocaleIdentifier:(id)identifier gasrEnabled:(BOOL)enabled;
 @end
 
 @implementation VMConfiguration
 
 + (NSLocale)matchLocaleForTranscriptionLanguage
 {
-  v28 = *MEMORY[0x277D85DE8];
-  if ([objc_opt_class() isSystemLocaleSupportedForTranscription])
+  v30 = *MEMORY[0x277D85DE8];
+  isSystemLocaleSupportedForTranscription = [objc_opt_class() isSystemLocaleSupportedForTranscription];
+  if (isSystemLocaleSupportedForTranscription)
   {
     vMASRSupportedLocales = [objc_opt_class() VMASRSupportedLocales];
     preferredLanguages = [MEMORY[0x277CBEAF8] preferredLanguages];
-    v4 = [MEMORY[0x277CBEAF8] matchedLanguagesFromAvailableLanguages:vMASRSupportedLocales forPreferredLanguages:preferredLanguages];
-    v5 = [v4 count];
-    firstObject2 = vm_framework_log();
-    v7 = os_log_type_enabled(firstObject2, OS_LOG_TYPE_DEFAULT);
-    if (v5)
+    v6 = [MEMORY[0x277CBEAF8] matchedLanguagesFromAvailableLanguages:vMASRSupportedLocales forPreferredLanguages:preferredLanguages];
+    v7 = [v6 count];
+    firstObject2 = vm_framework_log(v7, v8);
+    v10 = os_log_type_enabled(firstObject2, OS_LOG_TYPE_DEFAULT);
+    if (v7)
     {
-      if (v7)
+      if (v10)
       {
-        v8 = [preferredLanguages componentsJoinedByString:{@", "}];
-        v9 = [vMASRSupportedLocales componentsJoinedByString:{@", "}];
-        v10 = [v4 componentsJoinedByString:{@", "}];
-        firstObject = [v4 firstObject];
-        v20 = 138413058;
-        v21 = v8;
-        v22 = 2112;
-        v23 = v9;
+        v11 = [preferredLanguages componentsJoinedByString:{@", "}];
+        v12 = [vMASRSupportedLocales componentsJoinedByString:{@", "}];
+        v13 = [v6 componentsJoinedByString:{@", "}];
+        firstObject = [v6 firstObject];
+        v22 = 138413058;
+        v23 = v11;
         v24 = 2112;
-        v25 = v10;
+        v25 = v12;
         v26 = 2112;
-        v27 = firstObject;
-        _os_log_impl(&dword_2721BA000, firstObject2, OS_LOG_TYPE_DEFAULT, "matchLocaleForTranscriptionLanguage: Mapping preferred languages (%@) to languages supported by Siri: (%@). Mapped languages: (%@) Returning identifier %@", &v20, 0x2Au);
+        v27 = v13;
+        v28 = 2112;
+        v29 = firstObject;
+        _os_log_impl(&dword_2721BA000, firstObject2, OS_LOG_TYPE_DEFAULT, "matchLocaleForTranscriptionLanguage: Mapping preferred languages (%@) to languages supported by Siri: (%@). Mapped languages: (%@) Returning identifier %@", &v22, 0x2Au);
       }
 
-      v12 = MEMORY[0x277CBEAF8];
-      firstObject2 = [v4 firstObject];
-      v13 = [v12 localeWithLocaleIdentifier:firstObject2];
+      v15 = MEMORY[0x277CBEAF8];
+      firstObject2 = [v6 firstObject];
+      v16 = [v15 localeWithLocaleIdentifier:firstObject2];
     }
 
     else
     {
-      if (v7)
+      if (v10)
       {
-        v16 = [preferredLanguages componentsJoinedByString:{@", "}];
-        v17 = [vMASRSupportedLocales componentsJoinedByString:{@", "}];
-        v20 = 138412546;
-        v21 = v16;
-        v22 = 2112;
-        v23 = v17;
-        _os_log_impl(&dword_2721BA000, firstObject2, OS_LOG_TYPE_DEFAULT, "matchLocaleForTranscriptionLanguage: No preferred languages (%@) supported by Siri: (%@).", &v20, 0x16u);
+        v19 = [preferredLanguages componentsJoinedByString:{@", "}];
+        v20 = [vMASRSupportedLocales componentsJoinedByString:{@", "}];
+        v22 = 138412546;
+        v23 = v19;
+        v24 = 2112;
+        v25 = v20;
+        _os_log_impl(&dword_2721BA000, firstObject2, OS_LOG_TYPE_DEFAULT, "matchLocaleForTranscriptionLanguage: No preferred languages (%@) supported by Siri: (%@).", &v22, 0x16u);
       }
 
-      v13 = 0;
+      v16 = 0;
     }
 
-    v14 = v13;
-    v15 = v14;
+    v17 = v16;
+    v18 = v17;
   }
 
   else
   {
-    v14 = vm_framework_log();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v17 = vm_framework_log(isSystemLocaleSupportedForTranscription, v3);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v20) = 0;
-      _os_log_impl(&dword_2721BA000, v14, OS_LOG_TYPE_DEFAULT, "matchLocaleForTranscriptionLanguage: Transcription not supported for system locale", &v20, 2u);
+      LOWORD(v22) = 0;
+      _os_log_impl(&dword_2721BA000, v17, OS_LOG_TYPE_DEFAULT, "matchLocaleForTranscriptionLanguage: Transcription not supported for system locale", &v22, 2u);
     }
 
-    v15 = 0;
+    v18 = 0;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-
-  return v15;
+  return v18;
 }
 
 + (BOOL)isSystemLocaleSupportedForTranscription
@@ -104,17 +105,16 @@
 
   vMExpansionAvailableLocales = [objc_opt_class() VMExpansionAvailableLocales];
   v7 = [vMExpansionAvailableLocales containsObject:languageIdentifier];
-  v8 = vm_framework_log();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = vm_framework_log(v7, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
     v12 = languageIdentifier;
     v13 = 1024;
     v14 = v7;
-    _os_log_impl(&dword_2721BA000, v8, OS_LOG_TYPE_DEFAULT, "isSystemLocaleSupportedForTranscription: System locale's language identifier = %@, is it enabled? %d", buf, 0x12u);
+    _os_log_impl(&dword_2721BA000, v9, OS_LOG_TYPE_DEFAULT, "isSystemLocaleSupportedForTranscription: System locale's language identifier = %@, is it enabled? %d", buf, 0x12u);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -129,6 +129,51 @@
   {
     return &unk_28817AC80;
   }
+}
+
++ (int64_t)getVMLocaleSpeechAssetTypeforLocale:(id)locale gasrEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  localeCopy = locale;
+  v6 = objc_opt_class();
+  localeIdentifier = [localeCopy localeIdentifier];
+
+  v8 = [v6 getVMLocaleSpeechAssetTypeforLocaleIdentifier:localeIdentifier gasrEnabled:enabledCopy];
+  return v8;
+}
+
++ (int64_t)getVMLocaleSpeechAssetTypeforLocaleIdentifier:(id)identifier gasrEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v17 = *MEMORY[0x277D85DE8];
+  identifierCopy = identifier;
+  v6 = [objc_opt_class() VMAssetNgasrSupportedLocales:enabledCopy];
+  v7 = [v6 containsObject:identifierCopy];
+
+  if (v7)
+  {
+    v10 = 1002;
+  }
+
+  else if (enabledCopy && ([objc_opt_class() VMAssetGasrSupportedLocales], v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v11, "containsObject:", identifierCopy), v11, (v12 & 1) != 0))
+  {
+    v10 = 1010;
+  }
+
+  else
+  {
+    v13 = vm_framework_log(v8, v9);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    {
+      v15 = 138412290;
+      v16 = identifierCopy;
+      _os_log_impl(&dword_2721BA000, v13, OS_LOG_TYPE_DEFAULT, "getVMLocaleSpeechAssetTypeforLocaleIdentifier: Unsupported locale identifier = %@", &v15, 0xCu);
+    }
+
+    v10 = 1012;
+  }
+
+  return v10;
 }
 
 + (id)getVMConcatenationDelimiterforLocale:(int64_t)locale
@@ -146,213 +191,208 @@
 
 + (NSLocale)localeForTranscriptionLanguage
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
   if (currentLocale)
   {
     if (!_os_feature_enabled_impl())
     {
-      v11 = currentLocale;
-      languageIdentifier = [v11 languageIdentifier];
-      v13 = [languageIdentifier isEqualToString:@"en-CA"];
+      v13 = currentLocale;
+      languageIdentifier = [v13 languageIdentifier];
+      v15 = [languageIdentifier isEqualToString:@"en-CA"];
 
-      if (v13)
+      if (v15)
       {
-        v14 = vm_framework_log();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+        v18 = vm_framework_log(v16, v17);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v21) = 0;
-          _os_log_impl(&dword_2721BA000, v14, OS_LOG_TYPE_DEFAULT, "localeForTranscriptionLanguage: Mapping Canadian Siri to US Siri language for transcription", &v21, 2u);
+          LOWORD(v24) = 0;
+          _os_log_impl(&dword_2721BA000, v18, OS_LOG_TYPE_DEFAULT, "localeForTranscriptionLanguage: Mapping Canadian Siri to US Siri language for transcription", &v24, 2u);
         }
 
-        v15 = [MEMORY[0x277CBEAF8] localeWithLocaleIdentifier:@"en-US"];
+        v19 = [MEMORY[0x277CBEAF8] localeWithLocaleIdentifier:@"en-US"];
 
-        v11 = v15;
+        v13 = v19;
       }
 
-      v16 = vm_framework_log();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v20 = vm_framework_log(v16, v17);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
-        localeIdentifier = [v11 localeIdentifier];
-        v21 = 138412290;
-        v22 = localeIdentifier;
-        _os_log_impl(&dword_2721BA000, v16, OS_LOG_TYPE_DEFAULT, "localeForTranscriptionLanguage: Returning %@", &v21, 0xCu);
+        localeIdentifier = [v13 localeIdentifier];
+        v24 = 138412290;
+        v25 = localeIdentifier;
+        _os_log_impl(&dword_2721BA000, v20, OS_LOG_TYPE_DEFAULT, "localeForTranscriptionLanguage: Returning %@", &v24, 0xCu);
       }
 
-      v7 = v11;
+      v9 = v13;
       goto LABEL_17;
     }
 
     matchLocaleForTranscriptionLanguage = [objc_opt_class() matchLocaleForTranscriptionLanguage];
-    v4 = vm_framework_log();
-    v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
+    v6 = vm_framework_log(matchLocaleForTranscriptionLanguage, v5);
+    v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
     if (matchLocaleForTranscriptionLanguage)
     {
-      if (v5)
+      if (v7)
       {
         localeIdentifier2 = [matchLocaleForTranscriptionLanguage localeIdentifier];
-        v21 = 138412290;
-        v22 = localeIdentifier2;
-        _os_log_impl(&dword_2721BA000, v4, OS_LOG_TYPE_DEFAULT, "localeForTranscriptionLanguage: Returning %@", &v21, 0xCu);
+        v24 = 138412290;
+        v25 = localeIdentifier2;
+        _os_log_impl(&dword_2721BA000, v6, OS_LOG_TYPE_DEFAULT, "localeForTranscriptionLanguage: Returning %@", &v24, 0xCu);
       }
 
-      v7 = matchLocaleForTranscriptionLanguage;
+      v9 = matchLocaleForTranscriptionLanguage;
 LABEL_17:
-      v9 = v7;
-      v10 = v7;
+      v11 = v9;
+      v12 = v9;
       goto LABEL_18;
     }
 
-    if (v5)
+    if (v7)
     {
       localeIdentifier3 = [currentLocale localeIdentifier];
-      v21 = 138412290;
-      v22 = localeIdentifier3;
-      _os_log_impl(&dword_2721BA000, v4, OS_LOG_TYPE_DEFAULT, "localeForTranscriptionLanguage: No preferred languages supported by Siri. Defaulting to fallback current %@", &v21, 0xCu);
+      v24 = 138412290;
+      v25 = localeIdentifier3;
+      _os_log_impl(&dword_2721BA000, v6, OS_LOG_TYPE_DEFAULT, "localeForTranscriptionLanguage: No preferred languages supported by Siri. Defaulting to fallback current %@", &v24, 0xCu);
     }
 
-    v10 = currentLocale;
-    v9 = 0;
+    v12 = currentLocale;
+    v11 = 0;
   }
 
   else
   {
-    v8 = vm_framework_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v10 = vm_framework_log(0, v2);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v21) = 0;
-      _os_log_impl(&dword_2721BA000, v8, OS_LOG_TYPE_DEFAULT, "localeForTranscriptionLanguage: Error: nil system locale returned.", &v21, 2u);
+      LOWORD(v24) = 0;
+      _os_log_impl(&dword_2721BA000, v10, OS_LOG_TYPE_DEFAULT, "localeForTranscriptionLanguage: Error: nil system locale returned.", &v24, 2u);
     }
 
-    v9 = 0;
-    v10 = 0;
+    v11 = 0;
+    v12 = 0;
   }
 
 LABEL_18:
 
-  v18 = *MEMORY[0x277D85DE8];
-
-  return v10;
+  return v12;
 }
 
 + (float)confidenceThreshold
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   confidenceThresholdFromAsset = [self confidenceThresholdFromAsset];
   v4 = confidenceThresholdFromAsset;
   if (confidenceThresholdFromAsset)
   {
-    [confidenceThresholdFromAsset floatValue];
-    v6 = v5;
+    floatValue = [confidenceThresholdFromAsset floatValue];
+    v8 = v7;
   }
 
   else
   {
-    v7 = [self confidenceThresholdFromDefaultsForKey:@"VoicemailTranscriptionConfidenceThreshold"];
+    v9 = [self confidenceThresholdFromDefaultsForKey:@"VoicemailTranscriptionConfidenceThreshold"];
 
-    if (v7)
+    if (v9)
     {
-      v8 = [self confidenceThresholdFromDefaultsForKey:@"VoicemailTranscriptionConfidenceThreshold"];
-      [v8 floatValue];
-      v6 = v9;
+      v10 = [self confidenceThresholdFromDefaultsForKey:@"VoicemailTranscriptionConfidenceThreshold"];
+      [v10 floatValue];
+      v8 = v11;
     }
 
     else
     {
-      v6 = 0.45096;
+      v8 = 0.45096;
     }
   }
 
-  v10 = vm_framework_log();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v12 = vm_framework_log(floatValue, v6);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 134217984;
-    v14 = v6;
-    _os_log_impl(&dword_2721BA000, v10, OS_LOG_TYPE_DEFAULT, "Returning confidenceThreshold of %f", &v13, 0xCu);
+    v14 = 134217984;
+    v15 = v8;
+    _os_log_impl(&dword_2721BA000, v12, OS_LOG_TYPE_DEFAULT, "Returning confidenceThreshold of %f", &v14, 0xCu);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-  return v6;
+  return v8;
 }
 
 + (float)confidenceLowQualityThreshold
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   confidenceLowQualityThresholdFromAsset = [self confidenceLowQualityThresholdFromAsset];
   v4 = confidenceLowQualityThresholdFromAsset;
   if (confidenceLowQualityThresholdFromAsset)
   {
-    [confidenceLowQualityThresholdFromAsset floatValue];
-    v6 = v5;
+    floatValue = [confidenceLowQualityThresholdFromAsset floatValue];
+    v8 = v7;
   }
 
   else
   {
-    v7 = [self confidenceThresholdFromDefaultsForKey:@"VoicemailTranscriptionLowQualityConfidenceThreshold"];
+    v9 = [self confidenceThresholdFromDefaultsForKey:@"VoicemailTranscriptionLowQualityConfidenceThreshold"];
 
-    if (v7)
+    if (v9)
     {
-      v8 = [self confidenceThresholdFromDefaultsForKey:@"VoicemailTranscriptionLowQualityConfidenceThreshold"];
-      [v8 floatValue];
-      v6 = v9;
+      v10 = [self confidenceThresholdFromDefaultsForKey:@"VoicemailTranscriptionLowQualityConfidenceThreshold"];
+      [v10 floatValue];
+      v8 = v11;
     }
 
     else
     {
-      v6 = 0.6878;
+      v8 = 0.6878;
     }
   }
 
-  v10 = vm_framework_log();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v12 = vm_framework_log(floatValue, v6);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 134217984;
-    v14 = v6;
-    _os_log_impl(&dword_2721BA000, v10, OS_LOG_TYPE_DEFAULT, "Returning confidenceLowQualityThreshold of %f", &v13, 0xCu);
+    v14 = 134217984;
+    v15 = v8;
+    _os_log_impl(&dword_2721BA000, v12, OS_LOG_TYPE_DEFAULT, "Returning confidenceLowQualityThreshold of %f", &v14, 0xCu);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-  return v6;
+  return v8;
 }
 
 + (float)confidenceSegmentThreshold
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   confidenceSegmentThresholdFromAsset = [self confidenceSegmentThresholdFromAsset];
   v4 = confidenceSegmentThresholdFromAsset;
   if (confidenceSegmentThresholdFromAsset)
   {
-    [confidenceSegmentThresholdFromAsset floatValue];
-    v6 = v5;
+    floatValue = [confidenceSegmentThresholdFromAsset floatValue];
+    v8 = v7;
   }
 
   else
   {
-    v7 = [self confidenceThresholdFromDefaultsForKey:@"VoicemailTranscriptionSegmentConfidenceThreshold"];
+    v9 = [self confidenceThresholdFromDefaultsForKey:@"VoicemailTranscriptionSegmentConfidenceThreshold"];
 
-    if (v7)
+    if (v9)
     {
-      v8 = [self confidenceThresholdFromDefaultsForKey:@"VoicemailTranscriptionSegmentConfidenceThreshold"];
-      [v8 floatValue];
-      v6 = v9;
+      v10 = [self confidenceThresholdFromDefaultsForKey:@"VoicemailTranscriptionSegmentConfidenceThreshold"];
+      [v10 floatValue];
+      v8 = v11;
     }
 
     else
     {
-      v6 = 0.3;
+      v8 = 0.3;
     }
   }
 
-  v10 = vm_framework_log();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v12 = vm_framework_log(floatValue, v6);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 134217984;
-    v14 = v6;
-    _os_log_impl(&dword_2721BA000, v10, OS_LOG_TYPE_DEFAULT, "Returning confidenceSegmentThreshold of %f", &v13, 0xCu);
+    v14 = 134217984;
+    v15 = v8;
+    _os_log_impl(&dword_2721BA000, v12, OS_LOG_TYPE_DEFAULT, "Returning confidenceSegmentThreshold of %f", &v14, 0xCu);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-  return v6;
+  return v8;
 }
 
 + (id)confidenceThresholdFromDefaultsForKey:(id)key
@@ -374,222 +414,223 @@ LABEL_18:
 
 + (id)confidenceThresholdFromAssetForKey:(id)key
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   localeForTranscriptionLanguage = [self localeForTranscriptionLanguage];
   localeIdentifier = [localeForTranscriptionLanguage localeIdentifier];
 
   v7 = [MEMORY[0x277CBEAF8] canonicalLanguageIdentifierFromString:localeIdentifier];
-  v8 = [self metadataDictionaryForSpeechAssetWithLanguage:v7];
-  v9 = v8;
-  if (!v8)
+  isKindOfClass = [self metadataDictionaryForSpeechAssetWithLanguage:v7];
+  v10 = isKindOfClass;
+  if (!isKindOfClass)
   {
     goto LABEL_15;
   }
 
-  v10 = [v8 objectForKeyedSubscript:@"voicemail-confidence-parameters"];
-  v11 = vm_framework_log();
-  v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
-  if (!v10)
+  v11 = [isKindOfClass objectForKeyedSubscript:@"voicemail-confidence-parameters"];
+  v13 = vm_framework_log(v11, v12);
+  v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
+  if (!v11)
   {
-    if (v12)
+    if (v14)
     {
-      LOWORD(v21) = 0;
-      _os_log_impl(&dword_2721BA000, v11, OS_LOG_TYPE_DEFAULT, "Could not find a confidence threshold dictionary in this asset metadata", &v21, 2u);
+      LOWORD(v22) = 0;
+      _os_log_impl(&dword_2721BA000, v13, OS_LOG_TYPE_DEFAULT, "Could not find a confidence threshold dictionary in this asset metadata", &v22, 2u);
     }
 
     goto LABEL_14;
   }
 
-  if (v12)
+  if (v14)
   {
-    v21 = 138412290;
-    v22 = v10;
-    _os_log_impl(&dword_2721BA000, v11, OS_LOG_TYPE_DEFAULT, "Found confidence dictionary in asset: %@", &v21, 0xCu);
+    v22 = 138412290;
+    v23 = v11;
+    _os_log_impl(&dword_2721BA000, v13, OS_LOG_TYPE_DEFAULT, "Found confidence dictionary in asset: %@", &v22, 0xCu);
   }
 
-  v13 = [v10 objectForKeyedSubscript:keyCopy];
-  v14 = MEMORY[0x277CCABB0];
-  [v13 floatValue];
-  v11 = [v14 numberWithFloat:?];
+  v15 = [v11 objectForKeyedSubscript:keyCopy];
+  v16 = MEMORY[0x277CCABB0];
+  [v15 floatValue];
+  v13 = [v16 numberWithFloat:?];
 
-  if (v11)
+  if (v13)
   {
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0 || ([v11 floatValue], v15 < 0.0) || ([v11 floatValue], v16 > 1.0))
+    isKindOfClass = objc_opt_isKindOfClass();
+    if ((isKindOfClass & 1) == 0 || (isKindOfClass = [v13 floatValue], v17 < 0.0) || (isKindOfClass = [v13 floatValue], v18 > 1.0))
     {
-      v17 = vm_framework_log();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v19 = vm_framework_log(isKindOfClass, v9);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
-        [(VMConfiguration *)v11 confidenceThresholdFromAssetForKey:v17];
+        [(VMConfiguration *)v13 confidenceThresholdFromAssetForKey:v19];
       }
 
 LABEL_14:
 LABEL_15:
-      v11 = 0;
+      v13 = 0;
     }
   }
 
-  v18 = vm_framework_log();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  v20 = vm_framework_log(isKindOfClass, v9);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
-    v21 = 138412546;
-    v22 = v11;
-    v23 = 2112;
-    v24 = keyCopy;
-    _os_log_impl(&dword_2721BA000, v18, OS_LOG_TYPE_DEFAULT, "Returning threshold from asset of %@, for key %@", &v21, 0x16u);
+    v22 = 138412546;
+    v23 = v13;
+    v24 = 2112;
+    v25 = keyCopy;
+    _os_log_impl(&dword_2721BA000, v20, OS_LOG_TYPE_DEFAULT, "Returning threshold from asset of %@, for key %@", &v22, 0x16u);
   }
 
-  v19 = *MEMORY[0x277D85DE8];
-
-  return v11;
+  return v13;
 }
 
 + (id)metadataDictionaryForSpeechAssetWithLanguage:(id)language
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   languageCopy = language;
-  v4 = vm_framework_log();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = vm_framework_log(languageCopy, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v44 = languageCopy;
-    _os_log_impl(&dword_2721BA000, v4, OS_LOG_TYPE_DEFAULT, "Fetching JSON transcription object for %@", buf, 0xCu);
+    v54 = languageCopy;
+    _os_log_impl(&dword_2721BA000, v5, OS_LOG_TYPE_DEFAULT, "Fetching JSON transcription object for %@", buf, 0xCu);
   }
 
-  v5 = [objc_alloc(MEMORY[0x277D289D8]) initWithType:@"com.apple.MobileAsset.EmbeddedSpeech"];
-  [v5 addKeyValuePair:@"Language" with:languageCopy];
-  [v5 returnTypes:1];
-  v35 = languageCopy;
-  if ([v5 queryMetaDataSync])
+  v6 = [objc_alloc(MEMORY[0x277D289D8]) initWithType:@"com.apple.MobileAsset.EmbeddedSpeech"];
+  [v6 addKeyValuePair:@"Language" with:languageCopy];
+  [v6 returnTypes:1];
+  queryMetaDataSync = [v6 queryMetaDataSync];
+  v45 = languageCopy;
+  if (queryMetaDataSync)
   {
-    v6 = 0;
+    v9 = 0;
   }
 
   else
   {
-    results = [v5 results];
-    if (!results || (v8 = results, [v5 results], v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v9, "count"), v9, v8, !v10))
+    results = [v6 results];
+    if (!results || (v12 = results, [v6 results], v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v13, "count"), v13, v12, !v14))
     {
-      v11 = vm_framework_log();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v15 = vm_framework_log(results, v11);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_2721BA000, v11, OS_LOG_TYPE_DEFAULT, "No embedded speech assets were found", buf, 2u);
+        _os_log_impl(&dword_2721BA000, v15, OS_LOG_TYPE_DEFAULT, "No embedded speech assets were found", buf, 2u);
       }
     }
 
-    v41 = 0u;
-    v42 = 0u;
-    v39 = 0u;
-    v40 = 0u;
-    v34 = v5;
-    obj = [v5 results];
-    v12 = [obj countByEnumeratingWithState:&v39 objects:v47 count:16];
-    if (v12)
+    v51 = 0u;
+    v52 = 0u;
+    v49 = 0u;
+    v50 = 0u;
+    v44 = v6;
+    obj = [v6 results];
+    v16 = [obj countByEnumeratingWithState:&v49 objects:v57 count:16];
+    if (v16)
     {
-      v14 = v12;
-      v6 = 0;
-      v15 = *v40;
-      *&v13 = 138412290;
-      v33 = v13;
+      v18 = v16;
+      v9 = 0;
+      v19 = *v50;
+      *&v17 = 138412290;
+      v43 = v17;
       while (2)
       {
-        for (i = 0; i != v14; ++i)
+        for (i = 0; i != v18; ++i)
         {
-          if (*v40 != v15)
+          if (*v50 != v19)
           {
             objc_enumerationMutation(obj);
           }
 
-          v17 = *(*(&v39 + 1) + 8 * i);
-          getLocalUrl = [v17 getLocalUrl];
-          v19 = vm_framework_log();
-          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+          v21 = *(*(&v49 + 1) + 8 * i);
+          getLocalUrl = [v21 getLocalUrl];
+          v24 = vm_framework_log(getLocalUrl, v23);
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412546;
-            v44 = languageCopy;
-            v45 = 2112;
-            v46 = getLocalUrl;
-            _os_log_impl(&dword_2721BA000, v19, OS_LOG_TYPE_DEFAULT, "Local url for language %@ is %@", buf, 0x16u);
+            v54 = languageCopy;
+            v55 = 2112;
+            v56 = getLocalUrl;
+            _os_log_impl(&dword_2721BA000, v24, OS_LOG_TYPE_DEFAULT, "Local url for language %@ is %@", buf, 0x16u);
           }
 
           if (getLocalUrl)
           {
-            attributes = [v17 attributes];
-            v21 = [attributes objectForKey:@"QuasarDir"];
+            attributes = [v21 attributes];
+            v26 = [attributes objectForKey:@"QuasarDir"];
 
-            if (v21)
+            if (v26)
             {
-              v22 = [getLocalUrl URLByAppendingPathComponent:v21];
-              v23 = [v22 URLByAppendingPathComponent:@"mini.json"];
+              v27 = [getLocalUrl URLByAppendingPathComponent:v26];
+              v28 = [v27 URLByAppendingPathComponent:@"mini.json"];
 
-              v38 = v6;
-              v24 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:v23 options:0 error:&v38];
-              v25 = v38;
+              v48 = v9;
+              v29 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:v28 options:0 error:&v48];
+              v30 = v48;
 
-              if (v24)
+              if (v29)
               {
-                v37 = v25;
-                v26 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v24 options:0 error:&v37];
-                v6 = v37;
+                v47 = v30;
+                v33 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v29 options:0 error:&v47];
+                v9 = v47;
 
-                if (v26)
+                if (v33)
                 {
                   objc_opt_class();
-                  if (objc_opt_isKindOfClass())
+                  isKindOfClass = objc_opt_isKindOfClass();
+                  if (isKindOfClass)
                   {
-                    v28 = vm_framework_log();
-                    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+                    v37 = vm_framework_log(isKindOfClass, v35);
+                    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
                     {
                       *buf = 0;
-                      _os_log_impl(&dword_2721BA000, v28, OS_LOG_TYPE_DEFAULT, "Found appropriate JSON object in asset", buf, 2u);
+                      _os_log_impl(&dword_2721BA000, v37, OS_LOG_TYPE_DEFAULT, "Found appropriate JSON object in asset", buf, 2u);
                     }
 
-                    v29 = vm_framework_log();
-                    v5 = v34;
-                    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+                    v40 = vm_framework_log(v38, v39);
+                    v6 = v44;
+                    if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
                     {
-                      *buf = v33;
-                      v44 = v26;
-                      _os_log_impl(&dword_2721BA000, v29, OS_LOG_TYPE_DEFAULT, "Found metadata for speech asset: %@", buf, 0xCu);
+                      *buf = v43;
+                      v54 = v33;
+                      _os_log_impl(&dword_2721BA000, v40, OS_LOG_TYPE_DEFAULT, "Found metadata for speech asset: %@", buf, 0xCu);
                     }
 
                     goto LABEL_42;
                   }
                 }
 
-                v27 = vm_framework_log();
-                if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+                v36 = vm_framework_log(isKindOfClass, v35);
+                if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 138412546;
-                  v44 = v6;
-                  v45 = 2112;
-                  v46 = v26;
-                  _os_log_error_impl(&dword_2721BA000, v27, OS_LOG_TYPE_ERROR, "Did not find a JSON object in asset, error %@. Did find %@", buf, 0x16u);
+                  v54 = v9;
+                  v55 = 2112;
+                  v56 = v33;
+                  _os_log_error_impl(&dword_2721BA000, v36, OS_LOG_TYPE_ERROR, "Did not find a JSON object in asset, error %@. Did find %@", buf, 0x16u);
                 }
 
-                languageCopy = v35;
+                languageCopy = v45;
               }
 
               else
               {
-                v24 = vm_framework_log();
-                if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+                v29 = vm_framework_log(v31, v32);
+                if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
                 {
-                  *buf = v33;
-                  v44 = v25;
-                  _os_log_error_impl(&dword_2721BA000, v24, OS_LOG_TYPE_ERROR, "Skipping asset, no JSON data found file error %@", buf, 0xCu);
+                  *buf = v43;
+                  v54 = v30;
+                  _os_log_error_impl(&dword_2721BA000, v29, OS_LOG_TYPE_ERROR, "Skipping asset, no JSON data found file error %@", buf, 0xCu);
                 }
 
-                v6 = v25;
+                v9 = v30;
               }
             }
           }
         }
 
-        v14 = [obj countByEnumeratingWithState:&v39 objects:v47 count:16];
-        if (v14)
+        v18 = [obj countByEnumeratingWithState:&v49 objects:v57 count:16];
+        if (v18)
         {
           continue;
         }
@@ -600,33 +641,31 @@ LABEL_15:
 
     else
     {
-      v6 = 0;
+      v9 = 0;
     }
 
-    v5 = v34;
+    v6 = v44;
   }
 
-  v29 = vm_framework_log();
-  if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+  v40 = vm_framework_log(queryMetaDataSync, v8);
+  if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
   {
-    [VMConfiguration metadataDictionaryForSpeechAssetWithLanguage:v29];
+    [VMConfiguration metadataDictionaryForSpeechAssetWithLanguage:v40];
   }
 
-  v26 = 0;
+  v33 = 0;
 LABEL_42:
 
-  v30 = v26;
-  v31 = *MEMORY[0x277D85DE8];
-  return v26;
+  v41 = v33;
+  return v33;
 }
 
 + (void)confidenceThresholdFromAssetForKey:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_2721BA000, a2, OS_LOG_TYPE_ERROR, "Confidence threshold failed a sanity check: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_2721BA000, a2, OS_LOG_TYPE_ERROR, "Confidence threshold failed a sanity check: %@", &v2, 0xCu);
 }
 
 @end

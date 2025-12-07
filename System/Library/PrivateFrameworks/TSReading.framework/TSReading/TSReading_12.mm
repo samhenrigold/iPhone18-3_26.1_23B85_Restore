@@ -416,7 +416,7 @@ uint64_t TSWPLineFragment::isRunIndexLeftToRight(TSWPLineFragment *this, unsigne
   return v5 & 1;
 }
 
-uint64_t TSWPLineFragment::characterCountOfGlyphAtCharIndex(TSWPLineFragment *this, uint64_t a2)
+uint64_t TSWPLineFragment::characterCountOfGlyphAtCharIndex(TSWPLineFragment *this, void *a2)
 {
   v28 = *MEMORY[0x277D85DE8];
   v2 = *(this + 24);
@@ -708,7 +708,7 @@ BOOL TSWPLineFragment::shareLineRefs(TSWPLineFragment *this, const TSWPLineFragm
     {
       if (this != a2)
       {
-        std::vector<TSWPLineRef>::__assign_with_size[abi:ne200100]<TSWPLineRef*,TSWPLineRef*>(this + 192, *(a2 + 24), *(a2 + 25), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 25) - *(a2 + 24)) >> 4));
+        std::vector<TSWPLineRef>::__assign_with_size[abi:ne200100]<TSWPLineRef*,TSWPLineRef*>(this + 24, *(a2 + 24), *(a2 + 25), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 25) - *(a2 + 24)) >> 4));
       }
 
       *(this + 27) = *(a2 + 27);
@@ -721,7 +721,7 @@ BOOL TSWPLineFragment::shareLineRefs(TSWPLineFragment *this, const TSWPLineFragm
 
 uint64_t TSWPLineFragment::isInsideTateChuYokoLineAtCharIndex(TSWPLineFragment *this, uint64_t a2, double *a3, double *a4, double *a5, double *a6, double *a7)
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   if (*(this + 32) != *(this + 31))
   {
     v14 = *(this + 23);
@@ -762,46 +762,46 @@ uint64_t TSWPLineFragment::isInsideTateChuYokoLineAtCharIndex(TSWPLineFragment *
       *a3 = CTLineGetOffsetForStringIndex(*v23, v26, 0);
       *a4 = CTLineGetTypographicBounds(*v23, 0, 0, 0);
       CTLineGetGlyphRuns(*v23);
+      v44 = 0u;
       v45 = 0u;
       v46 = 0u;
       v47 = 0u;
-      v48 = 0u;
       GlyphRuns = CTLineGetGlyphRuns(*v23);
-      v28 = [(__CFArray *)GlyphRuns countByEnumeratingWithState:&v45 objects:v49 count:16];
+      v28 = [(__CFArray *)GlyphRuns countByEnumeratingWithState:&v44 objects:v48 count:16];
       if (v28)
       {
         v29 = v28;
-        v30 = *v46;
+        v30 = *v45;
         do
         {
           for (i = 0; i != v29; ++i)
           {
-            if (*v46 != v30)
+            if (*v45 != v30)
             {
               objc_enumerationMutation(GlyphRuns);
             }
 
-            v32 = *(*(&v45 + 1) + 8 * i);
+            v32 = *(*(&v44 + 1) + 8 * i);
             StringRange = CTRunGetStringRange(v32);
             v34 = StringRange.location >= v26 || v26 > StringRange.location + StringRange.length;
             if (!v34)
             {
               Attributes = CTRunGetAttributes(v32);
-              Value = CFDictionaryGetValue(Attributes, *MEMORY[0x277CC4838]);
-              v43 = 0u;
-              v44 = 0u;
-              v41 = 0u;
+              CFDictionaryGetValue(Attributes, *MEMORY[0x277CC4838]);
               v42 = 0u;
-              TSWPFontHeightInfoForFont(Value, &v41);
-              v39 = *(&v42 + 1);
-              *a5 = v42;
-              *a6 = v39;
-              *a7 = v43;
+              v43 = 0u;
+              v40 = 0u;
+              v41 = 0u;
+              TSWPFontHeightInfoForFont(&v40);
+              v38 = *(&v41 + 1);
+              *a5 = v41;
+              *a6 = v38;
+              *a7 = v42;
               return 1;
             }
           }
 
-          v29 = [(__CFArray *)GlyphRuns countByEnumeratingWithState:&v45 objects:v49 count:16];
+          v29 = [(__CFArray *)GlyphRuns countByEnumeratingWithState:&v44 objects:v48 count:16];
         }
 
         while (v29);
@@ -988,13 +988,14 @@ double TSWPLineFragmentCalculateOffsetForNextLine(double *a1, char a2, int a3, d
   return v8 + *a1 + a1[6];
 }
 
-double TSWPLineFragment::heightForHeightInfo(double *a1, int a2, char a3, double a4)
+double TSWPLineFragment::heightForHeightInfo(double *a1, int a2, uint64_t a3, double a4)
 {
   v4 = a1[14];
   v5 = a1[20];
   if (a2 == 2)
   {
-    v9 = v4 + a4 + v5;
+    a4 = v4 + a4;
+    v9 = a4 + v5;
   }
 
   else
@@ -1010,7 +1011,8 @@ double TSWPLineFragment::heightForHeightInfo(double *a1, int a2, char a3, double
 
     else if (!a2 && a4 > 1.0 && (a3 & 1) == 0)
     {
-      v9 = v9 + (a4 + -1.0) * (v6 + v8 + v7);
+      a4 = a4 + -1.0;
+      v9 = v9 + a4 * (v6 + v8 + v7);
     }
   }
 
@@ -1388,16 +1390,16 @@ void TSWPLineFragment::adjustBreakLine(TSWPLineFragment *this)
   }
 }
 
-uint64_t TSWPLineFragment::appendAdornment(uint64_t result, uint64_t a2)
+void *TSWPLineFragment::appendAdornment(void *result, uint64_t a2)
 {
   if (a2)
   {
     v3 = result;
-    v4 = *(result + 528);
+    v4 = result[66];
     if (!v4)
     {
       v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
-      *(v3 + 528) = v4;
+      v3[66] = v4;
     }
 
     return [v4 addObject:a2];
@@ -1511,7 +1513,7 @@ uint64_t operator==(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void std::vector<TSWPLineRef>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+void std::vector<TSWPLineRef>::__destroy_vector::operator()[abi:ne200100](CFTypeRef ***a1)
 {
   v1 = *a1;
   v2 = **a1;
@@ -1596,17 +1598,17 @@ void std::vector<TSWPAdornments>::__destroy_vector::operator()[abi:ne200100](voi
   }
 }
 
-void *std::vector<long>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<long>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<unsigned long>::__vallocate[abi:ne200100](result, a2);
+    std::vector<unsigned long>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_26C924634(_Unwind_Exception *exception_object)
@@ -1621,17 +1623,17 @@ void sub_26C924634(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<unsigned short>::vector[abi:ne200100](void *result, uint64_t a2)
+uint64_t *std::vector<unsigned short>::vector[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<unsigned short>::__vallocate[abi:ne200100](result, a2);
+    std::vector<unsigned short>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_26C9246AC(_Unwind_Exception *exception_object)
@@ -1646,7 +1648,7 @@ void sub_26C9246AC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<unsigned short>::__vallocate[abi:ne200100](uint64_t a1, uint64_t a2)
+void std::vector<unsigned short>::__vallocate[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
   if ((a2 & 0x8000000000000000) == 0)
   {
@@ -1686,10 +1688,10 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<TSWPLFCharIndexData>>
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-__n128 std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(TSWPLFCharIndexData const&,TSWPLFCharIndexData const&),TSWPLFCharIndexData*,false>(__int128 *a1, __n128 *a2, uint64_t (**a3)(__n128 *, __n128 *), uint64_t a4, char a5, __n128 result)
+__n128 std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(TSWPLFCharIndexData const&,TSWPLFCharIndexData const&),TSWPLFCharIndexData*,false>(__n128 *a1, __n128 *a2, uint64_t (**a3)(__n128 *, __n128 *), uint64_t a4, char a5, __n128 result)
 {
 LABEL_1:
-  v9 = a2 - 4;
+  v9 = &a2[-4];
   v10 = &a2[-8];
   v11 = &a2[-12];
   v12 = a1;
@@ -1709,7 +1711,7 @@ LABEL_2:
 
       if (v15 == 2)
       {
-        if ((*a3)(a2 - 4, v12))
+        if ((*a3)(&a2[-4], v12, result))
         {
           goto LABEL_77;
         }
@@ -1727,156 +1729,156 @@ LABEL_2:
 
     if (v15 == 4)
     {
-      v127 = (*a3)(v12 + 4, v12);
-      v128 = (*a3)(v12 + 8, v12 + 4);
+      v127 = (*a3)(v12 + 64, v12, result);
+      v128 = (*a3)((v12 + 128), (v12 + 64));
       if (v127)
       {
         if (v128)
         {
-          v247 = v12[2];
-          v274 = v12[3];
+          v247 = *(v12 + 32);
+          v274 = *(v12 + 48);
           v193 = *v12;
-          v220 = v12[1];
-          v129 = v12[9];
-          *v12 = v12[8];
-          v12[1] = v129;
-          v130 = v12[11];
-          v12[2] = v12[10];
-          v12[3] = v130;
-          v12[10] = v247;
-          v12[11] = v274;
-          v12[8] = v193;
-          v12[9] = v220;
+          v220 = *(v12 + 16);
+          v129 = *(v12 + 144);
+          *v12 = *(v12 + 128);
+          *(v12 + 16) = v129;
+          v130 = *(v12 + 176);
+          *(v12 + 32) = *(v12 + 160);
+          *(v12 + 48) = v130;
+          *(v12 + 160) = v247;
+          *(v12 + 176) = v274;
+          *(v12 + 128) = v193;
+          *(v12 + 144) = v220;
         }
 
         else
         {
-          v249 = v12[2];
-          v276 = v12[3];
+          v249 = *(v12 + 32);
+          v276 = *(v12 + 48);
           v195 = *v12;
-          v222 = v12[1];
-          v146 = v12[5];
-          *v12 = v12[4];
-          v12[1] = v146;
-          v147 = v12[7];
-          v12[2] = v12[6];
-          v12[3] = v147;
-          v12[6] = v249;
-          v12[7] = v276;
-          v12[4] = v195;
-          v12[5] = v222;
-          if ((*a3)(v12 + 8, v12 + 4))
+          v222 = *(v12 + 16);
+          v146 = *(v12 + 80);
+          *v12 = *(v12 + 64);
+          *(v12 + 16) = v146;
+          v147 = *(v12 + 112);
+          *(v12 + 32) = *(v12 + 96);
+          *(v12 + 48) = v147;
+          *(v12 + 96) = v249;
+          *(v12 + 112) = v276;
+          *(v12 + 64) = v195;
+          *(v12 + 80) = v222;
+          if ((*a3)((v12 + 128), (v12 + 64)))
           {
-            v149 = v12[6];
-            v148 = v12[7];
-            v151 = v12[4];
-            v150 = v12[5];
-            v152 = v12[9];
-            v12[4] = v12[8];
-            v12[5] = v152;
-            v153 = v12[11];
-            v12[6] = v12[10];
-            v12[7] = v153;
-            v12[8] = v151;
-            v12[9] = v150;
-            v12[10] = v149;
-            v12[11] = v148;
+            v149 = *(v12 + 96);
+            v148 = *(v12 + 112);
+            v151 = *(v12 + 64);
+            v150 = *(v12 + 80);
+            v152 = *(v12 + 144);
+            *(v12 + 64) = *(v12 + 128);
+            *(v12 + 80) = v152;
+            v153 = *(v12 + 176);
+            *(v12 + 96) = *(v12 + 160);
+            *(v12 + 112) = v153;
+            *(v12 + 128) = v151;
+            *(v12 + 144) = v150;
+            *(v12 + 160) = v149;
+            *(v12 + 176) = v148;
           }
         }
       }
 
       else if (v128)
       {
-        v139 = v12[6];
-        v138 = v12[7];
-        v141 = v12[4];
-        v140 = v12[5];
-        v142 = v12[9];
-        v12[4] = v12[8];
-        v12[5] = v142;
-        v143 = v12[11];
-        v12[6] = v12[10];
-        v12[7] = v143;
-        v12[8] = v141;
-        v12[9] = v140;
-        v12[10] = v139;
-        v12[11] = v138;
-        if ((*a3)(v12 + 4, v12))
+        v139 = *(v12 + 96);
+        v138 = *(v12 + 112);
+        v141 = *(v12 + 64);
+        v140 = *(v12 + 80);
+        v142 = *(v12 + 144);
+        *(v12 + 64) = *(v12 + 128);
+        *(v12 + 80) = v142;
+        v143 = *(v12 + 176);
+        *(v12 + 96) = *(v12 + 160);
+        *(v12 + 112) = v143;
+        *(v12 + 128) = v141;
+        *(v12 + 144) = v140;
+        *(v12 + 160) = v139;
+        *(v12 + 176) = v138;
+        if ((*a3)((v12 + 64), v12))
         {
-          v248 = v12[2];
-          v275 = v12[3];
+          v248 = *(v12 + 32);
+          v275 = *(v12 + 48);
           v194 = *v12;
-          v221 = v12[1];
-          v144 = v12[5];
-          *v12 = v12[4];
-          v12[1] = v144;
-          v145 = v12[7];
-          v12[2] = v12[6];
-          v12[3] = v145;
-          v12[6] = v248;
-          v12[7] = v275;
-          v12[4] = v194;
-          v12[5] = v221;
+          v221 = *(v12 + 16);
+          v144 = *(v12 + 80);
+          *v12 = *(v12 + 64);
+          *(v12 + 16) = v144;
+          v145 = *(v12 + 112);
+          *(v12 + 32) = *(v12 + 96);
+          *(v12 + 48) = v145;
+          *(v12 + 96) = v248;
+          *(v12 + 112) = v275;
+          *(v12 + 64) = v194;
+          *(v12 + 80) = v221;
         }
       }
 
-      if (!(*a3)(v9, v12 + 8))
+      if (!(*a3)(v9, (v12 + 128)))
       {
         return result;
       }
 
-      v155 = v12[10];
-      v154 = v12[11];
-      v157 = v12[8];
-      v156 = v12[9];
-      v158 = v9[3];
+      v155 = *(v12 + 160);
+      v154 = *(v12 + 176);
+      v157 = *(v12 + 128);
+      v156 = *(v12 + 144);
+      v158 = *(v9 + 3);
       v160 = *v9;
-      v159 = v9[1];
-      v12[10] = v9[2];
-      v12[11] = v158;
-      v12[8] = v160;
-      v12[9] = v159;
+      v159 = *(v9 + 1);
+      *(v12 + 160) = *(v9 + 2);
+      *(v12 + 176) = v158;
+      *(v12 + 128) = v160;
+      *(v12 + 144) = v159;
       *v9 = v157;
-      v9[1] = v156;
-      v9[2] = v155;
-      v9[3] = v154;
-      if (!(*a3)(v12 + 8, v12 + 4))
+      *(v9 + 1) = v156;
+      *(v9 + 2) = v155;
+      *(v9 + 3) = v154;
+      if (!(*a3)((v12 + 128), (v12 + 64)))
       {
         return result;
       }
 
-      v162 = v12[6];
-      v161 = v12[7];
-      v164 = v12[4];
-      v163 = v12[5];
-      v165 = v12[9];
-      v12[4] = v12[8];
-      v12[5] = v165;
-      v166 = v12[11];
-      v12[6] = v12[10];
-      v12[7] = v166;
-      v12[8] = v164;
-      v12[9] = v163;
-      v12[10] = v162;
-      v12[11] = v161;
+      v162 = *(v12 + 96);
+      v161 = *(v12 + 112);
+      v164 = *(v12 + 64);
+      v163 = *(v12 + 80);
+      v165 = *(v12 + 144);
+      *(v12 + 64) = *(v12 + 128);
+      *(v12 + 80) = v165;
+      v166 = *(v12 + 176);
+      *(v12 + 96) = *(v12 + 160);
+      *(v12 + 112) = v166;
+      *(v12 + 128) = v164;
+      *(v12 + 144) = v163;
+      *(v12 + 160) = v162;
+      *(v12 + 176) = v161;
 LABEL_102:
-      if ((*a3)(v12 + 4, v12))
+      if ((*a3)((v12 + 64), v12))
       {
-        v250 = v12[2];
-        v277 = v12[3];
+        v250 = *(v12 + 32);
+        v277 = *(v12 + 48);
         v196 = *v12;
-        v223 = v12[1];
-        v167 = v12[5];
-        *v12 = v12[4];
-        v12[1] = v167;
-        v168 = v12[7];
-        v12[2] = v12[6];
-        v12[3] = v168;
+        v223 = *(v12 + 16);
+        v167 = *(v12 + 80);
+        *v12 = *(v12 + 64);
+        *(v12 + 16) = v167;
+        v168 = *(v12 + 112);
+        *(v12 + 32) = *(v12 + 96);
+        *(v12 + 48) = v168;
         result = v196;
-        v12[6] = v250;
-        v12[7] = v277;
-        v12[4] = v196;
-        v12[5] = v223;
+        *(v12 + 96) = v250;
+        *(v12 + 112) = v277;
+        *(v12 + 64) = v196;
+        *(v12 + 80) = v223;
       }
 
       return result;
@@ -1885,7 +1887,7 @@ LABEL_102:
     if (v15 == 5)
     {
 
-      result.n128_u64[0] = std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(TSWPLFCharIndexData const&,TSWPLFCharIndexData const&),TSWPLFCharIndexData*,0>(v12, v12 + 4, v12 + 8, v12 + 12, a2 - 4, a3).n128_u64[0];
+      result.n128_u64[0] = std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(TSWPLFCharIndexData const&,TSWPLFCharIndexData const&),TSWPLFCharIndexData*,0>(v12, (v12 + 64), (v12 + 128), (v12 + 192), a2 - 4, a3).n128_u64[0];
       return result;
     }
 
@@ -1918,11 +1920,11 @@ LABEL_10:
       return result;
     }
 
-    v16 = &v12[4 * (v15 >> 1)];
+    v16 = v12 + (v15 >> 1 << 6);
     v17 = *a3;
     if (v15 >= 0x81)
     {
-      v18 = v17(&v12[4 * (v15 >> 1)], v12);
+      v18 = (v17)(v12 + (v15 >> 1 << 6), v12, result);
       v19 = (*a3)(a2 - 4, v16);
       if (v18)
       {
@@ -1947,29 +1949,29 @@ LABEL_10:
         v176 = *a1;
         v203 = a1[1];
         v40 = *v16;
-        v41 = v16[1];
-        v42 = v16[3];
-        a1[2] = v16[2];
+        v41 = *(v16 + 16);
+        v42 = *(v16 + 48);
+        a1[2] = *(v16 + 32);
         a1[3] = v42;
         *a1 = v40;
         a1[1] = v41;
-        v16[2] = v230;
-        v16[3] = v257;
+        *(v16 + 32) = v230;
+        *(v16 + 48) = v257;
         *v16 = v176;
-        v16[1] = v203;
+        *(v16 + 16) = v203;
         if ((*a3)(a2 - 4, v16))
         {
-          v224 = v16[2];
-          v251 = v16[3];
+          v224 = *(v16 + 32);
+          v251 = *(v16 + 48);
           v170 = *v16;
-          v197 = v16[1];
+          v197 = *(v16 + 16);
           v43 = *v9;
           v44 = a2[-3];
           v45 = a2[-1];
-          v16[2] = a2[-2];
-          v16[3] = v45;
+          *(v16 + 32) = a2[-2];
+          *(v16 + 48) = v45;
           *v16 = v43;
-          v16[1] = v44;
+          *(v16 + 16) = v44;
 LABEL_27:
           *v9 = v170;
           a2[-3] = v197;
@@ -1980,17 +1982,17 @@ LABEL_27:
 
       else if (v19)
       {
-        v226 = v16[2];
-        v253 = v16[3];
+        v226 = *(v16 + 32);
+        v253 = *(v16 + 48);
         v172 = *v16;
-        v199 = v16[1];
+        v199 = *(v16 + 16);
         v28 = *v9;
         v29 = a2[-3];
         v30 = a2[-1];
-        v16[2] = a2[-2];
-        v16[3] = v30;
+        *(v16 + 32) = a2[-2];
+        *(v16 + 48) = v30;
         *v16 = v28;
-        v16[1] = v29;
+        *(v16 + 16) = v29;
         *v9 = v172;
         a2[-3] = v199;
         a2[-2] = v226;
@@ -2002,22 +2004,22 @@ LABEL_27:
           v173 = *a1;
           v200 = a1[1];
           v31 = *v16;
-          v32 = v16[1];
-          v33 = v16[3];
-          a1[2] = v16[2];
+          v32 = *(v16 + 16);
+          v33 = *(v16 + 48);
+          a1[2] = *(v16 + 32);
           a1[3] = v33;
           *a1 = v31;
           a1[1] = v32;
-          v16[2] = v227;
-          v16[3] = v254;
+          *(v16 + 32) = v227;
+          *(v16 + 48) = v254;
           *v16 = v173;
-          v16[1] = v200;
+          *(v16 + 16) = v200;
         }
       }
 
-      v46 = &v16[-4];
-      v47 = (*a3)(v16 - 4, a1 + 4);
-      v48 = (*a3)(a2 - 8, v16 - 4);
+      v46 = (v16 - 64);
+      v47 = (*a3)((v16 - 64), a1 + 4);
+      v48 = (*a3)(a2 - 8, (v16 - 64));
       if (v47)
       {
         if (v48)
@@ -2043,30 +2045,30 @@ LABEL_27:
         v207 = a1[5];
         v234 = a1[6];
         v261 = a1[7];
-        v69 = v16[-2];
-        v68 = v16[-1];
-        v70 = v16[-3];
+        v69 = *(v16 - 32);
+        v68 = *(v16 - 16);
+        v70 = *(v16 - 48);
         a1[4] = *v46;
         a1[5] = v70;
         a1[6] = v69;
         a1[7] = v68;
-        v16[-2] = v234;
-        v16[-1] = v261;
+        *(v16 - 32) = v234;
+        *(v16 - 16) = v261;
         *v46 = v180;
-        v16[-3] = v207;
-        if ((*a3)(a2 - 8, v16 - 4))
+        *(v16 - 48) = v207;
+        if ((*a3)(a2 - 8, (v16 - 64)))
         {
-          v235 = v16[-2];
-          v262 = v16[-1];
+          v235 = *(v16 - 32);
+          v262 = *(v16 - 16);
           v181 = *v46;
-          v208 = v16[-3];
+          v208 = *(v16 - 48);
           v71 = *v10;
           v72 = a2[-7];
           v73 = a2[-5];
-          v16[-2] = a2[-6];
-          v16[-1] = v73;
+          *(v16 - 32) = a2[-6];
+          *(v16 - 16) = v73;
           *v46 = v71;
-          v16[-3] = v72;
+          *(v16 - 48) = v72;
           *v10 = v181;
           a2[-7] = v208;
           a2[-6] = v235;
@@ -2078,43 +2080,43 @@ LABEL_39:
 
       else if (v48)
       {
-        v231 = v16[-2];
-        v258 = v16[-1];
+        v231 = *(v16 - 32);
+        v258 = *(v16 - 16);
         v177 = *v46;
-        v204 = v16[-3];
+        v204 = *(v16 - 48);
         v56 = *v10;
         v57 = a2[-7];
         v58 = a2[-5];
-        v16[-2] = a2[-6];
-        v16[-1] = v58;
+        *(v16 - 32) = a2[-6];
+        *(v16 - 16) = v58;
         *v46 = v56;
-        v16[-3] = v57;
+        *(v16 - 48) = v57;
         *v10 = v177;
         a2[-7] = v204;
         a2[-6] = v231;
         a2[-5] = v258;
-        if ((*a3)(v16 - 4, a1 + 4))
+        if ((*a3)((v16 - 64), a1 + 4))
         {
           v178 = a1[4];
           v205 = a1[5];
           v232 = a1[6];
           v259 = a1[7];
-          v60 = v16[-2];
-          v59 = v16[-1];
-          v61 = v16[-3];
+          v60 = *(v16 - 32);
+          v59 = *(v16 - 16);
+          v61 = *(v16 - 48);
           a1[4] = *v46;
           a1[5] = v61;
           a1[6] = v60;
           a1[7] = v59;
-          v16[-2] = v232;
-          v16[-1] = v259;
+          *(v16 - 32) = v232;
+          *(v16 - 16) = v259;
           *v46 = v178;
-          v16[-3] = v205;
+          *(v16 - 48) = v205;
         }
       }
 
-      v74 = (*a3)(v16 + 4, a1 + 8);
-      v75 = (*a3)(a2 - 12, v16 + 4);
+      v74 = (*a3)((v16 + 64), a1 + 8);
+      v75 = (*a3)(a2 - 12, (v16 + 64));
       if (v74)
       {
         if (v75)
@@ -2140,30 +2142,30 @@ LABEL_39:
         v211 = a1[9];
         v238 = a1[10];
         v265 = a1[11];
-        v90 = v16[6];
-        v89 = v16[7];
-        v91 = v16[5];
-        a1[8] = v16[4];
+        v90 = *(v16 + 96);
+        v89 = *(v16 + 112);
+        v91 = *(v16 + 80);
+        a1[8] = *(v16 + 64);
         a1[9] = v91;
         a1[10] = v90;
         a1[11] = v89;
-        v16[6] = v238;
-        v16[7] = v265;
-        v16[4] = v184;
-        v16[5] = v211;
-        if ((*a3)(a2 - 12, v16 + 4))
+        *(v16 + 96) = v238;
+        *(v16 + 112) = v265;
+        *(v16 + 64) = v184;
+        *(v16 + 80) = v211;
+        if ((*a3)(a2 - 12, (v16 + 64)))
         {
-          v239 = v16[6];
-          v266 = v16[7];
-          v185 = v16[4];
-          v212 = v16[5];
+          v239 = *(v16 + 96);
+          v266 = *(v16 + 112);
+          v185 = *(v16 + 64);
+          v212 = *(v16 + 80);
           v92 = *v11;
           v93 = a2[-11];
           v94 = a2[-9];
-          v16[6] = a2[-10];
-          v16[7] = v94;
-          v16[4] = v92;
-          v16[5] = v93;
+          *(v16 + 96) = a2[-10];
+          *(v16 + 112) = v94;
+          *(v16 + 64) = v92;
+          *(v16 + 80) = v93;
           *v11 = v185;
           a2[-11] = v212;
           a2[-10] = v239;
@@ -2175,126 +2177,126 @@ LABEL_48:
 
       else if (v75)
       {
-        v236 = v16[6];
-        v263 = v16[7];
-        v182 = v16[4];
-        v209 = v16[5];
+        v236 = *(v16 + 96);
+        v263 = *(v16 + 112);
+        v182 = *(v16 + 64);
+        v209 = *(v16 + 80);
         v83 = *v11;
         v84 = a2[-11];
         v85 = a2[-9];
-        v16[6] = a2[-10];
-        v16[7] = v85;
-        v16[4] = v83;
-        v16[5] = v84;
+        *(v16 + 96) = a2[-10];
+        *(v16 + 112) = v85;
+        *(v16 + 64) = v83;
+        *(v16 + 80) = v84;
         *v11 = v182;
         a2[-11] = v209;
         a2[-10] = v236;
         a2[-9] = v263;
-        if ((*a3)(v16 + 4, a1 + 8))
+        if ((*a3)((v16 + 64), a1 + 8))
         {
           v183 = a1[8];
           v210 = a1[9];
           v237 = a1[10];
           v264 = a1[11];
-          v87 = v16[6];
-          v86 = v16[7];
-          v88 = v16[5];
-          a1[8] = v16[4];
+          v87 = *(v16 + 96);
+          v86 = *(v16 + 112);
+          v88 = *(v16 + 80);
+          a1[8] = *(v16 + 64);
           a1[9] = v88;
           a1[10] = v87;
           a1[11] = v86;
-          v16[6] = v237;
-          v16[7] = v264;
-          v16[4] = v183;
-          v16[5] = v210;
+          *(v16 + 96) = v237;
+          *(v16 + 112) = v264;
+          *(v16 + 64) = v183;
+          *(v16 + 80) = v210;
         }
       }
 
-      v95 = (*a3)(v16, v16 - 4);
-      v96 = (*a3)(v16 + 4, v16);
+      v95 = (*a3)(v16, (v16 - 64));
+      v96 = (*a3)((v16 + 64), v16);
       if (v95)
       {
         if (v96)
         {
-          v240 = v16[-2];
-          v267 = v16[-1];
+          v240 = *(v16 - 32);
+          v267 = *(v16 - 16);
           v186 = *v46;
-          v213 = v16[-3];
-          v97 = v16[5];
-          *v46 = v16[4];
-          v16[-3] = v97;
-          v98 = v16[7];
-          v16[-2] = v16[6];
-          v16[-1] = v98;
+          v213 = *(v16 - 48);
+          v97 = *(v16 + 80);
+          *v46 = *(v16 + 64);
+          *(v16 - 48) = v97;
+          v98 = *(v16 + 112);
+          *(v16 - 32) = *(v16 + 96);
+          *(v16 - 16) = v98;
           goto LABEL_57;
         }
 
-        v243 = v16[-2];
-        v270 = v16[-1];
+        v243 = *(v16 - 32);
+        v270 = *(v16 - 16);
         v189 = *v46;
-        v216 = v16[-3];
-        v103 = v16[1];
+        v216 = *(v16 - 48);
+        v103 = *(v16 + 16);
         *v46 = *v16;
-        v16[-3] = v103;
-        v104 = v16[3];
-        v16[-2] = v16[2];
-        v16[-1] = v104;
-        v16[2] = v243;
-        v16[3] = v270;
+        *(v16 - 48) = v103;
+        v104 = *(v16 + 48);
+        *(v16 - 32) = *(v16 + 32);
+        *(v16 - 16) = v104;
+        *(v16 + 32) = v243;
+        *(v16 + 48) = v270;
         *v16 = v189;
-        v16[1] = v216;
-        if ((*a3)(v16 + 4, v16))
+        *(v16 + 16) = v216;
+        if ((*a3)((v16 + 64), v16))
         {
-          v240 = v16[2];
-          v267 = v16[3];
+          v240 = *(v16 + 32);
+          v267 = *(v16 + 48);
           v186 = *v16;
-          v213 = v16[1];
-          v105 = v16[5];
-          *v16 = v16[4];
-          v16[1] = v105;
-          v106 = v16[7];
-          v16[2] = v16[6];
-          v16[3] = v106;
+          v213 = *(v16 + 16);
+          v105 = *(v16 + 80);
+          *v16 = *(v16 + 64);
+          *(v16 + 16) = v105;
+          v106 = *(v16 + 112);
+          *(v16 + 32) = *(v16 + 96);
+          *(v16 + 48) = v106;
 LABEL_57:
-          v16[6] = v240;
-          v16[7] = v267;
-          v16[4] = v186;
-          v16[5] = v213;
+          *(v16 + 96) = v240;
+          *(v16 + 112) = v267;
+          *(v16 + 64) = v186;
+          *(v16 + 80) = v213;
         }
       }
 
       else if (v96)
       {
-        v241 = v16[2];
-        v268 = v16[3];
+        v241 = *(v16 + 32);
+        v268 = *(v16 + 48);
         v187 = *v16;
-        v214 = v16[1];
-        v99 = v16[5];
-        *v16 = v16[4];
-        v16[1] = v99;
-        v100 = v16[7];
-        v16[2] = v16[6];
-        v16[3] = v100;
-        v16[6] = v241;
-        v16[7] = v268;
-        v16[4] = v187;
-        v16[5] = v214;
-        if ((*a3)(v16, v16 - 4))
+        v214 = *(v16 + 16);
+        v99 = *(v16 + 80);
+        *v16 = *(v16 + 64);
+        *(v16 + 16) = v99;
+        v100 = *(v16 + 112);
+        *(v16 + 32) = *(v16 + 96);
+        *(v16 + 48) = v100;
+        *(v16 + 96) = v241;
+        *(v16 + 112) = v268;
+        *(v16 + 64) = v187;
+        *(v16 + 80) = v214;
+        if ((*a3)(v16, (v16 - 64)))
         {
-          v242 = v16[-2];
-          v269 = v16[-1];
+          v242 = *(v16 - 32);
+          v269 = *(v16 - 16);
           v188 = *v46;
-          v215 = v16[-3];
-          v101 = v16[1];
+          v215 = *(v16 - 48);
+          v101 = *(v16 + 16);
           *v46 = *v16;
-          v16[-3] = v101;
-          v102 = v16[3];
-          v16[-2] = v16[2];
-          v16[-1] = v102;
-          v16[2] = v242;
-          v16[3] = v269;
+          *(v16 - 48) = v101;
+          v102 = *(v16 + 48);
+          *(v16 - 32) = *(v16 + 32);
+          *(v16 - 16) = v102;
+          *(v16 + 32) = v242;
+          *(v16 + 48) = v269;
           *v16 = v188;
-          v16[1] = v215;
+          *(v16 + 16) = v215;
         }
       }
 
@@ -2303,36 +2305,36 @@ LABEL_57:
       v190 = *a1;
       v217 = a1[1];
       v107 = *v16;
-      v108 = v16[1];
-      v109 = v16[3];
-      a1[2] = v16[2];
+      v108 = *(v16 + 16);
+      v109 = *(v16 + 48);
+      a1[2] = *(v16 + 32);
       a1[3] = v109;
       *a1 = v107;
       a1[1] = v108;
-      v16[2] = v244;
-      v16[3] = v271;
+      *(v16 + 32) = v244;
+      *(v16 + 48) = v271;
       *v16 = v190;
-      v16[1] = v217;
+      *(v16 + 16) = v217;
       goto LABEL_59;
     }
 
-    v23 = v17(v12, &v12[4 * (v15 >> 1)]);
+    v23 = (v17)(v12, v12 + (v15 >> 1 << 6), result);
     v24 = (*a3)(a2 - 4, a1);
     if (v23)
     {
       if (v24)
       {
-        v225 = v16[2];
-        v252 = v16[3];
+        v225 = *(v16 + 32);
+        v252 = *(v16 + 48);
         v171 = *v16;
-        v198 = v16[1];
+        v198 = *(v16 + 16);
         v25 = *v9;
         v26 = a2[-3];
         v27 = a2[-1];
-        v16[2] = a2[-2];
-        v16[3] = v27;
+        *(v16 + 32) = a2[-2];
+        *(v16 + 48) = v27;
         *v16 = v25;
-        v16[1] = v26;
+        *(v16 + 16) = v26;
 LABEL_36:
         *v9 = v171;
         a2[-3] = v198;
@@ -2341,17 +2343,17 @@ LABEL_36:
         goto LABEL_59;
       }
 
-      v233 = v16[2];
-      v260 = v16[3];
+      v233 = *(v16 + 32);
+      v260 = *(v16 + 48);
       v179 = *v16;
-      v206 = v16[1];
+      v206 = *(v16 + 16);
       v62 = *a1;
       v63 = a1[1];
       v64 = a1[3];
-      v16[2] = a1[2];
-      v16[3] = v64;
+      *(v16 + 32) = a1[2];
+      *(v16 + 48) = v64;
       *v16 = v62;
-      v16[1] = v63;
+      *(v16 + 16) = v63;
       a1[2] = v233;
       a1[3] = v260;
       *a1 = v179;
@@ -2392,17 +2394,17 @@ LABEL_36:
       a2[-1] = v255;
       if ((*a3)(a1, v16))
       {
-        v229 = v16[2];
-        v256 = v16[3];
+        v229 = *(v16 + 32);
+        v256 = *(v16 + 48);
         v175 = *v16;
-        v202 = v16[1];
+        v202 = *(v16 + 16);
         v37 = *a1;
         v38 = a1[1];
         v39 = a1[3];
-        v16[2] = a1[2];
-        v16[3] = v39;
+        *(v16 + 32) = a1[2];
+        *(v16 + 48) = v39;
         *v16 = v37;
-        v16[1] = v38;
+        *(v16 + 16) = v38;
         a1[2] = v229;
         a1[3] = v256;
         *a1 = v175;
@@ -2441,7 +2443,7 @@ LABEL_59:
     if (!v112)
     {
 LABEL_64:
-      std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(TSWPLFCharIndexData const&,TSWPLFCharIndexData const&),TSWPLFCharIndexData*,false>(a1, v110, a3, -v14, a5 & 1);
+      result = std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(TSWPLFCharIndexData const&,TSWPLFCharIndexData const&),TSWPLFCharIndexData*,false>(a1, v110, a3, -v14, a5 & 1, result);
       v12 = &v110[4];
 LABEL_66:
       a5 = 0;
@@ -2450,8 +2452,8 @@ LABEL_66:
     }
   }
 
-  v113 = (*a3)(v12 + 4, v12);
-  v114 = (*a3)(v9, v12 + 4);
+  v113 = (*a3)(v12 + 64, v12, result);
+  v114 = (*a3)(v9, (v12 + 64));
   if ((v113 & 1) == 0)
   {
     if (!v114)
@@ -2459,77 +2461,77 @@ LABEL_66:
       return result;
     }
 
-    v132 = v12[6];
-    v131 = v12[7];
-    v134 = v12[4];
-    v133 = v12[5];
-    v135 = v9[3];
+    v132 = *(v12 + 96);
+    v131 = *(v12 + 112);
+    v134 = *(v12 + 64);
+    v133 = *(v12 + 80);
+    v135 = *(v9 + 3);
     v137 = *v9;
-    v136 = v9[1];
-    v12[6] = v9[2];
-    v12[7] = v135;
-    v12[4] = v137;
-    v12[5] = v136;
+    v136 = *(v9 + 1);
+    *(v12 + 96) = *(v9 + 2);
+    *(v12 + 112) = v135;
+    *(v12 + 64) = v137;
+    *(v12 + 80) = v136;
     *v9 = v134;
-    v9[1] = v133;
-    v9[2] = v132;
-    v9[3] = v131;
+    *(v9 + 1) = v133;
+    *(v9 + 2) = v132;
+    *(v9 + 3) = v131;
     goto LABEL_102;
   }
 
   if (v114)
   {
 LABEL_77:
-    v246 = v12[2];
-    v273 = v12[3];
+    v246 = *(v12 + 32);
+    v273 = *(v12 + 48);
     v192 = *v12;
-    v219 = v12[1];
+    v219 = *(v12 + 16);
     v124 = *v9;
-    v125 = v9[1];
-    v126 = v9[3];
-    v12[2] = v9[2];
-    v12[3] = v126;
+    v125 = *(v9 + 1);
+    v126 = *(v9 + 3);
+    *(v12 + 32) = *(v9 + 2);
+    *(v12 + 48) = v126;
     *v12 = v124;
-    v12[1] = v125;
+    *(v12 + 16) = v125;
     *v9 = v192;
-    v9[1] = v219;
-    v9[2] = v246;
+    *(v9 + 1) = v219;
+    *(v9 + 2) = v246;
     result = v273;
-    v9[3] = v273;
+    *(v9 + 3) = v273;
     return result;
   }
 
-  v245 = v12[2];
-  v272 = v12[3];
+  v245 = *(v12 + 32);
+  v272 = *(v12 + 48);
   v191 = *v12;
-  v218 = v12[1];
-  v115 = v12[5];
-  *v12 = v12[4];
-  v12[1] = v115;
-  v116 = v12[7];
-  v12[2] = v12[6];
-  v12[3] = v116;
-  v12[6] = v245;
-  v12[7] = v272;
-  v12[4] = v191;
-  v12[5] = v218;
-  if ((*a3)(v9, v12 + 4))
+  v218 = *(v12 + 16);
+  v115 = *(v12 + 80);
+  *v12 = *(v12 + 64);
+  *(v12 + 16) = v115;
+  v116 = *(v12 + 112);
+  *(v12 + 32) = *(v12 + 96);
+  *(v12 + 48) = v116;
+  *(v12 + 96) = v245;
+  *(v12 + 112) = v272;
+  *(v12 + 64) = v191;
+  *(v12 + 80) = v218;
+  if ((*a3)(v9, (v12 + 64)))
   {
-    v117 = v12[6];
-    result = v12[7];
-    v119 = v12[4];
-    v118 = v12[5];
-    v120 = v9[3];
+    v117 = *(v12 + 96);
+    result = *(v12 + 112);
+    v119 = *(v12 + 64);
+    v118 = *(v12 + 80);
+    v120 = *(v9 + 3);
     v122 = *v9;
-    v121 = v9[1];
-    v12[6] = v9[2];
-    v12[7] = v120;
-    v12[4] = v122;
-    v12[5] = v121;
+    v121 = *(v9 + 1);
+    *(v12 + 96) = *(v9 + 2);
+    *(v12 + 112) = v120;
+    *(v12 + 64) = v122;
+    *(v12 + 80) = v121;
     *v9 = v119;
-    v9[1] = v118;
-    v9[2] = v117;
-    v9[3] = result;
+    *(v9 + 1) = v118;
+    *(v9 + 2) = v117;
+    *(v9 + 3) = result;
   }
 
   return result;
@@ -2804,7 +2806,7 @@ uint64_t std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(TS
             }
 
             v14 -= 64;
-            result = (*a3)(&v21, v6 + v14);
+            result = (*a3)(&v21, v14 + v6);
             if ((result & 1) == 0)
             {
               v18 = (v6 + v14 + 64);
@@ -2833,7 +2835,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(TSWPLFCharIndexData const&,TSWPLFCharIndexData const&),TSWPLFCharIndexData*>(uint64_t result, _OWORD *a2, uint64_t (**a3)(__int128 *, _OWORD *))
+uint64_t std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(TSWPLFCharIndexData const&,TSWPLFCharIndexData const&),TSWPLFCharIndexData*>(uint64_t result, __int128 *a2, uint64_t (**a3)(__int128 *, __int128 *))
 {
   if (result != a2)
   {
@@ -3554,7 +3556,7 @@ LABEL_41:
   }
 }
 
-__n128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(TSWPLFCharIndexData const&,TSWPLFCharIndexData const&),TSWPLFCharIndexData*,TSWPLFCharIndexData*>(uint64_t a1, __n128 *a2, __n128 *a3, unsigned int (**a4)(__n128 *, __n128 *), __n128 a5)
+char *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(TSWPLFCharIndexData const&,TSWPLFCharIndexData const&),TSWPLFCharIndexData*,TSWPLFCharIndexData*>(char *a1, char *a2, char *a3, uint64_t (**a4)(__n128 *, __n128 *), __n128 a5)
 {
   if (a1 != a2)
   {
@@ -3564,7 +3566,7 @@ __n128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(
     {
       v10 = (v9 - 2) >> 1;
       v11 = v10 + 1;
-      v12 = (a1 + (v10 << 6));
+      v12 = &a1[64 * v10];
       do
       {
         a5 = std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(TSWPLFCharIndexData const&,TSWPLFCharIndexData const&),TSWPLFCharIndexData*>(a1, a4, v9, v12);
@@ -3583,25 +3585,25 @@ __n128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(
       {
         if ((*a4)(v13, a1, a5))
         {
-          v15 = v13[2];
-          v14 = v13[3];
+          v15 = *(v13 + 2);
+          v14 = *(v13 + 3);
           v17 = *v13;
-          v16 = v13[1];
-          v18 = *(a1 + 48);
+          v16 = *(v13 + 1);
+          v18 = *(a1 + 3);
           v20 = *a1;
-          v19 = *(a1 + 16);
-          v13[2] = *(a1 + 32);
-          v13[3] = v18;
+          v19 = *(a1 + 1);
+          *(v13 + 2) = *(a1 + 2);
+          *(v13 + 3) = v18;
           *v13 = v20;
-          v13[1] = v19;
+          *(v13 + 1) = v19;
           *a1 = v17;
-          *(a1 + 16) = v16;
-          *(a1 + 32) = v15;
-          *(a1 + 48) = v14;
+          *(a1 + 1) = v16;
+          *(a1 + 2) = v15;
+          *(a1 + 3) = v14;
           a5 = std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(TSWPLFCharIndexData const&,TSWPLFCharIndexData const&),TSWPLFCharIndexData*>(a1, a4, v9, a1);
         }
 
-        v13 += 4;
+        v13 += 64;
       }
 
       while (v13 != a3);
@@ -3614,19 +3616,19 @@ __n128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(
         v36 = v7;
         v21 = 0;
         v37 = *a1;
-        v38 = *(a1 + 16);
-        v39 = *(a1 + 32);
-        v40 = *(a1 + 48);
+        v38 = *(a1 + 1);
+        v39 = *(a1 + 2);
+        v40 = *(a1 + 3);
         v22 = a1;
         do
         {
-          v23 = &v22[4 * v21];
-          v24 = v23 + 4;
+          v23 = &v22[64 * v21];
+          v24 = v23 + 64;
           v25 = (2 * v21) | 1;
           v26 = 2 * v21 + 2;
           if (v26 < v9)
           {
-            v27 = v23 + 8;
+            v27 = v23 + 128;
             if ((*a4)(v23 + 4, v23 + 8))
             {
               v24 = v27;
@@ -3635,40 +3637,40 @@ __n128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(
           }
 
           v28 = *v24;
-          v29 = v24[1];
-          v30 = v24[3];
-          v22[2] = v24[2];
-          v22[3] = v30;
+          v29 = *(v24 + 1);
+          v30 = *(v24 + 3);
+          *(v22 + 2) = *(v24 + 2);
+          *(v22 + 3) = v30;
           *v22 = v28;
-          v22[1] = v29;
+          *(v22 + 1) = v29;
           v22 = v24;
           v21 = v25;
         }
 
         while (v25 <= ((v9 - 2) >> 1));
-        v7 = v36 - 4;
-        if (v24 == &v36[-4])
+        v7 = v36 - 64;
+        if (v24 == v36 - 64)
         {
-          v24[2] = v39;
-          v24[3] = v40;
+          *(v24 + 2) = v39;
+          *(v24 + 3) = v40;
           *v24 = v37;
-          v24[1] = v38;
+          *(v24 + 1) = v38;
         }
 
         else
         {
           v31 = *v7;
-          v32 = v36[-3];
-          v33 = v36[-1];
-          v24[2] = v36[-2];
-          v24[3] = v33;
+          v32 = *(v36 - 3);
+          v33 = *(v36 - 1);
+          *(v24 + 2) = *(v36 - 2);
+          *(v24 + 3) = v33;
           *v24 = v31;
-          v24[1] = v32;
+          *(v24 + 1) = v32;
           *v7 = v37;
-          v36[-3] = v38;
-          v36[-2] = v39;
-          v36[-1] = v40;
-          std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(TSWPLFCharIndexData const&,TSWPLFCharIndexData const&),TSWPLFCharIndexData*>(a1, &v24[4], a4, (&v24[4] - a1) >> 6);
+          *(v36 - 3) = v38;
+          *(v36 - 2) = v39;
+          *(v36 - 1) = v40;
+          std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(TSWPLFCharIndexData const&,TSWPLFCharIndexData const&),TSWPLFCharIndexData*>(a1, (v24 + 64), a4, (v24 + 64 - a1) >> 6);
         }
       }
 
@@ -3681,7 +3683,7 @@ __n128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(
   return a3;
 }
 
-__n128 std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(TSWPLFCharIndexData const&,TSWPLFCharIndexData const&),TSWPLFCharIndexData*>(uint64_t a1, unsigned int (**a2)(__n128 *, __n128 *), uint64_t a3, __n128 *a4)
+__n128 std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(TSWPLFCharIndexData const&,TSWPLFCharIndexData const&),TSWPLFCharIndexData*>(uint64_t a1, uint64_t (**a2)(__n128 *, __n128 *), uint64_t a3, __n128 *a4)
 {
   v6 = a3 - 2;
   if (a3 >= 2)
@@ -3808,7 +3810,7 @@ double std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(TSWPLFCharI
   return result;
 }
 
-void *std::vector<TSWPLFCharIndexData>::__assign_with_size[abi:ne200100]<TSWPLFCharIndexData*,TSWPLFCharIndexData*>(void *result, char *__src, char *a3, unint64_t a4)
+void **std::vector<TSWPLFCharIndexData>::__assign_with_size[abi:ne200100]<TSWPLFCharIndexData*,TSWPLFCharIndexData*>(void **result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -3883,7 +3885,7 @@ void *std::vector<TSWPLFCharIndexData>::__assign_with_size[abi:ne200100]<TSWPLFC
   return result;
 }
 
-void std::vector<TSWPLFCharIndexData>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<TSWPLFCharIndexData>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 58))
   {
@@ -3893,13 +3895,13 @@ void std::vector<TSWPLFCharIndexData>::__vallocate[abi:ne200100](uint64_t a1, un
   std::vector<CGPoint>::__throw_length_error[abi:ne200100]();
 }
 
-__n128 std::__split_buffer<TSWPLFCharIndexData>::emplace_back<TSWPLFCharIndexData const&>(__n128 **a1, __n128 *a2)
+__n128 std::__split_buffer<TSWPLFCharIndexData>::emplace_back<TSWPLFCharIndexData const&>(unint64_t *a1, __n128 *a2)
 {
   v4 = a1[2];
   if (v4 == a1[3])
   {
     v5 = a1[1];
-    v6 = v5 - *a1;
+    v6 = &v5[-*a1];
     if (v5 <= *a1)
     {
       if (v4 == *a1)
@@ -3917,45 +3919,45 @@ __n128 std::__split_buffer<TSWPLFCharIndexData>::emplace_back<TSWPLFCharIndexDat
 
     v7 = ((v6 >> 6) + 1) / -2;
     v8 = ((v6 >> 6) + 1) / 2;
-    v9 = &v5[-4 * v8];
+    v9 = &v5[-64 * v8];
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      memmove(&v5[-4 * v8], v5, v4 - v5);
+      memmove(&v5[-64 * v8], v5, v4 - v5);
       v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    a1[1] = &v5[4 * v7];
+    a1[1] = &v5[64 * v7];
     a1[2] = &v9[v10];
   }
 
   result = *a2;
   v13 = a2[1];
   v14 = a2[3];
-  v4[2] = a2[2];
-  v4[3] = v14;
+  *(v4 + 32) = a2[2];
+  *(v4 + 48) = v14;
   *v4 = result;
-  v4[1] = v13;
-  a1[2] += 4;
+  *(v4 + 16) = v13;
+  a1[2] += 64;
   return result;
 }
 
-void std::vector<TSWPLineRef>::__assign_with_size[abi:ne200100]<TSWPLineRef*,TSWPLineRef*>(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
+void std::vector<TSWPLineRef>::__assign_with_size[abi:ne200100]<TSWPLineRef*,TSWPLineRef*>(CFTypeRef **a1, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   v8 = *a1;
-  if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *a1) >> 4) < a4)
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 4) < a4)
   {
     std::vector<TSWPLineRef>::__vdeallocate(a1);
     if (a4 <= 0x555555555555555)
     {
-      v9 = 0x5555555555555556 * ((*(a1 + 16) - *a1) >> 4);
+      v9 = 0x5555555555555556 * ((a1[2] - *a1) >> 4);
       if (v9 <= a4)
       {
         v9 = a4;
       }
 
-      if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *a1) >> 4) >= 0x2AAAAAAAAAAAAAALL)
+      if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 4) >= 0x2AAAAAAAAAAAAAALL)
       {
         v10 = 0x555555555555555;
       }
@@ -3971,12 +3973,12 @@ void std::vector<TSWPLineRef>::__assign_with_size[abi:ne200100]<TSWPLineRef*,TSW
     std::vector<CGPoint>::__throw_length_error[abi:ne200100]();
   }
 
-  v11 = *(a1 + 8) - v8;
+  v11 = a1[1] - v8;
   if (0xAAAAAAAAAAAAAAABLL * (v11 >> 4) >= a4)
   {
     std::__copy_impl::operator()[abi:ne200100]<TSWPLineRef *,TSWPLineRef *,TSWPLineRef *>(&v16, a2, a3, v8);
     v13 = v12;
-    v14 = *(a1 + 8);
+    v14 = a1[1];
     if (v14 != v12)
     {
       do
@@ -3988,13 +3990,13 @@ void std::vector<TSWPLineRef>::__assign_with_size[abi:ne200100]<TSWPLineRef*,TSW
       while (v14 != v13);
     }
 
-    *(a1 + 8) = v13;
+    a1[1] = v13;
   }
 
   else
   {
     std::__copy_impl::operator()[abi:ne200100]<TSWPLineRef *,TSWPLineRef *,TSWPLineRef *>(&v15, a2, a2 + v11, v8);
-    *(a1 + 8) = std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<TSWPLineRef>,TSWPLineRef*,TSWPLineRef*,TSWPLineRef*>(a1, a2 + v11, a3, *(a1 + 8));
+    a1[1] = std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<TSWPLineRef>,TSWPLineRef*,TSWPLineRef*,TSWPLineRef*>(a1, a2 + v11, a3, a1[1]);
   }
 }
 
@@ -4025,7 +4027,7 @@ void std::vector<TSWPLineRef>::__vdeallocate(CFTypeRef **a1)
   }
 }
 
-void std::vector<TSWPLineRef>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<TSWPLineRef>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x555555555555556)
   {
@@ -4083,15 +4085,15 @@ uint64_t std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<st
   return a1;
 }
 
-void std::_AllocatorDestroyRangeReverse<std::allocator<TSWPLineRef>,TSWPLineRef*>::operator()[abi:ne200100](uint64_t *a1)
+void std::_AllocatorDestroyRangeReverse<std::allocator<TSWPLineRef>,TSWPLineRef*>::operator()[abi:ne200100](uint64_t *result)
 {
-  v2 = a1[1];
-  v1 = a1[2];
+  v2 = result[1];
+  v1 = result[2];
   v3 = *v1;
   v4 = *v2;
   if (*v1 != *v2)
   {
-    v5 = *a1;
+    v5 = *result;
     do
     {
       v3 -= 6;
@@ -4225,7 +4227,7 @@ __CFString *NSStringFromTSWPSelectionType(uint64_t a1)
   return @"<UNKNOWN SELECTION TYPE>";
 }
 
-void *std::vector<_NSRange>::__assign_with_size[abi:nn200100]<_NSRange*,_NSRange*>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<_NSRange>::__assign_with_size[abi:nn200100]<_NSRange*,_NSRange*>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -4324,24 +4326,24 @@ void sub_26C92DC28(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_26C92F200(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_26C92F200(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   TSWPAttributeEnumerator::~TSWPAttributeEnumerator(va);
   _Unwind_Resume(a1);
 }
 
-void sub_26C930474(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_26C930474(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 96), 8);
+  _Block_object_dispose((v16 - 96), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_26C932368(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26C932368(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4802,6 +4804,13 @@ void sub_26C93ABFC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
+void sub_26C93B0E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, ...)
+{
+  va_start(va, a36);
+  TSWPDrawingState::~TSWPDrawingState(va);
+  _Unwind_Resume(a1);
+}
+
 void sub_26C93B430(_Unwind_Exception *exception_object)
 {
   if (v1)
@@ -4836,9 +4845,9 @@ void std::shared_ptr<TSWPLineFragmentArray>::shared_ptr[abi:ne200100]<TSWPLineFr
   operator new();
 }
 
-void sub_26C93B644(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26C93B644(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<TSWPLineFragmentArray>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -4958,9 +4967,9 @@ uint64_t std::vector<TSWPAdornmentRect>::__emplace_back_slow_path<TSWPAdornmentR
   return v14;
 }
 
-void sub_26C93B96C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_26C93B96C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<TSWPAdornmentRect>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -5084,7 +5093,7 @@ void std::vector<TSWPAdornmentRect>::__base_destruct_at_end[abi:ne200100](uint64
   *(a1 + 8) = a2;
 }
 
-char *std::vector<CGRect>::__insert_with_size[abi:ne200100]<std::__wrap_iter<CGRect*>,std::__wrap_iter<CGRect*>>(uint64_t a1, char *__dst, char *__src, char *a4, uint64_t a5)
+char *std::vector<CGRect>::__insert_with_size[abi:ne200100]<std::__wrap_iter<CGRect*>,std::__wrap_iter<CGRect*>>(void *a1, char *__dst, char *__src, char *a4, uint64_t a5)
 {
   v5 = __dst;
   if (a5 < 1)
@@ -5093,8 +5102,8 @@ char *std::vector<CGRect>::__insert_with_size[abi:ne200100]<std::__wrap_iter<CGR
   }
 
   v7 = __src;
-  v10 = *(a1 + 8);
-  v9 = *(a1 + 16);
+  v10 = a1[1];
+  v9 = a1[2];
   if (a5 > (v9 - v10) >> 5)
   {
     v11 = *a1;
@@ -5133,8 +5142,8 @@ char *std::vector<CGRect>::__insert_with_size[abi:ne200100]<std::__wrap_iter<CGR
     do
     {
       v39 = *v7;
-      v40 = v7[1];
-      v7 += 2;
+      v40 = *(v7 + 1);
+      v7 += 32;
       *v38 = v39;
       v38[1] = v40;
       v38 += 2;
@@ -5142,17 +5151,17 @@ char *std::vector<CGRect>::__insert_with_size[abi:ne200100]<std::__wrap_iter<CGR
     }
 
     while (v37);
-    memcpy((v36 + 32 * a5), v5, *(a1 + 8) - v5);
+    memcpy((v36 + 32 * a5), v5, a1[1] - v5);
     v41 = *a1;
-    v42 = v36 + 32 * a5 + *(a1 + 8) - v5;
-    *(a1 + 8) = v5;
+    v42 = v36 + 32 * a5 + a1[1] - v5;
+    a1[1] = v5;
     v43 = v5 - v41;
     v44 = (v36 - (v5 - v41));
     memcpy(v44, v41, v43);
     v45 = *a1;
     *a1 = v44;
-    *(a1 + 8) = v42;
-    *(a1 + 16) = 0;
+    a1[1] = v42;
+    a1[2] = 0;
     if (v45)
     {
       operator delete(v45);
@@ -5167,7 +5176,7 @@ char *std::vector<CGRect>::__insert_with_size[abi:ne200100]<std::__wrap_iter<CGR
   {
     v31 = &__dst[32 * a5];
     v32 = (v10 - 32 * a5);
-    v33 = *(a1 + 8);
+    v33 = a1[1];
     while (v32 < v10)
     {
       v34 = *v32;
@@ -5178,7 +5187,7 @@ char *std::vector<CGRect>::__insert_with_size[abi:ne200100]<std::__wrap_iter<CGR
       v33 += 2;
     }
 
-    *(a1 + 8) = v33;
+    a1[1] = v33;
     if (v10 != v31)
     {
       memmove(&__dst[32 * a5], __dst, v10 - v31);
@@ -5193,11 +5202,11 @@ char *std::vector<CGRect>::__insert_with_size[abi:ne200100]<std::__wrap_iter<CGR
   v20 = a4 - &__src[v17];
   if (a4 != &__src[v17])
   {
-    memmove(*(a1 + 8), &__src[v17], a4 - &__src[v17]);
+    memmove(a1[1], &__src[v17], a4 - &__src[v17]);
   }
 
   v21 = (v10 + v20);
-  *(a1 + 8) = v10 + v20;
+  a1[1] = v10 + v20;
   if (v18 >= 1)
   {
     v22 = &v5[32 * a5];
@@ -5220,7 +5229,7 @@ char *std::vector<CGRect>::__insert_with_size[abi:ne200100]<std::__wrap_iter<CGR
       v23 = v24 - v7;
     }
 
-    *(a1 + 8) = v23;
+    a1[1] = v23;
     if (v21 != v22)
     {
       memmove(&v5[32 * a5], v5, v21 - v22);
@@ -5337,7 +5346,7 @@ unint64_t TSWPAttributeArray::effectiveAttributeIndexForCharIndex(TSWPAttributeA
   return v10;
 }
 
-unint64_t TSWPAttributeArray::exactAttributeIndexForCharIndex(TSWPAttributeArray *this, unint64_t a2)
+uint64_t TSWPAttributeArray::exactAttributeIndexForCharIndex(TSWPAttributeArray *this, unint64_t a2)
 {
   v4 = TSWPAttributeArray::effectiveAttributeIndexForCharIndex(this, a2);
   v5 = 0x7FFFFFFFFFFFFFFFLL;
@@ -5762,19 +5771,17 @@ void sub_26C93CB74(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<objc_object *>::reserve(void *result, unint64_t a2)
+void std::vector<objc_object *>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 3)
+  if (a2 > (a1[2] - *a1) >> 3)
   {
     if (!(a2 >> 61))
     {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<void({block_pointer}*)(objc_object  {objcproto15EQKitLayoutNode}*,EQKit::Layout::Schemata const&)>>(result, a2);
+      std::__allocate_at_least[abi:nn200100]<std::allocator<void({block_pointer}*)(objc_object  {objcproto15EQKitLayoutNode}*,EQKit::Layout::Schemata const&)>>(a1, a2);
     }
 
     std::string::__throw_length_error[abi:nn200100]();
   }
-
-  return result;
 }
 
 uint64_t TSWPAttributeArray::adjustCharIndexStartingAtAttributeIndex(uint64_t result, uint64_t a2, unint64_t a3, uint64_t a4)
@@ -6223,9 +6230,9 @@ TSWPAttributeArray *TSWPAttributeArray::enumerateObjectAttributesInCharacterRang
   return result;
 }
 
-unint64_t TSWPAttributeArray::begin@<X0>(TSWPAttributeArray *this@<X0>, const _NSRange *a2@<X1>, TSWPAttributeArray **a3@<X8>)
+uint64_t *TSWPAttributeArray::begin@<X0>(uint64_t *__return_ptr a1@<X8>, TSWPAttributeArray *this@<X0>, const _NSRange *a3@<X1>)
 {
-  result = TSWPAttributeArray::effectiveAttributeIndexForCharIndex(this, a2->location);
+  result = TSWPAttributeArray::effectiveAttributeIndexForCharIndex(this, a3->location);
   if (result == 0x7FFFFFFFFFFFFFFFLL)
   {
     v6 = 0;
@@ -6236,14 +6243,14 @@ unint64_t TSWPAttributeArray::begin@<X0>(TSWPAttributeArray *this@<X0>, const _N
     v6 = result;
   }
 
-  *a3 = this;
-  a3[1] = v6;
+  *a1 = this;
+  a1[1] = v6;
   return result;
 }
 
-unint64_t TSWPAttributeArray::end@<X0>(TSWPAttributeArray *this@<X0>, const _NSRange *a2@<X1>, TSWPAttributeArray **a3@<X8>)
+uint64_t *TSWPAttributeArray::end@<X0>(uint64_t *__return_ptr a1@<X8>, TSWPAttributeArray *this@<X0>, const _NSRange *a3@<X1>)
 {
-  v6 = a2->length + a2->location;
+  v6 = (a3->length + a3->location);
   result = [this->var5 length];
   if (v6 == result)
   {
@@ -6252,7 +6259,7 @@ unint64_t TSWPAttributeArray::end@<X0>(TSWPAttributeArray *this@<X0>, const _NSR
 
   else
   {
-    result = TSWPAttributeArray::effectiveAttributeIndexForCharIndex(this, v6 - (a2->length != 0));
+    result = TSWPAttributeArray::effectiveAttributeIndexForCharIndex(this, v6 - (a3->length != 0));
     if (result == 0x7FFFFFFFFFFFFFFFLL)
     {
       var2 = 0;
@@ -6264,14 +6271,14 @@ unint64_t TSWPAttributeArray::end@<X0>(TSWPAttributeArray *this@<X0>, const _NSR
     }
   }
 
-  *a3 = this;
-  a3[1] = var2;
+  *a1 = this;
+  a1[1] = var2;
   return result;
 }
 
-void sub_26C93F26C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_26C93F26C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   std::__list_imp<TSWPRepBoundsAnalyzer::Span>::clear(va);
   _Unwind_Resume(a1);
 }
@@ -6314,9 +6321,9 @@ void TSWPRepBoundsAnalyzer::addMultipleColorBounds(TSWPRepBoundsAnalyzer *this, 
   CGColorRelease(color);
 }
 
-void TSWPRepBoundsAnalyzer::finalize(uint64_t a1, uint64_t a2, CGFloat a3, CGFloat a4, CGFloat a5, CGFloat a6, double a7, double a8)
+void TSWPRepBoundsAnalyzer::finalize(uint64_t a1, uint64_t *a2, CGFloat a3, CGFloat a4, CGFloat a5, CGFloat a6, double a7, double a8)
 {
-  std::vector<TSWPRepBoundsAnalyzer::Info>::erase(a2, *a2, *(a2 + 8));
+  std::vector<TSWPRepBoundsAnalyzer::Info>::erase(a2, *a2, a2[1]);
   v16 = *(a1 + 8);
   v17 = *(v16 + 32);
   if (v16 != a1)
@@ -6415,14 +6422,16 @@ void TSWPRepBoundsAnalyzer::TSWPRepBoundsAnalyzer(TSWPRepBoundsAnalyzer *this, C
   *this = this;
   *(this + 1) = this;
   *(this + 2) = 0;
-  CGRectGetMinY(a2);
-  v6.origin.x = x;
-  v6.origin.y = y;
-  v6.size.width = width;
-  v6.size.height = height;
-  ceil(CGRectGetMaxY(v6));
-  CGColorRetain(0);
-  std::__list_imp<TSWPRepBoundsAnalyzer::Span>::__create_node[abi:nn200100]<TSWPRepBoundsAnalyzer::Span>();
+  MinY = CGRectGetMinY(a2);
+  v10.origin.x = x;
+  v10.origin.y = y;
+  v10.size.width = width;
+  v10.size.height = height;
+  v8[0] = floor(MinY);
+  v8[1] = ceil(CGRectGetMaxY(v10));
+  v8[2] = CGColorRetain(0);
+  v9 = 1;
+  std::__list_imp<TSWPRepBoundsAnalyzer::Span>::__create_node[abi:nn200100]<TSWPRepBoundsAnalyzer::Span>(this, 0, 0, v8);
 }
 
 void sub_26C93F7C8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, CGColorRef color)
@@ -6457,19 +6466,19 @@ void std::__list_imp<TSWPRepBoundsAnalyzer::Span>::clear(uint64_t *a1)
   }
 }
 
-void TSWPRepBoundsAnalyzer::insertSpan(uint64_t a1, double *a2)
+void TSWPRepBoundsAnalyzer::insertSpan(uint64_t *a1, double *a2)
 {
   v32 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 8);
+  v2 = a1[1];
   if (v2 != a1)
   {
     v5 = 0;
     v6 = a2[1];
-    v7 = *(a1 + 8);
+    v7 = a1[1];
     do
     {
       ++v5;
-      v7 = *(v7 + 8);
+      v7 = v7[1];
     }
 
     while (v7 != a1);
@@ -6504,7 +6513,7 @@ void TSWPRepBoundsAnalyzer::insertSpan(uint64_t a1, double *a2)
     {
       v11 = 0;
       v12 = v2;
-      while (*(v12 + 16) < v6)
+      while (*(v12 + 2) < v6)
       {
         v20 = 0;
         v21 = 0;
@@ -6518,12 +6527,12 @@ void TSWPRepBoundsAnalyzer::insertSpan(uint64_t a1, double *a2)
         v30 = 0;
         v28 = 0;
         v31 = 0;
-        v13 = TSWPRepBoundsAnalyzer::Span::split(v12 + 16, a2, &v20);
+        v13 = TSWPRepBoundsAnalyzer::Span::split((v12 + 2), a2, &v20);
         if (v13)
         {
           if (v13 != 1)
           {
-            std::__list_imp<TSWPRepBoundsAnalyzer::Span>::__create_node[abi:nn200100]<TSWPRepBoundsAnalyzer::Span const&>();
+            std::__list_imp<TSWPRepBoundsAnalyzer::Span>::__create_node[abi:nn200100]<TSWPRepBoundsAnalyzer::Span const&>(a1, 0, 0, &v20);
           }
 
           v14 = v20;
@@ -6531,11 +6540,11 @@ void TSWPRepBoundsAnalyzer::insertSpan(uint64_t a1, double *a2)
           v16 = v23;
           v17 = color;
           CGColorRetain(color);
-          *(v12 + 16) = v14;
-          *(v12 + 24) = v15;
+          v12[2] = v14;
+          v12[3] = v15;
           *(v12 + 40) = v16;
-          v18 = *(v12 + 32);
-          *(v12 + 32) = v17;
+          v18 = v12[4];
+          v12[4] = v17;
           CGColorRelease(v18);
           v11 = 1;
         }
@@ -6545,7 +6554,7 @@ void TSWPRepBoundsAnalyzer::insertSpan(uint64_t a1, double *a2)
           CGColorRelease(*(&v20 + i));
         }
 
-        v12 = *(v12 + 8);
+        v12 = v12[1];
         if (v12 == a1)
         {
           v12 = a1;
@@ -6814,7 +6823,7 @@ LABEL_11:
   }
 }
 
-uint64_t std::vector<TSWPRepBoundsAnalyzer::Info>::erase(uint64_t a1, uint64_t a2, __int128 *a3)
+__int128 *std::vector<TSWPRepBoundsAnalyzer::Info>::erase(uint64_t a1, __int128 *a2, __int128 *a3)
 {
   if (a3 != a2)
   {
@@ -6873,7 +6882,7 @@ void TSWPRepBoundsAnalyzer::insertTilesForRect(int a1, uint64_t *a2, CGColorRef 
       {
         do
         {
-          v21 = MinX;
+          *&v21 = MinX;
           v36.origin.x = a4;
           v36.origin.y = a5;
           v36.size.width = a6;
@@ -6882,7 +6891,7 @@ void TSWPRepBoundsAnalyzer::insertTilesForRect(int a1, uint64_t *a2, CGColorRef 
           v22 = a2[1];
           v27 = v21;
           v28 = MinY;
-          v29 = MinX - v21;
+          v29 = MinX - *&v21;
           v30 = v25 - MinY;
           colora = CGColorRetain(color);
           std::vector<TSWPRepBoundsAnalyzer::Info>::insert(a2, v22, &v27);
@@ -6908,7 +6917,7 @@ void TSWPRepBoundsAnalyzer::insertTilesForRect(int a1, uint64_t *a2, CGColorRef 
   else
   {
     v23 = a2[1];
-    v27 = a4;
+    v27 = *&a4;
     v28 = a5;
     v29 = a6;
     v30 = a7;
@@ -6944,7 +6953,7 @@ __int128 *std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:nn200100]<TSW
   return v5;
 }
 
-uint64_t std::vector<TSWPRepBoundsAnalyzer::Info>::insert(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t std::vector<TSWPRepBoundsAnalyzer::Info>::insert(uint64_t *a1, uint64_t a2, CGColorRef *a3)
 {
   v4 = a2;
   v7 = a1[1];
@@ -6993,20 +7002,20 @@ uint64_t std::vector<TSWPRepBoundsAnalyzer::Info>::insert(uint64_t *a1, uint64_t
 
   else if (a2 == v7)
   {
-    v18 = *(a3 + 16);
+    v18 = *(a3 + 1);
     *v7 = *a3;
     *(v7 + 16) = v18;
-    *(v7 + 32) = CGColorRetain(*(a3 + 32));
+    *(v7 + 32) = CGColorRetain(a3[4]);
     a1[1] = v7 + 40;
   }
 
   else
   {
     std::vector<TSWPRepBoundsAnalyzer::Info>::__move_range(a1, a2, a1[1], a2 + 40);
-    v8 = *(a3 + 16);
+    v8 = *(a3 + 1);
     v25 = *a3;
     v26 = v8;
-    v9 = CGColorRetain(*(a3 + 32));
+    v9 = CGColorRetain(a3[4]);
     v10 = v26;
     *v4 = v25;
     *(v4 + 16) = v10;
@@ -7044,7 +7053,7 @@ uint64_t std::vector<TSWPRepBoundsAnalyzer::Info>::__move_range(uint64_t a1, uin
   return std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:nn200100]<TSWPRepBoundsAnalyzer::Info *,TSWPRepBoundsAnalyzer::Info *,TSWPRepBoundsAnalyzer::Info *>(&v13, a2, v7, v6);
 }
 
-CGColorRef std::__split_buffer<TSWPRepBoundsAnalyzer::Info>::emplace_back<TSWPRepBoundsAnalyzer::Info>(void *a1, uint64_t a2)
+CGColorRef std::__split_buffer<TSWPRepBoundsAnalyzer::Info>::emplace_back<TSWPRepBoundsAnalyzer::Info>(unint64_t *a1, uint64_t a2)
 {
   v4 = a1[2];
   if (v4 == a1[3])
@@ -7084,9 +7093,9 @@ CGColorRef std::__split_buffer<TSWPRepBoundsAnalyzer::Info>::emplace_back<TSWPRe
   return result;
 }
 
-void sub_26C940624(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26C940624(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<TSWPRepBoundsAnalyzer::Info>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -7221,7 +7230,7 @@ void std::vector<TSWPRepBoundsAnalyzer::Info>::__destroy_vector::operator()[abi:
   }
 }
 
-uint64_t _shapePackageStringByPresetKind(void)
+uint64_t _shapePackageStringByPresetKind(uint64_t a1, uint64_t a2)
 {
   if (_shapePackageStringByPresetKindonceToken != -1)
   {
@@ -7247,7 +7256,7 @@ id ___Z31_shapePackageStringByPresetKindv_block_invoke()
   return result;
 }
 
-uint64_t _presetKindByShapePackageString(void)
+uint64_t _presetKindByShapePackageString(uint64_t a1, uint64_t a2)
 {
   if (_presetKindByShapePackageStringonceToken != -1)
   {
@@ -7257,60 +7266,60 @@ uint64_t _presetKindByShapePackageString(void)
   return _presetKindByShapePackageStringsingleton;
 }
 
-id ___Z31_presetKindByShapePackageStringv_block_invoke()
+id ___Z31_presetKindByShapePackageStringv_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = MEMORY[0x277CBEAC0];
+  v2 = MEMORY[0x277CBEAC0];
   if (_shapePackageStringByPresetKindonceToken != -1)
   {
     _shapePackageStringByPresetKind();
   }
 
-  result = [v0 tsu_dictionaryByInvertingDictionary:_shapePackageStringByPresetKindsingleton];
+  result = [v2 tsu_dictionaryByInvertingDictionary:_shapePackageStringByPresetKindsingleton];
   _presetKindByShapePackageStringsingleton = result;
   return result;
 }
 
-uint64_t TSWPShapePackageStringForPresetKind(uint64_t a1)
+uint64_t TSWPShapePackageStringForPresetKind(uint64_t a1, uint64_t a2)
 {
   if (_shapePackageStringByPresetKindonceToken != -1)
   {
     _shapePackageStringByPresetKind();
   }
 
-  v2 = [_shapePackageStringByPresetKindsingleton objectForKeyedSubscript:a1];
-  if (!v2)
+  v3 = [_shapePackageStringByPresetKindsingleton objectForKeyedSubscript:a1];
+  if (!v3)
   {
-    v3 = [MEMORY[0x277D6C290] currentHandler];
-    v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:"NSString *TSWPShapePackageStringForPresetKind(TSSPresetKind)"];
-    [v3 handleFailureInFunction:v4 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/text/TSWPShapeInfo.mm"), 97, @"Unexpected preset kind %@ in TSWPShapeStylePackageStringForPresetKind()", a1}];
+    v4 = [MEMORY[0x277D6C290] currentHandler];
+    v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"NSString *TSWPShapePackageStringForPresetKind(TSSPresetKind)"];
+    [v4 handleFailureInFunction:v5 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/text/TSWPShapeInfo.mm"), 97, @"Unexpected preset kind %@ in TSWPShapeStylePackageStringForPresetKind()", a1}];
   }
 
-  return v2;
+  return v3;
 }
 
-uint64_t TSWPShapePresetKindForPackageString(void *a1)
+uint64_t TSWPShapePresetKindForPackageString(void *a1, uint64_t a2)
 {
   if (_presetKindByShapePackageStringonceToken != -1)
   {
     _presetKindByShapePackageString();
   }
 
-  v2 = [_presetKindByShapePackageStringsingleton objectForKeyedSubscript:a1];
-  if (!v2)
+  v3 = [_presetKindByShapePackageStringsingleton objectForKeyedSubscript:a1];
+  if (!v3)
   {
-    v2 = String;
+    v3 = String;
     if (([a1 isEqualToString:@"tableName"] & 1) == 0)
     {
-      v3 = [MEMORY[0x277D6C290] currentHandler];
-      v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:"TSSPresetKind TSWPShapePresetKindForPackageString(NSString *)"];
-      [v3 handleFailureInFunction:v4 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/text/TSWPShapeInfo.mm"), 124, @"Unknown package string %@.", a1}];
+      v4 = [MEMORY[0x277D6C290] currentHandler];
+      v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"TSSPresetKind TSWPShapePresetKindForPackageString(NSString *)"];
+      [v4 handleFailureInFunction:v5 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/text/TSWPShapeInfo.mm"), 124, @"Unknown package string %@.", a1}];
     }
   }
 
-  return v2;
+  return v3;
 }
 
-void TSWPLayoutChore::TSWPLayoutChore(uint64_t a1, void *a2, void *a3, void *a4, uint64_t a5, int a6, uint64_t a7, uint64_t a8, uint64_t a9)
+void TSWPLayoutChore::TSWPLayoutChore(uint64_t a1, void *a2, void *a3, void *a4, uint64_t a5, int a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   *a1 = &unk_287D352D0;
   TSWPParagraphEnumerator::TSWPParagraphEnumerator((a1 + 104));
@@ -7332,9 +7341,9 @@ void TSWPLayoutChore::TSWPLayoutChore(uint64_t a1, void *a2, void *a3, void *a4,
   *(a1 + 56) = [a2 wpKind];
   *(a1 + 64) = [a2 characterCount];
   *(a1 + 72) = [a2 attachmentCount];
-  *&v16 = 0xFFFFFFFFLL;
-  *(&v16 + 1) = 0xFFFFFFFFLL;
-  *(a1 + 40) = v16;
+  *&v17 = 0xFFFFFFFFLL;
+  *(&v17 + 1) = 0xFFFFFFFFLL;
+  *(a1 + 40) = v17;
   if (objc_opt_respondsToSelector())
   {
     [a3 forceWesternLineBreaking];
@@ -7344,13 +7353,13 @@ void TSWPLayoutChore::TSWPLayoutChore(uint64_t a1, void *a2, void *a3, void *a4,
 }
 
 {
-  TSWPLayoutChore::TSWPLayoutChore(a1, a2, a3, a4, a5, a6, a7, a8, a9);
+  TSWPLayoutChore::TSWPLayoutChore(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10);
 }
 
 void sub_26C94296C(_Unwind_Exception *a1)
 {
   TSWPLineBalancingLayoutState::~TSWPLineBalancingLayoutState(&v1[23]._charIndex);
-  TSWPDropCapLayoutState::~TSWPDropCapLayoutState(&v1[18]);
+  TSWPDropCapLayoutState::~TSWPDropCapLayoutState(&v1[18]._numbersForListStyle.__tree_.__begin_node_);
   TSWPTopicNumberHints::~TSWPTopicNumberHints(v1 + 17);
   TSWPTopicNumberHints::~TSWPTopicNumberHints(v1 + 16);
   TSWPLayoutState::~TSWPLayoutState(&v1[1]._validThroughCharIndex);
@@ -7389,9 +7398,9 @@ void TSWPLayoutChore::~TSWPLayoutChore(TSWPLayoutChore *this)
 
   v4 = (this + 2000);
   std::vector<TSWPLayoutState>::__destroy_vector::operator()[abi:ne200100](&v4);
-  TSWPLineStylingLayoutState::~TSWPLineStylingLayoutState((this + 1928));
+  TSWPLineStylingLayoutState::~TSWPLineStylingLayoutState(this + 241);
   TSWPLineBalancingLayoutState::~TSWPLineBalancingLayoutState((this + 1128));
-  TSWPDropCapLayoutState::~TSWPDropCapLayoutState((this + 864));
+  TSWPDropCapLayoutState::~TSWPDropCapLayoutState(this + 108);
   TSWPTopicNumberHints::~TSWPTopicNumberHints(this + 17);
   TSWPTopicNumberHints::~TSWPTopicNumberHints(this + 16);
   TSWPLayoutState::~TSWPLayoutState((this + 80));
@@ -7403,31 +7412,30 @@ void TSWPLayoutChore::~TSWPLayoutChore(TSWPLayoutChore *this)
   JUMPOUT(0x26D6A9A30);
 }
 
-uint64_t TSWPLayoutChore::setStorageRange(TSWPLayoutChore *this, _NSRange a2)
+void *TSWPLayoutChore::setStorageRange(TSWPLayoutChore *this, _NSRange a2)
 {
-  length = a2.length;
   location = a2.location;
   *(this + 8) = a2.location + a2.length;
-  v5 = *(this + 1);
-  v6 = [*(this + 3) styleProvider];
-  if (v5)
+  v4 = *(this + 1);
+  [*(this + 3) styleProvider];
+  if (v4)
   {
-    [v5 paragraphEnumeratorForCharRange:location styleProvider:{length, v6}];
+    objc_msgSend_paragraphEnumeratorForCharRange_styleProvider_(v4);
   }
 
   else
   {
-    memset(&v10, 0, sizeof(v10));
+    memset(&v8, 0, sizeof(v8));
   }
 
-  v7 = *&v10.var2;
-  *(this + 104) = *&v10.var0;
-  *(this + 120) = v7;
-  *(this + 136) = *&v10.var4;
-  *(this + 152) = v10.var6;
-  TSWPParagraphEnumerator::~TSWPParagraphEnumerator(&v10);
+  v5 = *&v8.var2;
+  *(this + 104) = *&v8.var0;
+  *(this + 120) = v5;
+  *(this + 136) = *&v8.var4;
+  *(this + 152) = v8.var6;
+  TSWPParagraphEnumerator::~TSWPParagraphEnumerator(&v8);
   result = [*(this + 1) attachmentIndexRangeForTextRange:{0, *(this + 8)}];
-  *(this + 9) = v9;
+  *(this + 9) = v7;
   *(this + 10) = location;
   return result;
 }
@@ -7440,7 +7448,7 @@ TSWPTopicNumberHints *TSWPLayoutChore::setTopicNumbers(TSWPLayoutChore *this, TS
   return TSWPTopicNumberHints::operator=(this + 16, this + 17);
 }
 
-uint64_t TSWPLayoutChore::layoutIntoTarget(uint64_t a1, void *a2, uint64_t a3, char *a4)
+uint64_t TSWPLayoutChore::layoutIntoTarget(NSUInteger a1, void *a2, uint64_t a3, char *a4)
 {
   v9 = (a1 + 80);
   v8 = *(a1 + 80);
@@ -7485,8 +7493,8 @@ uint64_t TSWPLayoutChore::layoutIntoTarget(uint64_t a1, void *a2, uint64_t a3, c
     v18 = *(a1 + 8);
     v19 = *(a1 + 80);
     v20 = [*(a1 + 24) styleProvider];
-    LOBYTE(v37) = (*(a1 + 32) & 0x10) != 0;
-    [TSWPLayoutManager fixColumnBoundsForTarget:a2 storage:v18 charIndex:v19 firstColumnIndex:0 precedingHeight:0 height:v20 alreadyHasMargins:0.0 styleProvider:v16 vertical:v37];
+    LOBYTE(v38) = (*(a1 + 32) & 0x10) != 0;
+    [TSWPLayoutManager fixColumnBoundsForTarget:a2 storage:v18 charIndex:v19 firstColumnIndex:0 precedingHeight:0 height:v20 alreadyHasMargins:0.0 styleProvider:v16 vertical:v38];
   }
 
   if (![v17 count])
@@ -7515,11 +7523,11 @@ uint64_t TSWPLayoutChore::layoutIntoTarget(uint64_t a1, void *a2, uint64_t a3, c
   }
 
   TSWPLayoutChore::protectedSetupLayoutState(a1, a2, 0, *(a1 + 80), *(a1 + 760));
-  TSWPLayoutState::TSWPLayoutState(v45, v9);
-  TSWPLayoutChore::pPushLayoutState(a1, v45);
+  TSWPLayoutState::TSWPLayoutState(v46, v9);
+  TSWPLayoutChore::pPushLayoutState(a1, v46);
   [*(a1 + 680) removeAllFootnoteReferenceStorages];
-  v44 = 0;
-  v42 = 0;
+  v45 = 0;
+  v43 = 0;
   if ([a2 shouldPositionAttachmentsIteratively])
   {
     v23 = [a2 iterativeAttachmentPositioningMaxPassCount] != 0;
@@ -7533,15 +7541,15 @@ uint64_t TSWPLayoutChore::layoutIntoTarget(uint64_t a1, void *a2, uint64_t a3, c
   v25 = rint(v16);
   while (1)
   {
-    v41 = 0.0;
-    v40 = 1;
-    v39 = 0;
+    v42 = 0.0;
+    v41 = 1;
+    v40 = 0;
     v26 = v25;
-    v43 = 0;
+    v44 = 0;
     do
     {
-      v27 = TSWPLayoutChore::pLayoutPiece(a1, a2, a3, &v41, &v40, &v43, &v39, v16, v26);
-      v26 = rint(v16 - v41);
+      v27 = TSWPLayoutChore::pLayoutPiece(a1, a2, a3, &v42, &v41, &v44, &v40, v16, v26);
+      v26 = rint(v16 - v42);
       if (v26 <= 0.0)
       {
         v28 = 1;
@@ -7555,31 +7563,31 @@ uint64_t TSWPLayoutChore::layoutIntoTarget(uint64_t a1, void *a2, uint64_t a3, c
 
     while (v28 != 1);
     v29 = [v17 count];
-    if (v29 > v39)
+    if (v29 > v40)
     {
-      [v17 removeObjectsInRange:{v39, v29 - v39}];
+      [v17 removeObjectsInRange:{v40, v29 - v40}];
     }
 
     TSWPLayoutChore::pSetTargetColumnsTransform(a1);
-    HasOverlaps = TSWPLayoutChore::targetHasOverlaps(a1, &v44, &v42, a2);
-    v31 = v23 ? TSWPLayoutChore::pPerformIterativeAttachmentPositioning(a1, &v44 + 1, a2) : 1;
+    HasOverlaps = TSWPLayoutChore::targetHasOverlaps(a1, &v45, &v43, a2);
+    v31 = v23 ? TSWPLayoutChore::pPerformIterativeAttachmentPositioning(a1, &v45 + 1, a2) : 1;
     if (!(HasOverlaps & 1 | ((v31 & 1) == 0)))
     {
       break;
     }
 
     v32 = *(a1 + 744);
-    TSWPLayoutChore::pRestoreStateFromOldState(a1, v45);
+    TSWPLayoutChore::pRestoreStateFromOldState(a1, v46);
     *(a1 + 744) = v32;
     TSWPTopicNumberHints::operator=((a1 + 768), (a1 + 816));
     [*(a1 + 680) removeAllFootnoteReferenceStorages];
   }
 
   TSWPLayoutChore::postProcessDrawableAttachments(a1, a2);
-  TSWPLayoutChore::pPopLayoutState(a1, v38);
-  TSWPLayoutState::~TSWPLayoutState(v38);
+  TSWPLayoutChore::pPopLayoutState(v39, a1);
+  TSWPLayoutState::~TSWPLayoutState(v39);
   TSWPLayoutChore::pHandleSync(a1, a2, a4);
-  if (*(a1 + 80) < *(a1 + 64) || ((v33 = v43, v34 = IsParagraphBreakingCharacter(v43), v33 == 8232) ? (v35 = 1) : (v35 = v34), (v35 & 1) != 0 || *(a1 + 88) < *(a1 + 64)))
+  if (*(a1 + 80) < *(a1 + 64) || ((v34 = v44, v35 = IsParagraphBreakingCharacter(v44, v33), v34 == 8232) ? (v36 = 1) : (v36 = v35), (v36 & 1) != 0 || *(a1 + 88) < *(a1 + 64)))
   {
     ColumnContainsOnlyOneAnchoredDrawable = 1;
   }
@@ -7589,18 +7597,18 @@ uint64_t TSWPLayoutChore::layoutIntoTarget(uint64_t a1, void *a2, uint64_t a3, c
     ColumnContainsOnlyOneAnchoredDrawable = TSWPLayoutChore::pLastColumnContainsOnlyOneAnchoredDrawable(a1, a2);
   }
 
-  TSWPLayoutState::~TSWPLayoutState(v45);
+  TSWPLayoutState::~TSWPLayoutState(v46);
   return ColumnContainsOnlyOneAnchoredDrawable;
 }
 
-void TSWPLayoutChore::protectedSetupLayoutState(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, void *a5)
+void TSWPLayoutChore::protectedSetupLayoutState(uint64_t a1, void *a2, char *a3, uint64_t a4, void *a5)
 {
   v8 = a2;
   *(a1 + 2056) = a2;
   v10 = a5;
-  TSWPParagraphEnumerator::TSWPParagraphEnumerator(v44);
-  bzero(v43, 0x2B0uLL);
-  TSWPLayoutState::operator=((a1 + 80), v43);
+  TSWPParagraphEnumerator::TSWPParagraphEnumerator(v33);
+  bzero(v32, 0x2B0uLL);
+  TSWPLayoutState::operator=((a1 + 80), v32);
   TSWPLayoutState::setPreviousPartHint((a1 + 80), a5);
 
   *(a1 + 80) = a4;
@@ -7609,24 +7617,23 @@ void TSWPLayoutChore::protectedSetupLayoutState(uint64_t a1, void *a2, uint64_t 
   {
     *(a1 + 184) = [v11 objectAtIndexedSubscript:a3];
     v12 = *(a1 + 8);
-    v13 = *(a1 + 80);
-    v14 = [*(a1 + 24) styleProvider];
+    [*(a1 + 24) styleProvider];
     if (v12)
     {
-      [v12 paragraphEnumeratorAtCharIndex:v13 styleProvider:v14];
+      objc_msgSend_paragraphEnumeratorAtCharIndex_styleProvider_(v12);
     }
 
     else
     {
-      memset(&v42, 0, sizeof(v42));
+      memset(&v31, 0, sizeof(v31));
     }
 
-    v15 = *&v42.var2;
-    *(a1 + 104) = *&v42.var0;
-    *(a1 + 120) = v15;
-    *(a1 + 136) = *&v42.var4;
-    *(a1 + 152) = v42.var6;
-    TSWPParagraphEnumerator::~TSWPParagraphEnumerator(&v42);
+    v13 = *&v31.var2;
+    *(a1 + 104) = *&v31.var0;
+    *(a1 + 120) = v13;
+    *(a1 + 136) = *&v31.var4;
+    *(a1 + 152) = v31.var6;
+    TSWPParagraphEnumerator::~TSWPParagraphEnumerator(&v31);
   }
 
   *(a1 + 88) = a4;
@@ -7634,18 +7641,18 @@ void TSWPLayoutChore::protectedSetupLayoutState(uint64_t a1, void *a2, uint64_t 
   {
     if ([v11 count])
     {
-      v16 = [objc_msgSend(v11 objectAtIndexedSubscript:{a3 - 1), "anchoredRange"}];
+      v14 = [objc_msgSend(v11 objectAtIndexedSubscript:{a3 - 1), "anchoredRange"}];
 LABEL_11:
-      *(a1 + 88) = v16 + v17;
+      *(a1 + 88) = v14 + v15;
     }
   }
 
   else
   {
-    v18 = [v8 previousTargetLastColumn];
-    if (v18)
+    v16 = [v8 previousTargetLastColumn];
+    if (v16)
     {
-      v16 = [v18 anchoredRange];
+      v14 = [v16 anchoredRange];
       goto LABEL_11;
     }
   }
@@ -7655,29 +7662,29 @@ LABEL_11:
   *(a1 + 688) = [v8 footnoteMarkProvider];
   TSWPLayoutChore::pSetupStateForParagraphIndex(a1, 0);
   TSWPLayoutChore::pSetupStateForColumnMetrics(a1);
-  v19 = *(a1 + 184);
-  if (v19)
+  v17 = *(a1 + 184);
+  if (v17)
   {
-    v20 = [v19 columnIndex];
-    *(a1 + 240) = v20;
-    if (v20 != a3)
+    v18 = [v17 columnIndex];
+    *(a1 + 240) = v18;
+    if (v18 != a3)
     {
-      v21 = [MEMORY[0x277D6C290] currentHandler];
-      v22 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"void TSWPLayoutChore::protectedSetupLayoutState(TSDLayout<TSWPLayoutTarget> *, NSUInteger, TSWPCharIndex, id<TSDHint>, uint)"}];
-      [v21 handleFailureInFunction:v22 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/text/TSWPLayoutChore.mm"), 706, @"Column index mismatch"}];
+      v19 = [MEMORY[0x277D6C290] currentHandler];
+      v20 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"void TSWPLayoutChore::protectedSetupLayoutState(TSDLayout<TSWPLayoutTarget> *, NSUInteger, TSWPCharIndex, id<TSDHint>, uint)"}];
+      [v19 handleFailureInFunction:v20 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/text/TSWPLayoutChore.mm"), 706, @"Column index mismatch"}];
     }
   }
 
   *(a1 + 712) = [*(a1 + 16) textWrapper];
-  v23 = [*(a1 + 16) lineHintsForTarget:v8];
-  *(a1 + 720) = v23;
-  if (v23)
+  v21 = [*(a1 + 16) lineHintsForTarget:v8];
+  *(a1 + 720) = v21;
+  if (v21)
   {
-    if (([v23 valid] & 1) == 0)
+    if (([v21 valid] & 1) == 0)
     {
-      v24 = [MEMORY[0x277D6C290] currentHandler];
-      v25 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"void TSWPLayoutChore::protectedSetupLayoutState(TSDLayout<TSWPLayoutTarget> *, NSUInteger, TSWPCharIndex, id<TSDHint>, uint)"}];
-      [v24 handleFailureInFunction:v25 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/text/TSWPLayoutChore.mm"), 714, @"lintHints %p invalid:\n%@", *(a1 + 720), objc_msgSend(*(a1 + 720), "descriptionWithStorage:", *(a1 + 8))}];
+      v22 = [MEMORY[0x277D6C290] currentHandler];
+      v23 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"void TSWPLayoutChore::protectedSetupLayoutState(TSDLayout<TSWPLayoutTarget> *, NSUInteger, TSWPCharIndex, id<TSDHint>, uint)"}];
+      [v22 handleFailureInFunction:v23 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/text/TSWPLayoutChore.mm"), 714, @"lintHints %p invalid:\n%@", *(a1 + 720), objc_msgSend(*(a1 + 720), "descriptionWithStorage:", *(a1 + 8))}];
     }
 
     if (([*(a1 + 720) valid] & 1) == 0)
@@ -7687,32 +7694,28 @@ LABEL_11:
   }
 
   objc_opt_class();
-  v26 = TSUDynamicCast();
-  if (v26)
+  v24 = TSUDynamicCast();
+  if (v24)
   {
     if (objc_opt_respondsToSelector())
     {
-      v26 = [*(a1 + 16) textColorOverride];
+      v24 = [*(a1 + 16) textColorOverride];
     }
 
     else
     {
-      v26 = 0;
+      v24 = 0;
     }
   }
 
-  *(a1 + 728) = v26;
+  *(a1 + 728) = v24;
   [v8 position];
-  v28 = v27;
-  v30 = v29;
-  v31 = [v8 maxSize];
-  v33.n128_u64[0] = v32;
-  v35.n128_u64[0] = v34;
-  v36.n128_u64[0] = v28;
-  *(a1 + 648) = TSDRectWithOriginAndSize(v31, v36, v30, v33, v35);
-  *(a1 + 656) = v37;
-  *(a1 + 664) = v38;
-  *(a1 + 672) = v39;
+  [v8 maxSize];
+  TSDRectWithOriginAndSize();
+  *(a1 + 648) = v25;
+  *(a1 + 656) = v26;
+  *(a1 + 664) = v27;
+  *(a1 + 672) = v28;
   *(a1 + 414) = (*(a1 + 32) & 0x20) != 0;
   if ((objc_opt_respondsToSelector() & 1) == 0)
   {
@@ -7722,35 +7725,35 @@ LABEL_11:
   *(a1 + 425) = [v8 shouldHyphenate];
   if (*(a1 + 56) >= 3u)
   {
-    v41 = *(a1 + 184);
-    if (v41)
+    v30 = *(a1 + 184);
+    if (v30)
     {
-      [v41 frameBounds];
+      [v30 frameBounds];
     }
 
     else
     {
-      v40 = 0;
+      v29 = 0;
     }
   }
 
   else
   {
-    v40 = 0xFFF0000000000000;
+    v29 = 0xFFF0000000000000;
   }
 
-  *(a1 + 400) = v40;
-  TSWPLayoutState::~TSWPLayoutState(v43);
+  *(a1 + 400) = v29;
+  TSWPLayoutState::~TSWPLayoutState(v32);
 }
 
-void sub_26C943444(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_26C943444(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   TSWPLayoutState::~TSWPLayoutState(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t TSWPLayoutChore::pPushLayoutState(TSWPLayoutChore *this, const TSWPLayoutState *a2)
+void *TSWPLayoutChore::pPushLayoutState(TSWPLayoutChore *this, const TSWPLayoutState *a2)
 {
   v4 = *(this + 251);
   if (0x82FA0BE82FA0BE83 * ((v4 - *(this + 250)) >> 4) < 6 || (v5 = [MEMORY[0x277D6C290] currentHandler], v6 = objc_msgSend(MEMORY[0x277CCACA8], "stringWithUTF8String:", "void TSWPLayoutChore::pPushLayoutState(const TSWPLayoutState &)"), result = objc_msgSend(v5, "handleFailureInFunction:file:lineNumber:description:", v6, objc_msgSend(MEMORY[0x277CCACA8], "stringWithUTF8String:", "/Library/Caches/com.apple.xbs/Sources/AlderShared/text/TSWPLayoutChore.mm"), 743, @"Too many layoutStates pushed"), v4 = *(this + 251), 0x82FA0BE82FA0BE83 * ((v4 - *(this + 250)) >> 4) <= 5))
@@ -7763,7 +7766,7 @@ uint64_t TSWPLayoutChore::pPushLayoutState(TSWPLayoutChore *this, const TSWPLayo
     else
     {
       TSWPLayoutState::TSWPLayoutState(v4, a2);
-      result = v4 + 688;
+      result = (v4 + 688);
       *(this + 251) = v4 + 688;
     }
 
@@ -7773,7 +7776,7 @@ uint64_t TSWPLayoutChore::pPushLayoutState(TSWPLayoutChore *this, const TSWPLayo
   return result;
 }
 
-uint64_t TSWPLayoutChore::pLayoutPiece(uint64_t a1, void *a2, uint64_t a3, double *a4, _DWORD *a5, _WORD *a6, unsigned int *a7, double a8, double a9)
+uint64_t TSWPLayoutChore::pLayoutPiece(NSUInteger a1, void *a2, uint64_t a3, double *a4, _DWORD *a5, _WORD *a6, unsigned int *a7, double a8, double a9)
 {
   v9 = a7;
   v12 = a9;
@@ -8252,7 +8255,7 @@ LABEL_111:
     v98 = 1;
   }
 
-  TSWPLayoutChore::pPopLayoutState(a1, v123);
+  TSWPLayoutChore::pPopLayoutState(v123, a1);
   TSWPLayoutState::~TSWPLayoutState(v123);
   TSWPTopicNumberHints::~TSWPTopicNumberHints(&v129);
   TSWPLayoutState::~TSWPLayoutState(v130);
@@ -8289,7 +8292,7 @@ void sub_26C943F64(_Unwind_Exception *a1)
   }
 }
 
-uint64_t TSWPLayoutChore::pSetTargetColumnsTransform(id *this)
+void *TSWPLayoutChore::pSetTargetColumnsTransform(id *this)
 {
   v22 = *MEMORY[0x277D85DE8];
   v2 = [this[257] columns];
@@ -8352,7 +8355,7 @@ uint64_t TSWPLayoutChore::pSetTargetColumnsTransform(id *this)
         v13 = *(*(&v14 + 1) + 8 * v12);
         v19 = v20;
         [v13 setTransformFromWP:&v19];
-        ++v12;
+        v12 = v12 + 1;
       }
 
       while (v10 != v12);
@@ -8398,7 +8401,7 @@ uint64_t TSWPLayoutChore::targetHasOverlaps(uint64_t a1, unsigned int *a2, unint
     return 0;
   }
 
-  return TSWPLayoutChore::pAnchoredGraphicAndTextCollisionsInTarget();
+  return TSWPLayoutChore::pAnchoredGraphicAndTextCollisionsInTarget(a1);
 }
 
 uint64_t TSWPLayoutChore::pPerformIterativeAttachmentPositioning(uint64_t a1, _DWORD *a2, void *a3)
@@ -8708,10 +8711,10 @@ void TSWPLayoutChore::postProcessDrawableAttachments(uint64_t a1, void *a2)
   TSWPLayoutChore::p_postProcessDrawableAttachments_removeLeftovers(a1, v3, v4, *(a1 + 8), 1, a2);
 }
 
-void TSWPLayoutChore::pPopLayoutState(TSWPLayoutChore *this@<X0>, uint64_t a2@<X8>)
+void TSWPLayoutChore::pPopLayoutState(uint64_t *__return_ptr a1@<X8>, TSWPLayoutChore *this@<X0>)
 {
-  TSWPParagraphEnumerator::TSWPParagraphEnumerator((a2 + 24));
-  bzero(a2, 0x2B0uLL);
+  TSWPParagraphEnumerator::TSWPParagraphEnumerator((a1 + 3));
+  bzero(a1, 0x2B0uLL);
   v4 = *(this + 251);
   v5 = *(this + 250);
   v6 = v4 - v5;
@@ -8720,12 +8723,12 @@ void TSWPLayoutChore::pPopLayoutState(TSWPLayoutChore *this@<X0>, uint64_t a2@<X
     v10 = [MEMORY[0x277D6C290] currentHandler];
     v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:"const TSWPLayoutState TSWPLayoutChore::pPopLayoutState()"];
     [v10 handleFailureInFunction:v11 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/text/TSWPLayoutChore.mm"), 754, @"Too many layoutStates popped"}];
-    TSWPLayoutState::operator=(a2, this + 10);
+    TSWPLayoutState::operator=(a1, this + 10);
   }
 
   else
   {
-    TSWPLayoutState::operator=(a2, (v4 - 688));
+    TSWPLayoutState::operator=(a1, (v4 - 688));
     v7 = (*(this + 250) + v6);
     v8 = (v7 - 688);
     v9 = *(this + 251);
@@ -8751,22 +8754,22 @@ void TSWPLayoutChore::pPopLayoutState(TSWPLayoutChore *this@<X0>, uint64_t a2@<X
   }
 }
 
-uint64_t TSWPLayoutChore::pHandleSync(uint64_t result, void *a2, char *a3)
+TSWPTopicNumberHints *TSWPLayoutChore::pHandleSync(TSWPTopicNumberHints *result, void *a2, char *a3)
 {
   if (a3)
   {
     v5 = result;
     *a3 = 0;
-    v6 = *(result + 2032);
-    v7 = *(result + 80);
-    if ((v6 == 0x7FFFFFFFFFFFFFFFLL || v7 >= *(result + 2040) + v6) && v7 < *(result + 64))
+    size = result[42]._numbersForListStyle.__tree_.__size_;
+    validThroughCharIndex = result[1]._validThroughCharIndex;
+    if ((size == 0x7FFFFFFFFFFFFFFFLL || validThroughCharIndex >= result[42]._charIndex + size) && validThroughCharIndex < result[1]._numbersForListStyle.__tree_.__size_)
     {
-      result = [*(result + 2056) nextTargetTopicNumbers];
-      if (!result || (result = TSWPTopicNumberHints::equivalentState(result, (v5 + 768)), result))
+      result = [(TSWPStyleProvider *)result[42]._styleProvider nextTargetTopicNumbers];
+      if (!result || (result = TSWPTopicNumberHints::equivalentState(result, v5 + 16), result))
       {
-        if (*(v5 + 536))
+        if (v5[11]._numbersForListStyle.__tree_.__end_node_.__left_)
         {
-          v8 = *(v5 + 641);
+          v8 = BYTE1(v5[13]._numbersForListStyle.__tree_.__size_);
 LABEL_9:
           *a3 = v8;
           return result;
@@ -8776,13 +8779,13 @@ LABEL_9:
         if (result)
         {
           v9 = result;
-          result = [result startCharIndex];
-          if (result == *(v5 + 80) - *(v5 + 2048))
+          result = [(TSWPTopicNumberHints *)result startCharIndex];
+          if (result == (v5[1]._validThroughCharIndex - v5[42]._validThroughCharIndex))
           {
-            result = [v9 startAnchoredCharIndex];
-            if (result == *(v5 + 88) - *(v5 + 2048) && (*(v5 + 640) & 1) == 0)
+            result = [(TSWPTopicNumberHints *)v9 startAnchoredCharIndex];
+            if (result == (v5[1]._styleProvider - v5[42]._validThroughCharIndex) && (v5[13]._numbersForListStyle.__tree_.__size_ & 1) == 0)
             {
-              v10 = [*(v5 + 2056) nextTargetFirstChildHint];
+              v10 = [(TSWPStyleProvider *)v5[42]._styleProvider nextTargetFirstChildHint];
               result = objc_opt_respondsToSelector();
               if ((result & 1) == 0 || (result = [v10 isFirstHint], result))
               {
@@ -8812,7 +8815,7 @@ void *TSWPLayoutChore::pLastColumnContainsOnlyOneAnchoredDrawable(uint64_t a1, v
   return result;
 }
 
-uint64_t TSWPLayoutChore::pLayoutColumns(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4, void *a5, uint64_t a6, uint64_t a7, _BYTE *a8, _BYTE *a9)
+uint64_t TSWPLayoutChore::pLayoutColumns(uint64_t a1, unsigned int a2, unint64_t a3, uint64_t a4, void *a5, _WORD *a6, char *a7, BOOL *a8, _BYTE *a9)
 {
   v13 = [a5 columns];
   v14 = v13;
@@ -8846,31 +8849,31 @@ uint64_t TSWPLayoutChore::pLayoutColumns(uint64_t a1, uint64_t a2, unint64_t a3,
     }
   }
 
-  TSWPLayoutState::TSWPLayoutState(v46, (a1 + 80));
-  TSWPLayoutChore::pPushLayoutState(a1, v46);
-  v43 = v14;
-  TSWPTopicNumberHints::TSWPTopicNumberHints(&v45, (a1 + 768));
+  TSWPLayoutState::TSWPLayoutState(v58, (a1 + 80));
+  TSWPLayoutChore::pPushLayoutState(a1, v58);
+  v54 = v14;
+  TSWPTopicNumberHints::TSWPTopicNumberHints(&v57, (a1 + 768));
   v19 = 0;
   v20 = a3 + a4;
   v21 = 100;
-  v35 = 40;
+  v44 = 40;
   v22 = v16;
-  v36 = v16;
-  v38 = a3;
+  v45 = v16;
+  v47 = a3;
   while (1)
   {
-    v41 = v19;
+    v50 = v19;
     v23 = v22;
     v24 = v22;
-    v39 = v21;
-    v37 = v22;
+    v48 = v21;
+    v46 = v22;
     while (1)
     {
-      v40 = v23;
+      v49 = v23;
       if (v24)
       {
         TSWPCoreTextTypesetter::endParagraphLayout(*(a1 + 2024));
-        [objc_msgSend(v43 objectAtIndexedSubscript:{0), "setScaleTextPercent:", v17}];
+        [objc_msgSend(v54 objectAtIndexedSubscript:{0), "setScaleTextPercent:", v17}];
         TSWPLayoutChore::pSetupStateForParagraphIndex(a1, 0);
         if (objc_opt_respondsToSelector())
         {
@@ -8895,18 +8898,36 @@ uint64_t TSWPLayoutChore::pLayoutColumns(uint64_t a1, uint64_t a2, unint64_t a3,
         do
         {
           *(a1 + 240) = v27;
-          v28 = [v43 objectAtIndexedSubscript:v27];
+          v28 = [v54 objectAtIndexedSubscript:v27];
           *(a1 + 184) = v28;
           [v28 setScaleTextPercent:v17];
           v29 = *(a1 + 184);
           v30 = *(a1 + 80);
-          if (*a8 != 1)
+          if (!*a8)
           {
             [v29 setStartCharIndex:v30];
             [a5 maxSize];
+            v33 = v32;
+            v35 = v34;
             [*(a1 + 184) maxSize];
-            [*(a1 + 8) wpKind];
-            TSWPLayoutChore::pLayoutColumn(a1);
+            v37 = v36;
+            v39 = v38;
+            if (![*(a1 + 8) wpKind])
+            {
+              v39 = *(a1 + 672);
+            }
+
+            if ((*(a1 + 56) - 1) >= 2)
+            {
+              v40 = v39;
+            }
+
+            else
+            {
+              v40 = v39 * 0.800000012;
+            }
+
+            TSWPLayoutChore::pLayoutColumn(a1, a2, v26, a6, a7, v33, v35, v37, v40);
           }
 
           if (*a9)
@@ -8926,93 +8947,93 @@ uint64_t TSWPLayoutChore::pLayoutColumns(uint64_t a1, uint64_t a2, unint64_t a3,
         while (v27 != v20);
       }
 
-      a3 = v38;
-      v21 = v39;
-      v19 = v41 + 1;
+      a3 = v47;
+      v21 = v48;
+      v19 = v50 + 1;
       if (*(a1 + 248) == 1)
       {
         break;
       }
 
       v23 = 1;
-      ++v41;
-      v24 = v37;
-      if ((v40 & 1) == 0)
+      ++v50;
+      v24 = v46;
+      if ((v49 & 1) == 0)
       {
-        goto LABEL_44;
+        goto LABEL_49;
       }
     }
 
-    v32 = [objc_msgSend(v43 "lastObject")] & 3;
-    if (!(v40 & 1 | (v32 != 0)))
+    v41 = [objc_msgSend(v54 "lastObject")] & 3;
+    if (!(v49 & 1 | (v41 != 0)))
     {
       break;
     }
 
-    if (((v41 == 0) & v36) == 1)
+    if (((v50 == 0) & v45) == 1)
     {
-      if (v32)
+      if (v41)
       {
         v21 = v17 - 1;
-        v36 = 1;
+        v45 = 1;
         --v17;
       }
 
       else
       {
-        v36 = 0;
+        v45 = 0;
         v17 = 100;
       }
     }
 
     else
     {
-      if (((v19 == 2) & v36) == 1 && !v32)
+      if (((v19 == 2) & v45) == 1 && !v41)
       {
         break;
       }
 
-      v33 = v35;
-      if ((v39 - v35) > 1)
+      v42 = v44;
+      if ((v48 - v44) > 1)
       {
-        v36 = 0;
-        if (v32)
+        v45 = 0;
+        if (v41)
         {
           v21 = v17;
         }
 
         else
         {
-          v33 = v17;
+          v42 = v17;
         }
 
-        v35 = v33;
-        v17 = (v33 + v21) >> 1;
+        v44 = v42;
+        v17 = (v42 + v21) >> 1;
       }
 
       else
       {
-        if (!v32 || v17 == v35)
+        if (!v41 || v17 == v44)
         {
           break;
         }
 
-        v36 = 0;
-        v17 = v35;
+        v45 = 0;
+        v17 = v44;
       }
     }
 
-    TSWPLayoutChore::pRestoreStateFromOldState(a1, v46);
-    TSWPTopicNumberHints::operator=((a1 + 768), &v45);
+    TSWPLayoutChore::pRestoreStateFromOldState(a1, v58);
+    TSWPTopicNumberHints::operator=((a1 + 768), &v57);
     *a8 = 0;
     v22 = 1;
   }
 
-LABEL_44:
-  TSWPLayoutChore::pPopLayoutState(a1, v44);
-  TSWPLayoutState::~TSWPLayoutState(v44);
-  TSWPTopicNumberHints::~TSWPTopicNumberHints(&v45);
-  TSWPLayoutState::~TSWPLayoutState(v46);
+LABEL_49:
+  TSWPLayoutChore::pPopLayoutState(v56, a1);
+  TSWPLayoutState::~TSWPLayoutState(v56);
+  TSWPTopicNumberHints::~TSWPTopicNumberHints(&v57);
+  TSWPLayoutState::~TSWPLayoutState(v58);
   return 0;
 }
 
@@ -9398,41 +9419,41 @@ LABEL_58:
   return result;
 }
 
-void TSWPLayoutChore::pLayoutColumn(uint64_t a1)
+void TSWPLayoutChore::pLayoutColumn(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, double a6, double a7, double a8, double a9)
 {
   [*(a1 + 2056) autosizeFlags];
   if (*(a1 + 56) >= 3u)
   {
-    v3 = *(a1 + 184);
-    if (v3)
+    v11 = *(a1 + 184);
+    if (v11)
     {
-      [v3 frameBounds];
+      [v11 frameBounds];
     }
 
     else
     {
-      v2 = 0;
+      v10 = 0;
     }
   }
 
   else
   {
-    v2 = 0xFFF0000000000000;
+    v10 = 0xFFF0000000000000;
   }
 
-  *(a1 + 400) = v2;
-  TSWPLayoutState::TSWPLayoutState(v7, (a1 + 80));
-  TSWPLayoutChore::pPushLayoutState(a1, v7);
-  TSWPTopicNumberHints::TSWPTopicNumberHints(&v6, (a1 + 768));
-  v4 = *([*(a1 + 184) lineFragmentArray] + 8);
-  if (v4)
+  *(a1 + 400) = v10;
+  TSWPLayoutState::TSWPLayoutState(v15, (a1 + 80));
+  TSWPLayoutChore::pPushLayoutState(a1, v15);
+  TSWPTopicNumberHints::TSWPTopicNumberHints(&v14, (a1 + 768));
+  v12 = *([*(a1 + 184) lineFragmentArray] + 8);
+  if (v12)
   {
-    atomic_fetch_add_explicit((v4 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v12 + 8), 1uLL, memory_order_relaxed);
   }
 
   [*(a1 + 184) contentBottom];
-  v5 = *(a1 + 248);
-  *(a1 + 249) = (([*(a1 + 184) layoutResultFlags] >> 8) & 1) != v5;
+  v13 = *(a1 + 248);
+  *(a1 + 249) = (([*(a1 + 184) layoutResultFlags] >> 8) & 1) != v13;
   operator new();
 }
 
@@ -9453,7 +9474,7 @@ void sub_26C9460CC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-unint64_t TSWPLayoutChore::pUpdateSmartFieldsForCurrentColumn(id *a1)
+char *TSWPLayoutChore::pUpdateSmartFieldsForCurrentColumn(id *a1)
 {
   v2 = [a1[23] range];
   v4 = v3;
@@ -9495,7 +9516,7 @@ uint64_t TSWPLayoutChore::validatedLayoutForAnchoredAttachment(TSWPLayoutChore *
   return [v2 validatedLayoutForAnchoredDrawable:v3];
 }
 
-uint64_t TSWPLayoutChore::protectedLayoutColumnsWithFlags(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4, void *a5)
+uint64_t TSWPLayoutChore::protectedLayoutColumnsWithFlags(uint64_t a1, unsigned int a2, unint64_t a3, uint64_t a4, void *a5)
 {
   v9 = 0;
   v8 = 0;
@@ -9559,12 +9580,12 @@ uint64_t TSWPLayoutChore::pSetupStateForColumnMetrics(id *this)
   return result;
 }
 
-uint64_t TSWPLayoutChore::pResetPrevLineBlockEnd(uint64_t this)
+void *TSWPLayoutChore::pResetPrevLineBlockEnd(void *this)
 {
   v1 = this;
-  if (*(this + 56) >= 3u)
+  if (*(this + 14) >= 3u)
   {
-    this = *(this + 184);
+    this = this[23];
     if (this)
     {
       this = [this frameBounds];
@@ -9581,7 +9602,7 @@ uint64_t TSWPLayoutChore::pResetPrevLineBlockEnd(uint64_t this)
     v2 = 0xFFF0000000000000;
   }
 
-  *(v1 + 400) = v2;
+  v1[50] = v2;
   return this;
 }
 
@@ -9599,174 +9620,174 @@ void sub_26C949CF0(_Unwind_Exception *a1)
 
 void TSWPLayoutChore::addParagraphAdornmentsToColumn(void *a1, void *a2, uint64_t a3)
 {
-  v5 = a1;
-  v6 = [a1 lineFragmentArray];
-  v7 = [v5 storage];
-  v157 = *MEMORY[0x277D6C268];
-  v8 = [v5 range];
-  v145 = v9;
-  v10 = [v7 selectionRangeForCharIndex:v8];
-  v143 = v11;
-  v144 = v10;
-  if (v7)
+  v4 = a1;
+  v5 = [a1 lineFragmentArray];
+  v6 = [v4 storage];
+  v156 = *MEMORY[0x277D6C268];
+  v7 = [v4 range];
+  v144 = v8;
+  v9 = [v6 selectionRangeForCharIndex:v7];
+  v142 = v10;
+  v143 = v9;
+  if (v6)
   {
-    [v7 paragraphEnumeratorAtCharIndex:v8 styleProvider:a3];
+    objc_msgSend_paragraphEnumeratorAtCharIndex_styleProvider_(v6);
   }
 
   else
   {
-    memset(&v184, 0, sizeof(v184));
+    memset(&v183, 0, sizeof(v183));
   }
 
-  [v5 wpBounds];
-  r1 = v12;
-  v140 = v14;
-  v141 = v13;
-  rect = v15;
+  [v4 wpBounds];
+  r1 = v11;
+  v139 = v13;
+  v140 = v12;
+  rect = v14;
   x = *MEMORY[0x277CBF3A0];
   y = *(MEMORY[0x277CBF3A0] + 8);
   width = *(MEMORY[0x277CBF3A0] + 16);
   height = *(MEMORY[0x277CBF3A0] + 24);
-  v18 = *MEMORY[0x277D6C268];
-  v175 = *(MEMORY[0x277D6C268] + 8);
-  v19 = [v7 wpKind];
-  v20 = 6.0;
-  if (v19 == 5)
+  v17 = *MEMORY[0x277D6C268];
+  v174 = *(MEMORY[0x277D6C268] + 8);
+  v18 = [v6 wpKind];
+  v19 = 6.0;
+  if (v18 == 5)
   {
-    v20 = 0.0;
+    v19 = 0.0;
   }
 
-  v162 = v20;
-  v149 = *MEMORY[0x277CBF3A8];
-  v165 = *(MEMORY[0x277CBF3A8] + 8);
-  v146 = v165;
+  v161 = v19;
+  v148 = *MEMORY[0x277CBF3A8];
+  v164 = *(MEMORY[0x277CBF3A8] + 8);
+  v145 = v164;
   if (a2)
   {
     [a2 adjustedInsets];
-    v146 = v21;
+    v145 = v20;
   }
 
-  v142 = v8;
-  v22 = **v6;
-  v152 = *(*v6 + 1);
-  if (v22 == v152)
+  v141 = v7;
+  v21 = **v5;
+  v151 = *(*v5 + 1);
+  if (v21 == v151)
   {
-    v82 = 0;
+    v81 = 0;
+    v105 = 0;
     v106 = 0;
-    v107 = 0;
     r1_8 = x;
     r1_16 = width;
     r1_24 = y;
-    v25 = height;
+    v24 = height;
     goto LABEL_91;
   }
 
+  v137 = v5;
   v138 = v6;
-  v139 = v7;
-  v150 = 0;
-  v171 = 0;
-  v173 = 0;
-  v23 = 0;
-  v159 = 0.0;
-  v160 = 0.0;
-  v24 = v157;
+  v149 = 0;
+  v170 = 0;
+  v172 = 0;
+  v22 = 0;
   v158 = 0.0;
-  v163 = 0.0;
-  v25 = height;
+  v159 = 0.0;
+  v23 = v156;
+  v157 = 0.0;
+  v162 = 0.0;
+  v24 = height;
   r1_16 = width;
   r1_24 = y;
   r1_8 = x;
-  v148 = v5;
+  v147 = v4;
   do
   {
-    v26 = *v22;
-    v27 = **v22;
-    r2 = *(*v22 + 1);
-    if (v27 < v18 || v27 - v18 >= v175)
+    v25 = *v21;
+    v26 = **v21;
+    r2 = *(*v21 + 1);
+    if (v26 < v17 || v26 - v17 >= v174)
     {
-      v29 = TSWPParagraphEnumerator::paragraphTextRange(&v184);
-      if (v27 >= v29 + v30 && !TSWPParagraphEnumerator::isLastParagraph(&v184))
+      v28 = TSWPParagraphEnumerator::paragraphTextRange(&v183);
+      if (v26 >= v28 + v29 && !TSWPParagraphEnumerator::isLastParagraph(&v183))
       {
-        TSWPParagraphEnumerator::operator++(&v184);
-        if (v27 != TSWPParagraphEnumerator::paragraphTextRange(&v184))
+        TSWPParagraphEnumerator::operator++(&v183);
+        if (v26 != TSWPParagraphEnumerator::paragraphTextRange(&v183))
         {
-          v31 = [MEMORY[0x277D6C290] currentHandler];
-          v32 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"static void TSWPLayoutChore::addParagraphAdornmentsToColumn(TSWPColumn *, id<TSWPColumnMetrics>, id<TSWPStyleProvider>)"}];
-          [v31 handleFailureInFunction:v32 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/text/TSWPLayoutChore.mm"), 1012, @"paragraph enumerator is out of sync with line fragments"}];
+          v30 = [MEMORY[0x277D6C290] currentHandler];
+          v31 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"static void TSWPLayoutChore::addParagraphAdornmentsToColumn(TSWPColumn *, id<TSWPColumnMetrics>, id<TSWPStyleProvider>)"}];
+          [v30 handleFailureInFunction:v31 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/text/TSWPLayoutChore.mm"), 1012, @"paragraph enumerator is out of sync with line fragments"}];
         }
       }
 
-      v33 = TSWPParagraphEnumerator::paragraphTextRange(&v184);
-      v175 = v34;
-      v18 = v33;
-      v35 = TSWPParagraphEnumerator::paragraphStyle(&v184, 0);
-      v36 = [v35 valueForProperty:98];
-      if (v171 && ([v171 isEqual:v36] & 1) == 0)
+      v32 = TSWPParagraphEnumerator::paragraphTextRange(&v183);
+      v174 = v33;
+      v17 = v32;
+      v34 = TSWPParagraphEnumerator::paragraphStyle(&v183, 0);
+      v35 = [v34 valueForProperty:98];
+      if (v170 && ([v170 isEqual:v35] & 1) == 0)
       {
-        v177 = 1;
-        v178 = 0;
-        v179 = v171;
-        v180 = r1_8;
-        v181 = r1_24;
-        v182 = r1_16;
-        v183 = v25;
-        [v5 addAdornmentRect:&v177];
-        v157 = *MEMORY[0x277D6C268];
+        v176 = 1;
+        v177 = 0;
+        v178 = v170;
+        v179 = r1_8;
+        v180 = r1_24;
+        v181 = r1_16;
+        v182 = v24;
+        [v4 addAdornmentRect:&v176];
+        v156 = *MEMORY[0x277D6C268];
       }
 
-      v37 = v36 == [MEMORY[0x277CBEB68] null] ? 0 : v36;
-      v171 = v37;
-      if (v35 != v150)
+      v36 = v35 == [MEMORY[0x277CBEB68] null] ? 0 : v35;
+      v170 = v36;
+      if (v34 != v149)
       {
-        v38 = [v35 intValueForProperty:102];
-        v39 = v38;
-        v41 = v23 == 4 && v38 != 4;
-        v151 = v41;
-        if (v38)
+        v37 = [v34 intValueForProperty:102];
+        v38 = v37;
+        v40 = v22 == 4 && v37 != 4;
+        v150 = v40;
+        if (v37)
         {
-          v42 = [v35 valueForProperty:103];
-          if (v42)
+          v41 = [v34 valueForProperty:103];
+          if (v41)
           {
-            v43 = [MEMORY[0x277CBEB68] null];
-            v44 = v42 != v43;
-            if (v42 == v43)
+            v42 = [MEMORY[0x277CBEB68] null];
+            v43 = v41 != v42;
+            if (v41 == v42)
             {
-              v42 = 0;
+              v41 = 0;
             }
           }
 
           else
           {
-            v44 = 0;
+            v43 = 0;
           }
 
-          [objc_msgSend(v35 valueForProperty:{105), "sizeValue"}];
+          [objc_msgSend(v34 valueForProperty:{105), "sizeValue"}];
+          v44 = v46;
           v45 = v47;
-          v46 = v48;
-          v163 = 0.0;
-          if (v44)
+          v162 = 0.0;
+          if (v43)
           {
-            [v42 width];
-            v163 = v49 * 0.5;
+            [v41 width];
+            v162 = v48 * 0.5;
           }
 
-          if (v23 == 4)
+          if (v22 == 4)
           {
-            v5 = v148;
-            if (v173)
+            v4 = v147;
+            if (v172)
             {
-              if (v45 != v149)
+              if (v44 != v148)
               {
                 goto LABEL_48;
               }
 
-              if (v46 != v165)
+              if (v45 != v164)
               {
                 goto LABEL_48;
               }
 
-              v5 = v148;
-              if (([v173 isEqual:v42] & 1) == 0)
+              v4 = v147;
+              if (([v172 isEqual:v41] & 1) == 0)
               {
                 goto LABEL_48;
               }
@@ -9775,362 +9796,362 @@ void TSWPLayoutChore::addParagraphAdornmentsToColumn(void *a1, void *a2, uint64_
 
           else
           {
-            v5 = v148;
+            v4 = v147;
           }
         }
 
         else
         {
-          v42 = 0;
-          v45 = *MEMORY[0x277CBF3A8];
-          v46 = *(MEMORY[0x277CBF3A8] + 8);
+          v41 = 0;
+          v44 = *MEMORY[0x277CBF3A8];
+          v45 = *(MEMORY[0x277CBF3A8] + 8);
         }
 
-        if (!v151)
+        if (!v150)
         {
 LABEL_49:
-          if ((v39 - 1) > 2)
+          if ((v38 - 1) > 2)
           {
-            v165 = v46;
+            v164 = v45;
           }
 
           else
           {
-            [v35 floatValueForProperty:82];
-            v55 = v54;
-            [v35 floatValueForProperty:80];
-            v57 = v56;
-            [v35 floatValueForProperty:81];
-            v59 = v58;
-            [v35 floatValueForProperty:104];
-            if (v57 >= v59)
+            [v34 floatValueForProperty:82];
+            v54 = v53;
+            [v34 floatValueForProperty:80];
+            v56 = v55;
+            [v34 floatValueForProperty:81];
+            v58 = v57;
+            [v34 floatValueForProperty:104];
+            if (v56 >= v58)
             {
-              v61 = v59;
+              v60 = v58;
             }
 
             else
             {
-              v61 = v57;
+              v60 = v56;
             }
 
-            v165 = v46;
-            v159 = v61;
-            v160 = rect - v61 - v55;
-            v158 = v160 * v60;
+            v164 = v45;
+            v158 = v60;
+            v159 = rect - v60 - v54;
+            v157 = v159 * v59;
           }
 
-          v149 = v45;
-          v23 = v39;
-          v173 = v42;
-          v150 = v35;
+          v148 = v44;
+          v22 = v38;
+          v172 = v41;
+          v149 = v34;
           goto LABEL_56;
         }
 
 LABEL_48:
-        [v173 width];
-        v51 = v50 * 0.5;
-        v52 = -(v162 + v149 + v51);
-        v53 = -(v162 + v165 + v51);
-        v185.origin.x = x;
-        v185.origin.y = y;
-        v185.size.width = width;
-        v185.size.height = height;
-        v186 = CGRectInset(v185, v52, v53);
-        x = v186.origin.x;
-        y = v186.origin.y;
-        width = v186.size.width;
-        height = v186.size.height;
-        v177 = 2;
-        v178 = v173;
-        v179 = 0;
-        v180 = x;
-        v181 = y;
-        v182 = width;
-        v183 = height;
-        [v5 addAdornmentRect:&v177];
-        v24 = *MEMORY[0x277D6C268];
+        [v172 width];
+        v50 = v49 * 0.5;
+        v51 = -(v161 + v148 + v50);
+        v52 = -(v161 + v164 + v50);
+        v184.origin.x = x;
+        v184.origin.y = y;
+        v184.size.width = width;
+        v184.size.height = height;
+        v185 = CGRectInset(v184, v51, v52);
+        x = v185.origin.x;
+        y = v185.origin.y;
+        width = v185.size.width;
+        height = v185.size.height;
+        v176 = 2;
+        v177 = v172;
+        v178 = 0;
+        v179 = x;
+        v180 = y;
+        v181 = width;
+        v182 = height;
+        [v4 addAdornmentRect:&v176];
+        v23 = *MEMORY[0x277D6C268];
 
         goto LABEL_49;
       }
     }
 
 LABEL_56:
-    if (v27 == v18 && (v23 & 0xFFFFFFFD) == 1)
+    if (v26 == v17 && (v22 & 0xFFFFFFFD) == 1)
     {
-      v63 = v25;
-      v64 = v26[15];
-      v65 = v26[16];
-      v66 = v26[18];
-      v67 = v26[4];
-      v68 = v26[5];
-      v177 = 2;
-      v69 = v173;
-      v70 = v65 + v66;
-      if (v65 + v66 < v64)
+      v62 = v24;
+      v63 = v25[15];
+      v64 = v25[16];
+      v65 = v25[18];
+      v66 = v25[4];
+      v67 = v25[5];
+      v176 = 2;
+      v68 = v172;
+      v69 = v64 + v65;
+      if (v64 + v65 < v63)
       {
-        v70 = v64;
+        v69 = v63;
       }
 
-      v178 = v69;
-      v179 = 0;
-      v180 = r1 + v159 + (v160 - v158) * 0.5;
-      v181 = v67 + v68 - (v163 + v165 + v162 + v70);
-      v182 = v158;
-      v183 = 0.0;
-      [v5 addAdornmentRect:{&v177, v138, v139}];
+      v177 = v68;
+      v178 = 0;
+      v179 = r1 + v158 + (v159 - v157) * 0.5;
+      v180 = v66 + v67 - (v162 + v164 + v161 + v69);
+      v181 = v157;
+      v182 = 0.0;
+      [v4 addAdornmentRect:{&v176, v137, v138}];
 
-      v25 = v63;
+      v24 = v62;
     }
 
-    v71 = r2 + v27;
-    if (r2 + v27 == v175 + v18 && (v23 & 0xFFFFFFFE) == 2)
+    v70 = r2 + v26;
+    if (r2 + v26 == v174 + v17 && (v22 & 0xFFFFFFFE) == 2)
     {
-      v73 = v25;
-      v74 = v26[17];
-      v75 = v26[4];
-      v76 = v26[5];
-      v177 = 2;
-      v178 = v173;
-      v179 = 0;
-      v180 = r1 + v159 + (v160 - v158) * 0.5;
-      v181 = v163 + v165 + v162 + v74 + v75 + v76;
-      v182 = v158;
-      v183 = 0.0;
-      [v5 addAdornmentRect:&v177];
+      v72 = v24;
+      v73 = v25[17];
+      v74 = v25[4];
+      v75 = v25[5];
+      v176 = 2;
+      v177 = v172;
+      v178 = 0;
+      v179 = r1 + v158 + (v159 - v157) * 0.5;
+      v180 = v162 + v164 + v161 + v73 + v74 + v75;
+      v181 = v157;
+      v182 = 0.0;
+      [v4 addAdornmentRect:&v176];
 
-      v25 = v73;
+      v24 = v72;
     }
 
-    if (v171)
+    if (v170)
     {
-      v78 = v26[7];
-      v80 = v26[20] + v26[17] + v26[4] + v26[5];
-      v81 = v80 - v78;
-      if (v157 == 0x7FFFFFFFFFFFFFFFLL)
+      v77 = v25[7];
+      v79 = v25[20] + v25[17] + v25[4] + v25[5];
+      v80 = v79 - v77;
+      if (v156 == 0x7FFFFFFFFFFFFFFFLL)
       {
-        r1_8 = v26[6];
-        r1_16 = v26[8];
-        r1_24 = v26[7];
-        v25 = v80 - v78;
-        v157 = v27;
+        r1_8 = v25[6];
+        r1_16 = v25[8];
+        r1_24 = v25[7];
+        v24 = v79 - v77;
+        v156 = v26;
       }
 
       else
       {
-        v187.origin.x = r1_8;
-        v187.size.width = r1_16;
-        v187.origin.y = r1_24;
-        v187.size.height = v25;
-        v77 = *(v26 + 6);
-        v79 = *(v26 + 8);
-        v188 = CGRectUnion(v187, *(&v78 - 1));
-        r1_8 = v188.origin.x;
-        r1_16 = v188.size.width;
-        r1_24 = v188.origin.y;
-        v25 = v188.size.height;
+        v186.origin.x = r1_8;
+        v186.size.width = r1_16;
+        v186.origin.y = r1_24;
+        v186.size.height = v24;
+        v76 = *(v25 + 6);
+        v78 = *(v25 + 8);
+        v187 = CGRectUnion(v186, *(&v77 - 1));
+        r1_8 = v187.origin.x;
+        r1_16 = v187.size.width;
+        r1_24 = v187.origin.y;
+        v24 = v187.size.height;
       }
     }
 
-    v82 = v23 == 4;
-    if (v23 != 4 || !v173)
+    v81 = v22 == 4;
+    if (v22 != 4 || !v172)
     {
-      v27 = v24;
+      v26 = v23;
       goto LABEL_88;
     }
 
-    v83 = v25;
-    v84 = v26[20];
-    v85 = v26[6];
-    v86 = v26[7];
-    v87 = v26[8];
-    v88 = v26[4] + v26[5];
-    v89 = v84 + v26[17] + v88 - v86;
-    r2a = v87;
-    if (v24 == 0x7FFFFFFFFFFFFFFFLL)
+    v82 = v24;
+    v83 = v25[20];
+    v84 = v25[6];
+    v85 = v25[7];
+    v86 = v25[8];
+    v87 = v25[4] + v25[5];
+    v88 = v83 + v25[17] + v87 - v85;
+    r2a = v86;
+    if (v23 == 0x7FFFFFFFFFFFFFFFLL)
     {
-      v90 = v26[18];
-      v91 = v26[15];
-      v92 = v26[16];
-      v93 = *(v26 + 6);
-      v94 = *(v26 + 7);
-      v95 = v89;
-      MaxY = CGRectGetMaxY(*(&v87 - 2));
-      v97 = v90 + v92;
-      if (v90 + v92 < v91)
+      v89 = v25[18];
+      v90 = v25[15];
+      v91 = v25[16];
+      v92 = *(v25 + 6);
+      v93 = *(v25 + 7);
+      v94 = v88;
+      MaxY = CGRectGetMaxY(*(&v86 - 2));
+      v96 = v89 + v91;
+      if (v89 + v91 < v90)
       {
-        v97 = v91;
+        v96 = v90;
       }
 
-      v86 = v88 - v97;
-      v89 = MaxY - (v88 - v97);
+      v85 = v87 - v96;
+      v88 = MaxY - (v87 - v96);
       x = *MEMORY[0x277CBF398];
       y = *(MEMORY[0x277CBF398] + 8);
       width = *(MEMORY[0x277CBF398] + 16);
       height = *(MEMORY[0x277CBF398] + 24);
-      v25 = v83;
+      v24 = v82;
     }
 
     else
     {
-      if (v71 != v175 + v18)
+      if (v70 != v174 + v17)
       {
-        v27 = v24;
-        v25 = v83;
+        v26 = v23;
+        v24 = v82;
         goto LABEL_85;
       }
 
-      v98 = *(v26 + 6);
-      v99 = *(v26 + 7);
-      v100 = v84 + v26[17] + v88 - v86;
-      v25 = v83;
-      v89 = CGRectGetMaxY(*(&v87 - 2)) - v84 - v86;
-      v27 = v24;
+      v97 = *(v25 + 6);
+      v98 = *(v25 + 7);
+      v99 = v83 + v25[17] + v87 - v85;
+      v24 = v82;
+      v88 = CGRectGetMaxY(*(&v86 - 2)) - v83 - v85;
+      v26 = v23;
     }
 
-    v87 = r2a;
+    v86 = r2a;
 LABEL_85:
+    v100 = v84;
     v101 = v85;
-    v102 = v86;
-    v103 = v89;
-    if (CGRectIsEmpty(*(&v87 - 2)))
+    v102 = v88;
+    if (CGRectIsEmpty(*(&v86 - 2)))
     {
-      v104 = [MEMORY[0x277D6C290] currentHandler];
-      v105 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"static void TSWPLayoutChore::addParagraphAdornmentsToColumn(TSWPColumn *, id<TSWPColumnMetrics>, id<TSWPStyleProvider>)"}];
-      [v104 handleFailureInFunction:v105 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/text/TSWPLayoutChore.mm"), 1136, @"Adding empty border stroke rect"}];
+      v103 = [MEMORY[0x277D6C290] currentHandler];
+      v104 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"static void TSWPLayoutChore::addParagraphAdornmentsToColumn(TSWPColumn *, id<TSWPColumnMetrics>, id<TSWPStyleProvider>)"}];
+      [v103 handleFailureInFunction:v104 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/text/TSWPLayoutChore.mm"), 1136, @"Adding empty border stroke rect"}];
     }
 
-    v189.origin.x = x;
-    v189.origin.y = y;
-    v189.size.width = width;
-    v189.size.height = height;
-    v200.origin.x = v85;
-    v200.origin.y = v86;
-    v200.size.width = r2a;
-    v200.size.height = v89;
-    v190 = CGRectUnion(v189, v200);
-    x = v190.origin.x;
-    y = v190.origin.y;
-    width = v190.size.width;
-    height = v190.size.height;
+    v188.origin.x = x;
+    v188.origin.y = y;
+    v188.size.width = width;
+    v188.size.height = height;
+    v199.origin.x = v84;
+    v199.origin.y = v85;
+    v199.size.width = r2a;
+    v199.size.height = v88;
+    v189 = CGRectUnion(v188, v199);
+    x = v189.origin.x;
+    y = v189.origin.y;
+    width = v189.size.width;
+    height = v189.size.height;
 LABEL_88:
-    v22 += 2;
-    v24 = v27;
+    v21 += 2;
+    v23 = v26;
   }
 
-  while (v22 != v152);
+  while (v21 != v151);
+  v5 = v137;
   v6 = v138;
-  v7 = v139;
-  v107 = v171;
-  v106 = v173;
+  v106 = v170;
+  v105 = v172;
 LABEL_91:
-  if (v107 | v106)
+  if (v106 | v105)
   {
-    v108 = v25;
-    Object = TSWPLineFragmentArray::lastObject(*v6);
-    v110 = Object[16];
-    v111 = Object[17];
-    v174 = Object[15];
-    v176 = Object[18];
-    v112 = Object[20];
-    v113 = Object[4];
-    v114 = Object[5];
-    v191.origin.x = r1;
-    v191.size.height = v140;
-    v191.origin.y = v141;
-    v191.size.width = rect;
-    v115 = CGRectGetMaxY(v191);
-    v116 = v112 + v111 + v113 + v114;
-    v117 = v146 + v115;
-    v118 = v146 + v115 - v116;
-    if (v107)
+    v107 = v24;
+    Object = TSWPLineFragmentArray::lastObject(*v5);
+    v109 = Object[16];
+    v110 = Object[17];
+    v173 = Object[15];
+    v175 = Object[18];
+    v111 = Object[20];
+    v112 = Object[4];
+    v113 = Object[5];
+    v190.origin.x = r1;
+    v190.size.height = v139;
+    v190.origin.y = v140;
+    v190.size.width = rect;
+    v114 = CGRectGetMaxY(v190);
+    v115 = v111 + v110 + v112 + v113;
+    v116 = v145 + v114;
+    v117 = v145 + v114 - v115;
+    if (v106)
     {
-      v119 = v142 + v145;
-      v120 = v144 + v143;
-      v121 = v108;
-      if (v142 + v145 <= v144 || v119 >= v120 || (v122 = [v7 characterAtIndex:v119 - 1], v122 <= 0xF) && ((1 << v122) & 0x9070) != 0)
+      v118 = v141 + v144;
+      v119 = v143 + v142;
+      v120 = v107;
+      if (v141 + v144 <= v143 || v118 >= v119 || (v121 = [v6 characterAtIndex:v118 - 1], v121 <= 0xF) && ((1 << v121) & 0x9070) != 0)
       {
-        if (v119 == v120 && v118 > 0.0 && v118 < v111 + v110 + v176)
+        if (v118 == v119 && v117 > 0.0 && v117 < v110 + v109 + v175)
         {
-          v192.origin.x = r1_8;
-          v192.size.width = r1_16;
-          v192.origin.y = r1_24;
-          v192.size.height = v108;
-          v121 = v117 - CGRectGetMinY(v192);
+          v191.origin.x = r1_8;
+          v191.size.width = r1_16;
+          v191.origin.y = r1_24;
+          v191.size.height = v107;
+          v120 = v116 - CGRectGetMinY(v191);
         }
       }
 
       else
       {
-        v161 = *MEMORY[0x277CBF398];
+        v160 = *MEMORY[0x277CBF398];
         r2b = *(MEMORY[0x277CBF398] + 8);
-        v130 = *(MEMORY[0x277CBF398] + 24);
-        v164 = *(MEMORY[0x277CBF398] + 16);
-        v194.origin.x = r1;
-        v194.size.height = v140;
-        v194.origin.y = v141;
-        v194.size.width = rect;
-        v172 = CGRectGetMaxY(v194);
-        v195.origin.x = r1_8;
-        v195.size.width = r1_16;
-        v195.origin.y = r1_24;
-        v195.size.height = v121;
-        v131 = v146 + v172 - CGRectGetMinY(v195);
-        if (v121 < v131)
+        v129 = *(MEMORY[0x277CBF398] + 24);
+        v163 = *(MEMORY[0x277CBF398] + 16);
+        v193.origin.x = r1;
+        v193.size.height = v139;
+        v193.origin.y = v140;
+        v193.size.width = rect;
+        v171 = CGRectGetMaxY(v193);
+        v194.origin.x = r1_8;
+        v194.size.width = r1_16;
+        v194.origin.y = r1_24;
+        v194.size.height = v120;
+        v130 = v145 + v171 - CGRectGetMinY(v194);
+        if (v120 < v130)
         {
-          v121 = v131;
+          v120 = v130;
         }
 
-        if (v130 != 0.0)
+        if (v129 != 0.0)
         {
-          v196.origin.x = v161;
-          v196.origin.y = r2b;
-          v196.size.width = v164;
-          v196.size.height = v130;
-          v132 = CGRectGetMinY(v196) - r1_24;
-          if (v132 < v121)
+          v195.origin.x = v160;
+          v195.origin.y = r2b;
+          v195.size.width = v163;
+          v195.size.height = v129;
+          v131 = CGRectGetMinY(v195) - r1_24;
+          if (v131 < v120)
           {
-            v121 = v132;
+            v120 = v131;
           }
         }
       }
 
-      v177 = 1;
-      v178 = 0;
-      v179 = v107;
-      v180 = r1_8;
-      v181 = r1_24;
-      v182 = r1_16;
-      v183 = v121;
-      [v5 addAdornmentRect:&v177];
+      v176 = 1;
+      v177 = 0;
+      v178 = v106;
+      v179 = r1_8;
+      v180 = r1_24;
+      v181 = r1_16;
+      v182 = v120;
+      [v4 addAdornmentRect:&v176];
     }
 
-    if (v106 && v82)
+    if (v105 && v81)
     {
-      v125 = v142 + v145;
-      v126 = v144 + v143;
-      if (v142 + v145 <= v144 || v125 >= v126 || (v127 = [v7 characterAtIndex:v125 - 1], v127 <= 0xF) && ((1 << v127) & 0x9070) != 0)
+      v124 = v141 + v144;
+      v125 = v143 + v142;
+      if (v141 + v144 <= v143 || v124 >= v125 || (v126 = [v6 characterAtIndex:v124 - 1], v126 <= 0xF) && ((1 << v126) & 0x9070) != 0)
       {
-        if (v125 != v126)
+        if (v124 != v125)
         {
           goto LABEL_127;
         }
 
-        v128 = v106;
-        if (v118 > 0.0)
+        v127 = v105;
+        if (v117 > 0.0)
         {
-          v129 = v174;
-          if (v110 >= v174)
+          v128 = v173;
+          if (v109 >= v173)
           {
-            v129 = v110;
+            v128 = v109;
           }
 
-          if (v118 < v111 + v176 + v129)
+          if (v117 < v110 + v175 + v128)
           {
-            v193.origin.x = x;
-            v193.origin.y = y;
-            v193.size.width = width;
-            v193.size.height = height;
-            height = v117 - CGRectGetMinY(v193);
+            v192.origin.x = x;
+            v192.origin.y = y;
+            v192.size.width = width;
+            v192.size.height = height;
+            height = v116 - CGRectGetMinY(v192);
             goto LABEL_127;
           }
         }
@@ -10138,39 +10159,39 @@ LABEL_91:
 
       else
       {
-        v197.origin.x = r1;
-        v197.size.height = v140;
-        v197.origin.y = v141;
-        v197.size.width = rect;
-        v133 = v146 + CGRectGetMaxY(v197) - y;
-        if (height < v133)
+        v196.origin.x = r1;
+        v196.size.height = v139;
+        v196.origin.y = v140;
+        v196.size.width = rect;
+        v132 = v145 + CGRectGetMaxY(v196) - y;
+        if (height < v132)
         {
-          height = v133;
+          height = v132;
         }
 
 LABEL_127:
-        v128 = v106;
+        v127 = v105;
       }
 
-      v198.origin.x = x;
-      v198.origin.y = y;
-      v198.size.width = width;
-      v198.size.height = height;
-      v199 = CGRectInset(v198, -v162 - v149, -v162 - v165);
-      v134 = v199.origin.x;
-      v135 = v199.origin.y;
-      v136 = v199.size.width;
-      v137 = v199.size.height;
-      v177 = 2;
-      v178 = v128;
-      v179 = 0;
+      v197.origin.x = x;
+      v197.origin.y = y;
+      v197.size.width = width;
+      v197.size.height = height;
+      v198 = CGRectInset(v197, -v161 - v148, -v161 - v164);
+      v133 = v198.origin.x;
+      v134 = v198.origin.y;
+      v135 = v198.size.width;
+      v136 = v198.size.height;
+      v176 = 2;
+      v177 = v127;
+      v178 = 0;
+      v179 = v133;
       v180 = v134;
       v181 = v135;
       v182 = v136;
-      v183 = v137;
-      [v5 addAdornmentRect:&v177];
+      [v4 addAdornmentRect:&v176];
     }
   }
 
-  TSWPParagraphEnumerator::~TSWPParagraphEnumerator(&v184);
+  TSWPParagraphEnumerator::~TSWPParagraphEnumerator(&v183);
 }

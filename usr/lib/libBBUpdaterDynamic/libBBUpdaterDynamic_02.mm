@@ -1,20 +1,7 @@
-void sub_1E524E4AC(_Unwind_Exception *a1, uint64_t a2, void *__p, uint64_t a4, int a5, __int16 a6, char a7, char a8, char a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
-{
-  va_start(va, a24);
-  if (a8 < 0)
-  {
-    operator delete(__p);
-  }
-
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(&a9, MEMORY[0x1E69E54D8]);
-  MEMORY[0x1E69273B0](va);
-  _Unwind_Resume(a1);
-}
-
 uint64_t BBUICE16Loader::queryChipInfo(void *a1, uint64_t a2, uint64_t a3)
 {
-  v47 = *MEMORY[0x1E69E9840];
-  v44 = 0;
+  v39 = *MEMORY[0x1E69E9840];
+  v36 = 0;
   v6 = operator new(0x60uLL);
   *v6 = 0u;
   *(v6 + 1) = 0u;
@@ -22,12 +9,12 @@ uint64_t BBUICE16Loader::queryChipInfo(void *a1, uint64_t a2, uint64_t a3)
   *(v6 + 3) = 0u;
   *(v6 + 4) = 0u;
   *(v6 + 5) = 0u;
-  v45 = 0u;
-  v46 = 0u;
+  v37 = 0u;
+  v38 = 0u;
   v7 = *(a2 + 40);
-  if (!v7 || ((v8 = v7(a2, 5, v6, 60, &v44, 0), v44 > 0x3B) ? (v9 = v8) : (v9 = 0), (v9 & 1) == 0))
+  if (!v7 || ((v8 = v7(a2, 5, v6, 60, &v36, 0), v36 > 0x3B) ? (v9 = v8) : (v9 = 0), (v9 & 1) == 0))
   {
-    v22 = 3;
+    v19 = 3;
     goto LABEL_52;
   }
 
@@ -46,7 +33,7 @@ uint64_t BBUICE16Loader::queryChipInfo(void *a1, uint64_t a2, uint64_t a3)
   v13[1] = 0;
   v13[1] = CFDataCreate(*MEMORY[0x1E695E480], v6 + 22, 32);
   (*(*a3 + 24))(a3, v13);
-  if (v45 == *(v6 + 22) && *(&v45 + 1) == *(v6 + 30) && v46 == *(v6 + 38) && *(&v46 + 1) == *(v6 + 46))
+  if (v37 == *(v6 + 22) && *(&v37 + 1) == *(v6 + 30) && v38 == *(v6 + 38) && *(&v38 + 1) == *(v6 + 46))
   {
     if (gBBULogMaskGet(void)::once == -1)
     {
@@ -69,8 +56,8 @@ uint64_t BBUICE16Loader::queryChipInfo(void *a1, uint64_t a2, uint64_t a3)
 
     if (gBBULogVerbosity >= 1)
     {
-      v23 = (*(*a1 + 64))(a1);
-      _BBULog(9, 1, v23, "", "Detect as unfused BB\n", v24, v25, v26, v39);
+      v20 = (*(*a1 + 64))(a1);
+      _BBULog(9, 1, v20, "", "Detect as unfused BB\n");
     }
   }
 
@@ -98,35 +85,35 @@ uint64_t BBUICE16Loader::queryChipInfo(void *a1, uint64_t a2, uint64_t a3)
     if (gBBULogVerbosity >= 1)
     {
       v18 = (*(*a1 + 64))(a1);
-      _BBULog(9, 1, v18, "", "Detect as fused BB\n", v19, v20, v21, v39);
+      _BBULog(9, 1, v18, "", "Detect as fused BB\n");
     }
   }
 
 LABEL_27:
-  v27 = -559030611;
+  v21 = -559030611;
   *(a3 + 88) = v17;
-  v28 = a1[1];
-  v29 = *(a3 + 16);
-  v30 = -559030611;
-  if (v29)
+  v22 = a1[1];
+  v23 = *(a3 + 16);
+  v24 = -559030611;
+  if (v23)
   {
-    v30 = (*(*v29 + 24))(v29);
+    v24 = (*(*v23 + 24))(v23);
   }
 
-  v31 = *(a3 + 32);
-  if (!v31)
+  v25 = *(a3 + 32);
+  if (!v25)
   {
-    v33 = "failed";
-    v34 = *(a3 + 40);
-    if (v34)
+    v27 = "failed";
+    v28 = *(a3 + 40);
+    if (v28)
     {
       goto LABEL_38;
     }
 
 LABEL_43:
-    v35 = "failed";
-    v36 = *(a3 + 24);
-    if (!v36)
+    v29 = "failed";
+    v30 = *(a3 + 24);
+    if (!v30)
     {
       goto LABEL_45;
     }
@@ -134,11 +121,11 @@ LABEL_43:
     goto LABEL_44;
   }
 
-  v32 = v42;
-  (*(*v31 + 24))(v42, *(a3 + 32));
-  if (v43 < 0)
+  v26 = v34;
+  (*(*v25 + 24))(v34, *(a3 + 32));
+  if (v35 < 0)
   {
-    v32 = v42[0];
+    v26 = v34[0];
   }
 
   if (BBUpdaterCommon::inRestoreOS(void)::sOnceRestoreOS == -1)
@@ -162,53 +149,52 @@ LABEL_43:
 LABEL_34:
   if ((BBUpdaterCommon::inRestoreOS(void)::restoreOS | BBUpdaterCommon::inRestoreOS(void)::recoveryOS))
   {
-    v33 = v32;
+    v27 = v26;
   }
 
   else
   {
-    v33 = "<< SNUM >>";
+    v27 = "<< SNUM >>";
   }
 
-  v34 = *(a3 + 40);
-  if (!v34)
+  v28 = *(a3 + 40);
+  if (!v28)
   {
     goto LABEL_43;
   }
 
 LABEL_38:
-  v35 = __p;
-  (*(*v34 + 24))(__p, v34);
-  if (v41 < 0)
+  v29 = __p;
+  (*(*v28 + 24))(__p, v28);
+  if (v33 < 0)
   {
-    v35 = __p[0];
+    v29 = __p[0];
   }
 
-  v36 = *(a3 + 24);
-  if (!v36)
+  v30 = *(a3 + 24);
+  if (!v30)
   {
     goto LABEL_45;
   }
 
 LABEL_44:
-  v27 = (*(*v36 + 24))(v36);
+  v21 = (*(*v30 + 24))(v30);
 LABEL_45:
-  BBUFeedback::handleComment(v28, "CHIPID=0x%x SNUM=0x%s, PKHASH=0x%s CERTID=0x%x\n", v30, v33, v35, v27);
-  if (v34 && v41 < 0)
+  BBUFeedback::handleComment(v22, "CHIPID=0x%x SNUM=0x%s, PKHASH=0x%s CERTID=0x%x\n", v24, v27, v29, v21);
+  if (v28 && v33 < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (v31 && v43 < 0)
+  if (v25 && v35 < 0)
   {
-    operator delete(v42[0]);
+    operator delete(v34[0]);
   }
 
-  v22 = 0;
+  v19 = 0;
 LABEL_52:
   operator delete(v6);
-  v37 = *MEMORY[0x1E69E9840];
-  return v22;
+  return v19;
 }
 
 void sub_1E524EA28(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, int a16, __int16 a17, char a18, char a19, void *__p, uint64_t a21, int a22, __int16 a23, char a24, char a25)
@@ -227,7 +213,7 @@ void sub_1E524EA28(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t BBUICE16Loader::load(BBUFeedback **a1, void *a2, const void *a3)
+uint64_t BBUICE16Loader::load(uint64_t (***a1)(BBUFeedback **), void *a2, const void *a3)
 {
   if (!a2 || !a3)
   {
@@ -235,19 +221,19 @@ uint64_t BBUICE16Loader::load(BBUFeedback **a1, void *a2, const void *a3)
     return 2;
   }
 
-  v19 = 0;
-  v18 = -1;
+  v16 = 0;
+  v15 = -1;
   v6 = (*(*a3 + 24))(a3);
   BBUFeedback::handleComment(a1[1], "Send PSI-RAM (%d bytes)", v6);
   v7 = operator new[](v6);
-  if ((*(*a3 + 16))(a3, v7, v6, &v19 + 4, 0))
+  if ((*(*a3 + 16))(a3, v7, v6, &v16 + 4, 0))
   {
     v8 = 0;
   }
 
   else
   {
-    v8 = HIDWORD(v19) == v6;
+    v8 = HIDWORD(v16) == v6;
   }
 
   if (!v8)
@@ -260,7 +246,7 @@ uint64_t BBUICE16Loader::load(BBUFeedback **a1, void *a2, const void *a3)
   v10 = a2[4];
   if (v10)
   {
-    v11 = v10(a2, v7, v6, &v19, 10000, &v18, 0);
+    v11 = v10(a2, v7, v6, &v16, 10000, &v15, 0);
     if (gBBULogMaskGet(void)::once == -1)
     {
       goto LABEL_11;
@@ -288,30 +274,30 @@ LABEL_11:
 LABEL_12:
     if (gBBULogVerbosity >= 1)
     {
-      v12 = (*(*a1 + 8))(a1);
-      v16 = "failure";
+      v12 = (*a1)[8](a1);
+      v13 = "failure";
       if (v11)
       {
-        v16 = "success";
+        v13 = "success";
       }
 
-      _BBULog(9, 1, v12, "", "SendImage returned %s, amountWritten = %u, status = %u\n", v13, v14, v15, v16);
+      _BBULog(9, 1, v12, "", "SendImage returned %s, amountWritten = %u, status = %u\n", v13, v16, v15);
     }
   }
 
 LABEL_16:
   operator delete[](v7);
-  if (v19 == v6)
+  if (v16 == v6)
   {
-    v17 = v11;
+    v14 = v11;
   }
 
   else
   {
-    v17 = 0;
+    v14 = 0;
   }
 
-  if (v17 == 1 && (v18 == 1 || v18 == 16))
+  if (v14 == 1 && (v15 == 1 || v15 == 16))
   {
     BBUFeedback::handleComment(a1[1], "Sent PSI successfully!");
     return 0;
@@ -641,49 +627,49 @@ LABEL_9:
 
 uint64_t BBUEUR25Initializer::gatherPersonalizationParameters(BBUFeedback **a1, uint64_t a2, void *a3)
 {
-  v47 = *MEMORY[0x1E69E9840];
-  v45 = 0u;
-  v46 = 0u;
-  v43 = 0u;
-  v44 = 0u;
+  v43 = *MEMORY[0x1E69E9840];
   v41 = 0u;
   v42 = 0u;
-  *bytes = 0u;
+  v39 = 0u;
   v40 = 0u;
-  v30 = 0;
+  v37 = 0u;
+  v38 = 0u;
+  *bytes = 0u;
+  v36 = 0u;
+  v26 = 0;
   (*(*a1 + 25))(a1);
   if (!ETLMaverickReadPublicKeyHash())
   {
-    goto LABEL_15;
+    return 3;
   }
 
-  v6 = v30;
+  v6 = v26;
   v7 = operator new(0x10uLL);
   *v7 = &unk_1F5F04C88;
   v7[1] = 0;
   v8 = *MEMORY[0x1E695E480];
   v7[1] = CFDataCreate(*MEMORY[0x1E695E480], bytes, v6);
   (*(*a3 + 24))(a3, v7);
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
-  v36 = 0u;
   v33 = 0u;
   v34 = 0u;
-  *v31 = 0u;
+  v31 = 0u;
   v32 = 0u;
-  v29 = 0;
+  v29 = 0u;
+  v30 = 0u;
+  *v27 = 0u;
+  v28 = 0u;
+  v25 = 0;
   (*(*a1 + 25))(a1);
   if (!ETLMaverickReadNonce())
   {
-    goto LABEL_15;
+    return 3;
   }
 
   v9 = operator new(0x10uLL);
-  v10 = (v29 + 7) >> 3;
+  v10 = (v25 + 7) >> 3;
   *v9 = &unk_1F5F04B68;
   v9[1] = 0;
-  v9[1] = CFDataCreate(v8, v31, v10);
+  v9[1] = CFDataCreate(v8, v27, v10);
   v11 = a3[1];
   if (v11)
   {
@@ -691,140 +677,126 @@ uint64_t BBUEUR25Initializer::gatherPersonalizationParameters(BBUFeedback **a1, 
   }
 
   a3[1] = v9;
-  v27 = 0;
-  v28 = 0;
+  v23 = 0;
+  v24 = 0;
   capabilities::updater::personalizationCommandTimeout(v11);
   SerialNumberAndChipID64Bit = ETLMaverickReadSerialNumberAndChipID64Bit();
-  *&v26[0] = 0x44300000000;
+  *&v22[0] = 0x44300000000;
   BBUFeedback::handleComment(a1[1], "WARNING: Serial number mismatch (DIAG vs. libTU + DIAG); using libTU + DIAG SNUM");
-  if (SerialNumberAndChipID64Bit)
+  if (!SerialNumberAndChipID64Bit)
   {
-    v14 = capabilities::radio::chipID(v13);
-    if (v14 != v28)
-    {
-      BBUFeedback::handleComment(a1[1], "WARNING: ChipID mismatch (DIAG vs. libTU); using libTU ChipID");
-    }
+    return 3;
+  }
 
-    v15 = BBUEURPersonalizationParameters::EURSerialNumber::createFromSerialNumber(v26, HIDWORD(v28));
-    (*(*a3 + 16))(a3, v15);
-    v16 = BBUEURPersonalizationParameters::EURChipID::createFromChipID(v14);
-    v17 = a3[2];
-    if (v17)
-    {
-      (*(*v17 + 8))(v17);
-    }
+  v14 = capabilities::radio::chipID(v13);
+  if (v14 != v24)
+  {
+    BBUFeedback::handleComment(a1[1], "WARNING: ChipID mismatch (DIAG vs. libTU); using libTU ChipID");
+  }
 
-    a3[2] = v16;
-    LODWORD(v27) = 0;
-    (*(*a3 + 32))(a3, &v27, 0);
-    if (v27 == 3)
+  v15 = BBUEURPersonalizationParameters::EURSerialNumber::createFromSerialNumber(v22, HIDWORD(v24));
+  (*(*a3 + 16))(a3, v15);
+  v16 = BBUEURPersonalizationParameters::EURChipID::createFromChipID(v14);
+  v17 = a3[2];
+  if (v17)
+  {
+    (*(*v17 + 8))(v17);
+  }
+
+  a3[2] = v16;
+  LODWORD(v23) = 0;
+  (*(*a3 + 32))(a3, &v23, 0);
+  if (v23 != 3)
+  {
+    return 0;
+  }
+
+  *&v18 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v18 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v22[0] = v18;
+  v22[1] = v18;
+  if (ETLMaverickManifestStatusInit())
+  {
+    v19 = (*(*a1 + 26))(a1, a2, a3, v22);
+    ETLMaverickManifestStatusFree();
+  }
+
+  else
+  {
+    if (gBBULogMaskGet(void)::once == -1)
     {
-      *&v18 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v18 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v26[0] = v18;
-      v26[1] = v18;
-      if (ETLMaverickManifestStatusInit())
+      v19 = 19;
+      if ((*gBBULogMaskGet(void)::sBBULogMask & 0x10) == 0)
       {
-        v19 = (*(*a1 + 26))(a1, a2, a3, v26);
-        ETLMaverickManifestStatusFree();
-      }
-
-      else
-      {
-        if (gBBULogMaskGet(void)::once == -1)
-        {
-          v19 = 19;
-          if ((*gBBULogMaskGet(void)::sBBULogMask & 0x10) == 0)
-          {
-            goto LABEL_16;
-          }
-        }
-
-        else
-        {
-          dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
-          v19 = 19;
-          if ((*gBBULogMaskGet(void)::sBBULogMask & 0x10) == 0)
-          {
-            goto LABEL_16;
-          }
-        }
-
-        if ((gBBULogVerbosity & 0x80000000) == 0)
-        {
-          v22 = (**a1)(a1);
-          _BBULog(4, 0, v22, "", "Failed to allocate space for manifest_status\n", v23, v24, v25, v26[0]);
-        }
+        return v19;
       }
     }
 
     else
     {
-      v19 = 0;
+      dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
+      v19 = 19;
+      if ((*gBBULogMaskGet(void)::sBBULogMask & 0x10) == 0)
+      {
+        return v19;
+      }
+    }
+
+    if ((gBBULogVerbosity & 0x80000000) == 0)
+    {
+      v21 = (**a1)(a1);
+      _BBULog(4, 0, v21, "", "Failed to allocate space for manifest_status\n");
     }
   }
 
-  else
-  {
-LABEL_15:
-    v19 = 3;
-  }
-
-LABEL_16:
-  v20 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
 uint64_t BBUEUR25Initializer::queryChipInfoBooted(BBUFeedback **a1, uint64_t a2, uint64_t a3)
 {
-  v55 = *MEMORY[0x1E69E9840];
-  v42 = 0;
+  v52 = *MEMORY[0x1E69E9840];
+  v39 = 0;
   v6 = capabilities::radio::chipID(a1);
-  v53 = 0u;
-  v54 = 0u;
-  v51 = 0u;
-  v52 = 0u;
-  v49 = 0u;
   v50 = 0u;
-  *bytes = 0u;
+  v51 = 0u;
   v48 = 0u;
-  v41 = 0;
-  v45 = 0u;
+  v49 = 0u;
   v46 = 0u;
-  v44 = 0u;
+  v47 = 0u;
+  *bytes = 0u;
+  v45 = 0u;
+  v38 = 0;
+  v42 = 0u;
+  v43 = 0u;
+  v41 = 0u;
   BBUFeedback::handleComment(a1[1], "Querying chip info from booted baseband");
   if (!a2 || !a3)
   {
     BBUFeedback::handleComment(a1[1], "missing parameter");
-    result = 2;
-    v36 = *MEMORY[0x1E69E9840];
-    return result;
+    return 2;
   }
 
   __p[0] = 0;
   capabilities::updater::personalizationCommandTimeout(v7);
   SerialNumberAndChipID64Bit = ETLMaverickReadSerialNumberAndChipID64Bit();
-  v43 = 0x44300000000;
+  v40 = 0x44300000000;
   BBUFeedback::handleComment(a1[1], "WARNING: Serial number mismatch (DIAG vs. libTU + DIAG); using libTU + DIAG SNUM");
   if ((SerialNumberAndChipID64Bit & 1) == 0)
   {
     BBUFeedback::handleComment(a1[1], "failed reading snum and/or chipID from booted baseband over ETL");
-LABEL_46:
-    result = 18;
-    v37 = *MEMORY[0x1E69E9840];
-    return result;
+    return 18;
   }
 
   capabilities::updater::personalizationCommandTimeout(v9);
   if ((ETLMaverickReadPublicKeyHash() & 1) == 0)
   {
     BBUFeedback::handleComment(a1[1], "failed reading PKHash from booted baseband over ETL");
-    goto LABEL_46;
+    return 18;
   }
 
-  v10 = BBUEURPersonalizationParameters::EURSerialNumber::createFromSerialNumber(&v43, HIDWORD(v42));
+  v10 = BBUEURPersonalizationParameters::EURSerialNumber::createFromSerialNumber(&v40, HIDWORD(v39));
   v11 = (*(*a3 + 16))(a3, v10);
-  if (v6 != v42)
+  if (v6 != v39)
   {
     BBUFeedback::handleComment(a1[1], "WARNING: ChipID mismatch (DIAG vs. libTU); using libTU ChipID");
   }
@@ -838,7 +810,7 @@ LABEL_46:
   }
 
   *(a3 + 16) = v13;
-  v15 = v41;
+  v15 = v38;
   v16 = operator new(0x10uLL);
   *v16 = &unk_1F5F04C88;
   v16[1] = 0;
@@ -851,7 +823,7 @@ LABEL_46:
 
   v17 = a1[1];
   (*(*v10 + 24))(__p, v10);
-  if (v40 >= 0)
+  if (v37 >= 0)
   {
     v18 = __p;
   }
@@ -894,7 +866,7 @@ LABEL_16:
   }
 
   BBUFeedback::handleComment(v17, "   SNUM: 0x%s / CHIPID: 0x%08x", v22, v21);
-  if (v40 < 0)
+  if (v37 < 0)
   {
     operator delete(__p[0]);
   }
@@ -902,7 +874,7 @@ LABEL_16:
 LABEL_21:
   v23 = a1[1];
   (*(*v16 + 24))(__p, v16);
-  if (v40 >= 0)
+  if (v37 >= 0)
   {
     v24 = __p;
   }
@@ -913,7 +885,7 @@ LABEL_21:
   }
 
   BBUFeedback::handleComment(v23, "   PUBLIC_KEY_HASH: 0x%s", v24);
-  if (v40 < 0)
+  if (v37 < 0)
   {
     operator delete(__p[0]);
   }
@@ -922,7 +894,7 @@ LABEL_21:
   v25 = a1 + 1;
   v27 = (*(**(a3 + 24) + 24))(*(a3 + 24));
   BBUFeedback::handleComment(v26, "   CertID: %u", v27);
-  v32 = v44 == *bytes && *(&v44 + 1) == *&bytes[8] && v45 == v48 && *(&v45 + 1) == *(&v48 + 1) && v46 == v49 && *(&v46 + 1) == *(&v49 + 1);
+  v32 = v41 == *bytes && *(&v41 + 1) == *&bytes[8] && v42 == v45 && *(&v42 + 1) == *(&v45 + 1) && v43 == v46 && *(&v43 + 1) == *(&v46 + 1);
   v33 = *v25;
   if (v32)
   {
@@ -939,7 +911,6 @@ LABEL_21:
   }
 
   *(a3 + 88) = v35;
-  v38 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -1041,7 +1012,7 @@ void BBUpdaterController::BBUpdaterController(BBUpdaterController *this, const v
   if (HIDWORD(v6))
   {
     exception = __cxa_allocate_exception(0x210uLL);
-    _BBUException::_BBUException(exception, 11, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterControllerFSM.hpp", 0xF7u, "Assertion failure(capabilities::updater::EUICCAttemptCount() <= std::numeric_limits<unsigned>::max() && capabilities::updater::EUICCAttemptCount() returns too large a value)", v38, v39, v40, cf);
+    _BBUException::_BBUException(exception, 11, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterControllerFSM.hpp", 0xF7u, "Assertion failure(capabilities::updater::EUICCAttemptCount() <= std::numeric_limits<unsigned>::max() && capabilities::updater::EUICCAttemptCount() returns too large a value)");
   }
 
   v7 = capabilities::updater::EUICCAttemptCount(v6);
@@ -1134,8 +1105,8 @@ void BBUpdaterController::BBUpdaterController(BBUpdaterController *this, const v
 
   if (!Mutable)
   {
-    v41 = __cxa_allocate_exception(0x210uLL);
-    _BBUException::_BBUException(v41, 2, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 0x53u, "Assertion failure(fOutput)", v42, v43, v44, cf);
+    v38 = __cxa_allocate_exception(0x210uLL);
+    _BBUException::_BBUException(v38, 2, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 0x53u, "Assertion failure(fOutput)");
   }
 
   valuePtr = -1431655766;
@@ -1151,11 +1122,11 @@ void BBUpdaterController::BBUpdaterController(BBUpdaterController *this, const v
 
   valuePtr = v26;
   v27 = CFNumberCreate(v19, kCFNumberSInt32Type, &valuePtr);
-  cfa = v27;
+  cf = v27;
   if (!v27)
   {
-    v45 = __cxa_allocate_exception(0x210uLL);
-    _BBUException::_BBUException(v45, 2, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 0x6Bu, "Assertion failure(v)", v46, v47, v48, 0);
+    v39 = __cxa_allocate_exception(0x210uLL);
+    _BBUException::_BBUException(v39, 2, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 0x6Bu, "Assertion failure(v)");
     goto LABEL_30;
   }
 
@@ -1165,37 +1136,37 @@ void BBUpdaterController::BBUpdaterController(BBUpdaterController *this, const v
   CFDictionarySetValue(*v18, @"attemptedToFuse", v28);
   if (!*(this + 6))
   {
-    v45 = __cxa_allocate_exception(0x210uLL);
-    _BBUException::_BBUException(v45, 2, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 0x72u, "Assertion failure(fBasebandController)", v49, v50, v51, cfa);
+    v39 = __cxa_allocate_exception(0x210uLL);
+    _BBUException::_BBUException(v39, 2, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 0x72u, "Assertion failure(fBasebandController)");
     goto LABEL_30;
   }
 
   v29 = *(this + 7);
   if (!v29)
   {
-    v45 = __cxa_allocate_exception(0x210uLL);
-    _BBUException::_BBUException(v45, 2, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 0x73u, "Assertion failure(fFeedback)", v52, v53, v54, cfa);
+    v39 = __cxa_allocate_exception(0x210uLL);
+    _BBUException::_BBUException(v39, 2, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 0x73u, "Assertion failure(fFeedback)");
     goto LABEL_30;
   }
 
   if (!*(this + 9))
   {
-    v45 = __cxa_allocate_exception(0x210uLL);
-    _BBUException::_BBUException(v45, 2, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 0x74u, "Assertion failure(fInitializer)", v55, v56, v57, cfa);
+    v39 = __cxa_allocate_exception(0x210uLL);
+    _BBUException::_BBUException(v39, 2, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 0x74u, "Assertion failure(fInitializer)");
     goto LABEL_30;
   }
 
   if (!*(this + 12))
   {
-    v45 = __cxa_allocate_exception(0x210uLL);
-    _BBUException::_BBUException(v45, 2, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 0x75u, "Assertion failure(fPersonalizationParameters)", v58, v59, v60, cfa);
+    v39 = __cxa_allocate_exception(0x210uLL);
+    _BBUException::_BBUException(v39, 2, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 0x75u, "Assertion failure(fPersonalizationParameters)");
     goto LABEL_30;
   }
 
   if (!*(this + 2))
   {
-    v45 = __cxa_allocate_exception(0x210uLL);
-    _BBUException::_BBUException(v45, 2, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 0x76u, "Assertion failure(fFSM)", v61, v62, v63, cfa);
+    v39 = __cxa_allocate_exception(0x210uLL);
+    _BBUException::_BBUException(v39, 2, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 0x76u, "Assertion failure(fFSM)");
 LABEL_30:
   }
 
@@ -1223,8 +1194,8 @@ LABEL_30:
     ++*(v34 + 452);
     ++*(v34 + 124);
     *(this + 363) = 0;
-    v36 = cfa;
-    if (!cfa)
+    v36 = cf;
+    if (!cf)
     {
       return;
     }
@@ -1243,15 +1214,15 @@ LABEL_30:
   }
 
   *(this + 363) = 0;
-  v36 = cfa;
-  if (cfa)
+  v36 = cf;
+  if (cf)
   {
 LABEL_20:
     CFRelease(v36);
   }
 }
 
-void sub_1E525037C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, const void *a9)
+void sub_1E525037C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   __cxa_free_exception(v16);
   ctu::cf::CFSharedRef<__CFNumber const>::~CFSharedRef(&a9);
@@ -1581,10 +1552,10 @@ uint64_t BBUpdaterController::setOptions(uint64_t a1, int a2, const __CFDictiona
       v3 = *(a1 + 40);
     }
 
-    v68[0] = 0xAAAAAAAAAAAAAAAALL;
-    v68[1] = 0xAAAAAAAAAAAAAAAALL;
-    ctu::cf::dict_adapter::dict_adapter(v68, v3);
-    memset(v67, 170, sizeof(v67));
+    v63[0] = 0xAAAAAAAAAAAAAAAALL;
+    v63[1] = 0xAAAAAAAAAAAAAAAALL;
+    ctu::cf::dict_adapter::dict_adapter(v63, v3);
+    memset(v62, 170, sizeof(v62));
     HIBYTE(__p[2]) = 0;
     LOBYTE(__p[0]) = 0;
     ctu::cf::map_adapter::getString();
@@ -1663,42 +1634,42 @@ LABEL_19:
     }
 
     v13 = (v11 + 5);
-    if (v11 + 5 != v67)
+    if (v11 + 5 != v62)
     {
       if (*(v11 + 63) < 0)
       {
-        if (SHIBYTE(v67[2]) >= 0)
+        if (SHIBYTE(v62[2]) >= 0)
         {
-          v14 = v67;
+          v14 = v62;
         }
 
         else
         {
-          v14 = v67[0];
+          v14 = v62[0];
         }
 
-        if (SHIBYTE(v67[2]) >= 0)
+        if (SHIBYTE(v62[2]) >= 0)
         {
-          v15 = HIBYTE(v67[2]);
+          v15 = HIBYTE(v62[2]);
         }
 
         else
         {
-          v15 = v67[1];
+          v15 = v62[1];
         }
 
         std::string::__assign_no_alias<false>(v13, v14, v15);
       }
 
-      else if ((HIBYTE(v67[2]) & 0x80) != 0)
+      else if ((HIBYTE(v62[2]) & 0x80) != 0)
       {
-        std::string::__assign_no_alias<true>(v13, v67[0], v67[1]);
+        std::string::__assign_no_alias<true>(v13, v62[0], v62[1]);
       }
 
       else
       {
-        *v13 = *v67;
-        v11[7] = v67[2];
+        *v13 = *v62;
+        v11[7] = v62[2];
       }
     }
 
@@ -1711,13 +1682,13 @@ LABEL_19:
     HIBYTE(__dst[2]) = 0;
     LOBYTE(__dst[0]) = 0;
     ctu::cf::map_adapter::getString();
-    if (SHIBYTE(v67[2]) < 0)
+    if (SHIBYTE(v62[2]) < 0)
     {
-      operator delete(v67[0]);
+      operator delete(v62[0]);
     }
 
-    *v67 = *__p;
-    v67[2] = __p[2];
+    *v62 = *__p;
+    v62[2] = __p[2];
     HIBYTE(__p[2]) = 0;
     LOBYTE(__p[0]) = 0;
     if (SHIBYTE(__dst[2]) < 0)
@@ -1795,42 +1766,42 @@ LABEL_52:
     }
 
     v23 = (v21 + 5);
-    if (v21 + 5 != v67)
+    if (v21 + 5 != v62)
     {
       if (*(v21 + 63) < 0)
       {
-        if (SHIBYTE(v67[2]) >= 0)
+        if (SHIBYTE(v62[2]) >= 0)
         {
-          v24 = v67;
+          v24 = v62;
         }
 
         else
         {
-          v24 = v67[0];
+          v24 = v62[0];
         }
 
-        if (SHIBYTE(v67[2]) >= 0)
+        if (SHIBYTE(v62[2]) >= 0)
         {
-          v25 = HIBYTE(v67[2]);
+          v25 = HIBYTE(v62[2]);
         }
 
         else
         {
-          v25 = v67[1];
+          v25 = v62[1];
         }
 
         std::string::__assign_no_alias<false>(v23, v24, v25);
       }
 
-      else if ((HIBYTE(v67[2]) & 0x80) != 0)
+      else if ((HIBYTE(v62[2]) & 0x80) != 0)
       {
-        std::string::__assign_no_alias<true>(v23, v67[0], v67[1]);
+        std::string::__assign_no_alias<true>(v23, v62[0], v62[1]);
       }
 
       else
       {
-        *v23 = *v67;
-        v21[7] = v67[2];
+        *v23 = *v62;
+        v21[7] = v62[2];
       }
     }
 
@@ -1844,13 +1815,13 @@ LABEL_52:
     *&__dst[1] = xmmword_1E538EBC0;
     strcpy(__dst[0], "/private/var/wireless/baseband_data");
     ctu::cf::map_adapter::getString();
-    if (SHIBYTE(v67[2]) < 0)
+    if (SHIBYTE(v62[2]) < 0)
     {
-      operator delete(v67[0]);
+      operator delete(v62[0]);
     }
 
-    *v67 = *__p;
-    v67[2] = __p[2];
+    *v62 = *__p;
+    v62[2] = __p[2];
     HIBYTE(__p[2]) = 0;
     LOBYTE(__p[0]) = 0;
     if (SHIBYTE(__dst[2]) < 0)
@@ -1928,42 +1899,42 @@ LABEL_85:
     }
 
     v33 = (v31 + 5);
-    if (v31 + 5 != v67)
+    if (v31 + 5 != v62)
     {
       if (*(v31 + 63) < 0)
       {
-        if (SHIBYTE(v67[2]) >= 0)
+        if (SHIBYTE(v62[2]) >= 0)
         {
-          v34 = v67;
+          v34 = v62;
         }
 
         else
         {
-          v34 = v67[0];
+          v34 = v62[0];
         }
 
-        if (SHIBYTE(v67[2]) >= 0)
+        if (SHIBYTE(v62[2]) >= 0)
         {
-          v35 = HIBYTE(v67[2]);
+          v35 = HIBYTE(v62[2]);
         }
 
         else
         {
-          v35 = v67[1];
+          v35 = v62[1];
         }
 
         std::string::__assign_no_alias<false>(v33, v34, v35);
       }
 
-      else if ((HIBYTE(v67[2]) & 0x80) != 0)
+      else if ((HIBYTE(v62[2]) & 0x80) != 0)
       {
-        std::string::__assign_no_alias<true>(v33, v67[0], v67[1]);
+        std::string::__assign_no_alias<true>(v33, v62[0], v62[1]);
       }
 
       else
       {
-        *v33 = *v67;
-        v31[7] = v67[2];
+        *v33 = *v62;
+        v31[7] = v62[2];
       }
     }
 
@@ -1996,7 +1967,7 @@ LABEL_85:
     }
 
     value = 0xAAAAAAAAAAAAAAAALL;
-    if (!CFDictionaryGetValueIfPresent(v36, @"DebugArgs", &value) || (v44 = CFGetTypeID(value), v44 != CFStringGetTypeID()))
+    if (!CFDictionaryGetValueIfPresent(v36, @"DebugArgs", &value) || (v41 = CFGetTypeID(value), v41 != CFStringGetTypeID()))
     {
 LABEL_153:
       if (v37[395] == -1)
@@ -2040,7 +2011,7 @@ LABEL_157:
           dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
         }
 
-        _BBULog(19, 0xFFFFFFFFLL, "BBUpdaterController", "", "enabling kernel IPC log\n", v41, v42, v43, v66);
+        _BBULog(19, 0xFFFFFFFFLL, "BBUpdaterController", "", "enabling kernel IPC log\n");
         (*(**(a1 + 120) + 32))(*(a1 + 120));
       }
 
@@ -2080,7 +2051,7 @@ LABEL_164:
         if (BBULogRegisterRemoteFSDelegate(void)::delegate)
         {
           sDelegate = BBULogRegisterRemoteFSDelegate(void)::delegate;
-          if (SHIBYTE(v67[2]) < 0)
+          if (SHIBYTE(v62[2]) < 0)
           {
             goto LABEL_174;
           }
@@ -2089,15 +2060,15 @@ LABEL_164:
         }
 
 LABEL_173:
-        if (SHIBYTE(v67[2]) < 0)
+        if (SHIBYTE(v62[2]) < 0)
         {
 LABEL_174:
-          operator delete(v67[0]);
+          operator delete(v62[0]);
         }
 
 LABEL_175:
-        MEMORY[0x1E69265E0](v68);
-        goto LABEL_176;
+        MEMORY[0x1E69265E0](v63);
+        return 1;
       }
 
 LABEL_171:
@@ -2105,16 +2076,16 @@ LABEL_171:
       __p[0] = 0xAAAAAAAAAAAAAAAALL;
       __p[1] = 0xAAAAAAAAAAAAAAAALL;
       (*(**(a1 + 64) + 56))(__p);
-      v62 = *(a1 + 120);
-      v63 = *(a1 + 128);
+      v59 = *(a1 + 120);
+      v60 = *(a1 + 128);
       *(a1 + 120) = *__p;
-      __p[0] = v62;
-      __p[1] = v63;
-      if (v63 && !atomic_fetch_add(&v63->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+      __p[0] = v59;
+      __p[1] = v60;
+      if (v60 && !atomic_fetch_add(&v60->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
       {
-        (v63->__on_zero_shared)(v63);
-        std::__shared_weak_count::__release_weak(v63);
-        if ((SHIBYTE(v67[2]) & 0x80000000) == 0)
+        (v60->__on_zero_shared)(v60);
+        std::__shared_weak_count::__release_weak(v60);
+        if ((SHIBYTE(v62[2]) & 0x80000000) == 0)
         {
           goto LABEL_175;
         }
@@ -2128,59 +2099,59 @@ LABEL_171:
     memset(__dst, 170, sizeof(__dst));
     memset(__p, 170, 0x400uLL);
     CFStringGetCString(value, __p, 1024, 0x8000100u);
-    v45 = strlen(__p);
-    if (v45 >= 0x7FFFFFFFFFFFFFF8)
+    v42 = strlen(__p);
+    if (v42 >= 0x7FFFFFFFFFFFFFF8)
     {
       std::string::__throw_length_error[abi:ne200100]();
     }
 
-    v46 = v45;
-    if (v45 >= 0x17)
+    v43 = v42;
+    if (v42 >= 0x17)
     {
-      if ((v45 | 7) == 0x17)
+      if ((v42 | 7) == 0x17)
       {
-        v48 = 25;
+        v45 = 25;
       }
 
       else
       {
-        v48 = (v45 | 7) + 1;
+        v45 = (v42 | 7) + 1;
       }
 
-      v47 = operator new(v48);
-      __dst[1] = v46;
-      __dst[2] = (v48 | 0x8000000000000000);
-      __dst[0] = v47;
+      v44 = operator new(v45);
+      __dst[1] = v43;
+      __dst[2] = (v45 | 0x8000000000000000);
+      __dst[0] = v44;
     }
 
     else
     {
-      HIBYTE(__dst[2]) = v45;
-      v47 = __dst;
-      if (!v45)
+      HIBYTE(__dst[2]) = v42;
+      v44 = __dst;
+      if (!v42)
       {
         goto LABEL_114;
       }
     }
 
-    memcpy(v47, __p, v46);
+    memcpy(v44, __p, v43);
 LABEL_114:
-    *(v46 + v47) = 0;
-    v49 = HIBYTE(__dst[2]);
-    v50 = HIBYTE(__dst[2]);
+    *(v43 + v44) = 0;
+    v46 = HIBYTE(__dst[2]);
+    v47 = HIBYTE(__dst[2]);
     if (SHIBYTE(__dst[2]) < 0)
     {
-      v49 = __dst[1];
+      v46 = __dst[1];
     }
 
-    if (v49)
+    if (v46)
     {
       memset(__p, 0, 24);
       BBUStringToArgv(__dst, __p);
-      v51 = MEMORY[0x1E69E9900];
+      v48 = MEMORY[0x1E69E9900];
       *MEMORY[0x1E69E98F0] = 1;
-      *v51 = 1;
-      v52 = MEMORY[0x1E69E98E0];
+      *v48 = 1;
+      v49 = MEMORY[0x1E69E98E0];
       while (1)
       {
         while (1)
@@ -2191,45 +2162,45 @@ LABEL_114:
             {
               while (1)
               {
-                v53 = getopt_long(((__p[1] - __p[0]) >> 3) - 1, __p[0], "l:v:x:fw:i:t:e:p:d:r:c:hFSqVB:ND:", &BBUpdaterController::parseDebugArgs(void)::long_options, 0);
-                if (v53 > 117)
+                v50 = getopt_long(((__p[1] - __p[0]) >> 3) - 1, __p[0], "l:v:x:fw:i:t:e:p:d:r:c:hFSqVB:ND:", &BBUpdaterController::parseDebugArgs(void)::long_options, 0);
+                if (v50 > 117)
                 {
                   break;
                 }
 
-                switch(v53)
+                switch(v50)
                 {
                   case 0x42:
-                    v58 = *v52;
-                    if (!strncmp("none", *v52, 4uLL))
+                    v55 = *v49;
+                    if (!strncmp("none", *v49, 4uLL))
                     {
                       *(a1 + 340) = 0;
                     }
 
-                    else if (!strncmp("feedback", v58, 8uLL))
+                    else if (!strncmp("feedback", v55, 8uLL))
                     {
                       *(a1 + 340) = 1;
                     }
 
                     else
                     {
-                      *(a1 + 340) = 2 * (strncmp("oslog", v58, 5uLL) == 0);
+                      *(a1 + 340) = 2 * (strncmp("oslog", v55, 5uLL) == 0);
                     }
 
                     break;
                   case 0x6C:
                     __endptr = 0xAAAAAAAAAAAAAAAALL;
-                    v54 = strtoul(*v52, &__endptr, 0);
+                    v51 = strtoul(*v49, &__endptr, 0);
                     if (!*__endptr)
                     {
-                      v55 = v54;
-                      sLogInternalMask = v54;
+                      v52 = v51;
+                      sLogInternalMask = v51;
                       if (gBBULogMaskGet(void)::once != -1)
                       {
                         dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
                       }
 
-                      *gBBULogMaskGet(void)::sBBULogMask = v55;
+                      *gBBULogMaskGet(void)::sBBULogMask = v52;
                     }
 
                     break;
@@ -2240,7 +2211,7 @@ LABEL_114:
                       operator delete(__p[0]);
                     }
 
-                    v50 = HIBYTE(__dst[2]);
+                    v47 = HIBYTE(__dst[2]);
                     v40 = &unk_1ECFD5000;
                     v39 = &unk_1ED949000;
                     v38 = &unk_1ED949000;
@@ -2248,31 +2219,31 @@ LABEL_114:
                     goto LABEL_151;
                   default:
 LABEL_119:
-                    BBUFeedback::handleComment(*(a1 + 56), "%s: Ignoring unknown/RC'd out option %c", "parseDebugArgs", v53);
+                    BBUFeedback::handleComment(*(a1 + 56), "%s: Ignoring unknown/RC'd out option %c", "parseDebugArgs", v50);
                     break;
                 }
               }
 
-              if (v53 != 118)
+              if (v50 != 118)
               {
                 break;
               }
 
               __endptr = 0xAAAAAAAAAAAAAAAALL;
-              v59 = strtoul(*v52, &__endptr, 0);
+              v56 = strtoul(*v49, &__endptr, 0);
               if (!*__endptr)
               {
-                gBBULogVerbosity = v59;
+                gBBULogVerbosity = v56;
               }
             }
 
-            if (v53 != 120)
+            if (v50 != 120)
             {
               goto LABEL_119;
             }
 
             __endptr = 0xAAAAAAAAAAAAAAAALL;
-            v56 = strtoul(*v52, &__endptr, 0);
+            v53 = strtoul(*v49, &__endptr, 0);
           }
 
           while (*__endptr);
@@ -2281,37 +2252,15 @@ LABEL_119:
             break;
           }
 
-          if (v56 >= 7)
-          {
-            v57 = (*gBBULogMaskGet(void)::sBBULogMask & 0x40) == 0;
-            *gBBULogMaskGet(void)::sBBULogMask;
-          }
-
-          else
-          {
-            v57 = 1;
-          }
-
-          if (!v57)
+          if (v53 >= 7 && (*gBBULogMaskGet(void)::sBBULogMask & 0x40) != 0)
           {
             goto LABEL_135;
           }
         }
 
-        v60 = v56;
+        v57 = v53;
         dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
-        if (v60 >= 7)
-        {
-          v61 = (*gBBULogMaskGet(void)::sBBULogMask & 0x40) == 0;
-          *gBBULogMaskGet(void)::sBBULogMask;
-        }
-
-        else
-        {
-          v61 = 1;
-        }
-
-        if (!v61)
+        if (v57 >= 7 && (*gBBULogMaskGet(void)::sBBULogMask & 0x40) != 0)
         {
 LABEL_135:
           TelephonyUtilDebugSetFlags();
@@ -2320,7 +2269,7 @@ LABEL_135:
     }
 
 LABEL_151:
-    if (v50 < 0)
+    if (v47 < 0)
     {
       operator delete(__dst[0]);
     }
@@ -2328,12 +2277,10 @@ LABEL_151:
     goto LABEL_153;
   }
 
-LABEL_176:
-  v64 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
-void sub_1E525174C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, char a17, uint64_t a18, uint64_t a19, void *a20, uint64_t a21, int a22, __int16 a23, char a24, char a25, uint64_t a26, void *__p, uint64_t a28, int a29, __int16 a30, char a31, char a32)
+void sub_1E525174C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20, uint64_t a21, int a22, __int16 a23, char a24, char a25, uint64_t a26, void *__p, uint64_t a28, int a29, __int16 a30, char a31, char a32)
 {
   if (__p)
   {
@@ -2351,20 +2298,20 @@ void sub_1E525174C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     operator delete(a11);
   }
 
-  MEMORY[0x1E69265E0](&a17);
+  MEMORY[0x1E69265E0](&a17, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-uint64_t BBUpdaterController::execCommand(uint64_t a1, int a2, CFStringRef theString2, CFDictionaryRef *a4, CFTypeRef *a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t BBUpdaterController::execCommand(uint64_t a1, int a2, CFStringRef theString2, CFDictionaryRef *a4, CFTypeRef *a5)
 {
-  v83 = 0;
+  v65 = 0;
   if (!theString2)
   {
     if (gBBULogMaskGet(void)::once == -1)
     {
       if ((*gBBULogMaskGet(void)::sBBULogMask & 2) == 0)
       {
-        goto LABEL_87;
+        goto LABEL_85;
       }
     }
 
@@ -2373,31 +2320,31 @@ uint64_t BBUpdaterController::execCommand(uint64_t a1, int a2, CFStringRef theSt
       dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
       if ((*gBBULogMaskGet(void)::sBBULogMask & 2) == 0)
       {
-        goto LABEL_87;
+        goto LABEL_85;
       }
     }
 
     if (gBBULogVerbosity >= 6)
     {
-      _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", a6, a7, a8, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp");
+      _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 199, "command");
     }
 
-LABEL_87:
-    std::string::basic_string[abi:ne200100]<0>(v81, "null command");
-    BBUpdaterCommon::BBUCreateCFError(&v83, v81, 2u, 0, v58, v59, v60, v61);
-    if (v82 < 0)
+LABEL_85:
+    std::string::basic_string[abi:ne200100]<0>(v63, "null command");
+    BBUpdaterCommon::BBUCreateCFError(&v65, v63, 2u, 0);
+    if (v64 < 0)
     {
-      operator delete(v81[0]);
-      v53 = 0;
+      operator delete(v63[0]);
+      v47 = 0;
       if (!a5)
       {
-        return v53;
+        return v47;
       }
 
-      goto LABEL_110;
+      goto LABEL_108;
     }
 
-    goto LABEL_107;
+    goto LABEL_105;
   }
 
   if (!a4)
@@ -2406,7 +2353,7 @@ LABEL_87:
     {
       if ((*gBBULogMaskGet(void)::sBBULogMask & 2) == 0)
       {
-        goto LABEL_94;
+        goto LABEL_92;
       }
     }
 
@@ -2415,138 +2362,137 @@ LABEL_87:
       dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
       if ((*gBBULogMaskGet(void)::sBBULogMask & 2) == 0)
       {
-        goto LABEL_94;
+        goto LABEL_92;
       }
     }
 
     if (gBBULogVerbosity >= 6)
     {
-      _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", a6, a7, a8, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp");
+      _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 201, "output");
     }
 
-LABEL_94:
-    std::string::basic_string[abi:ne200100]<0>(v79, "null output");
-    BBUpdaterCommon::BBUCreateCFError(&v83, v79, 2u, 0, v62, v63, v64, v65);
-    if (v80 < 0)
+LABEL_92:
+    std::string::basic_string[abi:ne200100]<0>(v61, "null output");
+    BBUpdaterCommon::BBUCreateCFError(&v65, v61, 2u, 0);
+    if (v62 < 0)
     {
-      operator delete(v79[0]);
-      v53 = 0;
+      operator delete(v61[0]);
+      v47 = 0;
       if (!a5)
       {
-        return v53;
+        return v47;
       }
 
-      goto LABEL_110;
+      goto LABEL_108;
     }
 
-    goto LABEL_107;
+    goto LABEL_105;
   }
 
-  if ((atomic_load_explicit(&_MergedGlobals_1, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&_MergedGlobals_1))
+  if ((atomic_load_explicit(_MergedGlobals_1, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(_MergedGlobals_1))
   {
     qword_1ED948390 = 0;
     qword_1ED948388 = 0;
     qword_1ED948380 = &qword_1ED948388;
     __cxa_atexit(std::map<__CFString const*,BBUpdaterController::CmdInfo,BBUpdaterController::CFStringCompareFunctor,std::allocator<std::pair<__CFString const* const,BBUpdaterController::CmdInfo>>>::~map[abi:ne200100], &qword_1ED948380, &dword_1E5234000);
-    __cxa_guard_release(&_MergedGlobals_1);
+    __cxa_guard_release(_MergedGlobals_1);
   }
 
   if (qword_1ED9482D0 == -1)
   {
-    v12 = qword_1ED948388;
+    v9 = qword_1ED948388;
     if (!qword_1ED948388)
     {
-      goto LABEL_98;
+      goto LABEL_96;
     }
   }
 
   else
   {
     dispatch_once(&qword_1ED9482D0, &__block_literal_global_0);
-    v12 = qword_1ED948388;
+    v9 = qword_1ED948388;
     if (!qword_1ED948388)
     {
-      goto LABEL_98;
+      goto LABEL_96;
     }
   }
 
-  v13 = &qword_1ED948388;
+  v10 = &qword_1ED948388;
   do
   {
-    v14 = CFStringCompare(*(v12 + 32), theString2, 0);
-    if (v14 >= kCFCompareEqualTo)
+    v11 = CFStringCompare(*(v9 + 32), theString2, 0);
+    if (v11 >= kCFCompareEqualTo)
     {
-      v13 = v12;
+      v10 = v9;
     }
 
-    v12 = *(v12 + ((v14 >> 60) & 8));
+    v9 = *(v9 + ((v11 >> 60) & 8));
   }
 
-  while (v12);
-  if (v13 != &qword_1ED948388 && (CFStringCompare(theString2, v13[4], 0) & 0x8000000000000000) == 0)
+  while (v9);
+  if (v10 != &qword_1ED948388 && (CFStringCompare(theString2, v10[4], 0) & 0x8000000000000000) == 0)
   {
-    v15 = *(a1 + 56);
-    v16 = v13[4];
-    memset(&v84, 0, sizeof(v84));
+    v12 = *(a1 + 56);
+    memset(&v66, 0, sizeof(v66));
     ctu::cf::assign();
     memset(&__p, 0, sizeof(__p));
-    BBUFeedback::handleBeginPhase(v15, "Command: %s", &__p);
+    BBUFeedback::handleBeginPhase(v12, "Command: %s", &__p);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
     }
 
-    (*(v13[6] + 16))();
-    v17 = *(a1 + 56);
+    (*(v10[6] + 16))();
+    v13 = *(a1 + 56);
     pthread_mutex_lock(&ctu::Singleton<BBUError,BBUError,ctu::PthreadMutexGuardPolicy<BBUError>>::sInstance);
-    v18 = off_1ED944120;
+    v14 = off_1ED944120;
     if (!off_1ED944120)
     {
-      v19 = operator new(0x38uLL);
-      v20 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_UTILITY, 0);
-      v21 = dispatch_queue_create("BBUError", v20);
-      *v19 = 0;
-      v19[1] = 0;
-      v19[2] = v21;
-      if (v21)
+      v15 = operator new(0x38uLL);
+      v16 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_UTILITY, 0);
+      v17 = dispatch_queue_create("BBUError", v16);
+      *v15 = 0;
+      v15[1] = 0;
+      v15[2] = v17;
+      if (v17)
       {
-        v22 = v21;
-        dispatch_retain(v21);
-        v19[3] = 0;
-        dispatch_release(v22);
+        v18 = v17;
+        dispatch_retain(v17);
+        v15[3] = 0;
+        dispatch_release(v18);
       }
 
       else
       {
-        v19[3] = 0;
+        v15[3] = 0;
       }
 
-      v19[4] = 0;
-      v19[5] = 0;
-      v19[6] = 0;
-      std::shared_ptr<BBUError>::shared_ptr[abi:ne200100]<BBUError,std::shared_ptr<BBUError> ctu::SharedSynchronizable<BBUError>::make_shared_ptr<BBUError>(BBUError*)::{lambda(BBUError*)#1},0>(&v84, v19);
-      v23 = *&v84.__r_.__value_.__l.__data_;
-      *&v84.__r_.__value_.__l.__data_ = 0uLL;
-      v24 = *(&off_1ED944120 + 1);
-      off_1ED944120 = v23;
-      if (v24 && !atomic_fetch_add(&v24->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+      v15[4] = 0;
+      v15[5] = 0;
+      v15[6] = 0;
+      std::shared_ptr<BBUError>::shared_ptr[abi:ne200100]<BBUError,std::shared_ptr<BBUError> ctu::SharedSynchronizable<BBUError>::make_shared_ptr<BBUError>(BBUError*)::{lambda(BBUError*)#1},0>(&v66, v15);
+      v19 = *&v66.__r_.__value_.__l.__data_;
+      *&v66.__r_.__value_.__l.__data_ = 0uLL;
+      v20 = *(&off_1ED944120 + 1);
+      off_1ED944120 = v19;
+      if (v20 && !atomic_fetch_add(&v20->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
       {
-        (v24->__on_zero_shared)(v24);
-        std::__shared_weak_count::__release_weak(v24);
+        (v20->__on_zero_shared)(v20);
+        std::__shared_weak_count::__release_weak(v20);
       }
 
-      size = v84.__r_.__value_.__l.__size_;
-      if (v84.__r_.__value_.__l.__size_ && !atomic_fetch_add((v84.__r_.__value_.__l.__size_ + 8), 0xFFFFFFFFFFFFFFFFLL))
+      size = v66.__r_.__value_.__l.__size_;
+      if (v66.__r_.__value_.__l.__size_ && !atomic_fetch_add((v66.__r_.__value_.__l.__size_ + 8), 0xFFFFFFFFFFFFFFFFLL))
       {
         (size->__on_zero_shared)(size);
         std::__shared_weak_count::__release_weak(size);
       }
 
-      v18 = off_1ED944120;
+      v14 = off_1ED944120;
     }
 
-    v26 = *(&off_1ED944120 + 1);
-    __p.__r_.__value_.__r.__words[0] = v18;
+    v22 = *(&off_1ED944120 + 1);
+    __p.__r_.__value_.__r.__words[0] = v14;
     __p.__r_.__value_.__l.__size_ = *(&off_1ED944120 + 1);
     if (*(&off_1ED944120 + 1))
     {
@@ -2554,19 +2500,19 @@ LABEL_94:
     }
 
     pthread_mutex_unlock(&ctu::Singleton<BBUError,BBUError,ctu::PthreadMutexGuardPolicy<BBUError>>::sInstance);
-    ErrorCode = BBUError::getErrorCode(v18);
-    (*(*v17 + 16))(v17, ErrorCode);
-    if (v26 && !atomic_fetch_add(&v26->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    ErrorCode = BBUError::getErrorCode(v14);
+    (*(*v13 + 16))(v13, ErrorCode);
+    if (v22 && !atomic_fetch_add(&v22->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
     {
-      (v26->__on_zero_shared)(v26);
-      std::__shared_weak_count::__release_weak(v26);
-      v28 = *(a1 + 335);
-      if ((v28 & 0x8000000000000000) == 0)
+      (v22->__on_zero_shared)(v22);
+      std::__shared_weak_count::__release_weak(v22);
+      v24 = *(a1 + 335);
+      if ((v24 & 0x8000000000000000) == 0)
       {
 LABEL_30:
-        if (!v28)
+        if (!v24)
         {
-          goto LABEL_47;
+          goto LABEL_45;
         }
 
         goto LABEL_34;
@@ -2575,8 +2521,8 @@ LABEL_30:
 
     else
     {
-      v28 = *(a1 + 335);
-      if ((v28 & 0x8000000000000000) == 0)
+      v24 = *(a1 + 335);
+      if ((v24 & 0x8000000000000000) == 0)
       {
         goto LABEL_30;
       }
@@ -2584,177 +2530,171 @@ LABEL_30:
 
     if (!*(a1 + 320))
     {
-      goto LABEL_47;
+      goto LABEL_45;
     }
 
 LABEL_34:
-    if (v28 < 0)
-    {
-      v29 = *(a1 + 312);
-      v30 = *(a1 + 320);
-    }
-
     if (ctu::fs::is_directory())
     {
       BBUFeedback::handleBeginPhase(*(a1 + 56), "BB Booted");
       (*(**(a1 + 56) + 16))(*(a1 + 56), 0);
-      v31 = *(a1 + 56);
-      v84.__r_.__value_.__r.__words[0] = operator new(0x19uLL);
-      *&v84.__r_.__value_.__r.__words[1] = xmmword_1E538EBD0;
-      strcpy(v84.__r_.__value_.__l.__data_, "/bbupdate_profile.plist");
-      v32 = *(a1 + 335);
-      if (v32 >= 0)
+      v25 = *(a1 + 56);
+      v66.__r_.__value_.__r.__words[0] = operator new(0x19uLL);
+      *&v66.__r_.__value_.__r.__words[1] = xmmword_1E538EBD0;
+      strcpy(v66.__r_.__value_.__l.__data_, "/bbupdate_profile.plist");
+      v26 = *(a1 + 335);
+      if (v26 >= 0)
       {
-        v33 = (a1 + 312);
+        v27 = (a1 + 312);
       }
 
       else
       {
-        v33 = *(a1 + 312);
+        v27 = *(a1 + 312);
       }
 
-      if (v32 >= 0)
+      if (v26 >= 0)
       {
-        v34 = *(a1 + 335);
+        v28 = *(a1 + 335);
       }
 
       else
       {
-        v34 = *(a1 + 320);
+        v28 = *(a1 + 320);
       }
 
-      v35 = std::string::insert(&v84, 0, v33, v34);
-      v36 = *&v35->__r_.__value_.__l.__data_;
-      v76 = v35->__r_.__value_.__r.__words[2];
-      *v75 = v36;
-      v35->__r_.__value_.__l.__size_ = 0;
-      v35->__r_.__value_.__r.__words[2] = 0;
-      v35->__r_.__value_.__r.__words[0] = 0;
-      BBUProfiler::exportToFile((v31 + 80), v75);
-      if (SHIBYTE(v76) < 0)
+      v29 = std::string::insert(&v66, 0, v27, v28);
+      v30 = *&v29->__r_.__value_.__l.__data_;
+      v58 = v29->__r_.__value_.__r.__words[2];
+      *v57 = v30;
+      v29->__r_.__value_.__l.__size_ = 0;
+      v29->__r_.__value_.__r.__words[2] = 0;
+      v29->__r_.__value_.__r.__words[0] = 0;
+      BBUProfiler::exportToFile((v25 + 80), v57);
+      if (SHIBYTE(v58) < 0)
       {
-        operator delete(v75[0]);
+        operator delete(v57[0]);
       }
 
-      if (SHIBYTE(v84.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v66.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v84.__r_.__value_.__l.__data_);
+        operator delete(v66.__r_.__value_.__l.__data_);
       }
     }
 
-LABEL_47:
+LABEL_45:
     pthread_mutex_lock(&ctu::Singleton<BBUError,BBUError,ctu::PthreadMutexGuardPolicy<BBUError>>::sInstance);
-    v37 = off_1ED944120;
+    v31 = off_1ED944120;
     if (!off_1ED944120)
     {
-      v38 = operator new(0x38uLL);
-      v39 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_UTILITY, 0);
-      v40 = dispatch_queue_create("BBUError", v39);
-      *v38 = 0;
-      v38[1] = 0;
-      v38[2] = v40;
-      if (v40)
+      v32 = operator new(0x38uLL);
+      v33 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_UTILITY, 0);
+      v34 = dispatch_queue_create("BBUError", v33);
+      *v32 = 0;
+      v32[1] = 0;
+      v32[2] = v34;
+      if (v34)
       {
-        v41 = v40;
-        dispatch_retain(v40);
-        v38[3] = 0;
-        dispatch_release(v41);
+        v35 = v34;
+        dispatch_retain(v34);
+        v32[3] = 0;
+        dispatch_release(v35);
       }
 
       else
       {
-        v38[3] = 0;
+        v32[3] = 0;
       }
 
-      v38[4] = 0;
-      v38[5] = 0;
-      v38[6] = 0;
-      std::shared_ptr<BBUError>::shared_ptr[abi:ne200100]<BBUError,std::shared_ptr<BBUError> ctu::SharedSynchronizable<BBUError>::make_shared_ptr<BBUError>(BBUError*)::{lambda(BBUError*)#1},0>(&v84, v38);
-      v42 = *&v84.__r_.__value_.__l.__data_;
-      *&v84.__r_.__value_.__l.__data_ = 0uLL;
-      v43 = *(&off_1ED944120 + 1);
-      off_1ED944120 = v42;
-      if (v43 && !atomic_fetch_add(&v43->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+      v32[4] = 0;
+      v32[5] = 0;
+      v32[6] = 0;
+      std::shared_ptr<BBUError>::shared_ptr[abi:ne200100]<BBUError,std::shared_ptr<BBUError> ctu::SharedSynchronizable<BBUError>::make_shared_ptr<BBUError>(BBUError*)::{lambda(BBUError*)#1},0>(&v66, v32);
+      v36 = *&v66.__r_.__value_.__l.__data_;
+      *&v66.__r_.__value_.__l.__data_ = 0uLL;
+      v37 = *(&off_1ED944120 + 1);
+      off_1ED944120 = v36;
+      if (v37 && !atomic_fetch_add(&v37->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
       {
-        (v43->__on_zero_shared)(v43);
-        std::__shared_weak_count::__release_weak(v43);
+        (v37->__on_zero_shared)(v37);
+        std::__shared_weak_count::__release_weak(v37);
       }
 
-      v44 = v84.__r_.__value_.__l.__size_;
-      if (v84.__r_.__value_.__l.__size_ && !atomic_fetch_add((v84.__r_.__value_.__l.__size_ + 8), 0xFFFFFFFFFFFFFFFFLL))
+      v38 = v66.__r_.__value_.__l.__size_;
+      if (v66.__r_.__value_.__l.__size_ && !atomic_fetch_add((v66.__r_.__value_.__l.__size_ + 8), 0xFFFFFFFFFFFFFFFFLL))
       {
-        (v44->__on_zero_shared)(v44);
-        std::__shared_weak_count::__release_weak(v44);
+        (v38->__on_zero_shared)(v38);
+        std::__shared_weak_count::__release_weak(v38);
       }
 
-      v37 = off_1ED944120;
+      v31 = off_1ED944120;
     }
 
-    v45 = *(&off_1ED944120 + 1);
+    v39 = *(&off_1ED944120 + 1);
     if (*(&off_1ED944120 + 1))
     {
       atomic_fetch_add_explicit((*(&off_1ED944120 + 1) + 8), 1uLL, memory_order_relaxed);
     }
 
     pthread_mutex_unlock(&ctu::Singleton<BBUError,BBUError,ctu::PthreadMutexGuardPolicy<BBUError>>::sInstance);
-    v46 = BBUError::getErrorCode(v37);
-    if (v45 && !atomic_fetch_add(&v45->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    v40 = BBUError::getErrorCode(v31);
+    if (v39 && !atomic_fetch_add(&v39->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
     {
-      v52 = v46;
-      (v45->__on_zero_shared)(v45);
-      std::__shared_weak_count::__release_weak(v45);
-      if (v52)
+      v46 = v40;
+      (v39->__on_zero_shared)(v39);
+      std::__shared_weak_count::__release_weak(v39);
+      if (v46)
       {
-LABEL_63:
+LABEL_61:
         pthread_mutex_lock(&ctu::Singleton<BBUError,BBUError,ctu::PthreadMutexGuardPolicy<BBUError>>::sInstance);
-        v47 = off_1ED944120;
+        v41 = off_1ED944120;
         if (!off_1ED944120)
         {
-          v48 = operator new(0x38uLL);
-          v49 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_UTILITY, 0);
-          v50 = dispatch_queue_create("BBUError", v49);
-          *v48 = 0;
-          v48[1] = 0;
-          v48[2] = v50;
-          if (v50)
+          v42 = operator new(0x38uLL);
+          v43 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_UTILITY, 0);
+          v44 = dispatch_queue_create("BBUError", v43);
+          *v42 = 0;
+          v42[1] = 0;
+          v42[2] = v44;
+          if (v44)
           {
-            v51 = v50;
-            dispatch_retain(v50);
-            v48[3] = 0;
-            dispatch_release(v51);
+            v45 = v44;
+            dispatch_retain(v44);
+            v42[3] = 0;
+            dispatch_release(v45);
           }
 
           else
           {
-            v48[3] = 0;
+            v42[3] = 0;
           }
 
-          v48[4] = 0;
-          v48[5] = 0;
-          v48[6] = 0;
-          std::shared_ptr<BBUError>::shared_ptr[abi:ne200100]<BBUError,std::shared_ptr<BBUError> ctu::SharedSynchronizable<BBUError>::make_shared_ptr<BBUError>(BBUError*)::{lambda(BBUError*)#1},0>(&v84, v48);
-          v54 = *&v84.__r_.__value_.__l.__data_;
-          *&v84.__r_.__value_.__l.__data_ = 0uLL;
-          v55 = *(&off_1ED944120 + 1);
-          off_1ED944120 = v54;
-          if (v55 && !atomic_fetch_add(&v55->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+          v42[4] = 0;
+          v42[5] = 0;
+          v42[6] = 0;
+          std::shared_ptr<BBUError>::shared_ptr[abi:ne200100]<BBUError,std::shared_ptr<BBUError> ctu::SharedSynchronizable<BBUError>::make_shared_ptr<BBUError>(BBUError*)::{lambda(BBUError*)#1},0>(&v66, v42);
+          v48 = *&v66.__r_.__value_.__l.__data_;
+          *&v66.__r_.__value_.__l.__data_ = 0uLL;
+          v49 = *(&off_1ED944120 + 1);
+          off_1ED944120 = v48;
+          if (v49 && !atomic_fetch_add(&v49->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
           {
-            (v55->__on_zero_shared)(v55);
-            std::__shared_weak_count::__release_weak(v55);
+            (v49->__on_zero_shared)(v49);
+            std::__shared_weak_count::__release_weak(v49);
           }
 
-          v56 = v84.__r_.__value_.__l.__size_;
-          if (v84.__r_.__value_.__l.__size_ && !atomic_fetch_add((v84.__r_.__value_.__l.__size_ + 8), 0xFFFFFFFFFFFFFFFFLL))
+          v50 = v66.__r_.__value_.__l.__size_;
+          if (v66.__r_.__value_.__l.__size_ && !atomic_fetch_add((v66.__r_.__value_.__l.__size_ + 8), 0xFFFFFFFFFFFFFFFFLL))
           {
-            (v56->__on_zero_shared)(v56);
-            std::__shared_weak_count::__release_weak(v56);
+            (v50->__on_zero_shared)(v50);
+            std::__shared_weak_count::__release_weak(v50);
           }
 
-          v47 = off_1ED944120;
+          v41 = off_1ED944120;
         }
 
-        v57 = *(&off_1ED944120 + 1);
-        __p.__r_.__value_.__r.__words[0] = v47;
+        v51 = *(&off_1ED944120 + 1);
+        __p.__r_.__value_.__r.__words[0] = v41;
         __p.__r_.__value_.__l.__size_ = *(&off_1ED944120 + 1);
         if (*(&off_1ED944120 + 1))
         {
@@ -2762,105 +2702,105 @@ LABEL_63:
         }
 
         pthread_mutex_unlock(&ctu::Singleton<BBUError,BBUError,ctu::PthreadMutexGuardPolicy<BBUError>>::sInstance);
-        BBUError::getCFError(v47, &v83);
-        if (v57 && !atomic_fetch_add(&v57->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+        BBUError::getCFError(v41, &v65);
+        if (v51 && !atomic_fetch_add(&v51->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
         {
-          (v57->__on_zero_shared)(v57);
-          std::__shared_weak_count::__release_weak(v57);
-          v53 = 0;
+          (v51->__on_zero_shared)(v51);
+          std::__shared_weak_count::__release_weak(v51);
+          v47 = 0;
           if (!a5)
           {
-            return v53;
+            return v47;
           }
 
-          goto LABEL_110;
+          goto LABEL_108;
         }
 
-        goto LABEL_107;
+        goto LABEL_105;
       }
     }
 
-    else if (v46)
+    else if (v40)
     {
-      goto LABEL_63;
+      goto LABEL_61;
     }
 
-    v53 = 1;
+    v47 = 1;
     if (!a5)
     {
-      return v53;
+      return v47;
     }
 
-    goto LABEL_110;
+    goto LABEL_108;
   }
 
-LABEL_98:
-  memset(&v84, 0, sizeof(v84));
+LABEL_96:
+  memset(&v66, 0, sizeof(v66));
   ctu::cf::assign();
   memset(&__p, 0, sizeof(__p));
-  v66 = std::string::insert(&__p, 0, "Unrecognized command ", 0x15uLL);
-  v72 = v66->__r_.__value_.__r.__words[0];
-  v71 = v66->__r_.__value_.__l.__size_;
-  v73 = v66->__r_.__value_.__r.__words[2];
-  v66->__r_.__value_.__l.__size_ = 0;
-  v66->__r_.__value_.__r.__words[2] = 0;
-  v66->__r_.__value_.__r.__words[0] = 0;
+  v52 = std::string::insert(&__p, 0, "Unrecognized command ", 0x15uLL);
+  v54 = v52->__r_.__value_.__r.__words[0];
+  v53 = v52->__r_.__value_.__l.__size_;
+  v55 = v52->__r_.__value_.__r.__words[2];
+  v52->__r_.__value_.__l.__size_ = 0;
+  v52->__r_.__value_.__r.__words[2] = 0;
+  v52->__r_.__value_.__r.__words[0] = 0;
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
-    if ((v73 & 0x8000000000000000) == 0)
+    if ((v55 & 0x8000000000000000) == 0)
     {
-      goto LABEL_100;
+      goto LABEL_98;
     }
   }
 
-  else if ((v73 & 0x8000000000000000) == 0)
+  else if ((v55 & 0x8000000000000000) == 0)
   {
-LABEL_100:
-    v77.__r_.__value_.__r.__words[0] = v72;
-    v77.__r_.__value_.__l.__size_ = v71;
-    v77.__r_.__value_.__r.__words[2] = v73;
-    goto LABEL_103;
+LABEL_98:
+    v59.__r_.__value_.__r.__words[0] = v54;
+    v59.__r_.__value_.__l.__size_ = v53;
+    v59.__r_.__value_.__r.__words[2] = v55;
+    goto LABEL_101;
   }
 
-  std::string::__init_copy_ctor_external(&v77, v72, v71);
-LABEL_103:
-  BBUpdaterCommon::BBUCreateCFError(&v83, &v77, 2u, 0, v67, v68, v69, v70);
-  if (SHIBYTE(v77.__r_.__value_.__r.__words[2]) < 0)
+  std::string::__init_copy_ctor_external(&v59, v54, v53);
+LABEL_101:
+  BBUpdaterCommon::BBUCreateCFError(&v65, &v59, 2u, 0);
+  if (SHIBYTE(v59.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v77.__r_.__value_.__l.__data_);
-    if ((v73 & 0x8000000000000000) != 0)
+    operator delete(v59.__r_.__value_.__l.__data_);
+    if ((v55 & 0x8000000000000000) != 0)
     {
-      goto LABEL_109;
+      goto LABEL_107;
     }
   }
 
-  else if ((v73 & 0x8000000000000000) != 0)
+  else if ((v55 & 0x8000000000000000) != 0)
   {
-LABEL_109:
-    operator delete(v72);
-    v53 = 0;
+LABEL_107:
+    operator delete(v54);
+    v47 = 0;
     if (!a5)
     {
-      return v53;
+      return v47;
     }
 
-    goto LABEL_110;
+    goto LABEL_108;
   }
 
-LABEL_107:
-  v53 = 0;
+LABEL_105:
+  v47 = 0;
   if (!a5)
   {
-    return v53;
+    return v47;
   }
 
-LABEL_110:
-  if (v83)
+LABEL_108:
+  if (v65)
   {
-    *a5 = CFRetain(v83);
-    CFRelease(v83);
-    v83 = 0;
+    *a5 = CFRetain(v65);
+    CFRelease(v65);
+    v65 = 0;
     if (a4)
     {
       if (!*a4)
@@ -2870,7 +2810,7 @@ LABEL_110:
     }
   }
 
-  return v53;
+  return v47;
 }
 
 void sub_1E5252374(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, int a15, __int16 a16, char a17, char a18, void *a19, uint64_t a20, int a21, __int16 a22, char a23, char a24, uint64_t a25, uint64_t a26, int a27, __int16 a28, char a29, char a30, void *__p, uint64_t a32, int a33, __int16 a34, char a35, char a36, uint64_t a37, uint64_t a38, int a39, __int16 a40, char a41, char a42)
@@ -2895,51 +2835,52 @@ __n128 std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<c
   return result;
 }
 
-void BBUpdaterController::handleException(CFErrorRef *a1, const char *a2, unsigned int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void BBUpdaterController::handleException(CFErrorRef *a1, const char *a2, uint64_t a3)
 {
+  v3 = a3;
   if (gBBULogMaskGet(void)::once != -1)
   {
     dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
   }
 
-  _BBULog(25, 0xFFFFFFFFLL, "BBUpdaterController", "", "%s\n", a6, a7, a8, a2);
-  v11 = strlen(a2);
-  if (v11 >= 0x7FFFFFFFFFFFFFF8)
+  _BBULog(25, 0xFFFFFFFFLL, "BBUpdaterController", "", "%s\n", a2);
+  v6 = strlen(a2);
+  if (v6 >= 0x7FFFFFFFFFFFFFF8)
   {
     std::string::__throw_length_error[abi:ne200100]();
   }
 
-  v16 = v11;
-  if (v11 >= 0x17)
+  v7 = v6;
+  if (v6 >= 0x17)
   {
-    if ((v11 | 7) == 0x17)
+    if ((v6 | 7) == 0x17)
     {
-      v18 = 25;
+      v9 = 25;
     }
 
     else
     {
-      v18 = (v11 | 7) + 1;
+      v9 = (v6 | 7) + 1;
     }
 
-    v17 = operator new(v18);
-    __dst[1] = v16;
-    v20 = v18 | 0x8000000000000000;
-    __dst[0] = v17;
+    v8 = operator new(v9);
+    __dst[1] = v7;
+    v11 = v9 | 0x8000000000000000;
+    __dst[0] = v8;
     goto LABEL_11;
   }
 
-  HIBYTE(v20) = v11;
-  v17 = __dst;
-  if (v11)
+  HIBYTE(v11) = v6;
+  v8 = __dst;
+  if (v6)
   {
 LABEL_11:
-    memcpy(v17, a2, v16);
+    memcpy(v8, a2, v7);
   }
 
-  *(v16 + v17) = 0;
-  BBUpdaterCommon::BBUCreateCFError(a1, __dst, a3, 0, v12, v13, v14, v15);
-  if (SHIBYTE(v20) < 0)
+  *(v7 + v8) = 0;
+  BBUpdaterCommon::BBUCreateCFError(a1, __dst, v3, 0);
+  if (SHIBYTE(v11) < 0)
   {
     operator delete(__dst[0]);
   }
@@ -2955,22 +2896,22 @@ void sub_1E5252758(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void BBUpdaterController::query(void *a1, int a2)
+void BBUpdaterController::query(__CFDictionary **a1, int a2)
 {
   FirmwareDataSource = BBUpdaterController::getFirmwareDataSource(a1, 0);
-  v8 = FirmwareDataSource;
-  v27 = FirmwareDataSource;
+  v5 = FirmwareDataSource;
+  v14 = FirmwareDataSource;
   if (a2 != 4)
   {
     if (a2 != 32)
     {
       exception = __cxa_allocate_exception(0x210uLL);
-      _BBUException::_BBUException(exception, 69, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 0x136u, "Assertion failure(false && Unrecognized BBU stage.)", v22, v23, v24, v25);
+      _BBUException::_BBUException(exception, 69, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 0x136u, "Assertion failure(false && Unrecognized BBU stage.)");
     }
 
     if (!BBUpdaterController::shouldPerformEUICC(a1))
     {
-      if (!v8)
+      if (!v5)
       {
         return;
       }
@@ -2978,26 +2919,26 @@ void BBUpdaterController::query(void *a1, int a2)
       goto LABEL_24;
     }
 
-    if (v8)
+    if (v5)
     {
-      v12 = a1[5];
-      cf.__r_.__value_.__r.__words[0] = v12;
-      if (v12)
+      v6 = a1[5];
+      cf.__r_.__value_.__r.__words[0] = v6;
+      if (v6)
       {
-        CFRetain(v12);
+        CFRetain(v6);
       }
 
-      v13 = a1[4];
-      v31 = v13;
-      if (v13)
+      v7 = a1[4];
+      v18 = v7;
+      if (v7)
       {
-        CFRetain(v13);
+        CFRetain(v7);
       }
 
-      updated = eUICC::UpdateOutput(a1 + 19, &cf, &v31);
-      if (v31)
+      updated = eUICC::UpdateOutput(a1 + 19, &cf, &v18);
+      if (v18)
       {
-        CFRelease(v31);
+        CFRelease(v18);
       }
 
       if (cf.__r_.__value_.__r.__words[0])
@@ -3026,7 +2967,7 @@ void BBUpdaterController::query(void *a1, int a2)
 LABEL_17:
           if (gBBULogVerbosity >= 6)
           {
-            _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", v14, v15, v16, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp");
+            _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 2501, "ret == kBBUReturnSuccess && fOutput");
           }
         }
       }
@@ -3034,19 +2975,19 @@ LABEL_17:
       std::string::basic_string[abi:ne200100]<0>(&__p, "Failed to eUICC::updateOutput in BootedStage");
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
-        std::string::__init_copy_ctor_external(&v29, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
+        std::string::__init_copy_ctor_external(&v16, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
       }
 
       else
       {
-        v29 = __p;
+        v16 = __p;
       }
 
-      v30 = updated;
-      BBUpdaterController::process_event<BBUpdaterControllerFSM::eventError>(a1, &v29);
-      if (SHIBYTE(v29.__r_.__value_.__r.__words[2]) < 0)
+      v17 = updated;
+      BBUpdaterController::process_event<BBUpdaterControllerFSM::eventError>(a1, &v16);
+      if (SHIBYTE(v16.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v29.__r_.__value_.__l.__data_);
+        operator delete(v16.__r_.__value_.__l.__data_);
       }
 
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -3076,27 +3017,27 @@ LABEL_17:
 
     if (gBBULogVerbosity >= 6)
     {
-      _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", v9, v10, v11, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp");
+      _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 304, "updateSource");
     }
 
 LABEL_37:
-    v20 = BBUStageAsString(32);
-    std::string::basic_string[abi:ne200100]<0>(&cf, v20);
+    v11 = BBUStageAsString(32);
+    std::string::basic_string[abi:ne200100]<0>(&cf, v11);
     std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("Fail to get update source in ", &cf, &__p);
     if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
-      v29 = __p;
+      v16 = __p;
       goto LABEL_46;
     }
 
 LABEL_45:
-    std::string::__init_copy_ctor_external(&v29, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v16, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
 LABEL_46:
-    v30 = 35;
-    BBUpdaterController::process_event<BBUpdaterControllerFSM::eventError>(a1, &v29);
-    if (SHIBYTE(v29.__r_.__value_.__r.__words[2]) < 0)
+    v17 = 35;
+    BBUpdaterController::process_event<BBUpdaterControllerFSM::eventError>(a1, &v16);
+    if (SHIBYTE(v16.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v29.__r_.__value_.__l.__data_);
+      operator delete(v16.__r_.__value_.__l.__data_);
       if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
       {
 LABEL_48:
@@ -3146,27 +3087,27 @@ LABEL_52:
 
     if (gBBULogVerbosity >= 6)
     {
-      _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", v5, v6, v7, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp");
+      _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 297, "updateSource");
     }
 
 LABEL_31:
-    v19 = BBUStageAsString(4);
-    std::string::basic_string[abi:ne200100]<0>(&cf, v19);
+    v10 = BBUStageAsString(4);
+    std::string::basic_string[abi:ne200100]<0>(&cf, v10);
     std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("Fail to get update source in ", &cf, &__p);
     if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
-      v29 = __p;
+      v16 = __p;
       goto LABEL_46;
     }
 
     goto LABEL_45;
   }
 
-  BBUpdaterController::queryInfoSecondStageInternal(a1, 1, &v27);
+  BBUpdaterController::queryInfoSecondStageInternal(a1, 1, &v14);
 LABEL_24:
-  v18 = *(*v8 + 16);
+  v9 = *(*v5 + 16);
 
-  v18(v8);
+  v9(v5);
 }
 
 void sub_1E5252C64(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, uint64_t a18, void *__p, uint64_t a20, int a21, __int16 a22, char a23, char a24, void *a25, uint64_t a26, int a27, __int16 a28, char a29, char a30)
@@ -3227,15 +3168,15 @@ char *BBUpdaterController::getFirmwareDataSource(BBUpdaterController *this, int 
 
   if (!v10)
   {
-    capabilities::radio::personalizedFirmwarePath(&v18, FirmwareFolder);
+    capabilities::radio::personalizedFirmwarePath(&v14, FirmwareFolder);
     if (SHIBYTE(value[2]) < 0)
     {
       operator delete(value[0]);
     }
 
-    value[2] = v19;
-    *value = v18;
-    if (SHIBYTE(v19) < 0)
+    value[2] = v15;
+    *value = v14;
+    if (SHIBYTE(v15) < 0)
     {
       if (value[1])
       {
@@ -3244,7 +3185,7 @@ char *BBUpdaterController::getFirmwareDataSource(BBUpdaterController *this, int 
       }
     }
 
-    else if (HIBYTE(v19))
+    else if (HIBYTE(v15))
     {
       v11 = value;
 LABEL_19:
@@ -3253,7 +3194,7 @@ LABEL_19:
     }
 
     exception = __cxa_allocate_exception(0x210uLL);
-    _BBUException::_BBUException(exception, 35, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 0x56Du, "Assertion failure(folder.empty() != true && Failed finding the bbfw path.)", v14, v15, v16, v17);
+    _BBUException::_BBUException(exception, 35, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 0x56Du, "Assertion failure(folder.empty() != true && Failed finding the bbfw path.)");
   }
 
 LABEL_20:
@@ -3298,7 +3239,7 @@ uint64_t BBUpdaterController::parsePreflightArgs(BBUpdaterController *this)
         if (result)
         {
           exception = __cxa_allocate_exception(0x210uLL);
-          _BBUException::_BBUException(exception, 11, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 0x8C9u, "Assertion failure(ret == kBBUReturnSuccess && Failed overriding preflight personalization parameters.)", v5, v6, v7, v8);
+          _BBUException::_BBUException(exception, 11, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 0x8C9u, "Assertion failure(ret == kBBUReturnSuccess && Failed overriding preflight personalization parameters.)");
         }
       }
     }
@@ -3321,7 +3262,7 @@ uint64_t BBUpdaterController::queryInfoFirstStageInternal(BBULoader **this, BBUF
   if (!v3)
   {
     exception = __cxa_allocate_exception(0x210uLL);
-    _BBUException::_BBUException(exception, 11, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 0x83Au, "Assertion failure(fLoader && Failed to reset and create BBULoader.)", v36, v37, v38, v39);
+    _BBUException::_BBUException(exception, 11, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 0x83Au, "Assertion failure(fLoader && Failed to reset and create BBULoader.)");
   }
 
   TransportNoEvents = BBUpdaterController::createTransportNoEvents(this, 1, 2);
@@ -3330,11 +3271,11 @@ uint64_t BBUpdaterController::queryInfoFirstStageInternal(BBULoader **this, BBUF
     if ((*(gBBULogMaskGet(void)::sBBULogMask + 1) & 0x20) == 0)
     {
 LABEL_15:
-      v10 = TransportNoEvents == 0;
+      v7 = TransportNoEvents == 0;
 LABEL_16:
-      v11 = *gBBULogMaskGet(void)::sBBULogMask;
-      v12 = gBBULogVerbosity;
-      if (!v10)
+      v8 = *gBBULogMaskGet(void)::sBBULogMask;
+      v9 = gBBULogVerbosity;
+      if (!v7)
       {
         goto LABEL_9;
       }
@@ -3357,46 +3298,46 @@ LABEL_16:
     goto LABEL_15;
   }
 
-  _BBULog(13, 0, "BBUpdaterController", "", "createTransportNoEvents ret status is %d\n", v6, v7, v8, TransportNoEvents);
-  v10 = TransportNoEvents == 0;
+  _BBULog(13, 0, "BBUpdaterController", "", "createTransportNoEvents ret status is %d\n", TransportNoEvents);
+  v7 = TransportNoEvents == 0;
   if (gBBULogMaskGet(void)::once == -1)
   {
     goto LABEL_16;
   }
 
   dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
-  v11 = *gBBULogMaskGet(void)::sBBULogMask;
-  v12 = gBBULogVerbosity;
+  v8 = *gBBULogMaskGet(void)::sBBULogMask;
+  v9 = gBBULogVerbosity;
   if (TransportNoEvents)
   {
 LABEL_9:
-    if ((v11 & 2) != 0 && v12 >= 6)
+    if ((v8 & 2) != 0 && v9 >= 6)
     {
-      _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", v6, v7, v8, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp");
+      _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 2130, "kBBUReturnSuccess == ret");
     }
 
     std::string::basic_string[abi:ne200100]<0>(&__p, "kBBUReturnFailCreateTransportFirst");
-    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("Fail to create transport: ", &__p, &v44);
-    v14 = capabilities::updater::loaderConnectAttempts(v13);
-    if (SHIBYTE(v44.__r_.__value_.__r.__words[2]) < 0)
+    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("Fail to create transport: ", &__p, &v31);
+    v11 = capabilities::updater::loaderConnectAttempts(v10);
+    if (SHIBYTE(v31.__r_.__value_.__r.__words[2]) < 0)
     {
-      v33 = v14;
-      std::string::__init_copy_ctor_external(&v45, v44.__r_.__value_.__l.__data_, v44.__r_.__value_.__l.__size_);
-      v14 = v33;
+      v24 = v11;
+      std::string::__init_copy_ctor_external(&v32, v31.__r_.__value_.__l.__data_, v31.__r_.__value_.__l.__size_);
+      v11 = v24;
     }
 
     else
     {
-      v45 = v44;
+      v32 = v31;
     }
 
-    v46 = 50;
-    v47 = v14;
-    BBUpdaterController::process_event<BBUpdaterControllerFSM::eventRetry>(this, &v45);
-    if (SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
+    v33 = 50;
+    v34 = v11;
+    BBUpdaterController::process_event<BBUpdaterControllerFSM::eventRetry>(this, &v32);
+    if (SHIBYTE(v32.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v45.__r_.__value_.__l.__data_);
-      if ((SHIBYTE(v44.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+      operator delete(v32.__r_.__value_.__l.__data_);
+      if ((SHIBYTE(v31.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
       {
 LABEL_53:
         if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
@@ -3410,12 +3351,12 @@ LABEL_57:
       }
     }
 
-    else if ((SHIBYTE(v44.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+    else if ((SHIBYTE(v31.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
       goto LABEL_53;
     }
 
-    operator delete(v44.__r_.__value_.__l.__data_);
+    operator delete(v31.__r_.__value_.__l.__data_);
     if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
       return 50;
@@ -3425,47 +3366,47 @@ LABEL_57:
   }
 
 LABEL_17:
-  if ((v11 & 0x2000) != 0 && (v12 & 0x80000000) == 0)
+  if ((v8 & 0x2000) != 0 && (v9 & 0x80000000) == 0)
   {
-    _BBULog(13, 0, "BBUpdaterController", "", "Querying first stage\n", v6, v7, v8, v39);
+    _BBULog(13, 0, "BBUpdaterController", "", "Querying first stage\n");
   }
 
-  v15 = (*(*this[10] + 16))(this[10], this + 152);
-  if (!v15)
+  v12 = (*(*this[10] + 16))(this[10], this + 19);
+  if (!v12)
   {
-    v44.__r_.__value_.__r.__words[0] = 0;
-    (*(*this[10] + 24))(this[10], this + 152, &v44);
-    if (v44.__r_.__value_.__r.__words[0])
+    v31.__r_.__value_.__r.__words[0] = 0;
+    (*(*this[10] + 24))(this[10], this + 19, &v31);
+    if (v31.__r_.__value_.__r.__words[0])
     {
-      v19 = this[7];
-      (*(*v44.__r_.__value_.__l.__data_ + 16))(&v45);
-      if ((v45.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      v13 = this[7];
+      (*(*v31.__r_.__value_.__l.__data_ + 16))(&v32);
+      if ((v32.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v20 = &v45;
+        v14 = &v32;
       }
 
       else
       {
-        v20 = v45.__r_.__value_.__r.__words[0];
+        v14 = v32.__r_.__value_.__r.__words[0];
       }
 
-      BBUFeedback::handleComment(v19, "Loader version: %s", v20);
-      if (SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
+      BBUFeedback::handleComment(v13, "Loader version: %s", v14);
+      if (SHIBYTE(v32.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v45.__r_.__value_.__l.__data_);
+        operator delete(v32.__r_.__value_.__l.__data_);
       }
 
-      if (v44.__r_.__value_.__r.__words[0])
+      if (v31.__r_.__value_.__r.__words[0])
       {
-        (*(*v44.__r_.__value_.__l.__data_ + 8))(v44.__r_.__value_.__r.__words[0]);
+        (*(*v31.__r_.__value_.__l.__data_ + 8))(v31.__r_.__value_.__r.__words[0]);
       }
     }
 
-    v24 = (*(*this[10] + 32))(this[10], this + 152, this[12]);
-    if (!v24)
+    v15 = (*(*this[10] + 32))(this[10], this + 19, this[12]);
+    if (!v15)
     {
       BBUFeedback::handleComment(this[7], "fusingState: %d", *(this[12] + 22));
-      return v24;
+      return v15;
     }
 
     if (gBBULogMaskGet(void)::once == -1)
@@ -3484,36 +3425,36 @@ LABEL_17:
 LABEL_46:
         if (gBBULogVerbosity >= 6)
         {
-          _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", v21, v22, v23, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp");
+          _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 2169, "kBBUReturnSuccess == ret");
         }
       }
     }
 
     std::string::basic_string[abi:ne200100]<0>(&__p, "Failed querying chip information");
-    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(" in the first stage.", &__p, &v44);
-    if (SHIBYTE(v44.__r_.__value_.__r.__words[2]) < 0)
+    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v31, " in the first stage.", &__p);
+    if (SHIBYTE(v31.__r_.__value_.__r.__words[2]) < 0)
     {
-      std::string::__init_copy_ctor_external(&v45, v44.__r_.__value_.__l.__data_, v44.__r_.__value_.__l.__size_);
+      std::string::__init_copy_ctor_external(&v32, v31.__r_.__value_.__l.__data_, v31.__r_.__value_.__l.__size_);
     }
 
     else
     {
-      v45 = v44;
+      v32 = v31;
     }
 
-    v46 = v24;
-    v47 = 0;
-    BBUpdaterController::process_event<BBUpdaterControllerFSM::eventError>(this, &v45);
-    if ((SHIBYTE(v45.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+    v33 = v15;
+    v34 = 0;
+    BBUpdaterController::process_event<BBUpdaterControllerFSM::eventError>(this, &v32);
+    if ((SHIBYTE(v32.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
       goto LABEL_70;
     }
 
-    v34 = v45.__r_.__value_.__r.__words[0];
+    v25 = v32.__r_.__value_.__r.__words[0];
     goto LABEL_69;
   }
 
-  v24 = v15;
+  v15 = v12;
   if (gBBULogMaskGet(void)::once == -1)
   {
     if ((*gBBULogMaskGet(void)::sBBULogMask & 2) == 0)
@@ -3533,67 +3474,67 @@ LABEL_46:
 
   if (gBBULogVerbosity >= 6)
   {
-    _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", v16, v17, v18, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp");
+    _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 2140, "kBBUReturnSuccess == ret");
   }
 
 LABEL_36:
   std::string::basic_string[abi:ne200100]<0>(&__p, "Fail to connect to loader");
-  std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(": ", &__p, &v44);
-  std::string::basic_string[abi:ne200100]<0>(v40, BBUReturnAsString::BBUReturnStrings[v24]);
-  if ((v41 & 0x80u) == 0)
+  std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v31, ": ", &__p);
+  std::string::basic_string[abi:ne200100]<0>(v27, BBUReturnAsString::BBUReturnStrings[v15]);
+  if ((v28 & 0x80u) == 0)
   {
-    v26 = v40;
+    v17 = v27;
   }
 
   else
   {
-    v26 = v40[0];
+    v17 = v27[0];
   }
 
-  if ((v41 & 0x80u) == 0)
+  if ((v28 & 0x80u) == 0)
   {
-    v27 = v41;
-  }
-
-  else
-  {
-    v27 = v40[1];
-  }
-
-  v28 = std::string::append(&v44, v26, v27);
-  v29 = v28->__r_.__value_.__r.__words[0];
-  size = v28->__r_.__value_.__l.__size_;
-  v42[0] = v28->__r_.__value_.__r.__words[2];
-  *(v42 + 3) = *(&v28->__r_.__value_.__r.__words[2] + 3);
-  v31 = SHIBYTE(v28->__r_.__value_.__r.__words[2]);
-  v28->__r_.__value_.__l.__size_ = 0;
-  v28->__r_.__value_.__r.__words[2] = 0;
-  v28->__r_.__value_.__r.__words[0] = 0;
-  v32 = capabilities::updater::loaderConnectAttempts(v28);
-  if (v31 < 0)
-  {
-    std::string::__init_copy_ctor_external(&v45, v29, size);
+    v18 = v28;
   }
 
   else
   {
-    v45.__r_.__value_.__r.__words[0] = v29;
-    v45.__r_.__value_.__l.__size_ = size;
-    LODWORD(v45.__r_.__value_.__r.__words[2]) = v42[0];
-    *(&v45.__r_.__value_.__r.__words[2] + 3) = *(v42 + 3);
-    *(&v45.__r_.__value_.__s + 23) = v31;
+    v18 = v27[1];
   }
 
-  v46 = v24;
-  v47 = v32;
-  BBUpdaterController::process_event<BBUpdaterControllerFSM::eventRetry>(this, &v45);
-  if (SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
+  v19 = std::string::append(&v31, v17, v18);
+  v20 = v19->__r_.__value_.__r.__words[0];
+  size = v19->__r_.__value_.__l.__size_;
+  v29[0] = v19->__r_.__value_.__r.__words[2];
+  *(v29 + 3) = *(&v19->__r_.__value_.__r.__words[2] + 3);
+  v22 = SHIBYTE(v19->__r_.__value_.__r.__words[2]);
+  v19->__r_.__value_.__l.__size_ = 0;
+  v19->__r_.__value_.__r.__words[2] = 0;
+  v19->__r_.__value_.__r.__words[0] = 0;
+  v23 = capabilities::updater::loaderConnectAttempts(v19);
+  if (v22 < 0)
   {
-    operator delete(v45.__r_.__value_.__l.__data_);
-    if ((v31 & 0x80000000) == 0)
+    std::string::__init_copy_ctor_external(&v32, v20, size);
+  }
+
+  else
+  {
+    v32.__r_.__value_.__r.__words[0] = v20;
+    v32.__r_.__value_.__l.__size_ = size;
+    LODWORD(v32.__r_.__value_.__r.__words[2]) = v29[0];
+    *(&v32.__r_.__value_.__r.__words[2] + 3) = *(v29 + 3);
+    *(&v32.__r_.__value_.__s + 23) = v22;
+  }
+
+  v33 = v15;
+  v34 = v23;
+  BBUpdaterController::process_event<BBUpdaterControllerFSM::eventRetry>(this, &v32);
+  if (SHIBYTE(v32.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v32.__r_.__value_.__l.__data_);
+    if ((v22 & 0x80000000) == 0)
     {
 LABEL_61:
-      if (v41 < 0)
+      if (v28 < 0)
       {
         goto LABEL_65;
       }
@@ -3602,24 +3543,24 @@ LABEL_61:
     }
   }
 
-  else if ((v31 & 0x80000000) == 0)
+  else if ((v22 & 0x80000000) == 0)
   {
     goto LABEL_61;
   }
 
-  operator delete(v29);
-  if (v41 < 0)
+  operator delete(v20);
+  if (v28 < 0)
   {
 LABEL_65:
-    v34 = v40[0];
+    v25 = v27[0];
 LABEL_69:
-    operator delete(v34);
+    operator delete(v25);
   }
 
 LABEL_70:
-  if (SHIBYTE(v44.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v31.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v44.__r_.__value_.__l.__data_);
+    operator delete(v31.__r_.__value_.__l.__data_);
   }
 
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -3627,7 +3568,7 @@ LABEL_70:
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  return v24;
+  return v15;
 }
 
 void sub_1E52537AC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, void *a20, uint64_t a21, int a22, __int16 a23, char a24, char a25, void *__p, uint64_t a27, int a28, __int16 a29, char a30, char a31)
@@ -3650,15 +3591,15 @@ void BBUpdaterController::process_event<BBUpdaterControllerFSM::eventError>(uint
 {
   v4 = *(a1 + 16);
   v3 = *(a1 + 24);
-  v29 = v4;
-  v30 = v3;
+  v23 = v4;
+  v24 = v3;
   if (v3)
   {
     atomic_fetch_add_explicit(&v3->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
   __dst[1] = 0xAAAAAAAAAAAAAAAALL;
-  v28 = 0x7AAAAAAAAAAAAAALL;
+  v22 = 0x7AAAAAAAAAAAAAALL;
   strcpy(__dst, "unknown");
   memset(__p, 170, sizeof(__p));
   (*(*v4 + 24))(__p, v4);
@@ -3667,7 +3608,7 @@ void BBUpdaterController::process_event<BBUpdaterControllerFSM::eventError>(uint
   if (__dst != v6)
   {
     v7 = *(v6 + 23);
-    if (SHIBYTE(v28) < 0)
+    if (SHIBYTE(v22) < 0)
     {
       if (v7 >= 0)
       {
@@ -3700,7 +3641,7 @@ void BBUpdaterController::process_event<BBUpdaterControllerFSM::eventError>(uint
     else
     {
       v8 = *v6;
-      v28 = v6[2];
+      v22 = v6[2];
       *__dst = v8;
     }
 
@@ -3735,7 +3676,7 @@ void BBUpdaterController::process_event<BBUpdaterControllerFSM::eventError>(uint
   {
     if ((*(gBBULogMaskGet(void)::sBBULogMask + 2) & 0x20) == 0)
     {
-      goto LABEL_32;
+      goto LABEL_34;
     }
   }
 
@@ -3744,7 +3685,7 @@ void BBUpdaterController::process_event<BBUpdaterControllerFSM::eventError>(uint
     dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
     if ((*(gBBULogMaskGet(void)::sBBULogMask + 2) & 0x20) == 0)
     {
-      goto LABEL_32;
+      goto LABEL_34;
     }
   }
 
@@ -3753,42 +3694,47 @@ void BBUpdaterController::process_event<BBUpdaterControllerFSM::eventError>(uint
     boost::core::demangle(__p, (0x80000001E538F460 & 0x7FFFFFFFFFFFFFFFLL));
     if (SHIBYTE(__p[2]) >= 0)
     {
-      v17 = __p;
+      v14 = __p;
     }
 
     else
     {
-      LOBYTE(v17) = __p[0];
+      v14 = __p[0];
     }
 
-    v25 = v4[8];
-    _BBULog(21, 0, "BBUpdaterController", "", "processing event: %s, current state %d [%s]\n", v14, v15, v16, v17);
+    v15 = __dst;
+    if (v22 < 0)
+    {
+      v15 = __dst[0];
+    }
+
+    _BBULog(21, 0, "BBUpdaterController", "", "processing event: %s, current state %d [%s]\n", v14, v4[8], v15);
     if (SHIBYTE(__p[2]) < 0)
     {
       operator delete(__p[0]);
     }
   }
 
-LABEL_32:
-  v18 = v29;
-  if (!boost::msm::back::state_machine<BBUpdaterControllerFSM::ControllerFSM_TOP,boost::parameter::void_,boost::parameter::void_,boost::parameter::void_,boost::parameter::void_>::is_event_handling_blocked_helper<BBUpdaterControllerFSM::eventError>(v29) && boost::msm::back::state_machine<BBUpdaterControllerFSM::ControllerFSM_TOP,boost::parameter::void_,boost::parameter::void_,boost::parameter::void_,boost::parameter::void_>::do_pre_msg_queue_helper<BBUpdaterControllerFSM::eventError,BBUpdaterControllerFSM::eventError>(v18, a2))
+LABEL_34:
+  v16 = v23;
+  if (!boost::msm::back::state_machine<BBUpdaterControllerFSM::ControllerFSM_TOP,boost::parameter::void_,boost::parameter::void_,boost::parameter::void_,boost::parameter::void_>::is_event_handling_blocked_helper<BBUpdaterControllerFSM::eventError>(v23) && boost::msm::back::state_machine<BBUpdaterControllerFSM::ControllerFSM_TOP,boost::parameter::void_,boost::parameter::void_,boost::parameter::void_,boost::parameter::void_>::do_pre_msg_queue_helper<BBUpdaterControllerFSM::eventError,BBUpdaterControllerFSM::eventError>(v16, a2))
   {
-    v19 = (_MergedGlobals_1[*(v18 + 32) + 218])(v18, 0);
-    if (!((_MergedGlobals_1[*(v18 + 36) + 218])(v18, 1) | v19))
+    v17 = (_MergedGlobals_1[*(v16 + 32) + 218])(v16, 0);
+    if (!((_MergedGlobals_1[*(v16 + 36) + 218])(v16, 1) | v17))
     {
-      BBUpdaterControllerFSM::FSMBase<BBUpdaterControllerFSM::ControllerFSM_TOP>::no_transition<boost::msm::back::state_machine<BBUpdaterControllerFSM::ControllerFSM_TOP,boost::parameter::void_,boost::parameter::void_,boost::parameter::void_,boost::parameter::void_>,BBUpdaterControllerFSM::eventError>(v18, v18, *(v18 + 32));
-      BBUpdaterControllerFSM::FSMBase<BBUpdaterControllerFSM::ControllerFSM_TOP>::no_transition<boost::msm::back::state_machine<BBUpdaterControllerFSM::ControllerFSM_TOP,boost::parameter::void_,boost::parameter::void_,boost::parameter::void_,boost::parameter::void_>,BBUpdaterControllerFSM::eventError>(v18, v18, *(v18 + 36));
+      BBUpdaterControllerFSM::FSMBase<BBUpdaterControllerFSM::ControllerFSM_TOP>::no_transition<boost::msm::back::state_machine<BBUpdaterControllerFSM::ControllerFSM_TOP,boost::parameter::void_,boost::parameter::void_,boost::parameter::void_,boost::parameter::void_>,BBUpdaterControllerFSM::eventError>(v16, v16, *(v16 + 32));
+      BBUpdaterControllerFSM::FSMBase<BBUpdaterControllerFSM::ControllerFSM_TOP>::no_transition<boost::msm::back::state_machine<BBUpdaterControllerFSM::ControllerFSM_TOP,boost::parameter::void_,boost::parameter::void_,boost::parameter::void_,boost::parameter::void_>,BBUpdaterControllerFSM::eventError>(v16, v16, *(v16 + 36));
     }
 
-    *(v18 + 100) = 0;
-    boost::msm::back::state_machine<BBUpdaterControllerFSM::ControllerFSM_TOP,boost::parameter::void_,boost::parameter::void_,boost::parameter::void_,boost::parameter::void_>::process_message_queue<boost::msm::back::state_machine<BBUpdaterControllerFSM::ControllerFSM_TOP,boost::parameter::void_,boost::parameter::void_,boost::parameter::void_,boost::parameter::void_>>(v18);
+    *(v16 + 100) = 0;
+    boost::msm::back::state_machine<BBUpdaterControllerFSM::ControllerFSM_TOP,boost::parameter::void_,boost::parameter::void_,boost::parameter::void_,boost::parameter::void_>::process_message_queue<boost::msm::back::state_machine<BBUpdaterControllerFSM::ControllerFSM_TOP,boost::parameter::void_,boost::parameter::void_,boost::parameter::void_,boost::parameter::void_>>(v16);
   }
 
   if (gBBULogMaskGet(void)::once == -1)
   {
     if ((*(gBBULogMaskGet(void)::sBBULogMask + 2) & 0x20) == 0)
     {
-      goto LABEL_45;
+      goto LABEL_47;
     }
   }
 
@@ -3797,43 +3743,34 @@ LABEL_32:
     dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
     if ((*(gBBULogMaskGet(void)::sBBULogMask + 2) & 0x20) == 0)
     {
-      goto LABEL_45;
+      goto LABEL_47;
     }
   }
 
   if ((gBBULogVerbosity & 0x80000000) == 0)
   {
     boost::core::demangle(__p, (0x80000001E538F460 & 0x7FFFFFFFFFFFFFFFLL));
-    if (SHIBYTE(__p[2]) >= 0)
-    {
-      v23 = __p;
-    }
-
-    else
-    {
-      LOBYTE(v23) = __p[0];
-    }
-
-    _BBULog(21, 0, "BBUpdaterController", "", "finish processing event: %s\n", v20, v21, v22, v23);
+    v18 = SHIBYTE(__p[2]) >= 0 ? __p : __p[0];
+    _BBULog(21, 0, "BBUpdaterController", "", "finish processing event: %s\n", v18);
     if (SHIBYTE(__p[2]) < 0)
     {
       operator delete(__p[0]);
     }
   }
 
-LABEL_45:
-  if (SHIBYTE(v28) < 0)
+LABEL_47:
+  if (SHIBYTE(v22) < 0)
   {
     operator delete(__dst[0]);
   }
 
-  v24 = v30;
-  if (v30)
+  v19 = v24;
+  if (v24)
   {
-    if (!atomic_fetch_add(&v30->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    if (!atomic_fetch_add(&v24->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
     {
-      (v24->__on_zero_shared)(v24);
-      std::__shared_weak_count::__release_weak(v24);
+      (v19->__on_zero_shared)(v19);
+      std::__shared_weak_count::__release_weak(v19);
     }
   }
 }
@@ -3853,12 +3790,12 @@ void sub_1E5253C8C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t BBUpdaterController::queryInfoSecondStageInternal(uint64_t a1, int a2, uint64_t a3)
 {
-  v9 = BBUProgrammer::create(*(a1 + 56), a1 + 152, *(a1 + 48));
-  v10 = *(a1 + 88);
-  *(a1 + 88) = v9;
-  if (v10)
+  v6 = BBUProgrammer::create(*(a1 + 56), a1 + 152, *(a1 + 48));
+  v7 = *(a1 + 88);
+  *(a1 + 88) = v6;
+  if (v7)
   {
-    (*(*v10 + 8))(v10);
+    (*(*v7 + 8))(v7);
   }
 
   if (!*a3)
@@ -3879,7 +3816,7 @@ uint64_t BBUpdaterController::queryInfoSecondStageInternal(uint64_t a1, int a2, 
 LABEL_19:
         if (gBBULogVerbosity >= 6)
         {
-          _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", v6, v7, v8, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp");
+          _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 2268, "updateSource");
         }
       }
     }
@@ -3887,19 +3824,19 @@ LABEL_19:
     std::string::basic_string[abi:ne200100]<0>(&__p, "Fail to get update source for queryInfoSecondStageInternal");
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
-      std::string::__init_copy_ctor_external(&v30, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
+      std::string::__init_copy_ctor_external(&v18, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
     }
 
     else
     {
-      v30 = __p;
+      v18 = __p;
     }
 
-    v31 = 35;
-    BBUpdaterController::process_event<BBUpdaterControllerFSM::eventError>(a1, &v30);
-    if (SHIBYTE(v30.__r_.__value_.__r.__words[2]) < 0)
+    v19 = 35;
+    BBUpdaterController::process_event<BBUpdaterControllerFSM::eventError>(a1, &v18);
+    if (SHIBYTE(v18.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v30.__r_.__value_.__l.__data_);
+      operator delete(v18.__r_.__value_.__l.__data_);
     }
 
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -3931,37 +3868,37 @@ LABEL_19:
 
     if (gBBULogVerbosity >= 6)
     {
-      _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", v11, v12, v13, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp");
+      _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 2279, "kBBUReturnSuccess == ret");
     }
 
 LABEL_27:
-    std::string::basic_string[abi:ne200100]<0>(&v28, "kBBUReturnFailCreateTransportSecond");
-    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("Fail to create transport ", &v28, &__p);
+    std::string::basic_string[abi:ne200100]<0>(&v16, "kBBUReturnFailCreateTransportSecond");
+    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("Fail to create transport ", &v16, &__p);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
-      std::string::__init_copy_ctor_external(&v30, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
+      std::string::__init_copy_ctor_external(&v18, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
     }
 
     else
     {
-      v30 = __p;
+      v18 = __p;
     }
 
-    v31 = 51;
-    BBUpdaterController::process_event<BBUpdaterControllerFSM::eventError>(a1, &v30);
-    if (SHIBYTE(v30.__r_.__value_.__r.__words[2]) < 0)
+    v19 = 51;
+    BBUpdaterController::process_event<BBUpdaterControllerFSM::eventError>(a1, &v18);
+    if (SHIBYTE(v18.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v30.__r_.__value_.__l.__data_);
+      operator delete(v18.__r_.__value_.__l.__data_);
       if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
       {
 LABEL_50:
-        if ((SHIBYTE(v28.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+        if ((SHIBYTE(v16.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
         {
           return 51;
         }
 
 LABEL_54:
-        operator delete(v28.__r_.__value_.__l.__data_);
+        operator delete(v16.__r_.__value_.__l.__data_);
         return 51;
       }
     }
@@ -3972,7 +3909,7 @@ LABEL_54:
     }
 
     operator delete(__p.__r_.__value_.__l.__data_);
-    if ((SHIBYTE(v28.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+    if ((SHIBYTE(v16.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
       return 51;
     }
@@ -3980,21 +3917,21 @@ LABEL_54:
     goto LABEL_54;
   }
 
-  v14 = *(a1 + 311);
-  if (v14 < 0)
+  v8 = *(a1 + 311);
+  if (v8 < 0)
   {
-    v14 = *(a1 + 296);
+    v8 = *(a1 + 296);
   }
 
-  if (v14)
+  if (v8)
   {
     (*(**(a1 + 88) + 56))(*(a1 + 88), a1 + 288);
   }
 
-  v15 = (*(**(a1 + 88) + 16))(*(a1 + 88));
-  if (v15)
+  v9 = (*(**(a1 + 88) + 16))(*(a1 + 88));
+  if (v9)
   {
-    v25 = v15;
+    v13 = v9;
     if (gBBULogMaskGet(void)::once == -1)
     {
       if ((*gBBULogMaskGet(void)::sBBULogMask & 2) != 0)
@@ -4011,7 +3948,7 @@ LABEL_54:
 LABEL_31:
         if (gBBULogVerbosity >= 6)
         {
-          _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", v16, v17, v18, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp");
+          _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 2295, "kBBUReturnSuccess == ret");
         }
       }
     }
@@ -4019,21 +3956,21 @@ LABEL_31:
     std::string::basic_string[abi:ne200100]<0>(&__p, "Failed connecting to programmer while querying information in the second stage.");
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
-      std::string::__init_copy_ctor_external(&v30, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
+      std::string::__init_copy_ctor_external(&v18, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
     }
 
     else
     {
-      v30 = __p;
+      v18 = __p;
     }
 
-    v31 = v25;
-    BBUpdaterController::process_event<BBUpdaterControllerFSM::eventError>(a1, &v30);
-    result = v25;
-    if (SHIBYTE(v30.__r_.__value_.__r.__words[2]) < 0)
+    v19 = v13;
+    BBUpdaterController::process_event<BBUpdaterControllerFSM::eventError>(a1, &v18);
+    result = v13;
+    if (SHIBYTE(v18.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v30.__r_.__value_.__l.__data_);
-      result = v25;
+      operator delete(v18.__r_.__value_.__l.__data_);
+      result = v13;
     }
 
     if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
@@ -4041,10 +3978,10 @@ LABEL_31:
       return result;
     }
 
-    v26 = __p.__r_.__value_.__r.__words[0];
+    v14 = __p.__r_.__value_.__r.__words[0];
 LABEL_68:
-    operator delete(v26);
-    return v25;
+    operator delete(v14);
+    return v13;
   }
 
   if (!a2)
@@ -4052,23 +3989,23 @@ LABEL_68:
     return 0;
   }
 
-  v27 = 0;
-  v19 = *(a1 + 96);
-  if (*(v19 + 88) == 3)
+  v15 = 0;
+  v10 = *(a1 + 96);
+  if (*(v10 + 88) == 3)
   {
-    v20 = (*(**a3 + 48))() ^ 1;
-    v19 = *(a1 + 96);
+    v11 = (*(**a3 + 48))() ^ 1;
+    v10 = *(a1 + 96);
   }
 
   else
   {
-    v20 = 0;
+    v11 = 0;
   }
 
-  result = (*(**(a1 + 88) + 32))(*(a1 + 88), 0, 1, &v27, v19, v20);
+  result = (*(**(a1 + 88) + 32))(*(a1 + 88), 0, 1, &v15, v10, v11);
   if (result)
   {
-    v25 = result;
+    v13 = result;
     if (gBBULogMaskGet(void)::once == -1)
     {
       if ((*gBBULogMaskGet(void)::sBBULogMask & 2) == 0)
@@ -4088,34 +4025,34 @@ LABEL_68:
 
     if (gBBULogVerbosity >= 6)
     {
-      _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", v22, v23, v24, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp");
+      _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 2305, "kBBUReturnSuccess == ret");
     }
 
 LABEL_39:
     (*(**(a1 + 88) + 24))(*(a1 + 88));
-    std::string::basic_string[abi:ne200100]<0>(&v28, BBUReturnAsString::BBUReturnStrings[v25]);
-    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("Failed gathering personalization parameters @ second stage: ", &v28, &__p);
+    std::string::basic_string[abi:ne200100]<0>(&v16, BBUReturnAsString::BBUReturnStrings[v13]);
+    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("Failed gathering personalization parameters @ second stage: ", &v16, &__p);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
-      std::string::__init_copy_ctor_external(&v30, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
+      std::string::__init_copy_ctor_external(&v18, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
     }
 
     else
     {
-      v30 = __p;
+      v18 = __p;
     }
 
-    v31 = v25;
-    BBUpdaterController::process_event<BBUpdaterControllerFSM::eventError>(a1, &v30);
-    if (SHIBYTE(v30.__r_.__value_.__r.__words[2]) < 0)
+    v19 = v13;
+    BBUpdaterController::process_event<BBUpdaterControllerFSM::eventError>(a1, &v18);
+    if (SHIBYTE(v18.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v30.__r_.__value_.__l.__data_);
+      operator delete(v18.__r_.__value_.__l.__data_);
       if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
       {
 LABEL_63:
-        if ((SHIBYTE(v28.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+        if ((SHIBYTE(v16.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
         {
-          return v25;
+          return v13;
         }
 
         goto LABEL_67;
@@ -4128,13 +4065,13 @@ LABEL_63:
     }
 
     operator delete(__p.__r_.__value_.__l.__data_);
-    if ((SHIBYTE(v28.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+    if ((SHIBYTE(v16.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
-      return v25;
+      return v13;
     }
 
 LABEL_67:
-    v26 = v28.__r_.__value_.__r.__words[0];
+    v14 = v16.__r_.__value_.__r.__words[0];
     goto LABEL_68;
   }
 
@@ -4164,7 +4101,7 @@ LABEL_6:
 
 uint64_t BBUpdaterController::shouldPerformEUICC(const __CFDictionary **this)
 {
-  v5 = capabilities::euicc::supportsLegacyUpdater(this);
+  v2 = capabilities::euicc::supportsLegacyUpdater(this);
   if (gBBULogMaskGet(void)::once == -1)
   {
     if ((*(gBBULogMaskGet(void)::sBBULogMask + 2) & 8) == 0)
@@ -4184,28 +4121,28 @@ uint64_t BBUpdaterController::shouldPerformEUICC(const __CFDictionary **this)
 
   if ((gBBULogVerbosity & 0x80000000) == 0)
   {
-    _BBULog(19, 0, "BBUpdaterController", "", "supports legacy eUICC update? %d\n", v2, v3, v4, v5);
+    _BBULog(19, 0, "BBUpdaterController", "", "supports legacy eUICC update? %d\n", v2);
   }
 
 LABEL_5:
-  if (!v5)
+  if (!v2)
   {
     return 0;
   }
 
-  v6 = this[5];
-  v13 = v6;
-  if (v6)
+  v3 = this[5];
+  v6 = v3;
+  if (v3)
   {
-    CFRetain(v6);
+    CFRetain(v3);
   }
 
-  eUICC::Options::Options(v14, &v13);
-  v10 = v14[8];
-  if (v16 < 0)
+  eUICC::Options::Options(v7, &v6);
+  v4 = v7[8];
+  if (v9 < 0)
   {
     operator delete(__p);
-    if (!v6)
+    if (!v3)
     {
       goto LABEL_13;
     }
@@ -4213,14 +4150,14 @@ LABEL_5:
     goto LABEL_12;
   }
 
-  if (v6)
+  if (v3)
   {
 LABEL_12:
-    CFRelease(v6);
+    CFRelease(v3);
   }
 
 LABEL_13:
-  if (!v10)
+  if (!v4)
   {
     return 1;
   }
@@ -4246,33 +4183,34 @@ LABEL_13:
 
   if ((gBBULogVerbosity & 0x80000000) == 0)
   {
-    _BBULog(19, 0, "BBUpdaterController", "", "Skip eUICC options\n", v7, v8, v9, v12);
+    _BBULog(19, 0, "BBUpdaterController", "", "Skip eUICC options\n");
     return 0;
   }
 
   return result;
 }
 
-void sub_1E5254674(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E5254674(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   ctu::cf::CFSharedRef<__CFDictionary const>::~CFSharedRef(va);
   _Unwind_Resume(a1);
 }
 
-void BBUpdaterController::personalize(uint64_t a1, int a2)
+void BBUpdaterController::personalize(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   *(a1 + 360) = 1;
   memset(&__p, 0, sizeof(__p));
   FirmwareDataSource = BBUpdaterController::getFirmwareDataSource(a1, 0);
-  v135 = FirmwareDataSource;
+  v77 = FirmwareDataSource;
   if (!FirmwareDataSource)
   {
     if (gBBULogMaskGet(void)::once == -1)
     {
       if ((*gBBULogMaskGet(void)::sBBULogMask & 2) != 0)
       {
-        goto LABEL_114;
+        goto LABEL_116;
       }
     }
 
@@ -4281,116 +4219,115 @@ void BBUpdaterController::personalize(uint64_t a1, int a2)
       dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
       if ((*gBBULogMaskGet(void)::sBBULogMask & 2) != 0)
       {
-LABEL_114:
+LABEL_116:
         if (gBBULogVerbosity >= 6)
         {
-          _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", v4, v5, v6, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp");
+          _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 327, "updateSource");
         }
       }
     }
 
-    v107 = BBUStageAsString(a2);
-    std::string::basic_string[abi:ne200100]<0>(&v137, v107);
-    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("Fail to get update source in ", &v137, &v138);
-    if (SHIBYTE(v138.__r_.__value_.__r.__words[2]) < 0)
+    v59 = BBUStageAsString(v2);
+    std::string::basic_string[abi:ne200100]<0>(&v79, v59);
+    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("Fail to get update source in ", &v79, &v80);
+    if (SHIBYTE(v80.__r_.__value_.__r.__words[2]) < 0)
     {
-      std::string::__init_copy_ctor_external(&__dst, v138.__r_.__value_.__l.__data_, v138.__r_.__value_.__l.__size_);
+      std::string::__init_copy_ctor_external(&__dst, v80.__r_.__value_.__l.__data_, v80.__r_.__value_.__l.__size_);
     }
 
     else
     {
-      __dst = v138;
+      __dst = v80;
     }
 
-    v140 = 35;
+    v82 = 35;
     BBUpdaterController::process_event<BBUpdaterControllerFSM::eventError>(a1, &__dst);
-LABEL_120:
+LABEL_122:
     if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__dst.__r_.__value_.__l.__data_);
-      if ((SHIBYTE(v138.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+      if ((SHIBYTE(v80.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
       {
-LABEL_122:
-        if ((SHIBYTE(v137.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+LABEL_124:
+        if ((SHIBYTE(v79.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
         {
           goto LABEL_69;
         }
 
-LABEL_126:
-        operator delete(v137.__r_.__value_.__l.__data_);
+LABEL_128:
+        operator delete(v79.__r_.__value_.__l.__data_);
         goto LABEL_69;
       }
     }
 
-    else if ((SHIBYTE(v138.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+    else if ((SHIBYTE(v80.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
-      goto LABEL_122;
+      goto LABEL_124;
     }
 
-    operator delete(v138.__r_.__value_.__l.__data_);
-    if ((SHIBYTE(v137.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+    operator delete(v80.__r_.__value_.__l.__data_);
+    if ((SHIBYTE(v79.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
       goto LABEL_69;
     }
 
-    goto LABEL_126;
+    goto LABEL_128;
   }
 
-  if (a2 <= 7)
+  if (v2 <= 7)
   {
-    if (a2 != 2)
+    if (v2 != 2)
     {
-      if (a2 == 4)
+      if (v2 == 4)
       {
-        v8 = *(a1 + 56);
-        BBUFeedback::handleComment(v8, "entering %s", "StageContext::PersonalizeStageSecond");
-        v9 = *(v8 + 144);
-        v10 = *(v8 + 152);
-        v11 = *(v8 + 144);
-        if (v10 == v11)
+        v5 = *(a1 + 56);
+        BBUFeedback::handleComment(v5, "entering %s", "StageContext::PersonalizeStageSecond");
+        v6 = *(v5 + 19);
+        v7 = *(v5 + 18);
+        if (v6 == v7)
         {
-          v12 = 0;
+          v8 = 0;
         }
 
         else
         {
-          v12 = ((v10 - v11) << 7) - 1;
+          v8 = ((v6 - v7) << 7) - 1;
         }
 
-        v13 = *(v8 + 176);
-        v14 = v13 + *(v8 + 168);
-        if (v12 == v14)
+        v9 = *(v5 + 22);
+        v10 = v9 + *(v5 + 21);
+        if (v8 == v10)
         {
-          std::deque<BBUpdaterCommon::StageContext>::__add_back_capacity(v8 + 136);
-          v11 = *(v8 + 144);
-          v13 = *(v8 + 176);
-          v14 = *(v8 + 168) + v13;
+          std::deque<BBUpdaterCommon::StageContext>::__add_back_capacity(v5 + 136);
+          v7 = *(v5 + 18);
+          v9 = *(v5 + 22);
+          v10 = *(v5 + 21) + v9;
         }
 
-        *(*(v11 + ((v14 >> 7) & 0x1FFFFFFFFFFFFF8)) + 4 * (v14 & 0x3FF)) = 3;
-        *(v8 + 176) = v13 + 1;
+        *(*(v7 + ((v10 >> 7) & 0x1FFFFFFFFFFFFF8)) + 4 * (v10 & 0x3FF)) = 3;
+        *(v5 + 22) = v9 + 1;
         if (*(a1 + 88))
         {
-          v18 = (*(*FirmwareDataSource + 80))(FirmwareDataSource);
-          if (!v18)
+          v11 = (*(*FirmwareDataSource + 80))(FirmwareDataSource);
+          if (!v11)
           {
-            v19 = *(a1 + 96);
-            if (v19)
+            v12 = *(a1 + 96);
+            if (v12)
             {
-              v20 = (*(**(v19 + 16) + 24))(*(v19 + 16));
-              (*(*FirmwareDataSource + 200))(FirmwareDataSource, v20);
-              v21 = (*(**(*(a1 + 96) + 24) + 24))(*(*(a1 + 96) + 24));
-              (*(*FirmwareDataSource + 208))(FirmwareDataSource, v21);
+              v13 = (*(**(v12 + 16) + 24))(*(v12 + 16));
+              (*(*FirmwareDataSource + 200))(FirmwareDataSource, v13);
+              v14 = (*(**(*(a1 + 96) + 24) + 24))(*(*(a1 + 96) + 24));
+              (*(*FirmwareDataSource + 208))(FirmwareDataSource, v14);
             }
 
-            v25 = BBUpdaterController::performSecondStageInternal(a1, 1, &v135, &__p);
-            if (!v25)
+            v15 = BBUpdaterController::performSecondStageInternal(a1, 1, &v77, &__p);
+            if (!v15)
             {
-              v29 = BBUpdaterController::bootupInternal(a1, &v135);
-              if (!v29)
+              v16 = BBUpdaterController::bootupInternal(a1, &v77);
+              if (!v16)
               {
-                v33 = BBUpdaterController::performPingInternal(a1);
-                if (v33)
+                v17 = BBUpdaterController::performPingInternal(a1);
+                if (v17)
                 {
                   if (gBBULogMaskGet(void)::once == -1)
                   {
@@ -4411,27 +4348,27 @@ LABEL_126:
 
                   if (gBBULogVerbosity >= 6)
                   {
-                    _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", v30, v31, v32, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp");
+                    _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 421, "kBBUReturnSuccess == ret");
                   }
 
 LABEL_21:
-                  std::string::basic_string[abi:ne200100]<0>(&v137, BBUReturnAsString::BBUReturnStrings[v33]);
-                  std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("Fail to ping baseband: ", &v137, &v138);
-                  v35 = capabilities::updater::intermittentFailureRetryCount(v34);
-                  if ((SHIBYTE(v138.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+                  std::string::basic_string[abi:ne200100]<0>(&v79, BBUReturnAsString::BBUReturnStrings[v17]);
+                  std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("Fail to ping baseband: ", &v79, &v80);
+                  v19 = capabilities::updater::intermittentFailureRetryCount(v18);
+                  if ((SHIBYTE(v80.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
                   {
-                    __dst = v138;
-LABEL_220:
-                    v140 = __PAIR64__(v35, v33);
+                    __dst = v80;
+LABEL_222:
+                    v82 = __PAIR64__(v19, v17);
                     BBUpdaterController::process_event<BBUpdaterControllerFSM::eventRetry>(a1, &__dst);
-                    goto LABEL_120;
+                    goto LABEL_122;
                   }
 
-                  goto LABEL_219;
+                  goto LABEL_221;
                 }
 
 LABEL_67:
-                BBUpdaterController::performBootedStageInternal(a1, &v135);
+                BBUpdaterController::performBootedStageInternal(a1, &v77);
                 goto LABEL_69;
               }
 
@@ -4439,7 +4376,7 @@ LABEL_67:
               {
                 if ((*gBBULogMaskGet(void)::sBBULogMask & 2) == 0)
                 {
-                  goto LABEL_180;
+                  goto LABEL_182;
                 }
               }
 
@@ -4448,71 +4385,71 @@ LABEL_67:
                 dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
                 if ((*gBBULogMaskGet(void)::sBBULogMask & 2) == 0)
                 {
-                  goto LABEL_180;
+                  goto LABEL_182;
                 }
               }
 
               if (gBBULogVerbosity >= 6)
               {
-                _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", v26, v27, v28, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp");
+                _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 405, "kBBUReturnSuccess == ret");
               }
 
-LABEL_180:
-              std::string::basic_string[abi:ne200100]<0>(&v137, BBUReturnAsString::BBUReturnStrings[v29]);
-              std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("Fail to bootup baseband: ", &v137, &v138);
-              v117 = capabilities::updater::intermittentFailureRetryCount(v116);
-              if (SHIBYTE(v138.__r_.__value_.__r.__words[2]) < 0)
+LABEL_182:
+              std::string::basic_string[abi:ne200100]<0>(&v79, BBUReturnAsString::BBUReturnStrings[v16]);
+              std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("Fail to bootup baseband: ", &v79, &v80);
+              v69 = capabilities::updater::intermittentFailureRetryCount(v68);
+              if (SHIBYTE(v80.__r_.__value_.__r.__words[2]) < 0)
               {
-                v119 = v117;
-                std::string::__init_copy_ctor_external(&__dst, v138.__r_.__value_.__l.__data_, v138.__r_.__value_.__l.__size_);
-                v117 = v119;
+                v71 = v69;
+                std::string::__init_copy_ctor_external(&__dst, v80.__r_.__value_.__l.__data_, v80.__r_.__value_.__l.__size_);
+                v69 = v71;
               }
 
               else
               {
-                __dst = v138;
+                __dst = v80;
               }
 
-              v140 = __PAIR64__(v117, v29);
+              v82 = __PAIR64__(v69, v16);
               BBUpdaterController::process_event<BBUpdaterControllerFSM::eventRetry>(a1, &__dst);
               if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
               {
                 operator delete(__dst.__r_.__value_.__l.__data_);
-                if ((SHIBYTE(v138.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+                if ((SHIBYTE(v80.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
                 {
-LABEL_214:
-                  if ((SHIBYTE(v137.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+LABEL_216:
+                  if ((SHIBYTE(v79.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
                   {
-LABEL_215:
+LABEL_217:
                     *(a1 + 362) = 1;
                     goto LABEL_69;
                   }
 
-LABEL_218:
-                  operator delete(v137.__r_.__value_.__l.__data_);
-                  goto LABEL_215;
+LABEL_220:
+                  operator delete(v79.__r_.__value_.__l.__data_);
+                  goto LABEL_217;
                 }
               }
 
-              else if ((SHIBYTE(v138.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+              else if ((SHIBYTE(v80.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
               {
-                goto LABEL_214;
+                goto LABEL_216;
               }
 
-              operator delete(v138.__r_.__value_.__l.__data_);
-              if ((SHIBYTE(v137.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+              operator delete(v80.__r_.__value_.__l.__data_);
+              if ((SHIBYTE(v79.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
               {
-                goto LABEL_215;
+                goto LABEL_217;
               }
 
-              goto LABEL_218;
+              goto LABEL_220;
             }
 
             if (gBBULogMaskGet(void)::once == -1)
             {
               if ((*gBBULogMaskGet(void)::sBBULogMask & 2) == 0)
               {
-                goto LABEL_162;
+                goto LABEL_164;
               }
             }
 
@@ -4521,19 +4458,19 @@ LABEL_218:
               dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
               if ((*gBBULogMaskGet(void)::sBBULogMask & 2) == 0)
               {
-                goto LABEL_162;
+                goto LABEL_164;
               }
             }
 
             if (gBBULogVerbosity >= 6)
             {
-              _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", v22, v23, v24, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp");
+              _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 387, "kBBUReturnSuccess == ret");
             }
 
-LABEL_162:
-            std::string::basic_string[abi:ne200100]<0>(&v132, BBUReturnAsString::BBUReturnStrings[v25]);
-            std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("Fail to perform second stage: ", &v132, &v133);
-            std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(": ", &v133, &cf);
+LABEL_164:
+            std::string::basic_string[abi:ne200100]<0>(&v74, BBUReturnAsString::BBUReturnStrings[v15]);
+            std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("Fail to perform second stage: ", &v74, &v75);
+            std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&cf, ": ", &v75);
             if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
               p_p = &__p;
@@ -4554,104 +4491,104 @@ LABEL_162:
               size = __p.__r_.__value_.__l.__size_;
             }
 
-            v111 = std::string::append(&cf, p_p, size);
-            v112 = *&v111->__r_.__value_.__l.__data_;
-            v137.__r_.__value_.__r.__words[2] = v111->__r_.__value_.__r.__words[2];
-            *&v137.__r_.__value_.__l.__data_ = v112;
-            v111->__r_.__value_.__l.__size_ = 0;
-            v111->__r_.__value_.__r.__words[2] = 0;
-            v111->__r_.__value_.__r.__words[0] = 0;
-            std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("\n", &v137, &v138);
-            v114 = capabilities::updater::intermittentFailureRetryCount(v113);
-            if (SHIBYTE(v138.__r_.__value_.__r.__words[2]) < 0)
+            v63 = std::string::append(&cf, p_p, size);
+            v64 = *&v63->__r_.__value_.__l.__data_;
+            v79.__r_.__value_.__r.__words[2] = v63->__r_.__value_.__r.__words[2];
+            *&v79.__r_.__value_.__l.__data_ = v64;
+            v63->__r_.__value_.__l.__size_ = 0;
+            v63->__r_.__value_.__r.__words[2] = 0;
+            v63->__r_.__value_.__r.__words[0] = 0;
+            std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v80, "\n", &v79);
+            v66 = capabilities::updater::intermittentFailureRetryCount(v65);
+            if (SHIBYTE(v80.__r_.__value_.__r.__words[2]) < 0)
             {
-              v118 = v114;
-              std::string::__init_copy_ctor_external(&__dst, v138.__r_.__value_.__l.__data_, v138.__r_.__value_.__l.__size_);
-              v114 = v118;
+              v70 = v66;
+              std::string::__init_copy_ctor_external(&__dst, v80.__r_.__value_.__l.__data_, v80.__r_.__value_.__l.__size_);
+              v66 = v70;
             }
 
             else
             {
-              __dst = v138;
+              __dst = v80;
             }
 
-            v140 = __PAIR64__(v114, v25);
+            v82 = __PAIR64__(v66, v15);
             BBUpdaterController::process_event<BBUpdaterControllerFSM::eventRetry>(a1, &__dst);
             if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
             {
               operator delete(__dst.__r_.__value_.__l.__data_);
-              if ((SHIBYTE(v138.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+              if ((SHIBYTE(v80.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
               {
-LABEL_199:
-                if ((SHIBYTE(v137.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+LABEL_201:
+                if ((SHIBYTE(v79.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
                 {
-                  goto LABEL_200;
+                  goto LABEL_202;
                 }
 
-                goto LABEL_206;
+                goto LABEL_208;
               }
             }
 
-            else if ((SHIBYTE(v138.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+            else if ((SHIBYTE(v80.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
             {
-              goto LABEL_199;
+              goto LABEL_201;
             }
 
-            operator delete(v138.__r_.__value_.__l.__data_);
-            if ((SHIBYTE(v137.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-            {
-LABEL_200:
-              if ((SHIBYTE(cf.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-              {
-                goto LABEL_201;
-              }
-
-              goto LABEL_207;
-            }
-
-LABEL_206:
-            operator delete(v137.__r_.__value_.__l.__data_);
-            if ((SHIBYTE(cf.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-            {
-LABEL_201:
-              if ((SHIBYTE(v133.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-              {
-                goto LABEL_202;
-              }
-
-              goto LABEL_208;
-            }
-
-LABEL_207:
-            operator delete(cf.__r_.__value_.__l.__data_);
-            if ((SHIBYTE(v133.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+            operator delete(v80.__r_.__value_.__l.__data_);
+            if ((SHIBYTE(v79.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
             {
 LABEL_202:
-              if ((SHIBYTE(v132.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+              if ((SHIBYTE(cf.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+              {
+                goto LABEL_203;
+              }
+
+              goto LABEL_209;
+            }
+
+LABEL_208:
+            operator delete(v79.__r_.__value_.__l.__data_);
+            if ((SHIBYTE(cf.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+            {
+LABEL_203:
+              if ((SHIBYTE(v75.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+              {
+                goto LABEL_204;
+              }
+
+              goto LABEL_210;
+            }
+
+LABEL_209:
+            operator delete(cf.__r_.__value_.__l.__data_);
+            if ((SHIBYTE(v75.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+            {
+LABEL_204:
+              if ((SHIBYTE(v74.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
               {
                 goto LABEL_69;
               }
 
-LABEL_209:
-              operator delete(v132.__r_.__value_.__l.__data_);
+LABEL_211:
+              operator delete(v74.__r_.__value_.__l.__data_);
               goto LABEL_69;
             }
 
-LABEL_208:
-            operator delete(v133.__r_.__value_.__l.__data_);
-            if ((SHIBYTE(v132.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+LABEL_210:
+            operator delete(v75.__r_.__value_.__l.__data_);
+            if ((SHIBYTE(v74.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
             {
               goto LABEL_69;
             }
 
-            goto LABEL_209;
+            goto LABEL_211;
           }
 
           if (gBBULogMaskGet(void)::once == -1)
           {
             if ((*gBBULogMaskGet(void)::sBBULogMask & 2) != 0)
             {
-              goto LABEL_135;
+              goto LABEL_137;
             }
           }
 
@@ -4660,174 +4597,173 @@ LABEL_208:
             dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
             if ((*gBBULogMaskGet(void)::sBBULogMask & 2) != 0)
             {
-LABEL_135:
+LABEL_137:
               if (gBBULogVerbosity >= 6)
               {
-                _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", v15, v16, v17, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp");
+                _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 350, "kBBUReturnSuccess == ret");
               }
             }
           }
 
-          std::string::basic_string[abi:ne200100]<0>(&v138, "Miss images for saveImages\n");
-          if (SHIBYTE(v138.__r_.__value_.__r.__words[2]) < 0)
+          std::string::basic_string[abi:ne200100]<0>(&v80, "Miss images for saveImages\n");
+          if (SHIBYTE(v80.__r_.__value_.__r.__words[2]) < 0)
           {
-            std::string::__init_copy_ctor_external(&__dst, v138.__r_.__value_.__l.__data_, v138.__r_.__value_.__l.__size_);
+            std::string::__init_copy_ctor_external(&__dst, v80.__r_.__value_.__l.__data_, v80.__r_.__value_.__l.__size_);
           }
 
           else
           {
-            __dst = v138;
+            __dst = v80;
           }
 
-          v140 = v18;
+          v82 = v11;
           BBUpdaterController::process_event<BBUpdaterControllerFSM::eventError>(a1, &__dst);
           if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(__dst.__r_.__value_.__l.__data_);
           }
 
-          if (SHIBYTE(v138.__r_.__value_.__r.__words[2]) < 0)
+          if (SHIBYTE(v80.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v138.__r_.__value_.__l.__data_);
+            operator delete(v80.__r_.__value_.__l.__data_);
           }
 
           goto LABEL_69;
         }
 
         exception = __cxa_allocate_exception(0x210uLL);
-        _BBUException::_BBUException(exception, 68, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 0x15Bu, "Assertion failure(fProgrammer && Null programmer?)", v125, v126, v127, v129);
-LABEL_232:
+        _BBUException::_BBUException(exception, 68, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 0x15Bu, "Assertion failure(fProgrammer && Null programmer?)");
+LABEL_234:
       }
 
-LABEL_230:
+LABEL_232:
       exception = __cxa_allocate_exception(0x210uLL);
-      _BBUException::_BBUException(exception, 69, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 0x1CBu, "Assertion failure(false && Unrecognized BBU stage.)", v122, v123, v124, v128);
-      goto LABEL_232;
+      _BBUException::_BBUException(exception, 69, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 0x1CBu, "Assertion failure(false && Unrecognized BBU stage.)");
+      goto LABEL_234;
     }
 
-    v59 = *(a1 + 56);
-    BBUFeedback::handleComment(v59, "entering %s", "StageContext::PersonalizeStageFirst");
-    v60 = *(v59 + 144);
-    v61 = *(v59 + 152);
-    v62 = *(v59 + 144);
-    if (v61 == v62)
+    v30 = *(a1 + 56);
+    BBUFeedback::handleComment(v30, "entering %s", "StageContext::PersonalizeStageFirst");
+    v31 = *(v30 + 19);
+    v32 = *(v30 + 18);
+    if (v31 == v32)
     {
-      v63 = 0;
+      v33 = 0;
     }
 
     else
     {
-      v63 = ((v61 - v62) << 7) - 1;
+      v33 = ((v31 - v32) << 7) - 1;
     }
 
-    v64 = *(v59 + 176);
-    v65 = v64 + *(v59 + 168);
-    if (v63 == v65)
+    v34 = *(v30 + 22);
+    v35 = v34 + *(v30 + 21);
+    if (v33 == v35)
     {
-      std::deque<BBUpdaterCommon::StageContext>::__add_back_capacity(v59 + 136);
-      v62 = *(v59 + 144);
-      v64 = *(v59 + 176);
-      v65 = *(v59 + 168) + v64;
+      std::deque<BBUpdaterCommon::StageContext>::__add_back_capacity(v30 + 136);
+      v32 = *(v30 + 18);
+      v34 = *(v30 + 22);
+      v35 = *(v30 + 21) + v34;
     }
 
-    *(*(v62 + ((v65 >> 7) & 0x1FFFFFFFFFFFFF8)) + 4 * (v65 & 0x3FF)) = 2;
-    *(v59 + 176) = v64 + 1;
+    *(*(v32 + ((v35 >> 7) & 0x1FFFFFFFFFFFFF8)) + 4 * (v35 & 0x3FF)) = 2;
+    *(v30 + 22) = v34 + 1;
     if (*(*(a1 + 96) + 88) != 3)
     {
-      v66 = (*(*FirmwareDataSource + 80))(FirmwareDataSource);
-      if (!v66)
+      v36 = (*(*FirmwareDataSource + 80))(FirmwareDataSource);
+      if (!v36)
       {
-        if (capabilities::updater::shouldSkipRestoreForUnfused(v66))
+        if (capabilities::updater::shouldSkipRestoreForUnfused(v36))
         {
           BBUFeedback::handleComment(*(a1 + 56), "Detecting unfused BB and skip restore");
-          v68 = *(a1 + 16);
-          v67 = *(a1 + 24);
-          v137.__r_.__value_.__r.__words[0] = v68;
-          v137.__r_.__value_.__l.__size_ = v67;
-          if (v67)
+          v38 = *(a1 + 16);
+          v37 = *(a1 + 24);
+          v79.__r_.__value_.__r.__words[0] = v38;
+          v79.__r_.__value_.__l.__size_ = v37;
+          if (v37)
           {
-            atomic_fetch_add_explicit((v67 + 8), 1uLL, memory_order_relaxed);
+            atomic_fetch_add_explicit((v37 + 8), 1uLL, memory_order_relaxed);
           }
 
           __dst.__r_.__value_.__l.__size_ = 0xAAAAAAAAAAAAAAAALL;
           __dst.__r_.__value_.__r.__words[2] = 0x7AAAAAAAAAAAAAALL;
           strcpy(&__dst, "unknown");
-          memset(&v138, 170, sizeof(v138));
-          (*(*v68 + 24))(&v138, v68);
-          v69 = v138.__r_.__value_.__r.__words[0];
-          v70 = v138.__r_.__value_.__r.__words[0] + 24 * v68[8];
-          if (&__dst != v70)
+          memset(&v80, 170, sizeof(v80));
+          (*(*v38 + 24))(&v80, v38);
+          v39 = v80.__r_.__value_.__r.__words[0];
+          v40 = v80.__r_.__value_.__r.__words[0] + 24 * v38[8];
+          if (&__dst != v40)
           {
-            v71 = *(v70 + 23);
+            v41 = *(v40 + 23);
             if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
             {
-              if (v71 >= 0)
+              if (v41 >= 0)
               {
-                v93 = (v138.__r_.__value_.__r.__words[0] + 24 * v68[8]);
+                v50 = (v80.__r_.__value_.__r.__words[0] + 24 * v38[8]);
               }
 
               else
               {
-                v93 = *v70;
+                v50 = *v40;
               }
 
-              if (v71 >= 0)
+              if (v41 >= 0)
               {
-                v94 = *(v70 + 23);
+                v51 = *(v40 + 23);
               }
 
               else
               {
-                v94 = *(v70 + 8);
+                v51 = *(v40 + 8);
               }
 
-              std::string::__assign_no_alias<false>(&__dst.__r_.__value_.__l.__data_, v93, v94);
+              std::string::__assign_no_alias<false>(&__dst, v50, v51);
             }
 
-            else if ((*(v70 + 23) & 0x80) != 0)
+            else if ((*(v40 + 23) & 0x80) != 0)
             {
-              std::string::__assign_no_alias<true>(&__dst, *v70, *(v70 + 8));
+              std::string::__assign_no_alias<true>(&__dst, *v40, *(v40 + 8));
             }
 
             else
             {
-              v72 = *v70;
-              __dst.__r_.__value_.__r.__words[2] = *(v70 + 16);
-              *&__dst.__r_.__value_.__l.__data_ = v72;
+              v42 = *v40;
+              __dst.__r_.__value_.__r.__words[2] = *(v40 + 16);
+              *&__dst.__r_.__value_.__l.__data_ = v42;
             }
 
-            v69 = v138.__r_.__value_.__r.__words[0];
+            v39 = v80.__r_.__value_.__r.__words[0];
           }
 
-          if (v69)
+          if (v39)
           {
-            v95 = v138.__r_.__value_.__l.__size_;
-            v96 = v69;
-            if (v138.__r_.__value_.__l.__size_ != v69)
+            v52 = v80.__r_.__value_.__l.__size_;
+            v53 = v39;
+            if (v80.__r_.__value_.__l.__size_ != v39)
             {
               do
               {
-                v97 = *(v95 - 1);
-                v95 -= 3;
-                if (v97 < 0)
+                v54 = *(v52 - 1);
+                v52 -= 3;
+                if (v54 < 0)
                 {
-                  operator delete(*v95);
+                  operator delete(*v52);
                 }
               }
 
-              while (v95 != v69);
-              v96 = v138.__r_.__value_.__r.__words[0];
+              while (v52 != v39);
+              v53 = v80.__r_.__value_.__r.__words[0];
             }
 
-            v138.__r_.__value_.__l.__size_ = v69;
-            operator delete(v96);
+            v80.__r_.__value_.__l.__size_ = v39;
+            operator delete(v53);
           }
 
           if (gBBULogMaskGet(void)::once == -1)
           {
             if ((*(gBBULogMaskGet(void)::sBBULogMask + 2) & 0x20) == 0)
             {
-              goto LABEL_99;
+              goto LABEL_101;
             }
           }
 
@@ -4836,55 +4772,51 @@ LABEL_230:
             dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
             if ((*(gBBULogMaskGet(void)::sBBULogMask + 2) & 0x20) == 0)
             {
-              goto LABEL_99;
+              goto LABEL_101;
             }
           }
 
           if ((gBBULogVerbosity & 0x80000000) == 0)
           {
-            boost::core::demangle(&v138, (0x80000001E538F5F1 & 0x7FFFFFFFFFFFFFFFLL));
-            if ((v138.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+            boost::core::demangle(&v80, (0x80000001E538F5F1 & 0x7FFFFFFFFFFFFFFFLL));
+            if ((v80.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
-              v101 = &v138;
+              v55 = &v80;
             }
 
             else
             {
-              LOBYTE(v101) = v138.__r_.__value_.__s.__data_[0];
+              v55 = v80.__r_.__value_.__r.__words[0];
             }
 
-            v131 = v68[8];
-            _BBULog(21, 0, "BBUpdaterController", "", "processing event: %s, current state %d [%s]\n", v98, v99, v100, v101);
-            if (SHIBYTE(v138.__r_.__value_.__r.__words[2]) < 0)
+            p_dst = &__dst;
+            if ((__dst.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
             {
-              operator delete(v138.__r_.__value_.__l.__data_);
+              p_dst = __dst.__r_.__value_.__r.__words[0];
+            }
+
+            _BBULog(21, 0, "BBUpdaterController", "", "processing event: %s, current state %d [%s]\n", v55, v38[8], p_dst);
+            if (SHIBYTE(v80.__r_.__value_.__r.__words[2]) < 0)
+            {
+              operator delete(v80.__r_.__value_.__l.__data_);
             }
           }
 
-LABEL_99:
-          boost::msm::back::state_machine<BBUpdaterControllerFSM::ControllerFSM_TOP,boost::parameter::void_,boost::parameter::void_,boost::parameter::void_,boost::parameter::void_>::process_event_internal<BBUpdaterControllerFSM::eventSkipPersonalize>(v137.__r_.__value_.__l.__data_, &cf, 1);
+LABEL_101:
+          boost::msm::back::state_machine<BBUpdaterControllerFSM::ControllerFSM_TOP,boost::parameter::void_,boost::parameter::void_,boost::parameter::void_,boost::parameter::void_>::process_event_internal<BBUpdaterControllerFSM::eventSkipPersonalize>(v79.__r_.__value_.__l.__data_, &cf, 1);
           if (gBBULogMaskGet(void)::once == -1)
           {
             if ((*(gBBULogMaskGet(void)::sBBULogMask + 2) & 0x20) != 0)
             {
-LABEL_101:
+LABEL_103:
               if ((gBBULogVerbosity & 0x80000000) == 0)
               {
-                boost::core::demangle(&v138, (0x80000001E538F5F1 & 0x7FFFFFFFFFFFFFFFLL));
-                if ((v138.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+                boost::core::demangle(&v80, (0x80000001E538F5F1 & 0x7FFFFFFFFFFFFFFFLL));
+                v57 = (v80.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v80 : v80.__r_.__value_.__r.__words[0];
+                _BBULog(21, 0, "BBUpdaterController", "", "finish processing event: %s\n", v57);
+                if (SHIBYTE(v80.__r_.__value_.__r.__words[2]) < 0)
                 {
-                  v105 = &v138;
-                }
-
-                else
-                {
-                  LOBYTE(v105) = v138.__r_.__value_.__s.__data_[0];
-                }
-
-                _BBULog(21, 0, "BBUpdaterController", "", "finish processing event: %s\n", v102, v103, v104, v105);
-                if (SHIBYTE(v138.__r_.__value_.__r.__words[2]) < 0)
-                {
-                  operator delete(v138.__r_.__value_.__l.__data_);
+                  operator delete(v80.__r_.__value_.__l.__data_);
                 }
               }
             }
@@ -4895,7 +4827,7 @@ LABEL_101:
             dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
             if ((*(gBBULogMaskGet(void)::sBBULogMask + 2) & 0x20) != 0)
             {
-              goto LABEL_101;
+              goto LABEL_103;
             }
           }
 
@@ -4904,11 +4836,11 @@ LABEL_101:
             operator delete(__dst.__r_.__value_.__l.__data_);
           }
 
-          v106 = v137.__r_.__value_.__l.__size_;
-          if (v137.__r_.__value_.__l.__size_ && !atomic_fetch_add((v137.__r_.__value_.__l.__size_ + 8), 0xFFFFFFFFFFFFFFFFLL))
+          v58 = v79.__r_.__value_.__l.__size_;
+          if (v79.__r_.__value_.__l.__size_ && !atomic_fetch_add((v79.__r_.__value_.__l.__size_ + 8), 0xFFFFFFFFFFFFFFFFLL))
           {
-            (v106->__on_zero_shared)(v106);
-            std::__shared_weak_count::__release_weak(v106);
+            (v58->__on_zero_shared)(v58);
+            std::__shared_weak_count::__release_weak(v58);
           }
 
           goto LABEL_69;
@@ -4916,8 +4848,8 @@ LABEL_101:
       }
     }
 
-    v92 = BBUpdaterController::performFirstStageInternal(a1, 1, &v135, &__p);
-    if (!v92)
+    v49 = BBUpdaterController::performFirstStageInternal(a1, 1, &v77, &__p);
+    if (!v49)
     {
       goto LABEL_69;
     }
@@ -4926,7 +4858,7 @@ LABEL_101:
     {
       if ((*gBBULogMaskGet(void)::sBBULogMask & 2) != 0)
       {
-        goto LABEL_184;
+        goto LABEL_186;
       }
     }
 
@@ -4935,10 +4867,10 @@ LABEL_101:
       dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
       if ((*gBBULogMaskGet(void)::sBBULogMask & 2) != 0)
       {
-LABEL_184:
+LABEL_186:
         if (gBBULogVerbosity >= 6)
         {
-          _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", v89, v90, v91, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp");
+          _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 341, "kBBUReturnSuccess == ret");
         }
       }
     }
@@ -4953,7 +4885,7 @@ LABEL_184:
       __dst = __p;
     }
 
-    v140 = v92;
+    v82 = v49;
     BBUpdaterController::process_event<BBUpdaterControllerFSM::eventError>(a1, &__dst);
     if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
     {
@@ -4963,40 +4895,39 @@ LABEL_184:
     goto LABEL_69;
   }
 
-  if (a2 != 8)
+  if (v2 != 8)
   {
-    if (a2 != 32)
+    if (v2 != 32)
     {
-      goto LABEL_230;
+      goto LABEL_232;
     }
 
-    v36 = *(a1 + 56);
-    BBUFeedback::handleComment(v36, "entering %s", "StageContext::PersonalizeEUICC");
-    v40 = *(v36 + 144);
-    v41 = *(v36 + 152);
-    v42 = *(v36 + 144);
-    if (v41 == v42)
+    v20 = *(a1 + 56);
+    BBUFeedback::handleComment(v20, "entering %s", "StageContext::PersonalizeEUICC");
+    v21 = *(v20 + 19);
+    v22 = *(v20 + 18);
+    if (v21 == v22)
     {
-      v43 = 0;
+      v23 = 0;
     }
 
     else
     {
-      v43 = ((v41 - v42) << 7) - 1;
+      v23 = ((v21 - v22) << 7) - 1;
     }
 
-    v44 = *(v36 + 176);
-    v45 = v44 + *(v36 + 168);
-    if (v43 == v45)
+    v24 = *(v20 + 22);
+    v25 = v24 + *(v20 + 21);
+    if (v23 == v25)
     {
-      std::deque<BBUpdaterCommon::StageContext>::__add_back_capacity(v36 + 136);
-      v42 = *(v36 + 144);
-      v44 = *(v36 + 176);
-      v45 = *(v36 + 168) + v44;
+      std::deque<BBUpdaterCommon::StageContext>::__add_back_capacity(v20 + 136);
+      v22 = *(v20 + 18);
+      v24 = *(v20 + 22);
+      v25 = *(v20 + 21) + v24;
     }
 
-    *(*(v42 + ((v45 >> 7) & 0x1FFFFFFFFFFFFF8)) + 4 * (v45 & 0x3FF)) = 5;
-    *(v36 + 176) = v44 + 1;
+    *(*(v22 + ((v25 >> 7) & 0x1FFFFFFFFFFFFF8)) + 4 * (v25 & 0x3FF)) = 5;
+    *(v20 + 22) = v24 + 1;
     if (gBBULogMaskGet(void)::once == -1)
     {
       if ((*(gBBULogMaskGet(void)::sBBULogMask + 2) & 8) == 0)
@@ -5016,41 +4947,41 @@ LABEL_184:
 
     if (gBBULogVerbosity >= 1)
     {
-      _BBULog(19, 1, "BBUpdaterController", "", "perform eUICC update\n", v37, v38, v39, v130);
+      _BBULog(19, 1, "BBUpdaterController", "", "perform eUICC update\n");
     }
 
 LABEL_34:
-    v46 = *(a1 + 40);
-    cf.__r_.__value_.__r.__words[0] = v46;
-    if (v46)
+    v26 = *(a1 + 40);
+    cf.__r_.__value_.__r.__words[0] = v26;
+    if (v26)
     {
-      CFRetain(v46);
+      CFRetain(v26);
     }
 
-    v50 = eUICC::Run((a1 + 152), FirmwareDataSource, &cf.__r_.__value_.__l.__data_);
+    v27 = eUICC::Run((a1 + 152), FirmwareDataSource, &cf.__r_.__value_.__l.__data_);
     if (cf.__r_.__value_.__r.__words[0])
     {
       CFRelease(cf.__r_.__value_.__l.__data_);
     }
 
-    if (!v50)
+    if (!v27)
     {
-      v51 = *(a1 + 40);
-      __dst.__r_.__value_.__r.__words[0] = v51;
-      if (v51)
+      v28 = *(a1 + 40);
+      __dst.__r_.__value_.__r.__words[0] = v28;
+      if (v28)
       {
-        CFRetain(v51);
+        CFRetain(v28);
       }
 
-      v58 = eUICC::Done(&__dst);
+      v29 = eUICC::Done(&__dst);
       if (__dst.__r_.__value_.__r.__words[0])
       {
         CFRelease(__dst.__r_.__value_.__l.__data_);
       }
 
-      if (v58)
+      if (v29)
       {
-        BBUpdaterController::getShouldFuseProvision(a1, &v135, v52, v53, v54, v55, v56, v57);
+        BBUpdaterController::getShouldFuseProvision(a1, &v77);
         goto LABEL_69;
       }
 
@@ -5058,7 +4989,7 @@ LABEL_34:
       {
         if ((*gBBULogMaskGet(void)::sBBULogMask & 2) == 0)
         {
-          goto LABEL_155;
+          goto LABEL_157;
         }
       }
 
@@ -5067,13 +4998,13 @@ LABEL_34:
         dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
         if ((*gBBULogMaskGet(void)::sBBULogMask & 2) == 0)
         {
-          goto LABEL_155;
+          goto LABEL_157;
         }
       }
 
       if (gBBULogVerbosity > 5)
       {
-        _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", v55, v56, v57, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp");
+        _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 2520, "eUICC::Done( fOptions)");
         if (gBBULogMaskGet(void)::once != -1)
         {
           dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
@@ -5082,20 +5013,20 @@ LABEL_34:
             goto LABEL_69;
           }
 
-          goto LABEL_156;
+          goto LABEL_158;
         }
       }
 
-LABEL_155:
+LABEL_157:
       if ((*(gBBULogMaskGet(void)::sBBULogMask + 2) & 8) == 0)
       {
         goto LABEL_69;
       }
 
-LABEL_156:
+LABEL_158:
       if (gBBULogVerbosity >= 1)
       {
-        _BBULog(19, 1, "BBUpdaterController", "", "eUICC is not done yet, waiting\n", v55, v56, v57, v130);
+        _BBULog(19, 1, "BBUpdaterController", "", "eUICC is not done yet, waiting\n");
       }
 
       goto LABEL_69;
@@ -5105,7 +5036,7 @@ LABEL_156:
     {
       if ((*gBBULogMaskGet(void)::sBBULogMask & 2) != 0)
       {
-        goto LABEL_141;
+        goto LABEL_143;
       }
     }
 
@@ -5114,65 +5045,64 @@ LABEL_156:
       dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
       if ((*gBBULogMaskGet(void)::sBBULogMask & 2) != 0)
       {
-LABEL_141:
+LABEL_143:
         if (gBBULogVerbosity >= 6)
         {
-          _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", v47, v48, v49, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp");
+          _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 2515, "ret == kBBUReturnSuccess");
         }
       }
     }
 
-    std::string::basic_string[abi:ne200100]<0>(&v137, BBUReturnAsString::BBUReturnStrings[v50]);
-    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("Failed performing eUICC: ", &v137, &v138);
-    if (SHIBYTE(v138.__r_.__value_.__r.__words[2]) < 0)
+    std::string::basic_string[abi:ne200100]<0>(&v79, BBUReturnAsString::BBUReturnStrings[v27]);
+    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("Failed performing eUICC: ", &v79, &v80);
+    if (SHIBYTE(v80.__r_.__value_.__r.__words[2]) < 0)
     {
-      std::string::__init_copy_ctor_external(&__dst, v138.__r_.__value_.__l.__data_, v138.__r_.__value_.__l.__size_);
+      std::string::__init_copy_ctor_external(&__dst, v80.__r_.__value_.__l.__data_, v80.__r_.__value_.__l.__size_);
     }
 
     else
     {
-      __dst = v138;
+      __dst = v80;
     }
 
-    v140 = v50;
+    v82 = v27;
     BBUpdaterController::process_event<BBUpdaterControllerFSM::eventError>(a1, &__dst);
-    goto LABEL_120;
+    goto LABEL_122;
   }
 
-  v73 = *(a1 + 56);
-  BBUFeedback::handleComment(v73, "entering %s", "StageContext::PersonalizeBooted");
-  v74 = *(v73 + 144);
-  v75 = *(v73 + 152);
-  v76 = *(v73 + 144);
-  if (v75 == v76)
+  v43 = *(a1 + 56);
+  BBUFeedback::handleComment(v43, "entering %s", "StageContext::PersonalizeBooted");
+  v44 = *(v43 + 19);
+  v45 = *(v43 + 18);
+  if (v44 == v45)
   {
-    v77 = 0;
+    v46 = 0;
   }
 
   else
   {
-    v77 = ((v75 - v76) << 7) - 1;
+    v46 = ((v44 - v45) << 7) - 1;
   }
 
-  v78 = *(v73 + 176);
-  v79 = v78 + *(v73 + 168);
-  if (v77 == v79)
+  v47 = *(v43 + 22);
+  v48 = v47 + *(v43 + 21);
+  if (v46 == v48)
   {
-    std::deque<BBUpdaterCommon::StageContext>::__add_back_capacity(v73 + 136);
-    v76 = *(v73 + 144);
-    v78 = *(v73 + 176);
-    v79 = *(v73 + 168) + v78;
+    std::deque<BBUpdaterCommon::StageContext>::__add_back_capacity(v43 + 136);
+    v45 = *(v43 + 18);
+    v47 = *(v43 + 22);
+    v48 = *(v43 + 21) + v47;
   }
 
-  *(*(v76 + ((v79 >> 7) & 0x1FFFFFFFFFFFFF8)) + 4 * (v79 & 0x3FF)) = 4;
-  *(v73 + 176) = v78 + 1;
+  *(*(v45 + ((v48 >> 7) & 0x1FFFFFFFFFFFFF8)) + 4 * (v48 & 0x3FF)) = 4;
+  *(v43 + 22) = v47 + 1;
   if (!(*(**(a1 + 72) + 40))(*(a1 + 72), *(a1 + 48), 2, 1))
   {
-    v33 = BBUpdaterController::bootupInternal(a1, &v135);
-    if (!v33)
+    v17 = BBUpdaterController::bootupInternal(a1, &v77);
+    if (!v17)
     {
-      v33 = BBUpdaterController::performPingInternal(a1);
-      if (!v33)
+      v17 = BBUpdaterController::performPingInternal(a1);
+      if (!v17)
       {
         goto LABEL_67;
       }
@@ -5181,7 +5111,7 @@ LABEL_141:
       {
         if ((*gBBULogMaskGet(void)::sBBULogMask & 2) == 0)
         {
-          goto LABEL_174;
+          goto LABEL_176;
         }
       }
 
@@ -5190,33 +5120,33 @@ LABEL_141:
         dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
         if ((*gBBULogMaskGet(void)::sBBULogMask & 2) == 0)
         {
-          goto LABEL_174;
+          goto LABEL_176;
         }
       }
 
       if (gBBULogVerbosity >= 6)
       {
-        _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", v86, v87, v88, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp");
+        _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 449, "kBBUReturnSuccess == ret");
       }
 
-LABEL_174:
-      std::string::basic_string[abi:ne200100]<0>(&v137, BBUReturnAsString::BBUReturnStrings[v33]);
-      std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("Fail to ping baseband: ", &v137, &v138);
-      v35 = capabilities::updater::intermittentFailureRetryCount(v115);
-      if ((SHIBYTE(v138.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+LABEL_176:
+      std::string::basic_string[abi:ne200100]<0>(&v79, BBUReturnAsString::BBUReturnStrings[v17]);
+      std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("Fail to ping baseband: ", &v79, &v80);
+      v19 = capabilities::updater::intermittentFailureRetryCount(v67);
+      if ((SHIBYTE(v80.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
       {
-        __dst = v138;
-        goto LABEL_220;
+        __dst = v80;
+        goto LABEL_222;
       }
 
-      goto LABEL_219;
+      goto LABEL_221;
     }
 
     if (gBBULogMaskGet(void)::once == -1)
     {
       if ((*gBBULogMaskGet(void)::sBBULogMask & 2) == 0)
       {
-        goto LABEL_149;
+        goto LABEL_151;
       }
     }
 
@@ -5225,30 +5155,30 @@ LABEL_174:
       dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
       if ((*gBBULogMaskGet(void)::sBBULogMask & 2) == 0)
       {
-        goto LABEL_149;
+        goto LABEL_151;
       }
     }
 
     if (gBBULogVerbosity >= 6)
     {
-      _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", v83, v84, v85, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp");
+      _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 438, "kBBUReturnSuccess == ret");
     }
 
-LABEL_149:
-    std::string::basic_string[abi:ne200100]<0>(&v137, BBUReturnAsString::BBUReturnStrings[v33]);
-    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("Fail to bootup baseband: ", &v137, &v138);
-    v35 = capabilities::updater::intermittentFailureRetryCount(v108);
-    if ((SHIBYTE(v138.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+LABEL_151:
+    std::string::basic_string[abi:ne200100]<0>(&v79, BBUReturnAsString::BBUReturnStrings[v17]);
+    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("Fail to bootup baseband: ", &v79, &v80);
+    v19 = capabilities::updater::intermittentFailureRetryCount(v60);
+    if ((SHIBYTE(v80.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
-      __dst = v138;
-      goto LABEL_220;
+      __dst = v80;
+      goto LABEL_222;
     }
 
-LABEL_219:
-    v120 = v35;
-    std::string::__init_copy_ctor_external(&__dst, v138.__r_.__value_.__l.__data_, v138.__r_.__value_.__l.__size_);
-    v35 = v120;
-    goto LABEL_220;
+LABEL_221:
+    v72 = v19;
+    std::string::__init_copy_ctor_external(&__dst, v80.__r_.__value_.__l.__data_, v80.__r_.__value_.__l.__size_);
+    v19 = v72;
+    goto LABEL_222;
   }
 
   if (gBBULogMaskGet(void)::once == -1)
@@ -5270,7 +5200,7 @@ LABEL_219:
 
   if (gBBULogVerbosity >= 6)
   {
-    _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", v80, v81, v82, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp");
+    _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 428, "kBBUReturnSuccess == ret");
   }
 
 LABEL_69:
@@ -5286,11 +5216,11 @@ LABEL_69:
   }
 }
 
-void sub_1E5255C48(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, void *a24, uint64_t a25, int a26, __int16 a27, char a28, char a29, uint64_t a30, void *__p, uint64_t a32, int a33, __int16 a34, char a35, char a36, void *a37, uint64_t a38, int a39, __int16 a40, char a41, char a42)
+void sub_1E5255C48(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, void *a24, uint64_t a25, int a26, __int16 a27, char a28, char a29, uint64_t a30, void *__p, uint64_t a32, int a33, __int16 a34, char a35, char a36, void *a37, uint64_t a38, int a39, __int16 a40, char a41, char a42)
 {
   if (a30)
   {
-    (*(*a30 + 16))(a30);
+    (*(*a30 + 16))(a30, a2, a3, a4, a5, a6, a7, a8);
     if ((a36 & 0x80000000) == 0)
     {
 LABEL_3:
@@ -5339,7 +5269,7 @@ uint64_t BBUpdaterController::performFirstStageInternal(uint64_t a1, int a2, voi
 LABEL_26:
         if (gBBULogVerbosity >= 6)
         {
-          _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", v14, v15, v16, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp");
+          _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 2193, "source");
         }
       }
     }
@@ -5352,34 +5282,34 @@ LABEL_26:
   if (!*(a1 + 80))
   {
     exception = __cxa_allocate_exception(0x210uLL);
-    _BBUException::_BBUException(exception, 11, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 0x893u, "Assertion failure(fLoader && No valid BBULoader!)", v44, v45, v46, v48);
+    _BBUException::_BBUException(exception, 11, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 0x893u, "Assertion failure(fLoader && No valid BBULoader!)");
   }
 
-  v17 = v13;
+  v14 = v13;
   if (*(*(a1 + 96) + 88) == 3 && ((*(**a3 + 48))() & 1) == 0 && (a2 & 1) == 0)
   {
     BBUFeedback::handleComment(*(a1 + 56), "Attempting to load an unpersonalized image on a fused radio\n");
-    v18 = *(a1 + 56);
-    v19 = (*(**a3 + 48))();
-    BBUFeedback::handleComment(v18, "hasManifestSource() = %d, personalize = %d\n", v19, 0);
+    v15 = *(a1 + 56);
+    v16 = (*(**a3 + 48))();
+    BBUFeedback::handleComment(v15, "hasManifestSource() = %d, personalize = %d\n", v16, 0);
     result = 34;
     goto LABEL_21;
   }
 
-  v50 = 0;
+  v34 = 0;
   value = 0;
-  v21 = *(a1 + 40);
-  if (v21 && CFDictionaryGetValueIfPresent(v21, @"EraseEFS", &value) && (v22 = value) != 0 && (v23 = CFGetTypeID(value), v23 == CFBooleanGetTypeID()) && (ctu::cf::assign(&v50, v22, v24), (v50 & 1) != 0) && BBUpdaterController::performFirstStageInternal(BOOL,std::unique_ptr<BBUUpdateSource> &,std::string &)::EFSErased != 1 || *(a1 + 362) == 1)
+  v18 = *(a1 + 40);
+  if (v18 && CFDictionaryGetValueIfPresent(v18, @"EraseEFS", &value) && (v19 = value) != 0 && (v20 = CFGetTypeID(value), v20 == CFBooleanGetTypeID()) && (ctu::cf::assign(&v34, v19, v21), (v34 & 1) != 0) && BBUpdaterController::performFirstStageInternal(BOOL,std::unique_ptr<BBUUpdateSource> &,std::string &)::EFSErased != 1 || *(a1 + 362) == 1)
   {
-    v25 = (*(**a3 + 176))();
-    if (!v25)
+    v22 = (*(**a3 + 176))();
+    if (!v22)
     {
       BBUpdaterController::performFirstStageInternal(BOOL,std::unique_ptr<BBUUpdateSource> &,std::string &)::EFSErased = 1;
       *(a1 + 362) = 0;
       goto LABEL_18;
     }
 
-    v39 = v25;
+    v27 = v22;
     if (gBBULogMaskGet(void)::once == -1)
     {
       if ((*gBBULogMaskGet(void)::sBBULogMask & 2) != 0)
@@ -5396,30 +5326,30 @@ LABEL_26:
 LABEL_42:
         if (gBBULogVerbosity >= 6)
         {
-          _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", v26, v27, v28, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp");
+          _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 2212, "ret == kBBUReturnSuccess");
         }
       }
     }
 
-    v40 = "failed erasing baseband filesystem\n";
-    v41 = a4;
-    v42 = 35;
+    v28 = "failed erasing baseband filesystem\n";
+    v29 = a4;
+    v30 = 35;
     goto LABEL_45;
   }
 
 LABEL_18:
-  result = (*(**(a1 + 80) + 40))(*(a1 + 80), a1 + 152, v17, a2 ^ 1u);
+  result = (*(**(a1 + 80) + 40))(*(a1 + 80), a1 + 152, v14, a2 ^ 1u);
   if (!result)
   {
-    v32 = (*(**(a1 + 80) + 48))(*(a1 + 80), a1 + 152, v17);
-    if (!v32)
+    v23 = (*(**(a1 + 80) + 48))(*(a1 + 80), a1 + 152, v14);
+    if (!v23)
     {
       (*(**(a1 + 64) + 40))(*(a1 + 64), a1 + 152);
       result = 0;
       goto LABEL_21;
     }
 
-    v39 = v32;
+    v27 = v23;
     if (gBBULogMaskGet(void)::once == -1)
     {
       if ((*gBBULogMaskGet(void)::sBBULogMask & 2) != 0)
@@ -5436,17 +5366,17 @@ LABEL_18:
 LABEL_37:
         if (gBBULogVerbosity >= 6)
         {
-          _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", v33, v34, v35, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp");
+          _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 2221, "kBBUReturnSuccess == ret");
         }
       }
     }
 
-    v40 = "Failed starting loader.";
-    v41 = a4;
-    v42 = 23;
+    v28 = "Failed starting loader.";
+    v29 = a4;
+    v30 = 23;
 LABEL_45:
-    std::string::__assign_external(v41, v40, v42);
-    result = v39;
+    std::string::__assign_external(v29, v28, v30);
+    result = v27;
     goto LABEL_21;
   }
 
@@ -5460,17 +5390,17 @@ LABEL_45:
 
   else
   {
-    v47 = result;
+    v32 = result;
     dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
-    result = v47;
+    result = v32;
     if ((*gBBULogMaskGet(void)::sBBULogMask & 2) != 0)
     {
 LABEL_31:
       if (gBBULogVerbosity >= 6)
       {
-        v38 = result;
-        _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", v29, v30, v31, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp");
-        result = v38;
+        v26 = result;
+        _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 2218, "kBBUReturnSuccess == ret");
+        result = v26;
       }
     }
   }
@@ -5488,13 +5418,13 @@ LABEL_31:
 
   strcpy(a4, "Failed loading loader.");
 LABEL_21:
-  v36 = *(a1 + 80);
+  v24 = *(a1 + 80);
   *(a1 + 80) = 0;
-  if (v36)
+  if (v24)
   {
-    v37 = result;
-    (*(*v36 + 8))(v36);
-    return v37;
+    v25 = result;
+    (*(*v24 + 8))(v24);
+    return v25;
   }
 
   return result;
@@ -5502,14 +5432,14 @@ LABEL_21:
 
 uint64_t BBUpdaterController::performSecondStageInternal(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t a4)
 {
-  v65 = 0;
+  v39 = 0;
   v8 = (*(**a3 + 128))();
   memset(&__p, 0, sizeof(__p));
   v9 = *(*(a1 + 96) + 32);
   if (!v9)
   {
     exception = __cxa_allocate_exception(0x210uLL);
-    _BBUException::_BBUException(exception, 100, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 0x91Au, "Assertion failure(fPersonalizationParameters->getSerialNumber() && Invalid serial number)", v56, v57, v58, v59);
+    _BBUException::_BBUException(exception, 100, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 0x91Au, "Assertion failure(fPersonalizationParameters->getSerialNumber() && Invalid serial number)");
   }
 
   (*(*v9 + 24))(&value);
@@ -5539,45 +5469,45 @@ uint64_t BBUpdaterController::performSecondStageInternal(uint64_t a1, uint64_t a
     v17 = *(a1 + 88);
     v18 = (*(**a3 + 72))();
     v19 = *(a1 + 260);
-    LODWORD(v60) = 1;
-    HIDWORD(v60) = BBUpdaterController::getNVRestoreSetting(*(a1 + 40), v20, v21, v22, v23, v24, v25, v26);
-    v27 = (*(*v17 + 40))(v17, v10, 0, a2, v8, v18, v19, 1, 1, &v65, v60);
-    v16 = v27;
+    LODWORD(v34) = 1;
+    HIDWORD(v34) = BBUpdaterController::getNVRestoreSetting(*(a1 + 40));
+    v20 = (*(*v17 + 40))(v17, v10, 0, a2, v8, v18, v19, 1, 1, &v39, v34);
+    v16 = v20;
     if (a2)
     {
-      if (!v27)
+      if (!v20)
       {
-        if (v65 != 1)
+        if (v39 != 1)
         {
           goto LABEL_39;
         }
 
-        v31 = *a3;
+        v21 = *a3;
         (*(**(a1 + 88) + 112))(&value);
-        (*(*v31 + 192))(v31, &value);
-        v32 = value.__r_.__value_.__r.__words[0];
+        (*(*v21 + 192))(v21, &value);
+        v22 = value.__r_.__value_.__r.__words[0];
         if (value.__r_.__value_.__r.__words[0])
         {
           size = value.__r_.__value_.__l.__size_;
-          v34 = value.__r_.__value_.__r.__words[0];
+          v24 = value.__r_.__value_.__r.__words[0];
           if (value.__r_.__value_.__l.__size_ != value.__r_.__value_.__r.__words[0])
           {
             do
             {
-              v35 = *(size - 1);
+              v25 = *(size - 1);
               size -= 3;
-              if (v35 < 0)
+              if (v25 < 0)
               {
                 operator delete(*size);
               }
             }
 
-            while (size != v32);
-            v34 = value.__r_.__value_.__r.__words[0];
+            while (size != v22);
+            v24 = value.__r_.__value_.__r.__words[0];
           }
 
-          value.__r_.__value_.__l.__size_ = v32;
-          operator delete(v34);
+          value.__r_.__value_.__l.__size_ = v22;
+          operator delete(v24);
         }
 
         v16 = (*(**a3 + 136))();
@@ -5608,13 +5538,13 @@ LABEL_39:
 LABEL_51:
               if (gBBULogVerbosity >= 6)
               {
-                _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", v45, v46, v47, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp");
+                _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 2372, "kBBUReturnSuccess == ret");
               }
             }
           }
 
-          std::string::basic_string[abi:ne200100]<0>(&v62, BBUReturnAsString::BBUReturnStrings[v16]);
-          std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("Failed disconnecting programmer ", &v62, &value);
+          std::string::basic_string[abi:ne200100]<0>(&v36, BBUReturnAsString::BBUReturnStrings[v16]);
+          std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("Failed disconnecting programmer ", &v36, &value);
           if (*(a4 + 23) < 0)
           {
             operator delete(*a4);
@@ -5623,9 +5553,9 @@ LABEL_51:
           *a4 = value;
           *(&value.__r_.__value_.__s + 23) = 0;
           value.__r_.__value_.__s.__data_[0] = 0;
-          if (SHIBYTE(v62.__r_.__value_.__r.__words[2]) < 0)
+          if (SHIBYTE(v36.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v62.__r_.__value_.__l.__data_);
+            operator delete(v36.__r_.__value_.__l.__data_);
           }
 
           if (gBBULogMaskGet(void)::once != -1)
@@ -5635,12 +5565,12 @@ LABEL_51:
 
           if (*(a4 + 23) >= 0)
           {
-            LOBYTE(v50) = a4;
+            v31 = a4;
           }
 
           else
           {
-            v50 = *a4;
+            v31 = *a4;
           }
 
           goto LABEL_62;
@@ -5665,14 +5595,14 @@ LABEL_51:
 
         if (gBBULogVerbosity >= 6)
         {
-          _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", v42, v43, v44, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp");
+          _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 2361, "kBBUReturnSuccess == ret");
         }
 
 LABEL_79:
         (*(**(a1 + 88) + 24))(*(a1 + 88));
-        std::string::basic_string[abi:ne200100]<0>(&v61, BBUReturnAsString::BBUReturnStrings[v16]);
-        std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("Failed sending images ", &v61, &v62);
-        std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("\n", &v62, &value);
+        std::string::basic_string[abi:ne200100]<0>(&v35, BBUReturnAsString::BBUReturnStrings[v16]);
+        std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("Failed sending images ", &v35, &v36);
+        std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&value, "\n", &v36);
         if (*(a4 + 23) < 0)
         {
           operator delete(*a4);
@@ -5681,10 +5611,10 @@ LABEL_79:
         *a4 = value;
         *(&value.__r_.__value_.__s + 23) = 0;
         value.__r_.__value_.__s.__data_[0] = 0;
-        if (SHIBYTE(v62.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v36.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v62.__r_.__value_.__l.__data_);
-          if ((SHIBYTE(v61.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+          operator delete(v36.__r_.__value_.__l.__data_);
+          if ((SHIBYTE(v35.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
           {
 LABEL_83:
             if (gBBULogMaskGet(void)::once == -1)
@@ -5692,21 +5622,21 @@ LABEL_83:
 LABEL_84:
               if (*(a4 + 23) >= 0)
               {
-                LOBYTE(v54) = a4;
+                v32 = a4;
               }
 
               else
               {
-                v54 = *a4;
+                v32 = *a4;
               }
 
-              _BBULog(19, 0xFFFFFFFFLL, "BBUpdaterController", "", "%s", v51, v52, v53, v54);
+              _BBULog(19, 0xFFFFFFFFLL, "BBUpdaterController", "", "%s", v32);
 LABEL_41:
-              v48 = *(a1 + 88);
+              v29 = *(a1 + 88);
               *(a1 + 88) = 0;
-              if (v48)
+              if (v29)
               {
-                (*(*v48 + 8))(v48);
+                (*(*v29 + 8))(v29);
               }
 
               goto LABEL_43;
@@ -5718,12 +5648,12 @@ LABEL_90:
           }
         }
 
-        else if ((SHIBYTE(v61.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+        else if ((SHIBYTE(v35.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
         {
           goto LABEL_83;
         }
 
-        operator delete(v61.__r_.__value_.__l.__data_);
+        operator delete(v35.__r_.__value_.__l.__data_);
         if (gBBULogMaskGet(void)::once == -1)
         {
           goto LABEL_84;
@@ -5751,13 +5681,13 @@ LABEL_90:
 
       if (gBBULogVerbosity >= 6)
       {
-        _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", v28, v29, v30, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp");
+        _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 2350, "kBBUReturnSuccess == ret");
       }
 
 LABEL_67:
       (*(**(a1 + 88) + 24))(*(a1 + 88));
-      std::string::basic_string[abi:ne200100]<0>(&v62, BBUReturnAsString::BBUReturnStrings[v16]);
-      std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("Failed personalizing in second stage ", &v62, &value);
+      std::string::basic_string[abi:ne200100]<0>(&v36, BBUReturnAsString::BBUReturnStrings[v16]);
+      std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("Failed personalizing in second stage ", &v36, &value);
       if (*(a4 + 23) < 0)
       {
         operator delete(*a4);
@@ -5766,9 +5696,9 @@ LABEL_67:
       *a4 = value;
       *(&value.__r_.__value_.__s + 23) = 0;
       value.__r_.__value_.__s.__data_[0] = 0;
-      if (SHIBYTE(v62.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v36.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v62.__r_.__value_.__l.__data_);
+        operator delete(v36.__r_.__value_.__l.__data_);
       }
 
       if (gBBULogMaskGet(void)::once == -1)
@@ -5779,7 +5709,7 @@ LABEL_67:
       goto LABEL_92;
     }
 
-    if (!v27)
+    if (!v20)
     {
       goto LABEL_39;
     }
@@ -5803,22 +5733,22 @@ LABEL_67:
 
     if (gBBULogVerbosity >= 6)
     {
-      _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", v28, v29, v30, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp");
+      _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 2368, "kBBUReturnSuccess == ret");
     }
 
 LABEL_23:
     (*(**(a1 + 88) + 24))(*(a1 + 88));
     if (v16 == 65)
     {
-      v36 = "Wrong firmware, doesn’t match hardware ID ";
+      v26 = "Wrong firmware, doesn’t match hardware ID ";
     }
 
     else
     {
-      v36 = "Failed sending images ";
+      v26 = "Failed sending images ";
     }
 
-    std::string::__assign_external(a4, v36);
+    std::string::__assign_external(a4, v26);
     std::string::basic_string[abi:ne200100]<0>(&value, BBUReturnAsString::BBUReturnStrings[v16]);
     if ((value.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
@@ -5832,15 +5762,15 @@ LABEL_23:
 
     if ((value.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v38 = HIBYTE(value.__r_.__value_.__r.__words[2]);
+      v28 = HIBYTE(value.__r_.__value_.__r.__words[2]);
     }
 
     else
     {
-      v38 = value.__r_.__value_.__l.__size_;
+      v28 = value.__r_.__value_.__l.__size_;
     }
 
-    std::string::append(a4, p_value, v38);
+    std::string::append(a4, p_value, v28);
     if (SHIBYTE(value.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(value.__r_.__value_.__l.__data_);
@@ -5856,16 +5786,16 @@ LABEL_92:
 LABEL_72:
     if (*(a4 + 23) >= 0)
     {
-      LOBYTE(v50) = a4;
+      v31 = a4;
     }
 
     else
     {
-      v50 = *a4;
+      v31 = *a4;
     }
 
 LABEL_62:
-    _BBULog(19, 0xFFFFFFFFLL, "BBUpdaterController", "", "%s", v39, v40, v41, v50);
+    _BBULog(19, 0xFFFFFFFFLL, "BBUpdaterController", "", "%s", v31);
     goto LABEL_41;
   }
 
@@ -5883,7 +5813,7 @@ LABEL_43:
   return v16;
 }
 
-void sub_1E52570AC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, void *a24, uint64_t a25, int a26, __int16 a27, char a28, char a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35)
+void sub_1E52570AC(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, void *a24, uint64_t a25, int a26, __int16 a27, char a28, char a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35)
 {
   if (a23 < 0)
   {
@@ -5910,7 +5840,7 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  (*(*v35 + 8))(v35);
+  (*(*v35 + 8))(v35, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(exception_object);
 }
 
@@ -5918,15 +5848,15 @@ void BBUpdaterController::process_event<BBUpdaterControllerFSM::eventRetry>(uint
 {
   v4 = *(a1 + 16);
   v3 = *(a1 + 24);
-  v29 = v4;
-  v30 = v3;
+  v23 = v4;
+  v24 = v3;
   if (v3)
   {
     atomic_fetch_add_explicit(&v3->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
   __dst[1] = 0xAAAAAAAAAAAAAAAALL;
-  v28 = 0x7AAAAAAAAAAAAAALL;
+  v22 = 0x7AAAAAAAAAAAAAALL;
   strcpy(__dst, "unknown");
   memset(__p, 170, sizeof(__p));
   (*(*v4 + 24))(__p, v4);
@@ -5935,7 +5865,7 @@ void BBUpdaterController::process_event<BBUpdaterControllerFSM::eventRetry>(uint
   if (__dst != v6)
   {
     v7 = *(v6 + 23);
-    if (SHIBYTE(v28) < 0)
+    if (SHIBYTE(v22) < 0)
     {
       if (v7 >= 0)
       {
@@ -5968,7 +5898,7 @@ void BBUpdaterController::process_event<BBUpdaterControllerFSM::eventRetry>(uint
     else
     {
       v8 = *v6;
-      v28 = v6[2];
+      v22 = v6[2];
       *__dst = v8;
     }
 
@@ -6003,7 +5933,7 @@ void BBUpdaterController::process_event<BBUpdaterControllerFSM::eventRetry>(uint
   {
     if ((*(gBBULogMaskGet(void)::sBBULogMask + 2) & 0x20) == 0)
     {
-      goto LABEL_32;
+      goto LABEL_34;
     }
   }
 
@@ -6012,7 +5942,7 @@ void BBUpdaterController::process_event<BBUpdaterControllerFSM::eventRetry>(uint
     dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
     if ((*(gBBULogMaskGet(void)::sBBULogMask + 2) & 0x20) == 0)
     {
-      goto LABEL_32;
+      goto LABEL_34;
     }
   }
 
@@ -6021,42 +5951,47 @@ void BBUpdaterController::process_event<BBUpdaterControllerFSM::eventRetry>(uint
     boost::core::demangle(__p, (0x80000001E538F810 & 0x7FFFFFFFFFFFFFFFLL));
     if (SHIBYTE(__p[2]) >= 0)
     {
-      v17 = __p;
+      v14 = __p;
     }
 
     else
     {
-      LOBYTE(v17) = __p[0];
+      v14 = __p[0];
     }
 
-    v25 = v4[8];
-    _BBULog(21, 0, "BBUpdaterController", "", "processing event: %s, current state %d [%s]\n", v14, v15, v16, v17);
+    v15 = __dst;
+    if (v22 < 0)
+    {
+      v15 = __dst[0];
+    }
+
+    _BBULog(21, 0, "BBUpdaterController", "", "processing event: %s, current state %d [%s]\n", v14, v4[8], v15);
     if (SHIBYTE(__p[2]) < 0)
     {
       operator delete(__p[0]);
     }
   }
 
-LABEL_32:
-  v18 = v29;
-  if (!boost::msm::back::state_machine<BBUpdaterControllerFSM::ControllerFSM_TOP,boost::parameter::void_,boost::parameter::void_,boost::parameter::void_,boost::parameter::void_>::is_event_handling_blocked_helper<BBUpdaterControllerFSM::eventRetry>(v29) && boost::msm::back::state_machine<BBUpdaterControllerFSM::ControllerFSM_TOP,boost::parameter::void_,boost::parameter::void_,boost::parameter::void_,boost::parameter::void_>::do_pre_msg_queue_helper<BBUpdaterControllerFSM::eventRetry,BBUpdaterControllerFSM::eventRetry>(v18, a2))
+LABEL_34:
+  v16 = v23;
+  if (!boost::msm::back::state_machine<BBUpdaterControllerFSM::ControllerFSM_TOP,boost::parameter::void_,boost::parameter::void_,boost::parameter::void_,boost::parameter::void_>::is_event_handling_blocked_helper<BBUpdaterControllerFSM::eventRetry>(v23) && boost::msm::back::state_machine<BBUpdaterControllerFSM::ControllerFSM_TOP,boost::parameter::void_,boost::parameter::void_,boost::parameter::void_,boost::parameter::void_>::do_pre_msg_queue_helper<BBUpdaterControllerFSM::eventRetry,BBUpdaterControllerFSM::eventRetry>(v16, a2))
   {
-    v19 = (_MergedGlobals_1[*(v18 + 32) + 240])(v18, 0);
-    if (!((_MergedGlobals_1[*(v18 + 36) + 240])(v18, 1) | v19))
+    v17 = (_MergedGlobals_1[*(v16 + 32) + 240])(v16, 0);
+    if (!((_MergedGlobals_1[*(v16 + 36) + 240])(v16, 1) | v17))
     {
-      BBUpdaterControllerFSM::FSMBase<BBUpdaterControllerFSM::ControllerFSM_TOP>::no_transition<boost::msm::back::state_machine<BBUpdaterControllerFSM::ControllerFSM_TOP,boost::parameter::void_,boost::parameter::void_,boost::parameter::void_,boost::parameter::void_>,BBUpdaterControllerFSM::eventRetry>(v18, v18, *(v18 + 32));
-      BBUpdaterControllerFSM::FSMBase<BBUpdaterControllerFSM::ControllerFSM_TOP>::no_transition<boost::msm::back::state_machine<BBUpdaterControllerFSM::ControllerFSM_TOP,boost::parameter::void_,boost::parameter::void_,boost::parameter::void_,boost::parameter::void_>,BBUpdaterControllerFSM::eventRetry>(v18, v18, *(v18 + 36));
+      BBUpdaterControllerFSM::FSMBase<BBUpdaterControllerFSM::ControllerFSM_TOP>::no_transition<boost::msm::back::state_machine<BBUpdaterControllerFSM::ControllerFSM_TOP,boost::parameter::void_,boost::parameter::void_,boost::parameter::void_,boost::parameter::void_>,BBUpdaterControllerFSM::eventRetry>(v16, v16, *(v16 + 32));
+      BBUpdaterControllerFSM::FSMBase<BBUpdaterControllerFSM::ControllerFSM_TOP>::no_transition<boost::msm::back::state_machine<BBUpdaterControllerFSM::ControllerFSM_TOP,boost::parameter::void_,boost::parameter::void_,boost::parameter::void_,boost::parameter::void_>,BBUpdaterControllerFSM::eventRetry>(v16, v16, *(v16 + 36));
     }
 
-    *(v18 + 100) = 0;
-    boost::msm::back::state_machine<BBUpdaterControllerFSM::ControllerFSM_TOP,boost::parameter::void_,boost::parameter::void_,boost::parameter::void_,boost::parameter::void_>::process_message_queue<boost::msm::back::state_machine<BBUpdaterControllerFSM::ControllerFSM_TOP,boost::parameter::void_,boost::parameter::void_,boost::parameter::void_,boost::parameter::void_>>(v18);
+    *(v16 + 100) = 0;
+    boost::msm::back::state_machine<BBUpdaterControllerFSM::ControllerFSM_TOP,boost::parameter::void_,boost::parameter::void_,boost::parameter::void_,boost::parameter::void_>::process_message_queue<boost::msm::back::state_machine<BBUpdaterControllerFSM::ControllerFSM_TOP,boost::parameter::void_,boost::parameter::void_,boost::parameter::void_,boost::parameter::void_>>(v16);
   }
 
   if (gBBULogMaskGet(void)::once == -1)
   {
     if ((*(gBBULogMaskGet(void)::sBBULogMask + 2) & 0x20) == 0)
     {
-      goto LABEL_45;
+      goto LABEL_47;
     }
   }
 
@@ -6065,43 +6000,34 @@ LABEL_32:
     dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
     if ((*(gBBULogMaskGet(void)::sBBULogMask + 2) & 0x20) == 0)
     {
-      goto LABEL_45;
+      goto LABEL_47;
     }
   }
 
   if ((gBBULogVerbosity & 0x80000000) == 0)
   {
     boost::core::demangle(__p, (0x80000001E538F810 & 0x7FFFFFFFFFFFFFFFLL));
-    if (SHIBYTE(__p[2]) >= 0)
-    {
-      v23 = __p;
-    }
-
-    else
-    {
-      LOBYTE(v23) = __p[0];
-    }
-
-    _BBULog(21, 0, "BBUpdaterController", "", "finish processing event: %s\n", v20, v21, v22, v23);
+    v18 = SHIBYTE(__p[2]) >= 0 ? __p : __p[0];
+    _BBULog(21, 0, "BBUpdaterController", "", "finish processing event: %s\n", v18);
     if (SHIBYTE(__p[2]) < 0)
     {
       operator delete(__p[0]);
     }
   }
 
-LABEL_45:
-  if (SHIBYTE(v28) < 0)
+LABEL_47:
+  if (SHIBYTE(v22) < 0)
   {
     operator delete(__dst[0]);
   }
 
-  v24 = v30;
-  if (v30)
+  v19 = v24;
+  if (v24)
   {
-    if (!atomic_fetch_add(&v30->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    if (!atomic_fetch_add(&v24->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
     {
-      (v24->__on_zero_shared)(v24);
-      std::__shared_weak_count::__release_weak(v24);
+      (v19->__on_zero_shared)(v19);
+      std::__shared_weak_count::__release_weak(v19);
     }
   }
 }
@@ -6119,12 +6045,12 @@ void sub_1E525758C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-__n128 std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>@<Q0>(char *__s@<X1>, std::string *a2@<X0>, std::string *a3@<X8>)
+__n128 std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>@<Q0>(std::string *__return_ptr a1@<X8>, char *__s@<X1>, std::string *a3@<X0>)
 {
   v6 = strlen(__s);
-  v7 = std::string::append(a2, __s, v6);
+  v7 = std::string::append(a3, __s, v6);
   result = *v7;
-  *a3 = *v7->n128_u8;
+  *a1 = *v7->n128_u8;
   v7->n128_u64[0] = 0;
   v7->n128_u64[1] = 0;
   v7[1].n128_u64[0] = 0;
@@ -6133,9 +6059,9 @@ __n128 std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<c
 
 uint64_t BBUpdaterController::bootupInternal(BBULoader **a1, uint64_t *a2)
 {
-  v18[0] = 0;
-  v18[1] = 0;
-  v19 = 0;
+  v12[0] = 0;
+  v12[1] = 0;
+  v13 = 0;
   InfoFirstStageInternal = (*(**a2 + 80))();
   if (InfoFirstStageInternal)
   {
@@ -6155,7 +6081,7 @@ uint64_t BBUpdaterController::bootupInternal(BBULoader **a1, uint64_t *a2)
 LABEL_12:
         if (gBBULogVerbosity >= 6)
         {
-          _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", v4, v5, v6, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp");
+          _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 2763, "kBBUReturnSuccess == ret");
         }
       }
     }
@@ -6163,20 +6089,20 @@ LABEL_12:
     std::string::basic_string[abi:ne200100]<0>(&__p, "Miss images for bootupInternal\n");
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
-      std::string::__init_copy_ctor_external(&v15, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
+      std::string::__init_copy_ctor_external(&v9, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
     }
 
     else
     {
-      v15 = __p;
+      v9 = __p;
     }
 
-    v16 = InfoFirstStageInternal;
-    v17 = 0;
-    BBUpdaterController::process_event<BBUpdaterControllerFSM::eventError>(a1, &v15);
-    if (SHIBYTE(v15.__r_.__value_.__r.__words[2]) < 0)
+    v10 = InfoFirstStageInternal;
+    v11 = 0;
+    BBUpdaterController::process_event<BBUpdaterControllerFSM::eventError>(a1, &v9);
+    if (SHIBYTE(v9.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v15.__r_.__value_.__l.__data_);
+      operator delete(v9.__r_.__value_.__l.__data_);
     }
 
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -6188,22 +6114,22 @@ LABEL_12:
   }
 
   BBUFeedback::handleBeginPhase(a1[7], "bootup");
-  InfoFirstStageInternal = BBUpdaterController::queryInfoFirstStageInternal(a1, v8);
+  InfoFirstStageInternal = BBUpdaterController::queryInfoFirstStageInternal(a1, v5);
   BBUFeedback::handleComment(a1[7], "queryInfoFirstStageInternal ret status is %d", InfoFirstStageInternal);
   if (!InfoFirstStageInternal)
   {
-    InfoFirstStageInternal = BBUpdaterController::pushImagesInternal(a1, a2, 0, v18);
-    if (v19 >= 0)
+    InfoFirstStageInternal = BBUpdaterController::pushImagesInternal(a1, a2, 0, v12);
+    if (v13 >= 0)
     {
-      v12 = v18;
+      v6 = v12;
     }
 
     else
     {
-      v12 = v18[0];
+      v6 = v12[0];
     }
 
-    BBUFeedback::handleComment(a1[7], "pushImagesInternal ret status is %d: %s\n", InfoFirstStageInternal, v12);
+    BBUFeedback::handleComment(a1[7], "pushImagesInternal ret status is %d: %s\n", InfoFirstStageInternal, v6);
     goto LABEL_7;
   }
 
@@ -6226,14 +6152,14 @@ LABEL_12:
 
   if (gBBULogVerbosity >= 6)
   {
-    _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", v9, v10, v11, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp");
+    _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 2769, "kBBUReturnSuccess == ret");
   }
 
 LABEL_7:
   (*(*a1[7] + 16))(a1[7], InfoFirstStageInternal);
-  if (SHIBYTE(v19) < 0)
+  if (SHIBYTE(v13) < 0)
   {
-    operator delete(v18[0]);
+    operator delete(v12[0]);
   }
 
   return InfoFirstStageInternal;
@@ -6303,13 +6229,13 @@ LABEL_8:
 LABEL_17:
         if (gBBULogVerbosity >= 6)
         {
-          v21 = TransportNoEvents;
-          _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", v10, v11, v12, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp");
-          TransportNoEvents = v21;
+          v11 = TransportNoEvents;
+          _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 2411, "kBBUReturnSuccess == ret");
+          TransportNoEvents = v11;
           if (gBBULogMaskGet(void)::once != -1)
           {
             dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
-            TransportNoEvents = v21;
+            TransportNoEvents = v11;
           }
         }
       }
@@ -6317,45 +6243,45 @@ LABEL_17:
 
     else
     {
-      v29 = TransportNoEvents;
+      v16 = TransportNoEvents;
       dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
-      TransportNoEvents = v29;
+      TransportNoEvents = v16;
       if ((*gBBULogMaskGet(void)::sBBULogMask & 2) != 0)
       {
         goto LABEL_17;
       }
     }
 
-    v22 = TransportNoEvents;
+    v12 = TransportNoEvents;
     std::string::basic_string[abi:ne200100]<0>(value, BBUReturnAsString::BBUReturnStrings[TransportNoEvents]);
-    if (v34 >= 0)
+    if (v19 >= 0)
     {
-      v26 = value;
+      v13 = value;
     }
 
     else
     {
-      LOBYTE(v26) = value[0];
+      v13 = value[0];
     }
 
-    _BBULog(19, 0xFFFFFFFFLL, "BBUpdaterController", "", "Fail to create transport %s\n", v23, v24, v25, v26);
-    if (v34 < 0)
+    _BBULog(19, 0xFFFFFFFFLL, "BBUpdaterController", "", "Fail to create transport %s\n", v13);
+    if (v19 < 0)
     {
       operator delete(value[0]);
     }
 
     pthread_mutex_lock(&ctu::Singleton<BBUError,BBUError,ctu::PthreadMutexGuardPolicy<BBUError>>::sInstance);
-    v27 = off_1ED944120;
+    v14 = off_1ED944120;
     if (!off_1ED944120)
     {
       BBUError::create_default_global(value);
       std::shared_ptr<BBUError>::operator=[abi:ne200100](&off_1ED944120, value);
       std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](value);
-      v27 = off_1ED944120;
+      v14 = off_1ED944120;
     }
 
-    block = v27;
-    v36 = *(&off_1ED944120 + 1);
+    block = v14;
+    v21 = *(&off_1ED944120 + 1);
     if (*(&off_1ED944120 + 1))
     {
       atomic_fetch_add_explicit((*(&off_1ED944120 + 1) + 8), 1uLL, memory_order_relaxed);
@@ -6366,22 +6292,20 @@ LABEL_17:
     goto LABEL_40;
   }
 
-  v13 = (*(*this[9] + 24))(this[9], this + 152);
-  if (!v13)
+  v10 = (*(*this[9] + 24))(this[9], this + 19);
+  if (!v10)
   {
-    v31 = 0;
-    v17 = this[6];
     TelephonyBasebandGetReset();
     if (gBBULogMaskGet(void)::once != -1)
     {
       dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
     }
 
-    v34 = 17;
+    v19 = 17;
     *value = *"kBBUReturnSuccess";
-    v33 = str_5[16];
-    _BBULog(19, 0xFFFFFFFFLL, "BBUpdaterController", "", "BB ping return status: %s\n", v18, v19, v20, value);
-    if (v34 < 0)
+    v18 = str_5[16];
+    _BBULog(19, 0xFFFFFFFFLL, "BBUpdaterController", "", "BB ping return status: %s\n", value);
+    if (v19 < 0)
     {
       operator delete(value[0]);
     }
@@ -6389,7 +6313,7 @@ LABEL_17:
     return 0;
   }
 
-  v22 = v13;
+  v12 = v10;
   if (gBBULogMaskGet(void)::once == -1)
   {
     if ((*gBBULogMaskGet(void)::sBBULogMask & 2) != 0)
@@ -6397,7 +6321,7 @@ LABEL_17:
 LABEL_32:
       if (gBBULogVerbosity >= 6)
       {
-        _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", v14, v15, v16, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp");
+        _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 2418, "kBBUReturnSuccess == ret");
         if (gBBULogMaskGet(void)::once != -1)
         {
           dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
@@ -6415,19 +6339,19 @@ LABEL_32:
     }
   }
 
-  _BBULog(19, 0xFFFFFFFFLL, "BBUpdaterController", "", "Timeout on waiting for BB init status\n", v14, v15, v16, v30);
+  _BBULog(19, 0xFFFFFFFFLL, "BBUpdaterController", "", "Timeout on waiting for BB init status\n");
   pthread_mutex_lock(&ctu::Singleton<BBUError,BBUError,ctu::PthreadMutexGuardPolicy<BBUError>>::sInstance);
-  v27 = off_1ED944120;
+  v14 = off_1ED944120;
   if (!off_1ED944120)
   {
     BBUError::create_default_global(value);
     std::shared_ptr<BBUError>::operator=[abi:ne200100](&off_1ED944120, value);
     std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](value);
-    v27 = off_1ED944120;
+    v14 = off_1ED944120;
   }
 
-  block = v27;
-  v36 = *(&off_1ED944120 + 1);
+  block = v14;
+  v21 = *(&off_1ED944120 + 1);
   if (*(&off_1ED944120 + 1))
   {
     atomic_fetch_add_explicit((*(&off_1ED944120 + 1) + 8), 1uLL, memory_order_relaxed);
@@ -6436,17 +6360,17 @@ LABEL_32:
   pthread_mutex_unlock(&ctu::Singleton<BBUError,BBUError,ctu::PthreadMutexGuardPolicy<BBUError>>::sInstance);
   std::string::basic_string[abi:ne200100]<0>(value, "Timeout on waiting for BB init status\n");
 LABEL_40:
-  BBUError::addError(v27, value, v22);
-  if (v34 < 0)
+  BBUError::addError(v14, value, v12);
+  if (v19 < 0)
   {
     operator delete(value[0]);
   }
 
   std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](&block);
-  return v22;
+  return v12;
 }
 
-void BBUpdaterController::performBootedStageInternal(uint64_t a1, uint64_t *a2)
+void BBUpdaterController::performBootedStageInternal(const __CFDictionary **a1, uint64_t *a2)
 {
   if (!BBUpdaterController::shouldPerformEUICC(a1))
   {
@@ -6472,31 +6396,31 @@ void BBUpdaterController::performBootedStageInternal(uint64_t a1, uint64_t *a2)
 
   if (gBBULogVerbosity >= 1)
   {
-    _BBULog(19, 1, "BBUpdaterController", "", "Running eUICC\n", v7, v8, v9, v43);
+    _BBULog(19, 1, "BBUpdaterController", "", "Running eUICC\n");
   }
 
 LABEL_6:
-  v10 = *a2;
-  v11 = *(a1 + 40);
-  v51 = v11;
-  if (v11)
+  v4 = *a2;
+  v5 = a1[5];
+  v32 = v5;
+  if (v5)
   {
-    CFRetain(v11);
+    CFRetain(v5);
   }
 
-  v15 = eUICC::Run((a1 + 152), v10, &v51);
-  if (v51)
+  v6 = eUICC::Run(a1 + 19, v4, &v32);
+  if (v32)
   {
-    CFRelease(v51);
+    CFRelease(v32);
   }
 
-  if (v15)
+  if (v6)
   {
     if (gBBULogMaskGet(void)::once == -1)
     {
       if ((*gBBULogMaskGet(void)::sBBULogMask & 2) == 0)
       {
-        goto LABEL_81;
+        goto LABEL_83;
       }
     }
 
@@ -6505,67 +6429,67 @@ LABEL_6:
       dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
       if ((*gBBULogMaskGet(void)::sBBULogMask & 2) == 0)
       {
-        goto LABEL_81;
+        goto LABEL_83;
       }
     }
 
     if (gBBULogVerbosity >= 6)
     {
-      _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", v12, v13, v14, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp");
+      _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 2457, "ret == kBBUReturnSuccess");
     }
 
-LABEL_81:
-    std::string::basic_string[abi:ne200100]<0>(&v47, BBUReturnAsString::BBUReturnStrings[v15]);
-    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("Failed running eUICC: ", &v47, &v52);
-    if (SHIBYTE(v52.__r_.__value_.__r.__words[2]) < 0)
+LABEL_83:
+    std::string::basic_string[abi:ne200100]<0>(&v28, BBUReturnAsString::BBUReturnStrings[v6]);
+    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("Failed running eUICC: ", &v28, &v33);
+    if (SHIBYTE(v33.__r_.__value_.__r.__words[2]) < 0)
     {
-      std::string::__init_copy_ctor_external(&__p, v52.__r_.__value_.__l.__data_, v52.__r_.__value_.__l.__size_);
+      std::string::__init_copy_ctor_external(&__p, v33.__r_.__value_.__l.__data_, v33.__r_.__value_.__l.__size_);
     }
 
     else
     {
-      __p = v52;
+      __p = v33;
     }
 
-    v49 = v15;
-    v50 = 0;
+    v30 = v6;
+    v31 = 0;
     BBUpdaterController::process_event<BBUpdaterControllerFSM::eventError>(a1, &__p);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
-      if ((SHIBYTE(v52.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+      if ((SHIBYTE(v33.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
       {
-LABEL_86:
-        if ((SHIBYTE(v47.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+LABEL_88:
+        if ((SHIBYTE(v28.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
         {
           return;
         }
 
-        goto LABEL_90;
+        goto LABEL_92;
       }
     }
 
-    else if ((SHIBYTE(v52.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+    else if ((SHIBYTE(v33.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
-      goto LABEL_86;
+      goto LABEL_88;
     }
 
-    operator delete(v52.__r_.__value_.__l.__data_);
-    if ((SHIBYTE(v47.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+    operator delete(v33.__r_.__value_.__l.__data_);
+    if ((SHIBYTE(v28.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
       return;
     }
 
-LABEL_90:
-    operator delete(v47.__r_.__value_.__l.__data_);
+LABEL_92:
+    operator delete(v28.__r_.__value_.__l.__data_);
     return;
   }
 
-  v16 = *(a1 + 40);
-  cf = v16;
-  if (v16)
+  v7 = a1[5];
+  cf = v7;
+  if (v7)
   {
-    CFRetain(v16);
+    CFRetain(v7);
   }
 
   if (eUICC::Done(&cf))
@@ -6578,27 +6502,27 @@ LABEL_90:
     goto LABEL_29;
   }
 
-  v17 = *(*(a1 + 96) + 88);
+  v8 = *(a1[12] + 22);
   if (cf)
   {
     CFRelease(cf);
   }
 
-  if (v17 != 3)
+  if (v8 != 3)
   {
 LABEL_29:
-    ShouldFuseProvision = BBUpdaterController::getShouldFuseProvision(a1, a2, v4, v5, v6, v7, v8, v9);
+    ShouldFuseProvision = BBUpdaterController::getShouldFuseProvision(a1, a2);
     if (!ShouldFuseProvision)
     {
       return;
     }
 
-    v42 = ShouldFuseProvision;
+    v25 = ShouldFuseProvision;
     if (gBBULogMaskGet(void)::once == -1)
     {
       if ((*gBBULogMaskGet(void)::sBBULogMask & 2) != 0)
       {
-        goto LABEL_71;
+        goto LABEL_73;
       }
     }
 
@@ -6607,10 +6531,10 @@ LABEL_29:
       dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
       if ((*gBBULogMaskGet(void)::sBBULogMask & 2) != 0)
       {
-LABEL_71:
+LABEL_73:
         if (gBBULogVerbosity >= 6)
         {
-          _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", v25, v26, v27, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp");
+          _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 2473, "kBBUReturnSuccess == ret");
           if (gBBULogMaskGet(void)::once != -1)
           {
             dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
@@ -6619,7 +6543,7 @@ LABEL_71:
       }
     }
 
-    _BBULog(19, 0xFFFFFFFFLL, "BBUpdaterController", "", "getShouldFuseProv %d\n", v25, v26, v27, v42);
+    _BBULog(19, 0xFFFFFFFFLL, "BBUpdaterController", "", "getShouldFuseProv %d\n", v25);
     return;
   }
 
@@ -6642,98 +6566,98 @@ LABEL_71:
 
   if (gBBULogVerbosity >= 1)
   {
-    _BBULog(19, 1, "BBUpdaterController", "", "eUICC is not done yet\n", v7, v8, v9, v43);
+    _BBULog(19, 1, "BBUpdaterController", "", "eUICC is not done yet\n");
   }
 
 LABEL_23:
-  v19 = *(a1 + 16);
-  v18 = *(a1 + 24);
-  v47.__r_.__value_.__r.__words[0] = v19;
-  v47.__r_.__value_.__l.__size_ = v18;
-  if (v18)
+  v10 = a1[2];
+  v9 = a1[3];
+  v28.__r_.__value_.__r.__words[0] = v10;
+  v28.__r_.__value_.__l.__size_ = v9;
+  if (v9)
   {
-    atomic_fetch_add_explicit((v18 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v9 + 8), 1uLL, memory_order_relaxed);
   }
 
   __p.__r_.__value_.__l.__size_ = 0xAAAAAAAAAAAAAAAALL;
   __p.__r_.__value_.__r.__words[2] = 0x7AAAAAAAAAAAAAALL;
   strcpy(&__p, "unknown");
-  memset(&v52, 170, sizeof(v52));
-  (*(*v19 + 24))(&v52, v19);
-  v20 = v52.__r_.__value_.__r.__words[0];
-  v21 = v52.__r_.__value_.__r.__words[0] + 24 * v19[8];
-  if (&__p != v21)
+  memset(&v33, 170, sizeof(v33));
+  (*(*v10 + 24))(&v33, v10);
+  v11 = v33.__r_.__value_.__r.__words[0];
+  v12 = v33.__r_.__value_.__r.__words[0] + 24 * v10[8];
+  if (&__p != v12)
   {
-    v22 = *(v21 + 23);
+    v13 = *(v12 + 23);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
-      if (v22 >= 0)
+      if (v13 >= 0)
       {
-        v28 = (v52.__r_.__value_.__r.__words[0] + 24 * v19[8]);
+        v16 = (v33.__r_.__value_.__r.__words[0] + 24 * v10[8]);
       }
 
       else
       {
-        v28 = *v21;
+        v16 = *v12;
       }
 
-      if (v22 >= 0)
+      if (v13 >= 0)
       {
-        v29 = *(v21 + 23);
+        v17 = *(v12 + 23);
       }
 
       else
       {
-        v29 = *(v21 + 8);
+        v17 = *(v12 + 8);
       }
 
-      std::string::__assign_no_alias<false>(&__p.__r_.__value_.__l.__data_, v28, v29);
+      std::string::__assign_no_alias<false>(&__p, v16, v17);
     }
 
-    else if ((*(v21 + 23) & 0x80) != 0)
+    else if ((*(v12 + 23) & 0x80) != 0)
     {
-      std::string::__assign_no_alias<true>(&__p, *v21, *(v21 + 8));
+      std::string::__assign_no_alias<true>(&__p, *v12, *(v12 + 8));
     }
 
     else
     {
-      v23 = *v21;
-      __p.__r_.__value_.__r.__words[2] = *(v21 + 16);
-      *&__p.__r_.__value_.__l.__data_ = v23;
+      v14 = *v12;
+      __p.__r_.__value_.__r.__words[2] = *(v12 + 16);
+      *&__p.__r_.__value_.__l.__data_ = v14;
     }
 
-    v20 = v52.__r_.__value_.__r.__words[0];
+    v11 = v33.__r_.__value_.__r.__words[0];
   }
 
-  if (v20)
+  if (v11)
   {
-    size = v52.__r_.__value_.__l.__size_;
-    v31 = v20;
-    if (v52.__r_.__value_.__l.__size_ != v20)
+    size = v33.__r_.__value_.__l.__size_;
+    v19 = v11;
+    if (v33.__r_.__value_.__l.__size_ != v11)
     {
       do
       {
-        v32 = *(size - 1);
+        v20 = *(size - 1);
         size -= 3;
-        if (v32 < 0)
+        if (v20 < 0)
         {
           operator delete(*size);
         }
       }
 
-      while (size != v20);
-      v31 = v52.__r_.__value_.__r.__words[0];
+      while (size != v11);
+      v19 = v33.__r_.__value_.__r.__words[0];
     }
 
-    v52.__r_.__value_.__l.__size_ = v20;
-    operator delete(v31);
+    v33.__r_.__value_.__l.__size_ = v11;
+    operator delete(v19);
   }
 
   if (gBBULogMaskGet(void)::once == -1)
   {
     if ((*(gBBULogMaskGet(void)::sBBULogMask + 2) & 0x20) == 0)
     {
-      goto LABEL_56;
+      goto LABEL_58;
     }
   }
 
@@ -6742,55 +6666,51 @@ LABEL_23:
     dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
     if ((*(gBBULogMaskGet(void)::sBBULogMask + 2) & 0x20) == 0)
     {
-      goto LABEL_56;
+      goto LABEL_58;
     }
   }
 
   if ((gBBULogVerbosity & 0x80000000) == 0)
   {
-    boost::core::demangle(&v52, (0x80000001E5390063 & 0x7FFFFFFFFFFFFFFFLL));
-    if ((v52.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    boost::core::demangle(&v33, (0x80000001E5390063 & 0x7FFFFFFFFFFFFFFFLL));
+    if ((v33.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v36 = &v52;
+      v21 = &v33;
     }
 
     else
     {
-      LOBYTE(v36) = v52.__r_.__value_.__s.__data_[0];
+      v21 = v33.__r_.__value_.__r.__words[0];
     }
 
-    v44 = v19[8];
-    _BBULog(21, 0, "BBUpdaterController", "", "processing event: %s, current state %d [%s]\n", v33, v34, v35, v36);
-    if (SHIBYTE(v52.__r_.__value_.__r.__words[2]) < 0)
+    p_p = &__p;
+    if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
-      operator delete(v52.__r_.__value_.__l.__data_);
+      p_p = __p.__r_.__value_.__r.__words[0];
+    }
+
+    _BBULog(21, 0, "BBUpdaterController", "", "processing event: %s, current state %d [%s]\n", v21, v10[8], p_p);
+    if (SHIBYTE(v33.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v33.__r_.__value_.__l.__data_);
     }
   }
 
-LABEL_56:
-  boost::msm::back::state_machine<BBUpdaterControllerFSM::ControllerFSM_TOP,boost::parameter::void_,boost::parameter::void_,boost::parameter::void_,boost::parameter::void_>::process_event_internal<BBUpdaterControllerFSM::eventEUICC>(v47.__r_.__value_.__l.__data_, &v45, 1);
+LABEL_58:
+  boost::msm::back::state_machine<BBUpdaterControllerFSM::ControllerFSM_TOP,boost::parameter::void_,boost::parameter::void_,boost::parameter::void_,boost::parameter::void_>::process_event_internal<BBUpdaterControllerFSM::eventEUICC>(v28.__r_.__value_.__l.__data_, &v26, 1);
   if (gBBULogMaskGet(void)::once == -1)
   {
     if ((*(gBBULogMaskGet(void)::sBBULogMask + 2) & 0x20) != 0)
     {
-LABEL_58:
+LABEL_60:
       if ((gBBULogVerbosity & 0x80000000) == 0)
       {
-        boost::core::demangle(&v52, (0x80000001E5390063 & 0x7FFFFFFFFFFFFFFFLL));
-        if ((v52.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        boost::core::demangle(&v33, (0x80000001E5390063 & 0x7FFFFFFFFFFFFFFFLL));
+        v23 = (v33.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v33 : v33.__r_.__value_.__r.__words[0];
+        _BBULog(21, 0, "BBUpdaterController", "", "finish processing event: %s\n", v23);
+        if (SHIBYTE(v33.__r_.__value_.__r.__words[2]) < 0)
         {
-          v40 = &v52;
-        }
-
-        else
-        {
-          LOBYTE(v40) = v52.__r_.__value_.__s.__data_[0];
-        }
-
-        _BBULog(21, 0, "BBUpdaterController", "", "finish processing event: %s\n", v37, v38, v39, v40);
-        if (SHIBYTE(v52.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(v52.__r_.__value_.__l.__data_);
+          operator delete(v33.__r_.__value_.__l.__data_);
         }
       }
     }
@@ -6801,7 +6721,7 @@ LABEL_58:
     dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
     if ((*(gBBULogMaskGet(void)::sBBULogMask + 2) & 0x20) != 0)
     {
-      goto LABEL_58;
+      goto LABEL_60;
     }
   }
 
@@ -6810,11 +6730,11 @@ LABEL_58:
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  v41 = v47.__r_.__value_.__l.__size_;
-  if (v47.__r_.__value_.__l.__size_ && !atomic_fetch_add((v47.__r_.__value_.__l.__size_ + 8), 0xFFFFFFFFFFFFFFFFLL))
+  v24 = v28.__r_.__value_.__l.__size_;
+  if (v28.__r_.__value_.__l.__size_ && !atomic_fetch_add((v28.__r_.__value_.__l.__size_ + 8), 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v41->__on_zero_shared)(v41);
-    std::__shared_weak_count::__release_weak(v41);
+    (v24->__on_zero_shared)(v24);
+    std::__shared_weak_count::__release_weak(v24);
   }
 }
 
@@ -6843,14 +6763,13 @@ uint64_t BBUpdaterController::pushImagesInternal(uint64_t a1, uint64_t *a2, int 
 {
   if (capabilities::radio::supportsBasebandStateController(a1))
   {
-    v8 = *(a1 + 48);
     TelephonyBasebandSetBasebandState();
   }
 
   StageInternal = BBUpdaterController::performFirstStageInternal(a1, 0, a2, a4);
   if (StageInternal)
   {
-    v32 = StageInternal;
+    v25 = StageInternal;
     if (gBBULogMaskGet(void)::once == -1)
     {
       if ((*gBBULogMaskGet(void)::sBBULogMask & 2) == 0)
@@ -6873,23 +6792,28 @@ uint64_t BBUpdaterController::pushImagesInternal(uint64_t a1, uint64_t *a2, int 
       goto LABEL_30;
     }
 
-    goto LABEL_45;
+    v27 = 2704;
+LABEL_41:
+    v30 = v27;
+LABEL_46:
+    StageInternal = _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", v30, "kBBUReturnSuccess == ret");
+    goto LABEL_30;
   }
 
   if (capabilities::updater::supportsMHIBootLogger(StageInternal))
   {
-    v13 = *(a1 + 340);
-    if (v13)
+    v9 = *(a1 + 340);
+    if (v9)
     {
-      BBUBootLogger::create(v13, *(a1 + 56), &__p);
-      v14 = *&__p.__r_.__value_.__l.__data_;
+      BBUBootLogger::create(v9, *(a1 + 56), &__p);
+      v10 = *&__p.__r_.__value_.__l.__data_;
       *&__p.__r_.__value_.__l.__data_ = 0uLL;
-      v15 = *(a1 + 144);
-      *(a1 + 136) = v14;
-      if (v15 && !atomic_fetch_add(&v15->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+      v11 = *(a1 + 144);
+      *(a1 + 136) = v10;
+      if (v11 && !atomic_fetch_add(&v11->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
       {
-        (v15->__on_zero_shared)(v15);
-        std::__shared_weak_count::__release_weak(v15);
+        (v11->__on_zero_shared)(v11);
+        std::__shared_weak_count::__release_weak(v11);
       }
 
       size = __p.__r_.__value_.__l.__size_;
@@ -6899,10 +6823,10 @@ uint64_t BBUpdaterController::pushImagesInternal(uint64_t a1, uint64_t *a2, int 
         std::__shared_weak_count::__release_weak(size);
       }
 
-      v17 = *(a1 + 136);
-      if (v17)
+      v13 = *(a1 + 136);
+      if (v13)
       {
-        BBUBootLogger::openTransport(v17);
+        BBUBootLogger::openTransport(v13);
       }
     }
   }
@@ -6910,7 +6834,7 @@ uint64_t BBUpdaterController::pushImagesInternal(uint64_t a1, uint64_t *a2, int 
   StageInternal = BBUpdaterController::queryInfoSecondStageInternal(a1, 0, a2);
   if (StageInternal)
   {
-    v32 = StageInternal;
+    v25 = StageInternal;
     if (gBBULogMaskGet(void)::once == -1)
     {
       if ((*gBBULogMaskGet(void)::sBBULogMask & 2) == 0)
@@ -6933,15 +6857,14 @@ uint64_t BBUpdaterController::pushImagesInternal(uint64_t a1, uint64_t *a2, int 
       goto LABEL_30;
     }
 
-LABEL_45:
-    StageInternal = _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", v10, v11, v12, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp");
-    goto LABEL_30;
+    v27 = 2717;
+    goto LABEL_41;
   }
 
   if (!*(a1 + 88))
   {
     exception = __cxa_allocate_exception(0x210uLL);
-    _BBUException::_BBUException(exception, 68, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 0xAA0u, "Assertion failure(fProgrammer && No valid BBU Programmer!)", v40, v41, v42, v44);
+    _BBUException::_BBUException(exception, 68, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 0xAA0u, "Assertion failure(fProgrammer && No valid BBU Programmer!)");
   }
 
   if (!a3 || !capabilities::updater::shouldSkipRestoreForUnfused(StageInternal))
@@ -6949,51 +6872,51 @@ LABEL_45:
     goto LABEL_27;
   }
 
-  v18 = *a2;
+  v14 = *a2;
   (*(**(a1 + 88) + 112))(&__p);
-  (*(*v18 + 192))(v18, &__p);
-  v19 = __p.__r_.__value_.__r.__words[0];
+  (*(*v14 + 192))(v14, &__p);
+  v15 = __p.__r_.__value_.__r.__words[0];
   if (__p.__r_.__value_.__r.__words[0])
   {
-    v20 = __p.__r_.__value_.__l.__size_;
-    v21 = __p.__r_.__value_.__r.__words[0];
+    v16 = __p.__r_.__value_.__l.__size_;
+    v17 = __p.__r_.__value_.__r.__words[0];
     if (__p.__r_.__value_.__l.__size_ != __p.__r_.__value_.__r.__words[0])
     {
       do
       {
-        v22 = *(v20 - 1);
-        v20 -= 3;
-        if (v22 < 0)
+        v18 = *(v16 - 1);
+        v16 -= 3;
+        if (v18 < 0)
         {
-          operator delete(*v20);
+          operator delete(*v16);
         }
       }
 
-      while (v20 != v19);
-      v21 = __p.__r_.__value_.__r.__words[0];
+      while (v16 != v15);
+      v17 = __p.__r_.__value_.__r.__words[0];
     }
 
-    __p.__r_.__value_.__l.__size_ = v19;
-    operator delete(v21);
+    __p.__r_.__value_.__l.__size_ = v15;
+    operator delete(v17);
   }
 
-  v23 = (*(**a2 + 136))();
-  if (!v23)
+  v19 = (*(**a2 + 136))();
+  if (!v19)
   {
 LABEL_27:
-    v27 = *(a1 + 96);
-    if (v27)
+    v20 = *(a1 + 96);
+    if (v20)
     {
-      v28 = *a2;
-      v29 = (*(**(v27 + 16) + 24))(*(v27 + 16));
-      (*(*v28 + 200))(v28, v29);
-      v30 = *a2;
-      v31 = (*(**(*(a1 + 96) + 24) + 24))(*(*(a1 + 96) + 24));
-      (*(*v30 + 208))(v30, v31);
+      v21 = *a2;
+      v22 = (*(**(v20 + 16) + 24))(*(v20 + 16));
+      (*(*v21 + 200))(v21, v22);
+      v23 = *a2;
+      v24 = (*(**(*(a1 + 96) + 24) + 24))(*(*(a1 + 96) + 24));
+      (*(*v23 + 208))(v23, v24);
     }
 
     StageInternal = BBUpdaterController::performSecondStageInternal(a1, 0, a2, a4);
-    v32 = 0;
+    v25 = 0;
     if (!StageInternal)
     {
       goto LABEL_30;
@@ -7003,38 +6926,39 @@ LABEL_27:
     {
       if ((*gBBULogMaskGet(void)::sBBULogMask & 2) == 0)
       {
-        goto LABEL_66;
+        goto LABEL_64;
       }
     }
 
     else
     {
-      v43 = StageInternal;
+      v29 = StageInternal;
       dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
-      StageInternal = v43;
+      StageInternal = v29;
       if ((*gBBULogMaskGet(void)::sBBULogMask & 2) == 0)
       {
-        goto LABEL_66;
+        goto LABEL_64;
       }
     }
 
     if (gBBULogVerbosity >= 6)
     {
-      v32 = StageInternal;
-      goto LABEL_45;
+      v30 = 2744;
+      v25 = StageInternal;
+      goto LABEL_46;
     }
 
-LABEL_66:
-    v32 = StageInternal;
+LABEL_64:
+    v25 = StageInternal;
     goto LABEL_30;
   }
 
-  v32 = v23;
+  v25 = v19;
   if (gBBULogMaskGet(void)::once == -1)
   {
     if ((*gBBULogMaskGet(void)::sBBULogMask & 2) != 0)
     {
-      goto LABEL_48;
+      goto LABEL_49;
     }
   }
 
@@ -7043,17 +6967,17 @@ LABEL_66:
     dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
     if ((*gBBULogMaskGet(void)::sBBULogMask & 2) != 0)
     {
-LABEL_48:
+LABEL_49:
       if (gBBULogVerbosity >= 6)
       {
-        _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", v24, v25, v26, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp");
+        _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 2732, "kBBUReturnSuccess == ret");
       }
     }
   }
 
   (*(**(a1 + 88) + 24))(*(a1 + 88));
-  std::string::basic_string[abi:ne200100]<0>(&v45, BBUReturnAsString::BBUReturnStrings[v32]);
-  std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("Failed saving images ", &v45, &__p);
+  std::string::basic_string[abi:ne200100]<0>(&v31, BBUReturnAsString::BBUReturnStrings[v25]);
+  std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("Failed saving images ", &v31, &__p);
   if (*(a4 + 23) < 0)
   {
     operator delete(*a4);
@@ -7062,9 +6986,9 @@ LABEL_48:
   *a4 = __p;
   *(&__p.__r_.__value_.__s + 23) = 0;
   __p.__r_.__value_.__s.__data_[0] = 0;
-  if (SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v31.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v45.__r_.__value_.__l.__data_);
+    operator delete(v31.__r_.__value_.__l.__data_);
   }
 
   if (gBBULogMaskGet(void)::once != -1)
@@ -7072,25 +6996,14 @@ LABEL_48:
     dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
   }
 
-  if (*(a4 + 23) >= 0)
-  {
-    LOBYTE(v38) = a4;
-  }
-
-  else
-  {
-    v38 = *a4;
-  }
-
-  StageInternal = _BBULog(19, 0xFFFFFFFFLL, "BBUpdaterController", "", "%s", v35, v36, v37, v38);
+  StageInternal = _BBULog(19, 0xFFFFFFFFLL, "BBUpdaterController", "", "%s");
 LABEL_30:
   if (capabilities::radio::supportsBasebandStateController(StageInternal))
   {
-    v33 = *(a1 + 48);
     TelephonyBasebandSetBasebandState();
   }
 
-  return v32;
+  return v25;
 }
 
 void sub_1E52591E0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, char a18)
@@ -7108,33 +7021,32 @@ void BBUpdaterController::bootup(BBUpdaterController *this)
 {
   v2 = *(this + 7);
   BBUFeedback::handleComment(v2, "entering %s", "StageContext::Boot");
-  v3 = *(v2 + 144);
-  v4 = *(v2 + 152);
-  v5 = *(v2 + 144);
-  if (v4 == v5)
+  v3 = *(v2 + 19);
+  v4 = *(v2 + 18);
+  if (v3 == v4)
   {
-    v6 = 0;
+    v5 = 0;
   }
 
   else
   {
-    v6 = ((v4 - v5) << 7) - 1;
+    v5 = ((v3 - v4) << 7) - 1;
   }
 
-  v7 = *(v2 + 176);
-  v8 = v7 + *(v2 + 168);
-  if (v6 == v8)
+  v6 = *(v2 + 22);
+  v7 = v6 + *(v2 + 21);
+  if (v5 == v7)
   {
     std::deque<BBUpdaterCommon::StageContext>::__add_back_capacity(v2 + 136);
-    v5 = *(v2 + 144);
-    v7 = *(v2 + 176);
-    v8 = *(v2 + 168) + v7;
+    v4 = *(v2 + 18);
+    v6 = *(v2 + 22);
+    v7 = *(v2 + 21) + v6;
   }
 
-  *(*(v5 + ((v8 >> 7) & 0x1FFFFFFFFFFFFF8)) + 4 * (v8 & 0x3FF)) = 1;
-  *(v2 + 176) = v7 + 1;
+  *(*(v4 + ((v7 >> 7) & 0x1FFFFFFFFFFFFF8)) + 4 * (v7 & 0x3FF)) = 1;
+  *(v2 + 22) = v6 + 1;
   FirmwareDataSource = BBUpdaterController::getFirmwareDataSource(this, 1);
-  v23 = FirmwareDataSource;
+  v13 = FirmwareDataSource;
   if (!FirmwareDataSource)
   {
     if (gBBULogMaskGet(void)::once == -1)
@@ -7153,7 +7065,7 @@ void BBUpdaterController::bootup(BBUpdaterController *this)
 LABEL_18:
         if (gBBULogVerbosity >= 6)
         {
-          _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", v9, v10, v11, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp");
+          _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 522, "updateSource");
         }
       }
     }
@@ -7169,7 +7081,7 @@ LABEL_18:
       value = __p;
     }
 
-    v22 = 35;
+    v12 = 35;
     BBUpdaterController::process_event<BBUpdaterControllerFSM::eventError>(this, &value);
     if (SHIBYTE(value.__r_.__value_.__r.__words[2]) < 0)
     {
@@ -7184,8 +7096,8 @@ LABEL_18:
     goto LABEL_13;
   }
 
-  v13 = BBUpdaterController::bootupInternal(this, &v23);
-  if (v13)
+  v9 = BBUpdaterController::bootupInternal(this, &v13);
+  if (v9)
   {
     if (gBBULogMaskGet(void)::once == -1)
     {
@@ -7206,13 +7118,13 @@ LABEL_18:
 
     if (gBBULogVerbosity >= 6)
     {
-      _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", v14, v15, v16, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp");
+      _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 530, "kBBUReturnSuccess == ret");
     }
   }
 
   else
   {
-    if (!capabilities::updater::shouldWaitForReadyAfterBoot(v13) || (value.__r_.__value_.__r.__words[0] = 0, !CFDictionaryGetValueIfPresent(*(this + 5), @"waitForReady", &value.__r_.__value_.__l.__data_)) || !CFBooleanGetValue(value.__r_.__value_.__l.__data_) || !BBUpdaterController::performPingInternal(this))
+    if (!capabilities::updater::shouldWaitForReadyAfterBoot(v9) || (value.__r_.__value_.__r.__words[0] = 0, !CFDictionaryGetValueIfPresent(*(this + 5), @"waitForReady", &value.__r_.__value_.__l.__data_)) || !CFBooleanGetValue(value.__r_.__value_.__l.__data_) || !BBUpdaterController::performPingInternal(this))
     {
       CFDictionarySetValue(*(this + 4), @"done", *MEMORY[0x1E695E4D0]);
       BBUpdaterController::process_event<BBUpdaterControllerFSM::eventContinue>(*(this + 2), *(this + 3), &value);
@@ -7238,7 +7150,7 @@ LABEL_18:
 
     if (gBBULogVerbosity >= 6)
     {
-      _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", v17, v18, v19, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp");
+      _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 540, "kBBUReturnSuccess == ret");
     }
   }
 
@@ -7263,15 +7175,15 @@ void sub_1E52595E0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void BBUpdaterController::process_event<BBUpdaterControllerFSM::eventContinue>(int *a1, std::__shared_weak_count *a2, uint64_t a3)
 {
-  v27 = a1;
-  v28 = a2;
+  v21 = a1;
+  v22 = a2;
   if (a2)
   {
     atomic_fetch_add_explicit(&a2->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
   __dst[1] = 0xAAAAAAAAAAAAAAAALL;
-  v26 = 0x7AAAAAAAAAAAAAALL;
+  v20 = 0x7AAAAAAAAAAAAAALL;
   strcpy(__dst, "unknown");
   memset(__p, 170, sizeof(__p));
   (*(*a1 + 24))(__p, a1);
@@ -7280,7 +7192,7 @@ void BBUpdaterController::process_event<BBUpdaterControllerFSM::eventContinue>(i
   if (__dst != v6)
   {
     v7 = *(v6 + 23);
-    if (SHIBYTE(v26) < 0)
+    if (SHIBYTE(v20) < 0)
     {
       if (v7 >= 0)
       {
@@ -7313,7 +7225,7 @@ void BBUpdaterController::process_event<BBUpdaterControllerFSM::eventContinue>(i
     else
     {
       v8 = *v6;
-      v26 = v6[2];
+      v20 = v6[2];
       *__dst = v8;
     }
 
@@ -7348,7 +7260,7 @@ void BBUpdaterController::process_event<BBUpdaterControllerFSM::eventContinue>(i
   {
     if ((*(gBBULogMaskGet(void)::sBBULogMask + 2) & 0x20) == 0)
     {
-      goto LABEL_32;
+      goto LABEL_34;
     }
   }
 
@@ -7357,7 +7269,7 @@ void BBUpdaterController::process_event<BBUpdaterControllerFSM::eventContinue>(i
     dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
     if ((*(gBBULogMaskGet(void)::sBBULogMask + 2) & 0x20) == 0)
     {
-      goto LABEL_32;
+      goto LABEL_34;
     }
   }
 
@@ -7366,29 +7278,34 @@ void BBUpdaterController::process_event<BBUpdaterControllerFSM::eventContinue>(i
     boost::core::demangle(__p, (0x80000001E538FA11 & 0x7FFFFFFFFFFFFFFFLL));
     if (SHIBYTE(__p[2]) >= 0)
     {
-      v17 = __p;
+      v14 = __p;
     }
 
     else
     {
-      LOBYTE(v17) = __p[0];
+      v14 = __p[0];
     }
 
-    v23 = a1[8];
-    _BBULog(21, 0, "BBUpdaterController", "", "processing event: %s, current state %d [%s]\n", v14, v15, v16, v17);
+    v15 = __dst;
+    if (v20 < 0)
+    {
+      v15 = __dst[0];
+    }
+
+    _BBULog(21, 0, "BBUpdaterController", "", "processing event: %s, current state %d [%s]\n", v14, a1[8], v15);
     if (SHIBYTE(__p[2]) < 0)
     {
       operator delete(__p[0]);
     }
   }
 
-LABEL_32:
-  boost::msm::back::state_machine<BBUpdaterControllerFSM::ControllerFSM_TOP,boost::parameter::void_,boost::parameter::void_,boost::parameter::void_,boost::parameter::void_>::process_event_internal<BBUpdaterControllerFSM::eventContinue>(v27, a3, 1);
+LABEL_34:
+  boost::msm::back::state_machine<BBUpdaterControllerFSM::ControllerFSM_TOP,boost::parameter::void_,boost::parameter::void_,boost::parameter::void_,boost::parameter::void_>::process_event_internal<BBUpdaterControllerFSM::eventContinue>(v21, a3, 1);
   if (gBBULogMaskGet(void)::once == -1)
   {
     if ((*(gBBULogMaskGet(void)::sBBULogMask + 2) & 0x20) == 0)
     {
-      goto LABEL_40;
+      goto LABEL_42;
     }
   }
 
@@ -7397,43 +7314,34 @@ LABEL_32:
     dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
     if ((*(gBBULogMaskGet(void)::sBBULogMask + 2) & 0x20) == 0)
     {
-      goto LABEL_40;
+      goto LABEL_42;
     }
   }
 
   if ((gBBULogVerbosity & 0x80000000) == 0)
   {
     boost::core::demangle(__p, (0x80000001E538FA11 & 0x7FFFFFFFFFFFFFFFLL));
-    if (SHIBYTE(__p[2]) >= 0)
-    {
-      v21 = __p;
-    }
-
-    else
-    {
-      LOBYTE(v21) = __p[0];
-    }
-
-    _BBULog(21, 0, "BBUpdaterController", "", "finish processing event: %s\n", v18, v19, v20, v21);
+    v16 = SHIBYTE(__p[2]) >= 0 ? __p : __p[0];
+    _BBULog(21, 0, "BBUpdaterController", "", "finish processing event: %s\n", v16);
     if (SHIBYTE(__p[2]) < 0)
     {
       operator delete(__p[0]);
     }
   }
 
-LABEL_40:
-  if (SHIBYTE(v26) < 0)
+LABEL_42:
+  if (SHIBYTE(v20) < 0)
   {
     operator delete(__dst[0]);
   }
 
-  v22 = v28;
-  if (v28)
+  v17 = v22;
+  if (v22)
   {
-    if (!atomic_fetch_add(&v28->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    if (!atomic_fetch_add(&v22->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
     {
-      (v22->__on_zero_shared)(v22);
-      std::__shared_weak_count::__release_weak(v22);
+      (v17->__on_zero_shared)(v17);
+      std::__shared_weak_count::__release_weak(v17);
     }
   }
 }
@@ -7452,7 +7360,7 @@ void sub_1E52599D4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void BBUpdaterController::checkManifest(BBUpdaterController *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void BBUpdaterController::checkManifest(BBUpdaterController *this)
 {
   if (gBBULogMaskGet(void)::once == -1)
   {
@@ -7473,40 +7381,39 @@ void BBUpdaterController::checkManifest(BBUpdaterController *this, uint64_t a2, 
 
   if ((gBBULogVerbosity & 0x80000000) == 0)
   {
-    _BBULog(13, 0, "BBUpdaterController", "", "Perform manifest check\n", a6, a7, a8, v64);
+    _BBULog(13, 0, "BBUpdaterController", "", "Perform manifest check\n");
   }
 
 LABEL_5:
-  v9 = *(this + 7);
-  BBUFeedback::handleComment(v9, "entering %s", "StageContext::CheckManifest");
-  v10 = *(v9 + 144);
-  v11 = *(v9 + 152);
-  v12 = *(v9 + 144);
-  if (v11 == v12)
+  v2 = *(this + 7);
+  BBUFeedback::handleComment(v2, "entering %s", "StageContext::CheckManifest");
+  v3 = *(v2 + 19);
+  v4 = *(v2 + 18);
+  if (v3 == v4)
   {
-    v13 = 0;
+    v5 = 0;
   }
 
   else
   {
-    v13 = ((v11 - v12) << 7) - 1;
+    v5 = ((v3 - v4) << 7) - 1;
   }
 
-  v14 = *(v9 + 176);
-  v15 = v14 + *(v9 + 168);
-  if (v13 == v15)
+  v6 = *(v2 + 22);
+  v7 = v6 + *(v2 + 21);
+  if (v5 == v7)
   {
-    std::deque<BBUpdaterCommon::StageContext>::__add_back_capacity(v9 + 136);
-    v12 = *(v9 + 144);
-    v14 = *(v9 + 176);
-    v15 = *(v9 + 168) + v14;
+    std::deque<BBUpdaterCommon::StageContext>::__add_back_capacity(v2 + 136);
+    v4 = *(v2 + 18);
+    v6 = *(v2 + 22);
+    v7 = *(v2 + 21) + v6;
   }
 
-  *(*(v12 + ((v15 >> 7) & 0x1FFFFFFFFFFFFF8)) + 4 * (v15 & 0x3FF)) = 7;
-  *(v9 + 176) = v14 + 1;
+  *(*(v4 + ((v7 >> 7) & 0x1FFFFFFFFFFFFF8)) + 4 * (v7 & 0x3FF)) = 7;
+  *(v2 + 22) = v6 + 1;
   *(this + 363) = 1;
   FirmwareDataSource = BBUpdaterController::getFirmwareDataSource(this, 1);
-  v66 = FirmwareDataSource;
+  v38 = FirmwareDataSource;
   if (!FirmwareDataSource)
   {
     if (gBBULogMaskGet(void)::once == -1)
@@ -7525,32 +7432,32 @@ LABEL_5:
 LABEL_72:
         if (gBBULogVerbosity >= 6)
         {
-          _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", v16, v17, v18, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp");
+          _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 567, "updateSource");
         }
       }
     }
 
-    std::string::basic_string[abi:ne200100]<0>(&v68, "Fail to get update source for checkManifest\n");
-    if (SHIBYTE(v68.__r_.__value_.__r.__words[2]) < 0)
+    std::string::basic_string[abi:ne200100]<0>(&v40, "Fail to get update source for checkManifest\n");
+    if (SHIBYTE(v40.__r_.__value_.__r.__words[2]) < 0)
     {
-      std::string::__init_copy_ctor_external(v71, v68.__r_.__value_.__l.__data_, v68.__r_.__value_.__l.__size_);
+      std::string::__init_copy_ctor_external(v43, v40.__r_.__value_.__l.__data_, v40.__r_.__value_.__l.__size_);
     }
 
     else
     {
-      *v71 = v68;
+      *v43 = v40;
     }
 
-    *&v71[24] = 35;
-    BBUpdaterController::process_event<BBUpdaterControllerFSM::eventError>(this, v71);
-    if ((v71[23] & 0x80000000) != 0)
+    *&v43[24] = 35;
+    BBUpdaterController::process_event<BBUpdaterControllerFSM::eventError>(this, v43);
+    if ((v43[23] & 0x80000000) != 0)
     {
-      operator delete(*v71);
+      operator delete(*v43);
     }
 
-    if (SHIBYTE(v68.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v40.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v68.__r_.__value_.__l.__data_);
+      operator delete(v40.__r_.__value_.__l.__data_);
     }
 
     goto LABEL_60;
@@ -7559,11 +7466,11 @@ LABEL_72:
   if (!(*(**(this + 9) + 40))(*(this + 9), *(this + 6), 2, 1))
   {
     *(this + 360) = 1;
-    LODWORD(v26) = BBUpdaterController::bootupInternal(this, &v66);
-    if (!v26)
+    LODWORD(v9) = BBUpdaterController::bootupInternal(this, &v38);
+    if (!v9)
     {
-      LODWORD(v26) = BBUpdaterController::performPingInternal(this);
-      if (!v26)
+      LODWORD(v9) = BBUpdaterController::performPingInternal(this);
+      if (!v9)
       {
         if (gBBULogMaskGet(void)::once == -1)
         {
@@ -7584,44 +7491,44 @@ LABEL_72:
 
         if ((gBBULogVerbosity & 0x80000000) == 0)
         {
-          _BBULog(13, 0, "BBUpdaterController", "", "Perform internal manifest check\n", v27, v28, v29, v65);
+          _BBULog(13, 0, "BBUpdaterController", "", "Perform internal manifest check\n");
         }
 
 LABEL_19:
-        v78 = 0xAAAAAAAAAAAAAAAALL;
-        *&v30 = 0xAAAAAAAAAAAAAAAALL;
-        *(&v30 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        v77[7] = v30;
-        v77[8] = v30;
-        v77[5] = v30;
-        v77[6] = v30;
-        v77[3] = v30;
-        v77[4] = v30;
-        v77[1] = v30;
-        v77[2] = v30;
-        v76 = v30;
-        v77[0] = v30;
-        *__p = v30;
-        v75 = v30;
-        v72 = v30;
-        v73 = v30;
-        *v71 = v30;
-        *&v71[16] = v30;
-        std::ostringstream::basic_ostringstream[abi:ne200100](v71);
-        v70 = 0;
-        v31 = (*(**(this + 9) + 96))(*(this + 9), this + 152, *(this + 12), &v70, this + 240, 0);
-        LODWORD(v26) = v31;
-        if (!v31)
+        v50 = 0xAAAAAAAAAAAAAAAALL;
+        *&v10 = 0xAAAAAAAAAAAAAAAALL;
+        *(&v10 + 1) = 0xAAAAAAAAAAAAAAAALL;
+        v49[7] = v10;
+        v49[8] = v10;
+        v49[5] = v10;
+        v49[6] = v10;
+        v49[3] = v10;
+        v49[4] = v10;
+        v49[1] = v10;
+        v49[2] = v10;
+        v48 = v10;
+        v49[0] = v10;
+        *__p = v10;
+        v47 = v10;
+        v44 = v10;
+        v45 = v10;
+        *v43 = v10;
+        *&v43[16] = v10;
+        std::ostringstream::basic_ostringstream[abi:ne200100](v43);
+        v42 = 0;
+        v11 = (*(**(this + 9) + 96))(*(this + 9), this + 152, *(this + 12), &v42, this + 240, 0);
+        LODWORD(v9) = v11;
+        if (!v11)
         {
-          v35 = *(this + 12);
-          v37 = v35[8];
-          v36 = v35[9];
-          v38 = v35[10];
-          if (v36)
+          v12 = *(this + 12);
+          v14 = v12[8];
+          v13 = v12[9];
+          v15 = v12[10];
+          if (v13)
           {
-            v31 = (*(*v36 + 24))(v36);
-            v39 = v31;
-            if (v37)
+            v11 = (*(*v13 + 24))(v13);
+            v16 = v11;
+            if (v14)
             {
               goto LABEL_22;
             }
@@ -7629,13 +7536,13 @@ LABEL_19:
 
           else
           {
-            v39 = 0xFFFFFFFFLL;
-            if (v37)
+            v16 = 0xFFFFFFFFLL;
+            if (v14)
             {
 LABEL_22:
-              v31 = (*(*v37 + 24))(v37);
-              v40 = v31;
-              if (v38)
+              v11 = (*(*v14 + 24))(v14);
+              v17 = v11;
+              if (v15)
               {
                 goto LABEL_23;
               }
@@ -7644,13 +7551,13 @@ LABEL_22:
             }
           }
 
-          v40 = 0xFFFFFFFFLL;
-          if (v38)
+          v17 = 0xFFFFFFFFLL;
+          if (v15)
           {
 LABEL_23:
-            v31 = (*(*v38 + 24))(v38);
-            v26 = v31;
-            if (!v37)
+            v11 = (*(*v15 + 24))(v15);
+            v9 = v11;
+            if (!v14)
             {
               goto LABEL_34;
             }
@@ -7659,36 +7566,36 @@ LABEL_23:
           }
 
 LABEL_27:
-          v26 = 0xFFFFFFFFLL;
-          if (!v37)
+          v9 = 0xFFFFFFFFLL;
+          if (!v14)
           {
             goto LABEL_34;
           }
 
 LABEL_28:
-          if (!v36 || v39 || v40)
+          if (!v13 || v16 || v17)
           {
 LABEL_34:
-            v41 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v71, "Detected non-zero cal/prov/fac manifests status  [CMStatus=", 59);
-            v42 = MEMORY[0x1E69270E0](v41, v39);
-            v43 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v42, " ,PMStatus=", 11);
-            v44 = MEMORY[0x1E69270E0](v43, v40);
-            v45 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v44, ", FCMStatus=", 12);
-            v46 = MEMORY[0x1E69270E0](v45, v26);
-            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v46, " ]", 2);
+            v18 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v43, "Detected non-zero cal/prov/fac manifests status  [CMStatus=", 59);
+            v19 = MEMORY[0x1E69270E0](v18, v16);
+            v20 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v19, " ,PMStatus=", 11);
+            v21 = MEMORY[0x1E69270E0](v20, v17);
+            v22 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v21, ", FCMStatus=", 12);
+            v23 = MEMORY[0x1E69270E0](v22, v9);
+            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v23, " ]", 2);
             memset(&__dst, 170, sizeof(__dst));
-            if ((BYTE8(v76) & 0x10) != 0)
+            if ((BYTE8(v48) & 0x10) != 0)
             {
-              v49 = v76;
-              if (v76 < *(&v73 + 1))
+              v26 = v48;
+              if (v48 < *(&v45 + 1))
               {
-                *&v76 = *(&v73 + 1);
-                v49 = *(&v73 + 1);
+                *&v48 = *(&v45 + 1);
+                v26 = *(&v45 + 1);
               }
 
-              v50 = v73;
-              v47 = v49 - v73;
-              if ((v49 - v73) >= 0x7FFFFFFFFFFFFFF8)
+              v27 = v45;
+              v24 = v26 - v45;
+              if ((v26 - v45) >= 0x7FFFFFFFFFFFFFF8)
               {
                 goto LABEL_66;
               }
@@ -7696,71 +7603,71 @@ LABEL_34:
 
             else
             {
-              if ((BYTE8(v76) & 8) == 0)
+              if ((BYTE8(v48) & 8) == 0)
               {
-                v47 = 0;
+                v24 = 0;
                 *(&__dst.__r_.__value_.__s + 23) = 0;
                 p_dst = &__dst;
                 goto LABEL_48;
               }
 
-              v50 = *&v71[24];
-              v47 = *(&v72 + 1) - *&v71[24];
-              if (*(&v72 + 1) - *&v71[24] >= 0x7FFFFFFFFFFFFFF8uLL)
+              v27 = *&v43[24];
+              v24 = *(&v44 + 1) - *&v43[24];
+              if (*(&v44 + 1) - *&v43[24] >= 0x7FFFFFFFFFFFFFF8uLL)
               {
 LABEL_66:
                 std::string::__throw_length_error[abi:ne200100]();
               }
             }
 
-            if (v47 >= 0x17)
+            if (v24 >= 0x17)
             {
-              if ((v47 | 7) == 0x17)
+              if ((v24 | 7) == 0x17)
               {
-                v51 = 25;
+                v28 = 25;
               }
 
               else
               {
-                v51 = (v47 | 7) + 1;
+                v28 = (v24 | 7) + 1;
               }
 
-              p_dst = operator new(v51);
-              __dst.__r_.__value_.__l.__size_ = v47;
-              __dst.__r_.__value_.__r.__words[2] = v51 | 0x8000000000000000;
+              p_dst = operator new(v28);
+              __dst.__r_.__value_.__l.__size_ = v24;
+              __dst.__r_.__value_.__r.__words[2] = v28 | 0x8000000000000000;
               __dst.__r_.__value_.__r.__words[0] = p_dst;
             }
 
             else
             {
-              *(&__dst.__r_.__value_.__s + 23) = v47;
+              *(&__dst.__r_.__value_.__s + 23) = v24;
               p_dst = &__dst;
-              if (!v47)
+              if (!v24)
               {
 LABEL_48:
-                p_dst->__r_.__value_.__s.__data_[v47] = 0;
-                v52 = &__dst;
+                p_dst->__r_.__value_.__s.__data_[v24] = 0;
+                v29 = &__dst;
                 if ((__dst.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
                 {
-                  v52 = __dst.__r_.__value_.__r.__words[0];
+                  v29 = __dst.__r_.__value_.__r.__words[0];
                 }
 
-                BBUFeedback::handleComment(*(this + 7), "%s", v52);
+                BBUFeedback::handleComment(*(this + 7), "%s", v29);
                 if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
                 {
-                  std::string::__init_copy_ctor_external(&v68, __dst.__r_.__value_.__l.__data_, __dst.__r_.__value_.__l.__size_);
+                  std::string::__init_copy_ctor_external(&v40, __dst.__r_.__value_.__l.__data_, __dst.__r_.__value_.__l.__size_);
                 }
 
                 else
                 {
-                  v68 = __dst;
+                  v40 = __dst;
                 }
 
-                v69 = 38;
-                BBUpdaterController::process_event<BBUpdaterControllerFSM::eventError>(this, &v68);
-                if (SHIBYTE(v68.__r_.__value_.__r.__words[2]) < 0)
+                v41 = 38;
+                BBUpdaterController::process_event<BBUpdaterControllerFSM::eventError>(this, &v40);
+                if (SHIBYTE(v40.__r_.__value_.__r.__words[2]) < 0)
                 {
-                  operator delete(v68.__r_.__value_.__l.__data_);
+                  operator delete(v40.__r_.__value_.__l.__data_);
                   if ((SHIBYTE(__dst.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
                   {
                     goto LABEL_55;
@@ -7770,7 +7677,7 @@ LABEL_48:
                 else if ((SHIBYTE(__dst.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
                 {
 LABEL_55:
-                  LODWORD(v26) = 38;
+                  LODWORD(v9) = 38;
                   goto LABEL_56;
                 }
 
@@ -7779,38 +7686,38 @@ LABEL_55:
               }
             }
 
-            memmove(p_dst, v50, v47);
+            memmove(p_dst, v27, v24);
             goto LABEL_48;
           }
 
-          if (!v38 || v26)
+          if (!v15 || v9)
           {
-            if (capabilities::updater::supportsFATPCalibrationManifestStatus(v31))
+            if (capabilities::updater::supportsFATPCalibrationManifestStatus(v11))
             {
               goto LABEL_34;
             }
 
-            LODWORD(v26) = 0;
+            LODWORD(v9) = 0;
           }
 
 LABEL_56:
-          *v71 = *MEMORY[0x1E69E54E8];
-          *&v71[*(*v71 - 24)] = *(MEMORY[0x1E69E54E8] + 24);
-          *&v71[8] = MEMORY[0x1E69E5548] + 16;
-          if (SHIBYTE(v75) < 0)
+          *v43 = *MEMORY[0x1E69E54E8];
+          *&v43[*(*v43 - 24)] = *(MEMORY[0x1E69E54E8] + 24);
+          *&v43[8] = MEMORY[0x1E69E5548] + 16;
+          if (SHIBYTE(v47) < 0)
           {
             operator delete(__p[1]);
           }
 
-          *&v71[8] = MEMORY[0x1E69E5538] + 16;
-          std::locale::~locale(&v71[16]);
+          *&v43[8] = MEMORY[0x1E69E5538] + 16;
+          std::locale::~locale(&v43[16]);
           std::ostream::~ostream();
-          MEMORY[0x1E69273B0](v77);
-          if (!v26)
+          MEMORY[0x1E69273B0](v49);
+          if (!v9)
           {
             (*(**(this + 8) + 40))(*(this + 8), this + 152);
             CFDictionarySetValue(*(this + 4), @"done", *MEMORY[0x1E695E4D0]);
-            BBUpdaterController::process_event<BBUpdaterControllerFSM::eventContinue>(*(this + 2), *(this + 3), v71);
+            BBUpdaterController::process_event<BBUpdaterControllerFSM::eventContinue>(*(this + 2), *(this + 3), v43);
             goto LABEL_60;
           }
 
@@ -7833,30 +7740,31 @@ LABEL_56:
 
           if (gBBULogVerbosity >= 6)
           {
-            _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", v53, v54, v55, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp");
+            _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 604, "kBBUReturnSuccess == ret");
           }
 
 LABEL_105:
-          std::string::basic_string[abi:ne200100]<0>(&__dst, BBUReturnAsString::BBUReturnStrings[v26]);
-          std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("Fail to check manifest in manifest check: ", &__dst, &v68);
-          v57 = capabilities::updater::manifestCheckRetryCount(v62);
-          if ((SHIBYTE(v68.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+          std::string::basic_string[abi:ne200100]<0>(&__dst, BBUReturnAsString::BBUReturnStrings[v9]);
+          std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("Fail to check manifest in manifest check: ", &__dst, &v40);
+          v31 = capabilities::updater::manifestCheckRetryCount(v36);
+          if ((SHIBYTE(v40.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
           {
-            *v71 = v68;
+            *v43 = v40;
             goto LABEL_120;
           }
 
 LABEL_119:
-          v63 = v57;
-          std::string::__init_copy_ctor_external(v71, v68.__r_.__value_.__l.__data_, v68.__r_.__value_.__l.__size_);
-          v57 = v63;
+          v37 = v31;
+          std::string::__init_copy_ctor_external(v43, v40.__r_.__value_.__l.__data_, v40.__r_.__value_.__l.__size_);
+          v31 = v37;
 LABEL_120:
-          *&v71[24] = __PAIR64__(v57, v26);
-          BBUpdaterController::process_event<BBUpdaterControllerFSM::eventRetry>(this, v71);
-          if ((v71[23] & 0x80000000) != 0)
+          *&v43[24] = v9;
+          *&v43[28] = v31;
+          BBUpdaterController::process_event<BBUpdaterControllerFSM::eventRetry>(this, v43);
+          if ((v43[23] & 0x80000000) != 0)
           {
-            operator delete(*v71);
-            if ((SHIBYTE(v68.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+            operator delete(*v43);
+            if ((SHIBYTE(v40.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
             {
 LABEL_122:
               if ((SHIBYTE(__dst.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
@@ -7870,12 +7778,12 @@ LABEL_126:
             }
           }
 
-          else if ((SHIBYTE(v68.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+          else if ((SHIBYTE(v40.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
           {
             goto LABEL_122;
           }
 
-          operator delete(v68.__r_.__value_.__l.__data_);
+          operator delete(v40.__r_.__value_.__l.__data_);
           if ((SHIBYTE(__dst.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
           {
             goto LABEL_60;
@@ -7900,34 +7808,34 @@ LABEL_126:
 LABEL_97:
             if (gBBULogVerbosity >= 6)
             {
-              _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", v32, v33, v34, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp");
+              _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 2587, "kBBUReturnSuccess == ret");
             }
           }
         }
 
-        v59 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v71, "getProvisioningStatus returns: ", 31);
-        v60 = strlen(BBUReturnAsString::BBUReturnStrings[v26]);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v59, BBUReturnAsString::BBUReturnStrings[v26], v60);
-        std::stringbuf::str[abi:ne200100](&__dst, &v71[8]);
-        v61 = SHIBYTE(__dst.__r_.__value_.__r.__words[2]);
+        v33 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v43, "getProvisioningStatus returns: ", 31);
+        v34 = strlen(BBUReturnAsString::BBUReturnStrings[v9]);
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v33, BBUReturnAsString::BBUReturnStrings[v9], v34);
+        std::stringbuf::str[abi:ne200100](&__dst, &v43[8]);
+        v35 = SHIBYTE(__dst.__r_.__value_.__r.__words[2]);
         if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
         {
-          std::string::__init_copy_ctor_external(&v68, __dst.__r_.__value_.__l.__data_, __dst.__r_.__value_.__l.__size_);
+          std::string::__init_copy_ctor_external(&v40, __dst.__r_.__value_.__l.__data_, __dst.__r_.__value_.__l.__size_);
         }
 
         else
         {
-          v68 = __dst;
+          v40 = __dst;
         }
 
-        v69 = v26;
-        BBUpdaterController::process_event<BBUpdaterControllerFSM::eventError>(this, &v68);
-        if (SHIBYTE(v68.__r_.__value_.__r.__words[2]) < 0)
+        v41 = v9;
+        BBUpdaterController::process_event<BBUpdaterControllerFSM::eventError>(this, &v40);
+        if (SHIBYTE(v40.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v68.__r_.__value_.__l.__data_);
+          operator delete(v40.__r_.__value_.__l.__data_);
         }
 
-        if (v61 < 0)
+        if (v35 < 0)
         {
           operator delete(__dst.__r_.__value_.__l.__data_);
         }
@@ -7954,16 +7862,16 @@ LABEL_97:
 
       if (gBBULogVerbosity >= 6)
       {
-        _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", v27, v28, v29, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp");
+        _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 593, "kBBUReturnSuccess == ret");
       }
 
 LABEL_91:
-      std::string::basic_string[abi:ne200100]<0>(&__dst, BBUReturnAsString::BBUReturnStrings[v26]);
-      std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("Fail to ping in manifest check: ", &__dst, &v68);
-      v57 = capabilities::updater::manifestCheckRetryCount(v58);
-      if ((SHIBYTE(v68.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+      std::string::basic_string[abi:ne200100]<0>(&__dst, BBUReturnAsString::BBUReturnStrings[v9]);
+      std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("Fail to ping in manifest check: ", &__dst, &v40);
+      v31 = capabilities::updater::manifestCheckRetryCount(v32);
+      if ((SHIBYTE(v40.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
       {
-        *v71 = v68;
+        *v43 = v40;
         goto LABEL_120;
       }
 
@@ -7989,16 +7897,16 @@ LABEL_91:
 
     if (gBBULogVerbosity >= 6)
     {
-      _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", v23, v24, v25, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp");
+      _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 583, "kBBUReturnSuccess == ret");
     }
 
 LABEL_84:
-    std::string::basic_string[abi:ne200100]<0>(&__dst, BBUReturnAsString::BBUReturnStrings[v26]);
-    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("Fail to bootup in manifest check: ", &__dst, &v68);
-    v57 = capabilities::updater::manifestCheckRetryCount(v56);
-    if ((SHIBYTE(v68.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+    std::string::basic_string[abi:ne200100]<0>(&__dst, BBUReturnAsString::BBUReturnStrings[v9]);
+    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("Fail to bootup in manifest check: ", &__dst, &v40);
+    v31 = capabilities::updater::manifestCheckRetryCount(v30);
+    if ((SHIBYTE(v40.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
-      *v71 = v68;
+      *v43 = v40;
       goto LABEL_120;
     }
 
@@ -8024,7 +7932,7 @@ LABEL_84:
 
   if (gBBULogVerbosity >= 6)
   {
-    _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", v20, v21, v22, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp");
+    _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 572, "kBBUReturnSuccess == ret");
   }
 
 LABEL_60:
@@ -8045,15 +7953,320 @@ void sub_1E525A730(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void BBUpdaterController::finalize(BBUpdaterController *this)
 {
-  v75 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   FirmwareDataSource = BBUpdaterController::getFirmwareDataSource(this, 1);
-  if (!FirmwareDataSource)
+  if (FirmwareDataSource)
   {
+    v3 = FirmwareDataSource;
+    BBUFeedback::handleBeginPhase(*(this + 7), "Final stage");
+    v45 = 0;
+    v4 = (*(**(this + 9) + 96))(*(this + 9), this + 152, *(this + 12), &v45, this + 240, 0);
+    v5 = *(this + 5);
+    if (v5)
+    {
+      v6 = CFDictionaryGetValue(v5, @"BypassManifestStatusCheck");
+      if (v6)
+      {
+        TypeID = CFBooleanGetTypeID();
+        if (TypeID == CFGetTypeID(v6))
+        {
+          if (CFBooleanGetValue(v6))
+          {
+            BBUFeedback::handleComment(*(this + 7), "Bypass manifest status check has been specified. Returning success");
+            goto LABEL_15;
+          }
+        }
+      }
+    }
+
+    if (!v4)
+    {
+      if (v45)
+      {
+        v8 = *(this + 12);
+        v9 = *(v8 + 64);
+        if (v9)
+        {
+          v10 = (*(*v9 + 24))(v9);
+          if (*(*(this + 12) + 88) == 3 && v10 != 0)
+          {
+LABEL_25:
+            std::to_string(&__dst, v10);
+            v20 = std::string::insert(&__dst, 0, "Detected non-zero prov manifest status: ", 0x28uLL);
+            v22 = v20->__r_.__value_.__r.__words[0];
+            size = v20->__r_.__value_.__l.__size_;
+            LODWORD(cf.__r_.__value_.__l.__data_) = v20->__r_.__value_.__r.__words[2];
+            *(cf.__r_.__value_.__r.__words + 3) = *(&v20->__r_.__value_.__r.__words[2] + 3);
+            v23 = SHIBYTE(v20->__r_.__value_.__r.__words[2]);
+            v20->__r_.__value_.__l.__size_ = 0;
+            v20->__r_.__value_.__r.__words[2] = 0;
+            v20->__r_.__value_.__r.__words[0] = 0;
+            if (v23 < 0)
+            {
+              std::string::__init_copy_ctor_external(value, v22, size);
+            }
+
+            else
+            {
+              value[0].__r_.__value_.__r.__words[0] = v22;
+              value[0].__r_.__value_.__l.__size_ = size;
+              LODWORD(value[0].__r_.__value_.__r.__words[2]) = cf.__r_.__value_.__l.__data_;
+              *(&value[0].__r_.__value_.__r.__words[2] + 3) = *(cf.__r_.__value_.__r.__words + 3);
+              *(&value[0].__r_.__value_.__s + 23) = v23;
+            }
+
+            value[1].__r_.__value_.__r.__words[0] = 27;
+            BBUpdaterController::process_event<BBUpdaterControllerFSM::eventError>(this, value);
+            if (SHIBYTE(value[0].__r_.__value_.__r.__words[2]) < 0)
+            {
+              operator delete(value[0].__r_.__value_.__l.__data_);
+              if ((v23 & 0x80000000) == 0)
+              {
+LABEL_43:
+                if ((SHIBYTE(__dst.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+                {
+LABEL_44:
+                  v4 = 27;
+                  goto LABEL_45;
+                }
+
+LABEL_64:
+                operator delete(__dst.__r_.__value_.__l.__data_);
+                goto LABEL_44;
+              }
+            }
+
+            else if ((v23 & 0x80000000) == 0)
+            {
+              goto LABEL_43;
+            }
+
+            operator delete(v22);
+            if ((SHIBYTE(__dst.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+            {
+              goto LABEL_44;
+            }
+
+            goto LABEL_64;
+          }
+        }
+
+        else
+        {
+          v10 = -1;
+          if (*(v8 + 88) == 3)
+          {
+            goto LABEL_25;
+          }
+        }
+
+LABEL_15:
+        v12 = *(this + 9);
+        NVRestoreSetting = BBUpdaterController::getNVRestoreSetting(*(this + 5));
+        __dst.__r_.__value_.__s.__data_[0] = -1;
+        v14 = *(this + 5);
+        if (!v14)
+        {
+          v18 = -1;
+          goto LABEL_35;
+        }
+
+        value[0].__r_.__value_.__r.__words[0] = 0xAAAAAAAAAAAAAAAALL;
+        if (CFDictionaryGetValueIfPresent(v14, @"IMEISwVersion", &value[0].__r_.__value_.__l.__data_) && (v15 = value[0].__r_.__value_.__r.__words[0]) != 0 && (v16 = CFGetTypeID(value[0].__r_.__value_.__l.__data_), v16 == CFNumberGetTypeID()))
+        {
+          if (ctu::cf::assign(&__dst, v15, v17))
+          {
+            v18 = __dst.__r_.__value_.__s.__data_[0];
+          }
+
+          else
+          {
+            v18 = -1;
+          }
+
+          v19 = *(this + 5);
+          if (!v19)
+          {
+            goto LABEL_35;
+          }
+        }
+
+        else
+        {
+          v18 = -1;
+          v19 = *(this + 5);
+          if (!v19)
+          {
+            goto LABEL_35;
+          }
+        }
+
+        cf.__r_.__value_.__r.__words[0] = 0xAAAAAAAAAAAAAAAALL;
+        if (CFDictionaryGetValueIfPresent(v19, @"NVSerialNumber", &cf.__r_.__value_.__l.__data_))
+        {
+          v24 = CFGetTypeID(cf.__r_.__value_.__l.__data_);
+          if (v24 == CFStringGetTypeID())
+          {
+            memset(value, 170, 0x400uLL);
+            CFStringGetCString(cf.__r_.__value_.__l.__data_, value, 1024, 0x8000100u);
+            v25 = strlen(value);
+            if (v25 >= 0x7FFFFFFFFFFFFFF8)
+            {
+              std::string::__throw_length_error[abi:ne200100]();
+            }
+
+            v26 = v25;
+            if (v25 >= 0x17)
+            {
+              if ((v25 | 7) == 0x17)
+              {
+                v43 = 25;
+              }
+
+              else
+              {
+                v43 = (v25 | 7) + 1;
+              }
+
+              p_dst = operator new(v43);
+              __dst.__r_.__value_.__l.__size_ = v26;
+              __dst.__r_.__value_.__r.__words[2] = v43 | 0x8000000000000000;
+              __dst.__r_.__value_.__r.__words[0] = p_dst;
+            }
+
+            else
+            {
+              *(&__dst.__r_.__value_.__s + 23) = v25;
+              p_dst = &__dst;
+              if (!v25)
+              {
+                goto LABEL_112;
+              }
+            }
+
+            memcpy(p_dst, value, v26);
+LABEL_112:
+            *(p_dst + v26) = 0;
+LABEL_36:
+            v4 = (*(*v12 + 48))(v12, this + 152, 8, NVRestoreSetting, v18, &__dst);
+            if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
+            {
+              operator delete(__dst.__r_.__value_.__l.__data_);
+            }
+
+            if (!v4)
+            {
+              (*(**(this + 8) + 40))(*(this + 8), this + 152);
+              v4 = 0;
+              goto LABEL_49;
+            }
+
+            if (gBBULogMaskGet(void)::once == -1)
+            {
+              if ((*gBBULogMaskGet(void)::sBBULogMask & 2) == 0)
+              {
+                goto LABEL_134;
+              }
+            }
+
+            else
+            {
+              dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
+              if ((*gBBULogMaskGet(void)::sBBULogMask & 2) == 0)
+              {
+                goto LABEL_134;
+              }
+            }
+
+            if (gBBULogVerbosity >= 6)
+            {
+              _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 2677, "kBBUReturnSuccess == ret");
+            }
+
+LABEL_134:
+            std::string::basic_string[abi:ne200100]<0>(&cf, BBUReturnAsString::BBUReturnStrings[v4]);
+            std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("Failed to finalize: ", &cf, &__dst);
+            if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
+            {
+              std::string::__init_copy_ctor_external(value, __dst.__r_.__value_.__l.__data_, __dst.__r_.__value_.__l.__size_);
+            }
+
+            else
+            {
+              value[0] = __dst;
+            }
+
+            value[1].__r_.__value_.__r.__words[0] = v4;
+            BBUpdaterController::process_event<BBUpdaterControllerFSM::eventError>(this, value);
+            if (SHIBYTE(value[0].__r_.__value_.__r.__words[2]) < 0)
+            {
+              operator delete(value[0].__r_.__value_.__l.__data_);
+              if ((SHIBYTE(__dst.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+              {
+LABEL_167:
+                if ((SHIBYTE(cf.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+                {
+                  goto LABEL_49;
+                }
+
+LABEL_171:
+                operator delete(cf.__r_.__value_.__l.__data_);
+                goto LABEL_49;
+              }
+            }
+
+            else if ((SHIBYTE(__dst.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+            {
+              goto LABEL_167;
+            }
+
+            operator delete(__dst.__r_.__value_.__l.__data_);
+            if ((SHIBYTE(cf.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+            {
+              goto LABEL_49;
+            }
+
+            goto LABEL_171;
+          }
+        }
+
+LABEL_35:
+        *(&__dst.__r_.__value_.__s + 23) = 0;
+        __dst.__r_.__value_.__s.__data_[0] = 0;
+        goto LABEL_36;
+      }
+
+      if (gBBULogMaskGet(void)::once == -1)
+      {
+        if ((*gBBULogMaskGet(void)::sBBULogMask & 2) != 0)
+        {
+          goto LABEL_127;
+        }
+      }
+
+      else
+      {
+        dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
+        if ((*gBBULogMaskGet(void)::sBBULogMask & 2) != 0)
+        {
+LABEL_127:
+          if (gBBULogVerbosity >= 6)
+          {
+            _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 2644, "key_aligned");
+          }
+        }
+      }
+
+      BBUFeedback::handleComment(*(this + 7), "Key alignment is required");
+      v4 = 41;
+      goto LABEL_45;
+    }
+
     if (gBBULogMaskGet(void)::once == -1)
     {
       if ((*gBBULogMaskGet(void)::sBBULogMask & 2) == 0)
       {
-        goto LABEL_115;
+        goto LABEL_123;
       }
     }
 
@@ -8062,17 +8275,18 @@ void BBUpdaterController::finalize(BBUpdaterController *this)
       dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
       if ((*gBBULogMaskGet(void)::sBBULogMask & 2) == 0)
       {
-        goto LABEL_115;
+        goto LABEL_123;
       }
     }
 
     if (gBBULogVerbosity >= 6)
     {
-      _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", v3, v4, v5, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp");
+      _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 2640, "ret == kBBUReturnSuccess");
     }
 
-LABEL_115:
-    std::string::basic_string[abi:ne200100]<0>(&__dst, "Fail to get update source data for finalize\n");
+LABEL_123:
+    std::to_string(&cf, v4);
+    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("Fail to getProvisioningStatus", &cf, &__dst);
     if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
     {
       std::string::__init_copy_ctor_external(value, __dst.__r_.__value_.__l.__data_, __dst.__r_.__value_.__l.__size_);
@@ -8083,336 +8297,320 @@ LABEL_115:
       value[0] = __dst;
     }
 
-    value[1].__r_.__value_.__r.__words[0] = 35;
+    value[1].__r_.__value_.__r.__words[0] = v4;
     BBUpdaterController::process_event<BBUpdaterControllerFSM::eventError>(this, value);
     if (SHIBYTE(value[0].__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(value[0].__r_.__value_.__l.__data_);
       if ((SHIBYTE(__dst.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
       {
-        goto LABEL_104;
-      }
-    }
-
-    else if ((SHIBYTE(__dst.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-    {
-      goto LABEL_104;
-    }
-
-    operator delete(__dst.__r_.__value_.__l.__data_);
-    goto LABEL_104;
-  }
-
-  v6 = FirmwareDataSource;
-  BBUFeedback::handleBeginPhase(*(this + 7), "Final stage");
-  v72 = 0;
-  v14 = (*(**(this + 9) + 96))(*(this + 9), this + 152, *(this + 12), &v72, this + 240, 0);
-  v15 = *(this + 5);
-  if (v15)
-  {
-    v16 = CFDictionaryGetValue(v15, @"BypassManifestStatusCheck");
-    if (v16)
-    {
-      TypeID = CFBooleanGetTypeID();
-      if (TypeID == CFGetTypeID(v16))
-      {
-        if (CFBooleanGetValue(v16))
+LABEL_159:
+        if ((SHIBYTE(cf.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
         {
-          BBUFeedback::handleComment(*(this + 7), "Bypass manifest status check has been specified. Returning success");
-          goto LABEL_15;
+          goto LABEL_45;
         }
-      }
-    }
-  }
 
-  if (!v14)
-  {
-    if (v72)
-    {
-      v18 = *(this + 12);
-      v19 = *(v18 + 64);
-      if (v19)
-      {
-        v20 = (*(*v19 + 24))(v19);
-        if (*(*(this + 12) + 88) == 3 && v20 != 0)
+LABEL_163:
+        operator delete(cf.__r_.__value_.__l.__data_);
+LABEL_45:
+        if (gBBULogMaskGet(void)::once == -1)
         {
-LABEL_25:
-          std::to_string(&__dst, v20);
-          v30 = std::string::insert(&__dst, 0, "Detected non-zero prov manifest status: ", 0x28uLL);
-          v32 = v30->__r_.__value_.__r.__words[0];
-          size = v30->__r_.__value_.__l.__size_;
-          LODWORD(cf.__r_.__value_.__l.__data_) = v30->__r_.__value_.__r.__words[2];
-          *(cf.__r_.__value_.__r.__words + 3) = *(&v30->__r_.__value_.__r.__words[2] + 3);
-          v33 = SHIBYTE(v30->__r_.__value_.__r.__words[2]);
-          v30->__r_.__value_.__l.__size_ = 0;
-          v30->__r_.__value_.__r.__words[2] = 0;
-          v30->__r_.__value_.__r.__words[0] = 0;
-          if (v33 < 0)
+          if ((*gBBULogMaskGet(void)::sBBULogMask & 2) == 0)
           {
-            std::string::__init_copy_ctor_external(value, v32, size);
+            goto LABEL_49;
           }
-
-          else
-          {
-            value[0].__r_.__value_.__r.__words[0] = v32;
-            value[0].__r_.__value_.__l.__size_ = size;
-            LODWORD(value[0].__r_.__value_.__r.__words[2]) = cf.__r_.__value_.__l.__data_;
-            *(&value[0].__r_.__value_.__r.__words[2] + 3) = *(cf.__r_.__value_.__r.__words + 3);
-            *(&value[0].__r_.__value_.__s + 23) = v33;
-          }
-
-          value[1].__r_.__value_.__r.__words[0] = 27;
-          BBUpdaterController::process_event<BBUpdaterControllerFSM::eventError>(this, value);
-          if (SHIBYTE(value[0].__r_.__value_.__r.__words[2]) < 0)
-          {
-            operator delete(value[0].__r_.__value_.__l.__data_);
-            if ((v33 & 0x80000000) == 0)
-            {
-LABEL_43:
-              if ((SHIBYTE(__dst.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-              {
-LABEL_44:
-                v14 = 27;
-                goto LABEL_45;
-              }
-
-LABEL_64:
-              operator delete(__dst.__r_.__value_.__l.__data_);
-              goto LABEL_44;
-            }
-          }
-
-          else if ((v33 & 0x80000000) == 0)
-          {
-            goto LABEL_43;
-          }
-
-          operator delete(v32);
-          if ((SHIBYTE(__dst.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-          {
-            goto LABEL_44;
-          }
-
-          goto LABEL_64;
-        }
-      }
-
-      else
-      {
-        v20 = -1;
-        if (*(v18 + 88) == 3)
-        {
-          goto LABEL_25;
-        }
-      }
-
-LABEL_15:
-      v22 = *(this + 9);
-      NVRestoreSetting = BBUpdaterController::getNVRestoreSetting(*(this + 5), v7, v8, v9, v10, v11, v12, v13);
-      __dst.__r_.__value_.__s.__data_[0] = -1;
-      v24 = *(this + 5);
-      if (!v24)
-      {
-        v28 = -1;
-        goto LABEL_35;
-      }
-
-      value[0].__r_.__value_.__r.__words[0] = 0xAAAAAAAAAAAAAAAALL;
-      if (CFDictionaryGetValueIfPresent(v24, @"IMEISwVersion", &value[0].__r_.__value_.__l.__data_) && (v25 = value[0].__r_.__value_.__r.__words[0]) != 0 && (v26 = CFGetTypeID(value[0].__r_.__value_.__l.__data_), v26 == CFNumberGetTypeID()))
-      {
-        if (ctu::cf::assign(&__dst, v25, v27))
-        {
-          v28 = __dst.__r_.__value_.__s.__data_[0];
         }
 
         else
         {
-          v28 = -1;
-        }
-
-        v29 = *(this + 5);
-        if (!v29)
-        {
-          goto LABEL_35;
-        }
-      }
-
-      else
-      {
-        v28 = -1;
-        v29 = *(this + 5);
-        if (!v29)
-        {
-          goto LABEL_35;
-        }
-      }
-
-      cf.__r_.__value_.__r.__words[0] = 0xAAAAAAAAAAAAAAAALL;
-      if (CFDictionaryGetValueIfPresent(v29, @"NVSerialNumber", &cf.__r_.__value_.__l.__data_))
-      {
-        v34 = CFGetTypeID(cf.__r_.__value_.__l.__data_);
-        if (v34 == CFStringGetTypeID())
-        {
-          memset(value, 170, 0x400uLL);
-          CFStringGetCString(cf.__r_.__value_.__l.__data_, value, 1024, 0x8000100u);
-          v35 = strlen(value);
-          if (v35 >= 0x7FFFFFFFFFFFFFF8)
+          dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
+          if ((*gBBULogMaskGet(void)::sBBULogMask & 2) == 0)
           {
-            std::string::__throw_length_error[abi:ne200100]();
-          }
-
-          v36 = v35;
-          if (v35 >= 0x17)
-          {
-            if ((v35 | 7) == 0x17)
-            {
-              v68 = 25;
-            }
-
-            else
-            {
-              v68 = (v35 | 7) + 1;
-            }
-
-            p_dst = operator new(v68);
-            __dst.__r_.__value_.__l.__size_ = v36;
-            __dst.__r_.__value_.__r.__words[2] = v68 | 0x8000000000000000;
-            __dst.__r_.__value_.__r.__words[0] = p_dst;
-          }
-
-          else
-          {
-            *(&__dst.__r_.__value_.__s + 23) = v35;
-            p_dst = &__dst;
-            if (!v35)
-            {
-              goto LABEL_110;
-            }
-          }
-
-          memcpy(p_dst, value, v36);
-LABEL_110:
-          *(p_dst + v36) = 0;
-LABEL_36:
-          v14 = (*(*v22 + 48))(v22, this + 152, 8, NVRestoreSetting, v28, &__dst);
-          if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
-          {
-            operator delete(__dst.__r_.__value_.__l.__data_);
-          }
-
-          if (!v14)
-          {
-            (*(**(this + 8) + 40))(*(this + 8), this + 152);
-            v14 = 0;
             goto LABEL_49;
           }
+        }
 
+        if (gBBULogVerbosity >= 6)
+        {
+          _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 2673, "ret==kBBUReturnSuccess");
+        }
+
+LABEL_49:
+        (*(**(this + 7) + 16))(*(this + 7), v4);
+        if (v4 == 41)
+        {
           if (gBBULogMaskGet(void)::once == -1)
           {
-            if ((*gBBULogMaskGet(void)::sBBULogMask & 2) == 0)
+            if ((*(gBBULogMaskGet(void)::sBBULogMask + 1) & 0x20) == 0)
             {
-              goto LABEL_132;
+              goto LABEL_54;
             }
           }
 
           else
           {
             dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
-            if ((*gBBULogMaskGet(void)::sBBULogMask & 2) == 0)
+            if ((*(gBBULogMaskGet(void)::sBBULogMask + 1) & 0x20) == 0)
             {
-              goto LABEL_132;
+              goto LABEL_54;
             }
           }
 
-          if (gBBULogVerbosity >= 6)
+          if ((gBBULogVerbosity & 0x80000000) == 0)
           {
-            _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", v38, v39, v40, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp");
+            _BBULog(13, 0, "BBUpdaterController", "", "re-personalize\n");
           }
 
-LABEL_132:
-          std::string::basic_string[abi:ne200100]<0>(&cf, BBUReturnAsString::BBUReturnStrings[v14]);
-          std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("Failed to finalize: ", &cf, &__dst);
-          if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
+LABEL_54:
+          v29 = *(this + 2);
+          v28 = *(this + 3);
+          cf.__r_.__value_.__r.__words[0] = v29;
+          cf.__r_.__value_.__l.__size_ = v28;
+          if (v28)
           {
-            std::string::__init_copy_ctor_external(value, __dst.__r_.__value_.__l.__data_, __dst.__r_.__value_.__l.__size_);
+            atomic_fetch_add_explicit((v28 + 8), 1uLL, memory_order_relaxed);
+          }
+
+          value[0].__r_.__value_.__l.__size_ = 0xAAAAAAAAAAAAAAAALL;
+          value[0].__r_.__value_.__r.__words[2] = 0x7AAAAAAAAAAAAAALL;
+          strcpy(value, "unknown");
+          memset(&__dst, 170, sizeof(__dst));
+          (*(*v29 + 24))(&__dst, v29);
+          v30 = __dst.__r_.__value_.__r.__words[0];
+          v31 = __dst.__r_.__value_.__r.__words[0] + 24 * v29[8];
+          if (value != v31)
+          {
+            v32 = *(v31 + 23);
+            if (SHIBYTE(value[0].__r_.__value_.__r.__words[2]) < 0)
+            {
+              if (v32 >= 0)
+              {
+                v34 = (__dst.__r_.__value_.__r.__words[0] + 24 * v29[8]);
+              }
+
+              else
+              {
+                v34 = *v31;
+              }
+
+              if (v32 >= 0)
+              {
+                v35 = *(v31 + 23);
+              }
+
+              else
+              {
+                v35 = *(v31 + 8);
+              }
+
+              std::string::__assign_no_alias<false>(value, v34, v35);
+            }
+
+            else if ((*(v31 + 23) & 0x80) != 0)
+            {
+              std::string::__assign_no_alias<true>(value, *v31, *(v31 + 8));
+            }
+
+            else
+            {
+              v33 = *v31;
+              value[0].__r_.__value_.__r.__words[2] = *(v31 + 16);
+              *&value[0].__r_.__value_.__l.__data_ = v33;
+            }
+
+            v30 = __dst.__r_.__value_.__r.__words[0];
+          }
+
+          if (v30)
+          {
+            v36 = __dst.__r_.__value_.__l.__size_;
+            v37 = v30;
+            if (__dst.__r_.__value_.__l.__size_ != v30)
+            {
+              do
+              {
+                v38 = *(v36 - 1);
+                v36 -= 3;
+                if (v38 < 0)
+                {
+                  operator delete(*v36);
+                }
+              }
+
+              while (v36 != v30);
+              v37 = __dst.__r_.__value_.__r.__words[0];
+            }
+
+            __dst.__r_.__value_.__l.__size_ = v30;
+            operator delete(v37);
+          }
+
+          if (gBBULogMaskGet(void)::once == -1)
+          {
+            if ((*(gBBULogMaskGet(void)::sBBULogMask + 2) & 0x20) == 0)
+            {
+              goto LABEL_92;
+            }
           }
 
           else
           {
-            value[0] = __dst;
-          }
-
-          value[1].__r_.__value_.__r.__words[0] = v14;
-          BBUpdaterController::process_event<BBUpdaterControllerFSM::eventError>(this, value);
-          if (SHIBYTE(value[0].__r_.__value_.__r.__words[2]) < 0)
-          {
-            operator delete(value[0].__r_.__value_.__l.__data_);
-            if ((SHIBYTE(__dst.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+            dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
+            if ((*(gBBULogMaskGet(void)::sBBULogMask + 2) & 0x20) == 0)
             {
-LABEL_165:
-              if ((SHIBYTE(cf.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-              {
-                goto LABEL_49;
-              }
-
-LABEL_169:
-              operator delete(cf.__r_.__value_.__l.__data_);
-              goto LABEL_49;
+              goto LABEL_92;
             }
           }
 
-          else if ((SHIBYTE(__dst.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+          if ((gBBULogVerbosity & 0x80000000) == 0)
           {
-            goto LABEL_165;
+            boost::core::demangle(&__dst, (0x80000001E538FB24 & 0x7FFFFFFFFFFFFFFFLL));
+            if ((__dst.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+            {
+              v39 = &__dst;
+            }
+
+            else
+            {
+              v39 = __dst.__r_.__value_.__r.__words[0];
+            }
+
+            v40 = value;
+            if ((value[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+            {
+              v40 = value[0].__r_.__value_.__r.__words[0];
+            }
+
+            _BBULog(21, 0, "BBUpdaterController", "", "processing event: %s, current state %d [%s]\n", v39, v29[8], v40);
+            if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
+            {
+              operator delete(__dst.__r_.__value_.__l.__data_);
+            }
           }
 
-          operator delete(__dst.__r_.__value_.__l.__data_);
-          if ((SHIBYTE(cf.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+LABEL_92:
+          boost::msm::back::state_machine<BBUpdaterControllerFSM::ControllerFSM_TOP,boost::parameter::void_,boost::parameter::void_,boost::parameter::void_,boost::parameter::void_>::process_event_internal<BBUpdaterControllerFSM::eventRepersonalize>(cf.__r_.__value_.__l.__data_, &v45, 1);
+          if (gBBULogMaskGet(void)::once == -1)
           {
-            goto LABEL_49;
+            if ((*(gBBULogMaskGet(void)::sBBULogMask + 2) & 0x20) != 0)
+            {
+LABEL_94:
+              if ((gBBULogVerbosity & 0x80000000) == 0)
+              {
+                boost::core::demangle(&__dst, (0x80000001E538FB24 & 0x7FFFFFFFFFFFFFFFLL));
+                v41 = (__dst.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &__dst : __dst.__r_.__value_.__r.__words[0];
+                _BBULog(21, 0, "BBUpdaterController", "", "finish processing event: %s\n", v41);
+                if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
+                {
+                  operator delete(__dst.__r_.__value_.__l.__data_);
+                }
+              }
+            }
           }
 
-          goto LABEL_169;
+          else
+          {
+            dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
+            if ((*(gBBULogMaskGet(void)::sBBULogMask + 2) & 0x20) != 0)
+            {
+              goto LABEL_94;
+            }
+          }
+
+          if (SHIBYTE(value[0].__r_.__value_.__r.__words[2]) < 0)
+          {
+            operator delete(value[0].__r_.__value_.__l.__data_);
+          }
+
+          v42 = cf.__r_.__value_.__l.__size_;
+          if (cf.__r_.__value_.__l.__size_)
+          {
+            if (!atomic_fetch_add((cf.__r_.__value_.__l.__size_ + 8), 0xFFFFFFFFFFFFFFFFLL))
+            {
+              (v42->__on_zero_shared)(v42);
+              std::__shared_weak_count::__release_weak(v42);
+            }
+          }
+
+          goto LABEL_105;
         }
-      }
 
-LABEL_35:
-      *(&__dst.__r_.__value_.__s + 23) = 0;
-      __dst.__r_.__value_.__s.__data_[0] = 0;
-      goto LABEL_36;
-    }
-
-    if (gBBULogMaskGet(void)::once == -1)
-    {
-      if ((*gBBULogMaskGet(void)::sBBULogMask & 2) != 0)
-      {
-        goto LABEL_125;
-      }
-    }
-
-    else
-    {
-      dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
-      if ((*gBBULogMaskGet(void)::sBBULogMask & 2) != 0)
-      {
-LABEL_125:
-        if (gBBULogVerbosity >= 6)
+        if (!v4)
         {
-          _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", v11, v12, v13, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp");
+          BBUpdaterController::process_event<BBUpdaterControllerFSM::eventContinue>(*(this + 2), *(this + 3), value);
+          CFDictionarySetValue(*(this + 4), @"done", *MEMORY[0x1E695E4D0]);
+LABEL_105:
+          (*(*v3 + 16))(v3);
+          return;
         }
+
+        if (gBBULogMaskGet(void)::once == -1)
+        {
+          if ((*gBBULogMaskGet(void)::sBBULogMask & 2) != 0)
+          {
+            goto LABEL_138;
+          }
+        }
+
+        else
+        {
+          dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
+          if ((*gBBULogMaskGet(void)::sBBULogMask & 2) != 0)
+          {
+LABEL_138:
+            if (gBBULogVerbosity >= 6)
+            {
+              _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 640, "kBBUReturnSuccess == ret");
+            }
+          }
+        }
+
+        std::string::basic_string[abi:ne200100]<0>(&__dst, "Fail to perform finalization.");
+        if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
+        {
+          std::string::__init_copy_ctor_external(value, __dst.__r_.__value_.__l.__data_, __dst.__r_.__value_.__l.__size_);
+        }
+
+        else
+        {
+          value[0] = __dst;
+        }
+
+        value[1].__r_.__value_.__r.__words[0] = v4;
+        BBUpdaterController::process_event<BBUpdaterControllerFSM::eventError>(this, value);
+        if (SHIBYTE(value[0].__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(value[0].__r_.__value_.__l.__data_);
+        }
+
+        if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(__dst.__r_.__value_.__l.__data_);
+        }
+
+        goto LABEL_105;
       }
     }
 
-    BBUFeedback::handleComment(*(this + 7), "Key alignment is required");
-    v14 = 41;
-    goto LABEL_45;
+    else if ((SHIBYTE(__dst.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+    {
+      goto LABEL_159;
+    }
+
+    operator delete(__dst.__r_.__value_.__l.__data_);
+    if ((SHIBYTE(cf.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+    {
+      goto LABEL_45;
+    }
+
+    goto LABEL_163;
   }
 
   if (gBBULogMaskGet(void)::once == -1)
   {
     if ((*gBBULogMaskGet(void)::sBBULogMask & 2) == 0)
     {
-      goto LABEL_121;
+      goto LABEL_117;
     }
   }
 
@@ -8421,18 +8619,17 @@ LABEL_125:
     dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
     if ((*gBBULogMaskGet(void)::sBBULogMask & 2) == 0)
     {
-      goto LABEL_121;
+      goto LABEL_117;
     }
   }
 
   if (gBBULogVerbosity >= 6)
   {
-    _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", v11, v12, v13, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp");
+    _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 627, "updateSource");
   }
 
-LABEL_121:
-  std::to_string(&cf, v14);
-  std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("Fail to getProvisioningStatus", &cf, &__dst);
+LABEL_117:
+  std::string::basic_string[abi:ne200100]<0>(&__dst, "Fail to get update source data for finalize\n");
   if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
   {
     std::string::__init_copy_ctor_external(value, __dst.__r_.__value_.__l.__data_, __dst.__r_.__value_.__l.__size_);
@@ -8443,361 +8640,64 @@ LABEL_121:
     value[0] = __dst;
   }
 
-  value[1].__r_.__value_.__r.__words[0] = v14;
+  value[1].__r_.__value_.__r.__words[0] = 35;
   BBUpdaterController::process_event<BBUpdaterControllerFSM::eventError>(this, value);
-  if ((SHIBYTE(value[0].__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+  if (SHIBYTE(value[0].__r_.__value_.__r.__words[2]) < 0)
   {
-    if ((SHIBYTE(__dst.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-    {
-      goto LABEL_157;
-    }
-
-LABEL_160:
-    operator delete(__dst.__r_.__value_.__l.__data_);
-    if ((SHIBYTE(cf.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-    {
-      goto LABEL_45;
-    }
-
-    goto LABEL_161;
-  }
-
-  operator delete(value[0].__r_.__value_.__l.__data_);
-  if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
-  {
-    goto LABEL_160;
-  }
-
-LABEL_157:
-  if ((SHIBYTE(cf.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-  {
-    goto LABEL_45;
-  }
-
-LABEL_161:
-  operator delete(cf.__r_.__value_.__l.__data_);
-LABEL_45:
-  if (gBBULogMaskGet(void)::once == -1)
-  {
-    if ((*gBBULogMaskGet(void)::sBBULogMask & 2) == 0)
-    {
-      goto LABEL_49;
-    }
-  }
-
-  else
-  {
-    dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
-    if ((*gBBULogMaskGet(void)::sBBULogMask & 2) == 0)
-    {
-      goto LABEL_49;
-    }
-  }
-
-  if (gBBULogVerbosity >= 6)
-  {
-    _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", v41, v42, v43, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp");
-  }
-
-LABEL_49:
-  (*(**(this + 7) + 16))(*(this + 7), v14);
-  if (v14 == 41)
-  {
-    if (gBBULogMaskGet(void)::once == -1)
-    {
-      if ((*(gBBULogMaskGet(void)::sBBULogMask + 1) & 0x20) == 0)
-      {
-        goto LABEL_54;
-      }
-    }
-
-    else
-    {
-      dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
-      if ((*(gBBULogMaskGet(void)::sBBULogMask + 1) & 0x20) == 0)
-      {
-        goto LABEL_54;
-      }
-    }
-
-    if ((gBBULogVerbosity & 0x80000000) == 0)
-    {
-      _BBULog(13, 0, "BBUpdaterController", "", "re-personalize\n", v44, v45, v46, v69);
-    }
-
-LABEL_54:
-    v48 = *(this + 2);
-    v47 = *(this + 3);
-    cf.__r_.__value_.__r.__words[0] = v48;
-    cf.__r_.__value_.__l.__size_ = v47;
-    if (v47)
-    {
-      atomic_fetch_add_explicit((v47 + 8), 1uLL, memory_order_relaxed);
-    }
-
-    value[0].__r_.__value_.__l.__size_ = 0xAAAAAAAAAAAAAAAALL;
-    value[0].__r_.__value_.__r.__words[2] = 0x7AAAAAAAAAAAAAALL;
-    strcpy(value, "unknown");
-    memset(&__dst, 170, sizeof(__dst));
-    (*(*v48 + 24))(&__dst, v48);
-    v49 = __dst.__r_.__value_.__r.__words[0];
-    v50 = __dst.__r_.__value_.__r.__words[0] + 24 * v48[8];
-    if (value != v50)
-    {
-      v51 = *(v50 + 23);
-      if (SHIBYTE(value[0].__r_.__value_.__r.__words[2]) < 0)
-      {
-        if (v51 >= 0)
-        {
-          v53 = (__dst.__r_.__value_.__r.__words[0] + 24 * v48[8]);
-        }
-
-        else
-        {
-          v53 = *v50;
-        }
-
-        if (v51 >= 0)
-        {
-          v54 = *(v50 + 23);
-        }
-
-        else
-        {
-          v54 = *(v50 + 8);
-        }
-
-        std::string::__assign_no_alias<false>(&value[0].__r_.__value_.__l.__data_, v53, v54);
-      }
-
-      else if ((*(v50 + 23) & 0x80) != 0)
-      {
-        std::string::__assign_no_alias<true>(value, *v50, *(v50 + 8));
-      }
-
-      else
-      {
-        v52 = *v50;
-        value[0].__r_.__value_.__r.__words[2] = *(v50 + 16);
-        *&value[0].__r_.__value_.__l.__data_ = v52;
-      }
-
-      v49 = __dst.__r_.__value_.__r.__words[0];
-    }
-
-    if (v49)
-    {
-      v55 = __dst.__r_.__value_.__l.__size_;
-      v56 = v49;
-      if (__dst.__r_.__value_.__l.__size_ != v49)
-      {
-        do
-        {
-          v57 = *(v55 - 1);
-          v55 -= 3;
-          if (v57 < 0)
-          {
-            operator delete(*v55);
-          }
-        }
-
-        while (v55 != v49);
-        v56 = __dst.__r_.__value_.__r.__words[0];
-      }
-
-      __dst.__r_.__value_.__l.__size_ = v49;
-      operator delete(v56);
-    }
-
-    if (gBBULogMaskGet(void)::once == -1)
-    {
-      if ((*(gBBULogMaskGet(void)::sBBULogMask + 2) & 0x20) == 0)
-      {
-        goto LABEL_90;
-      }
-    }
-
-    else
-    {
-      dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
-      if ((*(gBBULogMaskGet(void)::sBBULogMask + 2) & 0x20) == 0)
-      {
-        goto LABEL_90;
-      }
-    }
-
-    if ((gBBULogVerbosity & 0x80000000) == 0)
-    {
-      boost::core::demangle(&__dst, (0x80000001E538FB24 & 0x7FFFFFFFFFFFFFFFLL));
-      if ((__dst.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-      {
-        v61 = &__dst;
-      }
-
-      else
-      {
-        LOBYTE(v61) = __dst.__r_.__value_.__s.__data_[0];
-      }
-
-      v70 = v48[8];
-      _BBULog(21, 0, "BBUpdaterController", "", "processing event: %s, current state %d [%s]\n", v58, v59, v60, v61);
-      if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(__dst.__r_.__value_.__l.__data_);
-      }
-    }
-
-LABEL_90:
-    boost::msm::back::state_machine<BBUpdaterControllerFSM::ControllerFSM_TOP,boost::parameter::void_,boost::parameter::void_,boost::parameter::void_,boost::parameter::void_>::process_event_internal<BBUpdaterControllerFSM::eventRepersonalize>(cf.__r_.__value_.__l.__data_, &v72, 1);
-    if (gBBULogMaskGet(void)::once == -1)
-    {
-      if ((*(gBBULogMaskGet(void)::sBBULogMask + 2) & 0x20) != 0)
-      {
-LABEL_92:
-        if ((gBBULogVerbosity & 0x80000000) == 0)
-        {
-          boost::core::demangle(&__dst, (0x80000001E538FB24 & 0x7FFFFFFFFFFFFFFFLL));
-          if ((__dst.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-          {
-            v65 = &__dst;
-          }
-
-          else
-          {
-            LOBYTE(v65) = __dst.__r_.__value_.__s.__data_[0];
-          }
-
-          _BBULog(21, 0, "BBUpdaterController", "", "finish processing event: %s\n", v62, v63, v64, v65);
-          if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
-          {
-            operator delete(__dst.__r_.__value_.__l.__data_);
-          }
-        }
-      }
-    }
-
-    else
-    {
-      dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
-      if ((*(gBBULogMaskGet(void)::sBBULogMask + 2) & 0x20) != 0)
-      {
-        goto LABEL_92;
-      }
-    }
-
-    if (SHIBYTE(value[0].__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(value[0].__r_.__value_.__l.__data_);
-    }
-
-    v66 = cf.__r_.__value_.__l.__size_;
-    if (cf.__r_.__value_.__l.__size_ && !atomic_fetch_add((cf.__r_.__value_.__l.__size_ + 8), 0xFFFFFFFFFFFFFFFFLL))
-    {
-      (v66->__on_zero_shared)(v66);
-      std::__shared_weak_count::__release_weak(v66);
-    }
-
-    goto LABEL_103;
-  }
-
-  if (v14)
-  {
-    if (gBBULogMaskGet(void)::once == -1)
-    {
-      if ((*gBBULogMaskGet(void)::sBBULogMask & 2) != 0)
-      {
-        goto LABEL_136;
-      }
-    }
-
-    else
-    {
-      dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
-      if ((*gBBULogMaskGet(void)::sBBULogMask & 2) != 0)
-      {
-LABEL_136:
-        if (gBBULogVerbosity >= 6)
-        {
-          _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", v44, v45, v46, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp");
-        }
-      }
-    }
-
-    std::string::basic_string[abi:ne200100]<0>(&__dst, "Fail to perform finalization.");
+    operator delete(value[0].__r_.__value_.__l.__data_);
     if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
     {
-      std::string::__init_copy_ctor_external(value, __dst.__r_.__value_.__l.__data_, __dst.__r_.__value_.__l.__size_);
-    }
-
-    else
-    {
-      value[0] = __dst;
-    }
-
-    value[1].__r_.__value_.__r.__words[0] = v14;
-    BBUpdaterController::process_event<BBUpdaterControllerFSM::eventError>(this, value);
-    if (SHIBYTE(value[0].__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(value[0].__r_.__value_.__l.__data_);
-    }
-
-    if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
-    {
+LABEL_155:
       operator delete(__dst.__r_.__value_.__l.__data_);
     }
-
-    goto LABEL_103;
   }
 
-  BBUpdaterController::process_event<BBUpdaterControllerFSM::eventContinue>(*(this + 2), *(this + 3), value);
-  CFDictionarySetValue(*(this + 4), @"done", *MEMORY[0x1E695E4D0]);
-LABEL_103:
-  (*(*v6 + 16))(v6);
-LABEL_104:
-  v67 = *MEMORY[0x1E69E9840];
+  else if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
+  {
+    goto LABEL_155;
+  }
 }
 
-void sub_1E525B750(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, uint64_t a18, void *__p, uint64_t a20, int a21, __int16 a22, char a23, char a24, void *a25, uint64_t a26, int a27, __int16 a28, char a29, char a30)
+void sub_1E525B750(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, uint64_t a18, void *__p, uint64_t a20, int a21, __int16 a22, char a23, char a24, void *a25, uint64_t a26, int a27, __int16 a28, char a29, char a30)
 {
   if (a24 < 0)
   {
     operator delete(__p);
   }
 
-  (*(*v30 + 16))(v30);
+  (*(*v30 + 16))(v30, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
 uint64_t BBUpdaterController::collectCoredumpInternal(BBUpdaterController *this)
 {
-  memset(&v87, 0, sizeof(v87));
+  memset(&v44, 0, sizeof(v44));
   v2 = *(this + 7);
   BBUFeedback::handleComment(v2, "entering %s", "StageContext::Coredump");
-  v3 = *(v2 + 144);
-  v4 = *(v2 + 152);
-  v5 = *(v2 + 144);
-  if (v4 == v5)
+  v3 = *(v2 + 19);
+  v4 = *(v2 + 18);
+  if (v3 == v4)
   {
-    v6 = 0;
+    v5 = 0;
   }
 
   else
   {
-    v6 = ((v4 - v5) << 7) - 1;
+    v5 = ((v3 - v4) << 7) - 1;
   }
 
-  v7 = *(v2 + 176);
-  v8 = v7 + *(v2 + 168);
-  if (v6 == v8)
+  v6 = *(v2 + 22);
+  v7 = v6 + *(v2 + 21);
+  if (v5 == v7)
   {
     std::deque<BBUpdaterCommon::StageContext>::__add_back_capacity(v2 + 136);
-    v5 = *(v2 + 144);
-    v7 = *(v2 + 176);
-    v8 = *(v2 + 168) + v7;
+    v4 = *(v2 + 18);
+    v6 = *(v2 + 22);
+    v7 = *(v2 + 21) + v6;
   }
 
-  *(*(v5 + ((v8 >> 7) & 0x1FFFFFFFFFFFFF8)) + 4 * (v8 & 0x3FF)) = 8;
-  *(v2 + 176) = v7 + 1;
+  *(*(v4 + ((v7 >> 7) & 0x1FFFFFFFFFFFFF8)) + 4 * (v7 & 0x3FF)) = 8;
+  *(v2 + 22) = v6 + 1;
   memset(&__p, 170, sizeof(__p));
   if (BBUpdaterCommon::inRestoreOS(void)::sOnceRestoreOS == -1)
   {
@@ -8836,11 +8736,11 @@ LABEL_9:
   }
 
 LABEL_13:
-  BBUpdaterController::getCoreDumpPath(&v90, this);
-  bbufs::createDirectoryWithTimestamp(&v90.__r_.__value_.__l.__data_, &__p);
-  if (SHIBYTE(v90.__r_.__value_.__r.__words[2]) < 0)
+  BBUpdaterController::getCoreDumpPath(&v47, this);
+  bbufs::createDirectoryWithTimestamp(&v47.__r_.__value_.__l.__data_, &__p);
+  if (SHIBYTE(v47.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v90.__r_.__value_.__l.__data_);
+    operator delete(v47.__r_.__value_.__l.__data_);
   }
 
 LABEL_15:
@@ -8875,52 +8775,52 @@ LABEL_15:
 LABEL_98:
         if (gBBULogVerbosity >= 6)
         {
-          _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", v10, v11, v12, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp");
+          _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 2843, "!path.empty()");
         }
       }
     }
 
-    std::string::basic_string[abi:ne200100]<0>(&v89, "core dump path unavailable or not specified.");
-    if (SHIBYTE(v89.__r_.__value_.__r.__words[2]) < 0)
+    std::string::basic_string[abi:ne200100]<0>(&v46, "core dump path unavailable or not specified.");
+    if (SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
     {
-      std::string::__init_copy_ctor_external(&v90, v89.__r_.__value_.__l.__data_, v89.__r_.__value_.__l.__size_);
+      std::string::__init_copy_ctor_external(&v47, v46.__r_.__value_.__l.__data_, v46.__r_.__value_.__l.__size_);
     }
 
     else
     {
-      v90 = v89;
+      v47 = v46;
     }
 
-    v91 = 2;
-    BBUpdaterController::process_event<BBUpdaterControllerFSM::eventError>(this, &v90);
-    if (SHIBYTE(v90.__r_.__value_.__r.__words[2]) < 0)
+    v48 = 2;
+    BBUpdaterController::process_event<BBUpdaterControllerFSM::eventError>(this, &v47);
+    if (SHIBYTE(v47.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v90.__r_.__value_.__l.__data_);
+      operator delete(v47.__r_.__value_.__l.__data_);
     }
 
-    if (SHIBYTE(v89.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v89.__r_.__value_.__l.__data_);
+      operator delete(v46.__r_.__value_.__l.__data_);
     }
 
     FirmwareDataSource = 0;
-    v35 = 0;
-    v36 = 2;
+    v22 = 0;
+    v23 = 2;
     goto LABEL_41;
   }
 
   eUICC::DumpRecords(&__p.__r_.__value_.__l.__data_);
   if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v14 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+    v10 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
   }
 
   else
   {
-    v14 = __p.__r_.__value_.__l.__size_;
+    v10 = __p.__r_.__value_.__l.__size_;
   }
 
-  if (!v14)
+  if (!v10)
   {
     BBUFeedback::handleComment(*(this + 7), "Invalid path pointer to create coredump directory");
     goto LABEL_34;
@@ -8932,10 +8832,10 @@ LABEL_98:
     goto LABEL_34;
   }
 
-  v15 = getpwnam("_wireless");
-  if (!v15)
+  v11 = getpwnam("_wireless");
+  if (!v11)
   {
-    _BBUFSDebugPrint("getWirelessID", "failed to get uid and gid information for _wireless\n", v16, v17, v18, v19, v20, v21, v83);
+    _BBUFSDebugPrint("getWirelessID", "failed to get uid and gid information for _wireless\n");
     BBUFeedback::handleComment(*(this + 7), "Failed to get uid and gid information for _wireless:_wireless");
 LABEL_34:
     if (gBBULogMaskGet(void)::once == -1)
@@ -8954,60 +8854,59 @@ LABEL_34:
 LABEL_36:
         if (gBBULogVerbosity >= 6)
         {
-          _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", v29, v30, v31, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp");
+          _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 2848, "kBBUReturnSuccess == ret");
         }
       }
     }
 
-    v32 = operator new(0x20uLL);
-    strcpy(v32, "failed to create dump path");
-    std::string::__init_copy_ctor_external(&v90, v32, 0x1AuLL);
-    v91 = 1;
-    BBUpdaterController::process_event<BBUpdaterControllerFSM::eventError>(this, &v90);
-    if (SHIBYTE(v90.__r_.__value_.__r.__words[2]) < 0)
+    v19 = operator new(0x20uLL);
+    strcpy(v19, "failed to create dump path");
+    std::string::__init_copy_ctor_external(&v47, v19, 0x1AuLL);
+    v48 = 1;
+    BBUpdaterController::process_event<BBUpdaterControllerFSM::eventError>(this, &v47);
+    if (SHIBYTE(v47.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v90.__r_.__value_.__l.__data_);
+      operator delete(v47.__r_.__value_.__l.__data_);
     }
 
-    operator delete(v32);
+    operator delete(v19);
     FirmwareDataSource = 0;
-    v35 = 0;
-    v36 = 1;
+    v22 = 0;
+    v23 = 1;
     goto LABEL_41;
   }
 
-  pw_uid = v15->pw_uid;
-  pw_gid = v15->pw_gid;
+  pw_uid = v11->pw_uid;
+  pw_gid = v11->pw_gid;
   if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v24 = &__p;
+    v14 = &__p;
   }
 
   else
   {
-    v24 = __p.__r_.__value_.__r.__words[0];
+    v14 = __p.__r_.__value_.__r.__words[0];
   }
 
-  v25 = chown(v24, pw_uid, pw_gid);
-  if (v25)
+  v15 = chown(v14, pw_uid, pw_gid);
+  if (v15)
   {
-    v26 = *(this + 7);
-    v27 = __error();
-    v28 = strerror(*v27);
-    BBUFeedback::handleComment(v26, "Failed changing owner of coredump directory:  %s", v28);
+    v16 = *(this + 7);
+    v17 = __error();
+    v18 = strerror(*v17);
+    BBUFeedback::handleComment(v16, "Failed changing owner of coredump directory:  %s", v18);
     goto LABEL_34;
   }
 
-  if (capabilities::radio::supportsBasebandStateController(v25))
+  if (capabilities::radio::supportsBasebandStateController(v15))
   {
-    v44 = *(this + 6);
     TelephonyBasebandSetBasebandState();
   }
 
   (*(**(this + 9) + 56))(*(this + 9), *(this + 6), 0);
   (*(**(this + 9) + 144))(*(this + 9), 2);
-  InfoFirstStageInternal = BBUpdaterController::queryInfoFirstStageInternal(this, v45);
-  v36 = InfoFirstStageInternal;
+  InfoFirstStageInternal = BBUpdaterController::queryInfoFirstStageInternal(this, v30);
+  v23 = InfoFirstStageInternal;
   if (InfoFirstStageInternal)
   {
     if (gBBULogMaskGet(void)::once == -1)
@@ -9031,13 +8930,13 @@ LABEL_36:
 
     if (gBBULogVerbosity >= 6)
     {
-      InfoFirstStageInternal = _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", v46, v47, v48, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp");
+      InfoFirstStageInternal = _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 2861, "kBBUReturnSuccess == ret");
       FirmwareDataSource = 0;
       goto LABEL_167;
     }
 
 LABEL_184:
-    v35 = 0;
+    v22 = 0;
     goto LABEL_41;
   }
 
@@ -9060,35 +8959,35 @@ LABEL_184:
 LABEL_116:
         if (gBBULogVerbosity >= 6)
         {
-          _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", v49, v50, v51, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp");
+          _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 2786, "updateSource");
         }
       }
     }
 
-    std::string::basic_string[abi:ne200100]<0>(&v89, "Fail to get firmware data source\n");
-    if (SHIBYTE(v89.__r_.__value_.__r.__words[2]) < 0)
+    std::string::basic_string[abi:ne200100]<0>(&v46, "Fail to get firmware data source\n");
+    if (SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
     {
-      std::string::__init_copy_ctor_external(&v90, v89.__r_.__value_.__l.__data_, v89.__r_.__value_.__l.__size_);
+      std::string::__init_copy_ctor_external(&v47, v46.__r_.__value_.__l.__data_, v46.__r_.__value_.__l.__size_);
     }
 
     else
     {
-      v90 = v89;
+      v47 = v46;
     }
 
-    v91 = 35;
-    BBUpdaterController::process_event<BBUpdaterControllerFSM::eventError>(this, &v90);
-    if (SHIBYTE(v90.__r_.__value_.__r.__words[2]) < 0)
+    v48 = 35;
+    BBUpdaterController::process_event<BBUpdaterControllerFSM::eventError>(this, &v47);
+    if (SHIBYTE(v47.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v90.__r_.__value_.__l.__data_);
+      operator delete(v47.__r_.__value_.__l.__data_);
     }
 
-    if (SHIBYTE(v89.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v89.__r_.__value_.__l.__data_);
+      operator delete(v46.__r_.__value_.__l.__data_);
     }
 
-    v85 = 0;
+    v42 = 0;
 LABEL_152:
     if (gBBULogMaskGet(void)::once == -1)
     {
@@ -9106,98 +9005,98 @@ LABEL_152:
 LABEL_154:
         if (gBBULogVerbosity >= 6)
         {
-          _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", v62, v63, v64, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp");
+          _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 2867, "updateSource");
         }
       }
     }
 
-    std::string::basic_string[abi:ne200100]<0>(&v89, "Fail to get update source for collectCoredump\n");
-    if (SHIBYTE(v89.__r_.__value_.__r.__words[2]) < 0)
+    std::string::basic_string[abi:ne200100]<0>(&v46, "Fail to get update source for collectCoredump\n");
+    if (SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
     {
-      std::string::__init_copy_ctor_external(&v90, v89.__r_.__value_.__l.__data_, v89.__r_.__value_.__l.__size_);
+      std::string::__init_copy_ctor_external(&v47, v46.__r_.__value_.__l.__data_, v46.__r_.__value_.__l.__size_);
     }
 
     else
     {
-      v90 = v89;
+      v47 = v46;
     }
 
-    v91 = 35;
-    BBUpdaterController::process_event<BBUpdaterControllerFSM::eventError>(this, &v90);
-    if (SHIBYTE(v90.__r_.__value_.__r.__words[2]) < 0)
+    v48 = 35;
+    BBUpdaterController::process_event<BBUpdaterControllerFSM::eventError>(this, &v47);
+    if (SHIBYTE(v47.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v90.__r_.__value_.__l.__data_);
+      operator delete(v47.__r_.__value_.__l.__data_);
     }
 
-    if (SHIBYTE(v89.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v89.__r_.__value_.__l.__data_);
+      operator delete(v46.__r_.__value_.__l.__data_);
     }
 
     FirmwareDataSource = 0;
-    v36 = 0;
+    v23 = 0;
     goto LABEL_167;
   }
 
-  v52 = *(this + 12);
-  if (v52)
+  v31 = *(this + 12);
+  if (v31)
   {
-    v53 = (*(**(v52 + 16) + 24))(*(v52 + 16));
-    (*(*FirmwareDataSource + 200))(FirmwareDataSource, v53);
-    v54 = (*(**(*(this + 12) + 24) + 24))(*(*(this + 12) + 24));
-    (*(*FirmwareDataSource + 208))(FirmwareDataSource, v54);
+    v32 = (*(**(v31 + 16) + 24))(*(v31 + 16));
+    (*(*FirmwareDataSource + 200))(FirmwareDataSource, v32);
+    v33 = (*(**(*(this + 12) + 24) + 24))(*(*(this + 12) + 24));
+    (*(*FirmwareDataSource + 208))(FirmwareDataSource, v33);
   }
 
   if (!(*(*FirmwareDataSource + 88))(FirmwareDataSource))
   {
-    v85 = FirmwareDataSource;
+    v42 = FirmwareDataSource;
     goto LABEL_81;
   }
 
   (*(*FirmwareDataSource + 16))(FirmwareDataSource);
   BBUFeedback::handleComment(*(this + 7), "Source doesn’t contain coredump programmer, falling back to folder");
-  memset(&v89, 170, sizeof(v89));
-  FirmwareFolder = BBUpdaterController::getFirmwareFolder(&v89, *(this + 5));
-  v56 = HIBYTE(v89.__r_.__value_.__r.__words[2]);
-  if ((v89.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+  memset(&v46, 170, sizeof(v46));
+  FirmwareFolder = BBUpdaterController::getFirmwareFolder(&v46, *(this + 5));
+  v35 = HIBYTE(v46.__r_.__value_.__r.__words[2]);
+  if ((v46.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
   {
-    v56 = v89.__r_.__value_.__l.__size_;
+    v35 = v46.__r_.__value_.__l.__size_;
   }
 
-  if (!v56)
+  if (!v35)
   {
-    capabilities::radio::personalizedFirmwarePath(&v90, FirmwareFolder);
-    if (SHIBYTE(v89.__r_.__value_.__r.__words[2]) < 0)
+    capabilities::radio::personalizedFirmwarePath(&v47, FirmwareFolder);
+    if (SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v89.__r_.__value_.__l.__data_);
+      operator delete(v46.__r_.__value_.__l.__data_);
     }
 
-    v89 = v90;
-    if (SHIBYTE(v90.__r_.__value_.__r.__words[2]) < 0)
+    v46 = v47;
+    if (SHIBYTE(v47.__r_.__value_.__r.__words[2]) < 0)
     {
-      if (v89.__r_.__value_.__l.__size_)
+      if (v46.__r_.__value_.__l.__size_)
       {
-        v57 = v89.__r_.__value_.__r.__words[0];
+        v36 = v46.__r_.__value_.__r.__words[0];
         goto LABEL_75;
       }
     }
 
-    else if (*(&v90.__r_.__value_.__s + 23))
+    else if (*(&v47.__r_.__value_.__s + 23))
     {
-      v57 = &v89;
+      v36 = &v46;
 LABEL_75:
-      BBUFeedback::handleComment(*(this + 7), "Baseband fw path that is used: %s\n", v57);
+      BBUFeedback::handleComment(*(this + 7), "Baseband fw path that is used: %s\n", v36);
       goto LABEL_76;
     }
 
     exception = __cxa_allocate_exception(0x210uLL);
-    _BBUException::_BBUException(exception, 35, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 0xAF6u, "Assertion failure(folder.empty() != true && Failed finding the bbfw path.)", v80, v81, v82, v83);
+    _BBUException::_BBUException(exception, 35, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 0xAF6u, "Assertion failure(folder.empty() != true && Failed finding the bbfw path.)");
   }
 
 LABEL_76:
-  v58 = BBUUpdateSource::createFromFolder(&v89, *(this + 7), 0);
-  FirmwareDataSource = v58;
-  if (!v58)
+  v37 = BBUUpdateSource::createFromFolder(&v46, *(this + 7), 0);
+  FirmwareDataSource = v37;
+  if (!v37)
   {
     if (gBBULogMaskGet(void)::once == -1)
     {
@@ -9215,29 +9114,29 @@ LABEL_76:
 LABEL_136:
         if (gBBULogVerbosity >= 6)
         {
-          _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", v59, v60, v61, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp");
+          _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 2812, "updateSource");
         }
       }
     }
 
-    std::string::basic_string[abi:ne200100]<0>(&v88, "Fail to get update source from folder\n");
-    if (SHIBYTE(v88.__r_.__value_.__r.__words[2]) < 0)
+    std::string::basic_string[abi:ne200100]<0>(&v45, "Fail to get update source from folder\n");
+    if (SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
     {
-      std::string::__init_copy_ctor_external(&v90, v88.__r_.__value_.__l.__data_, v88.__r_.__value_.__l.__size_);
+      std::string::__init_copy_ctor_external(&v47, v45.__r_.__value_.__l.__data_, v45.__r_.__value_.__l.__size_);
     }
 
     else
     {
-      v90 = v88;
+      v47 = v45;
     }
 
-    v91 = 35;
-    BBUpdaterController::process_event<BBUpdaterControllerFSM::eventError>(this, &v90);
+    v48 = 35;
+    BBUpdaterController::process_event<BBUpdaterControllerFSM::eventError>(this, &v47);
     goto LABEL_177;
   }
 
-  v65 = (*(*v58 + 88))(v58);
-  if (!v65)
+  v38 = (*(*v37 + 88))(v37);
+  if (!v38)
   {
     goto LABEL_78;
   }
@@ -9258,50 +9157,50 @@ LABEL_136:
 LABEL_142:
       if (gBBULogVerbosity >= 6)
       {
-        _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", v62, v63, v64, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp");
+        _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 2816, "kBBUReturnSuccess == ret");
       }
     }
   }
 
-  std::string::basic_string[abi:ne200100]<0>(&v88, "Miss image for collecting coredump");
-  if (SHIBYTE(v88.__r_.__value_.__r.__words[2]) < 0)
+  std::string::basic_string[abi:ne200100]<0>(&v45, "Miss image for collecting coredump");
+  if (SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v90, v88.__r_.__value_.__l.__data_, v88.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v47, v45.__r_.__value_.__l.__data_, v45.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v90 = v88;
+    v47 = v45;
   }
 
-  v91 = v65;
-  BBUpdaterController::process_event<BBUpdaterControllerFSM::eventError>(this, &v90);
+  v48 = v38;
+  BBUpdaterController::process_event<BBUpdaterControllerFSM::eventError>(this, &v47);
 LABEL_177:
-  if (SHIBYTE(v90.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v47.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v90.__r_.__value_.__l.__data_);
+    operator delete(v47.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v88.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v88.__r_.__value_.__l.__data_);
+    operator delete(v45.__r_.__value_.__l.__data_);
   }
 
 LABEL_78:
-  if (SHIBYTE(v89.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v89.__r_.__value_.__l.__data_);
+    operator delete(v46.__r_.__value_.__l.__data_);
   }
 
-  v85 = FirmwareDataSource;
+  v42 = FirmwareDataSource;
   if (!FirmwareDataSource)
   {
     goto LABEL_152;
   }
 
 LABEL_81:
-  v36 = BBUpdaterController::performFirstStageInternal(this, 0, &v85, &v87);
-  if (v36)
+  v23 = BBUpdaterController::performFirstStageInternal(this, 0, &v42, &v44);
+  if (v23)
   {
     if (gBBULogMaskGet(void)::once == -1)
     {
@@ -9319,38 +9218,38 @@ LABEL_81:
 LABEL_122:
         if (gBBULogVerbosity >= 6)
         {
-          _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", v66, v67, v68, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp");
+          _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 2871, "kBBUReturnSuccess == ret");
         }
       }
     }
 
-    if (SHIBYTE(v87.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v44.__r_.__value_.__r.__words[2]) < 0)
     {
-      std::string::__init_copy_ctor_external(&v90, v87.__r_.__value_.__l.__data_, v87.__r_.__value_.__l.__size_);
+      std::string::__init_copy_ctor_external(&v47, v44.__r_.__value_.__l.__data_, v44.__r_.__value_.__l.__size_);
     }
 
     else
     {
-      v90 = v87;
+      v47 = v44;
     }
 
-    v91 = v36;
-    BBUpdaterController::process_event<BBUpdaterControllerFSM::eventError>(this, &v90);
-    if (SHIBYTE(v90.__r_.__value_.__r.__words[2]) < 0)
+    v48 = v23;
+    BBUpdaterController::process_event<BBUpdaterControllerFSM::eventError>(this, &v47);
+    if (SHIBYTE(v47.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v90.__r_.__value_.__l.__data_);
+      operator delete(v47.__r_.__value_.__l.__data_);
     }
 
     goto LABEL_167;
   }
 
-  InfoFirstStageInternal = BBUpdaterController::queryInfoSecondStageInternal(this, 0, &v85);
-  v36 = InfoFirstStageInternal;
+  InfoFirstStageInternal = BBUpdaterController::queryInfoSecondStageInternal(this, 0, &v42);
+  v23 = InfoFirstStageInternal;
   if (InfoFirstStageInternal)
   {
     if (gBBULogMaskGet(void)::once == -1)
     {
-      v35 = 0;
+      v22 = 0;
       if ((*gBBULogMaskGet(void)::sBBULogMask & 2) == 0)
       {
         goto LABEL_41;
@@ -9360,7 +9259,7 @@ LABEL_122:
     else
     {
       dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
-      v35 = 0;
+      v22 = 0;
       if ((*gBBULogMaskGet(void)::sBBULogMask & 2) == 0)
       {
         goto LABEL_41;
@@ -9372,15 +9271,15 @@ LABEL_122:
       goto LABEL_41;
     }
 
-    InfoFirstStageInternal = _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", v69, v70, v71, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp");
+    InfoFirstStageInternal = _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 2874, "kBBUReturnSuccess == ret");
 LABEL_167:
-    v35 = 0;
+    v22 = 0;
     goto LABEL_41;
   }
 
-  v35 = (*(*FirmwareDataSource + 72))(FirmwareDataSource);
-  InfoFirstStageInternal = BBUProgrammer::addItemsFromList(*(this + 11), v35);
-  v36 = InfoFirstStageInternal;
+  v22 = (*(*FirmwareDataSource + 72))(FirmwareDataSource);
+  InfoFirstStageInternal = BBUProgrammer::addItemsFromList(*(this + 11), v22);
+  v23 = InfoFirstStageInternal;
   if (InfoFirstStageInternal)
   {
     if (gBBULogMaskGet(void)::once == -1)
@@ -9402,31 +9301,31 @@ LABEL_167:
 
     if (gBBULogVerbosity >= 6)
     {
-      InfoFirstStageInternal = _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", v72, v73, v74, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp");
+      InfoFirstStageInternal = _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 2878, "kBBUReturnSuccess == ret");
     }
   }
 
   else
   {
-    v75 = *(this + 11);
+    v39 = *(this + 11);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
-      std::string::__init_copy_ctor_external(&v84, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
+      std::string::__init_copy_ctor_external(&v41, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
     }
 
     else
     {
-      v84 = __p;
+      v41 = __p;
     }
 
-    InfoFirstStageInternal = (*(*v75 + 88))(v75, 0, &v84);
-    v36 = InfoFirstStageInternal;
-    if (SHIBYTE(v84.__r_.__value_.__r.__words[2]) < 0)
+    InfoFirstStageInternal = (*(*v39 + 88))(v39, 0, &v41);
+    v23 = InfoFirstStageInternal;
+    if (SHIBYTE(v41.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v84.__r_.__value_.__l.__data_);
+      operator delete(v41.__r_.__value_.__l.__data_);
     }
 
-    if (v36)
+    if (v23)
     {
       if (gBBULogMaskGet(void)::once == -1)
       {
@@ -9444,32 +9343,32 @@ LABEL_167:
 LABEL_92:
           if (gBBULogVerbosity >= 6)
           {
-            _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", v76, v77, v78, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp");
+            _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 2882, "kBBUReturnSuccess == ret");
           }
         }
       }
 
-      std::string::basic_string[abi:ne200100]<0>(&v89, "Fail to run collectCoreDump");
-      if (SHIBYTE(v89.__r_.__value_.__r.__words[2]) < 0)
+      std::string::basic_string[abi:ne200100]<0>(&v46, "Fail to run collectCoreDump");
+      if (SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
       {
-        std::string::__init_copy_ctor_external(&v90, v89.__r_.__value_.__l.__data_, v89.__r_.__value_.__l.__size_);
+        std::string::__init_copy_ctor_external(&v47, v46.__r_.__value_.__l.__data_, v46.__r_.__value_.__l.__size_);
       }
 
       else
       {
-        v90 = v89;
+        v47 = v46;
       }
 
-      v91 = v36;
-      BBUpdaterController::process_event<BBUpdaterControllerFSM::eventError>(this, &v90);
-      if (SHIBYTE(v90.__r_.__value_.__r.__words[2]) < 0)
+      v48 = v23;
+      BBUpdaterController::process_event<BBUpdaterControllerFSM::eventError>(this, &v47);
+      if (SHIBYTE(v47.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v90.__r_.__value_.__l.__data_);
+        operator delete(v47.__r_.__value_.__l.__data_);
       }
 
-      if (SHIBYTE(v89.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v89.__r_.__value_.__l.__data_);
+        operator delete(v46.__r_.__value_.__l.__data_);
       }
     }
   }
@@ -9477,43 +9376,42 @@ LABEL_92:
 LABEL_41:
   if (capabilities::radio::supportsBasebandStateController(InfoFirstStageInternal))
   {
-    v37 = *(this + 6);
     TelephonyBasebandSetBasebandState();
   }
 
-  v38 = *(this + 11);
+  v24 = *(this + 11);
   *(this + 11) = 0;
-  if (v38)
+  if (v24)
   {
-    (*(*v38 + 8))(v38);
+    (*(*v24 + 8))(v24);
   }
 
   (*(**(this + 8) + 40))(*(this + 8), this + 152);
   BBUFeedback::exitStageContext(*(this + 7));
-  if (v35)
+  if (v22)
   {
-    if (v35[2])
+    if (v22[2])
     {
-      v39 = v35[1];
-      v40 = *(*v35 + 8);
-      v41 = *v39;
-      *(v41 + 8) = v40;
-      *v40 = v41;
-      v35[2] = 0;
-      if (v39 != v35)
+      v25 = v22[1];
+      v26 = *(*v22 + 8);
+      v27 = *v25;
+      *(v27 + 8) = v26;
+      *v26 = v27;
+      v22[2] = 0;
+      if (v25 != v22)
       {
         do
         {
-          v42 = v39[1];
-          operator delete(v39);
-          v39 = v42;
+          v28 = v25[1];
+          operator delete(v25);
+          v25 = v28;
         }
 
-        while (v42 != v35);
+        while (v28 != v22);
       }
     }
 
-    operator delete(v35);
+    operator delete(v22);
   }
 
   if (FirmwareDataSource)
@@ -9524,22 +9422,22 @@ LABEL_41:
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
-    if ((SHIBYTE(v87.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+    if ((SHIBYTE(v44.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
-      return v36;
+      return v23;
     }
 
 LABEL_56:
-    operator delete(v87.__r_.__value_.__l.__data_);
-    return v36;
+    operator delete(v44.__r_.__value_.__l.__data_);
+    return v23;
   }
 
-  if (SHIBYTE(v87.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v44.__r_.__value_.__r.__words[2]) < 0)
   {
     goto LABEL_56;
   }
 
-  return v36;
+  return v23;
 }
 
 void sub_1E525CACC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, uint64_t a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, void *a27, uint64_t a28, int a29, __int16 a30, char a31, char a32, void *__p, uint64_t a34, int a35, __int16 a36, char a37, char a38)
@@ -9567,10 +9465,11 @@ void sub_1E525CACC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void BBUpdaterController::handleError(uint64_t a1, std::string *a2, int a3)
+void BBUpdaterController::handleError(uint64_t a1, std::string *a2, uint64_t a3)
 {
+  v3 = a3;
   BBUFeedback::handleBeginPhase(*(a1 + 56), "handleError");
-  BBUpdaterController::dumpDebugLogBuffer(a1, a3, v6, v7, v8, v9, v10, v11);
+  BBUpdaterController::dumpDebugLogBuffer(a1, v3);
   if (*(a1 + 360) == 1)
   {
     if (BBUpdaterCommon::inRestoreOS(void)::sOnceRestoreOS == -1)
@@ -9614,55 +9513,55 @@ LABEL_6:
         dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
       }
 
-      _BBULog(19, 0xFFFFFFFFLL, "BBUpdaterController", "", "enabling kernel IPC log for coredump\n", v12, v13, v14, v59);
+      _BBULog(19, 0xFFFFFFFFLL, "BBUpdaterController", "", "enabling kernel IPC log for coredump\n");
       (*(**(a1 + 120) + 32))(*(a1 + 120));
     }
 
 LABEL_10:
     *(a1 + 360) = 0;
-    v15 = BBUpdaterController::collectCoredumpInternal(a1);
-    BBUpdaterController::dumpDebugLogBuffer(a1, v15, v16, v17, v18, v19, v20, v21);
-    if (!v15)
+    v6 = BBUpdaterController::collectCoredumpInternal(a1);
+    BBUpdaterController::dumpDebugLogBuffer(a1, v6);
+    if (!v6)
     {
       std::string::append(a2, " [coredump collected]", 0x15uLL);
       BBUpdaterController::getCoreDumpPath(&__p, a1);
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
-        std::string::__init_copy_ctor_external(&v63, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
+        std::string::__init_copy_ctor_external(&v44, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
       }
 
       else
       {
-        v63 = __p;
+        v44 = __p;
       }
 
-      v62 = 0;
-      if (SHIBYTE(v63.__r_.__value_.__r.__words[2]) < 0)
+      v43 = 0;
+      if (SHIBYTE(v44.__r_.__value_.__r.__words[2]) < 0)
       {
-        std::string::__init_copy_ctor_external(&block, v63.__r_.__value_.__l.__data_, v63.__r_.__value_.__l.__size_);
+        std::string::__init_copy_ctor_external(&block, v44.__r_.__value_.__l.__data_, v44.__r_.__value_.__l.__size_);
       }
 
       else
       {
-        block = v63;
+        block = v44;
       }
 
       if (SHIBYTE(block.__r_.__value_.__r.__words[2]) < 0)
       {
-        std::string::__init_copy_ctor_external(&v64, block.__r_.__value_.__l.__data_, block.__r_.__value_.__l.__size_);
+        std::string::__init_copy_ctor_external(&v45, block.__r_.__value_.__l.__data_, block.__r_.__value_.__l.__size_);
       }
 
       else
       {
-        v64 = block;
+        v45 = block;
       }
 
-      v26 = *MEMORY[0x1E695E480];
+      v8 = *MEMORY[0x1E695E480];
       if (ctu::cf::convert_copy())
       {
-        v27 = CFURLCreateWithString(v26, 0xAAAAAAAAAAAAAAAALL, 0);
+        v9 = CFURLCreateWithString(v8, 0xAAAAAAAAAAAAAAAALL, 0);
         CFRelease(0xAAAAAAAAAAAAAAAALL);
-        if ((SHIBYTE(v64.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+        if ((SHIBYTE(v45.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
         {
           goto LABEL_24;
         }
@@ -9670,8 +9569,8 @@ LABEL_10:
 
       else
       {
-        v27 = 0;
-        if ((SHIBYTE(v64.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+        v9 = 0;
+        if ((SHIBYTE(v45.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
         {
 LABEL_24:
           if ((SHIBYTE(block.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
@@ -9683,12 +9582,12 @@ LABEL_24:
         }
       }
 
-      operator delete(v64.__r_.__value_.__l.__data_);
+      operator delete(v45.__r_.__value_.__l.__data_);
       if ((SHIBYTE(block.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
       {
 LABEL_25:
-        v61 = v27;
-        if ((SHIBYTE(v63.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+        v42 = v9;
+        if ((SHIBYTE(v44.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
         {
           goto LABEL_26;
         }
@@ -9698,8 +9597,8 @@ LABEL_25:
 
 LABEL_33:
       operator delete(block.__r_.__value_.__l.__data_);
-      v61 = v27;
-      if ((SHIBYTE(v63.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+      v42 = v9;
+      if ((SHIBYTE(v44.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
       {
 LABEL_26:
         if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
@@ -9710,17 +9609,17 @@ LABEL_26:
 LABEL_35:
         operator delete(__p.__r_.__value_.__l.__data_);
 LABEL_27:
-        memset(&v64, 170, sizeof(v64));
-        BBUpdaterController::getCoreDumpPath(&v64, a1);
-        size = HIBYTE(v64.__r_.__value_.__r.__words[2]);
-        if ((v64.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+        memset(&v45, 170, sizeof(v45));
+        BBUpdaterController::getCoreDumpPath(&v45, a1);
+        size = HIBYTE(v45.__r_.__value_.__r.__words[2]);
+        if ((v45.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
         {
-          size = v64.__r_.__value_.__l.__size_;
+          size = v45.__r_.__value_.__l.__size_;
         }
 
         if (size)
         {
-          CFDictionarySetValue(*(a1 + 32), @"LogDirectory", v27);
+          CFDictionarySetValue(*(a1 + 32), @"LogDirectory", v9);
         }
 
         else
@@ -9728,21 +9627,21 @@ LABEL_27:
           BBUFeedback::handleComment(*(a1 + 56), "CoreDump path passed in to BBU is empty, skipping setting the coredump path for caller.");
         }
 
-        if (SHIBYTE(v64.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v64.__r_.__value_.__l.__data_);
-          if (!v27)
+          operator delete(v45.__r_.__value_.__l.__data_);
+          if (!v9)
           {
             goto LABEL_42;
           }
         }
 
-        else if (!v27)
+        else if (!v9)
         {
 LABEL_42:
-          v15 = 0;
+          v6 = 0;
           pthread_mutex_lock(&ctu::Singleton<BBUError,BBUError,ctu::PthreadMutexGuardPolicy<BBUError>>::sInstance);
-          v25 = off_1ED944120;
+          v7 = off_1ED944120;
           if (off_1ED944120)
           {
             goto LABEL_53;
@@ -9751,12 +9650,12 @@ LABEL_42:
           goto LABEL_43;
         }
 
-        CFRelease(v27);
+        CFRelease(v9);
         goto LABEL_42;
       }
 
 LABEL_34:
-      operator delete(v63.__r_.__value_.__l.__data_);
+      operator delete(v44.__r_.__value_.__l.__data_);
       if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
       {
         goto LABEL_27;
@@ -9784,13 +9683,13 @@ LABEL_34:
 
     if (gBBULogVerbosity >= 6)
     {
-      _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", v22, v23, v24, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp");
+      _BBULog(1, 6, "BBUpdaterController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/API/BBUpdaterController.cpp", 703, "kBBUReturnSuccess == ret");
     }
 
 LABEL_106:
-    BBUFeedback::handleComment(*(a1 + 56), "Fail to collect coredump after hitting fatal error: %s", BBUReturnAsString::BBUReturnStrings[v15]);
+    BBUFeedback::handleComment(*(a1 + 56), "Fail to collect coredump after hitting fatal error: %s", BBUReturnAsString::BBUReturnStrings[v6]);
     pthread_mutex_lock(&ctu::Singleton<BBUError,BBUError,ctu::PthreadMutexGuardPolicy<BBUError>>::sInstance);
-    v25 = off_1ED944120;
+    v7 = off_1ED944120;
     if (off_1ED944120)
     {
       goto LABEL_53;
@@ -9799,83 +9698,83 @@ LABEL_106:
     goto LABEL_43;
   }
 
-  v15 = 1;
+  v6 = 1;
   pthread_mutex_lock(&ctu::Singleton<BBUError,BBUError,ctu::PthreadMutexGuardPolicy<BBUError>>::sInstance);
-  v25 = off_1ED944120;
+  v7 = off_1ED944120;
   if (off_1ED944120)
   {
     goto LABEL_53;
   }
 
 LABEL_43:
-  v29 = operator new(0x38uLL);
-  v30 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_UTILITY, 0);
-  v31 = dispatch_queue_create("BBUError", v30);
-  *v29 = 0;
-  v29[1] = 0;
-  v29[2] = v31;
-  if (v31)
+  v11 = operator new(0x38uLL);
+  v12 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_UTILITY, 0);
+  v13 = dispatch_queue_create("BBUError", v12);
+  *v11 = 0;
+  v11[1] = 0;
+  v11[2] = v13;
+  if (v13)
   {
-    v32 = v31;
-    dispatch_retain(v31);
-    v29[3] = 0;
-    dispatch_release(v32);
+    v14 = v13;
+    dispatch_retain(v13);
+    v11[3] = 0;
+    dispatch_release(v14);
   }
 
   else
   {
-    v29[3] = 0;
+    v11[3] = 0;
   }
 
-  v29[4] = 0;
-  v29[5] = 0;
-  v29[6] = 0;
-  std::shared_ptr<BBUError>::shared_ptr[abi:ne200100]<BBUError,std::shared_ptr<BBUError> ctu::SharedSynchronizable<BBUError>::make_shared_ptr<BBUError>(BBUError*)::{lambda(BBUError*)#1},0>(&v64, v29);
-  v33 = *&v64.__r_.__value_.__l.__data_;
-  *&v64.__r_.__value_.__l.__data_ = 0uLL;
-  v34 = *(&off_1ED944120 + 1);
-  off_1ED944120 = v33;
-  if (v34 && !atomic_fetch_add(&v34->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v11[4] = 0;
+  v11[5] = 0;
+  v11[6] = 0;
+  std::shared_ptr<BBUError>::shared_ptr[abi:ne200100]<BBUError,std::shared_ptr<BBUError> ctu::SharedSynchronizable<BBUError>::make_shared_ptr<BBUError>(BBUError*)::{lambda(BBUError*)#1},0>(&v45, v11);
+  v15 = *&v45.__r_.__value_.__l.__data_;
+  *&v45.__r_.__value_.__l.__data_ = 0uLL;
+  v16 = *(&off_1ED944120 + 1);
+  off_1ED944120 = v15;
+  if (v16 && !atomic_fetch_add(&v16->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v34->__on_zero_shared)(v34);
-    std::__shared_weak_count::__release_weak(v34);
+    (v16->__on_zero_shared)(v16);
+    std::__shared_weak_count::__release_weak(v16);
   }
 
-  v35 = v64.__r_.__value_.__l.__size_;
-  if (v64.__r_.__value_.__l.__size_ && !atomic_fetch_add((v64.__r_.__value_.__l.__size_ + 8), 0xFFFFFFFFFFFFFFFFLL))
+  v17 = v45.__r_.__value_.__l.__size_;
+  if (v45.__r_.__value_.__l.__size_ && !atomic_fetch_add((v45.__r_.__value_.__l.__size_ + 8), 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v35->__on_zero_shared)(v35);
-    std::__shared_weak_count::__release_weak(v35);
+    (v17->__on_zero_shared)(v17);
+    std::__shared_weak_count::__release_weak(v17);
   }
 
-  v25 = off_1ED944120;
+  v7 = off_1ED944120;
 LABEL_53:
-  v36 = *(&off_1ED944120 + 1);
+  v18 = *(&off_1ED944120 + 1);
   if (*(&off_1ED944120 + 1))
   {
     atomic_fetch_add_explicit((*(&off_1ED944120 + 1) + 8), 1uLL, memory_order_relaxed);
   }
 
   pthread_mutex_unlock(&ctu::Singleton<BBUError,BBUError,ctu::PthreadMutexGuardPolicy<BBUError>>::sInstance);
-  v64.__r_.__value_.__r.__words[0] = MEMORY[0x1E69E9820];
-  v64.__r_.__value_.__l.__size_ = 0x40000000;
-  v64.__r_.__value_.__r.__words[2] = ___ZN8BBUError8addErrorERKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEE9BBUReturn_block_invoke;
-  v65 = &__block_descriptor_tmp_8;
-  v66 = v25;
-  v67 = a2;
-  v68 = a3;
-  v63.__r_.__value_.__r.__words[0] = &v64;
+  v45.__r_.__value_.__r.__words[0] = MEMORY[0x1E69E9820];
+  v45.__r_.__value_.__l.__size_ = 0x40000000;
+  v45.__r_.__value_.__r.__words[2] = ___ZN8BBUError8addErrorERKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEE9BBUReturn_block_invoke;
+  v46 = &__block_descriptor_tmp_8;
+  v47 = v7;
+  v48 = a2;
+  v49 = v3;
+  v44.__r_.__value_.__r.__words[0] = &v45;
   block.__r_.__value_.__r.__words[0] = MEMORY[0x1E69E9820];
   block.__r_.__value_.__l.__size_ = 0x40000000;
   block.__r_.__value_.__r.__words[2] = ___ZNK3ctu20SharedSynchronizableI8BBUErrorE20execute_wrapped_syncIRU13block_pointerFvvEEEDTclsr8dispatchE4syncLDnEclsr3stdE7forwardIT_Efp_EEEOS7__block_invoke;
-  v70 = &__block_descriptor_tmp_13_0;
-  v71 = v25;
-  v72 = &v63;
-  v37 = *(v25 + 16);
-  if (*(v25 + 24))
+  v51 = &__block_descriptor_tmp_13_0;
+  v52 = v7;
+  v53 = &v44;
+  v19 = *(v7 + 16);
+  if (*(v7 + 24))
   {
-    dispatch_async_and_wait(v37, &block);
-    if (!v36)
+    dispatch_async_and_wait(v19, &block);
+    if (!v18)
     {
       goto LABEL_61;
     }
@@ -9883,162 +9782,162 @@ LABEL_53:
 
   else
   {
-    dispatch_sync(v37, &block);
-    if (!v36)
+    dispatch_sync(v19, &block);
+    if (!v18)
     {
       goto LABEL_61;
     }
   }
 
-  if (!atomic_fetch_add(&v36->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  if (!atomic_fetch_add(&v18->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v36->__on_zero_shared)(v36);
-    std::__shared_weak_count::__release_weak(v36);
+    (v18->__on_zero_shared)(v18);
+    std::__shared_weak_count::__release_weak(v18);
   }
 
 LABEL_61:
-  (*(**(a1 + 56) + 16))(*(a1 + 56), v15);
-  v38 = *(a1 + 56);
+  (*(**(a1 + 56) + 16))(*(a1 + 56), v6);
+  v20 = *(a1 + 56);
   pthread_mutex_lock(&ctu::Singleton<BBUError,BBUError,ctu::PthreadMutexGuardPolicy<BBUError>>::sInstance);
-  v39 = off_1ED944120;
+  v21 = off_1ED944120;
   if (!off_1ED944120)
   {
-    v40 = operator new(0x38uLL);
-    v41 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_UTILITY, 0);
-    v42 = dispatch_queue_create("BBUError", v41);
-    *v40 = 0;
-    v40[1] = 0;
-    v40[2] = v42;
-    if (v42)
+    v22 = operator new(0x38uLL);
+    v23 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_UTILITY, 0);
+    v24 = dispatch_queue_create("BBUError", v23);
+    *v22 = 0;
+    v22[1] = 0;
+    v22[2] = v24;
+    if (v24)
     {
-      v43 = v42;
-      dispatch_retain(v42);
-      v40[3] = 0;
-      dispatch_release(v43);
+      v25 = v24;
+      dispatch_retain(v24);
+      v22[3] = 0;
+      dispatch_release(v25);
     }
 
     else
     {
-      v40[3] = 0;
+      v22[3] = 0;
     }
 
-    v40[4] = 0;
-    v40[5] = 0;
-    v40[6] = 0;
-    std::shared_ptr<BBUError>::shared_ptr[abi:ne200100]<BBUError,std::shared_ptr<BBUError> ctu::SharedSynchronizable<BBUError>::make_shared_ptr<BBUError>(BBUError*)::{lambda(BBUError*)#1},0>(&v64, v40);
-    v44 = *&v64.__r_.__value_.__l.__data_;
-    *&v64.__r_.__value_.__l.__data_ = 0uLL;
-    v45 = *(&off_1ED944120 + 1);
-    off_1ED944120 = v44;
-    if (v45 && !atomic_fetch_add(&v45->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    v22[4] = 0;
+    v22[5] = 0;
+    v22[6] = 0;
+    std::shared_ptr<BBUError>::shared_ptr[abi:ne200100]<BBUError,std::shared_ptr<BBUError> ctu::SharedSynchronizable<BBUError>::make_shared_ptr<BBUError>(BBUError*)::{lambda(BBUError*)#1},0>(&v45, v22);
+    v26 = *&v45.__r_.__value_.__l.__data_;
+    *&v45.__r_.__value_.__l.__data_ = 0uLL;
+    v27 = *(&off_1ED944120 + 1);
+    off_1ED944120 = v26;
+    if (v27 && !atomic_fetch_add(&v27->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
     {
-      (v45->__on_zero_shared)(v45);
-      std::__shared_weak_count::__release_weak(v45);
+      (v27->__on_zero_shared)(v27);
+      std::__shared_weak_count::__release_weak(v27);
     }
 
-    v46 = v64.__r_.__value_.__l.__size_;
-    if (v64.__r_.__value_.__l.__size_ && !atomic_fetch_add((v64.__r_.__value_.__l.__size_ + 8), 0xFFFFFFFFFFFFFFFFLL))
+    v28 = v45.__r_.__value_.__l.__size_;
+    if (v45.__r_.__value_.__l.__size_ && !atomic_fetch_add((v45.__r_.__value_.__l.__size_ + 8), 0xFFFFFFFFFFFFFFFFLL))
     {
-      (v46->__on_zero_shared)(v46);
-      std::__shared_weak_count::__release_weak(v46);
+      (v28->__on_zero_shared)(v28);
+      std::__shared_weak_count::__release_weak(v28);
     }
 
-    v39 = off_1ED944120;
+    v21 = off_1ED944120;
   }
 
-  v63.__r_.__value_.__r.__words[0] = v39;
-  v63.__r_.__value_.__l.__size_ = *(&off_1ED944120 + 1);
+  v44.__r_.__value_.__r.__words[0] = v21;
+  v44.__r_.__value_.__l.__size_ = *(&off_1ED944120 + 1);
   if (*(&off_1ED944120 + 1))
   {
     atomic_fetch_add_explicit((*(&off_1ED944120 + 1) + 8), 1uLL, memory_order_relaxed);
   }
 
   pthread_mutex_unlock(&ctu::Singleton<BBUError,BBUError,ctu::PthreadMutexGuardPolicy<BBUError>>::sInstance);
-  v47 = BBUReturnAsString::BBUReturnStrings[BBUError::getErrorCode(v39)];
+  v29 = BBUReturnAsString::BBUReturnStrings[BBUError::getErrorCode(v21)];
   pthread_mutex_lock(&ctu::Singleton<BBUError,BBUError,ctu::PthreadMutexGuardPolicy<BBUError>>::sInstance);
-  v48 = off_1ED944120;
+  v30 = off_1ED944120;
   if (!off_1ED944120)
   {
-    v49 = operator new(0x38uLL);
-    v50 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_UTILITY, 0);
-    v51 = dispatch_queue_create("BBUError", v50);
-    *v49 = 0;
-    v49[1] = 0;
-    v49[2] = v51;
-    if (v51)
+    v31 = operator new(0x38uLL);
+    v32 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_UTILITY, 0);
+    v33 = dispatch_queue_create("BBUError", v32);
+    *v31 = 0;
+    v31[1] = 0;
+    v31[2] = v33;
+    if (v33)
     {
-      v52 = v51;
-      dispatch_retain(v51);
-      v49[3] = 0;
-      dispatch_release(v52);
+      v34 = v33;
+      dispatch_retain(v33);
+      v31[3] = 0;
+      dispatch_release(v34);
     }
 
     else
     {
-      v49[3] = 0;
+      v31[3] = 0;
     }
 
-    v49[4] = 0;
-    v49[5] = 0;
-    v49[6] = 0;
-    std::shared_ptr<BBUError>::shared_ptr[abi:ne200100]<BBUError,std::shared_ptr<BBUError> ctu::SharedSynchronizable<BBUError>::make_shared_ptr<BBUError>(BBUError*)::{lambda(BBUError*)#1},0>(&block, v49);
-    v53 = *&block.__r_.__value_.__l.__data_;
+    v31[4] = 0;
+    v31[5] = 0;
+    v31[6] = 0;
+    std::shared_ptr<BBUError>::shared_ptr[abi:ne200100]<BBUError,std::shared_ptr<BBUError> ctu::SharedSynchronizable<BBUError>::make_shared_ptr<BBUError>(BBUError*)::{lambda(BBUError*)#1},0>(&block, v31);
+    v35 = *&block.__r_.__value_.__l.__data_;
     *&block.__r_.__value_.__l.__data_ = 0uLL;
-    v54 = *(&off_1ED944120 + 1);
-    off_1ED944120 = v53;
-    if (v54 && !atomic_fetch_add(&v54->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    v36 = *(&off_1ED944120 + 1);
+    off_1ED944120 = v35;
+    if (v36 && !atomic_fetch_add(&v36->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
     {
-      (v54->__on_zero_shared)(v54);
-      std::__shared_weak_count::__release_weak(v54);
+      (v36->__on_zero_shared)(v36);
+      std::__shared_weak_count::__release_weak(v36);
     }
 
-    v55 = block.__r_.__value_.__l.__size_;
+    v37 = block.__r_.__value_.__l.__size_;
     if (block.__r_.__value_.__l.__size_ && !atomic_fetch_add((block.__r_.__value_.__l.__size_ + 8), 0xFFFFFFFFFFFFFFFFLL))
     {
-      (v55->__on_zero_shared)(v55);
-      std::__shared_weak_count::__release_weak(v55);
+      (v37->__on_zero_shared)(v37);
+      std::__shared_weak_count::__release_weak(v37);
     }
 
-    v48 = off_1ED944120;
+    v30 = off_1ED944120;
   }
 
-  v56 = *(&off_1ED944120 + 1);
+  v38 = *(&off_1ED944120 + 1);
   if (*(&off_1ED944120 + 1))
   {
     atomic_fetch_add_explicit((*(&off_1ED944120 + 1) + 8), 1uLL, memory_order_relaxed);
   }
 
   pthread_mutex_unlock(&ctu::Singleton<BBUError,BBUError,ctu::PthreadMutexGuardPolicy<BBUError>>::sInstance);
-  BBUError::getErrorString(v48, &v64);
-  if ((v64.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  BBUError::getErrorString(&v45, v30);
+  if ((v45.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v57 = &v64;
+    v39 = &v45;
   }
 
   else
   {
-    v57 = v64.__r_.__value_.__r.__words[0];
+    v39 = v45.__r_.__value_.__r.__words[0];
   }
 
-  BBUFeedback::handleComment(v38, "Hit fatal error: %s reason: %s", v47, v57);
-  if (SHIBYTE(v64.__r_.__value_.__r.__words[2]) < 0)
+  BBUFeedback::handleComment(v20, "Hit fatal error: %s reason: %s", v29, v39);
+  if (SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v64.__r_.__value_.__l.__data_);
+    operator delete(v45.__r_.__value_.__l.__data_);
   }
 
-  if (v56 && !atomic_fetch_add(&v56->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  if (v38 && !atomic_fetch_add(&v38->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v56->__on_zero_shared)(v56);
-    std::__shared_weak_count::__release_weak(v56);
+    (v38->__on_zero_shared)(v38);
+    std::__shared_weak_count::__release_weak(v38);
   }
 
-  v58 = v63.__r_.__value_.__l.__size_;
-  if (v63.__r_.__value_.__l.__size_)
+  v40 = v44.__r_.__value_.__l.__size_;
+  if (v44.__r_.__value_.__l.__size_)
   {
-    if (!atomic_fetch_add((v63.__r_.__value_.__l.__size_ + 8), 0xFFFFFFFFFFFFFFFFLL))
+    if (!atomic_fetch_add((v44.__r_.__value_.__l.__size_ + 8), 0xFFFFFFFFFFFFFFFFLL))
     {
-      (v58->__on_zero_shared)(v58);
-      std::__shared_weak_count::__release_weak(v58);
+      (v40->__on_zero_shared)(v40);
+      std::__shared_weak_count::__release_weak(v40);
     }
   }
 }

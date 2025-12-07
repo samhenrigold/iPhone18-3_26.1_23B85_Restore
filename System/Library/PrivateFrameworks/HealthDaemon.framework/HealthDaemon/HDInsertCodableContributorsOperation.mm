@@ -26,7 +26,7 @@
   v7 = [(HDInsertCodableContributorsOperation *)&v11 init];
   if (v7)
   {
-    v8 = [contributorsCopy copy];
+    v8 = objc_msgSend_copy(contributorsCopy);
     contributors = v7->_contributors;
     v7->_contributors = v8;
 
@@ -38,33 +38,33 @@
 
 - (BOOL)performWithProfile:(id)profile transaction:(id)transaction error:(id *)error
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   profileCopy = profile;
   transactionCopy = transaction;
+  v41 = 0u;
   v42 = 0u;
   v43 = 0u;
   v44 = 0u;
-  v45 = 0u;
   selfCopy = self;
   obj = self->_contributors;
-  v9 = [(NSArray *)obj countByEnumeratingWithState:&v42 objects:v48 count:16];
+  v9 = [(NSArray *)obj countByEnumeratingWithState:&v41 objects:v47 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v43;
-    v36 = profileCopy;
-    v38 = *v43;
+    v11 = *v42;
+    v35 = profileCopy;
+    v37 = *v42;
     errorCopy = error;
 LABEL_3:
     v12 = 0;
     while (1)
     {
-      if (*v43 != v11)
+      if (*v42 != v11)
       {
         objc_enumerationMutation(obj);
       }
 
-      v13 = *(*(&v42 + 1) + 8 * v12);
+      v13 = *(*(&v41 + 1) + 8 * v12);
       v14 = MEMORY[0x277CCAD78];
       uuid = [v13 uuid];
       v16 = [v14 hk_UUIDWithData:uuid];
@@ -110,7 +110,7 @@ LABEL_13:
           if (!v28)
           {
 
-            profileCopy = v36;
+            profileCopy = v35;
 LABEL_25:
 
             v33 = 0;
@@ -118,7 +118,7 @@ LABEL_25:
           }
 
           v21 = legacySyncIdentity;
-          profileCopy = v36;
+          profileCopy = v35;
           goto LABEL_20;
         }
 
@@ -128,7 +128,7 @@ LABEL_25:
         {
           v32 = *errorCopy;
           *buf = 138543362;
-          v47 = v32;
+          v46 = v32;
           _os_log_fault_impl(&dword_228986000, v30, OS_LOG_TYPE_FAULT, "ConcreteSyncIdentity from received codable is nil %{public}@", buf, 0xCu);
         }
       }
@@ -141,7 +141,7 @@ LABEL_25:
         {
           v31 = *errorCopy;
           *buf = 138543362;
-          v47 = v31;
+          v46 = v31;
           _os_log_fault_impl(&dword_228986000, v29, OS_LOG_TYPE_FAULT, "SyncIdentity from received codable is nil %{public}@", buf, 0xCu);
         }
 
@@ -149,14 +149,14 @@ LABEL_25:
       }
 
 LABEL_20:
-      v11 = v38;
+      v11 = v37;
 
       error = errorCopy;
 LABEL_21:
 
       if (v10 == ++v12)
       {
-        v10 = [(NSArray *)obj countByEnumeratingWithState:&v42 objects:v48 count:16];
+        v10 = [(NSArray *)obj countByEnumeratingWithState:&v41 objects:v47 count:16];
         if (v10)
         {
           goto LABEL_3;
@@ -170,25 +170,23 @@ LABEL_21:
   v33 = 1;
 LABEL_26:
 
-  v34 = *MEMORY[0x277D85DE8];
   return v33;
 }
 
 - (HDInsertCodableContributorsOperation)initWithCoder:(id)coder
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CBEB98];
   coderCopy = coder;
-  v13[0] = objc_opt_class();
-  v13[1] = objc_opt_class();
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
+  v12[0] = objc_opt_class();
+  v12[1] = objc_opt_class();
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
   v7 = [v4 setWithArray:v6];
   v8 = [coderCopy decodeObjectOfClasses:v7 forKey:@"contributors"];
 
   v9 = [coderCopy decodeInt64ForKey:@"provenance"];
   v10 = [(HDInsertCodableContributorsOperation *)self initWithContributors:v8 provenance:v9];
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 

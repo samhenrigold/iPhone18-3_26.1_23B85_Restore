@@ -223,48 +223,47 @@ LABEL_11:
   }
 
   objc_initWeak(buf, self);
-  v14[0] = _NSConcreteStackBlock;
-  v14[1] = 3221225472;
-  v14[2] = sub_100032B98;
-  v14[3] = &unk_1000828B0;
-  objc_copyWeak(&v15, buf);
-  v4 = objc_retainBlock(v14);
-  v12[0] = _NSConcreteStackBlock;
-  v12[1] = 3221225472;
-  v12[2] = sub_100032D28;
-  v12[3] = &unk_1000828B0;
-  objc_copyWeak(&v13, buf);
-  v5 = objc_retainBlock(v12);
-  cacheDeleteID = self->_cacheDeleteID;
+  v13[0] = _NSConcreteStackBlock;
+  v13[1] = 3221225472;
+  v13[2] = sub_100032B98;
+  v13[3] = &unk_1000828B0;
+  objc_copyWeak(&v14, buf);
+  v4 = objc_retainBlock(v13);
+  v11[0] = _NSConcreteStackBlock;
+  v11[1] = 3221225472;
+  v11[2] = sub_100032D28;
+  v11[3] = &unk_1000828B0;
+  objc_copyWeak(&v12, buf);
+  v5 = objc_retainBlock(v11);
   if (CacheDeleteRegisterInfoCallbacks())
   {
-    v7 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v6 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      *v11 = 0;
-      v8 = "Cache delete callback registration failed!";
-      v9 = v7;
-      v10 = OS_LOG_TYPE_ERROR;
+      *v10 = 0;
+      v7 = "Cache delete callback registration failed!";
+      v8 = v6;
+      v9 = OS_LOG_TYPE_ERROR;
 LABEL_8:
-      _os_log_impl(&_mh_execute_header, v9, v10, v8, v11, 2u);
+      _os_log_impl(&_mh_execute_header, v8, v9, v7, v10, 2u);
     }
   }
 
   else
   {
-    v7 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v6 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      *v11 = 0;
-      v8 = "Cache delete callback registration succeeded.";
-      v9 = v7;
-      v10 = OS_LOG_TYPE_DEBUG;
+      *v10 = 0;
+      v7 = "Cache delete callback registration succeeded.";
+      v8 = v6;
+      v9 = OS_LOG_TYPE_DEBUG;
       goto LABEL_8;
     }
   }
 
-  objc_destroyWeak(&v13);
-  objc_destroyWeak(&v15);
+  objc_destroyWeak(&v12);
+  objc_destroyWeak(&v14);
   objc_destroyWeak(buf);
 }
 

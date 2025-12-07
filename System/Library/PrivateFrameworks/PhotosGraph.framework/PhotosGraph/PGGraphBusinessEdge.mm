@@ -1,6 +1,7 @@
 @interface PGGraphBusinessEdge
 - (BOOL)hasProperties:(id)properties;
 - (PGGraphBusinessEdge)initWithLabel:(id)label sourceNode:(id)node targetNode:(id)targetNode domain:(unsigned __int16)domain properties:(id)properties;
+- (PGGraphBusinessEdge)initWithLabel:(id)label sourceNode:(id)node targetNode:(id)targetNode domain:(unsigned __int16)domain weight:(float)weight properties:(id)properties;
 - (id)edgeDescription;
 - (id)initFromSourceNode:(id)node toBusinessNode:(id)businessNode confidence:(double)confidence hasRoutineInfo:(BOOL)info universalStartDate:(id)date universalEndDate:(id)endDate;
 - (id)propertyDictionary;
@@ -12,9 +13,9 @@
 - (id)edgeDescription
 {
   v3 = MEMORY[0x277CCACA8];
-  v10.receiver = self;
-  v10.super_class = PGGraphBusinessEdge;
-  edgeDescription = [(PGGraphOptimizedEdge *)&v10 edgeDescription];
+  v9.receiver = self;
+  v9.super_class = PGGraphBusinessEdge;
+  edgeDescription = [(PGGraphOptimizedEdge *)&v9 edgeDescription];
   v5 = edgeDescription;
   if (self->_hasRoutineInfo)
   {
@@ -26,34 +27,31 @@
     v6 = &stru_2843F5C58;
   }
 
-  universalStartDate = self->_universalStartDate;
-  v8 = [v3 stringWithFormat:@"%@ (%@%@ - %@)", edgeDescription, v6, universalStartDate, self->_universalEndDate];
+  v7 = [v3 stringWithFormat:@"%@ (%@%@ - %@)", edgeDescription, v6, self->_universalStartDate, self->_universalEndDate];
 
-  return v8;
+  return v7;
 }
 
 - (id)propertyDictionary
 {
-  v13[4] = *MEMORY[0x277D85DE8];
-  v12[0] = @"confidence";
+  v12[4] = *MEMORY[0x277D85DE8];
+  v11[0] = @"confidence";
   v3 = [MEMORY[0x277CCABB0] numberWithDouble:self->_confidence];
-  v13[0] = v3;
-  v12[1] = @"routine";
+  v12[0] = v3;
+  v11[1] = @"routine";
   v4 = [MEMORY[0x277CCABB0] numberWithBool:self->_hasRoutineInfo];
-  v13[1] = v4;
-  v12[2] = @"universalStartDate";
+  v12[1] = v4;
+  v11[2] = @"universalStartDate";
   v5 = MEMORY[0x277CCABB0];
   [(NSDate *)self->_universalStartDate timeIntervalSince1970];
   v6 = [v5 numberWithDouble:?];
-  v13[2] = v6;
-  v12[3] = @"universalEndDate";
+  v12[2] = v6;
+  v11[3] = @"universalEndDate";
   v7 = MEMORY[0x277CCABB0];
   [(NSDate *)self->_universalEndDate timeIntervalSince1970];
   v8 = [v7 numberWithDouble:?];
-  v13[3] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:4];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v12[3] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:4];
 
   return v9;
 }
@@ -66,49 +64,28 @@
   {
     v6 = [v5 objectForKeyedSubscript:@"confidence"];
     v7 = v6;
-    if (v6)
+    v18 = 0;
+    if (!v6 || ([v6 doubleValue], v8 == self->_confidence))
     {
-      [v6 doubleValue];
-      if (v8 != self->_confidence)
+
+      v9 = [v5 objectForKeyedSubscript:@"routine"];
+      v7 = v9;
+      if (!v9 || self->_hasRoutineInfo == [v9 BOOLValue])
       {
-        goto LABEL_11;
+
+        v10 = [v5 objectForKeyedSubscript:@"universalStartDate"];
+        v7 = v10;
+        if (!v10 || ([v10 doubleValue], v12 = v11, -[NSDate timeIntervalSince1970](self->_universalStartDate, "timeIntervalSince1970"), v12 == v13))
+        {
+
+          v14 = [v5 objectForKeyedSubscript:@"universalEndDate"];
+          v7 = v14;
+          if (!v14 || ([v14 doubleValue], v16 = v15, -[NSDate timeIntervalSince1970](self->_universalEndDate, "timeIntervalSince1970"), v16 == v17))
+          {
+            v18 = 1;
+          }
+        }
       }
-    }
-
-    v9 = [v5 objectForKeyedSubscript:@"routine"];
-    v7 = v9;
-    if (v9)
-    {
-      if (self->_hasRoutineInfo != [v9 BOOLValue])
-      {
-        goto LABEL_11;
-      }
-    }
-
-    v10 = [v5 objectForKeyedSubscript:@"universalStartDate"];
-    v7 = v10;
-    if (v10)
-    {
-      [v10 doubleValue];
-      v12 = v11;
-      [(NSDate *)self->_universalStartDate timeIntervalSince1970];
-      if (v12 != v13)
-      {
-        goto LABEL_11;
-      }
-    }
-
-    v14 = [v5 objectForKeyedSubscript:@"universalEndDate"];
-    v7 = v14;
-    if (!v14 || ([v14 doubleValue], v16 = v15, -[NSDate timeIntervalSince1970](self->_universalEndDate, "timeIntervalSince1970"), v16 == v17))
-    {
-      v18 = 1;
-    }
-
-    else
-    {
-LABEL_11:
-      v18 = 0;
     }
   }
 
@@ -125,6 +102,53 @@ LABEL_11:
   v4.receiver = self;
   v4.super_class = PGGraphBusinessEdge;
   [(PGGraphOptimizedEdge *)&v4 checkConsistencyOfProperties:properties withExtraPropertyKeys:keys];
+}
+
+- (PGGraphBusinessEdge)initWithLabel:(id)label sourceNode:(id)node targetNode:(id)targetNode domain:(unsigned __int16)domain weight:(float)weight properties:(id)properties
+{
+  domainCopy = domain;
+  labelCopy = label;
+  nodeCopy = node;
+  targetNodeCopy = targetNode;
+  propertiesCopy = properties;
+  v18 = [propertiesCopy objectForKeyedSubscript:@"confidence"];
+
+  if (v18)
+  {
+    v19 = propertiesCopy;
+  }
+
+  else
+  {
+    v19 = [objc_alloc(MEMORY[0x277CBEB38]) initWithDictionary:propertiesCopy];
+    *&v20 = weight;
+    v21 = [MEMORY[0x277CCABB0] numberWithFloat:v20];
+    [v19 setObject:v21 forKeyedSubscript:@"confidence"];
+
+    v22 = [propertiesCopy objectForKeyedSubscript:@"utcs"];
+
+    if (v22)
+    {
+      v23 = [propertiesCopy objectForKeyedSubscript:@"utcs"];
+      [v19 setObject:v23 forKeyedSubscript:@"universalStartDate"];
+
+      [v19 setObject:0 forKeyedSubscript:@"utcs"];
+    }
+
+    v24 = [propertiesCopy objectForKeyedSubscript:@"utce"];
+
+    if (v24)
+    {
+      v25 = [propertiesCopy objectForKeyedSubscript:@"utce"];
+      [v19 setObject:v25 forKeyedSubscript:@"universalEndDate"];
+
+      [v19 setObject:0 forKeyedSubscript:@"utce"];
+    }
+  }
+
+  v26 = [(PGGraphBusinessEdge *)self initWithLabel:labelCopy sourceNode:nodeCopy targetNode:targetNodeCopy domain:domainCopy properties:v19];
+
+  return v26;
 }
 
 - (PGGraphBusinessEdge)initWithLabel:(id)label sourceNode:(id)node targetNode:(id)targetNode domain:(unsigned __int16)domain properties:(id)properties

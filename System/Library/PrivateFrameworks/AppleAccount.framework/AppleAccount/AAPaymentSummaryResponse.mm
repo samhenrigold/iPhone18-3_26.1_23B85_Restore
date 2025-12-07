@@ -23,20 +23,19 @@
 
     if (v10)
     {
-      v12 = _AALogSystem();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v13 = _AALogSystem(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithData:dataCopy encoding:4];
+        v14 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithData:dataCopy encoding:4];
         *buf = 138412546;
-        v19 = v13;
+        v19 = v14;
         v20 = 2112;
         v21 = v10;
-        _os_log_impl(&dword_1B6F6A000, v12, OS_LOG_TYPE_DEFAULT, "Error: Could not parse server response data: %@. Details: %@", buf, 0x16u);
+        _os_log_impl(&dword_1B6F6A000, v13, OS_LOG_TYPE_DEFAULT, "Error: Could not parse server response data: %@. Details: %@", buf, 0x16u);
       }
     }
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v8;
 }
 

@@ -10,13 +10,13 @@
 - (APOdmlAppVector)initWithVersion:(id)version header:(APOdmlAppVectorHeader *)header floats:(float *)floats
 {
   selfCopy = self;
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (header)
   {
     var2 = header->var2;
-    v14.receiver = self;
-    v14.super_class = APOdmlAppVector;
-    v8 = [(APOdmlVector *)&v14 initWithVersion:version length:var2 floats:floats];
+    v13.receiver = self;
+    v13.super_class = APOdmlAppVector;
+    v8 = [(APOdmlVector *)&v13 initWithVersion:version length:var2 floats:floats];
     if (v8)
     {
       v8->_adamID = header->var0;
@@ -32,115 +32,114 @@
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v16 = objc_opt_class();
-      v11 = v16;
+      v15 = objc_opt_class();
+      v11 = v15;
       _os_log_impl(&dword_260ECB000, v10, OS_LOG_TYPE_DEFAULT, "[%@] Attempt to construct APOdmlAppVector without a header.", buf, 0xCu);
     }
 
     v9 = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (APOdmlAppVector)initWithString:(id)string version:(id)version
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   versionCopy = version;
   if (stringCopy)
   {
-    v9 = objc_msgSend_componentsSeparatedByString_(stringCopy, v7, @"\t");
-    v12 = objc_msgSend_firstObject(v9, v10, v11);
-    v15 = objc_msgSend_integerValue(v12, v13, v14);
+    v8 = [stringCopy componentsSeparatedByString:@"\t"];
+    firstObject = [v8 firstObject];
+    integerValue = [firstObject integerValue];
 
-    if (objc_msgSend_count(v9, v16, v17) == 2)
+    if ([v8 count]== 2)
     {
-      v58 = versionCopy;
-      v56 = v15;
+      v33 = versionCopy;
+      v31 = integerValue;
       if (qword_27FE60370 != -1)
       {
         sub_260EF80C4();
       }
 
-      v19 = objc_msgSend_objectAtIndex_(v9, v18, 1);
-      v22 = objc_msgSend_whitespaceAndNewlineCharacterSet(MEMORY[0x277CCA900], v20, v21);
-      v24 = objc_msgSend_stringByTrimmingCharactersInSet_(v19, v23, v22);
+      v11 = [v8 objectAtIndex:1];
+      whitespaceAndNewlineCharacterSet = [MEMORY[0x277CCA900] whitespaceAndNewlineCharacterSet];
+      v13 = [v11 stringByTrimmingCharactersInSet:whitespaceAndNewlineCharacterSet];
 
-      v27 = objc_msgSend_array(MEMORY[0x277CBEB18], v25, v26);
-      v57 = v24;
-      v29 = objc_msgSend_componentsSeparatedByString_(v24, v28, @",");
-      if (objc_msgSend_count(v29, v30, v31))
+      array = [MEMORY[0x277CBEB18] array];
+      v32 = v13;
+      v15 = [v13 componentsSeparatedByString:@", "];
+      if ([v15 count])
       {
-        v33 = 0;
+        v16 = 0;
         while (1)
         {
-          v34 = objc_msgSend_objectAtIndex_(v29, v32, v33);
-          v36 = objc_msgSend_numberFromString_(qword_27FE60368, v35, v34);
-          if (!v36)
+          v17 = [v15 objectAtIndex:v16];
+          v18 = [qword_27FE60368 numberFromString:v17];
+          if (!v18)
           {
             break;
           }
 
-          v39 = v36;
-          v40 = objc_msgSend_numberFromString_(qword_27FE60368, v37, v34);
-          objc_msgSend_addObject_(v27, v41, v40);
+          v19 = v18;
+          v20 = [qword_27FE60368 numberFromString:v17];
+          [array addObject:v20];
 
-          if (++v33 >= objc_msgSend_count(v29, v42, v43))
+          if (++v16 >= [v15 count])
           {
             goto LABEL_9;
           }
         }
 
-        objc_msgSend_doubleValue(v34, v37, v38);
-        v51 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v49, @"The provided string (%@) for doubleValue %.7lf at index %lu was not able to be converted to a number. Full line:\n%@", v34, v50, v33, stringCopy);
-        v52 = OdmlLogForCategory(2uLL);
-        if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
+        [v17 doubleValue];
+        stringCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"The provided string (%@) for doubleValue %.7lf at index %lu was not able to be converted to a number. Full line:\n%@", v17, v26, v16, stringCopy];
+        v28 = OdmlLogForCategory(2uLL);
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412546;
-          v61 = objc_opt_class();
-          v62 = 2112;
-          v63 = v51;
-          v53 = v61;
-          _os_log_impl(&dword_260ECB000, v52, OS_LOG_TYPE_ERROR, "[%@] ERROR: %@", buf, 0x16u);
+          v36 = objc_opt_class();
+          v37 = 2112;
+          v38 = stringCopy;
+          v29 = v36;
+          _os_log_impl(&dword_260ECB000, v28, OS_LOG_TYPE_ERROR, "[%@] ERROR: %@", buf, 0x16u);
         }
 
-        APOdmlSimulateCrash(2880291038, v51, 0);
+        APOdmlSimulateCrash(2880291038, stringCopy, 0);
         selfCopy = 0;
-        versionCopy = v58;
+        versionCopy = v33;
       }
 
       else
       {
 LABEL_9:
-        v59.receiver = self;
-        v59.super_class = APOdmlAppVector;
-        versionCopy = v58;
-        v44 = [(APOdmlVector *)&v59 initWithVersion:v58 andArray:v27];
-        if (v44)
+        v34.receiver = self;
+        v34.super_class = APOdmlAppVector;
+        versionCopy = v33;
+        v21 = [(APOdmlVector *)&v34 initWithVersion:v33 andArray:array];
+        if (v21)
         {
-          v44->_adamID = v56;
+          v21->_adamID = v31;
         }
 
-        self = v44;
+        self = v21;
         selfCopy = self;
       }
 
-      v47 = v57;
+      v24 = v32;
     }
 
     else
     {
-      v47 = OdmlLogForCategory(2uLL);
-      if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+      v24 = OdmlLogForCategory(2uLL);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v61 = objc_opt_class();
-        v62 = 2112;
-        v63 = stringCopy;
-        v48 = v61;
-        _os_log_impl(&dword_260ECB000, v47, OS_LOG_TYPE_ERROR, "[%@]: ERROR: The line does not conform to our expectations: %@", buf, 0x16u);
+        v36 = objc_opt_class();
+        v37 = 2112;
+        v38 = stringCopy;
+        v25 = v36;
+        _os_log_impl(&dword_260ECB000, v24, OS_LOG_TYPE_ERROR, "[%@]: ERROR: The line does not conform to our expectations: %@", buf, 0x16u);
       }
 
       selfCopy = 0;
@@ -149,58 +148,53 @@ LABEL_9:
 
   else
   {
-    v9 = OdmlLogForCategory(2uLL);
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v8 = OdmlLogForCategory(2uLL);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v61 = objc_opt_class();
-      v62 = 2112;
-      v63 = 0;
-      v46 = v61;
-      _os_log_impl(&dword_260ECB000, v9, OS_LOG_TYPE_ERROR, "[%@]: ERROR: nil datastring passed into parser: %@.", buf, 0x16u);
+      v36 = objc_opt_class();
+      v37 = 2112;
+      v38 = 0;
+      v23 = v36;
+      _os_log_impl(&dword_260ECB000, v8, OS_LOG_TYPE_ERROR, "[%@]: ERROR: nil datastring passed into parser: %@.", buf, 0x16u);
     }
 
     selfCopy = 0;
   }
 
-  v54 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
 - (id)data
 {
-  v4 = objc_msgSend_length(self, a2, v2);
-  v6 = objc_msgSend_dataWithCapacity_(MEMORY[0x277CBEB28], v5, (4 * v4 + 16));
-  v17 = 1447253074;
-  v16 = objc_msgSend_adamID(self, v7, v8);
-  v18 = objc_msgSend_length(self, v9, v10);
-  objc_msgSend_appendBytes_length_(v6, v11, &v16, 16);
-  v15.receiver = self;
-  v15.super_class = APOdmlAppVector;
-  data = [(APOdmlVector *)&v15 data];
-  objc_msgSend_appendData_(v6, v13, data);
+  v3 = [(APOdmlVector *)self length];
+  v4 = [MEMORY[0x277CBEB28] dataWithCapacity:4 * v3 + 16];
+  v9 = 1447253074;
+  adamID = [(APOdmlAppVector *)self adamID];
+  v10 = [(APOdmlVector *)self length];
+  [v4 appendBytes:&adamID length:16];
+  v7.receiver = self;
+  v7.super_class = APOdmlAppVector;
+  data = [(APOdmlVector *)&v7 data];
+  [v4 appendData:data];
 
-  return v6;
+  return v4;
 }
 
 - (id)description
 {
-  v19[2] = *MEMORY[0x277D85DE8];
-  v4 = objc_msgSend_arrayOfNumbers(self, a2, v2);
-  v18[0] = @"adamID";
-  v5 = MEMORY[0x277CCACA8];
-  v8 = objc_msgSend_adamID(self, v6, v7);
-  v10 = objc_msgSend_stringWithFormat_(v5, v9, @"%llu", v8);
-  v18[1] = @"vector";
-  v19[0] = v10;
-  v19[1] = v4;
-  v12 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v11, v19, v18, 2);
+  v9[2] = *MEMORY[0x277D85DE8];
+  arrayOfNumbers = [(APOdmlVector *)self arrayOfNumbers];
+  v8[0] = @"adamID";
+  v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"%llu", -[APOdmlAppVector adamID](self, "adamID")];
+  v8[1] = @"vector";
+  v9[0] = v4;
+  v9[1] = arrayOfNumbers;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
 
-  v15 = objc_msgSend_description(v12, v13, v14);
+  v6 = [v5 description];
 
-  v16 = *MEMORY[0x277D85DE8];
-
-  return v15;
+  return v6;
 }
 
 @end

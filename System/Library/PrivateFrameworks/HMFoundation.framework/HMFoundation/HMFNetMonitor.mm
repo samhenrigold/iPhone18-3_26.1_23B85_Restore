@@ -64,11 +64,10 @@
 - (void)setReachable:(BOOL)reachable
 {
   reachableCopy = reachable;
-  v25 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock_with_options();
   if (self->_reachable == reachableCopy)
   {
-    v5 = *MEMORY[0x277D85DE8];
 
     os_unfair_lock_unlock(&self->_lock);
   }
@@ -77,21 +76,21 @@
   {
     self->_reachable = reachableCopy;
     os_unfair_lock_unlock(&self->_lock);
-    v6 = objc_autoreleasePoolPush();
+    v5 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v8 = HMFGetOSLogHandle();
+    v8 = HMFGetOSLogHandle(selfCopy, v7);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       v9 = HMFGetLogIdentifier(selfCopy);
       v10 = HMFBooleanToString(reachableCopy);
-      v21 = 138543618;
-      v22 = v9;
-      v23 = 2112;
-      v24 = v10;
-      _os_log_impl(&dword_22ADEC000, v8, OS_LOG_TYPE_INFO, "%{public}@Reachability changed to: %@", &v21, 0x16u);
+      v22 = 138543618;
+      v23 = v9;
+      v24 = 2112;
+      v25 = v10;
+      _os_log_impl(&dword_22ADEC000, v8, OS_LOG_TYPE_INFO, "%{public}@Reachability changed to: %@", &v22, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v6);
+    objc_autoreleasePoolPop(v5);
     delegate = [(HMFNetMonitor *)selfCopy delegate];
     if (reachableCopy)
     {
@@ -99,13 +98,13 @@
       {
         v12 = objc_autoreleasePoolPush();
         v13 = selfCopy;
-        v14 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+        v15 = HMFGetOSLogHandle(v13, v14);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
         {
-          v15 = HMFGetLogIdentifier(v13);
-          v21 = 138543362;
-          v22 = v15;
-          _os_log_impl(&dword_22ADEC000, v14, OS_LOG_TYPE_INFO, "%{public}@Notifying delegate address is reachable", &v21, 0xCu);
+          v16 = HMFGetLogIdentifier(v13);
+          v22 = 138543362;
+          v23 = v16;
+          _os_log_impl(&dword_22ADEC000, v15, OS_LOG_TYPE_INFO, "%{public}@Notifying delegate address is reachable", &v22, 0xCu);
         }
 
         objc_autoreleasePoolPop(v12);
@@ -115,22 +114,20 @@
 
     else if (objc_opt_respondsToSelector())
     {
-      v16 = objc_autoreleasePoolPush();
-      v17 = selfCopy;
-      v18 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+      v17 = objc_autoreleasePoolPush();
+      v18 = selfCopy;
+      v20 = HMFGetOSLogHandle(v18, v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
       {
-        v19 = HMFGetLogIdentifier(v17);
-        v21 = 138543362;
-        v22 = v19;
-        _os_log_impl(&dword_22ADEC000, v18, OS_LOG_TYPE_INFO, "%{public}@Notifying delegate address is unreachable", &v21, 0xCu);
+        v21 = HMFGetLogIdentifier(v18);
+        v22 = 138543362;
+        v23 = v21;
+        _os_log_impl(&dword_22ADEC000, v20, OS_LOG_TYPE_INFO, "%{public}@Notifying delegate address is unreachable", &v22, 0xCu);
       }
 
-      objc_autoreleasePoolPop(v16);
-      [delegate networkMonitorIsUnreachable:v17];
+      objc_autoreleasePoolPop(v17);
+      [delegate networkMonitorIsUnreachable:v18];
     }
-
-    v20 = *MEMORY[0x277D85DE8];
   }
 }
 
@@ -148,9 +145,11 @@
 
 uint64_t __28__HMFNetMonitor_logCategory__block_invoke()
 {
-  qword_280AFC2B0 = HMFCreateOSLogHandle(@"Networking.Monitor", @"com.apple.HMFoundation");
+  v0 = HMFCreateOSLogHandle(@"Networking.Monitor", @"com.apple.HMFoundation");
+  v1 = qword_280AFC2B0;
+  qword_280AFC2B0 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (HMFNetMonitorDelegate)delegate

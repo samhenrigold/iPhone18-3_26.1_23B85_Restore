@@ -77,15 +77,15 @@ LABEL_8:
 
 - (void)updateHistoryGroupsWithItems:(id)items
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   itemsCopy = items;
   v5 = MEMORY[0x277D4B750];
   selfCopy = self;
   viewModel = [(SCLSpecifierDataSource *)self viewModel];
   v7 = [v5 scheduleSettingsWithViewModel:viewModel];
 
-  v33 = itemsCopy;
-  v34 = v7;
+  v32 = itemsCopy;
+  v33 = v7;
   if ([itemsCopy count] || objc_msgSend(v7, "isEnabled"))
   {
     v8 = MEMORY[0x277D4B728];
@@ -100,7 +100,7 @@ LABEL_8:
     v12 = MEMORY[0x277CBEBF8];
   }
 
-  v38 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v37 = objc_alloc_init(MEMORY[0x277CBEB18]);
   currentCalendar2 = [MEMORY[0x277CBEA80] currentCalendar];
   v14 = objc_alloc_init(MEMORY[0x277CCAC78]);
   [v14 setCalendar:currentCalendar2];
@@ -108,29 +108,29 @@ LABEL_8:
   [v14 setLocale:currentLocale];
 
   [v14 setDateTimeStyle:1];
-  v37 = v14;
+  v36 = v14;
   [v14 setUnitsStyle:0];
   date2 = [MEMORY[0x277CBEAA8] date];
+  v39 = 0u;
   v40 = 0u;
   v41 = 0u;
   v42 = 0u;
-  v43 = 0u;
   obj = v12;
-  v16 = [obj countByEnumeratingWithState:&v40 objects:v44 count:16];
+  v16 = [obj countByEnumeratingWithState:&v39 objects:v43 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v41;
+    v18 = *v40;
     do
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v41 != v18)
+        if (*v40 != v18)
         {
           objc_enumerationMutation(obj);
         }
 
-        v20 = *(*(&v40 + 1) + 8 * i);
+        v20 = *(*(&v39 + 1) + 8 * i);
         items = [v20 items];
         if ([items count])
         {
@@ -138,7 +138,7 @@ LABEL_8:
 
         else
         {
-          isEnabled = [v34 isEnabled];
+          isEnabled = [v33 isEnabled];
 
           if ((isEnabled & 1) == 0)
           {
@@ -161,23 +161,22 @@ LABEL_8:
           }
         }
 
-        v28 = [v37 localizedStringFromDateComponents:v25];
+        v28 = [v36 localizedStringFromDateComponents:v25];
         v29 = [SCLHistoryDayDataSource alloc];
         listController = [(SCLSpecifierDataSource *)selfCopy listController];
         v31 = [(SCLHistoryDayDataSource *)v29 initWithListController:listController viewModel:v23 historyGroup:v20 title:v28];
 
         [(SCLSpecifierDataSource *)v31 setActive:1];
-        [v38 addObject:v31];
+        [v37 addObject:v31];
       }
 
-      v17 = [obj countByEnumeratingWithState:&v40 objects:v44 count:16];
+      v17 = [obj countByEnumeratingWithState:&v39 objects:v43 count:16];
     }
 
     while (v17);
   }
 
-  [(SCLSpecifierDataSource *)selfCopy setChildDataSources:v38];
-  v32 = *MEMORY[0x277D85DE8];
+  [(SCLSpecifierDataSource *)selfCopy setChildDataSources:v37];
 }
 
 - (void)handleSignificantTimeChange:(id)change

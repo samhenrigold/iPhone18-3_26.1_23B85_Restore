@@ -23,6 +23,7 @@
 - (unsigned)productId;
 - (unsigned)vendorId;
 - (void)acceptSSP:(int)p;
+- (void)clearName;
 - (void)connect;
 - (void)connectWithServices:(unsigned int)services;
 - (void)disconnect;
@@ -154,6 +155,13 @@
   }
 }
 
+- (void)clearName
+{
+  name = self->_name;
+  self->_name = 0;
+  MEMORY[0x1EEE66BB8](self, name);
+}
+
 - (id)name
 {
   v9[31] = *MEMORY[0x1E69E9840];
@@ -205,7 +213,7 @@ LABEL_13:
   address = self->_address;
   if (!address)
   {
-    v4 = AXUIAddressForBTDevice();
+    v4 = AXUIAddressForBTDevice(self->_device);
     v5 = self->_address;
     self->_address = v4;
 

@@ -64,9 +64,9 @@
   managerCopy = manager;
   if ((options & 1) != 0 && ![nameCopy length])
   {
-    v37 = objc_autoreleasePoolPush();
+    v36 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v38 = HMFGetOSLogHandle();
+    v38 = HMFGetOSLogHandle(selfCopy, v37);
     if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
     {
       v39 = HMFGetLogIdentifier(selfCopy);
@@ -75,7 +75,7 @@
       _os_log_impl(&dword_22ADEC000, v38, OS_LOG_TYPE_ERROR, "%{public}@A valid name is required for publishing", buf, 0xCu);
     }
 
-    objc_autoreleasePoolPop(v37);
+    objc_autoreleasePoolPop(v36);
     v34 = 0;
   }
 
@@ -139,50 +139,48 @@
     v34 = selfCopy;
   }
 
-  v35 = *MEMORY[0x277D85DE8];
   return v34;
 }
 
 - (void)dealloc
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   [(_HMFCFHTTPServer *)self->_internal invalidate];
   [(HMFMutableNetService *)self->_netService stopPublishing];
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   v3 = self->_connections;
-  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [*(*(&v10 + 1) + 8 * v7++) close];
+        [*(*(&v9 + 1) + 8 * v7++) close];
       }
 
       while (v5 != v7);
-      v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
 
   [(HMFNetManager *)self->_netManager deregisterObject:self];
-  v9.receiver = self;
-  v9.super_class = HMFHTTPServer;
-  [(HMFHTTPServer *)&v9 dealloc];
-  v8 = *MEMORY[0x277D85DE8];
+  v8.receiver = self;
+  v8.super_class = HMFHTTPServer;
+  [(HMFHTTPServer *)&v8 dealloc];
 }
 
 - (id)shortDescription
@@ -196,28 +194,26 @@
 
 - (id)attributeDescriptions
 {
-  v19[4] = *MEMORY[0x277D85DE8];
+  v18[4] = *MEMORY[0x277D85DE8];
   v3 = [HMFAttributeDescription alloc];
   serviceType = [(HMFHTTPServer *)self serviceType];
   v5 = [(HMFAttributeDescription *)v3 initWithName:@"Service Type" value:serviceType];
-  v19[0] = v5;
+  v18[0] = v5;
   v6 = [HMFAttributeDescription alloc];
   name = [(HMFHTTPServer *)self name];
   v8 = [(HMFAttributeDescription *)v6 initWithName:@"Name" value:name];
-  v19[1] = v8;
+  v18[1] = v8;
   v9 = [HMFAttributeDescription alloc];
   v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HMFHTTPServer port](self, "port")}];
   v11 = [(HMFAttributeDescription *)v9 initWithName:@"Port" value:v10];
-  v19[2] = v11;
+  v18[2] = v11;
   v12 = [HMFAttributeDescription alloc];
   v13 = MEMORY[0x277CCABB0];
   [(HMFHTTPServer *)self connectionIdleTimeout];
   v14 = [v13 numberWithDouble:?];
   v15 = [(HMFAttributeDescription *)v12 initWithName:@"Connection Idle Timeout" value:v14];
-  v19[3] = v15;
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:4];
-
-  v17 = *MEMORY[0x277D85DE8];
+  v18[3] = v15;
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:4];
 
   return v16;
 }
@@ -327,102 +323,102 @@
 
 void __44__HMFHTTPServer_startWithCompletionHandler___block_invoke(uint64_t a1)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
-  v4 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = HMFGetOSLogHandle(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = HMFGetLogIdentifier(v3);
+    v6 = HMFGetLogIdentifier(v3);
     *buf = 138543362;
-    v39 = v5;
-    _os_log_impl(&dword_22ADEC000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Starting", buf, 0xCu);
+    v43 = v6;
+    _os_log_impl(&dword_22ADEC000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@Starting", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
-  v6 = -[_HMFCFHTTPServer initWithPort:options:]([_HMFCFHTTPServer alloc], "initWithPort:options:", [*(a1 + 32) port], objc_msgSend(*(a1 + 32), "options"));
-  if (v6)
+  v7 = -[_HMFCFHTTPServer initWithPort:options:]([_HMFCFHTTPServer alloc], "initWithPort:options:", [*(a1 + 32) port], objc_msgSend(*(a1 + 32), "options"));
+  if (v7)
   {
-    [*(a1 + 32) setInternal:v6];
-    v7 = [*(a1 + 32) internal];
-    [v7 setDelegate:*(a1 + 32)];
-
+    [*(a1 + 32) setInternal:v7];
     v8 = [*(a1 + 32) internal];
+    [v8 setDelegate:*(a1 + 32)];
+
+    v9 = [*(a1 + 32) internal];
     [*(a1 + 32) connectionIdleTimeout];
-    [v8 setConnectionIdleTimeout:?];
+    [v9 setConnectionIdleTimeout:?];
 
     if (([*(a1 + 32) options] & 4) != 0)
     {
-      v9 = objc_autoreleasePoolPush();
-      v10 = *(a1 + 32);
-      v11 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+      v10 = objc_autoreleasePoolPush();
+      v11 = *(a1 + 32);
+      v13 = HMFGetOSLogHandle(v11, v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
-        v12 = HMFGetLogIdentifier(v10);
+        v14 = HMFGetLogIdentifier(v11);
         *buf = 138543362;
-        v39 = v12;
-        _os_log_impl(&dword_22ADEC000, v11, OS_LOG_TYPE_INFO, "%{public}@Enabling WoW", buf, 0xCu);
+        v43 = v14;
+        _os_log_impl(&dword_22ADEC000, v13, OS_LOG_TYPE_INFO, "%{public}@Enabling WoW", buf, 0xCu);
       }
 
-      objc_autoreleasePoolPop(v9);
-      v13 = [*(a1 + 32) netManager];
-      [v13 registerWoWAssertionForObject:*(a1 + 32)];
+      objc_autoreleasePoolPop(v10);
+      v15 = [*(a1 + 32) netManager];
+      [v15 registerWoWAssertionForObject:*(a1 + 32)];
     }
 
-    v14 = objc_autoreleasePoolPush();
-    v15 = *(a1 + 32);
-    v16 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v16 = objc_autoreleasePoolPush();
+    v17 = *(a1 + 32);
+    v19 = HMFGetOSLogHandle(v17, v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = HMFGetLogIdentifier(v15);
-      v18 = [*(a1 + 32) port];
+      v20 = HMFGetLogIdentifier(v17);
+      v21 = [*(a1 + 32) port];
       *buf = 138543618;
-      v39 = v17;
-      v40 = 2048;
-      v41 = v18;
-      _os_log_impl(&dword_22ADEC000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@Started server on port %tu", buf, 0x16u);
+      v43 = v20;
+      v44 = 2048;
+      v45 = v21;
+      _os_log_impl(&dword_22ADEC000, v19, OS_LOG_TYPE_DEFAULT, "%{public}@Started server on port %tu", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v14);
+    objc_autoreleasePoolPop(v16);
     objc_initWeak(&location, *(a1 + 32));
     if ([*(a1 + 32) options])
     {
-      v26 = objc_autoreleasePoolPush();
-      v27 = *(a1 + 32);
-      v28 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+      v30 = objc_autoreleasePoolPush();
+      v31 = *(a1 + 32);
+      v33 = HMFGetOSLogHandle(v31, v32);
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
       {
-        v29 = HMFGetLogIdentifier(v27);
+        v34 = HMFGetLogIdentifier(v31);
         *buf = 138543362;
-        v39 = v29;
-        _os_log_impl(&dword_22ADEC000, v28, OS_LOG_TYPE_INFO, "%{public}@Publishing", buf, 0xCu);
+        v43 = v34;
+        _os_log_impl(&dword_22ADEC000, v33, OS_LOG_TYPE_INFO, "%{public}@Publishing", buf, 0xCu);
       }
 
-      objc_autoreleasePoolPop(v26);
-      v30 = [*(a1 + 32) netService];
-      [v30 setPort:{objc_msgSend(*(a1 + 32), "port")}];
+      objc_autoreleasePoolPop(v30);
+      v35 = [*(a1 + 32) netService];
+      [v35 setPort:{objc_msgSend(*(a1 + 32), "port")}];
 
-      v31 = [*(a1 + 32) netService];
-      v34[0] = MEMORY[0x277D85DD0];
-      v34[1] = 3221225472;
-      v34[2] = __44__HMFHTTPServer_startWithCompletionHandler___block_invoke_33;
-      v34[3] = &unk_2786E7F98;
-      objc_copyWeak(&v36, &location);
-      v32 = *(a1 + 40);
-      v34[4] = *(a1 + 32);
-      v35 = v32;
-      [v31 startPublishingWithCompletionHandler:v34];
+      v36 = [*(a1 + 32) netService];
+      v38[0] = MEMORY[0x277D85DD0];
+      v38[1] = 3221225472;
+      v38[2] = __44__HMFHTTPServer_startWithCompletionHandler___block_invoke_33;
+      v38[3] = &unk_2786E7F98;
+      objc_copyWeak(&v40, &location);
+      v37 = *(a1 + 40);
+      v38[4] = *(a1 + 32);
+      v39 = v37;
+      [v36 startPublishingWithCompletionHandler:v38];
 
-      objc_destroyWeak(&v36);
+      objc_destroyWeak(&v40);
     }
 
     else
     {
-      v19 = _Block_copy(*(a1 + 40));
-      v20 = v19;
-      if (v19)
+      v22 = _Block_copy(*(a1 + 40));
+      v23 = v22;
+      if (v22)
       {
-        (*(v19 + 2))(v19, 0);
+        (*(v22 + 2))(v22, 0);
       }
     }
 
@@ -431,46 +427,44 @@ void __44__HMFHTTPServer_startWithCompletionHandler___block_invoke(uint64_t a1)
 
   else
   {
-    v21 = objc_autoreleasePoolPush();
-    v22 = *(a1 + 32);
-    v23 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v24 = objc_autoreleasePoolPush();
+    v25 = *(a1 + 32);
+    v27 = HMFGetOSLogHandle(v25, v26);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
-      v24 = HMFGetLogIdentifier(v22);
+      v28 = HMFGetLogIdentifier(v25);
       *buf = 138543362;
-      v39 = v24;
-      _os_log_impl(&dword_22ADEC000, v23, OS_LOG_TYPE_ERROR, "%{public}@Failed to start server", buf, 0xCu);
+      v43 = v28;
+      _os_log_impl(&dword_22ADEC000, v27, OS_LOG_TYPE_ERROR, "%{public}@Failed to start server", buf, 0xCu);
     }
 
-    objc_autoreleasePoolPop(v21);
+    objc_autoreleasePoolPop(v24);
     if (*(a1 + 40))
     {
-      v25 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:6];
+      v29 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:6];
       (*(*(a1 + 40) + 16))();
     }
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 void __44__HMFHTTPServer_startWithCompletionHandler___block_invoke_33(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
     WeakRetained = objc_loadWeakRetained((a1 + 48));
     v5 = objc_autoreleasePoolPush();
     v6 = WeakRetained;
-    v7 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = HMFGetOSLogHandle(v6, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v8 = HMFGetLogIdentifier(v6);
-      v16 = 138543618;
-      v17 = v8;
-      v18 = 2112;
-      v19 = v3;
-      _os_log_impl(&dword_22ADEC000, v7, OS_LOG_TYPE_ERROR, "%{public}@Failed to publish net service with error: %@", &v16, 0x16u);
+      v9 = HMFGetLogIdentifier(v6);
+      v17 = 138543618;
+      v18 = v9;
+      v19 = 2112;
+      v20 = v3;
+      _os_log_impl(&dword_22ADEC000, v8, OS_LOG_TYPE_ERROR, "%{public}@Failed to publish net service with error: %@", &v17, 0x16u);
     }
 
     objc_autoreleasePoolPop(v5);
@@ -478,28 +472,26 @@ void __44__HMFHTTPServer_startWithCompletionHandler___block_invoke_33(uint64_t a
 
   else
   {
-    v9 = objc_autoreleasePoolPush();
-    v10 = *(a1 + 32);
-    v11 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    v10 = objc_autoreleasePoolPush();
+    v11 = *(a1 + 32);
+    v13 = HMFGetOSLogHandle(v11, v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
-      v12 = HMFGetLogIdentifier(v10);
-      v16 = 138543362;
-      v17 = v12;
-      _os_log_impl(&dword_22ADEC000, v11, OS_LOG_TYPE_INFO, "%{public}@Published", &v16, 0xCu);
+      v14 = HMFGetLogIdentifier(v11);
+      v17 = 138543362;
+      v18 = v14;
+      _os_log_impl(&dword_22ADEC000, v13, OS_LOG_TYPE_INFO, "%{public}@Published", &v17, 0xCu);
     }
 
-    objc_autoreleasePoolPop(v9);
+    objc_autoreleasePoolPop(v10);
   }
 
-  v13 = _Block_copy(*(a1 + 40));
-  v14 = v13;
-  if (v13)
+  v15 = _Block_copy(*(a1 + 40));
+  v16 = v15;
+  if (v15)
   {
-    (*(v13 + 2))(v13, v3);
+    (*(v15 + 2))(v15, v3);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopWithError:(id)error
@@ -526,15 +518,15 @@ void __44__HMFHTTPServer_startWithCompletionHandler___block_invoke_33(uint64_t a
   {
     v6 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v8 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = HMFGetOSLogHandle(selfCopy, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = HMFGetLogIdentifier(selfCopy);
+      v10 = HMFGetLogIdentifier(selfCopy);
       v15 = 138543618;
-      v16 = v9;
+      v16 = v10;
       v17 = 2112;
       v18 = errorCopy;
-      _os_log_impl(&dword_22ADEC000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@Stopped with error: %@", &v15, 0x16u);
+      _os_log_impl(&dword_22ADEC000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@Stopped with error: %@", &v15, 0x16u);
     }
 
     objc_autoreleasePoolPop(v6);
@@ -554,8 +546,6 @@ void __44__HMFHTTPServer_startWithCompletionHandler___block_invoke_33(uint64_t a
 
   netManager = [(HMFHTTPServer *)self netManager];
   [netManager deregisterObject:self];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (NSArray)requestHandlers
@@ -575,15 +565,15 @@ void __44__HMFHTTPServer_startWithCompletionHandler___block_invoke_33(uint64_t a
   {
     v5 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v7 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v8 = HMFGetOSLogHandle(selfCopy, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v8 = HMFGetLogIdentifier(selfCopy);
+      v9 = HMFGetLogIdentifier(selfCopy);
       v10 = 138543618;
-      v11 = v8;
+      v11 = v9;
       v12 = 2112;
       v13 = handlerCopy;
-      _os_log_impl(&dword_22ADEC000, v7, OS_LOG_TYPE_INFO, "%{public}@Adding request handler: %@", &v10, 0x16u);
+      _os_log_impl(&dword_22ADEC000, v8, OS_LOG_TYPE_INFO, "%{public}@Adding request handler: %@", &v10, 0x16u);
     }
 
     objc_autoreleasePoolPop(v5);
@@ -591,8 +581,6 @@ void __44__HMFHTTPServer_startWithCompletionHandler___block_invoke_33(uint64_t a
     [(NSMutableArray *)selfCopy->_requestHandlers addObject:handlerCopy];
     os_unfair_lock_unlock(&selfCopy->_lock);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unregisterRequestHandler:(id)handler
@@ -603,15 +591,15 @@ void __44__HMFHTTPServer_startWithCompletionHandler___block_invoke_33(uint64_t a
   {
     v5 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v7 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v8 = HMFGetOSLogHandle(selfCopy, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v8 = HMFGetLogIdentifier(selfCopy);
+      v9 = HMFGetLogIdentifier(selfCopy);
       v10 = 138543618;
-      v11 = v8;
+      v11 = v9;
       v12 = 2112;
       v13 = handlerCopy;
-      _os_log_impl(&dword_22ADEC000, v7, OS_LOG_TYPE_INFO, "%{public}@Removing request handler: %@", &v10, 0x16u);
+      _os_log_impl(&dword_22ADEC000, v8, OS_LOG_TYPE_INFO, "%{public}@Removing request handler: %@", &v10, 0x16u);
     }
 
     objc_autoreleasePoolPop(v5);
@@ -619,115 +607,111 @@ void __44__HMFHTTPServer_startWithCompletionHandler___block_invoke_33(uint64_t a
     [(NSMutableArray *)selfCopy->_requestHandlers removeObject:handlerCopy];
     os_unfair_lock_unlock(&selfCopy->_lock);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleReceivedRequest:(id)request connection:(id)connection
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   connectionCopy = connection;
   if (requestCopy)
   {
     v8 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v10 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    v11 = HMFGetOSLogHandle(selfCopy, v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      v11 = HMFGetLogIdentifier(selfCopy);
+      v12 = HMFGetLogIdentifier(selfCopy);
       *buf = 138543874;
-      v38 = v11;
-      v39 = 2112;
-      v40 = requestCopy;
+      v40 = v12;
       v41 = 2112;
-      v42 = connectionCopy;
-      _os_log_impl(&dword_22ADEC000, v10, OS_LOG_TYPE_INFO, "%{public}@Received request, %@, from connection: %@", buf, 0x20u);
+      v42 = requestCopy;
+      v43 = 2112;
+      v44 = connectionCopy;
+      _os_log_impl(&dword_22ADEC000, v11, OS_LOG_TYPE_INFO, "%{public}@Received request, %@, from connection: %@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v8);
     requestHandlers = [(HMFHTTPServer *)selfCopy requestHandlers];
-    v31 = MEMORY[0x277D85DD0];
-    v32 = 3221225472;
-    v33 = __51__HMFHTTPServer__handleReceivedRequest_connection___block_invoke;
-    v34 = &unk_2786E7FC0;
-    v13 = requestCopy;
-    v35 = v13;
-    v14 = connectionCopy;
-    v36 = v14;
-    v15 = [requestHandlers hmf_objectPassingTest:&v31];
+    v33 = MEMORY[0x277D85DD0];
+    v34 = 3221225472;
+    v35 = __51__HMFHTTPServer__handleReceivedRequest_connection___block_invoke;
+    v36 = &unk_2786E7FC0;
+    v14 = requestCopy;
+    v37 = v14;
+    v15 = connectionCopy;
+    v38 = v15;
+    v16 = [requestHandlers hmf_objectPassingTest:&v33];
 
-    if (v15)
+    if (v16)
     {
-      requestBlock = [v15 requestBlock];
-      v17 = objc_autoreleasePoolPush();
-      v18 = selfCopy;
-      v19 = HMFGetOSLogHandle();
-      v20 = os_log_type_enabled(v19, OS_LOG_TYPE_INFO);
+      requestBlock = [v16 requestBlock];
+      v18 = objc_autoreleasePoolPush();
+      v19 = selfCopy;
+      v21 = HMFGetOSLogHandle(v19, v20);
+      v22 = os_log_type_enabled(v21, OS_LOG_TYPE_INFO);
       if (requestBlock)
       {
-        if (v20)
+        if (v22)
         {
-          v21 = HMFGetLogIdentifier(v18);
+          v23 = HMFGetLogIdentifier(v19);
           *buf = 138543874;
-          v38 = v21;
-          v39 = 2112;
-          v40 = v15;
+          v40 = v23;
           v41 = 2112;
-          v42 = v13;
-          _os_log_impl(&dword_22ADEC000, v19, OS_LOG_TYPE_INFO, "%{public}@Found a matching request handler, %@, for the request, %@", buf, 0x20u);
+          v42 = v16;
+          v43 = 2112;
+          v44 = v14;
+          _os_log_impl(&dword_22ADEC000, v21, OS_LOG_TYPE_INFO, "%{public}@Found a matching request handler, %@, for the request, %@", buf, 0x20u);
         }
 
-        objc_autoreleasePoolPop(v17);
-        internal = [v13 internal];
+        objc_autoreleasePoolPop(v18);
+        internal = [v14 internal];
         activity = [internal activity];
         [activity markWithReason:@"Calling request handler"];
 
-        (requestBlock)[2](requestBlock, v13, v14);
+        (requestBlock)[2](requestBlock, v14, v15);
       }
 
       else
       {
-        if (v20)
+        if (v22)
         {
-          v28 = HMFGetLogIdentifier(v18);
+          v31 = HMFGetLogIdentifier(v19);
           *buf = 138543874;
-          v38 = v28;
-          v39 = 2112;
-          v40 = v15;
+          v40 = v31;
           v41 = 2112;
-          v42 = v13;
-          _os_log_impl(&dword_22ADEC000, v19, OS_LOG_TYPE_INFO, "%{public}@Found a matching request handler, %@, for the request, %@, but there was no request block", buf, 0x20u);
+          v42 = v16;
+          v43 = 2112;
+          v44 = v14;
+          _os_log_impl(&dword_22ADEC000, v21, OS_LOG_TYPE_INFO, "%{public}@Found a matching request handler, %@, for the request, %@, but there was no request block", buf, 0x20u);
         }
 
-        objc_autoreleasePoolPop(v17);
-        v29 = [v13 responseWithStatusCode:404];
-        [v14 sendResponse:v29 completionHandler:0];
+        objc_autoreleasePoolPop(v18);
+        v32 = [v14 responseWithStatusCode:404];
+        [v15 sendResponse:v32 completionHandler:0];
       }
     }
 
     else
     {
-      v24 = objc_autoreleasePoolPush();
-      v25 = selfCopy;
-      v26 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+      v26 = objc_autoreleasePoolPush();
+      v27 = selfCopy;
+      v29 = HMFGetOSLogHandle(v27, v28);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
       {
-        v27 = HMFGetLogIdentifier(v25);
+        v30 = HMFGetLogIdentifier(v27);
         *buf = 138543618;
-        v38 = v27;
-        v39 = 2112;
-        v40 = v13;
-        _os_log_impl(&dword_22ADEC000, v26, OS_LOG_TYPE_INFO, "%{public}@Failed to handle request: %@", buf, 0x16u);
+        v40 = v30;
+        v41 = 2112;
+        v42 = v14;
+        _os_log_impl(&dword_22ADEC000, v29, OS_LOG_TYPE_INFO, "%{public}@Failed to handle request: %@", buf, 0x16u);
       }
 
-      objc_autoreleasePoolPop(v24);
-      v15 = [v13 responseWithStatusCode:{501, v31, v32, v33, v34, v35}];
-      [v14 sendResponse:v15 completionHandler:0];
+      objc_autoreleasePoolPop(v26);
+      v16 = [v14 responseWithStatusCode:{501, v33, v34, v35, v36, v37}];
+      [v15 sendResponse:v16 completionHandler:0];
     }
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __51__HMFHTTPServer__handleReceivedRequest_connection___block_invoke(uint64_t a1, void *a2)
@@ -757,74 +741,72 @@ uint64_t __51__HMFHTTPServer__handleReceivedRequest_connection___block_invoke(ui
 
 - (void)_handleOpenedConnection:(id)connection
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   v5 = [[HMFHTTPClientConnection alloc] initWithConnection:connectionCopy];
   v6 = objc_autoreleasePoolPush();
   selfCopy = self;
-  v8 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v9 = HMFGetOSLogHandle(selfCopy, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    v9 = HMFGetLogIdentifier(selfCopy);
+    v10 = HMFGetLogIdentifier(selfCopy);
     *buf = 138543618;
-    v25 = v9;
-    v26 = 2112;
-    v27 = v5;
-    _os_log_impl(&dword_22ADEC000, v8, OS_LOG_TYPE_DEBUG, "%{public}@Received connection: %@", buf, 0x16u);
+    v27 = v10;
+    v28 = 2112;
+    v29 = v5;
+    _os_log_impl(&dword_22ADEC000, v9, OS_LOG_TYPE_DEBUG, "%{public}@Received connection: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v6);
   delegate = [(HMFHTTPServer *)selfCopy delegate];
   if ((objc_opt_respondsToSelector() & 1) != 0 && ![delegate server:selfCopy shouldAcceptConnection:v5])
   {
-    v15 = objc_autoreleasePoolPush();
-    v16 = selfCopy;
-    v17 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+    v17 = objc_autoreleasePoolPush();
+    v18 = selfCopy;
+    v20 = HMFGetOSLogHandle(v18, v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
     {
-      v18 = HMFGetLogIdentifier(v16);
+      v21 = HMFGetLogIdentifier(v18);
       *buf = 138543618;
-      v25 = v18;
-      v26 = 2112;
-      v27 = v5;
-      _os_log_impl(&dword_22ADEC000, v17, OS_LOG_TYPE_INFO, "%{public}@Rejecting connection: %@", buf, 0x16u);
+      v27 = v21;
+      v28 = 2112;
+      v29 = v5;
+      _os_log_impl(&dword_22ADEC000, v20, OS_LOG_TYPE_INFO, "%{public}@Rejecting connection: %@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v15);
+    objc_autoreleasePoolPop(v17);
   }
 
   else
   {
-    v11 = objc_autoreleasePoolPush();
-    v12 = selfCopy;
-    v13 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    v12 = objc_autoreleasePoolPush();
+    v13 = selfCopy;
+    v15 = HMFGetOSLogHandle(v13, v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
-      v14 = HMFGetLogIdentifier(v12);
+      v16 = HMFGetLogIdentifier(v13);
       *buf = 138543618;
-      v25 = v14;
-      v26 = 2112;
-      v27 = v5;
-      _os_log_impl(&dword_22ADEC000, v13, OS_LOG_TYPE_INFO, "%{public}@Accepted connection: %@", buf, 0x16u);
+      v27 = v16;
+      v28 = 2112;
+      v29 = v5;
+      _os_log_impl(&dword_22ADEC000, v15, OS_LOG_TYPE_INFO, "%{public}@Accepted connection: %@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v11);
-    [(HMFHTTPClientConnection *)v5 setDelegate:v12];
-    objc_initWeak(buf, v12);
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __41__HMFHTTPServer__handleOpenedConnection___block_invoke;
-    v20[3] = &unk_2786E8010;
-    objc_copyWeak(&v23, buf);
-    v21 = v5;
-    v22 = delegate;
-    [(HMFHTTPClientConnection *)v21 openWithCompletionHandler:v20];
+    objc_autoreleasePoolPop(v12);
+    [(HMFHTTPClientConnection *)v5 setDelegate:v13];
+    objc_initWeak(buf, v13);
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __41__HMFHTTPServer__handleOpenedConnection___block_invoke;
+    v22[3] = &unk_2786E8010;
+    objc_copyWeak(&v25, buf);
+    v23 = v5;
+    v24 = delegate;
+    [(HMFHTTPClientConnection *)v23 openWithCompletionHandler:v22];
 
-    objc_destroyWeak(&v23);
+    objc_destroyWeak(&v25);
     objc_destroyWeak(buf);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __41__HMFHTTPServer__handleOpenedConnection___block_invoke(id *a1, void *a2)
@@ -849,26 +831,26 @@ void __41__HMFHTTPServer__handleOpenedConnection___block_invoke(id *a1, void *a2
 
 void __41__HMFHTTPServer__handleOpenedConnection___block_invoke_2(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = objc_autoreleasePoolPush();
   v4 = *(a1 + 40);
-  v5 = HMFGetOSLogHandle();
-  v6 = v5;
+  v6 = HMFGetOSLogHandle(v4, v5);
+  v7 = v6;
   if (v2)
   {
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = HMFGetLogIdentifier(v4);
-      v8 = *(a1 + 48);
-      v9 = *(a1 + 32);
-      v14 = 138543874;
-      v15 = v7;
-      v16 = 2112;
-      v17 = v8;
-      v18 = 2112;
-      v19 = v9;
-      _os_log_impl(&dword_22ADEC000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@Failed to open connection, %@, with error: %@", &v14, 0x20u);
+      v8 = HMFGetLogIdentifier(v4);
+      v9 = *(a1 + 48);
+      v10 = *(a1 + 32);
+      v13 = 138543874;
+      v14 = v8;
+      v15 = 2112;
+      v16 = v9;
+      v17 = 2112;
+      v18 = v10;
+      _os_log_impl(&dword_22ADEC000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@Failed to open connection, %@, with error: %@", &v13, 0x20u);
     }
 
     objc_autoreleasePoolPop(v3);
@@ -876,19 +858,18 @@ void __41__HMFHTTPServer__handleOpenedConnection___block_invoke_2(uint64_t a1)
 
   else
   {
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      v10 = HMFGetLogIdentifier(v4);
-      v11 = *(a1 + 48);
-      v14 = 138543618;
-      v15 = v10;
-      v16 = 2112;
-      v17 = v11;
-      _os_log_impl(&dword_22ADEC000, v6, OS_LOG_TYPE_INFO, "%{public}@Opened connection: %@", &v14, 0x16u);
+      v11 = HMFGetLogIdentifier(v4);
+      v12 = *(a1 + 48);
+      v13 = 138543618;
+      v14 = v11;
+      v15 = 2112;
+      v16 = v12;
+      _os_log_impl(&dword_22ADEC000, v7, OS_LOG_TYPE_INFO, "%{public}@Opened connection: %@", &v13, 0x16u);
     }
 
     objc_autoreleasePoolPop(v3);
-    v12 = *(a1 + 56);
     if (objc_opt_respondsToSelector())
     {
       [*(a1 + 56) server:*(a1 + 40) didOpenConnection:*(a1 + 48)];
@@ -896,63 +877,59 @@ void __41__HMFHTTPServer__handleOpenedConnection___block_invoke_2(uint64_t a1)
 
     [*(a1 + 40) addConnection:*(a1 + 48)];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleClosedConnection:(id)connection
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
-  v7 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v8 = HMFGetOSLogHandle(selfCopy, v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v8 = HMFGetLogIdentifier(selfCopy);
+    v9 = HMFGetLogIdentifier(selfCopy);
     *buf = 138543618;
-    v21 = v8;
-    v22 = 2112;
-    v23 = connectionCopy;
-    _os_log_impl(&dword_22ADEC000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Connection closed: %@", buf, 0x16u);
+    v22 = v9;
+    v23 = 2112;
+    v24 = connectionCopy;
+    _os_log_impl(&dword_22ADEC000, v8, OS_LOG_TYPE_DEBUG, "%{public}@Connection closed: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
   connections = [(HMFHTTPServer *)selfCopy connections];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __41__HMFHTTPServer__handleClosedConnection___block_invoke;
-  v18[3] = &unk_2786E8038;
-  v10 = connectionCopy;
-  v19 = v10;
-  v11 = [connections hmf_objectPassingTest:v18];
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __41__HMFHTTPServer__handleClosedConnection___block_invoke;
+  v19[3] = &unk_2786E8038;
+  v11 = connectionCopy;
+  v20 = v11;
+  v12 = [connections hmf_objectPassingTest:v19];
 
-  if (v11)
+  if (v12)
   {
-    v12 = objc_autoreleasePoolPush();
-    v13 = selfCopy;
-    v14 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+    v13 = objc_autoreleasePoolPush();
+    v14 = selfCopy;
+    v16 = HMFGetOSLogHandle(v14, v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
-      v15 = HMFGetLogIdentifier(v13);
+      v17 = HMFGetLogIdentifier(v14);
       *buf = 138543618;
-      v21 = v15;
-      v22 = 2112;
-      v23 = v11;
-      _os_log_impl(&dword_22ADEC000, v14, OS_LOG_TYPE_INFO, "%{public}@Closing connection: %@", buf, 0x16u);
+      v22 = v17;
+      v23 = 2112;
+      v24 = v12;
+      _os_log_impl(&dword_22ADEC000, v16, OS_LOG_TYPE_INFO, "%{public}@Closing connection: %@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v12);
-    [v11 close];
-    [(HMFHTTPServer *)v13 removeConnection:v11];
-    delegate = [(HMFHTTPServer *)v13 delegate];
+    objc_autoreleasePoolPop(v13);
+    [v12 close];
+    [(HMFHTTPServer *)v14 removeConnection:v12];
+    delegate = [(HMFHTTPServer *)v14 delegate];
     if (objc_opt_respondsToSelector())
     {
-      [delegate server:v13 didCloseConnection:v11];
+      [delegate server:v14 didCloseConnection:v12];
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __41__HMFHTTPServer__handleClosedConnection___block_invoke(uint64_t a1, void *a2)
@@ -1048,37 +1025,37 @@ uint64_t __28__HMFHTTPServer_logCategory__block_invoke()
 
 - (id)dumpState
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   v4 = [(HMFObject *)self debugDescription];
   [dictionary setObject:v4 forKeyedSubscript:@"Identity"];
 
   connections = [(HMFHTTPServer *)self connections];
   v6 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(connections, "count")}];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v7 = connections;
-  v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v18;
+    v10 = *v17;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v18 != v10)
+        if (*v17 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        shortDescription = [*(*(&v17 + 1) + 8 * i) shortDescription];
+        shortDescription = [*(*(&v16 + 1) + 8 * i) shortDescription];
         [v6 addObject:shortDescription];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v9);
@@ -1088,8 +1065,6 @@ uint64_t __28__HMFHTTPServer_logCategory__block_invoke()
   netService = [(HMFHTTPServer *)self netService];
   v14 = [netService debugDescription];
   [dictionary setObject:v14 forKeyedSubscript:@"NetService"];
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }

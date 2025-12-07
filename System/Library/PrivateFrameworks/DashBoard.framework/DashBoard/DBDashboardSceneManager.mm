@@ -78,9 +78,9 @@
 - (void)environmentConfiguration:(id)configuration appearanceStyleDidChange:(int64_t)change
 {
   selfCopy = self;
-  sub_248383DC0();
-  v4 = *sub_24827BD58();
-  sub_248382A40();
+  v4 = sub_248383DC0();
+  v5 = *sub_24827BD58();
+  sub_248382A40(v4, &dword_248146000, v5, "Appearance style changed for environment, updating user interface style", 71, 2, MEMORY[0x277D84F90]);
 
   sub_2482B56AC();
 }
@@ -94,11 +94,11 @@
 
 - (void)processMonitor:(id)monitor shouldHandleDeathOfBundleIdentifier:(id)identifier isCrash:(BOOL)crash
 {
-  v7 = sub_248383960();
-  v9 = v8;
+  v8 = sub_248383960();
+  v10 = v9;
   monitorCopy = monitor;
   selfCopy = self;
-  sub_2482B9D34(v7, v9);
+  sub_2482B9D34(v8, v10, crash);
 }
 
 - (void)processMonitor:(id)monitor didHandleDeathOfBundleIdentifier:(id)identifier
@@ -119,8 +119,8 @@
 
 - (id)scene:(id)scene handleActions:(id)actions
 {
-  sub_24814FB28(0, &unk_27EE91610);
-  sub_248151298(&qword_27EE90E30, &unk_27EE91610);
+  sub_24814FB28(0, &unk_27EE91610, 0x277CF0B58);
+  sub_248151298(&qword_27EE90E30, &unk_27EE91610, 0x277CF0B58, MEMORY[0x277D85378]);
   v6 = sub_248383C80();
   sceneCopy = scene;
   selfCopy = self;
@@ -145,15 +145,15 @@
   invalidateCopy = invalidate;
   contextCopy = context;
   selfCopy = self;
-  _s9DashBoard23DBDashboardSceneManagerC18sceneDidInvalidate_7contextySo7FBSceneC_So25FBSSceneTransitionContextCSgtF_0();
+  _s9DashBoard23DBDashboardSceneManagerC18sceneDidInvalidate_7contextySo7FBSceneC_So25FBSSceneTransitionContextCSgtF_0(invalidateCopy);
 }
 
 - (void)_updateWallpaper
 {
   selfCopy = self;
-  sub_248383DC0();
-  v2 = *sub_24827BD58();
-  sub_248382A40();
+  v2 = sub_248383DC0();
+  v3 = *sub_24827BD58();
+  sub_248382A40(v2, &dword_248146000, v3, "Wallpaper changed, updating black wallpaper mode", 48, 2, MEMORY[0x277D84F90]);
 
   sub_2482B56AC();
 }

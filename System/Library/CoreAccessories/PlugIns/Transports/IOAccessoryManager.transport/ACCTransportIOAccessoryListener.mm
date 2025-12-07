@@ -1,6 +1,18 @@
 @interface ACCTransportIOAccessoryListener
 - (ACCTransportIOAccessoryListener)initWithDelegate:(id)delegate;
 - (ACCTransportIOAccessoryListenerProtocol)delegate;
+- (void)_ioAccessoryAuthCPAttached:(unsigned int)attached;
+- (void)_ioAccessoryAuthCPTerminated:(unsigned int)terminated;
+- (void)_ioAccessoryConfigStreamAttached:(unsigned int)attached;
+- (void)_ioAccessoryConfigStreamTerminated:(unsigned int)terminated;
+- (void)_ioAccessoryEAAttached:(unsigned int)attached;
+- (void)_ioAccessoryEATerminated:(unsigned int)terminated;
+- (void)_ioAccessoryManagerAttached:(unsigned int)attached;
+- (void)_ioAccessoryManagerTerminated:(unsigned int)terminated;
+- (void)_ioAccessoryOOBPairingAttached:(unsigned int)attached;
+- (void)_ioAccessoryOOBPairingTerminated:(unsigned int)terminated;
+- (void)_ioAccessoryPortAttached:(unsigned int)attached;
+- (void)_ioAccessoryPortTerminated:(unsigned int)terminated;
 - (void)_startListeningForIOAccessoryAuthCPClass;
 - (void)_startListeningForIOAccessoryConfigStreamClass;
 - (void)_startListeningForIOAccessoryEAClass;
@@ -71,11 +83,45 @@
 
 - (void)_startListeningForIOAccessoryManagerClass
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
+}
+
+- (void)_ioAccessoryManagerAttached:(unsigned int)attached
+{
+  v3 = *&attached;
+  delegate = [(ACCTransportIOAccessoryListener *)self delegate];
+  if (delegate)
+  {
+    v6 = delegate;
+    delegate2 = [(ACCTransportIOAccessoryListener *)self delegate];
+    v8 = objc_opt_respondsToSelector();
+
+    if (v8)
+    {
+      delegate3 = [(ACCTransportIOAccessoryListener *)self delegate];
+      [delegate3 IOAccessoryManagerServiceArrived:v3];
+    }
+  }
+}
+
+- (void)_ioAccessoryManagerTerminated:(unsigned int)terminated
+{
+  v3 = *&terminated;
+  delegate = [(ACCTransportIOAccessoryListener *)self delegate];
+  if (delegate)
+  {
+    v6 = delegate;
+    delegate2 = [(ACCTransportIOAccessoryListener *)self delegate];
+    v8 = objc_opt_respondsToSelector();
+
+    if (v8)
+    {
+      delegate3 = [(ACCTransportIOAccessoryListener *)self delegate];
+      [delegate3 IOAccessoryManagerServiceTerminated:v3];
+    }
+  }
 }
 
 - (void)_stopListeningForIOAccessoryManagerClass
@@ -103,11 +149,45 @@
 
 - (void)_startListeningForIOAccessoryPortClass
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
+}
+
+- (void)_ioAccessoryPortAttached:(unsigned int)attached
+{
+  v3 = *&attached;
+  delegate = [(ACCTransportIOAccessoryListener *)self delegate];
+  if (delegate)
+  {
+    v6 = delegate;
+    delegate2 = [(ACCTransportIOAccessoryListener *)self delegate];
+    v8 = objc_opt_respondsToSelector();
+
+    if (v8)
+    {
+      delegate3 = [(ACCTransportIOAccessoryListener *)self delegate];
+      [delegate3 IOAccessoryPortServiceArrived:v3];
+    }
+  }
+}
+
+- (void)_ioAccessoryPortTerminated:(unsigned int)terminated
+{
+  v3 = *&terminated;
+  delegate = [(ACCTransportIOAccessoryListener *)self delegate];
+  if (delegate)
+  {
+    v6 = delegate;
+    delegate2 = [(ACCTransportIOAccessoryListener *)self delegate];
+    v8 = objc_opt_respondsToSelector();
+
+    if (v8)
+    {
+      delegate3 = [(ACCTransportIOAccessoryListener *)self delegate];
+      [delegate3 IOAccessoryPortServiceTerminated:v3];
+    }
+  }
 }
 
 - (void)_stopListeningForIOAccessoryPortClass
@@ -136,11 +216,45 @@
 
 - (void)_startListeningForIOAccessoryAuthCPClass
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
+}
+
+- (void)_ioAccessoryAuthCPAttached:(unsigned int)attached
+{
+  v3 = *&attached;
+  delegate = [(ACCTransportIOAccessoryListener *)self delegate];
+  if (delegate)
+  {
+    v6 = delegate;
+    delegate2 = [(ACCTransportIOAccessoryListener *)self delegate];
+    v8 = objc_opt_respondsToSelector();
+
+    if (v8)
+    {
+      delegate3 = [(ACCTransportIOAccessoryListener *)self delegate];
+      [delegate3 IOAccessoryAuthCPServiceArrived:v3];
+    }
+  }
+}
+
+- (void)_ioAccessoryAuthCPTerminated:(unsigned int)terminated
+{
+  v3 = *&terminated;
+  delegate = [(ACCTransportIOAccessoryListener *)self delegate];
+  if (delegate)
+  {
+    v6 = delegate;
+    delegate2 = [(ACCTransportIOAccessoryListener *)self delegate];
+    v8 = objc_opt_respondsToSelector();
+
+    if (v8)
+    {
+      delegate3 = [(ACCTransportIOAccessoryListener *)self delegate];
+      [delegate3 IOAccessoryAuthCPServiceTerminated:v3];
+    }
+  }
 }
 
 - (void)_stopListeningForIOAccessoryAuthCPClass
@@ -169,11 +283,45 @@
 
 - (void)_startListeningForIOAccessoryEAClass
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
+}
+
+- (void)_ioAccessoryEAAttached:(unsigned int)attached
+{
+  v3 = *&attached;
+  delegate = [(ACCTransportIOAccessoryListener *)self delegate];
+  if (delegate)
+  {
+    v6 = delegate;
+    delegate2 = [(ACCTransportIOAccessoryListener *)self delegate];
+    v8 = objc_opt_respondsToSelector();
+
+    if (v8)
+    {
+      delegate3 = [(ACCTransportIOAccessoryListener *)self delegate];
+      [delegate3 IOAccessoryEAServiceArrived:v3];
+    }
+  }
+}
+
+- (void)_ioAccessoryEATerminated:(unsigned int)terminated
+{
+  v3 = *&terminated;
+  delegate = [(ACCTransportIOAccessoryListener *)self delegate];
+  if (delegate)
+  {
+    v6 = delegate;
+    delegate2 = [(ACCTransportIOAccessoryListener *)self delegate];
+    v8 = objc_opt_respondsToSelector();
+
+    if (v8)
+    {
+      delegate3 = [(ACCTransportIOAccessoryListener *)self delegate];
+      [delegate3 IOAccessoryEAServiceTerminated:v3];
+    }
+  }
 }
 
 - (void)_stopListeningForIOAccessoryEAClass
@@ -202,11 +350,45 @@
 
 - (void)_startListeningForIOAccessoryOOBPairingClass
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
+}
+
+- (void)_ioAccessoryOOBPairingAttached:(unsigned int)attached
+{
+  v3 = *&attached;
+  delegate = [(ACCTransportIOAccessoryListener *)self delegate];
+  if (delegate)
+  {
+    v6 = delegate;
+    delegate2 = [(ACCTransportIOAccessoryListener *)self delegate];
+    v8 = objc_opt_respondsToSelector();
+
+    if (v8)
+    {
+      delegate3 = [(ACCTransportIOAccessoryListener *)self delegate];
+      [delegate3 IOAccessoryOOBPairingServiceArrived:v3];
+    }
+  }
+}
+
+- (void)_ioAccessoryOOBPairingTerminated:(unsigned int)terminated
+{
+  v3 = *&terminated;
+  delegate = [(ACCTransportIOAccessoryListener *)self delegate];
+  if (delegate)
+  {
+    v6 = delegate;
+    delegate2 = [(ACCTransportIOAccessoryListener *)self delegate];
+    v8 = objc_opt_respondsToSelector();
+
+    if (v8)
+    {
+      delegate3 = [(ACCTransportIOAccessoryListener *)self delegate];
+      [delegate3 IOAccessoryOOBPairingServiceTerminated:v3];
+    }
+  }
 }
 
 - (void)_stopListeningForIOAccessoryOOBPairingClass
@@ -235,11 +417,45 @@
 
 - (void)_startListeningForIOAccessoryConfigStreamClass
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
+}
+
+- (void)_ioAccessoryConfigStreamAttached:(unsigned int)attached
+{
+  v3 = *&attached;
+  delegate = [(ACCTransportIOAccessoryListener *)self delegate];
+  if (delegate)
+  {
+    v6 = delegate;
+    delegate2 = [(ACCTransportIOAccessoryListener *)self delegate];
+    v8 = objc_opt_respondsToSelector();
+
+    if (v8)
+    {
+      delegate3 = [(ACCTransportIOAccessoryListener *)self delegate];
+      [delegate3 IOAccessoryConfigStreamServiceArrived:v3];
+    }
+  }
+}
+
+- (void)_ioAccessoryConfigStreamTerminated:(unsigned int)terminated
+{
+  v3 = *&terminated;
+  delegate = [(ACCTransportIOAccessoryListener *)self delegate];
+  if (delegate)
+  {
+    v6 = delegate;
+    delegate2 = [(ACCTransportIOAccessoryListener *)self delegate];
+    v8 = objc_opt_respondsToSelector();
+
+    if (v8)
+    {
+      delegate3 = [(ACCTransportIOAccessoryListener *)self delegate];
+      [delegate3 IOAccessoryConfigStreamServiceTerminated:v3];
+    }
+  }
 }
 
 - (void)_stopListeningForIOAccessoryConfigStreamClass

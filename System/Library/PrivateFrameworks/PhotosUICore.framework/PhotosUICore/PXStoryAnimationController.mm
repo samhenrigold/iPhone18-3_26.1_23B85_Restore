@@ -227,7 +227,7 @@ void __68__PXStoryAnimationController__configureAnimation_withAnimationInfo___bl
   v4 = *(a1 + 32);
   if (v4)
   {
-    [v4 elapsedTime];
+    objc_msgSend_elapsedTime(v4);
   }
 
   else
@@ -238,7 +238,7 @@ void __68__PXStoryAnimationController__configureAnimation_withAnimationInfo___bl
   v5 = *(a1 + 40);
   if (v5)
   {
-    [v5 startTime];
+    objc_msgSend_startTime(v5);
   }
 
   else
@@ -328,7 +328,7 @@ void __68__PXStoryAnimationController__configureAnimation_withAnimationInfo___bl
     v16 = model;
     if (model)
     {
-      [model elapsedTime];
+      objc_msgSend_elapsedTime(model);
     }
 
     else

@@ -11,9 +11,11 @@
 - (void)dealloc;
 - (void)donate:(id)donate;
 - (void)findCategorizationsForRequest:(id)request withReply:(id)reply;
+- (void)findResultsForRequest:(id)request isServiceInternal:(BOOL)internal reply:(id)reply;
 - (void)findResultsForRequest:(id)request withReply:(id)reply;
 - (void)groupResponses:(id)responses withReply:(id)reply;
 - (void)logEngagementForResponseId:(id)id result:(id)result rank:(unint64_t)rank inputLength:(unint64_t)length completionLength:(unint64_t)completionLength requestType:(unint64_t)type logType:(unint64_t)logType;
+- (void)logResultsShownForResponseId:(id)id shown:(unint64_t)shown couldHaveShown:(unint64_t)haveShown topicIds:(id)ids serverOverride:(BOOL)override inputLength:(unint64_t)length requestType:(unint64_t)type logType:(unint64_t)self0;
 - (void)logTransactionSuccessfulForResponseId:(id)id inputLength:(unint64_t)length completionLength:(unint64_t)completionLength requestType:(unint64_t)type logType:(unint64_t)logType;
 - (void)shutdownServiceWithReply:(id)reply;
 - (void)statusWithReply:(id)reply;
@@ -450,6 +452,24 @@ LABEL_28:
 
 LABEL_29:
   }
+}
+
+- (void)findResultsForRequest:(id)request isServiceInternal:(BOOL)internal reply:(id)reply
+{
+  internalCopy = internal;
+  replyCopy = reply;
+  requestCopy = request;
+  v13[0] = _NSConcreteStackBlock;
+  v13[1] = 3221225472;
+  v13[2] = sub_1002A1548;
+  v13[3] = &unk_100483D10;
+  v14 = -[RequestTransaction initWithTransactionId:decPending:]([RequestTransaction alloc], "initWithTransactionId:decPending:", @"ContextService.findResults", [requestCopy incPending]);
+  v15 = replyCopy;
+  v10 = replyCopy;
+  v11 = v14;
+  [(CKContextXPCProtocolImpl *)self _findResultsForRequest:requestCopy withReply:v13 isServiceInternal:internalCopy transaction:v11];
+
+  v12 = objc_opt_self();
 }
 
 - (void)_findResultsForRequest:(id)request withReply:(id)reply isServiceInternal:(BOOL)internal transaction:(id)transaction
@@ -1465,6 +1485,16 @@ LABEL_19:
   }
 
   return v6;
+}
+
+- (void)logResultsShownForResponseId:(id)id shown:(unint64_t)shown couldHaveShown:(unint64_t)haveShown topicIds:(id)ids serverOverride:(BOOL)override inputLength:(unint64_t)length requestType:(unint64_t)type logType:(unint64_t)self0
+{
+  overrideCopy = override;
+  contextEngine = self->_contextEngine;
+  idsCopy = ids;
+  indexId = [(ContextEngine *)contextEngine indexId];
+  v16 = +[MetricsLogging instance];
+  [v16 recordResultsShownWithUserInputLength:length count:shown couldHaveShown:haveShown topicIds:idsCopy serverOverride:overrideCopy indexId:indexId requestType:type logType:logType];
 }
 
 - (void)logEngagementForResponseId:(id)id result:(id)result rank:(unint64_t)rank inputLength:(unint64_t)length completionLength:(unint64_t)completionLength requestType:(unint64_t)type logType:(unint64_t)logType

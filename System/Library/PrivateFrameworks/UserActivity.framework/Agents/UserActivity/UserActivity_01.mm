@@ -1,20 +1,3 @@
-uint64_t sub_100064DA0(void *a1)
-{
-  v1 = a1;
-  v2 = v1;
-  if (v1 && [v1 length] >= 9)
-  {
-    v3 = *([v2 bytes] + 7);
-  }
-
-  else
-  {
-    v3 = 0;
-  }
-
-  return v3;
-}
-
 BOOL sub_100064E08(void *a1)
 {
   v1 = a1;
@@ -513,12 +496,11 @@ void sub_100071768(uint64_t a1)
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = [*(a1 + 32) commandPort];
-    v6 = 134217984;
-    v7 = v4;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "SIMULATOR: Received message from another simulator on port %ld, so dispatching.", &v6, 0xCu);
+    v5 = 134217984;
+    v6 = v4;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "SIMULATOR: Received message from another simulator on port %ld, so dispatching.", &v5, 0xCu);
   }
 
-  v5 = *(a1 + 40);
   dispatch_mig_server();
   objc_autoreleasePoolPop(v2);
 }
@@ -552,10 +534,10 @@ id sub_100071B94(uint64_t a1)
   return [*(a1 + 32) reconnectToParentSimulator];
 }
 
-void sub_100071C98(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_100071C98(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = UASimulator;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -751,7 +733,7 @@ uint64_t sub_1000731CC(uint64_t a1, uint64_t a2, int a3, void *a4, _DWORD *a5, v
   return v19;
 }
 
-void sub_10007334C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
+void sub_10007334C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
 {
   _Block_object_dispose(&a17, 8);
 
@@ -1152,6 +1134,14 @@ LABEL_18:
   return v38;
 }
 
+void sub_10007439C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
+{
+  va_start(va, a30);
+
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 intptr_t sub_1000744AC(uint64_t a1)
 {
   v2 = [*(a1 + 32) webpageURL];
@@ -1185,7 +1175,7 @@ intptr_t sub_1000744AC(uint64_t a1)
     v11 = [v10 UUIDString];
     v12 = *(a1 + 32);
     v13 = [v12 payloadForIdentifier:v3];
-    v14 = sub_1000021AC(v13, 0x20uLL);
+    v14 = sub_1000021AC(v13, 32);
     v16 = 138543875;
     v17 = v11;
     v18 = 2113;
@@ -1301,6 +1291,14 @@ LABEL_18:
 
   _Block_object_dispose(&v41, 8);
   return v29;
+}
+
+void sub_100074AC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 intptr_t sub_100074B90(uint64_t a1, void *a2)
@@ -2095,7 +2093,7 @@ uint64_t sub_10007B05C(int a1, mach_msg_timeout_t a2, void *a3, _DWORD *a4)
   return v11;
 }
 
-uint64_t sub_10007B228(int a1, __int128 *a2, int a3, uint64_t a4, int a5, uint64_t a6, _DWORD *a7, void *a8, _DWORD *a9, void *a10)
+uint64_t sub_10007B228(int a1, __int128 *a2, int a3, uint64_t a4, int a5, uint64_t a6, _DWORD *a7, uint64_t *a8, int *a9, void *a10)
 {
   memset(&msg[4], 0, 32);
   *&msg[24] = 2;
@@ -2220,8 +2218,6 @@ void sub_10007B47C(uint64_t a1, uint64_t a2)
     {
       if (!*(a1 + 56) && *(a1 + 60) > 0x1Fu)
       {
-        v5 = *(a1 + 76);
-        v6 = *(a1 + 92);
         *(a2 + 32) = sub_100072EA4(*(a1 + 12), *(a1 + 28), v3);
         mig_deallocate(*(a1 + 28), *(a1 + 40));
         *(a1 + 28) = 0;
@@ -2257,11 +2253,10 @@ void sub_10007B55C(uint64_t a1, uint64_t a2)
       {
         v5 = *(a1 + 12);
         v6 = *(a1 + 28);
-        v7 = *(a1 + 44);
-        v8 = *(a1 + 112);
-        v9[0] = *(a1 + 96);
-        v9[1] = v8;
-        *(a2 + 32) = sub_100073BB4(v5, v9, v6, v3);
+        v7 = *(a1 + 112);
+        v8[0] = *(a1 + 96);
+        v8[1] = v7;
+        *(a2 + 32) = sub_100073BB4(v5, v8, v6, v3);
         mig_deallocate(*(a1 + 44), *(a1 + 56));
         *(a1 + 44) = 0;
         *(a1 + 56) = 0;
@@ -2332,20 +2327,18 @@ LABEL_8:
   return result;
 }
 
-uint64_t sub_10007B77C(uint64_t result, uint64_t a2)
+_DWORD *sub_10007B77C(_DWORD *result, uint64_t a2)
 {
-  if ((*result & 0x80000000) != 0 || *(result + 4) != 24)
+  if ((*result & 0x80000000) != 0 || result[1] != 24)
   {
     v3 = -304;
   }
 
   else
   {
-    if (!*(result + 24) && *(result + 28) > 0x1Fu)
+    if (!result[6] && result[7] > 0x1Fu)
     {
-      v4 = *(result + 44);
-      v5 = *(result + 60);
-      result = sub_100073914(*(result + 12));
+      result = sub_100073914(result[3]);
       *(a2 + 32) = result;
       return result;
     }
@@ -2444,24 +2437,20 @@ _DWORD *sub_10007B9F4(_DWORD *result, uint64_t a2)
 {
   if ((*result & 0x80000000) != 0 || result[1] != 24)
   {
-    v4 = -304;
+    v3 = -304;
     goto LABEL_7;
   }
 
-  v3 = result + 6;
   if (result[6] || result[7] <= 0x1Fu)
   {
-    v4 = -309;
+    v3 = -309;
 LABEL_7:
-    *(a2 + 32) = v4;
+    *(a2 + 32) = v3;
     goto LABEL_8;
   }
 
   *(a2 + 52) = 0;
   *(a2 + 36) = 16777472;
-  v5 = result[3];
-  v6 = *(v3 + 5);
-  v7 = *(v3 + 9);
   result = sub_100074BE0();
   if (!result)
   {

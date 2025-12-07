@@ -101,25 +101,23 @@
 
 - (id)_accessibilitySupplementaryFooterViews
 {
-  v10[1] = *MEMORY[0x29EDCA608];
+  v9[1] = *MEMORY[0x29EDCA608];
   v3 = [(LockScreenPosterCollectionViewCellAccessibility *)self safeSwiftValueForKey:@"focusButton"];
   v4 = v3;
   if (v3)
   {
-    v10[0] = v3;
-    _accessibilitySupplementaryFooterViews = [MEMORY[0x29EDB8D80] arrayWithObjects:v10 count:1];
+    v9[0] = v3;
+    _accessibilitySupplementaryFooterViews = [MEMORY[0x29EDB8D80] arrayWithObjects:v9 count:1];
   }
 
   else
   {
-    v9.receiver = self;
-    v9.super_class = LockScreenPosterCollectionViewCellAccessibility;
-    _accessibilitySupplementaryFooterViews = [(LockScreenPosterCollectionViewCellAccessibility *)&v9 _accessibilitySupplementaryFooterViews];
+    v8.receiver = self;
+    v8.super_class = LockScreenPosterCollectionViewCellAccessibility;
+    _accessibilitySupplementaryFooterViews = [(LockScreenPosterCollectionViewCellAccessibility *)&v8 _accessibilitySupplementaryFooterViews];
   }
 
   v6 = _accessibilitySupplementaryFooterViews;
-
-  v7 = *MEMORY[0x29EDCA608];
 
   return v6;
 }
@@ -246,28 +244,28 @@ void __77__LockScreenPosterCollectionViewCellAccessibility_accessibilityCustomAc
 
 - (id)_axHeaderLabel
 {
-  v26 = *MEMORY[0x29EDCA608];
+  v25 = *MEMORY[0x29EDCA608];
   _axCollectionView = [(LockScreenPosterCollectionViewCellAccessibility *)self _axCollectionView];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   _accessibilitySubviews = [_axCollectionView _accessibilitySubviews];
-  v5 = [_accessibilitySubviews countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v5 = [_accessibilitySubviews countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v22;
+    v7 = *v21;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v22 != v7)
+        if (*v21 != v7)
         {
           objc_enumerationMutation(_accessibilitySubviews);
         }
 
-        v9 = *(*(&v21 + 1) + 8 * i);
+        v9 = *(*(&v20 + 1) + 8 * i);
         MEMORY[0x29C2E7EC0](@"PosterBoard.PosterSectionHeaderView");
         if ((objc_opt_isKindOfClass() & 1) != 0 && ([v9 isHidden] & 1) == 0)
         {
@@ -279,7 +277,7 @@ void __77__LockScreenPosterCollectionViewCellAccessibility_accessibilityCustomAc
           if (v13 <= v11 && v11 <= v14)
           {
             v16 = accessibilityLocalizedString(@"lock.screen.wallpaper.label");
-            v20 = [v9 safeSwiftStringForKey:@"title"];
+            v19 = [v9 safeSwiftStringForKey:@"title"];
             v17 = AXCFormattedString();
 
             goto LABEL_16;
@@ -287,7 +285,7 @@ void __77__LockScreenPosterCollectionViewCellAccessibility_accessibilityCustomAc
         }
       }
 
-      v6 = [_accessibilitySubviews countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v6 = [_accessibilitySubviews countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v6);
@@ -295,8 +293,6 @@ void __77__LockScreenPosterCollectionViewCellAccessibility_accessibilityCustomAc
 
   v17 = 0;
 LABEL_16:
-
-  v18 = *MEMORY[0x29EDCA608];
 
   return v17;
 }
@@ -325,20 +321,20 @@ LABEL_16:
 
 - (id)_axWallpaperWidgetsNames
 {
-  v46 = *MEMORY[0x29EDCA608];
+  v45 = *MEMORY[0x29EDCA608];
   v3 = [(LockScreenPosterCollectionViewCellAccessibility *)self safeSwiftValueForKey:@"prominentController"];
   v4 = [(LockScreenPosterCollectionViewCellAccessibility *)self safeSwiftValueForKey:@"floatingProminentController"];
   v5 = [v3 safeValueForKeyPath:@"subtitleComplicationViewController.complicationDescriptor.widgetDescriptor"];
-  v35 = v3;
+  v34 = v3;
   v6 = [v3 safeValueForKeyPath:@"complicationContainerViewController.model"];
   v7 = [v6 safeArrayForKey:@"complicationDescriptors"];
   v8 = [v7 mutableCopy];
 
-  v34 = v4;
+  v33 = v4;
   v9 = [v4 safeValueForKeyPath:@"complicationSidebarViewController.model"];
   v10 = [v9 safeArrayForKey:@"complicationDescriptors"];
 
-  v32 = v10;
+  v31 = v10;
   [v8 axSafelyAddObjectsFromArray:v10];
   array = [MEMORY[0x29EDB8DE8] array];
   dictionary = [MEMORY[0x29EDB8E00] dictionary];
@@ -348,72 +344,70 @@ LABEL_16:
     [array axSafelyAddObject:v13];
   }
 
-  v33 = v5;
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
+  v32 = v5;
   v41 = 0u;
+  v42 = 0u;
+  v39 = 0u;
+  v40 = 0u;
   v14 = v8;
-  v15 = [v14 countByEnumeratingWithState:&v40 objects:v45 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v39 objects:v44 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v41;
+    v17 = *v40;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v41 != v17)
+        if (*v40 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = [*(*(&v40 + 1) + 8 * i) safeValueForKey:@"widgetDescriptor"];
+        v19 = [*(*(&v39 + 1) + 8 * i) safeValueForKey:@"widgetDescriptor"];
         AXMapAppNameToWidgets(v19, dictionary);
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v40 objects:v45 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v39 objects:v44 count:16];
     }
 
     while (v16);
   }
 
-  v31 = v14;
+  v30 = v14;
 
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
   v37 = 0u;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
   allKeys = [dictionary allKeys];
-  v21 = [allKeys countByEnumeratingWithState:&v36 objects:v44 count:16];
+  v21 = [allKeys countByEnumeratingWithState:&v35 objects:v43 count:16];
   if (v21)
   {
     v22 = v21;
-    v23 = *v37;
+    v23 = *v36;
     do
     {
       for (j = 0; j != v22; ++j)
       {
-        if (*v37 != v23)
+        if (*v36 != v23)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v25 = [dictionary objectForKey:*(*(&v36 + 1) + 8 * j)];
+        v25 = [dictionary objectForKey:*(*(&v35 + 1) + 8 * j)];
         v26 = AXFormatAndListWithElements();
         v27 = __UIAXStringForVariables();
         [array axSafelyAddObject:{v27, v26, @"__AXStringForVariablesSentinel"}];
       }
 
-      v22 = [allKeys countByEnumeratingWithState:&v36 objects:v44 count:16];
+      v22 = [allKeys countByEnumeratingWithState:&v35 objects:v43 count:16];
     }
 
     while (v22);
   }
 
   v28 = AXFormatAndListWithElements();
-
-  v29 = *MEMORY[0x29EDCA608];
 
   return v28;
 }

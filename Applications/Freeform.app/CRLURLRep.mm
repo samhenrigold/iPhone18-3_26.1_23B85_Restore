@@ -80,7 +80,7 @@
 
 - (NSURL)previewItemURL
 {
-  v3 = sub_1005B981C(&unk_1019F33C0);
+  v3 = sub_1005B981C(&unk_1019F33C0, &unk_101468A60);
   __chkstk_darwin(v3 - 8);
   v5 = &v17 - v4;
   selfCopy = self;

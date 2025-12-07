@@ -12,7 +12,7 @@
   v9.receiver = self;
   v9.super_class = PXBasicTileAnimationOptions;
   v3 = [(PXBasicTileAnimationOptions *)&v9 description];
-  [(PXBasicTileAnimationOptions *)self duration];
+  objc_msgSend_duration(self);
   v5 = v4;
   [(PXBasicTileAnimationOptions *)self delay];
   v7 = [v3 stringByAppendingFormat:@" duration:%.2f delay:%.2f style:%ld>", v5, v6, -[PXBasicTileAnimationOptions style](self, "style")];

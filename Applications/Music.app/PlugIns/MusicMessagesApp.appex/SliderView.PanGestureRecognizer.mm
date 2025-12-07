@@ -7,7 +7,7 @@
 
 - (void)touchesBegan:(id)began withEvent:(id)event
 {
-  sub_100006F10(0, &qword_1006449E0);
+  sub_100006F10(0, &qword_1006449E0, UITouch_ptr);
   sub_1003C980C();
   sub_1004DDC3C();
   eventCopy = event;

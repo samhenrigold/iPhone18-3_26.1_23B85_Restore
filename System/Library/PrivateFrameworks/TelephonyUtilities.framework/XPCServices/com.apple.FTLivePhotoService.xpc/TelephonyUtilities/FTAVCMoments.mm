@@ -1,10 +1,12 @@
 @interface FTAVCMoments
 - (FTAVCMomentsDelegate)delegate;
 - (_TtC18FTLivePhotoService12FTAVCMoments)initWithStreamToken:(int64_t)token requesterID:(id)d delegate:(id)delegate dispatchQueue:(id)queue;
+- (id)newRequestWithMediaType:(unsigned __int8)type mode:(unsigned __int8)mode requesteeID:(id)d;
 - (int)activeRequestCount;
 - (int)pendingRequestCount;
 - (int64_t)streamToken;
 - (unsigned)capabilities;
+- (void)moments:(id)moments capabilitiesDidChange:(unsigned int)change;
 - (void)moments:(id)moments didEndProcessingRequest:(id)request stillImageURL:(id)l movieURL:(id)rL error:(id)error;
 - (void)moments:(id)moments didEndProcessingRequest:(id)request url:(id)url error:(id)error;
 - (void)momentsServerDidDisconnect:(id)disconnect;
@@ -78,68 +80,95 @@
   return v3;
 }
 
-- (void)moments:(id)moments didEndProcessingRequest:(id)request url:(id)url error:(id)error
+- (id)newRequestWithMediaType:(unsigned __int8)type mode:(unsigned __int8)mode requesteeID:(id)d
 {
-  v7 = sub_10000BEC0(&unk_100058FA0, &unk_10003F260);
-  v8 = *(*(v7 - 8) + 64);
-  __chkstk_darwin(v7 - 8);
-  v10 = &v13 - v9;
-  if (url)
+  typeCopy = type;
+  if (d)
   {
-    sub_10003958C();
-    v11 = sub_1000395CC();
-    v12 = 0;
+    v8 = sub_10003986C();
+    v10 = v9;
   }
 
   else
   {
-    v11 = sub_1000395CC();
-    v12 = 1;
+    v8 = 0;
+    v10 = 0;
   }
 
-  sub_10000E998(v10, v12, 1, v11);
-  sub_10000D3F4(v10);
+  selfCopy = self;
+  v12 = sub_100034390(typeCopy, mode, v8, v10);
+
+  return v12;
+}
+
+- (void)moments:(id)moments capabilitiesDidChange:(unsigned int)change
+{
+  v4 = *&change;
+  momentsCopy = moments;
+  selfCopy = self;
+  sub_100034568(selfCopy, v4);
+}
+
+- (void)moments:(id)moments didEndProcessingRequest:(id)request url:(id)url error:(id)error
+{
+  v7 = sub_10000BEC0(&unk_100058FA0, &unk_10003F260);
+  __chkstk_darwin(v7 - 8);
+  v9 = &v12 - v8;
+  if (url)
+  {
+    sub_10003958C();
+    v10 = sub_1000395CC();
+    v11 = 0;
+  }
+
+  else
+  {
+    v10 = sub_1000395CC();
+    v11 = 1;
+  }
+
+  sub_10000E998(v9, v11, 1, v10);
+  sub_10000D3F4(v9);
 }
 
 - (void)moments:(id)moments didEndProcessingRequest:(id)request stillImageURL:(id)l movieURL:(id)rL error:(id)error
 {
   v13 = sub_10000BEC0(&unk_100058FA0, &unk_10003F260);
-  v14 = *(*(v13 - 8) + 64);
-  v15 = __chkstk_darwin(v13 - 8);
-  v17 = &v28 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v15);
-  v19 = &v28 - v18;
+  v14 = __chkstk_darwin(v13 - 8);
+  v16 = &v27 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v14);
+  v18 = &v27 - v17;
   if (l)
   {
     sub_10003958C();
-    v20 = sub_1000395CC();
-    v21 = 0;
+    v19 = sub_1000395CC();
+    v20 = 0;
   }
 
   else
   {
-    v20 = sub_1000395CC();
-    v21 = 1;
+    v19 = sub_1000395CC();
+    v20 = 1;
   }
 
-  v22 = 1;
-  sub_10000E998(v19, v21, 1, v20);
+  v21 = 1;
+  sub_10000E998(v18, v20, 1, v19);
   if (rL)
   {
     sub_10003958C();
-    v22 = 0;
+    v21 = 0;
   }
 
-  v23 = sub_1000395CC();
-  sub_10000E998(v17, v22, 1, v23);
+  v22 = sub_1000395CC();
+  sub_10000E998(v16, v21, 1, v22);
   momentsCopy = moments;
   requestCopy = request;
   errorCopy = error;
   selfCopy = self;
-  sub_100034854(selfCopy, requestCopy, v19, v17, error);
+  sub_100034854(selfCopy, requestCopy, v18, v16, error);
 
-  sub_10000D3F4(v17);
-  sub_10000D3F4(v19);
+  sub_10000D3F4(v16);
+  sub_10000D3F4(v18);
 }
 
 - (void)momentsServerDidDisconnect:(id)disconnect

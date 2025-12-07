@@ -6,7 +6,7 @@
 
 + (id)sharingContainerURL
 {
-  v2 = sub_100005DCC(&qword_1001BA7B0);
+  v2 = sub_100005DCC(&qword_1001BA7B0, &qword_10016D9A0);
   __chkstk_darwin(v2 - 8);
   v4 = &v12 - v3;
   sub_100020000(&v12 - v3);

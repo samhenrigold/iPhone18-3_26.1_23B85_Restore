@@ -18,6 +18,7 @@
 - (void)_continuePairingWithSetupCode:(id)code;
 - (void)_joinAccessory:(id)accessory completion:(id)completion;
 - (void)_joinAccessoryNetworkWithCompletion:(id)completion;
+- (void)_joinCompleteWithStatus:(int)status;
 - (void)_performEasyConfigWithPairingPrompt:(void *)prompt performPairSetup:(BOOL)setup isSplit:(BOOL)split pairingRequest:(id)request completion:(id)completion;
 - (void)_performPostConfig;
 - (void)_reportProgress:(unint64_t)progress;
@@ -69,7 +70,7 @@
 
 void __32__HAPWACAccessoryClient_restart__block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) restartEasyConfigBlock];
 
   if (v2)
@@ -84,9 +85,9 @@ void __32__HAPWACAccessoryClient_restart__block_invoke(uint64_t a1)
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
       {
         v7 = HMFGetLogIdentifier();
-        v14 = 138543362;
-        v15 = v7;
-        _os_log_impl(&dword_22AADC000, v6, OS_LOG_TYPE_DEBUG, "%{public}@Restarting ezConfig", &v14, 0xCu);
+        v13 = 138543362;
+        v14 = v7;
+        _os_log_impl(&dword_22AADC000, v6, OS_LOG_TYPE_DEBUG, "%{public}@Restarting ezConfig", &v13, 0xCu);
       }
 
       objc_autoreleasePoolPop(v4);
@@ -104,20 +105,18 @@ void __32__HAPWACAccessoryClient_restart__block_invoke(uint64_t a1)
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       v12 = HMFGetLogIdentifier();
-      v14 = 138543362;
-      v15 = v12;
-      _os_log_impl(&dword_22AADC000, v11, OS_LOG_TYPE_ERROR, "%{public}@Invalid state, must have a block here", &v14, 0xCu);
+      v13 = 138543362;
+      v14 = v12;
+      _os_log_impl(&dword_22AADC000, v11, OS_LOG_TYPE_ERROR, "%{public}@Invalid state, must have a block here", &v13, 0xCu);
     }
 
     objc_autoreleasePoolPop(v9);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopEasyConfig
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   ezConfigDevice = [(HAPWACAccessoryClient *)self ezConfigDevice];
 
   if (ezConfigDevice)
@@ -128,17 +127,15 @@ void __32__HAPWACAccessoryClient_restart__block_invoke(uint64_t a1)
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       v7 = HMFGetLogIdentifier();
-      v10 = 138543362;
-      v11 = v7;
-      _os_log_impl(&dword_22AADC000, v6, OS_LOG_TYPE_DEBUG, "%{public}@Stopping ezConfig", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v7;
+      _os_log_impl(&dword_22AADC000, v6, OS_LOG_TYPE_DEBUG, "%{public}@Stopping ezConfig", &v9, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
     ezConfigDevice2 = [(HAPWACAccessoryClient *)selfCopy ezConfigDevice];
     [ezConfigDevice2 stop];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_continuePairingWithSetupCode:(id)code
@@ -238,30 +235,30 @@ void __43__HAPWACAccessoryClient__performPostConfig__block_invoke(uint64_t a1)
 {
   splitCopy = split;
   setupCopy = setup;
-  v148 = *MEMORY[0x277D85DE8];
+  v146 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   completionCopy = completion;
   objc_initWeak(&location, self);
-  v129[0] = 0;
-  v129[1] = v129;
-  v129[2] = 0x3032000000;
-  v129[3] = __Block_byref_object_copy__5927;
-  v129[4] = __Block_byref_object_dispose__5928;
-  v130 = 0;
   v127[0] = 0;
   v127[1] = v127;
   v127[2] = 0x3032000000;
   v127[3] = __Block_byref_object_copy__5927;
   v127[4] = __Block_byref_object_dispose__5928;
   v128 = 0;
-  v124[0] = MEMORY[0x277D85DD0];
-  v124[1] = 3221225472;
-  v124[2] = __112__HAPWACAccessoryClient__performEasyConfigWithPairingPrompt_performPairSetup_isSplit_pairingRequest_completion___block_invoke;
-  v124[3] = &unk_2786D3A80;
-  objc_copyWeak(&v126, &location);
-  v108 = completionCopy;
-  v125 = v108;
-  v110 = MEMORY[0x231885210](v124);
+  v125[0] = 0;
+  v125[1] = v125;
+  v125[2] = 0x3032000000;
+  v125[3] = __Block_byref_object_copy__5927;
+  v125[4] = __Block_byref_object_dispose__5928;
+  v126 = 0;
+  v122[0] = MEMORY[0x277D85DD0];
+  v122[1] = 3221225472;
+  v122[2] = __112__HAPWACAccessoryClient__performEasyConfigWithPairingPrompt_performPairSetup_isSplit_pairingRequest_completion___block_invoke;
+  v122[3] = &unk_2786D3A80;
+  objc_copyWeak(&v124, &location);
+  v106 = completionCopy;
+  v123 = v106;
+  v108 = MEMORY[0x231885210](v122);
   v13 = objc_autoreleasePoolPush();
   selfCopy = self;
   v15 = HMFGetOSLogHandle();
@@ -271,13 +268,13 @@ void __43__HAPWACAccessoryClient__performPostConfig__block_invoke(uint64_t a1)
     v17 = HMFBooleanToString();
     v18 = HMFBooleanToString();
     *buf = 138544130;
-    v141 = v16;
+    v139 = v16;
+    v140 = 2112;
+    v141 = v17;
     v142 = 2112;
-    v143 = v17;
+    v143 = v18;
     v144 = 2112;
-    v145 = v18;
-    v146 = 2112;
-    v147 = requestCopy;
+    v145 = requestCopy;
     _os_log_impl(&dword_22AADC000, v15, OS_LOG_TYPE_DEBUG, "%{public}@Performing easy config, setupCodeHandler: %@ performPairSetup: %@ pairingRequest: %@", buf, 0x2Au);
   }
 
@@ -304,106 +301,105 @@ LABEL_10:
 
   if (!v25)
   {
-    v118[0] = MEMORY[0x277D85DD0];
-    v118[1] = 3221225472;
-    v118[2] = __112__HAPWACAccessoryClient__performEasyConfigWithPairingPrompt_performPairSetup_isSplit_pairingRequest_completion___block_invoke_108;
-    v118[3] = &unk_2786D3AA8;
-    objc_copyWeak(v121, &location);
-    v121[1] = prompt;
-    v122 = setupCopy;
-    v123 = splitCopy;
+    v116[0] = MEMORY[0x277D85DD0];
+    v116[1] = 3221225472;
+    v116[2] = __112__HAPWACAccessoryClient__performEasyConfigWithPairingPrompt_performPairSetup_isSplit_pairingRequest_completion___block_invoke_108;
+    v116[3] = &unk_2786D3AA8;
+    objc_copyWeak(v119, &location);
+    v119[1] = prompt;
+    v120 = setupCopy;
+    v121 = splitCopy;
     v26 = requestCopy;
-    v119 = v26;
-    v120 = v108;
-    [(HAPWACAccessoryClient *)selfCopy setRestartEasyConfigBlock:v118];
-    v27 = *MEMORY[0x277D06AF8];
+    v117 = v26;
+    v118 = v106;
+    [(HAPWACAccessoryClient *)selfCopy setRestartEasyConfigBlock:v116];
     if (prompt && setupCopy)
     {
-      v138[0] = *MEMORY[0x277D06AF8];
+      v136[0] = *MEMORY[0x277D06AF8];
       hapWACAccessory3 = [(HAPWACAccessoryClient *)selfCopy hapWACAccessory];
       deviceId2 = [hapWACAccessory3 deviceId];
-      v30 = *MEMORY[0x277D06B08];
-      v139[0] = deviceId2;
-      v139[1] = &unk_283EA9758;
-      v31 = *MEMORY[0x277D06AE0];
-      v138[1] = v30;
-      v138[2] = v31;
-      v139[2] = MEMORY[0x277CBEC38];
-      v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v139 forKeys:v138 count:3];
+      v29 = *MEMORY[0x277D06B08];
+      v137[0] = deviceId2;
+      v137[1] = &unk_283EA9758;
+      v30 = *MEMORY[0x277D06AE0];
+      v136[1] = v29;
+      v136[2] = v30;
+      v137[2] = MEMORY[0x277CBEC38];
+      v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v137 forKeys:v136 count:3];
 
-      v33 = [(HAPWACAccessoryClient *)selfCopy _setupEasyConfigWithDeviceInfo:v32];
-      [(HAPWACAccessoryClient *)selfCopy setEzConfigDevice:v33];
+      v32 = [(HAPWACAccessoryClient *)selfCopy _setupEasyConfigWithDeviceInfo:v31];
+      [(HAPWACAccessoryClient *)selfCopy setEzConfigDevice:v32];
 
       ezConfigDevice = [(HAPWACAccessoryClient *)selfCopy ezConfigDevice];
-      v116[0] = MEMORY[0x277D85DD0];
-      v116[1] = 3221225472;
-      v116[2] = __112__HAPWACAccessoryClient__performEasyConfigWithPairingPrompt_performPairSetup_isSplit_pairingRequest_completion___block_invoke_110;
-      v116[3] = &unk_2786D3AD0;
-      objc_copyWeak(v117, &location);
-      v117[1] = prompt;
-      [ezConfigDevice setPromptForSetupCodeHandler:v116];
+      v114[0] = MEMORY[0x277D85DD0];
+      v114[1] = 3221225472;
+      v114[2] = __112__HAPWACAccessoryClient__performEasyConfigWithPairingPrompt_performPairSetup_isSplit_pairingRequest_completion___block_invoke_110;
+      v114[3] = &unk_2786D3AD0;
+      objc_copyWeak(v115, &location);
+      v115[1] = prompt;
+      [ezConfigDevice setPromptForSetupCodeHandler:v114];
 
-      objc_destroyWeak(v117);
+      objc_destroyWeak(v115);
     }
 
     else
     {
       if (setupCopy)
       {
-        v136[0] = *MEMORY[0x277D06AF8];
+        v134[0] = *MEMORY[0x277D06AF8];
         hapWACAccessory4 = [(HAPWACAccessoryClient *)selfCopy hapWACAccessory];
         deviceId3 = [hapWACAccessory4 deviceId];
-        v136[1] = *MEMORY[0x277D06B08];
-        v137[0] = deviceId3;
-        v137[1] = &unk_283EA9770;
-        [MEMORY[0x277CBEAC0] dictionaryWithObjects:v137 forKeys:v136 count:2];
+        v134[1] = *MEMORY[0x277D06B08];
+        v135[0] = deviceId3;
+        v135[1] = &unk_283EA9770;
+        [MEMORY[0x277CBEAC0] dictionaryWithObjects:v135 forKeys:v134 count:2];
       }
 
       else
       {
-        v134[0] = *MEMORY[0x277D06AF8];
+        v132[0] = *MEMORY[0x277D06AF8];
         hapWACAccessory4 = [(HAPWACAccessoryClient *)selfCopy hapWACAccessory];
         deviceId3 = [hapWACAccessory4 deviceId];
-        v50 = *MEMORY[0x277D06B08];
-        v135[0] = deviceId3;
-        v135[1] = &unk_283EA9758;
-        v51 = *MEMORY[0x277D06AE0];
-        v134[1] = v50;
-        v134[2] = v51;
-        v135[2] = MEMORY[0x277CBEC38];
-        [MEMORY[0x277CBEAC0] dictionaryWithObjects:v135 forKeys:v134 count:3];
+        v49 = *MEMORY[0x277D06B08];
+        v133[0] = deviceId3;
+        v133[1] = &unk_283EA9758;
+        v50 = *MEMORY[0x277D06AE0];
+        v132[1] = v49;
+        v132[2] = v50;
+        v133[2] = MEMORY[0x277CBEC38];
+        [MEMORY[0x277CBEAC0] dictionaryWithObjects:v133 forKeys:v132 count:3];
       }
-      v32 = ;
+      v31 = ;
 
-      v48 = [(HAPWACAccessoryClient *)selfCopy _setupEasyConfigWithDeviceInfo:v32];
-      [(HAPWACAccessoryClient *)selfCopy setEzConfigDevice:v48];
+      v47 = [(HAPWACAccessoryClient *)selfCopy _setupEasyConfigWithDeviceInfo:v31];
+      [(HAPWACAccessoryClient *)selfCopy setEzConfigDevice:v47];
 
       ezConfigDevice2 = [(HAPWACAccessoryClient *)selfCopy ezConfigDevice];
       [ezConfigDevice2 setSkipPairSetup:1];
     }
 
-    v132 = *MEMORY[0x277D06B30];
+    v130 = *MEMORY[0x277D06B30];
     hapWACAccessory5 = [(HAPWACAccessoryClient *)selfCopy hapWACAccessory];
     name2 = [hapWACAccessory5 name];
-    v133 = name2;
-    v54 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v133 forKeys:&v132 count:1];
-    v55 = [v54 mutableCopy];
+    v131 = name2;
+    v53 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v131 forKeys:&v130 count:1];
+    v54 = [v53 mutableCopy];
 
     ssid = [v26 ssid];
 
     if (ssid)
     {
       ssid2 = [v26 ssid];
-      v58 = *MEMORY[0x277D06B68];
-      [v55 setObject:ssid2 forKeyedSubscript:*MEMORY[0x277D06B68]];
+      v57 = *MEMORY[0x277D06B68];
+      [v54 setObject:ssid2 forKeyedSubscript:*MEMORY[0x277D06B68]];
     }
 
     else
     {
       compatiblePrefixedNetwork = [(HAPWACAccessoryClient *)selfCopy compatiblePrefixedNetwork];
-      v60 = [compatiblePrefixedNetwork objectForKeyedSubscript:@"ssid"];
+      v59 = [compatiblePrefixedNetwork objectForKeyedSubscript:@"ssid"];
 
-      if (v60)
+      if (v59)
       {
         [(HAPWACAccessoryClient *)selfCopy compatiblePrefixedNetwork];
       }
@@ -413,35 +409,35 @@ LABEL_10:
         [(HAPWACAccessoryClient *)selfCopy currentNetworkInfo];
       }
       ssid2 = ;
-      v61 = [ssid2 objectForKeyedSubscript:@"ssid"];
-      v58 = *MEMORY[0x277D06B68];
-      [v55 setObject:v61 forKeyedSubscript:*MEMORY[0x277D06B68]];
+      v60 = [ssid2 objectForKeyedSubscript:@"ssid"];
+      v57 = *MEMORY[0x277D06B68];
+      [v54 setObject:v60 forKeyedSubscript:*MEMORY[0x277D06B68]];
     }
 
-    v62 = [v26 psk];
+    v61 = [v26 psk];
 
-    if (v62)
+    if (v61)
     {
       compatiblePrefixedNetwork4 = [v26 psk];
-      [v55 setObject:compatiblePrefixedNetwork4 forKeyedSubscript:*MEMORY[0x277D06B60]];
+      [v54 setObject:compatiblePrefixedNetwork4 forKeyedSubscript:*MEMORY[0x277D06B60]];
 LABEL_32:
 
       goto LABEL_33;
     }
 
     compatiblePrefixedNetwork2 = [(HAPWACAccessoryClient *)selfCopy compatiblePrefixedNetwork];
-    v65 = [compatiblePrefixedNetwork2 objectForKeyedSubscript:@"ssid"];
+    v64 = [compatiblePrefixedNetwork2 objectForKeyedSubscript:@"ssid"];
 
-    if (v65)
+    if (v64)
     {
       compatiblePrefixedNetwork3 = [(HAPWACAccessoryClient *)selfCopy compatiblePrefixedNetwork];
-      v67 = [compatiblePrefixedNetwork3 objectForKeyedSubscript:@"password"];
+      v66 = [compatiblePrefixedNetwork3 objectForKeyedSubscript:@"password"];
 
-      if (v67)
+      if (v66)
       {
         compatiblePrefixedNetwork4 = [(HAPWACAccessoryClient *)selfCopy compatiblePrefixedNetwork];
-        v68 = [compatiblePrefixedNetwork4 objectForKeyedSubscript:@"password"];
-        [v55 setObject:v68 forKeyedSubscript:*MEMORY[0x277D06B60]];
+        v67 = [compatiblePrefixedNetwork4 objectForKeyedSubscript:@"password"];
+        [v54 setObject:v67 forKeyedSubscript:*MEMORY[0x277D06B60]];
 LABEL_31:
 
         goto LABEL_32;
@@ -451,94 +447,94 @@ LABEL_31:
     else
     {
       currentNetworkInfo2 = [(HAPWACAccessoryClient *)selfCopy currentNetworkInfo];
-      v70 = [currentNetworkInfo2 objectForKeyedSubscript:@"password"];
+      v69 = [currentNetworkInfo2 objectForKeyedSubscript:@"password"];
 
-      if (v70)
+      if (v69)
       {
         compatiblePrefixedNetwork4 = [(HAPWACAccessoryClient *)selfCopy currentNetworkInfo];
-        v68 = [compatiblePrefixedNetwork4 objectForKeyedSubscript:@"password"];
-        [v55 setObject:v68 forKeyedSubscript:*MEMORY[0x277D06B60]];
+        v67 = [compatiblePrefixedNetwork4 objectForKeyedSubscript:@"password"];
+        [v54 setObject:v67 forKeyedSubscript:*MEMORY[0x277D06B60]];
         goto LABEL_31;
       }
     }
 
 LABEL_33:
-    v71 = objc_autoreleasePoolPush();
-    v72 = selfCopy;
-    v73 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v73, OS_LOG_TYPE_DEBUG))
+    v70 = objc_autoreleasePoolPush();
+    v71 = selfCopy;
+    v72 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v72, OS_LOG_TYPE_DEBUG))
     {
-      v74 = HMFGetLogIdentifier();
-      v75 = [v55 objectForKeyedSubscript:v58];
+      v73 = HMFGetLogIdentifier();
+      v74 = [v54 objectForKeyedSubscript:v57];
       *buf = 138543618;
+      v139 = v73;
+      v140 = 2112;
       v141 = v74;
-      v142 = 2112;
-      v143 = v75;
-      _os_log_impl(&dword_22AADC000, v73, OS_LOG_TYPE_DEBUG, "%{public}@Configuring to SSID: %@", buf, 0x16u);
+      _os_log_impl(&dword_22AADC000, v72, OS_LOG_TYPE_DEBUG, "%{public}@Configuring to SSID: %@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v71);
+    objc_autoreleasePoolPop(v70);
     isoCountryCode = [v26 isoCountryCode];
 
     if (isoCountryCode)
     {
-      v77 = objc_autoreleasePoolPush();
-      v78 = v72;
-      v79 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v79, OS_LOG_TYPE_DEBUG))
+      v76 = objc_autoreleasePoolPush();
+      v77 = v71;
+      v78 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v78, OS_LOG_TYPE_DEBUG))
       {
-        v80 = HMFGetLogIdentifier();
+        v79 = HMFGetLogIdentifier();
         isoCountryCode2 = [v26 isoCountryCode];
         *buf = 138543618;
-        v141 = v80;
-        v142 = 2112;
-        v143 = isoCountryCode2;
-        _os_log_impl(&dword_22AADC000, v79, OS_LOG_TYPE_DEBUG, "%{public}@Adding country code: %@", buf, 0x16u);
+        v139 = v79;
+        v140 = 2112;
+        v141 = isoCountryCode2;
+        _os_log_impl(&dword_22AADC000, v78, OS_LOG_TYPE_DEBUG, "%{public}@Adding country code: %@", buf, 0x16u);
       }
 
-      objc_autoreleasePoolPop(v77);
+      objc_autoreleasePoolPop(v76);
       isoCountryCode3 = [v26 isoCountryCode];
-      [v55 setObject:isoCountryCode3 forKeyedSubscript:*MEMORY[0x277D06AF0]];
+      [v54 setObject:isoCountryCode3 forKeyedSubscript:*MEMORY[0x277D06AF0]];
     }
 
-    ezConfigDevice3 = [(HAPWACAccessoryClient *)v72 ezConfigDevice];
+    ezConfigDevice3 = [(HAPWACAccessoryClient *)v71 ezConfigDevice];
 
     if (ezConfigDevice3)
     {
-      restartPairingCount = [(HAPWACAccessoryClient *)v72 restartPairingCount];
-      ezConfigDevice4 = [(HAPWACAccessoryClient *)v72 ezConfigDevice];
-      v111[0] = MEMORY[0x277D85DD0];
-      v111[1] = 3221225472;
-      v111[2] = __112__HAPWACAccessoryClient__performEasyConfigWithPairingPrompt_performPairSetup_isSplit_pairingRequest_completion___block_invoke_117;
-      v111[3] = &unk_2786D3B20;
-      objc_copyWeak(v115, &location);
-      v115[1] = restartPairingCount;
-      v112 = v110;
-      v113 = v129;
-      v114 = v127;
-      [ezConfigDevice4 setProgressHandler:v111];
+      restartPairingCount = [(HAPWACAccessoryClient *)v71 restartPairingCount];
+      ezConfigDevice4 = [(HAPWACAccessoryClient *)v71 ezConfigDevice];
+      v109[0] = MEMORY[0x277D85DD0];
+      v109[1] = 3221225472;
+      v109[2] = __112__HAPWACAccessoryClient__performEasyConfigWithPairingPrompt_performPairSetup_isSplit_pairingRequest_completion___block_invoke_117;
+      v109[3] = &unk_2786D3B20;
+      objc_copyWeak(v113, &location);
+      v113[1] = restartPairingCount;
+      v110 = v108;
+      v111 = v127;
+      v112 = v125;
+      [ezConfigDevice4 setProgressHandler:v109];
 
-      ezConfigDevice5 = [(HAPWACAccessoryClient *)v72 ezConfigDevice];
-      [ezConfigDevice5 setConfiguration:v55];
+      ezConfigDevice5 = [(HAPWACAccessoryClient *)v71 ezConfigDevice];
+      [ezConfigDevice5 setConfiguration:v54];
 
-      ezConfigDevice6 = [(HAPWACAccessoryClient *)v72 ezConfigDevice];
+      ezConfigDevice6 = [(HAPWACAccessoryClient *)v71 ezConfigDevice];
       [ezConfigDevice6 setPairSetupFlags:0];
 
-      hapWACAccessory6 = [(HAPWACAccessoryClient *)v72 hapWACAccessory];
+      hapWACAccessory6 = [(HAPWACAccessoryClient *)v71 hapWACAccessory];
       LODWORD(restartPairingCount) = [hapWACAccessory6 supportsTokenAuth];
 
       if (restartPairingCount)
       {
-        ezConfigDevice7 = [(HAPWACAccessoryClient *)v72 ezConfigDevice];
+        ezConfigDevice7 = [(HAPWACAccessoryClient *)v71 ezConfigDevice];
         [ezConfigDevice7 setPairSetupFlags:{objc_msgSend(ezConfigDevice7, "pairSetupFlags") | 0x8000}];
       }
 
       else
       {
-        hapWACAccessory7 = [(HAPWACAccessoryClient *)v72 hapWACAccessory];
+        hapWACAccessory7 = [(HAPWACAccessoryClient *)v71 hapWACAccessory];
         supportsCertAuth = [hapWACAccessory7 supportsCertAuth];
 
-        ezConfigDevice7 = [(HAPWACAccessoryClient *)v72 ezConfigDevice];
+        ezConfigDevice7 = [(HAPWACAccessoryClient *)v71 ezConfigDevice];
         if (supportsCertAuth)
         {
           [ezConfigDevice7 setPairSetupFlags:{objc_msgSend(ezConfigDevice7, "pairSetupFlags") | 0x4001}];
@@ -552,87 +548,85 @@ LABEL_33:
 
       if (splitCopy)
       {
-        ezConfigDevice8 = [(HAPWACAccessoryClient *)v72 ezConfigDevice];
+        ezConfigDevice8 = [(HAPWACAccessoryClient *)v71 ezConfigDevice];
         [ezConfigDevice8 setPairSetupFlags:{objc_msgSend(ezConfigDevice8, "pairSetupFlags") | 0x1000000}];
       }
 
-      ezConfigDevice9 = [(HAPWACAccessoryClient *)v72 ezConfigDevice];
+      ezConfigDevice9 = [(HAPWACAccessoryClient *)v71 ezConfigDevice];
       [ezConfigDevice9 setPausesAfterApply:1];
 
-      ezConfigDevice10 = [(HAPWACAccessoryClient *)v72 ezConfigDevice];
+      ezConfigDevice10 = [(HAPWACAccessoryClient *)v71 ezConfigDevice];
       [ezConfigDevice10 start];
 
-      objc_destroyWeak(v115);
+      objc_destroyWeak(v113);
     }
 
     else
     {
-      v90 = objc_autoreleasePoolPush();
-      v91 = v72;
-      v92 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v92, OS_LOG_TYPE_ERROR))
+      v89 = objc_autoreleasePoolPush();
+      v90 = v71;
+      v91 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v91, OS_LOG_TYPE_ERROR))
       {
-        v93 = HMFGetLogIdentifier();
-        hapWACAccessory8 = [(HAPWACAccessoryClient *)v91 hapWACAccessory];
+        v92 = HMFGetLogIdentifier();
+        hapWACAccessory8 = [(HAPWACAccessoryClient *)v90 hapWACAccessory];
         rawScanResult = [hapWACAccessory8 rawScanResult];
         *buf = 138543618;
-        v141 = v93;
-        v142 = 2112;
-        v143 = rawScanResult;
-        _os_log_impl(&dword_22AADC000, v92, OS_LOG_TYPE_ERROR, "%{public}@Failed instantiating easy config with scan result: %@", buf, 0x16u);
+        v139 = v92;
+        v140 = 2112;
+        v141 = rawScanResult;
+        _os_log_impl(&dword_22AADC000, v91, OS_LOG_TYPE_ERROR, "%{public}@Failed instantiating easy config with scan result: %@", buf, 0x16u);
       }
 
-      objc_autoreleasePoolPop(v90);
-      v96 = MEMORY[0x277CCA9B8];
-      v97 = MEMORY[0x277CCACA8];
-      hapWACAccessory9 = [(HAPWACAccessoryClient *)v91 hapWACAccessory];
+      objc_autoreleasePoolPop(v89);
+      v95 = MEMORY[0x277CCA9B8];
+      v96 = MEMORY[0x277CCACA8];
+      hapWACAccessory9 = [(HAPWACAccessoryClient *)v90 hapWACAccessory];
       rawScanResult2 = [hapWACAccessory9 rawScanResult];
-      v100 = [v97 stringWithFormat:@"Failed instantiating easy config with scan result: %@", rawScanResult2];
-      v101 = [v96 hapErrorWithCode:19 description:v100 reason:@"HAPWACAccessoryClient.ezConfigDevice is nil during performEasyConfigWithPairingPrompt" suggestion:0 underlyingError:0 marker:107];
+      v99 = [v96 stringWithFormat:@"Failed instantiating easy config with scan result: %@", rawScanResult2];
+      v100 = [v95 hapErrorWithCode:19 description:v99 reason:@"HAPWACAccessoryClient.ezConfigDevice is nil during performEasyConfigWithPairingPrompt" suggestion:0 underlyingError:0 marker:107];
 
-      (v110)[2](v110, v101, [(HAPWACAccessoryClient *)v91 state]);
+      (v108)[2](v108, v100, [(HAPWACAccessoryClient *)v90 state]);
     }
 
-    objc_destroyWeak(v121);
+    objc_destroyWeak(v119);
     goto LABEL_52;
   }
 
 LABEL_11:
-  v35 = objc_autoreleasePoolPush();
-  v36 = selfCopy;
-  v37 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+  v34 = objc_autoreleasePoolPush();
+  v35 = selfCopy;
+  v36 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
   {
-    v38 = HMFGetLogIdentifier();
-    hapWACAccessory10 = [(HAPWACAccessoryClient *)v36 hapWACAccessory];
+    v37 = HMFGetLogIdentifier();
+    hapWACAccessory10 = [(HAPWACAccessoryClient *)v35 hapWACAccessory];
     name3 = [hapWACAccessory10 name];
-    hapWACAccessory11 = [(HAPWACAccessoryClient *)v36 hapWACAccessory];
+    hapWACAccessory11 = [(HAPWACAccessoryClient *)v35 hapWACAccessory];
     deviceId4 = [hapWACAccessory11 deviceId];
-    currentNetworkInfo3 = [(HAPWACAccessoryClient *)v36 currentNetworkInfo];
-    v44 = [currentNetworkInfo3 objectForKeyedSubscript:@"ssid"];
+    currentNetworkInfo3 = [(HAPWACAccessoryClient *)v35 currentNetworkInfo];
+    v43 = [currentNetworkInfo3 objectForKeyedSubscript:@"ssid"];
     *buf = 138544130;
-    v141 = v38;
+    v139 = v37;
+    v140 = 2112;
+    v141 = name3;
     v142 = 2112;
-    v143 = name3;
+    v143 = deviceId4;
     v144 = 2112;
-    v145 = deviceId4;
-    v146 = 2112;
-    v147 = v44;
-    _os_log_impl(&dword_22AADC000, v37, OS_LOG_TYPE_ERROR, "%{public}@Invalid nil param(s), name: %@, deviceId: %@, ssid: %@", buf, 0x2Au);
+    v145 = v43;
+    _os_log_impl(&dword_22AADC000, v36, OS_LOG_TYPE_ERROR, "%{public}@Invalid nil param(s), name: %@, deviceId: %@, ssid: %@", buf, 0x2Au);
   }
 
-  objc_autoreleasePoolPop(v35);
-  v45 = [MEMORY[0x277CCA9B8] errorWithDomain:@"HAPErrorDomain" code:9 userInfo:0];
-  (v110)[2](v110, v45, [(HAPWACAccessoryClient *)v36 state]);
+  objc_autoreleasePoolPop(v34);
+  v44 = [MEMORY[0x277CCA9B8] errorWithDomain:@"HAPErrorDomain" code:9 userInfo:0];
+  (v108)[2](v108, v44, [(HAPWACAccessoryClient *)v35 state]);
 
 LABEL_52:
-  objc_destroyWeak(&v126);
+  objc_destroyWeak(&v124);
+  _Block_object_dispose(v125, 8);
+
   _Block_object_dispose(v127, 8);
-
-  _Block_object_dispose(v129, 8);
   objc_destroyWeak(&location);
-
-  v107 = *MEMORY[0x277D85DE8];
 }
 
 void __112__HAPWACAccessoryClient__performEasyConfigWithPairingPrompt_performPairSetup_isSplit_pairingRequest_completion___block_invoke(uint64_t a1, void *a2, uint64_t a3)
@@ -744,7 +738,7 @@ void __112__HAPWACAccessoryClient__performEasyConfigWithPairingPrompt_performPai
 
 void __112__HAPWACAccessoryClient__performEasyConfigWithPairingPrompt_performPairSetup_isSplit_pairingRequest_completion___block_invoke_2_118(uint64_t a1)
 {
-  v74 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 80);
   v3 = v2 == [*(a1 + 32) restartPairingCount];
   v4 = objc_autoreleasePoolPush();
@@ -824,20 +818,20 @@ void __112__HAPWACAccessoryClient__performEasyConfigWithPairingPrompt_performPai
           v11 = "Authenticating pre-config device";
 LABEL_32:
           *buf = 138543618;
-          v69 = v8;
-          v70 = 2080;
-          v71 = v11;
+          v68 = v8;
+          v69 = 2080;
+          v70 = v11;
           _os_log_impl(&dword_22AADC000, v6, OS_LOG_TYPE_INFO, "%{public}@Easy config progress: %s", buf, 0x16u);
 
 LABEL_33:
           objc_autoreleasePoolPop(v4);
-          v66[0] = MEMORY[0x277D85DD0];
-          v66[1] = 3221225472;
-          v66[2] = __112__HAPWACAccessoryClient__performEasyConfigWithPairingPrompt_performPairSetup_isSplit_pairingRequest_completion___block_invoke_131;
-          v66[3] = &unk_2786D6740;
-          v66[4] = *(a1 + 32);
-          v67 = *(a1 + 88);
-          __112__HAPWACAccessoryClient__performEasyConfigWithPairingPrompt_performPairSetup_isSplit_pairingRequest_completion___block_invoke_131(v66);
+          v65[0] = MEMORY[0x277D85DD0];
+          v65[1] = 3221225472;
+          v65[2] = __112__HAPWACAccessoryClient__performEasyConfigWithPairingPrompt_performPairSetup_isSplit_pairingRequest_completion___block_invoke_131;
+          v65[3] = &unk_2786D6740;
+          v65[4] = *(a1 + 32);
+          v66 = *(a1 + 88);
+          __112__HAPWACAccessoryClient__performEasyConfigWithPairingPrompt_performPairSetup_isSplit_pairingRequest_completion___block_invoke_131(v65);
           v13 = *(a1 + 40);
           if (v13)
           {
@@ -856,11 +850,11 @@ LABEL_33:
                 v21 = [*(a1 + 32) state];
                 v22 = [*(a1 + 40) objectForKeyedSubscript:v14];
                 *buf = 138543874;
-                v69 = v20;
-                v70 = 2048;
-                v71 = v21;
-                v72 = 2112;
-                v73 = v22;
+                v68 = v20;
+                v69 = 2048;
+                v70 = v21;
+                v71 = 2112;
+                v72 = v22;
                 _os_log_impl(&dword_22AADC000, v19, OS_LOG_TYPE_ERROR, "%{public}@Easy config failed in state: %tu - error: %@ calling completion handler with error", buf, 0x20u);
               }
 
@@ -936,9 +930,9 @@ LABEL_33:
               v49 = HMFGetLogIdentifier();
               v50 = *(a1 + 40);
               *buf = 138543618;
-              v69 = v49;
-              v70 = 2112;
-              v71 = v50;
+              v68 = v49;
+              v69 = 2112;
+              v70 = v50;
               _os_log_impl(&dword_22AADC000, v48, OS_LOG_TYPE_DEBUG, "%{public}@Applied Config with info: %@", buf, 0x16u);
             }
 
@@ -946,13 +940,13 @@ LABEL_33:
             [*(a1 + 32) _reportProgress:1];
             [*(a1 + 32) _reportProgress:2];
             v51 = *(a1 + 32);
-            v64[0] = MEMORY[0x277D85DD0];
-            v64[1] = 3221225472;
-            v64[2] = __112__HAPWACAccessoryClient__performEasyConfigWithPairingPrompt_performPairSetup_isSplit_pairingRequest_completion___block_invoke_136;
-            v64[3] = &unk_2786D6D90;
-            objc_copyWeak(&v65, (a1 + 72));
-            v52 = [v51 restoreNetworkWithCompletion:v64];
-            objc_destroyWeak(&v65);
+            v63[0] = MEMORY[0x277D85DD0];
+            v63[1] = 3221225472;
+            v63[2] = __112__HAPWACAccessoryClient__performEasyConfigWithPairingPrompt_performPairSetup_isSplit_pairingRequest_completion___block_invoke_136;
+            v63[3] = &unk_2786D6D90;
+            objc_copyWeak(&v64, (a1 + 72));
+            v52 = [v51 restoreNetworkWithCompletion:v63];
+            objc_destroyWeak(&v64);
             v25 = *(a1 + 88);
           }
 
@@ -969,7 +963,7 @@ LABEL_33:
               {
                 v58 = HMFGetLogIdentifier();
                 *buf = 138543362;
-                v69 = v58;
+                v68 = v58;
                 _os_log_impl(&dword_22AADC000, v57, OS_LOG_TYPE_DEBUG, "%{public}@Easy config completed - calling completion handler", buf, 0xCu);
               }
 
@@ -985,9 +979,9 @@ LABEL_33:
                 v59 = HMFGetLogIdentifier();
                 v60 = [*(a1 + 32) state];
                 *buf = 138543618;
-                v69 = v59;
-                v70 = 2048;
-                v71 = v60;
+                v68 = v59;
+                v69 = 2048;
+                v70 = v60;
                 _os_log_impl(&dword_22AADC000, v57, OS_LOG_TYPE_ERROR, "%{public}@Easy config failed in state: %tu - calling completion handler with error", buf, 0x16u);
               }
 
@@ -998,7 +992,7 @@ LABEL_33:
             }
           }
 
-          goto LABEL_60;
+          return;
       }
     }
 
@@ -1019,13 +1013,11 @@ LABEL_33:
   {
     v12 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v69 = v12;
+    v68 = v12;
     _os_log_impl(&dword_22AADC000, v6, OS_LOG_TYPE_INFO, "%{public}@Ignoring easy config progress event because we are restarting", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
-LABEL_60:
-  v63 = *MEMORY[0x277D85DE8];
 }
 
 void __112__HAPWACAccessoryClient__performEasyConfigWithPairingPrompt_performPairSetup_isSplit_pairingRequest_completion___block_invoke_131(uint64_t a1)
@@ -1042,7 +1034,7 @@ void __112__HAPWACAccessoryClient__performEasyConfigWithPairingPrompt_performPai
 
 void __112__HAPWACAccessoryClient__performEasyConfigWithPairingPrompt_performPairSetup_isSplit_pairingRequest_completion___block_invoke_136(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = WeakRetained;
@@ -1054,9 +1046,9 @@ void __112__HAPWACAccessoryClient__performEasyConfigWithPairingPrompt_performPai
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       v9 = HMFGetLogIdentifier();
-      v12 = 138543362;
-      v13 = v9;
-      _os_log_impl(&dword_22AADC000, v8, OS_LOG_TYPE_DEBUG, "%{public}@Restored network", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v9;
+      _os_log_impl(&dword_22AADC000, v8, OS_LOG_TYPE_DEBUG, "%{public}@Restored network", &v11, 0xCu);
     }
 
     objc_autoreleasePoolPop(v6);
@@ -1066,8 +1058,6 @@ void __112__HAPWACAccessoryClient__performEasyConfigWithPairingPrompt_performPai
     [v7 _reportProgress:3];
     [v7 _performPostConfig];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __112__HAPWACAccessoryClient__performEasyConfigWithPairingPrompt_performPairSetup_isSplit_pairingRequest_completion___block_invoke_2(uint64_t a1)
@@ -1202,7 +1192,7 @@ void __110__HAPWACAccessoryClient_performEasyConfigWithParingPrompt_performPairS
 
 - (void)_restoreNetworkWithCompletion:(id)completion
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   [(HAPWACAccessoryClient *)self setCompletionHandler:completionCopy];
   currentNetworkInfo = [(HAPWACAccessoryClient *)self currentNetworkInfo];
@@ -1215,9 +1205,9 @@ void __110__HAPWACAccessoryClient_performEasyConfigWithParingPrompt_performPairS
   {
     v10 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v25 = v10;
-    v26 = 2112;
-    v27 = v6;
+    v24 = v10;
+    v25 = 2112;
+    v26 = v6;
     _os_log_impl(&dword_22AADC000, v9, OS_LOG_TYPE_DEBUG, "%{public}@Restoring network: %@", buf, 0x16u);
   }
 
@@ -1233,7 +1223,7 @@ void __110__HAPWACAccessoryClient_performEasyConfigWithParingPrompt_performPairS
     {
       v15 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v25 = v15;
+      v24 = v15;
       _os_log_impl(&dword_22AADC000, v14, OS_LOG_TYPE_ERROR, "%{public}@No restored network info", buf, 0xCu);
     }
 
@@ -1244,18 +1234,16 @@ void __110__HAPWACAccessoryClient_performEasyConfigWithParingPrompt_performPairS
 
   currentNetworkInfo3 = [(HAPWACAccessoryClient *)selfCopy currentNetworkInfo];
   workQueue = [(HAPWACAccessoryClient *)selfCopy workQueue];
-  v22 = v6;
-  v23 = completionCopy;
+  v21 = v6;
+  v22 = completionCopy;
   v19 = completionCopy;
   v20 = v6;
   WiFiRestoreNetwork();
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __55__HAPWACAccessoryClient__restoreNetworkWithCompletion___block_invoke(uint64_t a1, int a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
   v6 = HMFGetOSLogHandle();
@@ -1264,11 +1252,11 @@ void __55__HAPWACAccessoryClient__restoreNetworkWithCompletion___block_invoke(ui
     v7 = HMFGetLogIdentifier();
     v8 = *(a1 + 40);
     *buf = 138543874;
-    v18 = v7;
-    v19 = 2112;
-    v20 = v8;
-    v21 = 1024;
-    v22 = a2;
+    v17 = v7;
+    v18 = 2112;
+    v19 = v8;
+    v20 = 1024;
+    v21 = a2;
     _os_log_impl(&dword_22AADC000, v6, OS_LOG_TYPE_INFO, "%{public}@Restored to network %@ with status: %d", buf, 0x1Cu);
   }
 
@@ -1296,7 +1284,7 @@ void __55__HAPWACAccessoryClient__restoreNetworkWithCompletion___block_invoke(ui
       {
         v15 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v18 = v15;
+        v17 = v15;
         _os_log_impl(&dword_22AADC000, v14, OS_LOG_TYPE_ERROR, "%{public}@Restored network does not match - indicating join failure", buf, 0xCu);
       }
 
@@ -1306,13 +1294,11 @@ void __55__HAPWACAccessoryClient__restoreNetworkWithCompletion___block_invoke(ui
   }
 
   (*(*(a1 + 48) + 16))();
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_callRestoreCompletion:(id)completion withError:(id)error
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   errorCopy = error;
   if (errorCopy)
@@ -1334,15 +1320,14 @@ void __55__HAPWACAccessoryClient__restoreNetworkWithCompletion___block_invoke(ui
     v12 = HMFGetLogIdentifier();
     hapWACAccessory = [(HAPWACAccessoryClient *)selfCopy hapWACAccessory];
     ssid = [hapWACAccessory ssid];
-    v19 = 138543618;
-    v20 = v12;
-    v21 = 2112;
-    v22 = ssid;
-    _os_log_impl(&dword_22AADC000, v11, OS_LOG_TYPE_DEBUG, "%{public}@Removing accessory network %@ from the known network list", &v19, 0x16u);
+    v17 = 138543618;
+    v18 = v12;
+    v19 = 2112;
+    v20 = ssid;
+    _os_log_impl(&dword_22AADC000, v11, OS_LOG_TYPE_DEBUG, "%{public}@Removing accessory network %@ from the known network list", &v17, 0x16u);
   }
 
   objc_autoreleasePoolPop(v9);
-  v15 = *MEMORY[0x277CBECE8];
   WiFiManagerClientCreate();
   hapWACAccessory2 = [(HAPWACAccessoryClient *)selfCopy hapWACAccessory];
   rawScanResult = [hapWACAccessory2 rawScanResult];
@@ -1353,8 +1338,6 @@ void __55__HAPWACAccessoryClient__restoreNetworkWithCompletion___block_invoke(ui
   {
     completionCopy[2](completionCopy, errorCopy);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (id)restoreNetworkWithCompletion:(id)completion
@@ -1439,7 +1422,7 @@ void __54__HAPWACAccessoryClient_restoreNetworkWithCompletion___block_invoke_2(u
 
 void __54__HAPWACAccessoryClient_restoreNetworkWithCompletion___block_invoke_4(uint64_t a1, void *a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
@@ -1460,9 +1443,9 @@ void __54__HAPWACAccessoryClient_restoreNetworkWithCompletion___block_invoke_4(u
       {
         v12 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v22 = v12;
-        v23 = 2112;
-        v24 = v3;
+        v21 = v12;
+        v22 = 2112;
+        v23 = v3;
         _os_log_impl(&dword_22AADC000, v11, OS_LOG_TYPE_DEBUG, "%{public}@Retrying restore after 5 sec on error: %@", buf, 0x16u);
       }
 
@@ -1474,11 +1457,11 @@ void __54__HAPWACAccessoryClient_restoreNetworkWithCompletion___block_invoke_4(u
       block[2] = __54__HAPWACAccessoryClient_restoreNetworkWithCompletion___block_invoke_101;
       block[3] = &unk_2786D6BE0;
       block[4] = v10;
-      objc_copyWeak(&v20, (a1 + 48));
-      v19 = *(a1 + 40);
+      objc_copyWeak(&v19, (a1 + 48));
+      v18 = *(a1 + 40);
       dispatch_after(v13, v14, block);
 
-      objc_destroyWeak(&v20);
+      objc_destroyWeak(&v19);
     }
 
     else
@@ -1493,8 +1476,6 @@ void __54__HAPWACAccessoryClient_restoreNetworkWithCompletion___block_invoke_4(u
     v16 = [MEMORY[0x277CCA9B8] errorWithHMErrorCode:20];
     (*(v15 + 16))(v15, v16);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __54__HAPWACAccessoryClient_restoreNetworkWithCompletion___block_invoke_101(uint64_t a1)
@@ -1549,7 +1530,7 @@ void __54__HAPWACAccessoryClient_restoreNetworkWithCompletion___block_invoke_3(u
 
 - (void)_joinAccessory:(id)accessory completion:(id)completion
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   completionCopy = completion;
   currentNetworkInfo = [(HAPWACAccessoryClient *)self currentNetworkInfo];
@@ -1568,13 +1549,13 @@ void __54__HAPWACAccessoryClient_restoreNetworkWithCompletion___block_invoke_3(u
     hapWACAccessory = [(HAPWACAccessoryClient *)selfCopy hapWACAccessory];
     ssid = [hapWACAccessory ssid];
     *buf = 138544130;
-    v32 = v15;
-    v33 = 2112;
-    v34 = v11;
-    v35 = 1024;
-    v36 = OperatingBand;
-    v37 = 2112;
-    v38 = ssid;
+    v31 = v15;
+    v32 = 2112;
+    v33 = v11;
+    v34 = 1024;
+    v35 = OperatingBand;
+    v36 = 2112;
+    v37 = ssid;
     _os_log_impl(&dword_22AADC000, v14, OS_LOG_TYPE_DEBUG, "%{public}@Joining accessory network: (%@[%u]) -> %@)", buf, 0x26u);
   }
 
@@ -1583,8 +1564,8 @@ void __54__HAPWACAccessoryClient_restoreNetworkWithCompletion___block_invoke_3(u
   hapWACAccessory2 = [(HAPWACAccessoryClient *)selfCopy hapWACAccessory];
   rawScanResult = [hapWACAccessory2 rawScanResult];
   workQueue = [(HAPWACAccessoryClient *)selfCopy workQueue];
-  v28 = MEMORY[0x277D85DD0];
-  objc_copyWeak(&v29, &location);
+  v27 = MEMORY[0x277D85DD0];
+  objc_copyWeak(&v28, &location);
   v21 = WiFiJoinNetwork_b();
 
   if (v21)
@@ -1596,26 +1577,24 @@ void __54__HAPWACAccessoryClient_restoreNetworkWithCompletion___block_invoke_3(u
     {
       v25 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v32 = v25;
-      v33 = 1024;
-      LODWORD(v34) = v21;
+      v31 = v25;
+      v32 = 1024;
+      LODWORD(v33) = v21;
       _os_log_impl(&dword_22AADC000, v24, OS_LOG_TYPE_ERROR, "%{public}@Failed to join accessory network with error: %d", buf, 0x12u);
     }
 
     objc_autoreleasePoolPop(v22);
-    v26 = [MEMORY[0x277CCA9B8] errorWithDomain:@"HAPErrorDomain" code:26 userInfo:{0, v28, 3221225472, __51__HAPWACAccessoryClient__joinAccessory_completion___block_invoke, &unk_2786D39E0}];
+    v26 = [MEMORY[0x277CCA9B8] errorWithDomain:@"HAPErrorDomain" code:26 userInfo:{0, v27, 3221225472, __51__HAPWACAccessoryClient__joinAccessory_completion___block_invoke, &unk_2786D39E0}];
     completionCopy[2](completionCopy, v26);
   }
 
-  objc_destroyWeak(&v29);
+  objc_destroyWeak(&v28);
   objc_destroyWeak(&location);
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __51__HAPWACAccessoryClient__joinAccessory_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v4 = WeakRetained;
   if (WeakRetained)
@@ -1631,21 +1610,19 @@ void __51__HAPWACAccessoryClient__joinAccessory_completion___block_invoke(uint64
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       v8 = HMFGetLogIdentifier();
-      v10 = 138543362;
-      v11 = v8;
-      _os_log_impl(&dword_22AADC000, v7, OS_LOG_TYPE_ERROR, "%{public}@WiFiJoinNetwork_b called completion after self had been destroyed", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v8;
+      _os_log_impl(&dword_22AADC000, v7, OS_LOG_TYPE_ERROR, "%{public}@WiFiJoinNetwork_b called completion after self had been destroyed", &v9, 0xCu);
     }
 
     objc_autoreleasePoolPop(v5);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_findCompatiblePrefixedNetworks
 {
-  v56 = *MEMORY[0x277D85DE8];
-  v47 = 0;
+  v55 = *MEMORY[0x277D85DE8];
+  v46 = 0;
   currentNetworkInfo = [(HAPWACAccessoryClient *)self currentNetworkInfo];
   v4 = [currentNetworkInfo hmf_stringForKey:@"ssid"];
 
@@ -1653,26 +1630,26 @@ void __51__HAPWACAccessoryClient__joinAccessory_completion___block_invoke(uint64
   compatible2Pt4Networks = [(HAPWACAccessoryClient *)self compatible2Pt4Networks];
   v7 = [v5 arrayWithCapacity:{objc_msgSend(compatible2Pt4Networks, "count")}];
 
-  v45 = 0u;
-  v46 = 0u;
-  v43 = 0u;
   v44 = 0u;
+  v45 = 0u;
+  v42 = 0u;
+  v43 = 0u;
   compatible2Pt4Networks2 = [(HAPWACAccessoryClient *)self compatible2Pt4Networks];
-  v9 = [compatible2Pt4Networks2 countByEnumeratingWithState:&v43 objects:v55 count:16];
+  v9 = [compatible2Pt4Networks2 countByEnumeratingWithState:&v42 objects:v54 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v44;
+    v11 = *v43;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v44 != v11)
+        if (*v43 != v11)
         {
           objc_enumerationMutation(compatible2Pt4Networks2);
         }
 
-        v13 = *(*(&v43 + 1) + 8 * i);
+        v13 = *(*(&v42 + 1) + 8 * i);
         v14 = [v4 commonPrefixWithString:v13 options:10];
         if ([v14 length])
         {
@@ -1680,7 +1657,7 @@ void __51__HAPWACAccessoryClient__joinAccessory_completion___block_invoke(uint64
         }
       }
 
-      v10 = [compatible2Pt4Networks2 countByEnumeratingWithState:&v43 objects:v55 count:16];
+      v10 = [compatible2Pt4Networks2 countByEnumeratingWithState:&v42 objects:v54 count:16];
     }
 
     while (v10);
@@ -1693,41 +1670,41 @@ void __51__HAPWACAccessoryClient__joinAccessory_completion___block_invoke(uint64
   {
     v18 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v52 = v18;
-    v53 = 2112;
-    v54 = v7;
+    v51 = v18;
+    v52 = 2112;
+    v53 = v7;
     _os_log_impl(&dword_22AADC000, v17, OS_LOG_TYPE_INFO, "%{public}@Possible compatible results: %@", buf, 0x16u);
   }
 
-  v36 = selfCopy;
+  v35 = selfCopy;
   objc_autoreleasePoolPop(v15);
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
   v40 = 0u;
+  v41 = 0u;
+  v38 = 0u;
+  v39 = 0u;
   obj = v7;
-  v19 = [obj countByEnumeratingWithState:&v39 objects:v50 count:16];
+  v19 = [obj countByEnumeratingWithState:&v38 objects:v49 count:16];
   if (v19)
   {
     v21 = v19;
     v22 = 0;
-    v38 = *v40;
+    v37 = *v39;
     *&v20 = 138543618;
-    v35 = v20;
+    v34 = v20;
     v23 = selfCopy;
     while (2)
     {
       for (j = 0; j != v21; ++j)
       {
-        if (*v40 != v38)
+        if (*v39 != v37)
         {
           objc_enumerationMutation(obj);
         }
 
-        v25 = *(*(&v39 + 1) + 8 * j);
-        v48 = @"ssid";
-        v49 = v25;
-        [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v49 forKeys:&v48 count:{1, v35}];
+        v25 = *(*(&v38 + 1) + 8 * j);
+        v47 = @"ssid";
+        v48 = v25;
+        [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v48 forKeys:&v47 count:{1, v34}];
         v26 = WiFiCopyNetworkInfo();
         if (v26)
         {
@@ -1738,13 +1715,13 @@ void __51__HAPWACAccessoryClient__joinAccessory_completion___block_invoke(uint64
           {
             v30 = HMFGetLogIdentifier();
             v31 = [v26 objectForKeyedSubscript:@"ssid"];
-            *buf = v35;
-            v52 = v30;
-            v53 = 2112;
-            v54 = v31;
+            *buf = v34;
+            v51 = v30;
+            v52 = 2112;
+            v53 = v31;
             _os_log_impl(&dword_22AADC000, v29, OS_LOG_TYPE_INFO, "%{public}@Matched : %@", buf, 0x16u);
 
-            v23 = v36;
+            v23 = v35;
           }
 
           objc_autoreleasePoolPop(v27);
@@ -1758,7 +1735,7 @@ void __51__HAPWACAccessoryClient__joinAccessory_completion___block_invoke(uint64
         }
       }
 
-      v21 = [obj countByEnumeratingWithState:&v39 objects:v50 count:16];
+      v21 = [obj countByEnumeratingWithState:&v38 objects:v49 count:16];
       if (v21)
       {
         continue;
@@ -1775,39 +1752,38 @@ LABEL_26:
   }
 
   v32 = v22;
-  v33 = *MEMORY[0x277D85DE8];
 
   return v32;
 }
 
 - (void)_joinAccessoryNetworkWithCompletion:(id)completion
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   [(HAPWACAccessoryClient *)self setCompletionHandler:completionCopy];
   currentNetworkInfo = [(HAPWACAccessoryClient *)self currentNetworkInfo];
   [currentNetworkInfo objectForKey:@"platformNetwork"];
 
-  if (CoreWiFiLibraryCore())
+  if (CoreWiFiLibraryCore(0))
   {
-    v57 = 0;
-    v58 = &v57;
-    v59 = 0x2050000000;
+    v56 = 0;
+    v57 = &v56;
+    v58 = 0x2050000000;
     v6 = getCWFInterfaceClass_softClass;
-    v60 = getCWFInterfaceClass_softClass;
+    v59 = getCWFInterfaceClass_softClass;
     if (!getCWFInterfaceClass_softClass)
     {
       *buf = MEMORY[0x277D85DD0];
       *&buf[8] = 3221225472;
       *&buf[16] = __getCWFInterfaceClass_block_invoke;
-      v62 = &unk_2786D3B88;
-      v63 = &v57;
+      v61 = &unk_2786D3B88;
+      v62 = &v56;
       __getCWFInterfaceClass_block_invoke(buf);
-      v6 = v58[3];
+      v6 = v57[3];
     }
 
     v7 = v6;
-    _Block_object_dispose(&v57, 8);
+    _Block_object_dispose(&v56, 8);
     v8 = objc_alloc_init(v6);
     [v8 resume];
     currentKnownNetworkProfile = [v8 currentKnownNetworkProfile];
@@ -1851,33 +1827,33 @@ LABEL_26:
 
   hapWACAccessory = [(HAPWACAccessoryClient *)self hapWACAccessory];
   ssid = [hapWACAccessory ssid];
-  v25 = [v13 isEqual:ssid];
+  v24 = [v13 isEqual:ssid];
   if (v13)
   {
-    v26 = v25;
+    v25 = v24;
   }
 
   else
   {
-    v26 = 1;
+    v25 = 1;
   }
 
-  if (v26)
+  if (v25)
   {
-    v27 = objc_autoreleasePoolPush();
+    v26 = objc_autoreleasePoolPush();
     selfCopy2 = self;
-    v29 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    v28 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
-      v30 = HMFGetLogIdentifier();
+      v29 = HMFGetLogIdentifier();
       *buf = 138543362;
-      *&buf[4] = v30;
-      _os_log_impl(&dword_22AADC000, v29, OS_LOG_TYPE_ERROR, "%{public}@Not associated to WiFi", buf, 0xCu);
+      *&buf[4] = v29;
+      _os_log_impl(&dword_22AADC000, v28, OS_LOG_TYPE_ERROR, "%{public}@Not associated to WiFi", buf, 0xCu);
     }
 
-    objc_autoreleasePoolPop(v27);
-    v31 = [MEMORY[0x277CCA9B8] errorWithDomain:@"HAPErrorDomain" code:21 userInfo:0];
-    completionCopy[2](completionCopy, v31);
+    objc_autoreleasePoolPop(v26);
+    v30 = [MEMORY[0x277CCA9B8] errorWithDomain:@"HAPErrorDomain" code:21 userInfo:0];
+    completionCopy[2](completionCopy, v30);
 
     goto LABEL_11;
   }
@@ -1895,18 +1871,18 @@ LABEL_26:
 
 LABEL_24:
 LABEL_25:
-    v34 = objc_autoreleasePoolPush();
+    v33 = objc_autoreleasePoolPush();
     selfCopy3 = self;
-    v36 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
+    v35 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
     {
-      v37 = HMFGetLogIdentifier();
+      v36 = HMFGetLogIdentifier();
       *buf = 138543362;
-      *&buf[4] = v37;
-      _os_log_impl(&dword_22AADC000, v36, OS_LOG_TYPE_DEBUG, "%{public}@Compatible network", buf, 0xCu);
+      *&buf[4] = v36;
+      _os_log_impl(&dword_22AADC000, v35, OS_LOG_TYPE_DEBUG, "%{public}@Compatible network", buf, 0xCu);
     }
 
-    objc_autoreleasePoolPop(v34);
+    objc_autoreleasePoolPop(v33);
     hapWACAccessory4 = [(HAPWACAccessoryClient *)selfCopy3 hapWACAccessory];
     [(HAPWACAccessoryClient *)selfCopy3 _joinAccessory:hapWACAccessory4 completion:completionCopy];
 
@@ -1917,9 +1893,9 @@ LABEL_25:
   if ([hapWACAccessory5 supportedWiFiBands])
   {
     compatible2Pt4Networks = [(HAPWACAccessoryClient *)self compatible2Pt4Networks];
-    v41 = [compatible2Pt4Networks containsObject:v13];
+    v40 = [compatible2Pt4Networks containsObject:v13];
 
-    if (v41)
+    if (v40)
     {
       goto LABEL_25;
     }
@@ -1934,120 +1910,114 @@ LABEL_25:
   {
 
 LABEL_34:
-    v45 = objc_autoreleasePoolPush();
+    v44 = objc_autoreleasePoolPush();
     selfCopy4 = self;
-    v47 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+    v46 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
     {
-      v48 = HMFGetLogIdentifier();
+      v47 = HMFGetLogIdentifier();
       *buf = 138543362;
-      *&buf[4] = v48;
-      _os_log_impl(&dword_22AADC000, v47, OS_LOG_TYPE_ERROR, "%{public}@Incompatible network", buf, 0xCu);
+      *&buf[4] = v47;
+      _os_log_impl(&dword_22AADC000, v46, OS_LOG_TYPE_ERROR, "%{public}@Incompatible network", buf, 0xCu);
     }
 
-    objc_autoreleasePoolPop(v45);
-    v49 = [MEMORY[0x277CCA9B8] errorWithDomain:@"HAPErrorDomain" code:20 userInfo:0];
-    completionCopy[2](completionCopy, v49);
+    objc_autoreleasePoolPop(v44);
+    v48 = [MEMORY[0x277CCA9B8] errorWithDomain:@"HAPErrorDomain" code:20 userInfo:0];
+    completionCopy[2](completionCopy, v48);
 
     goto LABEL_11;
   }
 
   compatible2Pt4Networks2 = [(HAPWACAccessoryClient *)self compatible2Pt4Networks];
-  v44 = [compatible2Pt4Networks2 containsObject:v13];
+  v43 = [compatible2Pt4Networks2 containsObject:v13];
 
-  if (v44)
+  if (v43)
   {
     goto LABEL_34;
   }
 
-  v50 = objc_autoreleasePoolPush();
+  v49 = objc_autoreleasePoolPush();
   selfCopy5 = self;
-  v52 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v52, OS_LOG_TYPE_DEBUG))
+  v51 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
   {
-    v53 = HMFGetLogIdentifier();
+    v52 = HMFGetLogIdentifier();
     *buf = 138543618;
-    *&buf[4] = v53;
+    *&buf[4] = v52;
     *&buf[12] = 2112;
     *&buf[14] = v13;
-    _os_log_impl(&dword_22AADC000, v52, OS_LOG_TYPE_DEBUG, "%{public}@Finding 2.4 AP with ssid: %@", buf, 0x16u);
+    _os_log_impl(&dword_22AADC000, v51, OS_LOG_TYPE_DEBUG, "%{public}@Finding 2.4 AP with ssid: %@", buf, 0x16u);
   }
 
-  objc_autoreleasePoolPop(v50);
+  objc_autoreleasePoolPop(v49);
   browser = [(HAPWACAccessoryClient *)selfCopy5 browser];
-  v55[0] = MEMORY[0x277D85DD0];
-  v55[1] = 3221225472;
-  v55[2] = __61__HAPWACAccessoryClient__joinAccessoryNetworkWithCompletion___block_invoke;
-  v55[3] = &unk_2786D39B8;
-  v55[4] = selfCopy5;
-  v56 = completionCopy;
-  [browser scan2Pt4APWithSSID:v13 completion:v55];
+  v54[0] = MEMORY[0x277D85DD0];
+  v54[1] = 3221225472;
+  v54[2] = __61__HAPWACAccessoryClient__joinAccessoryNetworkWithCompletion___block_invoke;
+  v54[3] = &unk_2786D39B8;
+  v54[4] = selfCopy5;
+  v55 = completionCopy;
+  [browser scan2Pt4APWithSSID:v13 completion:v54];
 
 LABEL_11:
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __61__HAPWACAccessoryClient__joinAccessoryNetworkWithCompletion___block_invoke(uint64_t a1, int a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
   if (a2)
   {
-    v4 = [*(a1 + 32) hapWACAccessory];
-    v5 = *(a1 + 40);
-    v22 = v4;
+    v18 = [*(a1 + 32) hapWACAccessory];
     [v3 _joinAccessory:? completion:?];
-    v6 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v7 = [*(a1 + 32) _findCompatiblePrefixedNetworks];
-    [*(a1 + 32) setCompatiblePrefixedNetwork:v7];
+    v4 = [*(a1 + 32) _findCompatiblePrefixedNetworks];
+    [*(a1 + 32) setCompatiblePrefixedNetwork:v4];
 
-    v8 = [*(a1 + 32) compatiblePrefixedNetwork];
+    v5 = [*(a1 + 32) compatiblePrefixedNetwork];
 
-    v9 = objc_autoreleasePoolPush();
-    v10 = *(a1 + 32);
-    v11 = HMFGetOSLogHandle();
-    v12 = v11;
-    if (v8)
+    v6 = objc_autoreleasePoolPush();
+    v7 = *(a1 + 32);
+    v8 = HMFGetOSLogHandle();
+    v9 = v8;
+    if (v5)
     {
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
-        v13 = HMFGetLogIdentifier();
-        v14 = [*(a1 + 32) compatiblePrefixedNetwork];
-        v15 = [v14 objectForKeyedSubscript:@"ssid"];
+        v10 = HMFGetLogIdentifier();
+        v11 = [*(a1 + 32) compatiblePrefixedNetwork];
+        v12 = [v11 objectForKeyedSubscript:@"ssid"];
         *buf = 138543618;
-        v24 = v13;
-        v25 = 2112;
-        v26 = v15;
-        _os_log_impl(&dword_22AADC000, v12, OS_LOG_TYPE_INFO, "%{public}@Found compatible prefixed network: %@", buf, 0x16u);
+        v20 = v10;
+        v21 = 2112;
+        v22 = v12;
+        _os_log_impl(&dword_22AADC000, v9, OS_LOG_TYPE_INFO, "%{public}@Found compatible prefixed network: %@", buf, 0x16u);
       }
 
-      objc_autoreleasePoolPop(v9);
-      v16 = *(a1 + 32);
-      v17 = [v16 hapWACAccessory];
-      [v16 _joinAccessory:v17 completion:*(a1 + 40)];
+      objc_autoreleasePoolPop(v6);
+      v13 = *(a1 + 32);
+      v14 = [v13 hapWACAccessory];
+      [v13 _joinAccessory:v14 completion:*(a1 + 40)];
     }
 
     else
     {
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        v18 = HMFGetLogIdentifier();
+        v15 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v24 = v18;
-        _os_log_impl(&dword_22AADC000, v12, OS_LOG_TYPE_ERROR, "%{public}@No compatible network found", buf, 0xCu);
+        v20 = v15;
+        _os_log_impl(&dword_22AADC000, v9, OS_LOG_TYPE_ERROR, "%{public}@No compatible network found", buf, 0xCu);
       }
 
-      objc_autoreleasePoolPop(v9);
-      v19 = *(a1 + 40);
-      v20 = [MEMORY[0x277CCA9B8] errorWithDomain:@"HAPErrorDomain" code:20 userInfo:0];
-      (*(v19 + 16))(v19, v20);
+      objc_autoreleasePoolPop(v6);
+      v16 = *(a1 + 40);
+      v17 = [MEMORY[0x277CCA9B8] errorWithDomain:@"HAPErrorDomain" code:20 userInfo:0];
+      (*(v16 + 16))(v16, v17);
     }
-
-    v21 = *MEMORY[0x277D85DE8];
   }
 }
 
@@ -2078,17 +2048,17 @@ void __61__HAPWACAccessoryClient__joinAccessoryNetworkWithCompletion___block_inv
 
 void __60__HAPWACAccessoryClient_joinAccessoryNetworkWithCompletion___block_invoke(uint64_t a1)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v2 = (a1 + 32);
   objc_initWeak(&location, *(a1 + 32));
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __60__HAPWACAccessoryClient_joinAccessoryNetworkWithCompletion___block_invoke_2;
-  v20[3] = &unk_2786D3EB8;
-  objc_copyWeak(&v22, &location);
-  v21 = *(a1 + 40);
-  v3 = MEMORY[0x231885210](v20);
-  v19 = 0;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __60__HAPWACAccessoryClient_joinAccessoryNetworkWithCompletion___block_invoke_2;
+  v19[3] = &unk_2786D3EB8;
+  objc_copyWeak(&v21, &location);
+  v20 = *(a1 + 40);
+  v3 = MEMORY[0x231885210](v19);
+  v18 = 0;
   [*v2 setState:2];
   [*(a1 + 32) setRetryCount:0];
   v4 = WiFiCopyCurrentNetworkInfoEx();
@@ -2103,29 +2073,28 @@ void __60__HAPWACAccessoryClient_joinAccessoryNetworkWithCompletion___block_invo
     v9 = [*(a1 + 32) currentNetworkInfo];
     v10 = [v9 hmf_stringForKey:@"ssid"];
     *buf = 138543618;
-    v25 = v8;
-    v26 = 2112;
-    v27 = v10;
+    v24 = v8;
+    v25 = 2112;
+    v26 = v10;
     _os_log_impl(&dword_22AADC000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Saving current network: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
   v11 = [MEMORY[0x277CBEAA8] date];
   v12 = *(a1 + 32);
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __60__HAPWACAccessoryClient_joinAccessoryNetworkWithCompletion___block_invoke_90;
-  v15[3] = &unk_2786D3A30;
-  objc_copyWeak(&v18, &location);
-  v17 = v3;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __60__HAPWACAccessoryClient_joinAccessoryNetworkWithCompletion___block_invoke_90;
+  v14[3] = &unk_2786D3A30;
+  objc_copyWeak(&v17, &location);
+  v16 = v3;
   v13 = v11;
-  v16 = v13;
-  [v12 _joinAccessoryNetworkWithCompletion:v15];
+  v15 = v13;
+  [v12 _joinAccessoryNetworkWithCompletion:v14];
 
-  objc_destroyWeak(&v18);
-  objc_destroyWeak(&v22);
+  objc_destroyWeak(&v17);
+  objc_destroyWeak(&v21);
   objc_destroyWeak(&location);
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __60__HAPWACAccessoryClient_joinAccessoryNetworkWithCompletion___block_invoke_2(uint64_t a1, void *a2)
@@ -2155,7 +2124,7 @@ void __60__HAPWACAccessoryClient_joinAccessoryNetworkWithCompletion___block_invo
 
 void __60__HAPWACAccessoryClient_joinAccessoryNetworkWithCompletion___block_invoke_90(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
@@ -2182,29 +2151,29 @@ LABEL_9:
     }
 
     [WeakRetained setRetryCount:{objc_msgSend(WeakRetained, "retryCount") + 1}];
-    v13 = objc_autoreleasePoolPush();
-    v14 = WeakRetained;
-    v15 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+    v12 = objc_autoreleasePoolPush();
+    v13 = WeakRetained;
+    v14 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
-      v16 = HMFGetLogIdentifier();
+      v15 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v21 = v16;
-      v22 = 2112;
-      v23 = v3;
-      _os_log_impl(&dword_22AADC000, v15, OS_LOG_TYPE_DEBUG, "%{public}@Retrying to join accessory network on error: %@", buf, 0x16u);
+      v20 = v15;
+      v21 = 2112;
+      v22 = v3;
+      _os_log_impl(&dword_22AADC000, v14, OS_LOG_TYPE_DEBUG, "%{public}@Retrying to join accessory network on error: %@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v13);
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __60__HAPWACAccessoryClient_joinAccessoryNetworkWithCompletion___block_invoke_91;
-    v17[3] = &unk_2786D3EB8;
-    objc_copyWeak(&v19, (a1 + 48));
-    v18 = *(a1 + 40);
-    [v14 _joinAccessoryNetworkWithCompletion:v17];
+    objc_autoreleasePoolPop(v12);
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __60__HAPWACAccessoryClient_joinAccessoryNetworkWithCompletion___block_invoke_91;
+    v16[3] = &unk_2786D3EB8;
+    objc_copyWeak(&v18, (a1 + 48));
+    v17 = *(a1 + 40);
+    [v13 _joinAccessoryNetworkWithCompletion:v16];
 
-    objc_destroyWeak(&v19);
+    objc_destroyWeak(&v18);
   }
 
   else
@@ -2215,8 +2184,6 @@ LABEL_9:
   }
 
 LABEL_10:
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __60__HAPWACAccessoryClient_joinAccessoryNetworkWithCompletion___block_invoke_91(uint64_t a1, void *a2)
@@ -2268,7 +2235,7 @@ void __60__HAPWACAccessoryClient_joinAccessoryNetworkWithCompletion___block_invo
 
 - (void)_callJoinCompletion:(id)completion withError:(id)error
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   errorCopy = error;
   if (!errorCopy)
@@ -2287,11 +2254,11 @@ void __60__HAPWACAccessoryClient_joinAccessoryNetworkWithCompletion___block_invo
         v14 = HMFGetLogIdentifier();
         v15 = [v8 hmf_stringForKey:@"ssid"];
         *buf = 138543874;
-        v20 = v14;
-        v21 = 2112;
-        v22 = v15;
-        v23 = 2112;
-        v24 = 0;
+        v19 = v14;
+        v20 = 2112;
+        v21 = v15;
+        v22 = 2112;
+        v23 = 0;
         _os_log_impl(&dword_22AADC000, v13, OS_LOG_TYPE_DEBUG, "%{public}@Disabling auto-join on: %@, error: %@", buf, 0x20u);
       }
 
@@ -2305,7 +2272,7 @@ void __60__HAPWACAccessoryClient_joinAccessoryNetworkWithCompletion___block_invo
       {
         v16 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v20 = v16;
+        v19 = v16;
         _os_log_impl(&dword_22AADC000, v13, OS_LOG_TYPE_ERROR, "%{public}@Join succeeded but no network - declaring join failure", buf, 0xCu);
       }
 
@@ -2320,13 +2287,99 @@ void __60__HAPWACAccessoryClient_joinAccessoryNetworkWithCompletion___block_invo
   {
     completionCopy[2](completionCopy, errorCopy);
   }
+}
 
-  v18 = *MEMORY[0x277D85DE8];
+- (void)_joinCompleteWithStatus:(int)status
+{
+  v3 = *&status;
+  v33 = *MEMORY[0x277D85DE8];
+  v5 = objc_autoreleasePoolPush();
+  selfCopy = self;
+  v7 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  {
+    v8 = HMFGetLogIdentifier();
+    *buf = 138543618;
+    v30 = v8;
+    v31 = 1024;
+    v32 = v3;
+    _os_log_impl(&dword_22AADC000, v7, OS_LOG_TYPE_INFO, "%{public}@Joined accessory network with status: %d", buf, 0x12u);
+  }
+
+  objc_autoreleasePoolPop(v5);
+  switch(v3)
+  {
+    case 5:
+      goto LABEL_6;
+    case 0:
+      completionHandler = [(HAPWACAccessoryClient *)selfCopy completionHandler];
+      [(HAPWACAccessoryClient *)selfCopy _callJoinCompletion:completionHandler withError:0];
+      break;
+    case 0xFFFFF0A0:
+LABEL_6:
+      v9 = objc_autoreleasePoolPush();
+      v10 = selfCopy;
+      v11 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+      {
+        v12 = HMFGetLogIdentifier();
+        *buf = 138543362;
+        v30 = v12;
+        _os_log_impl(&dword_22AADC000, v11, OS_LOG_TYPE_INFO, "%{public}@Failed to join network, reporting connection failure", buf, 0xCu);
+      }
+
+      objc_autoreleasePoolPop(v9);
+      completionHandler = [(HAPWACAccessoryClient *)v10 completionHandler];
+      v14 = MEMORY[0x277CCA9B8];
+      v27 = *MEMORY[0x277CCA470];
+      v28 = @"Network was not found";
+      v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
+      v16 = [v14 errorWithDomain:@"HAPErrorDomain" code:34 userInfo:v15];
+      [(HAPWACAccessoryClient *)v10 _callJoinCompletion:completionHandler withError:v16];
+
+      break;
+    default:
+      completionHandler = HMErrorFromOSStatus(v3);
+      completionHandler2 = [(HAPWACAccessoryClient *)selfCopy completionHandler];
+      objc_initWeak(buf, selfCopy);
+      if ([(HAPWACAccessoryClient *)selfCopy retryCount]> 2)
+      {
+        v20[0] = MEMORY[0x277D85DD0];
+        v20[1] = 3221225472;
+        v20[2] = __49__HAPWACAccessoryClient__joinCompleteWithStatus___block_invoke_4;
+        v20[3] = &unk_2786D3EB8;
+        v18 = &v22;
+        objc_copyWeak(&v22, buf);
+        v21 = completionHandler2;
+        [(HAPWACAccessoryClient *)selfCopy _restoreNetworkWithCompletion:v20];
+        v19 = &v21;
+      }
+
+      else
+      {
+        v23[0] = MEMORY[0x277D85DD0];
+        v23[1] = 3221225472;
+        v23[2] = __49__HAPWACAccessoryClient__joinCompleteWithStatus___block_invoke;
+        v23[3] = &unk_2786D3A30;
+        v18 = &v26;
+        objc_copyWeak(&v26, buf);
+        v25 = completionHandler2;
+        v24 = completionHandler;
+        [(HAPWACAccessoryClient *)selfCopy _restoreNetworkWithCompletion:v23];
+
+        v19 = &v25;
+      }
+
+      objc_destroyWeak(v18);
+      objc_destroyWeak(buf);
+
+      break;
+  }
 }
 
 void __49__HAPWACAccessoryClient__joinCompleteWithStatus___block_invoke(uint64_t a1, void *a2)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v5 = WeakRetained;
@@ -2342,11 +2395,11 @@ void __49__HAPWACAccessoryClient__joinCompleteWithStatus___block_invoke(uint64_t
       v10 = [v7 retryCount];
       v11 = *(a1 + 32);
       *buf = 138543874;
-      v28 = v9;
-      v29 = 2048;
-      v30 = v10;
-      v31 = 2112;
-      v32 = v11;
+      v27 = v9;
+      v28 = 2048;
+      v29 = v10;
+      v30 = 2112;
+      v31 = v11;
       _os_log_impl(&dword_22AADC000, v8, OS_LOG_TYPE_DEBUG, "%{public}@Retrying attempt: %ld to join accessory network on error:%@", buf, 0x20u);
     }
 
@@ -2360,7 +2413,7 @@ void __49__HAPWACAccessoryClient__joinCompleteWithStatus___block_invoke(uint64_t
       {
         v15 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v28 = v15;
+        v27 = v15;
         _os_log_impl(&dword_22AADC000, v14, OS_LOG_TYPE_DEBUG, "%{public}@Last retry attempting after 10 sec", buf, 0xCu);
       }
 
@@ -2372,24 +2425,24 @@ void __49__HAPWACAccessoryClient__joinCompleteWithStatus___block_invoke(uint64_t
       block[2] = __49__HAPWACAccessoryClient__joinCompleteWithStatus___block_invoke_77;
       block[3] = &unk_2786D6BE0;
       block[4] = v13;
-      objc_copyWeak(&v26, (a1 + 48));
-      v25 = *(a1 + 40);
+      objc_copyWeak(&v25, (a1 + 48));
+      v24 = *(a1 + 40);
       dispatch_after(v16, v17, block);
 
-      objc_destroyWeak(&v26);
+      objc_destroyWeak(&v25);
     }
 
     else
     {
-      v21[0] = MEMORY[0x277D85DD0];
-      v21[1] = 3221225472;
-      v21[2] = __49__HAPWACAccessoryClient__joinCompleteWithStatus___block_invoke_3;
-      v21[3] = &unk_2786D3EB8;
-      objc_copyWeak(&v23, (a1 + 48));
-      v22 = *(a1 + 40);
-      [v7 _joinAccessoryNetworkWithCompletion:v21];
+      v20[0] = MEMORY[0x277D85DD0];
+      v20[1] = 3221225472;
+      v20[2] = __49__HAPWACAccessoryClient__joinCompleteWithStatus___block_invoke_3;
+      v20[3] = &unk_2786D3EB8;
+      objc_copyWeak(&v22, (a1 + 48));
+      v21 = *(a1 + 40);
+      [v7 _joinAccessoryNetworkWithCompletion:v20];
 
-      objc_destroyWeak(&v23);
+      objc_destroyWeak(&v22);
     }
   }
 
@@ -2399,8 +2452,6 @@ void __49__HAPWACAccessoryClient__joinCompleteWithStatus___block_invoke(uint64_t
     v19 = [MEMORY[0x277CCA9B8] errorWithHMErrorCode:20];
     (*(v18 + 16))(v18, v19);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __49__HAPWACAccessoryClient__joinCompleteWithStatus___block_invoke_4(uint64_t a1, void *a2)
@@ -2507,7 +2558,7 @@ void __49__HAPWACAccessoryClient__joinCompleteWithStatus___block_invoke_2(uint64
 
 - (void)dumpStatsWithError:(id)error
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   if (![(HAPWACAccessoryClient *)self metricSubmitted])
   {
@@ -2517,7 +2568,7 @@ void __49__HAPWACAccessoryClient__joinCompleteWithStatus___block_invoke_2(uint64
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       HMFGetLogIdentifier();
-      v8 = v30 = v5;
+      v8 = v29 = v5;
       hapWACAccessory = [(HAPWACAccessoryClient *)selfCopy hapWACAccessory];
       name = [hapWACAccessory name];
       hapWACAccessory2 = [(HAPWACAccessoryClient *)selfCopy hapWACAccessory];
@@ -2539,93 +2590,91 @@ void __49__HAPWACAccessoryClient__joinCompleteWithStatus___block_invoke_2(uint64
       v26 = v25;
       [(HAPWACAccessoryClient *)selfCopy setupCodeDelay];
       *buf = 138546434;
-      v33 = v8;
-      v34 = 2112;
-      v35 = name;
-      v36 = 2112;
-      v37 = deviceId;
-      v38 = 2112;
-      v39 = rssi;
-      v40 = 2048;
-      v41 = v16;
-      v42 = 2048;
-      v43 = v18;
-      v44 = 2048;
-      v45 = v20;
-      v46 = 2048;
-      v47 = v22;
-      v48 = 2048;
-      v49 = v24;
-      v50 = 2048;
-      v51 = v26;
-      v52 = 2048;
-      v53 = v27;
-      v54 = 2048;
+      v32 = v8;
+      v33 = 2112;
+      v34 = name;
+      v35 = 2112;
+      v36 = deviceId;
+      v37 = 2112;
+      v38 = rssi;
+      v39 = 2048;
+      v40 = v16;
+      v41 = 2048;
+      v42 = v18;
+      v43 = 2048;
+      v44 = v20;
+      v45 = 2048;
+      v46 = v22;
+      v47 = 2048;
+      v48 = v24;
+      v49 = 2048;
+      v50 = v26;
+      v51 = 2048;
+      v52 = v27;
+      v53 = 2048;
       retryCount = [(HAPWACAccessoryClient *)selfCopy retryCount];
-      v56 = 2112;
-      v57 = errorCopy;
+      v55 = 2112;
+      v56 = errorCopy;
       _os_log_impl(&dword_22AADC000, v7, OS_LOG_TYPE_INFO, "%{public}@Stats for accessory: %@ (%@) @ (%@), \nDiscovery Time: %f sec, \nJoin Time     : %f sec, \nRestore Time  : %f sec, \nWAC Configs   : %f sec, \n    Pre-Config Discovery : %f sec, \n    Post-Config Discovery: %f sec, \n    Setup Code delay     : %f sec, \nRetry Count   : %ld \nError         : %@  \n", buf, 0x84u);
 
-      v5 = v30;
+      v5 = v29;
     }
 
     objc_autoreleasePoolPop(v5);
-    v31 = errorCopy;
+    v30 = errorCopy;
     AnalyticsSendEventLazy();
     [(HAPWACAccessoryClient *)selfCopy setMetricSubmitted:1];
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 id __44__HAPWACAccessoryClient_dumpStatsWithError___block_invoke(uint64_t a1)
 {
-  v26[11] = *MEMORY[0x277D85DE8];
-  v25[0] = @"accessoryName";
-  v24 = [*(a1 + 32) hapWACAccessory];
-  v23 = [v24 name];
-  v26[0] = v23;
-  v25[1] = @"deviceId";
-  v22 = [*(a1 + 32) hapWACAccessory];
-  v21 = [v22 deviceId];
-  v26[1] = v21;
-  v25[2] = @"joinLatency";
+  v25[11] = *MEMORY[0x277D85DE8];
+  v24[0] = @"accessoryName";
+  v23 = [*(a1 + 32) hapWACAccessory];
+  v22 = [v23 name];
+  v25[0] = v22;
+  v24[1] = @"deviceId";
+  v21 = [*(a1 + 32) hapWACAccessory];
+  v20 = [v21 deviceId];
+  v25[1] = v20;
+  v24[2] = @"joinLatency";
   v2 = MEMORY[0x277CCABB0];
   [*(a1 + 32) joinLatency];
-  v20 = [v2 numberWithDouble:?];
-  v26[2] = v20;
-  v25[3] = @"restoreLatency";
+  v19 = [v2 numberWithDouble:?];
+  v25[2] = v19;
+  v24[3] = @"restoreLatency";
   v3 = MEMORY[0x277CCABB0];
   [*(a1 + 32) restoreLatency];
   v4 = [v3 numberWithDouble:?];
-  v26[3] = v4;
-  v25[4] = @"configurationLatency";
+  v25[3] = v4;
+  v24[4] = @"configurationLatency";
   v5 = MEMORY[0x277CCABB0];
   [*(a1 + 32) configurationLatency];
   v6 = [v5 numberWithDouble:?];
-  v26[4] = v6;
-  v25[5] = @"preConfigDiscoveryTime";
+  v25[4] = v6;
+  v24[5] = @"preConfigDiscoveryTime";
   v7 = MEMORY[0x277CCABB0];
   [*(a1 + 32) preConfigDiscoveryTime];
   v8 = [v7 numberWithDouble:?];
-  v26[5] = v8;
-  v25[6] = @"postConfigDiscoveryTime";
+  v25[5] = v8;
+  v24[6] = @"postConfigDiscoveryTime";
   v9 = MEMORY[0x277CCABB0];
   [*(a1 + 32) postConfigDiscoveryTime];
   v10 = [v9 numberWithDouble:?];
-  v26[6] = v10;
-  v25[7] = @"setupCodeDelay";
+  v25[6] = v10;
+  v24[7] = @"setupCodeDelay";
   v11 = MEMORY[0x277CCABB0];
   [*(a1 + 32) setupCodeDelay];
   v12 = [v11 numberWithDouble:?];
-  v26[7] = v12;
-  v25[8] = @"retryCount";
+  v25[7] = v12;
+  v24[8] = @"retryCount";
   v13 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "retryCount")}];
-  v26[8] = v13;
-  v25[9] = @"errorCode";
+  v25[8] = v13;
+  v24[9] = @"errorCode";
   v14 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 40), "code")}];
-  v26[9] = v14;
-  v25[10] = @"errorDescription";
+  v25[9] = v14;
+  v24[10] = @"errorDescription";
   v15 = [*(a1 + 40) description];
   if (v15)
   {
@@ -2637,13 +2686,11 @@ id __44__HAPWACAccessoryClient_dumpStatsWithError___block_invoke(uint64_t a1)
     v16 = &stru_283E79C60;
   }
 
-  v26[10] = v16;
-  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:11];
+  v25[10] = v16;
+  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:11];
   if (v15)
   {
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
@@ -2780,7 +2827,6 @@ void __84__HAPWACAccessoryClient_initWithWACAccessory_server_browser_compatible2
 
 uint64_t __36__HAPWACAccessoryClient_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
   logCategory__hmf_once_v50 = HMFCreateOSLogHandle();
 
   return MEMORY[0x2821F96F8]();

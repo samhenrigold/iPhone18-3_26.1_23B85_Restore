@@ -9,7 +9,6 @@
 
 - (BOOL)isAppDistributionEligibleForCurrentDevice:(id)device
 {
-  v6 = *MEMORY[0x277D85DE8];
   sub_22273919C();
   v3 = sub_222739A8C();
 
@@ -18,9 +17,7 @@
     os_eligibility_get_domain_answer();
   }
 
-  result = 0;
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 - (JSValue)distributorPriorityList

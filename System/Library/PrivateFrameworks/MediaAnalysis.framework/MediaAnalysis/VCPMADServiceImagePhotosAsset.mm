@@ -445,7 +445,7 @@ LABEL_22:
 
 - (int)loadPixelBuffer:(__CVBuffer *)buffer orientation:(unsigned int *)orientation error:(id *)error
 {
-  v90[1] = *MEMORY[0x1E69E9840];
+  v92[1] = *MEMORY[0x1E69E9840];
   value = self->_pixelBuffer.value_;
   if (value)
   {
@@ -471,24 +471,24 @@ LABEL_3:
   if (error)
   {
     v11 = MEMORY[0x1E696ABC0];
-    v89 = *MEMORY[0x1E696A578];
+    v91 = *MEMORY[0x1E696A578];
     v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"PixelBuffer_NormalRes_NoResourcesAreLocal"];
-    v90[0] = v12;
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v90 forKeys:&v89 count:1];
+    v92[0] = v12;
+    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v92 forKeys:&v91 count:1];
     *errorCopy2 = [v11 errorWithDomain:*v9 code:-18 userInfo:v13];
   }
 
-  v14 = VCPSignPostLog();
+  v14 = VCPSignPostLog(value);
   spid = os_signpost_id_generate(v14);
 
-  v15 = VCPSignPostLog();
-  v16 = v15;
-  if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
+  v16 = VCPSignPostLog(v15);
+  v17 = v16;
+  if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
   {
     signpostPayload = [(VCPMADServiceImageAsset *)self signpostPayload];
     *buf = 138412290;
     *&buf[4] = signpostPayload;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v16, OS_SIGNPOST_INTERVAL_BEGIN, spid, "VCPMADServiceImageAsset_Decode", "%@", buf, 0xCu);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v17, OS_SIGNPOST_INTERVAL_BEGIN, spid, "VCPMADServiceImageAsset_Decode", "%@", buf, 0xCu);
   }
 
   if (MediaAnalysisLogLevel() >= 5 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
@@ -501,71 +501,71 @@ LABEL_3:
     pixelHeight = [(PHAsset *)self->_asset pixelHeight];
     *buf = 138413570;
     *&buf[4] = localIdentifier;
-    v82 = 2112;
-    *v83 = vcp_typeDescription;
-    *&v83[8] = 1024;
-    *v84 = mediaType;
-    *&v84[4] = 1024;
-    *v85 = mediaSubtypes;
-    *&v85[4] = 1024;
-    v86 = pixelWidth;
-    v87 = 1024;
-    v88 = pixelHeight;
+    v84 = 2112;
+    *v85 = vcp_typeDescription;
+    *&v85[8] = 1024;
+    *v86 = mediaType;
+    *&v86[4] = 1024;
+    *v87 = mediaSubtypes;
+    *&v87[4] = 1024;
+    v88 = pixelWidth;
+    v89 = 1024;
+    v90 = pixelHeight;
     _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "[%@] Selecting resource for Asset Type: %@ [%d/%d] Resolution: %dx%d", buf, 0x2Eu);
 
     v10 = MEMORY[0x1E696A578];
   }
 
   resources = [(VCPMADServiceImagePhotosAsset *)self resources];
-  v25 = [resources vcp_highResImageResourcesForAsset:self->_asset];
+  v26 = [resources vcp_highResImageResourcesForAsset:self->_asset];
 
+  v78 = 0u;
+  v79 = 0u;
   v76 = 0u;
   v77 = 0u;
-  v74 = 0u;
-  v75 = 0u;
-  obj = v25;
-  v26 = [obj countByEnumeratingWithState:&v74 objects:v80 count:16];
-  if (!v26)
+  obj = v26;
+  v27 = [obj countByEnumeratingWithState:&v76 objects:v82 count:16];
+  if (!v27)
   {
     goto LABEL_61;
   }
 
-  v72 = *v75;
-  v69 = *MEMORY[0x1E6982E58];
-  v66 = *MEMORY[0x1E6982E00];
-  v65 = *MEMORY[0x1E6982E10];
-  v62 = *MEMORY[0x1E6982F28];
-  v67 = *v9;
-  v68 = *v10;
+  v74 = *v77;
+  v71 = *MEMORY[0x1E6982E58];
+  v68 = *MEMORY[0x1E6982E00];
+  v67 = *MEMORY[0x1E6982E10];
+  v64 = *MEMORY[0x1E6982F28];
+  v69 = *v9;
+  v70 = *v10;
   while (2)
   {
-    v73 = v26;
-    for (i = 0; i != v73; ++i)
+    v75 = v27;
+    for (i = 0; i != v75; ++i)
     {
-      if (*v75 != v72)
+      if (*v77 != v74)
       {
         objc_enumerationMutation(obj);
       }
 
-      v28 = *(*(&v74 + 1) + 8 * i);
+      v29 = *(*(&v76 + 1) + 8 * i);
       if (MediaAnalysisLogLevel() >= 5 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
       {
         localIdentifier2 = [(PHAsset *)self->_asset localIdentifier];
-        type = [v28 type];
-        pixelWidth2 = [v28 pixelWidth];
-        pixelHeight2 = [v28 pixelHeight];
+        type = [v29 type];
+        pixelWidth2 = [v29 pixelWidth];
+        pixelHeight2 = [v29 pixelHeight];
         *buf = 138413058;
         *&buf[4] = localIdentifier2;
-        v82 = 1024;
-        *v83 = type;
-        *&v83[4] = 1024;
-        *&v83[6] = pixelWidth2;
-        *v84 = 1024;
-        *&v84[2] = pixelHeight2;
+        v84 = 1024;
+        *v85 = type;
+        *&v85[4] = 1024;
+        *&v85[6] = pixelWidth2;
+        *v86 = 1024;
+        *&v86[2] = pixelHeight2;
         _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "[%@] Evaluating resource (Type: %d Resolution: %dx%d)", buf, 0x1Eu);
       }
 
-      if (([v28 vcp_isLocallyAvailable] & 1) == 0)
+      if (([v29 vcp_isLocallyAvailable] & 1) == 0)
       {
         if (MediaAnalysisLogLevel() >= 5 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
         {
@@ -578,8 +578,8 @@ LABEL_3:
         continue;
       }
 
-      vcp_uniformTypeIdentifier = [v28 vcp_uniformTypeIdentifier];
-      if (([vcp_uniformTypeIdentifier conformsToType:v69] & 1) == 0 && (objc_msgSend(vcp_uniformTypeIdentifier, "conformsToType:", v66) & 1) == 0 && (objc_msgSend(vcp_uniformTypeIdentifier, "conformsToType:", v65) & 1) == 0 && (objc_msgSend(vcp_uniformTypeIdentifier, "conformsToType:", v62) & 1) == 0)
+      vcp_uniformTypeIdentifier = [v29 vcp_uniformTypeIdentifier];
+      if (([vcp_uniformTypeIdentifier conformsToType:v71] & 1) == 0 && (objc_msgSend(vcp_uniformTypeIdentifier, "conformsToType:", v68) & 1) == 0 && (objc_msgSend(vcp_uniformTypeIdentifier, "conformsToType:", v67) & 1) == 0 && (objc_msgSend(vcp_uniformTypeIdentifier, "conformsToType:", v64) & 1) == 0)
       {
         if (MediaAnalysisLogLevel() >= 5 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
         {
@@ -587,47 +587,47 @@ LABEL_3:
           identifier = [vcp_uniformTypeIdentifier identifier];
           *buf = 138412546;
           *&buf[4] = localIdentifier4;
-          v82 = 2112;
-          *v83 = identifier;
+          v84 = 2112;
+          *v85 = identifier;
           _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "[%@] Purging resource cache to load uncommon resource (%@)", buf, 0x16u);
         }
 
         goto LABEL_30;
       }
 
-      pixelWidth3 = [v28 pixelWidth];
-      if (([v28 pixelHeight] * pixelWidth3) >= 0xCCA6CD)
+      pixelWidth3 = [v29 pixelWidth];
+      if (([v29 pixelHeight] * pixelWidth3) >= 0xCCA6CD)
       {
         if (MediaAnalysisLogLevel() >= 5 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
         {
           localIdentifier5 = [(PHAsset *)self->_asset localIdentifier];
-          pixelWidth4 = [v28 pixelWidth];
-          pixelHeight3 = [v28 pixelHeight];
+          pixelWidth4 = [v29 pixelWidth];
+          pixelHeight3 = [v29 pixelHeight];
           *buf = 138412802;
           *&buf[4] = localIdentifier5;
-          v82 = 1024;
-          *v83 = pixelWidth4;
-          *&v83[4] = 1024;
-          *&v83[6] = pixelHeight3;
+          v84 = 1024;
+          *v85 = pixelWidth4;
+          *&v85[4] = 1024;
+          *&v85[6] = pixelHeight3;
           _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "[%@] Purging resource cache to load large resource (%dx%d)", buf, 0x18u);
         }
 
 LABEL_30:
-        v38 = +[VCPMADResourceManager sharedManager];
-        [v38 purgeInactiveResources];
+        v39 = +[VCPMADResourceManager sharedManager];
+        [v39 purgeInactiveResources];
       }
 
-      v39 = [(PHAsset *)self->_asset vcp_ocrMajorDimensionForResource:v28];
-      v40 = +[VCPImageManager sharedImageManager];
-      privateFileURL = [v28 privateFileURL];
-      if (v39)
+      v40 = [(PHAsset *)self->_asset vcp_ocrMajorDimensionForResource:v29];
+      v41 = +[VCPImageManager sharedImageManager];
+      privateFileURL = [v29 privateFileURL];
+      if (v40)
       {
-        *buf = [v40 pixelBufferWithFormat:875704422 andMaxDimension:v39 fromImageURL:privateFileURL orientation:&self->_orientation];
+        *buf = [v41 pixelBufferWithFormat:875704422 andMaxDimension:v40 fromImageURL:privateFileURL orientation:&self->_orientation];
       }
 
       else
       {
-        *buf = [v40 pixelBufferWithFormat:875704422 fromImageURL:privateFileURL flushCache:1 orientation:&self->_orientation];
+        *buf = [v41 pixelBufferWithFormat:875704422 fromImageURL:privateFileURL flushCache:1 orientation:&self->_orientation];
       }
 
       CF<__CVBuffer *>::operator=(&self->_pixelBuffer.value_, buf);
@@ -651,20 +651,20 @@ LABEL_30:
         if (MediaAnalysisLogLevel() >= 5 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
         {
           localIdentifier7 = [(PHAsset *)self->_asset localIdentifier];
-          type2 = [v28 type];
+          type2 = [v29 type];
           Width = CVPixelBufferGetWidth(self->_pixelBuffer.value_);
           Height = CVPixelBufferGetHeight(self->_pixelBuffer.value_);
           orientation = self->_orientation;
           *buf = 138413314;
           *&buf[4] = localIdentifier7;
-          v82 = 1024;
-          *v83 = type2;
-          *&v83[4] = 1024;
-          *&v83[6] = Width;
-          *v84 = 1024;
-          *&v84[2] = Height;
-          *v85 = 1024;
-          *&v85[2] = orientation;
+          v84 = 1024;
+          *v85 = type2;
+          *&v85[4] = 1024;
+          *&v85[6] = Width;
+          *v86 = 1024;
+          *&v86[2] = Height;
+          *v87 = 1024;
+          *&v87[2] = orientation;
           _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "[%@] Loaded resource (Type: %d Actual Resolution: %dx%d, orientation %d)", buf, 0x24u);
         }
 
@@ -673,28 +673,28 @@ LABEL_30:
 
       if (errorCopy2)
       {
-        v44 = MEMORY[0x1E696ABC0];
-        v78 = v68;
-        v45 = [MEMORY[0x1E696AEC0] stringWithFormat:@"PixelBuffer_NormalRes_SomeResourcesAreLocal"];
-        v79 = v45;
-        v46 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v79 forKeys:&v78 count:1];
-        *errorCopy2 = [v44 errorWithDomain:v67 code:-18 userInfo:v46];
+        v45 = MEMORY[0x1E696ABC0];
+        v80 = v70;
+        v46 = [MEMORY[0x1E696AEC0] stringWithFormat:@"PixelBuffer_NormalRes_SomeResourcesAreLocal"];
+        v81 = v46;
+        v47 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v81 forKeys:&v80 count:1];
+        *errorCopy2 = [v45 errorWithDomain:v69 code:-18 userInfo:v47];
       }
 
       if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
         localIdentifier8 = [(PHAsset *)self->_asset localIdentifier];
-        type3 = [v28 type];
+        type3 = [v29 type];
         *buf = 138412546;
         *&buf[4] = localIdentifier8;
-        v82 = 1024;
-        *v83 = type3;
+        v84 = 1024;
+        *v85 = type3;
         _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[%@] Failed to load resource (Type: %d)", buf, 0x12u);
       }
     }
 
-    v26 = [obj countByEnumeratingWithState:&v74 objects:v80 count:16];
-    if (v26)
+    v27 = [obj countByEnumeratingWithState:&v76 objects:v82 count:16];
+    if (v27)
     {
       continue;
     }
@@ -704,14 +704,14 @@ LABEL_30:
 
 LABEL_61:
 
-  v56 = VCPSignPostLog();
-  v57 = v56;
-  if (v60 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v56))
+  v58 = VCPSignPostLog(v57);
+  v59 = v58;
+  if (v62 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v58))
   {
     signpostPayload2 = [(VCPMADServiceImageAsset *)self signpostPayload];
     *buf = 138412290;
     *&buf[4] = signpostPayload2;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v57, OS_SIGNPOST_INTERVAL_END, spid, "VCPMADServiceImageAsset_Decode", "%@", buf, 0xCu);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v59, OS_SIGNPOST_INTERVAL_END, spid, "VCPMADServiceImageAsset_Decode", "%@", buf, 0xCu);
   }
 
   if (self->_pixelBuffer.value_)
@@ -740,7 +740,7 @@ LABEL_61:
 
 - (int)loadLowResPixelBuffer:(__CVBuffer *)buffer orientation:(unsigned int *)orientation error:(id *)error
 {
-  v60[1] = *MEMORY[0x1E69E9840];
+  v62[1] = *MEMORY[0x1E69E9840];
   value = self->_lowResPixelBuffer.value_;
   if (value)
   {
@@ -761,24 +761,24 @@ LABEL_38:
   if (error)
   {
     v9 = MEMORY[0x1E696ABC0];
-    v59 = *MEMORY[0x1E696A578];
+    v61 = *MEMORY[0x1E696A578];
     v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"PixelBuffer_LowRes_ThumbnailNotLocal"];
-    v60[0] = v10;
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v60 forKeys:&v59 count:1];
+    v62[0] = v10;
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v62 forKeys:&v61 count:1];
     *error = [v9 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v11];
   }
 
-  v12 = VCPSignPostLog();
+  v12 = VCPSignPostLog(value);
   spid = os_signpost_id_generate(v12);
 
-  v13 = VCPSignPostLog();
-  v14 = v13;
-  if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
+  v14 = VCPSignPostLog(v13);
+  v15 = v14;
+  if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
   {
     signpostPayload = [(VCPMADServiceImageAsset *)self signpostPayload];
     *buf = 138412290;
     *&buf[4] = signpostPayload;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v14, OS_SIGNPOST_INTERVAL_BEGIN, spid, "VCPMADServiceImageAsset_Decode", "%@", buf, 0xCu);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v15, OS_SIGNPOST_INTERVAL_BEGIN, spid, "VCPMADServiceImageAsset_Decode", "%@", buf, 0xCu);
   }
 
   if (MediaAnalysisLogLevel() >= 5 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
@@ -791,16 +791,16 @@ LABEL_38:
     pixelHeight = [(PHAsset *)self->_asset pixelHeight];
     *buf = 138413570;
     *&buf[4] = localIdentifier;
-    v52 = 2112;
-    *v53 = vcp_typeDescription;
-    *&v53[8] = 1024;
-    *v54 = mediaType;
-    *&v54[4] = 1024;
-    *v55 = mediaSubtypes;
-    *&v55[4] = 1024;
-    v56 = pixelWidth;
-    v57 = 1024;
-    v58 = pixelHeight;
+    v54 = 2112;
+    *v55 = vcp_typeDescription;
+    *&v55[8] = 1024;
+    *v56 = mediaType;
+    *&v56[4] = 1024;
+    *v57 = mediaSubtypes;
+    *&v57[4] = 1024;
+    v58 = pixelWidth;
+    v59 = 1024;
+    v60 = pixelHeight;
     _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "[%@] Selecting resource for Asset Type: %@ [%d/%d] Resolution: %dx%d", buf, 0x2Eu);
   }
 
@@ -817,18 +817,18 @@ LABEL_38:
       pixelHeight2 = [vcp_thumbnailResource pixelHeight];
       *buf = 138413058;
       *&buf[4] = localIdentifier2;
-      v52 = 1024;
-      *v53 = type;
-      *&v53[4] = 1024;
-      *&v53[6] = pixelWidth2;
-      *v54 = 1024;
-      *&v54[2] = pixelHeight2;
+      v54 = 1024;
+      *v55 = type;
+      *&v55[4] = 1024;
+      *&v55[6] = pixelWidth2;
+      *v56 = 1024;
+      *&v56[2] = pixelHeight2;
       _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "[%@] Evaluating resource (Type: %d Resolution: %dx%d)", buf, 0x1Eu);
     }
 
-    v27 = +[VCPImageManager sharedImageManager];
+    v28 = +[VCPImageManager sharedImageManager];
     privateFileURL = [vcp_thumbnailResource privateFileURL];
-    *buf = [v27 pixelBufferWithFormat:875704422 fromImageURL:privateFileURL flushCache:1 orientation:&self->_lowResOrientation];
+    *buf = [v28 pixelBufferWithFormat:875704422 fromImageURL:privateFileURL flushCache:1 orientation:&self->_lowResOrientation];
     CF<__CVBuffer *>::operator=(&self->_lowResPixelBuffer.value_, buf);
     CF<__CVBuffer *>::~CF(buf);
 
@@ -847,24 +847,29 @@ LABEL_38:
 
     if (self->_lowResPixelBuffer.value_)
     {
-      if (MediaAnalysisLogLevel() >= 5 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+      v31 = MediaAnalysisLogLevel();
+      if (v31 >= 5)
       {
-        localIdentifier4 = [(PHAsset *)self->_asset localIdentifier];
-        type2 = [vcp_thumbnailResource type];
-        Width = CVPixelBufferGetWidth(self->_lowResPixelBuffer.value_);
-        Height = CVPixelBufferGetHeight(self->_lowResPixelBuffer.value_);
-        lowResOrientation = self->_lowResOrientation;
-        *buf = 138413314;
-        *&buf[4] = localIdentifier4;
-        v52 = 1024;
-        *v53 = type2;
-        *&v53[4] = 1024;
-        *&v53[6] = Width;
-        *v54 = 1024;
-        *&v54[2] = Height;
-        *v55 = 1024;
-        *&v55[2] = lowResOrientation;
-        _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "[%@] Loaded resource (Type: %d Actual Resolution: %dx%d, orientation %d)", buf, 0x24u);
+        v31 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT);
+        if (v31)
+        {
+          localIdentifier4 = [(PHAsset *)self->_asset localIdentifier];
+          type2 = [vcp_thumbnailResource type];
+          Width = CVPixelBufferGetWidth(self->_lowResPixelBuffer.value_);
+          Height = CVPixelBufferGetHeight(self->_lowResPixelBuffer.value_);
+          lowResOrientation = self->_lowResOrientation;
+          *buf = 138413314;
+          *&buf[4] = localIdentifier4;
+          v54 = 1024;
+          *v55 = type2;
+          *&v55[4] = 1024;
+          *&v55[6] = Width;
+          *v56 = 1024;
+          *&v56[2] = Height;
+          *v57 = 1024;
+          *&v57[2] = lowResOrientation;
+          _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "[%@] Loaded resource (Type: %d Actual Resolution: %dx%d, orientation %d)", buf, 0x24u);
+        }
       }
     }
 
@@ -872,43 +877,56 @@ LABEL_38:
     {
       if (error)
       {
-        v36 = MEMORY[0x1E696ABC0];
-        v49 = *MEMORY[0x1E696A578];
-        v37 = [MEMORY[0x1E696AEC0] stringWithFormat:@"PixelBuffer_LowRes_ThumbnailIsLocal"];
-        v50 = v37;
-        v38 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v50 forKeys:&v49 count:1];
-        *error = [v36 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v38];
+        v38 = MEMORY[0x1E696ABC0];
+        v51 = *MEMORY[0x1E696A578];
+        v39 = [MEMORY[0x1E696AEC0] stringWithFormat:@"PixelBuffer_LowRes_ThumbnailIsLocal"];
+        v52 = v39;
+        v40 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v52 forKeys:&v51 count:1];
+        *error = [v38 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v40];
       }
 
-      if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+      v31 = MediaAnalysisLogLevel();
+      if (v31 >= 3)
       {
-        localIdentifier5 = [(PHAsset *)self->_asset localIdentifier];
-        type3 = [vcp_thumbnailResource type];
-        *buf = 138412546;
-        *&buf[4] = localIdentifier5;
-        v52 = 1024;
-        *v53 = type3;
-        _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[%@] Failed to load resource (Type: %d)", buf, 0x12u);
+        v31 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+        if (v31)
+        {
+          localIdentifier5 = [(PHAsset *)self->_asset localIdentifier];
+          type3 = [vcp_thumbnailResource type];
+          *buf = 138412546;
+          *&buf[4] = localIdentifier5;
+          v54 = 1024;
+          *v55 = type3;
+          _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[%@] Failed to load resource (Type: %d)", buf, 0x12u);
+        }
       }
     }
   }
 
-  else if (MediaAnalysisLogLevel() >= 5 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+  else
   {
-    localIdentifier6 = [(PHAsset *)self->_asset localIdentifier];
-    *buf = 138412290;
-    *&buf[4] = localIdentifier6;
-    _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "[%@] Resource not locally available; skipping resource", buf, 0xCu);
+    v31 = MediaAnalysisLogLevel();
+    if (v31 >= 5)
+    {
+      v31 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT);
+      if (v31)
+      {
+        localIdentifier6 = [(PHAsset *)self->_asset localIdentifier];
+        *buf = 138412290;
+        *&buf[4] = localIdentifier6;
+        _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "[%@] Resource not locally available; skipping resource", buf, 0xCu);
+      }
+    }
   }
 
-  v41 = VCPSignPostLog();
-  v42 = v41;
-  if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v41))
+  v43 = VCPSignPostLog(v31);
+  v44 = v43;
+  if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v43))
   {
     signpostPayload2 = [(VCPMADServiceImageAsset *)self signpostPayload];
     *buf = 138412290;
     *&buf[4] = signpostPayload2;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v42, OS_SIGNPOST_INTERVAL_END, spid, "VCPMADServiceImageAsset_Decode", "%@", buf, 0xCu);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v44, OS_SIGNPOST_INTERVAL_END, spid, "VCPMADServiceImageAsset_Decode", "%@", buf, 0xCu);
   }
 
   if (self->_lowResPixelBuffer.value_ || ([(VCPMADServiceImagePhotosAsset *)self loadPixelBuffer:&self->_lowResPixelBuffer orientation:&self->_lowResOrientation], self->_lowResPixelBuffer.value_))
@@ -936,24 +954,24 @@ LABEL_38:
 
 - (int)loadHighResPixelBuffer:(__CVBuffer *)buffer orientation:(unsigned int *)orientation
 {
-  v91 = *MEMORY[0x1E69E9840];
+  v93 = *MEMORY[0x1E69E9840];
   value = self->_highResPixelBuffer.value_;
   if (value)
   {
     goto LABEL_2;
   }
 
-  v8 = VCPSignPostLog();
+  v8 = VCPSignPostLog(0);
   spid = os_signpost_id_generate(v8);
 
-  v9 = VCPSignPostLog();
-  v10 = v9;
-  if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
+  v10 = VCPSignPostLog(v9);
+  v11 = v10;
+  if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
   {
     signpostPayload = [(VCPMADServiceImageAsset *)self signpostPayload];
     *buf = 138412290;
     *&buf[4] = signpostPayload;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v10, OS_SIGNPOST_INTERVAL_BEGIN, spid, "VCPMADServiceImageAsset_Decode", "%@", buf, 0xCu);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v11, OS_SIGNPOST_INTERVAL_BEGIN, spid, "VCPMADServiceImageAsset_Decode", "%@", buf, 0xCu);
   }
 
   if (MediaAnalysisLogLevel() >= 5 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
@@ -966,76 +984,76 @@ LABEL_38:
     pixelHeight = [(PHAsset *)self->_asset pixelHeight];
     *buf = 138413570;
     *&buf[4] = localIdentifier;
-    v84 = 2112;
-    *v85 = vcp_typeDescription;
-    *&v85[8] = 1024;
-    *v86 = mediaType;
-    *&v86[4] = 1024;
-    *v87 = mediaSubtypes;
-    *&v87[4] = 1024;
-    v88 = pixelWidth;
-    v89 = 1024;
-    v90 = pixelHeight;
+    v86 = 2112;
+    *v87 = vcp_typeDescription;
+    *&v87[8] = 1024;
+    *v88 = mediaType;
+    *&v88[4] = 1024;
+    *v89 = mediaSubtypes;
+    *&v89[4] = 1024;
+    v90 = pixelWidth;
+    v91 = 1024;
+    v92 = pixelHeight;
     _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "[%@] Selecting resource for Asset Type: %@ [%d/%d] Resolution: %dx%d", buf, 0x2Eu);
   }
 
   resources = [(VCPMADServiceImagePhotosAsset *)self resources];
-  v66 = [resources vcp_highResImageResourcesForAsset:self->_asset];
+  v68 = [resources vcp_highResImageResourcesForAsset:self->_asset];
 
   array = [MEMORY[0x1E695DF70] array];
+  v81 = 0u;
+  v82 = 0u;
   v79 = 0u;
   v80 = 0u;
-  v77 = 0u;
-  v78 = 0u;
-  obj = v66;
-  v19 = [obj countByEnumeratingWithState:&v77 objects:v82 count:16];
-  if (v19)
+  obj = v68;
+  v20 = [obj countByEnumeratingWithState:&v79 objects:v84 count:16];
+  if (v20)
   {
-    v20 = *v78;
+    v21 = *v80;
     while (2)
     {
-      v21 = 0;
+      v22 = 0;
       do
       {
-        if (*v78 != v20)
+        if (*v80 != v21)
         {
           objc_enumerationMutation(obj);
         }
 
-        v22 = *(*(&v77 + 1) + 8 * v21);
-        pixelWidth2 = [v22 pixelWidth];
-        if ([v22 pixelHeight] * pixelWidth2 > 10973491)
+        v23 = *(*(&v79 + 1) + 8 * v22);
+        pixelWidth2 = [v23 pixelWidth];
+        if ([v23 pixelHeight] * pixelWidth2 > 10973491)
         {
           if (MediaAnalysisLogLevel() >= 5 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
           {
             localIdentifier2 = [(PHAsset *)self->_asset localIdentifier];
-            type = [v22 type];
-            pixelWidth3 = [v22 pixelWidth];
-            pixelHeight2 = [v22 pixelHeight];
+            type = [v23 type];
+            pixelWidth3 = [v23 pixelWidth];
+            pixelHeight2 = [v23 pixelHeight];
             *buf = 138413058;
             *&buf[4] = localIdentifier2;
-            v84 = 1024;
-            *v85 = type;
-            *&v85[4] = 1024;
-            *&v85[6] = pixelWidth3;
-            *v86 = 1024;
-            *&v86[2] = pixelHeight2;
+            v86 = 1024;
+            *v87 = type;
+            *&v87[4] = 1024;
+            *&v87[6] = pixelWidth3;
+            *v88 = 1024;
+            *&v88[2] = pixelHeight2;
             _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "[%@] Evaluating high-resolution resource (Type: %d Resolution: %dx%d)", buf, 0x1Eu);
           }
 
-          if ([v22 vcp_isLocallyAvailable])
+          if ([v23 vcp_isLocallyAvailable])
           {
-            v28 = [(PHAsset *)self->_asset vcp_majorDimensionForResource:v22 withTargetResolution:12192768];
-            v29 = +[VCPImageManager sharedImageManager];
-            privateFileURL = [v22 privateFileURL];
-            if (v28)
+            v29 = [(PHAsset *)self->_asset vcp_majorDimensionForResource:v23 withTargetResolution:12192768];
+            v30 = +[VCPImageManager sharedImageManager];
+            privateFileURL = [v23 privateFileURL];
+            if (v29)
             {
-              *buf = [v29 pixelBufferWithFormat:875704422 andMaxDimension:v28 fromImageURL:privateFileURL orientation:&self->_highResOrientation];
+              *buf = [v30 pixelBufferWithFormat:875704422 andMaxDimension:v29 fromImageURL:privateFileURL orientation:&self->_highResOrientation];
             }
 
             else
             {
-              *buf = [v29 pixelBufferWithFormat:875704422 fromImageURL:privateFileURL flushCache:1 orientation:&self->_highResOrientation];
+              *buf = [v30 pixelBufferWithFormat:875704422 fromImageURL:privateFileURL flushCache:1 orientation:&self->_highResOrientation];
             }
 
             CF<__CVBuffer *>::operator=(&self->_highResPixelBuffer.value_, buf);
@@ -1059,20 +1077,20 @@ LABEL_38:
               if (MediaAnalysisLogLevel() >= 5 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
               {
                 localIdentifier4 = [(PHAsset *)self->_asset localIdentifier];
-                type2 = [v22 type];
+                type2 = [v23 type];
                 Width = CVPixelBufferGetWidth(self->_highResPixelBuffer.value_);
                 Height = CVPixelBufferGetHeight(self->_highResPixelBuffer.value_);
                 highResOrientation = self->_highResOrientation;
                 *buf = 138413314;
                 *&buf[4] = localIdentifier4;
-                v84 = 1024;
-                *v85 = type2;
-                *&v85[4] = 1024;
-                *&v85[6] = Width;
-                *v86 = 1024;
-                *&v86[2] = Height;
-                *v87 = 1024;
-                *&v87[2] = highResOrientation;
+                v86 = 1024;
+                *v87 = type2;
+                *&v87[4] = 1024;
+                *&v87[6] = Width;
+                *v88 = 1024;
+                *&v88[2] = Height;
+                *v89 = 1024;
+                *&v89[2] = highResOrientation;
                 _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "[%@] Loaded resource (Type: %d Actual Resolution: %dx%d, orientation %d)", buf, 0x24u);
               }
 
@@ -1082,11 +1100,11 @@ LABEL_38:
             if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
             {
               localIdentifier5 = [(PHAsset *)self->_asset localIdentifier];
-              type3 = [v22 type];
+              type3 = [v23 type];
               *buf = 138412546;
               *&buf[4] = localIdentifier5;
-              v84 = 1024;
-              *v85 = type3;
+              v86 = 1024;
+              *v87 = type3;
               _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[%@] Failed to load resource (Type: %d)", buf, 0x12u);
             }
           }
@@ -1102,16 +1120,16 @@ LABEL_38:
 
         else
         {
-          [array insertObject:v22 atIndex:0];
+          [array insertObject:v23 atIndex:0];
         }
 
-        ++v21;
+        ++v22;
       }
 
-      while (v19 != v21);
-      v35 = [obj countByEnumeratingWithState:&v77 objects:v82 count:16];
-      v19 = v35;
-      if (v35)
+      while (v20 != v22);
+      v36 = [obj countByEnumeratingWithState:&v79 objects:v84 count:16];
+      v20 = v36;
+      if (v36)
       {
         continue;
       }
@@ -1124,49 +1142,49 @@ LABEL_43:
 
   if (!self->_highResPixelBuffer.value_)
   {
+    v77 = 0u;
+    v78 = 0u;
     v75 = 0u;
     v76 = 0u;
-    v73 = 0u;
-    v74 = 0u;
-    v70 = array;
-    v41 = [v70 countByEnumeratingWithState:&v73 objects:v81 count:16];
-    if (v41)
+    v72 = array;
+    v43 = [v72 countByEnumeratingWithState:&v75 objects:v83 count:16];
+    if (v43)
     {
-      v43 = *v74;
-      *&v42 = 138412546;
-      v65 = v42;
+      v45 = *v76;
+      *&v44 = 138412546;
+      v67 = v44;
       while (2)
       {
-        for (i = 0; i != v41; ++i)
+        for (i = 0; i != v43; ++i)
         {
-          if (*v74 != v43)
+          if (*v76 != v45)
           {
-            objc_enumerationMutation(v70);
+            objc_enumerationMutation(v72);
           }
 
-          v45 = *(*(&v73 + 1) + 8 * i);
+          v47 = *(*(&v75 + 1) + 8 * i);
           if (MediaAnalysisLogLevel() >= 5 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
           {
             localIdentifier7 = [(PHAsset *)self->_asset localIdentifier];
-            type4 = [v45 type];
-            pixelWidth4 = [v45 pixelWidth];
-            pixelHeight3 = [v45 pixelHeight];
+            type4 = [v47 type];
+            pixelWidth4 = [v47 pixelWidth];
+            pixelHeight3 = [v47 pixelHeight];
             *buf = 138413058;
             *&buf[4] = localIdentifier7;
-            v84 = 1024;
-            *v85 = type4;
-            *&v85[4] = 1024;
-            *&v85[6] = pixelWidth4;
-            *v86 = 1024;
-            *&v86[2] = pixelHeight3;
+            v86 = 1024;
+            *v87 = type4;
+            *&v87[4] = 1024;
+            *&v87[6] = pixelWidth4;
+            *v88 = 1024;
+            *&v88[2] = pixelHeight3;
             _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "[%@] Evaluating fall-back resource (Type: %d Resolution: %dx%d)", buf, 0x1Eu);
           }
 
-          if ([v45 vcp_isLocallyAvailable])
+          if ([v47 vcp_isLocallyAvailable])
           {
-            v50 = +[VCPImageManager sharedImageManager];
-            privateFileURL2 = [v45 privateFileURL];
-            *buf = [v50 pixelBufferWithFormat:875704422 fromImageURL:privateFileURL2 flushCache:1 orientation:&self->_highResOrientation];
+            v52 = +[VCPImageManager sharedImageManager];
+            privateFileURL2 = [v47 privateFileURL];
+            *buf = [v52 pixelBufferWithFormat:875704422 fromImageURL:privateFileURL2 flushCache:1 orientation:&self->_highResOrientation];
             CF<__CVBuffer *>::operator=(&self->_highResPixelBuffer.value_, buf);
             CF<__CVBuffer *>::~CF(buf);
 
@@ -1188,20 +1206,20 @@ LABEL_43:
               if (MediaAnalysisLogLevel() >= 5 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
               {
                 localIdentifier9 = [(PHAsset *)self->_asset localIdentifier];
-                type5 = [v45 type];
-                v58 = CVPixelBufferGetWidth(self->_highResPixelBuffer.value_);
-                v59 = CVPixelBufferGetHeight(self->_highResPixelBuffer.value_);
-                v60 = self->_highResOrientation;
+                type5 = [v47 type];
+                v60 = CVPixelBufferGetWidth(self->_highResPixelBuffer.value_);
+                v61 = CVPixelBufferGetHeight(self->_highResPixelBuffer.value_);
+                v62 = self->_highResOrientation;
                 *buf = 138413314;
                 *&buf[4] = localIdentifier9;
-                v84 = 1024;
-                *v85 = type5;
-                *&v85[4] = 1024;
-                *&v85[6] = v58;
-                *v86 = 1024;
-                *&v86[2] = v59;
-                *v87 = 1024;
-                *&v87[2] = v60;
+                v86 = 1024;
+                *v87 = type5;
+                *&v87[4] = 1024;
+                *&v87[6] = v60;
+                *v88 = 1024;
+                *&v88[2] = v61;
+                *v89 = 1024;
+                *&v89[2] = v62;
                 _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "[%@] Loaded resource (Type: %d Actual Resolution: %dx%d, orientation %d)", buf, 0x24u);
               }
 
@@ -1211,11 +1229,11 @@ LABEL_43:
             if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
             {
               localIdentifier10 = [(PHAsset *)self->_asset localIdentifier];
-              type6 = [v45 type];
-              *buf = v65;
+              type6 = [v47 type];
+              *buf = v67;
               *&buf[4] = localIdentifier10;
-              v84 = 1024;
-              *v85 = type6;
+              v86 = 1024;
+              *v87 = type6;
               _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[%@] Failed to load resource (Type: %d)", buf, 0x12u);
             }
           }
@@ -1229,8 +1247,8 @@ LABEL_43:
           }
         }
 
-        v41 = [v70 countByEnumeratingWithState:&v73 objects:v81 count:16];
-        if (v41)
+        v43 = [v72 countByEnumeratingWithState:&v75 objects:v83 count:16];
+        if (v43)
         {
           continue;
         }
@@ -1242,14 +1260,14 @@ LABEL_43:
 LABEL_71:
   }
 
-  v61 = VCPSignPostLog();
-  v62 = v61;
-  if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v61))
+  v63 = VCPSignPostLog(v42);
+  v64 = v63;
+  if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v63))
   {
     signpostPayload2 = [(VCPMADServiceImageAsset *)self signpostPayload];
     *buf = 138412290;
     *&buf[4] = signpostPayload2;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v62, OS_SIGNPOST_INTERVAL_END, spid, "VCPMADServiceImageAsset_Decode", "%@", buf, 0xCu);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v64, OS_SIGNPOST_INTERVAL_END, spid, "VCPMADServiceImageAsset_Decode", "%@", buf, 0xCu);
   }
 
   if (self->_highResPixelBuffer.value_)
@@ -1564,41 +1582,41 @@ LABEL_33:
 
 - (BOOL)hasCachedParseData
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   hasCachedParseData = self->_hasCachedParseData;
   if (!hasCachedParseData)
   {
     if (MediaAnalysisLogLevel() >= 7 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
     {
       localIdentifier = [(PHAsset *)self->_asset localIdentifier];
-      v20 = 138412290;
-      v21 = localIdentifier;
-      _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "[VS][%@] Checking for existing results from Photos", &v20, 0xCu);
+      v21 = 138412290;
+      v22 = localIdentifier;
+      _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "[VS][%@] Checking for existing results from Photos", &v21, 0xCu);
     }
 
     visualSearchProperties = [(PHAsset *)self->_asset visualSearchProperties];
     algorithmVersion = [visualSearchProperties algorithmVersion];
-    if (algorithmVersion == VCPPhotosVisualSearchAlgorithmVersion() && ([visualSearchProperties adjustmentVersion], v7 = objc_claimAutoreleasedReturnValue(), -[PHAsset adjustmentVersion](self->_asset, "adjustmentVersion"), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v7, "isEqualToDate:", v8), v8, v7, v9))
+    if (algorithmVersion == VCPPhotosVisualSearchAlgorithmVersion(algorithmVersion, v7) && ([visualSearchProperties adjustmentVersion], v8 = objc_claimAutoreleasedReturnValue(), -[PHAsset adjustmentVersion](self->_asset, "adjustmentVersion"), v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v8, "isEqualToDate:", v9), v9, v8, v10))
     {
       if (MediaAnalysisLogLevel() >= 7 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
       {
         localIdentifier2 = [(PHAsset *)self->_asset localIdentifier];
-        v20 = 138412290;
-        v21 = localIdentifier2;
-        _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "[VS][%@] Loading existing results from Photos", &v20, 0xCu);
+        v21 = 138412290;
+        v22 = localIdentifier2;
+        _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "[VS][%@] Loading existing results from Photos", &v21, 0xCu);
       }
 
       visualSearchData = [visualSearchProperties visualSearchData];
-      v12 = visualSearchData == 0;
+      v13 = visualSearchData == 0;
 
-      if (v12)
+      if (v13)
       {
         if (MediaAnalysisLogLevel() >= 7 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
         {
           localIdentifier3 = [(PHAsset *)self->_asset localIdentifier];
-          v20 = 138412290;
-          v21 = localIdentifier3;
-          _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "[VS][%@] Photos results exist, but empty", &v20, 0xCu);
+          v21 = 138412290;
+          v22 = localIdentifier3;
+          _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "[VS][%@] Photos results exist, but empty", &v21, 0xCu);
         }
 
         visualSearchData2 = 0;
@@ -1612,7 +1630,7 @@ LABEL_33:
       cachedParseData = self->_cachedParseData;
       self->_cachedParseData = visualSearchData2;
 
-      v15 = MEMORY[0x1E695E118];
+      v16 = MEMORY[0x1E695E118];
     }
 
     else
@@ -1620,16 +1638,16 @@ LABEL_33:
       if (MediaAnalysisLogLevel() >= 7 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
       {
         localIdentifier4 = [(PHAsset *)self->_asset localIdentifier];
-        v20 = 138412290;
-        v21 = localIdentifier4;
-        _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "[VS][%@] Asset does not have existing results", &v20, 0xCu);
+        v21 = 138412290;
+        v22 = localIdentifier4;
+        _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "[VS][%@] Asset does not have existing results", &v21, 0xCu);
       }
 
-      v15 = MEMORY[0x1E695E110];
+      v16 = MEMORY[0x1E695E110];
     }
 
-    v18 = self->_hasCachedParseData;
-    self->_hasCachedParseData = v15;
+    v19 = self->_hasCachedParseData;
+    self->_hasCachedParseData = v16;
 
     hasCachedParseData = self->_hasCachedParseData;
   }
@@ -1750,20 +1768,20 @@ LABEL_33:
 
 void __70__VCPMADServiceImagePhotosAsset_setCachedParseData_overwriteExisting___block_invoke(uint64_t a1)
 {
-  v5 = [MEMORY[0x1E6978640] changeRequestForAsset:*(*(a1 + 32) + 96)];
+  v6 = [MEMORY[0x1E6978640] changeRequestForAsset:*(*(a1 + 32) + 96)];
   v2 = *(a1 + 40);
-  v3 = VCPPhotosVisualSearchAlgorithmVersion();
-  v4 = [*(*(a1 + 32) + 96) adjustmentVersion];
-  [v5 setVisualSearchData:v2 algorithmVersion:v3 adjustmentVersion:v4];
+  v4 = VCPPhotosVisualSearchAlgorithmVersion(v6, v3);
+  v5 = [*(*(a1 + 32) + 96) adjustmentVersion];
+  [v6 setVisualSearchData:v2 algorithmVersion:v4 adjustmentVersion:v5];
 
   if (([*(*(a1 + 32) + 96) vcp_needsStickerGatingProcessing] & 1) == 0)
   {
     if ([*(*(a1 + 32) + 96) mad_isEligibleForComputeSync])
     {
-      [v5 setLocalAnalysisStage:*(a1 + 56)];
+      [v6 setLocalAnalysisStage:*(a1 + 56)];
       if (*(a1 + 48))
       {
-        [v5 setComputeSyncMediaAnalysisPayload:?];
+        [v6 setComputeSyncMediaAnalysisPayload:?];
       }
     }
   }

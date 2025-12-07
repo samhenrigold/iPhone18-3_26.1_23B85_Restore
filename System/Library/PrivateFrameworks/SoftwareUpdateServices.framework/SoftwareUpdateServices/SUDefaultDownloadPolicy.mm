@@ -552,9 +552,7 @@ uint64_t __95__SUDefaultDownloadPolicy__isDownloadableForNetworkType_error_cellu
         return result;
       }
 
-      v3 = *(result + 50);
-      v4 = *(result + 32);
-      v5 = *(*(v1 + 32) + 16);
+      v3 = *(*(result + 32) + 16);
     }
 
     else
@@ -564,27 +562,25 @@ uint64_t __95__SUDefaultDownloadPolicy__isDownloadableForNetworkType_error_cellu
         return result;
       }
 
-      v8 = *(result + 50);
-      v9 = *(result + 32);
-      v5 = *(*(v1 + 32) + 16);
+      v3 = *(*(result + 32) + 16);
     }
 
-    result = v5();
+    result = v3();
     **(v1 + 40) = result;
   }
 
   else
   {
-    v6 = *(result + 40);
-    if (v6)
+    v4 = *(result + 40);
+    if (v4)
     {
-      v7 = 31;
+      v5 = 31;
       if (*(result + 50))
       {
-        v7 = 9;
+        v5 = 9;
       }
 
-      *v6 = v7;
+      *v4 = v5;
     }
   }
 

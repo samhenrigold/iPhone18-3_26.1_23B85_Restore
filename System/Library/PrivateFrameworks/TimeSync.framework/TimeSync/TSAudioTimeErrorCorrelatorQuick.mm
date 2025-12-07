@@ -1,6 +1,5 @@
 @interface TSAudioTimeErrorCorrelatorQuick
 - (TSAudioTimeErrorCorrelatorQuick)initWithMaxCorrelationLength:(int64_t)length andUpscaleFactor:(int64_t)factor forSamplingRate:(double)rate;
-- (void)_makeBlock;
 - (void)dealloc;
 @end
 
@@ -75,27 +74,7 @@
   return v8;
 }
 
-- (void)_makeBlock
-{
-  channelABuffer = self->_channelABuffer;
-  scratchBuffer = self->_scratchBuffer;
-  correlationBuffer = self->_correlationBuffer;
-  interpollationIndiciesBuffer = self->_interpollationIndiciesBuffer;
-  samplingRate = self->super._samplingRate;
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __45__TSAudioTimeErrorCorrelatorQuick__makeBlock__block_invoke;
-  v7[3] = &__block_descriptor_88_e18_d32__0r_f8r_f16q24l;
-  v8 = *&self->super._maxCorrelationLength;
-  v9 = channelABuffer;
-  v10 = scratchBuffer;
-  v11 = correlationBuffer;
-  v12 = interpollationIndiciesBuffer;
-  v13 = samplingRate;
-  [(TSAudioTimeErrorCorrelator *)self setCorrelationBlock:v7];
-}
-
-void __45__TSAudioTimeErrorCorrelatorQuick__makeBlock__block_invoke(uint64_t a1, const float *__A, const float *a3, int64_t __N)
+void __45__TSAudioTimeErrorCorrelatorQuick__makeBlock__block_invoke(uint64_t a1, const float *__A, const float *a3, vDSP_Length __N)
 {
   if (*(a1 + 32) < __N)
   {
@@ -133,10 +112,6 @@ void __45__TSAudioTimeErrorCorrelatorQuick__makeBlock__block_invoke(uint64_t a1,
         vDSP_conv(*(a1 + 48), 1, a3, 1, *(a1 + 56), 1, __N, __N);
         vDSP_vqint(*(a1 + 56), *(a1 + 72), 1, *(a1 + 64), 1, v9, __N);
         vDSP_maxvi(*(a1 + 64), 1, &__C, &__I, v9);
-        if (__I)
-        {
-          v10 = (__I - v9 / 2) / (*(a1 + 80) * *(a1 + 40));
-        }
       }
     }
   }

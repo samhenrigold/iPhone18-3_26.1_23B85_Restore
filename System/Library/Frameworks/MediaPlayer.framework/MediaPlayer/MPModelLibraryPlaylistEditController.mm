@@ -4868,7 +4868,7 @@ void __44__MPModelLibraryPlaylistEditController_name__block_invoke(uint64_t a1)
   return v3;
 }
 
-uint64_t __55__MPModelLibraryPlaylistEditController_isRedoAvailable__block_invoke(uint64_t a1)
+void *__55__MPModelLibraryPlaylistEditController_isRedoAvailable__block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   v3 = *(v2 + 152);
@@ -4896,12 +4896,12 @@ uint64_t __55__MPModelLibraryPlaylistEditController_isRedoAvailable__block_invok
   return v3;
 }
 
-uint64_t __55__MPModelLibraryPlaylistEditController_isUndoAvailable__block_invoke(uint64_t a1)
+void *__55__MPModelLibraryPlaylistEditController_isUndoAvailable__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 120) count];
   v3 = *(a1 + 32);
   v4 = *(v3 + 152);
-  v5 = (v4 & 0x8000000000000000) == 0 && *(v3 + 248) - 1 >= (result + ~v4);
+  v5 = (v4 & 0x8000000000000000) == 0 && *(v3 + 248) - 1 >= result + ~v4;
   *(*(*(a1 + 40) + 8) + 24) = v5;
   return result;
 }

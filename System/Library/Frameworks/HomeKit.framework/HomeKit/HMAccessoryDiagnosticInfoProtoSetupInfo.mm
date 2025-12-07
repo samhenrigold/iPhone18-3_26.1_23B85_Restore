@@ -3,6 +3,12 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)iCloudAvailableINTAsString:(int)string;
+- (id)iDSAvailableINTAsString:(int)string;
+- (id)lastKnownControllerHH2ModeAsString:(int)string;
+- (id)lastKnownControllerSentinelZoneExistenceAsString:(int)string;
+- (id)manateeAvailableINTAsString:(int)string;
+- (id)networkAvailableINTAsString:(int)string;
 - (int)StringAsICloudAvailableINT:(id)t;
 - (int)StringAsIDSAvailableINT:(id)t;
 - (int)StringAsLastKnownControllerHH2Mode:(id)mode;
@@ -3248,7 +3254,6 @@ LABEL_62:
   has = self->_has;
   if ((*&has & 0x100000000) != 0)
   {
-    version = self->_version;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((*&has & 0x8000000) == 0)
@@ -3268,7 +3273,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  sessionSetupOpenMSHH1 = self->_sessionSetupOpenMSHH1;
   PBDataWriterWriteInt64Field();
   has = self->_has;
   if ((*&has & 4) == 0)
@@ -3283,7 +3287,6 @@ LABEL_4:
   }
 
 LABEL_74:
-  controllerKeyExchangeMSHH1 = self->_controllerKeyExchangeMSHH1;
   PBDataWriterWriteInt64Field();
   has = self->_has;
   if ((*&has & 0x10000) == 0)
@@ -3298,7 +3301,6 @@ LABEL_5:
   }
 
 LABEL_75:
-  newAccessoryTransferMSHH1 = self->_newAccessoryTransferMSHH1;
   PBDataWriterWriteInt64Field();
   has = self->_has;
   if ((*&has & 0x4000000) == 0)
@@ -3313,7 +3315,6 @@ LABEL_6:
   }
 
 LABEL_76:
-  sessionSetupCloseMSHH1 = self->_sessionSetupCloseMSHH1;
   PBDataWriterWriteInt64Field();
   has = self->_has;
   if ((*&has & 0x2000000) == 0)
@@ -3328,7 +3329,6 @@ LABEL_7:
   }
 
 LABEL_77:
-  sentinelZoneFetchMSHH1 = self->_sentinelZoneFetchMSHH1;
   PBDataWriterWriteInt64Field();
   has = self->_has;
   if ((*&has & 0x40000000) == 0)
@@ -3343,7 +3343,6 @@ LABEL_8:
   }
 
 LABEL_78:
-  totalDurationMSHH1 = self->_totalDurationMSHH1;
   PBDataWriterWriteInt64Field();
   has = self->_has;
   if ((*&has & 2) == 0)
@@ -3358,7 +3357,6 @@ LABEL_9:
   }
 
 LABEL_79:
-  accountSettleWaitMSHH2 = self->_accountSettleWaitMSHH2;
   PBDataWriterWriteInt64Field();
   has = self->_has;
   if ((*&has & 8) == 0)
@@ -3373,7 +3371,6 @@ LABEL_10:
   }
 
 LABEL_80:
-  currentDeviceIDSWaitMSHH2 = self->_currentDeviceIDSWaitMSHH2;
   PBDataWriterWriteInt64Field();
   has = self->_has;
   if ((*&has & 0x400) == 0)
@@ -3388,7 +3385,6 @@ LABEL_11:
   }
 
 LABEL_81:
-  homeManagerReadyMSHH2 = self->_homeManagerReadyMSHH2;
   PBDataWriterWriteInt64Field();
   has = self->_has;
   if ((*&has & 0x200) == 0)
@@ -3403,7 +3399,6 @@ LABEL_12:
   }
 
 LABEL_82:
-  firstCoreDataImportMSHH2 = self->_firstCoreDataImportMSHH2;
   PBDataWriterWriteInt64Field();
   has = self->_has;
   if ((*&has & 1) == 0)
@@ -3418,7 +3413,6 @@ LABEL_13:
   }
 
 LABEL_83:
-  accessoryAddMSHH2 = self->_accessoryAddMSHH2;
   PBDataWriterWriteInt64Field();
   has = self->_has;
   if ((*&has & 0x10000000) == 0)
@@ -3433,7 +3427,6 @@ LABEL_14:
   }
 
 LABEL_84:
-  settingsCreationMSHH2 = self->_settingsCreationMSHH2;
   PBDataWriterWriteInt64Field();
   has = self->_has;
   if ((*&has & 0x20000) == 0)
@@ -3448,7 +3441,6 @@ LABEL_15:
   }
 
 LABEL_85:
-  pairingIdentityCreationMSHH2 = self->_pairingIdentityCreationMSHH2;
   PBDataWriterWriteInt64Field();
   has = self->_has;
   if ((*&has & 0x20000000) == 0)
@@ -3463,7 +3455,6 @@ LABEL_16:
   }
 
 LABEL_86:
-  siriReadyMSHH2 = self->_siriReadyMSHH2;
   PBDataWriterWriteInt64Field();
   has = self->_has;
   if ((*&has & 0x20) == 0)
@@ -3478,7 +3469,6 @@ LABEL_17:
   }
 
 LABEL_87:
-  eventRouterServerConnectionMSHH2 = self->_eventRouterServerConnectionMSHH2;
   PBDataWriterWriteInt64Field();
   has = self->_has;
   if ((*&has & 0x100000) == 0)
@@ -3493,7 +3483,6 @@ LABEL_18:
   }
 
 LABEL_88:
-  primaryResidentElectionMSHH2 = self->_primaryResidentElectionMSHH2;
   PBDataWriterWriteInt64Field();
   has = self->_has;
   if ((*&has & 0x10) == 0)
@@ -3508,7 +3497,6 @@ LABEL_19:
   }
 
 LABEL_89:
-  eventRouterFirstEventPushMSHH2 = self->_eventRouterFirstEventPushMSHH2;
   PBDataWriterWriteInt64Field();
   has = self->_has;
   if ((*&has & 0x80000000) == 0)
@@ -3523,7 +3511,6 @@ LABEL_20:
   }
 
 LABEL_90:
-  totalDurationMSHH2 = self->_totalDurationMSHH2;
   PBDataWriterWriteInt64Field();
   has = self->_has;
   if ((*&has & 0x400000000) == 0)
@@ -3538,7 +3525,6 @@ LABEL_21:
   }
 
 LABEL_91:
-  iCloudAvailableINT = self->_iCloudAvailableINT;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x800000000) == 0)
@@ -3553,7 +3539,6 @@ LABEL_22:
   }
 
 LABEL_92:
-  iDSAvailableINT = self->_iDSAvailableINT;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x4000000000) == 0)
@@ -3568,7 +3553,6 @@ LABEL_23:
   }
 
 LABEL_93:
-  manateeAvailableINT = self->_manateeAvailableINT;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x8000000000) == 0)
@@ -3583,12 +3567,10 @@ LABEL_24:
   }
 
 LABEL_94:
-  networkAvailableINT = self->_networkAvailableINT;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 0x800) != 0)
   {
 LABEL_25:
-    lastKnownStageErrorCode = self->_lastKnownStageErrorCode;
     PBDataWriterWriteInt64Field();
   }
 
@@ -3605,7 +3587,6 @@ LABEL_26:
 
   if ((*(&self->_has + 1) & 0x10) != 0)
   {
-    lastKnownStageUnderlyingErrorCode = self->_lastKnownStageUnderlyingErrorCode;
     PBDataWriterWriteInt64Field();
   }
 
@@ -3614,16 +3595,15 @@ LABEL_26:
     PBDataWriterWriteStringField();
   }
 
-  v7 = self->_has;
-  if ((*&v7 & 0x1000000) != 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x1000000) != 0)
   {
-    savedEventState = self->_savedEventState;
     PBDataWriterWriteUint64Field();
-    v7 = self->_has;
-    if ((*&v7 & 0x1000000000) == 0)
+    v5 = self->_has;
+    if ((*&v5 & 0x1000000000) == 0)
     {
 LABEL_36:
-      if ((*&v7 & 0x2000000000) == 0)
+      if ((*&v5 & 0x2000000000) == 0)
       {
         goto LABEL_38;
       }
@@ -3632,17 +3612,15 @@ LABEL_36:
     }
   }
 
-  else if ((*&v7 & 0x1000000000) == 0)
+  else if ((*&v5 & 0x1000000000) == 0)
   {
     goto LABEL_36;
   }
 
-  lastKnownControllerHH2Mode = self->_lastKnownControllerHH2Mode;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 0x2000000000) != 0)
   {
 LABEL_37:
-    lastKnownControllerSentinelZoneExistence = self->_lastKnownControllerSentinelZoneExistence;
     PBDataWriterWriteInt32Field();
   }
 
@@ -3652,16 +3630,15 @@ LABEL_38:
     PBDataWriterWriteStringField();
   }
 
-  v9 = self->_has;
-  if ((*&v9 & 0x80000000000) != 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x80000000000) != 0)
   {
-    numberOfTimesPrimaryResidentChangedHH2 = self->_numberOfTimesPrimaryResidentChangedHH2;
     PBDataWriterWriteUint32Field();
-    v9 = self->_has;
-    if ((*&v9 & 0x8000) == 0)
+    v6 = self->_has;
+    if ((*&v6 & 0x8000) == 0)
     {
 LABEL_42:
-      if ((*&v9 & 0x20000000000) == 0)
+      if ((*&v6 & 0x20000000000) == 0)
       {
         goto LABEL_43;
       }
@@ -3670,18 +3647,17 @@ LABEL_42:
     }
   }
 
-  else if ((*&v9 & 0x8000) == 0)
+  else if ((*&v6 & 0x8000) == 0)
   {
     goto LABEL_42;
   }
 
-  lastPrimaryClientConnectedTimeHH2 = self->_lastPrimaryClientConnectedTimeHH2;
   PBDataWriterWriteInt64Field();
-  v9 = self->_has;
-  if ((*&v9 & 0x20000000000) == 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x20000000000) == 0)
   {
 LABEL_43:
-    if ((*&v9 & 0x40000000000) == 0)
+    if ((*&v6 & 0x40000000000) == 0)
     {
       goto LABEL_44;
     }
@@ -3690,13 +3666,12 @@ LABEL_43:
   }
 
 LABEL_101:
-  numberOfTimesPrimaryClientConnectedHH2 = self->_numberOfTimesPrimaryClientConnectedHH2;
   PBDataWriterWriteUint32Field();
-  v9 = self->_has;
-  if ((*&v9 & 0x40000000000) == 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x40000000000) == 0)
   {
 LABEL_44:
-    if ((*&v9 & 0x10000000000) == 0)
+    if ((*&v6 & 0x10000000000) == 0)
     {
       goto LABEL_45;
     }
@@ -3705,13 +3680,12 @@ LABEL_44:
   }
 
 LABEL_102:
-  numberOfTimesPrimaryClientDisconnectedHH2 = self->_numberOfTimesPrimaryClientDisconnectedHH2;
   PBDataWriterWriteUint32Field();
-  v9 = self->_has;
-  if ((*&v9 & 0x10000000000) == 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x10000000000) == 0)
   {
 LABEL_45:
-    if ((*&v9 & 0x200000000) == 0)
+    if ((*&v6 & 0x200000000) == 0)
     {
       goto LABEL_46;
     }
@@ -3720,13 +3694,12 @@ LABEL_45:
   }
 
 LABEL_103:
-  numberOfTimesPrimaryClientConnectMessageFailedHH2 = self->_numberOfTimesPrimaryClientConnectMessageFailedHH2;
   PBDataWriterWriteUint32Field();
-  v9 = self->_has;
-  if ((*&v9 & 0x200000000) == 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x200000000) == 0)
   {
 LABEL_46:
-    if ((*&v9 & 0x2000) == 0)
+    if ((*&v6 & 0x2000) == 0)
     {
       goto LABEL_48;
     }
@@ -3735,12 +3708,10 @@ LABEL_46:
   }
 
 LABEL_104:
-  currentDeviceConfirmedPrimaryResidentINT = self->_currentDeviceConfirmedPrimaryResidentINT;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x2000) != 0)
   {
 LABEL_47:
-    lastPrimaryClientConnectMessageFailErrorCodeHH2 = self->_lastPrimaryClientConnectMessageFailErrorCodeHH2;
     PBDataWriterWriteInt64Field();
   }
 
@@ -3752,7 +3723,6 @@ LABEL_48:
 
   if ((*(&self->_has + 1) & 0x40) != 0)
   {
-    lastPrimaryClientConnectMessageFailUnderlyingErrorCodeHH2 = self->_lastPrimaryClientConnectMessageFailUnderlyingErrorCodeHH2;
     PBDataWriterWriteInt64Field();
   }
 
@@ -3761,16 +3731,15 @@ LABEL_48:
     PBDataWriterWriteStringField();
   }
 
-  v12 = self->_has;
-  if ((*&v12 & 0x800000) != 0)
+  v7 = self->_has;
+  if ((*&v7 & 0x800000) != 0)
   {
-    primaryResidentElectionPeerDeviceFutureResolvedMSHH2 = self->_primaryResidentElectionPeerDeviceFutureResolvedMSHH2;
     PBDataWriterWriteInt64Field();
-    v12 = self->_has;
-    if ((*&v12 & 0x40000) == 0)
+    v7 = self->_has;
+    if ((*&v7 & 0x40000) == 0)
     {
 LABEL_56:
-      if ((*&v12 & 0x200000) == 0)
+      if ((*&v7 & 0x200000) == 0)
       {
         goto LABEL_57;
       }
@@ -3779,18 +3748,17 @@ LABEL_56:
     }
   }
 
-  else if ((*&v12 & 0x40000) == 0)
+  else if ((*&v7 & 0x40000) == 0)
   {
     goto LABEL_56;
   }
 
-  primaryResidentElectionFirstCloudKitImportFutureResolvedMSHH2 = self->_primaryResidentElectionFirstCloudKitImportFutureResolvedMSHH2;
   PBDataWriterWriteInt64Field();
-  v12 = self->_has;
-  if ((*&v12 & 0x200000) == 0)
+  v7 = self->_has;
+  if ((*&v7 & 0x200000) == 0)
   {
 LABEL_57:
-    if ((*&v12 & 0x80000) == 0)
+    if ((*&v7 & 0x80000) == 0)
     {
       goto LABEL_58;
     }
@@ -3799,13 +3767,12 @@ LABEL_57:
   }
 
 LABEL_108:
-  primaryResidentElectionModernTransportStartedFutureResolvedMSHH2 = self->_primaryResidentElectionModernTransportStartedFutureResolvedMSHH2;
   PBDataWriterWriteInt64Field();
-  v12 = self->_has;
-  if ((*&v12 & 0x80000) == 0)
+  v7 = self->_has;
+  if ((*&v7 & 0x80000) == 0)
   {
 LABEL_58:
-    if ((*&v12 & 0x40) == 0)
+    if ((*&v7 & 0x40) == 0)
     {
       goto LABEL_59;
     }
@@ -3814,13 +3781,12 @@ LABEL_58:
   }
 
 LABEL_109:
-  primaryResidentElectionJoinMeshMSHH2 = self->_primaryResidentElectionJoinMeshMSHH2;
   PBDataWriterWriteInt64Field();
-  v12 = self->_has;
-  if ((*&v12 & 0x40) == 0)
+  v7 = self->_has;
+  if ((*&v7 & 0x40) == 0)
   {
 LABEL_59:
-    if ((*&v12 & 0x80) == 0)
+    if ((*&v7 & 0x80) == 0)
     {
       goto LABEL_61;
     }
@@ -3829,12 +3795,10 @@ LABEL_59:
   }
 
 LABEL_110:
-  firstCoreDataContainerSetupDurationMSHH2 = self->_firstCoreDataContainerSetupDurationMSHH2;
   PBDataWriterWriteInt64Field();
   if ((*&self->_has & 0x80) != 0)
   {
 LABEL_60:
-    firstCoreDataContainerSetupErrorCodeHH2 = self->_firstCoreDataContainerSetupErrorCodeHH2;
     PBDataWriterWriteInt64Field();
   }
 
@@ -3846,7 +3810,6 @@ LABEL_61:
 
   if (*(&self->_has + 1))
   {
-    firstCoreDataContainerSetupUnderlyingErrorCodeHH2 = self->_firstCoreDataContainerSetupUnderlyingErrorCodeHH2;
     PBDataWriterWriteInt64Field();
   }
 
@@ -3857,7 +3820,6 @@ LABEL_61:
 
   if ((*(&self->_has + 2) & 0x40) != 0)
   {
-    primaryResidentSelectionConnectedToStatusKitFutureResolvedMSHH2 = self->_primaryResidentSelectionConnectedToStatusKitFutureResolvedMSHH2;
     PBDataWriterWriteInt64Field();
   }
 }
@@ -4844,6 +4806,29 @@ LABEL_102:
   return v4;
 }
 
+- (id)lastKnownControllerSentinelZoneExistenceAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"Good";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"Unknown";
+  }
+
+  return v4;
+}
+
 - (void)setHasLastKnownControllerSentinelZoneExistence:(BOOL)existence
 {
   v3 = 0x2000000000;
@@ -4889,6 +4874,21 @@ LABEL_102:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)lastKnownControllerHH2ModeAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E75469A0[string];
   }
 
   return v4;
@@ -4967,6 +4967,29 @@ LABEL_102:
   return v4;
 }
 
+- (id)networkAvailableINTAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"Good";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"Unknown";
+  }
+
+  return v4;
+}
+
 - (void)setHasNetworkAvailableINT:(BOOL)t
 {
   v3 = 0x8000000000;
@@ -5002,6 +5025,29 @@ LABEL_102:
   else
   {
     v4 = [tCopy isEqualToString:@"Good"];
+  }
+
+  return v4;
+}
+
+- (id)manateeAvailableINTAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"Good";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"Unknown";
   }
 
   return v4;
@@ -5047,6 +5093,29 @@ LABEL_102:
   return v4;
 }
 
+- (id)iDSAvailableINTAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"Good";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"Unknown";
+  }
+
+  return v4;
+}
+
 - (void)setHasIDSAvailableINT:(BOOL)t
 {
   v3 = 0x800000000;
@@ -5082,6 +5151,29 @@ LABEL_102:
   else
   {
     v4 = [tCopy isEqualToString:@"Good"];
+  }
+
+  return v4;
+}
+
+- (id)iCloudAvailableINTAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"Good";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"Unknown";
   }
 
   return v4;

@@ -30,7 +30,7 @@
   }
 }
 
-BWFigCaptureAttachedAccessoriesMonitor *__74__BWFigCaptureAttachedAccessoriesMonitor_sharedAttachedAccessoriesMonitor__block_invoke()
+BWFigCaptureAttachedAccessoriesMonitor *__74__BWFigCaptureAttachedAccessoriesMonitor_sharedAttachedAccessoriesMonitor__block_invoke(uint64_t a1)
 {
   sharedAttachedAccessoriesMonitor_sharedAttachedAccessoriesMonitorLock = FigSimpleMutexCreate();
   result = objc_alloc_init(BWFigCaptureAttachedAccessoriesMonitor);
@@ -105,110 +105,108 @@ BWFigCaptureAttachedAccessoriesMonitor *__74__BWFigCaptureAttachedAccessoriesMon
   dispatch_sync(notificationQueue, block);
 }
 
-uint64_t __105__BWFigCaptureAttachedAccessoriesMonitor_accessoryEndpointAttached_transportType_protocol_forConnection___block_invoke(uint64_t result)
+void __105__BWFigCaptureAttachedAccessoriesMonitor_accessoryEndpointAttached_transportType_protocol_forConnection___block_invoke(uint64_t a1)
 {
-  if (*(result + 56) != 13)
+  if (*(a1 + 56) != 13)
   {
-    return result;
+    return;
   }
 
-  v1 = result;
-  v2 = *(result + 60);
+  v2 = *(a1 + 60);
   v3 = v2 > 0xE;
   v4 = (1 << v2) & 0x4402;
   if (v3 || v4 == 0)
   {
-    return result;
+    return;
   }
 
-  v6 = *(*(result + 32) + 8);
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x2020000000;
+  v6 = *(*(a1 + 32) + 8);
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x2020000000;
   v7 = getkACCProperties_Endpoint_NFC_TypeSymbolLoc_ptr;
-  v21 = getkACCProperties_Endpoint_NFC_TypeSymbolLoc_ptr;
+  v22 = getkACCProperties_Endpoint_NFC_TypeSymbolLoc_ptr;
   if (!getkACCProperties_Endpoint_NFC_TypeSymbolLoc_ptr)
   {
-    v14[1] = MEMORY[0x1E69E9820];
-    v14[2] = 3221225472;
-    v14[3] = __getkACCProperties_Endpoint_NFC_TypeSymbolLoc_block_invoke;
-    v14[4] = &unk_1E798FC38;
-    v15 = &v18;
+    v15[1] = MEMORY[0x1E69E9820];
+    v15[2] = 3221225472;
+    v15[3] = __getkACCProperties_Endpoint_NFC_TypeSymbolLoc_block_invoke;
+    v15[4] = &unk_1E798FC38;
+    v16 = &v19;
     v8 = CoreAccessoriesLibrary();
-    v19[3] = dlsym(v8, "kACCProperties_Endpoint_NFC_Type");
-    getkACCProperties_Endpoint_NFC_TypeSymbolLoc_ptr = *(v15[1] + 24);
-    v7 = v19[3];
+    v20[3] = dlsym(v8, "kACCProperties_Endpoint_NFC_Type");
+    getkACCProperties_Endpoint_NFC_TypeSymbolLoc_ptr = *(v16[1] + 24);
+    v7 = v20[3];
   }
 
-  _Block_object_dispose(&v18, 8);
+  _Block_object_dispose(&v19, 8);
   if (!v7)
   {
     __105__BWFigCaptureAttachedAccessoriesMonitor_accessoryEndpointAttached_transportType_protocol_forConnection___block_invoke_cold_1();
   }
 
-  result = [objc_msgSend(v6 accessoryPropertySync:*v7 forEndpoint:*(v1 + 40) connection:{*(v1 + 48)), "intValue"}];
-  if ((result - 87) > 1)
+  v9 = [objc_msgSend(v6 accessoryPropertySync:*v7 forEndpoint:*(a1 + 40) connection:{*(a1 + 48)), "intValue"}];
+  if ((v9 - 87) > 1)
   {
-    if (result != 66)
+    if (v9 != 66)
     {
-      return result;
+      return;
     }
 
-    if (*(*(v1 + 32) + 32))
+    if (*(*(a1 + 32) + 32))
     {
       if (dword_1ED8443B0)
       {
         goto LABEL_12;
       }
 
-      return result;
+      return;
     }
 
     if (dword_1ED8443B0)
     {
+      v18 = 0;
       v17 = 0;
-      v16 = 0;
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    v12 = 32;
+    v13 = 32;
 LABEL_23:
-    *(*(v1 + 32) + v12) = *(v1 + 48);
-    v13 = @"NewPropertyValue";
-    v14[0] = MEMORY[0x1E695E118];
-    [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+    *(*(a1 + 32) + v13) = *(a1 + 48);
+    v14 = @"NewPropertyValue";
+    v15[0] = MEMORY[0x1E695E118];
+    [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
     CMNotificationCenterGetDefaultLocalCenter();
-    return CMNotificationCenterPostNotification();
+    CMNotificationCenterPostNotification();
+    return;
   }
 
-  if (!*(*(v1 + 32) + 24))
+  if (!*(*(a1 + 32) + 24))
   {
     if (dword_1ED8443B0)
     {
+      v18 = 0;
       v17 = 0;
-      v16 = 0;
-      v10 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+      v11 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    v12 = 24;
+    v13 = 24;
     goto LABEL_23;
   }
 
   if (dword_1ED8443B0)
   {
 LABEL_12:
+    v18 = 0;
     v17 = 0;
-    v16 = 0;
-    v9 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
-    return fig_log_call_emit_and_clean_up_after_send_and_compose();
+    v10 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+    fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
-
-  return result;
 }
 
 - (void)accessoryConnectionDetached:(id)detached
@@ -232,25 +230,25 @@ LABEL_12:
   dispatch_sync(notificationQueue, block);
 }
 
-uint64_t __70__BWFigCaptureAttachedAccessoriesMonitor_accessoryConnectionDetached___block_invoke(uint64_t a1)
+void *__70__BWFigCaptureAttachedAccessoriesMonitor_accessoryConnectionDetached___block_invoke(uint64_t a1, const char *a2)
 {
-  if ([*(a1 + 32) isEqualToString:*(*(a1 + 40) + 24)])
+  if (objc_msgSend_isEqualToString_(*(a1 + 32), a2, *(*(a1 + 40) + 24)))
   {
     if (dword_1ED8443B0)
     {
+      v10 = 0;
       v9 = 0;
-      v8 = 0;
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    v5 = 24;
+    v6 = 24;
   }
 
   else
   {
-    result = [*(a1 + 32) isEqualToString:*(*(a1 + 40) + 32)];
+    result = objc_msgSend_isEqualToString_(*(a1 + 32));
     if (!result)
     {
       return result;
@@ -258,20 +256,20 @@ uint64_t __70__BWFigCaptureAttachedAccessoriesMonitor_accessoryConnectionDetache
 
     if (dword_1ED8443B0)
     {
+      v10 = 0;
       v9 = 0;
-      v8 = 0;
-      v4 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
+      v5 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    v5 = 32;
+    v6 = 32;
   }
 
-  *(*(a1 + 40) + v5) = 0;
-  v6 = @"NewPropertyValue";
-  v7 = MEMORY[0x1E695E110];
-  [MEMORY[0x1E695DF20] dictionaryWithObjects:&v7 forKeys:&v6 count:1];
+  *(*(a1 + 40) + v6) = 0;
+  v7 = @"NewPropertyValue";
+  v8 = MEMORY[0x1E695E110];
+  [MEMORY[0x1E695DF20] dictionaryWithObjects:&v8 forKeys:&v7 count:1];
   CMNotificationCenterGetDefaultLocalCenter();
   return CMNotificationCenterPostNotification();
 }

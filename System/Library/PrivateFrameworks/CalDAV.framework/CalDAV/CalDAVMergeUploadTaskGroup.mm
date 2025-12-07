@@ -36,7 +36,7 @@
 
 - (void)_performBulkUpload
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   mEMORY[0x277CFDC18] = [MEMORY[0x277CFDC18] sharedLogging];
   WeakRetained = objc_loadWeakRetained((&self->super.super.isa + *MEMORY[0x277CFDD48]));
   v5 = [mEMORY[0x277CFDC18] logHandleForAccountInfoProvider:WeakRetained];
@@ -52,22 +52,22 @@
       v10 = [hrefsToModDeleteActions count];
       calendarURL = [(CalDAVCalendar *)self->_calendar calendarURL];
       *buf = 134218498;
-      v36 = v8;
-      v37 = 2048;
-      v38 = v10;
-      v39 = 2112;
-      v40 = calendarURL;
+      v35 = v8;
+      v36 = 2048;
+      v37 = v10;
+      v38 = 2112;
+      v39 = calendarURL;
       _os_log_impl(&dword_242742000, v6, OS_LOG_TYPE_INFO, "Performing a bulk upload of %lu/%lu items to the server at %@", buf, 0x20u);
     }
   }
 
   bulkRequests = [(CalDAVCalendar *)self->_calendar bulkRequests];
-  v30 = [bulkRequests objectForKey:*MEMORY[0x277CFDF70]];
+  v29 = [bulkRequests objectForKey:*MEMORY[0x277CFDF70]];
 
-  v13 = [v30 objectForKey:*MEMORY[0x277CFDF78]];
+  v13 = [v29 objectForKey:*MEMORY[0x277CFDF78]];
   integerValue = [v13 integerValue];
 
-  v15 = [v30 objectForKey:*MEMORY[0x277CFDF80]];
+  v15 = [v29 objectForKey:*MEMORY[0x277CFDF80]];
   integerValue2 = [v15 integerValue];
 
   ctag = [(CalDAVCalendar *)self->_calendar ctag];
@@ -110,27 +110,25 @@
 
   objc_initWeak(buf, self);
   objc_initWeak(&location, self->_uploadTaskGroup);
-  v31[0] = MEMORY[0x277D85DD0];
-  v31[1] = 3221225472;
-  v31[2] = __48__CalDAVMergeUploadTaskGroup__performBulkUpload__block_invoke;
-  v31[3] = &unk_278D66918;
-  objc_copyWeak(&v32, &location);
-  objc_copyWeak(&v33, buf);
+  v30[0] = MEMORY[0x277D85DD0];
+  v30[1] = 3221225472;
+  v30[2] = __48__CalDAVMergeUploadTaskGroup__performBulkUpload__block_invoke;
+  v30[3] = &unk_278D66918;
+  objc_copyWeak(&v31, &location);
+  objc_copyWeak(&v32, buf);
   uploadTaskGroup = [(CalDAVMergeUploadTaskGroup *)self uploadTaskGroup];
-  [uploadTaskGroup setCompletionBlock:v31];
+  [uploadTaskGroup setCompletionBlock:v30];
 
   [(CoreDAVBulkUploadTaskGroup *)self->_uploadTaskGroup startTaskGroup];
-  objc_destroyWeak(&v33);
   objc_destroyWeak(&v32);
+  objc_destroyWeak(&v31);
   objc_destroyWeak(&location);
   objc_destroyWeak(buf);
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 void __48__CalDAVMergeUploadTaskGroup__performBulkUpload__block_invoke(uint64_t a1)
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v3 = [WeakRetained error];
 
@@ -138,21 +136,21 @@ void __48__CalDAVMergeUploadTaskGroup__performBulkUpload__block_invoke(uint64_t 
   {
     v6 = objc_loadWeakRetained((a1 + 32));
     v7 = [v6 uuidToHREF];
-    v44[0] = MEMORY[0x277D85DD0];
-    v44[1] = 3221225472;
-    v44[2] = __48__CalDAVMergeUploadTaskGroup__performBulkUpload__block_invoke_2;
-    v44[3] = &unk_278D66D90;
-    objc_copyWeak(&v45, (a1 + 40));
-    [v7 enumerateKeysAndObjectsUsingBlock:v44];
+    v43[0] = MEMORY[0x277D85DD0];
+    v43[1] = 3221225472;
+    v43[2] = __48__CalDAVMergeUploadTaskGroup__performBulkUpload__block_invoke_2;
+    v43[3] = &unk_278D66D90;
+    objc_copyWeak(&v44, (a1 + 40));
+    [v7 enumerateKeysAndObjectsUsingBlock:v43];
 
     v8 = objc_loadWeakRetained((a1 + 32));
     v9 = [v8 hrefToETag];
-    v42[0] = MEMORY[0x277D85DD0];
-    v42[1] = 3221225472;
-    v42[2] = __48__CalDAVMergeUploadTaskGroup__performBulkUpload__block_invoke_3;
-    v42[3] = &unk_278D66D90;
-    objc_copyWeak(&v43, (a1 + 40));
-    [v9 enumerateKeysAndObjectsUsingBlock:v42];
+    v41[0] = MEMORY[0x277D85DD0];
+    v41[1] = 3221225472;
+    v41[2] = __48__CalDAVMergeUploadTaskGroup__performBulkUpload__block_invoke_3;
+    v41[3] = &unk_278D66D90;
+    objc_copyWeak(&v42, (a1 + 40));
+    [v9 enumerateKeysAndObjectsUsingBlock:v41];
 
     v10 = objc_loadWeakRetained((a1 + 32));
     v11 = [v10 nextCTag];
@@ -166,8 +164,8 @@ void __48__CalDAVMergeUploadTaskGroup__performBulkUpload__block_invoke(uint64_t 
       [v15 setCtag:v13];
     }
 
-    objc_destroyWeak(&v43);
-    objc_destroyWeak(&v45);
+    objc_destroyWeak(&v42);
+    objc_destroyWeak(&v44);
     v16 = objc_loadWeakRetained((a1 + 32));
     v17 = [v16 validCTag];
 
@@ -206,8 +204,8 @@ LABEL_18:
     goto LABEL_19;
   }
 
-  v41 = objc_loadWeakRetained((a1 + 40));
-  v19 = [v41 calendar];
+  v40 = objc_loadWeakRetained((a1 + 40));
+  v19 = [v40 calendar];
   v20 = [v19 syncToken];
   if (![v20 length])
   {
@@ -215,15 +213,15 @@ LABEL_18:
     goto LABEL_18;
   }
 
-  v40 = objc_loadWeakRetained((a1 + 40));
-  v21 = [v40 calendar];
+  v39 = objc_loadWeakRetained((a1 + 40));
+  v21 = [v39 calendar];
   v22 = [v21 syncToken];
   v23 = objc_loadWeakRetained((a1 + 40));
   v24 = [v23 calendar];
   v25 = [v24 ctag];
-  v39 = [v22 isEqualToString:v25];
+  v38 = [v22 isEqualToString:v25];
 
-  if (v39)
+  if (v38)
   {
 LABEL_19:
     v37 = [MEMORY[0x277CCA9B8] errorWithDomain:@"CalDAVErrorDomain" code:1 userInfo:0];
@@ -244,9 +242,9 @@ LABEL_19:
     v33 = [v32 calendar];
     v34 = [v33 syncToken];
     *buf = 138543618;
-    v47 = v31;
-    v48 = 2114;
-    v49 = v34;
+    v46 = v31;
+    v47 = 2114;
+    v48 = v34;
     _os_log_impl(&dword_242742000, v28, OS_LOG_TYPE_INFO, "Bulk upload failed with a precondition error for ctag %{public}@, but we have sync-token %{public}@ that just might work. Retrying with that value.", buf, 0x16u);
   }
 
@@ -256,8 +254,6 @@ LABEL_19:
   v36 = objc_loadWeakRetained((a1 + 40));
   [v36 _performBulkUpload];
 LABEL_21:
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 void __48__CalDAVMergeUploadTaskGroup__performBulkUpload__block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -280,7 +276,7 @@ void __48__CalDAVMergeUploadTaskGroup__performBulkUpload__block_invoke_3(uint64_
 
 - (void)_performRegularUpload
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB58]);
   mEMORY[0x277CFDC18] = [MEMORY[0x277CFDC18] sharedLogging];
   WeakRetained = objc_loadWeakRetained((&self->super.super.isa + *MEMORY[0x277CFDD48]));
@@ -297,57 +293,57 @@ void __48__CalDAVMergeUploadTaskGroup__performBulkUpload__block_invoke_3(uint64_
       v11 = [hrefsToModDeleteActions count];
       calendarURL = [(CalDAVCalendar *)self->_calendar calendarURL];
       *buf = 134218498;
-      v36 = v9;
-      v37 = 2048;
-      v38 = v11;
-      v39 = 2112;
-      v40 = calendarURL;
+      v35 = v9;
+      v36 = 2048;
+      v37 = v11;
+      v38 = 2112;
+      v39 = calendarURL;
       _os_log_impl(&dword_242742000, v7, OS_LOG_TYPE_INFO, "Performing PUT uploads of %lu/%lu items to the server at %@", buf, 0x20u);
     }
   }
 
   uuidsToAddActions2 = [(CalDAVCalendar *)self->_calendar uuidsToAddActions];
-  v32[0] = MEMORY[0x277D85DD0];
-  v32[1] = 3221225472;
-  v32[2] = __51__CalDAVMergeUploadTaskGroup__performRegularUpload__block_invoke;
-  v32[3] = &unk_278D66D60;
-  v32[4] = self;
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 3221225472;
+  v31[2] = __51__CalDAVMergeUploadTaskGroup__performRegularUpload__block_invoke;
+  v31[3] = &unk_278D66D60;
+  v31[4] = self;
   v14 = v3;
-  v33 = v14;
-  [uuidsToAddActions2 enumerateKeysAndObjectsUsingBlock:v32];
+  v32 = v14;
+  [uuidsToAddActions2 enumerateKeysAndObjectsUsingBlock:v31];
 
   hrefsToModDeleteActions2 = [(CalDAVCalendar *)self->_calendar hrefsToModDeleteActions];
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 3221225472;
-  v30[2] = __51__CalDAVMergeUploadTaskGroup__performRegularUpload__block_invoke_3;
-  v30[3] = &unk_278D66D60;
-  v30[4] = self;
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __51__CalDAVMergeUploadTaskGroup__performRegularUpload__block_invoke_3;
+  v29[3] = &unk_278D66D60;
+  v29[4] = self;
   v16 = v14;
-  v31 = v16;
-  [hrefsToModDeleteActions2 enumerateKeysAndObjectsUsingBlock:v30];
+  v30 = v16;
+  [hrefsToModDeleteActions2 enumerateKeysAndObjectsUsingBlock:v29];
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v17 = v16;
-  v18 = [v17 countByEnumeratingWithState:&v26 objects:v34 count:16];
+  v18 = [v17 countByEnumeratingWithState:&v25 objects:v33 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v27;
+    v20 = *v26;
     v21 = MEMORY[0x277CFDD58];
     do
     {
       v22 = 0;
       do
       {
-        if (*v27 != v20)
+        if (*v26 != v20)
         {
           objc_enumerationMutation(v17);
         }
 
-        v23 = *(*(&v26 + 1) + 8 * v22);
+        v23 = *(*(&v25 + 1) + 8 * v22);
         taskManager = [(CoreDAVTaskGroup *)self taskManager];
         [taskManager submitQueuedCoreDAVTask:v23];
 
@@ -356,13 +352,11 @@ void __48__CalDAVMergeUploadTaskGroup__performBulkUpload__block_invoke_3(uint64_
       }
 
       while (v19 != v22);
-      v19 = [v17 countByEnumeratingWithState:&v26 objects:v34 count:16];
+      v19 = [v17 countByEnumeratingWithState:&v25 objects:v33 count:16];
     }
 
     while (v19);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __51__CalDAVMergeUploadTaskGroup__performRegularUpload__block_invoke(uint64_t a1, void *a2, void *a3)

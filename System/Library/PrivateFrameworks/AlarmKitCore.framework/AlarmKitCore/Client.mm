@@ -52,33 +52,31 @@
 {
   v6 = sub_22D72E020();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x28223BE20](v6);
-  v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = _Block_copy(completion);
-  sub_22D70D554(&qword_27D9FF980, MEMORY[0x277CB9A78]);
+  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = _Block_copy(completion);
+  sub_22D70D554(&qword_27D9FF980, MEMORY[0x277CB9A78], MEMORY[0x277CB9A70]);
   sub_22D72E210();
-  _Block_copy(v11);
+  _Block_copy(v10);
   selfCopy = self;
-  sub_22D70CEC0(v10, selfCopy, v11);
-  _Block_release(v11);
-  _Block_release(v11);
+  sub_22D70CEC0(v9, selfCopy, v10);
+  _Block_release(v10);
+  _Block_release(v10);
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 }
 
 - (BOOL)countdownWithParameters:(id)parameters error:(id *)error
 {
   v5 = sub_22D72E080();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x28223BE20](v5);
-  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_22D70D554(&qword_27D9FF978, MEMORY[0x277CB9A98]);
+  v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_22D70D554(&qword_27D9FF978, MEMORY[0x277CB9A98], MEMORY[0x277CB9A90]);
   sub_22D72E210();
   selfCopy = self;
   sub_22D7064A4();
-  (*(v6 + 8))(v9, v5);
+  (*(v6 + 8))(v8, v5);
 
   return 1;
 }
@@ -87,14 +85,13 @@
 {
   v5 = sub_22D72E080();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x28223BE20](v5);
-  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_22D70D554(&qword_27D9FF978, MEMORY[0x277CB9A98]);
+  v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_22D70D554(&qword_27D9FF978, MEMORY[0x277CB9A98], MEMORY[0x277CB9A90]);
   sub_22D72E210();
   selfCopy = self;
   sub_22D70698C();
-  (*(v6 + 8))(v9, v5);
+  (*(v6 + 8))(v8, v5);
 
   return 1;
 }
@@ -103,14 +100,13 @@
 {
   v5 = sub_22D72E080();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x28223BE20](v5);
-  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_22D70D554(&qword_27D9FF978, MEMORY[0x277CB9A98]);
+  v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_22D70D554(&qword_27D9FF978, MEMORY[0x277CB9A98], MEMORY[0x277CB9A90]);
   sub_22D72E210();
   selfCopy = self;
   sub_22D706E74();
-  (*(v6 + 8))(v9, v5);
+  (*(v6 + 8))(v8, v5);
 
   return 1;
 }
@@ -127,14 +123,13 @@
 {
   v5 = sub_22D72E080();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x28223BE20](v5);
-  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_22D70D554(&qword_27D9FF978, MEMORY[0x277CB9A98]);
+  v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_22D70D554(&qword_27D9FF978, MEMORY[0x277CB9A98], MEMORY[0x277CB9A90]);
   sub_22D72E210();
   selfCopy = self;
   sub_22D707690();
-  (*(v6 + 8))(v9, v5);
+  (*(v6 + 8))(v8, v5);
 
   return 1;
 }
@@ -143,14 +138,13 @@
 {
   v5 = sub_22D72E080();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x28223BE20](v5);
-  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_22D70D554(&qword_27D9FF978, MEMORY[0x277CB9A98]);
+  v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_22D70D554(&qword_27D9FF978, MEMORY[0x277CB9A98], MEMORY[0x277CB9A90]);
   sub_22D72E210();
   selfCopy = self;
   sub_22D707B78();
-  (*(v6 + 8))(v9, v5);
+  (*(v6 + 8))(v8, v5);
 
   return 1;
 }
@@ -159,31 +153,29 @@
 {
   v4 = sub_22D72E000();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v8 = &v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   selfCopy = self;
   sub_22D708310();
 
-  sub_22D70D554(&qword_27D9FF970, MEMORY[0x277CB9A68]);
-  v10 = sub_22D72E220();
-  (*(v5 + 8))(v8, v4);
+  sub_22D70D554(&qword_27D9FF970, MEMORY[0x277CB9A68], MEMORY[0x277CB9A60]);
+  v9 = sub_22D72E220();
+  (*(v5 + 8))(v7, v4);
 
-  return v10;
+  return v9;
 }
 
 - (BOOL)countdownWithOwnerIDWithParameters:(id)parameters error:(id *)error
 {
   v5 = sub_22D72E0B0();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x28223BE20](v5);
-  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_22D70D554(&qword_27D9FF968, MEMORY[0x277CB9AA8]);
+  v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_22D70D554(&qword_27D9FF968, MEMORY[0x277CB9AA8], MEMORY[0x277CB9AA0]);
   sub_22D72E210();
   selfCopy = self;
-  sub_22D708760(v9);
-  (*(v6 + 8))(v9, v5);
+  sub_22D708760(v8);
+  (*(v6 + 8))(v8, v5);
 
   return 1;
 }
@@ -192,14 +184,13 @@
 {
   v5 = sub_22D72E0B0();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x28223BE20](v5);
-  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_22D70D554(&qword_27D9FF968, MEMORY[0x277CB9AA8]);
+  v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_22D70D554(&qword_27D9FF968, MEMORY[0x277CB9AA8], MEMORY[0x277CB9AA0]);
   sub_22D72E210();
   selfCopy = self;
-  sub_22D708C88(v9);
-  (*(v6 + 8))(v9, v5);
+  sub_22D708C88(v8);
+  (*(v6 + 8))(v8, v5);
 
   return 1;
 }
@@ -208,14 +199,13 @@
 {
   v5 = sub_22D72E0B0();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x28223BE20](v5);
-  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_22D70D554(&qword_27D9FF968, MEMORY[0x277CB9AA8]);
+  v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_22D70D554(&qword_27D9FF968, MEMORY[0x277CB9AA8], MEMORY[0x277CB9AA0]);
   sub_22D72E210();
   selfCopy = self;
-  sub_22D7091B0(v9);
-  (*(v6 + 8))(v9, v5);
+  sub_22D7091B0(v8);
+  (*(v6 + 8))(v8, v5);
 
   return 1;
 }
@@ -224,14 +214,13 @@
 {
   v5 = sub_22D72E0B0();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x28223BE20](v5);
-  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_22D70D554(&qword_27D9FF968, MEMORY[0x277CB9AA8]);
+  v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_22D70D554(&qword_27D9FF968, MEMORY[0x277CB9AA8], MEMORY[0x277CB9AA0]);
   sub_22D72E210();
   selfCopy = self;
-  sub_22D7096D8(v9);
-  (*(v6 + 8))(v9, v5);
+  sub_22D7096D8(v8);
+  (*(v6 + 8))(v8, v5);
 
   return 1;
 }
@@ -240,14 +229,13 @@
 {
   v5 = sub_22D72E0B0();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x28223BE20](v5);
-  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_22D70D554(&qword_27D9FF968, MEMORY[0x277CB9AA8]);
+  v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_22D70D554(&qword_27D9FF968, MEMORY[0x277CB9AA8], MEMORY[0x277CB9AA0]);
   sub_22D72E210();
   selfCopy = self;
-  sub_22D709C00(v9);
-  (*(v6 + 8))(v9, v5);
+  sub_22D709C00(v8);
+  (*(v6 + 8))(v8, v5);
 
   return 1;
 }
@@ -256,14 +244,13 @@
 {
   v5 = sub_22D72E060();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x28223BE20](v5);
-  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_22D70D554(&qword_27D9FF960, MEMORY[0x277CB9A88]);
+  v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_22D70D554(&qword_27D9FF960, MEMORY[0x277CB9A88], MEMORY[0x277CB9A80]);
   sub_22D72E210();
   selfCopy = self;
-  sub_22D70A128(v9);
-  (*(v6 + 8))(v9, v5);
+  sub_22D70A128(v8);
+  (*(v6 + 8))(v8, v5);
 
   return 1;
 }
@@ -290,25 +277,23 @@
 {
   v5 = sub_22D72E2F0();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x28223BE20](v5);
-  v9 = &v18[-((v8 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v10 = sub_22D72E2A0();
-  v11 = *(v10 - 8);
-  v12 = *(v11 + 64);
-  MEMORY[0x28223BE20](v10);
-  v14 = &v18[-((v13 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  sub_22D7135D8(&qword_27D9FFAA0, MEMORY[0x277CB9B48]);
+  v8 = &v16[-((v7 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v9 = sub_22D72E2A0();
+  v10 = *(v9 - 8);
+  MEMORY[0x28223BE20](v9);
+  v12 = &v16[-((v11 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  sub_22D7135D8(&qword_27D9FFAA0, MEMORY[0x277CB9B48], MEMORY[0x277CB9B40]);
   sub_22D72E210();
   selfCopy = self;
-  sub_22D70F590(v14);
-  (*(v6 + 8))(v9, v5);
+  sub_22D70F590(v12);
+  (*(v6 + 8))(v8, v5);
 
-  sub_22D7135D8(&qword_27D9FFA90, MEMORY[0x277CB9B28]);
-  v16 = sub_22D72E220();
-  (*(v11 + 8))(v14, v10);
+  sub_22D7135D8(&qword_27D9FFA90, MEMORY[0x277CB9B28], MEMORY[0x277CB9B20]);
+  v14 = sub_22D72E220();
+  (*(v10 + 8))(v12, v9);
 
-  return v16;
+  return v14;
 }
 
 - (void)requestWithCompletion:(id)completion
@@ -325,14 +310,13 @@
 {
   v5 = sub_22D72E2F0();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x28223BE20](v5);
-  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_22D7135D8(&qword_27D9FFAA0, MEMORY[0x277CB9B48]);
+  v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_22D7135D8(&qword_27D9FFAA0, MEMORY[0x277CB9B48], MEMORY[0x277CB9B40]);
   sub_22D72E210();
   selfCopy = self;
   sub_22D710150();
-  (*(v6 + 8))(v9, v5);
+  (*(v6 + 8))(v8, v5);
 
   return 1;
 }
@@ -341,14 +325,13 @@
 {
   v5 = sub_22D72E2D0();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x28223BE20](v5);
-  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_22D7135D8(&qword_27D9FFAB0, MEMORY[0x277CB9B38]);
+  v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_22D7135D8(&qword_27D9FFAB0, MEMORY[0x277CB9B38], MEMORY[0x277CB9B30]);
   sub_22D72E210();
   selfCopy = self;
-  sub_22D7105E0(v9);
-  (*(v6 + 8))(v9, v5);
+  sub_22D7105E0(v8);
+  (*(v6 + 8))(v8, v5);
 
   return 1;
 }
@@ -357,42 +340,39 @@
 {
   v5 = sub_22D72E2F0();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x28223BE20](v5);
-  v9 = &v18[-((v8 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v10 = sub_22D72E280();
-  v11 = *(v10 - 8);
-  v12 = *(v11 + 64);
-  MEMORY[0x28223BE20](v10);
-  v14 = &v18[-((v13 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  sub_22D7135D8(&qword_27D9FFAA0, MEMORY[0x277CB9B48]);
+  v8 = &v16[-((v7 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v9 = sub_22D72E280();
+  v10 = *(v9 - 8);
+  MEMORY[0x28223BE20](v9);
+  v12 = &v16[-((v11 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  sub_22D7135D8(&qword_27D9FFAA0, MEMORY[0x277CB9B48], MEMORY[0x277CB9B40]);
   sub_22D72E210();
   selfCopy = self;
-  sub_22D710B08(v14);
-  (*(v6 + 8))(v9, v5);
+  sub_22D710B08(v12);
+  (*(v6 + 8))(v8, v5);
 
-  sub_22D7135D8(&qword_27D9FFAA8, MEMORY[0x277CB9B18]);
-  v16 = sub_22D72E220();
-  (*(v11 + 8))(v14, v10);
+  sub_22D7135D8(&qword_27D9FFAA8, MEMORY[0x277CB9B18], MEMORY[0x277CB9B10]);
+  v14 = sub_22D72E220();
+  (*(v10 + 8))(v12, v9);
 
-  return v16;
+  return v14;
 }
 
 - (id)subscribeToAuthorizationUpdatesAndReturnError:(id *)error
 {
   v4 = sub_22D72E2A0();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v8 = &v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   selfCopy = self;
-  sub_22D711054(v8);
+  sub_22D711054(v7);
 
-  sub_22D7135D8(&qword_27D9FFA90, MEMORY[0x277CB9B28]);
-  v10 = sub_22D72E220();
-  (*(v5 + 8))(v8, v4);
+  sub_22D7135D8(&qword_27D9FFA90, MEMORY[0x277CB9B28], MEMORY[0x277CB9B20]);
+  v9 = sub_22D72E220();
+  (*(v5 + 8))(v7, v4);
 
-  return v10;
+  return v9;
 }
 
 - (BOOL)unsubscribeFromAuthorizationUpdatesAndReturnError:(id *)error

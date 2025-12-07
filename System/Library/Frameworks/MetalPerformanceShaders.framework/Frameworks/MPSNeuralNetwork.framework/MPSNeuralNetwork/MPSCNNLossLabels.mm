@@ -15,7 +15,7 @@
 {
   if (MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNLoss.mm", 0x169, @"Method unavailable. Use one of the available interfaces instead.\n", v2, v3, v4, v5);
   }
 
   return 0;
@@ -52,23 +52,27 @@
   v12 = labelsDescriptor->_size.depth;
   v13 = objc_alloc(MEMORY[0x277CBEA90]);
   v21 = objc_msgSend_bytes(data, v14, v15, v16, v17, v18, v19, v20);
-  v299 = data;
+  v316 = data;
   v29 = objc_msgSend_length(data, v22, v23, v24, v25, v26, v27, v28);
   v30 = v21;
   v31 = v12;
   self->_userData = objc_msgSend_initWithBytes_length_(v13, v32, v30, v29, v33, v34, v35, v36);
-  v296 = layout;
+  v313 = layout;
   self->_userDataLayout = layout;
   self->_numFeatureChannels_labels = v12;
   v44 = p_lossImageSize->depth;
   self->_numFeatureChannels_loss = v44;
   if (!p_lossImageSize->width || !p_lossImageSize->height || !v44)
   {
-    if (MTLReportFailureTypeEnabled())
+    if (!MTLReportFailureTypeEnabled())
     {
-      goto LABEL_16;
+      goto LABEL_18;
     }
 
+    v65 = objc_opt_class();
+    NSStringFromClass(v65);
+    v63 = @"[%@ initWithDevice:lossImageSize:labelsDescriptor:weightsDescriptor:...] lossImageSize dimensions must be > 1";
+    v64 = 413;
     goto LABEL_17;
   }
 
@@ -76,33 +80,45 @@
   {
     if (!MTLReportFailureTypeEnabled())
     {
-      goto LABEL_17;
+      goto LABEL_18;
     }
 
-    goto LABEL_16;
+    v296 = objc_opt_class();
+    NSStringFromClass(v296);
+    v63 = @"[%@ initWithDevice:lossImageSize:labelsDescriptor:weightsDescriptor:...] labels must be valid";
+    v64 = 415;
+    goto LABEL_17;
   }
 
   bytesPerRow = labelsDescriptor->_bytesPerRow;
   bytesPerImage = labelsDescriptor->_bytesPerImage;
-  v47 = objc_msgSend_length(v299, v37, v38, v39, v40, v41, v42, v43);
+  v47 = objc_msgSend_length(v316, v37, v38, v39, v40, v41, v42, v43);
   if (!v47)
   {
     if (!MTLReportFailureTypeEnabled())
     {
-      goto LABEL_17;
+      goto LABEL_18;
     }
 
-    goto LABEL_16;
+    v297 = objc_opt_class();
+    NSStringFromClass(v297);
+    v63 = @"[%@ initWithDevice:lossImageSize:labelsDescriptor:weightsDescriptor:...] labels.length (%lu) is invalid";
+    v64 = 418;
+    goto LABEL_17;
   }
 
   if ((v47 & 3) != 0)
   {
     if (!MTLReportFailureTypeEnabled())
     {
-      goto LABEL_17;
+      goto LABEL_18;
     }
 
-    goto LABEL_16;
+    v298 = objc_opt_class();
+    NSStringFromClass(v298);
+    v63 = @"[%@ initWithDevice:lossImageSize:labelsDescriptor:weightsDescriptor:...] labels.length (%lu) is invalid (not a multiple of sizeof(float))";
+    v64 = 419;
+    goto LABEL_17;
   }
 
   v55 = height;
@@ -112,308 +128,339 @@
   {
     if (!MTLReportFailureTypeEnabled())
     {
-      goto LABEL_17;
+      goto LABEL_18;
     }
 
-    goto LABEL_16;
+    v299 = objc_opt_class();
+    NSStringFromClass(v299);
+    v63 = @"[%@ initWithDevice:lossImageSize:labelsDescriptor:weightsDescriptor:...] size of labels data ({%lu, %lu, %lu}) is invalid (must be >= labels.length (%lu))";
+    v64 = 421;
+    goto LABEL_17;
   }
 
   if (width < p_lossImageSize->width || height < p_lossImageSize->height || v12 < p_lossImageSize->depth)
   {
-    if (MTLReportFailureTypeEnabled())
+    if (!MTLReportFailureTypeEnabled())
     {
-      goto LABEL_16;
+      goto LABEL_18;
     }
 
-    goto LABEL_17;
+    v58 = objc_opt_class();
+    NSStringFromClass(v58);
+    v63 = @"[%@ initWithDevice:lossImageSize:labelsDescriptor:weightsDescriptor:...] size of labels data ({%lu, %lu, %lu}) is invalid (must be >= lossImageSize ({%lu %lu %lu}))";
+    v64 = 423;
+LABEL_17:
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNLoss.mm", v64, v63, v59, v60, v61, v62);
+    goto LABEL_18;
   }
 
   if (weightsDescriptor)
   {
-    v60 = weightsDescriptor->_data;
-    if (!v60 || (objc_msgSend_bytes(weightsDescriptor->_data, v48, v49, v50, v51, v52, v53, v54), !objc_msgSend_bytes(v60, v61, v62, v63, v64, v65, v66, v67)))
+    v67 = weightsDescriptor->_data;
+    if (!v67 || (objc_msgSend_bytes(weightsDescriptor->_data, v48, v49, v50, v51, v52, v53, v54), !objc_msgSend_bytes(v67, v68, v69, v70, v71, v72, v73, v74)))
     {
       if (!MTLReportFailureTypeEnabled())
       {
-        goto LABEL_17;
+        goto LABEL_18;
       }
 
-      goto LABEL_16;
+      v87 = objc_opt_class();
+      NSStringFromClass(v87);
+      v63 = @"[%@ initWithDevice:lossImageSize:labelsDescriptor:weightsDescriptor:...] weightsDescriptor is specified, but the weights data is invalid";
+      v64 = 434;
+      goto LABEL_17;
     }
 
-    v294 = bytesPerImage;
+    v311 = bytesPerImage;
     if (weightsDescriptor->_size.width != width || weightsDescriptor->_size.height != height || weightsDescriptor->_size.depth != v12)
     {
       if (!MTLReportFailureTypeEnabled())
       {
-        goto LABEL_17;
+        goto LABEL_18;
       }
 
-      goto LABEL_16;
+      v300 = objc_opt_class();
+      NSStringFromClass(v300);
+      v63 = @"[%@ initWithDevice:lossImageSize:labelsDescriptor:weightsDescriptor:...] size of weights data ({%lu, %lu, %lu}) must match the size of labels data ({%lu, %lu, %lu})";
+      v64 = 441;
+      goto LABEL_17;
     }
 
-    v293 = bytesPerRow;
-    v75 = weightsDescriptor->_layout;
-    v76 = weightsDescriptor->_bytesPerRow;
-    v77 = weightsDescriptor->_bytesPerImage;
-    v78 = objc_msgSend_length(v60, v68, v69, v70, v71, v72, v73, v74);
-    if (!v78)
+    v310 = bytesPerRow;
+    v82 = weightsDescriptor->_layout;
+    v83 = weightsDescriptor->_bytesPerRow;
+    v84 = weightsDescriptor->_bytesPerImage;
+    v85 = objc_msgSend_length(v67, v75, v76, v77, v78, v79, v80, v81);
+    if (!v85)
     {
       if (!MTLReportFailureTypeEnabled())
       {
-        goto LABEL_17;
+        goto LABEL_18;
       }
 
-      goto LABEL_16;
+      v301 = objc_opt_class();
+      NSStringFromClass(v301);
+      v63 = @"[%@ initWithDevice:lossImageSize:labelsDescriptor:weightsDescriptor:...] weights.length (%lu) is invalid";
+      v64 = 447;
+      goto LABEL_17;
     }
 
     v55 = height;
     v56 = width;
-    if ((v78 & 3) != 0)
+    if ((v85 & 3) != 0)
     {
       if (!MTLReportFailureTypeEnabled())
       {
-        goto LABEL_17;
+        goto LABEL_18;
       }
 
-      goto LABEL_16;
+      v302 = objc_opt_class();
+      NSStringFromClass(v302);
+      v63 = @"[%@ initWithDevice:lossImageSize:labelsDescriptor:weightsDescriptor:...] weights.length (%lu) is invalid (not a multiple of sizeof(float))";
+      v64 = 448;
+      goto LABEL_17;
     }
 
-    if (v57 < v78)
+    if (v57 < v85)
     {
       if (!MTLReportFailureTypeEnabled())
       {
-        goto LABEL_17;
+        goto LABEL_18;
       }
 
-      goto LABEL_16;
+      v303 = objc_opt_class();
+      NSStringFromClass(v303);
+      v63 = @"[%@ initWithDevice:lossImageSize:labelsDescriptor:weightsDescriptor:...] size of weights data ({%lu, %lu, %lu}) is invalid (must be >= weights.length (%lu))";
+      v64 = 450;
+      goto LABEL_17;
     }
 
     if (width >= p_lossImageSize->width && height >= p_lossImageSize->height && v31 >= p_lossImageSize->depth)
     {
-      v287 = v77;
-      v288 = v76;
-      v289 = v75;
-      v290 = width;
-      v291 = height;
-      v292 = v31;
-      goto LABEL_38;
+      v304 = v84;
+      v305 = v83;
+      v306 = v82;
+      v307 = width;
+      v308 = height;
+      v309 = v31;
+      goto LABEL_40;
     }
 
     if (MTLReportFailureTypeEnabled())
     {
-LABEL_16:
-      v58 = objc_opt_class();
-      NSStringFromClass(v58);
-      MTLReportFailure();
+      v86 = objc_opt_class();
+      NSStringFromClass(v86);
+      v63 = @"[%@ initWithDevice:lossImageSize:labelsDescriptor:weightsDescriptor:...] size of weights data ({%lu, %lu, %lu}) is invalid (must be >= lossImageSize ({%lu %lu %lu}))";
+      v64 = 452;
+      goto LABEL_17;
     }
 
-LABEL_17:
+LABEL_18:
 
     return 0;
   }
 
-  v293 = bytesPerRow;
-  v294 = bytesPerImage;
-  v60 = 0;
-  v289 = 0;
-  v290 = 0;
-  v291 = 0;
-  v292 = 0;
-  v287 = 0;
-  v288 = 0;
-LABEL_38:
-  v79 = v31;
-  v80 = objc_opt_new();
-  v87 = v80;
+  v310 = bytesPerRow;
+  v311 = bytesPerImage;
+  v67 = 0;
+  v306 = 0;
+  v307 = 0;
+  v308 = 0;
+  v309 = 0;
+  v304 = 0;
+  v305 = 0;
+LABEL_40:
+  v88 = v31;
+  v89 = objc_opt_new();
+  v96 = v89;
   if (v31 + 3 <= 7)
   {
-    objc_msgSend_setTextureType_(v80, v81, 2, v82, v83, v84, v85, v86);
+    objc_msgSend_setTextureType_(v89, v90, 2, v91, v92, v93, v94, v95);
   }
 
   else
   {
-    objc_msgSend_setTextureType_(v80, v81, 3, v82, v83, v84, v85, v86);
+    objc_msgSend_setTextureType_(v89, v90, 3, v91, v92, v93, v94, v95);
   }
 
-  v94 = 125;
+  v103 = 125;
   if (v31 == 2)
   {
-    v94 = 105;
+    v103 = 105;
   }
 
   if (v31 == 1)
   {
-    objc_msgSend_setPixelFormat_(v87, v88, 55, v89, v90, v91, v92, v93);
+    objc_msgSend_setPixelFormat_(v96, v97, 55, v98, v99, v100, v101, v102);
   }
 
   else
   {
-    objc_msgSend_setPixelFormat_(v87, v88, v94, v89, v90, v91, v92, v93);
+    objc_msgSend_setPixelFormat_(v96, v97, v103, v98, v99, v100, v101, v102);
   }
 
-  objc_msgSend_setWidth_(v87, v95, v56, v96, v97, v98, v99, v100);
-  objc_msgSend_setHeight_(v87, v101, v55, v102, v103, v104, v105, v106);
-  objc_msgSend_setArrayLength_(v87, v107, (v31 + 3) >> 2, v108, v109, v110, v111, v112);
-  objc_msgSend_setUsage_(v87, v113, 19, v114, v115, v116, v117, v118);
-  if (weightsDescriptor && objc_msgSend_bytes(v60, v119, v120, v121, v122, v123, v124, v125))
+  objc_msgSend_setWidth_(v96, v104, v56, v105, v106, v107, v108, v109);
+  objc_msgSend_setHeight_(v96, v110, v55, v111, v112, v113, v114, v115);
+  objc_msgSend_setArrayLength_(v96, v116, (v31 + 3) >> 2, v117, v118, v119, v120, v121);
+  objc_msgSend_setUsage_(v96, v122, 19, v123, v124, v125, v126, v127);
+  if (weightsDescriptor && objc_msgSend_bytes(v67, v128, v129, v130, v131, v132, v133, v134))
   {
-    v126 = objc_opt_new();
-    v133 = v126;
-    if ((v292 + 3) <= 7)
+    v135 = objc_opt_new();
+    v142 = v135;
+    if ((v309 + 3) <= 7)
     {
-      objc_msgSend_setTextureType_(v126, v127, 2, v128, v129, v130, v131, v132);
+      objc_msgSend_setTextureType_(v135, v136, 2, v137, v138, v139, v140, v141);
     }
 
     else
     {
-      objc_msgSend_setTextureType_(v126, v127, 3, v128, v129, v130, v131, v132);
+      objc_msgSend_setTextureType_(v135, v136, 3, v137, v138, v139, v140, v141);
     }
 
-    v140 = 125;
-    if (v292 == 2)
+    v149 = 125;
+    if (v309 == 2)
     {
-      v140 = 105;
+      v149 = 105;
     }
 
-    v141 = v133;
-    if (v292 == 1)
+    v150 = v142;
+    if (v309 == 1)
     {
-      objc_msgSend_setPixelFormat_(v133, v134, 55, v135, v136, v137, v138, v139);
+      objc_msgSend_setPixelFormat_(v142, v143, 55, v144, v145, v146, v147, v148);
     }
 
     else
     {
-      objc_msgSend_setPixelFormat_(v133, v134, v140, v135, v136, v137, v138, v139);
+      objc_msgSend_setPixelFormat_(v142, v143, v149, v144, v145, v146, v147, v148);
     }
 
-    objc_msgSend_setWidth_(v133, v142, v290, v143, v144, v145, v146, v147);
-    objc_msgSend_setHeight_(v133, v148, v291, v149, v150, v151, v152, v153);
-    objc_msgSend_setArrayLength_(v133, v154, (v292 + 3) >> 2, v155, v156, v157, v158, v159);
-    objc_msgSend_setUsage_(v133, v160, 19, v161, v162, v163, v164, v165);
+    objc_msgSend_setWidth_(v142, v151, v307, v152, v153, v154, v155, v156);
+    objc_msgSend_setHeight_(v142, v157, v308, v158, v159, v160, v161, v162);
+    objc_msgSend_setArrayLength_(v142, v163, (v309 + 3) >> 2, v164, v165, v166, v167, v168);
+    objc_msgSend_setUsage_(v142, v169, 19, v170, v171, v172, v173, v174);
   }
 
   else
   {
-    v141 = 0;
+    v150 = 0;
   }
 
-  v166 = objc_opt_new();
-  v173 = v166;
-  v174 = p_lossImageSize->depth + 3;
-  v175 = v174 >> 2;
-  if (v174 <= 7)
+  v175 = objc_opt_new();
+  v182 = v175;
+  v183 = p_lossImageSize->depth + 3;
+  v184 = v183 >> 2;
+  if (v183 <= 7)
   {
-    objc_msgSend_setTextureType_(v166, v167, 2, v168, v169, v170, v171, v172);
-  }
-
-  else
-  {
-    objc_msgSend_setTextureType_(v166, v167, 3, v168, v169, v170, v171, v172);
-  }
-
-  v182 = p_lossImageSize->depth;
-  v183 = 125;
-  if (v182 == 2)
-  {
-    v183 = 105;
-  }
-
-  if (v182 == 1)
-  {
-    objc_msgSend_setPixelFormat_(v173, v176, 55, v177, v178, v179, v180, v181);
+    objc_msgSend_setTextureType_(v175, v176, 2, v177, v178, v179, v180, v181);
   }
 
   else
   {
-    objc_msgSend_setPixelFormat_(v173, v176, v183, v177, v178, v179, v180, v181);
+    objc_msgSend_setTextureType_(v175, v176, 3, v177, v178, v179, v180, v181);
   }
 
-  objc_msgSend_setWidth_(v173, v184, p_lossImageSize->width, v185, v186, v187, v188, v189);
-  objc_msgSend_setHeight_(v173, v190, p_lossImageSize->height, v191, v192, v193, v194, v195);
-  objc_msgSend_setArrayLength_(v173, v196, v175, v197, v198, v199, v200, v201);
-  objc_msgSend_setUsage_(v173, v202, 19, v203, v204, v205, v206, v207);
-  v208 = objc_alloc_init(MEMORY[0x277CD72A0]);
-  objc_msgSend_appendTexture_(v208, v209, v87, v210, v211, v212, v213, v214);
-  objc_msgSend_appendTexture_(v208, v215, v173, v216, v217, v218, v219, v220);
-  if (weightsDescriptor && objc_msgSend_bytes(v60, v221, v222, v223, v224, v225, v226, v227))
+  v191 = p_lossImageSize->depth;
+  v192 = 125;
+  if (v191 == 2)
   {
-    objc_msgSend_appendTexture_(v208, v228, v141, v229, v230, v231, v232, v233);
+    v192 = 105;
   }
 
-  v308.receiver = self;
-  v308.super_class = MPSCNNLossLabels;
-  v234 = [(MPSState *)&v308 initWithDevice:device resourceList:v208];
-  v306 = 0uLL;
-  v307 = 0;
-  v235 = MEMORY[0x277CD7480];
-  v236 = v234;
-  if (*(&v234->super.super.isa + *MEMORY[0x277CD7480]))
+  if (v191 == 1)
   {
-    v237 = *(&v234->super.super.isa + *MEMORY[0x277CD7488]);
-    v238 = (v237 + 8);
-    explicit = atomic_load_explicit((v237 + 8), memory_order_acquire);
-    v240 = v79;
-    v241 = v296;
+    objc_msgSend_setPixelFormat_(v182, v185, 55, v186, v187, v188, v189, v190);
+  }
+
+  else
+  {
+    objc_msgSend_setPixelFormat_(v182, v185, v192, v186, v187, v188, v189, v190);
+  }
+
+  objc_msgSend_setWidth_(v182, v193, p_lossImageSize->width, v194, v195, v196, v197, v198);
+  objc_msgSend_setHeight_(v182, v199, p_lossImageSize->height, v200, v201, v202, v203, v204);
+  objc_msgSend_setArrayLength_(v182, v205, v184, v206, v207, v208, v209, v210);
+  objc_msgSend_setUsage_(v182, v211, 19, v212, v213, v214, v215, v216);
+  v217 = objc_alloc_init(MEMORY[0x277CD72A0]);
+  objc_msgSend_appendTexture_(v217, v218, v96, v219, v220, v221, v222, v223);
+  objc_msgSend_appendTexture_(v217, v224, v182, v225, v226, v227, v228, v229);
+  if (weightsDescriptor && objc_msgSend_bytes(v67, v230, v231, v232, v233, v234, v235, v236))
+  {
+    objc_msgSend_appendTexture_(v217, v237, v150, v238, v239, v240, v241, v242);
+  }
+
+  v325.receiver = self;
+  v325.super_class = MPSCNNLossLabels;
+  v243 = [(MPSState *)&v325 initWithDevice:device resourceList:v217];
+  v323 = 0uLL;
+  v324 = 0;
+  v244 = MEMORY[0x277CD7480];
+  v245 = v243;
+  if (*(&v243->super.super.isa + *MEMORY[0x277CD7480]))
+  {
+    v246 = *(&v243->super.super.isa + *MEMORY[0x277CD7488]);
+    v247 = (v246 + 8);
+    explicit = atomic_load_explicit((v246 + 8), memory_order_acquire);
+    v249 = v88;
+    v250 = v313;
     if (!explicit)
     {
-      MPSAutoTexture::AllocateTexture((v237 + 8), 0);
-      explicit = atomic_load_explicit(v238, memory_order_acquire);
+      MPSAutoTexture::AllocateTexture((v246 + 8), 0);
+      explicit = atomic_load_explicit(v247, memory_order_acquire);
     }
   }
 
   else
   {
     explicit = 0;
-    v240 = v79;
-    v241 = v296;
+    v249 = v88;
+    v250 = v313;
   }
 
-  v242 = objc_alloc(MEMORY[0x277CD7218]);
-  v248 = objc_msgSend_initWithTexture_featureChannels_(v242, v243, explicit, v240, v244, v245, v246, v247);
-  v256 = objc_msgSend_bytes(v299, v249, v250, v251, v252, v253, v254, v255);
-  v301 = v306;
-  v302 = v307;
-  v303 = v56;
-  v304 = v55;
-  v305 = 1;
-  objc_msgSend_writeBytes_dataLayout_bytesPerRow_bytesPerImage_region_featureChannelInfo_imageIndex_(v248, v257, v256, v241, v293, v294, &v301, v258, 0, v240, 0);
+  v251 = objc_alloc(MEMORY[0x277CD7218]);
+  v257 = objc_msgSend_initWithTexture_featureChannels_(v251, v252, explicit, v249, v253, v254, v255, v256);
+  v265 = objc_msgSend_bytes(v316, v258, v259, v260, v261, v262, v263, v264);
+  v318 = v323;
+  v319 = v324;
+  v320 = v56;
+  v321 = v55;
+  v322 = 1;
+  objc_msgSend_writeBytes_dataLayout_bytesPerRow_bytesPerImage_region_featureChannelInfo_imageIndex_(v257, v266, v265, v250, v310, v311, &v318, v267, 0, v249, 0);
 
-  if (weightsDescriptor && objc_msgSend_bytes(v60, v259, v260, v261, v262, v263, v264, v265))
+  if (weightsDescriptor && objc_msgSend_bytes(v67, v268, v269, v270, v271, v272, v273, v274))
   {
-    if (*(&v236->super.super.isa + *v235))
+    if (*(&v245->super.super.isa + *v244))
     {
-      v266 = *(&v236->super.super.isa + *MEMORY[0x277CD7488]);
-      v267 = (v266 + 152);
-      v268 = atomic_load_explicit((v266 + 152), memory_order_acquire);
-      v269 = v289;
-      if (!v268)
+      v275 = *(&v245->super.super.isa + *MEMORY[0x277CD7488]);
+      v276 = (v275 + 152);
+      v277 = atomic_load_explicit((v275 + 152), memory_order_acquire);
+      v278 = v306;
+      if (!v277)
       {
-        MPSAutoTexture::AllocateTexture((v266 + 152), 0);
-        v268 = atomic_load_explicit(v267, memory_order_acquire);
+        MPSAutoTexture::AllocateTexture((v275 + 152), 0);
+        v277 = atomic_load_explicit(v276, memory_order_acquire);
       }
     }
 
     else
     {
-      v268 = 0;
-      v269 = v289;
+      v277 = 0;
+      v278 = v306;
     }
 
-    v270 = objc_alloc(MEMORY[0x277CD7218]);
-    v276 = objc_msgSend_initWithTexture_featureChannels_(v270, v271, v268, v292, v272, v273, v274, v275);
-    v284 = objc_msgSend_bytes(v60, v277, v278, v279, v280, v281, v282, v283);
-    v301 = 0uLL;
-    v302 = 0;
-    v303 = v290;
-    v304 = v291;
-    v305 = 1;
-    objc_msgSend_writeBytes_dataLayout_bytesPerRow_bytesPerImage_region_featureChannelInfo_imageIndex_(v276, v285, v284, v269, v288, v287, &v301, v286, 0, v292, 0);
+    v279 = objc_alloc(MEMORY[0x277CD7218]);
+    v285 = objc_msgSend_initWithTexture_featureChannels_(v279, v280, v277, v309, v281, v282, v283, v284);
+    v293 = objc_msgSend_bytes(v67, v286, v287, v288, v289, v290, v291, v292);
+    v318 = 0uLL;
+    v319 = 0;
+    v320 = v307;
+    v321 = v308;
+    v322 = 1;
+    objc_msgSend_writeBytes_dataLayout_bytesPerRow_bytesPerImage_region_featureChannelInfo_imageIndex_(v285, v294, v293, v278, v305, v304, &v318, v295, 0, v309, 0);
 
-    v236->_hasStateWeights = 1;
+    v245->_hasStateWeights = 1;
   }
 
-  return v236;
+  return v245;
 }
 
 - (MPSCNNLossLabels)initWithDevice:(id)device lossImageSize:(MTLSize *)lossImageSize labelsImage:(MPSImage *)labelsImage weightsImage:(MPSImage *)weightsImage
@@ -445,10 +492,16 @@ LABEL_38:
   {
     if (MTLReportFailureTypeEnabled())
     {
-      goto LABEL_23;
+      v70 = objc_opt_class();
+      NSStringFromClass(v70);
+      v68 = @"[%@ initWithDevice:lossImageSize:labelsDescriptor:weightsDescriptor:...] lossImageSize dimensions must be > 1";
+      v69 = 631;
+      goto LABEL_24;
     }
 
-    goto LABEL_24;
+LABEL_25:
+
+    return 0;
   }
 
   v45 = v35;
@@ -456,15 +509,19 @@ LABEL_38:
   {
     if (MTLReportFailureTypeEnabled())
     {
-      goto LABEL_23;
+      v71 = objc_opt_class();
+      NSStringFromClass(v71);
+      v68 = @"[%@ initWithDevice:lossImageSize:labelsDescriptor:weightsDescriptor:...] size of labels data ({%lu, %lu, %lu}) is invalid (must be >= lossImageSize ({%lu %lu %lu}))";
+      v69 = 634;
+      goto LABEL_24;
     }
 
-    goto LABEL_24;
+    goto LABEL_25;
   }
 
   if (!weightsImage)
   {
-    goto LABEL_27;
+    goto LABEL_29;
   }
 
   v46 = objc_msgSend_width(weightsImage, v36, v37, v38, v39, v40, v41, v42);
@@ -474,68 +531,73 @@ LABEL_38:
   {
     if (MTLReportFailureTypeEnabled())
     {
-LABEL_23:
-      v63 = objc_opt_class();
-      NSStringFromClass(v63);
-      MTLReportFailure();
+      v72 = objc_opt_class();
+      NSStringFromClass(v72);
+      v68 = @"[%@ initWithDevice:lossImageSize:labelsDescriptor:weightsDescriptor:...] size of weights data ({%lu, %lu, %lu}) must match the size of labels data ({%lu, %lu, %lu})";
+      v69 = 641;
+      goto LABEL_24;
     }
 
-LABEL_24:
-
-    return 0;
+    goto LABEL_25;
   }
 
   if (v19 < p_lossImageSize->width || v27 < p_lossImageSize->height || v45 < p_lossImageSize->depth)
   {
     if (MTLReportFailureTypeEnabled())
     {
-      goto LABEL_23;
+      v63 = objc_opt_class();
+      NSStringFromClass(v63);
+      v68 = @"[%@ initWithDevice:lossImageSize:labelsDescriptor:weightsDescriptor:...] size of weights data ({%lu, %lu, %lu}) is invalid (must be >= lossImageSize ({%lu %lu %lu}))";
+      v69 = 642;
+LABEL_24:
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNLoss.mm", v69, v68, v64, v65, v66, v67);
+      goto LABEL_25;
     }
 
-    goto LABEL_24;
+    goto LABEL_25;
   }
 
-LABEL_27:
-  v65 = objc_opt_new();
-  v72 = v65;
-  v73 = p_lossImageSize->depth + 3;
-  v74 = v73 >> 2;
-  if (v73 <= 7)
+LABEL_29:
+  v74 = objc_opt_new();
+  v81 = v74;
+  v82 = p_lossImageSize->depth + 3;
+  v83 = v82 >> 2;
+  if (v82 <= 7)
   {
-    objc_msgSend_setTextureType_(v65, v66, 2, v67, v68, v69, v70, v71);
+    objc_msgSend_setTextureType_(v74, v75, 2, v76, v77, v78, v79, v80);
   }
 
   else
   {
-    objc_msgSend_setTextureType_(v65, v66, 3, v67, v68, v69, v70, v71);
+    objc_msgSend_setTextureType_(v74, v75, 3, v76, v77, v78, v79, v80);
   }
 
-  v81 = p_lossImageSize->depth;
-  v82 = 125;
-  if (v81 == 2)
+  v90 = p_lossImageSize->depth;
+  v91 = 125;
+  if (v90 == 2)
   {
-    v82 = 105;
+    v91 = 105;
   }
 
-  if (v81 == 1)
+  if (v90 == 1)
   {
-    objc_msgSend_setPixelFormat_(v72, v75, 55, v76, v77, v78, v79, v80);
+    objc_msgSend_setPixelFormat_(v81, v84, 55, v85, v86, v87, v88, v89);
   }
 
   else
   {
-    objc_msgSend_setPixelFormat_(v72, v75, v82, v76, v77, v78, v79, v80);
+    objc_msgSend_setPixelFormat_(v81, v84, v91, v85, v86, v87, v88, v89);
   }
 
-  objc_msgSend_setWidth_(v72, v83, p_lossImageSize->width, v84, v85, v86, v87, v88);
-  objc_msgSend_setHeight_(v72, v89, p_lossImageSize->height, v90, v91, v92, v93, v94);
-  objc_msgSend_setArrayLength_(v72, v95, v74, v96, v97, v98, v99, v100);
-  objc_msgSend_setUsage_(v72, v101, 19, v102, v103, v104, v105, v106);
-  v107 = objc_alloc_init(MEMORY[0x277CD72A0]);
-  objc_msgSend_appendTexture_(v107, v108, v72, v109, v110, v111, v112, v113);
-  v114.receiver = self;
-  v114.super_class = MPSCNNLossLabels;
-  return [(MPSState *)&v114 initWithDevice:device resourceList:v107];
+  objc_msgSend_setWidth_(v81, v92, p_lossImageSize->width, v93, v94, v95, v96, v97);
+  objc_msgSend_setHeight_(v81, v98, p_lossImageSize->height, v99, v100, v101, v102, v103);
+  objc_msgSend_setArrayLength_(v81, v104, v83, v105, v106, v107, v108, v109);
+  objc_msgSend_setUsage_(v81, v110, 19, v111, v112, v113, v114, v115);
+  v116 = objc_alloc_init(MEMORY[0x277CD72A0]);
+  objc_msgSend_appendTexture_(v116, v117, v81, v118, v119, v120, v121, v122);
+  v123.receiver = self;
+  v123.super_class = MPSCNNLossLabels;
+  return [(MPSState *)&v123 initWithDevice:device resourceList:v116];
 }
 
 - (MPSImage)lossImage

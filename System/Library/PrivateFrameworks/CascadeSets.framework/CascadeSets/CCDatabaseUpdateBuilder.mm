@@ -55,9 +55,7 @@
 
 - (void)setReturningColumns:(id)columns
 {
-  v4 = [columns copy];
-  returningColumns = self->_returningColumns;
-  self->_returningColumns = v4;
+  self->_returningColumns = [columns copy];
 
   MEMORY[0x1EEE66BB8]();
 }

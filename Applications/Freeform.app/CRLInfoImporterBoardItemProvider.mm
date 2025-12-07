@@ -542,13 +542,14 @@ LABEL_60:
   if (delegate)
   {
     v5 = delegate;
-    if (objc_opt_respondsToSelector())
+    delegate = objc_opt_respondsToSelector();
+    if (delegate)
     {
-      [v5 importableBoardItemProviderWillIgnoreMediaCompatibilityOnAllDevicesRequirement:self];
+      delegate = [v5 importableBoardItemProviderWillIgnoreMediaCompatibilityOnAllDevicesRequirement:self];
     }
   }
 
-  _objc_release_x2();
+  _objc_release_x2(delegate);
 }
 
 @end

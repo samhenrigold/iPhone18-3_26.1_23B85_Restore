@@ -118,9 +118,9 @@
   if (contents)
   {
     v6 = open_dprotected_np([toCopy fileSystemRepresentation], 1573, self->_protectionClass, 0, 384);
-    if (v6 < 0)
+    if ((v6 & 0x80000000) != 0)
     {
-      v9 = KSCategory();
+      v9 = KSCategory(v6);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         [_KSFileFile saveTo:];
@@ -138,7 +138,7 @@
 
   else
   {
-    v8 = KSCategory();
+    v8 = KSCategory(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [_KSFileFile saveTo:];
@@ -220,9 +220,9 @@ LABEL_7:
 
 - (void)consistencyCheck
 {
-  v14.receiver = self;
-  v14.super_class = _KSFileFile;
-  [(_KSFileEntry *)&v14 consistencyCheck];
+  v13.receiver = self;
+  v13.super_class = _KSFileFile;
+  [(_KSFileEntry *)&v13 consistencyCheck];
   url = self->_url;
   if (url)
   {
@@ -244,16 +244,15 @@ LABEL_7:
       {
         v8 = MEMORY[0x277CBEAD8];
         v9 = *MEMORY[0x277CBE658];
-        v10 = self->super._fileBlob;
-        v11 = objc_opt_class();
-        v12 = NSStringFromClass(v11);
-        [v8 raise:v9 format:{@"%@ contains invalid offset %lu size %lu into <%@; %lu bytes>", self, offset, size, v12, -[NSData length](self->super._fileBlob, "length")}];
+        v10 = objc_opt_class();
+        v11 = NSStringFromClass(v10);
+        [v8 raise:v9 format:{@"%@ contains invalid offset %lu size %lu into <%@; %lu bytes>", self, offset, size, v11, -[NSData length](self->super._fileBlob, "length")}];
       }
     }
 
     else
     {
-      [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE658] format:{@"%@ contains no content provider", self, v13}];
+      [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE658] format:{@"%@ contains no content provider", self, v12}];
     }
   }
 }
@@ -269,18 +268,16 @@ LABEL_7:
 
 - (void)saveTo:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_2_0(&dword_2557E2000, v0, v1, "%s  Unable to create file at %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_2557E2000, v0, v1, "%s  Unable to create file at %@", v2, v3, v4, v5, v6);
 }
 
 - (void)saveTo:.cold.2()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_2_0(&dword_2557E2000, v0, v1, "%s  Unable to find contents of %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_2557E2000, v0, v1, "%s  Unable to find contents of %@", v2, v3, v4, v5, v6);
 }
 
 @end

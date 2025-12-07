@@ -20,6 +20,7 @@
 - (void)generateError:(id)error;
 - (void)generateEvent:(id)event;
 - (void)generateMetadata:(id)metadata;
+- (void)notifyClientsOfGeneratedTypesUpdate:(id)update configuration:(id)configuration didUpdateActivity:(BOOL)activity earliestSampleDate:(id)date;
 @end
 
 @implementation HDFirstPartyWorkoutSessionController
@@ -218,6 +219,16 @@ LABEL_7:
   workoutDataAccumulator = [WeakRetained workoutDataAccumulator];
 
   return workoutDataAccumulator;
+}
+
+- (void)notifyClientsOfGeneratedTypesUpdate:(id)update configuration:(id)configuration didUpdateActivity:(BOOL)activity earliestSampleDate:(id)date
+{
+  activityCopy = activity;
+  dateCopy = date;
+  configurationCopy = configuration;
+  updateCopy = update;
+  WeakRetained = objc_loadWeakRetained(&self->_sessionStateController);
+  [WeakRetained notifyClientsOfGeneratedTypesUpdate:updateCopy configuration:configurationCopy didUpdateActivity:activityCopy earliestSampleDate:dateCopy];
 }
 
 @end

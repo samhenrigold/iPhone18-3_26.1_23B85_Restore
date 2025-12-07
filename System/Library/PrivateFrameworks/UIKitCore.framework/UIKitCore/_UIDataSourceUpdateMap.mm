@@ -448,9 +448,9 @@ LABEL_20:
   mapCopy = map;
   initialSnapshot = [mapCopy initialSnapshot];
   initialSnapshot2 = [(_UIDataSourceUpdateMap *)self initialSnapshot];
-  v8 = [initialSnapshot isEqual:initialSnapshot2];
+  isEqual = objc_msgSend_isEqual_(initialSnapshot);
 
-  if (v8)
+  if (isEqual)
   {
     if (!mapCopy)
     {
@@ -1094,7 +1094,7 @@ LABEL_4:
 
     if (v6)
     {
-      v9 = 0;
+      isEqual = 0;
       if (v6[10] || !v8)
       {
         goto LABEL_10;
@@ -1110,14 +1110,14 @@ LABEL_4:
     {
       indexPathAfterUpdate = [v6 indexPathAfterUpdate];
       indexPathBeforeUpdate = [v8 indexPathBeforeUpdate];
-      v9 = [indexPathAfterUpdate isEqual:indexPathBeforeUpdate];
+      isEqual = objc_msgSend_isEqual_(indexPathAfterUpdate);
 
 LABEL_10:
-      return v9;
+      return isEqual;
     }
 
 LABEL_9:
-    v9 = 0;
+    isEqual = 0;
     goto LABEL_10;
   }
 
@@ -1330,9 +1330,9 @@ LABEL_7:
 
           v17 = v16 ? v16[11] : 0;
           v18 = v17;
-          v19 = [v18 isEqual:identifierCopy];
+          isEqual = objc_msgSend_isEqual_(v18);
 
-          if ((v19 & 1) == 0)
+          if ((isEqual & 1) == 0)
           {
             break;
           }
@@ -1703,9 +1703,9 @@ LABEL_31:
     else
     {
       moveFromIndexPath = [itemCopy moveFromIndexPath];
-      v22 = [pathCopy isEqual:moveFromIndexPath];
+      isEqual = objc_msgSend_isEqual_(pathCopy);
 
-      if (v22)
+      if (isEqual)
       {
         moveToIndexPath = [itemCopy moveToIndexPath];
         goto LABEL_31;

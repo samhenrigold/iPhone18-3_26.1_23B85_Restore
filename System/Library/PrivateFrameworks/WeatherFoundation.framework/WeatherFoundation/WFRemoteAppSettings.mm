@@ -103,7 +103,7 @@
   v11 = processInfo;
   if (processInfo)
   {
-    [processInfo operatingSystemVersion];
+    objc_msgSend_operatingSystemVersion(processInfo);
   }
 
   v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"%li_%li", 0, 0];
@@ -123,7 +123,7 @@
 
 + (BOOL)useInternalBundleID
 {
-  v2 = WeatherFoundationInternalUserDefaults();
+  v2 = WeatherFoundationInternalUserDefaults(self);
   v3 = [v2 BOOLForKey:@"use_non_internal_bundleid"];
 
   return [objc_opt_class() wfInternalBuild] & (v3 ^ 1);
@@ -152,75 +152,76 @@ uint64_t __38__WFRemoteAppSettings_wfInternalBuild__block_invoke()
   dsCopy = ds;
   countryCopy = country;
   dCopy = d;
-  v39.receiver = self;
-  v39.super_class = WFRemoteAppSettings;
-  v14 = [(WFRemoteAppSettings *)&v39 init];
+  v40.receiver = self;
+  v40.super_class = WFRemoteAppSettings;
+  v14 = [(WFRemoteAppSettings *)&v40 init];
+  v15 = v14;
   if (v14)
   {
-    v15 = WeatherFoundationInternalUserDefaults();
-    v16 = [v15 objectForKey:@"cachedAppConfigLastSavedDate"];
-    v17 = [v16 copy];
-    lastModificationDate = v14->_lastModificationDate;
-    v14->_lastModificationDate = v17;
+    v16 = WeatherFoundationInternalUserDefaults(v14);
+    v17 = [v16 objectForKey:@"cachedAppConfigLastSavedDate"];
+    v18 = [v17 copy];
+    lastModificationDate = v15->_lastModificationDate;
+    v15->_lastModificationDate = v18;
 
-    if (!v14->_lastModificationDate)
+    if (!v15->_lastModificationDate)
     {
       distantPast = [MEMORY[0x277CBEAA8] distantPast];
-      v20 = v14->_lastModificationDate;
-      v14->_lastModificationDate = distantPast;
+      v21 = v15->_lastModificationDate;
+      v15->_lastModificationDate = distantPast;
     }
 
-    v21 = [(WFRemoteAppSettings *)v14 getEnvironmentSpecificConfigDictionaryFromDictionary:dictionaryCopy bundleIDs:dsCopy country:countryCopy];
-    objc_storeStrong(&v14->_config, v21);
-    if (v21)
+    v22 = [(WFRemoteAppSettings *)v15 getEnvironmentSpecificConfigDictionaryFromDictionary:dictionaryCopy bundleIDs:dsCopy country:countryCopy];
+    objc_storeStrong(&v15->_config, v22);
+    if (v22)
     {
-      v22 = MEMORY[0x277CBEB98];
-      v23 = [v21 objectForKeyedSubscript:@"aqiEnabledCountries"];
-      v24 = [v22 setWithArray:v23];
-      aqiEnabledCountryCodes = v14->_aqiEnabledCountryCodes;
-      v14->_aqiEnabledCountryCodes = v24;
+      v23 = MEMORY[0x277CBEB98];
+      v24 = [v22 objectForKeyedSubscript:@"aqiEnabledCountries"];
+      v25 = [v23 setWithArray:v24];
+      aqiEnabledCountryCodes = v15->_aqiEnabledCountryCodes;
+      v15->_aqiEnabledCountryCodes = v25;
     }
 
     else
     {
-      v23 = v14->_aqiEnabledCountryCodes;
-      v14->_aqiEnabledCountryCodes = 0;
+      v24 = v15->_aqiEnabledCountryCodes;
+      v15->_aqiEnabledCountryCodes = 0;
     }
 
-    v14->_appConfigRefreshRate = [MEMORY[0x277CBEAC0] integerValueFromDictionary:v21 forKey:@"configRefreshRate" defaultValue:86400];
-    v14->_networkFailedAttemptsLimit = [MEMORY[0x277CBEAC0] integerValueFromDictionary:v21 forKey:@"networkFailedAttemptsLimit" defaultValue:3];
-    v14->_networkSwitchExpirationTimeInSeconds = [MEMORY[0x277CBEAC0] integerValueFromDictionary:v21 forKey:@"networkSwitchExpirationTime" defaultValue:3600];
-    v26 = [(WFRemoteAppSettings *)v14 getAPIVersionFromDictionary:v21 userID:dCopy];
-    apiVersion = v14->_apiVersion;
-    v14->_apiVersion = v26;
+    v15->_appConfigRefreshRate = [MEMORY[0x277CBEAC0] integerValueFromDictionary:v22 forKey:@"configRefreshRate" defaultValue:86400];
+    v15->_networkFailedAttemptsLimit = [MEMORY[0x277CBEAC0] integerValueFromDictionary:v22 forKey:@"networkFailedAttemptsLimit" defaultValue:3];
+    v15->_networkSwitchExpirationTimeInSeconds = [MEMORY[0x277CBEAC0] integerValueFromDictionary:v22 forKey:@"networkSwitchExpirationTime" defaultValue:3600];
+    v27 = [(WFRemoteAppSettings *)v15 getAPIVersionFromDictionary:v22 userID:dCopy];
+    apiVersion = v15->_apiVersion;
+    v15->_apiVersion = v27;
 
-    v28 = [MEMORY[0x277CBEAC0] stringValueFromDictionary:v21 forKey:@"apiVersionFallback" defaultValue:@"twc_v2"];
-    apiVersionFallback = v14->_apiVersionFallback;
-    v14->_apiVersionFallback = v28;
+    v29 = [MEMORY[0x277CBEAC0] stringValueFromDictionary:v22 forKey:@"apiVersionFallback" defaultValue:@"twc_v2"];
+    apiVersionFallback = v15->_apiVersionFallback;
+    v15->_apiVersionFallback = v29;
 
-    v14->_locationNumDecimalsOfPrecision = [MEMORY[0x277CBEAC0] integerValueFromDictionary:v21 forKey:@"locationDecimalPrecision" defaultValue:3];
-    v30 = [v21 dictionaryForKey:@"widgetRefresh"];
-    widgetRefreshPolicy = v14->_widgetRefreshPolicy;
-    v14->_widgetRefreshPolicy = v30;
+    v15->_locationNumDecimalsOfPrecision = [MEMORY[0x277CBEAC0] integerValueFromDictionary:v22 forKey:@"locationDecimalPrecision" defaultValue:3];
+    v31 = [v22 dictionaryForKey:@"widgetRefresh"];
+    widgetRefreshPolicy = v15->_widgetRefreshPolicy;
+    v15->_widgetRefreshPolicy = v31;
 
-    v32 = [v21 dictionaryForKey:@"WeatherEventConfig"];
-    v33 = [[WFWeatherEventsConfig alloc] initWithDictionary:v32];
-    weatherEventsConfig = v14->_weatherEventsConfig;
-    v14->_weatherEventsConfig = v33;
+    v33 = [v22 dictionaryForKey:@"WeatherEventConfig"];
+    v34 = [[WFWeatherEventsConfig alloc] initWithDictionary:v33];
+    weatherEventsConfig = v15->_weatherEventsConfig;
+    v15->_weatherEventsConfig = v34;
 
-    [MEMORY[0x277CBEAC0] timeIntervalValueFromDictionary:v21 forKey:@"cachedGeocodeLocationExpirationTimeInterval" defaultValue:86400.0];
-    v14->_cachedGeocodeLocationExpirationTimeInterval = v35;
-    [MEMORY[0x277CBEAC0] timeIntervalValueFromDictionary:v21 forKey:@"locationUpdateMinTimeInterval" defaultValue:1800.0];
-    v14->_locationUpdateMinTimeInterval = v36;
-    [MEMORY[0x277CBEAC0] doubleValueFromDictionary:v21 forKey:@"locationUpdateMinDistance" defaultValue:1500.0];
-    v14->_locationUpdateMinDistance = v37;
-    v14->_disableForecastRequestCancelation = [v21 BOOLForKey:@"disableForecastRequestCancelation" defaultValue:0];
-    v14->_disablePriorityForecastRequestQueue = [v21 BOOLForKey:@"disablePriorityForecastRequestQueue" defaultValue:0];
-    v14->_loadSavedCitiesFromKVSOnly = [v21 BOOLForKey:@"loadSavedCitiesFromKVSOnly" defaultValue:0];
-    v14->_disableLimitReverseGeocoding = [v21 BOOLForKey:@"disableLimitReverseGeocoding" defaultValue:0];
+    [MEMORY[0x277CBEAC0] timeIntervalValueFromDictionary:v22 forKey:@"cachedGeocodeLocationExpirationTimeInterval" defaultValue:86400.0];
+    v15->_cachedGeocodeLocationExpirationTimeInterval = v36;
+    [MEMORY[0x277CBEAC0] timeIntervalValueFromDictionary:v22 forKey:@"locationUpdateMinTimeInterval" defaultValue:1800.0];
+    v15->_locationUpdateMinTimeInterval = v37;
+    [MEMORY[0x277CBEAC0] doubleValueFromDictionary:v22 forKey:@"locationUpdateMinDistance" defaultValue:1500.0];
+    v15->_locationUpdateMinDistance = v38;
+    v15->_disableForecastRequestCancelation = [v22 BOOLForKey:@"disableForecastRequestCancelation" defaultValue:0];
+    v15->_disablePriorityForecastRequestQueue = [v22 BOOLForKey:@"disablePriorityForecastRequestQueue" defaultValue:0];
+    v15->_loadSavedCitiesFromKVSOnly = [v22 BOOLForKey:@"loadSavedCitiesFromKVSOnly" defaultValue:0];
+    v15->_disableLimitReverseGeocoding = [v22 BOOLForKey:@"disableLimitReverseGeocoding" defaultValue:0];
   }
 
-  return v14;
+  return v15;
 }
 
 - (id)getEnvironmentSpecificConfigDictionaryFromDictionary:(id)dictionary bundleIDs:(id)ds country:(id)country
@@ -242,7 +243,7 @@ uint64_t __38__WFRemoteAppSettings_wfInternalBuild__block_invoke()
 
   v15 = [dictionaryCopy arrayForKey:@"endpointConfigs"];
   v45 = v15;
-  v16 = WeatherFoundationInternalUserDefaults();
+  v16 = WeatherFoundationInternalUserDefaults(v15);
   v17 = [v16 stringForKey:@"AppAnalyticsEnvironment"];
   v18 = v17;
   v19 = @"PRODUCTION";
@@ -470,22 +471,22 @@ LABEL_16:
   v10 = [dCopy hash];
 
   self->_apiConfigModdedHash = v10 % v9;
-  v11 = WeatherFoundationInternalUserDefaults();
-  v12 = [v11 objectForKey:@"api_version_bucket_hash"];
+  v12 = WeatherFoundationInternalUserDefaults(v11);
+  v13 = [v12 objectForKey:@"api_version_bucket_hash"];
 
-  if (v12)
+  if (v13)
   {
-    self->_apiConfigModdedHash = [v12 unsignedIntegerValue] % v9;
+    self->_apiConfigModdedHash = [v13 unsignedIntegerValue] % v9;
   }
 
   self->_apiConfigMinRange = [MEMORY[0x277CBEAC0] integerValueFromDictionary:dictionaryCopy forKey:@"minRange" defaultValue:0];
-  v13 = [MEMORY[0x277CBEAC0] integerValueFromDictionary:dictionaryCopy forKey:@"maxRange" defaultValue:0];
+  v14 = [MEMORY[0x277CBEAC0] integerValueFromDictionary:dictionaryCopy forKey:@"maxRange" defaultValue:0];
 
-  self->_apiConfigMaxRange = v13;
+  self->_apiConfigMaxRange = v14;
   apiConfigModdedHash = self->_apiConfigModdedHash;
-  v16 = self->_apiConfigMinRange <= apiConfigModdedHash && apiConfigModdedHash < v13;
+  v17 = self->_apiConfigMinRange <= apiConfigModdedHash && apiConfigModdedHash < v14;
 
-  return v16;
+  return v17;
 }
 
 - (NSString)description

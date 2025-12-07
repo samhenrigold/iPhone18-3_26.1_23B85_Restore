@@ -81,7 +81,8 @@
 - (void)_setUpListeners
 {
   dispatch_assert_queue_V2(&_dispatch_main_q);
-  if ((+[TUCallCapabilities supportsDisplayingFaceTimeAudioCalls](TUCallCapabilities, "supportsDisplayingFaceTimeAudioCalls") & 1) != 0 || +[TUCallCapabilities supportsDisplayingFaceTimeVideoCalls])
+  v3 = +[TUCallCapabilities supportsDisplayingFaceTimeAudioCalls];
+  if ((v3 & 1) != 0 || (v3 = +[TUCallCapabilities supportsDisplayingFaceTimeVideoCalls], v3))
   {
     if (qword_1006ACB58 != -1)
     {
@@ -90,18 +91,18 @@
 
     if (qword_1006ACB50)
     {
-      v3 = +[NSNotificationCenter defaultCenter];
-      [v3 addObserver:self selector:"daemonConnected:" name:qword_1006ACB50 object:0];
+      v4 = +[NSNotificationCenter defaultCenter];
+      [v4 addObserver:self selector:"daemonConnected:" name:qword_1006ACB50 object:0];
     }
 
     else
     {
-      v3 = sub_100004778();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+      v4 = sub_100004778(v3);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
-        v19 = 138412290;
-        v20 = @"IMDaemonDidConnectNotification";
-        _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "[WARN] Could not weak link notification string '%@'. Not observing notifications for it.", &v19, 0xCu);
+        v29 = 138412290;
+        v30 = @"IMDaemonDidConnectNotification";
+        _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "[WARN] Could not weak link notification string '%@'. Not observing notifications for it.", &v29, 0xCu);
       }
     }
 
@@ -112,18 +113,18 @@
 
     if (qword_1006ACB60)
     {
-      v4 = +[NSNotificationCenter defaultCenter];
-      [v4 addObserver:self selector:"handleChatStateChanged:" name:qword_1006ACB60 object:0];
+      v6 = +[NSNotificationCenter defaultCenter];
+      [v6 addObserver:self selector:"handleChatStateChanged:" name:qword_1006ACB60 object:0];
     }
 
     else
     {
-      v4 = sub_100004778();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      v6 = sub_100004778(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        v19 = 138412290;
-        v20 = @"IMAVChatStateChangedNotification";
-        _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "[WARN] Could not weak link notification string '%@'. Not observing notifications for it.", &v19, 0xCu);
+        v29 = 138412290;
+        v30 = @"IMAVChatStateChangedNotification";
+        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "[WARN] Could not weak link notification string '%@'. Not observing notifications for it.", &v29, 0xCu);
       }
     }
 
@@ -134,18 +135,18 @@
 
     if (qword_1006ACB70)
     {
-      v5 = +[NSNotificationCenter defaultCenter];
-      [v5 addObserver:self selector:"handleChatFirstRemoteFrameArrived:" name:qword_1006ACB70 object:0];
+      v8 = +[NSNotificationCenter defaultCenter];
+      [v8 addObserver:self selector:"handleChatFirstRemoteFrameArrived:" name:qword_1006ACB70 object:0];
     }
 
     else
     {
-      v5 = sub_100004778();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v8 = sub_100004778(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v19 = 138412290;
-        v20 = @"IMAVChatParticipantReceivedFirstFrameNotification";
-        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "[WARN] Could not weak link notification string '%@'. Not observing notifications for it.", &v19, 0xCu);
+        v29 = 138412290;
+        v30 = @"IMAVChatParticipantReceivedFirstFrameNotification";
+        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "[WARN] Could not weak link notification string '%@'. Not observing notifications for it.", &v29, 0xCu);
       }
     }
 
@@ -156,18 +157,18 @@
 
     if (qword_1006ACB80)
     {
-      v6 = +[NSNotificationCenter defaultCenter];
-      [v6 addObserver:self selector:"handleChatInvitationSent:" name:qword_1006ACB80 object:0];
+      v10 = +[NSNotificationCenter defaultCenter];
+      [v10 addObserver:self selector:"handleChatInvitationSent:" name:qword_1006ACB80 object:0];
     }
 
     else
     {
-      v6 = sub_100004778();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v10 = sub_100004778(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v19 = 138412290;
-        v20 = @"IMAVChatParticipantInvitationDeliveredNotification";
-        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "[WARN] Could not weak link notification string '%@'. Not observing notifications for it.", &v19, 0xCu);
+        v29 = 138412290;
+        v30 = @"IMAVChatParticipantInvitationDeliveredNotification";
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "[WARN] Could not weak link notification string '%@'. Not observing notifications for it.", &v29, 0xCu);
       }
     }
 
@@ -178,18 +179,18 @@
 
     if (qword_1006ACB90)
     {
-      v7 = +[NSNotificationCenter defaultCenter];
-      [v7 addObserver:self selector:"handleChatCallInfoChangedNotification:" name:qword_1006ACB90 object:0];
+      v12 = +[NSNotificationCenter defaultCenter];
+      [v12 addObserver:self selector:"handleChatCallInfoChangedNotification:" name:qword_1006ACB90 object:0];
     }
 
     else
     {
-      v7 = sub_100004778();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v12 = sub_100004778(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v19 = 138412290;
-        v20 = @"IMAVChatParticipantCallInfoChangedNotification";
-        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "[WARN] Could not weak link notification string '%@'. Not observing notifications for it.", &v19, 0xCu);
+        v29 = 138412290;
+        v30 = @"IMAVChatParticipantCallInfoChangedNotification";
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "[WARN] Could not weak link notification string '%@'. Not observing notifications for it.", &v29, 0xCu);
       }
     }
 
@@ -200,18 +201,18 @@
 
     if (qword_1006ACBA0)
     {
-      v8 = +[NSNotificationCenter defaultCenter];
-      [v8 addObserver:self selector:"handleChatConferenceIDChangedNotification:" name:qword_1006ACBA0 object:0];
+      v14 = +[NSNotificationCenter defaultCenter];
+      [v14 addObserver:self selector:"handleChatConferenceIDChangedNotification:" name:qword_1006ACBA0 object:0];
     }
 
     else
     {
-      v8 = sub_100004778();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v14 = sub_100004778(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        v19 = 138412290;
-        v20 = @"IMAVChatConferenceIDChangedNotification";
-        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "[WARN] Could not weak link notification string '%@'. Not observing notifications for it.", &v19, 0xCu);
+        v29 = 138412290;
+        v30 = @"IMAVChatConferenceIDChangedNotification";
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "[WARN] Could not weak link notification string '%@'. Not observing notifications for it.", &v29, 0xCu);
       }
     }
 
@@ -222,18 +223,18 @@
 
     if (qword_1006ACBB0)
     {
-      v9 = +[NSNotificationCenter defaultCenter];
-      [v9 addObserver:self selector:"handleChatConferenceMetadataUpdated:" name:qword_1006ACBB0 object:0];
+      v16 = +[NSNotificationCenter defaultCenter];
+      [v16 addObserver:self selector:"handleChatConferenceMetadataUpdated:" name:qword_1006ACBB0 object:0];
     }
 
     else
     {
-      v9 = sub_100004778();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v16 = sub_100004778(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        v19 = 138412290;
-        v20 = @"IMAVChatConferenceMetadataUpdatedNotification";
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "[WARN] Could not weak link notification string '%@'. Not observing notifications for it.", &v19, 0xCu);
+        v29 = 138412290;
+        v30 = @"IMAVChatConferenceMetadataUpdatedNotification";
+        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "[WARN] Could not weak link notification string '%@'. Not observing notifications for it.", &v29, 0xCu);
       }
     }
 
@@ -244,18 +245,18 @@
 
     if (qword_1006ACBC0)
     {
-      v10 = +[NSNotificationCenter defaultCenter];
-      [v10 addObserver:self selector:"handleChatMayRequireBreakBeforeMakeChanged:" name:qword_1006ACBC0 object:0];
+      v18 = +[NSNotificationCenter defaultCenter];
+      [v18 addObserver:self selector:"handleChatMayRequireBreakBeforeMakeChanged:" name:qword_1006ACBC0 object:0];
     }
 
     else
     {
-      v10 = sub_100004778();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v18 = sub_100004778(v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
-        v19 = 138412290;
-        v20 = @"IMAVChatMayRequireBreakBeforeMakeChangedNotification";
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "[WARN] Could not weak link notification string '%@'. Not observing notifications for it.", &v19, 0xCu);
+        v29 = 138412290;
+        v30 = @"IMAVChatMayRequireBreakBeforeMakeChangedNotification";
+        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "[WARN] Could not weak link notification string '%@'. Not observing notifications for it.", &v29, 0xCu);
       }
     }
 
@@ -266,18 +267,18 @@
 
     if (qword_1006ACBD0)
     {
-      v11 = +[NSNotificationCenter defaultCenter];
-      [v11 addObserver:self selector:"handleChatInFrequencyChangedNotification:" name:qword_1006ACBD0 object:0];
+      v20 = +[NSNotificationCenter defaultCenter];
+      [v20 addObserver:self selector:"handleChatInFrequencyChangedNotification:" name:qword_1006ACBD0 object:0];
     }
 
     else
     {
-      v11 = sub_100004778();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v20 = sub_100004778(v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
-        v19 = 138412290;
-        v20 = @"IMAVChatParticipantInFrequencyChangedNotification";
-        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "[WARN] Could not weak link notification string '%@'. Not observing notifications for it.", &v19, 0xCu);
+        v29 = 138412290;
+        v30 = @"IMAVChatParticipantInFrequencyChangedNotification";
+        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "[WARN] Could not weak link notification string '%@'. Not observing notifications for it.", &v29, 0xCu);
       }
     }
 
@@ -288,35 +289,35 @@
 
     if (qword_1006ACBE0)
     {
-      v12 = +[NSNotificationCenter defaultCenter];
-      [v12 addObserver:self selector:"handleChatOutFrequencyChangedNotification:" name:qword_1006ACBE0 object:0];
+      v22 = +[NSNotificationCenter defaultCenter];
+      [v22 addObserver:self selector:"handleChatOutFrequencyChangedNotification:" name:qword_1006ACBE0 object:0];
     }
 
     else
     {
-      v12 = sub_100004778();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v22 = sub_100004778(v21);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
-        v19 = 138412290;
-        v20 = @"IMAVChatParticipantOutFrequencyChangedNotification";
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "[WARN] Could not weak link notification string '%@'. Not observing notifications for it.", &v19, 0xCu);
+        v29 = 138412290;
+        v30 = @"IMAVChatParticipantOutFrequencyChangedNotification";
+        _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "[WARN] Could not weak link notification string '%@'. Not observing notifications for it.", &v29, 0xCu);
       }
     }
 
-    v13 = CUTWeakLinkClass();
-    sharedInstance = [v13 sharedInstance];
+    v23 = CUTWeakLinkClass();
+    sharedInstance = [v23 sharedInstance];
     [sharedInstance addDelegate:self queue:&_dispatch_main_q];
 
-    sharedInstance2 = [v13 sharedInstance];
+    sharedInstance2 = [v23 sharedInstance];
     [sharedInstance2 setIMAVCapabilities:25 toCaps:25];
 
-    sharedInstance3 = [v13 sharedInstance];
+    sharedInstance3 = [v23 sharedInstance];
     [sharedInstance3 setupIMAVController];
 
-    sharedInstance4 = [v13 sharedInstance];
+    sharedInstance4 = [v23 sharedInstance];
     [sharedInstance4 setBlockIncomingInvitationsDuringCall:0];
 
-    sharedInstance5 = [v13 sharedInstance];
+    sharedInstance5 = [v23 sharedInstance];
     [sharedInstance5 setBlockMultipleIncomingInvitations:1];
 
     [(CSDFaceTimeIMAVProviderDelegate *)self _requestPendingInvites];
@@ -493,7 +494,7 @@ LABEL_10:
 
   else
   {
-    v10 = sub_100004778();
+    v10 = sub_100004778(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
@@ -610,24 +611,25 @@ LABEL_10:
       v29 = 0u;
       v30 = 0u;
       v18 = v17;
-      v19 = [v18 countByEnumeratingWithState:&v29 objects:v35 count:16];
-      if (v19)
+      isComplete = [v18 countByEnumeratingWithState:&v29 objects:v35 count:16];
+      if (isComplete)
       {
-        v20 = v19;
+        v20 = isComplete;
         v27 = v17;
         v28 = chatCopy;
         v21 = *v30;
         do
         {
-          for (i = 0; i != v20; i = i + 1)
+          v22 = 0;
+          do
           {
             if (*v30 != v21)
             {
               objc_enumerationMutation(v18);
             }
 
-            v23 = *(*(&v29 + 1) + 8 * i);
-            v24 = sub_100004778();
+            v23 = *(*(&v29 + 1) + 8 * v22);
+            v24 = sub_100004778(isComplete);
             if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
@@ -635,7 +637,8 @@ LABEL_10:
               _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Legacy chat with matching UUID connected; attempting to fulfill pending answer call action %@", buf, 0xCu);
             }
 
-            if (([v23 isComplete] & 1) == 0)
+            isComplete = [v23 isComplete];
+            if ((isComplete & 1) == 0)
             {
               dateConnected2 = [v12 dateConnected];
               if (dateConnected2)
@@ -646,7 +649,7 @@ LABEL_10:
 
               else
               {
-                dateConnected3 = sub_100004778();
+                dateConnected3 = sub_100004778(0);
                 if (os_log_type_enabled(dateConnected3, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 138412290;
@@ -655,12 +658,16 @@ LABEL_10:
                 }
               }
             }
+
+            ++v22;
           }
 
-          v20 = [v18 countByEnumeratingWithState:&v29 objects:v35 count:16];
+          while (v20 != v22);
+          isComplete = [v18 countByEnumeratingWithState:&v29 objects:v35 count:16];
+          v20 = isComplete;
         }
 
-        while (v20);
+        while (isComplete);
         chatCopy = v28;
         v17 = v27;
       }
@@ -668,7 +675,7 @@ LABEL_10:
 
     else
     {
-      v18 = sub_100004778();
+      v18 = sub_100004778(0);
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
@@ -698,22 +705,23 @@ LABEL_10:
   v19 = 0u;
   v20 = 0u;
   v12 = v11;
-  v13 = [v12 countByEnumeratingWithState:&v19 objects:v25 count:16];
-  if (v13)
+  isComplete = [v12 countByEnumeratingWithState:&v19 objects:v25 count:16];
+  if (isComplete)
   {
-    v14 = v13;
+    v14 = isComplete;
     v15 = *v20;
     do
     {
-      for (i = 0; i != v14; i = i + 1)
+      v16 = 0;
+      do
       {
         if (*v20 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = *(*(&v19 + 1) + 8 * i);
-        v18 = sub_100004778();
+        v17 = *(*(&v19 + 1) + 8 * v16);
+        v18 = sub_100004778(isComplete);
         if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
@@ -721,22 +729,27 @@ LABEL_10:
           _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Failing answer call action for chat because it ended before connecting: %@", buf, 0xCu);
         }
 
-        if (([v17 isComplete] & 1) == 0)
+        isComplete = [v17 isComplete];
+        if ((isComplete & 1) == 0)
         {
-          [v17 fail];
+          isComplete = [v17 fail];
         }
+
+        ++v16;
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v19 objects:v25 count:16];
+      while (v14 != v16);
+      isComplete = [v12 countByEnumeratingWithState:&v19 objects:v25 count:16];
+      v14 = isComplete;
     }
 
-    while (v14);
+    while (isComplete);
   }
 }
 
 - (void)daemonConnected:(id)connected
 {
-  v4 = sub_100004778();
+  v4 = sub_100004778(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -754,7 +767,7 @@ LABEL_10:
 - (void)handleChatStateChanged:(id)changed
 {
   changedCopy = changed;
-  v5 = sub_100004778();
+  v5 = sub_100004778(changedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -1143,7 +1156,7 @@ LABEL_80:
 - (void)handleChatFirstRemoteFrameArrived:(id)arrived
 {
   object = [arrived object];
-  v5 = sub_100004778();
+  v5 = sub_100004778(object);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -1165,7 +1178,7 @@ LABEL_80:
 - (void)handleChatInvitationSent:(id)sent
 {
   object = [sent object];
-  v5 = sub_100004778();
+  v5 = sub_100004778(object);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -1187,7 +1200,7 @@ LABEL_80:
 - (void)handleChatCallInfoChangedNotification:(id)notification
 {
   object = [notification object];
-  v5 = sub_100004778();
+  v5 = sub_100004778(object);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -1213,7 +1226,7 @@ LABEL_80:
 {
   notificationCopy = notification;
   object = [notificationCopy object];
-  v6 = sub_100004778();
+  v6 = sub_100004778(object);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -1238,7 +1251,7 @@ LABEL_80:
 {
   updatedCopy = updated;
   object = [updatedCopy object];
-  v6 = sub_100004778();
+  v6 = sub_100004778(object);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -1260,7 +1273,7 @@ LABEL_80:
 - (void)handleChatMayRequireBreakBeforeMakeChanged:(id)changed
 {
   changedCopy = changed;
-  v5 = sub_100004778();
+  v5 = sub_100004778(changedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -1311,7 +1324,7 @@ LABEL_80:
 - (void)invitedToIMAVChat:(id)chat
 {
   chatCopy = chat;
-  v5 = sub_100004778();
+  v5 = sub_100004778(chatCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -1334,7 +1347,7 @@ LABEL_80:
 - (void)receivedProtectedInitiate:(id)initiate
 {
   initiateCopy = initiate;
-  v5 = sub_100004778();
+  v5 = sub_100004778(initiateCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -1357,7 +1370,7 @@ LABEL_80:
 - (void)providerDidBegin:(id)begin
 {
   beginCopy = begin;
-  v5 = sub_100004778();
+  v5 = sub_100004778(beginCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -1377,7 +1390,7 @@ LABEL_80:
 - (void)providerDidReset:(id)reset
 {
   resetCopy = reset;
-  v5 = sub_100004778();
+  v5 = sub_100004778(resetCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -1429,21 +1442,22 @@ LABEL_80:
 - (void)provider:(id)provider performAnswerCallAction:(id)action
 {
   actionCopy = action;
-  v6 = sub_100004778();
+  v6 = sub_100004778(actionCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v14 = actionCopy;
+    v15 = actionCopy;
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "action: %@", buf, 0xCu);
   }
 
   callUUID = [actionCopy callUUID];
   v8 = [(CSDFaceTimeIMAVProviderDelegate *)self chatWithUUID:callUUID];
 
-  if ([v8 state] == 4)
+  state = [v8 state];
+  if (state == 4)
   {
-    v9 = sub_100004778();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = sub_100004778(state);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_100471DC4();
     }
@@ -1461,8 +1475,8 @@ LABEL_80:
     block[2] = sub_100083328;
     block[3] = &unk_100619E58;
     block[4] = self;
-    v11 = actionCopy;
-    v12 = v8;
+    v12 = actionCopy;
+    v13 = v8;
     dispatch_async(&_dispatch_main_q, block);
   }
 }
@@ -1470,31 +1484,31 @@ LABEL_80:
 - (void)provider:(id)provider performEndCallAction:(id)action
 {
   actionCopy = action;
-  v6 = sub_100004778();
+  v6 = sub_100004778(actionCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v14 = actionCopy;
+    v15 = actionCopy;
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "action: %@", buf, 0xCu);
   }
 
   callUUID = [actionCopy callUUID];
   v8 = [(CSDFaceTimeIMAVProviderDelegate *)self chatWithUUID:callUUID];
 
-  v9 = sub_100004778();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = sub_100004778(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v14 = v8;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Calling endChat on chat %@", buf, 0xCu);
+    v15 = v8;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Calling endChat on chat %@", buf, 0xCu);
   }
 
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_1000835D8;
   block[3] = &unk_100619D38;
-  v10 = v8;
-  v12 = v10;
+  v11 = v8;
+  v13 = v11;
   dispatch_async(&_dispatch_main_q, block);
   if (([actionCopy isComplete] & 1) == 0)
   {
@@ -1505,26 +1519,27 @@ LABEL_80:
 - (void)provider:(id)provider performSetHeldCallAction:(id)action
 {
   actionCopy = action;
-  v6 = sub_100004778();
+  v6 = sub_100004778(actionCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v17 = actionCopy;
+    v18 = actionCopy;
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "action: %@", buf, 0xCu);
   }
 
   callUUID = [actionCopy callUUID];
   v8 = [(CSDFaceTimeIMAVProviderDelegate *)self chatWithUUID:callUUID];
 
-  if ([v8 state] == 4)
+  state = [v8 state];
+  if (state == 4)
   {
-    v10 = _NSConcreteStackBlock;
-    v11 = 3221225472;
-    v12 = sub_1000837A0;
-    v13 = &unk_100619EA8;
-    v15 = [actionCopy isOnHold] ^ 1;
-    v14 = v8;
-    dispatch_async(&_dispatch_main_q, &v10);
+    v11 = _NSConcreteStackBlock;
+    v12 = 3221225472;
+    v13 = sub_1000837A0;
+    v14 = &unk_100619EA8;
+    v16 = [actionCopy isOnHold] ^ 1;
+    v15 = v8;
+    dispatch_async(&_dispatch_main_q, &v11);
     if (([actionCopy isComplete] & 1) == 0)
     {
       [actionCopy fulfill];
@@ -1533,8 +1548,8 @@ LABEL_80:
 
   else
   {
-    v9 = sub_100004778();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = sub_100004778(state);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_100471E2C();
     }
@@ -1549,7 +1564,7 @@ LABEL_80:
 - (void)provider:(id)provider performSetSendingVideoCallAction:(id)action
 {
   actionCopy = action;
-  v6 = sub_100004778();
+  v6 = sub_100004778(actionCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -1578,7 +1593,7 @@ LABEL_80:
 - (void)provider:(id)provider performSetSharingScreenCallAction:(id)action
 {
   actionCopy = action;
-  v5 = sub_100004778();
+  v5 = sub_100004778(actionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412290;
@@ -1592,7 +1607,7 @@ LABEL_80:
 - (void)provider:(id)provider performEnableVideoCallAction:(id)action
 {
   actionCopy = action;
-  v5 = sub_100004778();
+  v5 = sub_100004778(actionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412290;
@@ -1606,7 +1621,7 @@ LABEL_80:
 - (void)provider:(id)provider performSetVideoPresentationSizeCallAction:(id)action
 {
   actionCopy = action;
-  v6 = sub_100004778();
+  v6 = sub_100004778(actionCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -1635,7 +1650,7 @@ LABEL_80:
 - (void)provider:(id)provider performSetVideoPresentationStateCallAction:(id)action
 {
   actionCopy = action;
-  v6 = sub_100004778();
+  v6 = sub_100004778(actionCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -1665,7 +1680,7 @@ LABEL_80:
 - (void)provider:(id)provider performSetRelayingCallAction:(id)action
 {
   actionCopy = action;
-  v6 = sub_100004778();
+  v6 = sub_100004778(actionCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -1694,7 +1709,7 @@ LABEL_80:
 - (void)provider:(id)provider performSetMutedCallAction:(id)action
 {
   actionCopy = action;
-  v6 = sub_100004778();
+  v6 = sub_100004778(actionCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;

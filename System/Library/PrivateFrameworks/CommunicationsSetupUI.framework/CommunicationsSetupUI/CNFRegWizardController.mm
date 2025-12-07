@@ -4,6 +4,9 @@
 - (CNFRegWizardController)initWithRegController:(id)controller;
 - (CNFRegWizardController)initWithServiceTypes:(int64_t)types;
 - (id)controllerClassesToShow:(BOOL)show;
+- (id)controllersToShow:(BOOL)show;
+- (id)popViewControllerAnimated:(BOOL)animated;
+- (id)popViewControllerWithTransition:(int)transition;
 - (int)_firstRunState:(id)state;
 - (void)_applicationDidEnterBackground;
 - (void)_checkRestrictions;
@@ -17,6 +20,9 @@
 - (void)applicationDidResume;
 - (void)applicationWillSuspend;
 - (void)dealloc;
+- (void)dismissFinished:(BOOL)finished;
+- (void)pushViewController:(id)controller animated:(BOOL)animated;
+- (void)pushViewController:(id)controller transition:(int)transition;
 - (void)setAllowCancel:(BOOL)cancel;
 - (void)setAllowSMS:(BOOL)s;
 - (void)setCanShowDisabledScreen:(BOOL)screen;
@@ -27,8 +33,13 @@
 - (void)setShouldTerminateInBackground:(BOOL)background;
 - (void)setShowSplashOnSignin:(BOOL)signin;
 - (void)setSkipReloadOnNextViewWillAppear:(BOOL)appear;
+- (void)setViewControllers:(id)controllers animated:(BOOL)animated;
 - (void)setupController;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation CNFRegWizardController
@@ -204,7 +215,7 @@ void __44__CNFRegWizardController__checkRestrictions__block_invoke(uint64_t a1)
   if (!isServiceSupported)
   {
     v10 = 0;
-    goto LABEL_22;
+    goto LABEL_17;
   }
 
   regController2 = [(CNFRegWizardController *)self regController];
@@ -214,55 +225,35 @@ void __44__CNFRegWizardController__checkRestrictions__block_invoke(uint64_t a1)
   v10 = objc_alloc_init(MEMORY[0x277CBEB18]);
   if (v9 < 4 || (-[CNFRegWizardController regController](self, "regController"), v11 = objc_claimAutoreleasedReturnValue(), v12 = [v11 hasFailedLogin], v11, v12))
   {
-    if ((*&self->_wizardFlags & 0x40) != 0)
-    {
-      v13 = off_278DE7338;
-    }
-
-    else
-    {
-      v13 = off_278DE7320;
-    }
-
-    v14 = *v13;
-    v15 = objc_opt_class();
-    if (v9 == 2)
-    {
-      v16 = off_278DE7310;
-    }
-
-    else
+    v13 = objc_opt_class();
+    if (v9 != 2)
     {
       if (v9 != 3)
       {
         canShowSplashScreen = [(CNFRegWizardController *)self canShowSplashScreen];
-        v18 = v15;
+        v15 = v13;
         if (!canShowSplashScreen)
         {
-LABEL_19:
-          [v10 addObject:v18];
-          goto LABEL_20;
+LABEL_14:
+          [v10 addObject:v15];
+          goto LABEL_15;
         }
 
-        v16 = off_278DE7330;
-LABEL_18:
-        v19 = *v16;
-        v18 = objc_opt_class();
-        goto LABEL_19;
+LABEL_13:
+        v15 = objc_opt_class();
+        goto LABEL_14;
       }
 
       if (!show)
       {
-LABEL_20:
+LABEL_15:
 
-        goto LABEL_22;
+        goto LABEL_17;
       }
-
-      v16 = off_278DE7308;
     }
 
-    [v10 addObject:v15];
-    goto LABEL_18;
+    [v10 addObject:v13];
+    goto LABEL_13;
   }
 
   if (v9 == 5)
@@ -271,14 +262,105 @@ LABEL_20:
   }
 
   [v10 addObject:objc_opt_class()];
-LABEL_22:
+LABEL_17:
 
   return v10;
 }
 
+- (id)controllersToShow:(BOOL)show
+{
+  showCopy = show;
+  regController = [(CNFRegWizardController *)self regController];
+  isServiceSupported = [regController isServiceSupported];
+
+  if (isServiceSupported)
+  {
+    v7 = OSLogHandleForIDSCategory();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_243BE5000, v7, OS_LOG_TYPE_DEFAULT, "Getting controllers to show", buf, 2u);
+    }
+
+    if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
+    {
+      IMLogString();
+    }
+
+    v8 = [(CNFRegWizardController *)self controllerClassesToShow:showCopy];
+    v9 = v8;
+    if ((*&self->_wizardFlags & 4) == 0 && [v8 count])
+    {
+      v10 = MEMORY[0x277CBEA60];
+      v11 = [v9 objectAtIndex:0];
+      v12 = [v10 arrayWithObject:v11];
+
+      v9 = v12;
+    }
+
+    if (v9 && [v9 count])
+    {
+      v13 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v9, "count")}];
+      if ([v9 count])
+      {
+        v14 = 0;
+        do
+        {
+          v15 = [v9 objectAtIndex:v14];
+          regController2 = [(CNFRegWizardController *)self regController];
+          appleIDAccounts = [regController2 appleIDAccounts];
+
+          if ([appleIDAccounts count])
+          {
+            v18 = [appleIDAccounts objectAtIndex:0];
+          }
+
+          else
+          {
+            v18 = 0;
+          }
+
+          v19 = [v15 alloc];
+          regController3 = [(CNFRegWizardController *)self regController];
+          v21 = [v19 initWithRegController:regController3 account:v18];
+
+          if (objc_opt_respondsToSelector())
+          {
+            [v21 setHideLearnMoreButton:(*&self->_wizardFlags >> 5) & 1];
+          }
+
+          if (!v14 && (*&self->_wizardFlags & 0x100) != 0)
+          {
+            v22 = [objc_alloc(MEMORY[0x277D751E0]) initWithBarButtonSystemItem:1 target:self action:sel__doCancel];
+            [v21 setCustomLeftButton:v22];
+          }
+
+          [v13 addObject:v21];
+
+          ++v14;
+        }
+
+        while (v14 < [v9 count]);
+      }
+    }
+
+    else
+    {
+      v13 = 0;
+    }
+  }
+
+  else
+  {
+    v13 = 0;
+  }
+
+  return v13;
+}
+
 - (BOOL)shouldShowFirstRunController
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v3 = OSLogHandleForIDSCategory();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -312,7 +394,7 @@ LABEL_18:
     IMLogString();
 LABEL_19:
     v10 = 0;
-    goto LABEL_41;
+    return v10 & 1;
   }
 
   mEMORY[0x277D07DB0] = [MEMORY[0x277D07DB0] sharedInstance];
@@ -372,13 +454,13 @@ LABEL_19:
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    LODWORD(v28) = v17;
+    LODWORD(v27) = v17;
     _os_log_impl(&dword_243BE5000, v18, OS_LOG_TYPE_DEFAULT, "State: %d", buf, 8u);
   }
 
   if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
   {
-    v26 = v17;
+    v25 = v17;
     IMLogString();
   }
 
@@ -397,7 +479,7 @@ LABEL_19:
     }
 
     *buf = 138412290;
-    v28 = v23;
+    v27 = v23;
     _os_log_impl(&dword_243BE5000, v22, OS_LOG_TYPE_DEFAULT, "Should show first run controller:%@", buf, 0xCu);
   }
 
@@ -407,8 +489,6 @@ LABEL_19:
   }
 
   CNFRegLogOutdent();
-LABEL_41:
-  v24 = *MEMORY[0x277D85DE8];
   return v10 & 1;
 }
 
@@ -437,7 +517,7 @@ LABEL_41:
 
 - (void)setupController
 {
-  v72 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   v2 = OSLogHandleForIDSCategory();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
@@ -470,20 +550,20 @@ LABEL_41:
       break;
   }
 
-  v50 = CNFRegGlobalAppearanceController();
-  navigationBarTintColor = [v50 navigationBarTintColor];
+  v49 = CNFRegGlobalAppearanceController();
+  navigationBarTintColor = [v49 navigationBarTintColor];
   navigationBar3 = [(CNFRegWizardController *)self navigationBar];
   [navigationBar3 setBarTintColor:navigationBarTintColor];
 
-  navigationBarTranslucent = [v50 navigationBarTranslucent];
+  navigationBarTranslucent = [v49 navigationBarTranslucent];
   navigationBar4 = [(CNFRegWizardController *)self navigationBar];
   [navigationBar4 setTranslucent:navigationBarTranslucent];
 
-  navigationBarHidesShadow = [v50 navigationBarHidesShadow];
+  navigationBarHidesShadow = [v49 navigationBarHidesShadow];
   navigationBar5 = [(CNFRegWizardController *)self navigationBar];
   [navigationBar5 _setHidesShadow:navigationBarHidesShadow];
 
-  navigationBarBackgroundImage = [v50 navigationBarBackgroundImage];
+  navigationBarBackgroundImage = [v49 navigationBarBackgroundImage];
   if (navigationBarBackgroundImage)
   {
     navigationBar6 = [(CNFRegWizardController *)self navigationBar];
@@ -513,41 +593,41 @@ LABEL_41:
     IMLogString();
   }
 
-  v65 = 0u;
-  v66 = 0u;
-  v63 = 0u;
   v64 = 0u;
+  v65 = 0u;
+  v62 = 0u;
+  v63 = 0u;
   obj = v13;
-  v18 = [obj countByEnumeratingWithState:&v63 objects:v71 count:16];
+  v18 = [obj countByEnumeratingWithState:&v62 objects:v70 count:16];
   if (v18)
   {
-    v19 = *v64;
+    v19 = *v63;
     do
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v64 != v19)
+        if (*v63 != v19)
         {
           objc_enumerationMutation(obj);
         }
 
-        v21 = *(*(&v63 + 1) + 8 * i);
+        v21 = *(*(&v62 + 1) + 8 * i);
         v22 = OSLogHandleForIDSCategory();
         if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v70 = v21;
+          v69 = v21;
           _os_log_impl(&dword_243BE5000, v22, OS_LOG_TYPE_DEFAULT, "    => %@", buf, 0xCu);
         }
 
         if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
         {
-          v48 = v21;
+          v47 = v21;
           IMLogString();
         }
       }
 
-      v18 = [obj countByEnumeratingWithState:&v63 objects:v71 count:16];
+      v18 = [obj countByEnumeratingWithState:&v62 objects:v70 count:16];
     }
 
     while (v18);
@@ -565,50 +645,50 @@ LABEL_41:
     IMLogString();
   }
 
-  v61 = 0u;
-  v62 = 0u;
-  v59 = 0u;
   v60 = 0u;
-  v52 = viewControllers;
-  v24 = [v52 countByEnumeratingWithState:&v59 objects:v68 count:16];
+  v61 = 0u;
+  v58 = 0u;
+  v59 = 0u;
+  v51 = viewControllers;
+  v24 = [v51 countByEnumeratingWithState:&v58 objects:v67 count:16];
   if (v24)
   {
-    v25 = *v60;
+    v25 = *v59;
     do
     {
       for (j = 0; j != v24; ++j)
       {
-        if (*v60 != v25)
+        if (*v59 != v25)
         {
-          objc_enumerationMutation(v52);
+          objc_enumerationMutation(v51);
         }
 
-        v27 = *(*(&v59 + 1) + 8 * j);
+        v27 = *(*(&v58 + 1) + 8 * j);
         v28 = OSLogHandleForIDSCategory();
         if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v70 = v27;
+          v69 = v27;
           _os_log_impl(&dword_243BE5000, v28, OS_LOG_TYPE_DEFAULT, "    => %@", buf, 0xCu);
         }
 
         if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
         {
-          v48 = v27;
+          v47 = v27;
           IMLogString();
         }
       }
 
-      v24 = [v52 countByEnumeratingWithState:&v59 objects:v68 count:16];
+      v24 = [v51 countByEnumeratingWithState:&v58 objects:v67 count:16];
     }
 
     while (v24);
   }
 
-  if ([v52 count])
+  if ([v51 count])
   {
     v29 = [obj count];
-    if (v29 == [v52 count])
+    if (v29 == [v51 count])
     {
       if (![obj count])
       {
@@ -618,7 +698,7 @@ LABEL_41:
       v30 = 0;
       while (1)
       {
-        v31 = [v52 objectAtIndex:{v30, v48}];
+        v31 = [v51 objectAtIndex:{v30, v47}];
         v32 = [obj objectAtIndex:v30];
         isKindOfClass = objc_opt_isKindOfClass();
 
@@ -652,45 +732,45 @@ LABEL_41:
   {
     v36 = (*&self->_wizardFlags >> 2) & 1;
     *buf = 67109120;
-    LODWORD(v70) = v36;
+    LODWORD(v69) = v36;
     _os_log_impl(&dword_243BE5000, v35, OS_LOG_TYPE_DEFAULT, "  => Can start nested: %d", buf, 8u);
   }
 
   if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
   {
-    v48 = (*&self->_wizardFlags >> 2) & 1;
+    v47 = (*&self->_wizardFlags >> 2) & 1;
     IMLogString();
   }
 
-  v37 = [(CNFRegWizardController *)self controllersToShow:1, v48];
+  v37 = [(CNFRegWizardController *)self controllersToShow:1, v47];
   v38 = v37;
   if ((*&self->_wizardFlags & 4) != 0)
   {
-    v57 = 0u;
-    v58 = 0u;
-    v55 = 0u;
     v56 = 0u;
+    v57 = 0u;
+    v54 = 0u;
+    v55 = 0u;
     v42 = v37;
-    v43 = [v42 countByEnumeratingWithState:&v55 objects:v67 count:16];
+    v43 = [v42 countByEnumeratingWithState:&v54 objects:v66 count:16];
     if (v43)
     {
-      v44 = *v56;
+      v44 = *v55;
       do
       {
         for (k = 0; k != v43; ++k)
         {
-          if (*v56 != v44)
+          if (*v55 != v44)
           {
             objc_enumerationMutation(v42);
           }
 
-          v46 = *(*(&v55 + 1) + 8 * k);
+          v46 = *(*(&v54 + 1) + 8 * k);
           [v46 setRootController:self];
           [v46 setParentController:self];
           [v46 setDelegate:self];
         }
 
-        v43 = [v42 countByEnumeratingWithState:&v55 objects:v67 count:16];
+        v43 = [v42 countByEnumeratingWithState:&v54 objects:v66 count:16];
       }
 
       while (v43);
@@ -714,7 +794,6 @@ LABEL_41:
   }
 
 LABEL_81:
-  v47 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateNavigationBarTitle
@@ -763,6 +842,129 @@ LABEL_81:
   }
 
   [(CNFRegWizardController *)self _updateNavigationBarTitle];
+}
+
+- (void)setViewControllers:(id)controllers animated:(BOOL)animated
+{
+  v5.receiver = self;
+  v5.super_class = CNFRegWizardController;
+  [(PSRootController *)&v5 setViewControllers:controllers animated:animated];
+  [(CNFRegWizardController *)self _updateNavigationBarHiddenForCurrentState];
+}
+
+- (id)popViewControllerAnimated:(BOOL)animated
+{
+  animatedCopy = animated;
+  [(CNFRegWizardController *)self _updateNavigationBarHiddenForPop];
+  v7.receiver = self;
+  v7.super_class = CNFRegWizardController;
+  v5 = [(PSRootController *)&v7 popViewControllerAnimated:animatedCopy];
+
+  return v5;
+}
+
+- (id)popViewControllerWithTransition:(int)transition
+{
+  v3 = *&transition;
+  [(CNFRegWizardController *)self _updateNavigationBarHiddenForPop];
+  v7.receiver = self;
+  v7.super_class = CNFRegWizardController;
+  v5 = [(CNFRegWizardController *)&v7 popViewControllerWithTransition:v3];
+
+  return v5;
+}
+
+- (void)pushViewController:(id)controller animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  controllerCopy = controller;
+  [(CNFRegWizardController *)self _updateNavigationBarHiddenForPush];
+  v7.receiver = self;
+  v7.super_class = CNFRegWizardController;
+  [(CNFRegWizardController *)&v7 pushViewController:controllerCopy transition:animatedCopy];
+}
+
+- (void)pushViewController:(id)controller transition:(int)transition
+{
+  v4 = *&transition;
+  controllerCopy = controller;
+  [(CNFRegWizardController *)self _updateNavigationBarHiddenForPush];
+  v7.receiver = self;
+  v7.super_class = CNFRegWizardController;
+  [(CNFRegWizardController *)&v7 pushViewController:controllerCopy transition:v4];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  CNFRegSetStringTableForServiceType(self->_serviceType);
+  wizardFlags = self->_wizardFlags;
+  if ((wizardFlags & 0x80) != 0)
+  {
+    *&self->_wizardFlags = wizardFlags & 0xFF7F;
+  }
+
+  else
+  {
+    [(CNFRegWizardController *)self setupController];
+  }
+
+  if (CNFRegGlobalAppearanceStyle() == 3)
+  {
+    v6 = OSLogHandleForIDSCategory();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_243BE5000, v6, OS_LOG_TYPE_DEFAULT, "Setting bar style to black", buf, 2u);
+    }
+
+    if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
+    {
+      IMLogString();
+    }
+
+    navigationBar = [(CNFRegWizardController *)self navigationBar];
+    [navigationBar setBarStyle:1];
+  }
+
+  v8.receiver = self;
+  v8.super_class = CNFRegWizardController;
+  [(CNFRegWizardController *)&v8 viewWillAppear:appearCopy];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  IsAutomaticAppearanceEnabled = UIKeyboardIsAutomaticAppearanceEnabled();
+  *&self->_wizardFlags = *&self->_wizardFlags & 0xFFFE | IsAutomaticAppearanceEnabled ^ 1;
+  if ((IsAutomaticAppearanceEnabled & 1) == 0)
+  {
+    UIKeyboardEnableAutomaticAppearance();
+  }
+
+  [(CNFRegWizardController *)self _startListeningForResignResume];
+  v6.receiver = self;
+  v6.super_class = CNFRegWizardController;
+  [(CNFRegWizardController *)&v6 viewDidAppear:appearCopy];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = CNFRegWizardController;
+  [(PSSetupController *)&v4 viewWillDisappear:disappear];
+  [(CNFRegWizardController *)self _stopListeningForResignResume];
+  if (*&self->_wizardFlags)
+  {
+    UIKeyboardDisableAutomaticAppearance();
+  }
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v3.receiver = self;
+  v3.super_class = CNFRegWizardController;
+  [(PSSetupController *)&v3 viewDidDisappear:disappear];
 }
 
 - (void)_startListeningForResignResume
@@ -852,6 +1054,69 @@ uint64_t __56__CNFRegWizardController__startListeningForResignResume__block_invo
     mEMORY[0x277D75128] = [MEMORY[0x277D75128] sharedApplication];
     [mEMORY[0x277D75128] terminateWithSuccess];
   }
+}
+
+- (void)dismissFinished:(BOOL)finished
+{
+  finishedCopy = finished;
+  v21 = *MEMORY[0x277D85DE8];
+  firstRunDelegate = self->_firstRunDelegate;
+  if (firstRunDelegate)
+  {
+    v6 = firstRunDelegate;
+LABEL_3:
+    WeakRetained = v6;
+    goto LABEL_4;
+  }
+
+  v13 = *MEMORY[0x277D3FC70];
+  WeakRetained = objc_loadWeakRetained((&self->super.super.super.super.super.super.isa + v13));
+  if (WeakRetained)
+  {
+    v14 = objc_loadWeakRetained((&self->super.super.super.super.super.super.isa + v13));
+    v15 = [v14 conformsToProtocol:&unk_28570FA50];
+
+    if (v15)
+    {
+      v6 = objc_loadWeakRetained((&self->super.super.super.super.super.super.isa + v13));
+      goto LABEL_3;
+    }
+
+    WeakRetained = 0;
+  }
+
+LABEL_4:
+  v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  viewControllers = [(CNFRegWizardController *)self viewControllers];
+  v9 = [viewControllers countByEnumeratingWithState:&v16 objects:v20 count:16];
+  if (v9)
+  {
+    v10 = v9;
+    v11 = *v17;
+    do
+    {
+      v12 = 0;
+      do
+      {
+        if (*v17 != v11)
+        {
+          objc_enumerationMutation(viewControllers);
+        }
+
+        [*(*(&v16 + 1) + 8 * v12++) setDelegate:0];
+      }
+
+      while (v10 != v12);
+      v10 = [viewControllers countByEnumeratingWithState:&v16 objects:v20 count:16];
+    }
+
+    while (v10);
+  }
+
+  [WeakRetained firstRunControllerDidFinish:self finished:finishedCopy];
 }
 
 - (void)_doCancel

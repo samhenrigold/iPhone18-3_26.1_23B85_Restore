@@ -169,20 +169,20 @@ void __56__FPDPushConnection_listener_shouldAcceptNewConnection___block_invoke()
 
 - (void)performWithConnection:(id)connection block:(id)block
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   blockCopy = block;
   if (!blockCopy)
   {
-    v27 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[ASSERT] ‼️ %s was called with nil completion block!", "-[FPDPushConnection performWithConnection:block:]"];
-    v28 = fp_current_or_default_log();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_FAULT))
+    v26 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[ASSERT] ‼️ %s was called with nil completion block!", "-[FPDPushConnection performWithConnection:block:]"];
+    v27 = fp_current_or_default_log();
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
     {
       __103__FPDDomainExtensionBackend_startProvidingItemAtURL_readerID_readingOptions_request_completionHandler___block_invoke_2_259_cold_5();
     }
 
-    v29 = v27;
-    __assert_rtn("-[FPDPushConnection performWithConnection:block:]", "/Library/Caches/com.apple.xbs/Sources/FileProviderTools/fileproviderd/FPDPushConnection.m", 149, [v27 UTF8String]);
+    v28 = v26;
+    __assert_rtn("-[FPDPushConnection performWithConnection:block:]", "/Library/Caches/com.apple.xbs/Sources/FileProviderTools/fileproviderd/FPDPushConnection.m", 149, [v26 UTF8String]);
   }
 
   v8 = blockCopy;
@@ -213,11 +213,11 @@ LABEL_7:
       descriptor = [v12 descriptor];
       bundleIdentifierForPushes = [descriptor bundleIdentifierForPushes];
 
-      v38 = 0;
-      v39 = &v38;
-      v40 = 0x3032000000;
-      v41 = __Block_byref_object_copy__17;
-      v42 = __Block_byref_object_dispose__17;
+      v37 = 0;
+      v38 = &v37;
+      v39 = 0x3032000000;
+      v40 = __Block_byref_object_copy__17;
+      v41 = __Block_byref_object_dispose__17;
       v17 = [connectionCopy valueForEntitlement:@"aps-environment"];
       v18 = v17;
       if (v17)
@@ -230,46 +230,46 @@ LABEL_7:
         v19 = [connectionCopy valueForEntitlement:@"com.apple.developer.aps-environment"];
       }
 
-      v43 = v19;
+      v42 = v19;
 
-      if ([v39[5] isEqualToString:@"serverPreferred"])
+      if ([v38[5] isEqualToString:@"serverPreferred"])
       {
         identifier = [MEMORY[0x1E695B888] containerWithIdentifier:@"com.apple.CloudDocs"];
-        v30[0] = MEMORY[0x1E69E9820];
-        v30[1] = 3221225472;
-        v30[2] = __49__FPDPushConnection_performWithConnection_block___block_invoke;
-        v30[3] = &unk_1E83C1628;
-        v37 = &v38;
-        v31 = connectionCopy;
-        v32 = fp_bundleIdentifier;
-        v36 = v8;
-        v33 = remoteObjectProxy;
-        v34 = bundleIdentifierForPushes;
-        v35 = v12;
-        [identifier serverPreferredPushEnvironmentWithCompletionHandler:v30];
+        v29[0] = MEMORY[0x1E69E9820];
+        v29[1] = 3221225472;
+        v29[2] = __49__FPDPushConnection_performWithConnection_block___block_invoke;
+        v29[3] = &unk_1E83C1628;
+        v36 = &v37;
+        v30 = connectionCopy;
+        v31 = fp_bundleIdentifier;
+        v35 = v8;
+        v32 = remoteObjectProxy;
+        v33 = bundleIdentifierForPushes;
+        v34 = v12;
+        [identifier serverPreferredPushEnvironmentWithCompletionHandler:v29];
       }
 
       else
       {
-        if (([MEMORY[0x1E698CF30] isValidEnvironment:v39[5]] & 1) == 0)
+        if (([MEMORY[0x1E698CF30] isValidEnvironment:v38[5]] & 1) == 0)
         {
           v22 = fp_current_or_default_log();
           if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
           {
-            v24 = v39[5];
+            v23 = v38[5];
             [connectionCopy processIdentifier];
-            v25 = FPExecutableNameForProcessIdentifier();
+            v24 = FPExecutableNameForProcessIdentifier();
             processIdentifier = [connectionCopy processIdentifier];
             *buf = 138413314;
-            v45 = v24;
-            v46 = 2112;
-            v47 = @"aps-environment";
-            v48 = 2112;
-            v49 = v25;
-            v50 = 1024;
-            v51 = processIdentifier;
-            v52 = 2112;
-            v53 = fp_bundleIdentifier;
+            v44 = v23;
+            v45 = 2112;
+            v46 = @"aps-environment";
+            v47 = 2112;
+            v48 = v24;
+            v49 = 1024;
+            v50 = processIdentifier;
+            v51 = 2112;
+            v52 = fp_bundleIdentifier;
             _os_log_error_impl(&dword_1CEFC7000, v22, OS_LOG_TYPE_ERROR, "[ERROR] invalid push environment %@ specified in %@ from %@[%d] (requested for %@)", buf, 0x30u);
           }
 
@@ -278,11 +278,11 @@ LABEL_7:
         }
 
         identifier = [v12 identifier];
-        (v8)[2](v8, remoteObjectProxy, bundleIdentifierForPushes, identifier, v39[5]);
+        (v8)[2](v8, remoteObjectProxy, bundleIdentifierForPushes, identifier, v38[5]);
       }
 
 LABEL_21:
-      _Block_object_dispose(&v38, 8);
+      _Block_object_dispose(&v37, 8);
 
       goto LABEL_22;
     }
@@ -305,13 +305,11 @@ LABEL_21:
 
   (v8)[2](v8, remoteObjectProxy, 0, 0, 0);
 LABEL_22:
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 void __49__FPDPushConnection_performWithConnection_block___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -324,19 +322,19 @@ void __49__FPDPushConnection_performWithConnection_block___block_invoke(uint64_t
       v9 = FPExecutableNameForProcessIdentifier();
       v10 = [*(a1 + 32) processIdentifier];
       v11 = *(a1 + 40);
-      v18 = 138413570;
-      v19 = v8;
-      v20 = 2112;
-      v21 = @"aps-environment";
-      v22 = 2112;
-      v23 = v9;
-      v24 = 1024;
-      v25 = v10;
-      v26 = 2112;
-      v27 = v11;
-      v28 = 2112;
-      v29 = v6;
-      _os_log_impl(&dword_1CEFC7000, v7, OS_LOG_TYPE_DEFAULT, "[WARNING] could not get push environment %@ specified in %@ from %@[%d] (requested for %@): %@", &v18, 0x3Au);
+      v17 = 138413570;
+      v18 = v8;
+      v19 = 2112;
+      v20 = @"aps-environment";
+      v21 = 2112;
+      v22 = v9;
+      v23 = 1024;
+      v24 = v10;
+      v25 = 2112;
+      v26 = v11;
+      v27 = 2112;
+      v28 = v6;
+      _os_log_impl(&dword_1CEFC7000, v7, OS_LOG_TYPE_DEFAULT, "[WARNING] could not get push environment %@ specified in %@ from %@[%d] (requested for %@): %@", &v17, 0x3Au);
     }
   }
 
@@ -356,8 +354,6 @@ void __49__FPDPushConnection_performWithConnection_block___block_invoke(uint64_t
   v15 = *(a1 + 72);
   v16 = [*(a1 + 64) identifier];
   (*(v15 + 16))(v15, v13, v14, v16, *(*(*(a1 + 80) + 8) + 40));
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addClientConnection:(id)connection forApplicationBundleIdentifier:(id)identifier
@@ -404,9 +400,9 @@ void __49__FPDPushConnection_performWithConnection_block___block_invoke(uint64_t
 
 - (void)fileProviderRegister
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_2(&dword_1CEFC7000, self, a3, "[DEBUG] %s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[FPDPushConnection fileProviderRegister]";
+  OUTLINED_FUNCTION_1_2(&dword_1CEFC7000, self, a3, "[DEBUG] %s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __41__FPDPushConnection_fileProviderRegister__block_invoke(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
@@ -459,9 +455,9 @@ uint64_t __41__FPDPushConnection_fileProviderRegister__block_invoke_2(uint64_t a
 
 - (void)fileProviderUnregister
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_2(&dword_1CEFC7000, self, a3, "[DEBUG] %s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[FPDPushConnection fileProviderUnregister]";
+  OUTLINED_FUNCTION_1_2(&dword_1CEFC7000, self, a3, "[DEBUG] %s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __43__FPDPushConnection_fileProviderUnregister__block_invoke(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
@@ -495,7 +491,7 @@ void __43__FPDPushConnection_fileProviderUnregister__block_invoke(uint64_t a1, v
 
 void __43__FPDPushConnection_fileProviderUnregister__block_invoke_2(uint64_t a1)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) removeClientConnection:*(a1 + 40) forApplicationBundleIdentifier:*(a1 + 48)];
   v2 = [*(a1 + 32) clientConnectionsForApplicationBundleIdentifier:*(a1 + 48)];
   if (![v2 count])
@@ -504,30 +500,30 @@ void __43__FPDPushConnection_fileProviderUnregister__block_invoke_2(uint64_t a1)
   }
 
   v3 = [*(*(a1 + 32) + 64) objectForKeyedSubscript:*(a1 + 48)];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v19 objects:v24 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v18 objects:v23 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v20;
+    v6 = *v19;
     do
     {
       v7 = 0;
       do
       {
-        if (*v20 != v6)
+        if (*v19 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [*(*(a1 + 32) + 56) removeObjectForKey:*(*(&v19 + 1) + 8 * v7++)];
+        [*(*(a1 + 32) + 56) removeObjectForKey:*(*(&v18 + 1) + 8 * v7++)];
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v19 objects:v24 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v18 objects:v23 count:16];
     }
 
     while (v5);
@@ -536,37 +532,35 @@ void __43__FPDPushConnection_fileProviderUnregister__block_invoke_2(uint64_t a1)
   [*(*(a1 + 32) + 64) setObject:MEMORY[0x1E695E0F0] forKey:*(a1 + 48)];
   [*(a1 + 32) updateTopicsForApplicationBundleIdentifier:*(a1 + 48) providerIdentifier:*(a1 + 56) requestToken:0 environment:*(a1 + 64)];
   v8 = [*(a1 + 32) _pushConnectionWithEnvironmentName:*(a1 + 64)];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v9 = v3;
-  v10 = [v9 countByEnumeratingWithState:&v15 objects:v23 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v14 objects:v22 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v16;
+    v12 = *v15;
     do
     {
       v13 = 0;
       do
       {
-        if (*v16 != v12)
+        if (*v15 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        [v8 invalidateTokenForTopic:*(*(&v15 + 1) + 8 * v13++) identifier:{&stru_1F4C2FFD0, v15}];
+        [v8 invalidateTokenForTopic:*(*(&v14 + 1) + 8 * v13++) identifier:{&stru_1F4C2FFD0, v14}];
       }
 
       while (v11 != v13);
-      v11 = [v9 countByEnumeratingWithState:&v15 objects:v23 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v14 objects:v22 count:16];
     }
 
     while (v11);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (id)topicsForApplicationBundleIdentifier:(id)identifier
@@ -646,12 +640,12 @@ void __58__FPDPushConnection__debugTopicsForApplicationIdentifier___block_invoke
 
 - (void)updateTopicsForBundleIdentifier:(id)identifier
 {
-  v31[1] = *MEMORY[0x1E69E9840];
+  v30[1] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   dispatch_assert_queue_V2(self->_pushQueue);
   v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@.%@", identifierCopy, @"pushkit.fileprovider"];
-  v31[0] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:1];
+  v30[0] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:1];
 
   if ([identifierCopy isEqualToString:@"com.apple.FileProvider.TestingHarness"])
   {
@@ -665,68 +659,67 @@ void __58__FPDPushConnection__debugTopicsForApplicationIdentifier___block_invoke
     }
   }
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v10 = [(NSMutableDictionary *)self->_topicsForBundleIdentifier objectForKeyedSubscript:identifierCopy];
-  v11 = [v10 countByEnumeratingWithState:&v25 objects:v30 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v24 objects:v29 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v26;
+    v13 = *v25;
     do
     {
       v14 = 0;
       do
       {
-        if (*v26 != v13)
+        if (*v25 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        [(NSMutableDictionary *)self->_bundleIdentifierForTopic removeObjectForKey:*(*(&v25 + 1) + 8 * v14++)];
+        [(NSMutableDictionary *)self->_bundleIdentifierForTopic removeObjectForKey:*(*(&v24 + 1) + 8 * v14++)];
       }
 
       while (v12 != v14);
-      v12 = [v10 countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v24 objects:v29 count:16];
     }
 
     while (v12);
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v15 = v6;
-  v16 = [v15 countByEnumeratingWithState:&v21 objects:v29 count:16];
+  v16 = [v15 countByEnumeratingWithState:&v20 objects:v28 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v22;
+    v18 = *v21;
     do
     {
       v19 = 0;
       do
       {
-        if (*v22 != v18)
+        if (*v21 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        [(NSMutableDictionary *)self->_bundleIdentifierForTopic setObject:identifierCopy forKey:*(*(&v21 + 1) + 8 * v19++)];
+        [(NSMutableDictionary *)self->_bundleIdentifierForTopic setObject:identifierCopy forKey:*(*(&v20 + 1) + 8 * v19++)];
       }
 
       while (v17 != v19);
-      v17 = [v15 countByEnumeratingWithState:&v21 objects:v29 count:16];
+      v17 = [v15 countByEnumeratingWithState:&v20 objects:v28 count:16];
     }
 
     while (v17);
   }
 
   [(NSMutableDictionary *)self->_topicsForBundleIdentifier setObject:v15 forKey:identifierCopy];
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setMessageDelegate:(id)delegate forApplicationBundleIdentifier:(id)identifier
@@ -773,7 +766,7 @@ void __58__FPDPushConnection__debugTopicsForApplicationIdentifier___block_invoke
 
 void __108__FPDPushConnection_updateTopicsForApplicationBundleIdentifier_providerIdentifier_requestToken_environment___block_invoke(uint64_t a1)
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E695DFD8];
   v3 = a1 + 40;
   v4 = [*(a1 + 32) topicsForApplicationBundleIdentifier:*(a1 + 40)];
@@ -824,29 +817,29 @@ void __108__FPDPushConnection_updateTopicsForApplicationBundleIdentifier_provide
 
     else
     {
-      v39 = 0u;
-      v40 = 0u;
-      v37 = 0u;
       v38 = 0u;
+      v39 = 0u;
+      v36 = 0u;
+      v37 = 0u;
       v24 = v5;
-      v25 = [v24 countByEnumeratingWithState:&v37 objects:v41 count:16];
+      v25 = [v24 countByEnumeratingWithState:&v36 objects:v40 count:16];
       if (v25)
       {
         v26 = v25;
-        v27 = *v38;
+        v27 = *v37;
         do
         {
           for (i = 0; i != v26; ++i)
           {
-            if (*v38 != v27)
+            if (*v37 != v27)
             {
               objc_enumerationMutation(v24);
             }
 
-            [*(a1 + 48) requestTokenForTopic:*(*(&v37 + 1) + 8 * i) identifier:{&stru_1F4C2FFD0, v37}];
+            [*(a1 + 48) requestTokenForTopic:*(*(&v36 + 1) + 8 * i) identifier:{&stru_1F4C2FFD0, v36}];
           }
 
-          v26 = [v24 countByEnumeratingWithState:&v37 objects:v41 count:16];
+          v26 = [v24 countByEnumeratingWithState:&v36 objects:v40 count:16];
         }
 
         while (v26);
@@ -855,12 +848,12 @@ void __108__FPDPushConnection_updateTopicsForApplicationBundleIdentifier_provide
       v17 = fp_current_or_default_log();
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
       {
-        __108__FPDPushConnection_updateTopicsForApplicationBundleIdentifier_providerIdentifier_requestToken_environment___block_invoke_cold_1(v24, v3);
+        __108__FPDPushConnection_updateTopicsForApplicationBundleIdentifier_providerIdentifier_requestToken_environment___block_invoke_cold_1();
       }
     }
   }
 
-  v29 = [MEMORY[0x1E695DFA8] setWithArray:{v10, v37}];
+  v29 = [MEMORY[0x1E695DFA8] setWithArray:{v10, v36}];
   v30 = [MEMORY[0x1E695DFA8] setWithArray:v14];
   if ([MEMORY[0x1E69673F0] isProviderIDForeground:*(a1 + 56)])
   {
@@ -882,13 +875,11 @@ void __108__FPDPushConnection_updateTopicsForApplicationBundleIdentifier_provide
     v35 = [v29 allObjects];
     [v33 setEnabledTopics:v34 ignoredTopics:MEMORY[0x1E695E0F0] opportunisticTopics:v35];
   }
-
-  v36 = *MEMORY[0x1E69E9840];
 }
 
 - (void)connection:(id)connection didReceiveToken:(id)token forTopic:(id)topic identifier:(id)identifier
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   tokenCopy = token;
   topicCopy = topic;
   dispatch_assert_queue_V2(self->_pushQueue);
@@ -900,40 +891,38 @@ void __108__FPDPushConnection_updateTopicsForApplicationBundleIdentifier_provide
     [FPDPushConnection connection:topicCopy didReceiveToken:v11 forTopic:v12 identifier:?];
   }
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v13 = v11;
-  v14 = [v13 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v21;
+    v16 = *v20;
     do
     {
       v17 = 0;
       do
       {
-        if (*v21 != v16)
+        if (*v20 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        remoteObjectProxy = [*(*(&v20 + 1) + 8 * v17) remoteObjectProxy];
+        remoteObjectProxy = [*(*(&v19 + 1) + 8 * v17) remoteObjectProxy];
         [remoteObjectProxy fileProviderRegistrationSucceededWithDeviceToken:tokenCopy];
 
         ++v17;
       }
 
       while (v15 != v17);
-      v15 = [v13 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v15);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)connection:(id)connection didReceiveIncomingMessage:(id)message
@@ -1049,55 +1038,55 @@ void __58__FPDPushConnection_connection_didReceiveIncomingMessage___block_invoke
 
 void __58__FPDPushConnection_connection_didReceiveIncomingMessage___block_invoke_3(uint64_t a1)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) clientConnectionsForApplicationBundleIdentifier:*(a1 + 40)];
   if ([v2 count])
   {
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
-    v17 = v2;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
+    v16 = v2;
     obj = v2;
-    v3 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v3 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v3)
     {
       v4 = v3;
-      v5 = *v25;
+      v5 = *v24;
       do
       {
         for (i = 0; i != v4; ++i)
         {
-          if (*v25 != v5)
+          if (*v24 != v5)
           {
             objc_enumerationMutation(obj);
           }
 
-          v7 = *(*(&v24 + 1) + 8 * i);
+          v7 = *(*(&v23 + 1) + 8 * i);
           v8 = [v7 remoteObjectProxy];
-          v19[0] = MEMORY[0x1E69E9820];
-          v19[1] = 3221225472;
-          v19[2] = __58__FPDPushConnection_connection_didReceiveIncomingMessage___block_invoke_86;
-          v19[3] = &unk_1E83C16F0;
+          v18[0] = MEMORY[0x1E69E9820];
+          v18[1] = 3221225472;
+          v18[2] = __58__FPDPushConnection_connection_didReceiveIncomingMessage___block_invoke_86;
+          v18[3] = &unk_1E83C16F0;
           v9 = *(a1 + 48);
           v10 = *(a1 + 32);
           v11 = *(a1 + 40);
-          v20 = v9;
-          v21 = v10;
-          v22 = v7;
-          v23 = v11;
-          v12 = [v8 remoteObjectProxyWithErrorHandler:v19];
+          v19 = v9;
+          v20 = v10;
+          v21 = v7;
+          v22 = v11;
+          v12 = [v8 remoteObjectProxyWithErrorHandler:v18];
           v13 = [*(a1 + 64) userInfo];
           [v12 fileProviderPayloadReceived:v13];
         }
 
-        v4 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v4 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
       }
 
       while (v4);
     }
 
-    v2 = v17;
+    v2 = v16;
   }
 
   else
@@ -1107,19 +1096,17 @@ void __58__FPDPushConnection_connection_didReceiveIncomingMessage___block_invoke
     {
       v15 = *(a1 + 48);
       *buf = 138412290;
-      v30 = v15;
+      v29 = v15;
       _os_log_impl(&dword_1CEFC7000, v14, OS_LOG_TYPE_DEFAULT, "[WARNING] Missing push connection for topic %@. This can happen if the provider doesn't register for pushes on startup. Invalidating push topic.", buf, 0xCu);
     }
 
     [*(a1 + 56) invalidateTokenForTopic:*(a1 + 48) identifier:&stru_1F4C2FFD0];
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __58__FPDPushConnection_connection_didReceiveIncomingMessage___block_invoke_86(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = fp_current_or_default_log();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -1127,9 +1114,9 @@ void __58__FPDPushConnection_connection_didReceiveIncomingMessage___block_invoke
     v5 = *(a1 + 32);
     v6 = [v3 fp_prettyDescription];
     *buf = 138412546;
-    v14 = v5;
-    v15 = 2112;
-    v16 = v6;
+    v13 = v5;
+    v14 = 2112;
+    v15 = v6;
     _os_log_impl(&dword_1CEFC7000, v4, OS_LOG_TYPE_DEFAULT, "[WARNING] Error sending push for topic %@: %@", buf, 0x16u);
   }
 
@@ -1139,11 +1126,9 @@ void __58__FPDPushConnection_connection_didReceiveIncomingMessage___block_invoke
   v8 = *(*(a1 + 40) + 24);
   block[2] = __58__FPDPushConnection_connection_didReceiveIncomingMessage___block_invoke_87;
   block[3] = &unk_1E83BDE60;
-  v11 = v7;
-  v12 = *(a1 + 56);
+  v10 = v7;
+  v11 = *(a1 + 56);
   dispatch_async(v8, block);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateTopicsForProvider:(id)provider
@@ -1193,7 +1178,7 @@ void __45__FPDPushConnection_updateTopicsForProvider___block_invoke(uint64_t a1)
 
 void __45__FPDPushConnection_updateTopicsForProvider___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, void *a5)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v8 = a4;
   v9 = a5;
   if (a3)
@@ -1201,15 +1186,15 @@ void __45__FPDPushConnection_updateTopicsForProvider___block_invoke_2(uint64_t a
     v10 = *(a1 + 32);
     v11 = *(a1 + 40);
     v12 = *(v11 + 24);
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __45__FPDPushConnection_updateTopicsForProvider___block_invoke_89;
-    v16[3] = &unk_1E83BF988;
-    v16[4] = v11;
-    v17 = v10;
-    v18 = v8;
-    v19 = v9;
-    dispatch_async(v12, v16);
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __45__FPDPushConnection_updateTopicsForProvider___block_invoke_89;
+    v15[3] = &unk_1E83BF988;
+    v15[4] = v11;
+    v16 = v10;
+    v17 = v8;
+    v18 = v9;
+    dispatch_async(v12, v15);
   }
 
   else
@@ -1219,109 +1204,60 @@ void __45__FPDPushConnection_updateTopicsForProvider___block_invoke_2(uint64_t a
     {
       v14 = *(a1 + 32);
       *buf = 138412290;
-      v21 = v14;
+      v20 = v14;
       _os_log_impl(&dword_1CEFC7000, v13, OS_LOG_TYPE_DEFAULT, "[WARNING] Invalid push connection for app bundle identifier %@, not updating topics", buf, 0xCu);
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
-- (void)listener:shouldAcceptNewConnection:.cold.2()
+void __108__FPDPushConnection_updateTopicsForApplicationBundleIdentifier_providerIdentifier_requestToken_environment___block_invoke_cold_1()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_1_2(&dword_1CEFC7000, v0, v1, "[DEBUG] FPDPushConnection accepted connection %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)performWithConnection:block:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_1_2(&dword_1CEFC7000, v0, v1, "[DEBUG] couldn't find extension with identifier %@, trying application", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)performWithConnection:block:.cold.2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_14(&dword_1CEFC7000, v0, v1, "[ERROR] Couldn't find provider for registering bundle %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)performWithConnection:block:.cold.3()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_14(&dword_1CEFC7000, v0, v1, "[ERROR] Couldn't find valid provider for connection %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __108__FPDPushConnection_updateTopicsForApplicationBundleIdentifier_providerIdentifier_requestToken_environment___block_invoke_cold_1(uint64_t a1, uint64_t *a2)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  v2 = *a2;
-  OUTLINED_FUNCTION_1_0();
-  v7 = 2112;
-  v8 = v3;
-  _os_log_debug_impl(&dword_1CEFC7000, v4, OS_LOG_TYPE_DEBUG, "[DEBUG] requested tokens for topics %@ for application %@", v6, 0x16u);
   v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0();
+  v3 = 2112;
+  v4 = v0;
+  _os_log_debug_impl(&dword_1CEFC7000, v1, OS_LOG_TYPE_DEBUG, "[DEBUG] requested tokens for topics %@ for application %@", v2, 0x16u);
 }
 
 void __108__FPDPushConnection_updateTopicsForApplicationBundleIdentifier_providerIdentifier_requestToken_environment___block_invoke_cold_2(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_1_2(&dword_1CEFC7000, a2, a3, "[DEBUG] skipping token request for %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_1_2(&dword_1CEFC7000, a2, a3, "[DEBUG] skipping token request for %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)connection:(NSObject *)a3 didReceiveToken:forTopic:identifier:.cold.1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v5 = 138412546;
-  v6 = a1;
-  v7 = 2048;
-  v8 = [a2 count];
-  _os_log_debug_impl(&dword_1CEFC7000, a3, OS_LOG_TYPE_DEBUG, "[DEBUG] received token for topic %@, informing %lu clients", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
+  v4 = 138412546;
+  v5 = a1;
+  v6 = 2048;
+  v7 = [a2 count];
+  _os_log_debug_impl(&dword_1CEFC7000, a3, OS_LOG_TYPE_DEBUG, "[DEBUG] received token for topic %@, informing %lu clients", &v4, 0x16u);
 }
 
 - (void)connection:(void *)a1 didReceiveIncomingMessage:(NSObject *)a2 .cold.1(void *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v3 = [a1 topic];
   OUTLINED_FUNCTION_1_0();
-  _os_log_debug_impl(&dword_1CEFC7000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] received push for topic %@", v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
-}
-
-- (void)connection:didReceiveIncomingMessage:.cold.2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_14(&dword_1CEFC7000, v0, v1, "[ERROR] Received push for unregistered topic %@; invalidating token.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1CEFC7000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] received push for topic %@", v4, 0xCu);
 }
 
 - (void)connection:didReceiveIncomingMessage:.cold.3()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_0();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_fault_impl(&dword_1CEFC7000, v1, OS_LOG_TYPE_FAULT, "[CRIT] No delegate found for topic %@ for bundle identifier %@", v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_fault_impl(&dword_1CEFC7000, v1, OS_LOG_TYPE_FAULT, "[CRIT] No delegate found for topic %@ for bundle identifier %@", v2, 0x16u);
 }
 
 - (void)updateTopicsForProvider:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_2(&dword_1CEFC7000, a1, a3, "[DEBUG] %s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[FPDPushConnection updateTopicsForProvider:]";
+  OUTLINED_FUNCTION_1_2(&dword_1CEFC7000, a1, a3, "[DEBUG] %s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

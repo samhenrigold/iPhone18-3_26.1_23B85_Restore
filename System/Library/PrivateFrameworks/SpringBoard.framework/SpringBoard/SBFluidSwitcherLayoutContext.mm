@@ -402,7 +402,7 @@ LABEL_29:
         {
           v31 = v21 - 11;
           v32 = v26;
-          if (([v47 containsObject:frontCopy] & 1) != 0 || objc_msgSend(managementContextCopy, "isFlexibleWindowingEnabled") && (objc_msgSend(layoutState, "layoutAttributesMap"), v33 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v33, "allValues"), v34 = objc_claimAutoreleasedReturnValue(), LODWORD(selfCopy) = objc_msgSend(v34, "bs_containsObjectPassingTest:", &__block_literal_global_65), v34, v33, layoutsCopy = v47, selfCopy))
+          if ((objc_msgSend_containsObject_(v47) & 1) != 0 || [managementContextCopy isFlexibleWindowingEnabled] && (objc_msgSend(layoutState, "layoutAttributesMap"), v33 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v33, "allValues"), v34 = objc_claimAutoreleasedReturnValue(), LODWORD(selfCopy) = objc_msgSend(v34, "bs_containsObjectPassingTest:", &__block_literal_global_65), v34, v33, layoutsCopy = v47, selfCopy))
           {
 LABEL_31:
             if (completedCopy)
@@ -438,7 +438,7 @@ LABEL_31:
                   if (v39)
                   {
                     elements6 = [previousLayoutState elements];
-                    LOBYTE(v20) = [elements6 containsObject:v39] ^ 1;
+                    LOBYTE(v20) = objc_msgSend_containsObject_(elements6) ^ 1;
 
                     goto LABEL_45;
                   }
@@ -516,7 +516,7 @@ LABEL_28:
 
         v31 = v21 - 11;
         v32 = v26;
-        if ([layoutsCopy containsObject:frontCopy])
+        if (objc_msgSend_containsObject_(layoutsCopy))
         {
           goto LABEL_31;
         }
@@ -701,7 +701,7 @@ void __70__SBFluidSwitcherLayoutContext_descriptionBuilderWithMultilinePrefix___
     {
       if (((1 << v4) & *&v2) != 0)
       {
-        v8(v3);
+        (v8)(v3);
         if (v11)
         {
           break;
@@ -722,11 +722,11 @@ void __70__SBFluidSwitcherLayoutContext_descriptionBuilderWithMultilinePrefix___
   }
 }
 
-void __70__SBFluidSwitcherLayoutContext_descriptionBuilderWithMultilinePrefix___block_invoke_3(uint64_t a1)
+void __70__SBFluidSwitcherLayoutContext_descriptionBuilderWithMultilinePrefix___block_invoke_3(uint64_t a1, uint64_t a2, int a3)
 {
-  v1 = *(a1 + 32);
-  v3 = BSInterfaceOrientationDescription();
-  v2 = [v1 appendObject:v3 withName:0];
+  v3 = *(a1 + 32);
+  v5 = BSInterfaceOrientationDescription();
+  v4 = [v3 appendObject:v5 withName:0];
 }
 
 - (void)shouldAddAppLayoutToFront:(uint64_t)a1 whenBeginningGestureOfType:(uint64_t)a2 layoutContext:.cold.1(uint64_t a1, uint64_t a2)

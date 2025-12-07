@@ -11,24 +11,25 @@
 
 - (IntentRouter)init
 {
-  v7.receiver = self;
-  v7.super_class = IntentRouter;
-  v2 = [(IntentRouter *)&v7 init];
+  v8.receiver = self;
+  v8.super_class = IntentRouter;
+  v2 = [(IntentRouter *)&v8 init];
+  v3 = v2;
   if (v2)
   {
-    v3 = IntentHandlerDefaultLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+    v4 = IntentHandlerDefaultLog(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      sub_10002FC90(v3);
+      sub_10002FC90(v4);
     }
 
-    v4 = objc_alloc_init(NSMutableArray);
-    recentIntentHandlersAndIdentifiers = v2->_recentIntentHandlersAndIdentifiers;
-    v2->_recentIntentHandlersAndIdentifiers = v4;
+    v5 = objc_alloc_init(NSMutableArray);
+    recentIntentHandlersAndIdentifiers = v3->_recentIntentHandlersAndIdentifiers;
+    v3->_recentIntentHandlersAndIdentifiers = v5;
   }
 
-  [(IntentRouter *)v2 registerForProvider];
-  return v2;
+  [(IntentRouter *)v3 registerForProvider];
+  return v3;
 }
 
 - (id)handlerForIntent:(id)intent
@@ -51,38 +52,40 @@
   else
   {
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v10 = IntentHandlerDefaultLog();
-      v11 = os_signpost_id_generate(v10);
+      v11 = IntentHandlerDefaultLog(isKindOfClass);
+      v12 = os_signpost_id_generate(v11);
 
-      v12 = IntentHandlerDefaultLog();
-      v13 = v12;
-      if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
+      v14 = IntentHandlerDefaultLog(v13);
+      v15 = v14;
+      if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
       {
-        LOWORD(v23) = 0;
-        _os_signpost_emit_with_name_impl(&_mh_execute_header, v13, OS_SIGNPOST_INTERVAL_BEGIN, v11, "HangUpIntentHandlerWaitForProvider", " enableTelemetry=YES ", &v23, 2u);
+        LOWORD(v27) = 0;
+        _os_signpost_emit_with_name_impl(&_mh_execute_header, v15, OS_SIGNPOST_INTERVAL_BEGIN, v12, "HangUpIntentHandlerWaitForProvider", " enableTelemetry=YES ", &v27, 2u);
       }
 
       group = self->_group;
-      v15 = dispatch_time(0, 1000000000);
-      if (dispatch_group_wait(group, v15))
+      v17 = dispatch_time(0, 1000000000);
+      v18 = dispatch_group_wait(group, v17);
+      if (v18)
       {
-        v16 = IntentHandlerDefaultLog();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+        v19 = IntentHandlerDefaultLog(v18);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
-          v23 = 134217984;
-          v24 = 1;
-          _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "registerForCallbacksForProvider did not complete before the %ld second timeout.", &v23, 0xCu);
+          v27 = 134217984;
+          v28 = 1;
+          _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "registerForCallbacksForProvider did not complete before the %ld second timeout.", &v27, 0xCu);
         }
       }
 
-      v17 = IntentHandlerDefaultLog();
-      v18 = v17;
-      if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
+      v20 = IntentHandlerDefaultLog(v18);
+      v21 = v20;
+      if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v20))
       {
-        LOWORD(v23) = 0;
-        _os_signpost_emit_with_name_impl(&_mh_execute_header, v18, OS_SIGNPOST_INTERVAL_END, v11, "HangUpIntentHandlerWaitForProvider", "", &v23, 2u);
+        LOWORD(v27) = 0;
+        _os_signpost_emit_with_name_impl(&_mh_execute_header, v21, OS_SIGNPOST_INTERVAL_END, v12, "HangUpIntentHandlerWaitForProvider", "", &v27, 2u);
       }
 
       v9 = HangUpCallIntentHandler;
@@ -131,10 +134,11 @@
               else
               {
                 objc_opt_class();
-                if ((objc_opt_isKindOfClass() & 1) == 0)
+                v22 = objc_opt_isKindOfClass();
+                if ((v22 & 1) == 0)
                 {
-                  v22 = IntentHandlerDefaultLog();
-                  if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+                  v26 = IntentHandlerDefaultLog(v22);
+                  if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
                   {
                     sub_10002FCD4();
                   }
@@ -151,17 +155,17 @@
     }
   }
 
-  v19 = objc_alloc_init(v9);
-  if (!v19)
+  v23 = objc_alloc_init(v9);
+  if (!v23)
   {
 LABEL_38:
     v6 = 0;
     goto LABEL_3;
   }
 
-  v20 = [IntentHandlerAndIdentifier alloc];
+  v24 = [IntentHandlerAndIdentifier alloc];
   identifier2 = [intentCopy identifier];
-  v6 = [(IntentHandlerAndIdentifier *)v20 initWithHandler:v19 intentIdentifier:identifier2];
+  v6 = [(IntentHandlerAndIdentifier *)v24 initWithHandler:v23 intentIdentifier:identifier2];
 
   if (v6)
   {
@@ -191,11 +195,11 @@ LABEL_3:
   identifierCopy = identifier;
   if (![identifierCopy length])
   {
-    v14 = IntentHandlerDefaultLog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v16 = IntentHandlerDefaultLog(0);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "[WARN] Intent does not have an identifier set. Creating new handler.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "[WARN] Intent does not have an identifier set. Creating new handler.", buf, 2u);
     }
 
     v7 = 0;
@@ -204,32 +208,32 @@ LABEL_3:
 
   recentIntentHandlersAndIdentifiers = [(IntentRouter *)self recentIntentHandlersAndIdentifiers];
   objc_sync_enter(recentIntentHandlersAndIdentifiers);
-  v16 = 0u;
-  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   recentIntentHandlersAndIdentifiers2 = [(IntentRouter *)self recentIntentHandlersAndIdentifiers];
-  v7 = [recentIntentHandlersAndIdentifiers2 countByEnumeratingWithState:&v16 objects:v21 count:16];
+  v7 = [recentIntentHandlersAndIdentifiers2 countByEnumeratingWithState:&v18 objects:v23 count:16];
   if (v7)
   {
-    v8 = *v17;
+    v8 = *v19;
     while (2)
     {
       for (i = 0; i != v7; i = i + 1)
       {
-        if (*v17 != v8)
+        if (*v19 != v8)
         {
           objc_enumerationMutation(recentIntentHandlersAndIdentifiers2);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
+        v10 = *(*(&v18 + 1) + 8 * i);
         intentIdentifier = [v10 intentIdentifier];
         v12 = [identifierCopy isEqualToString:intentIdentifier];
 
         if (v12)
         {
-          v13 = IntentHandlerDefaultLog();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+          v14 = IntentHandlerDefaultLog(v13);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
           {
             sub_10002FD48();
           }
@@ -239,7 +243,7 @@ LABEL_3:
         }
       }
 
-      v7 = [recentIntentHandlersAndIdentifiers2 countByEnumeratingWithState:&v16 objects:v21 count:16];
+      v7 = [recentIntentHandlersAndIdentifiers2 countByEnumeratingWithState:&v18 objects:v23 count:16];
       if (v7)
       {
         continue;
@@ -254,8 +258,8 @@ LABEL_14:
   objc_sync_exit(recentIntentHandlersAndIdentifiers);
   if (!v7)
   {
-    v14 = IntentHandlerDefaultLog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+    v16 = IntentHandlerDefaultLog(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
       sub_10002FDBC();
     }
@@ -277,35 +281,35 @@ LABEL_20:
     recentIntentHandlersAndIdentifiers = [(IntentRouter *)self recentIntentHandlersAndIdentifiers];
     objc_sync_enter(recentIntentHandlersAndIdentifiers);
     *buf = 0;
-    v23 = buf;
-    v24 = 0x2020000000;
-    v25 = 0x7FFFFFFFFFFFFFFFLL;
+    v24 = buf;
+    v25 = 0x2020000000;
+    v26 = 0x7FFFFFFFFFFFFFFFLL;
     recentIntentHandlersAndIdentifiers2 = [(IntentRouter *)self recentIntentHandlersAndIdentifiers];
-    v16 = _NSConcreteStackBlock;
-    v17 = 3221225472;
-    v18 = sub_10000D3EC;
-    v19 = &unk_10004CED8;
-    v9 = handlerCopy;
-    v20 = v9;
-    v21 = buf;
-    [recentIntentHandlersAndIdentifiers2 enumerateObjectsUsingBlock:&v16];
+    v17 = _NSConcreteStackBlock;
+    v18 = 3221225472;
+    v19 = sub_10000D3EC;
+    v20 = &unk_10004CED8;
+    v10 = handlerCopy;
+    v21 = v10;
+    v22 = buf;
+    [recentIntentHandlersAndIdentifiers2 enumerateObjectsUsingBlock:&v17];
 
-    v10 = *(v23 + 3);
-    if (v10)
+    v11 = *(v24 + 3);
+    if (v11)
     {
-      if (v10 != 0x7FFFFFFFFFFFFFFFLL)
+      if (v11 != 0x7FFFFFFFFFFFFFFFLL)
       {
-        v11 = [(IntentRouter *)self recentIntentHandlersAndIdentifiers:v16];
-        [v11 removeObjectAtIndex:*(v23 + 3)];
+        v12 = [(IntentRouter *)self recentIntentHandlersAndIdentifiers:v17];
+        [v12 removeObjectAtIndex:*(v24 + 3)];
       }
 
-      v12 = [(IntentRouter *)self recentIntentHandlersAndIdentifiers:v16];
-      [v12 insertObject:v9 atIndex:0];
+      v13 = [(IntentRouter *)self recentIntentHandlersAndIdentifiers:v17];
+      [v13 insertObject:v10 atIndex:0];
 
       recentIntentHandlersAndIdentifiers3 = [(IntentRouter *)self recentIntentHandlersAndIdentifiers];
-      v14 = [recentIntentHandlersAndIdentifiers3 count];
+      v15 = [recentIntentHandlersAndIdentifiers3 count];
 
-      if (v14 >= 6)
+      if (v15 >= 6)
       {
         recentIntentHandlersAndIdentifiers4 = [(IntentRouter *)self recentIntentHandlersAndIdentifiers];
         [recentIntentHandlersAndIdentifiers4 removeLastObject];
@@ -318,7 +322,7 @@ LABEL_20:
 
   else
   {
-    recentIntentHandlersAndIdentifiers = IntentHandlerDefaultLog();
+    recentIntentHandlersAndIdentifiers = IntentHandlerDefaultLog(v7);
     if (os_log_type_enabled(recentIntentHandlersAndIdentifiers, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -338,32 +342,32 @@ LABEL_20:
   self->_group = v5;
 
   dispatch_group_enter(self->_group);
-  v7 = IntentHandlerDefaultLog();
-  v8 = os_signpost_id_generate(v7);
+  v8 = IntentHandlerDefaultLog(v7);
+  v9 = os_signpost_id_generate(v8);
 
-  v9 = IntentHandlerDefaultLog();
-  v10 = v9;
-  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
+  v11 = IntentHandlerDefaultLog(v10);
+  v12 = v11;
+  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v10, OS_SIGNPOST_INTERVAL_BEGIN, v8, "HangUpIntentHandlerRegisterForProvider", " enableTelemetry=YES ", buf, 2u);
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v12, OS_SIGNPOST_INTERVAL_BEGIN, v9, "HangUpIntentHandlerRegisterForProvider", " enableTelemetry=YES ", buf, 2u);
   }
 
-  v11 = IntentHandlerDefaultLog();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v14 = IntentHandlerDefaultLog(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Registering for drop-in calls", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Registering for drop-in calls", buf, 2u);
   }
 
-  v12 = self->_conversationProviderManager;
-  v13[0] = _NSConcreteStackBlock;
-  v13[1] = 3221225472;
-  v13[2] = sub_10000D5EC;
-  v13[3] = &unk_10004CF00;
-  v13[4] = self;
-  v13[5] = v8;
-  [(TUConversationProviderManager *)v12 registerForCallbacksForProvider:@"com.apple.private.alloy.dropin.communication" completionHandler:v13];
+  v15 = self->_conversationProviderManager;
+  v16[0] = _NSConcreteStackBlock;
+  v16[1] = 3221225472;
+  v16[2] = sub_10000D5EC;
+  v16[3] = &unk_10004CF00;
+  v16[4] = self;
+  v16[5] = v9;
+  [(TUConversationProviderManager *)v15 registerForCallbacksForProvider:@"com.apple.private.alloy.dropin.communication" completionHandler:v16];
 }
 
 @end

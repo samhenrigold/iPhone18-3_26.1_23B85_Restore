@@ -377,13 +377,13 @@ void __51__CNAvatarCardActionCell__updateHighlightAnimated___block_invoke(uint64
   return v2;
 }
 
-void __44__CNAvatarCardActionCell_cellNibForContacts__block_invoke()
+void __44__CNAvatarCardActionCell_cellNibForContacts__block_invoke(uint64_t a1)
 {
-  v0 = MEMORY[0x1E69DCCE8];
-  v3 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-  v1 = [v0 nibWithNibName:@"CNAvatarCardActionCell-Contact-OrbHW" bundle:v3];
-  v2 = cellNibForContacts_nib;
-  cellNibForContacts_nib = v1;
+  v1 = MEMORY[0x1E69DCCE8];
+  v4 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+  v2 = [v1 nibWithNibName:@"CNAvatarCardActionCell-Contact-OrbHW" bundle:v4];
+  v3 = cellNibForContacts_nib;
+  cellNibForContacts_nib = v2;
 }
 
 + (id)cellNibForActions
@@ -403,13 +403,13 @@ void __44__CNAvatarCardActionCell_cellNibForContacts__block_invoke()
   return v2;
 }
 
-void __43__CNAvatarCardActionCell_cellNibForActions__block_invoke()
+void __43__CNAvatarCardActionCell_cellNibForActions__block_invoke(uint64_t a1)
 {
-  v0 = MEMORY[0x1E69DCCE8];
-  v3 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-  v1 = [v0 nibWithNibName:@"CNAvatarCardActionCell-Expand-OrbHW" bundle:v3];
-  v2 = cellNibForActions_nib;
-  cellNibForActions_nib = v1;
+  v1 = MEMORY[0x1E69DCCE8];
+  v4 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+  v2 = [v1 nibWithNibName:@"CNAvatarCardActionCell-Expand-OrbHW" bundle:v4];
+  v3 = cellNibForActions_nib;
+  cellNibForActions_nib = v2;
 }
 
 @end

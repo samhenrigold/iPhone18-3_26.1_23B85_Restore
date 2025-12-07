@@ -9,18 +9,16 @@
 - (void)dealloc
 {
   v2 = *(&self->super.isa + OBJC_IVAR____TtC20SleepHealthAppPlugin27UserDefaultsBooleanObserver_defaults);
-  v3 = *(&self->super.isa + OBJC_IVAR____TtC20SleepHealthAppPlugin27UserDefaultsBooleanObserver_key);
-  v4 = *&self->objectWillChange[OBJC_IVAR____TtC20SleepHealthAppPlugin27UserDefaultsBooleanObserver_key];
   selfCopy = self;
-  v6 = v2;
+  v4 = v2;
 
-  v7 = sub_29E754198();
+  v5 = sub_29E754198();
 
-  [v6 removeObserver:selfCopy forKeyPath:v7 context:selfCopy + OBJC_IVAR____TtC20SleepHealthAppPlugin27UserDefaultsBooleanObserver_observerContext];
+  [v4 removeObserver:selfCopy forKeyPath:v5 context:selfCopy + OBJC_IVAR____TtC20SleepHealthAppPlugin27UserDefaultsBooleanObserver_observerContext];
 
-  v8.receiver = selfCopy;
-  v8.super_class = type metadata accessor for UserDefaultsBooleanObserver();
-  [(UserDefaultsBooleanObserver *)&v8 dealloc];
+  v6.receiver = selfCopy;
+  v6.super_class = type metadata accessor for UserDefaultsBooleanObserver();
+  [(UserDefaultsBooleanObserver *)&v6 dealloc];
 }
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
@@ -68,7 +66,7 @@ LABEL_3:
 
 LABEL_4:
   type metadata accessor for NSKeyValueChangeKey(0);
-  sub_29E6226A0(&qword_2A1856610, type metadata accessor for NSKeyValueChangeKey);
+  sub_29E6226A0(&qword_2A1856610, type metadata accessor for NSKeyValueChangeKey, &unk_29E762DD0);
   v15 = sub_29E754078();
 
 LABEL_8:

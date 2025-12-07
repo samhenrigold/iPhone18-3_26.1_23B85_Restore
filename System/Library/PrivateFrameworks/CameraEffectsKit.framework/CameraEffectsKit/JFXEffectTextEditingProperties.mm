@@ -331,7 +331,7 @@ void __87__JFXEffectTextEditingProperties_JFX_modifyRangesOfAttributedString_isO
     v10 = effectFrame2;
     if (effectFrame2)
     {
-      [effectFrame2 cornerPoints];
+      objc_msgSend_cornerPoints(effectFrame2);
     }
 
     else
@@ -404,11 +404,11 @@ void __87__JFXEffectTextEditingProperties_JFX_modifyRangesOfAttributedString_isO
   return result;
 }
 
-uint64_t __39__JFXEffectTextEditingProperties_frame__block_invoke(uint64_t a1, double a2, double a3)
+uint64_t __39__JFXEffectTextEditingProperties_frame__block_invoke(uint64_t a1, unsigned int a2, double a3, double a4)
 {
-  v3 = vaddq_f64(*(a1 + 72), vmlaq_n_f64(vmulq_n_f64(*(a1 + 56), a3), *(a1 + 40), a2));
-  y = v3.y;
-  return PVCGPointQuad_set_point_at_index((*(*(a1 + 32) + 8) + 32), v3);
+  v4 = vaddq_f64(*(a1 + 72), vmlaq_n_f64(vmulq_n_f64(*(a1 + 56), a4), *(a1 + 40), a3));
+  y = v4.y;
+  return PVCGPointQuad_set_point_at_index((*(*(a1 + 32) + 8) + 32), v4);
 }
 
 - (CGRect)bounds
@@ -463,7 +463,7 @@ uint64_t __39__JFXEffectTextEditingProperties_frame__block_invoke(uint64_t a1, d
     v9 = effectFrame;
     if (effectFrame)
     {
-      [effectFrame transformInfo];
+      objc_msgSend_transformInfo(effectFrame);
     }
 
     else
@@ -509,7 +509,7 @@ uint64_t __39__JFXEffectTextEditingProperties_frame__block_invoke(uint64_t a1, d
     v8 = effectFrame;
     if (effectFrame)
     {
-      [effectFrame transformInfo];
+      objc_msgSend_transformInfo(effectFrame);
     }
 
     else
@@ -554,7 +554,7 @@ uint64_t __39__JFXEffectTextEditingProperties_frame__block_invoke(uint64_t a1, d
       v10 = cachedPartialTransformNoScaleNoTranslation2;
       if (cachedPartialTransformNoScaleNoTranslation2)
       {
-        [cachedPartialTransformNoScaleNoTranslation2 SIMDDouble4x4];
+        objc_msgSend_SIMDDouble4x4(cachedPartialTransformNoScaleNoTranslation2);
         v11 = v53;
         v12 = v55;
         v13 = v59;
@@ -586,7 +586,7 @@ uint64_t __39__JFXEffectTextEditingProperties_frame__block_invoke(uint64_t a1, d
       v15 = effectFrame;
       if (effectFrame)
       {
-        [effectFrame transform];
+        objc_msgSend_transform(effectFrame);
       }
 
       else

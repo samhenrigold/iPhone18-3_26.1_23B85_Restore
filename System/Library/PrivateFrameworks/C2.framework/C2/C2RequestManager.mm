@@ -75,7 +75,7 @@ uint64_t __24__C2RequestManager_init__block_invoke_12()
 
 - (id)createDataTaskWithRequest:(id)request options:(id)options delegate:(id)delegate sessionHandle:(id *)handle
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   optionsCopy = options;
   delegateCopy = delegate;
@@ -107,18 +107,16 @@ uint64_t __24__C2RequestManager_init__block_invoke_12()
 
   if (os_log_type_enabled(C2_DEFAULT_LOG_INTERNAL_7, v21))
   {
-    v24 = 134218498;
-    v25 = v19;
-    v26 = 2112;
-    v27 = requestCopy;
-    v28 = 2112;
-    v29 = v18;
-    _os_log_impl(&dword_242158000, v20, v21, "Creation of data task took %.3f seconds for request %@ resulting in task %@.", &v24, 0x20u);
+    v23 = 134218498;
+    v24 = v19;
+    v25 = 2112;
+    v26 = requestCopy;
+    v27 = 2112;
+    v28 = v18;
+    _os_log_impl(&dword_242158000, v20, v21, "Creation of data task took %.3f seconds for request %@ resulting in task %@.", &v23, 0x20u);
   }
 
   objc_autoreleasePoolPop(v14);
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
@@ -150,7 +148,7 @@ uint64_t __77__C2RequestManager_createDataTaskWithRequest_options_delegate_sessi
 
 - (void)_testUtility_forTask:(id)task sessionHandle:(id *)handle taskHandle:(id *)taskHandle
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(taskCopy, "taskIdentifier")}];
   if (!v7)
@@ -160,53 +158,53 @@ uint64_t __77__C2RequestManager_createDataTaskWithRequest_options_delegate_sessi
 
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  v28 = selfCopy->_sessionPool;
-  objc_sync_enter(v28);
+  v27 = selfCopy->_sessionPool;
+  objc_sync_enter(v27);
+  v39 = 0u;
   v40 = 0u;
   v41 = 0u;
   v42 = 0u;
-  v43 = 0u;
-  v27 = selfCopy;
+  v26 = selfCopy;
   sessionGroupForSessionConfigurationName = [(C2SessionPool *)selfCopy->_sessionPool sessionGroupForSessionConfigurationName];
   allValues = [sessionGroupForSessionConfigurationName allValues];
 
-  v11 = [allValues countByEnumeratingWithState:&v40 objects:v45 count:16];
+  v11 = [allValues countByEnumeratingWithState:&v39 objects:v44 count:16];
   obj = allValues;
   if (v11)
   {
     v12 = 0;
-    v32 = *v41;
-    v33 = v11;
+    v31 = *v40;
+    v32 = v11;
     do
     {
-      for (i = 0; i != v33; ++i)
+      for (i = 0; i != v32; ++i)
       {
-        if (*v41 != v32)
+        if (*v40 != v31)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v40 + 1) + 8 * i);
+        v13 = *(*(&v39 + 1) + 8 * i);
+        v35 = 0u;
         v36 = 0u;
         v37 = 0u;
         v38 = 0u;
-        v39 = 0u;
         sessions = [v13 sessions];
-        v15 = [sessions countByEnumeratingWithState:&v36 objects:v44 count:16];
+        v15 = [sessions countByEnumeratingWithState:&v35 objects:v43 count:16];
         if (v15)
         {
-          v16 = *v37;
+          v16 = *v36;
 LABEL_10:
           v17 = 0;
           v18 = v12;
           while (1)
           {
-            if (*v37 != v16)
+            if (*v36 != v16)
             {
               objc_enumerationMutation(sessions);
             }
 
-            v19 = *(*(&v36 + 1) + 8 * v17);
+            v19 = *(*(&v35 + 1) + 8 * v17);
             objc_sync_enter(v19);
             wrappedTaskByTaskIdentifier = [v19 wrappedTaskByTaskIdentifier];
             v12 = [wrappedTaskByTaskIdentifier objectForKeyedSubscript:v7];
@@ -229,7 +227,7 @@ LABEL_10:
             v18 = v12;
             if (v15 == v17)
             {
-              v15 = [sessions countByEnumeratingWithState:&v36 objects:v44 count:16];
+              v15 = [sessions countByEnumeratingWithState:&v35 objects:v43 count:16];
               if (v15)
               {
                 goto LABEL_10;
@@ -253,10 +251,10 @@ LABEL_17:
         }
       }
 
-      v33 = [obj countByEnumeratingWithState:&v40 objects:v45 count:16];
+      v32 = [obj countByEnumeratingWithState:&v39 objects:v44 count:16];
     }
 
-    while (v33);
+    while (v32);
   }
 
   else
@@ -267,8 +265,8 @@ LABEL_17:
   v19 = 0;
 LABEL_24:
 
-  objc_sync_exit(v28);
   objc_sync_exit(v27);
+  objc_sync_exit(v26);
 
   if (handle)
   {
@@ -281,8 +279,6 @@ LABEL_24:
     v25 = v12;
     *taskHandle = v12;
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_testUtility_forTask:(uint64_t)a1 sessionHandle:(uint64_t)a2 taskHandle:.cold.1(uint64_t a1, uint64_t a2)

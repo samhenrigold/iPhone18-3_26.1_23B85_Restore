@@ -1,13 +1,13 @@
-id sub_100000EE8()
+id sub_100000EE8(uint64_t a1)
 {
   if (qword_1000082A0 != -1)
   {
     sub_10000100C();
   }
 
-  v1 = qword_100008298;
+  v2 = qword_100008298;
 
-  return v1;
+  return v2;
 }
 
 void sub_100000F2C(id a1)
@@ -23,12 +23,13 @@ void sub_100000F2C(id a1)
   }
 }
 
-uint64_t sub_100000F8C(int a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t sub_100000F8C(int a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
   result = snprintf(byte_1000082A8, 0x400uLL, "%d ", a1);
   if ((result - 1) <= 0x3FE)
   {
-    result = vsnprintf(&byte_1000082A8[result], 1024 - result, a2, &a9);
+    result = vsnprintf(&byte_1000082A8[result], 1024 - result, a2, va);
   }
 
   qword_100008158 = byte_1000082A8;

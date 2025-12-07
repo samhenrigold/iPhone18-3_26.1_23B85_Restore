@@ -10,9 +10,9 @@
 
 - (TSTCoordinateArray)initWithCount:(unsigned int)count atOffset:(unsigned int)offset layoutDirectionIsLeftToRight:(BOOL)right
 {
-  v16.receiver = self;
-  v16.super_class = TSTCoordinateArray;
-  v8 = [(TSTCoordinateArray *)&v16 init];
+  v15.receiver = self;
+  v15.super_class = TSTCoordinateArray;
+  v8 = [(TSTCoordinateArray *)&v15 init];
   v9 = v8;
   if (v8)
   {
@@ -21,9 +21,9 @@
     v8->_coordinates = malloc_type_calloc(8uLL, count + 1, 0x100004000313F17uLL);
     v9->_average = 0.0;
     v10 = objc_alloc(MEMORY[0x277CCAB58]);
-    v13 = objc_msgSend_initWithIndexesInRange_(v10, v11, v9->_offset, count, v12);
+    v12 = objc_msgSend_initWithIndexesInRange_(v10, v11, v9->_offset, count);
     visibleIndices = v9->_visibleIndices;
-    v9->_visibleIndices = v13;
+    v9->_visibleIndices = v12;
 
     v9->_layoutDirectionIsLeftToRight = right;
     v9->_tableWidth = 0.0;
@@ -36,12 +36,12 @@
 {
   if (self->_layoutDirectionIsLeftToRight)
   {
-    v7 = MEMORY[0x277D81150];
-    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTCoordinateArray setTableWidthForRightToLeft:]", v3, v4);
-    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTCoordinateArray.mm", v10, v11);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v13, v8, v12, 51, 0, "Setting a table width on a LTR coordinate array has no effect.");
+    v6 = MEMORY[0x277D81150];
+    v7 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTCoordinateArray setTableWidthForRightToLeft:]", v3);
+    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTCoordinateArray.mm", v9);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v6, v11, v7, v10, 51, 0, "Setting a table width on a LTR coordinate array has no effect.");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v14, v15, v16, v17);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v12, v13, v14);
   }
 
   self->_tableWidth = left;
@@ -96,32 +96,32 @@
   v3 = MEMORY[0x277CCAB68];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  v9 = objc_msgSend_stringWithFormat_(v3, v6, @"<%@ %p offset=%u average=%f", v7, v8, v5, self, self->_offset, *&self->_average);
+  v8 = objc_msgSend_stringWithFormat_(v3, v6, @"<%@ %p offset=%u average=%f", v7, v5, self, self->_offset, *&self->_average);
 
   if (self->_coordinates)
   {
-    objc_msgSend_appendString_(v9, v10, @" coordinates={", v11, v12);
+    objc_msgSend_appendString_(v8, v9, @" coordinates={", v10);
     if (self->_count)
     {
-      v16 = 0;
+      v13 = 0;
       do
       {
-        objc_msgSend_appendFormat_(v9, v13, @"\n  { offset=%u -> coordinate=%f }", v14, v15, v16 + self->_offset, *&self->_coordinates[v16]);
-        ++v16;
+        objc_msgSend_appendFormat_(v8, v11, @"\n  { offset=%u -> coordinate=%f }", v12, v13 + self->_offset, *&self->_coordinates[v13]);
+        ++v13;
       }
 
-      while (v16 < self->_count);
+      while (v13 < self->_count);
     }
 
-    objc_msgSend_appendString_(v9, v13, @"}>", v14, v15);
+    objc_msgSend_appendString_(v8, v11, @"}>", v12);
   }
 
   else
   {
-    objc_msgSend_appendString_(v9, v10, @" coordinates={empty}>", v11, v12);
+    objc_msgSend_appendString_(v8, v9, @" coordinates={empty}>", v10);
   }
 
-  return v9;
+  return v8;
 }
 
 @end

@@ -231,7 +231,7 @@ void __23__CKUtilities_isIphone__block_invoke()
   }
 
   v21 = sourceCopy;
-  v74 = saveHandlerCopy;
+  v77 = saveHandlerCopy;
   if (savedCount)
   {
     if (v17 <= savedCount)
@@ -260,7 +260,7 @@ void __23__CKUtilities_isIphone__block_invoke()
       }
     }
 
-    v72 = IMGetCachedDomainBoolForKeyWithDefaultValue();
+    v75 = IMGetCachedDomainBoolForKeyWithDefaultValue();
 LABEL_30:
     mEMORY[0x1E69A8070] = [MEMORY[0x1E69A8070] sharedFeatureFlags];
     isRedesignedDetailsViewEnabled = [mEMORY[0x1E69A8070] isRedesignedDetailsViewEnabled];
@@ -274,8 +274,8 @@ LABEL_30:
     {
       [MEMORY[0x1E69789A8] sharedPhotoLibrary];
     }
-    v73 = ;
-    if ([v73 isCloudPhotoLibraryEnabled])
+    v76 = ;
+    if ([v76 isCloudPhotoLibraryEnabled])
     {
       v30 = [(__CFString *)v23 stringByAppendingString:@"_ICPL"];
 
@@ -284,146 +284,146 @@ LABEL_30:
 
     v31 = [(__CFString *)v23 stringByAppendingString:v18];
 
-    v69 = v31;
+    v72 = v31;
     if (v22)
     {
-      v32 = MEMORY[0x1E696AEC0];
-      v33 = v31;
-      v34 = CKFrameworkBundle();
-      v35 = [v34 localizedStringForKey:v33 value:&stru_1F04268F8 table:@"ChatKit"];
+      v33 = MEMORY[0x1E696AEC0];
+      v34 = v31;
+      v35 = CKFrameworkBundle(v34);
+      v36 = [v35 localizedStringForKey:v34 value:&stru_1F04268F8 table:@"ChatKit"];
 
-      savedCount = [v32 localizedStringWithFormat:v35, savedCount];
+      savedCount = [v33 localizedStringWithFormat:v36, savedCount];
 
       mEMORY[0x1E69DC668] = [MEMORY[0x1E69DC668] sharedApplication];
       userInterfaceLayoutDirection = [mEMORY[0x1E69DC668] userInterfaceLayoutDirection];
 
       if (userInterfaceLayoutDirection == 1)
       {
-        v39 = @"\u200F";
+        v40 = @"\u200F";
       }
 
       else
       {
-        v39 = @"\u200E";
+        v40 = @"\u200E";
       }
 
-      v40 = [(__CFString *)v39 stringByAppendingString:savedCount];
+      v41 = [(__CFString *)v40 stringByAppendingString:savedCount];
     }
 
     else
     {
-      savedCount = CKFrameworkBundle();
-      v40 = [savedCount localizedStringForKey:v31 value:&stru_1F04268F8 table:@"ChatKit"];
+      savedCount = CKFrameworkBundle(v32);
+      v41 = [savedCount localizedStringForKey:v31 value:&stru_1F04268F8 table:@"ChatKit"];
     }
 
-    v70 = v40;
+    v73 = v41;
 
-    v41 = v17 - savedCount;
-    v71 = v17 == savedCount;
+    v42 = v17 - savedCount;
+    v74 = v17 == savedCount;
     if (v17 == savedCount)
     {
-      v42 = @"SAVE_MULTIPLE_DUPLICATES";
+      v43 = @"SAVE_MULTIPLE_DUPLICATES";
       if (savedCount == 1)
       {
-        v42 = @"SAVE_SINGLE_DUPLICATE";
+        v43 = @"SAVE_SINGLE_DUPLICATE";
       }
 
-      v43 = v42;
-      v44 = CKFrameworkBundle();
-      v45 = [v44 localizedStringForKey:v43 value:&stru_1F04268F8 table:@"ChatKit"];
+      v44 = v43;
+      v45 = CKFrameworkBundle(v44);
+      v46 = [v45 localizedStringForKey:v44 value:&stru_1F04268F8 table:@"ChatKit"];
 
-      v46 = MEMORY[0x1E69DC648];
-      v47 = CKFrameworkBundle();
-      v48 = [v47 localizedStringForKey:@"SHOW_IN_PHOTOS" value:&stru_1F04268F8 table:@"ChatKit"];
-      v83[0] = MEMORY[0x1E69E9820];
-      v83[1] = 3221225472;
-      v83[2] = __154__CKUtilities_quickSaveConfirmationAlertWithPhotoCount_videoCount_otherCount_alreadySavedCount_popoverSource_cancelHandler_saveHandler_navigationHandler___block_invoke;
-      v83[3] = &unk_1E72EC218;
-      v84 = navigationHandlerCopy;
-      v49 = [v46 actionWithTitle:v48 style:0 handler:v83];
+      v47 = MEMORY[0x1E69DC648];
+      v49 = CKFrameworkBundle(v48);
+      v50 = [v49 localizedStringForKey:@"SHOW_IN_PHOTOS" value:&stru_1F04268F8 table:@"ChatKit"];
+      v86[0] = MEMORY[0x1E69E9820];
+      v86[1] = 3221225472;
+      v86[2] = __154__CKUtilities_quickSaveConfirmationAlertWithPhotoCount_videoCount_otherCount_alreadySavedCount_popoverSource_cancelHandler_saveHandler_navigationHandler___block_invoke;
+      v86[3] = &unk_1E72EC218;
+      v87 = navigationHandlerCopy;
+      v51 = [v47 actionWithTitle:v50 style:0 handler:v86];
     }
 
     else
     {
-      if (v41 >= v17)
+      if (v42 >= v17)
       {
-        if (v41 == 1)
+        if (v42 == 1)
         {
-          v59 = @"SAVE_SINGLE";
+          v62 = @"SAVE_SINGLE";
         }
 
         else
         {
-          v59 = @"SAVE_MULTIPLE";
+          v62 = @"SAVE_MULTIPLE";
         }
 
-        v50 = [(__CFString *)v59 stringByAppendingString:v18];
-        v54 = CKFrameworkBundle();
-        v58 = [v54 localizedStringForKey:v50 value:&stru_1F04268F8 table:@"ChatKit"];
+        v53 = [(__CFString *)v62 stringByAppendingString:v18];
+        v57 = CKFrameworkBundle(v53);
+        v61 = [v57 localizedStringForKey:v53 value:&stru_1F04268F8 table:@"ChatKit"];
       }
 
       else
       {
-        v50 = [@"SAVE_COUNT" stringByAppendingString:v18];
-        v51 = MEMORY[0x1E696AEC0];
-        v52 = CKFrameworkBundle();
-        v53 = [v52 localizedStringForKey:v50 value:&stru_1F04268F8 table:@"ChatKit"];
-        v54 = [v51 localizedStringWithFormat:v53, v41];
+        v53 = [@"SAVE_COUNT" stringByAppendingString:v18];
+        v54 = MEMORY[0x1E696AEC0];
+        v55 = CKFrameworkBundle(v53);
+        v56 = [v55 localizedStringForKey:v53 value:&stru_1F04268F8 table:@"ChatKit"];
+        v57 = [v54 localizedStringWithFormat:v56, v42];
 
         mEMORY[0x1E69DC668]2 = [MEMORY[0x1E69DC668] sharedApplication];
         userInterfaceLayoutDirection2 = [mEMORY[0x1E69DC668]2 userInterfaceLayoutDirection];
 
         if (userInterfaceLayoutDirection2 == 1)
         {
-          v57 = @"\u200F";
+          v60 = @"\u200F";
         }
 
         else
         {
-          v57 = @"\u200E";
+          v60 = @"\u200E";
         }
 
-        v58 = [(__CFString *)v57 stringByAppendingString:v54];
+        v61 = [(__CFString *)v60 stringByAppendingString:v57];
       }
 
-      v45 = v58;
+      v46 = v61;
 
-      v49 = 0;
+      v51 = 0;
     }
 
-    v60 = MEMORY[0x1E69DC648];
-    v61 = CKFrameworkBundle();
-    v62 = [v61 localizedStringForKey:@"CANCEL" value:&stru_1F04268F8 table:@"ChatKit"];
-    v81[0] = MEMORY[0x1E69E9820];
-    v81[1] = 3221225472;
-    v81[2] = __154__CKUtilities_quickSaveConfirmationAlertWithPhotoCount_videoCount_otherCount_alreadySavedCount_popoverSource_cancelHandler_saveHandler_navigationHandler___block_invoke_2;
-    v81[3] = &unk_1E72EC218;
-    v82 = handlerCopy;
-    v63 = [v60 actionWithTitle:v62 style:1 handler:v81];
+    v63 = MEMORY[0x1E69DC648];
+    v64 = CKFrameworkBundle(v52);
+    v65 = [v64 localizedStringForKey:@"CANCEL" value:&stru_1F04268F8 table:@"ChatKit"];
+    v84[0] = MEMORY[0x1E69E9820];
+    v84[1] = 3221225472;
+    v84[2] = __154__CKUtilities_quickSaveConfirmationAlertWithPhotoCount_videoCount_otherCount_alreadySavedCount_popoverSource_cancelHandler_saveHandler_navigationHandler___block_invoke_2;
+    v84[3] = &unk_1E72EC218;
+    v85 = handlerCopy;
+    v66 = [v63 actionWithTitle:v65 style:1 handler:v84];
 
-    v64 = MEMORY[0x1E69DC648];
-    v77[0] = MEMORY[0x1E69E9820];
-    v77[1] = 3221225472;
-    v77[2] = __154__CKUtilities_quickSaveConfirmationAlertWithPhotoCount_videoCount_otherCount_alreadySavedCount_popoverSource_cancelHandler_saveHandler_navigationHandler___block_invoke_3;
-    v77[3] = &unk_1E72EF500;
-    saveHandlerCopy = v74;
-    v78 = v74;
-    v79 = v71;
-    v80 = v72;
-    v65 = [v64 actionWithTitle:v45 style:0 handler:v77];
-    v66 = [MEMORY[0x1E69DC650] alertControllerWithTitle:0 message:v70 preferredStyle:0];
-    v26 = v66;
+    v67 = MEMORY[0x1E69DC648];
+    v80[0] = MEMORY[0x1E69E9820];
+    v80[1] = 3221225472;
+    v80[2] = __154__CKUtilities_quickSaveConfirmationAlertWithPhotoCount_videoCount_otherCount_alreadySavedCount_popoverSource_cancelHandler_saveHandler_navigationHandler___block_invoke_3;
+    v80[3] = &unk_1E72EF500;
+    saveHandlerCopy = v77;
+    v81 = v77;
+    v82 = v74;
+    v83 = v75;
+    v68 = [v67 actionWithTitle:v46 style:0 handler:v80];
+    v69 = [MEMORY[0x1E69DC650] alertControllerWithTitle:0 message:v73 preferredStyle:0];
+    v26 = v69;
     v21 = sourceCopy;
-    if (navigationHandlerCopy && v49)
+    if (navigationHandlerCopy && v51)
     {
-      [v66 addAction:v49];
+      [v69 addAction:v51];
     }
 
-    [v26 addAction:v65];
-    [v26 setPreferredAction:v65];
-    [v26 addAction:v63];
+    [v26 addAction:v68];
+    [v26 setPreferredAction:v68];
+    [v26 addAction:v66];
     objc_opt_class();
-    v23 = v69;
+    v23 = v72;
     if (objc_opt_isKindOfClass())
     {
       popoverPresentationController = [v26 popoverPresentationController];
@@ -444,7 +444,7 @@ LABEL_63:
       [popoverPresentationController setSourceView:sourceCopy];
     }
 
-    saveHandlerCopy = v74;
+    saveHandlerCopy = v77;
     goto LABEL_63;
   }
 
@@ -457,7 +457,7 @@ LABEL_63:
   v23 = v24;
   if (!IMGetCachedDomainBoolForKeyWithDefaultValue())
   {
-    v72 = 0;
+    v75 = 0;
     v22 = 0;
     goto LABEL_30;
   }
@@ -840,8 +840,9 @@ void __166__CKUtilities_quickSaveConfirmationAlertForMediaObjects_momentShareURL
   }
 }
 
-void __166__CKUtilities_quickSaveConfirmationAlertForMediaObjects_momentShareURL_popoverSource_metricsSource_cancelHandler_preSaveHandler_postSaveHandler_postAnyActionHandler___block_invoke_2_1787(uint64_t a1, int a2)
+void __166__CKUtilities_quickSaveConfirmationAlertForMediaObjects_momentShareURL_popoverSource_metricsSource_cancelHandler_preSaveHandler_postSaveHandler_postAnyActionHandler___block_invoke_2_1787(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v22 = *MEMORY[0x1E69E9840];
   v4 = *(a1 + 56);
   if (v4)
@@ -891,7 +892,7 @@ void __166__CKUtilities_quickSaveConfirmationAlertForMediaObjects_momentShareURL
 LABEL_17:
     v12 = [[CKMediaObjectExportManager alloc] initWithMediaObjects:*(a1 + 32)];
     v13 = v12;
-    if (a2)
+    if (v2)
     {
       [(CKMediaObjectExportManager *)v12 setIgnoreSyndicationIdentifiers:1];
       if (IMOSLoggingEnabled())
@@ -922,7 +923,7 @@ LABEL_17:
   }
 
   v16 = MEMORY[0x1E69A75D8];
-  if (!a2)
+  if (!v2)
   {
     v16 = MEMORY[0x1E69A75E8];
   }
@@ -1053,24 +1054,24 @@ LABEL_15:
 
   if (!v9 || (v11 & 1) != 0)
   {
-    v12 = CKFrameworkBundle();
-    v13 = [v12 localizedStringForKey:@"RECENTLY_DELETED_INITIAL_DELETE_ONBOARDING_ALERT_DETAILS" value:&stru_1F04268F8 table:@"ChatKit"];
+    v13 = CKFrameworkBundle(v12);
+    v14 = [v13 localizedStringForKey:@"RECENTLY_DELETED_INITIAL_DELETE_ONBOARDING_ALERT_DETAILS" value:&stru_1F04268F8 table:@"ChatKit"];
 
-    v14 = CKFrameworkBundle();
-    v15 = [v14 localizedStringForKey:@"RECENTLY_DELETED_INITIAL_DELETE_ONBOARDING_ALERT_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
-    v16 = [CKAlertController alertControllerWithTitle:v15 message:v13 preferredStyle:1];
+    v16 = CKFrameworkBundle(v15);
+    v17 = [v16 localizedStringForKey:@"RECENTLY_DELETED_INITIAL_DELETE_ONBOARDING_ALERT_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
+    v18 = [CKAlertController alertControllerWithTitle:v17 message:v14 preferredStyle:1];
 
-    v17 = CKFrameworkBundle();
-    v18 = [v17 localizedStringForKey:@"OK" value:&stru_1F04268F8 table:@"ChatKit"];
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __71__CKUtilities_onboardRecentlyDeletedIfNeeded_deviceType_actionHandler___block_invoke;
-    v20[3] = &unk_1E72EC218;
-    v21 = handlerCopy;
-    v19 = [CKAlertAction actionWithTitle:v18 style:0 handler:v20];
-    [v16 addAction:v19];
+    v20 = CKFrameworkBundle(v19);
+    v21 = [v20 localizedStringForKey:@"OK" value:&stru_1F04268F8 table:@"ChatKit"];
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = __71__CKUtilities_onboardRecentlyDeletedIfNeeded_deviceType_actionHandler___block_invoke;
+    v23[3] = &unk_1E72EC218;
+    v24 = handlerCopy;
+    v22 = [CKAlertAction actionWithTitle:v21 style:0 handler:v23];
+    [v18 addAction:v22];
 
-    [v16 presentFromViewController:neededCopy animated:1 completion:&__block_literal_global_1800];
+    [v18 presentFromViewController:neededCopy animated:1 completion:&__block_literal_global_1800];
   }
 
   else

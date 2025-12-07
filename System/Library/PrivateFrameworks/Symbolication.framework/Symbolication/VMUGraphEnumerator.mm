@@ -4,6 +4,7 @@
 - (void)destinationsOfGroup:(id)group;
 - (void)destinationsOfNodes:(void *)nodes;
 - (void)enumerateDestinationsOfGroup:(id)group groupedBy:(id)by withBlock:(id)block;
+- (void)enumerateDestinationsOfNode:(unsigned int)node groupedBy:(id)by withBlock:(id)block;
 - (void)enumerateDestinationsOfNodes:(void *)nodes groupedBy:(id)by withBlock:(id)block;
 @end
 
@@ -17,6 +18,26 @@
   v5->_graph = graphCopy;
 
   return v5;
+}
+
+- (void)enumerateDestinationsOfNode:(unsigned int)node groupedBy:(id)by withBlock:(id)block
+{
+  v6 = *&node;
+  graph = self->_graph;
+  blockCopy = block;
+  byCopy = by;
+  LODWORD(graph) = [(VMUDirectedGraph *)graph nodeNamespaceSize];
+  v11 = malloc_type_calloc(1uLL, ((graph + 7) >> 3) + 4, 0xB2EC2458uLL);
+  *v11 = graph;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __70__VMUGraphEnumerator_enumerateDestinationsOfNode_groupedBy_withBlock___block_invoke;
+  v12[3] = &__block_descriptor_40_e18_v28__0I8I12I16_B20l;
+  v12[4] = v11;
+  [(VMUGraphEnumerator *)self enumerateEdgesOfNode:v6 withBlock:v12];
+  [byCopy enumerateGroups:v11 withBlock:blockCopy];
+
+  free(v11);
 }
 
 uint64_t __70__VMUGraphEnumerator_enumerateDestinationsOfNode_groupedBy_withBlock___block_invoke(uint64_t result, uint64_t a2, uint64_t a3, unsigned int a4)

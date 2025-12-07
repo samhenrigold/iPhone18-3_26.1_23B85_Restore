@@ -28,13 +28,13 @@
 - (void)setCornerRadius:(double)radius
 {
   selfCopy = self;
-  sub_1A39C9124(radius);
+  sub_1A39C9124(selfCopy, v4, radius);
 }
 
 - (void)layoutSublayers
 {
   selfCopy = self;
-  sub_1A39CA1B8();
+  sub_1A39CA1B8(selfCopy, v2);
 }
 
 - (CGRect)bounds

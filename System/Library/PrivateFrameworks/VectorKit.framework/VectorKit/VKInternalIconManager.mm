@@ -109,39 +109,24 @@ LABEL_6:
 {
   attributesCopy = attributes;
   modifiersCopy = modifiers;
-  *&v14 = scale;
-  [(VKInternalIconManager *)self _styleManagerForStylesheetName:name contentScale:v14];
+  *&v12 = scale;
+  objc_msgSend__styleManagerForStylesheetName_contentScale_(self, v12);
   grl::IconModifiers::setComponent([modifiersCopy cppModifiers], 6);
-  v28 = v32;
-  v29 = v33;
-  if (v33)
+  v26 = v30;
+  v27 = v31;
+  if (v31)
   {
-    atomic_fetch_add_explicit(&v33->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v31->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  *&v15 = scale;
-  [(VKInternalIconManager *)self _iconImageForStyleAttributes:attributesCopy styleManager:&v28 contentScale:group sizeGroup:modifiersCopy modifiers:v15];
-  if (v29)
+  *&v13 = scale;
+  objc_msgSend__iconImageForStyleAttributes_styleManager_contentScale_sizeGroup_modifiers_(self, v13);
+  if (v27)
   {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v29);
+    std::__shared_weak_count::__release_shared[abi:nn200100](v27);
   }
 
   grl::IconModifiers::setComponent([modifiersCopy cppModifiers], 3);
-  v24 = v32;
-  v25 = v33;
-  if (v33)
-  {
-    atomic_fetch_add_explicit(&v33->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  *&v16 = scale;
-  [(VKInternalIconManager *)self _iconImageForStyleAttributes:attributesCopy styleManager:&v24 contentScale:group sizeGroup:modifiersCopy modifiers:v16];
-  if (v25)
-  {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v25);
-  }
-
-  v17 = [VKBalloonIcon alloc];
   v22 = v30;
   v23 = v31;
   if (v31)
@@ -149,27 +134,47 @@ LABEL_6:
     atomic_fetch_add_explicit(&v31->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v20 = v26;
-  v21 = v27;
-  if (v27)
-  {
-    atomic_fetch_add_explicit(&v27->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  v18 = [(VKBalloonIcon *)v17 initWithBalloonImage:&v22 dotImage:&v20];
-  if (v21)
-  {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v21);
-  }
-
+  *&v14 = scale;
+  objc_msgSend__iconImageForStyleAttributes_styleManager_contentScale_sizeGroup_modifiers_(self, v14);
   if (v23)
   {
     std::__shared_weak_count::__release_shared[abi:nn200100](v23);
   }
 
-  if (v27)
+  v15 = [VKBalloonIcon alloc];
+  v20 = v28;
+  v21 = v29;
+  if (v29)
   {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v27);
+    atomic_fetch_add_explicit(&v29->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  v18 = v24;
+  v19 = v25;
+  if (v25)
+  {
+    atomic_fetch_add_explicit(&v25->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  v16 = [(VKBalloonIcon *)v15 initWithBalloonImage:&v20 dotImage:&v18];
+  if (v19)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v19);
+  }
+
+  if (v21)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v21);
+  }
+
+  if (v25)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v25);
+  }
+
+  if (v29)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v29);
   }
 
   if (v31)
@@ -177,12 +182,7 @@ LABEL_6:
     std::__shared_weak_count::__release_shared[abi:nn200100](v31);
   }
 
-  if (v33)
-  {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v33);
-  }
-
-  return v18;
+  return v16;
 }
 
 - (id)imageForIconID:(unsigned int)d contentScale:(float)scale sizeGroup:(int64_t)group modifiers:(id)modifiers
@@ -383,6 +383,7 @@ LABEL_18:
 
 - (id)imageForKey:(unsigned int)key value:(unsigned int)value contentScale:(float)scale sizeGroup:(int64_t)group modifiers:(id)modifiers
 {
+  v10 = *&key;
   v42[4] = *MEMORY[0x1E69E9840];
   modifiersCopy = modifiers;
   v37 = 1065353216;
@@ -398,7 +399,7 @@ LABEL_18:
     grl::IconRequestOptions::setVariant(&v37, [modifiersCopy variant]);
     grl::IconRequestOptions::setDataVariant(&v37, [modifiersCopy secondaryVariant]);
     grl::IconRequestOptions::setCountryCode(&v37, [modifiersCopy countryCode]);
-    grl::IconManager::imageForKeyValue(&v27, self->_iconManager.__ptr_, key, value, [modifiersCopy cppModifiers], &v37, 0);
+    grl::IconManager::imageForKeyValue(&v27, self->_iconManager.__ptr_, v10, value, [modifiersCopy cppModifiers], &v37, 0);
     v13 = v27;
   }
 
@@ -419,7 +420,7 @@ LABEL_18:
     BYTE4(v30) = 0;
     v34 = v35;
     v36 = 0;
-    grl::IconManager::imageForKeyValue(&v26, self->_iconManager.__ptr_, key, value, &v27, &v37, 0);
+    grl::IconManager::imageForKeyValue(&v26, self->_iconManager.__ptr_, v10, value, &v27, &v37, 0);
     v23 = v26;
     grl::IconModifiers::~IconModifiers(&v27);
     v13 = v23;
@@ -608,79 +609,78 @@ LABEL_12:
 {
   attributesCopy = attributes;
   modifiersCopy = modifiers;
-  *&v14 = scale;
-  [(VKInternalIconManager *)self _styleManagerForStylesheetName:name contentScale:v14];
+  *&v13 = scale;
+  objc_msgSend__styleManagerForStylesheetName_contentScale_(self, v13);
+  v17 = v19;
   v18 = v20;
-  v19 = v21;
-  if (v21)
+  if (v20)
   {
-    atomic_fetch_add_explicit(&v21->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v20->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  *&v15 = scale;
-  v16 = [(VKInternalIconManager *)self imageForStyleAttributes:attributesCopy styleManager:&v18 contentScale:group sizeGroup:modifiersCopy modifiers:v15];
-  if (v19)
+  *&v14 = scale;
+  v15 = [(VKInternalIconManager *)self imageForStyleAttributes:attributesCopy styleManager:&v17 contentScale:group sizeGroup:modifiersCopy modifiers:v14];
+  if (v18)
   {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v19);
+    std::__shared_weak_count::__release_shared[abi:nn200100](v18);
   }
 
+  if (v20)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v20);
+  }
+
+  return v15;
+}
+
+- (id)imageForStyleAttributes:(id)attributes styleManager:(shared_ptr<gss:(float)manager :(int64_t)a6 StylesheetManager<gss:(id)gss :PropertyID>>)a4 contentScale:sizeGroup:modifiers:
+{
+  ptr = a4.__ptr_;
+  attributesCopy = attributes;
+  v12 = a6;
+  v14 = ptr[1];
+  v20 = *ptr;
+  v21 = v14;
+  if (v14)
+  {
+    atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  *&v13 = manager;
+  objc_msgSend__iconImageForStyleAttributes_styleManager_contentScale_sizeGroup_modifiers_(self, v13);
   if (v21)
   {
     std::__shared_weak_count::__release_shared[abi:nn200100](v21);
   }
 
-  return v16;
-}
-
-- (id)imageForStyleAttributes:(id)attributes styleManager:(shared_ptr<gss:(float)manager :(int64_t)a6 StylesheetManager<gss:(id)gss :PropertyID>>)a4 contentScale:sizeGroup:modifiers:
-{
-  cntrl = a4.__cntrl_;
-  ptr = a4.__ptr_;
-  attributesCopy = attributes;
-  v13 = a6;
-  v15 = ptr[1];
-  v21 = *ptr;
-  v22 = v15;
-  if (v15)
-  {
-    atomic_fetch_add_explicit(&v15->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  *&v14 = manager;
-  [(VKInternalIconManager *)self _iconImageForStyleAttributes:attributesCopy styleManager:&v21 contentScale:cntrl sizeGroup:v13 modifiers:v14];
   if (v22)
   {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v22);
-  }
-
-  if (v23)
-  {
-    v16 = [VKIconImage alloc];
+    v15 = [VKIconImage alloc];
+    v18 = v22;
     v19 = v23;
-    v20 = v24;
-    if (v24)
+    if (v23)
     {
-      atomic_fetch_add_explicit(&v24->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v23->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v17 = [(VKIconImage *)v16 init:&v19];
-    if (v20)
+    v16 = [(VKIconImage *)v15 init:&v18];
+    if (v19)
     {
-      std::__shared_weak_count::__release_shared[abi:nn200100](v20);
+      std::__shared_weak_count::__release_shared[abi:nn200100](v19);
     }
   }
 
   else
   {
-    v17 = 0;
+    v16 = 0;
   }
 
-  if (v24)
+  if (v23)
   {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v24);
+    std::__shared_weak_count::__release_shared[abi:nn200100](v23);
   }
 
-  return v17;
+  return v16;
 }
 
 - (id)imageForImageSourceKey:(id)key
@@ -888,7 +888,7 @@ LABEL_17:
 
         if (size)
         {
-          v25 = grl::IconManager::identifierForName(self->_iconManager.__ptr_, &__p.__r_.__value_.__l.__data_, manager);
+          v25 = grl::IconManager::identifierForName(self->_iconManager.__ptr_, &__p, manager);
           v24 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
         }
 
@@ -1108,14 +1108,14 @@ LABEL_58:
   v7 = v4;
   nameCopy = name;
   scale = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@-%f", nameCopy, scale];
-  v43 = scale;
+  v44 = scale;
   v10 = pthread_rwlock_rdlock(&self->_nameToStyleManagerLock._lock);
   if (v10)
   {
     geo::read_write_lock::logFailure(v10, "read lock", v11);
   }
 
-  v12 = std::__tree<std::__value_type<NSString * {__strong},std::shared_ptr<gss::StylesheetManager<gss::PropertyID>>>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},std::shared_ptr<gss::StylesheetManager<gss::PropertyID>>>,NSStringMapComparison,true>,geo::allocator_adapter<std::__value_type<NSString * {__strong},std::shared_ptr<gss::StylesheetManager<gss::PropertyID>>>,mdm::zone_mallocator>>::find<NSString * {__strong}>(&self->_nameToStyleManager, &v43);
+  v12 = std::__tree<std::__value_type<NSString * {__strong},std::shared_ptr<gss::StylesheetManager<gss::PropertyID>>>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},std::shared_ptr<gss::StylesheetManager<gss::PropertyID>>>,NSStringMapComparison,true>,geo::allocator_adapter<std::__value_type<NSString * {__strong},std::shared_ptr<gss::StylesheetManager<gss::PropertyID>>>,mdm::zone_mallocator>>::find<NSString * {__strong}>(&self->_nameToStyleManager, &v44);
   p_end_node = &self->_nameToStyleManager.__tree_.__end_node_;
   if (&self->_nameToStyleManager.__tree_.__end_node_ == v12)
   {
@@ -1152,7 +1152,7 @@ LABEL_58:
         geo::read_write_lock::logFailure(v18, "write lock", v19);
       }
 
-      v20 = std::__tree<std::__value_type<NSString * {__strong},std::shared_ptr<gss::StylesheetManager<gss::PropertyID>>>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},std::shared_ptr<gss::StylesheetManager<gss::PropertyID>>>,NSStringMapComparison,true>,geo::allocator_adapter<std::__value_type<NSString * {__strong},std::shared_ptr<gss::StylesheetManager<gss::PropertyID>>>,mdm::zone_mallocator>>::find<NSString * {__strong}>(&self->_nameToStyleManager, &v43);
+      v20 = std::__tree<std::__value_type<NSString * {__strong},std::shared_ptr<gss::StylesheetManager<gss::PropertyID>>>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},std::shared_ptr<gss::StylesheetManager<gss::PropertyID>>>,NSStringMapComparison,true>,geo::allocator_adapter<std::__value_type<NSString * {__strong},std::shared_ptr<gss::StylesheetManager<gss::PropertyID>>>,mdm::zone_mallocator>>::find<NSString * {__strong}>(&self->_nameToStyleManager, &v44);
       if (p_end_node != v20)
       {
         v15 = *(v20 + 40);
@@ -1172,15 +1172,15 @@ LABEL_58:
       }
 
       std::string::basic_string[abi:nn200100]<0>(__p, v17);
-      gss::StyleManagerExtension::initWithName<gss::PropertyID>(v41, __p, 0, self->_stylesheetVendor.__ptr_, scale);
-      v15 = v41[0];
-      v23 = v41[1];
+      gss::StyleManagerExtension::initWithName<gss::PropertyID>(v42, __p, 0, self->_stylesheetVendor.__ptr_, scale);
+      v15 = v42[0];
+      v23 = v42[1];
       if (v14)
       {
         std::__shared_weak_count::__release_shared[abi:nn200100](v14);
       }
 
-      if (v40 < 0)
+      if (v41 < 0)
       {
         operator delete(__p[0]);
       }
@@ -1197,7 +1197,7 @@ LABEL_58:
 
       if (!v25)
       {
-        gss::ClientStyleState<gss::PropertyID>::init();
+        gss::ClientStyleState<gss::PropertyID>::init(&v39);
       }
 
       if (*(self->_iconManager.__ptr_ + 88))
@@ -1205,7 +1205,7 @@ LABEL_58:
         v21 = v24;
 LABEL_47:
         geo::write_lock_guard::~write_lock_guard(&p_nameToStyleManagerLock);
-        scale = v43;
+        scale = v44;
         v14 = v21;
 LABEL_48:
         *v7 = v15;
@@ -1255,7 +1255,7 @@ LABEL_48:
 LABEL_43:
           if (v24)
           {
-            atomic_fetch_add_explicit(&v38->__shared_owners_, 1uLL, memory_order_relaxed);
+            atomic_fetch_add_explicit((v38 + 8), 1uLL, memory_order_relaxed);
           }
 
           v22 = v32[6];
@@ -1289,7 +1289,7 @@ LABEL_38:
       v32 = malloc_type_zone_malloc(*v29, 0x38uLL, 0x10E0040FD998DD6uLL);
       atomic_fetch_add((v29 + 24), 1u);
       geo::read_write_lock::unlock((v29 + 32));
-      v33 = v43;
+      v33 = v44;
       v32[5] = 0;
       v32[6] = 0;
       v32[4] = v33;
@@ -1416,7 +1416,7 @@ LABEL_49:
 
 - (VKInternalIconManager)init
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v8.receiver = self;
   v8.super_class = VKInternalIconManager;
   v2 = [(VKInternalIconManager *)&v8 init];
@@ -1425,14 +1425,14 @@ LABEL_49:
   {
     v2->_isSharedIconManager = 0;
     v4 = objc_alloc_init(VKResourceManager);
-    v9 = &unk_1F2A2FC10;
-    v10 = v4;
+    v9.__ptr_ = &unk_1F2A2FC10;
+    v9.__cntrl_ = v4;
     v5 = v4;
     geo::_retain_ptr<VKResourceManager * {__strong},geo::_retain_objc_arc,geo::_release_objc_arc,geo::_hash_objc,geo::_equal_objc>::operator=(&v3->_resourceManager, &v9);
-    v9 = &unk_1F2A2FC10;
+    v9.__ptr_ = &unk_1F2A2FC10;
 
     v7 = v3->_resourceManager._obj;
-    std::allocate_shared[abi:nn200100]<md::StylesheetVendor,std::allocator<md::StylesheetVendor>,VKResourceManager * {__strong},0>();
+    std::allocate_shared[abi:nn200100]<md::StylesheetVendor,std::allocator<md::StylesheetVendor>,VKResourceManager * {__strong},0>(&v9, &v7);
   }
 
   return 0;

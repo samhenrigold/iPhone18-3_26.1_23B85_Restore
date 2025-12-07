@@ -737,7 +737,7 @@
 
 - (void)updateUnreadIndicatorWithImage:(id)image
 {
-  if (!CKIsRunningUnitTests())
+  if (!CKIsRunningUnitTests(self, a2))
   {
     [CKConversationListCell updateUnreadIndicatorWithImage:];
   }
@@ -745,7 +745,7 @@
 
 - (void)updateFromLabelWithText:(id)text
 {
-  if (!CKIsRunningUnitTests())
+  if (!CKIsRunningUnitTests(self, a2))
   {
     [CKConversationListCell updateUnreadIndicatorWithImage:];
   }
@@ -754,7 +754,7 @@
 - (void)updateContentsForConversation:(id)conversation fastPreview:(BOOL)preview
 {
   previewCopy = preview;
-  v35 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   conversationCopy = conversation;
   if (IMOSLoggingEnabled())
   {
@@ -763,37 +763,36 @@
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v34 = conversationCopy;
+      v46 = conversationCopy;
       _os_log_impl(&dword_19020E000, v7, OS_LOG_TYPE_DEBUG, "Updating contents of CKConversationListCell for conversation: %@", buf, 0xCu);
     }
   }
 
   if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
   {
-    name2 = conversationCopy;
-    _CKLog();
+    _CKLog(0x1Au, @"Updating contents of CKConversationListCell for conversation: %@", v8, v9, v10, v11, v12, v13, conversationCopy);
   }
 
   if (IMOSLoggingEnabled())
   {
     CKLogCStringForType(26);
-    v8 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v14 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
       name = [conversationCopy name];
       *buf = 138412290;
-      v34 = name;
-      _os_log_impl(&dword_19020E000, v8, OS_LOG_TYPE_DEBUG, "  From: '%@'", buf, 0xCu);
+      v46 = name;
+      _os_log_impl(&dword_19020E000, v14, OS_LOG_TYPE_DEBUG, "  From: '%@'", buf, 0xCu);
     }
   }
 
   if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
   {
     name2 = [conversationCopy name];
-    _CKLog();
+    _CKLog(0x1Au, @"  From: '%@'", v17, v18, v19, v20, v21, v22, name2);
   }
 
-  [(CKConversationListCell *)self setConversation:conversationCopy, name2];
+  [(CKConversationListCell *)self setConversation:conversationCopy];
   self->_placeholder = [conversationCopy isPlaceholder];
   -[CKConversationListCell setMuted:](self, "setMuted:", [conversationCopy isMuted]);
   -[CKConversationListCell setGroupConversation:](self, "setGroupConversation:", [conversationCopy isGroupConversation]);
@@ -809,26 +808,26 @@
     [conversationCopy fetchSuggestedNameIfNecessary];
   }
 
-  v11 = displayName;
+  v24 = displayName;
   if (!displayName)
   {
     if (IMOSLoggingEnabled())
     {
-      v12 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+      v25 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
       {
         chat = [conversationCopy chat];
         guid = [chat guid];
         *buf = 138412290;
-        v34 = guid;
-        _os_log_impl(&dword_19020E000, v12, OS_LOG_TYPE_INFO, "Setting conversation cell text to nil! Chat guid: %@", buf, 0xCu);
+        v46 = guid;
+        _os_log_impl(&dword_19020E000, v25, OS_LOG_TYPE_INFO, "Setting conversation cell text to nil! Chat guid: %@", buf, 0xCu);
       }
     }
 
-    v11 = &stru_1F04268F8;
+    v24 = &stru_1F04268F8;
   }
 
-  v15 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:v11];
+  v28 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:v24];
   mEMORY[0x1E69A8070] = [MEMORY[0x1E69A8070] sharedFeatureFlags];
   isIntroductionsEnabled = [mEMORY[0x1E69A8070] isIntroductionsEnabled];
 
@@ -843,22 +842,22 @@
       {
         attributedName = [conversationCopy attributedName];
 
-        v15 = attributedName;
+        v28 = attributedName;
       }
     }
   }
 
-  v21 = +[CKUIBehavior sharedBehaviors];
-  showUnreadCountDebugggingInfo = [v21 showUnreadCountDebugggingInfo];
+  v34 = +[CKUIBehavior sharedBehaviors];
+  showUnreadCountDebugggingInfo = [v34 showUnreadCountDebugggingInfo];
 
   if (showUnreadCountDebugggingInfo)
   {
     unreadCount = [conversationCopy unreadCount];
-    v24 = [v15 mutableCopy];
-    v25 = objc_alloc(MEMORY[0x1E696AAB0]);
-    v26 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(%lu) ", unreadCount];
-    v27 = [v25 initWithString:v26];
-    [v24 insertAttributedString:v27 atIndex:0];
+    v37 = [v28 mutableCopy];
+    v38 = objc_alloc(MEMORY[0x1E696AAB0]);
+    v39 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(%lu) ", unreadCount];
+    v40 = [v38 initWithString:v39];
+    [v37 insertAttributedString:v40 atIndex:0];
 
     if (unreadCount < 1)
     {
@@ -869,30 +868,30 @@
     {
       [MEMORY[0x1E69DC888] systemGreenColor];
     }
-    v28 = ;
-    [(CKConversationListCell *)self setBackgroundColor:v28];
+    v41 = ;
+    [(CKConversationListCell *)self setBackgroundColor:v41];
   }
 
   else
   {
-    v24 = v15;
+    v37 = v28;
   }
 
-  [(CKConversationListCell *)self updateFromLabelWithText:v24];
+  [(CKConversationListCell *)self updateFromLabelWithText:v37];
   [(CKConversationListCell *)self updateDateLabel:self->_dateLabel conversation:conversationCopy];
   chat3 = [conversationCopy chat];
-  v30 = chat3;
+  v43 = chat3;
   if (chat3)
   {
-    v31 = [chat3 allowedByScreenTime] ^ 1;
+    v44 = [chat3 allowedByScreenTime] ^ 1;
   }
 
   else
   {
-    v31 = 0;
+    v44 = 0;
   }
 
-  [(CKConversationListCell *)self setShouldHidePreviewSummary:v31];
+  [(CKConversationListCell *)self setShouldHidePreviewSummary:v44];
   [(CKConversationListCell *)self updateSummaryLabel:self->_summaryLabel conversation:conversationCopy fastPreview:previewCopy];
   [(CKConversationListCell *)self updateVerifiedCheckmarkForBusiness];
   [(CKConversationListCell *)self setNeedsLayout];
@@ -900,7 +899,7 @@
 
 - (void)updateDateLabel:(id)label conversation:(id)conversation
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   labelCopy = label;
   conversationCopy = conversation;
   delegate = [(CKConversationListCell *)self delegate];
@@ -948,14 +947,14 @@
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v18 = date;
+        v24 = date;
         _os_log_impl(&dword_19020E000, v16, OS_LOG_TYPE_DEBUG, "  Date: %@", buf, 0xCu);
       }
     }
 
     if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
     {
-      _CKLog();
+      _CKLog(0x1Au, @"  Date: %@", v17, v18, v19, v20, v21, v22, date);
     }
 
     if (date)
@@ -968,7 +967,7 @@
 - (void)updateSummaryLabel:(id)label conversation:(id)conversation fastPreview:(BOOL)preview
 {
   previewCopy = preview;
-  v62 = *MEMORY[0x1E69E9840];
+  v69 = *MEMORY[0x1E69E9840];
   labelCopy = label;
   conversationCopy = conversation;
   delegate = [(CKConversationListCell *)self delegate];
@@ -996,64 +995,65 @@
     v12 = ;
   }
 
-  if ([(CKConversationListCell *)self _shouldShowSummaryForSatelliteMessages])
+  _shouldShowSummaryForSatelliteMessages = [(CKConversationListCell *)self _shouldShowSummaryForSatelliteMessages];
+  if (_shouldShowSummaryForSatelliteMessages)
   {
-    v13 = MEMORY[0x1E696AEC0];
-    v14 = CKFrameworkBundle();
-    v15 = [v14 localizedStringForKey:@"NEW_SATELLITE_MESSAGE_COUNT" value:&stru_1F04268F8 table:@"ChatKit-CarrierPigeon"];
+    v14 = MEMORY[0x1E696AEC0];
+    v15 = CKFrameworkBundle(_shouldShowSummaryForSatelliteMessages);
+    v16 = [v15 localizedStringForKey:@"NEW_SATELLITE_MESSAGE_COUNT" value:&stru_1F04268F8 table:@"ChatKit-CarrierPigeon"];
     conversation = [(CKConversationListCell *)self conversation];
     chat = [conversation chat];
-    v18 = [v13 localizedStringWithFormat:v15, objc_msgSend(chat, "pendingIncomingSatelliteMessageCount")];
+    v19 = [v14 localizedStringWithFormat:v16, objc_msgSend(chat, "pendingIncomingSatelliteMessageCount")];
 
     mEMORY[0x1E69DC668] = [MEMORY[0x1E69DC668] sharedApplication];
     userInterfaceLayoutDirection = [mEMORY[0x1E69DC668] userInterfaceLayoutDirection];
 
     if (userInterfaceLayoutDirection == 1)
     {
-      v21 = @"\u200F";
+      v22 = @"\u200F";
     }
 
     else
     {
-      v21 = @"\u200E";
+      v22 = @"\u200E";
     }
 
-    v22 = [(__CFString *)v21 stringByAppendingString:v18];
+    v23 = [(__CFString *)v22 stringByAppendingString:v19];
 
-    v23 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:v22];
+    v24 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:v23];
     [(CKConversationListCell *)self updateUnreadIndicatorForCurrentConversation];
 
-    v12 = v23;
+    v12 = v24;
   }
 
   if (IMOSLoggingEnabled())
   {
     CKLogCStringForType(26);
-    v24 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+    v25 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
     {
       *buf = 134217984;
-      *v59 = [v12 length];
-      _os_log_impl(&dword_19020E000, v24, OS_LOG_TYPE_DEBUG, "  Summary Length: %ld", buf, 0xCu);
+      *v66 = [v12 length];
+      _os_log_impl(&dword_19020E000, v25, OS_LOG_TYPE_DEBUG, "  Summary Length: %ld", buf, 0xCu);
     }
   }
 
   if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
   {
-    v56 = [v12 length];
-    _CKLog();
+    v26 = [v12 length];
+    _CKLog(0x1Au, @"  Summary Length: %ld", v27, v28, v29, v30, v31, v32, v26);
   }
 
-  v25 = [v12 length];
-  v26 = +[CKUIBehavior sharedBehaviors];
-  v27 = v25 > [v26 conversationListCellMaxSummaryLength];
+  v33 = [v12 length];
+  v34 = +[CKUIBehavior sharedBehaviors];
+  v35 = v33 > [v34 conversationListCellMaxSummaryLength];
 
-  if (v27)
+  if (v35)
   {
-    v28 = +[CKUIBehavior sharedBehaviors];
-    v29 = [v12 attributedSubstringFromRange:{0, objc_msgSend(v28, "conversationListCellMaxSummaryLength")}];
+    v36 = +[CKUIBehavior sharedBehaviors];
+    v37 = [v12 attributedSubstringFromRange:{0, objc_msgSend(v36, "conversationListCellMaxSummaryLength")}];
 
-    v12 = v29;
+    v12 = v37;
   }
 
   if ([MEMORY[0x1E69A8090] messageSummarizationEnabled])
@@ -1063,19 +1063,19 @@
 
     if (IMOSLoggingEnabled())
     {
-      v32 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
+      v40 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
       {
         conversation2 = [(CKConversationListCell *)self conversation];
         chat3 = [conversation2 chat];
         guid = [chat3 guid];
         *buf = 67109634;
-        *v59 = chatSummary != 0;
-        *&v59[4] = 2112;
-        *&v59[6] = guid;
-        v60 = 1024;
-        v61 = chatSummary == 0;
-        _os_log_impl(&dword_19020E000, v32, OS_LOG_TYPE_INFO, "Showing chat summary: (%d) for conversation with GUID %@, isNilChatSummary=%{BOOL}d", buf, 0x18u);
+        *v66 = chatSummary != 0;
+        *&v66[4] = 2112;
+        *&v66[6] = guid;
+        v67 = 1024;
+        v68 = chatSummary == 0;
+        _os_log_impl(&dword_19020E000, v40, OS_LOG_TYPE_INFO, "Showing chat summary: (%d) for conversation with GUID %@, isNilChatSummary=%{BOOL}d", buf, 0x18u);
       }
 
       if (!chatSummary)
@@ -1105,39 +1105,39 @@ LABEL_28:
 
   chat5 = [conversationCopy chat];
   conversation3 = [chat5 conversation];
-  v39 = conversation3 == 0;
+  v47 = conversation3 == 0;
 
-  if (v39)
+  if (v47)
   {
 LABEL_32:
-    v44 = +[CKUIBehavior sharedBehaviors];
-    conversationListSummaryFont = [v44 conversationListSummaryFont];
+    v52 = +[CKUIBehavior sharedBehaviors];
+    conversationListSummaryFont = [v52 conversationListSummaryFont];
 
     summaryLabelTextColor = [(CKConversationListCell *)self summaryLabelTextColor];
-    v47 = objc_alloc_init(CKPreviewTextDisplayContext);
-    [(CKPreviewTextDisplayContext *)v47 setBaseTextFont:conversationListSummaryFont];
-    [(CKPreviewTextDisplayContext *)v47 setBaseTextColor:summaryLabelTextColor];
-    v48 = MEMORY[0x1E69DB878];
+    v55 = objc_alloc_init(CKPreviewTextDisplayContext);
+    [(CKPreviewTextDisplayContext *)v55 setBaseTextFont:conversationListSummaryFont];
+    [(CKPreviewTextDisplayContext *)v55 setBaseTextColor:summaryLabelTextColor];
+    v56 = MEMORY[0x1E69DB878];
     fontDescriptor = [conversationListSummaryFont fontDescriptor];
-    v50 = [fontDescriptor fontDescriptorWithSymbolicTraits:2];
-    v51 = [v48 fontWithDescriptor:v50 size:0.0];
-    [(CKPreviewTextDisplayContext *)v47 setMentionsFont:v51];
+    v58 = [fontDescriptor fontDescriptorWithSymbolicTraits:2];
+    v59 = [v56 fontWithDescriptor:v58 size:0.0];
+    [(CKPreviewTextDisplayContext *)v55 setMentionsFont:v59];
 
     if ([(CKConversationListCell *)self shouldLabelsBeHighlighted])
     {
-      [(CKPreviewTextDisplayContext *)v47 setMentionsColor:summaryLabelTextColor];
+      [(CKPreviewTextDisplayContext *)v55 setMentionsColor:summaryLabelTextColor];
     }
 
     else
     {
-      v52 = +[CKUIBehavior sharedBehaviors];
-      theme = [v52 theme];
+      v60 = +[CKUIBehavior sharedBehaviors];
+      theme = [v60 theme];
       meMentionTextColor = [theme meMentionTextColor];
-      [(CKPreviewTextDisplayContext *)v47 setMentionsColor:meMentionTextColor];
+      [(CKPreviewTextDisplayContext *)v55 setMentionsColor:meMentionTextColor];
     }
 
-    v55 = CKPreviewTextForDisplay(v12, v47);
-    [(UILabel *)self->_summaryLabel setAttributedText:v55];
+    v63 = CKPreviewTextForDisplay(v12, v55);
+    [(UILabel *)self->_summaryLabel setAttributedText:v63];
 
     goto LABEL_36;
   }
@@ -1145,9 +1145,9 @@ LABEL_32:
   string = [v12 string];
   chat6 = [conversationCopy chat];
   conversation4 = [chat6 conversation];
-  v43 = [(CKConversationListCell *)self _makeSummaryAttributedStringWithText:string multiwayConversation:conversation4];
+  v51 = [(CKConversationListCell *)self _makeSummaryAttributedStringWithText:string multiwayConversation:conversation4];
 
-  [(UILabel *)self->_summaryLabel setAttributedText:v43];
+  [(UILabel *)self->_summaryLabel setAttributedText:v51];
 LABEL_36:
   chatSummary = 0;
 LABEL_39:
@@ -1207,41 +1207,42 @@ LABEL_42:
 
 - (id)summaryAttributedTextForBlockedConversationWithIcon:(BOOL)icon
 {
-  if ([MEMORY[0x1E69A5B68] isContactLimitsFeatureEnabled])
+  isContactLimitsFeatureEnabled = [MEMORY[0x1E69A5B68] isContactLimitsFeatureEnabled];
+  if (isContactLimitsFeatureEnabled)
   {
-    v4 = MEMORY[0x1E696AEC0];
-    v5 = CKFrameworkBundle();
-    v6 = [v5 localizedStringForKey:@"CONVERSATION_LIST_CELL_SUMMARY_TEXT_SCREENTIME" value:&stru_1F04268F8 table:@"ChatKit"];
-    v7 = [v4 localizedStringWithFormat:v6, -[CKConversationListCell unreadMessageCount](self, "unreadMessageCount")];
+    v5 = MEMORY[0x1E696AEC0];
+    v6 = CKFrameworkBundle(isContactLimitsFeatureEnabled);
+    v7 = [v6 localizedStringForKey:@"CONVERSATION_LIST_CELL_SUMMARY_TEXT_SCREENTIME" value:&stru_1F04268F8 table:@"ChatKit"];
+    v8 = [v5 localizedStringWithFormat:v7, -[CKConversationListCell unreadMessageCount](self, "unreadMessageCount")];
 
     mEMORY[0x1E69DC668] = [MEMORY[0x1E69DC668] sharedApplication];
     userInterfaceLayoutDirection = [mEMORY[0x1E69DC668] userInterfaceLayoutDirection];
 
     if (userInterfaceLayoutDirection == 1)
     {
-      v10 = @"\u200F";
+      v11 = @"\u200F";
     }
 
     else
     {
-      v10 = @"\u200E";
+      v11 = @"\u200E";
     }
 
-    v11 = [(__CFString *)v10 stringByAppendingString:v7];
+    v12 = [(__CFString *)v11 stringByAppendingString:v8];
 
-    v12 = [v11 length];
-    v13 = [objc_alloc(MEMORY[0x1E696AD40]) initWithString:v11];
-    v14 = *MEMORY[0x1E69DB650];
+    v13 = [v12 length];
+    v14 = [objc_alloc(MEMORY[0x1E696AD40]) initWithString:v12];
+    v15 = *MEMORY[0x1E69DB650];
     tertiaryLabelColor = [MEMORY[0x1E69DC888] tertiaryLabelColor];
-    [v13 addAttribute:v14 value:tertiaryLabelColor range:{0, v12}];
+    [v14 addAttribute:v15 value:tertiaryLabelColor range:{0, v13}];
   }
 
   else
   {
-    v13 = 0;
+    v14 = 0;
   }
 
-  return v13;
+  return v14;
 }
 
 - (id)_makeSummaryAttributedStringWithText:(id)text multiwayConversation:(id)conversation

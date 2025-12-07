@@ -7,6 +7,7 @@
 - (void)fileMultiplayerTTRWithCallBackIdentifier:(id)identifier descriptionAddition:(id)addition handler:(id)handler;
 - (void)getMultiPlayerGroups:(id)groups;
 - (void)initiateRelayRequest:(id)request completionHandler:(id)handler;
+- (void)putMultiPlayerGroup:(id)group participants:(id)participants playedAt:(int64_t)at bundleID:(id)d numberOfAutomatched:(int64_t)automatched isSharedLink:(BOOL)link completionHandler:(id)handler;
 - (void)removeInviteSession;
 - (void)revokePseudonym:(id)pseudonym completionHandler:(id)handler;
 - (void)sendInvitationUpdate:(id)update handler:(id)handler;
@@ -54,6 +55,17 @@
   requestCopy = request;
   multiplayerService = [(GKMultiplayerDaemonProxyHelper *)self multiplayerService];
   [multiplayerService initiateRelayRequest:requestCopy handler:handlerCopy];
+}
+
+- (void)putMultiPlayerGroup:(id)group participants:(id)participants playedAt:(int64_t)at bundleID:(id)d numberOfAutomatched:(int64_t)automatched isSharedLink:(BOOL)link completionHandler:(id)handler
+{
+  linkCopy = link;
+  handlerCopy = handler;
+  dCopy = d;
+  participantsCopy = participants;
+  groupCopy = group;
+  multiplayerService = [(GKMultiplayerDaemonProxyHelper *)self multiplayerService];
+  [multiplayerService putMultiPlayerGroup:groupCopy participants:participantsCopy playedAt:at bundleID:dCopy numberOfAutomatched:automatched isSharedLink:linkCopy completionHandler:handlerCopy];
 }
 
 - (void)removeInviteSession

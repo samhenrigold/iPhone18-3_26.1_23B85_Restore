@@ -21,10 +21,10 @@
 {
   sub_100025778(0, &qword_10018A2E8, UIOpenURLContext_ptr);
   sub_10002E878(&qword_10018A2F0, &qword_10018A2E8, UIOpenURLContext_ptr);
-  static Set._unconditionallyBridgeFromObjectiveC(_:)();
+  v6 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
   sceneCopy = scene;
   selfCopy = self;
-  sub_10002E2D0();
+  sub_10002E2D0(sceneCopy, v6);
 }
 
 - (void)sceneDidBecomeActive:(id)active

@@ -9,20 +9,19 @@
 - (NSNumber)previousArticleVersion;
 - (NSURL)sourceURL;
 - (TSAnalyticsReferral)referral;
-- (uint64_t)setWithShowSubscribedAlert:(char)alert;
 - (void)setFeedTagType:(unint64_t)type;
 - (void)setSourceURL:(id)l;
+- (void)setWithShowSubscribedAlert:(char)alert;
 - (void)setWithSourceURL:(id)l;
 @end
 
 @implementation TSFeedViewContext
 
-- (uint64_t)setWithShowSubscribedAlert:(char)alert
+- (void)setWithShowSubscribedAlert:(char)alert
 {
   v5 = OBJC_IVAR___TSFeedViewContext_showSubscribedAlert;
-  result = swift_beginAccess();
+  swift_beginAccess();
   *(self + v5) = alert;
-  return result;
 }
 
 - (NSNumber)presentationReason

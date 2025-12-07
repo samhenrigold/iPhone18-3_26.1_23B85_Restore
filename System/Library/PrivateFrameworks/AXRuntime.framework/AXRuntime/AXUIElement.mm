@@ -364,7 +364,7 @@ uint64_t __25__AXUIElement_initialize__block_invoke(uint64_t a1)
   v10[3] = *MEMORY[0x1E69E9840];
   cf = 0;
   v9[0] = @"application";
-  v10[0] = AXUIElementSharedSystemWide();
+  v10[0] = AXUIElementSharedSystemWide(self, a2);
   v9[1] = @"point";
   v5 = [MEMORY[0x1E696B098] valueWithPoint:{x, y}];
   v9[2] = @"hitTestType";
@@ -1220,7 +1220,7 @@ LABEL_17:
   if (v5)
   {
     v7 = CFGetTypeID(v5);
-    if (v7 != CFStringGetTypeID() && !AXIsAXAttributedString())
+    if (v7 != CFStringGetTypeID() && !AXIsAXAttributedString(v6))
     {
 LABEL_5:
       v8 = 0;
@@ -1270,7 +1270,7 @@ LABEL_5:
         else
         {
           v12 = CFGetTypeID(value);
-          if (v12 != CFStringGetTypeID() && !AXIsAXAttributedString())
+          if (v12 != CFStringGetTypeID() && !AXIsAXAttributedString(value))
           {
             CFRelease(value);
             v16 = 0;
@@ -1943,37 +1943,38 @@ LABEL_22:
 
 - (BOOL)performAXAction:(int)action withValue:(id)value fencePort:(unsigned int)port
 {
+  v5 = *&action;
   valueCopy = value;
-  v7 = valueCopy;
-  if (self->_isValid && self->_axElement)
+  v8 = valueCopy;
+  if (self->_isValid && (axElement = self->_axElement) != 0)
   {
-    v8 = AXUIElementConvertOutgoingType(valueCopy);
+    v10 = AXUIElementConvertOutgoingType(valueCopy);
 
-    v9 = AXUIElementPerformFencedActionWithValue();
-    if (v9)
+    v11 = AXUIElementPerformFencedActionWithValue(axElement, v5, v10);
+    if (v11)
     {
-      if (v9 == -25202)
+      if (v11 == -25202)
       {
         [(AXUIElement *)self _invalidate];
       }
 
-      v10 = 0;
+      v12 = 0;
     }
 
     else
     {
-      v10 = 1;
+      v12 = 1;
     }
 
-    v7 = v8;
+    v8 = v10;
   }
 
   else
   {
-    v10 = 0;
+    v12 = 0;
   }
 
-  return v10;
+  return v12;
 }
 
 - (BOOL)canPerformAXAction:(int)action

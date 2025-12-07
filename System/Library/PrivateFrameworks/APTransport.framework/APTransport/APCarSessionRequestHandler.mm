@@ -29,19 +29,22 @@
   dispatch_async(queue, block);
 }
 
-uint64_t __66__APCarSessionRequestHandler_checkCarPlayControlAdvertisingForUSB__block_invoke(uint64_t a1)
+void *__66__APCarSessionRequestHandler_checkCarPlayControlAdvertisingForUSB__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 24) wantsCarPlayControlAdvertisingForUSB];
   if (result)
   {
-    if (gLogCategory_APBrowserCarSessionHelper <= 50 && (gLogCategory_APBrowserCarSessionHelper != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_APBrowserCarSessionHelper <= 50)
     {
-      __66__APCarSessionRequestHandler_checkCarPlayControlAdvertisingForUSB__block_invoke_cold_1();
+      if (gLogCategory_APBrowserCarSessionHelper != -1 || (result = _LogCategory_Initialize(), result))
+      {
+        __66__APCarSessionRequestHandler_checkCarPlayControlAdvertisingForUSB__block_invoke_cold_1(result, v3, v4);
+      }
     }
 
-    v3 = *(a1 + 32);
+    v5 = *(a1 + 32);
 
-    return [v3 _startAdvertisingCarPlayControlForUSB];
+    return [v5 _startAdvertisingCarPlayControlForUSB];
   }
 
   return result;
@@ -84,31 +87,35 @@ uint64_t __66__APCarSessionRequestHandler_checkCarPlayControlAdvertisingForUSB__
 
 - (void)registerSessionRequestHandlerMachService
 {
-  if (gLogCategory_APBrowserCarSessionHelper <= 50 && (gLogCategory_APBrowserCarSessionHelper != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (gLogCategory_APBrowserCarSessionHelper <= 50)
   {
-    [APCarSessionRequestHandler registerSessionRequestHandlerMachService];
+    if (gLogCategory_APBrowserCarSessionHelper != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      [(APCarSessionRequestHandler *)self registerSessionRequestHandlerMachService];
+    }
   }
 
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x3052000000;
-  v8 = __Block_byref_object_copy__5;
-  v3 = getCARSessionRequestAgentClass_softClass;
-  v9 = __Block_byref_object_dispose__5;
-  v10 = getCARSessionRequestAgentClass_softClass;
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x3052000000;
+  v9 = __Block_byref_object_copy__5;
+  v4 = getCARSessionRequestAgentClass_softClass;
+  v10 = __Block_byref_object_dispose__5;
+  v11 = getCARSessionRequestAgentClass_softClass;
   if (!getCARSessionRequestAgentClass_softClass)
   {
-    v4[0] = MEMORY[0x277D85DD0];
-    v4[1] = 3221225472;
-    v4[2] = __getCARSessionRequestAgentClass_block_invoke;
-    v4[3] = &unk_278BC7CE0;
-    v4[4] = &v5;
-    __getCARSessionRequestAgentClass_block_invoke(v4);
-    v3 = v6[5];
+    v5[0] = MEMORY[0x277D85DD0];
+    v5[1] = 3221225472;
+    v5[2] = __getCARSessionRequestAgentClass_block_invoke;
+    v5[3] = &unk_278BC7CE0;
+    v5[4] = &v6;
+    __getCARSessionRequestAgentClass_block_invoke(v5);
+    v4 = v7[5];
   }
 
-  _Block_object_dispose(&v5, 8);
-  self->_agent = [[v3 alloc] initWithRequestHandler:self];
+  _Block_object_dispose(&v6, 8);
+  selfCopy->_agent = [[v4 alloc] initWithRequestHandler:selfCopy];
 }
 
 - (void)addCarPlayHelper:(OpaqueAPCarPlayHelperHelper *)helper
@@ -160,13 +167,6 @@ uint64_t __66__APCarSessionRequestHandler_checkCarPlayControlAdvertisingForUSB__
   }
 }
 
-uint64_t __80__APCarSessionRequestHandler_startSessionWithHost_requestIdentifier_completion___block_invoke(uint64_t a1)
-{
-  v1 = *(*(a1 + 32) + 16);
-  v3 = *(a1 + 40);
-  return CFSetApplyBlock();
-}
-
 void __80__APCarSessionRequestHandler_startSessionWithHost_requestIdentifier_completion___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
@@ -183,169 +183,207 @@ void __80__APCarSessionRequestHandler_startSessionWithHost_requestIdentifier_com
 
 uint64_t __80__APCarSessionRequestHandler_startSessionWithHost_requestIdentifier_completion___block_invoke_3(uint64_t result)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v1 = *(result + 48);
-  if (*(v1 + 177))
+  if (!*(v1 + 177))
   {
-    v2 = result;
-    if (!*(v1 + 248) && !*(v1 + 256))
-    {
-      v27 = *(result + 56);
-      SNPrintF();
-      if (gLogCategory_APBrowserCarSessionHelper <= 50 && (gLogCategory_APBrowserCarSessionHelper != -1 || _LogCategory_Initialize()))
-      {
-        __80__APCarSessionRequestHandler_startSessionWithHost_requestIdentifier_completion___block_invoke_3_cold_1();
-      }
+    return result;
+  }
 
-      v3 = os_transaction_create();
-      v1 = *(v2 + 48);
-      *(v1 + 248) = v3;
-      *(v1 + 256) = 1;
+  v2 = result;
+  if (!*(v1 + 248) && !*(v1 + 256))
+  {
+    SNPrintF(buf, 64, "APCarPlayHelperSession_Session.%{ptr}", *(result + 56));
+    if (gLogCategory_APBrowserCarSessionHelper <= 50 && (gLogCategory_APBrowserCarSessionHelper != -1 || _LogCategory_Initialize()))
+    {
+      __80__APCarSessionRequestHandler_startSessionWithHost_requestIdentifier_completion___block_invoke_3_cold_1(buf, v3, v4);
     }
 
-    if (*(v1 + 264))
+    v5 = os_transaction_create();
+    v1 = *(v2 + 48);
+    *(v1 + 248) = v5;
+    *(v1 + 256) = 1;
+  }
+
+  if (*(v1 + 264))
+  {
+    APSEventRecorderRecordEvent();
+    v6 = LogCategoryCopyOSLogHandle();
+    v7 = v6;
+    if (v6)
     {
-      APSEventRecorderRecordEvent();
-      v4 = LogCategoryCopyOSLogHandle();
-      v5 = v4;
-      if (v4)
-      {
-        v6 = v4;
-      }
-
-      else
-      {
-        v6 = MEMORY[0x277D86220];
-      }
-
-      if (os_signpost_enabled(v6))
-      {
-        *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_23D2A9000, v6, OS_SIGNPOST_EVENT, 0x2B8D0800uLL, "AP_SIGNPOST_CAR_STARTSESSIONHOST", "", buf, 2u);
-      }
-
-      if (v5)
-      {
-      }
-    }
-
-    v7 = [*(v2 + 32) wirelessIPv6Addresses];
-    v34 = 0;
-    v35 = 0;
-    v37 = 0;
-    v36 = 0;
-    if (v7 && (v8 = v7, [v7 count]))
-    {
-      v32 = 0u;
-      v33 = 0u;
-      v30 = 0u;
-      v31 = 0u;
-      v9 = [v8 countByEnumeratingWithState:&v30 objects:buf count:16];
-      if (v9)
-      {
-        v10 = v9;
-        v11 = *v31;
-        while (2)
-        {
-          for (i = 0; i != v10; ++i)
-          {
-            if (*v31 != v11)
-            {
-              objc_enumerationMutation(v8);
-            }
-
-            [*(*(&v30 + 1) + 8 * i) cStringUsingEncoding:4];
-            if (StringToSockAddr())
-            {
-              __80__APCarSessionRequestHandler_startSessionWithHost_requestIdentifier_completion___block_invoke_3_cold_2();
-              goto LABEL_29;
-            }
-
-            if (BYTE1(v34) == 30)
-            {
-              goto LABEL_29;
-            }
-          }
-
-          v10 = [v8 countByEnumeratingWithState:&v30 objects:buf count:16];
-          if (v10)
-          {
-            continue;
-          }
-
-          break;
-        }
-      }
-
-      v13 = 1;
+      v8 = v6;
     }
 
     else
     {
-LABEL_29:
-      v13 = 0;
+      v8 = MEMORY[0x277D86220];
     }
 
-    v14 = *(v2 + 48);
-    *(v14 + 176) = v13;
-    if (gLogCategory_APBrowserCarSessionHelper <= 50)
+    if (os_signpost_enabled(v8))
     {
-      if (gLogCategory_APBrowserCarSessionHelper != -1 || (v16 = _LogCategory_Initialize(), v14 = *(v2 + 48), v16))
+      *buf = 0;
+      _os_signpost_emit_with_name_impl(&dword_23D2A9000, v8, OS_SIGNPOST_EVENT, 0x2B8D0800uLL, "AP_SIGNPOST_CAR_STARTSESSIONHOST", "", buf, 2u);
+    }
+
+    if (v7)
+    {
+    }
+  }
+
+  v9 = [*(v2 + 32) wirelessIPv6Addresses];
+  memset(v35, 0, sizeof(v35));
+  v36 = 0;
+  if (v9 && (v10 = v9, [v9 count]))
+  {
+    v33 = 0u;
+    v34 = 0u;
+    v31 = 0u;
+    v32 = 0u;
+    v11 = [v10 countByEnumeratingWithState:&v31 objects:buf count:16];
+    if (v11)
+    {
+      v12 = v11;
+      v13 = *v32;
+      while (2)
       {
-        v15 = *(v2 + 56);
-        *(v14 + 64);
-        *(v14 + 112);
-        *(v14 + 176);
-        v29 = *(v2 + 32);
-        v28 = *(v2 + 40);
-        LogPrintF();
-        v14 = *(v2 + 48);
+        for (i = 0; i != v12; ++i)
+        {
+          if (*v32 != v13)
+          {
+            objc_enumerationMutation(v10);
+          }
+
+          v15 = StringToSockAddr([*(*(&v31 + 1) + 8 * i) cStringUsingEncoding:4], v35, 28, 0);
+          if (v15)
+          {
+            __80__APCarSessionRequestHandler_startSessionWithHost_requestIdentifier_completion___block_invoke_3_cold_2(v15);
+            goto LABEL_29;
+          }
+
+          if (BYTE1(v35[0]) == 30)
+          {
+            goto LABEL_29;
+          }
+        }
+
+        v12 = [v10 countByEnumeratingWithState:&v31 objects:buf count:16];
+        if (v12)
+        {
+          continue;
+        }
+
+        break;
       }
     }
 
-    v17 = *(v2 + 32);
-    v18 = *(v2 + 48);
-    *(v18 + 184) = v17;
-    v19 = *(v18 + 192);
-    v20 = [*(v2 + 40) UUIDString];
-    *(*(v2 + 48) + 192) = v20;
-    if (v20)
-    {
-      CFRetain(v20);
-    }
-
-    if (v19)
-    {
-      CFRelease(v19);
-    }
-
-    Current = CFAbsoluteTimeGetCurrent();
-    v22 = *(v2 + 48);
-    *(v22 + 200) = Current;
-    v23 = *(v22 + 144);
-    v24 = [*(v2 + 32) carplayWiFiUUID];
-    *(*(v2 + 48) + 144) = v24;
-    if (v24)
-    {
-      CFRetain(v24);
-    }
-
-    if (v23)
-    {
-      CFRelease(v23);
-    }
-
-    if (*(*(v2 + 48) + 144))
-    {
-      v25 = *(v2 + 56);
-      carPlayHelperSession_connectivityHelperCheckIfWiFiUUIDChanged();
-    }
-
-    result = carPlayHelperSession_updateNetworkAndSessionState(*(v2 + 56));
+    v16 = 1;
   }
 
-  v26 = *MEMORY[0x277D85DE8];
-  return result;
+  else
+  {
+LABEL_29:
+    v16 = 0;
+  }
+
+  v17 = *(v2 + 48);
+  *(v17 + 176) = v16;
+  if (gLogCategory_APBrowserCarSessionHelper <= 50)
+  {
+    if (gLogCategory_APBrowserCarSessionHelper != -1 || (v20 = _LogCategory_Initialize(), v17 = *(v2 + 48), v20))
+    {
+      if (*(v17 + 177))
+      {
+        if (*(v17 + 64))
+        {
+          v18 = "[Session/WiFi/USB]";
+          v19 = "[Session/USB]";
+LABEL_42:
+          if (*(v17 + 112))
+          {
+            v21 = v18;
+          }
+
+          else
+          {
+            v21 = v19;
+          }
+
+          if (*(v17 + 176))
+          {
+            v22 = "yes";
+          }
+
+          else
+          {
+            v22 = "no";
+          }
+
+          LogPrintF(&gLogCategory_APBrowserCarSessionHelper, "[APCarSessionRequestHandler startSessionWithHost:requestIdentifier:completion:]_block_invoke", 33554482, "[%{ptr}] %s StartSessionHost: requestID=%@, isIPv4=%s, host=%@\n", *(v2 + 56), v21, *(v2 + 40), v22, *(v2 + 32));
+          v17 = *(v2 + 48);
+          goto LABEL_49;
+        }
+
+        v18 = "[Session/WiFi]";
+      }
+
+      else
+      {
+        if (*(v17 + 64))
+        {
+          v18 = "[Bonjour/WiFi/USB]";
+          v19 = "[Bonjour/USB]";
+          goto LABEL_42;
+        }
+
+        v18 = "[Bonjour/WiFi]";
+      }
+
+      v19 = "<Invalid>";
+      goto LABEL_42;
+    }
+  }
+
+LABEL_49:
+
+  v23 = *(v2 + 32);
+  v24 = *(v2 + 48);
+  *(v24 + 184) = v23;
+  v25 = *(v24 + 192);
+  v26 = [*(v2 + 40) UUIDString];
+  *(*(v2 + 48) + 192) = v26;
+  if (v26)
+  {
+    CFRetain(v26);
+  }
+
+  if (v25)
+  {
+    CFRelease(v25);
+  }
+
+  Current = CFAbsoluteTimeGetCurrent();
+  v28 = *(v2 + 48);
+  *(v28 + 200) = Current;
+  v29 = *(v28 + 144);
+  v30 = [*(v2 + 32) carplayWiFiUUID];
+  *(*(v2 + 48) + 144) = v30;
+  if (v30)
+  {
+    CFRetain(v30);
+  }
+
+  if (v29)
+  {
+    CFRelease(v29);
+  }
+
+  if (*(*(v2 + 48) + 144))
+  {
+    carPlayHelperSession_connectivityHelperCheckIfWiFiUUIDChanged(*(v2 + 56));
+  }
+
+  return carPlayHelperSession_updateNetworkAndSessionState(*(v2 + 56));
 }
 
 - (void)stoppedSessionForHostIdentifier:(id)identifier
@@ -358,13 +396,6 @@ LABEL_29:
   v4[4] = self;
   v4[5] = identifier;
   dispatch_sync(queue, v4);
-}
-
-uint64_t __62__APCarSessionRequestHandler_stoppedSessionForHostIdentifier___block_invoke(uint64_t a1)
-{
-  v1 = *(*(a1 + 32) + 16);
-  v3 = *(a1 + 40);
-  return CFSetApplyBlock();
 }
 
 void __62__APCarSessionRequestHandler_stoppedSessionForHostIdentifier___block_invoke_2(uint64_t a1, uint64_t a2)
@@ -381,9 +412,9 @@ void __62__APCarSessionRequestHandler_stoppedSessionForHostIdentifier___block_in
   dispatch_sync(v5, block);
 }
 
-uint64_t __62__APCarSessionRequestHandler_stoppedSessionForHostIdentifier___block_invoke_3(uint64_t result)
+void *__62__APCarSessionRequestHandler_stoppedSessionForHostIdentifier___block_invoke_3(void *result)
 {
-  v1 = *(result + 40);
+  v1 = result[5];
   if (!*(v1 + 177) || !*(v1 + 184))
   {
     return result;
@@ -392,89 +423,106 @@ uint64_t __62__APCarSessionRequestHandler_stoppedSessionForHostIdentifier___bloc
   v2 = result;
   if (gLogCategory_APBrowserCarSessionHelper <= 50)
   {
-    if (gLogCategory_APBrowserCarSessionHelper == -1)
+    if (gLogCategory_APBrowserCarSessionHelper != -1)
     {
-      v6 = _LogCategory_Initialize();
-      v1 = v2[5];
-      if (!v6)
-      {
-        goto LABEL_10;
-      }
+      v3 = result[6];
+      goto LABEL_6;
+    }
 
-      v13 = v2[6];
+    v10 = _LogCategory_Initialize();
+    v1 = v2[5];
+    if (v10)
+    {
+      v3 = v2[6];
       if (!*(v1 + 177))
       {
-        v14 = *(v1 + 64);
-        v5 = *(v1 + 112) == 0;
+        v4 = *(v1 + 64);
+        v5 = "[Bonjour/WiFi/USB]";
+        v6 = "[Bonjour/USB]";
+        v7 = *(v1 + 112) == 0;
+        v8 = "[Bonjour/WiFi]";
         goto LABEL_7;
       }
-    }
 
-    else
-    {
-      v3 = *(result + 48);
-    }
-
-    v4 = *(v1 + 64);
-    v5 = *(v1 + 112) == 0;
+LABEL_6:
+      v4 = *(v1 + 64);
+      v5 = "[Session/WiFi/USB]";
+      v6 = "[Session/USB]";
+      v7 = *(v1 + 112) == 0;
+      v8 = "[Session/WiFi]";
 LABEL_7:
-    v15 = v2[4];
-    [*(v1 + 184) deviceIdentifier];
-    LogPrintF();
-    v1 = v2[5];
+      if (v7)
+      {
+        v5 = v6;
+        v8 = "<Invalid>";
+      }
+
+      if (v4)
+      {
+        v9 = v5;
+      }
+
+      else
+      {
+        v9 = v8;
+      }
+
+      LogPrintF(&gLogCategory_APBrowserCarSessionHelper, "-[APCarSessionRequestHandler stoppedSessionForHostIdentifier:]_block_invoke_3", 33554482, "[%{ptr}] %s CloseSessionHost, deviceID: %@, sessionHost.deviceIdentifier: %@\n", v3, v9, v2[4], [*(v1 + 184) deviceIdentifier]);
+      v1 = v2[5];
+    }
   }
 
-LABEL_10:
-  v7 = *(v1 + 144);
-  if (v7)
+  v11 = *(v1 + 144);
+  if (v11)
   {
-    CFRelease(v7);
+    CFRelease(v11);
     *(v2[5] + 144) = 0;
     v1 = v2[5];
   }
 
-  v8 = v2[5];
-  *(v8 + 184) = 0;
-  v9 = *(v8 + 192);
-  if (v9)
+  v12 = v2[5];
+  *(v12 + 184) = 0;
+  v13 = *(v12 + 192);
+  if (v13)
   {
-    CFRelease(v9);
+    CFRelease(v13);
     *(v2[5] + 192) = 0;
-    v8 = v2[5];
+    v12 = v2[5];
   }
 
-  *(v8 + 200) = 0;
-  *(v8 + 208) = 0;
-  if (*(v8 + 248))
+  *(v12 + 200) = 0;
+  *(v12 + 208) = 0;
+  if (*(v12 + 248))
   {
-    v10 = os_transaction_copy_description();
+    v16 = os_transaction_copy_description();
     if (gLogCategory_APBrowserCarSessionHelper <= 50 && (gLogCategory_APBrowserCarSessionHelper != -1 || _LogCategory_Initialize()))
     {
-      __62__APCarSessionRequestHandler_stoppedSessionForHostIdentifier___block_invoke_3_cold_1();
+      __62__APCarSessionRequestHandler_stoppedSessionForHostIdentifier___block_invoke_3_cold_1(v16, v14, v15);
     }
 
-    free(v10);
-    v11 = *(v2[5] + 248);
-    if (v11)
+    free(v16);
+    v17 = *(v2[5] + 248);
+    if (v17)
     {
 
       *(v2[5] + 248) = 0;
     }
   }
 
-  v12 = v2[6];
+  v18 = v2[6];
 
-  return carPlayHelperSession_updateNetworkAndSessionState(v12);
+  return carPlayHelperSession_updateNetworkAndSessionState(v18);
 }
 
 - (void)_startAdvertisingCarPlayControlForUSB
 {
-  if (gLogCategory_APBrowserCarSessionHelper <= 50 && (gLogCategory_APBrowserCarSessionHelper != -1 || _LogCategory_Initialize()))
+  if (gLogCategory_APBrowserCarSessionHelper <= 50)
   {
-    [APCarSessionRequestHandler _startAdvertisingCarPlayControlForUSB];
+    if (gLogCategory_APBrowserCarSessionHelper != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      [(APCarSessionRequestHandler *)self _startAdvertisingCarPlayControlForUSB];
+    }
   }
-
-  carPlayHelpers = self->_carPlayHelpers;
 
   CFSetApplyBlock();
 }
@@ -494,54 +542,91 @@ void __67__APCarSessionRequestHandler__startAdvertisingCarPlayControlForUSB__blo
 
 uint64_t __67__APCarSessionRequestHandler__startAdvertisingCarPlayControlForUSB__block_invoke_2(uint64_t result)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v1 = *(result + 32);
   if (!*(v1 + 177) && *(v1 + 64))
   {
     v2 = result;
     if (!*(v1 + 248) && !*(v1 + 256))
     {
-      v10 = *(result + 40);
-      SNPrintF();
+      SNPrintF(v16, 64, "APCarPlayHelperSession_USB.%{ptr}", *(result + 40));
       if (gLogCategory_APBrowserCarSessionHelper <= 50 && (gLogCategory_APBrowserCarSessionHelper != -1 || _LogCategory_Initialize()))
       {
-        __67__APCarSessionRequestHandler__startAdvertisingCarPlayControlForUSB__block_invoke_2_cold_1();
+        __67__APCarSessionRequestHandler__startAdvertisingCarPlayControlForUSB__block_invoke_2_cold_1(v16, v3, v4);
       }
 
-      v3 = os_transaction_create();
+      v5 = os_transaction_create();
       v1 = *(v2 + 32);
-      *(v1 + 248) = v3;
+      *(v1 + 248) = v5;
       *(v1 + 256) = 1;
     }
 
     if (gLogCategory_APBrowserCarSessionHelper > 50)
     {
-      goto LABEL_13;
+      goto LABEL_26;
     }
 
     if (gLogCategory_APBrowserCarSessionHelper == -1)
     {
       if (!_LogCategory_Initialize())
       {
-        goto LABEL_13;
+LABEL_26:
+        Current = CFAbsoluteTimeGetCurrent();
+        v15 = *(v2 + 40);
+        *(*(v2 + 32) + 104) = Current;
+        return carPlayHelperSession_updateNetworkAndSessionState(v15);
       }
 
       v1 = *(v2 + 32);
     }
 
-    v4 = *(v1 + 177);
-    v5 = *(v1 + 64);
-    v6 = *(v1 + 112);
-    v11 = *(v2 + 40);
-    LogPrintF();
-LABEL_13:
-    Current = CFAbsoluteTimeGetCurrent();
-    v8 = *(v2 + 40);
-    *(*(v2 + 32) + 104) = Current;
-    result = carPlayHelperSession_updateNetworkAndSessionState(v8);
+    v6 = *(v1 + 177);
+    v7 = *(v1 + 64);
+    v8 = *(v1 + 112);
+    v9 = "[Session/WiFi/USB]";
+    if (!v8)
+    {
+      v9 = "[Session/USB]";
+    }
+
+    v10 = "[Session/WiFi]";
+    if (!v8)
+    {
+      v10 = "<Invalid>";
+    }
+
+    if (!v7)
+    {
+      v9 = v10;
+    }
+
+    v11 = "[Bonjour/USB]";
+    v12 = v8 == 0;
+    v13 = "[Bonjour/WiFi]";
+    if (v12)
+    {
+      v13 = "<Invalid>";
+    }
+
+    else
+    {
+      v11 = "[Bonjour/WiFi/USB]";
+    }
+
+    if (v7)
+    {
+      v13 = v11;
+    }
+
+    if (v6)
+    {
+      v13 = v9;
+    }
+
+    LogPrintF(&gLogCategory_APBrowserCarSessionHelper, "[APCarSessionRequestHandler _startAdvertisingCarPlayControlForUSB]_block_invoke_2", 33554482, "[%{ptr}] %s StartBonjourForUSB\n", *(v2 + 40), v13);
+    goto LABEL_26;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -560,10 +645,9 @@ LABEL_13:
 {
   if (gLogCategory_APBrowserCarSessionHelper <= 50 && (gLogCategory_APBrowserCarSessionHelper != -1 || _LogCategory_Initialize()))
   {
-    [APCarSessionRequestHandler _startAdvertisingCarPlayControlForWiFiUUID:];
+    [(APCarSessionRequestHandler *)d _startAdvertisingCarPlayControlForWiFiUUID:a2, d];
   }
 
-  carPlayHelpers = self->_carPlayHelpers;
   CFSetApplyBlock();
 }
 
@@ -581,56 +665,53 @@ void __73__APCarSessionRequestHandler__startAdvertisingCarPlayControlForWiFiUUID
   dispatch_sync(v5, block);
 }
 
-uint64_t __73__APCarSessionRequestHandler__startAdvertisingCarPlayControlForWiFiUUID___block_invoke_2(uint64_t result)
+void *__73__APCarSessionRequestHandler__startAdvertisingCarPlayControlForWiFiUUID___block_invoke_2(void *result)
 {
   v13 = *MEMORY[0x277D85DE8];
-  v2 = result + 40;
-  v1 = *(result + 40);
+  v2 = (result + 5);
+  v1 = result[5];
   if (!*(v1 + 177) && *(v1 + 112))
   {
     v3 = result;
     if (!*(v1 + 248) && !*(v1 + 256))
     {
-      v12 = *(result + 48);
-      SNPrintF();
+      SNPrintF(v12, 64, "APCarPlayHelperSession_WiFi.%{ptr}", result[6]);
       if (gLogCategory_APBrowserCarSessionHelper <= 50 && (gLogCategory_APBrowserCarSessionHelper != -1 || _LogCategory_Initialize()))
       {
-        __73__APCarSessionRequestHandler__startAdvertisingCarPlayControlForWiFiUUID___block_invoke_2_cold_1();
+        __73__APCarSessionRequestHandler__startAdvertisingCarPlayControlForWiFiUUID___block_invoke_2_cold_1(v12, v4, v5);
       }
 
-      v4 = os_transaction_create();
-      v5 = *v2;
-      *(v5 + 248) = v4;
-      *(v5 + 256) = 1;
+      v6 = os_transaction_create();
+      v7 = *v2;
+      *(v7 + 248) = v6;
+      *(v7 + 256) = 1;
     }
 
-    v7 = (v3 + 6);
-    v6 = v3[6];
-    carPlayHelperSession_connectivityHelperCheckIfWiFiUUIDChanged();
+    v8 = (v3 + 6);
+    carPlayHelperSession_connectivityHelperCheckIfWiFiUUIDChanged(v3[6]);
     if (gLogCategory_APBrowserCarSessionHelper <= 50 && (gLogCategory_APBrowserCarSessionHelper != -1 || _LogCategory_Initialize()))
     {
-      __73__APCarSessionRequestHandler__startAdvertisingCarPlayControlForWiFiUUID___block_invoke_2_cold_2(v3 + 6, v2, v3);
+      __73__APCarSessionRequestHandler__startAdvertisingCarPlayControlForWiFiUUID___block_invoke_2_cold_2((v3 + 6), v2, v3);
     }
 
-    v8 = v3[4];
-    v9 = v3[5];
-    v10 = *(v9 + 144);
-    *(v9 + 144) = v8;
-    if (v8)
+    v9 = v3[4];
+    v10 = v3[5];
+    v11 = *(v10 + 144);
+    *(v10 + 144) = v9;
+    if (v9)
     {
-      CFRetain(v8);
+      CFRetain(v9);
     }
 
-    if (v10)
+    if (v11)
     {
-      CFRelease(v10);
+      CFRelease(v11);
     }
 
     *(*v2 + 152) = CFAbsoluteTimeGetCurrent();
-    result = carPlayHelperSession_updateNetworkAndSessionState(*v7);
+    return carPlayHelperSession_updateNetworkAndSessionState(*v8);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -658,20 +739,23 @@ uint64_t __73__APCarSessionRequestHandler__startAdvertisingCarPlayControlForWiFi
   dispatch_async(queue, v4);
 }
 
-uint64_t __72__APCarSessionRequestHandler_checkCarPlayControlAdvertisingForWiFiUUID___block_invoke(uint64_t a1)
+void *__72__APCarSessionRequestHandler_checkCarPlayControlAdvertisingForWiFiUUID___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 24) wantsCarPlayControlAdvertisingForWiFiUUID:*(a1 + 40)];
   if (result)
   {
-    if (gLogCategory_APBrowserCarSessionHelper <= 50 && (gLogCategory_APBrowserCarSessionHelper != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_APBrowserCarSessionHelper <= 50)
     {
-      __72__APCarSessionRequestHandler_checkCarPlayControlAdvertisingForWiFiUUID___block_invoke_cold_1();
+      if (gLogCategory_APBrowserCarSessionHelper != -1 || (result = _LogCategory_Initialize(), result))
+      {
+        __72__APCarSessionRequestHandler_checkCarPlayControlAdvertisingForWiFiUUID___block_invoke_cold_1(result, v3, v4);
+      }
     }
 
-    v3 = *(a1 + 32);
-    v4 = *(a1 + 40);
+    v5 = *(a1 + 32);
+    v6 = *(a1 + 40);
 
-    return [v3 _startAdvertisingCarPlayControlForWiFiUUID:v4];
+    return [v5 _startAdvertisingCarPlayControlForWiFiUUID:v6];
   }
 
   return result;
@@ -693,15 +777,13 @@ uint64_t __72__APCarSessionRequestHandler_checkCarPlayControlAdvertisingForWiFiU
   }
 }
 
-uint64_t __68__APCarSessionRequestHandler_prepareForRemovingWiFiUUID_completion___block_invoke(uint64_t a1)
+uint64_t __68__APCarSessionRequestHandler_prepareForRemovingWiFiUUID_completion___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (gLogCategory_APBrowserCarSessionHelper <= 50 && (gLogCategory_APBrowserCarSessionHelper != -1 || _LogCategory_Initialize()))
   {
-    __68__APCarSessionRequestHandler_prepareForRemovingWiFiUUID_completion___block_invoke_cold_1(a1);
+    __68__APCarSessionRequestHandler_prepareForRemovingWiFiUUID_completion___block_invoke_cold_1(a1, a2, a3);
   }
 
-  v2 = *(*(a1 + 40) + 16);
-  v4 = *(a1 + 32);
   return CFSetApplyBlock();
 }
 
@@ -719,15 +801,13 @@ void __68__APCarSessionRequestHandler_prepareForRemovingWiFiUUID_completion___bl
   dispatch_sync(v5, block);
 }
 
-uint64_t __68__APCarSessionRequestHandler_prepareForRemovingWiFiUUID_completion___block_invoke_3(void *a1)
+uint64_t __68__APCarSessionRequestHandler_prepareForRemovingWiFiUUID_completion___block_invoke_3(void *a1, uint64_t a2, uint64_t a3)
 {
   if (gLogCategory_APBrowserCarSessionHelper <= 50 && (gLogCategory_APBrowserCarSessionHelper != -1 || _LogCategory_Initialize()))
   {
-    __68__APCarSessionRequestHandler_prepareForRemovingWiFiUUID_completion___block_invoke_3_cold_1(a1);
+    __68__APCarSessionRequestHandler_prepareForRemovingWiFiUUID_completion___block_invoke_3_cold_1(a1, a2, a3);
   }
 
-  v2 = *(a1[6] + 144);
-  v3 = a1[4];
   result = FigCFEqual();
   if (result)
   {
@@ -760,14 +840,15 @@ uint64_t __68__APCarSessionRequestHandler_prepareForRemovingWiFiUUID_completion_
   dispatch_sync(queue, block);
 }
 
-uint64_t __44__APCarSessionRequestHandler_cancelRequests__block_invoke(uint64_t a1)
+uint64_t __44__APCarSessionRequestHandler_cancelRequests__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (gLogCategory_APBrowserCarSessionHelper <= 50 && (gLogCategory_APBrowserCarSessionHelper != -1 || _LogCategory_Initialize()))
+  if (gLogCategory_APBrowserCarSessionHelper <= 50)
   {
-    __44__APCarSessionRequestHandler_cancelRequests__block_invoke_cold_1();
+    if (gLogCategory_APBrowserCarSessionHelper != -1 || (a1 = _LogCategory_Initialize(), a1))
+    {
+      __44__APCarSessionRequestHandler_cancelRequests__block_invoke_cold_1(a1, a2, a3);
+    }
   }
-
-  v2 = *(*(a1 + 32) + 16);
 
   return CFSetApplyBlock();
 }
@@ -785,57 +866,57 @@ void __44__APCarSessionRequestHandler_cancelRequests__block_invoke_2(uint64_t a1
   dispatch_sync(v4, v5);
 }
 
-uint64_t __44__APCarSessionRequestHandler_cancelRequests__block_invoke_3(uint64_t a1)
+uint64_t __44__APCarSessionRequestHandler_cancelRequests__block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (gLogCategory_APBrowserCarSessionHelper <= 50 && (gLogCategory_APBrowserCarSessionHelper != -1 || _LogCategory_Initialize()))
   {
-    __44__APCarSessionRequestHandler_cancelRequests__block_invoke_3_cold_1(a1);
+    __44__APCarSessionRequestHandler_cancelRequests__block_invoke_3_cold_1(a1, a2, a3);
   }
-
-  v2 = *(a1 + 40);
-  *(v2 + 104) = 0;
-  v3 = *(v2 + 144);
-  if (v3)
-  {
-    CFRelease(v3);
-    *(*(a1 + 40) + 144) = 0;
-    v2 = *(a1 + 40);
-  }
-
-  *(v2 + 152) = 0;
 
   v4 = *(a1 + 40);
-  *(v4 + 184) = 0;
-  v5 = *(v4 + 192);
+  *(v4 + 104) = 0;
+  v5 = *(v4 + 144);
   if (v5)
   {
     CFRelease(v5);
-    *(*(a1 + 40) + 192) = 0;
+    *(*(a1 + 40) + 144) = 0;
     v4 = *(a1 + 40);
   }
 
-  *(v4 + 200) = 0;
-  *(v4 + 208) = 0;
-  if (*(v4 + 248))
+  *(v4 + 152) = 0;
+
+  v6 = *(a1 + 40);
+  *(v6 + 184) = 0;
+  v7 = *(v6 + 192);
+  if (v7)
   {
-    v6 = os_transaction_copy_description();
+    CFRelease(v7);
+    *(*(a1 + 40) + 192) = 0;
+    v6 = *(a1 + 40);
+  }
+
+  *(v6 + 200) = 0;
+  *(v6 + 208) = 0;
+  if (*(v6 + 248))
+  {
+    v10 = os_transaction_copy_description();
     if (gLogCategory_APBrowserCarSessionHelper <= 50 && (gLogCategory_APBrowserCarSessionHelper != -1 || _LogCategory_Initialize()))
     {
-      __44__APCarSessionRequestHandler_cancelRequests__block_invoke_3_cold_2();
+      __44__APCarSessionRequestHandler_cancelRequests__block_invoke_3_cold_2(v10, v8, v9);
     }
 
-    free(v6);
-    v7 = *(*(a1 + 40) + 248);
-    if (v7)
+    free(v10);
+    v11 = *(*(a1 + 40) + 248);
+    if (v11)
     {
 
       *(*(a1 + 40) + 248) = 0;
     }
   }
 
-  v8 = *(a1 + 32);
+  v12 = *(a1 + 32);
 
-  return carPlayHelperSession_updateNetworkAndSessionState(v8);
+  return carPlayHelperSession_updateNetworkAndSessionState(v12);
 }
 
 - (uint64_t)addCarPlayHelper:.cold.1()
@@ -846,53 +927,11 @@ uint64_t __44__APCarSessionRequestHandler_cancelRequests__block_invoke_3(uint64_
     if (gLogCategory_APBrowserCarSessionHelper != -1 || (result = _LogCategory_Initialize(), result))
     {
 
-      return LogPrintF();
+      return LogPrintF(&gLogCategory_APBrowserCarSessionHelper, "[APCarSessionRequestHandler addCarPlayHelper:]", 33554522, "Can't add helpers after Mach Service registration");
     }
   }
 
   return result;
-}
-
-uint64_t __73__APCarSessionRequestHandler__startAdvertisingCarPlayControlForWiFiUUID___block_invoke_2_cold_2(uint64_t *a1, uint64_t a2, uint64_t a3)
-{
-  *(*a2 + 112);
-  *(*a2 + 64);
-  *(*a2 + 112);
-  *(*a2 + 112);
-  *(*a2 + 64);
-  *(*a2 + 177);
-  v5 = *(a3 + 32);
-  v4 = *a1;
-  return OUTLINED_FUNCTION_9();
-}
-
-uint64_t __68__APCarSessionRequestHandler_prepareForRemovingWiFiUUID_completion___block_invoke_3_cold_1(uint64_t a1)
-{
-  v1 = *(a1 + 48);
-  *(v1 + 112);
-  *(v1 + 64);
-  *(v1 + 112);
-  *(v1 + 112);
-  *(v1 + 64);
-  *(v1 + 177);
-  v4 = *(v1 + 144);
-  v5 = *(v1 + 184);
-  v3 = *(a1 + 40);
-  return OUTLINED_FUNCTION_9();
-}
-
-uint64_t __44__APCarSessionRequestHandler_cancelRequests__block_invoke_3_cold_1(uint64_t a1)
-{
-  v1 = *(a1 + 40);
-  *(v1 + 112);
-  *(v1 + 64);
-  *(v1 + 112);
-  *(v1 + 112);
-  *(v1 + 64);
-  *(v1 + 177);
-  v4 = *(v1 + 184);
-  v3 = *(a1 + 32);
-  return OUTLINED_FUNCTION_9();
 }
 
 @end

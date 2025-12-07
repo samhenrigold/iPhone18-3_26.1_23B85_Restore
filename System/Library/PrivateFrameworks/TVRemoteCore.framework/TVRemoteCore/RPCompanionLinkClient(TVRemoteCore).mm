@@ -6,13 +6,12 @@
 
 - (void)tvrc_setAllowedTVs
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 136315394;
-  v4 = "[RPCompanionLinkClient(TVRemoteCore) tvrc_setAllowedTVs]";
-  v5 = 2112;
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 136315394;
+  v3 = "[RPCompanionLinkClient(TVRemoteCore) tvrc_setAllowedTVs]";
+  v4 = 2112;
   selfCopy = self;
-  _os_log_debug_impl(&dword_26CF7F000, a2, OS_LOG_TYPE_DEBUG, "%s setting allowedTVs to %@", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_26CF7F000, a2, OS_LOG_TYPE_DEBUG, "%s setting allowedTVs to %@", &v2, 0x16u);
 }
 
 @end

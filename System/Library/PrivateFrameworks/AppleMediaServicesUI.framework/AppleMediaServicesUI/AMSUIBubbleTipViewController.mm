@@ -26,6 +26,7 @@
 - (void)setPreferredAppearance:(id)appearance;
 - (void)setPreferredContentSize:(CGSize)size;
 - (void)viewDidLayoutSubviews;
+- (void)viewWillAppear:(BOOL)appear;
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator;
 @end
 
@@ -91,6 +92,37 @@
   [(AMSUIBubbleTipViewController *)self _updateArrowProperties];
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v12[1] = *MEMORY[0x1E69E9840];
+  v11.receiver = self;
+  v11.super_class = AMSUIBubbleTipViewController;
+  [(AMSUIBubbleTipViewController *)&v11 viewWillAppear:appear];
+  [(AMSUIBubbleTipViewController *)self _updateSelfSizedContentSize];
+  if ([(AMSUIBubbleTipViewController *)self modalPresentationStyle]== 7)
+  {
+    popoverPresentationController = [(AMSUIBubbleTipViewController *)self popoverPresentationController];
+
+    if (popoverPresentationController)
+    {
+      popoverPresentationController2 = [(AMSUIBubbleTipViewController *)self popoverPresentationController];
+      passthroughViews = [popoverPresentationController2 passthroughViews];
+
+      if (!passthroughViews)
+      {
+        presentingViewController = [(AMSUIBubbleTipViewController *)self presentingViewController];
+        view = [presentingViewController view];
+        v12[0] = view;
+        v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
+        popoverPresentationController3 = [(AMSUIBubbleTipViewController *)self popoverPresentationController];
+        [popoverPresentationController3 setPassthroughViews:v9];
+      }
+
+      [(AMSUIBubbleTipViewController *)self _transferBackgroundColorForPopover];
+    }
+  }
+}
+
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator
 {
   height = size.height;
@@ -144,11 +176,11 @@
 
 - (void)_setDialogRequest:(id)request
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   requestCopy = request;
-  v23.receiver = self;
-  v23.super_class = AMSUIBubbleTipViewController;
-  [(AMSUIBaseMessageViewController *)&v23 _setDialogRequest:requestCopy];
+  v22.receiver = self;
+  v22.super_class = AMSUIBubbleTipViewController;
+  [(AMSUIBaseMessageViewController *)&v22 _setDialogRequest:requestCopy];
   _messageView = [(AMSUIBaseMessageViewController *)self _messageView];
   buttonActions = [requestCopy buttonActions];
   dialogRequest = [(AMSUIBaseMessageViewController *)self dialogRequest];
@@ -162,28 +194,28 @@
     }
 
     dialogRequest = [MEMORY[0x1E695DF70] array];
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
     buttonActions = buttonActions;
-    v9 = [buttonActions countByEnumeratingWithState:&v19 objects:v24 count:16];
+    v9 = [buttonActions countByEnumeratingWithState:&v18 objects:v23 count:16];
     v10 = buttonActions;
     if (v9)
     {
       v11 = v9;
       v12 = 0;
-      v13 = *v20;
+      v13 = *v19;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v20 != v13)
+          if (*v19 != v13)
           {
             objc_enumerationMutation(buttonActions);
           }
 
-          v15 = *(*(&v19 + 1) + 8 * i);
+          v15 = *(*(&v18 + 1) + 8 * i);
           style = [v15 style];
           if (((style != 2) & v12) != 0)
           {
@@ -197,7 +229,7 @@
           }
         }
 
-        v11 = [buttonActions countByEnumeratingWithState:&v19 objects:v24 count:16];
+        v11 = [buttonActions countByEnumeratingWithState:&v18 objects:v23 count:16];
       }
 
       while (v11);
@@ -226,8 +258,6 @@ LABEL_17:
   {
     [_messageView setButtonsForDialogActions:buttonActions target:self action:sel__didTapActionButton_];
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_messageFontCompatibleWith:(id)with
@@ -348,15 +378,15 @@ LABEL_17:
 
 - (void)_commitAppearance
 {
-  v77 = *MEMORY[0x1E69E9840];
-  v75.receiver = self;
-  v75.super_class = AMSUIBubbleTipViewController;
-  [(AMSUIBaseMessageViewController *)&v75 _commitAppearance];
+  v76 = *MEMORY[0x1E69E9840];
+  v74.receiver = self;
+  v74.super_class = AMSUIBubbleTipViewController;
+  [(AMSUIBaseMessageViewController *)&v74 _commitAppearance];
   viewIfLoaded = [(AMSUIBubbleTipViewController *)self viewIfLoaded];
 
   if (!viewIfLoaded)
   {
-    goto LABEL_65;
+    return;
   }
 
   _messageView = [(AMSUIBaseMessageViewController *)self _messageView];
@@ -391,7 +421,7 @@ LABEL_17:
     [v7 setPreferredBackgroundColor:accessoryButtonBackgroundColor2];
   }
 
-  v69 = accessoryButtonBackgroundColor2;
+  v68 = accessoryButtonBackgroundColor2;
   requestAppearance2 = [(AMSUIBubbleTipViewController *)self requestAppearance];
   accessoryButtonColor = [requestAppearance2 accessoryButtonColor];
   v15 = accessoryButtonColor;
@@ -449,7 +479,7 @@ LABEL_21:
 
   requestAppearance5 = [(AMSUIBubbleTipViewController *)self requestAppearance];
   backgroundColor = [requestAppearance5 backgroundColor];
-  v68 = accessoryButtonColor2;
+  v67 = accessoryButtonColor2;
   if (backgroundColor)
   {
     backgroundColor2 = backgroundColor;
@@ -514,7 +544,7 @@ LABEL_28:
     footerButtonColor2 = [preferredAppearance7 footerButtonColor];
   }
 
-  v70 = v7;
+  v69 = v7;
 
   requestAppearance9 = [(AMSUIBubbleTipViewController *)self requestAppearance];
   footerButtonFont = [requestAppearance9 footerButtonFont];
@@ -531,28 +561,28 @@ LABEL_28:
   }
 
   footerButtons = [_messageView footerButtons];
+  v70 = 0u;
   v71 = 0u;
   v72 = 0u;
   v73 = 0u;
-  v74 = 0u;
-  v49 = [footerButtons countByEnumeratingWithState:&v71 objects:v76 count:16];
+  v49 = [footerButtons countByEnumeratingWithState:&v70 objects:v75 count:16];
   if (v49)
   {
     v50 = v49;
-    v51 = *v72;
+    v51 = *v71;
     do
     {
       for (i = 0; i != v50; ++i)
       {
-        if (*v72 != v51)
+        if (*v71 != v51)
         {
           objc_enumerationMutation(footerButtons);
         }
 
-        v53 = *(*(&v71 + 1) + 8 * i);
+        v53 = *(*(&v70 + 1) + 8 * i);
         if (footerButtonColor2)
         {
-          [*(*(&v71 + 1) + 8 * i) setPreferredForegroundColor:footerButtonColor2];
+          [*(*(&v70 + 1) + 8 * i) setPreferredForegroundColor:footerButtonColor2];
         }
 
         if (footerButtonFont2)
@@ -566,7 +596,7 @@ LABEL_28:
         }
       }
 
-      v50 = [footerButtons countByEnumeratingWithState:&v71 objects:v76 count:16];
+      v50 = [footerButtons countByEnumeratingWithState:&v70 objects:v75 count:16];
     }
 
     while (v50);
@@ -578,7 +608,7 @@ LABEL_28:
   {
     imageTintColor2 = imageTintColor;
 
-    v57 = v70;
+    v57 = v69;
   }
 
   else
@@ -586,7 +616,7 @@ LABEL_28:
     preferredAppearance9 = [(AMSUIBubbleTipViewController *)self preferredAppearance];
     imageTintColor2 = [preferredAppearance9 imageTintColor];
 
-    v57 = v70;
+    v57 = v69;
     if (!imageTintColor2)
     {
       goto LABEL_58;
@@ -628,9 +658,6 @@ LABEL_62:
   }
 
   [(AMSUIBaseMessageViewController *)self _updateTextWithAttributes];
-
-LABEL_65:
-  v67 = *MEMORY[0x1E69E9840];
 }
 
 - (unint64_t)directionForAMSUIPopoverArrowDirection:(unint64_t)direction

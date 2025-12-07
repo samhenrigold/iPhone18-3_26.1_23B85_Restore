@@ -328,7 +328,7 @@ LABEL_7:
   {
     v4 = off_2781FFBD0[arrowStyle];
     v5 = MEMORY[0x277D755B8];
-    v6 = SKUIBundle();
+    v6 = SKUIBundle(self, a2);
     v12 = [v5 imageNamed:v4 inBundle:v6];
   }
 

@@ -6,7 +6,7 @@
 
 - (BOOL)removeItemsUnderPath:(id)path error:(id *)error
 {
-  v21 = 0;
+  v23 = 0;
   v7 = [(NSFileManager *)self enumeratorAtPath:?];
   if (v7)
   {
@@ -25,31 +25,32 @@
         if (objc_opt_isKindOfClass())
         {
           v14 = [path stringByAppendingPathComponent:nextObject2];
-          v15 = [(NSFileManager *)self removeItemAtPath:v14 error:&v21];
-          v16 = msuSharedLogger();
-          v17 = v16;
-          if (v15)
+          v15 = [(NSFileManager *)self removeItemAtPath:v14 error:&v23];
+          v16 = v15;
+          v18 = msuSharedLogger(v15, v17);
+          v19 = v18;
+          if (v16)
           {
-            if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+            if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v23 = v14;
-              _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Successfully removed old CacheDelete subpath %@", buf, 0xCu);
+              v25 = v14;
+              _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Successfully removed old CacheDelete subpath %@", buf, 0xCu);
             }
           }
 
           else
           {
-            if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+            if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412546;
-              v23 = v14;
-              v24 = 2112;
-              v25 = v21;
-              _os_log_error_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "Failed to remove old CacheDelete subpath %@: %@", buf, 0x16u);
+              v25 = v14;
+              v26 = 2112;
+              v27 = v23;
+              _os_log_error_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "Failed to remove old CacheDelete subpath %@: %@", buf, 0x16u);
             }
 
-            v12 = v21;
+            v12 = v23;
             v11 = 1;
           }
         }
@@ -59,16 +60,16 @@
       }
 
       while (nextObject2);
-      v18 = v11 ^ 1;
+      v20 = v11 ^ 1;
     }
 
     else
     {
       v12 = 0;
-      v18 = 1;
+      v20 = 1;
     }
 
-    v19 = v12;
+    v21 = v12;
     if (error)
     {
       *error = v12;
@@ -77,10 +78,10 @@
 
   else
   {
-    v18 = 1;
+    v20 = 1;
   }
 
-  return v18 & 1;
+  return v20 & 1;
 }
 
 @end

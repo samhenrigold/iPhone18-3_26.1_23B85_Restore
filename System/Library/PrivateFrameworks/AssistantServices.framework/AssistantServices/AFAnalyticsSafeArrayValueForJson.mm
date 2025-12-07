@@ -3,7 +3,7 @@
 
 @implementation AFAnalyticsSafeArrayValueForJson
 
-void ___AFAnalyticsSafeArrayValueForJson_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+void ___AFAnalyticsSafeArrayValueForJson_block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   v5 = _AFAnalyticsMapToSafeValueForJson(a2, *(a1 + 48));
   if (**(a1 + 48) == 1)

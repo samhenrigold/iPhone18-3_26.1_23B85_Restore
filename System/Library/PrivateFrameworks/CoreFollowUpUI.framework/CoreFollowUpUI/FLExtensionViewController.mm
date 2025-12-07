@@ -2,6 +2,7 @@
 - (void)beginRequestWithExtensionContext:(id)context;
 - (void)finishProcessingWithUserInfo:(id)info;
 - (void)processFollowUpItem:(id)item selectedAction:(id)action completion:(id)completion;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation FLExtensionViewController
@@ -69,53 +70,61 @@ void __58__FLExtensionViewController_finishProcessingWithUserInfo___block_invoke
   }
 }
 
-uint64_t __58__FLExtensionViewController_finishProcessingWithUserInfo___block_invoke_52(uint64_t result)
+void *__58__FLExtensionViewController_finishProcessingWithUserInfo___block_invoke_52(void *result, uint64_t a2)
 {
-  if (*(*(result + 32) + 992))
+  if (*(result[4] + 992))
   {
-    v1 = result;
-    v2 = _FLLogSystem();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v2 = result;
+    v3 = _FLLogSystem();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      *v3 = 0;
-      _os_log_impl(&dword_245383000, v2, OS_LOG_TYPE_DEFAULT, "Running within extension context, terminating... ", v3, 2u);
+      *v4 = 0;
+      _os_log_impl(&dword_245383000, v3, OS_LOG_TYPE_DEFAULT, "Running within extension context, terminating... ", v4, 2u);
     }
 
-    return [*(*(v1 + 32) + 992) completeRequestReturningItems:0 completionHandler:0];
+    return [*(v2[4] + 992) completeRequestReturningItems:0 completionHandler:0];
   }
 
   return result;
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  v6.receiver = self;
+  v6.super_class = FLExtensionViewController;
+  [(FLExtensionViewController *)&v6 viewDidAppear:appear];
+  view = [(FLExtensionViewController *)self view];
+  window = [view window];
+  [window makeKeyAndVisible];
+}
+
 - (void)processFollowUpItem:(id)item selectedAction:(id)action completion:(id)completion
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   actionCopy = action;
   completionCopy = completion;
   v10 = _FLLogSystem();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138412546;
-    v13 = itemCopy;
-    v14 = 2112;
-    v15 = actionCopy;
-    _os_log_impl(&dword_245383000, v10, OS_LOG_TYPE_DEFAULT, "Extension is processing item: %@ action: %@", &v12, 0x16u);
+    v11 = 138412546;
+    v12 = itemCopy;
+    v13 = 2112;
+    v14 = actionCopy;
+    _os_log_impl(&dword_245383000, v10, OS_LOG_TYPE_DEFAULT, "Extension is processing item: %@ action: %@", &v11, 0x16u);
   }
 
   if (completionCopy)
   {
     completionCopy[2](completionCopy, 0);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __42__FLExtensionViewController_hostInterface__block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_245383000, a2, a3, "Host experienced a failure: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_0(&dword_245383000, a2, a3, "Host experienced a failure: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

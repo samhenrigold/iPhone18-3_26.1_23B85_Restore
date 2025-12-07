@@ -1,4 +1,5 @@
 @interface MTLIOAccelHeap
+- (MTLIOAccelHeap)initWithDevice:(id)device size:(unint64_t)size options:(unint64_t)options args:(IOAccelNewResourceArgs *)args argsSize:(unsigned int)argsSize desc:(id)desc;
 - (id)newAccelerationStructureWithDescriptor:(id)descriptor;
 - (id)newAccelerationStructureWithDescriptor:(id)descriptor offset:(unint64_t)offset;
 - (id)newAccelerationStructureWithSize:(unint64_t)size;
@@ -43,6 +44,66 @@
   MaxFreeSize = MTLRangeAllocatorGetMaxFreeSize(&self->_allocator, alignmentCopy);
   pthread_mutex_unlock(&self->_mutex);
   return MaxFreeSize;
+}
+
+- (MTLIOAccelHeap)initWithDevice:(id)device size:(unint64_t)size options:(unint64_t)options args:(IOAccelNewResourceArgs *)args argsSize:(unsigned int)argsSize desc:(id)desc
+{
+  v9 = *&argsSize;
+  if ((options & 0x300) != 0)
+  {
+    optionsCopy = options;
+  }
+
+  else
+  {
+    optionsCopy = options | 0x100;
+  }
+
+  if (desc)
+  {
+    type = [desc type];
+  }
+
+  else
+  {
+    type = 0;
+  }
+
+  v20.receiver = self;
+  v20.super_class = MTLIOAccelHeap;
+  v16 = [(_MTLHeap *)&v20 initWithType:type options:optionsCopy];
+  if (desc && [desc pinnedGPUAddress])
+  {
+    args->var0.var14 = [desc pinnedGPUAddress];
+    args->var0.var15 = [desc size];
+  }
+
+  args->var0.var13 = [desc protectionOptions];
+  if (v16)
+  {
+    v17 = [[MTLIOAccelResource alloc] initWithDevice:device options:optionsCopy args:args argsSize:v9];
+    v16->_resource = v17;
+    if (v17)
+    {
+      v16->_device = device;
+      v16->_size = size;
+      pthread_mutex_init(&v16->_mutex, 0);
+      if (![(_MTLHeap *)v16 type])
+      {
+        MTLRangeAllocatorInit(&v16->_allocator, v16->_size - 1, 0, 0x80uLL);
+      }
+    }
+
+    else
+    {
+      v19.receiver = v16;
+      v19.super_class = MTLIOAccelHeap;
+      [(_MTLObjectWithLabel *)&v19 dealloc];
+      return 0;
+    }
+  }
+
+  return v16;
 }
 
 - (void)dealloc

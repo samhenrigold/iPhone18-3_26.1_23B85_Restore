@@ -8,16 +8,16 @@
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = objc_alloc(objc_opt_class());
-  v7 = objc_msgSend__item(self, v5, v6);
+  _item = [(IMChatItem *)self _item];
   parentItem = self->_parentItem;
   replyMessageGUID = self->_replyMessageGUID;
   replyIsFromMe = self->_replyIsFromMe;
-  v13 = objc_msgSend_messagePartRange(self, v11, v12);
-  v15 = v14;
-  v17 = objc_msgSend_subparts(self, v14, v16);
-  v19 = objc_msgSend__initWithItem_parentItem_replyMessageGUID_replyIsFromMe_messagePartRange_subparts_(v4, v18, v7, parentItem, replyMessageGUID, replyIsFromMe, v13, v15, v17);
+  messagePartRange = [(IMMessagePartChatItem *)self messagePartRange];
+  v11 = v10;
+  subparts = [(IMAggregateMessagePartChatItem *)self subparts];
+  v13 = [v4 _initWithItem:_item parentItem:parentItem replyMessageGUID:replyMessageGUID replyIsFromMe:replyIsFromMe messagePartRange:messagePartRange subparts:{v11, subparts}];
 
-  return v19;
+  return v13;
 }
 
 - (id)_initWithItem:(id)item parentItem:(id)parentItem replyMessageGUID:(id)d replyIsFromMe:(BOOL)me messagePartRange:(_NSRange)range subparts:(id)subparts
@@ -27,15 +27,15 @@
   itemCopy = item;
   parentItemCopy = parentItem;
   dCopy = d;
-  v24.receiver = self;
-  v24.super_class = IMReplyContextAggregateMessagePartChatItem;
-  subparts = [(IMAggregateMessagePartChatItem *)&v24 _initWithItem:itemCopy messagePartRange:location subparts:length, subparts];
+  v21.receiver = self;
+  v21.super_class = IMReplyContextAggregateMessagePartChatItem;
+  subparts = [(IMAggregateMessagePartChatItem *)&v21 _initWithItem:itemCopy messagePartRange:location subparts:length, subparts];
   if (subparts)
   {
-    v20 = objc_msgSend_guid(itemCopy, v17, v18);
-    v21 = sub_1A83AC604();
+    guid = [itemCopy guid];
+    v19 = sub_1A83AC604();
 
-    objc_msgSend__setGUID_(subparts, v22, v21);
+    [subparts _setGUID:v19];
     objc_storeStrong(subparts + 27, parentItem);
     *(subparts + 208) = me;
     objc_storeStrong(subparts + 28, d);

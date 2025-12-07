@@ -14,15 +14,15 @@
 
 + (void)sendEventFor:(int64_t)for withBundleID:(id)d link:(id)link
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   linkCopy = link;
   v8 = [self _eventNameForEngagementType:for];
   v9 = _ICQGetLogSystem();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412290;
-    v12 = v8;
-    _os_log_impl(&dword_275572000, v9, OS_LOG_TYPE_DEFAULT, "Sending AMSMetricEvent for %@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = v8;
+    _os_log_impl(&dword_275572000, v9, OS_LOG_TYPE_DEFAULT, "Sending AMSMetricEvent for %@", &v10, 0xCu);
   }
 
   if (for == 2)
@@ -34,13 +34,11 @@
   {
     [self _sendSubscriptionChangedEvent];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_sendImpressionEventWithName:(id)name bundleID:(id)d
 {
-  v23[2] = *MEMORY[0x277D85DE8];
+  v22[2] = *MEMORY[0x277D85DE8];
   nameCopy = name;
   dCopy = d;
   v7 = dCopy;
@@ -52,19 +50,19 @@
 
   v9 = v8;
   v10 = objc_alloc(MEMORY[0x277CEE5A8]);
-  v22[0] = @"eventType";
-  v22[1] = @"bundleId";
-  v23[0] = nameCopy;
-  v23[1] = v9;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:2];
+  v21[0] = @"eventType";
+  v21[1] = @"bundleId";
+  v22[0] = nameCopy;
+  v22[1] = v9;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:2];
   v12 = [v10 initWithUnderlyingDictionary:v11];
 
   v13 = _ICQGetLogSystem();
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v20 = 138412290;
-    v21 = v7;
-    _os_log_impl(&dword_275572000, v13, OS_LOG_TYPE_DEFAULT, "Sending AMS metricEvent to start on-device journey with bundleID %@", &v20, 0xCu);
+    v19 = 138412290;
+    v20 = v7;
+    _os_log_impl(&dword_275572000, v13, OS_LOG_TYPE_DEFAULT, "Sending AMS metricEvent to start on-device journey with bundleID %@", &v19, 0xCu);
   }
 
   v14 = objc_alloc_init(MEMORY[0x277CEE498]);
@@ -75,12 +73,10 @@
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     underlyingDictionary2 = [v12 underlyingDictionary];
-    v20 = 138412290;
-    v21 = underlyingDictionary2;
-    _os_log_impl(&dword_275572000, v17, OS_LOG_TYPE_DEFAULT, "Enqueued metricEvent to AMSEngagement: %@", &v20, 0xCu);
+    v19 = 138412290;
+    v20 = underlyingDictionary2;
+    _os_log_impl(&dword_275572000, v17, OS_LOG_TYPE_DEFAULT, "Enqueued metricEvent to AMSEngagement: %@", &v19, 0xCu);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 + (void)shouldShowOpportunityBubbleWithBundleID:(id)d completion:(id)completion
@@ -116,7 +112,7 @@
 
 void __76__ICQEngagementReporter_shouldShowOpportunityBubbleWithBundleID_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (v5)
   {
@@ -129,29 +125,29 @@ void __76__ICQEngagementReporter_shouldShowOpportunityBubbleWithBundleID_complet
     goto LABEL_4;
   }
 
-  v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
   v42 = 0u;
+  v43 = 0u;
+  v40 = 0u;
+  v41 = 0u;
   v6 = [a2 messageActions];
-  v34 = [v6 countByEnumeratingWithState:&v41 objects:v48 count:16];
-  if (v34)
+  v33 = [v6 countByEnumeratingWithState:&v40 objects:v47 count:16];
+  if (v33)
   {
-    v7 = *v42;
-    v36 = v6;
-    v33 = *v42;
+    v7 = *v41;
+    v35 = v6;
+    v32 = *v41;
     do
     {
       v8 = 0;
       do
       {
-        if (*v42 != v7)
+        if (*v41 != v7)
         {
           objc_enumerationMutation(v6);
         }
 
-        v35 = v8;
-        v9 = *(*(&v41 + 1) + 8 * v8);
+        v34 = v8;
+        v9 = *(*(&v40 + 1) + 8 * v8);
         v10 = _ICQGetLogSystem();
         if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
         {
@@ -164,36 +160,36 @@ void __76__ICQEngagementReporter_shouldShowOpportunityBubbleWithBundleID_complet
         if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v47 = v11;
+          v46 = v11;
           _os_log_impl(&dword_275572000, v12, OS_LOG_TYPE_DEFAULT, "AMSEngagementMessageRequests: %@", buf, 0xCu);
         }
 
-        v39 = 0u;
-        v40 = 0u;
-        v37 = 0u;
         v38 = 0u;
+        v39 = 0u;
+        v36 = 0u;
+        v37 = 0u;
         v13 = *(a1 + 32);
-        v14 = [v13 countByEnumeratingWithState:&v37 objects:v45 count:16];
+        v14 = [v13 countByEnumeratingWithState:&v36 objects:v44 count:16];
         if (!v14)
         {
           goto LABEL_22;
         }
 
         v15 = v14;
-        v16 = *v38;
+        v16 = *v37;
         while (2)
         {
           for (i = 0; i != v15; ++i)
           {
-            if (*v38 != v16)
+            if (*v37 != v16)
             {
               objc_enumerationMutation(v13);
             }
 
-            v18 = *(*(&v37 + 1) + 8 * i);
-            v19 = [v11 objectForKeyedSubscript:v18];
+            v18 = *(*(&v36 + 1) + 8 * i);
+            v19 = objc_msgSend_objectForKeyedSubscript_(v11);
             v20 = [*(a1 + 64) _placementDictionary];
-            v21 = [v20 objectForKeyedSubscript:*(a1 + 40)];
+            v21 = objc_msgSend_objectForKeyedSubscript_(v20);
             LODWORD(v18) = [v18 isEqualToString:v21];
 
             if (v18)
@@ -229,7 +225,7 @@ LABEL_30:
                 v26 = [v19 metricsEvent];
                 v27 = [v26 underlyingDictionary];
                 *buf = 138412290;
-                v47 = v27;
+                v46 = v27;
                 _os_log_impl(&dword_275572000, v25, OS_LOG_TYPE_DEFAULT, "Enqueued metricEvent from AMSEngagementMessageRequest to AMSEngagement: %@", buf, 0xCu);
               }
 
@@ -243,7 +239,7 @@ LABEL_30:
             }
           }
 
-          v15 = [v13 countByEnumeratingWithState:&v37 objects:v45 count:16];
+          v15 = [v13 countByEnumeratingWithState:&v36 objects:v44 count:16];
           if (v15)
           {
             continue;
@@ -254,25 +250,23 @@ LABEL_30:
 
 LABEL_22:
 
-        v8 = v35 + 1;
-        v6 = v36;
+        v8 = v34 + 1;
+        v6 = v35;
         v5 = 0;
-        v7 = v33;
+        v7 = v32;
       }
 
-      while (v35 + 1 != v34);
-      v34 = [v36 countByEnumeratingWithState:&v41 objects:v48 count:16];
+      while (v34 + 1 != v33);
+      v33 = [v35 countByEnumeratingWithState:&v40 objects:v47 count:16];
     }
 
-    while (v34);
+    while (v33);
   }
 
 LABEL_4:
 
   (*(*(a1 + 56) + 16))();
 LABEL_34:
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 + (void)fetchBubbleContentWithBundleID:(id)d completion:(id)completion
@@ -308,30 +302,30 @@ LABEL_34:
 
 void __67__ICQEngagementReporter_fetchBubbleContentWithBundleID_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
+  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v41 = 0u;
   v3 = [a2 messageActions];
-  v30 = [v3 countByEnumeratingWithState:&v38 objects:v45 count:16];
-  if (v30)
+  v29 = [v3 countByEnumeratingWithState:&v37 objects:v44 count:16];
+  if (v29)
   {
-    v4 = *v39;
-    v32 = v3;
-    v29 = *v39;
+    v4 = *v38;
+    v31 = v3;
+    v28 = *v38;
     do
     {
       v5 = 0;
       do
       {
-        if (*v39 != v4)
+        if (*v38 != v4)
         {
           objc_enumerationMutation(v3);
         }
 
-        v31 = v5;
-        v6 = *(*(&v38 + 1) + 8 * v5);
+        v30 = v5;
+        v6 = *(*(&v37 + 1) + 8 * v5);
         v7 = _ICQGetLogSystem();
         if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
         {
@@ -344,34 +338,34 @@ void __67__ICQEngagementReporter_fetchBubbleContentWithBundleID_completion___blo
         if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v44 = v8;
+          v43 = v8;
           _os_log_impl(&dword_275572000, v9, OS_LOG_TYPE_DEFAULT, "AMSEngagementMessageRequests for bubble content: %@", buf, 0xCu);
         }
 
-        v36 = 0u;
-        v37 = 0u;
-        v34 = 0u;
         v35 = 0u;
+        v36 = 0u;
+        v33 = 0u;
+        v34 = 0u;
         obj = *(a1 + 32);
-        v10 = [obj countByEnumeratingWithState:&v34 objects:v42 count:16];
+        v10 = [obj countByEnumeratingWithState:&v33 objects:v41 count:16];
         if (v10)
         {
           v11 = v10;
-          v12 = *v35;
+          v12 = *v34;
           while (2)
           {
             for (i = 0; i != v11; ++i)
             {
-              if (*v35 != v12)
+              if (*v34 != v12)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v14 = *(*(&v34 + 1) + 8 * i);
-              v15 = [v8 objectForKeyedSubscript:v14];
+              v14 = *(*(&v33 + 1) + 8 * i);
+              v15 = objc_msgSend_objectForKeyedSubscript_(v8);
               v16 = [v15 makeDialogRequest];
               v17 = [*(a1 + 64) _placementDictionary];
-              v18 = [v17 objectForKeyedSubscript:*(a1 + 40)];
+              v18 = objc_msgSend_objectForKeyedSubscript_(v17);
               LODWORD(v14) = [v14 isEqualToString:v18];
 
               if (v14)
@@ -391,15 +385,15 @@ void __67__ICQEngagementReporter_fetchBubbleContentWithBundleID_completion___blo
                   v26 = [v16 metricsEvent];
                   v27 = [v26 underlyingDictionary];
                   *buf = 138412290;
-                  v44 = v27;
+                  v43 = v27;
                   _os_log_impl(&dword_275572000, v25, OS_LOG_TYPE_DEFAULT, "Enqueued metricEvent from AMSDialogRequest to AMSEngagement after pulling for bubble content: %@", buf, 0xCu);
                 }
 
-                goto LABEL_24;
+                return;
               }
             }
 
-            v11 = [obj countByEnumeratingWithState:&v34 objects:v42 count:16];
+            v11 = [obj countByEnumeratingWithState:&v33 objects:v41 count:16];
             if (v11)
             {
               continue;
@@ -409,107 +403,103 @@ void __67__ICQEngagementReporter_fetchBubbleContentWithBundleID_completion___blo
           }
         }
 
-        v5 = v31 + 1;
-        v3 = v32;
-        v4 = v29;
+        v5 = v30 + 1;
+        v3 = v31;
+        v4 = v28;
       }
 
-      while (v31 + 1 != v30);
-      v30 = [v32 countByEnumeratingWithState:&v38 objects:v45 count:16];
+      while (v30 + 1 != v29);
+      v29 = [v31 countByEnumeratingWithState:&v37 objects:v44 count:16];
     }
 
-    while (v30);
+    while (v29);
   }
 
   (*(*(a1 + 56) + 16))();
-LABEL_24:
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_createOpportunityBubbleFrom:(id)from bundleID:(id)d
 {
-  v58[2] = *MEMORY[0x277D85DE8];
-  v57[1] = @"opportunityBubbleDetails";
-  v58[0] = d;
-  v57[0] = @"appId";
-  v55[0] = @"title";
+  v57[2] = *MEMORY[0x277D85DE8];
+  v56[1] = @"opportunityBubbleDetails";
+  v57[0] = d;
+  v56[0] = @"appId";
+  v54[0] = @"title";
   dCopy = d;
   fromCopy = from;
   title = [fromCopy title];
-  v56[0] = title;
-  v55[1] = @"message";
+  v55[0] = title;
+  v54[1] = @"message";
   message = [fromCopy message];
-  v56[1] = message;
-  v55[2] = @"imageDetails";
-  v53[0] = @"3x";
+  v55[1] = message;
+  v54[2] = @"imageDetails";
+  v52[0] = @"3x";
   iconURL = [fromCopy iconURL];
-  v54[0] = iconURL;
-  v53[1] = @"2x";
+  v53[0] = iconURL;
+  v52[1] = @"2x";
   iconURL2 = [fromCopy iconURL];
-  v54[1] = iconURL2;
-  v53[2] = @"1x";
+  v53[1] = iconURL2;
+  v52[2] = @"1x";
   iconURL3 = [fromCopy iconURL];
-  v54[2] = iconURL3;
-  v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v54 forKeys:v53 count:3];
-  v56[2] = v37;
-  v55[3] = @"actions";
-  v50[0] = @"btnId";
+  v53[2] = iconURL3;
+  v36 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v53 forKeys:v52 count:3];
+  v55[2] = v36;
+  v54[3] = @"actions";
+  v49[0] = @"btnId";
   buttonActions = [fromCopy buttonActions];
-  v35 = [buttonActions objectAtIndexedSubscript:0];
-  identifier = [v35 identifier];
-  v51[0] = identifier;
-  v50[1] = @"btnTitle";
+  v34 = [buttonActions objectAtIndexedSubscript:0];
+  identifier = [v34 identifier];
+  v50[0] = identifier;
+  v49[1] = @"btnTitle";
   buttonActions2 = [fromCopy buttonActions];
-  v32 = [buttonActions2 objectAtIndexedSubscript:0];
-  title2 = [v32 title];
-  v51[1] = title2;
-  v51[2] = @"LAUNCH_REMOTE_UI";
-  v50[2] = @"btnAction";
-  v50[3] = @"btnActParams";
-  v48 = @"openUrl";
+  v31 = [buttonActions2 objectAtIndexedSubscript:0];
+  title2 = [v31 title];
+  v50[1] = title2;
+  v50[2] = @"LAUNCH_REMOTE_UI";
+  v49[2] = @"btnAction";
+  v49[3] = @"btnActParams";
+  v47 = @"openUrl";
   buttonActions3 = [fromCopy buttonActions];
-  v29 = [buttonActions3 objectAtIndexedSubscript:0];
-  deepLink = [v29 deepLink];
+  v28 = [buttonActions3 objectAtIndexedSubscript:0];
+  deepLink = [v28 deepLink];
   absoluteString = [deepLink absoluteString];
-  v49 = absoluteString;
-  v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v49 forKeys:&v48 count:1];
-  v51[3] = v26;
-  v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v51 forKeys:v50 count:4];
-  v52[0] = v25;
-  v46[0] = @"btnId";
+  v48 = absoluteString;
+  v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v48 forKeys:&v47 count:1];
+  v50[3] = v25;
+  v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v50 forKeys:v49 count:4];
+  v51[0] = v24;
+  v45[0] = @"btnId";
   buttonActions4 = [fromCopy buttonActions];
-  v23 = [buttonActions4 objectAtIndexedSubscript:1];
-  identifier2 = [v23 identifier];
-  v47[0] = identifier2;
-  v46[1] = @"btnTitle";
+  v22 = [buttonActions4 objectAtIndexedSubscript:1];
+  identifier2 = [v22 identifier];
+  v46[0] = identifier2;
+  v45[1] = @"btnTitle";
   buttonActions5 = [fromCopy buttonActions];
-  v20 = [buttonActions5 objectAtIndexedSubscript:1];
-  title3 = [v20 title];
-  v47[1] = title3;
-  v47[2] = @"HTTP_CALL";
-  v46[2] = @"btnAction";
-  v46[3] = @"btnActParams";
-  v44 = @"openUrl";
+  v19 = [buttonActions5 objectAtIndexedSubscript:1];
+  title3 = [v19 title];
+  v46[1] = title3;
+  v46[2] = @"HTTP_CALL";
+  v45[2] = @"btnAction";
+  v45[3] = @"btnActParams";
+  v43 = @"openUrl";
   buttonActions6 = [fromCopy buttonActions];
 
   v8 = [buttonActions6 objectAtIndexedSubscript:1];
   deepLink2 = [v8 deepLink];
   absoluteString2 = [deepLink2 absoluteString];
-  v45 = absoluteString2;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v45 forKeys:&v44 count:1];
-  v47[3] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v47 forKeys:v46 count:4];
-  v52[1] = v12;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v52 count:2];
-  v56[3] = v13;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v56 forKeys:v55 count:4];
-  v58[1] = v14;
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v58 forKeys:v57 count:2];
+  v44 = absoluteString2;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v44 forKeys:&v43 count:1];
+  v46[3] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v46 forKeys:v45 count:4];
+  v51[1] = v12;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v51 count:2];
+  v55[3] = v13;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v55 forKeys:v54 count:4];
+  v57[1] = v14;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v57 forKeys:v56 count:2];
 
   v16 = [ICQOpportunityBubbleSpecification alloc];
   v17 = [(ICQOpportunityBubbleSpecification *)v16 initWithOpportunityBubble:v15 andOpportunitySheet:0];
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
@@ -540,27 +530,27 @@ LABEL_24:
 
 void __54__ICQEngagementReporter__sendBubbleDisplayedEventFor___block_invoke(uint64_t a1, void *a2)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   obj = [a2 messageActions];
-  v24 = [obj countByEnumeratingWithState:&v31 objects:v38 count:16];
-  if (v24)
+  v23 = [obj countByEnumeratingWithState:&v30 objects:v37 count:16];
+  if (v23)
   {
-    v23 = *v32;
+    v22 = *v31;
     do
     {
       v2 = 0;
       do
       {
-        if (*v32 != v23)
+        if (*v31 != v22)
         {
           objc_enumerationMutation(obj);
         }
 
-        v3 = *(*(&v31 + 1) + 8 * v2);
+        v3 = *(*(&v30 + 1) + 8 * v2);
         v4 = _ICQGetLogSystem();
         if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
         {
@@ -568,37 +558,37 @@ void __54__ICQEngagementReporter__sendBubbleDisplayedEventFor___block_invoke(uin
           _os_log_impl(&dword_275572000, v4, OS_LOG_TYPE_DEFAULT, "Received response from amsngagementd.", buf, 2u);
         }
 
-        v25 = v2;
+        v24 = v2;
 
         v5 = [v3 placements];
         v6 = _ICQGetLogSystem();
         if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v37 = v5;
+          v36 = v5;
           _os_log_impl(&dword_275572000, v6, OS_LOG_TYPE_DEFAULT, "AMSEngagementMessageRequests: %@", buf, 0xCu);
         }
 
-        v29 = 0u;
-        v30 = 0u;
-        v27 = 0u;
         v28 = 0u;
+        v29 = 0u;
+        v26 = 0u;
+        v27 = 0u;
         v7 = *(a1 + 32);
-        v8 = [v7 countByEnumeratingWithState:&v27 objects:v35 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v26 objects:v34 count:16];
         if (v8)
         {
           v9 = v8;
-          v10 = *v28;
+          v10 = *v27;
           do
           {
             for (i = 0; i != v9; ++i)
             {
-              if (*v28 != v10)
+              if (*v27 != v10)
               {
                 objc_enumerationMutation(v7);
               }
 
-              v12 = [v5 objectForKeyedSubscript:*(*(&v27 + 1) + 8 * i)];
+              v12 = objc_msgSend_objectForKeyedSubscript_(v5);
               v13 = [v12 makeDialogRequest];
               v14 = *(a1 + 40);
               v15 = [v13 metricsEvent];
@@ -611,28 +601,26 @@ void __54__ICQEngagementReporter__sendBubbleDisplayedEventFor___block_invoke(uin
                 v19 = [v13 metricsEvent];
                 v20 = [v19 underlyingDictionary];
                 *buf = 138412290;
-                v37 = v20;
+                v36 = v20;
                 _os_log_impl(&dword_275572000, v18, OS_LOG_TYPE_DEFAULT, "Enqueued metricEvent from AMSDialogRequest to AMSEngagement: %@", buf, 0xCu);
               }
             }
 
-            v9 = [v7 countByEnumeratingWithState:&v27 objects:v35 count:16];
+            v9 = [v7 countByEnumeratingWithState:&v26 objects:v34 count:16];
           }
 
           while (v9);
         }
 
-        v2 = v25 + 1;
+        v2 = v24 + 1;
       }
 
-      while (v25 + 1 != v24);
-      v24 = [obj countByEnumeratingWithState:&v31 objects:v38 count:16];
+      while (v24 + 1 != v23);
+      v23 = [obj countByEnumeratingWithState:&v30 objects:v37 count:16];
     }
 
-    while (v24);
+    while (v23);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_sendSubscriptionChangedEvent
@@ -685,7 +673,7 @@ void __54__ICQEngagementReporter__sendBubbleDisplayedEventFor___block_invoke(uin
 
 void __54__ICQEngagementReporter__sendSubscriptionChangedEvent__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v5)
@@ -705,15 +693,15 @@ void __54__ICQEngagementReporter__sendSubscriptionChangedEvent__block_invoke(uin
     {
       v14 = *(*(*(a1 + 40) + 8) + 40);
       v15 = *(*(*(a1 + 48) + 8) + 40);
-      v20 = 138412546;
-      v21 = v14;
-      v22 = 2112;
-      v23 = v15;
+      v19 = 138412546;
+      v20 = v14;
+      v21 = 2112;
+      v22 = v15;
       v16 = "Current iCloudStorageLevel: %@ appleOneStorageLevel %@";
       v17 = v13;
       v18 = 22;
 LABEL_6:
-      _os_log_impl(&dword_275572000, v17, OS_LOG_TYPE_DEFAULT, v16, &v20, v18);
+      _os_log_impl(&dword_275572000, v17, OS_LOG_TYPE_DEFAULT, v16, &v19, v18);
     }
   }
 
@@ -722,8 +710,8 @@ LABEL_6:
     v13 = _ICQGetLogSystem();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = 138412290;
-      v21 = v6;
+      v19 = 138412290;
+      v20 = v6;
       v16 = "No premium offer return with error: %@";
       v17 = v13;
       v18 = 12;
@@ -732,18 +720,17 @@ LABEL_6:
   }
 
   dispatch_group_leave(*(a1 + 32));
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __54__ICQEngagementReporter__sendSubscriptionChangedEvent__block_invoke_79(uint64_t a1)
 {
-  v18[4] = *MEMORY[0x277D85DE8];
+  v17[4] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 48) _eventNameForEngagementType:3];
-  v17[0] = @"eventType";
-  v17[1] = @"bundleId";
-  v18[0] = v2;
-  v18[1] = @"com.apple.iCloudQuotaUI";
-  v17[2] = @"newiCloudStoragePlan";
+  v16[0] = @"eventType";
+  v16[1] = @"bundleId";
+  v17[0] = v2;
+  v17[1] = @"com.apple.iCloudQuotaUI";
+  v16[2] = @"newiCloudStoragePlan";
   v3 = *(*(*(a1 + 32) + 8) + 40);
   v4 = v3;
   if (!v3)
@@ -751,8 +738,8 @@ void __54__ICQEngagementReporter__sendSubscriptionChangedEvent__block_invoke_79(
     v4 = [MEMORY[0x277CBEB68] null];
   }
 
-  v18[2] = v4;
-  v17[3] = @"newAppleOneStoragePlan";
+  v17[2] = v4;
+  v16[3] = @"newAppleOneStoragePlan";
   v5 = *(*(*(a1 + 40) + 8) + 40);
   v6 = v5;
   if (!v5)
@@ -760,8 +747,8 @@ void __54__ICQEngagementReporter__sendSubscriptionChangedEvent__block_invoke_79(
     v6 = [MEMORY[0x277CBEB68] null];
   }
 
-  v18[3] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:4];
+  v17[3] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:4];
   if (v5)
   {
     if (v3)
@@ -789,12 +776,10 @@ LABEL_7:
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     v13 = [v8 underlyingDictionary];
-    v15 = 138412290;
-    v16 = v13;
-    _os_log_impl(&dword_275572000, v12, OS_LOG_TYPE_DEFAULT, "Enqueued metricEvent to AMSEngagement: %@", &v15, 0xCu);
+    v14 = 138412290;
+    v15 = v13;
+    _os_log_impl(&dword_275572000, v12, OS_LOG_TYPE_DEFAULT, "Enqueued metricEvent to AMSEngagement: %@", &v14, 0xCu);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_eventNameForEngagementType:(int64_t)type
@@ -812,26 +797,23 @@ LABEL_7:
 
 + (id)_placementDictionary
 {
-  v6[2] = *MEMORY[0x277D85DE8];
-  v5[0] = @"com.apple.mobileslideshow";
-  v5[1] = @"com.apple.Home";
-  v6[0] = @"photosLibraryFooter";
-  v6[1] = @"homeDashboardHeader";
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:2];
-  v3 = *MEMORY[0x277D85DE8];
+  v5[2] = *MEMORY[0x277D85DE8];
+  v4[0] = @"com.apple.mobileslideshow";
+  v4[1] = @"com.apple.Home";
+  v5[0] = @"photosLibraryFooter";
+  v5[1] = @"homeDashboardHeader";
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:2];
 
   return v2;
 }
 
 void __76__ICQEngagementReporter_shouldShowOpportunityBubbleWithBundleID_completion___block_invoke_cold_1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 localizedDescription];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_275572000, a2, OS_LOG_TYPE_ERROR, "Received error from amsngagementd %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_275572000, a2, OS_LOG_TYPE_ERROR, "Received error from amsngagementd %@", &v4, 0xCu);
 }
 
 @end

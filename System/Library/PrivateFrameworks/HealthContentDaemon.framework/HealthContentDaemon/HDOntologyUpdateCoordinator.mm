@@ -4,6 +4,7 @@
 + (id)_gatedActivityCriteria;
 + (id)_ontologyServerURL;
 - (BOOL)_pruneOldShardWithIdentifier:(void *)identifier schemaType:(uint64_t)type schemaVersion:(void *)version transaction:(uint64_t)transaction error:;
+- (BOOL)performOntologyTransactionForWrite:(BOOL)write databaseTransaction:(id)transaction error:(id *)error transactionHandler:(id)handler;
 - (BOOL)updateOntologyWithShardIdentifier:(id)identifier schemaType:(id)type schemaVersion:(int64_t)version localShardURL:(id)l shardVersion:(int64_t)shardVersion error:(id *)error;
 - (HDDaemon)daemon;
 - (HDOntologyUpdateCoordinator)init;
@@ -21,7 +22,6 @@
 - (id)preparedDatabaseAccessibilityAssertion;
 - (uint64_t)_permittedToAutomaticallyUpdateOntology;
 - (uint64_t)_pruneOldShardWithIdentifier:(void *)identifier schemaType:(uint64_t)type schemaVersion:(uint64_t)version error:;
-- (uint64_t)_scheduleFallbackUpdate;
 - (uint64_t)_setIsRunningTransaction:(uint64_t)transaction;
 - (uint64_t)_shouldProceedToDownloadAndImportShardWithIdentifier:(void *)identifier schemaType:(uint64_t)type schemaVersion:(uint64_t)version shardVersion:(uint64_t)shardVersion error:;
 - (uint64_t)_shouldProceedWithImportForShardWithIdentifier:(void *)identifier schemaType:(uint64_t)type schemaVersion:(void *)version shardURL:(uint64_t)l shardVersion:(int)shardVersion shouldPruneOldShard:(uint64_t)shard error:;
@@ -37,6 +37,7 @@
 - (void)_runOntologyPruner;
 - (void)_runOntologyUpdateWithReason:(void *)reason completion:;
 - (void)_runOntologyUpdateWithReason:(void *)reason session:(void *)session completion:;
+- (void)_scheduleFallbackUpdate;
 - (void)_setAccessibilityAssertion:(void *)assertion registryAssertion:;
 - (void)_triggerGatedUpdateWithMaximumDelay:(double)delay completion:;
 - (void)_triggerOntologyUpdateForGatedActivity:(uint64_t)activity ontologyUpdateReason:(void *)reason completion:;
@@ -146,6 +147,79 @@
   [(HDOntologyUpdateCoordinator *)&v3 dealloc];
 }
 
+- (BOOL)performOntologyTransactionForWrite:(BOOL)write databaseTransaction:(id)transaction error:(id *)error transactionHandler:(id)handler
+{
+  writeCopy = write;
+  transactionCopy = transaction;
+  handlerCopy = handler;
+  if (transactionCopy)
+  {
+    WeakRetained = objc_loadWeakRetained(&self->_daemon);
+    ontologyBackingStore = [WeakRetained ontologyBackingStore];
+    v14 = objc_loadWeakRetained(&self->_daemon);
+    primaryProfile = [v14 primaryProfile];
+    v16 = ontologyBackingStore;
+    v17 = writeCopy;
+    v18 = primaryProfile;
+    v19 = transactionCopy;
+LABEL_3:
+    v20 = [v16 performOntologyTransactionForWrite:v17 profile:v18 databaseTransaction:v19 error:error transactionHandler:handlerCopy];
+
+    goto LABEL_4;
+  }
+
+  if (([(HDOntologyUpdateCoordinator *)self _setIsRunningTransaction:?]& 1) != 0)
+  {
+    WeakRetained = objc_loadWeakRetained(&self->_daemon);
+    ontologyBackingStore = [WeakRetained ontologyBackingStore];
+    v14 = objc_loadWeakRetained(&self->_daemon);
+    primaryProfile = [v14 primaryProfile];
+    v16 = ontologyBackingStore;
+    v17 = writeCopy;
+    v18 = primaryProfile;
+    v19 = 0;
+    goto LABEL_3;
+  }
+
+  if (self)
+  {
+    v22 = writeCopy;
+  }
+
+  else
+  {
+    v22 = 0;
+  }
+
+  if (v22)
+  {
+    os_unfair_lock_lock(&self->_contentionReductionLock);
+  }
+
+  v23 = objc_loadWeakRetained(&self->_daemon);
+  primaryProfile2 = [v23 primaryProfile];
+  database = [primaryProfile2 database];
+  _ontologyUpdateTransactionContext = [(HDOntologyUpdateCoordinator *)self _ontologyUpdateTransactionContext];
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __111__HDOntologyUpdateCoordinator_performOntologyTransactionForWrite_databaseTransaction_error_transactionHandler___block_invoke;
+  v27[3] = &unk_2796B8A50;
+  v30 = writeCopy;
+  v27[4] = self;
+  v28 = 0;
+  v29 = handlerCopy;
+  v20 = [database performWithTransactionContext:_ontologyUpdateTransactionContext error:error block:v27];
+
+  [(HDOntologyUpdateCoordinator *)self _setIsRunningTransaction:?];
+  if (v22)
+  {
+    os_unfair_lock_unlock(&self->_contentionReductionLock);
+  }
+
+LABEL_4:
+  return v20;
+}
+
 uint64_t __111__HDOntologyUpdateCoordinator_performOntologyTransactionForWrite_databaseTransaction_error_transactionHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 88));
@@ -178,23 +252,23 @@ uint64_t __111__HDOntologyUpdateCoordinator_performOntologyTransactionForWrite_d
 {
   objc_opt_self();
   standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
-  v1 = [standardUserDefaults stringForKey:*MEMORY[0x277CCC5C8]];
-  v2 = v1;
-  if (v1)
+  v2 = [standardUserDefaults stringForKey:*MEMORY[0x277CCC5C8]];
+  v3 = v2;
+  if (v2)
   {
-    v3 = v1;
+    v4 = v2;
   }
 
   else
   {
-    v3 = HKDefaultOntologyServerBaseURL();
+    v4 = HKDefaultOntologyServerBaseURL();
   }
 
-  v4 = v3;
+  v5 = v4;
 
-  v5 = [objc_alloc(MEMORY[0x277CBEBC0]) initWithString:v4];
+  v6 = [objc_alloc(MEMORY[0x277CBEBC0]) initWithString:v5];
 
-  return v5;
+  return v6;
 }
 
 - (void)setOntologyServerURL:(id)l
@@ -242,7 +316,7 @@ void __68__HDOntologyUpdateCoordinator_downloadRequiredShardsWithCompletion___bl
 
 - (void)updateOntologyWithReason:(int64_t)reason completion:(id)completion
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   uUID = [MEMORY[0x277CCAD78] UUID];
   hk_shortRepresentation = [uUID hk_shortRepresentation];
@@ -257,26 +331,24 @@ void __68__HDOntologyUpdateCoordinator_downloadRequiredShardsWithCompletion___bl
   {
     *buf = 138543618;
     selfCopy = self;
-    v24 = 2114;
-    v25 = v11;
+    v23 = 2114;
+    v24 = v11;
     _os_log_impl(&dword_2514A1000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@: Enqueue ontology update for %{public}@", buf, 0x16u);
   }
 
   v13 = objc_alloc(MEMORY[0x277CCCFF8]);
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __67__HDOntologyUpdateCoordinator_updateOntologyWithReason_completion___block_invoke;
-  v18[3] = &unk_2796B8AC8;
-  v18[4] = self;
-  v19 = hk_shortRepresentation;
-  v20 = completionCopy;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __67__HDOntologyUpdateCoordinator_updateOntologyWithReason_completion___block_invoke;
+  v17[3] = &unk_2796B8AC8;
+  v17[4] = self;
+  v18 = hk_shortRepresentation;
+  v19 = completionCopy;
   reasonCopy = reason;
   v14 = completionCopy;
   v15 = hk_shortRepresentation;
-  v16 = [v13 initWithName:v11 operationBlock:v18];
+  v16 = [v13 initWithName:v11 operationBlock:v17];
   [(NSOperationQueue *)self->_updateOperationQueue addOperation:v16];
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __67__HDOntologyUpdateCoordinator_updateOntologyWithReason_completion___block_invoke(uint64_t a1, void *a2)
@@ -416,60 +488,58 @@ void __77__HDOntologyUpdateCoordinator_triggerGatedUpdateWithMaximumDelay_comple
 + (id)_endpointDictionary
 {
   objc_opt_self();
-  v0 = +[HDOntologyUpdateCoordinator _ontologyServerURL];
-  host = [v0 host];
+  v1 = +[HDOntologyUpdateCoordinator _ontologyServerURL];
+  host = [v1 host];
   uTF8String = [host UTF8String];
-  scheme = [v0 scheme];
+  scheme = [v1 scheme];
   host = nw_endpoint_create_host(uTF8String, [scheme UTF8String]);
 
-  v5 = nw_endpoint_copy_dictionary();
+  v6 = nw_endpoint_copy_dictionary();
 
-  return v5;
+  return v6;
 }
 
 - (void)performPeriodicActivity:(id)activity completion:(id)completion
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   if (([(HDOntologyUpdateCoordinator *)self _permittedToAutomaticallyUpdateOntology]& 1) != 0)
   {
-    v7 = [MEMORY[0x277D10678] transactionWithOwner:self activityName:@"com.apple.healthd.ontology.update"];
+    v6 = [MEMORY[0x277D10678] transactionWithOwner:self activityName:@"com.apple.healthd.ontology.update"];
     [(HDOntologyUpdateCoordinator *)self _prepareAssertions];
     _HKInitializeLogging();
-    v8 = HKLogHealthOntology();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v7 = HKLogHealthOntology();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
       selfCopy = self;
-      _os_log_impl(&dword_2514A1000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: maintenance operation enqueued", buf, 0xCu);
+      _os_log_impl(&dword_2514A1000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: maintenance operation enqueued", buf, 0xCu);
     }
 
-    v9 = MEMORY[0x277D10748];
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __66__HDOntologyUpdateCoordinator_performPeriodicActivity_completion___block_invoke;
-    v14[3] = &unk_2796B8B40;
-    v14[4] = self;
-    v15 = v7;
-    v16 = completionCopy;
-    v10 = v7;
-    v11 = [v9 maintenanceOperationWithName:@"com.apple.healthd.ontology.update" asynchronousBlock:v14];
+    v8 = MEMORY[0x277D10748];
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __66__HDOntologyUpdateCoordinator_performPeriodicActivity_completion___block_invoke;
+    v13[3] = &unk_2796B8B40;
+    v13[4] = self;
+    v14 = v6;
+    v15 = completionCopy;
+    v9 = v6;
+    v10 = [v8 maintenanceOperationWithName:@"com.apple.healthd.ontology.update" asynchronousBlock:v13];
     WeakRetained = objc_loadWeakRetained(&self->_daemon);
     maintenanceWorkCoordinator = [WeakRetained maintenanceWorkCoordinator];
-    [maintenanceWorkCoordinator enqueueMaintenanceOperation:v11];
+    [maintenanceWorkCoordinator enqueueMaintenanceOperation:v10];
   }
 
   else
   {
     (*(completionCopy + 2))(completionCopy, 0, 0, 0.0);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __66__HDOntologyUpdateCoordinator_performPeriodicActivity_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   _HKInitializeLogging();
   v4 = HKLogHealthOntology();
@@ -477,23 +547,21 @@ void __66__HDOntologyUpdateCoordinator_performPeriodicActivity_completion___bloc
   {
     v5 = *(a1 + 32);
     *buf = 138543362;
-    v14 = v5;
+    v13 = v5;
     _os_log_impl(&dword_2514A1000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: maintenance operation running", buf, 0xCu);
   }
 
   v6 = *(a1 + 32);
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __66__HDOntologyUpdateCoordinator_performPeriodicActivity_completion___block_invoke_344;
-  v9[3] = &unk_2796B8B18;
-  v11 = v3;
-  v9[4] = v6;
-  v12 = *(a1 + 48);
-  v10 = *(a1 + 40);
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __66__HDOntologyUpdateCoordinator_performPeriodicActivity_completion___block_invoke_344;
+  v8[3] = &unk_2796B8B18;
+  v10 = v3;
+  v8[4] = v6;
+  v11 = *(a1 + 48);
+  v9 = *(a1 + 40);
   v7 = v3;
-  [v6 updateOntologyWithReason:0 completion:v9];
-
-  v8 = *MEMORY[0x277D85DE8];
+  [v6 updateOntologyWithReason:0 completion:v8];
 }
 
 - (void)profileDidBecomeReady:(id)ready
@@ -566,34 +634,32 @@ void __53__HDOntologyUpdateCoordinator_profileDidBecomeReady___block_invoke(uint
 
 + (id)_fallbackActivityCriteria
 {
-  objc_opt_self();
-  v0 = +[HDOntologyUpdateCoordinator _gatedActivityCriteria];
-  v1 = *MEMORY[0x277D86310];
-  v2 = +[HDOntologyUpdateCoordinator _endpointDictionary];
-  xpc_dictionary_set_value(v0, v1, v2);
+  v1 = objc_opt_self();
+  v2 = +[(HDOntologyUpdateCoordinator *)v1];
+  v3 = *MEMORY[0x277D86310];
+  v4 = +[(HDOntologyUpdateCoordinator *)v1];
+  xpc_dictionary_set_value(v2, v3, v4);
 
-  return v0;
+  return v2;
 }
 
 - (void)URLSession:(id)session taskIsWaitingForConnectivity:(id)connectivity
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   connectivityCopy = connectivity;
   _HKInitializeLogging();
   v6 = HKLogHealthOntology();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     currentRequest = [connectivityCopy currentRequest];
-    v9 = 138543874;
+    v8 = 138543874;
     selfCopy = self;
-    v11 = 2114;
-    v12 = connectivityCopy;
-    v13 = 2114;
-    v14 = currentRequest;
-    _os_log_impl(&dword_2514A1000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: waiting for connectivity for task %{public}@ %{public}@", &v9, 0x20u);
+    v10 = 2114;
+    v11 = connectivityCopy;
+    v12 = 2114;
+    v13 = currentRequest;
+    _os_log_impl(&dword_2514A1000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: waiting for connectivity for task %{public}@ %{public}@", &v8, 0x20u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __71__HDOntologyUpdateCoordinator__runOntologyUpdateWithReason_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -609,23 +675,22 @@ void __79__HDOntologyUpdateCoordinator__runOntologyUpdateWithReason_session_comp
   if (a2)
   {
     v3 = [*(a1 + 32) downloader];
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __79__HDOntologyUpdateCoordinator__runOntologyUpdateWithReason_session_completion___block_invoke_2;
-    v8[3] = &unk_2796B8BB8;
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 3221225472;
+    v7[2] = __79__HDOntologyUpdateCoordinator__runOntologyUpdateWithReason_session_completion___block_invoke_2;
+    v7[3] = &unk_2796B8BB8;
     v4 = *(a1 + 40);
     v5 = *(a1 + 48);
-    v8[4] = *(a1 + 32);
-    v9 = v5;
-    [v3 downloadRequiredShardFilesWithSession:v4 completion:v8];
+    v7[4] = *(a1 + 32);
+    v8 = v5;
+    [v3 downloadRequiredShardFilesWithSession:v4 completion:v7];
   }
 
   else
   {
-    v6 = *(a1 + 48);
-    v7 = *(*(a1 + 48) + 16);
+    v6 = *(*(a1 + 48) + 16);
 
-    v7();
+    v6();
   }
 }
 
@@ -633,10 +698,10 @@ void __79__HDOntologyUpdateCoordinator__runOntologyUpdateWithReason_session_comp
 {
   if (a2)
   {
-    v5 = [*(a1 + 32) importer];
-    v7 = 0;
-    [v5 importStagedShardFilesWithError:&v7];
-    v6 = v7;
+    v4 = [*(a1 + 32) importer];
+    v6 = 0;
+    [v4 importStagedShardFilesWithError:&v6];
+    v5 = v6;
 
     [(HDOntologyUpdateCoordinator *)*(a1 + 32) _runOntologyPruner];
     (*(*(a1 + 40) + 16))();
@@ -644,10 +709,9 @@ void __79__HDOntologyUpdateCoordinator__runOntologyUpdateWithReason_session_comp
 
   else
   {
-    v3 = *(a1 + 40);
-    v4 = *(*(a1 + 40) + 16);
+    v3 = *(*(a1 + 40) + 16);
 
-    v4();
+    v3();
   }
 }
 
@@ -665,7 +729,7 @@ void __102__HDOntologyUpdateCoordinator__triggerOntologyUpdateForGatedActivity_o
 
 void __78__HDOntologyUpdateCoordinator__triggerGatedUpdateWithMaximumDelay_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = v5;
   if (a2 == 2 && !v5)
@@ -680,21 +744,20 @@ void __78__HDOntologyUpdateCoordinator__triggerGatedUpdateWithMaximumDelay_compl
     v8 = *(a1 + 32);
     v9 = HDStringFromGatedActivityResult();
     *buf = 138543874;
-    v12 = v8;
-    v13 = 2114;
-    v14 = v9;
-    v15 = 2114;
-    v16 = v6;
+    v11 = v8;
+    v12 = 2114;
+    v13 = v9;
+    v14 = 2114;
+    v15 = v6;
     _os_log_impl(&dword_2514A1000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: Gated update result: %{public}@, error: %{public}@", buf, 0x20u);
   }
 
   (*(*(a1 + 40) + 16))();
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __54__HDOntologyUpdateCoordinator__scheduleFallbackUpdate__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v4 = a3;
   _HKInitializeLogging();
   v5 = HKLogHealthOntology();
@@ -702,21 +765,19 @@ void __54__HDOntologyUpdateCoordinator__scheduleFallbackUpdate__block_invoke(uin
   {
     v6 = *(a1 + 32);
     v7 = HDStringFromGatedActivityResult();
-    v9 = 138543874;
-    v10 = v6;
-    v11 = 2114;
-    v12 = v7;
-    v13 = 2114;
-    v14 = v4;
-    _os_log_impl(&dword_2514A1000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Fallback update result: %{public}@, error: %{public}@", &v9, 0x20u);
+    v8 = 138543874;
+    v9 = v6;
+    v10 = 2114;
+    v11 = v7;
+    v12 = 2114;
+    v13 = v4;
+    _os_log_impl(&dword_2514A1000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Fallback update result: %{public}@, error: %{public}@", &v8, 0x20u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __84__HDOntologyUpdateCoordinator__updateOntologyWithLocalShardEntry_transaction_error___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v2 = HKLogHealthOntology();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
@@ -724,16 +785,14 @@ void __84__HDOntologyUpdateCoordinator__updateOntologyWithLocalShardEntry_transa
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
     v5 = [*(a1 + 48) availableURL];
-    v7 = 138543874;
-    v8 = v3;
-    v9 = 2114;
-    v10 = v4;
-    v11 = 2114;
-    v12 = v5;
-    _os_log_impl(&dword_2514A1000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@: Imported local shard %{public}@ from %{public}@", &v7, 0x20u);
+    v6 = 138543874;
+    v7 = v3;
+    v8 = 2114;
+    v9 = v4;
+    v10 = 2114;
+    v11 = v5;
+    _os_log_impl(&dword_2514A1000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@: Imported local shard %{public}@ from %{public}@", &v6, 0x20u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (uint64_t)_shouldProceedToDownloadAndImportShardWithIdentifier:(void *)identifier schemaType:(uint64_t)type schemaVersion:(uint64_t)version shardVersion:(uint64_t)shardVersion error:
@@ -981,7 +1040,7 @@ void __148__HDOntologyUpdateCoordinator__downloadStageAndImportEntryWithIdentifi
 
 - (void)_updateOntologyWithReason:(void *)reason updateID:(void *)d completion:
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   dCopy = d;
   if (self)
@@ -994,35 +1053,33 @@ void __148__HDOntologyUpdateCoordinator__downloadStageAndImportEntryWithIdentifi
       v11 = HKStringFromOntologyUpdateReason();
       *buf = 138543874;
       selfCopy = self;
-      v23 = 2114;
-      v24 = v11;
-      v25 = 2114;
-      v26 = reasonCopy;
+      v22 = 2114;
+      v23 = v11;
+      v24 = 2114;
+      v25 = reasonCopy;
       _os_log_impl(&dword_2514A1000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@: Start updating ontology for %{public}@ %{public}@", buf, 0x20u);
     }
 
     _takeAssertionsIfNecessary = [(HDOntologyUpdateCoordinator *)self _takeAssertionsIfNecessary];
-    [HDOntologyUpdateCoordinator _persistOntologyUpdateStartTimeForReason:self];
+    [(HDOntologyUpdateCoordinator *)self _persistOntologyUpdateStartTimeForReason:a2];
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_2();
-    v15[2] = __77__HDOntologyUpdateCoordinator__updateOntologyWithReason_updateID_completion___block_invoke;
-    v15[3] = &unk_2796B8B90;
-    v15[4] = self;
-    v19 = a2;
-    v20 = Current;
-    v16 = reasonCopy;
-    v17 = _takeAssertionsIfNecessary;
-    v18 = dCopy;
+    v14[2] = __77__HDOntologyUpdateCoordinator__updateOntologyWithReason_updateID_completion___block_invoke;
+    v14[3] = &unk_2796B8B90;
+    v14[4] = self;
+    v18 = a2;
+    v19 = Current;
+    v15 = reasonCopy;
+    v16 = _takeAssertionsIfNecessary;
+    v17 = dCopy;
     v13 = _takeAssertionsIfNecessary;
-    [(HDOntologyUpdateCoordinator *)self _runOntologyUpdateWithReason:a2 completion:v15];
+    [(HDOntologyUpdateCoordinator *)self _runOntologyUpdateWithReason:a2 completion:v14];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
-- (uint64_t)_scheduleFallbackUpdate
+- (void)_scheduleFallbackUpdate
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (result)
   {
     v2 = result;
@@ -1031,26 +1088,24 @@ void __148__HDOntologyUpdateCoordinator__downloadStageAndImportEntryWithIdentifi
     if (OUTLINED_FUNCTION_8(v3))
     {
       *buf = 138543362;
-      v13 = v2;
+      v11 = v2;
       _os_log_impl(&dword_2514A1000, v1, OS_LOG_TYPE_DEFAULT, "%{public}@: Request fallback update", buf, 0xCu);
     }
 
-    v4 = *(v2 + 24);
     OUTLINED_FUNCTION_1();
-    v8 = 3221225472;
-    v9 = __54__HDOntologyUpdateCoordinator__scheduleFallbackUpdate__block_invoke;
-    v10 = &unk_2796B8C58;
-    v11 = v2;
-    result = [v5 requestRunWithMaximumDelay:v7 completion:10.0];
+    v6 = 3221225472;
+    v7 = __54__HDOntologyUpdateCoordinator__scheduleFallbackUpdate__block_invoke;
+    v8 = &unk_2796B8C58;
+    v9 = v2;
+    return [v4 requestRunWithMaximumDelay:v5 completion:10.0];
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (void)_triggerGatedUpdateWithMaximumDelay:(double)delay completion:
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a2;
   if (self)
   {
@@ -1063,18 +1118,18 @@ void __148__HDOntologyUpdateCoordinator__downloadStageAndImportEntryWithIdentifi
       {
         *buf = 138543618;
         selfCopy = self;
-        v14 = 2048;
+        v13 = 2048;
         delayCopy = delay;
         _os_log_impl(&dword_2514A1000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: Trigger gated update with maximum delay %0.3fs", buf, 0x16u);
       }
 
       OUTLINED_FUNCTION_0();
       OUTLINED_FUNCTION_2();
-      v10[2] = __78__HDOntologyUpdateCoordinator__triggerGatedUpdateWithMaximumDelay_completion___block_invoke;
-      v10[3] = &unk_2796B8C30;
-      v10[4] = self;
-      v11 = v5;
-      v7 = MEMORY[0x253078050](v10);
+      v9[2] = __78__HDOntologyUpdateCoordinator__triggerGatedUpdateWithMaximumDelay_completion___block_invoke;
+      v9[3] = &unk_2796B8C30;
+      v9[4] = self;
+      v10 = v5;
+      v7 = MEMORY[0x253078050](v9);
       v8 = *(self + 16);
       if (delay <= 0.0)
       {
@@ -1092,8 +1147,6 @@ void __148__HDOntologyUpdateCoordinator__downloadStageAndImportEntryWithIdentifi
       (*(v5 + 2))(v5, 1, 0);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (uint64_t)_updateOntologyWithLocalShardEntry:(void *)entry transaction:(uint64_t)transaction error:
@@ -1171,7 +1224,7 @@ void __148__HDOntologyUpdateCoordinator__downloadStageAndImportEntryWithIdentifi
 
 - (void)_downloadStageAndImportEntryWithIdentifier:(void *)identifier schemaType:(uint64_t)type schemaVersion:(uint64_t)version shardVersion:(void *)shardVersion shardURL:(uint64_t)l fileSize:(uint64_t)size reason:(void *)reason completion:
 {
-  v36[1] = *MEMORY[0x277D85DE8];
+  v35[1] = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   v16 = reasonCopy;
   if (self)
@@ -1191,23 +1244,21 @@ void __148__HDOntologyUpdateCoordinator__downloadStageAndImportEntryWithIdentifi
     v27 = [v26 copyWithDesiredState:3];
     v28 = [(HDOntologyUpdateCoordinator *)self _sessionForOntologyUpdateReason:size];
     downloader = [self downloader];
-    v36[0] = v27;
-    v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:1];
-    v34[0] = MEMORY[0x277D85DD0];
-    v34[1] = 3221225472;
-    v34[2] = __148__HDOntologyUpdateCoordinator__downloadStageAndImportEntryWithIdentifier_schemaType_schemaVersion_shardVersion_shardURL_fileSize_reason_completion___block_invoke;
-    v34[3] = &unk_2796B8BB8;
-    v34[4] = self;
-    v35 = v16;
-    [downloader downloadRequiredShardFilesWithSession:v28 requiredEntries:v30 completion:v34];
+    v35[0] = v27;
+    v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:1];
+    v33[0] = MEMORY[0x277D85DD0];
+    v33[1] = 3221225472;
+    v33[2] = __148__HDOntologyUpdateCoordinator__downloadStageAndImportEntryWithIdentifier_schemaType_schemaVersion_shardVersion_shardURL_fileSize_reason_completion___block_invoke;
+    v33[3] = &unk_2796B8BB8;
+    v33[4] = self;
+    v34 = v16;
+    [downloader downloadRequiredShardFilesWithSession:v28 requiredEntries:v30 completion:v33];
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (uint64_t)_permittedToAutomaticallyUpdateOntology
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (result)
   {
     v1 = result;
@@ -1237,8 +1288,7 @@ void __148__HDOntologyUpdateCoordinator__downloadStageAndImportEntryWithIdentifi
 
           if (!runningInStoreDemoModeF201)
           {
-            result = 1;
-            goto LABEL_15;
+            return 1;
           }
         }
 
@@ -1249,8 +1299,8 @@ void __148__HDOntologyUpdateCoordinator__downloadStageAndImportEntryWithIdentifi
           goto LABEL_14;
         }
 
-        v16 = 138543362;
-        v17 = v1;
+        v15 = 138543362;
+        v16 = v1;
         v8 = "%{public}@: Unable to run ontology update, because device in store demo mode";
         goto LABEL_13;
       }
@@ -1259,11 +1309,11 @@ void __148__HDOntologyUpdateCoordinator__downloadStageAndImportEntryWithIdentifi
       v7 = HKLogHealthOntology();
       if (OUTLINED_FUNCTION_8(v7))
       {
-        v16 = 138543362;
-        v17 = v1;
+        v15 = 138543362;
+        v16 = v1;
         v8 = "%{public}@: Unable to run ontology update, because Health app is not installed";
 LABEL_13:
-        _os_log_impl(&dword_2514A1000, WeakRetained, OS_LOG_TYPE_DEFAULT, v8, &v16, 0xCu);
+        _os_log_impl(&dword_2514A1000, WeakRetained, OS_LOG_TYPE_DEFAULT, v8, &v15, 0xCu);
       }
     }
 
@@ -1273,8 +1323,8 @@ LABEL_13:
       v9 = HKLogHealthOntology();
       if (OUTLINED_FUNCTION_8(v9))
       {
-        v16 = 138543362;
-        v17 = v1;
+        v15 = 138543362;
+        v16 = v1;
         v8 = "%{public}@: Unable to run ontology update, because behavior is not enabled";
         goto LABEL_13;
       }
@@ -1282,11 +1332,9 @@ LABEL_13:
 
 LABEL_14:
 
-    result = 0;
+    return 0;
   }
 
-LABEL_15:
-  v15 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1304,19 +1352,19 @@ LABEL_15:
 
 void __66__HDOntologyUpdateCoordinator_performPeriodicActivity_completion___block_invoke_344(uint64_t a1, char a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a3;
-  v6 = OUTLINED_FUNCTION_4(*(a1 + 48));
-  v7(v6);
+  OUTLINED_FUNCTION_4();
+  v6();
   [(HDOntologyUpdateCoordinator *)*(a1 + 32) _invalidatePreparedAssertions];
   _HKInitializeLogging();
-  v8 = HKLogHealthOntology();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v7 = HKLogHealthOntology();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = *(a1 + 32);
-    v13 = 138543362;
-    v14 = v9;
-    _os_log_impl(&dword_2514A1000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: maintenance operation finished", &v13, 0xCu);
+    v8 = *(a1 + 32);
+    v10 = 138543362;
+    v11 = v8;
+    _os_log_impl(&dword_2514A1000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: maintenance operation finished", &v10, 0xCu);
   }
 
   if ((a2 & 1) == 0)
@@ -1324,11 +1372,9 @@ void __66__HDOntologyUpdateCoordinator_performPeriodicActivity_completion___bloc
     [*(*(a1 + 32) + 8) shouldDefer];
   }
 
-  v10 = OUTLINED_FUNCTION_4(*(a1 + 56));
-  v11(v10, 0.0);
+  OUTLINED_FUNCTION_4();
+  v9(0.0);
   [*(a1 + 40) invalidate];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_triggerOntologyUpdateForGatedActivity:(uint64_t)activity ontologyUpdateReason:(void *)reason completion:
@@ -1377,7 +1423,7 @@ void __53__HDOntologyUpdateCoordinator_profileDidBecomeReady___block_invoke_2(ui
 
 - (id)_takeAccessibilityAssertion
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if (self)
   {
     WeakRetained = objc_loadWeakRetained((self + 88));
@@ -1385,9 +1431,9 @@ void __53__HDOntologyUpdateCoordinator_profileDidBecomeReady___block_invoke_2(ui
     database = [primaryProfile database];
     v5 = objc_opt_class();
     v6 = NSStringFromClass(v5);
-    v19 = 0;
-    v7 = [database takeAccessibilityAssertionWithOwnerIdentifier:v6 timeout:&v19 error:300.0];
-    v8 = v19;
+    v18 = 0;
+    v7 = [database takeAccessibilityAssertionWithOwnerIdentifier:v6 timeout:&v18 error:300.0];
+    v8 = v18;
 
     if (!v7)
     {
@@ -1398,8 +1444,8 @@ void __53__HDOntologyUpdateCoordinator_profileDidBecomeReady___block_invoke_2(ui
         *buf = 138543618;
         selfCopy = self;
         OUTLINED_FUNCTION_3();
-        v22 = v8;
-        OUTLINED_FUNCTION_7(&dword_2514A1000, v12, v13, "%{public}@ Unable to prepare accessibilityAssertion: %{public}@", v14, v15, v16, v17, v18, v19, buf[0]);
+        v21 = v8;
+        OUTLINED_FUNCTION_7(&dword_2514A1000, v11, v12, "%{public}@ Unable to prepare accessibilityAssertion: %{public}@", v13, v14, v15, v16, v17, v18);
       }
     }
   }
@@ -1409,22 +1455,20 @@ void __53__HDOntologyUpdateCoordinator_profileDidBecomeReady___block_invoke_2(ui
     v7 = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 - (id)_takeRegistryAssertion
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (self)
   {
     shardRegistry = [self shardRegistry];
     v3 = objc_opt_class();
     v4 = NSStringFromClass(v3);
-    v17 = 0;
-    v5 = [shardRegistry takeFileHandleAssertionForOwnerIdentifier:v4 error:&v17];
-    v6 = v17;
+    v16 = 0;
+    v5 = [shardRegistry takeFileHandleAssertionForOwnerIdentifier:v4 error:&v16];
+    v6 = v16;
 
     if (!v5)
     {
@@ -1435,8 +1479,8 @@ void __53__HDOntologyUpdateCoordinator_profileDidBecomeReady___block_invoke_2(ui
         *buf = 138543618;
         selfCopy = self;
         OUTLINED_FUNCTION_3();
-        v20 = v6;
-        OUTLINED_FUNCTION_7(&dword_2514A1000, v10, v11, "%{public}@: Unable to take registry file handle assertion: %{public}@", v12, v13, v14, v15, v16, v17, buf[0]);
+        v19 = v6;
+        OUTLINED_FUNCTION_7(&dword_2514A1000, v9, v10, "%{public}@: Unable to take registry file handle assertion: %{public}@", v11, v12, v13, v14, v15, v16);
       }
     }
   }
@@ -1445,8 +1489,6 @@ void __53__HDOntologyUpdateCoordinator_profileDidBecomeReady___block_invoke_2(ui
   {
     v5 = 0;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -1513,38 +1555,35 @@ void __53__HDOntologyUpdateCoordinator_profileDidBecomeReady___block_invoke_2(ui
 
 - (void)_invalidateAssertions:(uint64_t)assertions
 {
-  v37 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v11 = v3;
   if (assertions)
   {
-    v12 = OUTLINED_FUNCTION_6(v3, v4, v5, v6, v7, v8, v9, v10, 0, 0, 0, 0, 0, 0, 0, 0, v33, v35);
+    v12 = OUTLINED_FUNCTION_6(v3, v4, v5, v6, v7, v8, v9, v10, 0, 0, 0, 0, 0, 0, 0, 0, v32);
     if (v12)
     {
       v13 = v12;
-      v14 = *v27;
+      v14 = *v26;
       do
       {
         v15 = 0;
         do
         {
-          if (*v27 != v14)
+          if (*v26 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          invalidate = [*(v26 + 8 * v15++) invalidate];
+          invalidate = [*(v25 + 8 * v15++) invalidate];
         }
 
         while (v13 != v15);
-        v13 = OUTLINED_FUNCTION_6(invalidate, v17, v18, v19, v20, v21, v22, v23, v25, v26, v27, v28, v29, v30, v31, v32, v34, v36);
+        v13 = OUTLINED_FUNCTION_6(invalidate, v17, v18, v19, v20, v21, v22, v23, v24, v25, v26, v27, v28, v29, v30, v31, v33);
       }
 
       while (v13);
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_persistOntologyUpdateStartTimeForReason:(id *)reason
@@ -1552,47 +1591,46 @@ void __53__HDOntologyUpdateCoordinator_profileDidBecomeReady___block_invoke_2(ui
   v20 = *MEMORY[0x277D85DE8];
   if (reason)
   {
-    v2 = objc_alloc(MEMORY[0x277CCACA8]);
-    v3 = HKStringFromOntologyUpdateReason();
-    v4 = [v2 initWithFormat:@"updateStartDate %@", v3];
+    v3 = objc_alloc(MEMORY[0x277CCACA8]);
+    v4 = HKStringFromOntologyUpdateReason();
+    v5 = [v3 initWithFormat:@"updateStartDate %@", v4];
 
     _keyValueDomain = [(HDOntologyUpdateCoordinator *)reason _keyValueDomain];
     date = [MEMORY[0x277CBEAA8] date];
     v14 = 0;
-    v7 = [_keyValueDomain setDate:date forKey:v4 error:&v14];
-    v8 = v14;
+    v8 = [_keyValueDomain setDate:date forKey:v5 error:&v14];
+    v9 = v14;
 
-    if ((v7 & 1) == 0)
+    if ((v8 & 1) == 0)
     {
       _HKInitializeLogging();
-      v9 = HKLogHealthOntology();
-      v10 = os_log_type_enabled(v9, OS_LOG_TYPE_INFO);
+      v10 = HKLogHealthOntology();
+      v11 = os_log_type_enabled(v10, OS_LOG_TYPE_INFO);
 
-      if (v10)
+      if (v11)
       {
-        v11 = HKLogHealthOntology();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+        v12 = HKLogHealthOntology();
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
         {
           *buf = 138543874;
           reasonCopy = reason;
           OUTLINED_FUNCTION_3();
-          v17 = v4;
-          v18 = v12;
-          v19 = v8;
-          _os_log_impl(&dword_2514A1000, v11, OS_LOG_TYPE_INFO, "%{public}@: Unable to persist %{public}@: %{public}@", buf, 0x20u);
+          v17 = v5;
+          v18 = v13;
+          v19 = v9;
+          _os_log_impl(&dword_2514A1000, v12, OS_LOG_TYPE_INFO, "%{public}@: Unable to persist %{public}@: %{public}@", buf, 0x20u);
         }
       }
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __77__HDOntologyUpdateCoordinator__updateOntologyWithReason_updateID_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v3 = a2;
+  v26 = *MEMORY[0x277D85DE8];
   v5 = a3;
-  if (a2)
+  if (v3)
   {
     v6 = &stru_28636E7C8;
   }
@@ -1607,7 +1645,7 @@ void __77__HDOntologyUpdateCoordinator__updateOntologyWithReason_updateID_comple
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = *(a1 + 32);
-    if (a2)
+    if (v3)
     {
       v9 = @"Success";
     }
@@ -1617,36 +1655,33 @@ void __77__HDOntologyUpdateCoordinator__updateOntologyWithReason_updateID_comple
       v9 = @"Failure";
     }
 
-    v10 = *(a1 + 64);
-    v11 = HKStringFromOntologyUpdateReason();
-    v12 = *(a1 + 40);
-    v13 = CFAbsoluteTimeGetCurrent() - *(a1 + 72);
+    v10 = HKStringFromOntologyUpdateReason();
+    v11 = *(a1 + 40);
+    CFAbsoluteTimeGetCurrent();
     *buf = 138544642;
-    v20 = v8;
+    v16 = v8;
     OUTLINED_FUNCTION_3();
-    v21 = v9;
-    v22 = v14;
-    v23 = v11;
-    v24 = v14;
-    v25 = v12;
-    v26 = 2048;
-    v27 = v15;
-    v28 = v14;
-    v29 = v6;
+    v17 = v9;
+    v18 = v12;
+    v19 = v10;
+    v20 = v12;
+    v21 = v11;
+    v22 = 2048;
+    v23 = v13;
+    v24 = v12;
+    v25 = v6;
     _os_log_impl(&dword_2514A1000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: %{public}@ updating ontology for %{public}@ %{public}@ in %0.4fs%{public}@", buf, 0x3Eu);
   }
 
-  [(HDOntologyUpdateCoordinator *)*(a1 + 32) _persistOntologyUpdateEndTimeForReason:a2 success:v5 error:?];
+  [(HDOntologyUpdateCoordinator *)*(a1 + 32) _persistOntologyUpdateEndTimeForReason:v3 success:v5 error:?];
   [(HDOntologyUpdateCoordinator *)*(a1 + 32) _invalidateAssertions:?];
-  v16 = OUTLINED_FUNCTION_4(*(a1 + 56));
-  v17(v16, a2, v5);
-
-  v18 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4();
+  v14();
 }
 
 - (void)_persistOntologyUpdateEndTimeForReason:(int)reason success:(void *)success error:
 {
-  v35[1] = *MEMORY[0x277D85DE8];
+  v34[1] = *MEMORY[0x277D85DE8];
   successCopy = success;
   if (self)
   {
@@ -1661,10 +1696,10 @@ void __77__HDOntologyUpdateCoordinator__updateOntologyWithReason_updateID_comple
     }
 
     v12 = [v8 initWithFormat:@"updateEndDate %@ %@", v9, v11];
-    v34 = v12;
+    v33 = v12;
     date = [MEMORY[0x277CBEAA8] date];
-    v35[0] = date;
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:&v34 count:1];
+    v34[0] = date;
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:&v33 count:1];
     v15 = [v7 initWithDictionary:v14];
 
     if ((reason & 1) == 0)
@@ -1677,9 +1712,9 @@ void __77__HDOntologyUpdateCoordinator__updateOntologyWithReason_updateID_comple
     }
 
     _keyValueDomain = [(HDOntologyUpdateCoordinator *)self _keyValueDomain];
-    v27 = 0;
-    v21 = [_keyValueDomain setValuesWithDictionary:v15 error:&v27];
-    v22 = v27;
+    v26 = 0;
+    v21 = [_keyValueDomain setValuesWithDictionary:v15 error:&v26];
+    v22 = v26;
     if ((v21 & 1) == 0)
     {
       _HKInitializeLogging();
@@ -1693,17 +1728,15 @@ void __77__HDOntologyUpdateCoordinator__updateOntologyWithReason_updateID_comple
         {
           *buf = 138543874;
           selfCopy = self;
-          v30 = 2114;
-          v31 = v15;
-          v32 = 2114;
-          v33 = v22;
+          v29 = 2114;
+          v30 = v15;
+          v31 = 2114;
+          v32 = v22;
           _os_log_impl(&dword_2514A1000, v25, OS_LOG_TYPE_INFO, "%{public}@: Unable to persist %{public}@: %{public}@", buf, 0x20u);
         }
       }
     }
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_runOntologyUpdateWithReason:(void *)reason completion:
@@ -1744,13 +1777,13 @@ void __77__HDOntologyUpdateCoordinator__updateOntologyWithReason_updateID_comple
 
 - (void)_runOntologyPruner
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (self)
   {
     pruner = [self pruner];
-    v7 = 0;
-    v3 = [pruner pruneOntologyWithOptions:0 error:&v7];
-    v4 = v7;
+    v6 = 0;
+    v3 = [pruner pruneOntologyWithOptions:0 error:&v6];
+    v4 = v6;
 
     if ((v3 & 1) == 0)
     {
@@ -1761,26 +1794,24 @@ void __77__HDOntologyUpdateCoordinator__updateOntologyWithReason_updateID_comple
         *buf = 138543618;
         selfCopy = self;
         OUTLINED_FUNCTION_3();
-        v10 = v4;
+        v9 = v4;
         _os_log_error_impl(&dword_2514A1000, v5, OS_LOG_TYPE_ERROR, "%{public}@: Error pruning ontology: %{public}@", buf, 0x16u);
       }
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_callWillTriggerGatedActivityTestHookWithMaximumDelay:(uint64_t)delay
 {
   if (delay)
   {
-    v4 = MEMORY[0x253078050](*(delay + 144));
-    if (v4)
+    v3 = MEMORY[0x253078050](*(delay + 144));
+    if (v3)
     {
-      v5 = *(delay + 16);
-      v7 = OUTLINED_FUNCTION_4(v4);
-      v6(v7, delay, a2);
-      v4 = v7;
+      OUTLINED_FUNCTION_4();
+      v6 = v4;
+      v5(a2);
+      v3 = v6;
     }
   }
 }

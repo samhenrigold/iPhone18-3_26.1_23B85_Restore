@@ -48,10 +48,10 @@
 - (void)closeButtonTappedWithSender:(id)sender
 {
   selfCopy = self;
-  sub_1C1A6F65C();
+  v3 = sub_1C1A6F65C();
   sub_1C199E4CC();
-  v3 = sub_1C1A6F8EC();
-  sub_1C1A6F18C();
+  v4 = sub_1C1A6F8EC();
+  sub_1C1A6F18C(v3, &dword_1C198D000, v4, "Close button tapped", 19, 2, MEMORY[0x1E69E7CC0]);
 
   sub_1C19B35B0();
 }
@@ -73,7 +73,7 @@
 - (void)webProcessPlugInBrowserContextControllerGlobalObjectIsAvailableForFrame
 {
   selfCopy = self;
-  sub_1C19B3A78();
+  sub_1C19B3A78(selfCopy);
 }
 
 - (void)webProcessMRAIDJSODidCallOpen:(id)open
@@ -117,7 +117,7 @@
   MEMORY[0x1EEE9AC00](v5);
   v8 = &v9 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1C1A6D43C();
-  sub_1C19B43C4();
+  sub_1C19B43C4(v8);
   (*(v6 + 8))(v8, v5);
 }
 

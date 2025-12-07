@@ -79,9 +79,12 @@
 
 uint64_t __32__SBFMobileKeyBag_extendedState__block_invoke(uint64_t a1)
 {
-  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) _queue_lockStateExtended:1];
+  v2 = [*(a1 + 32) _queue_lockStateExtended:1];
+  v3 = *(*(a1 + 40) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (id)_queue_keyBagInfo
@@ -91,7 +94,7 @@ uint64_t __32__SBFMobileKeyBag_extendedState__block_invoke(uint64_t a1)
   v24 = 0;
   v22 = 0u;
   memset(v23, 0, sizeof(v23));
-  [(SBFMobileKeyBag *)self _queue_aksDeviceState];
+  objc_msgSend__queue_aksDeviceState(self);
   MKBGetDeviceLockStateInfo = _get_MKBGetDeviceLockStateInfo();
   v4 = MKBGetDeviceLockStateInfo(0);
   v5 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{0, @"kSBFKeyBagInfoExtendedLockState"}];
@@ -203,9 +206,12 @@ uint64_t __32__SBFMobileKeyBag_extendedState__block_invoke(uint64_t a1)
 
 uint64_t __24__SBFMobileKeyBag_state__block_invoke(uint64_t a1)
 {
-  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) _queue_lockStateExtended:0];
+  v2 = [*(a1 + 32) _queue_lockStateExtended:0];
+  v3 = *(*(a1 + 40) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (BOOL)hasBeenUnlockedSinceBoot
@@ -230,25 +236,29 @@ uint64_t __24__SBFMobileKeyBag_state__block_invoke(uint64_t a1)
 uint64_t __23__SBFMobileKeyBag_init__block_invoke(uint64_t a1, int a2, uint64_t a3)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  if (a2)
+  v7 = WeakRetained;
+  if (!a2)
   {
-    if (a2 == 1)
+    WeakRetained[49] = 1;
+    v9 = WeakRetained;
+    WeakRetained = [WeakRetained _queue_firstUnlockOccurred];
+    goto LABEL_6;
+  }
+
+  if (a2 == 1)
+  {
+    v9 = WeakRetained;
+    WeakRetained = [*(a1 + 32) _shouldHandleKeyBagEventWithHandleState:a3];
+    v7 = v9;
+    if (WeakRetained)
     {
-      v8 = WeakRetained;
-      if ([*(a1 + 32) _shouldHandleKeyBagEventWithHandleState:a3])
-      {
-        [v8 _queue_handleKeybagStatusChanged];
-      }
+      WeakRetained = [v9 _queue_handleKeybagStatusChanged];
+LABEL_6:
+      v7 = v9;
     }
   }
 
-  else
-  {
-    WeakRetained[49] = 1;
-    [WeakRetained _queue_firstUnlockOccurred];
-  }
-
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](WeakRetained, v7);
 }
 
 - (void)_queue_handleKeybagStatusChanged
@@ -427,9 +437,11 @@ void __51__SBFMobileKeyBag__queue_handleKeybagStatusChanged__block_invoke(uint64
 
 uint64_t __33__SBFMobileKeyBag_sharedInstance__block_invoke()
 {
-  sharedInstance___instance = objc_alloc_init(SBFMobileKeyBag);
+  v0 = objc_alloc_init(SBFMobileKeyBag);
+  v1 = sharedInstance___instance;
+  sharedInstance___instance = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (SBFMobileKeyBag)init
@@ -694,7 +706,7 @@ void __43__SBFMobileKeyBag_verifyWithOptions_error___block_invoke(uint64_t a1)
   return v3 & 1;
 }
 
-uint64_t __39__SBFMobileKeyBag_isContinuityUnlocked__block_invoke(uint64_t a1)
+void *__39__SBFMobileKeyBag_isContinuityUnlocked__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _queue_isContinuityUnlocked];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -1299,7 +1311,7 @@ LABEL_12:
   v7 = 0;
   v5 = 0u;
   v6 = 0u;
-  [(SBFMobileKeyBag *)self _queue_aksDeviceState:0];
+  objc_msgSend__queue_aksDeviceState(self, 0, 0, 0, 0, 0);
   return (*(&v5 + 2) >> 4) & 1;
 }
 

@@ -9,11 +9,11 @@
 
 - (_BlastDoorLPApplePhotosMomentMetadata)initWithCoder:(id)coder
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v19.receiver = self;
-  v19.super_class = _BlastDoorLPApplePhotosMomentMetadata;
-  v5 = [(_BlastDoorLPApplePhotosMomentMetadata *)&v19 init];
+  v18.receiver = self;
+  v18.super_class = _BlastDoorLPApplePhotosMomentMetadata;
+  v5 = [(_BlastDoorLPApplePhotosMomentMetadata *)&v18 init];
   if (v5)
   {
     v6 = decodeStringForKey(coderCopy, @"title");
@@ -42,7 +42,6 @@
     v16 = v5;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -91,11 +90,11 @@
 
 - (BOOL)isEqual:(id)equal
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   equalCopy = equal;
-  v14.receiver = self;
-  v14.super_class = _BlastDoorLPApplePhotosMomentMetadata;
-  if ([(_BlastDoorLPApplePhotosMomentMetadata *)&v14 isEqual:equalCopy])
+  v13.receiver = self;
+  v13.super_class = _BlastDoorLPApplePhotosMomentMetadata;
+  if ([(_BlastDoorLPApplePhotosMomentMetadata *)&v13 isEqual:equalCopy])
   {
     v5 = 1;
   }
@@ -133,7 +132,6 @@
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

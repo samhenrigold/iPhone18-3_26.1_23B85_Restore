@@ -54,7 +54,7 @@
 
 - (void)start
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   stateMachine = [(VSJSAppScriptEvaluator *)self stateMachine];
   currentState = [stateMachine currentState];
   forceUnwrapObject = [currentState forceUnwrapObject];
@@ -62,16 +62,16 @@
 
   if ((v6 & 1) == 0)
   {
-    [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE658] format:@"-start invoked in non-idle state."];
+    v7 = [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE658] format:@"-start invoked in non-idle state."];
   }
 
-  v7 = VSDefaultLogObject();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = VSDefaultLogObject(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     urls = [(VSJSAppScriptEvaluator *)self urls];
-    v9 = 134217984;
-    v10 = [urls count];
-    _os_log_impl(&dword_23AB8E000, v7, OS_LOG_TYPE_DEFAULT, "Starting script evaluation for %lu URLs", &v9, 0xCu);
+    v10 = 134217984;
+    v11 = [urls count];
+    _os_log_impl(&dword_23AB8E000, v8, OS_LOG_TYPE_DEFAULT, "Starting script evaluation for %lu URLs", &v10, 0xCu);
   }
 
   [stateMachine enqueueEvent:@"Start"];
@@ -79,49 +79,49 @@
 
 - (void)transitionToEnqueueingNextUrlState
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v3 = VSDefaultLogObject();
+  v14 = *MEMORY[0x277D85DE8];
+  v3 = VSDefaultLogObject(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 136315138;
-    v12 = "[VSJSAppScriptEvaluator transitionToEnqueueingNextUrlState]";
-    _os_log_impl(&dword_23AB8E000, v3, OS_LOG_TYPE_DEFAULT, "Entering %s", &v11, 0xCu);
+    v12 = 136315138;
+    v13 = "[VSJSAppScriptEvaluator transitionToEnqueueingNextUrlState]";
+    _os_log_impl(&dword_23AB8E000, v3, OS_LOG_TYPE_DEFAULT, "Entering %s", &v12, 0xCu);
   }
 
   remainingURLs = [(VSJSAppScriptEvaluator *)self remainingURLs];
   firstObject = [remainingURLs firstObject];
 
-  v6 = VSDefaultLogObject();
-  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+  v7 = VSDefaultLogObject(v6);
+  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
   if (firstObject)
   {
-    if (v7)
+    if (v8)
     {
-      v11 = 138412290;
-      v12 = firstObject;
-      _os_log_impl(&dword_23AB8E000, v6, OS_LOG_TYPE_DEFAULT, "Enqueued URL: %@", &v11, 0xCu);
+      v12 = 138412290;
+      v13 = firstObject;
+      _os_log_impl(&dword_23AB8E000, v7, OS_LOG_TYPE_DEFAULT, "Enqueued URL: %@", &v12, 0xCu);
     }
 
     remainingURLs2 = [(VSJSAppScriptEvaluator *)self remainingURLs];
     [remainingURLs2 removeObject:firstObject];
 
     [(VSJSAppScriptEvaluator *)self setCurrentURL:firstObject];
-    v9 = @"Enqueued Next URL";
+    v10 = @"Enqueued Next URL";
   }
 
   else
   {
-    if (v7)
+    if (v8)
     {
-      LOWORD(v11) = 0;
-      _os_log_impl(&dword_23AB8E000, v6, OS_LOG_TYPE_DEFAULT, "No remaining URLs for evaluation.", &v11, 2u);
+      LOWORD(v12) = 0;
+      _os_log_impl(&dword_23AB8E000, v7, OS_LOG_TYPE_DEFAULT, "No remaining URLs for evaluation.", &v12, 2u);
     }
 
-    v9 = @"Done";
+    v10 = @"Done";
   }
 
   stateMachine = [(VSJSAppScriptEvaluator *)self stateMachine];
-  [stateMachine enqueueEvent:v9];
+  [stateMachine enqueueEvent:v10];
 }
 
 - (void)transitionToFetchingScriptState
@@ -143,7 +143,7 @@ void __57__VSJSAppScriptEvaluator_transitionToFetchingScriptState__block_invoke(
   {
     if (v7)
     {
-      v10 = VSErrorLogObject();
+      v10 = VSErrorLogObject(WeakRetained);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         __57__VSJSAppScriptEvaluator_transitionToFetchingScriptState__block_invoke_cold_1(a1, v7, v10);
@@ -168,7 +168,7 @@ void __57__VSJSAppScriptEvaluator_transitionToFetchingScriptState__block_invoke(
 
       else
       {
-        v11 = VSErrorLogObject();
+        v11 = VSErrorLogObject(WeakRetained);
         if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
           __57__VSJSAppScriptEvaluator_transitionToFetchingScriptState__block_invoke_cold_2(a1, v11);
@@ -187,7 +187,7 @@ void __57__VSJSAppScriptEvaluator_transitionToFetchingScriptState__block_invoke(
 - (void)transitionToDoneState
 {
   v8 = *MEMORY[0x277D85DE8];
-  v3 = VSDefaultLogObject();
+  v3 = VSDefaultLogObject(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 136315138;

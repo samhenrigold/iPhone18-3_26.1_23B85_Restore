@@ -28,15 +28,19 @@
 
 - (_TtC10ContactsUI37CNPosterSetupAvatarPreviewViewWrapper)initWithImageData:(id)data cropRect:(CGRect)rect imageType:(unint64_t)type delegate:(id)delegate
 {
+  height = rect.size.height;
+  width = rect.size.width;
+  y = rect.origin.y;
+  x = rect.origin.x;
   dataCopy = data;
   swift_unknownObjectRetain();
-  v7 = sub_199DF71FC();
-  v9 = v8;
+  v13 = sub_199DF71FC();
+  v15 = v14;
 
-  v10 = sub_199AD4FF0(v7, v9);
+  v16 = sub_199AD4FF0(v13, v15, type, delegate, x, y, width, height);
   swift_unknownObjectRelease();
-  sub_199A9EF34(v7, v9);
-  return v10;
+  sub_199A9EF34(v13, v15);
+  return v16;
 }
 
 - (void)setImageData:(id)data

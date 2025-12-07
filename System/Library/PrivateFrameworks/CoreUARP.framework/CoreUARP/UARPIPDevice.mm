@@ -5,6 +5,7 @@
 - (BOOL)initSocketWithIPv6Address:(id)address port:(unsigned __int16)port;
 - (BOOL)recvUARPMsg;
 - (BOOL)sendData:(id)data;
+- (UARPIPDevice)initWithIPAddress:(id)address port:(unsigned __int16)port delegate:(id)delegate;
 - (void)connect;
 - (void)dealloc;
 - (void)initRecvSource;
@@ -12,6 +13,70 @@
 @end
 
 @implementation UARPIPDevice
+
+- (UARPIPDevice)initWithIPAddress:(id)address port:(unsigned __int16)port delegate:(id)delegate
+{
+  portCopy = port;
+  addressCopy = address;
+  delegateCopy = delegate;
+  v41.receiver = self;
+  v41.super_class = UARPIPDevice;
+  v10 = [(UARPIPDevice *)&v41 init];
+  if (!v10)
+  {
+    goto LABEL_6;
+  }
+
+  v11 = os_log_create("com.apple.accessoryupdater.uarp", "uarpIPDevice");
+  log = v10->_log;
+  v10->_log = v11;
+
+  v13 = dispatch_queue_create("UARPIPDevice", 0);
+  queue = v10->_queue;
+  v10->_queue = v13;
+
+  objc_storeWeak(&v10->_delegate, delegateCopy);
+  if (![(UARPIPDevice *)v10 initSocketWithIPv4Address:addressCopy port:portCopy]&& ![(UARPIPDevice *)v10 initSocketWithIPv6Address:addressCopy port:portCopy])
+  {
+    v24 = v10->_log;
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    {
+      [(UARPIPDevice *)v24 initWithIPAddress:v25 port:v26 delegate:v27, v28, v29, v30, v31];
+    }
+
+    goto LABEL_13;
+  }
+
+  if (![(UARPIPDevice *)v10 initRecvSource])
+  {
+    v16 = v10->_log;
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    {
+      [(UARPIPDevice *)v16 initWithIPAddress:v17 port:v18 delegate:v19, v20, v21, v22, v23];
+    }
+
+    goto LABEL_13;
+  }
+
+  if (![(UARPIPDevice *)v10 connect])
+  {
+    v32 = v10->_log;
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+    {
+      [(UARPIPDevice *)v32 initWithIPAddress:v33 port:v34 delegate:v35, v36, v37, v38, v39];
+    }
+
+LABEL_13:
+    v15 = 0;
+    goto LABEL_14;
+  }
+
+LABEL_6:
+  v15 = v10;
+LABEL_14:
+
+  return v15;
+}
 
 - (BOOL)initSocketWithIPv4Address:(id)address port:(unsigned __int16)port
 {
@@ -254,74 +319,67 @@ void __25__UARPIPDevice_sendData___block_invoke(uint64_t a1)
 
 - (void)initWithIPAddress:(uint64_t)a3 port:(uint64_t)a4 delegate:(uint64_t)a5 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_247AA7000, a1, a3, "%s: Failed to initialize socket", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[UARPIPDevice initWithIPAddress:port:delegate:]";
+  OUTLINED_FUNCTION_0_0(&dword_247AA7000, a1, a3, "%s: Failed to initialize socket", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithIPAddress:(uint64_t)a3 port:(uint64_t)a4 delegate:(uint64_t)a5 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_247AA7000, a1, a3, "%s: Failed to initialize recvSource", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[UARPIPDevice initWithIPAddress:port:delegate:]";
+  OUTLINED_FUNCTION_0_0(&dword_247AA7000, a1, a3, "%s: Failed to initialize recvSource", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithIPAddress:(uint64_t)a3 port:(uint64_t)a4 delegate:(uint64_t)a5 .cold.3(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_247AA7000, a1, a3, "%s: Failed to connect", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[UARPIPDevice initWithIPAddress:port:delegate:]";
+  OUTLINED_FUNCTION_0_0(&dword_247AA7000, a1, a3, "%s: Failed to connect", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initRecvSource
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_247AA7000, self, a3, "%s: Failed to create dispatch_source_t", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[UARPIPDevice initRecvSource]";
+  OUTLINED_FUNCTION_0_0(&dword_247AA7000, self, a3, "%s: Failed to create dispatch_source_t", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __30__UARPIPDevice_initRecvSource__block_invoke_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_247AA7000, a1, a3, "%s: Failed receive UARP message, closing socket", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[UARPIPDevice initRecvSource]_block_invoke";
+  OUTLINED_FUNCTION_0_0(&dword_247AA7000, a1, a3, "%s: Failed receive UARP message, closing socket", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)connect
 {
-  v9 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   v2 = __error();
   strerror(*v2);
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __25__UARPIPDevice_sendData___block_invoke_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = __error();
   strerror(*v2);
-  v9 = *__error();
+  __error();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x1Cu);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)recvUARPMsg
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = 136315394;
-  v3 = "[UARPIPDevice recvUARPMsg]";
-  v4 = 1024;
-  v5 = 0x8000;
-  _os_log_error_impl(&dword_247AA7000, log, OS_LOG_TYPE_ERROR, "%s: UARP Message Payload length exceeds maximum (%u bytes)", &v2, 0x12u);
-  v1 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
+  v1 = 136315394;
+  v2 = "[UARPIPDevice recvUARPMsg]";
+  v3 = 1024;
+  v4 = 0x8000;
+  _os_log_error_impl(&dword_247AA7000, log, OS_LOG_TYPE_ERROR, "%s: UARP Message Payload length exceeds maximum (%u bytes)", &v1, 0x12u);
 }
 
 @end

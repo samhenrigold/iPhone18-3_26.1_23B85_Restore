@@ -47,7 +47,7 @@
 
 - (void)loadView
 {
-  v28[4] = *MEMORY[0x1E69E9840];
+  v27[4] = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
   [(_EXExtensionViewController *)self setView:v3];
 
@@ -65,26 +65,26 @@
     [view3 addSubview:view2];
 
     view4 = [(_EXExtensionViewController *)self view];
-    v21 = MEMORY[0x1E696ACD8];
+    v20 = MEMORY[0x1E696ACD8];
     leftAnchor = [view2 leftAnchor];
     leftAnchor2 = [view4 leftAnchor];
-    v24 = [leftAnchor constraintEqualToAnchor:leftAnchor2];
-    v28[0] = v24;
+    v23 = [leftAnchor constraintEqualToAnchor:leftAnchor2];
+    v27[0] = v23;
     topAnchor = [view2 topAnchor];
     topAnchor2 = [view4 topAnchor];
-    v20 = [topAnchor constraintEqualToAnchor:topAnchor2];
-    v28[1] = v20;
+    v19 = [topAnchor constraintEqualToAnchor:topAnchor2];
+    v27[1] = v19;
     rightAnchor = [view2 rightAnchor];
     rightAnchor2 = [view4 rightAnchor];
     v12 = [rightAnchor constraintEqualToAnchor:rightAnchor2];
-    v28[2] = v12;
+    v27[2] = v12;
     bottomAnchor = [view2 bottomAnchor];
     bottomAnchor2 = [view4 bottomAnchor];
     [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
     v16 = v15 = v7;
-    v28[3] = v16;
-    v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:4];
-    [v21 activateConstraints:v17];
+    v27[3] = v16;
+    v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:4];
+    [v20 activateConstraints:v17];
 
     v7 = v15;
     [(_EXExtensionViewController *)self addChildViewController:v15];
@@ -99,8 +99,6 @@
       _os_log_impl(&dword_1D29CC000, view2, OS_LOG_TYPE_DEFAULT, "Failed to load extension's content view controller", buf, 2u);
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)shouldAcceptXPCConnection:(id)connection

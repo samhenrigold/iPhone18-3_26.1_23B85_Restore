@@ -28,53 +28,53 @@
 
 - (void)_notifyObserversOfSignificantUserInteraction
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   allObjects = [(NSHashTable *)self->_lock_alwaysOnObservers allObjects];
   v4 = [allObjects copy];
 
   os_unfair_lock_unlock(&self->_lock);
-  v5 = SBLogBacklight();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = SBLogBacklight(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_DEFAULT, "SBBacklightPlatformProvider sending significant user interaction notice", buf, 2u);
+    _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "SBBacklightPlatformProvider sending significant user interaction notice", buf, 2u);
   }
 
-  v14 = 0u;
   v15 = 0u;
-  v12 = 0u;
+  v16 = 0u;
   v13 = 0u;
-  v6 = v4;
-  v7 = [v6 countByEnumeratingWithState:&v12 objects:v17 count:16];
-  if (v7)
+  v14 = 0u;
+  v7 = v4;
+  v8 = [v7 countByEnumeratingWithState:&v13 objects:v18 count:16];
+  if (v8)
   {
-    v8 = v7;
-    v9 = *v13;
+    v9 = v8;
+    v10 = *v14;
     do
     {
-      v10 = 0;
+      v11 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v14 != v10)
         {
-          objc_enumerationMutation(v6);
+          objc_enumerationMutation(v7);
         }
 
-        v11 = *(*(&v12 + 1) + 8 * v10);
+        v12 = *(*(&v13 + 1) + 8 * v11);
         if (objc_opt_respondsToSelector())
         {
-          [v11 platformProviderDidDetectSignificantUserInteraction:{self, v12}];
+          [v12 platformProviderDidDetectSignificantUserInteraction:{self, v13}];
         }
 
-        ++v10;
+        ++v11;
       }
 
-      while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v12 objects:v17 count:16];
+      while (v9 != v11);
+      v9 = [v7 countByEnumeratingWithState:&v13 objects:v18 count:16];
     }
 
-    while (v8);
+    while (v9);
   }
 }
 
@@ -333,7 +333,7 @@ uint64_t __75__SBBacklightPlatformProvider_useAlwaysOnBrightnessCurve_withRampDu
 
 - (void)_updateAlwaysOnEnabled
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if ([objc_opt_class() deviceSupportsAlwaysOn])
   {
     v3 = _os_feature_enabled_impl();
@@ -354,48 +354,48 @@ uint64_t __75__SBBacklightPlatformProvider_useAlwaysOnBrightnessCurve_withRampDu
   os_unfair_lock_unlock(&self->_lock);
   if (lock_alwaysOnEnabled != v4)
   {
-    v8 = SBLogBacklight();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = SBLogBacklight(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      v21 = v4;
-      _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "isAlwaysOnEnabled updated to new value:%{BOOL}u", buf, 8u);
+      v22 = v4;
+      _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "isAlwaysOnEnabled updated to new value:%{BOOL}u", buf, 8u);
     }
 
-    v17 = 0u;
     v18 = 0u;
-    v15 = 0u;
+    v19 = 0u;
     v16 = 0u;
-    v9 = v7;
-    v10 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
-    if (v10)
+    v17 = 0u;
+    v10 = v7;
+    v11 = [v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    if (v11)
     {
-      v11 = v10;
-      v12 = *v16;
+      v12 = v11;
+      v13 = *v17;
       do
       {
-        v13 = 0;
+        v14 = 0;
         do
         {
-          if (*v16 != v12)
+          if (*v17 != v13)
           {
-            objc_enumerationMutation(v9);
+            objc_enumerationMutation(v10);
           }
 
-          v14 = *(*(&v15 + 1) + 8 * v13);
+          v15 = *(*(&v16 + 1) + 8 * v14);
           if (objc_opt_respondsToSelector())
           {
-            [v14 platformProvider:self didChangeAlwaysOnSetting:{v4, v15}];
+            [v15 platformProvider:self didChangeAlwaysOnSetting:{v4, v16}];
           }
 
-          ++v13;
+          ++v14;
         }
 
-        while (v11 != v13);
-        v11 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        while (v12 != v14);
+        v12 = [v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
-      while (v11);
+      while (v12);
     }
   }
 }
@@ -405,7 +405,7 @@ uint64_t __75__SBBacklightPlatformProvider_useAlwaysOnBrightnessCurve_withRampDu
   visibleCopy = visible;
   v21 = *MEMORY[0x277D85DE8];
   windowScene = [(SBBacklightPlatformProvider *)self windowScene];
-  v8 = SBLogBacklight();
+  v8 = SBLogBacklight(windowScene);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109376;
@@ -470,7 +470,7 @@ uint64_t __70__SBBacklightPlatformProvider__setBlankingWindowVisible_fadeDuratio
 void __70__SBBacklightPlatformProvider__setBlankingWindowVisible_fadeDuration___block_invoke_2(uint64_t a1)
 {
   v7 = *MEMORY[0x277D85DE8];
-  v2 = SBLogBacklight();
+  v2 = SBLogBacklight(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 40);

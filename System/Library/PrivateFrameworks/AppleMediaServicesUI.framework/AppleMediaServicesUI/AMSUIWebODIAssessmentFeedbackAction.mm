@@ -7,11 +7,11 @@
 
 - (AMSUIWebODIAssessmentFeedbackAction)initWithJSObject:(id)object context:(id)context
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   objectCopy = object;
-  v20.receiver = self;
-  v20.super_class = AMSUIWebODIAssessmentFeedbackAction;
-  v7 = [(AMSUIWebAction *)&v20 initWithJSObject:objectCopy context:context];
+  v19.receiver = self;
+  v19.super_class = AMSUIWebODIAssessmentFeedbackAction;
+  v7 = [(AMSUIWebAction *)&v19 initWithJSObject:objectCopy context:context];
   if (v7)
   {
     v8 = [objectCopy objectForKeyedSubscript:@"cacheIdentifier"];
@@ -50,9 +50,9 @@
         v16 = objc_opt_class();
         v17 = AMSLogKey();
         *buf = 138543618;
-        v22 = v16;
-        v23 = 2114;
-        v24 = v17;
+        v21 = v16;
+        v22 = 2114;
+        v23 = v17;
         _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Failed to parse outcome. Falling back to discarded outcome.", buf, 0x16u);
       }
 
@@ -62,7 +62,6 @@
     v7->_outcome = integerValue;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -84,16 +83,14 @@
 
 id __48__AMSUIWebODIAssessmentFeedbackAction_runAction__block_invoke(uint64_t a1, void *a2)
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E698CAD0];
-  v9 = @"status";
-  v10[0] = a2;
+  v8 = @"status";
+  v9[0] = a2;
   v3 = MEMORY[0x1E695DF20];
   v4 = a2;
-  v5 = [v3 dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v5 = [v3 dictionaryWithObjects:v9 forKeys:&v8 count:1];
   v6 = [v2 promiseWithResult:v5];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }

@@ -212,7 +212,7 @@
             v58 = AFAnalyticsContextCreateWithCommand();
             v59 = [v58 mutableCopy];
 
-            v60 = [v59 objectForKey:@"com.apple.ace.media.SetQueue"];
+            v60 = objc_msgSend_objectForKey_(v59);
             v61 = [v60 mutableCopy];
 
             [v61 setObject:v69 forKey:@"metricsContext"];

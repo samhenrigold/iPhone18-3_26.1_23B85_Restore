@@ -25,44 +25,44 @@
 - (id)_dataDetectedMessageGUIDsFromGUIDs:(id)ds
 {
   dsCopy = ds;
-  v6 = objc_msgSend_array(MEMORY[0x1E695DF70], v4, v5);
-  if (objc_msgSend_count(dsCopy, v7, v8))
+  v7 = objc_msgSend_array(MEMORY[0x1E695DF70], v4, v5, v6);
+  if (objc_msgSend_count(dsCopy, v8, v9, v10))
   {
-    v11 = 0;
-    v12 = 0;
+    v14 = 0;
+    v15 = 0;
     do
     {
-      if ((objc_msgSend_count(dsCopy, v9, v10) + v11) >> 4 > 0x270)
+      if ((objc_msgSend_count(dsCopy, v11, v12, v13) + v14) >> 4 > 0x270)
       {
-        v15 = 10000;
+        v19 = 10000;
       }
 
       else
       {
-        v15 = objc_msgSend_count(dsCopy, v13, v14) + v11;
+        v19 = objc_msgSend_count(dsCopy, v16, v17, v18) + v14;
       }
 
-      v22[0] = MEMORY[0x1E69E9820];
-      v22[1] = 3221225472;
-      v22[2] = sub_1B7B83318;
-      v22[3] = &unk_1E7CBB2B0;
-      v16 = dsCopy;
-      v23 = v16;
-      v25 = v12;
-      v26 = v15;
-      v24 = v6;
-      IMDPersistencePerformBlock(v22, 1, v17);
+      v28[0] = MEMORY[0x1E69E9820];
+      v28[1] = 3221225472;
+      v28[2] = sub_1B7B83318;
+      v28[3] = &unk_1E7CBB2B0;
+      v20 = dsCopy;
+      v29 = v20;
+      v31 = v15;
+      v32 = v19;
+      v30 = v7;
+      IMDPersistencePerformBlock(v28, 1, v21, v22);
 
-      v12 += 10000;
-      v11 -= 10000;
+      v15 += 10000;
+      v14 -= 10000;
     }
 
-    while (v12 < objc_msgSend_count(v16, v18, v19));
+    while (v15 < objc_msgSend_count(v20, v23, v24, v25));
   }
 
-  v20 = objc_msgSend_copy(v6, v9, v10);
+  v26 = objc_msgSend_copy(v7, v11, v12, v13);
 
-  return v20;
+  return v26;
 }
 
 - (void)deleteRecentsWithHandleIDs:(id)ds
@@ -70,31 +70,31 @@
   dsCopy = ds;
   if (!dsCopy && IMOSLoggingEnabled())
   {
-    v7 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
-    {
-      *buf = 0;
-      _os_log_impl(&dword_1B7AD5000, v7, OS_LOG_TYPE_INFO, "IMDCoreSpotlightDeleteCoreRecentsWithHandles bailing because we were passed no handles.", buf, 2u);
-    }
-  }
-
-  if (objc_msgSend_count(dsCopy, v4, v5) < 2)
-  {
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = sub_1B7B83648;
-    v10[3] = &unk_1E7CB6AE0;
-    v11 = dsCopy;
-    objc_msgSend__performClientRequest_(self, v9, v10);
-  }
-
-  else if (IMOSLoggingEnabled())
-  {
     v8 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_1B7AD5000, v8, OS_LOG_TYPE_INFO, "IMDCoreSpotlightDeleteCoreRecentsWithHandles bailing because this is a group chat.", buf, 2u);
+      _os_log_impl(&dword_1B7AD5000, v8, OS_LOG_TYPE_INFO, "IMDCoreSpotlightDeleteCoreRecentsWithHandles bailing because we were passed no handles.", buf, 2u);
+    }
+  }
+
+  if (objc_msgSend_count(dsCopy, v4, v5, v6) < 2)
+  {
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = sub_1B7B83648;
+    v12[3] = &unk_1E7CB6AE0;
+    v13 = dsCopy;
+    objc_msgSend__performClientRequest_(self, v10, v12, v11);
+  }
+
+  else if (IMOSLoggingEnabled())
+  {
+    v9 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_1B7AD5000, v9, OS_LOG_TYPE_INFO, "IMDCoreSpotlightDeleteCoreRecentsWithHandles bailing because this is a group chat.", buf, 2u);
     }
   }
 }
@@ -103,15 +103,15 @@
 {
   dsCopy = ds;
   blockCopy = block;
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = sub_1B7B83B6C;
-  v11[3] = &unk_1E7CB7260;
-  v12 = dsCopy;
-  v13 = blockCopy;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = sub_1B7B83B6C;
+  v12[3] = &unk_1E7CB7260;
+  v13 = dsCopy;
+  v14 = blockCopy;
   v8 = blockCopy;
   v9 = dsCopy;
-  objc_msgSend__performClientRequest_(self, v10, v11);
+  objc_msgSend__performClientRequest_(self, v10, v12, v11);
 }
 
 - (id)createRecentFromMessageDictionary:(id)dictionary participantHandleID:(id)d
@@ -119,205 +119,205 @@
   dCopy = d;
   dictionaryCopy = dictionary;
   v7 = _IMDCoreSpotlightCNContactForAddress(dCopy);
-  v9 = objc_msgSend_objectForKey_(dictionaryCopy, v8, @"time");
-  v11 = objc_msgSend_objectForKey_(dictionaryCopy, v10, @"service");
+  v10 = objc_msgSend_objectForKey_(dictionaryCopy, v8, @"time", v9);
+  v13 = objc_msgSend_objectForKey_(dictionaryCopy, v11, @"service", v12);
 
-  v12 = _IMDCoreRecentsKindForHandleID(dCopy, v11);
-  v15 = objc_msgSend_sharedInstance(IMDContactCache, v13, v14);
-  v17 = objc_msgSend_fullNameForContact_(v15, v16, v7);
+  v14 = _IMDCoreRecentsKindForHandleID(dCopy, v13);
+  v18 = objc_msgSend_sharedInstance(IMDContactCache, v15, v16, v17);
+  v21 = objc_msgSend_fullNameForContact_(v18, v19, v7, v20);
 
-  if (!v17)
+  if (!v21)
   {
-    v17 = objc_msgSend_im_stripCategoryLabel(dCopy, v18, v19);
+    v21 = objc_msgSend_im_stripCategoryLabel(dCopy, v22, v23, v24);
   }
 
-  if (v17)
+  if (v21)
   {
-    objc_msgSend_recentEventForAddress_displayName_kind_date_weight_metadata_options_(MEMORY[0x1E6998FC8], v18, dCopy, v17, v12, v9, 0, 0, 1);
+    objc_msgSend_recentEventForAddress_displayName_kind_date_weight_metadata_options_(MEMORY[0x1E6998FC8], v22, dCopy, v21, v14, v10, 0, 0, 1);
   }
 
   else
   {
-    objc_msgSend_recentEventForAddress_displayName_kind_date_weight_metadata_options_(MEMORY[0x1E6998FC8], v18, dCopy, &stru_1F2FA9728, v12, v9, 0, 0, 1);
+    objc_msgSend_recentEventForAddress_displayName_kind_date_weight_metadata_options_(MEMORY[0x1E6998FC8], v22, dCopy, &stru_1F2FA9728, v14, v10, 0, 0, 1);
   }
-  v20 = ;
+  v25 = ;
 
-  return v20;
+  return v25;
 }
 
 - (id)createRecentsFromVCFWithPath:(id)path messageGUID:(id)d senderID:(id)iD messageDate:(id)date outAddress:(id *)address
 {
-  v123 = *MEMORY[0x1E69E9840];
+  v142 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   dCopy = d;
   iDCopy = iD;
   dateCopy = date;
-  v87 = pathCopy;
+  v106 = pathCopy;
   if (pathCopy)
   {
-    v88 = objc_msgSend_contactsForVCardAtPath_(IMDContactCache, v11, pathCopy);
-    if (objc_msgSend_count(v88, v12, v13))
+    v107 = objc_msgSend_contactsForVCardAtPath_(IMDContactCache, v11, pathCopy, v12);
+    if (objc_msgSend_count(v107, v13, v14, v15))
     {
-      v99 = objc_msgSend_array(MEMORY[0x1E695DF70], v14, v15);
-      v116 = 0u;
-      v117 = 0u;
-      v114 = 0u;
-      v115 = 0u;
-      obj = v88;
-      v86 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v16, &v114, v122, 16);
-      if (v86)
+      v118 = objc_msgSend_array(MEMORY[0x1E695DF70], v16, v17, v18);
+      v135 = 0u;
+      v136 = 0u;
+      v133 = 0u;
+      v134 = 0u;
+      obj = v107;
+      v105 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v19, &v133, v141, 16);
+      if (v105)
       {
-        v83 = *v115;
-        v98 = *MEMORY[0x1E6998F58];
-        v17 = *MEMORY[0x1E69A6888];
+        v102 = *v134;
+        v117 = *MEMORY[0x1E6998F58];
+        v20 = *MEMORY[0x1E69A6888];
         do
         {
-          v18 = 0;
+          v21 = 0;
           do
           {
-            if (*v115 != v83)
+            if (*v134 != v102)
             {
-              v19 = v18;
+              v22 = v21;
               objc_enumerationMutation(obj);
-              v18 = v19;
+              v21 = v22;
             }
 
-            v84 = v18;
-            v20 = *(*(&v114 + 1) + 8 * v18);
-            v21 = MEMORY[0x1E696AD98];
-            v22 = MEMORY[0x1B8CAFAD0]("CRRecentWeightMessagesReceivedAddress", @"CoreRecents");
-            v100 = objc_msgSend_numberWithDouble_(v21, v23, v24, *v22);
-            v26 = objc_msgSend_metadataDictionaryForMessageID_senderID_date_(MEMORY[0x1E69A7FE8], v25, dCopy, iDCopy, dateCopy);
-            v112 = 0u;
-            v113 = 0u;
-            v110 = 0u;
-            v111 = 0u;
-            v29 = objc_msgSend_postalAddresses(v20, v27, v28);
-            v33 = objc_msgSend_countByEnumeratingWithState_objects_count_(v29, v30, &v110, v121, 16);
-            if (v33)
+            v103 = v21;
+            v23 = *(*(&v133 + 1) + 8 * v21);
+            v24 = MEMORY[0x1E696AD98];
+            v25 = MEMORY[0x1B8CAFAD0]("CRRecentWeightMessagesReceivedAddress", @"CoreRecents");
+            v119 = objc_msgSend_numberWithDouble_(v24, v26, v27, v28, *v25);
+            v30 = objc_msgSend_metadataDictionaryForMessageID_senderID_date_(MEMORY[0x1E69A7FE8], v29, dCopy, iDCopy, dateCopy);
+            v131 = 0u;
+            v132 = 0u;
+            v129 = 0u;
+            v130 = 0u;
+            v34 = objc_msgSend_postalAddresses(v23, v31, v32, v33);
+            v39 = objc_msgSend_countByEnumeratingWithState_objects_count_(v34, v35, &v129, v140, 16);
+            if (v39)
             {
-              v34 = *v111;
+              v40 = *v130;
               do
               {
-                for (i = 0; i != v33; ++i)
+                for (i = 0; i != v39; ++i)
                 {
-                  if (*v111 != v34)
+                  if (*v130 != v40)
                   {
-                    objc_enumerationMutation(v29);
+                    objc_enumerationMutation(v34);
                   }
 
-                  v36 = MEMORY[0x1E695CF68];
-                  v37 = objc_msgSend_value(*(*(&v110 + 1) + 8 * i), v31, v32);
-                  v39 = objc_msgSend_singleLineStringFromPostalAddress_addCountryName_(v36, v38, v37, 0);
+                  v42 = MEMORY[0x1E695CF68];
+                  v43 = objc_msgSend_value(*(*(&v129 + 1) + 8 * i), v36, v37, v38);
+                  v45 = objc_msgSend_singleLineStringFromPostalAddress_addCountryName_(v42, v44, v43, 0);
 
-                  v41 = objc_msgSend_recentEventForAddress_displayName_kind_date_weight_metadata_options_(MEMORY[0x1E6998FC8], v40, v39, 0, v98, dateCopy, v100, v26, 0);
-                  objc_msgSend_addObject_(v99, v42, v41);
+                  v47 = objc_msgSend_recentEventForAddress_displayName_kind_date_weight_metadata_options_(MEMORY[0x1E6998FC8], v46, v45, 0, v117, dateCopy, v119, v30, 0);
+                  objc_msgSend_addObject_(v118, v48, v47, v49);
 
                   if (address)
                   {
-                    *address = objc_msgSend_copy(v39, v43, v44);
+                    *address = objc_msgSend_copy(v45, v50, v51, v52);
                   }
                 }
 
-                v33 = objc_msgSend_countByEnumeratingWithState_objects_count_(v29, v31, &v110, v121, 16);
+                v39 = objc_msgSend_countByEnumeratingWithState_objects_count_(v34, v36, &v129, v140, 16);
               }
 
-              while (v33);
+              while (v39);
             }
 
-            v108 = 0u;
-            v109 = 0u;
-            v106 = 0u;
-            v107 = 0u;
-            v91 = objc_msgSend_urlAddresses(v20, v45, v46);
-            v93 = objc_msgSend_countByEnumeratingWithState_objects_count_(v91, v47, &v106, v120, 16);
-            if (v93)
+            v127 = 0u;
+            v128 = 0u;
+            v125 = 0u;
+            v126 = 0u;
+            v110 = objc_msgSend_urlAddresses(v23, v53, v54, v55);
+            v112 = objc_msgSend_countByEnumeratingWithState_objects_count_(v110, v56, &v125, v139, 16);
+            if (v112)
             {
-              v92 = *v107;
+              v111 = *v126;
               do
               {
-                v50 = 0;
+                v60 = 0;
                 do
                 {
-                  if (*v107 != v92)
+                  if (*v126 != v111)
                   {
-                    v51 = v50;
-                    objc_enumerationMutation(v91);
-                    v50 = v51;
+                    v61 = v60;
+                    objc_enumerationMutation(v110);
+                    v60 = v61;
                   }
 
-                  v96 = v50;
-                  v52 = *(*(&v106 + 1) + 8 * v50);
-                  v53 = objc_msgSend_label(v52, v48, v49);
-                  isEqualToString = objc_msgSend_isEqualToString_(v53, v54, @"map url");
+                  v115 = v60;
+                  v62 = *(*(&v125 + 1) + 8 * v60);
+                  v63 = objc_msgSend_label(v62, v57, v58, v59);
+                  isEqualToString = objc_msgSend_isEqualToString_(v63, v64, @"map url", v65);
 
                   if (isEqualToString)
                   {
-                    v95 = objc_msgSend_value(v52, v48, v49);
-                    v57 = objc_msgSend_URLWithString_(MEMORY[0x1E695DFF8], v56, v95);
-                    v94 = objc_msgSend_query(v57, v58, v59);
+                    v114 = objc_msgSend_value(v62, v57, v58, v59);
+                    v69 = objc_msgSend_URLWithString_(MEMORY[0x1E695DFF8], v67, v114, v68);
+                    v113 = objc_msgSend_query(v69, v70, v71, v72);
 
-                    v104 = 0u;
-                    v105 = 0u;
-                    v102 = 0u;
-                    v103 = 0u;
-                    v61 = objc_msgSend_componentsSeparatedByString_(v94, v60, @"&");
-                    v64 = objc_msgSend_countByEnumeratingWithState_objects_count_(v61, v62, &v102, v119, 16);
-                    if (v64)
+                    v123 = 0u;
+                    v124 = 0u;
+                    v121 = 0u;
+                    v122 = 0u;
+                    v75 = objc_msgSend_componentsSeparatedByString_(v113, v73, @"&", v74);
+                    v79 = objc_msgSend_countByEnumeratingWithState_objects_count_(v75, v76, &v121, v138, 16);
+                    if (v79)
                     {
-                      v65 = *v103;
+                      v80 = *v122;
                       do
                       {
-                        for (j = 0; j != v64; ++j)
+                        for (j = 0; j != v79; ++j)
                         {
-                          if (*v103 != v65)
+                          if (*v122 != v80)
                           {
-                            objc_enumerationMutation(v61);
+                            objc_enumerationMutation(v75);
                           }
 
-                          v67 = objc_msgSend_componentsSeparatedByString_(*(*(&v102 + 1) + 8 * j), v63, @"=");
-                          v69 = objc_msgSend_objectAtIndex_(v67, v68, 0);
-                          v71 = objc_msgSend_objectAtIndex_(v67, v70, 1);
-                          if (objc_msgSend_isEqualToString_(v69, v72, v17))
+                          v82 = objc_msgSend_componentsSeparatedByString_(*(*(&v121 + 1) + 8 * j), v77, @"=", v78);
+                          v85 = objc_msgSend_objectAtIndex_(v82, v83, 0, v84);
+                          v88 = objc_msgSend_objectAtIndex_(v82, v86, 1, v87);
+                          if (objc_msgSend_isEqualToString_(v85, v89, v20, v90))
                           {
-                            v74 = objc_msgSend_recentEventForAddress_displayName_kind_date_weight_metadata_options_(MEMORY[0x1E6998FC8], v73, v71, 0, v98, dateCopy, v100, v26, 0);
-                            objc_msgSend_addObject_(v99, v75, v74);
+                            v92 = objc_msgSend_recentEventForAddress_displayName_kind_date_weight_metadata_options_(MEMORY[0x1E6998FC8], v91, v88, 0, v117, dateCopy, v119, v30, 0);
+                            objc_msgSend_addObject_(v118, v93, v92, v94);
                           }
                         }
 
-                        v64 = objc_msgSend_countByEnumeratingWithState_objects_count_(v61, v63, &v102, v119, 16);
+                        v79 = objc_msgSend_countByEnumeratingWithState_objects_count_(v75, v77, &v121, v138, 16);
                       }
 
-                      while (v64);
+                      while (v79);
                     }
                   }
 
-                  v50 = v96 + 1;
+                  v60 = v115 + 1;
                 }
 
-                while (v96 + 1 != v93);
-                v93 = objc_msgSend_countByEnumeratingWithState_objects_count_(v91, v48, &v106, v120, 16);
+                while (v115 + 1 != v112);
+                v112 = objc_msgSend_countByEnumeratingWithState_objects_count_(v110, v57, &v125, v139, 16);
               }
 
-              while (v93);
+              while (v112);
             }
 
-            v18 = v84 + 1;
+            v21 = v103 + 1;
           }
 
-          while (v84 + 1 != v86);
-          v86 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v76, &v114, v122, 16);
+          while (v103 + 1 != v105);
+          v105 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v95, &v133, v141, 16);
         }
 
-        while (v86);
+        while (v105);
       }
 
-      v79 = objc_msgSend_copy(v99, v77, v78);
+      v99 = objc_msgSend_copy(v118, v96, v97, v98);
     }
 
     else
     {
-      v79 = 0;
+      v99 = 0;
     }
   }
 
@@ -325,34 +325,32 @@
   {
     if (IMOSLoggingEnabled())
     {
-      v80 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v80, OS_LOG_TYPE_INFO))
+      v100 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v100, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_1B7AD5000, v80, OS_LOG_TYPE_INFO, "_IMDCreateRecentEventsFromVCF() was passed a nil filePath", buf, 2u);
+        _os_log_impl(&dword_1B7AD5000, v100, OS_LOG_TYPE_INFO, "_IMDCreateRecentEventsFromVCF() was passed a nil filePath", buf, 2u);
       }
     }
 
-    v79 = 0;
+    v99 = 0;
   }
 
-  v81 = *MEMORY[0x1E69E9840];
-
-  return v79;
+  return v99;
 }
 
 - (void)deleteMessageGUIDs:(id)ds reason:(int64_t)reason completionHandler:(id)handler
 {
   handlerCopy = handler;
-  v9 = objc_msgSend__dataDetectedMessageGUIDsFromGUIDs_(self, v8, ds);
-  if (objc_msgSend_count(v9, v10, v11))
+  v10 = objc_msgSend__dataDetectedMessageGUIDsFromGUIDs_(self, v8, ds, v9);
+  if (objc_msgSend_count(v10, v11, v12, v13))
   {
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = sub_1B7B84A10;
-    v13[3] = &unk_1E7CBB328;
-    v14 = handlerCopy;
-    objc_msgSend_deleteRecentsForMessageGUIDs_completionBlock_(self, v12, v9, v13);
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = sub_1B7B84A10;
+    v15[3] = &unk_1E7CBB328;
+    v16 = handlerCopy;
+    objc_msgSend_deleteRecentsForMessageGUIDs_completionBlock_(self, v14, v10, v15);
   }
 
   else if (handlerCopy)

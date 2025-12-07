@@ -47,7 +47,7 @@
   v35 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   completionCopy = completion;
-  [(PKServicePaymentSetupViewController *)self _hostAuditToken];
+  objc_msgSend__hostAuditToken(self);
   v8 = SecTaskCreateWithAuditToken(0, &token);
   if (v8)
   {

@@ -47,31 +47,31 @@
 
 - (CKDistributedTimestampVector)initWithTimestampClockVector:(id)vector fillingInGaps:(BOOL)gaps
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   vectorCopy = vector;
-  v37 = objc_msgSend_initWithTimestamps_(self, v7, 0);
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
+  v36 = objc_msgSend_initWithTimestamps_(self, v7, 0);
   v41 = 0u;
+  v42 = 0u;
+  v39 = 0u;
+  v40 = 0u;
   v8 = vectorCopy;
   v11 = objc_msgSend_allSiteIdentifiers(vectorCopy, v9, v10);
   obj = v11;
-  v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v40, v44, 16);
+  v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v39, v43, 16);
   if (v14)
   {
-    v15 = *v41;
-    v35 = *MEMORY[0x1E695D940];
+    v15 = *v40;
+    v34 = *MEMORY[0x1E695D940];
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v41 != v15)
+        if (*v40 != v15)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = *(*(&v40 + 1) + 8 * i);
+        v17 = *(*(&v39 + 1) + 8 * i);
         v18 = objc_msgSend_clockValuesForSiteIdentifier_(v8, v13, v17);
         v21 = v18;
         if (!gaps && objc_msgSend_count(v18, v19, v20))
@@ -80,28 +80,27 @@
           v27 = objc_msgSend_lastIndex(v21, v25, v26);
           if (v27 != objc_msgSend_count(v21, v28, v29) - 1 || Index != 0)
           {
-            objc_msgSend_raise_format_(MEMORY[0x1E695DF30], v30, v35, @"Sparse timestamp vector is discontiguous and incompatible with conventional timestamp vector");
+            objc_msgSend_raise_format_(MEMORY[0x1E695DF30], v30, v34, @"Sparse timestamp vector is discontiguous and incompatible with conventional timestamp vector");
           }
         }
 
-        v38[0] = MEMORY[0x1E69E9820];
-        v38[1] = 3221225472;
-        v38[2] = sub_18855447C;
-        v38[3] = &unk_1E70BD200;
-        v38[4] = v17;
-        v39 = v37;
-        objc_msgSend_enumerateRangesUsingBlock_(v21, v32, v38);
+        v37[0] = MEMORY[0x1E69E9820];
+        v37[1] = 3221225472;
+        v37[2] = sub_18855447C;
+        v37[3] = &unk_1E70BD200;
+        v37[4] = v17;
+        v38 = v36;
+        objc_msgSend_enumerateRangesUsingBlock_(v21, v32, v37);
       }
 
       v11 = obj;
-      v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v13, &v40, v44, 16);
+      v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v13, &v39, v43, 16);
     }
 
     while (v14);
   }
 
-  v33 = *MEMORY[0x1E69E9840];
-  return v37;
+  return v36;
 }
 
 - (CKDistributedTimestampVector)initWithCoder:(id)coder

@@ -19,12 +19,13 @@
 {
   planCopy = plan;
   viewControllerCopy = viewController;
-  if (!+[TSUtilities isPad])
+  v11 = +[TSUtilities isPad];
+  if ((v11 & 1) == 0)
   {
-    v17 = _TSLogDomain();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
+    v18 = _TSLogDomain(v11);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
     {
-      [TSCarrierSignupFlow initWithPlan:v17 queriableFirstViewController:? hostViewController:?];
+      [TSCarrierSignupFlow initWithPlan:v18 queriableFirstViewController:? hostViewController:?];
     }
 
     goto LABEL_10;
@@ -32,8 +33,8 @@
 
   if (!planCopy)
   {
-    v17 = _TSLogDomain();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v18 = _TSLogDomain(v11);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       [TSCarrierSignupFlow initWithPlan:queriableFirstViewController:hostViewController:];
     }
@@ -44,26 +45,26 @@ LABEL_10:
     goto LABEL_11;
   }
 
-  v19.receiver = self;
-  v19.super_class = TSCarrierSignupFlow;
-  v11 = [(TSSIMSetupFlow *)&v19 init];
-  if (v11)
+  v20.receiver = self;
+  v20.super_class = TSCarrierSignupFlow;
+  v12 = [(TSSIMSetupFlow *)&v20 init];
+  if (v12)
   {
-    v12 = +[TSUserInPurchaseFlowAssertion sharedInstance];
-    [v12 assertUserInPurchaseFlowStartOver:0 caller:v11];
+    v13 = +[TSUserInPurchaseFlowAssertion sharedInstance];
+    [v13 assertUserInPurchaseFlowStartOver:0 caller:v12];
 
-    objc_storeStrong(&v11->_hostViewController, viewController);
-    v11->_isQueriableFirstViewController = controller;
-    v13 = [objc_alloc(MEMORY[0x277CC37B0]) initWithQueue:0];
-    client = v11->_client;
-    v11->_client = v13;
+    objc_storeStrong(&v12->_hostViewController, viewController);
+    v12->_isQueriableFirstViewController = controller;
+    v14 = [objc_alloc(MEMORY[0x277CC37B0]) initWithQueue:0];
+    client = v12->_client;
+    v12->_client = v14;
 
-    objc_storeStrong(&v11->_plan, plan);
-    postdata = v11->_postdata;
-    v11->_postdata = 0;
+    objc_storeStrong(&v12->_plan, plan);
+    postdata = v12->_postdata;
+    v12->_postdata = 0;
   }
 
-  self = v11;
+  self = v12;
   selfCopy = self;
 LABEL_11:
 
@@ -74,12 +75,13 @@ LABEL_11:
 {
   v20[3] = *MEMORY[0x277D85DE8];
   planCopy = plan;
-  if (!+[TSUtilities isPad])
+  v6 = +[TSUtilities isPad];
+  if ((v6 & 1) == 0)
   {
-    v15 = _TSLogDomain();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+    v16 = _TSLogDomain(v6);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
     {
-      [TSCarrierSignupFlow initWithPlan:v15];
+      [TSCarrierSignupFlow initWithPlan:v16];
     }
 
     goto LABEL_10;
@@ -87,8 +89,8 @@ LABEL_11:
 
   if (!planCopy)
   {
-    v15 = _TSLogDomain();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = _TSLogDomain(v6);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       [TSCarrierSignupFlow initWithPlan:];
     }
@@ -101,20 +103,20 @@ LABEL_10:
 
   v18.receiver = self;
   v18.super_class = TSCarrierSignupFlow;
-  v6 = [(TSSIMSetupFlow *)&v18 init];
-  if (v6)
+  v7 = [(TSSIMSetupFlow *)&v18 init];
+  if (v7)
   {
-    v7 = +[TSUserInPurchaseFlowAssertion sharedInstance];
-    [v7 assertUserInPurchaseFlowStartOver:0 caller:v6];
+    v8 = +[TSUserInPurchaseFlowAssertion sharedInstance];
+    [v8 assertUserInPurchaseFlowStartOver:0 caller:v7];
 
-    v6->_isQueriableFirstViewController = 0;
-    v8 = [objc_alloc(MEMORY[0x277CC37B0]) initWithQueue:0];
-    client = v6->_client;
-    v6->_client = v8;
+    v7->_isQueriableFirstViewController = 0;
+    v9 = [objc_alloc(MEMORY[0x277CC37B0]) initWithQueue:0];
+    client = v7->_client;
+    v7->_client = v9;
 
-    objc_storeStrong(&v6->_plan, plan);
-    postdata = v6->_postdata;
-    v6->_postdata = 0;
+    objc_storeStrong(&v7->_plan, plan);
+    postdata = v7->_postdata;
+    v7->_postdata = 0;
 
     v19[0] = @"FlowTypeKey";
     v19[1] = @"SkipActivatingPane";
@@ -122,17 +124,16 @@ LABEL_10:
     v20[1] = MEMORY[0x277CBEC28];
     v19[2] = @"DelayStartActivatingTimer";
     v20[2] = &unk_287583838;
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:3];
-    v12 = [TSSIMSetupFlow flowWithOptions:v11];
-    subFlow = v6->_subFlow;
-    v6->_subFlow = v12;
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:3];
+    v13 = [TSSIMSetupFlow flowWithOptions:v12];
+    subFlow = v7->_subFlow;
+    v7->_subFlow = v13;
   }
 
-  self = v6;
+  self = v7;
   selfCopy = self;
 LABEL_11:
 
-  v16 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -150,34 +151,35 @@ LABEL_11:
 {
   controllerCopy = controller;
   completionCopy = completion;
+  v8 = completionCopy;
   if (controllerCopy)
   {
     objc_initWeak(&location, self);
     client = self->_client;
     plan = self->_plan;
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __76__TSCarrierSignupFlow_showFirstViewControllerWithHostController_completion___block_invoke;
-    v11[3] = &unk_279B44A00;
-    objc_copyWeak(&v15, &location);
-    v14 = completionCopy;
-    v12 = controllerCopy;
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __76__TSCarrierSignupFlow_showFirstViewControllerWithHostController_completion___block_invoke;
+    v12[3] = &unk_279B44A00;
+    objc_copyWeak(&v16, &location);
+    v15 = v8;
+    v13 = controllerCopy;
     selfCopy = self;
-    [(CoreTelephonyClient *)client websheetInfoForPlan:plan completion:v11];
+    [(CoreTelephonyClient *)client websheetInfoForPlan:plan completion:v12];
 
-    objc_destroyWeak(&v15);
+    objc_destroyWeak(&v16);
     objc_destroyWeak(&location);
   }
 
   else
   {
-    v10 = _TSLogDomain();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = _TSLogDomain(completionCopy);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [TSCarrierSignupFlow showFirstViewControllerWithHostController:completion:];
     }
 
-    (*(completionCopy + 2))(completionCopy, 0);
+    v8[2](v8, 0);
   }
 }
 
@@ -371,24 +373,23 @@ void __76__TSCarrierSignupFlow_showFirstViewControllerWithHostController_complet
 {
   if (a2)
   {
-    v3 = *(a1 + 56);
     (*(*(a1 + 56) + 16))();
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __76__TSCarrierSignupFlow_showFirstViewControllerWithHostController_completion___block_invoke_8;
     block[3] = &unk_279B44688;
     block[4] = *(a1 + 32);
-    v6 = *(a1 + 48);
-    v7 = *(a1 + 40);
+    v5 = *(a1 + 48);
+    v6 = *(a1 + 40);
     dispatch_async(MEMORY[0x277D85CD0], block);
   }
 
   else
   {
     [*(a1 + 32) showLoadFailureAlert:*(a1 + 40) error:0];
-    v4 = *(*(a1 + 56) + 16);
+    v3 = *(*(a1 + 56) + 16);
 
-    v4();
+    v3();
   }
 }
 
@@ -497,20 +498,19 @@ LABEL_6:
 
 - (void)startTimer:(int64_t)timer
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v5 = _TSLogDomain();
+  v11 = *MEMORY[0x277D85DE8];
+  v5 = _TSLogDomain(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     subFlow = self->_subFlow;
-    v8 = 138412546;
-    v9 = subFlow;
-    v10 = 2080;
-    v11 = "[TSCarrierSignupFlow startTimer:]";
-    _os_log_impl(&dword_262AA8000, v5, OS_LOG_TYPE_DEFAULT, "start timer on subflow %@ @%s", &v8, 0x16u);
+    v7 = 138412546;
+    v8 = subFlow;
+    v9 = 2080;
+    v10 = "[TSCarrierSignupFlow startTimer:]";
+    _os_log_impl(&dword_262AA8000, v5, OS_LOG_TYPE_DEFAULT, "start timer on subflow %@ @%s", &v7, 0x16u);
   }
 
   [(TSSIMSetupFlow *)self->_subFlow startTimer:timer];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didPurchasePlanSuccessfullyWithEid:(id)eid imei:(id)imei meid:(id)meid iccid:(id)iccid alternateSDMP:(id)p state:(id)state
@@ -548,26 +548,23 @@ LABEL_6:
   dispatch_async(MEMORY[0x277D85CD0], v6);
 }
 
-uint64_t __53__TSCarrierSignupFlow_safariViewControllerDidFinish___block_invoke(uint64_t a1)
+uint64_t __53__TSCarrierSignupFlow_safariViewControllerDidFinish___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = _TSLogDomain();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v8 = *MEMORY[0x277D85DE8];
+  v3 = _TSLogDomain(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315138;
-    v8 = "[TSCarrierSignupFlow safariViewControllerDidFinish:]_block_invoke";
-    _os_log_impl(&dword_262AA8000, v2, OS_LOG_TYPE_DEFAULT, "safariViewController did finish @%s", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "[TSCarrierSignupFlow safariViewControllerDidFinish:]_block_invoke";
+    _os_log_impl(&dword_262AA8000, v3, OS_LOG_TYPE_DEFAULT, "safariViewController did finish @%s", &v6, 0xCu);
   }
 
-  v3 = *(*(a1 + 32) + 96);
   if (objc_opt_respondsToSelector())
   {
     v4 = [*(*(a1 + 32) + 96) userDidExitWebsheetFlowForPlan:*(*(a1 + 32) + 104)];
   }
 
-  result = [*(a1 + 32) viewControllerDidComplete:*(a1 + 40)];
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) viewControllerDidComplete:*(a1 + 40)];
 }
 
 - (id)_handleCarrierInfoWithUrl:(id)url postdata:(id)postdata type:(id)type error:(id)error
@@ -576,89 +573,91 @@ uint64_t __53__TSCarrierSignupFlow_safariViewControllerDidFinish___block_invoke(
   postdataCopy = postdata;
   typeCopy = type;
   errorCopy = error;
+  v14 = errorCopy;
   if (errorCopy)
   {
-    v14 = _TSLogDomain();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = _TSLogDomain(errorCopy);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      [TSCarrierSignupFlow _handleCarrierInfoWithUrl:errorCopy postdata:v14 type:? error:?];
+      [TSCarrierSignupFlow _handleCarrierInfoWithUrl:v14 postdata:v15 type:? error:?];
     }
 
 LABEL_12:
 
-    v17 = 0;
+    v18 = 0;
     goto LABEL_13;
   }
 
-  if (!urlCopy || ![urlCopy length])
+  if (!urlCopy || (errorCopy = [urlCopy length]) == 0)
   {
-    v14 = _TSLogDomain();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = _TSLogDomain(errorCopy);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      [TSCarrierSignupFlow _handleCarrierInfoWithUrl:? postdata:? type:? error:?];
+      [TSCarrierSignupFlow _handleCarrierInfoWithUrl:postdata:type:error:];
     }
 
     goto LABEL_12;
   }
 
-  if (postdataCopy && [postdataCopy count])
+  if (postdataCopy && (errorCopy = [postdataCopy count]) != 0)
   {
     if ([typeCopy isEqualToString:@"websheet"])
     {
-      v15 = [MEMORY[0x277CBEBC0] URLWithString:urlCopy];
-      v16 = 1;
+      v16 = [MEMORY[0x277CBEBC0] URLWithString:urlCopy];
+      v17 = 1;
     }
 
     else if ([typeCopy isEqualToString:@"buddyml"])
     {
-      v15 = [MEMORY[0x277CBEBC0] URLWithString:urlCopy];
-      v16 = 5;
+      v16 = [MEMORY[0x277CBEBC0] URLWithString:urlCopy];
+      v17 = 5;
     }
 
     else if ([typeCopy isEqualToString:@"entitlements"])
     {
-      v15 = [MEMORY[0x277CBEBC0] URLWithString:urlCopy];
-      v16 = 2;
+      v16 = [MEMORY[0x277CBEBC0] URLWithString:urlCopy];
+      v17 = 2;
     }
 
     else
     {
-      if (![typeCopy isEqualToString:@"Lite"])
+      v23 = [typeCopy isEqualToString:@"Lite"];
+      if (!v23)
       {
-        v14 = _TSLogDomain();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+        v15 = _TSLogDomain(v23);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
-          [TSCarrierSignupFlow _handleCarrierInfoWithUrl:typeCopy postdata:self type:v14 error:?];
+          [TSCarrierSignupFlow _handleCarrierInfoWithUrl:typeCopy postdata:self type:v15 error:?];
         }
 
         goto LABEL_12;
       }
 
-      v15 = [MEMORY[0x277CBEBC0] URLWithString:urlCopy];
-      v16 = 6;
+      v16 = [MEMORY[0x277CBEBC0] URLWithString:urlCopy];
+      v17 = 6;
     }
 
-    v17 = [TSURLRequestFactory requestWithType:v16 URL:v15 postdata:postdataCopy];
+    v18 = [TSURLRequestFactory requestWithType:v17 URL:v16 postdata:postdataCopy];
   }
 
   else
   {
-    v19 = _TSLogDomain();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v20 = _TSLogDomain(errorCopy);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       [TSCarrierSignupFlow _handleCarrierInfoWithUrl:postdata:type:error:];
     }
 
-    v20 = MEMORY[0x277CCAB70];
-    v21 = [MEMORY[0x277CBEBC0] URLWithString:urlCopy];
-    v17 = [v20 requestWithURL:v21];
+    v21 = MEMORY[0x277CCAB70];
+    v22 = [MEMORY[0x277CBEBC0] URLWithString:urlCopy];
+    v18 = [v21 requestWithURL:v22];
 
-    [v17 _setNonAppInitiated:1];
+    [v18 _setNonAppInitiated:1];
   }
 
 LABEL_13:
 
-  return v17;
+  return v18;
 }
 
 - (id)_getSFSafariViewControllerWithURL:(id)l
@@ -685,85 +684,38 @@ LABEL_13:
 
 - (void)initWithPlan:(os_log_t)log queriableFirstViewController:hostViewController:.cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[TSCarrierSignupFlow initWithPlan:queriableFirstViewController:hostViewController:]";
-  _os_log_fault_impl(&dword_262AA8000, log, OS_LOG_TYPE_FAULT, "[F]WARNING: Creating flow for unsupported hardware - unexpected behaviour will be seen @%s", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
-}
-
-- (void)initWithPlan:queriableFirstViewController:hostViewController:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[TSCarrierSignupFlow initWithPlan:queriableFirstViewController:hostViewController:]";
+  _os_log_fault_impl(&dword_262AA8000, log, OS_LOG_TYPE_FAULT, "[F]WARNING: Creating flow for unsupported hardware - unexpected behaviour will be seen @%s", &v1, 0xCu);
 }
 
 - (void)initWithPlan:(os_log_t)log .cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[TSCarrierSignupFlow initWithPlan:]";
-  _os_log_fault_impl(&dword_262AA8000, log, OS_LOG_TYPE_FAULT, "[F]WARNING: Creating flow for unsupported hardware - unexpected behaviour will be seen @%s", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
-}
-
-- (void)initWithPlan:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)showFirstViewControllerWithHostController:completion:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[TSCarrierSignupFlow initWithPlan:]";
+  _os_log_fault_impl(&dword_262AA8000, log, OS_LOG_TYPE_FAULT, "[F]WARNING: Creating flow for unsupported hardware - unexpected behaviour will be seen @%s", &v1, 0xCu);
 }
 
 - (void)_handleCarrierInfoWithUrl:(NSObject *)a3 postdata:type:error:.cold.1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  *v4 = 138412802;
-  *&v4[4] = *(a1 + 104);
-  *&v4[12] = 2112;
-  *&v4[14] = a2;
-  *&v4[22] = 2080;
-  OUTLINED_FUNCTION_1_0(&dword_262AA8000, a2, a3, "[E]Signup info for: %@ failed: %@ @%s", *v4, *&v4[8], *&v4[16], "[TSCarrierSignupFlow _handleCarrierInfoWithUrl:postdata:type:error:]");
-  v3 = *MEMORY[0x277D85DE8];
+  *v3 = 138412802;
+  *&v3[4] = *(a1 + 104);
+  *&v3[12] = 2112;
+  *&v3[14] = a2;
+  *&v3[22] = 2080;
+  OUTLINED_FUNCTION_1_0(&dword_262AA8000, a2, a3, "[E]Signup info for: %@ failed: %@ @%s", *v3, *&v3[8], *&v3[16], "[TSCarrierSignupFlow _handleCarrierInfoWithUrl:postdata:type:error:]");
 }
 
 - (void)_handleCarrierInfoWithUrl:(NSObject *)a3 postdata:type:error:.cold.2(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  *v4 = 138412802;
-  *&v4[4] = a1;
-  *&v4[12] = 2112;
-  *&v4[14] = *(a2 + 104);
-  *&v4[22] = 2080;
-  OUTLINED_FUNCTION_1_0(&dword_262AA8000, a2, a3, "[E]invalid request type: %@ for %@ @%s", *v4, *&v4[8], *&v4[16], "[TSCarrierSignupFlow _handleCarrierInfoWithUrl:postdata:type:error:]");
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_handleCarrierInfoWithUrl:postdata:type:error:.cold.3()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_handleCarrierInfoWithUrl:(uint64_t)a1 postdata:type:error:.cold.4(uint64_t a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *(a1 + 104);
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
+  *v3 = 138412802;
+  *&v3[4] = a1;
+  *&v3[12] = 2112;
+  *&v3[14] = *(a2 + 104);
+  *&v3[22] = 2080;
+  OUTLINED_FUNCTION_1_0(&dword_262AA8000, a2, a3, "[E]invalid request type: %@ for %@ @%s", *v3, *&v3[8], *&v3[16], "[TSCarrierSignupFlow _handleCarrierInfoWithUrl:postdata:type:error:]");
 }
 
 @end

@@ -3,6 +3,7 @@
 - (void)_handleQueryResponse:(shared_ptr<CLConnectionMessage>)response onQueue:(id)queue withHandler:(id)handler;
 - (void)_handleRecordQueryResponse:(shared_ptr<CLConnectionMessage>)response withHandler:(id)handler shouldStartUpdates:(BOOL)updates;
 - (void)_internalQueryPedometerDataFromDate:(id)date toDate:(id)toDate onQueue:(id)queue withHandler:(id)handler;
+- (void)_queryPedometerCalibrationBinsWithHandler:(id)handler forType:(int64_t)type forRemote:(BOOL)remote;
 - (void)_queryPedometerDataFromDate:(id)date toDate:(id)toDate withHandler:(id)handler;
 - (void)_queryPedometerDataSinceDataRecord:(id)record withHandler:(id)handler shouldStartUpdates:(BOOL)updates;
 - (void)_startPedometerEventUpdatesWithHandler:(id)handler;
@@ -51,18 +52,17 @@
 
 - (void)_teardown
 {
-  fLocationdConnection = self->fLocationdConnection;
   sub_19B428B50(&__p, "kCLConnectionMessageStepCountUpdate");
   CLConnectionClient::setHandlerForMessage();
-  if (v6 < 0)
+  if (v5 < 0)
   {
     operator delete(__p);
   }
 
   if (self->fLocationdConnection)
   {
-    v4 = MEMORY[0x19EAE71C0]();
-    MEMORY[0x19EAE76F0](v4, 0xB0C40BC2CC919);
+    v3 = MEMORY[0x19EAE71C0]();
+    MEMORY[0x19EAE76F0](v3, 0xB0C40BC2CC919);
   }
 
   self->fLocationdConnection = 0;
@@ -125,7 +125,7 @@
 {
   var1 = response.var1;
   var0 = response.var0;
-  v35 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v8 = MEMORY[0x1E695DFD8];
   v9 = objc_opt_class();
   v10 = objc_opt_class();
@@ -154,12 +154,14 @@
         dispatch_once(&qword_1EAFE27F0, &unk_1F0E3AFB0);
       }
 
-      LOWORD(v31) = 0;
-      v23 = _os_log_send_and_compose_impl();
+      LOWORD(v33) = 0;
+      LODWORD(v29) = 2;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2818, 16, "Unable to parse message when checking for availability!", &v33, v29);
+      v24 = v23;
       sub_19B6BB7CC("Generic", 1, 0, 0, "[CMPedometerProxy _handleQueryResponse:onQueue:withHandler:]", "CoreLocation: %s\n", v23);
-      if (v23 != buf)
+      if (v24 != buf)
       {
-        free(v23);
+        free(v24);
       }
     }
 
@@ -178,29 +180,29 @@
   v19 = objc_msgSend_objectForKeyedSubscript_(v16, v18, @"CMPedometerDataObject");
   if (v17)
   {
-    v30[0] = MEMORY[0x1E69E9820];
-    v30[1] = 3221225472;
-    v30[2] = sub_19B6C6FC8;
-    v30[3] = &unk_1E75344C0;
-    v30[5] = v17;
-    v30[6] = queue;
-    v30[4] = v16;
-    v20 = v30;
+    v32[0] = MEMORY[0x1E69E9820];
+    v32[1] = 3221225472;
+    v32[2] = sub_19B6C6FC8;
+    v32[3] = &unk_1E75344C0;
+    v32[5] = v17;
+    v32[6] = queue;
+    v32[4] = v16;
+    v20 = v32;
 LABEL_17:
     dispatch_async(var1, v20);
-    goto LABEL_18;
+    return;
   }
 
   if (v19)
   {
-    v29[0] = MEMORY[0x1E69E9820];
-    v29[1] = 3221225472;
-    v29[2] = sub_19B6C7048;
-    v29[3] = &unk_1E75344C0;
-    v29[5] = v16;
-    v29[6] = queue;
-    v29[4] = v19;
-    v20 = v29;
+    v31[0] = MEMORY[0x1E69E9820];
+    v31[1] = 3221225472;
+    v31[2] = sub_19B6C7048;
+    v31[3] = &unk_1E75344C0;
+    v31[5] = v16;
+    v31[6] = queue;
+    v31[4] = v19;
+    v20 = v31;
     goto LABEL_17;
   }
 
@@ -213,7 +215,7 @@ LABEL_17:
   if (os_log_type_enabled(qword_1EAFE2818, OS_LOG_TYPE_FAULT))
   {
     *buf = 138543362;
-    v34 = v16;
+    v36 = v16;
     _os_log_impl(&dword_19B41C000, v25, OS_LOG_TYPE_FAULT, "Unable to parse message (%{public}@) for query response ", buf, 0xCu);
   }
 
@@ -226,18 +228,17 @@ LABEL_17:
       dispatch_once(&qword_1EAFE27F0, &unk_1F0E3AFB0);
     }
 
-    v31 = 138543362;
-    v32 = v16;
-    v27 = _os_log_send_and_compose_impl();
+    v33 = 138543362;
+    v34 = v16;
+    LODWORD(v29) = 12;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2818, 17, "Unable to parse message (%{public}@) for query response ", &v33, v29);
+    v28 = v27;
     sub_19B6BB7CC("Generic", 1, 0, 0, "[CMPedometerProxy _handleQueryResponse:onQueue:withHandler:]", "CoreLocation: %s\n", v27);
-    if (v27 != buf)
+    if (v28 != buf)
     {
-      free(v27);
+      free(v28);
     }
   }
-
-LABEL_18:
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_startPedometerUpdatesSinceDataRecord:(id)record withHandler:(id)handler
@@ -373,6 +374,60 @@ LABEL_6:
   block[3] = &unk_1E7532988;
   block[4] = self;
   dispatch_async(fInternalQueue, block);
+}
+
+- (void)_queryPedometerCalibrationBinsWithHandler:(id)handler forType:(int64_t)type forRemote:(BOOL)remote
+{
+  remoteCopy = remote;
+  v22 = *MEMORY[0x1E69E9840];
+  if (!remote || (v9 = sub_19B421798(), ((**v9)(v9) & 1) != 0))
+  {
+    v19[0] = @"CMPedometerFetchRemoteCalibrations";
+    v20[0] = objc_msgSend_numberWithBool_(MEMORY[0x1E696AD98], a2, remoteCopy);
+    v19[1] = @"CMPedometerCalibrationTypeId";
+    v20[1] = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], v10, type);
+    v17 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v11, v20, v19, 2);
+    sub_19B686E08();
+  }
+
+  if (qword_1EAFE27F0 != -1)
+  {
+    dispatch_once(&qword_1EAFE27F0, &unk_1F0E3AFB0);
+  }
+
+  v12 = qword_1EAFE2818;
+  if (os_log_type_enabled(qword_1EAFE2818, OS_LOG_TYPE_FAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_19B41C000, v12, OS_LOG_TYPE_FAULT, "Remote calibrations not available on this platform", buf, 2u);
+  }
+
+  v13 = sub_19B420058();
+  if ((*(v13 + 160) & 0x80000000) == 0 || (*(v13 + 164) & 0x80000000) == 0 || (*(v13 + 168) & 0x80000000) == 0 || *(v13 + 152))
+  {
+    bzero(buf, 0x65CuLL);
+    if (qword_1EAFE27F0 != -1)
+    {
+      dispatch_once(&qword_1EAFE27F0, &unk_1F0E3AFB0);
+    }
+
+    LOWORD(v17) = 0;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2818, 17, "Remote calibrations not available on this platform", &v17, 2);
+    v15 = v14;
+    sub_19B6BB7CC("Generic", 1, 0, 0, "[CMPedometerProxy _queryPedometerCalibrationBinsWithHandler:forType:forRemote:]", "CoreLocation: %s\n", v14);
+    if (v15 != buf)
+    {
+      free(v15);
+    }
+  }
+
+  fAppQueue = self->fAppQueue;
+  block[0] = MEMORY[0x1E69E9820];
+  block[1] = 3221225472;
+  block[2] = sub_19B6C83B4;
+  block[3] = &unk_1E7532B40;
+  block[4] = handler;
+  dispatch_async(fAppQueue, block);
 }
 
 @end

@@ -490,7 +490,7 @@ LABEL_13:
   v11 = _ICQGetLogSystem();
   if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
-    [ICQiCloudFooterSpecifierProvider _handleICQLink:forSpecifier:];
+    [ICQiCloudFooterSpecifierProvider _handleICQLink:? forSpecifier:?];
   }
 
   [(ICQiCloudFooterSpecifierProvider *)self _finishLoadingSpecifier];
@@ -577,16 +577,16 @@ LABEL_17:
 
   location = 0;
   p_location = &location;
-  v26 = 0x2050000000;
+  v27 = 0x2050000000;
   v4 = getFACircleContextClass_softClass_1;
-  v27 = getFACircleContextClass_softClass_1;
+  v28 = getFACircleContextClass_softClass_1;
   if (!getFACircleContextClass_softClass_1)
   {
     *buf = MEMORY[0x277D85DD0];
-    v19 = 3221225472;
-    v20 = __getFACircleContextClass_block_invoke_1;
-    v21 = &unk_27A65A9F8;
-    v22 = &location;
+    v20 = 3221225472;
+    v21 = __getFACircleContextClass_block_invoke_1;
+    v22 = &unk_27A65A9F8;
+    v23 = &location;
     __getFACircleContextClass_block_invoke_1(buf);
     v4 = p_location[3];
   }
@@ -596,53 +596,54 @@ LABEL_17:
   v6 = [v4 alloc];
   location = 0;
   p_location = &location;
-  v26 = 0x2020000000;
+  v27 = 0x2020000000;
   v7 = getFACircleEventTypeInitiateSymbolLoc_ptr_1;
-  v27 = getFACircleEventTypeInitiateSymbolLoc_ptr_1;
+  v28 = getFACircleEventTypeInitiateSymbolLoc_ptr_1;
   if (!getFACircleEventTypeInitiateSymbolLoc_ptr_1)
   {
     *buf = MEMORY[0x277D85DD0];
-    v19 = 3221225472;
-    v20 = __getFACircleEventTypeInitiateSymbolLoc_block_invoke_1;
-    v21 = &unk_27A65A9F8;
-    v22 = &location;
+    v20 = 3221225472;
+    v21 = __getFACircleEventTypeInitiateSymbolLoc_block_invoke_1;
+    v22 = &unk_27A65A9F8;
+    v23 = &location;
     v8 = FamilyCircleUILibrary_1();
     v9 = dlsym(v8, "FACircleEventTypeInitiate");
-    *(v22[1] + 3) = v9;
-    getFACircleEventTypeInitiateSymbolLoc_ptr_1 = *(v22[1] + 3);
+    *(v23[1] + 3) = v9;
+    getFACircleEventTypeInitiateSymbolLoc_ptr_1 = *(v23[1] + 3);
     v7 = p_location[3];
   }
 
   _Block_object_dispose(&location, 8);
   if (!v7)
   {
-    v15 = [ICQFamilySharingHook _beginFamilySharingFlowWithCompletion:];
+    [ICQFamilySharingHook _beginFamilySharingFlowWithCompletion:];
+    v16 = v15;
     _Block_object_dispose(&location, 8);
-    _Unwind_Resume(v15);
+    _Unwind_Resume(v16);
   }
 
   v10 = [v6 initWithEventType:*v7];
   [v10 setClientName:@"iCloudStorage"];
   objc_initWeak(&location, self);
   *buf = 0;
-  v19 = buf;
-  v20 = 0x3032000000;
-  v21 = __Block_byref_object_copy__8;
-  v22 = __Block_byref_object_dispose__8;
+  v20 = buf;
+  v21 = 0x3032000000;
+  v22 = __Block_byref_object_copy__8;
+  v23 = __Block_byref_object_dispose__8;
   v11 = objc_alloc(getFACircleStateControllerClass());
   WeakRetained = objc_loadWeakRetained(&self->_listController);
   navigationController = [WeakRetained navigationController];
-  v23 = [v11 initWithPresenter:navigationController];
+  v24 = [v11 initWithPresenter:navigationController];
 
-  v14 = *(v19 + 40);
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __55__ICQiCloudFooterSpecifierProvider__startFamilySharing__block_invoke;
-  v16[3] = &unk_27A65C138;
-  objc_copyWeak(&v17, &location);
-  v16[4] = buf;
-  [v14 performWithContext:v10 completion:v16];
-  objc_destroyWeak(&v17);
+  v14 = *(v20 + 40);
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __55__ICQiCloudFooterSpecifierProvider__startFamilySharing__block_invoke;
+  v17[3] = &unk_27A65C138;
+  objc_copyWeak(&v18, &location);
+  v17[4] = buf;
+  [v14 performWithContext:v10 completion:v17];
+  objc_destroyWeak(&v18);
   _Block_object_dispose(buf, 8);
 
   objc_destroyWeak(&location);
@@ -960,13 +961,13 @@ void __59__ICQiCloudFooterSpecifierProvider__finishLoadingSpecifier__block_invok
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-- (void)_handleICQLink:forSpecifier:.cold.1()
+- (void)_handleICQLink:(uint64_t)a1 forSpecifier:.cold.1(uint64_t a1)
 {
   objc_opt_class();
   OUTLINED_FUNCTION_1_0();
-  v1 = v0;
+  v2 = v1;
   OUTLINED_FUNCTION_2_0();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 void __55__ICQiCloudFooterSpecifierProvider__startFamilySharing__block_invoke_cold_1(void *a1)

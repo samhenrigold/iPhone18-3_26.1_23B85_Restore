@@ -2,6 +2,7 @@
 - (WFNANDataSessionsTableViewController)initWithContext:(id)context forPublisher:(id)publisher;
 - (void)_configureDataSource;
 - (void)_handleDataSessionsChangedNotification:(id)notification;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
 @end
 
@@ -52,20 +53,27 @@
   [(WFNANDataSessionsTableViewController *)self _configureDataSource];
 }
 
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v3.receiver = self;
+  v3.super_class = WFNANDataSessionsTableViewController;
+  [(WFNANDataSessionsTableViewController *)&v3 viewDidDisappear:disappear];
+}
+
 - (void)_configureDataSource
 {
-  v30[1] = *MEMORY[0x277D85DE8];
+  v29[1] = *MEMORY[0x277D85DE8];
   v3 = [WFNANDataSessionsTableViewDataSource alloc];
   tableView = [(WFNANDataSessionsTableViewController *)self tableView];
   context = [(WFNANDataSessionsTableViewController *)self context];
   publisher = [(WFNANDataSessionsTableViewController *)self publisher];
   sections = [(WFNANDataSessionsTableViewController *)self sections];
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = __60__WFNANDataSessionsTableViewController__configureDataSource__block_invoke;
-  v29[3] = &unk_279EBCCC0;
-  v29[4] = self;
-  v8 = [(WFNANDataSessionsTableViewDataSource *)v3 initWithTableView:tableView context:context publisher:publisher sections:sections cellProvider:v29];
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v28[2] = __60__WFNANDataSessionsTableViewController__configureDataSource__block_invoke;
+  v28[3] = &unk_279EBCCC0;
+  v28[4] = self;
+  v8 = [(WFNANDataSessionsTableViewDataSource *)v3 initWithTableView:tableView context:context publisher:publisher sections:sections cellProvider:v28];
   [(WFNANDataSessionsTableViewController *)self setDataSource:v8];
 
   v9 = objc_alloc_init(MEMORY[0x277CFB890]);
@@ -109,16 +117,14 @@
 
   else
   {
-    v30[0] = @"WFNANDataSessionsNoActiveSessionsIdentifier";
-    publisher3 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:1];
+    v29[0] = @"WFNANDataSessionsNoActiveSessionsIdentifier";
+    publisher3 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:1];
     v25 = [(WFNANDataSessionsTableViewController *)self _identifierForSection:0];
     [v9 appendItemsWithIdentifiers:publisher3 intoSectionWithIdentifier:v25];
   }
 
   dataSource = [(WFNANDataSessionsTableViewController *)self dataSource];
   [dataSource applySnapshot:v9 animatingDifferences:1];
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 id __60__WFNANDataSessionsTableViewController__configureDataSource__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -152,7 +158,6 @@ id __60__WFNANDataSessionsTableViewController__configureDataSource__block_invoke
 
     else
     {
-      v17 = *(a1 + 32);
       v12 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
       v13 = [v12 localizedStringForKey:@"kWFLocNANNoActiveDataSessions" value:&stru_2882E4AD8 table:@"WiFiKitUILocalizableStrings"];
       v14 = [v11 textLabel];
@@ -165,7 +170,7 @@ id __60__WFNANDataSessionsTableViewController__configureDataSource__block_invoke
 
 - (void)_handleDataSessionsChangedNotification:(id)notification
 {
-  v26[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   dataSource = [(WFNANDataSessionsTableViewController *)self dataSource];
   snapshot = [dataSource snapshot];
@@ -193,8 +198,8 @@ id __60__WFNANDataSessionsTableViewController__configureDataSource__block_invoke
       unsignedIntegerValue = [v12 unsignedIntegerValue];
       if (unsignedIntegerValue == 1)
       {
-        v24 = v10;
-        v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v24 count:1];
+        v23 = v10;
+        v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v23 count:1];
         [snapshot deleteItemsWithIdentifiers:v19];
 
         if ([(WFNANTableViewContext *)self->_context getDataSessionsCountForPublisher:self->_publisher])
@@ -206,8 +211,8 @@ LABEL_15:
           goto LABEL_16;
         }
 
-        v23 = @"WFNANDataSessionsNoActiveSessionsIdentifier";
-        v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v23 count:1];
+        v22 = @"WFNANDataSessionsNoActiveSessionsIdentifier";
+        v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v22 count:1];
         v20 = [(WFNANDataSessionsTableViewController *)self _identifierForSection:0];
         [snapshot appendItemsWithIdentifiers:v18 intoSectionWithIdentifier:v20];
       }
@@ -219,8 +224,8 @@ LABEL_15:
           goto LABEL_15;
         }
 
-        v26[0] = v10;
-        v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:1];
+        v25[0] = v10;
+        v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
         v17 = [(WFNANDataSessionsTableViewController *)self _identifierForSection:0];
         [snapshot appendItemsWithIdentifiers:v16 intoSectionWithIdentifier:v17];
 
@@ -229,8 +234,8 @@ LABEL_15:
           goto LABEL_15;
         }
 
-        v25 = @"WFNANDataSessionsNoActiveSessionsIdentifier";
-        v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v25 count:1];
+        v24 = @"WFNANDataSessionsNoActiveSessionsIdentifier";
+        v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v24 count:1];
         [snapshot deleteItemsWithIdentifiers:v18];
       }
 
@@ -239,8 +244,6 @@ LABEL_15:
   }
 
 LABEL_16:
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -24,9 +24,11 @@
 
 uint64_t __58__VSAccountSerializationCenter_defaultSerializationCenter__block_invoke()
 {
-  defaultSerializationCenter___vs_lazy_init_variable = objc_alloc_init(VSAccountSerializationCenter);
+  v0 = objc_alloc_init(VSAccountSerializationCenter);
+  v1 = defaultSerializationCenter___vs_lazy_init_variable;
+  defaultSerializationCenter___vs_lazy_init_variable = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (VSAccountSerializationCenter)init
@@ -312,90 +314,91 @@ LABEL_3:
 
 void __65__VSAccountSerializationCenter_importData_withCompletionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v42 = 0;
-  v4 = [objc_alloc(MEMORY[0x277CCAAC8]) initForReadingFromData:v3 error:&v42];
-  v5 = v42;
+  v43 = 0;
+  v4 = [objc_alloc(MEMORY[0x277CCAAC8]) initForReadingFromData:v3 error:&v43];
+  v5 = v43;
+  v6 = v5;
   if (v4)
   {
-    v32 = v3;
-    v6 = v4;
-    [v6 setDecodingFailurePolicy:1];
-    v30 = v6;
-    v7 = [[VSAccountsArchive alloc] initWithCoder:v6];
-    v8 = [(VSAccountsArchive *)v7 channels];
-    v9 = objc_alloc_init(VSAccountChannels);
-    v31 = v5;
-    v29 = v8;
-    if (v8)
+    v33 = v3;
+    v7 = v4;
+    [v7 setDecodingFailurePolicy:1];
+    v31 = v7;
+    v8 = [[VSAccountsArchive alloc] initWithCoder:v7];
+    v9 = [(VSAccountsArchive *)v8 channels];
+    v10 = objc_alloc_init(VSAccountChannels);
+    v32 = v6;
+    v30 = v9;
+    if (v9)
     {
-      v10 = v8;
+      v11 = v9;
 
-      v9 = v10;
+      v10 = v11;
     }
 
-    v11 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v38 = 0u;
+    v12 = objc_alloc_init(MEMORY[0x277CBEB18]);
     v39 = 0u;
     v40 = 0u;
     v41 = 0u;
-    v12 = [(VSAccountsArchive *)v7 accounts];
-    v13 = [v12 countByEnumeratingWithState:&v38 objects:v43 count:16];
-    if (v13)
+    v42 = 0u;
+    v13 = [(VSAccountsArchive *)v8 accounts];
+    v14 = [v13 countByEnumeratingWithState:&v39 objects:v44 count:16];
+    if (v14)
     {
-      v14 = v13;
-      v15 = *v39;
+      v15 = v14;
+      v16 = *v40;
       do
       {
-        for (i = 0; i != v14; ++i)
+        for (i = 0; i != v15; ++i)
         {
-          if (*v39 != v15)
+          if (*v40 != v16)
           {
-            objc_enumerationMutation(v12);
+            objc_enumerationMutation(v13);
           }
 
-          v17 = *(*(&v38 + 1) + 8 * i);
-          if ([v17 isSynchronizable])
+          v18 = *(*(&v39 + 1) + 8 * i);
+          if ([v18 isSynchronizable])
           {
-            [v11 addObject:v17];
+            [v12 addObject:v18];
           }
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v38 objects:v43 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v39 objects:v44 count:16];
       }
 
-      while (v14);
+      while (v15);
     }
 
-    if ([v11 count])
+    if ([v12 count])
     {
-      v18 = [VSAccountSaveOperation alloc];
-      v19 = [(VSAccountsArchive *)v7 accounts];
-      v20 = [*(a1 + 32) storage];
-      v21 = [(VSAccountSaveOperation *)v18 initWithUnsavedAccounts:v19 channels:v9 storage:v20];
+      v19 = [VSAccountSaveOperation alloc];
+      v20 = [(VSAccountsArchive *)v8 accounts];
+      v21 = [*(a1 + 32) storage];
+      v22 = [(VSAccountSaveOperation *)v19 initWithUnsavedAccounts:v20 channels:v10 storage:v21];
 
-      v22 = MEMORY[0x277CCA8C8];
-      v35[0] = MEMORY[0x277D85DD0];
-      v35[1] = 3221225472;
-      v35[2] = __65__VSAccountSerializationCenter_importData_withCompletionHandler___block_invoke_2;
-      v35[3] = &unk_278B73758;
-      v23 = v21;
-      v36 = v23;
-      v37 = *(a1 + 48);
-      v24 = [v22 blockOperationWithBlock:v35];
-      [v24 addDependency:v23];
-      VSEnqueueCompletionOperation(v24);
-      v25 = *(a1 + 40);
-      v33[0] = MEMORY[0x277D85DD0];
-      v33[1] = 3221225472;
-      v33[2] = __65__VSAccountSerializationCenter_importData_withCompletionHandler___block_invoke_5;
-      v33[3] = &unk_278B733D8;
-      v34 = v23;
-      v26 = v23;
-      [v25 setCancellationHandler:v33];
-      v27 = [*(a1 + 32) serializationQueue];
-      [v27 addOperation:v26];
+      v23 = MEMORY[0x277CCA8C8];
+      v36[0] = MEMORY[0x277D85DD0];
+      v36[1] = 3221225472;
+      v36[2] = __65__VSAccountSerializationCenter_importData_withCompletionHandler___block_invoke_2;
+      v36[3] = &unk_278B73758;
+      v24 = v22;
+      v37 = v24;
+      v38 = *(a1 + 48);
+      v25 = [v23 blockOperationWithBlock:v36];
+      [v25 addDependency:v24];
+      VSEnqueueCompletionOperation(v25);
+      v26 = *(a1 + 40);
+      v34[0] = MEMORY[0x277D85DD0];
+      v34[1] = 3221225472;
+      v34[2] = __65__VSAccountSerializationCenter_importData_withCompletionHandler___block_invoke_5;
+      v34[3] = &unk_278B733D8;
+      v35 = v24;
+      v27 = v24;
+      [v26 setCancellationHandler:v34];
+      v28 = [*(a1 + 32) serializationQueue];
+      [v28 addOperation:v27];
     }
 
     else
@@ -403,16 +406,16 @@ void __65__VSAccountSerializationCenter_importData_withCompletionHandler___block
       (*(*(a1 + 48) + 16))();
     }
 
-    v5 = v31;
-    v3 = v32;
+    v6 = v32;
+    v3 = v33;
   }
 
   else
   {
-    v28 = VSErrorLogObject();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    v29 = VSErrorLogObject(v5);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
-      __65__VSAccountSerializationCenter_importData_withCompletionHandler___block_invoke_cold_1(v5, v28);
+      __65__VSAccountSerializationCenter_importData_withCompletionHandler___block_invoke_cold_1(v6, v29);
     }
 
     (*(*(a1 + 48) + 16))();
@@ -439,7 +442,7 @@ void __65__VSAccountSerializationCenter_importData_withCompletionHandler___block
 void __65__VSAccountSerializationCenter_importData_withCompletionHandler___block_invoke_82(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = VSErrorLogObject();
+  v4 = VSErrorLogObject(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __65__VSAccountSerializationCenter_importData_withCompletionHandler___block_invoke_82_cold_1(v3, v4);

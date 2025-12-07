@@ -92,8 +92,8 @@
       v8->_viewCellRect = xmmword_2217E0544;
       if (&v8->_cellUIDRange != range)
       {
-        sub_2210BD068(&v8->_cellUIDRange._colIdList.__begin_, range->_colIdList.__begin_, range->_colIdList.__end_, range->_colIdList.__end_ - range->_colIdList.__begin_);
-        sub_2210BD068(&v8->_cellUIDRange._rowIdList.__begin_, range->_rowIdList.__begin_, range->_rowIdList.__end_, range->_rowIdList.__end_ - range->_rowIdList.__begin_);
+        sub_2210BD068(&v8->_cellUIDRange, range->_colIdList.__begin_, range->_colIdList.__end_, range->_colIdList.__end_ - range->_colIdList.__begin_);
+        sub_2210BD068(&v8->_cellUIDRange._rowIdList, range->_rowIdList.__begin_, range->_rowIdList.__end_, range->_rowIdList.__end_ - range->_rowIdList.__begin_);
       }
 
       v13 = (range->_rowIdList.__end_ - range->_rowIdList.__begin_) * (range->_colIdList.__end_ - range->_colIdList.__begin_);
@@ -157,173 +157,173 @@
 {
   contextCopy = context;
   v9 = [TSTConcurrentCellList alloc];
-  v90 = 0;
-  v91 = 0;
-  v92 = 0;
-  sub_221086EBC(&v90, range->_colIdList.__begin_, range->_colIdList.__end_, range->_colIdList.__end_ - range->_colIdList.__begin_);
+  v81 = 0;
+  v82 = 0;
+  v83 = 0;
+  sub_221086EBC(&v81, range->_colIdList.__begin_, range->_colIdList.__end_, range->_colIdList.__end_ - range->_colIdList.__begin_);
   __p = 0;
-  v94 = 0;
-  v95 = 0;
+  v85 = 0;
+  v86 = 0;
   sub_221086EBC(&__p, range->_rowIdList.__begin_, range->_rowIdList.__end_, range->_rowIdList.__end_ - range->_rowIdList.__begin_);
-  v15 = objc_msgSend_initWithContext_viewCellRect_cellUIDRange_(v9, v10, contextCopy, 0x7FFF7FFFFFFFLL, 0, &v90);
+  v14 = objc_msgSend_initWithContext_viewCellRect_cellUIDRange_(v9, v10, contextCopy, 0x7FFF7FFFFFFFLL, 0, &v81);
   if (__p)
   {
-    v94 = __p;
+    v85 = __p;
     operator delete(__p);
   }
 
-  if (v90)
+  if (v81)
   {
-    v91 = v90;
-    operator delete(v90);
+    v82 = v81;
+    operator delete(v81);
   }
 
-  v16 = *pattern;
-  v17 = *(pattern + 1);
-  v18 = (v17 - *pattern) >> 3;
+  v15 = *pattern;
+  v16 = *(pattern + 1);
+  v17 = (v16 - *pattern) >> 3;
   if (direction)
   {
-    if (v18 != (v15[14] - v15[13]) >> 4)
+    if (v17 != (v14[14] - v14[13]) >> 4)
     {
-      v19 = MEMORY[0x277D81150];
-      v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "+[TSTConcurrentCellList cellListWithContext:cellUIDRange:repeatCellVectorPattern:patternDirection:]", v13, v14);
-      v24 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v21, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v22, v23);
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v19, v25, v20, v24, 995, 0, "expected a pattern for a column of cells");
+      v18 = MEMORY[0x277D81150];
+      v19 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "+[TSTConcurrentCellList cellListWithContext:cellUIDRange:repeatCellVectorPattern:patternDirection:]", v13);
+      v22 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v20, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v21);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v18, v23, v19, v22, 995, 0, "expected a pattern for a column of cells");
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v26, v27, v28, v29);
-      v16 = *pattern;
-      v17 = *(pattern + 1);
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v24, v25, v26);
+      v15 = *pattern;
+      v16 = *(pattern + 1);
     }
 
-    if (v17 != v16)
+    if (v16 != v15)
     {
-      v30 = 0;
-      v31 = 0;
-      v32 = v15[11];
-      v85 = v15[10];
-      v86 = v32;
-      v33 = (v32 - v85) >> 4;
-      if (v33 <= 1)
+      v27 = 0;
+      v28 = 0;
+      v29 = v14[11];
+      v76 = v14[10];
+      v77 = v29;
+      v30 = (v29 - v76) >> 4;
+      if (v30 <= 1)
       {
-        v34 = 1;
+        v31 = 1;
       }
 
       else
       {
-        v34 = (v32 - v85) >> 4;
+        v31 = (v29 - v76) >> 4;
       }
 
-      v84 = v34;
-      v35 = 8 * v33;
+      v75 = v31;
+      v32 = 8 * v30;
       do
       {
-        v40 = *(v16 + 8 * v31);
-        v41 = v30;
-        v42 = v84;
-        if (v86 != v85)
+        v36 = *(v15 + 8 * v28);
+        v37 = v27;
+        v38 = v75;
+        if (v77 != v76)
         {
           do
           {
-            if ((objc_msgSend_hasCellSpec(v40, v36, v37, v38, v39, contextCopy) & 1) != 0 || objc_msgSend_hasConditionalStyle(v40, v43, v44, v45, v46))
+            if ((objc_msgSend_hasCellSpec(v36, v33, v34, v35, contextCopy) & 1) != 0 || objc_msgSend_hasConditionalStyle(v36, v39, v40, v41))
             {
-              v47 = objc_msgSend_copy(v40, v43, v44, v45, v46);
-              v48 = v15[18];
-              v49 = *(v48 + v41);
-              *(v48 + v41) = v47;
+              v42 = objc_msgSend_copy(v36, v39, v40, v41);
+              v43 = v14[18];
+              v44 = *(v43 + v37);
+              *(v43 + v37) = v42;
             }
 
             else
             {
-              v50 = v15[18];
-              v51 = v40;
-              v49 = *(v50 + v41);
-              *(v50 + v41) = v51;
+              v45 = v14[18];
+              v46 = v36;
+              v44 = *(v45 + v37);
+              *(v45 + v37) = v46;
             }
 
-            v41 += 8;
-            --v42;
+            v37 += 8;
+            --v38;
           }
 
-          while (v42);
+          while (v38);
         }
 
-        ++v31;
-        v16 = *pattern;
-        v30 += v35;
+        ++v28;
+        v15 = *pattern;
+        v27 += v32;
       }
 
-      while (v31 < (*(pattern + 1) - *pattern) >> 3);
+      while (v28 < (*(pattern + 1) - *pattern) >> 3);
     }
   }
 
   else
   {
-    if (v18 != (v15[11] - v15[10]) >> 4)
+    if (v17 != (v14[11] - v14[10]) >> 4)
     {
-      v53 = MEMORY[0x277D81150];
-      v54 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "+[TSTConcurrentCellList cellListWithContext:cellUIDRange:repeatCellVectorPattern:patternDirection:]", v13, v14);
-      v58 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v55, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v56, v57);
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v53, v59, v54, v58, 980, 0, "expected a pattern for a row of cells");
+      v48 = MEMORY[0x277D81150];
+      v49 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "+[TSTConcurrentCellList cellListWithContext:cellUIDRange:repeatCellVectorPattern:patternDirection:]", v13);
+      v52 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v50, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v51);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v48, v53, v49, v52, 980, 0, "expected a pattern for a row of cells");
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v60, v61, v62, v63);
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v54, v55, v56);
     }
 
-    v64 = 0;
+    v57 = 0;
     for (i = 0; ; ++i)
     {
-      objc_msgSend_cellUIDRange(v15, v11, v12, v13, v14, contextCopy);
-      v66 = v89;
-      if (v88)
+      objc_msgSend_cellUIDRange(v14, v11, v12, v13, contextCopy);
+      v59 = v80;
+      if (v79)
       {
-        v89 = v88;
-        operator delete(v88);
+        v80 = v79;
+        operator delete(v79);
       }
 
-      if (v87)
+      if (v78)
       {
-        operator delete(v87);
+        operator delete(v78);
       }
 
-      if (i >= (v66 - v88) >> 4)
+      if (i >= (v59 - v79) >> 4)
       {
         break;
       }
 
-      v67 = *pattern;
+      v60 = *pattern;
       if (*(pattern + 1) != *pattern)
       {
-        v68 = 0;
+        v61 = 0;
         do
         {
-          v69 = *(v67 + 8 * v68);
-          if ((objc_msgSend_hasCellSpec(v69, v70, v71, v72, v73) & 1) != 0 || objc_msgSend_hasConditionalStyle(v69, v74, v75, v76, v77))
+          v62 = *(v60 + 8 * v61);
+          if ((objc_msgSend_hasCellSpec(v62, v63, v64, v65) & 1) != 0 || objc_msgSend_hasConditionalStyle(v62, v66, v67, v68))
           {
-            v78 = objc_msgSend_copy(v69, v74, v75, v76, v77);
-            v79 = v15[18] + v64 * ((*(pattern + 1) - *pattern) >> 3);
-            v80 = *(v79 + 8 * v68);
-            *(v79 + 8 * v68) = v78;
+            v69 = objc_msgSend_copy(v62, v66, v67, v68);
+            v70 = v14[18] + v57 * ((*(pattern + 1) - *pattern) >> 3);
+            v71 = *(v70 + 8 * v61);
+            *(v70 + 8 * v61) = v69;
           }
 
           else
           {
-            v81 = v15[18] + v64 * ((*(pattern + 1) - *pattern) >> 3);
-            v82 = v69;
-            v80 = *(v81 + 8 * v68);
-            *(v81 + 8 * v68) = v82;
+            v72 = v14[18] + v57 * ((*(pattern + 1) - *pattern) >> 3);
+            v73 = v62;
+            v71 = *(v72 + 8 * v61);
+            *(v72 + 8 * v61) = v73;
           }
 
-          ++v68;
-          v67 = *pattern;
+          ++v61;
+          v60 = *pattern;
         }
 
-        while (v68 < (*(pattern + 1) - *pattern) >> 3);
+        while (v61 < (*(pattern + 1) - *pattern) >> 3);
       }
 
-      v64 += 8;
+      v57 += 8;
     }
   }
 
-  return v15;
+  return v14;
 }
 
 - (void)addCell:(id)cell atViewCellCoord:(TSUViewCellCoord)coord
@@ -331,30 +331,30 @@
   cellCopy = cell;
   if (self->_uidBased)
   {
-    v10 = MEMORY[0x277D81150];
-    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "[TSTConcurrentCellList addCell:atViewCellCoord:]", v7, v8);
-    v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v13, v14);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v10, v16, v11, v15, 1016, 0, "can't use cellid interface with celluid map");
+    v9 = MEMORY[0x277D81150];
+    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "[TSTConcurrentCellList addCell:atViewCellCoord:]", v7);
+    v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v12);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v9, v14, v10, v13, 1016, 0, "can't use cellid interface with celluid map");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v17, v18, v19, v20);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v15, v16, v17);
   }
 
   viewCellRect = self->_viewCellRect;
   origin = viewCellRect.origin;
-  v24 = (coord._coord.row - origin.row) * TSUCellRect::numColumns(&viewCellRect) + (((*&coord & 0xFFFF00000000) - (*&origin & 0xFFFF00000000)) >> 32);
-  if (v24 >= (self->_cellUIDRange._rowIdList.__end_ - self->_cellUIDRange._rowIdList.__begin_) * (self->_cellUIDRange._colIdList.__end_ - self->_cellUIDRange._colIdList.__begin_) && v24 >= self->_viewCellRect._rect.size.numberOfColumns * self->_viewCellRect._rect.size.numberOfRows)
+  v20 = (coord._coord.row - origin.row) * TSUCellRect::numColumns(&viewCellRect) + (((*&coord & 0xFFFF00000000) - (*&origin & 0xFFFF00000000)) >> 32);
+  if (v20 >= (self->_cellUIDRange._rowIdList.__end_ - self->_cellUIDRange._rowIdList.__begin_) * (self->_cellUIDRange._colIdList.__end_ - self->_cellUIDRange._colIdList.__begin_) && v20 >= self->_viewCellRect._rect.size.numberOfColumns * self->_viewCellRect._rect.size.numberOfRows)
   {
-    v25 = MEMORY[0x277D81150];
-    v26 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v21, "[TSTConcurrentCellList addCell:atViewCellCoord:]", v22, v23);
-    v30 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v27, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v28, v29);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v25, v31, v26, v30, 1018, 0, "index should be somewhere in the in the cell list's area");
+    v21 = MEMORY[0x277D81150];
+    v22 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v18, "[TSTConcurrentCellList addCell:atViewCellCoord:]", v19);
+    v25 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v23, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v24);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v21, v26, v22, v25, 1018, 0, "index should be somewhere in the in the cell list's area");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v32, v33, v34, v35);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v27, v28, v29);
   }
 
   begin = self->_cells.__begin_;
-  v37 = begin[v24];
-  begin[v24] = cellCopy;
+  v31 = begin[v20];
+  begin[v20] = cellCopy;
 }
 
 - (void)addCell:(id)cell atIndex:(unint64_t)index
@@ -362,26 +362,26 @@
   cellCopy = cell;
   if (!self->_uidBased)
   {
-    v10 = MEMORY[0x277D81150];
-    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "[TSTConcurrentCellList addCell:atIndex:]", v7, v8);
-    v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v13, v14);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v10, v16, v11, v15, 1023, 0, "can only use index interface with celluid map");
+    v9 = MEMORY[0x277D81150];
+    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "[TSTConcurrentCellList addCell:atIndex:]", v7);
+    v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v12);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v9, v14, v10, v13, 1023, 0, "can only use index interface with celluid map");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v17, v18, v19, v20);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v15, v16, v17);
   }
 
   if ((self->_cellUIDRange._rowIdList.__end_ - self->_cellUIDRange._rowIdList.__begin_) * (self->_cellUIDRange._colIdList.__end_ - self->_cellUIDRange._colIdList.__begin_) <= index && self->_viewCellRect._rect.size.numberOfColumns * self->_viewCellRect._rect.size.numberOfRows <= index)
   {
-    v21 = MEMORY[0x277D81150];
-    v22 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "[TSTConcurrentCellList addCell:atIndex:]", v7, v8);
-    v26 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v23, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v24, v25);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v21, v27, v22, v26, 1024, 0, "index should be somewhere in the in the cell list's area");
+    v18 = MEMORY[0x277D81150];
+    v19 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "[TSTConcurrentCellList addCell:atIndex:]", v7);
+    v22 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v20, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v21);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v18, v23, v19, v22, 1024, 0, "index should be somewhere in the in the cell list's area");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v28, v29, v30, v31);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v24, v25, v26);
   }
 
   begin = self->_cells.__begin_;
-  v33 = begin[index];
+  v28 = begin[index];
   begin[index] = cellCopy;
 }
 
@@ -389,58 +389,58 @@
 {
   if (self->_uidBased)
   {
-    v7 = MEMORY[0x277D81150];
-    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTConcurrentCellList getCellAtViewCellCoord:]", v3, v4);
-    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v10, v11);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v13, v8, v12, 1029, 0, "can't use cellid interface with celluid map");
+    v6 = MEMORY[0x277D81150];
+    v7 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTConcurrentCellList getCellAtViewCellCoord:]", v3);
+    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v9);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v6, v11, v7, v10, 1029, 0, "can't use cellid interface with celluid map");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v14, v15, v16, v17);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v12, v13, v14);
   }
 
   viewCellRect = self->_viewCellRect;
-  v18 = *&viewCellRect._rect.origin & 0xFFFF00000000;
-  v19 = coord._coord.row - viewCellRect._rect.origin.row;
-  v23 = v19 * TSUCellRect::numColumns(&viewCellRect._rect) + (((*&coord & 0xFFFF00000000) - v18) >> 32);
-  if (v23 >= (self->_cellUIDRange._rowIdList.__end_ - self->_cellUIDRange._rowIdList.__begin_) * (self->_cellUIDRange._colIdList.__end_ - self->_cellUIDRange._colIdList.__begin_) && v23 >= self->_viewCellRect._rect.size.numberOfColumns * self->_viewCellRect._rect.size.numberOfRows)
+  v15 = *&viewCellRect._rect.origin & 0xFFFF00000000;
+  v16 = coord._coord.row - viewCellRect._rect.origin.row;
+  v19 = v16 * TSUCellRect::numColumns(&viewCellRect._rect) + (((*&coord & 0xFFFF00000000) - v15) >> 32);
+  if (v19 >= (self->_cellUIDRange._rowIdList.__end_ - self->_cellUIDRange._rowIdList.__begin_) * (self->_cellUIDRange._colIdList.__end_ - self->_cellUIDRange._colIdList.__begin_) && v19 >= self->_viewCellRect._rect.size.numberOfColumns * self->_viewCellRect._rect.size.numberOfRows)
   {
-    v24 = MEMORY[0x277D81150];
-    v25 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v20, "[TSTConcurrentCellList getCellAtViewCellCoord:]", v21, v22);
-    v29 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v26, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v27, v28);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v24, v30, v25, v29, 1031, 0, "index should be somewhere in the in the cell list's area");
+    v20 = MEMORY[0x277D81150];
+    v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, "[TSTConcurrentCellList getCellAtViewCellCoord:]", v18);
+    v24 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v22, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v23);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v20, v25, v21, v24, 1031, 0, "index should be somewhere in the in the cell list's area");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v31, v32, v33, v34);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v26, v27, v28);
   }
 
-  v35 = self->_cells.__begin_[v23];
+  v29 = self->_cells.__begin_[v19];
 
-  return v35;
+  return v29;
 }
 
 - (id)getCellAtIndex:(unint64_t)index
 {
   if (!self->_uidBased)
   {
-    v7 = MEMORY[0x277D81150];
-    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTConcurrentCellList getCellAtIndex:]", v3, v4);
-    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v10, v11);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v13, v8, v12, 1036, 0, "can only use index interface with celluid map");
+    v6 = MEMORY[0x277D81150];
+    v7 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTConcurrentCellList getCellAtIndex:]", v3);
+    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v9);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v6, v11, v7, v10, 1036, 0, "can only use index interface with celluid map");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v14, v15, v16, v17);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v12, v13, v14);
   }
 
   if ((self->_cellUIDRange._rowIdList.__end_ - self->_cellUIDRange._rowIdList.__begin_) * (self->_cellUIDRange._colIdList.__end_ - self->_cellUIDRange._colIdList.__begin_) <= index && self->_viewCellRect._rect.size.numberOfColumns * self->_viewCellRect._rect.size.numberOfRows <= index)
   {
-    v18 = MEMORY[0x277D81150];
-    v19 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTConcurrentCellList getCellAtIndex:]", v3, v4);
-    v23 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v20, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v21, v22);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v18, v24, v19, v23, 1037, 0, "index should be somewhere in the in the cell list's area");
+    v15 = MEMORY[0x277D81150];
+    v16 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTConcurrentCellList getCellAtIndex:]", v3);
+    v19 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v18);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v15, v20, v16, v19, 1037, 0, "index should be somewhere in the in the cell list's area");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v25, v26, v27, v28);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v21, v22, v23);
   }
 
-  v29 = self->_cells.__begin_[index];
+  v24 = self->_cells.__begin_[index];
 
-  return v29;
+  return v24;
 }
 
 - (void)enumerateSeriallyByViewCellCoordUsingBlock:(id)block
@@ -448,39 +448,39 @@
   blockCopy = block;
   if (self->_uidBased)
   {
-    v8 = MEMORY[0x277D81150];
-    v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v4, "[TSTConcurrentCellList enumerateSeriallyByViewCellCoordUsingBlock:]", v5, v6);
-    v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v11, v12);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v8, v14, v9, v13, 1042, 0, "can't use cellid interface with celluid map");
+    v7 = MEMORY[0x277D81150];
+    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v4, "[TSTConcurrentCellList enumerateSeriallyByViewCellCoordUsingBlock:]", v5);
+    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v10);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v12, v8, v11, 1042, 0, "can't use cellid interface with celluid map");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v15, v16, v17, v18);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v13, v14, v15);
   }
 
-  v19 = self->_cells.var0 - self->_cells.__begin_;
-  if (v19)
+  v16 = self->_cells.var0 - self->_cells.__begin_;
+  if (v16)
   {
-    v20 = 0;
-    v21 = v19 >> 3;
-    if (v21 <= 1)
+    v17 = 0;
+    v18 = v16 >> 3;
+    if (v18 <= 1)
     {
-      v22 = 1;
+      v19 = 1;
     }
 
     else
     {
-      v22 = v21;
+      v19 = v18;
     }
 
     do
     {
       viewCellRect = self->_viewCellRect;
       origin = viewCellRect.origin;
-      v23 = TSUCellRect::numColumns(&viewCellRect);
-      blockCopy[2](blockCopy, (*&origin + ((v20 % v23) << 32)) & 0xFFFF00000000 | ((v20 / v23) + origin.row), self->_cells.__begin_[v20]);
-      ++v20;
+      v20 = TSUCellRect::numColumns(&viewCellRect);
+      blockCopy[2](blockCopy, (*&origin + ((v17 % v20) << 32)) & 0xFFFF00000000 | ((v17 / v20) + origin.row), self->_cells.__begin_[v17]);
+      ++v17;
     }
 
-    while (v22 != v20);
+    while (v19 != v17);
   }
 }
 
@@ -489,37 +489,37 @@
   blockCopy = block;
   if (!self->_uidBased)
   {
-    v7 = MEMORY[0x277D81150];
-    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v4, "[TSTConcurrentCellList enumerateSeriallyByIndexUsingBlock:]", v5, v6);
-    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v10, v11);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v13, v8, v12, 1049, 0, "can only use index interface with celluid map");
+    v6 = MEMORY[0x277D81150];
+    v7 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v4, "[TSTConcurrentCellList enumerateSeriallyByIndexUsingBlock:]", v5);
+    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v9);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v6, v11, v7, v10, 1049, 0, "can only use index interface with celluid map");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v14, v15, v16, v17);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v12, v13, v14);
   }
 
   p_cells = &self->_cells;
-  v19 = self->_cells.var0 - self->_cells.__begin_;
-  if (v19)
+  v16 = self->_cells.var0 - self->_cells.__begin_;
+  if (v16)
   {
-    v20 = 0;
-    v21 = v19 >> 3;
-    if (v21 <= 1)
+    v17 = 0;
+    v18 = v16 >> 3;
+    if (v18 <= 1)
     {
-      v22 = 1;
+      v19 = 1;
     }
 
     else
     {
-      v22 = v21;
+      v19 = v18;
     }
 
     do
     {
-      blockCopy[2](blockCopy, v20, p_cells->__begin_[v20]);
-      ++v20;
+      blockCopy[2](blockCopy, v17, p_cells->__begin_[v17]);
+      ++v17;
     }
 
-    while (v22 != v20);
+    while (v19 != v17);
   }
 }
 
@@ -542,16 +542,16 @@
 {
   cellsCopy = cells;
   infoCopy = info;
-  v11 = infoCopy;
+  v10 = infoCopy;
   p_viewCellRect = &self->_viewCellRect;
   if (infoCopy)
   {
-    objc_msgSend_cellUIDRangeForCellRange_(infoCopy, v7, *p_viewCellRect, *&self->_viewCellRect._rect.size, v10);
+    objc_msgSend_cellUIDRangeForCellRange_(infoCopy, v7, *p_viewCellRect, *&self->_viewCellRect._rect.size);
   }
 
   else
   {
-    memset(v70, 0, 48);
+    memset(v62, 0, 48);
   }
 
   p_cellUIDRange = &self->_cellUIDRange;
@@ -560,148 +560,148 @@
   {
     self->_cellUIDRange._colIdList.__end_ = begin;
     operator delete(begin);
-    *p_cellUIDRange = 0;
+    p_cellUIDRange->_colIdList.__begin_ = 0;
     self->_cellUIDRange._colIdList.__end_ = 0;
     self->_cellUIDRange._colIdList.__cap_ = 0;
   }
 
-  *p_cellUIDRange = *v70;
-  self->_cellUIDRange._colIdList.__cap_ = *&v70[16];
-  memset(v70, 0, 24);
+  *&p_cellUIDRange->_colIdList.__begin_ = *v62;
+  self->_cellUIDRange._colIdList.__cap_ = *&v62[16];
+  memset(v62, 0, 24);
   p_rowIdList = &self->_cellUIDRange._rowIdList;
-  v15 = self->_cellUIDRange._rowIdList.__begin_;
-  if (v15)
+  v14 = self->_cellUIDRange._rowIdList.__begin_;
+  if (v14)
   {
-    self->_cellUIDRange._rowIdList.__end_ = v15;
-    operator delete(v15);
+    self->_cellUIDRange._rowIdList.__end_ = v14;
+    operator delete(v14);
     p_rowIdList->__begin_ = 0;
     self->_cellUIDRange._rowIdList.__end_ = 0;
     self->_cellUIDRange._rowIdList.__cap_ = 0;
-    v15 = *v70;
+    v14 = *v62;
   }
 
-  *&self->_cellUIDRange._rowIdList.__begin_ = *&v70[24];
-  self->_cellUIDRange._rowIdList.__cap_ = *&v70[40];
-  memset(&v70[24], 0, 24);
-  if (v15)
+  *&self->_cellUIDRange._rowIdList.__begin_ = *&v62[24];
+  self->_cellUIDRange._rowIdList.__cap_ = *&v62[40];
+  memset(&v62[24], 0, 24);
+  if (v14)
   {
-    *&v70[8] = v15;
-    operator delete(v15);
+    *&v62[8] = v14;
+    operator delete(v14);
   }
 
-  if (cellsCopy && objc_msgSend_isCategorized(v11, v7, v8, v9, v10))
+  if (cellsCopy && objc_msgSend_isCategorized(v10, v7, v8, v9))
   {
     Column = TSUCellRect::firstColumn(&self->_viewCellRect._rect);
     Row = TSUCellRect::firstRow(&self->_viewCellRect._rect);
-    v56 = objc_msgSend_regionFromViewCellRect_(TSTCellRegion, v19, *p_viewCellRect, *&self->_viewCellRect._rect.size, v20);
-    *v70 = 0;
-    *&v70[8] = v70;
-    *&v70[16] = 0x4812000000;
-    *&v70[24] = sub_221165954;
-    *&v70[32] = sub_221165978;
-    *&v70[40] = 0u;
-    v71 = 0u;
-    sub_221086EBC(&v70[48], self->_cellUIDRange._rowIdList.__begin_, self->_cellUIDRange._rowIdList.__end_, self->_cellUIDRange._rowIdList.__end_ - self->_cellUIDRange._rowIdList.__begin_);
-    v54 = Column;
-    v63 = 0;
-    v64 = &v63;
-    v65 = 0x4812000000;
-    v66 = sub_221165954;
-    v67 = sub_221165978;
-    v68 = 0u;
-    v69 = 0u;
-    sub_221086EBC(&v68 + 8, *p_cellUIDRange, self->_cellUIDRange._colIdList.__end_, (self->_cellUIDRange._colIdList.__end_ - *p_cellUIDRange) >> 4);
-    v21 = *(*&v70[8] + 48);
-    v22 = *(*&v70[8] + 56);
-    v24 = v64[6];
-    v23 = v64[7];
-    v28 = objc_msgSend_indexesForSummaryAndLabelRowsInRegion_(v11, v25, v56, v26, v27);
-    v62[0] = MEMORY[0x277D85DD0];
-    v29 = (v23 - v24) >> 4;
-    v62[1] = 3221225472;
-    v62[2] = sub_221165990;
-    v62[3] = &unk_27845FE00;
-    v62[4] = self;
-    v62[5] = v70;
-    v62[6] = Row;
-    v62[7] = (v22 - v21) >> 4;
-    v62[8] = v29;
-    v55 = v28;
-    objc_msgSend_enumerateIndexesWithOptions_usingBlock_(v28, v30, 2, v62, v31);
-    v33 = *(*&v70[8] + 48);
-    v32 = *(*&v70[8] + 56);
-    v37 = objc_msgSend_indexesForCategoryColumnsInRegion_(v11, v34, v56, v35, v36);
-    v61[0] = MEMORY[0x277D85DD0];
-    v61[1] = 3221225472;
-    v61[2] = sub_221165A10;
-    v61[3] = &unk_27845FE00;
-    v61[4] = self;
-    v61[5] = &v63;
-    v61[6] = v54;
-    v61[7] = (v32 - v33) >> 4;
-    v61[8] = v29;
-    objc_msgSend_enumerateIndexesWithOptions_usingBlock_(v37, v38, 2, v61, v39);
-    sub_2210BBBE8(__p, v64 + 6, (*&v70[8] + 48));
-    v40 = *p_cellUIDRange;
-    if (*p_cellUIDRange)
+    v48 = objc_msgSend_regionFromViewCellRect_(TSTCellRegion, v18, *p_viewCellRect, *&self->_viewCellRect._rect.size);
+    *v62 = 0;
+    *&v62[8] = v62;
+    *&v62[16] = 0x4812000000;
+    *&v62[24] = sub_221165954;
+    *&v62[32] = sub_221165978;
+    *&v62[40] = 0u;
+    v63 = 0u;
+    sub_221086EBC(&v62[48], self->_cellUIDRange._rowIdList.__begin_, self->_cellUIDRange._rowIdList.__end_, self->_cellUIDRange._rowIdList.__end_ - self->_cellUIDRange._rowIdList.__begin_);
+    v46 = Column;
+    v55 = 0;
+    v56 = &v55;
+    v57 = 0x4812000000;
+    v58 = sub_221165954;
+    v59 = sub_221165978;
+    v60 = 0u;
+    v61 = 0u;
+    sub_221086EBC(&v60 + 1, p_cellUIDRange->_colIdList.__begin_, self->_cellUIDRange._colIdList.__end_, self->_cellUIDRange._colIdList.__end_ - p_cellUIDRange->_colIdList.__begin_);
+    v19 = *(*&v62[8] + 48);
+    v20 = *(*&v62[8] + 56);
+    v22 = v56[6];
+    v21 = v56[7];
+    v25 = objc_msgSend_indexesForSummaryAndLabelRowsInRegion_(v10, v23, v48, v24);
+    v54[0] = MEMORY[0x277D85DD0];
+    v26 = (v21 - v22) >> 4;
+    v54[1] = 3221225472;
+    v54[2] = sub_221165990;
+    v54[3] = &unk_27845FE00;
+    v54[4] = self;
+    v54[5] = v62;
+    v54[6] = Row;
+    v54[7] = (v20 - v19) >> 4;
+    v54[8] = v26;
+    v47 = v25;
+    objc_msgSend_enumerateIndexesWithOptions_usingBlock_(v25, v27, 2, v54);
+    v29 = *(*&v62[8] + 48);
+    v28 = *(*&v62[8] + 56);
+    v32 = objc_msgSend_indexesForCategoryColumnsInRegion_(v10, v30, v48, v31);
+    v53[0] = MEMORY[0x277D85DD0];
+    v53[1] = 3221225472;
+    v53[2] = sub_221165A10;
+    v53[3] = &unk_27845FE00;
+    v53[4] = self;
+    v53[5] = &v55;
+    v53[6] = v46;
+    v53[7] = (v28 - v29) >> 4;
+    v53[8] = v26;
+    objc_msgSend_enumerateIndexesWithOptions_usingBlock_(v32, v33, 2, v53);
+    sub_2210BBBE8(__p, (v56 + 6), *&v62[8] + 48);
+    v34 = p_cellUIDRange->_colIdList.__begin_;
+    if (p_cellUIDRange->_colIdList.__begin_)
     {
-      self->_cellUIDRange._colIdList.__end_ = v40;
-      operator delete(v40);
-      *p_cellUIDRange = 0;
+      self->_cellUIDRange._colIdList.__end_ = v34;
+      operator delete(v34);
+      p_cellUIDRange->_colIdList.__begin_ = 0;
       self->_cellUIDRange._colIdList.__end_ = 0;
       self->_cellUIDRange._colIdList.__cap_ = 0;
     }
 
-    *p_cellUIDRange = *__p;
-    self->_cellUIDRange._colIdList.__cap_ = v58;
+    *&p_cellUIDRange->_colIdList.__begin_ = *__p;
+    self->_cellUIDRange._colIdList.__cap_ = v50;
     __p[1] = 0;
-    v58 = 0;
+    v50 = 0;
     __p[0] = 0;
-    v41 = self->_cellUIDRange._rowIdList.__begin_;
-    if (v41)
+    v35 = self->_cellUIDRange._rowIdList.__begin_;
+    if (v35)
     {
-      self->_cellUIDRange._rowIdList.__end_ = v41;
-      operator delete(v41);
+      self->_cellUIDRange._rowIdList.__end_ = v35;
+      operator delete(v35);
       p_rowIdList->__begin_ = 0;
       self->_cellUIDRange._rowIdList.__end_ = 0;
       self->_cellUIDRange._rowIdList.__cap_ = 0;
-      v41 = __p[0];
+      v35 = __p[0];
     }
 
-    *&self->_cellUIDRange._rowIdList.__begin_ = v59;
-    self->_cellUIDRange._rowIdList.__cap_ = v60;
-    v60 = 0;
-    v59 = 0uLL;
-    if (v41)
+    *&self->_cellUIDRange._rowIdList.__begin_ = v51;
+    self->_cellUIDRange._rowIdList.__cap_ = v52;
+    v52 = 0;
+    v51 = 0uLL;
+    if (v35)
     {
-      __p[1] = v41;
-      operator delete(v41);
+      __p[1] = v35;
+      operator delete(v35);
     }
 
-    _Block_object_dispose(&v63, 8);
-    if (*(&v68 + 1))
+    _Block_object_dispose(&v55, 8);
+    if (*(&v60 + 1))
     {
-      *&v69 = *(&v68 + 1);
-      operator delete(*(&v68 + 1));
+      *&v61 = *(&v60 + 1);
+      operator delete(*(&v60 + 1));
     }
 
-    _Block_object_dispose(v70, 8);
-    if (*&v70[48])
+    _Block_object_dispose(v62, 8);
+    if (*&v62[48])
     {
-      *&v71 = *&v70[48];
-      operator delete(*&v70[48]);
+      *&v63 = *&v62[48];
+      operator delete(*&v62[48]);
     }
   }
 
   p_cells = &self->_cells;
   if ((self->_cellUIDRange._rowIdList.__end_ - self->_cellUIDRange._rowIdList.__begin_) * (self->_cellUIDRange._colIdList.__end_ - self->_cellUIDRange._colIdList.__begin_) != self->_cells.var0 - self->_cells.__begin_)
   {
-    v43 = MEMORY[0x277D81150];
-    v44 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "[TSTConcurrentCellList p_convertToUuidBasedCellListUsingTableInfo:pruneCategorizedCells:]", v9, v10);
-    v48 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v45, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v46, v47);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v43, v49, v44, v48, 1113, 0, "cells size:%lu needs to match area range:%lu", p_cells->var0 - p_cells->__begin_, ((p_cellUIDRange[4] - p_cellUIDRange[3]) >> 4) * ((p_cellUIDRange[1] - *p_cellUIDRange) >> 4));
+    v37 = MEMORY[0x277D81150];
+    v38 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "[TSTConcurrentCellList p_convertToUuidBasedCellListUsingTableInfo:pruneCategorizedCells:]", v9);
+    v41 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v39, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v40);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v37, v42, v38, v41, 1113, 0, "cells size:%lu needs to match area range:%lu", p_cells->var0 - p_cells->__begin_, (p_cellUIDRange->_rowIdList.__end_ - p_cellUIDRange->_rowIdList.__begin_) * (p_cellUIDRange->_colIdList.__end_ - p_cellUIDRange->_colIdList.__begin_));
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v50, v51, v52, v53);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v43, v44, v45);
   }
 
   *p_viewCellRect = xmmword_2217E0544;
@@ -712,12 +712,12 @@
   localeCopy = locale;
   if (!localeCopy)
   {
-    v7 = MEMORY[0x277D81150];
-    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v4, "[TSTConcurrentCellList p_setObjectLocale:]", v5, v6);
-    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v10, v11);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v13, v8, v12, 1118, 0, "invalid nil value for '%{public}s'", "locale");
+    v6 = MEMORY[0x277D81150];
+    v7 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v4, "[TSTConcurrentCellList p_setObjectLocale:]", v5);
+    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v9);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v6, v11, v7, v10, 1118, 0, "invalid nil value for '%{public}s'", "locale");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v14, v15, v16, v17);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v12, v13, v14);
   }
 
   p_cells = &self->_cells;
@@ -725,8 +725,8 @@
   var0 = p_cells->var0;
   while (begin != var0)
   {
-    v21 = *begin;
-    objc_msgSend_setLocale_(v21, v22, localeCopy, v23, v24);
+    v18 = *begin;
+    objc_msgSend_setLocale_(v18, v19, localeCopy, v20);
 
     ++begin;
   }
@@ -739,10 +739,10 @@
   while (begin != var0)
   {
     v4 = *begin;
-    v9 = v4;
+    v8 = v4;
     if (v4)
     {
-      objc_msgSend_clearDataListIDs(v4, v5, v6, v7, v8);
+      objc_msgSend_clearDataListIDs(v4, v5, v6, v7);
     }
 
     ++begin;
@@ -796,62 +796,62 @@
 
 - (void)p_pruneToBaseWithBaseMap:(id)map viewMap:(id)viewMap
 {
-  v91 = *MEMORY[0x277D85DE8];
+  v84 = *MEMORY[0x277D85DE8];
   p_cellUIDRange = &self->_cellUIDRange;
   p_rowIdList = &self->_cellUIDRange._rowIdList;
   begin = self->_cellUIDRange._rowIdList.__begin_;
-  v86 = 0;
-  v87 = 0;
-  v85 = 0;
-  sub_221086EBC(&v85, begin, self->_cellUIDRange._rowIdList.__end_, self->_cellUIDRange._rowIdList.__end_ - begin);
-  v82 = 0;
-  v83 = 0;
-  v84 = 0;
-  v75 = p_cellUIDRange;
-  sub_221086EBC(&v82, *p_cellUIDRange, p_cellUIDRange[1], (p_cellUIDRange[1] - *p_cellUIDRange) >> 4);
-  v74 = p_rowIdList;
-  v9 = v85;
-  v8 = v86;
-  v10 = (v86 - v85) >> 4;
-  v12 = v82;
-  v11 = v83;
+  v79 = 0;
+  v80 = 0;
+  v78 = 0;
+  sub_221086EBC(&v78, begin, self->_cellUIDRange._rowIdList.__end_, self->_cellUIDRange._rowIdList.__end_ - begin);
+  v75 = 0;
+  v76 = 0;
+  v77 = 0;
+  v68 = p_cellUIDRange;
+  sub_221086EBC(&v75, p_cellUIDRange->_colIdList.__begin_, p_cellUIDRange->_colIdList.__end_, p_cellUIDRange->_colIdList.__end_ - p_cellUIDRange->_colIdList.__begin_);
+  v67 = p_rowIdList;
+  v9 = v78;
+  v8 = v79;
+  v10 = (v79 - v78) >> 4;
+  v12 = v75;
+  v11 = v76;
   sub_2211663C4(&self->_baseRows.__begin_, v10);
-  v76 = v12;
-  v77 = v11;
-  v15 = (v11 - v12) >> 4;
+  v69 = v12;
+  v70 = v11;
+  v14 = (v11 - v12) >> 4;
   if (v8 != v9)
   {
     if (v10 <= 1)
     {
-      v16 = 1;
+      v15 = 1;
     }
 
     else
     {
-      v16 = v10;
+      v15 = v10;
     }
 
-    v17 = 16 * v10 - 16;
-    v18 = -1;
-    v19 = -16 * v10;
+    v16 = 16 * v10 - 16;
+    v17 = -1;
+    v18 = -16 * v10;
     do
     {
-      v20 = *(v85 + v17);
-      v21 = *(v85 + v17 + 8);
+      v19 = *(v78 + v16);
+      v20 = *(v78 + v16 + 8);
       LODWORD(__p[0]) = 0;
-      LODWORD(__p[0]) = objc_msgSend_rowIndexForRowUID_(map, v13, v20, v21, v14);
+      LODWORD(__p[0]) = objc_msgSend_rowIndexForRowUID_(map, v13, v19, v20);
       if (LODWORD(__p[0]) == 0x7FFFFFFF)
       {
-        v22 = v85 + v17;
-        v23 = v85 + v17 + 16;
-        v24 = v19 + v86 - v85;
-        if (v23 != v86)
+        v21 = v78 + v16;
+        v22 = v78 + v16 + 16;
+        v23 = v18 + v79 - v78;
+        if (v22 != v79)
         {
-          memmove(v85 + v17, v23, v19 + v86 - v85);
+          memmove(v78 + v16, v22, v18 + v79 - v78);
         }
 
-        v86 = &v22[v24];
-        objc_msgSend_p_pruneCellsAtRow_rowsSize_columnsSize_(self, v23, v10 + v18, v10, v15);
+        v79 = &v21[v23];
+        objc_msgSend_p_pruneCellsAtRow_rowsSize_columnsSize_(self, v22, v10 + v17, v10, v14);
       }
 
       else
@@ -859,59 +859,59 @@
         sub_221166464(&self->_baseRows.__begin_, self->_baseRows.__begin_, __p);
         if (viewMap)
         {
-          v81 = 0;
-          v81 = objc_msgSend_rowIndexForRowUID_(viewMap, v13, v20, v21, v14);
-          sub_221166638(&self->_viewRows.__begin_, self->_viewRows.__begin_, &v81);
+          v74 = 0;
+          v74 = objc_msgSend_rowIndexForRowUID_(viewMap, v13, v19, v20);
+          sub_221166638(&self->_viewRows.__begin_, self->_viewRows.__begin_, &v74);
         }
       }
 
-      v17 -= 16;
-      v19 += 16;
-      --v18;
-      --v16;
+      v16 -= 16;
+      v18 += 16;
+      --v17;
+      --v15;
     }
 
-    while (v16);
+    while (v15);
   }
 
-  v26 = v85;
-  v25 = v86;
-  sub_22116680C(&self->_baseColumns.__begin_, v15);
-  if (v77 != v76)
+  v25 = v78;
+  v24 = v79;
+  sub_22116680C(&self->_baseColumns.__begin_, v14);
+  if (v70 != v69)
   {
-    v78 = (v25 - v26) >> 4;
-    if (v15 <= 1)
+    v71 = (v24 - v25) >> 4;
+    if (v14 <= 1)
     {
-      v29 = 1;
+      v27 = 1;
     }
 
     else
     {
-      v29 = v15;
+      v27 = v14;
     }
 
-    v30 = 16 * v15 - 16;
-    v31 = -1;
-    v32 = -16 * v15;
+    v28 = 16 * v14 - 16;
+    v29 = -1;
+    v30 = -16 * v14;
     do
     {
-      v33 = *(v82 + v30);
-      v34 = *(v82 + v30 + 8);
+      v31 = *(v75 + v28);
+      v32 = *(v75 + v28 + 8);
       LOWORD(__p[0]) = 0;
-      v35 = objc_msgSend_columnIndexForColumnUID_(map, v27, v33, v34, v28);
-      LOWORD(__p[0]) = v35;
-      if (v35 == 0x7FFF)
+      v33 = objc_msgSend_columnIndexForColumnUID_(map, v26, v31, v32);
+      LOWORD(__p[0]) = v33;
+      if (v33 == 0x7FFF)
       {
-        v36 = v82 + v30;
-        v37 = v82 + v30 + 16;
-        v38 = v32 + v83 - v82;
-        if (v37 != v83)
+        v34 = v75 + v28;
+        v35 = v75 + v28 + 16;
+        v36 = v30 + v76 - v75;
+        if (v35 != v76)
         {
-          memmove(v82 + v30, v37, v32 + v83 - v82);
+          memmove(v75 + v28, v35, v30 + v76 - v75);
         }
 
-        v83 = &v36[v38];
-        objc_msgSend_p_pruneCellsAtColumn_rowsSize_columnsSize_(self, v37, v15 + v31, v78, v15);
+        v76 = &v34[v36];
+        objc_msgSend_p_pruneCellsAtColumn_rowsSize_columnsSize_(self, v35, v14 + v29, v71, v14);
       }
 
       else
@@ -919,330 +919,330 @@
         sub_2211668A8(&self->_baseColumns.__begin_, self->_baseColumns.__begin_, __p);
         if (viewMap)
         {
-          LOWORD(v81) = 0;
-          LOWORD(v81) = objc_msgSend_columnIndexForColumnUID_(viewMap, v27, v33, v34, v28);
-          sub_221166A78(&self->_viewColumns.__begin_, self->_viewColumns.__begin_, &v81);
+          LOWORD(v74) = 0;
+          LOWORD(v74) = objc_msgSend_columnIndexForColumnUID_(viewMap, v26, v31, v32);
+          sub_221166A78(&self->_viewColumns.__begin_, self->_viewColumns.__begin_, &v74);
         }
       }
 
-      v30 -= 16;
-      v32 += 16;
-      --v31;
+      v28 -= 16;
+      v30 += 16;
       --v29;
+      --v27;
     }
 
-    while (v29);
+    while (v27);
   }
 
-  sub_2210BBBE8(__p, &v82, &v85);
-  v43 = *v75;
-  if (*v75)
+  sub_2210BBBE8(__p, &v75, &v78);
+  v40 = v68->_colIdList.__begin_;
+  if (v68->_colIdList.__begin_)
   {
-    v75[1] = v43;
-    operator delete(v43);
-    *v75 = 0;
-    v75[1] = 0;
-    v75[2] = 0;
+    v68->_colIdList.__end_ = v40;
+    operator delete(v40);
+    v68->_colIdList.__begin_ = 0;
+    v68->_colIdList.__end_ = 0;
+    v68->_colIdList.__cap_ = 0;
   }
 
-  *v75 = *__p;
-  v75[2] = *&v89[0];
+  *&v68->_colIdList.__begin_ = *__p;
+  v68->_colIdList.__cap_ = *&v82[0];
   __p[1] = 0;
-  *&v89[0] = 0;
+  *&v82[0] = 0;
   __p[0] = 0;
-  v44 = v75[3];
-  if (v44)
+  v41 = v68->_rowIdList.__begin_;
+  if (v41)
   {
-    v75[4] = v44;
-    operator delete(v44);
-    v74->__begin_ = 0;
-    v74->__end_ = 0;
-    v74->__cap_ = 0;
-    v44 = __p[0];
+    v68->_rowIdList.__end_ = v41;
+    operator delete(v41);
+    v67->__begin_ = 0;
+    v67->__end_ = 0;
+    v67->__cap_ = 0;
+    v41 = __p[0];
   }
 
-  *(v75 + 3) = *(v89 + 8);
-  v75[5] = *(&v89[1] + 1);
-  memset(v89 + 8, 0, 24);
-  if (v44)
+  *&v68->_rowIdList.__begin_ = *(v82 + 8);
+  v68->_rowIdList.__cap_ = *(&v82[1] + 1);
+  memset(v82 + 8, 0, 24);
+  if (v41)
   {
-    __p[1] = v44;
-    operator delete(v44);
+    __p[1] = v41;
+    operator delete(v41);
   }
 
   p_cells = &self->_cells;
-  v46 = self->_cells.__begin_;
+  v43 = self->_cells.__begin_;
   var0 = self->_cells.var0;
-  while (v46 != var0)
+  while (v43 != var0)
   {
-    objc_msgSend_validateAndRepair(*v46++, v39, v40, v41, v42);
+    objc_msgSend_validateAndRepair(*v43++, v37, v38, v39);
   }
 
-  v48 = 0;
-  v90 = 0;
-  memset(v89, 0, sizeof(v89));
+  v45 = 0;
+  v83 = 0;
+  memset(v82, 0, sizeof(v82));
   *__p = 0u;
   do
   {
-    v49 = objc_msgSend_indexSet(MEMORY[0x277CCAB58], v39, v40, v41, v42);
-    v50 = __p[v48];
-    __p[v48] = v49;
+    v46 = objc_msgSend_indexSet(MEMORY[0x277CCAB58], v37, v38, v39);
+    v47 = __p[v45];
+    __p[v45] = v46;
 
-    ++v48;
+    ++v45;
   }
 
-  while (v48 != 13);
-  v51 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v39, __p, 13, v42);
+  while (v45 != 13);
+  v48 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v37, __p, 13);
   interestingCells = self->_interestingCells;
-  self->_interestingCells = v51;
+  self->_interestingCells = v48;
 
-  v57 = objc_msgSend_p_interestingCellIndexes(self, v53, v54, v55, v56);
-  objc_msgSend_p_setupInterestingCells_interestingCellIndexes_forAdding_(self, v58, &self->_cells, v57, 1);
+  v53 = objc_msgSend_p_interestingCellIndexes(self, v50, v51, v52);
+  objc_msgSend_p_setupInterestingCells_interestingCellIndexes_forAdding_(self, v54, &self->_cells, v53, 1);
 
-  if (((v75[4] - v75[3]) >> 4) * ((v75[1] - *v75) >> 4) != self->_cells.var0 - self->_cells.__begin_)
+  if ((v68->_rowIdList.__end_ - v68->_rowIdList.__begin_) * (v68->_colIdList.__end_ - v68->_colIdList.__begin_) != self->_cells.var0 - self->_cells.__begin_)
   {
-    v62 = MEMORY[0x277D81150];
-    v63 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v59, "[TSTConcurrentCellList p_pruneToBaseWithBaseMap:viewMap:]", v60, v61);
-    v67 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v64, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v65, v66);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v62, v68, v63, v67, 1211, 0, "cells size:%lu needs to match area range:%lu", p_cells->var0 - p_cells->__begin_, ((v75[4] - v75[3]) >> 4) * ((v75[1] - *v75) >> 4));
+    v57 = MEMORY[0x277D81150];
+    v58 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v55, "[TSTConcurrentCellList p_pruneToBaseWithBaseMap:viewMap:]", v56);
+    v61 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v59, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v60);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v57, v62, v58, v61, 1211, 0, "cells size:%lu needs to match area range:%lu", p_cells->var0 - p_cells->__begin_, (v68->_rowIdList.__end_ - v68->_rowIdList.__begin_) * (v68->_colIdList.__end_ - v68->_colIdList.__begin_));
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v69, v70, v71, v72);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v63, v64, v65);
   }
 
   for (i = 12; i != -1; --i)
   {
   }
 
-  if (v82)
+  if (v75)
   {
-    v83 = v82;
-    operator delete(v82);
+    v76 = v75;
+    operator delete(v75);
   }
 
-  if (v85)
+  if (v78)
   {
-    v86 = v85;
-    operator delete(v85);
+    v79 = v78;
+    operator delete(v78);
   }
 }
 
 - (void)p_setupInterestingCells:(void *)cells interestingCellIndexes:(id)indexes forAdding:(BOOL)adding
 {
   addingCopy = adding;
-  v210 = *MEMORY[0x277D85DE8];
+  v166 = *MEMORY[0x277D85DE8];
   if (*(cells + 1) - *cells != self->_cells.var0 - self->_cells.__begin_)
   {
     v6 = MEMORY[0x277D81150];
-    v7 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTConcurrentCellList p_setupInterestingCells:interestingCellIndexes:forAdding:]", indexes, adding);
-    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v9, v10);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v6, v12, v7, v11, 1215, 0, "cell lists size mismatch");
+    v7 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTConcurrentCellList p_setupInterestingCells:interestingCellIndexes:forAdding:]", indexes);
+    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v9);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v6, v11, v7, v10, 1215, 0, "cell lists size mismatch");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v13, v14, v15, v16);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v12, v13, v14);
   }
 
   if (addingCopy)
   {
-    v17 = &OBJC_IVAR___TSTConcurrentCellList__formatsAdded;
+    v15 = &OBJC_IVAR___TSTConcurrentCellList__formatsAdded;
   }
 
   else
   {
-    v17 = &OBJC_IVAR___TSTConcurrentCellList__formatsRemoved;
+    v15 = &OBJC_IVAR___TSTConcurrentCellList__formatsRemoved;
   }
 
-  v18 = 0x277D812B8;
+  v16 = 0x277D812B8;
   if (!addingCopy)
   {
-    v18 = 0x277CBEB38;
+    v16 = 0x277CBEB38;
   }
 
-  v19 = objc_msgSend_dictionary(*v18, a2, cells, indexes, adding);
-  v20 = *v17;
-  v21 = *(&self->super.super.isa + v20);
-  *(&self->super.super.isa + v20) = v19;
+  v17 = objc_msgSend_dictionary(*v16, a2, cells, indexes);
+  v18 = *v15;
+  v19 = *(&self->super.super.isa + v18);
+  *(&self->super.super.isa + v18) = v17;
 
-  v199 = objc_msgSend_objectAtIndexedSubscript_(self->_interestingCells, v22, 0, v23, v24);
-  v190 = objc_msgSend_objectAtIndexedSubscript_(self->_interestingCells, v25, 1, v26, v27);
-  v198 = objc_msgSend_objectAtIndexedSubscript_(self->_interestingCells, v28, 2, v29, v30);
-  v201 = objc_msgSend_objectAtIndexedSubscript_(self->_interestingCells, v31, 3, v32, v33);
-  v197 = objc_msgSend_objectAtIndexedSubscript_(self->_interestingCells, v34, 4, v35, v36);
-  v196 = objc_msgSend_objectAtIndexedSubscript_(self->_interestingCells, v37, 5, v38, v39);
-  v195 = objc_msgSend_objectAtIndexedSubscript_(self->_interestingCells, v40, 6, v41, v42);
-  v194 = objc_msgSend_objectAtIndexedSubscript_(self->_interestingCells, v43, 7, v44, v45);
-  v193 = objc_msgSend_objectAtIndexedSubscript_(self->_interestingCells, v46, 8, v47, v48);
-  v192 = objc_msgSend_objectAtIndexedSubscript_(self->_interestingCells, v49, 9, v50, v51);
-  v191 = objc_msgSend_objectAtIndexedSubscript_(self->_interestingCells, v52, 10, v53, v54);
-  v202 = objc_msgSend_objectAtIndexedSubscript_(self->_interestingCells, v55, 11, v56, v57);
-  v203 = objc_msgSend_objectAtIndexedSubscript_(self->_interestingCells, v58, 12, v59, v60);
-  v61 = *cells;
+  v155 = objc_msgSend_objectAtIndexedSubscript_(self->_interestingCells, v20, 0, v21);
+  v146 = objc_msgSend_objectAtIndexedSubscript_(self->_interestingCells, v22, 1, v23);
+  v154 = objc_msgSend_objectAtIndexedSubscript_(self->_interestingCells, v24, 2, v25);
+  v157 = objc_msgSend_objectAtIndexedSubscript_(self->_interestingCells, v26, 3, v27);
+  v153 = objc_msgSend_objectAtIndexedSubscript_(self->_interestingCells, v28, 4, v29);
+  v152 = objc_msgSend_objectAtIndexedSubscript_(self->_interestingCells, v30, 5, v31);
+  v151 = objc_msgSend_objectAtIndexedSubscript_(self->_interestingCells, v32, 6, v33);
+  v150 = objc_msgSend_objectAtIndexedSubscript_(self->_interestingCells, v34, 7, v35);
+  v149 = objc_msgSend_objectAtIndexedSubscript_(self->_interestingCells, v36, 8, v37);
+  v148 = objc_msgSend_objectAtIndexedSubscript_(self->_interestingCells, v38, 9, v39);
+  v147 = objc_msgSend_objectAtIndexedSubscript_(self->_interestingCells, v40, 10, v41);
+  v158 = objc_msgSend_objectAtIndexedSubscript_(self->_interestingCells, v42, 11, v43);
+  v159 = objc_msgSend_objectAtIndexedSubscript_(self->_interestingCells, v44, 12, v45);
+  v46 = *cells;
   if (*(cells + 1) != *cells)
   {
     for (i = 0; i < (*(cells + 1) - *cells) >> 3; ++i)
     {
-      v67 = *(v61 + 8 * i);
+      v51 = *(v46 + 8 * i);
       if (indexes)
       {
-        v68 = objc_msgSend_containsIndex_(indexes, v63, i, v65, v66);
-        if (v67)
+        v52 = objc_msgSend_containsIndex_(indexes, v48, i, v50);
+        if (v51)
         {
-          v69 = v68;
+          v53 = v52;
         }
 
         else
         {
-          v69 = 0;
+          v53 = 0;
         }
 
-        if (v69)
+        if (v53)
         {
 LABEL_17:
-          if (objc_msgSend_valueType(v67, v63, v64, v65, v66) == 3)
+          if (objc_msgSend_valueType(v51, v48, v49, v50) == 3)
           {
-            objc_msgSend_addIndex_(v199, v70, i, v72, v73);
+            objc_msgSend_addIndex_(v155, v54, i, v56);
           }
 
-          if (objc_msgSend_hasAnyFormats(v67, v70, v71, v72, v73))
+          if (objc_msgSend_hasAnyFormats(v51, v54, v55, v56))
           {
-            v209[0] = objc_msgSend_numberFormat(v67, v74, v75, v76, v77);
-            v209[1] = objc_msgSend_dateFormat(v67, v78, v79, v80, v81);
-            v209[2] = objc_msgSend_durationFormat(v67, v82, v83, v84, v85);
-            v209[3] = objc_msgSend_currencyFormat(v67, v86, v87, v88, v89);
-            v209[4] = objc_msgSend_textFormat(v67, v90, v91, v92, v93);
-            v209[5] = objc_msgSend_BOOLeanFormat(v67, v94, v95, v96, v97);
-            v207 = 0;
-            v208 = 0;
+            v165[0] = objc_msgSend_numberFormat(v51, v57, v58, v59);
+            v165[1] = objc_msgSend_dateFormat(v51, v60, v61, v62);
+            v165[2] = objc_msgSend_durationFormat(v51, v63, v64, v65);
+            v165[3] = objc_msgSend_currencyFormat(v51, v66, v67, v68);
+            v165[4] = objc_msgSend_textFormat(v51, v69, v70, v71);
+            v165[5] = objc_msgSend_BOOLeanFormat(v51, v72, v73, v74);
+            v163 = 0;
+            v164 = 0;
             __p = 0;
-            sub_22116CEC0(&__p, v209, &v210, 6uLL);
-            v103 = __p;
-            v102 = v207;
+            sub_22116CEC0(&__p, v165, &v166, 6uLL);
+            v79 = __p;
+            v78 = v163;
             if (addingCopy)
             {
-              while (v103 != v102)
+              while (v79 != v78)
               {
-                v104 = *v103;
-                if (*v103)
+                v80 = *v79;
+                if (*v79)
                 {
-                  v105 = objc_msgSend_objectForKey_(self->_formatsAdded, v98, *v103, v100, v101);
-                  v109 = v105;
-                  if (v105)
+                  v81 = objc_msgSend_objectForKey_(self->_formatsAdded, v75, *v79, v77);
+                  v84 = v81;
+                  if (v81)
                   {
-                    objc_msgSend_addIndex_(v105, v106, i, v107, v108);
+                    objc_msgSend_addIndex_(v81, v82, i, v83);
                   }
 
                   else
                   {
                     formatsAdded = self->_formatsAdded;
-                    v111 = objc_msgSend_indexSetWithIndex_(MEMORY[0x277CCAB58], v106, i, v107, v108);
-                    objc_msgSend_setObject_forKey_(formatsAdded, v112, v111, v104, v113);
+                    v86 = objc_msgSend_indexSetWithIndex_(MEMORY[0x277CCAB58], v82, i, v83);
+                    objc_msgSend_setObject_forKey_(formatsAdded, v87, v86, v80);
                   }
                 }
 
-                ++v103;
+                ++v79;
               }
             }
 
             else
             {
-              while (v103 != v102)
+              while (v79 != v78)
               {
-                if (*v103)
+                if (*v79)
                 {
-                  v114 = objc_msgSend_formatType(*v103, v98, v99, v100, v101);
-                  v115 = sub_22121E75C(v114);
-                  v116 = sub_221143624(v115);
-                  v120 = objc_msgSend_formatIDForStorageFlag_(v67, v117, v116, v118, v119);
+                  v88 = objc_msgSend_formatType(*v79, v75, v76, v77);
+                  v89 = sub_22121E75C(v88);
+                  v90 = sub_221143624(v89);
+                  v93 = objc_msgSend_formatIDForStorageFlag_(v51, v91, v90, v92);
                   formatsRemoved = self->_formatsRemoved;
-                  v125 = objc_msgSend_numberWithUnsignedInt_(MEMORY[0x277CCABB0], v122, v120, v123, v124);
-                  v129 = objc_msgSend_objectForKey_(formatsRemoved, v126, v125, v127, v128);
+                  v97 = objc_msgSend_numberWithUnsignedInt_(MEMORY[0x277CCABB0], v95, v93, v96);
+                  v100 = objc_msgSend_objectForKey_(formatsRemoved, v98, v97, v99);
 
-                  if (v129)
+                  if (v100)
                   {
-                    objc_msgSend_addIndex_(v129, v130, i, v131, v132);
+                    objc_msgSend_addIndex_(v100, v101, i, v102);
                   }
 
                   else
                   {
-                    v133 = objc_msgSend_indexSetWithIndex_(MEMORY[0x277CCAB58], v130, i, v131, v132);
-                    v134 = self->_formatsRemoved;
-                    v138 = objc_msgSend_numberWithUnsignedInt_(MEMORY[0x277CCABB0], v135, v120, v136, v137);
-                    objc_msgSend_setObject_forKey_(v134, v139, v133, v138, v140);
+                    v103 = objc_msgSend_indexSetWithIndex_(MEMORY[0x277CCAB58], v101, i, v102);
+                    v104 = self->_formatsRemoved;
+                    v107 = objc_msgSend_numberWithUnsignedInt_(MEMORY[0x277CCABB0], v105, v93, v106);
+                    objc_msgSend_setObject_forKey_(v104, v108, v103, v107);
 
-                    v129 = v133;
+                    v100 = v103;
                   }
                 }
 
-                ++v103;
+                ++v79;
               }
             }
 
-            objc_msgSend_addIndex_(v190, v98, i, v100, v101);
+            objc_msgSend_addIndex_(v146, v75, i, v77);
             if (__p)
             {
-              v207 = __p;
+              v163 = __p;
               operator delete(__p);
             }
           }
 
-          if (objc_msgSend_hasFormula(v67, v74, v75, v76, v77))
+          if (objc_msgSend_hasFormula(v51, v57, v58, v59))
           {
-            objc_msgSend_addIndex_(v198, v141, i, v143, v144);
-            objc_msgSend_addIndex_(v203, v145, i, v146, v147);
+            objc_msgSend_addIndex_(v154, v109, i, v111);
+            objc_msgSend_addIndex_(v159, v112, i, v113);
           }
 
-          if ((objc_msgSend_hasTextStyle(v67, v141, v142, v143, v144) & 1) != 0 || objc_msgSend_hasCellStyle(v67, v148, v149, v150, v151))
+          if ((objc_msgSend_hasTextStyle(v51, v109, v110, v111) & 1) != 0 || objc_msgSend_hasCellStyle(v51, v114, v115, v116))
           {
-            objc_msgSend_addIndex_(v201, v148, i, v150, v151);
+            objc_msgSend_addIndex_(v157, v114, i, v116);
           }
 
-          if (objc_msgSend_hasFormulaAnyError(v67, v148, v152, v150, v151))
+          if (objc_msgSend_hasFormulaAnyError(v51, v114, v117, v116))
           {
-            objc_msgSend_addIndex_(v197, v153, i, v155, v156);
+            objc_msgSend_addIndex_(v153, v118, i, v120);
           }
 
-          if (objc_msgSend_hasRichText(v67, v153, v154, v155, v156))
+          if (objc_msgSend_hasRichText(v51, v118, v119, v120))
           {
-            objc_msgSend_addIndex_(v196, v157, i, v159, v160);
+            objc_msgSend_addIndex_(v152, v121, i, v123);
           }
 
-          if (objc_msgSend_hasConditionalStyle(v67, v157, v158, v159, v160))
+          if (objc_msgSend_hasConditionalStyle(v51, v121, v122, v123))
           {
-            objc_msgSend_addIndex_(v195, v161, i, v163, v164);
-            objc_msgSend_addIndex_(v203, v165, i, v166, v167);
+            objc_msgSend_addIndex_(v151, v124, i, v126);
+            objc_msgSend_addIndex_(v159, v127, i, v128);
           }
 
-          if (objc_msgSend_hasCommentStorage(v67, v161, v162, v163, v164))
+          if (objc_msgSend_hasCommentStorage(v51, v124, v125, v126))
           {
-            objc_msgSend_addIndex_(v194, v168, i, v170, v171);
+            objc_msgSend_addIndex_(v150, v129, i, v131);
           }
 
-          if (objc_msgSend_hasImportWarningSet(v67, v168, v169, v170, v171))
+          if (objc_msgSend_hasImportWarningSet(v51, v129, v130, v131))
           {
-            objc_msgSend_addIndex_(v193, v172, i, v174, v175);
+            objc_msgSend_addIndex_(v149, v132, i, v134);
           }
 
-          if (objc_msgSend_hasControl(v67, v172, v173, v174, v175))
+          if (objc_msgSend_hasControl(v51, v132, v133, v134))
           {
-            objc_msgSend_addIndex_(v192, v176, i, v178, v179);
+            objc_msgSend_addIndex_(v148, v135, i, v137);
           }
 
-          if (objc_msgSend_hasAnyCustomFormat(v67, v176, v177, v178, v179))
+          if (objc_msgSend_hasAnyCustomFormat(v51, v135, v136, v137))
           {
-            objc_msgSend_addIndex_(v191, v180, i, v182, v183);
+            objc_msgSend_addIndex_(v147, v138, i, v140);
           }
 
-          if ((objc_msgSend_hasTextStyle(v67, v180, v181, v182, v183) & 1) != 0 || (objc_msgSend_hasCellStyle(v67, v184, v185, v186, v187) & 1) != 0 || (objc_msgSend_hasRichText(v67, v184, v188, v186, v187) & 1) != 0 || objc_msgSend_hasFormulaAnyError(v67, v184, v189, v186, v187))
+          if ((objc_msgSend_hasTextStyle(v51, v138, v139, v140) & 1) != 0 || (objc_msgSend_hasCellStyle(v51, v141, v142, v143) & 1) != 0 || (objc_msgSend_hasRichText(v51, v141, v144, v143) & 1) != 0 || objc_msgSend_hasFormulaAnyError(v51, v141, v145, v143))
           {
-            objc_msgSend_addIndex_(v202, v184, i, v186, v187);
+            objc_msgSend_addIndex_(v158, v141, i, v143);
           }
         }
       }
 
-      else if (v67)
+      else if (v51)
       {
         goto LABEL_17;
       }
 
-      v61 = *cells;
+      v46 = *cells;
     }
   }
 }
@@ -1252,117 +1252,117 @@ LABEL_17:
   blockCopy = block;
   selfCopy = self;
   p_baseRows = &self->_baseRows;
-  v7 = 0x277D81000uLL;
-  v8 = 0x277CCA000uLL;
+  v6 = 0x277D81000uLL;
+  v7 = 0x277CCA000uLL;
   if (self->_baseRows.__end_ - self->_baseRows.__begin_ != self->_cellUIDRange._rowIdList.__end_ - self->_cellUIDRange._rowIdList.__begin_)
   {
-    v9 = MEMORY[0x277D81150];
-    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v4, "[TSTConcurrentCellList p_invokeBlock:]", v5, v6);
-    v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v12, v13);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v9, v15, v10, v14, 1334, 0, "base rows needs to match uids");
+    v8 = MEMORY[0x277D81150];
+    v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v4, "[TSTConcurrentCellList p_invokeBlock:]", v5);
+    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v11);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v8, v13, v9, v12, 1334, 0, "base rows needs to match uids");
 
-    v7 = 0x277D81000uLL;
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v16, v17, v18, v19);
+    v6 = 0x277D81000uLL;
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v14, v15, v16);
   }
 
   p_baseColumns = &self->_baseColumns;
-  v21 = self->_cellUIDRange._colIdList.__end_ - self->_cellUIDRange._colIdList.__begin_;
-  if (v21 != self->_baseColumns.__end_ - self->_baseColumns.__begin_)
+  v18 = self->_cellUIDRange._colIdList.__end_ - self->_cellUIDRange._colIdList.__begin_;
+  if (v18 != self->_baseColumns.__end_ - self->_baseColumns.__begin_)
   {
-    v22 = MEMORY[0x277D81150];
-    v23 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v4, "[TSTConcurrentCellList p_invokeBlock:]", v5, v6);
-    v27 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v24, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v25, v26);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v22, v28, v23, v27, 1335, 0, "base cols needs to match uids");
+    v19 = MEMORY[0x277D81150];
+    v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v4, "[TSTConcurrentCellList p_invokeBlock:]", v5);
+    v23 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v21, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v22);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v19, v24, v20, v23, 1335, 0, "base cols needs to match uids");
 
-    v7 = 0x277D81000uLL;
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v29, v30, v31, v32);
-    v21 = self->_cellUIDRange._colIdList.__end_ - self->_cellUIDRange._colIdList.__begin_;
+    v6 = 0x277D81000uLL;
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v25, v26, v27);
+    v18 = self->_cellUIDRange._colIdList.__end_ - self->_cellUIDRange._colIdList.__begin_;
   }
 
-  if ((self->_cellUIDRange._rowIdList.__end_ - self->_cellUIDRange._rowIdList.__begin_) * v21 != self->_cells.var0 - self->_cells.__begin_)
+  if ((self->_cellUIDRange._rowIdList.__end_ - self->_cellUIDRange._rowIdList.__begin_) * v18 != self->_cells.var0 - self->_cells.__begin_)
   {
-    v33 = MEMORY[0x277D81150];
-    v34 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v4, "[TSTConcurrentCellList p_invokeBlock:]", v5, v6);
-    v38 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v35, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v36, v37);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v33, v39, v34, v38, 1336, 0, "cells size needs to match area range");
+    v28 = MEMORY[0x277D81150];
+    v29 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v4, "[TSTConcurrentCellList p_invokeBlock:]", v5);
+    v32 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v30, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v31);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v28, v33, v29, v32, 1336, 0, "cells size needs to match area range");
 
-    v7 = 0x277D81000uLL;
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v40, v41, v42, v43);
+    v6 = 0x277D81000uLL;
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v34, v35, v36);
   }
 
   begin = p_baseRows->__begin_;
   if (self->_baseRows.__end_ != self->_baseRows.__begin_)
   {
-    v45 = 0;
-    v46 = 0;
+    v38 = 0;
+    v39 = 0;
     do
     {
-      row = begin[v46]._row;
+      row = begin[v39]._row;
       var0 = row;
       if (selfCopy->_viewRows.__end_ != selfCopy->_viewRows.__begin_)
       {
-        var0 = selfCopy->_viewRows.__begin_[v46].var0;
+        var0 = selfCopy->_viewRows.__begin_[v39].var0;
       }
 
       if (var0 == 0x7FFFFFFF)
       {
-        v49 = *(v7 + 336);
-        v81 = objc_msgSend_stringWithUTF8String_(*(v8 + 3240), v4, "[TSTConcurrentCellList p_invokeBlock:]", v5, v6);
-        v50 = v8;
-        v51 = v7;
-        v52 = v50;
-        v56 = objc_msgSend_stringWithUTF8String_(*(v50 + 3240), v53, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v54, v55);
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v49, v57, v81, v56, 1344, 0, "only valid viewRowIndexes should remain");
+        v42 = *(v6 + 336);
+        v70 = objc_msgSend_stringWithUTF8String_(*(v7 + 3240), v4, "[TSTConcurrentCellList p_invokeBlock:]", v5);
+        v43 = v7;
+        v44 = v6;
+        v45 = v43;
+        v48 = objc_msgSend_stringWithUTF8String_(*(v43 + 3240), v46, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v47);
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v42, v49, v70, v48, 1344, 0, "only valid viewRowIndexes should remain");
 
-        v7 = v51;
-        objc_msgSend_logBacktraceThrottled(*(v51 + 336), v58, v59, v60, v61);
-        v8 = v52;
+        v6 = v44;
+        objc_msgSend_logBacktraceThrottled(*(v44 + 336), v50, v51, v52);
+        v7 = v45;
       }
 
       if (row == 0x7FFFFFFF)
       {
-        v62 = *(v7 + 336);
-        v63 = objc_msgSend_stringWithUTF8String_(*(v8 + 3240), v4, "[TSTConcurrentCellList p_invokeBlock:]", v5, v6);
-        v64 = v7;
-        v68 = objc_msgSend_stringWithUTF8String_(*(v8 + 3240), v65, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v66, v67);
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v62, v69, v63, v68, 1345, 0, "only valid baseRowIndexes should remain");
+        v53 = *(v6 + 336);
+        v54 = objc_msgSend_stringWithUTF8String_(*(v7 + 3240), v4, "[TSTConcurrentCellList p_invokeBlock:]", v5);
+        v55 = v6;
+        v58 = objc_msgSend_stringWithUTF8String_(*(v7 + 3240), v56, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v57);
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v53, v59, v54, v58, 1345, 0, "only valid baseRowIndexes should remain");
 
-        objc_msgSend_logBacktraceThrottled(*(v64 + 336), v70, v71, v72, v73);
+        objc_msgSend_logBacktraceThrottled(*(v55 + 336), v60, v61, v62);
       }
 
-      v82 = v46;
-      v74 = p_baseColumns->__begin_;
+      v71 = v39;
+      v63 = p_baseColumns->__begin_;
       if (p_baseColumns->__end_ != p_baseColumns->__begin_)
       {
-        v75 = 0;
-        v76 = 0;
+        v64 = 0;
+        v65 = 0;
         do
         {
-          column = v74[v76]._column;
-          v78 = column;
+          column = v63[v65]._column;
+          v67 = column;
           if (selfCopy->_viewColumns.__end_ != selfCopy->_viewColumns.__begin_)
           {
-            v78 = selfCopy->_viewColumns.__begin_[v76].var0;
+            v67 = selfCopy->_viewColumns.__begin_[v65].var0;
           }
 
-          memset(v84, 0, sizeof(v84));
-          TSTMakeCellUID(v84);
-          blockCopy[2](blockCopy, v84, var0 | (v78 << 32), row | (column << 32), selfCopy->_cells.__begin_[v45++]);
-          ++v76;
-          v74 = p_baseColumns->__begin_;
-          v75 += 16;
+          memset(v73, 0, sizeof(v73));
+          TSTMakeCellUID(v73);
+          blockCopy[2](blockCopy, v73, var0 | (v67 << 32), row | (column << 32), selfCopy->_cells.__begin_[v38++]);
+          ++v65;
+          v63 = p_baseColumns->__begin_;
+          v64 += 16;
         }
 
-        while (v76 < p_baseColumns->__end_ - p_baseColumns->__begin_);
+        while (v65 < p_baseColumns->__end_ - p_baseColumns->__begin_);
       }
 
-      v46 = v82 + 1;
+      v39 = v71 + 1;
       begin = p_baseRows->__begin_;
-      v7 = 0x277D81000;
-      v8 = 0x277CCA000;
+      v6 = 0x277D81000;
+      v7 = 0x277CCA000;
     }
 
-    while (v82 + 1 < (p_baseRows->__end_ - p_baseRows->__begin_));
+    while (v71 + 1 < (p_baseRows->__end_ - p_baseRows->__begin_));
   }
 }
 
@@ -1508,24 +1508,24 @@ LABEL_17:
   p_cells = &self->_cells;
   if (var0 - begin != self->_cells.var0 - self->_cells.__begin_)
   {
-    v9 = MEMORY[0x277D81150];
-    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTConcurrentCellList p_convertToInverseCellMap]", v2, v3);
-    v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v12, v13);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v9, v15, v10, v14, 1401, 0, "oldCells size mismatch in cellList");
+    v8 = MEMORY[0x277D81150];
+    v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTConcurrentCellList p_convertToInverseCellMap]", v2);
+    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v11);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v8, v13, v9, v12, 1401, 0, "oldCells size mismatch in cellList");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v16, v17, v18, v19);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v14, v15, v16);
     begin = p_oldCells->__begin_;
     var0 = p_oldCells->var0;
   }
 
   sub_22116CF34(p_cells, begin, var0, var0 - begin);
-  v21 = p_oldCells->__begin_;
-  for (i = p_oldCells->var0; i != v21; --i)
+  v18 = p_oldCells->__begin_;
+  for (i = p_oldCells->var0; i != v18; --i)
   {
-    v22 = *(i - 1);
+    v19 = *(i - 1);
   }
 
-  p_oldCells->var0 = v21;
+  p_oldCells->var0 = v18;
   self->_baseRows.__end_ = self->_baseRows.__begin_;
   self->_baseColumns.__end_ = self->_baseColumns.__begin_;
   self->_viewRows.__end_ = self->_viewRows.__begin_;
@@ -1544,33 +1544,33 @@ LABEL_17:
   stateCopy = state;
   if (self->_baseRows.__end_ - self->_baseRows.__begin_ != self->_cellUIDRange._rowIdList.__end_ - self->_cellUIDRange._rowIdList.__begin_)
   {
-    v8 = MEMORY[0x277D81150];
-    v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v4, "[TSTConcurrentCellList p_gatherRowState:]", v6, v7);
-    v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v11, v12);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v8, v14, v9, v13, 1418, 0, "base rows needs to match uids");
+    v7 = MEMORY[0x277D81150];
+    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v4, "[TSTConcurrentCellList p_gatherRowState:]", v6);
+    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v10);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v12, v8, v11, 1418, 0, "base rows needs to match uids");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v15, v16, v17, v18);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v13, v14, v15);
   }
 
-  v19 = objc_msgSend_array(MEMORY[0x277CBEB18], v4, v5, v6, v7);
+  v16 = objc_msgSend_array(MEMORY[0x277CBEB18], v4, v5, v6);
   tilesPerRow = self->_tilesPerRow;
-  self->_tilesPerRow = v19;
+  self->_tilesPerRow = v16;
 
-  v25 = objc_msgSend_array(MEMORY[0x277CBEB18], v21, v22, v23, v24);
+  v21 = objc_msgSend_array(MEMORY[0x277CBEB18], v18, v19, v20);
   rowInfosPerRow = self->_rowInfosPerRow;
-  self->_rowInfosPerRow = v25;
+  self->_rowInfosPerRow = v21;
 
   begin = self->_baseRows.__begin_;
   for (i = self->_baseRows.__end_; begin != i; ++begin)
   {
-    v29 = stateCopy[2](stateCopy, begin->_row);
-    v30 = self->_tilesPerRow;
-    v35 = objc_msgSend_first(v29, v31, v32, v33, v34);
-    objc_msgSend_addObject_(v30, v36, v35, v37, v38);
+    v25 = stateCopy[2](stateCopy, begin->_row);
+    v26 = self->_tilesPerRow;
+    v30 = objc_msgSend_first(v25, v27, v28, v29);
+    objc_msgSend_addObject_(v26, v31, v30, v32);
 
-    v39 = self->_rowInfosPerRow;
-    v44 = objc_msgSend_second(v29, v40, v41, v42, v43);
-    objc_msgSend_addObject_(v39, v45, v44, v46, v47);
+    v33 = self->_rowInfosPerRow;
+    v37 = objc_msgSend_second(v25, v34, v35, v36);
+    objc_msgSend_addObject_(v33, v38, v37, v39);
   }
 }
 
@@ -1580,73 +1580,73 @@ LABEL_17:
   usingBlockCopy = usingBlock;
   if (!self->_tilesPerRow)
   {
-    v10 = MEMORY[0x277D81150];
-    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "[TSTConcurrentCellList p_accumulateBordersConcurrentlyUsingBlock:accumulateCellsConcurrentlyUsingBlock:]", v8, v9);
-    v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v13, v14);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v10, v16, v11, v15, 1432, 0, "invalid nil value for '%{public}s'", "_tilesPerRow");
+    v9 = MEMORY[0x277D81150];
+    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "[TSTConcurrentCellList p_accumulateBordersConcurrentlyUsingBlock:accumulateCellsConcurrentlyUsingBlock:]", v8);
+    v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v12);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v9, v14, v10, v13, 1432, 0, "invalid nil value for '%{public}s'", "_tilesPerRow");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v17, v18, v19, v20);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v15, v16, v17);
   }
 
   if (!self->_rowInfosPerRow)
   {
-    v21 = MEMORY[0x277D81150];
-    v22 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "[TSTConcurrentCellList p_accumulateBordersConcurrentlyUsingBlock:accumulateCellsConcurrentlyUsingBlock:]", v8, v9);
-    v26 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v23, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v24, v25);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v21, v27, v22, v26, 1433, 0, "invalid nil value for '%{public}s'", "_rowInfosPerRow");
+    v18 = MEMORY[0x277D81150];
+    v19 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "[TSTConcurrentCellList p_accumulateBordersConcurrentlyUsingBlock:accumulateCellsConcurrentlyUsingBlock:]", v8);
+    v22 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v20, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v21);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v18, v23, v19, v22, 1433, 0, "invalid nil value for '%{public}s'", "_rowInfosPerRow");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v28, v29, v30, v31);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v24, v25, v26);
   }
 
   p_baseRows = &self->_baseRows;
-  if (objc_msgSend_count(self->_tilesPerRow, v6, v7, v8, v9) != self->_baseRows.__end_ - self->_baseRows.__begin_)
+  if (objc_msgSend_count(self->_tilesPerRow, v6, v7, v8) != self->_baseRows.__end_ - self->_baseRows.__begin_)
   {
-    v37 = MEMORY[0x277D81150];
-    v38 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v32, "[TSTConcurrentCellList p_accumulateBordersConcurrentlyUsingBlock:accumulateCellsConcurrentlyUsingBlock:]", v34, v35);
-    v42 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v39, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v40, v41);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v37, v43, v38, v42, 1434, 0, "_tilesPerRow size mismatch in cellList");
+    v31 = MEMORY[0x277D81150];
+    v32 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v27, "[TSTConcurrentCellList p_accumulateBordersConcurrentlyUsingBlock:accumulateCellsConcurrentlyUsingBlock:]", v29);
+    v35 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v33, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v34);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v31, v36, v32, v35, 1434, 0, "_tilesPerRow size mismatch in cellList");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v44, v45, v46, v47);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v37, v38, v39);
   }
 
-  v48 = objc_msgSend_count(self->_rowInfosPerRow, v32, v33, v34, v35);
+  v40 = objc_msgSend_count(self->_rowInfosPerRow, v27, v28, v29);
   begin = p_baseRows->__begin_;
   end = self->_baseRows.__end_;
-  if (v48 != end - p_baseRows->__begin_)
+  if (v40 != end - p_baseRows->__begin_)
   {
-    v54 = MEMORY[0x277D81150];
-    v55 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v49, "[TSTConcurrentCellList p_accumulateBordersConcurrentlyUsingBlock:accumulateCellsConcurrentlyUsingBlock:]", v50, v51);
-    v59 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v56, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v57, v58);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v54, v60, v55, v59, 1435, 0, "_rowInfosPerRow size mismatch in cellList");
+    v45 = MEMORY[0x277D81150];
+    v46 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v41, "[TSTConcurrentCellList p_accumulateBordersConcurrentlyUsingBlock:accumulateCellsConcurrentlyUsingBlock:]", v42);
+    v49 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v47, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v48);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v45, v50, v46, v49, 1435, 0, "_rowInfosPerRow size mismatch in cellList");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v61, v62, v63, v64);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v51, v52, v53);
     begin = p_baseRows->__begin_;
     end = self->_baseRows.__end_;
   }
 
   if (end != begin)
   {
-    v65 = 0;
+    v54 = 0;
     do
     {
-      v66 = objc_msgSend_objectAtIndexedSubscript_(self->_tilesPerRow, v49, v65, v50, v51);
-      v70 = objc_msgSend_objectAtIndexedSubscript_(self->_rowInfosPerRow, v67, v65, v68, v69);
-      blockCopy[2](v76);
-      (usingBlockCopy)[2](&v74);
-      sub_22116D0D8(&self->_oldCells, self->_oldCells.var0, v74, v75, v75 - v74);
-      v77 = &v74;
-      sub_22107C2C0(&v77);
-      v74 = v76;
-      sub_22107C2C0(&v74);
+      v55 = objc_msgSend_objectAtIndexedSubscript_(self->_tilesPerRow, v41, v54, v42);
+      v58 = objc_msgSend_objectAtIndexedSubscript_(self->_rowInfosPerRow, v56, v54, v57);
+      blockCopy[2](v64);
+      (usingBlockCopy)[2](&v62);
+      sub_22116D0D8(&self->_oldCells, self->_oldCells.var0, v62, v63, v63 - v62);
+      v65 = &v62;
+      sub_22107C2C0(&v65);
+      v62 = v64;
+      sub_22107C2C0(&v62);
 
-      ++v65;
+      ++v54;
     }
 
-    while (v65 < self->_baseRows.__end_ - self->_baseRows.__begin_);
+    while (v54 < self->_baseRows.__end_ - self->_baseRows.__begin_);
   }
 
   sub_2211389A0(&self->_oldCells.__begin_, self->_cells.var0 - self->_cells.__begin_);
-  objc_msgSend_p_setupInterestingCells_interestingCellIndexes_forAdding_(self, v71, &self->_oldCells, 0, 0);
+  objc_msgSend_p_setupInterestingCells_interestingCellIndexes_forAdding_(self, v59, &self->_oldCells, 0, 0);
 }
 
 - (void)p_enumerateRowsOfCellsConcurrentlyUsingBlock:(id)block
@@ -1655,35 +1655,35 @@ LABEL_17:
   rowInfosPerRow = self->_rowInfosPerRow;
   if (!rowInfosPerRow)
   {
-    v10 = MEMORY[0x277D81150];
-    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v4, "[TSTConcurrentCellList p_enumerateRowsOfCellsConcurrentlyUsingBlock:]", v6, v7);
-    v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v13, v14);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v10, v16, v11, v15, 1454, 0, "invalid nil value for '%{public}s'", "_rowInfosPerRow");
+    v9 = MEMORY[0x277D81150];
+    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v4, "[TSTConcurrentCellList p_enumerateRowsOfCellsConcurrentlyUsingBlock:]", v6);
+    v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v12);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v9, v14, v10, v13, 1454, 0, "invalid nil value for '%{public}s'", "_rowInfosPerRow");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v17, v18, v19, v20);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v15, v16, v17);
     rowInfosPerRow = self->_rowInfosPerRow;
   }
 
-  if (objc_msgSend_count(rowInfosPerRow, v4, v5, v6, v7) != self->_baseRows.__end_ - self->_baseRows.__begin_)
+  if (objc_msgSend_count(rowInfosPerRow, v4, v5, v6) != self->_baseRows.__end_ - self->_baseRows.__begin_)
   {
-    v24 = MEMORY[0x277D81150];
-    v25 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v21, "[TSTConcurrentCellList p_enumerateRowsOfCellsConcurrentlyUsingBlock:]", v22, v23);
-    v29 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v26, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v27, v28);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v24, v30, v25, v29, 1455, 0, "_rowInfosPerRow size mismatch in cellList");
+    v20 = MEMORY[0x277D81150];
+    v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v18, "[TSTConcurrentCellList p_enumerateRowsOfCellsConcurrentlyUsingBlock:]", v19);
+    v24 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v22, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v23);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v20, v25, v21, v24, 1455, 0, "_rowInfosPerRow size mismatch in cellList");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v31, v32, v33, v34);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v26, v27, v28);
   }
 
   begin = self->_oldCells.__begin_;
   var0 = self->_oldCells.var0;
   if (begin != var0 && var0 - begin != self->_cells.var0 - self->_cells.__begin_)
   {
-    v37 = MEMORY[0x277D81150];
-    v38 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v21, "[TSTConcurrentCellList p_enumerateRowsOfCellsConcurrentlyUsingBlock:]", v22, v23);
-    v42 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v39, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v40, v41);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v37, v43, v38, v42, 1456, 0, "_oldCells size mismatch in cellList");
+    v31 = MEMORY[0x277D81150];
+    v32 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v18, "[TSTConcurrentCellList p_enumerateRowsOfCellsConcurrentlyUsingBlock:]", v19);
+    v35 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v33, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v34);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v31, v36, v32, v35, 1456, 0, "_oldCells size mismatch in cellList");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v44, v45, v46, v47);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v37, v38, v39);
   }
 
   sub_2211687C4(&self->_cellCountDiffsPerRow.__begin_, self->_baseRows.__end_ - self->_baseRows.__begin_);
@@ -1692,61 +1692,61 @@ LABEL_17:
   sub_22116D2A8(location, self->_baseColumns.__end_ - self->_baseColumns.__begin_);
   if (self->_baseRows.__end_ != self->_baseRows.__begin_)
   {
-    v52 = 0;
+    v43 = 0;
     do
     {
-      v53 = objc_msgSend_objectAtIndexedSubscript_(self->_rowInfosPerRow, v49, v52, v50, v51);
-      v54 = self->_baseColumns.__end_ - self->_baseColumns.__begin_;
-      v55 = v52 + 1;
-      sub_22116D07C(&__p, &self->_cells.__begin_[v52 * v54], &self->_cells.__begin_[(v52 + 1) * v54], location[0]);
-      blockCopy[2](&__p, blockCopy, v53, location, &self->_baseColumns);
-      v56 = __p;
-      if (__p == v67)
+      v44 = objc_msgSend_objectAtIndexedSubscript_(self->_rowInfosPerRow, v41, v43, v42);
+      v45 = self->_baseColumns.__end_ - self->_baseColumns.__begin_;
+      v46 = v43 + 1;
+      sub_22116D07C(&__p, &self->_cells.__begin_[v43 * v45], &self->_cells.__begin_[(v43 + 1) * v45], location[0]);
+      blockCopy[2](&__p, blockCopy, v44, location, &self->_baseColumns);
+      v47 = __p;
+      if (__p == v58)
       {
-        v59 = 0;
+        v50 = 0;
       }
 
       else
       {
-        v57 = 0;
+        v48 = 0;
         do
         {
-          v58 = *v56;
-          v56 += 2;
-          v57 += v58;
+          v49 = *v47;
+          v47 += 2;
+          v48 += v49;
         }
 
-        while (v56 != v67);
-        v59 = v57;
+        while (v47 != v58);
+        v50 = v48;
       }
 
-      v65 = v59;
-      sub_2211531C0(&self->_cellCountDiffsPerRow.__begin_, &v65);
-      v60 = p_cellCountDiffsPerColumn->__begin_;
+      v56 = v50;
+      sub_2211531C0(&self->_cellCountDiffsPerRow.__begin_, &v56);
+      v51 = p_cellCountDiffsPerColumn->__begin_;
       end = self->_cellCountDiffsPerColumn.__end_;
-      v62 = __p;
+      v53 = __p;
       if (p_cellCountDiffsPerColumn->__begin_ != end)
       {
-        v63 = __p;
+        v54 = __p;
         do
         {
-          v64 = *v63++;
-          *v60++ += v64;
+          v55 = *v54++;
+          *v51++ += v55;
         }
 
-        while (v60 != end);
+        while (v51 != end);
       }
 
-      if (v62)
+      if (v53)
       {
-        v67 = v62;
-        operator delete(v62);
+        v58 = v53;
+        operator delete(v53);
       }
 
-      ++v52;
+      ++v43;
     }
 
-    while (v55 < self->_baseRows.__end_ - self->_baseRows.__begin_);
+    while (v46 < self->_baseRows.__end_ - self->_baseRows.__begin_);
   }
 
   __p = location;
@@ -1761,43 +1761,43 @@ LABEL_17:
   var0 = self->_oldCells.var0;
   if (begin != var0 && var0 - begin != self->_cells.var0 - self->_cells.__begin_)
   {
-    v10 = MEMORY[0x277D81150];
-    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v4, "[TSTConcurrentCellList p_enumerateNewAndOldCellsSeriallyUsingBlock:]", v5, v6);
-    v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v13, v14);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v10, v16, v11, v15, 1488, 0, "_oldCells size mismatch in cellList");
+    v9 = MEMORY[0x277D81150];
+    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v4, "[TSTConcurrentCellList p_enumerateNewAndOldCellsSeriallyUsingBlock:]", v5);
+    v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v12);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v9, v14, v10, v13, 1488, 0, "_oldCells size mismatch in cellList");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v17, v18, v19, v20);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v15, v16, v17);
   }
 
   p_cells = &self->_cells;
-  v22 = self->_cells.__begin_;
-  if (self->_cells.var0 != v22)
+  v19 = self->_cells.__begin_;
+  if (self->_cells.var0 != v19)
   {
-    v23 = 0;
+    v20 = 0;
     do
     {
-      v24 = v22[v23];
+      v21 = v19[v20];
       if (p_oldCells->__begin_ == p_oldCells->var0)
       {
-        v25 = 0;
+        v22 = 0;
       }
 
       else
       {
-        v25 = p_oldCells->__begin_[v23];
+        v22 = p_oldCells->__begin_[v20];
       }
 
-      v26 = v25;
-      if (v24 | v26)
+      v23 = v22;
+      if (v21 | v23)
       {
-        blockCopy[2](blockCopy, v24, v26);
+        blockCopy[2](blockCopy, v21, v23);
       }
 
-      ++v23;
-      v22 = p_cells->__begin_;
+      ++v20;
+      v19 = p_cells->__begin_;
     }
 
-    while (v23 < p_cells->var0 - p_cells->__begin_);
+    while (v20 < p_cells->var0 - p_cells->__begin_);
   }
 }
 
@@ -1808,35 +1808,35 @@ LABEL_17:
   var0 = self->_oldCells.var0;
   if (begin != var0 && var0 - begin != self->_cells.var0 - self->_cells.__begin_)
   {
-    v12 = MEMORY[0x277D81150];
-    v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "[TSTConcurrentCellList p_enumerateCellsAddedAndRemovedOfType:usingBlock:]", v7, v8);
-    v17 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v15, v16);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v12, v18, v13, v17, 1501, 0, "_oldCells size:%lu does not match _cells size:%lu in cellList", self->_oldCells.var0 - self->_oldCells.__begin_, self->_cells.var0 - self->_cells.__begin_);
+    v11 = MEMORY[0x277D81150];
+    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "[TSTConcurrentCellList p_enumerateCellsAddedAndRemovedOfType:usingBlock:]", v7);
+    v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v14);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v11, v16, v12, v15, 1501, 0, "_oldCells size:%lu does not match _cells size:%lu in cellList", self->_oldCells.var0 - self->_oldCells.__begin_, self->_cells.var0 - self->_cells.__begin_);
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v19, v20, v21, v22);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v17, v18, v19);
   }
 
   interestingCells = self->_interestingCells;
   if (!interestingCells)
   {
-    v24 = MEMORY[0x277D81150];
-    v25 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "[TSTConcurrentCellList p_enumerateCellsAddedAndRemovedOfType:usingBlock:]", v7, v8);
-    v29 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v26, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v27, v28);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v24, v30, v25, v29, 1503, 0, "invalid nil value for '%{public}s'", "_interestingCells");
+    v21 = MEMORY[0x277D81150];
+    v22 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "[TSTConcurrentCellList p_enumerateCellsAddedAndRemovedOfType:usingBlock:]", v7);
+    v25 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v23, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v24);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v21, v26, v22, v25, 1503, 0, "invalid nil value for '%{public}s'", "_interestingCells");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v31, v32, v33, v34);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v27, v28, v29);
     interestingCells = self->_interestingCells;
   }
 
-  v35 = objc_msgSend_objectAtIndexedSubscript_(interestingCells, v6, type, v7, v8);
-  v40[0] = MEMORY[0x277D85DD0];
-  v40[1] = 3221225472;
-  v40[2] = sub_221168C88;
-  v40[3] = &unk_27845FE28;
-  v40[4] = self;
-  v36 = blockCopy;
-  v41 = v36;
-  objc_msgSend_enumerateIndexesUsingBlock_(v35, v37, v40, v38, v39);
+  v30 = objc_msgSend_objectAtIndexedSubscript_(interestingCells, v6, type, v7);
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 3221225472;
+  v34[2] = sub_221168C88;
+  v34[3] = &unk_27845FE28;
+  v34[4] = self;
+  v31 = blockCopy;
+  v35 = v31;
+  objc_msgSend_enumerateIndexesUsingBlock_(v30, v32, v34, v33);
 }
 
 - (void)p_enumerateCellsAddedOfType:(unint64_t)type usingBlock:(id)block
@@ -1845,47 +1845,47 @@ LABEL_17:
   interestingCells = self->_interestingCells;
   if (!interestingCells)
   {
-    v11 = MEMORY[0x277D81150];
-    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "[TSTConcurrentCellList p_enumerateCellsAddedOfType:usingBlock:]", v7, v8);
-    v16 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v14, v15);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v11, v17, v12, v16, 1530, 0, "invalid nil value for '%{public}s'", "_interestingCells");
+    v10 = MEMORY[0x277D81150];
+    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "[TSTConcurrentCellList p_enumerateCellsAddedOfType:usingBlock:]", v7);
+    v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v13);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v10, v15, v11, v14, 1530, 0, "invalid nil value for '%{public}s'", "_interestingCells");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v18, v19, v20, v21);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v16, v17, v18);
     interestingCells = self->_interestingCells;
   }
 
-  v22 = objc_msgSend_objectAtIndexedSubscript_(interestingCells, v6, type, v7, v8);
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = sub_221168F38;
-  v27[3] = &unk_27845FE28;
-  v27[4] = self;
-  v23 = blockCopy;
-  v28 = v23;
-  objc_msgSend_enumerateIndexesUsingBlock_(v22, v24, v27, v25, v26);
+  v19 = objc_msgSend_objectAtIndexedSubscript_(interestingCells, v6, type, v7);
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = sub_221168F38;
+  v23[3] = &unk_27845FE28;
+  v23[4] = self;
+  v20 = blockCopy;
+  v24 = v20;
+  objc_msgSend_enumerateIndexesUsingBlock_(v19, v21, v23, v22);
 }
 
 - (void)p_enumerateCellsAddedAndRemovedForFormatsUsingBlock:(id)block
 {
   blockCopy = block;
   formatsAdded = self->_formatsAdded;
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = sub_221169168;
-  v17[3] = &unk_27845FE50;
-  v6 = blockCopy;
-  v17[4] = self;
-  v18 = v6;
-  objc_msgSend_enumerateKeysAndObjectsUsingBlock_(formatsAdded, v7, v17, v8, v9);
-  formatsRemoved = self->_formatsRemoved;
   v15[0] = MEMORY[0x277D85DD0];
   v15[1] = 3221225472;
-  v15[2] = sub_221169198;
-  v15[3] = &unk_27845FE78;
-  v11 = v6;
+  v15[2] = sub_221169168;
+  v15[3] = &unk_27845FE50;
+  v6 = blockCopy;
   v15[4] = self;
-  v16 = v11;
-  objc_msgSend_enumerateKeysAndObjectsUsingBlock_(formatsRemoved, v12, v15, v13, v14);
+  v16 = v6;
+  objc_msgSend_enumerateKeysAndObjectsUsingBlock_(formatsAdded, v7, v15, v8);
+  formatsRemoved = self->_formatsRemoved;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = sub_221169198;
+  v13[3] = &unk_27845FE78;
+  v10 = v6;
+  v13[4] = self;
+  v14 = v10;
+  objc_msgSend_enumerateKeysAndObjectsUsingBlock_(formatsRemoved, v11, v13, v12);
 }
 
 - (void)p_enumerateColumnCellCountDiffUsingBlock:(id)block
@@ -1897,27 +1897,27 @@ LABEL_17:
   p_cellCountDiffsPerColumn = &self->_cellCountDiffsPerColumn;
   if (end - begin != self->_cellCountDiffsPerColumn.__end_ - self->_cellCountDiffsPerColumn.__begin_)
   {
-    v11 = MEMORY[0x277D81150];
-    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v4, "[TSTConcurrentCellList p_enumerateColumnCellCountDiffUsingBlock:]", v5, v6);
-    v16 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v14, v15);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v11, v17, v12, v16, 1567, 0, "_baseColumns and _cellCountDiffsPerColumn sizes should match");
+    v10 = MEMORY[0x277D81150];
+    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v4, "[TSTConcurrentCellList p_enumerateColumnCellCountDiffUsingBlock:]", v5);
+    v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v13);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v10, v15, v11, v14, 1567, 0, "_baseColumns and _cellCountDiffsPerColumn sizes should match");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v18, v19, v20, v21);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v16, v17, v18);
     begin = p_baseColumns->__begin_;
     end = p_baseColumns->__end_;
   }
 
   if (end != begin)
   {
-    v22 = 0;
+    v19 = 0;
     do
     {
-      blockCopy[2](blockCopy, begin[v22]._column, p_cellCountDiffsPerColumn->__begin_[v22]);
-      ++v22;
+      blockCopy[2](blockCopy, begin[v19]._column, p_cellCountDiffsPerColumn->__begin_[v19]);
+      ++v19;
       begin = p_baseColumns->__begin_;
     }
 
-    while (v22 < p_baseColumns->__end_ - p_baseColumns->__begin_);
+    while (v19 < p_baseColumns->__end_ - p_baseColumns->__begin_);
   }
 }
 
@@ -1927,253 +1927,253 @@ LABEL_17:
   p_baseRows = &self->_baseRows;
   begin = self->_baseRows.__begin_;
   end = self->_baseRows.__end_;
-  v64 = blockCopy;
+  v54 = blockCopy;
   if (end - begin != self->_cellCountDiffsPerRow.__end_ - self->_cellCountDiffsPerRow.__begin_)
   {
-    v12 = MEMORY[0x277D81150];
-    v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v5, "[TSTConcurrentCellList p_enumerateRowCellCountDiffUsingBlock:]", v7, v8);
-    v17 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v15, v16);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v12, v18, v13, v17, 1577, 0, "_baseRows and _cellCountDiffsPerRow sizes should match");
+    v11 = MEMORY[0x277D81150];
+    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v5, "[TSTConcurrentCellList p_enumerateRowCellCountDiffUsingBlock:]", v7);
+    v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v14);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v11, v16, v12, v15, 1577, 0, "_baseRows and _cellCountDiffsPerRow sizes should match");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v19, v20, v21, v22);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v17, v18, v19);
     begin = p_baseRows->__begin_;
     end = self->_baseRows.__end_;
   }
 
-  if (objc_msgSend_count(self->_tilesPerRow, v5, v6, v7, v8, &self->_cellCountDiffsPerRow) != end - begin)
+  if (objc_msgSend_count(self->_tilesPerRow, v5, v6, v7, &self->_cellCountDiffsPerRow) != end - begin)
   {
-    v27 = MEMORY[0x277D81150];
-    v28 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v23, "[TSTConcurrentCellList p_enumerateRowCellCountDiffUsingBlock:]", v25, v26);
-    v32 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v29, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v30, v31);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v27, v33, v28, v32, 1578, 0, "_baseRows and _tilesPerRow sizes should match");
+    v23 = MEMORY[0x277D81150];
+    v24 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v20, "[TSTConcurrentCellList p_enumerateRowCellCountDiffUsingBlock:]", v22);
+    v27 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v25, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v26);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v23, v28, v24, v27, 1578, 0, "_baseRows and _tilesPerRow sizes should match");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v34, v35, v36, v37);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v29, v30, v31);
   }
 
-  v39 = p_baseRows->__begin_;
-  v38 = self->_baseRows.__end_;
-  if (objc_msgSend_count(self->_rowInfosPerRow, v23, v24, v25, v26) != v38 - v39)
+  v33 = p_baseRows->__begin_;
+  v32 = self->_baseRows.__end_;
+  if (objc_msgSend_count(self->_rowInfosPerRow, v20, v21, v22) != v32 - v33)
   {
-    v43 = MEMORY[0x277D81150];
-    v44 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v40, "[TSTConcurrentCellList p_enumerateRowCellCountDiffUsingBlock:]", v41, v42);
-    v48 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v45, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v46, v47);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v43, v49, v44, v48, 1579, 0, "_baseRows and _rowInfosPerRow sizes should match");
+    v36 = MEMORY[0x277D81150];
+    v37 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v34, "[TSTConcurrentCellList p_enumerateRowCellCountDiffUsingBlock:]", v35);
+    v40 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v38, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v39);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v36, v41, v37, v40, 1579, 0, "_baseRows and _rowInfosPerRow sizes should match");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v50, v51, v52, v53);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v42, v43, v44);
   }
 
-  v54 = p_baseRows->__begin_;
+  v45 = p_baseRows->__begin_;
   if (self->_baseRows.__end_ != p_baseRows->__begin_)
   {
-    v55 = 0;
+    v46 = 0;
     do
     {
-      row = v54[v55]._row;
-      v57 = *(*v63 + 8 * v55);
-      v58 = objc_msgSend_objectAtIndexedSubscript_(self->_tilesPerRow, v40, v55, v41, v42);
-      v62 = objc_msgSend_objectAtIndexedSubscript_(self->_rowInfosPerRow, v59, v55, v60, v61);
-      v64[2](v64, row, v57, v58, v62);
+      row = v45[v46]._row;
+      v48 = *(*v53 + 8 * v46);
+      v49 = objc_msgSend_objectAtIndexedSubscript_(self->_tilesPerRow, v34, v46, v35);
+      v52 = objc_msgSend_objectAtIndexedSubscript_(self->_rowInfosPerRow, v50, v46, v51);
+      v54[2](v54, row, v48, v49, v52);
 
-      ++v55;
-      v54 = p_baseRows->__begin_;
+      ++v46;
+      v45 = p_baseRows->__begin_;
     }
 
-    while (v55 < self->_baseRows.__end_ - self->_baseRows.__begin_);
+    while (v46 < self->_baseRows.__end_ - self->_baseRows.__begin_);
   }
 }
 
 - (void)p_enumerateCustomFormatsBeingAddedUsingReplacementBlock:(id)block
 {
-  v82 = *MEMORY[0x277D85DE8];
+  v70 = *MEMORY[0x277D85DE8];
   blockCopy = block;
-  v75 = 0;
-  v76 = &v75;
-  v77 = 0x3032000000;
-  v78 = sub_221169B4C;
-  v79 = sub_221169B5C;
-  v80 = 0;
+  v63 = 0;
+  v64 = &v63;
+  v65 = 0x3032000000;
+  v66 = sub_221169B4C;
+  v67 = sub_221169B5C;
+  v68 = 0;
   formatsAdded = self->_formatsAdded;
-  v72[0] = MEMORY[0x277D85DD0];
-  v72[1] = 3221225472;
-  v72[2] = sub_221169B64;
-  v72[3] = &unk_27845FEA0;
-  v64 = blockCopy;
-  v73 = v64;
-  v74 = &v75;
-  objc_msgSend_enumerateKeysAndObjectsUsingBlock_(formatsAdded, v6, v72, v7, v8);
-  v70 = 0u;
-  v71 = 0u;
-  v68 = 0u;
-  v69 = 0u;
-  obj = v76[5];
-  v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v9, &v68, v81, 16);
-  if (v14)
+  v60[0] = MEMORY[0x277D85DD0];
+  v60[1] = 3221225472;
+  v60[2] = sub_221169B64;
+  v60[3] = &unk_27845FEA0;
+  v52 = blockCopy;
+  v61 = v52;
+  v62 = &v63;
+  objc_msgSend_enumerateKeysAndObjectsUsingBlock_(formatsAdded, v6, v60, v7);
+  v58 = 0u;
+  v59 = 0u;
+  v56 = 0u;
+  v57 = 0u;
+  obj = v64[5];
+  v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v8, &v56, v69, 16);
+  if (v12)
   {
-    v15 = *v69;
+    v13 = *v57;
     do
     {
-      for (i = 0; i != v14; ++i)
+      for (i = 0; i != v12; ++i)
       {
-        if (*v69 != v15)
+        if (*v57 != v13)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = *(*(&v68 + 1) + 8 * i);
-        v18 = objc_msgSend_first(v17, v10, v11, v12, v13);
-        v26 = objc_msgSend_second(v17, v19, v20, v21, v22);
-        if (!v18)
+        v15 = *(*(&v56 + 1) + 8 * i);
+        v16 = objc_msgSend_first(v15, v9, v10, v11);
+        v22 = objc_msgSend_second(v15, v17, v18, v19);
+        if (!v16)
         {
-          v27 = MEMORY[0x277D81150];
-          v28 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v23, "[TSTConcurrentCellList p_enumerateCustomFormatsBeingAddedUsingReplacementBlock:]", v24, v25);
-          v32 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v29, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v30, v31);
-          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v27, v33, v28, v32, 1611, 0, "customFormatToRemove can not be nil.");
+          v23 = MEMORY[0x277D81150];
+          v24 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v20, "[TSTConcurrentCellList p_enumerateCustomFormatsBeingAddedUsingReplacementBlock:]", v21);
+          v27 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v25, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v26);
+          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v23, v28, v24, v27, 1611, 0, "customFormatToRemove can not be nil.");
 
-          objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v34, v35, v36, v37);
+          objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v29, v30, v31);
         }
 
-        if (v26)
+        if (v22)
         {
-          v38 = objc_msgSend_objectForKey_(self->_formatsAdded, v23, v18, v24, v25);
-          objc_msgSend_removeObjectForKey_(self->_formatsAdded, v39, v18, v40, v41);
-          v66[0] = MEMORY[0x277D85DD0];
-          v66[1] = 3221225472;
-          v66[2] = sub_221169D18;
-          v66[3] = &unk_27845DE60;
-          v66[4] = self;
-          v42 = v26;
-          v67 = v42;
-          objc_msgSend_enumerateIndexesUsingBlock_(v38, v43, v66, v44, v45);
-          v52 = objc_msgSend_objectForKey_(self->_formatsAdded, v46, v42, v47, v48);
-          if (v52)
+          v32 = objc_msgSend_objectForKey_(self->_formatsAdded, v20, v16, v21);
+          objc_msgSend_removeObjectForKey_(self->_formatsAdded, v33, v16, v34);
+          v54[0] = MEMORY[0x277D85DD0];
+          v54[1] = 3221225472;
+          v54[2] = sub_221169D18;
+          v54[3] = &unk_27845DE60;
+          v54[4] = self;
+          v35 = v22;
+          v55 = v35;
+          objc_msgSend_enumerateIndexesUsingBlock_(v32, v36, v54, v37);
+          v42 = objc_msgSend_objectForKey_(self->_formatsAdded, v38, v35, v39);
+          if (v42)
           {
-            objc_msgSend_addIndexes_(v38, v49, v52, v50, v51);
+            objc_msgSend_addIndexes_(v32, v40, v42, v41);
           }
 
-          if (v38)
+          if (v32)
           {
-            objc_msgSend_setObject_forKey_(self->_formatsAdded, v49, v38, v42, v51);
+            objc_msgSend_setObject_forKey_(self->_formatsAdded, v40, v32, v35);
           }
         }
 
         else
         {
-          v53 = MEMORY[0x277D81150];
-          v54 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v23, "[TSTConcurrentCellList p_enumerateCustomFormatsBeingAddedUsingReplacementBlock:]", v24, v25);
-          v58 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v55, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v56, v57);
-          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v53, v59, v54, v58, 1612, 0, "replacementCustomFormat can not be nil.");
+          v43 = MEMORY[0x277D81150];
+          v44 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v20, "[TSTConcurrentCellList p_enumerateCustomFormatsBeingAddedUsingReplacementBlock:]", v21);
+          v47 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v45, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v46);
+          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v43, v48, v44, v47, 1612, 0, "replacementCustomFormat can not be nil.");
 
-          objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v60, v61, v62, v63);
+          objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v49, v50, v51);
         }
       }
 
-      v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v10, &v68, v81, 16);
+      v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v9, &v56, v69, 16);
     }
 
-    while (v14);
+    while (v12);
   }
 
-  _Block_object_dispose(&v75, 8);
+  _Block_object_dispose(&v63, 8);
 }
 
 - (id)p_baseColumnIndexes
 {
-  v9 = objc_msgSend_indexSet(MEMORY[0x277CCAB58], a2, v2, v3, v4);
+  v7 = objc_msgSend_indexSet(MEMORY[0x277CCAB58], a2, v2, v3);
   p_baseColumns = &self->_baseColumns;
   begin = self->_baseColumns.__begin_;
   end = p_baseColumns->__end_;
   while (begin != end)
   {
-    objc_msgSend_addIndex_(v9, v6, begin->_column, v7, v8);
+    objc_msgSend_addIndex_(v7, v5, begin->_column, v6);
     ++begin;
   }
 
-  return v9;
+  return v7;
 }
 
 - (id)p_baseRowIndexes
 {
-  v9 = objc_msgSend_indexSet(MEMORY[0x277CCAB58], a2, v2, v3, v4);
+  v7 = objc_msgSend_indexSet(MEMORY[0x277CCAB58], a2, v2, v3);
   p_baseRows = &self->_baseRows;
   begin = self->_baseRows.__begin_;
   end = p_baseRows->__end_;
   while (begin != end)
   {
-    objc_msgSend_addIndex_(v9, v6, begin->_row, v7, v8);
+    objc_msgSend_addIndex_(v7, v5, begin->_row, v6);
     ++begin;
   }
 
-  return v9;
+  return v7;
 }
 
 - (void)loadFromUnarchiver:(id)unarchiver
 {
   unarchiverCopy = unarchiver;
   google::protobuf::internal::AssignDescriptors();
-  v8 = objc_msgSend_messageWithDescriptor_(unarchiverCopy, v5, off_2812E4498[114], v6, v7);
+  v7 = objc_msgSend_messageWithDescriptor_(unarchiverCopy, v5, off_2812E4498[114], v6);
 
-  v13 = objc_msgSend_currentLocale(MEMORY[0x277D81228], v9, v10, v11, v12);
-  sub_22116A0A0(&self->_cells.__begin_, *(v8 + 32));
-  v14 = *(v8 + 40);
-  if (v14)
+  v11 = objc_msgSend_currentLocale(MEMORY[0x277D81228], v8, v9, v10);
+  sub_22116A0A0(&self->_cells.__begin_, *(v7 + 32));
+  v12 = *(v7 + 40);
+  if (v12)
   {
-    v15 = (v14 + 8);
+    v13 = (v12 + 8);
   }
 
   else
   {
-    v15 = 0;
+    v13 = 0;
   }
 
-  v16 = *(v8 + 32);
-  if (v16)
+  v14 = *(v7 + 32);
+  if (v14)
   {
-    v17 = 8 * v16;
+    v15 = 8 * v14;
     do
     {
-      TST::ConcurrentCellListArchive_OptionalCell::ConcurrentCellListArchive_OptionalCell(__p, *v15);
-      v34 = 0;
-      if (v31)
+      TST::ConcurrentCellListArchive_OptionalCell::ConcurrentCellListArchive_OptionalCell(__p, *v13);
+      v31 = 0;
+      if (v28)
       {
-        v18 = [TSTCell alloc];
-        v22 = objc_msgSend_initWithLocale_(v18, v19, v13, v20, v21);
-        v23 = v34;
-        v34 = v22;
+        v16 = [TSTCell alloc];
+        v19 = objc_msgSend_initWithLocale_(v16, v17, v11, v18);
+        v20 = v31;
+        v31 = v19;
 
-        if (v32)
+        if (v29)
         {
-          v24 = v32;
+          v21 = v29;
         }
 
         else
         {
-          v24 = &TST::_Cell_default_instance_;
+          v21 = &TST::_Cell_default_instance_;
         }
 
-        sub_221123AF0(v24, v34, unarchiverCopy);
+        sub_221123AF0(v21, v31, unarchiverCopy);
       }
 
-      sub_22116A130(&self->_cells.__begin_, &v34);
+      sub_22116A130(&self->_cells.__begin_, &v31);
 
       TST::ConcurrentCellListArchive_OptionalCell::~ConcurrentCellListArchive_OptionalCell(__p);
-      ++v15;
-      v17 -= 8;
+      ++v13;
+      v15 -= 8;
     }
 
-    while (v17);
+    while (v15);
   }
 
-  v25 = *(v8 + 16);
-  if ((v25 & 2) != 0)
+  v22 = *(v7 + 16);
+  if ((v22 & 2) != 0)
   {
-    self->_viewCellRect._rect.origin = sub_22112397C(*(v8 + 56));
-    self->_viewCellRect._rect.size = v26;
-    v25 = *(v8 + 16);
+    self->_viewCellRect._rect.origin = sub_22112397C(*(v7 + 56));
+    self->_viewCellRect._rect.size = v23;
+    v22 = *(v7 + 16);
   }
 
-  if (v25)
+  if (v22)
   {
-    MEMORY[0x223D9F8B0](__p, *(v8 + 48));
+    MEMORY[0x223D9F8B0](__p, *(v7 + 48));
     p_cellUIDRange = &self->_cellUIDRange;
     begin = p_cellUIDRange->_colIdList.__begin_;
     if (p_cellUIDRange->_colIdList.__begin_)
@@ -2186,29 +2186,29 @@ LABEL_17:
     }
 
     *&p_cellUIDRange->_colIdList.__begin_ = *__p;
-    p_cellUIDRange->_colIdList.__cap_ = v31;
+    p_cellUIDRange->_colIdList.__cap_ = v28;
     __p[1] = 0;
-    v31 = 0;
+    v28 = 0;
     __p[0] = 0;
-    v29 = p_cellUIDRange->_rowIdList.__begin_;
-    if (v29)
+    v26 = p_cellUIDRange->_rowIdList.__begin_;
+    if (v26)
     {
-      p_cellUIDRange->_rowIdList.__end_ = v29;
-      operator delete(v29);
+      p_cellUIDRange->_rowIdList.__end_ = v26;
+      operator delete(v26);
       p_cellUIDRange->_rowIdList.__begin_ = 0;
       p_cellUIDRange->_rowIdList.__end_ = 0;
       p_cellUIDRange->_rowIdList.__cap_ = 0;
-      v29 = __p[0];
+      v26 = __p[0];
     }
 
-    *&p_cellUIDRange->_rowIdList.__begin_ = v32;
-    p_cellUIDRange->_rowIdList.__cap_ = v33;
-    v33 = 0;
-    v32 = 0uLL;
-    if (v29)
+    *&p_cellUIDRange->_rowIdList.__begin_ = v29;
+    p_cellUIDRange->_rowIdList.__cap_ = v30;
+    v30 = 0;
+    v29 = 0uLL;
+    if (v26)
     {
-      __p[1] = v29;
-      operator delete(v29);
+      __p[1] = v26;
+      operator delete(v26);
     }
   }
 }
@@ -2217,39 +2217,39 @@ LABEL_17:
 {
   archiverCopy = archiver;
   v5 = objc_opt_class();
-  if ((objc_msgSend_isMemberOfClass_(self, v6, v5, v7, v8) & 1) == 0)
+  if ((objc_msgSend_isMemberOfClass_(self, v6, v5, v7) & 1) == 0)
   {
-    v12 = MEMORY[0x277D81150];
-    v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "[TSTConcurrentCellList saveToArchiver:]", v10, v11);
-    v17 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v15, v16);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v12, v18, v13, v17, 1692, 0, "Archiving is not correctly implemented for subclasses.");
+    v10 = MEMORY[0x277D81150];
+    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "[TSTConcurrentCellList saveToArchiver:]", v9);
+    v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConcurrentCellMap.mm", v13);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v10, v15, v11, v14, 1692, 0, "Archiving is not correctly implemented for subclasses.");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v19, v20, v21, v22);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v16, v17, v18);
   }
 
-  v45 = archiverCopy;
+  v40 = archiverCopy;
   google::protobuf::internal::AssignDescriptors();
-  v25 = objc_msgSend_messageWithNewFunction_descriptor_(v45, v23, sub_22116D328, off_2812E4498[114], v24);
+  v20 = objc_msgSend_messageWithNewFunction_descriptor_(v40, v19, sub_22116D328, off_2812E4498[114]);
 
   begin = self->_cells.__begin_;
   var0 = self->_cells.var0;
   while (begin != var0)
   {
-    v28 = *begin;
-    v29 = v28;
-    v30 = *(v25 + 40);
-    if (!v30)
+    v23 = *begin;
+    v24 = v23;
+    v25 = *(v20 + 40);
+    if (!v25)
     {
       goto LABEL_11;
     }
 
-    v31 = *(v25 + 32);
-    v32 = *v30;
-    if (v31 < *v30)
+    v26 = *(v20 + 32);
+    v27 = *v25;
+    if (v26 < *v25)
     {
-      *(v25 + 32) = v31 + 1;
-      v33 = *&v30[2 * v31 + 2];
-      if (!v28)
+      *(v20 + 32) = v26 + 1;
+      v28 = *&v25[2 * v26 + 2];
+      if (!v23)
       {
         goto LABEL_18;
       }
@@ -2257,41 +2257,41 @@ LABEL_17:
       goto LABEL_13;
     }
 
-    if (v32 == *(v25 + 36))
+    if (v27 == *(v20 + 36))
     {
 LABEL_11:
-      google::protobuf::internal::RepeatedPtrFieldBase::Reserve((v25 + 24));
-      v30 = *(v25 + 40);
-      v32 = *v30;
+      google::protobuf::internal::RepeatedPtrFieldBase::Reserve((v20 + 24));
+      v25 = *(v20 + 40);
+      v27 = *v25;
     }
 
-    *v30 = v32 + 1;
-    v33 = google::protobuf::Arena::CreateMaybeMessage<TST::ConcurrentCellListArchive_OptionalCell>(*(v25 + 24));
-    v34 = *(v25 + 32);
-    v35 = *(v25 + 40) + 8 * v34;
-    *(v25 + 32) = v34 + 1;
-    *(v35 + 8) = v33;
-    if (!v29)
+    *v25 = v27 + 1;
+    v28 = google::protobuf::Arena::CreateMaybeMessage<TST::ConcurrentCellListArchive_OptionalCell>(*(v20 + 24));
+    v29 = *(v20 + 32);
+    v30 = *(v20 + 40) + 8 * v29;
+    *(v20 + 32) = v29 + 1;
+    *(v30 + 8) = v28;
+    if (!v24)
     {
       goto LABEL_18;
     }
 
 LABEL_13:
-    *(v33 + 16) |= 1u;
-    v36 = *(v33 + 24);
-    if (!v36)
+    *(v28 + 16) |= 1u;
+    v31 = *(v28 + 24);
+    if (!v31)
     {
-      v37 = *(v33 + 8);
-      if (v37)
+      v32 = *(v28 + 8);
+      if (v32)
       {
-        v37 = *(v37 & 0xFFFFFFFFFFFFFFFELL);
+        v32 = *(v32 & 0xFFFFFFFFFFFFFFFELL);
       }
 
-      v36 = google::protobuf::Arena::CreateMaybeMessage<TST::Cell>(v37);
-      *(v33 + 24) = v36;
+      v31 = google::protobuf::Arena::CreateMaybeMessage<TST::Cell>(v32);
+      *(v28 + 24) = v31;
     }
 
-    sub_2211243E4(v29, v36, v45);
+    sub_2211243E4(v24, v31, v40);
 LABEL_18:
 
     ++begin;
@@ -2300,94 +2300,94 @@ LABEL_18:
   p_origin = &self->_viewCellRect._rect.origin;
   if (TSUCellRect::isValid(&self->_viewCellRect._rect))
   {
-    v39 = *p_origin;
-    v40 = p_origin[1];
-    *(v25 + 16) |= 2u;
-    v41 = *(v25 + 56);
-    if (!v41)
+    v34 = *p_origin;
+    v35 = p_origin[1];
+    *(v20 + 16) |= 2u;
+    v36 = *(v20 + 56);
+    if (!v36)
     {
-      v42 = *(v25 + 8);
-      if (v42)
+      v37 = *(v20 + 8);
+      if (v37)
       {
-        v42 = *(v42 & 0xFFFFFFFFFFFFFFFELL);
+        v37 = *(v37 & 0xFFFFFFFFFFFFFFFELL);
       }
 
-      v41 = google::protobuf::Arena::CreateMaybeMessage<TST::CellRange>(v42);
-      *(v25 + 56) = v41;
+      v36 = google::protobuf::Arena::CreateMaybeMessage<TST::CellRange>(v37);
+      *(v20 + 56) = v36;
     }
 
-    sub_2211239EC(v39, v40, v41);
+    sub_2211239EC(v34, v35, v36);
   }
 
   else
   {
-    *(v25 + 16) |= 1u;
-    v43 = *(v25 + 48);
-    if (!v43)
+    *(v20 + 16) |= 1u;
+    v38 = *(v20 + 48);
+    if (!v38)
     {
-      v44 = *(v25 + 8);
-      if (v44)
+      v39 = *(v20 + 8);
+      if (v39)
       {
-        v44 = *(v44 & 0xFFFFFFFFFFFFFFFELL);
+        v39 = *(v39 & 0xFFFFFFFFFFFFFFFELL);
       }
 
-      v43 = MEMORY[0x223DA0320](v44);
-      *(v25 + 48) = v43;
+      v38 = MEMORY[0x223DA0320](v39);
+      *(v20 + 48) = v38;
     }
 
-    TSKUIDStructTract::saveToMessage(&self->_cellUIDRange, v43);
+    TSKUIDStructTract::saveToMessage(&self->_cellUIDRange, v38);
   }
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
   v5 = objc_opt_class();
-  v9 = objc_msgSend_allocWithZone_(v5, v6, zone, v7, v8);
-  v14 = objc_msgSend_context(self, v10, v11, v12, v13);
+  v8 = objc_msgSend_allocWithZone_(v5, v6, zone, v7);
+  v12 = objc_msgSend_context(self, v9, v10, v11);
   origin = self->_viewCellRect._rect.origin;
   size = self->_viewCellRect._rect.size;
+  v28 = 0;
+  v29 = 0;
+  v27 = 0;
+  sub_221086EBC(&v27, self->_cellUIDRange._colIdList.__begin_, self->_cellUIDRange._colIdList.__end_, self->_cellUIDRange._colIdList.__end_ - self->_cellUIDRange._colIdList.__begin_);
+  __p = 0;
   v31 = 0;
   v32 = 0;
-  v30 = 0;
-  sub_221086EBC(&v30, self->_cellUIDRange._colIdList.__begin_, self->_cellUIDRange._colIdList.__end_, self->_cellUIDRange._colIdList.__end_ - self->_cellUIDRange._colIdList.__begin_);
-  __p = 0;
-  v34 = 0;
-  v35 = 0;
   sub_221086EBC(&__p, self->_cellUIDRange._rowIdList.__begin_, self->_cellUIDRange._rowIdList.__end_, self->_cellUIDRange._rowIdList.__end_ - self->_cellUIDRange._rowIdList.__begin_);
-  v18 = objc_msgSend_initWithContext_viewCellRect_cellUIDRange_(v9, v17, v14, origin, size, &v30);
+  v16 = objc_msgSend_initWithContext_viewCellRect_cellUIDRange_(v8, v15, v12, origin, size, &v27);
   if (__p)
   {
-    v34 = __p;
+    v31 = __p;
     operator delete(__p);
   }
 
-  if (v30)
+  if (v27)
   {
-    v31 = v30;
-    operator delete(v30);
+    v28 = v27;
+    operator delete(v27);
   }
 
   p_cells = &self->_cells;
-  sub_2211389A0(v18 + 18, p_cells->var0 - p_cells->__begin_);
+  sub_2211389A0(v16 + 18, p_cells->var0 - p_cells->__begin_);
   begin = p_cells->__begin_;
   if (p_cells->var0 != p_cells->__begin_)
   {
-    v25 = 0;
+    v22 = 0;
     do
     {
-      v26 = objc_msgSend_copy(begin[v25], v20, v21, v22, v23);
-      v27 = v18[18];
-      v28 = *(v27 + 8 * v25);
-      *(v27 + 8 * v25) = v26;
+      v23 = objc_msgSend_copy(begin[v22], v18, v19, v20);
+      v24 = v16[18];
+      v25 = *(v24 + 8 * v22);
+      *(v24 + 8 * v22) = v23;
 
-      ++v25;
+      ++v22;
       begin = p_cells->__begin_;
     }
 
-    while (v25 < p_cells->var0 - p_cells->__begin_);
+    while (v22 < p_cells->var0 - p_cells->__begin_);
   }
 
-  return v18;
+  return v16;
 }
 
 - (TSUViewCellRect)viewCellRect
@@ -2418,11 +2418,11 @@ LABEL_18:
   p_cellUIDRange = &self->_cellUIDRange;
   if (&self->_cellUIDRange != range)
   {
-    sub_2210BD068(&self->_cellUIDRange._colIdList.__begin_, range->_colIdList.__begin_, range->_colIdList.__end_, range->_colIdList.__end_ - range->_colIdList.__begin_);
+    sub_2210BD068(&self->_cellUIDRange, range->_colIdList.__begin_, range->_colIdList.__end_, range->_colIdList.__end_ - range->_colIdList.__begin_);
     begin = range->_rowIdList.__begin_;
     end = range->_rowIdList.__end_;
 
-    sub_2210BD068(&p_cellUIDRange->_rowIdList.__begin_, begin, end, (end - begin) >> 4);
+    sub_2210BD068(&p_cellUIDRange->_rowIdList, begin, end, (end - begin) >> 4);
   }
 }
 

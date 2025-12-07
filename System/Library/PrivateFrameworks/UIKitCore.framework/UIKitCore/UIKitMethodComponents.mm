@@ -3,7 +3,7 @@
 
 @implementation UIKitMethodComponents
 
-uint64_t ___UIKitMethodComponents_block_invoke(uint64_t a1, void *a2)
+void *___UIKitMethodComponents_block_invoke(uint64_t a1, void *a2)
 {
   if (*(*(*(a1 + 48) + 8) + 24) == 1)
   {

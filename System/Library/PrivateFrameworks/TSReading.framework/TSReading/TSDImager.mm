@@ -42,10 +42,10 @@
     v9 = *(MEMORY[0x277CBF390] + 16);
     *(v7 + 24) = *MEMORY[0x277CBF390];
     *(v7 + 40) = v9;
-    *(v7 + 104) = TSDEdgeInsetsZero;
+    *(v7 + 104) = *TSDEdgeInsetsZero;
     *(v7 + 17) = root;
     *(v7 + 7) = 0x3FF0000000000000;
-    *(v7 + 120) = *&qword_26CA652C0;
+    *(v7 + 120) = *&TSDEdgeInsetsZero[16];
     v10 = objc_alloc_init(TSDCanvas);
     v8->mCanvas = v10;
     [(TSDCanvas *)v10 setDelegate:v8];
@@ -347,11 +347,11 @@
   y = self->mUnscaledClipRect.origin.y;
   width = self->mUnscaledClipRect.size.width;
   height = self->mUnscaledClipRect.size.height;
-  v51.origin.x = x;
-  v51.origin.y = y;
-  v51.size.width = width;
-  v51.size.height = height;
-  if (CGRectEqualToRect(v51, *MEMORY[0x277CBF390]))
+  v52.origin.x = x;
+  v52.origin.y = y;
+  v52.size.width = width;
+  v52.size.height = height;
+  if (CGRectEqualToRect(v52, *MEMORY[0x277CBF390]))
   {
     [(TSDCanvas *)self->mCanvas i_unscaledRectOfLayouts];
     x = v7;
@@ -360,29 +360,29 @@
     height = v10;
   }
 
-  v52.origin.x = x;
-  v52.origin.y = y;
-  v52.size.width = width;
-  v52.size.height = height;
-  MinX = CGRectGetMinX(v52);
-  v12 = fminf(MinX, 0.0);
   v53.origin.x = x;
   v53.origin.y = y;
   v53.size.width = width;
   v53.size.height = height;
-  MinY = CGRectGetMinY(v53);
-  v14 = fminf(MinY, 0.0);
+  MinX = CGRectGetMinX(v53);
+  v12 = fminf(MinX, 0.0);
   v54.origin.x = x;
   v54.origin.y = y;
   v54.size.width = width;
   v54.size.height = height;
-  MaxX = CGRectGetMaxX(v54);
-  v16 = fmaxf(MaxX, 0.0);
+  MinY = CGRectGetMinY(v54);
+  v14 = fminf(MinY, 0.0);
   v55.origin.x = x;
   v55.origin.y = y;
   v55.size.width = width;
   v55.size.height = height;
-  MaxY = CGRectGetMaxY(v55);
+  MaxX = CGRectGetMaxX(v55);
+  v16 = fmaxf(MaxX, 0.0);
+  v56.origin.x = x;
+  v56.origin.y = y;
+  v56.size.width = width;
+  v56.size.height = height;
+  MaxY = CGRectGetMaxY(v56);
   v18 = v16 - v12;
   v19 = fmaxf(MaxY, 0.0) - v14;
   v20 = v19 > 0.0 && v18 > 0.0;
@@ -458,49 +458,49 @@
     [(TSDCanvas *)self->mCanvas viewScale];
     self->mActualScaledClipRect.origin.x = TSDMultiplyRectScalar(x, y, width, height, v34);
     self->mActualScaledClipRect.origin.y = v35;
-    self->mActualScaledClipRect.size.width = v36;
-    self->mActualScaledClipRect.size.height = v37;
+    self->mActualScaledClipRect.size.width = v37;
+    self->mActualScaledClipRect.size.height = v38;
     if (self->mUseScaledImageSize && self->mImageMustHaveEvenDimensions)
     {
-      *v38.i64 = TSDRoundedSize();
-      *v40.i64 = *v39.i64 - trunc(*v39.i64 * 0.5) * 2.0;
-      v41.f64[0] = NAN;
-      v41.f64[1] = NAN;
-      v42 = vnegq_f64(v41);
-      v43 = *vbslq_s8(v42, v40, v39).i64;
-      *v44.i64 = *v38.i64 - trunc(*v38.i64 * 0.5) * 2.0;
-      *&v45 = vbslq_s8(v42, v44, v38).u64[0];
-      if (v43 != 0.0 || v45 != 0.0)
+      *v39.i64 = TSDRoundedSize(v36, v37, v38);
+      *v41.i64 = *v40.i64 - trunc(*v40.i64 * 0.5) * 2.0;
+      v42.f64[0] = NAN;
+      v42.f64[1] = NAN;
+      v43 = vnegq_f64(v42);
+      v44 = *vbslq_s8(v43, v41, v40).i64;
+      *v45.i64 = *v39.i64 - trunc(*v39.i64 * 0.5) * 2.0;
+      *&v46 = vbslq_s8(v43, v45, v39).u64[0];
+      if (v44 != 0.0 || v46 != 0.0)
       {
-        if (v43 == 0.0)
+        if (v44 == 0.0)
         {
-          v46 = *v39.i64;
+          v47 = *v40.i64;
         }
 
         else
         {
-          v46 = *v39.i64 + -1.0;
+          v47 = *v40.i64 + -1.0;
         }
 
-        if (v45 == 0.0)
+        if (v46 == 0.0)
         {
-          v47 = *v38.i64;
+          v48 = *v39.i64;
         }
 
         else
         {
-          v47 = *v38.i64 + -1.0;
+          v48 = *v39.i64 + -1.0;
         }
 
-        if (v47 > self->mScaledImageSize.width || v46 > self->mScaledImageSize.height)
+        if (v48 > self->mScaledImageSize.width || v47 > self->mScaledImageSize.height)
         {
           currentHandler2 = [MEMORY[0x277D6C290] currentHandler];
-          v49 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TSDImager p_configureCanvas]"];
-          [currentHandler2 handleFailureInFunction:v49 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/drawables/TSDImager.m"), 401, @"new image dimensions not calculated as expected! Image may be the wrong size."}];
+          v50 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TSDImager p_configureCanvas]"];
+          [currentHandler2 handleFailureInFunction:v50 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/drawables/TSDImager.m"), 401, @"new image dimensions not calculated as expected! Image may be the wrong size."}];
         }
 
-        self->mActualScaledClipRect.size.width = v47;
-        self->mActualScaledClipRect.size.height = v46;
+        self->mActualScaledClipRect.size.width = v48;
+        self->mActualScaledClipRect.size.height = v47;
       }
     }
   }

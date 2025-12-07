@@ -11,19 +11,17 @@
 
 - (id)attributeDescriptions
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   identifier = [(HMDAccessoryReachabilityElectionParameter *)self identifier];
   v5 = [v3 initWithName:@"Identifier" value:identifier];
-  v12[0] = v5;
+  v11[0] = v5;
   v6 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDAccessoryReachabilityElectionParameter *)self isReachable];
   v7 = HMFBooleanToString();
   v8 = [v6 initWithName:@"Reachable" value:v7];
-  v12[1] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v11[1] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
 
   return v9;
 }
@@ -77,10 +75,10 @@
 
 - (NSDictionary)dictionaryRepresentation
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   identifier = [(HMDAccessoryReachabilityElectionParameter *)self identifier];
   uUIDString = [identifier UUIDString];
-  v10 = uUIDString;
+  v9 = uUIDString;
   isReachable = [(HMDAccessoryReachabilityElectionParameter *)self isReachable];
   v6 = &unk_283E74F00;
   if (isReachable)
@@ -88,10 +86,8 @@
     v6 = &unk_283E74EE8;
   }
 
-  v11[0] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v10[0] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
 
   return v7;
 }
@@ -107,7 +103,7 @@
     v8 = [(HMDAccessoryReachabilityElectionParameter *)&v15 init];
     if (v8)
     {
-      v9 = [v7 copy];
+      v9 = objc_msgSend_copy(v7);
       identifier = v8->_identifier;
       v8->_identifier = v9;
 
@@ -126,7 +122,7 @@
 
 - (HMDAccessoryReachabilityElectionParameter)initWithDictionaryRepresentation:(id)representation
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   representationCopy = representation;
   v5 = representationCopy;
   if (representationCopy)
@@ -140,11 +136,11 @@
       if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         v19 = HMFGetLogIdentifier();
-        v33 = 138543618;
-        v34 = v19;
-        v35 = 2112;
-        v36 = v5;
-        _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@Unexpected representation, invalid keys: %@", &v33, 0x16u);
+        v32 = 138543618;
+        v33 = v19;
+        v34 = 2112;
+        v35 = v5;
+        _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@Unexpected representation, invalid keys: %@", &v32, 0x16u);
       }
 
       objc_autoreleasePoolPop(v17);
@@ -196,22 +192,22 @@
 
         else
         {
-          v28 = objc_autoreleasePoolPush();
+          v27 = objc_autoreleasePoolPush();
           self = self;
-          v29 = HMFGetOSLogHandle();
-          if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+          v28 = HMFGetOSLogHandle();
+          if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
           {
-            v30 = HMFGetLogIdentifier();
+            v29 = HMFGetLogIdentifier();
             allValues2 = [v5 allValues];
             firstObject3 = [allValues2 firstObject];
-            v33 = 138543618;
-            v34 = v30;
-            v35 = 2112;
-            v36 = firstObject3;
-            _os_log_impl(&dword_229538000, v29, OS_LOG_TYPE_ERROR, "%{public}@Invalid reachability: %@", &v33, 0x16u);
+            v32 = 138543618;
+            v33 = v29;
+            v34 = 2112;
+            v35 = firstObject3;
+            _os_log_impl(&dword_229538000, v28, OS_LOG_TYPE_ERROR, "%{public}@Invalid reachability: %@", &v32, 0x16u);
           }
 
-          objc_autoreleasePoolPop(v28);
+          objc_autoreleasePoolPop(v27);
           selfCopy = 0;
         }
 
@@ -228,11 +224,11 @@
       }
 
       v23 = HMFGetLogIdentifier();
-      v33 = 138543618;
-      v34 = v23;
-      v35 = 2112;
-      v36 = v9;
-      _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_ERROR, "%{public}@Invalid identifier: %@", &v33, 0x16u);
+      v32 = 138543618;
+      v33 = v23;
+      v34 = 2112;
+      v35 = v9;
+      _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_ERROR, "%{public}@Invalid identifier: %@", &v32, 0x16u);
     }
 
     else
@@ -254,11 +250,11 @@ LABEL_24:
 
       v23 = HMFGetLogIdentifier();
       firstObject4 = [allKeys firstObject];
-      v33 = 138543618;
-      v34 = v23;
-      v35 = 2112;
-      v36 = firstObject4;
-      _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_ERROR, "%{public}@Invalid key type: %@", &v33, 0x16u);
+      v32 = 138543618;
+      v33 = v23;
+      v34 = 2112;
+      v35 = firstObject4;
+      _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_ERROR, "%{public}@Invalid key type: %@", &v32, 0x16u);
     }
 
     goto LABEL_22;
@@ -267,7 +263,6 @@ LABEL_24:
   selfCopy = 0;
 LABEL_25:
 
-  v26 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

@@ -346,20 +346,20 @@
     [descriptionLabel setFont:v13];
 
     titleLabel2 = [(BKTOCBookmarksDescription *)self->_noBookmarksView titleLabel];
-    v16 = AEBundle();
+    v16 = AEBundle(titleLabel2);
     v17 = [v16 localizedStringForKey:@"Adding Bookmarks…" value:&stru_1E7188 table:0];
     [titleLabel2 setText:v17];
 
     v18 = +[UIColor bc_booksLabelColor];
     [titleLabel2 setTextColor:v18];
 
-    v19 = AEBundle();
-    v20 = [v19 localizedStringForKey:@"When you’re reading a PDF value:\ntap the Bookmark button to\nmark the current page." table:{&stru_1E7188, 0}];
+    v20 = AEBundle(v19);
+    v21 = [v20 localizedStringForKey:@"When you’re reading a PDF value:\ntap the Bookmark button to\nmark the current page." table:{&stru_1E7188, 0}];
 
     descriptionLabel2 = [(BKTOCBookmarksDescription *)self->_noBookmarksView descriptionLabel];
-    [descriptionLabel2 setText:v20];
-    v22 = +[UIColor bc_booksLabelColor];
-    [descriptionLabel2 setTextColor:v22];
+    [descriptionLabel2 setText:v21];
+    v23 = +[UIColor bc_booksLabelColor];
+    [descriptionLabel2 setTextColor:v23];
 
     [descriptionLabel2 setNumberOfLines:0];
     noBookmarksView = self->_noBookmarksView;

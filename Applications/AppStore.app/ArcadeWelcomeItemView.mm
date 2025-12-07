@@ -88,20 +88,21 @@
   width = fitting.width;
   swift_unknownObjectRetain();
   selfCopy = self;
-  v9 = sub_10051D5D4(in, width, height);
-  v11 = v10;
-  v13 = v12;
-  v15 = v14;
+  v9.n128_f64[0] = width;
+  v10 = sub_10051D5D4(in, v9, height);
+  v12 = v11;
+  v14 = v13;
+  v16 = v15;
   swift_unknownObjectRelease();
 
-  v16 = v9;
-  v17 = v11;
-  v18 = v13;
-  v19 = v15;
-  result.var3 = v19;
-  result.var2 = v18;
-  result.var1 = v17;
-  result.var0 = v16;
+  v17 = v10;
+  v18 = v12;
+  v19 = v14;
+  v20 = v16;
+  result.var3 = v20;
+  result.var2 = v19;
+  result.var1 = v18;
+  result.var0 = v17;
   return result;
 }
 

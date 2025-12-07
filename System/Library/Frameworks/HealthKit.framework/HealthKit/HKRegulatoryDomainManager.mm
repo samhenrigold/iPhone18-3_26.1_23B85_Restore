@@ -38,43 +38,42 @@
 
 - (id)currentEstimate
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = HKRegulatoryDomainEstimateOverrideISOCode();
+  v5 = v3;
   if (v3)
   {
-    _HKInitializeLogging();
-    v4 = HKLogInfrastructure();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    _HKInitializeLogging(v3, v4);
+    v8 = HKLogInfrastructure(v6, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      *v10 = 138543618;
-      *&v10[4] = objc_opt_class();
-      v11 = 2114;
-      v12 = v3;
-      _os_log_impl(&dword_19197B000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@]: Returning ISO country code override override: %{public}@", v10, 0x16u);
+      *v13 = 138543618;
+      *&v13[4] = objc_opt_class();
+      v14 = 2114;
+      v15 = v5;
+      _os_log_impl(&dword_19197B000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@]: Returning ISO country code override override: %{public}@", v13, 0x16u);
     }
 
-    if ([v3 isEqualToString:@"NONE"])
+    if ([v5 isEqualToString:@"NONE"])
     {
-      v5 = 0;
+      v9 = 0;
     }
 
     else
     {
-      v6 = [HKRegulatoryDomainEstimate alloc];
-      v7 = [MEMORY[0x1E695DF00] now];
-      v5 = [(HKRegulatoryDomainEstimate *)v6 initWithISOCode:v3 timestamp:v7 provenance:103];
+      v10 = [HKRegulatoryDomainEstimate alloc];
+      v11 = [MEMORY[0x1E695DF00] now];
+      v9 = [(HKRegulatoryDomainEstimate *)v10 initWithISOCode:v5 timestamp:v11 provenance:103];
     }
   }
 
   else
   {
     [(HKRegulatoryDomainManager *)self currentEstimate];
-    v5 = *v10;
+    v9 = *v13;
   }
 
-  v8 = *MEMORY[0x1E69E9840];
-
-  return v5;
+  return v9;
 }
 
 - (void)fetchMobileCountryCodeFromCellularWithCompletion:(id)completion

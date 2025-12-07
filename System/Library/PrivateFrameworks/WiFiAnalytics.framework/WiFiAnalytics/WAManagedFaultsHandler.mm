@@ -20,7 +20,7 @@
 
 void __52__WAManagedFaultsHandler_sharedManagedFaultsHandler__block_invoke()
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v0 = objc_alloc_init(WAManagedFaultsHandler);
   v1 = _MergedGlobals_1;
   _MergedGlobals_1 = v0;
@@ -30,15 +30,13 @@ void __52__WAManagedFaultsHandler_sharedManagedFaultsHandler__block_invoke()
     v2 = WALogCategoryDefaultHandle();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
-      v4 = 136446466;
-      v5 = "+[WAManagedFaultsHandler sharedManagedFaultsHandler]_block_invoke";
-      v6 = 1024;
-      v7 = 42;
-      _os_log_impl(&dword_1C8460000, v2, OS_LOG_TYPE_ERROR, "%{public}s::%d:ManagedFaultsHandler failed to init -- Unable to process Managed Faults on this process until process restarts", &v4, 0x12u);
+      v3 = 136446466;
+      v4 = "+[WAManagedFaultsHandler sharedManagedFaultsHandler]_block_invoke";
+      v5 = 1024;
+      v6 = 42;
+      _os_log_impl(&dword_1C8460000, v2, OS_LOG_TYPE_ERROR, "%{public}s::%d:ManagedFaultsHandler failed to init -- Unable to process Managed Faults on this process until process restarts", &v3, 0x12u);
     }
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (WAManagedFaultsHandler)init
@@ -75,7 +73,7 @@ void __52__WAManagedFaultsHandler_sharedManagedFaultsHandler__block_invoke()
 
 - (void)processManagedFault:(id)fault at:(id)at
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   faultCopy = fault;
   atCopy = at;
   v8 = WALogCategoryDefaultHandle();
@@ -167,38 +165,38 @@ void __52__WAManagedFaultsHandler_sharedManagedFaultsHandler__block_invoke()
       v12 = 0x7FFFFFFFFFFFFFFFLL;
     }
 
-    v30 = 0;
-    v31 = &v30;
-    v32 = 0x2050000000;
+    v29 = 0;
+    v30 = &v29;
+    v31 = 0x2050000000;
     v15 = getW5EventClass_softClass;
-    v33 = getW5EventClass_softClass;
+    v32 = getW5EventClass_softClass;
     if (!getW5EventClass_softClass)
     {
       *buf = MEMORY[0x1E69E9820];
       *&buf[8] = 3221225472;
       *&buf[16] = __getW5EventClass_block_invoke;
       *&buf[24] = &unk_1E830E7A8;
-      *&buf[32] = &v30;
+      *&buf[32] = &v29;
       __getW5EventClass_block_invoke(buf);
-      v15 = v31[3];
+      v15 = v30[3];
     }
 
     v16 = v15;
-    _Block_object_dispose(&v30, 8);
+    _Block_object_dispose(&v29, 8);
     v17 = objc_alloc_init(v15);
     [v17 setEventID:38];
     [atCopy timeIntervalSinceReferenceDate];
     [v17 setTimestamp:?];
-    v34 = @"FaultType";
+    v33 = @"FaultType";
     v18 = [MEMORY[0x1E696AD98] numberWithInteger:v12];
-    v35 = v18;
-    v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
+    v34 = v18;
+    v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
     [v17 setInfo:v19];
 
     velocityClient2 = [(WAManagedFaultsHandler *)self velocityClient];
-    v29 = 0;
-    [velocityClient2 submitFaultEvent:v17 error:&v29];
-    v21 = v29;
+    v28 = 0;
+    [velocityClient2 submitFaultEvent:v17 error:&v28];
+    v21 = v28;
 
     v22 = WALogCategoryDefaultHandle();
     v23 = v22;
@@ -239,8 +237,6 @@ void __52__WAManagedFaultsHandler_sharedManagedFaultsHandler__block_invoke()
     *buf = 0;
     _os_signpost_emit_with_name_impl(&dword_1C8460000, v27, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "processManagedFault:", "", buf, 2u);
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 @end

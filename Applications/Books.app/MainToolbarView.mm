@@ -18,7 +18,7 @@
   swift_unknownObjectRelease();
   sub_1005579EC(collection);
 
-  sub_1000074E0(&v8);
+  sub_1000074E0(v8);
 }
 
 - (void)layoutSubviews

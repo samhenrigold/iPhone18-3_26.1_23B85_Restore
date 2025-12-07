@@ -42,59 +42,59 @@
 {
   endpointCopy = endpoint;
   translationCopy = translation;
-  v85 = *MEMORY[0x277D85DE8];
+  v91 = *MEMORY[0x277D85DE8];
   localeCopy = locale;
   handlerCopy = handler;
   selfCopy = self;
   objc_storeStrong(&self->_currentLocale, locale);
   self->_enableMultiFieldInput = input;
   array = [MEMORY[0x277CBEB18] array];
-  v74 = 0u;
-  v75 = 0u;
-  v72 = 0u;
-  v73 = 0u;
+  v80 = 0u;
+  v81 = 0u;
+  v78 = 0u;
+  v79 = 0u;
   allKeys = [(NSDictionary *)self->_recognizers allKeys];
-  v11 = [allKeys countByEnumeratingWithState:&v72 objects:v84 count:16];
+  v11 = [allKeys countByEnumeratingWithState:&v78 objects:v90 count:16];
   if (v11)
   {
-    v12 = *v73;
+    v12 = *v79;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v73 != v12)
+        if (*v79 != v12)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        localeIdentifier = [*(*(&v72 + 1) + 8 * i) localeIdentifier];
+        localeIdentifier = [*(*(&v78 + 1) + 8 * i) localeIdentifier];
         [array addObject:localeIdentifier];
       }
 
-      v11 = [allKeys countByEnumeratingWithState:&v72 objects:v84 count:16];
+      v11 = [allKeys countByEnumeratingWithState:&v78 objects:v90 count:16];
     }
 
     while (v11);
   }
 
-  v15 = _LTOSLogSpeech();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v17 = _LTOSLogSpeech(v15, v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = v15;
+    v18 = v17;
     localeIdentifier2 = [localeCopy localeIdentifier];
     *buf = 138543618;
     *&buf[4] = localeIdentifier2;
     *&buf[12] = 2114;
     *&buf[14] = array;
-    _os_log_impl(&dword_232E53000, v16, OS_LOG_TYPE_DEFAULT, "Starting recognition with locale %{public}@, recognizers: %{public}@", buf, 0x16u);
+    _os_log_impl(&dword_232E53000, v18, OS_LOG_TYPE_DEFAULT, "Starting recognition with locale %{public}@, recognizers: %{public}@", buf, 0x16u);
   }
 
   recognizers = selfCopy->_recognizers;
   if (localeCopy)
   {
-    v19 = [(NSDictionary *)recognizers objectForKeyedSubscript:?];
-    v83 = v19;
-    allValues = [MEMORY[0x277CBEA60] arrayWithObjects:&v83 count:1];
+    v21 = [(NSDictionary *)recognizers objectForKeyedSubscript:?];
+    v89 = v21;
+    allValues = [MEMORY[0x277CBEA60] arrayWithObjects:&v89 count:1];
   }
 
   else
@@ -102,142 +102,141 @@
     allValues = [(NSDictionary *)recognizers allValues];
   }
 
-  v21 = dispatch_queue_create("com.apple.multilingualrecognition.results", 0);
-  v22 = dispatch_group_create();
+  v23 = dispatch_queue_create("com.apple.multilingualrecognition.results", 0);
+  v24 = dispatch_group_create();
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v80 = __Block_byref_object_copy__8;
-  v81 = __Block_byref_object_dispose__8;
-  v82 = 0;
-  v71[0] = 0;
-  v71[1] = v71;
-  v71[2] = 0x2020000000;
-  v71[3] = 0;
-  v23 = _LTOSLogSpeech();
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+  v86 = __Block_byref_object_copy__8;
+  v87 = __Block_byref_object_dispose__8;
+  v88 = 0;
+  v77[0] = 0;
+  v77[1] = v77;
+  v77[2] = 0x2020000000;
+  v77[3] = 0;
+  v26 = _LTOSLogSpeech(v24, v25);
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
   {
-    v24 = [allValues count];
-    *v77 = 134217984;
-    v78 = v24;
-    _os_log_impl(&dword_232E53000, v23, OS_LOG_TYPE_DEFAULT, "Starting recognition for %zu recognizers", v77, 0xCu);
+    v27 = [allValues count];
+    *v83 = 134217984;
+    v84 = v27;
+    _os_log_impl(&dword_232E53000, v26, OS_LOG_TYPE_DEFAULT, "Starting recognition for %zu recognizers", v83, 0xCu);
   }
 
-  v69 = 0u;
-  v70 = 0u;
-  v67 = 0u;
-  v68 = 0u;
-  v25 = allValues;
-  v26 = [v25 countByEnumeratingWithState:&v67 objects:v76 count:16];
-  if (v26)
+  v75 = 0u;
+  v76 = 0u;
+  v73 = 0u;
+  v74 = 0u;
+  v28 = allValues;
+  v29 = [v28 countByEnumeratingWithState:&v73 objects:v82 count:16];
+  if (v29)
   {
-    v27 = *v68;
+    v30 = *v74;
     do
     {
-      for (j = 0; j != v26; ++j)
+      for (j = 0; j != v29; ++j)
       {
-        if (*v68 != v27)
+        if (*v74 != v30)
         {
-          objc_enumerationMutation(v25);
+          objc_enumerationMutation(v28);
         }
 
-        v29 = *(*(&v67 + 1) + 8 * j);
-        dispatch_group_enter(v22);
-        language = [v29 language];
+        v32 = *(*(&v73 + 1) + 8 * j);
+        dispatch_group_enter(v24);
+        language = [v32 language];
         localeIdentifier3 = [language localeIdentifier];
 
-        v32 = _LTOSLogSpeech();
-        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+        v37 = _LTOSLogSpeech(v35, v36);
+        v38 = os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT);
+        if (v38)
         {
-          *v77 = 138543362;
-          v78 = localeIdentifier3;
-          _os_log_impl(&dword_232E53000, v32, OS_LOG_TYPE_DEFAULT, "Starting recognizer: %{public}@", v77, 0xCu);
+          *v83 = 138543362;
+          v84 = localeIdentifier3;
+          _os_log_impl(&dword_232E53000, v37, OS_LOG_TYPE_DEFAULT, "Starting recognizer: %{public}@", v83, 0xCu);
         }
 
-        v33 = _LTOSLogSpeech();
-        v34 = os_signpost_id_generate(v33);
-        v35 = v33;
-        v36 = v35;
-        if (v34 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v35))
+        v40 = _LTOSLogSpeech(v38, v39);
+        v41 = os_signpost_id_generate(v40);
+        v42 = v40;
+        v43 = v42;
+        if (v41 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v42))
         {
-          *v77 = 138543362;
-          v78 = localeIdentifier3;
-          _os_signpost_emit_with_name_impl(&dword_232E53000, v36, OS_SIGNPOST_INTERVAL_BEGIN, v34, "ASR", "Starting ASR for %{public}@", v77, 0xCu);
+          *v83 = 138543362;
+          v84 = localeIdentifier3;
+          _os_signpost_emit_with_name_impl(&dword_232E53000, v43, OS_SIGNPOST_INTERVAL_BEGIN, v41, "ASR", "Starting ASR for %{public}@", v83, 0xCu);
         }
 
-        v54[0] = MEMORY[0x277D85DD0];
-        v54[1] = 3221225472;
-        v54[2] = __143___LTMultilingualSpeechRecognizer_startRecognitionForLocale_autoEndpoint_enableStreamingSpeechTranslation_enableMultiFieldInput_resultHandler___block_invoke;
-        v54[3] = &unk_2789B6D60;
-        v63 = buf;
-        v37 = v36;
-        v55 = v37;
-        v65 = v34;
-        v38 = localeIdentifier3;
-        v56 = v38;
-        v57 = v21;
-        v62 = handlerCopy;
-        v39 = v22;
+        v60[0] = MEMORY[0x277D85DD0];
+        v60[1] = 3221225472;
+        v60[2] = __143___LTMultilingualSpeechRecognizer_startRecognitionForLocale_autoEndpoint_enableStreamingSpeechTranslation_enableMultiFieldInput_resultHandler___block_invoke;
+        v60[3] = &unk_2789B6D60;
+        v69 = buf;
+        v44 = v43;
+        v61 = v44;
+        v71 = v41;
+        v45 = localeIdentifier3;
+        v62 = v45;
+        v63 = v23;
+        v68 = handlerCopy;
+        v46 = v24;
         inputCopy = input;
-        v58 = v39;
-        v59 = selfCopy;
-        v40 = v25;
-        v60 = v40;
-        v61 = v29;
-        v64 = v71;
-        [v29 startRecognitionWithAutoStop:endpointCopy enableStreamingSpeechTranslation:translationCopy resultHandler:v54];
+        v64 = v46;
+        v65 = selfCopy;
+        v47 = v28;
+        v66 = v47;
+        v67 = v32;
+        v70 = v77;
+        [v32 startRecognitionWithAutoStop:endpointCopy enableStreamingSpeechTranslation:translationCopy resultHandler:v60];
       }
 
-      v26 = [v40 countByEnumeratingWithState:&v67 objects:v76 count:16];
+      v29 = [v47 countByEnumeratingWithState:&v73 objects:v82 count:16];
     }
 
-    while (v26);
+    while (v29);
   }
 
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __143___LTMultilingualSpeechRecognizer_startRecognitionForLocale_autoEndpoint_enableStreamingSpeechTranslation_enableMultiFieldInput_resultHandler___block_invoke_10;
   block[3] = &unk_2789B6D88;
-  v52 = buf;
-  v53 = v71;
-  v51 = handlerCopy;
-  v41 = handlerCopy;
-  dispatch_group_notify(v22, v21, block);
+  v58 = buf;
+  v59 = v77;
+  v57 = handlerCopy;
+  v48 = handlerCopy;
+  dispatch_group_notify(v24, v23, block);
 
-  _Block_object_dispose(v71, 8);
+  _Block_object_dispose(v77, 8);
   _Block_object_dispose(buf, 8);
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addSpeechAudioData:(id)data
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   dataCopy = data;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   allValues = [(NSDictionary *)self->_recognizers allValues];
-  v6 = [allValues countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       v9 = 0;
       do
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * v9);
+        v10 = *(*(&v14 + 1) + 8 * v9);
         if (self->_enableMultiFieldInput)
         {
-          language = [*(*(&v15 + 1) + 8 * v9) language];
+          language = [*(*(&v14 + 1) + 8 * v9) language];
           if ([language isEqual:self->_currentLocale])
           {
             v12 = dataCopy;
@@ -255,158 +254,150 @@
 
         else
         {
-          [*(*(&v15 + 1) + 8 * v9) addSpeechAudioData:dataCopy];
+          [*(*(&v14 + 1) + 8 * v9) addSpeechAudioData:dataCopy];
         }
 
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [allValues countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)endAudio
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v3 = _LTOSLogSpeech();
+  v14 = *MEMORY[0x277D85DE8];
+  v3 = _LTOSLogSpeech(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [_LTMultilingualSpeechRecognizer endAudio];
   }
 
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   allValues = [(NSDictionary *)self->_recognizers allValues];
-  v5 = [allValues countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [allValues countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(allValues);
         }
 
-        [*(*(&v10 + 1) + 8 * v8++) endAudio];
+        [*(*(&v9 + 1) + 8 * v8++) endAudio];
       }
 
       while (v6 != v8);
-      v6 = [allValues countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [allValues countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelRecognition
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   allValues = [(NSDictionary *)self->_recognizers allValues];
-  v3 = [allValues countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [allValues countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(allValues);
         }
 
-        [*(*(&v8 + 1) + 8 * v6++) cancelRecognition];
+        [*(*(&v7 + 1) + 8 * v6++) cancelRecognition];
       }
 
       while (v4 != v6);
-      v4 = [allValues countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [allValues countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setLanguagesRecognized:(id)recognized
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   recognizedCopy = recognized;
-  v5 = _LTOSLogSpeech();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v6 = _LTOSLogSpeech(recognizedCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     [_LTMultilingualSpeechRecognizer setLanguagesRecognized:];
   }
 
   if ([recognizedCopy isFinal] && objc_msgSend(recognizedCopy, "isConfident"))
   {
+    v23 = 0u;
+    v24 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v19 = 0u;
-    v20 = 0u;
     obj = [(NSDictionary *)self->_recognizers allValues];
-    v6 = [obj countByEnumeratingWithState:&v19 objects:v25 count:16];
-    if (v6)
+    v7 = [obj countByEnumeratingWithState:&v21 objects:v27 count:16];
+    if (v7)
     {
-      v7 = v6;
-      v8 = *v20;
+      v8 = v7;
+      v9 = *v22;
       do
       {
-        for (i = 0; i != v7; ++i)
+        for (i = 0; i != v8; ++i)
         {
-          if (*v20 != v8)
+          if (*v22 != v9)
           {
             objc_enumerationMutation(obj);
           }
 
-          v10 = *(*(&v19 + 1) + 8 * i);
-          language = [v10 language];
+          v11 = *(*(&v21 + 1) + 8 * i);
+          language = [v11 language];
           _ltLocaleIdentifier = [language _ltLocaleIdentifier];
           dominantLanguage = [recognizedCopy dominantLanguage];
           _ltLocaleIdentifier2 = [dominantLanguage _ltLocaleIdentifier];
-          v15 = [_ltLocaleIdentifier isEqualToString:_ltLocaleIdentifier2];
+          v16 = [_ltLocaleIdentifier isEqualToString:_ltLocaleIdentifier2];
 
-          if ((v15 & 1) == 0)
+          if ((v16 & 1) == 0)
           {
-            v16 = _LTOSLogSpeech();
-            if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+            v19 = _LTOSLogSpeech(v17, v18);
+            if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
             {
-              [(_LTMultilingualSpeechRecognizer *)v23 setLanguagesRecognized:v16, v10, &v24];
+              [(_LTMultilingualSpeechRecognizer *)v25 setLanguagesRecognized:v19, v11, &v26];
             }
 
-            [v10 cancelRecognition];
+            [v11 cancelRecognition];
           }
         }
 
-        v7 = [obj countByEnumeratingWithState:&v19 objects:v25 count:16];
+        v8 = [obj countByEnumeratingWithState:&v21 objects:v27 count:16];
       }
 
-      while (v7);
+      while (v8);
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setLanguagesRecognized:(void *)a3 .cold.2(uint8_t *a1, void *a2, void *a3, void *a4)

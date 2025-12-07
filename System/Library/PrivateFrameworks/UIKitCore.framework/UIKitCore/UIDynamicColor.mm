@@ -398,7 +398,7 @@
 - (UIDynamicColor)colorWithProminence:(int64_t)prominence
 {
   _systemColorName = [(UIColor *)self _systemColorName];
-  if (([_systemColorName isEqualToString:@"labelColor"] & 1) != 0 || (objc_msgSend(_systemColorName, "isEqualToString:", @"secondaryLabelColor") & 1) != 0 || (objc_msgSend(_systemColorName, "isEqualToString:", @"tertiaryLabelColor") & 1) != 0 || objc_msgSend(_systemColorName, "isEqualToString:", @"quaternaryLabelColor"))
+  if ((objc_msgSend_isEqualToString_(_systemColorName) & 1) != 0 || (objc_msgSend_isEqualToString_(_systemColorName) & 1) != 0 || (objc_msgSend_isEqualToString_(_systemColorName) & 1) != 0 || objc_msgSend_isEqualToString_(_systemColorName))
   {
     if (prominence > 1)
     {
@@ -431,7 +431,7 @@
     }
   }
 
-  if (([_systemColorName isEqualToString:@"systemFillColor"] & 1) != 0 || (objc_msgSend(_systemColorName, "isEqualToString:", @"secondarySystemFillColor") & 1) != 0 || (objc_msgSend(_systemColorName, "isEqualToString:", @"tertiarySystemFillColor") & 1) != 0 || objc_msgSend(_systemColorName, "isEqualToString:", @"quaternarySystemFillColor"))
+  if ((objc_msgSend_isEqualToString_(_systemColorName) & 1) != 0 || (objc_msgSend_isEqualToString_(_systemColorName) & 1) != 0 || (objc_msgSend_isEqualToString_(_systemColorName) & 1) != 0 || objc_msgSend_isEqualToString_(_systemColorName))
   {
     if (prominence > 1)
     {
@@ -464,7 +464,7 @@
     }
   }
 
-  if (([_systemColorName isEqualToString:@"systemBackgroundColor"] & 1) != 0 || (objc_msgSend(_systemColorName, "isEqualToString:", @"secondarySystemBackgroundColor") & 1) != 0 || objc_msgSend(_systemColorName, "isEqualToString:", @"tertiarySystemBackgroundColor"))
+  if ((objc_msgSend_isEqualToString_(_systemColorName) & 1) != 0 || (objc_msgSend_isEqualToString_(_systemColorName) & 1) != 0 || objc_msgSend_isEqualToString_(_systemColorName))
   {
     if (prominence > 1)
     {
@@ -491,7 +491,7 @@
     }
   }
 
-  if (([_systemColorName isEqualToString:@"systemGroupedBackgroundColor"] & 1) != 0 || (objc_msgSend(_systemColorName, "isEqualToString:", @"secondarySystemGroupedBackgroundColor") & 1) != 0 || objc_msgSend(_systemColorName, "isEqualToString:", @"tertiarySystemGroupedBackgroundColor"))
+  if ((objc_msgSend_isEqualToString_(_systemColorName) & 1) != 0 || (objc_msgSend_isEqualToString_(_systemColorName) & 1) != 0 || objc_msgSend_isEqualToString_(_systemColorName))
   {
     if (prominence > 1)
     {
@@ -518,7 +518,7 @@
     }
   }
 
-  if (([_systemColorName isEqualToString:@"systemGrayColor"] & 1) == 0 && (objc_msgSend(_systemColorName, "isEqualToString:", @"systemGray2Color") & 1) == 0 && (objc_msgSend(_systemColorName, "isEqualToString:", @"systemGray3Color") & 1) == 0 && (objc_msgSend(_systemColorName, "isEqualToString:", @"systemGray4Color") & 1) == 0 && (objc_msgSend(_systemColorName, "isEqualToString:", @"systemGray5Color") & 1) == 0 && !objc_msgSend(_systemColorName, "isEqualToString:", @"systemGray6Color"))
+  if ((objc_msgSend_isEqualToString_(_systemColorName) & 1) == 0 && (objc_msgSend_isEqualToString_(_systemColorName) & 1) == 0 && (objc_msgSend_isEqualToString_(_systemColorName) & 1) == 0 && (objc_msgSend_isEqualToString_(_systemColorName) & 1) == 0 && (objc_msgSend_isEqualToString_(_systemColorName) & 1) == 0 && !objc_msgSend_isEqualToString_(_systemColorName))
   {
     goto LABEL_65;
   }
@@ -575,25 +575,25 @@ LABEL_22:
 
     if (([_systemColorName hasPrefix:@"quaternary"] & 1) == 0)
     {
-      if ([_systemColorName isEqualToString:@"systemGrayColor"])
+      if (objc_msgSend_isEqualToString_(_systemColorName))
       {
         prominence = 0;
         goto LABEL_9;
       }
 
-      if ([_systemColorName isEqualToString:@"systemGray2Color"])
+      if (objc_msgSend_isEqualToString_(_systemColorName))
       {
         goto LABEL_2;
       }
 
-      if ([_systemColorName isEqualToString:@"systemGray3Color"])
+      if (objc_msgSend_isEqualToString_(_systemColorName))
       {
 LABEL_4:
         prominence = 2;
         goto LABEL_9;
       }
 
-      if (([_systemColorName isEqualToString:@"systemGray4Color"] & 1) == 0 && (objc_msgSend(_systemColorName, "isEqualToString:", @"systemGray5Color") & 1) == 0 && (objc_msgSend(_systemColorName, "isEqualToString:", @"systemGray6Color") & 1) == 0)
+      if ((objc_msgSend_isEqualToString_(_systemColorName) & 1) == 0 && (objc_msgSend_isEqualToString_(_systemColorName) & 1) == 0 && (objc_msgSend_isEqualToString_(_systemColorName) & 1) == 0)
       {
         v6.receiver = self;
         v6.super_class = UIDynamicColor;

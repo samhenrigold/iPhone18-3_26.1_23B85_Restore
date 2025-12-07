@@ -13,7 +13,7 @@
 
 - (_TtC12ClarityBoard27ObservableThermalController)init
 {
-  v3 = sub_10002B6CC(&qword_10032FF50);
+  v3 = sub_10002B6CC(&qword_10032FF50, &unk_10029D2D0);
   v4 = *(v3 - 8);
   __chkstk_darwin(v3);
   v6 = &v10 - v5;
@@ -21,7 +21,7 @@
   v12 = 2;
   Published.init(initialValue:)();
   (*(v4 + 32))(self + v7, v6, v3);
-  v8 = type metadata accessor for ObservableThermalController();
+  v8 = type metadata accessor for ObservableThermalController(0);
   v11.receiver = self;
   v11.super_class = v8;
   return [(CLBThermalController *)&v11 init];

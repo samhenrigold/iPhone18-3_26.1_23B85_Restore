@@ -1,5 +1,6 @@
 @interface SpectrumRenderer
 + (CGPoint)positionForColor:(id)color;
++ (id)colorAtLocation:(CGPoint)location;
 - (SpectrumRenderer)initWithMetal:(id)metal;
 - (void)drawInMTKView:(id)view;
 - (void)initializeVertexBuffer;
@@ -9,6 +10,36 @@
 @end
 
 @implementation SpectrumRenderer
+
++ (id)colorAtLocation:(CGPoint)location
+{
+  y = location.y;
+  v4 = COERCE_DOUBLE(vcvt_f32_f64(location));
+  v16 = *&v4;
+  *v5.f32 = sub_100048E30(v4);
+  v6 = v5;
+  v7 = fabsf(v16);
+  v8 = v6.f32[2];
+  *v9.i32 = fmaxf(fmaxf(v6.f32[0], v6.f32[1]), v6.f32[2]);
+  v17 = v9;
+  v18 = v6;
+  if (v16 >= 0.0)
+  {
+    v14 = (1.0 - sub_100048B80(flt_100053B90, v7)) / *v9.i32;
+    v12 = vmulq_n_f32(v18, v14).u64[0];
+    v13 = v8 * v14;
+  }
+
+  else
+  {
+    v10 = sub_100048B80(flt_100053B90, 1.0 - v7);
+    v11 = vdupq_lane_s32(v17, 0);
+    v12 = vaddq_f32(v11, vmulq_n_f32(vsubq_f32(v18, v11), v10)).u64[0];
+    v13 = *v17.i32 + ((v8 - *v17.i32) * v10);
+  }
+
+  return [UIColor colorWithRed:*&v12 green:*(&v12 + 1) blue:v13 alpha:v18.f32[3]];
+}
 
 + (CGPoint)positionForColor:(id)color
 {

@@ -134,7 +134,7 @@ LABEL_14:
 + (void)loadBrush:(id)brush
 {
   brushCopy = brush;
-  v4 = sub_23F454DFC();
+  v4 = sub_23F454DFC(brushCopy);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = sub_23F454E40;
@@ -392,26 +392,26 @@ LABEL_14:
   strokeName = [(AKTSDBrushStroke *)self strokeName];
   [AKTSDBrushStroke loadBrush:strokeName];
 
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x3032000000;
-  v16 = sub_23F456390;
-  v17 = sub_23F4563A0;
-  v18 = 0;
-  v6 = sub_23F454DFC();
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = sub_23F4563A8;
-  v10[3] = &unk_278C7BD78;
-  v11 = idCopy;
-  v12 = &v13;
-  v7 = idCopy;
-  dispatch_sync(v6, v10);
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x3032000000;
+  v17 = sub_23F456390;
+  v18 = sub_23F4563A0;
+  v19 = 0;
+  v7 = sub_23F454DFC(v6);
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = sub_23F4563A8;
+  v11[3] = &unk_278C7BD78;
+  v12 = idCopy;
+  v13 = &v14;
+  v8 = idCopy;
+  dispatch_sync(v7, v11);
 
-  v8 = v14[5];
-  _Block_object_dispose(&v13, 8);
+  v9 = v15[5];
+  _Block_object_dispose(&v14, 8);
 
-  return v8;
+  return v9;
 }
 
 - (id)brushBoundsForId:(id)id
@@ -420,26 +420,26 @@ LABEL_14:
   strokeName = [(AKTSDBrushStroke *)self strokeName];
   [AKTSDBrushStroke loadBrush:strokeName];
 
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x3032000000;
-  v16 = sub_23F456390;
-  v17 = sub_23F4563A0;
-  v18 = 0;
-  v6 = sub_23F454DFC();
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = sub_23F456564;
-  v10[3] = &unk_278C7BD78;
-  v11 = idCopy;
-  v12 = &v13;
-  v7 = idCopy;
-  dispatch_sync(v6, v10);
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x3032000000;
+  v17 = sub_23F456390;
+  v18 = sub_23F4563A0;
+  v19 = 0;
+  v7 = sub_23F454DFC(v6);
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = sub_23F456564;
+  v11[3] = &unk_278C7BD78;
+  v12 = idCopy;
+  v13 = &v14;
+  v8 = idCopy;
+  dispatch_sync(v7, v11);
 
-  v8 = v14[5];
-  _Block_object_dispose(&v13, 8);
+  v9 = v15[5];
+  _Block_object_dispose(&v14, 8);
 
-  return v8;
+  return v9;
 }
 
 - (id)strokeLineEnd:(id)end
@@ -476,24 +476,24 @@ LABEL_14:
     strokeName3 = [(AKTSDBrushStroke *)self strokeName];
     [AKTSDBrushStroke loadBrush:strokeName3];
 
-    v22 = 0;
-    v23 = &v22;
-    v24 = 0x3032000000;
-    v25 = sub_23F456390;
-    v26 = sub_23F4563A0;
-    v27 = 0;
-    v16 = sub_23F454DFC();
+    v23 = 0;
+    v24 = &v23;
+    v25 = 0x3032000000;
+    v26 = sub_23F456390;
+    v27 = sub_23F4563A0;
+    v28 = 0;
+    v17 = sub_23F454DFC(v16);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = sub_23F45680C;
     block[3] = &unk_278C7BD78;
-    v20 = identifier;
-    v21 = &v22;
-    v17 = identifier;
-    dispatch_sync(v16, block);
+    v21 = identifier;
+    v22 = &v23;
+    v18 = identifier;
+    dispatch_sync(v17, block);
 
-    v5 = v23[5];
-    _Block_object_dispose(&v22, 8);
+    v5 = v24[5];
+    _Block_object_dispose(&v23, 8);
   }
 
   return v5;
@@ -832,7 +832,7 @@ LABEL_41:
 
 - (void)brushPath:(id)path inContext:(CGContext *)context
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   strokeName = [(AKTSDBrushStroke *)self strokeName];
   [AKTSDBrushStroke loadBrush:strokeName];
@@ -841,160 +841,160 @@ LABEL_41:
   [pathCopy setLineWidth:?];
   [(AKTSDBrushStroke *)self miterLimit];
   [pathCopy setMiterLimit:?];
-  memset(&v54, 0, sizeof(v54));
-  CGContextGetCTM(&v54, context);
-  a = v54.a;
-  b = v54.b;
+  memset(&v55, 0, sizeof(v55));
+  CGContextGetCTM(&v55, context);
+  a = v55.a;
+  b = v55.b;
   v10 = +[AKTSDBezierPath bezierPath];
   [pathCopy lineWidth];
   [v10 setLineWidth:?];
   [v10 setWindingRule:0];
+  v54 = 0;
+  v11 = [pathCopy length];
+  v13 = v12;
+  v50 = 0;
+  v51 = &v50;
+  v52 = 0x2020000000;
   v53 = 0;
-  [pathCopy length];
-  v12 = v11;
-  v49 = 0;
-  v50 = &v49;
-  v51 = 0x2020000000;
-  v52 = 0;
-  v13 = sub_23F454DFC();
+  v14 = sub_23F454DFC(v11);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = sub_23F457AD4;
   block[3] = &unk_278C7BD78;
   block[4] = self;
-  block[5] = &v49;
-  dispatch_sync(v13, block);
+  block[5] = &v50;
+  dispatch_sync(v14, block);
 
-  v14 = *MEMORY[0x277CBF348];
-  v15 = *(MEMORY[0x277CBF348] + 8);
-  v47 = *MEMORY[0x277CBF348];
+  v15 = *MEMORY[0x277CBF348];
+  v16 = *(MEMORY[0x277CBF348] + 8);
+  v48 = *MEMORY[0x277CBF348];
   elementCount = [pathCopy elementCount];
-  v46 = sqrt(b * b + a * a);
+  v47 = sqrt(b * b + a * a);
   if (elementCount >= 1)
   {
-    v17 = 0;
     v18 = 0;
-    v19 = 0.0;
-    v45 = v12;
+    v19 = 0;
     v20 = 0.0;
+    v46 = v13;
+    v21 = 0.0;
     while (1)
     {
-      v21 = v20;
-      v22 = [pathCopy elementAtIndex:v18 associatedPoints:{&v56, *&v45}];
-      [pathCopy lengthOfElement:v18];
-      v20 = v20 + v23 / v12;
-      switch(v22)
+      v22 = v21;
+      v23 = [pathCopy elementAtIndex:v19 associatedPoints:{&v57, *&v46}];
+      [pathCopy lengthOfElement:v19];
+      v21 = v21 + v24 / v13;
+      switch(v23)
       {
         case 3:
-          v56 = v47;
+          v57 = v48;
           break;
         case 2:
-          if (*(v50 + 24) == 1)
+          if (*(v51 + 24) == 1)
           {
-            v24 = v55;
-            v25 = sub_23F4659D0(*&v56, *(&v56 + 1), *&v55);
-            v27 = v26;
-            v28 = sub_23F4659E8(v25, v26);
-            if (v28 >= 1.0)
+            v25 = v56;
+            v26 = sub_23F4659D0(*&v57, *(&v57 + 1), *&v56);
+            v28 = v27;
+            v29 = sub_23F4659E8(v26, v27);
+            if (v29 >= 1.0)
             {
-              v31 = sub_23F4659DC(v25, v27, 1.0 / v28);
+              v32 = sub_23F4659DC(v26, v28, 1.0 / v29);
             }
 
             else
             {
-              v29 = sub_23F4659D0(v57, v58, *&v24);
-              v31 = sub_23F465A1C(v29, v30);
+              v30 = sub_23F4659D0(v58, v59, *&v25);
+              v32 = sub_23F465A1C(v30, v31);
             }
 
-            v12 = v45;
-            if (v18 < 2 || (sub_23F465A3C(v14, v15, v31, v32) < 0.99 ? (v39 = (~v17 + v18) < 1) : (v39 = 1), v39 || v21 - v19 <= 0.0))
+            v13 = v46;
+            if (v19 < 2 || (sub_23F465A3C(v15, v16, v32, v33) < 0.99 ? (v40 = (~v18 + v19) < 1) : (v40 = 1), v40 || v22 - v20 <= 0.0))
             {
-              v21 = v19;
+              v22 = v20;
             }
 
             else
             {
-              [(AKTSDBrushStroke *)self brushPath:pathCopy withScaling:v17 inElementRange:v18 - v17 into:v10 sectionIndex:&v53 viewScale:v19, v21 - v19, v46];
-              v17 = v18 - 1;
+              [(AKTSDBrushStroke *)self brushPath:pathCopy withScaling:v18 inElementRange:v19 - v18 into:v10 sectionIndex:&v54 viewScale:v20, v22 - v20, v47];
+              v18 = v19 - 1;
             }
 
-            v40 = sub_23F4659D0(*&v59, *(&v59 + 1), v57);
-            v14 = sub_23F465A1C(v40, v41);
-            v15 = v42;
-            v19 = v21;
+            v41 = sub_23F4659D0(*&v60, *(&v60 + 1), v58);
+            v15 = sub_23F465A1C(v41, v42);
+            v16 = v43;
+            v20 = v22;
           }
 
-          v55 = v59;
+          v56 = v60;
           goto LABEL_34;
         case 0:
-          if ((v18 - v17) >= 1)
+          if ((v19 - v18) >= 1)
           {
-            [(AKTSDBrushStroke *)self brushPath:pathCopy withScaling:v17 inElementRange:v19 into:v20 - v19 sectionIndex:v46 viewScale:?];
-            v19 = v20;
-            v17 = v18;
+            [(AKTSDBrushStroke *)self brushPath:pathCopy withScaling:v18 inElementRange:v20 into:v21 - v20 sectionIndex:v47 viewScale:?];
+            v20 = v21;
+            v18 = v19;
           }
 
-          v55 = v56;
-          v47 = v56;
+          v56 = v57;
+          v48 = v57;
           goto LABEL_34;
       }
 
-      if (*(v50 + 24) != 1)
+      if (*(v51 + 24) != 1)
       {
         break;
       }
 
-      v33 = v15;
-      v34 = sub_23F4659D0(*&v56, *(&v56 + 1), *&v55);
-      v37 = sub_23F465A1C(v34, v35);
-      v15 = v36;
-      if (v18 < 2)
+      v34 = v16;
+      v35 = sub_23F4659D0(*&v57, *(&v57 + 1), *&v56);
+      v38 = sub_23F465A1C(v35, v36);
+      v16 = v37;
+      if (v19 < 2)
       {
         goto LABEL_22;
       }
 
-      v38 = sub_23F465A3C(v14, v33, v37, v36) >= 0.99 || (~v17 + v18) < 1;
-      if (v38 || v21 - v19 <= 0.0)
+      v39 = sub_23F465A3C(v15, v34, v38, v37) >= 0.99 || (~v18 + v19) < 1;
+      if (v39 || v22 - v20 <= 0.0)
       {
         goto LABEL_22;
       }
 
-      [(AKTSDBrushStroke *)self brushPath:pathCopy withScaling:v17 inElementRange:v18 - v17 into:v10 sectionIndex:&v53 viewScale:v19, v21 - v19, v46];
-      v17 = v18 - 1;
+      [(AKTSDBrushStroke *)self brushPath:pathCopy withScaling:v18 inElementRange:v19 - v18 into:v10 sectionIndex:&v54 viewScale:v20, v22 - v20, v47];
+      v18 = v19 - 1;
 LABEL_23:
-      v55 = v56;
-      v14 = v37;
-      v19 = v21;
+      v56 = v57;
+      v15 = v38;
+      v20 = v22;
 LABEL_34:
-      if (elementCount == ++v18)
+      if (elementCount == ++v19)
       {
         goto LABEL_39;
       }
     }
 
-    v37 = v14;
+    v38 = v15;
 LABEL_22:
-    v21 = v19;
+    v22 = v20;
     goto LABEL_23;
   }
 
   elementCount = 0;
-  v17 = 0;
+  v18 = 0;
+  v21 = 0.0;
   v20 = 0.0;
-  v19 = 0.0;
 LABEL_39:
-  if ((elementCount + ~v17) >= 1)
+  if ((elementCount + ~v18) >= 1)
   {
-    [(AKTSDBrushStroke *)self brushPath:pathCopy withScaling:v17 inElementRange:v19 into:v20 - v19 sectionIndex:v46 viewScale:?];
+    [(AKTSDBrushStroke *)self brushPath:pathCopy withScaling:v18 inElementRange:v20 into:v21 - v20 sectionIndex:v47 viewScale:?];
   }
 
   CGContextAddPath(context, [v10 CGPath]);
   color = [(AKTSDBrushStroke *)self color];
-  v44 = color;
+  v45 = color;
   CGContextSetFillColorWithColor(context, [color CGColor]);
 
   CGContextFillPath(context);
-  _Block_object_dispose(&v49, 8);
+  _Block_object_dispose(&v50, 8);
 }
 
 @end

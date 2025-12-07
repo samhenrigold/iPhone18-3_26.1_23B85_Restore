@@ -2,6 +2,7 @@
 - (BOOL)isEqual:(id)equal;
 - (id)copyWithZone:(_NSZone *)zone;
 - (unint64_t)hash;
+- (void)hash;
 @end
 
 @implementation SKUIStorePagePinnedBackdropLayoutAttributes
@@ -87,7 +88,7 @@
       v13 = equalCopy;
       v18.receiver = self;
       v18.super_class = SKUIStorePagePinnedBackdropLayoutAttributes;
-      v16 = [(UICollectionViewLayoutAttributes *)&v18 isEqual:v13]&& ((backdropColor = self->_backdropColor, backdropColor == v13->_backdropColor) || [(UIColor *)backdropColor isEqual:?]) && ((backdropGroupName = self->_backdropGroupName, backdropGroupName == v13->_backdropGroupName) || [(NSString *)backdropGroupName isEqualToString:?]) && self->_backdropStyle == v13->_backdropStyle && self->_hidesBackdropView == v13->_hidesBackdropView && self->_transitionProgress != v13->_transitionProgress;
+      v16 = [(UICollectionViewLayoutAttributes *)&v18 isEqual:v13]&& ((backdropColor = self->_backdropColor, backdropColor == v13->_backdropColor) || [(UIColor *)backdropColor isEqual:?]) && ((backdropGroupName = self->_backdropGroupName, backdropGroupName == v13->_backdropGroupName) || objc_msgSend_isEqualToString_(backdropGroupName)) && self->_backdropStyle == v13->_backdropStyle && self->_hidesBackdropView == v13->_hidesBackdropView && self->_transitionProgress != v13->_transitionProgress;
     }
 
     else
@@ -97,6 +98,24 @@
   }
 
   return v16;
+}
+
+- (void)copyWithZone:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIStorePagePinnedBackdropLayoutAttributes copyWithZone:]";
+}
+
+- (void)hash
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIStorePagePinnedBackdropLayoutAttributes hash]";
+}
+
+- (void)isEqual:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIStorePagePinnedBackdropLayoutAttributes isEqual:]";
 }
 
 @end

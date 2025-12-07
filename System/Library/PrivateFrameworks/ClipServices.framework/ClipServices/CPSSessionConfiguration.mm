@@ -81,37 +81,36 @@
 
 + (id)_defaultSourceBundleIDToReasonMap
 {
-  v6[14] = *MEMORY[0x277D85DE8];
-  v5[0] = @"com.apple.mobilesafari";
-  v5[1] = @"com.apple.SafariViewService";
-  v6[0] = @"Safari";
-  v6[1] = @"Safari";
-  v5[2] = @"com.apple.Maps";
-  v5[3] = @"com.apple.MobileSMS";
-  v6[2] = @"Maps";
-  v6[3] = @"Messages";
-  v5[4] = @"com.apple.BarcodeSupport.BarcodeNotificationService";
-  v5[5] = @"com.apple.duetexpertd";
-  v6[4] = @"NFC";
-  v6[5] = @"LocationBased";
-  v5[6] = @"com.apple.Spotlight";
-  v5[7] = @"com.apple.springboard";
-  v6[6] = @"SpotlightSearch";
-  v6[7] = @"SpringBoard";
-  v5[8] = @"com.apple.SpringBoard";
-  v5[9] = @"com.apple.BarcodeScanner";
-  v6[8] = @"SpringBoard";
-  v6[9] = @"QR";
-  v5[10] = @"com.apple.DTServiceHub";
-  v5[11] = @"com.apple.siri";
-  v6[10] = @"DeveloperTools";
-  v6[11] = @"Siri";
-  v5[12] = @"com.apple.ClipTester";
-  v5[13] = @"com.apple.camera";
-  v6[12] = @"ClipTester";
-  v6[13] = @"QR";
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:14];
-  v3 = *MEMORY[0x277D85DE8];
+  v5[14] = *MEMORY[0x277D85DE8];
+  v4[0] = @"com.apple.mobilesafari";
+  v4[1] = @"com.apple.SafariViewService";
+  v5[0] = @"Safari";
+  v5[1] = @"Safari";
+  v4[2] = @"com.apple.Maps";
+  v4[3] = @"com.apple.MobileSMS";
+  v5[2] = @"Maps";
+  v5[3] = @"Messages";
+  v4[4] = @"com.apple.BarcodeSupport.BarcodeNotificationService";
+  v4[5] = @"com.apple.duetexpertd";
+  v5[4] = @"NFC";
+  v5[5] = @"LocationBased";
+  v4[6] = @"com.apple.Spotlight";
+  v4[7] = @"com.apple.springboard";
+  v5[6] = @"SpotlightSearch";
+  v5[7] = @"SpringBoard";
+  v4[8] = @"com.apple.SpringBoard";
+  v4[9] = @"com.apple.BarcodeScanner";
+  v5[8] = @"SpringBoard";
+  v5[9] = @"QR";
+  v4[10] = @"com.apple.DTServiceHub";
+  v4[11] = @"com.apple.siri";
+  v5[10] = @"DeveloperTools";
+  v5[11] = @"Siri";
+  v4[12] = @"com.apple.ClipTester";
+  v4[13] = @"com.apple.camera";
+  v5[12] = @"ClipTester";
+  v5[13] = @"QR";
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:14];
 
   return v2;
 }
@@ -169,14 +168,13 @@
 
 - (BOOL)analyticsShouldIncludeReferrerURL
 {
-  v7[2] = *MEMORY[0x277D85DE8];
-  v7[0] = @"Web Referral";
-  v7[1] = @"App Referral";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:2];
+  v6[2] = *MEMORY[0x277D85DE8];
+  v6[0] = @"Web Referral";
+  v6[1] = @"App Referral";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:2];
   analyticsLaunchReason = [(CPSSessionConfiguration *)self analyticsLaunchReason];
   LOBYTE(self) = [v3 containsObject:analyticsLaunchReason];
 
-  v5 = *MEMORY[0x277D85DE8];
   return self;
 }
 
@@ -195,18 +193,17 @@
 
 - (BOOL)mayLaunchWithoutInvocationUI
 {
-  v6[7] = *MEMORY[0x277D85DE8];
-  v6[0] = @"Maps";
-  v6[1] = @"Safari";
-  v6[2] = @"Messages";
-  v6[3] = @"Mail";
-  v6[4] = @"SpotlightSearch";
-  v6[5] = @"LocationBased";
-  v6[6] = @"Shazam";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:7];
+  v5[7] = *MEMORY[0x277D85DE8];
+  v5[0] = @"Maps";
+  v5[1] = @"Safari";
+  v5[2] = @"Messages";
+  v5[3] = @"Mail";
+  v5[4] = @"SpotlightSearch";
+  v5[5] = @"LocationBased";
+  v5[6] = @"Shazam";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:7];
   LOBYTE(self) = [v3 containsObject:self->_launchReason];
 
-  v4 = *MEMORY[0x277D85DE8];
   return self;
 }
 

@@ -34,7 +34,7 @@
 
     if (v6)
     {
-      [v6 photoTime];
+      objc_msgSend_photoTime(v6);
     }
 
     else
@@ -67,7 +67,7 @@ LABEL_9:
 
     if (v6)
     {
-      [v6 videoDuration];
+      objc_msgSend_videoDuration(v6);
     }
 
     else

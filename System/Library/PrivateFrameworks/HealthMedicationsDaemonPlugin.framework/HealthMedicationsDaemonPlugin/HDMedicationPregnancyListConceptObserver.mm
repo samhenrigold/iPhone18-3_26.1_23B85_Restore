@@ -62,7 +62,7 @@
 
 - (void)profileDidBecomeReady:(id)ready
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   readyCopy = ready;
   _HKInitializeLogging();
   v5 = HKLogMedication();
@@ -73,10 +73,10 @@
     v7 = HKLogMedication();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      *v15 = 138543362;
-      *&v15[4] = objc_opt_class();
-      v8 = *&v15[4];
-      _os_log_impl(&dword_25181C000, v7, OS_LOG_TYPE_INFO, "[%{public}@] Profile did become ready, registering for observers", v15, 0xCu);
+      *v14 = 138543362;
+      *&v14[4] = objc_opt_class();
+      v8 = *&v14[4];
+      _os_log_impl(&dword_25181C000, v7, OS_LOG_TYPE_INFO, "[%{public}@] Profile did become ready, registering for observers", v14, 0xCu);
     }
   }
 
@@ -89,46 +89,39 @@
   database2 = [readyCopy database];
 
   isProtectedDataAvailable = [database2 isProtectedDataAvailable];
-  if (self)
+  if (self && isProtectedDataAvailable)
   {
-    if (isProtectedDataAvailable)
+    v13 = atomic_load(&self->_shouldQueryMedicationListToDeleteDismissedInteractionsIfNeeded);
+    if (v13)
     {
-      v13 = atomic_load(&self->_shouldQueryMedicationListToDeleteDismissedInteractionsIfNeeded);
-      if (v13)
-      {
-        [(HDMedicationPregnancyListConceptObserver *)self _deleteNonactiveDismissedInteractionsWithTransaction:?];
-      }
+      [(HDMedicationPregnancyListConceptObserver *)self _deleteNonactiveDismissedInteractionsWithTransaction:?];
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_predicateForNonactiveDismissedInteractions
 {
   v13[2] = *MEMORY[0x277D85DE8];
   objc_opt_self();
-  v0 = objc_alloc_init(MEMORY[0x277D10B80]);
-  [v0 setEntityClass:objc_opt_class()];
-  v1 = [MEMORY[0x277D10938] predicateForElementsOfListType:2];
-  v2 = [MEMORY[0x277D10B18] predicateWithProperty:*MEMORY[0x277D10520] equalToValue:*MEMORY[0x277CCC348]];
-  v3 = MEMORY[0x277D10B20];
-  v13[0] = v2;
-  v13[1] = v1;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
-  v5 = [v3 predicateMatchingAllPredicates:v4];
-  [v0 setPredicate:v5];
+  v1 = objc_alloc_init(MEMORY[0x277D10B80]);
+  [v1 setEntityClass:objc_opt_class()];
+  v2 = [MEMORY[0x277D10938] predicateForElementsOfListType:2];
+  v3 = [MEMORY[0x277D10B18] predicateWithProperty:*MEMORY[0x277D10520] equalToValue:*MEMORY[0x277CCC348]];
+  v4 = MEMORY[0x277D10B20];
+  v13[0] = v3;
+  v13[1] = v2;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
+  v6 = [v4 predicateMatchingAllPredicates:v5];
+  [v1 setPredicate:v6];
 
-  v6 = MEMORY[0x277D10B18];
+  v7 = MEMORY[0x277D10B18];
   v12 = *MEMORY[0x277D10518];
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v12 count:1];
-  v8 = [v6 predicateWithProperty:@"medication_identifier" comparisonType:7 subqueryDescriptor:v0 subqueryProperties:v7];
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v12 count:1];
+  v9 = [v7 predicateWithProperty:@"medication_identifier" comparisonType:7 subqueryDescriptor:v1 subqueryProperties:v8];
 
-  v9 = [MEMORY[0x277D10B20] negatedPredicate:v8];
+  v10 = [MEMORY[0x277D10B20] negatedPredicate:v9];
 
-  v10 = *MEMORY[0x277D85DE8];
-
-  return v9;
+  return v10;
 }
 
 BOOL __103__HDMedicationPregnancyListConceptObserver__deleteNonactiveDismissedInteractionsWithTransaction_error___block_invoke(uint64_t a1, void *a2, uint64_t a3)
@@ -206,7 +199,7 @@ BOOL __94__HDMedicationPregnancyListConceptObserver__doUserDomainConceptsContain
 
 - (uint64_t)_deleteNonactiveDismissedInteractionsWithTransaction:(NSObject *)transaction error:
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v5 = a2;
   if (self)
   {
@@ -215,9 +208,9 @@ BOOL __94__HDMedicationPregnancyListConceptObserver__doUserDomainConceptsContain
     if (v5)
     {
       v8 = [v5 databaseForEntityClass:objc_opt_class()];
-      v28 = 0;
-      v9 = [(HDSQLiteEntity *)HDDismissedPregnancyLactationInteractionEntity deleteEntitiesInDatabase:v8 predicate:v7 error:&v28];
-      v10 = v28;
+      v27 = 0;
+      v9 = [(HDSQLiteEntity *)HDDismissedPregnancyLactationInteractionEntity deleteEntitiesInDatabase:v8 predicate:v7 error:&v27];
+      v10 = v27;
 
       if (v9)
       {
@@ -242,14 +235,14 @@ LABEL_4:
       v14 = MEMORY[0x277D10920];
       WeakRetained = objc_loadWeakRetained((self + 8));
       database = [WeakRetained database];
-      v27 = 0;
-      v25[0] = MEMORY[0x277D85DD0];
-      v25[1] = 3221225472;
-      v25[2] = __103__HDMedicationPregnancyListConceptObserver__deleteNonactiveDismissedInteractionsWithTransaction_error___block_invoke;
-      v25[3] = &unk_2796CD388;
-      v26 = v7;
-      v17 = [v14 performWriteTransactionWithHealthDatabase:database error:&v27 block:v25];
-      v10 = v27;
+      v26 = 0;
+      v24[0] = MEMORY[0x277D85DD0];
+      v24[1] = 3221225472;
+      v24[2] = __103__HDMedicationPregnancyListConceptObserver__deleteNonactiveDismissedInteractionsWithTransaction_error___block_invoke;
+      v24[3] = &unk_2796CD388;
+      v25 = v7;
+      v17 = [v14 performWriteTransactionWithHealthDatabase:database error:&v26 block:v24];
+      v10 = v26;
 
       if (v17)
       {
@@ -263,9 +256,9 @@ LABEL_4:
     {
       objc_opt_class();
       OUTLINED_FUNCTION_0_2();
-      v30 = v22;
-      v31 = v10;
-      v24 = v23;
+      v29 = v21;
+      v30 = v10;
+      v23 = v22;
       _os_log_error_impl(&dword_25181C000, v18, OS_LOG_TYPE_ERROR, "[%{public}@] Error deleting %@ dismissed interactions for non-active medications: %@", buf, 0x20u);
     }
 
@@ -293,7 +286,6 @@ LABEL_16:
 
 LABEL_17:
 
-  v20 = *MEMORY[0x277D85DE8];
   return self;
 }
 

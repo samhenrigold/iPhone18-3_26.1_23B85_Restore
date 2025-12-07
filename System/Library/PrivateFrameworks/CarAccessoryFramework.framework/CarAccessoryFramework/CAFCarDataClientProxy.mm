@@ -5,7 +5,7 @@
 
 void __34___CAFCarDataClientProxy_activate__block_invoke(uint64_t a1)
 {
-  v2 = CAFDataClientLogging();
+  v2 = CAFDataClientLogging(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __34___CAFCarDataClientProxy_activate__block_invoke_cold_1();
@@ -25,7 +25,7 @@ void __34___CAFCarDataClientProxy_activate__block_invoke(uint64_t a1)
 
 void __34___CAFCarDataClientProxy_activate__block_invoke_246(uint64_t a1)
 {
-  v2 = CAFDataClientLogging();
+  v2 = CAFDataClientLogging(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __34___CAFCarDataClientProxy_activate__block_invoke_246_cold_1();
@@ -43,7 +43,7 @@ void __34___CAFCarDataClientProxy_activate__block_invoke_246(uint64_t a1)
 void __34___CAFCarDataClientProxy_activate__block_invoke_247(uint64_t a1, void *a2)
 {
   v3 = a2;
-  WeakRetained = CAFDataClientLogging();
+  WeakRetained = CAFDataClientLogging(v3);
   v5 = os_log_type_enabled(WeakRetained, OS_LOG_TYPE_DEBUG);
   if (v3)
   {
@@ -78,7 +78,7 @@ void __34___CAFCarDataClientProxy_activate__block_invoke_248(uint64_t a1)
 
 void __52___CAFCarDataClientProxy_didUpdateCurrentCarConfig___block_invoke(uint64_t a1)
 {
-  v2 = CAFDataClientLogging();
+  v2 = CAFDataClientLogging(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __52___CAFCarDataClientProxy_didUpdateCurrentCarConfig___block_invoke_cold_1();
@@ -94,20 +94,20 @@ void __42___CAFCarDataClientProxy_didUpdateConfig___block_invoke(uint64_t a1)
   v2 = (a1 + 32);
   v3 = [*(a1 + 32) currentCarConfig];
 
-  v4 = CAFDataClientLogging();
-  v5 = v4;
+  v5 = CAFDataClientLogging(v4);
+  v6 = v5;
   if (v3)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       __42___CAFCarDataClientProxy_didUpdateConfig___block_invoke_cold_1(v2, a1);
     }
 
-    v5 = [*(a1 + 32) currentCarConfig];
-    [v5 updateConfiguration:*(a1 + 40)];
+    v6 = [*(a1 + 32) currentCarConfig];
+    [v6 updateConfiguration:*(a1 + 40)];
   }
 
-  else if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     __42___CAFCarDataClientProxy_didUpdateConfig___block_invoke_cold_2();
   }
@@ -125,8 +125,8 @@ void __51___CAFCarDataClientProxy_didUpdatePluginID_values___block_invoke(uint64
 
   else
   {
-    v4 = CAFDataClientLogging();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = CAFDataClientLogging(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __51___CAFCarDataClientProxy_didUpdatePluginID_values___block_invoke_cold_1();
     }
@@ -145,8 +145,8 @@ void __61___CAFCarDataClientProxy_didNotifyPluginID_instanceID_value___block_inv
 
   else
   {
-    v4 = CAFDataClientLogging();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = CAFDataClientLogging(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __61___CAFCarDataClientProxy_didNotifyPluginID_instanceID_value___block_invoke_cold_1();
     }
@@ -165,25 +165,23 @@ void __75___CAFCarDataClientProxy_didRequestPluginID_instanceID_value_withRespon
 
   else
   {
-    v4 = CAFDataClientLogging();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = CAFDataClientLogging(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __75___CAFCarDataClientProxy_didRequestPluginID_instanceID_value_withResponse___block_invoke_cold_1();
     }
 
-    v5 = *(a1 + 64);
-    v6 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.caraccessoryframework.cardata" code:9 userInfo:0];
-    (*(v5 + 16))(v5, 0, v6);
+    v6 = *(a1 + 64);
+    v7 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.caraccessoryframework.cardata" code:9 userInfo:0];
+    (*(v6 + 16))(v6, 0, v7);
   }
 }
 
 void __34___CAFCarDataClientProxy_activate__block_invoke_247_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_6_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __34___CAFCarDataClientProxy_activate__block_invoke_247_cold_2()
@@ -196,25 +194,18 @@ void __34___CAFCarDataClientProxy_activate__block_invoke_247_cold_2()
 void __52___CAFCarDataClientProxy_didUpdateCurrentCarConfig___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_6();
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = [*(v1 + 32) currentCarConfig];
-  v3 = *(v0 + 40);
+  v1 = [*(v0 + 32) currentCarConfig];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_2_0();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
 void __42___CAFCarDataClientProxy_didUpdateConfig___block_invoke_cold_1(id *a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = [*a1 currentCarConfig];
+  v8 = [*a1 currentCarConfig];
   [*(a2 + 40) count];
   OUTLINED_FUNCTION_2_0();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

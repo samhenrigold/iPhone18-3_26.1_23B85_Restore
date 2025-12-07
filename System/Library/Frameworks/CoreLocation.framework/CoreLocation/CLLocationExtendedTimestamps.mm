@@ -32,40 +32,49 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v5 = [objc_opt_class() allocWithZone:zone];
-  v6 = [[(CLLocationExtendedTimestamps *)self location] copyWithZone:zone];
-  v7 = [(NSDate *)[(CLLocationExtendedTimestamps *)self systemTimeNotUserTime] copyWithZone:zone];
+  v5 = objc_opt_class();
+  v8 = objc_msgSend_allocWithZone_(v5, v6, zone, v7);
+  v12 = objc_msgSend_location(self, v9, v10, v11);
+  v15 = objc_msgSend_copyWithZone_(v12, v13, zone, v14);
+  v19 = objc_msgSend_systemTimeNotUserTime(self, v16, v17, v18);
+  v23 = objc_msgSend_copyWithZone_(v19, v20, zone, v21);
   machContinuousTimeSec = self->_machContinuousTimeSec;
 
-  return [v5 initWithCLLocation:v6 systemTime:v7 machContinuousTimeSec:machContinuousTimeSec];
+  return objc_msgSend_initWithCLLocation_systemTime_machContinuousTimeSec_(v8, v22, v15, v23, machContinuousTimeSec);
 }
 
 - (void)encodeWithCoder:(id)coder
 {
-  if (([coder allowsKeyedCoding] & 1) == 0)
+  if ((objc_msgSend_allowsKeyedCoding(coder, a2, coder, v3) & 1) == 0)
   {
-    [objc_msgSend(MEMORY[0x1E696AAA8] "currentHandler")];
+    v22 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], v7, v8, v9);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v22, v23, a2, self, @"CLLocationExtendedTimestamps.mm", 53, @"Invalid parameter not satisfying: %@", @"[coder allowsKeyedCoding]");
   }
 
-  [coder encodeObject:-[CLLocationExtendedTimestamps location](self forKey:{"location"), @"CLLocationExtendedTimestampsLocation"}];
-  [coder encodeObject:-[CLLocationExtendedTimestamps systemTimeNotUserTime](self forKey:{"systemTimeNotUserTime"), @"CLLocationExtendedTimestampsSystemTime"}];
-  [(CLLocationExtendedTimestamps *)self machContinuousTimeSec];
+  v10 = objc_msgSend_location(self, v7, v8, v9);
+  objc_msgSend_encodeObject_forKey_(coder, v11, v10, @"CLLocationExtendedTimestampsLocation");
+  v15 = objc_msgSend_systemTimeNotUserTime(self, v12, v13, v14);
+  objc_msgSend_encodeObject_forKey_(coder, v16, v15, @"CLLocationExtendedTimestampsSystemTime");
+  objc_msgSend_machContinuousTimeSec(self, v17, v18, v19);
 
-  [coder encodeDouble:@"CLLocationExtendedTimestampsMachContinuousTime" forKey:?];
+  objc_msgSend_encodeDouble_forKey_(coder, v20, @"CLLocationExtendedTimestampsMachContinuousTime", v21);
 }
 
 - (CLLocationExtendedTimestamps)initWithCoder:(id)coder
 {
-  if (([coder allowsKeyedCoding] & 1) == 0)
+  if ((objc_msgSend_allowsKeyedCoding(coder, a2, coder, v3) & 1) == 0)
   {
-    [objc_msgSend(MEMORY[0x1E696AAA8] "currentHandler")];
+    v20 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], v7, v8, v9);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v20, v21, a2, self, @"CLLocationExtendedTimestamps.mm", 62, @"Invalid parameter not satisfying: %@", @"[coder allowsKeyedCoding]");
   }
 
-  v6 = [coder decodeObjectOfClass:objc_opt_class() forKey:@"CLLocationExtendedTimestampsLocation"];
-  v7 = [coder decodeObjectOfClass:objc_opt_class() forKey:@"CLLocationExtendedTimestampsSystemTime"];
-  [coder decodeDoubleForKey:@"CLLocationExtendedTimestampsMachContinuousTime"];
+  v10 = objc_opt_class();
+  v12 = objc_msgSend_decodeObjectOfClass_forKey_(coder, v11, v10, @"CLLocationExtendedTimestampsLocation");
+  v13 = objc_opt_class();
+  v15 = objc_msgSend_decodeObjectOfClass_forKey_(coder, v14, v13, @"CLLocationExtendedTimestampsSystemTime");
+  objc_msgSend_decodeDoubleForKey_(coder, v16, @"CLLocationExtendedTimestampsMachContinuousTime", v17);
 
-  return [(CLLocationExtendedTimestamps *)self initWithCLLocation:v6 systemTime:v7 machContinuousTimeSec:?];
+  return objc_msgSend_initWithCLLocation_systemTime_machContinuousTimeSec_(self, v18, v12, v15);
 }
 
 @end

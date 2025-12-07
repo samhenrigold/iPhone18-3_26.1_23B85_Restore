@@ -8,6 +8,7 @@
 - (id)_printBrailleForText:(id)text mode:(unint64_t)mode locations:(id *)locations textPositionsRange:(_NSRange)range textFormattingRanges:(id)ranges optimize:(BOOL)optimize;
 - (id)_scrubDollarCodesInBuffer:(int *)buffer originalLength:(unint64_t)length originalLocations:(id)locations newLocations:(id)newLocations convertASCIIBrailleToUnicode:(BOOL)unicode limitRange:(_NSRange)range;
 - (id)_tableInfoForKey:(id)key;
+- (id)_textForPrintBraille:(id)braille mode:(unint64_t)mode locations:(id *)locations optimize:(BOOL)optimize;
 - (id)printBrailleForTechnicalText:(id)text useTechnicalTable:(BOOL)table locations:(id *)locations;
 - (id)printBrailleForText:(id)text mode:(unint64_t)mode locations:(id *)locations textPositionsRange:(_NSRange)range textFormattingRanges:(id)ranges;
 - (id)textForPrintBraille:(id)braille mode:(unint64_t)mode locations:(id *)locations;
@@ -53,7 +54,7 @@
 
 - (void)_unloadTables
 {
-  v3 = DBTLog();
+  v3 = DBTLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -64,7 +65,7 @@
   self->_translationHandle = 0;
   if (v4)
   {
-    v5 = DBTLog();
+    v5 = DBTLog(v4);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       [DBTDuxburyBrailleTranslator _unloadTables];
@@ -75,7 +76,7 @@
   self->_backTranslationHandle = 0;
   if (v6)
   {
-    v7 = DBTLog();
+    v7 = DBTLog(v6);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [DBTDuxburyBrailleTranslator _unloadTables];
@@ -96,17 +97,17 @@
 
   self->_contracted = 0;
   *&self->_supportsEightDot = 0;
-  v12 = DBTLog();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v13 = DBTLog(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    *v13 = 0;
-    _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "End unloading tables", v13, 2u);
+    *v14 = 0;
+    _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "End unloading tables", v14, 2u);
   }
 }
 
 - (void)_unloadTechnicalTable
 {
-  v3 = DBTLog();
+  v3 = DBTLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -116,10 +117,11 @@
   technicalTranslationHandle = self->_technicalTranslationHandle;
   if (technicalTranslationHandle)
   {
-    if (BRLTRN_Destroy(technicalTranslationHandle))
+    v5 = BRLTRN_Destroy(technicalTranslationHandle);
+    if (v5)
     {
-      v5 = DBTLog();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v6 = DBTLog(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         [DBTDuxburyBrailleTranslator _unloadTables];
       }
@@ -131,10 +133,11 @@
   technicalBackTranslationHandle = self->_technicalBackTranslationHandle;
   if (technicalBackTranslationHandle)
   {
-    if (BRLTRN_Destroy(technicalBackTranslationHandle))
+    technicalBackTranslationHandle = BRLTRN_Destroy(technicalBackTranslationHandle);
+    if (technicalBackTranslationHandle)
     {
-      v7 = DBTLog();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = DBTLog(technicalBackTranslationHandle);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         [DBTDuxburyBrailleTranslator _unloadTables];
       }
@@ -143,11 +146,11 @@
     self->_technicalBackTranslationHandle = 0;
   }
 
-  v8 = DBTLog();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = DBTLog(technicalBackTranslationHandle);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    *v9 = 0;
-    _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "End unloading technical table", v9, 2u);
+    *v10 = 0;
+    _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "End unloading technical table", v10, 2u);
   }
 }
 
@@ -344,29 +347,30 @@ LABEL_12:
 
       v20 = [v12 objectForKey:@"languages"];
       objc_opt_class();
-      if (objc_opt_isKindOfClass())
+      isKindOfClass = objc_opt_isKindOfClass();
+      if (isKindOfClass)
       {
         firstObject = [v20 firstObject];
       }
 
       else
       {
-        v22 = DBTLog();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+        v23 = DBTLog(isKindOfClass);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
         {
-          [(DBTDuxburyBrailleTranslator *)tableCopy setActiveTable:v22];
+          [(DBTDuxburyBrailleTranslator *)tableCopy setActiveTable:v23];
         }
 
         firstObject = 0;
       }
 
-      v23 = [(DBTDuxburyBrailleTranslator *)self _newPrintPreprocessorsForTable:tableCopy primaryLanguageCode:firstObject];
+      v24 = [(DBTDuxburyBrailleTranslator *)self _newPrintPreprocessorsForTable:tableCopy primaryLanguageCode:firstObject];
       printPreprocessors = self->_printPreprocessors;
-      self->_printPreprocessors = v23;
+      self->_printPreprocessors = v24;
 
-      v25 = [tableCopy copy];
+      v26 = [tableCopy copy];
       activeTable = self->_activeTable;
-      self->_activeTable = v25;
+      self->_activeTable = v26;
     }
 
     else
@@ -389,7 +393,7 @@ LABEL_12:
 {
   tableCopy = table;
   v9 = [(DBTDuxburyBrailleTranslator *)self _tableInfoForKey:tableCopy];
-  v10 = DBTLog();
+  v10 = DBTLog(v9);
   v11 = v10;
   if (v9)
   {
@@ -404,11 +408,11 @@ LABEL_12:
     resourcePath = [v11 resourcePath];
     v13 = DBTWideCharBufferOfFullPath(resourcePath, @"chitab", @"txt");
     translationHandleCopy = translationHandle;
-    v39 = v9;
+    v41 = v9;
     if (handle)
     {
       handleCopy = handle;
-      v37 = tableCopy;
+      v39 = tableCopy;
       v14 = v13;
       v15 = [v9 objectForKey:@"trans"];
       handleCopy2 = [v15 objectForKey:@"btb"];
@@ -421,29 +425,29 @@ LABEL_12:
       DBTWideCharBufferFree(v19);
       if (v20)
       {
-        v21 = v17;
-        v22 = DBTLog();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+        v22 = v17;
+        v23 = DBTLog(v21);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
         {
           [DBTDuxburyBrailleTranslator _unloadTables];
         }
 
         DBTWideCharBufferFree(v14);
-        v23 = 0;
-        tableCopy = v37;
+        v24 = 0;
+        tableCopy = v39;
         goto LABEL_21;
       }
 
-      v33 = *buf;
+      v35 = *buf;
       *(*buf + 240) = 0;
-      v33[73] = 4;
-      *handleCopy = v33;
+      v35[73] = 4;
+      *handleCopy = v35;
 
-      v24 = v17;
+      v25 = v17;
       handle = handleCopy2;
-      tableCopy = v37;
+      tableCopy = v39;
       v13 = v14;
-      v9 = v39;
+      v9 = v41;
       if (!translationHandleCopy)
       {
         goto LABEL_18;
@@ -452,57 +456,57 @@ LABEL_12:
 
     else
     {
-      v24 = 0;
+      v25 = 0;
       if (!translationHandle)
       {
 LABEL_18:
-        v21 = v24;
+        v22 = v25;
         handleCopy2 = handle;
 LABEL_20:
         DBTWideCharBufferFree(v13);
-        v23 = 1;
+        v24 = 1;
 LABEL_21:
 
-        v9 = v39;
+        v9 = v41;
         goto LABEL_22;
       }
     }
 
-    v25 = v13;
-    v26 = [v9 objectForKey:@"back"];
-    handleCopy2 = [v26 objectForKey:@"btb"];
+    v26 = v13;
+    v27 = [v9 objectForKey:@"back"];
+    handleCopy2 = [v27 objectForKey:@"btb"];
 
-    v27 = [v26 objectForKey:@"sct"];
+    v28 = [v27 objectForKey:@"sct"];
 
     *buf = 0;
-    v28 = DBTWideCharBufferOfFullPath(resourcePath, handleCopy2, @"btb");
-    v29 = DBTWideCharBufferOfFullPath(resourcePath, v27, @"sct");
-    v30 = BRLTRN_CreateW(v28, v29, buf, 0, v25);
-    DBTWideCharBufferFree(v28);
+    v29 = DBTWideCharBufferOfFullPath(resourcePath, handleCopy2, @"btb");
+    v30 = DBTWideCharBufferOfFullPath(resourcePath, v28, @"sct");
+    v31 = BRLTRN_CreateW(v29, v30, buf, 0, v26);
     DBTWideCharBufferFree(v29);
-    if (v30)
+    DBTWideCharBufferFree(v30);
+    if (v31)
     {
-      v31 = tableCopy;
-      v32 = DBTLog();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+      v33 = tableCopy;
+      v34 = DBTLog(v32);
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
       {
         [DBTDuxburyBrailleTranslator _unloadTables];
       }
 
-      DBTWideCharBufferFree(v25);
-      v23 = 0;
-      tableCopy = v31;
-      v21 = v27;
+      DBTWideCharBufferFree(v26);
+      v24 = 0;
+      tableCopy = v33;
+      v22 = v28;
       goto LABEL_21;
     }
 
-    v34 = *buf;
+    v36 = *buf;
     *(*buf + 240) = 0;
-    v34[73] = 4;
-    *translationHandleCopy = v34;
+    v36[73] = 4;
+    *translationHandleCopy = v36;
 
-    v13 = v25;
-    v21 = v27;
+    v13 = v26;
+    v22 = v28;
     goto LABEL_20;
   }
 
@@ -511,10 +515,10 @@ LABEL_21:
     [DBTDuxburyBrailleTranslator _loadTable:tableCopy translationHandle:v11 backTranslationHandle:?];
   }
 
-  v23 = 0;
+  v24 = 0;
 LABEL_22:
 
-  return v23;
+  return v24;
 }
 
 - (void)_populatePrintBrailleForTextLocations:(id *)locations inLength:(unint64_t)length outLength:(unint64_t)outLength translationHandle:(void *)handle offsetToBraille:(unsigned __int16)braille prefixCodeLength:(unsigned __int16)codeLength preprocessedMap:(id)map optimize:(BOOL)self0
@@ -855,10 +859,10 @@ LABEL_14:
   optimizeCopy = optimize;
   rangesCopy = ranges;
   composedCharacterPreprocessor = self->_composedCharacterPreprocessor;
-  v69 = 0;
-  v61 = rangesCopy;
-  v14 = [(DBTComposedCharactersPreprocessor *)composedCharacterPreprocessor preprocessPrintString:text withLocationMap:&v69 isEightDot:0 textFormattingRanges:?];
-  v15 = v69;
+  v70 = 0;
+  v62 = rangesCopy;
+  v14 = [(DBTComposedCharactersPreprocessor *)composedCharacterPreprocessor preprocessPrintString:text withLocationMap:&v70 isEightDot:0 textFormattingRanges:?];
+  v15 = v70;
   v16 = v14;
   v17 = [(NSArray *)self->_printPreprocessors count];
   v18 = v16;
@@ -868,22 +872,22 @@ LABEL_14:
   {
     modeCopy = mode;
     locationsCopy = locations;
+    v69 = 0u;
     v68 = 0u;
     v67 = 0u;
     v66 = 0u;
-    v65 = 0u;
     v20 = self->_printPreprocessors;
-    v21 = [(NSArray *)v20 countByEnumeratingWithState:&v65 objects:v70 count:16];
-    v58 = v16;
+    v21 = [(NSArray *)v20 countByEnumeratingWithState:&v66 objects:v71 count:16];
+    v59 = v16;
     v18 = v16;
-    v59 = v15;
+    v60 = v15;
     v19 = v15;
     if (v21)
     {
       v22 = v21;
-      v23 = *v66;
-      v18 = v58;
-      v19 = v59;
+      v23 = *v67;
+      v18 = v59;
+      v19 = v60;
       do
       {
         v24 = 0;
@@ -891,15 +895,15 @@ LABEL_14:
         v26 = v19;
         do
         {
-          if (*v66 != v23)
+          if (*v67 != v23)
           {
             objc_enumerationMutation(v20);
           }
 
-          v27 = *(*(&v65 + 1) + 8 * v24);
-          v64 = 0;
-          v18 = [v27 preprocessPrintString:v25 withLocationMap:&v64 isEightDot:0 textFormattingRanges:v61];
-          v28 = v64;
+          v27 = *(*(&v66 + 1) + 8 * v24);
+          v65 = 0;
+          v18 = [v27 preprocessPrintString:v25 withLocationMap:&v65 isEightDot:0 textFormattingRanges:v62];
+          v28 = v65;
 
           v19 = [BRLTPreprocessorHelper mergeLocationMap:v26 withLocationMap:v28];
 
@@ -909,14 +913,14 @@ LABEL_14:
         }
 
         while (v22 != v24);
-        v22 = [(NSArray *)v20 countByEnumeratingWithState:&v65 objects:v70 count:16];
+        v22 = [(NSArray *)v20 countByEnumeratingWithState:&v66 objects:v71 count:16];
       }
 
       while (v22);
     }
 
-    v15 = v59;
-    v16 = v58;
+    v15 = v60;
+    v16 = v59;
     locations = locationsCopy;
     self = selfCopy;
     mode = modeCopy;
@@ -945,71 +949,72 @@ LABEL_14:
 
   v31 = v30;
   v32 = [(DBTDuxburyBrailleTranslator *)self _prepBuffersForConversion:1 withString:v18 mode:mode prefixLength:v30];
-  v63 = 0;
+  v64 = 0;
   bzero(self->_outBuffer, self->_outBufferLen);
-  if (BRLTRN_TranslateString(translationHandle, self->_inBuffer, self->_outBuffer, LOWORD(self->_outBufferLen), v30, &v63))
+  v33 = BRLTRN_TranslateString(translationHandle, self->_inBuffer, self->_outBuffer, LOWORD(self->_outBufferLen), v30, &v64);
+  if (v33)
   {
-    v33 = DBTLog();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+    v34 = DBTLog(v33);
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
     {
       [DBTDuxburyBrailleTranslator _unloadTables];
     }
 
-    v34 = 0;
+    v35 = 0;
   }
 
   else
   {
     DBTWideCharBufferLength(self->_outBuffer);
-    v59 = v52;
-    v35 = __chkstk_darwin();
-    v37 = &v52[-v36];
-    v38 = v35 - v31;
-    if (v35 != v31)
+    v60 = v53;
+    v36 = __chkstk_darwin();
+    v38 = &v53[-v37];
+    v39 = v36 - v31;
+    if (v36 != v31)
     {
-      v39 = &selfCopy->_outBuffer[v31];
-      v40 = v37;
-      v41 = v35 - v31;
+      v40 = &selfCopy->_outBuffer[v31];
+      v41 = v38;
+      v42 = v36 - v31;
       do
       {
-        v42 = *v39++;
-        *v40++ = v42;
-        --v41;
+        v43 = *v40++;
+        *v41++ = v43;
+        --v42;
       }
 
-      while (v41);
+      while (v42);
     }
 
     if (locations)
     {
-      v62 = 0;
-      LOBYTE(v51) = optimizeCopy;
-      v43 = selfCopy;
-      v44 = v32;
-      v45 = v35 - v31;
-      [(DBTDuxburyBrailleTranslator *)selfCopy _populatePrintBrailleForTextLocations:&v62 inLength:v44 outLength:v38 translationHandle:translationHandle offsetToBraille:v63 prefixCodeLength:v31 preprocessedMap:v19 optimize:v51];
-      v46 = v62;
-      v47 = +[NSMutableData dataWithCapacity:](NSMutableData, "dataWithCapacity:", [v46 length]);
-      v38 = v45;
-      v48 = v47;
+      v63 = 0;
+      LOBYTE(v52) = optimizeCopy;
+      v44 = selfCopy;
+      v45 = v32;
+      v46 = v36 - v31;
+      [(DBTDuxburyBrailleTranslator *)selfCopy _populatePrintBrailleForTextLocations:&v63 inLength:v45 outLength:v39 translationHandle:translationHandle offsetToBraille:v64 prefixCodeLength:v31 preprocessedMap:v19 optimize:v52];
+      v47 = v63;
+      v48 = +[NSMutableData dataWithCapacity:](NSMutableData, "dataWithCapacity:", [v47 length]);
+      v39 = v46;
+      v49 = v48;
     }
 
     else
     {
-      v46 = 0;
-      v48 = 0;
-      v43 = selfCopy;
+      v47 = 0;
+      v49 = 0;
+      v44 = selfCopy;
     }
 
-    v34 = [(DBTDuxburyBrailleTranslator *)v43 _scrubDollarCodesInBuffer:v37 originalLength:v38 originalLocations:v46 newLocations:v48 convertASCIIBrailleToUnicode:1 limitRange:location, length];
+    v35 = [(DBTDuxburyBrailleTranslator *)v44 _scrubDollarCodesInBuffer:v38 originalLength:v39 originalLocations:v47 newLocations:v49 convertASCIIBrailleToUnicode:1 limitRange:location, length];
     if (locations)
     {
-      v49 = v48;
-      *locations = v48;
+      v50 = v49;
+      *locations = v49;
     }
   }
 
-  return v34;
+  return v35;
 }
 
 - (id)printBrailleForText:(id)text mode:(unint64_t)mode locations:(id *)locations textPositionsRange:(_NSRange)range textFormattingRanges:(id)ranges
@@ -1232,6 +1237,136 @@ LABEL_15:
 LABEL_30:
   *locations = [NSData dataWithBytes:v15 length:v27, v36];
   free(v15);
+}
+
+- (id)_textForPrintBraille:(id)braille mode:(unint64_t)mode locations:(id *)locations optimize:(BOOL)optimize
+{
+  optimizeCopy = optimize;
+  brailleCopy = braille;
+  backTranslationHandle = self->_backTranslationHandle;
+  if (mode == 4)
+  {
+    [(DBTDuxburyBrailleTranslator *)self loadNemethTable];
+    if (self->_technicalBackTranslationHandle)
+    {
+      backTranslationHandle = self->_technicalBackTranslationHandle;
+    }
+
+    v12 = 9;
+  }
+
+  else if (self->_supportsContraction)
+  {
+    v12 = 4;
+  }
+
+  else
+  {
+    v12 = 0;
+  }
+
+  v13 = v12;
+  v14 = [(DBTDuxburyBrailleTranslator *)self _prepBuffersForConversion:0 withString:brailleCopy mode:mode prefixLength:v12];
+  v15 = v14;
+  inBuffer = self->_inBuffer;
+  if (v14 + v12 > v12)
+  {
+    v17 = v12;
+    v18 = v14;
+    do
+    {
+      v19 = UnicodeToASCIIBraille(inBuffer[v17]);
+      inBuffer = self->_inBuffer;
+      inBuffer[v17++] = v19;
+      --v18;
+    }
+
+    while (v18);
+  }
+
+  v36 = 0;
+  v20 = BRLTRN_TranslateString(backTranslationHandle, inBuffer, self->_outBuffer, LOWORD(self->_outBufferLen), v13, &v36);
+  if (!v20)
+  {
+    v23 = DBTWideCharBufferLength(self->_outBuffer) - v13;
+    if (locations)
+    {
+      [(DBTDuxburyBrailleTranslator *)self _populateTextForPrintBrailleLocations:locations inLength:v15 outLength:v23 offsetToBraille:v36 prefixLength:v13 optimize:optimizeCopy];
+      v21 = +[NSMutableData dataWithCapacity:](NSMutableData, "dataWithCapacity:", [*locations length]);
+      if (mode != 4)
+      {
+        v24 = *locations;
+        goto LABEL_22;
+      }
+    }
+
+    else
+    {
+      v21 = 0;
+      v24 = 0;
+      if (mode != 4)
+      {
+LABEL_22:
+        v22 = [(DBTDuxburyBrailleTranslator *)self _scrubDollarCodesInBuffer:&self->_outBuffer[v13] originalLength:v23 originalLocations:v24 newLocations:v21 convertASCIIBrailleToUnicode:0 limitRange:0x7FFFFFFFFFFFFFFFLL, 0];
+        if (!locations)
+        {
+          goto LABEL_29;
+        }
+
+        goto LABEL_28;
+      }
+    }
+
+    outBuffer = self->_outBuffer;
+    v26 = DBTWideCharBufferLength(outBuffer);
+    v27 = DBTNSStringFromWideCharBuffer(outBuffer, v26);
+    v28 = objc_alloc_init(DBTDuxburyFormatParser);
+    v35 = 0;
+    v29 = [(DBTDuxburyFormatParser *)v28 LaTeXRepresentationOfString:v27 error:&v35];
+    v30 = v35;
+    if (v30)
+    {
+      if (locations)
+      {
+        v31 = *locations;
+      }
+
+      else
+      {
+        v31 = 0;
+      }
+
+      v32 = [(DBTDuxburyBrailleTranslator *)self _scrubDollarCodesInBuffer:&self->_outBuffer[v13] originalLength:v23 originalLocations:v31 newLocations:v21 convertASCIIBrailleToUnicode:0 limitRange:0x7FFFFFFFFFFFFFFFLL, 0];
+    }
+
+    else
+    {
+      v32 = v29;
+    }
+
+    v22 = v32;
+
+    if (!locations)
+    {
+      goto LABEL_29;
+    }
+
+LABEL_28:
+    v33 = v21;
+    *locations = v21;
+    goto LABEL_29;
+  }
+
+  v21 = DBTLog(v20);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+  {
+    [DBTDuxburyBrailleTranslator _unloadTables];
+  }
+
+  v22 = 0;
+LABEL_29:
+
+  return v22;
 }
 
 - (id)textForPrintBraille:(id)braille mode:(unint64_t)mode locations:(id *)locations

@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)originAsString:(int)string;
 - (int)StringAsOrigin:(id)origin;
 - (int)origin;
 - (unint64_t)hash;
@@ -40,6 +41,29 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)originAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"DROPPED_PIN";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"OTHER";
+  }
+
+  return v4;
 }
 
 - (int)StringAsOrigin:(id)origin
@@ -136,37 +160,35 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v7 = toCopy;
+  v5 = toCopy;
   if (self->_mapItemStorage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    origin = self->_origin;
     PBDataWriterWriteInt32Field();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_title)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_droppedPinCoordinate)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    droppedPinFloorOrdinal = self->_droppedPinFloorOrdinal;
     PBDataWriterWriteInt32Field();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   [(PBUnknownFields *)self->_unknownFields writeTo:toCopy];
@@ -255,7 +277,6 @@
     }
   }
 
-  v6 = *(equalCopy + 56);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 56) & 2) == 0 || self->_origin != *(equalCopy + 10))
@@ -267,7 +288,7 @@
   else if ((*(equalCopy + 56) & 2) != 0)
   {
 LABEL_17:
-    v9 = 0;
+    v8 = 0;
     goto LABEL_18;
   }
 
@@ -286,7 +307,7 @@ LABEL_17:
     }
   }
 
-  v9 = (*(equalCopy + 56) & 1) == 0;
+  v8 = (*(equalCopy + 56) & 1) == 0;
   if (*&self->_has)
   {
     if ((*(equalCopy + 56) & 1) == 0 || self->_droppedPinFloorOrdinal != *(equalCopy + 6))
@@ -294,12 +315,12 @@ LABEL_17:
       goto LABEL_17;
     }
 
-    v9 = 1;
+    v8 = 1;
   }
 
 LABEL_18:
 
-  return v9;
+  return v8;
 }
 
 - (unint64_t)hash

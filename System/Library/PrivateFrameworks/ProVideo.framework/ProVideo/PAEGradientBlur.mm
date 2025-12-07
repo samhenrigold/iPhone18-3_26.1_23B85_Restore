@@ -105,30 +105,30 @@
 
 - (BOOL)canThrowRenderOutput:(id)output withInput:(id)input withInfo:(id *)info
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   v9 = [(PROAPIAccessing *)self->super.super._apiManager apiForProtocol:&unk_28735E258];
   if (v9)
   {
     v10 = v9;
-    v49 = 10.0;
-    v48 = 1;
-    [v9 getFloatValue:&v49 fromParm:3 atFxTime:info->var0.var1];
-    if (v49 == 0.0)
+    v45 = 10.0;
+    v44 = 1;
+    [v9 getFloatValue:&v45 fromParm:3 atFxTime:info->var0.var1];
+    if (v45 == 0.0)
     {
       if (input)
       {
-        [input heliumRef];
+        objc_msgSend_heliumRef(input, v45);
       }
 
       else
       {
-        v45[0] = 0;
+        v41[0] = 0.0;
       }
 
-      [output setHeliumRef:v45];
-      if (v45[0])
+      [output setHeliumRef:v41];
+      if (*&v41[0])
       {
-        (*(*v45[0] + 24))(v45[0]);
+        (*(**&v41[0] + 24))(*&v41[0]);
       }
 
 LABEL_18:
@@ -136,176 +136,171 @@ LABEL_18:
       return v9;
     }
 
-    v47 = 0uLL;
-    [v10 getXValue:&v47 YValue:&v47.u32[2] fromParm:1 atFxTime:{info->var0.var1, v49}];
-    v46 = vdupq_n_s64(0x3FE570A3D70A3D71uLL);
-    [v10 getXValue:&v46 YValue:&v46.u64[1] fromParm:2 atFxTime:info->var0.var1];
-    [v10 getBoolValue:&v48 fromParm:4 atFxTime:info->var0.var1];
-    [(PAESharedDefaultBase *)self getPixelTransformForImage:input];
-    [(PAESharedDefaultBase *)self getInversePixelTransformForImage:output];
-    v11 = *v45;
-    v12 = *&v45[5];
-    [(PAESharedDefaultBase *)self convertRelativeToPixelCoordinates:&v47 withImage:output];
-    v47 = v52;
-    [(PAESharedDefaultBase *)self convertRelativeToPixelCoordinates:&v46 withImage:output];
-    v46 = v52;
-    if (v49 == 0.0)
+    v43 = 0uLL;
+    [v10 getXValue:&v43 YValue:&v43.u32[2] fromParm:1 atFxTime:{info->var0.var1, v45}];
+    v42 = vdupq_n_s64(0x3FE570A3D70A3D71uLL);
+    [v10 getXValue:&v42 YValue:&v42.u64[1] fromParm:2 atFxTime:info->var0.var1];
+    [v10 getBoolValue:&v44 fromParm:4 atFxTime:info->var0.var1];
+    objc_msgSend_getPixelTransformForImage_(self);
+    objc_msgSend_getInversePixelTransformForImage_(self);
+    objc_msgSend_convertRelativeToPixelCoordinates_withImage_(self);
+    v43 = v48;
+    objc_msgSend_convertRelativeToPixelCoordinates_withImage_(self);
+    v42 = v48;
+    if (v45 == 0.0)
     {
       if (input)
       {
-        [input heliumRef];
+        objc_msgSend_heliumRef(input, v45);
       }
 
       else
       {
-        v52.i64[0] = 0;
+        v48.i64[0] = 0;
       }
 
-      [output setHeliumRef:&v52];
-      if (v52.i64[0])
+      [output setHeliumRef:&v48];
+      if (v48.i64[0])
       {
-        (*(*v52.i64[0] + 24))(v52.i64[0]);
+        (*(*v48.i64[0] + 24))(v48.i64[0]);
       }
 
       goto LABEL_18;
     }
 
-    LODWORD(v9) = [(PAESharedDefaultBase *)self getRenderMode:info->var0.var1, v49];
+    LODWORD(v9) = [(PAESharedDefaultBase *)self getRenderMode:info->var0.var1, v45];
     if (v9)
     {
       if ([input imageType] == 3)
       {
         if (input)
         {
-          [input heliumRef];
+          objc_msgSend_heliumRef(input);
         }
 
         else
         {
-          v44 = 0;
+          v40 = 0;
         }
 
-        if (v48 == 1)
+        if (v44 == 1)
         {
-          v43 = v44;
-          if (v44)
+          if (v40)
           {
-            (*(*v44 + 16))(v44);
+            (*(*v40 + 16))(v40);
           }
 
-          [(PAESharedDefaultBase *)self smear:&v43 fromImage:input toImage:input];
-          v13 = v52.i64[0];
-          if (v44 == v52.i64[0])
+          objc_msgSend_smear_fromImage_toImage_(self, v40);
+          v11 = v48.i64[0];
+          if (v40 == v48.i64[0])
           {
-            if (v44)
+            if (v40)
             {
-              (*(*v52.i64[0] + 24))(v52.i64[0]);
+              (*(*v48.i64[0] + 24))(v48.i64[0]);
             }
           }
 
           else
           {
-            if (v44)
+            if (v40)
             {
-              (*(*v44 + 24))();
-              v13 = v52.i64[0];
+              (*(*v40 + 24))();
+              v11 = v48.i64[0];
             }
 
-            v44 = v13;
-            v52.i64[0] = 0;
+            v40 = v11;
+            v48.i64[0] = 0;
           }
 
-          if (v43)
+          if (v39)
           {
-            (*(*v43 + 24))(v43);
+            (*(*v39 + 24))(v39);
           }
         }
 
-        v14 = v47;
-        v15 = v46;
-        v16 = HGObject::operator new(0x1A0uLL);
-        HgcGradientBlur2::HgcGradientBlur2(v16);
-        v17 = 1.0 / sqrt((*v14.i64 - *v15.i64) * (*v14.i64 - *v15.i64) + (*&v14.i64[1] - *&v15.i64[1]) * (*&v14.i64[1] - *&v15.i64[1]));
-        v18 = (*v14.i64 - *v15.i64) * v17;
-        v19 = (*&v14.i64[1] - *&v15.i64[1]) * v17;
-        v20 = v18;
-        v21 = v19;
-        *&v18 = *v15.i64 * v18 + *&v15.i64[1] * v19;
-        v22 = -*&v18;
-        (*(*v16 + 96))(v16, 1, v20, v21, 0.0, -*&v18);
-        *&v17 = v17;
-        (*(*v16 + 96))(v16, 2, *&v17, 0.0, 0.0, 0.0);
-        v23 = HGObject::operator new(0x1A0uLL);
-        HgcGradientBlur2::HgcGradientBlur2(v23);
-        (*(*v23 + 96))(v23, 1, v20, v21, 0.0, v22);
-        (*(*v23 + 96))(v23, 2, *&v17, 0.0, 0.0, 0.0);
-        v24 = v11;
-        v25 = v12;
-        v49 = v49 * 2.7;
-        v26 = v49 / 7.0;
-        v27 = vmulq_n_f32(xmmword_260343430, v26);
-        v28 = vmulq_n_f32(xmmword_260343820, v26);
-        v52 = vmulq_n_f32(v27, v24);
-        v53 = vmulq_n_f32(v28, v24);
-        v50 = vmulq_n_f32(v27, v25);
-        v51 = vmulq_n_f32(v28, v25);
-        v29 = v44;
-        v30 = HGObject::operator new(0x70uLL);
-        HGBlurGroup::HGBlurGroup(v30, v29, 0);
-        HGBlurGroup::setBlurValues(v30, v52.f32, v50.f32, 5);
-        (*(*v16 + 96))(v16, 0, 0.0, 0.0, 0.0, 0.0);
-        v31 = HGBlurGroup::level(v30, 0);
-        (*(*v16 + 120))(v16, 0, v31);
-        v32 = HGBlurGroup::level(v30, 1u);
-        (*(*v16 + 120))(v16, 1, v32);
-        v33 = HGBlurGroup::level(v30, 2u);
-        (*(*v16 + 120))(v16, 2, v33);
-        v34 = HGBlurGroup::level(v30, 3u);
-        (*(*v16 + 120))(v16, 3, v34);
-        v35 = HGBlurGroup::level(v30, 4u);
-        (*(*v16 + 120))(v16, 4, v35);
-        if (v30)
+        v12 = v43;
+        v13 = v42;
+        v14 = HGObject::operator new(0x1A0uLL);
+        HgcGradientBlur2::HgcGradientBlur2(v14);
+        v15 = 1.0 / sqrt((*v12.i64 - *v13.i64) * (*v12.i64 - *v13.i64) + (*&v12.i64[1] - *&v13.i64[1]) * (*&v12.i64[1] - *&v13.i64[1]));
+        v16 = (*v12.i64 - *v13.i64) * v15;
+        v17 = (*&v12.i64[1] - *&v13.i64[1]) * v15;
+        v18 = v16;
+        v19 = v17;
+        *&v16 = *v13.i64 * v16 + *&v13.i64[1] * v17;
+        v20 = -*&v16;
+        (*(*v14 + 96))(v14, 1, v18, v19, 0.0, -*&v16);
+        *&v15 = v15;
+        (*(*v14 + 96))(v14, 2, *&v15, 0.0, 0.0, 0.0);
+        v21 = HGObject::operator new(0x1A0uLL);
+        HgcGradientBlur2::HgcGradientBlur2(v21);
+        (*(*v21 + 96))(v21, 1, v18, v19, 0.0, v20);
+        (*(*v21 + 96))(v21, 2, *&v15, 0.0, 0.0, 0.0);
+        v22 = v41[0];
+        v23 = v41[5];
+        v45 = v45 * 2.7;
+        v24 = v45 / 7.0;
+        v25 = vmulq_n_f32(xmmword_260343430, v24);
+        v26 = vmulq_n_f32(xmmword_260343820, v24);
+        v48 = vmulq_n_f32(v25, v22);
+        v49 = vmulq_n_f32(v26, v22);
+        v46 = vmulq_n_f32(v25, v23);
+        v47 = vmulq_n_f32(v26, v23);
+        v27 = HGObject::operator new(0x70uLL);
+        HGBlurGroup::HGBlurGroup(v27, v40, 0);
+        HGBlurGroup::setBlurValues(v27, v48.f32, v46.f32, 5);
+        (*(*v14 + 96))(v14, 0, 0.0, 0.0, 0.0, 0.0);
+        v28 = HGBlurGroup::level(v27, 0);
+        (*(*v14 + 120))(v14, 0, v28);
+        v29 = HGBlurGroup::level(v27, 1u);
+        (*(*v14 + 120))(v14, 1, v29);
+        v30 = HGBlurGroup::level(v27, 2u);
+        (*(*v14 + 120))(v14, 2, v30);
+        v31 = HGBlurGroup::level(v27, 3u);
+        (*(*v14 + 120))(v14, 3, v31);
+        v32 = HGBlurGroup::level(v27, 4u);
+        (*(*v14 + 120))(v14, 4, v32);
+        if (v27)
         {
-          (*(*v30 + 24))(v30);
+          (*(*v27 + 24))(v27);
         }
 
-        v36 = v44;
-        v37 = HGObject::operator new(0x70uLL);
-        HGBlurGroup::HGBlurGroup(v37, v36, 0);
-        HGBlurGroup::setBlurValues(v37, v53.f32, v51.f32, 4);
-        (*(*v23 + 96))(v23, 0, 1.0, 0.0, 0.0, 0.0);
-        (*(*v23 + 120))(v23, 0, v16);
-        v38 = HGBlurGroup::level(v37, 0);
-        (*(*v23 + 120))(v23, 1, v38);
-        v39 = HGBlurGroup::level(v37, 1u);
-        (*(*v23 + 120))(v23, 2, v39);
-        v40 = HGBlurGroup::level(v37, 2u);
-        (*(*v23 + 120))(v23, 3, v40);
-        v41 = HGBlurGroup::level(v37, 3u);
-        (*(*v23 + 120))(v23, 4, v41);
-        if (v37)
+        v33 = HGObject::operator new(0x70uLL);
+        HGBlurGroup::HGBlurGroup(v33, v40, 0);
+        HGBlurGroup::setBlurValues(v33, v49.f32, v47.f32, 4);
+        (*(*v21 + 96))(v21, 0, 1.0, 0.0, 0.0, 0.0);
+        (*(*v21 + 120))(v21, 0, v14);
+        v34 = HGBlurGroup::level(v33, 0);
+        (*(*v21 + 120))(v21, 1, v34);
+        v35 = HGBlurGroup::level(v33, 1u);
+        (*(*v21 + 120))(v21, 2, v35);
+        v36 = HGBlurGroup::level(v33, 2u);
+        (*(*v21 + 120))(v21, 3, v36);
+        v37 = HGBlurGroup::level(v33, 3u);
+        (*(*v21 + 120))(v21, 4, v37);
+        if (v33)
         {
-          (*(*v37 + 24))(v37);
+          (*(*v33 + 24))(v33);
         }
 
-        v52.i64[0] = v23;
-        (*(*v23 + 16))(v23);
-        if (v48 == 1)
+        v48.i64[0] = v21;
+        (*(*v21 + 16))(v21);
+        if (v44 == 1)
         {
-          [(PAESharedDefaultBase *)self crop:&v52 fromImage:input toImage:output];
+          [(PAESharedDefaultBase *)self crop:&v48 fromImage:input toImage:output];
         }
 
-        [output setHeliumRef:{&v52, v43}];
-        if (v52.i64[0])
+        [output setHeliumRef:&v48];
+        if (v48.i64[0])
         {
-          (*(*v52.i64[0] + 24))(v52.i64[0]);
+          (*(*v48.i64[0] + 24))(v48.i64[0]);
         }
 
-        (*(*v23 + 24))(v23);
-        (*(*v16 + 24))(v16);
-        if (v44)
+        (*(*v21 + 24))(v21);
+        (*(*v14 + 24))(v14);
+        if (v40)
         {
-          (*(*v44 + 24))(v44);
+          (*(*v40 + 24))(v40);
         }
 
         goto LABEL_18;

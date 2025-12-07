@@ -23,13 +23,11 @@
 
 - (id)propertyDictionary
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"confidence";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"confidence";
   v2 = [MEMORY[0x277CCABB0] numberWithDouble:self->_confidence];
-  v7[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
@@ -97,17 +95,15 @@
 
 + (id)filterWithConfidence:(double)confidence
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   filter = [self filter];
-  v12 = @"confidence";
+  v11 = @"confidence";
   v5 = objc_alloc(MEMORY[0x277D22B98]);
   v6 = [MEMORY[0x277CCABB0] numberWithDouble:confidence];
   v7 = [v5 initWithComparator:6 value:v6];
-  v13[0] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v12[0] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
   v9 = [filter filterBySettingProperties:v8];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

@@ -48,7 +48,7 @@
 
 - (void)fetchEscrowRecords:(id)records source:(int64_t)source completion:(id)completion
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v9 = MEMORY[0x277CDBD50];
   recordsCopy = records;
@@ -93,7 +93,7 @@
   if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v41 = v17;
+    v40 = v17;
     _os_log_impl(&dword_24510B000, v22, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: FetchEscrowRecords  enableTelemetry=YES ", buf, 0xCu);
   }
 
@@ -106,25 +106,23 @@
   v27 = [MEMORY[0x277CCABB0] numberWithInteger:source];
   [v26 setObject:v27 forKeyedSubscript:*MEMORY[0x277CFD718]];
 
-  v32 = MEMORY[0x277D85DD0];
-  v33 = 3221225472;
-  v34 = __66__CDPDOctagonTrustProxyImpl_fetchEscrowRecords_source_completion___block_invoke;
-  v35 = &unk_278E24C70;
-  v38 = v17;
-  v39 = v19;
-  v36 = v26;
-  v37 = completionCopy;
+  v31 = MEMORY[0x277D85DD0];
+  v32 = 3221225472;
+  v33 = __66__CDPDOctagonTrustProxyImpl_fetchEscrowRecords_source_completion___block_invoke;
+  v34 = &unk_278E24C70;
+  v37 = v17;
+  v38 = v19;
+  v35 = v26;
+  v36 = completionCopy;
   v28 = completionCopy;
   v29 = v26;
-  v30 = _Block_copy(&v32);
-  [(CDPDOctagonTrustProxyImpl *)self _retryableFetchEscrowRecordWithContext:v11 completion:v30, v32, v33, v34, v35];
-
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = _Block_copy(&v31);
+  [(CDPDOctagonTrustProxyImpl *)self _retryableFetchEscrowRecordWithContext:v11 completion:v30, v31, v32, v33, v34];
 }
 
 void __66__CDPDOctagonTrustProxyImpl_fetchEscrowRecords_source_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -154,68 +152,64 @@ void __66__CDPDOctagonTrustProxyImpl_fetchEscrowRecords_source_completion___bloc
   v11 = [MEMORY[0x277CFD490] rtcAnalyticsReporter];
   [v11 sendEvent:*(a1 + 32)];
 
-  v12 = *(a1 + 48);
-  v13 = *(a1 + 56);
   Nanoseconds = _CDPSignpostGetNanoseconds();
-  v15 = _CDPSignpostLogSystem();
-  v16 = v15;
-  v17 = *(a1 + 48);
-  if (v17 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
+  v13 = _CDPSignpostLogSystem();
+  v14 = v13;
+  v15 = *(a1 + 48);
+  if (v15 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
   {
-    v28 = 67240192;
-    LODWORD(v29) = [v7 code];
-    _os_signpost_emit_with_name_impl(&dword_24510B000, v16, OS_SIGNPOST_INTERVAL_END, v17, "FetchEscrowRecords", " fetchError=%{public,signpost.telemetry:number1,name=fetchError}d ", &v28, 8u);
+    v25 = 67240192;
+    LODWORD(v26) = [v7 code];
+    _os_signpost_emit_with_name_impl(&dword_24510B000, v14, OS_SIGNPOST_INTERVAL_END, v15, "FetchEscrowRecords", " fetchError=%{public,signpost.telemetry:number1,name=fetchError}d ", &v25, 8u);
   }
 
-  v18 = _CDPSignpostLogSystem();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  v16 = _CDPSignpostLogSystem();
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = Nanoseconds / 1000000000.0;
-    v20 = *(a1 + 48);
-    v21 = [v7 code];
-    v28 = 134218496;
-    v29 = v20;
-    v30 = 2048;
-    v31 = v19;
-    v32 = 1026;
-    v33 = v21;
-    _os_log_impl(&dword_24510B000, v18, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: FetchEscrowRecords  fetchError=%{public,signpost.telemetry:number1,name=fetchError}d ", &v28, 0x1Cu);
+    v17 = Nanoseconds / 1000000000.0;
+    v18 = *(a1 + 48);
+    v19 = [v7 code];
+    v25 = 134218496;
+    v26 = v18;
+    v27 = 2048;
+    v28 = v17;
+    v29 = 1026;
+    v30 = v19;
+    _os_log_impl(&dword_24510B000, v16, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: FetchEscrowRecords  fetchError=%{public,signpost.telemetry:number1,name=fetchError}d ", &v25, 0x1Cu);
   }
 
-  v22 = _CDPLogSystem();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+  v20 = _CDPLogSystem();
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
   {
     __66__CDPDOctagonTrustProxyImpl_fetchEscrowRecords_source_completion___block_invoke_cold_1();
   }
 
   if (v9)
   {
-    v23 = _CDPLogSystem();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v21 = _CDPLogSystem();
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       __66__CDPDOctagonTrustProxyImpl_fetchEscrowRecords_source_completion___block_invoke_cold_2();
     }
 
-    v24 = *(a1 + 40);
-    if (v24)
+    v22 = *(a1 + 40);
+    if (v22)
     {
-      v25 = *(v24 + 16);
+      v23 = *(v22 + 16);
 LABEL_24:
-      v25();
+      v23();
     }
   }
 
   else
   {
-    v26 = *(a1 + 40);
-    if (v26)
+    v24 = *(a1 + 40);
+    if (v24)
     {
-      v25 = *(v26 + 16);
+      v23 = *(v24 + 16);
       goto LABEL_24;
     }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_retryableFetchEscrowRecordWithContext:(id)context completion:(id)completion
@@ -243,7 +237,7 @@ LABEL_24:
 
 - (void)fetchAllEscrowRecords:(id)records source:(int64_t)source completion:(id)completion
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v9 = MEMORY[0x277CDBD50];
   recordsCopy = records;
@@ -293,7 +287,7 @@ LABEL_24:
   if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v41 = v20;
+    v40 = v20;
     _os_log_impl(&dword_24510B000, v25, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: FetchEscrowRecords  enableTelemetry=YES ", buf, 0xCu);
   }
 
@@ -301,25 +295,23 @@ LABEL_24:
   v27 = [MEMORY[0x277CCABB0] numberWithInteger:source];
   [v26 setObject:v27 forKeyedSubscript:*MEMORY[0x277CFD718]];
 
-  v32 = MEMORY[0x277D85DD0];
-  v33 = 3221225472;
-  v34 = __69__CDPDOctagonTrustProxyImpl_fetchAllEscrowRecords_source_completion___block_invoke;
-  v35 = &unk_278E24C70;
-  v38 = v20;
-  v39 = v22;
-  v36 = v26;
-  v37 = completionCopy;
+  v31 = MEMORY[0x277D85DD0];
+  v32 = 3221225472;
+  v33 = __69__CDPDOctagonTrustProxyImpl_fetchAllEscrowRecords_source_completion___block_invoke;
+  v34 = &unk_278E24C70;
+  v37 = v20;
+  v38 = v22;
+  v35 = v26;
+  v36 = completionCopy;
   v28 = completionCopy;
   v29 = v26;
-  v30 = _Block_copy(&v32);
-  [(CDPDOctagonTrustProxyImpl *)self _retryableFetchAllEscrowRecordWithContext:v11 completion:v30, v32, v33, v34, v35];
-
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = _Block_copy(&v31);
+  [(CDPDOctagonTrustProxyImpl *)self _retryableFetchAllEscrowRecordWithContext:v11 completion:v30, v31, v32, v33, v34];
 }
 
 void __69__CDPDOctagonTrustProxyImpl_fetchAllEscrowRecords_source_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -349,68 +341,64 @@ void __69__CDPDOctagonTrustProxyImpl_fetchAllEscrowRecords_source_completion___b
   v11 = [MEMORY[0x277CFD490] rtcAnalyticsReporter];
   [v11 sendEvent:*(a1 + 32)];
 
-  v12 = *(a1 + 48);
-  v13 = *(a1 + 56);
   Nanoseconds = _CDPSignpostGetNanoseconds();
-  v15 = _CDPSignpostLogSystem();
-  v16 = v15;
-  v17 = *(a1 + 48);
-  if (v17 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
+  v13 = _CDPSignpostLogSystem();
+  v14 = v13;
+  v15 = *(a1 + 48);
+  if (v15 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
   {
-    v28 = 67240192;
-    LODWORD(v29) = [v7 code];
-    _os_signpost_emit_with_name_impl(&dword_24510B000, v16, OS_SIGNPOST_INTERVAL_END, v17, "FetchEscrowRecords", " fetchError=%{public,signpost.telemetry:number1,name=fetchError}d ", &v28, 8u);
+    v25 = 67240192;
+    LODWORD(v26) = [v7 code];
+    _os_signpost_emit_with_name_impl(&dword_24510B000, v14, OS_SIGNPOST_INTERVAL_END, v15, "FetchEscrowRecords", " fetchError=%{public,signpost.telemetry:number1,name=fetchError}d ", &v25, 8u);
   }
 
-  v18 = _CDPSignpostLogSystem();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  v16 = _CDPSignpostLogSystem();
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = Nanoseconds / 1000000000.0;
-    v20 = *(a1 + 48);
-    v21 = [v7 code];
-    v28 = 134218496;
-    v29 = v20;
-    v30 = 2048;
-    v31 = v19;
-    v32 = 1026;
-    v33 = v21;
-    _os_log_impl(&dword_24510B000, v18, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: FetchEscrowRecords  fetchError=%{public,signpost.telemetry:number1,name=fetchError}d ", &v28, 0x1Cu);
+    v17 = Nanoseconds / 1000000000.0;
+    v18 = *(a1 + 48);
+    v19 = [v7 code];
+    v25 = 134218496;
+    v26 = v18;
+    v27 = 2048;
+    v28 = v17;
+    v29 = 1026;
+    v30 = v19;
+    _os_log_impl(&dword_24510B000, v16, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: FetchEscrowRecords  fetchError=%{public,signpost.telemetry:number1,name=fetchError}d ", &v25, 0x1Cu);
   }
 
-  v22 = _CDPLogSystem();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+  v20 = _CDPLogSystem();
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
   {
     __69__CDPDOctagonTrustProxyImpl_fetchAllEscrowRecords_source_completion___block_invoke_cold_1();
   }
 
   if (v9)
   {
-    v23 = _CDPLogSystem();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v21 = _CDPLogSystem();
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       __69__CDPDOctagonTrustProxyImpl_fetchAllEscrowRecords_source_completion___block_invoke_cold_2();
     }
 
-    v24 = *(a1 + 40);
-    if (v24)
+    v22 = *(a1 + 40);
+    if (v22)
     {
-      v25 = *(v24 + 16);
+      v23 = *(v22 + 16);
 LABEL_24:
-      v25();
+      v23();
     }
   }
 
   else
   {
-    v26 = *(a1 + 40);
-    if (v26)
+    v24 = *(a1 + 40);
+    if (v24)
     {
-      v25 = *(v26 + 16);
+      v23 = *(v24 + 16);
       goto LABEL_24;
     }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_retryableFetchAllEscrowRecordWithContext:(id)context completion:(id)completion
@@ -423,7 +411,7 @@ LABEL_24:
 
 - (id)tlkRecoverabilityForEscrow:(id)escrow record:(id)record source:(int64_t)source error:(id *)error
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   v10 = MEMORY[0x277CDBD50];
   recordCopy = record;
   escrowCopy = escrow;
@@ -468,15 +456,15 @@ LABEL_24:
   if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v41 = v20;
+    v40 = v20;
     _os_log_impl(&dword_24510B000, v23, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: TLKRecoverability  enableTelemetry=YES ", buf, 0xCu);
   }
 
   v24 = [objc_alloc(MEMORY[0x277CDBD48]) initWithContextData:v13];
-  v39 = 0;
-  v25 = [v24 tlkRecoverabilityForEscrowRecord:recordCopy error:&v39];
+  v38 = 0;
+  v25 = [v24 tlkRecoverabilityForEscrowRecord:recordCopy error:&v38];
 
-  v26 = v39;
+  v26 = v38;
   Nanoseconds = _CDPSignpostGetNanoseconds();
   v28 = _CDPSignpostLogSystem();
   v29 = v28;
@@ -484,7 +472,7 @@ LABEL_24:
   {
     code = [v26 code];
     *buf = 67240192;
-    LODWORD(v41) = code;
+    LODWORD(v40) = code;
     _os_signpost_emit_with_name_impl(&dword_24510B000, v29, OS_SIGNPOST_INTERVAL_END, v20, "TLKRecoverability", " resultError=%{public,signpost.telemetry:number1,name=resultError}d ", buf, 8u);
   }
 
@@ -493,11 +481,11 @@ LABEL_24:
   {
     code2 = [v26 code];
     *buf = 134218496;
-    v41 = v20;
-    v42 = 2048;
-    v43 = Nanoseconds / 1000000000.0;
-    v44 = 1026;
-    v45 = code2;
+    v40 = v20;
+    v41 = 2048;
+    v42 = Nanoseconds / 1000000000.0;
+    v43 = 1026;
+    v44 = code2;
     _os_log_impl(&dword_24510B000, v31, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: TLKRecoverability  resultError=%{public,signpost.telemetry:number1,name=resultError}d ", buf, 0x1Cu);
   }
 
@@ -533,8 +521,6 @@ LABEL_24:
     v34 = v25;
   }
 
-  v37 = *MEMORY[0x277D85DE8];
-
   return v34;
 }
 
@@ -559,7 +545,7 @@ LABEL_24:
 
 - (BOOL)registerRecoveryKey:(id)key error:(id *)error
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   cdpContext = self->_cdpContext;
   keyCopy = key;
   octagonConfigurationContext = [(CDPContext *)cdpContext octagonConfigurationContext];
@@ -567,11 +553,11 @@ LABEL_24:
   v8 = _CDPLogSystem();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 141558274;
-    v15 = 1752392040;
-    v16 = 2112;
-    v17 = octagonConfigurationContext;
-    _os_log_impl(&dword_24510B000, v8, OS_LOG_TYPE_DEFAULT, "Registering recovery key with context %{mask.hash}@", &v14, 0x16u);
+    v13 = 141558274;
+    v14 = 1752392040;
+    v15 = 2112;
+    v16 = octagonConfigurationContext;
+    _os_log_impl(&dword_24510B000, v8, OS_LOG_TYPE_DEFAULT, "Registering recovery key with context %{mask.hash}@", &v13, 0x16u);
   }
 
   v9 = [MEMORY[0x277CDBD48] registerRecoveryKeyWithContext:octagonConfigurationContext recoveryKey:keyCopy error:error];
@@ -580,8 +566,8 @@ LABEL_24:
     v10 = _CDPLogSystem();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v14) = 0;
-      _os_log_impl(&dword_24510B000, v10, OS_LOG_TYPE_DEFAULT, "Successfully registered recovery key", &v14, 2u);
+      LOWORD(v13) = 0;
+      _os_log_impl(&dword_24510B000, v10, OS_LOG_TYPE_DEFAULT, "Successfully registered recovery key", &v13, 2u);
     }
   }
 
@@ -593,7 +579,7 @@ LABEL_24:
     {
       if (v11)
       {
-        [CDPDOctagonTrustProxyImpl registerRecoveryKey:error error:?];
+        [CDPDOctagonTrustProxyImpl registerRecoveryKey:error:];
       }
     }
 
@@ -603,7 +589,6 @@ LABEL_24:
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -655,7 +640,7 @@ LABEL_24:
 
 void __68__CDPDOctagonTrustProxyImpl_escrowCheckWithIsBackground_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = [*(*(*(a1 + 56) + 8) + 40) repairReason];
   v6 = [*(a1 + 32) _cdpEscrowRecordViabilityStateFromRepairReason:v5];
@@ -680,11 +665,11 @@ void __68__CDPDOctagonTrustProxyImpl_escrowCheckWithIsBackground_completion___bl
   v11 = _CDPLogSystem();
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v26 = 134218240;
-    v27 = v5;
-    v28 = 2048;
-    v29 = v6;
-    _os_log_impl(&dword_24510B000, v11, OS_LOG_TYPE_DEFAULT, "Escrow check completed with repair reason: %ld and viabilityState: %lu", &v26, 0x16u);
+    v25 = 134218240;
+    v26 = v5;
+    v27 = 2048;
+    v28 = v6;
+    _os_log_impl(&dword_24510B000, v11, OS_LOG_TYPE_DEFAULT, "Escrow check completed with repair reason: %ld and viabilityState: %lu", &v25, 0x16u);
   }
 
   if (*(*(*(a1 + 64) + 8) + 40))
@@ -726,8 +711,8 @@ LABEL_32:
     v18 = _CDPLogSystem();
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v26) = 0;
-      _os_log_impl(&dword_24510B000, v18, OS_LOG_TYPE_DEFAULT, "Escrow check - Failed to perform escrow check because octagon untrusted", &v26, 2u);
+      LOWORD(v25) = 0;
+      _os_log_impl(&dword_24510B000, v18, OS_LOG_TYPE_DEFAULT, "Escrow check - Failed to perform escrow check because octagon untrusted", &v25, 2u);
     }
 
     v19 = *(a1 + 48);
@@ -752,8 +737,8 @@ LABEL_32:
         goto LABEL_30;
       }
 
-      v26 = 134217984;
-      v27 = v6;
+      v25 = 134217984;
+      v26 = v6;
       v23 = "Escrow check - needs reenroll with viability state: %lu";
     }
 
@@ -764,12 +749,12 @@ LABEL_32:
         goto LABEL_30;
       }
 
-      v26 = 134217984;
-      v27 = v5;
+      v25 = 134217984;
+      v26 = v5;
       v23 = "Escrow check - recoverable with repairReason: %ld";
     }
 
-    _os_log_impl(&dword_24510B000, v21, OS_LOG_TYPE_DEFAULT, v23, &v26, 0xCu);
+    _os_log_impl(&dword_24510B000, v21, OS_LOG_TYPE_DEFAULT, v23, &v25, 0xCu);
 LABEL_30:
 
     v24 = *(a1 + 48);
@@ -785,8 +770,8 @@ LABEL_30:
   v16 = _CDPLogSystem();
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v26) = 0;
-    _os_log_impl(&dword_24510B000, v16, OS_LOG_TYPE_DEFAULT, "Escrow check - Failed to perform escrow check because secure terms needed", &v26, 2u);
+    LOWORD(v25) = 0;
+    _os_log_impl(&dword_24510B000, v16, OS_LOG_TYPE_DEFAULT, "Escrow check - Failed to perform escrow check because secure terms needed", &v25, 2u);
   }
 
   v17 = *(a1 + 48);
@@ -797,8 +782,6 @@ LABEL_30:
   }
 
 LABEL_33:
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __68__CDPDOctagonTrustProxyImpl_escrowCheckWithIsBackground_completion___block_invoke_32(uint64_t a1, void *a2)
@@ -832,73 +815,32 @@ void __68__CDPDOctagonTrustProxyImpl_escrowCheckWithIsBackground_completion___bl
   }
 }
 
-void __66__CDPDOctagonTrustProxyImpl_fetchEscrowRecords_source_completion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_24510B000, v0, v1, "Fetched escrow records: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 void __66__CDPDOctagonTrustProxyImpl_fetchEscrowRecords_source_completion___block_invoke_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __69__CDPDOctagonTrustProxyImpl_fetchAllEscrowRecords_source_completion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_24510B000, v0, v1, "Fetched all escrow records: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __69__CDPDOctagonTrustProxyImpl_fetchAllEscrowRecords_source_completion___block_invoke_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)tlkRecoverabilityForEscrow:record:source:error:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_24510B000, v0, v1, "Checked for recoverability: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)tlkRecoverabilityForEscrow:record:source:error:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)registerRecoveryKey:(uint64_t *)a1 error:.cold.1(uint64_t *a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *a1;
-  OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __68__CDPDOctagonTrustProxyImpl_escrowCheckWithIsBackground_completion___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

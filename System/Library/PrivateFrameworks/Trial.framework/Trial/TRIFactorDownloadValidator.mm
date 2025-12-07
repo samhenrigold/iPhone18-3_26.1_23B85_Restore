@@ -6,40 +6,40 @@
 
 + (BOOL)validateDownloadForFactors:(id)factors withNamespace:(id)namespace paths:(id)paths container:(int *)container factorsState:(id)state assetIndexesByTreatment:(id *)treatment experimentIds:(id *)ids assetIdsByFactorPack:(id *)self0 rolloutFactorNames:(id *)location rolloutDeployments:(id *)self2 error:(id *)self3
 {
-  v82[1] = *MEMORY[0x277D85DE8];
+  v81[1] = *MEMORY[0x277D85DE8];
   factorsCopy = factors;
   namespaceCopy = namespace;
   pathsCopy = paths;
   stateCopy = state;
   context = objc_autoreleasePoolPush();
-  v67 = 0;
-  v68 = &v67;
-  v69 = 0x3032000000;
-  v70 = __Block_byref_object_copy__9;
-  v71 = __Block_byref_object_dispose__9;
-  v72 = 0;
-  v63 = 0;
-  v64 = &v63;
-  v65 = 0x2020000000;
   v66 = 0;
-  v61 = 0;
+  v67 = &v66;
+  v68 = 0x3032000000;
+  v69 = __Block_byref_object_copy__9;
+  v70 = __Block_byref_object_dispose__9;
+  v71 = 0;
   v62 = 0;
-  obj = 0;
+  v63 = &v62;
+  v64 = 0x2020000000;
+  v65 = 0;
   v60 = 0;
-  v57[4] = &v67;
-  v58 = 0;
-  v57[0] = MEMORY[0x277D85DD0];
-  v57[1] = 3221225472;
-  v57[2] = __203__TRIFactorDownloadValidator_validateDownloadForFactors_withNamespace_paths_container_factorsState_assetIndexesByTreatment_experimentIds_assetIdsByFactorPack_rolloutFactorNames_rolloutDeployments_error___block_invoke;
-  v57[3] = &unk_27885F630;
-  v21 = MEMORY[0x2318F2490](v57);
+  v61 = 0;
+  obj = 0;
+  v59 = 0;
+  v56[4] = &v66;
+  v57 = 0;
+  v56[0] = MEMORY[0x277D85DD0];
+  v56[1] = 3221225472;
+  v56[2] = __203__TRIFactorDownloadValidator_validateDownloadForFactors_withNamespace_paths_container_factorsState_assetIndexesByTreatment_experimentIds_assetIdsByFactorPack_rolloutFactorNames_rolloutDeployments_error___block_invoke;
+  v56[3] = &unk_27885F630;
+  v21 = MEMORY[0x2318F2490](v56);
   errorCopy = error;
   if (![factorsCopy count])
   {
     v32 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v81 = *MEMORY[0x277CCA450];
-    v82[0] = @"Factors must be non-empty.";
-    namespaceCopy = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v82 forKeys:&v81 count:1];
+    v80 = *MEMORY[0x277CCA450];
+    v81[0] = @"Factors must be non-empty.";
+    namespaceCopy = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v81 forKeys:&v80 count:1];
     v33 = [v32 initWithDomain:@"TRIGeneralErrorDomain" code:2 userInfo:namespaceCopy];
 LABEL_12:
     v35 = v33;
@@ -51,9 +51,9 @@ LABEL_14:
   if (!namespaceCopy)
   {
     v34 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v79 = *MEMORY[0x277CCA450];
-    v80 = @"Namespace name must be non-nil.";
-    namespaceCopy = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v80 forKeys:&v79 count:1];
+    v78 = *MEMORY[0x277CCA450];
+    v79 = @"Namespace name must be non-nil.";
+    namespaceCopy = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v79 forKeys:&v78 count:1];
     v33 = [v34 initWithDomain:@"TRIGeneralErrorDomain" code:2 userInfo:namespaceCopy];
     goto LABEL_12;
   }
@@ -62,9 +62,9 @@ LABEL_14:
   {
     namespaceCopy = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"namespaceName(%@) can only contain alphanumeric characters, underscore (_), hyphen (-) or period (.)", namespaceCopy];
     v36 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v77 = *MEMORY[0x277CCA450];
-    v78 = namespaceCopy;
-    v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v78 forKeys:&v77 count:1];
+    v76 = *MEMORY[0x277CCA450];
+    v77 = namespaceCopy;
+    v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v77 forKeys:&v76 count:1];
     v35 = [v36 initWithDomain:@"TRIGeneralErrorDomain" code:2 userInfo:v37];
 
     goto LABEL_14;
@@ -74,10 +74,10 @@ LABEL_14:
   v24 = v23;
   if (v23)
   {
-    v56 = 0;
-    v25 = [(TRINamespaceResolver *)v23 resolveFactorProviderChainForNamespaceName:namespaceCopy faultOnMissingInstalledFactors:0 installedFactorsAccessible:&v56];
+    v55 = 0;
+    v25 = [(TRINamespaceResolver *)v23 resolveFactorProviderChainForNamespaceName:namespaceCopy faultOnMissingInstalledFactors:0 installedFactorsAccessible:&v55];
     v26 = v25;
-    if ((v56 & 1) == 0)
+    if ((v55 & 1) == 0)
     {
       v27 = [v25 _pas_filteredArrayWithTest:&__block_literal_global_19];
 
@@ -85,7 +85,7 @@ LABEL_14:
       if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v74 = namespaceCopy;
+        v73 = namespaceCopy;
         _os_log_impl(&dword_22EA6B000, v28, OS_LOG_TYPE_DEFAULT, "encountered inaccessible installed factors during on-demand validation for namespace %@", buf, 0xCu);
       }
 
@@ -94,17 +94,17 @@ LABEL_14:
 
     v29 = [[TRINamespaceFactorProviderChain alloc] initWithNamespaceName:namespaceCopy typedProviderChain:v26 paths:pathsCopy];
 
-    v49[0] = MEMORY[0x277D85DD0];
-    v49[1] = 3221225472;
-    v49[2] = __203__TRIFactorDownloadValidator_validateDownloadForFactors_withNamespace_paths_container_factorsState_assetIndexesByTreatment_experimentIds_assetIdsByFactorPack_rolloutFactorNames_rolloutDeployments_error___block_invoke_110;
-    v49[3] = &unk_27885F678;
-    v52 = &v67;
-    v54 = a2;
+    v48[0] = MEMORY[0x277D85DD0];
+    v48[1] = 3221225472;
+    v48[2] = __203__TRIFactorDownloadValidator_validateDownloadForFactors_withNamespace_paths_container_factorsState_assetIndexesByTreatment_experimentIds_assetIdsByFactorPack_rolloutFactorNames_rolloutDeployments_error___block_invoke_110;
+    v48[3] = &unk_27885F678;
+    v51 = &v66;
+    v53 = a2;
     selfCopy = self;
-    v50 = namespaceCopy;
-    v53 = &v63;
-    v51 = v21;
-    [(TRINamespaceFactorProviderChain *)v29 computeTreatmentAssetIndexes:&v62 withAssociatedExperimentIds:&v61 andFactorPackAssetIds:&v60 withAssociatedRolloutDeployments:&v58 withExperimentFactorNames:0 andRolloutFactorNames:&obj forFactors:factorsCopy usingFilter:v49];
+    v49 = namespaceCopy;
+    v52 = &v62;
+    v50 = v21;
+    [(TRINamespaceFactorProviderChain *)v29 computeTreatmentAssetIndexes:&v61 withAssociatedExperimentIds:&v60 andFactorPackAssetIds:&v59 withAssociatedRolloutDeployments:&v57 withExperimentFactorNames:0 andRolloutFactorNames:&obj forFactors:factorsCopy usingFilter:v48];
 
     v30 = 0;
     namespaceCopy = 0;
@@ -113,11 +113,11 @@ LABEL_14:
   else
   {
     stateCopy = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unable to resolve namespaces for stale factorsState: %@", stateCopy];
-    v41 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v75 = *MEMORY[0x277CCA450];
-    v76 = stateCopy;
-    v42 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v76 forKeys:&v75 count:1];
-    namespaceCopy = [v41 initWithDomain:@"TRIGeneralErrorDomain" code:2 userInfo:v42];
+    v40 = objc_alloc(MEMORY[0x277CCA9B8]);
+    v74 = *MEMORY[0x277CCA450];
+    v75 = stateCopy;
+    v41 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v75 forKeys:&v74 count:1];
+    namespaceCopy = [v40 initWithDomain:@"TRIGeneralErrorDomain" code:2 userInfo:v41];
 
     v29 = 0;
     v30 = 2;
@@ -140,10 +140,10 @@ LABEL_14:
     objc_storeStrong(location, obj);
   }
 
-  v43 = v68[5];
-  if (v43)
+  v42 = v67[5];
+  if (v42)
   {
-    v35 = v43;
+    v35 = v42;
 LABEL_15:
 
     if (!error)
@@ -161,69 +161,66 @@ LABEL_16:
 
   if (error)
   {
-    v44 = *error;
+    v43 = *error;
     *error = 0;
   }
 
   if (treatment)
   {
-    objc_storeStrong(treatment, v62);
+    objc_storeStrong(treatment, v61);
   }
 
   if (ids)
   {
-    objc_storeStrong(ids, v61);
+    objc_storeStrong(ids, v60);
   }
 
   if (pack)
   {
-    objc_storeStrong(pack, v60);
+    objc_storeStrong(pack, v59);
   }
 
   if (deployments)
   {
-    objc_storeStrong(deployments, v58);
+    objc_storeStrong(deployments, v57);
   }
 
   if (container)
   {
-    *container = *(v64 + 6);
+    *container = *(v63 + 6);
   }
 
   errorCopy = 1;
 LABEL_18:
 
-  _Block_object_dispose(&v63, 8);
-  _Block_object_dispose(&v67, 8);
+  _Block_object_dispose(&v62, 8);
+  _Block_object_dispose(&v66, 8);
 
   objc_autoreleasePoolPop(context);
-  v38 = *MEMORY[0x277D85DE8];
   return errorCopy & 1;
 }
 
 void __203__TRIFactorDownloadValidator_validateDownloadForFactors_withNamespace_paths_container_factorsState_assetIndexesByTreatment_experimentIds_assetIdsByFactorPack_rolloutFactorNames_rolloutDeployments_error___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   if (!*(*(*(a1 + 32) + 8) + 40))
   {
     v5 = MEMORY[0x277CCA9B8];
     v6 = a2;
     v7 = [v5 alloc];
-    v13 = *MEMORY[0x277CCA450];
-    v14[0] = v6;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+    v12 = *MEMORY[0x277CCA450];
+    v13[0] = v6;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
     v9 = [v7 initWithDomain:@"TRIGeneralErrorDomain" code:a3 userInfo:v8];
     v10 = *(*(a1 + 32) + 8);
     v11 = *(v10 + 40);
     *(v10 + 40) = v9;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __203__TRIFactorDownloadValidator_validateDownloadForFactors_withNamespace_paths_container_factorsState_assetIndexesByTreatment_experimentIds_assetIdsByFactorPack_rolloutFactorNames_rolloutDeployments_error___block_invoke_110(void *a1, void *a2, void *a3, void *a4)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -232,9 +229,9 @@ uint64_t __203__TRIFactorDownloadValidator_validateDownloadForFactors_withNamesp
     v10 = TRILogCategory_ClientFramework();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v32 = [v9 localizedDescription];
+      v31 = [v9 localizedDescription];
       *buf = 138412290;
-      v35 = v32;
+      v34 = v31;
       _os_log_error_impl(&dword_22EA6B000, v10, OS_LOG_TYPE_ERROR, "Error downloading on-demand asset, %@", buf, 0xCu);
     }
 
@@ -260,8 +257,8 @@ uint64_t __203__TRIFactorDownloadValidator_validateDownloadForFactors_withNamesp
     v15 = [v8 path];
     if (!v15)
     {
-      v33 = [MEMORY[0x277CCA890] currentHandler];
-      [v33 handleFailureInMethod:a1[8] object:a1[9] file:@"TRIFactorDownloadValidator.m" lineNumber:146 description:{@"Expression was unexpectedly nil/false: %@", @"fileLevel.path"}];
+      v32 = [MEMORY[0x277CCA890] currentHandler];
+      [v32 handleFailureInMethod:a1[8] object:a1[9] file:@"TRIFactorDownloadValidator.m" lineNumber:146 description:{@"Expression was unexpectedly nil/false: %@", @"fileLevel.path"}];
     }
 
     v16 = [v14 fileExistsAtPath:v15];
@@ -294,7 +291,7 @@ LABEL_16:
           if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v35 = v17;
+            v34 = v17;
             _os_log_error_impl(&dword_22EA6B000, v28, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
           }
 
@@ -318,11 +315,11 @@ LABEL_16:
       v18 = a1[4];
       v19 = [v8 path];
       *buf = 138412802;
-      v35 = v7;
-      v36 = 2112;
-      v37 = v18;
-      v38 = 2112;
-      v39 = v19;
+      v34 = v7;
+      v35 = 2112;
+      v36 = v18;
+      v37 = 2112;
+      v38 = v19;
       v20 = "Skipping on-demand fetch of factor %@ in namespace %@ which already has local path: %@";
 LABEL_15:
       _os_log_impl(&dword_22EA6B000, v17, OS_LOG_TYPE_DEFAULT, v20, buf, 0x20u);
@@ -337,11 +334,11 @@ LABEL_15:
       v21 = a1[4];
       v19 = [v8 path];
       *buf = 138412802;
-      v35 = v7;
-      v36 = 2112;
-      v37 = v21;
-      v38 = 2112;
-      v39 = v19;
+      v34 = v7;
+      v35 = 2112;
+      v36 = v21;
+      v37 = 2112;
+      v38 = v19;
       v20 = "Skipping on-demand fetch of factor %@ in namespace %@ which is not on-demand: %@";
       goto LABEL_15;
     }
@@ -353,7 +350,6 @@ LABEL_25:
   v29 = 0;
 LABEL_26:
 
-  v30 = *MEMORY[0x277D85DE8];
   return v29;
 }
 

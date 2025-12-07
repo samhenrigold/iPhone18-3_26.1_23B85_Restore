@@ -506,10 +506,10 @@ LABEL_8:
   v49 = irisIdentifier;
   if (videoCopy)
   {
-    [videoCopy duration];
+    objc_msgSend_duration(videoCopy);
     v72 = 0uLL;
     v73 = 0;
-    [videoCopy stillImageDisplayTime];
+    objc_msgSend_stillImageDisplayTime(videoCopy);
   }
 
   else
@@ -939,7 +939,7 @@ void __124__CAMNebulaIrisBackendController_persistenceController_didGenerateVide
           {
             v33 = v26;
             v34 = v25;
-            [firstObject2 preferredTransform];
+            objc_msgSend_preferredTransform(firstObject2);
             v26 = v33;
             v25 = v34;
             v27 = *buf;
@@ -1058,8 +1058,8 @@ void __86__CAMNebulaIrisBackendController__coordinationQueue_enqueuePendingExpor
     captureOrientation = [jobCopy captureOrientation];
     if (jobCopy)
     {
-      [jobCopy duration];
-      [jobCopy stillImageDisplayTime];
+      objc_msgSend_duration(jobCopy);
+      objc_msgSend_stillImageDisplayTime(jobCopy);
     }
 
     else
@@ -1564,7 +1564,7 @@ LABEL_74:
     v12 = v11;
     if (v11)
     {
-      [v11 duration];
+      objc_msgSend_duration(v11);
       v39 = 0;
       v13 = [(CAMNebulaIrisBackendController *)self _extractIrisPropertiesFromAVAsset:v12 stillImageDisplayTime:&v46 irisIdentifier:&v39];
       v14 = v39;

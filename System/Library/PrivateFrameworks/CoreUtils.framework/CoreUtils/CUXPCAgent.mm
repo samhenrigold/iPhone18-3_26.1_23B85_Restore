@@ -37,7 +37,7 @@
           ucat = self->_ucat;
         }
 
-        LogPrintF(ucat, "[CUXPCAgent remoteObjectProxyWithErrorHandler:]", 0x3Cu, "### Multiple connections...using arbitrary one\n", v7, v8, v9, v10, v15);
+        LogPrintF(ucat, "[CUXPCAgent remoteObjectProxyWithErrorHandler:]", 60, "### Multiple connections...using arbitrary one\n", v7, v8, v9, v10, v15);
       }
     }
 
@@ -83,7 +83,7 @@ LABEL_12:
           ucat = self->_ucat;
         }
 
-        LogPrintF(ucat, "[CUXPCAgent remoteObjectProxy]", 0x3Cu, "### Multiple connections...using arbitrary one\n", v5, v6, v7, v8, v13);
+        LogPrintF(ucat, "[CUXPCAgent remoteObjectProxy]", 60, "### Multiple connections...using arbitrary one\n", v5, v6, v7, v8, v13);
       }
     }
 
@@ -161,7 +161,7 @@ LABEL_12:
     {
 LABEL_5:
       processIdentifier = [connectionCopy processIdentifier];
-      LogPrintF(ucat, "[CUXPCAgent listener:shouldAcceptNewConnection:]", 0x14u, "XPC connection started from %#{pid}\n", v14, v15, v16, v17, processIdentifier);
+      LogPrintF(ucat, "[CUXPCAgent listener:shouldAcceptNewConnection:]", 20, "XPC connection started from %#{pid}\n", v14, v15, v16, v17, processIdentifier);
       goto LABEL_7;
     }
 
@@ -205,7 +205,7 @@ LABEL_7:
         ucat = self->_ucat;
       }
 
-      LogPrintF(ucat, "[CUXPCAgent _invalidated]", 0x3Cu, "### Unexpectedly invalidated\n", v3, v4, v5, v6, v18);
+      LogPrintF(ucat, "[CUXPCAgent _invalidated]", 60, "### Unexpectedly invalidated\n", v3, v4, v5, v6, v18);
     }
   }
 
@@ -271,7 +271,7 @@ LABEL_7:
       ucat = self->_ucat;
     }
 
-    LogPrintF(ucat, "[CUXPCAgent _invalidate]", 0x1Eu, "Invalidate\n", v2, v3, v4, v5, v15);
+    LogPrintF(ucat, "[CUXPCAgent _invalidate]", 30, "Invalidate\n", v2, v3, v4, v5, v15);
   }
 
 LABEL_6:
@@ -335,7 +335,7 @@ LABEL_6:
     if (ucat->var0 != -1)
     {
 LABEL_3:
-      LogPrintF(ucat, "[CUXPCAgent _interrupted]", 0x1Eu, "Interrupted\n", v3, v4, v5, v6, v10);
+      LogPrintF(ucat, "[CUXPCAgent _interrupted]", 30, "Interrupted\n", v3, v4, v5, v6, v10);
       goto LABEL_5;
     }
 
@@ -364,7 +364,7 @@ LABEL_5:
     if (ucat->var0 != -1)
     {
 LABEL_3:
-      LogPrintF(ucat, "[CUXPCAgent activateDirectAndReturnError:]", 0x1Eu, "Activate\n", v3, v4, v5, v6, v28[0]);
+      LogPrintF(ucat, "[CUXPCAgent activateDirectAndReturnError:]", 30, "Activate\n", v3, v4, v5, v6, v28[0]);
       goto LABEL_5;
     }
 
@@ -450,7 +450,7 @@ uint64_t __43__CUXPCAgent_activateDirectAndReturnError___block_invoke_2(uint64_t
     if (*v10 != -1)
     {
 LABEL_3:
-      LogPrintF(v10, "[CUXPCAgent activateDirectAndReturnError:]_block_invoke_2", 0x1Eu, "Invalidated\n", a5, a6, a7, a8, v15);
+      LogPrintF(v10, "[CUXPCAgent activateDirectAndReturnError:]_block_invoke_2", 30, "Invalidated\n", a5, a6, a7, a8, v15);
       v9 = *(a1 + 32);
       goto LABEL_5;
     }

@@ -121,53 +121,51 @@ id __32__BLSAssertion_lock_description__block_invoke(uint64_t a1)
     [v6 appendString:v7 withName:@"requested"];
 
     v8 = *(a1 + 32);
-    v9 = *(*(a1 + 40) + 56);
     mach_continuous_time();
     BSTimeDifferenceFromMachTimeToMachTime();
-    v10 = [v8 appendTimeInterval:@"waited" withName:1 decomposeUnits:?];
+    v9 = [v8 appendTimeInterval:@"waited" withName:1 decomposeUnits:?];
     v5 = *(a1 + 40);
   }
 
   if (*(v5 + 64))
   {
-    v11 = *(a1 + 32);
-    v12 = BLSShortLoggingStringForMachTime(*(v5 + 64));
-    [v11 appendString:v12 withName:@"acquired"];
+    v10 = *(a1 + 32);
+    v11 = BLSShortLoggingStringForMachTime(*(v5 + 64));
+    [v10 appendString:v11 withName:@"acquired"];
 
-    v14 = *(a1 + 32);
-    v13 = *(a1 + 40);
-    v15 = *(v13 + 64);
-    if ((*(v13 + 36) & 1) != 0 || !*(v13 + 80))
+    v13 = *(a1 + 32);
+    v12 = *(a1 + 40);
+    if ((*(v12 + 36) & 1) != 0 || !*(v12 + 80))
     {
       mach_continuous_time();
     }
 
     BSTimeDifferenceFromMachTimeToMachTime();
-    v16 = [v14 appendTimeInterval:@"duration" withName:1 decomposeUnits:?];
+    v14 = [v13 appendTimeInterval:@"duration" withName:1 decomposeUnits:?];
     v5 = *(a1 + 40);
   }
 
   if (*(v5 + 38) == 1)
   {
-    v24 = [*(a1 + 32) appendTimeInterval:@"activeDuration" withName:1 decomposeUnits:-[BLSAssertion _lock_activeDuration](v5)];
+    v22 = [*(a1 + 32) appendTimeInterval:@"activeDuration" withName:1 decomposeUnits:-[BLSAssertion _lock_activeDuration](v5)];
     v5 = *(a1 + 40);
   }
 
-  v17 = [*(a1 + 32) appendBool:*(v5 + 37) withName:@"isPaused" ifEqualTo:1];
-  v18 = [*(a1 + 32) appendObject:*(*(a1 + 40) + 88) withName:@"descriptor"];
-  v19 = [*(a1 + 32) appendObject:*(*(a1 + 40) + 8) withName:@"identifier" skipIfNil:1];
-  v20 = *(a1 + 32);
-  v21 = [*(a1 + 40) service];
-  v22 = [v20 appendPointer:v21 withName:@"service"];
+  v15 = [*(a1 + 32) appendBool:*(v5 + 37) withName:@"isPaused" ifEqualTo:1];
+  v16 = [*(a1 + 32) appendObject:*(*(a1 + 40) + 88) withName:@"descriptor"];
+  v17 = [*(a1 + 32) appendObject:*(*(a1 + 40) + 8) withName:@"identifier" skipIfNil:1];
+  v18 = *(a1 + 32);
+  v19 = [*(a1 + 40) service];
+  v20 = [v18 appendPointer:v19 withName:@"service"];
 
   return [*(a1 + 32) appendInteger:objc_msgSend(*(*(a1 + 40) + 24) withName:{"count"), @"observerCount"}];
 }
 
 - (void)serviceDidAcquire
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v4 = [(BLSAssertion *)self setLocalState:?];
-  v5 = bls_assertions_log();
+  v5 = bls_assertions_log(v4);
   v6 = OUTLINED_FUNCTION_9_0(v5);
   if (v4 != 2)
   {
@@ -178,7 +176,7 @@ id __32__BLSAssertion_lock_description__block_invoke(uint64_t a1)
         OUTLINED_FUNCTION_0_3();
         OUTLINED_FUNCTION_3_1();
 LABEL_14:
-        _os_log_impl(v14, v15, v16, v17, v18, v19);
+        _os_log_impl(v13, v14, v15, v16, v17, v18);
       }
     }
 
@@ -186,33 +184,33 @@ LABEL_14:
     {
       if ((v4 - 3) > 2)
       {
-        v20 = @"initialized";
+        v19 = @"initialized";
       }
 
       else
       {
-        v20 = off_278428D80[v4 - 3];
+        v19 = off_278428D80[v4 - 3];
       }
 
       *buf = 134218498;
       selfCopy = self;
-      v35 = 2114;
+      v34 = 2114;
       selfCopy2 = self;
-      v37 = 2114;
-      v38 = v20;
-      v14 = &dword_21FE25000;
-      v17 = "%p did acquire assertion %{public}@, oldState:%{public}@";
-      v18 = buf;
-      v15 = v2;
-      v16 = OS_LOG_TYPE_INFO;
-      v19 = 32;
+      v36 = 2114;
+      v37 = v19;
+      v13 = &dword_21FE25000;
+      v16 = "%p did acquire assertion %{public}@, oldState:%{public}@";
+      v17 = buf;
+      v14 = v2;
+      v15 = OS_LOG_TYPE_INFO;
+      v18 = 32;
       goto LABEL_14;
     }
 
     OUTLINED_FUNCTION_1_2();
     OUTLINED_FUNCTION_6_0();
-    OUTLINED_FUNCTION_4_1(v21, v22, v23, v24, v25, v26, v27, v28, v29, v30, v31, __33__BLSAssertion_serviceDidAcquire__block_invoke, &unk_278428D10, v32);
-    goto LABEL_5;
+    OUTLINED_FUNCTION_4_1(v20, v21, v22, v23, v24, v25, v26, v27, v28, v29, v30, __33__BLSAssertion_serviceDidAcquire__block_invoke, &unk_278428D10, v31);
+    return;
   }
 
   if (v6)
@@ -221,9 +219,6 @@ LABEL_14:
     OUTLINED_FUNCTION_3_1();
     _os_log_impl(v7, v8, v9, v10, v11, v12);
   }
-
-LABEL_5:
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isAcquired
@@ -254,18 +249,18 @@ LABEL_5:
 {
   v3 = MEMORY[0x277CCACA8];
   lock_description = [(BLSAssertion *)self lock_description];
-  v4 = [v3 stringWithFormat:@"BLSAssertion must be invalidated before dealloc:%@"];
+  v5 = [v3 stringWithFormat:@"BLSAssertion must be invalidated before dealloc:%@", lock_description];
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v5 = NSStringFromSelector(a2);
-    v6 = objc_opt_class();
-    v7 = NSStringFromClass(v6);
+    v6 = NSStringFromSelector(a2);
+    v7 = objc_opt_class();
+    v8 = NSStringFromClass(v7);
     OUTLINED_FUNCTION_8_1();
-    OUTLINED_FUNCTION_9(&dword_21FE25000, MEMORY[0x277D86220], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, lock_description, v14, v15);
+    OUTLINED_FUNCTION_9(&dword_21FE25000, MEMORY[0x277D86220], v9, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v10, v11, v12, v13, v14, v15);
   }
 
-  [v4 UTF8String];
+  [v5 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
@@ -288,10 +283,9 @@ LABEL_5:
   v1 = *(self + 48);
   if (*(self + 36) == 1 && (*(self + 37) & 1) == 0)
   {
-    v2 = *(self + 72);
     mach_continuous_time();
     BSTimeDifferenceFromMachTimeToMachTime();
-    return v1 + v3;
+    return v1 + v2;
   }
 
   return v1;
@@ -328,10 +322,11 @@ LABEL_5:
 
     attributesCopy = [v12 allObjects];
 
-    if ([attributesCopy count] != v11)
+    v13 = [attributesCopy count];
+    if (v13 != v11)
     {
-      v13 = bls_assertions_log();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+      v14 = bls_assertions_log(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
       {
         *buf = 134218498;
         v24 = v9;
@@ -339,24 +334,23 @@ LABEL_5:
         v26 = explanationCopy;
         v27 = 2114;
         v28 = v10;
-        _os_log_fault_impl(&dword_21FE25000, v13, OS_LOG_TYPE_FAULT, "%p for assertion with explanation:%{public}@ cannot repeat the same exact attribute:%{public}@", buf, 0x20u);
+        _os_log_fault_impl(&dword_21FE25000, v14, OS_LOG_TYPE_FAULT, "%p for assertion with explanation:%{public}@ cannot repeat the same exact attribute:%{public}@", buf, 0x20u);
       }
     }
 
-    v14 = [[BLSAssertionDescriptor alloc] initWithExplanation:explanationCopy attributes:attributesCopy];
+    v15 = [[BLSAssertionDescriptor alloc] initWithExplanation:explanationCopy attributes:attributesCopy];
     descriptor = v9->_descriptor;
-    v9->_descriptor = v14;
+    v9->_descriptor = v15;
 
-    v16 = +[BLSAssertion defaultService];
+    v17 = +[BLSAssertion defaultService];
     service = v9->_service;
-    v9->_service = v16;
+    v9->_service = v17;
 
-    v18 = [objc_alloc(MEMORY[0x277CCAA50]) initWithOptions:517 capacity:2];
+    v19 = [objc_alloc(MEMORY[0x277CCAA50]) initWithOptions:517 capacity:2];
     observers = v9->_observers;
-    v9->_observers = v18;
+    v9->_observers = v19;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -403,7 +397,7 @@ LABEL_5:
   completionCopy = completion;
   if (!completionCopy)
   {
-    [BLSAssertion acquireWithCompletion:a2];
+    [(BLSAssertion *)a2 acquireWithCompletion:?];
   }
 
   v8 = completionCopy;
@@ -457,11 +451,11 @@ LABEL_5:
 
   else
   {
-    v7 = bls_assertions_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = bls_assertions_log(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      *v8 = 0;
-      _os_log_impl(&dword_21FE25000, v7, OS_LOG_TYPE_DEFAULT, "BLSAssertionService defaultService reset - should only occur during unit testing", v8, 2u);
+      *v9 = 0;
+      _os_log_impl(&dword_21FE25000, v8, OS_LOG_TYPE_DEFAULT, "BLSAssertionService defaultService reset - should only occur during unit testing", v9, 2u);
     }
   }
 }
@@ -522,43 +516,40 @@ void __42__BLSAssertion_serviceDidCancelWithError___block_invoke(uint64_t a1, vo
 
 void __41__BLSAssertion_notifyObserversWithBlock___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock((*(a1 + 32) + 32));
   v2 = [*(*(a1 + 32) + 24) allObjects];
   os_unfair_lock_unlock((*(a1 + 32) + 32));
-  v12 = 0u;
-  v13 = 0u;
   v10 = 0u;
   v11 = 0u;
+  v8 = 0u;
+  v9 = 0u;
   v3 = v2;
-  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v10 + 1) + 8 * v7);
         (*(*(a1 + 40) + 16))(*(a1 + 40));
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (uint64_t)setLocalState:(uint64_t)state
@@ -634,34 +625,33 @@ LABEL_7:
 
 - (void)setPaused:(os_unfair_lock_s *)paused
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (paused)
   {
     OUTLINED_FUNCTION_10_0(paused);
-    v4 = *(v2 + 37);
+    v5 = *(v2 + 37);
     *(v2 + 37) = a2;
     if (*(v2 + 36) == 1)
     {
-      if (v4 == a2)
+      if (v5 == a2)
       {
-        v5 = bls_assertions_log();
-        if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+        v6 = bls_assertions_log(v4);
+        if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
         {
           lock_description = [(BLSAssertion *)v2 lock_description];
-          v10 = 134218498;
-          v11 = v2;
-          v12 = 1024;
-          v13 = a2;
-          v14 = 2114;
-          v15 = lock_description;
-          _os_log_error_impl(&dword_21FE25000, v5, OS_LOG_TYPE_ERROR, "%p assertion setPaused:%{BOOL}u when not acquired %{public}@", &v10, 0x1Cu);
+          v9 = 134218498;
+          v10 = v2;
+          v11 = 1024;
+          v12 = a2;
+          v13 = 2114;
+          v14 = lock_description;
+          _os_log_error_impl(&dword_21FE25000, v6, OS_LOG_TYPE_ERROR, "%p assertion setPaused:%{BOOL}u when not acquired %{public}@", &v9, 0x1Cu);
         }
       }
 
       else if (a2)
       {
         *(v2 + 38) = 1;
-        v6 = *(v2 + 72);
         mach_continuous_time();
         BSTimeDifferenceFromMachTimeToMachTime();
         *(v2 + 48) = v7 + *(v2 + 48);
@@ -675,8 +665,6 @@ LABEL_7:
 
     os_unfair_lock_unlock((v2 + 32));
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)notifyObserversWithBlock:(uint64_t)block
@@ -696,7 +684,7 @@ LABEL_7:
 
 - (void)serviceFailedToAcquireWithError:(id)error
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   domain = [errorCopy domain];
   if (domain == @"com.apple.BacklightServices" && [errorCopy code] == 2)
@@ -708,16 +696,16 @@ LABEL_7:
       os_unfair_lock_lock(&self->_lock);
       self->_lock_localState = 2;
       os_unfair_lock_unlock(&self->_lock);
-      v7 = bls_assertions_log();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = bls_assertions_log(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         bls_loggingString = [errorCopy bls_loggingString];
         OUTLINED_FUNCTION_0_3();
-        v19 = v9;
         v20 = v10;
-        v11 = "%p already acquired assertion %{public}@ with error:%{public}@";
+        v21 = v11;
+        v12 = "%p already acquired assertion %{public}@ with error:%{public}@";
 LABEL_9:
-        _os_log_error_impl(&dword_21FE25000, v7, OS_LOG_TYPE_ERROR, v11, buf, 0x20u);
+        _os_log_error_impl(&dword_21FE25000, v8, OS_LOG_TYPE_ERROR, v12, buf, 0x20u);
 
         goto LABEL_10;
       }
@@ -730,15 +718,15 @@ LABEL_9:
   {
   }
 
-  [(BLSAssertion *)self setLocalState:?];
-  v7 = bls_assertions_log();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  v13 = [(BLSAssertion *)self setLocalState:?];
+  v8 = bls_assertions_log(v13);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     bls_loggingString = [errorCopy bls_loggingString];
     OUTLINED_FUNCTION_0_3();
-    v19 = v12;
-    v20 = v13;
-    v11 = "%p failed to acquire assertion %{public}@ with error:%{public}@";
+    v20 = v14;
+    v21 = v15;
+    v12 = "%p failed to acquire assertion %{public}@ with error:%{public}@";
     goto LABEL_9;
   }
 
@@ -746,56 +734,49 @@ LABEL_10:
 
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_7_1();
-  v16[2] = __48__BLSAssertion_serviceFailedToAcquireWithError___block_invoke;
-  v16[3] = &unk_278428D38;
-  v16[4] = self;
-  v17 = errorCopy;
-  v14 = errorCopy;
-  [(BLSAssertion *)self notifyObserversWithBlock:v16];
-
-  v15 = *MEMORY[0x277D85DE8];
+  v17[2] = __48__BLSAssertion_serviceFailedToAcquireWithError___block_invoke;
+  v17[3] = &unk_278428D38;
+  v17[4] = self;
+  v18 = errorCopy;
+  v16 = errorCopy;
+  [(BLSAssertion *)self notifyObserversWithBlock:v17];
 }
 
 - (void)serviceDidPause
 {
-  v23 = *MEMORY[0x277D85DE8];
   [(BLSAssertion *)self setPaused:?];
-  v3 = bls_assertions_log();
-  if (OUTLINED_FUNCTION_9_0(v3))
+  v4 = bls_assertions_log(v3);
+  if (OUTLINED_FUNCTION_9_0(v4))
   {
     OUTLINED_FUNCTION_0_3();
     OUTLINED_FUNCTION_3_1();
-    _os_log_impl(v4, v5, v6, v7, v8, v9);
+    _os_log_impl(v5, v6, v7, v8, v9, v10);
   }
 
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_6_0();
-  OUTLINED_FUNCTION_4_1(v10, v11, v12, v13, v14, v15, v16, v17, v19, v20, v21, __31__BLSAssertion_serviceDidPause__block_invoke, &unk_278428D10, v22);
-  v18 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4_1(v11, v12, v13, v14, v15, v16, v17, v18, v19, v20, v21, __31__BLSAssertion_serviceDidPause__block_invoke, &unk_278428D10, v22);
 }
 
 - (void)serviceDidResume
 {
-  v23 = *MEMORY[0x277D85DE8];
   [(BLSAssertion *)self setPaused:?];
-  v3 = bls_assertions_log();
-  if (OUTLINED_FUNCTION_9_0(v3))
+  v4 = bls_assertions_log(v3);
+  if (OUTLINED_FUNCTION_9_0(v4))
   {
     OUTLINED_FUNCTION_0_3();
     OUTLINED_FUNCTION_3_1();
-    _os_log_impl(v4, v5, v6, v7, v8, v9);
+    _os_log_impl(v5, v6, v7, v8, v9, v10);
   }
 
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_6_0();
-  OUTLINED_FUNCTION_4_1(v10, v11, v12, v13, v14, v15, v16, v17, v19, v20, v21, __32__BLSAssertion_serviceDidResume__block_invoke, &unk_278428D10, v22);
-  v18 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4_1(v11, v12, v13, v14, v15, v16, v17, v18, v19, v20, v21, __32__BLSAssertion_serviceDidResume__block_invoke, &unk_278428D10, v22);
 }
 
 - (void)serviceWillCancel
 {
-  v23 = *MEMORY[0x277D85DE8];
-  v3 = bls_assertions_log();
+  v3 = bls_assertions_log(self);
   if (OUTLINED_FUNCTION_9_0(v3))
   {
     OUTLINED_FUNCTION_0_3();
@@ -805,23 +786,22 @@ LABEL_10:
 
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_6_0();
-  OUTLINED_FUNCTION_4_1(v10, v11, v12, v13, v14, v15, v16, v17, v19, v20, v21, __33__BLSAssertion_serviceWillCancel__block_invoke, &unk_278428D10, v22);
-  v18 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4_1(v10, v11, v12, v13, v14, v15, v16, v17, v18, v19, v20, __33__BLSAssertion_serviceWillCancel__block_invoke, &unk_278428D10, v21);
 }
 
 - (void)serviceDidCancelWithError:(id)error
 {
   v16 = *MEMORY[0x277D85DE8];
   errorCopy = error;
-  [(BLSAssertion *)self setLocalState:?];
-  v5 = bls_assertions_log();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  v5 = [(BLSAssertion *)self setLocalState:?];
+  v6 = bls_assertions_log(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     bls_loggingString = [errorCopy bls_loggingString];
     OUTLINED_FUNCTION_0_3();
-    v14 = v7;
-    v15 = v8;
-    _os_log_impl(&dword_21FE25000, v5, OS_LOG_TYPE_INFO, "%p did cancel assertion %{public}@ with error:%{public}@", buf, 0x20u);
+    v14 = v8;
+    v15 = v9;
+    _os_log_impl(&dword_21FE25000, v6, OS_LOG_TYPE_INFO, "%p did cancel assertion %{public}@ with error:%{public}@", buf, 0x20u);
   }
 
   OUTLINED_FUNCTION_1();
@@ -830,10 +810,8 @@ LABEL_10:
   v11[3] = &unk_278428D38;
   v11[4] = self;
   v12 = errorCopy;
-  v9 = errorCopy;
+  v10 = errorCopy;
   [(BLSAssertion *)self notifyObserversWithBlock:v11];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)acquireWithObserver:(void *)a3 .cold.1(os_unfair_lock_s *a1, void *a2, void *a3)
@@ -852,35 +830,35 @@ LABEL_10:
 - (void)acquireWithObserver:(void *)a1 .cold.2(void *a1, const char *a2)
 {
   v3 = MEMORY[0x277CCACA8];
-  v13 = [(BLSAssertion *)a1 lock_description];
-  v4 = [v3 stringWithFormat:@"BLSAssertion cannot be acquired after invalidation:%@"];
+  v4 = [(BLSAssertion *)a1 lock_description];
+  v5 = [v3 stringWithFormat:@"BLSAssertion cannot be acquired after invalidation:%@", v4];
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v5 = NSStringFromSelector(a2);
-    v6 = objc_opt_class();
-    v7 = NSStringFromClass(v6);
+    v6 = NSStringFromSelector(a2);
+    v7 = objc_opt_class();
+    v8 = NSStringFromClass(v7);
     OUTLINED_FUNCTION_8_1();
-    OUTLINED_FUNCTION_9(&dword_21FE25000, MEMORY[0x277D86220], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, v13, v14, v15);
+    OUTLINED_FUNCTION_9(&dword_21FE25000, MEMORY[0x277D86220], v9, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v10, v11, v12, v13, v14, v15);
   }
 
-  [v4 UTF8String];
+  [v5 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
-- (void)acquireWithCompletion:(const char *)a1 .cold.1(const char *a1)
+- (void)acquireWithCompletion:(const char *)a1 .cold.1(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"completion != nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v11 = NSStringFromClass(v4);
-    OUTLINED_FUNCTION_9(&dword_21FE25000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"completion != nil", v10, 2u);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v13 = NSStringFromClass(v5);
+    OUTLINED_FUNCTION_9(&dword_21FE25000, MEMORY[0x277D86220], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, v11, v12);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }

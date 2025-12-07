@@ -1,6 +1,6 @@
 @interface NSObject(MusicKit_SoftLinking_MPNowPlayingInfoAudioFormat)
+- (char)musicKit_nowPlayingInfoAudioFormat_badging;
 - (id)_musicKit_self_nowPlayingInfoAudioFormat;
-- (unint64_t)musicKit_nowPlayingInfoAudioFormat_badging;
 @end
 
 @implementation NSObject(MusicKit_SoftLinking_MPNowPlayingInfoAudioFormat)
@@ -38,14 +38,14 @@
   return selfCopy;
 }
 
-- (unint64_t)musicKit_nowPlayingInfoAudioFormat_badging
+- (char)musicKit_nowPlayingInfoAudioFormat_badging
 {
   _musicKit_self_nowPlayingInfoAudioFormat = [self _musicKit_self_nowPlayingInfoAudioFormat];
   badging = [_musicKit_self_nowPlayingInfoAudioFormat badging];
 
   if (badging < 6)
   {
-    return badging + 1;
+    return (badging + 1);
   }
 
   else

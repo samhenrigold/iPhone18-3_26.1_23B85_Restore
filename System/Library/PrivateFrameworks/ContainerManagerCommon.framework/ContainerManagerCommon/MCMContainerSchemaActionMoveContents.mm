@@ -9,7 +9,7 @@
 
 - (BOOL)performWithError:(id *)error
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   path = [(NSURL *)self->_sourceURL path];
   path2 = [(NSURL *)self->_destURL path];
   if ([path isEqualToString:path2])
@@ -18,9 +18,9 @@
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v20 = path;
-      v21 = 2112;
-      v22 = 0;
+      v19 = path;
+      v20 = 2112;
+      v21 = 0;
       _os_log_error_impl(&dword_1DF2C3000, v7, OS_LOG_TYPE_ERROR, "ignoring attempt to move [%@] to itself: %@", buf, 0x16u);
     }
 
@@ -32,16 +32,16 @@
   {
     v10 = self->_sourceURL;
     destURL = self->_destURL;
-    v17 = v10;
-    v18 = 0;
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __57__MCMContainerSchemaActionMoveContents_performWithError___block_invoke;
-    v16[3] = &unk_1E86B10E0;
-    v16[4] = self;
+    v16 = v10;
+    v17 = 0;
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __57__MCMContainerSchemaActionMoveContents_performWithError___block_invoke;
+    v15[3] = &unk_1E86B10E0;
+    v15[4] = self;
     v12 = v10;
-    v9 = [(MCMContainerSchemaActionBase *)self fixAndRetryIfPermissionsErrorWithURL:destURL error:&v18 duringBlock:v16];
-    v8 = v18;
+    v9 = [(MCMContainerSchemaActionBase *)self fixAndRetryIfPermissionsErrorWithURL:destURL error:&v17 duringBlock:v15];
+    v8 = v17;
 
     if (error && !v9)
     {
@@ -51,73 +51,72 @@
     }
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 BOOL __57__MCMContainerSchemaActionMoveContents_performWithError___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v64 = *MEMORY[0x1E69E9840];
-  v37 = a2;
-  v47 = 0;
-  v48 = &v47;
-  v49 = 0x3032000000;
-  v50 = __Block_byref_object_copy__7315;
-  v51 = __Block_byref_object_dispose__7316;
-  v52 = 0;
+  v63 = *MEMORY[0x1E69E9840];
+  v36 = a2;
+  v46 = 0;
+  v47 = &v46;
+  v48 = 0x3032000000;
+  v49 = __Block_byref_object_copy__7315;
+  v50 = __Block_byref_object_dispose__7316;
+  v51 = 0;
   v4 = *(a1 + 32);
   v5 = *(a1 + 40);
-  v45[4] = &v47;
-  v46 = 0;
-  v45[0] = MEMORY[0x1E69E9820];
-  v45[1] = 3221225472;
-  v45[2] = __57__MCMContainerSchemaActionMoveContents_performWithError___block_invoke_1;
-  v45[3] = &unk_1E86B1090;
-  v6 = [v4 fixAndRetryIfPermissionsErrorWithURL:v5 error:&v46 duringBlock:v45];
-  v7 = v46;
+  v44[4] = &v46;
+  v45 = 0;
+  v44[0] = MEMORY[0x1E69E9820];
+  v44[1] = 3221225472;
+  v44[2] = __57__MCMContainerSchemaActionMoveContents_performWithError___block_invoke_1;
+  v44[3] = &unk_1E86B1090;
+  v6 = [v4 fixAndRetryIfPermissionsErrorWithURL:v5 error:&v45 duringBlock:v44];
+  v7 = v45;
   v8 = v7;
   if (v6)
   {
     v9 = *(a1 + 32);
-    v44 = v8;
-    v10 = [v9 makedirAtURL:v37 followTerminalSymlink:1 error:&v44];
-    v11 = v44;
+    v43 = v8;
+    v10 = [v9 makedirAtURL:v36 followTerminalSymlink:1 error:&v43];
+    v11 = v43;
 
     if (v10)
     {
-      v62 = 0u;
-      v63 = 0u;
-      v60 = 0u;
       v61 = 0u;
-      v12 = v48[5];
-      v13 = [v12 countByEnumeratingWithState:&v60 objects:v59 count:16];
+      v62 = 0u;
+      v59 = 0u;
+      v60 = 0u;
+      v12 = v47[5];
+      v13 = [v12 countByEnumeratingWithState:&v59 objects:v58 count:16];
       if (v13)
       {
         LOBYTE(v14) = 0;
-        v36 = *v61;
+        v35 = *v60;
         obj = v12;
         while (2)
         {
           for (i = 0; i != v13; ++i)
           {
-            if (*v61 != v36)
+            if (*v60 != v35)
             {
               objc_enumerationMutation(obj);
             }
 
-            v16 = *(*(&v60 + 1) + 8 * i);
+            v16 = *(*(&v59 + 1) + 8 * i);
             v17 = *(a1 + 40);
             v18 = [v16 lastPathComponent];
             v19 = [v17 URLByAppendingPathComponent:v18 isDirectory:0];
 
             v20 = [v16 lastPathComponent];
-            v21 = [v37 URLByAppendingPathComponent:v20 isDirectory:0];
+            v21 = [v36 URLByAppendingPathComponent:v20 isDirectory:0];
 
-            v43 = 0;
+            v42 = 0;
             v22 = +[MCMFileManager defaultManager];
-            v42 = v11;
-            LOBYTE(v20) = [v22 itemAtURL:v21 followSymlinks:1 exists:&v43 isDirectory:0 error:&v42];
-            v23 = v42;
+            v41 = v11;
+            LOBYTE(v20) = [v22 itemAtURL:v21 followSymlinks:1 exists:&v42 isDirectory:0 error:&v41];
+            v23 = v41;
 
             if ((v20 & 1) == 0)
             {
@@ -129,12 +128,12 @@ LABEL_25:
               goto LABEL_26;
             }
 
-            if (v43 == 1)
+            if (v42 == 1)
             {
               v24 = *(a1 + 32);
-              v41 = v23;
-              v25 = [v24 backupFileURL:v21 error:&v41];
-              v11 = v41;
+              v40 = v23;
+              v25 = [v24 backupFileURL:v21 error:&v40];
+              v11 = v40;
 
               v23 = v11;
               if (!v25)
@@ -144,29 +143,29 @@ LABEL_25:
             }
 
             v26 = *(a1 + 32);
-            v40 = v23;
-            v38[0] = MEMORY[0x1E69E9820];
-            v38[1] = 3221225472;
-            v38[2] = __57__MCMContainerSchemaActionMoveContents_performWithError___block_invoke_2;
-            v38[3] = &unk_1E86B10B8;
+            v39 = v23;
+            v37[0] = MEMORY[0x1E69E9820];
+            v37[1] = 3221225472;
+            v37[2] = __57__MCMContainerSchemaActionMoveContents_performWithError___block_invoke_2;
+            v37[3] = &unk_1E86B10B8;
             v21 = v21;
-            v39 = v21;
-            LOBYTE(v26) = [v26 fixAndRetryIfPermissionsErrorWithURL:v19 error:&v40 duringBlock:v38];
-            v11 = v40;
+            v38 = v21;
+            LOBYTE(v26) = [v26 fixAndRetryIfPermissionsErrorWithURL:v19 error:&v39 duringBlock:v37];
+            v11 = v39;
 
             if ((v26 & 1) == 0)
             {
               v28 = container_log_handle_for_category();
               if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
               {
-                v32 = [v19 path];
-                v33 = [v21 path];
+                v31 = [v19 path];
+                v32 = [v21 path];
                 *buf = 138412802;
-                v54 = v32;
-                v55 = 2112;
-                v56 = v33;
-                v57 = 2112;
-                v58 = v11;
+                v53 = v31;
+                v54 = 2112;
+                v55 = v32;
+                v56 = 2112;
+                v57 = v11;
                 _os_log_error_impl(&dword_1DF2C3000, v28, OS_LOG_TYPE_ERROR, "failed to move [%@] to [%@]: %@", buf, 0x20u);
               }
 
@@ -178,7 +177,7 @@ LABEL_25:
           }
 
           v12 = obj;
-          v13 = [obj countByEnumeratingWithState:&v60 objects:v59 count:16];
+          v13 = [obj countByEnumeratingWithState:&v59 objects:v58 count:16];
           if (v13)
           {
             continue;
@@ -228,15 +227,13 @@ LABEL_26:
 
   v11 = v8;
 LABEL_31:
-  _Block_object_dispose(&v47, 8);
+  _Block_object_dispose(&v46, 8);
 
-  v30 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
 BOOL __57__MCMContainerSchemaActionMoveContents_performWithError___block_invoke_1(uint64_t a1, void *a2, uint64_t a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = +[MCMFileManager defaultManager];
   v7 = [v6 urlsForItemsInDirectoryAtURL:v5 error:a3];
@@ -245,43 +242,36 @@ BOOL __57__MCMContainerSchemaActionMoveContents_performWithError___block_invoke_
   v9 = *(v8 + 40);
   *(v8 + 40) = v7;
 
-  result = *(*(*(a1 + 32) + 8) + 40) != 0;
-  v11 = *MEMORY[0x1E69E9840];
-  return result;
+  return *(*(*(a1 + 32) + 8) + 40) != 0;
 }
 
 uint64_t __57__MCMContainerSchemaActionMoveContents_performWithError___block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = +[MCMFileManager defaultManager];
   v7 = [v6 moveItemIfExistsAtURL:v5 toURL:*(a1 + 32) error:a3];
 
-  v8 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 - (NSString)description
 {
-  v9 = *MEMORY[0x1E69E9840];
   actionIdentifier = [objc_opt_class() actionIdentifier];
   path = [(NSURL *)self->_sourceURL path];
   path2 = [(NSURL *)self->_destURL path];
   v6 = [actionIdentifier stringByAppendingFormat:@" [%@] → [%@]", path, path2];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
 
 - (MCMContainerSchemaActionMoveContents)initWithSourcePathArgument:(id)argument destinationPathArgument:(id)pathArgument destFinalPathArgument:(id)finalPathArgument context:(id)context
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   argumentCopy = argument;
   pathArgumentCopy = pathArgument;
-  v18.receiver = self;
-  v18.super_class = MCMContainerSchemaActionMoveContents;
-  v11 = [(MCMContainerSchemaActionBase *)&v18 initWithContext:context];
+  v17.receiver = self;
+  v17.super_class = MCMContainerSchemaActionMoveContents;
+  v11 = [(MCMContainerSchemaActionBase *)&v17 initWithContext:context];
   if (v11)
   {
     fileURL = [argumentCopy fileURL];
@@ -299,14 +289,11 @@ uint64_t __57__MCMContainerSchemaActionMoveContents_performWithError___block_inv
     }
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 + (id)actionIdentifier
 {
-  v2 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
 
   return @"move-contents";
 }

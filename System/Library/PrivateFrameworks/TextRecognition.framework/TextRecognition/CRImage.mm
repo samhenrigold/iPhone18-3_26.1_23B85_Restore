@@ -192,12 +192,12 @@ LABEL_26:
 + (vImage_Buffer)allocateVImageBufferWithWidth:(SEL)width height:(unint64_t)height colorSpace:(unint64_t)space
 {
   v6 = *&a6;
-  v10 = objc_opt_class();
+  v8 = objc_opt_class();
   result = [objc_opt_class() bytesPerPixelForColorSpace:v6];
-  if (v10)
+  if (v8)
   {
 
-    return [v10 allocateVImageBufferWithWidth:height height:space bytesPerPixel:result];
+    return objc_msgSend_allocateVImageBufferWithWidth_height_bytesPerPixel_(v8);
   }
 
   else
@@ -224,7 +224,7 @@ LABEL_26:
 - (id)initY8WithCVPixelBuffer:(__CVBuffer *)buffer forceDataCopy:(BOOL)copy
 {
   copyCopy = copy;
-  v49 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   v6 = [(CRImage *)self init];
   v6->_pixelBuffer = CVPixelBufferRetain(buffer);
   PixelFormatType = CVPixelBufferGetPixelFormatType(buffer);
@@ -236,47 +236,47 @@ LABEL_26:
     if (v8 == 846624121)
     {
       v9 = objc_opt_class();
-      Width = CVPixelBufferGetWidth(buffer);
-      Height = CVPixelBufferGetHeight(buffer);
+      CVPixelBufferGetWidth(buffer);
+      CVPixelBufferGetHeight(buffer);
       if (v9)
       {
-        [v9 allocateVImageBufferWithWidth:Width height:Height colorSpace:0];
+        objc_msgSend_allocateVImageBufferWithWidth_height_colorSpace_(v9);
       }
 
       else
       {
-        v47 = 0u;
-        v48 = 0u;
+        v43 = 0u;
+        v44 = 0u;
       }
 
-      v20 = v48;
-      *&v6->_vImage.data = v47;
-      *&v6->_vImage.width = v20;
-      v22 = v6->_vImage.height;
-      v21 = v6->_vImage.width;
+      v16 = v44;
+      *&v6->_vImage.data = v43;
+      *&v6->_vImage.width = v16;
+      height = v6->_vImage.height;
+      width = v6->_vImage.width;
       BytesPerRow = CVPixelBufferGetBytesPerRow(buffer);
       rowBytes = v6->_vImage.rowBytes;
       BaseAddress = CVPixelBufferGetBaseAddress(buffer);
-      if (v22)
+      if (height)
       {
-        v26 = 0;
+        v22 = 0;
         data = v6->_vImage.data;
-        v28 = BaseAddress + 1;
+        v24 = BaseAddress + 1;
         do
         {
-          for (i = v21; i; --i)
+          for (i = width; i; --i)
           {
-            v30 = *v28;
-            v28 += 2;
-            *data++ = v30;
+            v26 = *v24;
+            v24 += 2;
+            *data++ = v26;
           }
 
-          v28 += BytesPerRow - 2 * v21;
-          data += rowBytes - v21;
-          ++v26;
+          v24 += BytesPerRow - 2 * width;
+          data += rowBytes - width;
+          ++v22;
         }
 
-        while (v26 != v22);
+        while (v22 != height);
       }
     }
 
@@ -284,28 +284,28 @@ LABEL_26:
     {
       if (copyCopy && v8 == 1278226488)
       {
-        v12 = objc_opt_class();
-        v13 = CVPixelBufferGetWidth(buffer);
-        v14 = CVPixelBufferGetHeight(buffer);
-        if (v12)
+        v10 = objc_opt_class();
+        CVPixelBufferGetWidth(buffer);
+        CVPixelBufferGetHeight(buffer);
+        if (v10)
         {
-          [v12 allocateVImageBufferWithWidth:v13 height:v14 colorSpace:0];
+          objc_msgSend_allocateVImageBufferWithWidth_height_colorSpace_(v10);
         }
 
         else
         {
-          v47 = 0u;
-          v48 = 0u;
+          v43 = 0u;
+          v44 = 0u;
         }
 
-        v33 = v48;
-        *&v6->_vImage.data = v47;
-        *&v6->_vImage.width = v33;
-        v34 = CVPixelBufferGetBaseAddress(buffer);
-        v35 = CVPixelBufferGetHeight(buffer);
+        v29 = v44;
+        *&v6->_vImage.data = v43;
+        *&v6->_vImage.width = v29;
+        v30 = CVPixelBufferGetBaseAddress(buffer);
+        v31 = CVPixelBufferGetHeight(buffer);
         CVPixelBufferGetWidth(buffer);
-        v36 = CVPixelBufferGetBytesPerRow(buffer);
-        memcpy(v6->_vImage.data, v34, v36 * v35);
+        v32 = CVPixelBufferGetBytesPerRow(buffer);
+        memcpy(v6->_vImage.data, v30, v32 * v31);
         CVPixelBufferUnlockBaseAddress(v6->_pixelBuffer, 0);
         CVPixelBufferRelease(v6->_pixelBuffer);
         goto LABEL_37;
@@ -317,71 +317,71 @@ LABEL_26:
         v6->_vImage.height = CVPixelBufferGetHeightOfPlane(buffer, 0);
         v6->_vImage.rowBytes = CVPixelBufferGetBytesPerRowOfPlane(buffer, 0);
         BaseAddressOfPlane = CVPixelBufferGetBaseAddressOfPlane(buffer, 0);
-        v32 = 0;
+        v28 = 0;
         v6->_vImage.data = BaseAddressOfPlane;
 LABEL_38:
-        v6->_vImageDataIsCopy = v32;
-        v16 = v6;
+        v6->_vImageDataIsCopy = v28;
+        v12 = v6;
         goto LABEL_39;
       }
 
-      v17 = CVPixelBufferGetWidth(buffer);
-      v18 = CVPixelBufferGetHeight(buffer);
-      v19 = objc_opt_class();
-      if (v19)
+      v13 = CVPixelBufferGetWidth(buffer);
+      v14 = CVPixelBufferGetHeight(buffer);
+      v15 = objc_opt_class();
+      if (v15)
       {
-        [v19 allocateVImageBufferWithWidth:v17 & 0xFFFFFFFFFFFFFFFELL height:v18 & 0xFFFFFFFFFFFFFFFELL colorSpace:0];
+        objc_msgSend_allocateVImageBufferWithWidth_height_colorSpace_(v15);
       }
 
       else
       {
-        v47 = 0u;
-        v48 = 0u;
+        v43 = 0u;
+        v44 = 0u;
       }
 
-      v37 = v48;
-      *&v6->_vImage.data = v47;
-      *&v6->_vImage.width = v37;
-      v38 = CVPixelBufferGetBaseAddressOfPlane(buffer, 0);
-      v39 = v6->_vImage.data;
+      v33 = v44;
+      *&v6->_vImage.data = v43;
+      *&v6->_vImage.width = v33;
+      v34 = CVPixelBufferGetBaseAddressOfPlane(buffer, 0);
+      v35 = v6->_vImage.data;
       BytesPerRowOfPlane = CVPixelBufferGetBytesPerRowOfPlane(buffer, 0);
-      if (v18 >= 2)
+      if (v14 >= 2)
       {
-        v41 = 0;
+        v37 = 0;
         do
         {
-          if (v17 >= 2)
+          if (v13 >= 2)
           {
-            v42 = &v38[2 * v41 * BytesPerRowOfPlane];
-            v43 = v17 >> 1;
+            v38 = &v34[2 * v37 * BytesPerRowOfPlane];
+            v39 = v13 >> 1;
             do
             {
-              *v39 = *v42;
-              v39[1] = v42[1];
-              v42 += 2;
-              v39 += 2;
-              --v43;
+              *v35 = *v38;
+              v35[1] = v38[1];
+              v38 += 2;
+              v35 += 2;
+              --v39;
             }
 
-            while (v43);
-            v44 = &v38[((2 * v41) | 1) * BytesPerRowOfPlane];
-            v45 = v17 >> 1;
+            while (v39);
+            v40 = &v34[((2 * v37) | 1) * BytesPerRowOfPlane];
+            v41 = v13 >> 1;
             do
             {
-              *v39 = *v44;
-              v39[1] = v44[1];
-              v44 += 2;
-              v39 += 2;
-              --v45;
+              *v35 = *v40;
+              v35[1] = v40[1];
+              v40 += 2;
+              v35 += 2;
+              --v41;
             }
 
-            while (v45);
+            while (v41);
           }
 
-          ++v41;
+          ++v37;
         }
 
-        while (v41 != v18 >> 1);
+        while (v37 != v14 >> 1);
       }
     }
 
@@ -389,28 +389,28 @@ LABEL_38:
     CVPixelBufferRelease(v6->_pixelBuffer);
 LABEL_37:
     v6->_pixelBuffer = 0;
-    v32 = 1;
+    v28 = 1;
     goto LABEL_38;
   }
 
   CVPixelBufferRelease(v6->_pixelBuffer);
-  v15 = CROSLogForCategory(0);
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+  v11 = CROSLogForCategory(0);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
   {
-    LODWORD(v47) = 67109120;
-    DWORD1(v47) = v8;
-    _os_log_impl(&dword_1B40D2000, v15, OS_LOG_TYPE_FAULT, "[CRImage initY8WithCVPixelBuffer:] Unsupported pixel buffer type %08x", &v47, 8u);
+    LODWORD(v43) = 67109120;
+    DWORD1(v43) = v8;
+    _os_log_impl(&dword_1B40D2000, v11, OS_LOG_TYPE_FAULT, "[CRImage initY8WithCVPixelBuffer:] Unsupported pixel buffer type %08x", &v43, 8u);
   }
 
-  v16 = 0;
+  v12 = 0;
 LABEL_39:
 
-  return v16;
+  return v12;
 }
 
 - (id)initARGB8888WithCVPixelBuffer:(__CVBuffer *)buffer
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v4 = [(CRImage *)self init];
   v4->_pixelBuffer = CVPixelBufferRetain(buffer);
   PixelFormatType = CVPixelBufferGetPixelFormatType(buffer);
@@ -452,11 +452,11 @@ LABEL_8:
     v4->_isFullRange = 1;
     CVPixelBufferLockBaseAddress(v4->_pixelBuffer, 0);
     v8 = objc_opt_class();
-    Width = CVPixelBufferGetWidth(buffer);
-    Height = CVPixelBufferGetHeight(buffer);
+    CVPixelBufferGetWidth(buffer);
+    CVPixelBufferGetHeight(buffer);
     if (v8)
     {
-      [v8 allocateVImageBufferWithWidth:Width height:Height colorSpace:1];
+      objc_msgSend_allocateVImageBufferWithWidth_height_colorSpace_(v8);
     }
 
     else
@@ -464,9 +464,9 @@ LABEL_8:
       memset(&outInfo, 0, 32);
     }
 
-    v11 = *&outInfo.opaque[16];
+    v9 = *&outInfo.opaque[16];
     *&v4->_vImage.data = *outInfo.opaque;
-    *&v4->_vImage.width = v11;
+    *&v4->_vImage.width = v9;
     v4->_vImageDataIsCopy = 1;
     switch(v6)
     {
@@ -475,15 +475,15 @@ LABEL_8:
         *&outInfo.opaque[8] = CVPixelBufferGetHeight(buffer);
         *&outInfo.opaque[16] = CVPixelBufferGetWidth(buffer);
         *&outInfo.opaque[24] = CVPixelBufferGetBytesPerRow(buffer);
-        v15 = vImageConvert_Planar8ToXRGB8888(0xFFu, &outInfo, &outInfo, &outInfo, &v4->_vImage, 0);
-        v14 = v15 != 0;
-        if (v15)
+        v13 = vImageConvert_Planar8ToXRGB8888(0xFFu, &outInfo, &outInfo, &outInfo, &v4->_vImage, 0);
+        v12 = v13 != 0;
+        if (v13)
         {
-          v16 = CROSLogForCategory(0);
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
+          v14 = CROSLogForCategory(0);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
           {
             LOWORD(src.data) = 0;
-            _os_log_impl(&dword_1B40D2000, v16, OS_LOG_TYPE_FAULT, "[CRImage initARGB8888WithCVPixelBuffer:] Unable to initialize ARGB8888 CRImage with Yp8 pixel buffer", &src, 2u);
+            _os_log_impl(&dword_1B40D2000, v14, OS_LOG_TYPE_FAULT, "[CRImage initARGB8888WithCVPixelBuffer:] Unable to initialize ARGB8888 CRImage with Yp8 pixel buffer", &src, 2u);
           }
         }
 
@@ -499,11 +499,11 @@ LABEL_8:
         buf.rowBytes = CVPixelBufferGetBytesPerRowOfPlane(buffer, 1uLL);
         if (vImageConvert_YpCbCrToARGB_GenerateConversion(*MEMORY[0x1E6958848], &fullYpCbCrPixelRange, &outInfo, kvImage420Yp8_CbCr8, kvImageARGB8888, 0) || vImageConvert_420Yp8_CbCr8ToARGB8888(&src, &buf, &v4->_vImage, &outInfo, 0, 0xFFu, 0))
         {
-          v13 = CROSLogForCategory(0);
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+          v11 = CROSLogForCategory(0);
+          if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
           {
-            *v24 = 0;
-            _os_log_impl(&dword_1B40D2000, v13, OS_LOG_TYPE_FAULT, "[CRImage initARGB8888WithCVPixelBuffer:] Unable to initialize ARGB8888 CRImage with 420YpCbCr8BiPlanarFullRange pixel buffer", v24, 2u);
+            *v22 = 0;
+            _os_log_impl(&dword_1B40D2000, v11, OS_LOG_TYPE_FAULT, "[CRImage initARGB8888WithCVPixelBuffer:] Unable to initialize ARGB8888 CRImage with 420YpCbCr8BiPlanarFullRange pixel buffer", v22, 2u);
           }
 
           goto LABEL_24;
@@ -517,37 +517,37 @@ LABEL_8:
         src.rowBytes = CVPixelBufferGetBytesPerRow(buffer);
         if (vImageConvert_YpCbCrToARGB_GenerateConversion(*MEMORY[0x1E6958848], &videoYpCbCrPixelRange, &outInfo, kvImage422CbYpCrYp8, kvImageARGB8888, 0) || vImageConvert_422CbYpCrYp8ToARGB8888(&src, &v4->_vImage, &outInfo, 0, 0xFFu, 0))
         {
-          v12 = CROSLogForCategory(0);
-          if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+          v10 = CROSLogForCategory(0);
+          if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
           {
             LOWORD(buf.data) = 0;
-            _os_log_impl(&dword_1B40D2000, v12, OS_LOG_TYPE_FAULT, "[CRImage initARGB8888WithCVPixelBuffer:] Unable to initialize ARGB8888 CRImage with 422CbYpCrYp8 pixel buffer", &buf, 2u);
+            _os_log_impl(&dword_1B40D2000, v10, OS_LOG_TYPE_FAULT, "[CRImage initARGB8888WithCVPixelBuffer:] Unable to initialize ARGB8888 CRImage with 422CbYpCrYp8 pixel buffer", &buf, 2u);
           }
 
 LABEL_24:
-          v14 = 1;
+          v12 = 1;
           goto LABEL_31;
         }
 
         break;
       default:
         BaseAddress = CVPixelBufferGetBaseAddress(buffer);
-        v18 = CVPixelBufferGetHeight(buffer);
+        Height = CVPixelBufferGetHeight(buffer);
         CVPixelBufferGetWidth(buffer);
         BytesPerRow = CVPixelBufferGetBytesPerRow(buffer);
-        memcpy(v4->_vImage.data, BaseAddress, BytesPerRow * v18);
+        memcpy(v4->_vImage.data, BaseAddress, BytesPerRow * Height);
         break;
     }
 
-    v14 = 0;
+    v12 = 0;
 LABEL_31:
     CVPixelBufferUnlockBaseAddress(v4->_pixelBuffer, 0);
     CVPixelBufferRelease(v4->_pixelBuffer);
-    v20 = 0;
+    v18 = 0;
     v4->_pixelBuffer = 0;
-    if (!v14)
+    if (!v12)
     {
-      v20 = v4;
+      v18 = v4;
     }
 
     goto LABEL_38;
@@ -555,23 +555,23 @@ LABEL_31:
 
 LABEL_35:
   CVPixelBufferRelease(v4->_pixelBuffer);
-  v22 = CROSLogForCategory(0);
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
+  v20 = CROSLogForCategory(0);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
   {
     *outInfo.opaque = 67109120;
     *&outInfo.opaque[4] = v6;
-    _os_log_impl(&dword_1B40D2000, v22, OS_LOG_TYPE_FAULT, "[CRImage initARGB8888WithCVPixelBuffer:] Unsupported pixel buffer type %08x", outInfo.opaque, 8u);
+    _os_log_impl(&dword_1B40D2000, v20, OS_LOG_TYPE_FAULT, "[CRImage initARGB8888WithCVPixelBuffer:] Unsupported pixel buffer type %08x", outInfo.opaque, 8u);
   }
 
-  v20 = 0;
+  v18 = 0;
 LABEL_38:
 
-  return v20;
+  return v18;
 }
 
 - (id)initYUV888WithCVPixelBuffer:(__CVBuffer *)buffer
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   v4 = [(CRImage *)self init];
   v4->_pixelBuffer = CVPixelBufferRetain(buffer);
   PixelFormatType = CVPixelBufferGetPixelFormatType(buffer);
@@ -581,61 +581,222 @@ LABEL_38:
     v4->_isFullRange = PixelFormatType == 875704422;
     CVPixelBufferLockBaseAddress(v4->_pixelBuffer, 0);
     v7 = objc_opt_class();
-    Width = CVPixelBufferGetWidth(buffer);
-    Height = CVPixelBufferGetHeight(buffer);
+    CVPixelBufferGetWidth(buffer);
+    CVPixelBufferGetHeight(buffer);
     if (v7)
     {
-      [v7 allocateVImageBufferWithWidth:Width height:Height colorSpace:4];
+      objc_msgSend_allocateVImageBufferWithWidth_height_colorSpace_(v7);
     }
 
     else
     {
-      v41 = 0u;
-      v42 = 0u;
+      v39 = 0u;
+      v40 = 0u;
     }
 
-    v12 = v42;
-    *&v4->_vImage.data = v41;
-    *&v4->_vImage.width = v12;
+    v10 = v40;
+    *&v4->_vImage.data = v39;
+    *&v4->_vImage.width = v10;
     v4->_vImageDataIsCopy = 1;
     if (v6 == 846624121)
     {
       BaseAddress = CVPixelBufferGetBaseAddress(buffer);
       BytesPerRow = CVPixelBufferGetBytesPerRow(buffer);
-      v15 = v4->_vImage.height;
-      if (v15)
+      height = v4->_vImage.height;
+      if (height)
       {
-        v16 = 0;
+        v14 = 0;
         data = v4->_vImage.data;
-        v18 = v4->_vImage.width;
+        width = v4->_vImage.width;
         do
         {
-          if (v18 >= 2)
+          if (width >= 2)
           {
-            v19 = 0;
+            v17 = 0;
             do
             {
-              v20 = *&BaseAddress[4 * v19];
-              *data = BYTE1(v20);
-              data[1] = v20;
-              data[2] = BYTE2(v20);
-              data[3] = HIBYTE(v20);
-              data[4] = v20;
-              data[5] = BYTE2(v20);
-              ++v19;
+              v18 = *&BaseAddress[4 * v17];
+              *data = BYTE1(v18);
+              data[1] = v18;
+              data[2] = BYTE2(v18);
+              data[3] = HIBYTE(v18);
+              data[4] = v18;
+              data[5] = BYTE2(v18);
+              ++v17;
               data += 6;
-              v18 = v4->_vImage.width;
+              width = v4->_vImage.width;
             }
 
-            while (v19 < v18 >> 1);
-            v15 = v4->_vImage.height;
+            while (v17 < width >> 1);
+            height = v4->_vImage.height;
           }
 
-          ++v16;
+          ++v14;
           BaseAddress += BytesPerRow;
         }
 
-        while (v16 < v15);
+        while (v14 < height);
+      }
+    }
+
+    else
+    {
+      BaseAddressOfPlane = CVPixelBufferGetBaseAddressOfPlane(buffer, 0);
+      v20 = CVPixelBufferGetBaseAddressOfPlane(buffer, 1uLL);
+      BytesPerRowOfPlane = CVPixelBufferGetBytesPerRowOfPlane(buffer, 0);
+      v22 = CVPixelBufferGetBytesPerRowOfPlane(buffer, 1uLL);
+      if (v4->_vImage.height >= 2)
+      {
+        v23 = 0;
+        v24 = v4->_vImage.data;
+        v25 = v4->_vImage.width;
+        do
+        {
+          if (v25 >= 2)
+          {
+            v26 = 0;
+            v27 = &v20[v23 * v22];
+            v28 = &BaseAddressOfPlane[2 * v23 * BytesPerRowOfPlane];
+            v29 = v27;
+            do
+            {
+              v30 = v28[1];
+              v31 = *v29;
+              v32 = v29[1];
+              *v24 = *v28;
+              v24[1] = v31;
+              v24[2] = v32;
+              v24[3] = v30;
+              v24[4] = v31;
+              v24[5] = v32;
+              ++v26;
+              v28 += 2;
+              v29 += 2;
+              v24 += 6;
+              v25 = v4->_vImage.width;
+            }
+
+            while (v26 < v25 >> 1);
+            if (v25 >= 2)
+            {
+              v33 = 0;
+              v34 = &BaseAddressOfPlane[((2 * v23) | 1) * BytesPerRowOfPlane];
+              do
+              {
+                v35 = v34[1];
+                v36 = *v27;
+                v37 = v27[1];
+                *v24 = *v34;
+                v24[1] = v36;
+                v24[2] = v37;
+                v24[3] = v35;
+                v24[4] = v36;
+                v24[5] = v37;
+                ++v33;
+                v34 += 2;
+                v27 += 2;
+                v24 += 6;
+                v25 = v4->_vImage.width;
+              }
+
+              while (v33 < v25 >> 1);
+            }
+          }
+
+          ++v23;
+        }
+
+        while (v23 < v4->_vImage.height >> 1);
+      }
+    }
+
+    v9 = v4;
+    CVPixelBufferUnlockBaseAddress(v4->_pixelBuffer, 0);
+  }
+
+  else
+  {
+    v8 = CROSLogForCategory(0);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+    {
+      LODWORD(v39) = 67109120;
+      DWORD1(v39) = v6;
+      _os_log_impl(&dword_1B40D2000, v8, OS_LOG_TYPE_FAULT, "[CRImage initYUV888WithCVPixelBuffer:] Unsupported pixel buffer type %08x", &v39, 8u);
+    }
+
+    v9 = 0;
+  }
+
+  CVPixelBufferRelease(v4->_pixelBuffer);
+  v4->_pixelBuffer = 0;
+
+  return v9;
+}
+
+- (id)initAYUV8888WithCVPixelBuffer:(__CVBuffer *)buffer
+{
+  v45 = *MEMORY[0x1E69E9840];
+  v4 = [(CRImage *)self init];
+  v4->_pixelBuffer = CVPixelBufferRetain(buffer);
+  PixelFormatType = CVPixelBufferGetPixelFormatType(buffer);
+  v6 = PixelFormatType;
+  if (PixelFormatType == 846624121 || PixelFormatType == 875704422)
+  {
+    v4->_isFullRange = PixelFormatType == 875704422;
+    CVPixelBufferLockBaseAddress(v4->_pixelBuffer, 0);
+    v7 = objc_opt_class();
+    CVPixelBufferGetWidth(buffer);
+    CVPixelBufferGetHeight(buffer);
+    if (v7)
+    {
+      objc_msgSend_allocateVImageBufferWithWidth_height_colorSpace_(v7);
+    }
+
+    else
+    {
+      v43 = 0u;
+      v44 = 0u;
+    }
+
+    v10 = v44;
+    *&v4->_vImage.data = v43;
+    *&v4->_vImage.width = v10;
+    v4->_vImageDataIsCopy = 1;
+    if (v6 == 846624121)
+    {
+      BaseAddress = CVPixelBufferGetBaseAddress(buffer);
+      BytesPerRow = CVPixelBufferGetBytesPerRow(buffer);
+      height = v4->_vImage.height;
+      if (height)
+      {
+        v14 = 0;
+        data = v4->_vImage.data;
+        width = v4->_vImage.width;
+        do
+        {
+          if (width >= 2)
+          {
+            v17 = &BaseAddress[v14 * BytesPerRow];
+            v18 = width >> 1;
+            do
+            {
+              v19 = *v17;
+              v17 += 4;
+              HIDWORD(v20) = v19;
+              LODWORD(v20) = v19;
+              *data = v19 & 0xFF00 | (v19 << 16) & 0xFFFFFF | (BYTE2(v19) << 24) | 0xFF;
+              data[1] = (v20 >> 16) & 0xFFFF00 | (BYTE2(v19) << 24) | 0xFF;
+              data += 2;
+              --v18;
+            }
+
+            while (v18);
+          }
+
+          ++v14;
+        }
+
+        while (v14 != height);
       }
     }
 
@@ -645,242 +806,81 @@ LABEL_38:
       v22 = CVPixelBufferGetBaseAddressOfPlane(buffer, 1uLL);
       BytesPerRowOfPlane = CVPixelBufferGetBytesPerRowOfPlane(buffer, 0);
       v24 = CVPixelBufferGetBytesPerRowOfPlane(buffer, 1uLL);
-      if (v4->_vImage.height >= 2)
+      v25 = v4->_vImage.height;
+      if (v25 >= 2)
       {
-        v25 = 0;
-        v26 = v4->_vImage.data;
-        v27 = v4->_vImage.width;
+        v26 = 0;
+        v27 = v25 >> 1;
+        v28 = v4->_vImage.data;
+        v29 = v4->_vImage.width;
         do
         {
-          if (v27 >= 2)
+          if (v29 >= 2)
           {
-            v28 = 0;
-            v29 = &v22[v25 * v24];
-            v30 = &BaseAddressOfPlane[2 * v25 * BytesPerRowOfPlane];
-            v31 = v29;
+            v30 = &v22[v26 * v24];
+            v31 = &BaseAddressOfPlane[2 * v26 * BytesPerRowOfPlane];
+            v32 = v29 >> 1;
+            v33 = v30;
             do
             {
-              v32 = v30[1];
-              v33 = *v31;
-              v34 = v31[1];
-              *v26 = *v30;
-              v26[1] = v33;
-              v26[2] = v34;
-              v26[3] = v32;
-              v26[4] = v33;
-              v26[5] = v34;
-              ++v28;
-              v30 += 2;
+              v34 = *v33 << 16;
+              v35 = v33[1];
+              v36 = (v34 | (v31[1] << 8)) & 0xFFFFFF | (v35 << 24) | 0xFF;
+              *v28 = v34 | (*v31 << 8) | (v35 << 24) | 0xFF;
+              v28[1] = v36;
+              v28 += 2;
               v31 += 2;
-              v26 += 6;
-              v27 = v4->_vImage.width;
-            }
-
-            while (v28 < v27 >> 1);
-            if (v27 >= 2)
-            {
-              v35 = 0;
-              v36 = &BaseAddressOfPlane[((2 * v25) | 1) * BytesPerRowOfPlane];
-              do
-              {
-                v37 = v36[1];
-                v38 = *v29;
-                v39 = v29[1];
-                *v26 = *v36;
-                v26[1] = v38;
-                v26[2] = v39;
-                v26[3] = v37;
-                v26[4] = v38;
-                v26[5] = v39;
-                ++v35;
-                v36 += 2;
-                v29 += 2;
-                v26 += 6;
-                v27 = v4->_vImage.width;
-              }
-
-              while (v35 < v27 >> 1);
-            }
-          }
-
-          ++v25;
-        }
-
-        while (v25 < v4->_vImage.height >> 1);
-      }
-    }
-
-    v11 = v4;
-    CVPixelBufferUnlockBaseAddress(v4->_pixelBuffer, 0);
-  }
-
-  else
-  {
-    v10 = CROSLogForCategory(0);
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
-    {
-      LODWORD(v41) = 67109120;
-      DWORD1(v41) = v6;
-      _os_log_impl(&dword_1B40D2000, v10, OS_LOG_TYPE_FAULT, "[CRImage initYUV888WithCVPixelBuffer:] Unsupported pixel buffer type %08x", &v41, 8u);
-    }
-
-    v11 = 0;
-  }
-
-  CVPixelBufferRelease(v4->_pixelBuffer);
-  v4->_pixelBuffer = 0;
-
-  return v11;
-}
-
-- (id)initAYUV8888WithCVPixelBuffer:(__CVBuffer *)buffer
-{
-  v47 = *MEMORY[0x1E69E9840];
-  v4 = [(CRImage *)self init];
-  v4->_pixelBuffer = CVPixelBufferRetain(buffer);
-  PixelFormatType = CVPixelBufferGetPixelFormatType(buffer);
-  v6 = PixelFormatType;
-  if (PixelFormatType == 846624121 || PixelFormatType == 875704422)
-  {
-    v4->_isFullRange = PixelFormatType == 875704422;
-    CVPixelBufferLockBaseAddress(v4->_pixelBuffer, 0);
-    v7 = objc_opt_class();
-    Width = CVPixelBufferGetWidth(buffer);
-    Height = CVPixelBufferGetHeight(buffer);
-    if (v7)
-    {
-      [v7 allocateVImageBufferWithWidth:Width height:Height colorSpace:3];
-    }
-
-    else
-    {
-      v45 = 0u;
-      v46 = 0u;
-    }
-
-    v12 = v46;
-    *&v4->_vImage.data = v45;
-    *&v4->_vImage.width = v12;
-    v4->_vImageDataIsCopy = 1;
-    if (v6 == 846624121)
-    {
-      BaseAddress = CVPixelBufferGetBaseAddress(buffer);
-      BytesPerRow = CVPixelBufferGetBytesPerRow(buffer);
-      v15 = v4->_vImage.height;
-      if (v15)
-      {
-        v16 = 0;
-        data = v4->_vImage.data;
-        v18 = v4->_vImage.width;
-        do
-        {
-          if (v18 >= 2)
-          {
-            v19 = &BaseAddress[v16 * BytesPerRow];
-            v20 = v18 >> 1;
-            do
-            {
-              v21 = *v19;
-              v19 += 4;
-              HIDWORD(v22) = v21;
-              LODWORD(v22) = v21;
-              *data = v21 & 0xFF00 | (v21 << 16) & 0xFFFFFF | (BYTE2(v21) << 24) | 0xFF;
-              data[1] = (v22 >> 16) & 0xFFFF00 | (BYTE2(v21) << 24) | 0xFF;
-              data += 2;
-              --v20;
-            }
-
-            while (v20);
-          }
-
-          ++v16;
-        }
-
-        while (v16 != v15);
-      }
-    }
-
-    else
-    {
-      BaseAddressOfPlane = CVPixelBufferGetBaseAddressOfPlane(buffer, 0);
-      v24 = CVPixelBufferGetBaseAddressOfPlane(buffer, 1uLL);
-      BytesPerRowOfPlane = CVPixelBufferGetBytesPerRowOfPlane(buffer, 0);
-      v26 = CVPixelBufferGetBytesPerRowOfPlane(buffer, 1uLL);
-      v27 = v4->_vImage.height;
-      if (v27 >= 2)
-      {
-        v28 = 0;
-        v29 = v27 >> 1;
-        v30 = v4->_vImage.data;
-        v31 = v4->_vImage.width;
-        do
-        {
-          if (v31 >= 2)
-          {
-            v32 = &v24[v28 * v26];
-            v33 = &BaseAddressOfPlane[2 * v28 * BytesPerRowOfPlane];
-            v34 = v31 >> 1;
-            v35 = v32;
-            do
-            {
-              v36 = *v35 << 16;
-              v37 = v35[1];
-              v38 = (v36 | (v33[1] << 8)) & 0xFFFFFF | (v37 << 24) | 0xFF;
-              *v30 = v36 | (*v33 << 8) | (v37 << 24) | 0xFF;
-              v30[1] = v38;
-              v30 += 2;
               v33 += 2;
-              v35 += 2;
-              --v34;
+              --v32;
             }
 
-            while (v34);
-            v39 = &BaseAddressOfPlane[((2 * v28) | 1) * BytesPerRowOfPlane];
-            v40 = v31 >> 1;
+            while (v32);
+            v37 = &BaseAddressOfPlane[((2 * v26) | 1) * BytesPerRowOfPlane];
+            v38 = v29 >> 1;
             do
             {
-              v41 = *v32 << 16;
-              v42 = v32[1];
-              v43 = (v41 | (v39[1] << 8)) & 0xFFFFFF | (v42 << 24) | 0xFF;
-              *v30 = v41 | (*v39 << 8) | (v42 << 24) | 0xFF;
-              v30[1] = v43;
+              v39 = *v30 << 16;
+              v40 = v30[1];
+              v41 = (v39 | (v37[1] << 8)) & 0xFFFFFF | (v40 << 24) | 0xFF;
+              *v28 = v39 | (*v37 << 8) | (v40 << 24) | 0xFF;
+              v28[1] = v41;
+              v28 += 2;
+              v37 += 2;
               v30 += 2;
-              v39 += 2;
-              v32 += 2;
-              --v40;
+              --v38;
             }
 
-            while (v40);
+            while (v38);
           }
 
-          ++v28;
+          ++v26;
         }
 
-        while (v28 != v29);
+        while (v26 != v27);
       }
     }
 
-    v11 = v4;
+    v9 = v4;
     CVPixelBufferUnlockBaseAddress(v4->_pixelBuffer, 0);
   }
 
   else
   {
-    v10 = CROSLogForCategory(0);
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+    v8 = CROSLogForCategory(0);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
-      LODWORD(v45) = 67109120;
-      DWORD1(v45) = v6;
-      _os_log_impl(&dword_1B40D2000, v10, OS_LOG_TYPE_FAULT, "[CRImage initAYUV8888WithCVPixelBuffer:] Unsupported pixel buffer type %08x", &v45, 8u);
+      LODWORD(v43) = 67109120;
+      DWORD1(v43) = v6;
+      _os_log_impl(&dword_1B40D2000, v8, OS_LOG_TYPE_FAULT, "[CRImage initAYUV8888WithCVPixelBuffer:] Unsupported pixel buffer type %08x", &v43, 8u);
     }
 
-    v11 = 0;
+    v9 = 0;
   }
 
   CVPixelBufferRelease(v4->_pixelBuffer);
   v4->_pixelBuffer = 0;
 
-  return v11;
+  return v9;
 }
 
 - (CRImage)initWithCVPixelBuffer:(__CVBuffer *)buffer toColorSpace:(int)space forceDataCopy:(BOOL)copy
@@ -958,7 +958,6 @@ LABEL_16:
 
 - (CRImage)initWithCIImage:(id)image toColorSpace:(int)space
 {
-  v4 = *&space;
   v44 = *MEMORY[0x1E69E9840];
   imageCopy = image;
   if (imageCopy)
@@ -973,12 +972,12 @@ LABEL_16:
       v11 = v10;
       v13 = v12;
       v15 = v14;
-      self->_colorSpace = v4;
+      self->_colorSpace = space;
       self->_isFullRange = 1;
       v16 = objc_opt_class();
       if (v16)
       {
-        [v16 allocateVImageBufferWithWidth:v13 height:v15 colorSpace:v4];
+        objc_msgSend_allocateVImageBufferWithWidth_height_colorSpace_(v16);
       }
 
       else
@@ -990,15 +989,15 @@ LABEL_16:
       *&self->_vImage.data = *&src.data;
       *&self->_vImage.width = v18;
       self->_vImageDataIsCopy = 1;
-      if (v4)
+      if (space)
       {
         p_vImage = &self->_vImage;
-        if (v4 != 1)
+        if (space != 1)
         {
           v20 = objc_opt_class();
           if (v20)
           {
-            [v20 allocateVImageBufferWithWidth:self->_vImage.width height:self->_vImage.height colorSpace:1];
+            objc_msgSend_allocateVImageBufferWithWidth_height_colorSpace_(v20);
           }
 
           else
@@ -1019,7 +1018,7 @@ LABEL_16:
         [v32 render:imageCopy toBitmap:p_vImage->data rowBytes:p_vImage->rowBytes bounds:*MEMORY[0x1E695F8A0] format:DeviceRGB colorSpace:{v9, v11, v13, v15}];
 
         CGColorSpaceRelease(DeviceRGB);
-        if (v4 != 1)
+        if (space != 1)
         {
           [objc_opt_class() convertVImage:p_vImage inColorSpace:1 toVImage:&self->_vImage toColorSpace:self->_colorSpace];
           free(p_vImage->data);
@@ -1059,7 +1058,7 @@ LABEL_16:
         v24 = objc_opt_class();
         if (v24)
         {
-          [v24 allocateVImageBufferWithWidth:self->_vImage.width height:self->_vImage.height colorSpace:1];
+          objc_msgSend_allocateVImageBufferWithWidth_height_colorSpace_(v24);
         }
 
         else
@@ -1118,7 +1117,7 @@ void __40__CRImage_initWithCIImage_toColorSpace___block_invoke()
 - (CRImage)initWithMTLTexture:(id)texture toColorSpace:(int)space
 {
   v4 = *&space;
-  v25 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   textureCopy = texture;
   if (textureCopy)
   {
@@ -1131,49 +1130,49 @@ void __40__CRImage_initWithCIImage_toColorSpace___block_invoke()
         v7->_colorSpace = v4;
         v7->_isFullRange = 1;
         v8 = objc_opt_class();
-        width = [textureCopy width];
-        height = [textureCopy height];
+        [textureCopy width];
+        [textureCopy height];
         if (v8)
         {
-          [v8 allocateVImageBufferWithWidth:width height:height colorSpace:v4];
+          objc_msgSend_allocateVImageBufferWithWidth_height_colorSpace_(v8);
         }
 
         else
         {
-          v21 = 0u;
-          v22 = 0u;
+          v19 = 0u;
+          v20 = 0u;
         }
 
-        v12 = v22;
-        *&self->_vImage.data = v21;
-        *&self->_vImage.width = v12;
+        v10 = v20;
+        *&self->_vImage.data = v19;
+        *&self->_vImage.width = v10;
         self->_vImageDataIsCopy = 1;
         if ([textureCopy pixelFormat] == 10 || objc_msgSend(textureCopy, "pixelFormat") == 13 || objc_msgSend(textureCopy, "pixelFormat") == 70 || objc_msgSend(textureCopy, "pixelFormat") == 73)
         {
-          width2 = [textureCopy width];
-          height2 = [textureCopy height];
+          width = [textureCopy width];
+          height = [textureCopy height];
           data = self->_vImage.data;
           rowBytes = self->_vImage.rowBytes;
-          v21 = 0uLL;
-          *&v22 = 0;
-          *(&v22 + 1) = width2;
-          v23 = height2;
-          v24 = 1;
-          [textureCopy getBytes:data bytesPerRow:rowBytes fromRegion:&v21 mipmapLevel:0];
+          v19 = 0uLL;
+          *&v20 = 0;
+          *(&v20 + 1) = width;
+          v21 = height;
+          v22 = 1;
+          [textureCopy getBytes:data bytesPerRow:rowBytes fromRegion:&v19 mipmapLevel:0];
           selfCopy = self;
 LABEL_17:
-          v11 = selfCopy;
+          v9 = selfCopy;
           goto LABEL_18;
         }
       }
 
-      v18 = CROSLogForCategory(0);
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v16 = CROSLogForCategory(0);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        v19 = [objc_opt_class() nameForColorSpace:v4];
-        LODWORD(v21) = 138412290;
-        *(&v21 + 4) = v19;
-        _os_log_impl(&dword_1B40D2000, v18, OS_LOG_TYPE_ERROR, "[CRImage initWithMTLTexture:toColorSpace:] Unable to initialize from MTLTexture to color space %@", &v21, 0xCu);
+        v17 = [objc_opt_class() nameForColorSpace:v4];
+        LODWORD(v19) = 138412290;
+        *(&v19 + 4) = v17;
+        _os_log_impl(&dword_1B40D2000, v16, OS_LOG_TYPE_ERROR, "[CRImage initWithMTLTexture:toColorSpace:] Unable to initialize from MTLTexture to color space %@", &v19, 0xCu);
       }
     }
 
@@ -1181,10 +1180,10 @@ LABEL_17:
     goto LABEL_17;
   }
 
-  v11 = 0;
+  v9 = 0;
 LABEL_18:
 
-  return v11;
+  return v9;
 }
 
 - (void)runBlockWithARGB8888Image:(id)image blockOwnsMemory:(BOOL)memory
@@ -1202,7 +1201,7 @@ LABEL_18:
     v9 = objc_opt_class();
     if (v9)
     {
-      [v9 allocateVImageBufferWithWidth:self->_vImage.width height:self->_vImage.height colorSpace:1];
+      objc_msgSend_allocateVImageBufferWithWidth_height_colorSpace_(v9);
     }
 
     else
@@ -1404,7 +1403,7 @@ void __18__CRImage_ciImage__block_invoke(uint64_t a1, void *a2, uint64_t a3)
   retstr->height = [(CRImage *)self height];
   retstr->width = [(CRImage *)self width];
   retstr->rowBytes = 4 * [(CRImage *)self width];
-  [(CRImage *)self vImage:0];
+  objc_msgSend_vImage(self, 0, 0, 0, 0);
   return vImageConvert_Planar8toPlanarF(&v6, retstr, 1.0, 0.0, 0);
 }
 
@@ -1483,11 +1482,11 @@ void __18__CRImage_cgImage__block_invoke(uint64_t a1, void **a2, int a3)
   v3 = [[CRImage alloc] initWithWidth:[(CRImage *)self width] height:[(CRImage *)self height] colorSpace:0];
   width = [(CRImage *)self width];
   height = [(CRImage *)self height];
-  [(CRImage *)self vImage];
+  objc_msgSend_vImage(self);
   v6 = v22[0];
   if (v3)
   {
-    [(CRImage *)v3 vImage];
+    objc_msgSend_vImage(v3);
     v7 = v22[0];
   }
 
@@ -1553,11 +1552,11 @@ void __18__CRImage_cgImage__block_invoke(uint64_t a1, void **a2, int a3)
   v7 = [[CRImage alloc] initWithWidth:[(CRImage *)self width] height:[(CRImage *)self height] colorSpace:0];
   width = [(CRImage *)self width];
   height = [(CRImage *)self height];
-  [(CRImage *)self vImage];
+  objc_msgSend_vImage(self);
   v10 = v15;
   if (v7)
   {
-    [(CRImage *)v7 vImage];
+    objc_msgSend_vImage(v7);
     v11 = v15;
   }
 
@@ -1584,69 +1583,69 @@ void __18__CRImage_cgImage__block_invoke(uint64_t a1, void **a2, int a3)
 
 - (id)imageByRotating90CW
 {
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x2020000000;
-  v21 = 1;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x2020000000;
+  v19 = 1;
   bytesPerPixel = [(CRImage *)self bytesPerPixel];
   v4 = [[CRImage alloc] initWithWidth:[(CRImage *)self height] height:[(CRImage *)self width] colorSpace:self->_colorSpace];
   if (bytesPerPixel == 1)
   {
     v5 = vImageRotate90_Planar8(&self->_vImage, &v4->_vImage, 3u, 0, 0) == 0;
-    *(v19 + 24) = v5;
+    *(v17 + 24) = v5;
   }
 
   else
   {
-    *v16 = 0u;
-    v17 = 0u;
+    *v14 = 0u;
+    v15 = 0u;
     v6 = objc_opt_class();
-    width = [(CRImage *)v4 width];
-    height = [(CRImage *)v4 height];
+    [(CRImage *)v4 width];
+    [(CRImage *)v4 height];
     if (v6)
     {
-      [v6 allocateVImageBufferWithWidth:width height:height colorSpace:1];
+      objc_msgSend_allocateVImageBufferWithWidth_height_colorSpace_(v6);
     }
 
     else
     {
-      *v16 = 0u;
-      v17 = 0u;
+      *v14 = 0u;
+      v15 = 0u;
     }
 
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v14 = *v16;
-    v15 = v17;
-    v13[2] = __30__CRImage_imageByRotating90CW__block_invoke;
-    v13[3] = &unk_1E7BC3748;
-    v13[4] = &v18;
-    [(CRImage *)self runBlockWithARGB8888Image:v13 blockOwnsMemory:0];
-    if (*(v19 + 24) == 1)
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v12 = *v14;
+    v13 = v15;
+    v11[2] = __30__CRImage_imageByRotating90CW__block_invoke;
+    v11[3] = &unk_1E7BC3748;
+    v11[4] = &v16;
+    [(CRImage *)self runBlockWithARGB8888Image:v11 blockOwnsMemory:0];
+    if (*(v17 + 24) == 1)
     {
-      v9 = [objc_opt_class() convertVImage:v16 inColorSpace:1 toVImage:&v4->_vImage toColorSpace:v4->_colorSpace];
-      *(v19 + 24) = v9;
+      v7 = [objc_opt_class() convertVImage:v14 inColorSpace:1 toVImage:&v4->_vImage toColorSpace:v4->_colorSpace];
+      *(v17 + 24) = v7;
     }
 
-    free(v16[0]);
-    v5 = *(v19 + 24);
+    free(v14[0]);
+    v5 = *(v17 + 24);
   }
 
   if (v5)
   {
-    v10 = v4;
+    v8 = v4;
   }
 
   else
   {
-    v10 = 0;
+    v8 = 0;
   }
 
-  v11 = v10;
+  v9 = v8;
 
-  _Block_object_dispose(&v18, 8);
+  _Block_object_dispose(&v16, 8);
 
-  return v11;
+  return v9;
 }
 
 vImage_Error __30__CRImage_imageByRotating90CW__block_invoke(uint64_t a1, vImage_Buffer *src)
@@ -1658,69 +1657,69 @@ vImage_Error __30__CRImage_imageByRotating90CW__block_invoke(uint64_t a1, vImage
 
 - (id)imageByRotating180
 {
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x2020000000;
-  v21 = 1;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x2020000000;
+  v19 = 1;
   bytesPerPixel = [(CRImage *)self bytesPerPixel];
   v4 = [[CRImage alloc] initWithWidth:[(CRImage *)self width] height:[(CRImage *)self height] colorSpace:self->_colorSpace];
   if (bytesPerPixel == 1)
   {
     v5 = vImageRotate90_Planar8(&self->_vImage, &v4->_vImage, 2u, 0, 0) == 0;
-    *(v19 + 24) = v5;
+    *(v17 + 24) = v5;
   }
 
   else
   {
-    *v16 = 0u;
-    v17 = 0u;
+    *v14 = 0u;
+    v15 = 0u;
     v6 = objc_opt_class();
-    width = [(CRImage *)v4 width];
-    height = [(CRImage *)v4 height];
+    [(CRImage *)v4 width];
+    [(CRImage *)v4 height];
     if (v6)
     {
-      [v6 allocateVImageBufferWithWidth:width height:height colorSpace:1];
+      objc_msgSend_allocateVImageBufferWithWidth_height_colorSpace_(v6);
     }
 
     else
     {
-      *v16 = 0u;
-      v17 = 0u;
+      *v14 = 0u;
+      v15 = 0u;
     }
 
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v14 = *v16;
-    v15 = v17;
-    v13[2] = __29__CRImage_imageByRotating180__block_invoke;
-    v13[3] = &unk_1E7BC3748;
-    v13[4] = &v18;
-    [(CRImage *)self runBlockWithARGB8888Image:v13 blockOwnsMemory:0];
-    if (*(v19 + 24) == 1)
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v12 = *v14;
+    v13 = v15;
+    v11[2] = __29__CRImage_imageByRotating180__block_invoke;
+    v11[3] = &unk_1E7BC3748;
+    v11[4] = &v16;
+    [(CRImage *)self runBlockWithARGB8888Image:v11 blockOwnsMemory:0];
+    if (*(v17 + 24) == 1)
     {
-      v9 = [objc_opt_class() convertVImage:v16 inColorSpace:1 toVImage:&v4->_vImage toColorSpace:v4->_colorSpace];
-      *(v19 + 24) = v9;
+      v7 = [objc_opt_class() convertVImage:v14 inColorSpace:1 toVImage:&v4->_vImage toColorSpace:v4->_colorSpace];
+      *(v17 + 24) = v7;
     }
 
-    free(v16[0]);
-    v5 = *(v19 + 24);
+    free(v14[0]);
+    v5 = *(v17 + 24);
   }
 
   if (v5)
   {
-    v10 = v4;
+    v8 = v4;
   }
 
   else
   {
-    v10 = 0;
+    v8 = 0;
   }
 
-  v11 = v10;
+  v9 = v8;
 
-  _Block_object_dispose(&v18, 8);
+  _Block_object_dispose(&v16, 8);
 
-  return v11;
+  return v9;
 }
 
 vImage_Error __29__CRImage_imageByRotating180__block_invoke(uint64_t a1, vImage_Buffer *src)
@@ -1733,18 +1732,18 @@ vImage_Error __29__CRImage_imageByRotating180__block_invoke(uint64_t a1, vImage_
 - (id)imageByCorrectingFromOrientation:(unsigned int)orientation
 {
   v3 = *&orientation;
-  v20[1] = *MEMORY[0x1E69E9840];
-  v18 = 0;
+  v19[1] = *MEMORY[0x1E69E9840];
   v17 = 0;
-  [objc_opt_class() cgOrientation:*&orientation toVImageRotationMode:&v18 andReflection:&v17];
-  if (v18)
+  v16 = 0;
+  [objc_opt_class() cgOrientation:*&orientation toVImageRotationMode:&v17 andReflection:&v16];
+  if (v17)
   {
     v5 = 0;
   }
 
   else
   {
-    v5 = v17 == 0;
+    v5 = v16 == 0;
   }
 
   if (v5)
@@ -1756,29 +1755,28 @@ vImage_Error __29__CRImage_imageByRotating180__block_invoke(uint64_t a1, vImage_
   {
     v6 = [CRImage alloc];
     v7 = *&self->_vImage.width;
-    v15 = *&self->_vImage.data;
-    v16 = v7;
-    selfCopy = [(CRImage *)v6 initWithVImageBuffer:&v15 inColorSpace:self->_colorSpace];
+    v14 = *&self->_vImage.data;
+    v15 = v7;
+    selfCopy = [(CRImage *)v6 initWithVImageBuffer:&v14 inColorSpace:self->_colorSpace];
     v9 = objc_opt_class();
-    colorSpace = self->_colorSpace;
-    v19 = *MEMORY[0x1E696DE78];
-    v11 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v3];
-    v20[0] = v11;
-    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+    v18 = *MEMORY[0x1E696DE78];
+    v10 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v3];
+    v19[0] = v10;
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
     if (v9)
     {
-      [v9 applyEXIFTransformsOnImage:&selfCopy->_vImage inColorSpace:colorSpace properties:v12];
+      objc_msgSend_applyEXIFTransformsOnImage_inColorSpace_properties_(v9);
     }
 
     else
     {
+      v14 = 0u;
       v15 = 0u;
-      v16 = 0u;
     }
 
-    v13 = v16;
-    *&selfCopy->_vImage.data = v15;
-    *&selfCopy->_vImage.width = v13;
+    v12 = v15;
+    *&selfCopy->_vImage.data = v14;
+    *&selfCopy->_vImage.width = v12;
   }
 
   else
@@ -1810,7 +1808,7 @@ vImage_Error __29__CRImage_imageByRotating180__block_invoke(uint64_t a1, vImage_
     v10 = objc_opt_class();
     if (v10)
     {
-      [v10 allocateVImageBufferWithWidth:width height:height colorSpace:1];
+      objc_msgSend_allocateVImageBufferWithWidth_height_colorSpace_(v10);
     }
 
     else
@@ -2139,31 +2137,30 @@ _BYTE *__26__CRImage_imageByDilating__block_invoke(uint64_t a1)
 
 - (CRImage)initWithWidth:(unint64_t)width height:(unint64_t)height colorSpace:(int)space
 {
-  v5 = *&space;
-  v8 = [(CRImage *)self init];
-  v9 = v8;
-  if (v8)
+  v6 = [(CRImage *)self init];
+  v7 = v6;
+  if (v6)
   {
-    v8->_colorSpace = v5;
-    v8->_isFullRange = 1;
-    v10 = objc_opt_class();
-    if (v10)
+    v6->_colorSpace = space;
+    v6->_isFullRange = 1;
+    v8 = objc_opt_class();
+    if (v8)
     {
-      [v10 allocateVImageBufferWithWidth:width height:height colorSpace:v5];
+      objc_msgSend_allocateVImageBufferWithWidth_height_colorSpace_(v8);
     }
 
     else
     {
-      v12 = 0u;
-      v13 = 0u;
+      v10 = 0u;
+      v11 = 0u;
     }
 
-    *&v9->_vImage.data = v12;
-    *&v9->_vImage.width = v13;
-    v9->_vImageDataIsCopy = 1;
+    *&v7->_vImage.data = v10;
+    *&v7->_vImage.width = v11;
+    v7->_vImageDataIsCopy = 1;
   }
 
-  return v9;
+  return v7;
 }
 
 - (CRImage)initWithVImageBuffer:(vImage_Buffer *)buffer inColorSpace:(int)space toColorSpace:(int)colorSpace
@@ -2180,7 +2177,7 @@ _BYTE *__26__CRImage_imageByDilating__block_invoke(uint64_t a1)
     v11 = objc_opt_class();
     if (v11)
     {
-      [v11 allocateVImageBufferWithWidth:buffer->width height:buffer->height bytesPerPixel:v10];
+      objc_msgSend_allocateVImageBufferWithWidth_height_bytesPerPixel_(v11);
     }
 
     else
@@ -2223,7 +2220,7 @@ LABEL_9:
 
 - (CRImage)initWithFloatBuffer:(float *)buffer width:(unint64_t)width height:(unint64_t)height
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v8 = [(CRImage *)self init];
   v9 = v8;
   if (!v8)
@@ -2233,49 +2230,49 @@ LABEL_9:
 
   v8->_colorSpace = 0;
   v8->_isFullRange = 1;
-  v10 = [objc_opt_class() bytesPerPixelForColorSpace:v8->_colorSpace];
-  v11 = objc_opt_class();
-  if (v11)
+  [objc_opt_class() bytesPerPixelForColorSpace:v8->_colorSpace];
+  v10 = objc_opt_class();
+  if (v10)
   {
-    [v11 allocateVImageBufferWithWidth:width height:height bytesPerPixel:v10];
+    objc_msgSend_allocateVImageBufferWithWidth_height_bytesPerPixel_(v10);
   }
 
   else
   {
     *buf = 0u;
-    v22 = 0u;
+    v21 = 0u;
   }
 
-  v12 = v22;
+  v11 = v21;
   *&v9->_vImage.data = *buf;
-  *&v9->_vImage.width = v12;
+  *&v9->_vImage.width = v11;
   v9->_vImageDataIsCopy = 1;
   data = v9->_vImage.data;
-  v20 = 0;
-  CRConvertFloat32BufferToUInt8Buffer(buffer, data, height * width, &v20);
-  v14 = v20;
-  if (v14)
+  v19 = 0;
+  CRConvertFloat32BufferToUInt8Buffer(buffer, data, height * width, &v19);
+  v13 = v19;
+  if (v13)
   {
-    v15 = v14;
-    v16 = CROSLogForCategory(0);
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v14 = v13;
+    v15 = CROSLogForCategory(0);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      localizedDescription = [v15 localizedDescription];
+      localizedDescription = [v14 localizedDescription];
       *buf = 138412290;
       *&buf[4] = localizedDescription;
-      _os_log_impl(&dword_1B40D2000, v16, OS_LOG_TYPE_ERROR, "Failed to create image with float buffer: %@", buf, 0xCu);
+      _os_log_impl(&dword_1B40D2000, v15, OS_LOG_TYPE_ERROR, "Failed to create image with float buffer: %@", buf, 0xCu);
     }
 
-    v18 = 0;
+    v17 = 0;
   }
 
   else
   {
 LABEL_9:
-    v18 = v9;
+    v17 = v9;
   }
 
-  return v18;
+  return v17;
 }
 
 - (id)imageByCroppingRectangle:(CGRect)rectangle
@@ -2300,7 +2297,7 @@ LABEL_9:
   v12 = v23.size.height;
   v19 = 0u;
   v20 = 0u;
-  [(CRImage *)self vImage];
+  objc_msgSend_vImage(self);
   v13 = v19;
   v14 = *(&v20 + 1);
   *&v19 = v13 + v14 * v10 + [(CRImage *)self bytesPerPixel]* v9;
@@ -2318,39 +2315,39 @@ LABEL_9:
   width = rectangle.size.width;
   y = rectangle.origin.y;
   x = rectangle.origin.x;
-  v84 = *MEMORY[0x1E69E9840];
+  v82 = *MEMORY[0x1E69E9840];
   pointsCopy = points;
   width = [(CRImage *)self width];
   height = [(CRImage *)self height];
-  v88.size.width = width;
-  v88.size.height = height;
-  v88.origin.x = 0.0;
-  v88.origin.y = 0.0;
-  v86.origin.x = x;
-  v86.origin.y = y;
   v86.size.width = width;
   v86.size.height = height;
-  v87 = CGRectIntersection(v86, v88);
-  v68 = v87.origin.y;
-  v69 = v87.origin.x;
-  v70 = v87.size.width;
-  v71 = v87.size.height;
+  v86.origin.x = 0.0;
+  v86.origin.y = 0.0;
+  v84.origin.x = x;
+  v84.origin.y = y;
+  v84.size.width = width;
+  v84.size.height = height;
+  v85 = CGRectIntersection(v84, v86);
+  v66 = v85.origin.y;
+  v67 = v85.origin.x;
+  v68 = v85.size.width;
+  v69 = v85.size.height;
   angleInRadians = radians;
   v15 = __sincosf_stret(radians);
   v16 = malloc_type_calloc([pointsCopy count], 0x10uLL, 0x1000040451B5BE8uLL);
   roiCopy = roi;
-  v81 = 0u;
-  v82 = 0u;
   v79 = 0u;
   v80 = 0u;
+  v77 = 0u;
+  v78 = 0u;
   v17 = pointsCopy;
-  v18 = [v17 countByEnumeratingWithState:&v79 objects:v83 count:16];
+  v18 = [v17 countByEnumeratingWithState:&v77 objects:v81 count:16];
   if (v18)
   {
     v19 = 0;
     v20 = width * 0.5;
     v21 = height * 0.5;
-    v22 = *v80;
+    v22 = *v78;
     cosval = v15.__cosval;
     v24 = -v15.__sinval;
     do
@@ -2359,12 +2356,12 @@ LABEL_9:
       v26 = &v16[v19].i64[1];
       do
       {
-        if (*v80 != v22)
+        if (*v78 != v22)
         {
           objc_enumerationMutation(v17);
         }
 
-        [*(*(&v79 + 1) + 8 * v25) pointValue];
+        [*(*(&v77 + 1) + 8 * v25) pointValue];
         v28 = v27;
         v30 = v29;
         width2 = [(CRImage *)self width];
@@ -2381,7 +2378,7 @@ LABEL_9:
       }
 
       while (v18 != v25);
-      v18 = [v17 countByEnumeratingWithState:&v79 objects:v83 count:16];
+      v18 = [v17 countByEnumeratingWithState:&v77 objects:v81 count:16];
     }
 
     while (v18);
@@ -2414,28 +2411,27 @@ LABEL_9:
 
   else
   {
-    [(CRImage *)self vImage];
+    objc_msgSend_vImage(self);
     src = dest;
     BaseAddress = dest.data;
     BytesPerRow = dest.rowBytes;
   }
 
-  v43 = v68;
-  v44 = [(CRImage *)self bytesPerPixel]* v69;
+  v43 = v66;
+  v44 = [(CRImage *)self bytesPerPixel]* v67;
   v45 = &BaseAddress[BytesPerRow * v43 + v44];
-  v46 = v70;
-  v47 = v71;
+  v46 = v68;
+  v47 = v69;
   src.data = v45;
   src.height = v47;
   src.width = v46;
-  v48 = [objc_opt_class() bytesPerPixelForColorSpace:{-[CRImage colorSpace](self, "colorSpace")}];
+  [objc_opt_class() bytesPerPixelForColorSpace:{-[CRImage colorSpace](self, "colorSpace")}];
   memset(&dest, 0, sizeof(dest));
-  v49 = objc_opt_class();
-  v50 = vcvtq_u64_f64(vcvtq_f64_f32(vsub_f32(v39, v38)));
-  v72 = v50;
-  if (v49)
+  v48 = objc_opt_class();
+  v70 = vcvtq_u64_f64(vcvtq_f64_f32(vsub_f32(v39, v38)));
+  if (v48)
   {
-    [v49 allocateVImageBufferWithWidth:v50.i64[1] height:v50.i64[0] bytesPerPixel:v48];
+    objc_msgSend_allocateVImageBufferWithWidth_height_bytesPerPixel_(v48);
   }
 
   else
@@ -2443,54 +2439,54 @@ LABEL_9:
     memset(&dest, 0, sizeof(dest));
   }
 
-  v51 = 0;
+  v49 = 0;
   if (v46)
   {
-    v52 = &BaseAddress[v44 + BytesPerRow * (v47 + v43 - 1)];
-    v53 = v70;
-    v54 = angleInRadians;
+    v50 = &BaseAddress[v44 + BytesPerRow * (v47 + v43 - 1)];
+    v51 = v68;
+    v52 = angleInRadians;
     do
     {
-      v55 = *v45++;
-      v56 = v51 + v55;
-      v57 = *v52++;
-      v51 = v56 + v57;
-      --v53;
+      v53 = *v45++;
+      v54 = v49 + v53;
+      v55 = *v50++;
+      v49 = v54 + v55;
+      --v51;
     }
 
-    while (v53);
+    while (v51);
   }
 
   else
   {
-    v54 = angleInRadians;
+    v52 = angleInRadians;
   }
 
   if (v47 - 1 >= 2)
   {
-    v58 = v47 - 2;
-    v59 = &BaseAddress[v44 + BytesPerRow + BytesPerRow * v43];
+    v56 = v47 - 2;
+    v57 = &BaseAddress[v44 + BytesPerRow + BytesPerRow * v43];
     do
     {
-      v51 += *v59 + v59[v46 - 1];
-      v59 += BytesPerRow;
-      --v58;
+      v49 += *v57 + v57[v46 - 1];
+      v57 += BytesPerRow;
+      --v56;
     }
 
-    while (v58);
+    while (v56);
   }
 
   if (2 * (v47 + v46) == 4)
   {
-    LOBYTE(v60) = 0;
+    LOBYTE(v58) = 0;
   }
 
   else
   {
-    v60 = v51 / (2 * (v47 + v46) - 4);
+    v58 = v49 / (2 * (v47 + v46) - 4);
   }
 
-  vImageRotate_Planar8(&src, &dest, 0, v54, v60, 0);
+  vImageRotate_Planar8(&src, &dest, 0, v52, v58, 0);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -2499,21 +2495,21 @@ LABEL_9:
 
   if (roiCopy)
   {
-    v61 = vcvtq_f64_f32(v38);
-    v62 = vcvtq_f64_u64(v72);
-    *roiCopy = vextq_s8(v61, v61, 8uLL);
-    roiCopy[1] = vextq_s8(v62, v62, 8uLL);
+    v59 = vcvtq_f64_f32(v38);
+    v60 = vcvtq_f64_u64(v70);
+    *roiCopy = vextq_s8(v59, v59, 8uLL);
+    roiCopy[1] = vextq_s8(v60, v60, 8uLL);
   }
 
   data = dest.data;
   [(CRImage *)self bytesPerPixel];
-  v74 = data;
-  v75 = vshrq_n_s64(vshlq_n_s64(v72, 0x20uLL), 0x20uLL);
+  v72 = data;
+  v73 = vshrq_n_s64(vshlq_n_s64(v70, 0x20uLL), 0x20uLL);
   rowBytes = dest.rowBytes;
-  v64 = [[CRImage alloc] initWithVImageBuffer:&v74 inColorSpace:[(CRImage *)self colorSpace]];
+  v62 = [[CRImage alloc] initWithVImageBuffer:&v72 inColorSpace:[(CRImage *)self colorSpace]];
   free(dest.data);
 
-  return v64;
+  return v62;
 }
 
 - (CGRect)rotatedRoiByCroppingRectangle:(CGRect)rectangle textFeaturePoints:(id)points radians:(float)radians
@@ -2608,38 +2604,38 @@ LABEL_9:
   y = rectangle.origin.y;
   x = rectangle.origin.x;
   width = [(CRImage *)self width];
-  v30.size.height = [(CRImage *)self height];
-  v30.origin.x = 0.0;
-  v30.origin.y = 0.0;
-  v28.origin.x = x;
-  v28.origin.y = y;
+  v28.size.height = [(CRImage *)self height];
+  v28.origin.x = 0.0;
+  v28.origin.y = 0.0;
+  v26.origin.x = x;
+  v26.origin.y = y;
+  v26.size.width = width;
+  v26.size.height = height;
   v28.size.width = width;
-  v28.size.height = height;
-  v30.size.width = width;
-  v29 = CGRectIntersection(v28, v30);
-  v15 = v29.origin.x;
-  v16 = v29.size.width;
-  v17 = v29.size.height;
+  v27 = CGRectIntersection(v26, v28);
+  v14 = v27.origin.x;
+  v15 = v27.size.width;
+  v16 = v27.size.height;
   *&src.width = 0u;
-  [(CRImage *)self vImage];
-  src.data = ([(CRImage *)self bytesPerPixel]* v15);
-  src.height = v17;
-  src.width = v16;
+  objc_msgSend_vImage(self);
+  src.data = ([(CRImage *)self bytesPerPixel]* v14);
+  src.height = v16;
+  src.width = v15;
   if (src.height <= height)
   {
-    v20 = [CRImage alloc];
+    v18 = [CRImage alloc];
     dest = src;
-    v21 = [(CRImage *)v20 initWithVImageBuffer:&dest inColorSpace:[(CRImage *)self colorSpace]];
+    v19 = [(CRImage *)v18 initWithVImageBuffer:&dest inColorSpace:[(CRImage *)self colorSpace]];
   }
 
   else
   {
     memset(&dest, 0, sizeof(dest));
-    v18 = objc_opt_class();
-    bytesPerPixel = [(CRImage *)self bytesPerPixel];
-    if (v18)
+    v17 = objc_opt_class();
+    [(CRImage *)self bytesPerPixel];
+    if (v17)
     {
-      [v18 allocateVImageBufferWithWidth:width height:height bytesPerPixel:bytesPerPixel];
+      objc_msgSend_allocateVImageBufferWithWidth_height_bytesPerPixel_(v17);
     }
 
     else
@@ -2648,64 +2644,64 @@ LABEL_9:
     }
 
     vImageRotate_Planar8(&src, &dest, 0, angle, 0, 0);
-    v22 = [CRImage alloc];
-    v21 = [(CRImage *)v22 initWithVImageBuffer:&v24 inColorSpace:[(CRImage *)self colorSpace:dest.data]];
+    v20 = [CRImage alloc];
+    v19 = [(CRImage *)v20 initWithVImageBuffer:&v22 inColorSpace:[(CRImage *)self colorSpace:dest.data]];
     if (dest.data)
     {
       free(dest.data);
     }
   }
 
-  return v21;
+  return v19;
 }
 
 - (id)imageByRectifyingRegion:(id)region toColorSpace:(int)space homography:(id *)homography
 {
   v6 = *&space;
-  v67[4] = *MEMORY[0x1E69E9840];
+  v66[4] = *MEMORY[0x1E69E9840];
   regionCopy = region;
   v9 = [objc_alloc(MEMORY[0x1E695F658]) initWithCVPixelBuffer:{-[CRImage pixelBuffer](self, "pixelBuffer")}];
-  v66[0] = @"inputTopLeft";
+  v65[0] = @"inputTopLeft";
   [regionCopy topLeft];
   v11 = v10;
   v13 = v12;
   [(CRImage *)self size];
   v16 = CIImageCoordinateFromCGPoint(v11, v13, v14, v15);
-  v67[0] = v16;
-  v66[1] = @"inputTopRight";
+  v66[0] = v16;
+  v65[1] = @"inputTopRight";
   [regionCopy topRight];
   v18 = v17;
   v20 = v19;
   [(CRImage *)self size];
   v23 = CIImageCoordinateFromCGPoint(v18, v20, v21, v22);
-  v67[1] = v23;
-  v66[2] = @"inputBottomRight";
+  v66[1] = v23;
+  v65[2] = @"inputBottomRight";
   [regionCopy bottomRight];
   v25 = v24;
   v27 = v26;
   [(CRImage *)self size];
   v30 = CIImageCoordinateFromCGPoint(v25, v27, v28, v29);
-  v67[2] = v30;
-  v66[3] = @"inputBottomLeft";
+  v66[2] = v30;
+  v65[3] = @"inputBottomLeft";
   [regionCopy bottomLeft];
   v32 = v31;
   v34 = v33;
   [(CRImage *)self size];
   v37 = CIImageCoordinateFromCGPoint(v32, v34, v35, v36);
-  v67[3] = v37;
-  v38 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v67 forKeys:v66 count:4];
+  v66[3] = v37;
+  v38 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v66 forKeys:v65 count:4];
   v39 = [v9 imageByApplyingFilter:@"CIPerspectiveCorrection" withInputParameters:v38];
 
   v40 = [[CRImage alloc] initWithCIImage:v39 toColorSpace:v6];
   if (homography)
   {
-    v62[0] = 0;
-    v62[1] = 0;
+    v61[8] = 0;
+    v61[9] = 0;
     __asm { FMOV            V1.2D, #1.0 }
 
-    v63 = xmmword_1B42AF250;
-    v64 = _Q1;
-    v65 = xmmword_1B42AF260;
+    v62 = xmmword_1B42AF250;
+    v63 = _Q1;
+    v64 = xmmword_1B42AF260;
     [regionCopy topLeft];
     [regionCopy topRight];
     v61[2] = v48;
@@ -2716,7 +2712,7 @@ LABEL_9:
     [regionCopy bottomLeft];
     v61[6] = v52;
     v61[7] = v53;
-    v54 = computeHomographyMatrix(v61, v62);
+    v54 = computeHomographyMatrix(v61);
     *(homography + 2) = v55;
     *(homography + 6) = v56;
     *homography = v54;
@@ -2777,12 +2773,12 @@ LABEL_9:
 - (id)imageByInvertingIntensity
 {
   v3 = [CRImage alloc];
-  [(CRImage *)self vImage];
+  objc_msgSend_vImage(self);
   v4 = [(CRImage *)v3 initWithVImageBuffer:v12 inColorSpace:0];
   v5 = v4;
   if (v4)
   {
-    [(CRImage *)v4 vImage];
+    objc_msgSend_vImage(v4);
     v6 = v12[0];
   }
 
@@ -2827,7 +2823,7 @@ LABEL_9:
 + (vImage_Buffer)applyEXIFTransformsOnImage:(SEL)image inColorSpace:(const vImage_Buffer *)space properties:(int)properties
 {
   v6 = *&properties;
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v8 = *&space->width;
   *&retstr->data = *&space->data;
   *&retstr->width = v8;
@@ -2835,12 +2831,12 @@ LABEL_9:
   v10 = v9;
   if (!v9)
   {
-    goto LABEL_34;
+    goto LABEL_33;
   }
 
   rotationConstant = 0;
-  v24 = 0;
-  [objc_opt_class() cgOrientation:objc_msgSend(v9 toVImageRotationMode:"intValue") andReflection:{&rotationConstant, &v24}];
+  v23 = 0;
+  [objc_opt_class() cgOrientation:objc_msgSend(v9 toVImageRotationMode:"intValue") andReflection:{&rotationConstant, &v23}];
   v11 = [objc_opt_class() bytesPerPixelForColorSpace:v6];
   v12 = v11;
   if (v11 != 1 && v11 != 4)
@@ -2854,7 +2850,7 @@ LABEL_9:
       _os_log_impl(&dword_1B40D2000, v15, OS_LOG_TYPE_ERROR, "[CRImage applyEXIFTransformsOnImage:inColorSpace:properties:] Color space %@ not supported. Only color spaces with 1 or 4 bytes per pixel are supported.", &buf, 0xCu);
     }
 
-    goto LABEL_34;
+    goto LABEL_33;
   }
 
   if (rotationConstant)
@@ -2864,11 +2860,10 @@ LABEL_9:
     *&buf.width = v13;
     if (rotationConstant)
     {
-      v17 = objc_opt_class();
-      if (v17)
+      v14 = objc_opt_class();
+      if (v14)
       {
-        [v17 allocateVImageBufferWithWidth:buf.height height:buf.width bytesPerPixel:v12];
-        goto LABEL_14;
+        goto LABEL_7;
       }
     }
 
@@ -2877,10 +2872,11 @@ LABEL_9:
       v14 = objc_opt_class();
       if (v14)
       {
-        [v14 allocateVImageBufferWithWidth:buf.width height:buf.height bytesPerPixel:v12];
-LABEL_14:
-        *&retstr->data = v22;
-        *&retstr->width = v23;
+LABEL_7:
+        objc_msgSend_allocateVImageBufferWithWidth_height_bytesPerPixel_(v14);
+LABEL_13:
+        *&retstr->data = v21;
+        *&retstr->width = v22;
         if (v12 == 1)
         {
           vImageRotate90_Planar8(&buf, retstr, rotationConstant, 0, 0);
@@ -2892,37 +2888,37 @@ LABEL_14:
         }
 
         free(buf.data);
-        goto LABEL_18;
+        goto LABEL_17;
       }
     }
 
+    v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
-    goto LABEL_14;
+    goto LABEL_13;
   }
 
-LABEL_18:
-  if (v24)
+LABEL_17:
+  if (v23)
   {
-    v18 = *&retstr->width;
+    v17 = *&retstr->width;
     *&buf.data = *&retstr->data;
-    *&buf.width = v18;
-    if (v24 == 2)
+    *&buf.width = v17;
+    if (v23 == 2)
     {
-      v20 = objc_opt_class();
-      if (v20)
+      v19 = objc_opt_class();
+      if (v19)
       {
-        [v20 allocateVImageBufferWithWidth:buf.width height:buf.height bytesPerPixel:v12];
+        objc_msgSend_allocateVImageBufferWithWidth_height_bytesPerPixel_(v19);
       }
 
       else
       {
+        v21 = 0u;
         v22 = 0u;
-        v23 = 0u;
       }
 
-      *&retstr->data = v22;
-      *&retstr->width = v23;
+      *&retstr->data = v21;
+      *&retstr->width = v22;
       if (v12 == 1)
       {
         vImageHorizontalReflect_Planar8(&buf, retstr, 0);
@@ -2933,25 +2929,25 @@ LABEL_18:
         vImageHorizontalReflect_ARGB8888(&buf, retstr, 0);
       }
 
-      goto LABEL_33;
+      goto LABEL_32;
     }
 
-    if (v24 == 1)
+    if (v23 == 1)
     {
-      v19 = objc_opt_class();
-      if (v19)
+      v18 = objc_opt_class();
+      if (v18)
       {
-        [v19 allocateVImageBufferWithWidth:buf.width height:buf.height bytesPerPixel:v12];
+        objc_msgSend_allocateVImageBufferWithWidth_height_bytesPerPixel_(v18);
       }
 
       else
       {
+        v21 = 0u;
         v22 = 0u;
-        v23 = 0u;
       }
 
-      *&retstr->data = v22;
-      *&retstr->width = v23;
+      *&retstr->data = v21;
+      *&retstr->width = v22;
       if (v12 == 1)
       {
         vImageVerticalReflect_Planar8(&buf, retstr, 0);
@@ -2962,12 +2958,12 @@ LABEL_18:
         vImageVerticalReflect_ARGB8888(&buf, retstr, 0);
       }
 
-LABEL_33:
+LABEL_32:
       free(buf.data);
     }
   }
 
-LABEL_34:
+LABEL_33:
 
   return result;
 }
@@ -2980,118 +2976,118 @@ LABEL_34:
   if (!v9)
   {
 LABEL_27:
-    v15 = v9;
+    v13 = v9;
     goto LABEL_28;
   }
 
-  Width = CGImageGetWidth(image);
-  Height = CGImageGetHeight(image);
-  v33 = 0u;
-  v34 = 0u;
-  v12 = objc_opt_class();
-  if (v12)
+  CGImageGetWidth(image);
+  CGImageGetHeight(image);
+  v31 = 0u;
+  v32 = 0u;
+  v10 = objc_opt_class();
+  if (v10)
   {
-    [v12 allocateVImageBufferWithWidth:Width height:Height colorSpace:1];
+    objc_msgSend_allocateVImageBufferWithWidth_height_colorSpace_(v10);
   }
 
   else
   {
-    v33 = 0u;
-    v34 = 0u;
+    v31 = 0u;
+    v32 = 0u;
   }
 
   DeviceRGB = CGColorSpaceCreateDeviceRGB();
-  v32 = 0;
-  v28[0] = 0x2000000008;
-  v28[1] = DeviceRGB;
-  v29 = 4;
   v30 = 0;
-  v31 = 0;
-  v14 = MEMORY[0x1B8C752A0](&v33, v28, 0, image, 512);
+  v26[0] = 0x2000000008;
+  v26[1] = DeviceRGB;
+  v27 = 4;
+  v28 = 0;
+  v29 = 0;
+  v12 = MEMORY[0x1B8C752A0](&v31, v26, 0, image, 512);
   CGColorSpaceRelease(DeviceRGB);
-  if (v14)
+  if (v12)
   {
     goto LABEL_6;
   }
 
-  v16 = [objc_opt_class() bytesPerPixelForColorSpace:v5];
-  v17 = v16;
-  if (v16 != 1 && v16 != 4)
+  v14 = [objc_opt_class() bytesPerPixelForColorSpace:v5];
+  v15 = v14;
+  if (v14 != 1 && v14 != 4)
   {
-    v18 = objc_opt_class();
-    if (v18)
+    v16 = objc_opt_class();
+    if (v16)
     {
-      [v18 applyEXIFTransformsOnImage:&v33 inColorSpace:1 properties:propertiesCopy];
+      objc_msgSend_applyEXIFTransformsOnImage_inColorSpace_properties_(v16);
     }
 
     else
     {
-      *v26 = 0u;
-      v27 = 0u;
+      *v24 = 0u;
+      v25 = 0u;
     }
 
-    v33 = *v26;
-    v34 = v27;
+    v31 = *v24;
+    v32 = v25;
   }
 
   if (v5 == 1)
   {
-    *v26 = v33;
-    v27 = v34;
+    *v24 = v31;
+    v25 = v32;
 LABEL_19:
-    if (v17 == 4 || v17 == 1)
+    if (v15 == 4 || v15 == 1)
     {
-      v21 = objc_opt_class();
-      if (v21)
+      v19 = objc_opt_class();
+      if (v19)
       {
-        [v21 applyEXIFTransformsOnImage:v26 inColorSpace:v5 properties:propertiesCopy];
+        objc_msgSend_applyEXIFTransformsOnImage_inColorSpace_properties_(v19);
       }
 
       else
       {
-        v24 = 0u;
-        v25 = 0u;
+        v22 = 0u;
+        v23 = 0u;
       }
 
-      *v26 = v24;
-      v27 = v25;
+      *v24 = v22;
+      v25 = v23;
     }
 
     v9->_colorSpace = v5;
     *&v9->_isFullRange = 257;
-    v22 = v27;
-    *&v9->_vImage.data = *v26;
-    *&v9->_vImage.width = v22;
+    v20 = v25;
+    *&v9->_vImage.data = *v24;
+    *&v9->_vImage.width = v20;
     goto LABEL_27;
   }
 
-  v19 = objc_opt_class();
-  if (v19)
+  v17 = objc_opt_class();
+  if (v17)
   {
-    [v19 allocateVImageBufferWithWidth:Width height:Height colorSpace:v5];
+    objc_msgSend_allocateVImageBufferWithWidth_height_colorSpace_(v17);
   }
 
   else
   {
-    v24 = 0u;
-    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
   }
 
-  *v26 = v24;
-  v27 = v25;
-  v20 = [objc_opt_class() convertVImage:&v33 inColorSpace:1 toVImage:v26 toColorSpace:v5];
-  free(v33);
-  if (v20)
+  *v24 = v22;
+  v25 = v23;
+  v18 = [objc_opt_class() convertVImage:&v31 inColorSpace:1 toVImage:v24 toColorSpace:v5];
+  free(v31);
+  if (v18)
   {
     goto LABEL_19;
   }
 
-  free(v26[0]);
+  free(v24[0]);
 LABEL_6:
-  v15 = 0;
+  v13 = 0;
 LABEL_28:
 
-  return v15;
+  return v13;
 }
 
 - (CRImage)initWithContentsOfURL:(id)l toColorSpace:(int)space
@@ -3190,7 +3186,7 @@ LABEL_28:
         v16 = objc_opt_class();
         if (v16)
         {
-          [v16 allocateVImageBufferWithWidth:image->width height:image->height colorSpace:4];
+          objc_msgSend_allocateVImageBufferWithWidth_height_colorSpace_(v16);
         }
 
         else
@@ -3215,7 +3211,7 @@ LABEL_28:
         v23 = objc_opt_class();
         if (v23)
         {
-          [v23 allocateVImageBufferWithWidth:image->width height:image->height bytesPerPixel:1];
+          objc_msgSend_allocateVImageBufferWithWidth_height_bytesPerPixel_(v23);
         }
 
         else
@@ -3227,7 +3223,7 @@ LABEL_28:
         v26 = objc_opt_class();
         if (v26)
         {
-          [v26 allocateVImageBufferWithWidth:image->width height:image->height bytesPerPixel:1];
+          objc_msgSend_allocateVImageBufferWithWidth_height_bytesPerPixel_(v26);
         }
 
         else
@@ -3330,7 +3326,7 @@ LABEL_3:
       v22 = objc_opt_class();
       if (v22)
       {
-        [v22 allocateVImageBufferWithWidth:image->width height:image->height colorSpace:1];
+        objc_msgSend_allocateVImageBufferWithWidth_height_colorSpace_(v22);
       }
 
       else
@@ -3624,7 +3620,7 @@ LABEL_68:
   v6 = imageCopy;
   if (imageCopy)
   {
-    [imageCopy vImage];
+    objc_msgSend_vImage(imageCopy);
     v7 = v11;
   }
 

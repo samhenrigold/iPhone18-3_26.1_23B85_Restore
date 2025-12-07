@@ -18,7 +18,7 @@
   if (v5)
   {
     v5->_animate = [otherCopy animate];
-    [otherCopy duration];
+    objc_msgSend_duration(otherCopy);
     v5->_duration = v6;
     [otherCopy syncTimeout];
     v5->_syncTimeout = v7;
@@ -65,7 +65,7 @@
 {
   optionsCopy = options;
   animate = self->_animate;
-  if (animate == [optionsCopy animate] && (duration = self->_duration, objc_msgSend(optionsCopy, "duration"), duration == v7))
+  if (animate == [optionsCopy animate] && (duration = self->_duration, objc_msgSend_duration(optionsCopy), duration == v7))
   {
     timingProvider = self->_timingProvider;
     timingProvider = [optionsCopy timingProvider];

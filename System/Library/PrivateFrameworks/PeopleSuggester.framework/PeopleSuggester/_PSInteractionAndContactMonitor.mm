@@ -55,49 +55,49 @@
   block[1] = 3221225472;
   block[2] = __73___PSInteractionAndContactMonitor_initWithInteractionStore_contactStore___block_invoke;
   block[3] = &unk_1E7C25710;
-  objc_copyWeak(&v29, location);
+  objc_copyWeak(&v30, location);
   v17 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, block);
   defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
-  v32 = 0;
-  v33 = &v32;
-  v34 = 0x2020000000;
+  v33 = 0;
+  v34 = &v33;
+  v35 = 0x2020000000;
   v19 = getCNContactStoreDidChangeNotificationSymbolLoc_ptr;
-  v35 = getCNContactStoreDidChangeNotificationSymbolLoc_ptr;
+  v36 = getCNContactStoreDidChangeNotificationSymbolLoc_ptr;
   if (!getCNContactStoreDidChangeNotificationSymbolLoc_ptr)
   {
     location[1] = MEMORY[0x1E69E9820];
     location[2] = 3221225472;
     location[3] = __getCNContactStoreDidChangeNotificationSymbolLoc_block_invoke;
     location[4] = &unk_1E7C23BF0;
-    v31 = &v32;
+    v32 = &v33;
     v20 = ContactsLibrary_1();
     v21 = dlsym(v20, "CNContactStoreDidChangeNotification");
-    *(v31[1] + 24) = v21;
-    getCNContactStoreDidChangeNotificationSymbolLoc_ptr = *(v31[1] + 24);
-    v19 = v33[3];
+    *(v32[1] + 24) = v21;
+    getCNContactStoreDidChangeNotificationSymbolLoc_ptr = *(v32[1] + 24);
+    v19 = v34[3];
   }
 
-  _Block_object_dispose(&v32, 8);
+  _Block_object_dispose(&v33, 8);
   if (v19)
   {
     v22 = *v19;
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = __73___PSInteractionAndContactMonitor_initWithInteractionStore_contactStore___block_invoke_2;
-    v26[3] = &unk_1E7C25738;
+    v27[0] = MEMORY[0x1E69E9820];
+    v27[1] = 3221225472;
+    v27[2] = __73___PSInteractionAndContactMonitor_initWithInteractionStore_contactStore___block_invoke_2;
+    v27[3] = &unk_1E7C25738;
     v23 = v17;
-    v27 = v23;
-    v24 = [defaultCenter addObserverForName:v22 object:0 queue:0 usingBlock:v26];
+    v28 = v23;
+    v24 = [defaultCenter addObserverForName:v22 object:0 queue:0 usingBlock:v27];
 
-    objc_destroyWeak(&v29);
+    objc_destroyWeak(&v30);
     objc_destroyWeak(location);
 LABEL_6:
 
     return v10;
   }
 
-  dlerror();
-  result = abort_report_np();
+  v26 = dlerror();
+  result = abort_report_np("%s", v26);
   __break(1u);
   return result;
 }
@@ -117,7 +117,7 @@ LABEL_6:
 
 - (void)populateContactIdCachesWithMessageCache:(id)cache shareCache:(id)shareCache
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   cacheCopy = cache;
   shareCacheCopy = shareCache;
   defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
@@ -126,54 +126,54 @@ LABEL_6:
 
   if (!contactIdsSeen)
   {
-    v29 = interactionStore;
-    v30 = defaultCenter;
+    v28 = interactionStore;
+    v29 = defaultCenter;
     selfCopy = self;
     v11 = objc_opt_new();
-    v33 = cacheCopy;
+    v32 = cacheCopy;
     interactions = [cacheCopy interactions];
-    v32 = shareCacheCopy;
+    v31 = shareCacheCopy;
     interactions2 = [shareCacheCopy interactions];
-    v28 = interactions;
+    v27 = interactions;
     [interactions arrayByAddingObjectsFromArray:?];
+    v38 = 0u;
     v39 = 0u;
     v40 = 0u;
-    v41 = 0u;
-    obj = v42 = 0u;
-    v13 = [obj countByEnumeratingWithState:&v39 objects:v44 count:16];
+    obj = v41 = 0u;
+    v13 = [obj countByEnumeratingWithState:&v38 objects:v43 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v40;
+      v15 = *v39;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v40 != v15)
+          if (*v39 != v15)
           {
             objc_enumerationMutation(obj);
           }
 
-          recipients = [*(*(&v39 + 1) + 8 * i) recipients];
+          recipients = [*(*(&v38 + 1) + 8 * i) recipients];
+          v34 = 0u;
           v35 = 0u;
           v36 = 0u;
           v37 = 0u;
-          v38 = 0u;
-          v18 = [recipients countByEnumeratingWithState:&v35 objects:v43 count:16];
+          v18 = [recipients countByEnumeratingWithState:&v34 objects:v42 count:16];
           if (v18)
           {
             v19 = v18;
-            v20 = *v36;
+            v20 = *v35;
             do
             {
               for (j = 0; j != v19; ++j)
               {
-                if (*v36 != v20)
+                if (*v35 != v20)
                 {
                   objc_enumerationMutation(recipients);
                 }
 
-                v22 = *(*(&v35 + 1) + 8 * j);
+                v22 = *(*(&v34 + 1) + 8 * j);
                 personId = [v22 personId];
 
                 if (personId)
@@ -183,14 +183,14 @@ LABEL_6:
                 }
               }
 
-              v19 = [recipients countByEnumeratingWithState:&v35 objects:v43 count:16];
+              v19 = [recipients countByEnumeratingWithState:&v34 objects:v42 count:16];
             }
 
             while (v19);
           }
         }
 
-        v14 = [obj countByEnumeratingWithState:&v39 objects:v44 count:16];
+        v14 = [obj countByEnumeratingWithState:&v38 objects:v43 count:16];
       }
 
       while (v14);
@@ -202,12 +202,12 @@ LABEL_6:
     [(_PSInteractionAndContactMonitor *)selfCopy setContactIdsSeen:v25];
 
     os_unfair_lock_unlock(&selfCopy->_lock);
-    interactionStore = v29;
-    defaultCenter = v30;
-    [v30 addObserver:selfCopy selector:sel_notifyWhenContactAddedToInteractionStore_ name:*MEMORY[0x1E6997A08] object:v29];
+    interactionStore = v28;
+    defaultCenter = v29;
+    [v29 addObserver:selfCopy selector:sel_notifyWhenContactAddedToInteractionStore_ name:*MEMORY[0x1E6997A08] object:v28];
 
-    shareCacheCopy = v32;
-    cacheCopy = v33;
+    shareCacheCopy = v31;
+    cacheCopy = v32;
   }
 
   if (!self->_contactIdsInContactStore)
@@ -215,13 +215,11 @@ LABEL_6:
     self->_contactIdsInContactStore = CFSetCreateMutable(0, 0, 0);
     [(_PSInteractionAndContactMonitor *)self fetchAllContactIdsFromContactStore];
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchAllContactIdsFromContactStore
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&self->_lock);
   do
   {
@@ -231,27 +229,27 @@ LABEL_6:
     v4 = objc_opt_new();
     v5 = objc_alloc(getCNContactFetchRequestClass());
     v6 = getCNContactIdentifierKey_1();
-    v22[0] = v6;
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:1];
+    v21[0] = v6;
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:1];
     v8 = [v5 initWithKeysToFetch:v7];
 
     [v8 setContactBatchCount:100];
     contactStore = [(_PSInteractionAndContactMonitor *)self contactStore];
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __69___PSInteractionAndContactMonitor_fetchAllContactIdsFromContactStore__block_invoke;
-    v17[3] = &unk_1E7C25760;
-    v19 = Mutable;
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __69___PSInteractionAndContactMonitor_fetchAllContactIdsFromContactStore__block_invoke;
+    v16[3] = &unk_1E7C25760;
+    v18 = Mutable;
     v10 = v4;
-    v18 = v10;
-    [contactStore enumerateContactsWithFetchRequest:v8 error:0 usingBlock:v17];
+    v17 = v10;
+    [contactStore enumerateContactsWithFetchRequest:v8 error:0 usingBlock:v16];
 
     v11 = +[_PSLogging generalChannel];
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       Count = CFSetGetCount(Mutable);
       *buf = 134217984;
-      v21 = Count;
+      v20 = Count;
       _os_log_impl(&dword_1B5ED1000, v11, OS_LOG_TYPE_DEFAULT, "_PSInteractionAndContactMonitor: Fetched all %tu contact ids from contact store", buf, 0xCu);
     }
 
@@ -271,70 +269,68 @@ LABEL_6:
   while (self->_contactsChangedFlag);
   os_unfair_lock_unlock(&self->_lock);
   notify_post([@"com.apple.PeopleSuggester.ReQuery" UTF8String]);
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchChangedContactIdsFromContactStore
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_1B5ED1000, a2, OS_LOG_TYPE_ERROR, "_PSInteractionAndContactMonitor: Enumerating CNContactStore change history failed: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1B5ED1000, a2, OS_LOG_TYPE_ERROR, "_PSInteractionAndContactMonitor: Enumerating CNContactStore change history failed: %@", &v2, 0xCu);
 }
 
 - (void)notifyWhenContactAddedToInteractionStore:(id)store
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   userInfo = [store userInfo];
   v5 = [userInfo objectForKeyedSubscript:*MEMORY[0x1E6997A10]];
 
   contactIdsSeen = [(_PSInteractionAndContactMonitor *)self contactIdsSeen];
   v7 = [contactIdsSeen mutableCopy];
 
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   v8 = v5;
-  v27 = [v8 countByEnumeratingWithState:&v35 objects:v40 count:16];
-  if (v27)
+  v26 = [v8 countByEnumeratingWithState:&v34 objects:v39 count:16];
+  if (v26)
   {
-    v30 = v7;
-    v29 = 0;
-    v25 = *v36;
-    v26 = v8;
+    v29 = v7;
+    v28 = 0;
+    v24 = *v35;
+    v25 = v8;
     do
     {
       v9 = 0;
       do
       {
-        if (*v36 != v25)
+        if (*v35 != v24)
         {
           objc_enumerationMutation(v8);
         }
 
-        v28 = v9;
-        recipients = [*(*(&v35 + 1) + 8 * v9) recipients];
+        v27 = v9;
+        recipients = [*(*(&v34 + 1) + 8 * v9) recipients];
+        v30 = 0u;
         v31 = 0u;
         v32 = 0u;
         v33 = 0u;
-        v34 = 0u;
-        v11 = [recipients countByEnumeratingWithState:&v31 objects:v39 count:16];
+        v11 = [recipients countByEnumeratingWithState:&v30 objects:v38 count:16];
         if (v11)
         {
           v12 = v11;
-          v13 = *v32;
+          v13 = *v31;
           do
           {
             for (i = 0; i != v12; ++i)
             {
-              if (*v32 != v13)
+              if (*v31 != v13)
               {
                 objc_enumerationMutation(recipients);
               }
 
-              v15 = *(*(&v31 + 1) + 8 * i);
+              v15 = *(*(&v30 + 1) + 8 * i);
               identifier = [v15 identifier];
               if (identifier)
               {
@@ -346,36 +342,36 @@ LABEL_6:
                 if ((v20 & 1) == 0)
                 {
                   identifier3 = [v15 identifier];
-                  [v30 addObject:identifier3];
+                  [v29 addObject:identifier3];
 
-                  v29 = 1;
+                  v28 = 1;
                 }
               }
             }
 
-            v12 = [recipients countByEnumeratingWithState:&v31 objects:v39 count:16];
+            v12 = [recipients countByEnumeratingWithState:&v30 objects:v38 count:16];
           }
 
           while (v12);
         }
 
-        v9 = v28 + 1;
-        v8 = v26;
+        v9 = v27 + 1;
+        v8 = v25;
       }
 
-      while (v28 + 1 != v27);
-      v27 = [v26 countByEnumeratingWithState:&v35 objects:v40 count:16];
+      while (v27 + 1 != v26);
+      v26 = [v25 countByEnumeratingWithState:&v34 objects:v39 count:16];
     }
 
-    while (v27);
+    while (v26);
 
     os_unfair_lock_lock(&self->_lock);
-    v7 = v30;
-    v22 = [v30 copy];
+    v7 = v29;
+    v22 = [v29 copy];
     [(_PSInteractionAndContactMonitor *)self setContactIdsSeen:v22];
 
     os_unfair_lock_unlock(&self->_lock);
-    if (v29)
+    if (v28)
     {
       notify_post([@"com.apple.PeopleSuggester.ReQuery" UTF8String]);
     }
@@ -390,8 +386,6 @@ LABEL_6:
 
     os_unfair_lock_unlock(&self->_lock);
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)contactIdIsInContactStore:(id)store
@@ -415,38 +409,38 @@ LABEL_6:
 
 - (void)enumerateContactStoreWithBlock:(id)block
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   os_unfair_lock_lock(&self->_lock);
   v5 = [(NSMutableOrderedSet *)self->_contactStoreEnumerationCache set];
   v6 = [v5 copy];
 
   os_unfair_lock_unlock(&self->_lock);
-  v29 = 0;
+  v28 = 0;
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   v7 = v6;
-  v8 = [v7 countByEnumeratingWithState:&v25 objects:v31 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v24 objects:v30 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v26;
+    v10 = *v25;
     while (2)
     {
       v11 = 0;
       do
       {
-        if (*v26 != v10)
+        if (*v25 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v25 + 1) + 8 * v11);
+        v12 = *(*(&v24 + 1) + 8 * v11);
         v13 = objc_autoreleasePoolPush();
-        blockCopy[2](blockCopy, v12, &v29);
-        LOBYTE(v12) = v29;
+        blockCopy[2](blockCopy, v12, &v28);
+        LOBYTE(v12) = v28;
         objc_autoreleasePoolPop(v13);
         if (v12)
         {
@@ -458,7 +452,7 @@ LABEL_6:
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v25 objects:v31 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v24 objects:v30 count:16];
       if (v9)
       {
         continue;
@@ -471,22 +465,20 @@ LABEL_6:
   contactStore = [(_PSInteractionAndContactMonitor *)self contactStore];
   v15 = objc_alloc(getCNContactFetchRequestClass());
   v16 = getCNContactIdentifierKey_1();
-  v30 = v16;
-  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v30 count:1];
+  v29 = v16;
+  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v29 count:1];
   v18 = [v15 initWithKeysToFetch:v17];
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __66___PSInteractionAndContactMonitor_enumerateContactStoreWithBlock___block_invoke;
-  v21[3] = &unk_1E7C25788;
-  v22 = v7;
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __66___PSInteractionAndContactMonitor_enumerateContactStoreWithBlock___block_invoke;
+  v20[3] = &unk_1E7C25788;
+  v21 = v7;
   selfCopy = self;
-  v24 = blockCopy;
-  [contactStore enumerateContactsWithFetchRequest:v18 error:0 usingBlock:v21];
+  v23 = blockCopy;
+  [contactStore enumerateContactsWithFetchRequest:v18 error:0 usingBlock:v20];
 
-  v19 = v22;
+  v19 = v21;
 LABEL_11:
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)visitDropEverythingEvent:(id)event

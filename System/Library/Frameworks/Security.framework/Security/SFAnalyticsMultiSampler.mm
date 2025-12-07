@@ -62,26 +62,23 @@ void __36__SFAnalyticsMultiSampler_sampleNow__block_invoke(uint64_t a1, void *a2
 
 - (void)setSamplingInterval:(double)interval
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (interval >= 1.0 || interval == -1.0)
   {
     self->_samplingInterval = interval;
-    v5 = *MEMORY[0x1E69E9840];
 
     [(SFAnalyticsMultiSampler *)self newTimer];
   }
 
   else
   {
-    v6 = secLogObjForScope("SecError");
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v5 = secLogObjForScope("SecError");
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 134217984;
+      v7 = 134217984;
       intervalCopy = interval;
-      _os_log_impl(&dword_1887D2000, v6, OS_LOG_TYPE_DEFAULT, "SFAnalyticsSampler: interval %f is not supported", &v9, 0xCu);
+      _os_log_impl(&dword_1887D2000, v5, OS_LOG_TYPE_DEFAULT, "SFAnalyticsSampler: interval %f is not supported", &v7, 0xCu);
     }
-
-    v8 = *MEMORY[0x1E69E9840];
   }
 }
 
@@ -112,25 +109,24 @@ void __36__SFAnalyticsMultiSampler_sampleNow__block_invoke(uint64_t a1, void *a2
 void __45__SFAnalyticsMultiSampler_setupPeriodicTimer__block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v2 = WeakRetained;
   if (WeakRetained)
   {
-    v3 = (*(*(WeakRetained + 4) + 16))();
-    v4[0] = MEMORY[0x1E69E9820];
-    v4[1] = 3221225472;
-    v4[2] = __45__SFAnalyticsMultiSampler_setupPeriodicTimer__block_invoke_5;
-    v4[3] = &unk_1E70D4EA0;
-    v4[4] = v2;
-    [v3 enumerateKeysAndObjectsUsingBlock:v4];
+    v2 = (*(WeakRetained[4] + 16))();
+    v3[0] = MEMORY[0x1E69E9820];
+    v3[1] = 3221225472;
+    v3[2] = __45__SFAnalyticsMultiSampler_setupPeriodicTimer__block_invoke_5;
+    v3[3] = &unk_1E70D4EA0;
+    v3[4] = WeakRetained;
+    [v2 enumerateKeysAndObjectsUsingBlock:v3];
   }
 
   else
   {
-    v3 = secLogObjForScope("SFAnalyticsSampler");
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v2 = secLogObjForScope("SFAnalyticsSampler");
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1887D2000, v3, OS_LOG_TYPE_DEFAULT, "sampler went away before we could run its once-per-report block", buf, 2u);
+      _os_log_impl(&dword_1887D2000, v2, OS_LOG_TYPE_DEFAULT, "sampler went away before we could run its once-per-report block", buf, 2u);
     }
   }
 }
@@ -163,25 +159,24 @@ void __45__SFAnalyticsMultiSampler_setupPeriodicTimer__block_invoke_5(uint64_t a
 void __41__SFAnalyticsMultiSampler_setupOnceTimer__block_invoke(uint64_t a1, int a2)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v4 = WeakRetained;
   if (WeakRetained)
   {
-    v5 = (*(*(WeakRetained + 4) + 16))();
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = __41__SFAnalyticsMultiSampler_setupOnceTimer__block_invoke_2;
-    v7[3] = &unk_1E70D4EA0;
-    v7[4] = v4;
-    [v5 enumerateKeysAndObjectsUsingBlock:v7];
+    v4 = (*(WeakRetained[4] + 16))();
+    v6[0] = MEMORY[0x1E69E9820];
+    v6[1] = 3221225472;
+    v6[2] = __41__SFAnalyticsMultiSampler_setupOnceTimer__block_invoke_2;
+    v6[3] = &unk_1E70D4EA0;
+    v6[4] = WeakRetained;
+    [v4 enumerateKeysAndObjectsUsingBlock:v6];
   }
 
   else
   {
-    v6 = secLogObjForScope("SFAnalyticsSampler");
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v5 = secLogObjForScope("SFAnalyticsSampler");
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1887D2000, v6, OS_LOG_TYPE_DEFAULT, "sampler went away before we could run its once-per-report block", buf, 2u);
+      _os_log_impl(&dword_1887D2000, v5, OS_LOG_TYPE_DEFAULT, "sampler went away before we could run its once-per-report block", buf, 2u);
     }
 
     notify_cancel(a2);
@@ -221,12 +216,12 @@ void __41__SFAnalyticsMultiSampler_setupOnceTimer__block_invoke_2(uint64_t a1, v
 
 - (SFAnalyticsMultiSampler)initWithName:(id)name interval:(double)interval block:(id)block clientClass:(Class)class
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   blockCopy = block;
-  v21.receiver = self;
-  v21.super_class = SFAnalyticsMultiSampler;
-  v13 = [(SFAnalyticsMultiSampler *)&v21 init];
+  v20.receiver = self;
+  v20.super_class = SFAnalyticsMultiSampler;
+  v13 = [(SFAnalyticsMultiSampler *)&v20 init];
   if (!v13)
   {
     goto LABEL_16;
@@ -286,7 +281,6 @@ LABEL_13:
   v16 = 0;
 LABEL_17:
 
-  v19 = *MEMORY[0x1E69E9840];
   return v16;
 }
 

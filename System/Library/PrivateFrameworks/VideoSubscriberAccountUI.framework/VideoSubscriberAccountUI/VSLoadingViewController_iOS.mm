@@ -173,13 +173,13 @@
 
 - (void)_cancelButtonPressed:(id)pressed
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v4 = VSDefaultLogObject();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315138;
-    v8 = "[VSLoadingViewController_iOS _cancelButtonPressed:]";
-    _os_log_impl(&dword_270DD4000, v4, OS_LOG_TYPE_DEFAULT, "Entering %s", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "[VSLoadingViewController_iOS _cancelButtonPressed:]";
+    _os_log_impl(&dword_270DD4000, v4, OS_LOG_TYPE_DEFAULT, "Entering %s", &v6, 0xCu);
   }
 
   delegate = [(VSLoadingViewController_iOS *)self delegate];
@@ -187,8 +187,6 @@
   {
     [delegate loadingViewControllerDidCancel:self];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (VSLoadingViewControllerDelegate)delegate

@@ -11,31 +11,29 @@
 
 - (NSString)pluginIdentifier
 {
-  v2 = *(self + OBJC_IVAR____TtC25HealthContentDaemonPlugin31HealthContentDaemonPluginObject_pluginIdentifier);
-  v3 = *(self + OBJC_IVAR____TtC25HealthContentDaemonPlugin31HealthContentDaemonPluginObject_pluginIdentifier + 8);
 
-  v4 = sub_25154D250();
+  v2 = sub_25154D250();
 
-  return v4;
+  return v2;
 }
 
 - (id)extensionForHealthDaemon:(id)daemon
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  v5 = sub_25154BBAC();
+  v7 = sub_25154BBAC(daemon, v6);
   swift_unknownObjectRelease();
 
-  return v5;
+  return v7;
 }
 
 - (id)extensionForProfile:(id)profile
 {
   profileCopy = profile;
   selfCopy = self;
-  v6 = sub_25154BE28(profileCopy);
+  v7 = sub_25154BE28(profileCopy, v6);
 
-  return v6;
+  return v7;
 }
 
 - (id)newInternalContentDatabaseManagerForProfile:(id)profile
@@ -57,7 +55,7 @@
 
 - (id)taskServerClasses
 {
-  sub_25154CAB8();
+  sub_25154CAB8(0);
   v2 = swift_allocObject();
   *(v2 + 16) = xmmword_25154E5A0;
   *(v2 + 32) = sub_25154CB5C(0, &qword_2813D8388, 0x277D103A0);

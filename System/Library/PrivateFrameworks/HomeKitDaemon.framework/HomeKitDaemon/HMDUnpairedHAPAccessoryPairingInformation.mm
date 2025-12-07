@@ -169,7 +169,7 @@ LABEL_7:
   setupCodeProviderCompletionHandler = v21->_setupCodeProviderCompletionHandler;
   v21->_setupCodeProviderCompletionHandler = v24;
 
-  v26 = [dCopy copy];
+  v26 = objc_msgSend_copy(dCopy, v34.receiver, v34.super_class);
   accessoryUUID = v21->_accessoryUUID;
   v21->_accessoryUUID = v26;
 
@@ -177,7 +177,7 @@ LABEL_7:
   v21->_accessoryName = nameCopy;
   v29 = nameCopy;
 
-  v30 = [codeCopy copy];
+  v30 = objc_msgSend_copy(codeCopy);
   setupCode = v21->_setupCode;
   v21->_setupCode = v30;
 

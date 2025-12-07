@@ -35,7 +35,7 @@
 
 - (void)handleReturn:(BOOL)return forSelector:(id)selector key:(id)key values:(id)values error:(id)error
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   selectorCopy = selector;
   keyCopy = key;
   valuesCopy = values;
@@ -46,36 +46,34 @@
   {
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
-      v19 = 138413058;
-      v20 = objc_opt_class();
-      v21 = 2112;
-      v22 = selectorCopy;
-      v23 = 2112;
-      v24 = keyCopy;
-      v25 = 2112;
-      v26 = valuesCopy;
-      v17 = v20;
-      _os_log_debug_impl(&dword_22622D000, v16, OS_LOG_TYPE_DEBUG, "%@ : %@ : forKey: %@ : values: %@", &v19, 0x2Au);
+      v18 = 138413058;
+      v19 = objc_opt_class();
+      v20 = 2112;
+      v21 = selectorCopy;
+      v22 = 2112;
+      v23 = keyCopy;
+      v24 = 2112;
+      v25 = valuesCopy;
+      v17 = v19;
+      _os_log_debug_impl(&dword_22622D000, v16, OS_LOG_TYPE_DEBUG, "%@ : %@ : forKey: %@ : values: %@", &v18, 0x2Au);
 LABEL_7:
     }
   }
 
   else if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
   {
-    v19 = 138413058;
-    v20 = objc_opt_class();
-    v21 = 2112;
-    v22 = selectorCopy;
-    v23 = 2112;
-    v24 = keyCopy;
-    v25 = 2112;
-    v26 = errorCopy;
-    v17 = v20;
-    _os_log_error_impl(&dword_22622D000, v16, OS_LOG_TYPE_ERROR, "%@ : %@ : forKey: %@ : error %@", &v19, 0x2Au);
+    v18 = 138413058;
+    v19 = objc_opt_class();
+    v20 = 2112;
+    v21 = selectorCopy;
+    v22 = 2112;
+    v23 = keyCopy;
+    v24 = 2112;
+    v25 = errorCopy;
+    v17 = v19;
+    _os_log_error_impl(&dword_22622D000, v16, OS_LOG_TYPE_ERROR, "%@ : %@ : forKey: %@ : error %@", &v18, 0x2Au);
     goto LABEL_7;
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)recordNumbers:(id)numbers

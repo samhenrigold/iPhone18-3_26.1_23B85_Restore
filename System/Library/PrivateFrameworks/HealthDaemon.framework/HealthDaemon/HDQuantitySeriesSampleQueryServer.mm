@@ -1,7 +1,7 @@
 @interface HDQuantitySeriesSampleQueryServer
 - (HDQuantitySeriesSampleQueryServer)initWithUUID:(id)d configuration:(id)configuration client:(id)client delegate:(id)delegate;
 - (id)_clientProxy;
-- (uint64_t)_deliverEnumerationResults:(uint64_t)results latestUUID:(void *)d latestSampleStartTime:(void *)time sampleIDsToLookup:(void *)lookup isFinal:(unsigned int)final error:(double)error;
+- (uint64_t)_deliverEnumerationResults:(void *)results latestUUID:(void *)d latestSampleStartTime:(unsigned int)time sampleIDsToLookup:(uint64_t)lookup isFinal:(double)final error:;
 - (void)_deliverEnumerationResults:(uint64_t)results isFinal:;
 - (void)_deliverError:(void *)error;
 - (void)_deliverQuantitySeries:(uint64_t)series seriesAnchor:(uint64_t)anchor isFinal:;
@@ -45,14 +45,14 @@
 
 - (void)_queue_start
 {
-  v94 = *MEMORY[0x277D85DE8];
-  v64.receiver = self;
-  v64.super_class = HDQuantitySeriesSampleQueryServer;
-  [(HDQueryServer *)&v64 _queue_start];
+  v93 = *MEMORY[0x277D85DE8];
+  v63.receiver = self;
+  v63.super_class = HDQuantitySeriesSampleQueryServer;
+  [(HDQueryServer *)&v63 _queue_start];
   quantityType = [(HDQueryServer *)self quantityType];
-  v63 = 0;
-  v4 = [(HDQueryServer *)self authorizationStatusRecordForType:quantityType error:&v63];
-  v5 = v63;
+  v62 = 0;
+  v4 = [(HDQueryServer *)self authorizationStatusRecordForType:quantityType error:&v62];
+  v5 = v62;
 
   if (!v4)
   {
@@ -87,41 +87,41 @@
 
         else
         {
-          v71 = 0;
-          v72 = &v71;
-          v73 = 0x2020000000;
-          v74 = 1;
-          v67 = 0;
-          v68 = &v67;
-          v69 = 0x2020000000;
           v70 = 0;
-          v88 = 0;
-          v89 = &v88;
-          v90 = 0x3032000000;
-          v91 = __Block_byref_object_copy__137;
-          v92 = __Block_byref_object_dispose__137;
-          v93 = objc_alloc_init(MEMORY[0x277CCD178]);
+          v71 = &v70;
+          v72 = 0x2020000000;
+          v73 = 1;
+          v66 = 0;
+          v67 = &v66;
+          v68 = 0x2020000000;
+          v69 = 0;
+          v87 = 0;
+          v88 = &v87;
+          v89 = 0x3032000000;
+          v90 = __Block_byref_object_copy__137;
+          v91 = __Block_byref_object_dispose__137;
+          v92 = objc_alloc_init(MEMORY[0x277CCD178]);
           uUID = [(HKQuantitySample *)self->_sample UUID];
           profile = [(HDQueryServer *)self profile];
-          v75 = 0;
-          v76 = MEMORY[0x277D85DD0];
-          v77 = 3221225472;
-          v78 = __65__HDQuantitySeriesSampleQueryServer__queue_startSingleSeriesMode__block_invoke;
-          v79 = &unk_278625FE8;
+          v74 = 0;
+          v75 = MEMORY[0x277D85DD0];
+          v76 = 3221225472;
+          v77 = __65__HDQuantitySeriesSampleQueryServer__queue_startSingleSeriesMode__block_invoke;
+          v78 = &unk_278625FE8;
           selfCopy2 = self;
-          v81 = &v71;
-          v82 = &v67;
-          v83 = &v88;
-          v29 = [HDQuantitySampleSeriesEntity enumerateDataWithIdentifier:uUID profile:profile error:&v75 handler:&v76];
-          v7 = v75;
+          v80 = &v70;
+          v81 = &v66;
+          v82 = &v87;
+          v30 = [HDQuantitySampleSeriesEntity enumerateDataWithIdentifier:uUID profile:profile error:&v74 handler:&v75];
+          v7 = v74;
 
-          if (v29)
+          if (v30)
           {
-            if (*(v72 + 24) == 1)
+            if (*(v71 + 24) == 1)
             {
-              v30 = *(v68 + 3);
-              self->_lastDatumIndex = v30;
-              [(HDQuantitySeriesSampleQueryServer *)&self->super.super.isa _deliverQuantitySeries:v30 seriesAnchor:1 isFinal:?];
+              v31 = *(v67 + 3);
+              self->_lastDatumIndex = v31;
+              [(HDQuantitySeriesSampleQueryServer *)&self->super.super.isa _deliverQuantitySeries:v31 seriesAnchor:1 isFinal:?];
             }
           }
 
@@ -130,10 +130,10 @@
             [(HDQuantitySeriesSampleQueryServer *)self _deliverError:v7];
           }
 
-          _Block_object_dispose(&v88, 8);
+          _Block_object_dispose(&v87, 8);
 
-          _Block_object_dispose(&v67, 8);
-          _Block_object_dispose(&v71, 8);
+          _Block_object_dispose(&v66, 8);
+          _Block_object_dispose(&v70, 8);
         }
 
         goto LABEL_42;
@@ -142,7 +142,7 @@
       goto LABEL_43;
     }
 
-    v75 = 0;
+    v74 = 0;
     v14 = MEMORY[0x277CBEB18];
     quantityType2 = [(HDQueryServer *)self quantityType];
     v16 = HDSampleEntityPredicateForDataType(quantityType2);
@@ -160,81 +160,81 @@
     client = [(HDQueryServer *)self client];
     authorizationOracle = [client authorizationOracle];
     objectType = [(HDQueryServer *)self objectType];
-    v24 = [authorizationOracle additionalAuthorizationPredicateForObjectType:objectType error:&v75];
+    v24 = [authorizationOracle additionalAuthorizationPredicateForObjectType:objectType error:&v74];
 
     if (!v24)
     {
-      [MEMORY[0x277CCA9B8] hk_assignError:&v75 code:3 description:@"Unable to determine authorization status."];
-      v61 = 0;
+      [MEMORY[0x277CCA9B8] hk_assignError:&v74 code:3 description:@"Unable to determine authorization status."];
+      v60 = 0;
 LABEL_27:
 
-      v41 = v75;
-      if (v61)
+      v41 = v74;
+      if (v60)
       {
-        v71 = 0;
-        v72 = &v71;
-        v73 = 0x2020000000;
-        v74 = 1;
+        v70 = 0;
+        v71 = &v70;
+        v72 = 0x2020000000;
+        v73 = 1;
         options = self->_options;
         v43 = objc_alloc_init(MEMORY[0x277CBEB58]);
         v44 = objc_alloc_init(MEMORY[0x277CCD190]);
-        v88 = 0;
-        v89 = &v88;
-        v90 = 0x3032000000;
-        v91 = __Block_byref_object_copy__137;
-        v92 = __Block_byref_object_dispose__137;
-        v93 = 0;
-        v67 = 0;
-        v68 = &v67;
-        v69 = 0x2020000000;
-        v70 = 0;
+        v87 = 0;
+        v88 = &v87;
+        v89 = 0x3032000000;
+        v90 = __Block_byref_object_copy__137;
+        v91 = __Block_byref_object_dispose__137;
+        v92 = 0;
+        v66 = 0;
+        v67 = &v66;
+        v68 = 0x2020000000;
+        v69 = 0;
         profile3 = [(HDQueryServer *)self profile];
         v46 = options & 1;
         v47 = options & 2;
-        v66 = v41;
-        v76 = MEMORY[0x277D85DD0];
-        v77 = 3221225472;
-        v78 = __64__HDQuantitySeriesSampleQueryServer__queue_startEnumerationMode__block_invoke;
-        v79 = &unk_278626010;
+        v65 = v41;
+        v75 = MEMORY[0x277D85DD0];
+        v76 = 3221225472;
+        v77 = __64__HDQuantitySeriesSampleQueryServer__queue_startEnumerationMode__block_invoke;
+        v78 = &unk_278626010;
         selfCopy2 = self;
-        v83 = &v71;
-        v86 = v47 >> 1;
+        v82 = &v70;
+        v85 = v47 >> 1;
         v48 = v44;
-        v81 = v48;
-        v84 = &v88;
-        v85 = &v67;
-        v60 = v43;
-        v82 = v60;
-        v87 = v46;
-        v49 = &v76;
+        v80 = v48;
+        v83 = &v87;
+        v84 = &v66;
+        v59 = v43;
+        v81 = v59;
+        v86 = v46;
+        v49 = &v75;
         v50 = profile3;
-        v51 = v61;
+        v51 = v60;
         objc_opt_self();
         if (v47)
         {
-          v52 = [HDQuantitySampleValueEnumerator orderedQuantityValuesBySeriesForPredicate:v51 profile:v50 options:3 error:&v66 handler:v49];
+          v52 = [HDQuantitySampleValueEnumerator orderedQuantityValuesBySeriesForPredicate:v51 profile:v50 options:3 error:&v65 handler:v49];
         }
 
         else
         {
-          v52 = [HDQuantitySampleValueEnumerator orderedQuantityValuesForPredicate:v51 profile:v50 options:0 error:&v66 handler:v49];
+          v52 = [HDQuantitySampleValueEnumerator orderedQuantityValuesForPredicate:v51 profile:v50 options:0 error:&v65 handler:v49];
         }
 
         v53 = v52;
 
-        v54 = v66;
+        v54 = v65;
         if (!v53)
         {
           [(HDQuantitySeriesSampleQueryServer *)self _deliverError:v54];
         }
 
-        if (*(v72 + 24) == 1)
+        if (*(v71 + 24) == 1)
         {
-          v55 = v89[5];
-          v56 = v68[3];
-          v65 = v54;
-          v57 = [HDQuantitySeriesSampleQueryServer _deliverEnumerationResults:v48 latestUUID:v55 latestSampleStartTime:v60 sampleIDsToLookup:1u isFinal:v56 error:?];
-          v41 = v65;
+          v55 = v88[5];
+          v56 = v67[3];
+          v64 = v54;
+          v57 = [(HDQuantitySeriesSampleQueryServer *)self _deliverEnumerationResults:v48 latestUUID:v55 latestSampleStartTime:v59 sampleIDsToLookup:1u isFinal:&v64 error:v56];
+          v41 = v64;
 
           if ((v57 & 1) == 0)
           {
@@ -247,10 +247,10 @@ LABEL_27:
           v41 = v54;
         }
 
-        _Block_object_dispose(&v67, 8);
-        _Block_object_dispose(&v88, 8);
+        _Block_object_dispose(&v66, 8);
+        _Block_object_dispose(&v87, 8);
 
-        _Block_object_dispose(&v71, 8);
+        _Block_object_dispose(&v70, 8);
       }
 
       else
@@ -265,26 +265,25 @@ LABEL_27:
     v25 = 0x277D10000;
     if ((self->_options & 2) != 0)
     {
-      if (self->_latestDeliveredSampleStartDate)
+      latestDeliveredSampleStartDate = self->_latestDeliveredSampleStartDate;
+      if (latestDeliveredSampleStartDate)
       {
-        v26 = HDSampleEntityPredicateForStartDate(1);
-        v31 = MEMORY[0x277D10B18];
-        latestDeliveredUUID = self->_latestDeliveredUUID;
-        v33 = _HDSQLiteValueForUUID();
-        v62 = [v31 predicateWithProperty:@"uuid" greaterThanOrEqualToValue:v33];
+        v27 = HDSampleEntityPredicateForStartDate(1, latestDeliveredSampleStartDate);
+        v33 = MEMORY[0x277D10B18];
+        v34 = _HDSQLiteValueForUUID();
+        v61 = [v33 predicateWithProperty:@"uuid" greaterThanOrEqualToValue:v34];
 
-        v34 = MEMORY[0x277D10B20];
-        v76 = v26;
-        v77 = v62;
-        v35 = [MEMORY[0x277CBEA60] arrayWithObjects:&v76 count:2];
-        v59 = [v34 predicateMatchingAllPredicates:v35];
+        v35 = MEMORY[0x277D10B20];
+        v75 = v27;
+        v76 = v61;
+        v36 = [MEMORY[0x277CBEA60] arrayWithObjects:&v75 count:2];
+        v58 = [v35 predicateMatchingAllPredicates:v36];
 
-        latestDeliveredSampleStartDate = self->_latestDeliveredSampleStartDate;
-        v37 = HDSampleEntityPredicateForStartDate(5);
+        v37 = HDSampleEntityPredicateForStartDate(5, self->_latestDeliveredSampleStartDate);
         v38 = MEMORY[0x277D10B20];
-        v88 = v37;
-        v89 = v59;
-        v39 = [MEMORY[0x277CBEA60] arrayWithObjects:&v88 count:2];
+        v87 = v37;
+        v88 = v58;
+        v39 = [MEMORY[0x277CBEA60] arrayWithObjects:&v87 count:2];
         v40 = [v38 predicateMatchingAnyPredicates:v39];
 
         [v17 addObject:v40];
@@ -292,16 +291,20 @@ LABEL_27:
       }
     }
 
-    else if (self->_maximumDeliveredStartDate)
+    else
     {
-      v26 = HDSampleEntityPredicateForEndDate(6);
-      [v17 addObject:v26];
+      maximumDeliveredStartDate = self->_maximumDeliveredStartDate;
+      if (maximumDeliveredStartDate)
+      {
+        v27 = HDSampleEntityPredicateForEndDate(6, maximumDeliveredStartDate);
+        [v17 addObject:v27];
 LABEL_25:
 
-      v25 = 0x277D10000uLL;
+        v25 = 0x277D10000uLL;
+      }
     }
 
-    v61 = [*(v25 + 2848) predicateMatchingAllPredicates:v17];
+    v60 = [*(v25 + 2848) predicateMatchingAllPredicates:v17];
     goto LABEL_27;
   }
 
@@ -329,8 +332,6 @@ LABEL_42:
   }
 
 LABEL_43:
-
-  v58 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_deliverError:(void *)error
@@ -396,21 +397,19 @@ LABEL_43:
 
 void __49__HDQuantitySeriesSampleQueryServer__clientProxy__block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   _HKInitializeLogging();
   v4 = *MEMORY[0x277CCC308];
   if (os_log_type_enabled(*MEMORY[0x277CCC308], OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v6;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "%{public}@: Error during XPC call to client proxy: %{public}@", &v7, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2114;
+    v9 = v3;
+    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "%{public}@: Error during XPC call to client proxy: %{public}@", &v6, 0x16u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __65__HDQuantitySeriesSampleQueryServer__queue_startSingleSeriesMode__block_invoke(uint64_t a1, void *a2)
@@ -449,88 +448,89 @@ uint64_t __65__HDQuantitySeriesSampleQueryServer__queue_startSingleSeriesMode__b
   return v4;
 }
 
-uint64_t __64__HDQuantitySeriesSampleQueryServer__queue_startEnumerationMode__block_invoke(uint64_t a1, uint64_t a2, double a3, double a4, double a5, double a6, double a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
+uint64_t __64__HDQuantitySeriesSampleQueryServer__queue_startEnumerationMode__block_invoke(uint64_t a1, uint64_t a2, double a3, double a4, double a5, double a6, double a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13)
 {
   if (([*(a1 + 32) _shouldStopProcessingQuery] & 1) == 0 && !objc_msgSend(*(a1 + 32), "_shouldSuspendQuery"))
   {
-    v23 = MEMORY[0x277CCDDB8];
-    v24 = [*(a1 + 32) filter];
-    LODWORD(v23) = [v23 filter:v24 acceptsDataObjectWithStartTimestamp:a6 endTimestamp:a7 valueInCanonicalUnit:a5];
+    v25 = MEMORY[0x277CCDDB8];
+    v26 = [*(a1 + 32) filter];
+    LODWORD(v25) = [v25 filter:v26 acceptsDataObjectWithStartTimestamp:a6 endTimestamp:a7 valueInCanonicalUnit:a5];
 
-    if (!v23)
+    if (!v25)
     {
       return 1;
     }
 
-    v25 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:a9];
-    v26 = *(a1 + 32);
-    v27 = *(v26 + 248);
-    v28 = *(v26 + 256);
-    v29 = *(a1 + 80);
-    obj = v25;
-    v30 = v25;
-    v31 = v27;
-    v32 = v28;
+    v27 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:a9];
+    v28 = *(a1 + 32);
+    v29 = *(v28 + 248);
+    v30 = *(v28 + 256);
+    v31 = *(a1 + 80);
+    obj = v27;
+    v32 = v27;
+    v33 = v29;
+    v34 = v30;
     objc_opt_self();
-    if (v31)
+    if (v33)
     {
-      [v31 timeIntervalSinceReferenceDate];
-      v34 = v33;
-      if (v29)
+      [v33 timeIntervalSinceReferenceDate];
+      v36 = v35;
+      if (v31)
       {
 LABEL_8:
-        if (v34 < a6 || ([v30 isEqual:v32] & 1) == 0)
+        if (v36 < a6 || ([v32 isEqual:v34] & 1) == 0)
         {
 LABEL_18:
 
-          v38 = [*(a1 + 40) results];
-          v39 = [v38 count];
-          v40 = *(*(a1 + 32) + 216);
+          v40 = [*(a1 + 40) results];
+          v41 = [v40 count];
+          v42 = *(*(a1 + 32) + 216);
 
-          if (v39 >= v40)
+          if (v41 >= v42)
           {
-            v21 = 0;
-            if (![HDQuantitySeriesSampleQueryServer _deliverEnumerationResults:*(a1 + 40) latestUUID:*(*(*(a1 + 64) + 8) + 40) latestSampleStartTime:*(a1 + 48) sampleIDsToLookup:0 isFinal:*(*(*(a1 + 72) + 8) + 24) error:?])
+            v43 = [(HDQuantitySeriesSampleQueryServer *)*(a1 + 32) _deliverEnumerationResults:*(*(*(a1 + 64) + 8) + 40) latestUUID:*(a1 + 48) latestSampleStartTime:0 sampleIDsToLookup:a13 isFinal:*(*(*(a1 + 72) + 8) + 24) error:?];
+            v23 = 0;
+            if (!v43)
             {
 LABEL_28:
 
-              return v21;
+              return v23;
             }
 
             [*(a1 + 48) removeAllObjects];
-            v41 = [*(a1 + 40) results];
-            [v41 removeAllObjects];
+            v44 = [*(a1 + 40) results];
+            [v44 removeAllObjects];
 
-            v42 = *(*(a1 + 64) + 8);
-            v43 = *(v42 + 40);
-            *(v42 + 40) = 0;
+            v45 = *(*(a1 + 64) + 8);
+            v46 = *(v45 + 40);
+            *(v45 + 40) = 0;
           }
 
           objc_storeStrong((*(*(a1 + 64) + 8) + 40), obj);
           *(*(*(a1 + 72) + 8) + 24) = a3;
           if (*(a1 + 81))
           {
-            v44 = v30;
+            v47 = v32;
           }
 
           else
           {
-            v44 = 0;
+            v47 = 0;
           }
 
-          v37 = [MEMORY[0x277CCD188] resultWithID:a2 UUID:v44 value:a11 count:a12 startTime:a5 endTime:a6 seriesIndex:a7];
-          [*(a1 + 40) addResults:v37];
+          v39 = [MEMORY[0x277CCD188] resultWithID:a2 UUID:v47 value:a11 count:a12 startTime:a5 endTime:a6 seriesIndex:a7];
+          [*(a1 + 40) addResults:v39];
           if (*(a1 + 81) != 1)
           {
 LABEL_27:
 
-            v21 = 1;
+            v23 = 1;
             goto LABEL_28;
           }
 
-          v45 = *(a1 + 48);
-          v31 = [MEMORY[0x277CCABB0] numberWithLongLong:a2];
-          [v45 addObject:v31];
+          v48 = *(a1 + 48);
+          v33 = [MEMORY[0x277CCABB0] numberWithLongLong:a2];
+          [v48 addObject:v33];
 LABEL_26:
 
           goto LABEL_27;
@@ -538,24 +538,24 @@ LABEL_26:
 
 LABEL_14:
 
-        v37 = v30;
+        v39 = v32;
         goto LABEL_26;
       }
     }
 
     else
     {
-      v35 = [MEMORY[0x277CBEAA8] distantPast];
-      [v35 timeIntervalSinceReferenceDate];
-      v34 = v36;
+      v37 = [MEMORY[0x277CBEAA8] distantPast];
+      [v37 timeIntervalSinceReferenceDate];
+      v36 = v38;
 
-      if (v29)
+      if (v31)
       {
         goto LABEL_8;
       }
     }
 
-    if (v34 <= a6 && (!v32 || v34 != a6 || [v30 hk_compare:v32] == 1))
+    if (v36 <= a6 && (!v34 || v36 != a6 || [v32 hk_compare:v34] == 1))
     {
       goto LABEL_18;
     }
@@ -563,99 +563,74 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  v21 = 0;
+  v23 = 0;
   *(*(*(a1 + 56) + 8) + 24) = 0;
-  return v21;
+  return v23;
 }
 
-- (uint64_t)_deliverEnumerationResults:(uint64_t)results latestUUID:(void *)d latestSampleStartTime:(void *)time sampleIDsToLookup:(void *)lookup isFinal:(unsigned int)final error:(double)error
+- (uint64_t)_deliverEnumerationResults:(void *)results latestUUID:(void *)d latestSampleStartTime:(unsigned int)time sampleIDsToLookup:(uint64_t)lookup isFinal:(double)final error:
 {
+  v11 = a2;
+  resultsCopy = results;
   dCopy = d;
-  timeCopy = time;
-  lookupCopy = lookup;
-  if (!results)
+  if (self && ((v14 = MEMORY[0x277CBEAA8], [v11 results], v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v15, "lastObject"), v16 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v16, "startTime"), objc_msgSend(v14, "dateWithTimeIntervalSinceReferenceDate:"), v17 = objc_claimAutoreleasedReturnValue(), v18 = *(self + 248), *(self + 248) = v17, v18, v16, v15, objc_storeStrong((self + 256), results), objc_msgSend(MEMORY[0x277CBEAA8], "dateWithTimeIntervalSinceReferenceDate:", final), v19 = objc_claimAutoreleasedReturnValue(), v20 = *(self + 264), *(self + 264) = v19, v20, objc_msgSend(resultsCopy, "hk_dataForUUIDBytes"), v21 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v11, "results"), v22 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v22, "lastObject"), v23 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v23, "setUuid:", v21), v23, v22, v21, objc_msgSend(v11, "setLatestSampleStartTime:", final), !objc_msgSend(dCopy, "count")) || (v28 = dCopy, v29 = v11, v24 = HKWithAutoreleasePool(), v29, v28, v24)))
   {
-    goto LABEL_5;
-  }
-
-  v13 = MEMORY[0x277CBEAA8];
-  results = [dCopy results];
-  lastObject = [results lastObject];
-  [lastObject startTime];
-  v16 = [v13 dateWithTimeIntervalSinceReferenceDate:?];
-  v17 = *(results + 248);
-  *(results + 248) = v16;
-
-  objc_storeStrong((results + 256), time);
-  v18 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:error];
-  v19 = *(results + 264);
-  *(results + 264) = v18;
-
-  hk_dataForUUIDBytes = [timeCopy hk_dataForUUIDBytes];
-  results2 = [dCopy results];
-  lastObject2 = [results2 lastObject];
-  [lastObject2 setUuid:hk_dataForUUIDBytes];
-
-  [dCopy setLatestSampleStartTime:error];
-  if (![lookupCopy count] || (v27 = lookupCopy, v28 = dCopy, v23 = HKWithAutoreleasePool(), v28, v27, v23))
-  {
-    [(HDQuantitySeriesSampleQueryServer *)results _deliverEnumerationResults:dCopy isFinal:final];
-    v24 = 1;
+    [(HDQuantitySeriesSampleQueryServer *)self _deliverEnumerationResults:v11 isFinal:time];
+    v25 = 1;
   }
 
   else
   {
-LABEL_5:
-    v24 = 0;
+    v25 = 0;
   }
 
-  return v24;
+  return v25;
 }
 
 uint64_t __129__HDQuantitySeriesSampleQueryServer__deliverEnumerationResults_latestUUID_latestSampleStartTime_sampleIDsToLookup_isFinal_error___block_invoke(id *a1, uint64_t a2)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v4 = [a1[4] newDataEntityEnumerator];
   v5 = [a1[5] allObjects];
   v6 = HDDataEntityPredicateForRowIDs(v5);
   [v4 setPredicate:v6];
 
   v7 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __129__HDQuantitySeriesSampleQueryServer__deliverEnumerationResults_latestUUID_latestSampleStartTime_sampleIDsToLookup_isFinal_error___block_invoke_2;
-  v28[3] = &unk_2786204C8;
-  v23 = v7;
-  v29 = v23;
-  if ([v4 enumerateWithError:a2 handler:v28])
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __129__HDQuantitySeriesSampleQueryServer__deliverEnumerationResults_latestUUID_latestSampleStartTime_sampleIDsToLookup_isFinal_error___block_invoke_2;
+  v27[3] = &unk_2786204C8;
+  v22 = v7;
+  v28 = v22;
+  if ([v4 enumerateWithError:a2 handler:v27])
   {
     v8 = objc_alloc_init(MEMORY[0x277CBEB58]);
+    v23 = 0u;
     v24 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v27 = 0u;
     v9 = [a1[6] results];
-    v10 = [v9 countByEnumeratingWithState:&v24 objects:v30 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v23 objects:v29 count:16];
     if (v10)
     {
       v11 = v10;
-      v22 = v4;
-      v12 = *v25;
+      v21 = v4;
+      v12 = *v24;
       while (2)
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v25 != v12)
+          if (*v24 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v24 + 1) + 8 * i);
+          v14 = *(*(&v23 + 1) + 8 * i);
           v15 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(v14, "persistentID")}];
           if (([v8 containsObject:v15] & 1) == 0)
           {
             [v8 addObject:v15];
-            v16 = [v23 objectForKeyedSubscript:v15];
+            v16 = [v22 objectForKeyedSubscript:v15];
             v17 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v16 requiringSecureCoding:1 error:a2];
             if (!v17)
             {
@@ -669,7 +644,7 @@ uint64_t __129__HDQuantitySeriesSampleQueryServer__deliverEnumerationResults_lat
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v24 objects:v30 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v23 objects:v29 count:16];
         if (v11)
         {
           continue;
@@ -680,7 +655,7 @@ uint64_t __129__HDQuantitySeriesSampleQueryServer__deliverEnumerationResults_lat
 
       v19 = 1;
 LABEL_15:
-      v4 = v22;
+      v4 = v21;
     }
 
     else
@@ -694,7 +669,6 @@ LABEL_15:
     v19 = 0;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v19;
 }
 

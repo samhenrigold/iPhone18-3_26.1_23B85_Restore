@@ -7,9 +7,9 @@
 
 - (CUITextStyle)initWithName:(id)name usingRenditionKey:(id)key fromTheme:(unint64_t)theme
 {
-  v18.receiver = self;
-  v18.super_class = CUITextStyle;
-  v6 = [(CUINamedLookup *)&v18 initWithName:name usingRenditionKey:key fromTheme:theme];
+  v12.receiver = self;
+  v12.super_class = CUITextStyle;
+  v6 = [(CUINamedLookup *)&v12 initWithName:name usingRenditionKey:key fromTheme:theme];
   v7 = v6;
   if (v6)
   {
@@ -18,9 +18,9 @@
     {
       csiTextStyle = [(CUIThemeRendition *)_rendition csiTextStyle];
       v7->_fontName = [NSString stringWithUTF8String:csiTextStyle + 8];
-      v16 = csiTextStyle[4];
+      v10 = csiTextStyle[4];
       v7->_fontSize = csiTextStyle[3];
-      v7->_maxPointSize = v16;
+      v7->_maxPointSize = v10;
       v7->_minPointSize = csiTextStyle[5];
       v7->_scalingStyle = *(csiTextStyle + 2);
       v7->_alignment = *(csiTextStyle + 6);
@@ -28,7 +28,7 @@
 
     else
     {
-      _CUILog(4, "CoreUI: attempting to lookup a text style '%@' with a name that is not a text style in the AssetCatalog", v9, v10, v11, v12, v13, v14, name);
+      _CUILog(4, "CoreUI: attempting to lookup a text style '%@' with a name that is not a text style in the AssetCatalog", name);
 
       return 0;
     }

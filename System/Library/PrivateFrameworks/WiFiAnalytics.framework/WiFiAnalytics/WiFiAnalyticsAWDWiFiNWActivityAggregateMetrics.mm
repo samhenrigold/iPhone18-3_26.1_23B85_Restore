@@ -775,7 +775,6 @@ LABEL_26:
   has = self->_has;
   if ((*&has & 0x1000) != 0)
   {
-    kRxDataErrors = self->_kRxDataErrors;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((*&has & 0x2000) == 0)
@@ -795,7 +794,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  kRxFrames = self->_kRxFrames;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x8000) == 0)
@@ -810,7 +808,6 @@ LABEL_4:
   }
 
 LABEL_31:
-  kRxRetryBitSet = self->_kRxRetryBitSet;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 4) == 0)
@@ -825,7 +822,6 @@ LABEL_5:
   }
 
 LABEL_32:
-  kMACRxDataFrameMatchingRA = self->_kMACRxDataFrameMatchingRA;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 8) == 0)
@@ -840,7 +836,6 @@ LABEL_6:
   }
 
 LABEL_33:
-  kMACRxDataFrameOtherRA = self->_kMACRxDataFrameOtherRA;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x400000) == 0)
@@ -855,7 +850,6 @@ LABEL_7:
   }
 
 LABEL_34:
-  kMACRxControlFrameMatchingRA = self->_kMACRxControlFrameMatchingRA;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x800000) == 0)
@@ -870,7 +864,6 @@ LABEL_8:
   }
 
 LABEL_35:
-  kMACRxControlFrameOtherRA = self->_kMACRxControlFrameOtherRA;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x4000) == 0)
@@ -885,7 +878,6 @@ LABEL_9:
   }
 
 LABEL_36:
-  kRxGoodPLCP = self->_kRxGoodPLCP;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x400) == 0)
@@ -900,7 +892,6 @@ LABEL_10:
   }
 
 LABEL_37:
-  kRxBadPLCP = self->_kRxBadPLCP;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x100) == 0)
@@ -915,7 +906,6 @@ LABEL_11:
   }
 
 LABEL_38:
-  kRxBadFCS = self->_kRxBadFCS;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x10000) == 0)
@@ -930,7 +920,6 @@ LABEL_12:
   }
 
 LABEL_39:
-  kTxFrames = self->_kTxFrames;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x20000) == 0)
@@ -945,7 +934,6 @@ LABEL_13:
   }
 
 LABEL_40:
-  kTxRetransmission = self->_kTxRetransmission;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x200000) == 0)
@@ -960,7 +948,6 @@ LABEL_14:
   }
 
 LABEL_41:
-  kdot11RetryCount = self->_kdot11RetryCount;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x40000) == 0)
@@ -975,7 +962,6 @@ LABEL_15:
   }
 
 LABEL_42:
-  kdot11MultipleRetryCount = self->_kdot11MultipleRetryCount;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x100000) == 0)
@@ -990,7 +976,6 @@ LABEL_16:
   }
 
 LABEL_43:
-  kdot11RTSSuccessCount = self->_kdot11RTSSuccessCount;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x80000) == 0)
@@ -1005,7 +990,6 @@ LABEL_17:
   }
 
 LABEL_44:
-  kdot11RTSFailureCount = self->_kdot11RTSFailureCount;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 2) == 0)
@@ -1020,7 +1004,6 @@ LABEL_18:
   }
 
 LABEL_45:
-  kCtlTxRTS = self->_kCtlTxRTS;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x800) == 0)
@@ -1035,7 +1018,6 @@ LABEL_19:
   }
 
 LABEL_46:
-  kRxCRCGlitch = self->_kRxCRCGlitch;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x10) == 0)
@@ -1050,7 +1032,6 @@ LABEL_20:
   }
 
 LABEL_47:
-  kMACRxUnicastCTStoMAC = self->_kMACRxUnicastCTStoMAC;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x20) == 0)
@@ -1065,7 +1046,6 @@ LABEL_21:
   }
 
 LABEL_48:
-  kMACRxUnicastCTStoOther = self->_kMACRxUnicastCTStoOther;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x40) == 0)
@@ -1080,7 +1060,6 @@ LABEL_22:
   }
 
 LABEL_49:
-  kMACRxUnicastRTStoMAC = self->_kMACRxUnicastRTStoMAC;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x80) == 0)
@@ -1095,7 +1074,6 @@ LABEL_23:
   }
 
 LABEL_50:
-  kMACRxUnicastRTStoOther = self->_kMACRxUnicastRTStoOther;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 1) == 0)
@@ -1110,12 +1088,10 @@ LABEL_24:
   }
 
 LABEL_51:
-  kCtlTxCTS = self->_kCtlTxCTS;
   PBDataWriterWriteUint64Field();
   if ((*&self->_has & 0x200) != 0)
   {
 LABEL_25:
-    kRxBadOther = self->_kRxBadOther;
     PBDataWriterWriteUint64Field();
   }
 

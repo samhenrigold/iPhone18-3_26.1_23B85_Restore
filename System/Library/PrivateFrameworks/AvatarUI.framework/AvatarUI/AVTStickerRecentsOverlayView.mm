@@ -29,11 +29,11 @@
 + (id)overlayViewForMemojiCreation
 {
   v3 = [self alloc];
-  v4 = AVTAvatarUIBundle();
+  v4 = AVTAvatarUIBundle(v3);
   v5 = [v4 localizedStringForKey:@"STICKER_RECENTS_SPLASH_TITLE" value:&stru_1F39618F0 table:@"Localized"];
-  v6 = AVTAvatarUIBundle();
+  v6 = AVTAvatarUIBundle(v5);
   v7 = [v6 localizedStringForKey:@"STICKER_RECENTS_SPLASH_MESSAGE" value:&stru_1F39618F0 table:@"Localized"];
-  v8 = AVTAvatarUIBundle();
+  v8 = AVTAvatarUIBundle(v7);
   v9 = [v8 localizedStringForKey:@"STICKER_RECENTS_SPLASH_CONTINUE_BUTTON_TITLE" value:&stru_1F39618F0 table:@"Localized"];
   stickerButtonImage = [self stickerButtonImage];
   v11 = [v3 initWithFrame:v5 title:v7 subtitle:v9 buttonTitle:stickerButtonImage image:{0.0, 0.0, 50.0, 50.0}];
@@ -44,9 +44,9 @@
 + (id)standardOverlayView
 {
   v3 = [self alloc];
-  v4 = AVTAvatarUIBundle();
+  v4 = AVTAvatarUIBundle(v3);
   v5 = [v4 localizedStringForKey:@"STICKER_RECENTS_SPLASH_TITLE" value:&stru_1F39618F0 table:@"Localized"];
-  v6 = AVTAvatarUIBundle();
+  v6 = AVTAvatarUIBundle(v5);
   v7 = [v6 localizedStringForKey:@"STICKER_RECENTS_SPLASH_MESSAGE" value:&stru_1F39618F0 table:@"Localized"];
   stickerButtonImage = [self stickerButtonImage];
   v9 = [v3 initWithFrame:v5 title:v7 subtitle:0 buttonTitle:stickerButtonImage image:{0.0, 0.0, 50.0, 50.0}];
@@ -69,14 +69,14 @@
   width = frame.size.width;
   y = frame.origin.y;
   x = frame.origin.x;
-  v74[1] = *MEMORY[0x1E69E9840];
+  v75[1] = *MEMORY[0x1E69E9840];
   titleCopy = title;
   subtitleCopy = subtitle;
   imageCopy = image;
   v18 = [MEMORY[0x1E69DC730] effectWithBlurRadius:6.0];
-  v73.receiver = self;
-  v73.super_class = AVTStickerRecentsOverlayView;
-  v19 = [(AVTStickerRecentsOverlayView *)&v73 initWithEffect:v18];
+  v74.receiver = self;
+  v74.super_class = AVTStickerRecentsOverlayView;
+  v19 = [(AVTStickerRecentsOverlayView *)&v74 initWithEffect:v18];
   v20 = v19;
   if (v19)
   {
@@ -156,59 +156,59 @@
       titleLabel = [(UIButton *)v20->_continueButton titleLabel];
       [titleLabel setFont:v47];
 
-      [(UIButton *)v20->_continueButton setTranslatesAutoresizingMaskIntoConstraints:0];
-      v49 = v20->_continueButton;
-      v50 = AVTAvatarUIBundle();
-      v51 = [v50 localizedStringForKey:@"STICKER_RECENTS_SPLASH_CONTINUE_BUTTON_TITLE" value:&stru_1F39618F0 table:@"Localized"];
-      [(UIButton *)v49 setTitle:v51 forState:0];
+      v49 = [(UIButton *)v20->_continueButton setTranslatesAutoresizingMaskIntoConstraints:0];
+      v50 = v20->_continueButton;
+      v51 = AVTAvatarUIBundle(v49);
+      v52 = [v51 localizedStringForKey:@"STICKER_RECENTS_SPLASH_CONTINUE_BUTTON_TITLE" value:&stru_1F39618F0 table:@"Localized"];
+      [(UIButton *)v50 setTitle:v52 forState:0];
 
       [(UIButton *)v20->_continueButton addTarget:v20 action:sel_didTapContinueButton_ forControlEvents:64];
       [(UIView *)v20->_centeredContainerView addSubview:v20->_continueButton];
-      v52 = objc_alloc_init(MEMORY[0x1E69DC738]);
+      v53 = objc_alloc_init(MEMORY[0x1E69DC738]);
       closeButton = v20->_closeButton;
-      v20->_closeButton = v52;
+      v20->_closeButton = v53;
 
       [(UIButton *)v20->_closeButton setTranslatesAutoresizingMaskIntoConstraints:0];
-      v54 = [MEMORY[0x1E69DCAD8] configurationWithTextStyle:*MEMORY[0x1E69DDDB8] scale:2];
-      v55 = MEMORY[0x1E69DCAD8];
+      v55 = [MEMORY[0x1E69DCAD8] configurationWithTextStyle:*MEMORY[0x1E69DDDB8] scale:2];
+      v56 = MEMORY[0x1E69DCAD8];
       secondaryLabelColor = [MEMORY[0x1E69DC888] secondaryLabelColor];
-      v74[0] = secondaryLabelColor;
-      v57 = [MEMORY[0x1E695DEC8] arrayWithObjects:v74 count:1];
-      v58 = [v55 _configurationWithHierarchicalColors:v57];
+      v75[0] = secondaryLabelColor;
+      v58 = [MEMORY[0x1E695DEC8] arrayWithObjects:v75 count:1];
+      v59 = [v56 _configurationWithHierarchicalColors:v58];
 
-      v59 = [v58 configurationByApplyingConfiguration:v54];
-      v60 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"xmark.circle.fill"];
-      [(UIButton *)v20->_closeButton setImage:v60 forState:0];
-      [(UIButton *)v20->_closeButton setPreferredSymbolConfiguration:v59 forImageInState:0];
+      v60 = [v59 configurationByApplyingConfiguration:v55];
+      v61 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"xmark.circle.fill"];
+      [(UIButton *)v20->_closeButton setImage:v61 forState:0];
+      [(UIButton *)v20->_closeButton setPreferredSymbolConfiguration:v60 forImageInState:0];
       [(UIButton *)v20->_closeButton addTarget:v20 action:sel_didTapCloseButton_ forControlEvents:64];
       contentView2 = [(AVTStickerRecentsOverlayView *)v20 contentView];
       [contentView2 addSubview:v20->_closeButton];
 
-      v62 = +[AVTStickerRecentsOverlayViewLayout buttonsPortraitLayout];
+      v63 = +[AVTStickerRecentsOverlayViewLayout buttonsPortraitLayout];
       portraitLayout = v20->_portraitLayout;
-      v20->_portraitLayout = v62;
+      v20->_portraitLayout = v63;
 
-      v64 = +[AVTStickerRecentsOverlayViewLayout buttonsLandscapeLayout];
+      v65 = +[AVTStickerRecentsOverlayViewLayout buttonsLandscapeLayout];
       landscapeLayout = v20->_landscapeLayout;
-      v20->_landscapeLayout = v64;
+      v20->_landscapeLayout = v65;
     }
 
     else
     {
-      v66 = [objc_alloc(MEMORY[0x1E69DD060]) initWithTarget:v20 action:sel_didTapContentView_];
+      v67 = [objc_alloc(MEMORY[0x1E69DD060]) initWithTarget:v20 action:sel_didTapContentView_];
       tapGestureRecognizer = v20->_tapGestureRecognizer;
-      v20->_tapGestureRecognizer = v66;
+      v20->_tapGestureRecognizer = v67;
 
       contentView3 = [(AVTStickerRecentsOverlayView *)v20 contentView];
       [contentView3 addGestureRecognizer:v20->_tapGestureRecognizer];
 
-      v69 = +[AVTStickerRecentsOverlayViewLayout standardPortraitLayout];
-      v70 = v20->_portraitLayout;
-      v20->_portraitLayout = v69;
+      v70 = +[AVTStickerRecentsOverlayViewLayout standardPortraitLayout];
+      v71 = v20->_portraitLayout;
+      v20->_portraitLayout = v70;
 
-      v71 = +[AVTStickerRecentsOverlayViewLayout standardLandscapeLayout];
-      v54 = v20->_landscapeLayout;
-      v20->_landscapeLayout = v71;
+      v72 = +[AVTStickerRecentsOverlayViewLayout standardLandscapeLayout];
+      v55 = v20->_landscapeLayout;
+      v20->_landscapeLayout = v72;
     }
 
     [(AVTStickerRecentsOverlayView *)v20 setupConstraints];

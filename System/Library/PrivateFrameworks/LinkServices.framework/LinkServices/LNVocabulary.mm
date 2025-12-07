@@ -152,56 +152,53 @@ LABEL_21:
 
 - (LNVocabulary)initWithTerm:(id)term entityIdentifier:(id)identifier
 {
-  v17[3] = *MEMORY[0x1E69E9840];
-  v17[0] = @"appEntity";
-  v16[0] = @"model";
-  v16[1] = @"id";
+  v16[3] = *MEMORY[0x1E69E9840];
+  v16[0] = @"appEntity";
+  v15[0] = @"model";
+  v15[1] = @"id";
   identifierCopy = identifier;
   termCopy = term;
   instanceIdentifier = [identifierCopy instanceIdentifier];
   v9 = [instanceIdentifier copy];
-  v17[1] = v9;
-  v16[2] = @"name";
+  v16[1] = v9;
+  v15[2] = @"name";
   typeIdentifier = [identifierCopy typeIdentifier];
 
   v11 = [typeIdentifier copy];
-  v17[2] = v11;
-  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:3];
+  v16[2] = v11;
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:3];
   v13 = [(LNVocabulary *)self initWithTerm:termCopy traits:v12];
 
-  v14 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
 - (LNVocabulary)initWithTerm:(id)term entityTypeName:(id)name
 {
-  v13[2] = *MEMORY[0x1E69E9840];
-  v12[0] = @"model";
-  v12[1] = @"name";
-  v13[0] = @"appEntityType";
+  v12[2] = *MEMORY[0x1E69E9840];
+  v11[0] = @"model";
+  v11[1] = @"name";
+  v12[0] = @"appEntityType";
   termCopy = term;
   v7 = [name copy];
-  v13[1] = v7;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:2];
+  v12[1] = v7;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
   v9 = [(LNVocabulary *)self initWithTerm:termCopy traits:v8];
 
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 - (LNVocabulary)initWithTerm:(id)term appSettingName:(id)name
 {
-  v13[2] = *MEMORY[0x1E69E9840];
-  v12[0] = @"model";
-  v12[1] = @"name";
-  v13[0] = @"appSetting";
+  v12[2] = *MEMORY[0x1E69E9840];
+  v11[0] = @"model";
+  v11[1] = @"name";
+  v12[0] = @"appSetting";
   termCopy = term;
   v7 = [name copy];
-  v13[1] = v7;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:2];
+  v12[1] = v7;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
   v9 = [(LNVocabulary *)self initWithTerm:termCopy traits:v8];
 
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 

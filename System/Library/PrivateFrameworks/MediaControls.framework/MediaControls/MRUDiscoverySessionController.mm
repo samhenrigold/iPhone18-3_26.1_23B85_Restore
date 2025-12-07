@@ -46,38 +46,39 @@
 
 void __56__MRUDiscoverySessionController_initWithDeviceFeatures___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E6958460] auxiliarySession];
   v3 = *MEMORY[0x1E6958068];
-  v15 = 0;
-  v4 = [v2 setCategory:v3 error:&v15];
-  v5 = v15;
+  v16 = 0;
+  v4 = [v2 setCategory:v3 error:&v16];
+  v5 = v16;
+  v6 = v5;
   if ((v4 & 1) == 0)
   {
-    v6 = _MPAVLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = _MPAVLog(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v17 = v5;
-      _os_log_impl(&dword_1A20FC000, v6, OS_LOG_TYPE_DEFAULT, "Audio session category failed: %{public}@ (AirPlay devices may be missed)", buf, 0xCu);
+      v18 = v6;
+      _os_log_impl(&dword_1A20FC000, v7, OS_LOG_TYPE_DEFAULT, "Audio session category failed: %{public}@ (AirPlay devices may be missed)", buf, 0xCu);
     }
   }
 
-  v7 = [objc_alloc(MEMORY[0x1E6958810]) initWithDeviceFeatures:*(a1 + 40)];
-  [v7 setTargetAudioSession:v2];
-  v8 = [v7 availableOutputDevices];
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __56__MRUDiscoverySessionController_initWithDeviceFeatures___block_invoke_3;
-  v11[3] = &unk_1E7664610;
-  objc_copyWeak(&v14, (a1 + 32));
-  v12 = v7;
+  v8 = [objc_alloc(MEMORY[0x1E6958810]) initWithDeviceFeatures:*(a1 + 40)];
+  [v8 setTargetAudioSession:v2];
+  v9 = [v8 availableOutputDevices];
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __56__MRUDiscoverySessionController_initWithDeviceFeatures___block_invoke_3;
+  v12[3] = &unk_1E7664610;
+  objc_copyWeak(&v15, (a1 + 32));
   v13 = v8;
-  v9 = v8;
-  v10 = v7;
-  dispatch_async(MEMORY[0x1E69E96A0], v11);
+  v14 = v9;
+  v10 = v9;
+  v11 = v8;
+  dispatch_async(MEMORY[0x1E69E96A0], v12);
 
-  objc_destroyWeak(&v14);
+  objc_destroyWeak(&v15);
 }
 
 void __56__MRUDiscoverySessionController_initWithDeviceFeatures___block_invoke_3(uint64_t a1)
@@ -130,7 +131,7 @@ void __56__MRUDiscoverySessionController_initWithDeviceFeatures___block_invoke_3
   }
 }
 
-uint64_t __75__MRUDiscoverySessionController_availableOutputDevicesChangedNotification___block_invoke(uint64_t a1)
+void *__75__MRUDiscoverySessionController_availableOutputDevicesChangedNotification___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) needsUpdate];
   if (result)
@@ -147,7 +148,7 @@ uint64_t __75__MRUDiscoverySessionController_availableOutputDevicesChangedNotifi
 {
   v15 = *MEMORY[0x1E69E9840];
   detailedDiscovery = self->_detailedDiscovery;
-  v4 = _MPAVLog();
+  v4 = _MPAVLog(self);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
   if (detailedDiscovery)
   {
@@ -232,42 +233,42 @@ LABEL_5:
 
 - (void)updateOutputDevicesForAvailableOutputDevices:(id)devices
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   devicesCopy = devices;
   v5 = [(MRUDiscoverySessionController *)self filterAndSortOutputDevices:devicesCopy];
-  v6 = _MPAVLog();
+  v6 = _MPAVLog(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543874;
     selfCopy2 = self;
-    v14 = 2048;
-    v15 = [devicesCopy count];
-    v16 = 2114;
-    v17 = devicesCopy;
+    v15 = 2048;
+    v16 = [devicesCopy count];
+    v17 = 2114;
+    v18 = devicesCopy;
     _os_log_impl(&dword_1A20FC000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ received output devices: #%ld %{public}@", buf, 0x20u);
   }
 
-  v7 = _MPAVLog();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = _MPAVLog(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = [v5 count];
+    v9 = [v5 count];
     *buf = 138543874;
     selfCopy2 = self;
-    v14 = 2048;
-    v15 = v8;
-    v16 = 2114;
-    v17 = v5;
-    _os_log_impl(&dword_1A20FC000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ updating to output devices: #%ld %{public}@", buf, 0x20u);
+    v15 = 2048;
+    v16 = v9;
+    v17 = 2114;
+    v18 = v5;
+    _os_log_impl(&dword_1A20FC000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ updating to output devices: #%ld %{public}@", buf, 0x20u);
   }
 
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __78__MRUDiscoverySessionController_updateOutputDevicesForAvailableOutputDevices___block_invoke;
-  v10[3] = &unk_1E76639D0;
-  v10[4] = self;
-  v11 = v5;
-  v9 = v5;
-  dispatch_async(MEMORY[0x1E69E96A0], v10);
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __78__MRUDiscoverySessionController_updateOutputDevicesForAvailableOutputDevices___block_invoke;
+  v11[3] = &unk_1E76639D0;
+  v11[4] = self;
+  v12 = v5;
+  v10 = v5;
+  dispatch_async(MEMORY[0x1E69E96A0], v11);
 }
 
 void __78__MRUDiscoverySessionController_updateOutputDevicesForAvailableOutputDevices___block_invoke(uint64_t a1)

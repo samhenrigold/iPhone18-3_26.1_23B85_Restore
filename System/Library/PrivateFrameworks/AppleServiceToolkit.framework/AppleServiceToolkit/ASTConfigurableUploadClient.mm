@@ -17,41 +17,40 @@
 
 - (NSArray)uploadStatus
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   taskMap = [(ASTConfigurableUploadClient *)self taskMap];
   allValues = [taskMap allValues];
 
-  v6 = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(allValues);
         }
 
-        metaInfo = [*(*(&v14 + 1) + 8 * i) metaInfo];
+        metaInfo = [*(*(&v13 + 1) + 8 * i) metaInfo];
         [array addObject:metaInfo];
       }
 
-      v7 = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
   }
 
   v11 = [array copy];
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -375,7 +374,7 @@ LABEL_27:
 
 void __57__ASTConfigurableUploadClient_uploadWithObject_andExtra___block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = a4;
   v8 = ASTLogHandleForCategory(1);
@@ -384,27 +383,25 @@ void __57__ASTConfigurableUploadClient_uploadWithObject_andExtra___block_invoke(
     v9 = [*(*(*(a1 + 40) + 8) + 40) task];
     v10 = [v9 taskIdentifier];
     v11 = [v6 URL];
-    v15 = 134218754;
-    v16 = v10;
-    v17 = 2112;
-    v18 = v11;
-    v19 = 2112;
-    v20 = v6;
-    v21 = 2112;
-    v22 = v7;
-    _os_log_impl(&dword_240F3C000, v8, OS_LOG_TYPE_DEFAULT, "[Uploader] Completed upload task for upload file [%li - %@] with response: %@ and error: %@.", &v15, 0x2Au);
+    v14 = 134218754;
+    v15 = v10;
+    v16 = 2112;
+    v17 = v11;
+    v18 = 2112;
+    v19 = v6;
+    v20 = 2112;
+    v21 = v7;
+    _os_log_impl(&dword_240F3C000, v8, OS_LOG_TYPE_DEFAULT, "[Uploader] Completed upload task for upload file [%li - %@] with response: %@ and error: %@.", &v14, 0x2Au);
   }
 
   v12 = *(a1 + 32);
   v13 = [*(*(*(a1 + 40) + 8) + 40) task];
   [v12 uploadTaskDidComplete:objc_msgSend(v13 withResponse:"taskIdentifier") andError:{v6, v7}];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelUploadWithId:(unint64_t)id
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:?];
   taskMap = [(ASTConfigurableUploadClient *)self taskMap];
   v7 = [taskMap objectForKeyedSubscript:v5];
@@ -420,11 +417,11 @@ void __57__ASTConfigurableUploadClient_uploadWithObject_andExtra___block_invoke(
       task2 = [v7 task];
       originalRequest = [task2 originalRequest];
       v12 = [originalRequest URL];
-      v15 = 134218242;
+      v14 = 134218242;
       idCopy2 = id;
-      v17 = 2112;
-      v18 = v12;
-      _os_log_impl(&dword_240F3C000, v9, OS_LOG_TYPE_DEFAULT, "[Uploader] Canceled task for upload file [%li - %@]", &v15, 0x16u);
+      v16 = 2112;
+      v17 = v12;
+      _os_log_impl(&dword_240F3C000, v9, OS_LOG_TYPE_DEFAULT, "[Uploader] Canceled task for upload file [%li - %@]", &v14, 0x16u);
     }
 
     taskMap2 = [(ASTConfigurableUploadClient *)self taskMap];
@@ -436,18 +433,16 @@ void __57__ASTConfigurableUploadClient_uploadWithObject_andExtra___block_invoke(
     taskMap2 = ASTLogHandleForCategory(0);
     if (os_log_type_enabled(taskMap2, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 134217984;
+      v14 = 134217984;
       idCopy2 = id;
-      _os_log_impl(&dword_240F3C000, taskMap2, OS_LOG_TYPE_DEFAULT, "[Uploader] No task exist for upload file (%li), failed to cancel", &v15, 0xCu);
+      _os_log_impl(&dword_240F3C000, taskMap2, OS_LOG_TYPE_DEFAULT, "[Uploader] No task exist for upload file (%li), failed to cancel", &v14, 0xCu);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)uploadTaskDidComplete:(unint64_t)complete withResponse:(id)response andError:(id)error
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   errorCopy = error;
   taskMap = [(ASTConfigurableUploadClient *)self taskMap];
@@ -461,7 +456,7 @@ void __57__ASTConfigurableUploadClient_uploadWithObject_andExtra___block_invoke(
   v16 = v15;
   if (!v15)
   {
-    v53 = v14;
+    v52 = v14;
     if (errorCopy)
     {
       goto LABEL_40;
@@ -474,7 +469,7 @@ LABEL_9:
     }
 
     metaInfo = [v12 metaInfo];
-    [metaInfo setObject:v53 forKeyedSubscript:@"status"];
+    [metaInfo setObject:v52 forKeyedSubscript:@"status"];
     goto LABEL_45;
   }
 
@@ -486,17 +481,17 @@ LABEL_9:
       switch(statusCode)
       {
         case 200:
-          v53 = @"SUCCESSFUL";
+          v52 = @"SUCCESSFUL";
 
           v18 = @"Upload complete with status: %ld";
           goto LABEL_35;
         case 202:
-          v53 = @"SUCCESSFUL";
+          v52 = @"SUCCESSFUL";
 
           v18 = @"Upload complete with status: %ld. Item was added to an async scan queue.";
           goto LABEL_35;
         case 204:
-          v53 = @"SUCCESSFUL";
+          v52 = @"SUCCESSFUL";
 
           v18 = @"Upload complete with status: %ld. Item was previously added to an async scan queue.";
           goto LABEL_35;
@@ -560,35 +555,35 @@ LABEL_33:
 
   v18 = @"Upload failed with status: %ld. Client timed out.";
 LABEL_34:
-  v53 = v14;
+  v52 = v14;
 LABEL_35:
   v20 = [MEMORY[0x277CCACA8] stringWithFormat:v18, objc_msgSend(v16, "statusCode")];
   v21 = ASTLogHandleForCategory(1);
   if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v62 = v20;
+    v61 = v20;
     _os_log_impl(&dword_240F3C000, v21, OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
   }
 
-  if (([(__CFString *)v53 isEqualToString:@"SUCCESSFUL"]& 1) == 0)
+  if (([(__CFString *)v52 isEqualToString:@"SUCCESSFUL"]& 1) == 0)
   {
     v22 = MEMORY[0x277CCA9B8];
-    v59[0] = @"httpResponseCode";
-    v51 = v12;
+    v58[0] = @"httpResponseCode";
+    v50 = v12;
     v23 = v14;
     v24 = destinationUrl;
     v25 = errorCopy;
     v26 = [MEMORY[0x277CCABB0] numberWithLong:{objc_msgSend(v16, "statusCode")}];
-    v59[1] = @"errorDetails";
-    v60[0] = v26;
-    v60[1] = v20;
-    v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v60 forKeys:v59 count:2];
+    v58[1] = @"errorDetails";
+    v59[0] = v26;
+    v59[1] = v20;
+    v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v59 forKeys:v58 count:2];
     v28 = [v22 errorWithDomain:@"ASTErrorDomain" code:-5000 userInfo:v27];
 
     destinationUrl = v24;
     v14 = v23;
-    v12 = v51;
+    v12 = v50;
 
     errorCopy = v28;
   }
@@ -622,28 +617,28 @@ LABEL_45:
     }
   }
 
-  v56 = 0u;
-  v57 = 0u;
-  v54 = 0u;
   v55 = 0u;
+  v56 = 0u;
+  v53 = 0u;
+  v54 = 0u;
   taskMap2 = [(ASTConfigurableUploadClient *)self taskMap];
   allValues = [taskMap2 allValues];
 
-  v36 = [allValues countByEnumeratingWithState:&v54 objects:v58 count:16];
+  v36 = [allValues countByEnumeratingWithState:&v53 objects:v57 count:16];
   if (v36)
   {
     v37 = v36;
-    v38 = *v55;
+    v38 = *v54;
     while (2)
     {
       for (i = 0; i != v37; ++i)
       {
-        if (*v55 != v38)
+        if (*v54 != v38)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v40 = *(*(&v54 + 1) + 8 * i);
+        v40 = *(*(&v53 + 1) + 8 * i);
         if (([v40 isComplete] & 1) == 0 && !objc_msgSend(v40, "isFailed"))
         {
           v41 = errorCopy;
@@ -652,7 +647,7 @@ LABEL_45:
         }
       }
 
-      v37 = [allValues countByEnumeratingWithState:&v54 objects:v58 count:16];
+      v37 = [allValues countByEnumeratingWithState:&v53 objects:v57 count:16];
       if (v37)
       {
         continue;
@@ -700,35 +695,33 @@ LABEL_58:
       }
     }
   }
-
-  v50 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelAll
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   taskMap = [(ASTConfigurableUploadClient *)self taskMap];
   allValues = [taskMap allValues];
 
-  v4 = [allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * i);
+        v8 = *(*(&v11 + 1) + 8 * i);
         if (([v8 isComplete] & 1) == 0)
         {
           task = [v8 task];
@@ -740,13 +733,11 @@ LABEL_58:
         }
       }
 
-      v5 = [allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)URLSession:(id)session task:(id)task didCompleteWithError:(id)error

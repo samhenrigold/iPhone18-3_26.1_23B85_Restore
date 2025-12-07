@@ -1,5 +1,5 @@
 @interface _UIImageContentRenditionContext
-+ (id)contextWithRenderEnvironment:(void *)environment source:;
++ (_UIImageContentRenditionContext)contextWithRenderEnvironment:(void *)environment source:;
 - (BOOL)_shouldResolveHierarchicalColors;
 - (BOOL)_shouldResolveNamedColorStyles;
 - (BOOL)_shouldResolvePaletteColors;
@@ -138,7 +138,7 @@
   return self;
 }
 
-+ (id)contextWithRenderEnvironment:(void *)environment source:
++ (_UIImageContentRenditionContext)contextWithRenderEnvironment:(void *)environment source:
 {
   environmentCopy = environment;
   v5 = a2;

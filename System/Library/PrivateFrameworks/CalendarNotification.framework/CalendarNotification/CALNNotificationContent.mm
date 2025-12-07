@@ -170,124 +170,21 @@
     title2 = [(CALNNotificationContent *)contentCopy title];
     v7 = CalEqualStrings();
 
-    if (!v7)
-    {
-      goto LABEL_18;
-    }
-
-    subtitle = [(CALNNotificationContent *)self subtitle];
-    subtitle2 = [(CALNNotificationContent *)contentCopy subtitle];
-    v10 = CalEqualStrings();
-
-    if (!v10)
-    {
-      goto LABEL_18;
-    }
-
-    body = [(CALNNotificationContent *)self body];
-    body2 = [(CALNNotificationContent *)contentCopy body];
-    v13 = CalEqualStrings();
-
-    if (!v13)
-    {
-      goto LABEL_18;
-    }
-
-    categoryIdentifier = [(CALNNotificationContent *)self categoryIdentifier];
-    categoryIdentifier2 = [(CALNNotificationContent *)contentCopy categoryIdentifier];
-    v16 = CalEqualStrings();
-
-    if (!v16)
-    {
-      goto LABEL_18;
-    }
-
-    sectionIdentifier = [(CALNNotificationContent *)self sectionIdentifier];
-    sectionIdentifier2 = [(CALNNotificationContent *)contentCopy sectionIdentifier];
-    v19 = CalEqualStrings();
-
-    if (!v19)
-    {
-      goto LABEL_18;
-    }
-
-    date = [(CALNNotificationContent *)self date];
-    date2 = [(CALNNotificationContent *)contentCopy date];
-    v22 = CalEqualObjects();
-
-    if (!v22)
-    {
-      goto LABEL_18;
-    }
-
-    defaultActionURL = [(CALNNotificationContent *)self defaultActionURL];
-    defaultActionURL2 = [(CALNNotificationContent *)contentCopy defaultActionURL];
-    v25 = CalEqualObjects();
-
-    if (!v25)
-    {
-      goto LABEL_18;
-    }
-
-    iconIdentifier = [(CALNNotificationContent *)self iconIdentifier];
-    iconIdentifier2 = [(CALNNotificationContent *)contentCopy iconIdentifier];
-    v28 = CalEqualStrings();
-
-    if (!v28)
-    {
-      goto LABEL_18;
-    }
-
-    shouldHideTime = [(CALNNotificationContent *)self shouldHideTime];
-    if (shouldHideTime != [(CALNNotificationContent *)contentCopy shouldHideTime])
-    {
-      goto LABEL_18;
-    }
-
-    shouldSuppressSyncDismissalWhenRemoved = [(CALNNotificationContent *)self shouldSuppressSyncDismissalWhenRemoved];
-    if (shouldSuppressSyncDismissalWhenRemoved != [(CALNNotificationContent *)contentCopy shouldSuppressSyncDismissalWhenRemoved])
-    {
-      goto LABEL_18;
-    }
-
-    peopleIdentifiers = [(CALNNotificationContent *)self peopleIdentifiers];
-    peopleIdentifiers2 = [(CALNNotificationContent *)contentCopy peopleIdentifiers];
-    v33 = CalEqualObjects();
-
-    if (!v33)
-    {
-      goto LABEL_18;
-    }
-
-    sound = [(CALNNotificationContent *)self sound];
-    sound2 = [(CALNNotificationContent *)contentCopy sound];
-    v36 = CalEqualObjects();
-
-    if (!v36)
-    {
-      goto LABEL_18;
-    }
-
-    userInfo = [(CALNNotificationContent *)self userInfo];
-    userInfo2 = [(CALNNotificationContent *)contentCopy userInfo];
-    v39 = CalEqualObjects();
-
-    if (!v39)
-    {
-      goto LABEL_18;
-    }
-
-    threadIdentifier = [(CALNNotificationContent *)self threadIdentifier];
-    threadIdentifier2 = [(CALNNotificationContent *)contentCopy threadIdentifier];
-    v42 = CalEqualStrings();
-
-    if (!v42)
-    {
-      goto LABEL_18;
-    }
-
-    interruptionLevel = [(CALNNotificationContent *)self interruptionLevel];
-    if (interruptionLevel == [(CALNNotificationContent *)contentCopy interruptionLevel])
+    if (v7
+      && ([(CALNNotificationContent *)self subtitle], v8 = objc_claimAutoreleasedReturnValue(), [(CALNNotificationContent *)contentCopy subtitle], v9 = objc_claimAutoreleasedReturnValue(), v10 = CalEqualStrings(), v9, v8, v10)
+      && ([(CALNNotificationContent *)self body], v11 = objc_claimAutoreleasedReturnValue(), [(CALNNotificationContent *)contentCopy body], v12 = objc_claimAutoreleasedReturnValue(), v13 = CalEqualStrings(), v12, v11, v13)
+      && ([(CALNNotificationContent *)self categoryIdentifier], v14 = objc_claimAutoreleasedReturnValue(), [(CALNNotificationContent *)contentCopy categoryIdentifier], v15 = objc_claimAutoreleasedReturnValue(), v16 = CalEqualStrings(), v15, v14, v16)
+      && ([(CALNNotificationContent *)self sectionIdentifier], v17 = objc_claimAutoreleasedReturnValue(), [(CALNNotificationContent *)contentCopy sectionIdentifier], v18 = objc_claimAutoreleasedReturnValue(), v19 = CalEqualStrings(), v18, v17, v19)
+      && ([(CALNNotificationContent *)self date], v20 = objc_claimAutoreleasedReturnValue(), [(CALNNotificationContent *)contentCopy date], v21 = objc_claimAutoreleasedReturnValue(), v22 = CalEqualObjects(), v21, v20, v22)
+      && ([(CALNNotificationContent *)self defaultActionURL], v23 = objc_claimAutoreleasedReturnValue(), [(CALNNotificationContent *)contentCopy defaultActionURL], v24 = objc_claimAutoreleasedReturnValue(), v25 = CalEqualObjects(), v24, v23, v25)
+      && ([(CALNNotificationContent *)self iconIdentifier], v26 = objc_claimAutoreleasedReturnValue(), [(CALNNotificationContent *)contentCopy iconIdentifier], v27 = objc_claimAutoreleasedReturnValue(), v28 = CalEqualStrings(), v27, v26, v28)
+      && (v29 = [(CALNNotificationContent *)self shouldHideTime], v29 == [(CALNNotificationContent *)contentCopy shouldHideTime])
+      && (v30 = [(CALNNotificationContent *)self shouldSuppressSyncDismissalWhenRemoved], v30 == [(CALNNotificationContent *)contentCopy shouldSuppressSyncDismissalWhenRemoved])
+      && ([(CALNNotificationContent *)self peopleIdentifiers], v31 = objc_claimAutoreleasedReturnValue(), [(CALNNotificationContent *)contentCopy peopleIdentifiers], v32 = objc_claimAutoreleasedReturnValue(), v33 = CalEqualObjects(), v32, v31, v33)
+      && ([(CALNNotificationContent *)self sound], v34 = objc_claimAutoreleasedReturnValue(), [(CALNNotificationContent *)contentCopy sound], v35 = objc_claimAutoreleasedReturnValue(), v36 = CalEqualObjects(), v35, v34, v36)
+      && ([(CALNNotificationContent *)self userInfo], v37 = objc_claimAutoreleasedReturnValue(), [(CALNNotificationContent *)contentCopy userInfo], v38 = objc_claimAutoreleasedReturnValue(), v39 = CalEqualObjects(), v38, v37, v39)
+      && ([(CALNNotificationContent *)self threadIdentifier], v40 = objc_claimAutoreleasedReturnValue(), [(CALNNotificationContent *)contentCopy threadIdentifier], v41 = objc_claimAutoreleasedReturnValue(), v42 = CalEqualStrings(), v41, v40, v42)
+      && (v43 = [(CALNNotificationContent *)self interruptionLevel], v43 == [(CALNNotificationContent *)contentCopy interruptionLevel]))
     {
       filterCriteria = [(CALNNotificationContent *)self filterCriteria];
       filterCriteria2 = [(CALNNotificationContent *)contentCopy filterCriteria];
@@ -296,7 +193,6 @@
 
     else
     {
-LABEL_18:
       v46 = 0;
     }
   }
@@ -477,18 +373,16 @@ LABEL_18:
   return v28;
 }
 
-void __41__CALNNotificationContent_initWithCoder___block_invoke()
+void __41__CALNNotificationContent_initWithCoder___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v5[2] = *MEMORY[0x277D85DE8];
-  v0 = MEMORY[0x277CBEB98];
-  v5[0] = objc_opt_class();
-  v5[1] = objc_opt_class();
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:2];
-  v2 = [v0 setWithArray:v1];
-  v3 = initWithCoder__peopleIdentifiersClasses;
-  initWithCoder__peopleIdentifiersClasses = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[2] = *MEMORY[0x277D85DE8];
+  v2 = MEMORY[0x277CBEB98];
+  v6[0] = objc_opt_class();
+  v6[1] = objc_opt_class();
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:2];
+  v4 = [v2 setWithArray:v3];
+  v5 = initWithCoder__peopleIdentifiersClasses;
+  initWithCoder__peopleIdentifiersClasses = v4;
 }
 
 @end

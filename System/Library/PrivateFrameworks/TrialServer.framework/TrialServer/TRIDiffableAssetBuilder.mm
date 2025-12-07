@@ -251,9 +251,9 @@ void __220__TRIDiffableAssetBuilder_buildAndSaveDiffableAssetsWithAssetIds_metad
   }
 }
 
-void __220__TRIDiffableAssetBuilder_buildAndSaveDiffableAssetsWithAssetIds_metadataForAssetId_artifactProvider_options_paths_assetsDownloadSize_perAssetIdCompletionBlockOnSuccess_perAssetIdCompletionBlockOnError_retryAfter_error___block_invoke_6(uint64_t a1, uint64_t a2, void *a3, void *a4, void *a5)
+void __220__TRIDiffableAssetBuilder_buildAndSaveDiffableAssetsWithAssetIds_metadataForAssetId_artifactProvider_options_paths_assetsDownloadSize_perAssetIdCompletionBlockOnSuccess_perAssetIdCompletionBlockOnError_retryAfter_error___block_invoke_6(uint64_t a1, unint64_t a2, void *a3, void *a4, void *a5)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v9 = a3;
   v10 = a4;
   v11 = a5;
@@ -266,22 +266,22 @@ void __220__TRIDiffableAssetBuilder_buildAndSaveDiffableAssetsWithAssetIds_metad
         v15 = [objc_alloc(MEMORY[0x277CBEB58]) initWithCapacity:{objc_msgSend(v9, "count")}];
         *&buf = 0;
         *(&buf + 1) = &buf;
-        v32 = 0x2020000000;
-        v33 = 1;
-        v23[0] = MEMORY[0x277D85DD0];
-        v23[1] = 3221225472;
-        v23[2] = __220__TRIDiffableAssetBuilder_buildAndSaveDiffableAssetsWithAssetIds_metadataForAssetId_artifactProvider_options_paths_assetsDownloadSize_perAssetIdCompletionBlockOnSuccess_perAssetIdCompletionBlockOnError_retryAfter_error___block_invoke_44;
-        v23[3] = &unk_279DE2978;
-        v24 = *(a1 + 32);
-        v28 = *(a1 + 80);
-        v25 = *(a1 + 40);
+        v31 = 0x2020000000;
+        v32 = 1;
+        v22[0] = MEMORY[0x277D85DD0];
+        v22[1] = 3221225472;
+        v22[2] = __220__TRIDiffableAssetBuilder_buildAndSaveDiffableAssetsWithAssetIds_metadataForAssetId_artifactProvider_options_paths_assetsDownloadSize_perAssetIdCompletionBlockOnSuccess_perAssetIdCompletionBlockOnError_retryAfter_error___block_invoke_44;
+        v22[3] = &unk_279DE2978;
+        v23 = *(a1 + 32);
+        v27 = *(a1 + 80);
+        v24 = *(a1 + 40);
         v16 = v15;
         v17 = *(a1 + 72);
-        v29 = *(a1 + 96);
-        v30 = v17;
-        v26 = v16;
+        v28 = *(a1 + 96);
+        v29 = v17;
+        v25 = v16;
         p_buf = &buf;
-        [v9 enumerateKeysAndObjectsUsingBlock:v23];
+        [v9 enumerateKeysAndObjectsUsingBlock:v22];
         v18 = *(*(a1 + 56) + 8);
         v19 = *(v18 + 40);
         *(v18 + 40) = v16;
@@ -342,13 +342,11 @@ LABEL_17:
 
 LABEL_18:
   dispatch_semaphore_signal(*(a1 + 48));
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __220__TRIDiffableAssetBuilder_buildAndSaveDiffableAssetsWithAssetIds_metadataForAssetId_artifactProvider_options_paths_assetsDownloadSize_perAssetIdCompletionBlockOnSuccess_perAssetIdCompletionBlockOnError_retryAfter_error___block_invoke_44(uint64_t a1, uint64_t a2, void *a3)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = *(a1 + 32);
   v6 = [v4 destAssetId];
@@ -356,8 +354,8 @@ void __220__TRIDiffableAssetBuilder_buildAndSaveDiffableAssetsWithAssetIds_metad
 
   if (!v7)
   {
-    v29 = [MEMORY[0x277CCA890] currentHandler];
-    [v29 handleFailureInMethod:*(a1 + 64) object:*(a1 + 72) file:@"TRIDiffableAssetBuilder.m" lineNumber:109 description:{@"Expression was unexpectedly nil/false: %@", @"metadataForAssetId[artifact.destAssetId]"}];
+    v28 = [MEMORY[0x277CCA890] currentHandler];
+    [v28 handleFailureInMethod:*(a1 + 64) object:*(a1 + 72) file:@"TRIDiffableAssetBuilder.m" lineNumber:109 description:{@"Expression was unexpectedly nil/false: %@", @"metadataForAssetId[artifact.destAssetId]"}];
   }
 
   obj = 0;
@@ -369,8 +367,8 @@ void __220__TRIDiffableAssetBuilder_buildAndSaveDiffableAssetsWithAssetIds_metad
 
   if (!v12)
   {
-    v30 = [MEMORY[0x277CCA890] currentHandler];
-    [v30 handleFailureInMethod:*(a1 + 64) object:*(a1 + 72) file:@"TRIDiffableAssetBuilder.m" lineNumber:113 description:{@"Expression was unexpectedly nil/false: %@", @"artifact.diff.path"}];
+    v29 = [MEMORY[0x277CCA890] currentHandler];
+    [v29 handleFailureInMethod:*(a1 + 64) object:*(a1 + 72) file:@"TRIDiffableAssetBuilder.m" lineNumber:113 description:{@"Expression was unexpectedly nil/false: %@", @"artifact.diff.path"}];
   }
 
   v13 = [v8 saveAssetWithIdentifier:v9 builtFromAssetWithIdentifier:v10 patchFilename:v12 metadata:v7 error:&obj];
@@ -395,9 +393,9 @@ void __220__TRIDiffableAssetBuilder_buildAndSaveDiffableAssetsWithAssetIds_metad
 
   v17 = [MEMORY[0x277CCAA00] defaultManager];
   v18 = [v4 diff];
-  v31 = 0;
-  v19 = [v17 removeItemAtURL:v18 error:&v31];
-  v20 = v31;
+  v30 = 0;
+  v19 = [v17 removeItemAtURL:v18 error:&v30];
+  v20 = v30;
 
   if ((v19 & 1) == 0)
   {
@@ -428,22 +426,20 @@ LABEL_13:
       else if (v26)
       {
 LABEL_19:
-        v28 = [v4 diff];
+        v27 = [v4 diff];
         *buf = 138412546;
-        v34 = v28;
-        v35 = 2114;
-        v36 = v20;
+        v33 = v27;
+        v34 = 2114;
+        v35 = v20;
         _os_log_error_impl(&dword_26F567000, v25, OS_LOG_TYPE_ERROR, "Failed to clean up CK cached asset %@: %{public}@", buf, 0x16u);
       }
 
       *(*(*(a1 + 56) + 8) + 24) = 0;
     }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
-void __220__TRIDiffableAssetBuilder_buildAndSaveDiffableAssetsWithAssetIds_metadataForAssetId_artifactProvider_options_paths_assetsDownloadSize_perAssetIdCompletionBlockOnSuccess_perAssetIdCompletionBlockOnError_retryAfter_error___block_invoke_58(uint64_t a1, uint64_t a2, void *a3, void *a4, void *a5)
+void __220__TRIDiffableAssetBuilder_buildAndSaveDiffableAssetsWithAssetIds_metadataForAssetId_artifactProvider_options_paths_assetsDownloadSize_perAssetIdCompletionBlockOnSuccess_perAssetIdCompletionBlockOnError_retryAfter_error___block_invoke_58(uint64_t a1, unint64_t a2, void *a3, void *a4, void *a5)
 {
   v13 = a3;
   v9 = a4;

@@ -129,7 +129,7 @@ LABEL_7:
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   listenerCopy = listener;
   connectionCopy = connection;
   v8 = objc_autoreleasePoolPush();
@@ -138,11 +138,11 @@ LABEL_7:
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     executableName = [v9 executableName];
-    v23 = 138543618;
-    v24 = executableName;
-    v25 = 1024;
-    v26 = [v9 pid];
-    _os_log_impl(&dword_1AC15D000, v10, OS_LOG_TYPE_DEFAULT, "Incoming connection from %{public}@(%d)", &v23, 0x12u);
+    v22 = 138543618;
+    v23 = executableName;
+    v24 = 1024;
+    v25 = [v9 pid];
+    _os_log_impl(&dword_1AC15D000, v10, OS_LOG_TYPE_DEFAULT, "Incoming connection from %{public}@(%d)", &v22, 0x12u);
   }
 
   if ([v9 processType] != 4 && objc_msgSend(v9, "processType") != 5)
@@ -244,7 +244,6 @@ LABEL_23:
 LABEL_28:
 
   objc_autoreleasePoolPop(v8);
-  v21 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
@@ -354,65 +353,63 @@ LABEL_16:
 
 - (void)connection:(id)connection handleInvocation:(id)invocation isReply:(BOOL)reply
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   invocationCopy = invocation;
-  v24 = 0;
-  v9 = [(BMAccessServiceListener *)self validateConnection:connectionCopy error:&v24];
-  v10 = v24;
+  v21 = 0;
+  v9 = [(BMAccessServiceListener *)self validateConnection:connectionCopy error:&v21];
+  v10 = v21;
   if (v9)
   {
-    fileServer = self->_fileServer;
     [invocationCopy selector];
     if (objc_opt_respondsToSelector())
     {
-      v12 = self->_fileServer;
+      fileServer = self->_fileServer;
 LABEL_9:
-      [invocationCopy invokeWithTarget:v12];
+      [invocationCopy invokeWithTarget:fileServer];
       goto LABEL_13;
     }
 
-    accessServer = self->_accessServer;
     [invocationCopy selector];
     if (objc_opt_respondsToSelector())
     {
-      v12 = self->_accessServer;
+      fileServer = self->_accessServer;
       goto LABEL_9;
     }
 
-    v15 = __biome_log_for_category(6);
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+    v13 = __biome_log_for_category(6);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
     {
       [BMAccessServiceListener connection:connectionCopy handleInvocation:invocationCopy isReply:?];
     }
 
-    v16 = MEMORY[0x1E696ABC0];
-    v25 = *MEMORY[0x1E696A578];
-    v17 = MEMORY[0x1E696AEC0];
-    v18 = NSStringFromSelector([invocationCopy selector]);
-    v19 = [v17 stringWithFormat:@"Failed to route request -%@", v18];
-    v26 = v19;
-    v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
-    v21 = [v16 errorWithDomain:@"BMAccessErrorDomain" code:6 userInfo:v20];
+    v14 = MEMORY[0x1E696ABC0];
+    v22 = *MEMORY[0x1E696A578];
+    v15 = MEMORY[0x1E696AEC0];
+    v16 = NSStringFromSelector([invocationCopy selector]);
+    v17 = [v15 stringWithFormat:@"Failed to route request -%@", v16];
+    v23 = v17;
+    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
+    v19 = [v14 errorWithDomain:@"BMAccessErrorDomain" code:6 userInfo:v18];
 
-    [(BMAccessServiceListener *)self replyToInvocation:invocationCopy withError:v21];
+    [(BMAccessServiceListener *)self replyToInvocation:invocationCopy withError:v19];
     [connectionCopy invalidate];
-    v10 = v21;
+    v10 = v19;
   }
 
   else
   {
-    v13 = __biome_log_for_category(6);
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+    v12 = __biome_log_for_category(6);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
     {
-      v23 = NSStringFromSelector([invocationCopy selector]);
+      v20 = NSStringFromSelector([invocationCopy selector]);
       *buf = 138412802;
-      v28 = v23;
-      v29 = 2112;
-      v30 = connectionCopy;
-      v31 = 2112;
-      v32 = v10;
-      _os_log_fault_impl(&dword_1AC15D000, v13, OS_LOG_TYPE_FAULT, "Request -%@ from %@ failed validation with error %@", buf, 0x20u);
+      v25 = v20;
+      v26 = 2112;
+      v27 = connectionCopy;
+      v28 = 2112;
+      v29 = v10;
+      _os_log_fault_impl(&dword_1AC15D000, v12, OS_LOG_TYPE_FAULT, "Request -%@ from %@ failed validation with error %@", buf, 0x20u);
     }
 
     [(BMAccessServiceListener *)self replyToInvocation:invocationCopy withError:v10];
@@ -420,13 +417,11 @@ LABEL_9:
   }
 
 LABEL_13:
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)validateConnection:(id)connection error:(id *)error
 {
-  v31[1] = *MEMORY[0x1E69E9840];
+  v30[1] = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   bm_remoteUseCase = [connectionCopy bm_remoteUseCase];
   if (bm_remoteUseCase)
@@ -444,9 +439,9 @@ LABEL_13:
         if (error)
         {
           v23 = MEMORY[0x1E696ABC0];
-          v28 = *MEMORY[0x1E696A578];
-          v29 = @"Use case already set";
-          v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+          v27 = *MEMORY[0x1E696A578];
+          v28 = @"Use case already set";
+          v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
           v19 = v23;
           v20 = 5;
           goto LABEL_15;
@@ -463,11 +458,11 @@ LABEL_13:
         if (error)
         {
           v14 = MEMORY[0x1E696ABC0];
-          v26 = *MEMORY[0x1E696A578];
-          v27 = @"Connection missing use-case";
+          v25 = *MEMORY[0x1E696A578];
+          v26 = @"Connection missing use-case";
           v15 = MEMORY[0x1E695DF20];
-          v16 = &v27;
-          v17 = &v26;
+          v16 = &v26;
+          v17 = &v25;
 LABEL_9:
           v18 = [v15 dictionaryWithObjects:v16 forKeys:v17 count:1];
           v19 = v14;
@@ -504,23 +499,22 @@ LABEL_16:
   if (error)
   {
     v14 = MEMORY[0x1E696ABC0];
-    v30 = *MEMORY[0x1E696A578];
-    v31[0] = @"Connection missing use-case";
+    v29 = *MEMORY[0x1E696A578];
+    v30[0] = @"Connection missing use-case";
     v15 = MEMORY[0x1E695DF20];
-    v16 = v31;
-    v17 = &v30;
+    v16 = v30;
+    v17 = &v29;
     goto LABEL_9;
   }
 
 LABEL_17:
 
-  v24 = *MEMORY[0x1E69E9840];
   return error;
 }
 
 - (id)uniqueEndpointForAppScopedServicesActingOnBehalfOfClientWithAccessControlPolicy:(id)policy
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   policyCopy = policy;
   dispatch_assert_queue_V2(self->_queue);
   process = [policyCopy process];
@@ -531,29 +525,29 @@ LABEL_17:
     process2 = [policyCopy process];
     identifier = [process2 identifier];
 
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     v8 = self->_clientSpecificListeners;
-    v9 = [(NSMapTable *)v8 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v9 = [(NSMapTable *)v8 countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v9)
     {
       v10 = v9;
-      v22 = policyCopy;
+      v21 = policyCopy;
       v11 = 0;
-      v12 = *v25;
+      v12 = *v24;
 LABEL_4:
       v13 = 0;
       v14 = v11;
       while (1)
       {
-        if (*v25 != v12)
+        if (*v24 != v12)
         {
           objc_enumerationMutation(v8);
         }
 
-        v11 = *(*(&v24 + 1) + 8 * v13);
+        v11 = *(*(&v23 + 1) + 8 * v13);
 
         v15 = [(NSMapTable *)self->_clientSpecificListeners objectForKey:v11];
         process3 = [v15 process];
@@ -569,18 +563,18 @@ LABEL_4:
         v14 = v11;
         if (v10 == v13)
         {
-          v10 = [(NSMapTable *)v8 countByEnumeratingWithState:&v24 objects:v28 count:16];
+          v10 = [(NSMapTable *)v8 countByEnumeratingWithState:&v23 objects:v27 count:16];
           if (v10)
           {
             goto LABEL_4;
           }
 
-          policyCopy = v22;
+          policyCopy = v21;
           goto LABEL_11;
         }
       }
 
-      policyCopy = v22;
+      policyCopy = v21;
       if (v11)
       {
         goto LABEL_14;
@@ -592,11 +586,11 @@ LABEL_4:
 LABEL_11:
     }
 
-    v11 = [BMXPCListener anonymousListenerWithQueue:self->_queue, v22];
+    v11 = [BMXPCListener anonymousListenerWithQueue:self->_queue, v21];
     [v11 setDelegate:self];
     [v11 activate];
 LABEL_14:
-    [(NSMapTable *)self->_clientSpecificListeners setObject:policyCopy forKey:v11, v22];
+    [(NSMapTable *)self->_clientSpecificListeners setObject:policyCopy forKey:v11, v21];
     endpoint = [v11 endpoint];
   }
 
@@ -604,8 +598,6 @@ LABEL_14:
   {
     endpoint = 0;
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return endpoint;
 }
@@ -631,36 +623,29 @@ LABEL_14:
 - (void)listener:shouldAcceptNewConnection:.cold.1()
 {
   OUTLINED_FUNCTION_2();
-  v7 = *MEMORY[0x1E69E9840];
   [v1 executableName];
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_7();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2_0();
   _os_log_error_impl(v2, v3, OS_LOG_TYPE_ERROR, v4, v5, 0x1Cu);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)listener:shouldAcceptNewConnection:.cold.2()
 {
   OUTLINED_FUNCTION_2();
-  v7 = *MEMORY[0x1E69E9840];
   [v1 executableName];
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_7();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2_0();
   _os_log_debug_impl(v2, v3, OS_LOG_TYPE_DEBUG, v4, v5, 0x1Cu);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)listener:shouldAcceptNewConnection:.cold.3()
 {
   OUTLINED_FUNCTION_6();
   v2 = v1;
-  v11 = *MEMORY[0x1E69E9840];
   v3 = [v1 executableName];
   [v2 pid];
   v4 = [v0 executableName];
@@ -669,29 +654,23 @@ LABEL_14:
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1_2();
   _os_log_fault_impl(v5, v6, v7, v8, v9, 0x22u);
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)listener:shouldAcceptNewConnection:.cold.4()
 {
   OUTLINED_FUNCTION_2();
-  v7 = *MEMORY[0x1E69E9840];
   [v1 executableName];
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_7();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2_0();
   _os_log_error_impl(v2, v3, OS_LOG_TYPE_ERROR, v4, v5, 0x12u);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)listener:shouldAcceptNewConnection:.cold.5()
 {
   OUTLINED_FUNCTION_6();
   v2 = v1;
-  v10 = *MEMORY[0x1E69E9840];
   v3 = [v1 executableName];
   [v2 pid];
   v4 = [v0 executableName];
@@ -700,76 +679,55 @@ LABEL_14:
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2_0();
   _os_log_debug_impl(v5, v6, OS_LOG_TYPE_DEBUG, v7, v8, 0x22u);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)listener:shouldAcceptNewConnection:.cold.6()
 {
   OUTLINED_FUNCTION_2();
-  v7 = *MEMORY[0x1E69E9840];
   [v1 executableName];
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_7();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2_0();
   _os_log_debug_impl(v2, v3, OS_LOG_TYPE_DEBUG, v4, v5, 0x12u);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)replyToInvocation:withError:.cold.1()
 {
   OUTLINED_FUNCTION_6();
-  v10 = *MEMORY[0x1E69E9840];
-  v2 = NSStringFromSelector([v1 selector]);
-  v3 = *v0;
+  v6 = NSStringFromSelector([v0 selector]);
   objc_opt_class();
   OUTLINED_FUNCTION_1_2();
-  _os_log_fault_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(v1, v2, v3, v4, v5, 0x16u);
 }
 
 - (void)replyToInvocation:(void *)a1 withError:.cold.2(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = NSStringFromSelector([a1 selector]);
+  v6 = NSStringFromSelector([a1 selector]);
   OUTLINED_FUNCTION_1_2();
   _os_log_fault_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)replyToInvocation:(void *)a1 withError:.cold.3(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = NSStringFromSelector([a1 selector]);
+  v6 = NSStringFromSelector([a1 selector]);
   OUTLINED_FUNCTION_1_2();
   _os_log_fault_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)replyToInvocation:withError:.cold.4()
 {
   OUTLINED_FUNCTION_6();
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = NSStringFromSelector([v0 selector]);
+  v6 = NSStringFromSelector([v0 selector]);
   OUTLINED_FUNCTION_1_2();
   _os_log_fault_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)connection:(uint64_t)a1 handleInvocation:(void *)a2 isReply:.cold.1(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v8 = NSStringFromSelector([a2 selector]);
+  v7 = NSStringFromSelector([a2 selector]);
   OUTLINED_FUNCTION_1_2();
   _os_log_fault_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 @end

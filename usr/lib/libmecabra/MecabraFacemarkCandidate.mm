@@ -10,11 +10,11 @@
 
 - (MecabraFacemarkCandidate)initWithString:(id)string category:(id)category
 {
-  v12.receiver = self;
-  v12.super_class = MecabraFacemarkCandidate;
-  v6 = [(MecabraFacemarkCandidate *)&v12 init];
-  v6->_string = objc_msgSend_copy(string, v7, v8);
-  v6->_category = objc_msgSend_copy(category, v9, v10);
+  v14.receiver = self;
+  v14.super_class = MecabraFacemarkCandidate;
+  v6 = [(MecabraFacemarkCandidate *)&v14 init];
+  v6->_string = objc_msgSend_copy(string, v7, v8, v9);
+  v6->_category = objc_msgSend_copy(category, v10, v11, v12);
   return v6;
 }
 
@@ -37,12 +37,12 @@
 {
   v4 = sub_29927733C(locale);
 
-  return MEMORY[0x2A1C70FE8](self, sel_copyFacemarkCandidatesForLanguage_, v4);
+  return MEMORY[0x2A1C70FE8](self, sel_copyFacemarkCandidatesForLanguage_, v4, v5);
 }
 
 + (id)copyFacemarkCandidatesForLanguage:(int)language
 {
-  v35 = *MEMORY[0x29EDCA608];
+  v38 = *MEMORY[0x29EDCA608];
   if ((language - 1) < 2 || language == 5)
   {
     languageCopy = 3;
@@ -66,51 +66,47 @@
     v9 = objc_msgSend_stringWithCString_encoding_(MEMORY[0x29EDBA0F8], v7, *v6, 4);
   }
 
-  v11 = objc_msgSend_arrayWithContentsOfFile_(v8, v10, v9);
-  if (v11)
+  v12 = objc_msgSend_arrayWithContentsOfFile_(v8, v10, v9, v11);
+  if (!v12)
   {
-    v12 = v11;
-    v13 = objc_alloc_init(MEMORY[0x29EDB8DE8]);
-    v30 = 0u;
-    v31 = 0u;
-    v32 = 0u;
-    v33 = 0u;
-    v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v14, &v30, v34, 16);
-    if (v15)
-    {
-      v17 = v15;
-      v18 = *v31;
-      do
-      {
-        for (i = 0; i != v17; ++i)
-        {
-          if (*v31 != v18)
-          {
-            objc_enumerationMutation(v12);
-          }
+    return 0;
+  }
 
-          v20 = *(*(&v30 + 1) + 8 * i);
-          v21 = objc_msgSend_objectForKey_(v20, v16, @"string");
-          v23 = objc_msgSend_objectForKey_(v20, v22, @"category");
-          v24 = [MecabraFacemarkCandidate alloc];
-          v26 = objc_msgSend_initWithString_category_(v24, v25, v21, v23);
-          objc_msgSend_addObject_(v13, v27, v26);
+  v13 = v12;
+  v14 = objc_alloc_init(MEMORY[0x29EDB8DE8]);
+  v33 = 0u;
+  v34 = 0u;
+  v35 = 0u;
+  v36 = 0u;
+  v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v15, &v33, v37, 16);
+  if (v16)
+  {
+    v19 = v16;
+    v20 = *v34;
+    do
+    {
+      for (i = 0; i != v19; ++i)
+      {
+        if (*v34 != v20)
+        {
+          objc_enumerationMutation(v13);
         }
 
-        v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v16, &v30, v34, 16);
+        v22 = *(*(&v33 + 1) + 8 * i);
+        v23 = objc_msgSend_objectForKey_(v22, v17, @"string", v18);
+        v26 = objc_msgSend_objectForKey_(v22, v24, @"category", v25);
+        v27 = [MecabraFacemarkCandidate alloc];
+        v29 = objc_msgSend_initWithString_category_(v27, v28, v23, v26);
+        objc_msgSend_addObject_(v14, v30, v29, v31);
       }
 
-      while (v17);
+      v19 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v17, &v33, v37, 16);
     }
+
+    while (v19);
   }
 
-  else
-  {
-    v13 = 0;
-  }
-
-  v28 = *MEMORY[0x29EDCA608];
-  return v13;
+  return v14;
 }
 
 @end

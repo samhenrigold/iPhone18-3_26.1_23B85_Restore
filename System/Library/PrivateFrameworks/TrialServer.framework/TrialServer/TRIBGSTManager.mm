@@ -125,7 +125,7 @@ void __36__TRIBGSTManager_markBGSTAsStarted___block_invoke_2(uint64_t a1)
 
 void __29__TRIBGSTManager_expireBGST___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = *(a2 + 8);
   v4 = [*(a1 + 32) identifier];
   v5 = [v3 objectForKeyedSubscript:v4];
@@ -133,9 +133,9 @@ void __29__TRIBGSTManager_expireBGST___block_invoke(uint64_t a1, uint64_t a2)
   v6 = *(a1 + 32);
   if (v5)
   {
-    v15 = 0;
-    v7 = [v6 setTaskExpiredWithRetryAfter:&v15 error:0.0];
-    v8 = v15;
+    v13 = 0;
+    v7 = [v6 setTaskExpiredWithRetryAfter:&v13 error:0.0];
+    v8 = v13;
     v9 = TRILogCategory_Server();
     v10 = v9;
     if (v7)
@@ -144,13 +144,12 @@ void __29__TRIBGSTManager_expireBGST___block_invoke(uint64_t a1, uint64_t a2)
       {
 LABEL_10:
 
-        v13 = *MEMORY[0x277D85DE8];
         return;
       }
 
       v11 = [*(a1 + 32) identifier];
       *buf = 138412290;
-      v17 = v11;
+      v15 = v11;
       _os_log_impl(&dword_26F567000, v10, OS_LOG_TYPE_INFO, "BGST %@ was expired, requested rescheduling", buf, 0xCu);
     }
 
@@ -162,18 +161,16 @@ LABEL_10:
       }
 
       v11 = [*(a1 + 32) identifier];
-      v14 = [v8 localizedDescription];
+      v12 = [v8 localizedDescription];
       *buf = 138412546;
-      v17 = v11;
-      v18 = 2112;
-      v19 = v14;
+      v15 = v11;
+      v16 = 2112;
+      v17 = v12;
       _os_log_error_impl(&dword_26F567000, v10, OS_LOG_TYPE_ERROR, "BGST %@ was expired, but we failed to request rescheduling: %@", buf, 0x16u);
     }
 
     goto LABEL_10;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   [v6 setTaskCompleted];
 }
@@ -217,7 +214,7 @@ uint64_t __41__TRIBGSTManager_markAllBGSTsAsCompleted__block_invoke(uint64_t a1,
 
 void __105__TRIBGSTManager_scheduleDeactivationBGSTWithEarliestDeactivationTaskScheduledDate_gracePeriodInSeconds___block_invoke(uint64_t a1, void *a2)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = objc_opt_new();
   [*(a1 + 32) timeIntervalSinceDate:v5];
@@ -244,76 +241,72 @@ void __105__TRIBGSTManager_scheduleDeactivationBGSTWithEarliestDeactivationTaskS
     }
 
     [v9 setTaskCompleted];
-    v12 = *(a1 + 40);
     [objc_opt_class() _submitDeactivationBGSTRequestAfterSeconds:v7 gracePeriodInSeconds:*(a1 + 48)];
   }
 
   else
   {
     gotLoadHelper_x25__OBJC_CLASS___BGSystemTaskScheduler(v10);
-    v13 = [*(v2 + 2064) sharedScheduler];
-    v14 = [v13 taskRequestForIdentifier:@"com.apple.triald.deactivation"];
+    v12 = [*(v2 + 2064) sharedScheduler];
+    v13 = [v12 taskRequestForIdentifier:@"com.apple.triald.deactivation"];
 
-    if (v14)
+    if (v13)
     {
-      [v14 scheduleAfter];
-      v16 = v15;
-      if (v7 <= v15)
+      [v13 scheduleAfter];
+      v15 = v14;
+      if (v7 <= v14)
       {
-        [v14 setScheduleAfter:(v7 + 1)];
-        [v14 setTrySchedulingBefore:(*(a1 + 48) + v7 + 1)];
-        v19 = [*(v2 + 2064) sharedScheduler];
-        v25 = 0;
-        v20 = [v19 updateTaskRequest:v14 error:&v25];
-        v21 = v25;
+        [v13 setScheduleAfter:(v7 + 1)];
+        [v13 setTrySchedulingBefore:(*(a1 + 48) + v7 + 1)];
+        v17 = [*(v2 + 2064) sharedScheduler];
+        v22 = 0;
+        v18 = [v17 updateTaskRequest:v13 error:&v22];
+        v19 = v22;
 
-        v22 = TRILogCategory_Server();
-        v23 = v22;
-        if (v20)
+        v20 = TRILogCategory_Server();
+        v21 = v20;
+        if (v18)
         {
-          if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+          if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 134218240;
-            v27 = v7;
-            v28 = 2048;
-            v29 = v16;
-            _os_log_impl(&dword_26F567000, v23, OS_LOG_TYPE_DEFAULT, "Rescheduling deactivation BGST to run in %lld seconds (previously %lld)", buf, 0x16u);
+            v24 = v7;
+            v25 = 2048;
+            v26 = v15;
+            _os_log_impl(&dword_26F567000, v21, OS_LOG_TYPE_DEFAULT, "Rescheduling deactivation BGST to run in %lld seconds (previously %lld)", buf, 0x16u);
           }
         }
 
-        else if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+        else if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v27 = v21;
-          _os_log_error_impl(&dword_26F567000, v23, OS_LOG_TYPE_ERROR, "Failed to reschedule deactivation BGST with error: %@", buf, 0xCu);
+          v24 = v19;
+          _os_log_error_impl(&dword_26F567000, v21, OS_LOG_TYPE_ERROR, "Failed to reschedule deactivation BGST with error: %@", buf, 0xCu);
         }
       }
 
       else
       {
-        v17 = TRILogCategory_Server();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+        v16 = TRILogCategory_Server();
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134217984;
-          v27 = v16;
-          _os_log_impl(&dword_26F567000, v17, OS_LOG_TYPE_DEFAULT, "Not scheduling deactivation BGST as there's already a BGST scheduled to run in %lld seconds", buf, 0xCu);
+          v24 = v15;
+          _os_log_impl(&dword_26F567000, v16, OS_LOG_TYPE_DEFAULT, "Not scheduling deactivation BGST as there's already a BGST scheduled to run in %lld seconds", buf, 0xCu);
         }
       }
     }
 
     else
     {
-      v18 = *(a1 + 40);
       [objc_opt_class() _submitDeactivationBGSTRequestAfterSeconds:v7 gracePeriodInSeconds:*(a1 + 48)];
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_submitDeactivationBGSTRequestAfterSeconds:(int64_t)seconds gracePeriodInSeconds:(int64_t)inSeconds
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   gotLoadHelper_x8__OBJC_CLASS___BGNonRepeatingSystemTaskRequest(v4);
   v8 = [objc_alloc(*(v7 + 1992)) initWithIdentifier:@"com.apple.triald.deactivation"];
   [v8 setPriority:1];
@@ -323,9 +316,9 @@ void __105__TRIBGSTManager_scheduleDeactivationBGSTWithEarliestDeactivationTaskS
   [v8 setTrySchedulingBefore:(seconds + 1 + inSeconds)];
   Helper_x8__OBJC_CLASS___BGSystemTaskScheduler = gotLoadHelper_x8__OBJC_CLASS___BGSystemTaskScheduler(v9);
   sharedScheduler = [*(v11 + 2064) sharedScheduler];
-  v19 = 0;
-  v13 = [sharedScheduler submitTaskRequest:v8 error:&v19];
-  v14 = v19;
+  v18 = 0;
+  v13 = [sharedScheduler submitTaskRequest:v8 error:&v18];
+  v14 = v18;
 
   v15 = TRILogCategory_Server();
   v16 = v15;
@@ -341,18 +334,16 @@ void __105__TRIBGSTManager_scheduleDeactivationBGSTWithEarliestDeactivationTaskS
 
   else if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
   {
-    v18 = @"Unknown";
+    v17 = @"Unknown";
     if (v14)
     {
-      v18 = v14;
+      v17 = v14;
     }
 
     *buf = 138412290;
-    secondsCopy = v18;
+    secondsCopy = v17;
     _os_log_error_impl(&dword_26F567000, v16, OS_LOG_TYPE_ERROR, "Failed to submit deactivation BGST with error: %@", buf, 0xCu);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 @end

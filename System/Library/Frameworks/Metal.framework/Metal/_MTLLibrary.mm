@@ -139,13 +139,13 @@
     isKindOfClass = objc_opt_isKindOfClass();
     if ((isKindOfClass & 1) == 0)
     {
-      [(_MTLLibrary *)isKindOfClass newFunctionWithNameInternal:v11, v12, v13, v14, v15, v16, v17, v25];
+      [(_MTLLibrary *)isKindOfClass newFunctionWithNameInternal:v11, v12, v13, v14, v15, v16, v17, v24];
     }
   }
 
   else
   {
-    [(_MTLLibrary *)self newFunctionWithNameInternal:a2, 0, v3, v4, v5, v6, v7, v25];
+    [(_MTLLibrary *)self newFunctionWithNameInternal:a2, 0, v3, v4, v5, v6, v7, v24];
   }
 
   v18 = MTLLibraryData::mutex(self->_libraryData);
@@ -153,23 +153,22 @@
   v19 = [(NSMutableDictionary *)self->_functionDictionary objectForKey:internal];
   if (!v19)
   {
-    device = self->_device;
     v19 = MTLLibraryContainer::functionWithName(self->_cacheEntry, internal);
   }
 
-  v21 = v19;
+  v20 = v19;
   var0 = self->_cacheEntry->var0;
   if (var0)
   {
-    v23 = v19 == 0;
+    v22 = v19 == 0;
   }
 
   else
   {
-    v23 = 1;
+    v22 = 1;
   }
 
-  if (!v23)
+  if (!v22)
   {
     MTLPipelineCollection::addFunction(var0, v19, self->_libraryData, 0);
   }
@@ -502,16 +501,16 @@
 
 - (id)formattedDescription:(unint64_t)description
 {
-  v18[9] = *MEMORY[0x1E69E9840];
+  v17[9] = *MEMORY[0x1E69E9840];
   v5 = [@"\n" stringByPaddingToLength:description + 4 withString:@" " startingAtIndex:0];
   functionNames = [(_MTLLibrary *)self functionNames];
   retainedLabel = [(_MTLObjectWithLabel *)self retainedLabel];
   v8 = MEMORY[0x1E696AEC0];
-  v17.receiver = self;
-  v17.super_class = _MTLLibrary;
-  v9 = [(_MTLLibrary *)&v17 description];
-  v18[0] = v5;
-  v18[1] = @"label =";
+  v16.receiver = self;
+  v16.super_class = _MTLLibrary;
+  v9 = [(_MTLLibrary *)&v16 description];
+  v17[0] = v5;
+  v17[1] = @"label =";
   if (retainedLabel)
   {
     v10 = retainedLabel;
@@ -522,9 +521,9 @@
     v10 = @"<none>";
   }
 
-  v18[2] = v10;
-  v18[3] = v5;
-  v18[4] = @"device =";
+  v17[2] = v10;
+  v17[3] = v5;
+  v17[4] = @"device =";
   device = self->_device;
   if (device)
   {
@@ -536,9 +535,9 @@
     v12 = @"<null>";
   }
 
-  v18[5] = v12;
-  v18[6] = v5;
-  v18[7] = @"functionNames:";
+  v17[5] = v12;
+  v17[6] = v5;
+  v17[7] = @"functionNames:";
   if (functionNames)
   {
     v13 = [(NSArray *)functionNames componentsJoinedByString:@" "];
@@ -549,10 +548,9 @@
     v13 = @"<null>";
   }
 
-  v18[8] = v13;
-  v14 = [v8 stringWithFormat:@"%@%@", v9, objc_msgSend(objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v18, 9), "componentsJoinedByString:", @" "];
+  v17[8] = v13;
+  v14 = [v8 stringWithFormat:@"%@%@", v9, objc_msgSend(objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v17, 9), "componentsJoinedByString:", @" "];
 
-  v15 = *MEMORY[0x1E69E9840];
   return v14;
 }
 

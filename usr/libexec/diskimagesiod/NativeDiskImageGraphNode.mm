@@ -2,6 +2,7 @@
 + (BOOL)validateWithDictionary:(id)dictionary error:(id *)error;
 - (BOOL)deleteImage;
 - (NativeDiskImageGraphNode)initWithDictionary:(id)dictionary workDir:(id)dir error:(id *)error;
+- (NativeDiskImageGraphNode)initWithURL:(id)l tag:(id)tag UUID:(id)d parentNode:(id)node metadata:(id)metadata isCache:(BOOL)cache;
 - (id)toDIShadowNode;
 - (id)toDictionary;
 - (void)setFilePath:(id)path;
@@ -54,27 +55,13 @@
     v17.receiver = self;
     v17.super_class = NativeDiskImageGraphNode;
     self = [(DiskImageGraphNode *)&v17 initWithDictionary:dictionaryCopy workDir:dirCopy error:error];
-    if (!self)
-    {
-      goto LABEL_4;
-    }
-
-    v10 = [dictionaryCopy objectForKey:@"FilePath"];
-    v11 = [NSURL fileURLWithPath:v10 relativeToURL:dirCopy];
-    filePath = self->_filePath;
-    self->_filePath = v11;
-
-    filePath = [(NativeDiskImageGraphNode *)self filePath];
-    LOBYTE(v10) = [filePath checkResourceIsReachableAndReturnError:error];
-
-    if ((v10 & 1) == 0)
+    if (self && ([dictionaryCopy objectForKey:@"FilePath"], v10 = objc_claimAutoreleasedReturnValue(), +[NSURL fileURLWithPath:relativeToURL:](NSURL, "fileURLWithPath:relativeToURL:", v10, dirCopy), v11 = objc_claimAutoreleasedReturnValue(), filePath = self->_filePath, self->_filePath = v11, filePath, v10, -[NativeDiskImageGraphNode filePath](self, "filePath"), v13 = objc_claimAutoreleasedReturnValue(), LOBYTE(v10) = objc_msgSend(v13, "checkResourceIsReachableAndReturnError:", error), v13, (v10 & 1) == 0))
     {
       selfCopy = [DIError nilWithPOSIXCode:2 verboseInfo:@"Image referenced in the pstack is unreachable." error:error];
     }
 
     else
     {
-LABEL_4:
       selfCopy = self;
       self = selfCopy;
     }
@@ -88,6 +75,22 @@ LABEL_4:
   }
 
   return v15;
+}
+
+- (NativeDiskImageGraphNode)initWithURL:(id)l tag:(id)tag UUID:(id)d parentNode:(id)node metadata:(id)metadata isCache:(BOOL)cache
+{
+  cacheCopy = cache;
+  lCopy = l;
+  v19.receiver = self;
+  v19.super_class = NativeDiskImageGraphNode;
+  v16 = [(DiskImageGraphNode *)&v19 initWithTag:tag UUID:d parentNode:node metadata:metadata isCache:cacheCopy];
+  v17 = v16;
+  if (v16)
+  {
+    objc_storeStrong(&v16->_filePath, l);
+  }
+
+  return v17;
 }
 
 - (void)setFilePath:(id)path
@@ -108,52 +111,63 @@ LABEL_4:
 {
   v3 = +[NSFileManager defaultManager];
   filePath = [(NativeDiskImageGraphNode *)self filePath];
-  v16 = 0;
-  v5 = [v3 removeItemAtURL:filePath error:&v16];
-  v6 = v16;
+  v20 = 0;
+  v5 = [v3 removeItemAtURL:filePath error:&v20];
+  v6 = v20;
 
   if ((v5 & 1) == 0)
   {
     v7 = *__error();
-    if (sub_1000E95F0())
+    v8 = sub_1000E95F0();
+    if (v8)
     {
-      v8 = sub_1000E957C();
-      os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
-      filePath2 = [(NativeDiskImageGraphNode *)self filePath];
-      v10 = [v6 description];
-      *buf = 68158466;
-      v18 = 39;
-      v19 = 2080;
-      v20 = "[NativeDiskImageGraphNode deleteImage]";
-      v21 = 2112;
-      v22 = filePath2;
-      v23 = 2112;
-      v24 = v10;
-      v11 = _os_log_send_and_compose_impl();
-
-      if (v11)
+      v19 = 0;
+      v10 = sub_1000E957C(v8, v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        fprintf(__stderrp, "%s\n", v11);
-        free(v11);
+        v11 = 3;
+      }
+
+      else
+      {
+        v11 = 2;
+      }
+
+      filePath2 = [(NativeDiskImageGraphNode *)self filePath];
+      v13 = [v6 description];
+      *buf = 68158466;
+      v22 = 39;
+      v23 = 2080;
+      v24 = "[NativeDiskImageGraphNode deleteImage]";
+      v25 = 2112;
+      v26 = filePath2;
+      v27 = 2112;
+      v28 = v13;
+      v14 = _os_log_send_and_compose_impl(v11, &v19, 0, 0, &_mh_execute_header, v10, 16, "%.*s: Failed to delete %@: %@", buf, 38);
+
+      if (v14)
+      {
+        fprintf(__stderrp, "%s\n", v14);
+        free(v14);
       }
     }
 
     else
     {
-      v12 = sub_1000E957C();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v15 = sub_1000E957C(v8, v9);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         filePath3 = [(NativeDiskImageGraphNode *)self filePath];
-        v14 = [v6 description];
+        v17 = [v6 description];
         *buf = 68158466;
-        v18 = 39;
-        v19 = 2080;
-        v20 = "[NativeDiskImageGraphNode deleteImage]";
-        v21 = 2112;
-        v22 = filePath3;
-        v23 = 2112;
-        v24 = v14;
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "%.*s: Failed to delete %@: %@", buf, 0x26u);
+        v22 = 39;
+        v23 = 2080;
+        v24 = "[NativeDiskImageGraphNode deleteImage]";
+        v25 = 2112;
+        v26 = filePath3;
+        v27 = 2112;
+        v28 = v17;
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "%.*s: Failed to delete %@: %@", buf, 0x26u);
       }
     }
 

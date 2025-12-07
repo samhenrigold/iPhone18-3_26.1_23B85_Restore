@@ -651,7 +651,7 @@ LABEL_26:
   [(CalWindowRootViewController *)&v50 willTransitionToTraitCollection:collectionCopy withTransitionCoordinator:coordinatorCopy];
   if (coordinatorCopy)
   {
-    [coordinatorCopy targetTransform];
+    objc_msgSend_targetTransform(coordinatorCopy);
   }
 
   else

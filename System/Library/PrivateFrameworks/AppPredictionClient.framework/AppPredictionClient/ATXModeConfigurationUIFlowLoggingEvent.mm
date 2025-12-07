@@ -21,36 +21,37 @@
   previousEntityIdentifiersCopy = previousEntityIdentifiers;
   currentEntityIdentifiersCopy = currentEntityIdentifiers;
   dateCopy = date;
+  v18 = dateCopy;
   if (!dCopy)
   {
-    v22 = identifiersCopy;
-    v18 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
+    v23 = identifiersCopy;
+    v19 = __atxlog_handle_notification_management(dateCopy);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
     {
-      [ATXModeConfigurationUIFlowLoggingEvent initWithDndModeUUID:v18 modeConfigurationUI:? modeConfigurationEntityType:? modeConfigurationType:? suggestedEntityIdentifiers:? candidateEntityIdentifiers:? previousEntityIdentifiers:? currentEntityIdentifiers:? eventDate:?];
+      [ATXModeConfigurationUIFlowLoggingEvent initWithDndModeUUID:v19 modeConfigurationUI:? modeConfigurationEntityType:? modeConfigurationType:? suggestedEntityIdentifiers:? candidateEntityIdentifiers:? previousEntityIdentifiers:? currentEntityIdentifiers:? eventDate:?];
     }
 
-    identifiersCopy = v22;
+    identifiersCopy = v23;
   }
 
-  v29.receiver = self;
-  v29.super_class = ATXModeConfigurationUIFlowLoggingEvent;
-  v19 = [(ATXModeConfigurationUIFlowLoggingEvent *)&v29 init];
-  v20 = v19;
-  if (v19)
+  v30.receiver = self;
+  v30.super_class = ATXModeConfigurationUIFlowLoggingEvent;
+  v20 = [(ATXModeConfigurationUIFlowLoggingEvent *)&v30 init];
+  v21 = v20;
+  if (v20)
   {
-    objc_storeStrong(&v19->_dndModeUUID, d);
-    v20->_modeConfigurationEntityType = type;
-    v20->_modeConfigurationUI = i;
-    objc_storeStrong(&v20->_suggestedEntityIdentifiers, identifiers);
-    objc_storeStrong(&v20->_candidateEntityIdentifiers, entityIdentifiers);
-    objc_storeStrong(&v20->_previousEntityIdentifiers, previousEntityIdentifiers);
-    objc_storeStrong(&v20->_currentEntityIdentifiers, currentEntityIdentifiers);
-    objc_storeStrong(&v20->_eventDate, date);
-    v20->_modeConfigurationType = configurationType;
+    objc_storeStrong(&v20->_dndModeUUID, d);
+    v21->_modeConfigurationEntityType = type;
+    v21->_modeConfigurationUI = i;
+    objc_storeStrong(&v21->_suggestedEntityIdentifiers, identifiers);
+    objc_storeStrong(&v21->_candidateEntityIdentifiers, entityIdentifiers);
+    objc_storeStrong(&v21->_previousEntityIdentifiers, previousEntityIdentifiers);
+    objc_storeStrong(&v21->_currentEntityIdentifiers, currentEntityIdentifiers);
+    objc_storeStrong(&v21->_eventDate, date);
+    v21->_modeConfigurationType = configurationType;
   }
 
-  return v20;
+  return v21;
 }
 
 + (id)eventWithData:(id)data dataVersion:(unsigned int)version
@@ -180,91 +181,92 @@ LABEL_19:
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v34 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_FAULT))
+    v35 = __atxlog_handle_notification_management(isKindOfClass);
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_FAULT))
     {
-      [(ATXDigestTimeline *)self initWithProto:v34];
+      [(ATXDigestTimeline *)self initWithProto:v35];
     }
 
     goto LABEL_19;
   }
 
-  v5 = MEMORY[0x1E696AFB0];
-  v6 = protoCopy;
-  v7 = [v5 alloc];
-  dndModeUUID = [v6 dndModeUUID];
-  v9 = [v7 initWithUUIDString:dndModeUUID];
+  v6 = MEMORY[0x1E696AFB0];
+  v7 = protoCopy;
+  v8 = [v6 alloc];
+  dndModeUUID = [v7 dndModeUUID];
+  v10 = [v8 initWithUUIDString:dndModeUUID];
 
-  modeConfigurationUI = [v6 modeConfigurationUI];
-  modeConfigurationEntityType = [v6 modeConfigurationEntityType];
-  modeConfigurationType = [v6 modeConfigurationType];
-  suggestedEntityIdentifiers = [v6 suggestedEntityIdentifiers];
-  v12 = suggestedEntityIdentifiers;
-  v13 = MEMORY[0x1E695E0F0];
+  modeConfigurationUI = [v7 modeConfigurationUI];
+  modeConfigurationEntityType = [v7 modeConfigurationEntityType];
+  modeConfigurationType = [v7 modeConfigurationType];
+  suggestedEntityIdentifiers = [v7 suggestedEntityIdentifiers];
+  v13 = suggestedEntityIdentifiers;
+  v14 = MEMORY[0x1E695E0F0];
   if (suggestedEntityIdentifiers)
   {
-    v14 = suggestedEntityIdentifiers;
+    v15 = suggestedEntityIdentifiers;
   }
 
   else
   {
-    v14 = MEMORY[0x1E695E0F0];
+    v15 = MEMORY[0x1E695E0F0];
   }
 
-  v15 = v14;
+  v16 = v15;
 
-  candidateEntityIdentifiers = [v6 candidateEntityIdentifiers];
-  v17 = candidateEntityIdentifiers;
+  candidateEntityIdentifiers = [v7 candidateEntityIdentifiers];
+  v18 = candidateEntityIdentifiers;
   if (candidateEntityIdentifiers)
   {
-    v18 = candidateEntityIdentifiers;
+    v19 = candidateEntityIdentifiers;
   }
 
   else
   {
-    v18 = v13;
+    v19 = v14;
   }
 
-  v19 = v18;
+  v20 = v19;
 
-  previousEntityIdentifiers = [v6 previousEntityIdentifiers];
-  v21 = previousEntityIdentifiers;
+  previousEntityIdentifiers = [v7 previousEntityIdentifiers];
+  v22 = previousEntityIdentifiers;
   if (previousEntityIdentifiers)
   {
-    v22 = previousEntityIdentifiers;
+    v23 = previousEntityIdentifiers;
   }
 
   else
   {
-    v22 = v13;
+    v23 = v14;
   }
 
-  v23 = v22;
+  v24 = v23;
 
-  currentEntityIdentifiers = [v6 currentEntityIdentifiers];
-  v25 = currentEntityIdentifiers;
+  currentEntityIdentifiers = [v7 currentEntityIdentifiers];
+  v26 = currentEntityIdentifiers;
   if (currentEntityIdentifiers)
   {
-    v26 = currentEntityIdentifiers;
+    v27 = currentEntityIdentifiers;
   }
 
   else
   {
-    v26 = v13;
+    v27 = v14;
   }
 
-  v27 = v26;
+  v28 = v27;
 
-  v28 = MEMORY[0x1E695DF00];
-  [v6 secondsSinceReferenceDate];
-  v30 = v29;
+  v29 = MEMORY[0x1E695DF00];
+  [v7 secondsSinceReferenceDate];
+  v31 = v30;
 
-  v31 = [v28 dateWithTimeIntervalSinceReferenceDate:v30];
-  v32 = [(ATXModeConfigurationUIFlowLoggingEvent *)self initWithDndModeUUID:v9 modeConfigurationUI:modeConfigurationUI modeConfigurationEntityType:modeConfigurationEntityType modeConfigurationType:modeConfigurationType suggestedEntityIdentifiers:v15 candidateEntityIdentifiers:v19 previousEntityIdentifiers:v23 currentEntityIdentifiers:v27 eventDate:v31];
+  v32 = [v29 dateWithTimeIntervalSinceReferenceDate:v31];
+  v33 = [(ATXModeConfigurationUIFlowLoggingEvent *)self initWithDndModeUUID:v10 modeConfigurationUI:modeConfigurationUI modeConfigurationEntityType:modeConfigurationEntityType modeConfigurationType:modeConfigurationType suggestedEntityIdentifiers:v16 candidateEntityIdentifiers:v20 previousEntityIdentifiers:v24 currentEntityIdentifiers:v28 eventDate:v32];
 
-  self = v32;
+  self = v33;
   selfCopy = self;
 LABEL_20:
 

@@ -139,34 +139,35 @@ LABEL_6:
 - (void)translationDidFinishWithError:(id)error
 {
   errorCopy = error;
+  v7 = errorCopy;
   if (self->_signalDelegateWhenFinished)
   {
-    v6 = _LTOSLogTranslationEngine();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v8 = _LTOSLogTranslationEngine(errorCopy, v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      *v13 = 0;
-      _os_log_impl(&dword_232E53000, v6, OS_LOG_TYPE_INFO, "Offline translation finished, informing delegate that we are all done.", v13, 2u);
+      *v15 = 0;
+      _os_log_impl(&dword_232E53000, v8, OS_LOG_TYPE_INFO, "Offline translation finished, informing delegate that we are all done.", v15, 2u);
     }
 
     delegate = [(_LTSpeechTranslationResultsBuffer *)self delegate];
-    v8 = objc_opt_respondsToSelector();
+    v10 = objc_opt_respondsToSelector();
 
-    if (v8)
+    if (v10)
     {
       isBuffering = self->_isBuffering;
       delegate2 = [(_LTSpeechTranslationResultsBuffer *)self delegate];
-      v11 = delegate2;
+      v13 = delegate2;
       if (isBuffering)
       {
-        v12 = 0;
+        v14 = 0;
       }
 
       else
       {
-        v12 = errorCopy;
+        v14 = v7;
       }
 
-      [delegate2 translationDidFinishWithError:v12];
+      [delegate2 translationDidFinishWithError:v14];
     }
   }
 

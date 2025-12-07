@@ -26,14 +26,11 @@
 
 - (void)main
 {
-  v10 = *MEMORY[0x277D85DE8];
   context = [self context];
   validator = [self validator];
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __37__TPSTargetingValidateOperation_main__block_invoke(uint64_t a1, unsigned int a2, void *a3)
@@ -76,11 +73,10 @@ void __37__TPSTargetingValidateOperation_main__block_invoke(uint64_t a1, unsigne
 
 - (void)cancel
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_debug_impl(&dword_232D6F000, a2, OS_LOG_TYPE_DEBUG, "cancelling...%@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_232D6F000, a2, OS_LOG_TYPE_DEBUG, "cancelling...%@", &v2, 0xCu);
 }
 
 - (id)description
@@ -97,14 +93,11 @@ void __37__TPSTargetingValidateOperation_main__block_invoke(uint64_t a1, unsigne
 
 void __37__TPSTargetingValidateOperation_main__block_invoke_cold_1(id *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v2 = [*a1 context];
-  v9 = [*a1 validator];
+  v8 = [*a1 validator];
   [*a1 result];
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0x2Au);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

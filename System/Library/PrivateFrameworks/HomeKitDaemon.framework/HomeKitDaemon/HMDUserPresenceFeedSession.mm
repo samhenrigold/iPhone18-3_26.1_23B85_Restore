@@ -22,7 +22,7 @@
 
 - (void)timerDidFire:(id)fire
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   fireCopy = fire;
   workQueue = [(HMDUserPresenceFeedSession *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -38,16 +38,14 @@
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       v11 = HMFGetLogIdentifier();
-      v13 = 138543362;
-      v14 = v11;
-      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Retrying to send the report to the resident", &v13, 0xCu);
+      v12 = 138543362;
+      v13 = v11;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Retrying to send the report to the resident", &v12, 0xCu);
     }
 
     objc_autoreleasePoolPop(v8);
     [(HMDUserPresenceFeedSession *)selfCopy _send];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_callDelegate
@@ -98,7 +96,7 @@
 
 - (void)_send
 {
-  v101 = *MEMORY[0x277D85DE8];
+  v100 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDUserPresenceFeedSession *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -123,7 +121,7 @@
       {
         v14 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v88 = v14;
+        v87 = v14;
         _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Device Lost. Not sending presence update", buf, 0xCu);
       }
 
@@ -164,9 +162,9 @@
                 v32 = HMFGetLogIdentifier();
                 reason2 = [(HMDUserPresenceFeedSession *)selfCopy2 reason];
                 *buf = 138543618;
-                v88 = v32;
-                v89 = 2112;
-                v90 = reason2;
+                v87 = v32;
+                v88 = 2112;
+                v89 = reason2;
                 _os_log_impl(&dword_229538000, v31, OS_LOG_TYPE_INFO, "%{public}@Resetting the reason to %@ as it is well past the validity period", buf, 0x16u);
               }
 
@@ -204,7 +202,7 @@
           {
             v47 = HMFGetLogIdentifier();
             *buf = 138543362;
-            v88 = v47;
+            v87 = v47;
             _os_log_impl(&dword_229538000, v46, OS_LOG_TYPE_INFO, "%{public}@This device is the resident device itself", buf, 0xCu);
           }
 
@@ -237,9 +235,9 @@
             {
               v59 = HMFGetLogIdentifier();
               *buf = 138543618;
-              v88 = v59;
-              v89 = 2112;
-              v90 = primaryResidentDevice;
+              v87 = v59;
+              v88 = 2112;
+              v89 = primaryResidentDevice;
               _os_log_impl(&dword_229538000, v58, OS_LOG_TYPE_INFO, "%{public}@Restricting message to local transports as the primary resident is likely not reachable over IDS: %@", buf, 0x16u);
             }
 
@@ -250,30 +248,30 @@
           v60 = [HMDRemoteHomeMessageDestination alloc];
           targetUUID = [(HMDUserPresenceFeedSession *)self targetUUID];
           uuid2 = [home uuid];
-          v81 = [(HMDRemoteHomeMessageDestination *)v60 initWithTarget:targetUUID homeUUID:uuid2];
+          v80 = [(HMDRemoteHomeMessageDestination *)v60 initWithTarget:targetUUID homeUUID:uuid2];
 
-          v63 = [dictionary copy];
-          v64 = [HMDRemoteMessage secureMessageWithName:@"kRemoteUpdateUserPresenceNotificationKey" qualityOfService:17 destination:v81 messagePayload:v63 restriction:v55];
+          v63 = objc_msgSend_copy(dictionary);
+          v64 = [HMDRemoteMessage secureMessageWithName:@"kRemoteUpdateUserPresenceNotificationKey" qualityOfService:17 destination:v80 messagePayload:v63 restriction:v55];
 
           date2 = [MEMORY[0x277CBEAA8] date];
           identifier = [v64 identifier];
           objc_initWeak(&location, self);
-          v82[0] = MEMORY[0x277D85DD0];
-          v82[1] = 3221225472;
-          v82[2] = __35__HMDUserPresenceFeedSession__send__block_invoke;
-          v82[3] = &unk_278689460;
-          objc_copyWeak(&v85, &location);
-          v80 = identifier;
-          v83 = v80;
-          v78 = date2;
-          v84 = v78;
-          [v64 setResponseHandler:v82];
+          v81[0] = MEMORY[0x277D85DD0];
+          v81[1] = 3221225472;
+          v81[2] = __35__HMDUserPresenceFeedSession__send__block_invoke;
+          v81[3] = &unk_278689460;
+          objc_copyWeak(&v84, &location);
+          v79 = identifier;
+          v82 = v79;
+          v77 = date2;
+          v83 = v77;
+          [v64 setResponseHandler:v81];
           context = objc_autoreleasePoolPush();
           selfCopy5 = self;
           v68 = HMFGetOSLogHandle();
           if (os_log_type_enabled(v68, OS_LOG_TYPE_INFO))
           {
-            v75 = v64;
+            v74 = v64;
             v69 = HMFGetLogIdentifier();
             presenceAuthStatus4 = [(HMDUserPresenceFeedSession *)selfCopy5 presenceAuthStatus];
             presenceRegionStatus2 = [(HMDUserPresenceFeedSession *)selfCopy5 presenceRegionStatus];
@@ -281,29 +279,29 @@
             user3 = [(HMDUserPresenceFeedSession *)selfCopy5 user];
             uuid3 = [user3 uuid];
             *buf = 138544898;
-            v88 = v69;
-            v89 = 2114;
-            v90 = v80;
-            v91 = 2112;
-            v92 = device;
-            v93 = 2114;
-            v94 = presenceAuthStatus4;
-            v95 = 2114;
-            v96 = presenceRegionStatus2;
-            v97 = 2114;
-            v98 = reason4;
-            v99 = 2114;
-            v100 = uuid3;
+            v87 = v69;
+            v88 = 2114;
+            v89 = v79;
+            v90 = 2112;
+            v91 = device;
+            v92 = 2114;
+            v93 = presenceAuthStatus4;
+            v94 = 2114;
+            v95 = presenceRegionStatus2;
+            v96 = 2114;
+            v97 = reason4;
+            v98 = 2114;
+            v99 = uuid3;
             _os_log_impl(&dword_229538000, v68, OS_LOG_TYPE_INFO, "%{public}@Sending message with identifier %{public}@ to inform presence status to resident: [%@], with : auth: %{public}@, region: %{public}@, reason: %{public}@, UUID: %{public}@", buf, 0x48u);
 
-            v64 = v75;
+            v64 = v74;
           }
 
           objc_autoreleasePoolPop(context);
           messageDispatcher = [(HMDUserPresenceFeedSession *)selfCopy5 messageDispatcher];
           [messageDispatcher sendMessage:v64 completionHandler:0];
 
-          objc_destroyWeak(&v85);
+          objc_destroyWeak(&v84);
           objc_destroyWeak(&location);
         }
       }
@@ -317,7 +315,7 @@
         {
           v53 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v88 = v53;
+          v87 = v53;
           _os_log_impl(&dword_229538000, v52, OS_LOG_TYPE_INFO, "%{public}@Presence authorization is nil, cannot send report.", buf, 0xCu);
         }
 
@@ -337,19 +335,17 @@
     {
       v19 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v88 = v19;
+      v87 = v19;
       _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_INFO, "%{public}@No HMDDevice found for HMDResidenceDevice. Not sending the presence update.", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v16);
   }
-
-  v74 = *MEMORY[0x277D85DE8];
 }
 
 void __35__HMDUserPresenceFeedSession__send__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
@@ -361,35 +357,35 @@ void __35__HMDUserPresenceFeedSession__send__block_invoke(uint64_t a1, void *a2,
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       v11 = HMFGetLogIdentifier();
-      v22 = *(a1 + 32);
+      v21 = *(a1 + 32);
       v12 = [v9 presenceAuthStatus];
       v13 = [v9 presenceRegionStatus];
       [v9 reason];
-      v14 = v25 = v5;
+      v14 = v24 = v5;
       [v9 user];
-      v15 = v23 = v8;
+      v15 = v22 = v8;
       [v15 uuid];
-      v16 = v24 = v6;
+      v16 = v23 = v6;
       *buf = 138544898;
-      v30 = v11;
-      v31 = 2114;
-      v32 = v22;
-      v33 = 2114;
-      v34 = v12;
-      v35 = 2114;
-      v36 = v13;
-      v37 = 2114;
-      v38 = v14;
-      v39 = 2114;
-      v40 = v16;
-      v41 = 2114;
-      v42 = v25;
+      v29 = v11;
+      v30 = 2114;
+      v31 = v21;
+      v32 = 2114;
+      v33 = v12;
+      v34 = 2114;
+      v35 = v13;
+      v36 = 2114;
+      v37 = v14;
+      v38 = 2114;
+      v39 = v16;
+      v40 = 2114;
+      v41 = v24;
       _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Message %{public}@ to inform presence status has been sent with : auth: %{public}@, region: %{public}@, reason: %{public}@, UUID: %{public}@, error: %{public}@", buf, 0x48u);
 
-      v6 = v24;
-      v8 = v23;
+      v6 = v23;
+      v8 = v22;
 
-      v5 = v25;
+      v5 = v24;
     }
 
     objc_autoreleasePoolPop(v8);
@@ -402,12 +398,10 @@ void __35__HMDUserPresenceFeedSession__send__block_invoke(uint64_t a1, void *a2,
     block[2] = __35__HMDUserPresenceFeedSession__send__block_invoke_33;
     block[3] = &unk_278685DF8;
     block[4] = v9;
-    v27 = v5;
-    v28 = v19;
+    v26 = v5;
+    v27 = v19;
     dispatch_async(v20, block);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)send
@@ -423,37 +417,35 @@ void __35__HMDUserPresenceFeedSession__send__block_invoke(uint64_t a1, void *a2,
 
 - (id)attributeDescriptions
 {
-  v21[5] = *MEMORY[0x277D85DE8];
+  v20[5] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   sessionID = [(HMDUserPresenceFeedSession *)self sessionID];
   v4 = [v3 initWithName:@"SID" value:sessionID];
-  v21[0] = v4;
+  v20[0] = v4;
   v5 = objc_alloc(MEMORY[0x277D0F778]);
   presenceAuthStatus = [(HMDUserPresenceFeedSession *)self presenceAuthStatus];
   v7 = [v5 initWithName:@"PAS" value:presenceAuthStatus];
-  v21[1] = v7;
+  v20[1] = v7;
   v8 = objc_alloc(MEMORY[0x277D0F778]);
   presenceRegionStatus = [(HMDUserPresenceFeedSession *)self presenceRegionStatus];
   v10 = [v8 initWithName:@"PRS" value:presenceRegionStatus];
-  v21[2] = v10;
+  v20[2] = v10;
   v11 = objc_alloc(MEMORY[0x277D0F778]);
   reason = [(HMDUserPresenceFeedSession *)self reason];
   v13 = [v11 initWithName:@"RSN" value:reason];
-  v21[3] = v13;
+  v20[3] = v13;
   v14 = objc_alloc(MEMORY[0x277D0F778]);
   statusUpdateRetryTimer = [(HMDUserPresenceFeedSession *)self statusUpdateRetryTimer];
   v16 = [v14 initWithName:@"RT" value:statusUpdateRetryTimer];
-  v21[4] = v16;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:5];
-
-  v18 = *MEMORY[0x277D85DE8];
+  v20[4] = v16;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:5];
 
   return v17;
 }
 
 - (void)dealloc
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -463,17 +455,16 @@ void __35__HMDUserPresenceFeedSession__send__block_invoke(uint64_t a1, void *a2,
     sessionID = [(HMDUserPresenceFeedSession *)selfCopy sessionID];
     uUIDString = [sessionID UUIDString];
     *buf = 138543618;
-    v12 = v6;
-    v13 = 2112;
-    v14 = uUIDString;
+    v11 = v6;
+    v12 = 2112;
+    v13 = uUIDString;
     _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Deallocating session %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v3);
-  v10.receiver = selfCopy;
-  v10.super_class = HMDUserPresenceFeedSession;
-  [(HMDUserPresenceFeedSession *)&v10 dealloc];
-  v9 = *MEMORY[0x277D85DE8];
+  v9.receiver = selfCopy;
+  v9.super_class = HMDUserPresenceFeedSession;
+  [(HMDUserPresenceFeedSession *)&v9 dealloc];
 }
 
 - (HMDUserPresenceFeedSession)initWithDelegate:(id)delegate workQueue:(id)queue targetUUID:(id)d messageDispatcher:(id)dispatcher user:(id)user presenceAuthStatus:(id)status presenceComputeStatus:(id)computeStatus presenceRegionStatus:(id)self0 reason:(id)self1
@@ -558,10 +549,9 @@ void __35__HMDUserPresenceFeedSession__send__block_invoke(uint64_t a1, void *a2,
 
 void __41__HMDUserPresenceFeedSession_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v11_76039;
-  logCategory__hmf_once_v11_76039 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v11_76039;
+  logCategory__hmf_once_v11_76039 = v0;
 }
 
 @end

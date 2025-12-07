@@ -119,7 +119,7 @@
 
 + (id)codeSystemWithIdentifier:(id)identifier
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   v4 = [identifier stringByReplacingOccurrencesOfString:@" " withString:&stru_1F05FF230];
   whitespaceAndNewlineCharacterSet = [MEMORY[0x1E696AB08] whitespaceAndNewlineCharacterSet];
   v6 = [v4 stringByTrimmingCharactersInSet:whitespaceAndNewlineCharacterSet];
@@ -142,29 +142,29 @@ LABEL_5:
   v10 = 0x1E695D000uLL;
   v11 = [MEMORY[0x1E695DFF8] URLWithString:v7 encodingInvalidCharacters:0];
   v12 = [v7 stringByReplacingOccurrencesOfString:@"urn:oid:" withString:&stru_1F05FF230];
+  v45 = 0u;
   v46 = 0u;
   v47 = 0u;
   v48 = 0u;
-  v49 = 0u;
   v13 = +[HKMedicalCodingSystem externalCodeSystems];
-  v14 = [v13 countByEnumeratingWithState:&v46 objects:v51 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v45 objects:v50 count:16];
   if (v14)
   {
-    v15 = *v47;
-    v37 = *v47;
+    v15 = *v46;
+    v36 = *v46;
     while (2)
     {
       v16 = 0;
-      v38 = v14;
+      v37 = v14;
       do
       {
-        if (*v47 != v15)
+        if (*v46 != v15)
         {
           objc_enumerationMutation(v13);
         }
 
-        v39 = v16;
-        v9 = *(*(&v46 + 1) + 8 * v16);
+        v38 = v16;
+        v9 = *(*(&v45 + 1) + 8 * v16);
         v17 = objc_autoreleasePoolPush();
         v18 = objc_alloc(*(v10 + 4088));
         identifier = [(HKMedicalCodingSystem *)v9 identifier];
@@ -172,7 +172,7 @@ LABEL_5:
 
         if ([v20 isEqual:v11] || (-[HKMedicalCodingSystem OID](v9, "OID"), v21 = objc_claimAutoreleasedReturnValue(), v22 = objc_msgSend(v12, "caseInsensitiveCompare:", v21), v21, !v22))
         {
-          v35 = v9;
+          v34 = v9;
 LABEL_28:
 
           objc_autoreleasePoolPop(v17);
@@ -180,41 +180,41 @@ LABEL_28:
         }
 
         context = v17;
-        v44 = 0u;
-        v45 = 0u;
-        v42 = 0u;
         v43 = 0u;
+        v44 = 0u;
+        v41 = 0u;
+        v42 = 0u;
         synonyms = [(HKMedicalCodingSystem *)v9 synonyms];
-        v24 = [synonyms countByEnumeratingWithState:&v42 objects:v50 count:16];
+        v24 = [synonyms countByEnumeratingWithState:&v41 objects:v49 count:16];
         if (v24)
         {
           v25 = v24;
-          v26 = *v43;
-          v40 = v13;
+          v26 = *v42;
+          v39 = v13;
           while (2)
           {
             v27 = v11;
             for (i = 0; i != v25; ++i)
             {
-              if (*v43 != v26)
+              if (*v42 != v26)
               {
                 objc_enumerationMutation(synonyms);
               }
 
-              v29 = *(*(&v42 + 1) + 8 * i);
+              v29 = *(*(&v41 + 1) + 8 * i);
               if (![v7 caseInsensitiveCompare:v29] || !objc_msgSend(v12, "caseInsensitiveCompare:", v29))
               {
                 v32 = v9;
 
                 v11 = v27;
-                v13 = v40;
+                v13 = v39;
                 goto LABEL_27;
               }
             }
 
-            v25 = [synonyms countByEnumeratingWithState:&v42 objects:v50 count:16];
+            v25 = [synonyms countByEnumeratingWithState:&v41 objects:v49 count:16];
             v11 = v27;
-            v13 = v40;
+            v13 = v39;
             if (v25)
             {
               continue;
@@ -229,20 +229,20 @@ LABEL_28:
 
         if (!v31)
         {
-          v36 = v9;
+          v35 = v9;
 LABEL_27:
           v17 = context;
           goto LABEL_28;
         }
 
         objc_autoreleasePoolPop(context);
-        v16 = v39 + 1;
+        v16 = v38 + 1;
         v10 = 0x1E695D000;
-        v15 = v37;
+        v15 = v36;
       }
 
-      while (v39 + 1 != v38);
-      v14 = [v13 countByEnumeratingWithState:&v46 objects:v51 count:16];
+      while (v38 + 1 != v37);
+      v14 = [v13 countByEnumeratingWithState:&v45 objects:v50 count:16];
       if (v14)
       {
         continue;
@@ -256,7 +256,6 @@ LABEL_27:
 LABEL_29:
 
 LABEL_30:
-  v33 = *MEMORY[0x1E69E9840];
 
   return v9;
 }

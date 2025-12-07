@@ -13,7 +13,7 @@
 
 - (BOOL)applyToObject:(id)object
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) != 0 && (-[HDCodableWorkoutZones sample](self, "sample"), v5 = objc_claimAutoreleasedReturnValue(), v6 = [v5 applyToObject:objectCopy], v5, v6))
@@ -21,9 +21,9 @@
     v7 = MEMORY[0x277CCAAC8];
     v8 = objc_opt_class();
     zones = [(HDCodableWorkoutZones *)self zones];
-    v16 = 0;
-    v10 = [v7 unarchivedArrayOfObjectsOfClass:v8 fromData:zones error:&v16];
-    v11 = v16;
+    v15 = 0;
+    v10 = [v7 unarchivedArrayOfObjectsOfClass:v8 fromData:zones error:&v15];
+    v11 = v15;
 
     v12 = v10 != 0;
     if (v10)
@@ -38,7 +38,7 @@
       if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v18 = v11;
+        v17 = v11;
         _os_log_error_impl(&dword_228986000, v13, OS_LOG_TYPE_ERROR, "Error unarchiving zones: %@", buf, 0xCu);
       }
     }
@@ -49,7 +49,6 @@
     v12 = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v12;
 }
 

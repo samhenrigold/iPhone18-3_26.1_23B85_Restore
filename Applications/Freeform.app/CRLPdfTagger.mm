@@ -115,8 +115,7 @@
   contextCopy = context;
   v4 = [(NSMutableArray *)self->_contextStack count];
   contextCopy = [NSString stringWithFormat:@"%@", contextCopy];
-  uTF8String = [contextCopy UTF8String];
-  sub_10052FA0C(v4, "PUSH %s", v7, v8, v9, v10, v11, v12, uTF8String);
+  sub_10052FA0C(v4, "PUSH %s", [contextCopy UTF8String]);
 
   [(NSMutableArray *)self->_contextStack crl_push:contextCopy];
 }
@@ -133,8 +132,7 @@
   crl_pop = [(NSMutableArray *)self->_contextStack crl_pop];
   v12 = [(NSMutableArray *)self->_contextStack count];
   v13 = [NSString stringWithFormat:@"%@", crl_peek];
-  uTF8String = [v13 UTF8String];
-  sub_10052FA0C(v12, "POP %s", v15, v16, v17, v18, v19, v20, uTF8String);
+  sub_10052FA0C(v12, "POP %s", [v13 UTF8String]);
 }
 
 - (void)beginTagWithType:(int)type tagProperties:(id)properties
@@ -142,10 +140,9 @@
   v4 = *&type;
   tagProperties = properties;
   Name = CGPDFTagTypeGetName(v4);
-  v7 = [(NSMutableArray *)self->_tagStack count];
-  sub_10052FA0C(v7 - 1, "BEGIN %s", v8, v9, v10, v11, v12, v13, Name);
-  v14 = [[CRLPdfTagInfo alloc] initWithTagType:v4 tagProperties:tagProperties];
-  [(NSMutableArray *)self->_tagStack crl_push:v14];
+  sub_10052FA0C([(NSMutableArray *)self->_tagStack count]- 1, "BEGIN %s", Name);
+  v7 = [[CRLPdfTagInfo alloc] initWithTagType:v4 tagProperties:tagProperties];
+  [(NSMutableArray *)self->_tagStack crl_push:v7];
   if (![(CRLPdfTagger *)self taggingPreventionDepth])
   {
     CGPDFContextBeginTag(self->_cgContext, v4, tagProperties);
@@ -165,13 +162,12 @@
   Name = CGPDFTagTypeGetName(tagType);
   if ([(NSMutableArray *)self->_tagStack count])
   {
-    v12 = [(NSMutableArray *)self->_tagStack count];
-    sub_10052FA0C(v12 - 1, "END %s", v13, v14, v15, v16, v17, v18, Name);
+    sub_10052FA0C([(NSMutableArray *)self->_tagStack count]- 1, "END %s", Name);
   }
 
   else
   {
-    sub_10052E5D0(0, "the tagStack count was 0 and we were trying to endTag", v6, v7, v8, v9, v10, v11, v19);
+    sub_10052E5D0(0, "the tagStack count was 0 and we were trying to endTag", v6, v7, v8, v9, v10, v11, v12);
   }
 }
 

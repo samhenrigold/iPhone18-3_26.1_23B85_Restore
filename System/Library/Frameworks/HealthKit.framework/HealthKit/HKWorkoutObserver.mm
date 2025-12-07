@@ -11,33 +11,31 @@ void __65___HKWorkoutObserver_initWithHealthStore_reportInactiveSessions___block
 
 void __34___HKWorkoutObserver_setDelegate___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  objc_storeWeak((*(a1 + 32) + 32), *(a1 + 40));
+  v14 = *MEMORY[0x1E69E9840];
+  v2 = objc_storeWeak((*(a1 + 32) + 32), *(a1 + 40));
   if (*(a1 + 40) && *(*(a1 + 32) + 24) == 1)
   {
-    _HKInitializeLogging();
-    v2 = HKLogWorkouts;
+    _HKInitializeLogging(v2, v3);
+    v4 = HKLogWorkouts;
     if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = *(a1 + 32);
+      v5 = *(a1 + 32);
       *buf = 138543362;
-      v12 = v3;
-      _os_log_impl(&dword_19197B000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@: Registered for delegate updates", buf, 0xCu);
+      v13 = v5;
+      _os_log_impl(&dword_19197B000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: Registered for delegate updates", buf, 0xCu);
     }
 
-    v4 = [*(*(a1 + 32) + 72) clientQueue];
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 3221225472;
-    v8[2] = __34___HKWorkoutObserver_setDelegate___block_invoke_18;
-    v8[3] = &unk_1E7378400;
-    v5 = *(a1 + 40);
-    v6 = *(a1 + 32);
-    v9 = v5;
-    v10 = v6;
-    dispatch_async(v4, v8);
+    v6 = [*(*(a1 + 32) + 72) clientQueue];
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __34___HKWorkoutObserver_setDelegate___block_invoke_18;
+    v9[3] = &unk_1E7378400;
+    v7 = *(a1 + 40);
+    v8 = *(a1 + 32);
+    v10 = v7;
+    v11 = v8;
+    dispatch_async(v6, v9);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __30___HKWorkoutObserver_delegate__block_invoke(uint64_t a1)
@@ -47,7 +45,7 @@ uint64_t __30___HKWorkoutObserver_delegate__block_invoke(uint64_t a1)
   v4 = *(v3 + 40);
   *(v3 + 40) = WeakRetained;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](WeakRetained, v4);
 }
 
 void __59___HKWorkoutObserver_currentWorkoutSnapshotWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -73,18 +71,17 @@ void __59___HKWorkoutObserver_currentWorkoutSnapshotWithCompletion___block_invok
   v2 = *(a1 + 32);
   if (*(v2 + 24) == 1)
   {
-    v3 = *(v2 + 16);
-    v4 = *(*(a1 + 40) + 16);
+    v3 = *(*(a1 + 40) + 16);
 
-    v4();
+    v3();
   }
 
   else
   {
-    v5 = *(v2 + 40);
-    v7 = [*(a1 + 40) copy];
-    v6 = _Block_copy(v7);
-    [v5 addObject:v6];
+    v4 = *(v2 + 40);
+    v6 = [*(a1 + 40) copy];
+    v5 = _Block_copy(v6);
+    [v4 addObject:v5];
   }
 }
 
@@ -102,11 +99,11 @@ void __68___HKWorkoutObserver_waitForAutomaticWorkoutRecoveryWithCompletion___bl
 void __68___HKWorkoutObserver_waitForAutomaticWorkoutRecoveryWithCompletion___block_invoke_4(uint64_t a1, void *a2)
 {
   v3 = a2;
-  _HKInitializeLogging();
-  v4 = HKLogWorkouts;
+  _HKInitializeLogging(v3, v4);
+  v5 = HKLogWorkouts;
   if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_ERROR))
   {
-    __68___HKWorkoutObserver_waitForAutomaticWorkoutRecoveryWithCompletion___block_invoke_4_cold_1(a1, v3, v4);
+    __68___HKWorkoutObserver_waitForAutomaticWorkoutRecoveryWithCompletion___block_invoke_4_cold_1(a1, v3, v5);
   }
 
   (*(*(a1 + 40) + 16))();
@@ -141,72 +138,67 @@ uint64_t __60___HKWorkoutObserver_clientRemote_didUpdateWorkoutSnapshot___block_
 
 void __60___HKWorkoutObserver_clientRemote_didUpdateWorkoutSnapshot___block_invoke_2(void *a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   [*(*(a1[5] + 8) + 40) didUpdateWorkoutSnapshot:a1[4]];
-  v11 = 0u;
-  v12 = 0u;
   v9 = 0u;
   v10 = 0u;
+  v7 = 0u;
+  v8 = 0u;
   v2 = *(*(a1[6] + 8) + 40);
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = a1[4];
-        (*(*(*(&v9 + 1) + 8 * v6) + 16))(*(*(&v9 + 1) + 8 * v6));
+        (*(*(*(&v7 + 1) + 8 * v6) + 16))(*(*(&v7 + 1) + 8 * v6));
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __51___HKWorkoutObserver__lock_startTaskServerIfNeeded__block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  _HKInitializeLogging();
-  v4 = HKLogWorkouts;
+  _HKInitializeLogging(v3, v4);
+  v5 = HKLogWorkouts;
   if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_ERROR))
   {
-    __51___HKWorkoutObserver__lock_startTaskServerIfNeeded__block_invoke_2_cold_1(a1, v3, v4);
+    __51___HKWorkoutObserver__lock_startTaskServerIfNeeded__block_invoke_2_cold_1(a1, v3, v5);
   }
 }
 
 void __68___HKWorkoutObserver_waitForAutomaticWorkoutRecoveryWithCompletion___block_invoke_4_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 138543618;
-  *&v4[4] = *(a1 + 32);
-  *&v4[12] = 2114;
-  *&v4[14] = a2;
-  OUTLINED_FUNCTION_1(&dword_19197B000, a2, a3, "%{public}@: Failed to register for automatic workout recovery completion: %{public}@", *v4, *&v4[8], *&v4[16], *MEMORY[0x1E69E9840]);
-  v3 = *MEMORY[0x1E69E9840];
+  *v3 = 138543618;
+  *&v3[4] = *(a1 + 32);
+  *&v3[12] = 2114;
+  *&v3[14] = a2;
+  OUTLINED_FUNCTION_1(&dword_19197B000, a2, a3, "%{public}@: Failed to register for automatic workout recovery completion: %{public}@", *v3, *&v3[8], *&v3[16], *MEMORY[0x1E69E9840]);
 }
 
 void __51___HKWorkoutObserver__lock_startTaskServerIfNeeded__block_invoke_2_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 138412546;
-  *&v4[4] = *(a1 + 32);
-  *&v4[12] = 2112;
-  *&v4[14] = a2;
-  OUTLINED_FUNCTION_1(&dword_19197B000, a2, a3, "Unable to fetch workout observer %@ proxy after interrupted connection with error: %@", *v4, *&v4[8], *&v4[16], *MEMORY[0x1E69E9840]);
-  v3 = *MEMORY[0x1E69E9840];
+  *v3 = 138412546;
+  *&v3[4] = *(a1 + 32);
+  *&v3[12] = 2112;
+  *&v3[14] = a2;
+  OUTLINED_FUNCTION_1(&dword_19197B000, a2, a3, "Unable to fetch workout observer %@ proxy after interrupted connection with error: %@", *v3, *&v3[8], *&v3[16], *MEMORY[0x1E69E9840]);
 }
 
 @end

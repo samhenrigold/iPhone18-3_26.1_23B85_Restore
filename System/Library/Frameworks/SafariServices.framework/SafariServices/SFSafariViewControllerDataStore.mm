@@ -76,23 +76,23 @@ void __73__SFSafariViewControllerDataStore_clearWebsiteDataWithCompletionHandler
   if (v6)
   {
     objc_storeStrong((*(a1 + 32) + 24), a2);
-    v10 = [*(*(a1 + 32) + 24) serviceViewControllerProxy];
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __73__SFSafariViewControllerDataStore_clearWebsiteDataWithCompletionHandler___block_invoke_4;
-    v13[3] = &unk_1E8490798;
-    v11 = *(a1 + 40);
-    v13[4] = *(a1 + 32);
-    v14 = v11;
-    [v10 clearWebsiteDataWithCompletionHandler:v13];
+    v12 = [*(*(a1 + 32) + 24) serviceViewControllerProxy];
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __73__SFSafariViewControllerDataStore_clearWebsiteDataWithCompletionHandler___block_invoke_4;
+    v15[3] = &unk_1E8490798;
+    v13 = *(a1 + 40);
+    v15[4] = *(a1 + 32);
+    v16 = v13;
+    [v12 clearWebsiteDataWithCompletionHandler:v15];
   }
 
   else
   {
-    v12 = WBS_LOG_CHANNEL_PREFIXSVCDeletion();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v14 = WBS_LOG_CHANNEL_PREFIXSVCDeletion(v10, v11);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      __73__SFSafariViewControllerDataStore_clearWebsiteDataWithCompletionHandler___block_invoke_2_cold_1(v12, v7);
+      __73__SFSafariViewControllerDataStore_clearWebsiteDataWithCompletionHandler___block_invoke_2_cold_1(v14, v7);
     }
 
     (*(*(a1 + 40) + 16))();

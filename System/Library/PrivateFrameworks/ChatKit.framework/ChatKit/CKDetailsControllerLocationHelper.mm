@@ -25,7 +25,7 @@
 
 + (id)mapURLFor:(id)for in:(id)in
 {
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAD55F20);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAD55F20, &unk_190DD75D0);
   MEMORY[0x1EEE9AC00](v6 - 8);
   v8 = &v17 - v7;
   forCopy = for;

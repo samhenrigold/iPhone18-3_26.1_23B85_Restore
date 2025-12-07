@@ -34,24 +34,25 @@
 - (void)didWriteFileToURL:(id)l
 {
   lCopy = l;
-  v14.receiver = self;
-  v14.super_class = PBUIWallpaperSharedDirectoryDataStore;
-  [(PBUIWallpaperDirectoryDataStore *)&v14 didWriteFileToURL:lCopy];
-  v13 = 0;
+  v15.receiver = self;
+  v15.super_class = PBUIWallpaperSharedDirectoryDataStore;
+  [(PBUIWallpaperDirectoryDataStore *)&v15 didWriteFileToURL:lCopy];
+  v14 = 0;
   v5 = *MEMORY[0x277CBE830];
-  v6 = [lCopy getResourceValue:&v13 forKey:*MEMORY[0x277CBE830] error:0];
-  v7 = v13;
+  v6 = [lCopy getResourceValue:&v14 forKey:*MEMORY[0x277CBE830] error:0];
+  v7 = v14;
   v8 = v7;
   if (v6)
   {
     CFFileSecuritySetMode(v7, 0x1B6u);
-    v12 = 0;
-    v9 = [lCopy setResourceValue:v8 forKey:v5 error:&v12];
-    v10 = v12;
+    v13 = 0;
+    v9 = [lCopy setResourceValue:v8 forKey:v5 error:&v13];
+    v10 = v13;
+    v11 = v10;
     if ((v9 & 1) == 0)
     {
-      v11 = PBUILogCommon();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = PBUILogCommon(v10);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         [PBUIWallpaperSharedDirectoryDataStore didWriteFileToURL:];
       }

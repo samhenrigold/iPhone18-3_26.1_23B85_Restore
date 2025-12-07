@@ -19,14 +19,12 @@
 
 + (id)indexableKeyPathsWithPrefix:(id)prefix
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9 = @"concept";
+  v9 = *MEMORY[0x1E69E9840];
+  v8 = @"concept";
   v3 = MEMORY[0x1E695DEC8];
   prefixCopy = prefix;
-  v5 = [v3 arrayWithObjects:&v9 count:1];
-  v6 = [HKConceptIndexUtilities keyPaths:v5 prefix:prefixCopy, v9, v10];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v5 = [v3 arrayWithObjects:&v8 count:1];
+  v6 = [HKConceptIndexUtilities keyPaths:v5 prefix:prefixCopy, v8, v9];
 
   return v6;
 }
@@ -339,7 +337,7 @@ LABEL_6:
 
 - (id)codingsForKeyPath:(id)path error:(id *)error
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   pathCopy = path;
   if ([pathCopy isEqualToString:@"concept"])
   {
@@ -347,8 +345,8 @@ LABEL_6:
     {
       v7 = [HKMedicalCodingCollection collectionWithCodings:?];
       v8 = [HKIndexableObject indexableObjectWithObject:v7];
-      v12[0] = v8;
-      v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
+      v11[0] = v8;
+      v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
     }
 
     else
@@ -362,8 +360,6 @@ LABEL_6:
     [HKConceptIndexUtilities assignError:error forInvalidKeyPath:pathCopy inClass:objc_opt_class()];
     v9 = 0;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }

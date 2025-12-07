@@ -3,7 +3,7 @@
 
 @implementation DKSyncCompositeOperation
 
-uint64_t __44___DKSyncCompositeOperation_initWithParent___block_invoke(uint64_t a1)
+void *__44___DKSyncCompositeOperation_initWithParent___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isExecuting];
   if (result)

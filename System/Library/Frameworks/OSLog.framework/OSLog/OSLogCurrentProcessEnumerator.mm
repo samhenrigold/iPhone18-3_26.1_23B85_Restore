@@ -30,15 +30,13 @@
 
 void __43__OSLogCurrentProcessEnumerator_nextObject__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v4 = 138412290;
-    v5 = a2;
-    _os_log_error_impl(&dword_23A002000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Error %@", &v4, 0xCu);
+    v3 = 138412290;
+    v4 = a2;
+    _os_log_error_impl(&dword_23A002000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Error %@", &v3, 0xCu);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -103,34 +101,30 @@ void __43__OSLogCurrentProcessEnumerator_nextObject__block_invoke(uint64_t a1, u
 
 void __68__OSLogCurrentProcessEnumerator_initWithOptions_predicate_position___block_invoke_37(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v4 = a2;
   if (v4)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v6 = 138412290;
-      v7 = v4;
-      _os_log_error_impl(&dword_23A002000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Caught error: %@", &v6, 0xCu);
+      v5 = 138412290;
+      v6 = v4;
+      _os_log_error_impl(&dword_23A002000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Caught error: %@", &v5, 0xCu);
     }
 
     objc_storeStrong((*(*(a1 + 32) + 8) + 40), a2);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __68__OSLogCurrentProcessEnumerator_initWithOptions_predicate_position___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v4 = 138412290;
-    v5 = a2;
-    _os_log_error_impl(&dword_23A002000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Error %@", &v4, 0xCu);
+    v3 = 138412290;
+    v4 = a2;
+    _os_log_error_impl(&dword_23A002000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Error %@", &v3, 0xCu);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 @end

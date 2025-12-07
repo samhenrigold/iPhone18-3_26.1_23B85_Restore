@@ -1,4 +1,4 @@
-uint64_t pdwriter_open_stream(FILE *a1, uint64_t a2, uint64_t a3)
+_DWORD *pdwriter_open_stream(FILE *a1, uint64_t a2, uint64_t a3)
 {
   if (!a1)
   {
@@ -42,16 +42,14 @@ uint64_t pdwriter_open_stream(FILE *a1, uint64_t a2, uint64_t a3)
   return v7;
 }
 
-uint64_t emit_curtime_field(uint64_t a1, char a2)
+uint64_t emit_curtime_field(uint64_t a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v12 = 0;
-  time(&v12);
-  v4 = gmtime(&v12);
-  strftime(v13, 0x15uLL, "%FT%TZ", v4);
-  result = json_member_str(a1, a2, v13, v5, v6, v7, v8, v9);
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  v13 = *MEMORY[0x277D85DE8];
+  v11 = 0;
+  time(&v11);
+  v4 = gmtime(&v11);
+  strftime(v12, 0x15uLL, "%FT%TZ", v4);
+  return json_member_str(a1, a2, v12, v5, v6, v7, v8, v9);
 }
 
 FILE *pdwriter_open(const char *a1, uint64_t a2, uint64_t a3)
@@ -66,7 +64,7 @@ FILE *pdwriter_open(const char *a1, uint64_t a2, uint64_t a3)
   return result;
 }
 
-uint64_t pdwriter_open_fd(int a1, uint64_t a2, uint64_t a3)
+_DWORD *pdwriter_open_fd(int a1, uint64_t a2, uint64_t a3)
 {
   v6 = fdopen(a1, "w");
   if (v6)
@@ -82,14 +80,14 @@ uint64_t pdwriter_open_fd(int a1, uint64_t a2, uint64_t a3)
   }
 }
 
-uint64_t pdwriter_open_tmp(const char *a1, const char *a2, uint64_t a3, uint64_t a4, char *a5, size_t a6)
+_DWORD *pdwriter_open_tmp(const char *a1, const char *a2, uint64_t a3, uint64_t a4, char *a5, size_t a6)
 {
-  v25 = *MEMORY[0x277D85DE8];
-  bzero(v24, 0x400uLL);
-  v11 = pdwriter_name(a1, a2, v24, 0x400uLL);
+  v24 = *MEMORY[0x277D85DE8];
+  bzero(v23, 0x400uLL);
+  v11 = pdwriter_name(a1, a2, v23, 0x400uLL);
   if ((v11 & 0x80000000) != 0)
   {
-    goto LABEL_16;
+    return 0;
   }
 
   if (v11 >= 0x401)
@@ -98,13 +96,13 @@ LABEL_10:
     v15 = __error();
     result = 0;
     *v15 = 22;
-    goto LABEL_17;
+    return result;
   }
 
   bzero(__str, 0x400uLL);
   v12 = getenv("TMPDIR");
-  memset(&v22, 0, sizeof(v22));
-  if (stat(v12, &v22) || (v22.st_mode & 0x4000) == 0)
+  memset(&v21, 0, sizeof(v21));
+  if (stat(v12, &v21) || (v21.st_mode & 0x4000) == 0)
   {
     v12 = 0;
   }
@@ -115,10 +113,10 @@ LABEL_10:
     v13 = v12;
   }
 
-  v14 = snprintf(__str, 0x400uLL, "%s/%s.XXXXX%s", v13, v24, ".pdj");
+  v14 = snprintf(__str, 0x400uLL, "%s/%s.XXXXX%s", v13, v23, ".pdj");
   if ((v14 & 0x80000000) != 0)
   {
-    goto LABEL_16;
+    return 0;
   }
 
   if (v14 >= 0x401)
@@ -129,20 +127,18 @@ LABEL_10:
   v17 = mkstemps(__str, 4);
   if (v17 < 0)
   {
-LABEL_16:
-    result = 0;
-    goto LABEL_17;
+    return 0;
   }
 
   v18 = v17;
   if (fchmod(v17, 0x1A4u) == -1)
   {
-    v20 = *__error();
+    v19 = *__error();
     close(v18);
     unlink(__str);
-    v21 = __error();
+    v20 = __error();
     result = 0;
-    *v21 = v20;
+    *v20 = v19;
   }
 
   else
@@ -152,11 +148,9 @@ LABEL_16:
       strlcpy(a5, __str, a6);
     }
 
-    result = pdwriter_open_fd(v18, v24, a3);
+    return pdwriter_open_fd(v18, v23, a3);
   }
 
-LABEL_17:
-  v19 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -242,14 +236,15 @@ LABEL_13:
   free(a1);
 }
 
-void close_measurement(uint64_t a1, int a2)
+void close_measurement(FILE **a1, uint64_t a2)
 {
-  pddefer_flush(a1 + 448, a1, a2);
-  pddefer_flush(a1 + 528, a1, a2);
-  pddefer_flush(a1 + 368, a1, a2);
-  pddefer_flush(a1 + 208, a1, a2);
-  pddefer_flush(a1 + 288, a1, a2);
-  if (a2)
+  v2 = a2;
+  pddefer_flush((a1 + 56), a1, a2);
+  pddefer_flush((a1 + 66), a1, v2);
+  pddefer_flush((a1 + 46), a1, v2);
+  pddefer_flush((a1 + 26), a1, v2);
+  pddefer_flush((a1 + 36), a1, v2);
+  if (v2)
   {
 
     json_end_object(a1);
@@ -340,7 +335,7 @@ LABEL_6:
   return fflush(*(v3 + 40));
 }
 
-void pddefer_flush(uint64_t a1, uint64_t a2, int a3)
+void pddefer_flush(uint64_t a1, FILE **a2, int a3)
 {
   if (*(a1 + 73) != 1 || ftello(*a1) < 1)
   {
@@ -361,7 +356,7 @@ void pddefer_flush(uint64_t a1, uint64_t a2, int a3)
       json_member_start_object(a2, v12, v6, v7, v8, v9, v10, v11);
     }
 
-    json_printf(a2, "\n%*s", *(a1 + 40) * *(a2 + 36), " ");
+    json_printf(a2, "\n%*s", *(a1 + 40) * *(a2 + 9), " ");
   }
 
   else
@@ -405,7 +400,7 @@ uint64_t pdwriter_set_description(uint64_t a1, uint64_t a2)
   return json_member_str(v3, "description", a2, v4, v5, v6, v7, v8);
 }
 
-uint64_t pdwriter_start_extension(uint64_t a1, char a2)
+uint64_t pdwriter_start_extension(uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 704) == 1)
   {
@@ -436,14 +431,14 @@ uint64_t pdwriter_end_extension(uint64_t a1, uint64_t a2)
   return json_end_object(v3);
 }
 
-uint64_t pdwriter_apply_variable_str(uint64_t a1, char a2, uint64_t a3)
+uint64_t pdwriter_apply_variable_str(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v5 = pdwriter_defer(a1, 7u);
 
   return json_member_str(v5, a2, a3, v6, v7, v8, v9, v10);
 }
 
-uint64_t pdwriter_apply_variable_dbl(uint64_t a1, char a2, double a3)
+uint64_t pdwriter_apply_variable_dbl(uint64_t a1, uint64_t a2, double a3)
 {
   v5 = pdwriter_defer(a1, 7u);
 
@@ -457,7 +452,7 @@ uint64_t pdwriter_set_primary_metric(uint64_t a1, uint64_t a2)
   return json_member_str(v3, "primary_metric", a2, v4, v5, v6, v7, v8);
 }
 
-uint64_t pdwriter_new_value(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, double a9)
+uint64_t pdwriter_new_value(uint64_t a1, uint64_t a2, uint64_t a3, double a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   if (!a1)
   {
@@ -474,8 +469,8 @@ uint64_t pdwriter_new_value(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, 
     pdwriter_open_stream_cold_1();
   }
 
-  new_measurement(a1, a2, a3, a4, a5, a6, a7, a8);
-  json_member_dbl(a1, "value", v11, v12, v13, v14, v15, v16, a9);
+  new_measurement(a1, a2, a3, a5, a6, a7, a8, a9);
+  json_member_dbl(a1, "value", v11, v12, v13, v14, v15, v16, a4);
 
   return json_multiline(a1);
 }
@@ -513,7 +508,7 @@ uint64_t new_measurement(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uin
   return result;
 }
 
-uint64_t pdwriter_record_variable_str(uint64_t a1, char a2, uint64_t a3)
+uint64_t pdwriter_record_variable_str(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   check_measurement(a1);
   v6 = pdwriter_defer(a1, 2u);
@@ -539,7 +534,7 @@ uint64_t check_measurement(uint64_t result)
   return result;
 }
 
-uint64_t pdwriter_record_variable_dbl(uint64_t a1, char a2, double a3)
+uint64_t pdwriter_record_variable_dbl(uint64_t a1, uint64_t a2, double a3)
 {
   check_measurement(a1);
   v6 = pdwriter_defer(a1, 2u);
@@ -547,7 +542,7 @@ uint64_t pdwriter_record_variable_dbl(uint64_t a1, char a2, double a3)
   return json_member_dbl(v6, a2, v7, v8, v9, v10, v11, v12, a3);
 }
 
-uint64_t pdwriter_record_label_str(uint64_t a1, char a2, uint64_t a3)
+uint64_t pdwriter_record_label_str(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   check_measurement(a1);
   v6 = pdwriter_defer(a1, 3u);
@@ -555,7 +550,7 @@ uint64_t pdwriter_record_label_str(uint64_t a1, char a2, uint64_t a3)
   return json_member_str(v6, a2, a3, v7, v8, v9, v10, v11);
 }
 
-uint64_t pdwriter_record_label_dbl(uint64_t a1, char a2, double a3)
+uint64_t pdwriter_record_label_dbl(uint64_t a1, uint64_t a2, double a3)
 {
   check_measurement(a1);
   v6 = pdwriter_defer(a1, 3u);
@@ -671,7 +666,7 @@ uint64_t pdwriter_record_percentile(uint64_t a1, double a2, double a3)
   return json_end_object(v7);
 }
 
-uint64_t pdwriter_record_bucket(uint64_t a1, unint64_t a2, char *a3, double a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10)
+uint64_t pdwriter_record_bucket(uint64_t a1, unint64_t a2, char *a3, double a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   check_stats(a1);
   v14 = pdwriter_defer(a1, 6u);
@@ -689,7 +684,7 @@ uint64_t pdwriter_record_bucket(uint64_t a1, unint64_t a2, char *a3, double a4, 
 
 uint64_t config_emit(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v191 = *MEMORY[0x277D85DE8];
+  v189 = *MEMORY[0x277D85DE8];
   json_member_start_object(a1, "configuration", a3, a4, a5, a6, a7, a8);
   emit_sysctl_str(a1, "device_type", v9, v10, v11, v12, v13, v14, 6, 0, 2);
   v15 = MGCopyAnswer();
@@ -743,21 +738,21 @@ uint64_t config_emit(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_
   {
     v46 = v38;
     *uu = 0;
-    LODWORD(v188.tv_sec) = 8;
-    if (!MEMORY[0x277CA94E0](v38, "dram-size", uu, &v188))
+    LODWORD(v186.tv_sec) = 8;
+    if (!MEMORY[0x277CA94E0](v38, "dram-size", uu, &v186))
     {
       json_member_dbl(a1, "memory_size", v47, v48, v49, v50, v51, v52, *uu);
     }
 
     memset(&out, 0, 128);
-    v187 = 128;
-    if (!MEMORY[0x277CA94E0](v46, "dram-vendor", &out, &v187))
+    v185 = 128;
+    if (!MEMORY[0x277CA94E0](v46, "dram-vendor", &out, &v185))
     {
       json_member_str(a1, "dram_vendor", &out, v53, v54, v55, v56, v57);
     }
 
-    v187 = 128;
-    if (!MEMORY[0x277CA94E0](v46, "dram-type", &out, &v187))
+    v185 = 128;
+    if (!MEMORY[0x277CA94E0](v46, "dram-type", &out, &v185))
     {
       json_member_str(a1, "dram_type", &out, v58, v59, v60, v61, v62);
     }
@@ -809,17 +804,16 @@ uint64_t config_emit(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_
   if (os_variant_allows_internal_security_policies())
   {
     getpid();
-    v93 = *MEMORY[0x277D861D8];
-    v186 = "hw.uuid";
+    v184 = "hw.uuid";
     if (!sandbox_check())
     {
       memset(uu, 0, sizeof(uu));
-      v188 = xmmword_2771F11A0;
-      if (!gethostuuid(uu, &v188) && !uuid_is_null(uu))
+      v186 = xmmword_2771F11A0;
+      if (!gethostuuid(uu, &v186) && !uuid_is_null(uu))
       {
         memset(&out, 0, 37);
         uuid_unparse(uu, &out);
-        json_member_str(a1, "device_uuid", &out, v94, v95, v96, v97, v98);
+        json_member_str(a1, "device_uuid", &out, v93, v94, v95, v96, v97);
       }
     }
   }
@@ -835,81 +829,81 @@ uint64_t config_emit(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_
     pdwriter_open_stream_cold_1();
   }
 
-  json_member_dbl(a1, "rootvol_size", v99, v100, v101, v102, v103, v104, (out.f_bsize * out.f_blocks));
-  v105 = strrchr(out.f_mntfromname, 47);
-  v106 = IOBSDNameMatching(0, 0, v105 + 1);
-  v107 = IOServiceGetMatchingService(0, v106);
-  if (v107)
+  json_member_dbl(a1, "rootvol_size", v98, v99, v100, v101, v102, v103, (out.f_bsize * out.f_blocks));
+  v104 = strrchr(out.f_mntfromname, 47);
+  v105 = IOBSDNameMatching(0, 0, v104 + 1);
+  v106 = IOServiceGetMatchingService(0, v105);
+  if (v106)
   {
-    v108 = v107;
-    v109 = *v29;
-    v110 = IORegistryEntrySearchCFProperty(v107, "IOService", @"Device Characteristics", *v29, 3u);
-    v111 = v110;
-    if (v110)
+    v107 = v106;
+    v108 = *v29;
+    v109 = IORegistryEntrySearchCFProperty(v106, "IOService", @"Device Characteristics", *v29, 3u);
+    v110 = v109;
+    if (v109)
     {
-      v112 = [v110 objectForKeyedSubscript:@"Medium Type"];
-      v113 = [v112 isEqualToString:@"Solid State"];
-      json_member_BOOL(a1, "rootvol_ssd", v113, v114, v115, v116, v117, v118);
+      v111 = [v109 objectForKeyedSubscript:@"Medium Type"];
+      v112 = [v111 isEqualToString:@"Solid State"];
+      json_member_BOOL(a1, "rootvol_ssd", v112, v113, v114, v115, v116, v117);
     }
 
-    v119 = IORegistryEntrySearchCFProperty(v108, "IOService", @"APFSComposited", v109, 3u);
-    v125 = v119;
-    if (v119)
+    v118 = IORegistryEntrySearchCFProperty(v107, "IOService", @"APFSComposited", v108, 3u);
+    v124 = v118;
+    if (v118)
     {
-      v126 = [v119 BOOLValue];
+      v125 = [v118 BOOLValue];
     }
 
     else
     {
-      v126 = 0;
+      v125 = 0;
     }
 
-    json_member_BOOL(a1, "rootvol_fusion", v126, v120, v121, v122, v123, v124);
+    json_member_BOOL(a1, "rootvol_fusion", v125, v119, v120, v121, v122, v123);
   }
 
-  v127 = dyld_shared_cache_some_image_overridden();
-  json_member_BOOL(a1, "dsc_overriding_images_present", v127, v128, v129, v130, v131, v132);
-  v133 = _dyld_shared_cache_optimized();
-  json_member_BOOL(a1, "dsc_optimized", v133, v134, v135, v136, v137, v138);
-  json_member_BOOL(a1, "metadata_indexing_enabled", 0, v139, v140, v141, v142, v143);
+  v126 = dyld_shared_cache_some_image_overridden();
+  json_member_BOOL(a1, "dsc_overriding_images_present", v126, v127, v128, v129, v130, v131);
+  v132 = _dyld_shared_cache_optimized();
+  json_member_BOOL(a1, "dsc_optimized", v132, v133, v134, v135, v136, v137);
+  json_member_BOOL(a1, "metadata_indexing_enabled", 0, v138, v139, v140, v141, v142);
   *&out.f_bsize = 0;
   if (!IOPSCopyPowerSourcesByTypePrecise())
   {
     if (*&out.f_bsize)
     {
-      v144 = IOPSCopyPowerSourcesList(*&out.f_bsize);
-      if (v144)
+      v143 = IOPSCopyPowerSourcesList(*&out.f_bsize);
+      if (v143)
       {
-        v145 = v144;
-        Count = CFArrayGetCount(v144);
-        json_member_uint(a1, "battery_count", Count, v147, v148, v149, v150, v151);
-        ValueAtIndex = CFArrayGetValueAtIndex(v145, 0);
-        v153 = IOPSGetPowerSourceDescription(*&out.f_bsize, ValueAtIndex);
-        v154 = [v153 objectForKeyedSubscript:@"Battery Service State"];
-        v155 = v154;
-        if (v154)
+        v144 = v143;
+        Count = CFArrayGetCount(v143);
+        json_member_uint(a1, "battery_count", Count, v146, v147, v148, v149, v150);
+        ValueAtIndex = CFArrayGetValueAtIndex(v144, 0);
+        v152 = IOPSGetPowerSourceDescription(*&out.f_bsize, ValueAtIndex);
+        v153 = [v152 objectForKeyedSubscript:@"Battery Service State"];
+        v154 = v153;
+        if (v153)
         {
-          v156 = [v154 intValue];
-          json_member_BOOL(a1, "battery_service_needed", v156 != 0, v157, v158, v159, v160, v161);
-          if ((v156 + 1) > 8)
+          v155 = [v153 intValue];
+          json_member_BOOL(a1, "battery_service_needed", v155 != 0, v156, v157, v158, v159, v160);
+          if ((v155 + 1) > 8)
           {
-            v167 = "unnamed";
+            v166 = "unnamed";
           }
 
           else
           {
-            v167 = emit_battery_health_state_names[v156 + 1];
+            v166 = emit_battery_health_state_names[v155 + 1];
           }
 
-          json_member_str(a1, "battery_service_state", v167, v162, v163, v164, v165, v166);
+          json_member_str(a1, "battery_service_state", v166, v161, v162, v163, v164, v165);
         }
 
-        v168 = [v153 objectForKeyedSubscript:{@"Maximum Capacity Percent", v186}];
-        v169 = v168;
-        if (v168)
+        v167 = [v152 objectForKeyedSubscript:{@"Maximum Capacity Percent", v184}];
+        v168 = v167;
+        if (v167)
         {
-          v170 = [v168 unsignedIntValue];
-          json_member_uint(a1, "battery_max_capacity_percent", v170, v171, v172, v173, v174, v175);
+          v169 = [v167 unsignedIntValue];
+          json_member_uint(a1, "battery_max_capacity_percent", v169, v170, v171, v172, v173, v174);
         }
 
         if (MEMORY[0x282239988])
@@ -918,23 +912,23 @@ uint64_t config_emit(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_
           {
             if (MEMORY[0x282239998])
             {
-              v176 = IOServiceMatching("AppleSMC");
-              v177 = IOServiceGetMatchingService(0, v176);
-              if (v177)
+              v175 = IOServiceMatching("AppleSMC");
+              v176 = IOServiceGetMatchingService(0, v175);
+              if (v176)
               {
-                v178 = v177;
+                v177 = v176;
                 if (SMCOpenConnection())
                 {
                   *uu = 0;
                   if (!SMCReadKeyAsNumeric())
                   {
-                    json_member_uint(a1, "battery_cycle_count", *uu, v179, v180, v181, v182, v183);
+                    json_member_uint(a1, "battery_cycle_count", *uu, v178, v179, v180, v181, v182);
                   }
 
                   SMCCloseConnection();
                 }
 
-                IOObjectRelease(v178);
+                IOObjectRelease(v177);
               }
             }
           }
@@ -943,12 +937,10 @@ uint64_t config_emit(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_
     }
   }
 
-  result = json_end_object(a1);
-  v185 = *MEMORY[0x277D85DE8];
-  return result;
+  return json_end_object(a1);
 }
 
-uint64_t emit_sysctlbyname_num(uint64_t a1, char a2, char *a3)
+uint64_t emit_sysctlbyname_num(uint64_t a1, uint64_t a2, char *a3)
 {
   v12 = 0;
   v13 = 4;
@@ -963,36 +955,34 @@ uint64_t emit_sysctlbyname_num(uint64_t a1, char a2, char *a3)
 
 uint64_t emit_sysctl_num(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, int a9, int a10, int a11)
 {
-  v25 = *MEMORY[0x277D85DE8];
-  v21[0] = 4;
-  v24 = 0;
+  v24 = *MEMORY[0x277D85DE8];
+  v20[0] = 4;
   v23 = 0;
-  v20[1] = &a9;
-  v22[0] = a9;
-  v22[1] = a11;
-  v20[0] = 0;
-  result = sysctl(v22, 2u, v20, v21, 0, 0);
+  v22 = 0;
+  v19[1] = &a9;
+  v21[0] = a9;
+  v21[1] = a11;
+  v19[0] = 0;
+  result = sysctl(v21, 2u, v19, v20, 0, 0);
   if (!result)
   {
-    result = json_member_dbl(a1, "hw_pagesize", v13, v14, v15, v16, v17, v18, v20[0]);
+    return json_member_dbl(a1, "hw_pagesize", v13, v14, v15, v16, v17, v18, v19[0]);
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void emit_sysctl_str(uint64_t a1, char a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, int a9, int a10, int a11)
+void emit_sysctl_str(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, int a9, int a10, int a11)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v14 = 0;
+  v14 = *MEMORY[0x277D85DE8];
   v13 = 0;
-  v12[0] = a9;
-  v12[1] = a11;
-  emit_sysctlany_str(a1, a2, 2u, v12, 0);
-  v11 = *MEMORY[0x277D85DE8];
+  v12 = 0;
+  v11[0] = a9;
+  v11[1] = a11;
+  emit_sysctlany_str(a1, a2, 2u, v11, 0);
 }
 
-uint64_t emit_sysctlbyname_BOOL(uint64_t a1, char a2, char *a3)
+uint64_t emit_sysctlbyname_BOOL(uint64_t a1, uint64_t a2, char *a3)
 {
   v12 = 0;
   v11 = 4;
@@ -1005,7 +995,7 @@ uint64_t emit_sysctlbyname_BOOL(uint64_t a1, char a2, char *a3)
   return result;
 }
 
-void emit_sysctlany_str(uint64_t a1, char a2, u_int a3, int *a4, char *a5)
+void emit_sysctlany_str(uint64_t a1, uint64_t a2, u_int a3, int *a4, char *a5)
 {
   v22 = 0;
   if (a5)
@@ -1108,49 +1098,44 @@ uint64_t json_printf_s()
   v0 = MEMORY[0x28223BE20]();
   v2 = v1;
   v3 = v0;
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = **v4;
   v6 = strlen(v5);
   v7 = *(v2 + 24);
-  if (v6)
+  if (!v6)
   {
-    v8 = v6;
-    v9 = 0;
-    while (v8)
+    return fprintf_l(v3, *(v2 + 8), "%*s", *(v2 + 24), &unk_2771F165E);
+  }
+
+  v8 = v6;
+  v9 = 0;
+  while (v8)
+  {
+    if (v8 >= 0x400)
     {
-      if (v8 >= 0x400)
-      {
-        v10 = 1024;
-      }
-
-      else
-      {
-        v10 = v8;
-      }
-
-      if (strsnvisx(v14, 0x1001uLL, v5, v10, 66, "\\\b\f\n\r\t") != -1)
-      {
-        v11 = fprintf_l(v3, *(v2 + 8), "%*s", v7, v14);
-        v9 = (v11 + v9);
-        v8 -= v10;
-        v5 += v10;
-        if (v11 != -1)
-        {
-          continue;
-        }
-      }
-
-      v9 = 0xFFFFFFFFLL;
-      break;
+      v10 = 1024;
     }
+
+    else
+    {
+      v10 = v8;
+    }
+
+    if (strsnvisx(v13, 0x1001uLL, v5, v10, 66, "\\\b\f\n\r\t") != -1)
+    {
+      v11 = fprintf_l(v3, *(v2 + 8), "%*s", v7, v13);
+      v9 = (v11 + v9);
+      v8 -= v10;
+      v5 += v10;
+      if (v11 != -1)
+      {
+        continue;
+      }
+    }
+
+    return 0xFFFFFFFFLL;
   }
 
-  else
-  {
-    v9 = fprintf_l(v3, *(v2 + 8), "%*s", *(v2 + 24), &unk_2771F165E);
-  }
-
-  v12 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -1190,8 +1175,7 @@ uint64_t json_end_object(uint64_t a1)
     pdwriter_open_stream_cold_1();
   }
 
-  v3 = v1 - 1;
-  *(a1 + 28) = v3;
+  *(a1 + 28) = v1 - 1;
   if (*(a1 + 26) == 1)
   {
     json_printf(a1, " ");
@@ -1199,7 +1183,6 @@ uint64_t json_end_object(uint64_t a1)
 
   else
   {
-    v5 = *(a1 + 36) * v3;
     json_printf(a1, "\n%*s");
   }
 
@@ -1226,8 +1209,7 @@ uint64_t json_end_array(uint64_t a1)
     pdwriter_open_stream_cold_1();
   }
 
-  v3 = v1 - 1;
-  *(a1 + 28) = v3;
+  *(a1 + 28) = v1 - 1;
   if (*(a1 + 26) == 1)
   {
     json_printf(a1, " ");
@@ -1235,7 +1217,6 @@ uint64_t json_end_array(uint64_t a1)
 
   else
   {
-    v5 = *(a1 + 36) * v3;
     json_printf(a1, "\n%*s");
   }
 
@@ -1263,6 +1244,13 @@ uint64_t json_value_raw_internal(uint64_t a1, int a2, char *__format, va_list __
   return result;
 }
 
+uint64_t json_value_strf(uint64_t a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+{
+  va_start(va, a8);
+  json_comma(a1);
+  return json_value_raw_internal(a1, 1, a2, va);
+}
+
 uint64_t json_comma(uint64_t result)
 {
   v1 = result;
@@ -1275,7 +1263,6 @@ uint64_t json_comma(uint64_t result)
 
     else
     {
-      v2 = (*(result + 36) * *(result + 28));
       result = json_printf(result, "\n%*s");
     }
 
@@ -1300,36 +1287,37 @@ uint64_t json_comma(uint64_t result)
   return result;
 }
 
-uint64_t json_value_dbl(uint64_t a1, double a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+uint64_t json_value_dbl(uint64_t a1, double a2)
 {
   if (fabs(a2) == INFINITY)
   {
     pdwriter_open_stream_cold_1();
   }
 
-  return json_value_raw(a1, 0, "%.17g", a5, a6, a7, a8, a9, SLOBYTE(a2));
+  return json_value_raw(a1, 0, "%.17g", a2);
 }
 
-uint64_t json_value_raw(uint64_t a1, uint64_t a2, const char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t json_value_raw(uint64_t a1, uint64_t a2, const char *a3, ...)
 {
+  va_start(va, a3);
   json_comma(a1);
-  result = vfxprintf(*a1, *(a1 + 8), *(a1 + 16), a3, &a9);
+  result = vfxprintf(*a1, *(a1 + 8), *(a1 + 16), a3, va);
   *(a1 + 24) = 1;
   return result;
 }
 
-uint64_t json_value_BOOL(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t json_value_BOOL(uint64_t a1, int a2)
 {
-  v8 = "false";
+  v2 = "false";
   if (a2)
   {
-    v8 = "true";
+    v2 = "true";
   }
 
-  return json_value_raw(a1, 0, "%s", a4, a5, a6, a7, a8, v8);
+  return json_value_raw(a1, 0, "%s", v2);
 }
 
-uint64_t json_key(uint64_t a1, char a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t json_key(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   json_value_strf(a1, "%s", a3, a4, a5, a6, a7, a8, a2);
   result = json_printf(a1, ": ");
@@ -1337,58 +1325,57 @@ uint64_t json_key(uint64_t a1, char a2, uint64_t a3, uint64_t a4, uint64_t a5, u
   return result;
 }
 
-uint64_t json_member_str(uint64_t a1, char a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t json_member_str(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  json_value_strf(a1, "%s", a3, a4, a5, a6, a7, a8, a2);
+  json_printf(a1, ": ");
+  *(a1 + 24) = 0;
+  return json_value_strf(a1, "%s", v10, v11, v12, v13, v14, v15, a3);
+}
+
+uint64_t json_member_dbl(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, double a9)
+{
+  json_value_strf(a1, "%s", a3, a4, a5, a6, a7, a8, a2);
+  json_printf(a1, ": ");
+  *(a1 + 24) = 0;
+
+  return json_value_dbl(a1, a9);
+}
+
+uint64_t json_member_int(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v8 = a3;
   json_value_strf(a1, "%s", a3, a4, a5, a6, a7, a8, a2);
   json_printf(a1, ": ");
   *(a1 + 24) = 0;
-  return json_value_strf(a1, "%s", v10, v11, v12, v13, v14, v15, v8);
+  return json_value_raw(a1, 0, "%d", v8);
 }
 
-uint64_t json_member_dbl(uint64_t a1, char a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, double a9)
-{
-  json_value_strf(a1, "%s", a3, a4, a5, a6, a7, a8, a2);
-  json_printf(a1, ": ");
-  *(a1 + 24) = 0;
-
-  return json_value_dbl(a1, a9, v11, v12, v13, v14, v15, v16, v17);
-}
-
-uint64_t json_member_int(uint64_t a1, char a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t json_member_uint(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v8 = a3;
   json_value_strf(a1, "%s", a3, a4, a5, a6, a7, a8, a2);
   json_printf(a1, ": ");
   *(a1 + 24) = 0;
-  return json_value_raw(a1, 0, "%d", v10, v11, v12, v13, v14, v8);
+  return json_value_raw(a1, 0, "%u", v8);
 }
 
-uint64_t json_member_uint(uint64_t a1, char a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t json_member_BOOL(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v8 = a3;
   json_value_strf(a1, "%s", a3, a4, a5, a6, a7, a8, a2);
   json_printf(a1, ": ");
   *(a1 + 24) = 0;
-  return json_value_raw(a1, 0, "%u", v10, v11, v12, v13, v14, v8);
-}
-
-uint64_t json_member_BOOL(uint64_t a1, char a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v8 = a3;
-  json_value_strf(a1, "%s", a3, a4, a5, a6, a7, a8, a2);
-  json_printf(a1, ": ");
-  *(a1 + 24) = 0;
-  v15 = "false";
+  v10 = "false";
   if (v8)
   {
-    v15 = "true";
+    v10 = "true";
   }
 
-  return json_value_raw(a1, 0, "%s", v10, v11, v12, v13, v14, v15);
+  return json_value_raw(a1, 0, "%s", v10);
 }
 
-uint64_t json_member_strvf(uint64_t a1, char a2, char *a3, va_list a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t json_member_strvf(uint64_t a1, uint64_t a2, char *a3, va_list a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   json_value_strf(a1, "%s", a3, a4, a5, a6, a7, a8, a2);
   json_printf(a1, ": ");
@@ -1397,7 +1384,7 @@ uint64_t json_member_strvf(uint64_t a1, char a2, char *a3, va_list a4, uint64_t 
   return json_value_raw_internal(a1, 1, a3, a4);
 }
 
-uint64_t json_member_start_array(uint64_t a1, char a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t json_member_start_array(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   json_value_strf(a1, "%s", a3, a4, a5, a6, a7, a8, a2);
   json_printf(a1, ": ");
@@ -1409,7 +1396,7 @@ uint64_t json_member_start_array(uint64_t a1, char a2, uint64_t a3, uint64_t a4,
   return result;
 }
 
-uint64_t json_member_start_object(uint64_t a1, char a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t json_member_start_object(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   json_value_strf(a1, "%s", a3, a4, a5, a6, a7, a8, a2);
   json_printf(a1, ": ");
@@ -1423,22 +1410,21 @@ uint64_t json_member_start_object(uint64_t a1, char a2, uint64_t a3, uint64_t a4
 
 uint64_t handle_malformed_data(void *a1, void *a2)
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   if (a1)
   {
     v3 = MEMORY[0x277CCA9B8];
-    v11 = *MEMORY[0x277CCA450];
-    v12[0] = a2;
+    v10 = *MEMORY[0x277CCA450];
+    v11[0] = a2;
     v4 = MEMORY[0x277CBEAC0];
     v5 = a2;
-    v6 = [v4 dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    v6 = [v4 dictionaryWithObjects:v11 forKeys:&v10 count:1];
     v7 = [v3 errorWithDomain:@"PDError" code:1 userInfo:v6];
 
     v8 = v7;
     *a1 = v7;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -1487,9 +1473,9 @@ LABEL_6:
   return v10;
 }
 
-void sub_2771EE83C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2771EE83C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1544,7 +1530,7 @@ id get_metric_filter_metric(void *a1)
 
 id get_metric_filter_variables(void *a1, void *a2)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v3 = [a1 componentsSeparatedByString:{@", "}];
   if ([v3 count] == 1)
   {
@@ -1560,27 +1546,27 @@ id get_metric_filter_variables(void *a1, void *a2)
       get_metric_filter_variables_cold_1();
     }
 
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
     v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
     v7 = v5;
-    v8 = [v7 countByEnumeratingWithState:&v26 objects:v32 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v25 objects:v31 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v27;
+      v10 = *v26;
       obj = v7;
       while (2)
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v27 != v10)
+          if (*v26 != v10)
           {
             objc_enumerationMutation(obj);
           }
 
-          v12 = *(*(&v26 + 1) + 8 * i);
+          v12 = *(*(&v25 + 1) + 8 * i);
           v13 = [v12 rangeOfString:@"="];
           if (v13 == 0x7FFFFFFFFFFFFFFFLL)
           {
@@ -1588,9 +1574,9 @@ id get_metric_filter_variables(void *a1, void *a2)
             {
               v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"invalid metric filter component: %@", v12];
               v21 = MEMORY[0x277CCA9B8];
-              v30 = *MEMORY[0x277CCA450];
-              v31 = v20;
-              v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
+              v29 = *MEMORY[0x277CCA450];
+              v30 = v20;
+              v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
               *a2 = [v21 errorWithDomain:@"PDError" code:2 userInfo:v22];
             }
 
@@ -1619,7 +1605,7 @@ id get_metric_filter_variables(void *a1, void *a2)
         }
 
         v7 = obj;
-        v9 = [obj countByEnumeratingWithState:&v26 objects:v32 count:16];
+        v9 = [obj countByEnumeratingWithState:&v25 objects:v31 count:16];
         if (v9)
         {
           continue;
@@ -1632,8 +1618,6 @@ id get_metric_filter_variables(void *a1, void *a2)
     v4 = v6;
 LABEL_20:
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

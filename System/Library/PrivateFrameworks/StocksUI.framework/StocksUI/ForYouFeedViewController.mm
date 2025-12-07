@@ -21,13 +21,13 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_220513C6C();
+  sub_220513C6C(selfCopy, v2);
 }
 
 - (void)viewWillAppear:(BOOL)appear
 {
   selfCopy = self;
-  sub_22051EE1C(appear);
+  sub_22051EE1C(appear, selfCopy);
 }
 
 - (int64_t)preferredStatusBarStyle
@@ -50,7 +50,7 @@
 {
   changeCopy = change;
   selfCopy = self;
-  sub_220520A80(change);
+  sub_220520A80(change, selfCopy);
 }
 
 - (void)didMoveToParentViewController:(id)controller
@@ -66,7 +66,7 @@
 - (void)viewWillLayoutSubviews
 {
   selfCopy = self;
-  sub_2207F6740();
+  sub_2207F6740(selfCopy, v2);
 }
 
 - (void)scrollViewDidScroll:(id)scroll
@@ -87,7 +87,7 @@
 - (void)viewDidAppear:(BOOL)appear
 {
   selfCopy = self;
-  sub_2207F641C(appear);
+  sub_2207F641C(appear, selfCopy);
 }
 
 - (void)viewWillDisappear:(BOOL)disappear
@@ -100,7 +100,7 @@
   swift_getObjectType();
   sub_22088BBCC();
   v4[OBJC_IVAR____TtC8StocksUI24ForYouFeedViewController_toolbarTitleIsHidden] = 1;
-  sub_22044E3AC(&qword_28128A3B0, v5, type metadata accessor for ForYouFeedViewController);
+  sub_22044E3AC(&qword_28128A3B0, v5, type metadata accessor for ForYouFeedViewController, &unk_2208B8264);
   sub_22088844C();
 }
 

@@ -1148,25 +1148,8 @@ LABEL_10:
   infoCopy = info;
   requestCopy = request;
   v15 = mechanismCopy;
-  if (([requestCopy isPurposeApplePay] & 1) == 0)
+  if ([requestCopy isPurposeApplePay] & 1) == 0 && (objc_msgSend(infoCopy, "objectForKeyedSubscript:", @"Options"), v16 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v16, "objectForKeyedSubscript:", &off_32A88), v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(v17, "BOOLValue"), v17, v16, !v18) || (+[BiometryHelper sharedInstance](BiometryHelper, "sharedInstance"), v19 = objc_claimAutoreleasedReturnValue(), objc_msgSend(infoCopy, "objectForKeyedSubscript:", @"UserId"), v20 = objc_claimAutoreleasedReturnValue(), v21 = objc_msgSend(v19, "isBiometryOnForApplePay:", v20), v20, v19, (v21))
   {
-    v16 = [infoCopy objectForKeyedSubscript:@"Options"];
-    v17 = [v16 objectForKeyedSubscript:&off_32A88];
-    bOOLValue = [v17 BOOLValue];
-
-    if (!bOOLValue)
-    {
-      goto LABEL_4;
-    }
-  }
-
-  v19 = +[BiometryHelper sharedInstance];
-  v20 = [infoCopy objectForKeyedSubscript:@"UserId"];
-  v21 = [v19 isBiometryOnForApplePay:v20];
-
-  if (v21)
-  {
-LABEL_4:
     v22 = 0;
     v23 = v15;
     goto LABEL_22;

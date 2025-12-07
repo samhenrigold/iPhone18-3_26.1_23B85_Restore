@@ -11,7 +11,7 @@
 
 + (id)localizedMenuString:(int)string
 {
-  v3 = KNBundle();
+  v3 = KNBundle(self);
   v4 = [v3 localizedStringForKey:@"Shimmer *Shimmer Build*" value:@"Shimmer" table:@"Keynote"];
 
   return v4;
@@ -75,7 +75,7 @@
   animatedBuild = [contextCopy animatedBuild];
   direction = [contextCopy direction];
   lastObject = [textures lastObject];
-  [(KNAnimationEffect *)self perspectiveMVPMatrixWithContext:contextCopy];
+  objc_msgSend_perspectiveMVPMatrixWithContext_(self);
   v10 = v39;
   *&self->_baseTransform.m31 = v38;
   *&self->_baseTransform.m33 = v10;
@@ -90,7 +90,7 @@
   *&self->_baseTransform.m23 = v13;
   v14 = [KNShimmerEffect alloc];
   mAnimationContext = self->super.mAnimationContext;
-  [animatedBuild duration];
+  objc_msgSend_duration(animatedBuild);
   v17 = v16;
   buildType = [animatedBuild buildType];
   [contextCopy metalContext];

@@ -8,33 +8,31 @@
 
 - (id)transitionArrayForDate:(id)date
 {
-  v23[3] = *MEMORY[0x277D85DE8];
+  v22[3] = *MEMORY[0x277D85DE8];
   dateCopy = date;
   date = [(ATXPredictedTransition *)self date];
   [date timeIntervalSinceDate:dateCopy];
   v7 = v6;
 
   locationOfInterestUUIDKey = [MEMORY[0x277CFE338] locationOfInterestUUIDKey];
-  v22[0] = locationOfInterestUUIDKey;
+  v21[0] = locationOfInterestUUIDKey;
   v9 = [(ATXPredictedTransition *)self loi];
   uuid = [v9 uuid];
-  v23[0] = uuid;
+  v22[0] = uuid;
   locationOfInterestTypeKey = [MEMORY[0x277CFE338] locationOfInterestTypeKey];
-  v22[1] = locationOfInterestTypeKey;
+  v21[1] = locationOfInterestTypeKey;
   v12 = MEMORY[0x277CCABB0];
   v13 = [(ATXPredictedTransition *)self loi];
   v14 = [v12 numberWithInteger:{objc_msgSend(v13, "type")}];
-  v23[1] = v14;
+  v22[1] = v14;
   transitionWithinTimeIntervalKey = [MEMORY[0x277CFE338] transitionWithinTimeIntervalKey];
-  v22[2] = transitionWithinTimeIntervalKey;
+  v21[2] = transitionWithinTimeIntervalKey;
   v16 = [MEMORY[0x277CCABB0] numberWithDouble:v7];
-  v23[2] = v16;
-  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:3];
+  v22[2] = v16;
+  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:3];
 
-  v21 = v17;
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v21 count:1];
-
-  v19 = *MEMORY[0x277D85DE8];
+  v20 = v17;
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v20 count:1];
 
   return v18;
 }

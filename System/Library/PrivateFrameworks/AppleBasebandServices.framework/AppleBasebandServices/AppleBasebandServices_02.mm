@@ -20,29 +20,29 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_atom<st
 
       if (v4 == 92)
       {
-        v22 = a2 + 1;
+        v23 = a2 + 1;
         if (a3 == a2 + 1)
         {
           std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)3>();
         }
 
-        v23 = *v22;
-        v24 = v23 - 48;
-        if (v23 == 48)
+        v24 = *v23;
+        v25 = v24 - 48;
+        if (v24 == 48)
         {
-          v25 = 0;
+          v26 = 0;
 LABEL_46:
-          std::basic_regex<char,std::regex_traits<char>>::__push_char(a1, v25);
-          return v22 + 1;
+          std::basic_regex<char,std::regex_traits<char>>::__push_char(a1, v26);
+          return v23 + 1;
         }
 
-        if ((v23 - 49) <= 8)
+        if ((v24 - 49) <= 8)
         {
           v3 = a2 + 2;
           if (a2 + 2 == a3)
           {
-            v34 = a2;
-            v35 = a3;
+            v35 = a2;
+            v36 = a3;
             v3 = a3;
           }
 
@@ -50,19 +50,19 @@ LABEL_46:
           {
             while (1)
             {
-              v33 = *v3;
-              if ((v33 - 48) > 9)
+              v34 = *v3;
+              if ((v34 - 48) > 9)
               {
                 break;
               }
 
-              if (v24 >= 0x19999999)
+              if (v25 >= 0x19999999)
               {
                 goto LABEL_75;
               }
 
               ++v3;
-              v24 = v33 + 10 * v24 - 48;
+              v25 = v34 + 10 * v25 - 48;
               if (v3 == a3)
               {
                 v3 = a3;
@@ -70,141 +70,141 @@ LABEL_46:
               }
             }
 
-            v34 = a2;
-            v35 = a3;
-            if (!v24)
+            v35 = a2;
+            v36 = a3;
+            if (!v25)
             {
 LABEL_75:
               std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)4>();
             }
           }
 
-          if (v24 > *(a1 + 28))
+          if (v25 > *(a1 + 28))
           {
             goto LABEL_75;
           }
 
-          v36 = a1;
-          std::basic_regex<char,std::regex_traits<char>>::__push_back_ref(a1, v24);
-          if (v3 != v22)
+          v37 = a1;
+          std::basic_regex<char,std::regex_traits<char>>::__push_back_ref(a1, v25);
+          if (v3 != v23)
           {
             return v3;
           }
 
-          a1 = v36;
-          a3 = v35;
-          a2 = v34;
-          v23 = *v22;
+          a1 = v37;
+          a3 = v36;
+          a2 = v35;
+          v24 = *v23;
         }
 
-        v37 = a1;
-        if (v23 > 99)
+        v38 = a1;
+        if (v24 > 99)
         {
-          if (v23 == 119)
+          if (v24 == 119)
           {
-            v42 = a2;
-            v43 = a3;
-            v46 = operator new(0xB0uLL);
-            std::__bracket_expression<char,std::regex_traits<char>>::__bracket_expression[abi:ne200100](v46, v37, *(*(v37 + 56) + 8), 0, *(v37 + 24) & 1, (*(v37 + 24) & 8) != 0);
-            *(*(v37 + 56) + 8) = v46;
-            *(v37 + 56) = v46;
-            v46[40] |= 0x500u;
-            std::__bracket_expression<char,std::regex_traits<char>>::__add_char[abi:ne200100](v46, 95);
-            a1 = v37;
+            v43 = a2;
+            v44 = a3;
+            v47 = operator new(0xB0uLL);
+            std::__bracket_expression<char,std::regex_traits<char>>::__bracket_expression[abi:ne200100](v47, v38, *(*(v38 + 56) + 8), 0, *(v38 + 24) & 1, (*(v38 + 24) & 8) != 0);
+            *(*(v38 + 56) + 8) = v47;
+            *(v38 + 56) = v47;
+            v47[40] |= 0x500u;
+            std::__bracket_expression<char,std::regex_traits<char>>::__add_char[abi:ne200100](v47, 95);
+            a1 = v38;
 LABEL_68:
-            v3 = v22 + 1;
-            a3 = v43;
-            a2 = v42;
+            v3 = v23 + 1;
+            a3 = v44;
+            a2 = v43;
             goto LABEL_69;
           }
 
-          if (v23 != 115)
+          if (v24 != 115)
           {
-            v3 = v22;
-            if (v23 == 100)
+            v3 = v23;
+            if (v24 == 100)
             {
-              v38 = a2;
-              v39 = a3;
-              v41 = operator new(0xB0uLL);
-              std::__bracket_expression<char,std::regex_traits<char>>::__bracket_expression[abi:ne200100](v41, v37, *(*(v37 + 56) + 8), 0, *(v37 + 24) & 1, (*(v37 + 24) & 8) != 0);
-              a1 = v37;
-              *(*(v37 + 56) + 8) = v41;
-              *(v37 + 56) = v41;
-              v41[40] |= 0x400u;
+              v39 = a2;
+              v40 = a3;
+              v42 = operator new(0xB0uLL);
+              std::__bracket_expression<char,std::regex_traits<char>>::__bracket_expression[abi:ne200100](v42, v38, *(*(v38 + 56) + 8), 0, *(v38 + 24) & 1, (*(v38 + 24) & 8) != 0);
+              a1 = v38;
+              *(*(v38 + 56) + 8) = v42;
+              *(v38 + 56) = v42;
+              v42[40] |= 0x400u;
               goto LABEL_61;
             }
 
 LABEL_69:
-            if (v22 == v3)
+            if (v23 == v3)
             {
               v3 = a2;
-              v47 = std::basic_regex<char,std::regex_traits<char>>::__parse_character_escape<std::__wrap_iter<char const*>>(a1, v22, a3, 0);
-              if (v47 != v22)
+              v48 = std::basic_regex<char,std::regex_traits<char>>::__parse_character_escape<std::__wrap_iter<char const*>>(a1, v23, a3, 0);
+              if (v48 != v23)
               {
-                return v47;
+                return v48;
               }
             }
 
             return v3;
           }
 
-          v42 = a2;
-          v43 = a3;
-          v44 = operator new(0xB0uLL);
-          std::__bracket_expression<char,std::regex_traits<char>>::__bracket_expression[abi:ne200100](v44, v37, *(*(v37 + 56) + 8), 0, *(v37 + 24) & 1, (*(v37 + 24) & 8) != 0);
+          v43 = a2;
+          v44 = a3;
+          v45 = operator new(0xB0uLL);
+          std::__bracket_expression<char,std::regex_traits<char>>::__bracket_expression[abi:ne200100](v45, v38, *(*(v38 + 56) + 8), 0, *(v38 + 24) & 1, (*(v38 + 24) & 8) != 0);
         }
 
         else
         {
-          if (v23 == 68)
+          if (v24 == 68)
           {
-            v42 = a2;
-            v43 = a3;
-            v44 = operator new(0xB0uLL);
-            std::__bracket_expression<char,std::regex_traits<char>>::__bracket_expression[abi:ne200100](v44, v37, *(*(v37 + 56) + 8), 1, *(v37 + 24) & 1, (*(v37 + 24) & 8) != 0);
-            a1 = v37;
-            *(*(v37 + 56) + 8) = v44;
-            *(v37 + 56) = v44;
-            v45 = v44[40] | 0x400;
+            v43 = a2;
+            v44 = a3;
+            v45 = operator new(0xB0uLL);
+            std::__bracket_expression<char,std::regex_traits<char>>::__bracket_expression[abi:ne200100](v45, v38, *(*(v38 + 56) + 8), 1, *(v38 + 24) & 1, (*(v38 + 24) & 8) != 0);
+            a1 = v38;
+            *(*(v38 + 56) + 8) = v45;
+            *(v38 + 56) = v45;
+            v46 = v45[40] | 0x400;
 LABEL_67:
-            v44[40] = v45;
+            v45[40] = v46;
             goto LABEL_68;
           }
 
-          if (v23 != 83)
+          if (v24 != 83)
           {
-            v3 = v22;
-            if (v23 == 87)
+            v3 = v23;
+            if (v24 == 87)
             {
-              v38 = a2;
-              v39 = a3;
-              v40 = operator new(0xB0uLL);
-              std::__bracket_expression<char,std::regex_traits<char>>::__bracket_expression[abi:ne200100](v40, v37, *(*(v37 + 56) + 8), 1, *(v37 + 24) & 1, (*(v37 + 24) & 8) != 0);
-              *(*(v37 + 56) + 8) = v40;
-              *(v37 + 56) = v40;
-              v40[40] |= 0x500u;
-              std::__bracket_expression<char,std::regex_traits<char>>::__add_char[abi:ne200100](v40, 95);
-              a1 = v37;
+              v39 = a2;
+              v40 = a3;
+              v41 = operator new(0xB0uLL);
+              std::__bracket_expression<char,std::regex_traits<char>>::__bracket_expression[abi:ne200100](v41, v38, *(*(v38 + 56) + 8), 1, *(v38 + 24) & 1, (*(v38 + 24) & 8) != 0);
+              *(*(v38 + 56) + 8) = v41;
+              *(v38 + 56) = v41;
+              v41[40] |= 0x500u;
+              std::__bracket_expression<char,std::regex_traits<char>>::__add_char[abi:ne200100](v41, 95);
+              a1 = v38;
 LABEL_61:
-              v3 = v22 + 1;
-              a3 = v39;
-              a2 = v38;
+              v3 = v23 + 1;
+              a3 = v40;
+              a2 = v39;
               goto LABEL_69;
             }
 
             goto LABEL_69;
           }
 
-          v42 = a2;
-          v43 = a3;
-          v44 = operator new(0xB0uLL);
-          std::__bracket_expression<char,std::regex_traits<char>>::__bracket_expression[abi:ne200100](v44, v37, *(*(v37 + 56) + 8), 1, *(v37 + 24) & 1, (*(v37 + 24) & 8) != 0);
+          v43 = a2;
+          v44 = a3;
+          v45 = operator new(0xB0uLL);
+          std::__bracket_expression<char,std::regex_traits<char>>::__bracket_expression[abi:ne200100](v45, v38, *(*(v38 + 56) + 8), 1, *(v38 + 24) & 1, (*(v38 + 24) & 8) != 0);
         }
 
-        a1 = v37;
-        *(*(v37 + 56) + 8) = v44;
-        *(v37 + 56) = v44;
-        v45 = v44[40] | 0x4000;
+        a1 = v38;
+        *(*(v38 + 56) + 8) = v45;
+        *(v38 + 56) = v45;
+        v46 = v45[40] | 0x4000;
         goto LABEL_67;
       }
 
@@ -234,18 +234,19 @@ LABEL_61:
     {
       if (v4 == 40)
       {
+        v12 = a2 + 1;
         if (a2 + 1 != a3)
         {
-          if (a2 + 2 != a3 && a2[1] == 63 && a2[2] == 58)
+          if (a2 + 2 != a3 && *v12 == 63 && a2[2] == 58)
           {
             ++*(a1 + 36);
-            v12 = a1;
-            v13 = a3;
-            v14 = std::basic_regex<char,std::regex_traits<char>>::__parse_ecma_exp<std::__wrap_iter<char const*>>();
-            if (v14 != v13 && *v14 == 41)
+            v13 = a1;
+            v14 = a3;
+            v15 = std::basic_regex<char,std::regex_traits<char>>::__parse_ecma_exp<std::__wrap_iter<char const*>>(a1, a2 + 3, a3);
+            if (v15 != v14 && *v15 == 41)
             {
-              --*(v12 + 36);
-              return v14 + 1;
+              --*(v13 + 36);
+              return v15 + 1;
             }
           }
 
@@ -253,53 +254,53 @@ LABEL_61:
           {
             if ((*(a1 + 24) & 2) != 0)
             {
-              v19 = *(a1 + 28);
+              v20 = *(a1 + 28);
             }
 
             else
             {
-              v15 = a1;
-              v16 = a3;
-              v17 = operator new(0x18uLL);
-              a3 = v16;
-              v18 = v17;
-              a1 = v15;
-              v19 = *(v15 + 28) + 1;
-              *(v15 + 28) = v19;
-              v20 = *(v15 + 56);
-              v21 = *(v20 + 8);
-              *v18 = &unk_28521A408;
-              v18[1] = v21;
-              *(v18 + 4) = v19;
-              *(v20 + 8) = v18;
-              *(v15 + 56) = v18;
+              v16 = a1;
+              v17 = a3;
+              v18 = operator new(0x18uLL);
+              a3 = v17;
+              v19 = v18;
+              a1 = v16;
+              v20 = *(v16 + 28) + 1;
+              *(v16 + 28) = v20;
+              v21 = *(v16 + 56);
+              v22 = *(v21 + 8);
+              *v19 = &unk_28521A408;
+              v19[1] = v22;
+              *(v19 + 4) = v20;
+              *(v21 + 8) = v19;
+              *(v16 + 56) = v19;
             }
 
             ++*(a1 + 36);
-            v26 = a1;
-            v27 = a3;
-            v28 = std::basic_regex<char,std::regex_traits<char>>::__parse_ecma_exp<std::__wrap_iter<char const*>>();
-            if (v28 != v27)
+            v27 = a1;
+            v28 = a3;
+            v29 = std::basic_regex<char,std::regex_traits<char>>::__parse_ecma_exp<std::__wrap_iter<char const*>>(a1, v12, a3);
+            if (v29 != v28)
             {
-              v22 = v28;
-              if (*v28 == 41)
+              v23 = v29;
+              if (*v29 == 41)
               {
-                v29 = v26;
-                if ((*(v26 + 24) & 2) == 0)
+                v30 = v27;
+                if ((*(v27 + 24) & 2) == 0)
                 {
-                  v30 = operator new(0x18uLL);
-                  v29 = v26;
-                  v31 = *(v26 + 56);
-                  v32 = *(v31 + 8);
-                  *v30 = &unk_28521A450;
-                  v30[1] = v32;
-                  *(v30 + 4) = v19;
-                  *(v31 + 8) = v30;
-                  *(v26 + 56) = v30;
+                  v31 = operator new(0x18uLL);
+                  v30 = v27;
+                  v32 = *(v27 + 56);
+                  v33 = *(v32 + 8);
+                  *v31 = &unk_28521A450;
+                  v31[1] = v33;
+                  *(v31 + 4) = v20;
+                  *(v32 + 8) = v31;
+                  *(v27 + 56) = v31;
                 }
 
-                --*(v29 + 36);
-                return v22 + 1;
+                --*(v30 + 36);
+                return v23 + 1;
               }
             }
           }
@@ -335,8 +336,8 @@ LABEL_73:
     }
 
 LABEL_45:
-    v22 = a2;
-    v25 = v4;
+    v23 = a2;
+    v26 = v4;
     goto LABEL_46;
   }
 
@@ -625,7 +626,7 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_bracket
 
     v5 = a2[1];
     v6 = v5 == 94;
-    v7 = (v5 == 94 ? a2 + 2 : a2 + 1);
+    v7 = v5 == 94 ? a2 + 2 : a2 + 1;
     v8 = operator new(0xB0uLL);
     std::__bracket_expression<char,std::regex_traits<char>>::__bracket_expression[abi:ne200100](v8, a1, *(*(a1 + 56) + 8), v6, *(a1 + 24) & 1, (*(a1 + 24) & 8) != 0);
     *(*(a1 + 56) + 8) = v8;
@@ -680,12 +681,12 @@ LABEL_167:
         goto LABEL_22;
       }
 
-      v14 = (v7 + 1);
+      v14 = v7 + 1;
       __p[0] = 0;
       __p[1] = 0;
       v58 = 0;
       v12 = v7;
-      if ((v7 + 1) == a3 || v13 != 91)
+      if (v7 + 1 == a3 || v13 != 91)
       {
         goto LABEL_67;
       }
@@ -695,7 +696,7 @@ LABEL_167:
       {
         if (v15 == 58)
         {
-          if (&a3[-v7 - 2] < 2)
+          if (a3 - (v7 + 2) < 2)
           {
             goto LABEL_165;
           }
@@ -828,14 +829,14 @@ LABEL_85:
 
         if (v15 == 61)
         {
-          if (&a3[-v7 - 2] < 2)
+          if (a3 - (v7 + 2) < 2)
           {
             goto LABEL_165;
           }
 
-          v16 = (v7 + 3);
-          v17 = (v7 + 2);
-          if (*(v7 + 2) == 61)
+          v16 = v7 + 3;
+          v17 = v7 + 2;
+          if (v7[2] == 61)
           {
             goto LABEL_35;
           }
@@ -866,7 +867,7 @@ LABEL_35:
           }
 
           memset(__dst, 170, sizeof(__dst));
-          std::regex_traits<char>::__lookup_collatename<std::__wrap_iter<char const*>>(__dst, a1, (v7 + 2), v17);
+          std::regex_traits<char>::__lookup_collatename<std::__wrap_iter<char const*>>(__dst, a1, v7 + 2, v17);
           v18 = __dst[23];
           if ((__dst[23] & 0x8000000000000000) != 0)
           {
@@ -975,7 +976,7 @@ LABEL_168:
           }
 
           v40 = 0;
-          v7 = (v17 + 2);
+          v7 = v17 + 2;
           v12 = v9;
           if ((SHIBYTE(v58) & 0x80000000) == 0)
           {
@@ -993,19 +994,19 @@ LABEL_135:
 
         v12 = v7;
 LABEL_67:
-        v7 = *(a1 + 24) & 0x1F0;
+        v7 = (*(a1 + 24) & 0x1F0);
         v29 = 0;
         goto LABEL_70;
       }
 
-      if (&a3[-v7 - 2] < 2)
+      if (a3 - (v7 + 2) < 2)
       {
         goto LABEL_166;
       }
 
-      v25 = (v7 + 3);
-      v26 = (v7 + 2);
-      if (*(v7 + 2) != 46)
+      v25 = v7 + 3;
+      v26 = v7 + 2;
+      if (v7[2] != 46)
       {
         break;
       }
@@ -1022,7 +1023,7 @@ LABEL_166:
         std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)5>();
       }
 
-      std::regex_traits<char>::__lookup_collatename<std::__wrap_iter<char const*>>(__dst, a1, (v7 + 2), v26);
+      std::regex_traits<char>::__lookup_collatename<std::__wrap_iter<char const*>>(__dst, a1, v7 + 2, v26);
       if (SHIBYTE(v58) < 0)
       {
         operator delete(__p[0]);
@@ -1047,7 +1048,7 @@ LABEL_166:
       }
 
       v12 = v26 + 2;
-      v7 = *(a1 + 24) & 0x1F0;
+      v7 = (*(a1 + 24) & 0x1F0);
       v29 = __dst[23];
       if (__dst[23] >= 0)
       {
@@ -2561,22 +2562,22 @@ LABEL_20:
     goto LABEL_21;
   }
 
-  v11 = LOBYTE(v9->__traits_.__loc_.__locale_);
+  v11 = *v9;
   if ((v11 & 0xF8) != 0x30 && (v11 & 0xFE) != 0x38)
   {
     goto LABEL_54;
   }
 
   v10 = v11 - 48;
-  v12 = &v9->__traits_.__loc_.__locale_ + 1;
-  if ((&v9->__traits_.__loc_.__locale_ + 1) == a3)
+  v12 = (v9 + 1);
+  if ((v9 + 1) == a3)
   {
     goto LABEL_20;
   }
 
   while (1)
   {
-    v13 = *v12;
+    v13 = LOBYTE(v12->__traits_.__loc_.__locale_);
     if ((v13 & 0xF8) != 0x30 && (v13 & 0xFE) != 0x38)
     {
       break;
@@ -2588,7 +2589,8 @@ LABEL_20:
     }
 
     v10 = v13 + 10 * v10 - 48;
-    if (++v12 == a3)
+    v12 = (v12 + 1);
+    if (v12 == a3)
     {
       goto LABEL_20;
     }
@@ -2605,8 +2607,8 @@ LABEL_21:
     goto LABEL_55;
   }
 
-  v14 = *v12;
-  v15 = (v12 + 1);
+  v14 = LOBYTE(v12->__traits_.__loc_.__locale_);
+  v15 = (&v12->__traits_.__loc_.__locale_ + 1);
   if (v14 == 44)
   {
     if (v15 == a3)
@@ -2617,8 +2619,8 @@ LABEL_21:
     v16 = LOBYTE(v15->__traits_.__loc_.__locale_);
     if ((v16 & 0xF8) == 0x30 || (v16 & 0xFE) == 0x38)
     {
-      v15 = (v12 + 2);
-      if (v12 + 2 == a3)
+      v15 = (&v12->__traits_.__loc_.__locale_ + 2);
+      if ((&v12->__traits_.__loc_.__locale_ + 2) == a3)
       {
         goto LABEL_55;
       }
@@ -2705,7 +2707,7 @@ LABEL_55:
     goto LABEL_55;
   }
 
-  v18 = (v12[1] == 125 ? v12 + 2 : v12);
+  v18 = BYTE1(v12->__traits_.__loc_.__locale_) == 125 ? &v12->__traits_.__loc_.__locale_ + 2 : v12;
   if (v12 == v18)
   {
     goto LABEL_55;
@@ -2920,13 +2922,13 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_QUOTED_
 
 void *Capabilities::create_default_global@<X0>(void *a1@<X8>)
 {
-  v3 = operator new(1uLL);
-  *a1 = v3;
+  v2 = operator new(1uLL);
+  *a1 = v2;
   result = operator new(0x20uLL);
   *result = &unk_28521A648;
   result[1] = 0;
   result[2] = 0;
-  result[3] = v3;
+  result[3] = v2;
   a1[1] = result;
   return result;
 }

@@ -6,7 +6,6 @@
 - ($786B50094F6E1A5F953E25B90648E2E3)resolvedUnitFormats;
 - (BOOL)isAcceptableConversion:(TreeObject *)conversion;
 - (BOOL)isEqual:(id)equal;
-- (BOOL)isNaN;
 - (CalculateResult)init;
 - (CalculateResult)initWithDouble:(double)double;
 - (CalculateResult)parent;
@@ -80,14 +79,14 @@
 
 - (CalculateResult)initWithDouble:(double)double
 {
-  v17[1] = *MEMORY[0x1E69E9840];
-  v16.receiver = self;
-  v16.super_class = CalculateResult;
-  v4 = [(CalculateResult *)&v16 init];
+  v16[1] = *MEMORY[0x1E69E9840];
+  v15.receiver = self;
+  v15.super_class = CalculateResult;
+  v4 = [(CalculateResult *)&v15 init];
   if (v4)
   {
-    v15 = 0;
-    v5 = __binary64_to_bid128(4, &v15, double);
+    v14 = 0;
+    v5 = __binary64_to_bid128(4, &v14, double);
     v7 = v6;
     v4->_resultTree = newDecimalNode(v5, v6);
     expression = v4->_expression;
@@ -97,13 +96,12 @@
     v10 = [CalculateTerm termWithValue:v9 units:0 result:v4];
 
     [v10 setDecimalValue:{v5, v7}];
-    v17[0] = v10;
-    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
+    v16[0] = v10;
+    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
     terms = v4->_terms;
     v4->_terms = v11;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -119,10 +117,8 @@
 
 - (id)ignoringNaN
 {
-  resultTree = self->_resultTree;
-  if ((~resultTree->var6 & 0x7C00000000000000) != 0)
+  if ((~self->_resultTree->var6 & 0x7C00000000000000) != 0)
   {
-    var4 = resultTree->var4;
     selfCopy = self;
   }
 
@@ -132,18 +128,6 @@
   }
 
   return selfCopy;
-}
-
-- (BOOL)isNaN
-{
-  resultTree = self->_resultTree;
-  if ((~resultTree->var6 & 0x7C00000000000000) == 0)
-  {
-    return 1;
-  }
-
-  var4 = resultTree->var4;
-  return 0;
 }
 
 - (id)graphableFunction3D
@@ -320,9 +304,9 @@
   return v21;
 }
 
-void __38__CalculateResult_graphableFunction3D__block_invoke(uint64_t a1, double a2, double a3)
+double __38__CalculateResult_graphableFunction3D__block_invoke(uint64_t a1, double a2, double a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v3 = *(*(a1 + 32) + 160);
   v4 = *(v3 + 8 * *(a1 + 40));
   v5 = *(v3 + 8 * *(a1 + 44));
@@ -332,6 +316,76 @@ void __38__CalculateResult_graphableFunction3D__block_invoke(uint64_t a1, double
   *v5 = 1;
   *(v5 + 32) = a3;
   *(v5 + 204) = 0;
+  v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v12 = 0u;
+  memset(v11, 0, sizeof(v11));
+  v6 = *(a1 + 32);
+  [Calculate _lock:0];
+  g_variableResultTrees = *(v6 + 20);
+  g_variableResultTreesCount = *(v6 + 8);
+  g_forceResult = 1;
+  g_assumeDegrees = *(v6 + 11);
+  g_PreferredType = 2;
+  g_ErrorCode = 0;
+  LODWORD(v11[0]) = 2;
+  HIDWORD(v22) = 0;
+  evaluateTree(*(v6 + 15), v11);
+
+  +[Calculate _unlock];
+  if (LODWORD(v11[0]) == 1)
+  {
+    return *&v12;
+  }
+
+  if (LODWORD(v11[0]) == 2)
+  {
+    if (my_rnd_mode)
+    {
+      v10 = 4;
+    }
+
+    else
+    {
+      v10 = 0;
+    }
+
+    return __bid128_to_binary64(v13, *(&v13 + 1), v10, my_fpsf);
+  }
+
+  else
+  {
+    result = 0.0;
+    if (LODWORD(v11[0]) == 4)
+    {
+      v8 = rint(1.79769313e308);
+      v9 = rint(2.22507386e-308) < v14 && v8 > v14;
+      result = v14;
+      if (!v9)
+      {
+        return NAN;
+      }
+    }
+  }
+
+  return result;
+}
+
+double __38__CalculateResult_graphableFunction3D__block_invoke_2(uint64_t a1, double a2)
+{
+  v20 = *MEMORY[0x1E69E9840];
+  v2 = *(*(*(a1 + 32) + 160) + 8 * *(a1 + 40));
+  *v2 = 1;
+  *(v2 + 32) = a2;
+  *(v2 + 204) = 0;
   v18 = 0u;
   v19 = 0u;
   v16 = 0u;
@@ -342,21 +396,27 @@ void __38__CalculateResult_graphableFunction3D__block_invoke(uint64_t a1, double
   v13 = 0u;
   v10 = 0u;
   v11 = 0u;
-  memset(v9, 0, sizeof(v9));
-  v6 = *(a1 + 32);
+  v9 = 0u;
+  memset(v8, 0, sizeof(v8));
+  v3 = *(a1 + 32);
   [Calculate _lock:0];
-  g_variableResultTrees = v6[20];
-  g_variableResultTreesCount = *(v6 + 8);
+  g_variableResultTrees = *(v3 + 20);
+  g_variableResultTreesCount = *(v3 + 8);
   g_forceResult = 1;
-  g_assumeDegrees = *(v6 + 11);
+  g_assumeDegrees = *(v3 + 11);
   g_PreferredType = 2;
   g_ErrorCode = 0;
-  LODWORD(v9[0]) = 2;
+  LODWORD(v8[0]) = 2;
   HIDWORD(v19) = 0;
-  evaluateTree(v6[15], v9);
+  evaluateTree(*(v3 + 15), v8);
 
   +[Calculate _unlock];
-  if (LODWORD(v9[0]) == 2)
+  if (LODWORD(v8[0]) == 1)
+  {
+    return *&v9;
+  }
+
+  if (LODWORD(v8[0]) == 2)
   {
     if (my_rnd_mode)
     {
@@ -368,108 +428,95 @@ void __38__CalculateResult_graphableFunction3D__block_invoke(uint64_t a1, double
       v7 = 0;
     }
 
-    __bid128_to_binary64(v10, *(&v10 + 1), v7, my_fpsf);
+    return __bid128_to_binary64(v10, *(&v10 + 1), v7, my_fpsf);
   }
 
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-void __38__CalculateResult_graphableFunction3D__block_invoke_2(uint64_t a1, double a2)
-{
-  v17 = *MEMORY[0x1E69E9840];
-  v2 = *(*(*(a1 + 32) + 160) + 8 * *(a1 + 40));
-  *v2 = 1;
-  *(v2 + 32) = a2;
-  *(v2 + 204) = 0;
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
-  v12 = 0u;
-  v9 = 0u;
-  v10 = 0u;
-  v7 = 0u;
-  v8 = 0u;
-  memset(v6, 0, sizeof(v6));
-  v3 = *(a1 + 32);
-  [Calculate _lock:0];
-  g_variableResultTrees = v3[20];
-  g_variableResultTreesCount = *(v3 + 8);
-  g_forceResult = 1;
-  g_assumeDegrees = *(v3 + 11);
-  g_PreferredType = 2;
-  g_ErrorCode = 0;
-  LODWORD(v6[0]) = 2;
-  HIDWORD(v16) = 0;
-  evaluateTree(v3[15], v6);
-
-  +[Calculate _unlock];
-  if (LODWORD(v6[0]) == 2)
+  else
   {
-    if (my_rnd_mode)
+    result = 0.0;
+    if (LODWORD(v8[0]) == 4)
     {
-      v4 = 4;
+      v5 = rint(1.79769313e308);
+      v6 = rint(2.22507386e-308) < v11 && v5 > v11;
+      result = v11;
+      if (!v6)
+      {
+        return NAN;
+      }
     }
-
-    else
-    {
-      v4 = 0;
-    }
-
-    __bid128_to_binary64(v7, *(&v7 + 1), v4, my_fpsf);
   }
 
-  v5 = *MEMORY[0x1E69E9840];
+  return result;
 }
 
-void __38__CalculateResult_graphableFunction3D__block_invoke_3(uint64_t a1, double a2, double a3)
+double __38__CalculateResult_graphableFunction3D__block_invoke_3(uint64_t a1, double a2, double a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = *(*(*(a1 + 32) + 160) + 8 * *(a1 + 40));
   *v3 = 1;
   *(v3 + 32) = a3;
   *(v3 + 204) = 0;
-  v16 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v17 = 0u;
-  v14 = 0u;
+  v18 = 0u;
   v15 = 0u;
-  v12 = 0u;
+  v16 = 0u;
   v13 = 0u;
-  v10 = 0u;
+  v14 = 0u;
   v11 = 0u;
-  v8 = 0u;
-  v9 = 0u;
-  memset(v7, 0, sizeof(v7));
+  v12 = 0u;
+  v10 = 0u;
+  memset(v9, 0, sizeof(v9));
   v4 = *(a1 + 32);
   [Calculate _lock:0];
-  g_variableResultTrees = v4[20];
+  g_variableResultTrees = *(v4 + 20);
   g_variableResultTreesCount = *(v4 + 8);
   g_forceResult = 1;
   g_assumeDegrees = *(v4 + 11);
   g_PreferredType = 2;
   g_ErrorCode = 0;
-  LODWORD(v7[0]) = 2;
-  HIDWORD(v17) = 0;
-  evaluateTree(v4[15], v7);
+  LODWORD(v9[0]) = 2;
+  HIDWORD(v20) = 0;
+  evaluateTree(*(v4 + 15), v9);
 
   +[Calculate _unlock];
-  if (LODWORD(v7[0]) == 2)
+  if (LODWORD(v9[0]) == 1)
+  {
+    return *&v10;
+  }
+
+  if (LODWORD(v9[0]) == 2)
   {
     if (my_rnd_mode)
     {
-      v5 = 4;
+      v8 = 4;
     }
 
     else
     {
-      v5 = 0;
+      v8 = 0;
     }
 
-    __bid128_to_binary64(v8, *(&v8 + 1), v5, my_fpsf);
+    return __bid128_to_binary64(v11, *(&v11 + 1), v8, my_fpsf);
   }
 
-  v6 = *MEMORY[0x1E69E9840];
+  else
+  {
+    result = 0.0;
+    if (LODWORD(v9[0]) == 4)
+    {
+      v6 = rint(1.79769313e308);
+      v7 = rint(2.22507386e-308) < v12 && v6 > v12;
+      result = v12;
+      if (!v7)
+      {
+        return NAN;
+      }
+    }
+  }
+
+  return result;
 }
 
 - (id)graphableFunction2DFor:(id)for
@@ -559,82 +606,103 @@ void __38__CalculateResult_graphableFunction3D__block_invoke_3(uint64_t a1, doub
   return v19;
 }
 
-void __42__CalculateResult_graphableFunction2DFor___block_invoke_2(uint64_t a1, double a2)
+double __42__CalculateResult_graphableFunction2DFor___block_invoke_2(uint64_t a1, double a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v2 = *(*(*(a1 + 32) + 160) + 8 * *(a1 + 40));
   *v2 = 1;
   *(v2 + 32) = a2;
   *(v2 + 204) = 0;
-  v15 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v16 = 0u;
-  v13 = 0u;
+  v17 = 0u;
   v14 = 0u;
-  v11 = 0u;
+  v15 = 0u;
   v12 = 0u;
-  v9 = 0u;
+  v13 = 0u;
   v10 = 0u;
-  v7 = 0u;
-  v8 = 0u;
-  memset(v6, 0, sizeof(v6));
+  v11 = 0u;
+  v9 = 0u;
+  memset(v8, 0, sizeof(v8));
   v3 = *(a1 + 32);
   [Calculate _lock:0];
-  g_variableResultTrees = v3[20];
+  g_variableResultTrees = *(v3 + 20);
   g_variableResultTreesCount = *(v3 + 8);
   g_forceResult = 1;
   g_assumeDegrees = *(v3 + 11);
   g_PreferredType = 2;
   g_ErrorCode = 0;
-  LODWORD(v6[0]) = 2;
-  HIDWORD(v16) = 0;
-  evaluateTree(v3[15], v6);
+  LODWORD(v8[0]) = 2;
+  HIDWORD(v19) = 0;
+  evaluateTree(*(v3 + 15), v8);
 
   +[Calculate _unlock];
-  if (LODWORD(v6[0]) == 2)
+  if (LODWORD(v8[0]) == 1)
+  {
+    return *&v9;
+  }
+
+  if (LODWORD(v8[0]) == 2)
   {
     if (my_rnd_mode)
     {
-      v4 = 4;
+      v7 = 4;
     }
 
     else
     {
-      v4 = 0;
+      v7 = 0;
     }
 
-    __bid128_to_binary64(v7, *(&v7 + 1), v4, my_fpsf);
+    return __bid128_to_binary64(v10, *(&v10 + 1), v7, my_fpsf);
   }
 
-  v5 = *MEMORY[0x1E69E9840];
+  else
+  {
+    result = 0.0;
+    if (LODWORD(v8[0]) == 4)
+    {
+      v5 = rint(1.79769313e308);
+      v6 = rint(2.22507386e-308) < v11 && v5 > v11;
+      result = v11;
+      if (!v6)
+      {
+        return NAN;
+      }
+    }
+  }
+
+  return result;
 }
 
 - (id)updateVariables:(id)variables
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   variablesCopy = variables;
   if ([(NSArray *)self->_terms count]== 1)
   {
-    v42 = 0u;
-    v43 = 0u;
-    v40 = 0u;
     v41 = 0u;
-    v39 = variablesCopy;
+    v42 = 0u;
+    v39 = 0u;
+    v40 = 0u;
+    v38 = variablesCopy;
     v5 = variablesCopy;
-    v6 = [v5 countByEnumeratingWithState:&v40 objects:v57 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v39 objects:v56 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v41;
+      v8 = *v40;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v41 != v8)
+          if (*v40 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v40 + 1) + 8 * i);
+          v10 = *(*(&v39 + 1) + 8 * i);
           v11 = [(NSMutableDictionary *)self->_variableLookups objectForKeyedSubscript:v10];
           if (v11)
           {
@@ -658,25 +726,25 @@ void __42__CalculateResult_graphableFunction2DFor___block_invoke_2(uint64_t a1, 
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v40 objects:v57 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v39 objects:v56 count:16];
       }
 
       while (v7);
     }
 
-    v55 = 0u;
-    v56 = 0u;
-    v53 = 0u;
     v54 = 0u;
-    v51 = 0u;
+    v55 = 0u;
     v52 = 0u;
-    v49 = 0u;
+    v53 = 0u;
     v50 = 0u;
-    v47 = 0;
+    v51 = 0u;
     v48 = 0u;
-    v45 = 0u;
-    v46 = 0u;
+    v49 = 0u;
+    v46 = 0;
+    v47 = 0u;
     v44 = 0u;
+    v45 = 0u;
+    v43 = 0u;
     selfCopy = self;
     +[Calculate _lock];
     g_variableResultTrees = selfCopy->_variableResultTrees;
@@ -685,10 +753,10 @@ void __42__CalculateResult_graphableFunction2DFor___block_invoke_2(uint64_t a1, 
     g_assumeDegrees = selfCopy->_assumeDegrees;
     g_PreferredType = 2;
     g_ErrorCode = 0;
-    LODWORD(v44) = 2;
-    HIDWORD(v56) = 0;
-    evaluateTree(selfCopy->_parseTree, &v44);
-    v19 = HIDWORD(v56);
+    LODWORD(v43) = 2;
+    HIDWORD(v55) = 0;
+    evaluateTree(&selfCopy->_parseTree->var0, &v43);
+    v19 = HIDWORD(v55);
     +[Calculate _unlock];
 
     if (v19)
@@ -701,8 +769,8 @@ void __42__CalculateResult_graphableFunction2DFor___block_invoke_2(uint64_t a1, 
       v20 = 0;
     }
 
-    variablesCopy = v39;
-    if (v44 == 1)
+    variablesCopy = v38;
+    if (v43 == 1)
     {
       if (my_rnd_mode)
       {
@@ -714,21 +782,21 @@ void __42__CalculateResult_graphableFunction2DFor___block_invoke_2(uint64_t a1, 
         v23 = 0;
       }
 
-      v21 = __binary64_to_bid128(v23, my_fpsf, *&v46);
+      v21 = __binary64_to_bid128(v23, my_fpsf, *&v45);
       v22 = v24;
     }
 
-    else if (v44 == 2)
+    else if (v43 == 2)
     {
-      v22 = v47.var0[1];
-      v21 = v47.var0[0];
+      v22 = v46.var0[1];
+      v21 = v46.var0[0];
     }
 
     else
     {
-      if (v44 == 4)
+      if (v43 == 4)
       {
-        v21 = v48;
+        v21 = v47;
       }
 
       else
@@ -741,28 +809,28 @@ void __42__CalculateResult_graphableFunction2DFor___block_invoke_2(uint64_t a1, 
 
     v25 = [CalculateResult decimalNumberWithDecimal128:v21, v22];
     resultTree = selfCopy->_resultTree;
-    v27 = v45;
-    v28 = v46;
-    v29 = v48;
-    *(&resultTree->var5 + 8) = v47;
+    v27 = v44;
+    v28 = v45;
+    v29 = v47;
+    *(&resultTree->var5 + 8) = v46;
     *&resultTree->var7[0].unitID = v29;
     *&resultTree->var2 = v27;
     *&resultTree->var4 = v28;
-    v30 = v49;
-    v31 = v50;
-    v32 = v52;
-    *&resultTree->var7[6].unitID = v51;
+    v30 = v48;
+    v31 = v49;
+    v32 = v51;
+    *&resultTree->var7[6].unitID = v50;
     *&resultTree->var7[8].unitID = v32;
     *&resultTree->var7[2].unitID = v30;
     *&resultTree->var7[4].unitID = v31;
-    v33 = v53;
-    v34 = v54;
-    v35 = v56;
-    *&resultTree->var7[14].unitID = v55;
+    v33 = v52;
+    v34 = v53;
+    v35 = v55;
+    *&resultTree->var7[14].unitID = v54;
     *&resultTree->var8 = v35;
     *&resultTree->var7[10].unitID = v33;
     *&resultTree->var7[12].unitID = v34;
-    *&resultTree->var0 = v44;
+    *&resultTree->var0 = v43;
     firstObject = [(NSArray *)self->_terms firstObject];
     [firstObject setValue:v25];
     [firstObject setDecimalValue:{v21, v22}];
@@ -772,8 +840,6 @@ void __42__CalculateResult_graphableFunction2DFor___block_invoke_2(uint64_t a1, 
   {
     v20 = 0;
   }
-
-  v37 = *MEMORY[0x1E69E9840];
 
   return v20;
 }
@@ -950,7 +1016,7 @@ LABEL_23:
 
 - (TreeObject)convertedTree:(id)tree from:(id)from needsUpdate:(BOOL *)update
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   treeCopy = tree;
   fromCopy = from;
   if (update)
@@ -1055,7 +1121,7 @@ LABEL_28:
           {
             v14 = v30;
             evaluateTree(v29, v30);
-            v29[2] = 0;
+            *(v29 + 2) = 0;
             freeTree(v29);
             if (update && g_currencyNeedsRefresh == 1)
             {
@@ -1102,25 +1168,15 @@ LABEL_40:
   v14 = 0;
 LABEL_41:
 
-  v31 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
 - (id)localizedConversions
 {
   selfCopy = self;
-  v86 = *MEMORY[0x1E69E9840];
+  v85 = *MEMORY[0x1E69E9840];
   typeInfo = [(CalculateResult *)self typeInfo];
-  if (!typeInfo)
-  {
-    goto LABEL_38;
-  }
-
-  v4 = typeInfo;
-  typeInfo2 = [(CalculateResult *)selfCopy typeInfo];
-  units = [typeInfo2 units];
-
-  if (units)
+  if (typeInfo && (v4 = typeInfo, -[CalculateResult typeInfo](selfCopy, "typeInfo"), v5 = objc_claimAutoreleasedReturnValue(), [v5 units], v6 = objc_claimAutoreleasedReturnValue(), v6, v5, v4, v6))
   {
     locales = [(CalculateResult *)selfCopy locales];
     v8 = locales;
@@ -1152,32 +1208,32 @@ LABEL_41:
       aBlock[1] = 3221225472;
       aBlock[2] = __39__CalculateResult_localizedConversions__block_invoke_2;
       aBlock[3] = &unk_1E815C370;
-      v56 = v12;
-      v79 = v56;
-      v55 = v13;
-      v80 = v55;
+      v55 = v12;
+      v78 = v55;
+      v54 = v13;
+      v79 = v54;
       v14 = _Block_copy(aBlock);
+      v73 = 0u;
       v74 = 0u;
       v75 = 0u;
       v76 = 0u;
-      v77 = 0u;
-      v57 = v11;
+      v56 = v11;
       obj = v11;
-      v15 = [obj countByEnumeratingWithState:&v74 objects:v85 count:16];
+      v15 = [obj countByEnumeratingWithState:&v73 objects:v84 count:16];
       if (v15)
       {
         v16 = v15;
-        v17 = *v75;
+        v17 = *v74;
         do
         {
           for (i = 0; i != v16; ++i)
           {
-            if (*v75 != v17)
+            if (*v74 != v17)
             {
               objc_enumerationMutation(obj);
             }
 
-            v19 = *(*(&v74 + 1) + 8 * i);
+            v19 = *(*(&v73 + 1) + 8 * i);
             unitsInfo = [(CalculateResult *)selfCopy unitsInfo];
             currencyCode = [v19 currencyCode];
             v22 = [unitsInfo objectForKeyedSubscript:currencyCode];
@@ -1189,60 +1245,60 @@ LABEL_41:
             }
           }
 
-          v16 = [obj countByEnumeratingWithState:&v74 objects:v85 count:16];
+          v16 = [obj countByEnumeratingWithState:&v73 objects:v84 count:16];
         }
 
         while (v16);
       }
 
-      v72 = 0u;
-      v73 = 0u;
-      v70 = 0u;
       v71 = 0u;
-      v24 = [&unk_1F419A0A8 countByEnumeratingWithState:&v70 objects:v84 count:16];
+      v72 = 0u;
+      v69 = 0u;
+      v70 = 0u;
+      v24 = [&unk_1F419A0A8 countByEnumeratingWithState:&v69 objects:v83 count:16];
       if (v24)
       {
         v25 = v24;
-        v26 = *v71;
+        v26 = *v70;
         do
         {
           for (j = 0; j != v25; ++j)
           {
-            if (*v71 != v26)
+            if (*v70 != v26)
             {
               objc_enumerationMutation(&unk_1F419A0A8);
             }
 
-            v14[2](v14, *(*(&v70 + 1) + 8 * j));
+            v14[2](v14, *(*(&v69 + 1) + 8 * j));
           }
 
-          v25 = [&unk_1F419A0A8 countByEnumeratingWithState:&v70 objects:v84 count:16];
+          v25 = [&unk_1F419A0A8 countByEnumeratingWithState:&v69 objects:v83 count:16];
         }
 
         while (v25);
       }
 
-      v58 = objc_opt_new();
+      v57 = objc_opt_new();
+      v65 = 0u;
       v66 = 0u;
       v67 = 0u;
       v68 = 0u;
-      v69 = 0u;
-      v28 = v55;
-      v29 = [v28 countByEnumeratingWithState:&v66 objects:v83 count:16];
+      v28 = v54;
+      v29 = [v28 countByEnumeratingWithState:&v65 objects:v82 count:16];
       if (v29)
       {
         v30 = v29;
-        v31 = *v67;
+        v31 = *v66;
         do
         {
           for (k = 0; k != v30; ++k)
           {
-            if (*v67 != v31)
+            if (*v66 != v31)
             {
               objc_enumerationMutation(v28);
             }
 
-            v33 = *(*(&v66 + 1) + 8 * k);
+            v33 = *(*(&v65 + 1) + 8 * k);
             unitsInfo2 = [(CalculateResult *)selfCopy unitsInfo];
             v35 = [unitsInfo2 objectForKeyedSubscript:v33];
 
@@ -1252,137 +1308,110 @@ LABEL_41:
               if (unitID != [(CalculateResult *)selfCopy singleUnitID])
               {
                 inputValueAndUnit = [(CalculateResult *)selfCopy inputValueAndUnit];
-                if (!inputValueAndUnit)
+                if (!inputValueAndUnit || (v38 = inputValueAndUnit, obja = [v35 unitID], -[CalculateResult inputValueAndUnit](selfCopy, "inputValueAndUnit"), v39 = v14, v40 = v30, v41 = selfCopy, v42 = v31, v43 = v28, v44 = objc_claimAutoreleasedReturnValue(), v45 = objc_msgSend(v44, "singleUnitID"), v44, v28 = v43, v31 = v42, selfCopy = v41, v30 = v40, v14 = v39, v38, obja != v45))
                 {
-                  goto LABEL_34;
-                }
-
-                v38 = inputValueAndUnit;
-                obja = [v35 unitID];
-                [(CalculateResult *)selfCopy inputValueAndUnit];
-                v39 = v14;
-                v40 = v30;
-                v41 = selfCopy;
-                v42 = v31;
-                v44 = v43 = v28;
-                singleUnitID = [v44 singleUnitID];
-
-                v28 = v43;
-                v31 = v42;
-                selfCopy = v41;
-                v30 = v40;
-                v14 = v39;
-
-                if (obja != singleUnitID)
-                {
-LABEL_34:
                   v46 = [(CalculateResult *)selfCopy newUnit:v35];
-                  [v58 addObject:v46];
+                  [v57 addObject:v46];
                 }
               }
             }
           }
 
-          v30 = [v28 countByEnumeratingWithState:&v66 objects:v83 count:16];
+          v30 = [v28 countByEnumeratingWithState:&v65 objects:v82 count:16];
         }
 
         while (v30);
       }
 
-      v11 = v57;
+      v11 = v56;
     }
 
     else
     {
-      v65 = 0;
+      v64 = 0;
+      v60 = 0u;
       v61 = 0u;
       v62 = 0u;
       v63 = 0u;
-      v64 = 0u;
       v47 = v11;
-      v48 = [v47 countByEnumeratingWithState:&v61 objects:v82 count:16];
+      v48 = [v47 countByEnumeratingWithState:&v60 objects:v81 count:16];
       if (v48)
       {
         v49 = v48;
-        v50 = *v62;
+        v50 = *v61;
         do
         {
           for (m = 0; m != v49; ++m)
           {
-            if (*v62 != v50)
+            if (*v61 != v50)
             {
               objc_enumerationMutation(v47);
             }
 
-            [(CalculateResult *)selfCopy enableMeasurementSystemsForLocale:*(*(&v61 + 1) + 8 * m) metric:0 US:&v65 + 1 UK:&v65];
+            [(CalculateResult *)selfCopy enableMeasurementSystemsForLocale:*(*(&v60 + 1) + 8 * m) metric:0 US:&v64 + 1 UK:&v64];
           }
 
-          v49 = [v47 countByEnumeratingWithState:&v61 objects:v82 count:16];
+          v49 = [v47 countByEnumeratingWithState:&v60 objects:v81 count:16];
         }
 
         while (v49);
       }
 
-      v52 = [(CalculateResult *)selfCopy conversionsForMetric:1 US:HIBYTE(v65) UK:v65];
-      v58 = [v52 copy];
+      v52 = [(CalculateResult *)selfCopy conversionsForMetric:1 US:HIBYTE(v64) UK:v64];
+      v57 = [v52 copy];
     }
   }
 
   else
   {
-LABEL_38:
-    v58 = MEMORY[0x1E695E0F0];
+    v57 = MEMORY[0x1E695E0F0];
   }
 
-  v53 = *MEMORY[0x1E69E9840];
-
-  return v58;
+  return v57;
 }
 
 void __39__CalculateResult_localizedConversions__block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = objc_opt_new();
   v3 = localizedConversions_allCurrencies;
   localizedConversions_allCurrencies = v2;
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v4 = [*(a1 + 32) typeInfo];
   v5 = [v4 units];
 
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       v9 = 0;
       do
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
         v10 = localizedConversions_allCurrencies;
-        v11 = [*(*(&v13 + 1) + 8 * v9) name];
+        v11 = [*(*(&v12 + 1) + 8 * v9) name];
         [v10 addObject:v11];
 
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __39__CalculateResult_localizedConversions__block_invoke_2(uint64_t a1, void *a2)
@@ -1398,16 +1427,7 @@ void __39__CalculateResult_localizedConversions__block_invoke_2(uint64_t a1, voi
 - (id)availableConversions
 {
   typeInfo = [(CalculateResult *)self typeInfo];
-  if (!typeInfo)
-  {
-    goto LABEL_4;
-  }
-
-  v4 = typeInfo;
-  typeInfo2 = [(CalculateResult *)self typeInfo];
-  units = [typeInfo2 units];
-
-  if (units)
+  if (typeInfo && (v4 = typeInfo, -[CalculateResult typeInfo](self, "typeInfo"), v5 = objc_claimAutoreleasedReturnValue(), [v5 units], v6 = objc_claimAutoreleasedReturnValue(), v6, v5, v4, v6))
   {
     v7 = [(CalculateResult *)self conversionsForMetric:1 US:1 UK:1];
     v8 = [v7 copy];
@@ -1415,7 +1435,6 @@ void __39__CalculateResult_localizedConversions__block_invoke_2(uint64_t a1, voi
 
   else
   {
-LABEL_4:
     v8 = MEMORY[0x1E695E0F0];
   }
 
@@ -1425,7 +1444,7 @@ LABEL_4:
 - (id)bestConversion
 {
   selfCopy = self;
-  v165 = *MEMORY[0x1E69E9840];
+  v164 = *MEMORY[0x1E69E9840];
   if (!-[CalculateResult resultTree](self, "resultTree") || (-[CalculateResult typeInfo](selfCopy, "typeInfo"), v3 = objc_claimAutoreleasedReturnValue(), [v3 units], v4 = objc_claimAutoreleasedReturnValue(), v4, v3, !v4))
   {
     v6 = 0;
@@ -1443,128 +1462,128 @@ LABEL_4:
   if ([(CalculateResult *)selfCopy singleUnitID])
   {
     unitsInfo = [(CalculateResult *)selfCopy unitsInfo];
-    v10 = [unitsInfo objectAtIndexedSubscript:{-[CalculateResult singleUnitID](selfCopy, "singleUnitID")}];
-    bestEquivalent = [v10 bestEquivalent];
+    v9 = [unitsInfo objectAtIndexedSubscript:{-[CalculateResult singleUnitID](selfCopy, "singleUnitID")}];
+    bestEquivalent = [v9 bestEquivalent];
 
     if (bestEquivalent)
     {
-      v159 = 0u;
-      v160 = 0u;
-      v157 = 0u;
       v158 = 0u;
+      v159 = 0u;
+      v156 = 0u;
+      v157 = 0u;
       obj = [(CalculateResult *)selfCopy localizedConversions];
-      v12 = [obj countByEnumeratingWithState:&v157 objects:v164 count:16];
-      if (v12)
+      v11 = [obj countByEnumeratingWithState:&v156 objects:v163 count:16];
+      if (v11)
       {
-        v13 = v12;
-        v14 = *v158;
+        v12 = v11;
+        v13 = *v157;
         do
         {
-          for (i = 0; i != v13; ++i)
+          for (i = 0; i != v12; ++i)
           {
-            if (*v158 != v14)
+            if (*v157 != v13)
             {
               objc_enumerationMutation(obj);
             }
 
-            v16 = *(*(&v157 + 1) + 8 * i);
-            unitInfo = [v16 unitInfo];
+            v15 = *(*(&v156 + 1) + 8 * i);
+            unitInfo = [v15 unitInfo];
             unitID = [unitInfo unitID];
             unitID2 = [bestEquivalent unitID];
 
             if (unitID == unitID2)
             {
-              v6 = v16;
+              v6 = v15;
 
               goto LABEL_6;
             }
           }
 
-          v13 = [obj countByEnumeratingWithState:&v157 objects:v164 count:16];
+          v12 = [obj countByEnumeratingWithState:&v156 objects:v163 count:16];
         }
 
-        while (v13);
+        while (v12);
       }
     }
   }
 
   locales = [(CalculateResult *)selfCopy locales];
-  v21 = locales;
+  v20 = locales;
   if (!locales || ![locales count])
   {
-    v22 = +[Localize systemLocales];
+    v21 = +[Localize systemLocales];
 
-    v21 = v22;
+    v20 = v21;
   }
 
   locale = [(NSNumberFormatter *)selfCopy->_numberFormatter locale];
-  v24 = [Localize locales:v21 withDefault:locale];
+  v23 = [Localize locales:v20 withDefault:locale];
 
-  v156 = 0;
   v155 = 0;
+  v154 = 0;
+  v150 = 0u;
   v151 = 0u;
   v152 = 0u;
   v153 = 0u;
-  v154 = 0u;
-  v25 = v24;
-  v26 = [v25 countByEnumeratingWithState:&v151 objects:v163 count:16];
-  if (v26)
+  v24 = v23;
+  v25 = [v24 countByEnumeratingWithState:&v150 objects:v162 count:16];
+  if (v25)
   {
-    v27 = v26;
-    v28 = *v152;
+    v26 = v25;
+    v27 = *v151;
     do
     {
-      for (j = 0; j != v27; ++j)
+      for (j = 0; j != v26; ++j)
       {
-        if (*v152 != v28)
+        if (*v151 != v27)
         {
-          objc_enumerationMutation(v25);
+          objc_enumerationMutation(v24);
         }
 
-        [(CalculateResult *)selfCopy enableMeasurementSystemsForLocale:*(*(&v151 + 1) + 8 * j) metric:&v156 + 1 US:&v156 UK:&v155];
+        [(CalculateResult *)selfCopy enableMeasurementSystemsForLocale:*(*(&v150 + 1) + 8 * j) metric:&v155 + 1 US:&v155 UK:&v154];
       }
 
-      v27 = [v25 countByEnumeratingWithState:&v151 objects:v163 count:16];
+      v26 = [v24 countByEnumeratingWithState:&v150 objects:v162 count:16];
     }
 
-    while (v27);
+    while (v26);
   }
 
-  [(CalculateResult *)selfCopy conversionsForMetric:HIBYTE(v156) US:v156 UK:v155];
+  [(CalculateResult *)selfCopy conversionsForMetric:HIBYTE(v155) US:v155 UK:v154];
+  v146 = 0u;
   v147 = 0u;
   v148 = 0u;
-  v149 = 0u;
-  v30 = v150 = 0u;
-  v31 = [v30 countByEnumeratingWithState:&v147 objects:v162 count:16];
-  if (v31)
+  v29 = v149 = 0u;
+  v30 = [v29 countByEnumeratingWithState:&v146 objects:v161 count:16];
+  if (v30)
   {
-    v32 = v31;
-    v33 = *v148;
+    v31 = v30;
+    v32 = *v147;
     while (2)
     {
-      for (k = 0; k != v32; ++k)
+      for (k = 0; k != v31; ++k)
       {
-        v35 = v25;
-        if (*v148 != v33)
+        v34 = v24;
+        if (*v147 != v32)
         {
-          objc_enumerationMutation(v30);
+          objc_enumerationMutation(v29);
         }
 
-        unitInfo2 = [*(*(&v147 + 1) + 8 * k) unitInfo];
+        unitInfo2 = [*(*(&v146 + 1) + 8 * k) unitInfo];
         doNotSuggest = [unitInfo2 doNotSuggest];
 
         if (!doNotSuggest)
         {
-          v38 = 0;
-          v25 = v35;
+          v37 = 0;
+          v24 = v34;
           goto LABEL_41;
         }
 
-        v25 = v35;
+        v24 = v34;
       }
 
-      v32 = [v30 countByEnumeratingWithState:&v147 objects:v162 count:16];
-      if (v32)
+      v31 = [v29 countByEnumeratingWithState:&v146 objects:v161 count:16];
+      if (v31)
       {
         continue;
       }
@@ -1573,54 +1592,54 @@ LABEL_4:
     }
   }
 
-  v38 = 1;
+  v37 = 1;
 LABEL_41:
 
   resultTree = [(CalculateResult *)selfCopy resultTree];
-  v40 = *resultTree;
+  v39 = *resultTree;
   if (*resultTree == 1)
   {
-    v41 = *(resultTree + 32);
+    v40 = *(resultTree + 32);
     if (my_rnd_mode)
     {
-      v42 = 4;
+      v41 = 4;
     }
 
     else
     {
-      v42 = 0;
+      v41 = 0;
     }
 
-    v43 = __binary64_to_bid128(v42, my_fpsf, v41);
-    v134 = v44;
-    v135 = v43;
+    v42 = __binary64_to_bid128(v41, my_fpsf, v40);
+    v133 = v43;
+    v134 = v42;
   }
 
-  else if (v40 == 2)
+  else if (v39 == 2)
   {
-    v134 = *(resultTree + 56);
-    v135 = *(resultTree + 48);
+    v133 = *(resultTree + 56);
+    v134 = *(resultTree + 48);
   }
 
   else
   {
-    if (v40 == 4)
+    if (v39 == 4)
     {
-      v135 = *(resultTree + 64);
+      v134 = *(resultTree + 64);
     }
 
     else
     {
-      v135 = 0;
+      v134 = 0;
     }
 
-    v134 = 0x3040000000000000;
+    v133 = 0x3040000000000000;
   }
 
+  v144 = 0;
   v145 = 0;
-  v146 = 0;
-  firstObject = [v25 firstObject];
-  [CalculateResult preferMeasurementSystemsForLocale:firstObject preferred:&v146 fallback:&v145];
+  firstObject = [v24 firstObject];
+  [CalculateResult preferMeasurementSystemsForLocale:firstObject preferred:&v145 fallback:&v144];
 
   inputValueAndUnit = [(CalculateResult *)selfCopy inputValueAndUnit];
   if (inputValueAndUnit)
@@ -1637,191 +1656,191 @@ LABEL_41:
   if (singleUnitID)
   {
     unitsInfo2 = [(CalculateResult *)selfCopy unitsInfo];
-    v50 = [unitsInfo2 objectAtIndexedSubscript:singleUnitID];
-    measurementSystem = [v50 measurementSystem];
+    v49 = [unitsInfo2 objectAtIndexedSubscript:singleUnitID];
+    measurementSystem = [v49 measurementSystem];
 
-    v137 = v146 != measurementSystem;
-    if (v145)
+    v136 = v145 != measurementSystem;
+    if (v144)
     {
-      v52 = v145 == measurementSystem;
+      v51 = v144 == measurementSystem;
     }
 
     else
     {
-      v52 = 0;
+      v51 = 0;
     }
 
-    v53 = !v52;
+    v52 = !v51;
   }
 
   else
   {
-    v53 = 1;
-    v137 = 1;
+    v52 = 1;
+    v136 = 1;
   }
 
-  v136 = v53;
-  v143 = 0u;
-  v144 = 0u;
-  v141 = 0u;
+  v135 = v52;
   v142 = 0u;
-  v54 = v30;
-  v55 = [v54 countByEnumeratingWithState:&v141 objects:v161 count:16];
-  if (!v55)
+  v143 = 0u;
+  v140 = 0u;
+  v141 = 0u;
+  v53 = v29;
+  v54 = [v53 countByEnumeratingWithState:&v140 objects:v160 count:16];
+  if (!v54)
   {
 
-    v108 = 0;
+    v107 = 0;
     goto LABEL_130;
   }
 
-  v56 = v55;
-  v109 = v25;
+  v55 = v54;
+  v108 = v24;
+  v125 = 0;
   v126 = 0;
-  v127 = 0;
+  v111 = 0;
   v112 = 0;
-  v113 = 0;
+  v119 = 0;
   v120 = 0;
-  v121 = 0;
-  v133 = 0;
-  v116 = 0;
-  v117 = 0;
-  v128 = 0;
-  v129 = 0;
-  v114 = 0;
+  v132 = 0;
   v115 = 0;
+  v116 = 0;
+  v127 = 0;
+  v128 = 0;
+  v113 = 0;
+  v114 = 0;
+  v121 = 0;
   v122 = 0;
-  v123 = 0;
-  v57 = *v142;
+  v56 = *v141;
+  v123 = 0x3040000000000000;
   v124 = 0x3040000000000000;
-  v125 = 0x3040000000000000;
+  v109 = 0x3040000000000000;
   v110 = 0x3040000000000000;
-  v111 = 0x3040000000000000;
+  v117 = 0x3040000000000000;
   v118 = 0x3040000000000000;
-  v119 = 0x3040000000000000;
-  v132 = v38;
-  v130 = *v142;
-  v131 = v54;
+  v131 = v37;
+  v129 = *v141;
+  v130 = v53;
   do
   {
-    v58 = 0;
-    obja = v56;
+    v57 = 0;
+    obja = v55;
     do
     {
-      if (*v142 != v57)
+      if (*v141 != v56)
       {
-        objc_enumerationMutation(v54);
+        objc_enumerationMutation(v53);
       }
 
-      v59 = *(*(&v141 + 1) + 8 * v58);
-      if ((v38 & 1) != 0 || ([*(*(&v141 + 1) + 8 * v58) unitInfo], v60 = objc_claimAutoreleasedReturnValue(), v61 = objc_msgSend(v60, "doNotSuggest"), v60, (v61 & 1) == 0))
+      v58 = *(*(&v140 + 1) + 8 * v57);
+      if ((v37 & 1) != 0 || ([*(*(&v140 + 1) + 8 * v57) unitInfo], v59 = objc_claimAutoreleasedReturnValue(), v60 = objc_msgSend(v59, "doNotSuggest"), v59, (v60 & 1) == 0))
       {
-        v109 = [(CalculateResult *)selfCopy convertedTree:v59 needsUpdate:0, v109];
-        if (v109)
+        v108 = [(CalculateResult *)selfCopy convertedTree:v58 needsUpdate:0, v108];
+        if (v108)
         {
-          v63 = v109;
-          v140 = 0;
-          v64 = *v109;
-          if (*v109 == 1)
+          v62 = v108;
+          v139 = 0;
+          v63 = *v108;
+          if (*v108 == 1)
           {
-            v67 = *(v109 + 32);
+            v66 = *(v108 + 32);
             if (my_rnd_mode)
             {
-              v68 = 4;
+              v67 = 4;
             }
 
             else
             {
-              v68 = 0;
+              v67 = 0;
             }
 
-            v65 = __binary64_to_bid128(v68, my_fpsf, v67);
-            v66 = v69;
+            v64 = __binary64_to_bid128(v67, my_fpsf, v66);
+            v65 = v68;
           }
 
-          else if (v64 == 2)
+          else if (v63 == 2)
           {
-            v65 = *(v109 + 48);
-            v66 = *(v109 + 56);
+            v64 = *(v108 + 48);
+            v65 = *(v108 + 56);
           }
 
           else
           {
-            if (v64 == 4)
+            if (v63 == 4)
             {
-              v65 = *(v109 + 64);
+              v64 = *(v108 + 64);
             }
 
             else
             {
-              v65 = 0;
+              v64 = 0;
             }
 
-            v66 = 0x3040000000000000;
+            v65 = 0x3040000000000000;
           }
 
-          v70 = __bid128_sub(v135, v134, v65, v66, 4, &v140);
-          v72 = v71 & 0x7FFFFFFFFFFFFFFFLL;
-          if ([(CalculateResult *)selfCopy isAcceptableConversion:v63])
+          v69 = __bid128_sub(v134, v133, v64, v65, 4, &v139);
+          v71 = v70 & 0x7FFFFFFFFFFFFFFFLL;
+          if ([(CalculateResult *)selfCopy isAcceptableConversion:v62])
           {
-            if ((v133 & 0x100000000) == 0 || __bid128_quiet_less(v70, v72, v127, v125, &v140))
+            if ((v132 & 0x100000000) == 0 || __bid128_quiet_less(v69, v71, v126, v124, &v139))
             {
-              v73 = v59;
+              v72 = v58;
 
-              v127 = v70;
-              v128 = v73;
-              v125 = v72;
+              v126 = v69;
+              v127 = v72;
+              v124 = v71;
             }
 
-            if (v137)
+            if (v136)
             {
-              unitInfo3 = [v59 unitInfo];
+              unitInfo3 = [v58 unitInfo];
               measurementSystem2 = [unitInfo3 measurementSystem];
-              v76 = v146;
+              v75 = v145;
 
-              if (measurementSystem2 == v76)
+              if (measurementSystem2 == v75)
               {
-                if ((v117 & 0x100000000) != 0 && !__bid128_quiet_less(v70, v72, v113, v111, &v140))
+                if ((v116 & 0x100000000) != 0 && !__bid128_quiet_less(v69, v71, v112, v110, &v139))
                 {
-                  BYTE4(v117) = 1;
+                  BYTE4(v116) = 1;
                 }
 
                 else
                 {
-                  v77 = v59;
+                  v76 = v58;
 
-                  BYTE4(v117) = 1;
-                  v113 = v70;
-                  v114 = v77;
-                  v111 = v72;
+                  BYTE4(v116) = 1;
+                  v112 = v69;
+                  v113 = v76;
+                  v110 = v71;
                 }
               }
             }
 
-            if (v145)
+            if (v144)
             {
-              v78 = v136;
+              v77 = v135;
             }
 
             else
             {
-              v78 = 0;
+              v77 = 0;
             }
 
-            if (v78 == 1 && ([v59 unitInfo], v79 = objc_claimAutoreleasedReturnValue(), v80 = objc_msgSend(v79, "measurementSystem"), v81 = v145, v79, v80 == v81))
+            if (v77 == 1 && ([v58 unitInfo], v78 = objc_claimAutoreleasedReturnValue(), v79 = objc_msgSend(v78, "measurementSystem"), v80 = v144, v78, v79 == v80))
             {
-              if ((v116 & 0x100000000) != 0)
+              if ((v115 & 0x100000000) != 0)
               {
-                v82 = __bid128_quiet_less(v70, v72, v121, v119, &v140);
-                BYTE4(v133) = 1;
-                v84 = v122;
-                v83 = v123;
-                v85 = v70;
-                v86 = v72;
-                v70 = v120;
-                v72 = v118;
-                BYTE4(v116) = 1;
-                v87 = v59;
-                if (!v82)
+                v81 = __bid128_quiet_less(v69, v71, v120, v118, &v139);
+                BYTE4(v132) = 1;
+                v83 = v121;
+                v82 = v122;
+                v84 = v69;
+                v85 = v71;
+                v69 = v119;
+                v71 = v117;
+                BYTE4(v115) = 1;
+                v86 = v58;
+                if (!v81)
                 {
                   goto LABEL_121;
                 }
@@ -1829,102 +1848,102 @@ LABEL_41:
 
               else
               {
-                BYTE4(v133) = 1;
-                v84 = v122;
-                v83 = v123;
-                v85 = v70;
-                v86 = v72;
-                v70 = v120;
-                v72 = v118;
-                BYTE4(v116) = 1;
-                v87 = v59;
+                BYTE4(v132) = 1;
+                v83 = v121;
+                v82 = v122;
+                v84 = v69;
+                v85 = v71;
+                v69 = v119;
+                v71 = v117;
+                BYTE4(v115) = 1;
+                v86 = v58;
               }
 
 LABEL_120:
-              v123 = v83;
-              v98 = selfCopy;
-              v99 = v86;
-              v100 = v59;
+              v122 = v82;
+              v97 = selfCopy;
+              v98 = v85;
+              v99 = v58;
 
-              v120 = v70;
-              v121 = v85;
-              v118 = v72;
-              v119 = v99;
-              selfCopy = v98;
-              v122 = v87;
+              v119 = v69;
+              v120 = v84;
+              v117 = v71;
+              v118 = v98;
+              selfCopy = v97;
+              v121 = v86;
             }
 
             else
             {
-              BYTE4(v133) = 1;
+              BYTE4(v132) = 1;
             }
           }
 
           else
           {
-            if ((v133 & 1) == 0 || __bid128_quiet_less(v70, v72, v126, v124, &v140))
+            if ((v132 & 1) == 0 || __bid128_quiet_less(v69, v71, v125, v123, &v139))
             {
-              v88 = v59;
+              v87 = v58;
 
-              v126 = v70;
-              v124 = v72;
-              v129 = v88;
+              v125 = v69;
+              v123 = v71;
+              v128 = v87;
             }
 
-            if (v137)
+            if (v136)
             {
-              unitInfo4 = [v59 unitInfo];
+              unitInfo4 = [v58 unitInfo];
               measurementSystem3 = [unitInfo4 measurementSystem];
-              v91 = v146;
+              v90 = v145;
 
-              if (measurementSystem3 == v91)
+              if (measurementSystem3 == v90)
               {
-                if ((v117 & 1) != 0 && !__bid128_quiet_less(v70, v72, v112, v110, &v140))
+                if ((v116 & 1) != 0 && !__bid128_quiet_less(v69, v71, v111, v109, &v139))
                 {
-                  LOBYTE(v117) = 1;
+                  LOBYTE(v116) = 1;
                 }
 
                 else
                 {
-                  v92 = v59;
+                  v91 = v58;
 
-                  LOBYTE(v117) = 1;
-                  v112 = v70;
-                  v110 = v72;
-                  v115 = v92;
+                  LOBYTE(v116) = 1;
+                  v111 = v69;
+                  v109 = v71;
+                  v114 = v91;
                 }
               }
             }
 
-            if (v145)
+            if (v144)
             {
-              v93 = v136;
+              v92 = v135;
             }
 
             else
             {
-              v93 = 0;
+              v92 = 0;
             }
 
-            if (v93 == 1)
+            if (v92 == 1)
             {
-              unitInfo5 = [v59 unitInfo];
+              unitInfo5 = [v58 unitInfo];
               measurementSystem4 = [unitInfo5 measurementSystem];
-              v96 = v145;
+              v95 = v144;
 
-              if (measurementSystem4 == v96)
+              if (measurementSystem4 == v95)
               {
-                if (v116)
+                if (v115)
                 {
-                  v97 = __bid128_quiet_less(v70, v72, v120, v118, &v140);
-                  LOBYTE(v133) = 1;
-                  v87 = v122;
-                  v84 = v123;
-                  v85 = v121;
-                  v86 = v119;
-                  LOBYTE(v116) = 1;
-                  v83 = v59;
-                  if (!v97)
+                  v96 = __bid128_quiet_less(v69, v71, v119, v117, &v139);
+                  LOBYTE(v132) = 1;
+                  v86 = v121;
+                  v83 = v122;
+                  v84 = v120;
+                  v85 = v118;
+                  LOBYTE(v115) = 1;
+                  v82 = v58;
+                  if (!v96)
                   {
                     goto LABEL_121;
                   }
@@ -1932,111 +1951,110 @@ LABEL_120:
 
                 else
                 {
-                  LOBYTE(v133) = 1;
-                  v87 = v122;
-                  v84 = v123;
-                  v85 = v121;
-                  v86 = v119;
-                  LOBYTE(v116) = 1;
-                  v83 = v59;
+                  LOBYTE(v132) = 1;
+                  v86 = v121;
+                  v83 = v122;
+                  v84 = v120;
+                  v85 = v118;
+                  LOBYTE(v115) = 1;
+                  v82 = v58;
                 }
 
                 goto LABEL_120;
               }
             }
 
-            LOBYTE(v133) = 1;
+            LOBYTE(v132) = 1;
           }
 
 LABEL_121:
-          freeTree(v63);
-          v38 = v132;
-          v57 = v130;
-          v54 = v131;
-          v56 = obja;
+          freeTree(v62);
+          v37 = v131;
+          v56 = v129;
+          v53 = v130;
+          v55 = obja;
         }
       }
 
-      v58 = v58 + 1;
+      v57 = v57 + 1;
     }
 
-    while (v56 != v58);
-    v101 = [v54 countByEnumeratingWithState:&v141 objects:v161 count:16];
-    v56 = v101;
+    while (v55 != v57);
+    v100 = [v53 countByEnumeratingWithState:&v140 objects:v160 count:16];
+    v55 = v100;
   }
 
-  while (v101);
+  while (v100);
 
-  if (v114)
+  if (v113)
   {
-    v102 = v114;
+    v101 = v113;
 
-    v103 = v102;
-    v25 = v109;
-    v104 = v129;
-    v105 = v115;
-    v107 = v122;
-    v106 = v123;
+    v102 = v101;
+    v24 = v108;
+    v103 = v128;
+    v104 = v114;
+    v106 = v121;
+    v105 = v122;
     goto LABEL_137;
   }
 
-  v25 = v109;
-  if (v122)
+  v24 = v108;
+  if (v121)
   {
-    v107 = v122;
+    v106 = v121;
 
-    v102 = 0;
-    v103 = v107;
+    v101 = 0;
+    v102 = v106;
     goto LABEL_135;
   }
 
-  v103 = v128;
-  if (!v128)
+  v102 = v127;
+  if (!v127)
   {
-    if (v115)
+    if (v114)
     {
-      v105 = v115;
-      v102 = 0;
-      v107 = 0;
-      v103 = v105;
-      v104 = v129;
+      v104 = v114;
+      v101 = 0;
+      v106 = 0;
+      v102 = v104;
+      v103 = v128;
       goto LABEL_136;
     }
 
-    if (v123)
+    if (v122)
     {
-      v106 = v123;
-      v102 = 0;
-      v107 = 0;
-      v105 = 0;
-      v103 = v106;
-      v104 = v129;
+      v105 = v122;
+      v101 = 0;
+      v106 = 0;
+      v104 = 0;
+      v102 = v105;
+      v103 = v128;
       goto LABEL_137;
     }
 
-    v108 = v129;
+    v107 = v128;
 LABEL_130:
-    v104 = v108;
-    v102 = 0;
-    v107 = 0;
-    v105 = 0;
+    v103 = v107;
+    v101 = 0;
     v106 = 0;
-    v103 = v104;
+    v104 = 0;
+    v105 = 0;
+    v102 = v103;
     goto LABEL_137;
   }
 
-  v102 = 0;
-  v107 = 0;
+  v101 = 0;
+  v106 = 0;
 LABEL_135:
-  v104 = v129;
-  v105 = v115;
+  v103 = v128;
+  v104 = v114;
 LABEL_136:
-  v106 = v123;
+  v105 = v122;
 LABEL_137:
-  v6 = v103;
+  v6 = v102;
 
 LABEL_6:
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -2092,7 +2110,7 @@ LABEL_6:
         return v5;
       }
 
-      v5 = __bid128_quiet_less(v11, v6 & 0x7FFFFFFFFFFFFFFFLL, 0x100000uLL, 0x3040000000000000, &v18);
+      v5 = __bid128_quiet_less(v11, v6 & 0x7FFFFFFFFFFFFFFFLL, 0x100000uLL, 0x3040000000000000uLL, &v18);
     }
 
     else
@@ -2111,32 +2129,32 @@ LABEL_6:
 - (id)conversionsForMetric:(BOOL)metric US:(BOOL)s UK:(BOOL)k
 {
   metricCopy = metric;
-  v36 = *MEMORY[0x1E69E9840];
-  v30 = objc_opt_new();
+  v35 = *MEMORY[0x1E69E9840];
   v29 = objc_opt_new();
+  v28 = objc_opt_new();
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   typeInfo = [(CalculateResult *)self typeInfo];
   units = [typeInfo units];
 
-  v8 = [units countByEnumeratingWithState:&v31 objects:v35 count:16];
+  v8 = [units countByEnumeratingWithState:&v30 objects:v34 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v32;
+    v10 = *v31;
     do
     {
       v11 = 0;
       do
       {
-        if (*v32 != v10)
+        if (*v31 != v10)
         {
           objc_enumerationMutation(units);
         }
 
-        v12 = *(*(&v31 + 1) + 8 * v11);
+        v12 = *(*(&v30 + 1) + 8 * v11);
         unitID = [v12 unitID];
         if (unitID != [(CalculateResult *)self singleUnitID])
         {
@@ -2173,12 +2191,12 @@ LABEL_6:
             v21 = [(CalculateResult *)self newUnit:v12];
             if ([v12 doNotSuggest])
             {
-              v22 = v29;
+              v22 = v28;
             }
 
             else
             {
-              v22 = v30;
+              v22 = v29;
             }
 
             [v22 addObject:v21];
@@ -2190,22 +2208,20 @@ LABEL_14:
       }
 
       while (v9 != v11);
-      v23 = [units countByEnumeratingWithState:&v31 objects:v35 count:16];
+      v23 = [units countByEnumeratingWithState:&v30 objects:v34 count:16];
       v9 = v23;
     }
 
     while (v23);
   }
 
-  [v30 addObjectsFromArray:v29];
+  [v29 addObjectsFromArray:v28];
   if ([(CalculateResult *)self unitType]== 7)
   {
-    [v30 sortUsingComparator:&__block_literal_global_675];
+    [v29 sortUsingComparator:&__block_literal_global_675];
   }
 
-  v24 = *MEMORY[0x1E69E9840];
-
-  return v30;
+  return v29;
 }
 
 uint64_t __46__CalculateResult_conversionsForMetric_US_UK___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -2318,40 +2334,38 @@ LABEL_15:
 
 - (NSString)formattedResult
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   terms = [(CalculateResult *)self terms];
-  v5 = [terms countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [terms countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(terms);
         }
 
-        formattedResult = [*(*(&v13 + 1) + 8 * i) formattedResult];
+        formattedResult = [*(*(&v12 + 1) + 8 * i) formattedResult];
         [v3 addObject:formattedResult];
       }
 
-      v6 = [terms countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [terms countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
   }
 
   v10 = [v3 componentsJoinedByString:@" "];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -2513,38 +2527,36 @@ LABEL_10:
 
 - (void)_setConversions:(id)conversions
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   conversionsCopy = conversions;
   objc_storeStrong(&self->_conversions, conversions);
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v6 = conversionsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        self->_hasStaleCurrencyData |= *(*(*(&v12 + 1) + 8 * i) + 14);
+        self->_hasStaleCurrencyData |= *(*(*(&v11 + 1) + 8 * i) + 14);
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 + (void)preferMeasurementSystemsForLocale:(id)locale preferred:(unint64_t *)preferred fallback:(unint64_t *)fallback
@@ -2594,7 +2606,7 @@ LABEL_15:
 
 + (CalculateResult)resultWithResultTree:(TreeObject *)tree parseTree:(TreeObject *)parseTree locales:(id)locales numberFormatter:(id)formatter unitsInfo:(id)info unitType:(int)type unitExponent:(int)exponent expression:(id)self0 isTrivial:(BOOL)self1 isPartialExpression:(BOOL)self2 variableLookups:(id)self3 variableResultTrees:(TreeObject *)self4 variableResultTreesCount:(int)self5 resolvedUnitFormats:(id *)self6 forceResult:(BOOL)self7 assumeDegrees:(BOOL)self8 localizeUnit:(BOOL)self9 unitFormat:(unint64_t)format matchLocale:(BOOL)locale numberingSystem:(id)system autoScientificNotation:(BOOL)notation scientificNotationFormat:(unint64_t)notationFormat flexibleFractionDigits:(BOOL)digits isSimpleVerticalMath:(BOOL)math minimumFractionDigits:(int)fractionDigits hasStaleCurrencyData:(BOOL)data
 {
-  v81[1] = *MEMORY[0x1E69E9840];
+  v80[1] = *MEMORY[0x1E69E9840];
   localesCopy = locales;
   formatterCopy = formatter;
   obj = info;
@@ -2639,8 +2651,8 @@ LABEL_15:
     var6 = 0x3040000000000000;
   }
 
-  v72 = var6;
-  v73 = v34;
+  v71 = var6;
+  v72 = v34;
   var6 = [CalculateResult decimalNumberWithDecimal128:v34, var6];
   if (!result)
   {
@@ -2768,9 +2780,9 @@ LABEL_25:
   v60 = [v56 copy];
   v61 = [CalculateTerm termWithValue:var6 units:v60 result:v39];
 
-  [v61 setDecimalValue:{v73, v72}];
-  v81[0] = v61;
-  v62 = [MEMORY[0x1E695DEC8] arrayWithObjects:v81 count:1];
+  [v61 setDecimalValue:{v72, v71}];
+  v80[0] = v61;
+  v62 = [MEMORY[0x1E695DEC8] arrayWithObjects:v80 count:1];
   v63 = *(v39 + 88);
   *(v39 + 88) = v62;
 
@@ -2801,20 +2813,17 @@ LABEL_25:
   }
 
 LABEL_39:
-  v68 = *MEMORY[0x1E69E9840];
 
   return v39;
 }
 
 + (id)decimalNumberWithDecimal128:(id)decimal128
 {
-  v9 = *MEMORY[0x1E69E9840];
-  __bid128_to_string(v8, decimal128.var0[0], decimal128.var0[1]);
+  v8 = *MEMORY[0x1E69E9840];
+  __bid128_to_string(v7, decimal128.var0[0], decimal128.var0[1]);
   v3 = MEMORY[0x1E696AB90];
-  v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v8];
+  v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v7];
   v5 = [v3 decimalNumberWithString:v4];
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

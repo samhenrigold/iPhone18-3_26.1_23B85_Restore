@@ -44,28 +44,28 @@
 
 - (NSString)topRankedContactId
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if ([(NSArray *)self->_rankedEntities count])
   {
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
     v13 = 0u;
+    v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
     v3 = self->_rankedEntities;
-    contactId2 = [(NSArray *)v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    contactId2 = [(NSArray *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (contactId2)
     {
-      v5 = *v13;
+      v5 = *v12;
       while (2)
       {
         for (i = 0; i != contactId2; i = i + 1)
         {
-          if (*v13 != v5)
+          if (*v12 != v5)
           {
             objc_enumerationMutation(v3);
           }
 
-          v7 = *(*(&v12 + 1) + 8 * i);
+          v7 = *(*(&v11 + 1) + 8 * i);
           contactId = [v7 contactId];
           v9 = [contactId length];
 
@@ -76,7 +76,7 @@
           }
         }
 
-        contactId2 = [(NSArray *)v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        contactId2 = [(NSArray *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
         if (contactId2)
         {
           continue;
@@ -93,8 +93,6 @@ LABEL_12:
   {
     contactId2 = 0;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return contactId2;
 }
@@ -181,7 +179,7 @@ LABEL_12:
 
 - (GDAddressResolutionResult)initWithCoder:(id)coder
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = MEMORY[0x1E695DFD8];
   v6 = objc_opt_class();
@@ -203,9 +201,9 @@ LABEL_12:
     if (!error)
     {
       v13 = MEMORY[0x1E696ABC0];
-      v18 = *MEMORY[0x1E696A578];
-      v19[0] = @"GDAddressResolutionResult rankedEntities could not be decoded";
-      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+      v17 = *MEMORY[0x1E696A578];
+      v18[0] = @"GDAddressResolutionResult rankedEntities could not be decoded";
+      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
       v15 = [v13 errorWithDomain:@"GDErrorDomain" code:9 userInfo:v14];
       [coderCopy failWithError:v15];
     }
@@ -213,7 +211,6 @@ LABEL_12:
     selfCopy = 0;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

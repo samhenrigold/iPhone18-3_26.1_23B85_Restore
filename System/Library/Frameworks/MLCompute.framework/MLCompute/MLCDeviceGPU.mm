@@ -20,13 +20,16 @@
 - (MLCDeviceGPU)initWithType:(int)type selectsMultipleComputeDevices:(BOOL)devices;
 - (NSString)description;
 - (id)allocateDeviceMemoryForTensor:(id)tensor device:(id)device count:(unint64_t)count;
+- (id)arithmeticLayerWithOperation:(int)operation activationDescriptor:(id)descriptor;
 - (id)batchNormalizationLayerWithChannelCount:(unint64_t)count mean:(id)mean variance:(id)variance beta:(id)beta gamma:(id)gamma varianceEpsilon:(float)epsilon momentum:(float)momentum;
 - (id)betaGradients:(id)gradients;
 - (id)biasesGradients:(id)gradients;
+- (id)compareLayerWithOperation:(int)operation;
 - (id)convolutionLayerWithDescriptor:(id)descriptor weights:(id)weights biasTerms:(id)terms;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)createOptimizerDeviceDataForTensor:(id)tensor optimizer:(id)optimizer optimizerData:(id)data isVector:(BOOL)vector;
 - (id)dropoutLayerWithRate:(float)rate seed:(unint64_t)seed;
+- (id)embeddingLayerWithDescriptor:(id)descriptor weights:(id)weights inferenceOnly:(BOOL)only;
 - (id)embeddingWeightsGradients:(id)gradients embeddingCount:(unint64_t)count embeddingDimension:(unint64_t)dimension;
 - (id)fullyConnectedLayerWithDescriptor:(id)descriptor weights:(id)weights biasTerms:(id)terms;
 - (id)fusedBatchNormalizationAndNeuronLayerWithDescriptor:(id)descriptor numOfFeatureChannels:(unint64_t)channels mean:(id)mean variance:(id)variance beta:(id)beta gamma:(id)gamma varianceEpsilon:(float)epsilon momentum:(float)self0;
@@ -40,6 +43,7 @@
 - (id)gramMatrixLayerWithScaleFactor:(float)factor;
 - (id)groupNormalizationLayerWithFeatureChannelCount:(unint64_t)count groupCount:(unint64_t)groupCount beta:(id)beta gamma:(id)gamma varianceEpsilon:(float)epsilon;
 - (id)instanceNormalizationLayerWithChannelCount:(unint64_t)count mean:(id)mean variance:(id)variance beta:(id)beta gamma:(id)gamma varianceEpsilon:(float)epsilon momentum:(float)momentum;
+- (id)layerNormalizationLayerWithNormalizedShape:(id)shape beta:(id)beta gamma:(id)gamma varianceEpsilon:(float)epsilon isFusedWithArithmeticLayer:(BOOL)layer;
 - (id)lstmBiasGradient:(id)gradient mlcBiasIndex:(unint64_t)index;
 - (id)lstmHiddenWeightGradient:(id)gradient mlcWeightIndex:(unint64_t)index;
 - (id)lstmInputWeightGradient:(id)gradient mlcWeightIndex:(unint64_t)index;
@@ -48,16 +52,22 @@
 - (id)mhaAttnBiasGradient:(id)gradient withSize:(unint64_t)size index:(unint64_t)index;
 - (id)mhaBiasGradient:(id)gradient withSize:(unint64_t)size index:(unint64_t)index;
 - (id)mhaWeightGradient:(id)gradient withSize:(unint64_t)size index:(unint64_t)index;
+- (id)multiheadAttentionLayerWithDescriptor:(id)descriptor weights:(id)weights bias:(id)bias attnBias:(id)attnBias inferenceOnly:(BOOL)only;
 - (id)neuronLayerWithDescriptor:(id)descriptor;
+- (id)paddingLayerWithPaddingType:(int)type paddingLeft:(unint64_t)left paddingRight:(unint64_t)right paddingTop:(unint64_t)top paddingBottom:(unint64_t)bottom constantValue:(float)value dataType:(int)dataType;
 - (id)poolingLayerWithDescriptor:(id)descriptor paddingSizes:(unint64_t *)sizes;
 - (id)readTensor:(id)tensor;
 - (id)readTensor:(id)tensor fromDeviceIndex:(unint64_t)index;
 - (id)readTensor:(id)tensor fromDeviceIndex:(unint64_t)index batchSize:(unint64_t)size;
+- (id)reductionLayerWithReduceType:(int)type dimensions:(id)dimensions sourceShapeCount:(unint64_t)count;
 - (id)reshapeLayerWithShape:(id)shape;
+- (id)scatterLayerWithDimension:(unint64_t)dimension reduceType:(int)type;
 - (id)selectLayer;
 - (id)sliceLayerWithbegin:(id)withbegin end:(id)end stride:(id)stride inferenceOnly:(BOOL)only;
+- (id)softmaxLayerWithOperation:(int)operation dimension:(unint64_t)dimension sourceShapeCount:(unint64_t)count;
 - (id)splitLayerWithDimension:(unint64_t)dimension;
 - (id)transposeLayerWithShape:(id)shape;
+- (id)upsampleLayerWithScaleFactorX:(float)x scaleFactorY:(float)y sampleMode:(int)mode alignCorners:(BOOL)corners;
 - (id)weightsGradients:(id)gradients;
 - (unint64_t)allocatedDeviceDataSizeForTraining:(BOOL)training layer:(id)layer;
 - (unint64_t)deviceMemorySizeForTensor:(id)tensor;
@@ -73,6 +83,7 @@
 - (void)commitAndWaitForCompletion:(id)completion enableProfiling:(BOOL)profiling graphExecutionTime:(id)time graphResultTensor:(id)tensor;
 - (void)commitDeviceAtIndex:(unint64_t)index;
 - (void)commitWithCompletionHandler:(id)handler enableProfiling:(BOOL)profiling graphExecutionTime:(id)time graphResultTensor:(id)tensor;
+- (void)commitWithProfiling:(BOOL)profiling graphExecutionTime:(id)time;
 - (void)convertUpdatesToTensorDataForLayer:(id)layer;
 - (void)convertUpdatesToTensorDataForTensorParameters:(id)parameters;
 - (void)copyMTLBuffer:(id)buffer toBytes:(void *)bytes length:(unint64_t)length;
@@ -91,14 +102,17 @@
 - (void)dispatchForwardCompareLayer:(id)layer sourceTensor:(id)tensor secondaryTensor:(id)secondaryTensor resultTensor:(id)resultTensor compareOp:(int)op forTraining:(BOOL)training;
 - (void)dispatchForwardEmbeddingLayer:(id)layer weight:(id)weight sourceTensor:(id)tensor resultTensor:(id)resultTensor;
 - (void)dispatchForwardFullyConnectedLayer:(id)layer sourceTensor:(id)tensor resultTensor:(id)resultTensor forTraining:(BOOL)training;
+- (void)dispatchForwardFusedArithmeticLayerNormalizationLayer:(id)layer sourceTensors:(id)tensors resultTensor:(id)tensor forTraining:(BOOL)training;
 - (void)dispatchForwardGatherLayer:(id)layer sourceTensors:(id)tensors resultTensor:(id)tensor forTraining:(BOOL)training;
 - (void)dispatchForwardGramMatrixKernel:(id)kernel sourceTensor:(id)tensor resultTensor:(id)resultTensor deviceIndex:(unint64_t)index forTraining:(BOOL)training;
 - (void)dispatchForwardGroupNormalizationKernel:(id)kernel sourceTensor:(id)tensor resultTensor:(id)resultTensor deviceIndex:(unint64_t)index forTraining:(BOOL)training;
 - (void)dispatchForwardInstanceNormalizationKernel:(id)kernel sourceTensor:(id)tensor resultTensor:(id)resultTensor deviceIndex:(unint64_t)index forTraining:(BOOL)training;
+- (void)dispatchForwardLayer:(id)layer sourceTensor:(id)tensor resultTensor:(id)resultTensor resultStateIsTemporary:(BOOL)temporary forTraining:(BOOL)training;
 - (void)dispatchForwardLayer:(id)layer sourceTensor:(id)tensor secondaryTensor:(id)secondaryTensor tertiaryTensor:(id)tertiaryTensor resultTensor:(id)resultTensor resultStateIsTemporary:(BOOL)temporary forTraining:(BOOL)training;
 - (void)dispatchForwardLayerNormalizationKernel:(id)kernel sourceTensors:(id)tensors resultTensor:(id)tensor deviceIndex:(unint64_t)index forTraining:(BOOL)training;
 - (void)dispatchForwardLossLayer:(id)layer sourceTensor:(id)tensor labelsTensor:(id)labelsTensor labelsTensorStride:(unint64_t)stride weightsTensor:(id)weightsTensor resultTensor:(id)resultTensor resultStateIsTemporary:(BOOL)temporary forTraining:(BOOL)self0;
 - (void)dispatchForwardMHALayer:(id)layer sourceTensors:(id)tensors resultTensor:(id)tensor resultStateIsTemporary:(BOOL)temporary forTraining:(BOOL)training;
+- (void)dispatchForwardMPSGraphWithDeviceOps:(id)ops sourceBuffer:(id)buffer resultBuffer:(id)resultBuffer deviceIndex:(unint64_t)index dataType:(unsigned int)type;
 - (void)dispatchForwardMatMulLayer:(id)layer sourceTensors:(id)tensors resultTensor:(id)tensor;
 - (void)dispatchForwardPaddingKernel:(id)kernel sourceTensor:(id)tensor resultTensor:(id)resultTensor deviceIndex:(unint64_t)index;
 - (void)dispatchForwardPoolingKernel:(id)kernel sourceTensor:(id)tensor resultTensor:(id)resultTensor deviceIndex:(unint64_t)index forTraining:(BOOL)training;
@@ -123,6 +137,7 @@
 - (void)dispatchGradientLayerNormalizationKernel:(id)kernel sourceGradientTensor:(id)tensor resultGradientTensor:(id)gradientTensor deviceIndex:(unint64_t)index;
 - (void)dispatchGradientLossLayer:(id)layer sourceGradientTensor:(id)tensor labelsTensor:(id)labelsTensor labelsTensorStride:(unint64_t)stride weightsTensor:(id)weightsTensor resultGradientTensor:(id)gradientTensor;
 - (void)dispatchGradientMHALayer:(id)layer sourceGradientTensor:(id)tensor resultGradientTensors:(id)tensors resultStateIsTemporary:(BOOL)temporary;
+- (void)dispatchGradientMPSGraphWithDeviceOps:(id)ops sourceBuffer:(id)buffer souceGradientBuffer:(id)gradientBuffer resultGradientBuffer:(id)resultGradientBuffer deviceIndex:(unint64_t)index dataType:(unsigned int)type;
 - (void)dispatchGradientMatMulLayer:(id)layer sourceGradientTensor:(id)tensor resultGradientTensors:(id)tensors;
 - (void)dispatchGradientPaddingKernel:(id)kernel sourceGradientTensor:(id)tensor resultGradientTensor:(id)gradientTensor deviceIndex:(unint64_t)index;
 - (void)dispatchGradientPoolingKernel:(id)kernel sourceGradientTensor:(id)tensor resultGradientTensor:(id)gradientTensor deviceIndex:(unint64_t)index;
@@ -140,6 +155,7 @@
 - (void)dispatchReadTensorFromAllDevices:(id)devices targetBuffer:(void *)buffer batchSize:(unint64_t)size;
 - (void)dispatchTransposeKernel:(id)kernel sourceTensor:(id)tensor resultTensor:(id)resultTensor deviceIndex:(unint64_t)index forward:(BOOL)forward;
 - (void)encodePrimitiveToCommandBuffer:(id)buffer gpuDeviceOps:(id)ops sourceTensor:(id)tensor secondaryTensor:(id)secondaryTensor tertiaryTensor:(id)tertiaryTensor resultTensor:(id)resultTensor params:(CompareParams *)params sizeOfParams:(unint64_t)self0 pipelineState:(id)self1 deviceIndex:(unint64_t)self2;
+- (void)fuseLayersForGraph:(id)graph stopGradientTensorList:(id)list startAtLayerIndex:(unint64_t)index forInference:(BOOL)inference;
 - (void)incrementReadCountForGradientState:(id)state increment:(int64_t)increment;
 - (void)incrementReadCountForTensorDeviceMemory:(id)memory increment:(int64_t)increment;
 - (void)multiDeviceTensorReduction:(id)reduction sourceBuffer:(void *)buffer targetBuffer:(void *)targetBuffer;
@@ -185,6 +201,29 @@
 @end
 
 @implementation MLCDeviceGPU
+
+- (id)arithmeticLayerWithOperation:(int)operation activationDescriptor:(id)descriptor
+{
+  v4 = *&operation;
+  descriptorCopy = descriptor;
+  v7 = objc_autoreleasePoolPush();
+  v8 = [_MLCGPUArithmetic layerWithDevice:self operation:v4 activationDescriptor:descriptorCopy];
+  deviceOps = [v8 deviceOps];
+  v10 = [deviceOps copy];
+
+  [v8 setDeviceOps:0];
+  v11 = MEMORY[0x277CBEBF8];
+  if (v10)
+  {
+    v11 = v10;
+  }
+
+  v12 = v11;
+
+  objc_autoreleasePoolPop(v7);
+
+  return v12;
+}
 
 - (id)batchNormalizationLayerWithChannelCount:(unint64_t)count mean:(id)mean variance:(id)variance beta:(id)beta gamma:(id)gamma varianceEpsilon:(float)epsilon momentum:(float)momentum
 {
@@ -235,6 +274,32 @@
   objc_autoreleasePoolPop(v14);
 
   return v20;
+}
+
+- (id)layerNormalizationLayerWithNormalizedShape:(id)shape beta:(id)beta gamma:(id)gamma varianceEpsilon:(float)epsilon isFusedWithArithmeticLayer:(BOOL)layer
+{
+  layerCopy = layer;
+  shapeCopy = shape;
+  betaCopy = beta;
+  gammaCopy = gamma;
+  v15 = objc_autoreleasePoolPush();
+  *&v16 = epsilon;
+  v17 = [_MLCGPULayerNormalization layerWithDevice:self normalizedShape:shapeCopy beta:betaCopy gamma:gammaCopy varianceEpsilon:layerCopy isFusedWithArithmeticLayer:v16];
+  deviceOps = [v17 deviceOps];
+  v19 = [deviceOps copy];
+
+  [v17 setDeviceOps:0];
+  v20 = MEMORY[0x277CBEBF8];
+  if (v19)
+  {
+    v20 = v19;
+  }
+
+  v21 = v20;
+
+  objc_autoreleasePoolPop(v15);
+
+  return v21;
 }
 
 - (id)fusedBatchNormalizationAndNeuronLayerWithDescriptor:(id)descriptor numOfFeatureChannels:(unint64_t)channels mean:(id)mean variance:(id)variance beta:(id)beta gamma:(id)gamma varianceEpsilon:(float)epsilon momentum:(float)self0
@@ -440,6 +505,30 @@
   return v19;
 }
 
+- (id)paddingLayerWithPaddingType:(int)type paddingLeft:(unint64_t)left paddingRight:(unint64_t)right paddingTop:(unint64_t)top paddingBottom:(unint64_t)bottom constantValue:(float)value dataType:(int)dataType
+{
+  v15 = *&type;
+  v17 = objc_autoreleasePoolPush();
+  LODWORD(v25) = dataType;
+  *&v18 = value;
+  v19 = [_MLCGPUPadding layerWithDevice:self paddingType:v15 paddingLeft:left paddingRight:right paddingTop:top paddingBottom:bottom constantValue:v18 dataType:v25];
+  deviceOps = [v19 deviceOps];
+  v21 = [deviceOps copy];
+
+  [v19 setDeviceOps:0];
+  v22 = MEMORY[0x277CBEBF8];
+  if (v21)
+  {
+    v22 = v21;
+  }
+
+  v23 = v22;
+
+  objc_autoreleasePoolPop(v17);
+
+  return v23;
+}
+
 - (id)neuronLayerWithDescriptor:(id)descriptor
 {
   descriptorCopy = descriptor;
@@ -556,6 +645,28 @@
   return v10;
 }
 
+- (id)softmaxLayerWithOperation:(int)operation dimension:(unint64_t)dimension sourceShapeCount:(unint64_t)count
+{
+  v6 = *&operation;
+  v8 = objc_autoreleasePoolPush();
+  v9 = [_MLCGPUSoftmax layerWithDevice:self operation:v6 dimension:dimension];
+  deviceOps = [v9 deviceOps];
+  v11 = [deviceOps copy];
+
+  [v9 setDeviceOps:0];
+  v12 = MEMORY[0x277CBEBF8];
+  if (v11)
+  {
+    v12 = v11;
+  }
+
+  v13 = v12;
+
+  objc_autoreleasePoolPop(v8);
+
+  return v13;
+}
+
 - (id)gramMatrixLayerWithScaleFactor:(float)factor
 {
   v5 = objc_autoreleasePoolPush();
@@ -578,6 +689,31 @@
   return v11;
 }
 
+- (id)upsampleLayerWithScaleFactorX:(float)x scaleFactorY:(float)y sampleMode:(int)mode alignCorners:(BOOL)corners
+{
+  cornersCopy = corners;
+  v7 = *&mode;
+  v11 = objc_autoreleasePoolPush();
+  *&v12 = x;
+  *&v13 = y;
+  v14 = [_MLCGPUUpsample layerWithDevice:self scaleFactorX:v7 scaleFactorY:cornersCopy sampleMode:v12 alignCorners:v13];
+  deviceOps = [v14 deviceOps];
+  v16 = [deviceOps copy];
+
+  [v14 setDeviceOps:0];
+  v17 = MEMORY[0x277CBEBF8];
+  if (v16)
+  {
+    v17 = v16;
+  }
+
+  v18 = v17;
+
+  objc_autoreleasePoolPop(v11);
+
+  return v18;
+}
+
 - (id)transposeLayerWithShape:(id)shape
 {
   shapeCopy = shape;
@@ -598,6 +734,30 @@
   objc_autoreleasePoolPop(v5);
 
   return v10;
+}
+
+- (id)embeddingLayerWithDescriptor:(id)descriptor weights:(id)weights inferenceOnly:(BOOL)only
+{
+  onlyCopy = only;
+  descriptorCopy = descriptor;
+  weightsCopy = weights;
+  v10 = objc_autoreleasePoolPush();
+  v11 = [_MLCGPUEmbedding layerWithDevice:self descriptor:descriptorCopy weights:weightsCopy inferenceOnly:onlyCopy];
+  deviceOps = [v11 deviceOps];
+  v13 = [deviceOps copy];
+
+  [v11 setDeviceOps:0];
+  v14 = MEMORY[0x277CBEBF8];
+  if (v13)
+  {
+    v14 = v13;
+  }
+
+  v15 = v14;
+
+  objc_autoreleasePoolPop(v10);
+
+  return v15;
 }
 
 - (id)selectLayer
@@ -812,6 +972,324 @@
   }
 
   return compileForInferenceOnly;
+}
+
+- (void)fuseLayersForGraph:(id)graph stopGradientTensorList:(id)list startAtLayerIndex:(unint64_t)index forInference:(BOOL)inference
+{
+  inferenceCopy = inference;
+  v96 = *MEMORY[0x277D85DE8];
+  graphCopy = graph;
+  listCopy = list;
+  if (!graphCopy || [graphCopy count] < index + 2)
+  {
+    goto LABEL_75;
+  }
+
+  selfCopy = self;
+  v89 = inferenceCopy;
+  [MLCComputeEngineCommon applyPatternMatcherForGraph:graphCopy stopGradientTensorList:listCopy startAtLayerIndex:index forInference:inferenceCopy];
+  v12 = [MEMORY[0x277CBEB58] set];
+  if ([graphCopy count] <= index)
+  {
+    goto LABEL_74;
+  }
+
+  v90 = listCopy;
+  while (1)
+  {
+    v13 = [graphCopy objectAtIndexedSubscript:index];
+    [v12 addObject:v13];
+    if ([v13 isLastLayer])
+    {
+      break;
+    }
+
+    if (([v13 skipLayer] & 1) == 0)
+    {
+      fusedLayers = [v13 fusedLayers];
+      if (![fusedLayers count])
+      {
+        resultTensors = [v13 resultTensors];
+        if ([resultTensors count] >= 2)
+        {
+          goto LABEL_9;
+        }
+
+        resultTensors2 = [v13 resultTensors];
+        v17 = [resultTensors2 objectAtIndexedSubscript:0];
+        childLayers = [v17 childLayers];
+        v19 = [childLayers count];
+
+        listCopy = v90;
+        if (v19 != 1)
+        {
+          goto LABEL_11;
+        }
+
+        resultTensors3 = [v13 resultTensors];
+        v21 = [resultTensors3 objectAtIndexedSubscript:0];
+        computeFlags = [v21 computeFlags];
+
+        if (computeFlags)
+        {
+          goto LABEL_11;
+        }
+
+        resultTensors4 = [v13 resultTensors];
+        v24 = [resultTensors4 objectAtIndexedSubscript:0];
+        childLayers2 = [v24 childLayers];
+        fusedLayers = [childLayers2 objectAtIndexedSubscript:0];
+
+        if (([fusedLayers skipLayer] & 1) == 0)
+        {
+          isTrainable = [v13 isTrainable];
+          if (isTrainable == [fusedLayers isTrainable])
+          {
+            resultTensors5 = [v13 resultTensors];
+            v28 = [resultTensors5 objectAtIndexedSubscript:0];
+            v29 = [MLCComputeEngineCommon isResultTensorInStopGradientTensorList:v90 resultTensor:v28 forInference:v89];
+
+            if (!v29)
+            {
+              objc_opt_class();
+              if ((objc_opt_isKindOfClass() & 1) == 0 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+              {
+                if (v89)
+                {
+                  objc_opt_class();
+                  if (objc_opt_isKindOfClass())
+                  {
+                    if ([(MLCDeviceGPU *)selfCopy canFuseConvolutionLayerForInference:v13])
+                    {
+                      objc_opt_class();
+                      if (objc_opt_isKindOfClass())
+                      {
+                        v14FusedLayers = [fusedLayers fusedLayers];
+                        v35 = [v14FusedLayers count];
+
+                        if (!v35)
+                        {
+                          fusedLayers = fusedLayers;
+                          descriptor = [fusedLayers descriptor];
+                          IsFusableWithMPSGraph = activationIsFusableWithMPSGraph(descriptor);
+
+                          if (IsFusableWithMPSGraph)
+                          {
+                            [MLCComputeEngineCommon updateTensorsForTwoFusedLayers:v13 layerNext:fusedLayers];
+                          }
+                        }
+                      }
+                    }
+
+                    goto LABEL_10;
+                  }
+                }
+
+                objc_opt_class();
+                if (objc_opt_isKindOfClass() & 1) != 0 && (objc_opt_class(), (objc_opt_isKindOfClass()) && ([fusedLayers fusedLayers], v38 = objc_claimAutoreleasedReturnValue(), v39 = objc_msgSend(v38, "count"), v38, !v39) || (objc_opt_class(), (objc_opt_isKindOfClass()) && (objc_opt_class(), (objc_opt_isKindOfClass()) && (objc_msgSend(fusedLayers, "fusedLayers"), v40 = objc_claimAutoreleasedReturnValue(), v41 = objc_msgSend(v40, "count"), v40, !v41))
+                {
+                  if ([MLCComputeEngineCommon doesActivationRequireInput:fusedLayers forInference:v89])
+                  {
+                    goto LABEL_10;
+                  }
+                }
+
+                else
+                {
+                  objc_opt_class();
+                  if ((objc_opt_isKindOfClass() & 1) == 0)
+                  {
+                    goto LABEL_10;
+                  }
+
+                  objc_opt_class();
+                  if ((objc_opt_isKindOfClass() & 1) == 0 || ([fusedLayers fusedLayers], v42 = objc_claimAutoreleasedReturnValue(), v43 = objc_msgSend(v42, "count"), v42, v43))
+                  {
+                    objc_opt_class();
+                    if (objc_opt_isKindOfClass())
+                    {
+                      v44 = v13;
+                      fusedLayers = fusedLayers;
+                      if ([v44 operation] == 2 && !objc_msgSend(fusedLayers, "operation"))
+                      {
+                        [v44 resultTensors];
+                        v45 = v81 = v44;
+                        v46 = [v45 objectAtIndexedSubscript:0];
+                        resultTensors6 = [fusedLayers resultTensors];
+                        v48 = [resultTensors6 objectAtIndexedSubscript:0];
+                        v49 = [v46 doesShapeMatchWithTensor:v48];
+
+                        v44 = v81;
+                        if (v49)
+                        {
+                          v93 = 0u;
+                          v94 = 0u;
+                          v91 = 0u;
+                          v92 = 0u;
+                          obj = [fusedLayers sourceTensors];
+                          v50 = [obj countByEnumeratingWithState:&v91 objects:v95 count:16];
+                          if (v50)
+                          {
+                            v51 = v50;
+                            v52 = *v92;
+                            while (2)
+                            {
+                              for (i = 0; i != v51; ++i)
+                              {
+                                if (*v92 != v52)
+                                {
+                                  objc_enumerationMutation(obj);
+                                }
+
+                                parentLayers = [*(*(&v91 + 1) + 8 * i) parentLayers];
+                                lastObject = [parentLayers lastObject];
+
+                                if (lastObject && ([v12 containsObject:lastObject] & 1) == 0)
+                                {
+
+                                  v44 = v81;
+                                  goto LABEL_69;
+                                }
+                              }
+
+                              v51 = [obj countByEnumeratingWithState:&v91 objects:v95 count:16];
+                              if (v51)
+                              {
+                                continue;
+                              }
+
+                              break;
+                            }
+                          }
+
+                          v44 = v81;
+                          [(MLCDeviceGPU *)selfCopy updateTensorsForFMAFusedLayers:v81 layerNext:fusedLayers];
+                        }
+                      }
+
+LABEL_69:
+                    }
+
+                    else
+                    {
+                      objc_opt_class();
+                      if ((objc_opt_isKindOfClass() & 1) == 0)
+                      {
+                        goto LABEL_10;
+                      }
+
+                      v56 = v13;
+                      if (![v56 operation])
+                      {
+                        objb = [v56 sourceTensors];
+                        v82 = [objb objectAtIndexedSubscript:0];
+                        descriptor2 = [v82 descriptor];
+                        shape = [descriptor2 shape];
+                        v79 = [shape count];
+                        [v56 sourceTensors];
+                        v58 = v70 = v56;
+                        v59 = [v58 objectAtIndexedSubscript:1];
+                        descriptor3 = [v59 descriptor];
+                        shape2 = [descriptor3 shape];
+                        v75 = [shape2 count];
+
+                        v56 = v70;
+                        if (v79 == v75)
+                        {
+                          obja = 0;
+                          while (1)
+                          {
+                            sourceTensors = [v56 sourceTensors];
+                            v63 = [sourceTensors objectAtIndexedSubscript:0];
+                            descriptor4 = [v63 descriptor];
+                            shape3 = [descriptor4 shape];
+                            v83 = [shape3 count];
+
+                            if (obja >= v83)
+                            {
+                              break;
+                            }
+
+                            sourceTensors2 = [v56 sourceTensors];
+                            v80 = [sourceTensors2 objectAtIndexedSubscript:0];
+                            descriptor5 = [v80 descriptor];
+                            shape4 = [descriptor5 shape];
+                            v73 = [shape4 objectAtIndexedSubscript:obja];
+                            unsignedIntegerValue = [v73 unsignedIntegerValue];
+                            sourceTensors3 = [v56 sourceTensors];
+                            v66 = [sourceTensors3 objectAtIndexedSubscript:1];
+                            descriptor6 = [v66 descriptor];
+                            shape5 = [descriptor6 shape];
+                            v69 = [shape5 objectAtIndexedSubscript:obja];
+                            unsignedIntegerValue2 = [v69 unsignedIntegerValue];
+
+                            ++obja;
+                            v56 = v70;
+                            if (unsignedIntegerValue != unsignedIntegerValue2)
+                            {
+                              goto LABEL_71;
+                            }
+                          }
+
+                          [(MLCDeviceGPU *)selfCopy updateTensorsForFusedArithmeticAndLayerNormalizationLayer:v56 layerNext:fusedLayers];
+                        }
+                      }
+
+LABEL_71:
+                    }
+
+                    listCopy = v90;
+                    goto LABEL_10;
+                  }
+                }
+
+                [MLCComputeEngineCommon updateTensorsForTwoFusedLayers:v13 layerNext:fusedLayers];
+                goto LABEL_10;
+              }
+
+              resultTensors = v13;
+              fusedLayers = fusedLayers;
+              if (![resultTensors paddingType])
+              {
+                descriptor7 = [fusedLayers descriptor];
+                if ([descriptor7 paddingPolicy] == 1 && (v31 = objc_msgSend(resultTensors, "paddingTop"), v31 == objc_msgSend(resultTensors, "paddingBottom")))
+                {
+                  paddingLeft = [resultTensors paddingLeft];
+                  paddingRight = [resultTensors paddingRight];
+
+                  listCopy = v90;
+                  if (paddingLeft == paddingRight)
+                  {
+                    [MLCComputeEngineCommon updateTensorsForFusedPaddingAndConvolutionLayer:resultTensors layerNext:fusedLayers];
+                  }
+                }
+
+                else
+                {
+
+                  listCopy = v90;
+                }
+              }
+
+LABEL_9:
+            }
+          }
+        }
+      }
+
+LABEL_10:
+    }
+
+LABEL_11:
+
+    if (++index >= [graphCopy count])
+    {
+      goto LABEL_74;
+    }
+  }
+
+LABEL_74:
+LABEL_75:
 }
 
 - (BOOL)compileLayerDeviceOps:(id)ops sourceTensors:(id)tensors resultTensor:(id)tensor
@@ -1076,6 +1554,77 @@ LABEL_11:
   return v7;
 }
 
+- (id)compareLayerWithOperation:(int)operation
+{
+  v3 = *&operation;
+  v5 = objc_autoreleasePoolPush();
+  v6 = [_MLCGPUCompare layerWithDevice:self operation:v3];
+  deviceOps = [v6 deviceOps];
+  v8 = [deviceOps copy];
+
+  [v6 setDeviceOps:0];
+  v9 = MEMORY[0x277CBEBF8];
+  if (v8)
+  {
+    v9 = v8;
+  }
+
+  v10 = v9;
+
+  objc_autoreleasePoolPop(v5);
+
+  return v10;
+}
+
+- (id)reductionLayerWithReduceType:(int)type dimensions:(id)dimensions sourceShapeCount:(unint64_t)count
+{
+  v6 = *&type;
+  dimensionsCopy = dimensions;
+  v9 = objc_autoreleasePoolPush();
+  v10 = [_MLCGPUReduction layerWithDevice:self reduceType:v6 dimensions:dimensionsCopy sourceShapeCount:count];
+  deviceOps = [v10 deviceOps];
+  v12 = [deviceOps copy];
+
+  [v10 setDeviceOps:0];
+  v13 = MEMORY[0x277CBEBF8];
+  if (v12)
+  {
+    v13 = v12;
+  }
+
+  v14 = v13;
+
+  objc_autoreleasePoolPop(v9);
+
+  return v14;
+}
+
+- (id)multiheadAttentionLayerWithDescriptor:(id)descriptor weights:(id)weights bias:(id)bias attnBias:(id)attnBias inferenceOnly:(BOOL)only
+{
+  onlyCopy = only;
+  descriptorCopy = descriptor;
+  weightsCopy = weights;
+  biasCopy = bias;
+  attnBiasCopy = attnBias;
+  v16 = objc_autoreleasePoolPush();
+  v17 = [_MLCGPUMHAttention layerWithDevice:self desciptor:descriptorCopy weights:weightsCopy bias:biasCopy attnBias:attnBiasCopy inferenceOnly:onlyCopy];
+  deviceOps = [v17 deviceOps];
+  v19 = [deviceOps copy];
+
+  [v17 setDeviceOps:0];
+  v20 = MEMORY[0x277CBEBF8];
+  if (v19)
+  {
+    v20 = v19;
+  }
+
+  v21 = v20;
+
+  objc_autoreleasePoolPop(v16);
+
+  return v21;
+}
+
 - (id)matMulLayerWithDescriptor:(id)descriptor sourceTensors:(id)tensors resultTensor:(id)tensor inferenceOnly:(BOOL)only
 {
   descriptorCopy = descriptor;
@@ -1124,6 +1673,28 @@ LABEL_11:
   return v17;
 }
 
+- (id)scatterLayerWithDimension:(unint64_t)dimension reduceType:(int)type
+{
+  v4 = *&type;
+  v7 = objc_autoreleasePoolPush();
+  v8 = [_MLCGPUScatter layerWithDevice:self dimension:dimension reduceType:v4];
+  deviceOps = [v8 deviceOps];
+  v10 = [deviceOps copy];
+
+  [v8 setDeviceOps:0];
+  v11 = MEMORY[0x277CBEBF8];
+  if (v10)
+  {
+    v11 = v10;
+  }
+
+  v12 = v11;
+
+  objc_autoreleasePoolPop(v7);
+
+  return v12;
+}
+
 - (id)gatherLayerWithDimension:(unint64_t)dimension
 {
   v5 = objc_autoreleasePoolPush();
@@ -1147,7 +1718,7 @@ LABEL_11:
 
 - (id)weightsGradients:(id)gradients
 {
-  v67[4] = *MEMORY[0x277D85DE8];
+  v66[4] = *MEMORY[0x277D85DE8];
   gradientsCopy = gradients;
   v4 = 0;
   if ([(MLCDeviceGPU *)self numDevicesToUse])
@@ -1233,23 +1804,23 @@ LABEL_11:
 
       if (-[MLCDeviceGPU numDevicesToUse](self, "numDevicesToUse") - 1 == v5 && ([v6 forwardKernel], v29 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), v30 = objc_opt_isKindOfClass(), v29, (v30 & 1) != 0))
       {
-        v61 = objc_autoreleasePoolPush();
-        v59 = [MEMORY[0x277CBEA90] dataWithBytes:objc_msgSend(v4 length:{"bytes"), objc_msgSend(v4, "length")}];
+        v60 = objc_autoreleasePoolPush();
+        v58 = [MEMORY[0x277CBEA90] dataWithBytes:objc_msgSend(v4 length:{"bytes"), objc_msgSend(v4, "length")}];
         forwardKernel2 = [v6 forwardKernel];
-        v67[0] = &unk_284BA5888;
+        v66[0] = &unk_284BA5888;
         v32 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(forwardKernel2, "outputFeatureChannels") * objc_msgSend(forwardKernel2, "inputFeatureChannels")}];
-        v67[1] = v32;
+        v66[1] = v32;
         v33 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(forwardKernel2, "kernelHeight")}];
-        v67[2] = v33;
+        v66[2] = v33;
         v34 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(forwardKernel2, "kernelWidth")}];
-        v67[3] = v34;
-        shape = [MEMORY[0x277CBEA60] arrayWithObjects:v67 count:4];
+        v66[3] = v34;
+        shape = [MEMORY[0x277CBEA60] arrayWithObjects:v66 count:4];
 
         self = selfCopy;
-        v36 = v59;
+        v36 = v58;
 
-        v37 = v61;
-        rotateWeightsTensorBy180Degree(shape, v59, v4);
+        v37 = v60;
+        rotateWeightsTensorBy180Degree(shape, v58, v4);
       }
 
       else
@@ -1265,28 +1836,28 @@ LABEL_11:
           goto LABEL_29;
         }
 
-        v62 = objc_autoreleasePoolPush();
+        v61 = objc_autoreleasePoolPush();
         v38 = [MEMORY[0x277CBEA90] dataWithBytes:objc_msgSend(v4 length:{"bytes"), objc_msgSend(v4, "length")}];
         mpsGraphTensors = [v6 mpsGraphTensors];
         forwardKernel2 = [mpsGraphTensors objectAtIndexedSubscript:0];
 
         shape = [forwardKernel2 shape];
         convolutionTranspose = [v6 convolutionTranspose];
-        v60 = v38;
+        v59 = v38;
         bytes2 = [v38 bytes];
         bytes3 = [v4 bytes];
-        v58 = [shape objectAtIndexedSubscript:1];
-        unsignedIntegerValue = [v58 unsignedIntegerValue];
-        v57 = [shape objectAtIndexedSubscript:0];
-        unsignedIntegerValue2 = [v57 unsignedIntegerValue];
+        v57 = [shape objectAtIndexedSubscript:1];
+        unsignedIntegerValue = [v57 unsignedIntegerValue];
+        v56 = [shape objectAtIndexedSubscript:0];
+        unsignedIntegerValue2 = [v56 unsignedIntegerValue];
         if (convolutionTranspose)
         {
           v41 = [shape objectAtIndexedSubscript:3];
           unsignedIntegerValue3 = [v41 unsignedIntegerValue];
           v42 = [shape objectAtIndexedSubscript:2];
           unsignedIntegerValue4 = [v42 unsignedIntegerValue];
-          LODWORD(v50) = GPU_GetDataTypeFromMPSDataType([forwardKernel2 dataType]);
-          v44 = [MLCDataHelper convertSourceHWOI:bytes2 toResultOIHW:bytes3 width:unsignedIntegerValue height:unsignedIntegerValue2 inputFeatureChannelCount:unsignedIntegerValue3 outputFeatureChannelCount:unsignedIntegerValue4 dataType:v50];
+          LODWORD(v49) = GPU_GetDataTypeFromMPSDataType([forwardKernel2 dataType]);
+          v44 = [MLCDataHelper convertSourceHWOI:bytes2 toResultOIHW:bytes3 width:unsignedIntegerValue height:unsignedIntegerValue2 inputFeatureChannelCount:unsignedIntegerValue3 outputFeatureChannelCount:unsignedIntegerValue4 dataType:v49];
         }
 
         else
@@ -1295,22 +1866,22 @@ LABEL_11:
           unsignedIntegerValue5 = [v41 unsignedIntegerValue];
           v42 = [shape objectAtIndexedSubscript:3];
           unsignedIntegerValue6 = [v42 unsignedIntegerValue];
-          LODWORD(v50) = GPU_GetDataTypeFromMPSDataType([forwardKernel2 dataType]);
-          v44 = [MLCDataHelper convertSourceHWIO:bytes2 toResultOIHW:bytes3 width:unsignedIntegerValue height:unsignedIntegerValue2 inputFeatureChannelCount:unsignedIntegerValue5 outputFeatureChannelCount:unsignedIntegerValue6 dataType:v50];
+          LODWORD(v49) = GPU_GetDataTypeFromMPSDataType([forwardKernel2 dataType]);
+          v44 = [MLCDataHelper convertSourceHWIO:bytes2 toResultOIHW:bytes3 width:unsignedIntegerValue height:unsignedIntegerValue2 inputFeatureChannelCount:unsignedIntegerValue5 outputFeatureChannelCount:unsignedIntegerValue6 dataType:v49];
         }
 
         v46 = v44;
 
         if (v46)
         {
-          v37 = v62;
+          v37 = v61;
           self = selfCopy;
         }
 
         else
         {
           v47 = +[MLCLog framework];
-          v37 = v62;
+          v37 = v61;
           if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
           {
             [(MLCDeviceGPU(MLCLayerOperations) *)buf weightsGradients:v47];
@@ -1319,7 +1890,7 @@ LABEL_11:
           self = selfCopy;
         }
 
-        v36 = v60;
+        v36 = v59;
       }
 
       objc_autoreleasePoolPop(v37);
@@ -1331,8 +1902,6 @@ LABEL_29:
     while (v5 < [(MLCDeviceGPU *)self numDevicesToUse]);
   }
 
-  v48 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
@@ -1343,48 +1912,44 @@ LABEL_29:
   if ([(MLCDeviceGPU *)self numDevicesToUse])
   {
     v6 = 0;
-    v7 = 0x277CD7000uLL;
-    v35 = gradientsCopy;
+    v33 = gradientsCopy;
     do
     {
-      v8 = [gradientsCopy objectAtIndexedSubscript:{v6, v35}];
-      gradientState = [v8 gradientState];
-      v10 = [gradientState objectAtIndexedSubscript:0];
-      v11 = *(v7 + 1584);
+      v7 = [gradientsCopy objectAtIndexedSubscript:{v6, v33}];
+      gradientState = [v7 gradientState];
+      v9 = [gradientState objectAtIndexedSubscript:0];
       objc_opt_class();
       isKindOfClass = objc_opt_isKindOfClass();
 
-      gradientState2 = [v8 gradientState];
-      v14 = [gradientState2 objectAtIndexedSubscript:0];
-      v36 = v8;
+      gradientState2 = [v7 gradientState];
+      v12 = [gradientState2 objectAtIndexedSubscript:0];
+      v34 = v7;
       if (isKindOfClass)
       {
 
-        gradientForBiases = [v14 gradientForBiases];
-        forwardKernel = [v8 forwardKernel];
+        gradientForBiases = [v12 gradientForBiases];
+        forwardKernel = [v7 forwardKernel];
         [forwardKernel dataSource];
-        v18 = v17 = self;
-        biasTerm = [v18 biasTerm];
+        v16 = v15 = self;
+        biasTerm = [v16 biasTerm];
         descriptor = [biasTerm descriptor];
         tensorAllocationSizeInBytes = [descriptor tensorAllocationSizeInBytes];
 
-        self = v17;
-        v7 = 0x277CD7000;
-
-        gradientsCopy = v35;
+        self = v15;
+        gradientsCopy = v33;
       }
 
       else
       {
         objc_opt_class();
-        v22 = objc_opt_isKindOfClass();
+        v20 = objc_opt_isKindOfClass();
 
-        gradientState3 = [v8 gradientState];
-        v24 = [gradientState3 objectAtIndexedSubscript:1];
-        gradientForBiases = v24;
-        if (v22)
+        gradientState3 = [v7 gradientState];
+        v22 = [gradientState3 objectAtIndexedSubscript:1];
+        gradientForBiases = v22;
+        if (v20)
         {
-          data = [v24 data];
+          data = [v22 data];
 
           tensorAllocationSizeInBytes = [data length];
           gradientForBiases = data;
@@ -1398,36 +1963,36 @@ LABEL_29:
       }
 
       gpuCommandQueueList = [(MLCDeviceGPU *)self gpuCommandQueueList];
-      v27 = [gpuCommandQueueList objectAtIndexedSubscript:v6];
-      commandBuffer = [v27 commandBuffer];
+      v25 = [gpuCommandQueueList objectAtIndexedSubscript:v6];
+      commandBuffer = [v25 commandBuffer];
 
       [MLCGPUHelper synchronizeResource:gradientForBiases commandBuffer:commandBuffer];
       [commandBuffer commit];
       [commandBuffer waitUntilCompleted];
       if (v6)
       {
-        v29 = v36;
+        v27 = v34;
         if ([v5 length] >= 4)
         {
-          v30 = 0;
+          v28 = 0;
           do
           {
-            v31 = *([gradientForBiases contents] + 4 * v30);
+            v29 = *([gradientForBiases contents] + 4 * v28);
             bytes = [v5 bytes];
-            *(bytes + 4 * v30) = v31 + *(bytes + 4 * v30);
-            ++v30;
+            *(bytes + 4 * v28) = v29 + *(bytes + 4 * v28);
+            ++v28;
           }
 
-          while (v30 < [v5 length] >> 2);
+          while (v28 < [v5 length] >> 2);
         }
       }
 
       else
       {
-        v33 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:objc_msgSend(gradientForBiases length:"contents") freeWhenDone:{tensorAllocationSizeInBytes, 0}];
+        v31 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:objc_msgSend(gradientForBiases length:"contents") freeWhenDone:{tensorAllocationSizeInBytes, 0}];
 
-        v5 = v33;
-        v29 = v36;
+        v5 = v31;
+        v27 = v34;
       }
 
       ++v6;
@@ -2107,21 +2672,19 @@ LABEL_10:
 
 + (id)filteredGPUListIncludingLowPoweredBuiltin:(BOOL)builtin
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v3 = MTLCreateSystemDefaultDevice();
   v4 = v3;
   if (v3 && [v3 supportsFamily:1006])
   {
-    v8[0] = v4;
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+    v7[0] = v4;
+    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
   }
 
   else
   {
     v5 = MEMORY[0x277CBEBF8];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -2165,7 +2728,7 @@ LABEL_10:
 
 - (MLCDeviceGPU)initWithDeviceList:(id)list
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   listCopy = list;
   if ([listCopy count])
   {
@@ -2208,8 +2771,8 @@ LABEL_5:
     v9 = MEMORY[0x277CBEBF8];
     v10 = [MEMORY[0x277CBEBF8] mutableCopy];
     v11 = [v9 mutableCopy];
-    v42 = [v9 mutableCopy];
     v41 = [v9 mutableCopy];
+    v40 = [v9 mutableCopy];
     v12 = [v9 mutableCopy];
     if ([listCopy count])
     {
@@ -2232,11 +2795,11 @@ LABEL_5:
             v25 = NSStringFromSelector(a2);
             v26 = [listCopy objectAtIndexedSubscript:v13];
             *buf = 138412802;
-            v44 = v25;
-            v45 = 2048;
-            v46 = v13;
-            v47 = 2112;
-            v48 = v26;
+            v43 = v25;
+            v44 = 2048;
+            v45 = v13;
+            v46 = 2112;
+            v47 = v26;
             _os_log_error_impl(&dword_238C1D000, v16, OS_LOG_TYPE_ERROR, "%@: No MTLLocalEvent: gpuDeviceList[%lu]=%@", buf, 0x20u);
           }
         }
@@ -2257,11 +2820,11 @@ LABEL_5:
             v27 = NSStringFromSelector(a2);
             v28 = [listCopy objectAtIndexedSubscript:v13];
             *buf = 138412802;
-            v44 = v27;
-            v45 = 2048;
-            v46 = v13;
-            v47 = 2112;
-            v48 = v28;
+            v43 = v27;
+            v44 = 2048;
+            v45 = v13;
+            v46 = 2112;
+            v47 = v28;
             _os_log_error_impl(&dword_238C1D000, v19, OS_LOG_TYPE_ERROR, "%@: No MTLSharedEvent: gpuDeviceList[%lu]=%@", buf, 0x20u);
           }
         }
@@ -2271,13 +2834,13 @@ LABEL_5:
 
         if (newCommandQueue)
         {
-          [v42 setObject:newCommandQueue atIndexedSubscript:v13];
+          [v41 setObject:newCommandQueue atIndexedSubscript:v13];
           v22 = [MEMORY[0x277CD7208] commandBufferFromCommandQueue:newCommandQueue];
           [v12 setObject:v22 atIndexedSubscript:v13];
 
           v23 = [v12 objectAtIndexedSubscript:v13];
           rootCommandBuffer = [v23 rootCommandBuffer];
-          [v41 setObject:rootCommandBuffer atIndexedSubscript:v13];
+          [v40 setObject:rootCommandBuffer atIndexedSubscript:v13];
         }
 
         else
@@ -2285,14 +2848,14 @@ LABEL_5:
           v23 = +[MLCLog framework];
           if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
           {
-            v38 = NSStringFromSelector(a2);
+            v37 = NSStringFromSelector(a2);
             v29 = [listCopy objectAtIndexedSubscript:v13];
             *buf = 138412802;
-            v44 = v38;
-            v45 = 2048;
-            v46 = v13;
-            v47 = 2112;
-            v48 = v29;
+            v43 = v37;
+            v44 = 2048;
+            v45 = v13;
+            v46 = 2112;
+            v47 = v29;
             v30 = v29;
             _os_log_error_impl(&dword_238C1D000, v23, OS_LOG_TYPE_ERROR, "%@: No MTLCommandQueue: gpuDeviceList[%lu]=%@", buf, 0x20u);
           }
@@ -2308,12 +2871,11 @@ LABEL_5:
     v32 = [listCopy copy];
     v33 = [v10 copy];
     v34 = [v11 copy];
-    self = [(MLCDeviceGPU *)selfCopy initWithType:1 gpuDeviceList:v32 gpuLocalEventList:v33 gpuSharedEventList:v34 currentEventValue:v31 gpuCommandQueueList:v42 gpuCommandBufferList:v41 gpuMPSCommandBufferList:v12];
+    self = [(MLCDeviceGPU *)selfCopy initWithType:1 gpuDeviceList:v32 gpuLocalEventList:v33 gpuSharedEventList:v34 currentEventValue:v31 gpuCommandQueueList:v41 gpuCommandBufferList:v40 gpuMPSCommandBufferList:v12];
 
     selfCopy2 = self;
   }
 
-  v36 = *MEMORY[0x277D85DE8];
   return selfCopy2;
 }
 
@@ -2402,7 +2964,7 @@ LABEL_6:
 
 - (BOOL)createPipelineStatesForMissingActivationFunctions
 {
-  v184 = *MEMORY[0x277D85DE8];
+  v183 = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CBEBF8];
   v5 = [MEMORY[0x277CBEBF8] mutableCopy];
   [(MLCDeviceGPU *)self setGpuPipelineStatesForwardConcat2DArray:v5];
@@ -2470,36 +3032,36 @@ LABEL_6:
   v26 = [v4 mutableCopy];
   [(MLCDeviceGPU *)self setGpuPipelineStatesMemCopy:v26];
 
-  memset(&v173, 0, sizeof(v173));
+  memset(&v172, 0, sizeof(v172));
   v27 = 0;
-  if (dladdr("/System/Library/Frameworks/MLCompute.framework/", &v173) && v173.dli_fname)
+  if (dladdr("/System/Library/Frameworks/MLCompute.framework/", &v172) && v172.dli_fname)
   {
-    v28 = strlen(v173.dli_fname);
-    bzero(v183, 0x400uLL);
+    v28 = strlen(v172.dli_fname);
+    bzero(v182, 0x400uLL);
     __strncpy_chk();
-    v29 = &v183[v28 - 1];
+    v29 = &v182[v28 - 1];
     do
     {
-      v30 = v29 > v183;
+      v30 = v29 > v182;
       v32 = *v29--;
       v31 = v32;
     }
 
     while (v30 && v31 != 47);
     v29[1] = 0;
-    memset(&v172, 0, sizeof(v172));
-    if (stat(v183, &v172))
+    memset(&v171, 0, sizeof(v171));
+    if (stat(v182, &v171))
     {
       v33 = "/System/Library/Frameworks/MLCompute.framework/";
     }
 
     else
     {
-      v33 = v183;
+      v33 = v182;
     }
 
     snprintf(__str, 0x400uLL, "%s/%s.metallib", v33, "default");
-    v124 = [MEMORY[0x277CCACA8] stringWithUTF8String:__str];
+    v123 = [MEMORY[0x277CCACA8] stringWithUTF8String:__str];
     deviceList = [(MLCDeviceGPU *)self deviceList];
     v35 = [deviceList count];
 
@@ -2513,11 +3075,11 @@ LABEL_6:
         deviceList2 = [(MLCDeviceGPU *)self deviceList];
         v39 = [deviceList2 objectAtIndexedSubscript:v37];
 
-        v171 = v36;
-        v40 = [v39 newLibraryWithFile:v124 error:&v171];
-        v41 = v171;
+        v170 = v36;
+        v40 = [v39 newLibraryWithFile:v123 error:&v170];
+        v41 = v170;
 
-        v123 = v40 != 0;
+        v122 = v40 != 0;
         if (!v40)
         {
           break;
@@ -2527,192 +3089,192 @@ LABEL_6:
         [gpuLibrary setObject:v40 atIndexedSubscript:v37];
 
         buf[0] = 1;
-        v170 = 0;
+        v169 = 0;
         v43 = objc_opt_new();
         [v43 setConstantValue:buf type:53 atIndex:0];
-        [v43 setConstantValue:&v170 type:53 atIndex:1];
+        [v43 setConstantValue:&v169 type:53 atIndex:1];
         [(MLCDeviceGPU *)self gpuLibrary];
-        v44 = v154 = v40;
+        v44 = v153 = v40;
         v45 = [v44 objectAtIndexedSubscript:v37];
-        v169 = v41;
-        v153 = [v45 newFunctionWithName:@"concat_channels_forward" constantValues:v43 error:&v169];
-        v46 = v169;
-
-        v167 = [v39 newComputePipelineStateWithFunction:v153 error:0];
-        buf[0] = 0;
-        v170 = 1;
-        [v43 setConstantValue:buf type:53 atIndex:0];
-        [v43 setConstantValue:&v170 type:53 atIndex:1];
-        gpuLibrary2 = [(MLCDeviceGPU *)self gpuLibrary];
-        v48 = [gpuLibrary2 objectAtIndexedSubscript:v37];
-        v152 = [v48 newFunctionWithName:@"concat_channels_forward" constantValues:v43 error:0];
+        v168 = v41;
+        v152 = [v45 newFunctionWithName:@"concat_channels_forward" constantValues:v43 error:&v168];
+        v46 = v168;
 
         v166 = [v39 newComputePipelineStateWithFunction:v152 error:0];
-        buf[0] = 1;
-        v170 = 0;
+        buf[0] = 0;
+        v169 = 1;
         [v43 setConstantValue:buf type:53 atIndex:0];
-        [v43 setConstantValue:&v170 type:53 atIndex:1];
+        [v43 setConstantValue:&v169 type:53 atIndex:1];
+        gpuLibrary2 = [(MLCDeviceGPU *)self gpuLibrary];
+        v48 = [gpuLibrary2 objectAtIndexedSubscript:v37];
+        v151 = [v48 newFunctionWithName:@"concat_channels_forward" constantValues:v43 error:0];
+
+        v165 = [v39 newComputePipelineStateWithFunction:v151 error:0];
+        buf[0] = 1;
+        v169 = 0;
+        [v43 setConstantValue:buf type:53 atIndex:0];
+        [v43 setConstantValue:&v169 type:53 atIndex:1];
         gpuLibrary3 = [(MLCDeviceGPU *)self gpuLibrary];
         v50 = [gpuLibrary3 objectAtIndexedSubscript:v37];
-        v168 = v46;
-        v150 = [v50 newFunctionWithName:@"pad_channels_mps_image" constantValues:v43 error:&v168];
-        v151 = v168;
+        v167 = v46;
+        v149 = [v50 newFunctionWithName:@"pad_channels_mps_image" constantValues:v43 error:&v167];
+        v150 = v167;
 
-        v165 = [v39 newComputePipelineStateWithFunction:v150 error:0];
+        v164 = [v39 newComputePipelineStateWithFunction:v149 error:0];
         buf[0] = 0;
-        v170 = 1;
+        v169 = 1;
         [v43 setConstantValue:buf type:53 atIndex:0];
-        v146 = v43;
-        [v43 setConstantValue:&v170 type:53 atIndex:1];
+        v145 = v43;
+        [v43 setConstantValue:&v169 type:53 atIndex:1];
         gpuLibrary4 = [(MLCDeviceGPU *)self gpuLibrary];
         v52 = [gpuLibrary4 objectAtIndexedSubscript:v37];
-        v149 = [v52 newFunctionWithName:@"pad_channels_mps_image" constantValues:v43 error:0];
+        v148 = [v52 newFunctionWithName:@"pad_channels_mps_image" constantValues:v43 error:0];
 
-        v131 = [v39 newComputePipelineStateWithFunction:v149 error:0];
+        v130 = [v39 newComputePipelineStateWithFunction:v148 error:0];
         gpuLibrary5 = [(MLCDeviceGPU *)self gpuLibrary];
         v54 = [gpuLibrary5 objectAtIndexedSubscript:v37];
-        v148 = [v54 newFunctionWithName:@"reduce_across_batch"];
-
-        v164 = [v39 newComputePipelineStateWithFunction:v148 error:0];
-        gpuLibrary6 = [(MLCDeviceGPU *)self gpuLibrary];
-        v56 = [gpuLibrary6 objectAtIndexedSubscript:v37];
-        v147 = [v56 newFunctionWithName:@"reduce_across_channel"];
+        v147 = [v54 newFunctionWithName:@"reduce_across_batch"];
 
         v163 = [v39 newComputePipelineStateWithFunction:v147 error:0];
+        gpuLibrary6 = [(MLCDeviceGPU *)self gpuLibrary];
+        v56 = [gpuLibrary6 objectAtIndexedSubscript:v37];
+        v146 = [v56 newFunctionWithName:@"reduce_across_channel"];
+
+        v162 = [v39 newComputePipelineStateWithFunction:v146 error:0];
         gpuLibrary7 = [(MLCDeviceGPU *)self gpuLibrary];
         v58 = [gpuLibrary7 objectAtIndexedSubscript:v37];
-        v145 = [v58 newFunctionWithName:@"arithmetic_unary_forward_float"];
-
-        v162 = [v39 newComputePipelineStateWithFunction:v145 error:0];
-        gpuLibrary8 = [(MLCDeviceGPU *)self gpuLibrary];
-        v60 = [gpuLibrary8 objectAtIndexedSubscript:v37];
-        v144 = [v60 newFunctionWithName:@"arithmetic_unary_gradient_float"];
+        v144 = [v58 newFunctionWithName:@"arithmetic_unary_forward_float"];
 
         v161 = [v39 newComputePipelineStateWithFunction:v144 error:0];
-        gpuLibrary9 = [(MLCDeviceGPU *)self gpuLibrary];
-        v62 = [gpuLibrary9 objectAtIndexedSubscript:v37];
-        v143 = [v62 newFunctionWithName:@"arithmetic_binary_forward_float"];
+        gpuLibrary8 = [(MLCDeviceGPU *)self gpuLibrary];
+        v60 = [gpuLibrary8 objectAtIndexedSubscript:v37];
+        v143 = [v60 newFunctionWithName:@"arithmetic_unary_gradient_float"];
 
         v160 = [v39 newComputePipelineStateWithFunction:v143 error:0];
-        gpuLibrary10 = [(MLCDeviceGPU *)self gpuLibrary];
-        v64 = [gpuLibrary10 objectAtIndexedSubscript:v37];
-        v142 = [v64 newFunctionWithName:@"arithmetic_binary_gradient_float"];
+        gpuLibrary9 = [(MLCDeviceGPU *)self gpuLibrary];
+        v62 = [gpuLibrary9 objectAtIndexedSubscript:v37];
+        v142 = [v62 newFunctionWithName:@"arithmetic_binary_forward_float"];
 
         v159 = [v39 newComputePipelineStateWithFunction:v142 error:0];
+        gpuLibrary10 = [(MLCDeviceGPU *)self gpuLibrary];
+        v64 = [gpuLibrary10 objectAtIndexedSubscript:v37];
+        v141 = [v64 newFunctionWithName:@"arithmetic_binary_gradient_float"];
+
+        v158 = [v39 newComputePipelineStateWithFunction:v141 error:0];
         gpuLibrary11 = [(MLCDeviceGPU *)self gpuLibrary];
         v66 = [gpuLibrary11 objectAtIndexedSubscript:v37];
         v67 = [v66 newFunctionWithName:@"arithmetic_reduce_gradient_any"];
 
-        v158 = [v39 newComputePipelineStateWithFunction:v67 error:0];
+        v157 = [v39 newComputePipelineStateWithFunction:v67 error:0];
         gpuLibrary12 = [(MLCDeviceGPU *)self gpuLibrary];
         v69 = [gpuLibrary12 objectAtIndexedSubscript:v37];
-        v141 = [v69 newFunctionWithName:@"arithmetic_reduce_gradient_all"];
-
-        v157 = [v39 newComputePipelineStateWithFunction:v141 error:0];
-        gpuLibrary13 = [(MLCDeviceGPU *)self gpuLibrary];
-        v71 = [gpuLibrary13 objectAtIndexedSubscript:v37];
-        v140 = [v71 newFunctionWithName:@"embedding_renormalize_weights"];
+        v140 = [v69 newFunctionWithName:@"arithmetic_reduce_gradient_all"];
 
         v156 = [v39 newComputePipelineStateWithFunction:v140 error:0];
-        gpuLibrary14 = [(MLCDeviceGPU *)self gpuLibrary];
-        v73 = [gpuLibrary14 objectAtIndexedSubscript:v37];
-        v139 = [v73 newFunctionWithName:@"embedding_forward_training"];
+        gpuLibrary13 = [(MLCDeviceGPU *)self gpuLibrary];
+        v71 = [gpuLibrary13 objectAtIndexedSubscript:v37];
+        v139 = [v71 newFunctionWithName:@"embedding_renormalize_weights"];
 
         v155 = [v39 newComputePipelineStateWithFunction:v139 error:0];
+        gpuLibrary14 = [(MLCDeviceGPU *)self gpuLibrary];
+        v73 = [gpuLibrary14 objectAtIndexedSubscript:v37];
+        v138 = [v73 newFunctionWithName:@"embedding_forward_training"];
+
+        v154 = [v39 newComputePipelineStateWithFunction:v138 error:0];
         gpuLibrary15 = [(MLCDeviceGPU *)self gpuLibrary];
         v75 = [gpuLibrary15 objectAtIndexedSubscript:v37];
-        v138 = [v75 newFunctionWithName:@"embedding_gradient_training"];
+        v137 = [v75 newFunctionWithName:@"embedding_gradient_training"];
 
-        v134 = [v39 newComputePipelineStateWithFunction:v138 error:0];
+        v133 = [v39 newComputePipelineStateWithFunction:v137 error:0];
         gpuLibrary16 = [(MLCDeviceGPU *)self gpuLibrary];
         v77 = [gpuLibrary16 objectAtIndexedSubscript:v37];
-        v137 = [v77 newFunctionWithName:@"compare_relationalop_forward"];
+        v136 = [v77 newFunctionWithName:@"compare_relationalop_forward"];
 
-        v132 = [v39 newComputePipelineStateWithFunction:v137 error:0];
+        v131 = [v39 newComputePipelineStateWithFunction:v136 error:0];
         gpuLibrary17 = [(MLCDeviceGPU *)self gpuLibrary];
         v79 = [gpuLibrary17 objectAtIndexedSubscript:v37];
-        v136 = [v79 newFunctionWithName:@"compare_logicalop_forward"];
+        v135 = [v79 newFunctionWithName:@"compare_logicalop_forward"];
 
-        v129 = [v39 newComputePipelineStateWithFunction:v136 error:0];
+        v128 = [v39 newComputePipelineStateWithFunction:v135 error:0];
         gpuLibrary18 = [(MLCDeviceGPU *)self gpuLibrary];
         v81 = [gpuLibrary18 objectAtIndexedSubscript:v37];
-        v135 = [v81 newFunctionWithName:@"concat_float"];
+        v134 = [v81 newFunctionWithName:@"concat_float"];
 
-        v127 = [v39 newComputePipelineStateWithFunction:v135 error:0];
+        v126 = [v39 newComputePipelineStateWithFunction:v134 error:0];
         gpuLibrary19 = [(MLCDeviceGPU *)self gpuLibrary];
         v83 = [gpuLibrary19 objectAtIndexedSubscript:v37];
-        v133 = [v83 newFunctionWithName:@"concat_BOOL"];
+        v132 = [v83 newFunctionWithName:@"concat_BOOL"];
 
-        v125 = [v39 newComputePipelineStateWithFunction:v133 error:0];
+        v124 = [v39 newComputePipelineStateWithFunction:v132 error:0];
         gpuLibrary20 = [(MLCDeviceGPU *)self gpuLibrary];
         v85 = [gpuLibrary20 objectAtIndexedSubscript:v37];
-        v130 = [v85 newFunctionWithName:@"mem_fill_float"];
+        v129 = [v85 newFunctionWithName:@"mem_fill_float"];
 
-        v126 = [v39 newComputePipelineStateWithFunction:v130 error:0];
+        v125 = [v39 newComputePipelineStateWithFunction:v129 error:0];
         gpuLibrary21 = [(MLCDeviceGPU *)self gpuLibrary];
         v87 = [gpuLibrary21 objectAtIndexedSubscript:v37];
-        v128 = [v87 newFunctionWithName:@"memcpy"];
+        v127 = [v87 newFunctionWithName:@"memcpy"];
 
-        v88 = [v39 newComputePipelineStateWithFunction:v128 error:0];
+        v88 = [v39 newComputePipelineStateWithFunction:v127 error:0];
         gpuPipelineStatesForwardConcat2DArray = [(MLCDeviceGPU *)self gpuPipelineStatesForwardConcat2DArray];
-        [gpuPipelineStatesForwardConcat2DArray setObject:v167 atIndexedSubscript:v37];
+        [gpuPipelineStatesForwardConcat2DArray setObject:v166 atIndexedSubscript:v37];
 
         gpuPipelineStatesForwardConcat2D = [(MLCDeviceGPU *)self gpuPipelineStatesForwardConcat2D];
-        [gpuPipelineStatesForwardConcat2D setObject:v166 atIndexedSubscript:v37];
+        [gpuPipelineStatesForwardConcat2D setObject:v165 atIndexedSubscript:v37];
 
         gpuPipelineStatesConcatFloat = [(MLCDeviceGPU *)self gpuPipelineStatesConcatFloat];
-        [gpuPipelineStatesConcatFloat setObject:v127 atIndexedSubscript:v37];
+        [gpuPipelineStatesConcatFloat setObject:v126 atIndexedSubscript:v37];
 
         gpuPipelineStatesConcatBool = [(MLCDeviceGPU *)self gpuPipelineStatesConcatBool];
-        [gpuPipelineStatesConcatBool setObject:v125 atIndexedSubscript:v37];
+        [gpuPipelineStatesConcatBool setObject:v124 atIndexedSubscript:v37];
 
         gpuPipelineStatesPad2DArray = [(MLCDeviceGPU *)self gpuPipelineStatesPad2DArray];
-        [gpuPipelineStatesPad2DArray setObject:v165 atIndexedSubscript:v37];
+        [gpuPipelineStatesPad2DArray setObject:v164 atIndexedSubscript:v37];
 
         gpuPipelineStatesPad2D = [(MLCDeviceGPU *)self gpuPipelineStatesPad2D];
-        [gpuPipelineStatesPad2D setObject:v131 atIndexedSubscript:v37];
+        [gpuPipelineStatesPad2D setObject:v130 atIndexedSubscript:v37];
 
         gpuPipelineStatesReduceAcrossBatch = [(MLCDeviceGPU *)self gpuPipelineStatesReduceAcrossBatch];
-        [gpuPipelineStatesReduceAcrossBatch setObject:v164 atIndexedSubscript:v37];
+        [gpuPipelineStatesReduceAcrossBatch setObject:v163 atIndexedSubscript:v37];
 
         gpuPipelineStatesReduceAcrossChannel = [(MLCDeviceGPU *)self gpuPipelineStatesReduceAcrossChannel];
-        [gpuPipelineStatesReduceAcrossChannel setObject:v163 atIndexedSubscript:v37];
+        [gpuPipelineStatesReduceAcrossChannel setObject:v162 atIndexedSubscript:v37];
 
         gpuPipelineStatesArithmeticUnaryForward = [(MLCDeviceGPU *)self gpuPipelineStatesArithmeticUnaryForward];
-        [gpuPipelineStatesArithmeticUnaryForward setObject:v162 atIndexedSubscript:v37];
+        [gpuPipelineStatesArithmeticUnaryForward setObject:v161 atIndexedSubscript:v37];
 
         gpuPipelineStatesArithmeticUnaryGradient = [(MLCDeviceGPU *)self gpuPipelineStatesArithmeticUnaryGradient];
-        [gpuPipelineStatesArithmeticUnaryGradient setObject:v161 atIndexedSubscript:v37];
+        [gpuPipelineStatesArithmeticUnaryGradient setObject:v160 atIndexedSubscript:v37];
 
         gpuPipelineStatesArithmeticBinaryForward = [(MLCDeviceGPU *)self gpuPipelineStatesArithmeticBinaryForward];
-        [gpuPipelineStatesArithmeticBinaryForward setObject:v160 atIndexedSubscript:v37];
+        [gpuPipelineStatesArithmeticBinaryForward setObject:v159 atIndexedSubscript:v37];
 
         gpuPipelineStatesArithmeticBinaryGradient = [(MLCDeviceGPU *)self gpuPipelineStatesArithmeticBinaryGradient];
-        [gpuPipelineStatesArithmeticBinaryGradient setObject:v159 atIndexedSubscript:v37];
+        [gpuPipelineStatesArithmeticBinaryGradient setObject:v158 atIndexedSubscript:v37];
 
         gpuPipelineStatesArithmeticReduceGradientAny = [(MLCDeviceGPU *)self gpuPipelineStatesArithmeticReduceGradientAny];
-        [gpuPipelineStatesArithmeticReduceGradientAny setObject:v158 atIndexedSubscript:v37];
+        [gpuPipelineStatesArithmeticReduceGradientAny setObject:v157 atIndexedSubscript:v37];
 
         gpuPipelineStatesArithmeticReduceGradientAll = [(MLCDeviceGPU *)self gpuPipelineStatesArithmeticReduceGradientAll];
-        [gpuPipelineStatesArithmeticReduceGradientAll setObject:v157 atIndexedSubscript:v37];
+        [gpuPipelineStatesArithmeticReduceGradientAll setObject:v156 atIndexedSubscript:v37];
 
         gpuPipelineStatesEmbeddingRenormalizeWeights = [(MLCDeviceGPU *)self gpuPipelineStatesEmbeddingRenormalizeWeights];
-        [gpuPipelineStatesEmbeddingRenormalizeWeights setObject:v156 atIndexedSubscript:v37];
+        [gpuPipelineStatesEmbeddingRenormalizeWeights setObject:v155 atIndexedSubscript:v37];
 
         gpuPipelineStatesEmbeddingForward = [(MLCDeviceGPU *)self gpuPipelineStatesEmbeddingForward];
-        [gpuPipelineStatesEmbeddingForward setObject:v155 atIndexedSubscript:v37];
+        [gpuPipelineStatesEmbeddingForward setObject:v154 atIndexedSubscript:v37];
 
         gpuPipelineStatesEmbeddingGradient = [(MLCDeviceGPU *)self gpuPipelineStatesEmbeddingGradient];
-        [gpuPipelineStatesEmbeddingGradient setObject:v134 atIndexedSubscript:v37];
+        [gpuPipelineStatesEmbeddingGradient setObject:v133 atIndexedSubscript:v37];
 
         gpuPipelineStatesCompareRelationalOpForward = [(MLCDeviceGPU *)self gpuPipelineStatesCompareRelationalOpForward];
-        [gpuPipelineStatesCompareRelationalOpForward setObject:v132 atIndexedSubscript:v37];
+        [gpuPipelineStatesCompareRelationalOpForward setObject:v131 atIndexedSubscript:v37];
 
         gpuPipelineStatesCompareLogicalOpForward = [(MLCDeviceGPU *)self gpuPipelineStatesCompareLogicalOpForward];
-        [gpuPipelineStatesCompareLogicalOpForward setObject:v129 atIndexedSubscript:v37];
+        [gpuPipelineStatesCompareLogicalOpForward setObject:v128 atIndexedSubscript:v37];
 
         gpuPipelineStatesMemFillFloat = [(MLCDeviceGPU *)self gpuPipelineStatesMemFillFloat];
-        [gpuPipelineStatesMemFillFloat setObject:v126 atIndexedSubscript:v37];
+        [gpuPipelineStatesMemFillFloat setObject:v125 atIndexedSubscript:v37];
 
         gpuPipelineStatesMemCopy = [(MLCDeviceGPU *)self gpuPipelineStatesMemCopy];
         v110 = v88;
@@ -2727,7 +3289,7 @@ LABEL_6:
         v114 = [deviceList3 count];
 
         v115 = v37 >= v114;
-        v36 = v151;
+        v36 = v150;
         if (v115)
         {
           goto LABEL_20;
@@ -2737,24 +3299,24 @@ LABEL_6:
       v116 = +[MLCLog framework];
       if (os_log_type_enabled(v116, OS_LOG_TYPE_ERROR))
       {
-        v119 = NSStringFromSelector(aSelector);
+        v118 = NSStringFromSelector(aSelector);
         deviceList4 = [(MLCDeviceGPU *)self deviceList];
-        v121 = [deviceList4 objectAtIndexedSubscript:v37];
+        v120 = [deviceList4 objectAtIndexedSubscript:v37];
         *buf = 138413058;
-        v175 = v119;
-        v176 = 2080;
-        v177 = __str;
-        v178 = 2048;
-        v179 = v37;
-        v180 = 2112;
-        v181 = v121;
+        v174 = v118;
+        v175 = 2080;
+        v176 = __str;
+        v177 = 2048;
+        v178 = v37;
+        v179 = 2112;
+        v180 = v120;
         _os_log_error_impl(&dword_238C1D000, v116, OS_LOG_TYPE_ERROR, "%@: MTLLibrary(%s) not found: gpuDeviceList[%lu]=%@", buf, 0x2Au);
       }
 
       v36 = v41;
 LABEL_20:
 
-      v27 = v123;
+      v27 = v122;
     }
 
     else
@@ -2763,7 +3325,6 @@ LABEL_20:
     }
   }
 
-  v117 = *MEMORY[0x277D85DE8];
   return v27;
 }
 
@@ -2846,17 +3407,16 @@ LABEL_20:
   deviceMemory = [hostCopy deviceMemory];
   v6 = [deviceMemory count];
 
-  v25 = v6;
+  v23 = v6;
   if (v6 && [(MLCDeviceGPU *)self numDevicesToUse])
   {
     v7 = 0;
-    v8 = 0x278A68000uLL;
     while (1)
     {
-      v9 = objc_autoreleasePoolPush();
+      v8 = objc_autoreleasePoolPush();
       gpuCommandQueueList = [(MLCDeviceGPU *)self gpuCommandQueueList];
-      v11 = [gpuCommandQueueList objectAtIndexedSubscript:v7];
-      commandBuffer = [v11 commandBuffer];
+      v10 = [gpuCommandQueueList objectAtIndexedSubscript:v7];
+      commandBuffer = [v10 commandBuffer];
 
       if ([hostCopy isLayerParameter])
       {
@@ -2867,7 +3427,7 @@ LABEL_17:
       [commandBuffer commit];
       [commandBuffer waitUntilCompleted];
 
-      objc_autoreleasePoolPop(v9);
+      objc_autoreleasePoolPop(v8);
       if (++v7 >= [(MLCDeviceGPU *)self numDevicesToUse])
       {
         goto LABEL_18;
@@ -2875,9 +3435,8 @@ LABEL_17:
     }
 
     childLayers = [hostCopy childLayers];
-    v14 = [childLayers objectAtIndexedSubscript:0];
+    v13 = [childLayers objectAtIndexedSubscript:0];
 
-    v15 = *(v8 + 2808);
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
@@ -2886,29 +3445,29 @@ LABEL_16:
       goto LABEL_17;
     }
 
-    deviceOps = [v14 deviceOps];
-    v17 = [deviceOps objectAtIndexedSubscript:v7];
+    deviceOps = [v13 deviceOps];
+    v15 = [deviceOps objectAtIndexedSubscript:v7];
 
-    if ([v17 isMPSGraph])
+    if ([v15 isMPSGraph])
     {
 LABEL_15:
 
       goto LABEL_16;
     }
 
-    forwardKernel = [v17 forwardKernel];
-    v19 = [forwardKernel exportWeightsAndBiasesWithCommandBuffer:commandBuffer resultStateCanBeTemporary:0];
-    weights = [v14 weights];
+    forwardKernel = [v15 forwardKernel];
+    v17 = [forwardKernel exportWeightsAndBiasesWithCommandBuffer:commandBuffer resultStateCanBeTemporary:0];
+    weights = [v13 weights];
 
     if (weights == hostCopy)
     {
       biases2 = MLCGPUHelper;
-      weights2 = [v19 weights];
+      weights2 = [v17 weights];
     }
 
     else
     {
-      biases = [v14 biases];
+      biases = [v13 biases];
       if (biases != hostCopy)
       {
 LABEL_13:
@@ -2916,19 +3475,18 @@ LABEL_13:
         goto LABEL_14;
       }
 
-      biases2 = [v19 biases];
+      biases2 = [v17 biases];
 
       if (!biases2)
       {
 LABEL_14:
-        [v17 setExportableState:{v19, biases2}];
+        [v15 setExportableState:{v17, biases2}];
 
-        v8 = 0x278A68000;
         goto LABEL_15;
       }
 
       biases2 = MLCGPUHelper;
-      weights2 = [v19 biases];
+      weights2 = [v17 biases];
     }
 
     biases = weights2;
@@ -2938,7 +3496,7 @@ LABEL_14:
 
 LABEL_18:
 
-  return v25 != 0;
+  return v23 != 0;
 }
 
 - (void)allocateCommandBufferForDeviceAtIndex:(unint64_t)index
@@ -2981,6 +3539,52 @@ LABEL_18:
   *(bytes + 8 * index) = gpuTimeCopy;
 
   os_unfair_lock_unlock(&self->_l);
+}
+
+- (void)commitWithProfiling:(BOOL)profiling graphExecutionTime:(id)time
+{
+  profilingCopy = profiling;
+  timeCopy = time;
+  if ([(MLCDeviceGPU *)self numDevicesToUse])
+  {
+    v8 = 0;
+    do
+    {
+      gpuCommandBufferList = [(MLCDeviceGPU *)self gpuCommandBufferList];
+      v10 = [gpuCommandBufferList objectAtIndexedSubscript:v8];
+
+      v20[0] = MEMORY[0x277D85DD0];
+      v20[1] = 3221225472;
+      v20[2] = __55__MLCDeviceGPU_commitWithProfiling_graphExecutionTime___block_invoke;
+      v20[3] = &unk_278A692C0;
+      v23 = a2;
+      v24 = v8;
+      v25 = profilingCopy;
+      v20[4] = self;
+      v21 = v10;
+      v22 = timeCopy;
+      v11 = v10;
+      [v11 addCompletedHandler:v20];
+      gpuMPSCommandBufferList = [(MLCDeviceGPU *)self gpuMPSCommandBufferList];
+      [gpuMPSCommandBufferList objectAtIndexedSubscript:v8];
+      v13 = a2;
+      v15 = v14 = profilingCopy;
+      [v15 commitAndContinue];
+
+      gpuMPSCommandBufferList2 = [(MLCDeviceGPU *)self gpuMPSCommandBufferList];
+      v17 = [gpuMPSCommandBufferList2 objectAtIndexedSubscript:v8];
+      rootCommandBuffer = [v17 rootCommandBuffer];
+      gpuCommandBufferList2 = [(MLCDeviceGPU *)self gpuCommandBufferList];
+      [gpuCommandBufferList2 setObject:rootCommandBuffer atIndexedSubscript:v8];
+
+      profilingCopy = v14;
+      a2 = v13;
+
+      ++v8;
+    }
+
+    while (v8 < [(MLCDeviceGPU *)self numDevicesToUse]);
+  }
 }
 
 void __55__MLCDeviceGPU_commitWithProfiling_graphExecutionTime___block_invoke(uint64_t a1, void *a2)
@@ -3112,7 +3716,7 @@ LABEL_14:
 - (void)commitAndWaitForCompletion:(id)completion enableProfiling:(BOOL)profiling graphExecutionTime:(id)time graphResultTensor:(id)tensor
 {
   profilingCopy = profiling;
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   timeCopy = time;
   tensorCopy = tensor;
@@ -3154,20 +3758,20 @@ LABEL_14:
         if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
         {
           NSStringFromSelector(a2);
-          v31 = v41 = completionCopy;
+          v31 = v40 = completionCopy;
           gpuCommandQueueList = [(MLCDeviceGPU *)self gpuCommandQueueList];
           [gpuCommandQueueList objectAtIndexedSubscript:v17];
-          v33 = v40 = tensorCopy;
+          v33 = v39 = tensorCopy;
           *buf = 138412802;
-          v44 = v31;
-          v45 = 2048;
-          v46 = v17;
-          v47 = 2112;
-          v48 = v33;
+          v43 = v31;
+          v44 = 2048;
+          v45 = v17;
+          v46 = 2112;
+          v47 = v33;
           _os_log_error_impl(&dword_238C1D000, v23, OS_LOG_TYPE_ERROR, "%@: Internal Error: CommandBuffer failure: gpuCommandQueueList[%lu]=%@", buf, 0x20u);
 
-          tensorCopy = v40;
-          completionCopy = v41;
+          tensorCopy = v39;
+          completionCopy = v40;
         }
 
         v16 = error;
@@ -3250,8 +3854,6 @@ LABEL_18:
 
     completionCopy[2](completionCopy, tensorCopy, v16, v37);
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 - (void)allocateDeviceHeapForGraph:(id)graph forInference:(BOOL)inference
@@ -3838,24 +4440,13 @@ LABEL_101:
   if (v8)
   {
     device = [tensorCopy device];
-    if (!device)
-    {
-      goto LABEL_5;
-    }
-
-    v10 = device;
-    device2 = [tensorCopy device];
-    computeEngine = [device2 computeEngine];
-    v13 = [(MLCDeviceGPU *)self isEqual:computeEngine];
-
-    if (v13)
+    if (device && (v10 = device, [tensorCopy device], v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v11, "computeEngine"), v12 = objc_claimAutoreleasedReturnValue(), v13 = -[MLCDeviceGPU isEqual:](self, "isEqual:", v12), v12, v11, v10, v13))
     {
       LOBYTE(v14) = 0;
     }
 
     else
     {
-LABEL_5:
       v15 = [tensorCopy calculateBatchSizeToUse:size];
       numDevicesToUse = [(MLCDeviceGPU *)self numDevicesToUse];
       descriptor = [tensorCopy descriptor];
@@ -4195,7 +4786,7 @@ LABEL_14:
 
 - (void)readTensor:(id)tensor targetBuffer:(void *)buffer
 {
-  v103 = *MEMORY[0x277D85DE8];
+  v102 = *MEMORY[0x277D85DE8];
   tensorCopy = tensor;
   v8 = tensorCopy;
   __dst = buffer;
@@ -4278,37 +4869,37 @@ LABEL_64:
         kernelHeight = [descriptor5 kernelHeight];
         descriptor6 = [v11 descriptor];
         contexta = v43;
-        v91 = descriptor4;
-        v92 = contents2;
-        v89 = descriptor6;
-        v90 = descriptor5;
+        v90 = descriptor4;
+        v91 = contents2;
+        v88 = descriptor6;
+        v89 = descriptor5;
         if (isConvolutionTranspose)
         {
           outputFeatureChannelCount = [descriptor6 outputFeatureChannelCount];
           descriptor7 = [v11 descriptor];
-          v87 = outputFeatureChannelCount / [descriptor7 groupCount];
+          v86 = outputFeatureChannelCount / [descriptor7 groupCount];
           descriptor8 = [v11 descriptor];
           inputFeatureChannelCount = [descriptor8 inputFeatureChannelCount];
           weights2 = [v11 weights];
           descriptor9 = [weights2 descriptor];
-          LODWORD(v81) = [descriptor9 dataType];
+          LODWORD(v80) = [descriptor9 dataType];
           v74 = __n;
-          [MLCDataHelper convertSourceHWOI:__n toResultOIHW:__dst width:kernelWidth height:kernelHeight inputFeatureChannelCount:v87 outputFeatureChannelCount:inputFeatureChannelCount dataType:v81];
+          [MLCDataHelper convertSourceHWOI:__n toResultOIHW:__dst width:kernelWidth height:kernelHeight inputFeatureChannelCount:v86 outputFeatureChannelCount:inputFeatureChannelCount dataType:v80];
         }
 
         else
         {
-          v84 = kernelHeight;
-          v86 = kernelWidth;
+          v83 = kernelHeight;
+          v85 = kernelWidth;
           inputFeatureChannelCount2 = [descriptor6 inputFeatureChannelCount];
           descriptor10 = [v11 descriptor];
-          v82 = inputFeatureChannelCount2 / [descriptor10 groupCount];
+          v81 = inputFeatureChannelCount2 / [descriptor10 groupCount];
           descriptor8 = [v11 descriptor];
           descriptor9 = [descriptor8 usesDepthwiseConvolution];
           weights2 = [v11 descriptor];
           outputFeatureChannelCount2 = [weights2 outputFeatureChannelCount];
-          v83 = descriptor9;
-          v88 = descriptor10;
+          v82 = descriptor9;
+          v87 = descriptor10;
           if (descriptor9)
           {
             descriptor9 = [v11 descriptor];
@@ -4317,19 +4908,19 @@ LABEL_64:
 
           weights3 = [v11 weights];
           descriptor11 = [weights3 descriptor];
-          LODWORD(v81) = [descriptor11 dataType];
+          LODWORD(v80) = [descriptor11 dataType];
           v74 = __n;
-          [MLCDataHelper convertSourceHWIO:__n toResultOIHW:__dst width:v86 height:v84 inputFeatureChannelCount:v82 outputFeatureChannelCount:outputFeatureChannelCount2 dataType:v81];
+          [MLCDataHelper convertSourceHWIO:__n toResultOIHW:__dst width:v85 height:v83 inputFeatureChannelCount:v81 outputFeatureChannelCount:outputFeatureChannelCount2 dataType:v80];
 
-          descriptor7 = v88;
-          if (!v83)
+          descriptor7 = v87;
+          if (!v82)
           {
             goto LABEL_60;
           }
         }
 
 LABEL_60:
-        if (v92 == __dst && v74)
+        if (v91 == __dst && v74)
         {
           free(v74);
         }
@@ -4428,10 +5019,10 @@ LABEL_52:
     {
       v42 = NSStringFromSelector(a2);
       *buf = 138412802;
-      v98 = v42;
-      v99 = 2048;
-      v100 = context;
-      v101 = 2048;
+      v97 = v42;
+      v98 = 2048;
+      v99 = context;
+      v100 = 2048;
       numDevicesToUse = [(MLCDeviceGPU *)self numDevicesToUse];
       _os_log_error_impl(&dword_238C1D000, v20, OS_LOG_TYPE_ERROR, "%@: Reading tensor with batchSize %lu from %lu GPUs without reduction", buf, 0x20u);
     }
@@ -4498,8 +5089,6 @@ LABEL_9:
 
   while (v27 != v34);
 LABEL_65:
-
-  v80 = *MEMORY[0x277D85DE8];
 }
 
 - (void)readTensor:(id)tensor fromDeviceIndex:(unint64_t)index targetBuffer:(void *)buffer batchSize:(unint64_t)size reduceOverBatch:(BOOL)batch
@@ -4733,7 +5322,7 @@ LABEL_65:
 
 - (void)broadcastTensor:(id)tensor batchSize:(unint64_t)size
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   tensorCopy = tensor;
   numDevicesToUse = [(MLCDeviceGPU *)self numDevicesToUse];
   numDevicesToUse2 = [(MLCDeviceGPU *)self numDevicesToUse];
@@ -4747,13 +5336,13 @@ LABEL_65:
     {
       v30 = NSStringFromSelector(a2);
       deviceMemory2 = [tensorCopy deviceMemory];
-      v33 = 138412802;
-      v34 = v30;
-      v35 = 2048;
-      v36 = [deviceMemory2 count];
-      v37 = 2048;
+      v32 = 138412802;
+      v33 = v30;
+      v34 = 2048;
+      v35 = [deviceMemory2 count];
+      v36 = 2048;
       numDevicesToUse3 = [(MLCDeviceGPU *)self numDevicesToUse];
-      _os_log_error_impl(&dword_238C1D000, v29, OS_LOG_TYPE_ERROR, "%@: tensor deviceMemory count:%lu not matching numDeviceUsed:%lu", &v33, 0x20u);
+      _os_log_error_impl(&dword_238C1D000, v29, OS_LOG_TYPE_ERROR, "%@: tensor deviceMemory count:%lu not matching numDeviceUsed:%lu", &v32, 0x20u);
     }
 
     goto LABEL_25;
@@ -4852,8 +5441,6 @@ LABEL_25:
   while (numDevicesToUse != v23);
   objc_autoreleasePoolPop(v22);
 LABEL_26:
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dispatchBroadcastTensor:(id)tensor
@@ -4879,7 +5466,7 @@ LABEL_26:
 
 - (void)dispatchBroadcastTensor:(id)tensor batchSize:(unint64_t)size
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   tensorCopy = tensor;
   numDevicesToUse = [(MLCDeviceGPU *)self numDevicesToUse];
   numDevicesToUse2 = [(MLCDeviceGPU *)self numDevicesToUse];
@@ -4893,13 +5480,13 @@ LABEL_26:
     {
       v32 = NSStringFromSelector(a2);
       deviceMemory2 = [tensorCopy deviceMemory];
-      v43 = 138412802;
-      v44 = v32;
-      v45 = 2048;
-      v46 = [deviceMemory2 count];
-      v47 = 2048;
+      v42 = 138412802;
+      v43 = v32;
+      v44 = 2048;
+      v45 = [deviceMemory2 count];
+      v46 = 2048;
       numDevicesToUse3 = [(MLCDeviceGPU *)self numDevicesToUse];
-      _os_log_error_impl(&dword_238C1D000, v31, OS_LOG_TYPE_ERROR, "%@: tensor deviceMemory count:%lu not matching numDeviceUsed:%lu", &v43, 0x20u);
+      _os_log_error_impl(&dword_238C1D000, v31, OS_LOG_TYPE_ERROR, "%@: tensor deviceMemory count:%lu not matching numDeviceUsed:%lu", &v42, 0x20u);
     }
 
     goto LABEL_22;
@@ -5023,8 +5610,6 @@ LABEL_22:
 
   objc_autoreleasePoolPop(v30);
 LABEL_29:
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 - (void)signalNextEvent
@@ -5177,7 +5762,7 @@ LABEL_29:
 
 - (void)allReduceOverXGMI:(id)i deviceIndex:(unint64_t)index stateBuffers:(id)buffers
 {
-  v80[2] = *MEMORY[0x277D85DE8];
+  v79[2] = *MEMORY[0x277D85DE8];
   iCopy = i;
   buffersCopy = buffers;
   if ([(MLCDeviceGPU *)self numDevicesToUse]<= 1)
@@ -5190,9 +5775,9 @@ LABEL_29:
   }
 
   v12 = [iCopy objectAtIndexedSubscript:index];
-  v78 = ~index;
-  v75 = iCopy;
-  v76 = [iCopy objectAtIndexedSubscript:{-[MLCDeviceGPU numDevicesToUse](self, "numDevicesToUse") + ~index}];
+  v77 = ~index;
+  v74 = iCopy;
+  v75 = [iCopy objectAtIndexedSubscript:{-[MLCDeviceGPU numDevicesToUse](self, "numDevicesToUse") + ~index}];
   gpuCommandBufferList = [(MLCDeviceGPU *)self gpuCommandBufferList];
   v14 = [gpuCommandBufferList objectAtIndexedSubscript:index];
 
@@ -5232,7 +5817,7 @@ LABEL_29:
     while (v23 < v30);
   }
 
-  v77 = buffersCopy;
+  v76 = buffersCopy;
   currentEventValue2 = [(MLCDeviceGPU *)self currentEventValue];
   ++currentEventValue2[indexCopy];
   gpuSharedEventList = [(MLCDeviceGPU *)self gpuSharedEventList];
@@ -5240,7 +5825,7 @@ LABEL_29:
   [v14 encodeSignalEvent:v33 value:{-[MLCDeviceGPU currentEventValue](self, "currentEventValue")[8 * indexCopy]}];
 
   gpuSharedEventList2 = [(MLCDeviceGPU *)self gpuSharedEventList];
-  v35 = [gpuSharedEventList2 objectAtIndexedSubscript:{-[MLCDeviceGPU numDevicesToUse](self, "numDevicesToUse") + v78}];
+  v35 = [gpuSharedEventList2 objectAtIndexedSubscript:{-[MLCDeviceGPU numDevicesToUse](self, "numDevicesToUse") + v77}];
   [v14 encodeWaitForEvent:v35 value:{-[MLCDeviceGPU currentEventValue](self, "currentEventValue")[8 * indexCopy]}];
 
   receivedGradientMatrices = [v12 receivedGradientMatrices];
@@ -5252,7 +5837,7 @@ LABEL_29:
     v39 = 0;
     do
     {
-      remoteGradientBuffers = [v76 remoteGradientBuffers];
+      remoteGradientBuffers = [v75 remoteGradientBuffers];
       v41 = [remoteGradientBuffers objectAtIndexedSubscript:v39];
 
       receivedGradientMatrices2 = [v12 receivedGradientMatrices];
@@ -5271,7 +5856,7 @@ LABEL_29:
     while (v39 < v47);
   }
 
-  v79 = v38;
+  v78 = v38;
   localGradientMatrices4 = [v12 localGradientMatrices];
   v49 = [localGradientMatrices4 count];
 
@@ -5285,7 +5870,7 @@ LABEL_29:
 
       v53 = [MEMORY[0x277CD7258] matrixDescriptorWithRows:objc_msgSend(v52 columns:"rows") rowBytes:objc_msgSend(v52 dataType:{"columns"), objc_msgSend(v52, "rowBytes"), objc_msgSend(v52, "dataType")}];
       v54 = objc_alloc(MEMORY[0x277CD7250]);
-      v55 = [v77 objectAtIndexedSubscript:v50];
+      v55 = [v76 objectAtIndexedSubscript:v50];
       v56 = [v54 initWithBuffer:v55 descriptor:v53];
       allReducedGradientMatrices = [v12 allReducedGradientMatrices];
       [allReducedGradientMatrices setObject:v56 atIndexedSubscript:v50];
@@ -5311,14 +5896,14 @@ LABEL_29:
 
       localGradientMatrices8 = [v12 localGradientMatrices];
       v66 = [localGradientMatrices8 objectAtIndexedSubscript:v62];
-      v80[0] = v66;
+      v79[0] = v66;
       receivedGradientMatrices4 = [v12 receivedGradientMatrices];
       v68 = [receivedGradientMatrices4 objectAtIndexedSubscript:v62];
-      v80[1] = v68;
-      v69 = [MEMORY[0x277CBEA60] arrayWithObjects:v80 count:2];
+      v79[1] = v68;
+      v69 = [MEMORY[0x277CBEA60] arrayWithObjects:v79 count:2];
       allReducedGradientMatrices2 = [v12 allReducedGradientMatrices];
       v71 = [allReducedGradientMatrices2 objectAtIndexedSubscript:v62];
-      [v64 encodeToCommandBuffer:v79 sourceMatrices:v69 resultMatrix:v71 scaleVector:0 offsetVector:0 biasVector:0 startIndex:0];
+      [v64 encodeToCommandBuffer:v78 sourceMatrices:v69 resultMatrix:v71 scaleVector:0 offsetVector:0 biasVector:0 startIndex:0];
 
       ++v62;
       localGradientMatrices9 = [v12 localGradientMatrices];
@@ -5327,8 +5912,6 @@ LABEL_29:
 
     while (v62 < v73);
   }
-
-  v74 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isEqual:(id)equal
@@ -5394,7 +5977,7 @@ LABEL_29:
 
 - (BOOL)transferTensor:(id)tensor fromDevice:(id)device
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   tensorCopy = tensor;
   deviceCopy = device;
   if (!deviceCopy || (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), self == deviceCopy) && (isKindOfClass & 1) != 0)
@@ -5407,20 +5990,19 @@ LABEL_29:
     v11 = +[MLCLog framework];
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v14 = NSStringFromSelector(a2);
-      v15 = 138412802;
-      v16 = v14;
-      v17 = 2112;
-      v18 = tensorCopy;
-      v19 = 2112;
-      v20 = deviceCopy;
-      _os_log_error_impl(&dword_238C1D000, v11, OS_LOG_TYPE_ERROR, "%@: cannot transfer tensor = %@ to GPU from device = %@", &v15, 0x20u);
+      v13 = NSStringFromSelector(a2);
+      v14 = 138412802;
+      v15 = v13;
+      v16 = 2112;
+      v17 = tensorCopy;
+      v18 = 2112;
+      v19 = deviceCopy;
+      _os_log_error_impl(&dword_238C1D000, v11, OS_LOG_TYPE_ERROR, "%@: cannot transfer tensor = %@ to GPU from device = %@", &v14, 0x20u);
     }
 
     v10 = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -7413,19 +7995,19 @@ LABEL_7:
 - (void)dispatchTransposeKernel:(id)kernel sourceTensor:(id)tensor resultTensor:(id)resultTensor deviceIndex:(unint64_t)index forward:(BOOL)forward
 {
   forwardCopy = forward;
-  v88 = *MEMORY[0x277D85DE8];
+  v87 = *MEMORY[0x277D85DE8];
   kernelCopy = kernel;
   tensorCopy = tensor;
   resultTensorCopy = resultTensor;
   deviceMemory = [tensorCopy deviceMemory];
-  v79 = resultTensorCopy;
+  v78 = resultTensorCopy;
   deviceMemory2 = [resultTensorCopy deviceMemory];
   v15 = [kernelCopy objectAtIndexedSubscript:index];
   gpuCommandBufferList = [(MLCDeviceGPU *)self gpuCommandBufferList];
   indexCopy = index;
-  v76 = [gpuCommandBufferList objectAtIndexedSubscript:index];
+  v75 = [gpuCommandBufferList objectAtIndexedSubscript:index];
 
-  memset(v84, 0, 76);
+  memset(v83, 0, 76);
   transposeShape = [v15 transposeShape];
   v18 = [transposeShape count];
 
@@ -7447,14 +8029,14 @@ LABEL_7:
       v21 = [v20 objectAtIndexedSubscript:v19];
       unsignedIntegerValue = [v21 unsignedIntegerValue];
 
-      *(v84 + v19) = unsignedIntegerValue;
+      *(v83 + v19) = unsignedIntegerValue;
       descriptor = [tensorCopy descriptor];
       stride = [descriptor stride];
       v25 = [stride objectAtIndexedSubscript:v19];
-      v26 = v84 + 4 * v19;
+      v26 = v83 + 4 * v19;
       *(v26 + 11) = [v25 unsignedIntegerValue] >> 2;
 
-      descriptor2 = [v79 descriptor];
+      descriptor2 = [v78 descriptor];
       stride2 = [descriptor2 stride];
       v29 = [stride2 objectAtIndexedSubscript:v19];
       *(v26 + 15) = [v29 unsignedIntegerValue] >> 2;
@@ -7471,11 +8053,11 @@ LABEL_7:
   shape = [descriptor3 shape];
   v34 = [shape count];
 
-  v74 = kernelCopy;
+  v73 = kernelCopy;
   if (v34 == 4)
   {
-    v70 = v85 + 1;
-    v71 = (&v86 + 8);
+    v69 = v84 + 1;
+    v70 = (&v85 + 8);
     if (forwardCopy)
     {
       batchSize = [v15 batchSize];
@@ -7486,32 +8068,32 @@ LABEL_7:
       batchSize = 0;
     }
 
-    v78 = [tensorCopy calculateBatchSizeToUse:batchSize];
+    v77 = [tensorCopy calculateBatchSizeToUse:batchSize];
     v36 = 1;
-    HIDWORD(v84[0]) = 1;
+    HIDWORD(v83[0]) = 1;
   }
 
   else
   {
     v36 = 0;
-    v71 = &v86;
-    v70 = v85;
-    v78 = 1;
+    v70 = &v85;
+    v69 = v84;
+    v77 = 1;
   }
 
   v37 = indexCopy;
   forwardKernel = [v15 forwardKernel];
   maxTotalThreadsPerThreadgroup = [forwardKernel maxTotalThreadsPerThreadgroup];
 
-  v86 = xmmword_238D45D80;
-  v87 = unk_238D45D90;
-  v85[0] = xmmword_238D45D80;
-  v85[1] = unk_238D45D90;
+  v85 = xmmword_238D45D80;
+  v86 = unk_238D45D90;
+  v84[0] = xmmword_238D45D80;
+  v84[1] = unk_238D45D90;
   descriptor4 = [tensorCopy descriptor];
   shape2 = [descriptor4 shape];
   v42 = [shape2 count];
 
-  v75 = v36;
+  v74 = v36;
   if (v36 < v42)
   {
     v43 = v36;
@@ -7524,24 +8106,24 @@ LABEL_7:
 
       if (unsignedIntegerValue2 <= maxTotalThreadsPerThreadgroup)
       {
-        *(&v86 + v43) = unsignedIntegerValue2;
+        *(&v85 + v43) = unsignedIntegerValue2;
         v48 = unsignedIntegerValue2;
       }
 
       else if (unsignedIntegerValue2 % maxTotalThreadsPerThreadgroup)
       {
-        *(&v86 + v43) = 1;
+        *(&v85 + v43) = 1;
         v48 = 1;
       }
 
       else
       {
-        *(&v86 + v43) = maxTotalThreadsPerThreadgroup;
+        *(&v85 + v43) = maxTotalThreadsPerThreadgroup;
         v48 = maxTotalThreadsPerThreadgroup;
       }
 
       v37 = indexCopy;
-      *(v85 + v43++) = (unsignedIntegerValue2 + v48 - 1) / v48;
+      *(v84 + v43++) = (unsignedIntegerValue2 + v48 - 1) / v48;
       maxTotalThreadsPerThreadgroup /= v48;
       descriptor6 = [tensorCopy descriptor];
       shape4 = [descriptor6 shape];
@@ -7573,7 +8155,7 @@ LABEL_7:
       v57 = [v56 objectAtIndexedSubscript:v55];
       unsignedIntegerValue3 = [v57 unsignedIntegerValue];
 
-      *((v84 | 0xC) + 4 * v55++) = *(&v86 + unsignedIntegerValue3);
+      *((v83 | 0xC) + 4 * v55++) = *(&v85 + unsignedIntegerValue3);
       descriptor8 = [tensorCopy descriptor];
       shape6 = [descriptor8 shape];
       v61 = [shape6 count];
@@ -7582,40 +8164,38 @@ LABEL_7:
     while (v55 < v61);
   }
 
-  v62 = [v76 computeCommandEncoderWithDispatchType:0];
+  v62 = [v75 computeCommandEncoderWithDispatchType:0];
   forwardKernel2 = [v15 forwardKernel];
   [v62 setComputePipelineState:forwardKernel2];
 
-  if (v78)
+  if (v77)
   {
     v64 = 0;
-    v65 = 4 * v86 * *(&v86 + 1) * v87 * *(&v87 + 1);
-    v66 = 8 * v75 + 8;
+    v65 = 4 * v85 * *(&v85 + 1) * v86 * *(&v86 + 1);
+    v66 = 8 * v74 + 8;
     do
     {
-      DWORD2(v84[0]) = v64;
+      DWORD2(v83[0]) = v64;
       v67 = [deviceMemory objectAtIndexedSubscript:v37];
       [v62 setBuffer:v67 offset:0 atIndex:0];
 
       v68 = [deviceMemory2 objectAtIndexedSubscript:v37];
       [v62 setBuffer:v68 offset:0 atIndex:1];
 
-      [v62 setBytes:v84 length:76 atIndex:2];
+      [v62 setBytes:v83 length:76 atIndex:2];
       [v62 setThreadgroupMemoryLength:GPU_AlignForThreadGroupMemorySize(v65) atIndex:0];
-      v82 = *v70;
-      v83 = *(v85 + v66);
-      v80 = *v71;
-      v81 = *(&v86 + v66);
-      [v62 dispatchThreadgroups:&v82 threadsPerThreadgroup:&v80];
+      v81 = *v69;
+      v82 = *(v84 + v66);
+      v79 = *v70;
+      v80 = *(&v85 + v66);
+      [v62 dispatchThreadgroups:&v81 threadsPerThreadgroup:&v79];
       ++v64;
     }
 
-    while (v78 != v64);
+    while (v77 != v64);
   }
 
   [v62 endEncoding];
-
-  v69 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dispatchGradientResizeKernel:(id)kernel sourceGradientTensor:(id)tensor resultGradientTensor:(id)gradientTensor deviceIndex:(unint64_t)index
@@ -8130,7 +8710,7 @@ LABEL_13:
 
 - (void)dispatchGradientArithmeticBinaryKernel:(id)kernel sourceGradientTensor:(id)tensor resultGradientTensor:(id)gradientTensor secondaryResultGradientTensor:(id)resultGradientTensor deviceIndex:(unint64_t)index
 {
-  v207[1] = *MEMORY[0x277D85DE8];
+  v206[1] = *MEMORY[0x277D85DE8];
   kernelCopy = kernel;
   tensorCopy = tensor;
   gradientTensorCopy = gradientTensor;
@@ -8156,7 +8736,7 @@ LABEL_13:
   source0Shape = [v14 source0Shape];
   source1Shape = [v14 source1Shape];
   v18 = [source0Shape count];
-  v172 = source0Shape;
+  v171 = source0Shape;
   v19 = [source0Shape objectAtIndexedSubscript:0];
   unsignedIntegerValue = [v19 unsignedIntegerValue];
   if (v18 == 1)
@@ -8167,15 +8747,15 @@ LABEL_13:
   {
     if (unsignedIntegerValue <= [v14 batchSize])
     {
-      v21 = v172;
-      v22 = [v172 objectAtIndexedSubscript:0];
+      v21 = v171;
+      v22 = [v171 objectAtIndexedSubscript:0];
       [v22 unsignedIntegerValue];
     }
 
     else
     {
       [v14 batchSize];
-      v21 = v172;
+      v21 = v171;
     }
 
     if ([v21 count] >= 2)
@@ -8234,7 +8814,7 @@ LABEL_13:
   shape = [descriptor shape];
 
   unsignedIntegerValue4 = [shape count];
-  v171 = shape;
+  v170 = shape;
   v35 = [shape objectAtIndexedSubscript:0];
   unsignedIntegerValue3 = [v35 unsignedIntegerValue];
   if (unsignedIntegerValue4 == 1)
@@ -8245,15 +8825,15 @@ LABEL_13:
   {
     if (unsignedIntegerValue3 <= [v14 batchSize])
     {
-      v37 = v171;
-      v38 = [v171 objectAtIndexedSubscript:0];
+      v37 = v170;
+      v38 = [v170 objectAtIndexedSubscript:0];
       unsignedIntegerValue4 = [v38 unsignedIntegerValue];
     }
 
     else
     {
       unsignedIntegerValue4 = [v14 batchSize];
-      v37 = v171;
+      v37 = v170;
     }
 
     unsignedIntegerValue3 = 1;
@@ -8262,29 +8842,29 @@ LABEL_13:
       v39 = 1;
       do
       {
-        v40 = [v171 objectAtIndexedSubscript:v39];
+        v40 = [v170 objectAtIndexedSubscript:v39];
         unsignedIntegerValue3 *= [v40 unsignedIntegerValue];
 
         ++v39;
       }
 
-      while (v39 < [v171 count]);
+      while (v39 < [v170 count]);
     }
   }
 
-  v174 = [MEMORY[0x277CD7258] matrixDescriptorWithRows:unsignedIntegerValue4 columns:unsignedIntegerValue3 rowBytes:4 * unsignedIntegerValue3 dataType:268435488];
+  v173 = [MEMORY[0x277CD7258] matrixDescriptorWithRows:unsignedIntegerValue4 columns:unsignedIntegerValue3 rowBytes:4 * unsignedIntegerValue3 dataType:268435488];
   deviceMemory = [tensorCopy deviceMemory];
   deviceMemory2 = [gradientTensorCopy deviceMemory];
   deviceMemory3 = [resultGradientTensorCopy deviceMemory];
   gpuCommandBufferList = [(MLCDeviceGPU *)self gpuCommandBufferList];
-  v185 = [gpuCommandBufferList objectAtIndexedSubscript:index];
+  v184 = [gpuCommandBufferList objectAtIndexedSubscript:index];
 
-  v202 = 0u;
-  v203 = 0u;
-  v200 = 0u;
   v201 = 0u;
-  v198 = 0u;
+  v202 = 0u;
   v199 = 0u;
+  v200 = 0u;
+  v197 = 0u;
+  v198 = 0u;
   arithmeticOp = [v14 arithmeticOp];
   if (arithmeticOp <= 26)
   {
@@ -8311,7 +8891,7 @@ LABEL_52:
       arithmeticOp2 = [v14 arithmeticOp];
     }
 
-    LODWORD(v198) = arithmeticOp2;
+    LODWORD(v197) = arithmeticOp2;
     goto LABEL_42;
   }
 
@@ -8334,7 +8914,7 @@ LABEL_52:
 
   v43 = 6;
 LABEL_41:
-  LODWORD(v198) = v43;
+  LODWORD(v197) = v43;
 LABEL_42:
   neuronDescriptor2 = [v14 neuronDescriptor];
 
@@ -8342,86 +8922,86 @@ LABEL_42:
   {
     neuronDescriptor3 = [v14 neuronDescriptor];
     [neuronDescriptor3 a];
-    LODWORD(v203) = v46;
+    LODWORD(v202) = v46;
 
     neuronDescriptor4 = [v14 neuronDescriptor];
     [neuronDescriptor4 b];
-    DWORD1(v203) = v48;
+    DWORD1(v202) = v48;
 
     neuronDescriptor5 = [v14 neuronDescriptor];
-    DWORD2(v203) = [neuronDescriptor5 activationType];
+    DWORD2(v202) = [neuronDescriptor5 activationType];
   }
 
   constantArithmeticSourcesFlags = [v14 constantArithmeticSourcesFlags];
-  HIDWORD(v202) = constantArithmeticSourcesFlags;
+  HIDWORD(v201) = constantArithmeticSourcesFlags;
   source = [v14 source];
 
   if (!source)
   {
-    HIDWORD(v202) = constantArithmeticSourcesFlags | 0x100;
+    HIDWORD(v201) = constantArithmeticSourcesFlags | 0x100;
   }
 
   context = objc_autoreleasePoolPush();
-  v184 = v14;
-  if ([v171 count] == 1)
+  v183 = v14;
+  if ([v170 count] == 1)
   {
-    *(&v200 + 4) = 0x100000001;
     *(&v199 + 4) = 0x100000001;
     *(&v198 + 4) = 0x100000001;
+    *(&v197 + 4) = 0x100000001;
     v52 = 1;
-    HIDWORD(v200) = 1;
     HIDWORD(v199) = 1;
     HIDWORD(v198) = 1;
-    v53 = [v172 objectAtIndexedSubscript:0];
-    LODWORD(v199) = [v53 unsignedIntegerValue];
+    HIDWORD(v197) = 1;
+    v53 = [v171 objectAtIndexedSubscript:0];
+    LODWORD(v198) = [v53 unsignedIntegerValue];
 
     v54 = [source1Shape objectAtIndexedSubscript:0];
-    LODWORD(v200) = [v54 unsignedIntegerValue];
+    LODWORD(v199) = [v54 unsignedIntegerValue];
 
-    v55 = [v171 objectAtIndexedSubscript:0];
+    v55 = [v170 objectAtIndexedSubscript:0];
     unsignedIntegerValue5 = [v55 unsignedIntegerValue];
-    LODWORD(v201) = unsignedIntegerValue5;
+    LODWORD(v200) = unsignedIntegerValue5;
 
     unsignedIntegerValue12 = 1;
-    v178 = 1;
+    v177 = 1;
   }
 
-  else if ([v171 count] == 2)
+  else if ([v170 count] == 2)
   {
-    *(&v200 + 4) = 0x100000001;
     *(&v199 + 4) = 0x100000001;
     *(&v198 + 4) = 0x100000001;
-    v57 = [v172 objectAtIndexedSubscript:0];
-    HIDWORD(v198) = [v57 unsignedIntegerValue];
+    *(&v197 + 4) = 0x100000001;
+    v57 = [v171 objectAtIndexedSubscript:0];
+    HIDWORD(v197) = [v57 unsignedIntegerValue];
 
     v58 = [source1Shape objectAtIndexedSubscript:0];
-    HIDWORD(v199) = [v58 unsignedIntegerValue];
+    HIDWORD(v198) = [v58 unsignedIntegerValue];
 
-    v59 = [v171 objectAtIndexedSubscript:0];
-    HIDWORD(v200) = [v59 unsignedIntegerValue];
+    v59 = [v170 objectAtIndexedSubscript:0];
+    HIDWORD(v199) = [v59 unsignedIntegerValue];
 
-    v60 = [v172 objectAtIndexedSubscript:1];
-    LODWORD(v199) = [v60 unsignedIntegerValue];
+    v60 = [v171 objectAtIndexedSubscript:1];
+    LODWORD(v198) = [v60 unsignedIntegerValue];
 
     v61 = [source1Shape objectAtIndexedSubscript:1];
-    LODWORD(v200) = [v61 unsignedIntegerValue];
+    LODWORD(v199) = [v61 unsignedIntegerValue];
 
-    v62 = [v171 objectAtIndexedSubscript:1];
+    v62 = [v170 objectAtIndexedSubscript:1];
     unsignedIntegerValue5 = [v62 unsignedIntegerValue];
-    LODWORD(v201) = unsignedIntegerValue5;
+    LODWORD(v200) = unsignedIntegerValue5;
 
-    v52 = HIDWORD(v200);
+    v52 = HIDWORD(v199);
     unsignedIntegerValue12 = 1;
-    v178 = 1;
+    v177 = 1;
   }
 
   else
   {
-    v63 = [v172 objectAtIndexedSubscript:0];
+    v63 = [v171 objectAtIndexedSubscript:0];
     unsignedIntegerValue6 = [v63 unsignedIntegerValue];
     if (unsignedIntegerValue6 <= [v14 batchSize])
     {
-      v67 = [v172 objectAtIndexedSubscript:0];
+      v67 = [v171 objectAtIndexedSubscript:0];
       unsignedIntegerValue7 = [v67 unsignedIntegerValue];
     }
 
@@ -8430,7 +9010,7 @@ LABEL_42:
       unsignedIntegerValue7 = [v14 batchSize];
     }
 
-    DWORD1(v198) = unsignedIntegerValue7;
+    DWORD1(v197) = unsignedIntegerValue7;
 
     v68 = [source1Shape objectAtIndexedSubscript:0];
     unsignedIntegerValue8 = [v68 unsignedIntegerValue];
@@ -8445,13 +9025,13 @@ LABEL_42:
       unsignedIntegerValue9 = [v14 batchSize];
     }
 
-    DWORD1(v199) = unsignedIntegerValue9;
+    DWORD1(v198) = unsignedIntegerValue9;
 
-    v72 = [v171 objectAtIndexedSubscript:0];
+    v72 = [v170 objectAtIndexedSubscript:0];
     unsignedIntegerValue10 = [v72 unsignedIntegerValue];
     if (unsignedIntegerValue10 <= [v14 batchSize])
     {
-      v75 = [v171 objectAtIndexedSubscript:0];
+      v75 = [v170 objectAtIndexedSubscript:0];
       unsignedIntegerValue11 = [v75 unsignedIntegerValue];
     }
 
@@ -8460,79 +9040,79 @@ LABEL_42:
       unsignedIntegerValue11 = [v14 batchSize];
     }
 
-    v178 = unsignedIntegerValue11;
-    DWORD1(v200) = unsignedIntegerValue11;
+    v177 = unsignedIntegerValue11;
+    DWORD1(v199) = unsignedIntegerValue11;
 
-    v76 = [v171 count];
-    v77 = [v172 objectAtIndexedSubscript:1];
-    DWORD2(v198) = [v77 unsignedIntegerValue];
+    v76 = [v170 count];
+    v77 = [v171 objectAtIndexedSubscript:1];
+    DWORD2(v197) = [v77 unsignedIntegerValue];
 
     v78 = [source1Shape objectAtIndexedSubscript:1];
-    DWORD2(v199) = [v78 unsignedIntegerValue];
+    DWORD2(v198) = [v78 unsignedIntegerValue];
 
-    v79 = [v171 objectAtIndexedSubscript:1];
+    v79 = [v170 objectAtIndexedSubscript:1];
     unsignedIntegerValue12 = [v79 unsignedIntegerValue];
-    DWORD2(v200) = unsignedIntegerValue12;
+    DWORD2(v199) = unsignedIntegerValue12;
 
-    v80 = [v172 objectAtIndexedSubscript:2];
+    v80 = [v171 objectAtIndexedSubscript:2];
     unsignedIntegerValue13 = [v80 unsignedIntegerValue];
     if (v76 == 3)
     {
-      LODWORD(v199) = unsignedIntegerValue13;
+      LODWORD(v198) = unsignedIntegerValue13;
 
       v82 = [source1Shape objectAtIndexedSubscript:2];
-      LODWORD(v200) = [v82 unsignedIntegerValue];
+      LODWORD(v199) = [v82 unsignedIntegerValue];
 
-      v83 = [v171 objectAtIndexedSubscript:2];
+      v83 = [v170 objectAtIndexedSubscript:2];
       unsignedIntegerValue5 = [v83 unsignedIntegerValue];
-      LODWORD(v201) = unsignedIntegerValue5;
+      LODWORD(v200) = unsignedIntegerValue5;
 
-      HIDWORD(v200) = 1;
-      v52 = 1;
       HIDWORD(v199) = 1;
+      v52 = 1;
       HIDWORD(v198) = 1;
+      HIDWORD(v197) = 1;
     }
 
     else
     {
-      HIDWORD(v198) = unsignedIntegerValue13;
+      HIDWORD(v197) = unsignedIntegerValue13;
 
       v84 = [source1Shape objectAtIndexedSubscript:2];
-      HIDWORD(v199) = [v84 unsignedIntegerValue];
+      HIDWORD(v198) = [v84 unsignedIntegerValue];
 
-      v85 = [v171 objectAtIndexedSubscript:2];
-      HIDWORD(v200) = [v85 unsignedIntegerValue];
+      v85 = [v170 objectAtIndexedSubscript:2];
+      HIDWORD(v199) = [v85 unsignedIntegerValue];
 
-      v86 = [v172 objectAtIndexedSubscript:3];
-      LODWORD(v199) = [v86 unsignedIntegerValue];
+      v86 = [v171 objectAtIndexedSubscript:3];
+      LODWORD(v198) = [v86 unsignedIntegerValue];
 
       v87 = [source1Shape objectAtIndexedSubscript:3];
-      LODWORD(v200) = [v87 unsignedIntegerValue];
+      LODWORD(v199) = [v87 unsignedIntegerValue];
 
-      v88 = [v171 objectAtIndexedSubscript:3];
+      v88 = [v170 objectAtIndexedSubscript:3];
       unsignedIntegerValue5 = [v88 unsignedIntegerValue];
-      LODWORD(v201) = unsignedIntegerValue5;
+      LODWORD(v200) = unsignedIntegerValue5;
 
-      v52 = HIDWORD(v200);
+      v52 = HIDWORD(v199);
     }
   }
 
-  v166 = gradientTensorCopy;
-  v167 = tensorCopy;
-  v168 = kernelCopy;
+  v165 = gradientTensorCopy;
+  v166 = tensorCopy;
+  v167 = kernelCopy;
   v89 = 0;
-  v206 = 0;
-  v207[0] = 0;
-  v90 = v197;
-  v91 = &v206;
-  v92 = &v204;
-  v204 = 0;
   v205 = 0;
+  v206[0] = 0;
+  v90 = v196;
+  v91 = &v205;
+  v92 = &v203;
+  v203 = 0;
+  v204 = 0;
   v93 = 1;
   while (1)
   {
     v94 = v93;
-    constantArithmeticSourcesFlags2 = [v184 constantArithmeticSourcesFlags];
+    constantArithmeticSourcesFlags2 = [v183 constantArithmeticSourcesFlags];
     if (v94)
     {
       v96 = 1;
@@ -8545,9 +9125,9 @@ LABEL_42:
 
     if ((constantArithmeticSourcesFlags2 & v96) == 0)
     {
-      v99 = &v198 + 4 * v89 + 1;
-      v100 = *v99 != v178;
-      if (*v99 == v178)
+      v99 = &v197 + 4 * v89 + 1;
+      v100 = *v99 != v177;
+      if (*v99 == v177)
       {
         v101 = 2;
       }
@@ -8573,7 +9153,7 @@ LABEL_42:
       *v90 = v104;
       if (v104)
       {
-        v105 = [MEMORY[0x277CD72B0] temporaryMatrixWithCommandBuffer:v185 matrixDescriptor:v174];
+        v105 = [MEMORY[0x277CD72B0] temporaryMatrixWithCommandBuffer:v184 matrixDescriptor:v173];
         v106 = *v92;
         *v92 = v105;
 
@@ -8590,14 +9170,14 @@ LABEL_42:
     }
 
     v97 = [deviceMemory2 objectAtIndexedSubscript:index];
-    v98 = v206;
-    v206 = v97;
+    v98 = v205;
+    v205 = v97;
 LABEL_83:
 
     v93 = 0;
-    v90 = v196;
-    v92 = &v205;
-    v91 = v207;
+    v90 = v195;
+    v92 = &v204;
+    v91 = v206;
     v89 = 1;
     if ((v94 & 1) == 0)
     {
@@ -8606,12 +9186,12 @@ LABEL_83:
   }
 
   v108 = [deviceMemory3 objectAtIndexedSubscript:index];
-  v109 = v207[v89 - 1];
-  v207[v89 - 1] = v108;
+  v109 = v206[v89 - 1];
+  v206[v89 - 1] = v108;
 
 LABEL_86:
-  v110 = __clz(__rbit32(v178)) << 16;
-  if (((v178 - 1) & v178) != 0)
+  v110 = __clz(__rbit32(v177)) << 16;
+  if (((v177 - 1) & v177) != 0)
   {
     v111 = -65536;
   }
@@ -8621,12 +9201,12 @@ LABEL_86:
     v111 = v110;
   }
 
-  DWORD1(v202) = v111 & 0xFFFF0000 | v178;
+  DWORD1(v201) = v111 & 0xFFFF0000 | v177;
   gpuPipelineStatesArithmeticBinaryGradient = [(MLCDeviceGPU *)self gpuPipelineStatesArithmeticBinaryGradient];
   v113 = [gpuPipelineStatesArithmeticBinaryGradient objectAtIndexedSubscript:index];
   maxTotalThreadsPerThreadgroup = [v113 maxTotalThreadsPerThreadgroup];
 
-  v115 = v178 * unsignedIntegerValue12;
+  v115 = v177 * unsignedIntegerValue12;
   if (unsignedIntegerValue5 >= 32)
   {
     v116 = 32;
@@ -8637,7 +9217,7 @@ LABEL_86:
     v116 = 8;
   }
 
-  v182 = v116;
+  v181 = v116;
   v117 = 5;
   if (unsignedIntegerValue5 < 32)
   {
@@ -8664,38 +9244,38 @@ LABEL_86:
     v119 = maxTotalThreadsPerThreadgroup / (v118 << v117);
   }
 
-  v179 = (v116 + unsignedIntegerValue5 - 1) >> v117;
+  v178 = (v116 + unsignedIntegerValue5 - 1) >> v117;
   v120 = (v119 + v115 - 1) / v119;
-  v121 = [v185 computeCommandEncoderWithDispatchType:0];
+  v121 = [v184 computeCommandEncoderWithDispatchType:0];
   gpuPipelineStatesArithmeticBinaryGradient2 = [(MLCDeviceGPU *)self gpuPipelineStatesArithmeticBinaryGradient];
   v123 = [gpuPipelineStatesArithmeticBinaryGradient2 objectAtIndexedSubscript:index];
   [v121 setComputePipelineState:v123];
 
-  source2 = [v184 source];
+  source2 = [v183 source];
   [v121 setBuffer:source2 offset:0 atIndex:0];
 
   selfCopy2 = self;
-  secondarySource = [v184 secondarySource];
+  secondarySource = [v183 secondarySource];
   [v121 setBuffer:secondarySource offset:0 atIndex:1];
 
   v127 = [deviceMemory objectAtIndexedSubscript:index];
   [v121 setBuffer:v127 offset:0 atIndex:2];
 
-  [v121 setBuffer:v206 offset:0 atIndex:3];
-  [v121 setBuffer:v207[0] offset:0 atIndex:4];
-  [v121 setBytes:&v198 length:96 atIndex:5];
-  v194 = v179;
-  v195.i64[0] = (v118 + v52 - 1) / v118;
-  v195.i64[1] = v120;
-  v192 = v182;
-  v193.i64[0] = v118;
-  v193.i64[1] = v119;
-  [v121 dispatchThreadgroups:&v194 threadsPerThreadgroup:&v192];
-  v176 = v121;
+  [v121 setBuffer:v205 offset:0 atIndex:3];
+  [v121 setBuffer:v206[0] offset:0 atIndex:4];
+  [v121 setBytes:&v197 length:96 atIndex:5];
+  v193 = v178;
+  v194.i64[0] = (v118 + v52 - 1) / v118;
+  v194.i64[1] = v120;
+  v191 = v181;
+  v192.i64[0] = v118;
+  v192.i64[1] = v119;
+  [v121 dispatchThreadgroups:&v193 threadsPerThreadgroup:&v191];
+  v175 = v121;
   [v121 endEncoding];
   v128 = 0;
-  v129 = v197;
-  v130 = &v206;
+  v129 = v196;
+  v130 = &v205;
   v131 = 1;
   while (2)
   {
@@ -8706,14 +9286,14 @@ LABEL_86:
       goto LABEL_148;
     }
 
-    WORD4(v202) = v133;
-    WORD5(v202) = v128;
+    WORD4(v201) = v133;
+    WORD5(v201) = v128;
     if (v133 <= 7)
     {
       if (v133 == 1)
       {
-        v138 = DWORD1(v200);
-        v137 = HIDWORD(v200) * DWORD2(v200) * v201;
+        v138 = DWORD1(v199);
+        v137 = HIDWORD(v199) * DWORD2(v199) * v200;
         indexCopy4 = index;
       }
 
@@ -8722,13 +9302,13 @@ LABEL_86:
         indexCopy4 = index;
         if (v133 == 2)
         {
-          v183 = v131;
-          v138 = DWORD2(v200);
-          v137 = v201 * HIDWORD(v200);
+          v182 = v131;
+          v138 = DWORD2(v199);
+          v137 = v200 * HIDWORD(v199);
           gpuPipelineStatesReduceAcrossChannel = [(MLCDeviceGPU *)selfCopy2 gpuPipelineStatesReduceAcrossChannel];
           v140 = [gpuPipelineStatesReduceAcrossChannel objectAtIndexedSubscript:index];
 
-          v141 = SDWORD1(v200);
+          v141 = SDWORD1(v199);
           goto LABEL_133;
         }
 
@@ -8737,11 +9317,11 @@ LABEL_86:
           goto LABEL_116;
         }
 
-        v137 = v201 * HIDWORD(v200);
-        v138 = DWORD2(v200) * DWORD1(v200);
+        v137 = v200 * HIDWORD(v199);
+        v138 = DWORD2(v199) * DWORD1(v199);
       }
 
-      v183 = v131;
+      v182 = v131;
       gpuPipelineStatesReduceAcrossBatch = [(MLCDeviceGPU *)selfCopy2 gpuPipelineStatesReduceAcrossBatch];
       v140 = [gpuPipelineStatesReduceAcrossBatch objectAtIndexedSubscript:indexCopy4];
 
@@ -8775,17 +9355,17 @@ LABEL_133:
         v158 = v156;
       }
 
-      v150 = [v185 computeCommandEncoderWithDispatchType:0];
-      v180 = v140;
+      v150 = [v184 computeCommandEncoderWithDispatchType:0];
+      v179 = v140;
       [v150 setComputePipelineState:v140];
-      v188 = 0x100000000;
+      v187 = 0x100000000;
+      v188 = v137;
       v189 = v137;
-      v190 = v137;
-      v191 = DWORD2(v200);
+      v190 = DWORD2(v199);
       if (v154)
       {
         v159 = *v130;
-        if (v183)
+        if (v182)
         {
           v160 = deviceMemory2;
         }
@@ -8802,14 +9382,14 @@ LABEL_133:
           [v150 setBuffer:v161 offset:0 atIndex:1];
 
           [v150 setThreadgroupMemoryLength:GPU_AlignForThreadGroupMemorySize(4 * v158) atIndex:0];
-          [v150 setBytes:&v188 length:20 atIndex:2];
-          v194 = v157;
-          v195.i64[0] = v141;
-          v195.i64[1] = 1;
-          v192 = v158;
-          v193 = vdupq_n_s64(1uLL);
-          [v150 dispatchThreadgroups:&v194 threadsPerThreadgroup:&v192];
-          LODWORD(v188) = v188 + 1;
+          [v150 setBytes:&v187 length:20 atIndex:2];
+          v193 = v157;
+          v194.i64[0] = v141;
+          v194.i64[1] = 1;
+          v191 = v158;
+          v192 = vdupq_n_s64(1uLL);
+          [v150 dispatchThreadgroups:&v193 threadsPerThreadgroup:&v191];
+          LODWORD(v187) = v187 + 1;
           --v154;
         }
 
@@ -8818,8 +9398,8 @@ LABEL_133:
 
       [v150 endEncoding];
       selfCopy2 = self;
-      v143 = v180;
-      v132 = v183;
+      v143 = v179;
+      v132 = v182;
       goto LABEL_147;
     }
 
@@ -8828,8 +9408,8 @@ LABEL_133:
       indexCopy4 = index;
       if (v133 == 14)
       {
-        v135 = SDWORD1(v200);
-        LODWORD(v136) = HIDWORD(v200) * DWORD2(v200) * v201;
+        v135 = SDWORD1(v199);
+        LODWORD(v136) = HIDWORD(v199) * DWORD2(v199) * v200;
       }
 
       else
@@ -8839,7 +9419,7 @@ LABEL_133:
           goto LABEL_116;
         }
 
-        LODWORD(v136) = DWORD2(v200) * DWORD1(v200) * HIDWORD(v200) * v201;
+        LODWORD(v136) = DWORD2(v199) * DWORD1(v199) * HIDWORD(v199) * v200;
         v135 = 1;
       }
 
@@ -8849,8 +9429,8 @@ LABEL_133:
     indexCopy4 = index;
     if (v133 == 8)
     {
-      LODWORD(v136) = v201;
-      v135 = SDWORD2(v200) * SDWORD1(v200) * SHIDWORD(v200);
+      LODWORD(v136) = v200;
+      v135 = SDWORD2(v199) * SDWORD1(v199) * SHIDWORD(v199);
 LABEL_119:
       gpuPipelineStatesArithmeticReduceGradientAll = [(MLCDeviceGPU *)selfCopy2 gpuPipelineStatesArithmeticReduceGradientAll];
       v146 = [gpuPipelineStatesArithmeticReduceGradientAll objectAtIndexedSubscript:indexCopy4];
@@ -8892,8 +9472,8 @@ LABEL_119:
 
     if (v133 == 12)
     {
-      v135 = SDWORD2(v200) * SDWORD1(v200);
-      LODWORD(v136) = v201 * HIDWORD(v200);
+      v135 = SDWORD2(v199) * SDWORD1(v199);
+      LODWORD(v136) = v200 * HIDWORD(v199);
       goto LABEL_119;
     }
 
@@ -8904,7 +9484,7 @@ LABEL_116:
     maxTotalThreadsPerThreadgroup4 = [v143 maxTotalThreadsPerThreadgroup];
     v135 = 1;
 LABEL_128:
-    v150 = [v185 computeCommandEncoderWithDispatchType:0];
+    v150 = [v184 computeCommandEncoderWithDispatchType:0];
     [v150 setComputePipelineState:v143];
     [v150 setBuffer:*v130 offset:0 atIndex:0];
     if (v132)
@@ -8921,20 +9501,20 @@ LABEL_128:
     [v150 setBuffer:v152 offset:0 atIndex:1];
 
     [v150 setThreadgroupMemoryLength:GPU_AlignForThreadGroupMemorySize(4 * maxTotalThreadsPerThreadgroup4) atIndex:0];
-    [v150 setBytes:&v198 length:96 atIndex:2];
-    v194 = v135;
-    v195 = vdupq_n_s64(1uLL);
-    v192 = maxTotalThreadsPerThreadgroup4;
-    v193 = v195;
-    [v150 dispatchThreadgroups:&v194 threadsPerThreadgroup:&v192];
+    [v150 setBytes:&v197 length:96 atIndex:2];
+    v193 = v135;
+    v194 = vdupq_n_s64(1uLL);
+    v191 = maxTotalThreadsPerThreadgroup4;
+    v192 = v194;
+    [v150 dispatchThreadgroups:&v193 threadsPerThreadgroup:&v191];
     [v150 endEncoding];
 LABEL_147:
 
 LABEL_148:
     v131 = 0;
     v128 = 1;
-    v129 = v196;
-    v130 = v207;
+    v129 = v195;
+    v130 = v206;
     if (v132)
     {
       continue;
@@ -8948,10 +9528,10 @@ LABEL_148:
   }
 
   v163 = 1;
-  tensorCopy = v167;
-  kernelCopy = v168;
-  gradientTensorCopy = v166;
-  v14 = v184;
+  tensorCopy = v166;
+  kernelCopy = v167;
+  gradientTensorCopy = v165;
+  v14 = v183;
   do
   {
   }
@@ -8960,7 +9540,6 @@ LABEL_148:
   objc_autoreleasePoolPop(context);
 
 LABEL_154:
-  v164 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dispatchForwardGramMatrixKernel:(id)kernel sourceTensor:(id)tensor resultTensor:(id)resultTensor deviceIndex:(unint64_t)index forTraining:(BOOL)training
@@ -12546,7 +13125,7 @@ LABEL_19:
 
 - (void)dispatchGradientSelectLayer:(id)layer conditionTensor:(id)tensor sourceGradientTensor:(id)gradientTensor resultGradientTensors:(id)tensors
 {
-  v141[1] = *MEMORY[0x277D85DE8];
+  v140[1] = *MEMORY[0x277D85DE8];
   layerCopy = layer;
   tensorCopy = tensor;
   gradientTensorCopy = gradientTensor;
@@ -12569,18 +13148,18 @@ LABEL_19:
   v19 = [tensorsCopy objectAtIndexedSubscript:1];
   deviceMemory4 = [v19 deviceMemory];
 
-  v108 = tensorCopy;
+  v107 = tensorCopy;
   descriptor2 = [tensorCopy descriptor];
   v21 = [descriptor2 newShapeWithCount:v17];
 
   v22 = [tensorsCopy objectAtIndexedSubscript:0];
   descriptor3 = [v22 descriptor];
-  v115 = [descriptor3 newShapeWithCount:v17];
+  v114 = [descriptor3 newShapeWithCount:v17];
 
-  v107 = tensorsCopy;
+  v106 = tensorsCopy;
   v24 = [tensorsCopy objectAtIndexedSubscript:1];
   descriptor4 = [v24 descriptor];
-  v114 = [descriptor4 newShapeWithCount:v17];
+  v113 = [descriptor4 newShapeWithCount:v17];
 
   descriptor5 = [gradientTensorCopy descriptor];
   shape2 = [descriptor5 shape];
@@ -12591,10 +13170,10 @@ LABEL_19:
   }
 
   v28 = 0;
-  v109 = vdupq_n_s64(8uLL);
-  v117 = v21;
+  v108 = vdupq_n_s64(8uLL);
+  v116 = v21;
   selfCopy = self;
-  v110 = shape2;
+  v109 = shape2;
   do
   {
     v29 = [layerCopy objectAtIndexedSubscript:v28];
@@ -12604,11 +13183,11 @@ LABEL_19:
     unsignedIntegerValue2 = [shape2 count];
     v33 = [shape2 objectAtIndexedSubscript:0];
     unsignedIntegerValue = [v33 unsignedIntegerValue];
-    v118 = v29;
+    v117 = v29;
     if (unsignedIntegerValue2 == 1)
     {
 
-      v35 = v117;
+      v35 = v116;
     }
 
     else
@@ -12624,7 +13203,7 @@ LABEL_19:
         unsignedIntegerValue2 = [v29 batchSize];
       }
 
-      v35 = v117;
+      v35 = v116;
 
       unsignedIntegerValue = 1;
       if ([shape2 count] >= 2)
@@ -12642,8 +13221,8 @@ LABEL_19:
       }
     }
 
-    v119 = [MEMORY[0x277CD7258] matrixDescriptorWithRows:unsignedIntegerValue2 columns:unsignedIntegerValue rowBytes:4 * unsignedIntegerValue dataType:268435488];
-    v137 = 0;
+    v118 = [MEMORY[0x277CD7258] matrixDescriptorWithRows:unsignedIntegerValue2 columns:unsignedIntegerValue rowBytes:4 * unsignedIntegerValue dataType:268435488];
+    v136 = 0;
     memset_pattern16(__b, &unk_238D45D70, 0x40uLL);
     if ([shape2 count] == 1)
     {
@@ -12664,41 +13243,41 @@ LABEL_19:
 LABEL_18:
       __b[2] = unsignedIntegerValue3;
 
-      v52 = [v115 objectAtIndexedSubscript:v43];
-      DWORD2(v134) = [v52 unsignedIntegerValue];
+      v52 = [v114 objectAtIndexedSubscript:v43];
+      DWORD2(v133) = [v52 unsignedIntegerValue];
 
-      v53 = [v114 objectAtIndexedSubscript:v43];
-      DWORD2(v135) = [v53 unsignedIntegerValue];
+      v53 = [v113 objectAtIndexedSubscript:v43];
+      DWORD2(v134) = [v53 unsignedIntegerValue];
 
       v54 = [shape2 objectAtIndexedSubscript:v43];
-      DWORD2(v136) = [v54 unsignedIntegerValue];
+      DWORD2(v135) = [v54 unsignedIntegerValue];
 
       goto LABEL_19;
     }
 
     __b[0] = unsignedIntegerValue3;
 
-    v44 = [v115 objectAtIndexedSubscript:0];
-    LODWORD(v134) = [v44 unsignedIntegerValue];
+    v44 = [v114 objectAtIndexedSubscript:0];
+    LODWORD(v133) = [v44 unsignedIntegerValue];
 
-    v45 = [v114 objectAtIndexedSubscript:0];
-    LODWORD(v135) = [v45 unsignedIntegerValue];
+    v45 = [v113 objectAtIndexedSubscript:0];
+    LODWORD(v134) = [v45 unsignedIntegerValue];
 
     v46 = [shape2 objectAtIndexedSubscript:0];
-    LODWORD(v136) = [v46 unsignedIntegerValue];
+    LODWORD(v135) = [v46 unsignedIntegerValue];
 
     v47 = [shape2 count];
     v48 = [v35 objectAtIndexedSubscript:1];
     __b[1] = [v48 unsignedIntegerValue];
 
-    v49 = [v115 objectAtIndexedSubscript:1];
-    DWORD1(v134) = [v49 unsignedIntegerValue];
+    v49 = [v114 objectAtIndexedSubscript:1];
+    DWORD1(v133) = [v49 unsignedIntegerValue];
 
-    v50 = [v114 objectAtIndexedSubscript:1];
-    DWORD1(v135) = [v50 unsignedIntegerValue];
+    v50 = [v113 objectAtIndexedSubscript:1];
+    DWORD1(v134) = [v50 unsignedIntegerValue];
 
     v51 = [shape2 objectAtIndexedSubscript:1];
-    DWORD1(v136) = [v51 unsignedIntegerValue];
+    DWORD1(v135) = [v51 unsignedIntegerValue];
 
     v41 = [v35 objectAtIndexedSubscript:2];
     unsignedIntegerValue3 = [v41 unsignedIntegerValue];
@@ -12713,31 +13292,31 @@ LABEL_18:
 LABEL_20:
     __b[3] = unsignedIntegerValue3;
 
-    v55 = [v115 objectAtIndexedSubscript:v39];
-    HIDWORD(v134) = [v55 unsignedIntegerValue];
+    v55 = [v114 objectAtIndexedSubscript:v39];
+    HIDWORD(v133) = [v55 unsignedIntegerValue];
 
-    v56 = [v114 objectAtIndexedSubscript:v39];
-    HIDWORD(v135) = [v56 unsignedIntegerValue];
+    v56 = [v113 objectAtIndexedSubscript:v39];
+    HIDWORD(v134) = [v56 unsignedIntegerValue];
 
     v57 = [shape2 objectAtIndexedSubscript:v39];
-    HIDWORD(v136) = [v57 unsignedIntegerValue];
+    HIDWORD(v135) = [v57 unsignedIntegerValue];
 
     v58 = 0;
-    v140 = 0;
-    v141[0] = 0;
-    v59 = v132;
-    v60 = &v140;
-    v61 = &v138;
-    v62 = 1;
-    v138 = 0;
     v139 = 0;
+    v140[0] = 0;
+    v59 = v131;
+    v60 = &v139;
+    v61 = &v137;
+    v62 = 1;
+    v137 = 0;
+    v138 = 0;
     while (1)
     {
       v63 = v62;
       v64 = &__b[4 * v58];
       v65 = v64[4];
-      v66 = v65 == v136;
-      v67 = v65 != v136;
+      v66 = v65 == v135;
+      v67 = v65 != v135;
       if (v66)
       {
         v68 = 2;
@@ -12748,26 +13327,26 @@ LABEL_20:
         v68 = 3;
       }
 
-      if (v64[5] != DWORD1(v136))
+      if (v64[5] != DWORD1(v135))
       {
         v67 = v68;
       }
 
       v70 = v64[6];
       v69 = v64[7];
-      if (v70 != DWORD2(v136))
+      if (v70 != DWORD2(v135))
       {
         v67 |= 4u;
       }
 
-      v71 = v69 == HIDWORD(v136) ? v67 : v67 | 8;
+      v71 = v69 == HIDWORD(v135) ? v67 : v67 | 8;
       *v59 = v71;
       if (!v71)
       {
         break;
       }
 
-      v72 = [MEMORY[0x277CD72B0] temporaryMatrixWithCommandBuffer:v31 matrixDescriptor:v119];
+      v72 = [MEMORY[0x277CD72B0] temporaryMatrixWithCommandBuffer:v31 matrixDescriptor:v118];
       v73 = *v61;
       *v61 = v72;
 
@@ -12777,9 +13356,9 @@ LABEL_20:
 LABEL_35:
 
       v62 = 0;
-      v59 = v131;
-      v61 = &v139;
-      v60 = v141;
+      v59 = v130;
+      v61 = &v138;
+      v60 = v140;
       v58 = 1;
       if ((v63 & 1) == 0)
       {
@@ -12790,18 +13369,18 @@ LABEL_35:
     if (v63)
     {
       v76 = [deviceMemory3 objectAtIndexedSubscript:v28];
-      v75 = v140;
-      v140 = v76;
+      v75 = v139;
+      v139 = v76;
       goto LABEL_35;
     }
 
     v77 = [deviceMemory4 objectAtIndexedSubscript:v28];
-    v78 = v141[v58 - 1];
-    v141[v58 - 1] = v77;
+    v78 = v140[v58 - 1];
+    v140[v58 - 1] = v77;
 
 LABEL_38:
-    v79 = __clz(__rbit32(v136)) << 16;
-    if (((v136 - 1) & v136) != 0)
+    v79 = __clz(__rbit32(v135)) << 16;
+    if (((v135 - 1) & v135) != 0)
     {
       v80 = -65536;
     }
@@ -12811,13 +13390,13 @@ LABEL_38:
       v80 = v79;
     }
 
-    v137 = v80 & 0xFFFF0000 | v136;
-    gradientKernel = [v118 gradientKernel];
+    v136 = v80 & 0xFFFF0000 | v135;
+    gradientKernel = [v117 gradientKernel];
     maxTotalThreadsPerThreadgroup = [gradientKernel maxTotalThreadsPerThreadgroup];
 
-    if (maxTotalThreadsPerThreadgroup >> 6 >= v136 * SDWORD1(v136))
+    if (maxTotalThreadsPerThreadgroup >> 6 >= v135 * SDWORD1(v135))
     {
-      v83 = v136 * SDWORD1(v136);
+      v83 = v135 * SDWORD1(v135);
     }
 
     else
@@ -12825,11 +13404,11 @@ LABEL_38:
       v83 = maxTotalThreadsPerThreadgroup >> 6;
     }
 
-    v116 = (SHIDWORD(v136) + 7) >> 3;
-    v84 = (SDWORD2(v136) + 7) >> 3;
-    v85 = (v83 + v136 * SDWORD1(v136) - 1) / v83;
+    v115 = (SHIDWORD(v135) + 7) >> 3;
+    v84 = (SDWORD2(v135) + 7) >> 3;
+    v85 = (v83 + v135 * SDWORD1(v135) - 1) / v83;
     v86 = [v31 computeCommandEncoderWithDispatchType:0];
-    gradientKernel2 = [v118 gradientKernel];
+    gradientKernel2 = [v117 gradientKernel];
     [v86 setComputePipelineState:gradientKernel2];
 
     v88 = [deviceMemory objectAtIndexedSubscript:v28];
@@ -12839,34 +13418,34 @@ LABEL_38:
     v90 = 1;
     [v86 setBuffer:v89 offset:0 atIndex:1];
 
-    [v86 setBuffer:v140 offset:0 atIndex:2];
-    [v86 setBuffer:v141[0] offset:0 atIndex:3];
+    [v86 setBuffer:v139 offset:0 atIndex:2];
+    [v86 setBuffer:v140[0] offset:0 atIndex:3];
     [v86 setBytes:__b length:68 atIndex:4];
-    *v125 = v116;
-    *&v125[8] = v84;
-    *&v125[16] = v85;
-    v129 = v109;
-    v130 = v83;
-    [v86 dispatchThreadgroups:v125 threadsPerThreadgroup:&v129];
+    *v124 = v115;
+    *&v124[8] = v84;
+    *&v124[16] = v85;
+    v128 = v108;
+    v129 = v83;
+    [v86 dispatchThreadgroups:v124 threadsPerThreadgroup:&v128];
     [v86 endEncoding];
     v91 = 0;
+    v126 = 0u;
     v127 = 0u;
-    v128 = 0u;
-    *&v126[12] = 0u;
-    *v125 = 0;
-    *&v125[4] = v134;
-    *&v125[20] = v135;
-    v92 = v132;
-    v93 = &v140;
-    *v126 = v136;
+    *&v125[12] = 0u;
+    *v124 = 0;
+    *&v124[4] = v133;
+    *&v124[20] = v134;
+    v92 = v131;
+    v93 = &v139;
+    *v125 = v135;
     do
     {
       v94 = v90;
       v95 = *v92;
       if (v95)
       {
-        WORD4(v127) = v95;
-        WORD5(v127) = v91;
+        WORD4(v126) = v95;
+        WORD5(v126) = v91;
         gpuPipelineStatesArithmeticReduceGradientAny = [(MLCDeviceGPU *)selfCopy gpuPipelineStatesArithmeticReduceGradientAny];
         v97 = [gpuPipelineStatesArithmeticReduceGradientAny objectAtIndexedSubscript:v28];
         maxTotalThreadsPerThreadgroup2 = [v97 maxTotalThreadsPerThreadgroup];
@@ -12891,19 +13470,19 @@ LABEL_38:
         [v99 setBuffer:v103 offset:0 atIndex:1];
 
         [v99 setThreadgroupMemoryLength:GPU_AlignForThreadGroupMemorySize(4 * maxTotalThreadsPerThreadgroup2) atIndex:0];
-        [v99 setBytes:v125 length:96 atIndex:2];
-        v129 = vdupq_n_s64(1uLL);
-        v130 = 1;
-        v123 = maxTotalThreadsPerThreadgroup2;
-        v124 = v129;
-        [v99 dispatchThreadgroups:&v129 threadsPerThreadgroup:&v123];
+        [v99 setBytes:v124 length:96 atIndex:2];
+        v128 = vdupq_n_s64(1uLL);
+        v129 = 1;
+        v122 = maxTotalThreadsPerThreadgroup2;
+        v123 = v128;
+        [v99 dispatchThreadgroups:&v128 threadsPerThreadgroup:&v122];
         [v99 endEncoding];
       }
 
       v90 = 0;
       v91 = 1;
-      v92 = v131;
-      v93 = v141;
+      v92 = v130;
+      v93 = v140;
     }
 
     while ((v94 & 1) != 0);
@@ -12913,8 +13492,8 @@ LABEL_38:
     }
 
     v105 = 1;
-    v21 = v117;
-    shape2 = v110;
+    v21 = v116;
+    shape2 = v109;
     do
     {
     }
@@ -12927,8 +13506,6 @@ LABEL_38:
 
   while (v28 < [(MLCDeviceGPU *)selfCopy numDevicesToUse]);
 LABEL_56:
-
-  v106 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dispatchForwardScatterLayer:(id)layer sourceTensors:(id)tensors resultTensor:(id)tensor forTraining:(BOOL)training
@@ -13730,7 +14307,7 @@ LABEL_40:
 
 - (void)dispatchForwardSliceLayer:(id)layer sourceTensor:(id)tensor resultTensor:(id)resultTensor forTraining:(BOOL)training
 {
-  v82 = *MEMORY[0x277D85DE8];
+  v81 = *MEMORY[0x277D85DE8];
   layerCopy = layer;
   tensorCopy = tensor;
   resultTensorCopy = resultTensor;
@@ -13740,23 +14317,23 @@ LABEL_40:
   if ([(MLCDeviceGPU *)self numDevicesToUse])
   {
     v11 = 0;
-    v61 = &v75;
+    v60 = &v74;
     selfCopy = self;
     do
     {
-      v12 = [layerCopy objectAtIndexedSubscript:{v11, v61}];
+      v12 = [layerCopy objectAtIndexedSubscript:{v11, v60}];
       gpuCommandBufferList = [(MLCDeviceGPU *)self gpuCommandBufferList];
-      v68 = v11;
-      v67 = [gpuCommandBufferList objectAtIndexedSubscript:v11];
+      v67 = v11;
+      v66 = [gpuCommandBufferList objectAtIndexedSubscript:v11];
 
       context = objc_autoreleasePoolPush();
-      v77 = 0;
-      v75 = 0u;
-      memset(v76, 0, sizeof(v76));
-      memset(v74, 0, sizeof(v74));
+      v76 = 0;
+      v74 = 0u;
+      memset(v75, 0, sizeof(v75));
+      memset(v73, 0, sizeof(v73));
       descriptor = [resultTensorCopy descriptor];
       shape = [descriptor shape];
-      v69 = [shape count];
+      v68 = [shape count];
 
       descriptor2 = [resultTensorCopy descriptor];
       shape2 = [descriptor2 shape];
@@ -13765,7 +14342,7 @@ LABEL_40:
       if (v18)
       {
         v19 = 0;
-        v20 = v76 - v69;
+        v20 = v75 - v68;
         do
         {
           stride = [v12 stride];
@@ -13808,10 +14385,10 @@ LABEL_40:
         while (v19 < v39);
       }
 
-      v40 = v69 - 4;
-      if (v69 != 4)
+      v40 = v68 - 4;
+      if (v68 != 4)
       {
-        v41 = v61;
+        v41 = v60;
         do
         {
           *(v41 - 12) = 0;
@@ -13827,19 +14404,19 @@ LABEL_40:
         while (!__CFADD__(v40++, 1));
       }
 
-      LODWORD(v77) = 0;
+      LODWORD(v76) = 0;
       forwardKernel = [v12 forwardKernel];
       maxTotalThreadsPerThreadgroup = [forwardKernel maxTotalThreadsPerThreadgroup];
 
       v45 = 0;
-      v80 = xmmword_238D45D80;
-      v81 = unk_238D45D90;
-      v78 = xmmword_238D45D80;
-      v79 = unk_238D45D90;
+      v79 = xmmword_238D45D80;
+      v80 = unk_238D45D90;
+      v77 = xmmword_238D45D80;
+      v78 = unk_238D45D90;
       do
       {
-        v46 = *(&v76[1] + v45 + 3);
-        v47 = &v80 + 8 * v45;
+        v46 = *(&v75[1] + v45 + 3);
+        v47 = &v79 + 8 * v45;
         if (maxTotalThreadsPerThreadgroup >= v46)
         {
           *(v47 + 3) = v46;
@@ -13858,7 +14435,7 @@ LABEL_40:
           v48 = maxTotalThreadsPerThreadgroup;
         }
 
-        v79.i64[v45 + 1] = (v46 + v48 - 1) / v48;
+        v78.i64[v45 + 1] = (v46 + v48 - 1) / v48;
         v49 = v45 + 3;
         --v45;
         maxTotalThreadsPerThreadgroup /= v48;
@@ -13871,8 +14448,8 @@ LABEL_40:
 
       if (v52 == 4)
       {
-        v53 = __clz(__rbit32(LOWORD(v76[1]))) << 16;
-        if (((LOWORD(v76[1]) - 1) & v76[1]) != 0)
+        v53 = __clz(__rbit32(LOWORD(v75[1]))) << 16;
+        if (((LOWORD(v75[1]) - 1) & v75[1]) != 0)
         {
           v54 = -65536;
         }
@@ -13882,43 +14459,344 @@ LABEL_40:
           v54 = v53;
         }
 
-        HIDWORD(v77) = v54 & 0xFFFF0000 | LOWORD(v76[1]);
-        v55 = *(&v78 + 1) * SLODWORD(v76[1]);
+        HIDWORD(v76) = v54 & 0xFFFF0000 | LOWORD(v75[1]);
+        v55 = *(&v77 + 1) * SLODWORD(v75[1]);
       }
 
       else
       {
-        HIDWORD(v77) = 1;
-        v55 = *(&v78 + 1);
+        HIDWORD(v76) = 1;
+        v55 = *(&v77 + 1);
       }
 
-      v56 = [v67 computeCommandEncoderWithDispatchType:0];
+      v56 = [v66 computeCommandEncoderWithDispatchType:0];
       forwardKernel2 = [v12 forwardKernel];
       [v56 setComputePipelineState:forwardKernel2];
 
-      v58 = [deviceMemory objectAtIndexedSubscript:v68];
+      v58 = [deviceMemory objectAtIndexedSubscript:v67];
       [v56 setBuffer:v58 offset:0 atIndex:0];
 
-      v59 = [deviceMemory2 objectAtIndexedSubscript:v68];
+      v59 = [deviceMemory2 objectAtIndexedSubscript:v67];
       [v56 setBuffer:v59 offset:0 atIndex:1];
 
-      [v56 setBytes:v74 length:120 atIndex:2];
-      v72 = vextq_s8(v79, v79, 8uLL);
-      v73 = v55;
-      v70 = vextq_s8(v81, v81, 8uLL);
-      v71 = *(&v80 + 1);
-      [v56 dispatchThreadgroups:&v72 threadsPerThreadgroup:&v70];
+      [v56 setBytes:v73 length:120 atIndex:2];
+      v71 = vextq_s8(v78, v78, 8uLL);
+      v72 = v55;
+      v69 = vextq_s8(v80, v80, 8uLL);
+      v70 = *(&v79 + 1);
+      [v56 dispatchThreadgroups:&v71 threadsPerThreadgroup:&v69];
       [v56 endEncoding];
 
       objc_autoreleasePoolPop(context);
-      v11 = v68 + 1;
+      v11 = v67 + 1;
       self = selfCopy;
     }
 
-    while (v68 + 1 < [(MLCDeviceGPU *)selfCopy numDevicesToUse]);
+    while (v67 + 1 < [(MLCDeviceGPU *)selfCopy numDevicesToUse]);
+  }
+}
+
+- (void)dispatchForwardMPSGraphWithDeviceOps:(id)ops sourceBuffer:(id)buffer resultBuffer:(id)resultBuffer deviceIndex:(unint64_t)index dataType:(unsigned int)type
+{
+  v7 = *&type;
+  v56[3] = *MEMORY[0x277D85DE8];
+  opsCopy = ops;
+  resultBufferCopy = resultBuffer;
+  bufferCopy = buffer;
+  hasBias = [opsCopy hasBias];
+  mpsGraphTensors = [opsCopy mpsGraphTensors];
+  v14 = mpsGraphTensors;
+  if (hasBias)
+  {
+    v15 = 2;
   }
 
-  v60 = *MEMORY[0x277D85DE8];
+  else
+  {
+    v15 = 1;
+  }
+
+  v16 = [mpsGraphTensors objectAtIndexedSubscript:v15];
+
+  v17 = objc_alloc(MEMORY[0x277CD7890]);
+  v48 = v16;
+  shape = [v16 shape];
+  v50 = [v17 initWithMTLBuffer:bufferCopy shape:shape dataType:v7];
+
+  mpsGraphTensors2 = [opsCopy mpsGraphTensors];
+  v20 = [mpsGraphTensors2 objectAtIndexedSubscript:0];
+
+  v21 = objc_alloc(MEMORY[0x277CD7890]);
+  exportableState = [opsCopy exportableState];
+  v23 = [exportableState objectAtIndexedSubscript:0];
+  shape2 = [v20 shape];
+  v49 = [v21 initWithMTLBuffer:v23 shape:shape2 dataType:v7];
+
+  if ([opsCopy hasBias])
+  {
+    mpsGraphTensors3 = [opsCopy mpsGraphTensors];
+    v26 = [mpsGraphTensors3 objectAtIndexedSubscript:1];
+
+    v27 = objc_alloc(MEMORY[0x277CD7890]);
+    exportableState2 = [opsCopy exportableState];
+    v29 = [exportableState2 objectAtIndexedSubscript:1];
+    shape3 = [v26 shape];
+    v44 = v7;
+    v31 = [v27 initWithMTLBuffer:v29 shape:shape3 dataType:v7];
+
+    v55[0] = v48;
+    v55[1] = v20;
+    v56[0] = v50;
+    v56[1] = v49;
+    v55[2] = v26;
+    v56[2] = v31;
+    v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v56 forKeys:v55 count:3];
+
+    v7 = v44;
+  }
+
+  else
+  {
+    v53[0] = v48;
+    v53[1] = v20;
+    v54[0] = v50;
+    v54[1] = v49;
+    v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v54 forKeys:v53 count:2];
+  }
+
+  mpsGraphTensors4 = [opsCopy mpsGraphTensors];
+  v34 = mpsGraphTensors4;
+  if (hasBias)
+  {
+    v35 = 3;
+  }
+
+  else
+  {
+    v35 = 2;
+  }
+
+  v36 = [mpsGraphTensors4 objectAtIndexedSubscript:v35];
+
+  v37 = objc_alloc(MEMORY[0x277CD7890]);
+  shape4 = [v36 shape];
+  v39 = [v37 initWithMTLBuffer:resultBufferCopy shape:shape4 dataType:v7];
+
+  forwardMPSGraph = [opsCopy forwardMPSGraph];
+  gpuMPSCommandBufferList = [(MLCDeviceGPU *)self gpuMPSCommandBufferList];
+  v42 = [gpuMPSCommandBufferList objectAtIndexedSubscript:index];
+  v51 = v36;
+  v52 = v39;
+  v43 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v52 forKeys:&v51 count:1];
+  [forwardMPSGraph encodeToCommandBuffer:v42 feeds:v32 targetOperations:0 resultsDictionary:v43 executionDescriptor:0];
+}
+
+- (void)dispatchGradientMPSGraphWithDeviceOps:(id)ops sourceBuffer:(id)buffer souceGradientBuffer:(id)gradientBuffer resultGradientBuffer:(id)resultGradientBuffer deviceIndex:(unint64_t)index dataType:(unsigned int)type
+{
+  v8 = *&type;
+  v100[1] = *MEMORY[0x277D85DE8];
+  opsCopy = ops;
+  resultGradientBufferCopy = resultGradientBuffer;
+  gradientBufferCopy = gradientBuffer;
+  bufferCopy = buffer;
+  hasBias = [opsCopy hasBias];
+  mpsGraphTensors = [opsCopy mpsGraphTensors];
+  v18 = mpsGraphTensors;
+  v81 = hasBias;
+  if (hasBias)
+  {
+    v19 = 4;
+  }
+
+  else
+  {
+    v19 = 3;
+  }
+
+  if (hasBias)
+  {
+    v20 = 5;
+  }
+
+  else
+  {
+    v20 = 4;
+  }
+
+  if (hasBias)
+  {
+    v21 = 6;
+  }
+
+  else
+  {
+    v21 = 5;
+  }
+
+  v22 = 6;
+  if (hasBias)
+  {
+    v22 = 7;
+  }
+
+  v87 = v22;
+  v23 = [mpsGraphTensors objectAtIndexedSubscript:v19];
+
+  v24 = objc_alloc(MEMORY[0x277CD7890]);
+  v93 = v23;
+  shape = [v23 shape];
+  v92 = [v24 initWithMTLBuffer:gradientBufferCopy shape:shape dataType:v8];
+
+  mpsGraphTensors2 = [opsCopy mpsGraphTensors];
+  v27 = [mpsGraphTensors2 objectAtIndexedSubscript:v20];
+
+  v28 = objc_alloc(MEMORY[0x277CD7890]);
+  exportableState = [opsCopy exportableState];
+  v30 = [exportableState objectAtIndexedSubscript:0];
+  v86 = v27;
+  shape2 = [v27 shape];
+  v85 = [v28 initWithMTLBuffer:v30 shape:shape2 dataType:v8];
+
+  mpsGraphTensors3 = [opsCopy mpsGraphTensors];
+  v33 = [mpsGraphTensors3 objectAtIndexedSubscript:v21];
+
+  v34 = objc_alloc(MEMORY[0x277CD7890]);
+  shape3 = [v33 shape];
+  v91 = [v34 initWithMTLBuffer:resultGradientBufferCopy shape:shape3 dataType:v8];
+
+  mpsGraphTensors4 = [opsCopy mpsGraphTensors];
+  v37 = [mpsGraphTensors4 objectAtIndexedSubscript:v87];
+
+  v38 = objc_alloc(MEMORY[0x277CD7890]);
+  v84 = v37;
+  shape4 = [v37 shape];
+  v83 = [v38 initWithMTLBuffer:bufferCopy shape:shape4 dataType:v8];
+
+  gradientState = [opsCopy gradientState];
+  v41 = [gradientState count];
+
+  if (v41)
+  {
+    gradientState2 = [opsCopy gradientState];
+    v43 = [gradientState2 objectAtIndexedSubscript:0];
+
+    indexCopy2 = index;
+    selfCopy3 = self;
+  }
+
+  else
+  {
+    selfCopy3 = self;
+    deviceList = [(MLCDeviceGPU *)self deviceList];
+    indexCopy2 = index;
+    v47 = [deviceList objectAtIndexedSubscript:index];
+
+    exportableState2 = [opsCopy exportableState];
+    v49 = [exportableState2 objectAtIndexedSubscript:0];
+    v43 = [v47 newBufferWithLength:objc_msgSend(v49 options:{"length"), +[MLCGPUHelper mtlResourceOptions](MLCGPUHelper, "mtlResourceOptions")}];
+
+    v100[0] = v43;
+    v50 = [MEMORY[0x277CBEA60] arrayWithObjects:v100 count:1];
+    v51 = [v50 mutableCopy];
+    [opsCopy setGradientState:v51];
+  }
+
+  mpsGraphTensors5 = [opsCopy mpsGraphTensors];
+  v53 = mpsGraphTensors5;
+  if (v81)
+  {
+    v54 = 8;
+  }
+
+  else
+  {
+    v54 = 7;
+  }
+
+  v55 = [mpsGraphTensors5 objectAtIndexedSubscript:v54];
+
+  v56 = objc_alloc(MEMORY[0x277CD7890]);
+  shape5 = [v55 shape];
+  v58 = [v56 initWithMTLBuffer:v43 shape:shape5 dataType:v8];
+
+  v82 = v43;
+  v89 = v55;
+  if ([opsCopy hasBias])
+  {
+    v59 = indexCopy2;
+    mpsGraphTensors6 = [opsCopy mpsGraphTensors];
+    v61 = mpsGraphTensors6;
+    if (v81)
+    {
+      v62 = 9;
+    }
+
+    else
+    {
+      v62 = 8;
+    }
+
+    v63 = [mpsGraphTensors6 objectAtIndexedSubscript:v62];
+
+    biasChannelCount = [opsCopy biasChannelCount];
+    gradientState3 = [opsCopy gradientState];
+    v66 = [gradientState3 count];
+
+    if (v66 < 2)
+    {
+      deviceList2 = [(MLCDeviceGPU *)self deviceList];
+      gradientState5 = [deviceList2 objectAtIndexedSubscript:v59];
+
+      v68 = [gradientState5 newBufferWithLength:4 * biasChannelCount options:{+[MLCGPUHelper mtlResourceOptions](MLCGPUHelper, "mtlResourceOptions")}];
+      gradientState4 = [opsCopy gradientState];
+      [gradientState4 setObject:v68 atIndexedSubscript:1];
+    }
+
+    else
+    {
+      gradientState5 = [opsCopy gradientState];
+      v68 = [gradientState5 objectAtIndexedSubscript:1];
+    }
+
+    v69 = opsCopy;
+
+    v73 = objc_alloc(MEMORY[0x277CD7890]);
+    shape6 = [v63 shape];
+    v75 = [v73 initWithMTLBuffer:v68 shape:shape6 dataType:v8];
+
+    v98[0] = v33;
+    v98[1] = v89;
+    v99[0] = v91;
+    v99[1] = v58;
+    v98[2] = v63;
+    v99[2] = v75;
+    v70 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v99 forKeys:v98 count:3];
+
+    indexCopy2 = v59;
+    selfCopy3 = self;
+  }
+
+  else
+  {
+    v69 = opsCopy;
+    v96[0] = v33;
+    v96[1] = v55;
+    v97[0] = v91;
+    v97[1] = v58;
+    v70 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v97 forKeys:v96 count:{2, v33}];
+  }
+
+  v94[0] = v93;
+  v94[1] = v86;
+  v95[0] = v92;
+  v95[1] = v85;
+  v94[2] = v84;
+  v95[2] = v83;
+  v76 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v95 forKeys:v94 count:3];
+  gradientMPSGraph = [v69 gradientMPSGraph];
+  gpuMPSCommandBufferList = [(MLCDeviceGPU *)selfCopy3 gpuMPSCommandBufferList];
+  v79 = [gpuMPSCommandBufferList objectAtIndexedSubscript:indexCopy2];
+  [gradientMPSGraph encodeToCommandBuffer:v79 feeds:v76 targetOperations:0 resultsDictionary:v70 executionDescriptor:0];
 }
 
 - (void)dispatchForwardFullyConnectedLayer:(id)layer sourceTensor:(id)tensor resultTensor:(id)resultTensor forTraining:(BOOL)training
@@ -13960,56 +14838,35 @@ LABEL_40:
       unsignedIntegerValue2 = [v23 unsignedIntegerValue];
 
       batchSize = [v12 batchSize];
-      if (v16 < 3)
+      if (v16 < 3 || ([tensorCopy descriptor], v26 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v26, "shape"), v27 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v27, "objectAtIndexedSubscript:", 1), v28 = objc_claimAutoreleasedReturnValue(), batchSize *= objc_msgSend(v28, "unsignedIntegerValue"), v28, v27, v26, v16 == 3) || (objc_msgSend(tensorCopy, "descriptor"), v29 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v29, "shape"), v30 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v30, "objectAtIndexedSubscript:", 2), v31 = objc_claimAutoreleasedReturnValue(), batchSize *= objc_msgSend(v31, "unsignedIntegerValue"), v31, v30, v29, v16 != 4))
       {
-        goto LABEL_8;
-      }
-
-      descriptor4 = [tensorCopy descriptor];
-      shape4 = [descriptor4 shape];
-      v28 = [shape4 objectAtIndexedSubscript:1];
-      batchSize *= [v28 unsignedIntegerValue];
-
-      if (v16 == 3)
-      {
-        goto LABEL_8;
-      }
-
-      descriptor5 = [tensorCopy descriptor];
-      shape5 = [descriptor5 shape];
-      v31 = [shape5 objectAtIndexedSubscript:2];
-      batchSize *= [v31 unsignedIntegerValue];
-
-      if (v16 != 4)
-      {
-LABEL_8:
         v99 = 0;
       }
 
       else
       {
-        descriptor6 = [tensorCopy descriptor];
-        shape6 = [descriptor6 shape];
-        v33 = [shape6 objectAtIndexedSubscript:2];
+        descriptor4 = [tensorCopy descriptor];
+        shape4 = [descriptor4 shape];
+        v33 = [shape4 objectAtIndexedSubscript:2];
         unsignedIntegerValue3 = [v33 unsignedIntegerValue];
-        descriptor7 = [tensorCopy descriptor];
-        shape7 = [descriptor7 shape];
-        v37 = [shape7 objectAtIndexedSubscript:3];
+        descriptor5 = [tensorCopy descriptor];
+        shape5 = [descriptor5 shape];
+        v37 = [shape5 objectAtIndexedSubscript:3];
         v38 = [v37 unsignedIntegerValue] * unsignedIntegerValue3;
 
         if (v38 == 1)
         {
           batchSize = [v12 batchSize];
           tensorCopy = v98;
-          descriptor8 = [v98 descriptor];
-          shape8 = [descriptor8 shape];
+          descriptor6 = [v98 descriptor];
+          shape6 = [descriptor6 shape];
           v99 = 1;
-          v41 = [shape8 objectAtIndexedSubscript:1];
+          v41 = [shape6 objectAtIndexedSubscript:1];
           unsignedIntegerValue = [v41 unsignedIntegerValue];
 
-          descriptor9 = [v108 descriptor];
-          shape9 = [descriptor9 shape];
-          v44 = [shape9 objectAtIndexedSubscript:1];
+          descriptor7 = [v108 descriptor];
+          shape7 = [descriptor7 shape];
+          v44 = [shape7 objectAtIndexedSubscript:1];
           unsignedIntegerValue2 = [v44 unsignedIntegerValue];
         }
 
@@ -14037,10 +14894,10 @@ LABEL_8:
 
       v50 = unsignedIntegerValue2;
       v51 = MEMORY[0x277CD7258];
-      descriptor10 = [tensorCopy descriptor];
-      v53 = [descriptor10 elementByteCount] * unsignedIntegerValue;
-      descriptor11 = [tensorCopy descriptor];
-      v55 = [v51 matrixDescriptorWithRows:batchSize columns:unsignedIntegerValue rowBytes:v53 dataType:{GPU_GetDataType(objc_msgSend(descriptor11, "dataType"))}];
+      descriptor8 = [tensorCopy descriptor];
+      v53 = [descriptor8 elementByteCount] * unsignedIntegerValue;
+      descriptor9 = [tensorCopy descriptor];
+      v55 = [v51 matrixDescriptorWithRows:batchSize columns:unsignedIntegerValue rowBytes:v53 dataType:{GPU_GetDataType(objc_msgSend(descriptor9, "dataType"))}];
 
       v56 = unsignedIntegerValue;
       v57 = objc_alloc(MEMORY[0x277CD7250]);
@@ -14051,10 +14908,10 @@ LABEL_8:
       v110 = [v57 initWithBuffer:v60 descriptor:v55];
 
       v61 = MEMORY[0x277CD7258];
-      descriptor12 = [v108 descriptor];
-      v63 = [descriptor12 elementByteCount] * v50;
-      descriptor13 = [v108 descriptor];
-      v65 = [v61 matrixDescriptorWithRows:v58 columns:v50 rowBytes:v63 dataType:{GPU_GetDataType(objc_msgSend(descriptor13, "dataType"))}];
+      descriptor10 = [v108 descriptor];
+      v63 = [descriptor10 elementByteCount] * v50;
+      descriptor11 = [v108 descriptor];
+      v65 = [v61 matrixDescriptorWithRows:v58 columns:v50 rowBytes:v63 dataType:{GPU_GetDataType(objc_msgSend(descriptor11, "dataType"))}];
 
       v66 = objc_alloc(MEMORY[0x277CD7250]);
       v67 = [deviceMemory2 objectAtIndexedSubscript:v111];
@@ -14081,9 +14938,9 @@ LABEL_8:
       if (v79 >= 2)
       {
         context = objc_autoreleasePoolPush();
-        descriptor14 = [v108 descriptor];
-        shape10 = [descriptor14 shape];
-        [v12 setSource0Shape:shape10];
+        descriptor12 = [v108 descriptor];
+        shape8 = [descriptor12 shape];
+        [v12 setSource0Shape:shape8];
 
         v82 = [&unk_284BA6080 mutableCopy];
         v83 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v50];
@@ -14095,9 +14952,9 @@ LABEL_8:
 
         else
         {
-          descriptor15 = [v108 descriptor];
-          shape11 = [descriptor15 shape];
-          [v82 setObject:v83 atIndexedSubscript:{objc_msgSend(shape11, "count") - 1}];
+          descriptor13 = [v108 descriptor];
+          shape9 = [descriptor13 shape];
+          [v82 setObject:v83 atIndexedSubscript:{objc_msgSend(shape9, "count") - 1}];
         }
 
         v87 = [v82 copy];
@@ -14146,7 +15003,7 @@ LABEL_8:
 - (void)dispatchGradientFullyConnectedLayer:(id)layer sourceGradientTensor:(id)tensor resultGradientTensor:(id)gradientTensor resultStateIsTemporary:(BOOL)temporary
 {
   temporaryCopy = temporary;
-  v130[2] = *MEMORY[0x277D85DE8];
+  v129[2] = *MEMORY[0x277D85DE8];
   layerCopy = layer;
   tensorCopy = tensor;
   selfCopy = self;
@@ -14154,19 +15011,19 @@ LABEL_8:
   gradientTensorCopy = gradientTensor;
   deviceMemory = [v11 deviceMemory];
   [(MLCDeviceGPU *)self allocateResultTensor:gradientTensorCopy];
-  v125 = gradientTensorCopy;
+  v124 = gradientTensorCopy;
   deviceMemory2 = [gradientTensorCopy deviceMemory];
   if ([(MLCDeviceGPU *)self numDevicesToUse])
   {
     v13 = 0;
-    v111 = v11;
+    v110 = v11;
     selfCopy2 = self;
     do
     {
       context = objc_autoreleasePoolPush();
       v14 = [layerCopy objectAtIndexedSubscript:v13];
       gpuCommandBufferList = [(MLCDeviceGPU *)selfCopy gpuCommandBufferList];
-      v123 = [gpuCommandBufferList objectAtIndexedSubscript:v13];
+      v122 = [gpuCommandBufferList objectAtIndexedSubscript:v13];
 
       descriptor = [v11 descriptor];
       shape = [descriptor shape];
@@ -14177,65 +15034,44 @@ LABEL_8:
       v21 = [shape2 objectAtIndexedSubscript:v18 - 1];
       unsignedIntegerValue = [v21 unsignedIntegerValue];
 
-      descriptor3 = [v125 descriptor];
+      descriptor3 = [v124 descriptor];
       shape3 = [descriptor3 shape];
       v24 = [shape3 objectAtIndexedSubscript:v18 - 1];
       unsignedIntegerValue2 = [v24 unsignedIntegerValue];
 
       batchSize = [v14 batchSize];
-      if (v18 < 3)
+      if (v18 < 3 || ([v11 descriptor], v26 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v26, "shape"), v27 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v27, "objectAtIndexedSubscript:", 1), v28 = objc_claimAutoreleasedReturnValue(), batchSize *= objc_msgSend(v28, "unsignedIntegerValue"), v28, v27, v26, v18 == 3) || (objc_msgSend(v11, "descriptor"), v29 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v29, "shape"), v30 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v30, "objectAtIndexedSubscript:", 2), v31 = objc_claimAutoreleasedReturnValue(), batchSize *= objc_msgSend(v31, "unsignedIntegerValue"), v31, v30, v29, v18 != 4))
       {
-        goto LABEL_9;
-      }
-
-      descriptor4 = [v11 descriptor];
-      shape4 = [descriptor4 shape];
-      v28 = [shape4 objectAtIndexedSubscript:1];
-      batchSize *= [v28 unsignedIntegerValue];
-
-      if (v18 == 3)
-      {
-        goto LABEL_9;
-      }
-
-      descriptor5 = [v11 descriptor];
-      shape5 = [descriptor5 shape];
-      v31 = [shape5 objectAtIndexedSubscript:2];
-      batchSize *= [v31 unsignedIntegerValue];
-
-      if (v18 != 4)
-      {
-LABEL_9:
         v40 = selfCopy2;
       }
 
       else
       {
-        descriptor6 = [v11 descriptor];
-        shape6 = [descriptor6 shape];
-        v32 = [shape6 objectAtIndexedSubscript:2];
+        descriptor4 = [v11 descriptor];
+        shape4 = [descriptor4 shape];
+        v32 = [shape4 objectAtIndexedSubscript:2];
         unsignedIntegerValue3 = [v32 unsignedIntegerValue];
-        descriptor7 = [v11 descriptor];
-        shape7 = [descriptor7 shape];
-        v36 = [shape7 objectAtIndexedSubscript:3];
+        descriptor5 = [v11 descriptor];
+        shape5 = [descriptor5 shape];
+        v36 = [shape5 objectAtIndexedSubscript:3];
         v37 = batchSize;
         v38 = [v36 unsignedIntegerValue] * unsignedIntegerValue3;
 
-        v11 = v111;
+        v11 = v110;
         v39 = v38 == 1;
         batchSize = v37;
         v40 = selfCopy2;
         if (v39)
         {
           batchSize = [v14 batchSize];
-          descriptor8 = [v111 descriptor];
-          shape8 = [descriptor8 shape];
-          v43 = [shape8 objectAtIndexedSubscript:1];
+          descriptor6 = [v110 descriptor];
+          shape6 = [descriptor6 shape];
+          v43 = [shape6 objectAtIndexedSubscript:1];
           unsignedIntegerValue = [v43 unsignedIntegerValue];
 
-          descriptor9 = [v125 descriptor];
-          shape9 = [descriptor9 shape];
-          v46 = [shape9 objectAtIndexedSubscript:1];
+          descriptor7 = [v124 descriptor];
+          shape7 = [descriptor7 shape];
+          v46 = [shape7 objectAtIndexedSubscript:1];
           unsignedIntegerValue2 = [v46 unsignedIntegerValue];
         }
       }
@@ -14258,55 +15094,55 @@ LABEL_9:
       }
 
       v55 = MEMORY[0x277CD7258];
-      descriptor10 = [v11 descriptor];
-      v115 = 4 * unsignedIntegerValue;
-      v57 = [v55 matrixDescriptorWithRows:batchSize columns:unsignedIntegerValue rowBytes:4 * unsignedIntegerValue dataType:{GPU_GetDataType(objc_msgSend(descriptor10, "dataType"))}];
+      descriptor8 = [v11 descriptor];
+      v114 = 4 * unsignedIntegerValue;
+      v57 = [v55 matrixDescriptorWithRows:batchSize columns:unsignedIntegerValue rowBytes:4 * unsignedIntegerValue dataType:{GPU_GetDataType(objc_msgSend(descriptor8, "dataType"))}];
 
       v58 = objc_alloc(MEMORY[0x277CD7250]);
       v59 = [deviceMemory objectAtIndexedSubscript:v13];
-      v119 = v57;
+      v118 = v57;
       v60 = [v58 initWithBuffer:v59 descriptor:v57];
 
       v61 = MEMORY[0x277CD7258];
-      descriptor11 = [v125 descriptor];
-      v112 = batchSize;
-      v63 = [v61 matrixDescriptorWithRows:batchSize columns:unsignedIntegerValue2 rowBytes:4 * unsignedIntegerValue2 dataType:{GPU_GetDataType(objc_msgSend(descriptor11, "dataType"))}];
+      descriptor9 = [v124 descriptor];
+      v111 = batchSize;
+      v63 = [v61 matrixDescriptorWithRows:batchSize columns:unsignedIntegerValue2 rowBytes:4 * unsignedIntegerValue2 dataType:{GPU_GetDataType(objc_msgSend(descriptor9, "dataType"))}];
 
       v64 = objc_alloc(MEMORY[0x277CD7250]);
-      v117 = v13;
+      v116 = v13;
       v65 = [deviceMemory2 objectAtIndexedSubscript:v13];
-      v127 = v63;
+      v126 = v63;
       v66 = [v64 initWithBuffer:v65 descriptor:v63];
 
       v67 = MEMORY[0x277CD7258];
       v68 = v14;
-      descriptor12 = [v125 descriptor];
-      v70 = [v67 matrixDescriptorWithRows:unsignedIntegerValue columns:unsignedIntegerValue2 rowBytes:4 * unsignedIntegerValue2 dataType:{GPU_GetDataType(objc_msgSend(descriptor12, "dataType"))}];
+      descriptor10 = [v124 descriptor];
+      v70 = [v67 matrixDescriptorWithRows:unsignedIntegerValue columns:unsignedIntegerValue2 rowBytes:4 * unsignedIntegerValue2 dataType:{GPU_GetDataType(objc_msgSend(descriptor10, "dataType"))}];
 
       v71 = objc_alloc(MEMORY[0x277CD7250]);
       exportableState = [v14 exportableState];
       v73 = [exportableState objectAtIndexedSubscript:0];
       v74 = [v71 initWithBuffer:v73 descriptor:v70];
 
-      v75 = v123;
+      v75 = v122;
       if (([v68 computeWeightsAndBiasOnly] & 1) == 0)
       {
         gradientStatisticsKernel4 = [v68 gradientStatisticsKernel];
         v77 = [gradientStatisticsKernel4 objectAtIndexedSubscript:0];
-        [v77 encodeToCommandBuffer:v123 leftMatrix:v60 rightMatrix:v74 resultMatrix:v66];
+        [v77 encodeToCommandBuffer:v122 leftMatrix:v60 rightMatrix:v74 resultMatrix:v66];
       }
 
-      v122 = v66;
+      v121 = v66;
       v78 = objc_alloc(MEMORY[0x277CD7250]);
       source = [v68 source];
-      v80 = [v78 initWithBuffer:source descriptor:v127];
+      v80 = [v78 initWithBuffer:source descriptor:v126];
 
-      v116 = v74;
+      v115 = v74;
       if (temporaryCopy)
       {
-        v81 = [MEMORY[0x277CD72B0] temporaryMatrixWithCommandBuffer:v123 matrixDescriptor:v70];
+        v81 = [MEMORY[0x277CD72B0] temporaryMatrixWithCommandBuffer:v122 matrixDescriptor:v70];
         selfCopy = selfCopy2;
-        v82 = v117;
+        v82 = v116;
       }
 
       else
@@ -14315,7 +15151,7 @@ LABEL_9:
         v84 = [gradientState count];
 
         selfCopy = selfCopy2;
-        v82 = v117;
+        v82 = v116;
         if (v84)
         {
           gradientState2 = [v68 gradientState];
@@ -14325,7 +15161,7 @@ LABEL_9:
         else
         {
           deviceList2 = [(MLCDeviceGPU *)selfCopy2 deviceList];
-          gradientState2 = [deviceList2 objectAtIndexedSubscript:v117];
+          gradientState2 = [deviceList2 objectAtIndexedSubscript:v116];
 
           data = [v74 data];
           v88 = [gradientState2 newBufferWithLength:objc_msgSend(data options:{"length"), +[MLCGPUHelper mtlResourceOptions](MLCGPUHelper, "mtlResourceOptions")}];
@@ -14336,15 +15172,15 @@ LABEL_9:
 
       gradientStatisticsKernel5 = [v68 gradientStatisticsKernel];
       v90 = [gradientStatisticsKernel5 objectAtIndexedSubscript:1];
-      [v90 encodeToCommandBuffer:v123 leftMatrix:v60 rightMatrix:v80 resultMatrix:v81];
+      [v90 encodeToCommandBuffer:v122 leftMatrix:v60 rightMatrix:v80 resultMatrix:v81];
 
       exportableState2 = [v68 exportableState];
       v92 = [exportableState2 count];
 
       if (v92 < 2)
       {
-        v129 = v81;
-        v95 = [MEMORY[0x277CBEA60] arrayWithObjects:&v129 count:1];
+        v128 = v81;
+        v95 = [MEMORY[0x277CBEA60] arrayWithObjects:&v128 count:1];
         v96 = [v95 copy];
         [v68 setGradientState:v96];
       }
@@ -14352,13 +15188,13 @@ LABEL_9:
       else
       {
         v93 = MEMORY[0x277CD7258];
-        descriptor13 = [v125 descriptor];
-        v95 = [v93 matrixDescriptorWithRows:1 columns:unsignedIntegerValue rowBytes:v115 dataType:{GPU_GetDataType(objc_msgSend(descriptor13, "dataType"))}];
+        descriptor11 = [v124 descriptor];
+        v95 = [v93 matrixDescriptorWithRows:1 columns:unsignedIntegerValue rowBytes:v114 dataType:{GPU_GetDataType(objc_msgSend(descriptor11, "dataType"))}];
 
-        v108 = v60;
+        v107 = v60;
         if (temporaryCopy)
         {
-          v96 = [MEMORY[0x277CD72B0] temporaryMatrixWithCommandBuffer:v123 matrixDescriptor:v95];
+          v96 = [MEMORY[0x277CD72B0] temporaryMatrixWithCommandBuffer:v122 matrixDescriptor:v95];
         }
 
         else
@@ -14371,7 +15207,7 @@ LABEL_9:
             deviceList3 = [(MLCDeviceGPU *)selfCopy2 deviceList];
             v101 = [deviceList3 objectAtIndexedSubscript:v82];
 
-            v102 = [v101 newBufferWithLength:v115 options:{+[MLCGPUHelper mtlResourceOptions](MLCGPUHelper, "mtlResourceOptions")}];
+            v102 = [v101 newBufferWithLength:v114 options:{+[MLCGPUHelper mtlResourceOptions](MLCGPUHelper, "mtlResourceOptions")}];
             v96 = [objc_alloc(MEMORY[0x277CD7250]) initWithBuffer:v102 descriptor:v95];
           }
 
@@ -14384,28 +15220,307 @@ LABEL_9:
 
         v103 = [deviceMemory objectAtIndexedSubscript:v82];
         data2 = [v96 data];
-        [(MLCDeviceGPU *)selfCopy2 reduceAcrossBatchForSource:v103 result:data2 batchSize:v112 batchStride:unsignedIntegerValue numEntries:unsignedIntegerValue deviceIndex:v82 commandBuffer:v123];
+        [(MLCDeviceGPU *)selfCopy2 reduceAcrossBatchForSource:v103 result:data2 batchSize:v111 batchStride:unsignedIntegerValue numEntries:unsignedIntegerValue deviceIndex:v82 commandBuffer:v122];
 
-        v130[0] = v81;
-        v130[1] = v96;
-        v105 = [MEMORY[0x277CBEA60] arrayWithObjects:v130 count:2];
+        v129[0] = v81;
+        v129[1] = v96;
+        v105 = [MEMORY[0x277CBEA60] arrayWithObjects:v129 count:2];
         v106 = [v105 copy];
         [v68 setGradientState:v106];
 
         selfCopy = selfCopy2;
-        v75 = v123;
-        v60 = v108;
+        v75 = v122;
+        v60 = v107;
       }
 
       objc_autoreleasePoolPop(context);
       v13 = v82 + 1;
-      v11 = v111;
+      v11 = v110;
     }
 
     while (v13 < [(MLCDeviceGPU *)selfCopy numDevicesToUse]);
   }
+}
 
-  v107 = *MEMORY[0x277D85DE8];
+- (void)dispatchForwardLayer:(id)layer sourceTensor:(id)tensor resultTensor:(id)resultTensor resultStateIsTemporary:(BOOL)temporary forTraining:(BOOL)training
+{
+  trainingCopy = training;
+  temporaryCopy = temporary;
+  v63[1] = *MEMORY[0x277D85DE8];
+  layerCopy = layer;
+  tensorCopy = tensor;
+  resultTensorCopy = resultTensor;
+  selfCopy = self;
+  v15 = resultTensorCopy;
+  deviceMemory = [tensorCopy deviceMemory];
+  [(MLCDeviceGPU *)selfCopy allocateResultTensor:v15];
+  v57 = v15;
+  deviceMemory2 = [v15 deviceMemory];
+  if ([(MLCDeviceGPU *)selfCopy numDevicesToUse])
+  {
+    v16 = 0;
+    v56 = layerCopy;
+    v55 = trainingCopy;
+    v50 = tensorCopy;
+    v54 = selfCopy;
+    while (1)
+    {
+      v17 = [layerCopy objectAtIndexedSubscript:v16];
+      gpuCommandBufferList = [(MLCDeviceGPU *)selfCopy gpuCommandBufferList];
+      v19 = [gpuCommandBufferList objectAtIndexedSubscript:v16];
+
+      forwardKernel = [v17 forwardKernel];
+      if ([v17 isMPSKernel])
+      {
+        v60 = v19;
+        if ([v17 isMPSGraph])
+        {
+          v21 = forwardKernel;
+          v22 = objc_autoreleasePoolPush();
+          v23 = [deviceMemory objectAtIndexedSubscript:v16];
+          v24 = [deviceMemory2 objectAtIndexedSubscript:v16];
+          descriptor = [tensorCopy descriptor];
+          -[MLCDeviceGPU dispatchForwardMPSGraphWithDeviceOps:sourceBuffer:resultBuffer:deviceIndex:dataType:](selfCopy, "dispatchForwardMPSGraphWithDeviceOps:sourceBuffer:resultBuffer:deviceIndex:dataType:", v17, v23, v24, v16, GPU_GetDataType([descriptor dataType]));
+
+          if (trainingCopy)
+          {
+            v26 = [deviceMemory objectAtIndexedSubscript:v16];
+            [v17 setSource:v26];
+          }
+
+          objc_autoreleasePoolPop(v22);
+          v19 = v60;
+          forwardKernel = v21;
+          layerCopy = v56;
+        }
+
+        else
+        {
+          batchSize = [v17 batchSize];
+          gpuWriteTensorKernelList = [(MLCDeviceGPU *)selfCopy gpuWriteTensorKernelList];
+          v29 = [gpuWriteTensorKernelList objectAtIndexedSubscript:v16];
+          v30 = [deviceMemory objectAtIndexedSubscript:v16];
+          descriptor2 = [tensorCopy descriptor];
+          dataType = [descriptor2 dataType];
+          destinationImageAllocator = [forwardKernel destinationImageAllocator];
+          v34 = tensorCopy;
+          v35 = forwardKernel;
+          v36 = v60;
+          v37 = [MLCGPUHelper allocateAndCopyToTemporaryMPSImageBatchForTensor:v34 commandBuffer:v60 batchSize:batchSize copyingKernel:v29 sourceMTLBuffer:v30 MLCDataType:dataType heapAllocator:destinationImageAllocator];
+
+          v52 = v37;
+          v53 = v35;
+          if (v55)
+          {
+            objc_opt_class();
+            if (objc_opt_isKindOfClass())
+            {
+              v62 = 0;
+              v36 = v60;
+              v38 = [v35 encodeBatchToCommandBuffer:v60 sourceImages:v37 convolutionGradientStates:0 destinationStates:&v62 destinationStateIsTemporary:temporaryCopy];
+              v39 = v62;
+            }
+
+            else
+            {
+              v61 = 0;
+              v36 = v60;
+              v38 = [v35 encodeBatchToCommandBuffer:v60 sourceImages:v37 destinationStates:&v61 destinationStateIsTemporary:temporaryCopy];
+              v39 = v61;
+            }
+
+            v40 = v39;
+          }
+
+          else
+          {
+            v38 = [v35 encodeBatchToCommandBuffer:v60 sourceImages:v37];
+            v40 = 0;
+          }
+
+          gpuReadTensorKernelList = [(MLCDeviceGPU *)v54 gpuReadTensorKernelList];
+          v42 = [gpuReadTensorKernelList objectAtIndexedSubscript:v16];
+          v43 = [deviceMemory2 objectAtIndexedSubscript:v16];
+          descriptor3 = [v57 descriptor];
+          +[MLCGPUHelper copyMPSImageBatchToMTLBuffer:commandBuffer:sourceImageBatch:destinationMTLBuffer:MLCDataType:](MLCGPUHelper, "copyMPSImageBatchToMTLBuffer:commandBuffer:sourceImageBatch:destinationMTLBuffer:MLCDataType:", v42, v36, v38, v43, [descriptor3 dataType]);
+
+          trainingCopy = v55;
+          v19 = v36;
+          if (v55)
+          {
+            [v17 setGradientState:v40];
+            v45 = [deviceMemory objectAtIndexedSubscript:v16];
+            [v17 setSource:v45];
+
+            v19 = v60;
+          }
+
+          layerCopy = v56;
+          tensorCopy = v50;
+          forwardKernel = v53;
+          selfCopy = v54;
+        }
+
+        goto LABEL_56;
+      }
+
+      metalKernelType = [v17 metalKernelType];
+      if (metalKernelType <= 8)
+      {
+        if (metalKernelType > 3)
+        {
+          if ((metalKernelType - 5) < 2)
+          {
+            [(MLCDeviceGPU *)selfCopy dispatchForwardInstanceNormalizationKernel:layerCopy sourceTensor:tensorCopy resultTensor:v57 deviceIndex:v16 forTraining:trainingCopy];
+            if (trainingCopy)
+            {
+              goto LABEL_51;
+            }
+
+            goto LABEL_56;
+          }
+
+          if ((metalKernelType - 7) < 2)
+          {
+            [(MLCDeviceGPU *)selfCopy dispatchForwardBatchNormalizationKernel:layerCopy sourceTensor:tensorCopy resultTensor:v57 deviceIndex:v16 forTraining:trainingCopy];
+            if (trainingCopy)
+            {
+              goto LABEL_51;
+            }
+
+            goto LABEL_56;
+          }
+
+          if (metalKernelType == 4)
+          {
+            v63[0] = tensorCopy;
+            v46 = [MEMORY[0x277CBEA60] arrayWithObjects:v63 count:1];
+            [(MLCDeviceGPU *)selfCopy dispatchForwardLayerNormalizationKernel:layerCopy sourceTensors:v46 resultTensor:v57 deviceIndex:v16 forTraining:trainingCopy];
+
+            if (trainingCopy)
+            {
+              goto LABEL_51;
+            }
+
+            goto LABEL_56;
+          }
+        }
+
+        else
+        {
+          switch(metalKernelType)
+          {
+            case 1:
+              [(MLCDeviceGPU *)selfCopy dispatchForwardActivationsKernel:layerCopy sourceTensor:tensorCopy resultTensor:v57 deviceIndex:v16];
+              if (trainingCopy)
+              {
+                goto LABEL_51;
+              }
+
+              goto LABEL_56;
+            case 2:
+              [(MLCDeviceGPU *)selfCopy dispatchForwardPaddingKernel:layerCopy sourceTensor:tensorCopy resultTensor:v57 deviceIndex:v16];
+              if (trainingCopy)
+              {
+                goto LABEL_51;
+              }
+
+              goto LABEL_56;
+            case 3:
+              [(MLCDeviceGPU *)selfCopy dispatchForwardSoftmaxKernel:layerCopy sourceTensor:tensorCopy resultTensor:v57 deviceIndex:v16];
+              if (trainingCopy)
+              {
+                goto LABEL_51;
+              }
+
+              goto LABEL_56;
+          }
+        }
+
+        goto LABEL_50;
+      }
+
+      if (metalKernelType > 14)
+      {
+        break;
+      }
+
+      if (metalKernelType != 9)
+      {
+        if (metalKernelType == 10)
+        {
+          [(MLCDeviceGPU *)selfCopy dispatchForwardResizeKernel:layerCopy sourceTensor:tensorCopy resultTensor:v57 deviceIndex:v16];
+        }
+
+        else if (metalKernelType == 12)
+        {
+          [(MLCDeviceGPU *)selfCopy dispatchTransposeKernel:layerCopy sourceTensor:tensorCopy resultTensor:v57 deviceIndex:v16 forward:1];
+          if (trainingCopy)
+          {
+            goto LABEL_51;
+          }
+
+          goto LABEL_56;
+        }
+
+LABEL_50:
+        if (trainingCopy)
+        {
+          goto LABEL_51;
+        }
+
+        goto LABEL_56;
+      }
+
+      [(MLCDeviceGPU *)selfCopy dispatchForwardGroupNormalizationKernel:layerCopy sourceTensor:tensorCopy resultTensor:v57 deviceIndex:v16 forTraining:trainingCopy];
+      if (trainingCopy)
+      {
+LABEL_51:
+        [v17 setGradientState:0];
+        v47 = [deviceMemory objectAtIndexedSubscript:v16];
+        [v17 setSource:v47];
+
+        if ([v17 metalKernelType] == 3 || objc_msgSend(v17, "metalKernelType") == 8 || objc_msgSend(v17, "metalKernelType") == 6 || objc_msgSend(v17, "metalKernelType") == 17)
+        {
+          v48 = [deviceMemory2 objectAtIndexedSubscript:v16];
+          [v17 setResult:v48];
+        }
+      }
+
+LABEL_56:
+
+      if (++v16 >= [(MLCDeviceGPU *)selfCopy numDevicesToUse])
+      {
+        goto LABEL_60;
+      }
+    }
+
+    if ((metalKernelType - 15) < 3)
+    {
+      [(MLCDeviceGPU *)selfCopy dispatchForwardPoolingKernel:layerCopy sourceTensor:tensorCopy resultTensor:v57 deviceIndex:v16 forTraining:trainingCopy];
+      if (trainingCopy)
+      {
+        goto LABEL_51;
+      }
+
+      goto LABEL_56;
+    }
+
+    if (metalKernelType == 18)
+    {
+      [(MLCDeviceGPU *)selfCopy dispatchForwardGramMatrixKernel:layerCopy sourceTensor:tensorCopy resultTensor:v57 deviceIndex:v16 forTraining:trainingCopy];
+      if (trainingCopy)
+      {
+        goto LABEL_51;
+      }
+
+      goto LABEL_56;
+    }
+
+    goto LABEL_50;
+  }
+
+LABEL_60:
 }
 
 - (void)dispatchForwardLayer:(id)layer sourceTensor:(id)tensor secondaryTensor:(id)secondaryTensor tertiaryTensor:(id)tertiaryTensor resultTensor:(id)resultTensor resultStateIsTemporary:(BOOL)temporary forTraining:(BOOL)training
@@ -14471,9 +15586,40 @@ LABEL_14:
   }
 }
 
+- (void)dispatchForwardFusedArithmeticLayerNormalizationLayer:(id)layer sourceTensors:(id)tensors resultTensor:(id)tensor forTraining:(BOOL)training
+{
+  trainingCopy = training;
+  layerCopy = layer;
+  tensorsCopy = tensors;
+  tensorCopy = tensor;
+  v12 = [tensorsCopy objectAtIndexedSubscript:0];
+  deviceMemory = [v12 deviceMemory];
+
+  [(MLCDeviceGPU *)self allocateResultTensor:tensorCopy];
+  if ([(MLCDeviceGPU *)self numDevicesToUse])
+  {
+    v14 = 0;
+    do
+    {
+      v15 = [layerCopy objectAtIndexedSubscript:v14];
+      [(MLCDeviceGPU *)self dispatchForwardLayerNormalizationKernel:layerCopy sourceTensors:tensorsCopy resultTensor:tensorCopy deviceIndex:v14 forTraining:trainingCopy];
+      if (trainingCopy)
+      {
+        [v15 setGradientState:0];
+        v16 = [deviceMemory objectAtIndexedSubscript:v14];
+        [v15 setSource:v16];
+      }
+
+      ++v14;
+    }
+
+    while (v14 < [(MLCDeviceGPU *)self numDevicesToUse]);
+  }
+}
+
 - (void)dispatchForwardMatMulLayer:(id)layer sourceTensors:(id)tensors resultTensor:(id)tensor
 {
-  v95[3] = *MEMORY[0x277D85DE8];
+  v94[3] = *MEMORY[0x277D85DE8];
   layerCopy = layer;
   tensorsCopy = tensors;
   tensorCopy = tensor;
@@ -14485,45 +15631,45 @@ LABEL_14:
   v12 = [tensorsCopy objectAtIndexedSubscript:0];
   deviceMemory = [v12 deviceMemory];
 
-  v84 = tensorsCopy;
+  v83 = tensorsCopy;
   v14 = [tensorsCopy objectAtIndexedSubscript:1];
   deviceMemory2 = [v14 deviceMemory];
 
   [(MLCDeviceGPU *)self allocateResultTensor:tensorCopy];
-  v79 = tensorCopy;
+  v78 = tensorCopy;
   deviceMemory3 = [tensorCopy deviceMemory];
   if ([(MLCDeviceGPU *)self numDevicesToUse])
   {
     v16 = 0;
-    v81 = deviceMemory;
+    v80 = deviceMemory;
     selfCopy = self;
-    v80 = deviceMemory2;
+    v79 = deviceMemory2;
     do
     {
       v17 = [layerCopy objectAtIndexedSubscript:v16];
       gpuCommandBufferList = [(MLCDeviceGPU *)self gpuCommandBufferList];
-      v90 = [gpuCommandBufferList objectAtIndexedSubscript:v16];
+      v89 = [gpuCommandBufferList objectAtIndexedSubscript:v16];
 
       matmulKernel = [v17 matmulKernel];
       shapes = [v17 shapes];
       v19 = [deviceMemory objectAtIndexedSubscript:v16];
-      v95[0] = v19;
+      v94[0] = v19;
       v20 = [deviceMemory2 objectAtIndexedSubscript:v16];
-      v95[1] = v20;
-      v86 = v16;
+      v94[1] = v20;
+      v85 = v16;
       v21 = [deviceMemory3 objectAtIndexedSubscript:v16];
-      v95[2] = v21;
-      v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v95 count:3];
-      v92 = [v22 copy];
+      v94[2] = v21;
+      v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v94 count:3];
+      v91 = [v22 copy];
 
       transposeLeft = [v17 transposeLeft];
       v24 = [transposeLeft objectAtIndexedSubscript:0];
-      v94[0] = v24;
+      v93[0] = v24;
       transposeRight = [v17 transposeRight];
       v26 = [transposeRight objectAtIndexedSubscript:0];
-      v94[1] = v26;
-      v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v94 count:2];
-      v88 = [v27 copy];
+      v93[1] = v26;
+      v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v93 count:2];
+      v87 = [v27 copy];
 
       forwardMatricesOrNDArrays = [v17 forwardMatricesOrNDArrays];
       for (i = 0; i != 3; ++i)
@@ -14556,34 +15702,33 @@ LABEL_14:
         {
           for (j = 0; j != 3; ++j)
           {
-            if ([forwardMatricesOrNDArrays count] <= j)
+            if ([forwardMatricesOrNDArrays count] > j)
             {
-              goto LABEL_27;
+              v68 = [forwardMatricesOrNDArrays objectAtIndexedSubscript:j];
+              data = [v68 data];
+              v70 = [v91 objectAtIndexedSubscript:j];
+
+              if (data == v70)
+              {
+                continue;
+              }
             }
 
-            v68 = [forwardMatricesOrNDArrays objectAtIndexedSubscript:j];
-            data = [v68 data];
-            v70 = [v92 objectAtIndexedSubscript:j];
+            v71 = objc_alloc(MEMORY[0x277CD7250]);
+            v72 = [v91 objectAtIndexedSubscript:j];
+            matrixDescs3 = [v17 matrixDescs];
+            v74 = [matrixDescs3 objectAtIndexedSubscript:j];
+            v75 = [v71 initWithBuffer:v72 descriptor:v74];
 
-            if (data != v70)
-            {
-LABEL_27:
-              v71 = objc_alloc(MEMORY[0x277CD7250]);
-              v72 = [v92 objectAtIndexedSubscript:j];
-              matrixDescs3 = [v17 matrixDescs];
-              v74 = [matrixDescs3 objectAtIndexedSubscript:j];
-              v75 = [v71 initWithBuffer:v72 descriptor:v74];
-
-              forwardMatricesOrNDArrays2 = [v17 forwardMatricesOrNDArrays];
-              [forwardMatricesOrNDArrays2 setObject:v75 atIndexedSubscript:j];
-            }
+            forwardMatricesOrNDArrays2 = [v17 forwardMatricesOrNDArrays];
+            [forwardMatricesOrNDArrays2 setObject:v75 atIndexedSubscript:j];
           }
 
           forwardKernel = [v17 forwardKernel];
           v61 = [forwardMatricesOrNDArrays objectAtIndexedSubscript:0];
           v62 = [forwardMatricesOrNDArrays objectAtIndexedSubscript:1];
           v63 = [forwardMatricesOrNDArrays objectAtIndexedSubscript:2];
-          [forwardKernel encodeToCommandBuffer:v90 leftMatrix:v61 rightMatrix:v62 resultMatrix:v63];
+          [forwardKernel encodeToCommandBuffer:v89 leftMatrix:v61 rightMatrix:v62 resultMatrix:v63];
           goto LABEL_20;
         }
       }
@@ -14592,20 +15737,10 @@ LABEL_27:
       v41 = 1;
       do
       {
-        if ([forwardMatricesOrNDArrays count] <= (v41 - 1))
+        if ([forwardMatricesOrNDArrays count] <= (v41 - 1) || (objc_msgSend(forwardMatricesOrNDArrays, "objectAtIndexedSubscript:", v41 - 1), v42 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v42, "data"), v43 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v91, "objectAtIndexedSubscript:", v40), v44 = objc_claimAutoreleasedReturnValue(), v44, v43, v42, v43 != v44))
         {
-          goto LABEL_13;
-        }
-
-        v42 = [forwardMatricesOrNDArrays objectAtIndexedSubscript:v41 - 1];
-        data2 = [v42 data];
-        v44 = [v92 objectAtIndexedSubscript:v40];
-
-        if (data2 != v44)
-        {
-LABEL_13:
           v45 = objc_alloc(MEMORY[0x277CD7250]);
-          v46 = [v92 objectAtIndexedSubscript:v40];
+          v46 = [v91 objectAtIndexedSubscript:v40];
           matrixDescs4 = [v17 matrixDescs];
           v48 = [matrixDescs4 objectAtIndexedSubscript:v40];
           v49 = [v45 initWithBuffer:v46 descriptor:v48];
@@ -14615,8 +15750,8 @@ LABEL_13:
           v52 = [v50 descriptorWithDataType:DataType shape:v51];
 
           [v52 setPreferPackedRows:1];
-          v53 = [v49 ndArrayWithCommandBuffer:v90 descriptor:v52 aliasing:1];
-          if (v40 == 2 || ([v88 objectAtIndexedSubscript:v40], v54 = objc_claimAutoreleasedReturnValue(), v55 = objc_msgSend(v54, "BOOLValue"), v54, !v55))
+          v53 = [v49 ndArrayWithCommandBuffer:v89 descriptor:v52 aliasing:1];
+          if (v40 == 2 || ([v87 objectAtIndexedSubscript:v40], v54 = objc_claimAutoreleasedReturnValue(), v55 = objc_msgSend(v54, "BOOLValue"), v54, !v55))
           {
             v57 = v53;
           }
@@ -14625,7 +15760,7 @@ LABEL_13:
           {
             descriptor2 = [v53 descriptor];
             [descriptor2 transposeDimension:0 withDimension:1];
-            v57 = [v53 arrayViewWithCommandBuffer:v90 descriptor:descriptor2 aliasing:1];
+            v57 = [v53 arrayViewWithCommandBuffer:v89 descriptor:descriptor2 aliasing:1];
           }
 
           forwardMatricesOrNDArrays3 = [v17 forwardMatricesOrNDArrays];
@@ -14641,42 +15776,41 @@ LABEL_13:
 
       while (v40 != 3);
       forwardKernel = [forwardMatricesOrNDArrays objectAtIndexedSubscript:1];
-      v93[0] = forwardKernel;
+      v92[0] = forwardKernel;
       v61 = [forwardMatricesOrNDArrays objectAtIndexedSubscript:3];
-      v93[1] = v61;
-      v62 = [MEMORY[0x277CBEA60] arrayWithObjects:v93 count:2];
+      v92[1] = v61;
+      v62 = [MEMORY[0x277CBEA60] arrayWithObjects:v92 count:2];
       v63 = [forwardMatricesOrNDArrays objectAtIndexedSubscript:5];
-      [matmulKernel encodeToCommandBuffer:v90 sourceArrays:v62 destinationArray:v63];
+      [matmulKernel encodeToCommandBuffer:v89 sourceArrays:v62 destinationArray:v63];
 LABEL_20:
 
       self = selfCopy;
-      if ([v84 count] >= 3)
+      if ([v83 count] >= 3)
       {
-        v64 = [v84 objectAtIndexedSubscript:2];
-        [(MLCDeviceGPU *)selfCopy dispatchForwardArithmeticBinaryKernel:layerCopy sourceTensor:v79 sourceSecondaryTensor:v64 resultTensor:v79 deviceIndex:v86];
+        v64 = [v83 objectAtIndexedSubscript:2];
+        [(MLCDeviceGPU *)selfCopy dispatchForwardArithmeticBinaryKernel:layerCopy sourceTensor:v78 sourceSecondaryTensor:v64 resultTensor:v78 deviceIndex:v85];
       }
 
-      deviceMemory = v81;
-      v65 = [v81 objectAtIndexedSubscript:v86];
+      deviceMemory = v80;
+      v65 = [v80 objectAtIndexedSubscript:v85];
       [v17 setSource:v65];
 
-      deviceMemory2 = v80;
-      v66 = [v80 objectAtIndexedSubscript:v86];
+      deviceMemory2 = v79;
+      v66 = [v79 objectAtIndexedSubscript:v85];
       [v17 setSecondarySource:v66];
 
-      v16 = v86 + 1;
+      v16 = v85 + 1;
     }
 
-    while (v86 + 1 < [(MLCDeviceGPU *)selfCopy numDevicesToUse]);
+    while (v85 + 1 < [(MLCDeviceGPU *)selfCopy numDevicesToUse]);
   }
 
   objc_autoreleasePoolPop(context);
-  v77 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dispatchGradientMatMulLayer:(id)layer sourceGradientTensor:(id)tensor resultGradientTensors:(id)tensors
 {
-  v193 = *MEMORY[0x277D85DE8];
+  v192 = *MEMORY[0x277D85DE8];
   layerCopy = layer;
   tensorCopy = tensor;
   tensorsCopy = tensors;
@@ -14684,31 +15818,31 @@ LABEL_20:
   descriptor = [tensorCopy descriptor];
   DataType = GPU_GetDataType([descriptor dataType]);
 
-  v165 = tensorCopy;
+  v164 = tensorCopy;
   deviceMemory = [tensorCopy deviceMemory];
+  v184 = 0u;
   v185 = 0u;
   v186 = 0u;
   v187 = 0u;
-  v188 = 0u;
   v11 = tensorsCopy;
-  v12 = [v11 countByEnumeratingWithState:&v185 objects:v192 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v184 objects:v191 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v186;
+    v14 = *v185;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v186 != v14)
+        if (*v185 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        [(MLCDeviceGPU *)self allocateResultTensor:*(*(&v185 + 1) + 8 * i)];
+        [(MLCDeviceGPU *)self allocateResultTensor:*(*(&v184 + 1) + 8 * i)];
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v185 objects:v192 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v184 objects:v191 count:16];
     }
 
     while (v13);
@@ -14727,7 +15861,7 @@ LABEL_20:
 
   v18 = 0;
   v19 = 0x277CD7000uLL;
-  v166 = v11;
+  v165 = v11;
   selfCopy = self;
   do
   {
@@ -14738,21 +15872,21 @@ LABEL_20:
     if ([v11 count] >= 3)
     {
       v23 = [v11 objectAtIndexedSubscript:2];
-      [(MLCDeviceGPU *)self dispatchGradientArithmeticBinaryKernel:layerCopy sourceGradientTensor:v165 resultGradientTensor:v165 secondaryResultGradientTensor:v23 deviceIndex:v18];
+      [(MLCDeviceGPU *)self dispatchGradientArithmeticBinaryKernel:layerCopy sourceGradientTensor:v164 resultGradientTensor:v164 secondaryResultGradientTensor:v23 deviceIndex:v18];
     }
 
     shapes = [v20 shapes];
     v24 = [deviceMemory2 objectAtIndexedSubscript:v18];
-    v191[0] = v24;
+    v190[0] = v24;
     v25 = [deviceMemory3 objectAtIndexedSubscript:v18];
     v26 = v18;
     v27 = v25;
-    v191[1] = v25;
-    v172 = v26;
+    v190[1] = v25;
+    v171 = v26;
     v28 = [deviceMemory objectAtIndexedSubscript:?];
-    v191[2] = v28;
-    v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v191 count:3];
-    v181 = [v29 copy];
+    v190[2] = v28;
+    v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v190 count:3];
+    v180 = [v29 copy];
 
     broadcastingFlags = [v20 broadcastingFlags];
     v31 = [broadcastingFlags objectAtIndexedSubscript:0];
@@ -14801,28 +15935,28 @@ LABEL_27:
 LABEL_62:
           matmulKernel = [v20 matmulKernel];
           gradientMatricesOrNDArrays2 = [v20 gradientMatricesOrNDArrays];
-          v180 = gradientMatricesOrNDArrays2;
+          v179 = gradientMatricesOrNDArrays2;
           if ((v56 & 1) == 0)
           {
-            v182 = v22;
+            v181 = v22;
             v86 = MEMORY[0x277CBEBF8];
             v87 = [MEMORY[0x277CBEBF8] mutableCopy];
-            v178 = [v86 mutableCopy];
+            v177 = [v86 mutableCopy];
             for (k = 0; k != 3; ++k)
             {
               v89 = objc_alloc(*(v19 + 592));
-              v90 = [v181 objectAtIndexedSubscript:k];
+              v90 = [v180 objectAtIndexedSubscript:k];
               matrixDescs = [v20 matrixDescs];
               v92 = [matrixDescs objectAtIndexedSubscript:k];
               v93 = [v89 initWithBuffer:v90 descriptor:v92];
 
-              [v178 setObject:v93 atIndexedSubscript:k];
+              [v177 setObject:v93 atIndexedSubscript:k];
               v94 = MEMORY[0x277CD7268];
               v95 = [shapes objectAtIndexedSubscript:k];
               v96 = [v94 descriptorWithDataType:DataType shape:v95];
 
               [v96 setPreferPackedRows:1];
-              v97 = [v93 ndArrayWithCommandBuffer:v182 descriptor:v96 aliasing:1];
+              v97 = [v93 ndArrayWithCommandBuffer:v181 descriptor:v96 aliasing:1];
               [v87 addObject:v97];
               if (k != 2)
               {
@@ -14841,7 +15975,7 @@ LABEL_62:
                 v101 = [matrixDescs2 objectAtIndexedSubscript:k];
                 v102 = [v98 initWithBuffer:v99 descriptor:v101];
 
-                v103 = [v102 ndArrayWithCommandBuffer:v182 descriptor:v96 aliasing:1];
+                v103 = [v102 ndArrayWithCommandBuffer:v181 descriptor:v96 aliasing:1];
                 [v87 addObject:v103];
 
                 v19 = 0x277CD7000;
@@ -14850,7 +15984,7 @@ LABEL_62:
 
             v104 = 0;
             v105 = 1;
-            gradientMatricesOrNDArrays2 = v180;
+            gradientMatricesOrNDArrays2 = v179;
             do
             {
               v106 = v105;
@@ -14901,7 +16035,7 @@ LABEL_62:
               {
                 descriptor2 = [v114 descriptor];
                 [descriptor2 transposeDimension:0 withDimension:1];
-                v121 = [v114 arrayViewWithCommandBuffer:v182 descriptor:descriptor2 aliasing:1];
+                v121 = [v114 arrayViewWithCommandBuffer:v181 descriptor:descriptor2 aliasing:1];
                 [gradientMatricesOrNDArrays2 setObject:v121 atIndexedSubscript:3 * v104];
               }
 
@@ -14918,15 +16052,15 @@ LABEL_62:
               {
                 descriptor3 = [v115 descriptor];
                 [descriptor3 transposeDimension:0 withDimension:1];
-                v126 = [v115 arrayViewWithCommandBuffer:v182 descriptor:descriptor3 aliasing:1];
-                gradientMatricesOrNDArrays2 = v180;
-                [v180 setObject:v126 atIndexedSubscript:v119 + 1];
+                v126 = [v115 arrayViewWithCommandBuffer:v181 descriptor:descriptor3 aliasing:1];
+                gradientMatricesOrNDArrays2 = v179;
+                [v179 setObject:v126 atIndexedSubscript:v119 + 1];
               }
 
               else
               {
-                gradientMatricesOrNDArrays2 = v180;
-                [v180 setObject:v115 atIndexedSubscript:v119 + 1];
+                gradientMatricesOrNDArrays2 = v179;
+                [v179 setObject:v115 atIndexedSubscript:v119 + 1];
               }
 
               v104 = [v87 objectAtIndexedSubscript:2 * v104];
@@ -14939,12 +16073,12 @@ LABEL_62:
             while ((v106 & 1) != 0);
             for (m = 0; m != 3; ++m)
             {
-              v129 = [v178 objectAtIndexedSubscript:m];
+              v129 = [v177 objectAtIndexedSubscript:m];
               [gradientMatricesOrNDArrays2 setObject:v129 atIndexedSubscript:m + 6];
             }
 
             v19 = 0x277CD7000;
-            v22 = v182;
+            v22 = v181;
           }
 
           v130 = 0;
@@ -14952,7 +16086,7 @@ LABEL_62:
           do
           {
             v132 = v22;
-            v183 = v131;
+            v182 = v131;
             broadcastingFlags3 = [v20 broadcastingFlags];
             v134 = [broadcastingFlags3 objectAtIndexedSubscript:v130];
             unsignedIntegerValue = [v134 unsignedIntegerValue];
@@ -14962,10 +16096,10 @@ LABEL_62:
             v138 = v130;
             if (unsignedIntegerValue)
             {
-              v189[0] = v130;
+              v188[0] = v130;
               v139 = [gradientMatricesOrNDArrays2 objectAtIndexedSubscript:v136 + 1];
-              v189[1] = v139;
-              v140 = [MEMORY[0x277CBEA60] arrayWithObjects:v189 count:2];
+              v188[1] = v139;
+              v140 = [MEMORY[0x277CBEA60] arrayWithObjects:v188 count:2];
               v141 = [matmulKernel encodeToCommandBuffer:v132 sourceArrays:v140];
 
               v138 = v141;
@@ -14994,14 +16128,14 @@ LABEL_62:
 
                 if (unsignedIntegerValue3 == 2)
                 {
-                  v153 = [v180 objectAtIndexedSubscript:v136 + 2];
+                  v153 = [v179 objectAtIndexedSubscript:v136 + 2];
                   descriptor5 = [v153 descriptor];
 
                   reductionShapes2 = [v20 reductionShapes];
                   v156 = [reductionShapes2 objectAtIndexedSubscript:v148 | 1];
                   [descriptor5 reshapeWithShape:v156];
 
-                  v157 = [v180 objectAtIndexedSubscript:v136 + 2];
+                  v157 = [v179 objectAtIndexedSubscript:v136 + 2];
                   v22 = v132;
                   v158 = [v157 arrayViewWithCommandBuffer:v132 descriptor:descriptor5 aliasing:1];
 
@@ -15024,10 +16158,10 @@ LABEL_62:
 
             else
             {
-              v190[0] = v130;
+              v189[0] = v130;
               v159 = [gradientMatricesOrNDArrays2 objectAtIndexedSubscript:v136 + 1];
-              v190[1] = v159;
-              v160 = [MEMORY[0x277CBEA60] arrayWithObjects:v190 count:2];
+              v189[1] = v159;
+              v160 = [MEMORY[0x277CBEA60] arrayWithObjects:v189 count:2];
               v161 = gradientMatricesOrNDArrays2;
               v142 = v160;
               reduceSumKernel = [v161 objectAtIndexedSubscript:v136 + 2];
@@ -15037,10 +16171,10 @@ LABEL_62:
 
             v131 = 0;
             v130 = 1;
-            gradientMatricesOrNDArrays2 = v180;
+            gradientMatricesOrNDArrays2 = v179;
           }
 
-          while ((v183 & 1) != 0);
+          while ((v182 & 1) != 0);
 
           self = selfCopy;
           goto LABEL_103;
@@ -15051,7 +16185,7 @@ LABEL_62:
         for (n = 0; ; ++n)
         {
           v46 = objc_alloc(*(v19 + 592));
-          v47 = [v181 objectAtIndexedSubscript:n];
+          v47 = [v180 objectAtIndexedSubscript:n];
           matrixDescs3 = [v20 matrixDescs];
           v49 = [matrixDescs3 objectAtIndexedSubscript:n];
           v50 = [v46 initWithBuffer:v47 descriptor:v49];
@@ -15097,13 +16231,13 @@ LABEL_62:
           if (v58)
           {
             v63 = [v44 objectAtIndexedSubscript:4];
-            v174 = v63;
+            v173 = v63;
           }
 
           else
           {
             v63 = [v44 objectAtIndexedSubscript:1];
-            v173 = v63;
+            v172 = v63;
           }
 
           gradientMatricesOrNDArrays3 = [v20 gradientMatricesOrNDArrays];
@@ -15111,7 +16245,7 @@ LABEL_62:
 
           if ((v58 & 1) == 0)
           {
-            v69 = v173;
+            v69 = v172;
 LABEL_48:
 
             v66 = v44;
@@ -15155,13 +16289,13 @@ LABEL_50:
         if (v58)
         {
           v64 = [v44 objectAtIndexedSubscript:3];
-          v175 = v64;
+          v174 = v64;
         }
 
         else
         {
           v64 = [v44 objectAtIndexedSubscript:4];
-          v176 = v64;
+          v175 = v64;
         }
 
         gradientMatricesOrNDArrays6 = [v20 gradientMatricesOrNDArrays];
@@ -15175,14 +16309,14 @@ LABEL_50:
           goto LABEL_50;
         }
 
-        v69 = v175;
+        v69 = v174;
         goto LABEL_48;
       }
 
       gradientMatricesOrNDArrays7 = [v20 gradientMatricesOrNDArrays];
       v41 = [gradientMatricesOrNDArrays7 objectAtIndexedSubscript:v38];
       data = [v41 data];
-      v43 = [v181 objectAtIndexedSubscript:j];
+      v43 = [v180 objectAtIndexedSubscript:j];
 
       if (data != v43)
       {
@@ -15225,31 +16359,30 @@ LABEL_55:
 
     while ((v80 & 1) != 0);
 LABEL_103:
-    v11 = v166;
+    v11 = v165;
 
-    v18 = v172 + 1;
+    v18 = v171 + 1;
   }
 
-  while (v172 + 1 < [(MLCDeviceGPU *)self numDevicesToUse]);
+  while (v171 + 1 < [(MLCDeviceGPU *)self numDevicesToUse]);
 LABEL_104:
 
   objc_autoreleasePoolPop(context);
-  v163 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dispatchForwardMHALayer:(id)layer sourceTensors:(id)tensors resultTensor:(id)tensor resultStateIsTemporary:(BOOL)temporary forTraining:(BOOL)training
 {
   trainingCopy = training;
   temporaryCopy = temporary;
-  v387[2] = *MEMORY[0x277D85DE8];
+  v386[2] = *MEMORY[0x277D85DE8];
   layerCopy = layer;
   tensorsCopy = tensors;
   tensorCopy = tensor;
-  v283 = objc_autoreleasePoolPush();
+  v282 = objc_autoreleasePoolPush();
   v12 = [tensorsCopy objectAtIndexedSubscript:0];
   descriptor = [v12 descriptor];
   stride = [descriptor stride];
-  v321 = tensorsCopy;
+  v320 = tensorsCopy;
   v15 = [tensorsCopy objectAtIndexedSubscript:0];
   descriptor2 = [v15 descriptor];
   v17 = [stride objectAtIndexedSubscript:{objc_msgSend(descriptor2, "dimensionCount") - 1}];
@@ -15257,7 +16390,7 @@ LABEL_104:
 
   selfCopy = self;
   [(MLCDeviceGPU *)self allocateResultTensor:tensorCopy];
-  v287 = tensorCopy;
+  v286 = tensorCopy;
   deviceMemory = [tensorCopy deviceMemory];
   if ([(MLCDeviceGPU *)self numDevicesToUse])
   {
@@ -15267,10 +16400,10 @@ LABEL_104:
     {
       v20 = [layerCopy objectAtIndexedSubscript:v19];
       deviceList = [(MLCDeviceGPU *)selfCopy deviceList];
-      v330 = [deviceList objectAtIndexedSubscript:v19];
+      v329 = [deviceList objectAtIndexedSubscript:v19];
 
       gpuCommandBufferList = [(MLCDeviceGPU *)selfCopy gpuCommandBufferList];
-      v358 = [gpuCommandBufferList objectAtIndexedSubscript:v19];
+      v357 = [gpuCommandBufferList objectAtIndexedSubscript:v19];
 
       mhaHeadCount = [v20 mhaHeadCount];
       v23 = [MEMORY[0x277CBEBF8] mutableCopy];
@@ -15278,8 +16411,8 @@ LABEL_104:
 
       v24 = 0;
       v25 = 0;
-      v355 = v19;
-      v356 = v20;
+      v354 = v19;
+      v355 = v20;
       do
       {
         mhaMatrixDescriptors = [v20 mhaMatrixDescriptors];
@@ -15289,20 +16422,20 @@ LABEL_104:
         v29 = [mhaNDArrayDescriptors objectAtIndexedSubscript:v24];
 
         v30 = objc_alloc(MEMORY[0x277CD7250]);
-        v31 = [v321 objectAtIndexedSubscript:v25];
+        v31 = [v320 objectAtIndexedSubscript:v25];
         deviceMemory2 = [v31 deviceMemory];
         v33 = [deviceMemory2 objectAtIndexedSubscript:v19];
-        v349 = v27;
+        v348 = v27;
         v34 = [v30 initWithBuffer:v33 descriptor:v27];
 
-        v343 = v34;
-        v346 = v29;
-        v35 = [v34 ndArrayWithCommandBuffer:v358 descriptor:v29 aliasing:1];
+        v342 = v34;
+        v345 = v29;
+        v35 = [v34 ndArrayWithCommandBuffer:v357 descriptor:v29 aliasing:1];
         descriptor3 = [v35 descriptor];
         [descriptor3 transposeDimension:0 withDimension:1];
-        v359 = v35;
-        v340 = descriptor3;
-        v37 = [v35 arrayViewWithCommandBuffer:v358 descriptor:descriptor3 aliasing:1];
+        v358 = v35;
+        v339 = descriptor3;
+        v37 = [v35 arrayViewWithCommandBuffer:v357 descriptor:descriptor3 aliasing:1];
         mhaMatrixDescriptors2 = [v20 mhaMatrixDescriptors];
         v39 = [mhaMatrixDescriptors2 objectAtIndexedSubscript:v24 + 1];
 
@@ -15312,17 +16445,17 @@ LABEL_104:
         v42 = objc_alloc(MEMORY[0x277CD7250]);
         exportableState = [v20 exportableState];
         v44 = [exportableState objectAtIndexedSubscript:v25];
-        v334 = v39;
+        v333 = v39;
         v45 = [v42 initWithBuffer:v44 descriptor:v39];
 
-        v327 = v45;
-        v331 = v41;
-        v366 = [v45 ndArrayWithCommandBuffer:v358 descriptor:v41 aliasing:1];
+        v326 = v45;
+        v330 = v41;
+        v365 = [v45 ndArrayWithCommandBuffer:v357 descriptor:v41 aliasing:1];
         mhaMatrixDescriptors3 = [v20 mhaMatrixDescriptors];
         v47 = [mhaMatrixDescriptors3 objectAtIndexedSubscript:v24 + 2];
 
         mhaNDArrayDescriptors3 = [v20 mhaNDArrayDescriptors];
-        v363 = [mhaNDArrayDescriptors3 objectAtIndexedSubscript:v24 + 2];
+        v362 = [mhaNDArrayDescriptors3 objectAtIndexedSubscript:v24 + 2];
 
         mhaMatMulSourcesQKV = [v20 mhaMatMulSourcesQKV];
         if ([mhaMatMulSourcesQKV count] <= v25)
@@ -15336,7 +16469,7 @@ LABEL_104:
 
           if (v51)
           {
-            mhaMatMulSourcesQKV3 = [v356 mhaMatMulSourcesQKV];
+            mhaMatMulSourcesQKV3 = [v355 mhaMatMulSourcesQKV];
             v53 = [mhaMatMulSourcesQKV3 objectAtIndexedSubscript:v25];
             data = [v53 data];
 
@@ -15344,64 +16477,64 @@ LABEL_104:
           }
         }
 
-        data = [v330 newBufferWithLength:objc_msgSend(v47 options:{"matrixBytes") * objc_msgSend(v47, "matrices"), +[MLCGPUHelper mtlResourceOptions](MLCGPUHelper, "mtlResourceOptions")}];
+        data = [v329 newBufferWithLength:objc_msgSend(v47 options:{"matrixBytes") * objc_msgSend(v47, "matrices"), +[MLCGPUHelper mtlResourceOptions](MLCGPUHelper, "mtlResourceOptions")}];
 LABEL_9:
         v55 = [objc_alloc(MEMORY[0x277CD7250]) initWithBuffer:data descriptor:v47];
-        v56 = [v55 ndArrayWithCommandBuffer:v358 descriptor:v363 aliasing:1];
-        v20 = v356;
-        mhaMatMulKernel = [v356 mhaMatMulKernel];
-        v387[0] = v366;
-        v387[1] = v37;
-        v337 = v37;
-        v58 = [MEMORY[0x277CBEA60] arrayWithObjects:v387 count:2];
-        v352 = v56;
-        [mhaMatMulKernel encodeToCommandBuffer:v358 sourceArrays:v58 destinationArray:v56];
+        v56 = [v55 ndArrayWithCommandBuffer:v357 descriptor:v362 aliasing:1];
+        v20 = v355;
+        mhaMatMulKernel = [v355 mhaMatMulKernel];
+        v386[0] = v365;
+        v386[1] = v37;
+        v336 = v37;
+        v58 = [MEMORY[0x277CBEA60] arrayWithObjects:v386 count:2];
+        v351 = v56;
+        [mhaMatMulKernel encodeToCommandBuffer:v357 sourceArrays:v58 destinationArray:v56];
 
         if (trainingCopy)
         {
-          mhaSourcesQKV = [v356 mhaSourcesQKV];
-          [mhaSourcesQKV addObject:v359];
+          mhaSourcesQKV = [v355 mhaSourcesQKV];
+          [mhaSourcesQKV addObject:v358];
         }
 
-        if ([v356 mhaHasBias])
+        if ([v355 mhaHasBias])
         {
-          mhaMatrixDescriptorsForBias = [v356 mhaMatrixDescriptorsForBias];
-          v322 = [mhaMatrixDescriptorsForBias objectAtIndexedSubscript:v25];
+          mhaMatrixDescriptorsForBias = [v355 mhaMatrixDescriptorsForBias];
+          v321 = [mhaMatrixDescriptorsForBias objectAtIndexedSubscript:v25];
 
           v61 = objc_alloc(MEMORY[0x277CD7250]);
-          exportableState2 = [v356 exportableState];
+          exportableState2 = [v355 exportableState];
           v63 = [exportableState2 objectAtIndexedSubscript:v25 + 4];
-          v318 = [v61 initWithBuffer:v63 descriptor:v322];
+          v317 = [v61 initWithBuffer:v63 descriptor:v321];
 
-          mhaNDArrayDescriptorsForBias = [v356 mhaNDArrayDescriptorsForBias];
+          mhaNDArrayDescriptorsForBias = [v355 mhaNDArrayDescriptorsForBias];
           contextb = [mhaNDArrayDescriptorsForBias objectAtIndexedSubscript:v25];
 
-          v65 = [v318 ndArrayWithCommandBuffer:v358 descriptor:contextb aliasing:1];
-          mhaBiasAddKernel = [v356 mhaBiasAddKernel];
-          v386[0] = v352;
-          v386[1] = v65;
-          [MEMORY[0x277CBEA60] arrayWithObjects:v386 count:2];
+          v65 = [v317 ndArrayWithCommandBuffer:v357 descriptor:contextb aliasing:1];
+          mhaBiasAddKernel = [v355 mhaBiasAddKernel];
+          v385[0] = v351;
+          v385[1] = v65;
+          [MEMORY[0x277CBEA60] arrayWithObjects:v385 count:2];
           v68 = v67 = v47;
-          [mhaBiasAddKernel encodeToCommandBuffer:v358 sourceArrays:v68 destinationArray:v352];
+          [mhaBiasAddKernel encodeToCommandBuffer:v357 sourceArrays:v68 destinationArray:v351];
 
           v47 = v67;
         }
 
-        mhaInputProjResults = [v356 mhaInputProjResults];
+        mhaInputProjResults = [v355 mhaInputProjResults];
         [mhaInputProjResults setObject:data atIndexedSubscript:v25];
 
         ++v25;
         v24 += 3;
-        v19 = v355;
+        v19 = v354;
       }
 
       while (v25 != 3);
-      mhaHasZeroAttention = [v356 mhaHasZeroAttention];
-      mhaHasAttnBias = [v356 mhaHasAttnBias];
-      if (([v356 mhaHasAttnBias] & 1) != 0 || objc_msgSend(v356, "mhaHasZeroAttention"))
+      mhaHasZeroAttention = [v355 mhaHasZeroAttention];
+      mhaHasAttnBias = [v355 mhaHasAttnBias];
+      if (([v355 mhaHasAttnBias] & 1) != 0 || objc_msgSend(v355, "mhaHasZeroAttention"))
       {
         v72 = 0;
-        v350 = mhaHasAttnBias + mhaHasZeroAttention;
+        v349 = mhaHasAttnBias + mhaHasZeroAttention;
         v73 = 1;
         if (mhaHasAttnBias)
         {
@@ -15413,49 +16546,49 @@ LABEL_9:
           v74 = 1;
         }
 
-        v332 = v74 + mhaHasZeroAttention;
+        v331 = v74 + mhaHasZeroAttention;
         do
         {
-          v319 = v73;
+          v318 = v73;
           gpuPipelineStatesConcatFloat = [(MLCDeviceGPU *)selfCopy2 gpuPipelineStatesConcatFloat];
           v76 = v19;
           v77 = gpuPipelineStatesConcatFloat;
           v78 = [gpuPipelineStatesConcatFloat objectAtIndexedSubscript:v76];
           maxTotalThreadsPerThreadgroup = [v78 maxTotalThreadsPerThreadgroup];
 
-          batchSize = [v356 batchSize];
-          v353 = v72;
-          v81 = [v321 objectAtIndexedSubscript:v72 + 1];
+          batchSize = [v355 batchSize];
+          v352 = v72;
+          v81 = [v320 objectAtIndexedSubscript:v72 + 1];
           descriptor4 = [v81 descriptor];
           shape = [descriptor4 shape];
           v84 = [shape objectAtIndexedSubscript:1];
           unsignedIntegerValue2 = [v84 unsignedIntegerValue];
 
           v86 = maxTotalThreadsPerThreadgroup;
-          mhaModelDimension = [v356 mhaModelDimension];
+          mhaModelDimension = [v355 mhaModelDimension];
           v88 = 0;
-          v360 = unsignedIntegerValue2;
-          v323 = mhaModelDimension * unsignedIntegerValue;
-          v325 = unsignedIntegerValue2 + 1;
-          v341 = mhaModelDimension;
-          v344 = unsignedIntegerValue2 + v350;
-          v338 = mhaModelDimension * (unsignedIntegerValue2 + v350);
-          v328 = maxTotalThreadsPerThreadgroup - 1;
-          v375 = 0u;
-          v376[0] = 0u;
-          v335 = 4 * mhaModelDimension * batchSize * (unsignedIntegerValue2 + v350);
+          v359 = unsignedIntegerValue2;
+          v322 = mhaModelDimension * unsignedIntegerValue;
+          v324 = unsignedIntegerValue2 + 1;
+          v340 = mhaModelDimension;
+          v343 = unsignedIntegerValue2 + v349;
+          v337 = mhaModelDimension * (unsignedIntegerValue2 + v349);
+          v327 = maxTotalThreadsPerThreadgroup - 1;
           v374 = 0u;
-          v347 = maxTotalThreadsPerThreadgroup;
+          v375[0] = 0u;
+          v334 = 4 * mhaModelDimension * batchSize * (unsignedIntegerValue2 + v349);
+          v373 = 0u;
+          v346 = maxTotalThreadsPerThreadgroup;
           do
           {
-            v89 = v356;
-            if (v350 == v88 && [v356 mhaHasZeroAttention])
+            v89 = v355;
+            if (v349 == v88 && [v355 mhaHasZeroAttention])
             {
               gpuHeapTemporaryResourceAllocator = [(MLCDeviceGPU *)selfCopy2 gpuHeapTemporaryResourceAllocator];
-              v91 = [gpuHeapTemporaryResourceAllocator objectAtIndexedSubscript:{objc_msgSend(v356, "temporaryHeapIndex")}];
-              v92 = [v91 allocateBuffer:v323];
+              v91 = [gpuHeapTemporaryResourceAllocator objectAtIndexedSubscript:{objc_msgSend(v355, "temporaryHeapIndex")}];
+              v92 = [v91 allocateBuffer:v322];
 
-              blitCommandEncoder = [v358 blitCommandEncoder];
+              blitCommandEncoder = [v357 blitCommandEncoder];
               [blitCommandEncoder fillBuffer:v92 range:0 value:{objc_msgSend(v92, "length"), 0}];
               [blitCommandEncoder endEncoding];
             }
@@ -15465,41 +16598,41 @@ LABEL_9:
               v92 = 0;
             }
 
-            v94 = v353;
+            v94 = v352;
             if (v88 == 2)
             {
-              v367 = v92;
-              v99 = v325;
+              v366 = v92;
+              v99 = v324;
               goto LABEL_33;
             }
 
             if (v88 != 1)
             {
-              mhaInputProjResults2 = [v356 mhaInputProjResults];
-              v98 = [mhaInputProjResults2 objectAtIndexedSubscript:v353 + 1];
+              mhaInputProjResults2 = [v355 mhaInputProjResults];
+              v98 = [mhaInputProjResults2 objectAtIndexedSubscript:v352 + 1];
               v99 = 0;
               goto LABEL_31;
             }
 
-            if ([v356 mhaHasAttnBias])
+            if ([v355 mhaHasAttnBias])
             {
-              mhaInputProjResults2 = [v356 mhaAttentionBiasTensors];
-              v96 = [mhaInputProjResults2 objectAtIndexedSubscript:v353];
+              mhaInputProjResults2 = [v355 mhaAttentionBiasTensors];
+              v96 = [mhaInputProjResults2 objectAtIndexedSubscript:v352];
               deviceMemory3 = [v96 deviceMemory];
-              v98 = [deviceMemory3 objectAtIndexedSubscript:v355];
+              v98 = [deviceMemory3 objectAtIndexedSubscript:v354];
 
-              v89 = v356;
+              v89 = v355;
               v92 = v96;
-              v94 = v353;
-              v99 = v360;
+              v94 = v352;
+              v99 = v359;
 LABEL_31:
 
-              v367 = v98;
+              v366 = v98;
               goto LABEL_33;
             }
 
-            v367 = v92;
-            v99 = v360;
+            v366 = v92;
+            v99 = v359;
 LABEL_33:
             if (v88)
             {
@@ -15508,46 +16641,46 @@ LABEL_33:
 
             else
             {
-              v100 = v360;
+              v100 = v359;
             }
 
-            *&v374 = __PAIR64__(v341, v100);
+            *&v373 = __PAIR64__(v340, v100);
             batchSize2 = [v89 batchSize];
-            *(&v374 + 1) = batchSize2 | 0x100000000;
-            v102 = v374;
-            v103 = SDWORD1(v374);
-            v104 = DWORD1(v374) * v374;
+            *(&v373 + 1) = batchSize2 | 0x100000000;
+            v102 = v373;
+            v103 = SDWORD1(v373);
+            v104 = DWORD1(v373) * v373;
             if (v88)
             {
               v104 = 0;
             }
 
-            *&v375 = __PAIR64__(v104, v374);
-            DWORD2(v375) = 1;
-            HIDWORD(v375) = v344;
-            LODWORD(v376[0]) = v338;
-            *(&v376[0] + 1) = v99 | 0x100000000;
-            if (v86 <= v374)
+            *&v374 = __PAIR64__(v104, v373);
+            DWORD2(v374) = 1;
+            HIDWORD(v374) = v343;
+            LODWORD(v375[0]) = v337;
+            *(&v375[0] + 1) = v99 | 0x100000000;
+            if (v86 <= v373)
             {
               v105 = 1;
               v102 = v86;
-              v364 = (v328 + v374) / v86;
+              v363 = (v327 + v373) / v86;
             }
 
             else
             {
-              if (v86 / v374 >= SDWORD1(v374))
+              if (v86 / v373 >= SDWORD1(v373))
               {
-                v105 = SDWORD1(v374);
+                v105 = SDWORD1(v373);
               }
 
               else
               {
-                v105 = v86 / v374;
+                v105 = v86 / v373;
               }
 
-              v364 = 1;
-              v103 = (SDWORD1(v374) + v105 - 1) / v105;
+              v363 = 1;
+              v103 = (SDWORD1(v373) + v105 - 1) / v105;
             }
 
             mhaInputProjResults3 = [v89 mhaInputProjResults];
@@ -15556,7 +16689,7 @@ LABEL_33:
             v109 = v94;
             v110 = [v108 length];
 
-            if (v110 == v335)
+            if (v110 == v334)
             {
               mhaInputProjResults4 = [v107 mhaInputProjResults];
               v112 = [mhaInputProjResults4 objectAtIndexedSubscript:v109 + 1];
@@ -15564,145 +16697,145 @@ LABEL_33:
 
             else
             {
-              v112 = [v330 newBufferWithLength:v335 options:{+[MLCGPUHelper mtlResourceOptions](MLCGPUHelper, "mtlResourceOptions")}];
+              v112 = [v329 newBufferWithLength:v334 options:{+[MLCGPUHelper mtlResourceOptions](MLCGPUHelper, "mtlResourceOptions")}];
               mhaInputProjResults4 = [v107 mhaInputProjResults];
               [mhaInputProjResults4 setObject:v112 atIndexedSubscript:v109 + 1];
             }
 
             v113 = batchSize2;
 
-            v114 = [v358 computeCommandEncoderWithDispatchType:0];
+            v114 = [v357 computeCommandEncoderWithDispatchType:0];
             gpuPipelineStatesConcatFloat2 = [(MLCDeviceGPU *)selfCopy2 gpuPipelineStatesConcatFloat];
-            v116 = [gpuPipelineStatesConcatFloat2 objectAtIndexedSubscript:v355];
+            v116 = [gpuPipelineStatesConcatFloat2 objectAtIndexedSubscript:v354];
             [v114 setComputePipelineState:v116];
 
-            [v114 setBuffer:v367 offset:0 atIndex:0];
+            [v114 setBuffer:v366 offset:0 atIndex:0];
             [v114 setBuffer:v112 offset:0 atIndex:1];
-            [v114 setBytes:&v374 length:48 atIndex:2];
-            v379 = v364;
-            v380 = v103;
-            v381 = v113;
-            v377 = v102;
-            v378.i64[0] = v105;
-            v378.i64[1] = 1;
-            [v114 dispatchThreadgroups:&v379 threadsPerThreadgroup:&v377];
+            [v114 setBytes:&v373 length:48 atIndex:2];
+            v378 = v363;
+            v379 = v103;
+            v380 = v113;
+            v376 = v102;
+            v377.i64[0] = v105;
+            v377.i64[1] = 1;
+            [v114 dispatchThreadgroups:&v378 threadsPerThreadgroup:&v376];
             [v114 endEncoding];
 
             ++v88;
-            v86 = v347;
+            v86 = v346;
           }
 
-          while (v332 != v88);
+          while (v331 != v88);
           v73 = 0;
           v72 = 1;
-          v19 = v355;
+          v19 = v354;
         }
 
-        while ((v319 & 1) != 0);
+        while ((v318 & 1) != 0);
       }
 
-      mhaMatMulSourcesQKV4 = [v356 mhaMatMulSourcesQKV];
+      mhaMatMulSourcesQKV4 = [v355 mhaMatMulSourcesQKV];
       v118 = [mhaMatMulSourcesQKV4 count];
 
       if (v118 <= 2)
       {
         for (i = 0; i != 3; ++i)
         {
-          mhaInputProjResults5 = [v356 mhaInputProjResults];
+          mhaInputProjResults5 = [v355 mhaInputProjResults];
           v121 = [mhaInputProjResults5 objectAtIndexedSubscript:i];
 
           v122 = objc_alloc(MEMORY[0x277CD7250]);
-          mhaMatrixDescriptors4 = [v356 mhaMatrixDescriptors];
+          mhaMatrixDescriptors4 = [v355 mhaMatrixDescriptors];
           v124 = [mhaMatrixDescriptors4 objectAtIndexedSubscript:i + 9];
           v125 = [v122 initWithBuffer:v121 descriptor:v124];
 
-          mhaMatMulSourcesQKV5 = [v356 mhaMatMulSourcesQKV];
+          mhaMatMulSourcesQKV5 = [v355 mhaMatMulSourcesQKV];
           [mhaMatMulSourcesQKV5 setObject:v125 atIndexedSubscript:i];
         }
       }
 
-      mhaMatMulSourcesQKV6 = [v356 mhaMatMulSourcesQKV];
+      mhaMatMulSourcesQKV6 = [v355 mhaMatMulSourcesQKV];
       v128 = [mhaMatMulSourcesQKV6 objectAtIndexedSubscript:0];
 
-      mhaMatMulSourcesQKV7 = [v356 mhaMatMulSourcesQKV];
+      mhaMatMulSourcesQKV7 = [v355 mhaMatMulSourcesQKV];
       v130 = [mhaMatMulSourcesQKV7 objectAtIndexedSubscript:1];
 
-      mhaNDArrayDescriptors4 = [v356 mhaNDArrayDescriptors];
+      mhaNDArrayDescriptors4 = [v355 mhaNDArrayDescriptors];
       v132 = [mhaNDArrayDescriptors4 objectAtIndexedSubscript:9];
 
-      v354 = v128;
-      v348 = v132;
-      v133 = [v128 ndArrayWithCommandBuffer:v358 descriptor:v132 aliasing:1];
+      v353 = v128;
+      v347 = v132;
+      v133 = [v128 ndArrayWithCommandBuffer:v357 descriptor:v132 aliasing:1];
       descriptor5 = [v133 descriptor];
       [descriptor5 transposeDimension:0 withDimension:1];
-      v342 = descriptor5;
-      v345 = v133;
-      v135 = [v133 arrayViewWithCommandBuffer:v358 descriptor:descriptor5 aliasing:1];
-      mhaNDArrayDescriptors5 = [v356 mhaNDArrayDescriptors];
+      v341 = descriptor5;
+      v344 = v133;
+      v135 = [v133 arrayViewWithCommandBuffer:v357 descriptor:descriptor5 aliasing:1];
+      mhaNDArrayDescriptors5 = [v355 mhaNDArrayDescriptors];
       v137 = [mhaNDArrayDescriptors5 objectAtIndexedSubscript:10];
 
-      v351 = v130;
-      v336 = v137;
-      v138 = [v130 ndArrayWithCommandBuffer:v358 descriptor:v137 aliasing:1];
-      mhaMatrixDescriptors5 = [v356 mhaMatrixDescriptors];
+      v350 = v130;
+      v335 = v137;
+      v138 = [v130 ndArrayWithCommandBuffer:v357 descriptor:v137 aliasing:1];
+      mhaMatrixDescriptors5 = [v355 mhaMatrixDescriptors];
       v140 = [mhaMatrixDescriptors5 objectAtIndexedSubscript:12];
 
       matrices = [v140 matrices];
       v142 = [v140 matrixBytes] * matrices;
       gpuHeapTemporaryResourceAllocator2 = [(MLCDeviceGPU *)selfCopy2 gpuHeapTemporaryResourceAllocator];
-      v144 = [gpuHeapTemporaryResourceAllocator2 objectAtIndexedSubscript:{objc_msgSend(v356, "temporaryHeapIndex")}];
+      v144 = [gpuHeapTemporaryResourceAllocator2 objectAtIndexedSubscript:{objc_msgSend(v355, "temporaryHeapIndex")}];
       v145 = [v144 allocateBuffer:v142];
 
       v146 = v140;
-      v326 = v145;
+      v325 = v145;
       v147 = [objc_alloc(MEMORY[0x277CD7250]) initWithBuffer:v145 descriptor:v140];
-      mhaNDArrayDescriptors6 = [v356 mhaNDArrayDescriptors];
+      mhaNDArrayDescriptors6 = [v355 mhaNDArrayDescriptors];
       v149 = [mhaNDArrayDescriptors6 objectAtIndexedSubscript:12];
 
-      v324 = v149;
-      v150 = [v147 ndArrayWithCommandBuffer:v358 descriptor:v149 aliasing:1];
-      mhaMatMulKernelWithScale = [v356 mhaMatMulKernelWithScale];
-      v339 = v135;
-      v385[0] = v135;
-      v385[1] = v138;
-      v333 = v138;
-      v152 = [MEMORY[0x277CBEA60] arrayWithObjects:v385 count:2];
-      v320 = v150;
-      [mhaMatMulKernelWithScale encodeToCommandBuffer:v358 sourceArrays:v152 destinationArray:v150];
+      v323 = v149;
+      v150 = [v147 ndArrayWithCommandBuffer:v357 descriptor:v149 aliasing:1];
+      mhaMatMulKernelWithScale = [v355 mhaMatMulKernelWithScale];
+      v338 = v135;
+      v384[0] = v135;
+      v384[1] = v138;
+      v332 = v138;
+      v152 = [MEMORY[0x277CBEA60] arrayWithObjects:v384 count:2];
+      v319 = v150;
+      [mhaMatMulKernelWithScale encodeToCommandBuffer:v357 sourceArrays:v152 destinationArray:v150];
 
-      mhaQKSoftmaxResultMatrix = [v356 mhaQKSoftmaxResultMatrix];
+      mhaQKSoftmaxResultMatrix = [v355 mhaQKSoftmaxResultMatrix];
 
-      v329 = v146;
+      v328 = v146;
       if (mhaQKSoftmaxResultMatrix)
       {
-        mhaQKSoftmaxResultMatrix2 = [v356 mhaQKSoftmaxResultMatrix];
+        mhaQKSoftmaxResultMatrix2 = [v355 mhaQKSoftmaxResultMatrix];
         data2 = [mhaQKSoftmaxResultMatrix2 data];
       }
 
       else
       {
-        data2 = [v330 newBufferWithLength:objc_msgSend(v147 options:{"matrixBytes") * objc_msgSend(v147, "matrices"), +[MLCGPUHelper mtlResourceOptions](MLCGPUHelper, "mtlResourceOptions")}];
+        data2 = [v329 newBufferWithLength:objc_msgSend(v147 options:{"matrixBytes") * objc_msgSend(v147, "matrices"), +[MLCGPUHelper mtlResourceOptions](MLCGPUHelper, "mtlResourceOptions")}];
         mhaQKSoftmaxResultMatrix2 = [objc_alloc(MEMORY[0x277CD7250]) initWithBuffer:data2 descriptor:v146];
-        [v356 setMhaQKSoftmaxResultMatrix:mhaQKSoftmaxResultMatrix2];
+        [v355 setMhaQKSoftmaxResultMatrix:mhaQKSoftmaxResultMatrix2];
       }
 
-      v156 = v356;
+      v156 = v355;
 
-      mhaQKSoftmaxResultMatrix3 = [v356 mhaQKSoftmaxResultMatrix];
+      mhaQKSoftmaxResultMatrix3 = [v355 mhaQKSoftmaxResultMatrix];
       context = objc_autoreleasePoolPush();
       columns = [v147 columns];
-      [v356 setResult:data2];
-      v368 = v147;
+      [v355 setResult:data2];
+      v367 = v147;
       data3 = [v147 data];
       v158 = data2;
-      mhaMaskSoftmaxForwardKernel = [v356 mhaMaskSoftmaxForwardKernel];
+      mhaMaskSoftmaxForwardKernel = [v355 mhaMaskSoftmaxForwardKernel];
       maxTotalThreadsPerThreadgroup2 = [mhaMaskSoftmaxForwardKernel maxTotalThreadsPerThreadgroup];
 
       if (maxTotalThreadsPerThreadgroup2 > columns)
       {
         v161 = 1 << -__clz(columns);
         maxTotalThreadsPerThreadgroup2 = (columns & (columns - 1)) != 0 ? v161 : columns;
-        mhaMaskSoftmaxForwardKernel2 = [v356 mhaMaskSoftmaxForwardKernel];
+        mhaMaskSoftmaxForwardKernel2 = [v355 mhaMaskSoftmaxForwardKernel];
         threadExecutionWidth = [mhaMaskSoftmaxForwardKernel2 threadExecutionWidth];
 
         if (maxTotalThreadsPerThreadgroup2 <= threadExecutionWidth)
@@ -15711,19 +16844,19 @@ LABEL_33:
         }
       }
 
-      v375 = 0u;
-      memset(v376, 0, 28);
       v374 = 0u;
-      mhaHasKeyMask = [v356 mhaHasKeyMask];
+      memset(v375, 0, 28);
+      v373 = 0u;
+      mhaHasKeyMask = [v355 mhaHasKeyMask];
       v165 = data3;
-      if (([v356 mhaHasAttentionMask] & 1) != 0 || objc_msgSend(v356, "mhaHasKeyMask"))
+      if (([v355 mhaHasAttentionMask] & 1) != 0 || objc_msgSend(v355, "mhaHasKeyMask"))
       {
-        LODWORD(v374) = [v147 matrices];
-        DWORD1(v374) = [v147 rows];
-        DWORD2(v374) = 1;
-        HIDWORD(v374) = [v147 columns];
-        LODWORD(v376[1]) = mhaHeadCount;
-        if ([v356 mhaHasAttentionMask])
+        LODWORD(v373) = [v147 matrices];
+        DWORD1(v373) = [v147 rows];
+        DWORD2(v373) = 1;
+        HIDWORD(v373) = [v147 columns];
+        LODWORD(v375[1]) = mhaHeadCount;
+        if ([v355 mhaHasAttentionMask])
         {
           if (mhaHasKeyMask)
           {
@@ -15735,7 +16868,7 @@ LABEL_33:
             v166 = 3;
           }
 
-          v167 = [v321 objectAtIndexedSubscript:v166];
+          v167 = [v320 objectAtIndexedSubscript:v166];
           descriptor6 = [v167 descriptor];
           if ([descriptor6 isFloatingPoint])
           {
@@ -15747,65 +16880,65 @@ LABEL_33:
             v169 = 2;
           }
 
-          DWORD1(v376[1]) = v169;
+          DWORD1(v375[1]) = v169;
 
-          v170 = [v321 objectAtIndexedSubscript:v166];
+          v170 = [v320 objectAtIndexedSubscript:v166];
           descriptor7 = [v170 descriptor];
           shape2 = [descriptor7 shape];
           [shape2 objectAtIndexedSubscript:0];
           v173 = mhaHasKeyMask;
           v175 = v174 = v158;
-          LODWORD(v375) = [v175 unsignedIntegerValue];
+          LODWORD(v374) = [v175 unsignedIntegerValue];
 
           v158 = v174;
           mhaHasKeyMask = v173;
           v165 = data3;
 
-          DWORD1(v375) = [v147 rows];
-          DWORD2(v375) = 1;
-          v176 = [v321 objectAtIndexedSubscript:v166];
+          DWORD1(v374) = [v147 rows];
+          DWORD2(v374) = 1;
+          v176 = [v320 objectAtIndexedSubscript:v166];
           descriptor8 = [v176 descriptor];
           shape3 = [descriptor8 shape];
           v179 = [shape3 objectAtIndexedSubscript:2];
-          HIDWORD(v375) = [v179 unsignedIntegerValue];
+          HIDWORD(v374) = [v179 unsignedIntegerValue];
 
-          v156 = v356;
+          v156 = v355;
         }
 
         else
         {
-          DWORD1(v376[1]) = 0;
+          DWORD1(v375[1]) = 0;
         }
 
         if ([v156 mhaHasKeyMask])
         {
-          DWORD2(v376[1]) = 1;
-          LODWORD(v376[0]) = [v156 batchSize];
-          *(v376 + 4) = 0x100000001;
-          v180 = [v321 objectAtIndexedSubscript:3];
+          DWORD2(v375[1]) = 1;
+          LODWORD(v375[0]) = [v156 batchSize];
+          *(v375 + 4) = 0x100000001;
+          v180 = [v320 objectAtIndexedSubscript:3];
           descriptor9 = [v180 descriptor];
           shape4 = [descriptor9 shape];
           v183 = [shape4 objectAtIndexedSubscript:1];
-          HIDWORD(v376[0]) = [v183 unsignedIntegerValue];
+          HIDWORD(v375[0]) = [v183 unsignedIntegerValue];
 
-          v156 = v356;
+          v156 = v355;
         }
 
         else
         {
-          DWORD2(v376[1]) = 0;
+          DWORD2(v375[1]) = 0;
         }
       }
 
       matrices2 = [v147 matrices];
       rows = [v147 rows];
-      v370[0] = columns;
-      v370[1] = 2;
-      v371 = maxTotalThreadsPerThreadgroup2 >= columns;
-      v372 = 1;
-      v373 = columns;
-      v186 = [v358 computeCommandEncoderWithDispatchType:0];
-      if (v371)
+      v369[0] = columns;
+      v369[1] = 2;
+      v370 = maxTotalThreadsPerThreadgroup2 >= columns;
+      v371 = 1;
+      v372 = columns;
+      v186 = [v357 computeCommandEncoderWithDispatchType:0];
+      if (v370)
       {
         [v156 mhaMaskSoftmaxForwardKernel];
       }
@@ -15819,7 +16952,7 @@ LABEL_33:
 
       [v186 setBuffer:v165 offset:0 atIndex:0];
       [v186 setBuffer:v158 offset:0 atIndex:1];
-      v362 = v158;
+      v361 = v158;
 
       if ([v156 mhaHasAttentionMask])
       {
@@ -15833,7 +16966,7 @@ LABEL_33:
           v188 = 3;
         }
 
-        [v321 objectAtIndexedSubscript:v188];
+        [v320 objectAtIndexedSubscript:v188];
         v190 = v189 = maxTotalThreadsPerThreadgroup2;
         descriptor10 = [v190 descriptor];
         if ([descriptor10 isFloatingPoint])
@@ -15846,36 +16979,36 @@ LABEL_33:
           v192 = 3;
         }
 
-        v193 = [v321 objectAtIndexedSubscript:v188];
+        v193 = [v320 objectAtIndexedSubscript:v188];
         deviceMemory4 = [v193 deviceMemory];
-        v195 = [deviceMemory4 objectAtIndexedSubscript:v355];
+        v195 = [deviceMemory4 objectAtIndexedSubscript:v354];
         [v186 setBuffer:v195 offset:0 atIndex:v192];
 
-        v156 = v356;
+        v156 = v355;
         maxTotalThreadsPerThreadgroup2 = v189;
       }
 
       if ([v156 mhaHasKeyMask])
       {
-        v196 = [v321 objectAtIndexedSubscript:3];
+        v196 = [v320 objectAtIndexedSubscript:3];
         [v196 deviceMemory];
         v198 = v197 = maxTotalThreadsPerThreadgroup2;
-        v199 = [v198 objectAtIndexedSubscript:v355];
+        v199 = [v198 objectAtIndexedSubscript:v354];
         [v186 setBuffer:v199 offset:0 atIndex:4];
 
-        v156 = v356;
+        v156 = v355;
         maxTotalThreadsPerThreadgroup2 = v197;
       }
 
-      [v186 setBytes:v370 length:20 atIndex:5];
-      [v186 setBytes:&v374 length:60 atIndex:6];
-      [v186 setThreadgroupMemoryLength:GPU_AlignForThreadGroupMemorySize(4 * (maxTotalThreadsPerThreadgroup2 + maxTotalThreadsPerThreadgroup2 * v371)) atIndex:0];
-      v379 = 1;
-      v380 = rows * matrices2;
-      v381 = 1;
-      v377 = maxTotalThreadsPerThreadgroup2;
-      v378 = vdupq_n_s64(1uLL);
-      [v186 dispatchThreadgroups:&v379 threadsPerThreadgroup:&v377];
+      [v186 setBytes:v369 length:20 atIndex:5];
+      [v186 setBytes:&v373 length:60 atIndex:6];
+      [v186 setThreadgroupMemoryLength:GPU_AlignForThreadGroupMemorySize(4 * (maxTotalThreadsPerThreadgroup2 + maxTotalThreadsPerThreadgroup2 * v370)) atIndex:0];
+      v378 = 1;
+      v379 = rows * matrices2;
+      v380 = 1;
+      v376 = maxTotalThreadsPerThreadgroup2;
+      v377 = vdupq_n_s64(1uLL);
+      [v186 dispatchThreadgroups:&v378 threadsPerThreadgroup:&v376];
       [v186 endEncoding];
 
       objc_autoreleasePoolPop(context);
@@ -15886,7 +17019,7 @@ LABEL_33:
       v203 = [mhaMatMulSourcesQKV9 count];
 
       v204 = v156;
-      v205 = v355;
+      v205 = v354;
       if (v203 > 3)
       {
         mhaMatMulSourcesQKV10 = [v156 mhaMatMulSourcesQKV];
@@ -15898,7 +17031,7 @@ LABEL_33:
         mhaMatrixDescriptors6 = [v156 mhaMatrixDescriptors];
         mhaMatMulSourcesQKV10 = [mhaMatrixDescriptors6 objectAtIndexedSubscript:13];
 
-        v208 = [v330 newBufferWithLength:objc_msgSend(mhaMatMulSourcesQKV10 options:{"matrixBytes") * objc_msgSend(mhaMatMulSourcesQKV10, "matrices"), +[MLCGPUHelper mtlResourceOptions](MLCGPUHelper, "mtlResourceOptions")}];
+        v208 = [v329 newBufferWithLength:objc_msgSend(mhaMatMulSourcesQKV10 options:{"matrixBytes") * objc_msgSend(mhaMatMulSourcesQKV10, "matrices"), +[MLCGPUHelper mtlResourceOptions](MLCGPUHelper, "mtlResourceOptions")}];
         v209 = [objc_alloc(MEMORY[0x277CD7250]) initWithBuffer:v208 descriptor:mhaMatMulSourcesQKV10];
         mhaMatMulSourcesQKV11 = [v156 mhaMatMulSourcesQKV];
         [mhaMatMulSourcesQKV11 setObject:v209 atIndexedSubscript:3];
@@ -15908,92 +17041,92 @@ LABEL_33:
       v212 = [mhaNDArrayDescriptors7 objectAtIndexedSubscript:11];
 
       contexta = v201;
-      v310 = v212;
-      v213 = [v201 ndArrayWithCommandBuffer:v358 descriptor:v212 aliasing:1];
+      v309 = v212;
+      v213 = [v201 ndArrayWithCommandBuffer:v357 descriptor:v212 aliasing:1];
       mhaNDArrayDescriptors8 = [v156 mhaNDArrayDescriptors];
       v215 = [mhaNDArrayDescriptors8 objectAtIndexedSubscript:12];
 
-      v308 = v215;
-      v216 = [mhaQKSoftmaxResultMatrix3 ndArrayWithCommandBuffer:v358 descriptor:v215 aliasing:1];
+      v307 = v215;
+      v216 = [mhaQKSoftmaxResultMatrix3 ndArrayWithCommandBuffer:v357 descriptor:v215 aliasing:1];
       descriptor11 = [v216 descriptor];
       [descriptor11 transposeDimension:0 withDimension:1];
-      v306 = descriptor11;
-      v307 = v216;
-      v218 = [v216 arrayViewWithCommandBuffer:v358 descriptor:descriptor11 aliasing:1];
+      v305 = descriptor11;
+      v306 = v216;
+      v218 = [v216 arrayViewWithCommandBuffer:v357 descriptor:descriptor11 aliasing:1];
       mhaNDArrayDescriptors9 = [v156 mhaNDArrayDescriptors];
       v220 = [mhaNDArrayDescriptors9 objectAtIndexedSubscript:13];
 
-      v304 = v220;
-      v221 = [v209 ndArrayWithCommandBuffer:v358 descriptor:v220 aliasing:1];
+      v303 = v220;
+      v221 = [v209 ndArrayWithCommandBuffer:v357 descriptor:v220 aliasing:1];
       mhaMatMulKernel2 = [v156 mhaMatMulKernel];
-      v309 = v213;
-      v384[0] = v213;
-      v384[1] = v218;
-      v305 = v218;
-      v223 = [MEMORY[0x277CBEA60] arrayWithObjects:v384 count:2];
-      v303 = v221;
-      [mhaMatMulKernel2 encodeToCommandBuffer:v358 sourceArrays:v223 destinationArray:v221];
+      v308 = v213;
+      v383[0] = v213;
+      v383[1] = v218;
+      v304 = v218;
+      v223 = [MEMORY[0x277CBEA60] arrayWithObjects:v383 count:2];
+      v302 = v221;
+      [mhaMatMulKernel2 encodeToCommandBuffer:v357 sourceArrays:v223 destinationArray:v221];
 
       mhaMatrixDescriptors7 = [v156 mhaMatrixDescriptors];
       v225 = [mhaMatrixDescriptors7 objectAtIndexedSubscript:2];
 
       v226 = objc_alloc(MEMORY[0x277CD7250]);
-      v312 = v209;
+      v311 = v209;
       data4 = [v209 data];
-      v302 = v225;
+      v301 = v225;
       v228 = [v226 initWithBuffer:data4 descriptor:v225];
 
       mhaNDArrayDescriptors10 = [v156 mhaNDArrayDescriptors];
       v230 = [mhaNDArrayDescriptors10 objectAtIndexedSubscript:2];
 
-      v300 = v230;
-      v301 = v228;
-      v231 = [v228 ndArrayWithCommandBuffer:v358 descriptor:v230 aliasing:1];
+      v299 = v230;
+      v300 = v228;
+      v231 = [v228 ndArrayWithCommandBuffer:v357 descriptor:v230 aliasing:1];
       descriptor12 = [v231 descriptor];
       [descriptor12 transposeDimension:0 withDimension:1];
-      v298 = descriptor12;
-      v299 = v231;
-      v233 = [v231 arrayViewWithCommandBuffer:v358 descriptor:descriptor12 aliasing:1];
+      v297 = descriptor12;
+      v298 = v231;
+      v233 = [v231 arrayViewWithCommandBuffer:v357 descriptor:descriptor12 aliasing:1];
       mhaMatrixDescriptors8 = [v156 mhaMatrixDescriptors];
       v235 = [mhaMatrixDescriptors8 objectAtIndexedSubscript:14];
 
       v236 = objc_alloc(MEMORY[0x277CD7250]);
       exportableState3 = [v156 exportableState];
       v238 = [exportableState3 objectAtIndexedSubscript:3];
-      v296 = v235;
+      v295 = v235;
       v239 = [v236 initWithBuffer:v238 descriptor:v235];
 
       mhaNDArrayDescriptors11 = [v156 mhaNDArrayDescriptors];
       v241 = [mhaNDArrayDescriptors11 objectAtIndexedSubscript:14];
 
-      v295 = v239;
-      v242 = [v239 ndArrayWithCommandBuffer:v358 descriptor:v241 aliasing:1];
+      v294 = v239;
+      v242 = [v239 ndArrayWithCommandBuffer:v357 descriptor:v241 aliasing:1];
       descriptor13 = [v242 descriptor];
       [descriptor13 transposeDimension:0 withDimension:1];
-      v293 = descriptor13;
-      v294 = v242;
-      v244 = [v242 arrayViewWithCommandBuffer:v358 descriptor:descriptor13 aliasing:1];
+      v292 = descriptor13;
+      v293 = v242;
+      v244 = [v242 arrayViewWithCommandBuffer:v357 descriptor:descriptor13 aliasing:1];
       mhaMatrixDescriptors9 = [v156 mhaMatrixDescriptors];
       v246 = [mhaMatrixDescriptors9 objectAtIndexedSubscript:15];
 
       v247 = objc_alloc(MEMORY[0x277CD7250]);
-      v248 = [deviceMemory objectAtIndexedSubscript:v355];
-      v291 = v246;
+      v248 = [deviceMemory objectAtIndexedSubscript:v354];
+      v290 = v246;
       v249 = [v247 initWithBuffer:v248 descriptor:v246];
 
       mhaNDArrayDescriptors12 = [v156 mhaNDArrayDescriptors];
       v251 = [mhaNDArrayDescriptors12 objectAtIndexedSubscript:15];
 
-      v289 = v251;
-      v290 = v249;
-      v252 = [v249 ndArrayWithCommandBuffer:v358 descriptor:v251 aliasing:1];
+      v288 = v251;
+      v289 = v249;
+      v252 = [v249 ndArrayWithCommandBuffer:v357 descriptor:v251 aliasing:1];
       mhaMatMulKernel3 = [v156 mhaMatMulKernel];
-      v297 = v233;
-      v383[0] = v233;
-      v383[1] = v244;
-      v292 = v244;
-      v254 = [MEMORY[0x277CBEA60] arrayWithObjects:v383 count:2];
-      [mhaMatMulKernel3 encodeToCommandBuffer:v358 sourceArrays:v254 destinationArray:v252];
+      v296 = v233;
+      v382[0] = v233;
+      v382[1] = v244;
+      v291 = v244;
+      v254 = [MEMORY[0x277CBEA60] arrayWithObjects:v382 count:2];
+      [mhaMatMulKernel3 encodeToCommandBuffer:v357 sourceArrays:v254 destinationArray:v252];
 
       selfCopy = selfCopy2;
       if ([v156 mhaHasBias])
@@ -16009,25 +17142,25 @@ LABEL_33:
         mhaNDArrayDescriptorsForBias2 = [v204 mhaNDArrayDescriptorsForBias];
         v262 = [mhaNDArrayDescriptorsForBias2 objectAtIndexedSubscript:3];
 
-        v263 = [v260 ndArrayWithCommandBuffer:v358 descriptor:v262 aliasing:1];
+        v263 = [v260 ndArrayWithCommandBuffer:v357 descriptor:v262 aliasing:1];
         mhaBiasAddKernel2 = [v204 mhaBiasAddKernel];
-        v382[0] = v252;
-        v382[1] = v263;
-        v265 = [MEMORY[0x277CBEA60] arrayWithObjects:v382 count:2];
-        [mhaBiasAddKernel2 encodeToCommandBuffer:v358 sourceArrays:v265 destinationArray:v252];
+        v381[0] = v252;
+        v381[1] = v263;
+        v265 = [MEMORY[0x277CBEA60] arrayWithObjects:v381 count:2];
+        [mhaBiasAddKernel2 encodeToCommandBuffer:v357 sourceArrays:v265 destinationArray:v252];
 
         selfCopy = selfCopy2;
-        v205 = v355;
+        v205 = v354;
       }
 
       mhaDropoutForwardKernel = [v204 mhaDropoutForwardKernel];
 
       if (mhaDropoutForwardKernel)
       {
-        v285 = v252;
+        v284 = v252;
         gpuWriteTensorKernelList = [(MLCDeviceGPU *)selfCopy gpuWriteTensorKernelList];
         v268 = [gpuWriteTensorKernelList objectAtIndexedSubscript:v205];
-        v269 = +[MLCGPUHelper allocateMPSImageBatchForTensor:commandBuffer:kernel:batchSize:heapAllocator:imageBatchIsTemporary:](MLCGPUHelper, "allocateMPSImageBatchForTensor:commandBuffer:kernel:batchSize:heapAllocator:imageBatchIsTemporary:", v287, v358, v268, [v204 batchSize], 0, temporaryCopy);
+        v269 = +[MLCGPUHelper allocateMPSImageBatchForTensor:commandBuffer:kernel:batchSize:heapAllocator:imageBatchIsTemporary:](MLCGPUHelper, "allocateMPSImageBatchForTensor:commandBuffer:kernel:batchSize:heapAllocator:imageBatchIsTemporary:", v286, v357, v268, [v204 batchSize], 0, temporaryCopy);
 
         if (temporaryCopy && trainingCopy)
         {
@@ -16037,34 +17170,34 @@ LABEL_33:
         gpuWriteTensorKernelList2 = [(MLCDeviceGPU *)selfCopy2 gpuWriteTensorKernelList];
         v271 = [gpuWriteTensorKernelList2 objectAtIndexedSubscript:v205];
         v272 = [deviceMemory objectAtIndexedSubscript:v205];
-        descriptor14 = [v287 descriptor];
-        +[MLCGPUHelper copyMTLBufferToMPSImageBatch:commandBuffer:sourceMTLBuffer:destinationImageBatch:MLCDataType:](MLCGPUHelper, "copyMTLBufferToMPSImageBatch:commandBuffer:sourceMTLBuffer:destinationImageBatch:MLCDataType:", v271, v358, v272, v269, [descriptor14 dataType]);
+        descriptor14 = [v286 descriptor];
+        +[MLCGPUHelper copyMTLBufferToMPSImageBatch:commandBuffer:sourceMTLBuffer:destinationImageBatch:MLCDataType:](MLCGPUHelper, "copyMTLBufferToMPSImageBatch:commandBuffer:sourceMTLBuffer:destinationImageBatch:MLCDataType:", v271, v357, v272, v269, [descriptor14 dataType]);
 
-        mhaDropoutForwardKernel2 = [v356 mhaDropoutForwardKernel];
+        mhaDropoutForwardKernel2 = [v355 mhaDropoutForwardKernel];
         defaultAllocator = [MEMORY[0x277CD72A8] defaultAllocator];
         [mhaDropoutForwardKernel2 setDestinationImageAllocator:defaultAllocator];
 
-        v369 = 0;
-        v276 = [mhaDropoutForwardKernel2 encodeBatchToCommandBuffer:v358 sourceImages:v269 destinationStates:&v369 destinationStateIsTemporary:temporaryCopy];
-        v277 = v369;
-        [v356 setMhaDropoutSource:v269];
-        [v356 setMhaDropoutState:v277];
+        v368 = 0;
+        v276 = [mhaDropoutForwardKernel2 encodeBatchToCommandBuffer:v357 sourceImages:v269 destinationStates:&v368 destinationStateIsTemporary:temporaryCopy];
+        v277 = v368;
+        [v355 setMhaDropoutSource:v269];
+        [v355 setMhaDropoutState:v277];
 
         gpuReadTensorKernelList = [(MLCDeviceGPU *)selfCopy2 gpuReadTensorKernelList];
-        v279 = [gpuReadTensorKernelList objectAtIndexedSubscript:v355];
-        v280 = [deviceMemory objectAtIndexedSubscript:v355];
-        descriptor15 = [v287 descriptor];
-        +[MLCGPUHelper copyMPSImageBatchToMTLBuffer:commandBuffer:sourceImageBatch:destinationMTLBuffer:MLCDataType:](MLCGPUHelper, "copyMPSImageBatchToMTLBuffer:commandBuffer:sourceImageBatch:destinationMTLBuffer:MLCDataType:", v279, v358, v276, v280, [descriptor15 dataType]);
+        v279 = [gpuReadTensorKernelList objectAtIndexedSubscript:v354];
+        v280 = [deviceMemory objectAtIndexedSubscript:v354];
+        descriptor15 = [v286 descriptor];
+        +[MLCGPUHelper copyMPSImageBatchToMTLBuffer:commandBuffer:sourceImageBatch:destinationMTLBuffer:MLCDataType:](MLCGPUHelper, "copyMPSImageBatchToMTLBuffer:commandBuffer:sourceImageBatch:destinationMTLBuffer:MLCDataType:", v279, v357, v276, v280, [descriptor15 dataType]);
 
         selfCopy = selfCopy2;
-        v205 = v355;
+        v205 = v354;
 
-        v252 = v285;
+        v252 = v284;
       }
 
       if (trainingCopy)
       {
-        [v356 setSource:v297];
+        [v355 setSource:v296];
       }
 
       v19 = v205 + 1;
@@ -16073,49 +17206,48 @@ LABEL_33:
     while (v205 + 1 < [(MLCDeviceGPU *)selfCopy numDevicesToUse]);
   }
 
-  objc_autoreleasePoolPop(v283);
-  v282 = *MEMORY[0x277D85DE8];
+  objc_autoreleasePoolPop(v282);
 }
 
 - (void)dispatchGradientMHALayer:(id)layer sourceGradientTensor:(id)tensor resultGradientTensors:(id)tensors resultStateIsTemporary:(BOOL)temporary
 {
   temporaryCopy = temporary;
-  v397 = *MEMORY[0x277D85DE8];
+  v396 = *MEMORY[0x277D85DE8];
   layerCopy = layer;
   tensorCopy = tensor;
   tensorsCopy = tensors;
-  v278 = objc_autoreleasePoolPush();
+  v277 = objc_autoreleasePoolPush();
   descriptor = [tensorCopy descriptor];
   stride = [descriptor stride];
-  v327 = tensorCopy;
+  v326 = tensorCopy;
   descriptor2 = [tensorCopy descriptor];
   v14 = [stride objectAtIndexedSubscript:{objc_msgSend(descriptor2, "dimensionCount") - 1}];
   unsignedIntegerValue = [v14 unsignedIntegerValue];
 
   v15 = [MEMORY[0x277CBEBF8] mutableCopy];
+  v383 = 0u;
   v384 = 0u;
   v385 = 0u;
   v386 = 0u;
-  v387 = 0u;
   obj = tensorsCopy;
-  v16 = [obj countByEnumeratingWithState:&v384 objects:v396 count:16];
+  v16 = [obj countByEnumeratingWithState:&v383 objects:v395 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v385;
+    v18 = *v384;
     do
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v385 != v18)
+        if (*v384 != v18)
         {
           objc_enumerationMutation(obj);
         }
 
-        [(MLCDeviceGPU *)self allocateResultTensor:*(*(&v384 + 1) + 8 * i)];
+        [(MLCDeviceGPU *)self allocateResultTensor:*(*(&v383 + 1) + 8 * i)];
       }
 
-      v17 = [obj countByEnumeratingWithState:&v384 objects:v396 count:16];
+      v17 = [obj countByEnumeratingWithState:&v383 objects:v395 count:16];
     }
 
     while (v17);
@@ -16125,7 +17257,7 @@ LABEL_33:
   {
     v20 = 0;
     selfCopy = self;
-    v280 = v15;
+    v279 = v15;
     do
     {
       v21 = [layerCopy objectAtIndexedSubscript:v20];
@@ -16133,54 +17265,54 @@ LABEL_33:
       v23 = [gpuCommandBufferList objectAtIndexedSubscript:v20];
 
       deviceList = [(MLCDeviceGPU *)self deviceList];
-      v351 = [deviceList objectAtIndexedSubscript:v20];
+      v350 = [deviceList objectAtIndexedSubscript:v20];
 
       mhaDropoutGradientKernel = [v21 mhaDropoutGradientKernel];
 
-      v347 = v21;
+      v346 = v21;
       if (mhaDropoutGradientKernel)
       {
         batchSize = [v21 batchSize];
         gpuWriteTensorKernelList = [(MLCDeviceGPU *)self gpuWriteTensorKernelList];
         v28 = [gpuWriteTensorKernelList objectAtIndexedSubscript:v20];
-        deviceMemory = [v327 deviceMemory];
+        deviceMemory = [v326 deviceMemory];
         v30 = [deviceMemory objectAtIndexedSubscript:v20];
-        descriptor3 = [v327 descriptor];
-        deviceMemory3 = +[MLCGPUHelper allocateAndCopyToTemporaryMPSImageBatchForTensor:commandBuffer:batchSize:copyingKernel:sourceMTLBuffer:MLCDataType:heapAllocator:](MLCGPUHelper, "allocateAndCopyToTemporaryMPSImageBatchForTensor:commandBuffer:batchSize:copyingKernel:sourceMTLBuffer:MLCDataType:heapAllocator:", v327, v23, batchSize, v28, v30, [descriptor3 dataType], 0);
+        descriptor3 = [v326 descriptor];
+        deviceMemory3 = +[MLCGPUHelper allocateAndCopyToTemporaryMPSImageBatchForTensor:commandBuffer:batchSize:copyingKernel:sourceMTLBuffer:MLCDataType:heapAllocator:](MLCGPUHelper, "allocateAndCopyToTemporaryMPSImageBatchForTensor:commandBuffer:batchSize:copyingKernel:sourceMTLBuffer:MLCDataType:heapAllocator:", v326, v23, batchSize, v28, v30, [descriptor3 dataType], 0);
 
-        mhaDropoutGradientKernel2 = [v347 mhaDropoutGradientKernel];
+        mhaDropoutGradientKernel2 = [v346 mhaDropoutGradientKernel];
         defaultAllocator = [MEMORY[0x277CD72A8] defaultAllocator];
         [mhaDropoutGradientKernel2 setDestinationImageAllocator:defaultAllocator];
 
-        batchSize2 = [v347 batchSize];
-        mhaDropoutSource = [v347 mhaDropoutSource];
+        batchSize2 = [v346 batchSize];
+        mhaDropoutSource = [v346 mhaDropoutSource];
         v37 = [mhaDropoutSource subarrayWithRange:{0, batchSize2}];
-        mhaDropoutState = [v347 mhaDropoutState];
+        mhaDropoutState = [v346 mhaDropoutState];
         v39 = [mhaDropoutGradientKernel2 encodeBatchToCommandBuffer:v23 sourceGradients:deviceMemory3 sourceImages:v37 gradientStates:mhaDropoutState];
 
-        deviceMemory2 = [v327 deviceMemory];
+        deviceMemory2 = [v326 deviceMemory];
         v41 = [deviceMemory2 objectAtIndexedSubscript:v20];
         v42 = [v41 length];
 
         gpuHeapTemporaryResourceAllocator = [(MLCDeviceGPU *)selfCopy gpuHeapTemporaryResourceAllocator];
-        v44 = [gpuHeapTemporaryResourceAllocator objectAtIndexedSubscript:{objc_msgSend(v347, "temporaryHeapIndex")}];
+        v44 = [gpuHeapTemporaryResourceAllocator objectAtIndexedSubscript:{objc_msgSend(v346, "temporaryHeapIndex")}];
         v45 = [v44 allocateBuffer:v42];
 
         gpuReadTensorKernelList = [(MLCDeviceGPU *)selfCopy gpuReadTensorKernelList];
         v47 = [gpuReadTensorKernelList objectAtIndexedSubscript:v20];
-        descriptor4 = [v327 descriptor];
-        v15 = v280;
+        descriptor4 = [v326 descriptor];
+        v15 = v279;
         +[MLCGPUHelper copyMPSImageBatchToMTLBuffer:commandBuffer:sourceImageBatch:destinationMTLBuffer:MLCDataType:](MLCGPUHelper, "copyMPSImageBatchToMTLBuffer:commandBuffer:sourceImageBatch:destinationMTLBuffer:MLCDataType:", v47, v23, v39, v45, [descriptor4 dataType]);
 
         self = selfCopy;
-        v21 = v347;
+        v21 = v346;
 
-        [v280 setObject:v45 atIndexedSubscript:v20];
+        [v279 setObject:v45 atIndexedSubscript:v20];
       }
 
       else
       {
-        deviceMemory3 = [v327 deviceMemory];
+        deviceMemory3 = [v326 deviceMemory];
         mhaDropoutGradientKernel2 = [deviceMemory3 objectAtIndexedSubscript:v20];
         [v15 setObject:mhaDropoutGradientKernel2 atIndexedSubscript:v20];
       }
@@ -16190,39 +17322,39 @@ LABEL_33:
 
       v51 = objc_alloc(MEMORY[0x277CD7250]);
       v52 = [v15 objectAtIndexedSubscript:v20];
-      v318 = v50;
+      v317 = v50;
       v53 = [v51 initWithBuffer:v52 descriptor:v50];
 
       mhaNDArrayDescriptors = [v21 mhaNDArrayDescriptors];
       v55 = [mhaNDArrayDescriptors objectAtIndexedSubscript:15];
 
-      v316 = v55;
-      v317 = v53;
+      v315 = v55;
+      v316 = v53;
       v56 = [v53 ndArrayWithCommandBuffer:v23 descriptor:v55 aliasing:1];
       descriptor5 = [v56 descriptor];
       [descriptor5 transposeDimension:0 withDimension:1];
-      v330 = v56;
-      v315 = descriptor5;
-      v326 = [v56 arrayViewWithCommandBuffer:v23 descriptor:descriptor5 aliasing:1];
+      v329 = v56;
+      v314 = descriptor5;
+      v325 = [v56 arrayViewWithCommandBuffer:v23 descriptor:descriptor5 aliasing:1];
       mhaMatrixDescriptors2 = [v21 mhaMatrixDescriptors];
       v59 = [mhaMatrixDescriptors2 objectAtIndexedSubscript:14];
 
       v60 = objc_alloc(MEMORY[0x277CD7250]);
       exportableState = [v21 exportableState];
       v62 = [exportableState objectAtIndexedSubscript:3];
-      v329 = v59;
+      v328 = v59;
       v63 = [v60 initWithBuffer:v62 descriptor:v59];
 
       mhaNDArrayDescriptors2 = [v21 mhaNDArrayDescriptors];
       v65 = [mhaNDArrayDescriptors2 objectAtIndexedSubscript:14];
 
-      v314 = v63;
-      v328 = v65;
+      v313 = v63;
+      v327 = v65;
       v66 = [v63 ndArrayWithCommandBuffer:v23 descriptor:v65 aliasing:1];
       descriptor6 = [v66 descriptor];
       [descriptor6 transposeDimension:0 withDimension:1];
-      v312 = descriptor6;
-      v313 = v66;
+      v311 = descriptor6;
+      v312 = v66;
       v68 = [v66 arrayViewWithCommandBuffer:v23 descriptor:descriptor6 aliasing:1];
       mhaMatrixDescriptors3 = [v21 mhaMatrixDescriptors];
       v70 = [mhaMatrixDescriptors3 objectAtIndexedSubscript:2];
@@ -16231,22 +17363,22 @@ LABEL_33:
       v72 = [gpuHeapTemporaryResourceAllocator2 objectAtIndexedSubscript:{objc_msgSend(v21, "temporaryHeapIndex")}];
       v73 = [v72 allocateBuffer:{objc_msgSend(v70, "matrixBytes") * objc_msgSend(v70, "matrices")}];
 
-      v325 = v73;
-      v310 = v70;
+      v324 = v73;
+      v309 = v70;
       v74 = [objc_alloc(MEMORY[0x277CD7250]) initWithBuffer:v73 descriptor:v70];
       mhaNDArrayDescriptors3 = [v21 mhaNDArrayDescriptors];
       v76 = [mhaNDArrayDescriptors3 objectAtIndexedSubscript:2];
 
-      v308 = v76;
-      v309 = v74;
+      v307 = v76;
+      v308 = v74;
       v77 = [v74 ndArrayWithCommandBuffer:v23 descriptor:v76 aliasing:1];
       mhaMatMulKernel = [v21 mhaMatMulKernel];
-      v311 = v68;
-      v395[0] = v68;
-      v395[1] = v326;
-      v79 = [MEMORY[0x277CBEA60] arrayWithObjects:v395 count:2];
-      v368 = v23;
-      v307 = v77;
+      v310 = v68;
+      v394[0] = v68;
+      v394[1] = v325;
+      v79 = [MEMORY[0x277CBEA60] arrayWithObjects:v394 count:2];
+      v367 = v23;
+      v306 = v77;
       [mhaMatMulKernel encodeToCommandBuffer:v23 sourceArrays:v79 destinationArray:v77];
 
       v80 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:3];
@@ -16266,52 +17398,52 @@ LABEL_33:
       mhaMatrixDescriptors5 = [v21 mhaMatrixDescriptors];
       v89 = [mhaMatrixDescriptors5 objectAtIndexedSubscript:13];
 
-      v306 = v89;
-      v90 = [objc_alloc(MEMORY[0x277CD7250]) initWithBuffer:v325 descriptor:v89];
+      v305 = v89;
+      v90 = [objc_alloc(MEMORY[0x277CD7250]) initWithBuffer:v324 descriptor:v89];
       mhaNDArrayDescriptors4 = [v21 mhaNDArrayDescriptors];
       v92 = [mhaNDArrayDescriptors4 objectAtIndexedSubscript:13];
 
-      v304 = v92;
-      v305 = v90;
-      v93 = [v90 ndArrayWithCommandBuffer:v368 descriptor:v92 aliasing:1];
+      v303 = v92;
+      v304 = v90;
+      v93 = [v90 ndArrayWithCommandBuffer:v367 descriptor:v92 aliasing:1];
       mhaQKSoftmaxResultMatrix = [v21 mhaQKSoftmaxResultMatrix];
       mhaNDArrayDescriptors5 = [v21 mhaNDArrayDescriptors];
       v96 = [mhaNDArrayDescriptors5 objectAtIndexedSubscript:12];
 
-      v322 = v96;
-      v97 = [mhaQKSoftmaxResultMatrix ndArrayWithCommandBuffer:v368 descriptor:v96 aliasing:1];
+      v321 = v96;
+      v97 = [mhaQKSoftmaxResultMatrix ndArrayWithCommandBuffer:v367 descriptor:v96 aliasing:1];
       mhaNDArrayDescriptors6 = [v21 mhaNDArrayDescriptors];
       v99 = [mhaNDArrayDescriptors6 objectAtIndexedSubscript:11];
 
-      v324 = v80;
+      v323 = v80;
       v100 = [v80 objectAtIndexedSubscript:2];
-      v301 = v99;
-      v101 = [v100 ndArrayWithCommandBuffer:v368 descriptor:v99 aliasing:1];
+      v300 = v99;
+      v101 = [v100 ndArrayWithCommandBuffer:v367 descriptor:v99 aliasing:1];
 
       mhaMatMulKernel2 = [v21 mhaMatMulKernel];
-      v394[0] = v93;
-      v302 = v97;
-      v394[1] = v97;
-      v103 = [MEMORY[0x277CBEA60] arrayWithObjects:v394 count:2];
-      v300 = v101;
-      [mhaMatMulKernel2 encodeToCommandBuffer:v368 sourceArrays:v103 destinationArray:v101];
+      v393[0] = v93;
+      v301 = v97;
+      v393[1] = v97;
+      v103 = [MEMORY[0x277CBEA60] arrayWithObjects:v393 count:2];
+      v299 = v101;
+      [mhaMatMulKernel2 encodeToCommandBuffer:v367 sourceArrays:v103 destinationArray:v101];
 
       descriptor7 = [v93 descriptor];
       [descriptor7 transposeDimension:0 withDimension:1];
-      v303 = v93;
-      v299 = descriptor7;
-      v105 = [v93 arrayViewWithCommandBuffer:v368 descriptor:descriptor7 aliasing:1];
+      v302 = v93;
+      v298 = descriptor7;
+      v105 = [v93 arrayViewWithCommandBuffer:v367 descriptor:descriptor7 aliasing:1];
       mhaMatMulSourcesQKV = [v21 mhaMatMulSourcesQKV];
       v107 = [mhaMatMulSourcesQKV objectAtIndexedSubscript:2];
 
       mhaNDArrayDescriptors7 = [v21 mhaNDArrayDescriptors];
       v109 = [mhaNDArrayDescriptors7 objectAtIndexedSubscript:11];
-      v297 = v107;
-      v321 = [v107 ndArrayWithCommandBuffer:v368 descriptor:v109 aliasing:1];
+      v296 = v107;
+      v320 = [v107 ndArrayWithCommandBuffer:v367 descriptor:v109 aliasing:1];
 
       gpuHeapTemporaryResourceAllocator4 = [(MLCDeviceGPU *)self gpuHeapTemporaryResourceAllocator];
       v111 = [gpuHeapTemporaryResourceAllocator4 objectAtIndexedSubscript:{objc_msgSend(v21, "temporaryHeapIndex")}];
-      v323 = mhaQKSoftmaxResultMatrix;
+      v322 = mhaQKSoftmaxResultMatrix;
       v112 = [v111 allocateBuffer:{objc_msgSend(mhaQKSoftmaxResultMatrix, "matrices") * objc_msgSend(mhaQKSoftmaxResultMatrix, "matrixBytes")}];
 
       mhaMatrixDescriptors6 = [v21 mhaMatrixDescriptors];
@@ -16321,16 +17453,16 @@ LABEL_33:
       mhaNDArrayDescriptors8 = [v21 mhaNDArrayDescriptors];
       v117 = [mhaNDArrayDescriptors8 objectAtIndexedSubscript:12];
 
-      v293 = v117;
-      v294 = v115;
-      v118 = [v115 ndArrayWithCommandBuffer:v368 descriptor:v117 aliasing:1];
+      v292 = v117;
+      v293 = v115;
+      v118 = [v115 ndArrayWithCommandBuffer:v367 descriptor:v117 aliasing:1];
       mhaMatMulKernel3 = [v21 mhaMatMulKernel];
-      v298 = v105;
-      v393[0] = v105;
-      v393[1] = v321;
-      v120 = [MEMORY[0x277CBEA60] arrayWithObjects:v393 count:2];
-      v292 = v118;
-      [mhaMatMulKernel3 encodeToCommandBuffer:v368 sourceArrays:v120 destinationArray:v118];
+      v297 = v105;
+      v392[0] = v105;
+      v392[1] = v320;
+      v120 = [MEMORY[0x277CBEA60] arrayWithObjects:v392 count:2];
+      v291 = v118;
+      [mhaMatMulKernel3 encodeToCommandBuffer:v367 sourceArrays:v120 destinationArray:v118];
 
       selfCopy2 = self;
       v122 = v112;
@@ -16338,10 +17470,10 @@ LABEL_33:
       v124 = [gpuHeapTemporaryResourceAllocator5 objectAtIndexedSubscript:{objc_msgSend(v21, "temporaryHeapIndex")}];
       v125 = [v124 allocateBuffer:{objc_msgSend(v112, "length")}];
 
-      v295 = v114;
-      v320 = [objc_alloc(MEMORY[0x277CD7250]) initWithBuffer:v125 descriptor:v114];
+      v294 = v114;
+      v319 = [objc_alloc(MEMORY[0x277CD7250]) initWithBuffer:v125 descriptor:v114];
       context = objc_autoreleasePoolPush();
-      columns = [v323 columns];
+      columns = [v322 columns];
       mhaSoftmaxGradientKernel = [v21 mhaSoftmaxGradientKernel];
       maxTotalThreadsPerThreadgroup = [mhaSoftmaxGradientKernel maxTotalThreadsPerThreadgroup];
 
@@ -16356,39 +17488,39 @@ LABEL_33:
         maxTotalThreadsPerThreadgroup = v129;
       }
 
-      matrices = [v323 matrices];
-      v131 = [v323 rows] * matrices;
-      v372 = columns | 0x200000000;
-      LODWORD(v373) = maxTotalThreadsPerThreadgroup >= columns;
-      HIDWORD(v373) = 1;
-      LODWORD(v374) = columns;
-      v132 = [v368 computeCommandEncoderWithDispatchType:0];
+      matrices = [v322 matrices];
+      v131 = [v322 rows] * matrices;
+      v371 = columns | 0x200000000;
+      LODWORD(v372) = maxTotalThreadsPerThreadgroup >= columns;
+      HIDWORD(v372) = 1;
+      LODWORD(v373) = columns;
+      v132 = [v367 computeCommandEncoderWithDispatchType:0];
       mhaSoftmaxGradientKernel2 = [v21 mhaSoftmaxGradientKernel];
       [v132 setComputePipelineState:mhaSoftmaxGradientKernel2];
 
-      v296 = v122;
+      v295 = v122;
       [v132 setBuffer:v122 offset:0 atIndex:0];
-      v291 = v125;
+      v290 = v125;
       [v132 setBuffer:v125 offset:0 atIndex:1];
       result = [v21 result];
       [v132 setBuffer:result offset:0 atIndex:2];
 
-      [v132 setBytes:&v372 length:20 atIndex:3];
-      [v132 setThreadgroupMemoryLength:GPU_AlignForThreadGroupMemorySize(4 * (maxTotalThreadsPerThreadgroup + maxTotalThreadsPerThreadgroup * v373)) atIndex:0];
-      v375 = 1;
-      v376 = v131;
-      *v377 = 1;
-      v382 = maxTotalThreadsPerThreadgroup;
-      v383 = vdupq_n_s64(1uLL);
-      [v132 dispatchThreadgroups:&v375 threadsPerThreadgroup:&v382];
+      [v132 setBytes:&v371 length:20 atIndex:3];
+      [v132 setThreadgroupMemoryLength:GPU_AlignForThreadGroupMemorySize(4 * (maxTotalThreadsPerThreadgroup + maxTotalThreadsPerThreadgroup * v372)) atIndex:0];
+      v374 = 1;
+      v375 = v131;
+      *v376 = 1;
+      v381 = maxTotalThreadsPerThreadgroup;
+      v382 = vdupq_n_s64(1uLL);
+      [v132 dispatchThreadgroups:&v374 threadsPerThreadgroup:&v381];
       [v132 endEncoding];
 
       objc_autoreleasePoolPop(context);
-      v319 = [v320 ndArrayWithCommandBuffer:v368 descriptor:v322 aliasing:1];
-      descriptor8 = [v319 descriptor];
+      v318 = [v319 ndArrayWithCommandBuffer:v367 descriptor:v321 aliasing:1];
+      descriptor8 = [v318 descriptor];
       [descriptor8 transposeDimension:0 withDimension:1];
-      v290 = descriptor8;
-      v136 = [v319 arrayViewWithCommandBuffer:v368 descriptor:descriptor8 aliasing:1];
+      v289 = descriptor8;
+      v136 = [v318 arrayViewWithCommandBuffer:v367 descriptor:descriptor8 aliasing:1];
       mhaMatMulSourcesQKV2 = [v21 mhaMatMulSourcesQKV];
       v138 = [mhaMatMulSourcesQKV2 objectAtIndexedSubscript:1];
 
@@ -16398,66 +17530,66 @@ LABEL_33:
       mhaNDArrayDescriptors10 = [v21 mhaNDArrayDescriptors];
       v142 = [mhaNDArrayDescriptors10 objectAtIndexedSubscript:10];
 
-      v288 = v138;
-      v143 = [v138 ndArrayWithCommandBuffer:v368 descriptor:v142 aliasing:1];
-      v144 = [v324 objectAtIndexedSubscript:0];
-      v145 = [v144 ndArrayWithCommandBuffer:v368 descriptor:v140 aliasing:1];
+      v287 = v138;
+      v143 = [v138 ndArrayWithCommandBuffer:v367 descriptor:v142 aliasing:1];
+      v144 = [v323 objectAtIndexedSubscript:0];
+      v145 = [v144 ndArrayWithCommandBuffer:v367 descriptor:v140 aliasing:1];
 
       mhaMatMulKernelWithScale = [v21 mhaMatMulKernelWithScale];
-      v285 = v143;
-      v392[0] = v143;
-      v289 = v136;
-      v392[1] = v136;
-      v147 = [MEMORY[0x277CBEA60] arrayWithObjects:v392 count:2];
-      v284 = v145;
-      [mhaMatMulKernelWithScale encodeToCommandBuffer:v368 sourceArrays:v147 destinationArray:v145];
+      v284 = v143;
+      v391[0] = v143;
+      v288 = v136;
+      v391[1] = v136;
+      v147 = [MEMORY[0x277CBEA60] arrayWithObjects:v391 count:2];
+      v283 = v145;
+      [mhaMatMulKernelWithScale encodeToCommandBuffer:v367 sourceArrays:v147 destinationArray:v145];
 
       mhaMatMulSourcesQKV3 = [v21 mhaMatMulSourcesQKV];
       v149 = [mhaMatMulSourcesQKV3 objectAtIndexedSubscript:0];
 
-      v283 = v149;
-      v287 = v140;
-      v150 = [v149 ndArrayWithCommandBuffer:v368 descriptor:v140 aliasing:1];
-      v151 = [v324 objectAtIndexedSubscript:1];
-      v286 = v142;
-      v152 = [v151 ndArrayWithCommandBuffer:v368 descriptor:v142 aliasing:1];
+      v282 = v149;
+      v286 = v140;
+      v150 = [v149 ndArrayWithCommandBuffer:v367 descriptor:v140 aliasing:1];
+      v151 = [v323 objectAtIndexedSubscript:1];
+      v285 = v142;
+      v152 = [v151 ndArrayWithCommandBuffer:v367 descriptor:v142 aliasing:1];
 
       mhaMatMulKernelWithScale2 = [v21 mhaMatMulKernelWithScale];
-      v282 = v150;
-      v391[0] = v150;
-      v391[1] = v319;
-      v154 = [MEMORY[0x277CBEA60] arrayWithObjects:v391 count:2];
-      v281 = v152;
-      [mhaMatMulKernelWithScale2 encodeToCommandBuffer:v368 sourceArrays:v154 destinationArray:v152];
+      v281 = v150;
+      v390[0] = v150;
+      v390[1] = v318;
+      v154 = [MEMORY[0x277CBEA60] arrayWithObjects:v390 count:2];
+      v280 = v152;
+      [mhaMatMulKernelWithScale2 encodeToCommandBuffer:v367 sourceArrays:v154 destinationArray:v152];
 
-      v155 = [v324 objectAtIndexedSubscript:0];
+      v155 = [v323 objectAtIndexedSubscript:0];
       data = [v155 data];
-      v390[0] = data;
-      v157 = [v324 objectAtIndexedSubscript:1];
+      v389[0] = data;
+      v157 = [v323 objectAtIndexedSubscript:1];
       data2 = [v157 data];
-      v390[1] = data2;
-      v159 = [v324 objectAtIndexedSubscript:2];
+      v389[1] = data2;
+      v159 = [v323 objectAtIndexedSubscript:2];
       [v159 data];
       v161 = v160 = v21;
-      v390[2] = v161;
-      v162 = [MEMORY[0x277CBEA60] arrayWithObjects:v390 count:3];
-      v365 = [v162 mutableCopy];
+      v389[2] = v161;
+      v162 = [MEMORY[0x277CBEA60] arrayWithObjects:v389 count:3];
+      v364 = [v162 mutableCopy];
 
-      v332 = [MEMORY[0x277CBEBF8] mutableCopy];
+      v331 = [MEMORY[0x277CBEBF8] mutableCopy];
       contexta = v20;
-      if (([v160 mhaHasAttnBias] & 1) != 0 || objc_msgSend(v347, "mhaHasZeroAttention"))
+      if (([v160 mhaHasAttnBias] & 1) != 0 || objc_msgSend(v346, "mhaHasZeroAttention"))
       {
-        mhaHasZeroAttention = [v347 mhaHasZeroAttention];
-        mhaHasAttnBias = [v347 mhaHasAttnBias];
-        batchSize3 = [v347 batchSize];
+        mhaHasZeroAttention = [v346 mhaHasZeroAttention];
+        mhaHasAttnBias = [v346 mhaHasAttnBias];
+        batchSize3 = [v346 batchSize];
         v165 = 0;
-        v338 = batchSize3 * unsignedIntegerValue;
-        v341 = batchSize3;
-        v335 = mhaHasAttnBias + mhaHasZeroAttention;
+        v337 = batchSize3 * unsignedIntegerValue;
+        v340 = batchSize3;
+        v334 = mhaHasAttnBias + mhaHasZeroAttention;
         v166 = 1;
         do
         {
-          v343 = v166;
+          v342 = v166;
           v167 = [obj objectAtIndexedSubscript:v165 + 1];
           descriptor9 = [v167 descriptor];
           shape = [descriptor9 shape];
@@ -16465,70 +17597,70 @@ LABEL_33:
           v171 = [shape objectAtIndexedSubscript:1];
           unsignedIntegerValue2 = [v171 unsignedIntegerValue];
 
-          mhaModelDimension = [v347 mhaModelDimension];
-          v366 = [v365 objectAtIndexedSubscript:v165 + 1];
-          v358 = v338 * mhaModelDimension;
-          v360 = unsignedIntegerValue2;
-          v355 = v335 + unsignedIntegerValue2;
-          v352 = mhaModelDimension * v341;
-          v363 = v165;
+          mhaModelDimension = [v346 mhaModelDimension];
+          v365 = [v364 objectAtIndexedSubscript:v165 + 1];
+          v357 = v337 * mhaModelDimension;
+          v359 = unsignedIntegerValue2;
+          v354 = v334 + unsignedIntegerValue2;
+          v351 = mhaModelDimension * v340;
+          v362 = v165;
           while (1)
           {
             v174 = +[MLCGPUHelper mtlResourceOptions];
-            v175 = (v170 & 1) != 0 ? v360 : 1;
-            v176 = (v170 & 1) != 0 ? 0 : v360;
-            v177 = [v351 newBufferWithLength:v358 * v175 options:v174];
-            v380 = v176;
-            v375 = __PAIR64__(v352, v175);
-            v376 = 0x100000001;
-            *v377 = v355;
-            *&v377[4] = 0x100000001;
-            v378 = v175;
-            v379 = 1;
-            v381 = 0x100000000;
+            v175 = (v170 & 1) != 0 ? v359 : 1;
+            v176 = (v170 & 1) != 0 ? 0 : v359;
+            v177 = [v350 newBufferWithLength:v357 * v175 options:v174];
+            v379 = v176;
+            v374 = __PAIR64__(v351, v175);
+            v375 = 0x100000001;
+            *v376 = v354;
+            *&v376[4] = 0x100000001;
+            v377 = v175;
+            v378 = 1;
+            v380 = 0x100000000;
             gpuPipelineStatesConcatFloat = [(MLCDeviceGPU *)selfCopy gpuPipelineStatesConcatFloat];
             v179 = [gpuPipelineStatesConcatFloat objectAtIndexedSubscript:v20];
             maxTotalThreadsPerThreadgroup2 = [v179 maxTotalThreadsPerThreadgroup];
 
-            v181 = v375;
-            if (maxTotalThreadsPerThreadgroup2 <= v375)
+            v181 = v374;
+            if (maxTotalThreadsPerThreadgroup2 <= v374)
             {
-              v184 = SHIDWORD(v375);
+              v184 = SHIDWORD(v374);
               v182 = 1;
               v181 = maxTotalThreadsPerThreadgroup2;
-              v183 = (maxTotalThreadsPerThreadgroup2 + v375 - 1) / maxTotalThreadsPerThreadgroup2;
+              v183 = (maxTotalThreadsPerThreadgroup2 + v374 - 1) / maxTotalThreadsPerThreadgroup2;
             }
 
             else
             {
-              v182 = maxTotalThreadsPerThreadgroup2 / v375 >= SHIDWORD(v375) ? SHIDWORD(v375) : maxTotalThreadsPerThreadgroup2 / v375;
+              v182 = maxTotalThreadsPerThreadgroup2 / v374 >= SHIDWORD(v374) ? SHIDWORD(v374) : maxTotalThreadsPerThreadgroup2 / v374;
               v183 = 1;
-              v184 = (SHIDWORD(v375) + v182 - 1) / v182;
+              v184 = (SHIDWORD(v374) + v182 - 1) / v182;
             }
 
-            v185 = v376;
-            v186 = [v368 computeCommandEncoderWithDispatchType:0];
+            v185 = v375;
+            v186 = [v367 computeCommandEncoderWithDispatchType:0];
             gpuPipelineStatesConcatFloat2 = [(MLCDeviceGPU *)selfCopy gpuPipelineStatesConcatFloat];
             v188 = [gpuPipelineStatesConcatFloat2 objectAtIndexedSubscript:contexta];
             [v186 setComputePipelineState:v188];
 
-            [v186 setBuffer:v366 offset:0 atIndex:0];
+            [v186 setBuffer:v365 offset:0 atIndex:0];
             [v186 setBuffer:v177 offset:0 atIndex:1];
-            [v186 setBytes:&v375 length:48 atIndex:2];
-            v382 = v183;
-            v383.i64[0] = v184;
-            v383.i64[1] = v185;
-            v372 = v181;
-            v373 = v182;
-            v374 = 1;
-            [v186 dispatchThreadgroups:&v382 threadsPerThreadgroup:&v372];
+            [v186 setBytes:&v374 length:48 atIndex:2];
+            v381 = v183;
+            v382.i64[0] = v184;
+            v382.i64[1] = v185;
+            v371 = v181;
+            v372 = v182;
+            v373 = 1;
+            [v186 dispatchThreadgroups:&v381 threadsPerThreadgroup:&v371];
             [v186 endEncoding];
             if ((v170 & 1) == 0)
             {
               break;
             }
 
-            [v365 setObject:v177 atIndexedSubscript:v363 + 1];
+            [v364 setObject:v177 atIndexedSubscript:v362 + 1];
 
             v189 = mhaHasAttnBias & v170;
             v170 = 0;
@@ -16539,7 +17671,7 @@ LABEL_33:
             }
           }
 
-          [v332 setObject:v177 atIndexedSubscript:v363];
+          [v331 setObject:v177 atIndexedSubscript:v362];
 
           v20 = contexta;
 LABEL_39:
@@ -16548,73 +17680,73 @@ LABEL_39:
           v165 = 1;
         }
 
-        while ((v343 & 1) != 0);
+        while ((v342 & 1) != 0);
       }
 
-      v344 = [MEMORY[0x277CBEBF8] mutableCopy];
+      v343 = [MEMORY[0x277CBEBF8] mutableCopy];
       v190 = 0;
       v191 = 0;
       v192 = 0x277CBE000;
-      v193 = v347;
-      v194 = v368;
+      v193 = v346;
+      v194 = v367;
       do
       {
         if (v191 == 3)
         {
-          v359 = v329;
-          v364 = v328;
-          v367 = v330;
+          v358 = v328;
+          v363 = v327;
+          v366 = v329;
         }
 
         else
         {
           mhaMatrixDescriptors7 = [v193 mhaMatrixDescriptors];
-          v361 = [mhaMatrixDescriptors7 objectAtIndexedSubscript:v190 + 2];
+          v360 = [mhaMatrixDescriptors7 objectAtIndexedSubscript:v190 + 2];
 
           v196 = objc_alloc(MEMORY[0x277CD7250]);
-          v197 = [v365 objectAtIndexedSubscript:v191];
-          v356 = [v196 initWithBuffer:v197 descriptor:v361];
+          v197 = [v364 objectAtIndexedSubscript:v191];
+          v355 = [v196 initWithBuffer:v197 descriptor:v360];
 
           mhaNDArrayDescriptors11 = [v193 mhaNDArrayDescriptors];
-          v353 = [mhaNDArrayDescriptors11 objectAtIndexedSubscript:v190 + 2];
+          v352 = [mhaNDArrayDescriptors11 objectAtIndexedSubscript:v190 + 2];
 
-          v349 = [v356 ndArrayWithCommandBuffer:v194 descriptor:v353 aliasing:1];
-          descriptor10 = [v349 descriptor];
+          v348 = [v355 ndArrayWithCommandBuffer:v194 descriptor:v352 aliasing:1];
+          descriptor10 = [v348 descriptor];
           [descriptor10 transposeDimension:0 withDimension:1];
-          v367 = [v349 arrayViewWithCommandBuffer:v194 descriptor:descriptor10 aliasing:1];
+          v366 = [v348 arrayViewWithCommandBuffer:v194 descriptor:descriptor10 aliasing:1];
           mhaMatrixDescriptors8 = [v193 mhaMatrixDescriptors];
           v200 = [mhaMatrixDescriptors8 objectAtIndexedSubscript:v190 + 1];
 
           v201 = objc_alloc(MEMORY[0x277CD7250]);
           exportableState2 = [v193 exportableState];
           v203 = [exportableState2 objectAtIndexedSubscript:v191];
-          v359 = v200;
-          v336 = [v201 initWithBuffer:v203 descriptor:v200];
+          v358 = v200;
+          v335 = [v201 initWithBuffer:v203 descriptor:v200];
 
           mhaNDArrayDescriptors12 = [v193 mhaNDArrayDescriptors];
           v205 = [mhaNDArrayDescriptors12 objectAtIndexedSubscript:v190 + 1];
 
-          v364 = v205;
-          v334 = [v336 ndArrayWithCommandBuffer:v194 descriptor:v205 aliasing:1];
+          v363 = v205;
+          v333 = [v335 ndArrayWithCommandBuffer:v194 descriptor:v205 aliasing:1];
           [v193 mhaMatrixDescriptors];
           v207 = v206 = v194;
-          v333 = [v207 objectAtIndexedSubscript:v190];
+          v332 = [v207 objectAtIndexedSubscript:v190];
 
           v208 = objc_alloc(MEMORY[0x277CD7250]);
           v209 = [obj objectAtIndexedSubscript:v191];
           [v209 deviceMemory];
           v211 = v210 = v193;
           v212 = [v211 objectAtIndexedSubscript:v20];
-          v213 = [v208 initWithBuffer:v212 descriptor:v333];
+          v213 = [v208 initWithBuffer:v212 descriptor:v332];
 
           mhaNDArrayDescriptors13 = [v210 mhaNDArrayDescriptors];
           v215 = [mhaNDArrayDescriptors13 objectAtIndexedSubscript:v190];
 
           v216 = [v213 ndArrayWithCommandBuffer:v206 descriptor:v215 aliasing:1];
           mhaMatMulKernel4 = [v210 mhaMatMulKernel];
-          v389[0] = v367;
-          v389[1] = v334;
-          v218 = [MEMORY[0x277CBEA60] arrayWithObjects:v389 count:2];
+          v388[0] = v366;
+          v388[1] = v333;
+          v218 = [MEMORY[0x277CBEA60] arrayWithObjects:v388 count:2];
           [mhaMatMulKernel4 encodeToCommandBuffer:v206 sourceArrays:v218 destinationArray:v216];
 
           v20 = contexta;
@@ -16623,40 +17755,40 @@ LABEL_39:
 
         if (temporaryCopy)
         {
-          v194 = v368;
-          v219 = [MEMORY[0x277CD72B0] temporaryMatrixWithCommandBuffer:v368 matrixDescriptor:v359];
-          v193 = v347;
+          v194 = v367;
+          v219 = [MEMORY[0x277CD72B0] temporaryMatrixWithCommandBuffer:v367 matrixDescriptor:v358];
+          v193 = v346;
         }
 
         else
         {
-          v193 = v347;
-          gradientState = [v347 gradientState];
+          v193 = v346;
+          gradientState = [v346 gradientState];
           v221 = [gradientState count];
 
-          v194 = v368;
+          v194 = v367;
           if (v221 <= v191)
           {
-            exportableState3 = [v347 exportableState];
+            exportableState3 = [v346 exportableState];
             v224 = [exportableState3 objectAtIndexedSubscript:v191];
-            v225 = [v351 newBufferWithLength:objc_msgSend(v224 options:{"length"), +[MLCGPUHelper mtlResourceOptions](MLCGPUHelper, "mtlResourceOptions")}];
+            v225 = [v350 newBufferWithLength:objc_msgSend(v224 options:{"length"), +[MLCGPUHelper mtlResourceOptions](MLCGPUHelper, "mtlResourceOptions")}];
 
-            v219 = [objc_alloc(MEMORY[0x277CD7250]) initWithBuffer:v225 descriptor:v359];
+            v219 = [objc_alloc(MEMORY[0x277CD7250]) initWithBuffer:v225 descriptor:v358];
           }
 
           else
           {
-            gradientState2 = [v347 gradientState];
+            gradientState2 = [v346 gradientState];
             v219 = [gradientState2 objectAtIndexedSubscript:v191];
           }
         }
 
-        v357 = v219;
-        [v364 setPreferPackedRows:1];
-        v362 = [v219 ndArrayWithCommandBuffer:v194 descriptor:v364 aliasing:1];
-        descriptor11 = [v367 descriptor];
+        v356 = v219;
+        [v363 setPreferPackedRows:1];
+        v361 = [v219 ndArrayWithCommandBuffer:v194 descriptor:v363 aliasing:1];
+        descriptor11 = [v366 descriptor];
         [descriptor11 transposeDimension:0 withDimension:1];
-        v227 = [v367 arrayViewWithCommandBuffer:v194 descriptor:descriptor11 aliasing:1];
+        v227 = [v366 arrayViewWithCommandBuffer:v194 descriptor:descriptor11 aliasing:1];
         if (v191 == 3)
         {
           source = [v193 source];
@@ -16669,20 +17801,20 @@ LABEL_39:
         }
 
         mhaMatMulKernel5 = [v193 mhaMatMulKernel];
-        v354 = v227;
-        v388[0] = v227;
-        v350 = source;
-        v388[1] = source;
-        v231 = [*(v192 + 2656) arrayWithObjects:v388 count:2];
+        v353 = v227;
+        v387[0] = v227;
+        v349 = source;
+        v387[1] = source;
+        v231 = [*(v192 + 2656) arrayWithObjects:v387 count:2];
         v232 = [mhaMatMulKernel5 encodeToCommandBuffer:v194 sourceArrays:v231];
 
         mhaReduceSumKernels = [v193 mhaReduceSumKernels];
         v234 = [mhaReduceSumKernels objectAtIndexedSubscript:0];
-        [v234 encodeToCommandBuffer:v194 sourceArray:v232 destinationArray:v362];
+        [v234 encodeToCommandBuffer:v194 sourceArray:v232 destinationArray:v361];
 
         gradientState3 = [v193 gradientState];
-        v236 = v357;
-        [gradientState3 setObject:v357 atIndexedSubscript:v191];
+        v236 = v356;
+        [gradientState3 setObject:v356 atIndexedSubscript:v191];
 
         if ([v193 mhaHasBias])
         {
@@ -16690,9 +17822,9 @@ LABEL_39:
           mhaMatrixDescriptorsForBias = [v193 mhaMatrixDescriptorsForBias];
           v239 = [mhaMatrixDescriptorsForBias objectAtIndexedSubscript:3];
 
-          v340 = v232;
-          v342 = v190;
-          v337 = v239;
+          v339 = v232;
+          v341 = v190;
+          v336 = v239;
           if (temporaryCopy)
           {
             v240 = [MEMORY[0x277CD72B0] temporaryMatrixWithCommandBuffer:v194 matrixDescriptor:v239];
@@ -16705,7 +17837,7 @@ LABEL_39:
 
             if (v242 < 5)
             {
-              gradientState5 = [v351 newBufferWithLength:mhaModelDimension2 * unsignedIntegerValue options:{+[MLCGPUHelper mtlResourceOptions](MLCGPUHelper, "mtlResourceOptions")}];
+              gradientState5 = [v350 newBufferWithLength:mhaModelDimension2 * unsignedIntegerValue options:{+[MLCGPUHelper mtlResourceOptions](MLCGPUHelper, "mtlResourceOptions")}];
               v244 = [objc_alloc(MEMORY[0x277CD7250]) initWithBuffer:gradientState5 descriptor:v239];
             }
 
@@ -16717,30 +17849,30 @@ LABEL_39:
 
             v240 = v244;
 
-            v194 = v368;
+            v194 = v367;
           }
 
           mhaNDArrayDescriptorsForBias = [v193 mhaNDArrayDescriptorsForBias];
           v246 = [mhaNDArrayDescriptorsForBias objectAtIndexedSubscript:3];
 
           v247 = [v240 ndArrayWithCommandBuffer:v194 descriptor:v246 aliasing:1];
-          v248 = v367;
+          v248 = v366;
           mhaReduceSumKernels2 = [v193 mhaReduceSumKernels];
           v250 = [mhaReduceSumKernels2 objectAtIndexedSubscript:0];
           v251 = [v250 encodeToCommandBuffer:v194 sourceArray:v248];
 
-          mhaReduceSumKernels3 = [v347 mhaReduceSumKernels];
+          mhaReduceSumKernels3 = [v346 mhaReduceSumKernels];
           v253 = [mhaReduceSumKernels3 objectAtIndexedSubscript:1];
           [v253 encodeToCommandBuffer:v194 sourceArray:v251 destinationArray:v247];
 
-          v193 = v347;
-          [v344 setObject:v240 atIndexedSubscript:v191];
+          v193 = v346;
+          [v343 setObject:v240 atIndexedSubscript:v191];
 
           v20 = contexta;
           v192 = 0x277CBE000;
-          v232 = v340;
-          v190 = v342;
-          v236 = v357;
+          v232 = v339;
+          v190 = v341;
+          v236 = v356;
         }
 
         ++v191;
@@ -16758,7 +17890,7 @@ LABEL_39:
           mhaModelDimension3 = [v193 mhaModelDimension];
           batchSize4 = [v193 batchSize];
           v259 = MEMORY[0x277CD7258];
-          descriptor12 = [v327 descriptor];
+          descriptor12 = [v326 descriptor];
           v261 = [v259 matrixDescriptorWithRows:1 columns:mhaModelDimension3 rowBytes:mhaModelDimension3 * unsignedIntegerValue dataType:{GPU_GetDataType(objc_msgSend(descriptor12, "dataType"))}];
 
           if (temporaryCopy)
@@ -16774,7 +17906,7 @@ LABEL_39:
 
             if (v265 < 5)
             {
-              gradientState7 = [v351 newBufferWithLength:mhaModelDimension3 * unsignedIntegerValue options:{+[MLCGPUHelper mtlResourceOptions](MLCGPUHelper, "mtlResourceOptions")}];
+              gradientState7 = [v350 newBufferWithLength:mhaModelDimension3 * unsignedIntegerValue options:{+[MLCGPUHelper mtlResourceOptions](MLCGPUHelper, "mtlResourceOptions")}];
               v254 = [objc_alloc(MEMORY[0x277CD7250]) initWithBuffer:gradientState7 descriptor:v261];
             }
 
@@ -16793,22 +17925,22 @@ LABEL_39:
 
             v262 = v254;
 
-            v194 = v368;
+            v194 = v367;
           }
 
-          v270 = [v332 objectAtIndexedSubscript:v254];
+          v270 = [v331 objectAtIndexedSubscript:v254];
           data3 = [v262 data];
           [(MLCDeviceGPU *)selfCopy reduceAcrossBatchForSource:v270 result:data3 batchSize:batchSize4 batchStride:mhaModelDimension3 numEntries:mhaModelDimension3 deviceIndex:v20 commandBuffer:v194];
 
-          v193 = v347;
-          mhaHasBias2 = [v347 mhaHasBias];
+          v193 = v346;
+          mhaHasBias2 = [v346 mhaHasBias];
           v273 = 4;
           if (!mhaHasBias2)
           {
             v273 = 0;
           }
 
-          [v344 setObject:v262 atIndexedSubscript:v273 | v254];
+          [v343 setObject:v262 atIndexedSubscript:v273 | v254];
 
           v255 = 0;
           v254 = 1;
@@ -16823,19 +17955,18 @@ LABEL_39:
       if (v275 <= 4)
       {
         gradientState9 = [v193 gradientState];
-        [gradientState9 addObjectsFromArray:v344];
+        [gradientState9 addObjectsFromArray:v343];
       }
 
       ++v20;
       self = selfCopy;
-      v15 = v280;
+      v15 = v279;
     }
 
     while (v20 < [(MLCDeviceGPU *)selfCopy numDevicesToUse]);
   }
 
-  objc_autoreleasePoolPop(v278);
-  v277 = *MEMORY[0x277D85DE8];
+  objc_autoreleasePoolPop(v277);
 }
 
 - (void)dispatchForwardLossLayer:(id)layer sourceTensor:(id)tensor labelsTensor:(id)labelsTensor labelsTensorStride:(unint64_t)stride weightsTensor:(id)weightsTensor resultTensor:(id)resultTensor resultStateIsTemporary:(BOOL)temporary forTraining:(BOOL)self0
@@ -16992,19 +18123,19 @@ LABEL_39:
 
 - (void)dispatchGradientLayer:(id)layer sourceGradientTensor:(id)tensor resultGradientTensor:(id)gradientTensor
 {
-  v96[2] = *MEMORY[0x277D85DE8];
+  v95[2] = *MEMORY[0x277D85DE8];
   layerCopy = layer;
   tensorCopy = tensor;
   gradientTensorCopy = gradientTensor;
-  v90 = tensorCopy;
+  v89 = tensorCopy;
   deviceMemory = [tensorCopy deviceMemory];
   [(MLCDeviceGPU *)self allocateResultTensor:gradientTensorCopy];
-  v92 = gradientTensorCopy;
+  v91 = gradientTensorCopy;
   deviceMemory2 = [gradientTensorCopy deviceMemory];
   if ([(MLCDeviceGPU *)self numDevicesToUse])
   {
     v11 = 0;
-    v83 = layerCopy;
+    v82 = layerCopy;
     selfCopy = self;
     do
     {
@@ -17015,15 +18146,15 @@ LABEL_39:
       gradientKernel = [v12 gradientKernel];
       if ([v12 isMPSKernel])
       {
-        v91 = v14;
-        v93 = gradientKernel;
+        v90 = v14;
+        v92 = gradientKernel;
         if ([v12 isMPSGraph])
         {
-          descriptor = [v92 descriptor];
+          descriptor = [v91 descriptor];
           v17 = [MLCTensor tensorWithDescriptor:descriptor];
 
           source = [v12 source];
-          v86 = v17;
+          v85 = v17;
           deviceMemory3 = [v17 deviceMemory];
           [deviceMemory3 setObject:source atIndexedSubscript:v11];
 
@@ -17034,15 +18165,15 @@ LABEL_39:
           v23 = [gpuHeapTemporaryResourceAllocator objectAtIndexedSubscript:{objc_msgSend(v12, "temporaryHeapIndex")}];
           source2 = [v12 source];
           v25 = [v23 allocateBuffer:{objc_msgSend(source2, "length")}];
-          v88 = v21;
+          v87 = v21;
           deviceMemory4 = [v21 deviceMemory];
           [deviceMemory4 setObject:v25 atIndexedSubscript:v11];
 
           if ([(MLCDeviceGPU *)self numDevicesToUse]< 2)
           {
             transposeDeviceOps = [v12 transposeDeviceOps];
-            v95 = transposeDeviceOps;
-            v27TransposeDeviceOps = [MEMORY[0x277CBEA60] arrayWithObjects:&v95 count:1];
+            v94 = transposeDeviceOps;
+            v27TransposeDeviceOps = [MEMORY[0x277CBEA60] arrayWithObjects:&v94 count:1];
             v32 = [v27TransposeDeviceOps copy];
           }
 
@@ -17050,11 +18181,11 @@ LABEL_39:
           {
             transposeDeviceOps = [layerCopy objectAtIndexedSubscript:0];
             v27TransposeDeviceOps = [transposeDeviceOps transposeDeviceOps];
-            v96[0] = v27TransposeDeviceOps;
+            v95[0] = v27TransposeDeviceOps;
             v29 = [layerCopy objectAtIndexedSubscript:1];
             transposeDeviceOps2 = [v29 transposeDeviceOps];
-            v96[1] = transposeDeviceOps2;
-            v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v96 count:2];
+            v95[1] = transposeDeviceOps2;
+            v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v95 count:2];
             v32 = [v31 copy];
           }
 
@@ -17064,7 +18195,7 @@ LABEL_39:
           v56 = [v32 objectAtIndexedSubscript:v11];
           [v56 setBatchSize:batchSize];
 
-          [(MLCDeviceGPU *)self dispatchTransposeKernel:v32 sourceTensor:v86 resultTensor:v88 deviceIndex:v11 forward:1];
+          [(MLCDeviceGPU *)self dispatchTransposeKernel:v32 sourceTensor:v85 resultTensor:v87 deviceIndex:v11 forward:1];
           transposedTensors2 = [v12 transposedTensors];
           v58 = [transposedTensors2 objectAtIndexedSubscript:1];
 
@@ -17075,8 +18206,8 @@ LABEL_39:
           deviceMemory5 = [v58 deviceMemory];
           [deviceMemory5 setObject:v62 atIndexedSubscript:v11];
 
-          v80 = v58;
-          [(MLCDeviceGPU *)selfCopy dispatchTransposeKernel:v32 sourceTensor:v90 resultTensor:v58 deviceIndex:v11 forward:1];
+          v79 = v58;
+          [(MLCDeviceGPU *)selfCopy dispatchTransposeKernel:v32 sourceTensor:v89 resultTensor:v58 deviceIndex:v11 forward:1];
           transposedTensors3 = [v12 transposedTensors];
           v65 = [transposedTensors3 objectAtIndexedSubscript:2];
 
@@ -17087,21 +18218,21 @@ LABEL_39:
           deviceMemory6 = [v65 deviceMemory];
           [deviceMemory6 setObject:v69 atIndexedSubscript:v11];
 
-          deviceMemory7 = [v88 deviceMemory];
+          deviceMemory7 = [v87 deviceMemory];
           v72 = [deviceMemory7 objectAtIndexedSubscript:v11];
           deviceMemory8 = [v58 deviceMemory];
           v74 = [deviceMemory8 objectAtIndexedSubscript:v11];
           deviceMemory9 = [v65 deviceMemory];
           v76 = [deviceMemory9 objectAtIndexedSubscript:v11];
-          descriptor2 = [v90 descriptor];
+          descriptor2 = [v89 descriptor];
           -[MLCDeviceGPU dispatchGradientMPSGraphWithDeviceOps:sourceBuffer:souceGradientBuffer:resultGradientBuffer:deviceIndex:dataType:](selfCopy, "dispatchGradientMPSGraphWithDeviceOps:sourceBuffer:souceGradientBuffer:resultGradientBuffer:deviceIndex:dataType:", v12, v72, v74, v76, v11, GPU_GetDataType([descriptor2 dataType]));
 
           self = selfCopy;
-          [(MLCDeviceGPU *)selfCopy dispatchTransposeKernel:contexta sourceTensor:v65 resultTensor:v92 deviceIndex:v11 forward:0];
+          [(MLCDeviceGPU *)selfCopy dispatchTransposeKernel:contexta sourceTensor:v65 resultTensor:v91 deviceIndex:v11 forward:0];
 
-          layerCopy = v83;
-          v14 = v91;
-          gradientKernel = v93;
+          layerCopy = v82;
+          v14 = v90;
+          gradientKernel = v92;
         }
 
         else
@@ -17111,38 +18242,38 @@ LABEL_39:
           gpuWriteTensorKernelList = [(MLCDeviceGPU *)self gpuWriteTensorKernelList];
           v36 = [gpuWriteTensorKernelList objectAtIndexedSubscript:v11];
           v37 = [deviceMemory objectAtIndexedSubscript:v11];
-          descriptor3 = [v90 descriptor];
+          descriptor3 = [v89 descriptor];
           dataType = [descriptor3 dataType];
           destinationImageAllocator = [gradientKernel destinationImageAllocator];
-          v87 = [MLCGPUHelper allocateAndCopyToTemporaryMPSImageBatchForTensor:v90 commandBuffer:v91 batchSize:batchSize2 copyingKernel:v36 sourceMTLBuffer:v37 MLCDataType:dataType heapAllocator:destinationImageAllocator];
+          v86 = [MLCGPUHelper allocateAndCopyToTemporaryMPSImageBatchForTensor:v89 commandBuffer:v90 batchSize:batchSize2 copyingKernel:v36 sourceMTLBuffer:v37 MLCDataType:dataType heapAllocator:destinationImageAllocator];
 
-          v41 = v92;
+          v41 = v91;
           [v12 source];
-          v79 = v89 = v12;
+          v78 = v88 = v12;
           batchSize3 = [v12 batchSize];
           gpuWriteTensorKernelList2 = [(MLCDeviceGPU *)selfCopy gpuWriteTensorKernelList];
           v44 = [gpuWriteTensorKernelList2 objectAtIndexedSubscript:v11];
           descriptor4 = [v41 descriptor];
           dataType2 = [descriptor4 dataType];
-          destinationImageAllocator2 = [v93 destinationImageAllocator];
-          v48 = [MLCGPUHelper allocateAndCopyToTemporaryMPSImageBatchForTensor:v41 commandBuffer:v91 batchSize:batchSize3 copyingKernel:v44 sourceMTLBuffer:v79 MLCDataType:dataType2 heapAllocator:destinationImageAllocator2];
+          destinationImageAllocator2 = [v92 destinationImageAllocator];
+          v48 = [MLCGPUHelper allocateAndCopyToTemporaryMPSImageBatchForTensor:v41 commandBuffer:v90 batchSize:batchSize3 copyingKernel:v44 sourceMTLBuffer:v78 MLCDataType:dataType2 heapAllocator:destinationImageAllocator2];
 
-          gradientState = [v89 gradientState];
-          v14 = v91;
-          v50 = [v93 encodeBatchToCommandBuffer:v91 sourceGradients:v87 sourceImages:v48 gradientStates:gradientState];
+          gradientState = [v88 gradientState];
+          v14 = v90;
+          v50 = [v92 encodeBatchToCommandBuffer:v90 sourceGradients:v86 sourceImages:v48 gradientStates:gradientState];
 
           gpuReadTensorKernelList = [(MLCDeviceGPU *)selfCopy gpuReadTensorKernelList];
           v52 = [gpuReadTensorKernelList objectAtIndexedSubscript:v11];
           v53 = [deviceMemory2 objectAtIndexedSubscript:v11];
           descriptor5 = [v41 descriptor];
 
-          +[MLCGPUHelper copyMPSImageBatchToMTLBuffer:commandBuffer:sourceImageBatch:destinationMTLBuffer:MLCDataType:](MLCGPUHelper, "copyMPSImageBatchToMTLBuffer:commandBuffer:sourceImageBatch:destinationMTLBuffer:MLCDataType:", v52, v91, v50, v53, [descriptor5 dataType]);
-          gradientKernel = v93;
+          +[MLCGPUHelper copyMPSImageBatchToMTLBuffer:commandBuffer:sourceImageBatch:destinationMTLBuffer:MLCDataType:](MLCGPUHelper, "copyMPSImageBatchToMTLBuffer:commandBuffer:sourceImageBatch:destinationMTLBuffer:MLCDataType:", v52, v90, v50, v53, [descriptor5 dataType]);
+          gradientKernel = v92;
 
           self = selfCopy;
-          layerCopy = v83;
+          layerCopy = v82;
 
-          v12 = v89;
+          v12 = v88;
           objc_autoreleasePoolPop(context);
         }
       }
@@ -17157,13 +18288,13 @@ LABEL_39:
             switch(metalKernelType)
             {
               case 9:
-                [(MLCDeviceGPU *)self dispatchGradientGroupNormalizationKernel:layerCopy sourceGradientTensor:v90 resultGradientTensor:v92 deviceIndex:v11];
+                [(MLCDeviceGPU *)self dispatchGradientGroupNormalizationKernel:layerCopy sourceGradientTensor:v89 resultGradientTensor:v91 deviceIndex:v11];
                 break;
               case 10:
-                [(MLCDeviceGPU *)self dispatchGradientResizeKernel:layerCopy sourceGradientTensor:v90 resultGradientTensor:v92 deviceIndex:v11];
+                [(MLCDeviceGPU *)self dispatchGradientResizeKernel:layerCopy sourceGradientTensor:v89 resultGradientTensor:v91 deviceIndex:v11];
                 break;
               case 12:
-                [(MLCDeviceGPU *)self dispatchTransposeKernel:layerCopy sourceTensor:v90 resultTensor:v92 deviceIndex:v11 forward:0];
+                [(MLCDeviceGPU *)self dispatchTransposeKernel:layerCopy sourceTensor:v89 resultTensor:v91 deviceIndex:v11 forward:0];
                 break;
             }
           }
@@ -17172,13 +18303,13 @@ LABEL_39:
           {
             if (metalKernelType == 18)
             {
-              [(MLCDeviceGPU *)self dispatchGradientGramMatrixKernel:layerCopy sourceGradientTensor:v90 resultGradientTensor:v92 deviceIndex:v11];
+              [(MLCDeviceGPU *)self dispatchGradientGramMatrixKernel:layerCopy sourceGradientTensor:v89 resultGradientTensor:v91 deviceIndex:v11];
             }
           }
 
           else
           {
-            [(MLCDeviceGPU *)self dispatchGradientPoolingKernel:layerCopy sourceGradientTensor:v90 resultGradientTensor:v92 deviceIndex:v11];
+            [(MLCDeviceGPU *)self dispatchGradientPoolingKernel:layerCopy sourceGradientTensor:v89 resultGradientTensor:v91 deviceIndex:v11];
           }
         }
 
@@ -17186,20 +18317,20 @@ LABEL_39:
         {
           if ((metalKernelType - 5) < 2)
           {
-            [(MLCDeviceGPU *)self dispatchGradientInstanceNormalizationKernel:layerCopy sourceGradientTensor:v90 resultGradientTensor:v92 deviceIndex:v11];
+            [(MLCDeviceGPU *)self dispatchGradientInstanceNormalizationKernel:layerCopy sourceGradientTensor:v89 resultGradientTensor:v91 deviceIndex:v11];
           }
 
           else if ((metalKernelType - 7) >= 2)
           {
             if (metalKernelType == 4)
             {
-              [(MLCDeviceGPU *)self dispatchGradientLayerNormalizationKernel:layerCopy sourceGradientTensor:v90 resultGradientTensor:v92 deviceIndex:v11];
+              [(MLCDeviceGPU *)self dispatchGradientLayerNormalizationKernel:layerCopy sourceGradientTensor:v89 resultGradientTensor:v91 deviceIndex:v11];
             }
           }
 
           else
           {
-            [(MLCDeviceGPU *)self dispatchGradientBatchNormalizationKernel:layerCopy sourceGradientTensor:v90 resultGradientTensor:v92 deviceIndex:v11];
+            [(MLCDeviceGPU *)self dispatchGradientBatchNormalizationKernel:layerCopy sourceGradientTensor:v89 resultGradientTensor:v91 deviceIndex:v11];
           }
         }
 
@@ -17208,13 +18339,13 @@ LABEL_39:
           switch(metalKernelType)
           {
             case 1:
-              [(MLCDeviceGPU *)self dispatchGradientActivationsKernel:layerCopy sourceGradientTensor:v90 resultGradientTensor:v92 deviceIndex:v11];
+              [(MLCDeviceGPU *)self dispatchGradientActivationsKernel:layerCopy sourceGradientTensor:v89 resultGradientTensor:v91 deviceIndex:v11];
               break;
             case 2:
-              [(MLCDeviceGPU *)self dispatchGradientPaddingKernel:layerCopy sourceGradientTensor:v90 resultGradientTensor:v92 deviceIndex:v11];
+              [(MLCDeviceGPU *)self dispatchGradientPaddingKernel:layerCopy sourceGradientTensor:v89 resultGradientTensor:v91 deviceIndex:v11];
               break;
             case 3:
-              [(MLCDeviceGPU *)self dispatchGradientSoftmaxKernel:layerCopy sourceGradientTensor:v90 resultGradientTensor:v92 deviceIndex:v11];
+              [(MLCDeviceGPU *)self dispatchGradientSoftmaxKernel:layerCopy sourceGradientTensor:v89 resultGradientTensor:v91 deviceIndex:v11];
               break;
           }
         }
@@ -17225,8 +18356,6 @@ LABEL_39:
 
     while (v11 < [(MLCDeviceGPU *)self numDevicesToUse]);
   }
-
-  v78 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dispatchGradientLayer:(id)layer sourceGradientTensor:(id)tensor resultGradientTensor:(id)gradientTensor secondaryResultGradientTensor:(id)resultGradientTensor
@@ -17290,7 +18419,7 @@ LABEL_39:
 
 - (void)dispatchGradientSliceLayer:(id)layer sourceGradientTensor:(id)tensor resultGradientTensor:(id)gradientTensor
 {
-  v81 = *MEMORY[0x277D85DE8];
+  v80 = *MEMORY[0x277D85DE8];
   layerCopy = layer;
   tensorCopy = tensor;
   gradientTensorCopy = gradientTensor;
@@ -17300,24 +18429,24 @@ LABEL_39:
   if ([(MLCDeviceGPU *)self numDevicesToUse])
   {
     v10 = 0;
-    v60 = &v74;
+    v59 = &v73;
     selfCopy = self;
     do
     {
-      v11 = [layerCopy objectAtIndexedSubscript:{v10, v60}];
+      v11 = [layerCopy objectAtIndexedSubscript:{v10, v59}];
       gpuCommandBufferList = [(MLCDeviceGPU *)self gpuCommandBufferList];
-      v66 = [gpuCommandBufferList objectAtIndexedSubscript:v10];
+      v65 = [gpuCommandBufferList objectAtIndexedSubscript:v10];
 
-      v67 = v10;
+      v66 = v10;
       [(MLCDeviceGPU *)self dispatchFillTensor:gradientTensorCopy deviceIndex:v10];
       context = objc_autoreleasePoolPush();
-      v76 = 0;
-      v74 = 0u;
-      memset(v75, 0, sizeof(v75));
-      memset(v73, 0, sizeof(v73));
+      v75 = 0;
+      v73 = 0u;
+      memset(v74, 0, sizeof(v74));
+      memset(v72, 0, sizeof(v72));
       descriptor = [gradientTensorCopy descriptor];
       shape = [descriptor shape];
-      v68 = [shape count];
+      v67 = [shape count];
 
       descriptor2 = [gradientTensorCopy descriptor];
       shape2 = [descriptor2 shape];
@@ -17326,7 +18455,7 @@ LABEL_39:
       if (v17)
       {
         v18 = 0;
-        v19 = v75 - v68;
+        v19 = v74 - v67;
         do
         {
           stride = [v11 stride];
@@ -17369,10 +18498,10 @@ LABEL_39:
         while (v18 < v38);
       }
 
-      v39 = v68 - 4;
-      if (v68 != 4)
+      v39 = v67 - 4;
+      if (v67 != 4)
       {
-        v40 = v60;
+        v40 = v59;
         do
         {
           *(v40 - 12) = 0;
@@ -17388,19 +18517,19 @@ LABEL_39:
         while (!__CFADD__(v39++, 1));
       }
 
-      LODWORD(v76) = 1;
+      LODWORD(v75) = 1;
       forwardKernel = [v11 forwardKernel];
       maxTotalThreadsPerThreadgroup = [forwardKernel maxTotalThreadsPerThreadgroup];
 
       v44 = 0;
-      v79 = xmmword_238D45D80;
-      v80 = unk_238D45D90;
-      v77 = xmmword_238D45D80;
-      v78 = unk_238D45D90;
+      v78 = xmmword_238D45D80;
+      v79 = unk_238D45D90;
+      v76 = xmmword_238D45D80;
+      v77 = unk_238D45D90;
       do
       {
-        v45 = *(&v75[1] + v44 + 3);
-        v46 = &v79 + 8 * v44;
+        v45 = *(&v74[1] + v44 + 3);
+        v46 = &v78 + 8 * v44;
         if (maxTotalThreadsPerThreadgroup >= v45)
         {
           *(v46 + 3) = v45;
@@ -17419,7 +18548,7 @@ LABEL_39:
           v47 = maxTotalThreadsPerThreadgroup;
         }
 
-        v78.i64[v44 + 1] = (v45 + v47 - 1) / v47;
+        v77.i64[v44 + 1] = (v45 + v47 - 1) / v47;
         v48 = v44 + 3;
         --v44;
         maxTotalThreadsPerThreadgroup /= v47;
@@ -17432,8 +18561,8 @@ LABEL_39:
 
       if (v51 == 4)
       {
-        v52 = __clz(__rbit32(LOWORD(v75[1]))) << 16;
-        if (((LOWORD(v75[1]) - 1) & v75[1]) != 0)
+        v52 = __clz(__rbit32(LOWORD(v74[1]))) << 16;
+        if (((LOWORD(v74[1]) - 1) & v74[1]) != 0)
         {
           v53 = -65536;
         }
@@ -17443,43 +18572,41 @@ LABEL_39:
           v53 = v52;
         }
 
-        HIDWORD(v76) = v53 & 0xFFFF0000 | LOWORD(v75[1]);
-        v54 = *(&v77 + 1) * SLODWORD(v75[1]);
+        HIDWORD(v75) = v53 & 0xFFFF0000 | LOWORD(v74[1]);
+        v54 = *(&v76 + 1) * SLODWORD(v74[1]);
       }
 
       else
       {
-        HIDWORD(v76) = 1;
-        v54 = *(&v77 + 1);
+        HIDWORD(v75) = 1;
+        v54 = *(&v76 + 1);
       }
 
-      v55 = [v66 computeCommandEncoderWithDispatchType:0];
+      v55 = [v65 computeCommandEncoderWithDispatchType:0];
       forwardKernel2 = [v11 forwardKernel];
       [v55 setComputePipelineState:forwardKernel2];
 
-      v57 = [deviceMemory objectAtIndexedSubscript:v67];
+      v57 = [deviceMemory objectAtIndexedSubscript:v66];
       [v55 setBuffer:v57 offset:0 atIndex:0];
 
-      v58 = [deviceMemory2 objectAtIndexedSubscript:v67];
+      v58 = [deviceMemory2 objectAtIndexedSubscript:v66];
       [v55 setBuffer:v58 offset:0 atIndex:1];
 
-      [v55 setBytes:v73 length:120 atIndex:2];
-      v71 = vextq_s8(v78, v78, 8uLL);
-      v72 = v54;
-      v69 = vextq_s8(v80, v80, 8uLL);
-      v70 = *(&v79 + 1);
-      [v55 dispatchThreadgroups:&v71 threadsPerThreadgroup:&v69];
+      [v55 setBytes:v72 length:120 atIndex:2];
+      v70 = vextq_s8(v77, v77, 8uLL);
+      v71 = v54;
+      v68 = vextq_s8(v79, v79, 8uLL);
+      v69 = *(&v78 + 1);
+      [v55 dispatchThreadgroups:&v70 threadsPerThreadgroup:&v68];
       [v55 endEncoding];
 
       objc_autoreleasePoolPop(context);
-      v10 = v67 + 1;
+      v10 = v66 + 1;
       self = selfCopy;
     }
 
-    while (v67 + 1 < [(MLCDeviceGPU *)selfCopy numDevicesToUse]);
+    while (v66 + 1 < [(MLCDeviceGPU *)selfCopy numDevicesToUse]);
   }
-
-  v59 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dispatchGradientLossLayer:(id)layer sourceGradientTensor:(id)tensor labelsTensor:(id)labelsTensor labelsTensorStride:(unint64_t)stride weightsTensor:(id)weightsTensor resultGradientTensor:(id)gradientTensor
@@ -18053,7 +19180,7 @@ LABEL_8:
 
 - (void)dispatchRNNForwardLayer:(id)layer sourceTensors:(id)tensors resultTensors:(id)resultTensors
 {
-  v403 = *MEMORY[0x277D85DE8];
+  v402 = *MEMORY[0x277D85DE8];
   layerCopy = layer;
   tensorsCopy = tensors;
   resultTensorsCopy = resultTensors;
@@ -18074,29 +19201,29 @@ LABEL_8:
   if ([(MLCDeviceGPU *)self numDevicesToUse])
   {
     v11 = 0;
-    v365 = xmmword_238D45D60;
-    v402 = resultTensorsCopy;
+    v364 = xmmword_238D45D60;
+    v401 = resultTensorsCopy;
     selfCopy = self;
     while (1)
     {
       v12 = [layerCopy objectAtIndexedSubscript:v11];
       gpuCommandBufferList = [(MLCDeviceGPU *)self gpuCommandBufferList];
-      v401 = v11;
+      v400 = v11;
       v14 = [gpuCommandBufferList objectAtIndexedSubscript:v11];
 
       v15 = tensorsCopy;
       v16 = [tensorsCopy objectAtIndexedSubscript:0];
       descriptor = [v16 descriptor];
       shape = [descriptor shape];
-      v374 = [shape count];
+      v373 = [shape count];
 
       v19 = [v15 objectAtIndexedSubscript:0];
       descriptor2 = [v19 descriptor];
       shape2 = [descriptor2 shape];
-      v371 = [shape2 count];
+      v370 = [shape2 count];
 
       v22 = [v15 count] == 3 || objc_msgSend(v15, "count") == 4;
-      LODWORD(v388) = v22;
+      LODWORD(v387) = v22;
       batchSize = [v12 batchSize];
       isBidirectional = [v12 isBidirectional];
       v24 = 1;
@@ -18105,7 +19232,7 @@ LABEL_8:
         v24 = 2;
       }
 
-      v369 = v24;
+      v368 = v24;
       v25 = [v15 objectAtIndexedSubscript:0];
       descriptor3 = [v25 descriptor];
       variableLengthSequences = [descriptor3 variableLengthSequences];
@@ -18129,21 +19256,21 @@ LABEL_8:
       }
 
       batchFirst = [v12 batchFirst];
-      v36 = v401;
-      if (batchFirst && v371 == 4)
+      v36 = v400;
+      if (batchFirst && v370 == 4)
       {
         rnnBuffers = [v12 rnnBuffers];
-        v376 = [rnnBuffers objectAtIndexedSubscript:0];
+        v375 = [rnnBuffers objectAtIndexedSubscript:0];
       }
 
       else
       {
         rnnBuffers = [tensorsCopy objectAtIndexedSubscript:0];
         deviceMemory = [rnnBuffers deviceMemory];
-        v376 = [deviceMemory objectAtIndexedSubscript:v36];
+        v375 = [deviceMemory objectAtIndexedSubscript:v36];
       }
 
-      if ([v12 returnsSequences] && v374 == 3)
+      if ([v12 returnsSequences] && v373 == 3)
       {
         rnnBuffers2 = [resultTensorsCopy objectAtIndexedSubscript:0];
         deviceMemory2 = [rnnBuffers2 deviceMemory];
@@ -18157,12 +19284,12 @@ LABEL_8:
       }
 
       v42 = tensorsCopy;
-      v396 = v41;
+      v395 = v41;
 
       returnsSequences = [v12 returnsSequences];
       batchFirst2 = [v12 batchFirst];
-      v399 = batchSize;
-      if (batchFirst2 && v371 == 4)
+      v398 = batchSize;
+      if (batchFirst2 && v370 == 4)
       {
         v44 = [v42 objectAtIndexedSubscript:0];
         descriptor7 = [v44 descriptor];
@@ -18188,18 +19315,18 @@ LABEL_8:
         v61 = batchSize;
         v62 = unsignedIntegerValue;
         v63 = batchSizePerSequenceStep;
-        v400 = createMatrices(unsignedIntegerValue2, v61, unsignedIntegerValue, unsignedIntegerValue, batchSizePerSequenceStep, 0, v376);
-        v373 = v59;
-        v380 = createMatrices(unsignedIntegerValue2, v399, unsignedIntegerValue3, v59, v63, 0, v396);
+        v399 = createMatrices(unsignedIntegerValue2, v61, unsignedIntegerValue, unsignedIntegerValue, batchSizePerSequenceStep, 0, v375);
+        v372 = v59;
+        v379 = createMatrices(unsignedIntegerValue2, v398, unsignedIntegerValue3, v59, v63, 0, v395);
         deviceList = [(MLCDeviceGPU *)selfCopy deviceList];
-        v64 = v401;
-        v65 = [deviceList objectAtIndexedSubscript:v401];
+        v64 = v400;
+        v65 = [deviceList objectAtIndexedSubscript:v400];
         v66 = [tensorsCopy objectAtIndexedSubscript:0];
         deviceMemory3 = [v66 deviceMemory];
         v68 = [deviceMemory3 objectAtIndexedSubscript:v64];
         v69 = v62;
-        batchSize = v399;
-        copyNC1TtoNTCMTLBuffer(v14, v65, v399, v69, v60, v68, v376);
+        batchSize = v398;
+        copyNC1TtoNTCMTLBuffer(v14, v65, v398, v69, v60, v68, v375);
 
         unsignedIntegerValue6 = v58;
       }
@@ -18211,7 +19338,7 @@ LABEL_8:
         descriptor10 = [v73 descriptor];
         shape6 = [descriptor10 shape];
         v76 = shape6;
-        if (batchFirst3 && v374 == 3)
+        if (batchFirst3 && v373 == 3)
         {
           v77 = [shape6 objectAtIndexedSubscript:1];
           unsignedIntegerValue4 = [v77 unsignedIntegerValue];
@@ -18232,9 +19359,9 @@ LABEL_8:
           v87 = unsignedIntegerValue6 >> isBidirectional;
           unsignedIntegerValue = unsignedIntegerValue5;
           v88 = batchSizePerSequenceStep;
-          v400 = createMatrices(v60, batchSize, unsignedIntegerValue5, unsignedIntegerValue5, batchSizePerSequenceStep, 0, v376);
-          v373 = v87;
-          v71 = createMatrices(v60, batchSize, unsignedIntegerValue6, v87, v88, 0, v396);
+          v399 = createMatrices(v60, batchSize, unsignedIntegerValue5, unsignedIntegerValue5, batchSizePerSequenceStep, 0, v375);
+          v372 = v87;
+          v71 = createMatrices(v60, batchSize, unsignedIntegerValue6, v87, v88, 0, v395);
         }
 
         else
@@ -18258,20 +19385,20 @@ LABEL_8:
           v99 = unsignedIntegerValue6 >> isBidirectional;
           unsignedIntegerValue = unsignedIntegerValue7;
           v100 = batchSizePerSequenceStep;
-          v400 = createMatricesForTNCBuffer(v60, batchSize, unsignedIntegerValue7, unsignedIntegerValue7, batchSizePerSequenceStep, v376);
-          v373 = v99;
-          v71 = createMatricesForTNCBuffer(v60, batchSize, unsignedIntegerValue6, v99, v100, v396);
+          v399 = createMatricesForTNCBuffer(v60, batchSize, unsignedIntegerValue7, unsignedIntegerValue7, batchSizePerSequenceStep, v375);
+          v372 = v99;
+          v71 = createMatricesForTNCBuffer(v60, batchSize, unsignedIntegerValue6, v99, v100, v395);
         }
 
-        v380 = v71;
+        v379 = v71;
       }
 
-      v368 = &v361;
+      v367 = &v360;
       v101 = MEMORY[0x28223BE20](v71);
-      v103 = &v361 - ((v102 + 15) & 0xFFFFFFFFFFFFFFF0);
-      v363 = v102;
+      v103 = &v360 - ((v102 + 15) & 0xFFFFFFFFFFFFFFF0);
+      v362 = v102;
       MEMORY[0x28223BE20](v101);
-      v105 = &v361 - v104;
+      v105 = &v360 - v104;
       batchFirst4 = [v12 batchFirst];
       v107 = sequenceLengths;
       if (batchFirst4 && v60)
@@ -18283,7 +19410,7 @@ LABEL_8:
         v112 = v103 + 8;
         v113 = 8 * unsignedIntegerValue;
         v114 = v110;
-        v115 = v365;
+        v115 = v364;
         do
         {
           v116 = vmovn_s64(vcgeq_u64(v111, v115));
@@ -18306,7 +19433,7 @@ LABEL_8:
         while (v114);
         v117 = 0;
         v118 = v105 + 8;
-        v119 = v365;
+        v119 = v364;
         do
         {
           v120 = vmovn_s64(vcgeq_u64(v111, v119));
@@ -18330,13 +19457,13 @@ LABEL_8:
       }
 
       deviceList = v105;
-      v392 = v103;
-      v378 = unsignedIntegerValue6;
+      v391 = v103;
+      v377 = unsignedIntegerValue6;
       unsignedIntegerValue4 = v60;
       if (v107)
       {
-        v121 = v396;
-        bzero([v396 contents], objc_msgSend(v396, "length"));
+        v121 = v395;
+        bzero([v395 contents], objc_msgSend(v395, "length"));
         +[MLCGPUHelper didModifyRange:buffer:](MLCGPUHelper, "didModifyRange:buffer:", 0, [v121 length], v121);
       }
 
@@ -18344,13 +19471,13 @@ LABEL_8:
       v122 = [forwardKernel count];
       v123 = v122 >> isBidirectional;
       v124 = [MEMORY[0x277CBEBF8] mutableCopy];
-      v386 = v123;
+      v385 = v123;
       v125 = v123 == 1;
-      v382 = v123 - 1;
+      v381 = v123 - 1;
       v126 = v123 - 1;
-      v364 = (v123 - 1);
+      v363 = (v123 - 1);
       v127 = unsignedIntegerValue4;
-      v128 = v378;
+      v128 = v377;
       if (!v125)
       {
         do
@@ -18365,8 +19492,8 @@ LABEL_8:
         while (v126);
       }
 
-      v381 = v124;
-      v131 = v400;
+      v380 = v124;
+      v131 = v399;
       batchFirst5 = [v12 batchFirst];
       batchFirst6 = [v12 batchFirst];
       v134 = deviceList;
@@ -18375,51 +19502,51 @@ LABEL_8:
         v134 = 0;
       }
 
-      v394 = v134;
-      v370 = v131;
-      v387 = v12;
-      v397 = v14;
-      if (v386)
+      v393 = v134;
+      v369 = v131;
+      v386 = v12;
+      v396 = v14;
+      if (v385)
       {
         v135 = 0;
         v136 = 0;
         v137 = 0;
-        v138 = v392;
+        v138 = v391;
         if (!batchFirst5)
         {
           v138 = 0;
         }
 
-        v384 = 4 * batchSize * v373;
-        v139 = v386;
-        v131 = v370;
+        v383 = 4 * batchSize * v372;
+        v139 = v385;
+        v131 = v369;
         do
         {
           data4 = v138;
           data6 = v139;
-          v392 = v131;
+          v391 = v131;
           if (v139 == 1)
           {
-            v140 = v380;
+            v140 = v379;
           }
 
           else
           {
-            v140 = [v381 objectAtIndexedSubscript:v137];
+            v140 = [v380 objectAtIndexedSubscript:v137];
           }
 
-          v400 = v140;
+          v399 = v140;
 
           rnnTrainableStates = [v12 rnnTrainableStates];
           v142 = [rnnTrainableStates objectAtIndexedSubscript:v137];
 
           deviceList = v142;
           [v142 removeAllObjects];
-          if (v388)
+          if (v387)
           {
             v143 = [forwardKernel objectAtIndexedSubscript:v137];
-            v144 = v397;
-            v145 = [v143 temporaryRecurrentStateForCommandBuffer:v397 batchSize:batchSize forGradientPass:0];
+            v144 = v396;
+            v145 = [v143 temporaryRecurrentStateForCommandBuffer:v396 batchSize:batchSize forGradientPass:0];
 
             v146 = [v145 getRecurrentOutputMatrixForLayerIndex:0];
             data = [v146 data];
@@ -18431,19 +19558,19 @@ LABEL_8:
             v150 = tensorsCopy;
             v151 = [tensorsCopy objectAtIndexedSubscript:1];
             deviceMemory4 = [v151 deviceMemory];
-            v153 = v401;
-            v154 = [deviceMemory4 objectAtIndexedSubscript:v401];
-            v391 = data;
+            v153 = v400;
+            v154 = [deviceMemory4 objectAtIndexedSubscript:v400];
+            v390 = data;
             [blitCommandEncoder copyFromBuffer:v154 sourceOffset:v135 toBuffer:data destinationOffset:0 size:{objc_msgSend(data, "length")}];
 
             v155 = [v150 objectAtIndexedSubscript:2];
             deviceMemory5 = [v155 deviceMemory];
-            v157 = v387;
+            v157 = v386;
             v158 = [deviceMemory5 objectAtIndexedSubscript:v153];
             v159 = data2;
             [blitCommandEncoder copyFromBuffer:v158 sourceOffset:v135 toBuffer:data2 destinationOffset:0 size:{objc_msgSend(data2, "length")}];
 
-            resultTensorsCopy = v402;
+            resultTensorsCopy = v401;
             v160 = forwardKernel;
 
             [blitCommandEncoder endEncoding];
@@ -18467,9 +19594,9 @@ LABEL_8:
           v164 = [v160 objectAtIndexedSubscript:v137];
           rnnTrainableWeights = [v12 rnnTrainableWeights];
           v166 = [rnnTrainableWeights objectAtIndexedSubscript:v137];
-          v391 = v145;
-          v167 = v392;
-          [v164 encodeForwardSequenceToCommandBuffer:v397 sourceMatrices:v392 sourceOffsets:data4 destinationMatrices:v400 destinationOffsets:v394 trainingStates:deviceList recurrentInputState:v145 recurrentOutputStates:v162 weights:v166];
+          v390 = v145;
+          v167 = v391;
+          [v164 encodeForwardSequenceToCommandBuffer:v396 sourceMatrices:v391 sourceOffsets:data4 destinationMatrices:v399 destinationOffsets:v393 trainingStates:deviceList recurrentInputState:v145 recurrentOutputStates:v162 weights:v166];
 
           if ([resultTensorsCopy count] == 3 && v162 && objc_msgSend(v162, "count"))
           {
@@ -18481,15 +19608,15 @@ LABEL_8:
             v172 = [v171 getMemoryCellMatrixForLayerIndex:0];
             data4 = [v172 data];
 
-            blitCommandEncoder2 = [v397 blitCommandEncoder];
+            blitCommandEncoder2 = [v396 blitCommandEncoder];
             v174 = [resultTensorsCopy objectAtIndexedSubscript:1];
             deviceMemory6 = [v174 deviceMemory];
             v176 = v167;
-            v177 = v401;
-            v178 = [deviceMemory6 objectAtIndexedSubscript:v401];
+            v177 = v400;
+            v178 = [deviceMemory6 objectAtIndexedSubscript:v400];
             [blitCommandEncoder2 copyFromBuffer:data3 sourceOffset:0 toBuffer:v178 destinationOffset:v135 size:{objc_msgSend(data3, "length")}];
 
-            v179 = [v402 objectAtIndexedSubscript:2];
+            v179 = [v401 objectAtIndexedSubscript:2];
             deviceMemory7 = [v179 deviceMemory];
             v181 = v177;
             v167 = v176;
@@ -18497,26 +19624,26 @@ LABEL_8:
             v183 = data4;
             [blitCommandEncoder2 copyFromBuffer:data4 sourceOffset:0 toBuffer:v182 destinationOffset:v135 size:{objc_msgSend(data4, "length")}];
 
-            v12 = v387;
-            resultTensorsCopy = v402;
+            v12 = v386;
+            resultTensorsCopy = v401;
 
             [blitCommandEncoder2 endEncoding];
             [v162 removeAllObjects];
           }
 
-          v131 = v400;
+          v131 = v399;
 
           ++v137;
-          v135 += v384;
-          v138 = v394;
+          v135 += v383;
+          v138 = v393;
           v136 = v131;
           v139 = data6 - 1;
-          batchSize = v399;
+          batchSize = v398;
         }
 
         while (data6 != 1);
 
-        v14 = v397;
+        v14 = v396;
       }
 
       isBidirectional2 = [v12 isBidirectional];
@@ -18529,7 +19656,7 @@ LABEL_115:
       v280 = [tensorsCopy objectAtIndexedSubscript:0];
       [v12 setSource:v280];
 
-      if (v374 == 3)
+      if (v373 == 3)
       {
         LODWORD(v281) = returnsSequences ^ 1;
       }
@@ -18541,13 +19668,13 @@ LABEL_115:
 
       self = selfCopy;
       v282 = 0x277CD7000uLL;
-      v283 = v381;
+      v283 = v380;
       if (v281 != 1)
       {
         goto LABEL_151;
       }
 
-      if (v371 == 4)
+      if (v370 == 4)
       {
         v284 = returnsSequences ^ 1;
       }
@@ -18571,46 +19698,46 @@ LABEL_115:
 
         if ((v285 & 1) == 0)
         {
-          LODWORD(v386) = 1;
-          v364 = v131;
-          v384 = objc_autoreleasePoolPush();
+          LODWORD(v385) = 1;
+          v363 = v131;
+          v383 = objc_autoreleasePoolPush();
           v344 = objc_alloc(MEMORY[0x277CD75C0]);
           deviceList2 = [(MLCDeviceGPU *)self deviceList];
-          v346 = [deviceList2 objectAtIndexedSubscript:v401];
-          v347 = [v344 initWithDevice:v346 count:v369];
+          v346 = [deviceList2 objectAtIndexedSubscript:v400];
+          v347 = [v344 initWithDevice:v346 count:v368];
 
           v348 = objc_alloc(MEMORY[0x277CD75B8]);
           deviceList3 = [(MLCDeviceGPU *)self deviceList];
-          v350 = [deviceList3 objectAtIndexedSubscript:v401];
-          data2 = [v348 initWithDevice:v350 copyRows:batchSize copyColumns:v373 sourcesAreTransposed:0 destinationsAreTransposed:0];
+          v350 = [deviceList3 objectAtIndexedSubscript:v400];
+          data2 = [v348 initWithDevice:v350 copyRows:batchSize copyColumns:v372 sourcesAreTransposed:0 destinationsAreTransposed:0];
 
-          v351 = v378;
-          v352 = ((unsignedIntegerValue4 - 1) * v378);
-          v353 = [MEMORY[0x277CD7258] matrixDescriptorWithRows:batchSize columns:unsignedIntegerValue4 * v378 rowBytes:4 * unsignedIntegerValue4 * v378 dataType:268435488];
+          v351 = v377;
+          v352 = ((unsignedIntegerValue4 - 1) * v377);
+          v353 = [MEMORY[0x277CD7258] matrixDescriptorWithRows:batchSize columns:unsignedIntegerValue4 * v377 rowBytes:4 * unsignedIntegerValue4 * v377 dataType:268435488];
           v316 = v347;
           v343 = [MEMORY[0x277CD7258] matrixDescriptorWithRows:batchSize columns:v351 rowBytes:4 * v351 dataType:268435488];
           v354 = objc_alloc(MEMORY[0x277CD7250]);
           data6 = v353;
-          v281 = [v354 initWithBuffer:v396 offset:0 descriptor:v353];
+          v281 = [v354 initWithBuffer:v395 offset:0 descriptor:v353];
           v355 = objc_alloc(MEMORY[0x277CD7250]);
           v356 = [resultTensorsCopy objectAtIndexedSubscript:0];
           deviceMemory8 = [v356 deviceMemory];
-          v358 = [deviceMemory8 objectAtIndexedSubscript:v401];
+          v358 = [deviceMemory8 objectAtIndexedSubscript:v400];
           v359 = [v355 initWithBuffer:v358 offset:0 descriptor:v343];
 
           [v316 setCopyOperationAtIndex:0 sourceMatrix:v281 destinationMatrix:v359 offsets:{v352 << 32, 0}];
           if ([v12 isBidirectional])
           {
-            [v316 setCopyOperationAtIndex:1 sourceMatrix:v281 destinationMatrix:v359 offsets:{v373 << 32, v373 << 32}];
+            [v316 setCopyOperationAtIndex:1 sourceMatrix:v281 destinationMatrix:v359 offsets:{v372 << 32, v372 << 32}];
           }
 
           v315 = data2;
           [data2 encodeToCommandBuffer:v14 copyDescriptor:v316];
 
-          resultTensorsCopy = v402;
-          v283 = v381;
-          v131 = v364;
-          LOBYTE(v281) = v386;
+          resultTensorsCopy = v401;
+          v283 = v380;
+          v131 = v363;
+          LOBYTE(v281) = v385;
           self = selfCopy;
           goto LABEL_150;
         }
@@ -18626,53 +19753,53 @@ LABEL_115:
           goto LABEL_151;
         }
 
-        LODWORD(v386) = 1;
-        v364 = v131;
+        LODWORD(v385) = 1;
+        v363 = v131;
         v287 = isBidirectional;
-        v384 = objc_autoreleasePoolPush();
+        v383 = objc_autoreleasePoolPush();
         v288 = objc_alloc(MEMORY[0x277CD75C0]);
         deviceList4 = [(MLCDeviceGPU *)self deviceList];
-        v290 = v401;
-        v291 = [deviceList4 objectAtIndexedSubscript:v401];
+        v290 = v400;
+        v291 = [deviceList4 objectAtIndexedSubscript:v400];
         data4 = [v288 initWithDevice:v291 count:batchSize << v287];
 
         v292 = objc_alloc(MEMORY[0x277CD75B8]);
         deviceList5 = [(MLCDeviceGPU *)self deviceList];
         v294 = [deviceList5 objectAtIndexedSubscript:v290];
-        v295 = v373;
-        data2 = [v292 initWithDevice:v294 copyRows:1 copyColumns:v373 sourcesAreTransposed:0 destinationsAreTransposed:0];
+        v295 = v372;
+        data2 = [v292 initWithDevice:v294 copyRows:1 copyColumns:v372 sourcesAreTransposed:0 destinationsAreTransposed:0];
 
-        v296 = v378;
+        v296 = v377;
         v297 = unsignedIntegerValue4;
-        data6 = [MEMORY[0x277CD7258] matrixDescriptorWithRows:unsignedIntegerValue4 columns:v378 rowBytes:4 * v378 dataType:268435488];
+        data6 = [MEMORY[0x277CD7258] matrixDescriptorWithRows:unsignedIntegerValue4 columns:v377 rowBytes:4 * v377 dataType:268435488];
         deviceList = [MEMORY[0x277CD7258] matrixDescriptorWithRows:1 columns:v296 rowBytes:4 * v296 dataType:268435488];
         if (batchSize)
         {
-          v394 = 0;
+          v393 = 0;
           LODWORD(v298) = 0;
           v299 = v295 << 32;
-          v388 = 4 * v297;
+          v387 = 4 * v297;
           do
           {
-            v300 = v394;
-            v391 = (4 * v394 * v296);
-            v392 = v388 * v394 * v296;
+            v300 = v393;
+            v390 = (4 * v393 * v296);
+            v391 = v387 * v393 * v296;
             v301 = 1;
-            v302 = v369;
+            v302 = v368;
             do
             {
-              v303 = [sequenceLengths objectAtIndexedSubscript:v394];
+              v303 = [sequenceLengths objectAtIndexedSubscript:v393];
               unsignedIntegerValue8 = [v303 unsignedIntegerValue];
 
-              v400 = (unsignedIntegerValue8 - 1);
+              v399 = (unsignedIntegerValue8 - 1);
               v305 = v298;
               v306 = objc_alloc(MEMORY[0x277CD7250]);
-              v307 = [v306 initWithBuffer:v396 offset:v392 descriptor:data6];
+              v307 = [v306 initWithBuffer:v395 offset:v391 descriptor:data6];
               v308 = objc_alloc(MEMORY[0x277CD7250]);
-              v309 = [v402 objectAtIndexedSubscript:0];
+              v309 = [v401 objectAtIndexedSubscript:0];
               deviceMemory9 = [v309 deviceMemory];
-              v311 = [deviceMemory9 objectAtIndexedSubscript:v401];
-              v312 = [v308 initWithBuffer:v311 offset:v391 descriptor:deviceList];
+              v311 = [deviceMemory9 objectAtIndexedSubscript:v400];
+              v312 = [v308 initWithBuffer:v311 offset:v390 descriptor:deviceList];
 
               if (v301)
               {
@@ -18687,7 +19814,7 @@ LABEL_115:
               v298 = v313 | v305;
               if (v301)
               {
-                v314 = v400;
+                v314 = v399;
               }
 
               else
@@ -18697,62 +19824,62 @@ LABEL_115:
 
               [data4 setCopyOperationAtIndex:v300 sourceMatrix:v307 destinationMatrix:v312 offsets:{v314, v298}];
 
-              v300 += v399;
+              v300 += v398;
               --v301;
               --v302;
             }
 
             while (v302);
-            ++v394;
-            v296 = v378;
+            ++v393;
+            v296 = v377;
           }
 
-          while (v394 != v399);
+          while (v393 != v398);
         }
 
         v315 = data2;
-        v14 = v397;
+        v14 = v396;
         v316 = data4;
-        [data2 encodeToCommandBuffer:v397 copyDescriptor:data4];
+        [data2 encodeToCommandBuffer:v396 copyDescriptor:data4];
         self = selfCopy;
-        resultTensorsCopy = v402;
-        v12 = v387;
-        v283 = v381;
-        v131 = v364;
-        LOBYTE(v281) = v386;
+        resultTensorsCopy = v401;
+        v12 = v386;
+        v283 = v380;
+        v131 = v363;
+        LOBYTE(v281) = v385;
       }
 
       else
       {
-        LODWORD(v386) = 1;
-        v364 = v131;
-        v384 = objc_autoreleasePoolPush();
+        LODWORD(v385) = 1;
+        v363 = v131;
+        v383 = objc_autoreleasePoolPush();
         v317 = objc_alloc(MEMORY[0x277CD75C0]);
         deviceList6 = [(MLCDeviceGPU *)self deviceList];
-        v319 = v401;
-        v320 = [deviceList6 objectAtIndexedSubscript:v401];
+        v319 = v400;
+        v320 = [deviceList6 objectAtIndexedSubscript:v400];
         v321 = [v317 initWithDevice:v320 count:batchSize];
 
         v322 = objc_alloc(MEMORY[0x277CD75B8]);
         deviceList7 = [(MLCDeviceGPU *)self deviceList];
         v324 = [deviceList7 objectAtIndexedSubscript:v319];
         v325 = unsignedIntegerValue4;
-        v326 = v378;
-        data2 = [v322 initWithDevice:v324 copyRows:unsignedIntegerValue4 copyColumns:v378 sourcesAreTransposed:0 destinationsAreTransposed:1];
+        v326 = v377;
+        data2 = [v322 initWithDevice:v324 copyRows:unsignedIntegerValue4 copyColumns:v377 sourcesAreTransposed:0 destinationsAreTransposed:1];
 
         v327 = [MEMORY[0x277CD7258] matrixDescriptorWithRows:v325 columns:v326 rowBytes:4 * v326 dataType:268435488];
         v328 = v326;
         deviceList = [MEMORY[0x277CD7258] matrixDescriptorWithRows:v326 columns:v325 rowBytes:4 * v325 dataType:268435488];
         v329 = resultTensorsCopy;
-        v330 = v396;
+        v330 = v395;
         if (batchSize)
         {
           v331 = 0;
           v332 = 0;
-          v394 = 4 * v325 * v328;
+          v393 = 4 * v325 * v328;
           do
           {
-            v400 = [objc_alloc(*(v282 + 592)) initWithBuffer:v330 offset:v331 descriptor:v327];
+            v399 = [objc_alloc(*(v282 + 592)) initWithBuffer:v330 offset:v331 descriptor:v327];
             v333 = objc_alloc(*(v282 + 592));
             [v329 objectAtIndexedSubscript:0];
             v334 = v282;
@@ -18760,7 +19887,7 @@ LABEL_115:
             [v336 deviceMemory];
             v337 = v329;
             v339 = v338 = v321;
-            v340 = [v339 objectAtIndexedSubscript:v401];
+            v340 = [v339 objectAtIndexedSubscript:v400];
             v341 = [v333 initWithBuffer:v340 offset:v331 descriptor:deviceList];
 
             v321 = v338;
@@ -18768,39 +19895,39 @@ LABEL_115:
 
             v327 = v335;
             v282 = v334;
-            v342 = v400;
-            [v321 setCopyOperationAtIndex:v332 sourceMatrix:v400 destinationMatrix:v341 offsets:{0, 0}];
+            v342 = v399;
+            [v321 setCopyOperationAtIndex:v332 sourceMatrix:v399 destinationMatrix:v341 offsets:{0, 0}];
 
-            v330 = v396;
+            v330 = v395;
             ++v332;
-            v331 += v394;
+            v331 += v393;
           }
 
-          while (v399 != v332);
+          while (v398 != v332);
         }
 
         data6 = v327;
         v315 = data2;
-        v14 = v397;
-        [data2 encodeToCommandBuffer:v397 copyDescriptor:v321];
+        v14 = v396;
+        [data2 encodeToCommandBuffer:v396 copyDescriptor:v321];
         resultTensorsCopy = v329;
         v316 = v321;
-        v12 = v387;
-        v283 = v381;
-        v131 = v364;
-        LOBYTE(v281) = v386;
+        v12 = v386;
+        v283 = v380;
+        v131 = v363;
+        LOBYTE(v281) = v385;
         self = selfCopy;
       }
 
       v343 = deviceList;
 LABEL_150:
 
-      objc_autoreleasePoolPop(v384);
+      objc_autoreleasePoolPop(v383);
 LABEL_151:
 
       if (v281)
       {
-        v11 = v401 + 1;
+        v11 = v400 + 1;
         if (v11 < [(MLCDeviceGPU *)self numDevicesToUse])
         {
           continue;
@@ -18810,11 +19937,11 @@ LABEL_151:
       goto LABEL_153;
     }
 
-    v361 = &v361;
+    v360 = &v360;
     v185 = MEMORY[0x28223BE20](isBidirectional2);
-    v391 = &v361 - ((v186 + 15) & 0xFFFFFFFFFFFFFFF0);
+    v390 = &v360 - ((v186 + 15) & 0xFFFFFFFFFFFFFFF0);
     MEMORY[0x28223BE20](v185);
-    v188 = &v361 - v187;
+    v188 = &v360 - v187;
     batchFirst7 = [v12 batchFirst];
     data4 = v188;
     if (batchFirst7)
@@ -18822,18 +19949,18 @@ LABEL_151:
       v190 = unsignedIntegerValue4;
       v191 = unsignedIntegerValue;
       v192 = batchSizePerSequenceStep;
-      v363 = createMatrices(unsignedIntegerValue4, batchSize, unsignedIntegerValue, unsignedIntegerValue, batchSizePerSequenceStep, 1, v376);
-      data2 = createMatrices(v190, batchSize, v378, v373, v192, 1, v396);
+      v362 = createMatrices(unsignedIntegerValue4, batchSize, unsignedIntegerValue, unsignedIntegerValue, batchSizePerSequenceStep, 1, v375);
+      data2 = createMatrices(v190, batchSize, v377, v372, v192, 1, v395);
       if (v190)
       {
         v193 = 0;
         v194 = (v190 + 1) & 0xFFFFFFFFFFFFFFFELL;
         v195 = vdupq_n_s64(v190 - 1);
         v196 = 4 * v191 * (v190 - 1);
-        v197 = v365;
-        v198 = v378;
-        v199 = v373;
-        v200 = v391;
+        v197 = v364;
+        v198 = v377;
+        v199 = v372;
+        v200 = v390;
         do
         {
           v201 = vmovn_s64(vcgeq_u64(v195, v197));
@@ -18855,7 +19982,7 @@ LABEL_151:
         while (v194 != v193);
         v202 = 0;
         v203 = 4 * v198 * (v190 - 1) + 4 * v199;
-        v204 = v365;
+        v204 = v364;
         do
         {
           v205 = vmovn_s64(vcgeq_u64(v195, v204));
@@ -18883,8 +20010,8 @@ LABEL_151:
       v190 = unsignedIntegerValue4;
       v206 = unsignedIntegerValue;
       v207 = batchSizePerSequenceStep;
-      v363 = createMatricesForTNCBufferNoOffset(unsignedIntegerValue4, batchSize, unsignedIntegerValue, unsignedIntegerValue, batchSizePerSequenceStep, v376);
-      data2 = createMatricesForTNCBufferNoOffset(v190, batchSize, v378, v373, v207, v396);
+      v362 = createMatricesForTNCBufferNoOffset(unsignedIntegerValue4, batchSize, unsignedIntegerValue, unsignedIntegerValue, batchSizePerSequenceStep, v375);
+      data2 = createMatricesForTNCBufferNoOffset(v190, batchSize, v377, v372, v207, v395);
       if (v190)
       {
         v208 = 0;
@@ -18892,10 +20019,10 @@ LABEL_151:
         v210 = (v190 + 1) & 0xFFFFFFFFFFFFFFFELL;
         v211 = vdupq_n_s64(v190 - 1);
         v212 = v209 * (v190 - 1);
-        v213 = v365;
-        v214 = v378;
-        v215 = v373;
-        v216 = v391;
+        v213 = v364;
+        v214 = v377;
+        v215 = v372;
+        v216 = v390;
         do
         {
           v217 = vmovn_s64(vcgeq_u64(v211, v213));
@@ -18917,7 +20044,7 @@ LABEL_151:
         while (v210 != v208);
         v218 = 0;
         v219 = 4 * v214 * batchSize * (v190 - 1) + 4 * v215;
-        v220 = v365;
+        v220 = v364;
         do
         {
           v221 = vmovn_s64(vcgeq_u64(v211, v220));
@@ -18942,11 +20069,11 @@ LABEL_151:
 
     v222 = [MEMORY[0x277CBEBF8] mutableCopy];
     v223 = v190;
-    v224 = v378;
-    v225 = v364;
+    v224 = v377;
+    v225 = v363;
     unsignedIntegerValue = v222;
-    v226 = v397;
-    if (v364)
+    v226 = v396;
+    if (v363)
     {
       do
       {
@@ -18958,14 +20085,14 @@ LABEL_151:
       }
 
       while (v225);
-      v229 = v363;
-      v230 = v363;
-      v231 = v386;
-      v12 = v387;
-      if (!v386)
+      v229 = v362;
+      v230 = v362;
+      v231 = v385;
+      v12 = v386;
+      if (!v385)
       {
         v232 = v230;
-        v14 = v397;
+        v14 = v396;
 LABEL_114:
 
         goto LABEL_115;
@@ -18974,23 +20101,23 @@ LABEL_114:
 
     else
     {
-      v229 = v363;
-      v233 = v363;
-      v231 = v386;
-      v12 = v387;
+      v229 = v362;
+      v233 = v362;
+      v231 = v385;
+      v12 = v386;
     }
 
-    v364 = v131;
+    v363 = v131;
     v234 = batchSize;
     v235 = 0;
     v232 = 0;
-    v384 = 4 * v234 * v373;
-    v392 = v384;
-    v400 = v229;
-    v14 = v397;
+    v383 = 4 * v234 * v372;
+    v391 = v383;
+    v399 = v229;
+    v14 = v396;
     do
     {
-      if (v382 == v235)
+      if (v381 == v235)
       {
         v236 = data2;
       }
@@ -19005,13 +20132,13 @@ LABEL_114:
       rnnTrainableStates2 = [v12 rnnTrainableStates];
       v238 = [rnnTrainableStates2 objectAtIndexedSubscript:&v235[v231]];
 
-      v394 = v238;
+      v393 = v238;
       [v238 removeAllObjects];
-      if (v388)
+      if (v387)
       {
         v239 = forwardKernel;
         v240 = [forwardKernel objectAtIndexedSubscript:&v235[v231]];
-        v241 = [v240 temporaryRecurrentStateForCommandBuffer:v14 batchSize:v399 forGradientPass:0];
+        v241 = [v240 temporaryRecurrentStateForCommandBuffer:v14 batchSize:v398 forGradientPass:0];
 
         v242 = [v241 getRecurrentOutputMatrixForLayerIndex:0];
         data5 = [v242 data];
@@ -19023,26 +20150,26 @@ LABEL_114:
         v246 = tensorsCopy;
         v247 = [tensorsCopy objectAtIndexedSubscript:1];
         deviceMemory10 = [v247 deviceMemory];
-        v249 = [deviceMemory10 objectAtIndexedSubscript:v401];
+        v249 = [deviceMemory10 objectAtIndexedSubscript:v400];
         v250 = [data5 length];
-        v251 = v392;
-        [blitCommandEncoder3 copyFromBuffer:v249 sourceOffset:v392 toBuffer:data5 destinationOffset:0 size:v250];
+        v251 = v391;
+        [blitCommandEncoder3 copyFromBuffer:v249 sourceOffset:v391 toBuffer:data5 destinationOffset:0 size:v250];
 
         v252 = [v246 objectAtIndexedSubscript:2];
         deviceMemory11 = [v252 deviceMemory];
-        v254 = [deviceMemory11 objectAtIndexedSubscript:v401];
+        v254 = [deviceMemory11 objectAtIndexedSubscript:v400];
         v255 = data6;
         [blitCommandEncoder3 copyFromBuffer:v254 sourceOffset:v251 toBuffer:data6 destinationOffset:0 size:{objc_msgSend(data6, "length")}];
 
-        v14 = v397;
+        v14 = v396;
         [blitCommandEncoder3 endEncoding];
-        v256 = [v239 objectAtIndexedSubscript:&v235[v386]];
+        v256 = [v239 objectAtIndexedSubscript:&v235[v385]];
         [v256 setRecurrentOutputIsTemporary:1];
 
-        v231 = v386;
+        v231 = v385;
         v257 = [MEMORY[0x277CBEBF8] mutableCopy];
 
-        v12 = v387;
+        v12 = v386;
       }
 
       else
@@ -19058,10 +20185,10 @@ LABEL_114:
       v261 = [rnnTrainableWeights2 objectAtIndexedSubscript:&v235[v258]];
       data6 = v241;
       v262 = data4;
-      [v259 encodeForwardSequenceToCommandBuffer:v14 sourceMatrices:v400 sourceOffsets:v391 destinationMatrices:deviceList destinationOffsets:data4 trainingStates:v394 recurrentInputState:v241 recurrentOutputStates:v257 weights:v261];
+      [v259 encodeForwardSequenceToCommandBuffer:v14 sourceMatrices:v399 sourceOffsets:v390 destinationMatrices:deviceList destinationOffsets:data4 trainingStates:v393 recurrentInputState:v241 recurrentOutputStates:v257 weights:v261];
 
-      resultTensorsCopy = v402;
-      if ([v402 count] == 3 && v257 && objc_msgSend(v257, "count"))
+      resultTensorsCopy = v401;
+      if ([v401 count] == 3 && v257 && objc_msgSend(v257, "count"))
       {
         v263 = [v257 objectAtIndexedSubscript:0];
         v264 = [v263 getRecurrentOutputMatrixForLayerIndex:0];
@@ -19071,55 +20198,53 @@ LABEL_114:
         v267 = [v266 getMemoryCellMatrixForLayerIndex:0];
         data8 = [v267 data];
 
-        blitCommandEncoder4 = [v397 blitCommandEncoder];
-        v270 = [v402 objectAtIndexedSubscript:1];
+        blitCommandEncoder4 = [v396 blitCommandEncoder];
+        v270 = [v401 objectAtIndexedSubscript:1];
         deviceMemory12 = [v270 deviceMemory];
-        v272 = v401;
-        v273 = [deviceMemory12 objectAtIndexedSubscript:v401];
-        v391 = data7;
+        v272 = v400;
+        v273 = [deviceMemory12 objectAtIndexedSubscript:v400];
+        v390 = data7;
         v274 = [data7 length];
         v275 = data7;
-        v276 = v392;
-        [blitCommandEncoder4 copyFromBuffer:v275 sourceOffset:0 toBuffer:v273 destinationOffset:v392 size:v274];
+        v276 = v391;
+        [blitCommandEncoder4 copyFromBuffer:v275 sourceOffset:0 toBuffer:v273 destinationOffset:v391 size:v274];
 
-        v277 = [v402 objectAtIndexedSubscript:2];
+        v277 = [v401 objectAtIndexedSubscript:2];
         deviceMemory13 = [v277 deviceMemory];
         v279 = [deviceMemory13 objectAtIndexedSubscript:v272];
         [blitCommandEncoder4 copyFromBuffer:data8 sourceOffset:0 toBuffer:v279 destinationOffset:v276 size:{objc_msgSend(data8, "length")}];
 
-        v12 = v387;
+        v12 = v386;
         [blitCommandEncoder4 endEncoding];
         [v257 removeAllObjects];
 
-        v14 = v397;
-        resultTensorsCopy = v402;
+        v14 = v396;
+        resultTensorsCopy = v401;
       }
 
       ++v235;
       v232 = deviceList;
 
-      v391 = v262;
-      v392 += v384;
-      v400 = v232;
-      v231 = v386;
+      v390 = v262;
+      v391 += v383;
+      v399 = v232;
+      v231 = v385;
     }
 
-    while (v386 != v235);
+    while (v385 != v235);
 
-    batchSize = v399;
-    v131 = v364;
+    batchSize = v398;
+    v131 = v363;
     goto LABEL_114;
   }
 
 LABEL_153:
-
-  v360 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dispatchRNNForwardLayer:(id)layer sourceTensors:(id)tensors resultTensors:(id)resultTensors resultStateIsTemporary:(BOOL)temporary forTraining:(BOOL)training
 {
-  v400[0] = a2;
-  *&v445[3] = *MEMORY[0x277D85DE8];
+  v399[0] = a2;
+  *&v444[3] = *MEMORY[0x277D85DE8];
   layerCopy = layer;
   tensorsCopy = tensors;
   resultTensorsCopy = resultTensors;
@@ -19128,7 +20253,7 @@ LABEL_153:
     v12 = 0;
     do
     {
-      v13 = [resultTensorsCopy objectAtIndexedSubscript:{v12, v400[0]}];
+      v13 = [resultTensorsCopy objectAtIndexedSubscript:{v12, v399[0]}];
       [(MLCDeviceGPU *)self allocateResultTensor:v13];
 
       ++v12;
@@ -19140,16 +20265,16 @@ LABEL_153:
   if ([(MLCDeviceGPU *)self numDevicesToUse])
   {
     v14 = 0;
-    v405 = xmmword_238D45D60;
-    v420 = tensorsCopy;
-    v442 = resultTensorsCopy;
+    v404 = xmmword_238D45D60;
+    v419 = tensorsCopy;
+    v441 = resultTensorsCopy;
     selfCopy = self;
     while (1)
     {
       v15 = [layerCopy objectAtIndexedSubscript:v14];
       gpuCommandBufferList = [(MLCDeviceGPU *)self gpuCommandBufferList];
-      v439 = v14;
-      v438 = [gpuCommandBufferList objectAtIndexedSubscript:v14];
+      v438 = v14;
+      v437 = [gpuCommandBufferList objectAtIndexedSubscript:v14];
 
       v17 = [tensorsCopy objectAtIndexedSubscript:0];
       descriptor = [v17 descriptor];
@@ -19162,7 +20287,7 @@ LABEL_153:
       v24 = [shape2 count];
 
       v25 = [tensorsCopy count] == 3 || objc_msgSend(tensorsCopy, "count") == 4;
-      LODWORD(v426) = v25;
+      LODWORD(v425) = v25;
       v26 = [tensorsCopy objectAtIndexedSubscript:0];
       descriptor3 = [v26 descriptor];
       variableLengthSequences = [descriptor3 variableLengthSequences];
@@ -19171,7 +20296,7 @@ LABEL_153:
       isBidirectional = [v15 isBidirectional];
       sequenceLengths = 0;
       batchSizePerSequenceStep = 0;
-      v413 = isBidirectional;
+      v412 = isBidirectional;
       if (isBidirectional)
       {
         v30 = 2;
@@ -19182,8 +20307,8 @@ LABEL_153:
         v30 = 1;
       }
 
-      v412 = v30;
-      LODWORD(v441) = variableLengthSequences;
+      v411 = v30;
+      LODWORD(v440) = variableLengthSequences;
       if (variableLengthSequences)
       {
         v31 = [tensorsCopy objectAtIndexedSubscript:0];
@@ -19236,9 +20361,9 @@ LABEL_153:
           +[MLCGPUHelper didModifyRange:buffer:](MLCGPUHelper, "didModifyRange:buffer:", 0, [v45 length], v45);
         }
 
-        v49 = [v442 objectAtIndexedSubscript:0];
+        v49 = [v441 objectAtIndexedSubscript:0];
         deviceMemory = [v49 deviceMemory];
-        v51 = [deviceMemory objectAtIndexedSubscript:v439];
+        v51 = [deviceMemory objectAtIndexedSubscript:v438];
 
         bzero([v51 contents], objc_msgSend(v51, "length"));
         +[MLCGPUHelper didModifyRange:buffer:](MLCGPUHelper, "didModifyRange:buffer:", 0, [v51 length], v51);
@@ -19247,43 +20372,43 @@ LABEL_153:
       if ([v15 batchFirst] && v24 == 4)
       {
         rnnBuffers7 = [v15 rnnBuffers];
-        v414 = [rnnBuffers7 objectAtIndexedSubscript:0];
-        tensorsCopy = v420;
+        v413 = [rnnBuffers7 objectAtIndexedSubscript:0];
+        tensorsCopy = v419;
       }
 
       else
       {
-        tensorsCopy = v420;
-        rnnBuffers7 = [v420 objectAtIndexedSubscript:0];
+        tensorsCopy = v419;
+        rnnBuffers7 = [v419 objectAtIndexedSubscript:0];
         deviceMemory2 = [rnnBuffers7 deviceMemory];
-        v414 = [deviceMemory2 objectAtIndexedSubscript:v439];
+        v413 = [deviceMemory2 objectAtIndexedSubscript:v438];
       }
 
-      v54 = v442;
+      v54 = v441;
 
       v55 = returnsSequences ^ 1;
-      v403 = returnsSequences ^ 1;
+      v402 = returnsSequences ^ 1;
       if (v20 != 3)
       {
         v55 = 1;
       }
 
-      v408 = v55;
+      v407 = v55;
       if (v55 == 1)
       {
         rnnBuffers8 = [v15 rnnBuffers];
-        v433 = [rnnBuffers8 objectAtIndexedSubscript:1];
+        v432 = [rnnBuffers8 objectAtIndexedSubscript:1];
       }
 
       else
       {
         rnnBuffers8 = [v54 objectAtIndexedSubscript:0];
         deviceMemory3 = [rnnBuffers8 deviceMemory];
-        v433 = [deviceMemory3 objectAtIndexedSubscript:v439];
+        v432 = [deviceMemory3 objectAtIndexedSubscript:v438];
       }
 
       batchFirst = [v15 batchFirst];
-      v404 = v24;
+      v403 = v24;
       if (batchFirst && v24 == 4)
       {
         v59 = [tensorsCopy objectAtIndexedSubscript:0];
@@ -19299,17 +20424,17 @@ LABEL_153:
         v67 = [shape4 objectAtIndexedSubscript:3];
         unsignedIntegerValue2 = [v67 unsignedIntegerValue];
 
-        v69 = [v442 objectAtIndexedSubscript:0];
+        v69 = [v441 objectAtIndexedSubscript:0];
         descriptor9 = [v69 descriptor];
         shape5 = [descriptor9 shape];
         v72 = [shape5 objectAtIndexedSubscript:1];
         unsignedIntegerValue3 = [v72 unsignedIntegerValue];
-        v425 = unsignedIntegerValue3;
+        v424 = unsignedIntegerValue3;
 
-        v74 = unsignedIntegerValue3 >> v413;
+        v74 = unsignedIntegerValue3 >> v412;
         deviceList = [(MLCDeviceGPU *)selfCopy deviceList];
-        v76 = v439;
-        v77 = [deviceList objectAtIndexedSubscript:v439];
+        v76 = v438;
+        v77 = [deviceList objectAtIndexedSubscript:v438];
         v78 = [v62 objectAtIndexedSubscript:0];
         deviceMemory4 = [v78 deviceMemory];
         v80 = [deviceMemory4 objectAtIndexedSubscript:v76];
@@ -19317,10 +20442,10 @@ LABEL_153:
         unsignedIntegerValue5 = unsignedIntegerValue;
         unsignedIntegerValue4 = unsignedIntegerValue2;
         v83 = unsignedIntegerValue2;
-        v84 = v414;
-        copyNC1TtoNTCMTLBuffer(v438, v77, batchSize, unsignedIntegerValue, v83, v80, v414);
+        v84 = v413;
+        copyNC1TtoNTCMTLBuffer(v437, v77, batchSize, unsignedIntegerValue, v83, v80, v413);
 
-        v85 = v425;
+        v85 = v424;
       }
 
       else
@@ -19330,10 +20455,10 @@ LABEL_153:
           v397 = +[MLCLog framework];
           if (os_log_type_enabled(v397, OS_LOG_TYPE_ERROR))
           {
-            [MLCDeviceGPU(MLCEngineDispatch) dispatchRNNForwardLayer:v444 sourceTensors:v400[0] resultTensors:v445 resultStateIsTemporary:v397 forTraining:?];
+            [MLCDeviceGPU(MLCEngineDispatch) dispatchRNNForwardLayer:v443 sourceTensors:v399[0] resultTensors:v444 resultStateIsTemporary:v397 forTraining:?];
           }
 
-          resultTensorsCopy = v442;
+          resultTensorsCopy = v441;
           goto LABEL_146;
         }
 
@@ -19349,29 +20474,29 @@ LABEL_153:
         v93 = [shape7 objectAtIndexedSubscript:2];
         unsignedIntegerValue5 = [v93 unsignedIntegerValue];
 
-        v94 = [v442 objectAtIndexedSubscript:0];
+        v94 = [v441 objectAtIndexedSubscript:0];
         descriptor12 = [v94 descriptor];
         shape8 = [descriptor12 shape];
         v97 = [shape8 objectAtIndexedSubscript:2];
         unsignedIntegerValue6 = [v97 unsignedIntegerValue];
 
         v85 = unsignedIntegerValue6;
-        v74 = unsignedIntegerValue6 >> v413;
+        v74 = unsignedIntegerValue6 >> v412;
         v81 = batchSize;
-        v84 = v414;
+        v84 = v413;
       }
 
       v99 = unsignedIntegerValue4;
       v100 = batchSizePerSequenceStep;
       v101 = createMatrices(unsignedIntegerValue4, v81, unsignedIntegerValue5, unsignedIntegerValue5, batchSizePerSequenceStep, 0, v84);
-      v411 = v74;
-      v418 = createMatrices(v99, v81, v85, v74, v100, 0, v433);
-      v406 = v400;
-      MEMORY[0x28223BE20](v418);
-      v402 = v102;
-      v103 = MEMORY[0x28223BE20](v400 - ((v102 + 15) & 0xFFFFFFFFFFFFFFF0));
-      v430 = v400 - v104;
-      v105 = v442;
+      v410 = v74;
+      v417 = createMatrices(v99, v81, v85, v74, v100, 0, v432);
+      v405 = v399;
+      MEMORY[0x28223BE20](v417);
+      v401 = v102;
+      v103 = MEMORY[0x28223BE20](v399 - ((v102 + 15) & 0xFFFFFFFFFFFFFFF0));
+      v429 = v399 - v104;
+      v105 = v441;
       if (v99)
       {
         v106 = 0;
@@ -19379,7 +20504,7 @@ LABEL_153:
         v108 = vdupq_n_s64(v99 - 1);
         v109 = v103 + 8;
         v110 = v107;
-        v111 = v405;
+        v111 = v404;
         do
         {
           v112 = vmovn_s64(vcgeq_u64(v108, v111));
@@ -19401,8 +20526,8 @@ LABEL_153:
 
         while (v110);
         v113 = 0;
-        v114 = v430 + 8;
-        v115 = v405;
+        v114 = v429 + 8;
+        v115 = v404;
         do
         {
           v116 = vmovn_s64(vcgeq_u64(v108, v115));
@@ -19427,44 +20552,34 @@ LABEL_153:
 
       v325 = v103;
       unsignedIntegerValue = unsignedIntegerValue5;
-      v425 = v85;
+      v424 = v85;
       gradientKernel = [v15 gradientKernel];
-      v437 = [gradientKernel count];
+      v436 = [gradientKernel count];
       v118 = MEMORY[0x277CBEBF8];
       v119 = [MEMORY[0x277CBEBF8] mutableCopy];
       v120 = [v118 mutableCopy];
       rnnStackedLayersResults = [v15 rnnStackedLayersResults];
-      v434 = v15;
+      v433 = v15;
       v122 = gradientKernel;
-      v427 = gradientKernel;
-      if (!rnnStackedLayersResults)
+      v426 = gradientKernel;
+      if (rnnStackedLayersResults && (v123 = rnnStackedLayersResults, [v15 rnnStackedLayersResults], v124 = objc_claimAutoreleasedReturnValue(), v125 = objc_msgSend(v124, "count") == 0, v126 = v125 | v440, v124, v123, (v126 & 1) == 0))
       {
-        goto LABEL_48;
-      }
-
-      v123 = rnnStackedLayersResults;
-      rnnStackedLayersResults2 = [v15 rnnStackedLayersResults];
-      v125 = [rnnStackedLayersResults2 count] == 0;
-      v126 = v125 | v441;
-
-      if ((v126 & 1) == 0)
-      {
-        rnnStackedLayersResults3 = [v15 rnnStackedLayersResults];
-        v147 = [rnnStackedLayersResults3 count];
+        rnnStackedLayersResults2 = [v15 rnnStackedLayersResults];
+        v147 = [rnnStackedLayersResults2 count];
 
         if (v147)
         {
-          rnnStackedLayersResults4 = [v15 rnnStackedLayersResults];
+          rnnStackedLayersResults3 = [v15 rnnStackedLayersResults];
 
           rnnStackedLayersBufferResults = [v15 rnnStackedLayersBufferResults];
 
-          v424 = rnnStackedLayersBufferResults;
-          v119 = rnnStackedLayersResults4;
+          v423 = rnnStackedLayersBufferResults;
+          v119 = rnnStackedLayersResults3;
         }
 
         else
         {
-          v424 = v120;
+          v423 = v120;
         }
 
         resultTensorsCopy = v105;
@@ -19473,19 +20588,18 @@ LABEL_153:
 
       else
       {
-LABEL_48:
-        v436 = v101;
+        v435 = v101;
         v127 = [v122 count];
-        v128 = v127 - v412;
+        v128 = v127 - v411;
         v129 = selfCopy;
-        v130 = v439;
+        v130 = v438;
         v131 = 0x278A68000uLL;
         v132 = v119;
         v133 = v105;
-        v424 = v120;
-        if (v127 - v412 >= 1)
+        v423 = v120;
+        if (v127 - v411 >= 1)
         {
-          v441 = 4 * batchSize * v425 * unsignedIntegerValue4;
+          v440 = 4 * batchSize * v424 * unsignedIntegerValue4;
           do
           {
             v134 = v129;
@@ -19493,17 +20607,17 @@ LABEL_48:
             v136 = v135 = v132;
             v137 = [v136 objectAtIndexedSubscript:v130];
             mtlResourceOptions = [*(v131 + 2936) mtlResourceOptions];
-            v139 = [v137 newBufferWithLength:v441 options:mtlResourceOptions];
+            v139 = [v137 newBufferWithLength:v440 options:mtlResourceOptions];
 
             v140 = [v133 objectAtIndexedSubscript:0];
             descriptor13 = [v140 descriptor];
             [descriptor13 batchSizePerSequenceStep];
             v143 = v142 = v133;
-            v144 = createMatrices(unsignedIntegerValue4, batchSize, v425, v425, v143, 0, v139);
+            v144 = createMatrices(unsignedIntegerValue4, batchSize, v424, v424, v143, 0, v139);
 
             v133 = v142;
             v132 = v135;
-            v120 = v424;
+            v120 = v423;
             [v132 addObject:v144];
             [v120 addObject:v139];
 
@@ -19515,16 +20629,16 @@ LABEL_48:
           while (v128);
         }
 
-        v15 = v434;
-        [v434 setRnnStackedLayersResults:v132];
+        v15 = v433;
+        [v433 setRnnStackedLayersResults:v132];
         [v15 setRnnStackedLayersBufferResults:v120];
-        v145 = v427;
+        v145 = v426;
         v119 = v132;
         resultTensorsCopy = v133;
-        v101 = v436;
+        v101 = v435;
       }
 
-      v419 = v119;
+      v418 = v119;
       lstmDropoutSource = [v15 lstmDropoutSource];
       [lstmDropoutSource removeAllObjects];
 
@@ -19552,61 +20666,61 @@ LABEL_48:
         while (v155 < v159);
       }
 
-      v410 = v152;
+      v409 = v152;
       v160 = v152;
-      v431 = v437 >> v413;
-      if (v437 >> v413)
+      v430 = v436 >> v412;
+      if (v436 >> v412)
       {
-        v435 = 0;
+        v434 = 0;
         v161 = 0;
         v162 = 0;
-        v423 = 4 * batchSize * v411;
-        v163 = v431;
-        v160 = v410;
+        v422 = 4 * batchSize * v410;
+        v163 = v430;
+        v160 = v409;
         do
         {
-          v441 = v160;
+          v440 = v160;
           if (v163 == 1)
           {
-            v164 = v418;
+            v164 = v417;
           }
 
           else
           {
-            v164 = [v419 objectAtIndexedSubscript:v162];
+            v164 = [v418 objectAtIndexedSubscript:v162];
           }
 
-          v437 = v164;
+          v436 = v164;
 
-          if (v426)
+          if (v425)
           {
             v165 = [v145 objectAtIndexedSubscript:v162];
-            v166 = v438;
-            v167 = [v165 temporaryRecurrentStateForCommandBuffer:v438 batchSize:batchSize forGradientPass:0];
+            v166 = v437;
+            v167 = [v165 temporaryRecurrentStateForCommandBuffer:v437 batchSize:batchSize forGradientPass:0];
 
             v168 = [v167 getRecurrentOutputMatrixForLayerIndex:0];
             data = [v168 data];
 
-            v436 = v167;
+            v435 = v167;
             v170 = [v167 getMemoryCellMatrixForLayerIndex:0];
             data2 = [v170 data];
 
             blitCommandEncoder = [v166 blitCommandEncoder];
-            v172 = v420;
-            v173 = [v420 objectAtIndexedSubscript:1];
+            v172 = v419;
+            v173 = [v419 objectAtIndexedSubscript:1];
             deviceMemory5 = [v173 deviceMemory];
-            v175 = v439;
-            v176 = [deviceMemory5 objectAtIndexedSubscript:v439];
+            v175 = v438;
+            v176 = [deviceMemory5 objectAtIndexedSubscript:v438];
             data6 = data;
             v177 = [data length];
             v178 = v163;
-            v179 = v435;
-            [blitCommandEncoder copyFromBuffer:v176 sourceOffset:v435 toBuffer:data destinationOffset:0 size:v177];
+            v179 = v434;
+            [blitCommandEncoder copyFromBuffer:v176 sourceOffset:v434 toBuffer:data destinationOffset:0 size:v177];
 
-            v145 = v427;
+            v145 = v426;
             v180 = [v172 objectAtIndexedSubscript:2];
             deviceMemory6 = [v180 deviceMemory];
-            v182 = v438;
+            v182 = v437;
             v183 = [deviceMemory6 objectAtIndexedSubscript:v175];
             v184 = data2;
             v185 = [data2 length];
@@ -19620,14 +20734,14 @@ LABEL_48:
             [v188 setRecurrentOutputIsTemporary:1];
 
             v189 = [MEMORY[0x277CBEBF8] mutableCopy];
-            v15 = v434;
+            v15 = v433;
           }
 
           else
           {
-            v436 = 0;
+            v435 = 0;
             v189 = 0;
-            v182 = v438;
+            v182 = v437;
           }
 
           v190 = [v145 objectAtIndexedSubscript:v162];
@@ -19640,11 +20754,11 @@ LABEL_48:
           v195 = v194 = v145;
           data6 = v162;
           v196 = [v195 objectAtIndexedSubscript:v162];
-          [v191 encodeForwardSequenceToCommandBuffer:v182 sourceMatrices:v441 sourceOffsets:v325 destinationMatrices:v437 destinationOffsets:v430 trainingStates:v193 recurrentInputState:v436 recurrentOutputStates:v189 weights:v196];
+          [v191 encodeForwardSequenceToCommandBuffer:v182 sourceMatrices:v440 sourceOffsets:v325 destinationMatrices:v436 destinationOffsets:v429 trainingStates:v193 recurrentInputState:v435 recurrentOutputStates:v189 weights:v196];
 
           v145 = v194;
-          resultTensorsCopy = v442;
-          if ([v442 count] == 3 && v189 && objc_msgSend(v189, "count"))
+          resultTensorsCopy = v441;
+          if ([v441 count] == 3 && v189 && objc_msgSend(v189, "count"))
           {
             v197 = [v189 objectAtIndexedSubscript:0];
             v198 = [v197 getRecurrentOutputMatrixForLayerIndex:0];
@@ -19654,17 +20768,17 @@ LABEL_48:
             v201 = [v200 getMemoryCellMatrixForLayerIndex:0];
             data4 = [v201 data];
 
-            blitCommandEncoder2 = [v438 blitCommandEncoder];
-            v204 = [v442 objectAtIndexedSubscript:1];
+            blitCommandEncoder2 = [v437 blitCommandEncoder];
+            v204 = [v441 objectAtIndexedSubscript:1];
             deviceMemory7 = [v204 deviceMemory];
-            v206 = v439;
-            v207 = [deviceMemory7 objectAtIndexedSubscript:v439];
+            v206 = v438;
+            v207 = [deviceMemory7 objectAtIndexedSubscript:v438];
             v208 = [data3 length];
             v209 = v163;
-            v210 = v435;
-            [blitCommandEncoder2 copyFromBuffer:data3 sourceOffset:0 toBuffer:v207 destinationOffset:v435 size:v208];
+            v210 = v434;
+            [blitCommandEncoder2 copyFromBuffer:data3 sourceOffset:0 toBuffer:v207 destinationOffset:v434 size:v208];
 
-            v211 = [v442 objectAtIndexedSubscript:2];
+            v211 = [v441 objectAtIndexedSubscript:2];
             deviceMemory8 = [v211 deviceMemory];
             v213 = [deviceMemory8 objectAtIndexedSubscript:v206];
             v214 = [data4 length];
@@ -19675,66 +20789,66 @@ LABEL_48:
             [blitCommandEncoder2 endEncoding];
             [v189 removeAllObjects];
 
-            v145 = v427;
-            resultTensorsCopy = v442;
+            v145 = v426;
+            resultTensorsCopy = v441;
           }
 
-          v15 = v434;
+          v15 = v433;
           v216 = data6;
-          if (v431 != 1 && v163 != 1)
+          if (v430 != 1 && v163 != 1)
           {
-            [v434 lstmDropout];
+            [v433 lstmDropout];
             if (v217 > 0.0 && ([v15 isBidirectional] & 1) == 0)
             {
-              v218 = [MEMORY[0x277CD7220] imageDescriptorWithChannelFormat:4 width:1 height:v425 featureChannels:unsignedIntegerValue4];
+              v218 = [MEMORY[0x277CD7220] imageDescriptorWithChannelFormat:4 width:1 height:v424 featureChannels:unsignedIntegerValue4];
               v325 = v218;
               defaultAllocator = [MEMORY[0x277CD72A8] defaultAllocator];
               data2 = defaultAllocator;
               v220 = selfCopy;
               gpuWriteTensorKernelList = [(MLCDeviceGPU *)selfCopy gpuWriteTensorKernelList];
-              v222 = v439;
-              v223 = [gpuWriteTensorKernelList objectAtIndexedSubscript:v439];
+              v222 = v438;
+              v223 = [gpuWriteTensorKernelList objectAtIndexedSubscript:v438];
               batchSize2 = [v15 batchSize];
-              v225 = [defaultAllocator imageBatchForCommandBuffer:v438 imageDescriptor:v218 kernel:v223 count:batchSize2];
+              v225 = [defaultAllocator imageBatchForCommandBuffer:v437 imageDescriptor:v218 kernel:v223 count:batchSize2];
 
               MPSImageBatchIncrementReadCount(v225, 1);
               gpuWriteTensorKernelList2 = [(MLCDeviceGPU *)v220 gpuWriteTensorKernelList];
               v227 = [gpuWriteTensorKernelList2 objectAtIndexedSubscript:v222];
-              v228 = [v424 objectAtIndexedSubscript:v216];
-              [MLCGPUHelper copyMTLBufferToMPSImageBatch:v227 commandBuffer:v438 sourceMTLBuffer:v228 destinationImageBatch:v225 MLCDataType:1];
+              v228 = [v423 objectAtIndexedSubscript:v216];
+              [MLCGPUHelper copyMTLBufferToMPSImageBatch:v227 commandBuffer:v437 sourceMTLBuffer:v228 destinationImageBatch:v225 MLCDataType:1];
 
-              lstmDropoutForwardKernel = [v434 lstmDropoutForwardKernel];
+              lstmDropoutForwardKernel = [v433 lstmDropoutForwardKernel];
               v230 = [lstmDropoutForwardKernel objectAtIndexedSubscript:v216];
 
               defaultAllocator2 = [MEMORY[0x277CD72A8] defaultAllocator];
-              v416 = v230;
+              v415 = v230;
               [v230 setDestinationImageAllocator:defaultAllocator2];
 
-              v443 = 0;
-              v232 = [v230 encodeBatchToCommandBuffer:v438 sourceImages:v225 destinationStates:&v443 destinationStateIsTemporary:1];
-              v233 = v443;
-              lstmDropoutSource2 = [v434 lstmDropoutSource];
+              v442 = 0;
+              v232 = [v230 encodeBatchToCommandBuffer:v437 sourceImages:v225 destinationStates:&v442 destinationStateIsTemporary:1];
+              v233 = v442;
+              lstmDropoutSource2 = [v433 lstmDropoutSource];
               [lstmDropoutSource2 addObject:v225];
 
-              lstmDropoutState2 = [v434 lstmDropoutState];
+              lstmDropoutState2 = [v433 lstmDropoutState];
               [lstmDropoutState2 addObject:v233];
 
               gpuReadTensorKernelList = [(MLCDeviceGPU *)selfCopy gpuReadTensorKernelList];
               v237 = [gpuReadTensorKernelList objectAtIndexedSubscript:v222];
-              v238 = [v424 objectAtIndexedSubscript:v216];
-              [MLCGPUHelper copyMPSImageBatchToMTLBuffer:v237 commandBuffer:v438 sourceImageBatch:v232 destinationMTLBuffer:v238 MLCDataType:1];
+              v238 = [v423 objectAtIndexedSubscript:v216];
+              [MLCGPUHelper copyMPSImageBatchToMTLBuffer:v237 commandBuffer:v437 sourceImageBatch:v232 destinationMTLBuffer:v238 MLCDataType:1];
 
-              v15 = v434;
-              v145 = v427;
-              resultTensorsCopy = v442;
+              v15 = v433;
+              v145 = v426;
+              resultTensorsCopy = v441;
             }
           }
 
-          v160 = v437;
+          v160 = v436;
 
           v162 = (v216 + 1);
-          v435 += v423;
-          v325 = v430;
+          v434 += v422;
+          v325 = v429;
           v161 = v160;
           --v163;
         }
@@ -19744,31 +20858,31 @@ LABEL_48:
 
       v239 = v145;
       isBidirectional2 = [v15 isBidirectional];
-      tensorsCopy = v420;
-      v241 = v425;
-      v416 = v160;
+      tensorsCopy = v419;
+      v241 = v424;
+      v415 = v160;
       if (isBidirectional2)
       {
         v242 = unsignedIntegerValue4;
         v243 = batchSize;
         v244 = unsignedIntegerValue;
         v245 = batchSizePerSequenceStep;
-        v246 = createMatrices(unsignedIntegerValue4, batchSize, unsignedIntegerValue, unsignedIntegerValue, batchSizePerSequenceStep, 1, v414);
+        v246 = createMatrices(unsignedIntegerValue4, batchSize, unsignedIntegerValue, unsignedIntegerValue, batchSizePerSequenceStep, 1, v413);
         v247 = v243;
-        v248 = v411;
-        data2 = createMatrices(v242, v247, v241, v411, v245, 1, v433);
-        v400[1] = v400;
+        v248 = v410;
+        data2 = createMatrices(v242, v247, v241, v410, v245, 1, v432);
+        v399[1] = v399;
         v249 = MEMORY[0x28223BE20](v242);
-        v251 = v400 - ((v250 + 15) & 0xFFFFFFFFFFFFFFF0);
+        v251 = v399 - ((v250 + 15) & 0xFFFFFFFFFFFFFFF0);
         v252 = MEMORY[0x28223BE20](v249);
-        v254 = v400 - v253;
+        v254 = v399 - v253;
         if (v252)
         {
           v255 = 0;
           v256 = (v252 + 1) & 0xFFFFFFFFFFFFFFFELL;
           v257 = vdupq_n_s64(v252 - 1);
           v258 = 4 * v244 * (v252 - 1);
-          v259 = v405;
+          v259 = v404;
           do
           {
             v260 = vmovn_s64(vcgeq_u64(v257, v259));
@@ -19790,7 +20904,7 @@ LABEL_48:
           while (v256 != v255);
           v261 = 0;
           v262 = 4 * v241 * (v252 - 1) + 4 * v248;
-          v263 = v405;
+          v263 = v404;
           do
           {
             v264 = vmovn_s64(vcgeq_u64(v257, v263));
@@ -19815,21 +20929,21 @@ LABEL_48:
         v265 = v246;
         v266 = v265;
         v267 = v265;
-        resultTensorsCopy = v442;
-        v239 = v427;
-        v268 = v431;
-        if (v431)
+        resultTensorsCopy = v441;
+        v239 = v426;
+        v268 = v430;
+        if (v430)
         {
           v267 = 0;
-          v269 = (4 * batchSize * v411);
+          v269 = (4 * batchSize * v410);
           v325 = v269;
-          v270 = v431;
-          v441 = v265;
-          v423 = v254;
-          v430 = v265;
+          v270 = v430;
+          v440 = v265;
+          v422 = v254;
+          v429 = v265;
           do
           {
-            v431 = v268;
+            v430 = v268;
             if (v268 == 1)
             {
               v271 = data2;
@@ -19837,45 +20951,45 @@ LABEL_48:
 
             else
             {
-              v271 = [v419 objectAtIndexedSubscript:v270 - 1];
+              v271 = [v418 objectAtIndexedSubscript:v270 - 1];
             }
 
-            v437 = v271;
-            v435 = v251;
+            v436 = v271;
+            v434 = v251;
 
-            if (v426)
+            if (v425)
             {
               v272 = [v239 objectAtIndexedSubscript:v270];
-              v273 = v438;
-              v274 = [v272 temporaryRecurrentStateForCommandBuffer:v438 batchSize:batchSize forGradientPass:0];
+              v273 = v437;
+              v274 = [v272 temporaryRecurrentStateForCommandBuffer:v437 batchSize:batchSize forGradientPass:0];
 
               v275 = [v274 getRecurrentOutputMatrixForLayerIndex:0];
               data5 = [v275 data];
-              v436 = v269;
+              v435 = v269;
               v277 = data5;
 
               v278 = [v274 getMemoryCellMatrixForLayerIndex:0];
               data6 = [v278 data];
 
               blitCommandEncoder3 = [v273 blitCommandEncoder];
-              v280 = v420;
-              v281 = [v420 objectAtIndexedSubscript:1];
+              v280 = v419;
+              v281 = [v419 objectAtIndexedSubscript:1];
               deviceMemory9 = [v281 deviceMemory];
-              v283 = v439;
-              v284 = [deviceMemory9 objectAtIndexedSubscript:v439];
+              v283 = v438;
+              v284 = [deviceMemory9 objectAtIndexedSubscript:v438];
               v285 = v277;
-              v269 = v436;
-              [blitCommandEncoder3 copyFromBuffer:v284 sourceOffset:v436 toBuffer:v285 destinationOffset:0 size:{objc_msgSend(v285, "length")}];
+              v269 = v435;
+              [blitCommandEncoder3 copyFromBuffer:v284 sourceOffset:v435 toBuffer:v285 destinationOffset:0 size:{objc_msgSend(v285, "length")}];
 
               v286 = v280;
-              v254 = v423;
+              v254 = v422;
               v287 = [v286 objectAtIndexedSubscript:2];
               deviceMemory10 = [v287 deviceMemory];
               v289 = [deviceMemory10 objectAtIndexedSubscript:v283];
               v290 = data6;
               [blitCommandEncoder3 copyFromBuffer:v289 sourceOffset:v269 toBuffer:data6 destinationOffset:0 size:{objc_msgSend(data6, "length")}];
 
-              v239 = v427;
+              v239 = v426;
               [blitCommandEncoder3 endEncoding];
               v291 = [v239 objectAtIndexedSubscript:v270];
               [v291 setRecurrentOutputIsTemporary:1];
@@ -19890,18 +21004,18 @@ LABEL_48:
             }
 
             v293 = [v239 objectAtIndexedSubscript:v270];
-            v294 = v434;
-            rnnTrainableStates5 = [v434 rnnTrainableStates];
+            v294 = v433;
+            rnnTrainableStates5 = [v433 rnnTrainableStates];
             v296 = [rnnTrainableStates5 objectAtIndexedSubscript:v270];
             rnnTrainableWeights = [v294 rnnTrainableWeights];
             v298 = [rnnTrainableWeights objectAtIndexedSubscript:v270];
-            v436 = v274;
-            v399 = v274;
-            v299 = v437;
-            [v293 encodeForwardSequenceToCommandBuffer:v438 sourceMatrices:v441 sourceOffsets:v435 destinationMatrices:v437 destinationOffsets:v254 trainingStates:v296 recurrentInputState:v399 recurrentOutputStates:v292 weights:v298];
+            v435 = v274;
+            v398 = v274;
+            v299 = v436;
+            [v293 encodeForwardSequenceToCommandBuffer:v437 sourceMatrices:v440 sourceOffsets:v434 destinationMatrices:v436 destinationOffsets:v254 trainingStates:v296 recurrentInputState:v398 recurrentOutputStates:v292 weights:v298];
 
-            resultTensorsCopy = v442;
-            if ([v442 count] == 3 && v292 && objc_msgSend(v292, "count"))
+            resultTensorsCopy = v441;
+            if ([v441 count] == 3 && v292 && objc_msgSend(v292, "count"))
             {
               v300 = [v292 objectAtIndexedSubscript:0];
               v301 = [v300 getRecurrentOutputMatrixForLayerIndex:0];
@@ -19911,47 +21025,47 @@ LABEL_48:
               v304 = [v303 getMemoryCellMatrixForLayerIndex:0];
               data8 = [v304 data];
 
-              blitCommandEncoder4 = [v438 blitCommandEncoder];
-              v307 = [v442 objectAtIndexedSubscript:1];
+              blitCommandEncoder4 = [v437 blitCommandEncoder];
+              v307 = [v441 objectAtIndexedSubscript:1];
               deviceMemory11 = [v307 deviceMemory];
-              v309 = v439;
-              v310 = [deviceMemory11 objectAtIndexedSubscript:v439];
+              v309 = v438;
+              v310 = [deviceMemory11 objectAtIndexedSubscript:v438];
               [blitCommandEncoder4 copyFromBuffer:data7 sourceOffset:0 toBuffer:v310 destinationOffset:v269 size:{objc_msgSend(data7, "length")}];
 
-              v311 = [v442 objectAtIndexedSubscript:2];
+              v311 = [v441 objectAtIndexedSubscript:2];
               deviceMemory12 = [v311 deviceMemory];
               v313 = v309;
-              v254 = v423;
+              v254 = v422;
               v314 = [deviceMemory12 objectAtIndexedSubscript:v313];
               [blitCommandEncoder4 copyFromBuffer:data8 sourceOffset:0 toBuffer:v314 destinationOffset:v269 size:{objc_msgSend(data8, "length")}];
 
-              v315 = v442;
+              v315 = v441;
               [blitCommandEncoder4 endEncoding];
               [v292 removeAllObjects];
 
               resultTensorsCopy = v315;
-              v299 = v437;
+              v299 = v436;
             }
 
             v267 = v299;
 
             ++v270;
-            v266 = v430;
+            v266 = v429;
             v269 += v325;
             v251 = v254;
-            v441 = v267;
-            v268 = v431 - 1;
-            v239 = v427;
+            v440 = v267;
+            v268 = v430 - 1;
+            v239 = v426;
           }
 
-          while (v431 != 1);
+          while (v430 != 1);
 
-          tensorsCopy = v420;
-          v15 = v434;
-          v241 = v425;
+          tensorsCopy = v419;
+          v15 = v433;
+          v241 = v424;
         }
 
-        v160 = v416;
+        v160 = v415;
       }
 
       v316 = [tensorsCopy objectAtIndexedSubscript:0];
@@ -19962,8 +21076,8 @@ LABEL_48:
 
       v318 = objc_autoreleasePoolPush();
       self = selfCopy;
-      v319 = v408;
-      if (v408)
+      v319 = v407;
+      if (v407)
       {
         break;
       }
@@ -19973,7 +21087,7 @@ LABEL_140:
 
       if (v319)
       {
-        v14 = v439 + 1;
+        v14 = v438 + 1;
         if (v14 < [(MLCDeviceGPU *)self numDevicesToUse])
         {
           continue;
@@ -19983,9 +21097,9 @@ LABEL_140:
       goto LABEL_146;
     }
 
-    if (v404 == 4)
+    if (v403 == 4)
     {
-      v320 = v403;
+      v320 = v402;
     }
 
     else
@@ -20005,7 +21119,7 @@ LABEL_140:
       {
         if (sequenceLengths)
         {
-          v322 = v403;
+          v322 = v402;
         }
 
         else
@@ -20018,14 +21132,14 @@ LABEL_140:
           goto LABEL_140;
         }
 
-        v426 = v318;
+        v425 = v318;
         v323 = v241;
         v324 = selfCopy;
-        v325 = v413;
+        v325 = v412;
         v326 = objc_alloc(MEMORY[0x277CD75C0]);
         deviceList2 = [(MLCDeviceGPU *)v324 deviceList];
-        v328 = v439;
-        v329 = [deviceList2 objectAtIndexedSubscript:v439];
+        v328 = v438;
+        v329 = [deviceList2 objectAtIndexedSubscript:v438];
         v330 = batchSize;
         v325 = [v326 initWithDevice:v329 count:batchSize << v325];
 
@@ -20034,41 +21148,41 @@ LABEL_140:
         v333 = v328;
         deviceList3 = [(MLCDeviceGPU *)v332 deviceList];
         v335 = [deviceList3 objectAtIndexedSubscript:v328];
-        v336 = v411;
-        v423 = [v331 initWithDevice:v335 copyRows:1 copyColumns:v411 sourcesAreTransposed:0 destinationsAreTransposed:0];
+        v336 = v410;
+        v422 = [v331 initWithDevice:v335 copyRows:1 copyColumns:v410 sourcesAreTransposed:0 destinationsAreTransposed:0];
 
         v337 = unsignedIntegerValue4;
-        v437 = [MEMORY[0x277CD7258] matrixDescriptorWithRows:unsignedIntegerValue4 columns:v323 rowBytes:4 * v323 dataType:268435488];
-        v436 = [MEMORY[0x277CD7258] matrixDescriptorWithRows:1 columns:v323 rowBytes:4 * v323 dataType:268435488];
+        v436 = [MEMORY[0x277CD7258] matrixDescriptorWithRows:unsignedIntegerValue4 columns:v323 rowBytes:4 * v323 dataType:268435488];
+        v435 = [MEMORY[0x277CD7258] matrixDescriptorWithRows:1 columns:v323 rowBytes:4 * v323 dataType:268435488];
         if (v330)
         {
-          v435 = 0;
+          v434 = 0;
           LODWORD(v338) = 0;
           v339 = v336 << 32;
           data6 = 4 * v337;
           do
           {
-            v340 = v435;
-            v430 = (4 * v435 * v425);
-            v431 = data6 * v435 * v425;
+            v340 = v434;
+            v429 = (4 * v434 * v424);
+            v430 = data6 * v434 * v424;
             v341 = 1;
-            v342 = v412;
+            v342 = v411;
             do
             {
-              v343 = [sequenceLengths objectAtIndexedSubscript:v435];
+              v343 = [sequenceLengths objectAtIndexedSubscript:v434];
               unsignedIntegerValue7 = [v343 unsignedIntegerValue];
 
-              v441 = (unsignedIntegerValue7 - 1);
+              v440 = (unsignedIntegerValue7 - 1);
               v345 = v338;
               v346 = objc_alloc(MEMORY[0x277CD7250]);
-              v347 = [v346 initWithBuffer:v433 offset:v431 descriptor:v437];
+              v347 = [v346 initWithBuffer:v432 offset:v430 descriptor:v436];
               v348 = objc_alloc(MEMORY[0x277CD7250]);
-              v349 = [v442 objectAtIndexedSubscript:0];
+              v349 = [v441 objectAtIndexedSubscript:0];
               deviceMemory13 = [v349 deviceMemory];
               v351 = [deviceMemory13 objectAtIndexedSubscript:v333];
-              v352 = [v348 initWithBuffer:v351 offset:v430 descriptor:v436];
+              v352 = [v348 initWithBuffer:v351 offset:v429 descriptor:v435];
 
-              v333 = v439;
+              v333 = v438;
               if (v341)
               {
                 v353 = 0;
@@ -20083,7 +21197,7 @@ LABEL_140:
               v354 = batchSize;
               if (v341)
               {
-                v355 = v441;
+                v355 = v440;
               }
 
               else
@@ -20099,72 +21213,72 @@ LABEL_140:
             }
 
             while (v342);
-            ++v435;
+            ++v434;
           }
 
-          while (v435 != v354);
+          while (v434 != v354);
         }
 
-        v356 = v423;
+        v356 = v422;
         v357 = v325;
-        [v423 encodeToCommandBuffer:v438 copyDescriptor:v325];
-        tensorsCopy = v420;
-        resultTensorsCopy = v442;
+        [v422 encodeToCommandBuffer:v437 copyDescriptor:v325];
+        tensorsCopy = v419;
+        resultTensorsCopy = v441;
         self = selfCopy;
-        v15 = v434;
-        v319 = v408;
-        v239 = v427;
-        v160 = v416;
+        v15 = v433;
+        v319 = v407;
+        v239 = v426;
+        v160 = v415;
         goto LABEL_139;
       }
 
-      v426 = v318;
+      v425 = v318;
       v378 = objc_alloc(MEMORY[0x277CD75C0]);
       deviceList4 = [(MLCDeviceGPU *)self deviceList];
-      v380 = v439;
-      v381 = [deviceList4 objectAtIndexedSubscript:v439];
-      v382 = [v378 initWithDevice:v381 count:v412];
+      v380 = v438;
+      v381 = [deviceList4 objectAtIndexedSubscript:v438];
+      v382 = [v378 initWithDevice:v381 count:v411];
 
       v383 = objc_alloc(MEMORY[0x277CD75B8]);
       deviceList5 = [(MLCDeviceGPU *)self deviceList];
       v385 = [deviceList5 objectAtIndexedSubscript:v380];
       v386 = batchSize;
-      v423 = [v383 initWithDevice:v385 copyRows:batchSize copyColumns:v411 sourcesAreTransposed:0 destinationsAreTransposed:0];
+      v422 = [v383 initWithDevice:v385 copyRows:batchSize copyColumns:v410 sourcesAreTransposed:0 destinationsAreTransposed:0];
 
       v387 = ((unsignedIntegerValue4 - 1) * v241);
       v388 = [MEMORY[0x277CD7258] matrixDescriptorWithRows:v386 columns:unsignedIntegerValue4 * v241 rowBytes:4 * unsignedIntegerValue4 * v241 dataType:268435488];
       v389 = [MEMORY[0x277CD7258] matrixDescriptorWithRows:v386 columns:v241 rowBytes:4 * v241 dataType:268435488];
       v390 = objc_alloc(MEMORY[0x277CD7250]);
-      v437 = v388;
-      v391 = [v390 initWithBuffer:v433 offset:0 descriptor:v388];
+      v436 = v388;
+      v391 = [v390 initWithBuffer:v432 offset:0 descriptor:v388];
       v392 = objc_alloc(MEMORY[0x277CD7250]);
-      v393 = [v442 objectAtIndexedSubscript:0];
+      v393 = [v441 objectAtIndexedSubscript:0];
       deviceMemory14 = [v393 deviceMemory];
       v395 = [deviceMemory14 objectAtIndexedSubscript:v380];
-      v436 = v389;
+      v435 = v389;
       v396 = [v392 initWithBuffer:v395 offset:0 descriptor:v389];
 
       v357 = v382;
       [v382 setCopyOperationAtIndex:0 sourceMatrix:v391 destinationMatrix:v396 offsets:{v387 << 32, 0}];
       if ([v15 isBidirectional])
       {
-        [v382 setCopyOperationAtIndex:1 sourceMatrix:v391 destinationMatrix:v396 offsets:{v411 << 32, v411 << 32}];
+        [v382 setCopyOperationAtIndex:1 sourceMatrix:v391 destinationMatrix:v396 offsets:{v410 << 32, v410 << 32}];
       }
 
-      v356 = v423;
-      [v423 encodeToCommandBuffer:v438 copyDescriptor:v382];
+      v356 = v422;
+      [v422 encodeToCommandBuffer:v437 copyDescriptor:v382];
 
-      resultTensorsCopy = v442;
+      resultTensorsCopy = v441;
       self = selfCopy;
     }
 
     else
     {
-      v426 = v318;
+      v425 = v318;
       v358 = objc_alloc(MEMORY[0x277CD75C0]);
       deviceList6 = [(MLCDeviceGPU *)self deviceList];
-      v360 = v439;
-      v361 = [deviceList6 objectAtIndexedSubscript:v439];
+      v360 = v438;
+      v361 = [deviceList6 objectAtIndexedSubscript:v438];
       v362 = batchSize;
       v357 = [v358 initWithDevice:v361 count:batchSize];
 
@@ -20172,63 +21286,61 @@ LABEL_140:
       deviceList7 = [(MLCDeviceGPU *)self deviceList];
       v365 = [deviceList7 objectAtIndexedSubscript:v360];
       v366 = unsignedIntegerValue4;
-      v423 = [v363 initWithDevice:v365 copyRows:unsignedIntegerValue4 copyColumns:v241 sourcesAreTransposed:0 destinationsAreTransposed:1];
+      v422 = [v363 initWithDevice:v365 copyRows:unsignedIntegerValue4 copyColumns:v241 sourcesAreTransposed:0 destinationsAreTransposed:1];
 
       v367 = [MEMORY[0x277CD7258] matrixDescriptorWithRows:v366 columns:v241 rowBytes:4 * v241 dataType:268435488];
-      v436 = [MEMORY[0x277CD7258] matrixDescriptorWithRows:v241 columns:v366 rowBytes:4 * v366 dataType:268435488];
-      v437 = v367;
-      v368 = v433;
+      v435 = [MEMORY[0x277CD7258] matrixDescriptorWithRows:v241 columns:v366 rowBytes:4 * v366 dataType:268435488];
+      v436 = v367;
+      v368 = v432;
       if (v362)
       {
         v369 = 0;
         v370 = 0;
-        v441 = 4 * v366 * v241;
+        v440 = 4 * v366 * v241;
         do
         {
           v371 = [objc_alloc(MEMORY[0x277CD7250]) initWithBuffer:v368 offset:v369 descriptor:v367];
           v372 = objc_alloc(MEMORY[0x277CD7250]);
-          v373 = [v442 objectAtIndexedSubscript:0];
+          v373 = [v441 objectAtIndexedSubscript:0];
           [v373 deviceMemory];
           v375 = v374 = v357;
-          v376 = [v375 objectAtIndexedSubscript:v439];
-          v377 = [v372 initWithBuffer:v376 offset:v369 descriptor:v436];
+          v376 = [v375 objectAtIndexedSubscript:v438];
+          v377 = [v372 initWithBuffer:v376 offset:v369 descriptor:v435];
 
           v357 = v374;
           [v374 setCopyOperationAtIndex:v370 sourceMatrix:v371 destinationMatrix:v377 offsets:{0, 0}];
 
-          v367 = v437;
+          v367 = v436;
           ++v370;
-          v369 += v441;
+          v369 += v440;
         }
 
         while (batchSize != v370);
       }
 
-      v356 = v423;
-      [v423 encodeToCommandBuffer:v438 copyDescriptor:v357];
-      resultTensorsCopy = v442;
+      v356 = v422;
+      [v422 encodeToCommandBuffer:v437 copyDescriptor:v357];
+      resultTensorsCopy = v441;
       self = selfCopy;
-      v15 = v434;
+      v15 = v433;
     }
 
-    v319 = v408;
-    v239 = v427;
-    v160 = v416;
-    tensorsCopy = v420;
+    v319 = v407;
+    v239 = v426;
+    v160 = v415;
+    tensorsCopy = v419;
 LABEL_139:
 
-    v318 = v426;
+    v318 = v425;
     goto LABEL_140;
   }
 
 LABEL_146:
-
-  v398 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dispatchRNNGradientLayer:(id)layer sourceGradientTensors:(id)tensors resultGradientTensors:(id)gradientTensors
 {
-  v341[2] = *MEMORY[0x277D85DE8];
+  v340[2] = *MEMORY[0x277D85DE8];
   layerCopy = layer;
   tensorsCopy = tensors;
   gradientTensorsCopy = gradientTensors;
@@ -20238,14 +21350,14 @@ LABEL_146:
   if ([(MLCDeviceGPU *)self numDevicesToUse])
   {
     v10 = 0;
-    v305 = xmmword_238D45D60;
+    v304 = xmmword_238D45D60;
     selfCopy = self;
-    v302 = gradientTensorsCopy;
+    v301 = gradientTensorsCopy;
     while (1)
     {
       v11 = [layerCopy objectAtIndexedSubscript:v10];
       gpuCommandBufferList = [(MLCDeviceGPU *)self gpuCommandBufferList];
-      v328 = [gpuCommandBufferList objectAtIndexedSubscript:v10];
+      v327 = [gpuCommandBufferList objectAtIndexedSubscript:v10];
 
       returnsSequences = [v11 returnsSequences];
       source = [v11 source];
@@ -20254,11 +21366,11 @@ LABEL_146:
 
       descriptor2 = [source descriptor];
       shape = [descriptor2 shape];
-      v308 = [shape count];
+      v307 = [shape count];
 
       descriptor3 = [source descriptor];
       shape2 = [descriptor3 shape];
-      v307 = [shape2 count];
+      v306 = [shape2 count];
 
       isBidirectional = [v11 isBidirectional];
       v22 = 1;
@@ -20289,19 +21401,19 @@ LABEL_146:
       v26 = [rnnBuffers objectAtIndexedSubscript:0];
 
       rnnBuffers2 = [v11 rnnBuffers];
-      v337 = [rnnBuffers2 objectAtIndexedSubscript:2];
+      v336 = [rnnBuffers2 objectAtIndexedSubscript:2];
 
       rnnBuffers3 = [v11 rnnBuffers];
       v29 = [rnnBuffers3 objectAtIndexedSubscript:3];
 
-      if ([v11 batchFirst] && v308 == 3)
+      if ([v11 batchFirst] && v307 == 3)
       {
         deviceMemory = [source deviceMemory];
-        v310 = [deviceMemory objectAtIndexedSubscript:v10];
+        v309 = [deviceMemory objectAtIndexedSubscript:v10];
 
-        v31 = [v302 objectAtIndexedSubscript:0];
+        v31 = [v301 objectAtIndexedSubscript:0];
         deviceMemory2 = [v31 deviceMemory];
-        v312 = [deviceMemory2 objectAtIndexedSubscript:v10];
+        v311 = [deviceMemory2 objectAtIndexedSubscript:v10];
 
         if (returnsSequences)
         {
@@ -20309,14 +21421,14 @@ LABEL_146:
           deviceMemory3 = [v33 deviceMemory];
           v35 = [deviceMemory3 objectAtIndexedSubscript:v10];
 
-          v337 = v35;
+          v336 = v35;
         }
       }
 
       else
       {
-        v312 = v29;
-        v310 = v26;
+        v311 = v29;
+        v309 = v26;
       }
 
       descriptor6 = [source descriptor];
@@ -20324,14 +21436,14 @@ LABEL_146:
 
       if (variableLengthSequences2)
       {
-        v38 = v312;
-        bzero([v312 contents], objc_msgSend(v312, "length"));
+        v38 = v311;
+        bzero([v311 contents], objc_msgSend(v311, "length"));
         +[MLCGPUHelper didModifyRange:buffer:](MLCGPUHelper, "didModifyRange:buffer:", 0, [v38 length], v38);
       }
 
-      if ([v11 batchFirst] && v307 == 4)
+      if ([v11 batchFirst] && v306 == 4)
       {
-        LODWORD(v338) = returnsSequences;
+        LODWORD(v337) = returnsSequences;
         v39 = variableLengthSequences;
         descriptor7 = [source descriptor];
         shape3 = [descriptor7 shape];
@@ -20347,16 +21459,16 @@ LABEL_146:
 
       else
       {
-        if (![v11 batchFirst] || v308 != 3)
+        if (![v11 batchFirst] || v307 != 3)
         {
           unsignedIntegerValue = 0;
-          v309 = 0;
+          v308 = 0;
           unsignedIntegerValue3 = 0;
           unsignedIntegerValue2 = 1;
           goto LABEL_22;
         }
 
-        LODWORD(v338) = returnsSequences;
+        LODWORD(v337) = returnsSequences;
         v39 = variableLengthSequences;
         descriptor9 = [source descriptor];
         shape5 = [descriptor9 shape];
@@ -20376,22 +21488,22 @@ LABEL_146:
       v50 = [shape6 objectAtIndexedSubscript:v46];
       unsignedIntegerValue3 = [v50 unsignedIntegerValue];
 
-      v309 = unsignedIntegerValue3 >> rnnTrainableWeightGradients2;
+      v308 = unsignedIntegerValue3 >> rnnTrainableWeightGradients2;
       variableLengthSequences = v39;
-      returnsSequences = v338;
+      returnsSequences = v337;
 LABEL_22:
       v52 = sequenceLengths;
       batchFirst = [v11 batchFirst];
-      v315 = unsignedIntegerValue3;
+      v314 = unsignedIntegerValue3;
       v54 = 4 * unsignedIntegerValue3;
-      v339 = v10;
-      v330 = v11;
-      v306 = source;
+      v338 = v10;
+      v329 = v11;
+      v305 = source;
       sequenceLengths = v52;
-      v329 = v54;
-      if (batchFirst && v307 == 4 && ((returnsSequences ^ 1) & 1) == 0)
+      v328 = v54;
+      if (batchFirst && v306 == 4 && ((returnsSequences ^ 1) & 1) == 0)
       {
-        v333 = objc_autoreleasePoolPush();
+        v332 = objc_autoreleasePoolPush();
         v55 = objc_alloc(MEMORY[0x277CD75C0]);
         deviceList = [(MLCDeviceGPU *)self deviceList];
         [deviceList objectAtIndexedSubscript:v10];
@@ -20404,18 +21516,18 @@ LABEL_22:
         deviceList2 = [(MLCDeviceGPU *)v57 deviceList];
         v64 = [deviceList2 objectAtIndexedSubscript:v59];
         v65 = unsignedIntegerValue2;
-        v66 = v315;
-        rnnTrainableWeightGradients2 = [v62 initWithDevice:v64 copyRows:unsignedIntegerValue2 copyColumns:v315 sourcesAreTransposed:1 destinationsAreTransposed:0];
+        v66 = v314;
+        rnnTrainableWeightGradients2 = [v62 initWithDevice:v64 copyRows:unsignedIntegerValue2 copyColumns:v314 sourcesAreTransposed:1 destinationsAreTransposed:0];
 
-        v338 = [MEMORY[0x277CD7258] matrixDescriptorWithRows:v66 columns:v65 rowBytes:4 * v65 dataType:268435488];
+        v337 = [MEMORY[0x277CD7258] matrixDescriptorWithRows:v66 columns:v65 rowBytes:4 * v65 dataType:268435488];
         v67 = [MEMORY[0x277CD7258] matrixDescriptorWithRows:v65 columns:v66 rowBytes:v54 dataType:268435488];
         v68 = tensorsCopy;
-        v69 = v337;
+        v69 = v336;
         if (v60)
         {
           v70 = 0;
           v71 = 0;
-          v334 = 4 * v315 * unsignedIntegerValue2;
+          v333 = 4 * v314 * unsignedIntegerValue2;
           do
           {
             v72 = objc_alloc(MEMORY[0x277CD7250]);
@@ -20423,8 +21535,8 @@ LABEL_22:
             v73 = v67;
             v75 = v74 = v61;
             deviceMemory4 = [v75 deviceMemory];
-            v77 = [deviceMemory4 objectAtIndexedSubscript:v339];
-            v78 = [v72 initWithBuffer:v77 offset:v70 descriptor:v338];
+            v77 = [deviceMemory4 objectAtIndexedSubscript:v338];
+            v78 = [v72 initWithBuffer:v77 offset:v70 descriptor:v337];
 
             v61 = v74;
             v67 = v73;
@@ -20432,19 +21544,19 @@ LABEL_22:
             [v61 setCopyOperationAtIndex:v71 sourceMatrix:v78 destinationMatrix:v79 offsets:{0, 0}];
 
             ++v71;
-            v70 += v334;
+            v70 += v333;
           }
 
           while (batchSize != v71);
         }
 
         v80 = rnnTrainableWeightGradients2;
-        [rnnTrainableWeightGradients2 encodeToCommandBuffer:v328 copyDescriptor:v61];
+        [rnnTrainableWeightGradients2 encodeToCommandBuffer:v327 copyDescriptor:v61];
 
-        objc_autoreleasePoolPop(v333);
+        objc_autoreleasePoolPop(v332);
 LABEL_47:
-        v54 = v329;
-        v11 = v330;
+        v54 = v328;
+        v11 = v329;
         goto LABEL_48;
       }
 
@@ -20460,15 +21572,15 @@ LABEL_47:
         v119 = [deviceList4 objectAtIndexedSubscript:v10];
         v120 = v117;
         v121 = batchSize;
-        v338 = [v120 initWithDevice:v119 copyRows:batchSize copyColumns:v309 sourcesAreTransposed:0 destinationsAreTransposed:0];
+        v337 = [v120 initWithDevice:v119 copyRows:batchSize copyColumns:v308 sourcesAreTransposed:0 destinationsAreTransposed:0];
 
-        v122 = v315;
-        v334 = (v315 * (unsignedIntegerValue2 - 1)) << 32;
-        v123 = [MEMORY[0x277CD7258] matrixDescriptorWithRows:v121 columns:unsignedIntegerValue2 * v315 rowBytes:4 * unsignedIntegerValue2 * v315 dataType:268435488];
+        v122 = v314;
+        v333 = (v314 * (unsignedIntegerValue2 - 1)) << 32;
+        v123 = [MEMORY[0x277CD7258] matrixDescriptorWithRows:v121 columns:unsignedIntegerValue2 * v314 rowBytes:4 * unsignedIntegerValue2 * v314 dataType:268435488];
         v124 = [MEMORY[0x277CD7258] matrixDescriptorWithRows:v121 columns:v122 rowBytes:v54 dataType:268435488];
         v125 = objc_alloc(MEMORY[0x277CD7250]);
         v126 = v11;
-        v127 = [v125 initWithBuffer:v337 offset:0 descriptor:v123];
+        v127 = [v125 initWithBuffer:v336 offset:0 descriptor:v123];
         v128 = v10;
         v129 = objc_alloc(MEMORY[0x277CD7250]);
         v130 = [tensorsCopy objectAtIndexedSubscript:0];
@@ -20476,14 +21588,14 @@ LABEL_47:
         v132 = [deviceMemory5 objectAtIndexedSubscript:v128];
         v133 = [v129 initWithBuffer:v132 offset:0 descriptor:v124];
 
-        [v116 setCopyOperationAtIndex:0 sourceMatrix:v133 destinationMatrix:v127 offsets:{0, v334}];
+        [v116 setCopyOperationAtIndex:0 sourceMatrix:v133 destinationMatrix:v127 offsets:{0, v333}];
         if ([v126 isBidirectional])
         {
-          [v116 setCopyOperationAtIndex:1 sourceMatrix:v133 destinationMatrix:v127 offsets:{v309 << 32, v309 << 32}];
+          [v116 setCopyOperationAtIndex:1 sourceMatrix:v133 destinationMatrix:v127 offsets:{v308 << 32, v308 << 32}];
         }
 
-        v134 = v338;
-        [v338 encodeToCommandBuffer:v328 copyDescriptor:v116];
+        v134 = v337;
+        [v337 encodeToCommandBuffer:v327 copyDescriptor:v116];
 
         goto LABEL_47;
       }
@@ -20491,7 +21603,7 @@ LABEL_47:
       v81 = returnsSequences | ~[v11 batchFirst];
       v82 = unsignedIntegerValue;
       v83 = unsignedIntegerValue2;
-      v84 = v315;
+      v84 = v314;
       if (v81 & 1) != 0 || ((variableLengthSequences ^ 1))
       {
         goto LABEL_49;
@@ -20507,38 +21619,38 @@ LABEL_47:
       v89 = objc_alloc(MEMORY[0x277CD75B8]);
       deviceList6 = [(MLCDeviceGPU *)self deviceList];
       v91 = [deviceList6 objectAtIndexedSubscript:v10];
-      v322 = [v89 initWithDevice:v91 copyRows:1 copyColumns:v309 sourcesAreTransposed:0 destinationsAreTransposed:0];
+      v321 = [v89 initWithDevice:v91 copyRows:1 copyColumns:v308 sourcesAreTransposed:0 destinationsAreTransposed:0];
 
-      v331 = [MEMORY[0x277CD7258] matrixDescriptorWithRows:1 columns:v84 rowBytes:v54 dataType:268435488];
+      v330 = [MEMORY[0x277CD7258] matrixDescriptorWithRows:1 columns:v84 rowBytes:v54 dataType:268435488];
       v92 = [MEMORY[0x277CD7258] matrixDescriptorWithRows:v83 columns:v84 rowBytes:v54 dataType:268435488];
       if (v88)
       {
-        v338 = 0;
-        v93 = v309 << 32;
-        rnnTrainableStates2 = 4 * unsignedIntegerValue2 * v315;
+        v337 = 0;
+        v93 = v308 << 32;
+        rnnTrainableStates2 = 4 * unsignedIntegerValue2 * v314;
         do
         {
-          v94 = v54 * v338;
+          v94 = v54 * v337;
           v95 = 1;
-          v96 = v338;
+          v96 = v337;
           v97 = gradientKernel;
-          v333 = rnnTrainableStates2 * v338;
-          v334 = v94;
+          v332 = rnnTrainableStates2 * v337;
+          v333 = v94;
           do
           {
-            v98 = [sequenceLengths objectAtIndexedSubscript:v338];
+            v98 = [sequenceLengths objectAtIndexedSubscript:v337];
             unsignedIntegerValue4 = [v98 unsignedIntegerValue];
 
             v100 = (unsignedIntegerValue4 - 1);
             v101 = objc_alloc(MEMORY[0x277CD7250]);
             v102 = [tensorsCopy objectAtIndexedSubscript:0];
             deviceMemory6 = [v102 deviceMemory];
-            v104 = [deviceMemory6 objectAtIndexedSubscript:v339];
-            v105 = [v101 initWithBuffer:v104 offset:v334 descriptor:v331];
+            v104 = [deviceMemory6 objectAtIndexedSubscript:v338];
+            v105 = [v101 initWithBuffer:v104 offset:v333 descriptor:v330];
 
             v106 = batchSize;
             v107 = objc_alloc(MEMORY[0x277CD7250]);
-            v108 = [v107 initWithBuffer:v337 offset:v333 descriptor:v92];
+            v108 = [v107 initWithBuffer:v336 offset:v332 descriptor:v92];
             if (v95)
             {
               v109 = v100;
@@ -20567,44 +21679,44 @@ LABEL_47:
           }
 
           while (v97);
-          ++v338;
-          v54 = v329;
+          ++v337;
+          v54 = v328;
         }
 
-        while (v338 != v106);
+        while (v337 != v106);
       }
 
-      v111 = v322;
+      v111 = v321;
       v112 = rnnTrainableWeightGradients2;
-      [v322 encodeToCommandBuffer:v328 copyDescriptor:rnnTrainableWeightGradients2];
+      [v321 encodeToCommandBuffer:v327 copyDescriptor:rnnTrainableWeightGradients2];
 
       objc_autoreleasePoolPop(rnnStackedLayersResults);
-      v11 = v330;
+      v11 = v329;
 LABEL_48:
       v82 = unsignedIntegerValue;
       v83 = unsignedIntegerValue2;
-      v84 = v315;
+      v84 = v314;
 LABEL_49:
       v135 = batchSize;
       v136 = batchSizePerSequenceStep;
-      v318 = createMatrices(v83, batchSize, v82, v82, batchSizePerSequenceStep, 0, v310);
-      v338 = createMatrices(v83, v135, v84, v309, v136, 0, v337);
-      v317 = createMatrices(v83, v135, v82, v82, v136, 0, v312);
-      v304 = &v299;
-      v137 = MEMORY[0x28223BE20](v317);
-      v316 = &v299 - ((v138 + 15) & 0xFFFFFFFFFFFFFFF0);
-      v301 = v138;
+      v317 = createMatrices(v83, batchSize, v82, v82, batchSizePerSequenceStep, 0, v309);
+      v337 = createMatrices(v83, v135, v84, v308, v136, 0, v336);
+      v316 = createMatrices(v83, v135, v82, v82, v136, 0, v311);
+      v303 = &v298;
+      v137 = MEMORY[0x28223BE20](v316);
+      v315 = &v298 - ((v138 + 15) & 0xFFFFFFFFFFFFFFF0);
+      v300 = v138;
       MEMORY[0x28223BE20](v137);
-      rnnTrainableStates2 = &v299 - v139;
+      rnnTrainableStates2 = &v298 - v139;
       v140 = tensorsCopy;
       if (v83)
       {
         v141 = 0;
         v142 = (v83 + 1) & 0xFFFFFFFFFFFFFFFELL;
         v143 = vdupq_n_s64(v83 - 1);
-        v144 = v316 + 8;
+        v144 = v315 + 8;
         v145 = v142;
-        v146 = v305;
+        v146 = v304;
         do
         {
           v147 = vmovn_s64(vcgeq_u64(v143, v146));
@@ -20627,7 +21739,7 @@ LABEL_49:
         while (v145);
         v148 = 0;
         v149 = (rnnTrainableStates2 + 8);
-        v150 = v305;
+        v150 = v304;
         do
         {
           v151 = vmovn_s64(vcgeq_u64(v143, v150));
@@ -20653,12 +21765,12 @@ LABEL_49:
       gradientKernel = [v11 gradientKernel];
       v152 = [gradientKernel count];
       v153 = v152 >> rnnTrainableWeightGradients2;
-      v329 = [MEMORY[0x277CBEBF8] mutableCopy];
+      v328 = [MEMORY[0x277CBEBF8] mutableCopy];
       v154 = v84;
       rnnTrainableWeightGradients2 = v153;
       v155 = (v153 - 1);
       v156 = (v153 - 1);
-      v157 = v328;
+      v157 = v327;
       if (v153 != 1)
       {
         do
@@ -20666,7 +21778,7 @@ LABEL_49:
           v158 = [v140 objectAtIndexedSubscript:0];
           v159 = createTemporaryMatrixViews(v158, v157, 1, v83, v135, v154);
 
-          [v329 addObject:v159];
+          [v328 addObject:v159];
           --v156;
         }
 
@@ -20674,17 +21786,17 @@ LABEL_49:
       }
 
       rnnStackedLayersResults = [v11 rnnStackedLayersResults];
-      v160 = v338;
+      v160 = v337;
       isBidirectional2 = [v11 isBidirectional];
-      v322 = MEMORY[0x277CBEBF8];
+      v321 = MEMORY[0x277CBEBF8];
       if (isBidirectional2)
       {
         rnnBuffers4 = [v11 rnnBuffers];
         v163 = [rnnBuffers4 objectAtIndexedSubscript:4];
-        v322 = createMatrices(v83, v135, unsignedIntegerValue, unsignedIntegerValue, batchSizePerSequenceStep, 0, v163);
+        v321 = createMatrices(v83, v135, unsignedIntegerValue, unsignedIntegerValue, batchSizePerSequenceStep, 0, v163);
       }
 
-      v303 = v160;
+      v302 = v160;
       if (rnnTrainableWeightGradients2)
       {
         v164 = 0;
@@ -20692,29 +21804,29 @@ LABEL_49:
         v166 = rnnTrainableStates2;
         do
         {
-          v338 = v160;
-          v331 = v166;
+          v337 = v160;
+          v330 = v166;
           if (v155)
           {
             v167 = [rnnStackedLayersResults objectAtIndexedSubscript:v155 - 1];
 
-            v334 = [v329 objectAtIndexedSubscript:v155 - 1];
+            v333 = [v328 objectAtIndexedSubscript:v155 - 1];
             v168 = rnnTrainableStates2;
           }
 
           else
           {
-            v167 = v318;
+            v167 = v317;
 
             isBidirectional3 = [v11 isBidirectional];
-            v170 = v317;
+            v170 = v316;
             if (isBidirectional3)
             {
-              v170 = v322;
+              v170 = v321;
             }
 
-            v334 = v170;
-            v168 = v316;
+            v333 = v170;
+            v168 = v315;
           }
 
           v171 = [gradientKernel objectAtIndexedSubscript:v155];
@@ -20724,16 +21836,16 @@ LABEL_49:
           v175 = [rnnTrainableStates objectAtIndexedSubscript:v155];
           rnnTrainableWeights = [v11 rnnTrainableWeights];
           v177 = [rnnTrainableWeights objectAtIndexedSubscript:v155];
-          v297 = v168;
+          v296 = v168;
           rnnTrainableWeightGradients2 = v168;
-          v333 = v167;
+          v332 = v167;
           v178 = v167;
           v179 = v168;
-          v180 = v338;
-          v181 = v334;
-          [v171 encodeGradientSequenceToCommandBuffer:v328 forwardSources:v178 forwardSourceOffsets:v179 sourceGradients:v338 sourceGradientOffsets:v331 destinationGradients:v334 destinationOffsets:v297 weightGradients:v173 trainingStates:v175 recurrentInputState:0 recurrentOutputStates:0 weights:v177];
+          v180 = v337;
+          v181 = v333;
+          [v171 encodeGradientSequenceToCommandBuffer:v327 forwardSources:v178 forwardSourceOffsets:v179 sourceGradients:v337 sourceGradientOffsets:v330 destinationGradients:v333 destinationOffsets:v296 weightGradients:v173 trainingStates:v175 recurrentInputState:0 recurrentOutputStates:0 weights:v177];
 
-          v11 = v330;
+          v11 = v329;
           if (rnnTrainableWeightGradients2 != 1)
           {
             if (v155)
@@ -20742,35 +21854,35 @@ LABEL_49:
               if (v182 > 0.0)
               {
                 rnnStackedLayersBufferResults = [v11 rnnStackedLayersBufferResults];
-                v331 = [rnnStackedLayersBufferResults objectAtIndexedSubscript:v155 - 1];
+                v330 = [rnnStackedLayersBufferResults objectAtIndexedSubscript:v155 - 1];
 
-                v184 = [MEMORY[0x277CD7220] imageDescriptorWithChannelFormat:4 width:1 height:v315 featureChannels:unsignedIntegerValue2];
-                v321 = v184;
+                v184 = [MEMORY[0x277CD7220] imageDescriptorWithChannelFormat:4 width:1 height:v314 featureChannels:unsignedIntegerValue2];
+                v320 = v184;
                 defaultAllocator = [MEMORY[0x277CD72A8] defaultAllocator];
-                v320 = defaultAllocator;
+                v319 = defaultAllocator;
                 v186 = selfCopy;
                 gpuWriteTensorKernelList = [(MLCDeviceGPU *)selfCopy gpuWriteTensorKernelList];
-                v188 = v339;
-                v189 = [gpuWriteTensorKernelList objectAtIndexedSubscript:v339];
+                v188 = v338;
+                v189 = [gpuWriteTensorKernelList objectAtIndexedSubscript:v338];
                 batchSize2 = [v11 batchSize];
                 v191 = defaultAllocator;
-                v192 = v328;
-                v193 = [v191 imageBatchForCommandBuffer:v328 imageDescriptor:v184 kernel:v189 count:batchSize2];
+                v192 = v327;
+                v193 = [v191 imageBatchForCommandBuffer:v327 imageDescriptor:v184 kernel:v189 count:batchSize2];
 
                 gpuWriteTensorKernelList2 = [(MLCDeviceGPU *)v186 gpuWriteTensorKernelList];
                 v195 = [gpuWriteTensorKernelList2 objectAtIndexedSubscript:v188];
-                [MLCGPUHelper copyMTLBufferToMPSImageBatch:v195 commandBuffer:v192 sourceMTLBuffer:v331 destinationImageBatch:v193 MLCDataType:1];
+                [MLCGPUHelper copyMTLBufferToMPSImageBatch:v195 commandBuffer:v192 sourceMTLBuffer:v330 destinationImageBatch:v193 MLCDataType:1];
 
-                batchSize3 = [v330 batchSize];
-                lstmDropoutSource = [v330 lstmDropoutSource];
+                batchSize3 = [v329 batchSize];
+                lstmDropoutSource = [v329 lstmDropoutSource];
                 v198 = [lstmDropoutSource objectAtIndexedSubscript:v155 - 1];
                 v199 = [v198 subarrayWithRange:{0, batchSize3}];
-                v319 = v199;
+                v318 = v199;
 
-                lstmDropoutState = [v330 lstmDropoutState];
+                lstmDropoutState = [v329 lstmDropoutState];
                 v201 = [lstmDropoutState objectAtIndexedSubscript:v155 - 1];
 
-                lstmDropoutGradientKernel = [v330 lstmDropoutGradientKernel];
+                lstmDropoutGradientKernel = [v329 lstmDropoutGradientKernel];
                 v203 = [lstmDropoutGradientKernel objectAtIndexedSubscript:v155 - 1];
 
                 defaultAllocator2 = [MEMORY[0x277CD72A8] defaultAllocator];
@@ -20779,12 +21891,12 @@ LABEL_49:
                 v205 = [v203 encodeBatchToCommandBuffer:v192 sourceGradients:v193 sourceImages:v199 gradientStates:v201];
                 gpuReadTensorKernelList = [(MLCDeviceGPU *)v186 gpuReadTensorKernelList];
                 v207 = [gpuReadTensorKernelList objectAtIndexedSubscript:v188];
-                v11 = v330;
-                v208 = v331;
-                [MLCGPUHelper copyMPSImageBatchToMTLBuffer:v207 commandBuffer:v192 sourceImageBatch:v205 destinationMTLBuffer:v331 MLCDataType:1];
+                v11 = v329;
+                v208 = v330;
+                [MLCGPUHelper copyMPSImageBatchToMTLBuffer:v207 commandBuffer:v192 sourceImageBatch:v205 destinationMTLBuffer:v330 MLCDataType:1];
 
-                v180 = v338;
-                v181 = v334;
+                v180 = v337;
+                v181 = v333;
               }
             }
           }
@@ -20796,7 +21908,7 @@ LABEL_49:
           v160 = v164;
           v83 = unsignedIntegerValue2;
           v166 = rnnTrainableWeightGradients2;
-          v165 = v333;
+          v165 = v332;
         }
 
         while (v155 != -1);
@@ -20810,28 +21922,28 @@ LABEL_49:
       }
 
       isBidirectional4 = [v11 isBidirectional];
-      v211 = v339;
-      v212 = v306;
+      v211 = v338;
+      v212 = v305;
       if (isBidirectional4)
       {
-        v333 = v165;
+        v332 = v165;
         v213 = batchSize;
         v214 = unsignedIntegerValue;
         v215 = batchSizePerSequenceStep;
-        v338 = createMatrices(v83, batchSize, unsignedIntegerValue, unsignedIntegerValue, batchSizePerSequenceStep, 1, v310);
-        v216 = v315;
-        v334 = createMatrices(v83, v213, v315, v309, v215, 1, v337);
+        v337 = createMatrices(v83, batchSize, unsignedIntegerValue, unsignedIntegerValue, batchSizePerSequenceStep, 1, v309);
+        v216 = v314;
+        v333 = createMatrices(v83, v213, v314, v308, v215, 1, v336);
         rnnBuffers5 = [v11 rnnBuffers];
         v218 = [rnnBuffers5 objectAtIndexedSubscript:5];
         rnnTrainableWeightGradients2 = createMatrices(v83, v213, v214, v214, v215, 1, v218);
 
-        v331 = &v299;
+        v330 = &v298;
         v220 = MEMORY[0x28223BE20](v219);
-        v222 = &v299 - ((v221 + 15) & 0xFFFFFFFFFFFFFFF0);
+        v222 = &v298 - ((v221 + 15) & 0xFFFFFFFFFFFFFFF0);
         v223 = MEMORY[0x28223BE20](v220);
-        v225 = &v299 - v224;
+        v225 = &v298 - v224;
         MEMORY[0x28223BE20](v223);
-        v227 = &v299 - v226;
+        v227 = &v298 - v226;
         if (v83)
         {
           v228 = 0;
@@ -20841,8 +21953,8 @@ LABEL_49:
           v232 = 4 * v214 * (v83 - 1);
           v233 = 8 * v214;
           v234 = v232;
-          v235 = v305;
-          v236 = v309;
+          v235 = v304;
+          v236 = v308;
           do
           {
             v237 = vmovn_s64(vcgeq_u64(v231, v235));
@@ -20864,7 +21976,7 @@ LABEL_49:
           while (v230 != v228);
           v238 = 0;
           v239 = 4 * v216 * (v83 - 1) + 4 * v236;
-          v240 = v305;
+          v240 = v304;
           do
           {
             v241 = vmovn_s64(vcgeq_u64(v231, v240));
@@ -20885,7 +21997,7 @@ LABEL_49:
 
           while (v230 != v238);
           v242 = 0;
-          v243 = v305;
+          v243 = v304;
           do
           {
             v244 = vmovn_s64(vcgeq_u64(v231, v243));
@@ -20907,58 +22019,58 @@ LABEL_49:
           while (v230 != v242);
         }
 
-        v321 = [gradientKernel objectAtIndexedSubscript:1];
-        v245 = v330;
-        rnnTrainableWeightGradients2 = [v330 rnnTrainableWeightGradients];
+        v320 = [gradientKernel objectAtIndexedSubscript:1];
+        v245 = v329;
+        rnnTrainableWeightGradients2 = [v329 rnnTrainableWeightGradients];
         v246 = [rnnTrainableWeightGradients2 objectAtIndexedSubscript:1];
         rnnTrainableStates2 = [v245 rnnTrainableStates];
         v247 = [rnnTrainableStates2 objectAtIndexedSubscript:1];
         rnnTrainableWeights2 = [v245 rnnTrainableWeights];
         v249 = [rnnTrainableWeights2 objectAtIndexedSubscript:1];
-        v298 = v227;
-        v250 = v321;
+        v297 = v227;
+        v250 = v320;
         v251 = v225;
         v252 = v245;
-        [v321 encodeGradientSequenceToCommandBuffer:v328 forwardSources:v338 forwardSourceOffsets:v222 sourceGradients:v334 sourceGradientOffsets:v251 destinationGradients:rnnTrainableWeightGradients2 destinationOffsets:v298 weightGradients:v246 trainingStates:v247 recurrentInputState:0 recurrentOutputStates:0 weights:v249];
+        [v320 encodeGradientSequenceToCommandBuffer:v327 forwardSources:v337 forwardSourceOffsets:v222 sourceGradients:v333 sourceGradientOffsets:v251 destinationGradients:rnnTrainableWeightGradients2 destinationOffsets:v297 weightGradients:v246 trainingStates:v247 recurrentInputState:0 recurrentOutputStates:0 weights:v249];
 
         biDirectionalGradientResult = [v245 biDirectionalGradientResult];
         if ([v245 batchFirst])
         {
           v83 = unsignedIntegerValue2;
-          if (v308 == 3)
+          if (v307 == 3)
           {
             v254 = [MEMORY[0x277CD7258] matrixDescriptorWithRows:batchSize columns:unsignedIntegerValue2 * unsignedIntegerValue rowBytes:4 * unsignedIntegerValue2 * unsignedIntegerValue dataType:268435488];
             v255 = objc_alloc(MEMORY[0x277CD7250]);
-            v256 = [v255 initWithBuffer:v312 descriptor:v254];
+            v256 = [v255 initWithBuffer:v311 descriptor:v254];
 
             biDirectionalGradientResult = v256;
           }
 
-          v211 = v339;
-          v212 = v306;
+          v211 = v338;
+          v212 = v305;
         }
 
         else
         {
-          v211 = v339;
-          v212 = v306;
+          v211 = v338;
+          v212 = v305;
           v83 = unsignedIntegerValue2;
         }
 
         biDirectionalSumKernel = [v252 biDirectionalSumKernel];
         forwardTimeGradientResult = [v252 forwardTimeGradientResult];
-        v341[0] = forwardTimeGradientResult;
+        v340[0] = forwardTimeGradientResult;
         reverseTimeGradientResult = [v252 reverseTimeGradientResult];
-        v341[1] = reverseTimeGradientResult;
-        v263 = [MEMORY[0x277CBEA60] arrayWithObjects:v341 count:2];
-        [biDirectionalSumKernel encodeToCommandBuffer:v328 sourceMatrices:v263 resultMatrix:biDirectionalGradientResult scaleVector:0 offsetVector:0 biasVector:0 startIndex:0];
+        v340[1] = reverseTimeGradientResult;
+        v263 = [MEMORY[0x277CBEA60] arrayWithObjects:v340 count:2];
+        [biDirectionalSumKernel encodeToCommandBuffer:v327 sourceMatrices:v263 resultMatrix:biDirectionalGradientResult scaleVector:0 offsetVector:0 biasVector:0 startIndex:0];
 
-        v11 = v330;
-        v165 = v333;
+        v11 = v329;
+        v165 = v332;
       }
 
       v264 = [v11 batchFirst] ^ 1;
-      if (v308 == 3)
+      if (v307 == 3)
       {
         LODWORD(v265) = v264;
       }
@@ -20968,19 +22080,19 @@ LABEL_49:
         LODWORD(v265) = 1;
       }
 
-      if (v265 == 1 && [v11 batchFirst] && v307 == 4)
+      if (v265 == 1 && [v11 batchFirst] && v306 == 4)
       {
-        v320 = v164;
-        v321 = v209;
+        v319 = v164;
+        v320 = v209;
         LODWORD(unsignedIntegerValue2) = 1;
-        v333 = v165;
+        v332 = v165;
         rnnTrainableWeightGradients2 = objc_autoreleasePoolPush();
         v266 = objc_alloc(MEMORY[0x277CD75C0]);
         v267 = selfCopy;
         deviceList7 = [(MLCDeviceGPU *)selfCopy deviceList];
         v269 = [deviceList7 objectAtIndexedSubscript:v211];
         v270 = batchSize;
-        v334 = [v266 initWithDevice:v269 count:batchSize];
+        v333 = [v266 initWithDevice:v269 count:batchSize];
 
         v271 = objc_alloc(MEMORY[0x277CD75B8]);
         deviceList8 = [(MLCDeviceGPU *)v267 deviceList];
@@ -20991,20 +22103,20 @@ LABEL_49:
 
         v276 = [MEMORY[0x277CD7258] matrixDescriptorWithRows:v83 columns:v275 rowBytes:4 * v275 dataType:268435488];
         rnnTrainableWeightGradients2 = [MEMORY[0x277CD7258] matrixDescriptorWithRows:v275 columns:v83 rowBytes:4 * v83 dataType:268435488];
-        v277 = v302;
+        v277 = v301;
         v278 = v211;
         v279 = 0x277CD7000uLL;
         if (v270)
         {
           v280 = 0;
           v281 = 0;
-          v331 = 4 * v83 * v275;
+          v330 = 4 * v83 * v275;
           do
           {
             v282 = objc_alloc(*(v279 + 592));
-            rnnBuffers6 = [v330 rnnBuffers];
+            rnnBuffers6 = [v329 rnnBuffers];
             v284 = [rnnBuffers6 objectAtIndexedSubscript:3];
-            v338 = [v282 initWithBuffer:v284 offset:v280 descriptor:v276];
+            v337 = [v282 initWithBuffer:v284 offset:v280 descriptor:v276];
 
             v285 = objc_alloc(*(v279 + 592));
             v286 = [v277 objectAtIndexedSubscript:0];
@@ -21021,32 +22133,32 @@ LABEL_49:
             v277 = v289;
             v279 = v288;
 
-            v294 = v338;
-            [v334 setCopyOperationAtIndex:v281 sourceMatrix:v338 destinationMatrix:v293 offsets:{0, 0}];
+            v294 = v337;
+            [v333 setCopyOperationAtIndex:v281 sourceMatrix:v337 destinationMatrix:v293 offsets:{0, 0}];
 
             ++v281;
-            v280 += v331;
+            v280 += v330;
           }
 
           while (batchSize != v281);
         }
 
         v295 = rnnTrainableStates2;
-        v265 = v334;
-        [rnnTrainableStates2 encodeToCommandBuffer:v328 copyDescriptor:v334];
+        v265 = v333;
+        [rnnTrainableStates2 encodeToCommandBuffer:v327 copyDescriptor:v333];
 
         objc_autoreleasePoolPop(rnnTrainableWeightGradients2);
         v211 = v278;
-        v11 = v330;
-        v212 = v306;
-        v165 = v333;
+        v11 = v329;
+        v212 = v305;
+        v165 = v332;
         LOBYTE(v265) = unsignedIntegerValue2;
-        v209 = v321;
-        v164 = v320;
+        v209 = v320;
+        v164 = v319;
       }
 
       self = selfCopy;
-      gradientTensorsCopy = v302;
+      gradientTensorsCopy = v301;
       if (v265)
       {
         v10 = v211 + 1;
@@ -21059,8 +22171,6 @@ LABEL_49:
       break;
     }
   }
-
-  v296 = *MEMORY[0x277D85DE8];
 }
 
 - (void)incrementReadCountForTensorDeviceMemory:(id)memory increment:(int64_t)increment
@@ -21553,7 +22663,7 @@ LABEL_15:
 
 - (void)updateConvolutionLayer:(id)layer optimizer:(id)optimizer weightsParameter:(id)parameter biasesParameter:(id)biasesParameter arrayOfParams:(id)params
 {
-  v80[2] = *MEMORY[0x277D85DE8];
+  v79[2] = *MEMORY[0x277D85DE8];
   layerCopy = layer;
   optimizerCopy = optimizer;
   parameterCopy = parameter;
@@ -21562,9 +22672,9 @@ LABEL_15:
   if ([(MLCDeviceGPU *)self numDevicesToUse])
   {
     v14 = 0;
-    v58 = layerCopy;
+    v57 = layerCopy;
     selfCopy = self;
-    v67 = biasesParameterCopy;
+    v66 = biasesParameterCopy;
     do
     {
       v15 = [layerCopy objectAtIndexedSubscript:v14];
@@ -21578,10 +22688,10 @@ LABEL_15:
           v19 = [gradientState objectAtIndexedSubscript:0];
 
           gradientForWeights = [v19 gradientForWeights];
-          v80[0] = gradientForWeights;
+          v79[0] = gradientForWeights;
           gradientForBiases = [v19 gradientForBiases];
-          v80[1] = gradientForBiases;
-          v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v80 count:2];
+          v79[1] = gradientForBiases;
+          v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v79 count:2];
         }
 
         [(MLCDeviceGPU *)self allReduceOverXGMI:layerCopy deviceIndex:v14 stateBuffers:v18];
@@ -21590,11 +22700,11 @@ LABEL_15:
       gpuCommandBufferList = [(MLCDeviceGPU *)self gpuCommandBufferList];
       v23 = [gpuCommandBufferList objectAtIndexedSubscript:v14];
 
-      v74 = v23;
+      v73 = v23;
       if ([v15 isMPSGraph])
       {
         v24 = 0;
-        v72 = 0;
+        v71 = 0;
       }
 
       else
@@ -21603,7 +22713,7 @@ LABEL_15:
         v24 = [forwardKernel exportWeightsAndBiasesWithCommandBuffer:v23 resultStateCanBeTemporary:0];
 
         gradientState2 = [v15 gradientState];
-        v72 = [gradientState2 objectAtIndexedSubscript:0];
+        v71 = [gradientState2 objectAtIndexedSubscript:0];
 
         [v15 setExportableState:v24];
       }
@@ -21611,7 +22721,7 @@ LABEL_15:
       momentumVectors = [v15 momentumVectors];
       velocityVectors = [v15 velocityVectors];
       centerWeightVectors = [v15 centerWeightVectors];
-      v73 = deviceParameterWithVectors(momentumVectors, velocityVectors, centerWeightVectors);
+      v72 = deviceParameterWithVectors(momentumVectors, velocityVectors, centerWeightVectors);
 
       if ([parameterCopy isUpdatable])
       {
@@ -21621,13 +22731,13 @@ LABEL_15:
         {
           exportableState = [v15 exportableState];
           weights = [exportableState objectAtIndexedSubscript:0];
-          v61 = weights;
+          v60 = weights;
         }
 
         else
         {
           weights = [v24 weights];
-          v65 = weights;
+          v64 = weights;
         }
 
         isMPSGraph3 = [v15 isMPSGraph];
@@ -21635,39 +22745,39 @@ LABEL_15:
         {
           gradientState3 = [v15 gradientState];
           gradientForWeights2 = [gradientState3 objectAtIndexedSubscript:0];
-          v62 = gradientForWeights2;
+          v61 = gradientForWeights2;
         }
 
         else
         {
-          gradientForWeights2 = [v72 gradientForWeights];
-          v66 = gradientForWeights2;
+          gradientForWeights2 = [v71 gradientForWeights];
+          v65 = gradientForWeights2;
         }
 
         if ([v15 isMPSGraph])
         {
           exportableState2 = [v15 exportableState];
           v36 = [exportableState2 objectAtIndexedSubscript:0];
-          [(MLCDeviceGPU *)selfCopy updateWithOptimizer:v30 arrayOfParams:paramsCopy commandBuffer:v74 deviceParameter:v73 source:weights gradient:gradientForWeights2 result:v36 momentumIndex:0];
+          [(MLCDeviceGPU *)selfCopy updateWithOptimizer:v30 arrayOfParams:paramsCopy commandBuffer:v73 deviceParameter:v72 source:weights gradient:gradientForWeights2 result:v36 momentumIndex:0];
 
-          layerCopy = v58;
+          layerCopy = v57;
         }
 
         else
         {
           exportableState2 = [v24 weights];
-          [(MLCDeviceGPU *)selfCopy updateWithOptimizer:v30 arrayOfParams:paramsCopy commandBuffer:v74 deviceParameter:v73 source:weights gradient:gradientForWeights2 result:exportableState2 momentumIndex:0];
+          [(MLCDeviceGPU *)selfCopy updateWithOptimizer:v30 arrayOfParams:paramsCopy commandBuffer:v73 deviceParameter:v72 source:weights gradient:gradientForWeights2 result:exportableState2 momentumIndex:0];
         }
 
-        v37 = v66;
+        v37 = v65;
         if (isMPSGraph3)
         {
 
           v37 = gradientState3;
         }
 
-        v38 = v65;
-        biasesParameterCopy = v67;
+        v38 = v64;
+        biasesParameterCopy = v66;
         if (isMPSGraph2)
         {
 
@@ -21685,13 +22795,13 @@ LABEL_15:
         {
           exportableState3 = [v15 exportableState];
           biases = [exportableState3 objectAtIndexedSubscript:1];
-          v54 = biases;
+          v53 = biases;
         }
 
         else
         {
           biases = [v24 biases];
-          v59 = biases;
+          v58 = biases;
         }
 
         isMPSGraph5 = [v15 isMPSGraph];
@@ -21699,39 +22809,39 @@ LABEL_15:
         {
           gradientState4 = [v15 gradientState];
           gradientForBiases2 = [gradientState4 objectAtIndexedSubscript:1];
-          v55 = gradientForBiases2;
+          v54 = gradientForBiases2;
         }
 
         else
         {
-          gradientForBiases2 = [v72 gradientForBiases];
-          v60 = gradientForBiases2;
+          gradientForBiases2 = [v71 gradientForBiases];
+          v59 = gradientForBiases2;
         }
 
         if ([v15 isMPSGraph])
         {
           exportableState4 = [v15 exportableState];
           v45 = [exportableState4 objectAtIndexedSubscript:1];
-          [(MLCDeviceGPU *)selfCopy updateWithOptimizer:v39 arrayOfParams:paramsCopy commandBuffer:v74 deviceParameter:v73 source:biases gradient:gradientForBiases2 result:v45 momentumIndex:1];
+          [(MLCDeviceGPU *)selfCopy updateWithOptimizer:v39 arrayOfParams:paramsCopy commandBuffer:v73 deviceParameter:v72 source:biases gradient:gradientForBiases2 result:v45 momentumIndex:1];
 
-          layerCopy = v58;
+          layerCopy = v57;
         }
 
         else
         {
           exportableState4 = [v24 biases];
-          [(MLCDeviceGPU *)selfCopy updateWithOptimizer:v39 arrayOfParams:paramsCopy commandBuffer:v74 deviceParameter:v73 source:biases gradient:gradientForBiases2 result:exportableState4 momentumIndex:1];
+          [(MLCDeviceGPU *)selfCopy updateWithOptimizer:v39 arrayOfParams:paramsCopy commandBuffer:v73 deviceParameter:v72 source:biases gradient:gradientForBiases2 result:exportableState4 momentumIndex:1];
         }
 
-        v46 = v60;
+        v46 = v59;
         if (isMPSGraph5)
         {
 
           v46 = gradientState4;
         }
 
-        v47 = v59;
-        biasesParameterCopy = v67;
+        v47 = v58;
+        biasesParameterCopy = v66;
         if (isMPSGraph4)
         {
 
@@ -21743,29 +22853,29 @@ LABEL_15:
 
       if (([v15 isMPSGraph] & 1) == 0)
       {
-        v77 = 0u;
-        v78 = 0u;
-        v75 = 0u;
         v76 = 0u;
+        v77 = 0u;
+        v74 = 0u;
+        v75 = 0u;
         gradientState5 = [v15 gradientState];
-        v49 = [gradientState5 countByEnumeratingWithState:&v75 objects:v79 count:16];
+        v49 = [gradientState5 countByEnumeratingWithState:&v74 objects:v78 count:16];
         if (v49)
         {
           v50 = v49;
-          v51 = *v76;
+          v51 = *v75;
           do
           {
             for (i = 0; i != v50; ++i)
             {
-              if (*v76 != v51)
+              if (*v75 != v51)
               {
                 objc_enumerationMutation(gradientState5);
               }
 
-              [*(*(&v75 + 1) + 8 * i) setReadCount:0];
+              [*(*(&v74 + 1) + 8 * i) setReadCount:0];
             }
 
-            v50 = [gradientState5 countByEnumeratingWithState:&v75 objects:v79 count:16];
+            v50 = [gradientState5 countByEnumeratingWithState:&v74 objects:v78 count:16];
           }
 
           while (v50);
@@ -21782,8 +22892,6 @@ LABEL_15:
   {
     [(MLCDeviceGPU *)self restoreConvolutionParamsWithDeviceOps:layerCopy];
   }
-
-  v53 = *MEMORY[0x277D85DE8];
 }
 
 - (void)restoreConvolutionParamsWithDeviceOps:(id)ops
@@ -21822,7 +22930,7 @@ LABEL_15:
 
 - (void)updateFullyConnectedLayer:(id)layer optimizer:(id)optimizer weightsParameter:(id)parameter biasesParameter:(id)biasesParameter arrayOfParams:(id)params
 {
-  v69[1] = *MEMORY[0x277D85DE8];
+  v68[1] = *MEMORY[0x277D85DE8];
   layerCopy = layer;
   optimizerCopy = optimizer;
   parameterCopy = parameter;
@@ -21832,7 +22940,7 @@ LABEL_15:
   {
     v13 = 0;
     selfCopy = self;
-    v54 = biasesParameterCopy;
+    v53 = biasesParameterCopy;
     do
     {
       v14 = [layerCopy objectAtIndexedSubscript:v13];
@@ -21842,8 +22950,8 @@ LABEL_15:
         gradientState = [v14 gradientState];
         v17 = [gradientState objectAtIndexedSubscript:0];
         data = [v17 data];
-        v69[0] = data;
-        v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v69 count:1];
+        v68[0] = data;
+        v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v68 count:1];
         v20 = [v19 mutableCopy];
 
         gradientState2 = [v14 gradientState];
@@ -21863,12 +22971,12 @@ LABEL_15:
       }
 
       gpuCommandBufferList = [(MLCDeviceGPU *)self gpuCommandBufferList];
-      v63 = [gpuCommandBufferList objectAtIndexedSubscript:v13];
+      v62 = [gpuCommandBufferList objectAtIndexedSubscript:v13];
 
       momentumVectors = [v14 momentumVectors];
       velocityVectors = [v14 velocityVectors];
       centerWeightVectors = [v14 centerWeightVectors];
-      v62 = deviceParameterWithVectors(momentumVectors, velocityVectors, centerWeightVectors);
+      v61 = deviceParameterWithVectors(momentumVectors, velocityVectors, centerWeightVectors);
 
       if ([parameterCopy isUpdatable])
       {
@@ -21881,12 +22989,12 @@ LABEL_15:
         [v14 exportableState];
         v37 = v36 = v13;
         v38 = [v37 objectAtIndexedSubscript:0];
-        [(MLCDeviceGPU *)selfCopy updateWithOptimizer:v31 arrayOfParams:paramsCopy commandBuffer:v63 deviceParameter:v62 source:v32 gradient:data3 result:v38 momentumIndex:0];
+        [(MLCDeviceGPU *)selfCopy updateWithOptimizer:v31 arrayOfParams:paramsCopy commandBuffer:v62 deviceParameter:v61 source:v32 gradient:data3 result:v38 momentumIndex:0];
 
         self = selfCopy;
         v13 = v36;
 
-        biasesParameterCopy = v54;
+        biasesParameterCopy = v53;
       }
 
       if (biasesParameterCopy && [biasesParameterCopy isUpdatable])
@@ -21900,35 +23008,35 @@ LABEL_15:
         [v14 exportableState];
         v45 = v44 = v13;
         v46 = [v45 objectAtIndexedSubscript:1];
-        [(MLCDeviceGPU *)selfCopy updateWithOptimizer:v39 arrayOfParams:paramsCopy commandBuffer:v63 deviceParameter:v62 source:v40 gradient:data4 result:v46 momentumIndex:1];
+        [(MLCDeviceGPU *)selfCopy updateWithOptimizer:v39 arrayOfParams:paramsCopy commandBuffer:v62 deviceParameter:v61 source:v40 gradient:data4 result:v46 momentumIndex:1];
 
         self = selfCopy;
         v13 = v44;
 
-        biasesParameterCopy = v54;
+        biasesParameterCopy = v53;
       }
 
-      v66 = 0u;
-      v67 = 0u;
-      v64 = 0u;
       v65 = 0u;
+      v66 = 0u;
+      v63 = 0u;
+      v64 = 0u;
       gradientState6 = [v14 gradientState];
-      v48 = [gradientState6 countByEnumeratingWithState:&v64 objects:v68 count:16];
+      v48 = [gradientState6 countByEnumeratingWithState:&v63 objects:v67 count:16];
       if (v48)
       {
         v49 = v48;
-        v50 = *v65;
+        v50 = *v64;
         do
         {
           v51 = 0;
           do
           {
-            if (*v65 != v50)
+            if (*v64 != v50)
             {
               objc_enumerationMutation(gradientState6);
             }
 
-            v52 = *(*(&v64 + 1) + 8 * v51);
+            v52 = *(*(&v63 + 1) + 8 * v51);
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) != 0 && [v52 readCount])
             {
@@ -21939,7 +23047,7 @@ LABEL_15:
           }
 
           while (v49 != v51);
-          v49 = [gradientState6 countByEnumeratingWithState:&v64 objects:v68 count:16];
+          v49 = [gradientState6 countByEnumeratingWithState:&v63 objects:v67 count:16];
         }
 
         while (v49);
@@ -21950,13 +23058,11 @@ LABEL_15:
 
     while (v13 < [(MLCDeviceGPU *)self numDevicesToUse]);
   }
-
-  v53 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateLayerNormalizationLayer:(id)layer optimizer:(id)optimizer betaParameter:(id)parameter gammaParameter:(id)gammaParameter arrayOfParams:(id)params
 {
-  v64[2] = *MEMORY[0x277D85DE8];
+  v63[2] = *MEMORY[0x277D85DE8];
   layerCopy = layer;
   optimizerCopy = optimizer;
   parameterCopy = parameter;
@@ -21975,18 +23081,18 @@ LABEL_15:
 
         if (multiGPUReduction == 1)
         {
-          v55 = [layerCopy objectAtIndexedSubscript:0];
-          normalizationMultiGPUChildOps2 = [v55 normalizationMultiGPUChildOps];
-          v64[0] = normalizationMultiGPUChildOps2;
+          v54 = [layerCopy objectAtIndexedSubscript:0];
+          normalizationMultiGPUChildOps2 = [v54 normalizationMultiGPUChildOps];
+          v63[0] = normalizationMultiGPUChildOps2;
           v17 = [layerCopy objectAtIndexedSubscript:1];
           normalizationMultiGPUChildOps3 = [v17 normalizationMultiGPUChildOps];
-          v64[1] = normalizationMultiGPUChildOps3;
-          v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v64 count:2];
+          v63[1] = normalizationMultiGPUChildOps3;
+          v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v63 count:2];
           normalizationGammaGradient = [v13 normalizationGammaGradient];
-          v63[0] = normalizationGammaGradient;
+          v62[0] = normalizationGammaGradient;
           normalizationBetaGradient = [v13 normalizationBetaGradient];
-          v63[1] = normalizationBetaGradient;
-          v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v63 count:2];
+          v62[1] = normalizationBetaGradient;
+          v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v62 count:2];
           [(MLCDeviceGPU *)self allReduceOverXGMI:v19 deviceIndex:v12 stateBuffers:v22];
         }
       }
@@ -22069,34 +23175,32 @@ LABEL_15:
 
     while (v12 < [(MLCDeviceGPU *)self numDevicesToUse]);
   }
-
-  v54 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateEmbeddingLayer:(id)layer weightsParameter:(id)parameter optimizer:(id)optimizer arrayOfParams:(id)params
 {
-  v40[1] = *MEMORY[0x277D85DE8];
+  v39[1] = *MEMORY[0x277D85DE8];
   layerCopy = layer;
   parameterCopy = parameter;
   optimizerCopy = optimizer;
   paramsCopy = params;
   if ([parameterCopy isUpdatable])
   {
-    v33 = parameterCopy;
+    v32 = parameterCopy;
     tensor = [parameterCopy tensor];
     if ([(MLCDeviceGPU *)self numDevicesToUse])
     {
       v12 = 0;
       selfCopy = self;
-      v35 = layerCopy;
+      v34 = layerCopy;
       do
       {
         v13 = [layerCopy objectAtIndexedSubscript:v12];
         if (-[MLCDeviceGPU numDevicesToUse](self, "numDevicesToUse") == 2 && [v13 multiGPUReduction] == 1)
         {
           gradientForWeights = [v13 gradientForWeights];
-          v40[0] = gradientForWeights;
-          v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:1];
+          v39[0] = gradientForWeights;
+          v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:1];
           [(MLCDeviceGPU *)self allReduceOverXGMI:layerCopy deviceIndex:v12 stateBuffers:v15];
         }
 
@@ -22135,7 +23239,7 @@ LABEL_15:
           self = selfCopy;
           [(MLCDeviceGPU *)selfCopy updateWithOptimizer:v28 arrayOfParams:paramsCopy commandBuffer:v17 deviceParameter:v21 source:v29 gradient:v27 result:v31 momentumIndex:0];
 
-          layerCopy = v35;
+          layerCopy = v34;
         }
 
         ++v12;
@@ -22144,10 +23248,8 @@ LABEL_15:
       while (v12 < [(MLCDeviceGPU *)self numDevicesToUse]);
     }
 
-    parameterCopy = v33;
+    parameterCopy = v32;
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (void)saveOrRestoreTempMatrixDisableUpdates:(id)updates commandBuffer:(id)buffer auxiliaryWeightsMemory:(id)memory auxiliaryMomentumMemory:(id)momentumMemory auxiliaryVelocityMemory:(id)velocityMemory auxiliaryCenterWeightMemory:(id)weightMemory deviceNumber:(unint64_t)number kernelNumber:(unint64_t)self0 mlcIndex:(unint64_t)self1 auxIndex:(unint64_t)self2 numOptimizerData:(unint64_t)self3 saveToAux:(BOOL)self4 isInputWeight:(BOOL)self5 isHiddenWeight:(BOOL)self6 isBias:(BOOL)self7
@@ -22353,11 +23455,11 @@ LABEL_32:
 
 - (void)updateRNNLayer:(id)layer optimizer:(id)optimizer inputWeightsParameter:(id)parameter hiddenWeightsParameter:(id)weightsParameter biasesParameter:(id)biasesParameter arrayOfParams:(id)params
 {
-  v135[2] = *MEMORY[0x277D85DE8];
+  v134[2] = *MEMORY[0x277D85DE8];
   layerCopy = layer;
   optimizerCopy = optimizer;
   selfCopy = self;
-  v119 = optimizerCopy;
+  v118 = optimizerCopy;
   parameterCopy = parameter;
   weightsParameterCopy = weightsParameter;
   biasesParameterCopy = biasesParameter;
@@ -22369,8 +23471,8 @@ LABEL_32:
     do
     {
       v17 = [layerCopy objectAtIndexedSubscript:v16];
-      v130 = v16;
-      v134 = v17;
+      v129 = v16;
+      v133 = v17;
       if ([(MLCDeviceGPU *)selfCopy numDevicesToUse]== 2)
       {
         lstmMultiGPUChildOps = [v17 lstmMultiGPUChildOps];
@@ -22407,13 +23509,13 @@ LABEL_32:
             while (v22 < [rnnTrainableWeightGradients count]);
           }
 
-          v131 = [layerCopy objectAtIndexedSubscript:0];
-          lstmMultiGPUChildOps2 = [v131 lstmMultiGPUChildOps];
-          v135[0] = lstmMultiGPUChildOps2;
+          v130 = [layerCopy objectAtIndexedSubscript:0];
+          lstmMultiGPUChildOps2 = [v130 lstmMultiGPUChildOps];
+          v134[0] = lstmMultiGPUChildOps2;
           v28 = [layerCopy objectAtIndexedSubscript:1];
           lstmMultiGPUChildOps3 = [v28 lstmMultiGPUChildOps];
-          v135[1] = lstmMultiGPUChildOps3;
-          v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v135 count:2];
+          v134[1] = lstmMultiGPUChildOps3;
+          v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v134 count:2];
           v31 = [v30 copy];
           v32 = [v20 copy];
           [(MLCDeviceGPU *)selfCopy2 allReduceOverXGMI:v31 deviceIndex:v16 stateBuffers:v32];
@@ -22423,14 +23525,14 @@ LABEL_32:
       }
 
       gpuCommandBufferList = [(MLCDeviceGPU *)selfCopy gpuCommandBufferList];
-      v129 = [gpuCommandBufferList objectAtIndexedSubscript:v16];
+      v128 = [gpuCommandBufferList objectAtIndexedSubscript:v16];
 
       gradientKernel = [v17 gradientKernel];
       v34 = [gradientKernel count];
       v35 = [parameterCopy objectAtIndexedSubscript:0];
       tensor = [v35 tensor];
       optimizerData = [tensor optimizerData];
-      v126 = [optimizerData count];
+      v125 = [optimizerData count];
 
       v38 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:v34];
       [v17 setAuxiliaryWeightsMemory:v38];
@@ -22445,7 +23547,7 @@ LABEL_32:
       [v17 setAuxiliaryCenterWeightMemory:v41];
 
       v42 = v17;
-      v113 = v34;
+      v112 = v34;
       if (v34)
       {
         v43 = 0;
@@ -22472,7 +23574,7 @@ LABEL_32:
           if (4 * v43 != -4)
           {
             v54 = v53 + 4;
-            v132 = v53 + 4;
+            v131 = v53 + 4;
             do
             {
               v55 = [parameterCopy objectAtIndexedSubscript:v53];
@@ -22480,17 +23582,17 @@ LABEL_32:
 
               if ((isUpdatable & 1) == 0)
               {
-                auxiliaryWeightsMemory2 = [v134 auxiliaryWeightsMemory];
+                auxiliaryWeightsMemory2 = [v133 auxiliaryWeightsMemory];
                 v57 = [auxiliaryWeightsMemory2 objectAtIndexedSubscript:v43];
-                auxiliaryMomentumMemory2 = [v134 auxiliaryMomentumMemory];
+                auxiliaryMomentumMemory2 = [v133 auxiliaryMomentumMemory];
                 v59 = [auxiliaryMomentumMemory2 objectAtIndexedSubscript:v43];
-                auxiliaryVelocityMemory2 = [v134 auxiliaryVelocityMemory];
+                auxiliaryVelocityMemory2 = [v133 auxiliaryVelocityMemory];
                 v61 = [auxiliaryVelocityMemory2 objectAtIndexedSubscript:v43];
-                auxiliaryCenterWeightMemory2 = [v134 auxiliaryCenterWeightMemory];
+                auxiliaryCenterWeightMemory2 = [v133 auxiliaryCenterWeightMemory];
                 v63 = [auxiliaryCenterWeightMemory2 objectAtIndexedSubscript:v43];
-                LODWORD(v110) = 257;
-                v54 = v132;
-                [MLCDeviceGPU saveOrRestoreTempMatrixDisableUpdates:selfCopy2 commandBuffer:"saveOrRestoreTempMatrixDisableUpdates:commandBuffer:auxiliaryWeightsMemory:auxiliaryMomentumMemory:auxiliaryVelocityMemory:auxiliaryCenterWeightMemory:deviceNumber:kernelNumber:mlcIndex:auxIndex:numOptimizerData:saveToAux:isInputWeight:isHiddenWeight:isBias:" auxiliaryWeightsMemory:v134 auxiliaryMomentumMemory:v129 auxiliaryVelocityMemory:v57 auxiliaryCenterWeightMemory:v59 deviceNumber:v61 kernelNumber:v63 mlcIndex:v130 auxIndex:v43 numOptimizerData:v53 saveToAux:0 isInputWeight:v126 isHiddenWeight:v110 isBias:?];
+                LODWORD(v109) = 257;
+                v54 = v131;
+                [MLCDeviceGPU saveOrRestoreTempMatrixDisableUpdates:selfCopy2 commandBuffer:"saveOrRestoreTempMatrixDisableUpdates:commandBuffer:auxiliaryWeightsMemory:auxiliaryMomentumMemory:auxiliaryVelocityMemory:auxiliaryCenterWeightMemory:deviceNumber:kernelNumber:mlcIndex:auxIndex:numOptimizerData:saveToAux:isInputWeight:isHiddenWeight:isBias:" auxiliaryWeightsMemory:v133 auxiliaryMomentumMemory:v128 auxiliaryVelocityMemory:v57 auxiliaryCenterWeightMemory:v59 deviceNumber:v61 kernelNumber:v63 mlcIndex:v129 auxIndex:v43 numOptimizerData:v53 saveToAux:0 isInputWeight:v125 isHiddenWeight:v109 isBias:?];
               }
 
               ++v53;
@@ -22505,17 +23607,17 @@ LABEL_32:
 
               if ((isUpdatable2 & 1) == 0)
               {
-                auxiliaryWeightsMemory3 = [v134 auxiliaryWeightsMemory];
+                auxiliaryWeightsMemory3 = [v133 auxiliaryWeightsMemory];
                 v67 = [auxiliaryWeightsMemory3 objectAtIndexedSubscript:v43];
-                auxiliaryMomentumMemory3 = [v134 auxiliaryMomentumMemory];
+                auxiliaryMomentumMemory3 = [v133 auxiliaryMomentumMemory];
                 v69 = [auxiliaryMomentumMemory3 objectAtIndexedSubscript:v43];
-                auxiliaryVelocityMemory3 = [v134 auxiliaryVelocityMemory];
+                auxiliaryVelocityMemory3 = [v133 auxiliaryVelocityMemory];
                 v71 = [auxiliaryVelocityMemory3 objectAtIndexedSubscript:v43];
-                auxiliaryCenterWeightMemory3 = [v134 auxiliaryCenterWeightMemory];
+                auxiliaryCenterWeightMemory3 = [v133 auxiliaryCenterWeightMemory];
                 v73 = [auxiliaryCenterWeightMemory3 objectAtIndexedSubscript:v43];
-                LODWORD(v110) = 65537;
-                v54 = v132;
-                [MLCDeviceGPU saveOrRestoreTempMatrixDisableUpdates:selfCopy2 commandBuffer:"saveOrRestoreTempMatrixDisableUpdates:commandBuffer:auxiliaryWeightsMemory:auxiliaryMomentumMemory:auxiliaryVelocityMemory:auxiliaryCenterWeightMemory:deviceNumber:kernelNumber:mlcIndex:auxIndex:numOptimizerData:saveToAux:isInputWeight:isHiddenWeight:isBias:" auxiliaryWeightsMemory:v134 auxiliaryMomentumMemory:v129 auxiliaryVelocityMemory:v67 auxiliaryCenterWeightMemory:v69 deviceNumber:v71 kernelNumber:v73 mlcIndex:v130 auxIndex:v43 numOptimizerData:v64 saveToAux:0 isInputWeight:v126 isHiddenWeight:v110 isBias:?];
+                LODWORD(v109) = 65537;
+                v54 = v131;
+                [MLCDeviceGPU saveOrRestoreTempMatrixDisableUpdates:selfCopy2 commandBuffer:"saveOrRestoreTempMatrixDisableUpdates:commandBuffer:auxiliaryWeightsMemory:auxiliaryMomentumMemory:auxiliaryVelocityMemory:auxiliaryCenterWeightMemory:deviceNumber:kernelNumber:mlcIndex:auxIndex:numOptimizerData:saveToAux:isInputWeight:isHiddenWeight:isBias:" auxiliaryWeightsMemory:v133 auxiliaryMomentumMemory:v128 auxiliaryVelocityMemory:v67 auxiliaryCenterWeightMemory:v69 deviceNumber:v71 kernelNumber:v73 mlcIndex:v129 auxIndex:v43 numOptimizerData:v64 saveToAux:0 isInputWeight:v125 isHiddenWeight:v109 isBias:?];
               }
 
               ++v64;
@@ -22532,17 +23634,17 @@ LABEL_32:
 
                 if ((isUpdatable3 & 1) == 0)
                 {
-                  auxiliaryWeightsMemory4 = [v134 auxiliaryWeightsMemory];
+                  auxiliaryWeightsMemory4 = [v133 auxiliaryWeightsMemory];
                   v77 = [auxiliaryWeightsMemory4 objectAtIndexedSubscript:v43];
-                  auxiliaryMomentumMemory4 = [v134 auxiliaryMomentumMemory];
+                  auxiliaryMomentumMemory4 = [v133 auxiliaryMomentumMemory];
                   v79 = [auxiliaryMomentumMemory4 objectAtIndexedSubscript:v43];
-                  auxiliaryVelocityMemory4 = [v134 auxiliaryVelocityMemory];
+                  auxiliaryVelocityMemory4 = [v133 auxiliaryVelocityMemory];
                   v81 = [auxiliaryVelocityMemory4 objectAtIndexedSubscript:v43];
-                  auxiliaryCenterWeightMemory4 = [v134 auxiliaryCenterWeightMemory];
+                  auxiliaryCenterWeightMemory4 = [v133 auxiliaryCenterWeightMemory];
                   v83 = [auxiliaryCenterWeightMemory4 objectAtIndexedSubscript:v43];
-                  LODWORD(v110) = 16777217;
-                  v54 = v132;
-                  [MLCDeviceGPU saveOrRestoreTempMatrixDisableUpdates:selfCopy2 commandBuffer:"saveOrRestoreTempMatrixDisableUpdates:commandBuffer:auxiliaryWeightsMemory:auxiliaryMomentumMemory:auxiliaryVelocityMemory:auxiliaryCenterWeightMemory:deviceNumber:kernelNumber:mlcIndex:auxIndex:numOptimizerData:saveToAux:isInputWeight:isHiddenWeight:isBias:" auxiliaryWeightsMemory:v134 auxiliaryMomentumMemory:v129 auxiliaryVelocityMemory:v77 auxiliaryCenterWeightMemory:v79 deviceNumber:v81 kernelNumber:v83 mlcIndex:v130 auxIndex:v43 numOptimizerData:v74 saveToAux:0 isInputWeight:v126 isHiddenWeight:v110 isBias:?];
+                  LODWORD(v109) = 16777217;
+                  v54 = v131;
+                  [MLCDeviceGPU saveOrRestoreTempMatrixDisableUpdates:selfCopy2 commandBuffer:"saveOrRestoreTempMatrixDisableUpdates:commandBuffer:auxiliaryWeightsMemory:auxiliaryMomentumMemory:auxiliaryVelocityMemory:auxiliaryCenterWeightMemory:deviceNumber:kernelNumber:mlcIndex:auxIndex:numOptimizerData:saveToAux:isInputWeight:isHiddenWeight:isBias:" auxiliaryWeightsMemory:v133 auxiliaryMomentumMemory:v128 auxiliaryVelocityMemory:v77 auxiliaryCenterWeightMemory:v79 deviceNumber:v81 kernelNumber:v83 mlcIndex:v129 auxIndex:v43 numOptimizerData:v74 saveToAux:0 isInputWeight:v125 isHiddenWeight:v109 isBias:?];
                 }
 
                 ++v74;
@@ -22553,23 +23655,23 @@ LABEL_32:
           }
 
           ++v43;
-          v42 = v134;
+          v42 = v133;
         }
 
-        while (v43 != v113);
+        while (v43 != v112);
         v84 = 0;
-        v114 = 0;
+        v113 = 0;
         selfCopy = selfCopy2;
         do
         {
           rnnTrainableWeights = [v42 rnnTrainableWeights];
           v86 = [rnnTrainableWeights objectAtIndexedSubscript:v84];
 
-          v120 = v86;
+          v119 = v86;
           if ([v86 count])
           {
             v87 = 0;
-            v133 = v84;
+            v132 = v84;
             do
             {
               rnnTrainableWeightGradients2 = [v42 rnnTrainableWeightGradients];
@@ -22581,27 +23683,27 @@ LABEL_32:
                 lstmMultiGPUChildOps4 = [v42 lstmMultiGPUChildOps];
                 multiGPUReduction2 = [lstmMultiGPUChildOps4 multiGPUReduction];
 
-                v93 = v130;
+                v93 = v129;
                 if (multiGPUReduction2 == 1)
                 {
                   lstmMultiGPUChildOps5 = [v42 lstmMultiGPUChildOps];
                   allReducedGradientMatrices = [lstmMultiGPUChildOps5 allReducedGradientMatrices];
-                  v96 = [allReducedGradientMatrices objectAtIndexedSubscript:v114];
+                  v96 = [allReducedGradientMatrices objectAtIndexedSubscript:v113];
 
-                  ++v114;
-                  v127 = v96;
+                  ++v113;
+                  v126 = v96;
                 }
 
                 else
                 {
-                  v127 = v90;
+                  v126 = v90;
                 }
               }
 
               else
               {
-                v127 = v90;
-                v93 = v130;
+                v126 = v90;
+                v93 = v129;
               }
 
               rnnMomentumMatrices = [v42 rnnMomentumMatrices];
@@ -22610,45 +23712,43 @@ LABEL_32:
               v100 = [rnnVelocityMatrices objectAtIndexedSubscript:v84];
               rnnCenterWeightMatrices = [v42 rnnCenterWeightMatrices];
               v102 = [rnnCenterWeightMatrices objectAtIndexedSubscript:v84];
-              v125 = deviceParameterWithVectors(v98, v100, v102);
+              v124 = deviceParameterWithVectors(v98, v100, v102);
 
-              v103 = [v119 objectAtIndexedSubscript:v93];
+              v103 = [v118 objectAtIndexedSubscript:v93];
               rnnTrainableWeights2 = [v42 rnnTrainableWeights];
-              v104 = [rnnTrainableWeights2 objectAtIndexedSubscript:v133];
+              v104 = [rnnTrainableWeights2 objectAtIndexedSubscript:v132];
               v105 = [v104 objectAtIndexedSubscript:v87];
-              rnnTrainableWeights3 = [v134 rnnTrainableWeights];
-              v107 = [rnnTrainableWeights3 objectAtIndexedSubscript:v133];
+              rnnTrainableWeights3 = [v133 rnnTrainableWeights];
+              v107 = [rnnTrainableWeights3 objectAtIndexedSubscript:v132];
               v108 = [v107 objectAtIndexedSubscript:v87];
               selfCopy = selfCopy2;
-              [(MLCDeviceGPU *)selfCopy2 updateWithOptimizer:v103 arrayOfParams:paramsCopy commandBuffer:v129 deviceParameter:v125 source:v105 gradient:v127 result:v108 momentumIndex:v87];
+              [(MLCDeviceGPU *)selfCopy2 updateWithOptimizer:v103 arrayOfParams:paramsCopy commandBuffer:v128 deviceParameter:v124 source:v105 gradient:v126 result:v108 momentumIndex:v87];
 
-              v42 = v134;
-              v84 = v133;
+              v42 = v133;
+              v84 = v132;
 
               ++v87;
             }
 
-            while (v87 < [v120 count]);
+            while (v87 < [v119 count]);
           }
 
           ++v84;
         }
 
-        while (v84 != v113);
+        while (v84 != v112);
       }
 
-      v16 = v130 + 1;
+      v16 = v129 + 1;
     }
 
-    while (v130 + 1 < [(MLCDeviceGPU *)selfCopy numDevicesToUse]);
+    while (v129 + 1 < [(MLCDeviceGPU *)selfCopy numDevicesToUse]);
   }
-
-  v109 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateTensorParameter:(id)parameter optimizer:(id)optimizer gradient:(id)gradient arrayOfParams:(id)params
 {
-  v52[2] = *MEMORY[0x277D85DE8];
+  v51[2] = *MEMORY[0x277D85DE8];
   parameterCopy = parameter;
   optimizerCopy = optimizer;
   gradientCopy = gradient;
@@ -22660,7 +23760,7 @@ LABEL_32:
     do
     {
       gpuCommandBufferList = [(MLCDeviceGPU *)selfCopy gpuCommandBufferList];
-      v49 = [gpuCommandBufferList objectAtIndexedSubscript:v10];
+      v48 = [gpuCommandBufferList objectAtIndexedSubscript:v10];
 
       tensor = [parameterCopy tensor];
       optimizerDeviceData = [tensor optimizerDeviceData];
@@ -22693,34 +23793,32 @@ LABEL_32:
         {
           tensor5 = [parameterCopy tensor];
           optimizerDeviceData2 = [tensor5 optimizerDeviceData];
-          v42 = [optimizerDeviceData2 objectAtIndexedSubscript:0];
-          gpuOps2 = [v42 gpuOps];
-          v52[0] = gpuOps2;
+          v41 = [optimizerDeviceData2 objectAtIndexedSubscript:0];
+          gpuOps2 = [v41 gpuOps];
+          v51[0] = gpuOps2;
           tensor6 = [parameterCopy tensor];
           optimizerDeviceData3 = [tensor6 optimizerDeviceData];
           v33 = [optimizerDeviceData3 objectAtIndexedSubscript:1];
           [v33 gpuOps];
           v35 = v34 = v19;
-          v52[1] = v35;
-          v40 = [MEMORY[0x277CBEA60] arrayWithObjects:v52 count:2];
+          v51[1] = v35;
+          v39 = [MEMORY[0x277CBEA60] arrayWithObjects:v51 count:2];
 
           v19 = v34;
-          v51 = v34;
-          v36 = [MEMORY[0x277CBEA60] arrayWithObjects:&v51 count:1];
-          [(MLCDeviceGPU *)selfCopy allReduceOverXGMI:v40 deviceIndex:v10 stateBuffers:v36];
+          v50 = v34;
+          v36 = [MEMORY[0x277CBEA60] arrayWithObjects:&v50 count:1];
+          [(MLCDeviceGPU *)selfCopy allReduceOverXGMI:v39 deviceIndex:v10 stateBuffers:v36];
         }
       }
 
       v37 = [optimizerCopy objectAtIndexedSubscript:v10];
-      [(MLCDeviceGPU *)selfCopy updateWithOptimizer:v37 arrayOfParams:paramsCopy commandBuffer:v49 deviceParameter:v27 source:v28 gradient:v29 result:v28 momentumIndex:0];
+      [(MLCDeviceGPU *)selfCopy updateWithOptimizer:v37 arrayOfParams:paramsCopy commandBuffer:v48 deviceParameter:v27 source:v28 gradient:v29 result:v28 momentumIndex:0];
 
       ++v10;
     }
 
     while (v10 < [(MLCDeviceGPU *)selfCopy numDevicesToUse]);
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateWithAdamOptimizer:(id)optimizer encoder:(id)encoder deviceParameter:(id)parameter source:(id)source gradient:(id)gradient result:(id)result momentumIndex:(unint64_t)index
@@ -23405,17 +24503,17 @@ LABEL_38:
 
 - (void)updateAllParametersWithOptimizer:(id)optimizer arrayOfParameters:(id)parameters
 {
-  v75 = *MEMORY[0x277D85DE8];
+  v74 = *MEMORY[0x277D85DE8];
   optimizerCopy = optimizer;
   parametersCopy = parameters;
-  v68 = optimizerCopy;
+  v67 = optimizerCopy;
   selfCopy = self;
   if ([(MLCDeviceGPU *)self numDevicesToUse])
   {
     v8 = 0;
     do
     {
-      v72 = 0;
+      v71 = 0;
       gpuCommandBufferList = [(MLCDeviceGPU *)self gpuCommandBufferList];
       v10 = [gpuCommandBufferList objectAtIndexedSubscript:v8];
 
@@ -23435,7 +24533,7 @@ LABEL_38:
           [v17 setL2NormBuffer:v16];
         }
 
-        v66 = v10;
+        v65 = v10;
         v18 = [v10 computeCommandEncoderWithDispatchType:1];
         v19 = [optimizerCopy objectAtIndexedSubscript:v8];
         computeL2NormKernel2 = [v19 computeL2NormKernel];
@@ -23461,7 +24559,7 @@ LABEL_38:
             }
 
             v28 = [v25 length] >> 2;
-            LODWORD(v72) = v28;
+            LODWORD(v71) = v28;
             if (v28 >= maxTotalThreadsPerThreadgroup)
             {
               v28 = maxTotalThreadsPerThreadgroup;
@@ -23479,18 +24577,18 @@ LABEL_38:
             }
 
             [v18 setBuffer:v25 offset:0 atIndex:0];
-            v31 = [v68 objectAtIndexedSubscript:v8];
+            v31 = [v67 objectAtIndexedSubscript:v8];
             l2NormBuffer2 = [v31 l2NormBuffer];
             [v18 setBuffer:l2NormBuffer2 offset:0 atIndex:1];
 
-            [v18 setBytes:&v72 length:8 atIndex:2];
+            [v18 setBytes:&v71 length:8 atIndex:2];
             [v18 setThreadgroupMemoryLength:4 * v30 atIndex:0];
-            v73 = vdupq_n_s64(1uLL);
-            v74 = 1;
-            v70 = v30;
-            v71 = v73;
-            [v18 dispatchThreadgroups:&v73 threadsPerThreadgroup:&v70];
-            ++HIDWORD(v72);
+            v72 = vdupq_n_s64(1uLL);
+            v73 = 1;
+            v69 = v30;
+            v70 = v72;
+            [v18 dispatchThreadgroups:&v72 threadsPerThreadgroup:&v69];
+            ++HIDWORD(v71);
 
             v24 += 5;
           }
@@ -23499,12 +24597,12 @@ LABEL_38:
         }
 
         [v18 memoryBarrierWithScope:1];
-        optimizerCopy = v68;
-        v33 = [v68 objectAtIndexedSubscript:v8];
+        optimizerCopy = v67;
+        v33 = [v67 objectAtIndexedSubscript:v8];
         sumL2NormKernel = [v33 sumL2NormKernel];
         [v18 setComputePipelineState:sumL2NormKernel];
 
-        v35 = [v68 objectAtIndexedSubscript:v8];
+        v35 = [v67 objectAtIndexedSubscript:v8];
         sumL2NormKernel2 = [v35 sumL2NormKernel];
         maxTotalThreadsPerThreadgroup2 = [sumL2NormKernel2 maxTotalThreadsPerThreadgroup];
 
@@ -23530,22 +24628,22 @@ LABEL_38:
           v41 = v39;
         }
 
-        LODWORD(v72) = v38 / 5;
-        v42 = [v68 objectAtIndexedSubscript:v8];
+        LODWORD(v71) = v38 / 5;
+        v42 = [v67 objectAtIndexedSubscript:v8];
         l2NormBuffer3 = [v42 l2NormBuffer];
         [v18 setBuffer:l2NormBuffer3 offset:0 atIndex:0];
 
-        [v18 setBytes:&v72 length:4 atIndex:1];
+        [v18 setBytes:&v71 length:4 atIndex:1];
         [v18 setThreadgroupMemoryLength:4 * v41 atIndex:0];
-        v73 = vdupq_n_s64(1uLL);
-        v74 = 1;
-        v70 = v41;
-        v71 = v73;
-        [v18 dispatchThreadgroups:&v73 threadsPerThreadgroup:&v70];
+        v72 = vdupq_n_s64(1uLL);
+        v73 = 1;
+        v69 = v41;
+        v70 = v72;
+        [v18 dispatchThreadgroups:&v72 threadsPerThreadgroup:&v69];
         [v18 endEncoding];
 
         self = selfCopy;
-        v10 = v66;
+        v10 = v65;
       }
 
       ++v8;
@@ -23561,10 +24659,10 @@ LABEL_38:
     {
       v45 = [optimizerCopy objectAtIndexedSubscript:v44];
       gpuCommandBufferList2 = [(MLCDeviceGPU *)self gpuCommandBufferList];
-      v67 = v44;
+      v66 = v44;
       v47 = [gpuCommandBufferList2 objectAtIndexedSubscript:v44];
 
-      v65 = v47;
+      v64 = v47;
       v48 = [v47 computeCommandEncoderWithDispatchType:1];
       kernel = [v45 kernel];
       [v48 setComputePipelineState:?];
@@ -23608,7 +24706,7 @@ LABEL_38:
               v61 = +[MLCLog framework];
               if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
               {
-                [(MLCDeviceGPU(MLCEngineDispatch) *)&v73 updateAllParametersWithOptimizer:a2 arrayOfParameters:(v73.i64 + 4), v61];
+                [(MLCDeviceGPU(MLCEngineDispatch) *)&v72 updateAllParametersWithOptimizer:a2 arrayOfParameters:(v72.i64 + 4), v61];
               }
 
               break;
@@ -23622,17 +24720,15 @@ LABEL_38:
 
       [v48 endEncoding];
 
-      v44 = v67 + 1;
+      v44 = v66 + 1;
       self = selfCopy;
-      optimizerCopy = v68;
+      optimizerCopy = v67;
     }
 
-    while (v67 + 1 < [(MLCDeviceGPU *)selfCopy numDevicesToUse]);
+    while (v66 + 1 < [(MLCDeviceGPU *)selfCopy numDevicesToUse]);
   }
 
   [parametersCopy removeAllObjects];
-
-  v62 = *MEMORY[0x277D85DE8];
 }
 
 - (void)synchronizeWeightMatrixForRNNLayer:(id)layer matrixId:(unint64_t)id parameterType:(unint64_t)type accumulatorIndex:(unint64_t)index forLSTMNum:(unint64_t)num forDeviceNum:(unint64_t)deviceNum forGate:(unint64_t)gate
@@ -23826,7 +24922,7 @@ LABEL_16:
 
 - (void)synchronizeUpdatesForLayer:(id)layer
 {
-  v120 = *MEMORY[0x277D85DE8];
+  v118 = *MEMORY[0x277D85DE8];
   layerCopy = layer;
   if ([(MLCDeviceGPU *)self numDevicesToUse])
   {
@@ -23842,31 +24938,31 @@ LABEL_16:
       v11 = [gpuCommandBufferList objectAtIndexedSubscript:v5];
 
       objc_opt_class();
-      v114 = v9;
+      v112 = v9;
       if (objc_opt_isKindOfClass())
       {
         if (![v9 isMPSGraph])
         {
-          v29 = v7;
+          v28 = v7;
           forwardKernel = [v9 forwardKernel];
           v19 = [forwardKernel exportWeightsAndBiasesWithCommandBuffer:v11 resultStateCanBeTemporary:0];
-          v30 = *(v6 + 2936);
+          v29 = *(v6 + 2936);
           [v19 weights];
-          v32 = v31 = v6;
-          [v30 synchronizeResource:v32 commandBuffer:v11];
+          v31 = v30 = v6;
+          [v29 synchronizeResource:v31 commandBuffer:v11];
 
           biases = [v19 biases];
 
           if (biases)
           {
-            v34 = *(v31 + 2936);
+            v33 = *(v30 + 2936);
             biases2 = [v19 biases];
-            [v34 synchronizeResource:biases2 commandBuffer:v11];
+            [v33 synchronizeResource:biases2 commandBuffer:v11];
           }
 
-          [v114 setExportableState:v19];
-          v6 = v31;
-          v7 = v29;
+          [v112 setExportableState:v19];
+          v6 = v30;
+          v7 = v28;
           goto LABEL_13;
         }
 
@@ -23875,45 +24971,44 @@ LABEL_16:
         v14 = [exportableState objectAtIndexedSubscript:0];
         [v12 synchronizeResource:v14 commandBuffer:v11];
 
-        v9 = v114;
-        exportableState2 = [v114 exportableState];
+        v9 = v112;
+        exportableState2 = [v112 exportableState];
         v16 = [exportableState2 count];
 
         if (v16 >= 2)
         {
           v17 = *(v6 + 2936);
-          forwardKernel = [v114 exportableState];
+          forwardKernel = [v112 exportableState];
           v19 = [forwardKernel objectAtIndexedSubscript:1];
           [v17 synchronizeResource:v19 commandBuffer:v11];
 LABEL_13:
 
-          v9 = v114;
+          v9 = v112;
         }
       }
 
       else
       {
-        v20 = *(v7 + 2920);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v21 = *(v6 + 2936);
+          v20 = *(v6 + 2936);
           exportableState3 = [v9 exportableState];
-          v23 = [exportableState3 objectAtIndexedSubscript:0];
-          [v21 synchronizeResource:v23 commandBuffer:v11];
+          v22 = [exportableState3 objectAtIndexedSubscript:0];
+          [v20 synchronizeResource:v22 commandBuffer:v11];
 
-          v9 = v114;
-          exportableState4 = [v114 exportableState];
-          v25 = [exportableState4 count];
+          v9 = v112;
+          exportableState4 = [v112 exportableState];
+          v24 = [exportableState4 count];
 
-          if (v25 >= 2)
+          if (v24 >= 2)
           {
-            v26 = *(v6 + 2936);
-            exportableState5 = [v114 exportableState];
-            v28 = [exportableState5 objectAtIndexedSubscript:1];
-            [v26 synchronizeResource:v28 commandBuffer:v11];
+            v25 = *(v6 + 2936);
+            exportableState5 = [v112 exportableState];
+            v27 = [exportableState5 objectAtIndexedSubscript:1];
+            [v25 synchronizeResource:v27 commandBuffer:v11];
 
-            v9 = v114;
+            v9 = v112;
           }
         }
 
@@ -23923,30 +25018,30 @@ LABEL_13:
           if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()) || (objc_opt_class(), (objc_opt_isKindOfClass()) || (objc_opt_class(), (objc_opt_isKindOfClass()))
           {
             exportableState6 = [v9 exportableState];
-            v37 = exportableState6;
+            v36 = exportableState6;
             if (exportableState6)
             {
-              v38 = *(v6 + 2936);
+              v37 = *(v6 + 2936);
               gamma = [exportableState6 gamma];
-              [v38 synchronizeResource:gamma commandBuffer:v11];
+              [v37 synchronizeResource:gamma commandBuffer:v11];
 
-              v40 = *(v6 + 2936);
-              beta = [v37 beta];
-              [v40 synchronizeResource:beta commandBuffer:v11];
+              v39 = *(v6 + 2936);
+              beta = [v36 beta];
+              [v39 synchronizeResource:beta commandBuffer:v11];
 
-              v9 = v114;
+              v9 = v112;
             }
 
             movingState = [v9 movingState];
-            v43 = movingState;
+            v42 = movingState;
             if (movingState)
             {
-              v44 = *(v6 + 2936);
+              v43 = *(v6 + 2936);
               mean = [movingState mean];
-              [v44 synchronizeResource:mean commandBuffer:v11];
+              [v43 synchronizeResource:mean commandBuffer:v11];
 
-              variance = [v43 variance];
-              v9 = v114;
+              variance = [v42 variance];
+              v9 = v112;
               [MLCGPUHelper synchronizeResource:variance commandBuffer:v11];
 
               v6 = 0x278A68000;
@@ -23960,218 +25055,218 @@ LABEL_13:
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v47 = v9;
-            v48 = MEMORY[0x277CBEBF8];
-            v49 = [MEMORY[0x277CBEBF8] mutableCopy];
-            [v47 setRnnExportedWeightMatrices:v49];
+            v46 = v9;
+            v47 = MEMORY[0x277CBEBF8];
+            v48 = [MEMORY[0x277CBEBF8] mutableCopy];
+            [v46 setRnnExportedWeightMatrices:v48];
 
-            v50 = [v48 mutableCopy];
-            v109 = v47;
-            [v47 setRnnExportedBiasTerms:v50];
+            v49 = [v47 mutableCopy];
+            v107 = v46;
+            [v46 setRnnExportedBiasTerms:v49];
 
-            v110 = layerCopy;
-            v51 = layerCopy;
-            descriptor = [v51 descriptor];
+            v108 = layerCopy;
+            v50 = layerCopy;
+            descriptor = [v50 descriptor];
             layerCount = [descriptor layerCount];
 
-            descriptor2 = [v51 descriptor];
+            descriptor2 = [v50 descriptor];
             isBidirectional = [descriptor2 isBidirectional];
 
-            v112 = layerCount << isBidirectional;
+            v110 = layerCount << isBidirectional;
             if (layerCount << isBidirectional)
             {
+              v55 = 0;
               v56 = 0;
-              v57 = 0;
               do
               {
                 for (i = 0; i != 4; ++i)
                 {
-                  v59 = [&unk_284BA6158 objectAtIndexedSubscript:i];
-                  -[MLCDeviceGPU synchronizeWeightMatrixForRNNLayer:matrixId:parameterType:accumulatorIndex:forLSTMNum:forDeviceNum:forGate:](self, "synchronizeWeightMatrixForRNNLayer:matrixId:parameterType:accumulatorIndex:forLSTMNum:forDeviceNum:forGate:", v51, [v59 unsignedIntegerValue], 0, v56, v57, v5, i);
+                  v58 = [&unk_284BA6158 objectAtIndexedSubscript:i];
+                  -[MLCDeviceGPU synchronizeWeightMatrixForRNNLayer:matrixId:parameterType:accumulatorIndex:forLSTMNum:forDeviceNum:forGate:](self, "synchronizeWeightMatrixForRNNLayer:matrixId:parameterType:accumulatorIndex:forLSTMNum:forDeviceNum:forGate:", v50, [v58 unsignedIntegerValue], 0, v55, v56, v5, i);
 
-                  ++v56;
+                  ++v55;
                 }
 
                 for (j = 0; j != 4; ++j)
                 {
-                  v61 = [&unk_284BA6170 objectAtIndexedSubscript:j];
-                  -[MLCDeviceGPU synchronizeWeightMatrixForRNNLayer:matrixId:parameterType:accumulatorIndex:forLSTMNum:forDeviceNum:forGate:](self, "synchronizeWeightMatrixForRNNLayer:matrixId:parameterType:accumulatorIndex:forLSTMNum:forDeviceNum:forGate:", v51, [v61 unsignedIntegerValue], 1, v56 + j, v57, v5, j);
+                  v60 = [&unk_284BA6170 objectAtIndexedSubscript:j];
+                  -[MLCDeviceGPU synchronizeWeightMatrixForRNNLayer:matrixId:parameterType:accumulatorIndex:forLSTMNum:forDeviceNum:forGate:](self, "synchronizeWeightMatrixForRNNLayer:matrixId:parameterType:accumulatorIndex:forLSTMNum:forDeviceNum:forGate:", v50, [v60 unsignedIntegerValue], 1, v55 + j, v56, v5, j);
                 }
 
-                biases3 = [v51 biases];
+                biases3 = [v50 biases];
 
-                v56 += 4;
+                v55 += 4;
                 if (biases3)
                 {
                   for (k = 0; k != 4; ++k)
                   {
-                    v64 = [&unk_284BA6188 objectAtIndexedSubscript:k];
-                    -[MLCDeviceGPU synchronizeWeightMatrixForRNNLayer:matrixId:parameterType:accumulatorIndex:forLSTMNum:forDeviceNum:forGate:](self, "synchronizeWeightMatrixForRNNLayer:matrixId:parameterType:accumulatorIndex:forLSTMNum:forDeviceNum:forGate:", v51, [v64 unsignedIntegerValue], 2, v56, v57, v5, k);
+                    v63 = [&unk_284BA6188 objectAtIndexedSubscript:k];
+                    -[MLCDeviceGPU synchronizeWeightMatrixForRNNLayer:matrixId:parameterType:accumulatorIndex:forLSTMNum:forDeviceNum:forGate:](self, "synchronizeWeightMatrixForRNNLayer:matrixId:parameterType:accumulatorIndex:forLSTMNum:forDeviceNum:forGate:", v50, [v63 unsignedIntegerValue], 2, v55, v56, v5, k);
 
-                    ++v56;
+                    ++v55;
                   }
                 }
 
-                ++v57;
+                ++v56;
               }
 
-              while (v57 != v112);
+              while (v56 != v110);
             }
 
-            layerCopy = v110;
+            layerCopy = v108;
             v6 = 0x278A68000;
 LABEL_65:
             v7 = 0x278A68000;
-            v9 = v114;
+            v9 = v112;
             goto LABEL_24;
           }
 
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v111 = layerCopy;
-            v65 = v9;
+            v109 = layerCopy;
+            v64 = v9;
+            v113 = 0u;
+            v114 = 0u;
             v115 = 0u;
             v116 = 0u;
-            v117 = 0u;
-            v118 = 0u;
-            exportableState7 = [v65 exportableState];
-            v67 = [exportableState7 countByEnumeratingWithState:&v115 objects:v119 count:16];
-            if (v67)
+            exportableState7 = [v64 exportableState];
+            v66 = [exportableState7 countByEnumeratingWithState:&v113 objects:v117 count:16];
+            if (v66)
             {
-              v68 = v67;
-              v69 = *v116;
+              v67 = v66;
+              v68 = *v114;
               do
               {
-                for (m = 0; m != v68; ++m)
+                for (m = 0; m != v67; ++m)
                 {
-                  if (*v116 != v69)
+                  if (*v114 != v68)
                   {
                     objc_enumerationMutation(exportableState7);
                   }
 
-                  [*(v6 + 2936) synchronizeResource:*(*(&v115 + 1) + 8 * m) commandBuffer:v11];
+                  [*(v6 + 2936) synchronizeResource:*(*(&v113 + 1) + 8 * m) commandBuffer:v11];
                 }
 
-                v68 = [exportableState7 countByEnumeratingWithState:&v115 objects:v119 count:16];
+                v67 = [exportableState7 countByEnumeratingWithState:&v113 objects:v117 count:16];
               }
 
-              while (v68);
+              while (v67);
             }
 
-            momentumVectors = [v65 momentumVectors];
-            v72 = [momentumVectors count];
+            momentumVectors = [v64 momentumVectors];
+            v71 = [momentumVectors count];
 
-            v113 = v65;
-            if (v72)
+            v111 = v64;
+            if (v71)
             {
-              v73 = 0;
+              v72 = 0;
               do
               {
-                momentumVectors2 = [v65 momentumVectors];
-                v75 = [momentumVectors2 objectAtIndexedSubscript:v73];
+                momentumVectors2 = [v64 momentumVectors];
+                v74 = [momentumVectors2 objectAtIndexedSubscript:v72];
 
-                if ([v75 count])
+                if ([v74 count])
                 {
-                  v76 = 0;
+                  v75 = 0;
                   do
                   {
-                    v77 = *(v6 + 2936);
-                    v78 = [v75 objectAtIndexedSubscript:v76];
-                    data = [v78 data];
-                    [v77 synchronizeResource:data commandBuffer:v11];
+                    v76 = *(v6 + 2936);
+                    v77 = [v74 objectAtIndexedSubscript:v75];
+                    data = [v77 data];
+                    [v76 synchronizeResource:data commandBuffer:v11];
 
                     v6 = 0x278A68000uLL;
-                    ++v76;
+                    ++v75;
                   }
 
-                  while (v76 < [v75 count]);
+                  while (v75 < [v74 count]);
                 }
 
-                ++v73;
-                v65 = v113;
-                momentumVectors3 = [v113 momentumVectors];
-                v81 = [momentumVectors3 count];
+                ++v72;
+                v64 = v111;
+                momentumVectors3 = [v111 momentumVectors];
+                v80 = [momentumVectors3 count];
               }
 
-              while (v73 < v81);
+              while (v72 < v80);
             }
 
-            velocityVectors = [v65 velocityVectors];
-            v83 = [velocityVectors count];
+            velocityVectors = [v64 velocityVectors];
+            v82 = [velocityVectors count];
 
-            if (v83)
+            if (v82)
             {
-              v84 = 0;
+              v83 = 0;
               do
               {
-                velocityVectors2 = [v65 velocityVectors];
-                v86 = [velocityVectors2 objectAtIndexedSubscript:v84];
+                velocityVectors2 = [v64 velocityVectors];
+                v85 = [velocityVectors2 objectAtIndexedSubscript:v83];
 
-                if ([v86 count])
+                if ([v85 count])
                 {
-                  v87 = 0;
+                  v86 = 0;
                   do
                   {
-                    v88 = *(v6 + 2936);
-                    v89 = [v86 objectAtIndexedSubscript:v87];
-                    data2 = [v89 data];
-                    [v88 synchronizeResource:data2 commandBuffer:v11];
+                    v87 = *(v6 + 2936);
+                    v88 = [v85 objectAtIndexedSubscript:v86];
+                    data2 = [v88 data];
+                    [v87 synchronizeResource:data2 commandBuffer:v11];
 
                     v6 = 0x278A68000uLL;
-                    ++v87;
+                    ++v86;
                   }
 
-                  while (v87 < [v86 count]);
+                  while (v86 < [v85 count]);
                 }
 
-                ++v84;
-                v65 = v113;
-                velocityVectors3 = [v113 velocityVectors];
-                v92 = [velocityVectors3 count];
+                ++v83;
+                v64 = v111;
+                velocityVectors3 = [v111 velocityVectors];
+                v91 = [velocityVectors3 count];
               }
 
-              while (v84 < v92);
+              while (v83 < v91);
             }
 
-            centerWeightVectors = [v65 centerWeightVectors];
-            v94 = [centerWeightVectors count];
+            centerWeightVectors = [v64 centerWeightVectors];
+            v93 = [centerWeightVectors count];
 
-            if (v94)
+            if (v93)
             {
-              v95 = 0;
+              v94 = 0;
               do
               {
-                centerWeightVectors2 = [v65 centerWeightVectors];
-                v97 = [centerWeightVectors2 objectAtIndexedSubscript:v95];
+                centerWeightVectors2 = [v64 centerWeightVectors];
+                v96 = [centerWeightVectors2 objectAtIndexedSubscript:v94];
 
-                if ([v97 count])
+                if ([v96 count])
                 {
-                  v98 = 0;
+                  v97 = 0;
                   do
                   {
-                    v99 = *(v6 + 2936);
-                    v100 = [v97 objectAtIndexedSubscript:v98];
-                    data3 = [v100 data];
-                    [v99 synchronizeResource:data3 commandBuffer:v11];
+                    v98 = *(v6 + 2936);
+                    v99 = [v96 objectAtIndexedSubscript:v97];
+                    data3 = [v99 data];
+                    [v98 synchronizeResource:data3 commandBuffer:v11];
 
                     v6 = 0x278A68000;
-                    ++v98;
+                    ++v97;
                   }
 
-                  while (v98 < [v97 count]);
+                  while (v97 < [v96 count]);
                 }
 
-                ++v95;
-                v65 = v113;
-                centerWeightVectors3 = [v113 centerWeightVectors];
-                v103 = [centerWeightVectors3 count];
+                ++v94;
+                v64 = v111;
+                centerWeightVectors3 = [v111 centerWeightVectors];
+                v102 = [centerWeightVectors3 count];
               }
 
-              while (v95 < v103);
+              while (v94 < v102);
             }
 
-            layerCopy = v111;
+            layerCopy = v109;
             goto LABEL_65;
           }
 
@@ -24184,12 +25279,12 @@ LABEL_65:
           weights = [layerCopy weights];
           deviceMemory = [weights deviceMemory];
           [deviceMemory objectAtIndexedSubscript:v5];
-          v107 = v106 = layerCopy;
+          v106 = v105 = layerCopy;
           v6 = 0x278A68000;
-          [MLCGPUHelper synchronizeResource:v107 commandBuffer:v11];
+          [MLCGPUHelper synchronizeResource:v106 commandBuffer:v11];
 
-          layerCopy = v106;
-          v9 = v114;
+          layerCopy = v105;
+          v9 = v112;
         }
       }
 
@@ -24201,8 +25296,6 @@ LABEL_24:
 
     while (v5 < [(MLCDeviceGPU *)self numDevicesToUse]);
   }
-
-  v108 = *MEMORY[0x277D85DE8];
 }
 
 - (void)synchronizeOptimizerUpdatesForTensor:(id)tensor
@@ -24252,28 +25345,28 @@ LABEL_24:
 
 - (BOOL)checkToConvertTensor:(id)tensor inLayer:(id)layer
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   layerCopy = layer;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   childLayers = [tensor childLayers];
-  v7 = [childLayers countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [childLayers countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(childLayers);
         }
 
-        v11 = *(*(&v15 + 1) + 8 * i);
+        v11 = *(*(&v14 + 1) + 8 * i);
         if ([v11 isTrainable])
         {
           v12 = v11 == layerCopy;
@@ -24281,7 +25374,7 @@ LABEL_24:
         }
       }
 
-      v8 = [childLayers countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [childLayers countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v8)
       {
         continue;
@@ -24294,13 +25387,12 @@ LABEL_24:
   v12 = 1;
 LABEL_11:
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 - (void)convertUpdatesToTensorDataForLayer:(id)layer
 {
-  *(&v593[1] + 4) = *MEMORY[0x277D85DE8];
+  *(&v592[1] + 4) = *MEMORY[0x277D85DE8];
   layerCopy = layer;
   if (![(MLCDeviceGPU *)self numDevicesToUse])
   {
@@ -24309,19 +25401,19 @@ LABEL_11:
 
   v5 = 0;
   selfCopy = self;
-  v516 = layerCopy;
+  v515 = layerCopy;
   do
   {
     deviceOps = [layerCopy deviceOps];
-    v534 = v5;
+    v533 = v5;
     v7 = [deviceOps objectAtIndexedSubscript:v5];
 
-    layerCopy = v516;
+    layerCopy = v515;
     objc_opt_class();
-    v588 = v7;
+    v587 = v7;
     if (objc_opt_isKindOfClass())
     {
-      v8 = v516;
+      v8 = v515;
       weights = [v8 weights];
       v10 = [(MLCDeviceGPU *)self checkToConvertTensor:weights inLayer:v8];
 
@@ -24339,8 +25431,8 @@ LABEL_96:
 
           if (v171)
           {
-            isMPSGraph = [v588 isMPSGraph];
-            exportableState = [v588 exportableState];
+            isMPSGraph = [v587 isMPSGraph];
+            exportableState = [v587 exportableState];
             v174 = exportableState;
             if (isMPSGraph)
             {
@@ -24358,9 +25450,9 @@ LABEL_96:
           }
         }
 
-        v7 = v588;
-        momentumVectors = [v588 momentumVectors];
-        momentumVectors2 = [v588 momentumVectors];
+        v7 = v587;
+        momentumVectors = [v587 momentumVectors];
+        momentumVectors2 = [v587 momentumVectors];
         v179 = [momentumVectors2 count];
 
         if (v179)
@@ -24370,8 +25462,8 @@ LABEL_96:
           {
             if (!v180)
             {
-              v574 = [momentumVectors objectAtIndexedSubscript:0];
-              data2 = [v574 data];
+              v573 = [momentumVectors objectAtIndexedSubscript:0];
+              data2 = [v573 data];
               weightsParameter = [exportableState7 weightsParameter];
               tensor = [weightsParameter tensor];
               optimizerData = [tensor optimizerData];
@@ -24385,7 +25477,7 @@ LABEL_108:
               v189 = [optimizerData2 objectAtIndexedSubscript:0];
               -[MLCDeviceGPU copyMTLBuffer:toBytes:length:](selfCopy, "copyMTLBuffer:toBytes:length:", data2, bytes, [v189 length]);
 
-              v7 = v588;
+              v7 = v587;
             }
 
             ++v180;
@@ -24398,8 +25490,8 @@ LABEL_108:
             }
           }
 
-          v574 = [momentumVectors objectAtIndexedSubscript:1];
-          data2 = [v574 data];
+          v573 = [momentumVectors objectAtIndexedSubscript:1];
+          data2 = [v573 data];
           weightsParameter = [exportableState7 biasesParameter];
           tensor = [weightsParameter tensor];
           optimizerData = [tensor optimizerData];
@@ -24421,8 +25513,8 @@ LABEL_110:
           {
             if (!v194)
             {
-              v575 = [velocityVectors objectAtIndexedSubscript:0];
-              data3 = [v575 data];
+              v574 = [velocityVectors objectAtIndexedSubscript:0];
+              data3 = [v574 data];
               weightsParameter3 = [exportableState7 weightsParameter];
               tensor3 = [weightsParameter3 tensor];
               optimizerData3 = [tensor3 optimizerData];
@@ -24436,7 +25528,7 @@ LABEL_116:
               v203 = [optimizerData4 objectAtIndexedSubscript:1];
               -[MLCDeviceGPU copyMTLBuffer:toBytes:length:](selfCopy, "copyMTLBuffer:toBytes:length:", data3, bytes2, [v203 length]);
 
-              v7 = v588;
+              v7 = v587;
             }
 
             ++v194;
@@ -24449,8 +25541,8 @@ LABEL_116:
             }
           }
 
-          v575 = [velocityVectors objectAtIndexedSubscript:1];
-          data3 = [v575 data];
+          v574 = [velocityVectors objectAtIndexedSubscript:1];
+          data3 = [v574 data];
           weightsParameter3 = [exportableState7 biasesParameter];
           tensor3 = [weightsParameter3 tensor];
           optimizerData3 = [tensor3 optimizerData];
@@ -24472,8 +25564,8 @@ LABEL_118:
           {
             if (!v208)
             {
-              v576 = [centerWeightVectors objectAtIndexedSubscript:0];
-              data4 = [v576 data];
+              v575 = [centerWeightVectors objectAtIndexedSubscript:0];
+              data4 = [v575 data];
               weightsParameter5 = [exportableState7 weightsParameter];
               tensor5 = [weightsParameter5 tensor];
               optimizerData5 = [tensor5 optimizerData];
@@ -24487,7 +25579,7 @@ LABEL_124:
               v217 = [optimizerData6 objectAtIndexedSubscript:2];
               -[MLCDeviceGPU copyMTLBuffer:toBytes:length:](selfCopy, "copyMTLBuffer:toBytes:length:", data4, bytes3, [v217 length]);
 
-              v7 = v588;
+              v7 = v587;
             }
 
             ++v208;
@@ -24500,8 +25592,8 @@ LABEL_124:
             }
           }
 
-          v576 = [centerWeightVectors objectAtIndexedSubscript:1];
-          data4 = [v576 data];
+          v575 = [centerWeightVectors objectAtIndexedSubscript:1];
+          data4 = [v575 data];
           weightsParameter5 = [exportableState7 biasesParameter];
           tensor5 = [weightsParameter5 tensor];
           optimizerData5 = [tensor5 optimizerData];
@@ -24522,11 +25614,11 @@ LABEL_124:
 
         if (data5)
         {
-          if ([v588 isMPSGraph])
+          if ([v587 isMPSGraph])
           {
-            exportableState2 = [v588 exportableState];
-            v566 = [exportableState2 objectAtIndexedSubscript:0];
-            contents = [v566 contents];
+            exportableState2 = [v587 exportableState];
+            v565 = [exportableState2 objectAtIndexedSubscript:0];
+            contents = [v565 contents];
             weights3 = [exportableState7 weights];
             data6 = [weights3 data];
             bytes4 = [data6 bytes];
@@ -24542,8 +25634,8 @@ LABEL_124:
             inputFeatureChannelCount = [descriptor6 inputFeatureChannelCount];
             weights4 = [exportableState7 weights];
             descriptor7 = [weights4 descriptor];
-            LODWORD(v504) = [descriptor7 dataType];
-            LOBYTE(v20) = [MLCDataHelper convertSourceHWOI:contents toResultOIHW:bytes4 width:kernelWidth height:kernelHeight inputFeatureChannelCount:v20 outputFeatureChannelCount:inputFeatureChannelCount dataType:v504];
+            LODWORD(v503) = [descriptor7 dataType];
+            LOBYTE(v20) = [MLCDataHelper convertSourceHWOI:contents toResultOIHW:bytes4 width:kernelWidth height:kernelHeight inputFeatureChannelCount:v20 outputFeatureChannelCount:inputFeatureChannelCount dataType:v503];
 
             if ((v20 & 1) == 0)
             {
@@ -24551,25 +25643,25 @@ LABEL_124:
               self = selfCopy;
               if (!os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
               {
-                layerCopy = v516;
-                v7 = v588;
+                layerCopy = v515;
+                v7 = v587;
 LABEL_11:
                 v26 = v25;
                 goto LABEL_130;
               }
 
-              [(MLCDeviceGPU(MLCEngineDispatch) *)v592 convertUpdatesToTensorDataForLayer:v593, v25];
+              [(MLCDeviceGPU(MLCEngineDispatch) *)v591 convertUpdatesToTensorDataForLayer:v592, v25];
               v26 = v25;
 LABEL_225:
-              layerCopy = v516;
-              v7 = v588;
+              layerCopy = v515;
+              v7 = v587;
               goto LABEL_130;
             }
 
             goto LABEL_95;
           }
 
-          exportableState3 = [v588 exportableState];
+          exportableState3 = [v587 exportableState];
           weights5 = [exportableState3 weights];
           weights6 = [exportableState7 weights];
           data7 = [weights6 data];
@@ -24585,11 +25677,11 @@ LABEL_225:
       {
       }
 
-      if ([v588 isMPSGraph])
+      if ([v587 isMPSGraph])
       {
-        exportableState4 = [v588 exportableState];
-        v573 = [exportableState4 objectAtIndexedSubscript:0];
-        contents2 = [v573 contents];
+        exportableState4 = [v587 exportableState];
+        v572 = [exportableState4 objectAtIndexedSubscript:0];
+        contents2 = [v572 contents];
         weights8 = [exportableState7 weights];
         data8 = [weights8 data];
         bytes5 = [data8 bytes];
@@ -24609,20 +25701,20 @@ LABEL_225:
         {
           descriptor15 = [exportableState7 descriptor];
           outputFeatureChannelCount2 /= [descriptor15 inputFeatureChannelCount];
-          v156 = v507;
+          v156 = v506;
         }
 
         else
         {
           v156 = descriptor14;
-          descriptor14 = v506;
+          descriptor14 = v505;
         }
 
         v161 = inputFeatureChannelCount2 / groupCount;
         weights9 = [exportableState7 weights];
         descriptor16 = [weights9 descriptor];
-        LODWORD(v504) = [descriptor16 dataType];
-        v164 = [MLCDataHelper convertSourceHWIO:contents2 toResultOIHW:bytes5 width:kernelWidth2 height:kernelHeight2 inputFeatureChannelCount:v161 outputFeatureChannelCount:outputFeatureChannelCount2 dataType:v504];
+        LODWORD(v503) = [descriptor16 dataType];
+        v164 = [MLCDataHelper convertSourceHWIO:contents2 toResultOIHW:bytes5 width:kernelWidth2 height:kernelHeight2 inputFeatureChannelCount:v161 outputFeatureChannelCount:outputFeatureChannelCount2 dataType:v503];
 
         v165 = v156;
         if (usesDepthwiseConvolution)
@@ -24631,10 +25723,10 @@ LABEL_225:
           v165 = descriptor14;
         }
 
-        v507 = v156;
+        v506 = v156;
         if (v164)
         {
-          v506 = descriptor14;
+          v505 = descriptor14;
 LABEL_95:
           v84 = exportableState7;
           goto LABEL_96;
@@ -24643,16 +25735,16 @@ LABEL_95:
         exportableState3 = +[MLCLog framework];
         if (os_log_type_enabled(exportableState3, OS_LOG_TYPE_ERROR))
         {
-          [(MLCDeviceGPU(MLCEngineDispatch) *)v590 convertUpdatesToTensorDataForLayer:exportableState3];
+          [(MLCDeviceGPU(MLCEngineDispatch) *)v589 convertUpdatesToTensorDataForLayer:exportableState3];
         }
 
-        v506 = descriptor14;
+        v505 = descriptor14;
 LABEL_94:
 
         goto LABEL_95;
       }
 
-      exportableState3 = [v588 exportableState];
+      exportableState3 = [v587 exportableState];
       weights5 = [exportableState3 weights];
       weights6 = [exportableState7 weights];
       data7 = [weights6 data];
@@ -24665,7 +25757,7 @@ LABEL_93:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v27 = v516;
+      v27 = v515;
       weights10 = [v27 weights];
       v29 = [(MLCDeviceGPU *)self checkToConvertTensor:weights10 inLayer:v27];
 
@@ -24687,7 +25779,7 @@ LABEL_93:
 
         if (v37)
         {
-          exportableState6 = [v588 exportableState];
+          exportableState6 = [v587 exportableState];
           v39 = [exportableState6 objectAtIndexedSubscript:1];
           biases6 = [v27 biases];
           data10 = [biases6 data];
@@ -24696,9 +25788,9 @@ LABEL_93:
       }
 
       exportableState7 = v27;
-      v7 = v588;
-      momentumVectors = [v588 momentumVectors];
-      momentumVectors4 = [v588 momentumVectors];
+      v7 = v587;
+      momentumVectors = [v587 momentumVectors];
+      momentumVectors4 = [v587 momentumVectors];
       v43 = [momentumVectors4 count];
 
       if (v43)
@@ -24708,8 +25800,8 @@ LABEL_93:
         {
           if (!v44)
           {
-            v567 = [momentumVectors objectAtIndexedSubscript:0];
-            data11 = [v567 data];
+            v566 = [momentumVectors objectAtIndexedSubscript:0];
+            data11 = [v566 data];
             weightsParameter7 = [exportableState7 weightsParameter];
             tensor7 = [weightsParameter7 tensor];
             optimizerData7 = [tensor7 optimizerData];
@@ -24723,7 +25815,7 @@ LABEL_24:
             v53 = [optimizerData8 objectAtIndexedSubscript:0];
             -[MLCDeviceGPU copyMTLBuffer:toBytes:length:](selfCopy, "copyMTLBuffer:toBytes:length:", data11, bytes6, [v53 length]);
 
-            v7 = v588;
+            v7 = v587;
           }
 
           ++v44;
@@ -24736,8 +25828,8 @@ LABEL_24:
           }
         }
 
-        v567 = [momentumVectors objectAtIndexedSubscript:1];
-        data11 = [v567 data];
+        v566 = [momentumVectors objectAtIndexedSubscript:1];
+        data11 = [v566 data];
         weightsParameter7 = [exportableState7 biasesParameter];
         tensor7 = [weightsParameter7 tensor];
         optimizerData7 = [tensor7 optimizerData];
@@ -24759,8 +25851,8 @@ LABEL_26:
         {
           if (!v58)
           {
-            v568 = [velocityVectors objectAtIndexedSubscript:0];
-            data12 = [v568 data];
+            v567 = [velocityVectors objectAtIndexedSubscript:0];
+            data12 = [v567 data];
             weightsParameter9 = [exportableState7 weightsParameter];
             tensor9 = [weightsParameter9 tensor];
             optimizerData9 = [tensor9 optimizerData];
@@ -24774,7 +25866,7 @@ LABEL_32:
             v67 = [optimizerData10 objectAtIndexedSubscript:1];
             -[MLCDeviceGPU copyMTLBuffer:toBytes:length:](selfCopy, "copyMTLBuffer:toBytes:length:", data12, bytes7, [v67 length]);
 
-            v7 = v588;
+            v7 = v587;
           }
 
           ++v58;
@@ -24787,8 +25879,8 @@ LABEL_32:
           }
         }
 
-        v568 = [velocityVectors objectAtIndexedSubscript:1];
-        data12 = [v568 data];
+        v567 = [velocityVectors objectAtIndexedSubscript:1];
+        data12 = [v567 data];
         weightsParameter9 = [exportableState7 biasesParameter];
         tensor9 = [weightsParameter9 tensor];
         optimizerData9 = [tensor9 optimizerData];
@@ -24816,8 +25908,8 @@ LABEL_126:
       {
         if (!v72)
         {
-          v569 = [centerWeightVectors objectAtIndexedSubscript:0];
-          data13 = [v569 data];
+          v568 = [centerWeightVectors objectAtIndexedSubscript:0];
+          data13 = [v568 data];
           weightsParameter11 = [exportableState7 weightsParameter];
           tensor11 = [weightsParameter11 tensor];
           optimizerData11 = [tensor11 optimizerData];
@@ -24831,7 +25923,7 @@ LABEL_40:
           v81 = [optimizerData12 objectAtIndexedSubscript:2];
           -[MLCDeviceGPU copyMTLBuffer:toBytes:length:](selfCopy, "copyMTLBuffer:toBytes:length:", data13, bytes8, [v81 length]);
 
-          v7 = v588;
+          v7 = v587;
         }
 
         ++v72;
@@ -24844,8 +25936,8 @@ LABEL_40:
         }
       }
 
-      v569 = [centerWeightVectors objectAtIndexedSubscript:1];
-      data13 = [v569 data];
+      v568 = [centerWeightVectors objectAtIndexedSubscript:1];
+      data13 = [v568 data];
       weightsParameter11 = [exportableState7 biasesParameter];
       tensor11 = [weightsParameter11 tensor];
       optimizerData11 = [tensor11 optimizerData];
@@ -24859,7 +25951,7 @@ LABEL_40:
     if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()) || (objc_opt_class(), (objc_opt_isKindOfClass()) || (objc_opt_class(), (objc_opt_isKindOfClass()))
     {
       exportableState7 = [v7 exportableState];
-      v85 = v516;
+      v85 = v515;
       gamma = [v85 gamma];
       selfCopy2 = self;
       v88 = [(MLCDeviceGPU *)self checkToConvertTensor:gamma inLayer:v85];
@@ -24871,7 +25963,7 @@ LABEL_40:
         data14 = [gamma3 data];
         [(MLCDeviceGPU *)selfCopy2 copyMTLBuffer:gamma2 toNSData:data14];
 
-        v7 = v588;
+        v7 = v587;
       }
 
       beta = [v85 beta];
@@ -24885,7 +25977,7 @@ LABEL_40:
         data15 = [beta3 data];
         [(MLCDeviceGPU *)selfCopy copyMTLBuffer:beta2 toNSData:data15];
 
-        v7 = v588;
+        v7 = v587;
       }
 
       movingState = [v7 movingState];
@@ -24902,14 +25994,14 @@ LABEL_40:
         data17 = [variance2 data];
         [(MLCDeviceGPU *)selfCopy copyMTLBuffer:variance toNSData:data17];
 
-        v7 = v588;
+        v7 = v587;
       }
 
       momentumVectors6 = [v7 momentumVectors];
       momentumVectors7 = [v7 momentumVectors];
       v106 = [momentumVectors7 count];
 
-      v513 = v98;
+      v512 = v98;
       if (v106)
       {
         v107 = 0;
@@ -24917,8 +26009,8 @@ LABEL_40:
         {
           if (!v107)
           {
-            v570 = [momentumVectors6 objectAtIndexedSubscript:0];
-            data18 = [v570 data];
+            v569 = [momentumVectors6 objectAtIndexedSubscript:0];
+            data18 = [v569 data];
             betaParameter = [momentumVectors betaParameter];
             tensor13 = [betaParameter tensor];
             optimizerData13 = [tensor13 optimizerData];
@@ -24932,7 +26024,7 @@ LABEL_60:
             v116 = [optimizerData14 objectAtIndexedSubscript:0];
             -[MLCDeviceGPU copyMTLBuffer:toBytes:length:](selfCopy, "copyMTLBuffer:toBytes:length:", data18, bytes9, [v116 length]);
 
-            v7 = v588;
+            v7 = v587;
           }
 
           ++v107;
@@ -24945,8 +26037,8 @@ LABEL_60:
           }
         }
 
-        v570 = [momentumVectors6 objectAtIndexedSubscript:1];
-        data18 = [v570 data];
+        v569 = [momentumVectors6 objectAtIndexedSubscript:1];
+        data18 = [v569 data];
         betaParameter = [momentumVectors gammaParameter];
         tensor13 = [betaParameter tensor];
         optimizerData13 = [tensor13 optimizerData];
@@ -24968,8 +26060,8 @@ LABEL_62:
         {
           if (!v121)
           {
-            v571 = [velocityVectors6 objectAtIndexedSubscript:0];
-            data19 = [v571 data];
+            v570 = [velocityVectors6 objectAtIndexedSubscript:0];
+            data19 = [v570 data];
             betaParameter3 = [momentumVectors betaParameter];
             tensor15 = [betaParameter3 tensor];
             optimizerData15 = [tensor15 optimizerData];
@@ -24983,7 +26075,7 @@ LABEL_68:
             v130 = [optimizerData16 objectAtIndexedSubscript:1];
             -[MLCDeviceGPU copyMTLBuffer:toBytes:length:](selfCopy, "copyMTLBuffer:toBytes:length:", data19, bytes10, [v130 length]);
 
-            v7 = v588;
+            v7 = v587;
           }
 
           ++v121;
@@ -24996,8 +26088,8 @@ LABEL_68:
           }
         }
 
-        v571 = [velocityVectors6 objectAtIndexedSubscript:1];
-        data19 = [v571 data];
+        v570 = [velocityVectors6 objectAtIndexedSubscript:1];
+        data19 = [v570 data];
         betaParameter3 = [momentumVectors gammaParameter];
         tensor15 = [betaParameter3 tensor];
         optimizerData15 = [tensor15 optimizerData];
@@ -25016,12 +26108,12 @@ LABEL_70:
       {
 LABEL_78:
 
-        v147 = v513;
+        v147 = v512;
 LABEL_127:
 
 LABEL_128:
         self = selfCopy;
-        layerCopy = v516;
+        layerCopy = v515;
         goto LABEL_129;
       }
 
@@ -25030,8 +26122,8 @@ LABEL_128:
       {
         if (!v135)
         {
-          v572 = [centerWeightVectors6 objectAtIndexedSubscript:0];
-          data20 = [v572 data];
+          v571 = [centerWeightVectors6 objectAtIndexedSubscript:0];
+          data20 = [v571 data];
           betaParameter5 = [momentumVectors betaParameter];
           tensor17 = [betaParameter5 tensor];
           optimizerData17 = [tensor17 optimizerData];
@@ -25045,7 +26137,7 @@ LABEL_76:
           v144 = [optimizerData18 objectAtIndexedSubscript:2];
           -[MLCDeviceGPU copyMTLBuffer:toBytes:length:](selfCopy, "copyMTLBuffer:toBytes:length:", data20, bytes11, [v144 length]);
 
-          v7 = v588;
+          v7 = v587;
         }
 
         ++v135;
@@ -25058,8 +26150,8 @@ LABEL_76:
         }
       }
 
-      v572 = [centerWeightVectors6 objectAtIndexedSubscript:1];
-      data20 = [v572 data];
+      v571 = [centerWeightVectors6 objectAtIndexedSubscript:1];
+      data20 = [v571 data];
       betaParameter5 = [momentumVectors gammaParameter];
       tensor17 = [betaParameter5 tensor];
       optimizerData17 = [tensor17 optimizerData];
@@ -25072,7 +26164,7 @@ LABEL_76:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v220 = v516;
+      v220 = v515;
       weights12 = [v220 weights];
       exportableState7 = v220;
       v222 = [(MLCDeviceGPU *)self checkToConvertTensor:weights12 inLayer:v220];
@@ -25081,20 +26173,20 @@ LABEL_76:
       {
         weights13 = [v220 weights];
         deviceMemory = [weights13 deviceMemory];
-        v225 = [deviceMemory objectAtIndexedSubscript:v534];
+        v225 = [deviceMemory objectAtIndexedSubscript:v533];
         weights14 = [v220 weights];
         data21 = [weights14 data];
         [(MLCDeviceGPU *)selfCopy copyMTLBuffer:v225 toNSData:data21];
 
-        v7 = v588;
+        v7 = v587;
       }
 
       momentumVectors9 = [v7 momentumVectors];
       v229 = momentumVectors9;
       if (momentumVectors9)
       {
-        v586 = [momentumVectors9 objectAtIndexedSubscript:0];
-        data22 = [v586 data];
+        v585 = [momentumVectors9 objectAtIndexedSubscript:0];
+        data22 = [v585 data];
         weightsParameter13 = [exportableState7 weightsParameter];
         tensor19 = [weightsParameter13 tensor];
         optimizerData19 = [tensor19 optimizerData];
@@ -25106,17 +26198,17 @@ LABEL_76:
         v238 = [optimizerData20 objectAtIndexedSubscript:0];
         -[MLCDeviceGPU copyMTLBuffer:toBytes:length:](selfCopy, "copyMTLBuffer:toBytes:length:", data22, bytes12, [v238 length]);
 
-        v7 = v588;
+        v7 = v587;
       }
 
       momentumVectors = v229;
       velocityVectors9 = [v7 velocityVectors];
       v240 = velocityVectors9;
-      v578 = velocityVectors9;
+      v577 = velocityVectors9;
       if (velocityVectors9)
       {
-        v559 = [velocityVectors9 objectAtIndexedSubscript:0];
-        data23 = [v559 data];
+        v558 = [velocityVectors9 objectAtIndexedSubscript:0];
+        data23 = [v558 data];
         weightsParameter15 = [exportableState7 weightsParameter];
         tensor21 = [weightsParameter15 tensor];
         optimizerData21 = [tensor21 optimizerData];
@@ -25128,16 +26220,16 @@ LABEL_76:
         v250 = [optimizerData22 objectAtIndexedSubscript:1];
         -[MLCDeviceGPU copyMTLBuffer:toBytes:length:](selfCopy, "copyMTLBuffer:toBytes:length:", data23, bytes13, [v250 length]);
 
-        v7 = v588;
-        v240 = v578;
+        v7 = v587;
+        v240 = v577;
       }
 
       centerWeightVectors9 = [v7 centerWeightVectors];
       v252 = centerWeightVectors9;
       if (centerWeightVectors9)
       {
-        v560 = [centerWeightVectors9 objectAtIndexedSubscript:0];
-        data24 = [v560 data];
+        v559 = [centerWeightVectors9 objectAtIndexedSubscript:0];
+        data24 = [v559 data];
         weightsParameter17 = [exportableState7 weightsParameter];
         tensor23 = [weightsParameter17 tensor];
         optimizerData23 = [tensor23 optimizerData];
@@ -25149,8 +26241,8 @@ LABEL_76:
         v261 = [optimizerData24 objectAtIndexedSubscript:2];
         -[MLCDeviceGPU copyMTLBuffer:toBytes:length:](selfCopy, "copyMTLBuffer:toBytes:length:", data24, bytes14, [v261 length]);
 
-        v7 = v588;
-        v240 = v578;
+        v7 = v587;
+        v240 = v577;
       }
 
       goto LABEL_128;
@@ -25159,39 +26251,39 @@ LABEL_76:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v262 = v516;
+      v262 = v515;
       v263 = v7;
       exportableState7 = v262;
       descriptor17 = [v262 descriptor];
       layerCount = [descriptor17 layerCount];
 
       momentumVectors = v263;
-      v515 = layerCount << [v263 isBidirectional];
-      if (v515)
+      v514 = layerCount << [v263 isBidirectional];
+      if (v514)
       {
-        v532 = 0;
+        v531 = 0;
         v266 = 0;
         do
         {
           v267 = 0;
           v268 = 4 * v266;
-          v520 = v266;
-          v525 = 4 * v266;
+          v519 = v266;
+          v524 = 4 * v266;
           do
           {
             v269 = v267 & 3;
             rnnExportedWeightMatrices = [momentumVectors rnnExportedWeightMatrices];
-            v267 = [rnnExportedWeightMatrices objectAtIndexedSubscript:v532 + v267];
+            v267 = [rnnExportedWeightMatrices objectAtIndexedSubscript:v531 + v267];
 
-            v561 = v267;
-            v579 = v267;
+            v560 = v267;
+            v578 = v267;
             if (v267 < 4)
             {
               inputWeights = [exportableState7 inputWeights];
               v268 = [inputWeights objectAtIndexedSubscript:v269 | v268];
 
               data25 = [v267 data];
-              v546 = v268;
+              v545 = v268;
               data26 = [v268 data];
               [(MLCDeviceGPU *)selfCopy copyMTLBuffer:data25 toNSData:data26];
 
@@ -25204,7 +26296,7 @@ LABEL_76:
               v2682 = [hiddenWeights objectAtIndexedSubscript:v269 | v268];
 
               data27 = [v267 data];
-              v546 = v2682;
+              v545 = v2682;
               data28 = [v2682 data];
               [(MLCDeviceGPU *)selfCopy copyMTLBuffer:data27 toNSData:data28];
 
@@ -25221,7 +26313,7 @@ LABEL_76:
             {
               tensor26 = [v2683 tensor];
               optimizerDeviceData = [tensor26 optimizerDeviceData];
-              v287 = [optimizerDeviceData objectAtIndexedSubscript:v534];
+              v287 = [optimizerDeviceData objectAtIndexedSubscript:v533];
               momentumVectors10 = [v287 momentumVectors];
               v289 = [momentumVectors10 objectAtIndexedSubscript:0];
 
@@ -25244,7 +26336,7 @@ LABEL_76:
             {
               tensor30 = [v2683 tensor];
               optimizerDeviceData2 = [tensor30 optimizerDeviceData];
-              v303 = [optimizerDeviceData2 objectAtIndexedSubscript:v534];
+              v303 = [optimizerDeviceData2 objectAtIndexedSubscript:v533];
               velocityVectors10 = [v303 velocityVectors];
               v305 = [velocityVectors10 objectAtIndexedSubscript:0];
 
@@ -25267,7 +26359,7 @@ LABEL_76:
             {
               tensor34 = [v2683 tensor];
               optimizerDeviceData3 = [tensor34 optimizerDeviceData];
-              v319 = [optimizerDeviceData3 objectAtIndexedSubscript:v534];
+              v319 = [optimizerDeviceData3 objectAtIndexedSubscript:v533];
               centerWeightVectors10 = [v319 centerWeightVectors];
               v321 = [centerWeightVectors10 objectAtIndexedSubscript:0];
 
@@ -25282,16 +26374,16 @@ LABEL_76:
               -[MLCDeviceGPU copyMTLBuffer:toBytes:length:](selfCopy, "copyMTLBuffer:toBytes:length:", data31, bytes17, [v329 length]);
             }
 
-            v267 = v579 + 1;
-            v268 = v525;
+            v267 = v578 + 1;
+            v268 = v524;
           }
 
-          while (v579 != 7);
-          v266 = v520 + 1;
-          v532 += 8;
+          while (v578 != 7);
+          v266 = v519 + 1;
+          v531 += 8;
         }
 
-        while (v520 + 1 != v515);
+        while (v519 + 1 != v514);
       }
 
       biases7 = [exportableState7 biases];
@@ -25300,32 +26392,32 @@ LABEL_76:
       if (biases7)
       {
         v26 = momentumVectors;
-        if (v515)
+        if (v514)
         {
           v331 = 0;
           v332 = 0;
           do
           {
-            v511 = v332;
-            v521 = v331;
+            v510 = v332;
+            v520 = v331;
             v333 = 4;
             do
             {
-              v562 = v333;
+              v561 = v333;
               rnnExportedBiasTerms = [v26 rnnExportedBiasTerms];
               v335 = [rnnExportedBiasTerms objectAtIndexedSubscript:v331];
 
               biases8 = [exportableState7 biases];
               v337 = [biases8 objectAtIndexedSubscript:v331];
 
-              v547 = v335;
+              v546 = v335;
               data32 = [v335 data];
-              v533 = v337;
+              v532 = v337;
               data33 = [v337 data];
               [(MLCDeviceGPU *)selfCopy copyMTLBuffer:data32 toNSData:data33];
 
               biasesParameters = [exportableState7 biasesParameters];
-              v580 = v331;
+              v579 = v331;
               v341 = [biasesParameters objectAtIndexedSubscript:v331];
 
               tensor37 = [v341 tensor];
@@ -25336,11 +26428,11 @@ LABEL_76:
               {
                 tensor38 = [v341 tensor];
                 optimizerDeviceData4 = [tensor38 optimizerDeviceData];
-                v347 = [optimizerDeviceData4 objectAtIndexedSubscript:v534];
+                v347 = [optimizerDeviceData4 objectAtIndexedSubscript:v533];
                 momentumVectors11 = [v347 momentumVectors];
-                v526 = [momentumVectors11 objectAtIndexedSubscript:0];
+                v525 = [momentumVectors11 objectAtIndexedSubscript:0];
 
-                data34 = [v526 data];
+                data34 = [v525 data];
                 tensor39 = [v341 tensor];
                 optimizerData35 = [tensor39 optimizerData];
                 v352 = [optimizerData35 objectAtIndexedSubscript:0];
@@ -25359,7 +26451,7 @@ LABEL_76:
               {
                 tensor42 = [v341 tensor];
                 optimizerDeviceData5 = [tensor42 optimizerDeviceData];
-                v362 = [optimizerDeviceData5 objectAtIndexedSubscript:v534];
+                v362 = [optimizerDeviceData5 objectAtIndexedSubscript:v533];
                 velocityVectors11 = [v362 velocityVectors];
                 v364 = [velocityVectors11 objectAtIndexedSubscript:0];
 
@@ -25382,11 +26474,11 @@ LABEL_76:
               {
                 tensor46 = [v341 tensor];
                 optimizerDeviceData6 = [tensor46 optimizerDeviceData];
-                v378 = [optimizerDeviceData6 objectAtIndexedSubscript:v534];
+                v378 = [optimizerDeviceData6 objectAtIndexedSubscript:v533];
                 centerWeightVectors11 = [v378 centerWeightVectors];
-                v527 = [centerWeightVectors11 objectAtIndexedSubscript:0];
+                v526 = [centerWeightVectors11 objectAtIndexedSubscript:0];
 
-                data36 = [v527 data];
+                data36 = [v526 data];
                 tensor47 = [v341 tensor];
                 optimizerData41 = [tensor47 optimizerData];
                 v383 = [optimizerData41 objectAtIndexedSubscript:2];
@@ -25398,24 +26490,24 @@ LABEL_76:
               }
 
               v26 = momentumVectors;
-              v331 = v580 + 1;
-              v333 = v562 - 1;
+              v331 = v579 + 1;
+              v333 = v561 - 1;
             }
 
-            while (v562 != 1);
-            v332 = v511 + 1;
-            v331 = v521 + 4;
+            while (v561 != 1);
+            v332 = v510 + 1;
+            v331 = v520 + 4;
           }
 
-          while (v511 + 1 != v515);
+          while (v510 + 1 != v514);
           self = selfCopy;
         }
 
         goto LABEL_225;
       }
 
-      layerCopy = v516;
-      v7 = v588;
+      layerCopy = v515;
+      v7 = v587;
 LABEL_129:
       v26 = momentumVectors;
       goto LABEL_130;
@@ -25427,7 +26519,7 @@ LABEL_129:
       goto LABEL_131;
     }
 
-    exportableState7 = v516;
+    exportableState7 = v515;
     momentumVectors = v7;
     for (i = 0; i != 4; ++i)
     {
@@ -25447,8 +26539,8 @@ LABEL_129:
       if (!biases9)
       {
 LABEL_177:
-        v581 = 1;
-        v7 = v588;
+        v580 = 1;
+        v7 = v587;
         goto LABEL_180;
       }
 
@@ -25456,7 +26548,7 @@ LABEL_177:
       biases10 = [exportableState7 biases];
       if ([biases10 count] < 4)
       {
-        v581 = 1;
+        v580 = 1;
       }
 
       else
@@ -25479,15 +26571,15 @@ LABEL_177:
         biases13 = [exportableState7 biases];
         v408 = [biases13 objectAtIndexedSubscript:i];
         data38 = [v408 data];
-        v581 = tensorAllocationSizeInBytes2;
+        v580 = tensorAllocationSizeInBytes2;
         -[MLCDeviceGPU copyMTLBuffer:toBytes:length:](selfCopy, "copyMTLBuffer:toBytes:length:", biases10, [data38 bytes], tensorAllocationSizeInBytes2);
       }
 
-      v7 = v588;
+      v7 = v587;
 
 LABEL_180:
-      v584MomentumVectors = [momentumVectors momentumVectors];
-      v411 = [v584MomentumVectors objectAtIndexedSubscript:i];
+      v583MomentumVectors = [momentumVectors momentumVectors];
+      v411 = [v583MomentumVectors objectAtIndexedSubscript:i];
 
       if ([v411 count])
       {
@@ -25509,7 +26601,7 @@ LABEL_180:
 LABEL_186:
             [(MLCDeviceGPU *)v420 copyMTLBuffer:v421 toBytes:bytes21 length:v422];
 
-            v7 = v588;
+            v7 = v587;
           }
 
           if (++v412 >= [v411 count])
@@ -25527,7 +26619,7 @@ LABEL_186:
         bytes21 = [v418 bytes];
         v420 = selfCopy;
         v421 = data39;
-        v422 = v581;
+        v422 = v580;
         goto LABEL_186;
       }
 
@@ -25541,10 +26633,10 @@ LABEL_188:
         v427 = [velocityVectors13 count];
 
         v428 = v427 >= 4;
-        v7 = v588;
+        v7 = v587;
         if (v428)
         {
-          v563 = tensorAllocationSizeInBytes;
+          v562 = tensorAllocationSizeInBytes;
           velocityVectors14 = [momentumVectors velocityVectors];
           v430 = [velocityVectors14 objectAtIndexedSubscript:i];
 
@@ -25553,7 +26645,7 @@ LABEL_188:
 LABEL_199:
 
             v423 = momentumVectors;
-            tensorAllocationSizeInBytes = v563;
+            tensorAllocationSizeInBytes = v562;
             goto LABEL_200;
           }
 
@@ -25571,11 +26663,11 @@ LABEL_199:
               bytes22 = [v437 bytes];
               v439 = selfCopy;
               v440 = data40;
-              v441 = v581;
+              v441 = v580;
 LABEL_197:
               [(MLCDeviceGPU *)v439 copyMTLBuffer:v440 toBytes:bytes22 length:v441];
 
-              v7 = v588;
+              v7 = v587;
             }
 
             else if (!v431)
@@ -25589,7 +26681,7 @@ LABEL_197:
               bytes22 = [v437 bytes];
               v439 = selfCopy;
               v440 = data40;
-              v441 = v563;
+              v441 = v562;
               goto LABEL_197;
             }
 
@@ -25612,10 +26704,10 @@ LABEL_200:
         v445 = [centerWeightVectors13 count];
 
         v428 = v445 >= 4;
-        v7 = v588;
+        v7 = v587;
         if (v428)
         {
-          v564 = tensorAllocationSizeInBytes;
+          v563 = tensorAllocationSizeInBytes;
           centerWeightVectors14 = [momentumVectors centerWeightVectors];
           v447 = [centerWeightVectors14 objectAtIndexedSubscript:i];
 
@@ -25640,11 +26732,11 @@ LABEL_211:
               bytes23 = [v454 bytes];
               v456 = selfCopy;
               v457 = data41;
-              v458 = v581;
+              v458 = v580;
 LABEL_209:
               [(MLCDeviceGPU *)v456 copyMTLBuffer:v457 toBytes:bytes23 length:v458];
 
-              v7 = v588;
+              v7 = v587;
             }
 
             else if (!v448)
@@ -25658,7 +26750,7 @@ LABEL_209:
               bytes23 = [v454 bytes];
               v456 = selfCopy;
               v457 = data41;
-              v458 = v564;
+              v458 = v563;
               goto LABEL_209;
             }
 
@@ -25682,7 +26774,7 @@ LABEL_212:
     if (!v460)
     {
       self = selfCopy;
-      layerCopy = v516;
+      layerCopy = v515;
       goto LABEL_11;
     }
 
@@ -25713,13 +26805,13 @@ LABEL_212:
       tensorAllocationSizeInBytes3 = [descriptor20 tensorAllocationSizeInBytes];
 
       data42 = [tensor49 data];
-      v582 = v466;
+      v581 = v466;
       memcpy([data42 bytes], objc_msgSend(v466, "bytes"), tensorAllocationSizeInBytes3);
 
-      v584MomentumVectors2 = [momentumVectors momentumVectors];
-      v476 = [v584MomentumVectors2 objectAtIndexedSubscript:v469];
+      v583MomentumVectors2 = [momentumVectors momentumVectors];
+      v476 = [v583MomentumVectors2 objectAtIndexedSubscript:v469];
 
-      v565 = v476;
+      v564 = v476;
       v477 = [v476 objectAtIndexedSubscript:0];
       data43 = [v477 data];
       optimizerData46 = [tensor49 optimizerData];
@@ -25773,19 +26865,17 @@ LABEL_212:
 
     while (v463 < v502);
     self = selfCopy;
-    layerCopy = v516;
-    v7 = v588;
+    layerCopy = v515;
+    v7 = v587;
     v26 = momentumVectors;
 LABEL_130:
 
 LABEL_131:
-    v5 = v534 + 1;
+    v5 = v533 + 1;
   }
 
-  while (v534 + 1 < [(MLCDeviceGPU *)self numDevicesToUse]);
+  while (v533 + 1 < [(MLCDeviceGPU *)self numDevicesToUse]);
 LABEL_228:
-
-  v503 = *MEMORY[0x277D85DE8];
 }
 
 - (void)convertUpdatesToTensorDataForTensorParameters:(id)parameters
@@ -25921,14 +27011,14 @@ LABEL_228:
 
 - (void)updateMultiheadAttentionLayer:(id)layer optimizer:(id)optimizer weightsParameter:(id)parameter biasesParameter:(id)biasesParameter arrayOfParams:(id)params
 {
-  v113 = *MEMORY[0x277D85DE8];
+  v112 = *MEMORY[0x277D85DE8];
   layerCopy = layer;
   optimizerCopy = optimizer;
   parameterCopy = parameter;
   biasesParameterCopy = biasesParameter;
   paramsCopy = params;
   context = objc_autoreleasePoolPush();
-  v84 = layerCopy;
+  v83 = layerCopy;
   v13 = [layerCopy objectAtIndexedSubscript:0];
   mhaHasAttnBias = [v13 mhaHasAttnBias];
   v15 = 4;
@@ -25937,7 +27027,7 @@ LABEL_228:
     v15 = 6;
   }
 
-  v83 = v15;
+  v82 = v15;
 
   if ([(MLCDeviceGPU *)self numDevicesToUse])
   {
@@ -25945,10 +27035,10 @@ LABEL_228:
     selfCopy = self;
     do
     {
-      v100 = [v84 objectAtIndexedSubscript:v16];
+      v99 = [v83 objectAtIndexedSubscript:v16];
       if ([(MLCDeviceGPU *)self numDevicesToUse]== 2)
       {
-        mhaMultiGPUChildOps = [v100 mhaMultiGPUChildOps];
+        mhaMultiGPUChildOps = [v99 mhaMultiGPUChildOps];
         v18 = v16;
         multiGPUReduction = [mhaMultiGPUChildOps multiGPUReduction];
 
@@ -25957,42 +27047,42 @@ LABEL_228:
         if (v20)
         {
           v21 = [MEMORY[0x277CBEBF8] mutableCopy];
+          v105 = 0u;
           v106 = 0u;
           v107 = 0u;
           v108 = 0u;
-          v109 = 0u;
-          gradientState = [v100 gradientState];
-          v23 = [gradientState countByEnumeratingWithState:&v106 objects:v112 count:16];
+          gradientState = [v99 gradientState];
+          v23 = [gradientState countByEnumeratingWithState:&v105 objects:v111 count:16];
           if (v23)
           {
             v24 = v23;
-            v25 = *v107;
+            v25 = *v106;
             do
             {
               for (i = 0; i != v24; ++i)
               {
-                if (*v107 != v25)
+                if (*v106 != v25)
                 {
                   objc_enumerationMutation(gradientState);
                 }
 
-                data = [*(*(&v106 + 1) + 8 * i) data];
+                data = [*(*(&v105 + 1) + 8 * i) data];
                 [v21 addObject:data];
               }
 
-              v24 = [gradientState countByEnumeratingWithState:&v106 objects:v112 count:16];
+              v24 = [gradientState countByEnumeratingWithState:&v105 objects:v111 count:16];
             }
 
             while (v24);
           }
 
-          v28 = [v84 objectAtIndexedSubscript:0];
+          v28 = [v83 objectAtIndexedSubscript:0];
           mhaMultiGPUChildOps2 = [v28 mhaMultiGPUChildOps];
-          v111[0] = mhaMultiGPUChildOps2;
-          v30 = [v84 objectAtIndexedSubscript:1];
+          v110[0] = mhaMultiGPUChildOps2;
+          v30 = [v83 objectAtIndexedSubscript:1];
           mhaMultiGPUChildOps3 = [v30 mhaMultiGPUChildOps];
-          v111[1] = mhaMultiGPUChildOps3;
-          v32 = [MEMORY[0x277CBEA60] arrayWithObjects:v111 count:2];
+          v110[1] = mhaMultiGPUChildOps3;
+          v32 = [MEMORY[0x277CBEA60] arrayWithObjects:v110 count:2];
           v33 = [v21 copy];
           self = selfCopy;
           [(MLCDeviceGPU *)selfCopy allReduceOverXGMI:v32 deviceIndex:v18 stateBuffers:v33];
@@ -26001,12 +27091,12 @@ LABEL_228:
         }
       }
 
-      v34 = [v84 objectAtIndexedSubscript:v16];
+      v34 = [v83 objectAtIndexedSubscript:v16];
       mhaHasBias = [v34 mhaHasBias];
 
       gpuCommandBufferList = [(MLCDeviceGPU *)self gpuCommandBufferList];
-      v94 = v16;
-      v93 = [gpuCommandBufferList objectAtIndexedSubscript:v16];
+      v93 = v16;
+      v92 = [gpuCommandBufferList objectAtIndexedSubscript:v16];
 
       v37 = 0;
       v38 = -4;
@@ -26015,7 +27105,7 @@ LABEL_228:
         v38 = 0;
       }
 
-      v86 = v38;
+      v85 = v38;
       if (mhaHasBias)
       {
         v39 = 4;
@@ -26036,12 +27126,12 @@ LABEL_228:
         v40 = 0;
       }
 
-      v88 = v40;
-      v41 = v83;
-      v42 = v100;
+      v87 = v40;
+      v41 = v82;
+      v42 = v99;
       do
       {
-        v101 = v41;
+        v100 = v41;
         momentumVectors = [v42 momentumVectors];
         v44 = [momentumVectors objectAtIndexedSubscript:v37];
         velocityVectors = [v42 velocityVectors];
@@ -26050,7 +27140,7 @@ LABEL_228:
         {
           velocityVectors2 = [v42 velocityVectors];
           v47 = [velocityVectors2 objectAtIndexedSubscript:v37];
-          v98 = v47;
+          v97 = v47;
         }
 
         else
@@ -26075,29 +27165,29 @@ LABEL_228:
         {
         }
 
-        v42 = v100;
+        v42 = v99;
         if (v37 > 3)
         {
-          v62 = v101;
+          v62 = v100;
           if (biasesParameterCopy)
           {
-            v71 = [biasesParameterCopy objectAtIndexedSubscript:v86 + v37];
+            v71 = [biasesParameterCopy objectAtIndexedSubscript:v85 + v37];
             isUpdatable = [v71 isUpdatable];
 
             if (isUpdatable)
             {
-              v73 = [optimizerCopy objectAtIndexedSubscript:v94];
-              exportableState = [v100 exportableState];
-              v85 = [exportableState objectAtIndexedSubscript:v39];
-              gradientState2 = [v100 gradientState];
+              v73 = [optimizerCopy objectAtIndexedSubscript:v93];
+              exportableState = [v99 exportableState];
+              v84 = [exportableState objectAtIndexedSubscript:v39];
+              gradientState2 = [v99 gradientState];
               v67 = [gradientState2 objectAtIndexedSubscript:v39];
               data2 = [v67 data];
-              exportableState2 = [v100 exportableState];
+              exportableState2 = [v99 exportableState];
               v70 = [exportableState2 objectAtIndexedSubscript:v39];
-              v96 = v73;
+              v95 = v73;
               v74 = v73;
-              v66 = v85;
-              [(MLCDeviceGPU *)selfCopy updateWithOptimizer:v74 arrayOfParams:paramsCopy commandBuffer:v93 deviceParameter:v51 source:v85 gradient:data2 result:v70 momentumIndex:0];
+              v66 = v84;
+              [(MLCDeviceGPU *)selfCopy updateWithOptimizer:v74 arrayOfParams:paramsCopy commandBuffer:v92 deviceParameter:v51 source:v84 gradient:data2 result:v70 momentumIndex:0];
               goto LABEL_42;
             }
           }
@@ -26110,30 +27200,30 @@ LABEL_228:
 
           if (isUpdatable2)
           {
-            v54 = [optimizerCopy objectAtIndexedSubscript:v94];
-            exportableState3 = [v100 exportableState];
+            v54 = [optimizerCopy objectAtIndexedSubscript:v93];
+            exportableState3 = [v99 exportableState];
             v55 = [exportableState3 objectAtIndexedSubscript:v37];
-            gradientState3 = [v100 gradientState];
+            gradientState3 = [v99 gradientState];
             v57 = [gradientState3 objectAtIndexedSubscript:v37];
             data3 = [v57 data];
-            exportableState4 = [v100 exportableState];
+            exportableState4 = [v99 exportableState];
             [exportableState4 objectAtIndexedSubscript:v37];
             v61 = v60 = v51;
-            [(MLCDeviceGPU *)selfCopy updateWithOptimizer:v54 arrayOfParams:paramsCopy commandBuffer:v93 deviceParameter:v60 source:v55 gradient:data3 result:v61 momentumIndex:0];
+            [(MLCDeviceGPU *)selfCopy updateWithOptimizer:v54 arrayOfParams:paramsCopy commandBuffer:v92 deviceParameter:v60 source:v55 gradient:data3 result:v61 momentumIndex:0];
 
             v51 = v60;
-            v42 = v100;
+            v42 = v99;
           }
 
-          v62 = v101;
-          if (v88)
+          v62 = v100;
+          if (v87)
           {
             v63 = [biasesParameterCopy objectAtIndexedSubscript:v37];
             isUpdatable3 = [v63 isUpdatable];
 
             if (isUpdatable3)
             {
-              v96 = [optimizerCopy objectAtIndexedSubscript:v94];
+              v95 = [optimizerCopy objectAtIndexedSubscript:v93];
               exportableState = [v42 exportableState];
               v66 = [exportableState objectAtIndexedSubscript:v37 + 4];
               gradientState2 = [v42 gradientState];
@@ -26141,10 +27231,10 @@ LABEL_228:
               data2 = [v67 data];
               exportableState2 = [v42 exportableState];
               v70 = [exportableState2 objectAtIndexedSubscript:v37 + 4];
-              [(MLCDeviceGPU *)selfCopy updateWithOptimizer:v96 arrayOfParams:paramsCopy commandBuffer:v93 deviceParameter:v51 source:v66 gradient:data2 result:v70 momentumIndex:1];
+              [(MLCDeviceGPU *)selfCopy updateWithOptimizer:v95 arrayOfParams:paramsCopy commandBuffer:v92 deviceParameter:v51 source:v66 gradient:data2 result:v70 momentumIndex:1];
 LABEL_42:
 
-              v62 = v101;
+              v62 = v100;
             }
           }
         }
@@ -26155,26 +27245,26 @@ LABEL_42:
       }
 
       while (v41);
-      v104 = 0u;
-      v105 = 0u;
-      v102 = 0u;
       v103 = 0u;
+      v104 = 0u;
+      v101 = 0u;
+      v102 = 0u;
       gradientState4 = [v42 gradientState];
-      v76 = [gradientState4 countByEnumeratingWithState:&v102 objects:v110 count:16];
+      v76 = [gradientState4 countByEnumeratingWithState:&v101 objects:v109 count:16];
       if (v76)
       {
         v77 = v76;
-        v78 = *v103;
+        v78 = *v102;
         do
         {
           for (j = 0; j != v77; ++j)
           {
-            if (*v103 != v78)
+            if (*v102 != v78)
             {
               objc_enumerationMutation(gradientState4);
             }
 
-            v80 = *(*(&v102 + 1) + 8 * j);
+            v80 = *(*(&v101 + 1) + 8 * j);
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) != 0 && [v80 readCount])
             {
@@ -26182,22 +27272,20 @@ LABEL_42:
             }
           }
 
-          v77 = [gradientState4 countByEnumeratingWithState:&v102 objects:v110 count:16];
+          v77 = [gradientState4 countByEnumeratingWithState:&v101 objects:v109 count:16];
         }
 
         while (v77);
       }
 
-      v16 = v94 + 1;
+      v16 = v93 + 1;
       self = selfCopy;
     }
 
-    while (v94 + 1 < [(MLCDeviceGPU *)selfCopy numDevicesToUse]);
+    while (v93 + 1 < [(MLCDeviceGPU *)selfCopy numDevicesToUse]);
   }
 
   objc_autoreleasePoolPop(context);
-
-  v81 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reloadLSTMParameters:(id)parameters rnnGPUDeviceOps:(id)ops mlcParameterIndex:(unint64_t)index tensor:(id)tensor isInputWeight:(BOOL)weight isHiddenWeight:(BOOL)hiddenWeight isBias:(BOOL)bias deviceNumber:(unint64_t)self0
@@ -26390,7 +27478,7 @@ LABEL_23:
 
 - (void)reloadParameterDataFromHostToDeviceMemoryForTensor:(id)tensor
 {
-  *(&v152[1] + 4) = *MEMORY[0x277D85DE8];
+  *(&v151[1] + 4) = *MEMORY[0x277D85DE8];
   tensorCopy = tensor;
   childLayers = [tensorCopy childLayers];
   v7 = [childLayers objectAtIndexedSubscript:0];
@@ -26399,7 +27487,7 @@ LABEL_23:
   if ([(MLCDeviceGPU *)self numDevicesToUse])
   {
     v8 = 0;
-    v149 = tensorCopy;
+    v148 = tensorCopy;
     while (1)
     {
       deviceOps = [v7 deviceOps];
@@ -26437,8 +27525,8 @@ LABEL_23:
                     inputWeights = [forwardKernel inputWeights];
                     v64 = [inputWeights count];
 
-                    v142 = v62;
-                    v144 = descriptor22;
+                    v141 = v62;
+                    v143 = descriptor22;
                     if (v64)
                     {
                       v65 = 0;
@@ -26463,7 +27551,7 @@ LABEL_23:
                       }
 
                       LOBYTE(v71) = 0;
-                      v146 = 1;
+                      v145 = 1;
                     }
 
                     else
@@ -26493,21 +27581,21 @@ LABEL_39:
 
                           if (v65 >= v75)
                           {
-                            v146 = 0;
+                            v145 = 0;
                             v65 = 0;
                             LOBYTE(v71) = v73;
                             goto LABEL_61;
                           }
                         }
 
-                        v146 = 0;
+                        v145 = 0;
 LABEL_61:
-                        v62 = v142;
+                        v62 = v141;
                       }
 
                       else
                       {
-                        v146 = 0;
+                        v145 = 0;
                         v65 = 0;
                       }
                     }
@@ -26515,7 +27603,7 @@ LABEL_61:
                     biases = [forwardKernel biases];
 
                     v86 = 0;
-                    if ((v146 & 1) == 0 && biases && (v71 & 1) == 0)
+                    if ((v145 & 1) == 0 && biases && (v71 & 1) == 0)
                     {
                       biases2 = [forwardKernel biases];
                       v88 = [biases2 count];
@@ -26546,18 +27634,18 @@ LABEL_61:
 
                         v65 = v89;
 LABEL_73:
-                        v62 = v142;
+                        v62 = v141;
                       }
 
                       else
                       {
                         v86 = 0;
-                        v62 = v142;
+                        v62 = v141;
                       }
                     }
 
-                    LOBYTE(v122) = v86;
-                    [MLCDeviceGPU reloadLSTMParameters:selfCopy rnnGPUDeviceOps:"reloadLSTMParameters:rnnGPUDeviceOps:mlcParameterIndex:tensor:isInputWeight:isHiddenWeight:isBias:deviceNumber:" mlcParameterIndex:forwardKernel tensor:v62 isInputWeight:v65 isHiddenWeight:tensorCopy isBias:v122 deviceNumber:v8];
+                    LOBYTE(v121) = v86;
+                    [MLCDeviceGPU reloadLSTMParameters:selfCopy rnnGPUDeviceOps:"reloadLSTMParameters:rnnGPUDeviceOps:mlcParameterIndex:tensor:isInputWeight:isHiddenWeight:isBias:deviceNumber:" mlcParameterIndex:forwardKernel tensor:v62 isInputWeight:v65 isHiddenWeight:tensorCopy isBias:v121 deviceNumber:v8];
                   }
 
                   else
@@ -26599,17 +27687,17 @@ LABEL_73:
                           }
                         }
 
-                        v147 = 0;
+                        v146 = 0;
                         goto LABEL_76;
                       }
 
                       v82 = 0;
-                      v147 = 1;
+                      v146 = 1;
                     }
 
                     else
                     {
-                      v147 = 0;
+                      v146 = 0;
                       v82 = 0;
                     }
 
@@ -26633,7 +27721,7 @@ LABEL_76:
                           if (v100 == tensorCopy && v98 <= 2)
                           {
 
-                            v147 = 1;
+                            v146 = 1;
                             goto LABEL_87;
                           }
 
@@ -26660,7 +27748,7 @@ LABEL_87:
                     descriptor2 = [forwardKernel descriptor];
                     hasAttentionBiases = [descriptor2 hasAttentionBiases];
 
-                    v144 = descriptor22;
+                    v143 = descriptor22;
                     if (hasAttentionBiases && ([forwardKernel attentionBiases], v105 = objc_claimAutoreleasedReturnValue(), v106 = objc_msgSend(v105, "count"), v105, v106))
                     {
                       v107 = 0;
@@ -26696,7 +27784,7 @@ LABEL_87:
                     {
                       v111 = 0;
 LABEL_102:
-                      if (((v147 | v82) & 1) == 0 && !v111)
+                      if (((v146 | v82) & 1) == 0 && !v111)
                       {
                         goto LABEL_107;
                       }
@@ -26718,7 +27806,7 @@ LABEL_102:
                   }
 
 LABEL_107:
-                  descriptor22 = v144;
+                  descriptor22 = v143;
                   goto LABEL_31;
                 }
               }
@@ -26743,7 +27831,7 @@ LABEL_107:
 
       descriptor22 = v26;
       v10 = v25;
-      tensorCopy = v149;
+      tensorCopy = v148;
 
       v28 = tensorAllocationSizeInBytes2;
 LABEL_30:
@@ -26786,7 +27874,7 @@ LABEL_32:
 
           descriptor22 = v41;
           v10 = v40;
-          tensorCopy = v149;
+          tensorCopy = v148;
 
           dataSource = [forwardKernel dataSource];
           weight = [dataSource weight];
@@ -26810,7 +27898,7 @@ LABEL_32:
 
     if (weights5 == tensorCopy)
     {
-      v143 = descriptor22;
+      v142 = descriptor22;
       descriptor10 = [v7 descriptor];
       isConvolutionTranspose2 = [descriptor10 isConvolutionTranspose];
 
@@ -26830,10 +27918,10 @@ LABEL_32:
         descriptor15 = [v7 descriptor];
         v51 = outputFeatureChannelCount / [descriptor15 groupCount];
         descriptor16 = [tensorCopy descriptor];
-        LODWORD(v122) = [descriptor16 dataType];
-        LOBYTE(v51) = [MLCDataHelper convertSourceOIHW:bytes3 toResultHWOI:contents3 width:kernelWidth height:kernelHeight inputFeatureChannelCount:inputFeatureChannelCount outputFeatureChannelCount:v51 dataType:v122];
+        LODWORD(v121) = [descriptor16 dataType];
+        LOBYTE(v51) = [MLCDataHelper convertSourceOIHW:bytes3 toResultHWOI:contents3 width:kernelWidth height:kernelHeight inputFeatureChannelCount:inputFeatureChannelCount outputFeatureChannelCount:v51 dataType:v121];
 
-        descriptor22 = v143;
+        descriptor22 = v142;
         if (v51)
         {
           goto LABEL_29;
@@ -26861,21 +27949,21 @@ LABEL_32:
         if (usesDepthwiseConvolution)
         {
           descriptor23 = [v7 descriptor];
-          v123 = descriptor22;
+          v122 = descriptor22;
           outputFeatureChannelCount2 /= [descriptor23 inputFeatureChannelCount];
-          descriptor22 = v143;
+          descriptor22 = v142;
         }
 
         v58 = inputFeatureChannelCount2 / groupCount;
         descriptor24 = [tensorCopy descriptor];
-        LODWORD(v122) = [descriptor24 dataType];
-        v60 = [MLCDataHelper convertSourceOIHW:bytes4 toResultHWIO:contents4 width:kernelWidth2 height:kernelHeight2 inputFeatureChannelCount:v58 outputFeatureChannelCount:outputFeatureChannelCount2 dataType:v122];
+        LODWORD(v121) = [descriptor24 dataType];
+        v60 = [MLCDataHelper convertSourceOIHW:bytes4 toResultHWIO:contents4 width:kernelWidth2 height:kernelHeight2 inputFeatureChannelCount:v58 outputFeatureChannelCount:outputFeatureChannelCount2 dataType:v121];
 
         v61 = descriptor22;
         if (usesDepthwiseConvolution)
         {
 
-          v61 = v123;
+          v61 = v122;
         }
 
         if (v60)
@@ -26887,7 +27975,7 @@ LABEL_32:
       data6 = +[MLCLog framework];
       if (os_log_type_enabled(data6, OS_LOG_TYPE_ERROR))
       {
-        [(MLCDeviceGPU(MLCEngineDispatch) *)v151 reloadParameterDataFromHostToDeviceMemoryForTensor:v152, data6];
+        [(MLCDeviceGPU(MLCEngineDispatch) *)v150 reloadParameterDataFromHostToDeviceMemoryForTensor:v151, data6];
       }
     }
 
@@ -26906,13 +27994,11 @@ LABEL_29:
   }
 
 LABEL_108:
-
-  v121 = *MEMORY[0x277D85DE8];
 }
 
 - (void)restoreRNNParamsWithDeviceOps:(id)ops optimizer:(id)optimizer inputWeightsParameter:(id)parameter hiddenWeightsParameter:(id)weightsParameter biasesParameter:(id)biasesParameter arrayOfParams:(id)params
 {
-  v85[2] = *MEMORY[0x277D85DE8];
+  v84[2] = *MEMORY[0x277D85DE8];
   opsCopy = ops;
   parameterCopy = parameter;
   weightsParameterCopy = weightsParameter;
@@ -26924,8 +28010,8 @@ LABEL_108:
     do
     {
       v13 = [opsCopy objectAtIndexedSubscript:v12];
-      v80 = v13;
-      v81 = v12;
+      v79 = v13;
+      v80 = v12;
       if ([(MLCDeviceGPU *)self numDevicesToUse]== 2)
       {
         lstmMultiGPUChildOps = [v13 lstmMultiGPUChildOps];
@@ -26962,34 +28048,34 @@ LABEL_108:
             while (v18 < [rnnTrainableWeightGradients count]);
           }
 
-          v83 = [opsCopy objectAtIndexedSubscript:0];
-          lstmMultiGPUChildOps2 = [v83 lstmMultiGPUChildOps];
-          v85[0] = lstmMultiGPUChildOps2;
+          v82 = [opsCopy objectAtIndexedSubscript:0];
+          lstmMultiGPUChildOps2 = [v82 lstmMultiGPUChildOps];
+          v84[0] = lstmMultiGPUChildOps2;
           v24 = [opsCopy objectAtIndexedSubscript:1];
           lstmMultiGPUChildOps3 = [v24 lstmMultiGPUChildOps];
-          v85[1] = lstmMultiGPUChildOps3;
-          v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v85 count:2];
+          v84[1] = lstmMultiGPUChildOps3;
+          v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v84 count:2];
           v27 = [v26 copy];
           v28 = [v16 copy];
           self = selfCopy;
-          v12 = v81;
-          [(MLCDeviceGPU *)selfCopy allReduceOverXGMI:v27 deviceIndex:v81 stateBuffers:v28];
+          v12 = v80;
+          [(MLCDeviceGPU *)selfCopy allReduceOverXGMI:v27 deviceIndex:v80 stateBuffers:v28];
 
-          v13 = v80;
+          v13 = v79;
         }
       }
 
       gpuCommandBufferList = [(MLCDeviceGPU *)self gpuCommandBufferList];
-      v79 = [gpuCommandBufferList objectAtIndexedSubscript:v12];
+      v78 = [gpuCommandBufferList objectAtIndexedSubscript:v12];
 
       gradientKernel = [v13 gradientKernel];
       v30 = [gradientKernel count];
       v31 = [parameterCopy objectAtIndexedSubscript:0];
       tensor = [v31 tensor];
       optimizerData = [tensor optimizerData];
-      v77 = [optimizerData count];
+      v76 = [optimizerData count];
 
-      v67 = v30;
+      v66 = v30;
       if (v30)
       {
         v34 = 0;
@@ -26998,9 +28084,9 @@ LABEL_108:
           v35 = 4 * v34;
           if (4 * v34 != -4)
           {
-            v84 = 0;
+            v83 = 0;
             v36 = v35 + 4;
-            v82 = v35 + 4;
+            v81 = v35 + 4;
             do
             {
               v37 = [parameterCopy objectAtIndexedSubscript:v35];
@@ -27008,19 +28094,19 @@ LABEL_108:
 
               if ((isUpdatable & 1) == 0)
               {
-                auxiliaryWeightsMemory = [v80 auxiliaryWeightsMemory];
-                v69 = [auxiliaryWeightsMemory objectAtIndexedSubscript:v34];
-                auxiliaryMomentumMemory = [v80 auxiliaryMomentumMemory];
+                auxiliaryWeightsMemory = [v79 auxiliaryWeightsMemory];
+                v68 = [auxiliaryWeightsMemory objectAtIndexedSubscript:v34];
+                auxiliaryMomentumMemory = [v79 auxiliaryMomentumMemory];
                 v40 = [auxiliaryMomentumMemory objectAtIndexedSubscript:v34];
-                auxiliaryVelocityMemory = [v80 auxiliaryVelocityMemory];
+                auxiliaryVelocityMemory = [v79 auxiliaryVelocityMemory];
                 v42 = [auxiliaryVelocityMemory objectAtIndexedSubscript:v34];
-                auxiliaryCenterWeightMemory = [v80 auxiliaryCenterWeightMemory];
+                auxiliaryCenterWeightMemory = [v79 auxiliaryCenterWeightMemory];
                 v44 = [auxiliaryCenterWeightMemory objectAtIndexedSubscript:v34];
-                LODWORD(v64) = 256;
-                [MLCDeviceGPU saveOrRestoreTempMatrixDisableUpdates:selfCopy commandBuffer:"saveOrRestoreTempMatrixDisableUpdates:commandBuffer:auxiliaryWeightsMemory:auxiliaryMomentumMemory:auxiliaryVelocityMemory:auxiliaryCenterWeightMemory:deviceNumber:kernelNumber:mlcIndex:auxIndex:numOptimizerData:saveToAux:isInputWeight:isHiddenWeight:isBias:" auxiliaryWeightsMemory:v80 auxiliaryMomentumMemory:v79 auxiliaryVelocityMemory:v69 auxiliaryCenterWeightMemory:v40 deviceNumber:v42 kernelNumber:v44 mlcIndex:v81 auxIndex:v34 numOptimizerData:v35 saveToAux:v84 isInputWeight:v77 isHiddenWeight:v64 isBias:?];
+                LODWORD(v63) = 256;
+                [MLCDeviceGPU saveOrRestoreTempMatrixDisableUpdates:selfCopy commandBuffer:"saveOrRestoreTempMatrixDisableUpdates:commandBuffer:auxiliaryWeightsMemory:auxiliaryMomentumMemory:auxiliaryVelocityMemory:auxiliaryCenterWeightMemory:deviceNumber:kernelNumber:mlcIndex:auxIndex:numOptimizerData:saveToAux:isInputWeight:isHiddenWeight:isBias:" auxiliaryWeightsMemory:v79 auxiliaryMomentumMemory:v78 auxiliaryVelocityMemory:v68 auxiliaryCenterWeightMemory:v40 deviceNumber:v42 kernelNumber:v44 mlcIndex:v80 auxIndex:v34 numOptimizerData:v35 saveToAux:v83 isInputWeight:v76 isHiddenWeight:v63 isBias:?];
 
-                ++v84;
-                v36 = v82;
+                ++v83;
+                v36 = v81;
               }
 
               ++v35;
@@ -27035,19 +28121,19 @@ LABEL_108:
 
               if ((isUpdatable2 & 1) == 0)
               {
-                auxiliaryWeightsMemory2 = [v80 auxiliaryWeightsMemory];
-                v70 = [auxiliaryWeightsMemory2 objectAtIndexedSubscript:v34];
-                auxiliaryMomentumMemory2 = [v80 auxiliaryMomentumMemory];
+                auxiliaryWeightsMemory2 = [v79 auxiliaryWeightsMemory];
+                v69 = [auxiliaryWeightsMemory2 objectAtIndexedSubscript:v34];
+                auxiliaryMomentumMemory2 = [v79 auxiliaryMomentumMemory];
                 v49 = [auxiliaryMomentumMemory2 objectAtIndexedSubscript:v34];
-                auxiliaryVelocityMemory2 = [v80 auxiliaryVelocityMemory];
+                auxiliaryVelocityMemory2 = [v79 auxiliaryVelocityMemory];
                 v51 = [auxiliaryVelocityMemory2 objectAtIndexedSubscript:v34];
-                auxiliaryCenterWeightMemory2 = [v80 auxiliaryCenterWeightMemory];
+                auxiliaryCenterWeightMemory2 = [v79 auxiliaryCenterWeightMemory];
                 v53 = [auxiliaryCenterWeightMemory2 objectAtIndexedSubscript:v34];
-                LODWORD(v64) = 0x10000;
-                [MLCDeviceGPU saveOrRestoreTempMatrixDisableUpdates:selfCopy commandBuffer:"saveOrRestoreTempMatrixDisableUpdates:commandBuffer:auxiliaryWeightsMemory:auxiliaryMomentumMemory:auxiliaryVelocityMemory:auxiliaryCenterWeightMemory:deviceNumber:kernelNumber:mlcIndex:auxIndex:numOptimizerData:saveToAux:isInputWeight:isHiddenWeight:isBias:" auxiliaryWeightsMemory:v80 auxiliaryMomentumMemory:v79 auxiliaryVelocityMemory:v70 auxiliaryCenterWeightMemory:v49 deviceNumber:v51 kernelNumber:v53 mlcIndex:v81 auxIndex:v34 numOptimizerData:v45 saveToAux:v84 isInputWeight:v77 isHiddenWeight:v64 isBias:?];
+                LODWORD(v63) = 0x10000;
+                [MLCDeviceGPU saveOrRestoreTempMatrixDisableUpdates:selfCopy commandBuffer:"saveOrRestoreTempMatrixDisableUpdates:commandBuffer:auxiliaryWeightsMemory:auxiliaryMomentumMemory:auxiliaryVelocityMemory:auxiliaryCenterWeightMemory:deviceNumber:kernelNumber:mlcIndex:auxIndex:numOptimizerData:saveToAux:isInputWeight:isHiddenWeight:isBias:" auxiliaryWeightsMemory:v79 auxiliaryMomentumMemory:v78 auxiliaryVelocityMemory:v69 auxiliaryCenterWeightMemory:v49 deviceNumber:v51 kernelNumber:v53 mlcIndex:v80 auxIndex:v34 numOptimizerData:v45 saveToAux:v83 isInputWeight:v76 isHiddenWeight:v63 isBias:?];
 
-                ++v84;
-                v36 = v82;
+                ++v83;
+                v36 = v81;
               }
 
               ++v45;
@@ -27064,19 +28150,19 @@ LABEL_108:
 
                 if ((isUpdatable3 & 1) == 0)
                 {
-                  auxiliaryWeightsMemory3 = [v80 auxiliaryWeightsMemory];
-                  v71 = [auxiliaryWeightsMemory3 objectAtIndexedSubscript:v34];
-                  auxiliaryMomentumMemory3 = [v80 auxiliaryMomentumMemory];
+                  auxiliaryWeightsMemory3 = [v79 auxiliaryWeightsMemory];
+                  v70 = [auxiliaryWeightsMemory3 objectAtIndexedSubscript:v34];
+                  auxiliaryMomentumMemory3 = [v79 auxiliaryMomentumMemory];
                   v58 = [auxiliaryMomentumMemory3 objectAtIndexedSubscript:v34];
-                  auxiliaryVelocityMemory3 = [v80 auxiliaryVelocityMemory];
+                  auxiliaryVelocityMemory3 = [v79 auxiliaryVelocityMemory];
                   v60 = [auxiliaryVelocityMemory3 objectAtIndexedSubscript:v34];
-                  auxiliaryCenterWeightMemory3 = [v80 auxiliaryCenterWeightMemory];
+                  auxiliaryCenterWeightMemory3 = [v79 auxiliaryCenterWeightMemory];
                   v62 = [auxiliaryCenterWeightMemory3 objectAtIndexedSubscript:v34];
-                  LODWORD(v64) = 0x1000000;
-                  [MLCDeviceGPU saveOrRestoreTempMatrixDisableUpdates:selfCopy commandBuffer:"saveOrRestoreTempMatrixDisableUpdates:commandBuffer:auxiliaryWeightsMemory:auxiliaryMomentumMemory:auxiliaryVelocityMemory:auxiliaryCenterWeightMemory:deviceNumber:kernelNumber:mlcIndex:auxIndex:numOptimizerData:saveToAux:isInputWeight:isHiddenWeight:isBias:" auxiliaryWeightsMemory:v80 auxiliaryMomentumMemory:v79 auxiliaryVelocityMemory:v71 auxiliaryCenterWeightMemory:v58 deviceNumber:v60 kernelNumber:v62 mlcIndex:v81 auxIndex:v34 numOptimizerData:v54 saveToAux:v84 isInputWeight:v77 isHiddenWeight:v64 isBias:?];
+                  LODWORD(v63) = 0x1000000;
+                  [MLCDeviceGPU saveOrRestoreTempMatrixDisableUpdates:selfCopy commandBuffer:"saveOrRestoreTempMatrixDisableUpdates:commandBuffer:auxiliaryWeightsMemory:auxiliaryMomentumMemory:auxiliaryVelocityMemory:auxiliaryCenterWeightMemory:deviceNumber:kernelNumber:mlcIndex:auxIndex:numOptimizerData:saveToAux:isInputWeight:isHiddenWeight:isBias:" auxiliaryWeightsMemory:v79 auxiliaryMomentumMemory:v78 auxiliaryVelocityMemory:v70 auxiliaryCenterWeightMemory:v58 deviceNumber:v60 kernelNumber:v62 mlcIndex:v80 auxIndex:v34 numOptimizerData:v54 saveToAux:v83 isInputWeight:v76 isHiddenWeight:v63 isBias:?];
 
-                  ++v84;
-                  v36 = v82;
+                  ++v83;
+                  v36 = v81;
                 }
 
                 ++v54;
@@ -27089,129 +28175,97 @@ LABEL_108:
           ++v34;
         }
 
-        while (v34 != v67);
+        while (v34 != v66);
       }
 
-      v12 = v81 + 1;
+      v12 = v80 + 1;
       self = selfCopy;
     }
 
-    while (v81 + 1 < [(MLCDeviceGPU *)selfCopy numDevicesToUse]);
+    while (v80 + 1 < [(MLCDeviceGPU *)selfCopy numDevicesToUse]);
   }
-
-  v63 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithType:(const char *)a1 selectsMultipleComputeDevices:.cold.1(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithDeviceList:(const char *)a1 .cold.1(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithDeviceList:(void *)a1 .cold.2(void *a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   [a1 count];
   OUTLINED_FUNCTION_2_0();
-  _os_log_debug_impl(&dword_238C1D000, a2, OS_LOG_TYPE_DEBUG, "Number of devices used = %lu", v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_238C1D000, a2, OS_LOG_TYPE_DEBUG, "Number of devices used = %lu", v3, 0xCu);
 }
 
 void __55__MLCDeviceGPU_commitWithProfiling_graphExecutionTime___block_invoke_cold_1(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
   v2 = NSStringFromSelector(*(a1 + 56));
-  v3 = *(a1 + 64);
-  v4 = [*(a1 + 32) gpuCommandQueueList];
-  v5 = [v4 objectAtIndexedSubscript:*(a1 + 64)];
+  v3 = [*(a1 + 32) gpuCommandQueueList];
+  v4 = [v3 objectAtIndexedSubscript:*(a1 + 64)];
   OUTLINED_FUNCTION_2_3();
-  OUTLINED_FUNCTION_3_1(&dword_238C1D000, v6, v7, "%@: Internal Error: CommandBuffer failure: gpuCommandQueueList[%lu]=%@", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_1(&dword_238C1D000, v5, v6, "%@: Internal Error: CommandBuffer failure: gpuCommandQueueList[%lu]=%@", v7, v8, v9, v10);
 }
 
 void __97__MLCDeviceGPU_commitWithCompletionHandler_enableProfiling_graphExecutionTime_graphResultTensor___block_invoke_cold_1(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
   v2 = NSStringFromSelector(*(a1 + 80));
-  v3 = *(a1 + 88);
-  v4 = [*(a1 + 32) gpuCommandQueueList];
-  v5 = [v4 objectAtIndexedSubscript:*(a1 + 88)];
+  v3 = [*(a1 + 32) gpuCommandQueueList];
+  v4 = [v3 objectAtIndexedSubscript:*(a1 + 88)];
   OUTLINED_FUNCTION_2_3();
-  OUTLINED_FUNCTION_3_1(&dword_238C1D000, v6, v7, "%@: Internal Error: CommandBuffer failure: gpuCommandQueueList[%lu]=%@", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_1(&dword_238C1D000, v5, v6, "%@: Internal Error: CommandBuffer failure: gpuCommandQueueList[%lu]=%@", v7, v8, v9, v10);
 }
 
 - (void)deallocateDeviceMemoryForTensor:(const char *)a1 .cold.1(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)multiDeviceTensorReduction:(const char *)a1 sourceBuffer:targetBuffer:.cold.1(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)readTensor:(const char *)a1 targetBuffer:.cold.1(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)broadcastTensor:(const char *)a1 batchSize:.cold.1(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)allReduceOverXGMI:(const char *)a1 deviceIndex:(void *)a2 stateBuffers:.cold.1(const char *a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = NSStringFromSelector(a1);
+  v8 = NSStringFromSelector(a1);
   [a2 numDevicesToUse];
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

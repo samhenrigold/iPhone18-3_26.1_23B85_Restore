@@ -20,9 +20,9 @@
 - (id)encodedImageData:(id)data error:(id *)error
 {
   var1 = data.var1;
-  v5 = *&data.var0;
+  var0 = data.var0;
   selfCopy = self;
-  v7 = RBDisplayListEncoderDelegate.encodedData(image:)(v5, var1);
+  v7 = RBDisplayListEncoderDelegate.encodedData(image:)(var0, var1);
   v9 = v8;
 
   v10.super.isa = Data._bridgeToObjectiveC()().super.isa;

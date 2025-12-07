@@ -29,29 +29,30 @@
 
 - (void)presentUIForIdentifier:(int64_t)identifier request:(id)request completion:(id)completion
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   completionCopy = completion;
+  v10 = completionCopy;
   if ((identifier & 0xFFFFFFFFFFFFFFFBLL) != 0)
   {
     options = [requestCopy options];
-    v11 = [MEMORY[0x1E696AD98] numberWithInteger:1000];
-    v12 = [options objectForKey:v11];
-    bOOLValue = [v12 BOOLValue];
+    v12 = [MEMORY[0x1E696AD98] numberWithInteger:1000];
+    v13 = [options objectForKey:v12];
+    bOOLValue = [v13 BOOLValue];
 
-    v14 = LACLogUI();
-    v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
+    v16 = LACLogUI(v15);
+    v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
     if (bOOLValue)
     {
-      if (v15)
+      if (v17)
       {
-        v16 = NSStringFromLACUserInterfaceRequestIdentifier(identifier);
-        v17 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{objc_msgSend(requestCopy, "identifier")}];
+        v18 = NSStringFromLACUserInterfaceRequestIdentifier(identifier);
+        v19 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{objc_msgSend(requestCopy, "identifier")}];
         *buf = 138412546;
-        v39 = v16;
-        v40 = 2114;
-        v41 = v17;
-        _os_log_impl(&dword_1B0233000, v14, OS_LOG_TYPE_DEFAULT, "Skipping UI for %@ rid: %{public}@, not interactive evaluation", buf, 0x16u);
+        v40 = v18;
+        v41 = 2114;
+        v42 = v19;
+        _os_log_impl(&dword_1B0233000, v16, OS_LOG_TYPE_DEFAULT, "Skipping UI for %@ rid: %{public}@, not interactive evaluation", buf, 0x16u);
       }
 
       replyQueue = self->_replyQueue;
@@ -59,62 +60,60 @@
       block[1] = 3221225472;
       block[2] = __71__LACUserInterfacePresenter_presentUIForIdentifier_request_completion___block_invoke_5;
       block[3] = &unk_1E7A96630;
-      v34 = completionCopy;
+      v35 = v10;
       dispatch_async(replyQueue, block);
     }
 
     else
     {
-      if (v15)
+      if (v17)
       {
-        v26 = NSStringFromLACUserInterfaceRequestIdentifier(identifier);
+        v28 = NSStringFromLACUserInterfaceRequestIdentifier(identifier);
         *buf = 138412290;
-        v39 = v26;
-        _os_log_impl(&dword_1B0233000, v14, OS_LOG_TYPE_DEFAULT, "Will present UI for %@", buf, 0xCu);
+        v40 = v28;
+        _os_log_impl(&dword_1B0233000, v16, OS_LOG_TYPE_DEFAULT, "Will present UI for %@", buf, 0xCu);
       }
 
       objc_initWeak(buf, self);
       workQueue = self->_workQueue;
-      v29[0] = MEMORY[0x1E69E9820];
-      v29[1] = 3221225472;
-      v29[2] = __71__LACUserInterfacePresenter_presentUIForIdentifier_request_completion___block_invoke_6;
-      v29[3] = &unk_1E7A95EF0;
-      objc_copyWeak(v32, buf);
-      v30 = requestCopy;
-      v32[1] = identifier;
-      v31 = completionCopy;
-      dispatch_async(workQueue, v29);
+      v30[0] = MEMORY[0x1E69E9820];
+      v30[1] = 3221225472;
+      v30[2] = __71__LACUserInterfacePresenter_presentUIForIdentifier_request_completion___block_invoke_6;
+      v30[3] = &unk_1E7A95EF0;
+      objc_copyWeak(v33, buf);
+      v31 = requestCopy;
+      v33[1] = identifier;
+      v32 = v10;
+      dispatch_async(workQueue, v30);
 
-      objc_destroyWeak(v32);
+      objc_destroyWeak(v33);
       objc_destroyWeak(buf);
     }
   }
 
   else
   {
-    v19 = LACLogUI();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v21 = LACLogUI(completionCopy);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      [LACUserInterfacePresenter presentUIForIdentifier:identifier request:v19 completion:?];
+      [LACUserInterfacePresenter presentUIForIdentifier:identifier request:v21 completion:?];
     }
 
-    v20 = MEMORY[0x1E696AEC0];
-    v21 = [MEMORY[0x1E696AD98] numberWithInteger:identifier];
-    v22 = [v20 stringWithFormat:@"Unsupported user interface request: %@", v21];
+    v22 = MEMORY[0x1E696AEC0];
+    v23 = [MEMORY[0x1E696AD98] numberWithInteger:identifier];
+    v24 = [v22 stringWithFormat:@"Unsupported user interface request: %@", v23];
 
-    v23 = [LACError errorWithCode:-1000 debugDescription:v22];
-    v24 = self->_replyQueue;
-    v35[0] = MEMORY[0x1E69E9820];
-    v35[1] = 3221225472;
-    v35[2] = __71__LACUserInterfacePresenter_presentUIForIdentifier_request_completion___block_invoke;
-    v35[3] = &unk_1E7A95798;
-    v36 = v23;
-    v37 = completionCopy;
-    v25 = v23;
-    dispatch_async(v24, v35);
+    v25 = [LACError errorWithCode:-1000 debugDescription:v24];
+    v26 = self->_replyQueue;
+    v36[0] = MEMORY[0x1E69E9820];
+    v36[1] = 3221225472;
+    v36[2] = __71__LACUserInterfacePresenter_presentUIForIdentifier_request_completion___block_invoke;
+    v36[3] = &unk_1E7A95798;
+    v37 = v25;
+    v38 = v10;
+    v27 = v25;
+    dispatch_async(v26, v36);
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 void __71__LACUserInterfacePresenter_presentUIForIdentifier_request_completion___block_invoke_6(uint64_t a1)
@@ -158,16 +157,16 @@ LACUserInterfaceRequest *__71__LACUserInterfacePresenter_presentUIForIdentifier_
 
 void __71__LACUserInterfacePresenter_presentUIForIdentifier_request_completion___block_invoke_3(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = LACLogUI();
+  v4 = LACLogUI(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = NSStringFromLACUserInterfaceRequestIdentifier(*(a1 + 56));
     *buf = 138412546;
-    v15 = v5;
-    v16 = 2112;
-    v17 = v3;
+    v14 = v5;
+    v15 = 2112;
+    v16 = v3;
     _os_log_impl(&dword_1B0233000, v4, OS_LOG_TYPE_DEFAULT, "Did dismiss UI for %@ with error: %@", buf, 0x16u);
   }
 
@@ -180,26 +179,22 @@ void __71__LACUserInterfacePresenter_presentUIForIdentifier_request_completion__
     block[1] = 3221225472;
     block[2] = __71__LACUserInterfacePresenter_presentUIForIdentifier_request_completion___block_invoke_9;
     block[3] = &unk_1E7A96680;
-    v13 = *(a1 + 40);
-    v11 = v3;
-    v12 = *(a1 + 32);
+    v12 = *(a1 + 40);
+    v10 = v3;
+    v11 = *(a1 + 32);
     dispatch_async(v8, block);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)presentUIForIdentifier:(uint64_t)a1 request:(uint64_t)a2 completion:(NSObject *)a3 .cold.1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = NSStringFromLACUserInterfaceRequestIdentifier(a2);
-  v7 = 138412546;
-  v8 = a1;
-  v9 = 2112;
-  v10 = v5;
-  _os_log_error_impl(&dword_1B0233000, a3, OS_LOG_TYPE_ERROR, "%@ cannot present UI for identifier: %@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v6 = 138412546;
+  v7 = a1;
+  v8 = 2112;
+  v9 = v5;
+  _os_log_error_impl(&dword_1B0233000, a3, OS_LOG_TYPE_ERROR, "%@ cannot present UI for identifier: %@", &v6, 0x16u);
 }
 
 @end

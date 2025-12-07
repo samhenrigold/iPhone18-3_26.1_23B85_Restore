@@ -86,53 +86,54 @@
 
 - (void)_reevaluateStateForReason:(id)reason
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
+  v5 = reasonCopy;
   if (self->_isCurrentState)
   {
-    v5 = SBLogContinuitySession();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = SBLogContinuitySession(reasonCopy);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 138543362;
-      v14 = reasonCopy;
-      _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_DEFAULT, "[State.StoreDemoPrep] Re-evaluating state for reason: %{public}@", &v13, 0xCu);
+      v14 = 138543362;
+      v15 = v5;
+      _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "[State.StoreDemoPrep] Re-evaluating state for reason: %{public}@", &v14, 0xCu);
     }
 
-    v6 = [MEMORY[0x277CBEB58] set];
-    v7 = v6;
+    v7 = [MEMORY[0x277CBEB58] set];
+    v8 = v7;
     if (!self->_uiLocked && self->_blockOnUIUnlock)
     {
-      [v6 addObject:@"block.embedded-display.uiUnlocked"];
+      [v7 addObject:@"block.embedded-display.uiUnlocked"];
     }
 
-    v8 = [v7 count];
-    v9 = SBLogContinuitySession();
-    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
-    if (v8)
+    v9 = [v8 count];
+    v10 = SBLogContinuitySession(v9);
+    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+    if (v9)
     {
-      if (v10)
+      if (v11)
       {
-        bs_array = [v7 bs_array];
-        v13 = 138543362;
-        v14 = bs_array;
-        _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "[State.StoreDemoPrep] still blocked by %{public}@", &v13, 0xCu);
+        bs_array = [v8 bs_array];
+        v14 = 138543362;
+        v15 = bs_array;
+        _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_DEFAULT, "[State.StoreDemoPrep] still blocked by %{public}@", &v14, 0xCu);
       }
 
-      v12 = *(self->_stateUpdateHandler + 2);
+      v13 = *(self->_stateUpdateHandler + 2);
     }
 
     else
     {
-      if (v10)
+      if (v11)
       {
-        LOWORD(v13) = 0;
-        _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "[State.StoreDemoPrep] --> moving to .blocked", &v13, 2u);
+        LOWORD(v14) = 0;
+        _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_DEFAULT, "[State.StoreDemoPrep] --> moving to .blocked", &v14, 2u);
       }
 
-      v12 = *(self->_stateTransitionHandler + 2);
+      v13 = *(self->_stateTransitionHandler + 2);
     }
 
-    v12();
+    v13();
   }
 }
 

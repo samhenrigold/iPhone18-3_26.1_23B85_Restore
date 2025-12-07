@@ -12,33 +12,33 @@
 
 - (id)orderedProperties
 {
-  v16[16] = *MEMORY[0x277D85DE8];
-  v16[0] = @"cache_index";
-  v16[1] = @"sequence";
-  v16[2] = @"activity_mode";
-  v16[3] = @"energy_burned";
-  v16[4] = @"move_minutes";
-  v16[5] = @"brisk_minutes";
-  v16[6] = @"active_hours";
-  v16[7] = @"energy_burned_goal";
-  v16[8] = @"energy_burned_goal_date";
-  v16[9] = @"move_minutes_goal";
-  v16[10] = @"move_minutes_goal_date";
-  v16[11] = @"brisk_minutes_goal";
-  v16[12] = @"brisk_minutes_goal_date";
-  v16[13] = @"active_hours_goal";
-  v16[14] = @"active_hours_goal_date";
-  v16[15] = @"version";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:16];
+  v15[16] = *MEMORY[0x277D85DE8];
+  v15[0] = @"cache_index";
+  v15[1] = @"sequence";
+  v15[2] = @"activity_mode";
+  v15[3] = @"energy_burned";
+  v15[4] = @"move_minutes";
+  v15[5] = @"brisk_minutes";
+  v15[6] = @"active_hours";
+  v15[7] = @"energy_burned_goal";
+  v15[8] = @"energy_burned_goal_date";
+  v15[9] = @"move_minutes_goal";
+  v15[10] = @"move_minutes_goal_date";
+  v15[11] = @"brisk_minutes_goal";
+  v15[12] = @"brisk_minutes_goal_date";
+  v15[13] = @"active_hours_goal";
+  v15[14] = @"active_hours_goal_date";
+  v15[15] = @"version";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:16];
   if ([(_HDActivityCacheEntityEncoder *)self _shouldIncludeActivityCachePrivateProperties])
   {
-    v15[0] = @"steps";
-    v15[1] = @"pushes";
-    v15[2] = @"walk_distance";
-    v15[3] = @"deep_breathing_duration";
-    v15[4] = @"flights";
-    v15[5] = @"wheelchair_use";
-    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:6];
+    v14[0] = @"steps";
+    v14[1] = @"pushes";
+    v14[2] = @"walk_distance";
+    v14[3] = @"deep_breathing_duration";
+    v14[4] = @"flights";
+    v14[5] = @"wheelchair_use";
+    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:6];
     v5 = [v3 arrayByAddingObjectsFromArray:v4];
 
     v3 = v5;
@@ -46,10 +46,10 @@
 
   if ([(_HDActivityCacheEntityEncoder *)self _shouldIncludeActivityCacheStatistics])
   {
-    v14[0] = @"energy_burned_stats";
-    v14[1] = @"move_minutes_stats";
-    v14[2] = @"brisk_minutes_stats";
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:3];
+    v13[0] = @"energy_burned_stats";
+    v13[1] = @"move_minutes_stats";
+    v13[2] = @"brisk_minutes_stats";
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:3];
     v7 = [v3 arrayByAddingObjectsFromArray:v6];
 
     v3 = v7;
@@ -60,8 +60,6 @@
   superclassEncoder = [(HDEntityEncoder *)self superclassEncoder];
   orderedProperties = [superclassEncoder orderedProperties];
   v11 = [v8 arrayByAddingObjectsFromArray:orderedProperties];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -124,7 +122,7 @@
 
 - (id)codableRepresentationForPersistentID:(int64_t)d row:(HDSQLiteRow *)row error:(id *)error
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   if (([(_HDActivityCacheEntityEncoder *)self _shouldIncludeActivityCachePrivateProperties]& 1) == 0)
   {
     currentHandler = [MEMORY[0x277CCA890] currentHandler];
@@ -152,7 +150,7 @@
       [(HDCodableActivityCache *)v12 setWheelchairUse:HDSQLiteColumnAsInt64()];
     }
 
-    [(HDCodableActivityCache *)v12 setActivityMoveMode:HDEntityActivityModeModeForRowAndColumnName(row)];
+    [(HDCodableActivityCache *)v12 setActivityMoveMode:HDEntityActivityModeModeForRowAndColumnName(row, @"activity_mode")];
     if ((HDSQLiteColumnWithNameIsNull() & 1) == 0)
     {
       [(HDCodableActivityCache *)v12 setPaused:HDSQLiteColumnWithNameAsBoolean()];
@@ -258,29 +256,29 @@
     if ((MEMORY[0x22AAC6CD0](row, v14) & 1) == 0)
     {
       v15 = [(_HDActivityCacheEntityEncoder *)self _decodeActivityQuantityStatisticsInfosWithRow:row column:v14];
+      v46 = 0u;
       v47 = 0u;
       v48 = 0u;
       v49 = 0u;
-      v50 = 0u;
-      v16 = [v15 countByEnumeratingWithState:&v47 objects:v53 count:16];
+      v16 = [v15 countByEnumeratingWithState:&v46 objects:v52 count:16];
       if (v16)
       {
         v17 = v16;
-        v18 = *v48;
+        v18 = *v47;
         do
         {
           for (i = 0; i != v17; ++i)
           {
-            if (*v48 != v18)
+            if (*v47 != v18)
             {
               objc_enumerationMutation(v15);
             }
 
-            codableRepresentationForSync = [*(*(&v47 + 1) + 8 * i) codableRepresentationForSync];
+            codableRepresentationForSync = [*(*(&v46 + 1) + 8 * i) codableRepresentationForSync];
             [(HDCodableActivityCache *)v12 addDailyEnergyBurnedStatistics:codableRepresentationForSync];
           }
 
-          v17 = [v15 countByEnumeratingWithState:&v47 objects:v53 count:16];
+          v17 = [v15 countByEnumeratingWithState:&v46 objects:v52 count:16];
         }
 
         while (v17);
@@ -291,29 +289,29 @@
     if ((MEMORY[0x22AAC6CD0](row, v21) & 1) == 0)
     {
       v22 = [(_HDActivityCacheEntityEncoder *)self _decodeActivityQuantityStatisticsInfosWithRow:row column:v21];
+      v42 = 0u;
       v43 = 0u;
       v44 = 0u;
       v45 = 0u;
-      v46 = 0u;
-      v23 = [v22 countByEnumeratingWithState:&v43 objects:v52 count:16];
+      v23 = [v22 countByEnumeratingWithState:&v42 objects:v51 count:16];
       if (v23)
       {
         v24 = v23;
-        v25 = *v44;
+        v25 = *v43;
         do
         {
           for (j = 0; j != v24; ++j)
           {
-            if (*v44 != v25)
+            if (*v43 != v25)
             {
               objc_enumerationMutation(v22);
             }
 
-            codableRepresentationForSync2 = [*(*(&v43 + 1) + 8 * j) codableRepresentationForSync];
+            codableRepresentationForSync2 = [*(*(&v42 + 1) + 8 * j) codableRepresentationForSync];
             [(HDCodableActivityCache *)v12 addDailyMoveMinutesStatistics:codableRepresentationForSync2];
           }
 
-          v24 = [v22 countByEnumeratingWithState:&v43 objects:v52 count:16];
+          v24 = [v22 countByEnumeratingWithState:&v42 objects:v51 count:16];
         }
 
         while (v24);
@@ -324,29 +322,29 @@
     if ((MEMORY[0x22AAC6CD0](row, v28) & 1) == 0)
     {
       v29 = [(_HDActivityCacheEntityEncoder *)self _decodeActivityQuantityStatisticsInfosWithRow:row column:v28];
+      v38 = 0u;
       v39 = 0u;
       v40 = 0u;
       v41 = 0u;
-      v42 = 0u;
-      v30 = [v29 countByEnumeratingWithState:&v39 objects:v51 count:16];
+      v30 = [v29 countByEnumeratingWithState:&v38 objects:v50 count:16];
       if (v30)
       {
         v31 = v30;
-        v32 = *v40;
+        v32 = *v39;
         do
         {
           for (k = 0; k != v31; ++k)
           {
-            if (*v40 != v32)
+            if (*v39 != v32)
             {
               objc_enumerationMutation(v29);
             }
 
-            codableRepresentationForSync3 = [*(*(&v39 + 1) + 8 * k) codableRepresentationForSync];
+            codableRepresentationForSync3 = [*(*(&v38 + 1) + 8 * k) codableRepresentationForSync];
             [(HDCodableActivityCache *)v12 addDailyBriskMinutesStatistics:codableRepresentationForSync3];
           }
 
-          v31 = [v29 countByEnumeratingWithState:&v39 objects:v51 count:16];
+          v31 = [v29 countByEnumeratingWithState:&v38 objects:v50 count:16];
         }
 
         while (v31);
@@ -359,14 +357,12 @@
     v12 = 0;
   }
 
-  v35 = *MEMORY[0x277D85DE8];
-
   return v12;
 }
 
 - (id)_decodeActivityQuantityStatisticsInfosWithRow:(int)row column:
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (self)
   {
     v6 = *(self + 72);
@@ -383,9 +379,9 @@
 
     v11 = MEMORY[0x277CCAAC8];
     v12 = MEMORY[0x22AAC6C30](a2, row);
-    v18 = 0;
-    v13 = [v11 unarchivedObjectOfClasses:v6 fromData:v12 error:&v18];
-    v14 = v18;
+    v17 = 0;
+    v13 = [v11 unarchivedObjectOfClasses:v6 fromData:v12 error:&v17];
+    v14 = v17;
 
     if (!v13)
     {
@@ -394,7 +390,7 @@
       if (os_log_type_enabled(*MEMORY[0x277CCC278], OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v20 = v14;
+        v19 = v14;
         _os_log_error_impl(&dword_228986000, v15, OS_LOG_TYPE_ERROR, "Failed to decode activity statistics: %{public}@", buf, 0xCu);
       }
     }
@@ -404,8 +400,6 @@
   {
     v13 = 0;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -502,7 +496,7 @@
     v37 = HDSQLiteColumnWithNameAsDate();
     [objectCopy _setActiveHoursGoalDateOnly:v37];
 
-    [objectCopy _setActivityMoveMode:HDEntityActivityModeModeForRowAndColumnName(row)];
+    [objectCopy _setActivityMoveMode:{HDEntityActivityModeModeForRowAndColumnName(row, @"activity_mode"}];
     [objectCopy _setPaused:HDSQLiteColumnWithNameAsBoolean()];
     [objectCopy _setVersion:HDSQLiteColumnWithNameAsInt64()];
     if ([(_HDActivityCacheEntityEncoder *)self _shouldIncludeActivityCachePrivateProperties])

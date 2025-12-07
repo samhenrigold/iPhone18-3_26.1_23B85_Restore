@@ -119,7 +119,7 @@
       goto LABEL_7;
     }
 
-    [(SYMessageHeader *)header mergeFrom:?];
+    header = [(SYMessageHeader *)header mergeFrom:?];
   }
 
   else
@@ -129,17 +129,18 @@
       goto LABEL_7;
     }
 
-    [(SYRequestFullSync *)self setHeader:?];
+    header = [(SYRequestFullSync *)self setHeader:?];
   }
 
   fromCopy = v7;
 LABEL_7:
   if (fromCopy[2])
   {
-    [(SYRequestFullSync *)self setSyncID:?];
+    header = [(SYRequestFullSync *)self setSyncID:?];
+    fromCopy = v7;
   }
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](header, fromCopy);
 }
 
 @end

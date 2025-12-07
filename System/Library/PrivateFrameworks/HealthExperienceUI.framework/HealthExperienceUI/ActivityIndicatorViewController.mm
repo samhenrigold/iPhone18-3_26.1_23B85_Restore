@@ -21,7 +21,7 @@
   swift_unknownObjectRelease();
   [(ActivityIndicatorViewController *)selfCopy dismissViewControllerAnimated:1 completion:0];
 
-  __swift_destroy_boxed_opaque_existential_1(&v5);
+  __swift_destroy_boxed_opaque_existential_1(v5);
 }
 
 - (_TtC18HealthExperienceUI31ActivityIndicatorViewController)initWithNibName:(id)name bundle:(id)bundle

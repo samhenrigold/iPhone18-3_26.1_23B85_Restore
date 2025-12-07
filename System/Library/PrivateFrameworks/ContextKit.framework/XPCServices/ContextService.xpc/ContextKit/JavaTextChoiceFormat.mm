@@ -56,7 +56,7 @@ LABEL_42:
     v13 = v12;
     v14 = 0;
     v15 = 0;
-    v53 = InstanceWithJavaUtilLocale;
+    v55 = InstanceWithJavaUtilLocale;
     stringCopy = string;
     while (1)
     {
@@ -81,9 +81,9 @@ LABEL_42:
           sub_1001BBB54();
         }
 
-        v49 = LibcoreUtilEmptyArray_STRING_;
+        v51 = LibcoreUtilEmptyArray_STRING_;
 
-        JreStrongAssign((&selfCopy->choiceLimits_ + 4), v49);
+        JreStrongAssign((&selfCopy->choiceLimits_ + 4), v51);
         return;
       }
 
@@ -119,10 +119,10 @@ LABEL_42:
         goto LABEL_42;
       }
 
-      [v16 doubleValue];
-      DoubleWithDouble = JavaTextChoiceFormat_nextDoubleWithDouble_(v42);
+      doubleValue = [v16 doubleValue];
+      DoubleWithDouble = JavaTextChoiceFormat_nextDoubleWithDouble_(doubleValue, v43, v44);
 LABEL_18:
-      v43 = DoubleWithDouble;
+      v45 = DoubleWithDouble;
       v9 = v19;
       string = stringCopy;
       if (v15 >= 1)
@@ -135,7 +135,7 @@ LABEL_18:
 
         if (DoubleWithDouble <= v5->buffer_[(v15 - 1)])
         {
-          v50 = JreStrcat("$$", v34, v35, v36, v37, v38, v39, v40, @"Bad template: ");
+          v52 = JreStrcat("$$", v34, v35, v36, v37, v38, v39, v40, @"Bad template: ");
           goto LABEL_45;
         }
       }
@@ -144,18 +144,18 @@ LABEL_18:
       [(JavaTextParsePosition *)v11 setIndexWithInt:(v17 + 1)];
       JavaTextFormat_upToWithNSString_withJavaTextParsePosition_withJavaLangStringBuffer_withChar_(stringCopy, v11, v9, 124);
       getIndex = [(JavaTextParsePosition *)v11 getIndex];
-      v46 = v5->super.size_;
-      if ((v15 & 0x80000000) != 0 || v15 >= v46)
+      v48 = v5->super.size_;
+      if ((v15 & 0x80000000) != 0 || v15 >= v48)
       {
-        IOSArray_throwOutOfBoundsWithMsg(v46, v15);
+        IOSArray_throwOutOfBoundsWithMsg(v48, v15);
       }
 
-      v5->buffer_[v15] = v43;
+      v5->buffer_[v15] = v45;
       [(JavaUtilArrayList *)v7 addWithId:[(JavaLangStringBuffer *)v9 description]];
       v13 = sub_1001D147C(stringCopy, getIndex);
       v14 += 2;
       v15 = (v15 + 1);
-      InstanceWithJavaUtilLocale = v53;
+      InstanceWithJavaUtilLocale = v55;
       if (v13 >= v8)
       {
         goto LABEL_28;
@@ -164,10 +164,10 @@ LABEL_18:
 
     if (v27 != 35)
     {
-      v50 = JreStrcat("$C$$", v20, v21, v22, v23, v24, v25, v26, @"Bad character '");
+      v52 = JreStrcat("$C$$", v20, v21, v22, v23, v24, v25, v26, @"Bad character '");
 LABEL_45:
-      v51 = new_JavaLangIllegalArgumentException_initWithNSString_(v50);
-      objc_exception_throw(v51);
+      v53 = new_JavaLangIllegalArgumentException_initWithNSString_(v52);
+      objc_exception_throw(v53);
     }
 
 LABEL_14:
@@ -193,18 +193,18 @@ LABEL_28:
     JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(v5, 0, *(&selfCopy->super.minimumFractionDigits_ + 1), 0, v15);
   }
 
-  v47 = [IOSObjectArray newArrayWithLength:[(JavaUtilArrayList *)v7 size] type:NSString_class_()];
-  JreStrongAssignAndConsume((&selfCopy->choiceLimits_ + 4), v47);
+  v49 = [IOSObjectArray newArrayWithLength:[(JavaUtilArrayList *)v7 size] type:NSString_class_()];
+  JreStrongAssignAndConsume((&selfCopy->choiceLimits_ + 4), v49);
   if ([(JavaUtilArrayList *)v7 size]>= 1)
   {
-    v48 = 0;
+    v50 = 0;
     do
     {
-      IOSObjectArray_Set(*(&selfCopy->choiceLimits_ + 4), v48, [(JavaUtilArrayList *)v7 getWithInt:v48]);
-      ++v48;
+      IOSObjectArray_Set(*(&selfCopy->choiceLimits_ + 4), v50, [(JavaUtilArrayList *)v7 getWithInt:v50]);
+      ++v50;
     }
 
-    while (v48 < [(JavaUtilArrayList *)v7 size]);
+    while (v50 < [(JavaUtilArrayList *)v7 size]);
   }
 }
 
@@ -402,12 +402,12 @@ LABEL_11:
 {
   if (boolean)
   {
-    return JavaTextChoiceFormat_nextDoubleWithDouble_(double);
+    return JavaTextChoiceFormat_nextDoubleWithDouble_(self, a2, double);
   }
 
   else
   {
-    return JavaTextChoiceFormat_previousDoubleWithDouble_(double);
+    return JavaTextChoiceFormat_previousDoubleWithDouble_(self, a2, double);
   }
 }
 
@@ -490,8 +490,6 @@ LABEL_15:
 
   if (*(array + 2) != *(stringArray + 2))
   {
-    v13 = *(stringArray + 2);
-    v12 = *(array + 2);
     v10 = JreStrcat("$I$I", a2, array, stringArray, v4, v5, v6, v7, @"limits.length != formats.length: ");
     v11 = new_JavaLangIllegalArgumentException_initWithNSString_(v10);
     objc_exception_throw(v11);
@@ -505,98 +503,98 @@ LABEL_15:
 - (id)toPattern
 {
   v3 = new_JavaLangStringBuilder_init();
-  v4 = *(&self->super.minimumFractionDigits_ + 1);
-  if (!v4)
+  v5 = *(&self->super.minimumFractionDigits_ + 1);
+  if (!v5)
   {
 LABEL_34:
     JreThrowNullPointerException();
   }
 
-  v5 = v3;
-  v6 = 0;
+  v6 = v3;
+  v7 = 0;
   while (1)
   {
-    v7 = *(v4 + 8);
-    if (v6 >= v7)
+    v8 = *(v5 + 8);
+    if (v7 >= v8)
     {
       break;
     }
 
-    if (v6)
+    if (v7)
     {
-      [(JavaLangStringBuilder *)v5 appendWithChar:124];
-      v4 = *(&self->super.minimumFractionDigits_ + 1);
-      v7 = *(v4 + 8);
+      [(JavaLangStringBuilder *)v6 appendWithChar:124];
+      v5 = *(&self->super.minimumFractionDigits_ + 1);
+      v8 = *(v5 + 8);
     }
 
-    if (v6 >= v7)
+    if (v7 >= v8)
     {
-      IOSArray_throwOutOfBoundsWithMsg(v7, v6);
+      IOSArray_throwOutOfBoundsWithMsg(v8, v7);
     }
 
-    v8 = JavaTextChoiceFormat_previousDoubleWithDouble_(*(v4 + 16 + 8 * v6));
-    v9 = NSString_valueOfDouble_(v8);
-    v10 = *(&self->super.minimumFractionDigits_ + 1);
-    v11 = *(v10 + 8);
-    if (v6 >= v11)
+    v9 = JavaTextChoiceFormat_previousDoubleWithDouble_(v8, v4, *(v5 + 16 + 8 * v7));
+    v10 = NSString_valueOfDouble_(v9);
+    v11 = *(&self->super.minimumFractionDigits_ + 1);
+    v12 = *(v11 + 8);
+    if (v7 >= v12)
     {
-      IOSArray_throwOutOfBoundsWithMsg(v11, v6);
+      IOSArray_throwOutOfBoundsWithMsg(v12, v7);
     }
 
-    v12 = NSString_valueOfDouble_(*(v10 + 16 + 8 * v6));
-    if (v9)
+    v13 = NSString_valueOfDouble_(*(v11 + 16 + 8 * v7));
+    if (v10)
     {
-      v13 = v12;
-      v14 = [(__CFString *)v9 length];
-      if (v13)
+      v14 = v13;
+      v15 = [(__CFString *)v10 length];
+      if (v14)
       {
-        v15 = v14;
-        v16 = [(__CFString *)v13 length];
-        v17 = v15 >= v16 ? v13 : v9;
-        v18 = v15 >= v16 ? 35 : 60;
-        [(JavaLangStringBuilder *)v5 appendWithNSString:v17];
-        [(JavaLangStringBuilder *)v5 appendWithChar:v18];
-        v19 = *(&self->choiceLimits_ + 4);
-        if (v19)
+        v16 = v15;
+        v17 = [(__CFString *)v14 length];
+        v18 = v16 >= v17 ? v14 : v10;
+        v19 = v16 >= v17 ? 35 : 60;
+        [(JavaLangStringBuilder *)v6 appendWithNSString:v18];
+        [(JavaLangStringBuilder *)v6 appendWithChar:v19];
+        v20 = *(&self->choiceLimits_ + 4);
+        if (v20)
         {
-          v20 = *(v19 + 8);
-          if (v6 >= v20)
+          v21 = *(v20 + 8);
+          if (v7 >= v21)
           {
-            IOSArray_throwOutOfBoundsWithMsg(v20, v6);
+            IOSArray_throwOutOfBoundsWithMsg(v21, v7);
           }
 
-          v21 = *(v19 + 24 + 8 * v6);
-          if (v21)
+          v22 = *(v20 + 24 + 8 * v7);
+          if (v22)
           {
-            if ([v21 indexOf:124] == -1)
+            if ([v22 indexOf:124] == -1)
             {
-              v24 = *(&self->choiceLimits_ + 4);
-              v25 = *(v24 + 8);
-              if (v6 >= v25)
+              v25 = *(&self->choiceLimits_ + 4);
+              v26 = *(v25 + 8);
+              if (v7 >= v26)
               {
-                IOSArray_throwOutOfBoundsWithMsg(v25, v6);
+                IOSArray_throwOutOfBoundsWithMsg(v26, v7);
               }
 
-              [(JavaLangStringBuilder *)v5 appendWithNSString:*(v24 + 24 + 8 * v6)];
+              [(JavaLangStringBuilder *)v6 appendWithNSString:*(v25 + 24 + 8 * v7)];
             }
 
             else
             {
-              [(JavaLangStringBuilder *)v5 appendWithChar:39];
-              v22 = *(&self->choiceLimits_ + 4);
-              v23 = *(v22 + 8);
-              if (v6 >= v23)
+              [(JavaLangStringBuilder *)v6 appendWithChar:39];
+              v23 = *(&self->choiceLimits_ + 4);
+              v24 = *(v23 + 8);
+              if (v7 >= v24)
               {
-                IOSArray_throwOutOfBoundsWithMsg(v23, v6);
+                IOSArray_throwOutOfBoundsWithMsg(v24, v7);
               }
 
-              [(JavaLangStringBuilder *)v5 appendWithNSString:*(v22 + 24 + 8 * v6)];
-              [(JavaLangStringBuilder *)v5 appendWithChar:39];
+              [(JavaLangStringBuilder *)v6 appendWithNSString:*(v23 + 24 + 8 * v7)];
+              [(JavaLangStringBuilder *)v6 appendWithChar:39];
             }
 
-            ++v6;
-            v4 = *(&self->super.minimumFractionDigits_ + 1);
-            if (v4)
+            ++v7;
+            v5 = *(&self->super.minimumFractionDigits_ + 1);
+            if (v5)
             {
               continue;
             }
@@ -608,7 +606,7 @@ LABEL_34:
     goto LABEL_34;
   }
 
-  return [(JavaLangStringBuilder *)v5 description];
+  return [(JavaLangStringBuilder *)v6 description];
 }
 
 - (void)dealloc

@@ -2,10 +2,14 @@
 + (id)mockCall;
 + (id)mockCallFromBlock:(id)block;
 + (id)mockCallWithNotificationCenter:(id)center fromBlock:(id)block;
+- (CSDMockCall)initWithUniqueProxyIdentifier:(id)identifier endpointOnCurrentDevice:(BOOL)device notificationCenter:(id)center;
 - (TUCallDisplayContext)displayContext;
 - (void)answerWithRequest:(id)request;
 - (void)dialWithRequest:(id)request displayContext:(id)context;
+- (void)disconnectWithReason:(int)reason;
+- (void)performUplinkMuted:(BOOL)muted;
 - (void)setMockCallStatus:(int)status;
+- (void)setSharingScreen:(BOOL)screen attributes:(id)attributes;
 - (void)updateWithCall:(id)call;
 @end
 
@@ -40,6 +44,32 @@
   }
 
   return v8;
+}
+
+- (CSDMockCall)initWithUniqueProxyIdentifier:(id)identifier endpointOnCurrentDevice:(BOOL)device notificationCenter:(id)center
+{
+  deviceCopy = device;
+  identifierCopy = identifier;
+  v15.receiver = self;
+  v15.super_class = CSDMockCall;
+  v10 = [(CSDCall *)&v15 initWithUniqueProxyIdentifier:identifierCopy endpointOnCurrentDevice:deviceCopy notificationCenter:center];
+  v11 = v10;
+  if (v10)
+  {
+    objc_storeStrong(&v10->_mockUniqueProxyIdentifier, identifier);
+    v11->_mockShouldSuppressRingtone = 1;
+    v11->_mockHostedOnCurrentDevice = 1;
+    v11->_mockEndpointOnCurrentDevice = 1;
+    v11->_mockAudioInterruptionProviderType = 1;
+    [(CSDCall *)v11 setIsCallRecordingEnabled:1];
+    [(CSDMockCall *)v11 setIsAppleIntelligenceEnabled:&stru_10061F248];
+    v12 = objc_alloc_init(TUMutableCallDisplayContext);
+    [v12 setName:@"name"];
+    mockDisplayContext = v11->_mockDisplayContext;
+    v11->_mockDisplayContext = v12;
+  }
+
+  return v11;
 }
 
 - (void)updateWithCall:(id)call
@@ -163,6 +193,19 @@
   [(CSDCall *)self propertiesChanged];
 }
 
+- (void)performUplinkMuted:(BOOL)muted
+{
+  mutedCopy = muted;
+  [(CSDMockCall *)self setUplinkMuted:?];
+  didPerformUplinkMuted = [(CSDMockCall *)self didPerformUplinkMuted];
+
+  if (didPerformUplinkMuted)
+  {
+    didPerformUplinkMuted2 = [(CSDMockCall *)self didPerformUplinkMuted];
+    didPerformUplinkMuted2[2](didPerformUplinkMuted2, mutedCopy);
+  }
+}
+
 - (void)dialWithRequest:(id)request displayContext:(id)context
 {
   v11.receiver = self;
@@ -185,6 +228,25 @@
 
   [(CSDCall *)self setSoundRegion:1];
   [(CSDMockCall *)self setMockNeedsManualInCallSounds:0];
+  [(CSDCall *)self propertiesChanged];
+}
+
+- (void)disconnectWithReason:(int)reason
+{
+  v4.receiver = self;
+  v4.super_class = CSDMockCall;
+  [(CSDMockCall *)&v4 disconnectWithReason:*&reason];
+  [(CSDMockCall *)self setMockCallStatus:6];
+  [(CSDCall *)self propertiesChanged];
+}
+
+- (void)setSharingScreen:(BOOL)screen attributes:(id)attributes
+{
+  screenCopy = screen;
+  attributesCopy = attributes;
+  [(CSDMockCall *)self setMockSharingScreen:screenCopy];
+  [(CSDMockCall *)self setMockScreenShareAttributes:attributesCopy];
+
   [(CSDCall *)self propertiesChanged];
 }
 

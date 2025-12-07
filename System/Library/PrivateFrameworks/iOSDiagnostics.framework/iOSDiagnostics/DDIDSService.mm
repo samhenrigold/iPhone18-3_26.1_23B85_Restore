@@ -7,6 +7,8 @@
 - (id)_destinationFromID:(id)d;
 - (id)_selfTokenFromID:(id)d;
 - (void)availableDestinationsWithCompletion:(id)completion;
+- (void)sendMessage:(id)message data:(id)data toDestination:(id)destination forceLocalDelivery:(BOOL)delivery expectsResponse:(BOOL)response response:(id)a8;
+- (void)service:(id)service account:(id)account identifier:(id)identifier didSendWithSuccess:(BOOL)success error:(id)error;
 - (void)service:(id)service account:(id)account incomingMessage:(id)message fromID:(id)d context:(id)context;
 @end
 
@@ -34,6 +36,19 @@
   }
 
   return v3;
+}
+
+- (void)sendMessage:(id)message data:(id)data toDestination:(id)destination forceLocalDelivery:(BOOL)delivery expectsResponse:(BOOL)response response:(id)a8
+{
+  responseCopy = response;
+  deliveryCopy = delivery;
+  v14 = a8;
+  destinationCopy = destination;
+  dataCopy = data;
+  messageCopy = message;
+  v18 = [[DDIDSOutgoingMessage alloc] initWithDestination:destinationCopy message:messageCopy data:dataCopy forceLocalDelivery:deliveryCopy expectsResponse:responseCopy response:v14];
+
+  [(DDIDSService *)self _sendIDSMessage:v18];
 }
 
 - (void)availableDestinationsWithCompletion:(id)completion
@@ -250,6 +265,92 @@ LABEL_11:
   }
 
   return v14;
+}
+
+- (void)service:(id)service account:(id)account identifier:(id)identifier didSendWithSuccess:(BOOL)success error:(id)error
+{
+  successCopy = success;
+  identifierCopy = identifier;
+  errorCopy = error;
+  messageStorage = [(DDIDSService *)self messageStorage];
+  v13 = [messageStorage objectForKeyedSubscript:identifierCopy];
+
+  v14 = DiagnosticLogHandleForCategory();
+  v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
+  if (v13)
+  {
+    if (v15)
+    {
+      v16 = [NSNumber numberWithBool:successCopy];
+      v23 = 138413058;
+      v24 = identifierCopy;
+      v25 = 2112;
+      v26 = v13;
+      v27 = 2112;
+      v28 = v16;
+      v29 = 2112;
+      v30 = errorCopy;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "[%@] Did send message %@, success: %@, error: %@", &v23, 0x2Au);
+    }
+
+    if (successCopy)
+    {
+      if ([v13 expectsResponse])
+      {
+        goto LABEL_18;
+      }
+
+      messageStorage2 = [(DDIDSService *)self messageStorage];
+      [messageStorage2 removeObjectForKey:identifierCopy];
+      goto LABEL_16;
+    }
+
+    messageStorage3 = [(DDIDSService *)self messageStorage];
+    [messageStorage3 removeObjectForKey:identifierCopy];
+
+    [v13 setRetryCount:{objc_msgSend(v13, "retryCount") - 1}];
+    retryCount = [v13 retryCount];
+    messageStorage2 = DiagnosticLogHandleForCategory();
+    v20 = os_log_type_enabled(messageStorage2, OS_LOG_TYPE_ERROR);
+    if (retryCount < 1)
+    {
+      if (v20)
+      {
+        sub_10000E2D8(v13);
+      }
+
+LABEL_16:
+
+      response = [v13 response];
+
+      if (response)
+      {
+        response2 = [v13 response];
+        (response2)[2](response2, successCopy, errorCopy, 0, 0);
+      }
+
+      goto LABEL_18;
+    }
+
+    if (v20)
+    {
+      sub_10000E380(v13);
+    }
+
+    [(DDIDSService *)self _sendIDSMessage:v13];
+  }
+
+  else
+  {
+    if (v15)
+    {
+      v23 = 138412290;
+      v24 = identifierCopy;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "[%@] Invalid outgoing message", &v23, 0xCu);
+    }
+  }
+
+LABEL_18:
 }
 
 - (void)service:(id)service account:(id)account incomingMessage:(id)message fromID:(id)d context:(id)context

@@ -11,13 +11,13 @@
 {
   if (downloads)
   {
-    sub_1E3280A90(0, &qword_1ECF32758);
+    sub_1E3280A90(0, &qword_1ECF32758, 0x1E69705C0);
     sub_1E42062B4();
   }
 
   if (assetDownloads)
   {
-    sub_1E3280A90(0, &qword_1ECF32758);
+    sub_1E3280A90(0, &qword_1ECF32758, 0x1E69705C0);
     sub_1E42062B4();
   }
 

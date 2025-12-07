@@ -6,7 +6,7 @@
 
 + (id)securityMismatchAlertControllerWithNetworkName:(id)name previousSecurity:(id)security newSecurity:(id)newSecurity completionHandler:(id)handler
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   securityCopy = security;
   newSecurityCopy = newSecurity;
@@ -15,16 +15,17 @@
   if (!nameCopy)
   {
     v23 = WFLogForCategory(0);
-    v28 = OSLogForWFLogLevel(1uLL);
+    v29 = OSLogForWFLogLevel(1uLL);
+    v30 = v29;
     v21 = 0;
-    if (WFCurrentLogLevel() && v23)
+    if (WFCurrentLogLevel(v29, v31) && v23)
     {
-      if (os_log_type_enabled(v23, v28))
+      if (os_log_type_enabled(v23, v30))
       {
         *buf = 0;
-        v29 = "Missing network name";
+        v32 = "Missing network name";
 LABEL_16:
-        _os_log_impl(&dword_273FB9000, v23, v28, v29, buf, 2u);
+        _os_log_impl(&dword_273FB9000, v23, v30, v32, buf, 2u);
       }
 
 LABEL_17:
@@ -47,14 +48,15 @@ LABEL_18:
   if (!handlerCopy)
   {
     v23 = WFLogForCategory(0);
-    v28 = OSLogForWFLogLevel(1uLL);
+    v33 = OSLogForWFLogLevel(1uLL);
+    v30 = v33;
     v21 = 0;
-    if (WFCurrentLogLevel() && v23)
+    if (WFCurrentLogLevel(v33, v34) && v23)
     {
-      if (os_log_type_enabled(v23, v28))
+      if (os_log_type_enabled(v23, v30))
       {
         *buf = 0;
-        v29 = "Missing completion handler";
+        v32 = "Missing completion handler";
         goto LABEL_16;
       }
 
@@ -81,21 +83,21 @@ LABEL_18:
   v22 = [(WFPromptAlertController *)WFSecurityMismatchAlertController promptAlertControllerWithTitle:newSecurityCopy message:v17 cancelTitle:v19 successTitle:v21 completionHandler:v11];
   v23 = WFLogForCategory(0);
   v24 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v23 && os_log_type_enabled(v23, v24))
+  v25 = v24;
+  if (WFCurrentLogLevel(v24, v26) >= 3 && v23 && os_log_type_enabled(v23, v25))
   {
     *buf = 136315650;
-    v33 = "+[WFSecurityMismatchAlertController securityMismatchAlertControllerWithNetworkName:previousSecurity:newSecurity:completionHandler:]";
-    v34 = 2112;
-    v35 = newSecurityCopy;
-    v36 = 2112;
-    v37 = v17;
-    _os_log_impl(&dword_273FB9000, v23, v24, "%s: title='%@' message='%@'", buf, 0x20u);
+    v38 = "+[WFSecurityMismatchAlertController securityMismatchAlertControllerWithNetworkName:previousSecurity:newSecurity:completionHandler:]";
+    v39 = 2112;
+    v40 = newSecurityCopy;
+    v41 = 2112;
+    v42 = v17;
+    _os_log_impl(&dword_273FB9000, v23, v25, "%s: title='%@' message='%@'", buf, 0x20u);
   }
 
 LABEL_7:
 
-  v25 = v22;
-  v26 = *MEMORY[0x277D85DE8];
+  v27 = v22;
   return v22;
 }
 

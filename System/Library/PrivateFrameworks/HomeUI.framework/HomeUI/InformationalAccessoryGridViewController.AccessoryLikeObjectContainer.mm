@@ -8,7 +8,7 @@
 
 - (NSSet)hf_accessoryLikeObjects
 {
-  sub_20CECF940(0, &unk_27C81BF40);
+  sub_20CECF940(0, &unk_27C81BF40, 0x277D14300);
   sub_20CFE165C();
   sub_20D5663C8();
   v2 = sub_20D567CD8();
@@ -18,7 +18,7 @@
 
 - (void)setHf_accessoryLikeObjects:(id)objects
 {
-  sub_20CECF940(0, &unk_27C81BF40);
+  sub_20CECF940(0, &unk_27C81BF40, 0x277D14300);
   sub_20CFE165C();
   *(self + OBJC_IVAR____TtCC6HomeUI40InformationalAccessoryGridViewControllerP33_1E0D713E2D70C07A82D0ABA514F9943228AccessoryLikeObjectContainer_hf_accessoryLikeObjects) = sub_20D567D08();
 }

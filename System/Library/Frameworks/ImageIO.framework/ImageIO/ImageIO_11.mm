@@ -1,1904 +1,3 @@
-uint64_t kd_tile::kd_tile(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
-{
-  *(a1 + 12) = 0;
-  *(a1 + 16) = 0;
-  *(a1 + 104) = 0;
-  v10 = a1 + 104;
-  *(a1 + 280) = 0;
-  *(a1 + 212) = 0u;
-  *(a1 + 228) = 0u;
-  *(a1 + 244) = 0;
-  *a1 = a2;
-  *(a1 + 24) = a3;
-  if (*(a3 + 16))
-  {
-    v14 = 0;
-    memset(v13, 0, sizeof(v13));
-    kdu_error::kdu_error(v13, "Kakadu Core Error:\n");
-    (*(*&v13[0] + 16))(v13, "Assert ");
-    (*(*&v13[0] + 16))(v13, "tref->tile == NULL");
-    (*(*&v13[0] + 16))(v13, " FAILED");
-    kdu_error::~kdu_error(v13);
-  }
-
-  *(a1 + 12) = a4;
-  *(a1 + 8) = HIDWORD(a4) + *(a2 + 224) * a4;
-  *(a1 + 184) = 0;
-  *(a1 + 288) = 0;
-  *(a1 + 32) = 0;
-  v11 = *(a2 + 8);
-  if (v11 && ((*(**(v11 + 552) + 24))(*(v11 + 552)) & 2) != 0)
-  {
-    kd_precinct_pointer_server::initialize(v10, *(a2 + 48));
-  }
-
-  *(a1 + 212) = a5;
-  *(a1 + 220) = a6;
-  *(a1 + 236) = 0;
-  *(a1 + 328) = 0;
-  *(a1 + 287) = 0;
-  *(a1 + 320) = 0;
-  *(a1 + 40) = 0u;
-  *(a1 + 56) = 0u;
-  *(a1 + 72) = 0u;
-  *(a1 + 88) = 0u;
-  *(a1 + 264) = 0;
-  *(a1 + 272) = 0;
-  *(a1 + 256) = 0;
-  *(a1 + 297) = 0;
-  *(a1 + 289) = 0;
-  *(a1 + 316) = 0;
-  *(a1 + 308) = 0;
-  *(a1 + 300) = 0;
-  return a1;
-}
-
-uint64_t kd_precinct_pointer_server::initialize(uint64_t this, kd_buf_server *a2)
-{
-  if (*this)
-  {
-    kd_precinct_pointer_server::initialize();
-  }
-
-  *(this + 40) = 0;
-  *(this + 48) = 0;
-  *(this + 56) = 0;
-  *(this + 60) = 0;
-  *(this + 72) = 0;
-  *this = a2;
-  *(this + 8) = 0;
-  *(this + 16) = 0;
-  *(this + 24) = 0;
-  *(this + 32) = 0;
-  return this;
-}
-
-void kd_tile::~kd_tile(kd_tile *this)
-{
-  v24 = *MEMORY[0x1E69E9840];
-  if (*(*this + 440) == this)
-  {
-    *&v21 = 0;
-    *v19 = 0u;
-    v20 = 0u;
-    kdu_error::kdu_error(v19, "Kakadu Core Error:\n");
-    (*(*v19 + 16))(v19, "Assert ");
-    (*(*v19 + 16))(v19, "this != codestream->active_tile");
-    (*(*v19 + 16))(v19, " FAILED");
-    kdu_error::~kdu_error(v19);
-  }
-
-  if (*(this + 288) == 1)
-  {
-    kd_tile::remove_from_in_progress_list(this);
-  }
-
-  v2 = *(this + 10);
-  if (v2)
-  {
-    kd_pp_markers::~kd_pp_markers(v2);
-    MEMORY[0x186602850]();
-  }
-
-  v3 = *(this + 11);
-  if (v3)
-  {
-    (*(*v3 + 8))(v3);
-  }
-
-  if (*(this + 3))
-  {
-    v4 = **this;
-    if (!v4 || (*(this + 287) & 1) != 0)
-    {
-      goto LABEL_17;
-    }
-
-    (*(*v4 + 16))(**this, "\n>> New attributes for tile ");
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
-    v21 = 0u;
-    *v19 = 0u;
-    if (*(v4 + 8))
-    {
-      sprintf(v19, "%x");
-    }
-
-    else
-    {
-      sprintf(v19, "%d");
-    }
-
-    (*(*v4 + 16))(v4, v19);
-    (*(*v4 + 16))(v4, ":\n");
-    kdu_params::textualize_attributes(*(*this + 24), v4, *(this + 2), *(this + 2), 1);
-    (*(*v4 + 32))(v4, 0);
-    if (*(this + 3))
-    {
-LABEL_17:
-      if ((*(this + 287) & 1) == 0 && (*(this + 290) & 1) == 0)
-      {
-        for (i = 1; ; ++i)
-        {
-          v17 = kdu_params::access_cluster(*(*this + 24), i);
-          if (!v17)
-          {
-            break;
-          }
-
-          v18 = kdu_params::access_unique(v17, *(this + 2), -1, 0);
-          if (v18)
-          {
-            (*(*v18 + 16))(v18);
-          }
-        }
-      }
-    }
-  }
-
-  v5 = *(this + 12);
-  if (v5)
-  {
-    MEMORY[0x186602850](v5, 0x1020C40539952E0);
-  }
-
-  v6 = *(this + 34);
-  if (v6)
-  {
-    v7 = v6 - 16;
-    v8 = *(v6 - 8);
-    if (v8)
-    {
-      v9 = (v6 + 224 * v8 - 224);
-      v10 = -224 * v8;
-      do
-      {
-        kd_tile_comp::~kd_tile_comp(v9);
-        v9 = (v11 - 224);
-        v10 += 224;
-      }
-
-      while (v10);
-    }
-
-    MEMORY[0x186602830](v7, 0x10A0C802A3299D9);
-  }
-
-  v12 = *(this + 32);
-  for (*(this + 33) = v12; v12; *(this + 33) = v12)
-  {
-    *(this + 32) = *(v12 + 7);
-    kd_mct_stage::~kd_mct_stage(v12);
-    MEMORY[0x186602850]();
-    v12 = *(this + 32);
-  }
-
-  v13 = *(this + 3);
-  if (v13 && *(v13 + 16) != this)
-  {
-    *&v21 = 0;
-    *v19 = 0u;
-    v20 = 0u;
-    kdu_error::kdu_error(v19, "Kakadu Core Error:\n");
-    (*(*v19 + 16))(v19, "Assert ");
-    (*(*v19 + 16))(v19, "tile_ref->tile == this");
-    (*(*v19 + 16))(v19, " FAILED");
-    kdu_error::~kdu_error(v19);
-  }
-
-  if (*(this + 290) == 1)
-  {
-    if (!*(this + 3))
-    {
-      *&v21 = 0;
-      *v19 = 0u;
-      v20 = 0u;
-      kdu_error::kdu_error(v19, "Kakadu Core Error:\n");
-      (*(*v19 + 16))(v19, "Assert ");
-      (*(*v19 + 16))(v19, "tile_ref != NULL");
-      (*(*v19 + 16))(v19, " FAILED");
-      kdu_error::~kdu_error(v19);
-    }
-
-    kd_tile::withdraw_from_unloadable_list(this);
-    v14 = 0;
-    v15 = *(this + 3);
-    goto LABEL_39;
-  }
-
-  v15 = *(this + 3);
-  if (*(this + 287) == 1)
-  {
-    if (!v15)
-    {
-      *&v21 = 0;
-      *v19 = 0u;
-      v20 = 0u;
-      kdu_error::kdu_error(v19, "Kakadu Core Error:\n");
-      (*(*v19 + 16))(v19, "Assert ");
-      (*(*v19 + 16))(v19, "tile_ref != NULL");
-      (*(*v19 + 16))(v19, " FAILED");
-      kdu_error::~kdu_error(v19);
-    }
-
-    v14 = 0;
-    goto LABEL_39;
-  }
-
-  if (v15)
-  {
-    v14 = -1;
-LABEL_39:
-    *(v15 + 16) = v14;
-    kd_buf_server::augment_structure_bytes(*(*this + 48), -*(this + 70));
-  }
-
-  kd_precinct_pointer_server::disable(this + 13);
-}
-
-void sub_185F0ED28(_Unwind_Exception *a1, int a2)
-{
-  if (a2)
-  {
-    __clang_call_terminate(a1);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-uint64_t *kd_tile::remove_from_in_progress_list(uint64_t *this)
-{
-  if (*(this + 288) == 1)
-  {
-    v1 = *this;
-    v2 = *(*this + 360);
-    if (v2 <= 0)
-    {
-      v7 = 0;
-      v5 = 0u;
-      v6 = 0u;
-      kdu_error::kdu_error(&v5, "Kakadu Core Error:\n");
-      (*(v5 + 16))(&v5, "Assert ");
-      (*(v5 + 16))(&v5, "codestream->num_incomplete_tiles > 0");
-      (*(v5 + 16))(&v5, " FAILED");
-      kdu_error::~kdu_error(&v5);
-    }
-
-    *(v1 + 360) = v2 - 1;
-    v3 = this[6];
-    if (v3)
-    {
-      v4 = this[5];
-      *(v3 + 40) = v4;
-      if (v4)
-      {
-LABEL_6:
-        *(v4 + 48) = this[6];
-LABEL_13:
-        *(this + 288) = 0;
-        this[5] = 0;
-        this[6] = 0;
-        return this;
-      }
-    }
-
-    else
-    {
-      if (*(v1 + 336) != this)
-      {
-        v7 = 0;
-        v5 = 0u;
-        v6 = 0u;
-        kdu_error::kdu_error(&v5, "Kakadu Core Error:\n");
-        (*(v5 + 16))(&v5, "Assert ");
-        (*(v5 + 16))(&v5, "this == codestream->tiles_in_progress_head");
-        (*(v5 + 16))(&v5, " FAILED");
-        kdu_error::~kdu_error(&v5);
-      }
-
-      v4 = this[5];
-      *(v1 + 336) = v4;
-      if (v4)
-      {
-        goto LABEL_6;
-      }
-    }
-
-    if (*(v1 + 344) != this)
-    {
-      v7 = 0;
-      v5 = 0u;
-      v6 = 0u;
-      kdu_error::kdu_error(&v5, "Kakadu Core Error:\n");
-      (*(v5 + 16))(&v5, "Assert ");
-      (*(v5 + 16))(&v5, "this == codestream->tiles_in_progress_tail");
-      (*(v5 + 16))(&v5, " FAILED");
-      kdu_error::~kdu_error(&v5);
-    }
-
-    *(v1 + 344) = this[6];
-    goto LABEL_13;
-  }
-
-  return this;
-}
-
-_BYTE *kdu_message::operator<<(_BYTE *a1)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v6 = 0u;
-  v7 = 0u;
-  v4 = 0u;
-  v5 = 0u;
-  *v3 = 0u;
-  if (a1[8])
-  {
-    sprintf(v3, "%x");
-  }
-
-  else
-  {
-    sprintf(v3, "%d");
-  }
-
-  (*(*a1 + 16))(a1, v3);
-  return a1;
-}
-
-uint64_t *kd_tile::withdraw_from_unloadable_list(uint64_t *this)
-{
-  if ((*(this + 290) & 1) == 0)
-  {
-    v7 = 0;
-    v5 = 0u;
-    v6 = 0u;
-    kdu_error::kdu_error(&v5, "Kakadu Core Error:\n");
-    (*(v5 + 16))(&v5, "Assert ");
-    (*(v5 + 16))(&v5, "is_unloadable");
-    (*(v5 + 16))(&v5, " FAILED");
-    kdu_error::~kdu_error(&v5);
-  }
-
-  v1 = this[8];
-  if (v1)
-  {
-    v2 = this[7];
-    *(v1 + 56) = v2;
-    if (v2)
-    {
-LABEL_5:
-      *(v2 + 64) = this[8];
-      v3 = *this;
-      goto LABEL_12;
-    }
-  }
-
-  else
-  {
-    if (*(*this + 480) != this)
-    {
-      v7 = 0;
-      v5 = 0u;
-      v6 = 0u;
-      kdu_error::kdu_error(&v5, "Kakadu Core Error:\n");
-      (*(v5 + 16))(&v5, "Assert ");
-      (*(v5 + 16))(&v5, "codestream->unloadable_tiles_head == this");
-      (*(v5 + 16))(&v5, " FAILED");
-      kdu_error::~kdu_error(&v5);
-    }
-
-    v2 = this[7];
-    *(*this + 480) = v2;
-    if (v2)
-    {
-      goto LABEL_5;
-    }
-  }
-
-  v3 = *this;
-  if (*(*this + 488) != this)
-  {
-    v7 = 0;
-    v5 = 0u;
-    v6 = 0u;
-    kdu_error::kdu_error(&v5, "Kakadu Core Error:\n");
-    (*(v5 + 16))(&v5, "Assert ");
-    (*(v5 + 16))(&v5, "codestream->unloadable_tiles_tail == this");
-    (*(v5 + 16))(&v5, " FAILED");
-    kdu_error::~kdu_error(&v5);
-  }
-
-  *(v3 + 488) = this[8];
-LABEL_12:
-  if (*(v3 + 496) == this)
-  {
-    *(v3 + 496) = this[7];
-  }
-
-  this[7] = 0;
-  this[8] = 0;
-  v4 = *(v3 + 504);
-  *(v3 + 504) = v4 - 1;
-  if (v4 <= 0)
-  {
-    v7 = 0;
-    v5 = 0u;
-    v6 = 0u;
-    kdu_error::kdu_error(&v5, "Kakadu Core Error:\n");
-    (*(v5 + 16))(&v5, "Assert ");
-    (*(v5 + 16))(&v5, "codestream->num_unloadable_tiles >= 0");
-    (*(v5 + 16))(&v5, " FAILED");
-    kdu_error::~kdu_error(&v5);
-  }
-
-  *(this + 290) = 0;
-  return this;
-}
-
-uint64_t kd_buf_server::augment_structure_bytes(uint64_t this, int a2)
-{
-  v2 = *(this + 40) + a2;
-  *(this + 40) = v2;
-  if (v2 < 0)
-  {
-    kd_buf_server::augment_structure_bytes();
-  }
-
-  if (v2 > *(this + 48))
-  {
-    *(this + 48) = v2;
-  }
-
-  return this;
-}
-
-uint64_t kd_tile::release(kd_tile *this)
-{
-  v30 = *MEMORY[0x1E69E9840];
-  if (!*(this + 3) || *(*this + 440) == this)
-  {
-    *&v27 = 0;
-    *v25 = 0u;
-    v26 = 0u;
-    kdu_error::kdu_error(v25, "Kakadu Core Error:\n");
-    (*(*v25 + 16))(v25, "Assert ");
-    (*(*v25 + 16))(v25, "(tile_ref != NULL) && (this != codestream->active_tile)");
-    (*(*v25 + 16))(v25, " FAILED");
-    kdu_error::~kdu_error(v25);
-  }
-
-  if (*(*this + 8) && (*(this + 287) & 1) == 0 && (*(this + 184) & 1) != 0)
-  {
-    *(this + 4) = 0;
-    v2 = *(this + 10);
-    if (v2)
-    {
-      kd_pp_markers::~kd_pp_markers(v2);
-      MEMORY[0x186602850]();
-      *(this + 10) = 0;
-    }
-
-    v3 = *(this + 11);
-    if (v3)
-    {
-      (*(*v3 + 8))(v3);
-      *(this + 11) = 0;
-    }
-
-    v4 = *(this + 12);
-    if (v4)
-    {
-      MEMORY[0x186602850](v4, 0x1020C40539952E0);
-      *(this + 12) = 0;
-    }
-
-    kd_precinct_pointer_server::disable(this + 13);
-    v5 = *(this + 47);
-    if (v5 >= 1)
-    {
-      for (i = 0; i < v5; ++i)
-      {
-        v7 = *(this + 34) + 224 * i;
-        v8 = *(v7 + 68);
-        if ((v8 & 0x80000000) == 0)
-        {
-          v9 = 0;
-          do
-          {
-            v10 = *(v7 + 176) + 704 * v9;
-            if (*(v10 + 192) * *(v10 + 196) >= 1)
-            {
-              v11 = 0;
-              v12 = 8 * (*(v10 + 192) * *(v10 + 196));
-              do
-              {
-                v13 = *(v10 + 232);
-                v14 = *(v13 + v11);
-                if (v14)
-                {
-                  v15 = (*(v13 + v11) & 1) == 0;
-                }
-
-                else
-                {
-                  v15 = 0;
-                }
-
-                if (v15)
-                {
-                  *(v14 + 8) = 0;
-                  kd_precinct::closing(v14);
-                  kd_precinct_size_class::release(*(v14 + 72), v14);
-                }
-
-                *(v13 + v11) = 0;
-                v11 += 8;
-              }
-
-              while (v12 != v11);
-              v8 = *(v7 + 68);
-            }
-          }
-
-          while (v9++ < v8);
-          v5 = *(this + 47);
-        }
-      }
-    }
-
-    v17 = **this;
-    v18 = *(this + 287);
-    if (v17 && (*(this + 287) & 1) == 0)
-    {
-      (*(*v17 + 16))(**this, "\n>> New attributes for tile ");
-      v28 = 0u;
-      v29 = 0u;
-      v26 = 0u;
-      v27 = 0u;
-      *v25 = 0u;
-      if (*(v17 + 8))
-      {
-        sprintf(v25, "%x");
-      }
-
-      else
-      {
-        sprintf(v25, "%d");
-      }
-
-      (*(*v17 + 16))(v17, v25);
-      (*(*v17 + 16))(v17, ":\n");
-      kdu_params::textualize_attributes(*(*this + 24), v17, *(this + 2), *(this + 2), 1);
-      (*(*v17 + 32))(v17, 0);
-      v18 = *(this + 287);
-    }
-
-    if ((v18 & 1) == 0 && (*(this + 290) & 1) == 0)
-    {
-      v19 = kdu_params::access_cluster(*(*this + 24), 1);
-      if (v19)
-      {
-        v20 = 2;
-        do
-        {
-          v21 = kdu_params::access_unique(v19, *(this + 2), -1, 0);
-          if (v21)
-          {
-            (*(*v21 + 16))(v21);
-          }
-
-          v19 = kdu_params::access_cluster(*(*this + 24), v20++);
-        }
-
-        while (v19);
-      }
-    }
-
-    if (*(*(this + 3) + 16) != this)
-    {
-      *&v27 = 0;
-      *v25 = 0u;
-      v26 = 0u;
-      kdu_error::kdu_error(v25, "Kakadu Core Error:\n");
-      (*(*v25 + 16))(v25, "Assert ");
-      (*(*v25 + 16))(v25, "tile_ref->tile == this");
-      (*(*v25 + 16))(v25, " FAILED");
-      kdu_error::~kdu_error(v25);
-    }
-
-    if (*(this + 290) == 1)
-    {
-      kd_tile::withdraw_from_unloadable_list(this);
-      v22 = *(this + 3);
-    }
-
-    else
-    {
-      v22 = *(this + 3);
-      if (*(this + 287) != 1)
-      {
-        *(v22 + 16) = -1;
-        goto LABEL_52;
-      }
-    }
-
-    *(v22 + 16) = 0;
-LABEL_52:
-    result = kd_buf_server::augment_structure_bytes(*(*this + 48), -*(this + 70));
-    *(this + 70) = 0;
-    *(this + 3) = 0;
-    *(this + 2) = -1;
-    v24 = *this;
-    *(this + 9) = *(*this + 512);
-    *(v24 + 512) = this;
-    return result;
-  }
-
-  kd_tile::~kd_tile(this);
-  return MEMORY[0x186602850]();
-}
-
-void kd_tile::initialize(kd_tile *this)
-{
-  if (*(this + 293) == 1)
-  {
-    v15 = 0;
-    *v13 = 0u;
-    v14 = 0u;
-    kdu_error::kdu_error(v13, "Kakadu Core Error:\n");
-    (*(*v13 + 16))(v13, "Assert ");
-    (*(*v13 + 16))(v13, "!needs_reinit");
-    (*(*v13 + 16))(v13, " FAILED");
-    kdu_error::~kdu_error(v13);
-  }
-
-  v2 = *this;
-  *(this + 47) = *(*this + 168);
-  *(this + 300) = 0;
-  if (!*(v2 + 8) || (*(this + 292) & 1) != 0 || (*(this + 4) = **(this + 3), (kd_tile::read_tile_part_header(this) & 1) != 0))
-  {
-    v3 = kdu_params::access_cluster(*(*this + 24), "COD");
-    if (!v3)
-    {
-      v15 = 0;
-      *v13 = 0u;
-      v14 = 0u;
-      kdu_error::kdu_error(v13, "Kakadu Core Error:\n");
-      (*(*v13 + 16))(v13, "Assert ");
-      (*(*v13 + 16))(v13, "cod != NULL");
-      (*(*v13 + 16))(v13, " FAILED");
-      kdu_error::~kdu_error(v13);
-    }
-
-    v12 = kdu_params::access_relation(v3, *(this + 2), -1, 0, 1);
-    v4 = kdu_params::access_cluster(*(*this + 24), "QCD");
-    if (!v4)
-    {
-      v15 = 0;
-      *v13 = 0u;
-      v14 = 0u;
-      kdu_error::kdu_error(v13, "Kakadu Core Error:\n");
-      (*(*v13 + 16))(v13, "Assert ");
-      (*(*v13 + 16))(v13, "qcd != NULL");
-      (*(*v13 + 16))(v13, " FAILED");
-      kdu_error::~kdu_error(v13);
-    }
-
-    kdu_params::access_relation(v4, *(this + 2), -1, 0, 1);
-    v5 = kdu_params::access_cluster(*(*this + 24), "RGN");
-    if (!v5)
-    {
-      v15 = 0;
-      *v13 = 0u;
-      v14 = 0u;
-      kdu_error::kdu_error(v13, "Kakadu Core Error:\n");
-      (*(*v13 + 16))(v13, "Assert ");
-      (*(*v13 + 16))(v13, "rgn != NULL");
-      (*(*v13 + 16))(v13, " FAILED");
-      kdu_error::~kdu_error(v13);
-    }
-
-    kdu_params::access_relation(v5, *(this + 2), -1, 0, 1);
-    v6 = kdu_params::access_cluster(*(*this + 24), "ORG");
-    if (!v6)
-    {
-      v15 = 0;
-      *v13 = 0u;
-      v14 = 0u;
-      kdu_error::kdu_error(v13, "Kakadu Core Error:\n");
-      (*(*v13 + 16))(v13, "Assert ");
-      (*(*v13 + 16))(v13, "org != NULL");
-      (*(*v13 + 16))(v13, " FAILED");
-      kdu_error::~kdu_error(v13);
-    }
-
-    v7 = kdu_params::access_relation(v6, *(this + 2), -1, 0, 1);
-    if (!kdu_params::get(v12, "Cuse_sop", 0, 0, this + 284, 1, 1, 1) || !kdu_params::get(v12, "Cuse_eph", 0, 0, this + 285, 1, 1, 1) || !kdu_params::get(v12, "Cycc", 0, 0, this + 286, 1, 1, 1) || !kdu_params::get(v12, "Calign_blk_last", 0, 0, this + 61, 1, 1, 1) || !kdu_params::get(v12, "Calign_blk_last", 0, 1, this + 62, 1, 1, 1) || (kdu_params::get(v12, "Clayers", 0, 0, this + 48, 1, 1, 1) & 1) == 0)
-    {
-      v15 = 0;
-      *v13 = 0u;
-      v14 = 0u;
-      kdu_error::kdu_error(v13, "Kakadu Core Error:\n");
-      (*(*v13 + 16))(v13, "Corrupt jp2 file: invalid COD parameters ");
-      kdu_error::~kdu_error(v13);
-    }
-
-    v8 = *(this + 48);
-    v9 = *this;
-    if (v8 > *(*this + 256))
-    {
-      *(v9 + 256) = v8;
-    }
-
-    if (*(v9 + 16))
-    {
-      v13[0] = 0;
-      if ((kdu_params::get(v7, "ORGtparts", 0, 0, v13, 1, 1, 1) & 1) == 0)
-      {
-        v13[0] = 0;
-      }
-
-      if ((kdu_params::get(v7, "ORGgen_plt", 0, 0, this + 294, 1, 1, 1) & 1) == 0)
-      {
-        *(this + 294) = 0;
-      }
-
-      v10 = v13[0];
-      *(this + 295) = v13[0] & 1;
-      *(this + 296) = (v10 & 4) != 0;
-      *(this + 297) = (v10 & 2) != 0;
-    }
-
-    if (*(this + 32))
-    {
-      v15 = 0;
-      *v13 = 0u;
-      v14 = 0u;
-      kdu_error::kdu_error(v13, "Kakadu Core Error:\n");
-      (*(*v13 + 16))(v13, "Assert ");
-      (*(*v13 + 16))(v13, "mct_head == NULL");
-      (*(*v13 + 16))(v13, " FAILED");
-      kdu_error::~kdu_error(v13);
-    }
-
-    if (*(*this + 164) == 1)
-    {
-      kd_mct_stage::create_stages(this + 32, this + 33, *(*this + 24), *(this + 2), *(this + 47), *(*this + 312), *(*this + 176), *(*this + 320));
-    }
-
-    v11 = *(this + 47);
-    *(this + 49) = *(this + 48);
-    is_mul_ok(v11, 0xE0uLL);
-    operator new[]();
-  }
-
-  v15 = 0;
-  *v13 = 0u;
-  v14 = 0u;
-  kdu_error::kdu_error(v13, "Kakadu Core Error:\n");
-  (*(*v13 + 16))(v13, "read_failure in kd_tile::initialize ");
-  kdu_error::~kdu_error(v13);
-}
-
-uint64_t kd_tile::read_tile_part_header(kd_tile *this)
-{
-  v70 = *MEMORY[0x1E69E9840];
-  v2 = *this;
-  if (!*(*this + 8))
-  {
-    *&v67 = 0;
-    *v65 = 0u;
-    v66 = 0u;
-    kdu_error::kdu_error(v65, "Kakadu Core Error:\n");
-    (*(*v65 + 16))(v65, "Assert ");
-    (*(*v65 + 16))(v65, "codestream->in != NULL");
-    (*(*v65 + 16))(v65, " FAILED");
-    kdu_error::~kdu_error(v65);
-  }
-
-  if (*(v2 + 418) == 1)
-  {
-    if (*(this + 76))
-    {
-      *&v67 = 0;
-      *v65 = 0u;
-      v66 = 0u;
-      kdu_error::kdu_error(v65, "Kakadu Core Error:\n");
-      (*(*v65 + 16))(v65, "Assert ");
-      (*(*v65 + 16))(v65, "next_tpart == 0");
-      (*(*v65 + 16))(v65, " FAILED");
-      kdu_error::~kdu_error(v65);
-    }
-
-    if (*(this + 290) == 1)
-    {
-      kd_tile::withdraw_from_unloadable_list(this);
-    }
-
-    kd_codestream::unload_tiles_to_cache_threshold(*this);
-    if (kd_compressed_input::set_tileheader_scope(*(*this + 8)))
-    {
-      v3 = *(*this + 24);
-      if (kd_marker::read(*(*this + 32), 0, 0))
-      {
-        do
-        {
-          v4 = *(*this + 32);
-          v5 = *(v4 + 16);
-          if (v5 == 65377)
-          {
-            *&v67 = 0;
-            *v65 = 0u;
-            v66 = 0u;
-            kdu_error::kdu_error(v65, "Kakadu Core Error:\n");
-            (*(*v65 + 16))(v65, "You cannot use PPM or PPT marker segments (packed packet headers) with cached compressed data sources.");
-            kdu_error::~kdu_error(v65);
-          }
-
-          kdu_params::translate_marker_segment(v3, v5, *(v4 + 20), *(v4 + 32), *(this + 2), 0);
-        }
-
-        while ((kd_marker::read(*(*this + 32), 0, 0) & 1) != 0);
-      }
-
-      if ((*(*(*this + 8) + 544) & 1) == 0)
-      {
-        *&v67 = 0;
-        *v65 = 0u;
-        v66 = 0u;
-        kdu_error::kdu_error(v65, "Kakadu Core Error:\n");
-        (*(*v65 + 16))(v65, "Found non-marker code while parsing tile header marker segments.  Chances are that a marker segment length field is incorrect!");
-        kdu_error::~kdu_error(v65);
-      }
-
-      kdu_params::finalize_all(v3, *(this + 2), 1);
-    }
-
-    else
-    {
-      *(this + 287) = 1;
-    }
-
-    *(this + 300) = 0x100000001;
-    ++*(*this + 460);
-    *(this + 328) = 1;
-    if (*(this + 291) == 1)
-    {
-      *&v67 = 0;
-      *v65 = 0u;
-      v66 = 0u;
-      kdu_error::kdu_error(v65, "Kakadu Core Error:\n");
-      (*(*v65 + 16))(v65, "Assert ");
-      (*(*v65 + 16))(v65, "!closed");
-      (*(*v65 + 16))(v65, " FAILED");
-      kdu_error::~kdu_error(v65);
-    }
-
-    kd_tile::adjust_unloadability(this);
-    return 1;
-  }
-
-  if (*(this + 328))
-  {
-LABEL_20:
-    if (*(v2 + 440) == this)
-    {
-      *&v67 = 0;
-      *v65 = 0u;
-      v66 = 0u;
-      kdu_error::kdu_error(v65, "Kakadu Core Error:\n");
-      (*(*v65 + 16))(v65, "Assert ");
-      (*(*v65 + 16))(v65, "this != codestream->active_tile");
-      (*(*v65 + 16))(v65, " FAILED");
-      kdu_error::~kdu_error(v65);
-    }
-
-    return 0;
-  }
-
-  if (*(this + 75) >= 1 && *(this + 76) >= 255)
-  {
-    kd_tile::finished_reading(this);
-    v2 = *this;
-    goto LABEL_20;
-  }
-
-  v7 = *(v2 + 440);
-  while (2)
-  {
-    if (!v7)
-    {
-      goto LABEL_45;
-    }
-
-    *&v61 = 0;
-    v64 = 0;
-    if (!*(v7 + 96))
-    {
-      *&v67 = 0;
-      *v65 = 0u;
-      v66 = 0u;
-      kdu_error::kdu_error(v65, "Kakadu Core Error:\n");
-      (*(*v65 + 16))(v65, "Invalid code-stream!\n");
-      (*(*v65 + 16))(v65, "\t'active->sequencer' is NULL");
-      kdu_error::~kdu_error(v65);
-    }
-
-    do
-    {
-      v8 = kd_packet_sequencer::next_in_sequence(*(v7 + 96), &v61, &v64);
-      if (!v8)
-      {
-        break;
-      }
-
-      v9 = *v8;
-      if (!*v8)
-      {
-        v9 = kd_precinct_ref::instantiate_precinct(v8, v61, v64);
-        goto LABEL_41;
-      }
-
-      if ((v9 & 1) == 0 && (*(v9 + 17) & 1) == 0)
-      {
-        if (v9 == 3)
-        {
-          v9 = 0;
-        }
-
-        else if (*(v9 + 20) == 1)
-        {
-          kd_precinct_size_class::withdraw_from_inactive_list(*(v9 + 72), v9);
-          kd_precinct::activate(v9);
-        }
-
-LABEL_41:
-        if (!kd_precinct::desequence_packet(v9))
-        {
-          break;
-        }
-      }
-    }
-
-    while (v7 == *(*this + 440));
-    if (v7 == *(*this + 440))
-    {
-      *(*this + 440) = 0;
-      kd_tile::adjust_unloadability(v7);
-    }
-
-LABEL_45:
-    if (*(*(this + 3) + 16) != this)
-    {
-      *&v67 = 0;
-      *v65 = 0u;
-      v66 = 0u;
-      kdu_error::kdu_error(v65, "Kakadu Core Error:\n");
-      (*(*v65 + 16))(v65, "Assert ");
-      (*(*v65 + 16))(v65, "tile_ref->tile == this");
-      (*(*v65 + 16))(v65, " FAILED");
-      kdu_error::~kdu_error(v65);
-    }
-
-    v10 = *this;
-    v11 = *(*this + 72);
-    if (!v11)
-    {
-      if (*(*(v10 + 32) + 16) != -112)
-      {
-        v13 = *(v10 + 8);
-        if ((*(v13 + 544) & 1) == 0)
-        {
-          if (*(v10 + 448) <= 0)
-          {
-            *&v67 = 0;
-            *v65 = 0u;
-            v66 = 0u;
-            kdu_error::kdu_error(v65, "Kakadu Core Error:\n");
-            (*(*v65 + 16))(v65, "Assert ");
-            (*(*v65 + 16))(v65, "codestream->next_sot_address > 0");
-            (*(*v65 + 16))(v65, " FAILED");
-            kdu_error::~kdu_error(v65);
-          }
-
-          if (*(v13 + 608) == 1)
-          {
-            kd_tile::read_tile_part_header();
-          }
-
-          (*(*v13 + 16))(v13, v13 + *(v10 + 448) - (*(v13 + 560) + *(v13 + 528)) + 14);
-          kd_marker::read(*(*this + 32), 0, 0);
-LABEL_65:
-          v10 = *this;
-        }
-      }
-
-LABEL_66:
-      *(v10 + 448) = 0;
-      goto LABEL_67;
-    }
-
-    v12 = *(this + 4);
-    if (v12)
-    {
-      kd_compressed_input::seek(*(v10 + 8), *v12);
-      *(this + 4) = *(*(this + 4) + 8);
-      kd_marker::read(*(*this + 32), 0, 0);
-      v10 = *this;
-      goto LABEL_67;
-    }
-
-    if ((*(v11 + 24) & 1) != 0 || (v14 = *(this + 3), *v14) && !v14[1])
-    {
-      *(this + 75) = *(this + 76);
-      kd_tile::finished_reading(this);
-      return 0;
-    }
-
-    if (*(*(v10 + 32) + 16) == -112 && *(v10 + 224) == 1 && *(v10 + 220) == 1)
-    {
-      goto LABEL_66;
-    }
-
-    v15 = *(v10 + 8);
-    v16 = *(v10 + 448);
-    if ((*(v15 + 544) & 1) == 0 && v16 >= 1)
-    {
-      kd_compressed_input::seek(v15, v16);
-      kd_marker::read(*(*this + 32), 0, 0);
-      goto LABEL_65;
-    }
-
-    if (v16 < 0)
-    {
-      return 0;
-    }
-
-LABEL_67:
-    if (*(*(v10 + 8) + 544) != 1)
-    {
-      v17 = *(v10 + 32);
-      if (*(v17 + 16) != -112)
-      {
-        *&v67 = 0;
-        *v65 = 0u;
-        v66 = 0u;
-        kdu_error::kdu_error(v65, "Kakadu Core Error:\n");
-        (*(*v65 + 16))(v65, "Invalid marker code found in code-stream!\n");
-        (*(*v65 + 16))(v65, "\tExpected SOT marker and got ");
-        print_marker_code(*(*(*this + 32) + 16), v65);
-        (*(*v65 + 16))(v65, ".");
-        kdu_error::~kdu_error(v65);
-      }
-
-      if (*(v17 + 20) != 8)
-      {
-        *&v67 = 0;
-        *v65 = 0u;
-        v66 = 0u;
-        kdu_error::kdu_error(v65, "Kakadu Core Error:\n");
-        (*(*v65 + 16))(v65, "Assert ");
-        (*(*v65 + 16))(v65, "seg_length == 8");
-        (*(*v65 + 16))(v65, " FAILED");
-        kdu_error::~kdu_error(v65);
-      }
-
-      v18 = *(v17 + 32);
-      v19 = __rev16(*v18);
-      v20 = *(v18 + 1);
-      v21 = *(v18 + 6);
-      v22 = *(v18 + 7);
-      v23 = *(v10 + 224);
-      if (v19 >= *(v10 + 220) * v23)
-      {
-        *&v67 = 0;
-        *v65 = 0u;
-        v66 = 0u;
-        kdu_error::kdu_error(v65, "Kakadu Core Error:\n");
-        (*(*v65 + 16))(v65, "Corrupt SOT marker segment found in codestream: tile-number lies outside the range of available tiles derived from the SIZ marker segment.");
-        kdu_error::~kdu_error(v65);
-      }
-
-      v24 = (v19 / v23);
-      v25 = (v19 % v23);
-      v26 = v25 - *(v10 + 232);
-      v27 = v24 - *(v10 + 228);
-      if (v26 < 0 || v27 < 0 || (v28 = *(v10 + 240), v26 >= v28) || v27 >= *(v10 + 236))
-      {
-        *&v67 = 0;
-        *v65 = 0u;
-        v66 = 0u;
-        kdu_error::kdu_error(v65, "Kakadu Core Error:\n");
-        (*(*v65 + 16))(v65, "Assert ");
-        (*(*v65 + 16))(v65, "(rel_sot_idx.x >= 0) && (rel_sot_idx.y >= 0) && (rel_sot_idx.x < codestream->tile_indices.size.x) && (rel_sot_idx.y < codestream->tile_indices.size.y)");
-        (*(*v65 + 16))(v65, " FAILED");
-        kdu_error::~kdu_error(v65);
-      }
-
-      v29 = *(v10 + 8);
-      if (*(v29 + 608) == 1)
-      {
-        kd_tile::read_tile_part_header();
-      }
-
-      v30 = bswap32(v20);
-      v31 = v28 * v27;
-      v32 = v30;
-      v33 = *(v10 + 328) + 24 * v26 + 24 * v31;
-      v60 = *(v29 + 560) - v29 + *(v29 + 528) - *(*(v10 + 32) + 20) - 18;
-      if (!*(v10 + 448))
-      {
-        *(v10 + 448) = v60 + v30;
-        v38 = *(v10 + 72);
-        if (v38)
-        {
-          if ((*(v38 + 24) & 1) == 0 && (!*v33 || *(v33 + 8)))
-          {
-            kd_tpart_pointer_server::add_tpart(v38, v33, v60);
-            if (!v32)
-            {
-              *(v33 + 8) = 0;
-              *(*this + 448) = -1;
-            }
-          }
-        }
-      }
-
-      v34 = *(v33 + 16);
-      if (v34 == -1)
-      {
-LABEL_85:
-        v35 = *this;
-        v36 = *(*this + 40);
-        if (v36)
-        {
-          kd_pp_markers::ignore_tpart(v36);
-          v35 = *this;
-        }
-
-        v37 = *(v35 + 32);
-        *(v37 + 16) = 0;
-        *(v37 + 20) = 0;
-        *(v37 + 40) = 0;
-        goto LABEL_88;
-      }
-
-      if (v34)
-      {
-        if (*(v34 + 328) == 1)
-        {
-          goto LABEL_85;
-        }
-
-        if (*(v34 + 293) == 1)
-        {
-          if ((*(*this + 408) & 1) == 0)
-          {
-            *&v67 = 0;
-            *v65 = 0u;
-            v66 = 0u;
-            kdu_error::kdu_error(v65, "Kakadu Core Error:\n");
-            (*(*v65 + 16))(v65, "Assert ");
-            (*(*v65 + 16))(v65, "codestream->allow_restart");
-            (*(*v65 + 16))(v65, " FAILED");
-            kdu_error::~kdu_error(v65);
-          }
-
-          kd_tile::reinitialize(*(v33 + 16));
-          goto LABEL_88;
-        }
-      }
-
-      if (v34 != this)
-      {
-        if (*(*this + 72))
-        {
-          if (v34)
-          {
-            if (!*(v34 + 32))
-            {
-              v39 = *(v33 + 8);
-              *(v34 + 32) = v39;
-              if (!v39)
-              {
-                *(v34 + 32) = *v33;
-                v40 = *(v34 + 304);
-                if (v40 >= 2)
-                {
-                  for (i = 1; i < v40; ++i)
-                  {
-                    v42 = *(*(v34 + 32) + 8);
-                    *(v34 + 32) = v42;
-                    if (!v42)
-                    {
-                      *&v67 = 0;
-                      *v65 = 0u;
-                      v66 = 0u;
-                      kdu_error::kdu_error(v65, "Kakadu Core Error:\n");
-                      (*(*v65 + 16))(v65, "Assert ");
-                      (*(*v65 + 16))(v65, "active->tpart_ptrs != NULL");
-                      (*(*v65 + 16))(v65, " FAILED");
-                      kdu_error::~kdu_error(v65);
-                    }
-                  }
-                }
-              }
-            }
-          }
-
-          goto LABEL_88;
-        }
-
-        if (!v32)
-        {
-          kd_tile::finished_reading(this);
-          return 0;
-        }
-      }
-
-      if (v34)
-      {
-        if (*(v34 + 8) != v19)
-        {
-          *&v67 = 0;
-          *v65 = 0u;
-          v66 = 0u;
-          kdu_error::kdu_error(v65, "Kakadu Core Error:\n");
-          (*(*v65 + 16))(v65, "Assert ");
-          (*(*v65 + 16))(v65, "active->t_num == sot_tnum");
-          (*(*v65 + 16))(v65, " FAILED");
-          kdu_error::~kdu_error(v65);
-        }
-
-        if (*(v34 + 304) != v21)
-        {
-          v63 = 0;
-          v61 = 0u;
-          v62 = 0u;
-          kdu_error::kdu_error(&v61, "Kakadu Core Error:\n");
-          (*(v61 + 16))(&v61, "Missing or out-of-sequence tile-parts for tile number ");
-          v68 = 0u;
-          v69 = 0u;
-          v66 = 0u;
-          v67 = 0u;
-          *v65 = 0u;
-          if (BYTE8(v61))
-          {
-            sprintf(v65, "%x");
-          }
-
-          else
-          {
-            sprintf(v65, "%d");
-          }
-
-          (*(v61 + 16))(&v61, v65);
-          (*(v61 + 16))(&v61, " in code-stream!");
-          kdu_error::~kdu_error(&v61);
-        }
-
-        if (v22)
-        {
-          v43 = *(v34 + 300);
-          if (v43)
-          {
-            if (v43 != v22)
-            {
-              v63 = 0;
-              v61 = 0u;
-              v62 = 0u;
-              kdu_error::kdu_error(&v61, "Kakadu Core Error:\n");
-              (*(v61 + 16))(&v61, "The number of tile-parts for tile number ");
-              v68 = 0u;
-              v69 = 0u;
-              v66 = 0u;
-              v67 = 0u;
-              *v65 = 0u;
-              if (BYTE8(v61))
-              {
-                sprintf(v65, "%x");
-              }
-
-              else
-              {
-                sprintf(v65, "%d");
-              }
-
-              (*(v61 + 16))(&v61, v65);
-              (*(v61 + 16))(&v61, " is identified by different non-zero values in different SOT markers for the tile!");
-              kdu_error::~kdu_error(&v61);
-            }
-          }
-
-          else
-          {
-            *(v34 + 300) = v22;
-          }
-        }
-
-        if (*(v34 + 290) == 1)
-        {
-          kd_tile::withdraw_from_unloadable_list(v34);
-        }
-
-        kd_codestream::unload_tiles_to_cache_threshold(*this);
-        v44 = *(*this + 24);
-        v45 = kdu_params::access_cluster(v44, "COD");
-        v46 = kdu_params::access_relation(v45, v19, -1, 0, 1);
-        if (!v46)
-        {
-          *&v67 = 0;
-          *v65 = 0u;
-          v66 = 0u;
-          kdu_error::kdu_error(v65, "Kakadu Core Error:\n");
-          (*(*v65 + 16))(v65, "Assert ");
-          (*(*v65 + 16))(v65, "cod != NULL");
-          (*(*v65 + 16))(v65, " FAILED");
-          kdu_error::~kdu_error(v65);
-        }
-
-        v47 = kdu_params::access_cluster(v44, "POC");
-        v48 = kdu_params::access_relation(v47, v19, -1, 0, 1);
-        if (!v48)
-        {
-          *&v67 = 0;
-          *v65 = 0u;
-          v66 = 0u;
-          kdu_error::kdu_error(v65, "Kakadu Core Error:\n");
-          (*(*v65 + 16))(v65, "Assert ");
-          (*(*v65 + 16))(v65, "poc != NULL");
-          (*(*v65 + 16))(v65, " FAILED");
-          kdu_error::~kdu_error(v65);
-        }
-
-        if (*(v34 + 80))
-        {
-          *&v67 = 0;
-          *v65 = 0u;
-          v66 = 0u;
-          kdu_error::kdu_error(v65, "Kakadu Core Error:\n");
-          (*(*v65 + 16))(v65, "Assert ");
-          (*(*v65 + 16))(v65, "active->ppt_markers == NULL");
-          (*(*v65 + 16))(v65, " FAILED");
-          kdu_error::~kdu_error(v65);
-        }
-
-        if (!kd_marker::read(*(*this + 32), 0, 0))
-        {
-LABEL_174:
-          if ((*(*(*this + 8) + 544) & 1) == 0)
-          {
-            *&v67 = 0;
-            *v65 = 0u;
-            v66 = 0u;
-            kdu_error::kdu_error(v65, "Kakadu Core Error:\n");
-            (*(*v65 + 16))(v65, "Found non-marker code while looking for SOD marker to terminate a tile-part header.  Chances are that a marker segment length field is incorrect!");
-            kdu_error::~kdu_error(v65);
-          }
-
-          return 0;
-        }
-
-        do
-        {
-          v49 = *(*this + 32);
-          v50 = *(v49 + 16);
-          switch(v50)
-          {
-            case 65368:
-              kd_precinct_pointer_server::add_plt_marker(v34 + 104, v49, v46, v48);
-              break;
-            case 65377:
-              if (!*(*this + 160))
-              {
-                *&v67 = 0;
-                *v65 = 0u;
-                v66 = 0u;
-                kdu_warning::kdu_warning(v65, "Kakadu Core Warning:\n");
-                (*(*v65 + 16))(v65, "Profile violation detected (code-stream is technically illegal).  PPT marker segments may not appear within a Profile-0 code-stream.  You should set Sprofile to 1 or 2.");
-                *(*this + 160) = 2;
-                kdu_warning::~kdu_warning(v65);
-              }
-
-              v51 = *(v34 + 80);
-              if (!v51)
-              {
-                operator new();
-              }
-
-              kd_pp_markers::add_marker(v51, *(*this + 32));
-            case 65427:
-              goto LABEL_152;
-            default:
-              kdu_params::translate_marker_segment(v44, *(v49 + 16), *(v49 + 20), *(v49 + 32), v19, v21);
-              break;
-          }
-        }
-
-        while ((kd_marker::read(*(*this + 32), 0, 0) & 1) != 0);
-        if (!v50)
-        {
-          goto LABEL_174;
-        }
-
-LABEL_152:
-        kdu_params::finalize_all(v44, v19, 1);
-        v52 = *(*this + 8);
-        if (*(v52 + 608) == 1)
-        {
-          kd_tile::read_tile_part_header();
-        }
-
-        v53 = *(v52 + 560);
-        v54 = *(v52 + 528);
-        v55 = *(*this + 40);
-        if (*(v34 + 80))
-        {
-          if (v55)
-          {
-            *&v67 = 0;
-            *v65 = 0u;
-            v66 = 0u;
-            kdu_error::kdu_error(v65, "Kakadu Core Error:\n");
-            (*(*v65 + 16))(v65, "Use of both PPM and PPT marker segments is illegal!");
-            kdu_error::~kdu_error(v65);
-          }
-
-          v56 = *(v34 + 88);
-          if (!v56)
-          {
-            operator new();
-          }
-
-          kd_pp_markers::transfer_tpart(*(v34 + 80), v56);
-          v57 = *(v34 + 80);
-          if (v57)
-          {
-            kd_pp_markers::~kd_pp_markers(v57);
-            MEMORY[0x186602850]();
-          }
-
-          *(v34 + 80) = 0;
-        }
-
-        else if (v55)
-        {
-          v58 = *(v34 + 88);
-          if (!v58)
-          {
-            operator new();
-          }
-
-          kd_pp_markers::transfer_tpart(v55, v58);
-        }
-
-        v59 = v53 - v52 + v54 - 14;
-        if (v32)
-        {
-          if (v60 + v32 - v59 < 0)
-          {
-            *&v67 = 0;
-            *v65 = 0u;
-            v66 = 0u;
-            kdu_error::kdu_error(v65, "Kakadu Core Error:\n");
-            (*(*v65 + 16))(v65, "Assert ");
-            (*(*v65 + 16))(v65, "tpart_body_length >= 0");
-            (*(*v65 + 16))(v65, " FAILED");
-            kdu_error::~kdu_error(v65);
-          }
-
-          kd_precinct_pointer_server::start_tpart_body((v34 + 104), v59, v60 + v32 - v59, v46, v48, *(v34 + 88) != 0, 0);
-        }
-
-        else
-        {
-          kd_precinct_pointer_server::start_tpart_body((v34 + 104), v59, 0, v46, v48, *(v34 + 88) != 0, 1);
-        }
-
-        ++*(v34 + 304);
-        *(*this + 440) = v34;
-        kd_tile::adjust_unloadability(v34);
-        ++*(*this + 460);
-      }
-
-      else
-      {
-        kd_codestream::create_tile(*this, v24 | (v25 << 32));
-      }
-
-LABEL_88:
-      v7 = *(*this + 440);
-      if (v7 == this)
-      {
-        return 1;
-      }
-
-      continue;
-    }
-
-    break;
-  }
-
-  if (*(v10 + 448))
-  {
-    return 0;
-  }
-
-  result = 0;
-  *(v10 + 448) = -1;
-  return result;
-}
-
-float kd_tile::find_multicomponent_energy_gain(kd_tile *this, int a2, int a3)
-{
-  v40 = *MEMORY[0x1E69E9840];
-  if (a3 && *(*this + 184))
-  {
-    v39 = 0;
-    memset(v38, 0, sizeof(v38));
-    kdu_error::kdu_error(v38, "Kakadu Core Error:\n");
-    (*(*v38 + 16))(v38, "Assert ");
-    (*(*v38 + 16))(v38, "codestream->component_access_mode == KDU_WANT_OUTPUT_COMPONENTS");
-    (*(*v38 + 16))(v38, " FAILED");
-    kdu_error::~kdu_error(v38);
-  }
-
-  v4 = *(this + 32);
-  if (!v4)
-  {
-    if (a2 > 2 || (*(this + 286) & 1) == 0 || *(this + 47) < 3)
-    {
-      v23 = (*(*this + 320) + 48 * a2);
-      if (!a3 || (v24 = v23[4], v17 = 0.0, (v24 & 0x80000000) == 0) && *(*(this + 34) + 224 * v24 + 185) == 1)
-      {
-        v17 = 1.0 / (1 << *v23) * (1.0 / (1 << *v23));
-      }
-
-      goto LABEL_60;
-    }
-
-    memset(v38, 0, 24);
-    v21 = *(this + 34);
-    if (*(v21 + 224 * a2 + 76) == 1)
-    {
-      if (a2 == 1)
-      {
-        *v38 = vdupq_n_s64(0x3FB0000000000000uLL);
-        *&v38[4] = 0x3FE2000000000000;
-        goto LABEL_54;
-      }
-
-      if (a2)
-      {
-        *&v38[4] = 0x3FB0000000000000;
-        _Q0 = xmmword_186205E40;
-LABEL_53:
-        *v38 = _Q0;
-LABEL_54:
-        v29 = 0;
-        v30 = (*(*this + 320) + 16);
-        v17 = 0.0;
-        do
-        {
-          if (!a3 || (*v30 & 0x80000000) == 0 && *(v21 + 224 * *v30 + 185) == 1)
-          {
-            v31 = 1.0 / (1 << *(v30 - 4));
-            v17 = v17 + *&v38[v29] * v31 * v31;
-          }
-
-          v29 += 2;
-          v30 += 12;
-        }
-
-        while (v29 != 6);
-        goto LABEL_60;
-      }
-    }
-
-    else
-    {
-      if (a2 == 1)
-      {
-        *&v38[2] = xmmword_186205E20;
-        goto LABEL_54;
-      }
-
-      if (a2)
-      {
-        _Q0 = xmmword_186205E30;
-        goto LABEL_53;
-      }
-    }
-
-    *&v38[4] = 0x3FF0000000000000;
-    __asm { FMOV            V0.2D, #1.0 }
-
-    goto LABEL_53;
-  }
-
-  v5 = 1.0;
-  v6 = a2;
-  v7 = a2;
-  while (1)
-  {
-    v37 = -1;
-    v38[0] = 0;
-    v9 = (v4 + 32);
-    v8 = *(v4 + 32);
-    if (v8 <= 0)
-    {
-      break;
-    }
-
-LABEL_10:
-    for (i = 0; i < v8; ++i)
-    {
-      v11 = *(v4 + 40) + 152 * i;
-      if (!a3 || *(v11 + 36))
-      {
-        v12 = *(v11 + 8);
-        if (v12 >= 1)
-        {
-          for (j = 0; j < v12; ++j)
-          {
-            if (!a3 || *(*(v11 + 24) + j) == 1)
-            {
-              v14 = *(*(v11 + 16) + 4 * j);
-              if (v14 >= v6 && v14 <= v7)
-              {
-                v16 = *(v4 + 48);
-                if (v16)
-                {
-                  v5 = *(*(v16 + 24) + 48 * v14 + 44);
-                }
-
-                kd_mct_block::analyze_sensitivity(v11, j, v5, v38, &v37, a3);
-                v12 = *(v11 + 8);
-              }
-            }
-          }
-
-          v8 = *v9;
-        }
-      }
-    }
-
-    v7 = v37;
-    v6 = v38[0];
-    v4 = *(v4 + 56);
-    if (!v4)
-    {
-      v17 = 0.0;
-      if (v38[0] <= v37)
-      {
-        v18 = (*(*(this + 33) + 24) + 48 * v38[0] + 44);
-        v19 = v37 - v38[0] + 1;
-        do
-        {
-          if ((a3 ^ 1 | *(v18 - 4)))
-          {
-            v20 = (*v18 / (1 << *(v18 - 11)));
-            v17 = v17 + v20 * v20;
-          }
-
-          v18 += 12;
-          --v19;
-        }
-
-        while (v19);
-      }
-
-      goto LABEL_60;
-    }
-  }
-
-  while (1)
-  {
-    v4 = *(v4 + 56);
-    if (!v4)
-    {
-      break;
-    }
-
-    v37 = -1;
-    v38[0] = 0;
-    v8 = *(v4 + 32);
-    if (v8 >= 1)
-    {
-      v6 = 0;
-      v9 = (v4 + 32);
-      v7 = -1;
-      goto LABEL_10;
-    }
-  }
-
-  v17 = 0.0;
-LABEL_60:
-  v32 = (1 << *(*(*this + 312) + 104 * a2 + 16));
-  v33 = v17 * (v32 * v32);
-  if (v33 < 0.0001)
-  {
-    return 0.0001;
-  }
-
-  return v33;
-}
-
-void kd_resolution::build_decomposition_structure(kd_resolution *this, kdu_params *a2, kdu_kernels *a3)
-{
-  v28 = *MEMORY[0x1E69E9840];
-  *v26 = 3;
-  memset(v27, 0, 98);
-  memset(&v26[2], 0, 98);
-  *(this + 222) = 1;
-  if (*(this + 24))
-  {
-    if (a2)
-    {
-      kdu_params::get(a2, "Cdecomp", *(this + 25) - 1, 0, v26, 1, 1, 1);
-      v4 = *v26;
-    }
-
-    else
-    {
-      v4 = 3;
-    }
-
-    v5 = cod_params::transpose_decomp(v4);
-    *(this + 222) = cod_params::expand_decomp_bands(*v26, v27, v6) - 1;
-    cod_params::expand_decomp_bands(v5, &v26[2], v7);
-  }
-
-  else
-  {
-    v27[0] = 0;
-  }
-
-  if (*(this + 30))
-  {
-    v25 = 0;
-    v23 = 0u;
-    v24 = 0u;
-    kdu_error::kdu_error(&v23, "Kakadu Core Error:\n");
-    (*(v23 + 16))(&v23, "Assert ");
-    (*(v23 + 16))(&v23, "subbands == NULL");
-    (*(v23 + 16))(&v23, " FAILED");
-    kdu_error::~kdu_error(&v23);
-  }
-
-  if (*(this + 222) <= 3uLL)
-  {
-    v8 = this + 256;
-    v9 = *(this + 222);
-    *(this + 30) = v8;
-    if (v9)
-    {
-      v10 = 0;
-      v11 = *(this + 24);
-      v12 = this + 306;
-      do
-      {
-        *(v12 - 50) = 0;
-        *(v12 - 42) = this;
-        *v12 = 1;
-        if (v11)
-        {
-          v13 = v27[v10 + 1];
-        }
-
-        else
-        {
-          v13 = 0;
-        }
-
-        v12[5] = v10;
-        *(v12 + 1) = v13;
-        v12 += 144;
-        ++v10;
-      }
-
-      while (v9 != v10);
-      v14 = 0;
-      do
-      {
-        if (*(this + 24))
-        {
-          v15 = v26[v14 + 3];
-        }
-
-        else
-        {
-          v15 = 0;
-        }
-
-        v16 = 0;
-        v17 = __rev16(v15);
-        if ((v9 & 0xFE) != 0)
-        {
-          v18 = v9;
-        }
-
-        else
-        {
-          v18 = 1;
-        }
-
-        for (i = 52; *&v8[i] != v17; i += 144)
-        {
-          if (v18 == ++v16)
-          {
-            v25 = 0;
-            v23 = 0u;
-            v24 = 0u;
-            kdu_error::kdu_error(&v23, "Kakadu Core Error:\n");
-            (*(v23 + 16))(&v23, "Assert ");
-            (*(v23 + 16))(&v23, "k < num_subbands");
-            (*(v23 + 16))(&v23, " FAILED");
-            kdu_error::~kdu_error(&v23);
-          }
-        }
-
-        v8[144 * v14++ + 56] = v16;
-      }
-
-      while (v14 < v9);
-    }
-
-    if (*(this + 28))
-    {
-      v25 = 0;
-      v23 = 0u;
-      v24 = 0u;
-      kdu_error::kdu_error(&v23, "Kakadu Core Error:\n");
-      (*(v23 + 16))(&v23, "Assert ");
-      (*(v23 + 16))(&v23, "intermediate_nodes == NULL");
-      (*(v23 + 16))(&v23, " FAILED");
-      kdu_error::~kdu_error(&v23);
-    }
-
-    v20 = 0;
-    v21 = 0;
-    *(this + 223) = 0;
-    v22 = *v26;
-    while (1)
-    {
-      v20 += 2;
-      if (((v22 >> v20) & 3) != 0)
-      {
-        *(this + 223) = ++v21;
-      }
-
-      if (v20 >= 0x1D)
-      {
-        operator new[]();
-      }
-    }
-  }
-
-  operator new[]();
-}
-
 uint64_t check_coding_partition(uint64_t result, unint64_t a2)
 {
   v2 = a2;
@@ -2830,7 +929,7 @@ LABEL_21:
   return result;
 }
 
-uint64_t kd_tile::finished_reading(kd_tile *this)
+uint64_t kd_tile::finished_reading(kd_tile *this, uint64_t a2)
 {
   if (*(this + 292) != 1)
   {
@@ -2841,22 +940,22 @@ uint64_t kd_tile::finished_reading(kd_tile *this)
   {
     if (*(this + 328) == 1)
     {
-      v15 = 0;
-      memset(v14, 0, sizeof(v14));
-      kdu_error::kdu_error(v14, "Kakadu Core Error:\n");
-      (*(*&v14[0] + 16))(v14, "Assert ");
-      (*(*&v14[0] + 16))(v14, "!exhausted");
-      (*(*&v14[0] + 16))(v14, " FAILED");
-      kdu_error::~kdu_error(v14);
+      v16 = 0;
+      memset(v15, 0, sizeof(v15));
+      kdu_error::kdu_error(v15, "Kakadu Core Error:\n");
+      (*(*&v15[0] + 16))(v15, "Assert ");
+      (*(*&v15[0] + 16))(v15, "!exhausted");
+      (*(*&v15[0] + 16))(v15, " FAILED");
+      kdu_error::~kdu_error(v15);
     }
 
     *(*this + 440) = 0;
-    kd_tile::adjust_unloadability(this);
+    kd_tile::adjust_unloadability(this, a2);
   }
 
   else
   {
-    kd_tile::adjust_unloadability(this);
+    kd_tile::adjust_unloadability(this, a2);
     if (*(this + 328))
     {
       return 0;
@@ -2875,51 +974,51 @@ uint64_t kd_tile::finished_reading(kd_tile *this)
 
   else
   {
-    v3 = *(this + 47);
-    if (v3 >= 1)
+    v4 = *(this + 47);
+    if (v4 >= 1)
     {
-      for (i = 0; i < v3; ++i)
+      for (i = 0; i < v4; ++i)
       {
-        v5 = *(this + 34) + 224 * i;
-        v6 = *(v5 + 68);
-        if ((v6 & 0x80000000) == 0)
+        v6 = *(this + 34) + 224 * i;
+        v7 = *(v6 + 68);
+        if ((v7 & 0x80000000) == 0)
         {
-          v7 = 0;
+          v8 = 0;
           do
           {
-            v8 = *(v5 + 176) + 704 * v7;
-            if (*(v8 + 192) * *(v8 + 196) >= 1)
+            v9 = *(v6 + 176) + 704 * v8;
+            if (*(v9 + 192) * *(v9 + 196) >= 1)
             {
-              v9 = 0;
-              v10 = 8 * (*(v8 + 192) * *(v8 + 196));
+              v10 = 0;
+              v11 = 8 * (*(v9 + 192) * *(v9 + 196));
               do
               {
-                v11 = *(*(v8 + 232) + v9);
-                if (v11)
+                v12 = *(*(v9 + 232) + v10);
+                if (v12)
                 {
-                  v12 = (*(*(v8 + 232) + v9) & 1) == 0;
+                  v13 = (*(*(v9 + 232) + v10) & 1) == 0;
                 }
 
                 else
                 {
-                  v12 = 0;
+                  v13 = 0;
                 }
 
-                if (v12)
+                if (v13)
                 {
-                  kd_precinct::finished_desequencing(v11);
+                  kd_precinct::finished_desequencing(v12);
                 }
 
-                v9 += 8;
+                v10 += 8;
               }
 
-              while (v10 != v9);
-              v6 = *(v5 + 68);
+              while (v11 != v10);
+              v7 = *(v6 + 68);
             }
           }
 
-          while (v7++ < v6);
-          v3 = *(this + 47);
+          while (v8++ < v7);
+          v4 = *(this + 47);
         }
       }
     }
@@ -2963,7 +1062,7 @@ void kd_tile::recycle(kd_tile *this, uint64_t a2, uint64_t a3, uint64_t a4, uint
   *(this + 220) = a5;
   *(this + 236) = 0;
   *(this + 9) = 0;
-  if (*(this + 10) || *(this + 11) || *(this + 12) || *(this + 7) || *(this + 8))
+  if (*(this + 5) != 0 || *(this + 12) || *(this + 7) || *(this + 8))
   {
     v84 = 0;
     v82 = 0u;
@@ -3573,28 +1672,28 @@ uint64_t kd_tile::reinitialize(kd_tile *this)
 {
   if (*(this + 293) != 1 || *(this + 289) == 1)
   {
-    v16 = 0;
-    v14 = 0u;
+    v17 = 0;
     v15 = 0u;
-    kdu_error::kdu_error(&v14, "Kakadu Core Error:\n");
-    (*(v14 + 16))(&v14, "Assert ");
-    (*(v14 + 16))(&v14, "needs_reinit && !is_open");
-    (*(v14 + 16))(&v14, " FAILED");
-    kdu_error::~kdu_error(&v14);
+    v16 = 0u;
+    kdu_error::kdu_error(&v15, "Kakadu Core Error:\n");
+    (*(v15 + 16))(&v15, "Assert ");
+    (*(v15 + 16))(&v15, "needs_reinit && !is_open");
+    (*(v15 + 16))(&v15, " FAILED");
+    kdu_error::~kdu_error(&v15);
   }
 
   *(this + 293) = 0;
   v2 = *(this + 3);
   if (*(v2 + 16) != this)
   {
-    v16 = 0;
-    v14 = 0u;
+    v17 = 0;
     v15 = 0u;
-    kdu_error::kdu_error(&v14, "Kakadu Core Error:\n");
-    (*(v14 + 16))(&v14, "Assert ");
-    (*(v14 + 16))(&v14, "tile_ref->tile == this");
-    (*(v14 + 16))(&v14, " FAILED");
-    kdu_error::~kdu_error(&v14);
+    v16 = 0u;
+    kdu_error::kdu_error(&v15, "Kakadu Core Error:\n");
+    (*(v15 + 16))(&v15, "Assert ");
+    (*(v15 + 16))(&v15, "tile_ref->tile == this");
+    (*(v15 + 16))(&v15, " FAILED");
+    kdu_error::~kdu_error(&v15);
   }
 
   *(this + 4) = *v2;
@@ -3669,7 +1768,7 @@ LABEL_22:
 
   if (v12)
   {
-    kd_tile::finished_reading(this);
+    kd_tile::finished_reading(this, v13);
   }
 
   result = kdu_params::check_typical_tile(*(*this + 24), *(this + 2));
@@ -3677,220 +1776,220 @@ LABEL_22:
   return result;
 }
 
-uint64_t *kd_tile::open(kd_tile *this)
+uint64_t *kd_tile::open(kd_tile *this, uint64_t a2)
 {
-  v1 = this;
+  v2 = this;
   if (*(this + 289) == 1)
   {
-    v44 = 0;
-    v42 = 0u;
+    v45 = 0;
     v43 = 0u;
-    kdu_error::kdu_error(&v42, "Kakadu Core Error:\n");
-    (*(v42 + 16))(&v42, "You must close a tile before you can re-open it.");
-    kdu_error::~kdu_error(&v42);
+    v44 = 0u;
+    kdu_error::kdu_error(&v43, "Kakadu Core Error:\n");
+    (*(v43 + 16))(&v43, "You must close a tile before you can re-open it.");
+    kdu_error::~kdu_error(&v43);
   }
 
   if (!*(this + 34))
   {
-    v44 = 0;
-    v42 = 0u;
+    v45 = 0;
     v43 = 0u;
-    kdu_error::kdu_error(&v42, "Kakadu Core Error:\n");
-    (*(v42 + 16))(&v42, "kd_tile::initialize failed.");
-    kdu_error::~kdu_error(&v42);
+    v44 = 0u;
+    kdu_error::kdu_error(&v43, "Kakadu Core Error:\n");
+    (*(v43 + 16))(&v43, "kd_tile::initialize failed.");
+    kdu_error::~kdu_error(&v43);
   }
 
-  v2 = *this;
+  v3 = *this;
   if (*(*this + 417) == 1)
   {
     kd_tile::set_elements_of_interest(this);
-    v2 = *v1;
+    v3 = *v2;
   }
 
-  if (*(v2 + 16))
+  if (*(v3 + 16))
   {
-    if ((v1[36] & 1) != 0 || v1[5])
+    if ((v2[36] & 1) != 0 || v2[5])
     {
-      v44 = 0;
-      v42 = 0u;
+      v45 = 0;
       v43 = 0u;
-      kdu_error::kdu_error(&v42, "Kakadu Core Error:\n");
-      (*(v42 + 16))(&v42, "Assert ");
-      (*(v42 + 16))(&v42, "(!is_in_progress) && (in_progress_next == NULL)");
-      (*(v42 + 16))(&v42, " FAILED");
-      kdu_error::~kdu_error(&v42);
+      v44 = 0u;
+      kdu_error::kdu_error(&v43, "Kakadu Core Error:\n");
+      (*(v43 + 16))(&v43, "Assert ");
+      (*(v43 + 16))(&v43, "(!is_in_progress) && (in_progress_next == NULL)");
+      (*(v43 + 16))(&v43, " FAILED");
+      kdu_error::~kdu_error(&v43);
     }
 
-    v3 = *(v2 + 344);
-    v1[6] = v3;
-    v4 = (v3 ? v3 + 40 : v2 + 336);
-    *v4 = v1;
-    *(v2 + 344) = v1;
-    *(v1 + 288) = 1;
-    if (*(v1 + 47) >= 1)
+    v4 = *(v3 + 344);
+    v2[6] = v4;
+    v5 = (v4 ? v4 + 40 : v3 + 336);
+    *v5 = v2;
+    *(v3 + 344) = v2;
+    *(v2 + 288) = 1;
+    if (*(v2 + 47) >= 1)
     {
-      v5 = 0;
-      v33 = v1;
+      v6 = 0;
+      v34 = v2;
       do
       {
-        v6 = v1[34] + 224 * v5;
-        v7 = *(*v1 + 352) + 88 * v5;
-        v8 = *(v6 + 68);
-        if ((v8 & 0x80000000) != 0)
+        v7 = v2[34] + 224 * v6;
+        v8 = *(*v2 + 352) + 88 * v6;
+        v9 = *(v7 + 68);
+        if ((v9 & 0x80000000) != 0)
         {
 LABEL_78:
-          v30 = 33 - v8;
+          v31 = 33 - v9;
           do
           {
-            kd_global_rescomp::notify_tile_status(v7, *(v1 + 212), *(v1 + 220), 0);
-            v28 = *(v1 + 47);
-            v7 += 88 * v28;
-            --v30;
+            kd_global_rescomp::notify_tile_status(v8, *(v2 + 212), *(v2 + 220), 0);
+            v29 = *(v2 + 47);
+            v8 += 88 * v29;
+            --v31;
           }
 
-          while (v30 > 1);
+          while (v31 > 1);
           goto LABEL_80;
         }
 
-        v32 = v5;
-        v36 = 0;
-        v34 = v1[34] + 224 * v5;
+        v33 = v6;
+        v37 = 0;
+        v35 = v2[34] + 224 * v6;
         do
         {
-          v9 = (*(v6 + 176) + 704 * v8);
-          v10 = v9[2];
-          v36 |= *&v10 != 0;
-          if ((v36 & 1) == 0)
+          v10 = (*(v7 + 176) + 704 * v9);
+          v11 = v10[2];
+          v37 |= *&v11 != 0;
+          if ((v37 & 1) == 0)
           {
-            v9[2] = v7;
-            kd_global_rescomp::notify_tile_status(v7, *(v1 + 212), *(v1 + 220), 1);
-            if (!v9[3].i8[0] || v9[24].i32[1] < 1 || v9[24].i32[0] < 1)
+            v10[2] = v8;
+            kd_global_rescomp::notify_tile_status(v8, *(v2 + 212), *(v2 + 220), 1);
+            if (!v10[3].i8[0] || v10[24].i32[1] < 1 || v10[24].i32[0] < 1)
             {
               goto LABEL_73;
             }
 
-            v35 = v8;
-            v11 = 0;
-            v37 = v9[17];
-            v38 = v9[16];
-            v12 = v9[23];
-            v40 = 0;
+            v36 = v9;
+            v12 = 0;
+            v38 = v10[17];
+            v39 = v10[16];
+            v13 = v10[23];
             v41 = 0;
-            v13 = v9[22];
-            v14 = vmla_s32(v9[21], v13, v12);
+            v42 = 0;
+            v14 = v10[22];
+            v15 = vmla_s32(v10[21], v14, v13);
             while (2)
             {
-              if ((v11 & 1) == 0)
+              if ((v12 & 1) == 0)
               {
-                v15 = 0;
+                v16 = 0;
                 goto LABEL_32;
               }
 
-              v16 = v9[24].i32[1];
-              if (v16 >= 2 && *&v38 != 0)
+              v17 = v10[24].i32[1];
+              if (v17 >= 2 && *&v39 != 0)
               {
-                v15 = v16 - 1;
+                v16 = v17 - 1;
 LABEL_32:
-                if (v11 >= 2)
+                if (v12 >= 2)
                 {
-                  v19 = v9[24].i32[0];
-                  if (v19 >= 2 && *&v37 != 0)
+                  v20 = v10[24].i32[0];
+                  if (v20 >= 2 && *&v38 != 0)
                   {
-                    v18 = v19 - 1;
+                    v19 = v20 - 1;
                     goto LABEL_39;
                   }
                 }
 
                 else
                 {
-                  v18 = 0;
+                  v19 = 0;
 LABEL_39:
-                  v40 = vmla_s32(v14, __PAIR64__(v15, v18), v13);
-                  v41 = v13;
-                  kdu_dims::operator&=(&v40, &v9[6]);
-                  if ((!*&v38 || v41.i32[1] == 1 && (v40.i8[4] & 1) == 0) && (!*&v37 || v41.i32[0] == 1 && (v40.i8[0] & 1) == 0))
+                  v41 = vmla_s32(v15, __PAIR64__(v16, v19), v14);
+                  v42 = v14;
+                  kdu_dims::operator&=(&v41, &v10[6]);
+                  if ((!*&v39 || v42.i32[1] == 1 && (v41.i8[4] & 1) == 0) && (!*&v38 || v42.i32[0] == 1 && (v41.i8[0] & 1) == 0))
                   {
-                    if (v38)
+                    if (v39)
                     {
-                      v39 = 1;
+                      v40 = 1;
                     }
 
                     else
                     {
-                      if (v15)
+                      if (v16)
                       {
-                        v44 = 0;
-                        v42 = 0u;
+                        v45 = 0;
                         v43 = 0u;
-                        kdu_error::kdu_error(&v42, "Kakadu Core Error:\n");
-                        (*(v42 + 16))(&v42, "Assert ");
-                        (*(v42 + 16))(&v42, "p_idx.x == 0");
-                        (*(v42 + 16))(&v42, " FAILED");
-                        kdu_error::~kdu_error(&v42);
+                        v44 = 0u;
+                        kdu_error::kdu_error(&v43, "Kakadu Core Error:\n");
+                        (*(v43 + 16))(&v43, "Assert ");
+                        (*(v43 + 16))(&v43, "p_idx.x == 0");
+                        (*(v43 + 16))(&v43, " FAILED");
+                        kdu_error::~kdu_error(&v43);
                       }
 
-                      v39 = v9[24].i32[1];
+                      v40 = v10[24].i32[1];
                     }
 
-                    if (v37)
+                    if (v38)
                     {
-                      v21 = 1;
+                      v22 = 1;
 LABEL_55:
-                      v22 = v15;
-                      while (v39 < 1)
+                      v23 = v16;
+                      while (v40 < 1)
                       {
 LABEL_69:
-                        ++v18;
-                        v27 = __OFSUB__(v21--, 1);
-                        if ((v21 < 0) ^ v27 | (v21 == 0))
+                        ++v19;
+                        v28 = __OFSUB__(v22--, 1);
+                        if ((v22 < 0) ^ v28 | (v22 == 0))
                         {
                           goto LABEL_71;
                         }
                       }
 
-                      v23 = v22;
-                      v24 = v39 + 1;
+                      v24 = v23;
+                      v25 = v40 + 1;
                       while (2)
                       {
-                        v25 = (*&v9[29] + 8 * (v23 + v9[24].i32[1] * v18));
-                        v26 = *v25;
-                        if (!*v25)
+                        v26 = (*&v10[29] + 8 * (v24 + v10[24].i32[1] * v19));
+                        v27 = *v26;
+                        if (!*v26)
                         {
                           goto LABEL_64;
                         }
 
-                        if (v26 == 3)
+                        if (v27 == 3)
                         {
-                          v26 = 0;
+                          v27 = 0;
                           goto LABEL_65;
                         }
 
-                        if (v26)
+                        if (v27)
                         {
 LABEL_64:
-                          v26 = kd_precinct_ref::instantiate_precinct(v25, v9, v18 | (v23 << 32));
+                          v27 = kd_precinct_ref::instantiate_precinct(v26, v10, v19 | (v24 << 32));
                         }
 
                         else
                         {
-                          if (*(v26 + 20) == 1)
+                          if (*(v27 + 20) == 1)
                           {
-                            kd_precinct_size_class::withdraw_from_inactive_list(*(v26 + 72), v26);
+                            kd_precinct_size_class::withdraw_from_inactive_list(*(v27 + 72), v27);
                             goto LABEL_68;
                           }
 
-                          if (*(v26 + 19) == 1)
+                          if (*(v27 + 19) == 1)
                           {
 LABEL_68:
-                            kd_precinct::activate(v26);
+                            kd_precinct::activate(v27);
                           }
                         }
 
 LABEL_65:
-                        kd_global_rescomp::add_ready_precinct(v7, v26);
-                        --v24;
-                        ++v23;
-                        if (v24 <= 1)
+                        kd_global_rescomp::add_ready_precinct(v8, v27);
+                        --v25;
+                        ++v24;
+                        if (v25 <= 1)
                         {
                           goto LABEL_69;
                         }
@@ -3899,20 +1998,20 @@ LABEL_65:
                       }
                     }
 
-                    if (v18)
+                    if (v19)
                     {
-                      v44 = 0;
-                      v42 = 0u;
+                      v45 = 0;
                       v43 = 0u;
-                      kdu_error::kdu_error(&v42, "Kakadu Core Error:\n");
-                      (*(v42 + 16))(&v42, "Assert ");
-                      (*(v42 + 16))(&v42, "p_idx.y == 0");
-                      (*(v42 + 16))(&v42, " FAILED");
-                      kdu_error::~kdu_error(&v42);
+                      v44 = 0u;
+                      kdu_error::kdu_error(&v43, "Kakadu Core Error:\n");
+                      (*(v43 + 16))(&v43, "Assert ");
+                      (*(v43 + 16))(&v43, "p_idx.y == 0");
+                      (*(v43 + 16))(&v43, " FAILED");
+                      kdu_error::~kdu_error(&v43);
                     }
 
-                    v21 = v9[24].i32[0];
-                    if (v21 >= 1)
+                    v22 = v10[24].i32[0];
+                    if (v22 >= 1)
                     {
                       goto LABEL_55;
                     }
@@ -3921,11 +2020,11 @@ LABEL_65:
               }
 
 LABEL_71:
-              if (++v11 == 4)
+              if (++v12 == 4)
               {
-                v1 = v33;
-                v6 = v34;
-                v8 = v35;
+                v2 = v34;
+                v7 = v35;
+                v9 = v36;
                 goto LABEL_73;
               }
 
@@ -3933,59 +2032,59 @@ LABEL_71:
             }
           }
 
-          if (*&v10 != v7)
+          if (*&v11 != v8)
           {
-            v44 = 0;
-            v42 = 0u;
+            v45 = 0;
             v43 = 0u;
-            kdu_error::kdu_error(&v42, "Kakadu Core Error:\n");
-            (*(v42 + 16))(&v42, "Assert ");
-            (*(v42 + 16))(&v42, "res->rescomp == rc");
-            (*(v42 + 16))(&v42, " FAILED");
-            kdu_error::~kdu_error(&v42);
+            v44 = 0u;
+            kdu_error::kdu_error(&v43, "Kakadu Core Error:\n");
+            (*(v43 + 16))(&v43, "Assert ");
+            (*(v43 + 16))(&v43, "res->rescomp == rc");
+            (*(v43 + 16))(&v43, " FAILED");
+            kdu_error::~kdu_error(&v43);
           }
 
 LABEL_73:
-          v28 = *(v1 + 47);
-          v7 += 88 * v28;
+          v29 = *(v2 + 47);
+          v8 += 88 * v29;
         }
 
-        while (v8-- > 0);
-        if (v36)
+        while (v9-- > 0);
+        if (v37)
         {
-          v5 = v32;
+          v6 = v33;
         }
 
         else
         {
-          LODWORD(v8) = *(v6 + 68);
-          v5 = v32;
-          if (v8 <= 31)
+          LODWORD(v9) = *(v7 + 68);
+          v6 = v33;
+          if (v9 <= 31)
           {
             goto LABEL_78;
           }
         }
 
 LABEL_80:
-        ++v5;
+        ++v6;
       }
 
-      while (v5 < v28);
+      while (v6 < v29);
     }
   }
 
-  *(v1 + 289) = 1;
-  result = kd_tile::adjust_unloadability(v1);
-  ++*(*v1 + 260);
+  *(v2 + 289) = 1;
+  result = kd_tile::adjust_unloadability(v2, a2);
+  ++*(*v2 + 260);
   return result;
 }
 
-uint64_t *kd_tile::adjust_unloadability(uint64_t *this)
+uint64_t *kd_tile::adjust_unloadability(uint64_t *this, uint64_t a2)
 {
-  v2 = *this;
-  if (*(*this + 417) == 1 && (*(v2 + 72) || (*(v2 + 418) & 1) != 0))
+  v3 = *this;
+  if (*(*this + 417) == 1 && (*(v3 + 72) || (*(v3 + 418) & 1) != 0))
   {
-    if ((*(this + 289) & 1) != 0 || *(v2 + 440) == this)
+    if ((*(this + 289) & 1) != 0 || *(v3 + 440) == this)
     {
       if (*(this + 290) == 1)
       {
@@ -4193,32 +2292,32 @@ BOOL kdu_dims::intersects(_DWORD *a1, _DWORD *a2)
   return v3 > 0 && v5 > 0 && v6 > 0 && v7 > 0;
 }
 
-uint64_t kd_precinct::desequence_packet(kd_precinct *this)
+uint64_t kd_precinct::desequence_packet(kd_precinct *this, uint64_t a2)
 {
   if ((*(this + 17) & 1) != 0 || *(this + 18) == 1)
   {
     kd_precinct::desequence_packet();
   }
 
-  v2 = *(*(*this + 8) + 8);
-  packet = kd_precinct::read_packet(this);
+  v3 = *(*(*this + 8) + 8);
+  packet = kd_precinct::read_packet(this, a2);
   if (packet)
   {
-    v4 = *(this + 7) + 1;
-    *(this + 7) = v4;
-    if (v4 == *(v2 + 48))
+    v6 = *(this + 7) + 1;
+    *(this + 7) = v6;
+    if (v6 == *(v3 + 48))
     {
       kd_precinct::finished_desequencing(this);
     }
 
-    ++*(v2 + 78);
-    if (*(this + 21) == 1 && *(this + 7) <= *(v2 + 50))
+    ++*(v3 + 78);
+    if (*(this + 21) == 1 && *(this + 7) <= *(v3 + 50))
     {
-      v5 = *(v2 + 77) + 1;
-      *(v2 + 77) = v5;
-      if (v5 == *(v2 + 52))
+      v7 = *(v3 + 77) + 1;
+      *(v3 + 77) = v7;
+      if (v7 == *(v3 + 52))
       {
-        kd_tile::finished_reading(v2);
+        kd_tile::finished_reading(v3, v4);
       }
     }
   }
@@ -4840,9 +2939,9 @@ LABEL_118:
   return v26;
 }
 
-void sub_185F199F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_185F199F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   kdu_warning::~kdu_warning(va);
   _Unwind_Resume(a1);
 }
@@ -4959,7 +3058,7 @@ uint64_t kd_precinct::write_packet(kd_precinct *this, unsigned int a2, char a3)
           v21 = 40 * v19;
           do
           {
-            kd_block::write_packet_header((*(v18 + 24) + v20), &v35, *(this + 7), 0);
+            kd_block::write_packet_header(*(v18 + 24) + v20, &v35, *(this + 7), 0);
             v20 += 40;
           }
 
@@ -5160,7 +3259,7 @@ uint64_t *kdu_tile::close(void *a1, kdu_thread_entity *this)
 
   else
   {
-    result = kd_tile::adjust_unloadability(v4);
+    result = kd_tile::adjust_unloadability(v4, this);
   }
 
   *a1 = 0;
@@ -5195,9 +3294,9 @@ uint64_t kdu_thread_entity::acquire_lock(uint64_t this, int a2, int a3)
   return this;
 }
 
-uint64_t kdu_thread_entity::release_lock(kdu_thread_entity *this, int a2)
+uint64_t kdu_thread_entity::release_lock(uint64_t this, int a2)
 {
-  if (a2 < 0 || *(this + 12) <= a2 || (result = *(this + 7) + 80 * a2, *(result + 72) != this))
+  if (a2 < 0 || *(this + 48) <= a2 || (result = *(this + 56) + 80 * a2, *(result + 72) != this))
   {
     kdu_thread_entity::release_lock();
   }
@@ -5244,7 +3343,7 @@ uint64_t *kd_precinct::release(uint64_t *this)
     if ((*(v2 + 20) & 1) == 0)
     {
       *(v2 + 19) = 1;
-      if (*(v2 + 18) != 1 || (*(**v2 + 418) & 1) != 0 || (v4 = *(v2 + 8)) != 0 && v4 != *(v2 + 7))
+      if (*(v2 + 18) != 1 || (*(**v2 + 418) & 1) != 0 || (v4 = *(v2 + 32)) != 0 && v4 != *(v2 + 28))
       {
 
         return kd_precinct_ref::close(this);
@@ -5252,7 +3351,7 @@ uint64_t *kd_precinct::release(uint64_t *this)
 
       else
       {
-        v5 = v2[9];
+        v5 = *(v2 + 72);
 
         return kd_precinct_size_class::move_to_inactive_list(v5, v2);
       }
@@ -5361,7 +3460,7 @@ uint64_t kdu_tile::get_ycc(kdu_tile *this)
   return result;
 }
 
-int64x2_t kdu_tile::set_components_of_interest(uint64_t **this, signed int a2, unsigned int *a3, int64x2_t result)
+int64x2_t kdu_tile::set_components_of_interest(uint64_t **this, uint64_t a2, unsigned int *a3, int64x2_t result)
 {
   v4 = a3;
   v5 = *this;
@@ -6534,7 +4633,7 @@ LABEL_137:
   return result;
 }
 
-uint64_t kdu_tile::get_mct_matrix_info(kdu_tile *this, int a2, int a3, float *a4)
+uint64_t kdu_tile::get_mct_matrix_info(kdu_tile *this, unsigned int a2, int a3, float *a4)
 {
   if (*(**this + 184))
   {
@@ -6659,7 +4758,7 @@ LABEL_18:
   return 1;
 }
 
-uint64_t kdu_tile::get_mct_rxform_info(kdu_tile *this, int a2, int a3, int *a4, int *a5)
+uint64_t kdu_tile::get_mct_rxform_info(kdu_tile *this, unsigned int a2, int a3, int *a4, int *a5)
 {
   if (*(**this + 184))
   {
@@ -6795,7 +4894,7 @@ LABEL_17:
   return 1;
 }
 
-uint64_t kdu_tile::get_mct_dependency_info(kdu_tile *this, int a2, int a3, BOOL *a4, unint64_t a5, unint64_t a6, unint64_t a7, unint64_t a8, int *a9)
+uint64_t kdu_tile::get_mct_dependency_info(kdu_tile *this, unsigned int a2, int a3, BOOL *a4, unint64_t a5, unint64_t a6, unint64_t a7, unint64_t a8, int *a9)
 {
   if (*(**this + 184))
   {
@@ -6999,7 +5098,7 @@ LABEL_17:
   return 1;
 }
 
-uint64_t kdu_tile::get_mct_dwt_info(kdu_tile *this, int a2, int a3, BOOL *a4, int *a5, int *a6, int *a7, int *a8, BOOL *a9, BOOL *a10, const float **a11, int *a12, int *a13)
+uint64_t kdu_tile::get_mct_dwt_info(kdu_tile *this, unsigned int a2, int a3, BOOL *a4, int *a5, int *a6, int *a7, int *a8, BOOL *a9, BOOL *a10, const float **a11, int *a12, int *a13)
 {
   if (*(**this + 184))
   {
@@ -7173,9 +5272,9 @@ LABEL_18:
   return *(v16 + 104);
 }
 
-uint64_t kdu_tile::access_component(uint64_t **this, unsigned int a2)
+uint64_t kdu_tile::access_component(uint64_t **this, signed int a2)
 {
-  if ((a2 & 0x80000000) != 0)
+  if (a2 < 0)
   {
     return 0;
   }
@@ -7301,18 +5400,18 @@ uint64_t kdu_tile_comp::access_resolution(uint64_t **this, int a2)
   return v3;
 }
 
-uint64_t create_child_node(_DWORD *a1, unsigned int a2, char a3, uint64_t a4, _DWORD *a5, uint64_t a6, _DWORD *a7, unsigned int a8, int a9, unsigned int a10, char a11, char a12, int a13, uint64_t a14, int a15, uint64_t a16, uint64_t a17)
+uint64_t create_child_node(_DWORD *a1, unsigned int a2, char a3, uint64_t a4, _DWORD *a5, uint64_t a6, _DWORD *a7, unsigned int a8, int a9, unsigned int a10, char a11, char a12, int a13, BOOL *a14, int a15, BOOL *a16, kdu_kernels *a17)
 {
   if ((a9 - 1) >= 3)
   {
-    v47 = 0;
+    v46 = 0;
+    v44 = 0u;
     v45 = 0u;
-    v46 = 0u;
-    kdu_error::kdu_error(&v45, "Kakadu Core Error:\n");
-    (*(v45 + 16))();
-    (*(v45 + 16))(&v45, "(sub_level >= 1) && (sub_level <= 3)");
-    (*(v45 + 16))(&v45, " FAILED");
-    kdu_error::~kdu_error(&v45);
+    kdu_error::kdu_error(&v44, "Kakadu Core Error:\n");
+    (*(v44 + 16))();
+    (*(v44 + 16))(&v44, "(sub_level >= 1) && (sub_level <= 3)");
+    (*(v44 + 16))(&v44, " FAILED");
+    kdu_error::~kdu_error(&v44);
   }
 
   if (a9 == 2)
@@ -7346,18 +5445,18 @@ uint64_t create_child_node(_DWORD *a1, unsigned int a2, char a3, uint64_t a4, _D
     *(v21 + 48) = a2 & 1;
     if (a13 >= 3)
     {
-      v47 = 0;
+      v46 = 0;
+      v44 = 0u;
       v45 = 0u;
-      v46 = 0u;
-      kdu_error::kdu_error(&v45, "Kakadu Core Error:\n");
-      (*(v45 + 16))();
-      (*(v45 + 16))(&v45, "num_hor_extra_stages < 3");
-      (*(v45 + 16))(&v45, " FAILED");
-      kdu_error::~kdu_error(&v45);
+      kdu_error::kdu_error(&v44, "Kakadu Core Error:\n");
+      (*(v44 + 16))();
+      (*(v44 + 16))(&v44, "num_hor_extra_stages < 3");
+      (*(v44 + 16))(&v44, " FAILED");
+      kdu_error::~kdu_error(&v44);
     }
 
-    v42 = a13 + 1;
-    *(a14 + a13) = (a2 & 1) != 0;
+    v41 = a13 + 1;
+    a14[a13] = (a2 & 1) != 0;
     if (a2)
     {
       v23 = 1;
@@ -7371,32 +5470,32 @@ uint64_t create_child_node(_DWORD *a1, unsigned int a2, char a3, uint64_t a4, _D
     if ((a2 & 1) != 0 && a11)
     {
       *(*(v21 + 8) + 221) = 0;
-      v39 = 1;
+      v38 = 1;
     }
 
     else
     {
-      v39 = v23;
+      v38 = v23;
     }
   }
 
   else
   {
     *(v21 + 48) = 2;
-    v39 = a11;
+    v38 = a11;
     if (a2)
     {
-      v47 = 0;
+      v46 = 0;
+      v44 = 0u;
       v45 = 0u;
-      v46 = 0u;
-      kdu_error::kdu_error(&v45, "Kakadu Core Error:\n");
-      (*(v45 + 16))();
-      (*(v45 + 16))(&v45, "!(child_idx & 1)");
-      (*(v45 + 16))(&v45, " FAILED");
-      kdu_error::~kdu_error(&v45);
+      kdu_error::kdu_error(&v44, "Kakadu Core Error:\n");
+      (*(v44 + 16))();
+      (*(v44 + 16))(&v44, "!(child_idx & 1)");
+      (*(v44 + 16))(&v44, " FAILED");
+      kdu_error::~kdu_error(&v44);
     }
 
-    v42 = a13;
+    v41 = a13;
   }
 
   v24 = a12;
@@ -7406,18 +5505,18 @@ uint64_t create_child_node(_DWORD *a1, unsigned int a2, char a3, uint64_t a4, _D
     *(v21 + 49) = (a2 & 2) != 0;
     if (a15 >= 3)
     {
-      v47 = 0;
+      v46 = 0;
+      v44 = 0u;
       v45 = 0u;
-      v46 = 0u;
-      kdu_error::kdu_error(&v45, "Kakadu Core Error:\n");
-      (*(v45 + 16))();
-      (*(v45 + 16))(&v45, "num_vert_extra_stages < 3");
-      (*(v45 + 16))(&v45, " FAILED");
-      kdu_error::~kdu_error(&v45);
+      kdu_error::kdu_error(&v44, "Kakadu Core Error:\n");
+      (*(v44 + 16))();
+      (*(v44 + 16))(&v44, "num_vert_extra_stages < 3");
+      (*(v44 + 16))(&v44, " FAILED");
+      kdu_error::~kdu_error(&v44);
     }
 
     v25 = a15 + 1;
-    *(a16 + a15) = v26 != 0;
+    a16[a15] = v26 != 0;
     if (v26)
     {
       v27 = 1;
@@ -7445,14 +5544,14 @@ uint64_t create_child_node(_DWORD *a1, unsigned int a2, char a3, uint64_t a4, _D
     *(v21 + 49) = 2;
     if ((a2 & 2) != 0)
     {
-      v47 = 0;
+      v46 = 0;
+      v44 = 0u;
       v45 = 0u;
-      v46 = 0u;
-      kdu_error::kdu_error(&v45, "Kakadu Core Error:\n");
-      (*(v45 + 16))();
-      (*(v45 + 16))(&v45, "!(child_idx & 2)");
-      (*(v45 + 16))(&v45, " FAILED");
-      kdu_error::~kdu_error(&v45);
+      kdu_error::kdu_error(&v44, "Kakadu Core Error:\n");
+      (*(v44 + 16))();
+      (*(v44 + 16))(&v44, "!(child_idx & 2)");
+      (*(v44 + 16))(&v44, " FAILED");
+      kdu_error::~kdu_error(&v44);
     }
 
     v25 = a15;
@@ -7487,14 +5586,14 @@ uint64_t create_child_node(_DWORD *a1, unsigned int a2, char a3, uint64_t a4, _D
       operator new[]();
     }
 
-    v47 = 0;
+    v46 = 0;
+    v44 = 0u;
     v45 = 0u;
-    v46 = 0u;
-    kdu_error::kdu_error(&v45, "Kakadu Core Error:\n");
-    (*(v45 + 16))();
-    (*(v45 + 16))(&v45, "next_branch_mask != 0");
-    (*(v45 + 16))(&v45, " FAILED");
-    kdu_error::~kdu_error(&v45);
+    kdu_error::kdu_error(&v44, "Kakadu Core Error:\n");
+    (*(v44 + 16))();
+    (*(v44 + 16))(&v44, "next_branch_mask != 0");
+    (*(v44 + 16))(&v44, " FAILED");
+    kdu_error::~kdu_error(&v44);
   }
 
   LODWORD(v30) = a1[4];
@@ -7541,10 +5640,7 @@ uint64_t create_child_node(_DWORD *a1, unsigned int a2, char a3, uint64_t a4, _D
     {
       if (i == (v18 & i))
       {
-        HIDWORD(v38) = v42;
-        BYTE1(v38) = v24;
-        LOBYTE(v38) = v39;
-        *(8 * i + 0x58) = create_child_node(0, i, v18, a4, a5, a6, a7, v17 & 3, __PAIR64__(a10, a9 + 1), v38, a14, v25, a16, a17);
+        *(8 * i + 0x58) = create_child_node(0, i, v18, a4, a5, a6, a7, v17 & 3, a9 + 1, a10, v38, v24, v41, a14, v25, a16, a17);
         v17 >>= 2;
       }
     }
@@ -7554,14 +5650,14 @@ uint64_t create_child_node(_DWORD *a1, unsigned int a2, char a3, uint64_t a4, _D
   {
     if ((*(v21 + 50) & 1) == 0)
     {
-      v47 = 0;
+      v46 = 0;
+      v44 = 0u;
       v45 = 0u;
-      v46 = 0u;
-      kdu_error::kdu_error(&v45, "Kakadu Core Error:\n");
-      (*(v45 + 16))();
-      (*(v45 + 16))(&v45, "result->is_leaf");
-      (*(v45 + 16))(&v45, " FAILED");
-      kdu_error::~kdu_error(&v45);
+      kdu_error::kdu_error(&v44, "Kakadu Core Error:\n");
+      (*(v44 + 16))();
+      (*(v44 + 16))(&v44, "result->is_leaf");
+      (*(v44 + 16))(&v44, " FAILED");
+      kdu_error::~kdu_error(&v44);
     }
 
     *(v21 + 54) = a10;
@@ -7586,7 +5682,7 @@ uint64_t kdu_resolution::which(kdu_resolution *this)
   return *(*this + 24);
 }
 
-int32x4_t *kdu_resolution::get_dims(int32x4_t **this, int32x4_t *a2)
+int32x4_t *kdu_resolution::get_dims(BOOL ***this, int32x4_t *a2)
 {
   if (!*this)
   {
@@ -7600,8 +5696,8 @@ int32x4_t *kdu_resolution::get_dims(int32x4_t **this, int32x4_t *a2)
     kdu_error::~kdu_error(&v4);
   }
 
-  *a2 = (*this)[4];
-  v2 = (*this)->i64[0];
+  *a2 = *(*this + 4);
+  v2 = **this;
   if (!v2)
   {
     v6 = 0;
@@ -7673,7 +5769,7 @@ uint64_t kd_precinct::load_required_packets(uint64_t this)
             break;
           }
 
-          this = kd_precinct::read_packet(v1);
+          this = kd_precinct::read_packet(v1, v3);
         }
 
         while ((this & 1) != 0);
@@ -7838,22 +5934,22 @@ int32x4_t *kdu_node::get_dims(int32x4_t **this, int32x4_t *a2)
       {
         if (v4[409])
         {
-          v9 = v6[3].u8[1];
+          v9 = *(v6 + 49);
         }
 
         else
         {
-          v9 = v6[3].u8[0];
+          v9 = *(v6 + 48);
         }
 
         if (v4[409])
         {
-          v10 = v6[3].u8[0];
+          v10 = *(v6 + 48);
         }
 
         else
         {
-          v10 = v6[3].u8[1];
+          v10 = *(v6 + 49);
         }
 
         if (v9 == 1 && v4[411] == 1)
@@ -7890,10 +5986,10 @@ int32x4_t *kdu_node::get_dims(int32x4_t **this, int32x4_t *a2)
           v7 = 1;
         }
 
-        v6 = v6->i64[0];
+        v6 = *v6;
       }
 
-      while (v6 != (v6->i64[1] + 32));
+      while (v6 != (v6[1] + 32));
     }
 
     v11 = a2->i32[1] - v8;
@@ -8093,22 +6189,22 @@ int32x4_t *kdu_subband::get_dims(int32x4_t **this, int32x4_t *a2)
       {
         if (v4[409])
         {
-          v9 = v6[3].u8[1];
+          v9 = *(v6 + 49);
         }
 
         else
         {
-          v9 = v6[3].u8[0];
+          v9 = *(v6 + 48);
         }
 
         if (v4[409])
         {
-          v10 = v6[3].u8[0];
+          v10 = *(v6 + 48);
         }
 
         else
         {
-          v10 = v6[3].u8[1];
+          v10 = *(v6 + 49);
         }
 
         if (v9 == 1 && v4[411] == 1)
@@ -8145,10 +6241,10 @@ int32x4_t *kdu_subband::get_dims(int32x4_t **this, int32x4_t *a2)
           v7 = 1;
         }
 
-        v6 = v6->i64[0];
+        v6 = *v6;
       }
 
-      while (v6 != (v6->i64[1] + 32));
+      while (v6 != (v6[1] + 32));
     }
 
     v11 = a2->i32[1] - v8;
@@ -8301,27 +6397,27 @@ uint64_t kdu_subband::open_block(uint64_t *a1, unint64_t a2, _DWORD *a3, uint64_
   v11 = v4 - v5[27];
   if (v9 - v10 < 0 || v9 - v10 >= v5[30] || v11 < 0 || v11 >= v5[29])
   {
-    v49 = 0;
-    v47 = 0u;
+    v50 = 0;
     v48 = 0u;
-    kdu_error::kdu_error(&v47, "Kakadu Core Error:\n");
-    (*(v47 + 16))(&v47, "Assert ");
-    (*(v47 + 16))(&v47, "(block_idx.x >= 0) && (block_idx.x < state->region_indices.size.x) && (block_idx.y >= 0) && (block_idx.y < state->region_indices.size.y)");
-    (*(v47 + 16))(&v47, " FAILED");
-    kdu_error::~kdu_error(&v47);
+    v49 = 0u;
+    kdu_error::kdu_error(&v48, "Kakadu Core Error:\n");
+    (*(v48 + 16))(&v48, "Assert ");
+    (*(v48 + 16))(&v48, "(block_idx.x >= 0) && (block_idx.x < state->region_indices.size.x) && (block_idx.y >= 0) && (block_idx.y < state->region_indices.size.y)");
+    (*(v48 + 16))(&v48, " FAILED");
+    kdu_error::~kdu_error(&v48);
   }
 
   v12 = *(*(v6 + 8) + 8);
   if ((*(v12 + 289) & 1) == 0)
   {
-    v49 = 0;
-    v47 = 0u;
+    v50 = 0;
     v48 = 0u;
-    kdu_error::kdu_error(&v47, "Kakadu Core Error:\n");
-    (*(v47 + 16))(&v47, "Assert ");
-    (*(v47 + 16))(&v47, "tile->is_open");
-    (*(v47 + 16))(&v47, " FAILED");
-    kdu_error::~kdu_error(&v47);
+    v49 = 0u;
+    kdu_error::kdu_error(&v48, "Kakadu Core Error:\n");
+    (*(v48 + 16))(&v48, "Assert ");
+    (*(v48 + 16))(&v48, "tile->is_open");
+    (*(v48 + 16))(&v48, " FAILED");
+    kdu_error::~kdu_error(&v48);
   }
 
   v13 = v9;
@@ -8382,12 +6478,12 @@ LABEL_35:
     }
 
 LABEL_37:
-    v49 = 0;
-    v47 = 0u;
+    v50 = 0;
     v48 = 0u;
-    kdu_error::kdu_error(&v47, "Kakadu Core Error:\n");
-    (*(v47 + 16))(&v47, "You are permitted to open each code-block only once from an open tile before closing that tile.  If the codestream object is marked as persistent, you may re-open code-blocks only after re-opening their containing tiles.");
-    kdu_error::~kdu_error(&v47);
+    v49 = 0u;
+    kdu_error::kdu_error(&v48, "Kakadu Core Error:\n");
+    (*(v48 + 16))(&v48, "You are permitted to open each code-block only once from an open tile before closing that tile.  If the codestream object is marked as persistent, you may re-open code-blocks only after re-opening their containing tiles.");
+    kdu_error::~kdu_error(&v48);
   }
 
   if (*(v20 + 20) == 1)
@@ -8443,72 +6539,72 @@ LABEL_49:
         goto LABEL_49;
       }
 
-      if (v12 != *(v7 + 440) && (kd_tile::read_tile_part_header(v12) & 1) == 0)
+      if (v12 != *(v7 + 440) && (kd_tile::read_tile_part_header(v12, a2) & 1) == 0)
       {
         if (*(v12 + 291) == 1)
         {
-          v49 = 0;
-          v47 = 0u;
+          v50 = 0;
           v48 = 0u;
-          kdu_error::kdu_error(&v47, "Kakadu Core Error:\n");
-          (*(v47 + 16))(&v47, "Assert ");
-          (*(v47 + 16))(&v47, "!tile->closed");
-          (*(v47 + 16))(&v47, " FAILED");
-          kdu_error::~kdu_error(&v47);
+          v49 = 0u;
+          kdu_error::kdu_error(&v48, "Kakadu Core Error:\n");
+          (*(v48 + 16))(&v48, "Assert ");
+          (*(v48 + 16))(&v48, "!tile->closed");
+          (*(v48 + 16))(&v48, " FAILED");
+          kdu_error::~kdu_error(&v48);
         }
 
-        kd_tile::finished_reading(v12);
+        kd_tile::finished_reading(v12, v39);
         goto LABEL_49;
       }
 
-      *&v45 = 0;
-      v46 = 0;
-      v39 = *(v12 + 96);
-      if (!v39)
+      *&v46 = 0;
+      v47 = 0;
+      v40 = *(v12 + 96);
+      if (!v40)
       {
-        v49 = 0;
-        v47 = 0u;
+        v50 = 0;
         v48 = 0u;
-        kdu_error::kdu_error(&v47, "Kakadu Core Error:\n");
-        (*(v47 + 16))(&v47, "Corrupt jp2 data: tile->sequencer = NULL");
-        kdu_error::~kdu_error(&v47);
+        v49 = 0u;
+        kdu_error::kdu_error(&v48, "Kakadu Core Error:\n");
+        (*(v48 + 16))(&v48, "Corrupt jp2 data: tile->sequencer = NULL");
+        kdu_error::~kdu_error(&v48);
       }
 
-      v40 = kd_packet_sequencer::next_in_sequence(v39, &v45, &v46);
-      if (!v40)
+      v41 = kd_packet_sequencer::next_in_sequence(v40, &v46, &v47);
+      if (!v41)
       {
         goto LABEL_88;
       }
 
-      v41 = *v40;
-      if (*v40)
+      v42 = *v41;
+      if (*v41)
       {
-        if (v41 & 1) != 0 || (*(v41 + 17))
+        if (v42 & 1) != 0 || (*(v42 + 17))
         {
           goto LABEL_89;
         }
 
-        if (v41 == 3)
+        if (v42 == 3)
         {
-          v41 = 0;
+          v42 = 0;
         }
 
-        else if (*(v41 + 20) == 1)
+        else if (*(v42 + 20) == 1)
         {
-          kd_precinct_size_class::withdraw_from_inactive_list(*(v41 + 72), v41);
-          kd_precinct::activate(v41);
+          kd_precinct_size_class::withdraw_from_inactive_list(*(v42 + 72), v42);
+          kd_precinct::activate(v42);
         }
       }
 
       else
       {
-        v41 = kd_precinct_ref::instantiate_precinct(v40, v45, v46);
+        v42 = kd_precinct_ref::instantiate_precinct(v41, v46, v47);
       }
 
-      if ((kd_precinct::desequence_packet(v41) & 1) == 0)
+      if ((kd_precinct::desequence_packet(v42, a2) & 1) == 0)
       {
 LABEL_88:
-        kd_tile::read_tile_part_header(v12);
+        kd_tile::read_tile_part_header(v12, a2);
       }
 
 LABEL_89:
@@ -8527,20 +6623,20 @@ LABEL_52:
 
 LABEL_53:
   v27 = *a1;
-  v45 = *(*a1 + 76);
-  LODWORD(v45) = v45 + DWORD2(v45) * v14;
-  DWORD1(v45) += HIDWORD(v45) * v13;
-  kdu_dims::operator&=(&v45, (v27 + 16));
-  if (SDWORD2(v45) * SHIDWORD(v45) <= 0)
+  v46 = *(*a1 + 76);
+  LODWORD(v46) = v46 + DWORD2(v46) * v14;
+  DWORD1(v46) += HIDWORD(v46) * v13;
+  kdu_dims::operator&=(&v46, (v27 + 16));
+  if (SDWORD2(v46) * SHIDWORD(v46) <= 0)
   {
-    v49 = 0;
-    v47 = 0u;
+    v50 = 0;
     v48 = 0u;
-    kdu_error::kdu_error(&v47, "Kakadu Core Error:\n");
-    (*(v47 + 16))(&v47, "Assert ");
-    (*(v47 + 16))(&v47, "band_dims.area() > 0");
-    (*(v47 + 16))(&v47, " FAILED");
-    kdu_error::~kdu_error(&v47);
+    v49 = 0u;
+    kdu_error::kdu_error(&v48, "Kakadu Core Error:\n");
+    (*(v48 + 16))(&v48, "Assert ");
+    (*(v48 + 16))(&v48, "band_dims.area() > 0");
+    (*(v48 + 16))(&v48, " FAILED");
+    kdu_error::~kdu_error(&v48);
   }
 
   v28 = *(v20 + 48) + 32 * *(*a1 + 55);
@@ -8548,19 +6644,19 @@ LABEL_53:
   v30 = v14 - *(v28 + 8);
   if (v29 < 0 || v30 < 0 || v29 >= *(v28 + 20) || v30 >= *(v28 + 16))
   {
-    v49 = 0;
-    v47 = 0u;
+    v50 = 0;
     v48 = 0u;
-    kdu_error::kdu_error(&v47, "Kakadu Core Error:\n");
-    (*(v47 + 16))(&v47, "Assert ");
-    (*(v47 + 16))(&v47, "(block_idx.x >= 0) && (block_idx.y >= 0) && (block_idx.x < pband->block_indices.size.x) && (block_idx.y < pband->block_indices.size.y)");
-    (*(v47 + 16))(&v47, " FAILED");
-    kdu_error::~kdu_error(&v47);
+    v49 = 0u;
+    kdu_error::kdu_error(&v48, "Kakadu Core Error:\n");
+    (*(v48 + 16))(&v48, "Assert ");
+    (*(v48 + 16))(&v48, "(block_idx.x >= 0) && (block_idx.y >= 0) && (block_idx.x < pband->block_indices.size.x) && (block_idx.y < pband->block_indices.size.y)");
+    (*(v48 + 16))(&v48, " FAILED");
+    kdu_error::~kdu_error(&v48);
   }
 
   if (v25)
   {
-    v23 = *(v25 + 10) + 144;
+    v23 = *(v25 + 80) + 144;
   }
 
   else
@@ -8570,27 +6666,27 @@ LABEL_53:
 
   if (*(v23 + 168))
   {
-    v49 = 0;
-    v47 = 0u;
+    v50 = 0;
     v48 = 0u;
-    kdu_error::kdu_error(&v47, "Kakadu Core Error:\n");
-    (*(v47 + 16))(&v47, "Assert ");
-    (*(v47 + 16))(&v47, "result->precinct == NULL");
-    (*(v47 + 16))(&v47, " FAILED");
-    kdu_error::~kdu_error(&v47);
+    v49 = 0u;
+    kdu_error::kdu_error(&v48, "Kakadu Core Error:\n");
+    (*(v48 + 16))(&v48, "Assert ");
+    (*(v48 + 16))(&v48, "result->precinct == NULL");
+    (*(v48 + 16))(&v48, " FAILED");
+    kdu_error::~kdu_error(&v48);
   }
 
   *(v23 + 168) = v20;
   *(v23 + 176) = *(v28 + 24) + 40 * v29 + 40 * *(v28 + 20) * v30;
-  *v23 = *(&v45 + 1);
+  *v23 = *(&v46 + 1);
   v31 = *a1;
-  v47 = v45;
-  kdu_dims::operator&=(&v47, (v31 + 32));
-  v32 = v47;
-  v33 = DWORD1(v47);
-  *(v23 + 16) = *(&v47 + 1);
-  v34 = v33 - DWORD1(v45);
-  *(v23 + 8) = v32 - v45;
+  v48 = v46;
+  kdu_dims::operator&=(&v48, (v31 + 32));
+  v32 = v48;
+  v33 = DWORD1(v48);
+  *(v23 + 16) = *(&v48 + 1);
+  v34 = v33 - DWORD1(v46);
+  *(v23 + 8) = v32 - v46;
   *(v23 + 12) = v34;
   v35 = *a1;
   *(v23 + 28) = *(*(*(*a1 + 8) + 8) + 172);
@@ -8606,11 +6702,11 @@ LABEL_53:
     v37 = a3;
     if (v36 && kd_block::retrieve_data(v36, v23, *(v20 + 24)))
     {
-      v49 = 0;
-      v47 = 0u;
+      v50 = 0;
       v48 = 0u;
-      kdu_error::kdu_error(&v47, "Kakadu Core Error:\n");
-      (*(v47 + 16))(&v47, "Corrupt JP2 data");
+      v49 = 0u;
+      kdu_error::kdu_error(&v48, "Kakadu Core Error:\n");
+      (*(v48 + 16))(&v48, "Corrupt JP2 data");
       goto LABEL_71;
     }
   }
@@ -8620,13 +6716,13 @@ LABEL_53:
     v37 = a3;
     if (*v36)
     {
-      v49 = 0;
-      v47 = 0u;
+      v50 = 0;
       v48 = 0u;
-      kdu_error::kdu_error(&v47, "Kakadu Core Error:\n");
-      (*(v47 + 16))(&v47, "Attempting to open the same code-block more than once for writing!");
+      v49 = 0u;
+      kdu_error::kdu_error(&v48, "Kakadu Core Error:\n");
+      (*(v48 + 16))(&v48, "Attempting to open the same code-block more than once for writing!");
 LABEL_71:
-      kdu_error::~kdu_error(&v47);
+      kdu_error::~kdu_error(&v48);
     }
   }
 
@@ -8638,11 +6734,11 @@ LABEL_71:
   return v23;
 }
 
-double kdu_subband::close_block(uint64_t a1, kdu_block *a2, uint64_t a3)
+double kdu_subband::close_block(kd_block *result, kdu_block *a2, uint64_t a3)
 {
   v4 = *(a2 + 21);
   v5 = *(a2 + 22);
-  v6 = **(*a1 + 8);
+  v6 = **(*result + 8);
   if (!v4)
   {
     v16 = 0;
@@ -8681,7 +6777,7 @@ double kdu_subband::close_block(uint64_t a1, kdu_block *a2, uint64_t a3)
         kd_thread_env::flush(v7, 0);
       }
 
-      return result;
+      return v9;
     }
 
 LABEL_7:
@@ -8765,11 +6861,11 @@ LABEL_7:
 
     if (!v13)
     {
-      *&result = kd_global_rescomp::add_ready_precinct(*(*v4 + 16), v4).n128_u64[0];
+      *&v9 = kd_global_rescomp::add_ready_precinct(*(*v4 + 16), v4).n128_u64[0];
     }
   }
 
-  return result;
+  return v9;
 }
 
 uint64_t kd_thread_env::get_block_state(kd_thread_env *this, kd_codestream *a2, kd_precinct *a3, kd_block *a4)
@@ -9015,7 +7111,7 @@ uint64_t kd_precinct::initialize(uint64_t a1, uint64_t *a2, uint64_t a3)
 
   *(a1 + 48) = a1 + 80;
   v15 = *(a2 + 222);
-  v50 = a1 + 80 + 32 * v15;
+  v50 = (a1 + 80 + 32 * v15);
   v47 = v8;
   if (*(a2 + 223))
   {
@@ -9374,62 +7470,62 @@ uint64_t kd_precinct::activate(uint64_t this)
   return this;
 }
 
-uint64_t kd_precinct::read_packet(uint64_t **this)
+uint64_t kd_precinct::read_packet(uint64_t **this, uint64_t a2)
 {
-  v2 = *(this + 8);
-  if (v2 < 0)
+  v3 = *(this + 8);
+  if (v3 < 0)
   {
     if ((*(this + 18) & 1) == 0)
     {
-      v52 = 0;
-      v50 = 0u;
-      v51 = 0u;
-      kdu_error::kdu_error(&v50, "Kakadu Core Error:\n");
-      (*(v50 + 16))(&v50, "Assert ");
-      (*(v50 + 16))(&v50, "addressable");
-      (*(v50 + 16))(&v50, " FAILED");
-      kdu_error::~kdu_error(&v50);
+      v54 = 0;
+      v52 = 0u;
+      v53 = 0u;
+      kdu_error::kdu_error(&v52, "Kakadu Core Error:\n");
+      (*(v52 + 16))(&v52, "Assert ");
+      (*(v52 + 16))(&v52, "addressable");
+      (*(v52 + 16))(&v52, " FAILED");
+      kdu_error::~kdu_error(&v52);
     }
 
     return 0;
   }
 
-  v3 = **this;
-  v4 = *((*this)[1] + 8);
-  if (v2 >= *(v4 + 192))
-  {
-    v52 = 0;
-    v50 = 0u;
-    v51 = 0u;
-    kdu_error::kdu_error(&v50, "Kakadu Core Error:\n");
-    (*(v50 + 16))(&v50, "Assert ");
-    (*(v50 + 16))(&v50, "num_packets_read < tile->num_layers");
-    (*(v50 + 16))(&v50, " FAILED");
-    kdu_error::~kdu_error(&v50);
-  }
-
-  if ((*(this + 18) & 1) == 0 && v4 != *(v3 + 440))
-  {
-    v52 = 0;
-    v50 = 0u;
-    v51 = 0u;
-    kdu_error::kdu_error(&v50, "Kakadu Core Error:\n");
-    (*(v50 + 16))(&v50, "Assert ");
-    (*(v50 + 16))(&v50, "addressable || (tile == codestream->active_tile)");
-    (*(v50 + 16))(&v50, " FAILED");
-    kdu_error::~kdu_error(&v50);
-  }
-
+  v4 = **this;
   v5 = *((*this)[1] + 8);
-  v6 = *(v5 + 284);
-  if (v6 == 1 && *(v3 + 413) == 1)
+  if (v3 >= *(v5 + 192))
   {
-    v7 = *(v3 + 412);
+    v54 = 0;
+    v52 = 0u;
+    v53 = 0u;
+    kdu_error::kdu_error(&v52, "Kakadu Core Error:\n");
+    (*(v52 + 16))(&v52, "Assert ");
+    (*(v52 + 16))(&v52, "num_packets_read < tile->num_layers");
+    (*(v52 + 16))(&v52, " FAILED");
+    kdu_error::~kdu_error(&v52);
+  }
+
+  if ((*(this + 18) & 1) == 0 && v5 != *(v4 + 440))
+  {
+    v54 = 0;
+    v52 = 0u;
+    v53 = 0u;
+    kdu_error::kdu_error(&v52, "Kakadu Core Error:\n");
+    (*(v52 + 16))(&v52, "Assert ");
+    (*(v52 + 16))(&v52, "addressable || (tile == codestream->active_tile)");
+    (*(v52 + 16))(&v52, " FAILED");
+    kdu_error::~kdu_error(&v52);
+  }
+
+  v6 = *((*this)[1] + 8);
+  v7 = *(v6 + 284);
+  if (v7 == 1 && *(v4 + 413) == 1)
+  {
+    v8 = *(v4 + 412);
   }
 
   else
   {
-    v7 = 0;
+    v8 = 0;
   }
 
   if (this[2])
@@ -9437,128 +7533,128 @@ uint64_t kd_precinct::read_packet(uint64_t **this)
     return kd_precinct::handle_corrupt_packet(this);
   }
 
-  v8 = *(v5 + 285);
-  if (*(v4 + 316) != 1)
+  v9 = *(v6 + 285);
+  if (*(v5 + 316) != 1)
   {
     goto LABEL_25;
   }
 
-  v9 = *(v4 + 320);
-  if (v9 >= 0x10000)
+  v10 = *(v5 + 320);
+  if (v10 >= 0x10000)
   {
-    v52 = 0;
-    v50 = 0u;
-    v51 = 0u;
-    kdu_error::kdu_error(&v50, "Kakadu Core Error:\n");
-    (*(v50 + 16))(&v50, "Assert ");
-    (*(v50 + 16))(&v50, "(sop_num >= 0) && (sop_num < (1<<16))");
-    (*(v50 + 16))(&v50, " FAILED");
-    kdu_error::~kdu_error(&v50);
+    v54 = 0;
+    v52 = 0u;
+    v53 = 0u;
+    kdu_error::kdu_error(&v52, "Kakadu Core Error:\n");
+    (*(v52 + 16))(&v52, "Assert ");
+    (*(v52 + 16))(&v52, "(sop_num >= 0) && (sop_num < (1<<16))");
+    (*(v52 + 16))(&v52, " FAILED");
+    kdu_error::~kdu_error(&v52);
   }
 
-  if (v9 != *(v4 + 312))
+  if (v10 != *(v5 + 312))
   {
     return kd_precinct::handle_corrupt_packet(this);
   }
 
-  if (*(v4 + 316))
+  if (*(v5 + 316))
   {
-    v11 = *(v4 + 320);
-    if (v11 >= 0x10000)
+    v12 = *(v5 + 320);
+    if (v12 >= 0x10000)
     {
-      v52 = 0;
-      v50 = 0u;
-      v51 = 0u;
-      kdu_error::kdu_error(&v50, "Kakadu Core Error:\n");
-      (*(v50 + 16))(&v50, "Assert ");
-      (*(v50 + 16))(&v50, "(sop_num >= 0) && (sop_num < (1<<16))");
-      (*(v50 + 16))(&v50, " FAILED");
-      kdu_error::~kdu_error(&v50);
+      v54 = 0;
+      v52 = 0u;
+      v53 = 0u;
+      kdu_error::kdu_error(&v52, "Kakadu Core Error:\n");
+      (*(v52 + 16))(&v52, "Assert ");
+      (*(v52 + 16))(&v52, "(sop_num >= 0) && (sop_num < (1<<16))");
+      (*(v52 + 16))(&v52, " FAILED");
+      kdu_error::~kdu_error(&v52);
     }
 
-    if (v11 != *(v4 + 312))
+    if (v12 != *(v5 + 312))
     {
-      v52 = 0;
-      v50 = 0u;
-      v51 = 0u;
-      kdu_error::kdu_error(&v50, "Kakadu Core Error:\n");
-      (*(v50 + 16))(&v50, "Assert ");
-      (*(v50 + 16))(&v50, "compare_sop_num(tile->next_sop_sequence_num, tile->next_input_packet_num) == 0");
-      (*(v50 + 16))(&v50, " FAILED");
-      kdu_error::~kdu_error(&v50);
+      v54 = 0;
+      v52 = 0u;
+      v53 = 0u;
+      kdu_error::kdu_error(&v52, "Kakadu Core Error:\n");
+      (*(v52 + 16))(&v52, "Assert ");
+      (*(v52 + 16))(&v52, "compare_sop_num(tile->next_sop_sequence_num, tile->next_input_packet_num) == 0");
+      (*(v52 + 16))(&v52, " FAILED");
+      kdu_error::~kdu_error(&v52);
     }
 
-    *(v4 + 316) = 0;
+    *(v5 + 316) = 0;
   }
 
   else
   {
 LABEL_25:
-    v12 = *(v3 + 32);
-    while (kd_marker::read(v12, 1, v7 & 1))
+    v13 = *(v4 + 32);
+    while (kd_marker::read(v13, 1, v8 & 1))
     {
-      v12 = *(v3 + 32);
-      v13 = *(v12 + 16);
-      if (v13 == 65424)
+      v13 = *(v4 + 32);
+      v14 = *(v13 + 16);
+      if (v14 == 65424)
       {
-        if (*(*(v3 + 8) + 544) == 1)
+        if (*(*(v4 + 8) + 544) == 1)
         {
           goto LABEL_44;
         }
 
-        *(v3 + 440) = 0;
-        kd_tile::adjust_unloadability(v4);
+        *(v4 + 440) = 0;
+        kd_tile::adjust_unloadability(v5, a2);
         return 0;
       }
 
-      if (v13 == 65425 && v6 != 0)
+      if (v14 == 65425 && v7 != 0)
       {
         if (*(this + 18))
         {
           break;
         }
 
-        v15 = __rev16(**(v12 + 32));
-        if (!compare_sop_num(v15, *(v4 + 312)))
+        v16 = __rev16(**(v13 + 32));
+        if (!compare_sop_num(v16, *(v5 + 312)))
         {
           break;
         }
 
-        if ((*(v3 + 412) & 1) == 0)
+        if ((*(v4 + 412) & 1) == 0)
         {
-          v52 = 0;
-          v50 = 0u;
-          v51 = 0u;
-          kdu_error::kdu_error(&v50, "Kakadu Core Error:\n");
-          (*(v50 + 16))(&v50, "Out-of-sequence SOP marker found while attempting to read a packet from the code-stream!\n");
-          (*(v50 + 16))(&v50, "\tFound sequence number ");
-          v16 = kdu_message::operator<<(&v50);
-          (*(*v16 + 16))(v16, ", but expected ");
-          v17 = kdu_message::operator<<(v16);
-          (*(*v17 + 16))(v17, ".\n");
-          (*(v50 + 16))(&v50, "Use the resilient option if you would like to try to recover from this error.");
-          kdu_error::~kdu_error(&v50);
+          v54 = 0;
+          v52 = 0u;
+          v53 = 0u;
+          kdu_error::kdu_error(&v52, "Kakadu Core Error:\n");
+          (*(v52 + 16))(&v52, "Out-of-sequence SOP marker found while attempting to read a packet from the code-stream!\n");
+          (*(v52 + 16))(&v52, "\tFound sequence number ");
+          v17 = kdu_message::operator<<(&v52);
+          (*(*v17 + 16))(v17, ", but expected ");
+          v18 = kdu_message::operator<<(v17);
+          (*(*v18 + 16))(v18, ".\n");
+          (*(v52 + 16))(&v52, "Use the resilient option if you would like to try to recover from this error.");
+          kdu_error::~kdu_error(&v52);
         }
 
-        *(v4 + 316) = 1;
-        *(v4 + 320) = v15;
+        *(v5 + 316) = 1;
+        *(v5 + 320) = v16;
         return kd_precinct::handle_corrupt_packet(this);
       }
 
-      if ((v7 & 1) == 0)
+      if ((v8 & 1) == 0)
       {
-        if ((*(v3 + 412) & 1) == 0)
+        if ((*(v4 + 412) & 1) == 0)
         {
-          v52 = 0;
-          v50 = 0u;
-          v51 = 0u;
-          kdu_error::kdu_error(&v50, "Kakadu Core Error:\n");
-          (*(v50 + 16))(&v50, "Illegal marker code found while attempting to read a packet from the code-stream!\n");
-          (*(v50 + 16))(&v50, "\tIllegal marker code is ");
-          print_marker_code(*(*(v3 + 32) + 16), &v50);
-          (*(v50 + 16))(&v50, ".\n");
-          (*(v50 + 16))(&v50, "Use the resilient option if you would like to try to recover from this error.");
-          kdu_error::~kdu_error(&v50);
+          v54 = 0;
+          v52 = 0u;
+          v53 = 0u;
+          kdu_error::kdu_error(&v52, "Kakadu Core Error:\n");
+          (*(v52 + 16))(&v52, "Illegal marker code found while attempting to read a packet from the code-stream!\n");
+          (*(v52 + 16))(&v52, "\tIllegal marker code is ");
+          print_marker_code(*(*(v4 + 32) + 16), &v52);
+          (*(v52 + 16))(&v52, ".\n");
+          (*(v52 + 16))(&v52, "Use the resilient option if you would like to try to recover from this error.");
+          kdu_error::~kdu_error(&v52);
         }
 
         return kd_precinct::handle_corrupt_packet(this);
@@ -9566,199 +7662,199 @@ LABEL_25:
     }
   }
 
-  v18 = *(v3 + 8);
-  if (*(v18 + 544))
+  v19 = *(v4 + 8);
+  if (*(v19 + 544))
   {
 LABEL_44:
-    kd_tile::finished_reading(v4);
+    kd_tile::finished_reading(v5, a2);
     if (!*(this + 8) && *(this + 18) == 1)
     {
-      v10 = 0;
+      v11 = 0;
       *(this + 8) = -1;
-      return v10;
+      return v11;
     }
 
     return 0;
   }
 
-  if (*(v3 + 416) == 1 && (*(this + 8) >= *(this + 6) || (*(this + 21) & 1) == 0))
+  if (*(v4 + 416) == 1 && (*(this + 8) >= *(this + 6) || (*(this + 21) & 1) == 0))
   {
-    v47 = 1;
-    kd_compressed_input::set_suspend(v18, 1);
+    v49 = 1;
+    kd_compressed_input::set_suspend(v19, 1);
   }
 
   else
   {
-    v47 = 0;
+    v49 = 0;
   }
 
-  v19 = *(v4 + 88);
-  if (!v19)
+  v20 = *(v5 + 88);
+  if (!v20)
   {
-    v19 = *(v3 + 8);
+    v20 = *(v4 + 8);
   }
 
-  LOBYTE(v20) = 0;
-  v49[0] = v19;
-  v49[1] = 0;
-  if ((*(v3 + 412) & 1) != 0 || (v20 = *(v3 + 414), v20 == 1))
+  LOBYTE(v21) = 0;
+  v51[0] = v20;
+  v51[1] = 0;
+  if ((*(v4 + 412) & 1) != 0 || (v21 = *(v4 + 414), v21 == 1))
   {
-    *(v19 + 547) = v20;
-    *(v19 + 545) = 1;
+    *(v20 + 547) = v21;
+    *(v20 + 545) = 1;
   }
 
-  v46 = v8;
-  if (kd_header_in::get_bit(v49) && (v21 = *this, *(*this + 222)))
+  v48 = v9;
+  if (kd_header_in::get_bit(v51) && (v22 = *this, *(*this + 222)))
   {
-    v22 = 0;
     v23 = 0;
+    v24 = 0;
     do
     {
-      v24 = &this[6][4 * v22];
-      v25 = *(v24 + 16);
-      if (v25 >= 1)
+      v25 = &this[6][4 * v23];
+      v26 = *(v25 + 4);
+      if (v26 >= 1)
       {
-        v26 = *(v24 + 24);
+        v27 = v25[3];
         do
         {
-          v27 = *(v24 + 20);
-          if (v27 >= 1)
+          v28 = *(v25 + 5);
+          if (v28 >= 1)
           {
-            v28 = v27 + 1;
+            v29 = v28 + 1;
             do
             {
-              v23 += kd_block::parse_packet_header(v26, v49, *(v3 + 48), *(this + 8));
-              v26 = (v26 + 40);
-              --v28;
+              v24 += kd_block::parse_packet_header(v27, v51, *(v4 + 48), *(this + 8));
+              v27 = (v27 + 40);
+              --v29;
             }
 
-            while (v28 > 1);
+            while (v29 > 1);
           }
 
-          v29 = __OFSUB__(v25--, 1);
+          v30 = __OFSUB__(v26--, 1);
         }
 
-        while (!((v25 < 0) ^ v29 | (v25 == 0)));
-        v21 = *this;
+        while (!((v26 < 0) ^ v30 | (v26 == 0)));
+        v22 = *this;
       }
 
-      ++v22;
+      ++v23;
     }
 
-    while (v22 < *(v21 + 222));
+    while (v23 < *(v22 + 222));
   }
 
   else
   {
-    v23 = 0;
+    v24 = 0;
   }
 
-  kd_header_in::finish(v49);
-  if (*(v19 + 545) == 1)
+  kd_header_in::finish(v51);
+  if (*(v20 + 545) == 1)
   {
-    *(v19 + 545) = 0;
-    if (*(v19 + 544) == 1)
+    *(v20 + 545) = 0;
+    if (*(v20 + 544) == 1)
     {
-      *(v19 + 546) = 0;
+      *(v20 + 546) = 0;
     }
 
-    else if (*(v19 + 546))
+    else if (*(v20 + 546))
     {
-      v52 = 0;
-      v50 = 0u;
-      v51 = 0u;
-      kdu_error::kdu_error(&v50, "Kakadu Core Error:\n");
-      (*(v50 + 16))(&v50, "Assert ");
-      (*(v50 + 16))(&v50, "0");
-      (*(v50 + 16))(&v50, " FAILED");
-      kdu_error::~kdu_error(&v50);
+      v54 = 0;
+      v52 = 0u;
+      v53 = 0u;
+      kdu_error::kdu_error(&v52, "Kakadu Core Error:\n");
+      (*(v52 + 16))(&v52, "Assert ");
+      (*(v52 + 16))(&v52, "0");
+      (*(v52 + 16))(&v52, " FAILED");
+      kdu_error::~kdu_error(&v52);
     }
   }
 
-  if (v46)
+  if (v48)
   {
-    v48 = 0;
-    if (kd_input::get(v19, &v48))
+    v50 = 0;
+    if (kd_input::get(v20, &v50))
     {
-      v30 = v48;
+      v31 = v50;
     }
 
     else
     {
-      v30 = 0;
+      v31 = 0;
     }
 
-    if (kd_input::get(v19, &v48))
+    if (kd_input::get(v20, &v50))
     {
-      v30 = v48 | (v30 << 8);
+      v31 = v50 | (v31 << 8);
     }
 
-    if (*(v19 + 544) == 1)
+    if (*(v20 + 544) == 1)
     {
-      v31 = *(v4 + 88);
-      if (v19 == v31)
+      v33 = *(v5 + 88);
+      if (v20 == v33)
       {
-        if ((*(v31 + 544) & 1) == 0)
+        if ((*(v33 + 544) & 1) == 0)
         {
-          v52 = 0;
-          v50 = 0u;
-          v51 = 0u;
-          kdu_error::kdu_error(&v50, "Kakadu Core Error:\n");
-          (*(v50 + 16))(&v50, "Assert ");
-          (*(v50 + 16))(&v50, "tile->packed_headers->failed()");
-          (*(v50 + 16))(&v50, " FAILED");
-          kdu_error::~kdu_error(&v50);
+          v54 = 0;
+          v52 = 0u;
+          v53 = 0u;
+          kdu_error::kdu_error(&v52, "Kakadu Core Error:\n");
+          (*(v52 + 16))(&v52, "Assert ");
+          (*(v52 + 16))(&v52, "tile->packed_headers->failed()");
+          (*(v52 + 16))(&v52, " FAILED");
+          kdu_error::~kdu_error(&v52);
         }
 
-        v52 = 0;
-        v50 = 0u;
-        v51 = 0u;
-        kdu_error::kdu_error(&v50, "Kakadu Core Error:\n");
-        (*(v50 + 16))(&v50, "Exhausted PPM/PPT marker segment data while attempting to parse a packet header!");
-        kdu_error::~kdu_error(&v50);
+        v54 = 0;
+        v52 = 0u;
+        v53 = 0u;
+        kdu_error::kdu_error(&v52, "Kakadu Core Error:\n");
+        (*(v52 + 16))(&v52, "Exhausted PPM/PPT marker segment data while attempting to parse a packet header!");
+        kdu_error::~kdu_error(&v52);
       }
 
-      if ((*(*(v3 + 8) + 544) & 1) == 0)
+      if ((*(*(v4 + 8) + 544) & 1) == 0)
       {
-        v52 = 0;
-        v50 = 0u;
-        v51 = 0u;
-        kdu_error::kdu_error(&v50, "Kakadu Core Error:\n");
-        (*(v50 + 16))(&v50, "Assert ");
-        (*(v50 + 16))(&v50, "codestream->in->failed()");
-        (*(v50 + 16))(&v50, " FAILED");
-        kdu_error::~kdu_error(&v50);
+        v54 = 0;
+        v52 = 0u;
+        v53 = 0u;
+        kdu_error::kdu_error(&v52, "Kakadu Core Error:\n");
+        (*(v52 + 16))(&v52, "Assert ");
+        (*(v52 + 16))(&v52, "codestream->in->failed()");
+        (*(v52 + 16))(&v52, " FAILED");
+        kdu_error::~kdu_error(&v52);
       }
 
-      kd_tile::finished_reading(v4);
+      kd_tile::finished_reading(v5, v32);
       if (!*(this + 8) && *(this + 18) == 1)
       {
         *(this + 8) = -1;
       }
 
-      if (v47)
+      if (v49)
       {
-        kd_compressed_input::set_suspend(*(v3 + 8), 0);
+        kd_compressed_input::set_suspend(*(v4 + 8), 0);
       }
 
       return 0;
     }
 
-    if (v30 != 65426)
+    if (v31 != 65426)
     {
-      if (*(v3 + 412) != 1 || (v33 = *(v3 + 8), v19 != v33))
+      if (*(v4 + 412) != 1 || (v35 = *(v4 + 8), v20 != v35))
       {
-        v52 = 0;
-        v50 = 0u;
-        v51 = 0u;
-        kdu_error::kdu_error(&v50, "Kakadu Core Error:\n");
-        (*(v50 + 16))(&v50, "Expected to find EPH marker following packet header.  Found ");
-        print_marker_code(v30, &v50);
-        (*(v50 + 16))(&v50, " instead.");
-        kdu_error::~kdu_error(&v50);
+        v54 = 0;
+        v52 = 0u;
+        v53 = 0u;
+        kdu_error::kdu_error(&v52, "Kakadu Core Error:\n");
+        (*(v52 + 16))(&v52, "Expected to find EPH marker following packet header.  Found ");
+        print_marker_code(v31, &v52);
+        (*(v52 + 16))(&v52, " instead.");
+        kdu_error::~kdu_error(&v52);
       }
 
-      if (!v47)
+      if (!v49)
       {
         return kd_precinct::handle_corrupt_packet(this);
       }
@@ -9767,114 +7863,1985 @@ LABEL_44:
     }
   }
 
-  if (v23 >= 1)
+  if (v24 >= 1)
   {
-    if (*(v3 + 412))
+    if (*(v4 + 412))
     {
-      LOBYTE(v34) = 0;
+      LOBYTE(v36) = 0;
     }
 
     else
     {
-      v34 = *(v3 + 414);
-      if (v34 != 1)
+      v36 = *(v4 + 414);
+      if (v36 != 1)
       {
         goto LABEL_105;
       }
     }
 
-    v35 = *(v3 + 8);
-    *(v35 + 547) = v34;
-    *(v35 + 545) = 1;
+    v37 = *(v4 + 8);
+    *(v37 + 547) = v36;
+    *(v37 + 545) = 1;
 LABEL_105:
-    v36 = *this;
+    v38 = *this;
     if (*(*this + 222))
     {
-      v37 = 0;
+      v39 = 0;
       do
       {
-        v38 = &this[6][4 * v37];
-        v39 = *(v38 + 16);
-        if (v39 >= 1)
+        v40 = &this[6][4 * v39];
+        v41 = *(v40 + 4);
+        if (v41 >= 1)
         {
-          v40 = *(v38 + 24);
+          v42 = v40[3];
           do
           {
-            v41 = *(v38 + 20);
-            if (v41 >= 1)
+            v43 = *(v40 + 5);
+            if (v43 >= 1)
             {
-              v42 = v41 + 1;
+              v44 = v43 + 1;
               do
               {
-                v43 = *(v3 + 8);
-                if (*(v43 + 544) == 1)
+                v45 = *(v4 + 8);
+                if (*(v45 + 544) == 1)
                 {
                   exception = __cxa_allocate_exception(4uLL);
                   *exception = -1;
                   __cxa_throw(exception, MEMORY[0x1E69E5478], 0);
                 }
 
-                kd_block::read_body_bytes(v40, v43, *(v3 + 48));
-                v40 += 40;
-                --v42;
+                kd_block::read_body_bytes(v42, v45, *(v4 + 48));
+                v42 += 40;
+                --v44;
               }
 
-              while (v42 > 1);
+              while (v44 > 1);
             }
 
-            v29 = __OFSUB__(v39--, 1);
+            v30 = __OFSUB__(v41--, 1);
           }
 
-          while (!((v39 < 0) ^ v29 | (v39 == 0)));
-          v36 = *this;
+          while (!((v41 < 0) ^ v30 | (v41 == 0)));
+          v38 = *this;
         }
 
-        ++v37;
+        ++v39;
       }
 
-      while (v37 < *(v36 + 222));
+      while (v39 < *(v38 + 222));
     }
   }
 
-  v44 = *(v3 + 8);
-  if (v44[545] == 1)
+  v46 = *(v4 + 8);
+  if (v46[545] == 1)
   {
-    v44[545] = 0;
-    if (v44[544] == 1)
+    v46[545] = 0;
+    if (v46[544] == 1)
     {
-      v44[546] = 0;
+      v46[546] = 0;
     }
 
-    else if (v44[546])
+    else if (v46[546])
     {
-      if (*(v3 + 412) != 1)
+      if (*(v4 + 412) != 1)
       {
-        v52 = 0;
-        v50 = 0u;
-        v51 = 0u;
-        kdu_error::kdu_error(&v50, "Kakadu Core Error:\n");
-        (*(v50 + 16))(&v50, "Packet body terminated with an FF!");
-        kdu_error::~kdu_error(&v50);
+        v54 = 0;
+        v52 = 0u;
+        v53 = 0u;
+        kdu_error::kdu_error(&v52, "Kakadu Core Error:\n");
+        (*(v52 + 16))(&v52, "Packet body terminated with an FF!");
+        kdu_error::~kdu_error(&v52);
       }
 
-      kd_input::putback(v44, 255);
-      if (!v47)
+      kd_input::putback(v46, 255);
+      if (!v49)
       {
         return kd_precinct::handle_corrupt_packet(this);
       }
 
-      v33 = *(v3 + 8);
+      v35 = *(v4 + 8);
 LABEL_129:
-      kd_compressed_input::set_suspend(v33, 0);
+      kd_compressed_input::set_suspend(v35, 0);
       return kd_precinct::handle_corrupt_packet(this);
     }
   }
 
   ++*(this + 8);
-  if (v47)
+  if (v49)
   {
-    kd_compressed_input::set_suspend(*(v3 + 8), 0);
+    kd_compressed_input::set_suspend(*(v4 + 8), 0);
   }
 
   return 1;
+}
+
+uint64_t compare_sop_num(unsigned int a1, int a2)
+{
+  if (a1 >= 0x10000)
+  {
+    v6 = 0;
+    memset(v5, 0, sizeof(v5));
+    kdu_error::kdu_error(v5, "Kakadu Core Error:\n");
+    (*(*&v5[0] + 16))(v5, "Assert ");
+    (*(*&v5[0] + 16))(v5, "(sop_num >= 0) && (sop_num < (1<<16))");
+    (*(*&v5[0] + 16))(v5, " FAILED");
+    kdu_error::~kdu_error(v5);
+  }
+
+  v2 = a1 - a2;
+  if (a1 == a2)
+  {
+    return 0;
+  }
+
+  if ((a1 - a2) >= 0x8001u && (a1 - a2) <= 0)
+  {
+    return v2 - 0x10000;
+  }
+
+  else
+  {
+    return v2;
+  }
+}
+
+uint64_t kd_precinct::handle_corrupt_packet(kd_precinct *this)
+{
+  if (*(this + 18) == 1)
+  {
+    v28 = 0;
+    v26 = 0u;
+    v27 = 0u;
+    kdu_error::kdu_error(&v26, "Kakadu Core Error:\n");
+    (*(v26 + 16))(&v26, "Encountered a corrupted packet while using packet length information to access the compressed data source in a random access fashion.  To process corrupted code-streams in an error resilient manner, you must disable seeking on the compressed data source (i.e., force sequential access) as well as enabling the resilient parsing mode.");
+    kdu_error::~kdu_error(&v26);
+  }
+
+  v2 = *(*(*this + 8) + 8);
+  v3 = *v2;
+  v4 = *(*v2 + 413) ^ 1;
+  *(this + 16) = 1;
+  v5 = v4;
+  if ((*(v2 + 316) & 1) == 0)
+  {
+    goto LABEL_35;
+  }
+
+  v6 = *(v2 + 80);
+  v7 = *(v2 + 78);
+  if (v6 >= 0x10000)
+  {
+    v28 = 0;
+    v26 = 0u;
+    v27 = 0u;
+    kdu_error::kdu_error(&v26, "Kakadu Core Error:\n");
+    (*(v26 + 16))(&v26, "Assert ");
+    (*(v26 + 16))(&v26, "(sop_num >= 0) && (sop_num < (1<<16))");
+    (*(v26 + 16))(&v26, " FAILED");
+    kdu_error::~kdu_error(&v26);
+  }
+
+LABEL_6:
+  v8 = v6 - v7;
+  v9 = v4;
+  if (v6 == v7)
+  {
+    goto LABEL_42;
+  }
+
+  if ((v6 - v7) >= 0x8001u && v8 <= 0)
+  {
+    v8 -= 0x10000;
+  }
+
+  v9 = v4;
+  if (v8 < 1)
+  {
+LABEL_42:
+    *(v2 + 316) = 0;
+    v5 = v9;
+    goto LABEL_35;
+  }
+
+  v11 = *(v2 + 80);
+  v12 = *(v2 + 78);
+  if (v11 >= 0x10000)
+  {
+    v28 = 0;
+    v26 = 0u;
+    v27 = 0u;
+    kdu_error::kdu_error(&v26, "Kakadu Core Error:\n");
+    (*(v26 + 16))(&v26, "Assert ");
+    (*(v26 + 16))(&v26, "(sop_num >= 0) && (sop_num < (1<<16))");
+    (*(v26 + 16))(&v26, " FAILED");
+    kdu_error::~kdu_error(&v26);
+  }
+
+  v13 = v11 - v12;
+  if (v11 != v12)
+  {
+    if ((v11 - v12) >= 0x8001u && v13 <= 0)
+    {
+      v13 -= 0x10000;
+    }
+
+    if (!((v13 < 4) | v5 & 1))
+    {
+      v9 = 1;
+      goto LABEL_42;
+    }
+  }
+
+  v15 = *(v2 + 80);
+  v16 = *(v2 + 48) * *(v2 + 51);
+  if (v15 >= 0x10000)
+  {
+    v28 = 0;
+    v26 = 0u;
+    v27 = 0u;
+    kdu_error::kdu_error(&v26, "Kakadu Core Error:\n");
+    (*(v26 + 16))(&v26, "Assert ");
+    (*(v26 + 16))(&v26, "(sop_num >= 0) && (sop_num < (1<<16))");
+    (*(v26 + 16))(&v26, " FAILED");
+    kdu_error::~kdu_error(&v26);
+  }
+
+  v17 = v15 - v16;
+  v9 = v4;
+  if (v15 == v16)
+  {
+    goto LABEL_42;
+  }
+
+  if ((v15 - v16) >= 0x8001u && v17 <= 0)
+  {
+    v17 -= 0x10000;
+  }
+
+  v9 = v4;
+  if ((v17 & 0x80000000) == 0)
+  {
+    goto LABEL_42;
+  }
+
+  if (*(v2 + 316))
+  {
+    v25 = *(this + 8);
+    if (v25 >= *(v2 + 48))
+    {
+      v28 = 0;
+      v26 = 0u;
+      v27 = 0u;
+      kdu_error::kdu_error(&v26, "Kakadu Core Error:\n");
+      (*(v26 + 16))(&v26, "Assert ");
+      (*(v26 + 16))(&v26, "num_packets_read < tile->num_layers");
+      (*(v26 + 16))(&v26, " FAILED");
+      kdu_error::~kdu_error(&v26);
+    }
+
+    *(this + 8) = v25 + 1;
+    return 1;
+  }
+
+LABEL_35:
+  v19 = v3[4];
+  while ((kd_marker::read(v19, 1, 1) & 1) != 0)
+  {
+    v19 = v3[4];
+    v21 = *(v19 + 16);
+    if (v21 == 65425)
+    {
+      v22 = *(v19 + 32);
+      v23 = *v22;
+      *(v2 + 80) = v23 << 8;
+      v6 = v22[1] | (v23 << 8);
+      *(v2 + 80) = v6;
+      *(v2 + 316) = 1;
+      v7 = *(v2 + 78);
+      goto LABEL_6;
+    }
+
+    if (v21 == 65424)
+    {
+      v3[55] = 0;
+      kd_tile::adjust_unloadability(v2, v20);
+      return 0;
+    }
+  }
+
+  if ((*(v3[1] + 544) & 1) == 0)
+  {
+    v28 = 0;
+    v26 = 0u;
+    v27 = 0u;
+    kdu_error::kdu_error(&v26, "Kakadu Core Error:\n");
+    (*(v26 + 16))(&v26, "Assert ");
+    (*(v26 + 16))(&v26, "codestream->in->failed()");
+    (*(v26 + 16))(&v26, " FAILED");
+    kdu_error::~kdu_error(&v26);
+  }
+
+  kd_tile::finished_reading(v2, v20);
+  return 0;
+}
+
+uint64_t kd_compressed_input::set_suspend(uint64_t this, uint64_t a2)
+{
+  if ((*(this + 608) & 1) == 0)
+  {
+    v2 = *(this + 592);
+    if (v2)
+    {
+      v3 = 1;
+    }
+
+    else
+    {
+      v3 = a2 == 0;
+    }
+
+    if (v3)
+    {
+      if (v2)
+      {
+        if ((a2 & 1) == 0)
+        {
+          v4 = *(this + 528);
+          v5 = v4 - v2 + *(this + 584);
+          *(this + 584) = v5;
+          *(this + 592) = 0;
+          v6 = *(this + 568) + v5 - *(this + 560);
+          v7 = *(this + 536);
+          v8 = v7 - this - 14;
+          v9 = v6 < v8;
+          v10 = v6 - v8;
+          if (v9)
+          {
+            *(this + 600) = v7;
+            v11 = v7 + v10;
+            *(this + 536) = v11;
+            if (v11 < v4)
+            {
+              *(this + 544) = 1;
+              *(this + 584) = v5 - v4 + v11;
+              *(this + 536) = v4;
+            }
+          }
+        }
+      }
+    }
+
+    else
+    {
+      *(this + 592) = *(this + 528);
+      v12 = *(this + 600);
+      if (v12)
+      {
+        if (v12 <= *(this + 536))
+        {
+          kd_compressed_input::set_suspend();
+        }
+
+        *(this + 536) = v12;
+        *(this + 600) = 0;
+      }
+    }
+  }
+
+  return this;
+}
+
+uint64_t kd_header_in::get_bit(kd_header_in *this)
+{
+  v2 = *(this + 3);
+  if (!v2)
+  {
+    if (*(this + 8) == 255)
+    {
+      v3 = 7;
+    }
+
+    else
+    {
+      v3 = 8;
+    }
+
+    *(this + 3) = v3;
+    if (!kd_input::get(*this, this + 8))
+    {
+      exception = __cxa_allocate_exception(8uLL);
+      *exception = this;
+    }
+
+    v2 = *(this + 3);
+  }
+
+  v4 = v2 - 1;
+  *(this + 3) = v4;
+  return (*(this + 8) >> v4) & 1;
+}
+
+uint64_t kd_header_in::finish(uint64_t this)
+{
+  if (!*(this + 12))
+  {
+    v1 = this;
+    if (*(this + 8) == 255)
+    {
+      *(this + 12) = 7;
+      this = kd_input::get(*this, (this + 8));
+      if ((this & 1) == 0)
+      {
+        exception = __cxa_allocate_exception(8uLL);
+        *exception = v1;
+      }
+    }
+  }
+
+  return this;
+}
+
+uint64_t kd_input::get(kd_input *this, unsigned __int8 *a2)
+{
+  if (*(this + 544))
+  {
+    return 0;
+  }
+
+  v5 = *(this + 66);
+  if (v5 == *(this + 67))
+  {
+    result = (*(*this + 24))(this);
+    if (!result)
+    {
+      return result;
+    }
+
+    v5 = *(this + 66);
+  }
+
+  *(this + 66) = v5 + 1;
+  v6 = *v5;
+  *a2 = v6;
+  if (*(this + 545) == 1)
+  {
+    if (*(this + 546) == 1 && v6 >= 0x90)
+    {
+      kd_input::process_unexpected_marker(this, v6);
+      v6 = *a2;
+    }
+
+    *(this + 546) = v6 == 255;
+  }
+
+  return 1;
+}
+
+uint64_t kd_input::putback(uint64_t this, char a2)
+{
+  if (*(this + 544) == 1)
+  {
+    kd_input::putback();
+  }
+
+  if (*(this + 545) == 1)
+  {
+    kd_input::putback();
+  }
+
+  v2 = *(this + 528);
+  if (v2 <= this + 8)
+  {
+    kd_input::putback();
+  }
+
+  *(this + 528) = v2 - 1;
+  *(v2 - 1) = a2;
+  return this;
+}
+
+uint64_t kd_precinct::simulate_packet(kd_precinct *this, uint64_t *a2, uint64_t a3, uint64_t a4, int a5, char a6, uint64_t a7, int a8)
+{
+  v10 = a2;
+  v12 = *(this + 6);
+  v50 = *(*(*this + 8) + 8);
+  if (v12 != *(v50 + 192))
+  {
+    v59 = 0;
+    v57 = 0u;
+    v58 = 0u;
+    kdu_error::kdu_error(&v57, "Kakadu Core Error:\n");
+    (*(v57 + 16))(&v57, "Assert ");
+    (*(v57 + 16))(&v57, "required_layers == tile->num_layers");
+    (*(v57 + 16))(&v57, " FAILED");
+    kdu_error::~kdu_error(&v57);
+  }
+
+  v13 = *(**this + 48);
+  if (v12 <= a3)
+  {
+    v59 = 0;
+    v57 = 0u;
+    v58 = 0u;
+    kdu_error::kdu_error(&v57, "Kakadu Core Error:\n");
+    (*(v57 + 16))(&v57, "Assert ");
+    (*(v57 + 16))(&v57, "layer_idx < required_layers");
+    (*(v57 + 16))(&v57, " FAILED");
+    kdu_error::~kdu_error(&v57);
+  }
+
+  if (*(this + 9))
+  {
+    v59 = 0;
+    v57 = 0u;
+    v58 = 0u;
+    kdu_error::kdu_error(&v57, "Kakadu Core Error:\n");
+    (*(v57 + 16))(&v57, "You may not currently flush compressed code-stream data without completing the compression of all code-blocks in all precincts of all tiles.");
+    kdu_error::~kdu_error(&v57);
+  }
+
+  v14 = *(this + 5);
+  if (!v14)
+  {
+    if (a3)
+    {
+      v59 = 0;
+      v57 = 0u;
+      v58 = 0u;
+      kdu_error::kdu_error(&v57, "Kakadu Core Error:\n");
+      (*(v57 + 16))(&v57, "Assert ");
+      (*(v57 + 16))(&v57, "layer_idx == 0");
+      (*(v57 + 16))(&v57, " FAILED");
+      kdu_error::~kdu_error(&v57);
+    }
+
+    operator new[]();
+  }
+
+  if (!a3)
+  {
+    v15 = *(this + 6);
+    if (v15 >= 1)
+    {
+      v16 = 0;
+      v17 = 3;
+      if (!*(v50 + 285))
+      {
+        v17 = 1;
+      }
+
+      v18 = 8 * v15;
+      do
+      {
+        *(*(this + 5) + v16) = v17;
+        v16 += 8;
+      }
+
+      while (v18 != v16);
+      v14 = *(this + 5);
+    }
+  }
+
+  *(v14 + 8 * a3) = 0;
+  if (a8)
+  {
+    if (!a5 || (a6 & 1) == 0)
+    {
+      v59 = 0;
+      v57 = 0u;
+      v58 = 0u;
+      kdu_error::kdu_error(&v57, "Kakadu Core Error:\n");
+      (*(v57 + 16))(&v57, "Assert ");
+      (*(v57 + 16))(&v57, "last_layer && finalize_layer");
+      (*(v57 + 16))(&v57, " FAILED");
+      kdu_error::~kdu_error(&v57);
+    }
+
+    v19 = *this;
+    if (*(*this + 222))
+    {
+      v20 = 0;
+      do
+      {
+        v21 = *(this + 6) + 32 * v20;
+        v22 = *(v21 + 16) * *(v21 + 20);
+        if (v22 >= 1)
+        {
+          v23 = 0;
+          v24 = 40 * v22;
+          do
+          {
+            kd_block::trim_data((*(v21 + 24) + v23), a4, v13);
+            v23 += 40;
+          }
+
+          while (v24 != v23);
+          v19 = *this;
+        }
+
+        ++v20;
+      }
+
+      while (v20 < *(v19 + 222));
+      v25 = *(v19 + 222);
+      v10 = a2;
+    }
+
+    else
+    {
+      v25 = 0;
+    }
+  }
+
+  else
+  {
+    v25 = *(*this + 222);
+  }
+
+  v26 = 0;
+  while (1)
+  {
+    v27 = 7;
+    if (!*(v50 + 284))
+    {
+      v27 = 1;
+    }
+
+    *v10 = v27;
+    if (*(v50 + 285) == 1)
+    {
+      *v10 = v27 + 2;
+    }
+
+    v51 = v25;
+    if (*(*this + 222))
+    {
+      break;
+    }
+
+    v29 = 0;
+LABEL_58:
+    v56[0] = 0x800000000;
+    v56[1] = 0;
+    v56[2] = 0;
+    kd_header_out::put_bit(v56, 1u);
+    v39 = *this;
+    if (*(*this + 222))
+    {
+      v40 = 0;
+      do
+      {
+        v41 = *(this + 6) + 32 * v40;
+        v42 = *(v41 + 16) * *(v41 + 20);
+        if (v42 >= 1)
+        {
+          v43 = 0;
+          v44 = 40 * v42;
+          do
+          {
+            kd_block::write_packet_header(*(v41 + 24) + v43, v56, a3, 1);
+            v43 += 40;
+          }
+
+          while (v44 != v43);
+          v39 = *this;
+        }
+
+        ++v40;
+      }
+
+      while (v40 < *(v39 + 222));
+    }
+
+    v10 = a2;
+    v45 = *a2 + (kd_header_out::finish(v56) - 1);
+    *a2 = v45;
+    result = v45 + v29;
+    if (v45 + v29 <= a7)
+    {
+      v25 = v51;
+      if (!a5 || !*(*this + 222))
+      {
+        goto LABEL_80;
+      }
+
+      v47 = 0;
+      v48 = 0;
+      do
+      {
+        kd_block::save_output_tree(*(*(this + 6) + v47 + 24), *(*(this + 6) + v47 + 16));
+        ++v48;
+        v47 += 32;
+      }
+
+      while (v48 < *(*this + 222));
+    }
+
+    else
+    {
+      v25 = v51;
+      if (!a5)
+      {
+        return result;
+      }
+
+      if (!a8)
+      {
+        v59 = 0;
+        v57 = 0u;
+        v58 = 0u;
+        kdu_error::kdu_error(&v57, "Kakadu Core Error:\n");
+        (*(v57 + 16))(&v57, "Assert ");
+        (*(v57 + 16))(&v57, "trim_to_limit");
+        (*(v57 + 16))(&v57, " FAILED");
+        kdu_error::~kdu_error(&v57);
+      }
+
+      do
+      {
+        while (1)
+        {
+          v46 = *(this + 6) + 32 * v25;
+          if (v26)
+          {
+            break;
+          }
+
+          if (v25 <= 0)
+          {
+            v59 = 0;
+            v57 = 0u;
+            v58 = 0u;
+            kdu_error::kdu_error(&v57, "Kakadu Core Error:\n");
+            (*(v57 + 16))(&v57, "Assert ");
+            (*(v57 + 16))(&v57, "last_trimmed_subband >= 0");
+            (*(v57 + 16))(&v57, " FAILED");
+            kdu_error::~kdu_error(&v57);
+          }
+
+          v25 = (v25 - 1);
+          v26 = *(v46 - 16) * *(v46 - 12);
+        }
+
+        --v26;
+      }
+
+      while ((kd_block::trim_data((*(v46 + 24) + 40 * v26), (a4 + 1), v13) & 1) == 0);
+    }
+
+    v10 = a2;
+LABEL_80:
+    v49 = *v10 + v29;
+    if (v49 <= a7)
+    {
+      *(*(this + 5) + 8 * a3) = v49;
+      return *v10 + v29;
+    }
+  }
+
+  v28 = 0;
+  v29 = 0;
+  while (1)
+  {
+    v30 = *(this + 6) + 32 * v28;
+    v32 = *(v30 + 16);
+    v31 = *(v30 + 24);
+    if (a3)
+    {
+      kd_block::restore_output_tree(v31, v32);
+    }
+
+    else
+    {
+      kd_block::reset_output_tree(v31, v32);
+    }
+
+    v33 = *(v30 + 16) * *(v30 + 20);
+    if (v33 >= 1)
+    {
+      v34 = 0;
+      v35 = 40 * v33;
+      do
+      {
+        v29 += kd_block::start_packet((*(v30 + 24) + v34), a3, a4);
+        v34 += 40;
+      }
+
+      while (v35 != v34);
+    }
+
+    result = *a2 + v29;
+    v37 = a5 ^ 1;
+    if (result <= a7)
+    {
+      v37 = 1;
+    }
+
+    if ((v37 & 1) == 0 && (a8 & 1) == 0)
+    {
+      v59 = 0;
+      v57 = 0u;
+      v58 = 0u;
+      kdu_error::kdu_error(&v57, "Kakadu Core Error:\n");
+      (*(v57 + 16))(&v57, "Assert ");
+      (*(v57 + 16))(&v57, "trim_to_limit");
+      (*(v57 + 16))(&v57, " FAILED");
+      kdu_error::~kdu_error(&v57);
+    }
+
+    if (result > a7 && a5 == 0)
+    {
+      return result;
+    }
+
+    if (++v28 >= *(*this + 222))
+    {
+      goto LABEL_58;
+    }
+  }
+}
+
+unsigned __int8 *kd_header_out::put_bit(unsigned __int8 *this, unsigned int a2)
+{
+  if (a2 >= 2)
+  {
+    kd_header_out::put_bit();
+  }
+
+  v2 = a2;
+  v3 = this;
+  v4 = *(this + 1);
+  if (v4)
+  {
+    v5 = 2 * *this;
+  }
+
+  else
+  {
+    this = *(this + 2);
+    if (this)
+    {
+      this = kdu_output::put(this, *v3);
+    }
+
+    v5 = 0;
+    ++*(v3 + 2);
+    if (*v3 == 255)
+    {
+      v4 = 7;
+    }
+
+    else
+    {
+      v4 = 8;
+    }
+  }
+
+  *v3 = v5 | v2;
+  *(v3 + 1) = v4 - 1;
+  return this;
+}
+
+uint64_t kd_header_out::finish(kd_header_out *this)
+{
+  v2 = *(this + 1);
+  if (v2 >= 8)
+  {
+    return *(this + 2);
+  }
+
+  v3 = *this << v2;
+  *this = v3;
+  v4 = *(this + 2);
+  if (v4)
+  {
+    kdu_output::put(v4, v3);
+    LOBYTE(v3) = *this;
+  }
+
+  result = (*(this + 2) + 1);
+  *(this + 2) = result;
+  if (v3 == 0xFF)
+  {
+    if (*(this + 2))
+    {
+      kdu_output::put(*(this + 2), 0);
+      LODWORD(result) = *(this + 2);
+    }
+
+    result = (result + 1);
+    *(this + 2) = result;
+  }
+
+  return result;
+}
+
+uint64_t *kd_precinct_ref::close(uint64_t *this)
+{
+  v1 = *this;
+  if (*this)
+  {
+    v2 = (*this & 1) == 0;
+  }
+
+  else
+  {
+    v2 = 0;
+  }
+
+  if (v2)
+  {
+    v3 = this;
+    if (*(v1 + 8) != this)
+    {
+      v6 = 0;
+      memset(v5, 0, sizeof(v5));
+      kdu_error::kdu_error(v5, "Kakadu Core Error:\n");
+      (*(*&v5[0] + 16))(v5, "Assert ");
+      (*(*&v5[0] + 16))(v5, "precinct->ref == this");
+      (*(*&v5[0] + 16))(v5, " FAILED");
+      kdu_error::~kdu_error(v5);
+    }
+
+    *(v1 + 8) = 0;
+    kd_precinct::closing(v1);
+    if (*(v1 + 18) == 1)
+    {
+      v4 = (2 * *(v1 + 40)) | 1;
+    }
+
+    else
+    {
+      v4 = 3;
+    }
+
+    *v3 = v4;
+    return kd_precinct_size_class::release(*(v1 + 72), v1);
+  }
+
+  return this;
+}
+
+void *kd_precinct_size_class::augment_free_list(kd_precinct_size_class *this)
+{
+  v2 = *(this + 6);
+  if (v2 < 0)
+  {
+    v7 = 0;
+    v5 = 0u;
+    v6 = 0u;
+    kdu_error::kdu_error(&v5, "Kakadu Core Error:\n");
+    (*(v5 + 16))(&v5, "Heap exhausted.  Unable to allocate memory for code-block state information.");
+    kdu_error::~kdu_error(&v5);
+  }
+
+  result = malloc_type_malloc(v2, 0x103204094352379uLL);
+  if (!result)
+  {
+    v7 = 0;
+    v5 = 0u;
+    v6 = 0u;
+    kdu_error::kdu_error(&v5, "Kakadu Core Error:\n");
+    (*(v5 + 16))(&v5, "Heap exhausted.  Unable to allocate sufficient memory for code-block state information.");
+    kdu_error::~kdu_error(&v5);
+  }
+
+  result[9] = this;
+  result[7] = *(this + 4);
+  *(this + 4) = result;
+  v4 = *(this + 6);
+  ++*(this + 7);
+  *(*this + 8) += v4;
+  return result;
+}
+
+uint64_t *kd_precinct_size_class::move_to_inactive_list(uint64_t *this, kd_precinct *a2)
+{
+  if (*(a2 + 8) || *(a2 + 7) || *(a2 + 20) == 1)
+  {
+    v6 = 0;
+    memset(v5, 0, sizeof(v5));
+    kdu_error::kdu_error(v5, "Kakadu Core Error:\n");
+    (*(*&v5[0] + 16))(v5, "Assert ");
+    (*(*&v5[0] + 16))(v5, "(precinct->prev == NULL) && (precinct->next == NULL) && !precinct->inactive");
+    (*(*&v5[0] + 16))(v5, " FAILED");
+    kdu_error::~kdu_error(v5);
+  }
+
+  *(a2 + 20) = 1;
+  v2 = *this;
+  v3 = *(*this + 24);
+  *(a2 + 8) = v3;
+  if (v3)
+  {
+    v4 = (v3 + 56);
+  }
+
+  else
+  {
+    v4 = (v2 + 16);
+  }
+
+  *v4 = a2;
+  *(v2 + 24) = a2;
+  return this;
+}
+
+uint64_t kd_precinct_size_class::withdraw_from_inactive_list(uint64_t this, kd_precinct *a2)
+{
+  if ((*(a2 + 20) & 1) == 0)
+  {
+    v6 = 0;
+    v4 = 0u;
+    v5 = 0u;
+    kdu_error::kdu_error(&v4, "Kakadu Core Error:\n");
+    (*(v4 + 16))(&v4, "Assert ");
+    (*(v4 + 16))(&v4, "precinct->inactive");
+    (*(v4 + 16))(&v4, " FAILED");
+    kdu_error::~kdu_error(&v4);
+  }
+
+  v2 = *(a2 + 8);
+  if (v2)
+  {
+    v3 = *(a2 + 7);
+    *(v2 + 56) = v3;
+    if (v3)
+    {
+LABEL_5:
+      *(v3 + 64) = *(a2 + 8);
+      goto LABEL_12;
+    }
+  }
+
+  else
+  {
+    if (*(*this + 16) != a2)
+    {
+      v6 = 0;
+      v4 = 0u;
+      v5 = 0u;
+      kdu_error::kdu_error(&v4, "Kakadu Core Error:\n");
+      (*(v4 + 16))(&v4, "Assert ");
+      (*(v4 + 16))(&v4, "precinct == server->inactive_head");
+      (*(v4 + 16))(&v4, " FAILED");
+      kdu_error::~kdu_error(&v4);
+    }
+
+    v3 = *(a2 + 7);
+    *(*this + 16) = v3;
+    if (v3)
+    {
+      goto LABEL_5;
+    }
+  }
+
+  if (*(*this + 24) != a2)
+  {
+    v6 = 0;
+    v4 = 0u;
+    v5 = 0u;
+    kdu_error::kdu_error(&v4, "Kakadu Core Error:\n");
+    (*(v4 + 16))(&v4, "Assert ");
+    (*(v4 + 16))(&v4, "precinct == server->inactive_tail");
+    (*(v4 + 16))(&v4, " FAILED");
+    kdu_error::~kdu_error(&v4);
+  }
+
+  *(*this + 24) = *(a2 + 8);
+LABEL_12:
+  *(a2 + 20) = 0;
+  *(a2 + 7) = 0;
+  *(a2 + 8) = 0;
+  return this;
+}
+
+uint64_t kd_precinct_server::get(kd_precinct_server *this, int a2, int a3)
+{
+  v4 = *this;
+  if (!*this)
+  {
+LABEL_5:
+    operator new();
+  }
+
+  while (*(v4 + 16) != a2 || *(v4 + 20) != a3)
+  {
+    v4 = *(v4 + 40);
+    if (!v4)
+    {
+      goto LABEL_5;
+    }
+  }
+
+  for (i = *(this + 2); i; i = *(this + 2))
+  {
+    if (*(*(this + 4) + 56) >= *(*(this + 4) + 40) + 220 * *(*(this + 4) + 24))
+    {
+      break;
+    }
+
+    if (*(i + 19) != 1 || (*(i + 20) & 1) == 0)
+    {
+      v8 = 0;
+      memset(v7, 0, sizeof(v7));
+      kdu_error::kdu_error(v7, "Kakadu Core Error:\n");
+      (*(*&v7[0] + 16))(v7, "Assert ");
+      (*(*&v7[0] + 16))(v7, "tmp->released && tmp->inactive");
+      (*(*&v7[0] + 16))(v7, " FAILED");
+      kdu_error::~kdu_error(v7);
+    }
+
+    kd_precinct_ref::close(*(i + 8));
+  }
+
+  return kd_precinct_size_class::get(v4);
+}
+
+uint64_t kd_precinct_size_class::get(kd_precinct_size_class *this)
+{
+  v2 = *(this + 4);
+  if (!v2)
+  {
+    kd_precinct_size_class::augment_free_list(this);
+    v2 = *(this + 4);
+  }
+
+  *(this + 4) = *(v2 + 56);
+  *(v2 + 56) = 0;
+  *(v2 + 64) = 0;
+  kd_buf_server::augment_structure_bytes(*(this + 1), *(this + 6));
+  return v2;
+}
+
+uint64_t kd_precinct_ref::instantiate_precinct(uint64_t *a1, uint64_t a2, uint64_t a3)
+{
+  v6 = kd_precinct_server::get(*(*a2 + 80), *(a2 + 216), *(a2 + 222));
+  kd_precinct::initialize(v6, a2, a3);
+  *(v6 + 8) = a1;
+  v7 = *a1;
+  if (*a1)
+  {
+    *(v6 + 18) = 1;
+    *(v6 + 40) = v7 >> 1;
+    *a1 = v6;
+    if (v6)
+    {
+      v18 = 0;
+      v16 = 0u;
+      v17 = 0u;
+      kdu_error::kdu_error(&v16, "Kakadu Core Error:\n");
+      (*(v16 + 16))(&v16, "Assert ");
+      (*(v16 + 16))(&v16, "!(state & 1)");
+      (*(v16 + 16))(&v16, " FAILED");
+      kdu_error::~kdu_error(&v16);
+    }
+
+    if ((*(*a2 + 415) & 1) == 0)
+    {
+      if (*(v6 + 36) <= 0)
+      {
+        v18 = 0;
+        v16 = 0u;
+        v17 = 0u;
+        kdu_error::kdu_error(&v16, "Kakadu Core Error:\n");
+        (*(v16 + 16))(&v16, "Assert ");
+        (*(v16 + 16))(&v16, "result->num_outstanding_blocks > 0");
+        (*(v16 + 16))(&v16, " FAILED");
+        kdu_error::~kdu_error(&v16);
+      }
+
+      *(v6 + 17) = 1;
+      v10 = *(*(a2 + 8) + 8);
+      goto LABEL_19;
+    }
+  }
+
+  else
+  {
+    if (v7)
+    {
+      v18 = 0;
+      v16 = 0u;
+      v17 = 0u;
+      kdu_error::kdu_error(&v16, "Kakadu Core Error:\n");
+      (*(v16 + 16))(&v16, "Assert ");
+      (*(v16 + 16))(&v16, "state == 0");
+      (*(v16 + 16))(&v16, " FAILED");
+      kdu_error::~kdu_error(&v16);
+    }
+
+    *a1 = v6;
+    if (v6)
+    {
+      v18 = 0;
+      v16 = 0u;
+      v17 = 0u;
+      kdu_error::kdu_error(&v16, "Kakadu Core Error:\n");
+      (*(v16 + 16))(&v16, "Assert ");
+      (*(v16 + 16))(&v16, "!(state & 1)");
+      (*(v16 + 16))(&v16, " FAILED");
+      kdu_error::~kdu_error(&v16);
+    }
+
+    v8 = *a2;
+    if ((*(*a2 + 418) & 1) != 0 || *(v8 + 415) == 1)
+    {
+      v9 = *(a2 + 8);
+      v10 = *(v9 + 8);
+      v11 = HIDWORD(a3) + *(a2 + 196) * a3;
+      if (*(a2 + 24))
+      {
+        v12 = 704 * *(a2 + 24);
+        v13 = (a2 - v12 + 196);
+        do
+        {
+          v11 += *(v13 - 1) * *v13;
+          v13 += 176;
+          v12 -= 704;
+        }
+
+        while (v12);
+      }
+
+      v14 = v10[2] + (*(v9 + 24) + v11 * v10[47]) * *(v8 + 224) * *(v8 + 220);
+      *(v6 + 18) = 1;
+      *(v6 + 40) = ~v14;
+      if ((*(*a2 + 415) & 1) == 0)
+      {
+        *(v6 + 17) = 1;
+LABEL_19:
+        *(v6 + 28) = v10[48];
+      }
+    }
+  }
+
+  return v6;
+}
+
+uint64_t kd_precinct_size_class::release(kd_precinct_size_class *this, kd_precinct *a2)
+{
+  if (*(a2 + 20) == 1)
+  {
+    kd_precinct_size_class::withdraw_from_inactive_list(this, a2);
+  }
+
+  *(a2 + 7) = *(this + 4);
+  *(this + 4) = a2;
+  v4 = *(this + 1);
+  v5 = -*(this + 6);
+
+  return kd_buf_server::augment_structure_bytes(v4, v5);
+}
+
+BOOL kd_precinct_ref::set_address(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  if (a4 <= 0)
+  {
+    v16 = 0;
+    v14 = 0u;
+    v15 = 0u;
+    kdu_error::kdu_error(&v14, "Kakadu Core Error:\n");
+    (*(v14 + 16))(&v14, "Assert ");
+    (*(v14 + 16))(&v14, "seek_address > 0");
+    (*(v14 + 16))(&v14, " FAILED");
+    kdu_error::~kdu_error(&v14);
+  }
+
+  v4 = *(a2 + 8);
+  v5 = *(v4 + 8);
+  v6 = *a1;
+  if (*a1)
+  {
+    v7 = (*a1 & 1) == 0;
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  if (!v7)
+  {
+    v8 = *v5;
+    *a1 = (2 * a4) | 1;
+    if ((*(v8 + 417) & 1) == 0)
+    {
+      if (*(v4 + 72) < *(a2 + 24))
+      {
+        return *(v5 + 77) != *(v5 + 52) || (kd_tile::finished_reading(v5, a2) & 1) == 0;
+      }
+
+      if (*(v4 + 184) != 1)
+      {
+        return *(v5 + 77) != *(v5 + 52) || (kd_tile::finished_reading(v5, a2) & 1) == 0;
+      }
+
+      v9 = *(a2 + 188) + HIDWORD(a3);
+      v10 = *(a2 + 204);
+      if (v9 < v10)
+      {
+        return *(v5 + 77) != *(v5 + 52) || (kd_tile::finished_reading(v5, a2) & 1) == 0;
+      }
+
+      v11 = *(a2 + 184) + a3;
+      v12 = *(a2 + 200);
+      if (v11 < v12 || v9 >= *(a2 + 212) + v10 || v11 >= *(a2 + 208) + v12)
+      {
+        return *(v5 + 77) != *(v5 + 52) || (kd_tile::finished_reading(v5, a2) & 1) == 0;
+      }
+    }
+
+LABEL_18:
+    *(v5 + 77) += *(v5 + 50);
+    return *(v5 + 77) != *(v5 + 52) || (kd_tile::finished_reading(v5, a2) & 1) == 0;
+  }
+
+  if (*(v6 + 28))
+  {
+    v16 = 0;
+    v14 = 0u;
+    v15 = 0u;
+    kdu_error::kdu_error(&v14, "Kakadu Core Error:\n");
+    (*(v14 + 16))(&v14, "Assert ");
+    (*(v14 + 16))(&v14, "precinct->next_layer_idx == 0");
+    (*(v14 + 16))(&v14, " FAILED");
+    kdu_error::~kdu_error(&v14);
+  }
+
+  *(v6 + 28) = *(v5 + 48);
+  *(v6 + 18) = 1;
+  *(v6 + 40) = a4;
+  kd_precinct::finished_desequencing(v6);
+  if (*(v6 + 21))
+  {
+    goto LABEL_18;
+  }
+
+  return *(v5 + 77) != *(v5 + 52) || (kd_tile::finished_reading(v5, a2) & 1) == 0;
+}
+
+uint64_t *kd_precinct_pointer_server::disable(uint64_t *this)
+{
+  if (*this)
+  {
+    for (i = this; ; this = kd_buf_server::release(*i, v2))
+    {
+      v2 = i[1];
+      i[2] = v2;
+      if (!v2)
+      {
+        break;
+      }
+
+      i[1] = *v2;
+    }
+
+    *i = 0;
+  }
+
+  return this;
+}
+
+void kd_mct_stage::~kd_mct_stage(kd_mct_stage *this)
+{
+  v2 = *(this + 1);
+  if (v2)
+  {
+    MEMORY[0x186602830](v2, 0x1000C8052888210);
+  }
+
+  v3 = *(this + 3);
+  if (v3)
+  {
+    MEMORY[0x186602830](v3, 0x1020C806B39A6A2);
+  }
+
+  v4 = *(this + 5);
+  if (v4)
+  {
+    v5 = v4 - 16;
+    v6 = *(v4 - 8);
+    if (v6)
+    {
+      v7 = (v4 + 152 * v6 - 152);
+      v8 = -152 * v6;
+      do
+      {
+        kd_mct_block::~kd_mct_block(v7);
+        v7 = (v9 - 152);
+        v8 += 152;
+      }
+
+      while (v8);
+    }
+
+    MEMORY[0x186602830](v5, 0x10B0C80C861A3ACLL);
+  }
+}
+
+void kd_mct_block::~kd_mct_block(kd_mct_block *this)
+{
+  v2 = *(this + 2);
+  if (v2)
+  {
+    MEMORY[0x186602830](v2, 0x1000C8052888210);
+  }
+
+  v3 = *(this + 3);
+  if (v3)
+  {
+    MEMORY[0x186602830](v3, 0x1000C8077774924);
+  }
+
+  v4 = *(this + 5);
+  if (v4)
+  {
+    MEMORY[0x186602830](v4, 0x1000C8052888210);
+  }
+
+  v5 = *(this + 13);
+  if (v5)
+  {
+    MEMORY[0x186602830](v5, 0x1000C80451B5BE8);
+  }
+
+  v6 = *(this + 14);
+  if (v6)
+  {
+    MEMORY[0x186602830](v6, 0x1000C8052888210);
+  }
+
+  v7 = *(this + 18);
+  if (v7)
+  {
+    MEMORY[0x186602830](v7, 0x1000C8052888210);
+  }
+
+  v8 = *(this + 6);
+  if (v8)
+  {
+    v11 = *(v8 - 8);
+    v10 = v8 - 8;
+    v9 = v11;
+    if (v11)
+    {
+      v12 = 24 * v9;
+      do
+      {
+        v13 = *(v10 + v12);
+        if (v13)
+        {
+          MEMORY[0x186602830](v13, 0x1000C8052888210);
+        }
+
+        v12 -= 24;
+      }
+
+      while (v12);
+    }
+
+    MEMORY[0x186602830](v10 - 8, 0x1080C80C4643742);
+  }
+}
+
+void kd_resolution::~kd_resolution(kd_resolution *this)
+{
+  v2 = *(this + 20);
+  if (v2)
+  {
+    MEMORY[0x186602830](v2, 0x1000C8052888210);
+  }
+
+  v3 = *(this + 223);
+  if (*(this + 223))
+  {
+    v4 = 0;
+    v5 = 128;
+    do
+    {
+      v6 = *(*(this + 28) + v5);
+      if (v6)
+      {
+        MEMORY[0x186602830](v6, 0x1000C8052888210);
+        v3 = *(this + 223);
+      }
+
+      ++v4;
+      v5 += 136;
+    }
+
+    while (v4 < v3);
+  }
+
+  v7 = *(this + 29);
+  if (v7)
+  {
+    v8 = v7 - 16;
+    v9 = *(v7 - 8);
+    if (v9)
+    {
+      v10 = (v7 + 8 * v9 - 8);
+      v11 = -8 * v9;
+      do
+      {
+        kd_precinct_ref::~kd_precinct_ref(v10);
+        v10 = (v12 - 8);
+        v11 += 8;
+      }
+
+      while (v11);
+    }
+
+    MEMORY[0x186602830](v8, 0x1000C8000313F17);
+  }
+
+  v13 = *(this + 31);
+  if (v13)
+  {
+    MEMORY[0x186602830](v13, 0x1020C8068AD3B9FLL);
+  }
+
+  v14 = *(this + 28);
+  if (v14)
+  {
+    MEMORY[0x186602830](v14, 0x10A0C80A1ACF372);
+  }
+}
+
+void kd_precinct_ref::~kd_precinct_ref(kd_precinct_ref *this)
+{
+  if (*this)
+  {
+    v1 = (*this & 1) == 0;
+  }
+
+  else
+  {
+    v1 = 0;
+  }
+
+  if (v1)
+  {
+    kd_precinct_ref::close(this);
+  }
+}
+
+void _cg_JP2ResetSource(void *a1)
+{
+  v2 = a1[7];
+  _cg_JP2TearDownJP2Storage(a1);
+  OpenJP2Input(a1, v2);
+}
+
+void sub_185F250A0(void *a1)
+{
+  __cxa_begin_catch(a1);
+  __cxa_end_catch();
+  JUMPOUT(0x185F25090);
+}
+
+void *_cg_JP2TearDownJP2Storage(void *result)
+{
+  v1 = result[7];
+  if (v1)
+  {
+    v2 = v1[1];
+    if (v2)
+    {
+      jp2_family_src::close(v2);
+    }
+
+    v3 = v1[2];
+    if (v3)
+    {
+      (*(*v3 + 8))(v3);
+    }
+
+    if (*v1)
+    {
+      (*(**v1 + 8))(*v1);
+    }
+
+    v4 = v1[3];
+    if (v4)
+    {
+      (*(*v4 + 8))(v4);
+    }
+
+    result = v1[1];
+    if (result)
+    {
+      v5 = *(*result + 8);
+
+      return v5();
+    }
+  }
+
+  return result;
+}
+
+uint64_t JP2SetOptimalScalingFactor(void *a1)
+{
+  v2 = a1[7];
+  v3 = 1.0;
+  kdu_region_compositor::set_scale(*(v2 + 24), 0, 0, 0, 1.0);
+  v12 = 0uLL;
+  kdu_region_compositor::get_total_composition_dims(*(v2 + 24), &v12);
+  v4 = a1[20];
+  v5 = a1[21];
+  if (v5 >= 2)
+  {
+    do
+    {
+      v3 = v3 * 0.5;
+      v6 = v5 > 3;
+      v5 >>= 1;
+    }
+
+    while (v6);
+  }
+
+  if (v4 >= 0x10)
+  {
+    v7 = v4;
+    while ((v3 * SHIDWORD(v12)) * 0.5 >= v7 || (v3 * SDWORD2(v12)) * 0.5 >= v7)
+    {
+      v3 = v3 * 0.5;
+    }
+  }
+
+  v9 = 0.015625;
+  if (v3 >= 0.015625)
+  {
+    v9 = v3;
+  }
+
+  *(v2 + 48) = v9;
+  while (1)
+  {
+    kdu_region_compositor::set_scale(*(v2 + 24), 0, 0, 0, v9);
+    total_composition_dims = kdu_region_compositor::get_total_composition_dims(*(v2 + 24), (v2 + 32));
+    if (total_composition_dims)
+    {
+      break;
+    }
+
+    v9 = *(v2 + 48) + *(v2 + 48);
+    *(v2 + 48) = v9;
+    if (v9 > 1.0)
+    {
+      *(v2 + 32) = v12;
+      fwrite("get_total_composition_dims never succeeded\n", 0x2BuLL, 1uLL, *MEMORY[0x1E69E9848]);
+      return total_composition_dims;
+    }
+  }
+
+  return total_composition_dims;
+}
+
+void _cg_JP2SetupDecompressor(uint64_t a1, uint64_t a2)
+{
+  v4 = malloc_type_calloc(0x38uLL, 1uLL, 0x1020040F5CEC97BuLL);
+  *(a2 + 56) = v4;
+  OpenJP2Input(a1, v4);
+}
+
+void sub_185F258BC(void *a1)
+{
+  __cxa_begin_catch(a1);
+  jp2_family_src::close(*(v1 + 8));
+  __cxa_end_catch();
+  JUMPOUT(0x185F25884);
+}
+
+uint64_t _cg_JP2DecompressBlock(uint64_t a1, uint64_t a2, unsigned int a3, uint64_t a4, unsigned int a5)
+{
+  v10 = *(a1 + 56);
+  BytePtr = *(a1 + 152);
+  if (!BytePtr)
+  {
+    v22 = *(a1 + 144);
+    if (!v22)
+    {
+      goto LABEL_20;
+    }
+
+    BytePtr = CFDataGetBytePtr(v22);
+    if (!BytePtr)
+    {
+      goto LABEL_20;
+    }
+  }
+
+  v12 = *(a1 + 128);
+  v24[0] = 0;
+  v24[1] = 0;
+  if ((a2 & 0x80000000) != 0 || (v13 = *(a1 + 64), v13 < a4 + a2))
+  {
+    v15 = "origin_x >= 0 && origin_x + size_x <= info->width";
+    v16 = 692;
+    goto LABEL_25;
+  }
+
+  if ((a3 & 0x80000000) != 0 || (v14 = *(a1 + 72), v14 < (a5 + a3)))
+  {
+    v15 = "origin_y >= 0 && origin_y + size_y <= info->height";
+    v16 = 693;
+    goto LABEL_25;
+  }
+
+  v15 = "size_x > 0 && size_x <= info->width";
+  v16 = 694;
+  if (a4 < 1 || v13 < a4)
+  {
+LABEL_25:
+    __assert_rtn("_cg_JP2DecompressBlock", "JP2LibDecompress.cpp", v16, v15);
+  }
+
+  if (a5 < 1 || v14 < a5)
+  {
+    v15 = "size_y > 0 && size_y <= info->height";
+    v16 = 695;
+    goto LABEL_25;
+  }
+
+  if (!v10)
+  {
+    abort();
+  }
+
+  v17 = v12 >> 3;
+  v18 = *(v10 + 24);
+  *(v18 + 536) = BytePtr;
+  *(v18 + 548) = a4;
+  *(v18 + 544) = v17;
+  kdu_region_compositor::set_buffer_surface(v18, a3 | (a2 << 32), a5 | (a4 << 32), -1);
+  *(a1 + 184) = 0;
+  *(a1 + 48) = 0;
+  v19 = v17 * a5 * a4;
+  while (1)
+  {
+    v20 = *(v10 + 24);
+    if (v20[428] == 1 && v20[429] != 1)
+    {
+      break;
+    }
+
+    if (((*(*v20 + 32))(v20, v19, v24) & 1) == 0)
+    {
+      break;
+    }
+
+    if (*(a1 + 178) == 1 && *(a1 + 48))
+    {
+      v21 = 0xFFFFFFFFLL;
+      goto LABEL_21;
+    }
+  }
+
+LABEL_20:
+  v21 = 0;
+LABEL_21:
+  kdu_region_compositor::reset(*(v10 + 24));
+  *(*(v10 + 24) + 536) = 0u;
+  return v21;
+}
+
+void sub_185F25B08(void *a1)
+{
+  __cxa_begin_catch(a1);
+  __cxa_end_catch();
+  JUMPOUT(0x185F25A6CLL);
+}
+
+void _cg_JP2TearDownDecompressor(void *a1)
+{
+  v2 = a1[7];
+  if (v2)
+  {
+    _cg_JP2TearDownJP2Storage(a1);
+    free(v2);
+  }
+
+  v3 = a1[18];
+  if (v3)
+  {
+
+    CFRelease(v3);
+  }
+}
+
+_BYTE *_cg_JP2GetPalette(uint64_t a1, signed int a2, int *a3, int *a4)
+{
+  *a3 = 0;
+  *a4 = 0;
+  if (!a1)
+  {
+    return 0;
+  }
+
+  if (*(a1 + 179) != 1)
+  {
+    return 0;
+  }
+
+  v4 = *(a1 + 56);
+  if (!v4)
+  {
+    return 0;
+  }
+
+  v18 = jpx_source::access_codestream(*(v4 + 16), 0, 1);
+  if (!v18)
+  {
+    return 0;
+  }
+
+  v17 = jpx_codestream_source::access_palette(&v18, v8);
+  if (!v17)
+  {
+    return 0;
+  }
+
+  num_entries = jp2_palette::get_num_entries(&v17, v9);
+  num_luts = jp2_palette::get_num_luts(&v17, v11);
+  if (num_luts >= a2)
+  {
+    v13 = a2;
+  }
+
+  else
+  {
+    v13 = num_luts;
+  }
+
+  if (v13 >= 1)
+  {
+    v14 = 0;
+    while (jp2_palette::get_bit_depth(&v17, v14) <= 8)
+    {
+      if (v13 == ++v14)
+      {
+        goto LABEL_13;
+      }
+    }
+
+    return 0;
+  }
+
+LABEL_13:
+  *a3 = num_entries;
+  *a4 = v13;
+  v15 = malloc_type_malloc(v13 * num_entries, 0x100004077774924uLL);
+  if (v15)
+  {
+    operator new[]();
+  }
+
+  return v15;
+}
+
+void MyJP2Source::~MyJP2Source(MyJP2Source *this)
+{
+  *this = &unk_1EF4D2658;
+}
+
+{
+  *this = &unk_1EF4D2658;
+  JUMPOUT(0x186602850);
+}
+
+uint64_t MyJP2Source::read(MyJP2Source *this, unsigned __int8 *a2, int a3)
+{
+  v5 = *(this + 1);
+  *(this + 2) += a3;
+  result = (*(v5 + 24))(*v5, a2, a3);
+  if (result < a3)
+  {
+    *(*(this + 1) + 48) = -1;
+  }
+
+  return result;
+}
+
+uint64_t MyJP2Source::seek(MyJP2Source *this, uint64_t a2)
+{
+  *(this + 2) = a2;
+  (*(*(this + 1) + 32))(**(this + 1), *(*(this + 1) + 16) + a2);
+  return 1;
+}
+
+void jp2_family_src::~jp2_family_src(jp2_family_src *this)
+{
+  jp2_family_src::~jp2_family_src(this);
+
+  JUMPOUT(0x186602850);
+}
+
+{
+  *this = &unk_1EF4D26B0;
+  jp2_family_src::close(this);
+}
+
+void MyRegionCompositor::~MyRegionCompositor(MyRegionCompositor *this)
+{
+  MyRegionCompositor::~MyRegionCompositor(this);
+
+  JUMPOUT(0x186602850);
+}
+
+{
+  *this = &unk_1EF4D26F0;
+  kdu_region_compositor::pre_destroy(this);
+  *(this + 536) = 0u;
+
+  kdu_region_compositor::~kdu_region_compositor(this);
+}
+
+uint64_t MyRegionCompositor::allocate_buffer(uint64_t a1)
+{
+  if (*(a1 + 536))
+  {
+    operator new();
+  }
+
+  return 0;
+}
+
+uint64_t MyRegionCompositor::delete_buffer(uint64_t a1, uint64_t a2)
+{
+  if (a2)
+  {
+    return (*(*a2 + 8))(a2);
+  }
+
+  return result;
+}
+
+void kdu_region_compositor::~kdu_region_compositor(kdu_region_compositor *this)
+{
+  *this = &unk_1EF4D3CC0;
+  off_1EF4D3CD0(this);
+  jpx_input_box::~jpx_input_box((this + 32));
+}
+
+{
+  kdu_region_compositor::~kdu_region_compositor(this);
+
+  JUMPOUT(0x186602850);
+}
+
+void jpx_input_box::~jpx_input_box(jpx_input_box *this)
+{
+  *this = &unk_1EF4D3D28;
+  off_1EF4D3D38(this);
+
+  jp2_input_box::~jp2_input_box(this);
+}
+
+{
+  jpx_input_box::~jpx_input_box(this);
+
+  JUMPOUT(0x186602850);
 }

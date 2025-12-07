@@ -104,23 +104,23 @@
   }
 
   __src[312] = 0;
-  memcpy(v6 + 56, __src, 0x9C8uLL);
+  memcpy(&v6->_generator, __src, sizeof(v6->_generator));
   std::random_device::~random_device(v44);
   LODWORD(__src[0]) = 0;
-  sub_100002844(v6 + 4, size, __src, v9);
-  v11 = *(v6 + 1);
-  v10 = *(v6 + 2);
-  v12 = (v10 - v11) >> 3;
+  sub_100002844(&v6->_unigram.__begin_, size, __src, v9);
+  begin = v6->_alias.__begin_;
+  end = v6->_alias.__end_;
+  v12 = end - begin;
   if (size > v12)
   {
     v13 = size - v12;
-    v14 = *(v6 + 3);
-    if (v13 > (v14 - v10) >> 3)
+    cap = v6->_alias.__cap_;
+    if (v13 > cap - end)
     {
       if (!(size >> 61))
       {
-        v15 = v14 - v11;
-        sizeCopy = (v14 - v11) >> 2;
+        v15 = cap - begin;
+        sizeCopy = (cap - begin) >> 2;
         if (sizeCopy <= size)
         {
           sizeCopy = size;
@@ -150,27 +150,27 @@
       v22 = vmovn_s64(vcgeq_u64(v21, vorrq_s8(vdupq_n_s64(v19), xmmword_10002A6C0)));
       if (v22.i8[0])
       {
-        *(v10 + 8 * v19) = 0;
+        end[v19] = 0;
       }
 
       if (v22.i8[4])
       {
-        *(v10 + 8 * v19 + 8) = 0;
+        end[v19 + 1] = 0;
       }
 
       v19 += 2;
     }
 
     while (v20 - ((v13 + 0x1FFFFFFFFFFFFFFFLL) & 1) + 2 != v19);
-    v18 = v10 + 8 * v13;
+    v18 = &end[v13];
     goto LABEL_24;
   }
 
   if (size < v12)
   {
-    v18 = v11 + 8 * size;
+    v18 = &begin[size];
 LABEL_24:
-    *(v6 + 2) = v18;
+    v6->_alias.__end_ = v18;
   }
 
   memset(__src, 0, 24);
@@ -182,7 +182,7 @@ LABEL_24:
     do
     {
       v24 = unigram[v23] * size;
-      *(*(v6 + 4) + 4 * v23) = v24;
+      v6->_unigram.__begin_[v23] = v24;
       if (v24 >= 1.0)
       {
         p_token = &__token;
@@ -193,7 +193,7 @@ LABEL_24:
         p_token = __src;
       }
 
-      sub_100002A88(p_token, v44);
+      sub_100002A88(p_token, &v44[0].__padding_);
       *&v44[0].__padding_ = ++v23;
     }
 
@@ -208,12 +208,12 @@ LABEL_24:
         *&v44[0].__padding_ = *(j - 8);
         v29 = *&v44[0].__padding_;
         __token.__r_.__value_.__l.__size_ = j - 8;
-        *(*(v6 + 1) + 8 * v28) = *&v44[0].__padding_;
-        v30 = *(v6 + 4);
-        v31 = *(v30 + 4 * v29);
+        v6->_alias.__begin_[v28] = *&v44[0].__padding_;
+        v30 = v6->_unigram.__begin_;
+        v31 = v30[v29];
         __src[1] = v26 - 8;
-        v32 = v31 + -1.0 + *(v30 + 4 * v28);
-        *(v30 + 4 * v29) = v32;
+        v32 = v31 + -1.0 + v30[v28];
+        v30[v29] = v32;
         if (v32 >= 1.0)
         {
           v33 = &__token;
@@ -224,7 +224,7 @@ LABEL_24:
           v33 = __src;
         }
 
-        sub_100002A88(v33, v44);
+        sub_100002A88(v33, &v44[0].__padding_);
         size = __src[0];
         v26 = __src[1];
         if (__src[1] == __src[0])
@@ -238,7 +238,7 @@ LABEL_24:
       {
         v35 = 0;
         v36 = v34 >> 3;
-        v37 = *(v6 + 4);
+        v37 = v6->_unigram.__begin_;
         if (v36 <= 1)
         {
           v36 = 1;
@@ -246,7 +246,7 @@ LABEL_24:
 
         do
         {
-          *(v37 + 4 * *(size + 8 * v35++)) = 1065353216;
+          v37[*(size + 8 * v35++)] = 1.0;
         }
 
         while (v36 != v35);
@@ -266,7 +266,7 @@ LABEL_24:
   else
   {
     v39 = (__token.__r_.__value_.__l.__size_ - __token.__r_.__value_.__r.__words[0]) >> 3;
-    v40 = *(v6 + 4);
+    v40 = v6->_unigram.__begin_;
     if (v39 <= 1)
     {
       v39 = 1;
@@ -276,7 +276,7 @@ LABEL_24:
     do
     {
       v42 = *v41++;
-      *(v40 + 4 * v42) = 1065353216;
+      v40[v42] = 1.0;
       --v39;
     }
 

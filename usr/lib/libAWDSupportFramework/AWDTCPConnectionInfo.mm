@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)interfaceTypeAsString:(int)string;
 - (int)StringAsInterfaceType:(id)type;
 - (int)interfaceType;
 - (unint64_t)hash;
@@ -75,6 +76,19 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)interfaceTypeAsString:(int)string
+{
+  if ((string - 1) >= 4)
+  {
+    return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    return off_29EE33080[string - 1];
+  }
 }
 
 - (int)StringAsInterfaceType:(id)type
@@ -261,7 +275,6 @@ LABEL_8:
   has = self->_has;
   if (has)
   {
-    dnsResolutionLatency = self->_dnsResolutionLatency;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((has & 4) == 0)
@@ -281,7 +294,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  tcpHandshakeLatency = self->_tcpHandshakeLatency;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -296,7 +308,6 @@ LABEL_4:
   }
 
 LABEL_11:
-  tlsLatency = self->_tlsLatency;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -311,7 +322,6 @@ LABEL_5:
   }
 
 LABEL_12:
-  interfaceType = self->_interfaceType;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -323,7 +333,6 @@ LABEL_6:
     }
 
 LABEL_14:
-    tcpTxBytes = self->_tcpTxBytes;
     PBDataWriterWriteUint32Field();
     if ((*&self->_has & 0x10) == 0)
     {
@@ -334,7 +343,6 @@ LABEL_14:
   }
 
 LABEL_13:
-  tcpRetransmissions = self->_tcpRetransmissions;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x20) != 0)
@@ -349,7 +357,6 @@ LABEL_7:
   }
 
 LABEL_15:
-  tcpRxBytes = self->_tcpRxBytes;
 
   PBDataWriterWriteUint32Field();
 }

@@ -100,16 +100,16 @@ uint64_t __92__MessageSelectionStrategy_shouldChangeSelectionAfterDeletedMessage
 
 - (id)itemIDToSelectAfterDeletedMessageItemIDs:(id)ds
 {
-  v70 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
-  v6 = _ef_log_MessageSelectionStrategy();
+  v6 = _ef_log_MessageSelectionStrategy(dsCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = NSStringFromSelector(a2);
     *buf = 138543618;
-    v62 = v7;
-    v63 = 2114;
-    v64 = dsCopy;
+    v63 = v7;
+    v64 = 2114;
+    v65 = dsCopy;
     _os_log_impl(&dword_214A5E000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@%{public}@", buf, 0x16u);
   }
 
@@ -124,7 +124,7 @@ uint64_t __92__MessageSelectionStrategy_shouldChangeSelectionAfterDeletedMessage
 
   firstObject = [dsCopy firstObject];
   aSelector = a2;
-  v52 = dsCopy;
+  v53 = dsCopy;
   if ([dsCopy count] < 2)
   {
     v15 = firstObject;
@@ -133,10 +133,10 @@ uint64_t __92__MessageSelectionStrategy_shouldChangeSelectionAfterDeletedMessage
   else
   {
     v12 = objc_loadWeakRetained(&self->_dataSource);
-    v55 = firstObject;
+    v56 = firstObject;
     v13 = [v12 messageSelectionStrategy:self indexPathOfItemID:firstObject];
 
-    v50 = v13;
+    v51 = v13;
     if (v13)
     {
       item = [v13 item];
@@ -147,28 +147,28 @@ uint64_t __92__MessageSelectionStrategy_shouldChangeSelectionAfterDeletedMessage
       item = 0x7FFFFFFFFFFFFFFFLL;
     }
 
-    v59 = 0u;
     v60 = 0u;
-    v57 = 0u;
+    v61 = 0u;
     v58 = 0u;
+    v59 = 0u;
     obj = dsCopy;
-    v16 = [obj countByEnumeratingWithState:&v57 objects:v69 count:16];
+    v16 = [obj countByEnumeratingWithState:&v58 objects:v70 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v58;
+      v18 = *v59;
       v19 = item;
-      v54 = v55;
+      v55 = v56;
       do
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v58 != v18)
+          if (*v59 != v18)
           {
             objc_enumerationMutation(obj);
           }
 
-          v21 = *(*(&v57 + 1) + 8 * i);
+          v21 = *(*(&v58 + 1) + 8 * i);
           v22 = objc_loadWeakRetained(&self->_dataSource);
           v23 = [v22 messageSelectionStrategy:self indexPathOfItemID:v21];
 
@@ -180,7 +180,7 @@ uint64_t __92__MessageSelectionStrategy_shouldChangeSelectionAfterDeletedMessage
               v25 = v21;
 
               v19 = item2;
-              v54 = v25;
+              v55 = v25;
             }
 
             if (item2 < item)
@@ -188,12 +188,12 @@ uint64_t __92__MessageSelectionStrategy_shouldChangeSelectionAfterDeletedMessage
               v26 = v21;
 
               item = item2;
-              v55 = v26;
+              v56 = v26;
             }
           }
         }
 
-        v17 = [obj countByEnumeratingWithState:&v57 objects:v69 count:16];
+        v17 = [obj countByEnumeratingWithState:&v58 objects:v70 count:16];
       }
 
       while (v17);
@@ -201,12 +201,12 @@ uint64_t __92__MessageSelectionStrategy_shouldChangeSelectionAfterDeletedMessage
 
     else
     {
-      v54 = v55;
+      v55 = v56;
     }
 
-    dsCopy = v52;
-    v15 = v54;
-    firstObject = v55;
+    dsCopy = v53;
+    v15 = v55;
+    firstObject = v56;
   }
 
   aBlock[0] = MEMORY[0x277D85DD0];
@@ -231,48 +231,48 @@ uint64_t __92__MessageSelectionStrategy_shouldChangeSelectionAfterDeletedMessage
         v43 = objc_loadWeakRetained(&self->_dataSource);
         v44 = [v43 lastChangeDirectionForMessageSelectionStrategy:self];
 
-        v45 = _ef_log_MessageSelectionStrategy();
-        v46 = os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT);
-        dsCopy = v52;
+        v46 = _ef_log_MessageSelectionStrategy(v45);
+        v47 = os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT);
+        dsCopy = v53;
         if (v44 == 1)
         {
-          if (v46)
+          if (v47)
           {
-            v47 = NSStringFromSelector(aSelector);
+            v48 = NSStringFromSelector(aSelector);
             *buf = 138544130;
-            v62 = v47;
-            v63 = 2114;
-            v64 = v33;
-            v65 = 2114;
-            v66 = v28;
-            v67 = 2114;
-            v68 = 0;
-            _os_log_impl(&dword_214A5E000, v45, OS_LOG_TYPE_DEFAULT, "%{public}@ Last browse direction was explicitly down. Older: %{public}@, Newer: %{public}@, Selected: %{public}@", buf, 0x2Au);
+            v63 = v48;
+            v64 = 2114;
+            v65 = v33;
+            v66 = 2114;
+            v67 = v28;
+            v68 = 2114;
+            v69 = 0;
+            _os_log_impl(&dword_214A5E000, v46, OS_LOG_TYPE_DEFAULT, "%{public}@ Last browse direction was explicitly down. Older: %{public}@, Newer: %{public}@, Selected: %{public}@", buf, 0x2Au);
           }
 
-          v48 = v33;
+          v49 = v33;
         }
 
         else
         {
-          if (v46)
+          if (v47)
           {
-            v49 = NSStringFromSelector(aSelector);
+            v50 = NSStringFromSelector(aSelector);
             *buf = 138544130;
-            v62 = v49;
-            v63 = 2114;
-            v64 = v33;
-            v65 = 2114;
-            v66 = v28;
-            v67 = 2114;
-            v68 = 0;
-            _os_log_impl(&dword_214A5E000, v45, OS_LOG_TYPE_DEFAULT, "%{public}@ Last browse directio was up or not defined. Older: %{public}@, Newer: %{public}@, Selected: %{public}@", buf, 0x2Au);
+            v63 = v50;
+            v64 = 2114;
+            v65 = v33;
+            v66 = 2114;
+            v67 = v28;
+            v68 = 2114;
+            v69 = 0;
+            _os_log_impl(&dword_214A5E000, v46, OS_LOG_TYPE_DEFAULT, "%{public}@ Last browse directio was up or not defined. Older: %{public}@, Newer: %{public}@, Selected: %{public}@", buf, 0x2Au);
           }
 
-          v48 = v28;
+          v49 = v28;
         }
 
-        v36 = v48;
+        v36 = v49;
         goto LABEL_36;
       }
 
@@ -281,18 +281,18 @@ uint64_t __92__MessageSelectionStrategy_shouldChangeSelectionAfterDeletedMessage
 
     else
     {
-      v40 = _ef_log_MessageSelectionStrategy();
+      v40 = _ef_log_MessageSelectionStrategy(v34);
       if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
       {
         v41 = NSStringFromSelector(aSelector);
         *buf = 138544130;
-        v62 = v41;
-        v63 = 2114;
-        v64 = v33;
-        v65 = 2114;
-        v66 = v28;
-        v67 = 2114;
-        v68 = 0;
+        v63 = v41;
+        v64 = 2114;
+        v65 = v33;
+        v66 = 2114;
+        v67 = v28;
+        v68 = 2114;
+        v69 = 0;
         _os_log_impl(&dword_214A5E000, v40, OS_LOG_TYPE_DEFAULT, "%{public}@ Only one adjacent message is unread. Older: %{public}@, Newer: %{public}@, Selected: %{public}@", buf, 0x2Au);
       }
 
@@ -323,23 +323,23 @@ uint64_t __92__MessageSelectionStrategy_shouldChangeSelectionAfterDeletedMessage
     }
 
     v36 = v35;
-    v37 = _ef_log_MessageSelectionStrategy();
+    v37 = _ef_log_MessageSelectionStrategy(v36);
     if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
     {
       v38 = NSStringFromSelector(aSelector);
       *buf = 138544130;
-      v62 = v38;
-      v63 = 2114;
-      v64 = v33;
-      v65 = 2114;
-      v66 = v28;
-      v67 = 2114;
-      v68 = v36;
+      v63 = v38;
+      v64 = 2114;
+      v65 = v33;
+      v66 = 2114;
+      v67 = v28;
+      v68 = 2114;
+      v69 = v36;
       _os_log_impl(&dword_214A5E000, v37, OS_LOG_TYPE_DEFAULT, "%{public}@ One of the adjacent messages does not exist. Older: %{public}@, Newer: %{public}@, Selected: %{public}@", buf, 0x2Au);
     }
   }
 
-  dsCopy = v52;
+  dsCopy = v53;
 LABEL_36:
   v10 = v36;
 
@@ -376,12 +376,12 @@ uint64_t __69__MessageSelectionStrategy_itemIDToSelectAfterDeletedMessageItemIDs
 
 - (id)_itemIDToSelectFromItemID:(id)d deletedMessageIDs:(id)ds withDirection:(int)direction
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   dCopy = d;
   dsCopy = ds;
   if (!dCopy)
   {
-    v13 = 0;
+    v14 = 0;
     goto LABEL_38;
   }
 
@@ -391,65 +391,67 @@ uint64_t __69__MessageSelectionStrategy_itemIDToSelectAfterDeletedMessageItemIDs
   if (v11)
   {
     item = [v11 item];
+    item2 = item;
   }
 
   else
   {
-    item = 0x7FFFFFFFFFFFFFFFLL;
+    item2 = 0x7FFFFFFFFFFFFFFFLL;
   }
 
-  v14 = _ef_log_MessageSelectionStrategy();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+  v15 = _ef_log_MessageSelectionStrategy(item);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138543874;
-    v42 = dCopy;
-    v43 = 1024;
+    v45 = dCopy;
+    v46 = 1024;
     directionCopy = direction;
-    v45 = 2048;
-    v46 = item;
-    _os_log_debug_impl(&dword_214A5E000, v14, OS_LOG_TYPE_DEBUG, "_itemIDToSelectFromItemID:%{public}@ direction:%i startIndex:%li", buf, 0x1Cu);
+    v48 = 2048;
+    v49 = item2;
+    _os_log_debug_impl(&dword_214A5E000, v15, OS_LOG_TYPE_DEBUG, "_itemIDToSelectFromItemID:%{public}@ direction:%i startIndex:%li", buf, 0x1Cu);
   }
 
-  if (item == 0x7FFFFFFFFFFFFFFFLL)
+  if (item2 == 0x7FFFFFFFFFFFFFFFLL)
   {
-    v15 = objc_loadWeakRetained(&self->_dataSource);
-    v16 = [v15 indexPathOfSelectedMessageForMessageSelectionStrategy:self];
+    v16 = objc_loadWeakRetained(&self->_dataSource);
+    v17 = [v16 indexPathOfSelectedMessageForMessageSelectionStrategy:self];
 
-    if (v16)
+    if (v17)
     {
-      item = [v16 item];
-      v17 = 0;
-      v11 = v16;
+      item2 = [v17 item];
+      v18 = 0;
+      v11 = v17;
     }
 
     else
     {
-      v18 = objc_loadWeakRetained(&self->_dataSource);
-      v11 = [v18 indexPathOfPreviouslySelectedMessageForMessageSelectionStrategy:self];
+      v19 = objc_loadWeakRetained(&self->_dataSource);
+      v11 = [v19 indexPathOfPreviouslySelectedMessageForMessageSelectionStrategy:self];
 
       if (v11)
       {
-        item = [v11 item];
+        item3 = [v11 item];
+        item2 = item3;
       }
 
       else
       {
-        item = 0x7FFFFFFFFFFFFFFFLL;
+        item2 = 0x7FFFFFFFFFFFFFFFLL;
       }
 
-      v19 = _ef_log_MessageSelectionStrategy();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+      v21 = _ef_log_MessageSelectionStrategy(item3);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
       {
-        [MessageSelectionStrategy _itemIDToSelectFromItemID:dCopy deletedMessageIDs:item withDirection:v19];
+        [MessageSelectionStrategy _itemIDToSelectFromItemID:dCopy deletedMessageIDs:item2 withDirection:v21];
       }
 
-      v17 = 1;
+      v18 = 1;
     }
   }
 
   else
   {
-    v17 = 0;
+    v18 = 0;
   }
 
   if (direction == 1)
@@ -459,13 +461,13 @@ uint64_t __69__MessageSelectionStrategy_itemIDToSelectAfterDeletedMessageItemIDs
     aBlock[2] = __86__MessageSelectionStrategy__itemIDToSelectFromItemID_deletedMessageIDs_withDirection___block_invoke;
     aBlock[3] = &unk_2781897B0;
     aBlock[4] = self;
-    v20 = _Block_copy(aBlock);
-    if (v17)
+    v22 = _Block_copy(aBlock);
+    if (v18)
     {
-      if (item != 0x7FFFFFFFFFFFFFFFLL)
+      if (item2 != 0x7FFFFFFFFFFFFFFFLL)
       {
-        v21 = [MEMORY[0x277CCAA70] indexPathForItem:item inSection:{objc_msgSend(v11, "section")}];
-        v13 = v20[2](v20, v21);
+        v23 = [MEMORY[0x277CCAA70] indexPathForItem:item2 inSection:{objc_msgSend(v11, "section")}];
+        v14 = v22[2](v22, v23);
 
         goto LABEL_34;
       }
@@ -473,78 +475,78 @@ uint64_t __69__MessageSelectionStrategy_itemIDToSelectAfterDeletedMessageItemIDs
 
     else
     {
-      v33 = objc_loadWeakRetained(&self->_dataSource);
-      v34 = [v33 numberOfItemsForMessageSelectionStrategy:self] - 1;
+      v36 = objc_loadWeakRetained(&self->_dataSource);
+      v37 = [v36 numberOfItemsForMessageSelectionStrategy:self] - 1;
 
-      if (item < v34)
+      if (item2 < v37)
       {
         do
         {
-          v35 = [MEMORY[0x277CCAA70] indexPathForItem:++item inSection:{objc_msgSend(v11, "section")}];
-          v13 = v20[2](v20, v35);
+          v38 = [MEMORY[0x277CCAA70] indexPathForItem:++item2 inSection:{objc_msgSend(v11, "section")}];
+          v14 = v22[2](v22, v38);
 
-          if (![dsCopy containsObject:v13])
+          if (![dsCopy containsObject:v14])
           {
             goto LABEL_34;
           }
 
-          v36 = objc_loadWeakRetained(&self->_dataSource);
-          v37 = [v36 numberOfItemsForMessageSelectionStrategy:self] - 1;
+          v39 = objc_loadWeakRetained(&self->_dataSource);
+          v40 = [v39 numberOfItemsForMessageSelectionStrategy:self] - 1;
         }
 
-        while (item < v37);
+        while (item2 < v40);
       }
     }
 
-    v13 = 0;
+    v14 = 0;
     goto LABEL_34;
   }
 
-  v22 = objc_loadWeakRetained(&self->_dataSource);
-  v23 = [v22 messageSelectionStrategy:self anyExpandedThreadContainsItemID:dCopy];
+  v24 = objc_loadWeakRetained(&self->_dataSource);
+  v25 = [v24 messageSelectionStrategy:self anyExpandedThreadContainsItemID:dCopy];
 
-  if (v23)
+  if (v25)
   {
-    v24 = objc_loadWeakRetained(&self->_dataSource);
-    v25 = [v24 messageSelectionStrategy:self indexPathOfItemID:dCopy];
+    v27 = objc_loadWeakRetained(&self->_dataSource);
+    v28 = [v27 messageSelectionStrategy:self indexPathOfItemID:dCopy];
 
-    if (v25)
+    if (v28)
     {
-      v26 = objc_loadWeakRetained(&self->_dataSource);
-      v27 = [MEMORY[0x277CCAA70] indexPathForItem:objc_msgSend(v25 inSection:{"item") - 1, objc_msgSend(v25, "section")}];
-      v28 = [v26 messageSelectionStrategy:self itemIDForIndexPath:v27];
+      v29 = objc_loadWeakRetained(&self->_dataSource);
+      v30 = [MEMORY[0x277CCAA70] indexPathForItem:objc_msgSend(v28 inSection:{"item") - 1, objc_msgSend(v28, "section")}];
+      v31 = [v29 messageSelectionStrategy:self itemIDForIndexPath:v30];
 
-      if (v28)
+      if (v31)
       {
-        v29 = objc_loadWeakRetained(&self->_dataSource);
-        [v29 messageSelectionStrategy:self anyExpandedThreadContainsItemID:v28];
+        v32 = objc_loadWeakRetained(&self->_dataSource);
+        [v32 messageSelectionStrategy:self anyExpandedThreadContainsItemID:v31];
       }
     }
   }
 
-  v30 = item < 1;
-  v31 = item - 1;
-  if (v30)
+  v33 = item2 < 1;
+  v34 = item2 - 1;
+  if (v33)
   {
-    v13 = 0;
+    v14 = 0;
     goto LABEL_35;
   }
 
-  v20 = objc_loadWeakRetained(&self->_dataSource);
-  v32 = [MEMORY[0x277CCAA70] indexPathForItem:v31 inSection:{objc_msgSend(v11, "section")}];
-  v13 = [v20 messageSelectionStrategy:self itemIDForIndexPath:v32];
+  v22 = objc_loadWeakRetained(&self->_dataSource);
+  v35 = [MEMORY[0x277CCAA70] indexPathForItem:v34 inSection:{objc_msgSend(v11, "section")}];
+  v14 = [v22 messageSelectionStrategy:self itemIDForIndexPath:v35];
 
 LABEL_34:
 LABEL_35:
-  v38 = _ef_log_MessageSelectionStrategy();
-  if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
+  v41 = _ef_log_MessageSelectionStrategy(v26);
+  if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
   {
-    [MessageSelectionStrategy _itemIDToSelectFromItemID:dCopy deletedMessageIDs:v13 withDirection:v38];
+    [MessageSelectionStrategy _itemIDToSelectFromItemID:dCopy deletedMessageIDs:v14 withDirection:v41];
   }
 
 LABEL_38:
 
-  return v13;
+  return v14;
 }
 
 id __86__MessageSelectionStrategy__itemIDToSelectFromItemID_deletedMessageIDs_withDirection___block_invoke(uint64_t a1, void *a2)

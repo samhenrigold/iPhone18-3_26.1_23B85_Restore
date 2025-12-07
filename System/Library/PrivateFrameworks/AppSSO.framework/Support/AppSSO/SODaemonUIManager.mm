@@ -32,7 +32,7 @@
 
 - (SODaemonUIManager)init
 {
-  v3 = sub_100002728();
+  v3 = sub_100002728(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
@@ -49,7 +49,7 @@
 
 - (void)dealloc
 {
-  v3 = sub_100002728();
+  v3 = sub_100002728(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_1000084C4();
@@ -65,12 +65,12 @@
 {
   parametersCopy = parameters;
   profileCopy = profile;
-  v10 = sub_100002728();
+  v10 = sub_100002728(profileCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v38 = "[SODaemonUIManager beginAuthorizationWithRequestParameters:profile:error:]";
-    v39 = 2112;
+    v40 = "[SODaemonUIManager beginAuthorizationWithRequestParameters:profile:error:]";
+    v41 = 2112;
     selfCopy = self;
     _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%s  on %@", buf, 0x16u);
   }
@@ -91,95 +91,100 @@
     goto LABEL_15;
   }
 
-  if (([parametersCopy canShowOnCoverScreen] & 1) == 0 && !+[SODaemonUtils isInternalBuild](SODaemonUtils, "isInternalBuild"))
+  canShowOnCoverScreen = [parametersCopy canShowOnCoverScreen];
+  if ((canShowOnCoverScreen & 1) == 0)
   {
-    screenLockedBehavior = [profileCopy screenLockedBehavior];
-    v16 = sub_100002728();
-    v17 = os_log_type_enabled(v16, OS_LOG_TYPE_ERROR);
-    if (screenLockedBehavior == 2)
+    canShowOnCoverScreen = +[SODaemonUtils isInternalBuild];
+    if (!canShowOnCoverScreen)
     {
-      if (v17)
+      screenLockedBehavior = [profileCopy screenLockedBehavior];
+      v16 = sub_100002728(screenLockedBehavior);
+      v17 = os_log_type_enabled(v16, OS_LOG_TYPE_ERROR);
+      if (screenLockedBehavior == 2)
       {
-        sub_10000857C();
-      }
+        if (v17)
+        {
+          sub_10000857C();
+        }
 
-      if (error)
-      {
-        v18 = sub_100003134();
-        v19 = -5;
+        if (error)
+        {
+          v18 = sub_100003134();
+          v19 = -5;
 LABEL_23:
-        [v18 errorWithCode:v19];
-        *error = v30 = 0;
-        goto LABEL_30;
+          [v18 errorWithCode:v19];
+          *error = v31 = 0;
+          goto LABEL_30;
+        }
       }
-    }
 
-    else
-    {
-      if (v17)
+      else
       {
-        sub_100008540();
+        if (v17)
+        {
+          sub_100008540();
+        }
+
+        if (error)
+        {
+          v18 = sub_100003134();
+          v19 = -3;
+          goto LABEL_23;
+        }
       }
 
-      if (error)
-      {
-        v18 = sub_100003134();
-        v19 = -3;
-        goto LABEL_23;
-      }
+      v31 = 0;
+      goto LABEL_30;
     }
-
-    v30 = 0;
-    goto LABEL_30;
   }
 
-  v20 = sub_100002728();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+  v21 = sub_100002728(canShowOnCoverScreen);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
   {
     sub_1000085B8();
   }
 
 LABEL_15:
-  v21 = [[SBSRemoteAlertDefinition alloc] initWithServiceName:@"com.apple.AppSSOUIService" viewControllerClassName:@"SOUIServiceViewController"];
-  v22 = objc_opt_new();
-  v23 = sub_100002BCC(v22, parametersCopy, profileCopy);
-  [v22 setUserInfo:v23];
+  v22 = [[SBSRemoteAlertDefinition alloc] initWithServiceName:@"com.apple.AppSSOUIService" viewControllerClassName:@"SOUIServiceViewController"];
+  v23 = objc_opt_new();
+  v24 = sub_100002BCC(v23, parametersCopy, profileCopy);
+  [v23 setUserInfo:v24];
 
   endpoint = [(NSXPCListener *)self->_uiListener endpoint];
   _endpoint = [endpoint _endpoint];
-  [v22 setXpcEndpoint:_endpoint];
+  [v23 setXpcEndpoint:_endpoint];
 
-  v26 = objc_opt_new();
-  [v26 setActivatingForSiri:0];
-  v27 = [SBSRemoteAlertHandle newHandleWithDefinition:v21 configurationContext:v22];
+  v27 = objc_opt_new();
+  [v27 setActivatingForSiri:0];
+  v28 = [SBSRemoteAlertHandle newHandleWithDefinition:v22 configurationContext:v23];
   remoteAlertHandle = self->_remoteAlertHandle;
-  self->_remoteAlertHandle = v27;
+  self->_remoteAlertHandle = v28;
 
-  v29 = self->_remoteAlertHandle;
-  v30 = v29 != 0;
-  if (v29)
+  v30 = self->_remoteAlertHandle;
+  v31 = v30 != 0;
+  if (v30)
   {
-    [(SBSRemoteAlertHandle *)v29 registerObserver:self];
+    [(SBSRemoteAlertHandle *)v30 registerObserver:self];
     identifier = [parametersCopy identifier];
     requestThatPresentedRemoteAlert = self->_requestThatPresentedRemoteAlert;
     self->_requestThatPresentedRemoteAlert = identifier;
 
-    v33 = sub_100002728();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+    v35 = sub_100002728(v34);
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
     {
-      v34 = self->_remoteAlertHandle;
+      v36 = self->_remoteAlertHandle;
       *buf = 138543362;
-      v38 = v34;
-      _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "activating SBSRemoteAlertHandle %{public}@", buf, 0xCu);
+      v40 = v36;
+      _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "activating SBSRemoteAlertHandle %{public}@", buf, 0xCu);
     }
 
-    [(SBSRemoteAlertHandle *)self->_remoteAlertHandle activateWithContext:v26];
+    [(SBSRemoteAlertHandle *)self->_remoteAlertHandle activateWithContext:v27];
   }
 
   else
   {
-    v35 = sub_100002728();
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+    v37 = sub_100002728(0);
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
     {
       sub_1000085F4();
     }
@@ -191,12 +196,12 @@ LABEL_15:
   }
 
 LABEL_30:
-  return v30;
+  return v31;
 }
 
 - (BOOL)cancelAuthorization:(id)authorization error:(id *)error
 {
-  v6 = sub_100002728();
+  v6 = sub_100002728(self);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v10 = 136315394;
@@ -216,17 +221,17 @@ LABEL_30:
 - (void)remoteAlertHandleDidActivate:(id)activate
 {
   activateCopy = activate;
-  v5 = sub_100002728();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v4 = sub_100002728(activateCopy);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    sub_100008630(self);
+    sub_100008630();
   }
 }
 
 - (void)remoteAlertHandleDidDeactivate:(id)deactivate
 {
   deactivateCopy = deactivate;
-  v5 = sub_100002728();
+  v5 = sub_100002728(deactivateCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     sub_1000086CC(self, deactivateCopy, v5);
@@ -252,7 +257,7 @@ LABEL_30:
 {
   handleCopy = handle;
   errorCopy = error;
-  v8 = sub_100002728();
+  v8 = sub_100002728(errorCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     remoteAlertHandle = self->_remoteAlertHandle;
@@ -283,7 +288,7 @@ LABEL_30:
 
 - (BOOL)_closeRemoteUIWithError:(id *)error
 {
-  v5 = sub_100002728();
+  v5 = sub_100002728(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     remoteAlertHandle = self->_remoteAlertHandle;
@@ -327,7 +332,7 @@ LABEL_8:
 {
   listenerCopy = listener;
   connectionCopy = connection;
-  v8 = sub_100002728();
+  v8 = sub_100002728(connectionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     sub_100008798();
@@ -360,7 +365,7 @@ LABEL_8:
 
 - (void)connectionInvalidated
 {
-  v3 = sub_100002728();
+  v3 = sub_100002728(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 136315394;
@@ -376,21 +381,21 @@ LABEL_8:
   credentialCopy = credential;
   errorCopy = error;
   completionCopy = completion;
-  v11 = sub_100002728();
+  v11 = sub_100002728(completionCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
-    v17 = 136316162;
-    v18 = "[SODaemonUIManager authorizationDidCompleteWithCredential:error:completion:]";
-    v19 = 2114;
-    v20 = WeakRetained;
-    v21 = 2114;
-    v22 = credentialCopy;
-    v23 = 2114;
-    v24 = errorCopy;
-    v25 = 2112;
+    v18 = 136316162;
+    v19 = "[SODaemonUIManager authorizationDidCompleteWithCredential:error:completion:]";
+    v20 = 2114;
+    v21 = WeakRetained;
+    v22 = 2114;
+    v23 = credentialCopy;
+    v24 = 2114;
+    v25 = errorCopy;
+    v26 = 2112;
     selfCopy = self;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%s delegate = %{public}@, credential = %{public}@, error = %{public}@ on %@", &v17, 0x34u);
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%s delegate = %{public}@, credential = %{public}@, error = %{public}@ on %@", &v18, 0x34u);
   }
 
   selfCopy2 = self;
@@ -406,17 +411,17 @@ LABEL_8:
 
   else
   {
-    v15 = sub_100002728();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+    v16 = sub_100002728(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v17) = 0;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "authorization already finished => ignoring complete request", &v17, 2u);
+      LOWORD(v18) = 0;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "authorization already finished => ignoring complete request", &v18, 2u);
     }
 
     if (completionCopy)
     {
-      v16 = [sub_100003134() silentInternalErrorWithMessage:@"authorization already finished => ignoring complete request"];
-      completionCopy[2](completionCopy, 0, v16);
+      v17 = [sub_100003134() silentInternalErrorWithMessage:@"authorization already finished => ignoring complete request"];
+      completionCopy[2](completionCopy, 0, v17);
     }
   }
 }
@@ -425,39 +430,40 @@ LABEL_8:
 {
   authorizationCopy = authorization;
   completionCopy = completion;
-  v8 = sub_100002728();
+  v8 = sub_100002728(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    sub_100008814(self);
+    sub_100008814();
   }
 
   uiServiceConnection = self->_uiServiceConnection;
   if (uiServiceConnection)
   {
     v10 = [(NSXPCConnection *)uiServiceConnection remoteObjectProxyWithErrorHandler:&stru_1000104E0];
-    if (objc_opt_respondsToSelector())
+    v11 = objc_opt_respondsToSelector();
+    if (v11)
     {
-      v13[0] = _NSConcreteStackBlock;
-      v13[1] = 3221225472;
-      v13[2] = sub_100003E20;
-      v13[3] = &unk_100010508;
-      v13[4] = self;
-      v14 = completionCopy;
-      [v10 finishAuthorization:authorizationCopy completion:v13];
+      v14[0] = _NSConcreteStackBlock;
+      v14[1] = 3221225472;
+      v14[2] = sub_100003E20;
+      v14[3] = &unk_100010508;
+      v14[4] = self;
+      v15 = completionCopy;
+      [v10 finishAuthorization:authorizationCopy completion:v14];
     }
 
     else
     {
-      v11 = sub_100002728();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = sub_100002728(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         sub_1000088A0();
       }
 
       if (completionCopy)
       {
-        v12 = [sub_100003134() internalErrorWithMessage:@"finishAuthorization not implemented"];
-        (*(completionCopy + 2))(completionCopy, 0, v12);
+        v13 = [sub_100003134() internalErrorWithMessage:@"finishAuthorization not implemented"];
+        (*(completionCopy + 2))(completionCopy, 0, v13);
       }
     }
 
@@ -475,10 +481,10 @@ LABEL_12:
 - (void)extensionCleanupWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = sub_100002728();
+  v5 = sub_100002728(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    sub_100008950(self);
+    sub_100008950();
   }
 
   uiServiceConnection = self->_uiServiceConnection;

@@ -16,6 +16,7 @@
 - (id)lastUtteranceForMe:(BOOL)me withText:(id)text;
 - (id)mergeUtterancesIfPossible;
 - (id)otherContactPath;
+- (id)processBackspaceForMe:(BOOL)me;
 - (id)updateTranscriptionFromOtherContactPath:(id)path;
 - (id)updateTranslatedTranscriptionFromOtherContactPath:(id)path original:(id)original;
 - (unint64_t)lastUtteranceIndexForMe:(BOOL)me isTranscription:(BOOL)transcription;
@@ -29,29 +30,28 @@
 
 + (RTTConversation)conversationWithCallUID:(id)d withCallback:(id)callback
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   dCopy = d;
   callbackCopy = callback;
   v7 = AXLogRTT();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v17 = dCopy;
+    v16 = dCopy;
     _os_log_impl(&dword_261754000, v7, OS_LOG_TYPE_INFO, "Looking for conversation asynchronously: %@", buf, 0xCu);
   }
 
   v8 = +[RTTServer sharedInstance];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __56__RTTConversation_conversationWithCallUID_withCallback___block_invoke;
-  v13[3] = &unk_279AE8458;
-  v14 = dCopy;
-  v15 = callbackCopy;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __56__RTTConversation_conversationWithCallUID_withCallback___block_invoke;
+  v12[3] = &unk_279AE8458;
+  v13 = dCopy;
+  v14 = callbackCopy;
   v9 = callbackCopy;
   v10 = dCopy;
-  [v8 findConversationForCallUID:v10 andResult:v13];
+  [v8 findConversationForCallUID:v10 andResult:v12];
 
-  v12 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -231,72 +231,72 @@ void __41__RTTConversation_isEqualToConversation___block_invoke(uint64_t a1, voi
 
 - (id)otherContactPath
 {
-  v39 = *MEMORY[0x277D85DE8];
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x3032000000;
-  v34 = __Block_byref_object_copy__3;
-  v35 = __Block_byref_object_dispose__3;
-  v36 = 0;
+  v38 = *MEMORY[0x277D85DE8];
+  v30 = 0;
+  v31 = &v30;
+  v32 = 0x3032000000;
+  v33 = __Block_byref_object_copy__3;
+  v34 = __Block_byref_object_dispose__3;
+  v35 = 0;
   callIdentifier = [(RTTConversation *)self callIdentifier];
   v4 = [callIdentifier length] == 0;
 
   if (!v4)
   {
-    v25 = 0;
-    v26 = &v25;
-    v27 = 0x3032000000;
-    v28 = __Block_byref_object_copy__3;
-    v29 = __Block_byref_object_dispose__3;
-    v30 = 0;
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __35__RTTConversation_otherContactPath__block_invoke;
-    v24[3] = &unk_279AE80C8;
-    v24[4] = self;
-    v24[5] = &v25;
-    [RTTTelephonyUtilities performCallCenterTask:v24];
-    v5 = v26[5];
+    v24 = 0;
+    v25 = &v24;
+    v26 = 0x3032000000;
+    v27 = __Block_byref_object_copy__3;
+    v28 = __Block_byref_object_dispose__3;
+    v29 = 0;
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __35__RTTConversation_otherContactPath__block_invoke;
+    v23[3] = &unk_279AE80C8;
+    v23[4] = self;
+    v23[5] = &v24;
+    [RTTTelephonyUtilities performCallCenterTask:v23];
+    v5 = v25[5];
     if (v5)
     {
       handle = [v5 handle];
       value = [handle value];
 
-      isoCountryCode = [v26[5] isoCountryCode];
+      isoCountryCode = [v25[5] isoCountryCode];
       v9 = [MEMORY[0x277D6EF18] phoneNumberWithDigits:value countryCode:isoCountryCode];
       unformattedInternationalRepresentation = [v9 unformattedInternationalRepresentation];
-      v11 = v32[5];
-      v32[5] = unformattedInternationalRepresentation;
+      v11 = v31[5];
+      v31[5] = unformattedInternationalRepresentation;
 
-      if (!v32[5])
+      if (!v31[5])
       {
         formattedRepresentation = [v9 formattedRepresentation];
-        v13 = v32[5];
-        v32[5] = formattedRepresentation;
+        v13 = v31[5];
+        v31[5] = formattedRepresentation;
 
         v14 = AXLogRTT();
         if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
         {
-          v15 = v32[5];
+          v15 = v31[5];
           *buf = 138412290;
-          v38 = v15;
+          v37 = v15;
           _os_log_impl(&dword_261754000, v14, OS_LOG_TYPE_INFO, "Using non-international phone number: %@", buf, 0xCu);
         }
       }
     }
 
-    _Block_object_dispose(&v25, 8);
+    _Block_object_dispose(&v24, 8);
   }
 
-  if (!v32[5])
+  if (!v31[5])
   {
     utterances = [(RTTConversation *)self utterances];
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __35__RTTConversation_otherContactPath__block_invoke_17;
-    v23[3] = &unk_279AE84A8;
-    v23[4] = &v31;
-    [utterances enumerateObjectsUsingBlock:v23];
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __35__RTTConversation_otherContactPath__block_invoke_17;
+    v22[3] = &unk_279AE84A8;
+    v22[4] = &v30;
+    [utterances enumerateObjectsUsingBlock:v22];
   }
 
   if (_AXSInUnitTestMode())
@@ -304,20 +304,18 @@ void __41__RTTConversation_isEqualToConversation___block_invoke(uint64_t a1, voi
     call = [(RTTConversation *)self call];
     if (call)
     {
-      v18 = v32[5] == 0;
+      v18 = v31[5] == 0;
 
       if (v18)
       {
-        v19 = v32[5];
-        v32[5] = @"Unknown";
+        v19 = v31[5];
+        v31[5] = @"Unknown";
       }
     }
   }
 
-  v20 = v32[5];
-  _Block_object_dispose(&v31, 8);
-
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = v31[5];
+  _Block_object_dispose(&v30, 8);
 
   return v20;
 }
@@ -348,7 +346,7 @@ void __35__RTTConversation_otherContactPath__block_invoke_17(uint64_t a1, void *
 
 - (id)mergeUtterancesIfPossible
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   utterances = [(RTTConversation *)self utterances];
   lastObject = [utterances lastObject];
 
@@ -372,9 +370,9 @@ void __35__RTTConversation_otherContactPath__block_invoke_17(uint64_t a1, void *
     v17 = AXLogRTT();
     if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
-      v27 = 138412290;
-      v28 = v16;
-      _os_log_impl(&dword_261754000, v17, OS_LOG_TYPE_INFO, "Testing complete %@", &v27, 0xCu);
+      v26 = 138412290;
+      v27 = v16;
+      _os_log_impl(&dword_261754000, v17, OS_LOG_TYPE_INFO, "Testing complete %@", &v26, 0xCu);
     }
 
     isMe = [v11 isMe];
@@ -390,8 +388,8 @@ void __35__RTTConversation_otherContactPath__block_invoke_17(uint64_t a1, void *
           v19 = AXLogRTT();
           if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
           {
-            LOWORD(v27) = 0;
-            _os_log_impl(&dword_261754000, v19, OS_LOG_TYPE_INFO, "Merging", &v27, 2u);
+            LOWORD(v26) = 0;
+            _os_log_impl(&dword_261754000, v19, OS_LOG_TYPE_INFO, "Merging", &v26, 2u);
           }
 
           text3 = [v11 text];
@@ -411,12 +409,10 @@ void __35__RTTConversation_otherContactPath__block_invoke_17(uint64_t a1, void *
   v24 = AXLogRTT();
   if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
   {
-    v27 = 138412290;
-    v28 = v8;
-    _os_log_impl(&dword_261754000, v24, OS_LOG_TYPE_INFO, "Utterance merge result: %@", &v27, 0xCu);
+    v26 = 138412290;
+    v27 = v8;
+    _os_log_impl(&dword_261754000, v24, OS_LOG_TYPE_INFO, "Utterance merge result: %@", &v26, 0xCu);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -554,6 +550,78 @@ LABEL_9:
   return v8;
 }
 
+- (id)processBackspaceForMe:(BOOL)me
+{
+  meCopy = me;
+  v5 = [(RTTConversation *)self lastUtteranceForMe:?];
+  v6 = v5;
+  if (v5)
+  {
+    text = [v5 text];
+    v8 = [text length];
+
+    if (v8)
+    {
+      text2 = [v6 text];
+      v10 = [text2 length] - 1;
+
+      text3 = [v6 text];
+      v12 = [text3 length];
+
+      if (v12 < 2)
+      {
+        v17 = 1;
+      }
+
+      else
+      {
+        text4 = [v6 text];
+        text5 = [v6 text];
+        v15 = [text4 substringFromIndex:{objc_msgSend(text5, "length") - 2}];
+
+        if ([v15 isEqualToString:@"\r\n"])
+        {
+          text6 = [v6 text];
+          v10 = [text6 length] - 2;
+
+          v17 = 2;
+        }
+
+        else
+        {
+          v17 = 1;
+        }
+      }
+
+      text7 = [v6 text];
+      v19 = [text7 stringByReplacingCharactersInRange:v10 withString:{v17, &stru_2873FC590}];
+
+      [v6 updateText:v19];
+    }
+  }
+
+  utterances = [(RTTConversation *)self utterances];
+  if (![utterances count])
+  {
+    goto LABEL_14;
+  }
+
+  text8 = [v6 text];
+  v22 = [text8 length];
+
+  if (v6 && !v22)
+  {
+    utterances2 = [(RTTConversation *)self utterances];
+    [utterances2 removeObject:v6];
+
+    [(RTTConversation *)self lastUtteranceForMe:meCopy];
+    v6 = utterances = v6;
+LABEL_14:
+  }
+
+  return v6;
+}
+
 - (id)lastUtteranceForMe:(BOOL)me withText:(id)text
 {
   textCopy = text;
@@ -623,7 +691,7 @@ void __47__RTTConversation_lastUtteranceForMe_withText___block_invoke(uint64_t a
 void __54__RTTConversation_lastUtteranceForMe_isTranscription___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   v7 = a2;
-  if (*(a1 + 40) == [v7 isMe] && *(a1 + 41) == objc_msgSend(v7, "isTranscription"))
+  if (__PAIR64__(*(a1 + 41), *(a1 + 40)) == __PAIR64__([v7 isTranscription], objc_msgSend(v7, "isMe")))
   {
     objc_storeStrong((*(*(a1 + 32) + 8) + 40), a2);
     *a4 = 1;
@@ -647,7 +715,7 @@ void __54__RTTConversation_lastUtteranceForMe_isTranscription___block_invoke(uin
 uint64_t __59__RTTConversation_lastUtteranceIndexForMe_isTranscription___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   v6 = a2;
-  if (*(a1 + 32) == [v6 isMe] && *(a1 + 33) == objc_msgSend(v6, "isTranscription"))
+  if (__PAIR64__(*(a1 + 33), *(a1 + 32)) == __PAIR64__([v6 isTranscription], objc_msgSend(v6, "isMe")))
   {
     v7 = 1;
     *a4 = 1;

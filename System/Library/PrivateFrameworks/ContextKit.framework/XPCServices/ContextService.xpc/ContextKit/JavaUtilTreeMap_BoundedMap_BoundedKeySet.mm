@@ -10,14 +10,17 @@
 - (id)first;
 - (id)floorWithId:(id)id;
 - (id)headSetWithId:(id)id;
+- (id)headSetWithId:(id)id withBoolean:(BOOL)boolean;
 - (id)higherWithId:(id)id;
 - (id)iterator;
 - (id)last;
 - (id)lowerWithId:(id)id;
 - (id)pollFirst;
 - (id)pollLast;
+- (id)subSetWithId:(id)id withBoolean:(BOOL)boolean withId:(id)withId withBoolean:(BOOL)withBoolean;
 - (id)subSetWithId:(id)id withId:(id)withId;
 - (id)tailSetWithId:(id)id;
+- (id)tailSetWithId:(id)id withBoolean:(BOOL)boolean;
 - (int)size;
 - (unint64_t)countByEnumeratingWithState:(id *)state objects:(id *)objects count:(unint64_t)count;
 - (void)__javaClone;
@@ -156,9 +159,31 @@
   return [Weak comparator];
 }
 
+- (id)subSetWithId:(id)id withBoolean:(BOOL)boolean withId:(id)withId withBoolean:(BOOL)withBoolean
+{
+  v6 = [objc_loadWeak(&self->this$0_) subMapWithId:id withBoolean:boolean withId:withId withBoolean:withBoolean];
+  if (!v6)
+  {
+    JreThrowNullPointerException();
+  }
+
+  return [v6 navigableKeySet];
+}
+
 - (id)subSetWithId:(id)id withId:(id)withId
 {
   v4 = [objc_loadWeak(&self->this$0_) subMapWithId:id withId:withId];
+  if (!v4)
+  {
+    JreThrowNullPointerException();
+  }
+
+  return [v4 navigableKeySet];
+}
+
+- (id)headSetWithId:(id)id withBoolean:(BOOL)boolean
+{
+  v4 = [objc_loadWeak(&self->this$0_) headMapWithId:id withBoolean:boolean];
   if (!v4)
   {
     JreThrowNullPointerException();
@@ -176,6 +201,17 @@
   }
 
   return [v3 navigableKeySet];
+}
+
+- (id)tailSetWithId:(id)id withBoolean:(BOOL)boolean
+{
+  v4 = [objc_loadWeak(&self->this$0_) tailMapWithId:id withBoolean:boolean];
+  if (!v4)
+  {
+    JreThrowNullPointerException();
+  }
+
+  return [v4 navigableKeySet];
 }
 
 - (id)tailSetWithId:(id)id

@@ -27,19 +27,19 @@
 - (TPPageController)initWithDocumentRoot:(id)root
 {
   rootCopy = root;
-  v23.receiver = self;
-  v23.super_class = TPPageController;
-  v5 = [(TPPageController *)&v23 init];
+  v30.receiver = self;
+  v30.super_class = TPPageController;
+  v5 = [(TPPageController *)&v30 init];
   v6 = v5;
   if (v5)
   {
     objc_storeWeak(&v5->_documentRoot, rootCopy);
     v7 = objc_alloc(MEMORY[0x277D80FA0]);
     WeakRetained = objc_loadWeakRetained(&v6->_documentRoot);
-    v14 = objc_msgSend_bodyStorage(WeakRetained, v9, v10, v11, v12, v13);
-    v20 = objc_msgSend_initWithStorage_(v7, v15, v16, v17, v18, v19, v14);
+    v18 = objc_msgSend_bodyStorage(WeakRetained, v9, v14, v15, v16, v17, v10, v11, v12, v13);
+    v27 = objc_msgSend_initWithStorage_(v7, v19, v23, v24, v25, v26, v18, v20, v21, v22);
     bodyTopicNumbers = v6->_bodyTopicNumbers;
-    v6->_bodyTopicNumbers = v20;
+    v6->_bodyTopicNumbers = v27;
   }
 
   return v6;
@@ -47,10 +47,10 @@
 
 - (void)dealloc
 {
-  objc_msgSend_teardown(self, a2, v2, v3, v4, v5);
-  v7.receiver = self;
-  v7.super_class = TPPageController;
-  [(TPPageController *)&v7 dealloc];
+  objc_msgSend_teardown(self, a2, v6, v7, v8, v9, v2, v3, v4, v5);
+  v11.receiver = self;
+  v11.super_class = TPPageController;
+  [(TPPageController *)&v11 dealloc];
 }
 
 - (void)teardown
@@ -62,169 +62,169 @@
 
 - (void)paginateThroughPageIndex:(unint64_t)index forLayoutController:(id)controller
 {
-  v8 = MEMORY[0x277D81150];
-  v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v4, v5, v6, v7, "[TPPageController paginateThroughPageIndex:forLayoutController:]", controller);
-  v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, v11, v12, v13, v14, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageController.m");
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v8, v16, v17, v18, v19, v20, v9, v15, 41, 0, "subclass should override");
+  v10 = MEMORY[0x277D81150];
+  v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v6, v7, v8, v9, "[TPPageController paginateThroughPageIndex:forLayoutController:]", controller, v4, v5);
+  v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, v16, v17, v18, v19, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageController.m", v13, v14, v15);
+  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v10, v21, v22, v23, v24, v25, v11, v20, 41, 0, "subclass should override");
 
-  v26 = MEMORY[0x277D81150];
+  v35 = MEMORY[0x277D81150];
 
-  objc_msgSend_logFullBacktrace(v26, v21, v22, v23, v24, v25);
+  objc_msgSend_logFullBacktrace(v35, v26, v31, v32, v33, v34, v27, v28, v29, v30);
 }
 
 - (_NSRange)bodyRangeForPageIndex:(unint64_t)index forcePagination:(BOOL)pagination
 {
-  v8 = MEMORY[0x277D81150];
-  v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v4, v5, v6, v7, "[TPPageController bodyRangeForPageIndex:forcePagination:]", pagination);
-  v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, v11, v12, v13, v14, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageController.m");
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v8, v16, v17, v18, v19, v20, v9, v15, 45, 0, "subclass should override");
+  v10 = MEMORY[0x277D81150];
+  v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v6, v7, v8, v9, "[TPPageController bodyRangeForPageIndex:forcePagination:]", pagination, v4, v5);
+  v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, v16, v17, v18, v19, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageController.m", v13, v14, v15);
+  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v10, v21, v22, v23, v24, v25, v11, v20, 45, 0, "subclass should override");
 
-  objc_msgSend_logFullBacktrace(MEMORY[0x277D81150], v21, v22, v23, v24, v25);
-  v26 = *MEMORY[0x277D81490];
-  v27 = *(MEMORY[0x277D81490] + 8);
-  result.length = v27;
-  result.location = v26;
+  objc_msgSend_logFullBacktrace(MEMORY[0x277D81150], v26, v31, v32, v33, v34, v27, v28, v29, v30);
+  v35 = *MEMORY[0x277D81490];
+  v36 = *(MEMORY[0x277D81490] + 8);
+  result.length = v36;
+  result.location = v35;
   return result;
 }
 
 - (_NSRange)footnoteLayoutRangeForPageIndex:(unint64_t)index forcePagination:(BOOL)pagination
 {
-  v8 = MEMORY[0x277D81150];
-  v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v4, v5, v6, v7, "[TPPageController footnoteLayoutRangeForPageIndex:forcePagination:]", pagination);
-  v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, v11, v12, v13, v14, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageController.m");
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v8, v16, v17, v18, v19, v20, v9, v15, 50, 0, "subclass should override");
+  v10 = MEMORY[0x277D81150];
+  v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v6, v7, v8, v9, "[TPPageController footnoteLayoutRangeForPageIndex:forcePagination:]", pagination, v4, v5);
+  v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, v16, v17, v18, v19, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageController.m", v13, v14, v15);
+  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v10, v21, v22, v23, v24, v25, v11, v20, 50, 0, "subclass should override");
 
-  objc_msgSend_logFullBacktrace(MEMORY[0x277D81150], v21, v22, v23, v24, v25);
-  v26 = *MEMORY[0x277D81490];
-  v27 = *(MEMORY[0x277D81490] + 8);
-  result.length = v27;
-  result.location = v26;
+  objc_msgSend_logFullBacktrace(MEMORY[0x277D81150], v26, v31, v32, v33, v34, v27, v28, v29, v30);
+  v35 = *MEMORY[0x277D81490];
+  v36 = *(MEMORY[0x277D81490] + 8);
+  result.length = v36;
+  result.location = v35;
   return result;
 }
 
 - (_NSRange)documentPageRangeOfSectionIndex:(unint64_t)index forcePagination:(BOOL)pagination
 {
-  v8 = MEMORY[0x277D81150];
-  v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v4, v5, v6, v7, "[TPPageController documentPageRangeOfSectionIndex:forcePagination:]", pagination);
-  v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, v11, v12, v13, v14, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageController.m");
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v8, v16, v17, v18, v19, v20, v9, v15, 65, 0, "subclass should override");
+  v10 = MEMORY[0x277D81150];
+  v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v6, v7, v8, v9, "[TPPageController documentPageRangeOfSectionIndex:forcePagination:]", pagination, v4, v5);
+  v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, v16, v17, v18, v19, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageController.m", v13, v14, v15);
+  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v10, v21, v22, v23, v24, v25, v11, v20, 65, 0, "subclass should override");
 
-  objc_msgSend_logFullBacktrace(MEMORY[0x277D81150], v21, v22, v23, v24, v25);
-  v26 = *MEMORY[0x277D81490];
-  v27 = *(MEMORY[0x277D81490] + 8);
-  result.length = v27;
-  result.location = v26;
+  objc_msgSend_logFullBacktrace(MEMORY[0x277D81150], v26, v31, v32, v33, v34, v27, v28, v29, v30);
+  v35 = *MEMORY[0x277D81490];
+  v36 = *(MEMORY[0x277D81490] + 8);
+  result.length = v36;
+  result.location = v35;
   return result;
 }
 
 - (unint64_t)sectionIndexForPageIndex:(unint64_t)index forcePagination:(BOOL)pagination
 {
-  v8 = MEMORY[0x277D81150];
-  v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v4, v5, v6, v7, "[TPPageController sectionIndexForPageIndex:forcePagination:]", pagination);
-  v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, v11, v12, v13, v14, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageController.m");
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v8, v16, v17, v18, v19, v20, v9, v15, 70, 0, "subclass should override");
+  v10 = MEMORY[0x277D81150];
+  v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v6, v7, v8, v9, "[TPPageController sectionIndexForPageIndex:forcePagination:]", pagination, v4, v5);
+  v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, v16, v17, v18, v19, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageController.m", v13, v14, v15);
+  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v10, v21, v22, v23, v24, v25, v11, v20, 70, 0, "subclass should override");
 
-  objc_msgSend_logFullBacktrace(MEMORY[0x277D81150], v21, v22, v23, v24, v25);
+  objc_msgSend_logFullBacktrace(MEMORY[0x277D81150], v26, v31, v32, v33, v34, v27, v28, v29, v30);
   return 0;
 }
 
 - (id)pageInfoForPageIndex:(unint64_t)index
 {
-  v7 = MEMORY[0x277D81150];
-  v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v3, v4, v5, v6, "[TPPageController pageInfoForPageIndex:]");
-  v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, v10, v11, v12, v13, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageController.m");
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v15, v16, v17, v18, v19, v8, v14, 75, 0, "subclass should override");
+  v10 = MEMORY[0x277D81150];
+  v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v6, v7, v8, v9, "[TPPageController pageInfoForPageIndex:]", v3, v4, v5);
+  v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, v16, v17, v18, v19, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageController.m", v13, v14, v15);
+  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v10, v21, v22, v23, v24, v25, v11, v20, 75, 0, "subclass should override");
 
-  objc_msgSend_logFullBacktrace(MEMORY[0x277D81150], v20, v21, v22, v23, v24);
+  objc_msgSend_logFullBacktrace(MEMORY[0x277D81150], v26, v31, v32, v33, v34, v27, v28, v29, v30);
   return 0;
 }
 
 - (void)withPageLayoutAtIndex:(unint64_t)index preferredLayoutController:(id)controller executeBlock:(id)block
 {
-  v9 = MEMORY[0x277D81150];
-  v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v5, v6, v7, v8, "[TPPageController withPageLayoutAtIndex:preferredLayoutController:executeBlock:]", controller, block);
-  v16 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, v12, v13, v14, v15, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageController.m");
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v9, v17, v18, v19, v20, v21, v10, v16, 94, 0, "subclass should override");
+  v10 = MEMORY[0x277D81150];
+  v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v6, v7, v8, v9, "[TPPageController withPageLayoutAtIndex:preferredLayoutController:executeBlock:]", controller, block, v5);
+  v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, v16, v17, v18, v19, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageController.m", v13, v14, v15);
+  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v10, v21, v22, v23, v24, v25, v11, v20, 94, 0, "subclass should override");
 
-  v27 = MEMORY[0x277D81150];
+  v35 = MEMORY[0x277D81150];
 
-  objc_msgSend_logFullBacktrace(v27, v22, v23, v24, v25, v26);
+  objc_msgSend_logFullBacktrace(v35, v26, v31, v32, v33, v34, v27, v28, v29, v30);
 }
 
 - (void)accquireLockAndPerformAction:(id)action
 {
-  v7 = MEMORY[0x277D81150];
-  v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v3, v4, v5, v6, "[TPPageController accquireLockAndPerformAction:]");
-  v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, v10, v11, v12, v13, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageController.m");
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v15, v16, v17, v18, v19, v8, v14, 100, 0, "subclass should override");
+  v10 = MEMORY[0x277D81150];
+  v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v6, v7, v8, v9, "[TPPageController accquireLockAndPerformAction:]", v3, v4, v5);
+  v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, v16, v17, v18, v19, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageController.m", v13, v14, v15);
+  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v10, v21, v22, v23, v24, v25, v11, v20, 100, 0, "subclass should override");
 
-  v25 = MEMORY[0x277D81150];
+  v35 = MEMORY[0x277D81150];
 
-  objc_msgSend_logFullBacktrace(v25, v20, v21, v22, v23, v24);
+  objc_msgSend_logFullBacktrace(v35, v26, v31, v32, v33, v34, v27, v28, v29, v30);
 }
 
 - (BOOL)okToAnchorDrawable:(id)drawable toPageIndex:(unint64_t)index
 {
-  v8 = MEMORY[0x277D81150];
-  v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v4, v5, v6, v7, "[TPPageController okToAnchorDrawable:toPageIndex:]", index);
-  v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, v11, v12, v13, v14, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageController.m");
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v8, v16, v17, v18, v19, v20, v9, v15, 119, 0, "subclass should override");
+  v10 = MEMORY[0x277D81150];
+  v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v6, v7, v8, v9, "[TPPageController okToAnchorDrawable:toPageIndex:]", index, v4, v5);
+  v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, v16, v17, v18, v19, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageController.m", v13, v14, v15);
+  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v10, v21, v22, v23, v24, v25, v11, v20, 119, 0, "subclass should override");
 
-  objc_msgSend_logFullBacktrace(MEMORY[0x277D81150], v21, v22, v23, v24, v25);
+  objc_msgSend_logFullBacktrace(MEMORY[0x277D81150], v26, v31, v32, v33, v34, v27, v28, v29, v30);
   return 0;
 }
 
 - (BOOL)okToAnchorDrawables:(id)drawables toPageIndex:(unint64_t)index
 {
-  v8 = MEMORY[0x277D81150];
-  v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v4, v5, v6, v7, "[TPPageController okToAnchorDrawables:toPageIndex:]", index);
-  v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, v11, v12, v13, v14, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageController.m");
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v8, v16, v17, v18, v19, v20, v9, v15, 124, 0, "subclass should override");
+  v10 = MEMORY[0x277D81150];
+  v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v6, v7, v8, v9, "[TPPageController okToAnchorDrawables:toPageIndex:]", index, v4, v5);
+  v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, v16, v17, v18, v19, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageController.m", v13, v14, v15);
+  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v10, v21, v22, v23, v24, v25, v11, v20, 124, 0, "subclass should override");
 
-  objc_msgSend_logFullBacktrace(MEMORY[0x277D81150], v21, v22, v23, v24, v25);
+  objc_msgSend_logFullBacktrace(MEMORY[0x277D81150], v26, v31, v32, v33, v34, v27, v28, v29, v30);
   return 0;
 }
 
 - (unint64_t)pageIndexFromCanvasPoint:(CGPoint)point
 {
-  v5 = MEMORY[0x277D81150];
-  v6 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, point, *&point.y, v3, v4, "[TPPageController pageIndexFromCanvasPoint:]");
-  v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, v8, v9, v10, v11, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageController.m");
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v5, v13, v14, v15, v16, v17, v6, v12, 129, 0, "subclass should override");
+  v8 = MEMORY[0x277D81150];
+  v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, point, *&point.y, v6, v7, "[TPPageController pageIndexFromCanvasPoint:]", v3, v4, v5);
+  v18 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, v14, v15, v16, v17, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageController.m", v11, v12, v13);
+  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v8, v19, v20, v21, v22, v23, v9, v18, 129, 0, "subclass should override");
 
-  objc_msgSend_logFullBacktrace(MEMORY[0x277D81150], v18, v19, v20, v21, v22);
+  objc_msgSend_logFullBacktrace(MEMORY[0x277D81150], v24, v29, v30, v31, v32, v25, v26, v27, v28);
   return 0;
 }
 
 - (void)changeTrackingVisibilityDidChange
 {
-  v7 = objc_msgSend_documentRoot(self, a2, v2, v3, v4, v5);
-  v13 = objc_msgSend_accessController(v7, v8, v9, v10, v11, v12);
-  v19[0] = MEMORY[0x277D85DD0];
-  v14.n128_u64[0] = 3221225472;
-  v19[1] = 3221225472;
-  v19[2] = sub_275FD9EEC;
-  v19[3] = &unk_27A6A8648;
-  v19[4] = self;
-  objc_msgSend_performWrite_(v13, v15, v14, v16, v17, v18, v19);
+  v11 = objc_msgSend_documentRoot(self, a2, v6, v7, v8, v9, v2, v3, v4, v5);
+  v21 = objc_msgSend_accessController(v11, v12, v17, v18, v19, v20, v13, v14, v15, v16);
+  v30[0] = MEMORY[0x277D85DD0];
+  v22.n128_u64[0] = 3221225472;
+  v30[1] = 3221225472;
+  v30[2] = sub_275FD9EEC;
+  v30[3] = &unk_27A6A8648;
+  v30[4] = self;
+  objc_msgSend_performWrite_(v21, v23, v22, v27, v28, v29, v30, v24, v25, v26);
 }
 
 - (int64_t)nominalFootnoteKind
 {
   WeakRetained = objc_loadWeakRetained(&self->_documentRoot);
-  v8 = objc_msgSend_settings(WeakRetained, v3, v4, v5, v6, v7);
-  v14 = objc_msgSend_footnoteKind(v8, v9, v10, v11, v12, v13);
+  v12 = objc_msgSend_settings(WeakRetained, v3, v8, v9, v10, v11, v4, v5, v6, v7);
+  v22 = objc_msgSend_footnoteKind(v12, v13, v18, v19, v20, v21, v14, v15, v16, v17);
 
-  return v14;
+  return v22;
 }
 
 - (int64_t)nominalFootnoteNumbering
 {
   WeakRetained = objc_loadWeakRetained(&self->_documentRoot);
-  v8 = objc_msgSend_settings(WeakRetained, v3, v4, v5, v6, v7);
-  v14 = objc_msgSend_footnoteNumbering(v8, v9, v10, v11, v12, v13);
+  v12 = objc_msgSend_settings(WeakRetained, v3, v8, v9, v10, v11, v4, v5, v6, v7);
+  v22 = objc_msgSend_footnoteNumbering(v12, v13, v18, v19, v20, v21, v14, v15, v16, v17);
 
-  return v14;
+  return v22;
 }
 
 - (id)markStringForFootnoteReferenceStorage:(id)storage ignoreDeletedFootnotes:(BOOL)footnotes forceDocumentEndnotes:(BOOL)endnotes
@@ -232,111 +232,111 @@
   footnotesCopy = footnotes;
   storageCopy = storage;
   objc_opt_class();
-  v14 = objc_msgSend_owningAttachment(storageCopy, v9, v10, v11, v12, v13);
-  v15 = TSUDynamicCast();
+  v18 = objc_msgSend_owningAttachment(storageCopy, v9, v14, v15, v16, v17, v10, v11, v12, v13);
+  v19 = TSUDynamicCast();
 
-  if (!v15)
+  if (!v19)
   {
-    v21 = MEMORY[0x277D81150];
-    v22 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v16, v17, v18, v19, v20, "[TPPageController markStringForFootnoteReferenceStorage:ignoreDeletedFootnotes:forceDocumentEndnotes:]");
-    v28 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v23, v24, v25, v26, v27, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageController.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v21, v29, v30, v31, v32, v33, v22, v28, 168, 0, "invalid nil value for '%{public}s'", "footnoteAttachment");
+    v29 = MEMORY[0x277D81150];
+    v30 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v20, v25, v26, v27, v28, "[TPPageController markStringForFootnoteReferenceStorage:ignoreDeletedFootnotes:forceDocumentEndnotes:]", v22, v23, v24);
+    v39 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v31, v35, v36, v37, v38, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageController.m", v32, v33, v34);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v29, v40, v41, v42, v43, v44, v30, v39, 168, 0, "invalid nil value for '%{public}s'", "footnoteAttachment");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v34, v35, v36, v37, v38);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v45, v50, v51, v52, v53, v46, v47, v48, v49);
   }
 
-  v39 = objc_msgSend_parentStorage(v15, v16, v17, v18, v19, v20);
+  v54 = objc_msgSend_parentStorage(v19, v20, v25, v26, v27, v28, v21, v22, v23, v24);
   WeakRetained = objc_loadWeakRetained(&self->_documentRoot);
-  v46 = objc_msgSend_bodyStorage(WeakRetained, v41, v42, v43, v44, v45);
+  v65 = objc_msgSend_bodyStorage(WeakRetained, v56, v61, v62, v63, v64, v57, v58, v59, v60);
 
-  if (v39 != v46)
+  if (v54 != v65)
   {
-    v52 = MEMORY[0x277D81150];
-    v53 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v47, v48, v49, v50, v51, "[TPPageController markStringForFootnoteReferenceStorage:ignoreDeletedFootnotes:forceDocumentEndnotes:]");
-    v59 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v54, v55, v56, v57, v58, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageController.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v52, v60, v61, v62, v63, v64, v53, v59, 170, 0, "Footnote reference attachment parent storage is not the body storage.");
+    v75 = MEMORY[0x277D81150];
+    v76 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v66, v71, v72, v73, v74, "[TPPageController markStringForFootnoteReferenceStorage:ignoreDeletedFootnotes:forceDocumentEndnotes:]", v68, v69, v70);
+    v85 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v77, v81, v82, v83, v84, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageController.m", v78, v79, v80);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v75, v86, v87, v88, v89, v90, v76, v85, 170, 0, "Footnote reference attachment parent storage is not the body storage.");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v65, v66, v67, v68, v69);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v91, v96, v97, v98, v99, v92, v93, v94, v95);
   }
 
-  v70 = objc_msgSend_customMarkString(v15, v47, v48, v49, v50, v51);
-  v76 = v70;
-  if (v70)
+  v100 = objc_msgSend_customMarkString(v19, v66, v71, v72, v73, v74, v67, v68, v69, v70);
+  v110 = v100;
+  if (v100)
   {
-    v77 = v70;
+    v111 = v100;
 LABEL_7:
-    v78 = v77;
+    v112 = v111;
     goto LABEL_8;
   }
 
   if (endnotes)
   {
-    v80 = objc_msgSend_p_autoNumberForStorage_ignoreDeletedFootnotes_footnoteKind_(self, v71, v72, v73, v74, v75, storageCopy, footnotesCopy, 1);
+    v114 = objc_msgSend_p_autoNumberForStorage_ignoreDeletedFootnotes_footnoteKind_(self, v101, v106, v107, v108, v109, storageCopy, footnotesCopy, 1, v105);
   }
 
   else
   {
-    v86 = objc_msgSend_nominalFootnoteKind(self, v71, v72, v73, v74, v75);
-    v80 = objc_msgSend_p_autoNumberForStorage_ignoreDeletedFootnotes_footnoteKind_(self, v87, v88, v89, v90, v91, storageCopy, footnotesCopy, v86);
+    v123 = objc_msgSend_nominalFootnoteKind(self, v101, v106, v107, v108, v109, v102, v103, v104, v105);
+    v114 = objc_msgSend_p_autoNumberForStorage_ignoreDeletedFootnotes_footnoteKind_(self, v124, v126, v127, v128, v129, storageCopy, footnotesCopy, v123, v125);
   }
 
-  if (v80 == 0x7FFFFFFFFFFFFFFFLL)
+  if (v114 == 0x7FFFFFFFFFFFFFFFLL)
   {
-    v92 = MEMORY[0x277D81150];
-    v93 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v81, v82, v83, v84, v85, "[TPPageController markStringForFootnoteReferenceStorage:ignoreDeletedFootnotes:forceDocumentEndnotes:]");
-    v99 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v94, v95, v96, v97, v98, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageController.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v92, v100, v101, v102, v103, v104, v93, v99, 177, 0, "Could not find the footnote auto number");
+    v130 = MEMORY[0x277D81150];
+    v131 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v115, v119, v120, v121, v122, "[TPPageController markStringForFootnoteReferenceStorage:ignoreDeletedFootnotes:forceDocumentEndnotes:]", v116, v117, v118);
+    v140 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v132, v136, v137, v138, v139, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageController.m", v133, v134, v135);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v130, v141, v142, v143, v144, v145, v131, v140, 177, 0, "Could not find the footnote auto number");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v105, v106, v107, v108, v109);
-    v78 = @"?";
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v146, v151, v152, v153, v154, v147, v148, v149, v150);
+    v112 = @"?";
     goto LABEL_8;
   }
 
-  v110 = v80;
-  v111 = objc_loadWeakRetained(&self->_documentRoot);
-  v117 = objc_msgSend_settings(v111, v112, v113, v114, v115, v116);
-  v123 = objc_msgSend_footnoteFormat(v117, v118, v119, v120, v121, v122);
+  v155 = v114;
+  v156 = objc_loadWeakRetained(&self->_documentRoot);
+  v166 = objc_msgSend_settings(v156, v157, v162, v163, v164, v165, v158, v159, v160, v161);
+  v176 = objc_msgSend_footnoteFormat(v166, v167, v172, v173, v174, v175, v168, v169, v170, v171);
 
-  switch(v123)
+  switch(v176)
   {
     case 1:
-      objc_msgSend_tswp_stringForValue_withListNumberFormat_(MEMORY[0x277CCACA8], v124, v125, v126, v127, v128, v110, 67);
+      objc_msgSend_tswp_stringForValue_withListNumberFormat_(MEMORY[0x277CCACA8], v177, v181, v182, v183, v184, v155, 67, v179, v180);
       goto LABEL_22;
     case 2:
-      objc_msgSend_tswp_stringForValue_withListNumberFormat_(MEMORY[0x277CCACA8], v124, v125, v126, v127, v128, v110, 66);
-      v77 = LABEL_22:;
+      objc_msgSend_tswp_stringForValue_withListNumberFormat_(MEMORY[0x277CCACA8], v177, v181, v182, v183, v184, v155, 66, v179, v180);
+      v111 = LABEL_22:;
       goto LABEL_7;
     case 5:
-      v77 = objc_msgSend_tswp_stringForValue_withPageNumberFormat_(MEMORY[0x277CCACA8], v124, v125, v126, v127, v128, v110, 5);
+      v111 = objc_msgSend_tswp_stringForValue_withPageNumberFormat_(MEMORY[0x277CCACA8], v177, v181, v182, v183, v184, v155, 5, v179, v180);
       goto LABEL_7;
   }
 
-  v129 = objc_msgSend_numberWithInteger_(MEMORY[0x277CCABB0], v124, v125, v126, v127, v128, v110);
-  v78 = objc_msgSend_stringValue(v129, v130, v131, v132, v133, v134);
+  v185 = objc_msgSend_numberWithInteger_(MEMORY[0x277CCABB0], v177, v181, v182, v183, v184, v155, v178, v179, v180);
+  v112 = objc_msgSend_stringValue(v185, v186, v191, v192, v193, v194, v187, v188, v189, v190);
 
 LABEL_8:
 
-  return v78;
+  return v112;
 }
 
 - (BOOL)textIsVerticalForFootnoteReferenceStorage:(id)storage
 {
   WeakRetained = objc_loadWeakRetained(&self->_documentRoot);
-  v9 = objc_msgSend_laysOutBodyVertically(WeakRetained, v4, v5, v6, v7, v8);
+  v13 = objc_msgSend_laysOutBodyVertically(WeakRetained, v4, v9, v10, v11, v12, v5, v6, v7, v8);
 
-  return v9;
+  return v13;
 }
 
 - (unint64_t)p_autoNumberForStorage:(id)storage ignoreDeletedFootnotes:(BOOL)footnotes footnoteKind:(int64_t)kind
 {
   storageCopy = storage;
-  v178 = objc_msgSend_nominalFootnoteNumbering(self, v7, v8, v9, v10, v11);
+  v260 = objc_msgSend_nominalFootnoteNumbering(self, v7, v12, v13, v14, v15, v8, v9, v10, v11);
   WeakRetained = objc_loadWeakRetained(&self->_documentRoot);
-  if (objc_msgSend_laysOutBodyVertically(WeakRetained, v13, v14, v15, v16, v17))
+  if (objc_msgSend_laysOutBodyVertically(WeakRetained, v17, v22, v23, v24, v25, v18, v19, v20, v21))
   {
-    v18 = objc_loadWeakRetained(&self->_documentRoot);
-    v24 = objc_msgSend_settings(v18, v19, v20, v21, v22, v23);
-    hasFacingPages = objc_msgSend_hasFacingPages(v24, v25, v26, v27, v28, v29);
+    v26 = objc_loadWeakRetained(&self->_documentRoot);
+    v36 = objc_msgSend_settings(v26, v27, v32, v33, v34, v35, v28, v29, v30, v31);
+    hasFacingPages = objc_msgSend_hasFacingPages(v36, v37, v42, v43, v44, v45, v38, v39, v40, v41);
   }
 
   else
@@ -344,36 +344,36 @@ LABEL_8:
     hasFacingPages = 0;
   }
 
-  v31 = objc_loadWeakRetained(&self->_documentRoot);
-  v37 = objc_msgSend_bodyStorage(v31, v32, v33, v34, v35, v36);
-  v43 = objc_msgSend_footnoteCount(v37, v38, v39, v40, v41, v42);
+  v47 = objc_loadWeakRetained(&self->_documentRoot);
+  v57 = objc_msgSend_bodyStorage(v47, v48, v53, v54, v55, v56, v49, v50, v51, v52);
+  v67 = objc_msgSend_footnoteCount(v57, v58, v63, v64, v65, v66, v59, v60, v61, v62);
 
-  if (!v43)
+  if (!v67)
   {
 LABEL_44:
-    v49 = 0x7FFFFFFFFFFFFFFFLL;
+    v73 = 0x7FFFFFFFFFFFFFFFLL;
     goto LABEL_45;
   }
 
-  v176 = hasFacingPages;
-  v44 = 0;
-  v46 = kind != 1 && v178 != 0;
-  v48 = kind == 2 || v178 == 2;
-  v180 = v48;
-  v181 = v46;
-  v49 = 1;
-  v177 = 0x7FFFFFFFFFFFFFFFLL;
-  v179 = 0x7FFFFFFFFFFFFFFFLL;
+  v258 = hasFacingPages;
+  v68 = 0;
+  v70 = kind != 1 && v260 != 0;
+  v72 = kind == 2 || v260 == 2;
+  v262 = v72;
+  v263 = v70;
+  v73 = 1;
+  v259 = 0x7FFFFFFFFFFFFFFFLL;
+  v261 = 0x7FFFFFFFFFFFFFFFLL;
   while (1)
   {
-    v184 = 0x7FFFFFFFFFFFFFFFLL;
-    v50 = objc_loadWeakRetained(&self->_documentRoot);
-    v56 = objc_msgSend_bodyStorage(v50, v51, v52, v53, v54, v55);
-    v62 = objc_msgSend_footnoteAtFootnoteIndex_outCharIndex_(v56, v57, v58, v59, v60, v61, v44, &v184);
+    v266 = 0x7FFFFFFFFFFFFFFFLL;
+    v74 = objc_loadWeakRetained(&self->_documentRoot);
+    v84 = objc_msgSend_bodyStorage(v74, v75, v80, v81, v82, v83, v76, v77, v78, v79);
+    v92 = objc_msgSend_footnoteAtFootnoteIndex_outCharIndex_(v84, v85, v88, v89, v90, v91, v68, &v266, v86, v87);
 
-    v63 = objc_loadWeakRetained(&self->_documentRoot);
-    v69 = objc_msgSend_bodyStorage(v63, v64, v65, v66, v67, v68);
-    if (objc_msgSend_hasHiddenTextAtCharIndex_(v69, v70, v71, v72, v73, v74, v184))
+    v93 = objc_loadWeakRetained(&self->_documentRoot);
+    v103 = objc_msgSend_bodyStorage(v93, v94, v99, v100, v101, v102, v95, v96, v97, v98);
+    if (objc_msgSend_hasHiddenTextAtCharIndex_(v103, v104, v108, v109, v110, v111, v266, v105, v106, v107))
     {
 
       goto LABEL_43;
@@ -384,13 +384,13 @@ LABEL_44:
       break;
     }
 
-    v75 = objc_loadWeakRetained(&self->_documentRoot);
-    v81 = objc_msgSend_bodyStorage(v75, v76, v77, v78, v79, v80);
-    hasDeletedTextAtCharIndex_range = objc_msgSend_hasDeletedTextAtCharIndex_range_(v81, v82, v83, v84, v85, v86, v184, 0);
+    v112 = objc_loadWeakRetained(&self->_documentRoot);
+    v122 = objc_msgSend_bodyStorage(v112, v113, v118, v119, v120, v121, v114, v115, v116, v117);
+    hasDeletedTextAtCharIndex_range = objc_msgSend_hasDeletedTextAtCharIndex_range_(v122, v123, v126, v127, v128, v129, v266, 0, v124, v125);
 
     if ((hasDeletedTextAtCharIndex_range & 1) == 0)
     {
-      if (v62)
+      if (v92)
       {
         goto LABEL_23;
       }
@@ -400,103 +400,103 @@ LABEL_44:
 
 LABEL_43:
 
-    if (v43 == ++v44)
+    if (v67 == ++v68)
     {
       goto LABEL_44;
     }
   }
 
-  if (v62)
+  if (v92)
   {
     goto LABEL_23;
   }
 
 LABEL_31:
-  v124 = MEMORY[0x277D81150];
-  v125 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v88, v89, v90, v91, v92, "[TPPageController p_autoNumberForStorage:ignoreDeletedFootnotes:footnoteKind:]");
-  v131 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v126, v127, v128, v129, v130, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageController.m");
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v124, v132, v133, v134, v135, v136, v125, v131, 235, 0, "Failed to find footnote attachment");
+  v185 = MEMORY[0x277D81150];
+  v186 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v131, v136, v137, v138, v139, "[TPPageController p_autoNumberForStorage:ignoreDeletedFootnotes:footnoteKind:]", v133, v134, v135);
+  v195 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v187, v191, v192, v193, v194, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageController.m", v188, v189, v190);
+  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v185, v196, v197, v198, v199, v200, v186, v195, 235, 0, "Failed to find footnote attachment");
 
-  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v137, v138, v139, v140, v141);
+  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v201, v206, v207, v208, v209, v202, v203, v204, v205);
 LABEL_23:
-  if (v184 == 0x7FFFFFFFFFFFFFFFLL)
+  if (v266 == 0x7FFFFFFFFFFFFFFFLL)
   {
-    v93 = MEMORY[0x277D81150];
-    v94 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v88, v89, v90, v91, v92, "[TPPageController p_autoNumberForStorage:ignoreDeletedFootnotes:footnoteKind:]");
-    v100 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v95, v96, v97, v98, v99, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageController.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v93, v101, v102, v103, v104, v105, v94, v100, 236, 0, "footnote char index should not be NSNotFound");
+    v140 = MEMORY[0x277D81150];
+    v141 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v131, v136, v137, v138, v139, "[TPPageController p_autoNumberForStorage:ignoreDeletedFootnotes:footnoteKind:]", v133, v134, v135);
+    v150 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v142, v146, v147, v148, v149, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageController.m", v143, v144, v145);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v140, v151, v152, v153, v154, v155, v141, v150, 236, 0, "footnote char index should not be NSNotFound");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v106, v107, v108, v109, v110);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v156, v161, v162, v163, v164, v157, v158, v159, v160);
   }
 
-  if (v181)
+  if (v263)
   {
-    if (v180)
+    if (v262)
     {
-      v111 = objc_loadWeakRetained(&self->_documentRoot);
-      v117 = objc_msgSend_bodyStorage(v111, v112, v113, v114, v115, v116);
-      v123 = objc_msgSend_sectionIndexForCharIndex_(v117, v118, v119, v120, v121, v122, v184);
+      v165 = objc_loadWeakRetained(&self->_documentRoot);
+      v175 = objc_msgSend_bodyStorage(v165, v166, v171, v172, v173, v174, v167, v168, v169, v170);
+      v184 = objc_msgSend_sectionIndexForCharIndex_(v175, v176, v180, v181, v182, v183, v266, v177, v178, v179);
 
-      if (v123 != v179)
+      if (v184 != v261)
       {
-        v49 = 1;
+        v73 = 1;
       }
 
-      v179 = v123;
+      v261 = v184;
     }
 
-    else if (v178 == 1)
+    else if (v260 == 1)
     {
-      PageIndexNeedingLayout = objc_msgSend_pageIndexForCharIndex_forcePagination_(self, v88, v89, v90, v91, v92, v184, 0);
+      PageIndexNeedingLayout = objc_msgSend_pageIndexForCharIndex_forcePagination_(self, v131, v136, v137, v138, v139, v266, 0, v134, v135);
       if (PageIndexNeedingLayout == 0x7FFFFFFFFFFFFFFFLL)
       {
-        PageIndexNeedingLayout = objc_msgSend_firstPageIndexNeedingLayout(self, v88, v89, v90, v91, v92);
+        PageIndexNeedingLayout = objc_msgSend_firstPageIndexNeedingLayout(self, v131, v136, v137, v138, v139, v132, v133, v134, v135);
       }
 
-      v143 = v177;
-      if (PageIndexNeedingLayout != v177)
+      v211 = v259;
+      if (PageIndexNeedingLayout != v259)
       {
-        v144 = (PageIndexNeedingLayout & 1) == 0;
-        if ((v176 & v144) == 0)
+        v212 = (PageIndexNeedingLayout & 1) == 0;
+        if ((v258 & v212) == 0)
         {
-          v143 = PageIndexNeedingLayout;
+          v211 = PageIndexNeedingLayout;
         }
 
-        v177 = v143;
-        if ((v176 & v144) == 0)
+        v259 = v211;
+        if ((v258 & v212) == 0)
         {
-          v49 = 1;
+          v73 = 1;
         }
       }
     }
   }
 
-  v145 = objc_msgSend_containedStorage(v62, v88, v89, v90, v91, v92);
+  v213 = objc_msgSend_containedStorage(v92, v131, v136, v137, v138, v139, v132, v133, v134, v135);
 
-  v151 = objc_msgSend_customMarkString(v62, v146, v147, v148, v149, v150);
+  v223 = objc_msgSend_customMarkString(v92, v214, v219, v220, v221, v222, v215, v216, v217, v218);
 
-  if (v145 != storageCopy)
+  if (v213 != storageCopy)
   {
-    if (!v151)
+    if (!v223)
     {
-      ++v49;
+      ++v73;
     }
 
     goto LABEL_43;
   }
 
-  if (v151)
+  if (v223)
   {
-    v158 = MEMORY[0x277D81150];
-    v159 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v152, v153, v154, v155, v156, "[TPPageController p_autoNumberForStorage:ignoreDeletedFootnotes:footnoteKind:]");
-    v165 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v160, v161, v162, v163, v164, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageController.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v158, v166, v167, v168, v169, v170, v159, v165, 268, 0, "Tried to get the autonumber of a custom mark footnote");
+    v233 = MEMORY[0x277D81150];
+    v234 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v224, v228, v229, v230, v231, "[TPPageController p_autoNumberForStorage:ignoreDeletedFootnotes:footnoteKind:]", v225, v226, v227);
+    v243 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v235, v239, v240, v241, v242, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageController.m", v236, v237, v238);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v233, v244, v245, v246, v247, v248, v234, v243, 268, 0, "Tried to get the autonumber of a custom mark footnote");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v171, v172, v173, v174, v175);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v249, v254, v255, v256, v257, v250, v251, v252, v253);
   }
 
 LABEL_45:
-  return v49;
+  return v73;
 }
 
 - (TPDocumentRoot)documentRoot

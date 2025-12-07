@@ -13,6 +13,7 @@
 - (void)_updateMajorHourTickAtIndex:(unint64_t)index forStyle:(unint64_t)style;
 - (void)setLightSpillCoordinator:(id)coordinator;
 - (void)setPalette:(id)palette;
+- (void)setShowingStatus:(BOOL)status;
 - (void)setStyle:(unint64_t)style;
 @end
 
@@ -78,6 +79,26 @@
   objc_storeStrong(&self->_palette, palette);
 
   [(NTKGladiusDialView *)self _applyPalette];
+}
+
+- (void)setShowingStatus:(BOOL)status
+{
+  if (self->_showingStatus != status)
+  {
+    statusCopy = status;
+    self->_showingStatus = status;
+    if (self->_style)
+    {
+      firstObject = [(NSMutableArray *)self->_minorHourLayers firstObject];
+      [firstObject setHidden:statusCopy];
+    }
+
+    else
+    {
+
+      [(NTKGladiusDialView *)self _updateMajorHourTickAtIndex:0 forStyle:status];
+    }
+  }
 }
 
 - (void)setLightSpillCoordinator:(id)coordinator
@@ -319,7 +340,7 @@
     v17 = 0u;
     if (v11)
     {
-      [v11 affineTransform];
+      objc_msgSend_affineTransform(v11);
     }
 
     v13 = *&CGAffineTransformIdentity.c;
@@ -372,101 +393,93 @@
 {
   minuteTickDay = [(NTKGladiusColorPalette *)self->_palette minuteTickDay];
   minuteTickNight = [(NTKGladiusColorPalette *)self->_palette minuteTickNight];
-  colorFraction = self->_colorFraction;
-  v6 = NTKInterpolateBetweenColors();
+  v5 = NTKInterpolateBetweenColors();
 
   minuteTickDay2 = [(NTKGladiusColorPalette *)self->_palette minuteTickDay];
   minuteTickStart = [(NTKGladiusColorPalette *)self->_palette minuteTickStart];
-  v9 = self->_colorFraction;
-  v60 = NTKInterpolateBetweenColors();
+  v52 = NTKInterpolateBetweenColors();
 
   minuteTickDay3 = [(NTKGladiusColorPalette *)self->_palette minuteTickDay];
   minuteTickEnd = [(NTKGladiusColorPalette *)self->_palette minuteTickEnd];
-  v12 = self->_colorFraction;
-  v13 = NTKInterpolateBetweenColors();
+  v10 = NTKInterpolateBetweenColors();
 
-  v71 = 0u;
-  v72 = 0u;
-  v69 = 0u;
-  v70 = 0u;
+  v63 = 0u;
+  v64 = 0u;
+  v61 = 0u;
+  v62 = 0u;
   selfCopy = self;
-  v14 = self->_minorMinuteLayers;
-  v15 = [(NSArray *)v14 countByEnumeratingWithState:&v69 objects:v76 count:16];
-  if (v15)
+  v11 = self->_minorMinuteLayers;
+  v12 = [(NSArray *)v11 countByEnumeratingWithState:&v61 objects:v68 count:16];
+  if (v12)
   {
-    v16 = v15;
-    v17 = *v70;
+    v13 = v12;
+    v14 = *v62;
     do
     {
-      for (i = 0; i != v16; i = i + 1)
+      for (i = 0; i != v13; i = i + 1)
       {
-        if (*v70 != v17)
+        if (*v62 != v14)
         {
-          objc_enumerationMutation(v14);
+          objc_enumerationMutation(v11);
         }
 
-        v19 = *(*(&v69 + 1) + 8 * i);
-        [v19 setBackgroundColor:{objc_msgSend(v6, "CGColor")}];
-        v75[0] = [v60 CGColor];
-        v75[1] = [v13 CGColor];
-        v20 = [NSArray arrayWithObjects:v75 count:2];
-        [v19 setColors:v20];
+        v16 = *(*(&v61 + 1) + 8 * i);
+        [v16 setBackgroundColor:{objc_msgSend(v5, "CGColor")}];
+        v67[0] = [v52 CGColor];
+        v67[1] = [v10 CGColor];
+        v17 = [NSArray arrayWithObjects:v67 count:2];
+        [v16 setColors:v17];
       }
 
-      v16 = [(NSArray *)v14 countByEnumeratingWithState:&v69 objects:v76 count:16];
+      v13 = [(NSArray *)v11 countByEnumeratingWithState:&v61 objects:v68 count:16];
     }
 
-    while (v16);
+    while (v13);
   }
 
   hourTickEndDay = [(NTKGladiusColorPalette *)selfCopy->_palette hourTickEndDay];
   hourTickEndNight = [(NTKGladiusColorPalette *)selfCopy->_palette hourTickEndNight];
-  v23 = selfCopy->_colorFraction;
-  v58 = NTKInterpolateBetweenColors();
+  v50 = NTKInterpolateBetweenColors();
 
-  v24 = +[UIColor clearColor];
+  v20 = +[UIColor clearColor];
   hourTickNight = [(NTKGladiusColorPalette *)selfCopy->_palette hourTickNight];
-  v26 = selfCopy->_colorFraction;
-  v59 = NTKInterpolateBetweenColors();
+  v51 = NTKInterpolateBetweenColors();
 
   hourTickEndDay2 = [(NTKGladiusColorPalette *)selfCopy->_palette hourTickEndDay];
   hourTickNight2 = [(NTKGladiusColorPalette *)selfCopy->_palette hourTickNight];
-  v29 = selfCopy->_colorFraction;
-  v30 = NTKInterpolateBetweenColors();
+  v24 = NTKInterpolateBetweenColors();
 
-  v31 = selfCopy->_colorFraction;
   CLKInterpolateBetweenFloatsClipped();
-  v55 = v30;
-  v32 = NTKColorByApplyingWhiteOverlay();
-  v65 = 0u;
-  v66 = 0u;
-  v67 = 0u;
-  v68 = 0u;
-  v33 = selfCopy->_minorHourLayers;
-  v34 = [(NSMutableArray *)v33 countByEnumeratingWithState:&v65 objects:v74 count:16];
-  if (v34)
+  v47 = v24;
+  v25 = NTKColorByApplyingWhiteOverlay();
+  v57 = 0u;
+  v58 = 0u;
+  v59 = 0u;
+  v60 = 0u;
+  v26 = selfCopy->_minorHourLayers;
+  v27 = [(NSMutableArray *)v26 countByEnumeratingWithState:&v57 objects:v66 count:16];
+  if (v27)
   {
-    v35 = v34;
-    v36 = *v66;
-    v37 = &NTKAllSignatureCircularTypes_ptr;
-    v57 = *v66;
+    v28 = v27;
+    v29 = *v58;
+    v30 = &NTKAllSignatureCircularTypes_ptr;
+    v49 = *v58;
     do
     {
-      for (j = 0; j != v35; j = j + 1)
+      for (j = 0; j != v28; j = j + 1)
       {
-        if (*v66 != v36)
+        if (*v58 != v29)
         {
-          objc_enumerationMutation(v33);
+          objc_enumerationMutation(v26);
         }
 
-        v39 = *(*(&v65 + 1) + 8 * j);
-        v40 = v37[220];
+        v32 = *(*(&v57 + 1) + 8 * j);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v41 = v32;
-          v42 = v39;
-          [v42 setContentsMultiplyColor:{objc_msgSend(v32, "CGColor")}];
+          v33 = v25;
+          v34 = v32;
+          [v34 setContentsMultiplyColor:{objc_msgSend(v25, "CGColor")}];
         }
 
         else
@@ -477,48 +490,48 @@
             continue;
           }
 
-          v43 = v59;
-          v44 = v13;
-          v45 = v32;
-          v46 = v37;
-          v47 = v33;
-          v48 = v39;
-          [v48 setBackgroundColor:{objc_msgSend(v59, "CGColor", v55)}];
-          v73[0] = [v58 CGColor];
-          v73[1] = [v58 CGColor];
-          v42 = [NSArray arrayWithObjects:v73 count:2];
-          [v48 setColors:v42];
+          v35 = v51;
+          v36 = v10;
+          v37 = v25;
+          v38 = v30;
+          v39 = v26;
+          v40 = v32;
+          [v40 setBackgroundColor:{objc_msgSend(v51, "CGColor", v47)}];
+          v65[0] = [v50 CGColor];
+          v65[1] = [v50 CGColor];
+          v34 = [NSArray arrayWithObjects:v65 count:2];
+          [v40 setColors:v34];
 
-          v33 = v47;
-          v37 = v46;
-          v32 = v45;
-          v13 = v44;
-          v36 = v57;
+          v26 = v39;
+          v30 = v38;
+          v25 = v37;
+          v10 = v36;
+          v29 = v49;
         }
       }
 
-      v35 = [(NSMutableArray *)v33 countByEnumeratingWithState:&v65 objects:v74 count:16];
+      v28 = [(NSMutableArray *)v26 countByEnumeratingWithState:&v57 objects:v66 count:16];
     }
 
-    while (v35);
+    while (v28);
   }
 
-  v49 = [NSMutableArray arrayWithCapacity:12];
+  v41 = [NSMutableArray arrayWithCapacity:12];
   majorHourLayers = selfCopy->_majorHourLayers;
-  v61[0] = _NSConcreteStackBlock;
-  v61[1] = 3221225472;
-  v61[2] = sub_7004;
-  v61[3] = &unk_20978;
-  v61[4] = selfCopy;
-  v62 = v49;
-  v63 = v59;
-  v64 = v58;
-  v51 = v58;
-  v52 = v59;
-  v53 = v49;
-  [(NSArray *)majorHourLayers enumerateObjectsUsingBlock:v61];
+  v53[0] = _NSConcreteStackBlock;
+  v53[1] = 3221225472;
+  v53[2] = sub_7004;
+  v53[3] = &unk_20978;
+  v53[4] = selfCopy;
+  v54 = v41;
+  v55 = v51;
+  v56 = v50;
+  v43 = v50;
+  v44 = v51;
+  v45 = v41;
+  [(NSArray *)majorHourLayers enumerateObjectsUsingBlock:v53];
   WeakRetained = objc_loadWeakRetained(&selfCopy->_lightSpillCoordinator);
-  [WeakRetained handleDialPaletteChangeWithHourStartColors:v53 minuteStartColor:v60 minuteEndColor:v13 hourEndColor:v51 hourTextColor:v32];
+  [WeakRetained handleDialPaletteChangeWithHourStartColors:v45 minuteStartColor:v52 minuteEndColor:v10 hourEndColor:v43 hourTextColor:v25];
 }
 
 + (double)minorMinuteAngleAtIndex:(int64_t)index device:(id)device

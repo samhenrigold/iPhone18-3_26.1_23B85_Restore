@@ -47,10 +47,10 @@
 
 - (BOOL)cleanupStepHasMore:(BOOL *)more deletedCount:(unint64_t *)count error:(id *)error
 {
-  v47 = *MEMORY[0x1E69E9840];
-  v41 = 0;
+  v46 = *MEMORY[0x1E69E9840];
+  v40 = 0;
   platformObject = [(CPLEngineStorage *)self platformObject];
-  v10 = [platformObject nextCleanupTaskScopeIndexOfType:&v41];
+  v10 = [platformObject nextCleanupTaskScopeIndexOfType:&v40];
 
   *count = 0;
   if (v10 != 0x7FFFFFFFFFFFFFFFLL)
@@ -66,37 +66,37 @@
       remainingStoragesToCleanup = self->_remainingStoragesToCleanup;
       self->_remainingStoragesToCleanup = v15;
 
-      v39 = 0u;
-      v40 = 0u;
-      v37 = 0u;
       v38 = 0u;
+      v39 = 0u;
+      v36 = 0u;
+      v37 = 0u;
       v17 = storages;
-      v18 = [v17 countByEnumeratingWithState:&v37 objects:v46 count:16];
+      v18 = [v17 countByEnumeratingWithState:&v36 objects:v45 count:16];
       if (v18)
       {
         v19 = v18;
-        v20 = *v38;
+        v20 = *v37;
         do
         {
           for (i = 0; i != v19; ++i)
           {
-            if (*v38 != v20)
+            if (*v37 != v20)
             {
               objc_enumerationMutation(v17);
             }
 
-            v22 = *(*(&v37 + 1) + 8 * i);
+            v22 = *(*(&v36 + 1) + 8 * i);
             if ([v22 isAlive])
             {
               scopeType = [v22 scopeType];
-              if (scopeType == v41)
+              if (scopeType == v40)
               {
                 [(NSMutableArray *)self->_remainingStoragesToCleanup addObject:v22];
               }
             }
           }
 
-          v19 = [v17 countByEnumeratingWithState:&v37 objects:v46 count:16];
+          v19 = [v17 countByEnumeratingWithState:&v36 objects:v45 count:16];
         }
 
         while (v19);
@@ -110,9 +110,9 @@
           currentCleanupScopeIndex = self->_currentCleanupScopeIndex;
           v26 = [(NSMutableArray *)self->_remainingStoragesToCleanup valueForKey:@"name"];
           *buf = 134218242;
-          v43 = currentCleanupScopeIndex;
-          v44 = 2114;
-          v45 = v26;
+          v42 = currentCleanupScopeIndex;
+          v43 = 2114;
+          v44 = v26;
           _os_log_impl(&dword_1DC05A000, v24, OS_LOG_TYPE_DEFAULT, "Will cleanup scope index %ld in %{public}@", buf, 0x16u);
         }
       }
@@ -122,17 +122,17 @@
     v28 = firstObject;
     if (firstObject)
     {
-      v36 = 0;
-      if (![firstObject deleteRecordsForScopeIndex:self->_currentCleanupScopeIndex maxCount:1000 deletedCount:&v36 error:error])
+      v35 = 0;
+      if (![firstObject deleteRecordsForScopeIndex:self->_currentCleanupScopeIndex maxCount:1000 deletedCount:&v35 error:error])
       {
         v12 = 0;
 LABEL_31:
 
-        goto LABEL_32;
+        return v12;
       }
 
-      v29 = v36;
-      *count = v36;
+      v29 = v35;
+      *count = v35;
       if (v29)
       {
         if ((_CPLSilentLogging & 1) == 0)
@@ -140,12 +140,12 @@ LABEL_31:
           v30 = __CPLStorageOSLogDomain_9089();
           if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
           {
-            v31 = v36;
+            v31 = v35;
             name = [v28 name];
             *buf = 134218242;
-            v43 = v31;
-            v44 = 2114;
-            v45 = name;
+            v42 = v31;
+            v43 = 2114;
+            v44 = name;
             _os_log_impl(&dword_1DC05A000, v30, OS_LOG_TYPE_DEFAULT, "Deleted %ld records in %{public}@", buf, 0x16u);
           }
         }
@@ -176,15 +176,12 @@ LABEL_31:
   self->_remainingStoragesToCleanup = 0;
 
   *more = 0;
-  v12 = 1;
-LABEL_32:
-  v34 = *MEMORY[0x1E69E9840];
-  return v12;
+  return 1;
 }
 
 - (BOOL)addCleanupTaskForScopeWithIndex:(int64_t)index scopeIdentifier:(id)identifier scopeType:(unint64_t)type error:(id *)error
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   platformObject = [(CPLEngineStorage *)self platformObject];
   v12 = [platformObject addCleanupTaskForScopeWithIndex:index scopeIdentifier:identifierCopy scopeType:type error:error];
@@ -197,20 +194,19 @@ LABEL_32:
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         v14 = [objc_opt_class() scopeTypeDescriptionForScopeType:type];
-        v17 = 138412802;
-        v18 = v14;
-        v19 = 2112;
-        v20 = identifierCopy;
-        v21 = 2048;
+        v16 = 138412802;
+        v17 = v14;
+        v18 = 2112;
+        v19 = identifierCopy;
+        v20 = 2048;
         indexCopy = index;
-        _os_log_impl(&dword_1DC05A000, v13, OS_LOG_TYPE_DEFAULT, "Scheduling cleanup of %@ for %@ as index %ld", &v17, 0x20u);
+        _os_log_impl(&dword_1DC05A000, v13, OS_LOG_TYPE_DEFAULT, "Scheduling cleanup of %@ for %@ as index %ld", &v16, 0x20u);
       }
     }
 
     self->_shouldRequestACleanupToScheduler = 1;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v12;
 }
 

@@ -7,7 +7,7 @@
 
 - (void)lookupMediaType:(int64_t)type withIdentifiers:(id)identifiers withCompletion:(id)completion
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   completionCopy = completion;
   v10 = objc_alloc(MEMORY[0x277CEE570]);
@@ -20,22 +20,20 @@
 
   if (type == 300)
   {
-    v22[0] = @"episodes";
-    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
+    v21[0] = @"episodes";
+    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
     [(AMSMediaTask *)self->_task setIncludedResultKeys:v16];
   }
 
   [(AMSMediaTask *)self->_task setItemIdentifiers:identifiersCopy];
   perform = [(AMSMediaTask *)self->_task perform];
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __72__WFMediaSessionManager_lookupMediaType_withIdentifiers_withCompletion___block_invoke;
-  v20[3] = &unk_278C196D0;
-  v21 = completionCopy;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __72__WFMediaSessionManager_lookupMediaType_withIdentifiers_withCompletion___block_invoke;
+  v19[3] = &unk_278C196D0;
+  v20 = completionCopy;
   v18 = completionCopy;
-  [perform addFinishBlock:v20];
-
-  v19 = *MEMORY[0x277D85DE8];
+  [perform addFinishBlock:v19];
 }
 
 void __72__WFMediaSessionManager_lookupMediaType_withIdentifiers_withCompletion___block_invoke(uint64_t a1, void *a2, void *a3)

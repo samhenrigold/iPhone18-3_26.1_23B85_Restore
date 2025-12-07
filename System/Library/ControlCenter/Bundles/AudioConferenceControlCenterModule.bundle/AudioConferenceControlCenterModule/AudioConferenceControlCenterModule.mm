@@ -222,9 +222,9 @@ LABEL_8:
   }
 }
 
-uint64_t sub_2350(uint64_t a1)
+uint64_t sub_2350(void *a1)
 {
-  v1 = *(*(a1 + 24) - 8);
+  v1 = *(a1[3] - 8);
   if ((*(v1 + 82) & 2) != 0)
   {
   }
@@ -244,12 +244,12 @@ void *sub_239C()
   return v2;
 }
 
-void sub_23FC(uint64_t a1, unint64_t *a2)
+void sub_23FC(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
   if (!*a2)
   {
     ForeignTypeMetadata = swift_getForeignTypeMetadata();
-    if (!v4)
+    if (!v5)
     {
       atomic_store(ForeignTypeMetadata, a2);
     }
@@ -324,7 +324,7 @@ LABEL_18:
   v84 = v12;
   v89 = v14;
   v90 = v3;
-  v83[5] = sub_19F68(0, &qword_34D30);
+  v83[5] = sub_19F68(0, &qword_34D30, NSNumber_ptr);
   v17 = sub_1F5E4();
 
   v18 = *(i + OBJC_IVAR____TtC34AudioConferenceControlCenterModule27AudioSettingsViewController_autoButton);
@@ -340,7 +340,7 @@ LABEL_18:
   v22 = sub_D7F8();
   v91 = v18;
   sub_1DC08(v20, v21 & 1, v22 & 1);
-  sub_184C0(&qword_34CF0);
+  sub_184C0(&qword_34CF0, &qword_22370);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_22300;
   v24 = *(i + OBJC_IVAR____TtC34AudioConferenceControlCenterModule27AudioSettingsViewController_standardButton);
@@ -377,7 +377,7 @@ LABEL_18:
     [v30 tag];
     isa = sub_1F624().super.super.isa;
     v96[0] = isa;
-    __chkstk_darwin();
+    __chkstk_darwin(isa);
     v83[2] = v96;
     v33 = v17;
     v34 = sub_30E8(sub_187D0, v83, v17);
@@ -621,7 +621,7 @@ LABEL_15:
   return v11 & 1;
 }
 
-id sub_3210()
+void *sub_3210()
 {
   v1 = v0;
   v2 = &swift_isaMask;
@@ -667,7 +667,7 @@ id sub_3210()
   {
     v6 = *&qword_35278 * 4.0 + 24.0;
 LABEL_6:
-    v109[0] = &_swiftEmptyArrayStorage;
+    v109[0] = _swiftEmptyArrayStorage;
     v7 = (*&stru_108.segname[(*v2 & *v1) + 16])();
     if (!v7)
     {
@@ -739,7 +739,7 @@ LABEL_59:
     v25 = [v24 topAnchor];
 
     v103 = [v23 constraintEqualToAnchor:v25 constant:10.0];
-    sub_184C0(&qword_34CF0);
+    sub_184C0(&qword_34CF0, &qword_22370);
     inited = swift_initStackObject();
     *(inited + 16) = xmmword_22310;
     v27 = [v18 trailingAnchor];
@@ -1010,7 +1010,7 @@ LABEL_36:
 
 LABEL_38:
 
-  return &_swiftEmptyArrayStorage;
+  return _swiftEmptyArrayStorage;
 }
 
 void sub_4260()
@@ -1032,12 +1032,12 @@ void sub_4260()
   {
     v5 = objc_opt_self();
     v2();
-    sub_19F68(0, &qword_34F68);
+    sub_19F68(0, &qword_34F68, NSLayoutConstraint_ptr);
     isa = sub_1F5D4().super.isa;
 
     [v5 deactivateConstraints:isa];
 
-    (*(&stru_158.reloff + (swift_isaMask & *v1)))(&_swiftEmptyArrayStorage);
+    (*(&stru_158.reloff + (swift_isaMask & *v1)))(_swiftEmptyArrayStorage);
   }
 
   v7 = sub_3210();
@@ -1052,7 +1052,7 @@ void sub_4260()
   v12(v15, 0);
   v13 = objc_opt_self();
   v2();
-  sub_19F68(0, &qword_34F68);
+  sub_19F68(0, &qword_34F68, NSLayoutConstraint_ptr);
   v14 = sub_1F5D4().super.isa;
 
   [v13 activateConstraints:v14];
@@ -1148,30 +1148,30 @@ uint64_t sub_46E0()
   return _swift_deallocObject(v0, 25, 7);
 }
 
-uint64_t sub_471C()
+uint64_t sub_471C(uint64_t a1)
 {
-  v2 = 0;
-  v3 = &v2;
-  v4 = 0x2020000000;
-  v0 = qword_351C0;
-  v5 = qword_351C0;
+  v3 = 0;
+  v4 = &v3;
+  v5 = 0x2020000000;
+  v1 = qword_351C0;
+  v6 = qword_351C0;
   if (!qword_351C0)
   {
-    v6 = *off_2CB80;
-    v7 = *off_2CB90;
-    v8 = 0;
-    v3[3] = _sl_dlopen();
-    qword_351C0 = v3[3];
-    v0 = v3[3];
+    v7 = *off_2CB80;
+    v8 = *off_2CB90;
+    v9 = 0;
+    v4[3] = _sl_dlopen();
+    qword_351C0 = v4[3];
+    v1 = v4[3];
   }
 
-  _Block_object_dispose(&v2, 8);
-  return v0;
+  _Block_object_dispose(&v3, 8);
+  return v1;
 }
 
-void sub_4830(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_4830(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1186,11 +1186,19 @@ uint64_t sub_4848(uint64_t a1)
 
 uint64_t sub_48E0()
 {
-  v0 = sub_471C();
+  v3 = 0;
+  v0 = sub_471C(&v3);
+  v1 = v3;
   if (!v0)
   {
-    v2 = abort_report_np();
-    free(v2);
+    v1 = abort_report_np("%s", v3);
+    goto LABEL_5;
+  }
+
+  if (v3)
+  {
+LABEL_5:
+    free(v1);
   }
 
   return v0;
@@ -1220,9 +1228,9 @@ id sub_493C()
   return v1;
 }
 
-void sub_4A04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_4A04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1239,8 +1247,8 @@ Class sub_4A1C(uint64_t a1)
 
   else
   {
-    v3 = sub_1EF74();
-    return sub_4A74(v3);
+    sub_1EF74();
+    return sub_4A74();
   }
 
   return result;
@@ -1270,9 +1278,9 @@ id sub_4A74()
   return v1;
 }
 
-void sub_4B3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_4B3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1289,8 +1297,8 @@ Class sub_4B54(uint64_t a1)
 
   else
   {
-    v3 = sub_1EF9C();
-    return sub_4BAC(v3);
+    sub_1EF9C();
+    return sub_4BAC();
   }
 
   return result;
@@ -1320,9 +1328,9 @@ id sub_4BAC()
   return v1;
 }
 
-void sub_4C74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_4C74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1561,7 +1569,7 @@ id sub_6F94(uint64_t a1)
   return [v2 layoutVideoConferenceSubviews];
 }
 
-uint64_t sub_7B90()
+uint64_t sub_7B90(uint64_t a1)
 {
   if (!qword_351E0)
   {
@@ -1593,14 +1601,14 @@ uint64_t sub_7C60()
   return v0;
 }
 
-void sub_7D10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_7D10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_7D28()
+uint64_t sub_7D28(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_351E0 = result;
@@ -1609,11 +1617,19 @@ uint64_t sub_7D28()
 
 void *sub_7D9C(uint64_t a1)
 {
-  v2 = sub_7B90();
+  v5 = 0;
+  v2 = sub_7B90(&v5);
+  v3 = v5;
   if (!v2)
   {
-    v4 = abort_report_np();
-    free(v4);
+    v3 = abort_report_np("%s", v5);
+    goto LABEL_5;
+  }
+
+  if (v5)
+  {
+LABEL_5:
+    free(v3);
   }
 
   result = dlsym(v2, "AVControlCenterMicrophoneModesModuleSetAutoEnabledForBundleID");
@@ -1622,10 +1638,11 @@ void *sub_7D9C(uint64_t a1)
   return result;
 }
 
-void sub_7E4C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_7E4C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0x1Cu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x1Cu);
 }
 
 void sub_7EAC(id a1)
@@ -1638,7 +1655,7 @@ void sub_7EAC(id a1)
 void sub_8674(void *a1)
 {
   v1 = a1;
-  v2 = sub_9F84();
+  v2 = sub_9F84(v1);
   if (v2)
   {
     v2(v1);
@@ -1646,32 +1663,33 @@ void sub_8674(void *a1)
 
   else
   {
-    v3 = sub_1EFEC();
+    sub_1EFEC();
     [(AudioEffectsManager *)v3 setupMicModeNotifications];
   }
 }
 
 id sub_88AC()
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x2020000000;
   v0 = qword_35210;
-  v8 = qword_35210;
+  v9 = qword_35210;
   if (!qword_35210)
   {
     v1 = sub_A0C0();
-    v6[3] = dlsym(v1, "AVControlCenterMicrophoneModesModuleAutoEnabledDidChangeNotification");
-    qword_35210 = v6[3];
-    v0 = v6[3];
+    v7[3] = dlsym(v1, "AVControlCenterMicrophoneModesModuleAutoEnabledDidChangeNotification");
+    qword_35210 = v7[3];
+    v0 = v7[3];
   }
 
-  _Block_object_dispose(&v5, 8);
+  _Block_object_dispose(&v6, 8);
   if (!v0)
   {
-    v4 = sub_1EFEC();
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    sub_1EFEC();
+    v5 = v4;
+    _Block_object_dispose(&v6, 8);
+    _Unwind_Resume(v5);
   }
 
   v2 = *v0;
@@ -1702,10 +1720,10 @@ id sub_8B3C(uint64_t a1)
           return [*(a1 + 40) updateVisuals];
         }
 
-        *v25 = 136446466;
-        *&v25[4] = "[AudioEffectsManager handleAVControlCenterNotification:]_block_invoke";
-        *&v25[12] = 1024;
-        *&v25[14] = 120;
+        *v26 = 136446466;
+        *&v26[4] = "[AudioEffectsManager handleAVControlCenterNotification:]_block_invoke";
+        *&v26[12] = 1024;
+        *&v26[14] = 120;
         v8 = " [DEBUG] %{public}s:%d _supportedMicModes didChange";
         v9 = 18;
         goto LABEL_14;
@@ -1732,10 +1750,17 @@ id sub_8B3C(uint64_t a1)
             v22 = sub_88AC();
             v23 = [v21 isEqualToString:v22];
 
-            if (v23 && sub_A11C() && sub_9F84())
+            if (v23)
             {
-              sub_8674(*(*(a1 + 40) + 16));
-              *(*(a1 + 40) + 11) = v24;
+              v24 = sub_A11C(0);
+              if (v24)
+              {
+                if (sub_9F84(v24))
+                {
+                  sub_8674(*(*(a1 + 40) + 16));
+                  *(*(a1 + 40) + 11) = v25;
+                }
+              }
             }
 
             return [*(a1 + 40) updateVisuals];
@@ -1756,16 +1781,16 @@ id sub_8B3C(uint64_t a1)
           }
 
           v20 = *(*(a1 + 40) + 8);
-          *v25 = 136446722;
-          *&v25[4] = "[AudioEffectsManager handleAVControlCenterNotification:]_block_invoke";
-          *&v25[12] = 1024;
-          *&v25[14] = 140;
-          *&v25[18] = 1024;
-          *&v25[20] = v20;
+          *v26 = 136446722;
+          *&v26[4] = "[AudioEffectsManager handleAVControlCenterNotification:]_block_invoke";
+          *&v26[12] = 1024;
+          *&v26[14] = 140;
+          *&v26[18] = 1024;
+          *&v26[20] = v20;
           v8 = " [DEBUG] %{public}s:%d _currentBypassMode=%d";
           v9 = 24;
 LABEL_14:
-          _os_log_impl(&dword_0, &_os_log_default, OS_LOG_TYPE_DEFAULT, v8, v25, v9);
+          _os_log_impl(&dword_0, &_os_log_default, OS_LOG_TYPE_DEFAULT, v8, v26, v9);
           return [*(a1 + 40) updateVisuals];
         }
       }
@@ -1784,12 +1809,12 @@ LABEL_14:
       }
 
       v15 = *(*(a1 + 40) + 40);
-      *v25 = 136446722;
-      *&v25[4] = "[AudioEffectsManager handleAVControlCenterNotification:]_block_invoke";
-      *&v25[12] = 1024;
-      *&v25[14] = 128;
-      *&v25[18] = 2048;
-      *&v25[20] = v15;
+      *v26 = 136446722;
+      *&v26[4] = "[AudioEffectsManager handleAVControlCenterNotification:]_block_invoke";
+      *&v26[12] = 1024;
+      *&v26[14] = 128;
+      *&v26[18] = 2048;
+      *&v26[20] = v15;
       v8 = " [DEBUG] %{public}s:%d currentMicMode=%zu";
       v9 = 28;
       goto LABEL_14;
@@ -1799,28 +1824,28 @@ LABEL_14:
   return result;
 }
 
-uint64_t sub_9F84()
+uint64_t sub_9F84(uint64_t a1)
 {
-  v3 = 0;
-  v4 = &v3;
-  v5 = 0x2020000000;
-  v0 = qword_35200;
-  v6 = qword_35200;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x2020000000;
+  v1 = qword_35200;
+  v7 = qword_35200;
   if (!qword_35200)
   {
-    v1 = sub_A0C0();
-    v4[3] = dlsym(v1, "AVControlCenterMicrophoneModesModuleIsAutoEnabledForBundleID");
-    qword_35200 = v4[3];
-    v0 = v4[3];
+    v2 = sub_A0C0();
+    v5[3] = dlsym(v2, "AVControlCenterMicrophoneModesModuleIsAutoEnabledForBundleID");
+    qword_35200 = v5[3];
+    v1 = v5[3];
   }
 
-  _Block_object_dispose(&v3, 8);
-  return v0;
+  _Block_object_dispose(&v4, 8);
+  return v1;
 }
 
-void sub_A058(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_A058(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1836,17 +1861,25 @@ void *sub_A070(uint64_t a1)
 
 uint64_t sub_A0C0()
 {
-  v0 = sub_A11C();
+  v3 = 0;
+  v0 = sub_A11C(&v3);
+  v1 = v3;
   if (!v0)
   {
-    v2 = abort_report_np();
-    free(v2);
+    v1 = abort_report_np("%s", v3);
+    goto LABEL_5;
+  }
+
+  if (v3)
+  {
+LABEL_5:
+    free(v1);
   }
 
   return v0;
 }
 
-uint64_t sub_A11C()
+uint64_t sub_A11C(uint64_t a1)
 {
   if (!qword_35208)
   {
@@ -1856,7 +1889,7 @@ uint64_t sub_A11C()
   return qword_35208;
 }
 
-uint64_t sub_A1EC()
+uint64_t sub_A1EC(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_35208 = result;
@@ -1913,7 +1946,7 @@ void sub_AE10(uint64_t a1)
   [v2 setNeedsLayout];
 }
 
-uint64_t sub_C1A4()
+uint64_t sub_C1A4(uint64_t a1)
 {
   if (!qword_35220)
   {
@@ -1942,14 +1975,14 @@ uint64_t sub_C274()
   return v0;
 }
 
-void sub_C348(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_C348(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_C360()
+uint64_t sub_C360(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_35220 = result;
@@ -1967,11 +2000,19 @@ void *sub_C3D4(uint64_t a1)
 
 uint64_t sub_C424()
 {
-  v0 = sub_C1A4();
+  v3 = 0;
+  v0 = sub_C1A4(&v3);
+  v1 = v3;
   if (!v0)
   {
-    v2 = abort_report_np();
-    free(v2);
+    v1 = abort_report_np("%s", v3);
+    goto LABEL_5;
+  }
+
+  if (v3)
+  {
+LABEL_5:
+    free(v1);
   }
 
   return v0;
@@ -1996,9 +2037,9 @@ uint64_t sub_C480()
   return v0;
 }
 
-void sub_C554(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_C554(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2031,9 +2072,9 @@ uint64_t sub_C5BC()
   return v0;
 }
 
-void sub_C690(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_C690(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2066,9 +2107,9 @@ uint64_t sub_C6F8()
   return v0;
 }
 
-void sub_C7CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_C7CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2098,11 +2139,11 @@ Swift::Int sub_CB44()
   return sub_1F944();
 }
 
-Swift::Int sub_CBB8()
+Swift::Int sub_CBB8(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   sub_1F924();
-  sub_1F934(v1);
+  sub_1F934(v2);
   return sub_1F944();
 }
 
@@ -2145,7 +2186,7 @@ void sub_CC44(double a1, double a2)
   }
 }
 
-void (*sub_CDC8(uint64_t *a1))(void **a1, char a2)
+uint64_t (*sub_CDC8(uint64_t *a1))()
 {
   if (&_swift_coroFrameAlloc)
   {
@@ -2165,7 +2206,7 @@ void (*sub_CDC8(uint64_t *a1))(void **a1, char a2)
   return sub_CE50;
 }
 
-void sub_CE50(void **a1, char a2)
+void sub_CE50(void *a1, char a2)
 {
   v3 = *a1;
   swift_endAccess();
@@ -2473,7 +2514,7 @@ id sub_DCBC()
   return [v0 init];
 }
 
-void sub_DD04()
+void sub_DD04(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (qword_35280 != -1)
   {
@@ -2779,7 +2820,7 @@ void sub_EC60(uint64_t a1)
 
 uint64_t sub_EDA0()
 {
-  sub_184C0(&qword_34CF0);
+  sub_184C0(&qword_34CF0, &qword_22370);
   v1 = swift_allocObject();
   *(v1 + 16) = xmmword_222E0;
   *(v1 + 32) = (*&stru_1F8.segname[(swift_isaMask & *v0) + 16])();
@@ -2888,7 +2929,7 @@ void sub_F388()
   sub_10768();
 }
 
-uint64_t (*sub_F474(uint64_t a1))(uint64_t a1, char a2)
+uint64_t (*sub_F474(uint64_t a1))(uint64_t a1, uint64_t a2)
 {
   *(a1 + 24) = v1;
   swift_beginAccess();
@@ -2921,7 +2962,7 @@ void sub_F57C(uint64_t a1)
 
 uint64_t sub_F634()
 {
-  sub_184C0(&qword_34CF0);
+  sub_184C0(&qword_34CF0, &qword_22370);
   v1 = swift_allocObject();
   *(v1 + 16) = xmmword_222F0;
   v2 = *(v0 + OBJC_IVAR____TtC34AudioConferenceControlCenterModule27AudioSettingsViewController_autoButton);
@@ -3003,7 +3044,7 @@ LABEL_16:
 
 LABEL_17:
 
-  return &_swiftEmptyArrayStorage;
+  return _swiftEmptyArrayStorage;
 }
 
 double sub_F8E8()
@@ -3065,7 +3106,7 @@ uint64_t *sub_FBDC()
   return &qword_35B90;
 }
 
-uint64_t (*sub_FC2C(uint64_t a1))(uint64_t a1, char a2)
+uint64_t (*sub_FC2C(uint64_t a1))(uint64_t a1, uint64_t a2)
 {
   *(a1 + 24) = v1;
   swift_beginAccess();
@@ -3345,7 +3386,7 @@ void sub_10768()
     *(v5 + 4) = v7;
     *v6 = v7;
     _os_log_impl(&dword_0, v3, v4, "refreshCurrentApplication, context=%@", v5, 0xCu);
-    sub_19E00(v6, &qword_34D50);
+    sub_19E00(v6, &qword_34D50, &unk_22380);
   }
 
   v8 = (*&stru_248.segname[swift_isaMask & *v2])();
@@ -3365,7 +3406,7 @@ void sub_10768()
       *v13 = v9;
       v14 = v33;
       _os_log_impl(&dword_0, v10, v11, "setting module context on audio effects manager %@", v12, 0xCu);
-      sub_19E00(v13, &qword_34D50);
+      sub_19E00(v13, &qword_34D50, &unk_22380);
     }
 
     v15 = *(&stru_248.size + (swift_isaMask & *v2));
@@ -4617,7 +4658,7 @@ unint64_t sub_1377C(void *a1, uint64_t a2)
 {
   v3 = v2;
   [a1 setTranslatesAutoresizingMaskIntoConstraints:0];
-  sub_184C0(&qword_34CF0);
+  sub_184C0(&qword_34CF0, &qword_22370);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_22300;
   v7 = [a1 leadingAnchor];
@@ -4690,7 +4731,7 @@ LABEL_9:
     v24 = v16;
 LABEL_11:
     sub_17F88(v24);
-    return &_swiftEmptyArrayStorage;
+    return _swiftEmptyArrayStorage;
   }
 
   __break(1u);
@@ -4717,7 +4758,7 @@ void sub_13B28()
         v8 = [v7 constraintEqualToConstant:v6];
 
         (*&stru_158.segname[(swift_isaMask & *v0) + 16])(v8);
-        sub_184C0(&qword_34CF0);
+        sub_184C0(&qword_34CF0, &qword_22370);
         v9 = swift_allocObject();
         *(v9 + 16) = xmmword_222F0;
         v10 = [v3 leadingAnchor];
@@ -4995,7 +5036,7 @@ void sub_1488C(unint64_t a1)
     v46 = 0u;
     v47 = 0u;
 LABEL_17:
-    sub_19E00(&v46, &qword_34D38);
+    sub_19E00(&v46, &qword_34D38, &qword_22378);
 LABEL_18:
     v29 = sub_1F4D4();
     v30 = sub_1F644();
@@ -5036,7 +5077,7 @@ LABEL_18:
     goto LABEL_17;
   }
 
-  sub_19F68(0, &qword_34D40);
+  sub_19F68(0, &qword_34D40, CAEmitterLayer_ptr);
   if ((swift_dynamicCast() & 1) == 0)
   {
     goto LABEL_18;
@@ -5059,7 +5100,7 @@ LABEL_18:
     *v17 = v13;
     v19 = v13;
     _os_log_impl(&dword_0, v14, v15, "%s emitterLayer = %@", v16, 0x16u);
-    sub_19E00(v17, &qword_34D50);
+    sub_19E00(v17, &qword_34D50, &unk_22380);
 
     sub_2350(v18);
   }
@@ -5085,7 +5126,7 @@ LABEL_20:
   }
 
   v21 = v20;
-  sub_19F68(0, &qword_34D48);
+  sub_19F68(0, &qword_34D48, CAEmitterCell_ptr);
   sub_1F5E4();
 
   v22 = sub_1F4D4();
@@ -5145,7 +5186,7 @@ void sub_150BC(char a1)
     v29 = 0u;
     v30 = 0u;
 LABEL_19:
-    sub_19E00(&v29, &qword_34D38);
+    sub_19E00(&v29, &qword_34D38, &qword_22378);
 LABEL_20:
     if (qword_35250 == -1)
     {
@@ -5178,7 +5219,7 @@ LABEL_20:
     goto LABEL_19;
   }
 
-  sub_19F68(0, &qword_34D40);
+  sub_19F68(0, &qword_34D40, CAEmitterLayer_ptr);
   if ((swift_dynamicCast() & 1) == 0)
   {
     goto LABEL_20;
@@ -5212,7 +5253,7 @@ LABEL_20:
   }
 
   v9 = v8;
-  sub_19F68(0, &qword_34D48);
+  sub_19F68(0, &qword_34D48, CAEmitterCell_ptr);
   v10 = sub_1F5E4();
 
   if (v10 >> 62)
@@ -5387,7 +5428,7 @@ id sub_15654(uint64_t a1, uint64_t a2, void *a3)
   *&v4[v16] = v19;
   v20 = OBJC_IVAR____TtC34AudioConferenceControlCenterModule27AudioSettingsViewController_inputSelectionViewHeightConstraint;
   *&v4[v20] = [objc_allocWithZone(NSLayoutConstraint) init];
-  *&v4[OBJC_IVAR____TtC34AudioConferenceControlCenterModule27AudioSettingsViewController_currentConstraints] = &_swiftEmptyArrayStorage;
+  *&v4[OBJC_IVAR____TtC34AudioConferenceControlCenterModule27AudioSettingsViewController_currentConstraints] = _swiftEmptyArrayStorage;
   *&v4[OBJC_IVAR____TtC34AudioConferenceControlCenterModule27AudioSettingsViewController_currentMicInputCount] = -1;
   v4[OBJC_IVAR____TtC34AudioConferenceControlCenterModule27AudioSettingsViewController_isModuleVisible] = 0;
   v21 = OBJC_IVAR____TtC34AudioConferenceControlCenterModule27AudioSettingsViewController_micModesTopConstraint;
@@ -5494,7 +5535,7 @@ id sub_15AE8(void *a1)
   *&v2[v13] = v16;
   v17 = OBJC_IVAR____TtC34AudioConferenceControlCenterModule27AudioSettingsViewController_inputSelectionViewHeightConstraint;
   *&v2[v17] = [objc_allocWithZone(NSLayoutConstraint) init];
-  *&v2[OBJC_IVAR____TtC34AudioConferenceControlCenterModule27AudioSettingsViewController_currentConstraints] = &_swiftEmptyArrayStorage;
+  *&v2[OBJC_IVAR____TtC34AudioConferenceControlCenterModule27AudioSettingsViewController_currentConstraints] = _swiftEmptyArrayStorage;
   *&v2[OBJC_IVAR____TtC34AudioConferenceControlCenterModule27AudioSettingsViewController_currentMicInputCount] = -1;
   v2[OBJC_IVAR____TtC34AudioConferenceControlCenterModule27AudioSettingsViewController_isModuleVisible] = 0;
   v18 = OBJC_IVAR____TtC34AudioConferenceControlCenterModule27AudioSettingsViewController_micModesTopConstraint;
@@ -5720,29 +5761,29 @@ double sub_1687C()
   return result;
 }
 
-uint64_t sub_16990@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+uint64_t sub_16990@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t x8_0@<X8>)
 {
-  v4 = a3;
+  v5 = x8_0;
   if (*a1 != -1)
   {
     swift_once();
-    v4 = a3;
+    v5 = x8_0;
   }
 
-  return sub_19500(a2, v4);
+  return sub_19500(a2, v5);
 }
 
 id sub_169E8(int a1)
 {
   v2 = v1;
   v60 = a1;
-  v3 = sub_184C0(&qword_34D58);
+  v3 = sub_184C0(&qword_34D58, &unk_22A10);
   __chkstk_darwin(v3 - 8);
   v59 = &v50 - v4;
-  v5 = sub_184C0(&qword_34D60);
+  v5 = sub_184C0(&qword_34D60, &qword_22390);
   __chkstk_darwin(v5 - 8);
   v57 = &v50 - v6;
-  v7 = sub_184C0(&qword_34D68);
+  v7 = sub_184C0(&qword_34D68, &qword_22398);
   __chkstk_darwin(v7 - 8);
   v54 = &v50 - v8;
   v51 = sub_1F6D4();
@@ -5783,7 +5824,7 @@ id sub_169E8(int a1)
   sub_1F6F4();
   v24 = [objc_opt_self() configurationWithPointSize:13.0];
   sub_1F6C4();
-  sub_19F68(0, &qword_34D78);
+  sub_19F68(0, &qword_34D78, UIButton_ptr);
   v25 = v52;
   v26 = *(v52 + 16);
   v27 = v53;
@@ -5862,7 +5903,7 @@ id sub_169E8(int a1)
 
 uint64_t sub_17264(void *a1, uint64_t a2)
 {
-  v4 = sub_184C0(&qword_34D58);
+  v4 = sub_184C0(&qword_34D58, &unk_22A10);
   v5 = __chkstk_darwin(v4 - 8);
   v7 = &v22 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v5);
@@ -5878,7 +5919,7 @@ uint64_t sub_17264(void *a1, uint64_t a2)
     sub_1F7D4();
     if (v14(v9, 1, v10) != 1)
     {
-      sub_19E00(v9, &qword_34D58);
+      sub_19E00(v9, &qword_34D58, &unk_22A10);
     }
   }
 
@@ -5920,40 +5961,40 @@ void sub_17538(uint64_t a1, void *a2)
   v3();
 }
 
-uint64_t sub_175A0@<X0>(uint64_t a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X8>)
+uint64_t sub_175A0@<X0>(uint64_t a1@<X0>, uint64_t a3@<X2>, uint64_t a4@<X8>)
 {
-  v6 = sub_1F464();
-  v7 = *(v6 - 8);
-  __chkstk_darwin(v6);
-  v9 = &v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = sub_1F464();
+  v8 = *(v7 - 8);
+  __chkstk_darwin(v7);
+  v10 = &v16 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
-  v11 = *(v7 + 16);
+  v12 = *(v8 + 16);
   if (!Strong)
   {
-    return v11(a3, a1, v6);
+    return v12(a4, a1, v7);
   }
 
-  v12 = Strong;
-  v11(v9, a1, v6);
-  v15 = [objc_opt_self() systemFontOfSize:17.0];
+  v13 = Strong;
+  v12(v10, a1, v7);
+  v16 = [objc_opt_self() systemFontOfSize:17.0];
   sub_19538();
   sub_1F474();
-  if ([v12 isSelected])
+  if ([v13 isSelected])
   {
-    v13 = *(a2 + 56);
+    v14 = *(a3 + 56);
   }
 
   else
   {
-    v13 = [objc_opt_self() systemWhiteColor];
+    v14 = [objc_opt_self() systemWhiteColor];
   }
 
-  v15 = v13;
+  v16 = v14;
   sub_19DAC();
   sub_1F474();
 
-  return (*(v7 + 32))(a3, v9, v6);
+  return (*(v8 + 32))(a4, v10, v7);
 }
 
 void sub_17788()
@@ -6006,8 +6047,8 @@ id sub_17970()
 
 uint64_t sub_179CC()
 {
-  v3 = &type metadata for Features.InputSelection;
-  v4 = sub_196E4();
+  v2[3] = &type metadata for Features.InputSelection;
+  v2[4] = sub_196E4();
   v0 = sub_1F4C4();
   sub_2350(v2);
   return v0 & 1;
@@ -6020,7 +6061,7 @@ Swift::Int sub_17A6C()
   return sub_1F944();
 }
 
-Swift::Int sub_17AB0()
+Swift::Int sub_17AB0(uint64_t a1)
 {
   sub_1F924();
   sub_1F934(0);
@@ -6041,14 +6082,14 @@ id sub_17B7C(uint64_t (*a1)(void))
   return objc_msgSendSuper2(&v3, "dealloc");
 }
 
-char *sub_17BB8(uint64_t a1, unint64_t a2)
+void *sub_17BB8(uint64_t a1, unint64_t a2)
 {
   v3 = sub_17C04(a1, a2);
   sub_17D34(&off_2CD80);
   return v3;
 }
 
-char *sub_17C04(uint64_t a1, unint64_t a2)
+void *sub_17C04(uint64_t a1, unint64_t a2)
 {
   if ((a2 & 0x1000000000000000) != 0)
   {
@@ -6068,7 +6109,7 @@ char *sub_17C04(uint64_t a1, unint64_t a2)
 
   if (!v5)
   {
-    return &_swiftEmptyArrayStorage;
+    return _swiftEmptyArrayStorage;
   }
 
   v6 = sub_17E20(v5, 0);
@@ -6077,7 +6118,7 @@ char *sub_17C04(uint64_t a1, unint64_t a2)
   {
     v15[0] = a1;
     v15[1] = a2 & 0xFFFFFFFFFFFFFFLL;
-    memcpy(v6 + 32, v15, HIBYTE(a2) & 0xF);
+    memcpy(v6 + 4, v15, HIBYTE(a2) & 0xF);
     return v7;
   }
 
@@ -6094,7 +6135,7 @@ char *sub_17C04(uint64_t a1, unint64_t a2)
   if (v4 >= v9)
   {
 LABEL_9:
-    memcpy(v7 + 32, v8, v9);
+    memcpy(v7 + 4, v8, v9);
     if (v9 != v4)
     {
       while (1)
@@ -6104,7 +6145,7 @@ LABEL_13:
         v10 = sub_1F5B4();
         if (!v10)
         {
-          return &_swiftEmptyArrayStorage;
+          return _swiftEmptyArrayStorage;
         }
 
         v11 = v10;
@@ -6226,10 +6267,10 @@ void *sub_17E20(uint64_t a1, uint64_t a2)
 
   if (!v2)
   {
-    return &_swiftEmptyArrayStorage;
+    return _swiftEmptyArrayStorage;
   }
 
-  sub_184C0(&unk_350E0);
+  sub_184C0(&unk_350E0, &qword_228D0);
   v4 = swift_allocObject();
   v5 = j__malloc_size(v4);
   result = v4;
@@ -6279,7 +6320,7 @@ char *sub_17E94(char *result, int64_t a2, char a3, char *a4)
 
   if (v9)
   {
-    sub_184C0(&unk_350E0);
+    sub_184C0(&unk_350E0, &qword_228D0);
     v10 = swift_allocObject();
     v11 = j__malloc_size(v10);
     *(v10 + 2) = v8;
@@ -6288,7 +6329,7 @@ char *sub_17E94(char *result, int64_t a2, char a3, char *a4)
 
   else
   {
-    v10 = &_swiftEmptyArrayStorage;
+    v10 = _swiftEmptyArrayStorage;
   }
 
   v12 = v10 + 32;
@@ -6347,7 +6388,7 @@ LABEL_13:
   }
 
 LABEL_5:
-  sub_18078(result);
+  sub_18078(result, 1);
   v7 = *v1;
   v8 = *v1 & 0xFFFFFFFFFFFFFF8;
   sub_18118(v8 + 8 * *(&dword_10 + v8) + 32, (*(&dword_18 + v8) >> 1) - *(&dword_10 + v8), a1);
@@ -6381,16 +6422,16 @@ LABEL_15:
   return result;
 }
 
-uint64_t sub_18078(uint64_t a1)
+uint64_t sub_18078(uint64_t a1, char a2)
 {
-  v3 = *v1;
+  v4 = *v2;
   result = swift_isUniquelyReferenced_nonNull_bridgeObject();
-  *v1 = v3;
+  *v2 = v4;
   if (result)
   {
-    if ((v3 & 0x8000000000000000) == 0 && (v3 & 0x4000000000000000) == 0)
+    if ((v4 & 0x8000000000000000) == 0 && (v4 & 0x4000000000000000) == 0)
     {
-      if (a1 <= *(&dword_18 + (v3 & 0xFFFFFFFFFFFFFF8)) >> 1)
+      if (a1 <= *(&dword_18 + (v4 & 0xFFFFFFFFFFFFFF8)) >> 1)
       {
         return result;
       }
@@ -6399,7 +6440,7 @@ uint64_t sub_18078(uint64_t a1)
     }
   }
 
-  else if ((v3 & 0x8000000000000000) == 0 && (v3 & 0x4000000000000000) == 0)
+  else if ((v4 & 0x8000000000000000) == 0 && (v4 & 0x4000000000000000) == 0)
   {
     goto LABEL_9;
   }
@@ -6407,7 +6448,7 @@ uint64_t sub_18078(uint64_t a1)
   sub_1F8F4();
 LABEL_9:
   result = sub_1F884();
-  *v1 = result;
+  *v2 = result;
   return result;
 }
 
@@ -6446,10 +6487,8 @@ uint64_t sub_18118(uint64_t result, uint64_t a2, unint64_t a3)
       {
         if (v6 >= 1)
         {
-          sub_19F20(&qword_34F78, &qword_34F70);
           for (i = 0; i != v6; ++i)
           {
-            sub_184C0(&qword_34F70);
             v9 = sub_182CC(v13, i, a3);
             v11 = *v10;
             (v9)(v13, 0);
@@ -6467,7 +6506,7 @@ uint64_t sub_18118(uint64_t result, uint64_t a2, unint64_t a3)
     {
       if (*(&dword_10 + (a3 & 0xFFFFFFFFFFFFFF8)) <= a2)
       {
-        sub_19F68(0, &qword_34F68);
+        sub_19F68(0, &qword_34F68, NSLayoutConstraint_ptr);
         swift_arrayInitWithCopy();
         return a3;
       }
@@ -6529,7 +6568,7 @@ BOOL sub_18388(double *a1, double *a2)
 
   if (sub_1A7AC(*(a1 + 1), *(a2 + 1)) && ((*(a1 + 2) ^ *(a2 + 2)) & 1) == 0 && ((*(a1 + 3) ^ *(a2 + 3)) & 1) == 0 && (*(a1 + 1) == *(a2 + 1) && *(a1 + 2) == *(a2 + 2) || (sub_1F914() & 1) != 0) && (*(a1 + 3) == *(a2 + 3) && *(a1 + 4) == *(a2 + 4) || (sub_1F914() & 1) != 0) && (*(a1 + 5) == *(a2 + 5) && *(a1 + 6) == *(a2 + 6) || (sub_1F914() & 1) != 0))
   {
-    sub_19F68(0, &unk_34FC0);
+    sub_19F68(0, &unk_34FC0, NSObject_ptr);
     if ((sub_1F6B4() & 1) != 0 && a1[8] == a2[8])
     {
       return a1[9] == a2[9];
@@ -6539,7 +6578,7 @@ BOOL sub_18388(double *a1, double *a2)
   return 0;
 }
 
-uint64_t sub_184C0(uint64_t *a1)
+uint64_t sub_184C0(uint64_t *a1, uint64_t *a2)
 {
   result = *a1;
   if (!result)
@@ -6670,7 +6709,7 @@ void sub_188A4()
     v41 = 0u;
     v42 = 0u;
 LABEL_12:
-    sub_19E00(&v41, &qword_34D38);
+    sub_19E00(&v41, &qword_34D38, &qword_22378);
 LABEL_13:
     if (qword_35250 == -1)
     {
@@ -6721,7 +6760,7 @@ LABEL_42:
     goto LABEL_12;
   }
 
-  sub_19F68(0, &qword_34D40);
+  sub_19F68(0, &qword_34D40, CAEmitterLayer_ptr);
   if ((swift_dynamicCast() & 1) == 0)
   {
     goto LABEL_13;
@@ -6732,7 +6771,7 @@ LABEL_42:
   if (v9)
   {
     v10 = v9;
-    sub_19F68(0, &qword_34D48);
+    sub_19F68(0, &qword_34D48, CAEmitterCell_ptr);
     v11 = sub_1F5E4();
 
     if ((v11 & 0xC000000000000001) != 0 || *(&dword_10 + (v11 & 0xFFFFFFFFFFFFFF8)) >= 3uLL)
@@ -6757,7 +6796,7 @@ LABEL_42:
 
         if (v31)
         {
-          sub_19F68(0, &qword_34FB8);
+          sub_19F68(0, &qword_34FB8, CAEmitterBehavior_ptr);
           v32 = sub_1F5E4();
         }
 
@@ -6821,7 +6860,7 @@ LABEL_42:
         if (v12 == 3)
         {
 
-          sub_184C0(&qword_34FB0);
+          sub_184C0(&qword_34FB0, "0d");
           swift_arrayDestroy();
           return;
         }
@@ -6841,7 +6880,7 @@ LABEL_41:
     goto LABEL_44;
   }
 
-  sub_184C0(&qword_34FB0);
+  sub_184C0(&qword_34FB0, "0d");
   swift_arrayDestroy();
   if (qword_35250 != -1)
   {
@@ -6898,7 +6937,7 @@ uint64_t sub_19120(uint64_t a1)
     sub_2350(v14);
   }
 
-  sub_19F68(0, &qword_34F90);
+  sub_19F68(0, &qword_34F90, OS_dispatch_queue_ptr);
   v15 = sub_1F664();
   v16 = swift_allocObject();
   *(v16 + 16) = v2;
@@ -6913,10 +6952,10 @@ uint64_t sub_19120(uint64_t a1)
   v18 = v2;
 
   sub_1F554();
-  aBlock[0] = &_swiftEmptyArrayStorage;
+  aBlock[0] = _swiftEmptyArrayStorage;
   sub_19EC8();
-  sub_184C0(&qword_34FA0);
-  sub_19F20(&qword_34FA8, &qword_34FA0);
+  sub_184C0(&qword_34FA0, ".d");
+  sub_19F20(&qword_34FA8, &qword_34FA0, ".d", &protocol conformance descriptor for [A]);
   sub_1F854();
   sub_1F674();
   _Block_release(v17);
@@ -7474,7 +7513,7 @@ uint64_t sub_19D38(uint64_t result, int a2, int a3)
   return result;
 }
 
-uint64_t sub_19D64(uint64_t *a1)
+uint64_t sub_19D64(uint64_t *a1, uint64_t *a2)
 {
   result = *a1;
   if (!result)
@@ -7498,10 +7537,10 @@ unint64_t sub_19DAC()
   return result;
 }
 
-uint64_t sub_19E00(uint64_t a1, uint64_t *a2)
+uint64_t sub_19E00(uint64_t a1, uint64_t *a2, uint64_t *a3)
 {
-  v3 = sub_184C0(a2);
-  (*(*(v3 - 8) + 8))(a1, v3);
+  v4 = sub_184C0(a2, a3);
+  (*(*(v4 - 8) + 8))(a1, v4);
   return a1;
 }
 
@@ -7518,12 +7557,12 @@ unint64_t sub_19EC8()
   return result;
 }
 
-uint64_t sub_19F20(unint64_t *a1, uint64_t *a2)
+uint64_t sub_19F20(unint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
   result = *a1;
   if (!result)
   {
-    sub_19D64(a2);
+    sub_19D64(a2, a3);
     result = swift_getWitnessTable();
     atomic_store(result, a1);
   }
@@ -7531,7 +7570,7 @@ uint64_t sub_19F20(unint64_t *a1, uint64_t *a2)
   return result;
 }
 
-uint64_t sub_19F68(uint64_t a1, unint64_t *a2)
+uint64_t sub_19F68(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
@@ -7572,7 +7611,7 @@ void sub_1A074()
     v5 = OBJC_IVAR____TtC34AudioConferenceControlCenterModule32AudioSettingsControlCenterModule_contentModuleContext;
     swift_beginAccess();
     v6 = *&v1[v5];
-    sub_184C0(&qword_350D8);
+    sub_184C0(&qword_350D8, &qword_228C8);
     v7 = sub_1F594();
     v9 = sub_211C(v7, v8, &v11);
 
@@ -7714,11 +7753,11 @@ id sub_1A9E8()
 {
   v0 = sub_1F704();
   v1 = *(v0 - 8);
-  (__chkstk_darwin)();
+  __chkstk_darwin(v0);
   v3 = &v20 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
   v4 = sub_1F7E4();
   v5 = *(v4 - 8);
-  v6 = (__chkstk_darwin)();
+  v6 = __chkstk_darwin(v4);
   v8 = &v20 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v6);
   v10 = &v20 - v9;
@@ -7736,7 +7775,7 @@ id sub_1A9E8()
   sub_1F6F4();
   v14 = [objc_opt_self() configurationWithPointSize:13.0];
   sub_1F6C4();
-  sub_19F68(0, &qword_34D78);
+  sub_19F68(0, &qword_34D78, UIButton_ptr);
   (*(v5 + 16))(v8, v10, v4);
   v15 = sub_1F7F4();
   [v15 setTranslatesAutoresizingMaskIntoConstraints:0];
@@ -7773,7 +7812,7 @@ void sub_1AD50()
     v10 = v9;
     sub_1F7B4();
     sub_1F7A4();
-    sub_19F68(0, &qword_34D78);
+    sub_19F68(0, &qword_34D78, UIButton_ptr);
     (*(v1 + 16))(v4, v6, v0);
     v11 = sub_1F7F4();
     [v11 setTranslatesAutoresizingMaskIntoConstraints:0];
@@ -7897,7 +7936,7 @@ uint64_t sub_1B4B4(uint64_t a1)
 
 uint64_t sub_1B56C()
 {
-  sub_184C0(&qword_34CF0);
+  sub_184C0(&qword_34CF0, &qword_22370);
   v0 = swift_allocObject();
   *(v0 + 16) = xmmword_22900;
   *(v0 + 32) = [objc_allocWithZone(NSNumber) initWithInteger:2];
@@ -7948,6 +7987,13 @@ id sub_1B8B4()
   return [v0 init];
 }
 
+void sub_1B8FC(uint64_t a1, void *a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, uint64_t a8, uint64_t a9)
+{
+  v17 = a1;
+  v18 = objc_allocWithZone(v9);
+  sub_1B998(v17, a2, a3, a4, a5, a6, a7, a8, a9);
+}
+
 void sub_1B998(char a1, void *a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, uint64_t a8, uint64_t a9)
 {
   v10 = v9;
@@ -7956,7 +8002,7 @@ void sub_1B998(char a1, void *a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a
   v79 = a6;
   v76 = a2;
   v77 = a3;
-  v14 = sub_184C0(&qword_34D58);
+  v14 = sub_184C0(&qword_34D58, &unk_22A10);
   __chkstk_darwin(v14 - 8);
   v75 = v71 - v15;
   v16 = OBJC_IVAR____TtC34AudioConferenceControlCenterModule13EffectControl_buttonGlyph;
@@ -7986,9 +8032,9 @@ LABEL_17:
   v80 = a9;
   *&v10[OBJC_IVAR____TtC34AudioConferenceControlCenterModule13EffectControl_backgroundView] = v24;
   v25 = OBJC_IVAR____TtC34AudioConferenceControlCenterModule13EffectControl_categoriesToVisualStylingProviders;
-  *&v10[v25] = sub_1E6B8(&_swiftEmptyArrayStorage);
+  *&v10[v25] = sub_1E6B8(_swiftEmptyArrayStorage);
   v26 = OBJC_IVAR____TtC34AudioConferenceControlCenterModule13EffectControl_requiredVisualStyleCategories;
-  sub_184C0(&qword_34CF0);
+  sub_184C0(&qword_34CF0, &qword_22370);
   v27 = swift_allocObject();
   *(v27 + 16) = xmmword_22900;
   *(v27 + 32) = [objc_allocWithZone(NSNumber) initWithInteger:2];
@@ -8124,14 +8170,14 @@ LABEL_19:
   sub_1C228();
 }
 
-id sub_1C034()
+id sub_1C034(uint64_t a1)
 {
-  v3.receiver = v0;
-  v3.super_class = type metadata accessor for EffectControl();
-  objc_msgSendSuper2(&v3, "layoutSubviews");
-  v1 = *&v0[OBJC_IVAR____TtC34AudioConferenceControlCenterModule13EffectControl_backgroundView];
-  [v0 _continuousCornerRadius];
-  return [v1 _setContinuousCornerRadius:?];
+  v4.receiver = v1;
+  v4.super_class = type metadata accessor for EffectControl();
+  objc_msgSendSuper2(&v4, "layoutSubviews");
+  v2 = *&v1[OBJC_IVAR____TtC34AudioConferenceControlCenterModule13EffectControl_backgroundView];
+  [v1 _continuousCornerRadius];
+  return [v2 _setContinuousCornerRadius:?];
 }
 
 id sub_1C118()
@@ -8213,7 +8259,7 @@ void sub_1C350()
     v13 = v7;
     v14 = v8;
     _os_log_impl(&dword_0, v9, v10, "min color = %@, max color = %@", v11, 0x16u);
-    sub_184C0(&qword_34D50);
+    sub_184C0(&qword_34D50, &unk_22380);
     swift_arrayDestroy();
   }
 
@@ -8254,7 +8300,7 @@ LABEL_14:
 uint64_t sub_1C628()
 {
   v1 = v0;
-  v2 = sub_184C0(&qword_34D58);
+  v2 = sub_184C0(&qword_34D58, &unk_22A10);
   v3 = __chkstk_darwin(v2 - 8);
   v26 = &v25 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v3);
@@ -8280,7 +8326,7 @@ uint64_t sub_1C628()
   sub_19538();
   sub_1F444();
   v19 = *(v0 + OBJC_IVAR____TtC34AudioConferenceControlCenterModule13EffectControl_effectTitleLabel);
-  sub_19F68(0, &qword_351A8);
+  sub_19F68(0, &qword_351A8, NSAttributedString_ptr);
   (*(v11 + 16))(v14, v17, v10);
   v20 = sub_1F684();
   [v19 setAttributedText:v20];
@@ -8315,7 +8361,7 @@ uint64_t sub_1C628()
 void sub_1CABC(void *a1, char a2)
 {
   v5 = objc_opt_self();
-  sub_184C0(&qword_34CF0);
+  sub_184C0(&qword_34CF0, &qword_22370);
   v6 = swift_allocObject();
   *(v6 + 16) = xmmword_22900;
   v7 = [a1 leadingAnchor];
@@ -8340,7 +8386,7 @@ void sub_1CABC(void *a1, char a2)
   v14 = [v12 constraintEqualToAnchor:v13 constant:v10];
 
   *(v6 + 40) = v14;
-  sub_19F68(0, &qword_34F68);
+  sub_19F68(0, &qword_34F68, NSLayoutConstraint_ptr);
   isa = sub_1F5D4().super.isa;
 
   [v5 activateConstraints:isa];
@@ -8361,7 +8407,7 @@ void sub_1CC8C()
   [v1 setTranslatesAutoresizingMaskIntoConstraints:0];
   (*(&stru_108.flags + (swift_isaMask & *v0)))(v1, 0);
   v3 = objc_opt_self();
-  sub_184C0(&qword_34CF0);
+  sub_184C0(&qword_34CF0, &qword_22370);
   v4 = swift_allocObject();
   *(v4 + 16) = xmmword_22900;
   v5 = [v1 topAnchor];
@@ -8374,7 +8420,7 @@ void sub_1CC8C()
   v10 = [v8 constraintEqualToAnchor:v9];
 
   *(v4 + 40) = v10;
-  sub_19F68(0, &qword_34F68);
+  sub_19F68(0, &qword_34F68, NSLayoutConstraint_ptr);
   isa = sub_1F5D4().super.isa;
 
   v66 = v3;
@@ -8501,7 +8547,7 @@ id sub_1D5EC()
   v20 = *(&stru_108.flags + (swift_isaMask & *v0));
   v20(v1, 1);
   v3 = objc_opt_self();
-  sub_184C0(&qword_34CF0);
+  sub_184C0(&qword_34CF0, &qword_22370);
   v4 = swift_allocObject();
   *(v4 + 16) = xmmword_222E0;
   v5 = [v1 topAnchor];
@@ -8509,7 +8555,7 @@ id sub_1D5EC()
   v7 = [v5 constraintEqualToAnchor:v6];
 
   *(v4 + 32) = v7;
-  sub_19F68(0, &qword_34F68);
+  sub_19F68(0, &qword_34F68, NSLayoutConstraint_ptr);
   isa = sub_1F5D4().super.isa;
 
   [v3 activateConstraints:isa];
@@ -8714,11 +8760,11 @@ LABEL_25:
   return [v8 setNeedsDisplay];
 }
 
-id sub_1E1C4()
+id sub_1E1C4(uint64_t a1)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for EffectControl();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for EffectControl();
+  return objc_msgSendSuper2(&v3, "dealloc");
 }
 
 void sub_1E318(char a1)
@@ -8795,7 +8841,7 @@ unint64_t sub_1E5E4(uint64_t a1, uint64_t a2)
   if ((*(v2 + 64 + ((v4 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v4))
   {
     v5 = ~v3;
-    sub_19F68(0, &qword_34D30);
+    sub_19F68(0, &qword_34D30, NSNumber_ptr);
     do
     {
       v6 = *(*(v2 + 48) + 8 * v4);
@@ -8820,7 +8866,7 @@ unint64_t sub_1E6B8(uint64_t a1)
   v1 = *(a1 + 16);
   if (v1)
   {
-    sub_184C0(&unk_351B0);
+    sub_184C0(&unk_351B0, ",b");
     v3 = sub_1F904();
 
     for (i = (a1 + 40); ; i += 2)
@@ -8868,7 +8914,7 @@ LABEL_10:
 
 uint64_t sub_1E7B0(uint64_t a1)
 {
-  v2 = sub_184C0(&qword_34D58);
+  v2 = sub_184C0(&qword_34D58, &unk_22A10);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
@@ -8894,9 +8940,9 @@ void sub_1E83C()
 
   *(v0 + OBJC_IVAR____TtC34AudioConferenceControlCenterModule13EffectControl_backgroundView) = v7;
   v8 = OBJC_IVAR____TtC34AudioConferenceControlCenterModule13EffectControl_categoriesToVisualStylingProviders;
-  *(v0 + v8) = sub_1E6B8(&_swiftEmptyArrayStorage);
+  *(v0 + v8) = sub_1E6B8(_swiftEmptyArrayStorage);
   v9 = OBJC_IVAR____TtC34AudioConferenceControlCenterModule13EffectControl_requiredVisualStyleCategories;
-  sub_184C0(&qword_34CF0);
+  sub_184C0(&qword_34CF0, &qword_22370);
   v10 = swift_allocObject();
   *(v10 + 16) = xmmword_22900;
   *(v10 + 32) = [objc_allocWithZone(NSNumber) initWithInteger:2];
@@ -9187,11 +9233,11 @@ LABEL_20:
   return result;
 }
 
-uint64_t sub_1EFEC()
+void sub_1EFEC()
 {
-  dlerror();
-  v0 = abort_report_np();
-  return sub_1F010(v0);
+  v0 = dlerror();
+  v1 = abort_report_np("%s", v0);
+  sub_1F010(v1);
 }
 
 void sub_1F010(void *a1)
@@ -9199,9 +9245,10 @@ void sub_1F010(void *a1)
   v1 = objc_begin_catch(a1);
   if (__RPLogLevel <= 2u && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
   {
+    v7 = 136446722;
     sub_7E3C();
     sub_7E28();
-    sub_7E4C(&dword_0, &_os_log_default, v2, " [ERROR] %{public}s:%d setCurrentSelectedMode=AVMicrophoneModeDefault caught exception: %@", v3, v4, v5, v6, 2u);
+    sub_7E4C(&dword_0, &_os_log_default, v2, " [ERROR] %{public}s:%d setCurrentSelectedMode=AVMicrophoneModeDefault caught exception: %@", v3, v4, v5, v6, v7);
   }
 
   objc_end_catch();
@@ -9212,9 +9259,10 @@ void sub_1F0E4(void *a1)
   v1 = objc_begin_catch(a1);
   if (__RPLogLevel <= 2u && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
   {
+    v7 = 136446722;
     sub_7E3C();
     sub_7E28();
-    sub_7E4C(&dword_0, &_os_log_default, v2, " [ERROR] %{public}s:%d setCurrentSelectedMode=AVMicrophoneModeVoiceIsolation caught exception: %@", v3, v4, v5, v6, 2u);
+    sub_7E4C(&dword_0, &_os_log_default, v2, " [ERROR] %{public}s:%d setCurrentSelectedMode=AVMicrophoneModeVoiceIsolation caught exception: %@", v3, v4, v5, v6, v7);
   }
 
   objc_end_catch();
@@ -9225,9 +9273,10 @@ void sub_1F1B8(void *a1)
   v1 = objc_begin_catch(a1);
   if (__RPLogLevel <= 2u && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
   {
+    v7 = 136446722;
     sub_7E3C();
     sub_7E28();
-    sub_7E4C(&dword_0, &_os_log_default, v2, " [ERROR] %{public}s:%d setCurrentSelectedMode=AVMicrophoneModeMusic caught exception: %@", v3, v4, v5, v6, 2u);
+    sub_7E4C(&dword_0, &_os_log_default, v2, " [ERROR] %{public}s:%d setCurrentSelectedMode=AVMicrophoneModeMusic caught exception: %@", v3, v4, v5, v6, v7);
   }
 
   objc_end_catch();

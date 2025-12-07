@@ -2156,7 +2156,7 @@ void __80__UITextInputUIResponderAccessibility__accessibilityInsertTextWithAlter
   return _accessibilityHandlesTabKey & 1;
 }
 
-uint64_t __66__UITextInputUIResponderAccessibility__accessibilityHandlesTabKey__block_invoke(uint64_t a1)
+void *__66__UITextInputUIResponderAccessibility__accessibilityHandlesTabKey__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) hasCandidateInForwardDirection:1 granularity:3];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -2241,9 +2241,9 @@ uint64_t __66__UITextInputUIResponderAccessibility__accessibilityHandlesTabKey__
 
 - (void)_axResetFKAFocusToFirstResponder
 {
-  if (self)
+  if (result)
   {
-    [(UITextInputUIResponderAccessibility *)self _axDrawFocusRingAroundFirstResponderAndMoveFocus:?];
+    [(UITextInputUIResponderAccessibility *)result _axDrawFocusRingAroundFirstResponderAndMoveFocus:?];
   }
 }
 
@@ -2309,7 +2309,7 @@ uint64_t __66__UITextInputUIResponderAccessibility__accessibilityHandlesTabKey__
   }
 }
 
-uint64_t __88__UITextInputUIResponderAccessibility__axDrawFocusRingAroundFirstResponderAndMoveFocus___block_invoke(uint64_t a1)
+void *__88__UITextInputUIResponderAccessibility__axDrawFocusRingAroundFirstResponderAndMoveFocus___block_invoke(uint64_t a1)
 {
   v6 = 0;
   v4 = 0;

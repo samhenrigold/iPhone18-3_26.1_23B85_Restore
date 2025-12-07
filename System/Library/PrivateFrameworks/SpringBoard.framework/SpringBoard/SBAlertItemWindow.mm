@@ -112,7 +112,7 @@
   {
     [layerCopy position];
     v10 = NSStringFromCGPoint(v17);
-    v11 = SBLogAlertItems();
+    v11 = SBLogAlertItems(v10);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
       [SBOldAlertItemWindow actionForLayer:v10 forKey:v11];

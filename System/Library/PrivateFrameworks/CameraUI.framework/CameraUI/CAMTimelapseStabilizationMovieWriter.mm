@@ -1113,7 +1113,7 @@ LABEL_19:
   return -3;
 }
 
-unint64_t __76__CAMTimelapseStabilizationMovieWriter__copyNextSampleBufferFromStabilizer___block_invoke(void *a1)
+void *__76__CAMTimelapseStabilizationMovieWriter__copyNextSampleBufferFromStabilizer___block_invoke(void *a1)
 {
   v2 = *(a1[4] + 208);
   v3 = [MEMORY[0x1E696AD98] numberWithInteger:a1[6]];

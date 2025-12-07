@@ -33,10 +33,11 @@
   clientCopy = client;
   BSDispatchQueueAssertMain();
   menuBarVisibilityRequestAuthenticator = self->_menuBarVisibilityRequestAuthenticator;
-  v13 = 0;
-  LOBYTE(self) = [(FBServiceClientAuthenticator *)menuBarVisibilityRequestAuthenticator authenticateClient:clientCopy error:&v13];
+  v14 = 0;
+  LOBYTE(self) = [(FBServiceClientAuthenticator *)menuBarVisibilityRequestAuthenticator authenticateClient:clientCopy error:&v14];
 
-  v9 = v13;
+  v9 = v14;
+  v10 = v9;
   if (self)
   {
     windowSceneManager = [SBApp windowSceneManager];
@@ -48,50 +49,52 @@
 
   else
   {
-    menuBarManager = SBLogMenuBar();
+    menuBarManager = SBLogMenuBar(v9);
     if (os_log_type_enabled(menuBarManager, OS_LOG_TYPE_ERROR))
     {
-      [SBMenuBarSystemService _queryMenuBarSupportedForClient:v9 withCompletion:?];
+      [SBMenuBarSystemService _queryMenuBarSupportedForClient:v10 withCompletion:?];
     }
   }
 }
 
 - (void)_toggleMenuBarVisibilityForClient:(id)client
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   clientCopy = client;
   BSDispatchQueueAssertMain();
   menuBarVisibilityRequestAuthenticator = self->_menuBarVisibilityRequestAuthenticator;
-  v14 = 0;
-  v6 = [(FBServiceClientAuthenticator *)menuBarVisibilityRequestAuthenticator authenticateClient:clientCopy error:&v14];
-  v7 = v14;
+  v16 = 0;
+  v6 = [(FBServiceClientAuthenticator *)menuBarVisibilityRequestAuthenticator authenticateClient:clientCopy error:&v16];
+  v7 = v16;
+  v8 = v7;
   if (v6)
   {
     windowSceneManager = [SBApp windowSceneManager];
     activeDisplayWindowScene = [windowSceneManager activeDisplayWindowScene];
     menuBarManager = [activeDisplayWindowScene menuBarManager];
 
-    v11 = [menuBarManager isMenuBarVisible]^ 1;
-    v12 = SBLogMenuBar();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    isMenuBarVisible = [menuBarManager isMenuBarVisible];
+    v13 = isMenuBarVisible ^ 1;
+    v14 = SBLogMenuBar(isMenuBarVisible);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       processHandle = [clientCopy processHandle];
       *buf = 67109378;
-      v16 = v11;
-      v17 = 2114;
-      v18 = processHandle;
-      _os_log_impl(&dword_21ED4E000, v12, OS_LOG_TYPE_DEFAULT, "system service setting menu bar to visible: %d for client %{public}@", buf, 0x12u);
+      v18 = v13;
+      v19 = 2114;
+      v20 = processHandle;
+      _os_log_impl(&dword_21ED4E000, v14, OS_LOG_TYPE_DEFAULT, "system service setting menu bar to visible: %d for client %{public}@", buf, 0x12u);
     }
 
-    [menuBarManager requestMenuBarVisibility:v11];
+    [menuBarManager requestMenuBarVisibility:v13];
   }
 
   else
   {
-    menuBarManager = SBLogMenuBar();
+    menuBarManager = SBLogMenuBar(v7);
     if (os_log_type_enabled(menuBarManager, OS_LOG_TYPE_ERROR))
     {
-      [SBMenuBarSystemService _queryMenuBarSupportedForClient:v7 withCompletion:?];
+      [SBMenuBarSystemService _queryMenuBarSupportedForClient:v8 withCompletion:?];
     }
   }
 }
@@ -115,7 +118,9 @@
 - (void)_queryMenuBarSupportedForClient:(void *)a1 withCompletion:.cold.1(void *a1)
 {
   v1 = [a1 localizedDescription];
-  OUTLINED_FUNCTION_7(&dword_21ED4E000, v2, v3, "%{public}@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_7(&dword_21ED4E000, v2, v3, "%{public}@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 @end

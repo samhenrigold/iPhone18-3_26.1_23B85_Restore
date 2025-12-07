@@ -20,7 +20,7 @@
 {
   disappearCopy = disappear;
   v5.receiver = self;
-  v5.super_class = type metadata accessor for InsightsCalendarDetailViewController();
+  v5.super_class = type metadata accessor for InsightsCalendarDetailViewController(0);
   v4 = v5.receiver;
   [(InsightsCalendarDetailViewController *)&v5 viewDidDisappear:disappearCopy];
   sub_100137BA0(0);
@@ -63,7 +63,7 @@
 
   v8 = sub_10013A3E8(action, v10);
 
-  sub_100004F84(v10, &qword_100AD13D0);
+  sub_100004F84(v10, &qword_100AD13D0, &unk_100942DB0);
   return v8 & 1;
 }
 
@@ -74,13 +74,13 @@
   if (v3)
   {
     v4 = v3;
-    sub_1000F24EC(&unk_100AD4780);
+    sub_1000F24EC(&unk_100AD4780, &unk_100941070);
     v5 = swift_allocObject();
     *(v5 + 16) = xmmword_100941D50;
     *(v5 + 32) = v4;
   }
 
-  sub_1000F24EC(&unk_100ADD5A0);
+  sub_1000F24EC(&unk_100ADD5A0, &unk_1009432C0);
   v6.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v6.super.isa;

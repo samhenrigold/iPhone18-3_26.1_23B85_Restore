@@ -1,6 +1,7 @@
 @interface MediaPlayerHelper
 + (id)sharedSystemMusicPlayer;
 + (id)sharedSystemMusicPlayerQueue;
+- (BOOL)_isCommandSupported:(unsigned int)supported;
 - (BOOL)_isSetElapsedTimeAvailable;
 - (BOOL)currentNowPlayingInfoArtworkExists;
 - (BOOL)currentNowPlayingInfoTrackCountExists;
@@ -41,6 +42,7 @@
 - (void)_checkShuffleRepeatModeChange;
 - (void)_findCommandRefForCommand:(unsigned int)command;
 - (void)_handleNowPlayingAppDidChange:(id)change;
+- (void)_handleNowPlayingAppIsPlayingDidChange:(unsigned __int8)change;
 - (void)_handleNowPlayingInfo:(__CFDictionary *)info;
 - (void)_handlePlaybackQueueDidChange;
 - (void)_itemPlaybackDidEnd:(id)end;
@@ -53,6 +55,8 @@
 - (void)_printNowPlayingInfo:(id)info forName:(id)name;
 - (void)_repeatModeChanged:(id)changed;
 - (void)_resetFakeStreamTrackCount;
+- (void)_setFakeStreamTrackIndex:(unsigned int)index fromPlay:(BOOL)play;
+- (void)_setFakeStreamTrackIndexForSetCurIndex:(unsigned int)index;
 - (void)_setNowPlayingApp:(id)app;
 - (void)_shuffleModeChanged:(id)changed;
 - (void)_startMusicPlayerNotifications:(id)notifications;
@@ -82,6 +86,148 @@
   {
     self->_fakeStreamTrackIndexSetTimestamp = 0;
     self->_fakeStreamTrackIndexNeedChange = 0;
+  }
+}
+
+- (void)_setFakeStreamTrackIndexForSetCurIndex:(unsigned int)index
+{
+  if (((self - 104) & 3) != 0 || (v4 = *&index, self->_fakeStreamTrackIndex = index, self->_fakeStreamTrackIndexSet = 1, v5 = sub_100067278(), ((self - 92) & 3) != 0))
+  {
+LABEL_6:
+    __break(0x5516u);
+    goto LABEL_7;
+  }
+
+  self->_fakeStreamTrackIndexSetTimestamp = v5;
+  dword_100129630 = 4;
+  fakeStreamTrackIndexSet = self->_fakeStreamTrackIndexSet;
+  if (fakeStreamTrackIndexSet < 2)
+  {
+    if (((self - 100) & 3) == 0)
+    {
+      NSLog(@"MR: %s:%d index=%d, _fakeStreamTrackIndexSet=%d _fakeStreamTrackIndex=%d _fakeStreamTrackCount=%d _fakeStreamTrackIndexSetTimestamp=%u", "[MediaPlayerHelper _setFakeStreamTrackIndexForSetCurIndex:]", 384, v4, fakeStreamTrackIndexSet, self->_fakeStreamTrackIndex, self->_fakeStreamTrackCount, v5);
+      v7 = dispatch_time(0, 105000000);
+      block[0] = _NSConcreteStackBlock;
+      block[1] = 3221225472;
+      block[2] = sub_1000387EC;
+      block[3] = &unk_100111C88;
+      block[4] = self;
+      dispatch_after(v7, &_dispatch_main_q, block);
+      v8 = dispatch_time(0, 2005000000);
+      v9[0] = _NSConcreteStackBlock;
+      v9[1] = 3221225472;
+      v9[2] = sub_1000388F0;
+      v9[3] = &unk_100111C88;
+      v9[4] = self;
+      dispatch_after(v8, &_dispatch_main_q, v9);
+      return;
+    }
+
+    goto LABEL_6;
+  }
+
+LABEL_7:
+  __break(0x550Au);
+}
+
+- (void)_setFakeStreamTrackIndex:(unsigned int)index fromPlay:(BOOL)play
+{
+  playCopy = play;
+  if (dword_100129634 || play)
+  {
+    if (((self - 104) & 3) != 0)
+    {
+      goto LABEL_23;
+    }
+
+    self->_fakeStreamTrackIndex = index;
+    self->_fakeStreamTrackIndexSet = 1;
+    v7 = sub_100067278();
+    if ((&self->_fakeStreamTrackIndexSetTimestamp & 3) != 0)
+    {
+      goto LABEL_23;
+    }
+
+    self->_fakeStreamTrackIndexSetTimestamp = v7;
+    if (playCopy)
+    {
+      dword_100129630 = dword_10012962C;
+      if (!dword_10012962C)
+      {
+        if ((&self->_fakeStreamTrackCount & 3) != 0)
+        {
+          goto LABEL_23;
+        }
+
+        self->_fakeStreamTrackCount = 2;
+        if (index == 1 && dword_100129638)
+        {
+          dword_100129630 = 2;
+        }
+      }
+    }
+
+    else if (!dword_100129630)
+    {
+      p_fakeStreamTrackCount = &self->_fakeStreamTrackCount;
+      if ((&self->_fakeStreamTrackCount & 3) != 0)
+      {
+        goto LABEL_23;
+      }
+
+      v9 = *p_fakeStreamTrackCount;
+      if (*p_fakeStreamTrackCount <= 1)
+      {
+        v9 = 2;
+        *p_fakeStreamTrackCount = 2;
+      }
+
+      v10 = __CFADD__(v9, 1);
+      v11 = v9 + 1;
+      if (v10)
+      {
+        goto LABEL_25;
+      }
+
+      *p_fakeStreamTrackCount = v11;
+    }
+
+    fakeStreamTrackIndexSet = self->_fakeStreamTrackIndexSet;
+    if (fakeStreamTrackIndexSet > 1)
+    {
+LABEL_24:
+      __break(0x550Au);
+LABEL_25:
+      __break(0x5500u);
+      return;
+    }
+
+    if (((self - 100) & 3) == 0)
+    {
+      NSLog(@"MR: %s:%d fromPlay=%d _fakeStreamTrackIndexSet=%d _fakeStreamTrackIndex=%d _fakeStreamTrackCount=%d _fakeStreamTrackIndexSetTimestamp=%u", "[MediaPlayerHelper _setFakeStreamTrackIndex:fromPlay:]", 450, playCopy, fakeStreamTrackIndexSet, self->_fakeStreamTrackIndex, self->_fakeStreamTrackCount, v7);
+      v13 = self->_fakeStreamTrackIndexSet;
+      if (v13 <= 1)
+      {
+        if (v13)
+        {
+          v14 = dispatch_time(0, 2005000000);
+          block[0] = _NSConcreteStackBlock;
+          block[1] = 3221225472;
+          block[2] = sub_100038C10;
+          block[3] = &unk_100111C88;
+          block[4] = self;
+          dispatch_after(v14, &_dispatch_main_q, block);
+        }
+
+        return;
+      }
+
+      goto LABEL_24;
+    }
+
+LABEL_23:
+    __break(0x5516u);
+    goto LABEL_24;
   }
 }
 
@@ -276,108 +422,8 @@ LABEL_9:
 
   result = dispatch_queue_create("com.apple.iapd.nowPlayingQueue", 0);
   v4 = (v2 + 104);
-  if (((v2 + 104) & 7) != 0)
+  if (((v2 + 104) & 7) != 0 || (*(v2 + 13) = result, pthread_mutex_init((v2 + 16), 0), sub_1000DDE90(6u, @"MP: initing observers"), sub_1000DDE90(7u, @"MR: initing observers"), ((v2 + 8) & 7) != 0) || (*(v2 + 1) = 0, ((v2 + 80) & 7) != 0) || (*(v2 + 10) = 0, ((v2 + 88) & 7) != 0) || (*(v2 + 11) = 0, *(v2 + 97) = 0, ((v2 + 112) & 3) != 0) || (*(v2 + 28) = 1, ((v2 + 116) & 3) != 0) || (*(v2 + 29) = 1, ((v2 + 120) & 3) != 0) || (*(v2 + 30) = 1, ((v2 + 124) & 3) != 0) || (*(v2 + 31) = 1, ((v2 + 0x80) & 3) != 0) || (*(v2 + 32) = 0, ((v2 - 124) & 3) != 0) || (*(v2 + 33) = 0, ((v2 - 120) & 7) != 0) || (*(v2 + 17) = 0, ((v2 - 100) & 3) != 0) || (*(v2 + 39) = 0, ((v2 - 104) & 3) != 0) || (*(v2 + 38) = 0, v2[160] = 0, ((v2 - 92) & 3) != 0) || (*(v2 + 41) = 0, v2[168] = 0, ((v2 - 84) & 3) != 0) || (*(v2 + 43) = 0, *(v2 + 88) = 0, *(v2 + 106) = 0, v2[214] = 0, ((v2 - 112) & 7) != 0) || (*(v2 + 18) = 0, result = objc_alloc_init(IAPApplicationStateMonitor), ((v2 - 56) & 7) != 0) || (*(v2 + 25) = result, ((v2 - 48) & 3) != 0) || (*(v2 + 52) = -1, ((v2 - 72) & 7) != 0))
   {
-    goto LABEL_26;
-  }
-
-  *(v2 + 13) = result;
-  pthread_mutex_init((v2 + 16), 0);
-  sub_1000DDE90(6u, @"MP: initing observers");
-  sub_1000DDE90(7u, @"MR: initing observers");
-  if (((v2 + 8) & 7) != 0)
-  {
-    goto LABEL_26;
-  }
-
-  *(v2 + 1) = 0;
-  if (((v2 + 80) & 7) != 0)
-  {
-    goto LABEL_26;
-  }
-
-  *(v2 + 10) = 0;
-  if (((v2 + 88) & 7) != 0)
-  {
-    goto LABEL_26;
-  }
-
-  *(v2 + 11) = 0;
-  *(v2 + 97) = 0;
-  if (((v2 + 112) & 3) != 0)
-  {
-    goto LABEL_26;
-  }
-
-  *(v2 + 28) = 1;
-  if (((v2 + 116) & 3) != 0)
-  {
-    goto LABEL_26;
-  }
-
-  *(v2 + 29) = 1;
-  if (((v2 + 120) & 3) != 0)
-  {
-    goto LABEL_26;
-  }
-
-  *(v2 + 30) = 1;
-  if (((v2 + 124) & 3) != 0)
-  {
-    goto LABEL_26;
-  }
-
-  *(v2 + 31) = 1;
-  if (((v2 + 0x80) & 3) != 0)
-  {
-    goto LABEL_26;
-  }
-
-  *(v2 + 32) = 0;
-  if (((v2 - 124) & 3) != 0)
-  {
-    goto LABEL_26;
-  }
-
-  *(v2 + 33) = 0;
-  if (((v2 - 120) & 7) != 0)
-  {
-    goto LABEL_26;
-  }
-
-  *(v2 + 17) = 0;
-  if (((v2 - 100) & 3) != 0)
-  {
-    goto LABEL_26;
-  }
-
-  *(v2 + 39) = 0;
-  if (((v2 - 104) & 3) != 0)
-  {
-    goto LABEL_26;
-  }
-
-  *(v2 + 38) = 0;
-  v2[160] = 0;
-  if (((v2 - 92) & 3) != 0)
-  {
-    goto LABEL_26;
-  }
-
-  *(v2 + 41) = 0;
-  v2[168] = 0;
-  if (((v2 - 84) & 3) != 0)
-  {
-    goto LABEL_26;
-  }
-
-  *(v2 + 43) = 0;
-  *(v2 + 88) = 0;
-  *(v2 + 106) = 0;
-  v2[214] = 0;
-  if (((v2 - 112) & 7) != 0 || (*(v2 + 18) = 0, result = objc_alloc_init(IAPApplicationStateMonitor), ((v2 - 56) & 7) != 0) || (*(v2 + 25) = result, ((v2 - 48) & 3) != 0) || (*(v2 + 52) = -1, ((v2 - 72) & 7) != 0))
-  {
-LABEL_26:
     __break(0x5516u);
   }
 
@@ -416,8 +462,7 @@ LABEL_26:
   [(NSNotificationCenter *)v3 removeObserver:self name:kMRMediaRemoteNowPlayingInfoDidChangeNotification object:0];
   [(NSNotificationCenter *)v3 removeObserver:self name:kMRMediaRemoteNowPlayingApplicationDidChangeNotification object:0];
   [(NSNotificationCenter *)v3 removeObserver:self name:kMRMediaRemoteNowPlayingApplicationIsPlayingDidChangeNotification object:0];
-  [(NSNotificationCenter *)v3 removeObserver:self name:MPMusicPlayerControllerItemPlaybackDidEndNotification object:0];
-  if (sub_100036DB4())
+  if (sub_100036DB4([(NSNotificationCenter *)v3 removeObserver:self name:MPMusicPlayerControllerItemPlaybackDidEndNotification object:0]))
   {
     [(MediaPlayerHelper *)self _stopMusicPlayerNotifications:0];
   }
@@ -552,10 +597,10 @@ LABEL_25:
 - (int)prepareForPlaybackWithQuery:(id)query andFirstItem:(id)item
 {
   v7 = 0;
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x2020000000;
-  v29 = 0;
+  v27 = 0;
+  v28 = &v27;
+  v29 = 0x2020000000;
+  v30 = 0;
   if (dword_100129640)
   {
     goto LABEL_2;
@@ -564,14 +609,14 @@ LABEL_25:
   *&self->podcastAppSelected = 0;
   self->iTunesUAppSelected = 0;
   items = [query items];
-  v24 = 0u;
   v25 = 0u;
-  v22 = 0u;
+  v26 = 0u;
   v23 = 0u;
-  v11 = [items countByEnumeratingWithState:&v22 objects:v30 count:16];
+  v24 = 0u;
+  v11 = [items countByEnumeratingWithState:&v23 objects:v31 count:16];
   if (v11)
   {
-    v12 = *v23;
+    v12 = *v24;
     v13 = 1;
     LOBYTE(v14) = 1;
     v15 = 1;
@@ -579,12 +624,12 @@ LABEL_25:
     {
       for (i = 0; i != v11; i = i + 1)
       {
-        if (*v23 != v12)
+        if (*v24 != v12)
         {
           objc_enumerationMutation(items);
         }
 
-        mediaType = [*(*(&v22 + 1) + 8 * i) mediaType];
+        mediaType = [*(*(&v23 + 1) + 8 * i) mediaType];
         if (mediaType == 1024)
         {
           v18 = v15;
@@ -624,7 +669,7 @@ LABEL_25:
         }
       }
 
-      v11 = [items countByEnumeratingWithState:&v22 objects:v30 count:16];
+      v11 = [items countByEnumeratingWithState:&v23 objects:v31 count:16];
       if (v11)
       {
         continue;
@@ -696,12 +741,13 @@ LABEL_4:
   }
 
 LABEL_42:
-  if (sub_100036874())
+  v20 = sub_100036874();
+  if (v20)
   {
-    [query setIgnoreSystemFilterPredicates:1];
+    v20 = [query setIgnoreSystemFilterPredicates:1];
   }
 
-  if (sub_100036DB4())
+  if (sub_100036DB4(v20))
   {
     v9 = +[MediaPlayerHelper sharedSystemMusicPlayerQueue];
     if (!v9)
@@ -716,7 +762,7 @@ LABEL_42:
     block[3] = &unk_100114638;
     block[4] = query;
     block[5] = item;
-    block[6] = &v26;
+    block[6] = &v27;
     dispatch_sync(v9, block);
     if (v7)
     {
@@ -735,8 +781,8 @@ LABEL_6:
   }
 
 LABEL_7:
-  v8 = *(v27 + 6);
-  _Block_object_dispose(&v26, 8);
+  v8 = *(v28 + 6);
+  _Block_object_dispose(&v27, 8);
   LODWORD(v9) = v8;
   return v9;
 }
@@ -1795,7 +1841,7 @@ LABEL_7:
 
   else if (!*p_pbqItems)
   {
-    if (sub_100036DB4())
+    if (sub_100036DB4(self))
     {
       items = [+[MediaPlayerHelper sharedSystemMusicPlayer](MediaPlayerHelper "sharedSystemMusicPlayer")];
       if (items)
@@ -1886,8 +1932,8 @@ LABEL_7:
 
 - (void)_handleNowPlayingInfo:(__CFDictionary *)info
 {
-  v96 = objc_alloc_init(NSAutoreleasePool);
-  v100 = sub_1000CA714();
+  v98 = objc_alloc_init(NSAutoreleasePool);
+  v102 = sub_1000CA714();
   pthread_once(&stru_10012B6E8, sub_1000CA2C8);
   if (dword_10012B6D8 >= 0xFFFFFFFFFFFFFFF4)
   {
@@ -1905,7 +1951,7 @@ LABEL_7:
         goto LABEL_206;
       }
 
-      if (v100 < *(qword_10012BAD8 + 16))
+      if (v102 < *(qword_10012BAD8 + 16))
       {
         goto LABEL_208;
       }
@@ -1938,7 +1984,7 @@ LABEL_7:
         goto LABEL_206;
       }
 
-      if (v100 < dword_10012C648)
+      if (v102 < dword_10012C648)
       {
         goto LABEL_208;
       }
@@ -1989,16 +2035,16 @@ LABEL_7:
     v12 = 0;
     v15 = 0;
     v16 = 0;
+    v96 = 0;
     v94 = 0;
-    v92 = 0;
+    v101 = 0;
     v99 = 0;
-    v97 = 0;
     bOOLValue = 0;
-    v82 = 0;
-    v98 = 0;
+    v84 = 0;
+    v100 = 0;
+    v92 = 1;
+    v87 = 1;
     v90 = 1;
-    v85 = 1;
-    v88 = 1;
     v17 = v9;
     v18 = v9;
     goto LABEL_89;
@@ -2011,19 +2057,19 @@ LABEL_7:
   {
     v15 = 0;
     v16 = 0;
+    v96 = 0;
     v94 = 0;
-    v92 = 0;
+    v101 = 0;
     v99 = 0;
-    v97 = 0;
     bOOLValue = 0;
-    v82 = 0;
-    v98 = 0;
+    v84 = 0;
+    v100 = 0;
     v9 = 0;
     v17 = 0;
     v18 = 0;
+    v92 = 1;
+    v87 = 1;
     v90 = 1;
-    v85 = 1;
-    v88 = 1;
     goto LABEL_89;
   }
 
@@ -2037,57 +2083,57 @@ LABEL_7:
 
   v19 = kMRMediaRemoteNowPlayingInfoUniqueIdentifier;
   v20 = [(NSMutableDictionary *)v12 objectForKey:kMRMediaRemoteNowPlayingInfoUniqueIdentifier];
-  v86 = kMRMediaRemoteNowPlayingInfoTotalQueueCount;
+  v88 = kMRMediaRemoteNowPlayingInfoTotalQueueCount;
   v21 = [(NSMutableDictionary *)v12 objectForKey:?];
-  v83 = kMRMediaRemoteNowPlayingInfoPlaybackRate;
+  v85 = kMRMediaRemoteNowPlayingInfoPlaybackRate;
   v22 = [(NSMutableDictionary *)v12 objectForKey:?];
   v23 = [(NSMutableDictionary *)v12 objectForKey:kMRMediaRemoteNowPlayingInfoIsMusicApp];
   v24 = [(NSMutableDictionary *)v12 objectForKey:kMRMediaRemoteNowPlayingInfoRadioStationName];
-  v76 = kMRMediaRemoteNowPlayingInfoTitle;
+  v78 = kMRMediaRemoteNowPlayingInfoTitle;
   v25 = [(NSMutableDictionary *)v12 objectForKey:?];
-  v98 = v22 != 0;
-  v81 = v22;
+  v100 = v22 != 0;
+  v83 = v22;
   [v22 floatValue];
   v27 = v26;
-  v97 = v23 != 0;
+  v99 = v23 != 0;
   bOOLValue = [v23 BOOLValue];
-  v89 = v20;
-  v91 = v24;
+  v91 = v20;
+  v93 = v24;
   unsignedLongLongValue = [v20 unsignedLongLongValue];
-  v92 = v25 != 0;
-  v95 = v21;
+  v94 = v25 != 0;
+  v97 = v21;
   unsignedLongValue = [v21 unsignedLongValue];
-  v99 = v24 != 0;
+  v101 = v24 != 0;
   if (v8)
   {
-    v78 = unsignedLongValue;
-    v79 = unsignedLongLongValue;
+    v80 = unsignedLongValue;
+    v81 = unsignedLongLongValue;
     v30 = kMRMediaRemoteNowPlayingInfoQueueIndex;
-    v80 = [(NSMutableDictionary *)v12 objectForKey:kMRMediaRemoteNowPlayingInfoQueueIndex];
+    v82 = [(NSMutableDictionary *)v12 objectForKey:kMRMediaRemoteNowPlayingInfoQueueIndex];
     v31 = kMRMediaRemoteNowPlayingInfoChapterNumber;
     v32 = [(NSMutableDictionary *)v12 objectForKey:kMRMediaRemoteNowPlayingInfoChapterNumber];
     v33 = kMRMediaRemoteNowPlayingInfoArtworkData;
-    v77 = [(NSMutableDictionary *)v12 objectForKey:kMRMediaRemoteNowPlayingInfoArtworkData];
+    v79 = [(NSMutableDictionary *)v12 objectForKey:kMRMediaRemoteNowPlayingInfoArtworkData];
     v34 = [(NSMutableDictionary *)v8 objectForKey:v19];
     v35 = [(NSMutableDictionary *)v8 objectForKey:v30];
-    v36 = [(NSMutableDictionary *)v8 objectForKey:v86];
-    v87 = [(NSMutableDictionary *)v8 objectForKey:v83];
-    v84 = [(NSMutableDictionary *)v8 objectForKey:v33];
+    v36 = [(NSMutableDictionary *)v8 objectForKey:v88];
+    v89 = [(NSMutableDictionary *)v8 objectForKey:v85];
+    v86 = [(NSMutableDictionary *)v8 objectForKey:v33];
     v37 = [(NSMutableDictionary *)v8 objectForKey:v31];
-    v75 = v32;
-    if (v89)
+    v77 = v32;
+    if (v91)
     {
       if (!v34)
       {
         v18 = 1;
-        v40 = v79;
+        v40 = v81;
         goto LABEL_47;
       }
 
       v38 = v37;
-      v39 = [v89 isEqualToNumber:v34];
+      v39 = [v91 isEqualToNumber:v34];
       v37 = v38;
-      v40 = v79;
+      v40 = v81;
       if (v39)
       {
         goto LABEL_39;
@@ -2096,16 +2142,16 @@ LABEL_7:
 
     else
     {
-      v40 = v79;
+      v40 = v81;
       if (!v34)
       {
 LABEL_39:
         v41 = v37;
-        v42 = [(NSMutableDictionary *)v8 objectForKey:v76];
-        v43 = v91;
+        v42 = [(NSMutableDictionary *)v8 objectForKey:v78];
+        v43 = v93;
         if (v25)
         {
-          v44 = v95;
+          v44 = v97;
           if (!v42 || ![v25 isEqualToString:v42])
           {
             goto LABEL_52;
@@ -2114,14 +2160,14 @@ LABEL_39:
 
         else
         {
-          v44 = v95;
+          v44 = v97;
           if (v42)
           {
             goto LABEL_52;
           }
         }
 
-        if (!v80)
+        if (!v82)
         {
           v18 = v35 != 0;
           goto LABEL_53;
@@ -2129,7 +2175,7 @@ LABEL_39:
 
         if (v35)
         {
-          v18 = [v80 isEqualToNumber:v35] ^ 1;
+          v18 = [v82 isEqualToNumber:v35] ^ 1;
 LABEL_53:
           v37 = v41;
           goto LABEL_54;
@@ -2143,10 +2189,10 @@ LABEL_52:
 
     v18 = 1;
 LABEL_47:
-    v44 = v95;
-    v43 = v91;
+    v44 = v97;
+    v43 = v93;
 LABEL_54:
-    v45 = v87;
+    v45 = v89;
     if ((!v44 || v36) && (v44 || !v36))
     {
       v17 = 0;
@@ -2154,7 +2200,7 @@ LABEL_54:
       {
         v52 = v37;
         v53 = [v44 isEqualToNumber:v36];
-        v45 = v87;
+        v45 = v89;
         v37 = v52;
         v17 = v53 ^ 1;
       }
@@ -2168,7 +2214,7 @@ LABEL_54:
     if (v45)
     {
       v46 = v37;
-      v47 = [v81 isEqualToNumber:?];
+      v47 = [v83 isEqualToNumber:?];
       v37 = v46;
       v9 = v47 ^ 1;
     }
@@ -2181,12 +2227,12 @@ LABEL_54:
     unsignedLongLongValue = v40;
     if (v37)
     {
-      [v75 isEqualToNumber:v37];
+      [v77 isEqualToNumber:v37];
     }
 
-    if (v80)
+    if (v82)
     {
-      v48 = [v80 intValue] == -1;
+      v48 = [v82 intValue] == -1;
     }
 
     else
@@ -2194,7 +2240,7 @@ LABEL_54:
       v48 = 1;
     }
 
-    v88 = v48;
+    v90 = v48;
     v49 = 1;
     if (!v43 && v44 && !dword_100129630)
     {
@@ -2232,34 +2278,34 @@ LABEL_54:
       }
     }
 
-    v85 = v49;
-    if (![v77 length] && objc_msgSend(v84, "length") || objc_msgSend(v77, "length") && !objc_msgSend(v84, "length"))
+    v87 = v49;
+    if (![v79 length] && objc_msgSend(v86, "length") || objc_msgSend(v79, "length") && !objc_msgSend(v86, "length"))
     {
-      v16 = [v77 length] != 0;
-      v94 = 1;
+      v16 = [v79 length] != 0;
+      v96 = 1;
     }
 
     else
     {
       v16 = 0;
-      v94 = 0;
+      v96 = 0;
     }
 
-    unsignedLongValue = v78;
+    unsignedLongValue = v80;
     goto LABEL_88;
   }
 
   v16 = 0;
-  v94 = 0;
-  v85 = 1;
-  v88 = 1;
+  v96 = 0;
+  v87 = 1;
+  v90 = 1;
   v9 = 1;
   v17 = 1;
   v18 = 1;
 LABEL_88:
   v15 = unsignedLongLongValue != 0;
-  v90 = unsignedLongValue == 0;
-  v82 = v27 != 0.0;
+  v92 = unsignedLongValue == 0;
+  v84 = v27 != 0.0;
 LABEL_89:
   NSLog(@"MR: %s:%d\n%@\n.... changed to ....\n%@", "[MediaPlayerHelper _handleNowPlayingInfo:]", 1832, [(MediaPlayerHelper *)self _nowPlayingInfoDesc:v8], [(MediaPlayerHelper *)self _nowPlayingInfoDesc:v12]);
   NSLog(@"MR: %s:%d isTrackChanged=%d isPBContentChanged=%d isPBRateChanged=%d tmpNowPlayingInfo=%hhx oldNowPlayingInfo=%hhx", "[MediaPlayerHelper _handleNowPlayingInfo:]", 1836, v18, v17, v9, v12, v8);
@@ -2295,7 +2341,7 @@ LABEL_89:
   }
 
   sub_10003CB30(qword_10012BB20);
-  if (v97)
+  if (v99)
   {
     self->_nowPlayingAppIsIPod = bOOLValue;
     self->_nowPlayingAppIsIPodIsValid = 1;
@@ -2306,8 +2352,8 @@ LABEL_89:
   nowPlayingAppIsIPod = self->_nowPlayingAppIsIPod;
   if (self->_nowPlayingAppIsIPod)
   {
-    nowPlayingAppIsIPod = v99;
-    self->_nowPlayingAppIsIPodRadio = v99;
+    nowPlayingAppIsIPod = v101;
+    self->_nowPlayingAppIsIPodRadio = v101;
   }
 
   if (nowPlayingAppIsIPod == (nowPlayingAppIsIPodRadio != 0))
@@ -2329,7 +2375,7 @@ LABEL_89:
       goto LABEL_206;
     }
 
-    if (v57 >= v100)
+    if (v57 >= v102)
     {
       v58 = *(qword_10012BB18 + 76);
       if (v58 >= 8)
@@ -2382,7 +2428,7 @@ LABEL_114:
     goto LABEL_126;
   }
 
-  if (!v15 && !v92 && !v99)
+  if (!v15 && !v94 && !v101)
   {
     if (v18)
     {
@@ -2400,7 +2446,7 @@ LABEL_126:
     goto LABEL_155;
   }
 
-  if ((v85 | v88 | v99) == 1)
+  if ((v87 | v90 | v101) == 1)
   {
     fakeStreamTrackIndexSet = self->_fakeStreamTrackIndexSet;
     if (fakeStreamTrackIndexSet > 1)
@@ -2510,24 +2556,24 @@ LABEL_155:
     goto LABEL_206;
   }
 
-  (*(*qword_10012BB20 + 56))();
-  v63 = sub_10004B1AC();
-  if (!v63 || (v63 & 7) != 0)
+  v63 = (*(*qword_10012BB20 + 56))();
+  v65 = sub_10004B1AC(v63, v64);
+  if (!v65 || (v65 & 7) != 0)
   {
     goto LABEL_206;
   }
 
-  sub_10004FC1C(v63);
+  sub_10004FC1C(v65);
 LABEL_162:
-  if (v98)
+  if (v100)
   {
-    v64 = v90;
+    v66 = v92;
     if (self->_nowPlayingAppIsIPodRadio)
     {
-      v64 = 1;
+      v66 = 1;
     }
 
-    self->_lastWasStreamPlayback = v64;
+    self->_lastWasStreamPlayback = v66;
   }
 
   if (v9)
@@ -2553,23 +2599,23 @@ LABEL_162:
           goto LABEL_207;
         }
 
-        if (!v82 || !v98) && (lastWasStreamPlayback)
+        if (!v84 || !v100) && (lastWasStreamPlayback)
         {
-          v69 = sub_100067278();
+          v71 = sub_100067278();
           if (((self - 84) & 3) != 0)
           {
             goto LABEL_206;
           }
 
-          self->_lastTimeNowPlayingPBRateChangeToPauseOrStop = v69;
-          v70 = dispatch_time(0, 2000000000);
+          self->_lastTimeNowPlayingPBRateChangeToPauseOrStop = v71;
+          v72 = dispatch_time(0, 2000000000);
           p_nowPlayingHandlerQueue = &self->nowPlayingHandlerQueue;
           if ((&self->nowPlayingHandlerQueue & 7) != 0)
           {
             goto LABEL_206;
           }
 
-          v72 = *p_nowPlayingHandlerQueue;
+          v74 = *p_nowPlayingHandlerQueue;
           if (!*p_nowPlayingHandlerQueue)
           {
             goto LABEL_211;
@@ -2580,7 +2626,7 @@ LABEL_162:
           block[2] = sub_10003CC58;
           block[3] = &unk_100111C88;
           block[4] = self;
-          dispatch_after(v70, v72, block);
+          dispatch_after(v72, v74, block);
 LABEL_185:
           self->_explicitControlOccurred = 0;
 LABEL_186:
@@ -2589,11 +2635,11 @@ LABEL_186:
             sub_1000E1FB0();
           }
 
-          v73 = qword_10012BB20;
+          v75 = qword_10012BB20;
           if (qword_10012BB20 && (qword_10012BB20 & 7) == 0)
           {
             [(MediaPlayerHelper *)self nowPlayingAppPlaybackState];
-            (*(*v73 + 56))(v73, 524301, 0, 0, 0);
+            (*(*v75 + 56))(v75, 524301, 0, 0, 0);
             goto LABEL_191;
           }
 
@@ -2604,16 +2650,16 @@ LABEL_206:
       }
     }
 
-    v66 = self->_explicitControlOccurred;
-    if (v66 <= 1)
+    v68 = self->_explicitControlOccurred;
+    if (v68 <= 1)
     {
-      v67 = v82;
+      v69 = v84;
       if (v11 != 0.0)
       {
-        v67 = 0;
+        v69 = 0;
       }
 
-      if (v67 || (v66 & 1) != 0)
+      if (v69 || (v68 & 1) != 0)
       {
         if ((&self->_lastTimeNowPlayingPBRateChangeToPauseOrStop & 3) != 0)
         {
@@ -2637,7 +2683,7 @@ LABEL_191:
     sub_1000DDE90(7u, @"MR: %s:%d release oldNowPlayingInfo(%hhx)", "[MediaPlayerHelper _handleNowPlayingInfo:]", 1991, v8);
   }
 
-  if (!v94)
+  if (!v96)
   {
     goto LABEL_199;
   }
@@ -2659,10 +2705,10 @@ LABEL_199:
     goto LABEL_204;
   }
 
-  v74 = +[MediaPlayerHelper sharedSystemMusicPlayerQueue];
-  if (v74)
+  v76 = +[MediaPlayerHelper sharedSystemMusicPlayerQueue];
+  if (v76)
   {
-    dispatch_sync(v74, &stru_100114658);
+    dispatch_sync(v76, &stru_100114658);
 LABEL_204:
 
     return;
@@ -2672,13 +2718,93 @@ LABEL_211:
   __break(0x5510u);
 }
 
+- (void)_handleNowPlayingAppIsPlayingDidChange:(unsigned __int8)change
+{
+  changeCopy = change;
+  v5 = objc_alloc_init(NSAutoreleasePool);
+  pthread_mutex_lock(&self->_nowPlayingInfoLock);
+  NSLog(@"MR: %s:%d nowPlayingAppIsPlaying=%d->%d", "[MediaPlayerHelper _handleNowPlayingAppIsPlayingDidChange:]", 2027, self->_nowPlayingAppIsPlaying, changeCopy);
+  nowPlayingAppIsPlaying = self->_nowPlayingAppIsPlaying;
+  if (nowPlayingAppIsPlaying != changeCopy)
+  {
+    self->_nowPlayingAppIsPlaying = changeCopy;
+    p_nowPlayingAppIsPlayingTimestamp = &self->_nowPlayingAppIsPlayingTimestamp;
+    if ((&self->_nowPlayingAppIsPlayingTimestamp & 7) != 0)
+    {
+      goto LABEL_20;
+    }
+
+    if (*p_nowPlayingAppIsPlayingTimestamp)
+    {
+    }
+
+    v8 = +[NSDate date];
+    *p_nowPlayingAppIsPlayingTimestamp = v8;
+    v9 = v8;
+  }
+
+  pthread_mutex_unlock(&self->_nowPlayingInfoLock);
+  if (qword_10012BB28 != -1)
+  {
+    sub_1000E1F88();
+  }
+
+  if (!qword_10012BB20 || (qword_10012BB20 & 7) != 0)
+  {
+    goto LABEL_20;
+  }
+
+  sub_10003C9E8(qword_10012BB20, 0);
+  if (qword_10012BB28 != -1)
+  {
+    sub_1000E1F88();
+  }
+
+  if (!qword_10012BB20 || (qword_10012BB20 & 7) != 0)
+  {
+    goto LABEL_20;
+  }
+
+  sub_10003CB30(qword_10012BB20);
+
+  if (nowPlayingAppIsPlaying == changeCopy)
+  {
+    goto LABEL_18;
+  }
+
+  v12 = sub_10004B1AC(v10, v11);
+  if (!v12 || (v12 & 7) != 0)
+  {
+LABEL_20:
+    __break(0x5516u);
+    goto LABEL_21;
+  }
+
+  sub_10004FC60(v12, changeCopy != 0);
+LABEL_18:
+  global_queue = dispatch_get_global_queue(0, 0);
+  if (global_queue)
+  {
+    block[0] = _NSConcreteStackBlock;
+    block[1] = 3221225472;
+    block[2] = sub_10003CF88;
+    block[3] = &unk_100111C88;
+    block[4] = self;
+    dispatch_async(global_queue, block);
+    return;
+  }
+
+LABEL_21:
+  __break(0x5510u);
+}
+
 - (void)_handlePlaybackQueueDidChange
 {
   NSLog(@"MR: %s:%d PlaybackQueueDidChange", a2, "[MediaPlayerHelper _handlePlaybackQueueDidChange]", 2062);
-  if (sub_100036DB4())
+  if (sub_100036DB4(v3))
   {
-    v3 = +[MediaPlayerHelper sharedSystemMusicPlayerQueue];
-    if (!v3)
+    v4 = +[MediaPlayerHelper sharedSystemMusicPlayerQueue];
+    if (!v4)
     {
       goto LABEL_11;
     }
@@ -2688,7 +2814,7 @@ LABEL_211:
     block[2] = sub_10003D15C;
     block[3] = &unk_100111C88;
     block[4] = self;
-    dispatch_sync(v3, block);
+    dispatch_sync(v4, block);
   }
 
   else
@@ -2886,6 +3012,7 @@ LABEL_33:
 
 - (void)_nowPlayingInfoChanged:(id)changed
 {
+  selfCopy = self;
   pthread_once(&stru_10012B6E8, sub_1000CA2C8);
   if (dword_10012B6D8 >= 0xFFFFFFFFFFFFFFF4)
   {
@@ -2897,10 +3024,10 @@ LABEL_33:
     goto LABEL_33;
   }
 
-  v9 = sub_1000CA714();
+  v8 = sub_1000CA714();
   pthread_once(&stru_100129688, sub_100045928);
   pthread_mutex_lock(&stru_100129648);
-  sub_10003D828(&qword_10012BAD0);
+  sub_10003D828(&qword_10012BAD0, &v8);
   pthread_mutex_unlock(&stru_100129648);
   pthread_once(&stru_100129608, sub_10003851C);
   if (!dword_10012C638)
@@ -2916,9 +3043,8 @@ LABEL_32:
 LABEL_33:
     v7 = objc_alloc_init(NSAutoreleasePool);
     NSLog(@"MR: %s", "[MediaPlayerHelper _nowPlayingInfoChanged:]");
-    if (((self + 104) & 7) == 0)
+    if (((selfCopy + 104) & 7) == 0)
     {
-      nowPlayingHandlerQueue = self->nowPlayingHandlerQueue;
       MRMediaRemoteGetNowPlayingInfo();
 
       return;
@@ -2932,7 +3058,7 @@ LABEL_33:
     goto LABEL_35;
   }
 
-  if (v9 < dword_10012C638)
+  if (v8 < dword_10012C638)
   {
 LABEL_38:
     __break(0x5515u);
@@ -3023,7 +3149,7 @@ LABEL_25:
     goto LABEL_35;
   }
 
-  if (v9 < dword_10012C638)
+  if (v8 < dword_10012C638)
   {
     goto LABEL_38;
   }
@@ -3038,7 +3164,7 @@ LABEL_25:
   {
     if (dword_10012B6D8[v6])
     {
-      (*(*v5 + 104))(v5, v9 - dword_10012C638, 0, 0);
+      (*(*v5 + 104))(v5, v8 - dword_10012C638, 0, 0);
     }
 
     goto LABEL_31;
@@ -3059,7 +3185,6 @@ LABEL_39:
 
   else
   {
-    nowPlayingHandlerQueue = self->nowPlayingHandlerQueue;
     MRMediaRemoteGetNowPlayingApplicationIsPlaying();
   }
 }
@@ -3102,7 +3227,6 @@ LABEL_39:
 
   else
   {
-    nowPlayingHandlerQueue = self->nowPlayingHandlerQueue;
     MRMediaRemoteGetNowPlayingApplicationPID();
   }
 }
@@ -3320,7 +3444,6 @@ LABEL_33:
 
   else
   {
-    nowPlayingHandlerQueue = self->nowPlayingHandlerQueue;
     MRMediaRemoteCopySupportedCommands();
   }
 }
@@ -3384,6 +3507,19 @@ LABEL_4:
       return 0;
     }
   }
+}
+
+- (BOOL)_isCommandSupported:(unsigned int)supported
+{
+  v3 = *&supported;
+  v4 = [(MediaPlayerHelper *)self _findCommandRefForCommand:?];
+  if (v4)
+  {
+    v4 = MRMediaRemoteCommandInfoGetCommand() == v3 && MRMediaRemoteCommandInfoGetEnabled() != 0;
+  }
+
+  sub_1000DDE90(7u, @"command supported %d for command %d", v4, v3);
+  return v4;
 }
 
 - (void)setRepeatModeCache:(int)cache

@@ -13,10 +13,12 @@
 - (void)removeInputModeInMultilingualSet:(id)set;
 - (void)setShuangpinType:(id)type;
 - (void)setSoftwareLayout:(id)layout;
+- (void)setWubiStandard:(int)standard;
 - (void)tableView:(id)view commitEditingStyle:(int64_t)style forRowAtIndexPath:(id)path;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)updateTitle;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation TISoftwareLayoutDetailControllerViewController
@@ -57,6 +59,14 @@
   [navigationItem setTitle:v4];
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = TISoftwareLayoutDetailControllerViewController;
+  [(TISoftwareLayoutDetailControllerViewController *)&v4 viewWillAppear:appear];
+  [(TISoftwareLayoutDetailControllerViewController *)self updateTitle];
+}
+
 - (id)specifiers
 {
   v3 = OBJC_IVAR___PSListController__specifiers;
@@ -72,42 +82,42 @@
 
 - (id)newSpecifiers
 {
-  [(TISoftwareLayoutDetailControllerViewController *)self inputMode];
-  if (TIInputModeIsChineseShuangpin())
+  inputMode = [(TISoftwareLayoutDetailControllerViewController *)self inputMode];
+  if (TIInputModeIsChineseShuangpin(inputMode))
   {
 
     return [(TISoftwareLayoutDetailControllerViewController *)self newSpecifiersForChineseShuangpin];
   }
 
-  if (!TIInputModeIsChineseWubi())
+  if (!TIInputModeIsChineseWubi(inputMode))
   {
     NormalizedIdentifier = UIKeyboardInputModeGetNormalizedIdentifier();
     v69 = [UIKeyboardInputModeGetComponentsFromIdentifier() objectForKey:@"sw"];
     multilingualSet = [(TISoftwareLayoutDetailControllerViewController *)self multilingualSet];
     if (_os_feature_enabled_impl())
     {
-      v4 = [(NSArray *)multilingualSet count]> 1;
+      v5 = [(NSArray *)multilingualSet count]> 1;
     }
 
     else
     {
-      v4 = 0;
+      v5 = 0;
     }
 
     UIKeyboardInputModeGetNormalizedIdentifier();
-    v5 = [NSMutableOrderedSet orderedSetWithArray:UIKeyboardGetSupportedSoftwareKeyboardsForInputMode()];
-    v68 = [[NSMutableArray alloc] initWithCapacity:{-[NSMutableOrderedSet count](v5, "count") + 1}];
+    v6 = [NSMutableOrderedSet orderedSetWithArray:UIKeyboardGetSupportedSoftwareKeyboardsForInputMode()];
+    v68 = [[NSMutableArray alloc] initWithCapacity:{-[NSMutableOrderedSet count](v6, "count") + 1}];
     if (_os_feature_enabled_impl())
     {
-      v6 = [TIUIGetAddableInputModesForMultilingualSet(multilingualSet) count] != 0;
+      v7 = [TIUIGetAddableInputModesForMultilingualSet(multilingualSet) count] != 0;
     }
 
     else
     {
-      v6 = 0;
+      v7 = 0;
     }
 
-    [(TISoftwareLayoutDetailControllerViewController *)self setShowingLanguagesSection:v6 || v4];
+    [(TISoftwareLayoutDetailControllerViewController *)self setShowingLanguagesSection:v7 || v5];
     if (_os_feature_enabled_impl())
     {
       IsMultiscriptInput = TIUIMultilingualSetIsMultiscriptInput(multilingualSet, 0);
@@ -118,19 +128,19 @@
       IsMultiscriptInput = 0;
     }
 
-    v7 = UIKeyboardInputModeGetNormalizedIdentifier();
-    v61 = [NSOrderedSet orderedSetWithArray:TIUIKeyboardGetSupportedSoftwareMultiscriptLayouts(v7)];
-    if (![(NSOrderedSet *)v61 isSubsetOfOrderedSet:v5])
+    v8 = UIKeyboardInputModeGetNormalizedIdentifier();
+    v61 = [NSOrderedSet orderedSetWithArray:TIUIKeyboardGetSupportedSoftwareMultiscriptLayouts(v8)];
+    if (![(NSOrderedSet *)v61 isSubsetOfOrderedSet:v6])
     {
       sub_2C728();
     }
 
-    v60 = v6 || v4;
-    if (v6 || v4)
+    v60 = v7 || v5;
+    if (v7 || v5)
     {
       if (IsMultiscriptInput)
       {
-        v5 = [(NSOrderedSet *)v61 mutableCopy];
+        v6 = [(NSOrderedSet *)v61 mutableCopy];
       }
 
       else if ((TIUIMultilingualSetContainsTransliterationInputModes(multilingualSet) & 1) == 0)
@@ -139,40 +149,39 @@
         v89 = 0u;
         v86 = 0u;
         v87 = 0u;
-        v8 = [(NSArray *)multilingualSet countByEnumeratingWithState:&v86 objects:v95 count:16];
-        if (v8)
+        v9 = [(NSArray *)multilingualSet countByEnumeratingWithState:&v86 objects:v95 count:16];
+        if (v9)
         {
-          v9 = v8;
-          v10 = *v87;
+          v10 = v9;
+          v11 = *v87;
           do
           {
-            for (i = 0; i != v9; i = i + 1)
+            for (i = 0; i != v10; ++i)
             {
-              if (*v87 != v10)
+              if (*v87 != v11)
               {
                 objc_enumerationMutation(multilingualSet);
               }
 
-              v12 = *(*(&v86 + 1) + 8 * i);
               UIKeyboardInputModeGetNormalizedIdentifier();
-              [(NSMutableOrderedSet *)v5 addObjectsFromArray:UIKeyboardGetSupportedSoftwareKeyboardsForInputMode()];
+              [(NSMutableOrderedSet *)v6 addObjectsFromArray:UIKeyboardGetSupportedSoftwareKeyboardsForInputMode()];
             }
 
-            v9 = [(NSArray *)multilingualSet countByEnumeratingWithState:&v86 objects:v95 count:16];
+            v10 = [(NSArray *)multilingualSet countByEnumeratingWithState:&v86 objects:v95 count:16];
           }
 
-          while (v9);
+          while (v10);
         }
       }
 
       v57 = NormalizedIdentifier;
       v59 = [PSSpecifier groupSpecifierWithID:0];
-      obj = v5;
-      v54 = v6;
-      v55 = v4;
-      if (v4)
+      obj = v6;
+      v54 = v7;
+      v55 = v5;
+      if (v5)
       {
-        v13 = [(NSArray *)multilingualSet count]!= &dword_0 + 2 || v6;
+        v13 = [(NSArray *)multilingualSet count]!= &dword_0 + 2 || v7;
         v14 = [NSBundle bundleForClass:objc_opt_class()];
         if (v13)
         {
@@ -252,10 +261,10 @@
         [v68 addObject:v28];
       }
 
-      v5 = obj;
+      v6 = obj;
       multilingualSet = v56;
       NormalizedIdentifier = v57;
-      v4 = v55;
+      v5 = v55;
     }
 
     else
@@ -263,8 +272,8 @@
       v59 = 0;
     }
 
-    obja = v5;
-    if (v4)
+    obja = v6;
+    if (v5)
     {
       v29 = +[UIKeyboardInputMode multilingualSetsFromInputModeIdentifiers:](UIKeyboardInputMode, "multilingualSetsFromInputModeIdentifiers:", +[TIKeyboardListController inputModes]);
       v78 = 0u;
@@ -293,7 +302,7 @@
               v35 = [UIKeyboardInputModeGetComponentsFromIdentifier() objectForKey:@"sw"];
               if (([v35 isEqualToString:v69] & 1) == 0)
               {
-                [(NSMutableOrderedSet *)v5 removeObject:v35];
+                [(NSMutableOrderedSet *)v6 removeObject:v35];
               }
             }
           }
@@ -334,7 +343,7 @@
                 v42 = [UIKeyboardInputModeGetComponentsFromIdentifier() objectForKey:@"sw"];
                 if (([v42 isEqualToString:v69] & 1) == 0)
                 {
-                  [(NSMutableOrderedSet *)v5 removeObject:v42];
+                  [(NSMutableOrderedSet *)v6 removeObject:v42];
                 }
               }
             }
@@ -350,10 +359,10 @@
     v43 = v60;
     if ((IsMultiscriptInput & 1) == 0)
     {
-      [(NSMutableOrderedSet *)v5 minusOrderedSet:v61];
+      [(NSMutableOrderedSet *)v6 minusOrderedSet:v61];
     }
 
-    v44 = [(NSMutableOrderedSet *)v5 count];
+    v44 = [(NSMutableOrderedSet *)v6 count];
     if (v44 < 2)
     {
       v64 = 0;
@@ -538,8 +547,7 @@ LABEL_94:
   if (v7)
   {
     v8 = v7;
-    [(TISoftwareLayoutDetailControllerViewController *)self inputMode];
-    if (TIInputModeIsChineseShuangpin())
+    if (TIInputModeIsChineseShuangpin([(TISoftwareLayoutDetailControllerViewController *)self inputMode]))
     {
       specifier = [v8 specifier];
       v10 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [objc_msgSend(specifier propertyForKey:{PSIDKey), "integerValue"}]);
@@ -551,8 +559,7 @@ LABEL_94:
 
     else
     {
-      [(TISoftwareLayoutDetailControllerViewController *)self inputMode];
-      v11 = TIInputModeIsChineseWubi();
+      v11 = TIInputModeIsChineseWubi([(TISoftwareLayoutDetailControllerViewController *)self inputMode]);
       specifier2 = [v8 specifier];
       v13 = [specifier2 propertyForKey:PSIDKey];
       v14 = v13;
@@ -693,6 +700,16 @@ LABEL_25:
   v5 = +[TIPreferencesController sharedPreferencesController];
   [v5 setValue:type forPreferenceKey:TIShuangpinTypePreference];
   TIUpdateShuangpinSWLayout();
+
+  [(TISoftwareLayoutDetailControllerViewController *)self reloadKeyboardSpecifiers];
+}
+
+- (void)setWubiStandard:(int)standard
+{
+  v3 = *&standard;
+  v5 = +[TIPreferencesController sharedPreferencesController];
+  v6 = [NSNumber numberWithUnsignedInt:v3];
+  [v5 setValue:v6 forPreferenceKey:TIWubiStandardPreference];
 
   [(TISoftwareLayoutDetailControllerViewController *)self reloadKeyboardSpecifiers];
 }
